@@ -94,241 +94,245 @@
 <div>
   <table>
     <caption>提供割合の設定パネル　⇒　共通のテーブルを自動生成</caption>
-    <tr>
-      <td>レア度</td>
-      <td>種類</td>
-      <td>レア度別<br>提供割合</td>
-      <td>各商品<br>提供割合</td>
-      <td>テーブル内個数<br>
+    <thead>
+      <tr>
+        <td>レア度</td>
+        <td>種類</td>
+        <td>レア度別<br>提供割合</td>
+        <td>各商品<br>提供割合</td>
+        <td>テーブル内個数<br>
 全
 <input id="input-len_table" class="output-val" readonly="readonly" />
 個
-      </td>
-      <td>排出回数<br>
+        </td>
+        <td>排出回数<br>
 全
 <input id="input-sum_roll" class="output-val" readonly="readonly" />
 回
-      </td>
-    </tr>
-    <tr>
-      <td>SSR</td>
-      <td>
-  <select id="select-nSSR" onchange="
+        </td>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>SSR</td>
+        <td>
+<select id="select-nSSR" onchange="
 (function(){
   My_test.handler_onchange_sw('table');
 })();
 ">
-    <option selected="selected">1</option>
-    <option>2</option>
-    <option>3</option>
-    <option>4</option>
-    <option>5</option>
-    <option>6</option>
-    <option>7</option>
-    <option>8</option>
-    <option>9</option>
-    <option>10</option>
-  </select>
+  <option selected="selected">1</option>
+  <option>2</option>
+  <option>3</option>
+  <option>4</option>
+  <option>5</option>
+  <option>6</option>
+  <option>7</option>
+  <option>8</option>
+  <option>9</option>
+  <option>10</option>
+</select>
 種
-      </td>
-      <td>
+        </td>
+        <td>
 計
-  <select id="select-pSSR" onchange="
+<select id="select-pSSR" onchange="
 (function(){
   My_test.handler_onchange_sw('table');
 })();
 ">
-    <option>1</option>
-    <option>2</option>
-    <option>3</option>
-    <option>4</option>
-    <option selected="selected">5</option>
-    <option>6</option>
-    <option>7</option>
-    <option>8</option>
-    <option>9</option>
-    <option>10</option>
-  </select>
+  <option>1</option>
+  <option>2</option>
+  <option>3</option>
+  <option>4</option>
+  <option selected="selected">5</option>
+  <option>6</option>
+  <option>7</option>
+  <option>8</option>
+  <option>9</option>
+  <option>10</option>
+</select>
 %
-      </td>
-      <td>
+        </td>
+        <td>
 各
-  <input id="input-epSSR" class="output-val" readonly="readonly" />
+<input id="input-epSSR" class="output-val" readonly="readonly" />
 %
-      </td>
-      <td>
+        </td>
+        <td>
 各
-  <input id="input-enSSR" class="output-val" readonly="readonly" />
+<input id="input-enSSR" class="output-val" readonly="readonly" />
 個
-      </td>
-      <td>
+        </td>
+        <td>
 計
-  <input id="input-scSSR" class="output-val" readonly="readonly" />
+<input id="input-scSSR" class="output-val" readonly="readonly" />
 回
-      </td>
-    </tr>
-    <tr>
-      <td>SR</td>
-      <td>
-  <select id="select-nSR" onchange="
+        </td>
+      </tr>
+      <tr>
+        <td>SR</td>
+        <td>
+<select id="select-nSR" onchange="
 (function(){
   My_test.handler_onchange_sw('table');
 })();
 ">
-    <option>1</option>
-    <option selected="selected">2</option>
-    <option>3</option>
-    <option>4</option>
-    <option>5</option>
-    <option>6</option>
-    <option>7</option>
-    <option>8</option>
-    <option>9</option>
-    <option>10</option>
-  </select>
+  <option>1</option>
+  <option selected="selected">2</option>
+  <option>3</option>
+  <option>4</option>
+  <option>5</option>
+  <option>6</option>
+  <option>7</option>
+  <option>8</option>
+  <option>9</option>
+  <option>10</option>
+</select>
 種
-      </td>
-      <td>
+        </td>
+        <td>
 計
-  <select id="select-pSR" onchange="
+<select id="select-pSR" onchange="
 (function(){
   My_test.handler_onchange_sw('table');
 })();
 ">
-    <option>5</option>
-    <option selected="selected">10</option>
-    <option>15</option>
-    <option>20</option>
-    <option>25</option>
-    <option>30</option>
-  </select>
+  <option>5</option>
+  <option selected="selected">10</option>
+  <option>15</option>
+  <option>20</option>
+  <option>25</option>
+  <option>30</option>
+</select>
 %
-      </td>
-      <td>
+        </td>
+        <td>
 各
-  <input id="input-epSR" class="output-val" readonly="readonly" />
+<input id="input-epSR" class="output-val" readonly="readonly" />
 %
-      </td>
-      <td>
+        </td>
+        <td>
 各
-  <input id="input-enSR" class="output-val" readonly="readonly" />
+<input id="input-enSR" class="output-val" readonly="readonly" />
 個
-      </td>
-      <td>
+        </td>
+        <td>
 計
-  <input id="input-scSR" class="output-val" readonly="readonly" />
+<input id="input-scSR" class="output-val" readonly="readonly" />
 回
-      </td>
-    </tr>
-    <tr>
-      <td>R</td>
-      <td>
-  <select id="select-nR" onchange="
+        </td>
+      </tr>
+      <tr>
+        <td>R</td>
+        <td>
+<select id="select-nR" onchange="
 (function(){
   My_test.handler_onchange_sw('table');
 })();
 ">
-    <option>1</option>
-    <option>2</option>
-    <option>3</option>
-    <option selected="selected">4</option>
-    <option>5</option>
-    <option>6</option>
-    <option>7</option>
-    <option>8</option>
-    <option>9</option>
-    <option>10</option>
-    <option>11</option>
-    <option>12</option>
-    <option>13</option>
-    <option>14</option>
-    <option>15</option>
-  </select>
+  <option>1</option>
+  <option>2</option>
+  <option>3</option>
+  <option selected="selected">4</option>
+  <option>5</option>
+  <option>6</option>
+  <option>7</option>
+  <option>8</option>
+  <option>9</option>
+  <option>10</option>
+  <option>11</option>
+  <option>12</option>
+  <option>13</option>
+  <option>14</option>
+  <option>15</option>
+</select>
 種
-      </td>
-      <td>
+        </td>
+        <td>
 計
-  <select id="select-pR" onchange="
+<select id="select-pR" onchange="
 (function(){
   My_test.handler_onchange_sw('table');
 })();
 ">
-    <option selected="selected">20</option>
-    <option>30</option>
-    <option>40</option>
-    <option>50</option>
-    <option>60</option>
-  </select>
+  <option selected="selected">20</option>
+  <option>30</option>
+  <option>40</option>
+  <option>50</option>
+  <option>60</option>
+</select>
 %
-      </td>
-      <td>
+        </td>
+        <td>
 各
-  <input id="input-epR" class="output-val" readonly="readonly" />
+<input id="input-epR" class="output-val" readonly="readonly" />
 %
-      </td>
-      <td>
+        </td>
+        <td>
 各
-  <input id="input-enR" class="output-val" readonly="readonly" />
+<input id="input-enR" class="output-val" readonly="readonly" />
 個
-      </td>
-      <td>
+        </td>
+        <td>
 計
-  <input id="input-scR" class="output-val" readonly="readonly" />
+<input id="input-scR" class="output-val" readonly="readonly" />
 回
-      </td>
-    </tr>
-    <tr>
-      <td>N</td>
-      <td>
-  <select id="select-nN" onchange="
+        </td>
+      </tr>
+      <tr>
+        <td>N</td>
+        <td>
+<select id="select-nN" onchange="
 (function(){
   My_test.handler_onchange_sw('table');
 })();
 ">
-    <option>1</option>
-    <option>2</option>
-    <option>3</option>
-    <option>4</option>
-    <option>5</option>
-    <option>6</option>
-    <option>7</option>
-    <option>8</option>
-    <option>9</option>
-    <option>10</option>
-    <option>11</option>
-    <option>12</option>
-    <option selected="selected">13</option>
-    <option>14</option>
-    <option>15</option>
-    <option>16</option>
-    <option>17</option>
-    <option>18</option>
-    <option>19</option>
-    <option>20</option>
-  </select>
+  <option>1</option>
+  <option>2</option>
+  <option>3</option>
+  <option>4</option>
+  <option>5</option>
+  <option>6</option>
+  <option>7</option>
+  <option>8</option>
+  <option>9</option>
+  <option>10</option>
+  <option>11</option>
+  <option>12</option>
+  <option selected="selected">13</option>
+  <option>14</option>
+  <option>15</option>
+  <option>16</option>
+  <option>17</option>
+  <option>18</option>
+  <option>19</option>
+  <option>20</option>
+</select>
 種
-      </td>
-      <td>
+        </td>
+        <td>
 計
-  <input id="input-pN" class="output-val" readonly="readonly" />
+<input id="input-pN" class="output-val" readonly="readonly" />
 %
-      </td>
-      <td>
+        </td>
+        <td>
 各
-  <input id="input-epN" class="output-val" readonly="readonly" />
+<input id="input-epN" class="output-val" readonly="readonly" />
 %
-      </td>
-      <td>
+        </td>
+        <td>
 各
-  <input id="input-enN" class="output-val" readonly="readonly" />
+<input id="input-enN" class="output-val" readonly="readonly" />
 個
-      </td>
-      <td>
+        </td>
+        <td>
 計
-  <input id="input-scN" class="output-val" readonly="readonly" />
+<input id="input-scN" class="output-val" readonly="readonly" />
 回
-      </td>
-    </tr>
+        </td>
+      </tr>
+    </tbody>
   </table>
 </div>
 <hr>

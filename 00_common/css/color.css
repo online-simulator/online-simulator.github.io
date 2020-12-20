@@ -21,6 +21,10 @@ table{
 caption{
   color:            #ffffff;
 }
+thead{
+  background:       #cceeee;
+  background-color: #cceeee;
+}
 table.tr-stripe tr:nth-child(odd){
   background:       #dddddd;
   background-color: #dddddd;
