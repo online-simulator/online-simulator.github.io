@@ -1,0 +1,67 @@
+@charset "UTF-8";
+
+article, aside, canvas, details, figcaption, figure,
+header, footer, main, menu, nav, section, summary{
+  display: block;
+}
+
+body{
+  position: relative;
+  margin: 0px auto;
+  padding: 0px;
+}
+
+:read-write{
+  cursor: text;
+}
+input:read-only,
+textarea:read-only,
+[contenteditable]:read-only{
+  cursor: not-allowed;
+}
+
+table, td{
+  border: none;
+}
+
+label, .label{
+  text-align: center;
+}
+
+.text-bold{
+  font-weight: bold;
+}
+
+.scroll-lock{
+  overflow: hidden;
+}
+
+.left{
+  float: left;
+}
+.right{
+  float: right;
+}
+.center{
+}
+.text-left{
+  text-align: left;
+}
+.text-right{
+  text-align: right;
+}
+.text-center{
+  text-align: center;
+}
+.absolute{
+  position: absolute;
+}
+.relative{
+  position: relative;
+}
+.fixed{
+  position: fixed;
+}
+.background{
+  pointer-events: none;
+}

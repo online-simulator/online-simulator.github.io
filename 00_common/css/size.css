@@ -1,0 +1,21 @@
+@charset "UTF-8";
+
+body{
+  width: 100%;
+}
+
+.width-max{
+  width: 100%;
+}
+.width-auto{
+  width: auto;
+}
+
+.no-border{
+  border-collapse: collapse;
+  border: none;
+}
+.border{
+  border-collapse: collapse;
+  border: 2px solid;
+}
