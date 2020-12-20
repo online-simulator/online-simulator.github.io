@@ -6,6 +6,10 @@ body{
   font-size: large;
   font-weight: bold;
 }
+select{
+  font-size: large;
+  font-weight: bold;
+}
 input{
   width: 100%;
   font-size: large;
@@ -13,6 +17,7 @@ input{
 }
 textarea{
   width: 100%;
+  font-size: large;
   font-weight: bold;
 }
 button{
