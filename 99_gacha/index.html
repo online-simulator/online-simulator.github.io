@@ -1,0 +1,445 @@
+<!DOCTYPE html>
+
+<html lang="ja">
+
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <meta name="description" content="ガチャシミュレータ" />
+  <meta name="author" content="online-simulator.github.io" />
+  <noscript>Javascript is not enabled on your browser.</noscript>
+  <link rel="stylesheet" type="text/css" href="../00_common/css/common.css" />
+  <link rel="stylesheet" type="text/css" href="../00_common/css/color.css" />
+  <link rel="stylesheet" type="text/css" href="../00_common/css/size.css" />
+  <link rel="stylesheet" type="text/css" href="css/common.css" />
+  <link rel="stylesheet" type="text/css" href="css/color.css" />
+  <link rel="stylesheet" type="text/css" href="css/size.css" />
+  <script type="text/javascript" src="js/00_gacha.js"></script>
+  <script type="text/javascript" src="../00_common/js/00_class/00_$.js"></script>
+  <script type="text/javascript" src="../00_common/js/00_class/01_math.js"></script>
+  <script type="text/javascript" src="js/02_test.js"></script>
+</head>
+
+<body>
+  <div>
+
+<script type="text/javascript">
+  (function(document){
+    document.body.onload = function(e){
+      My_test.handler_onload();
+    };
+  })(document);
+</script>
+
+<hr><hr>
+<a title="ガチャの仕組み考察と実装例" href="spec.html">ガチャの仕組み考察と実装例</a>
+に基づくJavascriptによるテスト実装２種類
+<hr>
+確率抽選: 次の排出商品はランダムに決められる
+<br>
+　⇒　テーブル配列の要素番号をランダムに決定して要素の商品を排出
+<br>
+ボックス抽選: 次の排出商品は予め決まっているリアルガチャと同じ
+<br>
+　⇒　テーブルを複数個並べてランダムソートした商品を順番に排出
+<hr><hr>
+<br>
+
+<div>
+テーブル:
+  <input type="checkbox" id="checkbox-arr_table" class="width-auto" onchange="
+(function(){
+  My_test.display_table_id();
+})();
+" />配列表示
+<br>
+端数を丸めた長さlen:
+  <input id="len_table" class="output-val" readonly="readonly" />
+※5000以上で非表示
+  <textarea id="table" readonly="readonly">
+[SSR0, SR0, SR1, R0, R1, R2, R3, R4, N0, N1, N2, N3, N4, N5, N6, N7, N8, N9, N10, N11]</textarea>
+</div>
+<div>
+排出商品:
+  <input id="item_table" readonly="readonly" />
+  <br>
+</div>
+<br>
+<div>
+確率抽選ガチャ実行:
+  <button class="run" onclick="
+(function(){
+  My_test.handler_onclick_sw('table', 1);
+})();
+  ">
+1roll
+  </button>
+  <button class="run" onclick="
+(function(){
+  My_test.handler_onclick_sw('table', 10);
+})();
+  ">10roll
+  </button>
+  <button class="run" onclick="
+(function(){
+  My_test.handler_onclick_sw('table', 100, 10);
+})();
+  ">100roll
+  </button>
+商品番号:
+  <input id="index_table" class="output-val" readonly="readonly" />
+</div>
+<br>
+<hr>
+
+<div>
+  <table>
+    <caption>提供割合の設定パネル　⇒　共通のテーブルを自動生成</caption>
+    <tr>
+      <td>レア度</td>
+      <td>種類</td>
+      <td>レア度別<br>提供割合</td>
+      <td>各商品<br>提供割合</td>
+      <td>テーブル内個数<br>
+全
+<input id="input-len_table" class="output-val" readonly="readonly" />
+個
+      </td>
+      <td>排出回数<br>
+全
+<input id="input-sum_roll" class="output-val" readonly="readonly" />
+回
+      </td>
+    </tr>
+    <tr>
+      <td>SSR</td>
+      <td>
+  <select id="select-nSSR" onchange="
+(function(){
+  My_test.handler_onchange_sw('table');
+})();
+">
+    <option selected="selected">1</option>
+    <option>2</option>
+    <option>3</option>
+    <option>4</option>
+    <option>5</option>
+    <option>6</option>
+    <option>7</option>
+    <option>8</option>
+    <option>9</option>
+    <option>10</option>
+  </select>
+種
+      </td>
+      <td>
+計
+  <select id="select-pSSR" onchange="
+(function(){
+  My_test.handler_onchange_sw('table');
+})();
+">
+    <option>1</option>
+    <option>2</option>
+    <option>3</option>
+    <option>4</option>
+    <option selected="selected">5</option>
+    <option>6</option>
+    <option>7</option>
+    <option>8</option>
+    <option>9</option>
+    <option>10</option>
+  </select>
+%
+      </td>
+      <td>
+各
+  <input id="input-epSSR" class="output-val" readonly="readonly" />
+%
+      </td>
+      <td>
+各
+  <input id="input-enSSR" class="output-val" readonly="readonly" />
+個
+      </td>
+      <td>
+計
+  <input id="input-scSSR" class="output-val" readonly="readonly" />
+回
+      </td>
+    </tr>
+    <tr>
+      <td>SR</td>
+      <td>
+  <select id="select-nSR" onchange="
+(function(){
+  My_test.handler_onchange_sw('table');
+})();
+">
+    <option>1</option>
+    <option selected="selected">2</option>
+    <option>3</option>
+    <option>4</option>
+    <option>5</option>
+    <option>6</option>
+    <option>7</option>
+    <option>8</option>
+    <option>9</option>
+    <option>10</option>
+  </select>
+種
+      </td>
+      <td>
+計
+  <select id="select-pSR" onchange="
+(function(){
+  My_test.handler_onchange_sw('table');
+})();
+">
+    <option>5</option>
+    <option selected="selected">10</option>
+    <option>15</option>
+    <option>20</option>
+    <option>25</option>
+    <option>30</option>
+  </select>
+%
+      </td>
+      <td>
+各
+  <input id="input-epSR" class="output-val" readonly="readonly" />
+%
+      </td>
+      <td>
+各
+  <input id="input-enSR" class="output-val" readonly="readonly" />
+個
+      </td>
+      <td>
+計
+  <input id="input-scSR" class="output-val" readonly="readonly" />
+回
+      </td>
+    </tr>
+    <tr>
+      <td>R</td>
+      <td>
+  <select id="select-nR" onchange="
+(function(){
+  My_test.handler_onchange_sw('table');
+})();
+">
+    <option>1</option>
+    <option>2</option>
+    <option>3</option>
+    <option selected="selected">4</option>
+    <option>5</option>
+    <option>6</option>
+    <option>7</option>
+    <option>8</option>
+    <option>9</option>
+    <option>10</option>
+    <option>11</option>
+    <option>12</option>
+    <option>13</option>
+    <option>14</option>
+    <option>15</option>
+  </select>
+種
+      </td>
+      <td>
+計
+  <select id="select-pR" onchange="
+(function(){
+  My_test.handler_onchange_sw('table');
+})();
+">
+    <option selected="selected">20</option>
+    <option>30</option>
+    <option>40</option>
+    <option>50</option>
+    <option>60</option>
+  </select>
+%
+      </td>
+      <td>
+各
+  <input id="input-epR" class="output-val" readonly="readonly" />
+%
+      </td>
+      <td>
+各
+  <input id="input-enR" class="output-val" readonly="readonly" />
+個
+      </td>
+      <td>
+計
+  <input id="input-scR" class="output-val" readonly="readonly" />
+回
+      </td>
+    </tr>
+    <tr>
+      <td>N</td>
+      <td>
+  <select id="select-nN" onchange="
+(function(){
+  My_test.handler_onchange_sw('table');
+})();
+">
+    <option>1</option>
+    <option>2</option>
+    <option>3</option>
+    <option>4</option>
+    <option>5</option>
+    <option>6</option>
+    <option>7</option>
+    <option>8</option>
+    <option>9</option>
+    <option>10</option>
+    <option>11</option>
+    <option>12</option>
+    <option selected="selected">13</option>
+    <option>14</option>
+    <option>15</option>
+    <option>16</option>
+    <option>17</option>
+    <option>18</option>
+    <option>19</option>
+    <option>20</option>
+  </select>
+種
+      </td>
+      <td>
+計
+  <input id="input-pN" class="output-val" readonly="readonly" />
+%
+      </td>
+      <td>
+各
+  <input id="input-epN" class="output-val" readonly="readonly" />
+%
+      </td>
+      <td>
+各
+  <input id="input-enN" class="output-val" readonly="readonly" />
+個
+      </td>
+      <td>
+計
+  <input id="input-scN" class="output-val" readonly="readonly" />
+回
+      </td>
+    </tr>
+  </table>
+</div>
+<hr>
+<br>
+
+<div>
+ボックス
+  <input type="checkbox" id="checkbox-arr_box" class="width-auto" onchange="
+(function(){
+  My_test.display_box_id();
+})();
+" />配列表示
+　
+  （k:
+  <select id="select-k" onchange="
+(function(){
+  My_test.handler_onchange_sw('box');
+})();
+">
+    <option>1</option>
+    <option>2</option>
+    <option>3</option>
+    <option>4</option>
+    <option>5</option>
+    <option>6</option>
+    <option>7</option>
+    <option>8</option>
+    <option>9</option>
+    <option>10</option>
+  </select>
+個のテーブルを並べてランダムソートした）
+<br>
+端数を丸めた長さlen:
+  <input id="len_box" class="output-val" readonly="readonly" />
+※5000以上で非表示
+  <textarea id="box" readonly="readonly"></textarea>
+</div>
+<div>
+排出商品:
+  <input id="item_box" readonly="readonly" />
+</div>
+<br>
+<div>
+ボックス抽選ガチャ実行:
+  <button class="run" onclick="
+(function(){
+  My_test.handler_onclick_sw('box', 1);
+})();
+">
+1roll
+  </button>
+  <button class="run" onclick="
+(function(){
+  My_test.handler_onclick_sw('box', 10);
+})();
+">
+10roll
+  </button>
+  <button class="run" onclick="
+(function(){
+  My_test.handler_onclick_sw('box', 100, 10);
+})();
+">
+100roll
+  </button>
+商品番号:
+  <input id="index_box" class="output-val" readonly="readonly" />
+</div>
+<br>
+<div>
+ボックスをランダムソート:
+  <button class="selection" onclick="
+(function(){
+  My_test.shuffle_box_id();
+})();
+">
+shuffle-box
+  </button>
+中身リセット:
+  <button class="clear" onclick="
+(function(){
+  My_test.handler_onchange_sw('box');
+})();
+">
+reset-box
+  </button>
+</div>
+<br>
+<div>
+指定商品
+  <input id="item_comp" class="output-val" onchange="
+(function(){
+  My_test.check_box_id();
+})();
+" value="SSR0" />
+天井回数:
+  <input id="roll_max_item" class="output-val" readonly="readonly" />
+指定レア度
+  <input id="rarity_comp" class="output-val" onchange="
+(function(){
+  My_test.check_box_id();
+})();
+" value="SSR" />
+天井回数:
+  <input id="roll_max_rarity" class="output-val" readonly="readonly" />
+</div>
+<br>
+<hr><hr>
+以上
+
+  </div>
+</body>
+
+</html>

@@ -1,0 +1,647 @@
+<!DOCTYPE html>
+
+<html lang="ja">
+
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <meta name="description" content="ガチャの仕組み考察と実装例" />
+  <meta name="author" content="online-simulator.github.io" />
+  <noscript>Javascript is not enabled on your browser.</noscript>
+  <link rel="stylesheet" type="text/css" href="../00_common/css/common.css" />
+  <link rel="stylesheet" type="text/css" href="../00_common/css/color.css" />
+  <link rel="stylesheet" type="text/css" href="../00_common/css/size.css" />
+  <link rel="stylesheet" type="text/css" href="css/common.css" />
+  <link rel="stylesheet" type="text/css" href="css/color.css" />
+  <link rel="stylesheet" type="text/css" href="css/size.css" />
+</head>
+
+<body>
+  <div>
+
+<hr><hr><hr>
+<h1>ガチャの仕組み考察と実装例</h1>
+<hr><hr><hr>
+
+<h2>ガチャとは？ゲームとリアルの違いは？どう実装される？</h2>
+
+<hr><hr>
+<h3>ここで言うガチャとは？</h3>
+<div>
+　提供割合に基づいて抽選して排出された商品を対価と交換する行為
+</div>
+<br>
+<hr><hr>
+
+<h3>リアル店舗のコインガチャは・・・</h3>
+<div>
+　中身の決められた有限のボックスから商品が排出される
+<br>
+　⇒　仕組みが見て大体わかる
+</div>
+
+<h3>課金を伴うゲーム内のガチャは・・・</h3>
+<div>
+　商品の提供割合が提示される以外に不明のブラックボックス
+<br>
+　⇒　仕組みがよくわからない
+</div>
+
+<h3>そこで・・・</h3>
+<div>
+　このブラックボックスの中身を考察・実装する
+</div>
+<br>
+
+<hr><hr>
+<h2>ゲーム内のガチャはどう実装する？</h2>
+<hr><hr>
+
+<h3>オンラインのゲームでは・・・</h3>
+<div>
+　最初に抽選する場所をいずれかに決める
+</div>
+<div>
+  <ul>
+    <li>
+各利用者の端末で抽選
+<br>
+　×　データ改ざんの恐れ
+<br>
+　○　サーバー負荷がかからない
+    </li>
+    <li>
+サーバーで抽選
+<br>
+　◎　データ改ざんがない
+<br>
+　×　サーバー負荷がかかる
+    </li>
+  </ul>
+</div>
+<div>
+　最優先でデータ改ざんを防ぐためにサーバーで抽選するのが一般的と考えられる
+</div>
+
+<br><hr>
+<h3>抽選方式は？主に２種類定義</h3>
+<div>
+  <ul>
+    <li>
+無作為抽選
+<br>
+　完全ランダムに抽選
+    </li>
+    <li>
+多段階抽選
+<br>
+　段階を区切って複数回抽選
+<br>
+　例）排出レア度を抽選後　⇒　同一レア度の中から再度抽選
+    </li>
+  </ul>
+</div>
+
+<h3>ガチャの実装方法は？主に２種類定義</h3>
+<div>
+  <ul>
+    <li>
+確率抽選
+<br>
+　次の排出商品はランダムに決められる
+    </li>
+    <li>
+ボックス抽選（ボックスガチャ）
+<br>
+　次の排出商品は予め決まっているリアルガチャと同じ
+    </li>
+  </ul>
+</div>
+
+<div>
+　ただし、多段階抽選の場合は確率抽選とボックス抽選を併用するケースも考えられる
+</div>
+
+<br><hr>
+<h3>無作為の確率抽選が理想的に見えるが問題点は？</h3>
+
+<div>
+　サーバーソフトにて抽選する場合
+  <ul>
+    <li>
+各利用者がガチャ1回毎にサイコロ（乱数）を振るとサーバーに一定の負荷がかかる
+    </li>
+    <li>
+無制限にログを記録しない限りガチャ履歴の後追いが困難
+    </li>
+    <li>
+ガチャの天井機能を別途運用する必要がある
+    </li>
+  </ul>
+</div>
+
+<div>
+　主にコストとの兼ね合いで運用上の問題が起こるかもしれない
+<br>
+　そこで対案となるボックス抽選の実装と併せて検討する
+</div>
+<br>
+
+<hr><hr>
+<h2>確率抽選の実装例</h2>
+<hr><hr>
+
+<h3>例題）全商品の提供割合に基づいて無作為に確率抽選</h3>
+<div>
+　全商品の提供割合の一例を次に示す
+</div>
+<br>
+<div>
+  <table>
+    <caption>全商品の提供割合</caption>
+    <thead>
+      <tr>
+        <td>レア度</td>
+        <td>種類</td>
+        <td>提供割合</td>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>N</td>
+        <td>13種</td>
+        <td>各5%</td>
+      </tr>
+      <tr>
+        <td>R</td>
+        <td>4種</td>
+        <td>各5%</td>
+      </tr>
+      <tr>
+        <td>SR</td>
+        <td>2種</td>
+        <td>各5%</td>
+      </tr>
+      <tr>
+        <td>SSR</td>
+        <td>1種</td>
+        <td>各5%</td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+<br>
+<div>
+  <ul>
+    <li>
+上記提供割合に基づいて商品を任意に並べた最小単位の配列データを次に示す
+<br>
+[N0,N1,N2,N3,N4,N5,N6,N7,N8,N9,N10,N11,N12,R0,R1,R2,R3,SR0,SR1,SSR0]
+    </li>
+    <li>
+この配列データをテーブル、配列データの要素番号をテーブル商品番号と定義する
+    </li>
+    <li>
+テーブルの長さは各商品の提供割合の逆数の最小公倍数で決まる
+    </li>
+    <li>
+これを各商品の提供割合に掛ければ各商品のテーブル内個数が決まる
+    </li>
+    <li>
+ただし、設定によっては個数に小数点以下の端数が出るため、丸め誤差が生じることに留意する
+    </li>
+  </ul>
+</div>
+<br>
+<hr>
+
+<h3>ガチャを1回実行する処理の実装手順</h3>
+<div>
+　乱数を発生させてランダムに決定したテーブル商品番号の商品を排出するJavascript
+  <ol>
+    <li>
+予め上記テーブルの配列データtableをデータベースに登録する
+<br>
+例）var table = ['N0','N1','N2','N3','N4','N5','N6','N7','N8','N9','N10','N11','N12',
+      'R0','R1','R2','R3','SR0','SR1','SSR0'];
+    </li>
+    <li>
+テーブルの長さを参照してlenに代入する
+<br>
+var len = table.length;
+    </li>
+    <li>
+偏りの少ない0以上~1未満の一様乱数を発生させてrandに代入する
+<BR>
+Math.random()返値の区間は[0, 1)
+<br>
+var rand = Math.random();
+    </li>
+    <li>
+randとlenを掛けた値の小数点以下を切り捨ててテーブル商品番号indexに代入する
+<br>
+よって0以上~len未満のランダムな整数をテーブル商品番号とする
+<br>
+var index = Math.floor(rand*len);
+    </li>
+    <li>
+最後にテーブル商品番号がindexの商品を参照して排出する
+<br>
+return table[index];
+    </li>
+  </ol>
+</div>
+<h3>確率抽選1回のサーバーにかかる計算負荷</h3>
+<div>
+Math.floor(Math.random()*len);
+</div>
+<br>
+
+<hr>
+<h2>確率抽選のテスト実装</h2>
+<hr>
+<br>
+<pre>
+  関数コール仕様
+
+    new My_gacha(table).nroll_table(n, callback[, opt_ms]);
+
+    コンストラクタ
+      My_gacha(table)
+
+      引数
+        table: 下記例に示す1次元配列または[]で囲んだ半角カンマ区切りの文字列
+
+      返値
+        インスタンス自身への参照
+
+    インスタンスメソッド
+      nroll_table(n, callback[, opt_ms])
+
+      引数
+        n: ガチャ1回の実行回数
+        callback = function(data){任意の処理};
+          data:       返却オブジェクト
+          data.n:     回数カウンタ値
+          data.index: テーブル商品番号
+          data.item:  排出商品
+      引数オプション
+        opt_ms: 実行間隔[msec]（既定値50）
+
+      返値
+        インスタンス自身への参照
+
+  例）
+<code>
+  var arr_table = ["N", "R", "SR", "SSR"];
+  var str_table = "[N, R, SR, SSR]";
+  new My_gacha(arr_table || str_table).nroll_table(10, function(data){
+    console.log(data.item);
+  }, 20);
+</code>
+</pre>
+<br>
+
+<hr><hr>
+<h2>ボックス抽選の実装例</h2>
+<hr><hr>
+
+<h3>例題）無作為性を担保したボックス抽選</h3>
+<div>
+  <ul>
+    <li>
+確率抽選と同様に提供割合に基づいて作られたテーブルを用意する
+    </li>
+    <li>
+このテーブルを複数個並べた配列データをボックス、
+<br>
+配列データの要素番号をボックス商品番号と定義する
+    </li>
+    <li>
+このボックス内の商品を予めランダムに並び替えて順番に排出する
+<br>
+この並び替えをランダムソートまたはシャッフルと呼ぶ
+    </li>
+    <li>
+これより、各利用者で商品番号を区別すれば天井回数を見積もることができる
+    </li>
+  </ul>
+</div>
+
+<hr>
+<h3>天井機能について余談</h3>
+<div>
+  <ul>
+    <li>
+指定商品または指定レア度に確定排出までの天井を設ける場合、これを天井要件と定義する
+<br>
+また、天井までの規定回数を天井回数と定義する
+    </li>
+    <li>
+各利用者で商品番号を区別すれば天井回数の範囲は以下となる
+<br>
+指定商品の提供割合の逆数　＜　天井回数　＜　ボックスの長さ
+<br>
+指定商品の提供割合の逆数　＝　テーブルの長さ／指定商品のテーブル内個数
+    </li>
+    <li>
+これより天井回数を一般的な150回とした場合の天井要件が決まる
+<br>
+天井回数の逆数　＜　指定商品の提供割合
+<br>
+　　0.666..%　＜　指定商品の提供割合（天井回数150回の場合）
+    </li>
+    <li>
+一方、十万単位の長さに及ぶボックスをランダムソート後に
+<br>
+指定商品が連続して排出されない回数を150回以内に収めるためには以下と見積もられる
+<br>
+　　　　約4%　＜　指定商品の提供割合
+<br>
+<a title="ガチャシミュレータ" href="index.html">ガチャシミュレータ</a>
+<br>
+にてSSRの提供割合を4%、kを10に変更して[shuffle-box]を繰り返すとわかる
+    </li>
+    <li>
+よって本実装例における現実的に運用可能な天井機能は
+<br>
+4%以上の最高レア度に150回の天井を設けるような運用に限られる
+    </li>
+    <li>
+他方、指定商品の提供割合が1%を下回るような多くの場合、
+<br>
+確率抽選と同様に別途天井機能を運用する必要があると考えられる
+    </li>
+  </ul>
+</div>
+<br>
+<hr>
+
+<h3>ガチャを1回実行する処理の実装手順</h3>
+<div>
+　ボックス商品番号の初期値から順番に商品を排出するJavascript
+  <ol>
+    <li>
+前提として
+<br>
+ボックスは全利用者で共通と仮定する
+<br>
+ボックス商品番号（以下、商品番号）は各利用者で区別すると仮定する
+<br>
+各利用者の商品番号indexは各利用者のidから参照すると仮定する
+<br>
+var obj_index = {};
+<br>
+var index = obj_index[id];
+    </li>
+    <li>
+次にボックスの長さを決める
+<br>
+簡単には
+<br>
+ボックスの長さ＝テーブルの長さの整数k倍かつ想定利用者数以上
+    </li>
+    <li>
+これより予め用意したテーブルをk個結合してボックスを作る
+    </li>
+    <li>
+このボックス内の商品をランダムソートで並び替える
+<br>
+ランダムソートにはFisher-Yates shuffleを利用する
+    </li>
+    <li>
+ここで前述の天井要件に応じてボックスの中身を確認する
+<br>
+ボックスの中身は最後から最初にループすると仮定して（後述）
+<br>
+天井要件が未達の場合はランダムソートを何回かやり直す
+    </li>
+    <li>
+完成したボックスの配列データboxをデータベースに登録する
+    </li>
+    <li>
+ボックスの長さを参照してlenに代入する
+<br>
+var len = box.length;
+    </li>
+    <li>
+続いて各利用者で商品番号の初期値index0を決める
+<br>
+簡単にはid番号等の乱数をボックスの長さで割った余りとする
+<br>
+var index0 = id%len;
+<br>
+obj_index[id] = index0;
+    </li>
+    <li>
+最後に各利用者がガチャを回した際の手順を決める
+<br>
+ガチャ1回毎に商品番号の商品itemを排出して、その利用者の商品番号を1進める
+<br>
+ただし、商品番号がボックスの最後まで進んだら最初にループする
+<br>
+var index = obj_index[id];
+<br>
+index = (index === len)? 0: index;
+<br>
+var item = box[index];
+<br>
+obj_index[id] = index+1;
+<br>
+return item;
+    </li>
+  </ol>
+</div>
+<h3>ボックス抽選1回のサーバーにかかる計算負荷</h3>
+<div>
+index = (index === len)? 0: index;
+</div>
+<br>
+
+<hr>
+<h3>本実装例の問題点と対策について</h3>
+<div>
+  <ul>
+    <li>
+本実装例ではボックスが大規模になるため、計算負荷よりもデータアクセスの負担が大きい
+    </li>
+    <li>
+そこで、10連1回毎に10連分のデータ部分をまとめて取得して排出する仕組みが考えられる
+    </li>
+    <li>
+アクセス回数自体が1/10に低減するため、コスト面での対策効果が期待できる
+    </li>
+  </ul>
+</div>
+
+<h3>ガチャを1回実行する処理の実装手順の修正案</h3>
+<div>
+  <ol>
+    <li>
+    </li>
+    <li>
+    </li>
+    <li>
+    </li>
+    <li>
+    </li>
+    <li>
+    </li>
+    <li>
+    </li>
+    <li>
+    </li>
+    <li>
+ここまで修正なし
+    </li>
+    <li>
+各利用者が10連ガチャを回した際の手順を追加する
+<br>
+ガチャ10連1回毎に10連分の商品itemsをまとめて排出して、その利用者の商品番号を10進める
+<br>
+ただし、商品番号がボックスの最後を超えたら最初にループする
+<br>
+var index = obj_index[id];
+<br>
+index = (index+10 > len)? index+10-(len+1): index;
+<br>
+var items = box.slice(index, index+10);
+<br>
+obj_index[id] = index+10;
+<br>
+return items;
+    </li>
+  </ol>
+</div>
+<br>
+
+<hr>
+<h3>リアルガチャとの細かな違いについて余談</h3>
+<div>
+  <ul>
+    <li>
+本実装例では天井要件を考慮して各利用者の商品番号を区別したが、極論すれば
+<br>
+リアルガチャはボックス、商品番号ともに全利用者で共通と見なすことができる
+    </li>
+    <li>
+これに倣って両方とも共通化した場合、現実世界と同じで仕方のないことではあるが、
+<br>
+時間帯等にも依存して多く回せる人が若干でも有利になってしまうことに留意する
+    </li>
+  </ul>
+</div>
+<br>
+
+<hr>
+<h2>ボックス抽選のテスト実装</h2>
+<hr>
+<br>
+<pre>
+  関数コール仕様
+
+    new My_gacha(table[, opt_k]).nroll_box(n, callback[, opt_ms]);
+
+    コンストラクタ
+      My_gacha(table[, opt_k])
+
+      引数
+        table: 下記例に示す1次元配列または[]で囲んだ半角カンマ区切りの文字列
+      引数オプション
+        opt_k: ボックス内に並べるテーブルの個数(既定値1)
+
+      返値
+        インスタンス自身への参照
+
+    インスタンスメソッド
+      nroll_box(n, callback[, opt_ms])
+
+      引数
+        n: ガチャ1回の実行回数
+        callback = function(data){任意の処理};
+          data:       返却オブジェクト
+          data.n:     回数カウンタ値
+          data.index: ボックス商品番号
+          data.item:  排出商品
+      引数オプション
+        opt_ms: 実行間隔[msec](既定値50)
+
+      返値
+        インスタンス自身への参照
+
+  例）
+<code>
+  var arr_table = ["N", "R", "SR", "SSR"];
+  var str_table = "[N, R, SR, SSR]";
+  new My_gacha(arr_table || str_table, 10).nroll_box(10, function(data){
+    console.log(data.item);
+  }, 20);
+</code>
+</pre>
+<br>
+
+<hr><hr><hr>
+<h2>ガチャの仕組み考察と実装例まとめ</h2>
+
+<h3>結論</h3>
+<div>
+　実際にガチャについて考察・実装して気付いた点を下の表にまとめる
+</div>
+<br>
+<div>
+  <table>
+    <caption></caption>
+    <thead>
+      <tr>
+        <td>比較項目</td>
+        <td class="text-center">確率抽選</td>
+        <td class="text-center">ボックス抽選</td>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>サーバーコスト<br>　10連の計算負荷<br>　10連のデータアクセス</td>
+        <td class="text-center">△<br>整数変換(乱数*定数)10回<br>10回</td>
+        <td class="text-center">◎<br>if文判定1回<br>まとめて1回</td>
+      </tr>
+      <tr>
+        <td>ガチャ更新の準備コスト</td>
+        <td class="text-center">○<br>テーブル更新のみ</td>
+        <td class="text-center">△～○<br>作業自動化の可否次第</td>
+      </tr>
+      <tr>
+        <td>ガチャ履歴のログ管理コスト</td>
+        <td class="text-center">△～○<br>制限の付け方次第</td>
+        <td class="text-center">○<br>商品番号の管理のみ</td>
+      </tr>
+      <tr>
+        <td>天井機能の運用コスト</td>
+        <td class="text-center">△<br>別途運用が必要</td>
+        <td class="text-center">△～○<br>準備コストに含むか次第</td>
+      </tr>
+      <tr>
+        <td>無作為性の担保<br>　前述の丸め誤差は除く</td>
+        <td class="text-center">◎<br>乱数のみに依存</td>
+        <td class="text-center">×～○<br>運用の決め方次第</td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+<br>
+<div>
+　これより実際の運用においては、主にコストの兼ね合いで確率抽選とボックス抽選のいずれか一方を選ぶか、あるいは併用するか検討することになると考えられる
+<br>
+　確率抽選を選択する場合のコスト対策としては、演出等で実行間隔を引き延ばして負荷分散を図る方法が考えられる
+<br>
+　他方で、ボックス抽選を選択する場合、多くの決め事があり無作為性の担保についてより一層の留意が必要と考えられる
+</div>
+<br>
+
+<hr><hr><hr>
+以上
+<br>
+<br>
+<br>
+  </div>
+</body>
+
+</html>

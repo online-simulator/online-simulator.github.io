@@ -1,0 +1,25 @@
+@charset "UTF-8";
+
+body{
+  max-width: 1024px;
+  width: 100%;
+  font-size: large;
+  font-weight: bold;
+}
+input{
+  width: 100%;
+  font-size: large;
+  font-weight: bold;
+}
+textarea{
+  width: 100%;
+  font-weight: bold;
+}
+button{
+  font-size: large;
+  font-weight: bold;
+}
+
+.output-val{
+  width: 70px;
+}
