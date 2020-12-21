@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+
+<html lang="ja">
+
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <meta name="description" content="正規表現テキスト置換IE対応" />
+  <meta name="author" content="online-simulator.github.io" />
+  <noscript>Javascript is not enabled on your browser.</noscript>
+  <link rel="stylesheet" type="text/css" href="../00_common/css/common.css" />
+  <link rel="stylesheet" type="text/css" href="../00_common/css/color.css" />
+  <link rel="stylesheet" type="text/css" href="../00_common/css/size.css" />
+  <link rel="stylesheet" type="text/css" href="css/common.css" />
+  <link rel="stylesheet" type="text/css" href="css/color.css" />
+  <link rel="stylesheet" type="text/css" href="css/size.css" />
+  <script type="text/javascript" src="../00_common/js/00_class/00_$.js"></script>
+  <script type="text/javascript" src="../00_common/js/00_class/00_def.js"></script>
+  <script type="text/javascript" src="../00_common/js/01_driver/01_drag.js"></script>
+    <script type="text/javascript" src="js/02_replace.js"></script>
+</head>
+
+<body>
+  <div>
+
+<script type="text/javascript">
+  (function(document){
+    document.body.onload = function(e){
+      My_output_command();
+    };
+  })(document);
+</script>
+
+置換パターン
+<select id="flag" onchange="My_output_command();">
+  <option value="" title="フラグなし">フラグなし</option>
+  <option value="g" title="グローバル">g:グローバル</option>
+  <option value="i" title="大・小文字区別なし">i:大・小文字区別なし</option>
+  <option value="m" title="複数行">m:複数行</option>
+  <option value="gi">gi</option>
+  <option value="gm">gm</option>
+  <option value="im">im</option>
+  <option value="gim">gim</option>
+</select>
+<input id="pattern" type="text" onchange="My_output_command();" />
+
+置換後文字列
+<input id="string" type="text" onchange="My_output_command();" />
+
+Javascript書式
+<input id="command" type="text" readonly="readonly" onClick="this.focus();this.select();" />
+
+<div>
+<button class="clear" onclick="My_clear();">textクリア</button>
+　
+置換対象text
+<textarea id="input" rows="5" onchange="My_output_command();"></textarea>
+
+<button class="cF" onClick="My_postset();" title="置換結果を置換対象に再セット">out ⇒ text</button>
+　
+置換結果out
+　
+<button class="run" onclick="My_run_replace();" title="Javascript書式命令を実行">置換実行</button>
+<textarea id="output" readonly="readonly" rows="5" onclick="this.focus();this.select();"></textarea>
+</div>
+
+  </div>
+</body>
+
+</html>

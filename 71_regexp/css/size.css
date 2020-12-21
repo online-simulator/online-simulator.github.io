@@ -1,0 +1,16 @@
+@charset "UTF-8";
+
+body{
+  max-width: 1024px;
+  width: 100%;
+  font-size: large;
+  font-weight: bold;
+}
+select, button{
+  font-size: large;
+  font-weight: bold;
+}
+input, textarea{
+  width: 100%;
+  font-size: large;
+}
