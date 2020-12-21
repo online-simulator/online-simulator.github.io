@@ -26,12 +26,22 @@
 <script type="text/javascript">
   (function(document){
     document.body.onload = function(e){
-      new My_drag("div-drag", {});
+      My_run_n2dec();
     };
   })(document);
 </script>
 
-ドラッグ移動可
+<label>ドラッグ移動可
+<input type="checkbox" onchange="
+(function(self){
+  var drag = new My_drag('div-drag');
+  if(!self.checked){
+    drag.clear();
+  }
+})(this);
+" />
+</label>
+
     <table>
       <tbody>
         <tr>

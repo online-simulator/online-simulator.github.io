@@ -8,9 +8,15 @@ My_drag.prototype.init = function(id, opt_handler){
   var self = this;
   self.id = id;
   self.dom = My$_id(self.id);
+  self.event = ["ondragstart", "ondragover", "ondragend"];
+  self.touch = {
+    ondragstart: "ontouchstart",
+    ondragover: "ontouchmove",
+    ondragend: "ontouchend"
+  };
   My$set(self.id, "position", "absolute");
   My$set(self.id, "draggable", true);
-  ["ondragstart", "ondragover", "ondragend"].forEach(function(event){
+  self.event.forEach(function(event){
     switch(event){
       case "ondragstart":
         var handler = function(e){
@@ -20,18 +26,9 @@ My_drag.prototype.init = function(id, opt_handler){
           }
         };
         My$set(self.id, event, handler);
-        My$set(self.id, "ontouchstart", handler);
+        My$set(self.id, self.touch[event], handler);
         break;
       case "ondragover":
-        var handler = function(e){
-          self.set_offset(e);
-          if(opt_handler && opt_handler[event]){
-            opt_handler[event](e);
-          }
-        };
-        My$set(self.id, event, handler);
-        My$set(self.id, "ontouchmove", handler);
-        break;
       case "ondragend":
         var handler = function(e){
           self.set_offset(e);
@@ -40,11 +37,20 @@ My_drag.prototype.init = function(id, opt_handler){
           }
         };
         My$set(self.id, event, handler);
-        My$set(self.id, "ontouchend", handler);
+        My$set(self.id, self.touch[event], handler);
         break;
       default:
         break;
     }
+  });
+  return self;
+};
+My_drag.prototype.clear = function(){
+  var self = this;
+  My$set(self.id, "draggable", false);
+  self.event.forEach(function(event){
+    My$set(self.id, event, null);
+    My$set(self.id, self.touch[event], null);
   });
   return self;
 };
