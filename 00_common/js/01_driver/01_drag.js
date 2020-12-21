@@ -72,12 +72,9 @@ My_drag.prototype.get_offset = function(){
 My_drag.prototype.get_client = function(e){
   var self = this;
   var e = e;
-  var _client = false;
   if(e.touches){
-    if(e.touches.length){
-      e = e.touches[0];
-    }
+    e = (e.touches.length)? e.touches[0]: false;
   }
-  _client = (e)? {x: e.clientX, y: e.clientY}: _client;
+  var _client = (e)? {x: e.clientX, y: e.clientY}: false;
   return _client;
 };

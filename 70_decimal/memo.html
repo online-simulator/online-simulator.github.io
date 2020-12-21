@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+
+<html lang="ja">
+
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <meta name="description" content="タッチでのドラッグ操作" />
+  <meta name="author" content="online-simulator.github.io" />
+  <noscript>Javascript is not enabled on your browser.</noscript>
+  <link rel="stylesheet" type="text/css" href="../00_common/css/common.css" />
+  <link rel="stylesheet" type="text/css" href="../00_common/css/color.css" />
+  <link rel="stylesheet" type="text/css" href="../00_common/css/size.css" />
+  <link rel="stylesheet" type="text/css" href="css/common.css" />
+  <link rel="stylesheet" type="text/css" href="css/color.css" />
+  <link rel="stylesheet" type="text/css" href="css/size.css" />
+  <script type="text/javascript" src="js/02_decimal.js"></script>
+</head>
+
+<body>
+  <div>
+    <table class="border">
+      <caption></caption>
+      <thead>
+        <tr class="border">
+          <td class="border">
+イベント
+          </td>
+          <td>
+クライアント座標の取得関数
+          </td>
+        </tr>
+      </thead>
+      <tbody>
+        <tr class="border">
+          <td class="border">
+ontouchstart
+<br>
+ontouchmove
+          </td>
+          <td class="border" colspan=2>
+            <pre><code>
+function(e){
+  var e = e;
+  if(e.touches){
+    e = (e.touches.length)? e.touches[0]: false;
+  }
+  var _client = (e)? {x: e.clientX, y: e.clientY}: false;
+  return _client;
+}
+            </code></pre>
+          </td>
+        </tr>
+        <tr class="border">
+          <td class="border">
+ontouchend
+          </td>
+          <td>
+取得不可
+<br>
+            <pre><code>
+e.touches.length = 0
+            </code></pre>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+
+
+
+
+  </div>
+</body>
+
+</html>
