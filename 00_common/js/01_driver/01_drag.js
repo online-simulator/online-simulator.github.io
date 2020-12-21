@@ -20,8 +20,21 @@ My_drag.prototype.init = function(id, opt_handler){
             opt_handler[event](e);
           }
         };
+        self.dom["touchstart"] = self.dom[event];
         break;
       case "ondragover":
+        self.dom[event] = function(e){
+          var client = self.get_client(e);
+          var left = (self.offset0.left+(client.x-self.client0.x))+"px";
+          var top = (self.offset0.top+(client.y-self.client0.y))+"px";
+          My$set(self.id, "left", left);
+          My$set(self.id, "top", top);
+          if(opt_handler && opt_handler[event]){
+            opt_handler[event](e);
+          }
+        };
+        self.dom["touchmove"] = self.dom[event];
+        break;
       case "ondragend":
         self.dom[event] = function(e){
           var client = self.get_client(e);
@@ -33,6 +46,7 @@ My_drag.prototype.init = function(id, opt_handler){
             opt_handler[event](e);
           }
         };
+        self.dom["touchend"] = self.dom[event];
         break;
       default:
         break;
