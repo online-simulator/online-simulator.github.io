@@ -1,4 +1,4 @@
-function My_drag(id, handler){
+function My_drag(id, opt_handler){
   var self = this;
   self.init.apply(self, arguments);
   return self;
