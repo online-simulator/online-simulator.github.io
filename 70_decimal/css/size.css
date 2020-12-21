@@ -1,0 +1,15 @@
+@charset "UTF-8";
+
+body{
+  width: 100%;
+  font-size: large;
+  font-weight: bold;
+}
+select{
+  font-size: large;
+  font-weight: bold;
+}
+input{
+  width: auto;
+  font-size: large;
+}

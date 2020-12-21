@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+
+<html lang="ja">
+
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <meta name="description" content="converter regular expression replace" />
+  <meta name="author" content="online-simulator.github.io" />
+  <noscript>Javascript is not enabled on your browser.</noscript>
+  <link rel="stylesheet" type="text/css" href="../00_common/css/common.css" />
+  <link rel="stylesheet" type="text/css" href="../00_common/css/color.css" />
+  <link rel="stylesheet" type="text/css" href="../00_common/css/size.css" />
+  <link rel="stylesheet" type="text/css" href="css/common.css" />
+  <link rel="stylesheet" type="text/css" href="css/color.css" />
+  <link rel="stylesheet" type="text/css" href="css/size.css" />
+  <script type="text/javascript" src="../00_common/js/00_class/00_$.js"></script>
+  <script type="text/javascript" src="../00_common/js/00_class/00_conv.js"></script>
+  <script type="text/javascript" src="../00_common/js/00_class/00_def.js"></script>
+  <script type="text/javascript" src="../00_common/js/01_driver/01_drag.js"></script>
+  <script type="text/javascript" src="js/02_decimal.js"></script>
+</head>
+
+<body>
+  <div id="div-drag">
+
+<script type="text/javascript">
+  (function(document){
+    document.body.onload = function(e){
+      new My_drag("div-drag", {});
+    };
+  })(document);
+</script>
+
+ドラッグ移動可
+    <table>
+      <tbody>
+        <tr>
+          <td>
+n:
+<select id="select-n2dec" title="n" onchange="My_run_n2dec();">
+  <option value="2">2</option>
+  <option value="3">3</option>
+  <option value="4">4</option>
+  <option value="5">5</option>
+  <option value="6">6</option>
+  <option value="7">7</option>
+  <option value="8">8</option>
+  <option value="9">9</option>
+  <option value="10">10</option>
+  <option value="11">11</option>
+  <option value="12">12</option>
+  <option value="13">13</option>
+  <option value="14">14</option>
+  <option value="15">15</option>
+  <option value="16">16</option>
+  <option value="17">17</option>
+  <option value="18">18</option>
+  <option value="19">19</option>
+  <option value="20">20</option>
+  <option value="21">21</option>
+  <option value="22">22</option>
+  <option value="23">23</option>
+  <option value="24">24</option>
+  <option value="25">25</option>
+  <option value="26">26</option>
+  <option value="27">27</option>
+  <option value="28">28</option>
+  <option value="29">29</option>
+  <option value="30">30</option>
+  <option value="31">31</option>
+  <option value="32">32</option>
+  <option value="33">33</option>
+  <option value="34">34</option>
+  <option value="35">35</option>
+  <option value="36">36</option>
+</select>
+進数
+          </td>
+        </tr>
+        <tr>
+          <td>
+<input id="input-n" type="text" value="0" onclick="My_run_n2dec();" onchange="My_run_n2dec();" />
+          </td>
+        </tr>
+        <tr>
+          <td>
+→10進数
+          </td>
+        </tr>
+        <tr>
+          <td>
+<input id="output-dec" type="number" readonly="readonly" onclick="this.focus();this.select();" />
+          </td>
+        </tr>
+      </tbody>
+    </table>
+
+<label for="checkbox-dec-dec">上下連動</label>
+<input id="checkbox-dec-dec" type="checkbox" checked="checked" />
+
+    <table>
+      <tbody>
+        <tr>
+          <td>
+10進数→
+          </td>
+        </tr>
+        <tr>
+          <td>
+<input id="input-dec" type="number" value="0" onclick="My_run_dec2n();" onchange="My_run_dec2n();" />
+          </td>
+        </tr>
+        <tr>
+          <td>
+m:
+<select id="select-dec2n" title="m" onchange="My_run_dec2n();">
+  <option value="2">2</option>
+  <option value="3">3</option>
+  <option value="4">4</option>
+  <option value="5">5</option>
+  <option value="6">6</option>
+  <option value="7">7</option>
+  <option value="8">8</option>
+  <option value="9">9</option>
+  <option value="10">10</option>
+  <option value="11">11</option>
+  <option value="12">12</option>
+  <option value="13">13</option>
+  <option value="14">14</option>
+  <option value="15">15</option>
+  <option value="16">16</option>
+  <option value="17">17</option>
+  <option value="18">18</option>
+  <option value="19">19</option>
+  <option value="20">20</option>
+  <option value="21">21</option>
+  <option value="22">22</option>
+  <option value="23">23</option>
+  <option value="24">24</option>
+  <option value="25">25</option>
+  <option value="26">26</option>
+  <option value="27">27</option>
+  <option value="28">28</option>
+  <option value="29">29</option>
+  <option value="30">30</option>
+  <option value="31">31</option>
+  <option value="32">32</option>
+  <option value="33">33</option>
+  <option value="34">34</option>
+  <option value="35">35</option>
+  <option value="36">36</option>
+</select>
+進数
+          </td>
+        </tr>
+        <tr>
+          <td>
+<input id="output-n" type="text" readonly="readonly" onclick="this.focus();this.select();" />
+          </td>
+        </tr>
+      </tbody>
+    </table>
+
+  </div>
+</body>
+
+</html>
