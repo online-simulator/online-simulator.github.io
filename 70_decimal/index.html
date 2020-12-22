@@ -15,8 +15,8 @@
   <link rel="stylesheet" type="text/css" href="css/size.css" />
   <script type="text/javascript" src="../00_common/js/00_class/00_$.js"></script>
   <script type="text/javascript" src="../00_common/js/00_class/00_conv.js"></script>
-  <script type="text/javascript" src="../00_common/js/00_class/00_def.js"></script>
   <script type="text/javascript" src="../00_common/js/01_driver/01_drag.js"></script>
+  <script type="text/javascript" src="../00_common/js/01_driver/02_handler_dom.js"></script>
   <script type="text/javascript" src="js/02_decimal.js"></script>
 </head>
 
@@ -24,22 +24,17 @@
   <div id="div-drag">
 
 <script type="text/javascript">
+  var My_handler = null;
   (function(document){
     document.body.onload = function(e){
+      My_handler = new My_handler_dom().init_drag("div-drag", "checkbox-drag", {}).drag_checkbox();
       My_run_n2dec();
     };
   })(document);
 </script>
 
 <label>ドラッグ移動可
-<input type="checkbox" onchange="
-(function(self){
-  var drag = new My_drag('div-drag');
-  if(!self.checked){
-    drag.clear();
-  }
-})(this);
-" />
+<input id="checkbox-drag" type="checkbox" onchange="My_handler.drag_checkbox();" />
 </label>
 
     <table>
@@ -105,8 +100,9 @@ n:
       </tbody>
     </table>
 
-<label for="checkbox-dec-dec">上下連動</label>
+<label>上下連動
 <input id="checkbox-dec-dec" type="checkbox" checked="checked" />
+</label>
 
     <table>
       <tbody>

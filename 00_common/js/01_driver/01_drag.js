@@ -14,30 +14,43 @@ My_drag.prototype.init = function(id, opt_handler){
     ondragover: "ontouchmove",
     ondragend: "ontouchend"
   };
+  self.handler = {};
+  self.add_handler(opt_handler);
+  return self;
+};
+My_drag.prototype.add_handler = function(opt_handler){
+  var self = this;
+  var handler = opt_handler || {};
+////////////////////////////////////////////////////////////
   My$set(self.id, "position", "absolute");
   My$set(self.id, "draggable", true);
+////////////////////////////////////////////////////////////
   self.event.forEach(function(event){
     switch(event){
       case "ondragstart":
-        var handler = function(e){
+        self.handler[event] = function(e){
           self.set_offset0(e);
-          if(opt_handler && opt_handler[event]){
-            opt_handler[event](e);
+          if(handler[event]){
+            handler[event](e);
           }
         };
-        My$set(self.id, event, handler);
-        My$set(self.id, self.touch[event], handler);
+////////////////////////////////////////////////////////////
+        My$set(self.id, event, self.handler[event]);
+        My$set(self.id, self.touch[event], self.handler[event]);
+////////////////////////////////////////////////////////////
         break;
       case "ondragover":
       case "ondragend":
-        var handler = function(e){
+        self.handler[event] = function(e){
           self.set_offset(e);
-          if(opt_handler && opt_handler[event]){
-            opt_handler[event](e);
+          if(handler[event]){
+            handler[event](e);
           }
         };
-        My$set(self.id, event, handler);
-        My$set(self.id, self.touch[event], handler);
+////////////////////////////////////////////////////////////
+        My$set(self.id, event, self.handler[event]);
+        My$set(self.id, self.touch[event], self.handler[event]);
+////////////////////////////////////////////////////////////
         break;
       default:
         break;
@@ -45,12 +58,17 @@ My_drag.prototype.init = function(id, opt_handler){
   });
   return self;
 };
-My_drag.prototype.clear = function(){
+My_drag.prototype.remove_handler = function(){
   var self = this;
+////////////////////////////////////////////////////////////
   My$set(self.id, "draggable", false);
+////////////////////////////////////////////////////////////
   self.event.forEach(function(event){
+////////////////////////////////////////////////////////////
     My$set(self.id, event, null);
     My$set(self.id, self.touch[event], null);
+////////////////////////////////////////////////////////////
+    self.handler[event] = null;
   });
   return self;
 };
@@ -66,8 +84,10 @@ My_drag.prototype.set_offset = function(e){
   if(client){
     var left = (self.offset0.left+(client.x-self.client0.x))+"px";
     var top = (self.offset0.top+(client.y-self.client0.y))+"px";
+////////////////////////////////////////////////////////////
     My$set(self.id, "left", left);
     My$set(self.id, "top", top);
+////////////////////////////////////////////////////////////
   }
   return self;
 };
@@ -84,3 +104,4 @@ My_drag.prototype.get_client = function(e){
   var _client = (e)? {x: e.clientX, y: e.clientY}: false;
   return _client;
 };
+

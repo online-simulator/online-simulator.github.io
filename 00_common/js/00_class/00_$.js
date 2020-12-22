@@ -32,21 +32,22 @@ function My$arr(selector, element){
   return Array.prototype.slice.call(element.querySelectorAll(selector));
 }
 function My$set(selector, prop, val){
-  var _hasProp = false;
   var dom = My$_id(selector);
   if(dom){
-    if(My_def.hasProp(dom, prop)){
+    if(typeof dom[prop] !== "undefined"){
       dom[prop] = val;
-      _hasProp = true;
     }
-    if(My_def.hasProp(dom.style, prop)){
+    if(typeof dom.style[prop] !== "undefined"){
       dom.style[prop] = val;
-      _hasProp = true;
     }
   }
-  return _hasProp;
 }
 function My$select_id(id){
   var dom = My$_id(id);
   return dom.options[dom.selectedIndex];
+}
+function My$add_first(id, elem){
+  var parent = My$_id(id);
+  var child = parent.firstChild;
+  parent.insertBefore(elem, child);
 }
