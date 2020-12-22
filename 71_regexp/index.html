@@ -15,7 +15,7 @@
   <link rel="stylesheet" type="text/css" href="css/size.css" />
   <script type="text/javascript" src="../00_common/js/00_class/00_$.js"></script>
   <script type="text/javascript" src="../00_common/js/01_driver/01_drag.js"></script>
-    <script type="text/javascript" src="js/02_replace.js"></script>
+  <script type="text/javascript" src="js/02_replace.js"></script>
 </head>
 
 <body>
@@ -29,6 +29,8 @@
   })(document);
 </script>
 
+<hr>
+
 置換パターン
 <select id="flag" onchange="My_output_command();">
   <option value="" title="フラグなし">フラグなし</option>
@@ -40,27 +42,35 @@
   <option value="im">im</option>
   <option value="gim">gim</option>
 </select>
+<br>
 <input id="pattern" type="text" onchange="My_output_command();" />
-
+<br>
 置換後文字列
+<br>
 <input id="string" type="text" onchange="My_output_command();" />
-
+<br>
 Javascript書式
+<br>
 <input id="command" type="text" readonly="readonly" onclick="this.focus();this.select();" />
-
+<br>
 <div>
 <button class="clear" onclick="My_clear();">textクリア</button>
 　
 置換対象text
+<br>
 <textarea id="input" rows="5" onchange="My_output_command();"></textarea>
-
+<br>
 <button class="cF" onClick="My_postset();" title="置換結果を置換対象に再セット">out ⇒ text</button>
 　
 置換結果out
 　
 <button class="run" onclick="My_run_replace();" title="Javascript書式命令を実行">置換実行</button>
+<br>
 <textarea id="output" readonly="readonly" rows="5" onclick="this.focus();this.select();"></textarea>
+<br>
 </div>
+
+<hr>
 
   </div>
 </body>
