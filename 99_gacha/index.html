@@ -45,22 +45,32 @@
 <br>
 
 <div>
+  <label for="table">
 テーブル:
+  </label>
+  <label>
   <input type="checkbox" id="checkbox-arr_table" class="width-auto" onchange="
 (function(){
   My_test.display_table_id();
 })();
-" />配列表示
+" />
+配列表示
+  </label>
 <br>
-端数を丸めた長さlen:
+端数を丸めた長さ
+  <label>
+len:
   <input id="len_table" class="output-val" readonly="readonly" />
+  </label>
 ※5000以上で非表示
   <textarea id="table" readonly="readonly">
 [SSR0, SR0, SR1, R0, R1, R2, R3, R4, N0, N1, N2, N3, N4, N5, N6, N7, N8, N9, N10, N11]</textarea>
 </div>
 <div>
+  <label>
 排出商品:
   <input id="item_table" readonly="readonly" />
+  </label>
   <br>
 </div>
 <br>
@@ -85,8 +95,10 @@
 })();
   ">100roll
   </button>
+  <label>
 商品番号:
   <input id="index_table" class="output-val" readonly="readonly" />
+  </label>
 </div>
 <br>
 <hr>
@@ -339,14 +351,22 @@
 <br>
 
 <div>
-ボックス
+  <label for="box">
+ボックス:
+  </label>
+  <label>
   <input type="checkbox" id="checkbox-arr_box" class="width-auto" onchange="
 (function(){
   My_test.display_box_id();
 })();
-" />配列表示
+" />
+配列表示
+  </label>
 　
-  （k:
+
+（
+  <label>
+k:
   <select id="select-k" onchange="
 (function(){
   My_test.handler_onchange_sw('box');
@@ -363,16 +383,22 @@
     <option>9</option>
     <option>10</option>
   </select>
+  </label>
 個のテーブルを並べてランダムソートした）
 <br>
-端数を丸めた長さlen:
+端数を丸めた長さ
+  <label>
+len:
   <input id="len_box" class="output-val" readonly="readonly" />
+  </label>
 ※5000以上で非表示
   <textarea id="box" readonly="readonly"></textarea>
 </div>
 <div>
+  <label>
 排出商品:
   <input id="item_box" readonly="readonly" />
+  </label>
 </div>
 <br>
 <div>
@@ -398,8 +424,10 @@
 ">
 100roll
   </button>
+  <label>
 商品番号:
   <input id="index_box" class="output-val" readonly="readonly" />
+  </label>
 </div>
 <br>
 <div>
@@ -422,22 +450,30 @@ reset-box
 </div>
 <br>
 <div>
+  <label>
 指定商品
   <input id="item_comp" class="output-val" onchange="
 (function(){
   My_test.check_box_id();
 })();
 " value="SSR0" />
+  </label>
+  <label>
 天井回数:
   <input id="roll_max_item" class="output-val" readonly="readonly" />
+  </label>
+  <label>
 指定レア度
   <input id="rarity_comp" class="output-val" onchange="
 (function(){
   My_test.check_box_id();
 })();
 " value="SSR" />
+  </label>
+  <label>
 天井回数:
   <input id="roll_max_rarity" class="output-val" readonly="readonly" />
+  </label>
 </div>
 <br>
 <hr><hr>
