@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+
+<html lang="ja">
+
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <meta name="description" content="Unicode変換チェッカー" />
+  <meta name="author" content="online-simulator.github.io" />
+  <noscript>Javascript is not enabled on your browser.</noscript>
+  <link rel="stylesheet" type="text/css" href="../00_common/css/common.css" />
+  <link rel="stylesheet" type="text/css" href="../00_common/css/color.css" />
+  <link rel="stylesheet" type="text/css" href="../00_common/css/size.css" />
+  <link rel="stylesheet" type="text/css" href="css/common.css" />
+  <link rel="stylesheet" type="text/css" href="css/color.css" />
+  <link rel="stylesheet" type="text/css" href="css/size.css" />
+  <script type="text/javascript" src="../00_common/js/00_class/00_$.js"></script>
+  <script type="text/javascript" src="../00_common/js/00_class/00_conv.js"></script>
+  <script type="text/javascript" src="js/02_unicode.js"></script>
+</head>
+
+<body>
+  <div>
+
+<hr>
+一般的な文字列とUnicodeカンマ区切りを相互変換2種類
+<hr>
+16bit数値0~65535で表せるUTF-16コードユニット
+<br>
+または
+<br>
+8bit数値0~255の羅列で表せるUTF-8コード
+<hr>
+
+<div class="text-center">
+<label for="input">
+変換対象text
+</label>
+　
+  <button class="clear" onclick="My_clear();">クリア</button>
+<br>
+  <textarea id="input" rows="5">
+各表示例「あ」1文字の10進数表記or16進数表記
+,UTF-16,12354,or,3042
+,UTF-8,227,129,130,or,e3,81,82</textarea>
+<br>
+  <button class="run" onclick="My_str2code();">文字列から変換</button>
+<label>
+n:
+  <select id="select-n">
+    <option>2</option>
+    <option>8</option>
+    <option selected="selected">10</option>
+    <option>16</option>
+    <option>32</option>
+  </select>
+進数表記
+</label>
+  <button class="run" onclick="My_code2str();">Unicodeから変換</button>
+結果out
+</div>
+<hr>
+<label for="output_utf16">
+UTF-16:
+</label>
+  <button class="cF" onclick="My_postset_utf16();" title="変換結果を変換対象に再セット">out ⇒ text</button>
+  <textarea id="output_utf16" readonly="readonly" rows="5" onclick="this.focus();this.select();"></textarea>
+<br>
+<label for="output_utf8">
+UTF-8:
+</label>
+  <button class="cF" onclick="My_postset_utf8();" title="変換結果を変換対象に再セット">out ⇒ text</button>
+IE非対応
+  <textarea id="output_utf8" readonly="readonly" rows="5" onclick="this.focus();this.select();"></textarea>
+</div>
+
+<hr>
+
+  </div>
+</body>
+
+</html>
