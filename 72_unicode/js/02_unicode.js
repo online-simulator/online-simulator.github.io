@@ -6,27 +6,14 @@ function My_str2code(){
   var output_utf16 = "";
   var output_utf8 = "";
   try{
-    var arr_num_n = new Array(input.length);
-    for(var i=0, len=arr_num_n.length; i<len; ++i){
-      var uint16 = input.charCodeAt(i);
-      arr_num_n[i] = My_conv.dec2n(uint16, n);
-    }
-    output_utf16 = arr_num_n;
+    output_utf16 = My_conv.str2code_utf16(input, n);
   }
   catch(e){
     output_utf16 = e.message;
   }
   My$_id("output_utf16").value = output_utf16;
   try{
-    if(typeof TextEncoder !== "undefined"){
-      var arrb_uint8 = new TextEncoder().encode(input);
-      var arr_num_n = [];
-      // object.forEach for IE
-      Array.prototype.forEach.call(arrb_uint8, function(uint8, i, arr_uint8){
-        arr_num_n[i] = My_conv.dec2n(uint8, n);
-      });
-      output_utf8 = arr_num_n;
-    }
+    output_utf8 = My_conv.str2code_utf8(input, n);
   }
   catch(e){
     output_utf8 = e.message;
@@ -38,36 +25,18 @@ function My_code2str(){
   var input = My$_id("input").value;
   var output_utf16 = "";
   var output_utf8 = "";
-  var arr_uint16 = [];
-  var arr_uint8 = [];
-  var arr_token = input.split(",");
-  arr_token.forEach(function(token){
-    var num_10 = My_conv.n2dec(token, n);
-    if(!isNaN(num_10)){
-      if(num_10 < 65536){
-        arr_uint16.push(num_10);
-      }
-      if(num_10 <256){
-        arr_uint8.push(num_10);
-      }
-    }
-  });
+  var arr_num_n = input.split(",");
   try{
-    var str = "";
-    arr_uint16.forEach(function(uint16){
-      str += String.fromCharCode(uint16);
-    });
-    output_utf16 = str;
+    var arr_uint16 = My_conv.arr_num2arr_uint(arr_num_n, n, 16);
+    output_utf16 = My_conv.arr_uint16_2str(arr_uint16);
   }
   catch(e){
     output_utf16 = e.message;
   }
   My$_id("output_utf16").value = output_utf16;
   try{
-    if(typeof TextDecoder !== "undefined"){
-      var str = new TextDecoder().decode(new Uint8Array(arr_uint8));
-      output_utf8 = str;
-    }
+    var arr_uint8 = My_conv.arr_num2arr_uint(arr_num_n, n, 8);
+    output_utf8 = My_conv.arr_uint8_2str(arr_uint8);
   }
   catch(e){
     output_utf8 = e.message;

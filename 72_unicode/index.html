@@ -22,13 +22,13 @@
   <div>
 
 <hr>
-一般的な文字列とUnicodeカンマ区切りを相互変換2種類
+BMP文字列とUnicodeスカラ値カンマ区切りを相互変換2種類
 <hr>
-16bit数値0~65535で表せるUTF-16コードユニット
+16bitスカラ値0~ffffで表せるUTF-16コードユニット
 <br>
 または
 <br>
-8bit数値0~255の羅列で表せるUTF-8コード
+8bitスカラ値0~ffの羅列で表せるUTF-8コード
 <hr>
 
 <div class="text-center">
@@ -39,9 +39,9 @@
   <button class="clear" onclick="My_clear();">クリア</button>
 <br>
   <textarea id="input" rows="5">
-各表示例「あ」1文字の10進数表記or16進数表記
-,UTF-16,12354,or,3042
-,UTF-8,227,129,130,or,e3,81,82</textarea>
+各表示例「あ」1文字のスカラ値16進数表記or10進数表記
+,UTF-16,3042,or,12354
+,UTF-8,e3,81,82,or,227,129,130</textarea>
 <br>
   <button class="run" onclick="My_str2code();">文字列から変換</button>
 <label>
@@ -49,8 +49,8 @@ n:
   <select id="select-n">
     <option>2</option>
     <option>8</option>
-    <option selected="selected">10</option>
-    <option>16</option>
+    <option>10</option>
+    <option selected="selected">16</option>
     <option>32</option>
   </select>
 進数表記
