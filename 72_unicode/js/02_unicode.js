@@ -6,12 +6,10 @@ function My_str2code(){
   var output_utf16 = "";
   var output_utf8 = "";
   try{
-    var str = input;
-    var arr_num_n = [];
-    for(var i=0, len=str.length; i<len; ++i){
-      var token = str[i];
-      var uint16 = token.charCodeAt(0)
-      arr_num_n.push(My_conv.dec2n(uint16, n));
+    var arr_num_n = new Array(input.length);
+    for(var i=0, len=arr_num_n.length; i<len; ++i){
+      var uint16 = input.charCodeAt(i);
+      arr_num_n[i] = My_conv.dec2n(uint16, n);
     }
     output_utf16 = arr_num_n;
   }
@@ -21,9 +19,10 @@ function My_str2code(){
   My$_id("output_utf16").value = output_utf16;
   try{
     if(typeof TextEncoder !== "undefined"){
-      var buf_uint8 = new TextEncoder().encode(input);
+      var arrb_uint8 = new TextEncoder().encode(input);
       var arr_num_n = [];
-      buf_uint8.forEach(function(uint8, i){
+      // object.forEach for IE
+      Array.prototype.forEach.call(arrb_uint8, function(uint8, i, arr_uint8){
         arr_num_n[i] = My_conv.dec2n(uint8, n);
       });
       output_utf8 = arr_num_n;
@@ -66,7 +65,8 @@ function My_code2str(){
   My$_id("output_utf16").value = output_utf16;
   try{
     if(typeof TextDecoder !== "undefined"){
-      output_utf8 = new TextDecoder().decode(new Uint8Array(arr_uint8));
+      var str = new TextDecoder().decode(new Uint8Array(arr_uint8));
+      output_utf8 = str;
     }
   }
   catch(e){
