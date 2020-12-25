@@ -80,3 +80,25 @@ My_conv.arr_uint8_2str = function(arr_uint8){
   }
   return _str;
 };
+My_conv.str2binary = function(str){
+  var _binary = "";
+  var arr_uint16 = My_conv.str2code_utf16(str, 10);
+  var arrb_uint16 = new Uint16Array(arr_uint16);
+  var arrb_uint8 = new Uint8Array(arrb_uint16.buffer);
+  Array.prototype.forEach.call(arrb_uint8, function(uint8, i){
+    _binary += String.fromCharCode(uint8);
+  });
+  return _binary;
+};
+My_conv.binary2str = function(binary){
+  var _str = "";
+  var arrb_uint8 = new Uint8Array(binary.length);
+  Array.prototype.forEach.call(binary, function(byte, i){
+    arrb_uint8[i] = binary.charCodeAt(i);
+  });
+  var arrb_uint16 = new Uint16Array(arrb_uint8.buffer);
+  Array.prototype.forEach.call(arrb_uint16, function(uint16, i){
+    _str += String.fromCharCode(uint16);
+  });
+  return _str;
+};
