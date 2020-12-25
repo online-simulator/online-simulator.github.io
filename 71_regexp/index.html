@@ -27,58 +27,54 @@
     };
   })(document);
 </script>
-
 <hr>
 
-<label for="pattern">
-置換パターン
-</label>
-<select id="flag" onchange="My_output_command();">
-  <option value="" title="フラグなし">フラグなし</option>
-  <option value="g" title="グローバル">g:グローバル</option>
-  <option value="i" title="大・小文字区別なし">i:大・小文字区別なし</option>
-  <option value="m" title="複数行">m:複数行</option>
-  <option value="gi">gi</option>
-  <option value="gm">gm</option>
-  <option value="im">im</option>
-  <option value="gim">gim</option>
-</select>
-<br>
-<input id="pattern" type="text" onchange="My_output_command();" />
-<br>
-<label>
-置換後文字列
-<br>
-<input id="string" type="text" onchange="My_output_command();" />
-</label>
-<br>
-<label>
-Javascript書式
-<br>
-<input id="command" type="text" readonly="readonly" onclick="this.focus();this.select();" />
-</label>
-<br>
 <div>
-<button class="clear" onclick="My_clear();">textクリア</button>
-　
-<label>
-置換対象text
+  <label for="pattern">置換パターン</label>
+  <select id="flag" onchange="My_output_command();">
+    <option value="" title="フラグなし">フラグなし</option>
+    <option value="g" title="グローバル">g:グローバル</option>
+    <option value="i" title="大・小文字区別なし">i:大・小文字区別なし</option>
+    <option value="m" title="複数行">m:複数行</option>
+    <option value="gi">gi</option>
+    <option value="gm">gm</option>
+    <option value="im">im</option>
+    <option value="gim">gim</option>
+  </select>
 <br>
-<textarea id="input" rows="5" onchange="My_output_command();"></textarea>
-</label>
+  <input id="pattern" type="text" onchange="My_output_command();" />
 <br>
-<button class="cF" onClick="My_postset();" title="置換結果を置換対象に再セット">out ⇒ text</button>
-　
-<label for="output">
-置換結果out
-</label>
-　
-<button class="run" onclick="My_run_replace();" title="Javascript書式命令を実行">置換実行</button>
+  <label>置換後文字列
 <br>
-<textarea id="output" readonly="readonly" rows="5" onclick="this.focus();this.select();"></textarea>
+    <input id="string" type="text" onchange="My_output_command();" />
+  </label>
 <br>
+  <label>Javascript書式
+<br>
+    <input id="command" type="text" readonly="readonly" onclick="this.focus();this.select();" />
+  </label>
 </div>
+<hr>
 
+<div>
+  <button class="clear" onclick="My_clear();">textクリア</button>
+　
+  <label>置換対象text
+<br>
+    <textarea id="input" rows="5" onchange="My_output_command();"></textarea>
+  </label>
+</div>
+<hr>
+
+<div>
+  <button class="cF" onClick="My_postset();" title="置換結果を置換対象に再セット">out ⇒ text</button>
+　
+  <label for="output">置換結果out</label>
+　
+  <button class="run" onclick="My_run_replace();" title="Javascript書式命令を実行">置換実行</button>
+<br>
+  <textarea id="output" readonly="readonly" rows="5" onclick="this.focus();this.select();"></textarea>
+</div>
 <hr>
 
   </div>
