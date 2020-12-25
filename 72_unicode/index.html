@@ -22,6 +22,7 @@
   <div>
 
 <hr>
+<div>
 BMP文字列とUnicodeスカラ値カンマ区切りを相互変換2種類
 <hr>
 16bitスカラ値0~ffffで表せるUTF-16コードユニット
@@ -29,50 +30,46 @@ BMP文字列とUnicodeスカラ値カンマ区切りを相互変換2種類
 または
 <br>
 8bitスカラ値0~ffの羅列で表せるUTF-8コード
+</div>
 <hr>
 
 <div class="text-center">
-<label for="input">
-変換対象text
-</label>
+  <label for="input">変換対象text</label>
 　
   <button class="clear" onclick="My_clear();">クリア</button>
 <br>
-  <textarea id="input" rows="5">
-各表示例「あ」1文字のスカラ値16進数表記or10進数表記
+  <textarea id="input" rows="5">各表示例「あ」1文字のスカラ値16進数表記or10進数表記
 ,UTF-16,3042,or,12354
 ,UTF-8,e3,81,82,or,227,129,130</textarea>
 <br>
   <button class="run" onclick="My_str2code();">文字列から変換</button>
-<label>
-n:
-  <select id="select-n">
-    <option>2</option>
-    <option>8</option>
-    <option>10</option>
-    <option selected="selected">16</option>
-    <option>32</option>
-  </select>
+  <label>n:
+    <select id="select-n">
+      <option>2</option>
+      <option>8</option>
+      <option>10</option>
+      <option selected="selected">16</option>
+      <option>32</option>
+    </select>
 進数表記
-</label>
+  </label>
   <button class="run" onclick="My_code2str();">スカラ値から変換</button>
 結果out
 </div>
 <hr>
-<label for="output_utf16">
-UTF-16:
-</label>
+
+<div>
+  <label for="output_utf16">UTF-16:</label>
   <button class="cF" onclick="My_postset_utf16();" title="変換結果を変換対象に再セット">out ⇒ text</button>
+<br>
   <textarea id="output_utf16" readonly="readonly" rows="5" onclick="this.focus();this.select();"></textarea>
 <br>
-<label for="output_utf8">
-UTF-8:
-</label>
+  <label for="output_utf8">UTF-8:</label>
   <button class="cF" onclick="My_postset_utf8();" title="変換結果を変換対象に再セット">out ⇒ text</button>
 IE非対応
+<br>
   <textarea id="output_utf8" readonly="readonly" rows="5" onclick="this.focus();this.select();"></textarea>
 </div>
-
 <hr>
 
   </div>
