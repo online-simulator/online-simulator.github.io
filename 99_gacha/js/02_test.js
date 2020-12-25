@@ -59,41 +59,44 @@ My_gacha.prototype.make_table_id = function(){
       }
     }
   });
-  _str_table = self.arr2str(arr_item);
-  My$_id("input-len_table").value = len_table;
-  My$_id("table").value = self.display_sw("table", arr_item);
-  My$_id("len_table").value = arr_item.length;
   arr_rarity.forEach(function(rarity){
     self.setter.counter(rarity);
   });
   self.setter.rarity(arr_rarity);
-  return _str_table;
+  self.set_table(arr_item);
+  My$_id("input-len_table").value = len_table;
+  // not len_table
+  My$_id("len_table").value = self.table.length;
+  My$_id("table").value = self.display_sw("table", self.table);
+  return self;
 };
 My_gacha.prototype.display_sw = function(sw, arr){
   var self = this;
   var _str = "";
   var len = arr.length;
-  var str = self.arr2str(arr);
-  var q = (My$_id("checkbox-arr_"+sw).checked)? "\'": "";
-  _str = self.replace_str(str, q);
-  _str = (len < self.len_MAX_display[sw])? _str: "中身非表示でガチャ実行可";
+  if(len < self.len_MAX_display[sw]){
+    var str = self.arr2str(arr);
+    var q = (My$_id("checkbox-arr_"+sw).checked)? "\'": "";
+    _str = self.replace_str(str, q);
+  }
+  else{
+    _str = "中身非表示でガチャ実行可";
+  }
   return _str;
 };
 My_gacha.prototype.display_table_id = function(){
   var self = this;
-  var str = My$_id("table").value;
-  My$_id("table").value = self.display_sw("table", self.str2arr(str));
+  My$_id("table").value = self.display_sw("table", self.table);
   return self;
 };
 My_gacha.prototype.display_box_id = function(){
   var self = this;
-  var str = My$_id("box").value;
-  My$_id("box").value = self.display_sw("box", self.str2arr(str));
+  My$_id("box").value = self.display_sw("box", self.box);
   return self;
 };
 My_gacha.prototype.set_table_id = function(){
   var self = this;
-  self.set_table(self.make_table_id());
+  self.make_table_id();
   return self;
 };
 My_gacha.prototype.set_box_id = function(){
@@ -105,9 +108,8 @@ My_gacha.prototype.set_box_id = function(){
 };
 My_gacha.prototype.update_box_id = function(){
   var self = this;
-  var box = self.box;
-  My$_id("len_box").value = box.length;
-  My$_id("box").value = self.display_sw("box", box);
+  My$_id("len_box").value = self.box.length;
+  My$_id("box").value = self.display_sw("box", self.box);
   My$_id("index_box").value = self.index;
   return self;
 };
