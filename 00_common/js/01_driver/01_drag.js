@@ -22,8 +22,8 @@ My_drag.prototype.add_handler = function(opt_handler){
   var self = this;
   var handler = opt_handler || {};
 ////////////////////////////////////////////////////////////
-  My$set(self.id, "position", "absolute");
-  My$set(self.id, "draggable", true);
+  My$set_id(self.id, "position", "absolute");
+  My$set_id(self.id, "draggable", true);
 ////////////////////////////////////////////////////////////
   self.event.forEach(function(event){
     switch(event){
@@ -35,8 +35,8 @@ My_drag.prototype.add_handler = function(opt_handler){
           }
         };
 ////////////////////////////////////////////////////////////
-        My$set(self.id, event, self.handler[event]);
-        My$set(self.id, self.touch[event], self.handler[event]);
+        My$set_id(self.id, event, self.handler[event]);
+        My$set_id(self.id, self.touch[event], self.handler[event]);
 ////////////////////////////////////////////////////////////
         break;
       case "ondragover":
@@ -48,8 +48,8 @@ My_drag.prototype.add_handler = function(opt_handler){
           }
         };
 ////////////////////////////////////////////////////////////
-        My$set(self.id, event, self.handler[event]);
-        My$set(self.id, self.touch[event], self.handler[event]);
+        My$set_id(self.id, event, self.handler[event]);
+        My$set_id(self.id, self.touch[event], self.handler[event]);
 ////////////////////////////////////////////////////////////
         break;
       default:
@@ -61,12 +61,12 @@ My_drag.prototype.add_handler = function(opt_handler){
 My_drag.prototype.remove_handler = function(){
   var self = this;
 ////////////////////////////////////////////////////////////
-  My$set(self.id, "draggable", false);
+  My$set_id(self.id, "draggable", false);
 ////////////////////////////////////////////////////////////
   self.event.forEach(function(event){
 ////////////////////////////////////////////////////////////
-    My$set(self.id, event, null);
-    My$set(self.id, self.touch[event], null);
+    My$set_id(self.id, event, null);
+    My$set_id(self.id, self.touch[event], null);
 ////////////////////////////////////////////////////////////
     self.handler[event] = null;
   });
@@ -85,8 +85,8 @@ My_drag.prototype.set_offset = function(e){
     var left = (self.offset0.left+(client.x-self.client0.x))+"px";
     var top = (self.offset0.top+(client.y-self.client0.y))+"px";
 ////////////////////////////////////////////////////////////
-    My$set(self.id, "left", left);
-    My$set(self.id, "top", top);
+    My$set_id(self.id, "left", left);
+    My$set_id(self.id, "top", top);
 ////////////////////////////////////////////////////////////
   }
   return self;

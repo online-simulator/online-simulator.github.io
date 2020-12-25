@@ -11,8 +11,8 @@ function My$(selector, element){
 function My$0(selector, element){
   return My$(selector, element);
 }
-function My$_id(selector){
-  return document.getElementById(selector);
+function My$_id(id){
+  return document.getElementById(id);
 }
 function My$0_tag(selector){
   return My$list_tag(selector)[0];
@@ -31,8 +31,8 @@ function My$arr(selector, element){
   var element = element || document;
   return Array.prototype.slice.call(element.querySelectorAll(selector));
 }
-function My$set(selector, prop, val){
-  var dom = My$_id(selector);
+function My$set_id(id, prop, val){
+  var dom = My$_id(id);
   if(dom){
     if(typeof dom[prop] !== "undefined"){
       dom[prop] = val;
@@ -46,7 +46,7 @@ function My$select_id(id){
   var dom = My$_id(id);
   return dom.options[dom.selectedIndex];
 }
-function My$add_first(id, elem){
+function My$add_first_id(id, elem){
   var parent = My$_id(id);
   var child = parent.firstChild;
   parent.insertBefore(elem, child);
