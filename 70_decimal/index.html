@@ -27,7 +27,8 @@
   var My_handler = null;
   (function(document){
     document.body.onload = function(e){
-      My_handler = new My_handler_dom().init_drag("div-drag", "checkbox-drag", {}).drag_checkbox();
+      My_handler = new My_handler_dom().__drag__.init("div-drag", "checkbox-drag", {});
+      My_handler.switch();
       My_run_n2dec();
     };
   })(document);
@@ -36,7 +37,7 @@
 
 <div class="text-center">
   <label>ドラッグ移動可
-    <input id="checkbox-drag" type="checkbox" onchange="My_handler.drag_checkbox();" />
+    <input id="checkbox-drag" type="checkbox" onchange="My_handler.switch();" />
   </label>
 </div>
 <hr>
