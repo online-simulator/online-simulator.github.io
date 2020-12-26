@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+
+<html lang="ja">
+
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <meta name="description" content="ダウンロードリンク" />
+  <meta name="author" content="online-simulator.github.io" />
+  <noscript>Javascript is not enabled on your browser.</noscript>
+  <link rel="stylesheet" type="text/css" href="../00_common/css/common.css" />
+  <link rel="stylesheet" type="text/css" href="../00_common/css/color.css" />
+  <link rel="stylesheet" type="text/css" href="../00_common/css/size.css" />
+  <link rel="stylesheet" type="text/css" href="css/common.css" />
+  <link rel="stylesheet" type="text/css" href="css/color.css" />
+  <link rel="stylesheet" type="text/css" href="css/size.css" />
+  <script type="text/javascript" src="../00_common/js/00_class/00_$.js"></script>
+  <script type="text/javascript" src="../00_common/js/00_class/00_conv.js"></script>
+  <script type="text/javascript" src="../00_common/js/00_class/01_config.js"></script>
+  <script type="text/javascript" src="../00_common/js/01_driver/01_browser.js"></script>
+  <script type="text/javascript" src="../00_common/js/01_driver/01_io.js"></script>
+  <script type="text/javascript" src="../00_common/js/01_driver/01_link.js"></script>
+  <script type="text/javascript" src="../00_common/js/01_driver/02_handler_link.js"></script>
+  <script type="text/javascript" src="js/02_link.js"></script>
+</head>
+
+<body>
+  <div>
+
+<script type="text/javascript">
+  (function(document){
+    document.body.onload = function(e){
+//      My_create_link("output", true);
+    };
+  })(document);
+</script>
+<hr>
+
+<div>
+動的に変わるreadonly要素の値を取得してファイルに保存する機能の実装テスト
+</div>
+<hr>
+
+<div>
+ダウンロードリンクに対してonclickイベントを使用しない実装を目指したが、
+<br>
+保存対象とするreadonly要素のonchangeイベントをフックする手段がなく断念
+<br>
+⇒　リンクのonclickイベントでreadonly要素の値を取得してurl更新後に保存する
+</div>
+<hr>
+
+<div class="text-center">
+  <label>ファイル名:
+    <input id="input-name" class="width-auto" value="download" />
+    連番.txt
+  </label>
+　
+  <button class="run" onclick="My_create_link();">リンク生成</button>
+</div>
+<hr>
+
+<div>
+  <div id="wrapper-link"></div>
+</div>
+<hr>
+
+  </div>
+</body>
+
+</html>
