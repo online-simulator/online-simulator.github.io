@@ -51,3 +51,19 @@ function My$add_first_id(id, elem){
   var child = parent.firstChild;
   parent.insertBefore(elem, child);
 }
+function My$add_first_dom(dom, elem){
+  var parent = dom;
+  var child = parent.firstChild;
+  parent.insertBefore(elem, child);
+}
+function My$add_last_id(id, elem){
+  var parent = My$_id(id);
+  parent.appendChild(elem);
+}
+function My$add_last_dom(dom, elem){
+  var parent = dom;
+  parent.appendChild(elem);
+}
+function My$bind(self, fn){
+  return fn.bind(self);
+}
