@@ -14,6 +14,12 @@
   <link rel="stylesheet" type="text/css" href="css/color.css" />
   <link rel="stylesheet" type="text/css" href="css/size.css" />
   <script type="text/javascript" src="../00_common/js/00_class/00_$.js"></script>
+  <script type="text/javascript" src="../00_common/js/00_class/00_conv.js"></script>
+  <script type="text/javascript" src="../00_common/js/00_class/01_config.js"></script>
+  <script type="text/javascript" src="../00_common/js/01_driver/01_browser.js"></script>
+  <script type="text/javascript" src="../00_common/js/01_driver/01_io.js"></script>
+  <script type="text/javascript" src="../00_common/js/01_driver/01_link.js"></script>
+  <script type="text/javascript" src="../00_common/js/01_driver/02_handler_link.js"></script>
   <script type="text/javascript" src="js/02_replace.js"></script>
 </head>
 
@@ -24,6 +30,8 @@
   (function(document){
     document.body.onload = function(e){
       My_output_command();
+      var json = {p: {id: "wrapper-link"}, a: {id: "a", it: "download"}, o: {id: "output"}};
+      var handler = new My_handler_link(json);
     };
   })(document);
 </script>
@@ -74,6 +82,9 @@
   <button class="run" onclick="My_run_replace();" title="Javascript書式命令を実行">置換実行</button>
 <br>
   <textarea id="output" readonly="readonly" rows="5" onclick="this.focus();this.select();"></textarea>
+</div>
+<div>
+  <div id="wrapper-link"></div>
 </div>
 <hr>
 
