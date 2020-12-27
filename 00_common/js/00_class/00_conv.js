@@ -21,7 +21,7 @@ My_conv.blob2url = function(blob){
   return _url;
 };
 My_conv.text2url = function(text){
-  var blob = new Blob([text], {"type":"text/plain"});
+  var blob = new Blob([text], {type: "text/plain"});
   return My_conv.blob2url(blob);
 };
 My_conv.dec2n = function(val, n){
