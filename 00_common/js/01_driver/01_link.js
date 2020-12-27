@@ -18,7 +18,7 @@ My_link.prototype.set_url = function(text, type){
     default:
       self.name = self.name || "download.txt";
       self.blob = new Blob([text], {type: "text/plain"});
-      self.url = My_conv.text2url(text);
+      self.url = My_conv.blob2url(self.blob);
       break;
   }
   return self;

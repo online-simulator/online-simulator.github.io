@@ -33,7 +33,9 @@ My_handler_link.prototype.create_dom = function(isIB){
   self.dom.a.innerText = self.a.it;
   self.dom.a.onclick = function(e){
     self.save_text(true);
-//    e.preventDefault();
+    if(self.browser.sw.isIE){
+      e.preventDefault();
+    }
 //    e.stopPropagation();
   };
   if(!self.dom_o && self.o){

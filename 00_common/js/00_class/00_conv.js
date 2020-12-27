@@ -12,14 +12,17 @@ My_conv.fn2url = function(fn){
   }
   return _url;
 };
-My_conv.text2url = function(text){
+My_conv.blob2url = function(blob){
   var _url = null;
-  var blob = new Blob([text], {"type":"text/plain"});
   var URL = window.URL || window.webkitURL;
   if(URL){
     _url = URL.createObjectURL(blob);
   }
   return _url;
+};
+My_conv.text2url = function(text){
+  var blob = new Blob([text], {"type":"text/plain"});
+  return My_conv.blob2url(blob);
 };
 My_conv.dec2n = function(val, n){
   return parseInt(val).toString(parseInt(n));
