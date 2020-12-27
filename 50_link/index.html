@@ -45,12 +45,16 @@
 <br>
 保存対象とするreadonly要素のonchangeイベントをフックする手段がなく断念
 <br>
-⇒　リンクのonclickイベントでreadonly要素の値を取得してurl更新後に保存する
+⇒　リンクのonclickイベントでreadonly要素の値を取得してurl更新後に既定の動作で保存する
+<br>
+　・event.preventDefault()は使用しない（既定の動作を抑止しない）
+<br>
+　・event.stopPropagation()は使用しない（既定以外へのイベント伝播も抑止しない）
 </div>
 <hr>
 
 <div class="text-center">
-  <label>ファイル名:
+  <label>保存ファイル名:
     <input id="input-name" class="width-auto" value="download" />
     連番.txt
   </label>
