@@ -2,16 +2,6 @@ function My_conv(){
 }
 
 // class method
-My_conv.fn2url = function(fn){
-  var _url = null;
-  var str_fn = "("+fn.toString()+")()";
-  var blob = new Blob([str_fn], {type: "application/javascript"});
-  var URL = window.URL || window.webkitURL;
-  if(URL){
-    _url = URL.createObjectURL(blob);
-  }
-  return _url;
-};
 My_conv.blob2url = function(blob){
   var _url = null;
   var URL = window.URL || window.webkitURL;
@@ -19,6 +9,11 @@ My_conv.blob2url = function(blob){
     _url = URL.createObjectURL(blob);
   }
   return _url;
+};
+My_conv.fn2url = function(fn){
+  var str_fn = "("+fn.toString()+")()";
+  var blob = new Blob([str_fn], {type: "application/javascript"});
+  return My_conv.blob2url(blob);
 };
 My_conv.text2url = function(text){
   var blob = new Blob([text], {type: "text/plain"});
