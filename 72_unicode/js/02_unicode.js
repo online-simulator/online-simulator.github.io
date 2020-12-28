@@ -1,7 +1,7 @@
 "use strict";
 
 function My_str2code(){
-  var n = My$select_id("select-n").innerText;
+  var n = My$select_id("select-n").textContent;
   var input = My$_id("input").value;
   var output_utf16 = "";
   var output_utf8 = "";
@@ -21,7 +21,7 @@ function My_str2code(){
   My$_id("output_utf8").value = output_utf8;
 }
 function My_code2str(){
-  var n = My$select_id("select-n").innerText;
+  var n = My$select_id("select-n").textContent;
   var input = My$_id("input").value;
   var output_utf16 = "";
   var output_utf8 = "";
