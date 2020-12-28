@@ -59,7 +59,7 @@ My_handler_link.prototype.create_elem = function(isIB){
   }
   var add = (isIB)? My$add_first_elem: My$add_last_elem;
   for(var prop in self.elem){
-    add(self.elem_p, self.elem[prop]);
+    add(self.elem[prop], self.elem_p);
   }
   return self;
 };
