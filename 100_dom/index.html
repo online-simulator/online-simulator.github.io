@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+
+<html lang="ja">
+
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <meta name="description" content="[用語]DOM・ノード・要素の区別" />
+  <meta name="author" content="online-simulator.github.io" />
+  <noscript>Javascript is not enabled on your browser.</noscript>
+  <link rel="stylesheet" type="text/css" href="../00_common/css/common.css" />
+  <link rel="stylesheet" type="text/css" href="../00_common/css/color.css" />
+  <link rel="stylesheet" type="text/css" href="../00_common/css/size.css" />
+  <link rel="stylesheet" type="text/css" href="css/common.css" />
+  <link rel="stylesheet" type="text/css" href="css/color.css" />
+  <link rel="stylesheet" type="text/css" href="css/size.css" />
+</head>
+
+<body>
+  <div>
+    <table class="border">
+      <caption>[reference]developer.mozilla.org</caption>
+      <thead>
+        <tr class="border">
+          <td class="border">
+用語
+          </td>
+          <td class="border">
+説明
+          </td>
+        </tr>
+      </thead>
+      <tbody>
+        <tr class="border">
+          <td class="border">
+DOM
+          </td>
+          <td class="border">
+Document Object Model
+<br>
+・プログラムから文書を操作するインターフェースを提供する
+<br>
+・文書をオブジェクトのツリー構造で表すモデル体系
+<br>
+・協調して動作する複数のAPIから構成される
+<br>
+　文書　⇔　複数のAPI　⇔　JavaScript
+          </td>
+        </tr>
+        <tr class="border">
+          <td class="border">
+EventTarget
+          </td>
+          <td class="border">
+Nodeの親となるインターフェース
+<br>
+window等
+          </td>
+        </tr>
+        <tr class="border">
+          <td class="border">
+Node
+          </td>
+          <td class="border">
+Elementの親となるインターフェース
+<br>
+プロパティ: textContent等
+          </td>
+        </tr>
+        <tr class="border">
+          <td class="border">
+Element
+          </td>
+          <td class="border">
+HTMLELementの親となるインターフェース
+<br>
+プロパティ: innerHTML等
+          </td>
+        </tr>
+        <tr class="border">
+          <td class="border">
+HTMLElement
+          </td>
+          <td class="border">
+任意のHTML要素を表すインターフェース
+<br>
+プロパティ: innerText他、親から継承した全プロパティ
+          </td>
+        </tr>
+        <tr class="border">
+          <td class="border">
+要素ノード
+<br>
+テキストノード
+          </td>
+          <td class="border">
+文書内の任意タグで記述される要素のオブジェクト
+<br>
+文書内の空白やテキストコンテンツのオブジェクト
+          </td>
+        </tr>
+        <tr class="border">
+          <td class="border">
+ブロックレベル要素
+<br>
+インライン要素
+          </td>
+          <td class="border">
+要素を入れ子にできるHTMLのdiv等
+<br>
+ブロックレベル要素を入れ子にできないHTMLのspan等
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</body>
+
+</html>
