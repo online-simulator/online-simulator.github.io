@@ -82,14 +82,14 @@ My_drag.prototype.set_offset0 = function(e){
 My_drag.prototype.set_offset = function(e){
   var self = this;
   var parent = self.elem_p;
+  var client0 = self.client0;
+  var offset0 = self.offset0;
   var client = self.get_client(e);
   if(client){
-    var left = parent.scrollLeft;
-        left += self.offset0.left;
-        left += (client.x-self.client0.x);
-    var top = parent.scrollTop;
-        top += self.offset0.top;
-        top += (client.y-self.client0.y);
+    var left = parent.scrollLeft+offset0.left;
+        left += (client.x-client0.x);
+    var top = parent.scrollTop+offset0.top;
+        top += (client.y-client0.y);
 ////////////////////////////////////////////////////////////
     My$set_id(self.id, "left", left+"px");
     My$set_id(self.id, "top", top+"px");
@@ -110,4 +110,3 @@ My_drag.prototype.get_client = function(e){
   var _client = (e)? {x: e.clientX, y: e.clientY}: false;
   return _client;
 };
-
