@@ -30,9 +30,9 @@ My_gacha.prototype.make_table_id = function(){
       ep: 0,
       en: 0
     };
-    list[rarity].num = Number(My$select_id("select-n"+rarity).innerText);
+    list[rarity].num = Number(My$select_id("select-n"+rarity).textContent);
     if(rarity !== rarity_normal){
-      list[rarity].prob = Number(My$select_id("select-p"+rarity).innerText);
+      list[rarity].prob = Number(My$select_id("select-p"+rarity).textContent);
     }
     prob_N -= list[rarity].prob;
   });
@@ -101,7 +101,7 @@ My_gacha.prototype.set_table_id = function(){
 };
 My_gacha.prototype.set_box_id = function(){
   var self = this;
-  var k = Number(My$select_id("select-k").innerText);
+  var k = Number(My$select_id("select-k").textContent);
   self.set_box(k);
   self.update_box_id();
   return self;
