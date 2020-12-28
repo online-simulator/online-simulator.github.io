@@ -32,27 +32,27 @@ function My$arr(selector, element){
   return Array.prototype.slice.call(element.querySelectorAll(selector));
 }
 function My$set_id(id, prop, val){
-  var dom = My$_id(id);
-  if(dom){
-    if(typeof dom[prop] !== "undefined"){
-      dom[prop] = val;
+  var elem = My$_id(id);
+  if(elem){
+    if(typeof elem[prop] !== "undefined"){
+      elem[prop] = val;
     }
-    if(typeof dom.style[prop] !== "undefined"){
-      dom.style[prop] = val;
+    if(typeof elem.style[prop] !== "undefined"){
+      elem.style[prop] = val;
     }
   }
 }
 function My$select_id(id){
-  var dom = My$_id(id);
-  return dom.options[dom.selectedIndex];
+  var elem = My$_id(id);
+  return elem.options[elem.selectedIndex];
 }
 function My$add_first_id(id, elem){
   var parent = My$_id(id);
   var child = parent.firstChild;
   parent.insertBefore(elem, child);
 }
-function My$add_first_dom(dom, elem){
-  var parent = dom;
+function My$add_first_elem(elem, elem){
+  var parent = elem;
   var child = parent.firstChild;
   parent.insertBefore(elem, child);
 }
@@ -60,8 +60,8 @@ function My$add_last_id(id, elem){
   var parent = My$_id(id);
   parent.appendChild(elem);
 }
-function My$add_last_dom(dom, elem){
-  var parent = dom;
+function My$add_last_elem(elem, elem){
+  var parent = elem;
   parent.appendChild(elem);
 }
 function My$bind(self, fn){

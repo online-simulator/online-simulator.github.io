@@ -7,7 +7,8 @@ function My_drag(id, opt_handler){
 My_drag.prototype.init = function(id, opt_handler){
   var self = this;
   self.id = id;
-  self.dom = My$_id(self.id);
+  self.elem = My$_id(self.id);
+  self.elem_p = (self.elem)? self.elem.parentElement || document.body: self.elem;
   self.event = ["ondragstart", "ondragover", "ondragend"];
   self.touch = {
     ondragstart: "ontouchstart",
@@ -80,20 +81,25 @@ My_drag.prototype.set_offset0 = function(e){
 };
 My_drag.prototype.set_offset = function(e){
   var self = this;
+  var parent = self.elem_p;
   var client = self.get_client(e);
   if(client){
-    var left = (self.offset0.left+(client.x-self.client0.x))+"px";
-    var top = (self.offset0.top+(client.y-self.client0.y))+"px";
+    var left = parent.scrollLeft;
+        left += self.offset0.left;
+        left += (client.x-self.client0.x);
+    var top = parent.scrollTop;
+        top += self.offset0.top;
+        top += (client.y-self.client0.y);
 ////////////////////////////////////////////////////////////
-    My$set_id(self.id, "left", left);
-    My$set_id(self.id, "top", top);
+    My$set_id(self.id, "left", left+"px");
+    My$set_id(self.id, "top", top+"px");
 ////////////////////////////////////////////////////////////
   }
   return self;
 };
 My_drag.prototype.get_offset = function(){
   var self = this;
-  return {left: self.dom.offsetLeft, top: self.dom.offsetTop};
+  return {left: self.elem.offsetLeft, top: self.elem.offsetTop};
 };
 My_drag.prototype.get_client = function(e){
   var self = this;
