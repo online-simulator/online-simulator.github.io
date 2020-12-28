@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+
+<html lang="ja">
+
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <meta name="description" content="[覚書]BOM(Byte Order Mark)" />
+  <meta name="author" content="online-simulator.github.io" />
+  <noscript>Javascript is not enabled on your browser.</noscript>
+  <link rel="stylesheet" type="text/css" href="../00_common/css/common.css" />
+  <link rel="stylesheet" type="text/css" href="../00_common/css/color.css" />
+  <link rel="stylesheet" type="text/css" href="../00_common/css/size.css" />
+  <link rel="stylesheet" type="text/css" href="css/common.css" />
+  <link rel="stylesheet" type="text/css" href="css/color.css" />
+  <link rel="stylesheet" type="text/css" href="css/size.css" />
+</head>
+
+<body>
+  <div>
+    <table class="border">
+      <caption>[Reference]wikipedia.org</caption>
+      <thead>
+        <tr class="border">
+          <td class="border">
+符号化形式
+          </td>
+          <td class="border">
+環境依存のエンディアン（メモリでのByte順序）
+<br>
+マルチバイト文字のByte順序が標準出力に影響
+          </td>
+          <td class="border">
+BOM(Byte Order Mark)
+<br>
+Byte順序を区別する印
+          </td>
+        </tr>
+      </thead>
+      <tbody>
+        <tr class="border">
+          <td class="border">
+UTF-8
+          </td>
+          <td class="border">
+1Byte毎に処理するので影響なし
+          </td>
+          <td class="border">
+0xEF 0xBB 0xBF
+<br>
+現在はBOMなし推奨
+          </td>
+        </tr>
+        <tr class="border">
+          <td class="border">
+UTF-16
+          </td>
+          <td class="border">
+BMP以外の4Bytes文字を含む場合BOMによる明示が必要
+<br>
+BE/Big Endian/Most Significant Byte first（下記）
+<br>
+LE/Little Endian/Least Significant Byte first（下記）
+          </td>
+          <td class="border">
+<br>
+0xFE 0xFF
+<br>
+0xFF 0xFE
+          </td>
+        </tr>
+        <tr class="border">
+          <td class="border">
+UTF-16BE
+          </td>
+          <td class="border">
+BE/上位Byteがメモリの下位アドレスに格納される場合
+<br>
+または上位Byteから先に標準出力する場合
+          </td>
+          <td class="border">
+付与不可
+          </td>
+        </tr>
+        <tr class="border">
+          <td class="border">
+UTF-16LE
+          </td>
+          <td class="border">
+LE/下位Byteがメモリの下位アドレスに格納される場合
+<br>
+または下位Byteから先に標準出力する場合
+          </td>
+          <td class="border">
+付与不可
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</body>
+
+</html>
