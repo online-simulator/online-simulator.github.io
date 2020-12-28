@@ -47,10 +47,11 @@ function My$select_id(id){
   return elem.options[elem.selectedIndex];
 }
 function My$add_first_id(elem, id){
-  parent.insertBefore(elem, My$_id(id).firstChild);
+  var parent = My$_id(id);
+  parent.insertBefore(elem, parent.firstChild);
 }
 function My$add_first_elem(elem, elem_p){
-  parent.insertBefore(elem, elem_p.firstChild);
+  elem_p.insertBefore(elem, elem_p.firstChild);
 }
 function My$add_last_id(elem, id){
   My$_id(id).appendChild(elem);
