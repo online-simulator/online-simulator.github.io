@@ -4,6 +4,6 @@ function My_config(){
 // Static
 My_config.REFERRER = {
   html: "innerHTML",
-  text: "innerText",
+  text: "textContent",
   value: "value"
 };

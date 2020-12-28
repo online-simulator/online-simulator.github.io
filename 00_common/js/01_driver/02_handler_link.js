@@ -30,7 +30,7 @@ My_handler_link.prototype.create_elem = function(isIB){
   var self = this;
   self.elem.a = document.createElement("a");
   self.elem.a.id = self.a.id;
-  self.elem.a.innerText = self.a.it;
+  self.elem.a.textContent = self.a.it;
   self.elem.a.onclick = function(e){
     self.save_text(true);
     if(self.browser.sw.isIE){
