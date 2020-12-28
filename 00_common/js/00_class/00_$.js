@@ -47,14 +47,15 @@ function My$select_id(id){
   return elem.options[elem.selectedIndex];
 }
 function My$add_first_id(elem, id){
-  var parent = My$_id(id);
-  parent.insertBefore(elem, parent.firstChild);
+  var elem_p = My$_id(id);
+  elem_p.insertBefore(elem, elem_p.firstChild);
 }
 function My$add_first_elem(elem, elem_p){
   elem_p.insertBefore(elem, elem_p.firstChild);
 }
 function My$add_last_id(elem, id){
-  My$_id(id).appendChild(elem);
+  var elem_p = My$_id(id);
+  elem_p.appendChild(elem);
 }
 function My$add_last_elem(elem, elem_p){
   elem_p.appendChild(elem);
