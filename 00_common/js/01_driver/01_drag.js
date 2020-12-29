@@ -47,25 +47,25 @@ My_drag.prototype.set_handler0 = function(){
 };
 My_drag.prototype.add_handler = function(opt_handler){
   var self = this;
-  var handler = opt_handler || {};
+  var opt_handler = opt_handler || {};
   var handler0 = self.handler0;
 ////////////////////////////////////////////////////////////
   My$set_elem(self.elem, "draggable", true);
 ////////////////////////////////////////////////////////////
   self.event.forEach(function(event){
-    self.handler[event] = function(e){
+    var handler = function(e){
       if(handler0[event]){
         handler0[event](e);
       }
-      if(handler[event]){
-        handler[event](e);
+      if(opt_handler[event]){
+        opt_handler[event](e);
       }
     }
-    handler = self.handler[event];
 ////////////////////////////////////////////////////////////
     My$set_elem(self.elem, event, handler);
     My$set_elem(self.elem, self.touch[event], handler);
 ////////////////////////////////////////////////////////////
+    self.handler[event] = handler;
   });
   return self;
 };
