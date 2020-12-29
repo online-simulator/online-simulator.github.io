@@ -26,7 +26,7 @@ My_handler_link.prototype.save_text = function(isOnclick){
   self.browser.save_file(self.link, isOnclick);
   return self;
 };
-My_handler_link.prototype.create_elem = function(isIB){
+My_handler_link.prototype.create_elem_a = function(){
   var self = this;
   self.elem.a = document.createElement("a");
   self.elem.a.id = self.a.id;
@@ -38,6 +38,10 @@ My_handler_link.prototype.create_elem = function(isIB){
     }
 //    e.stopPropagation();
   };
+  return self;
+};
+My_handler_link.prototype.create_elem_o = function(){
+  var self = this;
   if(!self.elem_o && self.o){
     self.elem.o = document.createElement(self.o.tag || "span");
     if(self.o.id){
@@ -57,6 +61,12 @@ My_handler_link.prototype.create_elem = function(isIB){
       self.save_text();
     };
   }
+  return self;
+};
+My_handler_link.prototype.create_elem = function(isIB){
+  var self = this;
+  self.create_elem_a();
+  self.create_elem_o();
   var add = (isIB)? My$add_first_elem: My$add_last_elem;
   for(var prop in self.elem){
     add(self.elem[prop], self.elem_p);
