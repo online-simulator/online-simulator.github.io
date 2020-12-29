@@ -14,11 +14,10 @@ My_def.mix_in = function(Sub, Supers){
   }
   return Sub;
 };
-My_def.bind_handler = function(handler, self){
+My_def.bind_handlers = function(self, handlers){
   var self = self || this;
-  // bind "this" to self from window
-  for(var onevent in handler){
-    handler[onevent] = handler[onevent].bind(self);
+  for(var onevent in handlers){
+    handlers[onevent] = handlers[onevent].bind(self);
   }
   return self;
 };
