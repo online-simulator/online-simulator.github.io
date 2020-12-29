@@ -58,7 +58,7 @@ My_drag.prototype.get_handler = function(onevent, opt_handlers){
     if(opt_handlers && opt_handlers[onevent]){
       opt_handlers[onevent](e);
     }
-  }
+  };
   return _handler;
 };
 My_drag.prototype.add_handler = function(opt_handlers){
