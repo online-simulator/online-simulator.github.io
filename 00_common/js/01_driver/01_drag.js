@@ -45,22 +45,27 @@ My_drag.prototype.set_handler0 = function(){
   });
   return self;
 };
+My_drag.prototype.get_handler = function(event, opt_handler){
+  var self = this;
+  var _handler = null;
+  var handler0 = self.handler0;
+  _handler = function(e){
+    if(handler0[event]){
+      handler0[event](e);
+    }
+    if(opt_handler && opt_handler[event]){
+      opt_handler[event](e);
+    }
+  }
+  return _handler;
+};
 My_drag.prototype.add_handler = function(opt_handler){
   var self = this;
-  var opt_handler = opt_handler || {};
-  var handler0 = self.handler0;
 ////////////////////////////////////////////////////////////
   My$set_elem(self.elem, "draggable", true);
 ////////////////////////////////////////////////////////////
   self.event.forEach(function(event){
-    var handler = function(e){
-      if(handler0[event]){
-        handler0[event](e);
-      }
-      if(opt_handler[event]){
-        opt_handler[event](e);
-      }
-    }
+    var handler = self.get_handler(event, opt_handler);
 ////////////////////////////////////////////////////////////
     My$set_elem(self.elem, event, handler);
     My$set_elem(self.elem, self.touch[event], handler);
