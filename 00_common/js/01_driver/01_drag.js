@@ -8,7 +8,7 @@ My_drag.prototype.init = function(id, opt_handler){
   var self = this;
   self.id = id;
   self.elem = My$_id(self.id);
-  self.elem_p = (self.elem)? self.elem.parentElement || document.body: self.elem;
+  self.elem_p = (self.elem)? self.elem.parentElement: self.elem;
   self.event = ["ondragstart", "ondragover", "ondragend"];
   self.touch = {
     ondragstart: "ontouchstart",
@@ -81,11 +81,11 @@ My_drag.prototype.set_offset0 = function(e){
 };
 My_drag.prototype.set_offset = function(e){
   var self = this;
-  var parent = self.elem_p;
-  var client0 = self.client0;
-  var offset0 = self.offset0;
   var client = self.get_client(e);
   if(client){
+    var parent = self.elem_p;
+    var client0 = self.client0;
+    var offset0 = self.offset0;
     var left = parent.scrollLeft+offset0.left;
         left += (client.x-client0.x);
     var top = parent.scrollTop+offset0.top;
