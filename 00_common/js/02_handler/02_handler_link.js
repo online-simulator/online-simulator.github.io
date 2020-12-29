@@ -14,8 +14,8 @@ My_handler_link.prototype.init = function(json){
   self.io = new My_io();
   self.elem_p = My$_id(self.p.id);
   self.elem_o = (self.o)? My$_id(self.o.id): null;
-  self.elem = {};
-  self.create_elem(json.isIB);
+  self.elems = {};
+  self.create_elems(json.isIB);
   self.save_text();
   return self;
 };
@@ -28,10 +28,10 @@ My_handler_link.prototype.save_text = function(isOnclick){
 };
 My_handler_link.prototype.create_elem_a = function(){
   var self = this;
-  self.elem.a = document.createElement("a");
-  self.elem.a.id = self.a.id;
-  self.elem.a.textContent = self.a.it;
-  self.elem.a.onclick = function(e){
+  self.elems.a = document.createElement("a");
+  self.elems.a.id = self.a.id;
+  self.elems.a.textContent = self.a.it;
+  self.elems.a.onclick = function(e){
     self.save_text(true);
     if(self.browser.sw.isIE){
       e.preventDefault();
@@ -43,11 +43,11 @@ My_handler_link.prototype.create_elem_a = function(){
 My_handler_link.prototype.create_elem_o = function(){
   var self = this;
   if(!self.elem_o && self.o){
-    self.elem.o = document.createElement(self.o.tag || "span");
+    self.elems.o = document.createElement(self.o.tag || "span");
     if(self.o.id){
-      self.elem.o.id = self.o.id;
+      self.elems.o.id = self.o.id;
     }
-    self.elem_o = self.elem.o;
+    self.elem_o = self.elems.o;
   }
   if(self.elem_o){
 /*
@@ -63,13 +63,13 @@ My_handler_link.prototype.create_elem_o = function(){
   }
   return self;
 };
-My_handler_link.prototype.create_elem = function(isIB){
+My_handler_link.prototype.create_elems = function(isIB){
   var self = this;
   self.create_elem_a();
   self.create_elem_o();
   var add = (isIB)? My$add_first_elem: My$add_last_elem;
-  for(var prop in self.elem){
-    add(self.elem[prop], self.elem_p);
+  for(var prop in self.elems){
+    add(self.elems[prop], self.elem_p);
   }
   return self;
 };

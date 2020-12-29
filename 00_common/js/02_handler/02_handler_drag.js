@@ -14,10 +14,10 @@ My_handler_drag.prototype.init = function(id_drag, id_checkbox, opt_handlers){
 My_handler_drag.prototype.switch = function(opt_handlers){
   var self = this;
   if(self.checkbox.checked){
-    self.drag.add_handler(opt_handlers || self.handlers);
+    self.drag.add_handlers(opt_handlers || self.handlers);
   }
   else{
-    self.drag.remove_handler();
+    self.drag.remove_handlers();
   }
   return self;
 };

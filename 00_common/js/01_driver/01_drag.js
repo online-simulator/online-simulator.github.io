@@ -18,7 +18,7 @@ My_drag.prototype.init = function(id, opt_handlers){
   self.handlers = {};
   self.handlers0 = {};
   self.set_handlers0();
-  self.add_handler(opt_handlers);
+  self.add_handlers(opt_handlers);
   return self;
 };
 My_drag.prototype.set_handlers0 = function(){
@@ -61,7 +61,7 @@ My_drag.prototype.get_handler = function(onevent, opt_handlers){
   };
   return _handler;
 };
-My_drag.prototype.add_handler = function(opt_handlers){
+My_drag.prototype.add_handlers = function(opt_handlers){
   var self = this;
 ////////////////////////////////////////////////////////////
   My$set_elem(self.elem, "draggable", true);
@@ -76,7 +76,7 @@ My_drag.prototype.add_handler = function(opt_handlers){
   });
   return self;
 };
-My_drag.prototype.remove_handler = function(){
+My_drag.prototype.remove_handlers = function(){
   var self = this;
 ////////////////////////////////////////////////////////////
   My$set_elem(self.elem, "draggable", false);
