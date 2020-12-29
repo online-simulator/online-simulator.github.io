@@ -3,6 +3,9 @@
 body{
   width: 100%;
 }
+input[type="checkbox"]{
+  width: auto;
+}
 
 .width-max{
   width: 100%;
