@@ -37,6 +37,20 @@ My_io.prototype.clear_text = function(elem){
   self.write_text(elem, "");
   return self;
 };
+My_io.prototype.clear_all_text = function(arg){
+  var self = this;
+  if(Array.isArray(arg)){
+    arg.forEach(function(elem){
+      self.clear_text(elem);
+    });
+  }
+  else{
+    Array.prototype.forEach.call(arguments, function(elem){
+      self.clear_text(elem);
+    });
+  }
+  return self;
+};
 My_io.prototype.read_text = function(elem){
   var self = this;
   var _text = "";

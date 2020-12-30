@@ -7,14 +7,14 @@ function My_browser(){
 My_browser.prototype.init = function(){
   var self = this;
   self.UA = window.navigator.userAgent;
-  self.sw = {};
-  self.sw.isIE = (window.navigator.msSaveBlob)? true: false;
+  self.sws = {};
+  self.sws.isIE = (window.navigator.msSaveBlob)? true: false;
   return self;
 };
 // <a> do not use href="#" target="_blank"
 My_browser.prototype.save_file = function(link, isOnclick){
   var self = this;
-  if(self.sw.isIE && isOnclick){
+  if(self.sws.isIE && isOnclick){
     navigator.msSaveBlob(link.blob, link.name);
   }
   else{
