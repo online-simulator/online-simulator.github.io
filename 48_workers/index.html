@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+
+<html lang="ja">
+
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <meta name="description" content="[実装テスト]WebWorkers" />
+  <meta name="author" content="online-simulator.github.io" />
+  <noscript>Javascript is not enabled on your browser.</noscript>
+  <link rel="stylesheet" type="text/css" href="../00_common/css/common.css" />
+  <link rel="stylesheet" type="text/css" href="../00_common/css/color.css" />
+  <link rel="stylesheet" type="text/css" href="../00_common/css/size.css" />
+  <link rel="stylesheet" type="text/css" href="css/common.css" />
+  <link rel="stylesheet" type="text/css" href="css/color.css" />
+  <link rel="stylesheet" type="text/css" href="css/size.css" />
+  <script type="text/javascript" src="../00_common/js/00_class/00_$.js"></script>
+  <script type="text/javascript" src="../00_common/js/00_class/00_conv.js"></script>
+  <script type="text/javascript" src="../00_common/js/00_class/00_def.js"></script>
+  <script type="text/javascript" src="../00_common/js/02_handler/02_handler_worker.js"></script>
+  <script type="text/javascript" src="js/for_importScripts.js"></script>
+  <script type="text/javascript" src="js/02_workers.js"></script>
+</head>
+
+<body>
+  <div>
+
+<script type="text/javascript">
+  var My_test = null;
+  (function(document){
+    document.body.onload = function(e){
+      My_test = new My_test_worker();
+    };
+  })(document);
+</script>
+<hr>
+
+<div>
+マルチスレッド実行による並列処理に用いるWebWorkersの実装テスト
+</div>
+<hr>
+
+<div>
+数学関数Mathによる単純な乱数の平滑化処理をmainからworkerに依頼する
+<br>
+下記のWebWorkers使用にチェックを付けるとマルチスレッドで実行する
+<br>
+※実行結果の()内がmain依頼順
+</div>
+<hr>
+
+<div>
+  <label>依頼するジョブ: 乱数の平滑化Math.
+<select id="select-job">
+  <option>floor</option>
+  <option selected="selected">round</option>
+  <option>ceil</option>
+</select>
+  </label>
+</div>
+<hr>
+<div class="text-center">
+  <label>WebWorkers使用:
+    <input id="checkbox" type="checkbox" checked="checked" />
+  </label>
+　
+  <button class="run" onclick="
+My_test.run(My$_id('checkbox').checked, My$select_id('select-job').textContent, 'output');
+  ">5回依頼実行</button>
+  <button class="cF" onclick="
+My_test.stop();
+  ">依頼中断</button>
+結果
+<br>
+  <textarea id="output" readonly="readonly" rows="10"></textarea>
+</div>
+<hr>
+
+  </div>
+</body>
+
+</html>
