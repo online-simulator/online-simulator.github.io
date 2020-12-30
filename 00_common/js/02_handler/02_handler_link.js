@@ -33,7 +33,7 @@ My_handler_link.prototype.create_elem_a = function(){
   self.elems.a.textContent = self.a.it;
   self.elems.a.onclick = function(e){
     self.save_text(true);
-    if(self.browser.sw.isIE){
+    if(self.browser.sws.isIE){
       e.preventDefault();
     }
 //    e.stopPropagation();
