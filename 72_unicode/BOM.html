@@ -91,6 +91,27 @@ LE/下位Byteがメモリの下位アドレスに格納される場合
 付与不可
           </td>
         </tr>
+        <tr class="border">
+          <td class="border">
+          </td>
+          <td class="border">
+例）下記16進数表記2Bytesのデータ
+<br>
+0x1234
+<br>
+
+上位（の桁）1Byte: 0x12
+<br>
+下位（の桁）1Byte: 0x34
+<br>
+
+LE: 0x34→0x12の順にメモリに格納または標準出力
+<br>
+BE: 0x12→0x34の順にメモリに格納または標準出力
+          </td>
+          <td class="border">
+          </td>
+        </tr>
       </tbody>
     </table>
   </div>
