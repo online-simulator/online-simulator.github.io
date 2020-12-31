@@ -133,6 +133,29 @@ mainからworkerにまとめてarr_dataを渡すhandler_workerを用意し、排
         </tr>
         <tr class="border">
           <td class="border">
+handler_worker
+          </td>
+          <td class="border">
+上記のself.handler_worker.runの関数を以下に示す
+<br>
+予め宣言したself.workerのpostMessageで外部スクリプトに繰り返しdataを送信する
+<br>
+なお、繰り返しnew Worker()を宣言する必要はないことに留意する
+<pre><code>
+My_handler_worker.prototype.run = function(arr_data){
+  var self = this;
+  if(!(self.hasWorker) || self.isLocked) return false;
+  self.isLocked = true;
+  arr_data.forEach(function(data){
+    self.worker.postMessage(data);
+  });
+  return self;
+};
+</code></pre>
+          </td>
+        </tr>
+        <tr class="border">
+          <td class="border">
 main受取り処理
           </td>
           <td class="border">
@@ -148,7 +171,7 @@ Object.keys(self.arr_data_out).lengthが
 <br>
 また、終了処理を実施するself.stop()
 <br>
-エラー発生時や中断時も同様の終了処理を実施する
+エラー発生時や中断時、body.onbeforeunload時も同様の終了処理を実施する
 <br>
 なお、このhandlerは別のスコープから呼ばれるので、thisをインスタンスselfでbindする
 <pre><code>
@@ -168,6 +191,30 @@ Object.keys(self.arr_data_out).lengthが
     return self;
   };
   My_def.bind_handlers(self, self.handlers);
+</code></pre>
+          </td>
+        </tr>
+        <tr class="border">
+          <td class="border">
+終了処理
+          </td>
+          <td class="border">
+self.worker.terminate()を呼び出して全スレッドを強制停止する
+<br>
+また、メモリを解放するself.worker = null
+<br>
+再度利用する場合isReset時は再初期化re_initしてself.workerを再宣言する
+
+<pre><code>
+My_handler_worker.prototype.terminate = function(isReset){
+  var self = this;
+  self.worker.terminate();
+  self.worker = null;
+  if(isReset){
+    self.re_init();
+  }
+  return self;
+};
 </code></pre>
           </td>
         </tr>

@@ -26,17 +26,16 @@ My_handler_worker.prototype.init = function(url, handlers){
     url: function(){return self.url;}
   };
   // initialize
+  self.isLocked = false;
   self.hasWorker = (window.Worker)? true: false;
   self.setter.url(url);
   self.worker = new Worker(self.url);
   self.setter.handlers(handlers);
-  // re-initialize
-  self.re_init.apply(self, arguments);
   return self;
 };
 My_handler_worker.prototype.re_init = function(){
   var self = this;
-  self.isLocked = false;
+  self.init(self.url, self.handlers);
   return self;
 };
 My_handler_worker.prototype.set_url = function(url){
@@ -65,14 +64,12 @@ My_handler_worker.prototype.run = function(arr_data){
   });
   return self;
 };
-My_handler_worker.prototype.stop = function(){
-  var self = this;
-  self.re_init();
-  return self;
-};
-My_handler_worker.prototype.terminate = function(){
+My_handler_worker.prototype.terminate = function(isReset){
   var self = this;
   self.worker.terminate();
-  self.re_init();
+  self.worker = null;
+  if(isReset){
+    self.re_init();
+  }
   return self;
 };

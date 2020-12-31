@@ -21,7 +21,7 @@ My_test_worker.prototype.handler_onbeforeunload = function(e){
 };
 My_test_worker.prototype.stop = function(){
   var self = this;
-  self.handler_worker.stop();
+  self.handler_worker.terminate(true);
   self.elem_o.value += "terminated"+"\n";
   return self;
 };
