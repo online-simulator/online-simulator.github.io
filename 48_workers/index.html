@@ -50,11 +50,11 @@
 
 <div>
   <label>依頼するジョブ: 乱数の平滑化Math.
-<select id="select-job">
-  <option>floor</option>
-  <option selected="selected">round</option>
-  <option>ceil</option>
-</select>
+    <select id="select-job">
+      <option>floor</option>
+      <option selected="selected">round</option>
+      <option>ceil</option>
+    </select>
   </label>
 </div>
 <hr>
@@ -63,9 +63,16 @@
     <input id="checkbox" type="checkbox" checked="checked" />
   </label>
 　
+  <label>n:
+    <select id="select-n">
+      <option>5</option>
+      <option>10</option>
+      <option>30</option>
+    </select>
+  </label>
   <button class="run" onclick="
-My_test.run(My$_id('checkbox').checked, My$select_id('select-job').textContent, 'output');
-  ">5回依頼実行</button>
+My_test.run(My$select_id('select-n').value, My$_id('checkbox').checked, My$select_id('select-job').textContent, 'output');
+  ">回依頼実行</button>
   <button class="cF" onclick="
 My_test.stop();
   ">依頼中断</button>

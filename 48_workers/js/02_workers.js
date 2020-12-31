@@ -63,11 +63,11 @@ My_test_worker.prototype.set_handlers = function(){
 ////////////////////////////////////////////////////////////
   return self;
 };
-My_test_worker.prototype.make_testcase = function(sw_job){
+My_test_worker.prototype.make_testcase = function(n, sw_job){
   var self = this;
   self.arr_data_in = [];
   self.arr_data_out = [];
-  for(var i=0, len=5; i<len; ++i){
+  for(var i=0; i<n; ++i){
     var data = {};
     data.i = i;
     data.in = Math.random();
@@ -76,12 +76,12 @@ My_test_worker.prototype.make_testcase = function(sw_job){
   }
   return self;
 };
-My_test_worker.prototype.run = function(hasWorker, sw_job, id_output){
+My_test_worker.prototype.run = function(n, hasWorker, sw_job, id_output){
   var self = this;
   if(self.handler_worker.isLocked) return false;
   self.elem_o = My$_id(id_output);
   self.elem_o.value = "";
-  self.make_testcase(sw_job);
+  self.make_testcase(n, sw_job);
   if(hasWorker){
     self.handler_worker.run(self.arr_data_in);
   }
