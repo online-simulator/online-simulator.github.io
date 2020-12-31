@@ -30,6 +30,9 @@
     document.body.onload = function(e){
       My_test = new My_test_worker();
     };
+    document.body.onbeforeunload = function(e){
+      My_test.handler_onbeforeunload(e);
+    };
   })(document);
 </script>
 <hr>
@@ -44,7 +47,7 @@
 <br>
 下記のWebWorkers使用にチェックを付けるとマルチスレッドで実行する
 <br>
-※実行結果の()内がmain依頼順
+※回数nが並列処理の最大スレッド数、実行結果の()内がmain依頼順
 </div>
 <hr>
 

@@ -14,6 +14,11 @@ My_test_worker.prototype.init = function(){
   self.handler_worker = new My_handler_worker(self.url, self.handlers);
   return self;
 };
+My_test_worker.prototype.handler_onbeforeunload = function(e){
+  var self = this;
+  self.handler_worker.terminate();
+  return self;
+};
 My_test_worker.prototype.stop = function(){
   var self = this;
   self.handler_worker.stop();
@@ -82,6 +87,7 @@ My_test_worker.prototype.run = function(n, hasWorker, sw_job, id_output){
   self.elem_o = My$_id(id_output);
   self.elem_o.value = "";
   self.make_testcase(n, sw_job);
+  var hasWorker = (window.Worker && hasWorker);
   if(hasWorker){
     self.handler_worker.run(self.arr_data_in);
   }

@@ -14,6 +14,11 @@ My_handler_worker.prototype.init = function(url, handlers){
     },
     handlers: function(handlers){
       self.handlers = handlers || {};
+      for(var onevent in self.handlers){
+        if(self.worker){
+          self.worker[onevent] = self.handlers[onevent];
+        }
+      }
     }
   };
   // getter function
@@ -23,6 +28,7 @@ My_handler_worker.prototype.init = function(url, handlers){
   // initialize
   self.hasWorker = (window.Worker)? true: false;
   self.setter.url(url);
+  self.worker = new Worker(self.url);
   self.setter.handlers(handlers);
   // re-initialize
   self.re_init.apply(self, arguments);
@@ -30,7 +36,6 @@ My_handler_worker.prototype.init = function(url, handlers){
 };
 My_handler_worker.prototype.re_init = function(){
   var self = this;
-  self.arr_worker = [];
   self.isLocked = false;
   return self;
 };
@@ -55,23 +60,19 @@ My_handler_worker.prototype.run = function(arr_data){
   var self = this;
   if(!(self.hasWorker) || self.isLocked) return false;
   self.isLocked = true;
-  var url = self.url;
-  var handlers = self.handlers;
   arr_data.forEach(function(data){
-    var worker = new Worker(url);
-    self.arr_worker.push(worker);
-    for(var onevent in handlers){
-      worker[onevent] = handlers[onevent];
-    }
-    worker.postMessage(data);
+    self.worker.postMessage(data);
   });
   return self;
 };
 My_handler_worker.prototype.stop = function(){
   var self = this;
-  self.arr_worker.forEach(function(worker){
-    worker.terminate();
-  });
+  self.re_init();
+  return self;
+};
+My_handler_worker.prototype.terminate = function(){
+  var self = this;
+  self.worker.terminate();
   self.re_init();
   return self;
 };
