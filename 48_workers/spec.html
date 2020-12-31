@@ -77,9 +77,9 @@ onmessage = function(e){
           <td class="border">
 mainとworkerそれぞれでimportする共通のスクリプトにjobを定義する
 <br>
-ここでmainから受け取ったコピーdataを処理した後、同様のdataを返却する
+mainから受け取ったコピーdataを処理した後、同様のdataを返却する
 <br>
-いずれかのエラー発生場所を特定するためにwindowオブジェクトの存在可否を利用する
+いずれかのエラー発生場所を特定するためにwindowオブジェクトの存在可否を判定する
 <br>
 つまり、workerからはmainのwindowやdocumentにアクセスできないため、
 <br>
@@ -111,7 +111,7 @@ mainからworkerにまとめてarr_dataを渡すhandler_workerを用意し、排
 <br>
 追加依頼を受けないロック状態にすることで並列処理のスレッド数に制限を設ける
 <br>
-さらに、スレッドの終了処理を的確に実施してからロック状態を解除する
+さらに、スレッドの終了処理を確実に実施してからロック状態を解除する
 <br>
 他方、WebWorkersに対応していない環境ではシングルスレッドで実行する
 <br>
