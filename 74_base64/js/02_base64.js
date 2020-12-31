@@ -1,18 +1,26 @@
 "use strict";
 
 function My_str2base64(){
-  var isLE = My$_id("checkbox-LE").checked;
   var input = My$_id("input").value;
-  var output = "";
+  var output_BE = "";
+  var output_LE = "";
   var output_native = "";
   try{
-    var binary = My_conv.str2binary(input, isLE);
-    output = btoa(binary);
+    var binary = My_conv.str2binary(input);
+    output_BE = btoa(binary);
   }
   catch(e){
-    output = e.message;
+    output_BE = e.message;
   }
-  My$_id("output").value = output;
+  My$_id("output_BE").value = output_BE;
+  try{
+    var binary = My_conv.str2binary(input, true);
+    output_LE = btoa(binary);
+  }
+  catch(e){
+    output_LE = e.message;
+  }
+  My$_id("output_LE").value = output_LE;
   try{
     output_native = btoa(input);
   }
@@ -22,18 +30,26 @@ function My_str2base64(){
   My$_id("output_native").value = output_native;
 }
 function My_base64_2str(){
-  var isLE = My$_id("checkbox-LE").checked;
   var input = My$_id("input").value;
-  var output = "";
+  var output_BE = "";
+  var output_LE = "";
   var output_native = "";
   try{
     var binary = atob(input);
-    output = My_conv.binary2str(binary, isLE);
+    output_BE = My_conv.binary2str(binary);
   }
   catch(e){
-    output = e.message;
+    output_BE = e.message;
   }
-  My$_id("output").value = output;
+  My$_id("output_BE").value = output_BE;
+  try{
+    var binary = atob(input);
+    output_LE = My_conv.binary2str(binary, true);
+  }
+  catch(e){
+    output_LE = e.message;
+  }
+  My$_id("output_LE").value = output_LE;
   try{
     output_native = atob(input);
   }
@@ -42,14 +58,18 @@ function My_base64_2str(){
   }
   My$_id("output_native").value = output_native;
 }
-function My_postset(){
-  My$_id("input").value = My$_id("output").value;
+function My_postset_BE(){
+  My$_id("input").value = My$_id("output_BE").value;
+}
+function My_postset_LE(){
+  My$_id("input").value = My$_id("output_LE").value;
 }
 function My_postset_native(){
   My$_id("input").value = My$_id("output_native").value;
 }
 function My_clear(){
   My$_id("input").value = "";
-  My$_id("output").value = "";
+  My$_id("output_BE").value = "";
+  My$_id("output_LE").value = "";
   My$_id("output_native").value = "";
 }

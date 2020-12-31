@@ -29,12 +29,8 @@
 　
   <button class="clear" onclick="My_clear();">クリア</button>
 <br>
-  <textarea id="input" rows="5">テスト</textarea>
+  <textarea id="input" rows="3">テスト</textarea>
 <br>
-  <label>
-Little Endianness
-    <input id="checkbox-LE" type="checkbox" />
-  </label>
   <button class="run" onclick="My_str2base64();">文字列から変換</button>
   <button class="run" onclick="My_base64_2str();">base64から変換</button>
 結果out
@@ -42,10 +38,18 @@ Little Endianness
 <hr>
 
 <div>
-  <label for="output">マルチバイト文字対応:</label>
-  <button class="cF" onclick="My_postset();" title="変換結果を変換対象に再セット">out ⇒ text</button>
+  <label for="output_BE">マルチバイト文字対応:</label>
+  <button class="cF" onclick="My_postset_BE();" title="変換結果を変換対象に再セット">out ⇒ text</button>
+Big Endianness
 <br>
-  <textarea id="output" readonly="readonly" rows="5" onclick="this.focus();this.select();"></textarea>
+  <textarea id="output_BE" readonly="readonly" rows="3" onclick="this.focus();this.select();"></textarea>
+</div>
+<div>
+  <label for="output_LE">マルチバイト文字対応:</label>
+  <button class="cF" onclick="My_postset_LE();" title="変換結果を変換対象に再セット">out ⇒ text</button>
+Little Endianness
+<br>
+  <textarea id="output_LE" readonly="readonly" rows="3" onclick="this.focus();this.select();"></textarea>
 </div>
 <hr>
 
@@ -53,7 +57,7 @@ Little Endianness
   <label for="output_native">1バイト文字のみ対応Native:</label>
   <button class="cF" onclick="My_postset_native();" title="変換結果を変換対象に再セット">out ⇒ text</button>
 <br>
-  <textarea id="output_native" readonly="readonly" rows="5" onclick="this.focus();this.select();"></textarea>
+  <textarea id="output_native" readonly="readonly" rows="3" onclick="this.focus();this.select();"></textarea>
 </div>
 <hr>
 
