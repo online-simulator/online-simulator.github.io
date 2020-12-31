@@ -161,7 +161,7 @@ main受取り処理
           <td class="border">
 workerに登録する受取り処理とエラー処理のハンドラself.handlersをmain内に定義する
 <br>
-workerからはmain依頼順とは順不同にdataが返ってくるため、
+workerからはmain依頼順とは順不同にdataが返却されるため、
 <br>
 依頼順data.iに結果が並ぶように配列に代入してarr_data_out[data.i] = data
 <br>
@@ -169,7 +169,7 @@ Object.keys(self.arr_data_out).lengthが
 <br>
 依頼したデータの長さself.arr_data_in.lengthに一致すれば終了判定する
 <br>
-また、終了処理を実施するself.stop()
+また、終了処理を実施する
 <br>
 エラー発生時や中断時、body.onbeforeunload時も同様の終了処理を実施する
 <br>
@@ -199,6 +199,8 @@ Object.keys(self.arr_data_out).lengthが
 終了処理
           </td>
           <td class="border">
+終了処理の関数を以下に示す
+<br>
 self.worker.terminate()を呼び出して全スレッドを強制停止する
 <br>
 また、メモリを解放するself.worker = null
