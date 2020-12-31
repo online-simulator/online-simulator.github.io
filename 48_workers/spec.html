@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+
+<html lang="ja">
+
+<head>
+
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <meta name="description" content="[仕様]WebWorkers有無の共通化" />
+  <meta name="author" content="online-simulator.github.io" />
+  <noscript>Javascript is not enabled on your browser.</noscript>
+  <link rel="stylesheet" type="text/css" href="../00_common/css/common.css" />
+  <link rel="stylesheet" type="text/css" href="../00_common/css/color.css" />
+  <link rel="stylesheet" type="text/css" href="../00_common/css/size.css" />
+  <link rel="stylesheet" type="text/css" href="css/common.css" />
+  <link rel="stylesheet" type="text/css" href="css/color.css" />
+  <link rel="stylesheet" type="text/css" href="css/size.css" />
+</head>
+
+<body>
+  <div>
+    <table class="border">
+      <caption>[reference]developer.mozilla.org</caption>
+      <thead>
+        <tr class="border">
+          <td class="border">
+項目
+          </td>
+          <td class="border">
+WebWorkers有無で共通化する仕様
+          </td>
+        </tr>
+      </thead>
+      <tbody>
+        <tr class="border">
+          <td class="border">
+Worker宣言のURL
+          </td>
+          <td class="border">
+mainスクリプト内で宣言する外部スクリプトfor_url.jsのURLはindex.htmlからの相対パスで記述する
+<br>
+<code>
+new Worker("js/for_url.js");
+</code>
+<br>
+なお、main内の関数をcreateObjectURLで指定する方法はimportScriptsを使用しない場合に限られる
+          </td>
+        </tr>
+        <tr class="border">
+          <td class="border">
+外部スクリプト
+          </td>
+          <td class="border">
+共通化する処理jobを別のスクリプトfor_importScripts.jsで定義してimportする
+<br>
+importするスクリプトのパスは外部スクリプトfor_url.jsからの相対パスで記述する
+<br>
+importするスクリプトが複数ある場合、カンマ区切りで読み込み順に並べる
+<br>
+これより外部スクリプトは最も単純に次のように記述される
+<br>
+外部スクリプトに変更を加えた場合、ハード再読み込みをしないと反映されない場合があるので留意する
+<br>
+なお、e.dataがmainから受け取るコピーdata（参照を持たないJSON形式）
+<pre><code>
+importScripts("for_importScripts.js");
+
+onmessage = function(e){
+  postMessage(My_job_imported(e.data));
+};
+</code></pre>
+          </td>
+        </tr>
+        <tr class="border">
+          <td class="border">
+共通化するjob定義
+          </td>
+          <td class="border">
+mainとworkerそれぞれでimportする共通のスクリプトにjobを定義する
+<br>
+ここでmainから受け取ったコピーdataを処理した後、同様のdataを返却する
+<br>
+いずれかのエラー発生場所を特定するためにwindowオブジェクトの存在可否を利用する
+<br>
+つまり、workerからはmainのwindowやdocumentにアクセスできないため、
+<br>
+ここで定義するjobは並列化に向いた画像処理や数値計算が一般的と考えられる
+<pre><code>
+var My_job_imported = function(data){
+  var out = null;
+  var isWorker = (typeof window === "undefined");
+  try{
+    out = Math[data.sw_job](data.in);
+  }
+  catch(e){
+    out = e.message;
+    out += (isWorker)? "@worker": "@main";
+    throw new Error(out);
+  }
+  data.out = out;
+  return data;
+};
+</code></pre>
+          </td>
+        </tr>
+        <tr class="border">
+          <td class="border">
+main依頼処理
+          </td>
+          <td class="border">
+mainからworkerにまとめてarr_dataを渡すhandler_workerを用意し、排他処理を実施する
+<br>
+つまり、追加依頼を受けないロック状態にして並列処理のスレッド数に制限を設ける
+<br>
+さらに、スレッドの終了処理を的確に実施する
+<br>
+他方、WebWorkersに対応していない環境ではシングルスレッドで実行する
+<br>
+共通化したMy_job_imported(data_in)をforEachで順番に実行し、
+<br>
+後述する受取り処理self.handlers.onmessageにdataを渡す
+<pre><code>
+  if(self.handler_worker.isLocked) return false;
+  if(hasWorker){
+    self.handler_worker.run(self.arr_data_in);
+  }
+  else{
+    self.arr_data_in.forEach(function(data_in){
+      self.handlers.onmessage({data: My_job_imported(data_in)});
+    });
+  }
+</code></pre>
+          </td>
+        </tr>
+        <tr class="border">
+          <td class="border">
+main受取り処理
+          </td>
+          <td class="border">
+workerに登録する受取り処理とエラー処理のハンドラself.handlerをmain内に定義する
+<br>
+workerからはmain依頼順とは順不同にdataが返ってくるため、
+<br>
+依頼順data.iに結果が並ぶように配列に代入してarr_data_out[data.i] = data
+<br>
+Object.keys(self.arr_data_out).lengthが依頼したデータの長さに一致すれば終了判定する
+<br>
+また、終了処理を実施するself.stop()
+<br>
+エラー発生時や中断時も同様の終了処理を実施する
+<br>
+なお、このhandlerは別のスコープから呼ばれるので、thisをインスタンスselfでbindする
+<pre><code>
+  self.handlers = {};
+  self.handlers.onmessage = function(e){
+    var self = this;
+    var data = e.data;
+    self.arr_data_out[data.i] = data;
+    if(Object.keys(self.arr_data_out).length === self.arr_data_in.length){
+      self.stop();
+    }
+    return self;
+  };
+  self.handlers.onerror = function(e){
+    var self = this;
+    self.stop();
+    return self;
+  };
+  My_def.bind_handlers(self, self.handlers);
+</code></pre>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</body>
+
+</html>
