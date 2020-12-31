@@ -14,8 +14,8 @@ My_handler_worker.prototype.init = function(url, handlers){
     },
     handlers: function(handlers){
       self.handlers = handlers || {};
-      for(var onevent in self.handlers){
-        if(self.worker){
+      if(self.worker){
+        for(var onevent in self.handlers){
           self.worker[onevent] = self.handlers[onevent];
         }
       }
