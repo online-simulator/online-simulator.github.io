@@ -78,7 +78,7 @@ My_conv.arr_uint8_2str = function(arr_uint8){
   }
   return _str;
 };
-My_conv.str2binary = function(str){
+My_conv.str2binary_old = function(str){
   var _binary = "";
   var arr_uint16 = My_conv.str2code_utf16(str, 10);
   var arrb_uint16 = new Uint16Array(arr_uint16);
@@ -88,7 +88,7 @@ My_conv.str2binary = function(str){
   });
   return _binary;
 };
-My_conv.binary2str = function(binary){
+My_conv.binary2str_old = function(binary){
   var _str = "";
   var arrb_uint8 = new Uint8Array(binary.length);
   Array.prototype.forEach.call(binary, function(byte, i){
@@ -99,4 +99,56 @@ My_conv.binary2str = function(binary){
     _str += String.fromCharCode(uint16);
   });
   return _str;
+};
+My_conv.str2binary = function(str, isLE){
+  var _binary = "";
+  var buffer = new ArrayBuffer(2);
+  var view = new DataView(buffer, 0);
+  var arr_uint16 = My_conv.str2code_utf16(str, 10);
+  arr_uint16.forEach(function(uint16){
+    view.setUint16(0, uint16, isLE);
+    var arrb_uint8 = new Uint8Array(buffer);
+    Array.prototype.forEach.call(arrb_uint8, function(uint8, i){
+      _binary += String.fromCharCode(uint8);
+    });
+  });
+  return _binary;
+};
+My_conv.binary2str = function(binary, isLE){
+  var _str = "";
+  var buffer = new ArrayBuffer(binary.length);
+  var view = new DataView(buffer, 0);
+  Array.prototype.forEach.call(binary, function(byte, i){
+    view.setUint8(i, binary.charCodeAt(i));
+  });
+  var arr_uint16 = [];
+  for(var i=0, len=binary.length/2; i<len; ++i){
+    arr_uint16[i] = view.getUint16(i*2, isLE);
+  }
+  arr_uint16.forEach(function(uint16, i){
+    _str += String.fromCharCode(uint16);
+  });
+  return _str;
+};
+My_conv.dec2binary = function(dec, n_byte, isLE){
+  var _binary = "";
+  var idec = Math.floor(dec);
+  var buffer = new ArrayBuffer(n_byte);
+  var view = new DataView(buffer, 0);
+  switch(Number(n_byte)){
+    case 4:
+      view.setInt32(0, idec, isLE);
+      break;
+    case 2:
+      view.setInt16(0, idec, isLE);
+      break;
+    default:
+      view.setInt8(0, idec);
+      break;
+  }
+  var arrb_uint8 = new Uint8Array(buffer);
+  Array.prototype.forEach.call(arrb_uint8, function(uint8, i){
+    _binary += String.fromCharCode(uint8);
+  });
+  return _binary;
 };
