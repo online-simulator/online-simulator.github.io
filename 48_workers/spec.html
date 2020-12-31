@@ -58,7 +58,7 @@ importするスクリプトが複数ある場合、カンマ区切りで読み�
 <br>
 これより外部スクリプトは最も単純に次のように記述される
 <br>
-外部スクリプトに変更を加えた場合、ハード再読み込みをしないと反映されない場合があるので留意する
+外部スクリプトに変更を加えた場合、ハード再読込みをしないと反映されない場合があるので留意する
 <br>
 なお、e.dataがmainから受け取るコピーdata（参照を持たないJSON形式）
 <pre><code>
@@ -109,15 +109,15 @@ main依頼処理
           <td class="border">
 mainからworkerにまとめてarr_dataを渡すhandler_workerを用意し、排他処理を実施する
 <br>
-つまり、追加依頼を受けないロック状態にして並列処理のスレッド数に制限を設ける
+追加依頼を受けないロック状態にすることで並列処理のスレッド数に制限を設ける
 <br>
-さらに、スレッドの終了処理を的確に実施する
+さらに、スレッドの終了処理を的確に実施してからロック状態を解除する
 <br>
 他方、WebWorkersに対応していない環境ではシングルスレッドで実行する
 <br>
 共通化したMy_job_imported(data_in)をforEachで順番に実行し、
 <br>
-後述する受取り処理self.handlers.onmessageにdataを渡す
+後述する受取り処理self.handlers.onmessageに返却dataを渡す
 <pre><code>
   if(self.handler_worker.isLocked) return false;
   if(hasWorker){
@@ -142,7 +142,9 @@ workerからはmain依頼順とは順不同にdataが返ってくるため、
 <br>
 依頼順data.iに結果が並ぶように配列に代入してarr_data_out[data.i] = data
 <br>
-Object.keys(self.arr_data_out).lengthが依頼したデータの長さに一致すれば終了判定する
+Object.keys(self.arr_data_out).lengthが
+<br>
+依頼したデータの長さself.arr_data_in.lengthに一致すれば終了判定する
 <br>
 また、終了処理を実施するself.stop()
 <br>
