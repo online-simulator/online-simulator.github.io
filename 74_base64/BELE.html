@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+
+<html lang="ja">
+
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <meta name="description" content="[覚書]BE/LE指定の実装方法" />
+  <meta name="author" content="online-simulator.github.io" />
+  <noscript>Javascript is not enabled on your browser.</noscript>
+  <link rel="stylesheet" type="text/css" href="../00_common/css/common.css" />
+  <link rel="stylesheet" type="text/css" href="../00_common/css/color.css" />
+  <link rel="stylesheet" type="text/css" href="../00_common/css/size.css" />
+  <link rel="stylesheet" type="text/css" href="css/common.css" />
+  <link rel="stylesheet" type="text/css" href="css/color.css" />
+  <link rel="stylesheet" type="text/css" href="css/size.css" />
+  <script type="text/javascript" src="../00_common/js/00_class/00_$.js"></script>
+  <script type="text/javascript" src="../00_common/js/00_class/00_conv.js"></script>
+  <script type="text/javascript" src="js/02_base64.js"></script>
+</head>
+
+<body>
+  <div>
+    <table class="border">
+      <caption>[Reference]developer.mozilla.org</caption>
+      <thead>
+        <tr class="border">
+          <td class="border">
+変換処理
+          </td>
+          <td class="border">
+実装方法
+          </td>
+        </tr>
+      </thead>
+      <tbody>
+        <tr class="border">
+          <td class="border">
+文字列　⇒
+<br>
+バイナリ文字列
+          </td>
+          <td class="border">
+バイナリ文字列のコードポイント・符号位置 < 256
+<br>
+実装手順と実装コードを以下に示す
+<ul>
+  <li>
+2Byte大のArrayBufferを作る
+  </li>
+  <li>
+ArrayBufferを操作するDataViewを作る
+  </li>
+  <li>
+DataViewを介して
+<br>
+JavaScript文字列で扱うUTF-16コードユニットをArrayBufferに代入する
+  </li>
+  <li>
+既定ではBEで代入されるので、LEで代入する場合は第3引数を追加する
+  </li>
+  <li>
+BE/LEを指定して直列化したArrayBufferからuint8のDataViewを作る
+  </li>
+  <li>
+直列化した順番にuint8コードポイントをバイナリ文字列に変換する
+  </li>
+</ul>
+<pre><code>
+My_conv.str2binary = function(str, isLE){
+  var _binary = "";
+  var buffer = new ArrayBuffer(2);
+  var view = new DataView(buffer, 0);
+  var arr_uint16 = My_conv.str2code_utf16(str, 10);
+  arr_uint16.forEach(function(uint16){
+    view.setUint16(0, uint16, isLE);
+    var arrb_uint8 = new Uint8Array(buffer);
+    Array.prototype.forEach.call(arrb_uint8, function(uint8, i){
+      _binary += String.fromCharCode(uint8);
+    });
+  });
+  return _binary;
+};
+</code></pre>
+          </td>
+        </tr>
+        <tr class="border">
+          <td class="border">
+バイナリ文字列
+<br>
+⇒　文字列
+          </td>
+          <td class="border">
+実装手順と実装コードを以下に示す
+<ul>
+  <li>
+バイナリ大のArrayBufferを作る
+  </li>
+  <li>
+ArrayBufferを操作するDataViewを作る
+  </li>
+  <li>
+DataViewを介して
+<br>
+バイナリ文字列をuint8コードポイントに変換してArrayBufferに代入する
+  </li>
+  <li>
+さらにDataViewを介して
+<br>
+ArrayBufferからBE/LEを指定して2Byte単位で取得したuint16の配列を作る
+  </li>
+  <li>
+取得した順番にuint16コードポイントを文字列に変換する
+  </li>
+</ul>
+<pre><code>
+My_conv.binary2str = function(binary, isLE){
+  var _str = "";
+  var buffer = new ArrayBuffer(binary.length);
+  var view = new DataView(buffer, 0);
+  Array.prototype.forEach.call(binary, function(byte, i){
+    view.setUint8(i, binary.charCodeAt(i));
+  });
+  var arr_uint16 = [];
+  for(var i=0, len=binary.length/2; i&lt;len; ++i){
+    arr_uint16[i] = view.getUint16(i*2, isLE);
+  }
+  arr_uint16.forEach(function(uint16, i){
+    _str += String.fromCharCode(uint16);
+  });
+  return _str;
+};
+</code></pre>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</body>
+
+</html>
