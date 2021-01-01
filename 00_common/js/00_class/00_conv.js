@@ -100,6 +100,7 @@ My_conv.binary2str_old = function(binary){
   });
   return _str;
 };
+// binary string: code point < 256
 My_conv.str2binary = function(str, isLE){
   var _binary = "";
   var buffer = new ArrayBuffer(2);
@@ -130,25 +131,33 @@ My_conv.binary2str = function(binary, isLE){
   });
   return _str;
 };
-My_conv.dec2binary = function(dec, n_byte, isLE){
+My_conv.buffer2binary = function(buffer){
   var _binary = "";
-  var idec = Math.floor(dec);
-  var buffer = new ArrayBuffer(n_byte);
-  var view = new DataView(buffer, 0);
-  switch(Number(n_byte)){
-    case 4:
-      view.setInt32(0, idec, isLE);
-      break;
-    case 2:
-      view.setInt16(0, idec, isLE);
-      break;
-    default:
-      view.setInt8(0, idec);
-      break;
-  }
   var arrb_uint8 = new Uint8Array(buffer);
   Array.prototype.forEach.call(arrb_uint8, function(uint8, i){
     _binary += String.fromCharCode(uint8);
   });
   return _binary;
+};
+My_conv.int2binary = function(dec, n_byte, isLE, isUnsigned){
+  var _binary = "";
+  var idec = Math.floor(dec);
+  var buffer = new ArrayBuffer(n_byte);
+  var view = new DataView(buffer, 0);
+  var prop_  = "set"
+      prop_ += (isUnsigned)? "Uint": "Int";
+  switch(Number(n_byte)){
+    case 4:
+      view[prop_+"32"](0, idec, isLE);
+      break;
+    case 2:
+      view[prop_+"16"](0, idec, isLE);
+      break;
+    case 1:
+      view[prop_+"8"](0, idec);
+      break;
+    default:
+      break;
+  }
+  return My_conv.buffer2binary(buffer);
 };
