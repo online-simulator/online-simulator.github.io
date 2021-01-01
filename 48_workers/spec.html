@@ -36,13 +36,17 @@ WebWorkers有無で共通化する仕様
 Worker宣言のURL
           </td>
           <td class="border">
-mainスクリプト内で宣言する外部スクリプトfor_url.jsのURLはindex.htmlからの相対パスで記述する
+mainスクリプト内で宣言する外部スクリプトfor_url.jsのURLは
 <br>
-<code>
-new Worker("js/for_url.js");
-</code>
+index.htmlからの相対パスで記述する
 <br>
-なお、main内の関数をcreateObjectURLで指定する方法はimportScriptsを使用しない場合に限られる
+<pre><code>
+self.worker = new Worker("js/for_url.js");
+</code></pre>
+<br>
+なお、main内の関数をcreateObjectURLで指定する方法は
+<br>
+次に示すimportScriptsを使用しない場合に限られる
           </td>
         </tr>
         <tr class="border">
@@ -77,13 +81,13 @@ onmessage = function(e){
           <td class="border">
 mainとworkerそれぞれでimportする共通のスクリプトにjobを定義する
 <br>
-mainから受け取ったコピーdataを処理した後、同様のdataを返却する
+mainから受け取ったdataを処理した後、同様のdataを返却する
 <br>
 いずれかのエラー発生場所を特定するためにwindowオブジェクトの存在可否を判定する
 <br>
-つまり、workerからはmainのwindowやdocumentにアクセスできないため、
+workerからはmainのwindowやdocumentにアクセスできないことに留意する
 <br>
-ここで定義するjobは並列化に向いた画像処理や数値計算が一般的と考えられる
+そのため、ここで定義するjobは並列化向きの画像処理や数値計算が一般的と考えられる
 <pre><code>
 var My_job_imported = function(data){
   var out = null;
@@ -138,6 +142,10 @@ handler_worker
           <td class="border">
 上記のself.handler_worker.runの関数を以下に示す
 <br>
+WebWorkers非対応かロック状態の場合は即座にfalseを返却する
+<br>
+それ以外の場合はロックした後、
+<br>
 予め宣言したself.workerのpostMessageで外部スクリプトに繰り返しdataを送信する
 <br>
 なお、繰り返しnew Worker()を宣言する必要はないことに留意する
@@ -175,6 +183,7 @@ Object.keys(self.arr_data_out).lengthが
 <br>
 なお、このhandlerは別のスコープから呼ばれるので、thisをインスタンスselfでbindする
 <pre><code>
+  self.arr_data_out = [];
   self.handlers = {};
   self.handlers.onmessage = function(e){
     var self = this;
@@ -201,7 +210,7 @@ Object.keys(self.arr_data_out).lengthが
           <td class="border">
 終了処理の関数を以下に示す
 <br>
-self.worker.terminate()を呼び出して全スレッドを強制停止する
+self.worker.terminate()を呼び出して全スレッドを強制終了する
 <br>
 また、メモリを解放するself.worker = null
 <br>
@@ -215,6 +224,12 @@ My_handler_worker.prototype.terminate = function(isReset){
   if(isReset){
     self.re_init();
   }
+  return self;
+};
+
+My_handler_worker.prototype.re_init = function(){
+  var self = this;
+  self.init(self.url, self.handlers);
   return self;
 };
 </code></pre>
