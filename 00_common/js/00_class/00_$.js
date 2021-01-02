@@ -63,6 +63,48 @@ function My$select_id(id){
   var elem = My$_id(id);
   return My$select_elem(elem);
 }
+function My$selectText_elem(elem){
+  return My$select_elem(elem).textContent;
+}
+function My$selectText_id(id){
+  var elem = My$_id(id);
+  return My$selectText_elem(elem);
+}
+function My$selectVal_elem(elem){
+  return My$select_elem(elem).value;
+}
+function My$selectVal_id(id){
+  var elem = My$_id(id);
+  return My$selectVal_elem(elem);
+}
+function My$selectNum_elem(elem){
+  return Number(My$selectVal_elem(elem));
+}
+function My$selectNum_id(id){
+  var elem = My$_id(id);
+  return My$selectNum_elem(elem);
+}
+function My$inputVal_elem(elem){
+  return elem.value;
+}
+function My$inputVal_id(id){
+  var elem = My$_id(id);
+  return My$inputVal_elem(elem);
+}
+function My$inputNum_elem(elem){
+  return Number(My$inputVal_elem(elem));
+}
+function My$inputNum_id(id){
+  var elem = My$_id(id);
+  return My$inputNum_elem(elem);
+}
+function My$checkbox_elem(elem){
+  return elem.checked;
+}
+function My$checkbox_id(id){
+  var elem = My$_id(id);
+  return My$checkbox_elem(elem);
+}
 function My$add_first_elem(elem, elem_p){
   return elem_p.insertBefore(elem, elem_p.firstChild);
 }
