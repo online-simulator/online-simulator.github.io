@@ -34,6 +34,12 @@ function My$arr(selector, element){
 function My$bind(self, fn){
   return fn.bind(self);
 }
+function My$bind_objs(self, objs){
+  for(var prop in objs){
+    objs[prop] = objs[prop].bind(self);
+  }
+  return self;
+}
 function My$set_elem(elem, prop, val){
   if(typeof elem[prop] !== "undefined"){
     elem[prop] = val;

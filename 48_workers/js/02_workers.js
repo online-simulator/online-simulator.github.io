@@ -64,7 +64,7 @@ My_test_worker.prototype.set_handlers = function(){
     return self;
   };
 ////////////////////////////////////////////////////////////
-  My_def.bind_handlers(self, self.handlers);
+  My$bind_objs(self, self.handlers);
 ////////////////////////////////////////////////////////////
   return self;
 };

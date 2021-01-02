@@ -14,13 +14,6 @@ My_def.mix_in = function(Sub, Supers){
   }
   return Sub;
 };
-My_def.bind_handlers = function(self, handlers){
-  var self = self || this;
-  for(var onevent in handlers){
-    handlers[onevent] = handlers[onevent].bind(self);
-  }
-  return self;
-};
 My_def.hasProp = function(obj, prop){
   return !(My_def.isUndef(obj[prop]));
 };
