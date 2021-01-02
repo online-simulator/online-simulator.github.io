@@ -41,12 +41,14 @@ function My$set_elem(elem, prop, val){
   else if(typeof elem.style[prop] !== "undefined"){
     elem.style[prop] = val;
   }
+  return elem;
 }
 function My$set_id(id, prop, val){
   var elem = My$_id(id);
   if(elem){
     My$set_elem(elem, prop, val);
   }
+  return elem;
 }
 function My$select_elem(elem){
   return elem.options[elem.selectedIndex];
@@ -56,16 +58,16 @@ function My$select_id(id){
   return My$select_elem(elem);
 }
 function My$add_first_elem(elem, elem_p){
-  elem_p.insertBefore(elem, elem_p.firstChild);
+  return elem_p.insertBefore(elem, elem_p.firstChild);
 }
 function My$add_first_id(elem, id){
   var elem_p = My$_id(id);
-  My$add_first_elem(elem, elem_p);
+  return My$add_first_elem(elem, elem_p);
 }
 function My$add_last_elem(elem, elem_p){
-  elem_p.appendChild(elem);
+  return elem_p.appendChild(elem);
 }
 function My$add_last_id(elem, id){
   var elem_p = My$_id(id);
-  My$add_last_elem(elem, elem_p);
+  return My$add_last_elem(elem, elem_p);
 }
