@@ -45,13 +45,9 @@
 <br>
 保存対象とするreadonly要素のonchangeイベントをフックする手段がなく断念
 <br>
-⇒　リンクのonclickイベントでreadonly要素の値からblobを作成してurl更新後に保存する
+⇒　リンクのonclickイベントでダブルクリックを判定して保存する
 <br>
-　・IE以外は既定の動作で保存する　⇒　event.preventDefault()は使用しない
-<br>
-　・IEはmsSaveBlobで保存する　⇒　event.preventDefault()で既定の動作を抑止する
-<br>
-　・既定以外へのイベント伝播は抑止しない　⇒　event.stopPropagation()は使用しない
+　　（1クリック目は要素の値からblobを作成してURL更新のみ）
 </div>
 <hr>
 
