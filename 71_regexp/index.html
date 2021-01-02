@@ -30,7 +30,7 @@
   (function(document){
     document.body.onload = function(e){
       My_output_command();
-      var json = {p: {id: "wrapper-link"}, a: {id: "a", it: "download"}, o: {id: "output"}};
+      var json = {p: {id: "wrapper-link"}, a: {id: "a", it: "download"}, o: {id: "output"}, name: "download.txt", type: "text/plain"};
       var handler = new My_handler_link(json);
     };
   })(document);
