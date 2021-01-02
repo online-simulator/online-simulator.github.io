@@ -6,41 +6,41 @@ function My_handler_link(json){
 
 My_handler_link.prototype.init = function(json){
   var self = this;
-  self.isClicked = false;
+  self.setter = {};
+  self.setter.callback = function(callback){
+    self.callback = callback || function(){};
+  };
+  self.setter.callback();
   self.p = json.p;
   self.a = json.a;
   self.o = json.o;
   self.browser = new My_browser();
-  self.link = new My_link(self.a.id, json.name);
+  self.link = new My_link(self.a.id, json.name, json.type);
   self.io = new My_io();
-  self.handler = null;
-  self.set_handler();
   self.elem_p = My$_id(self.p.id);
   self.elem_o = (self.o)? My$_id(self.o.id): null;
   self.elems = {};
   self.create_elems(json.isIB);
-  self.save_text();
+  self.isClicked = false;
+  self.handler = null;
+  self.set_handler();
+  self.handler();
   return self;
 };
-My_handler_link.prototype.save_text = function(isOnclick){
+My_handler_link.prototype.save_content = function(isOnclick){
   var self = this;
-  var text = (self.elem_o)? self.io.read_text(self.elem_o): "";
-  self.link.set_url(text);
+  var content = (self.elem_o)? self.io.read_text(self.elem_o): self.callback();
+  self.link.set_url(content);
   self.browser.save_file(self.link, isOnclick);
   return self;
 };
-My_handler_link.prototype.set_handler = function(type){
+My_handler_link.prototype.set_handler = function(){
   var self = this;
-  var handler = null;
-  switch(type){
-    default:
-      handler = function(isClicked){
-        var self = this;
-        self.save_text(isClicked);
-        return self;
-      };
-      break;
-  }
+  var handler = function(isClicked){
+    var self = this;
+    self.save_content(isClicked);
+    return self;
+  };
   self.handler = handler;
   My$bind(self, self.handler);
   return self;
@@ -54,14 +54,17 @@ My_handler_link.prototype.create_elem_a = function(){
     if(self.isClicked){
       self.isClicked = false;
       if(self.browser.sws.isIE){
-        self.handler(true);
         e.preventDefault();
+        self.handler(true);
       }
     }
     else{
       self.isClicked = true;
-      self.handler();
       e.preventDefault();
+      self.handler();
+      setTimeout(function(){
+        self.isClicked = false;
+      }, 1000);
     }
 //    e.stopPropagation();
   };

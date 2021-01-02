@@ -26,15 +26,7 @@
 <body>
   <div>
 
-<script type="text/javascript">
-  (function(document){
-    document.body.onload = function(e){
-//      My_create_link("output", true);
-    };
-  })(document);
-</script>
 <hr>
-
 <div>
 動的に変わるreadonly要素の値を取得してファイルに保存する機能の実装テスト
 </div>
@@ -47,7 +39,9 @@
 <br>
 ⇒　リンクのonclickイベントでダブルクリックを判定して保存する
 <br>
-　　（1クリック目は要素の値からblobを作成してURL更新のみ）
+　・1クリック目は要素の値からblobを作成してURL更新のみ
+<br>
+　・2クリック目（1クリック後1秒以内）で値変更なしの前提で保存実行
 </div>
 <hr>
 

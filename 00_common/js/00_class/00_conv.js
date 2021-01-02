@@ -19,6 +19,40 @@ My_conv.text2url = function(text){
   var blob = new Blob([text], {type: "text/plain"});
   return My_conv.blob2url(blob);
 };
+My_conv.arrb_uint8_2binary = function(arrb_uint8){
+  var _binary = "";
+  Array.prototype.forEach.call(arrb_uint8, function(uint8, i){
+    _binary += String.fromCharCode(uint8);
+  });
+  return _binary;
+};
+My_conv.binary2arrb_uint8 = function(binary){
+  var _arrb_uint8 = new Uint8Array(binary.length);
+  Array.prototype.forEach.call(_arrb_uint8, function(uint8, i){
+    _arrb_uint8[i] = binary.charCodeAt(i);
+  });
+  return _arrb_uint8;
+};
+My_conv.binary2buffer = function(binary){
+  var _buffer = My_conv.binary2arrb_uint8(binary).buffer;
+  return _buffer;
+};
+My_conv.base2buffer = function(base64){
+  var arr_data = base64.split(",");
+  var binary = (window.atob)? atob(arr_data[1]): "";
+  var _buffer = My_conv.binary2buffer(binary);
+  return _buffer;
+};
+My_conv.base2blob = function(base64){
+  var arr_data = base64.split(",");
+  var type = arr_data[0].split(":")[1].split(";")[0];
+  var buffer = My_conv.base2buffer(base64);
+  var _blob = new Blob([buffer], {type: type});
+  return _blob;
+};
+My_conv.base2url = function(base64){
+  return My_conv.blob2url(My_conv.base2blob(base64));
+};
 My_conv.dec2n = function(val, n){
   return parseInt(val).toString(parseInt(n));
 };
@@ -83,18 +117,13 @@ My_conv.str2binary_old = function(str){
   var arr_uint16 = My_conv.str2code_utf16(str, 10);
   var arrb_uint16 = new Uint16Array(arr_uint16);
   var arrb_uint8 = new Uint8Array(arrb_uint16.buffer);
-  Array.prototype.forEach.call(arrb_uint8, function(uint8, i){
-    _binary += String.fromCharCode(uint8);
-  });
+  _binary = My_conv.arrb_uint8_2binary(arrb_uint8);
   return _binary;
 };
 My_conv.binary2str_old = function(binary){
   var _str = "";
-  var arrb_uint8 = new Uint8Array(binary.length);
-  Array.prototype.forEach.call(binary, function(byte, i){
-    arrb_uint8[i] = binary.charCodeAt(i);
-  });
-  var arrb_uint16 = new Uint16Array(arrb_uint8.buffer);
+  var buffer = My_conv.binary2arrb_uint8(binary).buffer;
+  var arrb_uint16 = new Uint16Array(buffer);
   Array.prototype.forEach.call(arrb_uint16, function(uint16, i){
     _str += String.fromCharCode(uint16);
   });
