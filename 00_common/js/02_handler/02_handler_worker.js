@@ -68,6 +68,7 @@ My_handler_worker.prototype.terminate = function(isReset){
   var self = this;
   self.worker.terminate();
   self.worker = null;
+  self.isLocked = false;
   if(isReset){
     self.re_init();
   }

@@ -214,6 +214,8 @@ self.worker.terminate()を呼び出して全スレッドを強制終了する
 <br>
 また、メモリを解放するself.worker = null
 <br>
+さらに、ロック状態を解除する
+<br>
 再度利用する場合isReset時は再初期化re_initしてself.workerを再宣言する
 
 <pre><code>
@@ -221,6 +223,7 @@ My_handler_worker.prototype.terminate = function(isReset){
   var self = this;
   self.worker.terminate();
   self.worker = null;
+  self.isLocked = false;
   if(isReset){
     self.re_init();
   }
