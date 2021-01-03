@@ -38,7 +38,6 @@ My_gacha.prototype.init = function(table, k){
     self.gen_rand = fn || function(){return Math.random();};
   };
   self.counter = {};
-  // literal for IE
   self.regex = {};
   self.regex.s = /\s/g;
   self.regex.m = /\[.*?\]/g;
@@ -80,8 +79,8 @@ My_gacha.prototype.str2arr = function(str){
   var self = this;
   var _str = str.replace(self.regex.s, "").match(self.regex.m);
   _str = (Array.isArray(_str))?
-        _str[0].replace(self.regex.r, "").split(","):
-        [];
+    _str[0].replace(self.regex.r, "").split(","):
+    [];
   return _str;
 };
 My_gacha.prototype.replace_str = function(str, opt_q){
@@ -147,7 +146,8 @@ My_gacha.prototype.shuffle_box = function(){
   return self;
 };
 My_gacha.prototype.sort_random = function(_arr){
-  // by wikipedia about Fisher-Yates shuffle
+  // Reference
+  // ja.m.wikipedia.org about Fisher-Yates shuffle
   var self = this;
   for(var i=_arr.length-1; i>0; --i){
     var j = self.gen_irand(i+1);
