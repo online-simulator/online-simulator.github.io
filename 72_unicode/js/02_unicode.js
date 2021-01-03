@@ -1,4 +1,4 @@
-"use strict";
+// online-simulator.github.io
 
 function My_str2code(){
   var n = My$selectNum_id("select-n");
