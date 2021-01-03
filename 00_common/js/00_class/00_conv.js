@@ -4,6 +4,12 @@ function My_conv(){
 }
 
 // static
+My_conv.dec2n = function(val, n){
+  return parseInt(val).toString(parseInt(n));
+};
+My_conv.n2dec = function(val, n){
+  return parseInt(val, parseInt(n));
+};
 My_conv.blob2url = function(blob){
   var _url = null;
   var URL = window.URL || window.webkitURL;
@@ -54,12 +60,6 @@ My_conv.base2blob = function(base64){
 };
 My_conv.base2url = function(base64){
   return My_conv.blob2url(My_conv.base2blob(base64));
-};
-My_conv.dec2n = function(val, n){
-  return parseInt(val).toString(parseInt(n));
-};
-My_conv.n2dec = function(val, n){
-  return parseInt(val, parseInt(n));
 };
 My_conv.str2code_utf16 = function(str, n){
   var _arr_num_n = [];
