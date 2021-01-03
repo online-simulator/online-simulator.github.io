@@ -1,4 +1,4 @@
-"use strict";
+// online-simulator.github.io
 
 function My_run_n2dec(){
   var val_n = My$_id("input-n").value;
