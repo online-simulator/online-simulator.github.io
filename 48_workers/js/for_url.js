@@ -1,4 +1,4 @@
-"use strict";
+// online-simulator.github.io
 
 importScripts("for_importScripts.js");
 
