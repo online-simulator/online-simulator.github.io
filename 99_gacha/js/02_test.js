@@ -1,4 +1,4 @@
-"use strict";
+// online-simulator.github.io
 
 const My_test = new My_gacha();
 

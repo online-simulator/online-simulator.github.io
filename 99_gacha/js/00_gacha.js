@@ -1,4 +1,4 @@
-"use strict";
+// online-simulator.github.io
 
 function My_gacha(table, k){
   var self = this;
