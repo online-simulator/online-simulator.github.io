@@ -1,7 +1,8 @@
+// online-simulator.github.io
+
 function My_def(){
 }
 
-// class method
 My_def.mix_in = function(Sub, Supers){
   for(var i=1, len=arguments.length; i<len; ++i){
     var Super = arguments[i];

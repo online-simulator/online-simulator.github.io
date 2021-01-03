@@ -1,8 +1,6 @@
-"use strict";
+// online-simulator.github.io
 
-// func.apply(thisArg[, argsArray])
-// func.bind (thisArg[, arg0[, arg1[, ...argN]]])
-// func.call([thisArg[, arg0[, arg1[, ...argN]]]])
+"use strict";
 
 function My$(selector, element){
   var element = element || document;

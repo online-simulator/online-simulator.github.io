@@ -1,3 +1,5 @@
+// online-simulator.github.io
+
 function My_drag(id, opt_handlers){
   var self = this;
   self.init.apply(self, arguments);

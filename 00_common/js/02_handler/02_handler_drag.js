@@ -1,3 +1,5 @@
+// online-simulator.github.io
+
 function My_handler_drag(id_drag, id_checkbox, opt_handlers){
   var self = this;
   self.init.apply(self, arguments);

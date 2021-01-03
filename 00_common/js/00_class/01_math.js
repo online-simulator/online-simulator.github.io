@@ -1,4 +1,4 @@
-"use strict";
+// online-simulator.github.io
 
 function My_math(){
 }

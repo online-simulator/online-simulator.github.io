@@ -1,3 +1,5 @@
+// online-simulator.github.io
+
 function My_browser(){
   var self = this;
   self.init.apply(self, arguments);

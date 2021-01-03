@@ -1,7 +1,9 @@
+// online-simulator.github.io
+
 function My_conv(){
 }
 
-// class method
+// static
 My_conv.blob2url = function(blob){
   var _url = null;
   var URL = window.URL || window.webkitURL;
