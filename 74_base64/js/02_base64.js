@@ -1,4 +1,4 @@
-"use strict";
+// online-simulator.github.io
 
 function My_str2base64(){
   var input = My$_id("input").value;
