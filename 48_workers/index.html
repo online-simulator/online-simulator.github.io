@@ -24,13 +24,13 @@
   <div>
 
 <script type="text/javascript">
-  var My_test = null;
+  const My_entry = {};
   (function(document){
     document.body.onload = function(e){
-      My_test = new My_test_worker();
+      My_entry.test = new My_test_worker("output");
     };
     document.body.onbeforeunload = function(e){
-      My_test.handler_onbeforeunload(e);
+      My_entry.test.stop();
     };
   })(document);
 </script>
@@ -73,10 +73,10 @@
     </select>
   </label>
   <button class="run" onclick="
-My_test.run(My$selectNum_id('select-n'), My$checkbox_id('checkbox'), My$selectText_id('select-job'), 'output');
+My_entry.test.run(My$selectNum_id('select-n'), My$checkbox_id('checkbox'), My$selectText_id('select-job'), 'output');
   ">回依頼実行</button>
   <button class="cF" onclick="
-My_test.stop();
+My_entry.test.stop(true);
   ">依頼中断</button>
 結果
 <br>

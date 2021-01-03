@@ -1,27 +1,23 @@
 // online-simulator.github.io
 
-function My_test_worker(){
+function My_test_worker(id_output){
   var self = this;
   self.init.apply(self, arguments);
   return self;
 };
 
-My_test_worker.prototype.init = function(){
+My_test_worker.prototype.init = function(id_output){
   var self = this;
+  self.elem_o = My$_id(id_output); // need onbeforeunload
   self.set_job();
   self.set_url();
   self.set_handlers();
   self.handler_worker = new My_handler_worker(self.url, self.handlers);
   return self;
 };
-My_test_worker.prototype.handler_onbeforeunload = function(e){
+My_test_worker.prototype.stop = function(isReset){
   var self = this;
-  self.handler_worker.terminate();
-  return self;
-};
-My_test_worker.prototype.stop = function(){
-  var self = this;
-  self.handler_worker.terminate(true);
+  self.handler_worker.terminate(isReset);
   self.elem_o.value += "terminated"+"\n";
   return self;
 };
@@ -52,7 +48,7 @@ My_test_worker.prototype.set_handlers = function(){
     self.elem_o.value += log;
     self.arr_data_out[data.i] = data;
     if(Object.keys(self.arr_data_out).length === self.arr_data_in.length){
-      self.stop();
+      self.stop(true);
     }
     return self;
   };
@@ -60,7 +56,7 @@ My_test_worker.prototype.set_handlers = function(){
     var self = this;
     var log = e.message+"\n";
     self.elem_o.value += log;
-    self.stop();
+    self.stop(true);
     return self;
   };
 ////////////////////////////////////////////////////////////
@@ -81,10 +77,9 @@ My_test_worker.prototype.make_testcase = function(n, sw_job){
   }
   return self;
 };
-My_test_worker.prototype.run = function(n, hasWorker, sw_job, id_output){
+My_test_worker.prototype.run = function(n, hasWorker, sw_job){
   var self = this;
   if(self.handler_worker.isLocked) return false;
-  self.elem_o = My$_id(id_output);
   self.elem_o.value = "";
   self.make_testcase(n, sw_job);
   var hasWorker = (window.Worker && hasWorker);

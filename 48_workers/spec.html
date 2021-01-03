@@ -190,13 +190,13 @@ Object.keys(self.arr_data_out).lengthが
     var data = e.data;
     self.arr_data_out[data.i] = data;
     if(Object.keys(self.arr_data_out).length === self.arr_data_in.length){
-      self.stop();
+      self.stop(true);
     }
     return self;
   };
   self.handlers.onerror = function(e){
     var self = this;
-    self.stop();
+    self.stop(true);
     return self;
   };
   My$bind_objs(self, self.handlers);
