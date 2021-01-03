@@ -1,4 +1,4 @@
-"use strict";
+// online-simulator.github.io
 
 const My_counter = {n: 0};
 
