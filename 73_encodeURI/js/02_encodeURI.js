@@ -1,4 +1,4 @@
-"use strict";
+// online-simulator.github.io
 
 function My_uri2code(){
   var input = My$_id("input").value;
