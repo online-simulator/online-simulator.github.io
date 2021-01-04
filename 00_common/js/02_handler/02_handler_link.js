@@ -43,8 +43,7 @@ My_handler_link.prototype.set_handler = function(){
     self.save_content(isClicked);
     return self;
   };
-  self.handler = handler;
-  My$bind(self, self.handler);
+  self.handler = handler.bind(self);
   return self;
 };
 My_handler_link.prototype.create_elem_a = function(){

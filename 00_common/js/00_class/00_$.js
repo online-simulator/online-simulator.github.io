@@ -29,9 +29,6 @@ function My$arr(selector, element){
   var element = element || document;
   return Array.prototype.slice.call(element.querySelectorAll(selector));
 }
-function My$bind(self, fn){
-  return fn.bind(self);
-}
 function My$bind_objs(self, objs){
   for(var prop in objs){
     objs[prop] = objs[prop].bind(self);
