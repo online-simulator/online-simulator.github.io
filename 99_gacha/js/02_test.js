@@ -1,7 +1,5 @@
 // online-simulator.github.io
 
-const My_test = new My_gacha();
-
 My_gacha.prototype.test = function(){
   var self = this;
   var str_table = "[N0,N1,N2,N3,N4,N5,N6,N7,N8,N9,N10,N11,N12,R0,R1,R2,R3,SR0,SR1,SSR0]";

@@ -23,9 +23,11 @@
   <div>
 
 <script type="text/javascript">
+  const My_entry = {};
   (function(document){
     document.body.onload = function(e){
-      My_test.handler_onload();
+      My_entry.test = new My_gacha();
+      My_entry.test.handler_onload();
     };
   })(document);
 </script>
@@ -54,7 +56,7 @@
   <label>
     <input type="checkbox" id="checkbox-arr_table" onchange="
 (function(){
-  My_test.display_table_id();
+  My_entry.test.display_table_id();
 })();
     " />
 配列表示
@@ -81,20 +83,20 @@ len:
 確率抽選ガチャ実行:
   <button class="run" onclick="
 (function(){
-  My_test.handler_onclick_sw('table', 1);
+  My_entry.test.handler_onclick_sw('table', 1);
 })();
   ">
 1roll
   </button>
   <button class="run" onclick="
 (function(){
-  My_test.handler_onclick_sw('table', 10);
+  My_entry.test.handler_onclick_sw('table', 10);
 })();
   ">10roll
   </button>
   <button class="run" onclick="
 (function(){
-  My_test.handler_onclick_sw('table', 100, 10);
+  My_entry.test.handler_onclick_sw('table', 100, 10);
 })();
   ">100roll
   </button>
@@ -133,7 +135,7 @@ len:
         <td>
 <select id="select-nSSR" onchange="
 (function(){
-  My_test.handler_onchange_sw('table');
+  My_entry.test.handler_onchange_sw('table');
 })();
 ">
   <option selected="selected">1</option>
@@ -153,7 +155,7 @@ len:
 計
 <select id="select-pSSR" onchange="
 (function(){
-  My_test.handler_onchange_sw('table');
+  My_entry.test.handler_onchange_sw('table');
 })();
 ">
   <option>1</option>
@@ -190,7 +192,7 @@ len:
         <td>
 <select id="select-nSR" onchange="
 (function(){
-  My_test.handler_onchange_sw('table');
+  My_entry.test.handler_onchange_sw('table');
 })();
 ">
   <option>1</option>
@@ -210,7 +212,7 @@ len:
 計
 <select id="select-pSR" onchange="
 (function(){
-  My_test.handler_onchange_sw('table');
+  My_entry.test.handler_onchange_sw('table');
 })();
 ">
   <option>5</option>
@@ -243,7 +245,7 @@ len:
         <td>
 <select id="select-nR" onchange="
 (function(){
-  My_test.handler_onchange_sw('table');
+  My_entry.test.handler_onchange_sw('table');
 })();
 ">
   <option>1</option>
@@ -268,7 +270,7 @@ len:
 計
 <select id="select-pR" onchange="
 (function(){
-  My_test.handler_onchange_sw('table');
+  My_entry.test.handler_onchange_sw('table');
 })();
 ">
   <option selected="selected">20</option>
@@ -300,7 +302,7 @@ len:
         <td>
 <select id="select-nN" onchange="
 (function(){
-  My_test.handler_onchange_sw('table');
+  My_entry.test.handler_onchange_sw('table');
 })();
 ">
   <option>1</option>
@@ -360,7 +362,7 @@ len:
   <label>
     <input type="checkbox" id="checkbox-arr_box" onchange="
 (function(){
-  My_test.display_box_id();
+  My_entry.test.display_box_id();
 })();
     " />
 配列表示
@@ -372,7 +374,7 @@ len:
 k:
 <select id="select-k" onchange="
 (function(){
-  My_test.handler_onchange_sw('box');
+  My_entry.test.handler_onchange_sw('box');
 })();
 ">
   <option>1</option>
@@ -409,21 +411,21 @@ len:
 ボックス抽選ガチャ実行:
   <button class="run" onclick="
 (function(){
-  My_test.handler_onclick_sw('box', 1);
+  My_entry.test.handler_onclick_sw('box', 1);
 })();
   ">
 1roll
   </button>
   <button class="run" onclick="
 (function(){
-  My_test.handler_onclick_sw('box', 10);
+  My_entry.test.handler_onclick_sw('box', 10);
 })();
   ">
 10roll
   </button>
   <button class="run" onclick="
 (function(){
-  My_test.handler_onclick_sw('box', 100, 10);
+  My_entry.test.handler_onclick_sw('box', 100, 10);
 })();
   ">
 100roll
@@ -438,7 +440,7 @@ len:
 ボックスをランダムソート:
   <button class="selection" onclick="
 (function(){
-  My_test.shuffle_box_id();
+  My_entry.test.shuffle_box_id();
 })();
   ">
 shuffle-box
@@ -446,7 +448,7 @@ shuffle-box
 中身リセット:
   <button class="clear" onclick="
 (function(){
-  My_test.handler_onchange_sw('box');
+  My_entry.test.handler_onchange_sw('box');
 })();
   ">
 reset-box
@@ -458,7 +460,7 @@ reset-box
 指定商品
     <input id="item_comp" class="output-val" onchange="
 (function(){
-  My_test.check_box_id();
+  My_entry.test.check_box_id();
 })();
     " value="SSR0" />
   </label>
@@ -470,7 +472,7 @@ reset-box
 指定レア度
     <input id="rarity_comp" class="output-val" onchange="
 (function(){
-  My_test.check_box_id();
+  My_entry.test.check_box_id();
 })();
     " value="SSR" />
   </label>
