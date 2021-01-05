@@ -1,1 +1,10 @@
 @charset "UTF-8";
+
+.bg-white{
+  background:       #ffffff;
+  background-color: #ffffff;
+}
+.bg-black{
+  background:       #000000;
+  background-color: #000000;
+}

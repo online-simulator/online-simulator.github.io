@@ -33,7 +33,8 @@
   const My_entry = {};
   (function(document){
     document.body.onload = function(e){
-      My_entry.wave_single = new My_handler_wave().handlers.onload();
+      var isSingle = true;
+      My_entry.wave_single = new My_handler_wave().handlers.onload(isSingle);
       My$arr_tag("select").forEach(function(elem){
         elem.onchange = function(e){
           My_entry.wave_single.handlers.onchange(this.tagName);

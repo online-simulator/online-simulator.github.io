@@ -25,14 +25,18 @@ My_handler_wave.prototype.init = function(){
   self.handler_link.setter.callback(self.callback);
   self.params = {};
   self.handlers = {};
-  self.handlers.onload = function(){
+  self.handlers.onload = function(isSingle){
     var self = this;
+    self.isSingle = isSingle;
     self.handlers.onchange("SELECT");
     return self;
   };
   self.handlers.onchange = function(tagName){
     var self = this;
-    if(tagName.toUpperCase() === "SELECT"){
+    if(self.waveo){
+      self.waveo.stop_sound();
+    }
+    if(self.isSingle && tagName.toUpperCase() === "SELECT"){
       self.output_freq();
     }
     self.make_params();
@@ -66,8 +70,12 @@ My_handler_wave.prototype.calc_freq = function(octave, code){
   // Reference
   // en.m.wikipedia.org/wiki/MIDI_tuning_standard
   var self = this;
-  var octave = octave || My$selectNum_id("select-octave");
-  var code = code || My$selectNum_id("select-code");
+  var octave = octave;
+  var code = code;
+  if(self.isSingle){
+    octave = My$selectNum_id("select-octave");
+    code = My$selectNum_id("select-code");
+  }
   var d = (octave+2)*12+code;
   var _freq = Math.pow(2, (d-69)/12)*440;
   return _freq;
@@ -100,24 +108,26 @@ My_handler_wave.prototype.makeSet_fileName = function(){
 My_handler_wave.prototype.get_freqs = function(){
   var self = this;
   var _arr_f = [];
-  var arr_elem = My$arr("input[type='checkbox']");
-  if(arr_elem[0]){
-    var octave0 = My$selectNum_id("select-octave");
-    arr_elem.forEach(function(elem){
-      if(elem.checked){
-        var mc = elem.id.match(/^o(\d+)c(\d+)$/);
-        var doctave = Number(mc[1]);
-        var code = Number(mc[2]);
-        _arr_f.push(self.get_freq(octave0+doctave, code));
-      }
-    });
-  }
-  else{
+  if(self.isSingle){
     var freq = My$inputNum_id("input-freq") || self.calc_freq();
     if(isNaN(freq)){
       self.output_freq();
     }
     _arr_f.push(My_math_wave.get_limit(freq, 0, 48000));
+  }
+  else{
+    var arr_elem = My$arr("input[type='checkbox']");
+    if(arr_elem[0]){
+      var octave0 = My$selectNum_id("select-octave");
+      arr_elem.forEach(function(elem){
+        if(elem.checked){
+          var mc = elem.id.match(/^o(\d+)c(\d+)$/);
+          var doctave = Number(mc[1]);
+          var code = Number(mc[2]);
+          _arr_f.push(self.calc_freq(octave0+doctave, code));
+        }
+      });
+    }
   }
   return _arr_f;
 };
