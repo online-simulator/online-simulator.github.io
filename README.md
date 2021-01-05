@@ -1,2 +1,7 @@
 # online-simulator.github.io
- HP
+GitHub Pages
+https://online-simulator.github.io/
+
+# License
+Under GitHub Terms of Service
+https://docs.github.com/
