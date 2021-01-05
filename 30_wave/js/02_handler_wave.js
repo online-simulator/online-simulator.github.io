@@ -15,7 +15,7 @@ My_handler_wave.prototype.init = function(){
   var callback = function(){
     var self = this;
     self.make_params();
-    self.makeSet_fileName();
+    self.handler_link.link.name = self.get_fileName();
     self.elem_a.textContent = "Now encoding...";
     var _buffer = self.waveo.get_buffer(self.params);
     self.elem_a.textContent = text_link;
@@ -105,18 +105,17 @@ My_handler_wave.prototype.output_fileSize = function(){
   My$_id("input-fileSize").value = fileSize/1000;
   return self;
 };
-My_handler_wave.prototype.makeSet_fileName = function(){
+My_handler_wave.prototype.get_fileName = function(){
   var self = this;
-  var name = self.params.type;
+  var _name = self.params.type;
   self.params.arr_f.forEach(function(f, i){
-    name += Math.round(f);
-    name += "Hz";
+    _name += Math.round(f);
+    _name += "Hz";
   });
-  name += Math.round(self.params.sec*1000)/1000;
-  name += "sec";
-  name += ".wav";
-  self.handler_link.link.name = name;
-  return self;
+  _name += Math.round(self.params.sec*1000)/1000;
+  _name += "sec";
+  _name += ".wav";
+  return _name;
 };
 My_handler_wave.prototype.get_freqs = function(){
   var self = this;
