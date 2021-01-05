@@ -14,3 +14,6 @@ input, textarea{
   width: auto;
   font-size: large;
 }
+td.bg-white, td.bg-black{
+  width: 6px;
+}
