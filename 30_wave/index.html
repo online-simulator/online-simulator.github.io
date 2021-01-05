@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+
+<html lang="ja">
+
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <meta name="description" content="音源wave-PCM生成（単音）" />
+  <meta name="author" content="online-simulator.github.io" />
+  <noscript>Javascript is not enabled on your browser.</noscript>
+  <link rel="stylesheet" type="text/css" href="../00_common/css/common.css" />
+  <link rel="stylesheet" type="text/css" href="../00_common/css/color.css" />
+  <link rel="stylesheet" type="text/css" href="../00_common/css/size.css" />
+  <link rel="stylesheet" type="text/css" href="css/common.css" />
+  <link rel="stylesheet" type="text/css" href="css/color.css" />
+  <link rel="stylesheet" type="text/css" href="css/size.css" />
+  <script type="text/javascript" src="../00_common/js/00_class/00_$.js"></script>
+  <script type="text/javascript" src="../00_common/js/00_class/00_conv.js"></script>
+  <script type="text/javascript" src="../00_common/js/00_class/01_math_wave.js"></script>
+  <script type="text/javascript" src="../00_common/js/00_class/01_config.js"></script>
+  <script type="text/javascript" src="../00_common/js/01_driver/01_browser.js"></script>
+  <script type="text/javascript" src="../00_common/js/01_driver/01_io.js"></script>
+  <script type="text/javascript" src="../00_common/js/01_driver/01_link.js"></script>
+  <script type="text/javascript" src="../00_common/js/02_handler/02_handler_baseview.js"></script>
+  <script type="text/javascript" src="../00_common/js/02_handler/02_handler_link.js"></script>
+  <script type="text/javascript" src="js/01_output_wave.js"></script>
+  <script type="text/javascript" src="js/02_handler_wave.js"></script>
+</head>
+
+<body>
+  <div>
+
+<script type="text/javascript">
+  const My_entry = {};
+  (function(document){
+    document.body.onload = function(e){
+      My_entry.wave_single = new My_handler_wave().handlers.onload();
+      My$arr_tag("select").forEach(function(elem){
+        elem.onchange = function(e){
+          My_entry.wave_single.handlers.onchange(this.tagName);
+        };
+      });
+      My$arr_tag("input").forEach(function(elem){
+        elem.onchange = function(e){
+          My_entry.wave_single.handlers.onchange(this.tagName);
+        };
+      });
+      My$arr_tag("button").forEach(function(elem){
+        elem.onclick = function(e){
+          My_entry.wave_single.handlers.onclick(this.id);
+        };
+      });
+    };
+  })(document);
+</script>
+
+<hr>
+<div>
+単音の音源wave-PCMを生成して再生orダウンロード
+<br>
+IEはダウンロードのみ可（再生不可）
+</div>
+<hr>
+
+<div>
+<table class="border"><tbody>
+  <tr class="border">
+    <td>
+Byte数/sample：
+    </td>
+    <td>
+<select id="select-Bytes_perSample">
+  <option>1</option>
+  <option selected="selected">2</option>
+</select>
+    </td>
+  </tr>
+  <tr class="border">
+    <td>
+sample数/sec：
+    </td>
+    <td>
+<select id="select-samples_perSecond">
+  <option>8000</option>
+  <option>16000</option>
+  <option>24000</option>
+  <option>36000</option>
+  <option selected="selected">44100</option>
+  <option>48000</option>
+  <option>60000</option>
+  <option>72000</option>
+  <option>84000</option>
+  <option>96000</option>
+</select>
+最大10kHz程度の分解能
+    </td>
+  </tr>
+  <tr class="border">
+    <td>
+channel数：
+    </td>
+    <td>
+<select id="select-number_channels">
+  <option>1</option>
+  <option selected="selected">2</option>
+</select>
+    </td>
+  </tr>
+  <tr class="border">
+    <td>
+wave-type：
+    </td>
+    <td>
+<select id="select-type">
+  <option value="sin">正弦波-sin（自然音）</option>
+  <option value="triangle">三角波-triange（人工音）</option>
+  <option value="square">矩形波-square（不快音）</option>
+  <option value="sawtooth">のこぎり波-sawtooth（注意）</option>
+</select>
+    </td>
+  </tr>
+  <tr>
+    <td>
+周波数-freq[Hz]：
+    </td>
+    <td>
+<input id="input-freq" type="number" step="10" min="0" max="48000" title="周波数[Hz]">
+&lt;=48,000Hz
+    </td>
+  </tr>
+  <tr>
+    <td>
+↑MIDI-octave：
+    </td>
+    <td>
+<select id="select-octave">
+  <option>-2</option>
+  <option>-1</option>
+  <option>0</option>
+  <option>1</option>
+  <option>2</option>
+  <option selected="selected">3</option>
+  <option>4</option>
+  <option>5</option>
+  <option>6</option>
+  <option>7</option>
+  <option>8</option>
+</select>
+    </td>
+  </tr>
+  <tr>
+    <td>
+↑音階-code：
+    </td>
+    <td>
+<select id="select-code">
+  <option value="0">C（ド）</option>
+  <option value="1">C/D♭</option>
+  <option value="2">D（レ）</option>
+  <option value="3">D/E♭</option>
+  <option value="4">E（ミ）</option>
+  <option value="5">F（ファ）</option>
+  <option value="6">F/G♭</option>
+  <option value="7">G（ソ）</option>
+  <option value="8">G/A♭</option>
+  <option value="9" selected="selected">A（ラ）</option>
+  <option value="10">A/B♭</option>
+  <option value="11">B（シ）</option>
+  <option value="12">C（ド）</option>
+</select>
+    </td>
+  </tr>
+  <tr class="border">
+    <td>
+時間-time[msec]：
+    </td>
+    <td>
+<input id="input-time" type="number" min="0" max="10000" step="1" value="1000" />
+&lt;=10,000msec
+    </td>
+  </tr>
+  <tr class="border">
+    <td>
+音量-volume[%]：
+    </td>
+    <td>
+<input id="range-volume" type="range" min="0" max="100" step="1" value="50" />
+<button id="play" class="run">再生-play</button>
+<button id="stop" class="clear">stop</button>
+    </td>
+  </tr>
+  <tr class="border">
+    <td>
+<label for="input-fileSize">ファイルsize[kB]:</label>
+    </td>
+    <td>
+オフラインで生成ダウンロード可<br>
+<input id="input-fileSize" readonly="readonly" />
+<br>
+<div id="wrapper-link"></div>
+    </td>
+  </tr>
+</tbody></table>
+</div>
+<hr>
+
+  </div>
+</body>
+
+</html>
