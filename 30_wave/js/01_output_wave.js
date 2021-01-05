@@ -122,34 +122,34 @@ My_output_wave.prototype.get_binary_header = function(sec){
   var self = this;
   self.Bytes_chunks = self.get_fileSize(sec)-(4+4);  // Format~
   // header
-  var binary = "";
+  var _binary = "";
   // ChunkID
-  binary += self.str2binary_BE(4, "RIFF");  // binary += "RIFF";
+  _binary += self.str2binary_BE(4, "RIFF");  // _binary += "RIFF";
   // ChunkSize
-  binary += self.int2binary_LE(4, self.Bytes_chunks);
+  _binary += self.int2binary_LE(4, self.Bytes_chunks);
   // Format
-  binary += self.str2binary_BE(4, "WAVE");  // binary += "WAVE";
+  _binary += self.str2binary_BE(4, "WAVE");  // _binary += "WAVE";
   // Subchunk1ID
-  binary += self.str2binary_BE(4, "fmt ");  // binary += "fmt ";
+  _binary += self.str2binary_BE(4, "fmt ");  // _binary += "fmt ";
   // Subchunk1Size
-  binary += self.int2binary_LE(4, self.Bytes_subChunk1);
+  _binary += self.int2binary_LE(4, self.Bytes_subChunk1);
   // AudioFormat
-  binary += self.int2binary_LE(2, self.id_format);
+  _binary += self.int2binary_LE(2, self.id_format);
   // NumChannels
-  binary += self.int2binary_LE(2, self.number_channels);
+  _binary += self.int2binary_LE(2, self.number_channels);
   // SampleRate
-  binary += self.int2binary_LE(4, self.samples_perSecond);
+  _binary += self.int2binary_LE(4, self.samples_perSecond);
   // ByteRate
-  binary += self.int2binary_LE(4, self.Bytes_perSecond);
+  _binary += self.int2binary_LE(4, self.Bytes_perSecond);
   // BlockAlign
-  binary += self.int2binary_LE(2, self.Bytes_perBlock);
+  _binary += self.int2binary_LE(2, self.Bytes_perBlock);
   // BitsPerSample
-  binary += self.int2binary_LE(2, self.bits_perSample);
+  _binary += self.int2binary_LE(2, self.bits_perSample);
   // Subchunk2ID
-  binary += self.str2binary_BE(4, "data");  // binary += "data";
+  _binary += self.str2binary_BE(4, "data");  // _binary += "data";
   // Subchunk2Size
-  binary += self.int2binary_LE(4, self.Bytes_subChunk2);
-  return binary;
+  _binary += self.int2binary_LE(4, self.Bytes_subChunk2);
+  return _binary;
 };
 My_output_wave.prototype.normalize_gains = function(arr_g){
   var self = this;
