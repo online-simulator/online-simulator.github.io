@@ -226,7 +226,7 @@ My_output_wave.prototype.get_binary_soundData_LE = function(params){
   var func_t = self.func_t;
   var phi0 = 0;
   // encode
-  for(var ns=0; ns<number_samples; ++ns){
+  for(var ns=0; ns<number_samples-1; ++ns){
     var t = ns*seconds_perSample;
     var val = 0;
     // composite waves
@@ -240,6 +240,11 @@ My_output_wave.prototype.get_binary_soundData_LE = function(params){
     for(var nc=0; nc<number_channels; ++nc){
       _binary += binary_perChannel;
     }
+  }
+  // last sample's val = 0
+  var binary_perChannel = self.int2binary_LE(Bytes_perSample, 0);
+  for(var nc=0; nc<number_channels; ++nc){
+    _binary += binary_perChannel;
   }
   return _binary;
 };
