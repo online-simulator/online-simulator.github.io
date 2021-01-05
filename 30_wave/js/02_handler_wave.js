@@ -31,6 +31,14 @@ My_handler_wave.prototype.init = function(){
     self.handlers.onchange("SELECT");
     return self;
   };
+  self.handlers.onbeforeunload = function(){
+    var self = this;
+    if(self.waveo){
+      self.waveo.stop_sound();
+      self.waveo = null;
+    }
+    return self;
+  };
   self.handlers.onchange = function(tagName){
     var self = this;
     if(self.waveo){
@@ -57,6 +65,11 @@ My_handler_wave.prototype.init = function(){
         break;
       case "stop":
         self.waveo.stop_sound();
+        break;
+      case "uncheck":
+        My$arr("input[type='checkbox']").forEach(function(elem){
+          elem.checked = false;
+        });
         break;
       default:
         break;
@@ -116,18 +129,17 @@ My_handler_wave.prototype.get_freqs = function(){
     _arr_f.push(My_math_wave.get_limit(freq, 0, 48000));
   }
   else{
-    var arr_elem = My$arr("input[type='checkbox']");
-    if(arr_elem[0]){
-      var octave0 = My$selectNum_id("select-octave");
-      arr_elem.forEach(function(elem){
-        if(elem.checked){
-          var mc = elem.id.match(/^o(\d+)c(\d+)$/);
-          var doctave = Number(mc[1]);
-          var code = Number(mc[2]);
-          _arr_f.push(self.calc_freq(octave0+doctave, code));
-        }
-      });
-    }
+    var octave0 = My$selectNum_id("select-octave");
+    var isChecked = false;
+    My$arr("input[type='checkbox']").forEach(function(elem){
+      if(elem.checked){
+        isChecked = true;
+        var mc = elem.id.match(/^o(\d+)c(\d+)$/);
+        var doctave = Number(mc[1]);
+        var code = Number(mc[2]);
+        _arr_f.push(self.calc_freq(octave0+doctave, code));
+      }
+    });
   }
   return _arr_f;
 };

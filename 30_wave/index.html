@@ -34,22 +34,25 @@
   (function(document){
     document.body.onload = function(e){
       var isSingle = true;
-      My_entry.wave_single = new My_handler_wave().handlers.onload(isSingle);
+      My_entry.wave = new My_handler_wave().handlers.onload(isSingle);
       My$arr_tag("select").forEach(function(elem){
         elem.onchange = function(e){
-          My_entry.wave_single.handlers.onchange(this.tagName);
+          My_entry.wave.handlers.onchange(this.tagName);
         };
       });
       My$arr_tag("input").forEach(function(elem){
         elem.onchange = function(e){
-          My_entry.wave_single.handlers.onchange(this.tagName);
+          My_entry.wave.handlers.onchange(this.tagName);
         };
       });
       My$arr_tag("button").forEach(function(elem){
         elem.onclick = function(e){
-          My_entry.wave_single.handlers.onclick(this.id);
+          My_entry.wave.handlers.onclick(this.id);
         };
       });
+    };
+    document.body.onbeforeunload = function(e){
+      My_entry.wave.handlers.onbeforeunload();
     };
   })(document);
 </script>
