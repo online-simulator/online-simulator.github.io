@@ -19,7 +19,9 @@ Native method used:
   new Audio()
 
 ex. of use:
-  <button onclick="new My_output_wave().output_sound({sec: 1, arr_f: [523, 660, 784], arr_g: null});">play</button>
+  <button onclick="new My_output_wave().output_sound({sec: 1, arr_f: [523, 660, 784, 3000], arr_g: null});">play</button>
+  <button onclick="new My_output_wave().output_sound({sec: 1, arr_f: [523, 660, 784, 3000], arr_g: []});">play</button>
+  <button onclick="new My_output_wave().output_sound({sec: 1, arr_f: [523, 660, 784, 3000], arr_g: [,1]});">play</button>
   new My_output_wave().output_sound(params, opt_volume);
     params: object
       sec: number
@@ -30,6 +32,7 @@ ex. of use:
         gain >= 0
         arr_g: null -> default LPF gain
         arr_g: []   -> converted to ones array [1, 1, ..., 1]
+        arr_g: [1,]   -> fill-in with zero array [1, 0, ..., 0]
     opt_volume: number
       0 <= volume <= 1
       default: 0.5
@@ -166,13 +169,44 @@ My_output_wave.prototype.normalize_gains = function(arr_g){
   });
   return _arr_g;
 };
-My_output_wave.prototype.get_gains = function(arr_f, f0, f1, g0, g1){
+My_output_wave.prototype.get_gains_loglog = function(arr_f, f0, f1, g0, g1){
   var self = this;
   var _arr_g = new Array(arr_f.length);
   arr_f.forEach(function(f, i){
     var gain = My_math_wave.getY_linear_baseE(f, f0, f1, g0, g1, true, true);
     _arr_g[i] = My_math_wave.get_limit(gain, g0, g1);
   });
+  return _arr_g;
+};
+My_output_wave.prototype.check_gains = function(arr_f, arr_g){
+  var self = this;
+  var arr_f = arr_f;
+  var _arr_g = arr_g;
+  if(!(_arr_g)){
+    // default LPF
+    // gain: 1 >= 800~4800Hz >= 1/Math.E
+    _arr_g = self.get_gains_loglog(arr_f, 800, 4800, 1, 1/Math.E);
+  }
+  else if(!(_arr_g.length)){
+    // ones array
+    _arr_g = (function(){
+      var __arr_g = new Array(arr_f.length);
+      arr_f.forEach(function(f, i){
+        __arr_g[i] = 1;
+      });
+      return __arr_g;
+    })();
+  }
+  else if(_arr_g.length < arr_f.length){
+    // fill-in with zero
+    _arr_g = (function(){
+      var __arr_g = new Array(arr_f.length);
+      arr_f.forEach(function(f, i){
+        __arr_g[i] = _arr_g[i] || 0;
+      });
+      return __arr_g;
+    })();
+  }
   return _arr_g;
 };
 My_output_wave.prototype.set_func_and_gain_type = function(type){
@@ -189,32 +223,7 @@ My_output_wave.prototype.get_binary_soundData_LE = function(params){
   // prepare
   self.set_func_and_gain_type(params.type);
   var arr_f = params.arr_f;
-  var arr_g = params.arr_g;
-  if(!(arr_g)){
-    // default LPF
-    // gain: 1 >= 800~4800Hz >= 1/Math.E
-    arr_g = self.get_gains(arr_f, 800, 4800, 1, 1/Math.E);
-  }
-  else if(!(arr_g.length)){
-    // ones array
-    arr_g = (function(){
-      var _arr_g = new Array(arr_f.length);
-      arr_f.forEach(function(f, i){
-        _arr_g[i] = 1;
-      });
-      return _arr_g;
-    })();
-  }
-  else if(arr_g.length < arr_f.length){
-    // fill-in zero
-    arr_g = (function(){
-      var _arr_g = new Array(arr_f.length);
-      arr_f.forEach(function(f, i){
-        _arr_g[i] = arr_g[i] || 0;
-      });
-      return _arr_g;
-    })();
-  }
+  var arr_g = self.check_gains(params.arr_f, params.arr_g);
   var arr_g = self.normalize_gains(arr_g);
   var number_samples = self.number_samples;
   var Bytes_perSample = self.Bytes_perSample;
