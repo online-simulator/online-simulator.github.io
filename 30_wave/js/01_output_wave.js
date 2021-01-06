@@ -248,9 +248,9 @@ My_output_wave.prototype.check_error = function(params){
   var sec = params.sec;
   var arr_f = params.arr_f;
   var arr_g = params.arr_g;
-  if(isNaN(sec) || sec < 0) throw new Error(title+"time is not exist");
+  if(isNaN(sec) || sec < 0) throw new Error(title+"time is improper");
   var fileSize = self.get_fileSize(sec);
-  if(fileSize > 10*Math.pow(10, 6)) throw new Error(title+"fileSize is over limit");
+  if(fileSize > 10*Math.pow(10, 6)) throw new Error(title+"fileSize is over limit(10MB)");
   arr_f.forEach(function(f, i){
     if(isNaN(f)) throw new Error(title+"frequency is not a number");
     if(arr_g && arr_g[i] && isNaN(arr_g[i])) throw new Error(title+"gain is not a number");
@@ -281,11 +281,15 @@ My_output_wave.prototype.output_sound = function(params, volume){
   var self = this;
   if(self.audio) return false;
   self.make_base64(params);
-  if(self.base64){
-    var title = self.title_error;
+  self.play_base64(self.base64, volume);
+  return self;
+};
+My_output_wave.prototype.play_base64 = function(base64, volume){
+  var self = this;
+  if(base64){
     var volume = (typeof volume === "undefined")? 0.5: volume;
-    if(isNaN(volume) || volume < 0) throw new Error(title+"volume is not exist");
-    self.audio = new Audio(self.base64);
+    if(isNaN(volume) || volume < 0) throw new Error(self.title_error+"volume is improper");
+    self.audio = new Audio(base64);
     self.audio.volume = Math.min(1, volume);
     self.audio.play();
     self.audio.onended = function(){
