@@ -48,7 +48,6 @@ My_output_wave.prototype.init = function(Bytes_perSample, samples_perSecond, num
   self.arr_buffer = self.handler_baseview.arr_buffer;
   self.arr_viewset = self.handler_baseview.set;
   self.title_error = "[MyDefinedError]";
-  self.isLocked = false;
   self.audio = null;
   self.base64 = "";
   self.binary = "";
@@ -280,8 +279,7 @@ My_output_wave.prototype.make_base64 = function(params){
 };
 My_output_wave.prototype.output_sound = function(params, volume){
   var self = this;
-  if(self.isLocked) return false;
-  self.isLocked = true;
+  if(self.audio) return false;
   self.make_base64(params);
   if(self.base64){
     var title = self.title_error;
@@ -291,8 +289,7 @@ My_output_wave.prototype.output_sound = function(params, volume){
     self.audio.volume = Math.min(1, volume);
     self.audio.play();
     self.audio.onended = function(){
-      self.audio = null;
-      self.isLocked = false;
+      self.stop_sound();
     };
   }
   return self;
@@ -302,7 +299,6 @@ My_output_wave.prototype.stop_sound = function(){
   if(self.audio){
     self.audio.pause();
     self.audio = null;
-    self.isLocked = false;
   }
   return self;
 };
