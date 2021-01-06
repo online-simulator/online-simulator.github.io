@@ -223,28 +223,29 @@ My_output_wave.prototype.set_func_and_gain_type = function(type){
 };
 My_output_wave.prototype.get_binary_soundData_LE = function(params){
   var self = this;
-  var _binary = "";
-  // prepare
   self.set_func_and_gain_type(params.type);
   var arr_f = params.arr_f;
-  var arr_g = self.check_gains(params.arr_f, params.arr_g);
+  var arr_g = params.arr_g;
+  var arr_g = self.check_gains(arr_f, arr_g);
   var arr_g = self.normalize_gains(arr_g);
-  var number_samples = self.number_samples;
+  return self.encode_soundData_LE(self.number_samples, self.number_channels, arr_f, arr_g);
+};
+My_output_wave.prototype.encode_soundData_LE = function(number_samples, number_channels, arr_f, arr_g){
+  var self = this;
+  var _binary = "";
   var Bytes_perSample = self.Bytes_perSample;
   var amplitude = self.amplitude;
   var offset = self.offset;
   var seconds_perSample = 1/self.samples_perSecond;
-  var number_channels = self.number_channels;
   var func_t = self.func_t;
   var phi0 = 0;
-  // encode
   for(var ns=0; ns<number_samples; ++ns){
     var t = ns*seconds_perSample;
     var val = 0;
     // composite waves
     arr_f.forEach(function(f, i){
-      var gainNormalized = arr_g[i];
-      val += func_t(f, t, phi0)*gainNormalized;
+      var gain_normalized = arr_g[i];
+      val += gain_normalized*func_t(f, t, phi0);  // gain first
     });
     val *= amplitude;
     val += offset;
