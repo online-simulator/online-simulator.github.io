@@ -285,7 +285,7 @@ My_output_wave.prototype.output_sound = function(params, volume){
   self.make_base64(params);
   if(self.base64){
     var title = self.title_error;
-    var volume = volume || 0.5;
+    var volume = (typeof volume === "undefined")? 0.5: volume;
     if(isNaN(volume) || volume < 0) throw new Error(title+"volume is not exist");
     self.audio = new Audio(self.base64);
     self.audio.volume = Math.min(1, volume);
