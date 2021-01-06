@@ -22,7 +22,10 @@ ex. of use:
   <button onclick="new My_output_wave().output_sound({sec: 1, arr_f: [523, 660, 784, 3000], arr_g: null});">play</button>
   <button onclick="new My_output_wave().output_sound({sec: 1, arr_f: [523, 660, 784, 3000], arr_g: []  });">play</button>
   <button onclick="new My_output_wave().output_sound({sec: 1, arr_f: [523, 660, 784, 3000], arr_g: [,1]});">play</button>
+
+instance method:
   new My_output_wave().output_sound(params, opt_volume);
+
     params: object
       sec: number
         play-time[sec] >= 0
@@ -30,9 +33,10 @@ ex. of use:
         frequency[Hz]
       arr_g: array
         gain >= 0
-        arr_g: null -> default LPF gain
+        arr_g: null -> default LPF gains
         arr_g: []   -> converted to ones array [1, 1, ..., 1]
         arr_g: [1,] -> fill-in with zero array [1, 0, ..., 0]
+
     opt_volume: number
       0 <= volume <= 1
       default: 0.5
