@@ -8,7 +8,7 @@ function My_test_worker(id_output){
 
 My_test_worker.prototype.init = function(id_output){
   var self = this;
-  self.elem_o = My$_id(id_output); // need onbeforeunload
+  self.elem_o = My$_id(id_output); // used onbeforeunload
   self.set_job();
   self.set_url();
   self.set_handlers();
