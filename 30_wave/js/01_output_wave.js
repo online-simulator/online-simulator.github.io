@@ -272,10 +272,14 @@ My_output_wave.prototype.check_error = function(params){
   });
   return self;
 };
+My_output_wave.prototype.get_number_samples = function(sec){
+  var self = this;
+  return Math.floor(self.samples_perSecond*sec);
+};
 My_output_wave.prototype.get_binary_wave = function(params){
   var self = this;
   self.check_error(params);
-  self.number_samples = Math.floor(self.samples_perSecond*params.sec);
+  self.number_samples = self.get_number_samples(params.sec);
   var _binary_header = self.get_binary_header(self.number_samples);
   var _binary_soundData_LE = self.get_binary_soundData_LE(params);
   return _binary_header+_binary_soundData_LE;
