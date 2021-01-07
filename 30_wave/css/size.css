@@ -10,9 +10,12 @@ select, button{
   font-size: large;
   font-weight: bold;
 }
-input, textarea{
+input{
   width: auto;
   font-size: large;
+}
+textarea{
+  width: 100%;
 }
 td.bg-white, td.bg-black{
   width: 6px;
