@@ -89,19 +89,19 @@ workerからはmainのwindowやdocumentにアクセスできないことに留�
 <br>
 そのため、ここで定義するjobは並列化向きの画像処理や数値計算が一般的と考えられる
 <pre><code>
-var My_job_imported = function(data){
+var My_job_imported = function(_data){
   var out = null;
   var isWorker = (typeof window === "undefined");
   try{
-    out = Math[data.sw_job](data.in);
+    out = Math[_data.sw_job](_data.in);
   }
   catch(e){
     out = e.message;
     out += (isWorker)? "@worker": "@main";
     throw new Error(out);
   }
-  data.out = out;
-  return data;
+  _data.out = out;
+  return _data;
 };
 </code></pre>
           </td>
