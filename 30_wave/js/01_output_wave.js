@@ -118,15 +118,14 @@ My_output_wave.prototype.str2binary_LE = function(n, bstr){
   var self = this;
   return self.str2binary_BE.call(self, n, bstr, true);
 };
-My_output_wave.prototype.get_fileSize = function(sec){
+My_output_wave.prototype.get_fileSize = function(number_samples){
   var self = this;
-  self.number_samples = Math.floor(self.samples_perSecond*sec);
-  self.Bytes_subChunk2 = self.Bytes_perBlock*self.number_samples;
+  self.Bytes_subChunk2 = self.Bytes_perBlock*number_samples;
   return (4+4+4+4+4+self.Bytes_subChunk1+4+4+self.Bytes_subChunk2);
 };
-My_output_wave.prototype.get_binary_header = function(sec){
+My_output_wave.prototype.get_binary_header = function(number_samples){
   var self = this;
-  self.Bytes_chunks = self.get_fileSize(sec)-(4+4);  // Format~
+  self.Bytes_chunks = self.get_fileSize(number_samples)-(4+4);  // Format~
   // header
   var _binary = "";
   // ChunkID
@@ -274,7 +273,8 @@ My_output_wave.prototype.check_error = function(params){
 My_output_wave.prototype.get_binary_wave = function(params){
   var self = this;
   self.check_error(params);
-  var _binary_header = self.get_binary_header(params.sec);
+  self.number_samples = Math.floor(self.samples_perSecond*params.sec);
+  var _binary_header = self.get_binary_header(self.number_samples);
   var _binary_soundData_LE = self.get_binary_soundData_LE(params);
   return _binary_header+_binary_soundData_LE;
 };
