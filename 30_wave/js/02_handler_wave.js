@@ -101,7 +101,8 @@ My_handler_wave.prototype.output_freq = function(){
 };
 My_handler_wave.prototype.output_fileSize = function(){
   var self = this;
-  var fileSize = self.waveo.get_fileSize(self.params.sec);
+  var number_samples = Math.floor(self.waveo.samples_perSecond*self.params.sec);
+  var fileSize = self.waveo.get_fileSize(number_samples);
   My$_id("input-fileSize").value = fileSize/1000;
   return self;
 };
