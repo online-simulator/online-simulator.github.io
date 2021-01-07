@@ -8,6 +8,7 @@ function My_test_worker(id_output){
 
 My_test_worker.prototype.init = function(id_output){
   var self = this;
+  self.hasWorker = (window.Worker)? true: false;
   self.elem_o = My$_id(id_output); // used onbeforeunload
   self.set_job();
   self.set_url();
@@ -82,7 +83,7 @@ My_test_worker.prototype.run = function(n, hasWorker, sw_job){
   if(self.handler_worker.isLocked) return false;
   self.elem_o.value = "";
   self.make_testcase(n, sw_job);
-  var hasWorker = (window.Worker && hasWorker);
+  var hasWorker = (self.hasWorker && hasWorker);
   if(hasWorker){
     self.handler_worker.run(self.arr_data_in);
   }
