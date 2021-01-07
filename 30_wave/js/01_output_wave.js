@@ -120,11 +120,13 @@ My_output_wave.prototype.str2binary_LE = function(n, bstr){
 };
 My_output_wave.prototype.get_fileSize = function(number_samples){
   var self = this;
-  self.Bytes_subChunk2 = self.Bytes_perBlock*number_samples;
-  return (4+4+4+4+4+self.Bytes_subChunk1+4+4+self.Bytes_subChunk2);
+  var Bytes_subChunk1 = self.Bytes_subChunk1;
+  var Bytes_subChunk2 = self.Bytes_perBlock*number_samples;
+  return (4+4+4+4+4+Bytes_subChunk1+4+4+Bytes_subChunk2);
 };
 My_output_wave.prototype.get_binary_header = function(number_samples){
   var self = this;
+  self.Bytes_subChunk2 = self.Bytes_perBlock*number_samples;
   self.Bytes_chunks = self.get_fileSize(number_samples)-(4+4);  // Format~
   // header
   var _binary = "";
