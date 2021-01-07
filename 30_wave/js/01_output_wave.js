@@ -306,6 +306,7 @@ My_output_wave.prototype.output_sound = function(params, volume){
 };
 My_output_wave.prototype.play_base64 = function(base64, volume){
   var self = this;
+  if(self.audio) return false;
   if(base64){
     var volume = (typeof volume === "undefined")? 0.5: volume;
     if(isNaN(volume) || volume < 0) throw new Error(self.title_error+"volume is improper");

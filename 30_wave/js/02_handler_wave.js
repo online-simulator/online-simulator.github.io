@@ -56,6 +56,7 @@ My_handler_wave.prototype.init = function(){
     var self = this;
     switch(id){
       case "play":
+        if(self.waveo.audio) return false;
         var volume = My$inputNum_id("range-volume")*0.01;
         if(isNaN(volume)){
           volume = 0.5;
