@@ -98,6 +98,7 @@ My_handler_wave.prototype.init = function(){
             elem.checked = false;
           }
         });
+        self.handlers.onchange();
         break;
       default:
         break;
