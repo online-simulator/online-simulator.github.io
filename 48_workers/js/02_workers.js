@@ -13,7 +13,7 @@ My_test_worker.prototype.init = function(id_output){
   self.set_job_worker();
   self.set_url_worker();
   self.set_callbacks_worker();
-  self.handler_worker = new My_handler_worker(self.url, self.callbacks_worker);
+  self.handler_worker = new My_handler_worker(self.url_worker, self.callbacks_worker);
   return self;
 };
 My_test_worker.prototype.stop_worker = function(isReset){
@@ -24,12 +24,12 @@ My_test_worker.prototype.stop_worker = function(isReset){
 };
 My_test_worker.prototype.set_job_worker = function(){
   var self = this;
-  self.job = My_job_imported;
+  self.job_worker = My_job_imported;
   return self;
 };
 My_test_worker.prototype.set_url_worker = function(){
   var self = this;
-  self.url = "js/for_url.js";
+  self.url_worker = "js/for_url.js";
   return self;
 };
 My_test_worker.prototype.set_callbacks_worker = function(){
@@ -89,7 +89,7 @@ My_test_worker.prototype.run_worker = function(n, hasWorker, sw_job){
   }
   else{
     self.arr_data_in.forEach(function(data_in){
-      self.callbacks_worker.onmessage({data: self.job(data_in)});
+      self.callbacks_worker.onmessage({data: self.job_worker(data_in)});
     });
   }
   return self;
