@@ -133,8 +133,8 @@ mainからworkerにまとめてarr_dataを渡すhandler_workerを用意し、排
 <br>
 後述する受取り処理self.callbacks_worker.onmessageに返却dataを渡す
 <pre><code>
+  if(self.handler_worker && self.handler_worker.isLocked) return false;
   if(hasWorker){
-    if(self.handler_worker.isLocked) return false;
     self.handler_worker.run(self.arr_data_in);
   }
   else{
@@ -240,6 +240,35 @@ My_handler_worker.prototype.terminate = function(){
   }
   self.worker = null;
   self.isLocked = false;
+  return self;
+};
+</code></pre>
+          </td>
+        </tr>
+        <tr class="border">
+          <td class="border">
+main
+<br>
+再初期化処理
+          </td>
+          <td class="border">
+self.workerを再宣言worker.re_initする初期化関数を以下に示す
+<br>
+なお、workerが何度も宣言されてリークしないように留意する
+
+<pre><code>
+My_test_worker.prototype.init = function(){
+  var self = this;
+  if(self.handler_worker){
+    self.handler_worker.terminate();
+    self.handler_worker.re_init();
+  }
+  else if(window.Worker){
+    self.set_job_worker();
+    self.set_url_worker();
+    self.set_callbacks_worker();
+    self.handler_worker = new My_handler_worker(self.url_worker, self.callbacks_worker);
+  }
   return self;
 };
 </code></pre>

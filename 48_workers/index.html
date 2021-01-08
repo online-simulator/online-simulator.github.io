@@ -27,11 +27,19 @@
   const My_entry = {};
   (function(document){
     document.body.onload = function(e){
+      My_entry.test = new My_test_worker('output');
+      var self = My_entry.test;
+      My$_id("run").onclick = function(){
+        self.init("output");
+        self.run_worker(My$selectNum_id('select-n'), My$checkbox_id('checkbox'), My$selectText_id('select-job'), 'output');
+      };
+      My$_id("stop").onclick = function(){
+        self.stop_worker();
+      };
     };
     document.body.onbeforeunload = function(e){
-      if(My_entry.test){
-        My_entry.test.stop_worker();
-      }
+      var self = My_entry.test;
+      self.test.stop_worker();
     };
   })(document);
 </script>
@@ -73,15 +81,8 @@
       <option>30</option>
     </select>
   </label>
-  <button class="run" onclick="
-My_entry.test = new My_test_worker('output');
-My_entry.test.run_worker(My$selectNum_id('select-n'), My$checkbox_id('checkbox'), My$selectText_id('select-job'), 'output');
-  ">回依頼実行</button>
-  <button class="cF" onclick="
-if(My_entry.test){
-  My_entry.test.stop_worker();
-}
-  ">依頼中断</button>
+  <button id="run" class="run">回依頼実行</button>
+  <button id="stop" class="selection">依頼中断</button>
 結果
 <br>
   <textarea id="output" readonly="readonly" rows="10"></textarea>

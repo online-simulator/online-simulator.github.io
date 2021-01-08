@@ -9,11 +9,14 @@ function My_test_worker(id_output){
 My_test_worker.prototype.init = function(id_output){
   var self = this;
   self.elem_o = My$_id(id_output); // used onbeforeunload
-  self.set_job_worker();
-  self.set_url_worker();
-  self.set_callbacks_worker();
-  self.handler_worker = null;
-  if(window.Worker){
+  if(self.handler_worker){
+    self.handler_worker.terminate();
+    self.handler_worker.re_init();
+  }
+  else if(window.Worker){
+    self.set_job_worker();
+    self.set_url_worker();
+    self.set_callbacks_worker();
     self.handler_worker = new My_handler_worker(self.url_worker, self.callbacks_worker);
   }
   return self;
@@ -84,11 +87,11 @@ My_test_worker.prototype.make_testcase = function(n, sw_job){
 };
 My_test_worker.prototype.run_worker = function(n, useWorker, sw_job){
   var self = this;
+  if(self.handler_worker && self.handler_worker.isLocked) return false;
   self.elem_o.value = "";
   self.make_testcase(n, sw_job);
   var hasWorker = (self.handler_worker && useWorker);
   if(hasWorker){
-    if(self.handler_worker.isLocked) return false;
     self.handler_worker.run(self.arr_data_in);
   }
   else{
