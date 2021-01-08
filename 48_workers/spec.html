@@ -235,7 +235,9 @@ self.worker.terminate()を呼び出して全スレッドを強制終了する
 <pre><code>
 My_handler_worker.prototype.terminate = function(isReset){
   var self = this;
-  self.worker.terminate();
+  if(self.worker){
+    self.worker.terminate();
+  }
   self.worker = null;
   self.isLocked = false;
   if(isReset){

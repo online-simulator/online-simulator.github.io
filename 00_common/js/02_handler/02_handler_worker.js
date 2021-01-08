@@ -68,7 +68,9 @@ My_handler_worker.prototype.run = function(arr_data){
 };
 My_handler_worker.prototype.terminate = function(isReset){
   var self = this;
-  self.worker.terminate();
+  if(self.worker){
+    self.worker.terminate();
+  }
   self.worker = null;
   self.isLocked = false;
   if(isReset){
