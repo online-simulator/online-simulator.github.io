@@ -22,8 +22,12 @@
   <script type="text/javascript" src="../00_common/js/01_driver/01_link.js"></script>
   <script type="text/javascript" src="../00_common/js/02_handler/02_handler_baseview.js"></script>
   <script type="text/javascript" src="../00_common/js/02_handler/02_handler_link.js"></script>
+  <script type="text/javascript" src="../00_common/js/02_handler/02_handler_worker.js"></script>
+  <script type="text/javascript" src="js/for_importScripts.js"></script>
   <script type="text/javascript" src="js/01_output_wave.js"></script>
   <script type="text/javascript" src="js/02_handler_wave.js"></script>
+  <script type="text/javascript" src="js/02_handler_wave_workers.js"></script>
+  <script type="text/javascript" src="js/02_handler_wave_workers_sw0or1.js"></script>
 </head>
 
 <body>
@@ -259,11 +263,27 @@ wave-type：
 <label for="input-fileSize">ファイルsize[kB]:</label>
     </td>
     <td>
-オフラインで生成ダウンロード可<br>
+<div class="selection">
+  <label>log:
+    <span id="log">オフラインで生成ダウンロード可</span>
+  </label>
+</div>
 <input id="input-fileSize" readonly="readonly" />
 &lt;10MB
 <br>
 <div id="wrapper-link"></div>
+    </td>
+  </tr>
+  <tr class="border">
+    <td>
+オプション:
+    </td>
+    <td>
+<div class="text-right">
+  <label>マルチスレッドencode by Workers:
+    <input id="checkbox-useWorker" type="checkbox" checked="checked" />
+  </label>
+</div>
     </td>
   </tr>
 </tbody></table>

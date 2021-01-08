@@ -8,21 +8,18 @@ function My_handler_wave(){
 
 My_handler_wave.prototype.init = function(){
   var self = this;
+  self.isScriptMode = (My$_id("select-octave"))? false: true;
+  self.elem_log = My$_id("log");
   var text_link = "download-wav by double-click";
   var json = {p: {id: "wrapper-link"}, a: {id: "a", it: text_link}, name: "download.wav", type: "audio/wav"};
   self.handler_link = new My_handler_link(json);
-  self.elem_a = self.handler_link.elems.a;
-  var callback = function(){
-    var self = this;
-    self.make_params();
-    self.handler_link.link.name = self.get_fileName();
-    self.elem_a.textContent = "Now encoding...";
-    var _buffer = self.waveo.get_buffer(self.params);
-    self.elem_a.textContent = text_link;
-    return _buffer;
-  };
-  self.callback = callback.bind(self);
-  self.handler_link.setter.callback(self.callback);
+  self.regex = {};
+  self.regex.s = /\s/g;
+  self.regex.mb = /\{.*?\}/g;
+  self.regex.ml = /\[.*?\]/g;
+  self.regex.rb = /\{|\}/g;
+  self.regex.rl = /\[|\]/g;
+  self.regex.oc = /^o(\d+)c(\d+)$/;
   self.params = {};
   self.handlers = {};
   self.handlers.onload = function(isSingle){
@@ -31,24 +28,38 @@ My_handler_wave.prototype.init = function(){
     self.handlers.onchange("SELECT");
     return self;
   };
-  self.handlers.onbeforeunload = function(){
+  self.handlers.stop_sound = function(isClear){
     var self = this;
     if(self.waveo){
       self.waveo.stop_sound();
+    }
+    if(isClear){
       self.waveo = null;
     }
     return self;
   };
+  self.handlers.stop_worker = function(){
+    var self = this;
+    if(self.handler_worker){
+      self.stop_worker();
+    }
+    return self;
+  };
+  self.handlers.onbeforeunload = function(){
+    var self = this;
+    self.handlers.stop_sound(true);
+    self.handlers.stop_worker();
+    return self;
+  };
   self.handlers.onchange = function(tagName){
     var self = this;
-    if(self.waveo){
-      self.waveo.stop_sound();
-    }
+    self.handlers.onbeforeunload();
     if(self.isSingle && tagName.toUpperCase() === "SELECT"){
       self.output_freq();
     }
+    self.waveo = new My_output_wave();
     self.make_params();
-    self.waveo = new My_output_wave(self.params.Bytes_perSample, self.params.samples_perSecond, self.params.number_channels);
+    self.waveo.init(self.params.Bytes_perSample, self.params.samples_perSecond, self.params.number_channels);
     self.output_fileSize();
     return self;
   };
@@ -57,19 +68,35 @@ My_handler_wave.prototype.init = function(){
     switch(id){
       case "play":
         if(self.waveo.audio) return false;
-        var volume = My$inputNum_id("range-volume")*0.01;
-        if(isNaN(volume)){
-          volume = 0.5;
-          My$_id("range-volume").value = volume*100;
+        self.output_log("Now encoding...");
+        try{
+          self.init_worker();
+          if(self.isScriptMode){
+          }
+          else{
+            self.params.number_samples = self.waveo.get_number_samples(self.params.sec);
+            var arr_params = self.waveo.check_arr_params([self.params]);
+            var useWorker = My$checkbox_id("checkbox-useWorker");
+            setTimeout(function(){
+              self.run_worker(arr_params, useWorker);
+            }, 20);
+          }
         }
-        self.waveo.output_sound(self.params, volume);
+        catch(e){
+          self.output_log(e.message);
+        }
         break;
       case "stop":
-        self.waveo.stop_sound();
+        self.handlers.stop_sound();
+        self.handlers.stop_worker();
+        self.output_log("stopped");
         break;
       case "uncheck":
         My$arr("input[type='checkbox']").forEach(function(elem){
-          elem.checked = false;
+          var mc = elem.id.match(self.regex.oc);
+          if(mc && elem.checked){
+            elem.checked = false;
+          }
         });
         break;
       default:
@@ -78,6 +105,11 @@ My_handler_wave.prototype.init = function(){
     return self;
   };
   My$bind_objs(self, self.handlers);
+  return self;
+};
+My_handler_wave.prototype.output_log = function(log){
+  var self = this;
+  self.elem_log.textContent = log;
   return self;
 };
 My_handler_wave.prototype.calc_freq = function(octave, code){
@@ -131,11 +163,9 @@ My_handler_wave.prototype.get_freqs = function(){
   }
   else{
     var octave0 = My$selectNum_id("select-octave");
-    var isChecked = false;
     My$arr("input[type='checkbox']").forEach(function(elem){
-      if(elem.checked){
-        isChecked = true;
-        var mc = elem.id.match(/^o(\d+)c(\d+)$/);
+      var mc = elem.id.match(self.regex.oc);
+      if(mc && elem.checked){
         var doctave = Number(mc[1]);
         var code = Number(mc[2]);
         _arr_f.push(self.calc_freq(octave0+doctave, code));
@@ -149,13 +179,22 @@ My_handler_wave.prototype.make_params = function(){
   self.params.Bytes_perSample = My$selectNum_id("select-Bytes_perSample");
   self.params.samples_perSecond = My$selectNum_id("select-samples_perSecond");
   self.params.number_channels = My$selectNum_id("select-number_channels");
+  self.params.type = My$selectVal_id("select-type");
   var sec = My$inputNum_id("input-time")*0.001;
   if(isNaN(sec)){
     sec = 1;
     My$inputNum_id("input-time") = sec*1000;
   }
   self.params.sec = My_math_wave.get_limit(sec, 0, 10);
-  self.params.type = My$selectVal_id("select-type");
-  self.params.arr_f = self.get_freqs();
+  var volume = My$inputNum_id("range-volume")*0.01;
+  if(isNaN(volume)){
+    volume = 0.5;
+    My$_id("range-volume").value = volume*100;
+  }
+  self.params.volume = volume;
+  self.params.i = 0;
+  if(!(self.isScriptMode)){
+    self.params.arr_f = self.get_freqs();
+  }
   return self;
 };

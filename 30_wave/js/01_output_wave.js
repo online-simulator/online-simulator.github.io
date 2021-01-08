@@ -158,7 +158,7 @@ My_output_wave.prototype.get_binary_header = function(number_samples){
   _binary += self.int2binary_LE(4, self.Bytes_subChunk2);
   return _binary;
 };
-My_output_wave.prototype.normalize_gains = function(arr_g){
+My_output_wave.prototype.normalize_gains = function(arr_g, gain_type, gain_band){
   var self = this;
   var _arr_g = new Array(arr_g.length);
   var sum_g = 0;
@@ -170,7 +170,10 @@ My_output_wave.prototype.normalize_gains = function(arr_g){
     if(sum_g > 1){
       _arr_g[i] /= sum_g;  // normalize
     }
-    _arr_g[i] *= self.gain_type;  // after normalize
+    _arr_g[i] *= gain_type;  // after normalize
+    if(gain_band){
+      _arr_g[i] *= gain_band;
+    }
   });
   return _arr_g;
 };
@@ -214,31 +217,58 @@ My_output_wave.prototype.check_gains = function(arr_f, arr_g){
   }
   return _arr_g;
 };
-My_output_wave.prototype.set_func_and_gain_type = function(type){
+My_output_wave.prototype.get_gain_type = function(type){
   var self = this;
   var fn = My_math_wave[type || "sin"];
   var rms = My_math_wave.get_rms(1000, fn);
-  self.gain_type = Math.min(1, 0.5/rms);  // gain["square"] = 0.5(at rms=1)
-  self.func_t = fn;
-  return self;
+  return Math.min(1, 0.5/rms);  // gain["square"] = 0.5(at rms=1)
 };
-My_output_wave.prototype.get_binary_soundData_LE = function(params){
+My_output_wave.prototype.check_params = function(params){
   var self = this;
-  self.set_func_and_gain_type(params.type);
   var arr_f = params.arr_f;
   var arr_g = params.arr_g;
   var arr_g = self.check_gains(arr_f, arr_g);
-  var arr_g = self.normalize_gains(arr_g);
-  return self.encode_soundData_LE(self.number_samples, self.number_channels, arr_f, arr_g);
+  params.gain_type = self.get_gain_type(params.type);
+  params.arr_g_normalized = self.normalize_gains(arr_g, params.gain_type, params.gain_band);
+  return params;
 };
-My_output_wave.prototype.encode_soundData_LE = function(number_samples, number_channels, arr_f, arr_g){
+My_output_wave.prototype.check_error = function(params){
+  var self = this;
+  var title = self.title_error;
+  var sec = params.sec;
+  var arr_f = params.arr_f;
+  var arr_g = params.arr_g;
+  if(isNaN(sec) || sec < 0) throw new Error(title+"time is improper");
+  var fileSize = self.get_fileSize(sec);
+  if(fileSize > 10*Math.pow(10, 6)) throw new Error(title+"fileSize is over limit(10MB)");
+  arr_f.forEach(function(f, i){
+    if(isNaN(f)) throw new Error(title+"frequency is not a number");
+    if(arr_g && arr_g[i] && isNaN(arr_g[i])) throw new Error(title+"gain is not a number");
+  });
+  return self;
+};
+My_output_wave.prototype.check_arr_params = function(_arr_params){
+  var self = this;
+  _arr_params.forEach(function(params, i){
+    self.check_error(params);
+    _arr_params[i] = self.check_params(params);
+  });
+  return _arr_params;
+};
+My_output_wave.prototype.get_binary_soundData_LE = function(params){
+  var self = this;
+  self.check_error(params);
+  var params = self.check_params(params);
+  return self.encode_soundData_LE(params.number_samples, params.number_channels, params.arr_f, params.arr_g_normalized, params.type);
+};
+My_output_wave.prototype.encode_soundData_LE = function(number_samples, number_channels, arr_f, arr_g, type){
   var self = this;
   var _binary = "";
   var Bytes_perSample = self.Bytes_perSample;
   var amplitude = self.amplitude;
   var offset = self.offset;
   var seconds_perSample = 1/self.samples_perSecond;
-  var func_t = self.func_t;
+  var func_t = My_math_wave[type || "sin"];
   var phi0 = 0;
   for(var ns=0; ns<number_samples; ++ns){
     var t = ns*seconds_perSample;
@@ -257,37 +287,18 @@ My_output_wave.prototype.encode_soundData_LE = function(number_samples, number_c
   }
   return _binary;
 };
-My_output_wave.prototype.check_error = function(params){
-  var self = this;
-  var title = self.title_error;
-  var sec = params.sec;
-  var arr_f = params.arr_f;
-  var arr_g = params.arr_g;
-  if(isNaN(sec) || sec < 0) throw new Error(title+"time is improper");
-  var fileSize = self.get_fileSize(sec);
-  if(fileSize > 10*Math.pow(10, 6)) throw new Error(title+"fileSize is over limit(10MB)");
-  arr_f.forEach(function(f, i){
-    if(isNaN(f)) throw new Error(title+"frequency is not a number");
-    if(arr_g && arr_g[i] && isNaN(arr_g[i])) throw new Error(title+"gain is not a number");
-  });
-  return self;
-};
-My_output_wave.prototype.get_number_samples = function(sec){
-  var self = this;
-  return Math.floor(self.samples_perSecond*sec);
-};
 My_output_wave.prototype.get_binary_wave = function(params){
   var self = this;
-  self.check_error(params);
-  self.number_samples = self.get_number_samples(params.sec);
-  var _binary_header = self.get_binary_header(self.number_samples);
+  var _binary_header = self.get_binary_header(params.number_samples);
   var _binary_soundData_LE = self.get_binary_soundData_LE(params);
   return _binary_header+_binary_soundData_LE;
 };
 My_output_wave.prototype.get_buffer = function(params){
   var self = this;
+  var _buffer = null;
   var binary = self.get_binary_wave(params);
-  return self.binary2buffer(binary);
+  _buffer = self.binary2buffer(binary);
+  return _buffer;
 };
 My_output_wave.prototype.make_base64 = function(params){
   var self = this;
@@ -297,9 +308,17 @@ My_output_wave.prototype.make_base64 = function(params){
   }
   return self;
 };
+My_output_wave.prototype.get_number_samples = function(sec){
+  var self = this;
+  return Math.floor(self.samples_perSecond*sec);
+};
 My_output_wave.prototype.output_sound = function(params, volume){
   var self = this;
   if(self.audio) return false;
+  self.number_samples = self.get_number_samples(params.sec)
+  params.number_samples = self.number_samples;
+  params.number_channels = self.number_channels;
+  params.volume = volume;
   self.make_base64(params);
   self.play_base64(self.base64, volume);
   return self;
@@ -313,6 +332,8 @@ My_output_wave.prototype.play_base64 = function(base64, volume){
     self.audio = new Audio(base64);
     self.audio.volume = Math.min(1, volume);
     self.audio.play();
+//    self.audio.onloadeddata = function(){
+//    };
     self.audio.onended = function(){
       self.stop_sound();
     };
