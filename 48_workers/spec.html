@@ -202,13 +202,13 @@ Object.keys(self.arr_data_out).lengthが
     var data = e.data;
     self.arr_data_out[data.i] = data;
     if(Object.keys(self.arr_data_out).length === self.arr_data_in.length){
-      self.stop_worker(true);
+      self.stop_worker();
     }
     return self;
   };
   self.callbacks_worker.onerror = function(e){
     var self = this;
-    self.stop_worker(true);
+    self.stop_worker();
     return self;
   };
   My$bind_objs(self, self.callbacks_worker);
@@ -230,25 +230,16 @@ self.worker.terminate()を呼び出して全スレッドを強制終了する
 <br>
 さらに、ロック状態を解除する
 <br>
-再度利用する場合isReset時は再初期化re_initしてself.workerを再宣言する
+再度利用する場合は必要になった時点でself.workerを再宣言する
 
 <pre><code>
-My_handler_worker.prototype.terminate = function(isReset){
+My_handler_worker.prototype.terminate = function(){
   var self = this;
   if(self.worker){
     self.worker.terminate();
   }
   self.worker = null;
   self.isLocked = false;
-  if(isReset){
-    self.re_init();
-  }
-  return self;
-};
-
-My_handler_worker.prototype.re_init = function(){
-  var self = this;
-  self.init(self.url, self.callbacks);
   return self;
 };
 </code></pre>

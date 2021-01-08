@@ -66,15 +66,12 @@ My_handler_worker.prototype.run = function(arr_data){
   });
   return self;
 };
-My_handler_worker.prototype.terminate = function(isReset){
+My_handler_worker.prototype.terminate = function(){
   var self = this;
   if(self.worker){
     self.worker.terminate();
   }
   self.worker = null;
   self.isLocked = false;
-  if(isReset){
-    self.re_init();
-  }
   return self;
 };

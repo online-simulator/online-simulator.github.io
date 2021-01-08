@@ -18,10 +18,10 @@ My_test_worker.prototype.init = function(id_output){
   }
   return self;
 };
-My_test_worker.prototype.stop_worker = function(isReset){
+My_test_worker.prototype.stop_worker = function(){
   var self = this;
   if(self.handler_worker){
-    self.handler_worker.terminate(isReset);
+    self.handler_worker.terminate();
   }
   self.elem_o.value += "terminated"+"\n";
   return self;
@@ -53,7 +53,7 @@ My_test_worker.prototype.set_callbacks_worker = function(){
     self.elem_o.value += log;
     self.arr_data_out[data.i] = data;
     if(Object.keys(self.arr_data_out).length === self.arr_data_in.length){
-      self.stop_worker(true);
+      self.stop_worker();
     }
     return self;
   };
@@ -61,7 +61,7 @@ My_test_worker.prototype.set_callbacks_worker = function(){
     var self = this;
     var log = e.message+"\n";
     self.elem_o.value += log;
-    self.stop_worker(true);
+    self.stop_worker();
     return self;
   };
 ////////////////////////////////////////////////////////////
