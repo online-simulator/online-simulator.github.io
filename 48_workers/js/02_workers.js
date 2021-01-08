@@ -82,11 +82,11 @@ My_test_worker.prototype.make_testcase = function(n, sw_job){
   }
   return self;
 };
-My_test_worker.prototype.run_worker = function(n, hasWorker, sw_job){
+My_test_worker.prototype.run_worker = function(n, useWorker, sw_job){
   var self = this;
   self.elem_o.value = "";
   self.make_testcase(n, sw_job);
-  var hasWorker = (self.handler_worker && hasWorker);
+  var hasWorker = (self.handler_worker && useWorker);
   if(hasWorker){
     if(self.handler_worker.isLocked) return false;
     self.handler_worker.run(self.arr_data_in);
