@@ -30,7 +30,7 @@
       My_entry.test = new My_test_worker("output");
     };
     document.body.onbeforeunload = function(e){
-      My_entry.test.stop();
+      My_entry.test.stop_worker();
     };
   })(document);
 </script>
@@ -73,10 +73,10 @@
     </select>
   </label>
   <button class="run" onclick="
-My_entry.test.run(My$selectNum_id('select-n'), My$checkbox_id('checkbox'), My$selectText_id('select-job'), 'output');
+My_entry.test.run_worker(My$selectNum_id('select-n'), My$checkbox_id('checkbox'), My$selectText_id('select-job'), 'output');
   ">回依頼実行</button>
   <button class="cF" onclick="
-My_entry.test.stop(true);
+My_entry.test.stop_worker(true);
   ">依頼中断</button>
 結果
 <br>

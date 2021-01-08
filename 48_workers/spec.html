@@ -33,7 +33,9 @@ WebWorkers有無で共通化する仕様
       <tbody>
         <tr class="border">
           <td class="border">
-Worker宣言のURL
+worker
+<br>
+宣言のURL
           </td>
           <td class="border">
 mainスクリプト内で宣言する外部スクリプトfor_url.jsのURLは
@@ -51,6 +53,8 @@ self.worker = new Worker("js/for_url.js");
         </tr>
         <tr class="border">
           <td class="border">
+worker
+<br>
 外部スクリプト
           </td>
           <td class="border">
@@ -62,7 +66,11 @@ importするスクリプトが複数ある場合、カンマ区切りで読み�
 <br>
 これより外部スクリプトは最も単純に次のように記述される
 <br>
-なお、e.dataがmainから受け取るコピーdata（参照を持たないJSON形式）
+e.dataがmainから受け取るコピーdata（参照を持たないJSON形式）
+<br>
+なお、外部スクリプトに変更を加えた場合、
+<br>
+"キャッシュの消去とハード再読込み"をしないと反映されない場合があるので留意する
 <pre><code>
 importScripts("for_importScripts.js");
 
@@ -74,6 +82,8 @@ onmessage = function(e){
         </tr>
         <tr class="border">
           <td class="border">
+main/worker
+<br>
 共通化するjob定義
           </td>
           <td class="border">
@@ -85,7 +95,7 @@ mainから受け取ったdataを処理した後、同様のdataを返却する
 <br>
 workerからはmainのwindowやdocumentにアクセスできないことに留意する
 <br>
-そのため、ここで定義するjobは並列化向きの画像処理や数値計算が一般的と考えられる
+そのため、ここで定義するjobは並列化向きのメディア処理や数値計算が一般的と考えられる
 <pre><code>
 var My_job_imported = function(_data){
   var out = null;
@@ -106,7 +116,9 @@ var My_job_imported = function(_data){
         </tr>
         <tr class="border">
           <td class="border">
-main依頼処理
+main
+<br>
+依頼処理
           </td>
           <td class="border">
 mainからworkerにまとめてarr_dataを渡すhandler_workerを用意し、排他処理を実施する
@@ -119,7 +131,7 @@ mainからworkerにまとめてarr_dataを渡すhandler_workerを用意し、排
 <br>
 共通化したMy_job_imported(data_in)をforEachで順番に実行し、
 <br>
-後述する受取り処理self.handlers.onmessageに返却dataを渡す
+後述する受取り処理self.callbacks_worker.onmessageに返却dataを渡す
 <pre><code>
   if(self.handler_worker.isLocked) return false;
   if(hasWorker){
@@ -127,7 +139,7 @@ mainからworkerにまとめてarr_dataを渡すhandler_workerを用意し、排
   }
   else{
     self.arr_data_in.forEach(function(data_in){
-      self.handlers.onmessage({data: My_job_imported(data_in)});
+      self.callbacks_worker.onmessage({data: My_job_imported(data_in)});
     });
   }
 </code></pre>
@@ -162,10 +174,12 @@ My_handler_worker.prototype.run = function(arr_data){
         </tr>
         <tr class="border">
           <td class="border">
-main受取り処理
+main
+<br>
+受取り処理
           </td>
           <td class="border">
-workerに登録する受取り処理とエラー処理のハンドラself.handlersをmain内に定義する
+workerに登録する受取り処理とエラー処理のcallbackをmain内に定義する
 <br>
 workerからはmain依頼順とは順不同にdataが返却されるため、
 <br>
@@ -179,30 +193,32 @@ Object.keys(self.arr_data_out).lengthが
 <br>
 エラー発生時や中断時、body.onbeforeunload時も同様の終了処理を実施する
 <br>
-なお、このhandlerは別のスコープから呼ばれるので、thisをインスタンスselfでbindする
+なお、callbackは別のスコープから呼ばれるので、thisをインスタンスselfでbindする
 <pre><code>
   self.arr_data_out = [];
-  self.handlers = {};
-  self.handlers.onmessage = function(e){
+  self.callbacks_worker = {};
+  self.callbacks_worker.onmessage = function(e){
     var self = this;
     var data = e.data;
     self.arr_data_out[data.i] = data;
     if(Object.keys(self.arr_data_out).length === self.arr_data_in.length){
-      self.stop(true);
+      self.stop_worker(true);
     }
     return self;
   };
-  self.handlers.onerror = function(e){
+  self.callbacks_worker.onerror = function(e){
     var self = this;
-    self.stop(true);
+    self.stop_worker(true);
     return self;
   };
-  My$bind_objs(self, self.handlers);
+  My$bind_objs(self, self.callbacks_worker);
 </code></pre>
           </td>
         </tr>
         <tr class="border">
           <td class="border">
+handler_worker
+<br>
 終了処理
           </td>
           <td class="border">
@@ -230,7 +246,7 @@ My_handler_worker.prototype.terminate = function(isReset){
 
 My_handler_worker.prototype.re_init = function(){
   var self = this;
-  self.init(self.url, self.handlers);
+  self.init(self.url, self.callbacks);
   return self;
 };
 </code></pre>

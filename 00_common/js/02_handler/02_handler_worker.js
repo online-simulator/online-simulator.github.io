@@ -1,12 +1,12 @@
 // online-simulator.github.io
 
-function My_handler_worker(url, handlers){
+function My_handler_worker(url, callbacks){
   var self = this;
   self.init.apply(self, arguments);
   return self;
 }
 
-My_handler_worker.prototype.init = function(url, handlers){
+My_handler_worker.prototype.init = function(url, callbacks){
   var self = this;
   // define
   // setter function
@@ -14,11 +14,11 @@ My_handler_worker.prototype.init = function(url, handlers){
     url: function(url){
       self.set_url(url);
     },
-    handlers: function(handlers){
-      self.handlers = handlers || {};
+    callbacks: function(callbacks){
+      self.callbacks = callbacks || {};
       if(self.worker){
-        for(var onevent in self.handlers){
-          self.worker[onevent] = self.handlers[onevent];
+        for(var onevent in self.callbacks){
+          self.worker[onevent] = self.callbacks[onevent];
         }
       }
     }
@@ -32,12 +32,12 @@ My_handler_worker.prototype.init = function(url, handlers){
   self.hasWorker = (window.Worker)? true: false;
   self.setter.url(url);
   self.worker = new Worker(self.url);
-  self.setter.handlers(handlers);
+  self.setter.callbacks(callbacks);
   return self;
 };
 My_handler_worker.prototype.re_init = function(){
   var self = this;
-  self.init(self.url, self.handlers);
+  self.init(self.url, self.callbacks);
   return self;
 };
 My_handler_worker.prototype.set_url = function(url){

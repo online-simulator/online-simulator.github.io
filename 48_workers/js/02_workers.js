@@ -10,29 +10,29 @@ My_test_worker.prototype.init = function(id_output){
   var self = this;
   self.hasWorker = (window.Worker)? true: false;
   self.elem_o = My$_id(id_output); // used onbeforeunload
-  self.set_job();
-  self.set_url();
-  self.set_handlers();
-  self.handler_worker = new My_handler_worker(self.url, self.handlers);
+  self.set_job_worker();
+  self.set_url_worker();
+  self.set_callbacks_worker();
+  self.handler_worker = new My_handler_worker(self.url, self.callbacks_worker);
   return self;
 };
-My_test_worker.prototype.stop = function(isReset){
+My_test_worker.prototype.stop_worker = function(isReset){
   var self = this;
   self.handler_worker.terminate(isReset);
   self.elem_o.value += "terminated"+"\n";
   return self;
 };
-My_test_worker.prototype.set_job = function(){
+My_test_worker.prototype.set_job_worker = function(){
   var self = this;
   self.job = My_job_imported;
   return self;
 };
-My_test_worker.prototype.set_url = function(){
+My_test_worker.prototype.set_url_worker = function(){
   var self = this;
   self.url = "js/for_url.js";
   return self;
 };
-My_test_worker.prototype.set_handlers = function(){
+My_test_worker.prototype.set_callbacks_worker = function(){
   var self = this;
   var get_log = function(data, isIn){
     var _log = (isIn)?
@@ -40,8 +40,8 @@ My_test_worker.prototype.set_handlers = function(){
       "data from worker("+data.i+"): "+data.out;
     return _log;
   };
-  self.handlers = {};
-  self.handlers.onmessage = function(e){
+  self.callbacks_worker = {};
+  self.callbacks_worker.onmessage = function(e){
     var self = this;
     var data = e.data;
     var log =  get_log(data, true)+"\n";
@@ -49,19 +49,19 @@ My_test_worker.prototype.set_handlers = function(){
     self.elem_o.value += log;
     self.arr_data_out[data.i] = data;
     if(Object.keys(self.arr_data_out).length === self.arr_data_in.length){
-      self.stop(true);
+      self.stop_worker(true);
     }
     return self;
   };
-  self.handlers.onerror = function(e){
+  self.callbacks_worker.onerror = function(e){
     var self = this;
     var log = e.message+"\n";
     self.elem_o.value += log;
-    self.stop(true);
+    self.stop_worker(true);
     return self;
   };
 ////////////////////////////////////////////////////////////
-  My$bind_objs(self, self.handlers);
+  My$bind_objs(self, self.callbacks_worker);
 ////////////////////////////////////////////////////////////
   return self;
 };
@@ -78,7 +78,7 @@ My_test_worker.prototype.make_testcase = function(n, sw_job){
   }
   return self;
 };
-My_test_worker.prototype.run = function(n, hasWorker, sw_job){
+My_test_worker.prototype.run_worker = function(n, hasWorker, sw_job){
   var self = this;
   if(self.handler_worker.isLocked) return false;
   self.elem_o.value = "";
@@ -89,7 +89,7 @@ My_test_worker.prototype.run = function(n, hasWorker, sw_job){
   }
   else{
     self.arr_data_in.forEach(function(data_in){
-      self.handlers.onmessage({data: self.job(data_in)});
+      self.callbacks_worker.onmessage({data: self.job(data_in)});
     });
   }
   return self;
