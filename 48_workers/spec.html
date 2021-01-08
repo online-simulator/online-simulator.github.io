@@ -133,8 +133,8 @@ mainからworkerにまとめてarr_dataを渡すhandler_workerを用意し、排
 <br>
 後述する受取り処理self.callbacks_worker.onmessageに返却dataを渡す
 <pre><code>
-  if(self.handler_worker.isLocked) return false;
   if(hasWorker){
+    if(self.handler_worker.isLocked) return false;
     self.handler_worker.run(self.arr_data_in);
   }
   else{
