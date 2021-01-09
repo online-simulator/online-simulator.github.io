@@ -223,15 +223,6 @@ My_output_wave.prototype.get_gain_type = function(type){
   var rms = My_math_wave.get_rms(1000, fn);
   return Math.min(1, 0.5/rms);  // gain["square"] = 0.5(at rms=1)
 };
-My_output_wave.prototype.check_params = function(params){
-  var self = this;
-  var arr_f = params.arr_f;
-  var arr_g = params.arr_g;
-  var arr_g = self.check_gains(arr_f, arr_g);
-  params.gain_type = self.get_gain_type(params.type);
-  params.arr_g_normalized = self.normalize_gains(arr_g, params.gain_type, params.gain_band);
-  return params;
-};
 My_output_wave.prototype.check_error = function(params){
   var self = this;
   var title = self.title_error;
@@ -247,17 +238,25 @@ My_output_wave.prototype.check_error = function(params){
   });
   return self;
 };
+My_output_wave.prototype.check_params = function(params){
+  var self = this;
+  self.check_error(params);
+  var arr_f = params.arr_f;
+  var arr_g = params.arr_g;
+  var arr_g = self.check_gains(arr_f, arr_g);
+  params.gain_type = self.get_gain_type(params.type);
+  params.arr_g_normalized = self.normalize_gains(arr_g, params.gain_type, params.gain_band);
+  return params;
+};
 My_output_wave.prototype.check_arr_params = function(_arr_params){
   var self = this;
   _arr_params.forEach(function(params, i){
-    self.check_error(params);
     _arr_params[i] = self.check_params(params);
   });
   return _arr_params;
 };
 My_output_wave.prototype.get_binary_soundData_LE = function(params){
   var self = this;
-  self.check_error(params);
   var params = self.check_params(params);
   return self.encode_soundData_LE(params.number_samples, params.number_channels, params.arr_f, params.arr_g_normalized, params.type);
 };
