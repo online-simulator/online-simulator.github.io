@@ -3,9 +3,12 @@
 function My_config(){
 }
 
-// Static
+// static
 My_config.REFERRER = {
   html: "innerHTML",
   text: "textContent",
   value: "value"
+};
+My_config.ERROR = {
+  title: "[MyDefErr]"
 };

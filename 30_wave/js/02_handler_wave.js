@@ -11,6 +11,7 @@ My_handler_wave.prototype.init = function(){
   self.isScriptMode = (My$_id("select-octave"))? false: true;
   self.elem_log = My$_id("span-log");
   self.elem_name = My$_id("span-name");
+  self.elem_time = My$_id("input-time");
   self.text_log = "finished SAVE-OK 保存可能";
   self.fileName_default = "download.wav";
   var text_link = "download-wav by double-click";
@@ -65,6 +66,9 @@ My_handler_wave.prototype.init = function(){
     self.make_params();
     self.waveo.init(self.params.Bytes_perSample, self.params.samples_perSecond, self.params.number_channels);
     self.output_fileSize();
+    if(self.isScriptMode){
+      self.output_time("");
+    }
     return self;
   };
   self.handlers.onclick = function(id){
@@ -72,19 +76,23 @@ My_handler_wave.prototype.init = function(){
     switch(id){
       case "play":
         if(self.waveo.audio) return false;
+        if(self.handler_worker && self.handler_worker.isLocked) return false;
         self.output_log("Now encoding...");
         try{
           self.init_worker();
           if(self.isScriptMode){
+            var input = My$_id("textarea-script").value;
+            if(input){
+              var arr_params = self.check_script(input);
+            }
           }
           else{
-            self.params.number_samples = self.waveo.get_number_samples(self.params.sec);
             var arr_params = self.waveo.check_arr_params([self.params]);
-            var useWorker = My$checkbox_id("checkbox-useWorker");
-            setTimeout(function(){
-              self.run_worker(arr_params, useWorker);
-            }, 20);
           }
+          var useWorker = My$checkbox_id("checkbox-useWorker");
+          setTimeout(function(){
+            self.run_worker(arr_params, useWorker);
+          }, 50);
         }
         catch(e){
           self.output_log(e.message);
@@ -122,6 +130,11 @@ My_handler_wave.prototype.output_fileName = function(fileName){
   self.elem_name.textContent = fileName || self.fileName_default;
   return self;
 };
+My_handler_wave.prototype.output_time = function(sec){
+  var self = this;
+  self.elem_time.value = sec;
+  return self;
+};
 My_handler_wave.prototype.calc_freq = function(octave, code){
   // Reference
   // en.m.wikipedia.org/wiki/MIDI_tuning_standard
@@ -142,9 +155,9 @@ My_handler_wave.prototype.output_freq = function(){
   My$_id("input-freq").value = freq.toFixed(2);
   return self;
 };
-My_handler_wave.prototype.output_fileSize = function(){
+My_handler_wave.prototype.output_fileSize = function(sec){
   var self = this;
-  var number_samples = self.waveo.get_number_samples(self.params.sec);
+  var number_samples = self.waveo.get_number_samples(sec || self.params.sec);
   var fileSize = self.waveo.get_fileSize(number_samples);
   My$_id("input-fileSize").value = fileSize/1000;
   return self;
@@ -199,6 +212,7 @@ My_handler_wave.prototype.make_params = function(){
     My$inputNum_id("input-time") = sec*1000;
   }
   self.params.sec = My_math_wave.get_limit(sec, 0, 10);
+  self.params.number_samples = self.waveo.get_number_samples(self.params.sec);
   var volume = My$inputNum_id("range-volume")*0.01;
   if(isNaN(volume)){
     volume = 0.5;
