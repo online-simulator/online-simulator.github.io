@@ -238,15 +238,15 @@ My_output_wave.prototype.check_error = function(params){
   });
   return self;
 };
-My_output_wave.prototype.check_params = function(params){
+My_output_wave.prototype.check_params = function(_params){
   var self = this;
-  self.check_error(params);
-  var arr_f = params.arr_f;
-  var arr_g = params.arr_g;
+  self.check_error(_params);
+  var arr_f = _params.arr_f;
+  var arr_g = _params.arr_g;
   var arr_g = self.check_gains(arr_f, arr_g);
-  params.gain_type = self.get_gain_type(params.type);
-  params.arr_g_normalized = self.normalize_gains(arr_g, params.gain_type, params.gain_band);
-  return params;
+  _params.gain_type = self.get_gain_type(_params.type);
+  _params.arr_g_normalized = self.normalize_gains(arr_g, _params.gain_type, _params.gain_band);
+  return _params;
 };
 My_output_wave.prototype.check_arr_params = function(_arr_params){
   var self = this;
