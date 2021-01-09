@@ -7,12 +7,10 @@
 /*
 
 dependency files:
+  <script type="text/javascript" src="../00_common/js/00_class/01_config.js"></script>
   <script type="text/javascript" src="../00_common/js/00_class/01_math_wave.js"></script>
   <script type="text/javascript" src="../00_common/js/02_handler/02_handler_baseview.js"></script>
   <script type="text/javascript" src="js/01_output_wave.js"></script>
-
-ex. of handler:
-  <script type="text/javascript" src="js/02_handler_wave.js"></script>
 
 Native method used:
   window.btoa()

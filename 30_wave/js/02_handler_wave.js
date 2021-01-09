@@ -212,7 +212,9 @@ My_handler_wave.prototype.make_params = function(){
     My$inputNum_id("input-time") = sec*1000;
   }
   self.params.sec = My_math_wave.get_limit(sec, 0, 10);
-  self.params.number_samples = self.waveo.get_number_samples(self.params.sec);
+  if(self.waveo){
+    self.params.number_samples = self.waveo.get_number_samples(self.params.sec);
+  }
   var volume = My$inputNum_id("range-volume")*0.01;
   if(isNaN(volume)){
     volume = 0.5;
