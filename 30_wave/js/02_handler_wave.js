@@ -24,6 +24,8 @@ My_handler_wave.prototype.init = function(){
   self.regex.rb = /\{|\}/g;
   self.regex.rl = /\[|\]/g;
   self.regex.oc = /^o(\d+)c(\d+)$/;
+  self.regex.freq = /^f(\d+)/;
+  self.regex.rest = /^r/;
   self.params = {};
   self.handlers = {};
   self.handlers.onload = function(isSingle){
@@ -79,20 +81,26 @@ My_handler_wave.prototype.init = function(){
         if(self.handler_worker && self.handler_worker.isLocked) return false;
         self.output_log("Now encoding...");
         try{
-          self.init_worker();
+          var arr_params = null;
           if(self.isScriptMode){
             var input = My$_id("textarea-script").value;
             if(input){
-              var arr_params = self.check_script(input);
+              arr_params = self.check_script(input);
             }
           }
           else{
-            var arr_params = self.waveo.check_arr_params([self.params]);
+            arr_params = self.waveo.check_arr_params([self.params]);
           }
-          var useWorker = My$checkbox_id("checkbox-useWorker");
-          setTimeout(function(){
-            self.run_worker(arr_params, useWorker);
-          }, 50);
+          if(arr_params.length){
+            var useWorker = My$checkbox_id("checkbox-useWorker");
+            self.init_worker();
+            setTimeout(function(){
+              self.run_worker(arr_params, useWorker);
+            }, 50);
+          }
+          else{
+            self.output_log("stopped by no-data");
+          }
         }
         catch(e){
           self.output_log(e.message);
