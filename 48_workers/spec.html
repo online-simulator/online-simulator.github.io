@@ -123,6 +123,11 @@ main
           <td class="border">
 mainからworkerにまとめてarr_dataを渡すhandler_workerを用意し、排他処理を実施する
 <br>
+最も上流の実行命令の直後に次のような一文を加える
+<pre><code>
+  if(self.handler_worker && self.handler_worker.isLocked) return false;
+</code></pre>
+<br>
 追加依頼を受けないロック状態にすることで並列処理のスレッド数に制限を設ける
 <br>
 さらに、スレッドの終了処理を確実に実施してからロック状態を解除する
