@@ -29,6 +29,7 @@ My_handler_wave.prototype.init = function(){
     var self = this;
     self.isSingle = isSingle;
     self.handlers.onchange("SELECT");
+    self.output_fileName();
     return self;
   };
   self.handlers.stop_sound = function(isClear){
@@ -118,7 +119,7 @@ My_handler_wave.prototype.output_log = function(log){
 };
 My_handler_wave.prototype.output_fileName = function(fileName){
   var self = this;
-  self.elem_name.textContent = fileName || self.get_fileName();
+  self.elem_name.textContent = fileName || self.fileName_default;
   return self;
 };
 My_handler_wave.prototype.calc_freq = function(octave, code){
