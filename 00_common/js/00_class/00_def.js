@@ -3,17 +3,16 @@
 function My_def(){
 }
 
-My_def.mix_in = function(Sub, Supers){
+My_def.mix_in = function(_sub, supers_){
   for(var i=1, len=arguments.length; i<len; ++i){
-    var Super = arguments[i];
-    for(var property in Super.prototype){
-      // mix-in super"s prototype undefined in sub
-      if(!Sub.prototype[property]){
-        Sub.prototype[property] = Super.prototype[property];
+    var super_ = arguments[i];
+    for(var prop in super_.prototype){
+      if(!(_sub.prototype[prop])){
+        _sub.prototype[prop] = super_.prototype[prop];
       }
     }
   }
-  return Sub;
+  return _sub;
 };
 My_def.hasProp = function(obj, prop){
   return !(My_def.isUndef(obj[prop]));
