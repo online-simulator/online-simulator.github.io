@@ -10,9 +10,11 @@ My_handler_wave.prototype.set_callbacks_worker = function(){
     if(Object.keys(self.arr_data_out).length === self.arr_data_in.length){
       var binary = self.waveo.get_binary_header(data.number_samples)+data.out;
       var buffer = self.waveo.binary2buffer(binary);
-      self.handler_link.link.name = self.get_fileName();
+      var fileName = self.get_fileName();
+      self.handler_link.link.name = fileName;
       self.handler_link.link.set_url(buffer);
-      self.output_log("finished SAVE-OK 保存可能");
+      self.output_log();
+      self.output_fileName(fileName);
       var base64 = (window.btoa)? "data:audio/wav;base64,"+btoa(binary): "";
       var isIE = self.handler_link.browser.sws.isIE;
       if(!(isIE)){

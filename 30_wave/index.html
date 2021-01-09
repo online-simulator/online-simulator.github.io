@@ -78,7 +78,7 @@ Byte数/sample：
     <td>
 <select id="select-Bytes_perSample">
   <option>1</option>
-  <option selected="selected">2</option>
+  <option>2</option>
 </select>
     </td>
   </tr>
@@ -203,7 +203,7 @@ wave-type：
     <td>
 <div class="selection">
   <label>log:
-    <span id="log">オフラインで生成ダウンロード可</span>
+    <span id="span-log">オフラインで生成ダウンロード可</span>
   </label>
 </div>
 <input id="input-fileSize" readonly="readonly" />
@@ -218,7 +218,11 @@ wave-type：
 オプション:
     </td>
     <td>
-<br>
+<div class="selection">
+  <label>Name:
+    <span id="span-name"></span>
+  </label>
+</div>
 <div class="text-right">
   <label>マルチスレッドencode by Workers:
     <input id="checkbox-useWorker" type="checkbox" checked="checked" />

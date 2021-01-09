@@ -83,8 +83,6 @@ IE、Silk等の旧式はダウンロード後、メディア再生のみ可
   <option>2</option>
   <option selected="selected">3</option>
   <option>4</option>
-  <option>5</option>
-  <option>6</option>
 </select>
 </label>
     </td>
@@ -92,6 +90,10 @@ IE、Silk等の旧式はダウンロード後、メディア再生のみ可
     </td>
     <td class="border" colspan=21>
 <button id="uncheck" class="selection">uncheck-all</button>
+    </td>
+    <td class="border" colspan=21>
+    </td>
+    <td class="border" colspan=21>
     </td>
   </tr>
   <tr class="no-border">
@@ -131,6 +133,30 @@ IE、Silk等の旧式はダウンロード後、メディア再生のみ可
     <td class="border bg-white" colspan=1></td>
     <td class="border bg-black" colspan=2><input id="o2c10" type="checkbox" /></td>
     <td class="border bg-white" colspan=2></td>
+    <td class="border bg-white" colspan=2></td>
+    <td class="border bg-black" colspan=2><input id="o3c1" type="checkbox" /></td>
+    <td class="border bg-white" colspan=1></td>
+    <td class="border bg-black" colspan=2><input id="o3c3" type="checkbox" /></td>
+    <td class="border bg-white" colspan=2></td>
+    <td class="border bg-white" colspan=2></td>
+    <td class="border bg-black" colspan=2><input id="o3c6" type="checkbox" /></td>
+    <td class="border bg-white" colspan=1></td>
+    <td class="border bg-black" colspan=2><input id="o3c8" type="checkbox" /></td>
+    <td class="border bg-white" colspan=1></td>
+    <td class="border bg-black" colspan=2><input id="o3c10" type="checkbox" /></td>
+    <td class="border bg-white" colspan=2></td>
+    <td class="border bg-white" colspan=2></td>
+    <td class="border bg-black" colspan=2><input id="o4c1" type="checkbox" /></td>
+    <td class="border bg-white" colspan=1></td>
+    <td class="border bg-black" colspan=2><input id="o4c3" type="checkbox" /></td>
+    <td class="border bg-white" colspan=2></td>
+    <td class="border bg-white" colspan=2></td>
+    <td class="border bg-black" colspan=2><input id="o4c6" type="checkbox" /></td>
+    <td class="border bg-white" colspan=1></td>
+    <td class="border bg-black" colspan=2><input id="o4c8" type="checkbox" /></td>
+    <td class="border bg-white" colspan=1></td>
+    <td class="border bg-black" colspan=2><input id="o4c10" type="checkbox" /></td>
+    <td class="border bg-white" colspan=2></td>
   </tr>
   <tr class="no-border">
     <td class="border bg-white" colspan=3><input id="o0c0" type="checkbox" /></td>
@@ -154,8 +180,36 @@ IE、Silk等の旧式はダウンロード後、メディア再生のみ可
     <td class="border bg-white" colspan=3><input id="o2c7" type="checkbox" /></td>
     <td class="border bg-white" colspan=3><input id="o2c9" type="checkbox" /></td>
     <td class="border bg-white" colspan=3><input id="o2c11" type="checkbox" /></td>
+    <td class="border bg-white" colspan=3><input id="o3c0" type="checkbox" /></td>
+    <td class="border bg-white" colspan=3><input id="o3c2" type="checkbox" /></td>
+    <td class="border bg-white" colspan=3><input id="o3c4" type="checkbox" /></td>
+    <td class="border bg-white" colspan=3><input id="o3c5" type="checkbox" /></td>
+    <td class="border bg-white" colspan=3><input id="o3c7" type="checkbox" /></td>
+    <td class="border bg-white" colspan=3><input id="o3c9" type="checkbox" /></td>
+    <td class="border bg-white" colspan=3><input id="o3c11" type="checkbox" /></td>
+    <td class="border bg-white" colspan=3><input id="o4c0" type="checkbox" /></td>
+    <td class="border bg-white" colspan=3><input id="o4c2" type="checkbox" /></td>
+    <td class="border bg-white" colspan=3><input id="o4c4" type="checkbox" /></td>
+    <td class="border bg-white" colspan=3><input id="o4c5" type="checkbox" /></td>
+    <td class="border bg-white" colspan=3><input id="o4c7" type="checkbox" /></td>
+    <td class="border bg-white" colspan=3><input id="o4c9" type="checkbox" /></td>
+    <td class="border bg-white" colspan=3><input id="o4c11" type="checkbox" /></td>
   </tr>
   <tr class="border">
+    <td class="no-border" colspan=3><span>C</span></td>
+    <td class="no-border" colspan=3><span>D</span></td>
+    <td class="no-border" colspan=3><span>E</span></td>
+    <td class="no-border" colspan=3><span>F</span></td>
+    <td class="no-border" colspan=3><span>G</span></td>
+    <td class="no-border" colspan=3><span>A</span></td>
+    <td class="no-border" colspan=3><span>B</span></td>
+    <td class="no-border" colspan=3><span>C</span></td>
+    <td class="no-border" colspan=3><span>D</span></td>
+    <td class="no-border" colspan=3><span>E</span></td>
+    <td class="no-border" colspan=3><span>F</span></td>
+    <td class="no-border" colspan=3><span>G</span></td>
+    <td class="no-border" colspan=3><span>A</span></td>
+    <td class="no-border" colspan=3><span>B</span></td>
     <td class="no-border" colspan=3><span>C</span></td>
     <td class="no-border" colspan=3><span>D</span></td>
     <td class="no-border" colspan=3><span>E</span></td>
@@ -180,6 +234,11 @@ IE、Silk等の旧式はダウンロード後、メディア再生のみ可
   </tr>
 </tbody></table>
 </div>
+<div class="selection">
+  最長50<label>Name:
+    <span id="span-name"></span>
+  </label>
+</div>
 <hr>
 
 <div>
@@ -191,7 +250,7 @@ Byte数/sample：
     <td>
 <select id="select-Bytes_perSample">
   <option>1</option>
-  <option selected="selected">2</option>
+  <option>2</option>
 </select>
     </td>
   </tr>
@@ -265,7 +324,7 @@ wave-type：
     <td>
 <div class="selection">
   <label>log:
-    <span id="log">オフラインで生成ダウンロード可</span>
+    <span id="span-log">オフラインで生成ダウンロード可</span>
   </label>
 </div>
 <input id="input-fileSize" readonly="readonly" />

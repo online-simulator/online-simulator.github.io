@@ -9,9 +9,12 @@ function My_handler_wave(){
 My_handler_wave.prototype.init = function(){
   var self = this;
   self.isScriptMode = (My$_id("select-octave"))? false: true;
-  self.elem_log = My$_id("log");
+  self.elem_log = My$_id("span-log");
+  self.elem_name = My$_id("span-name");
+  self.text_log = "finished SAVE-OK 保存可能";
+  self.fileName_default = "download.wav";
   var text_link = "download-wav by double-click";
-  var json = {p: {id: "wrapper-link"}, a: {id: "a", it: text_link}, name: "download.wav", type: "audio/wav"};
+  var json = {p: {id: "wrapper-link"}, a: {id: "a", it: text_link}, name: self.fileName_default, type: "audio/wav"};
   self.handler_link = new My_handler_link(json);
   self.regex = {};
   self.regex.s = /\s/g;
@@ -110,7 +113,12 @@ My_handler_wave.prototype.init = function(){
 };
 My_handler_wave.prototype.output_log = function(log){
   var self = this;
-  self.elem_log.textContent = log;
+  self.elem_log.textContent = log || self.text_log;
+  return self;
+};
+My_handler_wave.prototype.output_fileName = function(fileName){
+  var self = this;
+  self.elem_name.textContent = fileName || self.get_fileName();
   return self;
 };
 My_handler_wave.prototype.calc_freq = function(octave, code){
@@ -150,6 +158,9 @@ My_handler_wave.prototype.get_fileName = function(){
   _name += Math.round(self.params.sec*1000)/1000;
   _name += "sec";
   _name += ".wav";
+  if(_name.length > 50){
+    _name = self.fileName_default;
+  }
   return _name;
 };
 My_handler_wave.prototype.get_freqs = function(){
