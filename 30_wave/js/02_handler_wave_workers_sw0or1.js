@@ -8,7 +8,9 @@ My_handler_wave.prototype.set_callbacks_worker = function(){
     var data = e.data;
     self.arr_data_out[data.i] = data;
     if(Object.keys(self.arr_data_out).length === self.arr_data_in.length){
-      var binary = self.waveo.get_binary_header(data.number_samples)+data.out;
+      var binary_header = self.waveo.get_binary_header(data.number_samples);
+      var binary_soundData_LE = data.out;
+      var binary = binary_header+binary_soundData_LE;
       var buffer = self.waveo.binary2buffer(binary);
       var fileName = self.get_fileName();
       self.handler_link.link.name = fileName;

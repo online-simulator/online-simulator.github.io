@@ -227,10 +227,11 @@ My_output_wave.prototype.check_error = function(params){
   var self = this;
   var title = self.title_error;
   var sec = params.sec;
+  var number_samples = params.number_samples;
   var arr_f = params.arr_f;
   var arr_g = params.arr_g;
   if(isNaN(sec) || sec < 0) throw new Error(title+"time is improper");
-  var fileSize = self.get_fileSize(sec);
+  var fileSize = self.get_fileSize(number_samples);
   if(fileSize > 10*Math.pow(10, 6)) throw new Error(title+"fileSize is over limit(10MB)");
   arr_f.forEach(function(f, i){
     if(isNaN(f)) throw new Error(title+"frequency is not a number");
