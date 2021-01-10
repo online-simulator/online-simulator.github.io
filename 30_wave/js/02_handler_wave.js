@@ -67,9 +67,11 @@ My_handler_wave.prototype.init = function(){
     self.waveo = new My_output_wave();
     self.make_params();
     self.waveo.init(self.params.Bytes_perSample, self.params.samples_perSecond, self.params.number_channels);
-    self.output_fileSize();
     if(self.isScriptMode){
       self.output_time("");
+    }
+    else{
+      self.output_fileSize();
     }
     return self;
   };
@@ -92,6 +94,7 @@ My_handler_wave.prototype.init = function(){
             arr_params = self.waveo.check_arr_params([self.params]);
           }
           if(arr_params.length){
+            self.update_number_samples();
             var useWorker = My$checkbox_id("checkbox-useWorker");
             self.init_worker();
             setTimeout(function(){
@@ -208,6 +211,13 @@ My_handler_wave.prototype.get_freqs = function(){
   }
   return _arr_f;
 };
+My_handler_wave.prototype.update_number_samples = function(){
+  var self = this;
+  if(self.waveo){
+    self.params.number_samples = self.waveo.get_number_samples(self.params.sec);
+  }
+  return self;
+};
 My_handler_wave.prototype.make_params = function(){
   var self = this;
   self.params.Bytes_perSample = My$selectNum_id("select-Bytes_perSample");
@@ -220,9 +230,7 @@ My_handler_wave.prototype.make_params = function(){
     My$inputNum_id("input-time") = sec*1000;
   }
   self.params.sec = My_math_wave.get_limit(sec, 0, 10);
-  if(self.waveo){
-    self.params.number_samples = self.waveo.get_number_samples(self.params.sec);
-  }
+  self.update_number_samples();
   var volume = My$inputNum_id("range-volume")*0.01;
   if(isNaN(volume)){
     volume = 0.5;
