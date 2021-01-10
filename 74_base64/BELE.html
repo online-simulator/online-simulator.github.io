@@ -35,13 +35,23 @@
       <tbody>
         <tr class="border">
           <td class="border">
+前提
+          </td>
+          <td class="border">
+・Uint16Array等の型付き配列のバイト順序は環境依存
+<br>
+　⇒　代わりにDataViewを使用する
+<br>
+・バイナリ文字列のコードポイント・符号位置 &lt; 256
+          </td>
+        </tr>
+        <tr class="border">
+          <td class="border">
 文字列　⇒
 <br>
 バイナリ文字列
           </td>
           <td class="border">
-バイナリ文字列のコードポイント・符号位置 &lt; 256
-<br>
 実装手順と実装コードを以下に示す
 <ul>
   <li>

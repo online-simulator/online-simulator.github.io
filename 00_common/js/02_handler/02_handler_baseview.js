@@ -27,7 +27,7 @@ My_handler_baseview.prototype.make_setter = function(prop_){
   self.arr_view.forEach(function(view, n){
     var prop = (prop_ || "setInt")+String(n*8);
     self.set[n] = function(){
-      view[prop].apply(view, arguments);
+      return view[prop].apply(view, arguments);
     };
   });
   return self;
@@ -38,7 +38,7 @@ My_handler_baseview.prototype.make_getter = function(prop_){
   self.arr_view.forEach(function(view, n){
     var prop = (prop_ || "getInt")+String(n*8);
     self.get[n] = function(){
-      view[prop].apply(view, arguments);
+      return view[prop].apply(view, arguments);
     };
   });
   return self;
