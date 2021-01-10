@@ -49,7 +49,7 @@ function My_output_wave(Bytes_perSample, samples_perSecond, number_channels){
 
 My_output_wave.prototype.init = function(Bytes_perSample, samples_perSecond, number_channels){
   var self = this;
-  self.handler_baseview = new My_handler_baseview([1, 2, 4], "setInt", "getInt");
+  self.handler_baseview = new My_handler_baseview([{n: 1, prop: "Uint"}, {n: 2, prop: "Int"}, {n: 4, prop: "Uint"}]);
   self.arr_buffer = self.handler_baseview.arr_buffer;
   self.arr_viewset = self.handler_baseview.set;
   self.title_error = My_config.ERROR.title;

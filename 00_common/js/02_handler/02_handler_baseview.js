@@ -6,40 +6,27 @@ function My_handler_baseview(arr_n, prop_set, prop_get){
   return self;
 }
 
-My_handler_baseview.prototype.init = function(arr_n, prop_set, prop_get){
+My_handler_baseview.prototype.init = function(arr_base){
   var self = this;
   self.arr_buffer = [];
   self.arr_view = [];
-  arr_n.forEach(function(n){
-    var n = Number(n);
+  self.set = [];
+  self.get = [];
+  arr_base.forEach(function(base){
+    var n = Number(base.n);
     if(!isNaN(n)){
       self.arr_buffer[n] = new ArrayBuffer(n);
       self.arr_view[n] = new DataView(self.arr_buffer[n], 0);
+      var view = self.arr_view[n];
+      var prop_set = ("set"+(base.prop || "Int"))+String(n*8);
+      var prop_get = ("get"+(base.prop || "Int"))+String(n*8);
+      self.set[n] = function(){
+        return view[prop_set].apply(view, arguments);
+      };
+      self.get[n] = function(){
+        return view[prop_get].apply(view, arguments);
+      };
     }
-  });
-  self.make_setter(prop_set);
-  self.make_getter(prop_get);
-  return self;
-};
-My_handler_baseview.prototype.make_setter = function(prop_){
-  var self = this;
-  self.set = [];
-  self.arr_view.forEach(function(view, n){
-    var prop = (prop_ || "setInt")+String(n*8);
-    self.set[n] = function(){
-      return view[prop].apply(view, arguments);
-    };
-  });
-  return self;
-};
-My_handler_baseview.prototype.make_getter = function(prop_){
-  var self = this;
-  self.get = [];
-  self.arr_view.forEach(function(view, n){
-    var prop = (prop_ || "getInt")+String(n*8);
-    self.get[n] = function(){
-      return view[prop].apply(view, arguments);
-    };
   });
   return self;
 };
