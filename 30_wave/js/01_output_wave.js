@@ -50,6 +50,8 @@ function My_output_wave(Bytes_perSample, samples_perSecond, number_channels){
 My_output_wave.prototype.init = function(Bytes_perSample, samples_perSecond, number_channels){
   var self = this;
   self.arr_prop_baseview = [, "Uint", "Int", , "Uint"];
+  self.arr_amplitude = [, 128-1, 32768-1];
+  self.arr_offset    = [, 128,   0];
   self.handler_baseview = new My_handler_baseview(self.arr_prop_baseview);
   self.arr_buffer = self.handler_baseview.arr_buffer;
   self.arr_viewset = self.handler_baseview.set;
@@ -65,8 +67,8 @@ My_output_wave.prototype.init = function(Bytes_perSample, samples_perSecond, num
   self.Bytes_subChunk1   = 2+2+4+4+2+2;
   self.Bytes_perSample   = Bytes_perSample || 2 || 1;
   self.bits_perSample    = self.Bytes_perSample*8;
-  self.amplitude         = (self.bits_perSample === 16)? 32768-1: 128-1;
-  self.offset            = (self.bits_perSample === 16)? 0: 128;
+  self.amplitude         = self.arr_amplitude[self.Bytes_perSample];
+  self.offset            = self.arr_offset[self.Bytes_perSample];
   self.samples_perSecond = samples_perSecond || 44100 || 48000 || 96000;
   self.number_channels   = number_channels || 2 || 1;
   self.Bytes_perBlock    = self.Bytes_perSample*self.number_channels;

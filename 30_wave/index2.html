@@ -4,7 +4,7 @@
 
 <head>
   <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-  <meta name="description" content="音源wave-PCM生成（単音）" />
+  <meta name="description" content="音源wave-PCM生成（演奏）" />
   <meta name="author" content="online-simulator.github.io" />
   <noscript>Javascript is not enabled on your browser.</noscript>
   <link rel="stylesheet" type="text/css" href="../00_common/css/common.css" />
@@ -27,7 +27,7 @@
   <script type="text/javascript" src="js/01_output_wave.js"></script>
   <script type="text/javascript" src="js/02_handler_wave.js"></script>
   <script type="text/javascript" src="js/02_handler_wave_workers.js"></script>
-  <script type="text/javascript" src="js/02_handler_wave_workers_sw0or1.js"></script>
+  <script type="text/javascript" src="js/02_handler_wave_workers_sw2.js"></script>
 </head>
 
 <body>
@@ -37,7 +37,7 @@
   const My_entry = {};
   (function(document){
     document.body.onload = function(e){
-      var isSingle = true;
+      var isSingle = false;
       My_entry.wave = new My_handler_wave().handlers.onload(isSingle);
       My$arr_tag("select").forEach(function(elem){
         elem.onchange = function(e){
@@ -63,7 +63,7 @@
 
 <hr>
 <div>
-単音の音源wave-PCMを生成して再生orダウンロード
+時系列の音源wave-PCMを生成して再生orダウンロード
 <br>
 IE、Silk等の旧式はダウンロード後、メディア再生のみ可
 </div>
@@ -126,64 +126,12 @@ wave-type：
 </select>
     </td>
   </tr>
-  <tr>
-    <td>
-周波数-freq[Hz]：
-    </td>
-    <td>
-<input id="input-freq" type="number" step="10" min="0" max="48000" title="周波数[Hz]">
-&lt;48,000Hz
-    </td>
-  </tr>
-  <tr>
-    <td>
-↑MIDI-octave：
-    </td>
-    <td>
-<select id="select-octave">
-  <option>-2</option>
-  <option>-1</option>
-  <option>0</option>
-  <option>1</option>
-  <option>2</option>
-  <option selected="selected">3</option>
-  <option>4</option>
-  <option>5</option>
-  <option>6</option>
-  <option>7</option>
-  <option>8</option>
-</select>
-    </td>
-  </tr>
-  <tr>
-    <td>
-↑音階-code：
-    </td>
-    <td>
-<select id="select-code">
-  <option value="0">C（ド）</option>
-  <option value="1">C＃/D♭</option>
-  <option value="2">D（レ）</option>
-  <option value="3">D＃/E♭</option>
-  <option value="4">E（ミ）</option>
-  <option value="5">F（ファ）</option>
-  <option value="6">F＃/G♭</option>
-  <option value="7">G（ソ）</option>
-  <option value="8">G＃/A♭</option>
-  <option value="9" selected="selected">A（ラ）</option>
-  <option value="10">A＃/B♭</option>
-  <option value="11">B（シ）</option>
-  <option value="12">C（ド）</option>
-</select>
-    </td>
-  </tr>
   <tr class="border">
     <td>
-時間-time[msec]：
+時間-time[sec]：
     </td>
     <td>
-<input id="input-time" type="number" min="0" max="10000" step="1" value="1000" />
-&lt;10,000msec
+<input id="input-time" type="number" readonly="readonly" />
     </td>
   </tr>
   <tr class="border">
@@ -231,6 +179,45 @@ wave-type：
     </td>
   </tr>
 </tbody></table>
+</div>
+<hr>
+
+<div>
+時系列のスクリプト入力欄　例）1オクターブのステレオ出力
+  <textarea id="textarea-script" rows="10">
+{500:[o3c0,f523,o5c0]; 500:[o3c2,o4c2,o5c2]; 500:[o3c4,o4c4,o5c4]; 500:[o3c5,o4c5,o5c5];
+ 500:[o3c7,o4c7,o5c7]; 500:[o3c9,o4c9,o5c9]; 500:[o3c11,o4c11,o5c11]; 500:[o4c0,o5c0,o6c0]; 500:r;}
+{1500:r; 500:[o3c0,f523,o5c0]; 500:[o3c2,o4c2,o5c2]; 500:[o3c4,o4c4,o5c4]; 500:[o3c5,o4c5,o5c5];
+ 500:[o3c7,o4c7,o5c7]; 500:[o3c9,o4c9,o5c9]; 500:[o3c11,o4c11,o5c11]; 500:[o4c0,o5c0,o6c0]; 500:r;}
+{3000:r; 500:[o3c0,f523,o5c0]; 500:[o3c2,o4c2,o5c2]; 500:[o3c4,o4c4,o5c4]; 500:[o3c5,o4c5,o5c5];
+ 500:[o3c7,o4c7,o5c7]; 500:[o3c9,o4c9,o5c9]; 500:[o3c11,o4c11,o5c11]; 500:[o4c0,o5c0,o6c0]; 500:r;}
+{4500:r; 500:[o3c0,f523,o5c0]; 500:[o3c2,o4c2,o5c2]; 500:[o3c4,o4c4,o5c4]; 500:[o3c5,o4c5,o5c5];
+ 500:[o3c7,o4c7,o5c7]; 500:[o3c9,o4c9,o5c9]; 500:[o3c11,o4c11,o5c11]; 500:[o4c0,o5c0,o6c0]; 500:r;}
+ </textarea>
+</div>
+<div>
+スクリプトの入力形式
+<br>
+・チャンネル1~を区切る大括弧{}
+<br>
+　奇数はチャンネル1に合成
+<br>
+　偶数はチャンネル数によってチャンネル2または1に合成
+<br>
+・1拍子のデータセット
+<br>
+　時間:音階;　または　時間:[音階0,音階1...];
+<br>
+　時間:休止記号"r";
+<br>
+・音階の入力形式
+<br>
+　"o"+MIDIオクターブ数-2~8+"c"+0~11~　または　省略可"f"+周波数
+<br>
+　例）ド523Hzの指定方法: o4c0 = o3c12 = f523 = 523
+<br>
+・時間の単位: msec
+・周波数の単位: Hz
 </div>
 <hr>
 
