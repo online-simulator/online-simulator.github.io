@@ -15,9 +15,7 @@ My_original_main.prototype.init_main = function(){
     return self;
   };
   self.init_handlers.apply(self, arguments);
-////////////////////////////////////////////////////////////
   My$bind_objs(self, self.handlers);
-////////////////////////////////////////////////////////////
   self.init_elems.apply(self, arguments);
   return self;
 };
@@ -45,10 +43,8 @@ My_original_main.prototype.setup_elem = function(arr_elem, onevent, handlers){
       elem[onevent] = function(e){
         handlers[onevent](e, elem);
       };
-////////////////////////////////////////////////////////////
       // use toUpperCase for UTF-8
 //      elem.id = elem.id || (elem.tagName+"-"+elem[My_config.REFERRER.text]).toUpperCase();
-////////////////////////////////////////////////////////////
     }
   });
   return self;

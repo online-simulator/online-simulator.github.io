@@ -47,9 +47,7 @@ My_handler_worker.prototype.set_url = function(url){
       self.url = url;
       break;
     case "function":
-////////////////////////////////////////////////////////////
       self.url = My_conv.fn2url(url);
-////////////////////////////////////////////////////////////
       break;
     default:
       self.url = null;

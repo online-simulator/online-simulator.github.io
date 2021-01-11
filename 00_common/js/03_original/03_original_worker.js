@@ -14,9 +14,7 @@ My_original_worker.prototype.init_worker = function(){
     self.set_url_worker();
     self.callbacks_worker = {};
     self.set_callbacks_worker();
-////////////////////////////////////////////////////////////
     My$bind_objs(self, self.callbacks_worker);
-////////////////////////////////////////////////////////////
     self.handler_worker = new My_handler_worker(self.url_worker, self.callbacks_worker);
   }
   return self;

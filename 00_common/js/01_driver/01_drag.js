@@ -25,9 +25,7 @@ My_drag.prototype.init = function(id, opt_handlers){
 };
 My_drag.prototype.set_handlers0 = function(){
   var self = this;
-////////////////////////////////////////////////////////////
   My$set_elem(self.elem, "position", "absolute");
-////////////////////////////////////////////////////////////
   self.onevent.forEach(function(onevent){
     var handler = null;
     switch(onevent){
@@ -65,29 +63,21 @@ My_drag.prototype.get_handler = function(onevent, opt_handlers){
 };
 My_drag.prototype.add_handlers = function(opt_handlers){
   var self = this;
-////////////////////////////////////////////////////////////
   My$set_elem(self.elem, "draggable", true);
-////////////////////////////////////////////////////////////
   self.onevent.forEach(function(onevent){
     var handler = self.get_handler(onevent, opt_handlers);
-////////////////////////////////////////////////////////////
     My$set_elem(self.elem, onevent, handler);
     My$set_elem(self.elem, self.touch[onevent], handler);
-////////////////////////////////////////////////////////////
     self.handlers[onevent] = handler;
   });
   return self;
 };
 My_drag.prototype.remove_handlers = function(){
   var self = this;
-////////////////////////////////////////////////////////////
   My$set_elem(self.elem, "draggable", false);
-////////////////////////////////////////////////////////////
   self.onevent.forEach(function(onevent){
-////////////////////////////////////////////////////////////
     My$set_elem(self.elem, onevent, null);
     My$set_elem(self.elem, self.touch[onevent], null);
-////////////////////////////////////////////////////////////
     self.handlers[onevent] = null;
   });
   return self;
@@ -109,10 +99,8 @@ My_drag.prototype.set_offset = function(e){
         left += (client.x-client0.x);
     var top = parent.scrollTop+offset0.top;
         top += (client.y-client0.y);
-////////////////////////////////////////////////////////////
     My$set_elem(self.elem, "left", left+"px");
     My$set_elem(self.elem, "top", top+"px");
-////////////////////////////////////////////////////////////
   }
   return self;
 };
