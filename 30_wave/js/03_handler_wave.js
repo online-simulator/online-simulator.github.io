@@ -6,17 +6,15 @@ function My_handler_wave(){
   return self;
 }
 
+My_def.mix_in(My_handler_wave, My_original_main);
+
 My_handler_wave.prototype.init = function(){
   var self = this;
-  self.isScriptMode = (My$_id("select-octave"))? false: true;
-  self.elem_log = My$_id("span-log");
-  self.elem_name = My$_id("span-name");
-  self.elem_time = My$_id("input-time");
+  self.init_main.apply(self, arguments);
+  self.isSingle = (My$_id("input-freq"))? true: false;
+  self.isScriptMode = (My$_id("textarea-script"))? true: false;
   self.text_log = "finished SAVE-OK 保存可能";
   self.fileName_default = "download.wav";
-  var text_link = "download-wav by double-click";
-  var json = {p: {id: "wrapper-link"}, a: {id: "a", it: text_link}, name: self.fileName_default, type: "audio/wav"};
-  self.handler_link = new My_handler_link(json);
   self.regex = {};
   self.regex.s = /\s/g;
   self.regex.mb = /\{.*?\}/g;
@@ -27,11 +25,29 @@ My_handler_wave.prototype.init = function(){
   self.regex.freq = /^f(\d+)/;
   self.regex.rest = /^r/;
   self.params = {};
-  self.handlers = {};
-  self.handlers.onload = function(isSingle){
+  return self;
+};
+My_handler_wave.prototype.init_elems = function(){
+  var self = this;
+  self.setup_elem(My$arr_tag("button"), "onclick");
+  self.setup_elem(My$arr_tag("input"), "onchange");
+  self.setup_elem(My$arr_tag("select"), "onchange");
+  self.elem_log = My$_id("span-log");
+  self.elem_name = My$_id("span-name");
+  self.elem_time = My$_id("input-time");
+  var text_link = "download-wav by double-click";
+  var json = {p: {id: "wrapper-link"}, a: {id: "a", it: text_link}, name: self.fileName_default, type: "audio/wav"};
+  self.handler_link = new My_handler_link(json);
+  return self;
+};
+My_handler_wave.prototype.init_handlers = function(){
+  var self = this;
+  self.handlers.onload = function(args){
     var self = this;
-    self.isSingle = isSingle;
-    self.handlers.onchange("SELECT");
+    if(self.isSingle){
+      self.output_freq();
+    }
+    self.handlers.onchange();
     self.output_fileName();
     return self;
   };
@@ -52,15 +68,16 @@ My_handler_wave.prototype.init = function(){
     }
     return self;
   };
-  self.handlers.onbeforeunload = function(){
+  self.handlers.onbeforeunload = function(e){
     var self = this;
     self.handlers.stop_sound(true);
     self.handlers.stop_worker();
     return self;
   };
-  self.handlers.onchange = function(tagName){
+  self.handlers.onchange = function(e, elem){
     var self = this;
     self.handlers.onbeforeunload();
+    var tagName = (elem)? elem.tagName: "";
     if(self.isSingle && tagName.toUpperCase() === "SELECT"){
       self.output_freq();
     }
@@ -75,15 +92,15 @@ My_handler_wave.prototype.init = function(){
     }
     return self;
   };
-  self.handlers.onclick = function(id){
+  self.handlers.onclick = function(e, elem){
     var self = this;
-    switch(id){
+    switch(elem.id){
       case "play":
         if(self.waveo.audio) return false;
         if(self.handler_worker && self.handler_worker.isLocked) return false;
         self.output_log("Now encoding...");
         try{
-          var arr_params = null;
+          var arr_params = [];
           if(self.isScriptMode){
             var input = My$_id("textarea-script").value;
             if(input){
@@ -128,7 +145,6 @@ My_handler_wave.prototype.init = function(){
     }
     return self;
   };
-  My$bind_objs(self, self.handlers);
   return self;
 };
 My_handler_wave.prototype.output_log = function(log){

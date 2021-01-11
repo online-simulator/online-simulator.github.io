@@ -1,8 +1,9 @@
 // online-simulator.github.io
 
+My_def.mix_in(My_handler_wave, My_original_worker);
+
 My_handler_wave.prototype.set_callbacks_worker = function(){
   var self = this;
-  self.callbacks_worker = {};
   self.callbacks_worker.onmessage = function(e){
     var self = this;
     var data = e.data;
@@ -32,8 +33,5 @@ My_handler_wave.prototype.set_callbacks_worker = function(){
     self.output_log(e.message);
     return self;
   };
-////////////////////////////////////////////////////////////
-  My$bind_objs(self, self.callbacks_worker);
-////////////////////////////////////////////////////////////
   return self;
 };

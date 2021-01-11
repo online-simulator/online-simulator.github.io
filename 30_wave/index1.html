@@ -15,6 +15,7 @@
   <link rel="stylesheet" type="text/css" href="css/size.css" />
   <script type="text/javascript" src="../00_common/js/00_class/00_$.js"></script>
   <script type="text/javascript" src="../00_common/js/00_class/00_conv.js"></script>
+  <script type="text/javascript" src="../00_common/js/00_class/00_def.js"></script>
   <script type="text/javascript" src="../00_common/js/00_class/01_math_wave.js"></script>
   <script type="text/javascript" src="../00_common/js/00_class/01_config.js"></script>
   <script type="text/javascript" src="../00_common/js/01_driver/01_browser.js"></script>
@@ -25,38 +26,19 @@
   <script type="text/javascript" src="../00_common/js/02_handler/02_handler_worker.js"></script>
   <script type="text/javascript" src="js/for_importScripts.js"></script>
   <script type="text/javascript" src="js/01_output_wave.js"></script>
-  <script type="text/javascript" src="js/02_handler_wave.js"></script>
-  <script type="text/javascript" src="js/02_handler_wave_workers.js"></script>
-  <script type="text/javascript" src="js/02_handler_wave_workers_sw0or1.js"></script>
+  <script type="text/javascript" src="../00_common/js/03_original/03_original_main.js"></script>
+  <script type="text/javascript" src="js/03_handler_wave.js"></script>
+  <script type="text/javascript" src="../00_common/js/03_original/03_original_worker.js"></script>
+  <script type="text/javascript" src="js/03_handler_wave_worker_sw0or1.js"></script>
 </head>
 
 <body>
   <div>
 
 <script type="text/javascript">
-  const My_entry = {};
   (function(document){
     document.body.onload = function(e){
-      var isSingle = false;
-      My_entry.wave = new My_handler_wave().handlers.onload(isSingle);
-      My$arr_tag("select").forEach(function(elem){
-        elem.onchange = function(e){
-          My_entry.wave.handlers.onchange(this.tagName);
-        };
-      });
-      My$arr_tag("input").forEach(function(elem){
-        elem.onchange = function(e){
-          My_entry.wave.handlers.onchange(this.tagName);
-        };
-      });
-      My$arr_tag("button").forEach(function(elem){
-        elem.onclick = function(e){
-          My_entry.wave.handlers.onclick(this.id);
-        };
-      });
-    };
-    document.body.onbeforeunload = function(e){
-      My_entry.wave.handlers.onbeforeunload();
+      new My_handler_wave().onload(e);
     };
   })(document);
 </script>

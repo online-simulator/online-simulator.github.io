@@ -1,5 +1,7 @@
 // online-simulator.github.io
 
+My_def.mix_in(My_handler_wave, My_original_worker);
+
 My_handler_wave.prototype.composite_binary_soundData_LE = function(arr_binary, arr_number_samples, data){
   var self = this;
   var isLE = true;
@@ -48,7 +50,6 @@ My_handler_wave.prototype.composite_binary_soundData_LE = function(arr_binary, a
 };
 My_handler_wave.prototype.set_callbacks_worker = function(){
   var self = this;
-  self.callbacks_worker = {};
   self.callbacks_worker.onmessage = function(e){
     var self = this;
     var data = e.data;
@@ -108,9 +109,6 @@ My_handler_wave.prototype.set_callbacks_worker = function(){
     self.output_log(e.message);
     return self;
   };
-////////////////////////////////////////////////////////////
-  My$bind_objs(self, self.callbacks_worker);
-////////////////////////////////////////////////////////////
   return self;
 };
 My_handler_wave.prototype.input2arr = function(input){
@@ -201,13 +199,14 @@ My_handler_wave.prototype.check_script = function(input){
       _arr_params[counter_j0].number_samples_perChannel = number_samples_perChannel;
     }
   });
+  var sec = null;
+  var params_all = {};
   if(_arr_params[0]){
     _arr_params[0].number_samples_perChannel_max = number_samples_perChannel_max;
-    var sec = number_samples_perChannel_max/_arr_params[0].samples_perSecond;
+    sec = number_samples_perChannel_max/_arr_params[0].samples_perSecond;
     self.output_time(sec);
     self.output_fileSize(sec);
   }
-  var params_all = {};
   params_all.sec = sec;
   params_all.number_samples = number_samples_perChannel_max;
   params_all.arr_f = [];
