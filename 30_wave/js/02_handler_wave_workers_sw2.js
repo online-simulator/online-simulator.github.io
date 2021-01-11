@@ -3,6 +3,7 @@
 My_handler_wave.prototype.composite_binary_soundData_LE = function(arr_binary, arr_number_samples, data){
   var self = this;
   var isLE = true;
+  var w0 = data.w0 || 0;
   var number_samples_perChannel_max = data.number_samples_perChannel_max;
   var number_channels = self.waveo.number_channels;  // from waveo
   var Bytes_perSample = data.Bytes_perSample;
@@ -29,10 +30,14 @@ My_handler_wave.prototype.composite_binary_soundData_LE = function(arr_binary, a
       return view["get"+Prop].apply(view, arguments);
     };
     var j_offset = i%number_channels;
+    var oldVal = val_offset;
     for(var j=0, len=arr_number_samples[i]; j<len; ++j){
       var j_new = (j*number_channels+j_offset)*Bytes_perSample;
       var j_out = j*Bytes_perSample;
       var newVal = newGetter(j_new, isLE)+getter(j_out, isLE)-val_offset;
+      // average(cut-off) high frequency input at w0 > 0
+      newVal = oldVal*w0+newVal*(1-w0);
+      oldVal = newVal;
       newSetter(j_new, newVal, isLE);
       if(isNotExist_ch2){
         newSetter(j_new+Bytes_perSample, newVal, isLE);
@@ -79,6 +84,7 @@ My_handler_wave.prototype.set_callbacks_worker = function(){
       var data0 = self.arr_data_out[i0][j0];
       var number_samples = data0.number_samples_perChannel_max;
       var binary_header = self.waveo.get_binary_header(number_samples);
+      data0.w0 = My$selectNum_id("select-w0");
       var binary_soundData_LE = self.composite_binary_soundData_LE(arr_binary, arr_number_samples, data0);
       var binary = binary_header+binary_soundData_LE;
       var buffer = self.waveo.binary2buffer(binary);
