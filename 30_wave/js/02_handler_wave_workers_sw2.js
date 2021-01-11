@@ -36,7 +36,7 @@ My_handler_wave.prototype.composite_binary_soundData_LE = function(arr_binary, a
       var j_out = j*Bytes_perSample;
       var newVal = newGetter(j_new, isLE)+getter(j_out, isLE)-val_offset;
       // average(cut-off) high frequency input at w0 > 0
-      newVal = oldVal*w0+newVal*(1-w0);
+      newVal = w0*oldVal+(1-w0)*newVal;  // w0 first
       oldVal = newVal;
       newSetter(j_new, newVal, isLE);
       if(isNotExist_ch2){
