@@ -235,7 +235,7 @@ self.worker.terminate()を呼び出して全スレッドを強制終了する
 <br>
 さらに、ロック状態を解除する
 <br>
-再度利用する場合は必要になった時点でself.workerを再宣言する
+再度使用する場合は必要になった時点でself.workerを再宣言する
 
 <pre><code>
 My_handler_worker.prototype.terminate = function(){
@@ -252,17 +252,21 @@ My_handler_worker.prototype.terminate = function(){
         </tr>
         <tr class="border">
           <td class="border">
-main
+mainが継承する
+<br>
+original_worker
 <br>
 再初期化処理
           </td>
           <td class="border">
-self.workerを再宣言worker.re_initする初期化関数を以下に示す
+workerを使用するmainのコンストラクタにmix-inで継承するオリジナルの
+<br>
+self.workerを再宣言worker.re_initするインスタンスメソッドを以下に示す
 <br>
 なお、workerが何度も宣言されてリークしないように留意する
 
 <pre><code>
-My_test_worker.prototype.init = function(){
+My_original_worker.prototype.init_worker = function(){
   var self = this;
   if(self.handler_worker){
     self.handler_worker.terminate();
@@ -271,7 +275,9 @@ My_test_worker.prototype.init = function(){
   else if(window.Worker){
     self.set_job_worker();
     self.set_url_worker();
+    self.callbacks_worker = {};
     self.set_callbacks_worker();
+    My$bind_objs(self, self.callbacks_worker);
     self.handler_worker = new My_handler_worker(self.url_worker, self.callbacks_worker);
   }
   return self;

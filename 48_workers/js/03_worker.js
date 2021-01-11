@@ -6,19 +6,47 @@ function My_test_worker(id_output){
   return self;
 };
 
+My_def.mix_in(My_test_worker, My_original_main, My_original_worker);
+
 My_test_worker.prototype.init = function(id_output){
   var self = this;
+  self.init_main.apply(self, arguments);
+  self.init_worker();
+  return self;
+};
+My_test_worker.prototype.init_elems = function(id_output){
+  var self = this;
   self.elem_o = My$_id(id_output); // used onbeforeunload
-  if(self.handler_worker){
-    self.handler_worker.terminate();
-    self.handler_worker.re_init();
-  }
-  else if(window.Worker){
-    self.set_job_worker();
-    self.set_url_worker();
-    self.set_callbacks_worker();
-    self.handler_worker = new My_handler_worker(self.url_worker, self.callbacks_worker);
-  }
+  self.setup_elem(My$arr_tag("button"), "onclick");
+  return self;
+};
+My_test_worker.prototype.init_handlers = function(){
+  var self = this;
+  self.handlers.onload = function(args){
+    var self = this;
+    return self;
+  };
+  self.handlers.onbeforeunload = function(e){
+    var self = this;
+    self.stop_worker();
+    return self;
+  };
+  self.handlers.onclick = function(e, elem){
+    var self = this;
+    switch(elem.id){
+      case "run":
+        if(self.handler_worker && self.handler_worker.isLocked) return false;
+        self.init_worker();
+        self.run_worker(My$selectNum_id("select-n"), My$checkbox_id("checkbox"), My$selectText_id("select-job"), "output");
+        break;
+      case "stop":
+        self.stop_worker();
+        break;
+      default:
+        break;
+    }
+    return self;
+  };
   return self;
 };
 My_test_worker.prototype.stop_worker = function(){
@@ -29,16 +57,6 @@ My_test_worker.prototype.stop_worker = function(){
   self.elem_o.value += "terminated"+"\n";
   return self;
 };
-My_test_worker.prototype.set_job_worker = function(){
-  var self = this;
-  self.job_worker = My_job_imported;
-  return self;
-};
-My_test_worker.prototype.set_url_worker = function(){
-  var self = this;
-  self.url_worker = "js/for_url.js";
-  return self;
-};
 My_test_worker.prototype.set_callbacks_worker = function(){
   var self = this;
   var get_log = function(data, isIn){
@@ -47,7 +65,6 @@ My_test_worker.prototype.set_callbacks_worker = function(){
       "data from worker("+data.i+"): "+data.out;
     return _log;
   };
-  self.callbacks_worker = {};
   self.callbacks_worker.onmessage = function(e){
     var self = this;
     var data = e.data;
@@ -67,9 +84,6 @@ My_test_worker.prototype.set_callbacks_worker = function(){
     self.stop_worker();
     return self;
   };
-////////////////////////////////////////////////////////////
-  My$bind_objs(self, self.callbacks_worker);
-////////////////////////////////////////////////////////////
   return self;
 };
 My_test_worker.prototype.make_testcase = function(n, sw_job){

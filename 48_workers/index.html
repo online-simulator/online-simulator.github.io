@@ -15,31 +15,21 @@
   <link rel="stylesheet" type="text/css" href="css/size.css" />
   <script type="text/javascript" src="../00_common/js/00_class/00_$.js"></script>
   <script type="text/javascript" src="../00_common/js/00_class/00_conv.js"></script>
+  <script type="text/javascript" src="../00_common/js/00_class/00_def.js"></script>
   <script type="text/javascript" src="../00_common/js/02_handler/02_handler_worker.js"></script>
   <script type="text/javascript" src="js/for_importScripts.js"></script>
-  <script type="text/javascript" src="js/02_workers.js"></script>
+  <script type="text/javascript" src="../00_common/js/03_original/03_original_main.js"></script>
+  <script type="text/javascript" src="../00_common/js/03_original/03_original_worker.js"></script>
+  <script type="text/javascript" src="js/03_worker.js"></script>
 </head>
 
 <body>
   <div>
 
 <script type="text/javascript">
-  const My_entry = {};
   (function(document){
     document.body.onload = function(e){
-      My_entry.test = new My_test_worker('output');
-      var self = My_entry.test;
-      My$_id("run").onclick = function(){
-        self.init("output");
-        self.run_worker(My$selectNum_id('select-n'), My$checkbox_id('checkbox'), My$selectText_id('select-job'), 'output');
-      };
-      My$_id("stop").onclick = function(){
-        self.stop_worker();
-      };
-    };
-    document.body.onbeforeunload = function(e){
-      var self = My_entry.test;
-      self.stop_worker();
+      new My_test_worker("output").onload(e);
     };
   })(document);
 </script>
