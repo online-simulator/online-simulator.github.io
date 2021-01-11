@@ -198,7 +198,11 @@ wave-type：
   </tr>
   <tr class="border">
     <td>
+<br>
 <label for="input-fileSize">ファイルsize[kB]:</label>
+<br>
+<br>
+保存ファイル名:
     </td>
     <td>
 <div class="selection">
@@ -208,24 +212,95 @@ wave-type：
 </div>
 <input id="input-fileSize" readonly="readonly" />
 &lt;10MB
-<br>
 <div id="wrapper-link"></div>
-    </td>
-  </tr>
-  <tr class="border">
-    <td>
-<br>
-オプション:
-    </td>
-    <td>
 <div class="selection">
   <label>Name:
     <span id="span-name"></span>
   </label>
 </div>
+    </td>
+  </tr>
+  <tr class="border">
+    <td>
+    </td>
+    <td>
+    </td>
+  </tr>
+  <tr class="border">
+    <td>
+オプション:
+    </td>
+    <td>
 <div class="text-right">
   <label>マルチスレッドencode by Workers:
     <input id="checkbox-useWorker" type="checkbox" checked="checked" />
+  </label>
+</div>
+    </td>
+  </tr>
+  <tr class="border">
+    <td>
+出力調整log-log
+<br>
+フィルタゲイン:
+    </td>
+    <td>
+<div>
+  <label>f0[Hz]:
+<select id="select-f0">
+  <option>0</option>
+  <option>200</option>
+  <option>400</option>
+  <option>600</option>
+  <option selected="selected">800</option>
+  <option>1000</option>
+  <option>1200</option>
+</select>
+  </label>
+  <label>g0:
+<select id="select-g0">
+  <option>0.001</option>
+  <option>0.01</option>
+  <option>0.1</option>
+  <option>0.2</option>
+  <option>0.3</option>
+  <option>0.4</option>
+  <option>0.5</option>
+  <option>0.6</option>
+  <option>0.7</option>
+  <option>0.8</option>
+  <option>0.9</option>
+  <option selected="selected">1</option>
+</select>
+  </label>
+<br>
+  <label>f1[Hz]:
+<select id="select-f1">
+  <option>1200</option>
+  <option>2400</option>
+  <option>3600</option>
+  <option selected="selected">4800</option>
+  <option>6000</option>
+  <option>7200</option>
+  <option>8400</option>
+  <option>9600</option>
+</select>
+  </label>
+  <label>g1:
+<select id="select-g1">
+  <option>0.001</option>
+  <option>0.01</option>
+  <option>0.1</option>
+  <option>0.2</option>
+  <option selected="selected">0.3</option>
+  <option>0.4</option>
+  <option>0.5</option>
+  <option>0.6</option>
+  <option>0.7</option>
+  <option>0.8</option>
+  <option>0.9</option>
+  <option>1</option>
+</select>
   </label>
 </div>
     </td>

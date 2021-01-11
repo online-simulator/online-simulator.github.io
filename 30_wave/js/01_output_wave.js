@@ -187,14 +187,14 @@ My_output_wave.prototype.get_gains_loglog = function(arr_f, f0, f1, g0, g1){
   });
   return _arr_g;
 };
-My_output_wave.prototype.check_gains = function(arr_f, arr_g){
+My_output_wave.prototype.check_gains = function(params){
   var self = this;
-  var arr_f = arr_f;
-  var _arr_g = arr_g;
+  var arr_f = params.arr_f;
+  var _arr_g = params.arr_g;
   if(!(_arr_g)){
     // default LPF
-    // gain: 1 >= 800~4800Hz >= 1/Math.E
-    _arr_g = self.get_gains_loglog(arr_f, 800, 4800, 1, 1/Math.E);
+    // gain: g0 >= f0~f1[Hz] >= g1
+    _arr_g = self.get_gains_loglog(arr_f, params.f0, params.f1, params.g0, params.g1);
   }
   else if(!(_arr_g.length)){
     // ones array
@@ -245,7 +245,7 @@ My_output_wave.prototype.check_params = function(_params){
   self.check_error(_params);
   var arr_f = _params.arr_f;
   var arr_g = _params.arr_g;
-  var arr_g = self.check_gains(arr_f, arr_g);
+  var arr_g = self.check_gains(_params);
   _params.gain_type = self.get_gain_type(_params.type);
   _params.arr_g_normalized = self.normalize_gains(arr_g, _params.gain_type, _params.gain_band);
   return _params;
@@ -309,6 +309,16 @@ My_output_wave.prototype.make_base64 = function(params){
   }
   return self;
 };
+My_output_wave.prototype.add_params = function(params){
+  var self = this;
+  if(typeof params.f0 === "undefined"){
+    params.f0 = 800;
+    params.f1 = 4800;
+    params.g0 = 1;
+    params.g1 = 0.3;
+  }
+  return self;
+};
 My_output_wave.prototype.get_number_samples = function(sec){
   var self = this;
   return Math.floor(self.samples_perSecond*sec);
@@ -320,6 +330,7 @@ My_output_wave.prototype.output_sound = function(params, volume){
   params.number_samples = self.number_samples;
   params.number_channels = self.number_channels;
   params.volume = volume;
+  self.add_params(params);
   self.make_base64(params);
   self.play_base64(self.base64, volume);
   return self;

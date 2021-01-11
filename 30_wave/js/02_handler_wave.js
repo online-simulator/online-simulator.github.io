@@ -220,6 +220,10 @@ My_handler_wave.prototype.update_number_samples = function(){
 };
 My_handler_wave.prototype.make_params = function(){
   var self = this;
+  self.params.f0 = My$selectNum_id("select-f0");
+  self.params.f1 = My$selectNum_id("select-f1");
+  self.params.g0 = My$selectNum_id("select-g0");
+  self.params.g1 = My$selectNum_id("select-g1");
   self.params.Bytes_perSample = My$selectNum_id("select-Bytes_perSample");
   self.params.samples_perSecond = My$selectNum_id("select-samples_perSecond");
   self.params.number_channels = My$selectNum_id("select-number_channels");
