@@ -117,6 +117,8 @@ My_handler_wave.prototype.input2arr = function(input){
   var self = this;
   var _arr_input = [];
   var mcb = input.replace(self.regex.s, "").match(self.regex.mb);
+  var number_channels = self.waveo.number_channels;  // from waveo
+  var len_band = mcb.length/number_channels;
   var str2freq = function(str){
     var _freq = null;
     var mc_oc = str.match(self.regex.oc);
@@ -165,7 +167,7 @@ My_handler_wave.prototype.input2arr = function(input){
           f_isFound = [str2freq(token)];
         }
         params.arr_f = (f_isFound)? f_isFound: [0];
-        params.gain_band = (f_isFound)? 1/mcb.length: 0;
+        params.gain_band = (f_isFound)? 1/len_band: 0;
         _arr_input[i].push(params);
       }
     });
