@@ -29,7 +29,7 @@
 <script type="text/javascript">
   (function(document){
     document.body.onload = function(e){
-      new My_test_worker("output").onload(e);
+      new My_test_worker().onload(e);
     };
   })(document);
 </script>
@@ -61,7 +61,7 @@
 <hr>
 <div class="text-center">
   <label>WebWorkers使用:
-    <input id="checkbox" type="checkbox" checked="checked" />
+    <input id="checkbox-useWorker" type="checkbox" checked="checked" />
   </label>
 　
   <label>n:
@@ -75,7 +75,7 @@
   <button id="stop" class="selection">依頼中断</button>
 結果
 <br>
-  <textarea id="output" readonly="readonly" rows="10"></textarea>
+  <textarea id="textarea-output" readonly="readonly" rows="10"></textarea>
 </div>
 <hr>
 

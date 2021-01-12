@@ -1,6 +1,6 @@
 // online-simulator.github.io
 
-function My_test_worker(id_output){
+function My_test_worker(){
   var self = this;
   self.init.apply(self, arguments);
   return self;
@@ -8,16 +8,16 @@ function My_test_worker(id_output){
 
 My_def.mix_in(My_test_worker, My_original_main, My_original_worker);
 
-My_test_worker.prototype.init = function(id_output){
+My_test_worker.prototype.init = function(){
   var self = this;
   self.init_main.apply(self, arguments);
   self.init_worker();
   return self;
 };
-My_test_worker.prototype.init_elems = function(id_output){
+My_test_worker.prototype.init_elems = function(){
   var self = this;
-  self.elem_o = My$_id(id_output); // used onbeforeunload
-  self.setup_elem(My$arr_tag("button"), "onclick");
+  self.elem_o = My$_id("textarea-output");
+  self.setup_elems(My$arr_tag("button"), "onclick");
   return self;
 };
 My_test_worker.prototype.init_handlers = function(){
@@ -37,7 +37,7 @@ My_test_worker.prototype.init_handlers = function(){
       case "run":
         if(self.handler_worker && self.handler_worker.isLocked) return false;
         self.init_worker();
-        self.run_worker(My$selectNum_id("select-n"), My$checkbox_id("checkbox"), My$selectText_id("select-job"), "output");
+        self.run_worker(My$selectNum_id("select-n"), My$checkbox_id("checkbox-useWorker"));
         break;
       case "stop":
         self.stop_worker();
@@ -86,7 +86,7 @@ My_test_worker.prototype.set_callbacks_worker = function(){
   };
   return self;
 };
-My_test_worker.prototype.make_testcase = function(n, sw_job){
+My_test_worker.prototype.make_testcase = function(n){
   var self = this;
   self.arr_data_in = [];
   self.arr_data_out = [];
@@ -94,16 +94,16 @@ My_test_worker.prototype.make_testcase = function(n, sw_job){
     var data = {};
     data.i = i;
     data.in = Math.random();
-    data.sw_job = sw_job;
+    data.sw_job = My$selectText_id("select-job");
     self.arr_data_in.push(data);
   }
   return self;
 };
-My_test_worker.prototype.run_worker = function(n, useWorker, sw_job){
+My_test_worker.prototype.run_worker = function(n, useWorker){
   var self = this;
   if(self.handler_worker && self.handler_worker.isLocked) return false;
   self.elem_o.value = "";
-  self.make_testcase(n, sw_job);
+  self.make_testcase(n);
   var hasWorker = (self.handler_worker && useWorker);
   if(hasWorker){
     self.handler_worker.run(self.arr_data_in);
