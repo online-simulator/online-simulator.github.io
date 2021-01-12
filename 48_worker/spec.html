@@ -252,16 +252,16 @@ My_handler_worker.prototype.terminate = function(){
         </tr>
         <tr class="border">
           <td class="border">
-mainが継承する
+mainに継承する
 <br>
 original_worker
 <br>
 再初期化処理
           </td>
           <td class="border">
-workerを使用するmainのコンストラクタにmix-inで継承するオリジナルの
+mainコンストラクタにmix-inで継承するoriginal_workerの再初期化関数を以下に示す
 <br>
-self.workerを再宣言worker.re_initするインスタンスメソッドを以下に示す
+self.workerを再宣言worker.re_initする前に再度terminate処理を実施する
 <br>
 なお、workerが何度も宣言されてリークしないように留意する
 
