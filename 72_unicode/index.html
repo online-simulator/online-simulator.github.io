@@ -33,13 +33,11 @@
 <hr>
 
 <div>
-BMP文字列とUnicodeスカラ値カンマ区切りを相互変換2種類
+文字列とUnicodeスカラ値カンマ区切りを相互変換3種類
 <hr>
-16bitスカラ値0~ffffで表すUTF-16コードユニット
+16bitスカラ値0~ffffのユニット列で表すUTF-16BE/LE
 <br>
-または
-<br>
-8bitスカラ値0~ffのバイト列で表すUTF-8コード
+8bitスカラ値0~ffのバイト列で表すUTF-8
 </div>
 <hr>
 
@@ -48,9 +46,11 @@ BMP文字列とUnicodeスカラ値カンマ区切りを相互変換2種類
 　
   <button id="clear" class="clear">クリア</button>
 <br>
-  <textarea id="textarea-input" rows="5">各表示例「あ」1文字のスカラ値16進数表記or10進数表記
-,UTF-16,3042,or,12354
-,UTF-8,e3,81,82,or,227,129,130</textarea>
+  <textarea id="textarea-input" rows="5">あ16進数表記,UTF-16BE,3042,,,,,,UTF-8,e3,81,82,
+あ10進数表記,UTF-16BE,12354,,,,,UTF-8,227,129,130,
+😊16進数表記,UTF-16BE,d83d,de0a,,,,,,,UTF-16LE,3dd8,0ade,,,,,,UTF-8,f0,9f,98,8a,
+😊10進数表記,UTF-16BE,55357,56842,,,,,UTF-16LE,15832,2782,,,,,UTF-8,240,159,152,138
+</textarea>
 <br>
   <button id="str2code" class="run">文字列から変換</button>
   <label>n:
@@ -69,16 +69,28 @@ BMP文字列とUnicodeスカラ値カンマ区切りを相互変換2種類
 <hr>
 
 <div>
-  <label for="textarea-output_utf16">UTF-16:</label>
-  <button id="postset_utf16" class="selection" title="変換結果を変換対象に再セット">out ⇒ text</button>
+  <label for="textarea-output_utf16BE">UTF-16BE:</label>
+  <button id="postset_utf16BE" class="selection" title="変換結果を変換対象に再セット">out ⇒ text</button>
+JavaScript既定
 <br>
-  <textarea id="textarea-output_utf16" readonly="readonly" rows="5"></textarea>
+  <textarea id="textarea-output_utf16BE" readonly="readonly" rows="5"></textarea>
+<br>
+  <label for="textarea-output_utf16LE">UTF-16LE:</label>
+  <button id="postset_utf16LE" class="selection" title="変換結果を変換対象に再セット">out ⇒ text</button>
+<br>
+  <textarea id="textarea-output_utf16LE" readonly="readonly" rows="5"></textarea>
 <br>
   <label for="textarea-output_utf8">UTF-8:</label>
   <button id="postset_utf8"  class="selection" title="変換結果を変換対象に再セット">out ⇒ text</button>
-IE非対応
+IE非対応TextEncoder()
 <br>
   <textarea id="textarea-output_utf8" readonly="readonly" rows="5"></textarea>
+<br>
+  <label for="textarea-output_utf8IE">UTF-8:</label>
+  <button id="postset_utf8IE"  class="selection" title="変換結果を変換対象に再セット">out ⇒ text</button>
+IE対応/バイナリ文字列のみ
+<br>
+  <textarea id="textarea-output_utf8IE" readonly="readonly" rows="5"></textarea>
 </div>
 <hr>
 

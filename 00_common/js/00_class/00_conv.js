@@ -61,15 +61,28 @@ My_conv.base2blob = function(base64){
 My_conv.base2url = function(base64){
   return My_conv.blob2url(My_conv.base2blob(base64));
 };
-My_conv.str2code_utf16 = function(str, n){
+My_conv.str2code_utf16 = function(str, n, isLE){
   var _arr_num_n = [];
+  var buffer = new ArrayBuffer(2);
+  var view = new DataView(buffer, 0);
   for(var i=0, len=str.length; i<len; ++i){
-    // for IE
-//    var uint16 = str.codePointAt(i);
+/*
+    var uint16 = str.codePointAt(i);
+ */
     var uint16 = str.charCodeAt(i);
+    if(isLE){
+      view.setUint16(0, uint16, false);
+      uint16 = view.getUint16(0, isLE);
+    }
     _arr_num_n[i] = My_conv.dec2n(uint16, n);
   }
   return _arr_num_n;
+};
+My_conv.str2code_utf16BE = function(str, n){
+  return My_conv.str2code_utf16(str, n, false);
+};
+My_conv.str2code_utf16LE = function(str, n){
+  return My_conv.str2code_utf16(str, n, true);
 };
 My_conv.str2code_utf8 = function(str, n){
   var _arr_num_n = [];
@@ -79,6 +92,14 @@ My_conv.str2code_utf8 = function(str, n){
     Array.prototype.forEach.call(arrb_uint8, function(uint8, i, arr_uint8){
       _arr_num_n[i] = My_conv.dec2n(uint8, n);
     });
+  }
+  return _arr_num_n;
+};
+My_conv.binary2code_utf8 = function(str, n){
+  var _arr_num_n = [];
+  for(var i=0, len=str.length; i<len; ++i){
+    var uint8 = str.charCodeAt(i);
+    _arr_num_n[i] = My_conv.dec2n(uint8, n);
   }
   return _arr_num_n;
 };
@@ -98,20 +119,41 @@ My_conv.arr_num2arr_uint = function(arr_num_n, n, n_uint){
   });
   return _arr_uint_;
 };
-My_conv.arr_uint16_2str = function(arr_uint16){
+My_conv.arr_uint16_2str = function(arr_uint16, isLE){
   var _str = "";
+  var buffer = new ArrayBuffer(2);
+  var view = new DataView(buffer, 0);
   arr_uint16.forEach(function(uint16){
-    // for IE
-//    _str += String.fromCodePoint(uint16);
+    var uint16 = uint16;
+    if(isLE){  // and if arr_uint16 is BE
+      view.setUint16(0, uint16, false);
+      uint16 = view.getUint16(0, isLE);
+    }
+/*
+    _str += String.fromCodePoint(uint16);
+ */
     _str += String.fromCharCode(uint16);
   });
   return _str;
+};
+My_conv.arr_uint16BE_2str = function(arr_uint16){
+  return My_conv.arr_uint16_2str(arr_uint16, false);
+};
+My_conv.arr_uint16LE_2str = function(arr_uint16){
+  return My_conv.arr_uint16_2str(arr_uint16, true);
 };
 My_conv.arr_uint8_2str = function(arr_uint8){
   var _str = "";
   if(typeof TextDecoder !== "undefined"){
     _str = new TextDecoder().decode(new Uint8Array(arr_uint8));
   }
+  return _str;
+};
+My_conv.arr_uint8_2binary = function(arr_uint8){
+  var _str = "";
+  arr_uint8.forEach(function(uint8){
+    _str += String.fromCharCode(uint8);
+  });
   return _str;
 };
 My_conv.str2binary_old = function(str){
@@ -131,7 +173,6 @@ My_conv.binary2str_old = function(binary){
   });
   return _str;
 };
-// binary string: code point < 256
 My_conv.str2binary = function(str, isLE){
   var _binary = "";
   var buffer = new ArrayBuffer(2);
