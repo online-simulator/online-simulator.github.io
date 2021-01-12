@@ -15,19 +15,19 @@
   <link rel="stylesheet" type="text/css" href="css/size.css" />
   <script type="text/javascript" src="js/00_gacha.js"></script>
   <script type="text/javascript" src="../00_common/js/00_class/00_$.js"></script>
+  <script type="text/javascript" src="../00_common/js/00_class/00_def.js"></script>
   <script type="text/javascript" src="../00_common/js/00_class/01_math.js"></script>
-  <script type="text/javascript" src="js/02_test.js"></script>
+  <script type="text/javascript" src="../00_common/js/03_original/03_original_main.js"></script>
+  <script type="text/javascript" src="js/03_gacha.js"></script>
 </head>
 
 <body>
   <div>
 
 <script type="text/javascript">
-  const My_entry = {};
   (function(document){
     document.body.onload = function(e){
-      My_entry.test = new My_gacha();
-      My_entry.test.handler_onload();
+      new My_test_gacha().onload(e);
     };
   })(document);
 </script>
@@ -50,59 +50,39 @@
 <hr><hr>
 
 <div>
-  <label for="table">
+  <label for="textarea-table">
 テーブル:
   </label>
   <label>
-    <input type="checkbox" id="checkbox-arr_table" onchange="
-(function(){
-  My_entry.test.display_table_id();
-})();
-    " />
+    <input id="checkbox-arr_table" type="checkbox" />
 配列表示
   </label>
 <br>
 端数を丸めた長さ
   <label>
 len:
-    <input id="len_table" class="output-val" readonly="readonly" />
+    <input id="input-len_table" class="output-val" readonly="readonly" />
   </label>
 ※5000以上で非表示
 <br>
-  <textarea id="table" readonly="readonly">
+  <textarea id="textarea-table" readonly="readonly">
 [SSR0, SR0, SR1, R0, R1, R2, R3, R4, N0, N1, N2, N3, N4, N5, N6, N7, N8, N9, N10, N11]</textarea>
 </div>
 <div>
   <label>
 排出商品:
-    <input id="item_table" readonly="readonly" />
+    <input id="input-item_table" readonly="readonly" />
   </label>
 </div>
 <br>
 <div>
 確率抽選ガチャ実行:
-  <button class="run" onclick="
-(function(){
-  My_entry.test.handler_onclick_sw('table', 1);
-})();
-  ">
-1roll
-  </button>
-  <button class="run" onclick="
-(function(){
-  My_entry.test.handler_onclick_sw('table', 10);
-})();
-  ">10roll
-  </button>
-  <button class="run" onclick="
-(function(){
-  My_entry.test.handler_onclick_sw('table', 100, 10);
-})();
-  ">100roll
-  </button>
+  <button id="roll_table1" class="run">1roll</button>
+  <button id="roll_table10" class="run">10roll</button>
+  <button id="roll_table100" class="run">100roll</button>
   <label>
 商品番号:
-    <input id="index_table" class="output-val" readonly="readonly" />
+    <input id="input-index_table" class="output-val" readonly="readonly" />
   </label>
 </div>
 <br>
@@ -119,7 +99,7 @@ len:
         <td>各商品<br>提供割合</td>
         <td>テーブル内個数<br>
 全
-<input id="input-len_table" class="output-val" readonly="readonly" />
+<input id="input-len_table0" class="output-val" readonly="readonly" />
 個
         </td>
         <td>排出回数<br>
@@ -133,11 +113,7 @@ len:
       <tr>
         <td>SSR</td>
         <td>
-<select id="select-nSSR" onchange="
-(function(){
-  My_entry.test.handler_onchange_sw('table');
-})();
-">
+<select id="select-nSSR">
   <option selected="selected">1</option>
   <option>2</option>
   <option>3</option>
@@ -153,11 +129,7 @@ len:
         </td>
         <td>
 計
-<select id="select-pSSR" onchange="
-(function(){
-  My_entry.test.handler_onchange_sw('table');
-})();
-">
+<select id="select-pSSR">
   <option>1</option>
   <option>2</option>
   <option>3</option>
@@ -190,11 +162,7 @@ len:
       <tr>
         <td>SR</td>
         <td>
-<select id="select-nSR" onchange="
-(function(){
-  My_entry.test.handler_onchange_sw('table');
-})();
-">
+<select id="select-nSR">
   <option>1</option>
   <option selected="selected">2</option>
   <option>3</option>
@@ -210,11 +178,7 @@ len:
         </td>
         <td>
 計
-<select id="select-pSR" onchange="
-(function(){
-  My_entry.test.handler_onchange_sw('table');
-})();
-">
+<select id="select-pSR">
   <option>5</option>
   <option selected="selected">10</option>
   <option>15</option>
@@ -243,11 +207,7 @@ len:
       <tr>
         <td>R</td>
         <td>
-<select id="select-nR" onchange="
-(function(){
-  My_entry.test.handler_onchange_sw('table');
-})();
-">
+<select id="select-nR">
   <option>1</option>
   <option>2</option>
   <option>3</option>
@@ -268,11 +228,7 @@ len:
         </td>
         <td>
 計
-<select id="select-pR" onchange="
-(function(){
-  My_entry.test.handler_onchange_sw('table');
-})();
-">
+<select id="select-pR">
   <option selected="selected">20</option>
   <option>30</option>
   <option>40</option>
@@ -300,11 +256,7 @@ len:
       <tr>
         <td>N</td>
         <td>
-<select id="select-nN" onchange="
-(function(){
-  My_entry.test.handler_onchange_sw('table');
-})();
-">
+<select id="select-nN">
   <option>1</option>
   <option>2</option>
   <option>3</option>
@@ -356,15 +308,11 @@ len:
 <br>
 
 <div>
-  <label for="box">
+  <label for="textarea-box">
 ボックス:
   </label>
   <label>
-    <input type="checkbox" id="checkbox-arr_box" onchange="
-(function(){
-  My_entry.test.display_box_id();
-})();
-    " />
+    <input id="checkbox-arr_box" type="checkbox" />
 配列表示
   </label>
 　
@@ -372,11 +320,7 @@ len:
 （
   <label>
 k:
-<select id="select-k" onchange="
-(function(){
-  My_entry.test.handler_onchange_sw('box');
-})();
-">
+<select id="select-k">
   <option>1</option>
   <option>2</option>
   <option>3</option>
@@ -394,91 +338,53 @@ k:
 端数を丸めた長さ
   <label>
 len:
-    <input id="len_box" class="output-val" readonly="readonly" />
+    <input id="input-len_box" class="output-val" readonly="readonly" />
   </label>
 ※5000以上で非表示
 <br>
-  <textarea id="box" readonly="readonly"></textarea>
+  <textarea id="textarea-box" readonly="readonly"></textarea>
 </div>
 <div>
   <label>
 排出商品:
-    <input id="item_box" readonly="readonly" />
+    <input id="input-item_box" readonly="readonly" />
   </label>
 </div>
 <br>
 <div>
 ボックス抽選ガチャ実行:
-  <button class="run" onclick="
-(function(){
-  My_entry.test.handler_onclick_sw('box', 1);
-})();
-  ">
-1roll
-  </button>
-  <button class="run" onclick="
-(function(){
-  My_entry.test.handler_onclick_sw('box', 10);
-})();
-  ">
-10roll
-  </button>
-  <button class="run" onclick="
-(function(){
-  My_entry.test.handler_onclick_sw('box', 100, 10);
-})();
-  ">
-100roll
-  </button>
+  <button id="roll_box1" class="run">1roll</button>
+  <button id="roll_box10" class="run">10roll</button>
+  <button id="roll_box100" class="run">100roll</button>
   <label>
 商品番号:
-    <input id="index_box" class="output-val" readonly="readonly" />
+    <input id="input-index_box" class="output-val" readonly="readonly" />
   </label>
 </div>
 <br>
 <div>
 ボックスをランダムソート:
-  <button class="selection" onclick="
-(function(){
-  My_entry.test.shuffle_box_id();
-})();
-  ">
-shuffle-box
-  </button>
+  <button id="shuffle_box" class="selection">shuffle-box</button>
 中身リセット:
-  <button class="clear" onclick="
-(function(){
-  My_entry.test.handler_onchange_sw('box');
-})();
-  ">
-reset-box
-  </button>
+  <button id="reset_box" class="clear">reset-box</button>
 </div>
 <br>
 <div>
   <label>
 指定商品
-    <input id="item_comp" class="output-val" onchange="
-(function(){
-  My_entry.test.check_box_id();
-})();
-    " value="SSR0" />
+    <input id="input-item_comp" class="output-val" value="SSR0" />
   </label>
   <label>
 天井回数:
-    <input id="roll_max_item" class="output-val" readonly="readonly" />
+    <input id="input-roll_max_item" class="output-val" readonly="readonly" />
   </label>
   <label>
 指定レア度
-    <input id="rarity_comp" class="output-val" onchange="
-(function(){
-  My_entry.test.check_box_id();
-})();
-    " value="SSR" />
+    <input id="input-rarity_comp" class="output-val" value="SSR" />
   </label>
   <label>
 天井回数:
-    <input id="roll_max_rarity" class="output-val" readonly="readonly" />
+    <input id="input-roll_max_rarity" class="output-val" readonly="readonly" />
   </label>
 </div>
 <br>

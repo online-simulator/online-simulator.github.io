@@ -42,10 +42,6 @@ My_gacha.prototype.init = function(table, k){
   self.regex.s = /\s/g;
   self.regex.m = /\[.*?\]/g;
   self.regex.r = /\[|\]|\'|\"/g;
-  self.len_MAX_display = {
-    table: 5000,
-    box: 5000
-  };
   for(var prop in self.setter){
     self.setter[prop]();
   }
@@ -184,7 +180,8 @@ My_gacha.prototype.roll_box = function(){
 My_gacha.prototype.nroll_sw = function(sw, n, callback, opt_ms){
   var self = this;
   if(self.timer) return false;
-  if(self[sw].length){
+  var n = Number(n);
+  if(!(isNaN(n)) && self[sw].length){
     // for IE
     var counter = 0;
     var fn = function(){
