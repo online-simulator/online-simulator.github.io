@@ -5,7 +5,7 @@ var My_job_imported = function(_data){
   var isWorker = (typeof window === "undefined");
   try{
     var waveo = new My_output_wave(_data.Bytes_perSample, _data.samples_perSecond, _data.number_channels);
-    var out = waveo.encode_soundData_LE(_data.number_samples, _data.number_channels, _data.arr_f, _data.arr_g_normalized, _data.type);
+    out = waveo.encode_soundData_LE(_data.number_samples, _data.number_channels, _data.arr_f, _data.arr_g_normalized, _data.type);
   }
   catch(e){
     out = e.message;
