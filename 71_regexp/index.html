@@ -15,12 +15,14 @@
   <link rel="stylesheet" type="text/css" href="css/size.css" />
   <script type="text/javascript" src="../00_common/js/00_class/00_$.js"></script>
   <script type="text/javascript" src="../00_common/js/00_class/00_conv.js"></script>
+  <script type="text/javascript" src="../00_common/js/00_class/00_def.js"></script>
   <script type="text/javascript" src="../00_common/js/00_class/01_config.js"></script>
   <script type="text/javascript" src="../00_common/js/01_driver/01_browser.js"></script>
   <script type="text/javascript" src="../00_common/js/01_driver/01_io.js"></script>
   <script type="text/javascript" src="../00_common/js/01_driver/01_link.js"></script>
   <script type="text/javascript" src="../00_common/js/02_handler/02_handler_link.js"></script>
-  <script type="text/javascript" src="js/02_replace.js"></script>
+  <script type="text/javascript" src="../00_common/js/03_original/03_original_main.js"></script>
+  <script type="text/javascript" src="js/03_regexp.js"></script>
 </head>
 
 <body>
@@ -29,17 +31,15 @@
 <script type="text/javascript">
   (function(document){
     document.body.onload = function(e){
-      My_output_command();
-      var json = {p: {id: "wrapper-link"}, a: {id: "a", it: "download-txt by double-click"}, o: {id: "output"}, name: "download.txt", type: "text/plain"};
-      var handler = new My_handler_link(json);
+      new My_test_regexp().onload(e);
     };
   })(document);
 </script>
 <hr>
 
 <div>
-  <label for="pattern">置換パターン</label>
-  <select id="flag" onchange="My_output_command();">
+  <label for="input-pattern">置換パターン</label>
+  <select id="select-flag">
     <option value="" title="フラグなし">フラグなし</option>
     <option value="g" title="グローバル">g:グローバル</option>
     <option value="i" title="大・小文字区別なし">i:大・小文字区別なし</option>
@@ -50,38 +50,38 @@
     <option value="gim">gim</option>
   </select>
 <br>
-  <input id="pattern" type="text" onchange="My_output_command();" />
+  <input id="input-pattern" type="text" />
 <br>
   <label>置換後文字列
 <br>
-    <input id="string" type="text" onchange="My_output_command();" />
+    <input id="input-string" type="text" />
   </label>
 <br>
   <label>JavaScript書式
 <br>
-    <input id="command" type="text" readonly="readonly" onclick="this.focus();this.select();" />
+    <input id="input-command" type="text" readonly="readonly" />
   </label>
 </div>
 <hr>
 
 <div>
-  <button class="clear" onclick="My_clear();">textクリア</button>
+  <button id="clear" class="clear">textクリア</button>
 　
   <label>置換対象text
 <br>
-    <textarea id="input" rows="5" onchange="My_output_command();"></textarea>
+    <textarea id="textarea-input" rows="5"></textarea>
   </label>
 </div>
 <hr>
 
 <div>
-  <button class="cF" onClick="My_postset();" title="置換結果を置換対象に再セット">out ⇒ text</button>
+  <button id="postset" class="selection" title="置換結果を置換対象に再セット">out ⇒ text</button>
 　
-  <label for="output">置換結果out</label>
+  <label for="textarea-output">置換結果out</label>
 　
-  <button class="run" onclick="My_run_replace();" title="Javascript書式命令を実行">置換実行</button>
+  <button id="replace" class="run" title="Javascript書式命令を実行">置換実行</button>
 <br>
-  <textarea id="output" readonly="readonly" rows="5" onclick="this.focus();this.select();"></textarea>
+  <textarea id="textarea-output" readonly="readonly" rows="5"></textarea>
 </div>
 <div>
   <div id="wrapper-link"></div>
