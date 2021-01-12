@@ -15,13 +15,23 @@
   <link rel="stylesheet" type="text/css" href="css/size.css" />
   <script type="text/javascript" src="../00_common/js/00_class/00_$.js"></script>
   <script type="text/javascript" src="../00_common/js/00_class/00_conv.js"></script>
-  <script type="text/javascript" src="js/02_encodeURI.js"></script>
+  <script type="text/javascript" src="../00_common/js/00_class/00_def.js"></script>
+  <script type="text/javascript" src="../00_common/js/03_original/03_original_main.js"></script>
+  <script type="text/javascript" src="js/03_encodeURI.js"></script>
 </head>
 
 <body>
   <div>
 
+<script type="text/javascript">
+  (function(document){
+    document.body.onload = function(e){
+      new My_test_encodeURI().onload(e);
+    };
+  })(document);
+</script>
 <hr>
+
 <div>
 マルチバイト文字を含むURIを暗号化※または復号化
 <br>
@@ -30,28 +40,28 @@
 <hr>
 
 <div class="text-center">
-  <label for="input">変換対象text</label>
+  <label for="textarea-input">変換対象text</label>
 　
-  <button class="clear" onclick="My_clear();">クリア</button>
+  <button id="clear" class="clear">クリア</button>
 <br>
-  <textarea id="input" rows="3">https://online-simulator.github.io/index.html?q=テ/ス/ト</textarea>
+  <textarea id="textarea-input" rows="3">https://online-simulator.github.io/index.html?q=テ/ス/ト</textarea>
 <br>
-  <button class="run" onclick="My_uri2code();">URI暗号化</button>
-  <button class="run" onclick="My_code2uri();">URI複号化</button>
+  <button id="uri2code" class="run">URI暗号化</button>
+  <button id="code2uri" class="run">URI複号化</button>
 変換結果out
 </div>
 <hr>
 
 <div>
-  <label for="output_uri">uri:</label>
-  <button class="cF" onclick="My_postset_uri();" title="変換結果を変換対象に再セット">out ⇒ text</button>
+  <label for="textarea-output_uri">uri:</label>
+  <button id="postset_uri" class="selection" title="変換結果を変換対象に再セット">out ⇒ text</button>
 <br>
-  <textarea id="output_uri" readonly="readonly" rows="3" onclick="this.focus();this.select();"></textarea>
+  <textarea id="textarea-output_uri" readonly="readonly" rows="3"></textarea>
 <br>
-  <label for="output_uriCom">uriComponent(POST用):</label>
-  <button class="cF" onclick="My_postset_uriCom();" title="変換結果を変換対象に再セット">out ⇒ text</button>
+  <label for="textarea-output_uriCom">uriComponent(POST用):</label>
+  <button id="postset_uriCom" class="selection" title="変換結果を変換対象に再セット">out ⇒ text</button>
 <br>
-  <textarea id="output_uriCom" readonly="readonly" rows="3" onclick="this.focus();this.select();"></textarea>
+  <textarea id="textarea-output_uriCom" readonly="readonly" rows="3"></textarea>
 </div>
 <hr>
 
