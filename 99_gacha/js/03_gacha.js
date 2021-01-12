@@ -30,9 +30,7 @@ My_test_gacha.prototype.init_handlers = function(){
       table: 5000,
       box: 5000
     };
-    self.set_table_id();
-    self.set_box_id();
-    self.check_box_id();
+    self.handler_onload();
     return self;
   };
   self.handlers.onbeforeunload = function(e){
@@ -46,13 +44,13 @@ My_test_gacha.prototype.init_handlers = function(){
       case "roll_table10":
       case "roll_table100":
         var n = elem.id.match(/^roll_table(\d+)/)[1];
-        self.nroll_common_sw("table", n, 20);
+        self.handler_onclick_sw("table", n, 20);
         break;
       case "roll_box1":
       case "roll_box10":
       case "roll_box100":
         var n = elem.id.match(/^roll_box(\d+)/)[1];
-        self.nroll_common_sw("box", n, 20);
+        self.handler_onclick_sw("box", n, 20);
         break;
       case "shuffle_box":
         self.shuffle_box_id();
@@ -295,9 +293,7 @@ My_test_gacha.prototype.handler_onchange_sw = function(sw){
       My$arr("input[readonly],textarea[readonly]").forEach(function(elem){
         elem.value = "";
       });
-      self.set_table_id();
-      self.set_box_id();
-      self.check_box_id();
+      self.handler_onload();
       break;
     default:
       break;
