@@ -29,9 +29,9 @@ My_handler_wave.prototype.init = function(){
 };
 My_handler_wave.prototype.init_elems = function(){
   var self = this;
-  self.setup_elem(My$arr_tag("button"), "onclick");
-  self.setup_elem(My$arr_tag("input"), "onchange");
-  self.setup_elem(My$arr_tag("select"), "onchange");
+  self.setup_elems(My$arr_tag("button"), "onclick");
+  self.setup_elems(My$arr_tag("input"), "onchange");
+  self.setup_elems(My$arr_tag("select"), "onchange");
   self.elem_log = My$_id("span-log");
   self.elem_name = My$_id("span-name");
   self.elem_time = My$_id("input-time");

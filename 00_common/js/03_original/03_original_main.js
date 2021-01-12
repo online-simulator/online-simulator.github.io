@@ -35,7 +35,7 @@ My_original_main.prototype.onload = function(){
   };
   return self;
 };
-My_original_main.prototype.setup_elem = function(arr_elem, onevent, handlers){
+My_original_main.prototype.setup_elems = function(arr_elem, onevent, handlers){
   var self = this;
   var handlers = handlers || self.handlers;
   arr_elem.forEach(function(elem){
@@ -46,6 +46,19 @@ My_original_main.prototype.setup_elem = function(arr_elem, onevent, handlers){
       // use toUpperCase for UTF-8
 //      elem.id = elem.id || (elem.tagName+"-"+elem[My_config.REFERRER.text]).toUpperCase();
     }
+  });
+  return self;
+};
+My_original_main.prototype.setup_elems_readonly = function(arr_tagName){
+  var self = this;
+  var arr_selector = [];
+  arr_tagName.forEach(function(tagName, i){
+    arr_selector[i] = tagName+"[readonly]";
+  });
+  My$arr(arr_selector.join()).forEach(function(elem){
+    elem.onfocus = function(e){
+      elem.select();
+    };
   });
   return self;
 };
