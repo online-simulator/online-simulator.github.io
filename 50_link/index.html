@@ -15,18 +15,28 @@
   <link rel="stylesheet" type="text/css" href="css/size.css" />
   <script type="text/javascript" src="../00_common/js/00_class/00_$.js"></script>
   <script type="text/javascript" src="../00_common/js/00_class/00_conv.js"></script>
+  <script type="text/javascript" src="../00_common/js/00_class/00_def.js"></script>
   <script type="text/javascript" src="../00_common/js/00_class/01_config.js"></script>
   <script type="text/javascript" src="../00_common/js/01_driver/01_browser.js"></script>
   <script type="text/javascript" src="../00_common/js/01_driver/01_io.js"></script>
   <script type="text/javascript" src="../00_common/js/01_driver/01_link.js"></script>
   <script type="text/javascript" src="../00_common/js/02_handler/02_handler_link.js"></script>
-  <script type="text/javascript" src="js/02_link.js"></script>
+  <script type="text/javascript" src="../00_common/js/03_original/03_original_main.js"></script>
+  <script type="text/javascript" src="js/03_link.js"></script>
 </head>
 
 <body>
   <div>
 
+<script type="text/javascript">
+  (function(document){
+    document.body.onload = function(e){
+      new My_test_link().onload(e);
+    };
+  })(document);
+</script>
 <hr>
+
 <div>
 動的に変わるreadonly要素の値を取得してファイルに保存する機能の実装テスト
 </div>
@@ -51,7 +61,7 @@
     連番.txt
   </label>
 　
-  <button class="run" onclick="My_create_link();">リンク生成</button>
+  <button id="create" class="run">リンク生成</button>
 </div>
 <hr>
 
