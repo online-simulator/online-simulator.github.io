@@ -29,12 +29,12 @@ My_handler_wave.prototype.init = function(){
 };
 My_handler_wave.prototype.init_elems = function(){
   var self = this;
-  self.setup_elems(My$arr_tag("button"), "onclick");
-  self.setup_elems(My$arr_tag("input"), "onchange");
-  self.setup_elems(My$arr_tag("select"), "onchange");
   self.elem_log = My$_id("span-log");
   self.elem_name = My$_id("span-name");
   self.elem_time = My$_id("input-time");
+  self.setup_elems(My$arr_tag("button"), "onclick");
+  self.setup_elems(My$arr_tag("input"), "onchange");
+  self.setup_elems(My$arr_tag("select"), "onchange");
   var text_link = "download-wav by double-click";
   var json = {p: {id: "wrapper-link"}, a: {id: "a", it: text_link}, name: self.fileName_default, type: "audio/wav"};
   self.handler_link = new My_handler_link(json);
