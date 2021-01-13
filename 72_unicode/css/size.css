@@ -3,16 +3,13 @@
 body{
   max-width: 1024px;
   width: 100%;
-  font-size: large;
-  font-weight: bold;
 }
 select, button{
-  font-size: large;
   font-weight: bold;
 }
 input{
   width: auto;
 }
-textarea{
+table, textarea{
   width: 100%;
 }
