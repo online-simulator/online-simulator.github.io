@@ -2,14 +2,10 @@
 
 body{
   max-width: 1024px;
-  width: 100%;
-}
-select, button{
-  font-weight: bold;
 }
 input{
   width: auto;
 }
-table, textarea{
+table{
   width: 100%;
 }
