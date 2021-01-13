@@ -12,9 +12,7 @@ select, button{
 }
 input{
   width: auto;
-  font-size: large;
 }
 textarea{
   width: 100%;
-  font-size: large;
 }
