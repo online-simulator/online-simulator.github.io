@@ -11,6 +11,7 @@ My_def.mix_in(My_handler_wave, My_original_main);
 My_handler_wave.prototype.init = function(){
   var self = this;
   self.init_main.apply(self, arguments);
+  self.isEncoding = false;
   self.isSingle = (My$_id("input-freq"))? true: false;
   self.isScriptMode = (My$_id("textarea-script"))? true: false;
   self.text_log = "finished SAVE-OK 保存可能";
@@ -66,6 +67,10 @@ My_handler_wave.prototype.init_handlers = function(){
     if(self.handler_worker){
       self.stop_worker();
     }
+    if(self.isEncoding){
+      self.isEncoding = false;
+      self.output_log("stopped by onchange");
+    }
     return self;
   };
   self.handlers.onbeforeunload = function(e){
@@ -115,6 +120,7 @@ My_handler_wave.prototype.init_handlers = function(){
             var useWorker = My$checkbox_id("checkbox-useWorker");
             self.init_worker();
             setTimeout(function(){
+              self.isEncoding = true;
               self.run_worker(arr_params, useWorker);
             }, 50);
           }
