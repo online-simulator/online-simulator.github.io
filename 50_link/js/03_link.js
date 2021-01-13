@@ -54,8 +54,8 @@ My_test_link.prototype.init_handlers = function(){
 My_test_link.prototype.create = function(id_output, isInsertBefore){
   var self = this;
   var n = self.counter++;
-  var name = My$_id("input-name").value+n+".txt";
-  var json = {p: {id: "wrapper-link"}, a: {id: "a"+n, it: "download-txt by double-click"+n}, name: name, type: "text/plain", isIB: isInsertBefore};
+  var name = My$_id("input-name").value+n;
+  var json = {p: {id: "wrapper-link"}, a: {id: "a"+n, it: "download-txt by double-click"+n}, name: name, ext: "txt", isIB: isInsertBefore};
   json.o = (id_output)? {id: id_output}: {tag: "input"};
   self.handler_link = new My_handler_link(json);
   return self;

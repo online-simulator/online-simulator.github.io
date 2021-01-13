@@ -1,72 +1,80 @@
 // online-simulator.github.io
 
-function My_link(id, name, type){
+function My_link(id, name, ext){
   var self = this;
   self.init.apply(self, arguments);
   return self;
 }
 
-My_link.prototype.init = function(id, name, type){
+My_link.prototype.init = function(id, name, ext){
   var self = this;
   self.id = id;
   self.name = name;
-  self.type = type;
+  self.ext = ext;
+  self.type = "";
   self.blob = null;
   self.url;
   return self;
 };
 My_link.prototype.set_url = function(content){
   var self = this;
-  var ext = "";
-  switch(self.type){
-    case "application/octet-stream":
+  var type = "";
+  switch(self.ext){
+    case "":
+      type = "application/octet-stream";
       break;
-    case "video/mp4":
-      ext = ".mp4";
+    case "mp4":
+      type = "video/mp4";
       break;
-    case "image/svg+xml":
-      ext = ".svg";
+    case "svg":
+      type = "image/svg+xml";
       break;
-    case "image/bmp":
-      ext = ".bmp";
+    case "bmp":
+      type = "image/bmp";
       break;
-    case "image/png":
-      ext = ".png";
+    case "png":
+      type = "image/png";
       break;
-    case "image/jpeg":
-      ext = ".jpg";
+    case "jpg":
+    case "jpeg":
+      type = "image/jpeg";
       break;
-    case "image/gif":
-      ext = ".gif";
+    case "gif":
+      type = "image/gif";
       break;
-    case "audio/mpeg":
-      ext = ".mpeg";
+    case "mpg":
+    case "mpeg":
+      type = "audio/mpeg";
       break;
-    case "audio/wave":
-    case "audio/wav":
-      ext = ".wav";
+    case "wav":
+    case "wave":
+      type = "audio/wav";
       break;
-    case "text/csv":
-      ext = ".csv";
+    case "csv":
+      type = "text/csv";
       break;
-    case "text/html":
-      ext = ".html";
+    case "htm":
+    case "html":
+      type = "text/html";
       break;
-    case "text/css":
-      ext = ".css";
+    case "css":
+      type = "text/css";
       break;
-    case "text/javascript":
-      ext = ".js";
+    case "js":
+      type = "text/javascript";
       break;
-    case "text/plain":
-      ext = ".txt";
+    case "txt":
+      type = "text/plain";
       break;
     default:
       break;
   }
+  self.type = type;
   if(self.name && self.type){
-    if(self.name.split(".").length === 1){
-      self.name += ext;
+    var dot = ".";
+    if(self.name.split(dot).length === 1){
+      self.name += dot;
+      self.name += self.ext;
     }
     if(content){
       self.blob = new Blob([content], {type: self.type});
