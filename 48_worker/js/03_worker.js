@@ -11,7 +11,6 @@ My_def.mix_in(My_test_worker, My_original_main, My_original_worker);
 My_test_worker.prototype.init = function(){
   var self = this;
   self.init_main.apply(self, arguments);
-  self.init_worker();
   return self;
 };
 My_test_worker.prototype.init_elems = function(){
@@ -53,8 +52,8 @@ My_test_worker.prototype.stop_worker = function(){
   var self = this;
   if(self.handler_worker){
     self.handler_worker.terminate();
+    self.elem_o.value += "terminated"+"\n";
   }
-  self.elem_o.value += "terminated"+"\n";
   return self;
 };
 My_test_worker.prototype.set_callbacks_worker = function(){
