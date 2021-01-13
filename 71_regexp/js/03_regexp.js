@@ -28,7 +28,7 @@ My_test_regexp.prototype.init_handlers = function(){
   self.handlers.onload = function(args){
     var self = this;
     self.output_command();
-    var json = {p: {id: "wrapper-link"}, a: {id: "a", it: "download-txt by double-click"}, o: {id: "textarea-output"}, name: "download.txt", type: "text/plain"};
+    var json = {p: {id: "wrapper-link"}, a: {id: "a", it: "download-txt by double-click"}, o: {id: "textarea-output"}, name: "download", ext: "txt"};
     self.handler_link = new My_handler_link(json);
     return self;
   };
