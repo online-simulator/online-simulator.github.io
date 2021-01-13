@@ -14,6 +14,7 @@ My_handler_wave.prototype.init = function(){
   self.isSingle = (My$_id("input-freq"))? true: false;
   self.isScriptMode = (My$_id("textarea-script"))? true: false;
   self.text_log = "finished SAVE-OK 保存可能";
+  self.text_link = "download-wav by double-click";
   self.fileName_default = "download.wav";
   self.regex = {};
   self.regex.s = /\s/g;
@@ -35,15 +36,14 @@ My_handler_wave.prototype.init_elems = function(){
   self.setup_elems(My$arr_tag("button"), "onclick");
   self.setup_elems(My$arr_tag("input"), "onchange");
   self.setup_elems(My$arr_tag("select"), "onchange");
-  var text_link = "download-wav by double-click";
-  var json = {p: {id: "wrapper-link"}, a: {id: "a", it: text_link}, name: self.fileName_default, type: "audio/wav"};
-  self.handler_link = new My_handler_link(json);
   return self;
 };
 My_handler_wave.prototype.init_handlers = function(){
   var self = this;
   self.handlers.onload = function(args){
     var self = this;
+    var json = {p: {id: "wrapper-link"}, a: {id: "a", it: self.text_link}, name: self.fileName_default, type: "audio/wav"};
+    self.handler_link = new My_handler_link(json);
     if(self.isSingle){
       self.output_freq();
     }
