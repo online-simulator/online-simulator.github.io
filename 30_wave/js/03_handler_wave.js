@@ -43,7 +43,7 @@ My_handler_wave.prototype.init_handlers = function(){
   var self = this;
   self.handlers.onload = function(args){
     var self = this;
-    var json = {p: {id: "wrapper-link"}, a: {id: "a", it: self.text_link}, name: self.fileName_default, type: "audio/wav"};
+    var json = {p: {id: "wrapper-link"}, a: {id: "a", it: self.text_link}, name: self.fileName_default, ext: "wav"};
     self.handler_link = new My_handler_link(json);
     if(self.isSingle){
       self.output_freq();
