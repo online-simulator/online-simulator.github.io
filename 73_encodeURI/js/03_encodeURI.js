@@ -56,9 +56,9 @@ My_test_encodeURI.prototype.init_handlers = function(){
 };
 My_test_encodeURI.prototype.clear = function(){
   var self = this;
-  My$_id("textarea-input").value = "";
-  My$_id("textarea-output_uri").value = "";
-  My$_id("textarea-output_uriCom").value = "";
+  My$arr("textarea").forEach(function(elem){
+    elem.value = "";
+  });
   return self;
 };
 My_test_encodeURI.prototype.uri2code = function(){
