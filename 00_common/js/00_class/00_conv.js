@@ -86,13 +86,11 @@ My_conv.str2code_utf16LE = function(str, n){
 };
 My_conv.str2code_utf8 = function(str, n){
   var _arr_num_n = [];
-  if(typeof TextEncoder !== "undefined"){
-    var arrb_uint8 = new TextEncoder().encode(str);
-    // object.forEach for IE
-    Array.prototype.forEach.call(arrb_uint8, function(uint8, i, arr_uint8){
-      _arr_num_n[i] = My_conv.dec2n(uint8, n);
-    });
-  }
+  var arrb_uint8 = new TextEncoder().encode(str);
+  // object.forEach for IE
+  Array.prototype.forEach.call(arrb_uint8, function(uint8, i, arr_uint8){
+    _arr_num_n[i] = My_conv.dec2n(uint8, n);
+  });
   return _arr_num_n;
 };
 My_conv.binary2code_utf8 = function(str, n){
@@ -144,9 +142,7 @@ My_conv.arr_uint16LE_2str = function(arr_uint16){
 };
 My_conv.arr_uint8_2str = function(arr_uint8){
   var _str = "";
-  if(typeof TextDecoder !== "undefined"){
-    _str = new TextDecoder().decode(new Uint8Array(arr_uint8));
-  }
+  _str = new TextDecoder().decode(new Uint8Array(arr_uint8));
   return _str;
 };
 My_conv.arr_uint8_2binary = function(arr_uint8){

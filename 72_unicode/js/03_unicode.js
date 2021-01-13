@@ -58,7 +58,7 @@ My_test_unicode.prototype.init_handlers = function(){
 };
 My_test_unicode.prototype.clear = function(){
   var self = this;
-  My$arr_tag("textarea").forEach(function(elem){
+  My$arr("input,textarea").forEach(function(elem){
     elem.value = "";
   });
   return self;
@@ -73,6 +73,7 @@ My_test_unicode.prototype.str2code = function(){
   var output_utf8IE = "";
   try{
     output_utf16BE = My_conv.str2code_utf16BE(input, n);
+    My$_id("input-utf16BE").value = "ユニット数: "+output_utf16BE.length;
   }
   catch(e){
     output_utf16BE = e.message;
@@ -80,6 +81,7 @@ My_test_unicode.prototype.str2code = function(){
   My$_id("textarea-output_utf16BE").value = output_utf16BE;
   try{
     output_utf16LE = My_conv.str2code_utf16LE(input, n);
+    My$_id("input-utf16LE").value = "ユニット数: "+output_utf16LE.length;
   }
   catch(e){
     output_utf16LE = e.message;
@@ -87,6 +89,7 @@ My_test_unicode.prototype.str2code = function(){
   My$_id("textarea-output_utf16LE").value = output_utf16LE;
   try{
     output_utf8 = My_conv.str2code_utf8(input, n);
+    My$_id("input-utf8").value = "バイト数: "+output_utf8.length;
   }
   catch(e){
     output_utf8 = e.message;
@@ -113,6 +116,7 @@ My_test_unicode.prototype.code2str = function(){
   try{
     var arr_uint16 = My_conv.arr_num2arr_uint(arr_num_n, n, 16);
     output_utf16BE = My_conv.arr_uint16BE_2str(arr_uint16);
+    My$_id("input-utf16BE").value = "文字数: "+output_utf16BE.length;
   }
   catch(e){
     output_utf16BE = e.message;
@@ -121,6 +125,7 @@ My_test_unicode.prototype.code2str = function(){
   try{
     var arr_uint16 = My_conv.arr_num2arr_uint(arr_num_n, n, 16);
     output_utf16LE = My_conv.arr_uint16LE_2str(arr_uint16);
+    My$_id("input-utf16LE").value = "文字数: "+output_utf16LE.length;
   }
   catch(e){
     output_utf16LE = e.message;
@@ -129,6 +134,7 @@ My_test_unicode.prototype.code2str = function(){
   try{
     var arr_uint8 = My_conv.arr_num2arr_uint(arr_num_n, n, 8);
     output_utf8 = My_conv.arr_uint8_2str(arr_uint8);
+    My$_id("input-utf8").value = "文字数: "+output_utf8.length;
   }
   catch(e){
     output_utf8 = e.message;
