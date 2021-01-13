@@ -8,8 +8,8 @@ body{
 input[readonly],
 textarea[readonly]{
   color:            #000000!important;
-  background:       #aaccff!important;
-  background-color: #aaccff!important;
+  background:       #cceeff!important;
+  background-color: #cceeff!important;
 }
 a, table{
   background:       #ffffff;
@@ -22,8 +22,8 @@ caption{
   color:            #ffffff;
 }
 thead{
-  background:       #cceeee;
-  background-color: #cceeee;
+  background:       #99ccff;
+  background-color: #99ccff;
 }
 table.tr-stripe tr:nth-child(odd){
   background:       #dddddd;

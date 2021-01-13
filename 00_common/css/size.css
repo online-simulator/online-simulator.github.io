@@ -3,8 +3,14 @@
 body{
   width: 100%;
 }
+select, button{
+  font-weight: bold;
+}
 input[type="checkbox"]{
   width: auto;
+}
+textarea{
+  width: 100%;
 }
 
 .width-max{
