@@ -57,10 +57,9 @@ My_test_base64.prototype.init_handlers = function(){
 };
 My_test_base64.prototype.clear = function(){
   var self = this;
-  My$_id("textarea-input").value = "";
-  My$_id("textarea-output_BE").value = "";
-  My$_id("textarea-output_LE").value = "";
-  My$_id("textarea-output_native").value = "";
+  My$arr("textarea").forEach(function(elem){
+    elem.value = "";
+  });
   return self;
 };
 My_test_base64.prototype.str2base64 = function(){
