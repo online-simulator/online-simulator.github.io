@@ -15,8 +15,10 @@ My_test_unicode.prototype.init = function(){
 };
 My_test_unicode.prototype.init_elems = function(){
   var self = this;
-  self.setup_elems_readonly(["textarea"]);
-  self.setup_elems(My$arr_tag("button"), "onclick");
+  My_setup_elems_readonly$("textarea");
+  My_setup_elems$_tag("button", self.handlers, "onclick");
+  self.elems = My_get_elems$("input,textarea");
+  self.arr_sw_out = ["utf16BE", "utf16LE", "utf8", "utf8IE"];
   return self;
 };
 My_test_unicode.prototype.init_handlers = function(){
@@ -35,11 +37,13 @@ My_test_unicode.prototype.init_handlers = function(){
       case "clear":
       case "str2code":
       case "code2str":
+        self[elem.id]();
+        break;
       case "postset_utf16BE":
       case "postset_utf16LE":
       case "postset_utf8":
       case "postset_utf8IE":
-        self[elem.id]();
+        self.postset_sw(elem.id.split("_")[1]);
         break;
       default:
         break;
@@ -63,110 +67,82 @@ My_test_unicode.prototype.clear = function(){
   });
   return self;
 };
-My_test_unicode.prototype.str2code = function(){
+My_test_unicode.prototype.str2code_sw = function(sw){
   var self = this;
   var n = My$selectNum_id("select-n");
-  var input = My$_id("textarea-input").value;
-  var output_utf16BE = "";
-  var output_utf16LE = "";
-  var output_utf8 = "";
-  var output_utf8IE = "";
+  var input = self.elems["textarea-input"].value;
+  var output = "";
   try{
-    output_utf16BE = My_conv.str2code_utf16BE(input, n);
-    My$_id("input-utf16BE").value = "ユニット数: "+output_utf16BE.length;
+    switch(sw){
+      case "utf16BE":
+      case "utf16LE":
+      case "utf8":
+        var title = (sw === "utf8")? "バイト数: ": "ユニット数: ";
+        output = My_conv["str2code_"+sw](input, n);
+        self.elems["input-"+sw].value = title+output.length;
+        break;
+      case "utf8IE":
+        output = My_conv.binary2code_utf8(input, n);
+        break;
+      default:
+        break;
+    }
   }
   catch(e){
-    output_utf16BE = e.message;
+    output = e.message;
   }
-  My$_id("textarea-output_utf16BE").value = output_utf16BE;
+  self.elems["textarea-output_"+sw].value = output;
+  return self;
+};
+My_test_unicode.prototype.str2code = function(){
+  var self = this;
+  self.arr_sw_out.forEach(function(sw){
+    self.str2code_sw(sw);
+  });
+  return self;
+};
+My_test_unicode.prototype.code2str_sw = function(sw){
+  var self = this;
+  var n = My$selectNum_id("select-n");
+  var input = self.elems["textarea-input"].value;
+  var output = "";
+  var arr_num_n = input.split(",");
   try{
-    output_utf16LE = My_conv.str2code_utf16LE(input, n);
-    My$_id("input-utf16LE").value = "ユニット数: "+output_utf16LE.length;
+    switch(sw){
+      case "utf16BE":
+      case "utf16LE":
+      case "utf8":
+        var mc = sw.match(/^utf(\d+)(.*)$/);
+        var n_uint = mc[1];
+        var opt = mc[2];
+        var title = "文字数: ";
+        var arr_uint_ = My_conv.arr_num2arr_uint(arr_num_n, n, n_uint);
+        output = My_conv["arr_uint"+n_uint+opt+"_2str"](arr_uint_);
+        self.elems["input-"+sw].value = title+output.length;
+        break;
+      case "utf8IE":
+        var arr_uint8 = My_conv.arr_num2arr_uint(arr_num_n, n, 8);
+        output = My_conv.arr_uint8_2binary(arr_uint8);
+        break;
+      default:
+        break;
+    }
   }
   catch(e){
-    output_utf16LE = e.message;
+    output = e.message;
   }
-  My$_id("textarea-output_utf16LE").value = output_utf16LE;
-  try{
-    output_utf8 = My_conv.str2code_utf8(input, n);
-    My$_id("input-utf8").value = "バイト数: "+output_utf8.length;
-  }
-  catch(e){
-    output_utf8 = e.message;
-  }
-  My$_id("textarea-output_utf8").value = output_utf8;
-  try{
-    output_utf8IE = My_conv.binary2code_utf8(input, n);
-  }
-  catch(e){
-    output_utf8IE = e.message;
-  }
-  My$_id("textarea-output_utf8IE").value = output_utf8IE;
+  self.elems["textarea-output_"+sw].value = output;
   return self;
 };
 My_test_unicode.prototype.code2str = function(){
   var self = this;
-  var n = My$selectNum_id("select-n");
-  var input = My$_id("textarea-input").value;
-  var output_utf16BE = "";
-  var output_utf16LE = "";
-  var output_utf8 = "";
-  var output_utf8IE = "";
-  var arr_num_n = input.split(",");
-  try{
-    var arr_uint16 = My_conv.arr_num2arr_uint(arr_num_n, n, 16);
-    output_utf16BE = My_conv.arr_uint16BE_2str(arr_uint16);
-    My$_id("input-utf16BE").value = "文字数: "+output_utf16BE.length;
-  }
-  catch(e){
-    output_utf16BE = e.message;
-  }
-  My$_id("textarea-output_utf16BE").value = output_utf16BE;
-  try{
-    var arr_uint16 = My_conv.arr_num2arr_uint(arr_num_n, n, 16);
-    output_utf16LE = My_conv.arr_uint16LE_2str(arr_uint16);
-    My$_id("input-utf16LE").value = "文字数: "+output_utf16LE.length;
-  }
-  catch(e){
-    output_utf16LE = e.message;
-  }
-  My$_id("textarea-output_utf16LE").value = output_utf16LE;
-  try{
-    var arr_uint8 = My_conv.arr_num2arr_uint(arr_num_n, n, 8);
-    output_utf8 = My_conv.arr_uint8_2str(arr_uint8);
-    My$_id("input-utf8").value = "文字数: "+output_utf8.length;
-  }
-  catch(e){
-    output_utf8 = e.message;
-  }
-  My$_id("textarea-output_utf8").value = output_utf8;
-  try{
-    var arr_uint8 = My_conv.arr_num2arr_uint(arr_num_n, n, 8);
-    output_utf8IE = My_conv.arr_uint8_2binary(arr_uint8);
-  }
-  catch(e){
-    output_utf8IE = e.message;
-  }
-  My$_id("textarea-output_utf8IE").value = output_utf8IE;
+  self.arr_sw_out.forEach(function(sw){
+    self.code2str_sw(sw);
+  });
   return self;
 };
-My_test_unicode.prototype.postset_utf16BE = function(){
+My_test_unicode.prototype.postset_sw = function(sw){
   var self = this;
-  My$_id("textarea-input").value = My$_id("textarea-output_utf16BE").value;
-  return self;
-};
-My_test_unicode.prototype.postset_utf16LE = function(){
-  var self = this;
-  My$_id("textarea-input").value = My$_id("textarea-output_utf16LE").value;
-  return self;
-};
-My_test_unicode.prototype.postset_utf8 = function(){
-  var self = this;
-  My$_id("textarea-input").value = My$_id("textarea-output_utf8").value;
-  return self;
-};
-My_test_unicode.prototype.postset_utf8IE = function(){
-  var self = this;
-  My$_id("textarea-input").value = My$_id("textarea-output_utf8IE").value;
+  self.elems["textarea-input"].value = self.elems["textarea-output_"+sw].value;
   return self;
 };
