@@ -15,8 +15,8 @@ My_test_encodeURI.prototype.init = function(){
 };
 My_test_encodeURI.prototype.init_elems = function(){
   var self = this;
-  self.setup_elems_readonly(["textarea"]);
-  self.setup_elems(My$arr_tag("button"), "onclick");
+  My_setup_elems_readonly$("textarea");
+  My_setup_elems$_tag("button", self.handlers, "onclick");
   return self;
 };
 My_test_encodeURI.prototype.init_handlers = function(){
