@@ -287,7 +287,7 @@ mainの再初期化処理を以下に示す
 <br>
 self.workerを再宣言worker.re_initする前に再度終了処理を実施する
 <br>
-なお、workerが何度も宣言されてリークしないように留意する
+なお、new Worker()が重複宣言されないように留意する
 
 <pre><code>
   if(self.handler_worker){
