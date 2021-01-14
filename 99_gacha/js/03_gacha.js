@@ -15,10 +15,10 @@ My_test_gacha.prototype.init = function(){
 };
 My_test_gacha.prototype.init_elems = function(){
   var self = this;
-  self.setup_elems_readonly(["textarea"]);
-  self.setup_elems(My$arr_tag("button"), "onclick");
-  self.setup_elems(My$arr_tag("input"), "onchange");
-  self.setup_elems(My$arr_tag("select"), "onchange");
+  My_setup_elems_readonly$("textarea");
+  My_setup_elems$_tag("button", self.handlers, "onclick");
+  My_setup_elems$_tag("input", self.handlers, "onchange");
+  My_setup_elems$_tag("select", self.handlers, "onchange");
   return self;
 };
 My_test_gacha.prototype.init_handlers = function(){
