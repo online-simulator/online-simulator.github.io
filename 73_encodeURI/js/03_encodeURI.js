@@ -17,6 +17,7 @@ My_test_encodeURI.prototype.init_elems = function(){
   var self = this;
   My_setup_elems_readonly$("textarea");
   My_setup_elems$_tag("button", self.handlers, "onclick");
+  self.arr_sw_out = ["uri", "uriCom"];
   return self;
 };
 My_test_encodeURI.prototype.init_handlers = function(){
@@ -35,9 +36,11 @@ My_test_encodeURI.prototype.init_handlers = function(){
       case "clear":
       case "uri2code":
       case "code2uri":
+        self[elem.id]();
+        break;
       case "postset_uri":
       case "postset_uriCom":
-        self[elem.id]();
+        self.postset_sw(elem.id.split("_")[1]);
         break;
       default:
         break;
@@ -61,55 +64,48 @@ My_test_encodeURI.prototype.clear = function(){
   });
   return self;
 };
-My_test_encodeURI.prototype.uri2code = function(){
+My_test_encodeURI.prototype.uri2code_sw = function(sw){
   var self = this;
   var input = My$_id("textarea-input").value;
-  var output_uri = "";
-  var output_uriCom = "";
+  var output = "";
   try{
-    output_uri = encodeURI(input);
+    output = (sw === "uri")? encodeURI(input): encodeURIComponent(input);
   }
   catch(e){
-    output_uri = e.message;
+    output = e.message;
   }
-  My$_id("textarea-output_uri").value = output_uri;
+  My$_id("textarea-output_"+sw).value = output;
+  return self;
+};
+My_test_encodeURI.prototype.uri2code = function(){
+  var self = this;
+  self.arr_sw_out.forEach(function(sw){
+    self.uri2code_sw(sw);
+  });
+  return self;
+};
+My_test_encodeURI.prototype.code2uri_sw = function(sw){
+  var self = this;
+  var input = My$_id("textarea-input").value;
+  var output = "";
   try{
-    output_uriCom = encodeURIComponent(input);
+    output = (sw === "uri")? decodeURI(input): decodeURIComponent(input);
   }
   catch(e){
-    output_uriCom = e.message;
+    output = e.message;
   }
-  My$_id("textarea-output_uriCom").value = output_uriCom;
+  My$_id("textarea-output_"+sw).value = output;
   return self;
 };
 My_test_encodeURI.prototype.code2uri = function(){
   var self = this;
-  var input = My$_id("textarea-input").value;
-  var output_uri = "";
-  var output_uriCom = "";
-  try{
-    output_uri = decodeURI(input);
-  }
-  catch(e){
-    output_uri = e.message;
-  }
-  My$_id("textarea-output_uri").value = output_uri;
-  try{
-    output_uriCom = decodeURIComponent(input);
-  }
-  catch(e){
-    output_uriCom = e.message;
-  }
-  My$_id("textarea-output_uriCom").value = output_uriCom;
+  self.arr_sw_out.forEach(function(sw){
+    self.code2uri_sw(sw);
+  });
   return self;
 };
-My_test_encodeURI.prototype.postset_uri = function(){
+My_test_encodeURI.prototype.postset_sw = function(sw){
   var self = this;
-  My$_id("textarea-input").value = My$_id("textarea-output_uri").value;
-  return self;
-};
-My_test_encodeURI.prototype.postset_uriCom = function(){
-  var self = this;
-  My$_id("textarea-input").value = My$_id("textarea-output_uriCom").value;
+  My$_id("textarea-input").value = My$_id("textarea-output_"+sw).value;
   return self;
 };
