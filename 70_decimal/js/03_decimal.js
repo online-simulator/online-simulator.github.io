@@ -15,10 +15,10 @@ My_test_decimal.prototype.init = function(){
 };
 My_test_decimal.prototype.init_elems = function(){
   var self = this;
-  My_setup_elems_readonly$("input");
-  My_setup_elems$_tag("input", self.handlers, "onclick");
-  My_setup_elems$_tag("input", self.handlers, "onchange");
-  My_setup_elems$_tag("select", self.handlers, "onchange");
+  My$.setup_elems_readonly$("input");
+  My$.setup_elems$_tag("input", self.handlers, "onclick");
+  My$.setup_elems$_tag("input", self.handlers, "onchange");
+  My$.setup_elems$_tag("select", self.handlers, "onchange");
   return self;
 };
 My_test_decimal.prototype.init_handlers = function(){
@@ -71,28 +71,28 @@ My_test_decimal.prototype.init_handlers = function(){
 };
 My_test_decimal.prototype.n2dec = function(){
   var self = this;
-  var val_n = My$_id("input-n").value;
-  var n = My$selectNum_id("select-n2dec");
+  var val_n = My$._id("input-n").value;
+  var n = My$.selectNum_id("select-n2dec");
   var dec = My_conv.n2dec(val_n, n);
-  My$_id("output-dec").value = dec;
-  var isChecked = My$checkbox_id("checkbox-dec-dec");
+  My$._id("output-dec").value = dec;
+  var isChecked = My$.checkbox_id("checkbox-dec-dec");
   if(isChecked){
-    My$_id("input-dec").value = dec;
-    var n = My$selectNum_id("select-dec2n");
-    My$_id("output-n").value = My_conv.dec2n(dec, n);
+    My$._id("input-dec").value = dec;
+    var n = My$.selectNum_id("select-dec2n");
+    My$._id("output-n").value = My_conv.dec2n(dec, n);
   }
   return self;
 };
 My_test_decimal.prototype.dec2n = function(){
   var self = this;
-  var val_dec = My$_id("input-dec").value;
-  var n = My$selectNum_id("select-dec2n");
-  My$_id("output-n").value = My_conv.dec2n(val_dec, n);
-  var isChecked = My$checkbox_id("checkbox-dec-dec");
+  var val_dec = My$._id("input-dec").value;
+  var n = My$.selectNum_id("select-dec2n");
+  My$._id("output-n").value = My_conv.dec2n(val_dec, n);
+  var isChecked = My$.checkbox_id("checkbox-dec-dec");
   if(isChecked){
-    My$_id("output-dec").value = val_dec;
-    var n = My$selectNum_id("select-n2dec");
-    My$_id("input-n").value = My_conv.dec2n(val_dec, n);
+    My$._id("output-dec").value = val_dec;
+    var n = My$.selectNum_id("select-n2dec");
+    My$._id("input-n").value = My_conv.dec2n(val_dec, n);
   }
   return self;
 };
