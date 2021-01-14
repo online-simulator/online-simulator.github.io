@@ -70,18 +70,17 @@ My_test_base64.prototype.str2base64_sw = function(sw){
   var input = My$_id("textarea-input").value;
   var output = "";
   try{
-    output = input;
     switch(sw){
       case "BE":
-        output = My_conv.str2binary(output);
+        input = My_conv.str2binary(input);
         break;
       case "LE":
-        output = My_conv.str2binary(output, true);
+        input = My_conv.str2binary(input, true);
         break;
       default:
         break;
     }
-    output = btoa(output);
+    output = btoa(input);
   }
   catch(e){
     output = e.message;
