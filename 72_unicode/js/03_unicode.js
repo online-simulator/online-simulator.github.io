@@ -15,9 +15,9 @@ My_test_unicode.prototype.init = function(){
 };
 My_test_unicode.prototype.init_elems = function(){
   var self = this;
-  My_setup_elems_readonly$("textarea");
-  My_setup_elems$_tag("button", self.handlers, "onclick");
-  self.elems = My_get_elems$("input,textarea");
+  My$.setup_elems_readonly$("textarea");
+  My$.setup_elems$_tag("button", self.handlers, "onclick");
+  self.elems = My$.get_elems$("input,textarea");
   self.arr_sw_out = ["utf16BE", "utf16LE", "utf8", "utf8IE"];
   return self;
 };
@@ -62,14 +62,14 @@ My_test_unicode.prototype.init_handlers = function(){
 };
 My_test_unicode.prototype.clear = function(){
   var self = this;
-  My$arr("input,textarea").forEach(function(elem){
+  My$.arr("input,textarea").forEach(function(elem){
     elem.value = "";
   });
   return self;
 };
 My_test_unicode.prototype.str2code_sw = function(sw){
   var self = this;
-  var n = My$selectNum_id("select-n");
+  var n = My$.selectNum_id("select-n");
   var input = self.elems["textarea-input"].value;
   var output = "";
   try{
@@ -103,7 +103,7 @@ My_test_unicode.prototype.str2code = function(){
 };
 My_test_unicode.prototype.code2str_sw = function(sw){
   var self = this;
-  var n = My$selectNum_id("select-n");
+  var n = My$.selectNum_id("select-n");
   var input = self.elems["textarea-input"].value;
   var output = "";
   var arr_num_n = input.split(",");
