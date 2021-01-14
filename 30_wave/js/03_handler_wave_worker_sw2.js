@@ -85,7 +85,6 @@ My_handler_wave.prototype.set_callbacks_worker = function(){
       var data0 = self.arr_data_out[i0][j0];
       var number_samples = data0.number_samples_perChannel_max;
       var binary_header = self.waveo.get_binary_header(number_samples);
-      data0.w0 = My$selectNum_id("select-w0");
       var binary_soundData_LE = self.composite_binary_soundData_LE(arr_binary, arr_number_samples, data0);
       var binary = binary_header+binary_soundData_LE;
       var buffer = self.waveo.binary2buffer(binary);

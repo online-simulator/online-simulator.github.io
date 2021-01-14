@@ -11,8 +11,8 @@ My_def.mix_in(My_handler_wave, My_original_main);
 My_handler_wave.prototype.init = function(){
   var self = this;
   self.init_main.apply(self, arguments);
-  self.isSingle = (My$_id("input-freq"))? true: false;
-  self.isScriptMode = (My$_id("textarea-script"))? true: false;
+  self.isSingle = (My$._id("input-freq"))? true: false;
+  self.isScriptMode = (My$._id("textarea-script"))? true: false;
   self.text_log = "finished SAVE-OK 保存可能";
   self.text_link = "download-wav by double-click";
   self.fileName_default = "download.wav";
@@ -30,12 +30,12 @@ My_handler_wave.prototype.init = function(){
 };
 My_handler_wave.prototype.init_elems = function(){
   var self = this;
-  self.elem_log = My$_id("span-log");
-  self.elem_name = My$_id("span-name");
-  self.elem_time = My$_id("input-time");
-  My_setup_elems$_tag("button", self.handlers, "onclick");
-  My_setup_elems$_tag("input", self.handlers, "onchange");
-  My_setup_elems$_tag("select", self.handlers, "onchange");
+  self.elem_log = My$._id("span-log");
+  self.elem_name = My$._id("span-name");
+  self.elem_time = My$._id("input-time");
+  My$.setup_elems$_tag("button", self.handlers, "onclick");
+  My$.setup_elems$_tag("input", self.handlers, "onchange");
+  My$.setup_elems$_tag("select", self.handlers, "onchange");
   return self;
 };
 My_handler_wave.prototype.init_handlers = function(){
@@ -105,7 +105,7 @@ My_handler_wave.prototype.init_handlers = function(){
         try{
           var arr_params = [];
           if(self.isScriptMode){
-            var input = My$_id("textarea-script").value;
+            var input = My$._id("textarea-script").value;
             if(input){
               arr_params = self.check_script(input);
             }
@@ -115,7 +115,7 @@ My_handler_wave.prototype.init_handlers = function(){
           }
           if(arr_params.length){
             self.update_number_samples();
-            var useWorker = My$checkbox_id("checkbox-useWorker");
+            var useWorker = My$.checkbox_id("checkbox-useWorker");
             self.init_worker();
             setTimeout(function(){
               self.run_worker(arr_params, useWorker);
@@ -135,7 +135,7 @@ My_handler_wave.prototype.init_handlers = function(){
         self.output_log("stopped");
         break;
       case "uncheck":
-        My$arr("input[type='checkbox']").forEach(function(elem){
+        My$.arr("input[type='checkbox']").forEach(function(elem){
           var mc = elem.id.match(self.regex.oc);
           if(mc && elem.checked){
             elem.checked = false;
@@ -172,8 +172,8 @@ My_handler_wave.prototype.calc_freq = function(octave, code){
   var octave = octave;
   var code = code;
   if(self.isSingle){
-    octave = My$selectNum_id("select-octave");
-    code = My$selectNum_id("select-code");
+    octave = My$.selectNum_id("select-octave");
+    code = My$.selectNum_id("select-code");
   }
   var d = (octave+2)*12+code;
   var _freq = Math.pow(2, (d-69)/12)*440;
@@ -182,14 +182,14 @@ My_handler_wave.prototype.calc_freq = function(octave, code){
 My_handler_wave.prototype.output_freq = function(){
   var self = this;
   var freq = self.calc_freq();
-  My$_id("input-freq").value = freq.toFixed(2);
+  My$._id("input-freq").value = freq.toFixed(2);
   return self;
 };
 My_handler_wave.prototype.output_fileSize = function(sec){
   var self = this;
   var number_samples = self.waveo.get_number_samples(sec || self.params.sec);
   var fileSize = self.waveo.get_fileSize(number_samples);
-  My$_id("input-fileSize").value = fileSize/1000;
+  My$._id("input-fileSize").value = fileSize/1000;
   return self;
 };
 My_handler_wave.prototype.get_fileName = function(){
@@ -211,15 +211,15 @@ My_handler_wave.prototype.get_freqs = function(){
   var self = this;
   var _arr_f = [];
   if(self.isSingle){
-    var freq = My$inputNum_id("input-freq") || self.calc_freq();
+    var freq = My$.inputNum_id("input-freq") || self.calc_freq();
     if(isNaN(freq)){
       self.output_freq();
     }
     _arr_f.push(My_math_wave.get_limit(freq, 0, 48000));
   }
   else{
-    var octave0 = My$selectNum_id("select-octave");
-    My$arr("input[type='checkbox']").forEach(function(elem){
+    var octave0 = My$.selectNum_id("select-octave");
+    My$.arr("input[type='checkbox']").forEach(function(elem){
       var mc = elem.id.match(self.regex.oc);
       if(mc && elem.checked){
         var doctave = Number(mc[1]);
@@ -239,29 +239,32 @@ My_handler_wave.prototype.update_number_samples = function(){
 };
 My_handler_wave.prototype.make_params = function(){
   var self = this;
-  self.params.f0 = My$selectNum_id("select-f0");
-  self.params.f1 = My$selectNum_id("select-f1");
-  self.params.g0 = My$selectNum_id("select-g0");
-  self.params.g1 = My$selectNum_id("select-g1");
-  self.params.Bytes_perSample = My$selectNum_id("select-Bytes_perSample");
-  self.params.samples_perSecond = My$selectNum_id("select-samples_perSecond");
-  self.params.number_channels = My$selectNum_id("select-number_channels");
-  self.params.type = My$selectVal_id("select-type");
-  var sec = My$inputNum_id("input-time")*0.001;
+  self.params.f0 = My$.selectNum_id("select-f0");
+  self.params.f1 = My$.selectNum_id("select-f1");
+  self.params.g0 = My$.selectNum_id("select-g0");
+  self.params.g1 = My$.selectNum_id("select-g1");
+  self.params.Bytes_perSample = My$.selectNum_id("select-Bytes_perSample");
+  self.params.samples_perSecond = My$.selectNum_id("select-samples_perSecond");
+  self.params.number_channels = My$.selectNum_id("select-number_channels");
+  self.params.type = My$.selectVal_id("select-type");
+  var sec = My$.inputNum_id("input-time")*0.001;
   if(isNaN(sec)){
     sec = 1;
-    My$inputNum_id("input-time") = sec*1000;
+    My$.inputNum_id("input-time") = sec*1000;
   }
   self.params.sec = My_math_wave.get_limit(sec, 0, 10);
   self.update_number_samples();
-  var volume = My$inputNum_id("range-volume")*0.01;
+  var volume = My$.inputNum_id("range-volume")*0.01;
   if(isNaN(volume)){
     volume = 0.5;
-    My$_id("range-volume").value = volume*100;
+    My$._id("range-volume").value = volume*100;
   }
   self.params.volume = volume;
   self.params.i = 0;
-  if(!(self.isScriptMode)){
+  if(self.isScriptMode){
+    self.params.w0 = My$.selectNum_id("select-w0");
+  }
+  else{
     self.params.arr_f = self.get_freqs();
   }
   return self;
