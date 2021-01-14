@@ -17,7 +17,7 @@ My_test_link.prototype.init = function(){
 };
 My_test_link.prototype.init_elems = function(){
   var self = this;
-  self.setup_elems(My$arr_tag("button"), "onclick");
+  My_setup_elems$_tag("button", self.handlers, "onclick");
   return self;
 };
 My_test_link.prototype.init_handlers = function(){
