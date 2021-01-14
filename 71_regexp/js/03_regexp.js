@@ -17,10 +17,10 @@ My_test_regexp.prototype.init_elems = function(){
   var self = this;
   self.elem_input = My$_id("textarea-input");
   self.elem_output = My$_id("textarea-output");
-  self.setup_elems_readonly(["input", "textarea"]);
-  self.setup_elems(My$arr_tag("button"), "onclick");
-  self.setup_elems(My$arr_tag("input"), "onchange");
-  self.setup_elems(My$arr_tag("select"), "onchange");
+  My_setup_elems_readonly$("input,textarea");
+  My_setup_elems$_tag("button", self.handlers, "onclick");
+  My_setup_elems$_tag("input", self.handlers, "onchange");
+  My_setup_elems$_tag("select", self.handlers, "onchange");
   return self;
 };
 My_test_regexp.prototype.init_handlers = function(){
