@@ -22,6 +22,8 @@ My_original_worker.prototype.init_worker = function(){
 My_original_worker.prototype.stop_worker = function(){
   var self = this;
   if(self.handler_worker){
+    if(self.handler_worker.isLocked){
+    }
     self.handler_worker.terminate();
   }
   return self;
