@@ -15,10 +15,10 @@ My_test_decimal.prototype.init = function(){
 };
 My_test_decimal.prototype.init_elems = function(){
   var self = this;
-  self.setup_elems_readonly(["input"]);
-  self.setup_elems(My$arr_tag("input"), "onclick");
-  self.setup_elems(My$arr_tag("input"), "onchange");
-  self.setup_elems(My$arr_tag("select"), "onchange");
+  My_setup_elems_readonly$("input");
+  My_setup_elems$_tag("input", self.handlers, "onclick");
+  My_setup_elems$_tag("input", self.handlers, "onchange");
+  My_setup_elems$_tag("select", self.handlers, "onchange");
   return self;
 };
 My_test_decimal.prototype.init_handlers = function(){
