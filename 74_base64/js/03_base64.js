@@ -17,6 +17,7 @@ My_test_base64.prototype.init_elems = function(){
   var self = this;
   My_setup_elems_readonly$("textarea");
   My_setup_elems$_tag("button", self.handlers, "onclick");
+  self.arr_sw_out = ["BE", "LE", "native"];
   return self;
 };
 My_test_base64.prototype.init_handlers = function(){
@@ -35,10 +36,12 @@ My_test_base64.prototype.init_handlers = function(){
       case "clear":
       case "str2base64":
       case "base64_2str":
+        self[elem.id]();
+        break;
       case "postset_BE":
       case "postset_LE":
       case "postset_native":
-        self[elem.id]();
+        self.postset_sw(elem.id.split("_")[1]);
         break;
       default:
         break;
@@ -62,80 +65,69 @@ My_test_base64.prototype.clear = function(){
   });
   return self;
 };
-My_test_base64.prototype.str2base64 = function(){
+My_test_base64.prototype.str2base64_sw = function(sw){
   var self = this;
   var input = My$_id("textarea-input").value;
-  var output_BE = "";
-  var output_LE = "";
-  var output_native = "";
+  var output = "";
   try{
-    var binary = My_conv.str2binary(input);
-    output_BE = btoa(binary);
+    output = input;
+    switch(sw){
+      case "BE":
+        output = My_conv.str2binary(output);
+        break;
+      case "LE":
+        output = My_conv.str2binary(output, true);
+        break;
+      default:
+        break;
+    }
+    output = btoa(output);
   }
   catch(e){
-    output_BE = e.message;
+    output = e.message;
   }
-  My$_id("textarea-output_BE").value = output_BE;
+  My$_id("textarea-output_"+sw).value = output;
+  return self;
+};
+My_test_base64.prototype.str2base64 = function(){
+  var self = this;
+  self.arr_sw_out.forEach(function(sw){
+    self.str2base64_sw(sw);
+  });
+  return self;
+};
+My_test_base64.prototype.base64_2str_sw = function(sw){
+  var self = this;
+  var input = My$_id("textarea-input").value;
+  var output = "";
   try{
-    var binary = My_conv.str2binary(input, true);
-    output_LE = btoa(binary);
+    output = atob(input);
+    switch(sw){
+      case "BE":
+        output = My_conv.binary2str(output);
+        break;
+      case "LE":
+        output = My_conv.binary2str(output, true);
+        break;
+      default:
+        break;
+    }
   }
   catch(e){
-    output_LE = e.message;
+    output = e.message;
   }
-  My$_id("textarea-output_LE").value = output_LE;
-  try{
-    output_native = btoa(input);
-  }
-  catch(e){
-    output_native = e.message;
-  }
-  My$_id("textarea-output_native").value = output_native;
+  My$_id("textarea-output_"+sw).value = output;
   return self;
 };
 My_test_base64.prototype.base64_2str = function(){
   var self = this;
-  var input = My$_id("textarea-input").value;
-  var output_BE = "";
-  var output_LE = "";
-  var output_native = "";
-  try{
-    var binary = atob(input);
-    output_BE = My_conv.binary2str(binary);
-  }
-  catch(e){
-    output_BE = e.message;
-  }
-  My$_id("textarea-output_BE").value = output_BE;
-  try{
-    var binary = atob(input);
-    output_LE = My_conv.binary2str(binary, true);
-  }
-  catch(e){
-    output_LE = e.message;
-  }
-  My$_id("textarea-output_LE").value = output_LE;
-  try{
-    output_native = atob(input);
-  }
-  catch(e){
-    output_native = e.message;
-  }
-  My$_id("textarea-output_native").value = output_native;
+  self.arr_sw_out.forEach(function(sw){
+    self.base64_2str_sw(sw);
+  });
   return self;
 };
-My_test_base64.prototype.postset_BE = function(){
+My_test_base64.prototype.postset_sw = function(sw){
   var self = this;
-  My$_id("textarea-input").value = My$_id("textarea-output_BE").value;
-  return self;
-};
-My_test_base64.prototype.postset_LE = function(){
-  var self = this;
-  My$_id("textarea-input").value = My$_id("textarea-output_LE").value;
-  return self;
-};
-My_test_base64.prototype.postset_native = function(){
-  var self = this;
-  My$_id("textarea-input").value = My$_id("textarea-output_native").value;
+  My$_id("textarea-input").value = My$_id("textarea-output_"+sw).value;
   return self;
 };
