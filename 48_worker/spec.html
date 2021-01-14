@@ -153,6 +153,8 @@ mainからworkerにまとめてarr_dataを渡すhandler_workerを用意し、排
         <tr class="border">
           <td class="border">
 handler_worker
+<br>
+実行処理
           </td>
           <td class="border">
 上記のself.handler_worker.runの関数を以下に示す
@@ -227,7 +229,7 @@ handler_worker
 終了処理
           </td>
           <td class="border">
-終了処理の関数を以下に示す
+handler_workerの終了処理の関数を以下に示す
 <br>
 self.worker.terminate()を呼び出して全スレッドを強制終了する
 <br>
@@ -252,22 +254,38 @@ My_handler_worker.prototype.terminate = function(){
         </tr>
         <tr class="border">
           <td class="border">
-mainに継承する
+main
 <br>
-original_worker
+終了処理
+          </td>
+          <td class="border">
+上記のhandler_worker.terminateを呼び出すmainの終了処理を以下に示す
+<br>
+なお、その直前にロック状態を判定して中断ログ表示等を実施する
+
+<pre><code>
+  if(self.handler_worker){
+    if(self.handler_worker.isLocked){
+    }
+    self.handler_worker.terminate();
+  }
+</code></pre>
+          </td>
+        </tr>
+        <tr class="border">
+          <td class="border">
+main
 <br>
 再初期化処理
           </td>
           <td class="border">
-mainコンストラクタにmix-inで継承するoriginal_workerの再初期化関数を以下に示す
+mainの再初期化処理を以下に示す
 <br>
-self.workerを再宣言worker.re_initする前に再度terminate処理を実施する
+self.workerを再宣言worker.re_initする前に再度終了処理を実施する
 <br>
 なお、workerが何度も宣言されてリークしないように留意する
 
 <pre><code>
-My_original_worker.prototype.init_worker = function(){
-  var self = this;
   if(self.handler_worker){
     self.handler_worker.terminate();
     self.handler_worker.re_init();
@@ -280,8 +298,6 @@ My_original_worker.prototype.init_worker = function(){
     My$bind_objs(self, self.callbacks_worker);
     self.handler_worker = new My_handler_worker(self.url_worker, self.callbacks_worker);
   }
-  return self;
-};
 </code></pre>
           </td>
         </tr>

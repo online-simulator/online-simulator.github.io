@@ -16,7 +16,7 @@ My_test_worker.prototype.init = function(){
 My_test_worker.prototype.init_elems = function(){
   var self = this;
   self.elem_o = My$_id("textarea-output");
-  self.setup_elems(My$arr_tag("button"), "onclick");
+  My_setup_elems$_tag("button", self.handlers, "onclick");
   return self;
 };
 My_test_worker.prototype.init_handlers = function(){
@@ -51,6 +51,9 @@ My_test_worker.prototype.init_handlers = function(){
 My_test_worker.prototype.stop_worker = function(){
   var self = this;
   if(self.handler_worker){
+    if(self.handler_worker.isLocked){
+      self.elem_o.value += "stopped"+"\n";
+    }
     self.handler_worker.terminate();
     self.elem_o.value += "terminated"+"\n";
   }
