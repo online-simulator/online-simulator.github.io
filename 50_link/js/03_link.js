@@ -17,7 +17,7 @@ My_test_link.prototype.init = function(){
 };
 My_test_link.prototype.init_elems = function(){
   var self = this;
-  My_setup_elems$_tag("button", self.handlers, "onclick");
+  My$.setup_elems$_tag("button", self.handlers, "onclick");
   return self;
 };
 My_test_link.prototype.init_handlers = function(){
@@ -54,7 +54,7 @@ My_test_link.prototype.init_handlers = function(){
 My_test_link.prototype.create = function(id_output, isInsertBefore){
   var self = this;
   var n = self.counter++;
-  var name = My$_id("input-name").value+n;
+  var name = My$._id("input-name").value+n;
   var json = {p: {id: "wrapper-link"}, a: {id: "a"+n, it: "download-txt by double-click"+n}, name: name, ext: "txt", isIB: isInsertBefore};
   json.o = (id_output)? {id: id_output}: {tag: "input"};
   self.handler_link = new My_handler_link(json);
