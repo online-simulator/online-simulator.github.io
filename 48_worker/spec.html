@@ -201,6 +201,10 @@ Object.keys(self.arr_data_out).lengthが
 エラー発生時や中断時、body.onbeforeunload時も同様の終了処理を実施する
 <br>
 なお、callbackは別のスコープから呼ばれるので、thisをインスタンスselfでbindする
+<br>
+元のcallbackを不変の前提で直接bindする場合、再代入が必要であることに留意する
+<br>
+callback = callback.bind(self);
 <pre><code>
   self.arr_data_out = [];
   self.callbacks_worker = {};
@@ -261,7 +265,7 @@ main
           <td class="border">
 上記のhandler_worker.terminateを呼び出すmainの終了処理を以下に示す
 <br>
-なお、その直前にロック状態を判定して中断ログ表示等を実施する
+なお、終了処理の直前にロック状態を判定して中断ログの表示等を実施する
 
 <pre><code>
   if(self.handler_worker){
