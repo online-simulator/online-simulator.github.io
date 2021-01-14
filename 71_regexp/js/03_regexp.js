@@ -15,12 +15,12 @@ My_test_regexp.prototype.init = function(){
 };
 My_test_regexp.prototype.init_elems = function(){
   var self = this;
-  self.elem_input = My$_id("textarea-input");
-  self.elem_output = My$_id("textarea-output");
-  My_setup_elems_readonly$("input,textarea");
-  My_setup_elems$_tag("button", self.handlers, "onclick");
-  My_setup_elems$_tag("input", self.handlers, "onchange");
-  My_setup_elems$_tag("select", self.handlers, "onchange");
+  self.elem_input = My$._id("textarea-input");
+  self.elem_output = My$._id("textarea-output");
+  My$.setup_elems_readonly$("input,textarea");
+  My$.setup_elems$_tag("button", self.handlers, "onclick");
+  My$.setup_elems$_tag("input", self.handlers, "onchange");
+  My$.setup_elems$_tag("select", self.handlers, "onchange");
   return self;
 };
 My_test_regexp.prototype.init_handlers = function(){
@@ -79,8 +79,8 @@ My_test_regexp.prototype.replace = function(){
   var self = this;
   var output = "";
   try{
-    var re = new RegExp(My$_id("input-pattern").value, My$_id("select-flag").value);
-    var str = My$_id("input-string").value;
+    var re = new RegExp(My$._id("input-pattern").value, My$._id("select-flag").value);
+    var str = My$._id("input-string").value;
     var text = self.elem_input.value;
     output = text.replace(re, str);
   }
@@ -94,13 +94,13 @@ My_test_regexp.prototype.output_command = function(){
   var self = this;
   var command = "";
   try{
-    var re = new RegExp(My$_id("input-pattern").value, My$_id("select-flag").value);
-    var str = My$_id("input-string").value;
+    var re = new RegExp(My$._id("input-pattern").value, My$._id("select-flag").value);
+    var str = My$._id("input-string").value;
     command = "out=text.replace("+re+",\""+str+"\")\;";
   }
   catch(e){
     command = e.message;
   }
-  My$_id("input-command").value = command;
+  My$._id("input-command").value = command;
   return self;
 };
