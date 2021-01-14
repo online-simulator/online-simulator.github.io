@@ -15,7 +15,7 @@ My_test_mathjax.prototype.init = function(){
 };
 My_test_mathjax.prototype.init_elems = function(){
   var self = this;
-  My_setup_elems$_tag("button", self.handlers, "onclick");
+  My$.setup_elems$_tag("button", self.handlers, "onclick");
   return self;
 };
 My_test_mathjax.prototype.init_handlers = function(){
@@ -53,13 +53,13 @@ My_test_mathjax.prototype.init_handlers = function(){
 };
 My_test_mathjax.prototype.clear = function(){
   var self = this;
-  My$_id("textarea-input").value = "";
-  My$_id("p-output").textContent = "";
+  My$._id("textarea-input").value = "";
+  My$._id("p-output").textContent = "";
   return self;
 };
 My_test_mathjax.prototype.preview = function(){
   var self = this;
-  My$_id("p-output").textContent = My$_id("textarea-input").value;
+  My$._id("p-output").textContent = My$._id("textarea-input").value;
   if(typeof MathJax !== "undefined"){
     MathJax.Hub.Queue(["Typeset", MathJax.Hub, "p-output"]);
   }
