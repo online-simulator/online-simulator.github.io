@@ -15,8 +15,8 @@ My_test_worker.prototype.init = function(){
 };
 My_test_worker.prototype.init_elems = function(){
   var self = this;
-  self.elem_o = My$_id("textarea-output");
-  My_setup_elems$_tag("button", self.handlers, "onclick");
+  self.elem_o = My$._id("textarea-output");
+  My$.setup_elems$_tag("button", self.handlers, "onclick");
   return self;
 };
 My_test_worker.prototype.init_handlers = function(){
@@ -36,7 +36,7 @@ My_test_worker.prototype.init_handlers = function(){
       case "run":
         if(self.handler_worker && self.handler_worker.isLocked) return false;
         self.init_worker();
-        self.run_worker(My$selectNum_id("select-n"), My$checkbox_id("checkbox-useWorker"));
+        self.run_worker(My$.selectNum_id("select-n"), My$.checkbox_id("checkbox-useWorker"));
         break;
       case "stop":
         self.stop_worker();
@@ -96,7 +96,7 @@ My_test_worker.prototype.make_testcase = function(n){
     var data = {};
     data.i = i;
     data.in = Math.random();
-    data.sw_job = My$selectText_id("select-job");
+    data.sw_job = My$.selectText_id("select-job");
     self.arr_data_in.push(data);
   }
   return self;

@@ -218,7 +218,7 @@ Object.keys(self.arr_data_out).lengthが
     self.stop_worker();
     return self;
   };
-  My$bind_objs(self, self.callbacks_worker);
+  My$.bind_objs(self, self.callbacks_worker);
 </code></pre>
           </td>
         </tr>
@@ -295,7 +295,7 @@ self.workerを再宣言worker.re_initする前に再度終了処理を実施す�
     self.set_url_worker();
     self.callbacks_worker = {};
     self.set_callbacks_worker();
-    My$bind_objs(self, self.callbacks_worker);
+    My$.bind_objs(self, self.callbacks_worker);
     self.handler_worker = new My_handler_worker(self.url_worker, self.callbacks_worker);
   }
 </code></pre>
