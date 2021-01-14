@@ -20,8 +20,8 @@ My_browser.prototype.save_file = function(link, isOnclick){
     navigator.msSaveBlob(link.blob, link.name);
   }
   else{
-    My$set_id(link.id, "download", link.name);
-    My$set_id(link.id, "href", link.url);
+    My$.set_id(link.id, "download", link.name);
+    My$.set_id(link.id, "href", link.url);
   }
   return self;
 };

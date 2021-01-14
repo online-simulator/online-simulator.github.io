@@ -6,36 +6,31 @@ function My$(selector, element){
   var element = element || document;
   return element.querySelector(selector);
 }
-function My$0(selector, element){
-  return My$(selector, element);
-}
-function My$_id(id){
+
+My$._id = function(id){
   return document.getElementById(id);
-}
-function My$0_tag(selector){
-  return My$list_tag(selector)[0];
-}
-function My$list_tag(selector){
+};
+My$.list_tag = function(selector){
   return document.getElementsByTagName(selector);
-}
-function My$arr_tag(selector){
+};
+My$.arr_tag = function(selector){
   return Array.prototype.slice.call(document.getElementsByTagName(selector));
-}
-function My$list(selector, element){
+};
+My$.list = function(selector, element){
   var element = element || document;
   return element.querySelectorAll(selector);
-}
-function My$arr(selector, element){
+};
+My$.arr = function(selector, element){
   var element = element || document;
   return Array.prototype.slice.call(element.querySelectorAll(selector));
-}
-function My$bind_objs(self, objs){
+};
+My$.bind_objs = function(self, objs){
   for(var prop in objs){
     objs[prop] = objs[prop].bind(self);
   }
   return self;
-}
-function My$set_elem(elem, prop, val){
+};
+My$.set_elem = function(elem, prop, val){
   if(typeof elem[prop] !== "undefined"){
     elem[prop] = val;
   }
@@ -43,15 +38,15 @@ function My$set_elem(elem, prop, val){
     elem.style[prop] = val;
   }
   return elem;
-}
-function My$set_id(id, prop, val){
-  var elem = My$_id(id);
+};
+My$.set_id = function(id, prop, val){
+  var elem = My$._id(id);
   if(elem){
-    My$set_elem(elem, prop, val);
+    My$.set_elem(elem, prop, val);
   }
   return elem;
-}
-function My$get_elem(elem, prop){
+};
+My$.get_elem = function(elem, prop){
   var _val;
   if(typeof elem[prop] !== "undefined"){
     _val = elem[prop];
@@ -60,78 +55,78 @@ function My$get_elem(elem, prop){
     _val = elem.style[prop];
   }
   return _val;
-}
-function My$get_id(id, prop){
+};
+My$.get_id = function(id, prop){
   var _val;
   if(elem){
-    _val = My$get_elem(elem, prop);
+    _val = My$.get_elem(elem, prop);
   }
   return _val;
-}
-function My$select_elem(elem){
+};
+My$.select_elem = function(elem){
   return elem.options[elem.selectedIndex];
-}
-function My$select_id(id){
-  var elem = My$_id(id);
-  return My$select_elem(elem);
-}
-function My$selectText_elem(elem){
-  return My$select_elem(elem).textContent;
-}
-function My$selectText_id(id){
-  var elem = My$_id(id);
-  return My$selectText_elem(elem);
-}
-function My$selectVal_elem(elem){
-  return My$select_elem(elem).value;
-}
-function My$selectVal_id(id){
-  var elem = My$_id(id);
-  return My$selectVal_elem(elem);
-}
-function My$selectNum_elem(elem){
-  return Number(My$selectVal_elem(elem));
-}
-function My$selectNum_id(id){
-  var elem = My$_id(id);
-  return My$selectNum_elem(elem);
-}
-function My$inputVal_elem(elem){
+};
+My$.select_id = function(id){
+  var elem = My$._id(id);
+  return My$.select_elem(elem);
+};
+My$.selectText_elem = function(elem){
+  return My$.select_elem(elem).textContent;
+};
+My$.selectText_id = function(id){
+  var elem = My$._id(id);
+  return My$.selectText_elem(elem);
+};
+My$.selectVal_elem = function(elem){
+  return My$.select_elem(elem).value;
+};
+My$.selectVal_id = function(id){
+  var elem = My$._id(id);
+  return My$.selectVal_elem(elem);
+};
+My$.selectNum_elem = function(elem){
+  return Number(My$.selectVal_elem(elem));
+};
+My$.selectNum_id = function(id){
+  var elem = My$._id(id);
+  return My$.selectNum_elem(elem);
+};
+My$.inputVal_elem = function(elem){
   return elem.value;
-}
-function My$inputVal_id(id){
-  var elem = My$_id(id);
-  return My$inputVal_elem(elem);
-}
-function My$inputNum_elem(elem){
-  return Number(My$inputVal_elem(elem));
-}
-function My$inputNum_id(id){
-  var elem = My$_id(id);
-  return My$inputNum_elem(elem);
-}
-function My$checkbox_elem(elem){
+};
+My$.inputVal_id = function(id){
+  var elem = My$._id(id);
+  return My$.inputVal_elem(elem);
+};
+My$.inputNum_elem = function(elem){
+  return Number(My$.inputVal_elem(elem));
+};
+My$.inputNum_id = function(id){
+  var elem = My$._id(id);
+  return My$.inputNum_elem(elem);
+};
+My$.checkbox_elem = function(elem){
   return elem.checked;
-}
-function My$checkbox_id(id){
-  var elem = My$_id(id);
-  return My$checkbox_elem(elem);
-}
-function My$add_first_elem(elem, elem_p){
+};
+My$.checkbox_id = function(id){
+  var elem = My$._id(id);
+  return My$.checkbox_elem(elem);
+};
+My$.add_first_elem = function(elem, elem_p){
   return elem_p.insertBefore(elem, elem_p.firstChild);
-}
-function My$add_first_id(elem, id){
-  var elem_p = My$_id(id);
-  return My$add_first_elem(elem, elem_p);
-}
-function My$add_last_elem(elem, elem_p){
+};
+My$.add_first_id = function(elem, id){
+  var elem_p = My$._id(id);
+  return My$.add_first_elem(elem, elem_p);
+};
+My$.add_last_elem = function(elem, elem_p){
   return elem_p.appendChild(elem);
-}
-function My$add_last_id(elem, id){
-  var elem_p = My$_id(id);
-  return My$add_last_elem(elem, elem_p);
-}
-function My_setup_elems(_arr_elem, handlers, opt_onevent){
+};
+My$.add_last_id = function(elem, id){
+  var elem_p = My$._id(id);
+  return My$.add_last_elem(elem, elem_p);
+};
+My$.setup_elems = function(_arr_elem, handlers, opt_onevent){
   var handlers = handlers || {};
   var set_handler = function(elem, onevent){
     if(typeof elem[onevent] !== "undefined"){
@@ -153,49 +148,49 @@ function My_setup_elems(_arr_elem, handlers, opt_onevent){
     }
   });
   return _arr_elem;
-}
-function My_setup_elems$(selector, handlers, opt_onevent){
-  return My_setup_elems(My$arr(selector), handlers, opt_onevent);
-}
-function My_setup_elems$_tag(tagName, handlers, opt_onevent){
-  return My_setup_elems(My$arr_tag(tagName), handlers, opt_onevent);
-}
-function My_setup_elem$_id(id, handlers, opt_onevent){
-  return My_setup_elems([My$_id(id)], handlers, opt_onevent);
-}
-function My_setup_elems_readonly(_arr_elem){
+};
+My$.setup_elems$ = function(selector, handlers, opt_onevent){
+  return My$.setup_elems(My$.arr(selector), handlers, opt_onevent);
+};
+My$.setup_elems$_tag = function(tagName, handlers, opt_onevent){
+  return My$.setup_elems(My$.arr_tag(tagName), handlers, opt_onevent);
+};
+My$.setup_elem$_id = function(id, handlers, opt_onevent){
+  return My$.setup_elems([My$._id(id)], handlers, opt_onevent);
+};
+My$.setup_elems_readonly = function(_arr_elem){
   _arr_elem.forEach(function(elem){
-    if(My$get_elem(elem, "readOnly")){
+    if(My$.get_elem(elem, "readOnly")){
       elem.onfocus = function(e){
         elem.select();
       };
     }
   });
   return _arr_elem;
-}
-function My_setup_elems_readonly$(selector){
-  return My_setup_elems_readonly(My$arr(selector));
-}
-function My_setup_elems_readonly$_tag(tagName){
-  return My_setup_elems_readonly(My$arr_tag(tagName));
-}
-function My_setup_elem_readonly$_id(id){
-  return My_setup_elems_readonly([My$_id(id)]);
-}
-function My_get_elems(arr_elem){
+};
+My$.setup_elems_readonly$ = function(selector){
+  return My$.setup_elems_readonly(My$.arr(selector));
+};
+My$.setup_elems_readonly$_tag = function(tagName){
+  return My$.setup_elems_readonly(My$.arr_tag(tagName));
+};
+My$.setup_elem_readonly$_id = function(id){
+  return My$.setup_elems_readonly([My$._id(id)]);
+};
+My$.get_elems = function(arr_elem){
   var _elems = {};
   arr_elem.forEach(function(elem){
     elem.id = elem.id || (elem.tagName+"-"+elem[My_config.REFERRER.text]).toUpperCase();  // use toUpperCase for UTF-8
     _elems[elem.id] = elem;
   });
   return _elems;
-}
-function My_get_elems$(selector){
-  return My_get_elems(My$arr(selector));
-}
-function My_get_elems$_tag(tagName){
-  return My_get_elems(My$arr_tag(tagName));
-}
-function My_get_elem$_id(id){
-  return My_get_elems([My$_id(id)]);
-}
+};
+My$.get_elems$ = function(selector){
+  return My$.get_elems(My$.arr(selector));
+};
+My$.get_elems$_tag = function(tagName){
+  return My$.get_elems(My$.arr_tag(tagName));
+};
+My$.get_elem$_id = function(id){
+  return My$.get_elems([My$._id(id)]);
+};

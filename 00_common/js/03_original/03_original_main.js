@@ -15,7 +15,7 @@ My_original_main.prototype.init_main = function(){
     return self;
   };
   self.init_handlers.apply(self, arguments);
-  My$bind_objs(self, self.handlers);
+  My$.bind_objs(self, self.handlers);
   self.elems = {};
   self.init_elems.apply(self, arguments);
   return self;

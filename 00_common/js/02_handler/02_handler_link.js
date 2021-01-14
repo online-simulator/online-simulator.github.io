@@ -19,8 +19,8 @@ My_handler_link.prototype.init = function(json){
   self.browser = new My_browser();
   self.link = new My_link(self.a.id, json.name, json.ext);
   self.io = new My_io();
-  self.elem_p = My$_id(self.p.id);
-  self.elem_o = (self.o)? My$_id(self.o.id): null;
+  self.elem_p = My$._id(self.p.id);
+  self.elem_o = (self.o)? My$._id(self.o.id): null;
   self.elems = {};
   self.create_elems(json.isIB);
   self.isClicked = false;
@@ -91,7 +91,7 @@ My_handler_link.prototype.create_elems = function(isIB){
   var self = this;
   self.create_elem_a();
   self.create_elem_o();
-  var add = (isIB)? My$add_first_elem: My$add_last_elem;
+  var add = (isIB)? My$.add_first_elem: My$.add_last_elem;
   for(var prop in self.elems){
     add(self.elems[prop], self.elem_p);
   }
