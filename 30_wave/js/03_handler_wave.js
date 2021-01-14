@@ -11,7 +11,6 @@ My_def.mix_in(My_handler_wave, My_original_main);
 My_handler_wave.prototype.init = function(){
   var self = this;
   self.init_main.apply(self, arguments);
-  self.isEncoding = false;
   self.isSingle = (My$_id("input-freq"))? true: false;
   self.isScriptMode = (My$_id("textarea-script"))? true: false;
   self.text_log = "finished SAVE-OK 保存可能";
@@ -34,9 +33,9 @@ My_handler_wave.prototype.init_elems = function(){
   self.elem_log = My$_id("span-log");
   self.elem_name = My$_id("span-name");
   self.elem_time = My$_id("input-time");
-  self.setup_elems(My$arr_tag("button"), "onclick");
-  self.setup_elems(My$arr_tag("input"), "onchange");
-  self.setup_elems(My$arr_tag("select"), "onchange");
+  My_setup_elems$_tag("button", self.handlers, "onclick");
+  My_setup_elems$_tag("input", self.handlers, "onchange");
+  My_setup_elems$_tag("select", self.handlers, "onchange");
   return self;
 };
 My_handler_wave.prototype.init_handlers = function(){
@@ -65,11 +64,10 @@ My_handler_wave.prototype.init_handlers = function(){
   self.handlers.stop_worker = function(){
     var self = this;
     if(self.handler_worker){
+      if(self.handler_worker.isLocked){
+        self.output_log("stopped by onchange");
+      }
       self.stop_worker();
-    }
-    if(self.isEncoding){
-      self.isEncoding = false;
-      self.output_log("stopped by onchange");
     }
     return self;
   };
@@ -120,7 +118,6 @@ My_handler_wave.prototype.init_handlers = function(){
             var useWorker = My$checkbox_id("checkbox-useWorker");
             self.init_worker();
             setTimeout(function(){
-              self.isEncoding = true;
               self.run_worker(arr_params, useWorker);
             }, 50);
           }

@@ -24,7 +24,6 @@ My_handler_wave.prototype.set_callbacks_worker = function(){
         self.waveo.play_base64(base64, data.volume);
       }
       self.stop_worker();
-      self.isEncoding = false;
     }
     return self;
   };
@@ -32,7 +31,6 @@ My_handler_wave.prototype.set_callbacks_worker = function(){
     var self = this;
     self.stop_worker();
     self.output_log(e.message);
-    self.isEncoding = false;
     return self;
   };
   return self;
