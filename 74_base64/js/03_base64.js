@@ -15,8 +15,8 @@ My_test_base64.prototype.init = function(){
 };
 My_test_base64.prototype.init_elems = function(){
   var self = this;
-  My_setup_elems_readonly$("textarea");
-  My_setup_elems$_tag("button", self.handlers, "onclick");
+  My$.setup_elems_readonly$("textarea");
+  My$.setup_elems$_tag("button", self.handlers, "onclick");
   self.arr_sw_out = ["BE", "LE", "native"];
   return self;
 };
@@ -60,14 +60,14 @@ My_test_base64.prototype.init_handlers = function(){
 };
 My_test_base64.prototype.clear = function(){
   var self = this;
-  My$arr("textarea").forEach(function(elem){
+  My$.arr("textarea").forEach(function(elem){
     elem.value = "";
   });
   return self;
 };
 My_test_base64.prototype.str2base64_sw = function(sw){
   var self = this;
-  var input = My$_id("textarea-input").value;
+  var input = My$._id("textarea-input").value;
   var output = "";
   try{
     switch(sw){
@@ -85,7 +85,7 @@ My_test_base64.prototype.str2base64_sw = function(sw){
   catch(e){
     output = e.message;
   }
-  My$_id("textarea-output_"+sw).value = output;
+  My$._id("textarea-output_"+sw).value = output;
   return self;
 };
 My_test_base64.prototype.str2base64 = function(){
@@ -97,7 +97,7 @@ My_test_base64.prototype.str2base64 = function(){
 };
 My_test_base64.prototype.base64_2str_sw = function(sw){
   var self = this;
-  var input = My$_id("textarea-input").value;
+  var input = My$._id("textarea-input").value;
   var output = "";
   try{
     output = atob(input);
@@ -115,7 +115,7 @@ My_test_base64.prototype.base64_2str_sw = function(sw){
   catch(e){
     output = e.message;
   }
-  My$_id("textarea-output_"+sw).value = output;
+  My$._id("textarea-output_"+sw).value = output;
   return self;
 };
 My_test_base64.prototype.base64_2str = function(){
@@ -127,6 +127,6 @@ My_test_base64.prototype.base64_2str = function(){
 };
 My_test_base64.prototype.postset_sw = function(sw){
   var self = this;
-  My$_id("textarea-input").value = My$_id("textarea-output_"+sw).value;
+  My$._id("textarea-input").value = My$._id("textarea-output_"+sw).value;
   return self;
 };
