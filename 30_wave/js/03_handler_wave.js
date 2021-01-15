@@ -33,6 +33,7 @@ My_handler_wave.prototype.init_elems = function(){
   self.elem_log = My$._id("span-log");
   self.elem_name = My$._id("span-name");
   self.elem_time = My$._id("input-time");
+  self.elem_top = My$._id("select-Bytes_perSample");
   My$.setup_elems$_tag("button", self.handlers, "onclick");
   My$.setup_elems$_tag("input", self.handlers, "onchange");
   My$.setup_elems$_tag("select", self.handlers, "onchange");
@@ -47,7 +48,7 @@ My_handler_wave.prototype.init_handlers = function(){
     if(self.isSingle){
       self.output_freq();
     }
-    self.handlers.onchange();
+    self.elem_top.onchange();
     self.output_fileName();
     return self;
   };
@@ -80,8 +81,7 @@ My_handler_wave.prototype.init_handlers = function(){
   self.handlers.onchange = function(e, elem){
     var self = this;
     self.handlers.onbeforeunload();
-    var tagName = (elem)? elem.tagName: "";
-    if(self.isSingle && tagName.toUpperCase() === "SELECT"){
+    if(self.isSingle && elem.tagName.toUpperCase() === "SELECT"){
       self.output_freq();
     }
     self.waveo = new My_output_wave();
@@ -141,7 +141,7 @@ My_handler_wave.prototype.init_handlers = function(){
             elem.checked = false;
           }
         });
-        self.handlers.onchange();
+        self.elem_top.onchange();
         break;
       default:
         break;
