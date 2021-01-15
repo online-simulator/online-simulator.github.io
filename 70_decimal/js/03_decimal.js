@@ -26,8 +26,9 @@ My_test_decimal.prototype.init_handlers = function(){
   self.handlers.onload = function(args){
     var self = this;
     self.drag = new My_handler_drag("div-drag", "checkbox-drag", {});
-    self.drag.switch();
-    self.n2dec();
+    My$._id("checkbox-drag").onchange();
+    My$._id("input-n").onchange();
+    My$._id("input-dec").onchange();
     return self;
   };
   self.handlers.onbeforeunload = function(e){
