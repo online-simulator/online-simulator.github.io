@@ -231,7 +231,7 @@ My_output_wave.prototype.check_error = function(params){
   var number_samples = params.number_samples;
   var arr_f = params.arr_f;
   var arr_g = params.arr_g;
-  if(isNaN(sec) || sec < 0) throw new Error(title+"time is improper");
+  if(isNaN(sec) || sec < 0) throw new Error(title+"time is invalid");
   var fileSize = self.get_fileSize(number_samples);
   if(fileSize > 10*Math.pow(10, 6)) throw new Error(title+"fileSize is over limit(10MB)");
   arr_f.forEach(function(f, i){
@@ -340,7 +340,7 @@ My_output_wave.prototype.play_base64 = function(base64, volume){
   if(self.audio) return false;
   if(base64){
     var volume = (typeof volume === "undefined")? 0.5: volume;
-    if(isNaN(volume) || volume < 0) throw new Error(self.title_error+"volume is improper");
+    if(isNaN(volume) || volume < 0) throw new Error(self.title_error+"volume is invalid");
     self.audio = new Audio(base64);
     self.audio.volume = Math.min(1, volume);
     self.audio.play();
