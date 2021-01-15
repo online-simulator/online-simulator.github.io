@@ -15,25 +15,34 @@ My_def.mix_in = function(_sub, supers_){
   return _sub;
 };
 My_def.hasProp = function(obj, prop){
-  return !(My_def.isUndef(obj[prop]));
+  return My_def.isDef(obj[prop]);
 };
 My_def.isArray = function(arg){
   return Array.isArray(arg);
 };
 My_def.isObject = function(arg){
-  return (typeof arg === "object")? true: false;
+  /* typeof null -> "object" */
+  return (typeof arg === "object" && arg !== null);
 };
 My_def.isUndef = function(arg){
   return (typeof arg === "undefined");
 };
-// isNaN(false) = 0
-My_def.isFalseNull = function(val){
-  if(val === false || val === null) return true;
-  return false;
+My_def.isDef = function(arg){
+  return !(My_def.isUndef(arg));
 };
-My_def.isFloat = function(x){
-  return (x !== "" && !My_def.isFalseNull(x) && !isNaN(parseFloat(x)));
+My_def.isNaN = function(val){
+  /* isNaN(null || "" || false || true) -> false */
+  /* Number(null || "" || false || true) -> 0 or 1 */
+  /* parseFloat(null || "" || false || true) -> NaN */
+  return (isNaN(val) || val === null || val === "" || val === false || val === true);
 };
-My_def.isNumber = function(x){
-  return (x !== "" && !My_def.isFalseNull(x) && !isNaN(Number(x)));
+My_def.isNumber = function(val){
+  /* parseFloat("9") -> 9 */
+  /* parseFloat("0xf") -> 0 */
+  /* Number("0xf") -> 15 */
+  return !(My_def.isNaN(val));
+};
+My_def.Number = function(val){
+  var _num = (My_def.isNumber(val))? Number(val): NaN;
+  return _num;
 };
