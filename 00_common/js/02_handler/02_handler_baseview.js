@@ -12,17 +12,16 @@ My_handler_baseview.prototype.init = function(arr_prop_baseview){
   self.arr_view = [];
   self.set = [];
   self.get = [];
-  arr_prop_baseview.forEach(function(prop, n){
+  arr_prop_baseview.forEach(function(Prop, n){
     self.arr_buffer[n] = new ArrayBuffer(n);
     self.arr_view[n] = new DataView(self.arr_buffer[n], 0);
     var view = self.arr_view[n];
-    var prop_set = ("set"+(prop || "Int"))+String(n*8);
-    var prop_get = ("get"+(prop || "Int"))+String(n*8);
+    var Prop = (Prop || "Int")+String(n*8);
     self.set[n] = function(){
-      return view[prop_set].apply(view, arguments);
+      return view["set"+Prop].apply(view, arguments);
     };
     self.get[n] = function(){
-      return view[prop_get].apply(view, arguments);
+      return view["get"+Prop].apply(view, arguments);
     };
   });
   return self;
