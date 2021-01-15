@@ -1,7 +1,9 @@
+// online-simulator.github.io
+
 function My_original_main(){
 }
 
-My_original_main.prototype.init_main = function(){
+My_original_main.prototype.init_main = function(args){
   var self = this;
   self.handlers = {};
   self.handlers.onload = function(e){
@@ -28,7 +30,7 @@ My_original_main.prototype.init_handlers = function(){
   var self = this;
   return self;
 };
-My_original_main.prototype.onload = function(){
+My_original_main.prototype.onload = function(args){
   var self = this;
   self.handlers.onload.apply(self, arguments);
   document.body.onbeforeunload = function(e){
