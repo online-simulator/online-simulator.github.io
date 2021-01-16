@@ -166,8 +166,6 @@ My_handler_wave.prototype.output_time = function(sec){
   return self;
 };
 My_handler_wave.prototype.calc_freq = function(octave, code){
-  // Reference
-  // en.m.wikipedia.org/wiki/MIDI_tuning_standard
   var self = this;
   var octave = octave;
   var code = code;
@@ -175,9 +173,7 @@ My_handler_wave.prototype.calc_freq = function(octave, code){
     octave = My$.selectNum_id("select-octave");
     code = My$.selectNum_id("select-code");
   }
-  var d = (octave+2)*12+code;
-  var _freq = Math.pow(2, (d-69)/12)*440;
-  return _freq;
+  return My_reference.calc_freq(octave, code);
 };
 My_handler_wave.prototype.output_freq = function(){
   var self = this;
