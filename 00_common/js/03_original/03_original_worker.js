@@ -67,7 +67,12 @@ My_original_worker.prototype.run_worker = function(arr_data_in, useWorker){
   }
   else{
     self.arr_data_in.forEach(function(data_in){
-      self.callbacks_worker.onmessage({data: self.job_worker(data_in)});
+      try{
+        self.callbacks_worker.onmessage({data: self.job_worker(data_in)});
+      }
+      catch(e){
+        self.callbacks_worker.onerror(e);
+      }
     });
   }
   return self;

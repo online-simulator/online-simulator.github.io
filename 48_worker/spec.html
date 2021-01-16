@@ -137,6 +137,8 @@ mainからworkerにまとめてarr_dataを渡すhandler_workerを用意し、排
 共通化したMy_job_imported(data_in)をforEachで順番に実行し、
 <br>
 後述する受取り処理self.callbacks_worker.onmessageに返却dataを渡す
+<br>
+同様にエラーをcatchして後述するエラー処理self.callbacks_worker.onerrorに渡す
 <pre><code>
   if(self.handler_worker && self.handler_worker.isLocked) return false;
   if(hasWorker){
@@ -144,7 +146,12 @@ mainからworkerにまとめてarr_dataを渡すhandler_workerを用意し、排
   }
   else{
     self.arr_data_in.forEach(function(data_in){
-      self.callbacks_worker.onmessage({data: My_job_imported(data_in)});
+      try{
+        self.callbacks_worker.onmessage({data: self.job_worker(data_in)});
+      }
+      catch(e){
+        self.callbacks_worker.onerror(e);
+      }
     });
   }
 </code></pre>
