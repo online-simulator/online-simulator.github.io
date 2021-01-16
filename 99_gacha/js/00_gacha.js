@@ -142,14 +142,8 @@ My_gacha.prototype.shuffle_box = function(){
   return self;
 };
 My_gacha.prototype.sort_random = function(_arr){
-  // Reference
-  // ja.m.wikipedia.org about Fisher-Yates shuffle
   var self = this;
-  for(var i=_arr.length-1; i>0; --i){
-    var j = self.gen_irand(i+1);
-    self.switch_arr(_arr, i, j);
-  }
-  return _arr;
+  return My_reference.sort_random.call(self, _arr);
 };
 My_gacha.prototype.switch_arr = function(_arr, i, j){
   var self = this;
