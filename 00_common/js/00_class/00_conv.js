@@ -18,11 +18,6 @@ My_conv.blob2url = function(blob){
   }
   return _url;
 };
-My_conv.fn2url = function(fn){
-  var str_fn = "("+fn.toString()+")()";
-  var blob = new Blob([str_fn], {type: "application/javascript"});
-  return My_conv.blob2url(blob);
-};
 My_conv.text2url = function(text){
   var blob = new Blob([text], {type: "text/plain"});
   return My_conv.blob2url(blob);
@@ -68,7 +63,7 @@ My_conv.str2code_utf16 = function(str, n, isLE){
   for(var i=0, len=str.length; i<len; ++i){
 /*
     var uint16 = str.codePointAt(i);
- */
+*/
     var uint16 = str.charCodeAt(i);
     if(isLE){
       view.setUint16(0, uint16, false);
@@ -129,7 +124,7 @@ My_conv.arr_uint16_2str = function(arr_uint16, isLE){
     }
 /*
     _str += String.fromCodePoint(uint16);
- */
+*/
     _str += String.fromCharCode(uint16);
   });
   return _str;

@@ -3,6 +3,18 @@
 function My_def(){
 }
 
+/*
+
+function sub(){
+  My_def.mix_in(_sub, supers_);  // mix-in
+  My_def.mix_over(_sub, supers_);  // mix-overwrite allowed
+}
+My_def.mix_in(_sub, supers_);  // override
+sub.prototype.init = function(){};
+My_def.mix_in(_sub, supers_);  // mix-in
+
+*/
+
 My_def.mix_in = function(_sub, supers_){
   for(var i=1, len=arguments.length; i<len; ++i){
     var super_ = arguments[i];
@@ -10,6 +22,15 @@ My_def.mix_in = function(_sub, supers_){
       if(!(_sub.prototype[prop])){
         _sub.prototype[prop] = super_.prototype[prop];
       }
+    }
+  }
+  return _sub;
+};
+My_def.mix_over = function(_sub, supers_){
+  for(var i=1, len=arguments.length; i<len; ++i){
+    var super_ = arguments[i];
+    for(var prop in super_.prototype){
+      _sub.prototype[prop] = super_.prototype[prop];
     }
   }
   return _sub;
