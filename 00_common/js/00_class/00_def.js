@@ -5,12 +5,12 @@ function My_def(){
 
 /*
 
-function sub(){
+function _sub(){
   My_def.mix_in(_sub, supers_);  // mix-in
   My_def.mix_over(_sub, supers_);  // mix-overwrite allowed
 }
 My_def.mix_in(_sub, supers_);  // override
-sub.prototype.init = function(){};
+_sub.prototype.init = function(){};
 My_def.mix_in(_sub, supers_);  // mix-in
 
 */
