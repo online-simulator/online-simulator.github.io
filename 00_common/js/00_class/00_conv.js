@@ -202,25 +202,3 @@ My_conv.buffer2binary = function(buffer){
   });
   return _binary;
 };
-My_conv.int2binary = function(dec, n_byte, isLE, isUnsigned){
-  var _binary = "";
-  var idec = Math.floor(dec);
-  var buffer = new ArrayBuffer(n_byte);
-  var view = new DataView(buffer, 0);
-  var prop_  = "set"
-      prop_ += (isUnsigned)? "Uint": "Int";
-  switch(Number(n_byte)){
-    case 4:
-      view[prop_+"32"](0, idec, isLE);
-      break;
-    case 2:
-      view[prop_+"16"](0, idec, isLE);
-      break;
-    case 1:
-      view[prop_+"8"](0, idec);
-      break;
-    default:
-      break;
-  }
-  return My_conv.buffer2binary(buffer);
-};
