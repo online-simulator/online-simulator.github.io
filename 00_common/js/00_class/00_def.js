@@ -58,12 +58,15 @@ My_def.isNaN = function(val){
   return (isNaN(val) || val === null || val === "" || val === false || val === true);
 };
 My_def.isNumber = function(val){
-  /* parseFloat("9") -> 9 */
-  /* parseFloat("0xf") -> 0 */
-  /* Number("0xf") -> 15 */
   return !(My_def.isNaN(val));
 };
 My_def.Number = function(val){
+  /* Number(010) -> 8 */
+  /* parseFloat(011) -> 9 */
+  /* parseFloat("011") -> 11 */
+  /* parseFloat("0xf") -> 0 */
+  /* parseFloat(0xf) -> 15 */
+  /* Number(0xf || "0xf") -> 15 */
   var _num = (My_def.isNumber(val))? Number(val): NaN;
   return _num;
 };
