@@ -7,7 +7,6 @@
 /*
 
 dependency files:
-  <script type="text/javascript" src="../00_common/js/00_class/01_config.js"></script>
   <script type="text/javascript" src="../00_common/js/00_class/01_math_wave.js"></script>
   <script type="text/javascript" src="../00_common/js/02_handler/02_handler_baseview.js"></script>
   <script type="text/javascript" src="js/01_output_wave.js"></script>
@@ -47,6 +46,11 @@ function My_output_wave(Bytes_perSample, samples_perSecond, number_channels){
   return self;
 }
 
+My_output_wave.config = {
+  ERROR: {
+    title: "[MyDefErr]"
+  }
+};
 My_output_wave.prototype.init = function(Bytes_perSample, samples_perSecond, number_channels){
   var self = this;
   self.arr_prop_baseview = [, "Uint", "Int", , "Uint"];
@@ -55,7 +59,7 @@ My_output_wave.prototype.init = function(Bytes_perSample, samples_perSecond, num
   self.handler_baseview = new My_handler_baseview(self.arr_prop_baseview);
   self.arr_buffer = self.handler_baseview.arr_buffer;
   self.arr_viewset = self.handler_baseview.set;
-  self.title_error = My_config.ERROR.title;
+  self.title_error = My_output_wave.config.ERROR.title;
   self.audio = null;
   self.base64 = "";
   self.binary = "";

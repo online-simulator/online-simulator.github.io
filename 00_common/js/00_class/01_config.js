@@ -9,6 +9,3 @@ My_config.REFERRER = {
   text: "textContent",
   value: "value"
 };
-My_config.ERROR = {
-  title: "[MyDefErr]"
-};
