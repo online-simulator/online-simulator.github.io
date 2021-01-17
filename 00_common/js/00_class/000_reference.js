@@ -3,7 +3,7 @@ function My_reference(){
 
 /* Reference */
 
-// developer.mozilla.org
+// developer.mozilla.org about WebWorkers
 My_reference.fn2url = function(fn){
   var str_fn = "("+fn.toString()+")()";
   var blob = new Blob([str_fn], {type: "application/javascript"});

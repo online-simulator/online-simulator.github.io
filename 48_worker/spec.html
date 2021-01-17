@@ -123,7 +123,7 @@ main
           <td class="border">
 mainからworkerにまとめてarr_dataを渡すhandler_workerを用意し、排他処理を実施する
 <br>
-最も上流の実行命令の直後に次のような一文を加える
+最も上流の実行命令直後とhandler_worker.runを呼ぶ関数の最初に次のような一文を加える
 <pre><code>
   if(self.handler_worker && self.handler_worker.isLocked) return false;
 </code></pre>
@@ -132,16 +132,21 @@ mainからworkerにまとめてarr_dataを渡すhandler_workerを用意し、排
 <br>
 さらに、スレッドの終了処理を確実に実施してからロック状態を解除する
 <br>
+なお、後述する再初期化処理init_workerをhandler_worker.runの直前に実施する
+<br>
 他方、WebWorkersに対応していない環境ではシングルスレッドで実行する
 <br>
-共通化したMy_job_imported(data_in)をforEachで順番に実行し、
+共通化したMy_job_importedであるself.job_workerをforEachで順番に実行し、
 <br>
 後述する受取り処理self.callbacks_worker.onmessageに返却dataを渡す
 <br>
 同様にエラーをcatchして後述するエラー処理self.callbacks_worker.onerrorに渡す
 <pre><code>
   if(self.handler_worker && self.handler_worker.isLocked) return false;
-  if(hasWorker){
+  self.arr_data_in = arr_data_in;
+  self.arr_data_out = [];
+  if(self.handler_worker && useWorker){
+    self.init_worker();
     self.handler_worker.run(self.arr_data_in);
   }
   else{
@@ -172,7 +177,7 @@ WebWorkers非対応かロック状態の場合は即座にfalseを返却する
 <br>
 予め宣言したself.workerのpostMessageで外部スクリプトに繰り返しdataを送信する
 <br>
-なお、繰り返しnew Worker()を宣言する必要はないことに留意する
+なお、繰り返しnew Workerを宣言する必要はないことに留意する
 <pre><code>
 My_handler_worker.prototype.run = function(arr_data){
   var self = this;
@@ -244,7 +249,7 @@ handler_worker
           <td class="border">
 handler_workerの終了処理の関数を以下に示す
 <br>
-self.worker.terminate()を呼び出して全スレッドを強制終了する
+self.worker.terminateを呼び出して全スレッドを強制終了する
 <br>
 また、メモリを解放するself.worker = null
 <br>

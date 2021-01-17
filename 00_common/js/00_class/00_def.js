@@ -51,6 +51,12 @@ My_def.isUndef = function(arg){
 My_def.isDef = function(arg){
   return !(My_def.isUndef(arg));
 };
+My_def.isEmpty = function(arg){
+  return (arg === null || arg === "" || typeof arg === "undefined");
+};
+My_def.isNotEmpty = function(arg){
+  return !(My_def.isEmpty(arg));
+};
 My_def.isNaN = function(val){
   /* isNaN(null || "" || false || true) -> false */
   /* Number(null || "" || false || true) -> 0 or 1 */

@@ -11,6 +11,7 @@ My_def.mix_in(My_test_worker, My_original_main, My_original_worker);
 My_test_worker.prototype.init = function(){
   var self = this;
   self.init_main.apply(self, arguments);
+  self.init_worker();
   return self;
 };
 My_test_worker.prototype.init_elems = function(){
@@ -35,8 +36,9 @@ My_test_worker.prototype.init_handlers = function(){
     switch(elem.id){
       case "run":
         if(self.handler_worker && self.handler_worker.isLocked) return false;
-        self.init_worker();
-        self.run_worker(My$.selectNum_id("select-n"), My$.checkbox_id("checkbox-useWorker"));
+        self.elem_o.value = "";
+        self.make_testcase(My$.selectNum_id("select-n"));
+        self.run_worker(self.arr_data_in, My$.checkbox_id("checkbox-useWorker"));
         break;
       case "stop":
         self.stop_worker();
@@ -98,27 +100,6 @@ My_test_worker.prototype.make_testcase = function(n){
     data.in = Math.random();
     data.sw_job = My$.selectText_id("select-job");
     self.arr_data_in.push(data);
-  }
-  return self;
-};
-My_test_worker.prototype.run_worker = function(n, useWorker){
-  var self = this;
-  if(self.handler_worker && self.handler_worker.isLocked) return false;
-  self.elem_o.value = "";
-  self.make_testcase(n);
-  var hasWorker = (self.handler_worker && useWorker);
-  if(hasWorker){
-    self.handler_worker.run(self.arr_data_in);
-  }
-  else{
-    self.arr_data_in.forEach(function(data_in){
-      try{
-        self.callbacks_worker.onmessage({data: self.job_worker(data_in)});
-      }
-      catch(e){
-        self.callbacks_worker.onerror(e);
-      }
-    });
   }
   return self;
 };

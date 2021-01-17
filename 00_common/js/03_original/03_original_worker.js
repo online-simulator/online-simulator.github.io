@@ -61,8 +61,8 @@ My_original_worker.prototype.run_worker = function(arr_data_in, useWorker){
   if(self.handler_worker && self.handler_worker.isLocked) return false;
   self.arr_data_in = arr_data_in;
   self.arr_data_out = [];
-  var hasWorker = (self.handler_worker && useWorker);
-  if(hasWorker){
+  if(self.handler_worker && useWorker){
+    self.init_worker();
     self.handler_worker.run(self.arr_data_in);
   }
   else{
