@@ -11,6 +11,7 @@ My_def.mix_in(My_handler_wave, My_original_main);
 My_handler_wave.prototype.init = function(){
   var self = this;
   self.init_main.apply(self, arguments);
+  self.init_worker();
   self.isSingle = (My$._id("input-freq"))? true: false;
   self.isScriptMode = (My$._id("textarea-script"))? true: false;
   self.text_log = "finished SAVE-OK 保存可能";
@@ -116,7 +117,6 @@ My_handler_wave.prototype.init_handlers = function(){
           if(arr_params.length){
             self.update_number_samples();
             var useWorker = My$.checkbox_id("checkbox-useWorker");
-            self.init_worker();
             setTimeout(function(){
               self.run_worker(arr_params, useWorker);
             }, 50);
