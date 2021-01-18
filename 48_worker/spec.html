@@ -214,7 +214,7 @@ Object.keys(self.arr_data_out).lengthが
 <br>
 エラー発生時や中断時、body.onbeforeunload時も同様の終了処理を実施する
 <br>
-なお、callbackは別のスコープから呼ばれるので、thisをインスタンスselfでbindする
+なお、callbackは別のスコープから呼ばれるため、thisをインスタンスselfでbindする
 <br>
 元のcallbackを不変の前提で直接bindする場合、再代入が必要であることに留意する
 <br>
@@ -301,7 +301,7 @@ mainの再初期化処理を以下に示す
 <br>
 self.workerを再宣言worker.re_initする前に再度終了処理を実施する
 <br>
-なお、new Worker()が重複宣言されないように留意する
+なお、new Workerが重複宣言されないように留意する
 
 <pre><code>
   if(self.handler_worker){
