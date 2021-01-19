@@ -244,10 +244,10 @@ callback = callback.bind(self);
           <td class="border">
 handler_worker
 <br>
-終了処理
+中断・終了処理
           </td>
           <td class="border">
-handler_workerの終了処理の関数を以下に示す
+handler_workerの中断・終了処理の関数を以下に示す
 <br>
 self.worker.terminateを呼び出して全スレッドを強制終了する
 <br>
@@ -255,7 +255,9 @@ self.worker.terminateを呼び出して全スレッドを強制終了する
 <br>
 さらに、ロック状態を解除する
 <br>
-再度使用する場合は必要になった時点でself.workerを再宣言する
+なお、workerをteminateした時点で再使用できないため、
+<br>
+再使用する場合は必要になった時点でself.workerを再宣言する
 
 <pre><code>
 My_handler_worker.prototype.terminate = function(){
@@ -274,12 +276,12 @@ My_handler_worker.prototype.terminate = function(){
           <td class="border">
 main
 <br>
-終了処理
+中断・終了処理
           </td>
           <td class="border">
-上記のhandler_worker.terminateを呼び出すmainの終了処理を以下に示す
+上記のhandler_worker.terminateを呼び出すmainの中断・終了処理を以下に示す
 <br>
-なお、終了処理の直前にロック状態を判定して中断ログの表示等を実施する
+なお、terminateの直前にロック状態を判定して中断ログの表示等を実施する
 
 <pre><code>
   if(self.handler_worker){
