@@ -7,6 +7,13 @@ function My$(selector, element){
   return element.querySelector(selector);
 }
 
+My$.config = {
+  REFERRER: {
+    html: "innerHTML",
+    text: "textContent",
+    value: "value"
+  }
+};
 My$._id = function(id){
   return document.getElementById(id);
 };
@@ -180,7 +187,7 @@ My$.setup_elem_readonly$_id = function(id){
 My$.get_elems = function(arr_elem){
   var _elems = {};
   arr_elem.forEach(function(elem){
-    elem.id = elem.id || (elem.tagName+"-"+elem[My_config.REFERRER.text]).toUpperCase();  // use toUpperCase for UTF-8
+    elem.id = elem.id || (elem.tagName+"-"+elem[My$.config.REFERRER.text]).toUpperCase();  // use toUpperCase for UTF-8
     _elems[elem.id] = elem;
   });
   return _elems;

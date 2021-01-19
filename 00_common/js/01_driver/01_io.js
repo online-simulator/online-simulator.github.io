@@ -61,10 +61,10 @@ My_io.prototype.read_text = function(elem){
       case "INPUT":
       case "TEXTAREA":
       case "SELECT":
-        _text = elem[My_config.REFERRER.value];
+        _text = elem[My$.config.REFERRER.value];
         break;
       default:
-        _text = elem[My_config.REFERRER.text];
+        _text = elem[My$.config.REFERRER.text];
         break;
     }
   }
@@ -77,10 +77,10 @@ My_io.prototype.write_text = function(elem, text){
       case "INPUT":
       case "TEXTAREA":
       case "SELECT":
-        elem[My_config.REFERRER.value] = text;
+        elem[My$.config.REFERRER.value] = text;
         break;
       default:
-        elem[My_config.REFERRER.text] = text;
+        elem[My$.config.REFERRER.text] = text;
         break;
     }
   }
