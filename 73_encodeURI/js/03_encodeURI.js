@@ -1,26 +1,26 @@
 // online-simulator.github.io
 
-function My_test_encodeURI(){
+My_entry.test_encodeURI = function(){
   var self = this;
   self.init.apply(self, arguments);
   return self;
-}
+};
 
-My_def.mix_in(My_test_encodeURI, My_original_main);
+My_entry.def.mix_in(My_entry.test_encodeURI, My_entry.original_main);
 
-My_test_encodeURI.prototype.init = function(){
+My_entry.test_encodeURI.prototype.init = function(){
   var self = this;
-  self.init_main.apply(self, arguments);
+  self.init_main.call(self, ["$"]);
   return self;
 };
-My_test_encodeURI.prototype.init_elems = function(){
+My_entry.test_encodeURI.prototype.init_elems = function(){
   var self = this;
-  My$.setup_elems_readonly$("textarea");
-  My$.setup_elems$_tag("button", self.handlers, "onclick");
+  self.entry.$.setup_elems_readonly$("textarea");
+  self.entry.$.setup_elems$_tag("button", self.handlers, "onclick");
   self.arr_sw_out = ["uri", "uriCom"];
   return self;
 };
-My_test_encodeURI.prototype.init_handlers = function(){
+My_entry.test_encodeURI.prototype.init_handlers = function(){
   var self = this;
   self.handlers.onload = function(args){
     var self = this;
@@ -57,16 +57,16 @@ My_test_encodeURI.prototype.init_handlers = function(){
   };
   return self;
 };
-My_test_encodeURI.prototype.clear = function(){
+My_entry.test_encodeURI.prototype.clear = function(){
   var self = this;
-  My$.arr("textarea").forEach(function(elem){
+  self.entry.$.arr("textarea").forEach(function(elem){
     elem.value = "";
   });
   return self;
 };
-My_test_encodeURI.prototype.uri2code_sw = function(sw){
+My_entry.test_encodeURI.prototype.uri2code_sw = function(sw){
   var self = this;
-  var input = My$._id("textarea-input").value;
+  var input = self.entry.$._id("textarea-input").value;
   var output = "";
   try{
     output = (sw === "uri")? encodeURI(input): encodeURIComponent(input);
@@ -74,19 +74,19 @@ My_test_encodeURI.prototype.uri2code_sw = function(sw){
   catch(e){
     output = e.message;
   }
-  My$._id("textarea-output_"+sw).value = output;
+  self.entry.$._id("textarea-output_"+sw).value = output;
   return self;
 };
-My_test_encodeURI.prototype.uri2code = function(){
+My_entry.test_encodeURI.prototype.uri2code = function(){
   var self = this;
   self.arr_sw_out.forEach(function(sw){
     self.uri2code_sw(sw);
   });
   return self;
 };
-My_test_encodeURI.prototype.code2uri_sw = function(sw){
+My_entry.test_encodeURI.prototype.code2uri_sw = function(sw){
   var self = this;
-  var input = My$._id("textarea-input").value;
+  var input = self.entry.$._id("textarea-input").value;
   var output = "";
   try{
     output = (sw === "uri")? decodeURI(input): decodeURIComponent(input);
@@ -94,18 +94,18 @@ My_test_encodeURI.prototype.code2uri_sw = function(sw){
   catch(e){
     output = e.message;
   }
-  My$._id("textarea-output_"+sw).value = output;
+  self.entry.$._id("textarea-output_"+sw).value = output;
   return self;
 };
-My_test_encodeURI.prototype.code2uri = function(){
+My_entry.test_encodeURI.prototype.code2uri = function(){
   var self = this;
   self.arr_sw_out.forEach(function(sw){
     self.code2uri_sw(sw);
   });
   return self;
 };
-My_test_encodeURI.prototype.postset_sw = function(sw){
+My_entry.test_encodeURI.prototype.postset_sw = function(sw){
   var self = this;
-  My$._id("textarea-input").value = My$._id("textarea-output_"+sw).value;
+  self.entry.$._id("textarea-input").value = self.entry.$._id("textarea-output_"+sw).value;
   return self;
 };
