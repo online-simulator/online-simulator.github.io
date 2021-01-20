@@ -263,7 +263,7 @@ Math.floor(Math.random()*len);
 <pre>
   関数コール仕様
 
-    new My_gacha(table).nroll_table(n, callback[, opt_ms]);
+    new My_entry.gacha(table).nroll_table(n, callback[, opt_ms]);
 
     コンストラクタ
       My_gacha(table)
@@ -294,7 +294,7 @@ Math.floor(Math.random()*len);
 <code>
   var arr_table = ["N", "R", "SR", "SSR"];
   var str_table = "[N, R, SR, SSR]";
-  new My_gacha(arr_table || str_table).nroll_table(10, function(data){
+  new My_entry.gacha(arr_table || str_table).nroll_table(10, function(data){
     console.log(data.item);
   }, 20);
 </code>
@@ -539,7 +539,7 @@ return items;
 <pre>
   関数コール仕様
 
-    new My_gacha(table[, opt_k]).nroll_box(n, callback[, opt_ms]);
+    new My_entry.gacha(table[, opt_k]).nroll_box(n, callback[, opt_ms]);
 
     コンストラクタ
       My_gacha(table[, opt_k])
@@ -572,7 +572,7 @@ return items;
 <code>
   var arr_table = ["N", "R", "SR", "SSR"];
   var str_table = "[N, R, SR, SSR]";
-  new My_gacha(arr_table || str_table, 10).nroll_box(10, function(data){
+  new My_entry.gacha(arr_table || str_table, 10).nroll_box(10, function(data){
     console.log(data.item);
   }, 20);
 </code>

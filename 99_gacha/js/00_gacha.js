@@ -1,13 +1,15 @@
 // online-simulator.github.io
 
-function My_gacha(table, k){
+My_entry.gacha = function(table, k){
   var self = this;
   self.init.apply(self, arguments);
   return self;
-}
+};
 
-My_gacha.prototype.init = function(table, k){
+My_entry.gacha.prototype.init = function(table, k){
   var self = this;
+  new My_entry.original_main().setup_constructors.call(self);
+  new My_entry.original_main().make_instances.call(self, ["reference"]);
   self.setter = {};
   self.setter.timer = function(timer){
     self.timer = timer || null;
@@ -50,7 +52,7 @@ My_gacha.prototype.init = function(table, k){
   self.set_box(k);
   return self;
 };
-My_gacha.prototype.clear_timer = function(){
+My_entry.gacha.prototype.clear_timer = function(){
   var self = this;
   if(self.timer){
     clearInterval(self.timer);
@@ -58,20 +60,20 @@ My_gacha.prototype.clear_timer = function(){
   }
   return self;
 };
-My_gacha.prototype.clear_counter = function(){
+My_entry.gacha.prototype.clear_counter = function(){
   var self = this;
   for(var prop in self.counter){
     self.counter[prop] = 0;
   }
   return self;
 };
-My_gacha.prototype.arr2str = function(arr, opt_q){
+My_entry.gacha.prototype.arr2str = function(arr, opt_q){
   var self = this;
   var q = opt_q || "";
   var _str = (arr.length)? "\["+q+arr.join(q+","+q)+q+"\]": "";
   return _str;
 };
-My_gacha.prototype.str2arr = function(str){
+My_entry.gacha.prototype.str2arr = function(str){
   var self = this;
   var _str = str.replace(self.regex.s, "").match(self.regex.m);
   _str = (Array.isArray(_str))?
@@ -79,11 +81,11 @@ My_gacha.prototype.str2arr = function(str){
     [];
   return _str;
 };
-My_gacha.prototype.replace_str = function(str, opt_q){
+My_entry.gacha.prototype.replace_str = function(str, opt_q){
   var self = this;
   return self.arr2str(self.str2arr(str), opt_q);
 };
-My_gacha.prototype.set_table = function(table){
+My_entry.gacha.prototype.set_table = function(table){
   var self = this;
   switch(typeof table){
     case "string":
@@ -95,17 +97,17 @@ My_gacha.prototype.set_table = function(table){
   self.setter.table(table);
   return self;
 };
-My_gacha.prototype.set_box = function(k){
+My_entry.gacha.prototype.set_box = function(k){
   var self = this;
   self.setter.box(self.make_box(k));
   return self;
 };
-My_gacha.prototype.make_box = function(k){
+My_entry.gacha.prototype.make_box = function(k){
   var self = this;
   self.setter.k(k);
   return self.sort_random(self.concat_n(self.table, k));
 };
-My_gacha.prototype.concat_n = function(arr, n){
+My_entry.gacha.prototype.concat_n = function(arr, n){
   var self = this;
   var _arr = [];
   for(var i=0; i<n; ++i){
@@ -113,7 +115,7 @@ My_gacha.prototype.concat_n = function(arr, n){
   }
   return _arr;
 };
-My_gacha.prototype.check_box = function(item_comp, isRarity){
+My_entry.gacha.prototype.check_box = function(item_comp, isRarity){
   var self = this;
   var _di_max = 0;
   var arr_i = [];
@@ -135,35 +137,35 @@ My_gacha.prototype.check_box = function(item_comp, isRarity){
   }
   return _di_max;
 };
-My_gacha.prototype.shuffle_box = function(){
+My_entry.gacha.prototype.shuffle_box = function(){
   var self = this;
   self.setter.index();
   self.sort_random(self.box);
   return self;
 };
-My_gacha.prototype.sort_random = function(_arr){
+My_entry.gacha.prototype.sort_random = function(_arr){
   var self = this;
-  return My_reference.sort_random.call(self, _arr);
+  return self.entry.reference.sort_random.call(self, _arr);
 };
-My_gacha.prototype.switch_arr = function(_arr, i, j){
+My_entry.gacha.prototype.switch_arr = function(_arr, i, j){
   var self = this;
   var w = _arr[i];
   _arr[i] = _arr[j];
   _arr[j] = w;
   return _arr;
 };
-My_gacha.prototype.gen_irand = function(len){
+My_entry.gacha.prototype.gen_irand = function(len){
   var self = this;
   // return (int) [0, len)
   return Math.floor(self.gen_rand()*len);
 };
-My_gacha.prototype.roll_table = function(){
+My_entry.gacha.prototype.roll_table = function(){
   var self = this;
   var _index = self.gen_irand(self.table.length);
   var _item = self.table[_index];
   return {index: _index, item: _item};
 };
-My_gacha.prototype.roll_box = function(){
+My_entry.gacha.prototype.roll_box = function(){
   var self = this;
   var _index = self.index;
   _index = (_index === self.box.length)? 0: _index;
@@ -171,7 +173,7 @@ My_gacha.prototype.roll_box = function(){
   self.index = _index+1;
   return {index: _index, item: _item};
 };
-My_gacha.prototype.nroll_sw = function(sw, n, callback, opt_ms){
+My_entry.gacha.prototype.nroll_sw = function(sw, n, callback, opt_ms){
   var self = this;
   if(self.timer) return false;
   var n = Number(n);
@@ -194,12 +196,12 @@ My_gacha.prototype.nroll_sw = function(sw, n, callback, opt_ms){
   }
   return self;
 };
-My_gacha.prototype.nroll_table = function(n, callback, opt_ms){
+My_entry.gacha.prototype.nroll_table = function(n, callback, opt_ms){
   var self = this;
   self.nroll_sw("table", n, callback, opt_ms);
   return self;
 };
-My_gacha.prototype.nroll_box = function(n, callback, opt_ms){
+My_entry.gacha.prototype.nroll_box = function(n, callback, opt_ms){
   var self = this;
   self.nroll_sw("box", n, callback, opt_ms);
   return self;

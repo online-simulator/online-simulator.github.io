@@ -13,12 +13,13 @@
   <link rel="stylesheet" type="text/css" href="css/common.css" />
   <link rel="stylesheet" type="text/css" href="css/color.css" />
   <link rel="stylesheet" type="text/css" href="css/size.css" />
-  <script type="text/javascript" src="js/00_gacha.js"></script>
+  <script type="text/javascript" src="../00_common/js/000_namespace/000_entry.js"></script>
   <script type="text/javascript" src="../00_common/js/00_class/000_reference.js"></script>
   <script type="text/javascript" src="../00_common/js/00_class/00_$.js"></script>
   <script type="text/javascript" src="../00_common/js/00_class/00_def.js"></script>
   <script type="text/javascript" src="../00_common/js/00_class/01_math.js"></script>
   <script type="text/javascript" src="../00_common/js/03_original/03_original_main.js"></script>
+  <script type="text/javascript" src="js/00_gacha.js"></script>
   <script type="text/javascript" src="js/03_gacha.js"></script>
 </head>
 
@@ -28,7 +29,7 @@
 <script type="text/javascript">
   (function(document){
     document.body.onload = function(e){
-      new My_test_gacha().onload(e);
+      new My_entry.test_gacha().onload(e);
     };
   })(document);
 </script>
