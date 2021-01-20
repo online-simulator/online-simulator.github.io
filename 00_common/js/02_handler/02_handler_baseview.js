@@ -1,12 +1,12 @@
 // online-simulator.github.io
 
-function My_handler_baseview(arr_prop_baseview){
+My_entry.handler_baseview = function(arr_prop_baseview){
   var self = this;
   self.init.apply(self, arguments);
   return self;
-}
+};
 
-My_handler_baseview.prototype.init = function(arr_prop_baseview){
+My_entry.handler_baseview.prototype.init = function(arr_prop_baseview){
   var self = this;
   self.arr_buffer = [];
   self.arr_view = [];

@@ -1,9 +1,9 @@
 // online-simulator.github.io
 
-function My_original_worker(){
-}
+My_entry.original_worker = function(){
+};
 
-My_original_worker.prototype.init_worker = function(){
+My_entry.original_worker.prototype.init_worker = function(){
   var self = this;
   if(self.handler_worker){
     self.handler_worker.terminate();
@@ -14,12 +14,12 @@ My_original_worker.prototype.init_worker = function(){
     self.set_url_worker();
     self.callbacks_worker = {};
     self.set_callbacks_worker();
-    My$.bind_objs(self, self.callbacks_worker);
-    self.handler_worker = new My_handler_worker(self.url_worker, self.callbacks_worker);
+    self.entry.$.bind_objs(self, self.callbacks_worker);
+    self.handler_worker = new self.constructors.handler_worker(self.url_worker, self.callbacks_worker);
   }
   return self;
 };
-My_original_worker.prototype.stop_worker = function(){
+My_entry.original_worker.prototype.stop_worker = function(){
   var self = this;
   if(self.handler_worker){
     if(self.handler_worker.isLocked){
@@ -28,17 +28,17 @@ My_original_worker.prototype.stop_worker = function(){
   }
   return self;
 };
-My_original_worker.prototype.set_job_worker = function(){
+My_entry.original_worker.prototype.set_job_worker = function(){
   var self = this;
-  self.job_worker = My_job_imported;
+  self.job_worker = My_entry.job_imported;
   return self;
 };
-My_original_worker.prototype.set_url_worker = function(){
+My_entry.original_worker.prototype.set_url_worker = function(){
   var self = this;
   self.url_worker = "js/for_url.js";
   return self;
 };
-My_original_worker.prototype.set_callbacks_worker = function(){
+My_entry.original_worker.prototype.set_callbacks_worker = function(){
   var self = this;
   self.callbacks_worker.onmessage = function(e){
     var self = this;
@@ -56,7 +56,7 @@ My_original_worker.prototype.set_callbacks_worker = function(){
   };
   return self;
 };
-My_original_worker.prototype.run_worker = function(arr_data_in, useWorker){
+My_entry.original_worker.prototype.run_worker = function(arr_data_in, useWorker){
   var self = this;
   if(self.handler_worker && self.handler_worker.isLocked) return false;
   self.arr_data_in = arr_data_in;

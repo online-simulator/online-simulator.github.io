@@ -1,13 +1,15 @@
 // online-simulator.github.io
 
-function My_link(id, name, ext){
+My_entry.link = function(id, name, ext){
   var self = this;
   self.init.apply(self, arguments);
   return self;
-}
+};
 
-My_link.prototype.init = function(id, name, ext){
+My_entry.link.prototype.init = function(id, name, ext){
   var self = this;
+  new My_entry.original_main().setup_constructors.call(self);
+  new My_entry.original_main().make_instances.call(self, ["conv"]);
   self.id = id;
   self.name = name;
   self.ext = ext;
@@ -16,7 +18,7 @@ My_link.prototype.init = function(id, name, ext){
   self.url;
   return self;
 };
-My_link.prototype.set_url = function(content){
+My_entry.link.prototype.set_url = function(content){
   var self = this;
   var type = "";
   switch(self.ext){
@@ -78,7 +80,7 @@ My_link.prototype.set_url = function(content){
     }
     if(content){
       self.blob = new Blob([content], {type: self.type});
-      self.url = My_conv.blob2url(self.blob);
+      self.url = self.entry.conv.blob2url(self.blob);
     }
   }
   return self;

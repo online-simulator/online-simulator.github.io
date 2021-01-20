@@ -1,12 +1,12 @@
 // online-simulator.github.io
 
-function My_handler_worker(url, callbacks){
+My_entry.handler_worker = function(url, callbacks){
   var self = this;
   self.init.apply(self, arguments);
   return self;
-}
+};
 
-My_handler_worker.prototype.init = function(url, callbacks){
+My_entry.handler_worker.prototype.init = function(url, callbacks){
   var self = this;
   // define
   // setter function
@@ -35,12 +35,12 @@ My_handler_worker.prototype.init = function(url, callbacks){
   self.setter.callbacks(callbacks);
   return self;
 };
-My_handler_worker.prototype.re_init = function(){
+My_entry.handler_worker.prototype.re_init = function(){
   var self = this;
   self.init(self.url, self.callbacks);
   return self;
 };
-My_handler_worker.prototype.set_url = function(url){
+My_entry.handler_worker.prototype.set_url = function(url){
   var self = this;
   switch(typeof url){
     case "string":
@@ -52,7 +52,7 @@ My_handler_worker.prototype.set_url = function(url){
   }
   return self;
 };
-My_handler_worker.prototype.run = function(arr_data){
+My_entry.handler_worker.prototype.run = function(arr_data){
   var self = this;
   if(!(self.hasWorker) || self.isLocked) return false;
   self.isLocked = true;
@@ -61,7 +61,7 @@ My_handler_worker.prototype.run = function(arr_data){
   });
   return self;
 };
-My_handler_worker.prototype.terminate = function(){
+My_entry.handler_worker.prototype.terminate = function(){
   var self = this;
   if(self.worker){
     self.worker.terminate();

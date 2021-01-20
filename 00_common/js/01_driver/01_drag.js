@@ -1,15 +1,17 @@
 // online-simulator.github.io
 
-function My_drag(id, opt_handlers){
+My_entry.drag = function(id, opt_handlers){
   var self = this;
   self.init.apply(self, arguments);
   return self;
-}
+};
 
-My_drag.prototype.init = function(id, opt_handlers){
+My_entry.drag.prototype.init = function(id, opt_handlers){
   var self = this;
+  new My_entry.original_main().setup_constructors.call(self);
+  new My_entry.original_main().make_instances.call(self, ["$"]);
   self.id = id;
-  self.elem = My$._id(self.id);
+  self.elem = self.entry.$._id(self.id);
   self.elem_p = (self.elem)? self.elem.parentElement: self.elem;
   self.onevent = ["ondragstart", "ondragover", "ondragend"];
   self.touch = {
@@ -23,9 +25,9 @@ My_drag.prototype.init = function(id, opt_handlers){
   self.add_handlers(opt_handlers);
   return self;
 };
-My_drag.prototype.set_handlers0 = function(){
+My_entry.drag.prototype.set_handlers0 = function(){
   var self = this;
-  My$.set_elem(self.elem, "position", "absolute");
+  self.entry.$.set_elem(self.elem, "position", "absolute");
   self.onevent.forEach(function(onevent){
     var handler = null;
     switch(onevent){
@@ -47,7 +49,7 @@ My_drag.prototype.set_handlers0 = function(){
   });
   return self;
 };
-My_drag.prototype.get_handler = function(onevent, opt_handlers){
+My_entry.drag.prototype.get_handler = function(onevent, opt_handlers){
   var self = this;
   var _handler = null;
   var handlers0 = self.handlers0;
@@ -61,34 +63,34 @@ My_drag.prototype.get_handler = function(onevent, opt_handlers){
   };
   return _handler;
 };
-My_drag.prototype.add_handlers = function(opt_handlers){
+My_entry.drag.prototype.add_handlers = function(opt_handlers){
   var self = this;
-  My$.set_elem(self.elem, "draggable", true);
+  self.entry.$.set_elem(self.elem, "draggable", true);
   self.onevent.forEach(function(onevent){
     var handler = self.get_handler(onevent, opt_handlers);
-    My$.set_elem(self.elem, onevent, handler);
-    My$.set_elem(self.elem, self.touch[onevent], handler);
+    self.entry.$.set_elem(self.elem, onevent, handler);
+    self.entry.$.set_elem(self.elem, self.touch[onevent], handler);
     self.handlers[onevent] = handler;
   });
   return self;
 };
-My_drag.prototype.remove_handlers = function(){
+My_entry.drag.prototype.remove_handlers = function(){
   var self = this;
-  My$.set_elem(self.elem, "draggable", false);
+  self.entry.$.set_elem(self.elem, "draggable", false);
   self.onevent.forEach(function(onevent){
-    My$.set_elem(self.elem, onevent, null);
-    My$.set_elem(self.elem, self.touch[onevent], null);
+    self.entry.$.set_elem(self.elem, onevent, null);
+    self.entry.$.set_elem(self.elem, self.touch[onevent], null);
     self.handlers[onevent] = null;
   });
   return self;
 };
-My_drag.prototype.set_offset0 = function(e){
+My_entry.drag.prototype.set_offset0 = function(e){
   var self = this;
   self.offset0 = self.get_offset();
   self.client0 = self.get_client(e);
   return self;
 };
-My_drag.prototype.set_offset = function(e){
+My_entry.drag.prototype.set_offset = function(e){
   var self = this;
   var client = self.get_client(e);
   if(client){
@@ -99,16 +101,16 @@ My_drag.prototype.set_offset = function(e){
         left += (client.x-client0.x);
     var top = parent.scrollTop+offset0.top;
         top += (client.y-client0.y);
-    My$.set_elem(self.elem, "left", left+"px");
-    My$.set_elem(self.elem, "top", top+"px");
+    self.entry.$.set_elem(self.elem, "left", left+"px");
+    self.entry.$.set_elem(self.elem, "top", top+"px");
   }
   return self;
 };
-My_drag.prototype.get_offset = function(){
+My_entry.drag.prototype.get_offset = function(){
   var self = this;
   return {left: self.elem.offsetLeft, top: self.elem.offsetTop};
 };
-My_drag.prototype.get_client = function(e){
+My_entry.drag.prototype.get_client = function(e){
   var self = this;
   var e = e;
   if(e.touches){
