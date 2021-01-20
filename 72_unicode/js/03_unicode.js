@@ -1,27 +1,27 @@
 // online-simulator.github.io
 
-function My_test_unicode(){
+My_entry.test_unicode = function(){
   var self = this;
   self.init.apply(self, arguments);
   return self;
-}
+};
 
-My_def.mix_in(My_test_unicode, My_original_main);
+My_entry.def.mix_in(My_entry.test_unicode, My_entry.original_main);
 
-My_test_unicode.prototype.init = function(){
+My_entry.test_unicode.prototype.init = function(){
   var self = this;
-  self.init_main.apply(self, arguments);
+  self.init_main.call(self, ["$", "conv"]);
   return self;
 };
-My_test_unicode.prototype.init_elems = function(){
+My_entry.test_unicode.prototype.init_elems = function(){
   var self = this;
-  My$.setup_elems_readonly$("textarea");
-  My$.setup_elems$_tag("button", self.handlers, "onclick");
-  self.elems = My$.get_elems$("input,textarea");
+  self.entry.$.setup_elems_readonly$("textarea");
+  self.entry.$.setup_elems$_tag("button", self.handlers, "onclick");
+  self.elems = self.entry.$.get_elems$("input,textarea");
   self.arr_sw_out = ["utf16BE", "utf16LE", "utf8", "utf8IE"];
   return self;
 };
-My_test_unicode.prototype.init_handlers = function(){
+My_entry.test_unicode.prototype.init_handlers = function(){
   var self = this;
   self.handlers.onload = function(args){
     var self = this;
@@ -60,16 +60,16 @@ My_test_unicode.prototype.init_handlers = function(){
   };
   return self;
 };
-My_test_unicode.prototype.clear = function(){
+My_entry.test_unicode.prototype.clear = function(){
   var self = this;
-  My$.arr("input,textarea").forEach(function(elem){
+  self.entry.$.arr("input,textarea").forEach(function(elem){
     elem.value = "";
   });
   return self;
 };
-My_test_unicode.prototype.str2code_sw = function(sw){
+My_entry.test_unicode.prototype.str2code_sw = function(sw){
   var self = this;
-  var n = My$.selectNum_id("select-n");
+  var n = self.entry.$.selectNum_id("select-n");
   var input = self.elems["textarea-input"].value;
   var output = "";
   try{
@@ -78,11 +78,11 @@ My_test_unicode.prototype.str2code_sw = function(sw){
       case "utf16LE":
       case "utf8":
         var title = (sw === "utf8")? "バイト数: ": "ユニット数: ";
-        output = My_conv["str2code_"+sw](input, n);
+        output = self.entry.conv["str2code_"+sw](input, n);
         self.elems["input-"+sw].value = title+output.length;
         break;
       case "utf8IE":
-        output = My_conv.binary2code_utf8(input, n);
+        output = self.entry.conv.binary2code_utf8(input, n);
         break;
       default:
         break;
@@ -94,16 +94,16 @@ My_test_unicode.prototype.str2code_sw = function(sw){
   self.elems["textarea-output_"+sw].value = output;
   return self;
 };
-My_test_unicode.prototype.str2code = function(){
+My_entry.test_unicode.prototype.str2code = function(){
   var self = this;
   self.arr_sw_out.forEach(function(sw){
     self.str2code_sw(sw);
   });
   return self;
 };
-My_test_unicode.prototype.code2str_sw = function(sw){
+My_entry.test_unicode.prototype.code2str_sw = function(sw){
   var self = this;
-  var n = My$.selectNum_id("select-n");
+  var n = self.entry.$.selectNum_id("select-n");
   var input = self.elems["textarea-input"].value;
   var output = "";
   var arr_num_n = input.split(",");
@@ -116,13 +116,13 @@ My_test_unicode.prototype.code2str_sw = function(sw){
         var n_uint = mc[1];
         var opt = mc[2];
         var title = "文字数: ";
-        var arr_uint_ = My_conv.arr_num2arr_uint(arr_num_n, n, n_uint);
-        output = My_conv["arr_uint"+n_uint+opt+"_2str"](arr_uint_);
+        var arr_uint_ = self.entry.conv.arr_num2arr_uint(arr_num_n, n, n_uint);
+        output = self.entry.conv["arr_uint"+n_uint+opt+"_2str"](arr_uint_);
         self.elems["input-"+sw].value = title+output.length;
         break;
       case "utf8IE":
-        var arr_uint8 = My_conv.arr_num2arr_uint(arr_num_n, n, 8);
-        output = My_conv.arr_uint8_2binary(arr_uint8);
+        var arr_uint8 = self.entry.conv.arr_num2arr_uint(arr_num_n, n, 8);
+        output = self.entry.conv.arr_uint8_2binary(arr_uint8);
         break;
       default:
         break;
@@ -134,14 +134,14 @@ My_test_unicode.prototype.code2str_sw = function(sw){
   self.elems["textarea-output_"+sw].value = output;
   return self;
 };
-My_test_unicode.prototype.code2str = function(){
+My_entry.test_unicode.prototype.code2str = function(){
   var self = this;
   self.arr_sw_out.forEach(function(sw){
     self.code2str_sw(sw);
   });
   return self;
 };
-My_test_unicode.prototype.postset_sw = function(sw){
+My_entry.test_unicode.prototype.postset_sw = function(sw){
   var self = this;
   self.elems["textarea-input"].value = self.elems["textarea-output_"+sw].value;
   return self;
