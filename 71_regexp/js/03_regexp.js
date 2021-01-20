@@ -1,35 +1,35 @@
 // online-simulator.github.io
 
-function My_test_regexp(){
+My_entry.test_regexp = function(){
   var self = this;
   self.init.apply(self, arguments);
   return self;
-}
+};
 
-My_def.mix_in(My_test_regexp, My_original_main);
+My_entry.def.mix_in(My_entry.test_regexp, My_entry.original_main);
 
-My_test_regexp.prototype.init = function(){
+My_entry.test_regexp.prototype.init = function(){
   var self = this;
-  self.init_main.apply(self, arguments);
+  self.init_main.call(self, ["$", ]);
   return self;
 };
-My_test_regexp.prototype.init_elems = function(){
+My_entry.test_regexp.prototype.init_elems = function(){
   var self = this;
-  self.elem_input = My$._id("textarea-input");
-  self.elem_output = My$._id("textarea-output");
-  My$.setup_elems_readonly$("input,textarea");
-  My$.setup_elems$_tag("button", self.handlers, "onclick");
-  My$.setup_elems$_tag("input", self.handlers, "onchange");
-  My$.setup_elems$_tag("select", self.handlers, "onchange");
+  self.elem_input = self.entry.$._id("textarea-input");
+  self.elem_output = self.entry.$._id("textarea-output");
+  self.entry.$.setup_elems_readonly$("input,textarea");
+  self.entry.$.setup_elems$_tag("button", self.handlers, "onclick");
+  self.entry.$.setup_elems$_tag("input", self.handlers, "onchange");
+  self.entry.$.setup_elems$_tag("select", self.handlers, "onchange");
   return self;
 };
-My_test_regexp.prototype.init_handlers = function(){
+My_entry.test_regexp.prototype.init_handlers = function(){
   var self = this;
   self.handlers.onload = function(args){
     var self = this;
     self.output_command();
     var json = {p: {id: "wrapper-link"}, a: {id: "a", it: "download-txt by double-click"}, o: {id: "textarea-output"}, name: "download", ext: "txt"};
-    self.handler_link = new My_handler_link(json);
+    self.handler_link = new self.constructors.handler_link(json);
     return self;
   };
   self.handlers.onbeforeunload = function(e){
@@ -64,23 +64,23 @@ My_test_regexp.prototype.init_handlers = function(){
   };
   return self;
 };
-My_test_regexp.prototype.clear = function(){
+My_entry.test_regexp.prototype.clear = function(){
   var self = this;
   self.elem_input.value = "";
   self.elem_output.value = "";
   return self;
 };
-My_test_regexp.prototype.postset = function(){
+My_entry.test_regexp.prototype.postset = function(){
   var self = this;
   self.elem_input.value = self.elem_output.value;
   return self;
 };
-My_test_regexp.prototype.replace = function(){
+My_entry.test_regexp.prototype.replace = function(){
   var self = this;
   var output = "";
   try{
-    var re = new RegExp(My$._id("input-pattern").value, My$._id("select-flag").value);
-    var str = My$._id("input-string").value;
+    var re = new RegExp(self.entry.$._id("input-pattern").value, self.entry.$._id("select-flag").value);
+    var str = self.entry.$._id("input-string").value;
     var text = self.elem_input.value;
     output = text.replace(re, str);
   }
@@ -90,17 +90,17 @@ My_test_regexp.prototype.replace = function(){
   self.elem_output.value = output;
   return self;
 };
-My_test_regexp.prototype.output_command = function(){
+My_entry.test_regexp.prototype.output_command = function(){
   var self = this;
   var command = "";
   try{
-    var re = new RegExp(My$._id("input-pattern").value, My$._id("select-flag").value);
-    var str = My$._id("input-string").value;
+    var re = new RegExp(self.entry.$._id("input-pattern").value, self.entry.$._id("select-flag").value);
+    var str = self.entry.$._id("input-string").value;
     command = "out=text.replace("+re+",\""+str+"\")\;";
   }
   catch(e){
     command = e.message;
   }
-  My$._id("input-command").value = command;
+  self.entry.$._id("input-command").value = command;
   return self;
 };
