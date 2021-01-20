@@ -1,24 +1,24 @@
 // online-simulator.github.io
 
-function My_test_mathjax(){
+My_entry.test_mathjax = function(){
   var self = this;
   self.init.apply(self, arguments);
   return self;
-}
+};
 
-My_def.mix_in(My_test_mathjax, My_original_main);
+My_entry.def.mix_in(My_entry.test_mathjax, My_entry.original_main);
 
-My_test_mathjax.prototype.init = function(){
+My_entry.test_mathjax.prototype.init = function(){
   var self = this;
-  self.init_main.apply(self, arguments);
+  self.init_main.call(self, ["$"]);
   return self;
 };
-My_test_mathjax.prototype.init_elems = function(){
+My_entry.test_mathjax.prototype.init_elems = function(){
   var self = this;
-  My$.setup_elems$_tag("button", self.handlers, "onclick");
+  self.entry.$.setup_elems$_tag("button", self.handlers, "onclick");
   return self;
 };
-My_test_mathjax.prototype.init_handlers = function(){
+My_entry.test_mathjax.prototype.init_handlers = function(){
   var self = this;
   self.handlers.onload = function(args){
     var self = this;
@@ -51,15 +51,15 @@ My_test_mathjax.prototype.init_handlers = function(){
   };
   return self;
 };
-My_test_mathjax.prototype.clear = function(){
+My_entry.test_mathjax.prototype.clear = function(){
   var self = this;
-  My$._id("textarea-input").value = "";
-  My$._id("p-output").textContent = "";
+  self.entry.$._id("textarea-input").value = "";
+  self.entry.$._id("p-output").textContent = "";
   return self;
 };
-My_test_mathjax.prototype.preview = function(){
+My_entry.test_mathjax.prototype.preview = function(){
   var self = this;
-  My$._id("p-output").textContent = My$._id("textarea-input").value;
+  self.entry.$._id("p-output").textContent = self.entry.$._id("textarea-input").value;
   if(typeof MathJax !== "undefined"){
     MathJax.Hub.Queue(["Typeset", MathJax.Hub, "p-output"]);
   }
