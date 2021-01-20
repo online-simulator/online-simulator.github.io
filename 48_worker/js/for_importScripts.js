@@ -1,6 +1,6 @@
 // online-simulator.github.io
 
-var My_job_imported = function(_data){
+My_entry.job_imported = function(_data){
   var out = null;
   var isWorker = (typeof window === "undefined");
   try{

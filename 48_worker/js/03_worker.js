@@ -1,26 +1,26 @@
 // online-simulator.github.io
 
-function My_test_worker(){
+My_entry.test_worker = function(){
   var self = this;
   self.init.apply(self, arguments);
   return self;
 };
 
-My_def.mix_in(My_test_worker, My_original_main, My_original_worker);
+My_entry.def.mix_in(My_entry.test_worker, My_entry.original_main, My_entry.original_worker);
 
-My_test_worker.prototype.init = function(){
+My_entry.test_worker.prototype.init = function(){
   var self = this;
-  self.init_main.apply(self, arguments);
+  self.init_main.call(self, ["$"]);
   self.init_worker();
   return self;
 };
-My_test_worker.prototype.init_elems = function(){
+My_entry.test_worker.prototype.init_elems = function(){
   var self = this;
-  self.elem_o = My$._id("textarea-output");
-  My$.setup_elems$_tag("button", self.handlers, "onclick");
+  self.elem_o = self.entry.$._id("textarea-output");
+  self.entry.$.setup_elems$_tag("button", self.handlers, "onclick");
   return self;
 };
-My_test_worker.prototype.init_handlers = function(){
+My_entry.test_worker.prototype.init_handlers = function(){
   var self = this;
   self.handlers.onload = function(args){
     var self = this;
@@ -37,8 +37,8 @@ My_test_worker.prototype.init_handlers = function(){
       case "run":
         if(self.handler_worker && self.handler_worker.isLocked) return false;
         self.elem_o.value = "";
-        self.make_testcase(My$.selectNum_id("select-n"));
-        self.run_worker(self.arr_data_in, My$.checkbox_id("checkbox-useWorker"));
+        self.make_testcase(self.entry.$.selectNum_id("select-n"));
+        self.run_worker(self.arr_data_in, self.entry.$.checkbox_id("checkbox-useWorker"));
         break;
       case "stop":
         self.stop_worker();
@@ -50,7 +50,7 @@ My_test_worker.prototype.init_handlers = function(){
   };
   return self;
 };
-My_test_worker.prototype.stop_worker = function(){
+My_entry.test_worker.prototype.stop_worker = function(){
   var self = this;
   if(self.handler_worker){
     if(self.handler_worker.isLocked){
@@ -61,7 +61,7 @@ My_test_worker.prototype.stop_worker = function(){
   }
   return self;
 };
-My_test_worker.prototype.set_callbacks_worker = function(){
+My_entry.test_worker.prototype.set_callbacks_worker = function(){
   var self = this;
   var get_log = function(data, isIn){
     var _log = (isIn)?
@@ -90,7 +90,7 @@ My_test_worker.prototype.set_callbacks_worker = function(){
   };
   return self;
 };
-My_test_worker.prototype.make_testcase = function(n){
+My_entry.test_worker.prototype.make_testcase = function(n){
   var self = this;
   self.arr_data_in = [];
   self.arr_data_out = [];
@@ -98,7 +98,7 @@ My_test_worker.prototype.make_testcase = function(n){
     var data = {};
     data.i = i;
     data.in = Math.random();
-    data.sw_job = My$.selectText_id("select-job");
+    data.sw_job = self.entry.$.selectText_id("select-job");
     self.arr_data_in.push(data);
   }
   return self;

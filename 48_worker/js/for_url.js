@@ -1,7 +1,7 @@
 // online-simulator.github.io
 
-importScripts("for_importScripts.js");
+importScripts("../../00_common/js/000_namespace/000_entry.js", "for_importScripts.js");
 
 onmessage = function(e){
-  postMessage(My_job_imported(e.data));
+  postMessage(My_entry.job_imported(e.data));
 };

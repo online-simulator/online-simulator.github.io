@@ -75,7 +75,7 @@ e.dataがmainから受け取るコピーdata（参照を持たないJSON形式�
 importScripts("for_importScripts.js");
 
 onmessage = function(e){
-  postMessage(My_job_imported(e.data));
+  postMessage(My_entry.job_imported(e.data));
 };
 </code></pre>
           </td>
@@ -97,7 +97,7 @@ workerからはmainのwindowやdocumentにアクセスできないことに留�
 <br>
 そのため、ここで定義するjobは並列化向きのメディア処理や数値計算が一般的と考えられる
 <pre><code>
-var My_job_imported = function(_data){
+My_entry.job_imported = function(_data){
   var out = null;
   var isWorker = (typeof window === "undefined");
   try{
@@ -136,7 +136,7 @@ mainからworkerにまとめてarr_dataを渡すhandler_workerを用意し、排
 <br>
 他方、WebWorkersに対応していない環境ではシングルスレッドで実行する
 <br>
-共通化したMy_job_importedであるself.job_workerをforEachで順番に実行し、
+共通化したjob_importedであるself.job_workerをforEachで順番に実行し、
 <br>
 後述する受取り処理self.callbacks_worker.onmessageに返却dataを渡す
 <br>
@@ -173,13 +173,13 @@ handler_worker
 <br>
 WebWorkers非対応かロック状態の場合は即座にfalseを返却する
 <br>
-それ以外の場合はロックした後、
+それ以外の場合はロック後、
 <br>
 予め宣言したself.workerのpostMessageで外部スクリプトに繰り返しdataを送信する
 <br>
 なお、繰り返しnew Workerを宣言する必要はないことに留意する
 <pre><code>
-My_handler_worker.prototype.run = function(arr_data){
+My_entry.handler_worker.prototype.run = function(arr_data){
   var self = this;
   if(!(self.hasWorker) || self.isLocked) return false;
   self.isLocked = true;
@@ -260,7 +260,7 @@ self.worker.terminateを呼び出して全スレッドを強制終了する
 再使用する場合は必要になった時点でself.workerを再宣言する
 
 <pre><code>
-My_handler_worker.prototype.terminate = function(){
+My_entry.handler_worker.prototype.terminate = function(){
   var self = this;
   if(self.worker){
     self.worker.terminate();
@@ -316,7 +316,7 @@ self.workerを再宣言worker.re_initする前に再度終了処理を実施す�
     self.callbacks_worker = {};
     self.set_callbacks_worker();
     My$.bind_objs(self, self.callbacks_worker);
-    self.handler_worker = new My_handler_worker(self.url_worker, self.callbacks_worker);
+    self.handler_worker = new self.constructors.handler_worker(self.url_worker, self.callbacks_worker);
   }
 </code></pre>
           </td>
