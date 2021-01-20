@@ -73,11 +73,11 @@ BE/LEを指定して直列化したArrayBufferからuint8のDataViewを作る
   </li>
 </ul>
 <pre><code>
-My_conv.str2binary = function(str, isLE){
+My_entry.conv.prototype.str2binary = function(str, isLE){
   var _binary = "";
   var buffer = new ArrayBuffer(2);
   var view = new DataView(buffer, 0);
-  var arr_uint16 = My_conv.str2code_utf16(str, 10);
+  var arr_uint16 = self.str2code_utf16(str, 10);
   arr_uint16.forEach(function(uint16){
     view.setUint16(0, uint16, isLE);
     var arrb_uint8 = new Uint8Array(buffer);
@@ -120,7 +120,7 @@ ArrayBufferからBE/LEを指定して2Byte単位で取得したuint16の配列�
   </li>
 </ul>
 <pre><code>
-My_conv.binary2str = function(binary, isLE){
+My_entry.conv.prototype.binary2str = function(binary, isLE){
   var _str = "";
   var buffer = new ArrayBuffer(binary.length);
   var view = new DataView(buffer, 0);
