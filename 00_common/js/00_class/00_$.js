@@ -52,27 +52,24 @@ My_entry.$.prototype.bind_objs = function(_self, objs){
   }
   return _self;
 };
-My_entry.$.prototype.set_elem = function(elem, prop, val){
+My_entry.$.prototype.set_elem = function(_elem, prop, val){
   var self = this;
-  if(typeof elem[prop] !== "undefined"){
-    elem[prop] = val;
+  if(typeof _elem[prop] !== "undefined"){
+    _elem[prop] = val;
   }
-  else if(typeof elem.style[prop] !== "undefined"){
-    elem.style[prop] = val;
+  else if(typeof _elem.style[prop] !== "undefined"){
+    _elem.style[prop] = val;
   }
-  return elem;
+  return _elem;
 };
 My_entry.$.prototype.set_id = function(id, prop, val){
   var self = this;
   var elem = self._id(id);
-  if(elem){
-    self.set_elem(elem, prop, val);
-  }
-  return elem;
+  return self.set_elem(elem, prop, val);
 };
 My_entry.$.prototype.get_elem = function(elem, prop){
   var self = this;
-  var _val;
+  var _val = undefined;
   if(typeof elem[prop] !== "undefined"){
     _val = elem[prop];
   }
@@ -83,11 +80,8 @@ My_entry.$.prototype.get_elem = function(elem, prop){
 };
 My_entry.$.prototype.get_id = function(id, prop){
   var self = this;
-  var _val;
-  if(elem){
-    _val = self.get_elem(elem, prop);
-  }
-  return _val;
+  var elem = self._id(id);
+  return self.get_elem(elem, prop);
 };
 My_entry.$.prototype.select_elem = function(elem){
   var self = this;
