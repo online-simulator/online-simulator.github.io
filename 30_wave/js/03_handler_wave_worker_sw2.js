@@ -1,8 +1,8 @@
 // online-simulator.github.io
 
-My_def.mix_in(My_handler_wave, My_original_worker);
+My_entry.def.mix_in(My_entry.handler_wave, My_entry.original_worker);
 
-My_handler_wave.prototype.composite_binary_soundData_LE = function(arr_binary, arr_number_samples, data){
+My_entry.handler_wave.prototype.composite_binary_soundData_LE = function(arr_binary, arr_number_samples, data){
   var self = this;
   var isLE = true;
   var w0 = data.w0 || 0;
@@ -48,7 +48,7 @@ My_handler_wave.prototype.composite_binary_soundData_LE = function(arr_binary, a
   });
   return self.waveo.buffer2binary(newBuffer);
 };
-My_handler_wave.prototype.set_callbacks_worker = function(){
+My_entry.handler_wave.prototype.set_callbacks_worker = function(){
   var self = this;
   self.callbacks_worker.onmessage = function(e){
     var self = this;
@@ -110,7 +110,7 @@ My_handler_wave.prototype.set_callbacks_worker = function(){
   };
   return self;
 };
-My_handler_wave.prototype.input2arr = function(input){
+My_entry.handler_wave.prototype.input2arr = function(input){
   var self = this;
   var _arr_input = [];
   var mcb = input.replace(self.regex.s, "").match(self.regex.mb);
@@ -171,7 +171,7 @@ My_handler_wave.prototype.input2arr = function(input){
   });
   return _arr_input;
 };
-My_handler_wave.prototype.check_script = function(input){
+My_entry.handler_wave.prototype.check_script = function(input){
   var self = this;
   var arr_input = self.input2arr(input);
   var len_i = arr_input.length;

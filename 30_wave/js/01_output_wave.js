@@ -7,8 +7,10 @@
 /*
 
 dependency files:
+  <script type="text/javascript" src="../00_common/js/000_entry/000_entry.js"></script>
   <script type="text/javascript" src="../00_common/js/00_class/01_math_wave.js"></script>
   <script type="text/javascript" src="../00_common/js/02_handler/02_handler_baseview.js"></script>
+  <script type="text/javascript" src="../00_common/js/03_original/03_original_main.js"></script>
   <script type="text/javascript" src="js/01_output_wave.js"></script>
 
 Native method used:
@@ -16,12 +18,12 @@ Native method used:
   new Audio()
 
 ex. of use:
-  <button onclick="new My_output_wave().output_sound({sec: 1, arr_f: [523, 660, 784, 3000], arr_g: null});">play</button>
-  <button onclick="new My_output_wave().output_sound({sec: 1, arr_f: [523, 660, 784, 3000], arr_g: []  });">play</button>
-  <button onclick="new My_output_wave().output_sound({sec: 1, arr_f: [523, 660, 784, 3000], arr_g: [,1]});">play</button>
+  <button onclick="new My_entry.output_wave().output_sound({sec: 1, arr_f: [523, 660, 784, 3000], arr_g: null});">play</button>
+  <button onclick="new My_entry.output_wave().output_sound({sec: 1, arr_f: [523, 660, 784, 3000], arr_g: []  });">play</button>
+  <button onclick="new My_entry.output_wave().output_sound({sec: 1, arr_f: [523, 660, 784, 3000], arr_g: [,1]});">play</button>
 
 instance method:
-  new My_output_wave().output_sound(params, opt_volume);
+  new My_entry.output_wave().output_sound(params, opt_volume);
 
     params: object
       sec: number
@@ -40,26 +42,28 @@ instance method:
 
 */
 
-function My_output_wave(Bytes_perSample, samples_perSecond, number_channels){
+My_entry.output_wave = function(Bytes_perSample, samples_perSecond, number_channels){
   var self = this;
   self.init.apply(self, arguments);
   return self;
-}
+};
 
-My_output_wave.config = {
+My_entry.output_wave.config = {
   ERROR: {
     title: "[MyDefErr]"
   }
 };
-My_output_wave.prototype.init = function(Bytes_perSample, samples_perSecond, number_channels){
+My_entry.output_wave.prototype.init = function(Bytes_perSample, samples_perSecond, number_channels){
   var self = this;
+  new My_entry.original_main().setup_constructors.call(self);
+  new My_entry.original_main().make_instances.call(self, ["math_wave"]);
   self.arr_prop_baseview = [, "Uint", "Int", , "Uint"];
   self.arr_amplitude = [, 128-1, 32768-1];
   self.arr_offset    = [, 128,   0];
-  self.handler_baseview = new My_handler_baseview(self.arr_prop_baseview);
+  self.handler_baseview = new self.constructors.handler_baseview(self.arr_prop_baseview);
   self.arr_buffer = self.handler_baseview.arr_buffer;
   self.arr_viewset = self.handler_baseview.set;
-  self.title_error = My_output_wave.config.ERROR.title;
+  self.title_error = My_entry.output_wave.config.ERROR.title;
   self.audio = null;
   self.base64 = "";
   self.binary = "";
@@ -79,7 +83,7 @@ My_output_wave.prototype.init = function(Bytes_perSample, samples_perSecond, num
   self.Bytes_perSecond   = self.Bytes_perBlock*self.samples_perSecond;
   return self;
 };
-My_output_wave.prototype.binary2buffer = function(binary){
+My_entry.output_wave.prototype.binary2buffer = function(binary){
   var self = this;
   var arrb_uint8 = new Uint8Array(binary.length);
   Array.prototype.forEach.call(arrb_uint8, function(uint8, i){
@@ -88,7 +92,7 @@ My_output_wave.prototype.binary2buffer = function(binary){
   var _buffer = arrb_uint8.buffer;
   return _buffer;
 };
-My_output_wave.prototype.buffer2binary = function(buffer){
+My_entry.output_wave.prototype.buffer2binary = function(buffer){
   var self = this;
   var _binary = "";
   var arrb_uint8 = new Uint8Array(buffer);
@@ -97,7 +101,7 @@ My_output_wave.prototype.buffer2binary = function(buffer){
   });
   return _binary;
 };
-My_output_wave.prototype.int2binary_BE = function(n, dec){
+My_entry.output_wave.prototype.int2binary_BE = function(n, dec){
   var self = this;
   var isLE_default = false;
   var isLE = arguments[2] || isLE_default;
@@ -105,11 +109,11 @@ My_output_wave.prototype.int2binary_BE = function(n, dec){
   self.arr_viewset[n](0, idec, isLE);
   return self.buffer2binary(self.arr_buffer[n]);
 };
-My_output_wave.prototype.int2binary_LE = function(n, dec){
+My_entry.output_wave.prototype.int2binary_LE = function(n, dec){
   var self = this;
   return self.int2binary_BE.call(self, n, dec, true);
 };
-My_output_wave.prototype.str2binary_BE = function(n, bstr){
+My_entry.output_wave.prototype.str2binary_BE = function(n, bstr){
   var self = this;
   var isLE_default = false;
   var isLE = arguments[2] || isLE_default;
@@ -119,17 +123,17 @@ My_output_wave.prototype.str2binary_BE = function(n, bstr){
   }
   return self.buffer2binary(self.arr_buffer[n]);
 };
-My_output_wave.prototype.str2binary_LE = function(n, bstr){
+My_entry.output_wave.prototype.str2binary_LE = function(n, bstr){
   var self = this;
   return self.str2binary_BE.call(self, n, bstr, true);
 };
-My_output_wave.prototype.get_fileSize = function(number_samples){
+My_entry.output_wave.prototype.get_fileSize = function(number_samples){
   var self = this;
   var Bytes_subChunk1 = self.Bytes_subChunk1;
   var Bytes_subChunk2 = self.Bytes_perBlock*number_samples;
   return (4+4+4+4+4+Bytes_subChunk1+4+4+Bytes_subChunk2);
 };
-My_output_wave.prototype.get_binary_header = function(number_samples){
+My_entry.output_wave.prototype.get_binary_header = function(number_samples){
   var self = this;
   self.Bytes_subChunk2 = self.Bytes_perBlock*number_samples;
   self.Bytes_chunks = self.get_fileSize(number_samples)-(4+4);  // Format~
@@ -163,7 +167,7 @@ My_output_wave.prototype.get_binary_header = function(number_samples){
   _binary += self.int2binary_LE(4, self.Bytes_subChunk2);
   return _binary;
 };
-My_output_wave.prototype.normalize_gains = function(arr_g, gain_type, gain_band){
+My_entry.output_wave.prototype.normalize_gains = function(arr_g, gain_type, gain_band){
   var self = this;
   var _arr_g = new Array(arr_g.length);
   var sum_g = 0;
@@ -182,16 +186,16 @@ My_output_wave.prototype.normalize_gains = function(arr_g, gain_type, gain_band)
   });
   return _arr_g;
 };
-My_output_wave.prototype.get_gains_loglog = function(arr_f, f0, f1, g0, g1){
+My_entry.output_wave.prototype.get_gains_loglog = function(arr_f, f0, f1, g0, g1){
   var self = this;
   var _arr_g = new Array(arr_f.length);
   arr_f.forEach(function(f, i){
-    var gain = My_math_wave.getY_linear_baseE(f, f0, f1, g0, g1, true, true);
-    _arr_g[i] = My_math_wave.get_limit(gain, g0, g1);
+    var gain = self.entry.math_wave.getY_linear_baseE(f, f0, f1, g0, g1, true, true);
+    _arr_g[i] = self.entry.math_wave.get_limit(gain, g0, g1);
   });
   return _arr_g;
 };
-My_output_wave.prototype.check_gains = function(params){
+My_entry.output_wave.prototype.check_gains = function(params){
   var self = this;
   var arr_f = params.arr_f;
   var _arr_g = params.arr_g;
@@ -222,13 +226,13 @@ My_output_wave.prototype.check_gains = function(params){
   }
   return _arr_g;
 };
-My_output_wave.prototype.get_gain_type = function(type){
+My_entry.output_wave.prototype.get_gain_type = function(type){
   var self = this;
-  var fn = My_math_wave[type || "sin"];
-  var rms = My_math_wave.get_rms(1000, fn);
+  var fn = self.entry.math_wave[type || "sin"];
+  var rms = self.entry.math_wave.get_rms(1000, fn);
   return Math.min(1, 0.5/rms);  // gain["square"] = 0.5(at rms=1)
 };
-My_output_wave.prototype.check_error = function(params){
+My_entry.output_wave.prototype.check_error = function(params){
   var self = this;
   var title = self.title_error;
   var sec = params.sec;
@@ -244,7 +248,7 @@ My_output_wave.prototype.check_error = function(params){
   });
   return self;
 };
-My_output_wave.prototype.check_params = function(_params){
+My_entry.output_wave.prototype.check_params = function(_params){
   var self = this;
   self.check_error(_params);
   var arr_f = _params.arr_f;
@@ -254,26 +258,26 @@ My_output_wave.prototype.check_params = function(_params){
   _params.arr_g_normalized = self.normalize_gains(arr_g, _params.gain_type, _params.gain_band);
   return _params;
 };
-My_output_wave.prototype.check_arr_params = function(_arr_params){
+My_entry.output_wave.prototype.check_arr_params = function(_arr_params){
   var self = this;
   _arr_params.forEach(function(params, i){
     _arr_params[i] = self.check_params(params);
   });
   return _arr_params;
 };
-My_output_wave.prototype.get_binary_soundData_LE = function(params){
+My_entry.output_wave.prototype.get_binary_soundData_LE = function(params){
   var self = this;
   var params = self.check_params(params);
   return self.encode_soundData_LE(params.number_samples, params.number_channels, params.arr_f, params.arr_g_normalized, params.type);
 };
-My_output_wave.prototype.encode_soundData_LE = function(number_samples, number_channels, arr_f, arr_g, type){
+My_entry.output_wave.prototype.encode_soundData_LE = function(number_samples, number_channels, arr_f, arr_g, type){
   var self = this;
   var _binary = "";
   var Bytes_perSample = self.Bytes_perSample;
   var amplitude = self.amplitude;
   var offset = self.offset;
   var seconds_perSample = 1/self.samples_perSecond;
-  var func_t = My_math_wave[type || "sin"];
+  var func_t = self.entry.math_wave[type || "sin"];
   var phi0 = 0;
   for(var ns=0; ns<number_samples; ++ns){
     var t = ns*seconds_perSample;
@@ -292,20 +296,20 @@ My_output_wave.prototype.encode_soundData_LE = function(number_samples, number_c
   }
   return _binary;
 };
-My_output_wave.prototype.get_binary_wave = function(params){
+My_entry.output_wave.prototype.get_binary_wave = function(params){
   var self = this;
   var _binary_header = self.get_binary_header(params.number_samples);
   var _binary_soundData_LE = self.get_binary_soundData_LE(params);
   return _binary_header+_binary_soundData_LE;
 };
-My_output_wave.prototype.get_buffer = function(params){
+My_entry.output_wave.prototype.get_buffer = function(params){
   var self = this;
   var _buffer = null;
   var binary = self.get_binary_wave(params);
   _buffer = self.binary2buffer(binary);
   return _buffer;
 };
-My_output_wave.prototype.make_base64 = function(params){
+My_entry.output_wave.prototype.make_base64 = function(params){
   var self = this;
   if(window.btoa){
     self.binary = self.get_binary_wave(params);
@@ -313,7 +317,7 @@ My_output_wave.prototype.make_base64 = function(params){
   }
   return self;
 };
-My_output_wave.prototype.add_params = function(params){
+My_entry.output_wave.prototype.add_params = function(params){
   var self = this;
   if(typeof params.f0 === "undefined"){
     params.f0 = 800;
@@ -323,11 +327,11 @@ My_output_wave.prototype.add_params = function(params){
   }
   return self;
 };
-My_output_wave.prototype.get_number_samples = function(sec){
+My_entry.output_wave.prototype.get_number_samples = function(sec){
   var self = this;
   return Math.floor(self.samples_perSecond*sec);
 };
-My_output_wave.prototype.output_sound = function(params, volume){
+My_entry.output_wave.prototype.output_sound = function(params, volume){
   var self = this;
   if(self.audio) return false;
   self.number_samples = self.get_number_samples(params.sec)
@@ -339,7 +343,7 @@ My_output_wave.prototype.output_sound = function(params, volume){
   self.play_base64(self.base64, volume);
   return self;
 };
-My_output_wave.prototype.play_base64 = function(base64, volume){
+My_entry.output_wave.prototype.play_base64 = function(base64, volume){
   var self = this;
   if(self.audio) return false;
   if(base64){
@@ -356,7 +360,7 @@ My_output_wave.prototype.play_base64 = function(base64, volume){
   }
   return self;
 };
-My_output_wave.prototype.stop_sound = function(){
+My_entry.output_wave.prototype.stop_sound = function(){
   var self = this;
   if(self.audio){
     self.audio.pause();
