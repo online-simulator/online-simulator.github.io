@@ -50,7 +50,7 @@ My_entry.output_wave = function(Bytes_perSample, samples_perSecond, number_chann
 
 My_entry.output_wave.config = {
   ERROR: {
-    title: "[MyDefErr]"
+    title: "[MyErr]"
   }
 };
 My_entry.output_wave.prototype.init = function(Bytes_perSample, samples_perSecond, number_channels){
