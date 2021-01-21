@@ -10,12 +10,25 @@
   <link rel="stylesheet" type="text/css" href="00_common/css/common.css" />
   <link rel="stylesheet" type="text/css" href="00_common/css/color.css" />
   <link rel="stylesheet" type="text/css" href="00_common/css/size.css" />
+  <script type="text/javascript" src="00_common/js/000_namespace/000_entry.js"></script>
 </head>
 
 <body>
   <div>
+
+<script type="text/javascript">
+  (function(document){
+    document.body.onload = function(e){
+      document.getElementById("sub-title").textContent = "VERSION: "+My_entry.VERSION;
+    };
+  })(document);
+</script>
+
     <h1>JavaScriptによるシミュレータ一覧</h1>
+    <h2 id="sub-title"></h2>
+
 　サイト移設準備中...
+
     <ul>
       <li>
         <div>
@@ -86,6 +99,7 @@
         <br>
       </li>
     </ul>
+
   </div>
 </body>
 
