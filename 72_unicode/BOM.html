@@ -59,14 +59,14 @@ BE/Big Endianness/Most Significant Byte first
 <br>
 LE/Little Endianness/Least Significant Byte first
 <br>
-※UTF-8とバイナリ文字列の互換性があるBE既定
+BE既定/UTF-8とバイナリ文字列の互換性あり
           </td>
           <td class="border">
 0xFE 0xFF
 <br>
 0xFF 0xFE
 <br>
-　
+BOMなしの場合
           </td>
         </tr>
         <tr class="border">
@@ -79,7 +79,7 @@ BE/上位Byteがメモリの下位アドレスに格納される場合
 または上位Byteから先に標準出力する場合
           </td>
           <td class="border">
-付与不可
+BOMなし必須
           </td>
         </tr>
         <tr class="border">
@@ -92,7 +92,7 @@ LE/下位Byteがメモリの下位アドレスに格納される場合
 または下位Byteから先に標準出力する場合
           </td>
           <td class="border">
-付与不可
+BOMなし必須
           </td>
         </tr>
         <tr class="border">
