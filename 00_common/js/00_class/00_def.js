@@ -23,8 +23,8 @@ My_entry.def.mix_in(_sub, supers_);  // mix-in
 
 */
 
-// static
-My_entry.def.mix_in = function(_sub, supers_){
+My_entry.def.mix_in =
+My_entry.def.prototype.mix_in = function(_sub, supers_){
   for(var i=1, len=arguments.length; i<len; ++i){
     var super_ = arguments[i];
     for(var prop in super_.prototype){
@@ -35,7 +35,8 @@ My_entry.def.mix_in = function(_sub, supers_){
   }
   return _sub;
 };
-My_entry.def.mix_over = function(_sub, supers_){
+My_entry.def.mix_over =
+My_entry.def.prototype.mix_over = function(_sub, supers_){
   for(var i=1, len=arguments.length; i<len; ++i){
     var super_ = arguments[i];
     for(var prop in super_.prototype){
@@ -44,7 +45,6 @@ My_entry.def.mix_over = function(_sub, supers_){
   }
   return _sub;
 };
-// instance
 My_entry.def.prototype.hasProp = function(obj, prop){
   var self = this;
   return self.isDef(obj[prop]);
