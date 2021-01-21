@@ -58,11 +58,15 @@ UTF-16
 BE/Big Endianness/Most Significant Byte first
 <br>
 LE/Little Endianness/Least Significant Byte first
+<br>
+※UTF-8とバイナリ文字列の互換性があるBE既定
           </td>
           <td class="border">
 0xFE 0xFF
 <br>
 0xFF 0xFE
+<br>
+　
           </td>
         </tr>
         <tr class="border">
@@ -105,9 +109,9 @@ LE/下位Byteがメモリの下位アドレスに格納される場合
 下位（の桁）1Byte: 0x34
 <br>
 
-LE: 0x34→0x12の順にメモリに格納または標準出力
-<br>
 BE: 0x12→0x34の順にメモリに格納または標準出力
+<br>
+LE: 0x34→0x12の順にメモリに格納または標準出力
           </td>
           <td class="border">
           </td>
