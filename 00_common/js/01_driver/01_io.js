@@ -9,19 +9,16 @@ My_entry.io = function(){
 My_entry.io.prototype.init = function(){
   var self = this;
   new My_entry.original_main().setup_constructors.call(self);
-  new My_entry.original_main().make_instances.call(self, ["$"]);
+  new My_entry.original_main().make_instances.call(self, ["$", "def"]);
   // define
   // setter function
   self.setter = {
   };
   // getter function
   self.getter = {
-    stamp: function(){return new Date();}
+    stamp: function(){return My_entry.VERSION+" @ "+new Date();}
   };
   // initialize
-  self.str_alert = {
-    input: "入力が不正です。"
-  };
   // re-initialize
   self.re_init.apply(self, arguments);
   return self;
@@ -106,5 +103,11 @@ My_entry.io.prototype.pop_text = function(elem){
     self.arr_text.pop();
   }
   self.write_arr_text(elem);
+  return self;
+};
+My_entry.io.prototype.write_stamp = function(elem){
+  var self = this;
+  var text = self.getter.stamp();
+  self.write_text(elem, text);
   return self;
 };

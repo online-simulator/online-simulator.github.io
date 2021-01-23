@@ -57,7 +57,9 @@ My_entry.handler_worker.prototype.run = function(arr_data){
   if(!(self.hasWorker) || self.isLocked) return false;
   self.isLocked = true;
   arr_data.forEach(function(data){
-    self.worker.postMessage(data);
+    if(self.worker){  // check null
+      self.worker.postMessage(data);
+    }
   });
   return self;
 };
