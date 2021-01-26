@@ -63,6 +63,12 @@ My_entry.original_main.prototype.onload = function(args){
   self.handlers.onload.apply(self, arguments);
   document.body.onbeforeunload = function(e){
     self.handlers.onbeforeunload(e);
+    self.entry.$.arr("input,textarea,select").forEach(function(elem, i){
+      elem.value = elem.defaultValue;
+    });
+    self.entry.$.arr("input[type='checkbox']").forEach(function(elem, i){
+      elem.checked = elem.defaultChecked;
+    });
   };
   return self;
 };
