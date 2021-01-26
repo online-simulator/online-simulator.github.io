@@ -6,6 +6,7 @@ header, footer, main, menu, nav, section, summary{
 }
 
 body{
+  font-family: Arial, sans-serif;
   position: relative;
   margin: 0px auto;
   padding: 0px;
@@ -20,7 +21,7 @@ textarea:read-only,
   cursor: not-allowed;
 }
 
-table, td{
+table, th, td{
   border: none;
 }
 

@@ -1,6 +1,6 @@
 @charset "UTF-8";
 
-table, td{
+table, th, td{
   border-collapse: collapse;
   border: 2px solid;
 }

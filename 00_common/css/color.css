@@ -21,28 +21,20 @@ table{
 caption{
   color:            #ffffff;
 }
-thead{
-  background:       #99ccff;
-  background-color: #99ccff;
-}
 table.tr-stripe tr:nth-child(odd){
+  background:       #eeeeee;
+  background-color: #eeeeee;
+  border-color:     #000000;
+}
+table.tr-stripe tr:nth-child(even){
   background:       #dddddd;
   background-color: #dddddd;
   border-color:     #000000;
 }
-table.tr-stripe tr:nth-child(even){
-  background:       #cccccc;
-  background-color: #cccccc;
+th{
+  background:       #ffffff;
+  background-color: #ffffff;
   border-color:     #000000;
-}
-table.tr-stripe td.index-color, table.tr-stripe tr.index-color{
-  font-weight: bold;
-  background:       #999999;
-  background-color: #999999;
-  border-color:     #000000;
-  text-shadow:
-    1px 1px 1px gray,
-    2px 2px 2px gray;
 }
 
 .clear{
