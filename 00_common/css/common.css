@@ -5,10 +5,6 @@ header, footer, main, menu, nav, section, summary{
   display: block;
 }
 
-html, body, input, textarea, select, button, table, caption, label{
-  font-family: Arial, sans-serif;
-}
-
 body{
   position: relative;
   margin: 0px auto;
