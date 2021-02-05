@@ -3,9 +3,6 @@
 body{
   max-width: 1024px;
 }
-input{
-  width: 100%;
-}
 
 .output-val{
   width: 70px;

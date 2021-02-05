@@ -38,11 +38,11 @@
 <hr>
 
 <div>
+<table><tbody>
+<tr><td>
 動的に変わるreadonly要素の値を取得してファイルに保存する機能の実装テスト
-</div>
-<hr>
-
-<div>
+</td></tr>
+<tr><td>
 ダウンロードリンクに対してonclickイベントを使用しない実装を目指したが、
 <br>
 保存対象とするreadonly要素のonchangeイベントをフックする手段がなく断念
@@ -52,21 +52,19 @@
 　・1クリック目は要素の値からblobを作成してURL更新のみ
 <br>
 　・2クリック目（1クリック後1秒以内）で値変更なしの前提で保存実行
-</div>
-<hr>
-
-<div class="text-center">
+</td></tr>
+<tr><td>
   <label>保存ファイル名:
     <input id="input-name" class="width-auto" value="download">
     連番.txt
   </label>
 　
   <button id="create" class="run">リンク生成</button>
-</div>
-<hr>
-
-<div>
+</td></tr>
+<tr><td>
   <div id="wrapper-link"></div>
+</td></tr>
+</tbody></table>
 </div>
 <hr>
 

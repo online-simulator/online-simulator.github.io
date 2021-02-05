@@ -3,6 +3,6 @@
 body{
   max-width: 1024px;
 }
-input{
-  width: 100%;
+table{
+  min-width: 512px;
 }

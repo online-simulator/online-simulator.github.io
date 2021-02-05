@@ -43,17 +43,17 @@
     };
   })(document);
 </script>
-
-<hr>
-<div>
-時系列の音源wave-PCMを生成して再生orダウンロード
-<br>
-IE、Silk等の旧式はダウンロード後、メディア再生のみ可
-</div>
 <hr>
 
 <div>
 <table class="border"><tbody>
+  <tr class="border">
+    <td colspan="2">
+時系列の音源wave-PCMを生成して再生orダウンロード
+<br>
+IE、Silk等の旧式はダウンロード後、メディア再生のみ可
+    </td>
+  </tr>
   <tr class="border">
     <td>
 Byte数/sample：
@@ -255,6 +255,9 @@ wave-type：
 <hr>
 
 <div>
+<table class="border"><tbody>
+  <tr class="border">
+    <td>
 時系列のスクリプト入力欄　例）左右で3拍子ずらした1オクターブのステレオ出力
   <textarea id="textarea-script" rows="10">
 {500:[o3c0,f523,o5c0]; 500:[o3c2,o4c2,o5c2]; 500:[o3c4,o4c4,o5c4]; 500:[o3c5,o4c5,o5c5];
@@ -266,8 +269,10 @@ wave-type：
 {4500:r; 500:[o3c0,f523,o5c0]; 500:[o3c2,o4c2,o5c2]; 500:[o3c4,o4c4,o5c4]; 500:[o3c5,o4c5,o5c5];
  500:[o3c7,o4c7,o5c7]; 500:[o3c9,o4c9,o5c9]; 500:[o3c11,o4c11,o5c11]; 500:[o4c0,o5c0,o6c0]; 500:r;}
  </textarea>
-</div>
-<div>
+    </td>
+  </tr>
+  <tr class="border">
+    <td>
 スクリプトの入力形式
 <br>
 ・チャンネル1~を区切る波括弧{}
@@ -290,6 +295,9 @@ wave-type：
 <br>
 ・時間の単位: msec
 ・周波数の単位: Hz
+    </td>
+  </tr>
+</tbody></table>
 </div>
 <hr>
 

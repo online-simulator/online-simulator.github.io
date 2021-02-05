@@ -34,13 +34,13 @@
 <hr>
 
 <div>
+<table><tbody>
+<tr><td>
 マルチバイト文字を含むURIを暗号化※または復号化
 <br>
 ※UTF-8バイト列をパーセントエンコーディング
-</div>
-<hr>
-
-<div class="text-center">
+</td></tr>
+<tr><td class="text-center">
   <label for="textarea-input">変換対象text</label>
 　
   <button id="clear" class="clear">クリア</button>
@@ -50,10 +50,9 @@
   <button id="uri2code" class="run">URI暗号化</button>
   <button id="code2uri" class="run">URI複号化</button>
 変換結果out
-</div>
-<hr>
-
-<div>
+<br><br>
+</td></tr>
+<tr><td>
   <label for="textarea-output_uri">uri:</label>
   <button id="postset_uri" class="selection" title="変換結果を変換対象に再セット">out ⇒ text</button>
 <br>
@@ -63,6 +62,8 @@
   <button id="postset_uriCom" class="selection" title="変換結果を変換対象に再セット">out ⇒ text</button>
 <br>
   <textarea id="textarea-output_uriCom" readonly="readonly" rows="3"></textarea>
+</td></tr>
+</tbody></table>
 </div>
 <hr>
 

@@ -34,13 +34,14 @@
   })(document);
 </script>
 
-<hr><hr>
-<div>
-  <a title="ガチャの仕組み考察と実装例" href="spec.html">ガチャの仕組み考察と実装例</a>
-に基づくJavaScriptによるテスト実装２種類
-</div>
 <hr>
 <div>
+<table><tbody>
+<tr><td>
+  <a title="ガチャの仕組み考察と実装例" href="spec.html">ガチャの仕組み考察と実装例</a>
+に基づくJavaScriptによるテスト実装２種類
+</td></tr>
+<tr><td>
 確率抽選: 次の排出商品はランダムに決められる
 <br>
 　⇒　テーブル配列の要素番号をランダムに決定して要素の商品を排出
@@ -48,10 +49,8 @@
 ボックス抽選: 次の排出商品は予め決まっているリアルガチャと同じ
 <br>
 　⇒　テーブルを複数個並べてランダムソートした商品を順番に排出
-</div>
-<hr><hr>
-
-<div>
+</td></tr>
+<tr><td>
   <label for="textarea-table">
 テーブル:
   </label>
@@ -69,15 +68,14 @@ len:
 <br>
   <textarea id="textarea-table" readonly="readonly">
 [SSR0, SR0, SR1, R0, R1, R2, R3, R4, N0, N1, N2, N3, N4, N5, N6, N7, N8, N9, N10, N11]</textarea>
-</div>
-<div>
+</td></tr>
+<tr><td>
   <label>
 排出商品:
     <input id="input-item_table" readonly="readonly">
   </label>
-</div>
-<br>
-<div>
+</td></tr>
+<tr><td>
 確率抽選ガチャ実行:
   <button id="roll_table1" class="run">1roll</button>
   <button id="roll_table10" class="run">10roll</button>
@@ -86,12 +84,10 @@ len:
 商品番号:
     <input id="input-index_table" class="output-val" readonly="readonly">
   </label>
-</div>
+</td></tr>
+<tr><td>
 <br>
-<hr>
-
-<div>
-  <table class="tr-stripe">
+  <table>
     <caption>提供割合の設定パネル　⇒　共通のテーブルを自動生成</caption>
     <thead>
       <tr>
@@ -305,11 +301,9 @@ len:
       </tr>
     </tbody>
   </table>
-</div>
-<hr>
 <br>
-
-<div>
+</td></tr>
+<tr><td>
   <label for="textarea-box">
 ボックス:
   </label>
@@ -345,15 +339,14 @@ len:
 ※5000以上で非表示
 <br>
   <textarea id="textarea-box" readonly="readonly"></textarea>
-</div>
-<div>
+</td></tr>
+<tr><td>
   <label>
 排出商品:
     <input id="input-item_box" readonly="readonly">
   </label>
-</div>
-<br>
-<div>
+</td></tr>
+<tr><td>
 ボックス抽選ガチャ実行:
   <button id="roll_box1" class="run">1roll</button>
   <button id="roll_box10" class="run">10roll</button>
@@ -362,16 +355,14 @@ len:
 商品番号:
     <input id="input-index_box" class="output-val" readonly="readonly">
   </label>
-</div>
-<br>
-<div>
+</td></tr>
+<tr><td>
 ボックスをランダムソート:
   <button id="shuffle_box" class="selection">shuffle-box</button>
 中身リセット:
   <button id="reset_box" class="clear">reset-box</button>
-</div>
-<br>
-<div>
+</td></tr>
+<tr><td>
   <label>
 指定商品
     <input id="input-item_comp" class="output-val" value="SSR0">
@@ -388,10 +379,10 @@ len:
 天井回数:
     <input id="input-roll_max_rarity" class="output-val" readonly="readonly">
   </label>
+</td></tr>
+</tbody></table>
 </div>
-<br>
-<hr><hr>
-以上
+<hr>
 
   </div>
 </body>

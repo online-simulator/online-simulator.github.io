@@ -37,20 +37,18 @@
 <hr>
 
 <div>
+<table><tbody>
+<tr><td>
 マルチスレッド実行による並列処理に用いるWebWorkersの実装テスト
-</div>
-<hr>
-
-<div>
+</td></tr>
+<tr><td>
 数学関数Mathによる単純な乱数の平滑化処理をmainからworkerに依頼する
 <br>
 下記のWebWorkers使用にチェックを付けるとマルチスレッドで実行する
 <br>
 ※回数nが並列処理の最大スレッド数、実行結果の()内がmain依頼順
-</div>
-<hr>
-
-<div>
+</td></tr>
+<tr><td>
   <label>依頼するジョブ: 乱数の平滑化Math.
     <select id="select-job">
       <option>floor</option>
@@ -58,9 +56,8 @@
       <option>ceil</option>
     </select>
   </label>
-</div>
-<hr>
-<div class="text-center">
+</td></tr>
+<tr><td>
   <label>WebWorkers使用:
     <input id="checkbox-useWorker" type="checkbox" checked="checked">
   </label>
@@ -77,6 +74,8 @@
 結果
 <br>
   <textarea id="textarea-output" readonly="readonly" rows="10"></textarea>
+</td></tr>
+</tbody></table>
 </div>
 <hr>
 

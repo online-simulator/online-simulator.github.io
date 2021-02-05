@@ -38,6 +38,8 @@
 <hr>
 
 <div>
+<table><tbody>
+<tr><td>
   <label for="input-pattern">置換パターン</label>
   <select id="select-flag">
     <option value="" title="フラグなし">フラグなし</option>
@@ -59,32 +61,29 @@
     <option value="ims">ims</option>
     <option value="gims">gims</option>
   </select>
-<br>
   <input id="input-pattern" type="text">
-<br>
+</td></tr>
+<tr><td>
   <label>置換後文字列
 <br>
     <input id="input-string" type="text">
   </label>
-<br>
+</td></tr>
+<tr><td>
   <label>JavaScript書式
 <br>
     <input id="input-command" type="text" readonly="readonly">
   </label>
-</div>
-<hr>
-
-<div>
+</td></tr>
+<tr><td>
   <button id="clear" class="clear">textクリア</button>
 　
   <label>置換対象text
 <br>
     <textarea id="textarea-input" rows="5"></textarea>
   </label>
-</div>
-<hr>
-
-<div>
+</td></tr>
+<tr><td>
   <button id="postset" class="selection" title="置換結果を置換対象に再セット">out ⇒ text</button>
 　
   <label for="textarea-output">置換結果out</label>
@@ -92,9 +91,11 @@
   <button id="replace" class="run" title="JavaScript書式の置換実行">置換実行</button>
 <br>
   <textarea id="textarea-output" readonly="readonly" rows="5"></textarea>
-</div>
-<div>
+</td></tr>
+<tr><td>
   <div id="wrapper-link"></div>
+</td></tr>
+</tbody></table>
 </div>
 <hr>
 

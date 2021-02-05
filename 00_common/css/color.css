@@ -11,22 +11,20 @@ textarea[readonly]{
   background:       #cceeff!important;
   background-color: #cceeff!important;
 }
-a, table{
+table > caption{
+  color:            #000000;
   background:       #ffffff;
   background-color: #ffffff;
 }
 table{
   color:            #000000;
 }
-caption{
-  color:            #ffffff;
-}
-table.tr-stripe tr:nth-child(odd){
+table tr:nth-child(odd){
   background:       #eeeeee;
   background-color: #eeeeee;
   border-color:     #000000;
 }
-table.tr-stripe tr:nth-child(even){
+table tr:nth-child(even){
   background:       #dddddd;
   background-color: #dddddd;
   border-color:     #000000;

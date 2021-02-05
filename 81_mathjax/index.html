@@ -44,25 +44,27 @@
 <hr>
 
 <div>
-米数学会が提供するMathJaxを用いて、MathMLまたはLaTeXで記述された、入力欄の数式を出力欄に表示
-</div>
-<hr>
-
-<div class="text-center">
+<table><tbody>
+<tr><td>
+アメリカ数学会が提供するMathJaxをcdn経由で読み込み
+<br>
+MathMLまたはLaTeXで記述された入力欄の数式を出力欄に表示
+</td></tr>
+<tr><td class="text-center">
   <label for="textarea-input">入力欄</label>
 　
   <button id="clear" class="clear">クリア</button>
 <br>
   <textarea id="textarea-input" rows="5">\(\mathrm{e}^{\mathrm{i}\theta}=\cos\theta+\mathrm{i}\sin\theta\)</textarea>
-</div>
-<hr>
-
-<div class="text-center">
+</td></tr>
+<tr><td class="text-center">
   <label for="p-output">出力欄</label>
 　
   <button id="preview" class="run">変換実行</button>
 <br>
   <p id="p-output" class="text-left"></p>
+</td></tr>
+</tbody></table>
 </div>
 <hr>
 

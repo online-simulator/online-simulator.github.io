@@ -9,8 +9,11 @@ select, button{
 input[type="checkbox"]{
   width: auto;
 }
+input{
+  width: 97%;
+}
 textarea{
-  width: 100%;
+  width: 97%;
 }
 
 .width-max{
