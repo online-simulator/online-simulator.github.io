@@ -19,14 +19,17 @@
 <script type="text/javascript">
   (function(document){
     document.body.onload = function(e){
-      document.getElementById("sub-title").textContent = "VERSION: "+My_entry.VERSION;
+      document.getElementById("VERSION").textContent = "VERSION: "+My_entry.VERSION;
+      ["wave", "else"].forEach(function(name){
+        document.getElementById("Ver-"+name).textContent = My_entry.Ver[name]
+      });
     };
   })(document);
 </script>
 
 <div>
 <h1>JavaScriptによるシミュレータ一覧</h1>
-<h2 id="sub-title"></h2>
+<h2 id="VERSION"></h2>
 </div>
 
 　サイト移設準備中...
@@ -46,7 +49,6 @@
 文書
     </th>
     <th>
-<!-- major update. minor update/change. fatal/minor bug-fix -->
 Ver.
     </th>
   </tr>
@@ -69,7 +71,7 @@ Ver.
 <a title="[仕様]WebWorkers有無の共通化" href="48_worker/spec.html">[仕様]WebWorkers有無の共通化</a>
     </td>
     <td>
-1.2.1
+<span id="Ver-wave"></span>
     </td>
   </tr>
   <tr>
@@ -83,7 +85,7 @@ Ver.
 <a title="[覚書]タッチでのドラッグ操作" href="49_drag/index.html">[覚書]タッチでのドラッグ操作</a>
     </td>
     <td rowspan="8">
-0.12.3
+<span id="Ver-else"></span>
     </td>
   </tr>
   <tr>

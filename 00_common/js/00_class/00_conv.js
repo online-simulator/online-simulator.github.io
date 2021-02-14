@@ -211,14 +211,14 @@ My_entry.conv.prototype.str2binary = function(str, isLE){
 My_entry.conv.prototype.binary2str = function(binary, isLE){
   var self = this;
   var _str = "";
-  var buffer = new ArrayBuffer(binary.length);
+  var buffer = new ArrayBuffer(binary.length+1);
   var view = new DataView(buffer, 0);
   Array.prototype.forEach.call(binary, function(byte, i){
     view.setUint8(i, binary.charCodeAt(i));
   });
   var arr_uint16 = [];
-  for(var i=0, len=binary.length/2; i<len; ++i){
-    arr_uint16[i] = view.getUint16(i*2, isLE);
+  for(var i=0, len=(binary.length+1)>>1; i<len; ++i){
+    arr_uint16[i] = view.getUint16(i<<1, isLE);
   }
   arr_uint16.forEach(function(uint16, i){
     _str += String.fromCharCode(uint16);
