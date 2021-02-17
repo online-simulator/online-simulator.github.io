@@ -14,12 +14,12 @@ My_entry.def.prototype.init = function(){
 /*
 
 function _sub(){
-  My_entry.def.mix_in(_sub, supers_);  // mix-in
+  My_entry.def.mix_in(_sub, supers_);    // mix-in
   My_entry.def.mix_over(_sub, supers_);  // mix-overwrite allowed
 }
-My_entry.def.mix_in(_sub, supers_);  // override
+My_entry.def.mix_in(_sub, supers_);      // override
 _sub.prototype.init = function(){};
-My_entry.def.mix_in(_sub, supers_);  // mix-in
+My_entry.def.mix_in(_sub, supers_);      // mix-in
 
 */
 
@@ -43,6 +43,13 @@ My_entry.def.prototype.mix_over = function(_sub, supers_){
       _sub.prototype[prop] = super_.prototype[prop];
     }
   }
+  return _sub;
+};
+My_entry.def.mix_in_props =
+My_entry.def.prototype.mix_in_props = function(_sub, super_, props){
+  props.forEach(function(prop){
+    _sub.prototype[prop] = super_.prototype[prop];
+  });
   return _sub;
 };
 My_entry.def.prototype.hasProp = function(obj, prop){
@@ -95,4 +102,35 @@ My_entry.def.prototype.Number = function(val){
   /* Number(0xf || "0xf") -> 15 */
   var _num = (self.isNumber(val))? Number(val): NaN;
   return _num;
+};
+My_entry.def.prototype.newClone = function(right){
+  var self = this;
+  var _left = null;
+  var isDeep = false;
+  if(self.isArray(right)){
+    isDeep = true;
+    _left = _left || [];  // do not use ||= for IE
+  }
+  else if(self.isObject(right)){
+    isDeep = true;
+    _left = _left || {};
+  }
+  if(isDeep){
+    for(var prop in right){
+      if(right[prop]){
+        // value or reference
+        _left[prop] = self.newClone(right[prop]);
+      }
+      else{
+        // value
+        _left[prop] = right[prop];
+      }
+    }
+  }
+  else{
+    // value: number/string/boolean
+    // reference: function
+    _left = right;
+  }
+  return _left;
 };

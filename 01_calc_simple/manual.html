@@ -1,0 +1,2409 @@
+<!DOCTYPE html>
+
+<html lang="ja">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="description" content="[説明書]電卓non-eval">
+  <meta name="author" content="online-simulator.github.io">
+  <noscript>JavaScript is not enabled on browser.</noscript>
+  <link rel="stylesheet" type="text/css" href="../00_common/css/common.css">
+  <link rel="stylesheet" type="text/css" href="../00_common/css/color.css">
+  <link rel="stylesheet" type="text/css" href="../00_common/css/size.css">
+  <link rel="stylesheet" type="text/css" href="css/common.css">
+  <link rel="stylesheet" type="text/css" href="css/color.css">
+  <link rel="stylesheet" type="text/css" href="css/size.css">
+</head>
+
+<body>
+  <div>
+
+<hr>
+<div>
+<table>
+<caption>初期表示の複素数計算の解はオプションの条件設定によって異なる</caption>
+<thead>
+  <tr>
+    <th>
+結合条件
+    </th>
+    <th>
+優先条件
+    </th>
+    <th>
+条件設定に依らない括弧明示
+    </th>
+    <th>
+解
+    </th>
+  </tr>
+</thead>
+<tbody>
+  <tr>
+    <td colspan="2">
+下記4種類
+    </td>
+    <td>
+e^(-i(1pi()2/2i(5-3-1)i/(-4)))
+←初期表示
+    </td>
+    <td>
+=e^(i{t})
+   </td>
+  </tr>
+  <tr>
+    <td>
+左結合
+    </td>
+    <td>
+乗算優先
+    </td>
+    <td>
+e^(-i(1pi(){2/{2i({5-3}-1)i}}/(-4)))
+←既定
+    </td>
+    <td>
+=e^(i{-pi/4})
+    </td>
+  </tr>
+  <tr>
+    <td>
+右結合
+    </td>
+    <td>
+乗算優先
+    </td>
+    <td>
+e^(-i({1pi()2}/{{2i(5-{3-1})i}/(-4)}))
+    </td>
+    <td>
+=e^(i{-4pi/3})
+    </td>
+  </tr>
+  <tr>
+    <td>
+左結合
+    </td>
+    <td>
+除算優先
+    </td>
+    <td>
+e^(-i(1pi(){2/2i}({5-3}-1){i/(-4)}))
+    </td>
+    <td>
+=e^(i{pi/4})
+    </td>
+  </tr>
+  <tr>
+    <td>
+右結合
+    </td>
+    <td>
+除算優先
+    </td>
+    <td>
+e^(-i(1pi(){2/2i}(5-{3-1}){i/(-4)}))
+    </td>
+    <td>
+=e^(i{3pi/4})
+    </td>
+  </tr>
+  <tr>
+    <td colspan="4">
+実数計算不可（0*Infinity->NaNが発生するため）
+    </td>
+  </tr>
+</tbody>
+</table>
+</div>
+<hr>
+
+<div>
+<table>
+<caption>説明書の前置き</caption>
+<thead>
+  <tr>
+    <th>
+項目
+    </th>
+    <th>
+内容
+    </th>
+  </tr>
+</thead>
+<tbody>
+  <tr>
+    <th>
+目次
+    </th>
+    <td>
+本説明書の目次を列挙する
+<br>
+<br>
+前提
+<br>
+・
+<a href="#span-pre-out">
+外部仕様
+</a>
+<br>
+・
+<a href="#span-pre-in">
+内部仕様
+</a>
+<br>
+<br>
+<a href="#span-out">
+外部仕様
+</a>
+<br>
+・
+<a href="#span-out-UI-simple">
+簡易電卓UI
+</a>
+<br>
+・
+<a href="#span-out-log">
+log表示仕様
+</a>
+<br>
+・
+<a href="#span-out-options">
+オプション
+</a>
+<br>
+・
+<a href="#span-out-rank">
+演算順位
+</a>
+<br>
+・
+<a href="#span-out-config">
+裏設定
+</a>
+<br>
+・
+<a href="#span-out-ope">
+演算仕様
+</a>
+<br>
+・入力仕様
+<br>
+・・
+<a href="#span-out-SR">
+区切り文字
+</a>
+<br>
+・・
+<a href="#span-out-BT">
+括弧
+</a>
+<br>
+・・
+<a href="#span-out-RW">
+予約語
+</a>
+<br>
+・・
+<a href="#span-out-FN0">
+定数
+</a>
+<br>
+・・
+<a href="#span-out-BRmo">
+記号省略乗算
+</a>
+<br>
+・・
+<a href="#span-out-com">
+複素数
+</a>
+<br>
+・・
+<a href="#span-out-FN">
+関数
+</a>
+<br>
+・・
+<a href="#span-out-mat">
+行列
+</a>
+<br>
+・・
+<a href="#span-out-FNmat">
+行列関数
+</a>
+<br>
+・・
+<a href="#span-out-concat">
+行列操作
+</a>
+<br>
+・・
+<a href="#span-out-vars">
+変数
+</a>
+<br>
+・・
+<a href="#span-out-eqns">
+式変数
+</a>
+<br>
+・解法
+<br>
+・・
+<a href="#span-out-linear">
+連立線形方程式
+</a>
+<br>
+・・
+<a href="#span-out-non-linear">
+連立非線形方程式
+</a>
+<br>
+・
+<a href="#span-out-special">
+特殊仕様
+</a>
+<br>
+<br>
+<a href="#span-in">
+内部仕様
+</a>
+<br>
+・
+<a href="#span-in-tree">
+単位tree構造
+</a>
+<br>
+・
+<a href="#span-in-options">
+オプション
+</a>
+<br>
+・
+<a href="#span-in-rank">
+変数・区切り文字・演算子の優先順位
+</a>
+<br>
+・
+<a href="#span-in-FN">
+定義済みの関数・予約語
+</a>
+    </td>
+  </tr>
+  <tr>
+    <th>
+外部仕様の前提
+    </th>
+    <td>
+<span id="span-pre-out"></span>
+外部仕様の前提を列挙する
+<br>
+<br>
+・論理記号||は、ORを意味する
+<br>
+・アロー記号->の左側に入力の演算内容、右側に出力の演算結果を示す
+<br>
+　入力演算内容 -> 出力演算結果
+<br>
+・誤差のオーダーをLandauの記号O(指数表記1e-16等)で表記する
+    </td>
+  </tr>
+  <tr>
+    <th>
+内部仕様の前提
+    </th>
+    <td>
+<span id="span-pre-in"></span>
+内部仕様の前提について記述する
+<br>
+<br>
+直接入力による構文解析で問題となるeval不使用(non-eval)
+<br>
+<br>
+evalに代わる実装項目とファイル名の対応関係を列挙する
+<br>
+・構文解析：parser.js/operation.js
+<br>
+・変数・区切り文字・演算子の優先順位：operation.js
+<br>
+・演算ユニット：DATA.js/operation.js/unit.js
+<br>
+・定義済みの関数・予約語：parser.js/math.js/math_com.js/math_mat.js
+<br>
+・・その他、ビルトインの関数・演算子を使用
+<br>
+・連立方程式の解法：solver.js
+    </td>
+  </tr>
+</tbody>
+</table>
+</div>
+<hr>
+
+<div>
+<table>
+<caption><span id="span-out">電卓の設定項目と入力仕様に関する外部仕様</span></caption>
+<thead>
+  <tr>
+    <th>
+項目
+    </th>
+    <th>
+内容
+    </th>
+  </tr>
+</thead>
+<tbody>
+  <tr>
+    <th>
+簡易電卓
+<br>
+UI
+    </th>
+    <td>
+<span id="span-out-UI-simple"></span>
+簡易電卓の操作パネルについて記述する
+<br>
+<br>
+パネル上段について記述する
+<br>
+・ドラッグ移動可チェックでドラッグ移動有効化
+<br>
+・出力欄に入力欄の演算結果を表示
+<br>
+・入力欄に演算内容を入力
+<br>
+・swチェックでpush/pop入力と直接入力を切替え可
+<br>
+・0xチェックで16進数のa-fの入力ボタンを追加表示
+<br>
+・その下のiの入力ボタンはcomplexチェック時のみ表示
+<br>
+・左側に0-9の数字と小数点.の入力ボタンを表示
+<br>
+・その右側に四則演算の演算子記号の入力ボタンを表示
+<br>
+<br>
+パネル右側について記述する
+<br>
+・Cボタンは入力欄／出力欄の内容と保存変数を消去する
+<br>
+　また、マルチスレッド実行時は演算を中断する
+<br>
+・BSボタンは入力欄の選択位置の前を消去する
+<br>
+・ansボタンは出力欄の演算結果を入力欄に確定する
+<br>
+　演算結果が実数以外の場合、入力欄を消去して予約変数ansを挿入
+<br>
+・＝ボタンは入力欄の内容で演算実行を確定する
+<br>
+<br>
+パネル中段について記述する
+<br>
+・complexチェックで複素数演算を有効化・iの入力ボタンを表示
+<br>
+・matrixチェックで行列演算を有効化
+<br>
+　定義できる2項の演算のみ
+<br>
+・演算結果の小数表記と指数表記を選択可
+<br>
+　小数表記: 0.1
+<br>
+　指数表記: 1e-1 -> 0.1
+<br>
+<br>
+パネル下段について記述する
+<br>
+・履歴欄に最新を上にして演算履歴を表示・表示制限5000字以内
+<br>
+・履歴欄下のリンクから演算履歴の全文をテキスト保存可
+    </td>
+  </tr>
+  <tr>
+    <th>
+log
+<br>
+表示仕様
+    </th>
+    <td>
+<span id="span-out-log"></span>
+log表示上の仕様と付随する留意事項について記述する
+<br>
+<br>
+代入を伴わない場合、
+<br>
+・演算後の値のみ表示する
+<br>
+・直前の演算結果を保持する予約変数ansへの代入を明示しない
+<br>
+3*2 -> 6
+<br>
+ans -> 6
+<br>
+(3*2,1) -> (6,1)
+<br>
+ans -> (6,1)
+<br>
+<br>
+変数への代入の場合、
+<br>
+・変数名と代入値を明示する
+<br>
+x=3*2 -> x=6
+<br>
+x=(3*2,3) -> x=(6,3)
+<br>
+・予約変数ansは更新されない
+<br>
+3*2 -> 6
+<br>
+ans -> 6
+<br>
+x=2 -> x=2
+<br>
+ans -> 6
+<br>
+<br>
+式変数への代入の場合、
+<br>
+・式変数名のみ明示する
+<br>
+eqn_x&lt;=(a*x+b=0) -> stored_eqn(eqn_x)
+<br>
+3*2 -> 6
+<br>
+eqn_t&lt;=sin(omega(t)) -> stored_eqn(eqn_t)
+<br>
+ans -> 6
+<br>
+<br>
+表示仕様ではないが、以下の演算都合上の仕様について記述する
+<br>
+・代入処理を括弧で括ると0を返す
+<br>
+(x=3) -> 0
+<br>
+x -> 3
+<br>
+・代入後はゼロが残ると仮定して演算する
+<br>
+2(x=3) || 2(3=3) || 2(=3-3) || 2(0) -> 0
+<br>
+・代入処理をカンマまたはコロンで区切ると0を返す
+<br>
+max(x=3,-1,-2) || max(0,-1,-2) -> 0
+<br>
+(1,2:3,4:x=5,x) -> (1,2:3,4:0,5)
+<br>
+・ただし、行列を代入しても次元は残らない
+<br>
+(x=(1,2:3,4)) -> 0
+<br>
+<br>
+詳細は<a href="#span-out-special">特殊仕様</a>参照
+    </td>
+  </tr>
+  <tr>
+    <th>
+オプション
+    </th>
+    <td>
+<span id="span-out-options"></span>
+選択可能なオプション設定について記述する
+<br>
+<br>
+2項演算子の結合性を左右選択可
+<br>
+・左から順に結合する場合、左結合（既定）
+<br>
+-5-3-1 || ((0-5)-3)-1 -> -9
+<br>
+3^2^3 || 3**2**3 || (3^2)^3 || (3**2)**3 -> 729
+<br>
+-(1,1)-(2,2) || ((0,0)-(1,1))-(2,2) -> (-3,-3)
+<br>
+・右から順に結合する場合、右結合
+<br>
+-5-3-1 || 0-(5-(3-1)) -> -3
+<br>
+3^2^3 || 3**2**3 || 3^(2^3) || 3**(2**3) -> 6561
+<br>
+-(1,1)-(2,2) || (0,0)-((1,1)-(2,2)) -> (1,1)
+<br>
+・前置き単項の符号は同種の2項演算子と区別しない
+<br>
+・符号の左側にはゼロまたはゼロ行列が存在すると仮定して結合する
+<br>
+・べき乗の2項演算子は^と**を区別しない
+<br>
+<br>
+乗算と除算の優先順位を切替え可
+<br>
+・除算より乗算優先（既定）
+<br>
+1/2*2 || 1/2(2) || 1/(2(2)) -> 0.25
+<br>
+・乗算より除算優先
+<br>
+1/2*2 || 1/2(2) || (1/2)(2) -> 1
+<br>
+・乗算記号は省略可
+<br>
+<br>
+細かな設定変更は
+<a href="#span-out-config">裏設定</a>
+参照
+<br>
+<br>
+マルチスレッド実行を選択可
+<br>
+・シングルスレッド実行時はタイムアウトまで演算を中断不可
+    </td>
+  </tr>
+  <tr>
+    <th>
+演算順位
+    </th>
+    <td>
+<span id="span-out-rank"></span>
+演算子の優先順位（以降、演算順位と略す）について一部記述する
+<br>
+<br>
+後置き単項の演算子は2項演算子より優先する
+<br>
+3^2! || 3^(2!) -> 9
+<br>
+2*3!! || 2*(3!!) -> 6
+<br>
+・階乗の被演算子は自然数のみ対応
+<br>
+<br>
+ビット演算子を除く2項演算子は前置き単項の符号より優先する
+<br>
+-2^2 || -(2^2) -> -4
+<br>
+-0xff>>2 || (-0xff)>>2 || (-255)>>2 -> -64
+<br>
+・排他的論理和XORの2項演算子は^の代わりに@を使用する
+<br>
+-0xff>>1@1 || (-0xff>>1)@1 || (-128)@1 -> -127
+<br>
+<br>
+詳細は<a href="#span-in-rank">内部仕様</a>参照
+    </td>
+  </tr>
+  <tr>
+    <th>
+裏設定
+    </th>
+    <td>
+<span id="span-out-config"></span>
+UIには表示しない裏設定について記述する
+<br>
+<br>
+代入を除く演算順位を変更する場合、URLのGET入力で変更可
+<br>
+・優先順に演算子の
+<a href="#span-in-rank">tag名</a>
+をカンマ区切りで列挙する
+<br>
+index.html?precedence=
+<br>
+FNmat,FN,FNn,URi,URf,BRp,BRr,BRm,BRmo,BRd,BRsa,BRbs,BRba,BRbx,BRbo
+<br>
+・別途、乗算記号の省略を許容しない場合、tag名BRmoを削除する
+<br>
+<br>
+同様に情報落ちや数値積分等の誤差を評価する場合、続く値を
+<br>
+&amp;checkError=true
+<br>
+・trueに設定することで1+epsilon等の演算で情報落ちの発生を警告表示
+<br>
+1+epsilon -> infoLost!! 1.0000000000000002
+<br>
+epsilon || eps -> 2.220446049250313e-16
+<br>
+・&amp;checkError=falseにした場合、演算量が数倍軽くなる
+    </td>
+  </tr>
+  <tr>
+    <th>
+演算仕様
+    </th>
+    <td>
+<span id="span-out-ope"></span>
+演算量または演算速度に関係する演算仕様の概要について記述する
+<br>
+<br>
+UI設定によって対応する用途を4種類示す
+<br>
+・有次元の複素数の行列演算（complex/matrixにチェック）
+<br>
+・有次元の実数の行列演算（matrixにチェック）
+<br>
+・無次元の複素数演算（complexにチェック）
+<br>
+・無次元の実数演算（チェックなし）
+<br>
+<br>
+次の2次の正方行列の積を例に
+<br>
+(0,0:0,1+i)(1,0:0,1)
+<br>
+・上記の用途順に演算結果のみ示す
+<br>
+-> (0,0:0,1+i)
+<br>
+-> (0,0:0,1)
+<br>
+-> 1+i
+<br>
+-> 1
+<br>
+<br>
+用途によらず、行列要素は左から右にすべて演算する
+<br>
+・行ベクトルをコロンで区切って列挙
+<br>
+(x=1,x=2x:x=2x,x) -> (0,0:0,4)
+<br>
+・列ベクトルをコロンで区切って列挙
+<br>
+{x=1,x=2x:x=2x,x} -> (0,0:0,4)
+<br>
+<br>
+その上で、無次元の場合、行列の最終要素を取り出して演算する
+<br>
+(x=1,x=2x:x=2x,x)1 || {x=1,x=2x:x=2x,x}1 || (0,0:0,4)1 || (4)*1 -> 4
+<br>
+・よって行列の積は次の乗算に変換される
+<br>
+(x=1,x=2x:x=2x,x){x=1,x=2x:x=2x,x} || (4)*{4} -> 16
+<br>
+<br>
+以上より、n次の正方行列の積の演算量を用途順に概算して示す
+<br>
+4*(n*n)*(n*n)
+<br>
+(n*n)*(n*n)
+<br>
+4
+<br>
+1
+<br>
+<br>
+演算単位の数値データは内部で複素数の行列として扱う
+<br>
+・これより用途をシームレスに切替えて上記の演算量を調整する
+<br>
+<br>
+合わせて共通化する仕様について記述する
+<br>
+<br>
+関数の引数ベクトル
+<br>
+・行列の最終行ベクトルを左から順に参照
+<br>
+max(1,2,3:-1,-2,-3) || max(-1,-2,-3) -> -1
+<br>
+sqrt(1,2,3:4,5,6) || sqrt(4,5,6) || sqrt(4) -> 2
+<br>
+<br>
+定義できない行列演算
+<br>
+・差と和のみ行列サイズ不一致で入力ミスによるerror終了
+<br>
+(1,3)+(1) -> [MyErr]Invalid matrix operation
+<br>
+・無次元の場合、行列の最終要素を演算・無次元化するのと同様に
+<br>
+(1,3)+(1) || (3)+(1) -> 4
+<br>
+・剰余等の演算を実行した場合、行列の最終要素を参照して演算・無次元化
+<br>
+(1,2)%2 || (2)%2 -> 0
+    </td>
+  </tr>
+  <tr>
+    <th>
+区切り文字
+<br>
+入力仕様
+    </th>
+    <td>
+<span id="span-out-SR"></span>
+区切り文字の入力仕様と付随する留意事項について記述する
+<br>
+<br>
+区切り文字を優先順に列挙する
+<br>
+・各実行文を区切るセミコロン;
+<br>
+実行文; 実行文; ...
+<br>
+・行列の各ベクトルを区切るコロン:
+<br>
+ベクトル: ベクトル: ...
+<br>
+・ベクトルの各要素または関数の引数を区切るカンマ,
+<br>
+要素, 要素, ... || 引数, 引数, ...
+<br>
+<br>
+区切り文字は2項の結合性や深さとは関係なく左から順に演算する
+<br>
+・区切り文字の演算順位は最優先で括弧や変数値代入・読出しより優先する
+<br>
+x=3,(x=9),2x -> (0,0,18)
+<br>
+x -> 9
+<br>
+・よって変数は実行直前の代入値ではなく列挙直前の代入値を参照する
+<br>
+x=3; x=2:3x -> (0:6)
+<br>
+<br>
+区切り文字はカンマ演算子同様に働くが、行列の次元は残る
+<br>
+(x=1,x=2x:x=2x,x) -> (0,0:0,4)
+<br>
+{x=1,x=2x:x=2x,x} -> (0,0:0,4)
+    </td>
+  </tr>
+  <tr>
+    <th>
+括弧
+<br>
+入力仕様
+    </th>
+    <td>
+<span id="span-out-BT"></span>
+括弧の入力仕様と付随する留意事項について記述する
+<br>
+<br>
+実行文の一部を括る括弧は3種類使用可
+<br>
+<br>
+優先順に列挙する
+<br>
+・波括弧{}
+<br>
+・丸括弧()
+<br>
+・角括弧[]
+<br>
+<br>
+括弧は区切り文字に含める
+<br>
+・実行文を区切るセミコロンを括弧の中で使用するとerror終了
+<br>
+(;) -> [MyErr]Invalid {([])}
+<br>
+・対応関係が取れない括弧の入れ子はerror終了
+<br>
+[(0]) -> [MyErr]Invalid {([])}
+<br>
+<br>
+丸括弧()は行ベクトルをコロンで区切って列挙する
+<br>
+・角括弧[]は丸括弧()に準ずる
+<br>
+(行ベクトル: 行ベクトル: ...) || [行ベクトル: 行ベクトル: ...]
+<br>
+<br>
+波括弧{}は列ベクトルをコロンで区切って列挙する
+<br>
+{列ベクトル: 列ベクトル: ...}
+<br>
+<br>
+丸括弧()と波括弧{}は互いに転置の関係にあり使い分け可
+<br>
+transpose({1,2:3,4}) || trans({1,2:3,4}) || trans{1,2:3,4} -> (1,2:3,4)
+<br>
+<br>
+演算結果のlog表示は丸括弧
+<br>
+{1,2:3,4} || [1,3:2,4] -> (1,3:2,4)
+<br>
+<br>
+角括弧[]は直前の行列要素の参照位置を指定する
+<br>
+・角括弧[]は唯一の右結合
+<br>
+A=(1,2:3,4); A[0][0] || (1,2:3,4)[0][0] -> 1
+<br>
+A=(1,2:3,4); A[1][1] || (1,2:3,4)[1][1] -> 4
+<br>
+・複数の要素を持つ場合のみ、行列として使用可
+<br>
+A=(1,2:3,4); A[1,2:3,4] -> (7,10:15,22)
+<br>
+<br>
+詳細は
+<a href="#span-out-FNmat">行列操作関数</a>
+参照
+    </td>
+  </tr>
+  <tr>
+    <th>
+予約語
+<br>
+入力仕様
+    </th>
+    <td>
+<span id="span-out-RW"></span>
+予約語の入力仕様と付随する留意事項について記述する
+<br>
+<br>
+予約語の種類を列挙する
+<br>
+・区切り文字・括弧
+<br>
+・演算子記号
+<br>
+・定数含む関数名
+<br>
+・予約変数（被演算子）
+<br>
+<br>
+予約語は大文字・小文字・全角・半角を区別しない
+<br>
+<br>
+詳細は
+<a href="#span-in-FN">内部仕様</a>
+参照
+    </td>
+  </tr>
+  <tr>
+    <th>
+定数
+<br>
+入力仕様
+    </th>
+    <td>
+<span id="span-out-FN0"></span>
+定数の入力仕様と付随する留意事項について記述する
+<br>
+<br>
+定数はExcel同様に空括弧()付を許容する
+<br>
+<br>
+円周率piとNapier数eを例に示す
+<br>
+PI() || pi || 2acos(0) || 2asin(1) || 4atan(1) -> 3.141592653589793
+<br>
+E() || e || e^1 || exp(1) ||  -> 2.718281828459045
+<br>
+<br>
+eは指数と区別するために空括弧()を付ける方が間違いが少ない
+<br>
+2e-1 || 2E-1 -> 0.2
+<br>
+2e()-1 || 2E()-1 -> 4.43656365691809
+<br>
+<br>
+定数に限らず、空括弧()はparseの段階ですべて除去される
+<br>
+()3()3() || 3*3 -> 9
+<br>
+()3()/()3() || 3/3 -> 1
+    </td>
+  </tr>
+  <tr>
+    <th>
+記号省略乗算
+<br>
+入力仕様
+    </th>
+    <td>
+<span id="span-out-BRmo"></span>
+記号省略乗算入力仕様と付随する留意事項について記述する
+<br>
+<br>
+2πの演算方法を円周率piを使用して次に示す
+<br>
+2pi || 2*pi -> 6.283185307179586
+<br>
+・pi2と入力した場合、後述する変数と見なされる
+<br>
+pi2 -> [MyErr]Invalid REv(pi2)
+<br>
+・piの後に続ける場合、括弧で区切るか記号を明示する
+<br>
+pi(2) || pi*2 -> 6.283185307179586
+<br>
+<br>
+角括弧は使用不可
+<br>
+pi[2] -> [MyErr]Invalid reference of array
+<br>
+[2]pi -> [MyErr]Invalid reference
+<br>
+x=2; x[0] -> 2
+<br>
+x=2; x[2] -> [MyErr]Invalid reference of array
+<br>
+x=2; [2]x -> [MyErr]Invalid reference
+    </td>
+  </tr>
+  <tr>
+    <th>
+複素数
+<br>
+入力仕様
+    </th>
+    <td>
+<span id="span-out-com"></span>
+複素数の入力仕様と付随する留意事項について記述する
+<br>
+<br>
+複素数の虚数単位iは後置きの単項演算子とする
+<br>
+1(i) || (1)i -> i
+<br>
+(-1)i -> -i
+<br>
+3i/2 -> 1.5i
+<br>
+1/2i || 1/(2i) -> -0.5i
+<br>
+<br>
+複素数を宣言する関数を示す
+<br>
+complex(1,-1) || comp(1,-1) -> 1-i
+<br>
+<br>
+複素数を実部と虚部に分離する関数を示す
+<br>
+real(3+i) -> 3
+<br>
+imag(3+i) -> 1
+<br>
+<br>
+iの2乗の演算方法を2項演算子または関数を使用して3種類示す
+<br>
+(i)^2 || (i)**2 || pow(i,2) -> -1+1.2246467991473532e-16i
+<br>
+・厳密解は-1であるが、演算には浮動小数を使うため、
+<br>
+・epsilonに相当するマシン誤差O(1e-16)が残る
+<br>
+epsilon || eps -> 2.220446049250313e-16
+<br>
+・この傾向は演算量に応じて実数演算よりも顕著に現れる
+<br>
+<br>
+-1の平方根の演算方法を3種類示す
+<br>
+(-1)^0.5 || pow(-1,0.5) || sqrt(-1) -> 6.123233995736766e-17+i
+<br>
+・先頭の丸括弧()を省略した場合、次のように演算される
+<br>
+-1^0.5 || -(1^0.5) -> -1
+<br>
+・また、符号付の分母の丸括弧を省略した場合、error終了
+<br>
+1/-i || (1/)(-i) -> [MyErr]Invalid binary operation
+<br>
+1/(-i) -> i
+<br>
+<br>
+次の演算は、情報落ちが発生して警告が表示される
+<br>
+(-1)^0.5+1 || (6.123233995736766e-17+i)+1 -> infoLost!! 1+i
+<br>
+・直前の演算結果を保持する予約変数ansに対して演算すると
+<br>
+ans-1 -> infoLost!! i
+<br>
+・誤差情報は消えることなく伝播する
+<br>
+<br>
+Napier数eの空括弧()を省略してEulerの公式より極形式の複素数を示す
+<br>
+(sqrt2)e^(i{pi/4}) || sqrt2()ecomp(pi/4) -> 1.0000000000000002+i
+<br>
+sqrt2 || sqrt2() -> 1.4142135623730951
+<br>
+<br>
+変数を使用
+<br>
+・複素数zの偏角/piを示す
+<br>
+z=e^(i{pi/4}); arg(z)/pi -> 0.25
+<br>
+・複素数zの絶対値を示す
+<br>
+z=e^(i{pi/4}); abs(z) -> 1
+<br>
+<br>
+以上より、次の複素数演算をテストケースとして初期表示する
+<br>
+e^(-i(1pi()2/2i(5-3-1)i/(-4)))
+<br>
+・既定では左結合の2項演算で除算より乗算を優先する
+<br>
+e^(-i(1pi(){2/{2i({5-3}-1)i}}/(-4)))
+<br>
+<br>
+2項の結合性や演算順位によって解が異なる場合、入力を見直す
+<br>
+<br>
+具体的には次のように対策する
+<br>
+a={5-3}-1; b=2/{2i(a)i}; e^(-i(1pi()b/(-4)))
+<br>
+・一部分を変数に代入し、セミコロンで区切って演算順序を明確化する
+<br>
+・2項演算子が連続する場合、括弧を明示する
+    </td>
+  </tr>
+  <tr>
+    <th>
+関数
+<br>
+入力仕様
+    </th>
+    <td>
+<span id="span-out-FN"></span>
+関数の入力仕様と付随する留意事項について記述する
+<br>
+<br>
+関数の引数に行列を指定した場合、最終行ベクトルの左から順に参照する
+<br>
+・引数不定の関数の場合
+<br>
+x=(1,2,3:4,5,6); max(x) || max(4,5,6) -> 6
+<br>
+・引数一つの関数の場合
+<br>
+x=(1,2,3:4,5,6); log(x) || log(4,5,6) || log(4) -> 1.3862943611198906
+<br>
+・引数一つか二つの関数の場合
+<br>
+x=(1,2,3:4,5,6); log_ex(x) || log_ex(4,5,6) || log_ex(4,5) -> 0.8613531161467861
+<br>
+・引数二つの関数の場合
+<br>
+x=(1,2,3:4,5,6); atan2(x) || atan2(4,5,6) || atan2(4,5) -> 0.6747409422235527
+<br>
+x=(1,2,3:4); atan2(x) || atan2(4) -> [MyErr]FN isNaN
+<br>
+<br>
+log関数の仕様はJavaScript準拠の自然対数とする
+<br>
+ln(e) || log(e) -> 1
+<br>
+ln(10) || ln10() -> 2.302585092994046
+<br>
+ln(2) || ln2() -> 0.6931471805599453
+<br>
+<br>
+常用対数
+<br>
+log10(10) -> 1
+<br>
+<br>
+Excel準拠の引数(値,底||10)は次のlog_exを使用する
+<br>
+log_ex(10) || log_ex(10,10) -> 1
+<br>
+log_ex(e) || log10e() -> 0.43429448190325176
+<br>
+log_ex(e,2) || log2e() -> 1.4426950408889634
+<br>
+<br>
+atan2関数の仕様はJavaScript準拠の引数(y,x)とする
+<br>
+atan2(1,0)/pi -> 0.5
+<br>
+deg_atan2(1,0) || degrees(atan2(1,0)) -> 90
+<br>
+<br>
+変数を使用
+<br>
+・実軸と虚軸の複素数平面から弧度数radに変換する場合
+<br>
+z=e^(i{pi/6}); atan2(imag(z),real(z)) -> 0.5235987755982987
+<br>
+z=e^(i{pi/6}); arg(z) -> 0.5235987755982987
+<br>
+・さらに度数degに変換する場合
+<br>
+degrees(ans) || deg_atan2(imag(z),real(z)) -> 29.999999999999993
+<br>
+・再度radに変換
+<br>
+radians(ans) -> 0.5235987755982987
+<br>
+<br>
+Excel準拠の引数(x,y)は次のatan2_exを使用する
+<br>
+atan2_ex(0,1)/pi -> 0.5
+<br>
+deg_atan2_ex(0,1) || degrees(atan2_ex(0,1)) -> 90
+    </td>
+  </tr>
+  <tr>
+    <th>
+行列
+<br>
+入力仕様
+    </th>
+    <td>
+<span id="span-out-mat"></span>
+行列の入力仕様と付随する留意事項について記述する
+<br>
+<br>
+ベクトルの入力方法2種類
+<br>
+・各ベクトルの要素はカンマ,で区切る
+<br>
+行ベクトル(1,2) || [1,2] -> (1,2)
+<br>
+列ベクトル{1,3} -> (1:3)
+<br>
+<br>
+2行2列の行列の入力方法
+<br>
+1　2
+<br>
+3　4
+<br>
+・各ベクトルはコロン:で区切る
+<br>
+(1,2:3,4) || [1,2:3,4] || {1,3:2,4} -> (1,2:3,4)
+<br>
+<br>
+定義できない除算以外の四則演算に対応
+<br>
+・乗算記号同様に積の記号は省略可
+<br>
+(1,2,3)(1,2,3) || (1,2,3)*(1,2,3) -> (1,2,3)
+<br>
+{1,2,3}{1,2,3} -> (1:2:3)
+<br>
+・外積
+<br>
+{1,2,3}(1,2,3) -> (1,2,3:2,4,6:3,6,9)
+<br>
+{1,2,3}(1,2) -> (1,2:2,4:3,6)
+<br>
+・内積
+<br>
+(1,2,3){1,2,3} -> 14
+<br>
+(1,2,3){1,2,3:} || (1,2,3){1,2,3:0,0,0} -> (14,0)
+<br>
+・空要素はゼロで埋められる
+<br>
+(1,2,3:){1,2,3:} || (1,2,3:,,){1,2,3:,,} -> (14,0:0,0)
+<br>
+(1,2:3,4)2 || (1,2:3,4){2,} -> (2:6)
+<br>
+2(1,2:3,4) || (2,)(1,2:3,4) -> (2,4)
+<br>
+{2,}(1,2:3,4) || {2,:,}(1,2:3,4) -> (2,4:0,0)
+<br>
+(1,2:3,4)(1,2:3,4) -> (7,10:15,22)
+<br>
+・Scalar倍
+<br>
+(-3,:,-3)(1,2:3,4) || (1,2:3,4)(-3,:,-3) -> (-3,-6:-9,-12)
+<br>
+・符号
+<br>
+-(1,2:3,4) || (,:,)-(1,2:3,4) || (-1,:,-1)(1,2:3,4) -> (-1,-2:-3,-4)
+<br>
+・差
+<br>
+(1,2:3,4)-(1,2:3,4) -> (0,0:0,0)
+<br>
+・和
+<br>
+(1,2:3,4)+(1,2:3,4) -> (2,4:6,8)
+<br>
+・変数を使用
+<br>
+x=1; y=(x,2x:3x,4x); y*y-y || (7,10:15,22)-(1,2:3,4) -> (6,8:12,18)
+<br>
+t=pi/4; (cos(t),sin(t):,){i(sin(t)),i(cos(t)):,} -> (i,0:0,0)
+<br>
+<br>
+差と和のみ行列サイズ不一致で入力ミスによるerror終了
+<br>
+(1,2:3,4)+(-1) -> [MyErr]Invalid matrix operation
+<br>
+(1,2:3,4)-(-1,2) -> [MyErr]Invalid matrix operation
+<br>
+<br>
+無次元の場合、行列の演算規則とは関係なく最終要素を演算する
+<br>
+(1,2:3)1 || (3)*1 -> 3
+<br>
+(1,2)/(3,4) || (2)/(4) -> 0.5
+<br>
+(1,2,3)+(4,5) || (3)+(5) -> 8
+<br>
+(1,2:3)-(4,5:6:7) || (3)-(7) -> -4
+<br>
+<br>
+行列に対して定義できない2項演算を実行した場合も同様とする
+<br>
+(5,3,1)/(3i,i) || (1)/(i) -> -i
+<br>
+(1,2,3)^(1.5,0.5) || (3)^(0.5) -> 1.7320508075688772
+<br>
+(3,5,7)%(1,5) || (7)%(5) -> 2
+<br>
+(2,4,8)>>(3,1) || (8)>>(1) -> 4
+<br>
+<br>
+行列に対して後置きの単項演算を実行した場合も無次元確定とする
+<br>
+(5,3)i || (3)i -> 3i
+<br>
+(10,5:,)! || (0)! -> 1
+    </td>
+  </tr>
+  <tr>
+    <th>
+行列関数
+<br>
+入力仕様
+    </th>
+    <td>
+<span id="span-out-FNmat"></span>
+行列関数の入力仕様と付随する留意事項について記述する
+<br>
+<br>
+行列の転置
+<br>
+trans(1,2:3,4) -> (1,3:2,4)
+<br>
+・行ベクトルを列ベクトルに変換
+<br>
+transpose(1,2,3) || trans(1,2,3) -> (1:2:3)
+<br>
+・列ベクトルを行ベクトルに変換
+<br>
+trans({1,2,3}) || trans{1,2,3} -> (1,2,3)
+<br>
+<br>
+列ベクトルのEuclidノルムを取得
+<br>
+norm{1,2,3} -> 3.7416573867739413
+<br>
+・有次元の場合、同義
+<br>
+x={1,2,3}; sqrt(trans(x)x) -> 3.7416573867739413
+<br>
+・行ベクトルを誤入力した場合
+<br>
+norm(1,2,3) || norm(3) -> 3
+<br>
+<br>
+行列要素を取得
+<br>
+・最初要素
+<br>
+first(1,2:3,4) -> 1
+<br>
+first{1,2:3,4} -> 1
+<br>
+・最終要素
+<br>
+last(1,2:3,4) -> 4
+<br>
+last{1,2:3,4} -> 4
+    </td>
+  </tr>
+  <tr>
+    <th>
+行列操作
+<br>
+入力仕様
+    </th>
+    <td>
+<span id="span-out-concat"></span>
+行列操作の入力仕様と付随する留意事項について記述する
+<br>
+<br>
+任意要素を取得
+<br>
+A=(1,2:3,4); A[0][0] -> 1
+<br>
+A=(1,2:3,4); A[1][1] -> 4
+<br>
+<br>
+行ベクトルを取得
+<br>
+A=(1,2:3,4); A[1] -> (3,4)
+<br>
+<br>
+列ベクトルを取得
+<br>
+・転置の関数を使用
+<br>
+・括弧は関数より優先するため、関数の外側を上位の括弧で括る
+<br>
+trans((trans(1,2:3,4))[1]) || trans({trans(1,2:3,4)}[1]) -> (2:4)
+<br>
+<br>
+定義済みの行列要素のみ値代入可
+<br>
+A=(1,2:3,4); A[0][0]=-1 -> A=(-1,2:3,4)
+<br>
+A=(1,2:3,4); ii=1; A[ii][ii]=-1 -> A=(1,2:3,-1)
+<br>
+A=(1,2:3,4); A[1][1]=(1,2) -> A=(1,2:3,2)
+<br>
+A=(1,2:3,4); A[1]=-1 || A[2][0]=5 -> [MyErr]Invalid substitution
+<br>
+A=(1,2:3,4); A[0.5][0]=-1 -> [MyErr]Invalid reference of array
+<br>
+<br>
+ベクトルの結合
+<br>
+((1,2),(3,4)) -> (1,2,3,4)
+<br>
+x=(1,2); y=(3,4); (x,y) -> (1,2,3,4)
+<br>
+・区切り文字の左から順に結合する
+<br>
+((1,2),{3,4},{3,4,5}) -> (1,2,3,3)
+<br>
+((1,2:),{3,4},{3,4,5}) -> (1,2,3:0,4,4)
+<br>
+((1,2:,),{3,4},{3,4,5}) -> (1,2,3:0,0,4,4)
+<br>
+・途中で抜けがあると以降は結合できない
+<br>
+((1,2:,:,),{3,4},{3,4,5}) -> (1,2,3,3:0,0,4,4:0,0)
+<br>
+((1,2:,:,),{3,4,},{3,4,5}) -> (1,2,3,3:0,0,4,4:0,0,0,5)
+<br>
+<br>
+行列の結合
+<br>
+((1,2:5,6),(3,4:7,8):{-1,-5:-2,-6},{-3,-7:-4,-8})
+<br>
+-> (1,2,3,4:5,6,7,8:-1,-2,-3,-4:-5,-6,-7,-8)
+<br>
+・変数を使用
+<br>
+mat00=(1,2:5,6);
+<br>
+mat01=(3,4:7,8);
+<br>
+mat10={-1,-5:-2,-6};
+<br>
+mat11={-3,-7:-4,-8};
+<br>
+mat=(mat00,mat01:mat10,mat11);
+<br>
+mat -> (1,2,3,4:5,6,7,8:-1,-2,-3,-4:-5,-6,-7,-8)
+    </td>
+  </tr>
+  <tr>
+    <th>
+変数
+<br>
+入力仕様
+    </th>
+    <td>
+<span id="span-out-vars"></span>
+変数の入力仕様と付随する留意事項について記述する
+<br>
+<br>
+変数への代入・再代入方法は、変数名=代入値とする
+<br>
+x=2; x -> 2
+<br>
+x=2; x=4; x -> 4
+<br>
+x=2; x=2x; x -> 4
+<br>
+<br>
+代入処理を判別するため、変数の左側に数値や演算子を置けない
+<br>
+strage cleared
+<br>
+2x=3 -> [MyErr]Invalid ans isFound
+<br>
+3+x=4 -> [MyErr]Invalid binary operation
+<br>
+<br>
+未定義変数に未定義変数の代入不可
+<br>
+strage cleared
+<br>
+x=y(z) -> [MyErr]Invalid ans isFound
+<br>
+<br>
+変数名に予約語は使用不可
+<br>
+max=3 -> [MyErr]Invalid FN arguments
+<br>
+・定数の場合、次のように演算される
+<br>
+pi=3 || =3-pi -> -0.14159265358979312
+<br>
+・定義済み変数も同様
+<br>
+x=2; 2x=3 || =3-4 -> -1
+<br>
+x=2; x=4; x -> 4
+<br>
+<br>
+詳細は<a href="#span-out-special">特殊仕様</a>参照
+<br>
+<br>
+変数名は大文字と小文字を区別する
+<br>
+x=1; X=2; x+X -> 3
+<br>
+<br>
+変数名は数字から始めることはできない
+<br>
+2x=4 -> [MyErr]Invalid ans isFound
+<br>
+<br>
+変数名の後に続く数字は変数名に含まれる
+<br>
+x0=1; x1=2; x0+x1 -> 3
+<br>
+<br>
+深さを伴う代入を許容する
+<br>
+・その場合、0を返す
+<br>
+((x=3)) -> 0
+<br>
+<br>
+代入をカンマかコロンで区切った場合、0を返す
+<br>
+x=2,3x -> (0,6)
+<br>
+x=2:3x -> (0:6)
+<br>
+<br>
+予約変数を示す
+<br>
+・ansは直前の計算結果を保持する
+<br>
+2; ans*2; ans*2; ans -> 8
+<br>
+・代入ではansは更新されない
+<br>
+2; x=3; ans -> 2
+<br>
+<br>
+バイナリ文字の全角は半角に変換される
+<br>
+Ｘ＝３；X -> 3
+<br>
+<br>
+マルチバイト文字を使用可
+<br>
+番号=1; 番号 -> 1
+<br>
+<br>
+併せてコメントを入力可
+<br>
+// 行コメント
+<br>
+/* ブロックコメント */
+<br>
+x=-0xff; /*x:16進数*/ x&gt;&gt;2 // 右シフト2回
+<br>
+-> -64
+    </td>
+  </tr>
+  <tr>
+    <th>
+式変数
+<br>
+入力仕様
+    </th>
+    <td>
+<span id="span-out-eqns"></span>
+式変数の入力仕様と付随する留意事項について記述する
+<br>
+<br>
+式変数への方程式の代入・再代入方法は、式変数名&lt;=代入方程式とする
+<br>
+式変数への代入を以降、式代入と呼ぶ
+<br>
+y&lt;=a*x+b; -> stored_eqn(y)
+<br>
+<br>
+式変数から値を読出す方法は、式変数名=&gt;とする
+<br>
+式変数から変数に値代入する方法は、式変数名=&gt;変数名とする
+<br>
+式変数からの値読出しを以降、式読出しと呼ぶ
+<br>
+y&lt;=a*x+b; y=&gt; -> [MyErr]Invalid binary operation
+<br>
+y&lt;=a*x+b; y=&gt;y0 -> [MyErr]Invalid binary operation
+<br>
+<br>
+方程式の変数を定義して再度読出す
+<br>
+y&lt;=a*x+b; a=1; b=2; x=3; y=&gt; || 1*3+2 -> 5
+<br>
+y&lt;=a*x+b; a=1; b=2; x=3; y=&gt;y0; y0 -> 5
+<br>
+・式読出しを括弧で括れば変数同様に扱える
+<br>
+2; y&lt;=ans; max(3,4(y=&gt;)2) || max(3,4*2*2) -> 16
+<br>
+2; y&lt;=ans; max(3,4(y=&gt;y0)2); y=&gt; -> 16
+<br>
+<br>
+式変数と同名の変数が未定義の場合、直接、式読出し可
+<br>
+storage cleared
+<br>
+y&lt;=a*x+b; a=1; b=2; x=3; 2y -> 10
+<br>
+y&lt;=a*x+b; a=1; b=2; x=3; y0=2y; y0 -> 10
+<br>
+・ただし、式読出し記号を明示する方が間違いが少ない
+<br>
+storage cleared
+<br>
+y=-1; y&lt;=a*x+b; a=1; b=2; x=3; 2y -> -2
+<br>
+y=-1; y&lt;=a*x+b; a=1; b=2; x=3; 2(y=&gt;) -> 10
+<br>
+・さらに、式変数名と変数名は区別する方が間違いが少ない
+<br>
+storage cleared
+<br>
+y=3; y&lt;=3y-1; 2y -> 6
+<br>
+y=3; y&lt;=3y-1; y=&gt;y; 2y -> 16
+<br>
+y0=3; y&lt;=3y0-1; y=&gt;y1; 2y1 -> 16
+<br>
+<br>
+式変数名で明示して直接読出す方法もあり得る
+<br>
+eqn_x&lt;=(a*x+b=0); a=1; b=2; x=3; 2eqn_x || 2*(-5) -> -10
+<br>
+<br>
+式変数と同名の変数が未定義で循環参照した場合、error終了
+<br>
+storage cleared
+<br>
+y&lt;=3y-1; y -> [MyErr]Invalid circular(y)
+<br>
+y=1; y&lt;=3y-1; y -> 2
+<br>
+<br>
+深さを伴う式代入を許容する
+<br>
+・その場合、0を返す
+<br>
+((x&lt;=3)) -> 0
+<br>
+<br>
+式代入をカンマかコロンで区切った場合、0を返す
+<br>
+storage cleared
+<br>
+x&lt;=2,3x -> (0,6)
+<br>
+x&lt;=2:3x -> (0:6)
+<br>
+<br>
+式変数から式変数への式代入を以降、式渡しと呼ぶ
+<br>
+・同名の変数未定義の前提
+<br>
+storage cleared
+<br>
+eqn_x&lt;=3x; eqn_y&lt;=eqn_x; x=3; eqn_y ->9
+<br>
+<br>
+Jacobi行列を取得する関数の引数は式渡し
+<br>
+・方程式、未知変数、初期値の列ベクトルを式渡しで渡す
+<br>
+・初期値は未知変数未定義時のみ有効（反復中には無効）
+<br>
+・初期値を省略した場合、初期値はゼロベクトルとする
+<br>
+Jacobi(&lt;={3x0-3=0},&lt;={x0},&lt;={0})
+<br>
+-> -3.0000000000098264+9.826647183188544e-12i
+<br>
+・右辺に移項した線形方程式=-3x0+3のx0周辺の傾き-3を返す
+    </td>
+  </tr>
+  <tr>
+    <th>
+連立
+<br>
+線形方程式
+<br>
+の解法
+    </th>
+    <td>
+<span id="span-out-linear"></span>
+式変数を使用した連立線形方程式の解法について記述する
+<br>
+<br>
+連立方程式の解法には直接法と反復法の2種類が存在し、特徴を列挙する
+<br>
+・直接法は解を厳密に解くため、線形方程式のみ適用可
+<br>
+・反復法は解の修正を繰り返して近似的に解くため、非線形方程式に拡張可
+<br>
+<br>
+2元1次の連立線形方程式Ax=bを一例に示す
+<br>
+A=(1,2:3,4);
+b={5,6};
+<br>
+<br>
+直接法
+<br>
+・pivot選択の前処理付きGaussの消去法を用いる
+<br>
+x=Gauss(A,b); x -> (-3.9999999999999982:4.499999999999999)
+<br>
+<br>
+反復法
+<br>
+・連立方程式と近似解の初期値を定義する
+<br>
+storage cleared
+<br>
+x&lt;={x0,x1}; x_initial&lt;={0,0};
+<br>
+f&lt;={1x0+2x1=5,3x0+4x1=6};
+<br>
+・続いて以降の処理を反復する
+<br>
+・簡単のため、式変数を直接読出す
+<br>
+J=Jacobi(&lt;=f,&lt;=x,&lt;=x_initial);
+<br>
+dx=Gauss(J,-f);
+<br>
+x_next=x+dx;
+<br>
+x0=x_next[0];
+<br>
+x1=x_next[1];
+<br>
+normf=norm(f);
+<br>
+・反復3回目のノルムと近似解を示す
+<br>
+normf -> infoLost!! 8.881784197001252e-16-9.569960623112204e-26i
+<br>
+x0 -> infoLost!! -3.999999999999999-3.362471994400586e-26i
+<br>
+x1 -> infoLost!! 4.499999999999999+6.466216308756395e-26i
+<br>
+・ノルムがマシン誤差O(1e-16)に収束すれば収束判定条件を満たす
+<br>
+・その場合、近似解は厳密解にほぼ一致する
+<br>
+<br>
+上記の線形・非線形の連立方程式を一般化する解法について記述する
+<br>
+・近似解の列ベクトル{x}の各要素を表す添字をjとする
+<br>
+・方程式の列ベクトル{f}の各要素を表す添字をiとする
+<br>
+・これより方程式の全微分dfを次のテンソルで表記する
+<br>
+{df[i]}=(df[i]/dx[j]){dx[j]}
+<br>
+・左辺の全微分を単純に仮定すると
+<br>
+{df[i]}={0-f[i]}
+<br>
+・Ax=bの連立線形方程式に一般化されたNewton法が導出される
+<br>
+・ここで符号はゼロとの差分またはScalar倍で定義される
+<br>
+(df[i]/dx[j]){dx[j]}={-f[i]}
+<br>
+A=(df[i]/dx[j])
+<br>
+x={dx[j]}
+<br>
+b={-f[i]}
+<br>
+・Jacobi行列Aがfull-rankであれば求解の必要十分条件を満たす
+<br>
+・直接法で求解した解の修正ベクトルdxを用いて近似解を修正する
+<br>
+<br>
+上記の反復1回の処理をまとめたNewton法の関数について記述する
+<br>
+・関数の引数はJacobi行列に同じとする
+<br>
+・Scalar倍の符号位置を変えて次の連立線形方程式を直接法で解く
+<br>
+A=(df[i]/dx[j])
+<br>
+x={-dx[j]}
+<br>
+b={f[i]}
+<br>
+・さらに得られた符号付の解の修正ベクトルをmdxとして
+<br>
+・近似解のベクトルを一度に修正する
+<br>
+x=x-mdx
+<br>
+・関数の返値はmdxとする
+<br>
+<br>
+以上より、反復1回の処理を簡潔にまとめる
+<br>
+storage cleared
+<br>
+x&lt;={x0,x1}; x_initial&lt;={0,0};
+<br>
+f&lt;={1x0+2x1=5,3x0+4x1=6};
+<br>
+run&lt;=last(mdx=Newton(&lt;=f,&lt;=x,&lt;=x_initial),norm(f));
+<br>
+・実行用の式変数runを定義してノルムのみ表示する
+<br>
+<br>
+反復を実行
+<br>
+run -> 1.5110397245615487e-10-1.5110314920574838e-10i
+<br>
+run -> 8.88178419690632e-16-1.3034944737297214e-20i
+<br>
+run -> infoLost!! 8.881784197001252e-16-9.569960623112204e-26i
+<br>
+・反復3回目のノルムと近似解は先述の通り一致する
+<br>
+x -> (infoLost!! -3.999999999999999-3.362471994400586e-26i:
+<br>
+infoLost!! 4.499999999999999+6.466216308756395e-26i)
+    </td>
+  </tr>
+  <tr>
+    <th>
+連立
+<br>
+非線形方程式
+<br>
+の解法
+    </th>
+    <td>
+<span id="span-out-non-linear"></span>
+式変数を使用した連立非線形方程式の反復解法について記述する
+<br>
+<br>
+虚数単位を求める1元2次の方程式を一例に示す
+<br>
+x0^2+1=0
+<br>
+・解を二つ示す
+<br>
+x0=i; x0^2+1=0 -> 1.2246467991473532e-16i
+<br>
+x0=-i; x0^2+1=0 -> 1.2246467991473532e-16i
+<br>
+・非線形方程式を定義する
+<br>
+storage cleared
+<br>
+x&lt;={x0};
+<br>
+f&lt;={x0^2+1=0};
+<br>
+<br>
+初期値を1+2iとした反復6回目の近似解を示す
+<br>
+run&lt;=last(mdx=Newton(&lt;=f,&lt;=x,&lt;={1+2i}),norm(f));
+<br>
+run; run; run; run; run;
+<br>
+run -> 6.661338147750939e-16+1.2246467991473527e-16i
+<br>
+x -> 6.918085522901255e-17+0.9999999999999997i
+<br>
+<br>
+初期値を1-2iとした反復6回目の近似解を示す
+<br>
+・storageクリアしない場合、前回値優先で初期値の引数は無効
+<br>
+・初期値を直接更新して実行する
+<br>
+x0=1-2i; run; run; run; run; run;
+<br>
+run -> 4.4408920985006257e-16-3.2162452993532747e-16i
+<br>
+x -> -5.067058578678027e-17-1.0000000000000002i
+<br>
+<br>
+以上の結果をまとめる
+<br>
+・解が複数存在する場合、得られる近似解は初期値に依存する
+<br>
+・近似解の初期値によっては収束せずに解が発散する
+<br>
+<br>
+次に関数を使用した2元の連立非線形方程式を一例に示す
+<br>
+・連立非線形方程式と初期値を定義する
+<br>
+storage cleared
+<br>
+x&lt;={x0,x1}; x_initial&lt;={1+i,1-i};
+<br>
+f&lt;={x0^i-2x1=3i,3x0+exp(x1)=5i};
+<br>
+run&lt;=last(mdx=Newton(&lt;=f,&lt;=x,&lt;=x_initial),norm(f));
+<br>
+・反復6回目の近似解を示す
+<br>
+run; run; run; run; run;
+<br>
+run -> infoLost!! 0
+<br>
+x -> (infoLost!! -0.04901921620544653+2.023423045158351i:
+<br>
+infoLost!! 0.07726186556052178-1.434248862158042i)
+    </td>
+  </tr>
+  <tr>
+    <th>
+特殊仕様
+    </th>
+    <td>
+<span id="span-out-special"></span>
+最後に一般的でない可能性のある仕様について記述する
+<br>
+<br>
+前置き単項の符号の扱いについて記述する
+<br>
+・単項の符号は同種の2項演算子と区別せず結合性に従って演算する
+<br>
+・このとき、符号の左側にはゼロが存在すると仮定する
+<br>
++3-5+7-9　左結合時((((0+3)-5)+7)-9)　右結合時(0+(3-(5+(7-9))))
+<br>
+・行列も同様に単項の符号はゼロ行列との差分またはScalar倍として扱う
+<br>
+-(1,2:3,4) || (,:,)-(1,2:3,4) || (-1,:,-1)(1,2:3,4) -> (-1,-2:-3,-4)
+<br>
+<br>
+次にイコール記号=の扱いについて記述する
+<br>
+・代入と判別されないイコール記号は、右辺移行の2項演算子として扱う
+<br>
+・2項の結合性に依存するが、単体使用を前提とする
+<br>
+-3=5 || (0-3)=5 || 5+3 -> 8
+<br>
+(1,2:3,4)=(,:,) -> (-1,-2:-3,-4)
+<br>
+(1,2:3,4)=(,) -> [MyErr]Invalid matrix operation
+<br>
+・単項の場合、符号同様に左辺にはゼロまたはゼロ行列が存在すると仮定する
+<br>
+=8 || 0=8 || 8-0 -> 8
+<br>
+=(1,2:3,4) || (1,2:3,4)-(,:,) -> (1,2:3,4)
+<br>
+・本仕様は式変数への式代入で次の構文を許容する
+<br>
+f&lt;={x0^2+1=0}
+<br>
+<br>
+行列を扱う上での演算都合上の仕様について記述する
+<br>
+・代入処理を括弧で括ると0を返す
+<br>
+(x=3) -> 0
+<br>
+x -> 3
+<br>
+・代入後はゼロが残ると仮定して演算する
+<br>
+2(x=3) || 2(3=3) || 2(=3-3) || 2(0) -> 0
+<br>
+・代入処理をカンマまたはコロンで区切ると0を返す
+<br>
+max(x=3,-1,-2) || max(0,-1,-2) -> 0
+<br>
+(1,2:3,4:x=5,x) -> (1,2:3,4:0,5)
+<br>
+・ただし、行列を代入しても次元は残らない
+<br>
+(x=(1,2:3,4)) -> 0
+<br>
+x=(1,2),x || 0,(1,2) -> (0,1,2)
+<br>
+max(x=(-1,-2),min(x)) || max(0,-2) -> 0
+<br>
+vector={1,2,3}:trans(vector)vector -> 0:14
+<br>
+・式変数への代入も同様
+<br>
+(x&lt;=(a,b,c,d,e)) -> 0
+<br>
+・変数への式読出しは読出し値が残る
+<br>
+storage cleared
+<br>
+y&lt;=3x-1,x=3,y=&gt;,y=&gt;y0,y0 -> (0,0,8,8,8)
+<br>
+<br>
+最後に式変数について記述する
+<br>
+・式変数、式代入、式読出し、式渡しの仕様は呼び名含めて一般的でない
+<br>
+・連立方程式をスクリプト入力から解くために独自に定義している
+    </td>
+  </tr>
+</tbody>
+</table>
+</div>
+<hr>
+
+<div>
+<table>
+<caption><span id="span-in">内部仕様</span></caption>
+<thead>
+  <tr>
+    <th>
+項目
+    </th>
+    <th>
+ソース抜粋
+    </th>
+  </tr>
+</thead>
+<tbody>
+  <tr>
+    <th>
+単位tree構造
+    </th>
+    <td>
+<span id="span-in-tree"></span>
+再帰的に帰結する深さゼロの単位tree構造を以下に示す
+<br>
+<br>
+parser.jsで入力データにtag付けして深さ方向にtree化し、
+<br>
+operation.jsでtagを判別して演算し、treeを動的に組替える
+<pre><code>
+            j-th sentence
+  trees2d: [j][i]{tag || num}
+  trees1d,     i-th tokens
+    trees: [i]{}
+  trees0d,
+     tree: {}
+      tag: {"name": {val: val}}
+      num: {mat:    {arr: arr}}
+      1+i: arr [0] [0] {com: {r: 1, i: 1}}
+   matrix:     row col {complex number   }
+(i,2:3,4): arr [0] [0] {com: {r: 0, i: 1}}
+               [0] [1] {com: {r: 2, i: 0}}
+               [1] [0] {com: {r: 3, i: 0}}
+               [1] [1] {com: {r: 4, i: 0}}
+</code></pre>
+関数の引数ベクトルはarr[arr.length-1]を参照する
+    </td>
+  </tr>
+  <tr>
+    <th>
+オプション
+    </th>
+    <td>
+<span id="span-in-options"></span>
+コマンドライン実行で必要な内部のオプション項目について記述する
+<br>
+<br>
+全オブジェクトはグローバルスコープから見えないMy_entryで始まる
+<br>
+<br>
+My_entry.parserに渡すdataオブジェクトを示す
+<br>
+var data = {options:{}, vars:{}, eqns:{}};
+<br>
+<br>
+内部オプションに相当するdata.optionsのプロパティを以下に列挙する
+<br>
+<br>
+・makeLog: 演算終了後にログ出力用の文字列を作成するフラグ
+<br>
+　コマンドラインからログを見る場合、フラグを立てる
+<br>
+　一例を次に示す（以降のフラグも同様）
+<pre><code>
+var data = new My_entry.DATA().data();
+data.in = "2*3";
+new My_entry.parser().run(data);
+data.out -> [Array(1)]  // 上記の単位tree構造が返却される
+data.log -> undefined
+data.options.makeLog = true;
+new My_entry.parser().run(data);
+data.log -> " 6"
+data.logh -> "2*3\n6"
+data.logo -> "makeLog=true;"
+</code></pre>
+・useComplex: 複素数を使用するフラグ
+<br>
+<br>
+・useMatrix: 行列を使用するフラグ
+<br>
+<br>
+以降、省略で既定値
+<br>
+<br>
+・isRightAssociativityBR: 2項演算子の結合性を右結合に変更するフラグ
+<br>
+<br>
+・isDIVprior2MUL: 乗算より除算を優先するフラグ
+<br>
+<br>
+・expDigit: 演算結果を表示する指数表記の桁数
+<br>
+<br>
+・precedence: カンマ区切りで演算子のtag名を列挙した文字列
+<br>
+<br>
+・checkError: 誤差を評価するフラグ
+<br>
+<br>
+・BTrow2col: 行ベクトルを列ベクトルに変更する括弧のtag名
+<br>
+<br>
+・BTref: 行列要素を参照する括弧のtag名
+<br>
+<br>
+以降、コマンドライン実行は無効
+<br>
+<br>
+・useWorker: Workerを使用するフラグ
+<br>
+<br>
+ブラウザから実行する場合、URLのGET入力で既定値を上書き可
+    </td>
+  </tr>
+  <tr>
+    <th>
+変数・
+<br>
+区切り文字・
+<br>
+演算子の優先順位
+    </th>
+    <td>
+<span id="span-in-rank"></span>
+変数・区切り文字・演算子の優先順位について記述する
+<br>
+<br>
+配列要素の定義順で優先順位を動的に変更可能とする
+<br>
+<br>
+operation.jsより抜粋
+<pre><code>
+  precedence: [
+                 // comments and white-spaces are removed by parser
+    [
+      [
+        /* following delimiter */
+                 // SeparatoR semi-colon; are removed by parser
+        "SRr",   // SeparatoR colon:
+        "SRt"    // SeparatoR comma,
+      ],
+      [
+        /* following store */
+        "SEe"    // StorE obvious equation including bracket
+      ],
+      [
+        /* following delimiter */
+        "BT2",   // BrackeT {
+        "BT1",   // BrackeT (
+        "BT0"    // BrackeT [
+      ],
+      [
+        /* following restore */
+        "REe",   // RestorE obvious equation
+        "REv"    // RestorE variable first, equation second
+      ]
+    ],
+    [
+      [
+        /* following operator */
+        "FNmat", // FunctioN for matrix
+        "FN",    // FunctioN?numberArgs
+        "FNn",
+        "URi",   // post-Unary operatoR imaginary unit i
+        "URf"    // factorial mark ! || !!... operand is only natural number
+      ],
+      [
+        "BRp",   // Binary operatoR ** || ^ -&gt; pow(left, right)
+        "BRr"    // Binary operatoR %       -&gt; mod(left, right)
+      ],
+      [
+        "BRm",   // Binary operatoR *
+        "BRmo"   // omitted multiplication sign
+      ],
+      [
+        "BRd"    // Binary operatoR /
+      ],
+      [
+        "BRsa"   // Binary operatoR - || + including Pre-Unary operator - || +
+      ],
+      [
+        "BRbs",  // Binary operatoR bit shift &lt;&lt; || &gt;&gt; || &gt;&gt;&gt;
+        "BRba",  // Binary operatoR bit   and &amp;
+        "BRbx",  // Binary operatoR bit   xor @
+        "BRbo"   // Binary operatoR bit    or |
+      ]
+    ],
+    [
+      [
+        "BRe"    // Binary operatoR = including Pre-Unary operator =
+      ],
+      [
+        /* following store */
+        "SEv"    // StorE variable
+      ]
+    ]
+  ],
+</code></pre>
+    </td>
+  </tr>
+  <tr>
+    <th>
+定義済みの
+<br>
+関数・予約語
+    </th>
+    <td>
+<span id="span-in-FN"></span>
+定義済みの関数・予約語について記述する
+<br>
+<br>
+予約語は大文字・小文字・全角・半角を区別しない
+<br>
+<br>
+parser.jsより抜粋
+<pre><code>
+      // reserved word
+      case "ans":
+        tree = DATA.tree_tag("REv", token_lower);
+        break;
+      // for matrix
+      case "trans":
+      case "transpose":
+        tree = DATA.tree_tag("FNmat", "transpose");
+        break;
+      case "norm":
+      case "euclidean":
+        tree = DATA.tree_tag("FNmat", "euclidean");
+        break;
+      case "jacobi":
+      case "jacobian":
+        tree = DATA.tree_tag("FNmat", "jacobian");
+        break;
+      case "gauss":
+      case "gaussian":
+        tree = DATA.tree_tag("FNmat", "gaussian");
+        break;
+      case "newton":
+      case "newtonian":
+        tree = DATA.tree_tag("FNmat", "newtonian");
+        break;
+      case "first":
+      case "last":
+        tree = DATA.tree_tag("FNmat", token_lower);
+        break;
+      // "CT"
+      // JavaScript defined
+      case "epsilon":
+      case "min_safe_integer":
+      case "max_safe_integer":
+        tree = DATA.tree_num(self.entry.math.config[token_upper], 0);
+        break;
+      case "min_value":
+      case "max_value":
+      case "positive_infinity":
+      case "negative_infinity":
+        tree = DATA.tree_num(Number[token_upper], 0);
+        break;
+      // My defined
+      case "eps":
+        tree = DATA.tree_num(self.entry.math.config["EPSILON"], 0);
+        break;
+      case  "inf":
+      case  "infinity":
+      case "pinf":
+      case "pinfinity":
+        tree = DATA.tree_num(Number.POSITIVE_INFINITY, 0);
+        break;
+      case "ninf":
+      case "ninfinity":
+        tree = DATA.tree_num(Number.NEGATIVE_INFINITY, 0);
+        break;
+      case  "infi":
+      case  "infinityi":
+      case "pinfinityi":
+      case "pinfi":
+        tree = DATA.tree_num(0, Number.POSITIVE_INFINITY);
+        break;
+      case "ninfinityi":
+      case "ninfi":
+        tree = DATA.tree_num(0, Number.NEGATIVE_INFINITY);
+        break;
+      // JavaScript defined
+      case "ln2":
+      case "ln10":
+      case "log2e":
+      case "log10e":
+      case "sqrt1_2":
+      case "sqrt2":
+      // "FN0orCT"
+      // Both defined
+      case "e":
+      case "pi":  // pi || PI() in Excel
+        tree = DATA.tree_num(Math[token_upper], 0);
+        break;
+      // "FN0"
+      // JavaScript defined
+      case "random":
+      // Excel defined
+      case "rand":
+        tree = DATA.tree_num(Math.random(), 0);
+        break;
+      // "FN1"
+      case "ln":
+        tree = DATA.tree_tag("FN", "log");
+        break;
+      case "int":
+        tree = DATA.tree_tag("FN", "floor");
+        break;
+      // JavaScript defined
+      case "ceil":
+      case "floor":
+      case "round":
+      case "log":
+      // Excel defined
+      case "sinh":
+      case "cosh":
+      case "tanh":
+      case "asinh":
+      case "acosh":
+      case "atanh":
+      case "sign":
+      case "fact":
+      case "degrees":
+      case "radians":
+      // Both defined
+      case "abs":
+      case "sqrt":
+      case "exp":
+      case "sin":
+      case "cos":
+      case "tan":
+      case "asin":
+      case "acos":
+      case "atan":
+      case "log10":
+      // My defined
+      case "sin_deg":
+      case "cos_deg":
+      case "tan_deg":
+      case "deg_asin":
+      case "deg_acos":
+      case "deg_atan":
+      case "deg2rad":
+      case "rad2deg":
+      case "ecomp":
+      case "ecomplex":
+      case "real":
+      case "imag":
+      case "imaginary":
+      case "conj":
+      case "conjugate":
+      case "arg":
+      case "argument":
+      case "deg_arg":
+      case "deg_argument":
+        tree = DATA.tree_tag("FN", token_lower);
+        break;
+      // "FN1or2"
+      // Excel defined
+      case "log_ex":
+        tree = DATA.tree_tag("FN", token_lower);
+        break;
+      // "FN2"
+      case "power":
+        tree = DATA.tree_tag("FN", "pow");
+        break;
+      // JavaScript defined
+      case "pow":
+      case "atan2":
+      case "imul":
+      // Excel defined
+      case "combin":
+      case "combination":
+      // My defined
+      case "permut":
+      case "permutation":
+      case "deg_atan2":
+      case "atan2_ex":  // Excel spec
+      case "deg_atan2_ex":
+      case "comp":
+      case "complex":
+      case "pcomp":
+      case "pcomplex":
+      case "kdelta":
+      case "mod":
+      case "fmod":
+      // "FN3or4"
+      // My defined
+      case "star":
+      case "poly":
+      case "polygon":
+        tree = DATA.tree_tag("FN", token_lower);
+        break;
+      // "FNn" n&lt;256 in Excel
+      // Excel defined
+      case "lcm":
+      case "gcd":
+      // Both defined
+      case "min":
+      case "max":
+        tree = DATA.tree_tag("FNn", token_lower);
+        break;
+      default:
+        tree = DATA.tree_tag("REv", token);
+        break;
+</code></pre>
+    </td>
+  </tr>
+</tbody>
+</table>
+</div>
+<hr>
+
+  </div>
+</body>
+
+</html>

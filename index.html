@@ -20,7 +20,7 @@
   (function(document){
     document.body.onload = function(e){
       document.getElementById("VERSION").textContent = "VERSION: "+My_entry.VERSION;
-      ["wave", "else"].forEach(function(name){
+      ["calc", "wave", "else"].forEach(function(name){
         document.getElementById("Ver-"+name).textContent = My_entry.Ver[name]
       });
     };
@@ -54,6 +54,20 @@ Ver.
   </tr>
 </thead>
 <tbody>
+  <tr>
+    <th>
+計算
+    </th>
+    <td>
+<a title="簡易電卓non-eval" href="01_calc_simple/index.html?precedence=default&checkError=true">簡易電卓non-eval</a>
+    </td>
+    <td>
+<a title="[説明書]電卓non-eval" href="01_calc_simple/manual.html">[説明書]電卓non-eval</a>
+    </td>
+    <td>
+<span id="Ver-calc"></span>
+    </td>
+  </tr>
   <tr>
     <th>
 生成

@@ -22,6 +22,21 @@ My_entry.reference.prototype.fn2url = function(fn){
   return self.entry.conv.blob2url(blob);
 };
 
+// polygon-planet-log.blogspot.com/2012/02/javascript_25.html
+// to 01_calc
+My_entry.reference.prototype.get_pattern_token = function(){
+  var self = this;
+  return /0(?:[xX][0-9a-fA-F]+)|\d+(?:\.\d+)?(?:[eE][+-]?\d+)?|[-+\/%*=&|^~<>!?:,;@()\\[\].{}]|[^\s+\/%*=&|^~<>!?:,;@()\\[\].{}'"-]+/;
+};
+
+// rewish.hatenadiary.org/entry/20100427/1272296260
+// to 01_calc
+My_entry.reference.prototype.fullStr2half = function(fullStr){
+  var self = this;
+  var ba = {b: /[Ａ-Ｚａ-ｚ０-９！-～]/g, a: function(fullStr){return String.fromCharCode(fullStr.charCodeAt(0)-0xFEE0);}};
+  return fullStr.replace(ba.b, ba.a);
+};
+
 // en.m.wikipedia.org/wiki/MIDI_tuning_standard
 // to 30_wave
 My_entry.reference.prototype.calc_freq = function(octave, code){

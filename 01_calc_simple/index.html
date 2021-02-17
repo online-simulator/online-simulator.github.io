@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+
+<html lang="ja">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="description" content="簡易電卓non-eval">
+  <meta name="author" content="online-simulator.github.io">
+  <noscript>JavaScript is not enabled on browser.</noscript>
+  <link rel="stylesheet" type="text/css" href="../00_common/css/common.css">
+  <link rel="stylesheet" type="text/css" href="../00_common/css/color.css">
+  <link rel="stylesheet" type="text/css" href="../00_common/css/size.css">
+  <link rel="stylesheet" type="text/css" href="css/common.css">
+  <link rel="stylesheet" type="text/css" href="css/color.css">
+  <link rel="stylesheet" type="text/css" href="css/size.css">
+  <script type="text/javascript" src="../00_common/js/000_namespace/000_entry.js"></script>
+  <script type="text/javascript" src="../00_common/js/00_class/000_reference.js"></script>
+  <script type="text/javascript" src="../00_common/js/00_class/00_$.js"></script>
+  <script type="text/javascript" src="../00_common/js/00_class/00_conv.js"></script>
+  <script type="text/javascript" src="../00_common/js/00_class/00_def.js"></script>
+  <script type="text/javascript" src="../00_common/js/00_class/01_math.js"></script>
+  <script type="text/javascript" src="../00_common/js/00_class/01_math_com.js"></script>
+  <script type="text/javascript" src="../00_common/js/00_class/01_math_mat.js"></script>
+  <script type="text/javascript" src="../00_common/js/00_class/01_solver.js"></script>
+  <script type="text/javascript" src="../00_common/js/00_class/02_DATA.js"></script>
+  <script type="text/javascript" src="../00_common/js/00_class/02_operation.js"></script>
+  <script type="text/javascript" src="../00_common/js/00_class/02_parser.js"></script>
+  <script type="text/javascript" src="../00_common/js/00_class/02_unit.js"></script>
+  <script type="text/javascript" src="../00_common/js/01_driver/01_browser.js"></script>
+  <script type="text/javascript" src="../00_common/js/01_driver/01_drag.js"></script>
+  <script type="text/javascript" src="../00_common/js/01_driver/01_io.js"></script>
+  <script type="text/javascript" src="../00_common/js/01_driver/01_io_ex.js"></script>
+  <script type="text/javascript" src="../00_common/js/01_driver/01_io_ex1.js"></script>
+  <script type="text/javascript" src="../00_common/js/01_driver/01_link.js"></script>
+  <script type="text/javascript" src="../00_common/js/02_handler/02_handler_drag.js"></script>
+  <script type="text/javascript" src="../00_common/js/02_handler/02_handler_link.js"></script>
+  <script type="text/javascript" src="../00_common/js/02_handler/02_handler_worker.js"></script>
+  <script type="text/javascript" src="../00_common/js/03_original/03_original_main.js"></script>
+  <script type="text/javascript" src="../00_common/js/03_original/03_original_worker.js"></script>
+  <script type="text/javascript" src="js/for_importScripts.js"></script>
+  <script type="text/javascript" src="js/03_calc_simple.js"></script>
+</head>
+
+<body>
+  <div id="div-drag">
+
+<script type="text/javascript">
+  (function(document){
+    document.body.onload = function(e){
+      new My_entry.calc_simple().onload(e);
+    };
+  })(document);
+</script>
+
+<div class="text-center">
+  <label>ドラッグ移動可
+    <input id="checkbox-drag" type="checkbox">
+  </label>
+</div>
+
+<div>
+  <table class="no-border text-center" cellspacing="4">
+    <caption></caption>
+    <thead></thead>
+    <tbody>
+      <tr>
+        <td>出力:</td>
+        <td colspan="5">
+<input id="output" readonly="readonly">
+        </td>
+      </tr>
+      <tr>
+        <td>入力:</td>
+        <td colspan="5">
+<input id="input" readonly="readonly" value="e^(-i(1pi()2/2i(5-3-1)i/(-4)))/*条件依存のtestcase*/;e^(-i(1pi(){2/{2i({5-3}-1)i}}/(-4)))/*既定：左結合・乗算優先*/;=e^(i{-pi/4})/*左記||下記解*/;e^(-i({1pi()2}/{{2i(5-{3-1})i}/(-4)}))/*選択：右結合・乗算優先*/;=e^(i{-4pi/3})/*左記||下記解*/;e^(-i(1pi(){2/2i}({5-3}-1){i/(-4)}))/*選択：左結合・除算優先*/;=e^(i{pi/4})/*左記||下記解*/;e^(-i(1pi(){2/2i}(5-{3-1}){i/(-4)}))/*選択：右結合・除算優先*/;=e^(i{3pi/4})/*左記||下記解*/;vector={1,2,3}/*列ベクトルを変数に代入*/;trans(vector)vector/*内積(1,2,3){1,2,3}*/;vector*trans(vector)/*外積{1,2,3}(1,2,3)*/;matrix=(e^(i{pi/4}),:e^(i{-pi/4}),)/*行列演算も同様*/;trans(matrix)matrix/*行列の積*/;x<={x0,x1}/*未知変数を定義する列ベクトルを式変数に代入*/;x_initial<={1+i,1-i}/*未知変数初期値の列ベクトルを式変数に代入*/;f<={x0^i-2x1=3i,3x0+exp(x1)=5i}/*未知変数の連立方程式を定義する列ベクトルを式変数に代入*/;run<=last(mdx=Newton(<=f,<=x,<=x_initial),norm(f))/*Newton法による反復1回のEuclidノルムを返す式変数を定義*/;run;run;run;run;run;run;x/*反復6回目の近似解*/">
+        </td>
+      </tr>
+      <tr>
+        <td class="left-box"><label>sw:<input id="checkbox-sw" type="checkbox"></label></td>
+        <td><button class="wF">7</button></td>
+        <td><button class="wF">8</button></td>
+        <td><button class="wF">9</button></td>
+        <td><button class="cF">／</button></td>
+        <td><button class="clear" title="All Clear">C</button></td>
+      </tr>
+      <tr>
+        <td rowspan="2"></td>
+        <td><button class="wF">4</button></td>
+        <td><button class="wF">5</button></td>
+        <td><button class="wF">6</button></td>
+        <td><button class="cF">＊</button></td>
+        <td><button class="wF">BS</button></td>
+      </tr>
+      <tr>
+        <td><button class="wF">1</button></td>
+        <td><button class="wF">2</button></td>
+        <td><button class="wF">3</button></td>
+        <td><button class="cF">－</button></td>
+        <td><button class="sF" title="出力欄→入力欄に代入(結果確定)">ans</button></td>
+      </tr>
+      <tr>
+        <td class="left-box"><label>0x:<input id="checkbox-0x" type="checkbox"></label></td>
+        <td><button class="wF">0</button></td>
+        <td><button class="wF">.</button></td>
+        <td><button class="wF ex-0x">0x</button></td>
+        <td><button class="cF">＋</button></td>
+        <td><button class="run">＝</button></td>
+      </tr>
+      <tr>
+        <td><button class="wF ex-0x">a</button></td>
+        <td><button class="wF ex-0x">b</button></td>
+        <td><button class="wF ex-0x">c</button></td>
+        <td><button class="wF ex-0x">d</button></td>
+        <td><button class="wF ex-0x">e</button></td>
+        <td><button class="wF ex-0x">f</button></td>
+      </tr>
+      <tr>
+        <td><button class="wF ex-com">i</button></td>
+        <td colspan="5">
+  <label><input id="checkbox-useComplex" type="checkbox" checked="checked">:complex</label>
+  <label><input id="checkbox-useMatrix" type="checkbox" checked="checked">:matrix</label>
+  <label>
+<select id="select-expDigit">
+  <option value="-1">小数表記</option>
+  <option value="0">指数表記0桁</option>
+  <option value="1">指数表記1桁</option>
+  <option value="2">指数表記2桁</option>
+  <option value="3">指数表記3桁</option>
+  <option value="4">指数表記4桁</option>
+  <option value="5">指数表記5桁</option>
+  <option value="7">指数表記7桁</option>
+  <option value="9">指数表記9桁</option>
+  <option value="11">指数表記11桁</option>
+  <option value="13">指数表記13桁</option>
+  <option value="15">指数表記15桁</option>
+</select>
+  </label>
+        </td>
+      </tr>
+      <tr>
+        <td rowspan="2">履歴:</td>
+        <td colspan="5">
+<textarea id="history" readonly="readonly" rows="5"></textarea>
+        </td>
+      </tr>
+      <tr>
+        <td colspan="5">
+<div id="wrapper-link"></div>
+        </td>
+      </tr>
+      <tr>
+        <td colspan="6">
+<hr>
+<div class="text-left">
+  <label>・右結合2項演算（右から式を評価）:<input id="checkbox-isRightAssociativityBR" type="checkbox"></label>
+<br>
+  <label>・乗算より除算優先:<input id="checkbox-isDIVprior2MUL" type="checkbox"></label>
+</div>
+<hr>
+<div class="text-left">
+  <label>・マルチスレッド実行:<input id="checkbox-useWorker" type="checkbox" checked="checked"></label>
+</div>
+<hr>
+        </td>
+      </tr>
+      <tr>
+        <td colspan="6">
+<div class="text-center">
+  <a title="[説明書]電卓non-eval" href="manual.html">[説明書]電卓non-eval</a>
+</div>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+<br>
+
+  </div>
+</body>
+
+</html>

@@ -1,0 +1,36 @@
+@charset "UTF-8";
+
+body{
+  max-width: 1024px;
+  font-size: 1.3em;
+}
+input, textarea{
+  font-size: 1.3em;
+}
+select{
+  font-size: 0.8em;
+}
+button{
+  font-size: 1.3em;
+}
+
+input{
+  width: 97%;
+}
+textarea{
+  width: 97%;
+}
+button{
+  min-width: 2em;
+  min-height: 2em;
+  width: 100%;
+}
+
+table, td, th{
+  border: 1px solid;
+}
+
+.left-box{
+  min-width: 2em;
+  width: 3em;
+}

@@ -208,6 +208,11 @@ My_entry.$.prototype.setup_elems_readonly = function(_arr_elem){
         elem.select();
       };
     }
+    else{
+      if(elem.onfocus){
+        elem.onfocus = null;
+      }
+    }
   });
   return _arr_elem;
 };
@@ -243,4 +248,91 @@ My_entry.$.prototype.get_elems$_tag = function(tagName){
 My_entry.$.prototype.get_elem$_id = function(id){
   var self = this;
   return self.get_elems([self._id(id)]);
+};
+My_entry.$.prototype.show = function(selector, isChecked, isDisplay){
+  var self = this;
+  var _arr = self.arr(selector);
+  var prop = (isDisplay)? "display": "visibility";
+  var val = (isDisplay)?
+    (isChecked? "block": "none"):
+    (isChecked? "visible": "hidden");
+  _arr.forEach(function(elem){
+    self.set_elem(elem, prop, val);
+  });
+  return _arr;
+};
+My_entry.$.prototype.hide = function(selector, isChecked, isDisplay){
+  var self = this;
+  return self.show(selector, !(isChecked), isDisplay);
+};
+My_entry.$.prototype.val2literal = function(val){
+  var self = this;
+  var _val = val;
+  switch(val.toUpperCase()){
+    case "UNDEFINED":
+      _val = undefined;
+      break;
+    case "NULL":
+      _val = null;
+      break;
+    case "FALSE":
+      _val = false;
+      break;
+    case "TRUE":
+      _val = true;
+      break;
+    case "DEFAULT":
+      _val = "";
+      break;
+    default:
+      break;
+  }
+  return _val;
+};
+My_entry.$.prototype.get_urlParam = function(key_comp){
+  var self = this;
+  var _str = "";
+  if(location && location.search){
+    var params = location.search.split("?")[1].split("&");
+    for(var i=0, len=params.length; i<len; ++i){
+      var arr = params[i].split("=");
+      var key = arr[0];
+      var val = arr[1];
+      if(key && val){
+        if(key.toUpperCase() === key_comp.toUpperCase()){
+          _str = self.val2literal(val);
+          break;
+        }
+      }
+    }
+  }
+  return _str;
+};
+My_entry.$.prototype.get_urlParams = function(obj){
+  var self = this;
+  var _obj = obj || {};
+  if(location && location.search){
+    var params = location.search.split("?")[1].split("&");
+    for(var i=0, len=params.length; i<len; ++i){
+      var arr = params[i].split("=");
+      var key = arr[0];
+      var val = arr[1];
+      if(key && val){
+        _obj[key] = self.val2literal(val);
+      }
+    }
+  }
+  return _obj;
+};
+My_entry.$.prototype.get_elemProps = function(selector, separator, prop, obj){
+  var self = this;
+  var _obj = obj || {};
+  self.arr(selector).forEach(function(elem){
+    var val = elem[prop];
+    if(prop === "value"){
+      val = (isNaN(Number(val)))? val: Number(val);
+    }
+    _obj[elem.id.split(separator)[1]] = val;
+  });
+  return _obj;
 };
