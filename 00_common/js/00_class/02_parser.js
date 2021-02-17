@@ -572,7 +572,8 @@ My_entry.parser.prototype.make_logo = function(data){
   var _log = "";
   var options = data.options;
   for(var prop in options){
-    _log += prop+"="+options[prop]+";";
+    if(_log) _log += "&";
+    _log += prop+"="+options[prop];
   }
   return _log;
 };
