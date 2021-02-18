@@ -68,9 +68,7 @@ My_entry.DATA.prototype.tree2trees = function(tree){
 };
 My_entry.DATA.prototype.trees2tree = function(trees){
   var self = this;
-  if(trees.length > 1){
-    throw false;
-  }
+  if(trees.length > 1) throw false;
   return trees[0];
 };
 My_entry.DATA.prototype.data = function(trees, options, vars, eqns){
