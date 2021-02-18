@@ -2002,16 +2002,21 @@ y&lt;=3x-1,x=3,y=&gt;,y=&gt;y0,y0 -> (0,0,8,8,8)
     </th>
     <td>
 <span id="span-in-tree"></span>
-再帰的に帰結する深さゼロの単位tree構造を以下に示す
+演算単位となる単位tree構造を以下に示す
 <br>
 <br>
-parser.jsで入力データにtag付けして深さ方向にtree化し、
+これに基づく演算仕様について記述する
 <br>
-operation.jsでtagを判別して演算し、treeを動的に組替える
+・i行j列の行列要素は2次元配列arr[i][j]を参照する
+<br>
+・関数の引数ベクトルはarr[arr.length-1]を参照する
+<br>
+・無次元の演算や定義できない行列演算はarrの最終要素を参照する
+<br>
 <pre><code>
             j-th sentence
   trees2d: [j][i]{tag || num}
-  trees1d,     i-th tokens
+  trees1d,     i-th token
     trees: [i]{}
   trees0d,
      tree: {}
@@ -2024,7 +2029,6 @@ operation.jsでtagを判別して演算し、treeを動的に組替える
                [1] [0] {com: {r: 3, i: 0}}
                [1] [1] {com: {r: 4, i: 0}}
 </code></pre>
-関数の引数ベクトルはarr[arr.length-1]を参照する
     </td>
   </tr>
   <tr>

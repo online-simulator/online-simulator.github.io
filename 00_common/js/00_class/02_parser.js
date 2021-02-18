@@ -163,7 +163,7 @@ My_entry.parser.prototype.compare2bas = function(tokens, i){
 /*
             j-th sentence
   trees2d: [j][i]{tag || num}
-  trees1d,     i-th tokens
+  trees1d,     i-th token
     trees: [i]{}
   trees0d,
      tree: {}
