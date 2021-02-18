@@ -313,9 +313,6 @@ My_entry.operation.prototype.BT0 = function(data, i0, tagName, tagObj){
   var isBTref = (tagName === self.options.BTref);
   self.storage.BT = tagName;
   var newTrees = self.data2trees(self.get_newData(data, tagObj.val));
-  if(newTrees.length > 1){
-    throw false;
-  }
   var tree = self.tree2tree_mat(DATA.trees2tree(newTrees));
   if(isBTref){
     var arr = tree.mat.arr;
