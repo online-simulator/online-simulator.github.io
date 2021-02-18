@@ -613,7 +613,7 @@ UIには表示しない裏設定について記述する
 <br>
 index.html?precedence=
 <br>
-FNmat,FN,FNn,URi,URf,BRp,BRr,BRm,BRmo,BRd,BRsa,BRbs,BRba,BRbx,BRbo
+URi,URf,BRp,BRr,BRm,BRmo,BRd,BRsa,BRbs,BRba,BRbx,BRbo
 <br>
 ・別途、乗算記号の省略を許容しない場合、tag名BRmoを削除する
 <br>
@@ -2144,14 +2144,16 @@ operation.jsより抜粋
         /* following restore */
         "REe",   // RestorE obvious equation
         "REv"    // RestorE variable first, equation second
+      ],
+      [
+        /* following function */
+        "FNmat", // FunctioN for matrix
+        "FN",    // FunctioN?numberArgs
+        "FNn"
       ]
     ],
     [
       [
-        /* following operator */
-        "FNmat", // FunctioN for matrix
-        "FN",    // FunctioN?numberArgs
-        "FNn",
         "URi",   // post-Unary operatoR imaginary unit i
         "URf"    // factorial mark ! || !!... operand is only natural number
       ],

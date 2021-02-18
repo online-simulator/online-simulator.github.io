@@ -31,14 +31,16 @@ My_entry.operation.prototype.config = {
         /* following restore */
         "REe",   // RestorE obvious equation
         "REv"    // RestorE variable first, equation second
+      ],
+      [
+        /* following function */
+        "FNmat", // FunctioN for matrix
+        "FN",    // FunctioN?numberArgs
+        "FNn"
       ]
     ],
     [
       [
-        /* following operator */
-        "FNmat", // FunctioN for matrix
-        "FN",    // FunctioN?numberArgs
-        "FNn",
         "URi",   // post-Unary operatoR imaginary unit i
         "URf"    // factorial mark ! || !!... operand is only natural number
       ],
