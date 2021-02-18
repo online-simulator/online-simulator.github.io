@@ -41,6 +41,7 @@ My_entry.operation.prototype.config = {
     ],
     [
       [
+        /* following operator */
         "URi",   // post-Unary operatoR imaginary unit i
         "URf"    // factorial mark ! || !!... operand is only natural number
       ],

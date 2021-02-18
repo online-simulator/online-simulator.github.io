@@ -283,7 +283,7 @@ e^(-i(1pi(){2/2i}(5-{3-1}){i/(-4)}))
 <br>
 ・
 <a href="#span-in-prec">
-変数・区切り文字・演算子の優先順位
+変数・関数・区切り文字・演算子の優先順位
 </a>
 <br>
 ・
@@ -326,7 +326,7 @@ evalに代わる実装項目とファイル名の対応関係を列挙する
 <br>
 ・構文解析：parser.js/operation.js
 <br>
-・変数・区切り文字・演算子の優先順位：operation.js
+・変数・関数・区切り文字・演算子の優先順位：operation.js
 <br>
 ・演算ユニット：DATA.js/operation.js/unit.js
 <br>
@@ -2105,7 +2105,7 @@ data.logo -> "makeLog=true"
   </tr>
   <tr>
     <th>
-変数・
+変数・関数・
 <br>
 区切り文字・
 <br>
@@ -2113,7 +2113,7 @@ data.logo -> "makeLog=true"
     </th>
     <td>
 <span id="span-in-prec"></span>
-変数・区切り文字・演算子の優先順位について記述する
+変数・関数・区切り文字・演算子の優先順位について記述する
 <br>
 <br>
 配列要素の定義順で優先順位を動的に変更可能とする
@@ -2154,6 +2154,7 @@ operation.jsより抜粋
     ],
     [
       [
+        /* following operator */
         "URi",   // post-Unary operatoR imaginary unit i
         "URf"    // factorial mark ! || !!... operand is only natural number
       ],
