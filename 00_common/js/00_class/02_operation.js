@@ -114,25 +114,24 @@ My_entry.operation.prototype.init_callbacks = function(options){
   var self = this;
   self.callbacks = {};
   self.arr_precedence.forEach(function(tagName){
-    var type = tagName.substr(0, 2);
-    var tagName_comp = tagName;
-    var sw_tagName = tagName;
-    var isBTref = (tagName === self.options.BTref);
-    var isSEv = (tagName === "SEv");
-    if(isBTref){
-      sw_tagName = "BTref";
-    }
-    else if(isSEv){
-      tagName_comp = "BRe";
-    }
-    self.init_callback(options, tagName, tagName_comp, sw_tagName, (type === "BR"));
+    self.init_callback(options, tagName);
   });
   return self;
 };
-My_entry.operation.prototype.init_callback = function(options, tagName, tagName_comp, sw_tagName, isBR){
+My_entry.operation.prototype.init_callback = function(options, tagName){
   var self = this;
-  var isRAandBR = (options.isRightAssociativityBR && isBR);
+  var type = tagName.substr(0, 2);
+  var tagName_comp = tagName;
+  var sw_tagName = tagName;
+  var isRAandBR = (options.isRightAssociativityBR && (type === "BR"));
   var isBTref = (tagName === self.options.BTref);
+  var isSEv = (tagName === "SEv");
+  if(isBTref){
+    sw_tagName = "BTref";
+  }
+  else if(isSEv){
+    tagName_comp = "BRe";
+  }
   if(isRAandBR || isBTref){
     self.callbacks[tagName] = function(data){
       var trees = data.trees;
