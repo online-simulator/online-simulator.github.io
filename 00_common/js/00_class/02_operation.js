@@ -630,12 +630,10 @@ My_entry.operation.prototype.URi = function(data, i0, tagName, tagObj){
   var ie = i0;
   var leftArr = self.get_tagVal(trees[is], "mat", "arr");
   var left = (leftArr)? self.arr2num(leftArr): DATA.num(1, 0);
-  if(left){
-    var right = DATA.num(0, 1);
-    var tree = DATA.num2tree(unit["BRm"](options, left, right));
-    var is = (leftArr)? is: i0;
-    self.feedback2trees(data, is, ie, tree);
-  }
+  var right = DATA.num(0, 1);
+  var tree = DATA.num2tree(unit["BRm"](options, left, right));
+  var is = (leftArr)? is: i0;
+  self.feedback2trees(data, is, ie, tree);
   return self;
 };
 My_entry.operation.prototype.URf = function(data, i0, tagName, tagObj){
@@ -648,13 +646,11 @@ My_entry.operation.prototype.URf = function(data, i0, tagName, tagObj){
   var ie = i0;
   var leftArr = self.get_tagVal(trees[is], "mat", "arr");
   var left = (leftArr)? self.arr2num(leftArr): DATA.num(1, 0);
-  if(left){
-    var arg0 = left;
-    var arg1 = DATA.num(Number(tagObj.val), 0);
-    var tree = DATA.num2tree(unit["FN"]("fact_m", options, arg0, arg1));
-    var is = (leftArr)? is: i0;
-    self.feedback2trees(data, is, ie, tree);
-  }
+  var arg0 = left;
+  var arg1 = DATA.num(Number(tagObj.val), 0);
+  var tree = DATA.num2tree(unit["FN"]("fact_m", options, arg0, arg1));
+  var is = (leftArr)? is: i0;
+  self.feedback2trees(data, is, ie, tree);
   return self;
 };
 My_entry.operation.prototype.PU = function(data, i0, tagName, tagObj){
