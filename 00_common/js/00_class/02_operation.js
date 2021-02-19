@@ -116,14 +116,20 @@ My_entry.operation.prototype.init_callbacks = function(options){
   self.arr_precedence.forEach(function(tagName){
     var type = tagName.substr(0, 2);
     var tagName_comp = tagName;
-    if(tagName === "SEv"){
+    var sw_tagName = tagName;
+    var isBTref = (tagName === self.options.BTref);
+    var isSEv = (tagName === "SEv");
+    if(isBTref){
+      sw_tagName = "BTref";
+    }
+    else if(isSEv){
       tagName_comp = "BRe";
     }
-    self.init_callback(options, tagName, tagName_comp, (type === "BR"));
+    self.init_callback(options, tagName, tagName_comp, sw_tagName, (type === "BR"));
   });
   return self;
 };
-My_entry.operation.prototype.init_callback = function(options, tagName, tagName_comp, isBR){
+My_entry.operation.prototype.init_callback = function(options, tagName, tagName_comp, sw_tagName, isBR){
   var self = this;
   var isRAandBR = (options.isRightAssociativityBR && isBR);
   var isBTref = (tagName === self.options.BTref);
@@ -136,7 +142,7 @@ My_entry.operation.prototype.init_callback = function(options, tagName, tagName_
         if(tree){
           var tagObj = tree[tagName_comp];
           if(tagObj){
-            self[tagName](data, i, tagName, tagObj);
+            self[sw_tagName](data, i, tagName, tagObj);
           }
         }
       }
@@ -151,7 +157,7 @@ My_entry.operation.prototype.init_callback = function(options, tagName, tagName_
         if(tree){
           var tagObj = tree[tagName_comp];
           if(tagObj){
-            self[tagName](data, i, tagName, tagObj);
+            self[sw_tagName](data, i, tagName, tagObj);
           }
         }
       }
@@ -165,7 +171,7 @@ if(tagName === "BRmo"){
       for(var i=len_i-1; i>=0; --i){
         var tree = trees[i];
         if(tree){
-          self[tagName](data, i, tagName);
+          self[sw_tagName](data, i, tagName);
         }
       }
     };
@@ -177,7 +183,7 @@ if(tagName === "BRmo"){
       for(var i=0; i<len_i; ++i){
         var tree = trees[i];
         if(tree){
-          self[tagName](data, i, tagName);
+          self[sw_tagName](data, i, tagName);
         }
       }
     };
@@ -314,53 +320,61 @@ My_entry.operation.prototype.BT0 = function(data, i0, tagName, tagObj){
   var DATA = self.entry.DATA;
   var is = i0;
   var ie = i0;
-  var isBTref = (tagName === self.options.BTref);
   self.storage.BT = tagName;
   var newTrees = self.data2trees(self.get_newData(data, tagObj.val));
   var tree = self.tree2tree_mat(DATA.trees2tree(newTrees));
-  if(isBTref){
-    var arr = tree.mat.arr;
-    var arr0 = arr[0];
-    var len_i = arr.length;
-    var len_j = arr0.length;
-    var isVal = (len_i === 1 && len_j === 1);
-    var leftTree = trees[i0-1];
-    if(leftTree){
-      var ref0 = trees[i0][tagName].ref;
-      if(ref0 || isVal){
-        var ref = [];
-        for(var j=0; j<len_j; ++j){
-          ref[j] = arr0[j].com.r;
-        }
-        if(ref0){
-          Array.prototype.push.apply(ref, ref0);
-        }
-        if(leftTree["REv"]){
-          leftTree["REv"]["ref"] = ref;
-          tree = null;
-        }
-        else if(leftTree[tagName]){
-          leftTree[tagName]["ref"] = ref;
-          tree = null;
-        }
-        else if(leftTree["mat"]){
-          var mat = leftTree.mat;
-          mat.arr = self.restore_arr(mat.arr, ref);
-          tree = null;
-        }
+  self.feedback2trees(data, is, ie, tree);
+  return self;
+};
+My_entry.operation.prototype.BTref = function(data, i0, tagName, tagObj){
+  var self = this;
+  var trees = data.trees;
+  var DATA = self.entry.DATA;
+  var is = i0;
+  var ie = i0;
+  self.storage.BT = tagName;
+  var newTrees = self.data2trees(self.get_newData(data, tagObj.val));
+  var tree = self.tree2tree_mat(DATA.trees2tree(newTrees));
+  var arr = tree.mat.arr;
+  var arr0 = arr[0];
+  var len_i = arr.length;
+  var len_j = arr0.length;
+  var isVal = (len_i === 1 && len_j === 1);
+  var leftTree = trees[i0-1];
+  if(leftTree){
+    var ref0 = trees[i0][tagName].ref;
+    if(ref0 || isVal){
+      var ref = [];
+      for(var j=0; j<len_j; ++j){
+        ref[j] = arr0[j].com.r;
       }
-    }
-    else{
-      if(isVal){
-        throw "Invalid reference";
+      if(ref0){
+        Array.prototype.push.apply(ref, ref0);
+      }
+      if(leftTree["REv"]){
+        leftTree["REv"]["ref"] = ref;
+        tree = null;
+      }
+      else if(leftTree[tagName]){
+        leftTree[tagName]["ref"] = ref;
+        tree = null;
+      }
+      else if(leftTree["mat"]){
+        var mat = leftTree.mat;
+        mat.arr = self.restore_arr(mat.arr, ref);
+        tree = null;
       }
     }
   }
-  self.feedback2trees(data, is, ie, tree, isBTref);
+  else{
+    if(isVal){
+      throw "Invalid reference";
+    }
+  }
+  self.feedback2trees(data, is, ie, tree, true);
   return self;
 };
-My_entry.operation.prototype.SRr =
-My_entry.operation.prototype.SRt = function(data, i0, tagName, tagObj){
+My_entry.operation.prototype.SRr_or_SRt = function(data, i0, tagName, tagObj, isSRt){
   var self = this;
   var trees = data.trees;
   var DATA = self.entry.DATA;
@@ -382,40 +396,33 @@ My_entry.operation.prototype.SRt = function(data, i0, tagName, tagObj){
   var leftMat = leftTree.mat;
   var leftArr = leftMat.arr;
   var rightArr = rightTree.mat.arr;
-  if(tagName === "SRr"){
-    if(isBTrow2col){
-      leftArr.forEach(function(leftArri, i){
-        var rightArri = rightArr[i];
-        if(rightArri){
-          leftArr[i] = leftArri.concat(rightArri);  // col [i]
-        }
-      });
-    }
-    else{
-      if(rightArr){
-        leftMat.arr = leftArr.concat(rightArr);     // row .arr
+  if(isBTrow2col^isSRt){  // xor
+    leftArr.forEach(function(leftArri, i){
+      var rightArri = rightArr[i];
+      if(rightArri){
+        leftArr[i] = leftArri.concat(rightArri);  // col: mat.arr[i]
       }
-    }
+    });
   }
-  else if(tagName === "SRt"){
-    if(isBTrow2col){
-      if(rightArr){
-        leftMat.arr = leftArr.concat(rightArr);     // row .arr
-      }
-    }
-    else{
-      leftArr.forEach(function(leftArri, i){
-        var rightArri = rightArr[i];
-        if(rightArri){
-          leftArr[i] = leftArri.concat(rightArri);  // col [i]
-        }
-      });
+  else{
+    if(rightArr){
+      leftMat.arr = leftArr.concat(rightArr);     // row: mat.arr
     }
   }
   var tree = leftTree;
   var is = 0;
   var ie = len-1;
   self.feedback2trees(data, is, ie, tree);
+  return self;
+};
+My_entry.operation.prototype.SRr = function(data, i0, tagName, tagObj){
+  var self = this;
+  self.SRr_or_SRt(data, i0, tagName, tagObj, false);
+  return self;
+};
+My_entry.operation.prototype.SRt = function(data, i0, tagName, tagObj){
+  var self = this;
+  self.SRr_or_SRt(data, i0, tagName, tagObj, true);
   return self;
 };
 My_entry.operation.prototype.tree_BT2tree = function(data, tree_BT){
@@ -613,7 +620,24 @@ My_entry.operation.prototype.FNn = function(data, i0, tagName, tagObj){
   }
   return self;
 };
-My_entry.operation.prototype.URi =
+My_entry.operation.prototype.URi = function(data, i0, tagName, tagObj){
+  var self = this;
+  var trees = data.trees;
+  var options = data.options;
+  var DATA = self.entry.DATA;
+  var unit = self.entry.unit;
+  var is = i0-1;
+  var ie = i0;
+  var leftArr = self.get_tagVal(trees[is], "mat", "arr");
+  var left = (leftArr)? self.arr2num(leftArr): DATA.num(1, 0);
+  if(left){
+    var right = DATA.num(0, 1);
+    var tree = DATA.num2tree(unit["BRm"](options, left, right));
+    var is = (leftArr)? is: i0;
+    self.feedback2trees(data, is, ie, tree);
+  }
+  return self;
+};
 My_entry.operation.prototype.URf = function(data, i0, tagName, tagObj){
   var self = this;
   var trees = data.trees;
@@ -625,17 +649,9 @@ My_entry.operation.prototype.URf = function(data, i0, tagName, tagObj){
   var leftArr = self.get_tagVal(trees[is], "mat", "arr");
   var left = (leftArr)? self.arr2num(leftArr): DATA.num(1, 0);
   if(left){
-    var tree = null;
-    if(tagName === "URi"){
-      var right = DATA.num(0, 1);
-      tree = DATA.num2tree(unit["BRm"](options, left, right));
-    }
-    else if(tagName === "URf"){
-      var m = Number(tagObj.val);
-      var arg0 = left;
-      var arg1 = DATA.num(m, 0);
-      tree = DATA.num2tree(unit["FN"]("fact_m", options, arg0, arg1));
-    }
+    var arg0 = left;
+    var arg1 = DATA.num(Number(tagObj.val), 0);
+    var tree = DATA.num2tree(unit["FN"]("fact_m", options, arg0, arg1));
     var is = (leftArr)? is: i0;
     self.feedback2trees(data, is, ie, tree);
   }
@@ -649,9 +665,6 @@ My_entry.operation.prototype.PU = function(data, i0, tagName, tagObj){
   var leftArr = self.get_tagVal(trees[is-1], "mat", "arr");
   var rightArr = self.get_tagVal(trees[ie], "mat", "arr");
   if(!(leftArr) && rightArr){
-    var tree = null;
-    if(tagName){
-    }
     self.feedback2trees(data, is, ie, tree);
   }
   return self;
