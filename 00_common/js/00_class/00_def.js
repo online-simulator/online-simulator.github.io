@@ -109,11 +109,11 @@ My_entry.def.prototype.newClone = function(right){
   var isDeep = false;
   if(self.isArray(right)){
     isDeep = true;
-    _left = _left || [];  // do not use ||= for IE
+    _left = [];
   }
   else if(self.isObject(right)){
     isDeep = true;
-    _left = _left || {};
+    _left = {};
   }
   if(isDeep){
     for(var prop in right){
