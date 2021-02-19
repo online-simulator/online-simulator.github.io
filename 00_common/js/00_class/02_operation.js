@@ -418,6 +418,17 @@ My_entry.operation.prototype.SRt = function(data, i0, tagName, tagObj){
   self.feedback2trees(data, is, ie, tree);
   return self;
 };
+My_entry.operation.prototype.tree_BT2tree = function(data, tree_BT){
+  var self = this;
+  var DATA = self.entry.DATA;
+  var trees = DATA.tree2trees(tree_BT);
+  var newData = DATA.data(trees, data.options);
+  var tagName = Object.keys(tree_BT)[0];
+  var obj = DATA.tag(tagName, self.get_tagVal(tree_BT, tagName, "val"));
+  self[tagName](newData, 0, tagName, obj[tagName]);
+  var _tree = DATA.trees2tree(newData.trees);
+  return _tree;
+};
 My_entry.operation.prototype.jacobian = function(data, rightArr, isNewtonian){
   var self = this;
   var options = data.options;
@@ -450,22 +461,19 @@ My_entry.operation.prototype.jacobian = function(data, rightArr, isNewtonian){
   };
   var get_names = function(j){
     var _names = [];
-    var tree = get_tree(j);
-    var namen = null;
-    BT.arr.forEach(function(BT){
-      namen = namen || self.get_tagVal(tree, BT, "val");
-    });
-    if(namen){
-      var len_i = (namen.length+1)>>1;
-      for(var i=0; i<len_i; ++i){
-        var name = self.get_tagVal(namen[i<<1], "REv", "val");
+    var tree_BT = get_tree(j);
+    var tree = self.tree_BT2tree(data, tree_BT);
+    var arr = self.get_tagVal(tree, "mat", "arr");
+    if(arr){
+      arr.forEach(function(arri){
+        var name = self.get_tagVal(arri[0], "REv", "val");
         if(name){
           _names.push(name);
         }
         else{
           throw msgErr;
         }
-      }
+      });
     }
     else{
       throw msgErr;
