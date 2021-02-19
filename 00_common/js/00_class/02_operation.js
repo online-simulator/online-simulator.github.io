@@ -246,6 +246,7 @@ My_entry.operation.prototype.remake_trees = function(data){
 My_entry.operation.prototype.data2trees = function(data){
   var self = this;
   var depth = self.storage.depth++;
+  data.trees = self.entry.def.newClone(data.trees);  // tree_eqn is re-used
   self.arr_precedence.forEach(function(tagName){
     self.callbacks[tagName](data);
     data.trees = data.trees.filter(self.isNotNull);

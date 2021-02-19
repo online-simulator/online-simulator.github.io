@@ -727,6 +727,9 @@ sqrt(1,2,3:4,5,6) || sqrt(4,5,6) || sqrt(4) -> 2
 ・剰余等の演算を実行した場合、行列の最終要素を参照して演算・無次元化
 <br>
 (1,2)%2 || (2)%2 -> 0
+<br>
+<br>
+詳細は<a href="#span-in-tree">単位tree構造</a>参照
     </td>
   </tr>
   <tr>
@@ -1872,6 +1875,29 @@ storage cleared
 x&lt;={x0,x1}; x_initial&lt;={1+i,1-i};
 <br>
 f&lt;={x0^i-2x1=3i,3x0+exp(x1)=5i};
+<br>
+run&lt;=last(mdx=Newton(&lt;=f,&lt;=x,&lt;=x_initial),norm(f));
+<br>
+・反復6回目の近似解を示す
+<br>
+run; run; run; run; run;
+<br>
+run -> infoLost!! 0
+<br>
+x -> (infoLost!! -0.04901921620544653+2.023423045158351i:
+<br>
+infoLost!! 0.07726186556052178-1.434248862158042i)
+<br>
+<br>
+同じく引数の列ベクトルに丸括弧を使用する場合
+<br>
+・連立非線形方程式と初期値を定義する
+<br>
+storage cleared
+<br>
+x&lt;=(x0:x1); x_initial&lt;=(1+i:1-i);
+<br>
+f&lt;=(x0^i-2x1=3i:3x0+exp(x1)=5i);
 <br>
 run&lt;=last(mdx=Newton(&lt;=f,&lt;=x,&lt;=x_initial),norm(f));
 <br>
