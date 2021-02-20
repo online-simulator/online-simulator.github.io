@@ -32,7 +32,9 @@
 <h2 id="VERSION"></h2>
 </div>
 
+<div>
 　サイト移設準備中...
+</div>
 
 <div>
 <table>
@@ -44,12 +46,13 @@
     </th>
     <th>
 シミュレータ
-   </th>
+    </th>
     <th>
 文書
     </th>
     <th>
 Ver.
+<a title="更新履歴" href="#div-history">更新履歴</a>
     </th>
   </tr>
 </thead>
@@ -158,6 +161,376 @@ Ver.
 </tbody>
 </table>
 </div>
+<br>
+
+<div id="div-history">
+<h2>更新履歴</h2>
+<table>
+<caption>更新履歴</caption>
+<thead>
+  <tr>
+    <th>
+VERSION
+    </th>
+    <th>
+用途
+    </th>
+    <th>
+Ver.
+    </th>
+    <th>
+分類
+    </th>
+    <th>
+概要
+    </th>
+    <th>
+Y/M/D
+    </th>
+  </tr>
+</thead>
+<tbody>
+  <tr>
+    <th>
+2.9.5.1.4
+    </th>
+    <td>
+計算
+    </td>
+    <td>
+1.0.0
+    </td>
+    <td>
+major update
+    </td>
+    <td>
+[簡易電卓non-eval]
+<br>
+・初期リリース
+    </td>
+    <td>
+2021/2/18
+    </td>
+  </tr>
+  <tr>
+    <th>
+1.9.5.1.4
+    </th>
+    <td>
+確認
+    </td>
+    <td>
+0.12.4
+    </td>
+    <td>
+minor bug-fix
+    </td>
+    <td>
+[base64変換チェッカー]
+<br>
+・文字数が1字の時にバッファの範囲外参照エラーを修正
+    </td>
+    <td>
+2021/2/14
+    </td>
+  </tr>
+  <tr>
+    <th>
+1.9.5.1.3
+    </th>
+    <td>
+生成
+    </td>
+    <td>
+1.2.1
+    </td>
+    <td>
+minor change
+    </td>
+    <td>
+[音源wave-PCM生成ページhtml]
+<br>
+・tdタグのcolspan=値をcolspan="値"に修正
+<br>
+・・いずれも問題なかったのでchangeとする
+    </td>
+    <td>
+2021/2/7
+    </td>
+  </tr>
+  <tr>
+    <th>
+1.9.4.1.3
+    </th>
+    <td>
+確認
+    </td>
+    <td>
+0.12.3
+    </td>
+    <td>
+minor bug-fix
+    </td>
+    <td>
+[math.js]
+<br>
+・一部変数のグローバル汚染を修正
+<br>
+・・電卓Workerから呼び出し時にthis参照エラーで発見
+    </td>
+    <td>
+2021/2/6
+    </td>
+  </tr>
+  <tr>
+    <th>
+1.9.4.1.2
+    </th>
+    <td>
+確認
+    </td>
+    <td>
+0.12.2
+    </td>
+    <td>
+minor change
+    </td>
+    <td>
+[全ページhtml]
+<br>
+・tableタグにストライプで色を付けるcssを適用
+    </td>
+    <td>
+2021/2/5
+    </td>
+  </tr>
+  <tr>
+    <th>
+1.9.3.1.2
+    </th>
+    <td>
+確認
+    </td>
+    <td>
+0.11.2
+    </td>
+    <td>
+minor change
+    </td>
+    <td>
+[全ページhtml]
+<br>
+・meta/link/inputタグの閉じる表記/>を廃止
+    </td>
+    <td>
+2021/1/31
+    </td>
+  </tr>
+  <tr>
+    <th>
+1.9.2.1.2
+    </th>
+    <td>
+確認
+    </td>
+    <td>
+0.10.2
+    </td>
+    <td>
+minor change
+    </td>
+    <td>
+[全ページ共通]
+<br>
+・ページ遷移時にhtml要素のvalueをdefault値に戻す処理を追加
+<br>
+・・戻る操作でページ復帰時にブラウザ毎の既定動作が異なるため
+<br>
+[全ページhtml]
+<br>
+・noscript文言を一斉更新
+<br>
+・meta http-equivを廃止してmeta charset="utf-8"に一斉変更
+    </td>
+    <td>
+2021/1/26
+    </td>
+  </tr>
+  <tr>
+    <th>
+1.9.1.1.2
+    </th>
+    <td>
+生成
+    </td>
+    <td>
+1.1.1
+    </td>
+    <td>
+minor change
+    </td>
+    <td>
+[Workerを使用するページ共通]
+<br>
+・Worker実行のforEach文内でterminate判定処理を追加
+<br>
+・・terminateしたWorkerにmessageを送っても無駄なため
+    </td>
+    <td>
+2021/1/23
+    </td>
+  </tr>
+  <tr>
+    <th>
+記録開始
+<br>
+1.9.0.1.2
+    </th>
+    <td>
+確認
+    </td>
+    <td>
+0.9.2
+    </td>
+    <td>
+minor bug-fix
+    </td>
+    <td>
+[$.js]
+<br>
+・html要素の操作関数の一部記述ミスを修正
+<br>
+・・未使用部分だったため、影響なし
+    </td>
+    <td>
+2021/1/21
+    </td>
+  </tr>
+  <tr>
+    <th>
+運用開始
+<br>
+1.9.0.1.1
+    </th>
+    <td>
+    </td>
+    <td>
+    </td>
+    <td>
+    </td>
+    <td>
+[全ページ共通]
+<br>
+・namespaceにコンストラクタ関数含む全オブジェクトを隠蔽
+<br>
+・・グローバル汚染対策
+    </td>
+    <td>
+2021/1/20
+    </td>
+  </tr>
+  <tr>
+    <th>
+1.9.beta.1.1
+    </th>
+    <td>
+確認
+    </td>
+    <td>
+0.9.1
+    </td>
+    <td>
+minor bug-fix
+    </td>
+    <td>
+[Workerを使用するページ共通]
+<br>
+・Worker未使用時のerrorをcatchできていなかった不具合を修正
+<br>
+・・error後のterminate処理が不要のため、minorとする
+    </td>
+    <td>
+2021/1/16
+    </td>
+  </tr>
+  <tr>
+    <th>
+1.9.beta.1.0
+    </th>
+    <td>
+生成
+    </td>
+    <td>
+1.0.1
+    </td>
+    <td>
+fatal bug-fix
+    </td>
+    <td>
+[音源wave-PCM生成]
+<br>
+・ヘッダー部分の4バイトの型を符号有りから無しに修正
+<br>
+・・ファイルサイズ大のwave生成時に問題あり
+<br>
+・低音質データの型を符号有りから無しに修正
+<br>
+・・単音と和音は問題なかったが、演奏のバイナリ合成時に問題あり
+    </td>
+    <td>
+2021/1/8
+    </td>
+  </tr>
+  <tr>
+    <th>
+初期
+<br>
+1.9.beta.0.0
+    </th>
+    <td>
+生成
+<br>
+確認
+    </td>
+    <td>
+1.0.0
+<br>
+0.9.0
+    </td>
+    <td>
+major update
+<br>
+minor update
+    </td>
+    <td>
+    </td>
+    <td>
+2021/1/8
+    </td>
+  </tr>
+  <tr>
+    <th>
+移設開始
+    </th>
+    <td>
+    </td>
+    <td>
+    </td>
+    <td>
+    </td>
+    <td>
+[全ページ共通]
+<br>
+・過去のプラグイン使用不可で実装
+    </td>
+    <td>
+2020/12/15
+    </td>
+  </tr>
+</tbody>
+</table>
+</div>
+<br>
 
   </div>
 </body>
