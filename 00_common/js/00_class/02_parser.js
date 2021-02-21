@@ -211,6 +211,10 @@ My_entry.parser.prototype.make_trees = function(sentence, re){
     }
     else switch(token_lower){
       // reserved word
+      case "clear":
+      case "stop":
+        throw "Invalid word called";
+        break;
       case "ans":
         tree = DATA.tree_tag("REv", token_lower);
         break;
@@ -416,6 +420,20 @@ My_entry.parser.prototype.get_msgError = function(e, msg){
       self.config.ERROR.title+e:
       e.message;
 };
+My_entry.parser.prototype.isCommand = function(sentence){
+  var self = this;
+  var _command = null;
+  var sentence_lower = sentence.toLowerCase();
+  switch(sentence_lower){
+    case "clear":
+    case "stop":
+      _command = sentence_lower;
+      break;
+    default:
+      break;
+  }
+  return _command;
+};
 My_entry.parser.prototype.script2trees = function(script){
   var self = this;
   var _trees2d = [];
@@ -424,8 +442,16 @@ My_entry.parser.prototype.script2trees = function(script){
   arr_sentence.forEach(function(sentence){
     var isOK = self.check_syntax(sentence);
     if(isOK){
-      var re = new RegExp(self.get_pattern(), "g");
-      _trees2d.push(self.make_trees(sentence, re));
+      var trees = null;
+      var command = self.isCommand(sentence);
+      if(command){
+        trees = command;
+      }
+      else{
+        var re = new RegExp(self.get_pattern(), "g");
+        trees = self.make_trees(sentence, re);
+      }
+      _trees2d.push(trees);
     }
   });
   return _trees2d;

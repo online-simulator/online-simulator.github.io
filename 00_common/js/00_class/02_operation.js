@@ -209,16 +209,45 @@ My_entry.operation.prototype.prepare = function(data){
   self.init_callbacks_mat(options);
   return self;
 };
+My_entry.operation.prototype.clear = function(data){
+  var self = this;
+  var DATA = self.entry.DATA;
+  data.vars = {};
+  data.eqns = {};
+  data.trees = DATA.tree2trees(DATA.tree_tag("out", "local storage cleared"));
+  return self;
+};
+My_entry.operation.prototype.stop = function(data){
+  var self = this;
+  var DATA = self.entry.DATA;
+  self.options.isStopped = true;
+  data.trees = DATA.tree2trees(DATA.tree_tag("out", "operation stopped"));
+  return self;
+};
 My_entry.operation.prototype.run = function(_data){
   var self = this;
   var trees2d = _data.trees2d;
   try{
     self.prepare(_data);
     for(var j=0, len=trees2d.length; j<len; ++j){
-      _data.trees = trees2d[j];
-      self.init_vars();
-      self.remake_trees(_data);
-      self.SEans(_data, 0);
+      var trees = trees2d[j];
+      _data.trees = trees;
+      if(Array.isArray(trees)){
+        self.init_vars();
+        self.remake_trees(_data);
+        self.SEans(_data, 0);
+      }
+      else{
+        var command = trees;
+        self[command](_data);
+        if(self.options.isStopped){
+          var trees = _data.trees;
+          for(var jj=j; jj<len; ++jj){
+            _data.trees2d[jj] = trees;
+          }
+          break;
+        }
+      }
       trees2d[j] = _data.trees;
     }
 //    _data.options.depth_max = self.storage.depth_max;

@@ -18,6 +18,10 @@
 <body>
   <div>
 
+<div>
+<h2>[説明書]電卓non-eval</h2>
+</div>
+
 <hr>
 <div>
 <table>
@@ -120,7 +124,7 @@ e^(-i(1pi(){2/2i}(5-{3-1}){i/(-4)}))
 
 <div>
 <table>
-<caption>説明書の前置き</caption>
+<caption>電卓説明書の前置き</caption>
 <thead>
   <tr>
     <th>
@@ -188,6 +192,11 @@ e^(-i(1pi(){2/2i}(5-{3-1}){i/(-4)}))
 </a>
 <br>
 ・入力仕様
+<br>
+・・
+<a href="#span-out-command">
+命令文
+</a>
 <br>
 ・・
 <a href="#span-out-SR">
@@ -388,7 +397,7 @@ UI
 <br>
 パネル右側について記述する
 <br>
-・Cボタンは入力欄／出力欄の内容と保存変数を消去する
+・Cボタンは入力欄／出力欄の内容と保存変数のクリア実行を確定する
 <br>
 　また、マルチスレッド実行時は演算を中断する
 <br>
@@ -734,6 +743,77 @@ sqrt(1,2,3:4,5,6) || sqrt(4,5,6) || sqrt(4) -> 2
   </tr>
   <tr>
     <th>
+命令文
+<br>
+入力仕様
+    </th>
+    <td>
+<span id="span-out-command"></span>
+命令文の入力仕様と付随する留意事項について記述する
+<br>
+<br>
+次の命令文は上位の実行文に相当する
+<br>
+<br>
+clear
+<br>
+・ローカルstorageをクリアする
+<br>
+x=3;演算実行確定（＝ボタン押下による）
+<br>
+clear;演算実行確定 -> local storage cleared
+<br>
+x;演算実行確定 -> 3
+<br>
+clear; x;演算実行確定 -> [MyErr]Invalid REv(x)
+<br>
+x;演算実行確定 -> 3
+<br>
+clear; ans;演算実行確定 -> [MyErr]Invalid REv(ans)
+<br>
+ans;演算実行確定 -> 3
+<br>
+・続けてグローバルstorageをクリアする場合
+<br>
+クリア実行確定（Cボタン押下による） -> storage cleared
+<br>
+x;演算実行確定 -> [MyErr]Invalid REv(x)
+<br>
+ans;演算実行確定 -> [MyErr]Invalid REv(ans)
+<br>
+・グローバルstorageに一切の変数を残さない場合
+<br>
+x=3; y=3x; y; clear;演算実行確定
+<br>
+x;演算実行確定 -> [MyErr]Invalid REv(x)
+<br>
+y;演算実行確定 -> [MyErr]Invalid REv(y)
+<br>
+ans;演算実行確定 -> [MyErr]Invalid REv(ans)
+<br>
+<br>
+stop
+<br>
+・それ以降の演算を中断する
+<br>
+x=3; 3x; stop; x;演算実行確定
+<br>
+x=3 -> x=3
+<br>
+3x -> 9
+<br>
+stop -> operation stopped
+<br>
+x -> operation stopped
+<br>
+<br>
+命令文への代入不可
+<br>
+stop=3 -> [MyErr]Invalid word called
+    </td>
+  </tr>
+  <tr>
+    <th>
 区切り文字
 <br>
 入力仕様
@@ -864,6 +944,8 @@ A=(1,2:3,4); A[1,2:3,4] -> (7,10:15,22)
 <br>
 <br>
 予約語の種類を列挙する
+<br>
+・命令文
 <br>
 ・区切り文字・括弧
 <br>
@@ -1435,7 +1517,7 @@ x=2; x=2x; x -> 4
 <br>
 代入を判別するため、変数の左側に数値や演算子を置けない
 <br>
-strage cleared
+storage cleared
 <br>
 2x=3 -> [MyErr]Invalid ans isFound
 <br>
@@ -1444,7 +1526,7 @@ strage cleared
 <br>
 未定義変数に未定義変数の代入不可
 <br>
-strage cleared
+storage cleared
 <br>
 x=y(z) -> [MyErr]Invalid ans isFound
 <br>
@@ -1844,7 +1926,7 @@ x -> 6.918085522901255e-17+0.9999999999999997i
 <br>
 初期値を1-2iとした反復6回目の近似解を示す
 <br>
-・storageクリアしない場合、前回値優先で初期値の引数は無効
+・上記演算に続けてクリア実行しない場合、前回値優先で初期値の引数は無効
 <br>
 ・初期値を直接更新して実行する
 <br>
@@ -1911,6 +1993,8 @@ infoLost!! 0.07726186556052178-1.434248862158042i)
 同じく引数の列ベクトルを直接式渡しする場合
 <br>
 ・mdxのノルムを返す式変数runを定義して反復6回目の近似解を示す
+<br>
+storage cleared
 <br>
 run&lt;=last(
 <br>
@@ -2011,7 +2095,7 @@ storage cleared
 y&lt;=3x-1,x=3,y=&gt;,y=&gt;y0,y0 -> (0,0,8,8,8)
 <br>
 <br>
-最後に式変数について記述する
+式変数について記述する
 <br>
 ・式変数、式代入、式読出し、式渡しの仕様は呼び名含めて一般的でない
 <br>
@@ -2254,6 +2338,10 @@ operation.jsより抜粋
 parser.jsより抜粋
 <pre><code>
       // reserved word
+      case "clear":
+      case "stop":
+        throw "Invalid word called";
+        break;
       case "ans":
         tree = DATA.tree_tag("REv", token_lower);
         break;
