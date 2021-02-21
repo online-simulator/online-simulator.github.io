@@ -234,6 +234,7 @@ My_entry.operation.prototype.run = function(_data){
       _data.trees = trees;
       if(Array.isArray(trees)){
         self.init_vars();
+        self.init_storage();
         self.remake_trees(_data);
         self.SEans(_data, 0);
       }
@@ -273,7 +274,6 @@ My_entry.operation.prototype.init_storage = function(){
 };
 My_entry.operation.prototype.remake_trees = function(data){
   var self = this;
-  self.init_storage();
   self.data2trees(data);
   return data.trees;
 };
@@ -968,6 +968,7 @@ My_entry.operation.prototype.SEv = function(data, i0, tagName, tagObj){
       }
     }
     if(tree){
+      --self.storage.hasUndefVars;
       self.feedback2trees(data, is, ie, tree);
     }
   }
