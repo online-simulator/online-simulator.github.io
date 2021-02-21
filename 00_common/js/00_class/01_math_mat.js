@@ -73,11 +73,28 @@ My_entry.math_mat.prototype.transpose = function(options, arr){
   }
   return _arr;
 };
+My_entry.math_mat.prototype.hermitian = function(options, arr){
+  var self = this;
+  var DATA = self.entry.DATA;
+  var unit = self.entry.unit;
+  var lens = self.get_lens(arr);
+  var len_i = lens.i;
+  var len_j = lens.j;
+  var _arr = new Array(len_j);
+  for(var j=0; j<len_j; ++j){
+    _arr[j] = new Array(len_i);
+    for(var i=0; i<len_i; ++i){
+      var num = arr[i][j] || DATA.num(0, 0);
+      _arr[j][i] = unit["FN"]("conjugate", options, num);
+    }
+  }
+  return _arr;
+};
 My_entry.math_mat.prototype.euclidean = function(options, arr){
   var self = this;
   var DATA = self.entry.DATA;
   var unit = self.entry.unit;
-  var arr = self.BRm(options, self.transpose(options, arr), arr);
+  var arr = self.BRm(options, self.hermitian(options, arr), arr);
   var _arr = DATA.obj2arr(unit["FN"]("sqrt", options, self.last(options, arr)[0][0]));
   return _arr;
 };

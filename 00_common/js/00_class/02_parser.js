@@ -223,6 +223,11 @@ My_entry.parser.prototype.make_trees = function(sentence, re){
       case "transpose":
         tree = DATA.tree_tag("FNmat", "transpose");
         break;
+      case "htrans":
+      case "htranspose":
+      case "hermitian":
+        tree = DATA.tree_tag("FNmat", "hermitian");
+        break;
       case "norm":
       case "euclidean":
         tree = DATA.tree_tag("FNmat", "euclidean");
