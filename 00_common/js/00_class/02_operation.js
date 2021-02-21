@@ -273,7 +273,7 @@ My_entry.operation.prototype.init_storage = function(){
 };
 My_entry.operation.prototype.remake_trees = function(data){
   var self = this;
-  self.init_storage();
+  self.init_storage();  // here for x<={x0};f<={2x0+3=0};mdx=Newton(<=f,<=x)
   self.data2trees(data);
   return data.trees;
 };

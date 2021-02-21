@@ -1722,7 +1722,13 @@ x&lt;=2:3x -> (0:6)
 <br>
 式変数から式変数への式代入を以降、式渡しと呼ぶ
 <br>
-・同名の変数未定義の前提
+・式読出し記号を明示する場合
+<br>
+storage cleared
+<br>
+eqn_x&lt;=3x; eqn_y&lt;=(eqn_x=&gt;); x=3; eqn_y=&gt; ->9
+<br>
+・同名の変数未定義の前提で式読出し記号を省略する場合
 <br>
 storage cleared
 <br>
