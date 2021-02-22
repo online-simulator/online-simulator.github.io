@@ -77,11 +77,13 @@ My_entry.operation.prototype.config = {
     ]
   ],
   BT: {
-    arr: ["BT2", "BT1", "BT0"],
     row2col: "BT2",
     ref:     "BT0",
     SEe:     "BTe",
     REe:     "BT1"
+  },
+  params: {
+    dxJ: 1e-5
   }
 };
 My_entry.operation.prototype.init = function(){
@@ -195,6 +197,7 @@ My_entry.operation.prototype.prepare = function(data){
   var options = data.options;
   self.options.BTrow2col = options.BTrow2col || self.config.BT.row2col;
   self.options.BTref = options.BTref || self.config.BT.ref;
+  self.options.dxJ = options.dxJ || self.config.params.dxJ;
   var arr_precedence = self.entry.def.newClone(self.config.precedence);
   if(options.precedence){
     arr_precedence[1] = options.precedence.split(",");
@@ -467,7 +470,7 @@ My_entry.operation.prototype.SRt = function(data, i0, tagName, tagObj){
 My_entry.operation.prototype.isBrackeT = function(tree){
   var self = this;
   var tagName = Object.keys(tree)[0];
-  return ((tagName === "BT0" || tagName === "BT1" || tagName === "BT2")? tagName: null);
+  return ((tagName === "BT2" || tagName === "BT1" || tagName === "BT0")? tagName: null);
 };
 My_entry.operation.prototype.tree_BT2tree = function(data, tree){
   var self = this;
@@ -556,7 +559,8 @@ My_entry.operation.prototype.jacobian = function(data, rightArr, isNewtonian){
     var x1 = [];
     var f0 = [];
     var J = math_mat.zeros(len_i, len_i);
-    var dx0 = DATA.num(1e-5, 1e-5);
+    var dxJ = self.options.dxJ;
+    var dx0 = DATA.num(dxJ, ((options.useComplex)? dxJ: 0));
     // x0
     for(var i=0; i<len_i; ++i){
       var name_var = names[i];

@@ -318,7 +318,7 @@ My_entry.$.prototype.get_urlParams = function(obj){
       var key = arr[0];
       var val = arr[1];
       if(key && val){
-        _obj[key] = self.val2literal(val);
+        _obj[key] = (isNaN(Number(val)))? self.val2literal(val): Number(val);
       }
     }
   }
