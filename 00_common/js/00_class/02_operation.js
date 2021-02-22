@@ -91,7 +91,7 @@ My_entry.operation.prototype.init = function(){
   self.arr_precedence = [];
   self.options = {};
   self.vars = {};
-  self.storage = {};
+  self.params = {};
   return self;
 };
 My_entry.operation.prototype.isNotNull = function(arg){
@@ -250,11 +250,11 @@ My_entry.operation.prototype.run = function(_data){
       }
       trees2d[j] = _data.trees;
     }
-//    _data.options.depth_max = self.storage.depth_max;
+//    _data.options.depth_max = self.params.depth_max;
   }
   catch(e){
     self.init_vars();
-    self.init_storage();
+    self.init_params();
     throw e;
   }
   return _data;
@@ -264,29 +264,40 @@ My_entry.operation.prototype.init_vars = function(){
   self.vars = {};
   return self;
 };
-My_entry.operation.prototype.init_storage = function(){
+My_entry.operation.prototype.init_params = function(){
   var self = this;
-  self.storage.BT = null;
-  self.storage.depth = 0;
-  self.storage.hasUndefVars = 0;
+  self.params.BT = null;
+  self.params.depth = 0;
+  self.params.hasUndefVars = 0;
   return self;
 };
 My_entry.operation.prototype.remake_trees = function(data){
   var self = this;
-  self.init_storage();  // here for x<={x0};f<={2x0+3=0};mdx=Newton(<=f,<=x)
+  // store params
+  var BT = self.params.BT;
+  var depth = self.params.depth;
+  var hasUndefVars = self.params.hasUndefVars;
+  // init params
+  self.init_params();  // here for mdx=Newton(<=f,<=x)
+  // remake
   self.data2trees(data);
+  // restore params
+  self.params.BT = BT;
+  self.params.depth = depth;
+  self.params.hasUndefVars = hasUndefVars;
+  // return
   return data.trees;
 };
 My_entry.operation.prototype.data2trees = function(data){
   var self = this;
-  var depth = self.storage.depth++;
+  var depth = self.params.depth++;
   data.trees = self.entry.def.newClone(data.trees);  // tree_eqn is re-used
   self.arr_precedence.forEach(function(tagName){
     self.callbacks[tagName](data);
     data.trees = data.trees.filter(self.isNotNull);
   });
-//  self.storage.depth_max = Math.max((self.storage.depth_max || 0), depth);
-  self.storage.depth = depth;
+//  self.params.depth_max = Math.max((self.params.depth_max || 0), depth);
+  self.params.depth = depth;
   return data.trees;
 };
 My_entry.operation.prototype.feedback2trees = function(data, is, ie, tree, isRightAssociativity){
@@ -299,13 +310,13 @@ My_entry.operation.prototype.feedback2trees = function(data, is, ie, tree, isRig
   trees[i_feedback] = tree;
   return self;
 };
-My_entry.operation.prototype.get_tag = function(tree, tag){
+My_entry.operation.prototype.get_tag = function(tree, tagName){
   var self = this;
-  return ((tree)? tree[tag]: null);
+  return ((tree)? tree[tagName]: null);
 };
-My_entry.operation.prototype.get_tagVal = function(tree, tag, val){
+My_entry.operation.prototype.get_tagVal = function(tree, tagName, valName){
   var self = this;
-  return ((tree)? ((tree[tag])? tree[tag][val]: null): null);
+  return ((tree)? ((tree[tagName])? tree[tagName][valName]: null): null);
 };
 My_entry.operation.prototype.arr2num = function(arr){
   var self = this;
@@ -348,7 +359,7 @@ My_entry.operation.prototype.BT0 = function(data, i0, tagName, tagObj){
   var DATA = self.entry.DATA;
   var is = i0;
   var ie = i0;
-  self.storage.BT = tagName;
+  self.params.BT = tagName;
   var newTrees = self.data2trees(self.get_newData(data, tagObj.val));
   var tree = self.tree2tree_mat(DATA.trees2tree(newTrees));
   self.feedback2trees(data, is, ie, tree);
@@ -360,7 +371,7 @@ My_entry.operation.prototype.BTref = function(data, i0, tagName, tagObj){
   var DATA = self.entry.DATA;
   var is = i0;
   var ie = i0;
-  self.storage.BT = tagName;
+  self.params.BT = tagName;
   var newTrees = self.data2trees(self.get_newData(data, tagObj.val));
   var tree = self.tree2tree_mat(DATA.trees2tree(newTrees));
   var arr = tree.mat.arr;
@@ -411,12 +422,12 @@ My_entry.operation.prototype.SRr_or_SRt = function(data, i0, tagName, tagObj, is
   var rightTrees = trees.slice(i0+1, len);
   var leftTree = null;
   var rightTree = null;
-  var BT = self.storage.BT;  // store BT
+  var BT = self.params.BT;  // store BT
   var isBTrow2col = (BT === self.options.BTrow2col);
   /* in only one direction, left to right */
   leftTrees = self.data2trees(self.get_newData(data, leftTrees));
   leftTree = DATA.trees2tree(leftTrees);
-  self.storage.BT = BT;      // restore BT
+  self.params.BT = BT;      // restore BT
   rightTrees = self.data2trees(self.get_newData(data, rightTrees));
   rightTree = DATA.trees2tree(rightTrees);
   leftTree = self.tree2tree_mat(leftTree);
@@ -453,15 +464,25 @@ My_entry.operation.prototype.SRt = function(data, i0, tagName, tagObj){
   self.SRr_or_SRt(data, i0, tagName, tagObj, true);
   return self;
 };
-My_entry.operation.prototype.tree_BT2tree = function(data, tree_BT){
+My_entry.operation.prototype.isBrackeT = function(tree){
+  var self = this;
+  var tagName = Object.keys(tree)[0];
+  return ((tagName === "BT0" || tagName === "BT1" || tagName === "BT2")? tagName: null);
+};
+My_entry.operation.prototype.tree_BT2tree = function(data, tree){
   var self = this;
   var DATA = self.entry.DATA;
-  var trees = DATA.tree2trees(tree_BT);
-  var newData = DATA.data(trees, data.options);
-  var tagName = Object.keys(tree_BT)[0];
-  var obj = DATA.tag(tagName, self.get_tagVal(tree_BT, tagName, "val"));
-  self[tagName](newData, 0, tagName, obj[tagName]);
-  var _tree = DATA.trees2tree(newData.trees);
+  var tagName = self.isBrackeT(tree);
+  var _tree = null;
+  if(tagName){
+    var newData = DATA.data(DATA.tree2trees(tree), data.options);
+    var obj = DATA.tag(tagName, self.get_tagVal(tree, tagName, "val"));
+    self[tagName](newData, 0, tagName, obj[tagName]);
+    _tree = DATA.trees2tree(newData.trees);
+  }
+  else{
+    self.throw_tree(tree);
+  }
   return _tree;
 };
 My_entry.operation.prototype.jacobian = function(data, rightArr, isNewtonian){
@@ -742,7 +763,7 @@ My_entry.operation.prototype.init_callbacks_mat = function(options){
   };
   self.callbacks_mat.BRe = function(tagName, tagObj, leftArr, rightArr){
     var _tree = null;
-    if(!(self.storage.hasUndefVars)){
+    if(!(self.params.hasUndefVars)){
       if(rightArr){
         var leftArr = leftArr || math_mat.zeros_arr(rightArr);
         _tree = self.switch_unitBR(tagName, options, leftArr, rightArr);
@@ -859,10 +880,10 @@ My_entry.operation.prototype.store_arr = function(_arr, ref, num){
   });
   return _arr;
 };
-My_entry.operation.prototype.tree_eqn2tree = function(data, tree_eqn){
+My_entry.operation.prototype.tree_eqn2tree = function(data, tree){
   var self = this;
   var DATA = self.entry.DATA;
-  var newData = self.get_newData(data, DATA.tree2trees(tree_eqn));
+  var newData = self.get_newData(data, DATA.tree2trees(tree));
   var trees = self.remake_trees(newData);
   var _tree = DATA.trees2tree(trees);
   return _tree;
@@ -918,7 +939,7 @@ My_entry.operation.prototype.REv = function(data, i0, tagName, tagObj){
     self.feedback2trees(data, is, ie, tree);
   }
   if(hasUV){
-    ++self.storage.hasUndefVars;
+    ++self.params.hasUndefVars;
   }
   return self;
 };
@@ -968,7 +989,7 @@ My_entry.operation.prototype.SEv = function(data, i0, tagName, tagObj){
       }
     }
     if(tree){
-      --self.storage.hasUndefVars;
+      --self.params.hasUndefVars;
       self.feedback2trees(data, is, ie, tree);
     }
   }
