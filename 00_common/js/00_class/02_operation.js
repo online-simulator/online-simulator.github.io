@@ -34,9 +34,10 @@ My_entry.operation.prototype.config = {
       ],
       [
         /* following function */
-        "FNmat", // FunctioN for matrix
-        "FN",    // FunctioN?numberArgs
-        "FNn"
+        "FNmh",  // FunctioN for matrix high-spec
+        "FNm",   // FunctioN for matrix
+        "FN",    // FunctioN 1~4-arguments
+        "FNn"    // FunctioN n-arguments
       ]
     ],
     [
@@ -625,7 +626,7 @@ My_entry.operation.prototype.jacobian = function(data, rightArr, isNewtonian){
   }
   return _tree;
 };
-My_entry.operation.prototype.FNmat = function(data, i0, tagName, tagObj){
+My_entry.operation.prototype.FNmh = function(data, i0, tagName, tagObj){
   var self = this;
   var trees = data.trees;
   var options = data.options;
@@ -636,19 +637,32 @@ My_entry.operation.prototype.FNmat = function(data, i0, tagName, tagObj){
   var ie = i0+1;
   var rightArr = self.get_tagVal(trees[ie], "mat", "arr");
   if(rightArr){
-    var tree = null;
     var prop = tagObj.val;
-    var isNewtonian = (prop === "newtonian");
-    if(isNewtonian || prop === "jacobian"){
-      tree = self.jacobian(data, rightArr, isNewtonian);
-    }
-    else{
-      tree = DATA.tree_mat(math_mat[prop](options, rightArr));
-    }
+    var tree = self.jacobian(data, rightArr, (prop === "newtonian"));
     self.feedback2trees(data, is, ie, tree);
   }
   else{
-    throw "Invalid FNmat arguments";
+    throw "Invalid "+tagName+" arguments";
+  }
+  return self;
+};
+My_entry.operation.prototype.FNm = function(data, i0, tagName, tagObj){
+  var self = this;
+  var trees = data.trees;
+  var options = data.options;
+  var math_mat = self.entry.math_mat;
+  var DATA = self.entry.DATA;
+  var unit = self.entry.unit;
+  var is = i0;
+  var ie = i0+1;
+  var rightArr = self.get_tagVal(trees[ie], "mat", "arr");
+  if(rightArr){
+    var prop = tagObj.val;
+    var tree = DATA.tree_mat(math_mat[prop](options, rightArr));
+    self.feedback2trees(data, is, ie, tree);
+  }
+  else{
+    throw "Invalid "+tagName+" arguments";
   }
   return self;
 };
@@ -669,7 +683,7 @@ My_entry.operation.prototype.FNn = function(data, i0, tagName, tagObj){
     self.feedback2trees(data, is, ie, tree);
   }
   else{
-    throw "Invalid FN arguments";
+    throw "Invalid "+tagName+" arguments";
   }
   return self;
 };

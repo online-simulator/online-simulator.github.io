@@ -218,35 +218,36 @@ My_entry.parser.prototype.make_trees = function(sentence, re){
       case "ans":
         tree = DATA.tree_tag("REv", token_lower);
         break;
-      // for matrix
+      // "FNmh"
+      case "jacobi":
+      case "jacobian":
+        tree = DATA.tree_tag("FNmh", "jacobian");
+        break;
+      case "newton":
+      case "newtonian":
+        tree = DATA.tree_tag("FNmh", "newtonian");
+        break;
+      // "FNm"
       case "trans":
       case "transpose":
-        tree = DATA.tree_tag("FNmat", "transpose");
+        tree = DATA.tree_tag("FNm", "transpose");
         break;
       case "htrans":
       case "htranspose":
       case "hermitian":
-        tree = DATA.tree_tag("FNmat", "hermitian");
+        tree = DATA.tree_tag("FNm", "hermitian");
         break;
       case "norm":
       case "euclidean":
-        tree = DATA.tree_tag("FNmat", "euclidean");
-        break;
-      case "jacobi":
-      case "jacobian":
-        tree = DATA.tree_tag("FNmat", "jacobian");
+        tree = DATA.tree_tag("FNm", "euclidean");
         break;
       case "gauss":
       case "gaussian":
-        tree = DATA.tree_tag("FNmat", "gaussian");
-        break;
-      case "newton":
-      case "newtonian":
-        tree = DATA.tree_tag("FNmat", "newtonian");
+        tree = DATA.tree_tag("FNm", "gaussian");
         break;
       case "first":
       case "last":
-        tree = DATA.tree_tag("FNmat", token_lower);
+        tree = DATA.tree_tag("FNm", token_lower);
         break;
       // "CT"
       // JavaScript defined
