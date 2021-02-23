@@ -291,7 +291,7 @@ My_entry.$.prototype.val2literal = function(val){
 };
 My_entry.$.prototype.get_urlParam = function(key_comp){
   var self = this;
-  var _str = "";
+  var _val = "";
   if(location && location.search){
     var params = location.search.split("?")[1].split("&");
     for(var i=0, len=params.length; i<len; ++i){
@@ -300,13 +300,13 @@ My_entry.$.prototype.get_urlParam = function(key_comp){
       var val = arr[1];
       if(key && val){
         if(key.toUpperCase() === key_comp.toUpperCase()){
-          _str = self.val2literal(val);
+          _val = (isNaN(Number(val)))? self.val2literal(val): Number(val);
           break;
         }
       }
     }
   }
-  return _str;
+  return _val;
 };
 My_entry.$.prototype.get_urlParams = function(obj){
   var self = this;
