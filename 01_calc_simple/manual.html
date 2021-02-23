@@ -1096,7 +1096,7 @@ x=2; [2]x -> [MyErr]Invalid reference
 <br>
 1(i) || (1)i -> i
 <br>
-(-1)i -> -i
+(-1)i || -1(i) -> -i
 <br>
 3i/2 -> 1.5i
 <br>
@@ -1516,7 +1516,9 @@ A=(1,2:3,4); A[1] -> (3,4)
 <br>
 ・括弧は関数より優先するため、関数の外側を上位の括弧で括る
 <br>
-trans((trans(1,2:3,4))[1]) || trans({trans(1,2:3,4)}[1]) -> (2:4)
+trans((trans(1,2:3,4))[1]) || htrans((htrans(1,2:3,4))[1]) -> (2:4)
+<br>
+trans((trans(i,2i:3i,4i))[1]) || htrans((htrans(i,2i:3i,4i))[1]) -> (2i:4i)
 <br>
 <br>
 定義済みの行列要素のみ値代入可
@@ -1618,7 +1620,7 @@ x=y(z) -> [MyErr]Invalid ans isFound
 <br>
 変数名に予約語は使用不可
 <br>
-max=3 -> [MyErr]Invalid FN arguments
+max=3 -> [MyErr]Invalid ans isFound
 <br>
 ・定数の場合、次のように演算される
 <br>
@@ -1706,7 +1708,7 @@ x=-0xff; /*x:16進数*/ x&gt;&gt;2 // 右シフト2回
 <br>
 式変数への方程式の代入・再代入方法は、式変数名&lt;=代入方程式とする
 <br>
-式変数への代入を以降、式代入と呼ぶ
+・式変数への代入を以降、式代入と呼ぶ
 <br>
 y&lt;=a*x+b; -> stored_eqn(y)
 <br>
@@ -1715,7 +1717,7 @@ y&lt;=a*x+b; -> stored_eqn(y)
 <br>
 式変数から変数に値代入する方法は、式変数名=&gt;変数名とする
 <br>
-式変数からの値読出しを以降、式読出しと呼ぶ
+・式変数からの値読出しを以降、式読出しと呼ぶ
 <br>
 y&lt;=a*x+b; y=&gt; -> [MyErr]Invalid binary operation
 <br>
@@ -1767,6 +1769,13 @@ y0=3; y&lt;=3y0-1; y=&gt;y1; 2y1 -> 16
 eqn_x&lt;=(a*x+b=0); a=1; b=2; x=3; 2eqn_x || 2*(-5) -> -10
 <br>
 <br>
+式変数の任意要素を読出す場合
+<br>
+clear; x&lt;=(1,2); x[0][1] || (x=&gt;)[0][1] -> 2
+<br>
+clear; x&lt;=(1,2); x=&gt;[0] -> [MyErr]Invalid reference
+<br>
+<br>
 式変数と同名の変数が未定義で循環参照した場合、error終了
 <br>
 storage cleared
@@ -1790,7 +1799,16 @@ x&lt;=2,3x -> (0,6)
 x&lt;=2:3x -> (0:6)
 <br>
 <br>
-式変数から式変数への式代入を以降、式渡しと呼ぶ
+関数名を式代入可
+<br>
+tr&lt;=trans; tr(1,2:3,4) || (tr=&gt;)(1,2:3,4) -> (1,3:2,4)
+<br>
+htr&lt;=htrans; htr((htr(i,2i:3i,4i))[1]) -> (2i:4i)
+<br>
+<br>
+式変数を式代入可
+<br>
+・式変数の式代入を以降、式渡しと呼ぶ
 <br>
 ・式読出し記号を明示する場合
 <br>

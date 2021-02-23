@@ -335,7 +335,6 @@ My_entry.operation.prototype.get_newData = function(data, trees){
 My_entry.operation.prototype.tree2tree_mat = function(tree){
   var self = this;
   var DATA = self.entry.DATA;
-  var math_mat = self.entry.math_mat;
   var _tree = null;
   if(!(tree) || tree.out){  // (,x=1) -> (0,0)
     _tree = DATA.tree_num(0, 0);
@@ -344,12 +343,13 @@ My_entry.operation.prototype.tree2tree_mat = function(tree){
     _tree = tree;
   }
   else{
-    _tree = DATA.tree_mat(DATA.obj2arr(tree));
+    _tree = (self.isType(tree, "FN"))? tree: DATA.tree_mat(DATA.obj2arr(tree));
   }
 /*
   else if(tree.out){
     var arr = tree.out.val.arr;
     if(arr){
+      var math_mat = self.entry.math_mat;
       _tree = DATA.tree_mat(math_mat.zeros_arr(arr));  // x=(1,2:),1 -> troublesome error
     }
   }
@@ -407,6 +407,9 @@ My_entry.operation.prototype.BTref = function(data, i0, tagName, tagObj){
         var mat = leftTree.mat;
         mat.arr = self.restore_arr(mat.arr, ref);
         tree = null;
+      }
+      else{
+        throw "Invalid reference";
       }
     }
   }
@@ -469,16 +472,17 @@ My_entry.operation.prototype.SRt = function(data, i0, tagName, tagObj){
   self.SRr_or_SRt(data, i0, tagName, tagObj, true);
   return self;
 };
-My_entry.operation.prototype.isBrackeT = function(tree){
+My_entry.operation.prototype.isType = function(tree, type_comp){
   var self = this;
   var tagName = Object.keys(tree)[0];
-  return ((tagName === "BT2" || tagName === "BT1" || tagName === "BT0")? tagName: null);
+  var type = tagName.substr(0, 2);
+  return ((type === type_comp)? tagName: null);
 };
 My_entry.operation.prototype.tree_BT2tree = function(data, tree){
   var self = this;
   var DATA = self.entry.DATA;
-  var tagName = self.isBrackeT(tree);
   var _tree = null;
+  var tagName = self.isType(tree, "BT");
   if(tagName){
     var newData = DATA.data(DATA.tree2trees(tree), data.options);
     var obj = DATA.tag(tagName, self.get_tagVal(tree, tagName, "val"));
@@ -648,9 +652,6 @@ My_entry.operation.prototype.FNmh = function(data, i0, tagName, tagObj){
     var tree = self.jacobian(data, rightArr, (prop === "newtonian"));
     self.feedback2trees(data, is, ie, tree);
   }
-  else{
-    throw "Invalid "+tagName+" arguments";
-  }
   return self;
 };
 My_entry.operation.prototype.FNm = function(data, i0, tagName, tagObj){
@@ -668,9 +669,6 @@ My_entry.operation.prototype.FNm = function(data, i0, tagName, tagObj){
     var tree = DATA.tree_mat(math_mat[prop](options, rightArr));
     self.feedback2trees(data, is, ie, tree);
   }
-  else{
-    throw "Invalid "+tagName+" arguments";
-  }
   return self;
 };
 My_entry.operation.prototype.FNh = function(data, i0, tagName, tagObj){
@@ -683,9 +681,6 @@ My_entry.operation.prototype.FNh = function(data, i0, tagName, tagObj){
   var ie = i0+1;
   var rightTree = trees[ie];
   if(rightTree){
-  }
-  else{
-    throw "Invalid "+tagName+" arguments";
   }
   return self;
 };
@@ -704,9 +699,6 @@ My_entry.operation.prototype.FNn = function(data, i0, tagName, tagObj){
     var args = rightArr[rightArr.length-1];
     var tree = DATA.num2tree(unit[tagName].apply(unit, [prop, options].concat(args)));  // arguments.length < O(10000)
     self.feedback2trees(data, is, ie, tree);
-  }
-  else{
-    throw "Invalid "+tagName+" arguments";
   }
   return self;
 };
@@ -962,9 +954,10 @@ My_entry.operation.prototype.REv = function(data, i0, tagName, tagObj){
           throw "Invalid circular("+name+")";
         }
         self.vars[name] = true;
-        tree = self.tree_eqn2tree(data, tree_eqn);
+        var isREe = tree_eqn[self.config.BT.REe];
+        tree = (isREe)? self.tree_eqn2tree(data, tree_eqn): tree_eqn;
         self.vars[name] = false;
-        if(ref){
+        if(isREe && ref){
           tree = DATA.tree_mat(self.restore_arr(tree.mat.arr, ref));
         }
       }
@@ -1042,8 +1035,14 @@ My_entry.operation.prototype.restore_eqn = function(eqns, name){
   var tree = eqns[name];
   if(tree){
     var BT = self.config.BT;
-    _tree = {};
-    _tree[BT.REe] = self.entry.def.newClone(tree[BT.SEe]);
+    var tree_BT = tree[BT.SEe];
+    if(tree_BT){
+      _tree = {};
+      _tree[BT.REe] = self.entry.def.newClone(tree_BT);
+    }
+    else{
+      _tree = self.entry.def.newClone(tree);
+    }
   }
   return _tree;
 };
@@ -1066,7 +1065,8 @@ My_entry.operation.prototype.REe = function(data, i0, tagName, tagObj){
     var name_var = self.get_tagVal(trees[ie], "REv", "val");
     var tree_eqn = self.restore_eqn(eqns, name_eqn);
     if(tree_eqn){
-      tree = self.tree_eqn2tree(data, tree_eqn);
+      var isREe = tree_eqn[self.config.BT.REe];
+      tree = (isREe)? self.tree_eqn2tree(data, tree_eqn): tree_eqn;
       if(name_var){
         self.store_var(vars, name_var, tree);
       }
@@ -1097,7 +1097,14 @@ My_entry.operation.prototype.SEe = function(data, i0, tagName, tagObj){
     var tree = null;
     if(trees.length > 1){
       var name_eqn = self.get_tagVal(trees[is], "REv", "val");
-      tree = DATA.tree_tag(self.config.BT.SEe, trees.slice(is+2, len));
+      var newTrees = trees.slice(is+2, len);
+      if(newTrees.length === 1){
+        var newTree = DATA.trees2tree(newTrees);
+        if(self.isType(newTree, "FN")){
+          tree = newTree;
+        }
+      }
+      tree = tree || DATA.tree_tag(self.config.BT.SEe, newTrees);
       if(name_eqn){
         self.store_eqn(eqns, name_eqn, tree);
         tree = DATA.tree_tag("out", "stored_eqn("+name_eqn+")");
