@@ -191,6 +191,11 @@ e^(-i(1pi(){2/2i}(5-{3-1}){i/(-4)}))
 演算仕様
 </a>
 <br>
+・
+<a href="#span-out-storage">
+ストレージ
+</a>
+<br>
 ・入力仕様
 <br>
 ・・
@@ -239,7 +244,7 @@ e^(-i(1pi(){2/2i}(5-{3-1}){i/(-4)}))
 </a>
 <br>
 ・・
-<a href="#span-out-FNmat">
+<a href="#span-out-FNm">
 行列関数
 </a>
 <br>
@@ -256,6 +261,16 @@ e^(-i(1pi(){2/2i}(5-{3-1}){i/(-4)}))
 ・・
 <a href="#span-out-eqns">
 式変数
+</a>
+<br>
+・・
+<a href="#span-out-FNh">
+高階関数
+</a>
+<br>
+・・
+<a href="#span-out-FNmh">
+行列高階関数
 </a>
 <br>
 ・解法
@@ -318,7 +333,9 @@ e^(-i(1pi(){2/2i}(5-{3-1}){i/(-4)}))
 <br>
 ・誤差のオーダーをLandauの記号O(指数表記1e-16等)で表記する
 <br>
-・数学で言う行列の成分を配列要素を拡張して行列要素と表記する
+・数学で言う行列の成分を行列要素（配列要素を拡張）と表記する
+<br>
+・方程式または関数式を引数に取る関数を高階関数と表記する
     </td>
   </tr>
   <tr>
@@ -745,6 +762,28 @@ sqrt(1,2,3:4,5,6) || sqrt(4,5,6) || sqrt(4) -> 2
   </tr>
   <tr>
     <th>
+ストレージ
+    </th>
+    <td>
+<span id="span-out-storage"></span>
+ストレージ（storage）について記述する
+<br>
+<br>
+ストレージは変数・式変数を保存するオブジェクトで次の2種類
+<br>
+<br>
+ローカルstorage
+<br>
+・演算実行確定1回の各実行文の変数・式変数を保存する
+<br>
+<br>
+グローバルstorage
+<br>
+・演算実行確定1回毎に返される変数・式変数を累積保存する
+    </td>
+  </tr>
+  <tr>
+    <th>
 命令文
 <br>
 入力仕様
@@ -815,7 +854,7 @@ x -> operation stopped
 <br>
 命令文への代入不可
 <br>
-stop=3 -> [MyErr]Invalid word called
+stop=3 -> [MyErr]Invalid stop called
     </td>
   </tr>
   <tr>
@@ -934,7 +973,7 @@ A=(1,2:3,4); A[1,2:3,4] -> (7,10:15,22)
 <br>
 <br>
 詳細は
-<a href="#span-out-FNmat">行列操作関数</a>
+<a href="#span-out-concat">行列操作入力仕様</a>
 参照
     </td>
   </tr>
@@ -1375,7 +1414,7 @@ t=pi/4; (cos(t),sin(t):,){i(sin(t)),i(cos(t)):,} -> (i,0:0,0)
 入力仕様
     </th>
     <td>
-<span id="span-out-FNmat"></span>
+<span id="span-out-FNm"></span>
 行列関数の入力仕様と付随する留意事項について記述する
 <br>
 <br>
@@ -1764,21 +1803,76 @@ eqn_x&lt;=3x; eqn_y&lt;=(eqn_x=&gt;); x=3; eqn_y=&gt; ->9
 storage cleared
 <br>
 eqn_x&lt;=3x; eqn_y&lt;=eqn_x; x=3; eqn_y ->9
+    </td>
+  </tr>
+  <tr>
+    <th>
+高階関数
+<br>
+入力仕様
+    </th>
+    <td>
+<span id="span-out-FNh"></span>
+高階関数の入力仕様と付随する留意事項について記述する
 <br>
 <br>
-Jacobi行列を取得する関数の引数は式渡し
+実装中・・・
+    </td>
+  </tr>
+  <tr>
+    <th>
+行列
 <br>
-・方程式、未知変数、初期値の列ベクトルを式渡しで渡す
+高階関数
 <br>
-・初期値は未知変数未定義時のみ有効（反復中には無効）
+入力仕様
+    </th>
+    <td>
+<span id="span-out-FNmh"></span>
+行列高階関数の入力仕様と付随する留意事項について記述する
 <br>
-・初期値を省略した場合、初期値はゼロベクトルとする
 <br>
-Jacobi(&lt;={3x0-3=0},&lt;={x0},&lt;={0})
+Jacobi高階関数
+<br>
+・Jacobi行列を演算して返す
+<br>
+・演算速度優先で1次精度の誤差O(dxJ=1e-5)を含む
+<br>
+<br>
+Jacobi高階関数の引数を順番に列挙する
+<br>
+・方程式または関数式の列ベクトルを式渡し
+<br>
+・未知変数の列ベクトルを式渡し
+<br>
+・初期値の列ベクトルを式渡し
+<br>
+・・初期値は未知変数未定義時のみ有効
+<br>
+・・初期値を省略した場合、ゼロベクトルを仮定
+<br>
+<br>
+xの1次方程式の偏微分係数を求める場合
+<br>
+clear; Jacobi(&lt;={3x-3=0},&lt;={x},&lt;={0})
 <br>
 -> -3.0000000000098264+9.826647183188544e-12i
 <br>
-・右辺に移項した線形方程式=-3x0+3のx0周辺の傾き-3を返す
+・右辺に移項した方程式=-3x+3のx=0周辺の傾き-3を返す
+<br>
+<br>
+xの2次関数の偏微分係数を求める場合
+<br>
+clear; Jacobi(&lt;={2x^2},&lt;={x},&lt;={1})
+<br>
+-> 4.0000200000131025+0.000019999986898147652i
+<br>
+・1階偏微分=4xのx=1周辺の傾き4を返す
+<br>
+<br>
+Newton高階関数
+<br>
+・連立方程式の解法と併せて記述する
     </td>
   </tr>
   <tr>
@@ -1884,9 +1978,9 @@ b={-f[i]}
 ・直接法で求解した解の修正ベクトルdxを用いて近似解を修正する
 <br>
 <br>
-上記の反復1回の処理をまとめたNewton法の関数について記述する
+上記の反復1回の処理をまとめたNewton高階関数について記述する
 <br>
-・関数の引数はJacobi行列の関数に同じとする
+・関数の引数はJacobi高階関数に同じとする
 <br>
 ・Scalar倍の符号位置を変えて次の連立線形方程式を直接法で解く
 <br>
@@ -2303,7 +2397,7 @@ data.logo -> "makeLog=true"
 配列要素の定義順で優先順位を動的に変更可能とする
 <br>
 <br>
-operation.jsより抜粋
+operation.js抜粋
 <pre><code>
   precedence: [
                  // comments and white-spaces are removed by parser
@@ -2331,8 +2425,9 @@ operation.jsより抜粋
       ],
       [
         /* following function */
-        "FNmh",  // FunctioN for matrix high-spec
+        "FNmh",  // FunctioN for matrix high-order
         "FNm",   // FunctioN for matrix
+        "FNh",   // FunctioN high-order
         "FN",    // FunctioN 1~4-arguments
         "FNn"    // FunctioN n-arguments
       ]
@@ -2391,12 +2486,12 @@ operation.jsより抜粋
 予約語は大文字・小文字・全角・半角を区別しない
 <br>
 <br>
-parser.jsより抜粋
+parser.js抜粋
 <pre><code>
       // reserved word
       case "clear":
       case "stop":
-        throw "Invalid word called";
+        throw "Invalid "+token+" called";
         break;
       case "ans":
         tree = DATA.tree_tag("REv", token_lower);
