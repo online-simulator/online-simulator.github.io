@@ -12,6 +12,14 @@ My_entry.math_mat.prototype.init = function(){
   new My_entry.original_main().make_instances.call(self, ["solver", "DATA", "unit"]);
   return self;
 };
+My_entry.math_mat.prototype.init2d = function(len_i, len_j){
+  var self = this;
+  var _arr = new Array(len_i);
+  for(var i=0; i<len_i; ++i){
+    _arr[i] = new Array(len_j);
+  }
+  return _arr;
+};
 My_entry.math_mat.prototype.zeros = function(len_i, len_j){
   var self = this;
   var DATA = self.entry.DATA;
@@ -134,7 +142,7 @@ My_entry.math_mat.prototype.gaussian = function(options, arr){
     b[i] = arri.slice(len_j-1, len_j);
   });
   obj_Axb.A = A;
-  obj_Axb.x = self.zeros(len_i, 1);
+  obj_Axb.x = self.init2d(len_i, 1);
   obj_Axb.b = b;
   solver.gaussian(options, obj_Axb);
   var _arr = obj_Axb.x;
@@ -152,7 +160,7 @@ My_entry.math_mat.prototype.Imat = function(len){
 My_entry.math_mat.prototype.Imat_k = function(len, k){
   var self = this;
   var DATA = self.entry.DATA;
-  var _arr = self.zeros(len, len);
+  var _arr = self.init2d(len, len);
   for(var i=0; i<len; ++i){
     _arr[i][i] = DATA.num(k, 0);
   }
@@ -161,7 +169,7 @@ My_entry.math_mat.prototype.Imat_k = function(len, k){
 My_entry.math_mat.prototype.re_size = function(arr, newLen_i, newLen_j){
   var self = this;
   var len_i = arr.length;
-  var _arr = self.zeros(newLen_i, newLen_j);
+  var _arr = self.init2d(newLen_i, newLen_j);
   for(var i=0; i<len_i; ++i){
     var len_j = arr[i].length;
     for(var j=0; j<len_j; ++j){
@@ -195,7 +203,7 @@ My_entry.math_mat.prototype.BRm = function(options, left, right){
   var len_i = leftLens.i;
   var len_j = rightLens.j;
   var newRight = self.transpose(options, right);
-  var _arr = self.zeros(len_i, len_j);
+  var _arr = self.init2d(len_i, len_j);
   for(var i=0; i<len_i; ++i){
     for(var j=0; j<len_j; ++j){
       _arr[i][j] = self.iproduct(options, left[i], newRight[j]);
@@ -213,7 +221,7 @@ My_entry.math_mat.prototype.BRsa = function(options, left, right, sw_sa){
   var lens = leftLens;
   var len_i = lens.i;
   var len_j = lens.j;
-  var _arr = self.zeros(len_i, len_j);
+  var _arr = self.init2d(len_i, len_j);
   for(var i=0; i<len_i; ++i){
     for(var j=0; j<len_j; ++j){
       var leftNum = left[i][j] || DATA.num(0, 0);

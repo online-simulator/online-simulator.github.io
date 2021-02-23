@@ -559,7 +559,7 @@ My_entry.operation.prototype.jacobian = function(data, rightArr, isNewtonian){
     if(x0.length-len_i) throw msgErr;
     var x1 = [];
     var f0 = [];
-    var J = math_mat.zeros(len_i, len_i);
+    var J = math_mat.init2d(len_i, len_i);
     var dxJ = self.options.dxJ;
     var dx0 = DATA.num(dxJ, ((options.useComplex)? dxJ: 0));
     // x0
