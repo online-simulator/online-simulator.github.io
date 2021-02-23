@@ -17,6 +17,15 @@ My_entry.parser.prototype.config = {
       {s: "(", e: ")"},
       {s: "[", e: "]"}
     ],
+    bs: {
+      FNh: {
+        RX: /^_r(.*)$/,
+        IX: /^_i(.*)$/,
+        DX: /^_d(.*)$/,
+        PX: /^_p(.*)$/,
+        SX: /^_s(.*)$/
+      }
+    },
     bas: [
       // ** -> ^
       {b: /[\*]{2}/, a: "BRp"},
@@ -144,6 +153,42 @@ My_entry.parser.prototype.compare2pairs = function(tokens, i){
   });
   return _ip_e;
 };
+My_entry.parser.prototype.compare2bs = function(tokens, i, re){
+  var self = this;
+  var _tree = null;
+  var token = tokens[i];
+  var SYNTAX = self.config.SYNTAX;
+  var DATA = self.entry.DATA;
+  var bs = SYNTAX.bs;
+  for(var tagName in bs){
+    if(_tree) break;
+    var bstagName = bs[tagName];
+    for(var key in bstagName){
+      if(_tree) break;
+      var b = bstagName[key];
+      var mc = token.match(b);
+      if(mc && mc.length > 1){
+        if(tagName === "FNh"){
+          var mc1 = mc[1];
+          var trees = self.make_trees(mc1, re);
+          if(trees && trees.length === 1){
+            var tree = DATA.trees2tree(trees);
+            if(tree["REv"]){
+              _tree = DATA.tree_tag(tagName, {key: key, name: tree["REv"]["val"]});
+            }
+            else{
+              throw "Invalid "+mc1+" called";
+            }
+          }
+        }
+        if(!(_tree)){
+          throw "Invalid "+tagName+" called";
+        }
+      }
+    }
+  }
+  return _tree;
+};
 My_entry.parser.prototype.compare2bas = function(tokens, i){
   var self = this;
   var _tree = null;
@@ -205,7 +250,7 @@ My_entry.parser.prototype.make_trees = function(sentence, re){
       tree = DATA.tree_num(self.entry.def.Number(token), 0);
     }
     else{
-      tree = self.compare2bas(tokens, i);
+      tree = self.compare2bas(tokens, i) || self.compare2bs(tokens, i, re);
     }
     if(ip_e || tree){
     }
@@ -213,7 +258,7 @@ My_entry.parser.prototype.make_trees = function(sentence, re){
       // reserved word
       case "clear":
       case "stop":
-        throw "Invalid word called";
+        throw "Invalid "+token+" called";
         break;
       case "ans":
         tree = DATA.tree_tag("REv", token_lower);

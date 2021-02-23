@@ -34,8 +34,9 @@ My_entry.operation.prototype.config = {
       ],
       [
         /* following function */
-        "FNmh",  // FunctioN for matrix high-spec
+        "FNmh",  // FunctioN for matrix high-order
         "FNm",   // FunctioN for matrix
+        "FNh",   // FunctioN high-order
         "FN",    // FunctioN 1~4-arguments
         "FNn"    // FunctioN n-arguments
       ]
@@ -489,6 +490,28 @@ My_entry.operation.prototype.tree_BT2tree = function(data, tree){
   }
   return _tree;
 };
+My_entry.operation.prototype.tree2tree_eqn = function(data, tree){
+  var self = this;
+  var eqns = data.eqns;
+  var DATA = self.entry.DATA;
+  var BT = self.config.BT;
+  var _tree = null;
+  var trees = self.get_tagVal(tree, BT.SEe, "val");
+  if(trees){
+    _tree = DATA.trees2tree(trees);
+    var name_eqn = self.get_tagVal(_tree, "REv", "val");
+    if(name_eqn){
+      _tree = self.restore_eqn(eqns, name_eqn);
+      if(_tree){
+        _tree = DATA.trees2tree(self.get_tagVal(_tree, BT.REe, "val"));
+      }
+    }
+  }
+  if(!(_tree)){
+    self.throw_tree(tree);
+  }
+  return _tree;
+};
 My_entry.operation.prototype.jacobian = function(data, rightArr, isNewtonian){
   var self = this;
   var options = data.options;
@@ -499,25 +522,9 @@ My_entry.operation.prototype.jacobian = function(data, rightArr, isNewtonian){
   var unit = self.entry.unit;
   var _tree = null;
   var msgErr = "Invalid J arguments";
-  var BT = self.config.BT;
   var len_j = rightArr[0].length;
   var get_tree = function(j){
-    var _tree = null;
-    var trees = self.get_tagVal(rightArr[0][j], BT.SEe, "val");
-    if(trees){
-      _tree = DATA.trees2tree(trees);
-      var name_eqn = self.get_tagVal(_tree, "REv", "val");
-      if(name_eqn){
-        _tree = self.restore_eqn(eqns, name_eqn);
-        if(_tree){
-          _tree = DATA.trees2tree(self.get_tagVal(_tree, BT.REe, "val"));
-        }
-      }
-    }
-    if(!(_tree)){
-      throw msgErr;
-    }
-    return _tree;
+    return self.tree2tree_eqn(data, rightArr[0][j]);
   };
   var get_names = function(j){
     var _names = [];
@@ -660,6 +667,22 @@ My_entry.operation.prototype.FNm = function(data, i0, tagName, tagObj){
     var prop = tagObj.val;
     var tree = DATA.tree_mat(math_mat[prop](options, rightArr));
     self.feedback2trees(data, is, ie, tree);
+  }
+  else{
+    throw "Invalid "+tagName+" arguments";
+  }
+  return self;
+};
+My_entry.operation.prototype.FNh = function(data, i0, tagName, tagObj){
+  var self = this;
+  var trees = data.trees;
+  var options = data.options;
+  var DATA = self.entry.DATA;
+  var unit = self.entry.unit;
+  var is = i0;
+  var ie = i0+1;
+  var rightTree = trees[ie];
+  if(rightTree){
   }
   else{
     throw "Invalid "+tagName+" arguments";
