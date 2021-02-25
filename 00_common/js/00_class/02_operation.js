@@ -409,7 +409,7 @@ My_entry.operation.prototype.BTref = function(data, i0, tagName, tagObj){
         tree = null;
       }
       else{
-        throw "Invalid reference";
+        self.throw_tree(leftTree);
       }
     }
   }
