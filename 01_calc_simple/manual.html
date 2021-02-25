@@ -511,9 +511,9 @@ ans -> 6
 <br>
 表示仕様ではないが、以下の演算都合上の仕様について記述する
 <br>
-・代入を括弧で括ると0を返す
+・代入を括弧で括った場合、0を返す
 <br>
-(x=3) -> 0
+(x=3) || (3=3) -> 0
 <br>
 x -> 3
 <br>
@@ -521,7 +521,7 @@ x -> 3
 <br>
 2(x=3) || 2(3=3) || 2(=3-3) || 2(0) -> 0
 <br>
-・代入をカンマまたはコロンで区切ると0を返す
+・代入をカンマまたはコロンで区切った場合、0を返す
 <br>
 max(x=3,-1,-2) || max(0,-1,-2) -> 0
 <br>
@@ -928,11 +928,11 @@ x=3; x=2:3x -> (0:6)
 <br>
 括弧は区切り文字に含める
 <br>
-・実行文を区切るセミコロンを括弧の中で使用するとerror終了
+・実行文を区切るセミコロンを括弧の中で使用した場合、error終了
 <br>
 (;) -> [MyErr]Invalid {([])}
 <br>
-・対応関係が取れない括弧の入れ子はerror終了
+・対応関係が取れない括弧の入れ子が見つかった場合、error終了
 <br>
 [(0]) -> [MyErr]Invalid {([])}
 <br>
@@ -1094,9 +1094,9 @@ x=2; [2]x -> [MyErr]Invalid reference
 <br>
 複素数の虚数単位iは後置きの単項演算子とする
 <br>
-1(i) || (1)i -> i
+(+1)i || +(1)i || +1(i) || +(i) -> i
 <br>
-(-1)i || -1(i) -> -i
+(-1)i || -(1)i || -1(i) || -(i) -> -i
 <br>
 3i/2 -> 1.5i
 <br>
@@ -1604,18 +1604,14 @@ x=2; x=2x; x -> 4
 <br>
 代入を判別するため、変数の左側に数値や演算子を置けない
 <br>
-storage cleared
+clear; 2x=3 -> [MyErr]Invalid ans isFound
 <br>
-2x=3 -> [MyErr]Invalid ans isFound
-<br>
-3+x=4 -> [MyErr]Invalid binary operation
+clear; 3+x=4 -> [MyErr]Invalid binary operation
 <br>
 <br>
 未定義変数に未定義変数の代入不可
 <br>
-storage cleared
-<br>
-x=y(z) -> [MyErr]Invalid ans isFound
+clear; x=y(z) -> [MyErr]Invalid ans isFound
 <br>
 <br>
 変数名に予約語は使用不可
@@ -1643,7 +1639,7 @@ x=1; X=2; x+X -> 3
 <br>
 変数名は数字から始めることはできない
 <br>
-2x=4 -> [MyErr]Invalid ans isFound
+clear; 2x=4 -> [MyErr]Invalid ans isFound
 <br>
 <br>
 変数名の後に続く数字は変数名に含まれる
@@ -1653,14 +1649,14 @@ x0=1; x1=2; x0+x1 -> 3
 <br>
 代入を括弧で括った場合、0を返す
 <br>
-((x=3)) -> 0
+(x=3) -> 0
 <br>
 <br>
 代入をカンマかコロンで区切った場合、0を返す
 <br>
-x=2,3x -> (0,6)
+clear; x=2,3x -> (0,6)
 <br>
-x=2:3x -> (0:6)
+clear; x=2:3x -> (0:6)
 <br>
 <br>
 予約変数を示す
@@ -1739,23 +1735,17 @@ y&lt;=a*x+b; a=1; b=2; x=3; y=&gt;y0; y0 -> 5
 <br>
 式変数と同名の変数が未定義の場合、直接、式読出し可
 <br>
-storage cleared
+clear; y&lt;=a*x+b; a=1; b=2; x=3; 2y -> 10
 <br>
-y&lt;=a*x+b; a=1; b=2; x=3; 2y -> 10
-<br>
-y&lt;=a*x+b; a=1; b=2; x=3; y0=2y; y0 -> 10
+clear; y&lt;=a*x+b; a=1; b=2; x=3; y0=2y; y0 -> 10
 <br>
 ・ただし、式読出し記号を明示する方が間違いが少ない
-<br>
-storage cleared
 <br>
 y=-1; y&lt;=a*x+b; a=1; b=2; x=3; 2y -> -2
 <br>
 y=-1; y&lt;=a*x+b; a=1; b=2; x=3; 2(y=&gt;) -> 10
 <br>
 ・さらに、式変数名と変数名は区別する方が間違いが少ない
-<br>
-storage cleared
 <br>
 y=3; y&lt;=3y-1; 2y -> 6
 <br>
@@ -1766,7 +1756,7 @@ y0=3; y&lt;=3y0-1; y=&gt;y1; 2y1 -> 16
 <br>
 式変数名で明示して直接読出す方法もあり得る
 <br>
-eqn_x&lt;=(a*x+b=0); a=1; b=2; x=3; 2eqn_x || 2*(-5) -> -10
+clear; eqn_x&lt;=(a*x+b=0); a=1; b=2; x=3; 2eqn_x || 2*(-5) -> -10
 <br>
 <br>
 式変数の任意要素を読出す場合
@@ -1778,32 +1768,26 @@ clear; x&lt;=(1,2); x=&gt;[0][1] -> [MyErr]Invalid REe(=>)
 <br>
 式変数と同名の変数が未定義で循環参照した場合、error終了
 <br>
-storage cleared
-<br>
-y&lt;=3y-1; y -> [MyErr]Invalid circular(y)
-<br>
-y=1; y&lt;=3y-1; y -> 2
+clear; y&lt;=3y-1; y -> [MyErr]Invalid circular(y)
 <br>
 <br>
 式代入を括弧で括った場合、0を返す
 <br>
-((x&lt;=3)) -> 0
+(x&lt;=3) -> 0
 <br>
 <br>
 式代入をカンマかコロンで区切った場合、0を返す
 <br>
-storage cleared
+clear; x&lt;=2,3x -> (0,6)
 <br>
-x&lt;=2,3x -> (0,6)
-<br>
-x&lt;=2:3x -> (0:6)
+clear; x&lt;=2:3x -> (0:6)
 <br>
 <br>
 関数名を式代入可
 <br>
-tr&lt;=trans; tr(1,2:3,4) || (tr=&gt;)(1,2:3,4) -> (1,3:2,4)
+clear; tr&lt;=trans; tr(1,2:3,4) || (tr=&gt;)(1,2:3,4) -> (1,3:2,4)
 <br>
-htr&lt;=htrans; htr((htr(i,2i:3i,4i))[1]) -> (2i:4i)
+clear; htr&lt;=htrans; htr((htr(i,2i:3i,4i))[1]) -> (2i:4i)
 <br>
 <br>
 式変数を式代入可
@@ -1812,15 +1796,11 @@ htr&lt;=htrans; htr((htr(i,2i:3i,4i))[1]) -> (2i:4i)
 <br>
 ・式読出し記号を明示する場合
 <br>
-storage cleared
-<br>
-eqn_x&lt;=3x; eqn_y&lt;=(eqn_x=&gt;); x=3; eqn_y=&gt; ->9
+clear; eqn_x&lt;=3x; eqn_y&lt;=(eqn_x=&gt;); x=3; eqn_y=&gt; ->9
 <br>
 ・同名の変数未定義の前提で式読出し記号を省略する場合
 <br>
-storage cleared
-<br>
-eqn_x&lt;=3x; eqn_y&lt;=eqn_x; x=3; eqn_y ->9
+clear; eqn_x&lt;=3x; eqn_y&lt;=eqn_x; x=3; eqn_y ->9
     </td>
   </tr>
   <tr>
@@ -1854,7 +1834,9 @@ Jacobi高階関数
 <br>
 ・Jacobi行列を演算して返す
 <br>
-・演算速度優先で1次精度の誤差O(dxJ=1e-5)を含む
+・演算速度優先で1次精度の誤差O(dxJ)を含む
+<br>
+・各偏微分の微小変化量dxJの既定値dxJ=1e-5
 <br>
 <br>
 Jacobi高階関数の引数を順番に列挙する
@@ -2190,11 +2172,23 @@ infoLost!! 0.07726186556052178-1.434248862158042i)
 <br>
 ・このとき、符号の左側にはゼロが存在すると仮定する
 <br>
-+3-5+7-9　左結合時((((0+3)-5)+7)-9)　右結合時(0+(3-(5+(7-9))))
+左結合時　+3-5+7-9 || ((((0+3)-5)+7)-9)
+<br>
+右結合時　+3-5+7-9 || (0+(3-(5+(7-9))))
 <br>
 ・行列も同様に単項の符号はゼロ行列との差分またはScalar倍として扱う
 <br>
 -(1,2:3,4) || (,:,)-(1,2:3,4) || (-1,:,-1)(1,2:3,4) -> (-1,-2:-3,-4)
+<br>
+・よって実用しないが、符号が連続する場合、右結合時のみ演算可
+<br>
+左結合時　--(1,i) || (-)-(1,i) -> Invalid binary operation
+<br>
+右結合時　--(1,i) || (,)-((,)-(1,i)) -> (1,i)
+<br>
+左結合時　---(1,i) || ((-)-)-(1,i) -> Invalid binary operation
+<br>
+右結合時　---(1,i) || (,)-((,)-((,)-(1,i))) -> (-1,-i)
 <br>
 <br>
 次にイコール記号=の扱いについて記述する
@@ -2222,9 +2216,9 @@ f&lt;={x0^2+1=0}
 <br>
 行列を扱う上での演算都合上の仕様について記述する
 <br>
-・代入を括弧で括ると0を返す
+・代入を括弧で括った場合、0を返す
 <br>
-(x=3) -> 0
+(x=3) || (3=3) -> 0
 <br>
 x -> 3
 <br>
@@ -2232,19 +2226,19 @@ x -> 3
 <br>
 2(x=3) || 2(3=3) || 2(=3-3) || 2(0) -> 0
 <br>
-・代入をカンマまたはコロンで区切ると0を返す
+・代入をカンマまたはコロンで区切った場合、0を返す
 <br>
 max(x=3,-1,-2) || max(0,-1,-2) -> 0
 <br>
-(1,2:3,4:x=5,x) -> (1,2:3,4:0,5)
+clear; (1,2:3,4:x=5,x) -> (1,2:3,4:0,5)
 <br>
 ・ただし、行列を代入しても次元は残らない
 <br>
 (x=(1,2:3,4)) -> 0
 <br>
-x=(1,2),x || 0,(1,2) -> (0,1,2)
+clear; x=(1,2),x || 0,(1,2) -> (0,1,2)
 <br>
-max(x=(-1,-2),min(x)) || max(0,-2) -> 0
+clear; max(x=(-1,-2),min(x)) || max(0,-2) -> 0
 <br>
 vector={1,2,3}:trans(vector)vector -> (0:14)
 <br>
@@ -2254,9 +2248,7 @@ vector={1,2,3}:trans(vector)vector -> (0:14)
 <br>
 ・変数への式読出しは読出し値が残る
 <br>
-storage cleared
-<br>
-y&lt;=3x-1,x=3,y=&gt;,y=&gt;y0,y0 -> (0,0,8,8,8)
+clear; y&lt;=3x-1,x=3,y=&gt;,y=&gt;y0,y0 -> (0,0,8,8,8)
 <br>
 <br>
 式変数について記述する

@@ -27,21 +27,16 @@ My_entry.parser.prototype.config = {
       }
     },
     bas: [
-      // ** -> ^
-      {b: /[\*]{2}/, a: "BRp"},
-      // fact -> "URf"
-      {b: /!+/, a: function(str){
-        return "URf"+","+str.length;
-      }},
       // StorE equation
       {b: /<=/, a: "SEe"},
       // RestorE equation
       {b: /=>/, a: "REe"},
-      // series of signs -> "BRsa"
-      {b: /[-+]+/, a: function(str){
-        var num_minus = str.split("-").length-1;
-        return ("BRsa"+","+((num_minus%2 === 0)? "+": "-"));
+      // fact -> "URf"
+      {b: /!+/, a: function(str){
+        return "URf"+","+str.length;
       }},
+      // ** -> ^
+      {b: /[\*]{2}/, a: "BRp"},
       // bit shift
       {b: /[\<]{2}|[\>]{2,3}/, a: "BRbs"}
     ],
