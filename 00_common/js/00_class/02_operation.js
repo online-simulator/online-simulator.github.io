@@ -1027,9 +1027,7 @@ My_entry.operation.prototype.SEv = function(data, i0, tagName, tagObj){
               throw "Invalid substitution";
             }
           }
-          else{
-            self.store_var(vars, name_var, tree);
-          }
+          self.store_var(vars, name_var, tree);
           tree = DATA.tag("out", {name: name_var, arr: tree.mat.arr});
         }
         else{
