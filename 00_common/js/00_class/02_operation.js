@@ -921,6 +921,19 @@ My_entry.operation.prototype.tree_eqn2tree = function(data, tree){
   var _tree = DATA.trees2tree(trees);
   return _tree;
 };
+My_entry.operation.prototype.tree2tree_ref = function(tree, ref){
+  var self = this;
+  var DATA = self.entry.DATA;
+  var _tree = null;
+  var arr = self.get_tagVal(tree, "mat", "arr");
+  if(arr){
+    _tree = DATA.tree_mat(self.restore_arr(arr, ref));
+  }
+  else{
+    self.throw_tree(tree);
+  }
+  return _tree;
+};
 My_entry.operation.prototype.REv = function(data, i0, tagName, tagObj){
   var self = this;
   var trees = data.trees;
@@ -938,7 +951,7 @@ My_entry.operation.prototype.REv = function(data, i0, tagName, tagObj){
     if(!(isSE)){
       tree = self.restore_var(vars, name);
       if(ref){
-        tree = DATA.tree_mat(self.restore_arr(tree.mat.arr, ref));
+        tree = self.tree2tree_ref(tree, ref);
       }
     }
     else{
@@ -949,16 +962,21 @@ My_entry.operation.prototype.REv = function(data, i0, tagName, tagObj){
     if(eqns[name]){
       if(!(isSE)){
         var tree_eqn = self.restore_eqn(eqns, name);
-        if(self.vars[name]){
-          self.vars[name] = false;
-          throw "Invalid circular("+name+")";
-        }
-        self.vars[name] = true;
         var isREe = tree_eqn[self.config.BT.REe];
-        tree = (isREe)? self.tree_eqn2tree(data, tree_eqn): tree_eqn;
-        self.vars[name] = false;
-        if(isREe && ref){
-          tree = DATA.tree_mat(self.restore_arr(tree.mat.arr, ref));
+        if(isREe){
+          if(self.vars[name]){
+            self.vars[name] = false;
+            throw "Invalid circular("+name+")";
+          }
+          self.vars[name] = true;
+          tree = self.tree_eqn2tree(data, tree_eqn);
+          self.vars[name] = false;
+        }
+        else{
+          tree = tree_eqn;
+        }
+        if(ref){
+          tree = self.tree2tree_ref(tree, ref);
         }
       }
       else{
@@ -1035,10 +1053,10 @@ My_entry.operation.prototype.restore_eqn = function(eqns, name){
   var tree = eqns[name];
   if(tree){
     var BT = self.config.BT;
-    var tree_BT = tree[BT.SEe];
-    if(tree_BT){
+    var isSEe = tree[BT.SEe];
+    if(isSEe){
       _tree = {};
-      _tree[BT.REe] = self.entry.def.newClone(tree_BT);
+      _tree[BT.REe] = self.entry.def.newClone(isSEe);
     }
     else{
       _tree = self.entry.def.newClone(tree);
