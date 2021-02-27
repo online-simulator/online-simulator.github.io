@@ -20,6 +20,17 @@ My_entry.math_mat.prototype.init2d = function(len_i, len_j){
   }
   return _arr;
 };
+My_entry.math_mat.prototype.init2d_num = function(len_i, len_j, num){
+  var self = this;
+  var _arr = new Array(len_i);
+  for(var i=0; i<len_i; ++i){
+    _arr[i] = new Array(len_j);
+    for(var j=0; j<len_j; ++j){
+      _arr[i][j] = num;
+    }
+  }
+  return _arr;
+};
 My_entry.math_mat.prototype.zeros = function(len_i, len_j){
   var self = this;
   var DATA = self.entry.DATA;

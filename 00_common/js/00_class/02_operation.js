@@ -527,6 +527,10 @@ My_entry.operation.prototype.jacobian = function(data, rightArr, isNewtonian){
   var _tree = null;
   var msgErr = "Invalid J arguments";
   var len_j = rightArr[0].length;
+  var arr2obj_i = function(arr, i){
+    var _arri = arr[i];
+    return _arri[_arri.length-1];
+  };
   var get_tree = function(j){
     return self.tree2tree_eqn(data, rightArr[0][j]);
   };
@@ -536,43 +540,51 @@ My_entry.operation.prototype.jacobian = function(data, rightArr, isNewtonian){
     var tree = self.tree_BT2tree(data, tree_BT);
     var arr = self.get_tagVal(tree, "mat", "arr");
     if(arr){
-      arr.forEach(function(arri){
-        var name = self.get_tagVal(arri[0], "REv", "val");
+      var len_i = arr.length;
+      for(var i=0; i<len_i; ++i){
+        var name = self.get_tagVal(arr2obj_i(arr, i), "REv", "val");
         if(name){
           _names.push(name);
         }
         else{
           throw msgErr;
         }
-      });
+      }
     }
     else{
       throw msgErr;
     }
     return _names;
   };
-  var get_x0 = function(j){
-    var _x0 = [];
+  var get_arr = function(j){
+    var _arr = [];
     var tree = self.tree_eqn2tree(data, get_tree(j));
     if(tree.mat){
-      _x0 = tree.mat.arr;
+      _arr = tree.mat.arr;
     }
     else{
       throw msgErr;
     }
-    return _x0;
+    return _arr;
   };
   if(len_j === 2 || len_j === 3){
     var tree_eqn = get_tree(0);
     var names = get_names(1);
     var len_i = names.length;
-    var x0 = (len_j === 3)? get_x0(2): new Array(len_i);
-    if(x0.length-len_i) throw msgErr;
+    var dxJ = self.options.dxJ;
+    var dx0 = DATA.num(dxJ, ((options.useComplex)? dxJ: 0));
+    var arr_x0 = null;
+    if(len_j === 3){
+      arr_x0 = get_arr(2);
+      if(arr_x0.length-len_i) throw msgErr;
+    }
+    else{
+      arr_x0 = math_mat.init2d_num(len_i, 1, dx0);
+    }
+    var x0 = [];
     var x1 = [];
     var f0 = [];
     var J = math_mat.init2d(len_i, len_i);
-    var dxJ = self.options.dxJ;
-    var dx0 = DATA.num(dxJ, ((options.useComplex)? dxJ: 0));
     // x0
     for(var i=0; i<len_i; ++i){
       var name_var = names[i];
@@ -581,8 +593,9 @@ My_entry.operation.prototype.jacobian = function(data, rightArr, isNewtonian){
         x0[i] = self.arr2num(tree.mat.arr);
       }
       else{
-        x0[i] = (x0[i])? x0[i][0]: dx0;
-        var tree = DATA.num2tree(x0[i]);
+        var num = arr2obj_i(arr_x0, i);
+        x0[i] = num;
+        var tree = DATA.num2tree(num);
         self.store_var(vars, name_var, tree);
       }
     }
@@ -591,7 +604,7 @@ My_entry.operation.prototype.jacobian = function(data, rightArr, isNewtonian){
     var arr0 = tree.mat.arr;
     if(arr0.length-len_i) throw msgErr;
     for(var i=0; i<len_i; ++i){
-      f0[i] = arr0[i][0];
+      f0[i] = arr2obj_i(arr0, i);
     }
     // x1
     for(var i=0; i<len_i; ++i){
@@ -607,7 +620,7 @@ My_entry.operation.prototype.jacobian = function(data, rightArr, isNewtonian){
       var tree = self.tree_eqn2tree(data, tree_eqn);
       var arr1 = tree.mat.arr;
       for(var i=0; i<len_i; ++i){
-        var f1i = arr1[i][0];
+        var f1i = arr2obj_i(arr1, i);
         J[i][j] = unit["BRd"](options, unit["BRs"](options, f1i, f0[i]), dx0);
       }
     }
@@ -620,7 +633,7 @@ My_entry.operation.prototype.jacobian = function(data, rightArr, isNewtonian){
       // store
       for(var i=0; i<len_i; ++i){
         var name_var = names[i];
-        self.store_var(vars, name_var, DATA.num2tree(unit["BRs"](options, x0[i], arr[i][0])));
+        self.store_var(vars, name_var, DATA.num2tree(unit["BRs"](options, x0[i], arr2obj_i(arr, i))));
       }
     }
     else{
