@@ -884,10 +884,6 @@ My_entry.operation.prototype.store_var = function(vars, name, tree){
   vars[name] = self.entry.def.newClone(tree);  // separate from trees
   return self;
 };
-My_entry.operation.prototype.isStorE = function(tree){
-  var self = this;
-  return (self.get_tag(tree, "BRe") || self.get_tag(tree, "SEe"));
-};
 My_entry.operation.prototype.restore_arr = function(arr, ref){
   var self = this;
   var _arr = [];
@@ -943,7 +939,10 @@ My_entry.operation.prototype.REv = function(data, i0, tagName, tagObj){
   var is = i0;
   var ie = i0;
   var hasUV = false;
-  var isSE = (i0 === 0 && self.isStorE(trees[i0+1]));
+  var isStorE = function(tree){
+    return (self.get_tag(tree, "BRe") || self.get_tag(tree, "SEe"));
+  };
+  var isSE = (i0 === 0 && isStorE(trees[i0+1]));
   var ref = trees[is]["REv"]["ref"];
   var tree = null;
   var name = tagObj.val;
@@ -1009,12 +1008,12 @@ My_entry.operation.prototype.SEv = function(data, i0, tagName, tagObj){
       var name_var = obj.val;
       if(name_var){
         tree = trees[ie];
-        if(self.get_tag(tree, "mat")){
+        if(self.get_tag(tree, "mat")){  // only matrix is stored
           var ref = obj["ref"];
           if(ref){
             if(ref.length === 2){
               tree_var = self.restore_var(vars, name_var);
-              if(tree_var && tree_var.mat){
+              if(tree_var){
                 var num = self.arr2num(tree.mat.arr);
                 self.store_arr(tree_var.mat.arr, ref, num);
                 tree = tree_var;

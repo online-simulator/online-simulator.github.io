@@ -352,11 +352,11 @@ e^(-i(1pi(){2/2i}(5-{3-1}){i/(-4)}))
 <br>
 evalに代わる実装項目とファイル名の対応関係を列挙する
 <br>
-・構文解析: parser.js/operation.js
+・構文解析・単位tree構造: parser.js/operation.js/DATA.js
 <br>
 ・変数・関数・区切り文字・演算子の優先順位: operation.js
 <br>
-・演算ユニット: DATA.js/operation.js/unit.js
+・演算ユニット: operation.js/unit.js
 <br>
 ・定義済みの関数・予約語: parser.js/math.js/math_com.js/math_mat.js
 <br>
@@ -644,6 +644,8 @@ index.html?precedence=
 URi,URf,BRp,BRr,BRm,BRmo,BRd,BRsa,BRbs,BRba,BRbx,BRbo
 <br>
 ・別途、乗算記号の省略を許容しない場合、tag名BRmoを削除する
+<br>
+　その場合、treeを全走査判定する無駄な演算量が減る
 <br>
 <br>
 同様に情報落ちや数値積分等の誤差を評価する場合、続く値を
@@ -1340,7 +1342,7 @@ deg_atan2_ex(0,1) || degrees(atan2_ex(0,1)) -> 90
 <br>
 {1-i,1}(1+i,1) -> (2,1-i:1+i,1)
 <br>
-・空要素は0
+・空要素は零
 <br>
 (1,2,3:){1,2,3:} || (1,2,3:,,){1,2,3:,,} -> (14,0:0,0)
 <br>
@@ -1785,7 +1787,7 @@ clear; x&lt;=2,3x -> (0,6)
 clear; x&lt;=2:3x -> (0:6)
 <br>
 <br>
-関数名を式代入可
+関数名を任意に変更可
 <br>
 clear; tr&lt;=trans; tr(1,2:3,4) || (tr=&gt;)(1,2:3,4) -> (1,3:2,4)
 <br>
