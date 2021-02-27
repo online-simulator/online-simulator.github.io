@@ -601,10 +601,10 @@ My_entry.operation.prototype.jacobian = function(data, rightArr, isNewtonian){
     }
     // f0
     var tree = self.tree_eqn2tree(data, tree_eqn);
-    var arr0 = tree.mat.arr;
-    if(arr0.length-len_i) throw msgErr;
+    var arr_f0 = tree.mat.arr;
+    if(arr_f0.length-len_i) throw msgErr;
     for(var i=0; i<len_i; ++i){
-      f0[i] = arr2obj_i(arr0, i);
+      f0[i] = arr2obj_i(arr_f0, i);
     }
     // x1
     for(var i=0; i<len_i; ++i){
@@ -618,9 +618,9 @@ My_entry.operation.prototype.jacobian = function(data, rightArr, isNewtonian){
         self.store_var(vars, name_var, DATA.num2tree(num));
       }
       var tree = self.tree_eqn2tree(data, tree_eqn);
-      var arr1 = tree.mat.arr;
+      var arr_f1 = tree.mat.arr;
       for(var i=0; i<len_i; ++i){
-        var f1i = arr2obj_i(arr1, i);
+        var f1i = arr2obj_i(arr_f1, i);
         J[i][j] = unit["BRd"](options, unit["BRs"](options, f1i, f0[i]), dx0);
       }
     }
@@ -628,12 +628,12 @@ My_entry.operation.prototype.jacobian = function(data, rightArr, isNewtonian){
       for(var i=0; i<len_i; ++i){
         J[i].push(f0[i]);
       }
-      var arr = math_mat.gaussian(options, J);
-      _tree = DATA.tree_mat(arr);
+      var arr_mdx = math_mat.gaussian(options, J);
+      _tree = DATA.tree_mat(arr_mdx);
       // store
       for(var i=0; i<len_i; ++i){
         var name_var = names[i];
-        self.store_var(vars, name_var, DATA.num2tree(unit["BRs"](options, x0[i], arr2obj_i(arr, i))));
+        self.store_var(vars, name_var, DATA.num2tree(unit["BRs"](options, x0[i], arr2obj_i(arr_mdx, i))));
       }
     }
     else{
