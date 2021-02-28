@@ -99,12 +99,19 @@ My_entry.math_mat.prototype.hermitian = function(options, arr){
   var lens = self.get_lens(arr);
   var len_i = lens.i;
   var len_j = lens.j;
+  var callback = (options.useComplex)?
+    function(num){
+      return unit["FN"]("conjugate", options, num);  // only useComplex
+    }:
+    function(num){
+      return num;
+    };
   var _arr = new Array(len_j);
   for(var j=0; j<len_j; ++j){
     _arr[j] = new Array(len_i);
     for(var i=0; i<len_i; ++i){
       var num = arr[i][j] || DATA.num(0, 0);
-      _arr[j][i] = unit["FN"]("conjugate", options, num);
+      _arr[j][i] = callback(num);
     }
   }
   return _arr;
