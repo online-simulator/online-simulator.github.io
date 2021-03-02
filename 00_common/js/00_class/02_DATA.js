@@ -71,6 +71,10 @@ My_entry.DATA.prototype.trees2tree = function(trees){
   if(trees.length > 1) throw false;
   return trees[0];
 };
+My_entry.DATA.prototype.make_trees = function(_arr_tree){
+  var self = this;
+  return _arr_tree;
+};
 My_entry.DATA.prototype.data = function(trees, options, vars, eqns){
   var self = this;
   return {trees: trees, options: options || {}, vars: vars || {}, eqns: eqns || {}};

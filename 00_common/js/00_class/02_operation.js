@@ -520,7 +520,6 @@ My_entry.operation.prototype.jacobian = function(data, rightArr, isNewtonian){
   var self = this;
   var options = data.options;
   var vars = data.vars;
-  var eqns = data.eqns;
   var math_mat = self.entry.math_mat;
   var DATA = self.entry.DATA;
   var unit = self.entry.unit;
@@ -662,10 +661,6 @@ My_entry.operation.prototype.jacobian = function(data, rightArr, isNewtonian){
 My_entry.operation.prototype.FNmh = function(data, i0, tagName, tagObj){
   var self = this;
   var trees = data.trees;
-  var options = data.options;
-  var math_mat = self.entry.math_mat;
-  var DATA = self.entry.DATA;
-  var unit = self.entry.unit;
   var is = i0;
   var ie = i0+1;
   var rightArr = self.get_tagVal(trees[ie], "mat", "arr");
@@ -682,7 +677,6 @@ My_entry.operation.prototype.FNm = function(data, i0, tagName, tagObj){
   var options = data.options;
   var math_mat = self.entry.math_mat;
   var DATA = self.entry.DATA;
-  var unit = self.entry.unit;
   var is = i0;
   var ie = i0+1;
   var rightArr = self.get_tagVal(trees[ie], "mat", "arr");
@@ -693,16 +687,173 @@ My_entry.operation.prototype.FNm = function(data, i0, tagName, tagObj){
   }
   return self;
 };
+My_entry.operation.prototype.arr_tree2tree = function(data, i0, tagName, tagObj, arr_tree){
+  var self = this;
+  var DATA = self.entry.DATA;
+  var newData = self.get_newData(data, DATA.make_trees(arr_tree));
+  self[tagName](newData, i0, tagName, tagObj);
+  return DATA.trees2tree(newData.trees.filter(self.isNotNull));
+};
+My_entry.operation.prototype.RX = function(data, rightArr, tagObj){
+  var self = this;
+  var vars = data.vars;
+  var DATA = self.entry.DATA;
+  var _tree = null;
+  if(rightArr[0].length > 2){
+    var tree_eqn = self.tree2tree_eqn(data, rightArr[0][0]);
+    var a = rightArr[0][1];
+    var b = rightArr[0][2];
+    if(a.com && b.com){
+      var br = Math.floor(b.com.r);
+      var RX = function(callback){
+        for(var i=1; i<=br; ++i){  // i=1
+          callback(i);
+        }
+      };
+      var name_var = tagObj.val.name;
+      var tree_var = self.restore_var(vars, name_var);
+      var tree = DATA.num2tree(a);
+      RX(function(i){
+        self.store_var(vars, name_var, tree);
+        tree = self.tree_eqn2tree(data, tree_eqn);
+      });
+      _tree = tree;
+      if(tree_var){
+        self.store_var(vars, name_var, tree_var);
+      }
+      else{
+        delete vars[name_var];
+      }
+    }
+  }
+  return _tree;
+};
+My_entry.operation.prototype.PX = function(data, rightArr, tagObj){
+  var self = this;
+  var vars = data.vars;
+  var math_mat = self.entry.math_mat;
+  var DATA = self.entry.DATA;
+  var _tree = null;
+  if(rightArr[0].length > 2){
+    var tree_eqn = self.tree2tree_eqn(data, rightArr[0][0]);
+    var a = rightArr[0][1];
+    var b = rightArr[0][2];
+    if(a.com && b.com){
+      var ar = Math.floor(a.com.r);
+      var br = Math.floor(b.com.r);
+      var sign = "*";
+      var PX = function(callback){
+        for(var i=ar; i<=br; ++i){
+          callback(i);
+        }
+      };
+      if(ar > br){
+        PX = function(callback){
+          for(var i=ar; i>=br; --i){
+            callback(i);
+          }
+        };
+      }
+      var name_var = tagObj.val.name;
+      var tree_var = self.restore_var(vars, name_var);
+      var tagName = "BRm";
+      var centerTree = DATA.tree_tag(tagName, sign);
+      var tagObj = centerTree[tagName];
+      var leftTree = null;
+      PX(function(i){
+        self.store_var(vars, name_var, DATA.tree_num(i, 0));
+        var rightTree = self.tree_eqn2tree(data, tree_eqn);
+        var rightArr = self.get_tagVal(rightTree, "mat", "arr");
+        if(rightArr){
+          leftTree = leftTree || DATA.tree_mat(math_mat.Imat_arr(rightArr));
+          leftTree = self.arr_tree2tree(data, 1, tagName, tagObj, [leftTree, centerTree, rightTree]);
+        }
+        else{
+          throw false;
+        }
+      });
+      _tree = leftTree;
+      if(tree_var){
+        self.store_var(vars, name_var, tree_var);
+      }
+      else{
+        delete vars[name_var];
+      }
+    }
+  }
+  return _tree;
+};
+My_entry.operation.prototype.SX = function(data, rightArr, tagObj){
+  var self = this;
+  var vars = data.vars;
+  var math_mat = self.entry.math_mat;
+  var DATA = self.entry.DATA;
+  var _tree = null;
+  if(rightArr[0].length > 2){
+    var tree_eqn = self.tree2tree_eqn(data, rightArr[0][0]);
+    var a = rightArr[0][1];
+    var b = rightArr[0][2];
+    if(a.com && b.com){
+      var ar = Math.floor(a.com.r);
+      var br = Math.floor(b.com.r);
+      var sign = "+";
+      var SX = function(callback){
+        for(var i=ar; i<=br; ++i){
+          callback(i);
+        }
+      };
+      if(ar > br){
+        sign = "-";
+        SX = function(callback){
+          for(var i=ar; i>=br; --i){
+            callback(i);
+          }
+        };
+      }
+      var name_var = tagObj.val.name;
+      var tree_var = self.restore_var(vars, name_var);
+      var tagName = "BRsa";
+      var centerTree = DATA.tree_tag(tagName, sign);
+      var tagObj = centerTree[tagName];
+      var leftTree = null;
+      SX(function(i){
+        self.store_var(vars, name_var, DATA.tree_num(i, 0));
+        var rightTree = self.tree_eqn2tree(data, tree_eqn);
+        var rightArr = self.get_tagVal(rightTree, "mat", "arr");
+        if(rightArr){
+          leftTree = leftTree || DATA.tree_mat(math_mat.zeros_arr(rightArr));
+          leftTree = self.arr_tree2tree(data, 1, tagName, tagObj, [leftTree, centerTree, rightTree]);
+        }
+        else{
+          throw false;
+        }
+      });
+      _tree = leftTree;
+      if(tree_var){
+        self.store_var(vars, name_var, tree_var);
+      }
+      else{
+        delete vars[name_var];
+      }
+    }
+  }
+  return _tree;
+};
 My_entry.operation.prototype.FNh = function(data, i0, tagName, tagObj){
   var self = this;
   var trees = data.trees;
-  var options = data.options;
-  var DATA = self.entry.DATA;
-  var unit = self.entry.unit;
   var is = i0;
   var ie = i0+1;
-  var rightTree = trees[ie];
-  if(rightTree){
+  var rightArr = self.get_tagVal(trees[ie], "mat", "arr");
+  if(rightArr){
+    var prop = tagObj.val.key;
+    var tree = self[prop](data, rightArr, tagObj);
+    if(tree){
+      self.feedback2trees(data, is, ie, tree);
+    }
+    else{
+      throw "Invalid "+prop+" arguments";
+    }
   }
   return self;
 };
