@@ -165,14 +165,16 @@ My_entry.parser.prototype.compare2bs = function(tokens, i, re){
       if(mc && mc.length > 1){
         if(tagName === "FNh"){
           var mc1 = mc[1];
-          var trees = self.make_trees(mc1, re);
-          if(trees && trees.length === 1){
-            var tree = DATA.trees2tree(trees);
-            if(tree["REv"]){
-              _tree = DATA.tree_tag(tagName, {key: key, name: tree["REv"]["val"]});
-            }
-            else{
-              throw "Invalid "+mc1+" called";
+          if(mc1){
+            var trees = self.make_trees(mc1, re);
+            if(trees.length === 1){
+              var tree = DATA.trees2tree(trees);
+              if(tree["REv"]){
+                _tree = DATA.tree_tag(tagName, {key: key, name: tree["REv"]["val"]});
+              }
+              else{
+                throw "Invalid "+mc1+" called";
+              }
             }
           }
         }

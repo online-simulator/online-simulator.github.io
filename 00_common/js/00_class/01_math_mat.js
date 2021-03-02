@@ -68,6 +68,13 @@ My_entry.math_mat.prototype.get_lens = function(arr){
   }
   return {i: len_i, j: len_j};
 };
+My_entry.math_mat.prototype.get_len = function(arr){
+  var self = this;
+  var lens = self.get_lens(arr);
+  var len_i = lens.i;
+  var len_j = lens.j;
+  return Math.max(len_i, len_j);
+};
 My_entry.math_mat.prototype.first = function(options, arr){
   var self = this;
   return [[arr[0][0]]];
@@ -183,6 +190,11 @@ My_entry.math_mat.prototype.Imat_k = function(len, k){
     _arr[i][i] = DATA.num(k, 0);
   }
   return _arr;
+};
+My_entry.math_mat.prototype.Imat_arr = function(arr){
+  var self = this;
+  var len = self.get_len(arr);
+  return self.Imat(len);
 };
 My_entry.math_mat.prototype.re_size = function(arr, newLen_i, newLen_j){
   var self = this;
