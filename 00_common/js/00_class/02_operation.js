@@ -525,13 +525,14 @@ My_entry.operation.prototype.jacobian = function(data, rightArr, isNewtonian){
   var unit = self.entry.unit;
   var _tree = null;
   var msgErr = "Invalid J arguments";
-  var len_j = rightArr[0].length;
+  var args = rightArr[rightArr.length-1];
+  var len_j = args.length;
   var arr2obj_i = function(arr, i){
     var _arri = arr[i];
     return _arri[_arri.length-1];
   };
   var get_tree = function(j){
-    return self.tree2tree_eqn(data, rightArr[0][j]);
+    return self.tree2tree_eqn(data, args[j]);
   };
   var get_names = function(j){
     var _names = [];
@@ -578,7 +579,7 @@ My_entry.operation.prototype.jacobian = function(data, rightArr, isNewtonian){
       if(arr_x0.length-len_i) throw msgErr;
     }
     else{
-      arr_x0 = math_mat.init2d_num(len_i, 1, dx0);
+      arr_x0 = math_mat.zeros(len_i, 1);
     }
     var isFound_x0 = [];
     var x0 = [];
@@ -699,10 +700,12 @@ My_entry.operation.prototype.RX = function(data, rightArr, tagObj){
   var vars = data.vars;
   var DATA = self.entry.DATA;
   var _tree = null;
-  if(rightArr[0].length > 2){
-    var tree_eqn = self.tree2tree_eqn(data, rightArr[0][0]);
-    var a = rightArr[0][1];
-    var b = rightArr[0][2];
+  var args = rightArr[rightArr.length-1];
+  var len_j = args.length;
+  if(len_j > 2){
+    var tree_eqn = self.tree2tree_eqn(data, args[0]);
+    var a = args[1];
+    var b = args[2];
     if(a.com && b.com){
       var br = Math.floor(b.com.r);
       var RX = function(callback){
@@ -734,10 +737,12 @@ My_entry.operation.prototype.PX = function(data, rightArr, tagObj){
   var math_mat = self.entry.math_mat;
   var DATA = self.entry.DATA;
   var _tree = null;
-  if(rightArr[0].length > 2){
-    var tree_eqn = self.tree2tree_eqn(data, rightArr[0][0]);
-    var a = rightArr[0][1];
-    var b = rightArr[0][2];
+  var args = rightArr[rightArr.length-1];
+  var len_j = args.length;
+  if(len_j > 2){
+    var tree_eqn = self.tree2tree_eqn(data, args[0]);
+    var a = args[1];
+    var b = args[2];
     if(a.com && b.com){
       var ar = Math.floor(a.com.r);
       var br = Math.floor(b.com.r);
@@ -789,10 +794,12 @@ My_entry.operation.prototype.SX = function(data, rightArr, tagObj){
   var math_mat = self.entry.math_mat;
   var DATA = self.entry.DATA;
   var _tree = null;
-  if(rightArr[0].length > 2){
-    var tree_eqn = self.tree2tree_eqn(data, rightArr[0][0]);
-    var a = rightArr[0][1];
-    var b = rightArr[0][2];
+  var args = rightArr[rightArr.length-1];
+  var len_j = args.length;
+  if(len_j > 2){
+    var tree_eqn = self.tree2tree_eqn(data, args[0]);
+    var a = args[1];
+    var b = args[2];
     if(a.com && b.com){
       var ar = Math.floor(a.com.r);
       var br = Math.floor(b.com.r);
