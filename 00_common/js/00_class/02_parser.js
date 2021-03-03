@@ -148,10 +148,9 @@ My_entry.parser.prototype.compare2pairs = function(tokens, i){
   });
   return _ip_e;
 };
-My_entry.parser.prototype.compare2bs = function(tokens, i, re){
+My_entry.parser.prototype.compare2bs = function(token, re){
   var self = this;
   var _tree = null;
-  var token = tokens[i];
   var SYNTAX = self.config.SYNTAX;
   var DATA = self.entry.DATA;
   var bs = SYNTAX.bs;
@@ -186,10 +185,9 @@ My_entry.parser.prototype.compare2bs = function(tokens, i, re){
   }
   return _tree;
 };
-My_entry.parser.prototype.compare2bas = function(tokens, i){
+My_entry.parser.prototype.compare2bas = function(token){
   var self = this;
   var _tree = null;
-  var token = tokens[i];
   var SYNTAX = self.config.SYNTAX;
   var DATA = self.entry.DATA;
   for(var j=0, len_j=SYNTAX.bas.length; j<len_j; ++j){
@@ -247,7 +245,7 @@ My_entry.parser.prototype.make_trees = function(sentence, re){
       tree = DATA.tree_num(self.entry.def.Number(token), 0);
     }
     else{
-      tree = self.compare2bas(tokens, i) || self.compare2bs(tokens, i, re);
+      tree = self.compare2bas(token_lower) || self.compare2bs(token_lower, re);
     }
     if(ip_e || tree){
     }
