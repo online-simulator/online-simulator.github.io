@@ -1241,6 +1241,20 @@ My_entry.operation.prototype.restore_eqn = function(eqns, name){
   }
   return _tree;
 };
+My_entry.operation.prototype.tree2restore_eqn = function(tree){
+  var self = this;
+  var _tree = null;
+  var tree = self.arr2num(self.get_tagVal(tree, "mat", "arr"));
+  if(tree){
+    var BT = self.config.BT;
+    var isSEe = tree[BT.SEe];
+    if(isSEe){
+      _tree = {};
+      _tree[BT.REe] = isSEe;
+    }
+  }
+  return _tree;
+};
 My_entry.operation.prototype.store_eqn = function(eqns, name, tree){
   var self = this;
   eqns[name] = self.entry.def.newClone(tree);
@@ -1254,28 +1268,23 @@ My_entry.operation.prototype.REe = function(data, i0, tagName, tagObj){
   var DATA = self.entry.DATA;
   var is = i0-1;
   var ie = i0+1;
-  var name_eqn = self.get_tagVal(trees[is], "REv", "val");
-  if(name_eqn){
-    var tree = null;
-    var name_var = self.get_tagVal(trees[ie], "REv", "val");
-    var tree_eqn = self.restore_eqn(eqns, name_eqn);
-    if(tree_eqn){
-      var isREe = tree_eqn[self.config.BT.REe];
-      tree = (isREe)? self.tree_eqn2tree(data, tree_eqn): tree_eqn;
+  var leftTree = trees[is];
+  var name_eqn = self.get_tagVal(leftTree, "REv", "val");
+  var tree_eqn = (name_eqn)? self.restore_eqn(eqns, name_eqn): self.tree2restore_eqn(leftTree);
+  if(tree_eqn){
+    var isREe = tree_eqn[self.config.BT.REe];
+    var tree = (isREe)? self.tree_eqn2tree(data, tree_eqn): tree_eqn;
+    if(tree){
+      var name_var = self.get_tagVal(trees[ie], "REv", "val");
       if(name_var){
         self.store_var(vars, name_var, tree);
       }
-    }
-    else{
-      throw "Undef eqn("+name_eqn+")";
-    }
-    if(tree){
       var ie = (name_var)? ie: i0;
       self.feedback2trees(data, is, ie, tree);
     }
   }
   else{
-    throw "Invalid eqn=>";
+    self.throw_tree(leftTree);
   }
   return self;
 };

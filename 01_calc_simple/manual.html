@@ -349,7 +349,7 @@ e^(-i(1pi(){2/2i}(5-{3-1}){i/(-4)}))
 <br>
 ・誤差のオーダーをLandauの記号O(指数表記1e-16等)で表記する
 <br>
-・数学で言う行列の成分を行列要素（配列要素を拡張）と表記する
+・数学で言うベクトルまたは行列の成分を要素と表記する
 <br>
 ・方程式または関数式を引数に取る関数を高階関数と表記する
 <br>
@@ -2015,6 +2015,39 @@ clear; eqn_x&lt;=3x; eqn_y&lt;=(eqn_x=&gt;); x=3; eqn_y=&gt; ->9
 ・同名の変数未定義の前提で式読出し記号を省略する場合
 <br>
 clear; eqn_x&lt;=3x; eqn_y&lt;=eqn_x; x=3; eqn_y ->9
+<br>
+<br>
+式渡しの仕様を列挙する
+<br>
+・式渡しの直接読出し
+<br>
+(&lt;=3)=&gt; -> 3
+<br>
+(&lt;={3})=&gt; -> 3
+<br>
+({3})=&gt; -> [MyErr]Invalid mat([object Object])
+<br>
+(1,2,&lt;=3)=&gt; -> 3
+<br>
+(1,2,3)=&gt; -> [MyErr]Invalid mat([object Object])
+<br>
+・一続きにまとめて読出す場合、最終要素を式渡し
+<br>
+clear; f&lt;={x}; x=2; f=&gt; -> 2
+<br>
+clear; (f&lt;={x},x=2,&lt;=f)=&gt; -> 2
+<br>
+clear; (f&lt;={x},x=2,f) -> (0,0,2)
+<br>
+clear; (f&lt;={x},x=2,f)=&gt; -> [MyErr]Invalid mat([object Object])
+<br>
+clear; last(f&lt;={x},x=2,f) -> 2
+<br>
+clear; last(f&lt;={x},x=2,&lt;=f) -> [MyErr]Invalid BTe([object Object])
+<br>
+clear; (f&lt;={x},x=2,&lt;=f) -> [MyErr]Invalid BTe([object Object])
+<br>
+clear; (f&lt;={x},x=2,eqn_f&lt;=f); eqn_f -> 2
     </td>
   </tr>
   <tr>
@@ -2086,7 +2119,7 @@ x=-1; y=-2; _sy(&lt;={_sx(&lt;={x+y},0,y)},0,2); x+y -> -3
 <br>
 _sn(,ns=0,:,ne=10,:&lt;={n},ns,ne) -> 55
 <br>
-・変数名の命名規則
+・変数の命名規則に準拠
 <br>
 _smax(&lt;={0},1,2) -> [MyErr]Invalid max called
 <br>
