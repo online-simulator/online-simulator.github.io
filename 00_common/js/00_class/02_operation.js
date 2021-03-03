@@ -703,10 +703,10 @@ My_entry.operation.prototype.RX = function(data, rightArr, tagObj){
   var args = rightArr[rightArr.length-1];
   var len_j = args.length;
   if(len_j > 2){
-    var tree_eqn = self.tree2tree_eqn(data, args[0]);
     var a = args[1];
     var b = args[2];
     if(a.com && b.com){
+      var tree_eqn = self.tree2tree_eqn(data, args[0]);
       var br = Math.floor(b.com.r);
       var RX = function(callback){
         for(var i=1; i<=br; ++i){  // i=1
@@ -740,21 +740,26 @@ My_entry.operation.prototype.PX = function(data, rightArr, tagObj){
   var args = rightArr[rightArr.length-1];
   var len_j = args.length;
   if(len_j > 2){
-    var tree_eqn = self.tree2tree_eqn(data, args[0]);
     var a = args[1];
     var b = args[2];
     if(a.com && b.com){
+      var tree_eqn = self.tree2tree_eqn(data, args[0]);
+      var di = args[3];
+      di = (di && di.com)? Math.abs(Math.floor(di.com.r) || 1): 1;  // di > 0
       var ar = Math.floor(a.com.r);
       var br = Math.floor(b.com.r);
       var sign = "*";
-      var PX = function(callback){
-        for(var i=ar; i<=br; ++i){
-          callback(i);
-        }
-      };
+      var PX = null;
       if(ar > br){
         PX = function(callback){
-          for(var i=ar; i>=br; --i){
+          for(var i=ar; i>=br; i=i-di){
+            callback(i);
+          }
+        };
+      }
+      else{
+        PX = function(callback){
+          for(var i=ar; i<=br; i=i+di){
             callback(i);
           }
         };
@@ -768,14 +773,8 @@ My_entry.operation.prototype.PX = function(data, rightArr, tagObj){
       PX(function(i){
         self.store_var(vars, name_var, DATA.tree_num(i, 0));
         var rightTree = self.tree_eqn2tree(data, tree_eqn);
-        var rightArr = self.get_tagVal(rightTree, "mat", "arr");
-        if(rightArr){
-          leftTree = leftTree || DATA.tree_mat(math_mat.Imat_arr(rightArr));
-          leftTree = self.arr_tree2tree(data, 1, tagName, tagObj, [leftTree, centerTree, rightTree]);
-        }
-        else{
-          throw false;
-        }
+        leftTree = leftTree || DATA.tree_mat(math_mat.Imat_arr(rightTree.mat.arr));
+        leftTree = self.arr_tree2tree(data, 1, tagName, tagObj, [leftTree, centerTree, rightTree]);
       });
       _tree = leftTree;
       if(tree_var){
@@ -797,22 +796,27 @@ My_entry.operation.prototype.SX = function(data, rightArr, tagObj){
   var args = rightArr[rightArr.length-1];
   var len_j = args.length;
   if(len_j > 2){
-    var tree_eqn = self.tree2tree_eqn(data, args[0]);
     var a = args[1];
     var b = args[2];
     if(a.com && b.com){
+      var tree_eqn = self.tree2tree_eqn(data, args[0]);
+      var di = args[3];
+      di = (di && di.com)? Math.abs(Math.floor(di.com.r) || 1): 1;  // di > 0
       var ar = Math.floor(a.com.r);
       var br = Math.floor(b.com.r);
       var sign = "+";
-      var SX = function(callback){
-        for(var i=ar; i<=br; ++i){
-          callback(i);
-        }
-      };
+      var SX = null;
       if(ar > br){
         sign = "-";
         SX = function(callback){
-          for(var i=ar; i>=br; --i){
+          for(var i=ar; i>=br; i=i-di){
+            callback(i);
+          }
+        };
+      }
+      else{
+        SX = function(callback){
+          for(var i=ar; i<=br; i=i+di){
             callback(i);
           }
         };
@@ -826,14 +830,8 @@ My_entry.operation.prototype.SX = function(data, rightArr, tagObj){
       SX(function(i){
         self.store_var(vars, name_var, DATA.tree_num(i, 0));
         var rightTree = self.tree_eqn2tree(data, tree_eqn);
-        var rightArr = self.get_tagVal(rightTree, "mat", "arr");
-        if(rightArr){
-          leftTree = leftTree || DATA.tree_mat(math_mat.zeros_arr(rightArr));
-          leftTree = self.arr_tree2tree(data, 1, tagName, tagObj, [leftTree, centerTree, rightTree]);
-        }
-        else{
-          throw false;
-        }
+        leftTree = leftTree || DATA.tree_mat(math_mat.zeros_arr(rightTree.mat.arr));
+        leftTree = self.arr_tree2tree(data, 1, tagName, tagObj, [leftTree, centerTree, rightTree]);
       });
       _tree = leftTree;
       if(tree_var){
