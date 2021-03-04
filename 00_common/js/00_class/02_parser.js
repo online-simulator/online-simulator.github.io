@@ -535,6 +535,7 @@ My_entry.parser.prototype.run = function(_data){
 };
 My_entry.parser.prototype.make_log_num = function(num, options){
   var self = this;
+  var DATA = self.entry.DATA;
   var _log = "";
   var useComplex = options.useComplex;
   var ed = options.expDigit;
@@ -559,9 +560,14 @@ My_entry.parser.prototype.make_log_num = function(num, options){
     else{
       _log += cre;
     }
+    if(num.err.r || num.err.i){
+      _log += "+O(";
+      _log += self.make_log_num(DATA.num(num.err.r, num.err.i), options);
+      _log += ")";
+    }
   }
   else{
-    throw "Invalid "+self.entry.operation.throw_tree(num);
+    self.entry.operation.throw_tree(num);
   }
   return _log;
 };
