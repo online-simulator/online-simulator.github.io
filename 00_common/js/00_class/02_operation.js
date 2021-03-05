@@ -760,7 +760,7 @@ My_entry.operation.prototype.DX = function(data, rightArr, tagObj){
       var DX_order2 = function(x, n){
         var xm0, xp0;
         var fm0, fp0;
-        var p = 2**(n-1);
+        var p = 1<<(n-1);
         var hcr = h0cr*p;
         var hci = h0ci*p;
         if(hcr+hci > 1){
@@ -793,7 +793,7 @@ My_entry.operation.prototype.DX = function(data, rightArr, tagObj){
       var DX_order4 = function(x, n){
         var xm1, xm0, xp0, xp1;
         var fm1, fm0, fp0, fp1;
-        var p = 2**(n-1);  // extend order2
+        var p = 1<<(n-1);  // extend order2
         var hcr = h0cr*p;
         var hci = h0ci*p;
         if(hcr+hci > 1){
