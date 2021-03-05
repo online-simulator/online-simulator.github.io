@@ -562,7 +562,10 @@ My_entry.parser.prototype.make_log_num = function(num, options){
     }
     if(num.err.r || num.err.i){
       _log += "+O(";
+      var ed = options.expDigit;
+      options.expDigit = 0;
       _log += self.make_log_num(DATA.num(num.err.r, num.err.i), options);
+      options.expDigit = ed;
       _log += ")";
     }
   }
