@@ -772,7 +772,7 @@ My_entry.operation.prototype.DX = function(data, rightArr, tagObj){
         var p = 1<<(n-1);
         var hcr = h0cr*p;
         var hci = h0ci*p;
-        if(hcr+hci > 1){
+        if(hcr > 1 || hci > 1){
           throw "Invalid DX n-th order";
         }
         var hcrp2 = hcr*hcr;
@@ -799,7 +799,7 @@ My_entry.operation.prototype.DX = function(data, rightArr, tagObj){
         var p = 1<<(n-1);  // extend order2
         var hcr = h0cr*p;
         var hci = h0ci*p;
-        if(hcr+hci > 1){
+        if(hcr > 1 || hci > 1){
           throw "Invalid DX n-th order";
         }
         var hcrp2 = hcr*hcr;
