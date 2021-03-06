@@ -86,7 +86,8 @@ My_entry.operation.prototype.config = {
   },
   params: {
     dxJ: 1e-5,
-    dxD: 1e-3
+    dxD: 1e-3,
+    NI: 100
   }
 };
 My_entry.operation.prototype.init = function(){
@@ -202,6 +203,7 @@ My_entry.operation.prototype.prepare = function(data){
   self.options.BTref = options.BTref || self.config.BT.ref;
   self.options.dxJ = options.dxJ || self.config.params.dxJ;
   self.options.dxD = options.dxD || self.config.params.dxD;
+  self.options.NI = options.NI || self.config.params.NI;
   var arr_precedence = self.entry.def.newClone(self.config.precedence);
   if(options.precedence){
     arr_precedence[1] = options.precedence.split(",");
@@ -757,6 +759,13 @@ My_entry.operation.prototype.DX = function(data, rightArr, tagObj){
       var h0cr = h0.com.r;
       var h0ci = h0.com.i;
       var num_8 = DATA.num(8, 0);
+      var get_newX = function(x, cr, ci){
+        var _newX = DATA.newNum(x);
+        var com = _newX.com;
+        com.r += cr;
+        com.i += ci;
+        return _newX;
+      };
       var DX_order2 = function(x, n){
         var xm0, xp0;
         var fm0, fp0;
@@ -766,28 +775,22 @@ My_entry.operation.prototype.DX = function(data, rightArr, tagObj){
         if(hcr+hci > 1){
           throw "Invalid DX n-th order";
         }
-        var hcr2 = hcr*hcr;
-        var hci2 = hci*hci;
-        var h = DATA.num(hcr, hci);
-        var h2 = DATA.num(hcr*2, hci*2);
+        var hcrp2 = hcr*hcr;
+        var hcip2 = hci*hci;
         if(n === 1){
-          xm0 = unit["BRs"](options, x, h);
-          self.store_var(vars, name_var, DATA.num2tree(xm0));
+          self.store_var(vars, name_var, DATA.num2tree(get_newX(x, -hcr, -hci)));
           fm0 = self.arr2num(self.tree_eqn2tree(data, tree_eqn).mat.arr);
-          xp0 = unit["BRa"](options, x, h);
-          self.store_var(vars, name_var, DATA.num2tree(xp0));
+          self.store_var(vars, name_var, DATA.num2tree(get_newX(x, hcr, hci)));
           fp0 = self.arr2num(self.tree_eqn2tree(data, tree_eqn).mat.arr);
         }
         else{
-          xm0 = unit["BRs"](options, x, h);
-          fm0 = DX_order2(xm0, n-1);
-          xp0 = unit["BRa"](options, x, h);
-          fp0 = DX_order2(xp0, n-1);
+          fm0 = DX_order2(get_newX(x, -hcr, -hci), n-1);
+          fp0 = DX_order2(get_newX(x, hcr, hci), n-1);
         }
         var df = unit["BRs"](options, fp0, fm0);
-        var _num = unit["BRd"](options, df, h2);
-        _num.err.r = Math.max(hcr2, df.err.r);
-        _num.err.i = Math.max(hci2, df.err.i);
+        var _num = unit["BRd"](options, df, DATA.num(hcr*2, hci*2));
+        _num.err.r = Math.max(hcrp2, df.err.r);
+        _num.err.i = Math.max(hcip2, df.err.i);
         return _num;
       };
       var DX_order4 = function(x, n){
@@ -799,41 +802,32 @@ My_entry.operation.prototype.DX = function(data, rightArr, tagObj){
         if(hcr+hci > 1){
           throw "Invalid DX n-th order";
         }
-        var hcr2 = hcr*hcr;
-        var hci2 = hci*hci;
-        var h = DATA.num(hcr, hci);
-        var h2 = DATA.num(hcr*2, hci*2);
-        var h12 = DATA.num(hcr*12, hci*12);
+        var hcrp2 = hcr*hcr;
+        var hcip2 = hci*hci;
+        var hcr2 = hcr*2;
+        var hci2 = hci*2;
         if(n === 1){
-          xm1 = unit["BRs"](options, x, h2);
-          self.store_var(vars, name_var, DATA.num2tree(xm1));
+          self.store_var(vars, name_var, DATA.num2tree(get_newX(x, -hcr2, -hci2)));
           fm1 = self.arr2num(self.tree_eqn2tree(data, tree_eqn).mat.arr);
-          xm0 = unit["BRs"](options, x, h);
-          self.store_var(vars, name_var, DATA.num2tree(xm0));
+          self.store_var(vars, name_var, DATA.num2tree(get_newX(x, -hcr, -hci)));
           fm0 = self.arr2num(self.tree_eqn2tree(data, tree_eqn).mat.arr);
-          xp0 = unit["BRa"](options, x, h);
-          self.store_var(vars, name_var, DATA.num2tree(xp0));
+          self.store_var(vars, name_var, DATA.num2tree(get_newX(x, hcr, hci)));
           fp0 = self.arr2num(self.tree_eqn2tree(data, tree_eqn).mat.arr);
-          xp1 = unit["BRa"](options, x, h2);
-          self.store_var(vars, name_var, DATA.num2tree(xp1));
+          self.store_var(vars, name_var, DATA.num2tree(get_newX(x, hcr2, hci2)));
           fp1 = self.arr2num(self.tree_eqn2tree(data, tree_eqn).mat.arr);
         }
         else{
-          xm1 = unit["BRs"](options, x, h2);
-          fm1 = DX_order4(xm1, n-1);
-          xm0 = unit["BRs"](options, x, h);
-          fm0 = DX_order4(xm0, n-1);
-          xp0 = unit["BRa"](options, x, h);
-          fp0 = DX_order4(xp0, n-1);
-          xp1 = unit["BRa"](options, x, h2);
-          fp1 = DX_order4(xp1, n-1);
+          fm1 = DX_order4(get_newX(x, -hcr2, -hci2), n-1);
+          fm0 = DX_order4(get_newX(x, -hcr, -hci), n-1);
+          fp0 = DX_order4(get_newX(x, hcr, hci), n-1);
+          fp1 = DX_order4(get_newX(x, hcr2, hci2), n-1);
         }
         var df0 = unit["BRs"](options, fp0, fm0);
         var df1 = unit["BRs"](options, fp1, fm1);
         var df = unit["BRs"](options, unit["BRm"](options, num_8, df0), df1);
-        var _num = unit["BRd"](options, df, h12);
-        _num.err.r = Math.max(hcr2*hcr2, df.err.r);
-        _num.err.i = Math.max(hci2*hci2, df.err.i);
+        var _num = unit["BRd"](options, df, DATA.num(hcr*12, hci*12));
+        _num.err.r = Math.max(hcrp2*hcrp2, df.err.r);
+        _num.err.i = Math.max(hcip2*hcip2, df.err.i);
         return _num;
       };
       var num = null;

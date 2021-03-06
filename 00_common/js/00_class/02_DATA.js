@@ -22,6 +22,13 @@ My_entry.DATA.prototype.numFull = function(cr, ci, er, ei, ir, ii){
   var self = this;
   return {com: self.com(cr, ci), err: self.com(er, ei), isL: self.com(ir, ii)};
 };
+My_entry.DATA.prototype.newNum = function(num){
+  var self = this;
+  var com = num.com;
+  var err = num.err;
+  var isL = num.isL;
+  return {com: self.com(com.r, com.i), err: self.com(err.r, err.i), isL: self.com(isL.r, isL.i)};
+};
 My_entry.DATA.prototype.tag = function(name, val){
   var self = this;
   var _obj = {};
