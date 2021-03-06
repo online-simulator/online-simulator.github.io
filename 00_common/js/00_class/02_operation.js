@@ -749,7 +749,7 @@ My_entry.operation.prototype.DX = function(data, rightArr, tagObj){
     var tree_var = self.restore_var(vars, name_var);
     var a0 = (tree_var)? self.arr2num(tree_var.mat.arr): null;
     var a = args[1] || a0;
-    if(a.com){
+    if(a && a.com){
       var tree_eqn = self.tree2tree_eqn(data, args[0]);
       var nthd = args[2];
       nthd = (nthd && nthd.com)? Math.abs(Math.floor(nthd.com.r)): 1;  // nthd >= 0
