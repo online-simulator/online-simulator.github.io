@@ -859,6 +859,86 @@ My_entry.operation.prototype.DX = function(data, rightArr, tagObj){
   }
   return _tree;
 };
+My_entry.operation.prototype.IX = function(data, rightArr, tagObj){
+  var self = this;
+  var options = data.options;
+  var vars = data.vars;
+  var DATA = self.entry.DATA;
+  var unit = self.entry.unit;
+  var _tree = null;
+  var args = self.arr2args(rightArr);
+  var len_j = args.length;
+  if(len_j > 2){
+    var a = args[1];
+    var b = args[2];
+    if(a.com && b.com){
+      var tree_eqn = self.tree2tree_eqn(data, args[0]);
+      var N = args[3];
+      N = (N && N.com)? N.com.r: null;
+      N = Math.abs(Math.floor(N || self.options.NI));  // N > 0
+      N = (N%2)? N+1: N;
+      var acr = a.com.r;
+      var aci = a.com.i;
+      var bcr = b.com.r;
+      var bci = b.com.i;
+      var hcr = (bcr-acr)/N;
+      var hci = (bci-aci)/N;
+      var hcrp2 = hcr*hcr;
+      var hcip2 = hci*hci;
+      var h0 = DATA.num(hcr, ((options.useComplex)? hci: 0));
+      var h0cr = h0.com.r;
+      var h0ci = h0.com.i;
+      var h0d3 = DATA.num(h0cr/3, h0ci/3);
+      var name_var = tagObj.val.name;
+      var tree_var = self.restore_var(vars, name_var);
+      var calc_f = function(cr, ci){
+        self.store_var(vars, name_var, DATA.tree_num(cr, ci));
+        return self.arr2num(self.tree_eqn2tree(data, tree_eqn).mat.arr);
+      };
+      var DI_order2 = function(){
+        var sume = DATA.num(0, 0);
+        for(var i=1; i<N; ++i){
+          sume = unit["BRa"](options, sume, calc_f(acr+i*hcr, aci+i*hci));
+        }
+        var sum0 = unit["BRa"](options, calc_f(acr, aci), calc_f(bcr, bci));
+        var sum = sum0;
+        sum = unit["BRd"](options, sum, DATA.num(2, 0));
+        sum = unit["BRa"](options, sum, sume);
+        var _num = unit["BRm"](options, sum, h0);
+        _num.err.r = Math.max(hcrp2, sum.err.r);
+        _num.err.i = Math.max(hcip2, sum.err.i);
+        return _num;
+      };
+      var DI_order4 = function(){
+        var sume_odd = DATA.num(0, 0);
+        for(var i=1; i<N; i+=2){
+          sume_odd = unit["BRa"](options, sume_odd, calc_f(acr+i*hcr, aci+i*hci));
+        }
+        var sume_even = DATA.num(0, 0);
+        for(var i=2; i<N; i+=2){
+          sume_even = unit["BRa"](options, sume_even, calc_f(acr+i*hcr, aci+i*hci));
+        }
+        var sum0 = unit["BRa"](options, calc_f(acr, aci), calc_f(bcr, bci));
+        var sum = sum0;
+        sum = unit["BRa"](options, sum, unit["BRm"](options, sume_odd, DATA.num(4, 0)));
+        sum = unit["BRa"](options, sum, unit["BRm"](options, sume_even, DATA.num(2, 0)));
+        var _num = unit["BRm"](options, sum, h0d3);
+        _num.err.r = Math.max(hcrp2*hcrp2, sum.err.r);
+        _num.err.i = Math.max(hcip2*hcip2, sum.err.i);
+        return _num;
+      };
+      var DI = (options.orderI === 2)? DI_order2: DI_order4;
+      _tree = DATA.num2tree(DI());
+      if(tree_var){
+        self.store_var(vars, name_var, tree_var);
+      }
+      else{
+        delete vars[name_var];
+      }
+    }
+  }
+  return _tree;
+};
 My_entry.operation.prototype.PX = function(data, rightArr, tagObj){
   var self = this;
   var vars = data.vars;
