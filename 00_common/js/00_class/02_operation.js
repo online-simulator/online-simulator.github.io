@@ -327,10 +327,20 @@ My_entry.operation.prototype.get_tagVal = function(tree, tagName, valName){
   var self = this;
   return ((tree)? ((tree[tagName])? tree[tagName][valName]: null): null);
 };
+My_entry.operation.prototype.arr2obj_i = function(arr, i){
+  var self = this;
+  var _arri = arr[i];
+  return _arri[_arri.length-1];
+};
 My_entry.operation.prototype.arr2num = function(arr){
   var self = this;
   var _arri = arr[arr.length-1];
   return _arri[_arri.length-1];
+};
+My_entry.operation.prototype.arr2args = function(arr){
+  var self = this;
+  var _arri = arr[arr.length-1];
+  return _arri;
 };
 My_entry.operation.prototype.get_newData = function(data, trees){
   var self = this;
@@ -529,12 +539,8 @@ My_entry.operation.prototype.jacobian = function(data, rightArr, isNewtonian){
   var unit = self.entry.unit;
   var _tree = null;
   var msgErr = "Invalid J arguments";
-  var args = rightArr[rightArr.length-1];
+  var args = self.arr2args(rightArr);
   var len_j = args.length;
-  var arr2obj_i = function(arr, i){
-    var _arri = arr[i];
-    return _arri[_arri.length-1];
-  };
   var get_tree = function(j){
     return self.tree2tree_eqn(data, args[j]);
   };
@@ -546,7 +552,7 @@ My_entry.operation.prototype.jacobian = function(data, rightArr, isNewtonian){
     if(arr){
       var len_i = arr.length;
       for(var i=0; i<len_i; ++i){
-        var name = self.get_tagVal(arr2obj_i(arr, i), "REv", "val");
+        var name = self.get_tagVal(self.arr2obj_i(arr, i), "REv", "val");
         if(name){
           _names.push(name);
         }
@@ -600,7 +606,7 @@ My_entry.operation.prototype.jacobian = function(data, rightArr, isNewtonian){
       }
       else{
         isFound_x0[i] = false;
-        var num = arr2obj_i(arr_x0, i);
+        var num = self.arr2obj_i(arr_x0, i);
         x0[i] = num;
         var tree = DATA.num2tree(num);
         self.store_var(vars, name_var, tree);
@@ -611,7 +617,7 @@ My_entry.operation.prototype.jacobian = function(data, rightArr, isNewtonian){
     var arr_f0 = tree.mat.arr;
     if(arr_f0.length-len_i) throw msgErr;
     for(var i=0; i<len_i; ++i){
-      f0[i] = arr2obj_i(arr_f0, i);
+      f0[i] = self.arr2obj_i(arr_f0, i);
     }
     // x1
     for(var i=0; i<len_i; ++i){
@@ -627,7 +633,7 @@ My_entry.operation.prototype.jacobian = function(data, rightArr, isNewtonian){
       var tree = self.tree_eqn2tree(data, tree_eqn);
       var arr_f1 = tree.mat.arr;
       for(var i=0; i<len_i; ++i){
-        var f1i = arr2obj_i(arr_f1, i);
+        var f1i = self.arr2obj_i(arr_f1, i);
         J[i][j] = unit["BRd"](options, unit["BRs"](options, f1i, f0[i]), dx0);
       }
     }
@@ -640,7 +646,7 @@ My_entry.operation.prototype.jacobian = function(data, rightArr, isNewtonian){
       // store x_next
       for(var i=0; i<len_i; ++i){
         var name_var = names[i];
-        var mdxi = arr2obj_i(arr_mdx, i);
+        var mdxi = self.arr2obj_i(arr_mdx, i);
         self.store_var(vars, name_var, DATA.num2tree(unit["BRs"](options, x0[i], mdxi)));
       }
     }
@@ -704,7 +710,7 @@ My_entry.operation.prototype.RX = function(data, rightArr, tagObj){
   var vars = data.vars;
   var DATA = self.entry.DATA;
   var _tree = null;
-  var args = rightArr[rightArr.length-1];
+  var args = self.arr2args(rightArr);
   var len_j = args.length;
   if(len_j > 2){
     var a = args[1];
@@ -742,7 +748,7 @@ My_entry.operation.prototype.DX = function(data, rightArr, tagObj){
   var DATA = self.entry.DATA;
   var unit = self.entry.unit;
   var _tree = null;
-  var args = rightArr[rightArr.length-1];
+  var args = self.arr2args(rightArr);
   var len_j = args.length;
   if(len_j > 0){
     var name_var = tagObj.val.name;
@@ -766,6 +772,10 @@ My_entry.operation.prototype.DX = function(data, rightArr, tagObj){
         com.i += ci;
         return _newX;
       };
+      var calc_f = function(x, cr, ci){
+        self.store_var(vars, name_var, DATA.num2tree(get_newX(x, cr, ci)));
+        return self.arr2num(self.tree_eqn2tree(data, tree_eqn).mat.arr);
+      };
       var DX_order2 = function(x, n){
         var xm0, xp0;
         var fm0, fp0;
@@ -778,10 +788,8 @@ My_entry.operation.prototype.DX = function(data, rightArr, tagObj){
         var hcrp2 = hcr*hcr;
         var hcip2 = hci*hci;
         if(n === 1){
-          self.store_var(vars, name_var, DATA.num2tree(get_newX(x, -hcr, -hci)));
-          fm0 = self.arr2num(self.tree_eqn2tree(data, tree_eqn).mat.arr);
-          self.store_var(vars, name_var, DATA.num2tree(get_newX(x, hcr, hci)));
-          fp0 = self.arr2num(self.tree_eqn2tree(data, tree_eqn).mat.arr);
+          fm0 = calc_f(x, -hcr, -hci);
+          fp0 = calc_f(x, hcr, hci);
         }
         else{
           fm0 = DX_order2(get_newX(x, -hcr, -hci), n-1);
@@ -807,14 +815,10 @@ My_entry.operation.prototype.DX = function(data, rightArr, tagObj){
         var hcr2 = hcr*2;
         var hci2 = hci*2;
         if(n === 1){
-          self.store_var(vars, name_var, DATA.num2tree(get_newX(x, -hcr2, -hci2)));
-          fm1 = self.arr2num(self.tree_eqn2tree(data, tree_eqn).mat.arr);
-          self.store_var(vars, name_var, DATA.num2tree(get_newX(x, -hcr, -hci)));
-          fm0 = self.arr2num(self.tree_eqn2tree(data, tree_eqn).mat.arr);
-          self.store_var(vars, name_var, DATA.num2tree(get_newX(x, hcr, hci)));
-          fp0 = self.arr2num(self.tree_eqn2tree(data, tree_eqn).mat.arr);
-          self.store_var(vars, name_var, DATA.num2tree(get_newX(x, hcr2, hci2)));
-          fp1 = self.arr2num(self.tree_eqn2tree(data, tree_eqn).mat.arr);
+          fm1 = calc_f(x, -hcr2, -hci2);
+          fm0 = calc_f(x, -hcr, -hci);
+          fp0 = calc_f(x, hcr, hci);
+          fp1 = calc_f(x, hcr2, hci2);
         }
         else{
           fm1 = DX_order4(get_newX(x, -hcr2, -hci2), n-1);
@@ -832,8 +836,7 @@ My_entry.operation.prototype.DX = function(data, rightArr, tagObj){
       };
       var num = null;
       if(nthd === 0){
-        self.store_var(vars, name_var, DATA.num2tree(a));
-        num = self.arr2num(self.tree_eqn2tree(data, tree_eqn).mat.arr);
+        num = calc_f(a, 0, 0);
       }
       else{
         var DX = (nthd < 3)? DX_order4: DX_order2;
@@ -862,7 +865,7 @@ My_entry.operation.prototype.PX = function(data, rightArr, tagObj){
   var math_mat = self.entry.math_mat;
   var DATA = self.entry.DATA;
   var _tree = null;
-  var args = rightArr[rightArr.length-1];
+  var args = self.arr2args(rightArr);
   var len_j = args.length;
   if(len_j > 2){
     var a = args[1];
@@ -877,14 +880,14 @@ My_entry.operation.prototype.PX = function(data, rightArr, tagObj){
       var PX = null;
       if(ar > br){
         PX = function(callback){
-          for(var i=ar; i>=br; i=i-di){
+          for(var i=ar; i>=br; i-=di){
             callback(i);
           }
         };
       }
       else{
         PX = function(callback){
-          for(var i=ar; i<=br; i=i+di){
+          for(var i=ar; i<=br; i+=di){
             callback(i);
           }
         };
@@ -918,7 +921,7 @@ My_entry.operation.prototype.SX = function(data, rightArr, tagObj){
   var math_mat = self.entry.math_mat;
   var DATA = self.entry.DATA;
   var _tree = null;
-  var args = rightArr[rightArr.length-1];
+  var args = self.arr2args(rightArr);
   var len_j = args.length;
   if(len_j > 2){
     var a = args[1];
@@ -934,14 +937,14 @@ My_entry.operation.prototype.SX = function(data, rightArr, tagObj){
       if(ar > br){
         sign = "-";
         SX = function(callback){
-          for(var i=ar; i>=br; i=i-di){
+          for(var i=ar; i>=br; i-=di){
             callback(i);
           }
         };
       }
       else{
         SX = function(callback){
-          for(var i=ar; i<=br; i=i+di){
+          for(var i=ar; i<=br; i+=di){
             callback(i);
           }
         };
@@ -999,7 +1002,7 @@ My_entry.operation.prototype.FNn = function(data, i0, tagName, tagObj){
   var rightArr = self.get_tagVal(trees[ie], "mat", "arr");
   if(rightArr){
     var prop = tagObj.val;
-    var args = rightArr[rightArr.length-1];
+    var args = self.arr2args(rightArr);
     var tree = DATA.num2tree(unit[tagName].apply(unit, [prop, options].concat(args)));  // arguments.length < O(10000)
     self.feedback2trees(data, is, ie, tree);
   }
