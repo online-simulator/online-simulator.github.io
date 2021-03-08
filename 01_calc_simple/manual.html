@@ -2576,9 +2576,9 @@ storage cleared
 <br>
 f&lt;={_dx(&lt;={x^3},x,2)+x-7(1+i)=0};
 <br>
-run&lt;=last(mdx=Newton(&lt;=f,&lt;={x}),norm(mdx));
+run&lt;=last(mdx=Newton(&lt;=f,&lt;={x}),max(norm(f),norm(mdx)));
 <br>
-_rn(&lt;={run},,6) -> 2.050665786575885e-11+O(1e-5+1e-5i)
+_rn(&lt;={run},,6) -> infoLost!! 1.3771393846788682e-10+O(2e-2)
 <br>
 x -> 1.0000000000168245+1.000000000020338i+O(5e-5+5e-5i)
 <br>
@@ -2590,9 +2590,9 @@ storage cleared
 <br>
 f&lt;={2x*_dx(&lt;={x*exp(3x)})=i};
 <br>
-run&lt;=last(mdx=Newton(&lt;=f,&lt;={x}),norm(mdx));
+run&lt;=last(mdx=Newton(&lt;=f,&lt;={x}),max(norm(f),norm(mdx)));
 <br>
-_rn(&lt;={run},,12) -> 1.636440930556955e-14+O(1e-5+1e-5i)
+_rn(&lt;={run},,12) -> 3.844899655887233e-14+O(1e+0)
 <br>
 x -> -0.17989326929739397-0.5079280004968542i+O(2e-1+2e-1i)
 <br>
@@ -2602,9 +2602,9 @@ storage cleared
 <br>
 f&lt;={2x*(1*exp(3x)+x*exp(3x)3)=i};
 <br>
-run&lt;=last(mdx=Newton(&lt;=f,&lt;={x}),norm(mdx));
+run&lt;=last(mdx=Newton(&lt;=f,&lt;={x}),max(norm(f),norm(mdx)));
 <br>
-_rn(&lt;={run},,12) -> infoLost!! 7.722364030244094e-17
+_rn(&lt;={run},,12) -> infoLost!! 2.7755575615628914e-16
 <br>
 x -> infoLost!! -0.17989326929046887-0.5079280004963925i
 <hr>
@@ -2727,9 +2727,9 @@ storage cleared
 <br>
 f&lt;={_ix(&lt;={x^2},0,b)=3^3/3};
 <br>
-run&lt;=last(mdx=Newton(&lt;=f,&lt;={b},&lt;={1}),norm(mdx));
+run&lt;=last(mdx=Newton(&lt;=f,&lt;={b},&lt;={1}),max(norm(f),norm(mdx)));
 <br>
-_rn(&lt;={run},,12) -> infoLost!! 1.3839478914652153e-28+O(9e-8+4e-10i)
+_rn(&lt;={run},,12) -> infoLost!! 1.3839478914652153e-28+O(8e-7)
 <br>
 b -> infoLost!! 2.9999999999999996+4.613167602434132e-34i+O(1e-1+2e-1i)
     </td>
@@ -3076,11 +3076,11 @@ x0=x_next[0];
 <br>
 x1=x_next[1];
 <br>
-normf=norm(f);
+normf=max(norm(f),norm(-dx));
 <br>
 ・反復3回目のノルムと近似解を示す
 <br>
-normf -> infoLost!! 8.881784197001252e-16
+normf -> infoLost!! 2.2204460494935903e-15
 <br>
 x0 -> infoLost!! -3.999999999999999-3.362471994400586e-26i
 <br>
@@ -3151,18 +3151,18 @@ x&lt;={x0,x1}; x_initial&lt;={0,0};
 <br>
 f&lt;={1x0+2x1=5,3x0+4x1=6};
 <br>
-run&lt;=last(mdx=Newton(&lt;=f,&lt;=x,&lt;=x_initial),norm(f));
+run&lt;=last(mdx=Newton(&lt;=f,&lt;=x,&lt;=x_initial),max(norm(f),norm(mdx)));
 <br>
 ・実行用の式変数runを定義してノルムのみ表示する
 <br>
 <br>
 反復を実行
 <br>
-run -> 2.1369270505123685e-10
+run -> 6.020797289251035
 <br>
-run -> 8.881784198052691e-16
+run -> 2.0548659974995737e-10
 <br>
-run -> infoLost!! 8.881784197001252e-16
+run -> infoLost!! 2.2204460494935903e-15
 <br>
 ・反復3回目のノルムと近似解は先述の通り一致する
 <br>
@@ -3179,9 +3179,9 @@ x&lt;={x0,x1}; x_initial&lt;={0,0};
 <br>
 f&lt;={1x0+2x1=5,3x0+4x1=6};
 <br>
-run&lt;=last(mdx=Newton(&lt;=f,&lt;=x,&lt;=x_initial),norm(f));
+run&lt;=last(mdx=Newton(&lt;=f,&lt;=x,&lt;=x_initial),max(norm(f),norm(mdx)));
 <br>
-_rn(&lt;={run},,3) -> infoLost!! 8.881784197001252e-16
+_rn(&lt;={run},,3) -> infoLost!! 2.2204460494935903e-15
 <br>
 x -> (infoLost!! -3.999999999999999-3.362471994400586e-26i:
 <br>
@@ -3226,9 +3226,9 @@ f&lt;={x0^2+1=0};
 <br>
 初期値を1+2iとした反復6回目の近似解を示す
 <br>
-run&lt;=last(mdx=Newton(&lt;=f,&lt;=x,&lt;={1+2i}),norm(f));
+run&lt;=last(mdx=Newton(&lt;=f,&lt;=x,&lt;={1+2i}),max(norm(f),norm(mdx)));
 <br>
-_rn(&lt;={run},,6) -> 6.772974656777019e-16
+_rn(&lt;={run},,6) -> 4.848187063331881e-11
 <br>
 x -> 6.918085522901255e-17+0.9999999999999997i
 <br>
@@ -3239,7 +3239,7 @@ x -> 6.918085522901255e-17+0.9999999999999997i
 <br>
 x0=1-2i;
 <br>
-_rn(&lt;={run},,6) -> 5.483225005062014e-16
+_rn(&lt;={run},,6) -> 4.2544881989018353e-11
 <br>
 x -> -5.067058578678027e-17-1.0000000000000002i
 <br>
@@ -3254,9 +3254,9 @@ x&lt;={x0};
 <br>
 f&lt;={real(x0)^2+1=0}; || f&lt;={-(real(x0)^2+1)};
 <br>
-run&lt;=last(mdx=Newton(&lt;=f,&lt;=x,&lt;={1}),norm(f));
+run&lt;=last(mdx=Newton(&lt;=f,&lt;=x,&lt;={1}),max(norm(f),norm(mdx)));
 <br>
-run -> 1.0000000000249998
+run -> 1.414206491330789
 <br>
 run -> 2500010689.187665
 <br>
@@ -3296,7 +3296,7 @@ x&lt;={x0,x1}; x_initial&lt;={1+i,1-i};
 <br>
 f&lt;={x0^i-2x1=3i,3x0+exp(x1)=5i};
 <br>
-run&lt;=last(mdx=Newton(&lt;=f,&lt;=x,&lt;=x_initial),norm(f));
+run&lt;=last(mdx=Newton(&lt;=f,&lt;=x,&lt;=x_initial),max(norm(f),norm(mdx)));
 <br>
 ・反復6回目の近似解を示す
 <br>
@@ -3317,11 +3317,11 @@ x&lt;=(x0:x1); x_initial&lt;=(1+i:1-i);
 <br>
 f&lt;=(x0^i-2x1=3i:3x0+exp(x1)=5i);
 <br>
-run&lt;=last(mdx=Newton(&lt;=f,&lt;=x,&lt;=x_initial),norm(f));
+run&lt;=last(mdx=Newton(&lt;=f,&lt;=x,&lt;=x_initial),max(norm(f),norm(mdx)));
 <br>
 ・反復6回目の近似解を示す
 <br>
-_rn(&lt;={run},,6) -> infoLost!! 0
+_rn(&lt;={run},,6) -> infoLost!! 2.2368035825474494e-16
 <br>
 x -> (infoLost!! -0.04901921620544653+2.023423045158351i:
 <br>
