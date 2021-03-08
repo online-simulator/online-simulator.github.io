@@ -1387,15 +1387,15 @@ My_entry.operation.prototype.SEv = function(data, i0, tagName, tagObj){
   var DATA = self.entry.DATA;
   var is = i0-1;
   var ie = i0+1;
+  var leftTree = trees[is];
   if(i0 === 1){
     var tree = null;
     if(trees.length === 3){
-      var obj = trees[is]["REv"];
-      var name_var = obj.val;
+      var name_var = self.get_tagVal(leftTree, "REv", "val");  // clear; f<={(x)=1}; f
       if(name_var){
         tree = trees[ie];
         if(self.get_tag(tree, "mat")){  // only matrix is stored
-          var ref = obj["ref"];
+          var ref = self.get_tagVal(leftTree, "REv", "ref");
           if(ref){
             if(ref.length === 2){
               tree_var = self.restore_var(vars, name_var);
