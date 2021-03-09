@@ -52,11 +52,10 @@ My_entry.operation.prototype.config = {
         "BRr"    // Binary operatoR %       -> mod(left, right)
       ],
       [
-        "BRm",   // Binary operatoR *
         "BRmo"   // omitted multiplication sign
       ],
       [
-        "BRd"    // Binary operatoR /
+        "BRdm"   // Binary operatoR / || *
       ],
       [
         "BRsa"   // Binary operatoR - || + including Pre-Unary operator - || +
@@ -209,7 +208,7 @@ My_entry.operation.prototype.prepare = function(data){
     arr_precedence[1] = options.precedence.split(",");
   }
   else{
-    if(options.isDIVprior2MUL){
+    if(options.isDIVprior2OMUL){
       self.entry.math.switch_arr(arr_precedence[1], 2, 3);
     }
   }
@@ -1171,12 +1170,12 @@ My_entry.operation.prototype.init_callbacks_mat = function(options){
   var DATA = self.entry.DATA;
   var unit = self.entry.unit;
   self.callbacks_mat = {};
-  self.callbacks_mat.BRsa = function(tagName, tagObj, leftArr, rightArr){
+  self.callbacks_mat.BRs =
+  self.callbacks_mat.BRa = function(tagName, tagObj, leftArr, rightArr){
     var _tree = null;
     if(rightArr){
       var leftArr = leftArr || math_mat.zeros_arr(rightArr);
-      var sw_tagName = (tagObj.val === "-")? "BRs": "BRa";
-      _tree = self.switch_unitBR(sw_tagName, options, leftArr, rightArr);
+      _tree = self.switch_unitBR(tagName, options, leftArr, rightArr);
     }
     return _tree;
   };
@@ -1240,15 +1239,30 @@ My_entry.operation.prototype.BR_original = function(data, i0, tagName, tagObj){
 };
 My_entry.operation.prototype.BRp =
 My_entry.operation.prototype.BRr =
-My_entry.operation.prototype.BRm =
-My_entry.operation.prototype.BRd =
-My_entry.operation.prototype.BRsa =
 My_entry.operation.prototype.BRbs =
 My_entry.operation.prototype.BRba =
 My_entry.operation.prototype.BRbx =
 My_entry.operation.prototype.BRbo = function(data, i0, tagName, tagObj){
   var self = this;
   var tree = self.BR_original(data, i0, tagName, tagObj);
+  if(!(tree)){
+    throw "Invalid binary operation";
+  }
+  return self;
+};
+My_entry.operation.prototype.BRdm = function(data, i0, tagName, tagObj){
+  var self = this;
+  var sw_tagName = (tagObj.val === "/")? "BRd": "BRm";
+  var tree = self.BR_original(data, i0, sw_tagName, tagObj);
+  if(!(tree)){
+    throw "Invalid binary operation";
+  }
+  return self;
+};
+My_entry.operation.prototype.BRsa = function(data, i0, tagName, tagObj){
+  var self = this;
+  var sw_tagName = (tagObj.val === "-")? "BRs": "BRa";
+  var tree = self.BR_original(data, i0, sw_tagName, tagObj);
   if(!(tree)){
     throw "Invalid binary operation";
   }

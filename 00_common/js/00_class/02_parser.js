@@ -56,9 +56,8 @@ My_entry.parser.prototype.config = {
       // Binary operatoR: "BR?"
       "^": "BRp",
       "%": "BRr",
-      "*": "BRm",
       // omitted multiplication sign: "BRmo"
-      "/": "BRd",
+      "/": "BRdm", "*": "BRdm",
       // Pre-Unary operator minus or plus: "PUmp"
       "-": "BRsa", "+": "BRsa",
       // bit shift: "BRbs"
