@@ -311,6 +311,11 @@ e^(-i(1pi(){2/2i}(5-{3-1}){i/(-4)}))
 連立非線形方程式
 </a>
 <br>
+　・
+<a href="#span-out-limit">
+極限
+</a>
+<br>
 ・
 <a href="#span-out-special">
 特殊仕様
@@ -3158,7 +3163,7 @@ S=Σ&lt;i=0,N-1&gt;dS{i}=Σ&lt;i=0,N-1&gt;(f{i}+f{i+1})h/2+O(h^2)
 <br>
 ・次の台形公式が導出される
 <br>
-S=(f{0}+f{N}+2Σ&lt;i=1,N-1&gt;f{i})h/2+O(h^2)
+S=(f{0}+2Σ&lt;i=1,N-1&gt;f{i}+f{N})h/2+O(h^2)
 <br>
 ・両端を除く離散点f{i}は2回足されて2倍
 <br>
@@ -3237,7 +3242,7 @@ dS{0}=(1/2h)(h^2,h^2)(f{0}:f{1})=(h/2)(1,1)(f{0}:f{1})=(f{0}+f{1})h/2
 <br>
 ・以上より、次の台形公式が導出される
 <br>
-S=(f{0}+f{N}+2Σ&lt;i=1,N-1&gt;f{i})h/2+O(h^2)
+S=(f{0}+2Σ&lt;i=1,N-1&gt;f{i}+f{N})h/2+O(h^2)
 <br>
 <br>
 微小区間の関数fを2次多項式で補間する場合、4次精度の合成Simpson公式
@@ -3667,6 +3672,76 @@ _rn(&lt;={run},,6) -> 2.2368035825474494e-16
 {x0,x1} -> (infoLost!! -0.04901921620544653+2.023423045158351i:
 <br>
 infoLost!! 0.07726186556052178-1.434248862158042i)
+    </td>
+  </tr>
+  <tr>
+    <th>
+<a href="#span-index">
+目次
+</a>
+<br>
+極限の解法
+    </th>
+    <td>
+<span id="span-out-limit"></span>
+極限の解法について記述する
+<br>
+<br>
+複素数演算の場合、極限演算不可
+<br>
+1/0 -> [MyErr]FN isNaN
+<br>
+・0割の演算で次の反則が発生するため
+<br>
+0*Infinity -> [MyErr]FN isNaN
+<br>
+<br>
+complexのチェックを外して実数演算
+<br>
+1/0 -> Infinity
+<br>
+MIN_VALUE -> 5e-324
+<br>
+1/(-MIN_VALUE) -> -Infinity
+<br>
+1/(+MIN_VALUE) -> Infinity
+<br>
+1/Infinity || 1/Inf || 1/pInf -> 0
+<br>
+-Infinity+1 || nInf+1 -> infoLost!! -Infinity
+<br>
+Infinity-Infinity -> [MyErr]BRsa isNaN
+<br>
+<br>
+極限値演算の一例を列挙する
+<br>
+x=MIN_VALUE -> x=5e-324
+<br>
+sin(x)/x  // OK -> 1
+<br>
+sin(-x)/(-x)  // OK -> 1
+<br>
+ln(1+x)/x  // NG -> infoLost!! 0
+<br>
+・L'Hôpitalの定理
+<br>
+_dx(&lt;={ln(1+x)})/_dx(&lt;={x})  // OK -> 0.9999999999991271
+<br>
+_dx(&lt;={ln(1-x)})/_dx(&lt;={-x})  // OK -> 0.9999999999991271
+<br>
+・無限大の極限は自明の演算以外は演算不可
+<br>
+y=pInf -> y=Infinity
+<br>
+(1/y)/y  // OK -> 0
+<br>
+y*y  // OK -> Infinity
+<br>
+y/(y*y)  // NG -> [MyErr]FN isNaN
+<br>
+_dy(&lt;={y})/_dy(&lt;={y*y})  // NG -> [MyErr]BRsa isNaN
+<br>
+_dy(&lt;={1/(y*y)})/_dy(&lt;={1/y})  // NG -> [MyErr]FN isNaN
     </td>
   </tr>
   <tr>

@@ -61,9 +61,18 @@ My_entry.unit.prototype.FN = function(prop, options){
         args_r[i] = arguments[i].r;
       }
       var math_bin = Math[prop];
-      _com = (math_bin)?
-        DATA.com(math_bin.apply(Math, args_r), 0):
-        DATA.com(math[prop].apply(math, args_r), 0);
+      if(math_bin){
+        _com = DATA.com(math_bin.apply(Math, args_r), 0);
+      }
+      else if(math[prop]){
+        _com = DATA.com(math[prop].apply(math, args_r), 0);
+      }
+      else if(cmath[prop]){  // imag(3-3i) -> 0 @useComplex=false
+        _com = cmath[prop].apply(cmath, arguments);
+      }
+      else{
+        throw "Invalid FN called";
+      }
     }
     return _com;
   };
