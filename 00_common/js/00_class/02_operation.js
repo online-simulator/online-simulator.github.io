@@ -1288,23 +1288,41 @@ My_entry.operation.prototype.restore_arr = function(arr, ref){
   var _arr = [];
   var _arri = _arr;
   var arri = arr;
+  var len_ref = ref.length;
   ref.forEach(function(i_ref, i){
     if(!(Array.isArray(arri)) ||  typeof arri[i_ref] === "undefined") throw "Invalid reference of array";
-    _arri[0] = (i === ref.length-1)? arri[i_ref]: [];
+    _arri[0] = (i === len_ref-1)? arri[i_ref]: [];
     _arri = _arri[0];
     arri = arri[i_ref];
   });
   return _arr;
 };
-My_entry.operation.prototype.store_arr = function(_arr, ref, num){
+My_entry.operation.prototype.store_arr = function(_arr, ref, arr){
   var self = this;
-  var arri = _arr;
+  var _arri = _arr;
+  var arri = arr;
+  var len_ref = ref.length;
+  var arr_stored = null;
+  if(len_ref === 1){
+    arr_stored = self.arr2args(arr);
+  }
+  else if(len_ref === 2){
+    arr_stored = self.arr2num(arr);
+  }
+  else{
+    throw "Invalid store array";
+  }
   ref.forEach(function(i_ref, i){
-    if(!(Array.isArray(arri)) ||  typeof arri[i_ref] === "undefined") throw "Invalid reference of array";
-    if(i === ref.length-1){
-      arri[i_ref] = num;
+    if(!(Array.isArray(_arri)) ||  typeof _arri[i_ref] === "undefined") throw "Invalid reference of array";
+    if(i === len_ref-1){
+      if(_arri[i_ref].length === arr_stored.length){
+        _arri[i_ref] = arr_stored;
+      }
+      else{
+        throw "Invalid store array";
+      }
     }
-    arri = arri[i_ref];
+    _arri = _arri[i_ref];
   });
   return _arr;
 };
@@ -1410,11 +1428,10 @@ My_entry.operation.prototype.SEv = function(data, i0, tagName, tagObj){
         if(self.get_tag(tree, "mat")){  // only matrix is stored
           var ref = self.get_tagVal(leftTree, "REv", "ref");
           if(ref){
-            if(ref.length === 2){
+            if(ref.length < 3){
               tree_var = self.restore_var(vars, name_var);
               if(tree_var){
-                var num = self.arr2num(tree.mat.arr);
-                self.store_arr(tree_var.mat.arr, ref, num);
+                self.store_arr(tree_var.mat.arr, ref, tree.mat.arr);
                 tree = tree_var;
               }
               else{
