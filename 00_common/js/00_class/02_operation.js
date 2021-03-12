@@ -529,6 +529,34 @@ My_entry.operation.prototype.tree2tree_eqn = function(data, tree){
   }
   return _tree;
 };
+My_entry.operation.prototype.get_dxJ = function(x, h){
+  var self = this;
+  var DATA = self.entry.DATA;
+  var hc = h.com;
+  var hcr = hc.r;
+  var hci = hc.i;
+  return DATA.com(hcr, hci);
+};
+My_entry.operation.prototype.get_dxD = function(x, h){
+  var self = this;
+  var DATA = self.entry.DATA;
+  /* Ver.1.3.1 */
+  var xc = x.com;
+  var hc = h.com;
+  var hcr = Math.max(1, Math.abs(xc.r))*hc.r;
+  var hci = Math.max(1, Math.abs(xc.i))*hc.i;
+  return DATA.com(hcr, hci);
+};
+My_entry.operation.prototype.get_hc = function(options, x, dx, sw_name){
+  var self = this;
+  var DATA = self.entry.DATA;
+  var isFixed = (dx && dx.com);
+  var dxo = self.options[sw_name];
+  var dx0 = (isFixed)? dx: DATA.num(dxo, dxo);
+  var h = DATA.num(dx0.com.r, ((options.useComplex)? dx0.com.i: 0));
+  var _hc = (isFixed)? h.com: self["get_"+sw_name](x, h);
+  return _hc;
+};
 My_entry.operation.prototype.jacobian = function(data, rightArr, isNewtonian){
   var self = this;
   var options = data.options;
@@ -576,21 +604,24 @@ My_entry.operation.prototype.jacobian = function(data, rightArr, isNewtonian){
     }
     return _arr;
   };
-  if(len_j === 2 || len_j === 3){
+  if(len_j > 1){
     var tree_eqn = get_tree(0);
     var names = get_names(1);
     var len_i = names.length;
-    var dxJ = self.options.dxJ;
-    var dx0 = DATA.num(dxJ, ((options.useComplex)? dxJ: 0));
-    var arr_x0 = null;
-    if(len_j === 3){
-      arr_x0 = get_arr(2);
-      if(arr_x0.length-len_i) throw msgErr;
+    var arr_x = null;
+    if(len_j > 2){
+      arr_x = get_arr(2);
+      if(arr_x.length-len_i) throw msgErr;
     }
     else{
-      arr_x0 = math_mat.zeros(len_i, 1);
+      arr_x = math_mat.zeros(len_i, 1);
     }
+    var hc = self.get_hc(options, null, args[3], "dxJ");
+    var hcr = hc.r;
+    var hci = hc.i;
+    var h0 = DATA.num(hcr, hci);
     var isFound_x0 = [];
+    var dx = [];
     var x0 = [];
     var x1 = [];
     var f0 = [];
@@ -598,18 +629,24 @@ My_entry.operation.prototype.jacobian = function(data, rightArr, isNewtonian){
     // x0
     for(var i=0; i<len_i; ++i){
       var name_var = names[i];
+      var num = null;
       if(vars[name_var]){
         isFound_x0[i] = true;
         var tree = self.restore_var(vars, name_var);
-        x0[i] = self.arr2num(tree.mat.arr);
+        num = self.arr2num(tree.mat.arr);
       }
       else{
         isFound_x0[i] = false;
-        var num = self.arr2obj_i(arr_x0, i);
-        x0[i] = num;
-        var tree = DATA.num2tree(num);
-        self.store_var(vars, name_var, tree);
+        num = self.arr2obj_i(arr_x, i);
+        self.store_var(vars, name_var, DATA.num2tree(num));
       }
+      x0[i] = num;
+    }
+    // x1
+    for(var i=0; i<len_i; ++i){
+      var x0ic = x0[i].com;
+      dx[i] = h0;
+      x1[i] = DATA.num(x0ic.r+hcr, x0ic.i+hci);
     }
     // f0
     var tree = self.tree_eqn2tree(data, tree_eqn);
@@ -617,10 +654,6 @@ My_entry.operation.prototype.jacobian = function(data, rightArr, isNewtonian){
     if(arr_f0.length-len_i) throw msgErr;
     for(var i=0; i<len_i; ++i){
       f0[i] = self.arr2obj_i(arr_f0, i);
-    }
-    // x1
-    for(var i=0; i<len_i; ++i){
-      x1[i] = unit["BRa"](options, x0[i], dx0);
     }
     // J
     for(var j=0; j<len_i; ++j){
@@ -633,7 +666,7 @@ My_entry.operation.prototype.jacobian = function(data, rightArr, isNewtonian){
       var arr_f1 = tree.mat.arr;
       for(var i=0; i<len_i; ++i){
         var f1i = self.arr2obj_i(arr_f1, i);
-        J[i][j] = unit["BRd"](options, unit["BRs"](options, f1i, f0[i]), dx0);
+        J[i][j] = unit["BRd"](options, unit["BRs"](options, f1i, f0[i]), dx[i]);
       }
     }
     if(isNewtonian){
@@ -758,11 +791,9 @@ My_entry.operation.prototype.DX = function(data, rightArr, tagObj){
       var tree_eqn = self.tree2tree_eqn(data, args[0]);
       var nthd = args[1];
       nthd = (nthd && nthd.com)? Math.abs(Math.floor(nthd.com.r)): 1;  // nthd >= 0
-      var dx = args[3];
-      var dxD = (dx && dx.com)? dx.com.r: self.options.dxD;
-      var h0 = DATA.num(dxD, ((options.useComplex)? dxD: 0));
-      var h0cr = h0.com.r;
-      var h0ci = h0.com.i;
+      var h0c = self.get_hc(options, a, args[3], "dxD");
+      var h0cr = h0c.r;
+      var h0ci = h0c.i;
       var num_8 = DATA.num(8, 0);
       var get_newX = function(x, cr, ci){
         var _newX = DATA.newNum(x);
@@ -781,9 +812,6 @@ My_entry.operation.prototype.DX = function(data, rightArr, tagObj){
         var p = 1<<(n-1);
         var hcr = h0cr*p;
         var hci = h0ci*p;
-        if(hcr > 1 || hci > 1){
-          throw "Invalid DX n-th order";
-        }
         var hcrp2 = hcr*hcr;
         var hcip2 = hci*hci;
         if(n === 1){
@@ -806,9 +834,6 @@ My_entry.operation.prototype.DX = function(data, rightArr, tagObj){
         var p = 1<<(n-1);  // extend order2
         var hcr = h0cr*p;
         var hci = h0ci*p;
-        if(hcr > 1 || hci > 1){
-          throw "Invalid DX n-th order";
-        }
         var hcrp2 = hcr*hcr;
         var hcip2 = hci*hci;
         var hcr2 = hcr*2;
