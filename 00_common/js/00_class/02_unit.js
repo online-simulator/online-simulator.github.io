@@ -135,11 +135,15 @@ My_entry.unit.prototype.get_isInfoLost = function(sw_ri){
 My_entry.unit.prototype.check_isInfoLost = function(sw_ri, left, right){
   var self = this;
   var _isL = false;
-  var absl = Math.abs(left.com[sw_ri]);
-  var absr = Math.abs(right.com[sw_ri]);
-  var dd = (absl < absr)? absl/absr: absr/absl;
-  if(absl && absr && dd < 4e-16){  // about
-    _isL = true;
+  var lc_ri = left.com[sw_ri];
+  var rc_ri = right.com[sw_ri];
+  if(lc_ri && rc_ri){
+    var absl = Math.abs(lc_ri);
+    var absr = Math.abs(rc_ri);
+    var dd = (absl < absr)? absl/absr: absr/absl;
+    if(!((dd+1)-1)){
+      _isL = true;
+    }
   }
   return _isL;
 };

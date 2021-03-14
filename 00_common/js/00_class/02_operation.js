@@ -638,7 +638,12 @@ My_entry.operation.prototype.jacobian = function(data, rightArr, isNewtonian){
       else{
         isFound_x0[i] = false;
         num = self.arr2obj_i(arr_x, i);
-        self.store_var(vars, name_var, DATA.num2tree(num));
+        if(num.com){
+          self.store_var(vars, name_var, DATA.num2tree(num));
+        }
+        else{
+          self.throw_tree(num);
+        }
       }
       x0[i] = num;
     }
