@@ -71,7 +71,7 @@ My_entry.parser.prototype.config = {
 My_entry.parser.prototype.init = function(){
   var self = this;
   new My_entry.original_main().setup_constructors.call(self);
-  new My_entry.original_main().make_instances.call(self, ["reference", "$", "def", "math", "DATA", "operation"]);
+  new My_entry.original_main().make_instances.call(self, ["reference", "$", "def", "math", "math_mat", "DATA", "operation"]);
   return self;
 };
 My_entry.parser.prototype.script2arr = function(script){
@@ -219,6 +219,7 @@ My_entry.parser.prototype.make_trees = function(sentence, re){
   var self = this;
   var _trees = [];  // [i]
   var SYNTAX = self.config.SYNTAX;
+  var math_mat = self.entry.math_mat;
   var DATA = self.entry.DATA;
   var tokens = sentence.match(re);
   for(var i=0, len_i=tokens.length; i<len_i; ++i){
@@ -267,6 +268,47 @@ My_entry.parser.prototype.make_trees = function(sentence, re){
         tree = DATA.tree_tag("FNmh", "newtonian");
         break;
       // "FNm"
+      // DirectX defined
+      case "rotationx":
+      case "rotationy":
+      case "rotationz":
+      case "rotationyawpitchroll":
+      case "rotationaxis":
+        tree = DATA.tree_tag("FNm", token_lower);
+        break;
+      // My defined
+      // "FNm0"
+      case "vector2r":
+      case "vector3r":
+      case "vector4r":
+      case "vector2c":
+      case "vector3c":
+      case "vector4c":
+      case "zeros2":
+      case "zeros3":
+      case "zeros4":
+      case "ones2":
+      case "ones3":
+      case "ones4":
+      case "id2":
+      case "identity2":
+      case "id3":
+      case "identity3":
+      case "id4":
+      case "identity4":
+        tree = DATA.tree_mat(math_mat[token_lower]());
+        break;
+      case "normalizer":
+        tree = DATA.tree_tag("FNm", token_lower);
+        break;
+      case "normalize":
+      case "normalizec":
+        tree = DATA.tree_tag("FNm", "normalizec");
+        break;
+      case "rot2eulers":
+      case "rotation2eulerangles":
+        tree = DATA.tree_tag("FNm", "rotation2eulerangles");
+        break;
       case "trans":
       case "transpose":
         tree = DATA.tree_tag("FNm", "transpose");
@@ -508,7 +550,7 @@ My_entry.parser.prototype.run = function(_data){
   var trees2d = [];
   try{
     if(_data && _data.in){
-      trees2d = self.script2trees(_data.in);
+      trees2d = self.script2trees(self.entry.reference.fullStr2half(_data.in));
     }
   }
   catch(e){

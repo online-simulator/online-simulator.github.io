@@ -457,12 +457,14 @@ My_entry.operation.prototype.SRr_or_SRt = function(data, i0, tagName, tagObj, is
   var leftArr = leftMat.arr;
   var rightArr = rightTree.mat.arr;
   if(isBTrow2col^isSRt){  // xor
-    leftArr.forEach(function(leftArri, i){
+    var len_i = Math.max(leftArr.length, rightArr.length);
+    for(var i=0; i<len_i; ++i){
+      var leftArri = leftArr[i] || [DATA.num(0, 0)];  // {:1,2} || {0:1,2} -> (0,1:0,2)
       var rightArri = rightArr[i];
       if(rightArri){
         leftArr[i] = leftArri.concat(rightArri);  // col: mat.arr[i]
       }
-    });
+    }
   }
   else{
     if(rightArr){

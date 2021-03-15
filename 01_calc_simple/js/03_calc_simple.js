@@ -71,7 +71,7 @@ My_entry.calc_simple.prototype.init_handlers = function(){
         var data = self.entry.DATA.data();
         data.vars = self.vars;  // restore vars
         data.eqns = self.eqns;  // restore eqns
-        data.in = self.entry.reference.fullStr2half(self.io.read_text(self.elems.i));
+        data.in = self.io.read_text(self.elems.i);
         data.options.makeLog = true;
         self.entry.$.get_elemProps("input[type='checkbox']", "checkbox-", "checked", data.options);
         self.entry.$.get_elemProps("select", "select-", "value", data.options);

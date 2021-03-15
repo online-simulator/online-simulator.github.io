@@ -43,6 +43,18 @@ My_entry.math_mat.prototype.zeros = function(len_i, len_j){
   }
   return _arr;
 };
+My_entry.math_mat.prototype.ones = function(len_i, len_j){
+  var self = this;
+  var DATA = self.entry.DATA;
+  var _arr = new Array(len_i);
+  for(var i=0; i<len_i; ++i){
+    _arr[i] = new Array(len_j);
+    for(var j=0; j<len_j; ++j){
+      _arr[i][j] = DATA.num(1, 0);
+    }
+  }
+  return _arr;
+};
 My_entry.math_mat.prototype.zeros_arr = function(arr){
   var self = this;
   var DATA = self.entry.DATA;
@@ -84,6 +96,67 @@ My_entry.math_mat.prototype.last = function(options, arr){
   var arri = arr[arr.length-1];
   return [[arri[arri.length-1]]];
 };
+My_entry.math_mat.prototype.normalizer = function(options, arr){
+  var self = this;
+  var DATA = self.entry.DATA;
+  var unit = self.entry.unit;
+  var lens = self.get_lens(arr);
+  var len_i = lens.i;
+  var len_j = lens.j;
+  var callback = (options.useComplex)?
+    function(num){
+      return unit["FN"]("conjugate", options, num);
+    }:
+    function(num){
+      return num;
+    };
+  var _arr = self.init2d(len_i, len_j);
+  for(var i=0; i<len_i; ++i){
+    var arri = arr[i];
+    var arrR = [];
+    for(var j=0; j<len_j; ++j){
+      var arrij = arri[j];
+      arrR[j] = (arrij)? callback(arrij): null;
+    }
+    var norm_euclid = self.sqrt_iproduct(options, arri, arrR);
+    for(var j=0; j<len_j; ++j){
+      var arrij = arri[j];
+      _arr[i][j] = (arrij)? unit["BRd"](options, arrij, norm_euclid): DATA.num(0, 0);
+    }
+  }
+  return _arr;
+};
+My_entry.math_mat.prototype.normalizec = function(options, arr){
+  var self = this;
+  var DATA = self.entry.DATA;
+  var unit = self.entry.unit;
+  var lens = self.get_lens(arr);
+  var len_i = lens.i;
+  var len_j = lens.j;
+  var callback = (options.useComplex)?
+    function(num){
+      return unit["FN"]("conjugate", options, num);
+    }:
+    function(num){
+      return num;
+    };
+  var _arr = self.init2d(len_i, len_j);
+  for(var j=0; j<len_j; ++j){
+    var arrL = [];
+    var arrR = [];
+    for(var i=0; i<len_i; ++i){
+      var arrij = arr[i][j];
+      arrL[i] = (arrij)? callback(arrij): null;
+      arrR[i] = arrij;
+    }
+    var norm_euclid = self.sqrt_iproduct(options, arrL, arrR);
+    for(var i=0; i<len_i; ++i){
+      var arrij = arr[i][j];
+      _arr[i][j] = (arrij)? unit["BRd"](options, arrij, norm_euclid): DATA.num(0, 0);
+    }
+  }
+  return _arr;
+};
 My_entry.math_mat.prototype.transpose = function(options, arr){
   var self = this;
   var DATA = self.entry.DATA;
@@ -108,7 +181,7 @@ My_entry.math_mat.prototype.hermitian = function(options, arr){
   var len_j = lens.j;
   var callback = (options.useComplex)?
     function(num){
-      return unit["FN"]("conjugate", options, num);  // only useComplex
+      return unit["FN"]("conjugate", options, num);
     }:
     function(num){
       return num;
@@ -185,7 +258,7 @@ My_entry.math_mat.prototype.Imat = function(len){
 My_entry.math_mat.prototype.Imat_k = function(len, k){
   var self = this;
   var DATA = self.entry.DATA;
-  var _arr = self.init2d(len, len);
+  var _arr = self.zeros(len, len);
   for(var i=0; i<len; ++i){
     _arr[i][i] = DATA.num(k, 0);
   }
@@ -219,6 +292,12 @@ My_entry.math_mat.prototype.iproduct = function(options, vec0, vec1){
     var rightNum = vec1[i] || DATA.num(0, 0);
     _num = unit["BRa"](options, _num, unit["BRm"](options, leftNum, rightNum));
   }
+  return _num;
+};
+My_entry.math_mat.prototype.sqrt_iproduct = function(options, vec0, vec1){
+  var self = this;
+  var unit = self.entry.unit;
+  var _num = unit["FN"]("sqrt", options, self.iproduct(options, vec0, vec1));
   return _num;
 };
 My_entry.math_mat.prototype.BRd = function(options, left, right){
@@ -272,4 +351,68 @@ My_entry.math_mat.prototype.BRa = function(options, left, right){
 My_entry.math_mat.prototype.BRe = function(options, left, right){
   var self = this;
   return self.BRs(options, right, left);
+};
+// DirectX-like
+My_entry.math_mat.prototype.vector2r = function(){
+  var self = this;
+  return self.zeros(1, 2);
+};
+My_entry.math_mat.prototype.vector3r = function(){
+  var self = this;
+  return self.zeros(1, 3);
+};
+My_entry.math_mat.prototype.vector4r = function(){
+  var self = this;
+  return self.zeros(1, 4);
+};
+My_entry.math_mat.prototype.vector2c = function(){
+  var self = this;
+  return self.zeros(2, 1);
+};
+My_entry.math_mat.prototype.vector3c = function(){
+  var self = this;
+  return self.zeros(3, 1);
+};
+My_entry.math_mat.prototype.vector4c = function(){
+  var self = this;
+  return self.zeros(4, 1);
+};
+My_entry.math_mat.prototype.zeros2 = function(){
+  var self = this;
+  return self.zeros(2, 2);
+};
+My_entry.math_mat.prototype.zeros3 = function(){
+  var self = this;
+  return self.zeros(3, 3);
+};
+My_entry.math_mat.prototype.zeros4 = function(){
+  var self = this;
+  return self.zeros(4, 4);
+};
+My_entry.math_mat.prototype.ones2 = function(){
+  var self = this;
+  return self.ones(2, 2);
+};
+My_entry.math_mat.prototype.ones3 = function(){
+  var self = this;
+  return self.ones(3, 3);
+};
+My_entry.math_mat.prototype.ones4 = function(){
+  var self = this;
+  return self.ones(4, 4);
+};
+My_entry.math_mat.prototype.id2 =
+My_entry.math_mat.prototype.identity2 = function(){
+  var self = this;
+  return self.Imat(2);
+};
+My_entry.math_mat.prototype.id3 =
+My_entry.math_mat.prototype.identity3 = function(){
+  var self = this;
+  return self.Imat(3);
+};
+My_entry.math_mat.prototype.id4 =
+My_entry.math_mat.prototype.identity4 = function(){
+  var self = this;
+  return self.Imat(4);
 };
