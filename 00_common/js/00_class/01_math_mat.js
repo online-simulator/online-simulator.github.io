@@ -91,10 +91,14 @@ My_entry.math_mat.prototype.first = function(options, arr){
   var self = this;
   return [[arr[0][0]]];
 };
-My_entry.math_mat.prototype.last = function(options, arr){
+My_entry.math_mat.prototype.last_num = function(arr){
   var self = this;
   var arri = arr[arr.length-1];
-  return [[arri[arri.length-1]]];
+  return arri[arri.length-1];
+};
+My_entry.math_mat.prototype.last = function(options, arr){
+  var self = this;
+  return [[self.last_num(arr)]];
 };
 My_entry.math_mat.prototype.normalizer = function(options, arr){
   var self = this;
@@ -201,7 +205,7 @@ My_entry.math_mat.prototype.euclidean = function(options, arr){
   var DATA = self.entry.DATA;
   var unit = self.entry.unit;
   var arr = self.BRm(options, self.hermitian(options, arr), arr);
-  var _arr = DATA.obj2arr(unit["FN"]("sqrt", options, self.last(options, arr)[0][0]));
+  var _arr = DATA.obj2arr(unit["FN"]("sqrt", options, self.last_num(arr)));
   return _arr;
 };
 My_entry.math_mat.prototype.jacobian = function(options, arr){
@@ -352,7 +356,51 @@ My_entry.math_mat.prototype.BRe = function(options, left, right){
   var self = this;
   return self.BRs(options, right, left);
 };
-// DirectX-like
+My_entry.math_mat.prototype.rotationx = function(options, arr){
+  var self = this;
+  var DATA = self.entry.DATA;
+  var num = self.last_num(arr);
+  if(!(num.com)) throw "Invalid rotation matrix";
+  var _arr = self.Imat(3);
+  var phi = num.com.r;
+  var cos_phi = Math.cos(phi);
+  var sin_phi = Math.sin(phi);
+  _arr[1][1] = DATA.num(cos_phi, 0);
+  _arr[2][2] = DATA.num(cos_phi, 0);
+  _arr[1][2] = DATA.num(-sin_phi, 0);
+  _arr[2][1] = DATA.num(sin_phi, 0);
+  return _arr;
+};
+My_entry.math_mat.prototype.rotationy = function(options, arr){
+  var self = this;
+  var DATA = self.entry.DATA;
+  var num = self.last_num(arr);
+  if(!(num.com)) throw "Invalid rotation matrix";
+  var _arr = self.Imat(3);
+  var theta = num.com.r;
+  var cos_theta = Math.cos(theta);
+  var sin_theta = Math.sin(theta);
+  _arr[0][0] = DATA.num(cos_theta, 0);
+  _arr[2][2] = DATA.num(cos_theta, 0);
+  _arr[0][2] = DATA.num(sin_theta, 0);
+  _arr[2][0] = DATA.num(-sin_theta, 0);
+  return _arr;
+};
+My_entry.math_mat.prototype.rotationz = function(options, arr){
+  var self = this;
+  var DATA = self.entry.DATA;
+  var num = self.last_num(arr);
+  if(!(num.com)) throw "Invalid rotation matrix";
+  var _arr = self.Imat(3);
+  var psi = num.com.r;
+  var cos_psi = Math.cos(psi);
+  var sin_psi = Math.sin(psi);
+  _arr[0][0] = DATA.num(cos_psi, 0);
+  _arr[1][1] = DATA.num(cos_psi, 0);
+  _arr[0][1] = DATA.num(-sin_psi, 0);
+  _arr[1][0] = DATA.num(sin_psi, 0);
+  return _arr;
+};
 My_entry.math_mat.prototype.vector2r = function(){
   var self = this;
   return self.zeros(1, 2);

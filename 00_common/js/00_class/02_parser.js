@@ -268,15 +268,6 @@ My_entry.parser.prototype.make_trees = function(sentence, re){
         tree = DATA.tree_tag("FNmh", "newtonian");
         break;
       // "FNm"
-      // DirectX defined
-      case "rotationx":
-      case "rotationy":
-      case "rotationz":
-      case "rotationyawpitchroll":
-      case "rotationaxis":
-        tree = DATA.tree_tag("FNm", token_lower);
-        break;
-      // My defined
       // "FNm0"
       case "vector2r":
       case "vector3r":
@@ -298,16 +289,16 @@ My_entry.parser.prototype.make_trees = function(sentence, re){
       case "identity4":
         tree = DATA.tree_mat(math_mat[token_lower]());
         break;
+      // "FNm1"
+      case "rotationx":
+      case "rotationy":
+      case "rotationz":
       case "normalizer":
         tree = DATA.tree_tag("FNm", token_lower);
         break;
       case "normalize":
       case "normalizec":
         tree = DATA.tree_tag("FNm", "normalizec");
-        break;
-      case "rot2eulers":
-      case "rotation2eulerangles":
-        tree = DATA.tree_tag("FNm", "rotation2eulerangles");
         break;
       case "trans":
       case "transpose":
@@ -322,13 +313,14 @@ My_entry.parser.prototype.make_trees = function(sentence, re){
       case "euclidean":
         tree = DATA.tree_tag("FNm", "euclidean");
         break;
-      case "gauss":
-      case "gaussian":
-        tree = DATA.tree_tag("FNm", "gaussian");
-        break;
       case "first":
       case "last":
         tree = DATA.tree_tag("FNm", token_lower);
+        break;
+      // "FNm2"
+      case "gauss":
+      case "gaussian":
+        tree = DATA.tree_tag("FNm", "gaussian");
         break;
       // "CT"
       // JavaScript defined

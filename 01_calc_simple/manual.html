@@ -285,6 +285,11 @@ e^(-i(1pi(){2/2i}(5-{3-1}){i/(-4)}))
 </a>
 <br>
 　・
+<a href="#span-out-FNspecial">
+特殊関数
+</a>
+<br>
+　・
 <a href="#span-out-vars">
 変数
 </a>
@@ -432,6 +437,11 @@ developer.mozilla.org/ja/docs/項目を列挙する
 ・浮動小数点数
 <br>
 ・Number
+<br>
+<br>
+en.m.wikipedia.org/wiki/項目を列挙する
+<br>
+・Rotation_formalisms_in_three_dimensions
 <br>
 <br>
 ja.m.wikipedia.org/wiki/項目を列挙する
@@ -1955,7 +1965,7 @@ z=e^(i{pi/6}); arg(z) -> 0.5235987755982987
 <br>
 degrees(ans) || deg_atan2(imag(z),real(z)) -> 29.999999999999993
 <br>
-・再度radに変換
+・再度、弧度数radに変換
 <br>
 radians(ans) -> 0.5235987755982987
 <br>
@@ -2081,7 +2091,7 @@ x=1; y=(x,2x:3x,4x); y*y-y || (7,10:15,22)-(1,2:3,4) -> (6,8:12,18)
 t=pi/4; (cos(t),sin(t):,){i(sin(t)),i(cos(t)):,} -> (i,0:0,0)
 <br>
 <br>
-列指定の行列
+列指定の不規則行列
 <br>
 ・抜け要素は零
 <br>
@@ -2094,17 +2104,17 @@ t=pi/4; (cos(t),sin(t):,){i(sin(t)),i(cos(t)):,} -> (i,0:0,0)
 {1,,,2:3,4:5,,,,,6} -> (1,3,5:0,4,0:0,0,0:2,0,0:0,0,0:0,0,6)
 <br>
 <br>
-不規則な行列
+行指定の不規則行列
 <br>
-A=(00:10,11:20,21,22,23); A -> (0:10,11:20,21,22,23)
+A=(11:21,22:31,32,33,34); A -> (11:21,22:31,32,33,34)
 <br>
-tA={00:10,11:20,21,22,23}; tA -> (0,10,20:0,11,21:0,0,22:0,0,23)
+tA={11:21,22:31,32,33,34}; tA -> (11,21,31:0,22,32:0,0,33:0,0,34)
 <br>
 ・行指定の行列で抜け要素がある場合、転置の関数を使用
 <br>
-A=(00:10,11:20,21,22,23); trans(trans(A)) -> (0,0,0,0:10,11,0,0:20,21,22,23)
+A=(11:21,22:31,32,33,34); trans(trans(A)) -> (11,0,0,0:21,22,0,0:31,32,33,34)
 <br>
-A=(00:10,11:20,21,22,23); htrans(htrans(A)) -> (0,0,0,0:10,11,0,0:20,21,22,23)
+A=(11:21,22:31,32,33,34); htrans(htrans(A)) -> (11,0,0,0:21,22,0,0:31,32,33,34)
 <br>
 ・結合処理が重くなるため、行指定の行列は抜け要素を自動で埋めない
 <br>
@@ -2514,6 +2524,93 @@ mat11={-3,-7:-4,-8};
 mat=(mat00,mat01:mat10,mat11);
 <br>
 mat -> (1,2,3,4:5,6,7,8:-1,-2,-3,-4:-5,-6,-7,-8)
+    </td>
+  </tr>
+  <tr>
+    <th>
+<a href="#span-index">
+目次
+</a>
+<br>
+特殊関数
+<br>
+入力仕様
+    </th>
+    <td>
+<span id="span-out-FNspecial"></span>
+特殊関数の入力仕様と付随する留意事項について記述する
+<hr>
+<br>
+回転行列
+<br>
+・3次元Euclid実空間の各軸周りの回転行列を演算して返す
+<br>
+・引数はEuler角の弧度数実数値rad
+<br>
+・返値の回転行列は引数の誤差情報を継承しない
+<br>
+<br>
+使用例を列挙する
+<br>
+(sqrt2,,:,sqrt2,:,,sqrt2)rotationx(pi/4) ->
+<br>
+(1.4142135623730951,0,0:
+<br>
+0,1.0000000000000002,-1:
+<br>
+0,1,1.0000000000000002)
+<br>
+(sqrt2,,:,sqrt2,:,,sqrt2)rotationx(-pi/4) ->
+<br>
+(1.4142135623730951,0,0:
+<br>
+0,1.0000000000000002,1:
+<br>
+0,-1,1.0000000000000002)
+<br>
+(sqrt2,,:,sqrt2,:,,sqrt2)rotationy(pi/4) ->
+<br>
+(1.0000000000000002,0,1:
+<br>
+0,1.4142135623730951,0:
+<br>
+-1,0,1.0000000000000002)
+<br>
+(sqrt2,,:,sqrt2,:,,sqrt2)rotationy(-pi/4) ->
+<br>
+(1.0000000000000002,0,-1:
+<br>
+0,1.4142135623730951,0:
+<br>
+1,0,1.0000000000000002)
+<br>
+(sqrt2,,:,sqrt2,:,,sqrt2)rotationz(pi/4) ->
+<br>
+(1.0000000000000002,-1,0:
+<br>
+1,1.0000000000000002,0:
+<br>
+0,0,1.4142135623730951)
+<br>
+(sqrt2,,:,sqrt2,:,,sqrt2)rotationz(-pi/4) ->
+<br>
+(1.0000000000000002,1,0:
+<br>
+-1,1.0000000000000002,0:
+<br>
+0,0,1.4142135623730951)
+<br>
+t=_dx(&lt;={x},1,1)pi/4; t
+<br>
+-> 0.7853981633974194+2.8753934345782766e-14i+O(8e-13+8e-13i)
+<br>
+(sqrt2,,:,sqrt2,:,,sqrt2)rotationx(t) ->
+<br>
+(1.4142135623730951,0,0:
+<br>
+0,1.0000000000000289,-0.9999999999999711:
+<br>
+0,0.9999999999999711,1.0000000000000289)
     </td>
   </tr>
   <tr>
@@ -4963,15 +5060,6 @@ parser.js抜粋
         tree = DATA.tree_tag("FNmh", "newtonian");
         break;
       // "FNm"
-      // DirectX defined
-      case "rotationx":
-      case "rotationy":
-      case "rotationz":
-      case "rotationyawpitchroll":
-      case "rotationaxis":
-        tree = DATA.tree_tag("FNm", token_lower);
-        break;
-      // My defined
       // "FNm0"
       case "vector2r":
       case "vector3r":
@@ -4993,16 +5081,16 @@ parser.js抜粋
       case "identity4":
         tree = DATA.tree_mat(math_mat[token_lower]());
         break;
+      // "FNm1"
+      case "rotationx":
+      case "rotationy":
+      case "rotationz":
       case "normalizer":
         tree = DATA.tree_tag("FNm", token_lower);
         break;
       case "normalize":
       case "normalizec":
         tree = DATA.tree_tag("FNm", "normalizec");
-        break;
-      case "rot2eulers":
-      case "rotation2eulerangles":
-        tree = DATA.tree_tag("FNm", "rotation2eulerangles");
         break;
       case "trans":
       case "transpose":
@@ -5017,13 +5105,14 @@ parser.js抜粋
       case "euclidean":
         tree = DATA.tree_tag("FNm", "euclidean");
         break;
-      case "gauss":
-      case "gaussian":
-        tree = DATA.tree_tag("FNm", "gaussian");
-        break;
       case "first":
       case "last":
         tree = DATA.tree_tag("FNm", token_lower);
+        break;
+      // "FNm2"
+      case "gauss":
+      case "gaussian":
+        tree = DATA.tree_tag("FNm", "gaussian");
         break;
       // "CT"
       // JavaScript defined
