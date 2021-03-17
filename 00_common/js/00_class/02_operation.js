@@ -398,16 +398,18 @@ My_entry.operation.prototype.BTref = function(data, i0, tagName, tagObj){
   var len_j = arr0.length;
   var isVal = (len_i === 1 && len_j === 1);
   var leftTree = trees[i0-1];
-  if(leftTree){
-    var ref0 = trees[i0][tagName].ref;
-    if(ref0 || isVal){
-      var ref = [];
-      for(var j=0; j<len_j; ++j){
-        ref[j] = arr0[j].com.r;
-      }
-      if(ref0){
-        Array.prototype.push.apply(ref, ref0);
-      }
+  var thisTree = trees[i0];
+  var ref0 = thisTree[tagName].ref;
+  /* Ver.1.4.3 */
+  if(isVal){  // [1,2:3,4][0][1,2:3,4][0] -> (1,2)
+    var ref = [];
+    for(var j=0; j<len_j; ++j){
+      ref[j] = arr0[j].com.r;
+    }
+    if(ref0){
+      Array.prototype.push.apply(ref, ref0);
+    }
+    if(leftTree){
       if(leftTree["REv"]){
         leftTree["REv"]["ref"] = ref;
         tree = null;
@@ -425,10 +427,14 @@ My_entry.operation.prototype.BTref = function(data, i0, tagName, tagObj){
         self.throw_tree(leftTree);
       }
     }
+    else{
+      throw "Invalid reference";
+    }
   }
   else{
-    if(isVal){
-      throw "Invalid reference";
+    if(ref0){
+      var mat = tree.mat;
+      mat.arr = self.restore_arr(mat.arr, ref0);
     }
   }
   self.feedback2trees(data, is, ie, tree, true);
