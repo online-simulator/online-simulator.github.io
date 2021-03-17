@@ -2691,6 +2691,8 @@ clear; 2x=4 -> [MyErr]Invalid ans isFound
 ・代入ではansは更新されない
 <br>
 2; x=3; ans -> 2
+<br>
+・error終了時はansは更新されない
     </td>
   </tr>
   <tr>
@@ -2904,23 +2906,31 @@ clear; eqn_x&lt;=3x; eqn_y&lt;=eqn_x; x=3; eqn_y ->9
 <br>
 (1,2,3)=&gt; -> [MyErr]Invalid mat([object Object])
 <br>
-・一続きにまとめて読出す場合、最終要素を式渡し
+・一続きにまとめて変数値を読出す場合、最終引数を式渡し
 <br>
-clear; f&lt;={x}; x=2; f=&gt; -> 2
+・last行列関数は最終要素しか取り出せない
 <br>
-clear; (f&lt;={x},x=2,&lt;=f)=&gt; -> 2
+clear; (x=(1,2),&lt;=x)=&gt; -> (1,2)
 <br>
-clear; (f&lt;={x},x=2,f) -> (0,0,2)
+clear; last(x=(1,2),x) -> 2
 <br>
-clear; (f&lt;={x},x=2,f)=&gt; -> [MyErr]Invalid mat([object Object])
+・式変数の場合も同様
 <br>
-clear; last(f&lt;={x},x=2,f) -> 2
+clear; f&lt;={x}; x=(1,2); f=&gt; -> (1,2)
 <br>
-clear; last(f&lt;={x},x=2,&lt;=f) -> [MyErr]Invalid BTe([object Object])
+clear; (f&lt;={x},x=(1,2),&lt;=f)=&gt; -> (1,2)
 <br>
-clear; (f&lt;={x},x=2,&lt;=f) -> [MyErr]Invalid BTe([object Object])
+clear; (f&lt;={x},x=(1,2),f) -> (0,0,1,2)
 <br>
-clear; (f&lt;={x},x=2,eqn_f&lt;=f); eqn_f -> 2
+clear; (f&lt;={x},x=(1,2),f)=&gt; -> [MyErr]Invalid mat([object Object])
+<br>
+clear; last(f&lt;={x},x=(1,2),f) -> 2
+<br>
+clear; last(f&lt;={x},x=(1,2),&lt;=f) -> [MyErr]Invalid BTe([object Object])
+<br>
+clear; (f&lt;={x},x=(1,2),&lt;=f) -> [MyErr]Invalid BTe([object Object])
+<br>
+clear; (f&lt;={x},x=(1,2),eqn_f&lt;=f); eqn_f -> (1,2)
     </td>
   </tr>
   <tr>
@@ -4288,9 +4298,33 @@ x={,}; x -> (0:0)
 <br>
 x[1]=b[1]/A[1][1]; x -> (0:4.499999999999999)
 <br>
-x[0]=(b[0]-A[0][1]*x[1])/A[0][0]; x
+x[0]=(b[0]-A[0]x)/A[0][0]; x -> (-3.9999999999999982:4.499999999999999)
 <br>
--> (-3.9999999999999982:4.499999999999999)
+・式変数を使用して一般化
+<br>
+A=(1,2:3,4); A=(A[1]:A[0]);
+<br>
+b={5,6}; b=(b[1]:b[0]);
+<br>
+x={,};
+<br>
+ir=0;
+<br>
+forward&lt;={ir=ir+1,k=A[ir][0]/A[0][0],A[ir]=A[ir]-k(A[0]),b[ir]=b[ir]-k(b[0]),&lt;=A}=&gt;;
+<br>
+forward -> (3,4:0,0.6666666666666667)
+<br>
+forward -> [MyErr]Invalid reference of array
+<br>
+ir -> 1
+<br>
+x[ir]=b[ir]/A[ir][ir];
+<br>
+backward&lt;={ir=ir-1,x[ir]=(b[ir]-A[ir]x)/A[ir][ir],&lt;=x}=&gt;;
+<br>
+backward -> (-3.9999999999999982:4.499999999999999)
+<br>
+backward -> [MyErr]Invalid reference of array
 <br>
 <br>
 反復法
