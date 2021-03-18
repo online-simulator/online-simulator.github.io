@@ -645,6 +645,8 @@ My_entry.operation.prototype.jacobian = function(data, rightArr, isNewtonian){
     var x0 = [];
     var x1 = [];
     var f0 = [];
+    var i0 = [];
+    var j0 = [];
     var J = math_mat.init2d(len_i, len_i);
     // x0
     for(var i=0; i<len_i; ++i){
@@ -676,9 +678,33 @@ My_entry.operation.prototype.jacobian = function(data, rightArr, isNewtonian){
     // f0
     var tree = self.tree_eqn2tree(data, tree_eqn);
     var arr_f0 = tree.mat.arr;
-    if(arr_f0.length-len_i) throw msgErr;
+    /* Ver.1.5.3 */  // f<={A(x)=b}
+    var len_fi = arr_f0.length;
+    var len_fj = arr_f0[len_fi-1].length;
+    var get_f = null;
+    if(len_fi === len_i){
+      get_f = function(arr_f, i){
+        return self.arr2obj_i(arr_f, i);
+      };
+    }
+    else if(len_fi*len_fj === len_i){
+      for(var i=0; i<len_i; ++i){
+        var ii = Math.floor(i/len_fi);
+        var jj = i-ii*len_fi;
+        var arr_f0ii = arr_f0[ii];
+        if(!(arr_f0ii && arr_f0ii[jj])) throw msgErr;
+        i0[i] = ii;
+        j0[i] = jj;
+      }
+      get_f = function(arr_f, i){
+        return arr_f[i0[i]][j0[i]];
+      };
+    }
+    else{
+      throw msgErr;
+    }
     for(var i=0; i<len_i; ++i){
-      f0[i] = self.arr2obj_i(arr_f0, i);
+      f0[i] = get_f(arr_f0, i);
     }
     // J
     for(var j=0; j<len_i; ++j){
@@ -690,7 +716,7 @@ My_entry.operation.prototype.jacobian = function(data, rightArr, isNewtonian){
       var tree = self.tree_eqn2tree(data, tree_eqn);
       var arr_f1 = tree.mat.arr;
       for(var i=0; i<len_i; ++i){
-        var f1i = self.arr2obj_i(arr_f1, i);
+        var f1i = get_f(arr_f1, i);
         J[i][j] = unit["BRd"](options, unit["BRs"](options, f1i, f0[i]), dx[i]);
       }
     }
