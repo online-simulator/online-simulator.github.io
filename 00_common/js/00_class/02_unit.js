@@ -128,7 +128,7 @@ My_entry.unit.prototype.get_isInfoLost = function(sw_ri){
   var self = this;
   var _isL = false;
   for(var i=1, len=arguments.length; i<len; ++i){
-    _isL = _isL || arguments[i].isL[sw_ri];
+    _isL = _isL | arguments[i].isL[sw_ri];  // bit or
   }
   return _isL;
 };

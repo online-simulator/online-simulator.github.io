@@ -576,8 +576,16 @@ My_entry.parser.prototype.make_log_num = function(num, options){
   if(num.com){
     var cr = num.com.r;
     var ci = num.com.i;
-    if(num.isL.r || num.isL.i){
-      _log += "infoLost!! ";
+    var lr = num.isL.r;
+    var li = num.isL.i;
+    if(lr && li){
+      _log += "infoLost[ri] ";
+    }
+    else if(lr){
+      _log += "infoLost[r ] ";
+    }
+    else if(li){
+      _log += "infoLost[ i] ";
     }
     cre = (ed>=0)? cr.toExponential(ed): cr;
     if(useComplex){
