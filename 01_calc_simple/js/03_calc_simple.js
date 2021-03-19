@@ -146,8 +146,14 @@ My_entry.calc_simple.prototype.set_callbacks_worker = function(){
     var data = e.data;
     self.arr_data_out[data.i] = data;
     if(Object.keys(self.arr_data_out).length === self.arr_data_in.length){
-      self.vars = data.vars;  // store vars
-      self.eqns = data.eqns;  // store eqns
+      var vars = data.vars;
+      var eqns = data.eqns;
+      for(var name in vars){
+        self.vars[name] = vars[name];  // store vars
+      }
+      for(var name in eqns){
+        self.eqns[name] = eqns[name];  // store eqns
+      }
       if(data.log){
         self.io.write_text(self.elems.o, data.log);
         var logh = "";
