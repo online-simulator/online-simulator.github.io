@@ -164,7 +164,17 @@ My_entry.$.prototype.add_last_id = function(elem, id){
   var elem_p = self._id(id);
   return self.add_last_elem(elem, elem_p);
 };
-My_entry.$.prototype.setup_elems = function(_arr_elem, handlers, opt_onevent){
+My_entry.$.prototype.change_elems$ = function(selector){
+  var self = this;
+  var _arr = self.arr(selector);
+  _arr.forEach(function(elem){
+    if(elem.onchange){
+      elem.onchange();
+    }
+  });
+  return _arr;
+};
+My_entry.$.prototype.setup_elems = function(_arr, handlers, opt_onevent){
   var self = this;
   var handlers = handlers || {};
   var set_handler = function(elem, onevent){
@@ -176,7 +186,7 @@ My_entry.$.prototype.setup_elems = function(_arr_elem, handlers, opt_onevent){
         null;  // null
     }
   };
-  _arr_elem.forEach(function(elem){
+  _arr.forEach(function(elem){
     if(opt_onevent){
       set_handler(elem, opt_onevent);
     }
@@ -186,7 +196,7 @@ My_entry.$.prototype.setup_elems = function(_arr_elem, handlers, opt_onevent){
       }
     }
   });
-  return _arr_elem;
+  return _arr;
 };
 My_entry.$.prototype.setup_elems$ = function(selector, handlers, opt_onevent){
   var self = this;
@@ -200,9 +210,9 @@ My_entry.$.prototype.setup_elem$_id = function(id, handlers, opt_onevent){
   var self = this;
   return self.setup_elems([self._id(id)], handlers, opt_onevent);
 };
-My_entry.$.prototype.setup_elems_readonly = function(_arr_elem){
+My_entry.$.prototype.setup_elems_readonly = function(_arr){
   var self = this;
-  _arr_elem.forEach(function(elem){
+  _arr.forEach(function(elem){
     if(self.get_elem(elem, "readOnly")){
       elem.onfocus = function(e){
         elem.select();
@@ -214,7 +224,7 @@ My_entry.$.prototype.setup_elems_readonly = function(_arr_elem){
       }
     }
   });
-  return _arr_elem;
+  return _arr;
 };
 My_entry.$.prototype.setup_elems_readonly$ = function(selector){
   var self = this;
@@ -228,10 +238,10 @@ My_entry.$.prototype.setup_elem_readonly$_id = function(id){
   var self = this;
   return self.setup_elems_readonly([self._id(id)]);
 };
-My_entry.$.prototype.get_elems = function(arr_elem){
+My_entry.$.prototype.get_elems = function(arr){
   var self = this;
   var _elems = {};
-  arr_elem.forEach(function(elem){
+  arr.forEach(function(elem){
     elem.id = elem.id || (elem.tagName+"-"+elem[self.config.REFERRER.text]).toUpperCase();  // use toUpperCase for UTF-8
     _elems[elem.id] = elem;
   });
@@ -327,7 +337,8 @@ My_entry.$.prototype.get_urlParams = function(obj){
 My_entry.$.prototype.get_elemProps = function(selector, separator, prop, obj){
   var self = this;
   var _obj = obj || {};
-  self.arr(selector).forEach(function(elem){
+  var arr = self.arr(selector);
+  arr.forEach(function(elem){
     var val = elem[prop];
     if(prop === "value"){
       val = (isNaN(Number(val)))? val: Number(val);
