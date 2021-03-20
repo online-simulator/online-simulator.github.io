@@ -1089,7 +1089,7 @@ My_entry.operation.prototype.SX = function(data, rightArr, tagObj){
       var sign = "+";
       var SX = null;
       if(ar > br){
-        sign = "-";
+        /* Ver.1.5.3 */  //        sign = "-";
         SX = function(callback){
           for(var i=ar; i>=br; i-=di){
             callback(i);
