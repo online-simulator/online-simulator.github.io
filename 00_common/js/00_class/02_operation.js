@@ -1048,7 +1048,8 @@ My_entry.operation.prototype.PX = function(data, rightArr, tagObj){
       }
       var name_var = tagObj.val.name;
       var tree_var = self.restore_var(vars, name_var);
-      var tagName = "BRm";
+      /* Ver.1.5.3 */  // "BRm" -> "BRdm"
+      var tagName = "BRdm";
       var centerTree = DATA.tree_tag(tagName, sign);
       var tagObj = centerTree[tagName];
       var leftTree = null;
