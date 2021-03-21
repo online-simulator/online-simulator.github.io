@@ -100,6 +100,18 @@ My_entry.math_mat.prototype.last = function(options, arr){
   var self = this;
   return [[self.last_num(arr)]];
 };
+My_entry.math_mat.prototype.sizer = function(options, arr){
+  var self = this;
+  var DATA = self.entry.DATA;
+  var lens = self.get_lens(arr);
+  return [[DATA.num(lens.i, 0)]];
+};
+My_entry.math_mat.prototype.sizec = function(options, arr){
+  var self = this;
+  var DATA = self.entry.DATA;
+  var lens = self.get_lens(arr);
+  return [[DATA.num(lens.j, 0)]];
+};
 My_entry.math_mat.prototype.normalizer = function(options, arr){
   var self = this;
   var DATA = self.entry.DATA;

@@ -322,6 +322,11 @@ e^(-i(1pi(){2/2i}(5-{3-1}){i/(-4)}))
 ・解法
 <br>
 　・
+<a href="#span-out-mat-product">
+行列積
+</a>
+<br>
+　・
 <a href="#span-out-fdm">
 有限差分法
 </a>
@@ -2331,7 +2336,7 @@ trans({1,2,3}) || trans{1,2,3} -> (1,2,3)
 htrans(1-i,1-2i:1-3i,1-4i) || hermitian(1-i,1-2i:1-3i,1-4i) -> (1+i,1+3i:1+2i,1+4i)
 <br>
 <br>
-列ベクトルのEuclidノルムを演算
+列ベクトルのEuclidノルム
 <br>
 norm{1,2,3} -> 3.7416573867739413
 <br>
@@ -2358,6 +2363,29 @@ x={(1-i)/sqrt2,2i,-3i}; abs(sqrt(trans(x)x))  // NG -> 3.6108731368472777
 ・行ベクトルを誤入力した場合
 <br>
 norm((1-i)/sqrt2,2i,-3i) || norm(-3i)  // NG -> 3
+<br>
+<br>
+行列サイズ
+<br>
+・行サイズ
+<br>
+sizer(1,2:3,4) -> 2
+<br>
+sizer(1,2:3,4)[0] || sizer(1,2) -> 1
+<br>
+sizer(1:3,4) -> 2
+<br>
+sizer(1:3,4:) -> 3
+<br>
+・列サイズ
+<br>
+sizec(1,2:3,4) -> 2
+<br>
+sizec(1,2:3,4)[0] || sizec(1,2) -> 2
+<br>
+sizec(1,2:3) -> 2
+<br>
+sizec(1,2:3:4,5,) -> 3
 <br>
 <br>
 ベクトルの正規化
@@ -2496,6 +2524,8 @@ clear; n=2; xn&lt;=(n,2n)[0][1]; xn=&gt; -> 4
 <br>
 A=(1,2:3,4); A[1] -> (3,4)
 <br>
+clear; (1,2:3,4)[x] -> [MyErr]Invalid REv(x)
+<br>
 <br>
 列ベクトルを取得
 <br>
@@ -2589,6 +2619,8 @@ x=(1,2); y=(3,4); (x,y) -> (1,2,3,4)
 <br>
 A=(1,2:3,4); (A[0],A[1]) -> (1,2,3,4)
 <br>
+(vector4c,vector4c,vector4c) -> (0,0,0:0,0,0:0,0,0:0,0,0)
+<br>
 ・区切り文字の左から順に結合する
 <br>
 ((1,2),{3,4},{3,4,5}) -> (1,2,3,3:0,0,4,4:0,0,0,5)
@@ -2607,6 +2639,8 @@ A=(1,2:3,4); (A[0],A[1]) -> (1,2,3,4)
 ((1,2:5,6),(3,4:7,8):{-1,-5:-2,-6},{-3,-7:-4,-8})
 <br>
 -> (1,2,3,4:5,6,7,8:-1,-2,-3,-4:-5,-6,-7,-8)
+<br>
+(zeros2,zeros2:zeros2,zeros2) -> (0,0,0,0:0,0,0,0:0,0,0,0:0,0,0,0)
 <br>
 ・変数を使用
 <br>
@@ -4217,6 +4251,102 @@ Newton(&lt;=第1引数,&lt;=第2引数[,&lt;=第3引数])
 目次
 </a>
 <br>
+行列積
+<br>
+の解法
+    </th>
+    <td>
+<span id="span-out-mat-product"></span>
+行列積LR=L*Rを一般化するアルゴリズムについて記述する
+<br>
+<br>
+行列サイズの異なる次のLとRを一例に示す
+<br>
+L=(1,2:3:4,5:6);
+<br>
+R=(1,2:3,4,5);
+<br>
+sizer(L) -> 4
+<br>
+sizec(L) -> 2
+<br>
+sizer(R) -> 2
+<br>
+sizec(R) -> 3
+<br>
+・行列積LR
+<br>
+LR=L*R; LR -> (7,10,10:3,6,0:19,28,25:6,12,0)
+<br>
+sizer(LR) -> 4
+<br>
+sizec(LR) -> 3
+<br>
+・行列積LRの行列サイズについて次の関係が成立する
+<br>
+sizer(LR)=sizer(L) -> 0
+<br>
+sizec(LR)=sizec(R) -> 0
+<br>
+<br>
+以上より、行列積のアルゴリズムを以下に示す
+<br>
+・L指定行とR指定列の内積で式変数productを定義する
+<br>
+product&lt;=last{LR[ir][ic]=L[ir]trans((trans(R))[ic])};
+<br>
+_sir(&lt;={_sic(&lt;={product},0,sizec(R)-1)},0,sizer(L)-1);
+<br>
+<br>
+使用例を列挙する
+<br>
+L=(1,2:3:4,5:6);
+<br>
+R=(1,2:3,4,5);
+<br>
+LR=(vector4c,vector4c,vector4c);
+<br>
+product&lt;=last{LR[ir][ic]=L[ir]trans((trans(R))[ic])};
+<br>
+_sir(&lt;={_sic(&lt;={product},0,sizec(R)-1)},0,sizer(L)-1);
+<br>
+LR -> (7,10,10:3,6,0:19,28,25:6,12,0)
+<br>
+・内積
+<br>
+L=(1+i,1);
+<br>
+R={1-i,1};
+<br>
+LR=(());
+<br>
+product&lt;=last{LR[ir][ic]=L[ir]trans((trans(R))[ic])};
+<br>
+_sir(&lt;={_sic(&lt;={product},0,sizec(R)-1)},0,sizer(L)-1);
+<br>
+LR -> 3
+<br>
+・外積
+<br>
+L={1-i,1};
+<br>
+R=(1+i,1);
+<br>
+LR=(,:,);
+<br>
+product&lt;=last{LR[ir][ic]=L[ir]trans((trans(R))[ic])};
+<br>
+_sir(&lt;={_sic(&lt;={product},0,sizec(R)-1)},0,sizer(L)-1);
+<br>
+LR -> (2,1-i:1+i,1)
+    </td>
+  </tr>
+  <tr>
+    <th>
+<a href="#span-index">
+目次
+</a>
+<br>
 有限
 <br>
 差分法
@@ -4698,7 +4828,7 @@ forward -> (3,4:0,0.6666666666666667)
 <br>
 forward -> [MyErr]Invalid reference of array
 <br>
-ic=1; ir=ic;
+ic=ic+1; ir=ic;
 <br>
 forward -> [MyErr]Invalid reference of array
 <br>
@@ -4713,6 +4843,32 @@ backward -> (-3.9999999999999982:4.499999999999999)
 backward -> [MyErr]Invalid reference of array
 <br>
 ・実際には自明の演算は行わないが、ここでは簡潔に記述する
+<br>
+・さらに総和高階関数を使用して反復処理を簡潔にまとめる
+<br>
+・ダミー変数を使用するだけで総和は0を返す
+<br>
+storage cleared
+<br>
+A=(1,2:3,4); A=(A[1]:A[0]);
+<br>
+b={5,6}; b=(b[1]:b[0]);
+<br>
+x={,};
+<br>
+sizeA=sizer(A);
+<br>
+forward&lt;=last{k=A[ir][ic]/A[ic][ic],A[ir]=A[ir]-k(A[ic]),b[ir]=b[ir]-k(b[ic])};
+<br>
+_sic(&lt;={_sir(&lt;={forward},ic+1,sizeA-1)},0,sizeA-2);
+<br>
+A -> (3,4:0,0.6666666666666667)
+<br>
+backward&lt;=last{x[ir]=(b[ir]-A[ir]x)/A[ir][ir]};
+<br>
+_sir(&lt;={backward},sizeA-1,0);
+<br>
+x -> (-3.9999999999999982:4.499999999999999)
 <br>
 <br>
 反復法
@@ -4902,31 +5058,19 @@ A(x) -> (10i:10.999999999999986i:12i)
 <br>
 storage cleared
 <br>
-A=(i,2i,3i:4i,5i,6i:7i,8i,9i);
+A=(i,2i,3i:4i,5i,6i:7i,8i,9i); A=(A[2]:A[1]:A[0]);
 <br>
-b={10i,11i,12i};
-<br>
-A=(A[2]:A[1]:A[0]);
-<br>
-b=(b[2]:b[1]:b[0]);
+b={10i,11i,12i}; b=(b[2]:b[1]:b[0]);
 <br>
 x={,,};
 <br>
-ic=0; ir=ic;
+sizeA=sizer(A);
 <br>
-forward&lt;={ir=ir+1,k=A[ir][ic]/A[ic][ic],A[ir]=A[ir]-k(A[ic]),b[ir]=b[ir]-k(b[ic]),&lt;=A}=&gt;;
+forward&lt;=last{k=A[ir][ic]/A[ic][ic],A[ir]=A[ir]-k(A[ic]),b[ir]=b[ir]-k(b[ic])};
 <br>
-_rn(&lt;={forward},,2) ->
+_sic(&lt;={_sir(&lt;={forward},ic+1,sizeA-1)},0,sizeA-2);
 <br>
-(7i,8i,9i:
-<br>
-0,0.4285714285714288i,0.8571428571428577i:
-<br>
-0,0.8571428571428572i,1.7142857142857144i)
-<br>
-ic=1; ir=ic;
-<br>
-_rn(&lt;={forward},,1) ->
+A ->
 <br>
 (7i,8i,9i:
 <br>
@@ -4938,23 +5082,11 @@ _rn(&lt;={forward},,1) ->
 <br>
 ・よって多くの場合、次の後退代入の過程で解が発散する
 <br>
-ir -> 2
+backward&lt;=last{x[ir]=(b[ir]-A[ir]x)/A[ir][ir]};
 <br>
-backward&lt;={x[ir]=(b[ir]-A[ir]x)/A[ir][ir],ir=ir-1,&lt;=x}=&gt;;
+_sir(&lt;={backward},sizeA-1,0);
 <br>
-_rn(&lt;={backward},,3) -> (-25.333333333333332:41.666666666666664:-16)
-<br>
-・右辺bが成立しない場合を示す（参考）
-<br>
-A=(i,2i,3i:4i,5i,6i:7i,8i,9i);
-<br>
-b={10i,11i,13i};
-<br>
-x=Gauss(A,b);
-<br>
-x -> (-4503599627370511:9007199254741016:-4503599627370504)
-<br>
-A(x) -> (8i:12i:16i)
+x -> (-25.333333333333332:41.666666666666664:-16)
 <br>
 <br>
 反復法
@@ -6068,6 +6200,8 @@ parser.js抜粋
       case "rotationy":
       case "rotationz":
       case "normalizer":
+      case "sizer":
+      case "sizec":
         tree = DATA.tree_tag("FNm", token_lower);
         break;
       case "normalize":

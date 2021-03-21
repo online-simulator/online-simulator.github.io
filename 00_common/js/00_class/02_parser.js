@@ -294,6 +294,8 @@ My_entry.parser.prototype.make_trees = function(sentence, re){
       case "rotationy":
       case "rotationz":
       case "normalizer":
+      case "sizer":
+      case "sizec":
         tree = DATA.tree_tag("FNm", token_lower);
         break;
       case "normalize":

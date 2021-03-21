@@ -402,7 +402,14 @@ My_entry.operation.prototype.BTref = function(data, i0, tagName, tagObj){
   if(isVal){  // [1,2:3,4][0][1,2:3,4][0] -> (1,2)
     var ref = [];
     for(var j=0; j<len_j; ++j){
-      ref[j] = arr0[j].com.r;
+      /* Ver.1.5.3 */
+      var num = arr0[j];
+      if(num.com){
+        ref[j] = num.com.r;
+      }
+      else{
+        self.throw_tree(num);
+      }
     }
     if(ref0){
       Array.prototype.push.apply(ref, ref0);
