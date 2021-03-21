@@ -619,15 +619,31 @@ My_entry.parser.prototype.make_log_mat = function(arr, options){
   var self = this;
   var _log = "";
   var is0d = (arr.length === 1 && arr[0].length === 1);
-  _log += (is0d)? "": "(";
+  /* Ver.1.5.3 */
+  if(!(is0d)){
+    _log += "(";
+    if(options.makeLog === 2){
+      _log += "\n";
+    }
+  }
   for(var n=0, len_n=arr.length; n<len_n; ++n){
-    if(n > 0) _log += ":";
+    if(n > 0){
+      _log += ":";
+      if(options.makeLog === 2){
+        _log += "\n";
+      }
+    }
     for(var m=0, len_m=arr[n].length; m<len_m; ++m){
       if(m > 0) _log += ",";
       _log += self.make_log_num(arr[n][m], options);
     }
   }
-  _log += (is0d)? "": ")";
+  if(!(is0d)){
+    if(options.makeLog === 2){
+      _log += "\n";
+    }
+    _log += ")";
+  }
   return _log;
 };
 My_entry.parser.prototype.make_log = function(data){
@@ -635,9 +651,13 @@ My_entry.parser.prototype.make_log = function(data){
   var _log = "";
   var options = data.options;
   data.trees2d.forEach(function(trees, j){
-    if(j > 0) _log += ";";
+    if(j > 0){
+      _log += ";";
+    }
     trees.forEach(function(tree, i){
-      if(i > 0) _log += ":";
+      if(i > 0){
+        _log += ":";
+      }
       if(tree){
         var mat = tree.mat;
         var out = tree.out;
@@ -655,7 +675,9 @@ My_entry.parser.prototype.make_log = function(data){
             var arr = tagVal.arr;
             var is0d = (arr.length === 1 && arr[0].length === 1);
             var isAns = (name === "ans");
-            _log += (is0d && isAns)? "": name+"=";
+            if(!(is0d && isAns)){
+              _log += name+"=";
+            }
             _log += self.make_log_mat(arr, options);
           }
         }
