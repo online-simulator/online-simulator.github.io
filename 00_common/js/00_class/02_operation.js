@@ -129,7 +129,7 @@ My_entry.operation.prototype.init_callback = function(options, tagName){
   var tagName_comp = tagName;
   var sw_tagName = tagName;
   var isRAandBR = (options.isRightAssociativityBR && (type === "BR"));
-  var isBTref = (tagName === self.options.BTref);
+  var isBTref = (tagName === self.config.BT.ref);
   var isSEv = (tagName === "SEv");
   if(isBTref){
     sw_tagName = "BTref";
@@ -198,8 +198,6 @@ if(tagName === "BRmo"){
 My_entry.operation.prototype.prepare = function(data){
   var self = this;
   var options = data.options;
-  self.options.BTrow2col = options.BTrow2col || self.config.BT.row2col;
-  self.options.BTref = options.BTref || self.config.BT.ref;
   self.options.dxJ = options.dxJ || self.config.params.dxJ;
   self.options.dxD = options.dxD || self.config.params.dxD;
   self.options.NI = options.NI || self.config.params.NI;
@@ -450,7 +448,7 @@ My_entry.operation.prototype.SRr_or_SRt = function(data, i0, tagName, tagObj, is
   var leftTree = null;
   var rightTree = null;
   var BT = self.params.BT;  // store BT
-  var isBTrow2col = (BT === self.options.BTrow2col);
+  var isBTrow2col = (BT === self.config.BT.row2col);
   /* in only one direction, left to right */
   leftTrees = self.data2trees(self.get_newData(data, leftTrees));
   leftTree = DATA.trees2tree(leftTrees);
@@ -636,6 +634,7 @@ My_entry.operation.prototype.jacobian = function(data, rightArr, isNewtonian){
     else{
       arr_x = math_mat.zeros(len_i, 1);
     }
+    /* Ver.1.3.1 */
     var hc = self.get_hc(options, null, args[3], "dxJ");
     var hcr = hc.r;
     var hci = hc.i;
@@ -837,6 +836,7 @@ My_entry.operation.prototype.DX = function(data, rightArr, tagObj){
     var name_var = tagObj.val.name;
     var tree_var = self.restore_var(vars, name_var);
     var a0 = (tree_var)? self.arr2num(tree_var.mat.arr): null;
+    /* Ver.1.3.1 */
     var a = args[2] || a0;
     if(a && a.com){
       var tree_eqn = self.tree2tree_eqn(data, args[0]);
@@ -1127,6 +1127,7 @@ My_entry.operation.prototype.SX = function(data, rightArr, tagObj){
   }
   return _tree;
 };
+/* Ver.1.1.0 */
 My_entry.operation.prototype.FNh = function(data, i0, tagName, tagObj){
   var self = this;
   var trees = data.trees;
@@ -1326,6 +1327,7 @@ My_entry.operation.prototype.BRbo = function(data, i0, tagName, tagObj){
   }
   return self;
 };
+/* Ver.1.2.0 */
 My_entry.operation.prototype.BRdm = function(data, i0, tagName, tagObj){
   var self = this;
   var sw_tagName = (tagObj.val === "/")? "BRd": "BRm";
