@@ -93,6 +93,7 @@ My_entry.operation.prototype.init = function(){
   var self = this;
   new My_entry.original_main().setup_constructors.call(self);
   new My_entry.original_main().make_instances.call(self, ["$", "def", "math", "math_mat", "DATA", "unit"]);
+  My_entry.def.mix_in_props(My_entry.operation, My_entry.DATA, ["arr2num", "arr2args", "arr2obj_i"]);
   self.arr_precedence = [];
   self.options = {};
   self.vars = {};
@@ -324,21 +325,6 @@ My_entry.operation.prototype.get_tagVal = function(tree, tagName, valName){
   var self = this;
   return ((tree)? ((tree[tagName])? tree[tagName][valName]: null): null);
 };
-My_entry.operation.prototype.arr2obj_i = function(arr, i){
-  var self = this;
-  var _arri = arr[i];
-  return _arri[_arri.length-1];
-};
-My_entry.operation.prototype.arr2num = function(arr){
-  var self = this;
-  var _arri = arr[arr.length-1];
-  return _arri[_arri.length-1];
-};
-My_entry.operation.prototype.arr2args = function(arr){
-  var self = this;
-  var _arri = arr[arr.length-1];
-  return _arri;
-};
 My_entry.operation.prototype.get_newData = function(data, trees){
   var self = this;
   return self.entry.DATA.data(trees, data.options, data.vars, data.eqns);
@@ -361,7 +347,7 @@ My_entry.operation.prototype.tree2tree_mat = function(tree){
     var arr = tree.out.val.arr;
     if(arr){
       var math_mat = self.entry.math_mat;
-      _tree = DATA.tree_mat(math_mat.zeros_arr(arr));  // x=(1,2:),1 -> troublesome error
+      _tree = DATA.tree_mat(math_mat.zeros2d_arr(arr));  // x=(1,2:),1 -> troublesome error
     }
   }
 */
@@ -639,7 +625,7 @@ My_entry.operation.prototype.jacobian = function(data, rightArr, isNewtonian){
       if(arr_x.length-len_i) throw msgErr;
     }
     else{
-      arr_x = math_mat.zeros(len_i, 1);
+      arr_x = math_mat.zeros2d(len_i, 1);
     }
     /* Ver.1.3.1 */
     var hc = self.get_hc(options, null, args[3], "dxJ");
@@ -1120,7 +1106,7 @@ My_entry.operation.prototype.SX = function(data, rightArr, tagObj){
       SX(function(i){
         self.store_var(vars, name_var, DATA.tree_num(i, 0));
         var rightTree = self.tree_eqn2tree(data, tree_eqn);
-        leftTree = leftTree || DATA.tree_mat(math_mat.zeros_arr(rightTree.mat.arr));
+        leftTree = leftTree || DATA.tree_mat(math_mat.zeros2d_arr(rightTree.mat.arr));
         leftTree = self.arr_tree2tree(data, 1, tagName, tagObj, [leftTree, centerTree, rightTree]);
       });
       _tree = leftTree;
@@ -1258,7 +1244,7 @@ My_entry.operation.prototype.init_callbacks_mat = function(options){
   self.callbacks_mat.BRa = function(tagName, tagObj, leftArr, rightArr){
     var _tree = null;
     if(rightArr){
-      var leftArr = leftArr || math_mat.zeros_arr(rightArr);
+      var leftArr = leftArr || math_mat.zeros2d_arr(rightArr);
       _tree = self.switch_unitBR(tagName, options, leftArr, rightArr);
     }
     return _tree;
@@ -1267,7 +1253,7 @@ My_entry.operation.prototype.init_callbacks_mat = function(options){
     var _tree = null;
     if(!(self.params.hasUndefVars)){
       if(rightArr){
-        var leftArr = leftArr || math_mat.zeros_arr(rightArr);
+        var leftArr = leftArr || math_mat.zeros2d_arr(rightArr);
         _tree = self.switch_unitBR(tagName, options, leftArr, rightArr);
       }
     }

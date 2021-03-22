@@ -86,3 +86,18 @@ My_entry.DATA.prototype.data = function(trees, options, vars, eqns){
   var self = this;
   return {trees: trees, options: options || {}, vars: vars || {}, eqns: eqns || {}};
 };
+My_entry.DATA.prototype.arr2num = function(arr){
+  var self = this;
+  var arri = arr[arr.length-1];
+  return arri[arri.length-1];
+};
+My_entry.DATA.prototype.arr2args = function(arr){
+  var self = this;
+  var arri = arr[arr.length-1];
+  return arri;
+};
+My_entry.DATA.prototype.arr2obj_i = function(arr, i){
+  var self = this;
+  var _arri = arr[i];
+  return _arri[_arri.length-1];
+};

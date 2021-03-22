@@ -281,21 +281,21 @@ My_entry.parser.prototype.make_trees = function(sentence, re){
       case "ones2":
       case "ones3":
       case "ones4":
-      case "id2":
       case "identity2":
-      case "id3":
       case "identity3":
-      case "id4":
       case "identity4":
         tree = DATA.tree_mat(math_mat[token_lower]());
         break;
       // "FNm1"
+      case "identity":
+      case "first":
+      case "last":
+      case "sizer":
+      case "sizec":
       case "rotationx":
       case "rotationy":
       case "rotationz":
       case "normalizer":
-      case "sizer":
-      case "sizec":
         tree = DATA.tree_tag("FNm", token_lower);
         break;
       case "normalize":
@@ -315,11 +315,12 @@ My_entry.parser.prototype.make_trees = function(sentence, re){
       case "euclidean":
         tree = DATA.tree_tag("FNm", "euclidean");
         break;
-      case "first":
-      case "last":
+      // "FNm2"
+      case "zeros":
+      case "ones":
+      case "scalars":
         tree = DATA.tree_tag("FNm", token_lower);
         break;
-      // "FNm2"
       case "gauss":
       case "gaussian":
         tree = DATA.tree_tag("FNm", "gaussian");

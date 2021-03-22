@@ -10,6 +10,7 @@ My_entry.math_mat.prototype.init = function(){
   var self = this;
   new My_entry.original_main().setup_constructors.call(self);
   new My_entry.original_main().make_instances.call(self, ["solver", "DATA", "unit"]);
+  My_entry.def.mix_in_props(My_entry.math_mat, My_entry.DATA, ["arr2num", "arr2args"]);
   return self;
 };
 My_entry.math_mat.prototype.init2d = function(len_i, len_j){
@@ -31,7 +32,39 @@ My_entry.math_mat.prototype.init2d_num = function(len_i, len_j, num){
   }
   return _arr;
 };
-My_entry.math_mat.prototype.zeros = function(len_i, len_j){
+My_entry.math_mat.prototype.identity = function(options, arr){
+  var self = this;
+  var args = self.arr2args(arr);
+  var num = args[0];
+  if(!(num && num.com)) throw "Invalid matrix size";
+  return self.Imat(num.com.r);
+};
+My_entry.math_mat.prototype.scalars = function(options, arr){
+  var self = this;
+  var args = self.arr2args(arr);
+  var num0 = args[0];
+  var num1 = args[1];
+  if(!(num0 && num0.com)) throw "Invalid matrix size";
+  if(!(num1 && num1.com)) throw "Invalid Scalar";
+  return self.Imat_num(num0.com.r, num1);
+};
+My_entry.math_mat.prototype.zeros = function(options, arr){
+  var self = this;
+  var args = self.arr2args(arr);
+  var num0 = args[0];
+  var num1 = args[1];
+  if(!(num0 && num0.com && num1 && num1.com)) throw "Invalid matrix size";
+  return self.zeros2d(num0.com.r, num1.com.r);
+};
+My_entry.math_mat.prototype.ones = function(options, arr){
+  var self = this;
+  var args = self.arr2args(arr);
+  var num0 = args[0];
+  var num1 = args[1];
+  if(!(num0 && num0.com && num1 && num1.com)) throw "Invalid matrix size";
+  return self.ones2d(num0.com.r, num1.com.r);
+};
+My_entry.math_mat.prototype.zeros2d = function(len_i, len_j){
   var self = this;
   var DATA = self.entry.DATA;
   var _arr = new Array(len_i);
@@ -43,7 +76,7 @@ My_entry.math_mat.prototype.zeros = function(len_i, len_j){
   }
   return _arr;
 };
-My_entry.math_mat.prototype.ones = function(len_i, len_j){
+My_entry.math_mat.prototype.ones2d = function(len_i, len_j){
   var self = this;
   var DATA = self.entry.DATA;
   var _arr = new Array(len_i);
@@ -55,7 +88,7 @@ My_entry.math_mat.prototype.ones = function(len_i, len_j){
   }
   return _arr;
 };
-My_entry.math_mat.prototype.zeros_arr = function(arr){
+My_entry.math_mat.prototype.zeros2d_arr = function(arr){
   var self = this;
   var DATA = self.entry.DATA;
   var lens = self.get_lens(arr);
@@ -91,14 +124,9 @@ My_entry.math_mat.prototype.first = function(options, arr){
   var self = this;
   return [[arr[0][0]]];
 };
-My_entry.math_mat.prototype.last_num = function(arr){
-  var self = this;
-  var arri = arr[arr.length-1];
-  return arri[arri.length-1];
-};
 My_entry.math_mat.prototype.last = function(options, arr){
   var self = this;
-  return [[self.last_num(arr)]];
+  return [[self.arr2num(arr)]];
 };
 My_entry.math_mat.prototype.sizer = function(options, arr){
   var self = this;
@@ -217,7 +245,7 @@ My_entry.math_mat.prototype.euclidean = function(options, arr){
   var DATA = self.entry.DATA;
   var unit = self.entry.unit;
   var arr = self.BRm(options, self.hermitian(options, arr), arr);
-  var _arr = DATA.obj2arr(unit["FN"]("sqrt", options, self.last_num(arr)));
+  var _arr = DATA.obj2arr(unit["FN"]("sqrt", options, self.arr2num(arr)));
   return _arr;
 };
 My_entry.math_mat.prototype.jacobian = function(options, arr){
@@ -262,21 +290,17 @@ My_entry.math_mat.prototype.gaussian = function(options, arr){
   var _arr = obj_Axb.x;
   return _arr;
 };
-My_entry.math_mat.prototype.identity = function(arr){
-  var self = this;
-  var k = (arr[0][1])? arr[0][1].com.r: 1;
-  return self.Imat_k(arr[0][0].com.r, k);
-};
 My_entry.math_mat.prototype.Imat = function(len){
   var self = this;
-  return self.Imat_k(len, 1);
+  return self.Imat_num(len);
 };
-My_entry.math_mat.prototype.Imat_k = function(len, k){
+My_entry.math_mat.prototype.Imat_num = function(len, num){
   var self = this;
   var DATA = self.entry.DATA;
-  var _arr = self.zeros(len, len);
+  var _arr = self.zeros2d(len, len);
+  var num = num || DATA.num(1, 0);
   for(var i=0; i<len; ++i){
-    _arr[i][i] = DATA.num(k, 0);
+    _arr[i][i] = num;
   }
   return _arr;
 };
@@ -371,7 +395,8 @@ My_entry.math_mat.prototype.BRe = function(options, left, right){
 My_entry.math_mat.prototype.rotationx = function(options, arr){
   var self = this;
   var DATA = self.entry.DATA;
-  var num = self.last_num(arr);
+  var args = self.arr2args(arr);
+  var num = args[0];
   if(!(num.com)) throw "Invalid rotation matrix";
   var _arr = self.Imat(3);
   var phi = num.com.r;
@@ -386,7 +411,8 @@ My_entry.math_mat.prototype.rotationx = function(options, arr){
 My_entry.math_mat.prototype.rotationy = function(options, arr){
   var self = this;
   var DATA = self.entry.DATA;
-  var num = self.last_num(arr);
+  var args = self.arr2args(arr);
+  var num = args[0];
   if(!(num.com)) throw "Invalid rotation matrix";
   var _arr = self.Imat(3);
   var theta = num.com.r;
@@ -401,7 +427,8 @@ My_entry.math_mat.prototype.rotationy = function(options, arr){
 My_entry.math_mat.prototype.rotationz = function(options, arr){
   var self = this;
   var DATA = self.entry.DATA;
-  var num = self.last_num(arr);
+  var args = self.arr2args(arr);
+  var num = args[0];
   if(!(num.com)) throw "Invalid rotation matrix";
   var _arr = self.Imat(3);
   var psi = num.com.r;
@@ -415,63 +442,60 @@ My_entry.math_mat.prototype.rotationz = function(options, arr){
 };
 My_entry.math_mat.prototype.vector2r = function(){
   var self = this;
-  return self.zeros(1, 2);
+  return self.zeros2d(1, 2);
 };
 My_entry.math_mat.prototype.vector3r = function(){
   var self = this;
-  return self.zeros(1, 3);
+  return self.zeros2d(1, 3);
 };
 My_entry.math_mat.prototype.vector4r = function(){
   var self = this;
-  return self.zeros(1, 4);
+  return self.zeros2d(1, 4);
 };
 My_entry.math_mat.prototype.vector2c = function(){
   var self = this;
-  return self.zeros(2, 1);
+  return self.zeros2d(2, 1);
 };
 My_entry.math_mat.prototype.vector3c = function(){
   var self = this;
-  return self.zeros(3, 1);
+  return self.zeros2d(3, 1);
 };
 My_entry.math_mat.prototype.vector4c = function(){
   var self = this;
-  return self.zeros(4, 1);
+  return self.zeros2d(4, 1);
 };
 My_entry.math_mat.prototype.zeros2 = function(){
   var self = this;
-  return self.zeros(2, 2);
+  return self.zeros2d(2, 2);
 };
 My_entry.math_mat.prototype.zeros3 = function(){
   var self = this;
-  return self.zeros(3, 3);
+  return self.zeros2d(3, 3);
 };
 My_entry.math_mat.prototype.zeros4 = function(){
   var self = this;
-  return self.zeros(4, 4);
+  return self.zeros2d(4, 4);
 };
 My_entry.math_mat.prototype.ones2 = function(){
   var self = this;
-  return self.ones(2, 2);
+  return self.ones2d(2, 2);
 };
 My_entry.math_mat.prototype.ones3 = function(){
   var self = this;
-  return self.ones(3, 3);
+  return self.ones2d(3, 3);
 };
 My_entry.math_mat.prototype.ones4 = function(){
   var self = this;
-  return self.ones(4, 4);
+  return self.ones2d(4, 4);
 };
-My_entry.math_mat.prototype.id2 =
 My_entry.math_mat.prototype.identity2 = function(){
   var self = this;
   return self.Imat(2);
 };
-My_entry.math_mat.prototype.id3 =
 My_entry.math_mat.prototype.identity3 = function(){
   var self = this;
   return self.Imat(3);
 };
-My_entry.math_mat.prototype.id4 =
 My_entry.math_mat.prototype.identity4 = function(){
   var self = this;
   return self.Imat(4);

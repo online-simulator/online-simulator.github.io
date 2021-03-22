@@ -1001,7 +1001,7 @@ pow(2,pow(2,10)) || 2**(2**10) || 2^(2^10) -> 1.7976931348622732e+308
 <br>
 近似値の真値に対する絶対誤差または相対誤差と定義する
 <br>
-・円周率20桁の演算結果を例に示す
+・円周率20桁の演算結果を一例に示す
 <br>
 3.14159265358979323846 -> 3.141592653589793
 <br>
@@ -1272,7 +1272,7 @@ UI設定によって対応する用途を4種類示す
 ・無次元の実数演算（チェック無し）
 <br>
 <br>
-次の2次の正方行列の積を例に
+次の2次の正方行列の積を一例に
 <br>
 (0,0:0,1+i)(1,0:0,1)
 <br>
@@ -1454,7 +1454,7 @@ main関数　⇔　parse関数　⇔　operation関数
 /* ブロックコメント */
 <br>
 <br>
-一例を示す
+testcaseを示す
 <br>
 x=-0xff; /*x:16進数値*/ x&gt;&gt;3 // 右シフト3回
 <br>
@@ -1765,7 +1765,7 @@ max&lt;=3 -> [MyErr]Invalid BTe([object Object])
 ・空括弧()はparse段階で除去する
 <br>
 <br>
-関数を使用して円周率piとNapier数eを例に示す
+関数を使用して円周率piとNapier数eを一例に示す
 <br>
 PI() || pi || 2acos(0) || 2asin(1) || 4atan(1) -> 3.141592653589793
 <br>
@@ -2147,7 +2147,7 @@ k=1; (k,:,k) -> (1,0:0,1)
 <br>
 k=-3; (k,:,k) -> (-3,0:0,-3)
 <br>
-・Scalar倍（同サイズのScalar行列との積）
+・左右可換のScalar倍（同サイズのScalar行列との積）
 <br>
 k=-3; (k,:,k)(1,2:3,4) || (1,2:3,4)(k,:,k) -> (-3,-6:-9,-12)
 <br>
@@ -2296,11 +2296,11 @@ ones3 -> (1,1,1:1,1,1:1,1,1)
 <br>
 ones4 -> (1,1,1,1:1,1,1,1:1,1,1,1:1,1,1,1)
 <br>
-identity2 || id2 -> (1,0:0,1)
+identity2 -> (1,0:0,1)
 <br>
-identity3 || id3 -> (1,0,0:0,1,0:0,0,1)
+identity3 -> (1,0,0:0,1,0:0,0,1)
 <br>
-identity4 || id4 -> (1,0,0,0:0,1,0,0:0,0,1,0:0,0,0,1)
+identity4 -> (1,0,0,0:0,1,0,0:0,0,1,0:0,0,0,1)
     </td>
   </tr>
   <tr>
@@ -2316,6 +2316,28 @@ identity4 || id4 -> (1,0,0,0:0,1,0,0:0,0,1,0:0,0,0,1)
     <td>
 <span id="span-out-FNm"></span>
 行列関数の入力仕様と付随する留意事項について記述する
+<br>
+<br>
+単位行列
+<br>
+identity(3) -> (1,0,0:0,1,0:0,0,1)
+<br>
+<br>
+Scalar行列
+<br>
+scalars(3,i) -> (i,0,0:0,i,0:0,0,i)
+<br>
+Scalars(4,3-5i) -> (3-5i,0,0,0:0,3-5i,0,0:0,0,3-5i,0:0,0,0,3-5i)
+<br>
+<br>
+零行列
+<br>
+zeros(3,5) -> (0,0,0,0,0:0,0,0,0,0:0,0,0,0,0)
+<br>
+<br>
+壱行列
+<br>
+ones(5,3) -> (1,1,1:1,1,1:1,1,1:1,1,1:1,1,1)
 <br>
 <br>
 行列の転置
@@ -2780,7 +2802,7 @@ rotationz(第1引数)
 ・第1引数: Euler角の弧度数実数値radを値渡し
 <br>
 <br>
-使用例を列挙する
+testcaseを列挙する
 <br>
 (sqrt2,,:,sqrt2,:,,sqrt2)rotationx(pi/4) ->
 <br>
@@ -3351,7 +3373,7 @@ _sダミー変数名(&lt;=第1引数,第2引数,第3引数[,第4引数])
 ・第4引数: ダミー変数のステップ（正の整数）を値渡し[省略時、1]
 <br>
 <br>
-使用例を列挙する
+testcaseを列挙する
 <br>
 ・ダミー変数n=1~10のnの総和
 <br>
@@ -3499,7 +3521,7 @@ _pダミー変数名(&lt;=第1引数,第2引数,第3引数[,第4引数])
 ・第4引数: ダミー変数のステップ（正の整数）を値渡し[省略時、1]
 <br>
 <br>
-使用例を列挙する
+testcaseを列挙する
 <br>
 ・ダミー変数n=1~10のnの総乗
 <br>
@@ -3580,7 +3602,7 @@ _rダミー変数名(&lt;=第1引数,第2引数,第3引数)
 ・第3引数: 再帰回数（正の整数）を値渡し
 <br>
 <br>
-使用例を列挙する
+testcaseを列挙する
 <br>
 ・再帰回数が零以下の場合、初期値を返す
 <br>
@@ -3683,7 +3705,7 @@ _dダミー変数名(&lt;=第1引数[,第2引数[,第3引数[,第4引数]]])
 詳細は<a href="#span-out-fdm">有限差分法</a>参照
 <br>
 <br>
-使用例を示す
+testcaseを列挙する
 <br>
 ・f(x)=(x+i)^5のx=1における微分を示す
 <br>
@@ -3993,7 +4015,7 @@ _iダミー変数名(&lt;=第1引数,第2引数,第3引数[,第4引数])
 詳細は<a href="#span-out-fdm">有限差分法</a>参照
 <br>
 <br>
-使用例を示す
+testcaseを列挙する
 <br>
 ・f(x)=x^4の積分範囲[0,1+i]における定積分を示す
 <br>
@@ -4266,6 +4288,12 @@ L=(1,2:3:4,5:6);
 <br>
 R=(1,2:3,4,5);
 <br>
+・行列積LR
+<br>
+LR=L*R; LR -> (7,10,10:3,6,0:19,28,25:6,12,0)
+<br>
+・行列サイズ
+<br>
 sizer(L) -> 4
 <br>
 sizec(L) -> 2
@@ -4273,10 +4301,6 @@ sizec(L) -> 2
 sizer(R) -> 2
 <br>
 sizec(R) -> 3
-<br>
-・行列積LR
-<br>
-LR=L*R; LR -> (7,10,10:3,6,0:19,28,25:6,12,0)
 <br>
 sizer(LR) -> 4
 <br>
@@ -4291,26 +4315,30 @@ sizec(LR)=sizec(R) -> 0
 <br>
 以上より、行列積のアルゴリズムを以下に示す
 <br>
-・L指定行とR指定列の内積で式変数productを定義する
+・L指定行とR指定列の内積を取る式変数productを定義する
 <br>
-product&lt;=last{LR[ir][ic]=L[ir]trans((trans(R))[ic])};
+・さらに行列積LRを返す式変数LpRを定義する
 <br>
-_sir(&lt;={_sic(&lt;={product},0,sizec(R)-1)},0,sizer(L)-1);
+LpR&lt;={product&lt;=last{LR[ir][ic]=L[ir]trans((trans(R))[ic])},
+<br>
+LR=zeros(sizer(L),sizec(R)),
+<br>
+_sir(&lt;={_sic(&lt;={product},0,sizec(R)-1)},0,sizer(L)-1),
+<br>
+&lt;=LR}=&gt;;
 <br>
 <br>
-使用例を列挙する
+testcaseを列挙する
+<br>
+・上記例
 <br>
 L=(1,2:3:4,5:6);
 <br>
 R=(1,2:3,4,5);
 <br>
-LR=(vector4c,vector4c,vector4c);
+LpR -> (7,10,10:3,6,0:19,28,25:6,12,0)
 <br>
-product&lt;=last{LR[ir][ic]=L[ir]trans((trans(R))[ic])};
-<br>
-_sir(&lt;={_sic(&lt;={product},0,sizec(R)-1)},0,sizer(L)-1);
-<br>
-LR -> (7,10,10:3,6,0:19,28,25:6,12,0)
+L*R -> (7,10,10:3,6,0:19,28,25:6,12,0)
 <br>
 ・内積
 <br>
@@ -4318,13 +4346,9 @@ L=(1+i,1);
 <br>
 R={1-i,1};
 <br>
-LR=(());
+LpR -> 3
 <br>
-product&lt;=last{LR[ir][ic]=L[ir]trans((trans(R))[ic])};
-<br>
-_sir(&lt;={_sic(&lt;={product},0,sizec(R)-1)},0,sizer(L)-1);
-<br>
-LR -> 3
+L*R -> 3
 <br>
 ・外積
 <br>
@@ -4332,13 +4356,9 @@ L={1-i,1};
 <br>
 R=(1+i,1);
 <br>
-LR=(,:,);
+LpR -> (2,1-i:1+i,1)
 <br>
-product&lt;=last{LR[ir][ic]=L[ir]trans((trans(R))[ic])};
-<br>
-_sir(&lt;={_sic(&lt;={product},0,sizec(R)-1)},0,sizer(L)-1);
-<br>
-LR -> (2,1-i:1+i,1)
+L*R -> (2,1-i:1+i,1)
     </td>
   </tr>
   <tr>
@@ -4870,6 +4890,34 @@ _sir(&lt;={backward},sizeA-1,0);
 <br>
 x -> (-3.9999999999999982:4.499999999999999)
 <br>
+・最後に、一連のアルゴリズムをまとめた式変数solvexを定義する
+<br>
+・pivot選択は除外する
+<br>
+solvex&lt;={
+<br>
+forward&lt;=last{k=A[ir][ic]/A[ic][ic],A[ir]=A[ir]-k(A[ic]),b[ir]=b[ir]-k(b[ic])},
+<br>
+backward&lt;=last{x[ir]=(b[ir]-A[ir]x)/A[ir][ir]},
+<br>
+sizeA=sizer(A),
+<br>
+x=zeros(sizeA,1),
+<br>
+_sic(&lt;={_sir(&lt;={forward},ic+1,sizeA-1)},0,sizeA-2),
+<br>
+_sir(&lt;={backward},sizeA-1,0),
+<br>
+&lt;=x}=&gt;
+<br>
+・再度、演算結果を示す
+<br>
+A=(1,2:3,4); A=(A[1]:A[0]);
+<br>
+b={5,6}; b=(b[1]:b[0]);
+<br>
+solvex -> (-3.9999999999999982:4.499999999999999)
+<br>
 <br>
 反復法
 <br>
@@ -5062,9 +5110,9 @@ A=(i,2i,3i:4i,5i,6i:7i,8i,9i); A=(A[2]:A[1]:A[0]);
 <br>
 b={10i,11i,12i}; b=(b[2]:b[1]:b[0]);
 <br>
-x={,,};
-<br>
 sizeA=sizer(A);
+<br>
+x=zeros(sizeA,1);
 <br>
 forward&lt;=last{k=A[ir][ic]/A[ic][ic],A[ir]=A[ir]-k(A[ic]),b[ir]=b[ir]-k(b[ic])};
 <br>
@@ -5731,7 +5779,7 @@ MIN_VALUE -> 5e-324
 Infinity-Infinity -> [MyErr]BRsa isNaN
 <br>
 <br>
-極限値演算の一例を列挙する
+極限値演算のtestcaseを列挙する
 <br>
 x=MIN_VALUE; x -> 5e-324
 <br>
@@ -6187,21 +6235,21 @@ parser.js抜粋
       case "ones2":
       case "ones3":
       case "ones4":
-      case "id2":
       case "identity2":
-      case "id3":
       case "identity3":
-      case "id4":
       case "identity4":
         tree = DATA.tree_mat(math_mat[token_lower]());
         break;
       // "FNm1"
+      case "identity":
+      case "first":
+      case "last":
+      case "sizer":
+      case "sizec":
       case "rotationx":
       case "rotationy":
       case "rotationz":
       case "normalizer":
-      case "sizer":
-      case "sizec":
         tree = DATA.tree_tag("FNm", token_lower);
         break;
       case "normalize":
@@ -6221,11 +6269,12 @@ parser.js抜粋
       case "euclidean":
         tree = DATA.tree_tag("FNm", "euclidean");
         break;
-      case "first":
-      case "last":
+      // "FNm2"
+      case "zeros":
+      case "ones":
+      case "scalars":
         tree = DATA.tree_tag("FNm", token_lower);
         break;
-      // "FNm2"
       case "gauss":
       case "gaussian":
         tree = DATA.tree_tag("FNm", "gaussian");
