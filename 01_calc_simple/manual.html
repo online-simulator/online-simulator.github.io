@@ -2358,7 +2358,7 @@ trans({1,2,3}) || trans{1,2,3} -> (1,2,3)
 htrans(1-i,1-2i:1-3i,1-4i) || hermitian(1-i,1-2i:1-3i,1-4i) -> (1+i,1+3i:1+2i,1+4i)
 <br>
 <br>
-列ベクトルのEuclidノルム
+列ベクトルのEuclidノルム（ベクトルの長さ）
 <br>
 norm{1,2,3} -> 3.7416573867739413
 <br>
@@ -2401,7 +2401,7 @@ sizer(1:3,4:) -> 3
 <br>
 ・列サイズ
 <br>
-sizec(1,2:3,4) -> 2
+size(1,2:3,4) || sizec(1,2:3,4) -> 2
 <br>
 sizec(1,2:3,4)[0] || sizec(1,2) -> 2
 <br>
@@ -4288,9 +4288,9 @@ L=(1,2:3:4,5:6);
 <br>
 R=(1,2:3,4,5);
 <br>
-・行列積LR
+・演算子による行列積LoR
 <br>
-LR=L*R; LR -> (7,10,10:3,6,0:19,28,25:6,12,0)
+LoR=L*R; LoR -> (7,10,10:3,6,0:19,28,25:6,12,0)
 <br>
 ・行列サイズ
 <br>
@@ -4302,15 +4302,15 @@ sizer(R) -> 2
 <br>
 sizec(R) -> 3
 <br>
-sizer(LR) -> 4
+sizer(LoR) -> 4
 <br>
-sizec(LR) -> 3
+sizec(LoR) -> 3
 <br>
-・行列積LRの行列サイズについて次の関係が成立する
+・行列サイズについて次の関係が成立する
 <br>
-sizer(LR)=sizer(L) -> 0
+sizer(LoR)=sizer(L) -> 0
 <br>
-sizec(LR)=sizec(R) -> 0
+sizec(LoR)=sizec(R) -> 0
 <br>
 <br>
 以上より、行列積のアルゴリズムを以下に示す
@@ -4326,6 +4326,12 @@ LR=zeros(sizer(L),sizec(R)),
 _sir(&lt;={_sic(&lt;={product},0,sizec(R)-1)},0,sizer(L)-1),
 <br>
 &lt;=LR}=&gt;;
+<br>
+・演算子による行列積L*Rではtrans(R)の転置は一回のみに最適化される
+<br>
+・また、この転置時にRの抜け要素を埋める
+<br>
+trans(R) -> (1,3:2,4:0,5)
 <br>
 <br>
 testcaseを列挙する
@@ -4834,6 +4840,8 @@ x[0]=(b[0]-A[0]x)/A[0][0]; x -> (-3.9999999999999982:4.499999999999999)
 <br>
 ・式変数を使用して上記アルゴリズムを一般化する
 <br>
+storage cleared
+<br>
 A=(1,2:3,4); A=(A[1]:A[0]);
 <br>
 b={5,6}; b=(b[1]:b[0]);
@@ -4876,7 +4884,7 @@ b={5,6}; b=(b[1]:b[0]);
 <br>
 x={,};
 <br>
-sizeA=sizer(A);
+sizeA=size(A);
 <br>
 forward&lt;=last{k=A[ir][ic]/A[ic][ic],A[ir]=A[ir]-k(A[ic]),b[ir]=b[ir]-k(b[ic])};
 <br>
@@ -4894,13 +4902,15 @@ x -> (-3.9999999999999982:4.499999999999999)
 <br>
 ・pivot選択は除外する
 <br>
+storage cleared
+<br>
 solvex&lt;={
 <br>
 forward&lt;=last{k=A[ir][ic]/A[ic][ic],A[ir]=A[ir]-k(A[ic]),b[ir]=b[ir]-k(b[ic])},
 <br>
 backward&lt;=last{x[ir]=(b[ir]-A[ir]x)/A[ir][ir]},
 <br>
-sizeA=sizer(A),
+sizeA=size(A),
 <br>
 x=zeros(sizeA,1),
 <br>
@@ -4908,15 +4918,25 @@ _sic(&lt;={_sir(&lt;={forward},ic+1,sizeA-1)},0,sizeA-2),
 <br>
 _sir(&lt;={backward},sizeA-1,0),
 <br>
-&lt;=x}=&gt;
+&lt;=x}=&gt;;
 <br>
-・再度、演算結果を示す
+・続けてtestcaseを示す
+<br>
+・pivot選択有りの場合
 <br>
 A=(1,2:3,4); A=(A[1]:A[0]);
 <br>
 b={5,6}; b=(b[1]:b[0]);
 <br>
 solvex -> (-3.9999999999999982:4.499999999999999)
+<br>
+・pivot選択無しの場合（参考）
+<br>
+A=(1,2:3,4);
+<br>
+b={5,6};
+<br>
+solvex -> (-4:4.5)
 <br>
 <br>
 反復法
@@ -5087,7 +5107,7 @@ b={10i,11i,12i};
 <br>
 ・rank落ちの場合、逆行列が不定で多くの場合、解が発散するが、
 <br>
-・本例では右辺bも成立するため、解が見つかる
+・本例では右辺bも成立するため、解が偶然見つかる
 <br>
 <br>
 直接法
@@ -5110,7 +5130,7 @@ A=(i,2i,3i:4i,5i,6i:7i,8i,9i); A=(A[2]:A[1]:A[0]);
 <br>
 b={10i,11i,12i}; b=(b[2]:b[1]:b[0]);
 <br>
-sizeA=sizer(A);
+sizeA=size(A);
 <br>
 x=zeros(sizeA,1);
 <br>
@@ -5135,6 +5155,54 @@ backward&lt;=last{x[ir]=(b[ir]-A[ir]x)/A[ir][ir]};
 _sir(&lt;={backward},sizeA-1,0);
 <br>
 x -> (-25.333333333333332:41.666666666666664:-16)
+<br>
+・式変数solvexを使用
+<br>
+storage cleared
+<br>
+solvex&lt;={
+<br>
+forward&lt;=last{k=A[ir][ic]/A[ic][ic],A[ir]=A[ir]-k(A[ic]),b[ir]=b[ir]-k(b[ic])},
+<br>
+backward&lt;=last{x[ir]=(b[ir]-A[ir]x)/A[ir][ir]},
+<br>
+sizeA=size(A),
+<br>
+x=zeros(sizeA,1),
+<br>
+_sic(&lt;={_sir(&lt;={forward},ic+1,sizeA-1)},0,sizeA-2),
+<br>
+_sir(&lt;={backward},sizeA-1,0),
+<br>
+&lt;=x}=&gt;;
+<br>
+・pivot選択有りの場合
+<br>
+A=(i,2i,3i:4i,5i,6i:7i,8i,9i); A=(A[2]:A[1]:A[0]);
+<br>
+b={10i,11i,12i}; b=(b[2]:b[1]:b[0]);
+<br>
+solvex -> (-25.333333333333332:41.666666666666664:-16)
+<br>
+・pivot選択無しの場合（参考）
+<br>
+A=(i,2i,3i:4i,5i,6i:7i,8i,9i);
+<br>
+b={10i,11i,12i};
+<br>
+solvex -> [MyErr]FN isNaN
+<br>
+・前進消去後、rank落ちの対角要素が零になるため、解が発散する
+<br>
+A=(i,2i,3i:4i,5i,6i:7i,8i,9i);
+<br>
+sizeA=size(A);
+<br>
+forwardA&lt;=last{k=A[ir][ic]/A[ic][ic],A[ir]=A[ir]-k(A[ic])};
+<br>
+_sic(&lt;={_sir(&lt;={forwardA},ic+1,sizeA-1)},0,sizeA-2);
+<br>
+A -> (i,2i,3i:0,-3i,-6i:0,0,0)
 <br>
 <br>
 反復法
@@ -6244,13 +6312,16 @@ parser.js抜粋
       case "identity":
       case "first":
       case "last":
-      case "sizer":
-      case "sizec":
       case "rotationx":
       case "rotationy":
       case "rotationz":
+      case "sizer":
       case "normalizer":
         tree = DATA.tree_tag("FNm", token_lower);
+        break;
+      case "size":
+      case "sizec":
+        tree = DATA.tree_tag("FNm", "sizec");
         break;
       case "normalize":
       case "normalizec":
@@ -6270,9 +6341,9 @@ parser.js抜粋
         tree = DATA.tree_tag("FNm", "euclidean");
         break;
       // "FNm2"
+      case "scalars":
       case "zeros":
       case "ones":
-      case "scalars":
         tree = DATA.tree_tag("FNm", token_lower);
         break;
       case "gauss":

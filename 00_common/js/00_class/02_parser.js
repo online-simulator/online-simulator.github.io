@@ -290,13 +290,16 @@ My_entry.parser.prototype.make_trees = function(sentence, re){
       case "identity":
       case "first":
       case "last":
-      case "sizer":
-      case "sizec":
       case "rotationx":
       case "rotationy":
       case "rotationz":
+      case "sizer":
       case "normalizer":
         tree = DATA.tree_tag("FNm", token_lower);
+        break;
+      case "size":
+      case "sizec":
+        tree = DATA.tree_tag("FNm", "sizec");
         break;
       case "normalize":
       case "normalizec":
@@ -316,9 +319,9 @@ My_entry.parser.prototype.make_trees = function(sentence, re){
         tree = DATA.tree_tag("FNm", "euclidean");
         break;
       // "FNm2"
+      case "scalars":
       case "zeros":
       case "ones":
-      case "scalars":
         tree = DATA.tree_tag("FNm", token_lower);
         break;
       case "gauss":
