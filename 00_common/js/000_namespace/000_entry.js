@@ -4,10 +4,10 @@
 
 const My_entry = {
   // major update . minor update . minor change . fatal bug-fix . minor bug-fix
-  VERSION: "online-simulator.github.io.2.14.5.2.6",
+  VERSION: "online-simulator.github.io.2.15.5.2.6",
   // major update. minor update/change. fatal/minor bug-fix
   Ver: {
-    calc: "1.5.3",
+    calc: "1.6.3",
     wave: "1.2.1",
     else: "0.12.4"
   }

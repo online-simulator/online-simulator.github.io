@@ -351,6 +351,7 @@ My_entry.math_mat.prototype.BRm = function(options, left, right){
   var rightLens = self.get_lens(right);
   var len_i = leftLens.i;
   var len_j = rightLens.j;
+  if(leftLens.j-rightLens.i) throw "Invalid matrix operation";
   var newRight = self.transpose(options, right);
   var _arr = self.init2d(len_i, len_j);
   for(var i=0; i<len_i; ++i){
