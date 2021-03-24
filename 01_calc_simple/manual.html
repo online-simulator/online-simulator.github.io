@@ -4323,7 +4323,7 @@ Newton(&lt;=第1引数,&lt;=第2引数[,&lt;=第3引数])
 通常の行列積LR=L*Rのアルゴリズムについて記述する
 <br>
 <br>
-通常の行列積LR=L*Rの定義について記述する
+通常の行列積LR=L*Rの定義を次に示す
 <br>
 ・Lの列サイズとRの行サイズが一致する場合のみ、積を定義する
 <br>
@@ -5218,7 +5218,7 @@ A ->
 <br>
 ・前進消去後、rank落ちの対角要素は限りなく零に近づく
 <br>
-・よって多くの場合、次の後退代入の過程で解が発散する
+・よって多くの場合、次の後退代入で解が発散する
 <br>
 backward&lt;=last{x[ir]=(b[ir]-A[ir]x)/A[ir][ir]};
 <br>
@@ -5262,17 +5262,29 @@ b={10i,11i,12i};
 <br>
 solvex -> [MyErr]FN isNaN
 <br>
-・前進消去後、rank落ちの対角要素が零になるため、解が発散する
+・前進消去後、rank落ちの対角要素が零になる
 <br>
 A=(i,2i,3i:4i,5i,6i:7i,8i,9i);
 <br>
+b={10i,11i,12i};
+<br>
 sizeA=size(A);
 <br>
-forwardA&lt;=last{k=A[ir][ic]/A[ic][ic],A[ir]=A[ir]-k(A[ic])};
+x=zeros(sizeA,1);
 <br>
-_sic(&lt;={_sir(&lt;={forwardA},ic+1,sizeA-1)},0,sizeA-2);
+forward&lt;=last{k=A[ir][ic]/A[ic][ic],A[ir]=A[ir]-k(A[ic]),b[ir]=b[ir]-k(b[ic])};
+<br>
+_sic(&lt;={_sir(&lt;={forward},ic+1,sizeA-1)},0,sizeA-2);
 <br>
 A -> (i,2i,3i:0,-3i,-6i:0,0,0)
+<br>
+・よって次の後退代入で解が発散する
+<br>
+backward&lt;=last{x[ir]=(b[ir]-A[ir]x)/A[ir][ir]};
+<br>
+ir=sizeA-1; A[ir][ir] -> 0
+<br>
+backward -> [MyErr]FN isNaN
 <br>
 <br>
 反復法
@@ -5438,7 +5450,7 @@ run -> [MyErr]FN isNaN
 <br>
 任意の正方行列Aについて
 <br>
-Ainv*A=単位行列となるAの逆行列Ainvを反復法で求解する
+Ainv*A=単位行列identity(size(A))となるAの逆行列Ainvを反復法で求解する
 <br>
 <br>
 full-rank2階の場合

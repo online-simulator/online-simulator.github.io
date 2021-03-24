@@ -27,12 +27,20 @@ My_entry.drag.prototype.init = function(id, opt_handlers){
 };
 My_entry.drag.prototype.set_handlers0 = function(){
   var self = this;
-  self.entry.$.set_elem(self.elem, "position", "absolute");
+  var $ = self.entry.$;
+  var set_position = function(){
+    var style_position = $.get_elem(self.elem, "position");
+    if(!(style_position)){
+      $.set_elem(self.elem, "position", "absolute");
+    }
+  };
+  set_position();
   self.onevent.forEach(function(onevent){
     var handler = null;
     switch(onevent){
       case "ondragstart":
         handler = function(e){
+          set_position();
           self.set_offset0(e);
         };
         break;
