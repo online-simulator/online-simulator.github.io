@@ -39,6 +39,30 @@ My_entry.math.prototype.isInf = function(val){
   return false;
 };
 /* for CALC */
+My_entry.math.prototype.eq = function(a, b){
+  var self = this;
+  return ((a == b)? 1: 0);
+};
+My_entry.math.prototype.ne = function(a, b){
+  var self = this;
+  return ((a != b)? 1: 0);
+};
+My_entry.math.prototype.lt = function(a, b){
+  var self = this;
+  return ((a < b)? 1: 0);
+};
+My_entry.math.prototype.le = function(a, b){
+  var self = this;
+  return ((a <= b)? 1: 0);
+};
+My_entry.math.prototype.gt = function(a, b){
+  var self = this;
+  return ((a > b)? 1: 0);
+};
+My_entry.math.prototype.ge = function(a, b){
+  var self = this;
+  return ((a >= b)? 1: 0);
+};
 My_entry.math.prototype.sinh = function(x){
   var self = this;
   return 0.5*(Math.exp(x)-Math.exp(-x));

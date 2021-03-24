@@ -184,6 +184,11 @@ e^(-i(1pi(){2/2i}(5-{3-1}){i/(-4)}))
 <br>
 ・
 <a href="#span-out-prec">
+演算の優先順位
+</a>
+<br>
+・
+<a href="#span-out-prec-ope">
 演算子の優先順位
 </a>
 <br>
@@ -711,12 +716,49 @@ max(x=3,-1,-2) || max(0,-1,-2) -> 0
 目次
 </a>
 <br>
-演算子の
+演算の
 <br>
 優先順位
     </th>
     <td>
 <span id="span-out-prec"></span>
+演算の優先順位について記述する
+<br>
+<br>
+演算の優先順位に従って実行文を解釈し、順番に演算を実行する
+<br>
+<br>
+主要な優先順位を優先順に列挙する
+<br>
+・<a href="#span-out-SR">区切り文字</a>
+<br>
+・<a href="#span-out-BT">括弧</a>
+<br>
+・<a href="#span-out-FN">関数</a>
+<br>
+・<a href="#span-out-prec-ope">演算子</a>
+<br>
+<br>
+これに従う演算結果の一例を示す
+<br>
+max(x=1,(x):2,3)[0]2 || (max((0,1:2,3)[0]))2 || (max(0,1))2 || (1)2 -> 2
+<br>
+<br>
+詳細は<a href="#span-in-prec">内部仕様</a>参照
+    </td>
+  </tr>
+  <tr>
+    <th>
+<a href="#span-index">
+目次
+</a>
+<br>
+演算子の
+<br>
+優先順位
+    </th>
+    <td>
+<span id="span-out-prec-ope"></span>
 演算子の優先順位について抜粋して記述する
 <br>
 <br>
@@ -767,12 +809,15 @@ max(x=3,-1,-2) || max(0,-1,-2) -> 0
 -0xff&gt;&gt;1@1 || (-0xff&gt;&gt;1)@1 || (-128)@1 -> -127
 <br>
 <br>
-詳細は<a href="#span-in-prec">内部仕様</a>参照
-<br>
-<br>
 細かな設定変更は
 <a href="#span-out-config">裏設定</a>
 参照
+<br>
+<br>
+関係演算子・比較演算子は演算子記号を定義せず、関数で代替する
+<br>
+<br>
+詳細は<a href="#span-out-FN">関数の入力仕様</a>参照
     </td>
   </tr>
   <tr>
@@ -1973,6 +2018,67 @@ a={5-3}-1; b=2/{2i(a)i}; e^(-i(1pi()b/(-4)))
 関数の入力仕様と付随する留意事項について記述する
 <br>
 <br>
+leftとrightの数値の関係や大小を比較する関数を列挙する
+<br>
+・複素数の場合
+<br>
+　・equal判定関数: ceq(left, right)
+<br>
+　・not equal判定関数: cne(left, right)
+<br>
+・実数の場合
+<br>
+　・equal判定関数: eq(left, right)
+<br>
+　・not equal判定関数: ne(left, right)
+<br>
+　・less than判定関数: lt(left, right)
+<br>
+　・less or equal判定関数: le(left, right)
+<br>
+　・greater than判定関数: gt(left, right)
+<br>
+　・greater or equal判定関数: ge(left, right)
+<br>
+・引数
+<br>
+　・第1引数: leftの数値を値渡し
+<br>
+　・第2引数: rightの数値を値渡し
+<br>
+・返値
+<br>
+　・成立時: 1を返す
+<br>
+　・不成立時: 0を返す
+<br>
+・testcaseを列挙する
+<br>
+ceq(2+3i,3*i-(-2)) -> 1
+<br>
+cne(2+3i,3*i-(-2)) -> 0
+<br>
+eq(2+3i,2-3i) || eq(2,2) -> 1
+<br>
+ne(5,-5) -> 1
+<br>
+lt(1,2)&amp;lt(3,4) || 1&amp;1  // AND -> 1
+<br>
+lt(1,2)&amp;gt(3,4) || 1&amp;0  // AND -> 0
+<br>
+lt(1,2)@lt(3,4) || 1@1  // XOR -> 0
+<br>
+lt(1,2)@gt(3,4) || 1@0  // XOR -> 1
+<br>
+lt(1,2)|lt(3,4) || 1|1  // OR -> 1
+<br>
+lt(1,2)|gt(3,4) || 1|0  // OR -> 1
+<br>
+le(1,1)*ge(1,1) || 1*1 -> 1
+<br>
+le(1,1)*ge(1,2) || 1*0 -> 0
+<br>
+<br>
 関数の引数に行列を指定した場合、最終行ベクトルの左から順に参照する
 <br>
 ・引数1個の関数の場合
@@ -2215,11 +2321,12 @@ A=(11:21,22:31,32,33,34); htrans(htrans(A)) -> (11,0,0,0:21,22,0,0:31,32,33,34)
 ・結合処理が重くなるため、行指定の行列は抜け要素を自動で埋めない
 <br>
 <br>
-・定義できない行列積の場合、error終了
+定義できない行列積の場合、error終了
 <br>
 (1,2)(1,2) -> [MyErr]Invalid matrix operation
 <br>
-・行列サイズの一致しない差と和の場合、error終了
+<br>
+行列サイズの一致しない差と和の場合、error終了
 <br>
 (1,2:3,4)-(-1) -> [MyErr]Invalid matrix operation
 <br>
@@ -2252,7 +2359,7 @@ A=(11:21,22:31,32,33,34); htrans(htrans(A)) -> (11,0,0,0:21,22,0,0:31,32,33,34)
 (1,2:3)-(4,5:6:7) || (3)-(7) -> -4
 <br>
 <br>
-行列に対して定義できない2項演算を実行した場合も同様とする
+行列に対して明確に定義できない2項演算を実行した場合も同様とする
 <br>
 (5,3,1)/(3i,i) || (1)/(i) -> -i
 <br>
@@ -2268,6 +2375,12 @@ A=(11:21,22:31,32,33,34); htrans(htrans(A)) -> (11,0,0,0:21,22,0,0:31,32,33,34)
 (5,3)i || (3)i -> 3i
 <br>
 (10,5:,)! || (0)! -> 1
+<br>
+・次の場合、扱いが異なる
+<br>
+(5,3)(i) || (5,3)*(i) -> [MyErr]Invalid matrix operation
+<br>
+(5,3)(!) || (5,3)*(1) -> [MyErr]Invalid matrix operation
     </td>
   </tr>
   <tr>
@@ -6361,6 +6474,22 @@ parser.js抜粋
         break;
       case "ans":
         tree = DATA.tree_tag("REv", token_lower);
+        break;
+      // "FN2"
+      // only real number
+      // relational
+      case "eq":
+      case "ne":
+      // comparison
+      case "lt":
+      case "le":
+      case "gt":
+      case "ge":
+      // complex number
+      // relational
+      case "ceq":
+      case "cne":
+        tree = DATA.tree_tag("FN", token_lower);
         break;
       // "FNmh"
       case "jacobi":

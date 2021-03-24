@@ -14,6 +14,7 @@ My_entry.math_com.prototype.init = function(){
 };
 My_entry.math_com.prototype.isNaN = function(com){
   var self = this;
+//  return (isNaN(com.r) || isNaN(com.i));
   return isNaN(com.r+com.i);
 };
 My_entry.math_com.prototype.isNumber = function(com){
@@ -31,6 +32,16 @@ My_entry.math_com.prototype.argument_com = function(a){
   return Math.atan2(a.i, a.r);
 };
 //
+My_entry.math_com.prototype.ceq = function(a, b){
+  var self = this;
+  var sw = ((a.r == b.r) && (a.i == b.i));
+  return self.entry.DATA.com(((sw)? 1: 0), 0);
+};
+My_entry.math_com.prototype.cne = function(a, b){
+  var self = this;
+  var sw = !((a.r == b.r) && (a.i == b.i));
+  return self.entry.DATA.com(((sw)? 1: 0), 0);
+};
 My_entry.math_com.prototype.comp =
 My_entry.math_com.prototype.complex = function(a, b){
   var self = this;

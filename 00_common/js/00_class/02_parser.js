@@ -258,6 +258,22 @@ My_entry.parser.prototype.make_trees = function(sentence, re){
       case "ans":
         tree = DATA.tree_tag("REv", token_lower);
         break;
+      // "FN2"
+      // only real number
+      // relational
+      case "eq":
+      case "ne":
+      // comparison
+      case "lt":
+      case "le":
+      case "gt":
+      case "ge":
+      // complex number
+      // relational
+      case "ceq":
+      case "cne":
+        tree = DATA.tree_tag("FN", token_lower);
+        break;
       // "FNmh"
       case "jacobi":
       case "jacobian":
