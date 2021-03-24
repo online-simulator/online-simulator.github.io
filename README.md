@@ -1,5 +1,5 @@
 # online-simulator.github.io
-en: Personal public repository for GitHub Pages to manage simulators by JavaScript
+en: Personal public repository for GitHub Pages to manage simulators written in JavaScript
 ja: JavaScriptによるシミュレータを管理するGitHub Pages用の個人公開リポジトリ
 GitHub Pages
 https://online-simulator.github.io/
