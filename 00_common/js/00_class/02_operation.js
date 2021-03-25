@@ -1127,7 +1127,7 @@ My_entry.operation.prototype.SX = function(data, rightArr, tagObj){
 My_entry.operation.prototype.switch = function(data, rightArr, tagObj){
   var self = this;
   var DATA = self.entry.DATA;
-  var _tree = null;
+  var _tree = DATA.tree_num(0, 0);
   var len_i = rightArr.length;
   for(var i=0; i<len_i; ++i){
     var args = rightArr[i];
@@ -1145,17 +1145,12 @@ My_entry.operation.prototype.switch = function(data, rightArr, tagObj){
             _tree = self.tree_eqn2tree(data, tree_eqn);
           }
         }
-        else{
-          _tree = DATA.tree_num(0, 0);  // nothing
-        }
         break;
       }
     }
     else{
+      self.throw_tree(args[0]);
       break;
-    }
-    if(i === len_i-1){
-      _tree = DATA.tree_num(0, 0);  // nothing
     }
   }
   return _tree;

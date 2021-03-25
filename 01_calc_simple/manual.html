@@ -1725,11 +1725,11 @@ trans{1,2:3,4} -> (1,2:3,4)
 <br>
 {1,2} || ({1,2}) || {({1,2})} || ({({1,2})}) -> (1:2)
 <br>
-・上位の処理は任意の括弧で括れる
+・上位の処理は列挙しない限り、任意の括弧で括れる
 <br>
 ・変数を使用
 <br>
-x=(1,2); y={1,2}; x*y || (x)(y) || {x}{y} -> 5
+x=(1,2); y={1,2}; x*y || (x)(y) || {x}{y} || ({x}{y}) || {{x}{y}}  -> 5
 <br>
 <br>
 括弧無しで要素を列挙した場合、行ベクトル扱いの丸括弧()で括られる
@@ -5170,17 +5170,15 @@ sizeA=size(A);
 <br>
 x=zeros(sizeA,1),
 <br>
-cond0&lt;={lt(abs(A[ir][ir]),abs(A[ir_comp][ir]))};
+cond0&lt;=lt(abs(A[ir][ir]),abs(A[ir_comp][ir]));
 <br>
-proc0&lt;=last{ir_pivot=ir_comp};
+proc0&lt;={ir_pivot=ir_comp};
 <br>
-cmp&lt;={switch(cond0,&lt;=proc0)};
+cmp&lt;=switch(cond0,&lt;=proc0);
 <br>
-cond1&lt;={ne(ir,ir_pivot)};
+cond1&lt;=ne(ir,ir_pivot);
 <br>
-proc1&lt;=last{w=A[ir],A[ir]=A[ir_pivot],A[ir_pivot]=w,
-<br>
-w=b[ir],b[ir]=b[ir_pivot],b[ir_pivot]=w};
+proc1&lt;={w=A[ir],A[ir]=A[ir_pivot],A[ir_pivot]=w,w=b[ir],b[ir]=b[ir_pivot],b[ir_pivot]=w};
 <br>
 pivotting&lt;={ir_comp=ir+1,ir_pivot=ir,cmp,switch(cond1,&lt;=proc1),ir=ir+1,&lt;=A}=&gt;;
 <br>
@@ -5228,17 +5226,15 @@ sizeA=size(A);
 <br>
 x=zeros(sizeA,1),
 <br>
-cond0&lt;={lt(abs(A[ir][ir]),abs(A[ir_comp][ir]))};
+cond0&lt;=lt(abs(A[ir][ir]),abs(A[ir_comp][ir]));
 <br>
-proc0&lt;=last{ir_pivot=ir_comp};
+proc0&lt;={ir_pivot=ir_comp};
 <br>
-cmp&lt;={switch(cond0,&lt;=proc0)};
+cmp&lt;=switch(cond0,&lt;=proc0);
 <br>
-cond1&lt;={ne(ir,ir_pivot)};
+cond1&lt;=ne(ir,ir_pivot);
 <br>
-proc1&lt;=last{w=A[ir],A[ir]=A[ir_pivot],A[ir_pivot]=w,
-<br>
-w=b[ir],b[ir]=b[ir_pivot],b[ir_pivot]=w};
+proc1&lt;={w=A[ir],A[ir]=A[ir_pivot],A[ir_pivot]=w,w=b[ir],b[ir]=b[ir_pivot],b[ir_pivot]=w};
 <br>
 pivotting&lt;=last{ir_pivot=ir,cmp,switch(cond1,&lt;=proc1)};
 <br>
@@ -5252,7 +5248,7 @@ _sic(&lt;={_sir(&lt;=forward,ic+1,sizeA-1)},0,sizeA-2);
 <br>
 A -> (3,4:0,0.6666666666666667)
 <br>
-backward&lt;=last{x[ir]=(b[ir]-A[ir]x)/A[ir][ir]};
+backward&lt;={x[ir]=(b[ir]-A[ir]x)/A[ir][ir]};
 <br>
 _sir(&lt;=backward,sizeA-1,0);
 <br>
@@ -5266,23 +5262,21 @@ storage cleared
 <br>
 solvex_pivotting&lt;={
 <br>
-cond0&lt;={lt(abs(A[ir][ir]),abs(A[ir_comp][ir]))},
+cond0&lt;=lt(abs(A[ir][ir]),abs(A[ir_comp][ir])),
 <br>
-proc0&lt;=last{ir_pivot=ir_comp},
+proc0&lt;={ir_pivot=ir_comp},
 <br>
-cmp&lt;={switch(cond0,&lt;=proc0)},
+cmp&lt;=switch(cond0,&lt;=proc0),
 <br>
-cond1&lt;={ne(ir,ir_pivot)},
+cond1&lt;=ne(ir,ir_pivot),
 <br>
-proc1&lt;=last{w=A[ir],A[ir]=A[ir_pivot],A[ir_pivot]=w,
-<br>
-w=b[ir],b[ir]=b[ir_pivot],b[ir_pivot]=w},
+proc1&lt;={w=A[ir],A[ir]=A[ir_pivot],A[ir_pivot]=w,w=b[ir],b[ir]=b[ir_pivot],b[ir_pivot]=w},
 <br>
 pivotting&lt;=last{ir_pivot=ir,cmp,switch(cond1,&lt;=proc1)},
 <br>
 forward&lt;=last{k=A[ir][ic]/A[ic][ic],A[ir]=A[ir]-k(A[ic]),b[ir]=b[ir]-k(b[ic])},
 <br>
-backward&lt;=last{x[ir]=(b[ir]-A[ir]x)/A[ir][ir]},
+backward&lt;={x[ir]=(b[ir]-A[ir]x)/A[ir][ir]},
 <br>
 sizeA=size(A),
 <br>
@@ -5304,7 +5298,7 @@ solvex_no_pivotting&lt;={
 <br>
 forward&lt;=last{k=A[ir][ic]/A[ic][ic],A[ir]=A[ir]-k(A[ic]),b[ir]=b[ir]-k(b[ic])},
 <br>
-backward&lt;=last{x[ir]=(b[ir]-A[ir]x)/A[ir][ir]},
+backward&lt;={x[ir]=(b[ir]-A[ir]x)/A[ir][ir]},
 <br>
 sizeA=size(A),
 <br>
@@ -5520,6 +5514,8 @@ A(x) -> (10i:10.999999999999986i:12i)
 <br>
 ・アルゴリズムを以下に示す
 <br>
+・pivot選択は行列操作で示す
+<br>
 storage cleared
 <br>
 A=(i,2i,3i:4i,5i,6i:7i,8i,9i); A=(A[2]:A[1]:A[0]);
@@ -5546,7 +5542,7 @@ A ->
 <br>
 ・よって多くの場合、次の後退代入で解が発散する
 <br>
-backward&lt;=last{x[ir]=(b[ir]-A[ir]x)/A[ir][ir]};
+backward&lt;={x[ir]=(b[ir]-A[ir]x)/A[ir][ir]};
 <br>
 _sir(&lt;=backward,sizeA-1,0);
 <br>
@@ -5588,7 +5584,7 @@ A -> (i,2i,3i:0,-3i,-6i:0,0,0)
 <br>
 ・よって次の後退代入で解が発散する
 <br>
-backward&lt;=last{x[ir]=(b[ir]-A[ir]x)/A[ir][ir]};
+backward&lt;={x[ir]=(b[ir]-A[ir]x)/A[ir][ir]};
 <br>
 ir=sizeA-1; A[ir][ir] -> 0
 <br>
