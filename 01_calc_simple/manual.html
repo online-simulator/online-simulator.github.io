@@ -817,7 +817,7 @@ max(x=1,(x):2,3)[0]2 || (max((0,1:2,3)[0]))2 || (max(0,1))2 || (1)2 -> 2
 関係演算子・比較演算子は演算子記号を定義せず、関数で代替する
 <br>
 <br>
-詳細は<a href="#span-out-FN">関数の入力仕様</a>参照
+詳細は<a href="#span-out-FN">関数入力仕様</a>参照
     </td>
   </tr>
   <tr>
@@ -1696,12 +1696,48 @@ x=3; x=2:3x -> (0:6)
 {列ベクトル: 列ベクトル: ...}
 <br>
 <br>
-丸括弧()と波括弧{}は互いに転置の関係
-<br>
-transpose({1,2:3,4}) || trans({1,2:3,4}) || trans{1,2:3,4} -> (1,2:3,4)
+無次元の場合、要素を括る丸括弧()と波括弧{}は区別しない
 <br>
 <br>
-演算結果のログ表示は丸括弧
+有次元の場合、ベクトルを括る丸括弧()と波括弧{}は互いに転置の関係
+<br>
+(1,2:3,4) -> (1,2:3,4)
+<br>
+{1,2:3,4} -> (1,3:2,4)
+<br>
+・転置の関数を使用
+<br>
+transpose({1,2:3,4}) || trans({1,2:3,4}) -> (1,2:3,4)
+<br>
+<br>
+関数の引数を括る括弧は丸括弧()で統一する
+<br>
+・波括弧{}を使用した場合、引数も転置される
+<br>
+trans(1,2:3,4) -> (1,3:2,4)
+<br>
+trans{1,2:3,4} -> (1,2:3,4)
+<br>
+<br>
+1重列挙の場合、外側の括弧は上記の結合性が存在しない
+<br>
+(1,2) || {(1,2)} || ({(1,2)}) || {({(1,2)})} -> (1,2)
+<br>
+{1,2} || ({1,2}) || {({1,2})} || ({({1,2})}) -> (1:2)
+<br>
+・上位の処理は任意の括弧で括れる
+<br>
+・変数を使用
+<br>
+x=(1,2); y={1,2}; x*y || (x)(y) || {x}{y} -> 5
+<br>
+<br>
+括弧無しで要素を列挙した場合、行ベクトル扱いの丸括弧()で括られる
+<br>
+1,2,3 -> (1,2,3)
+<br>
+<br>
+演算結果のログ表示は丸括弧()
 <br>
 {1,2:3,4} || [1,3:2,4] -> (1,3:2,4)
 <br>
@@ -1887,7 +1923,7 @@ pi2 -> [MyErr]Invalid REv(pi2)
 pi(2) || pi*2 -> 6.283185307179586
 <br>
 <br>
-角括弧は使用不可
+角括弧[]は使用不可
 <br>
 pi[2] -> [MyErr]Invalid reference of array
 <br>
@@ -1957,7 +1993,7 @@ epsilon || eps -> 2.220446049250313e-16
 <br>
 -1^0.5 || -(1^0.5) -> -1
 <br>
-・符号付の分母の丸括弧を省略した場合、error終了
+・符号付の分母の丸括弧()を省略した場合、error終了
 <br>
 1/-i || (1/)(-i) -> [MyErr]Invalid binary operation
 <br>
@@ -2016,6 +2052,9 @@ a={5-3}-1; b=2/{2i(a)i}; e^(-i(1pi()b/(-4)))
     <td>
 <span id="span-out-FN"></span>
 関数の入力仕様と付随する留意事項について記述する
+<br>
+<br>
+関数の引数を括る括弧は丸括弧()で統一する
 <br>
 <br>
 leftとrightの数値の関係や大小を比較する関数を列挙する
@@ -2205,11 +2244,23 @@ deg_atan2_ex(0,1) || degrees(atan2_ex(0,1)) -> 90
 <br>
 行指定の行列と列指定の行列は互いに転置の関係
 <br>
+(1,2:3,4) -> (1,2:3,4)
+<br>
+{1,2:3,4} -> (1,3:2,4)
+<br>
 ・転置の関数を使用
 <br>
 transpose({1,2:3,4}) || trans({1,2:3,4}) || trans{1,2:3,4} -> (1,2:3,4)
 <br>
 ({1,2},{3:4}) || (trans(1,2),trans(3:4)) -> (1,3,4:2)
+<br>
+・1重列挙の場合、外側の括弧に結合性は存在しない
+<br>
+(1,2) || {(1,2)} || ({(1,2)}) || {({(1,2)})} -> (1,2)
+<br>
+{1,2} || ({1,2}) || {({1,2})} || ({({1,2})}) -> (1:2)
+<br>
+・多重列挙の場合、ベクトルを括る括弧の結合性に依存する
 <br>
 {(1,2),(3:4)} -> (1,2:3:4)
 <br>
@@ -2498,11 +2549,11 @@ htrans(1-i,1-2i:1-3i,1-4i) || hermitian(1-i,1-2i:1-3i,1-4i) -> (1+i,1+3i:1+2i,1+
 <br>
 列ベクトルのEuclidノルム（ベクトルの長さ）
 <br>
-norm{1,2,3} -> 3.7416573867739413
+norm(1:2:3) || norm{1,2,3} -> 3.7416573867739413
 <br>
-norm{-i,2i,-3i} -> 3.7416573867739413
+norm(-i:2i:-3i) || norm{-i,2i,-3i} -> 3.7416573867739413
 <br>
-norm{(1-i)/sqrt2,2i,-3i} -> 3.7416573867739413
+norm((1-i)/sqrt2:2i:-3i) || norm{(1-i)/sqrt2,2i,-3i} -> 3.7416573867739413
 <br>
 ・有次元の場合、同義
 <br>
@@ -3490,6 +3541,12 @@ clear; last(f&lt;={x},x=(1,2),&lt;=f) -> [MyErr]Invalid BTe([object Object])
 clear; (f&lt;={x},x=(1,2),&lt;=f) -> [MyErr]Invalid BTe([object Object])
 <br>
 clear; (f&lt;={x},x=(1,2),eqn_f&lt;=f); eqn_f -> (1,2)
+<br>
+・値渡しの場合、無条件に演算を実行するが、
+<br>
+・式渡しの場合、呼び出しまで演算を実行しない
+<br>
+・本仕様は高階関数の実装において必須
     </td>
   </tr>
   <tr>
@@ -3505,6 +3562,82 @@ clear; (f&lt;={x},x=(1,2),eqn_f&lt;=f); eqn_f -> (1,2)
     <td>
 <span id="span-out-FNh"></span>
 高階関数の入力仕様と付随する留意事項について記述する
+<hr>
+<br>
+switch高階関数
+<br>
+・任意個数の条件分岐による処理を実行する
+<br>
+・条件文と成立時に実行する処理を対にしてコロン区切りで引数を渡す
+<br>
+・引数の左から順番に条件文を判定する
+<br>
+・条件文が成立した場合、対の処理を実行して終了する
+<br>
+・条件文が不成立の場合、対の処理は実行されない
+<br>
+<br>
+switch(第1引数,&lt;=第2引数:第3引数,&lt;=第4引数:...)
+<br>
+switch((第1引数,&lt;=第2引数):(第3引数,&lt;=第4引数):...)
+<br>
+switch({第1引数:&lt;=第2引数}:{第3引数:&lt;=第4引数}:...)
+<br>
+・引数
+<br>
+　・第奇数番引数: 0||0以外を返す条件文を値渡し
+<br>
+　・第偶数番引数: 条件文成立時に実行する処理を式渡し
+<br>
+・返値
+<br>
+　条件文成立時: 対の処理の演算結果を返す
+<br>
+　全条件文不成立時: 0を返す
+<br>
+<br>
+値を返す場合
+<br>
+switch(第1引数,第2引数:第3引数,第4引数:...)
+<br>
+・引数
+<br>
+　・第奇数番引数: 0||0以外を返す条件文を値渡し
+<br>
+　・第偶数番引数: 条件文成立時の返却値を値渡し
+<br>
+・返値
+<br>
+　条件文成立時: 対の返却値を返す
+<br>
+　全条件文不成立時: 0を返す
+<br>
+<br>
+testcaseを列挙する
+<br>
+switch(0) -> 0
+<br>
+switch(1) -> 0
+<br>
+switch(1,1) -> 1
+<br>
+switch(0,0:1,2:3,4) -> 2
+<br>
+switch(1,&lt;={1}) -> 1
+<br>
+switch(0:1,&lt;={1}) -> 1
+<br>
+switch(0,0:1,&lt;={1}) || switch((0,0):(1,&lt;={1})) || switch({0:0}:{1:&lt;={1}}) -> 1
+<br>
+switch(0,0,1,&lt;={1})  // NG -> 0
+<br>
+switch(0,0:0,0:0,0:1,&lt;={1}:1,&lt;={2}) -> 1
+<br>
+・実数の絶対値abs(real(x))を返す場合
+<br>
+x=1; switch(lt(real(x),0),&lt;={-real(x)}:1,&lt;={real(x)}) -> 1
+<br>
+x=-1; switch(lt(real(x),0),&lt;={-real(x)}:1,&lt;={real(x)}) -> 1
 <hr>
 <br>
 総和高階関数
@@ -4054,7 +4187,7 @@ f&lt;={_dx(&lt;={x^3},2)+x-7(1+i)=0};
 <br>
 run&lt;=last(mdx=Newton(&lt;=f,&lt;={x}),max(norm(f),norm(mdx)));
 <br>
-_rn(&lt;={run},,6) -> infoLost[ri] 2.3549912261033786e-10+O(2e-2)
+_rn(&lt;=run,,6) -> infoLost[ri] 2.3549912261033786e-10+O(2e-2)
 <br>
 x -> infoLost[ri] 0.9999999999877383+1.0000000000273828i+O(5e-5+5e-5i)
 <br>
@@ -4068,7 +4201,7 @@ f&lt;={2x*_dx(&lt;={x*exp(3x)})=i};
 <br>
 run&lt;=last(mdx=Newton(&lt;=f,&lt;={x}),max(norm(f),norm(mdx)));
 <br>
-_rn(&lt;={run},,12) -> 3.844899655887233e-14+O(1e+0)
+_rn(&lt;=run,,12) -> 3.844899655887233e-14+O(1e+0)
 <br>
 x -> -0.17989326929739397-0.5079280004968542i+O(2e-1+2e-1i)
 <br>
@@ -4080,7 +4213,7 @@ f&lt;={2x*(1*exp(3x)+x*exp(3x)3)=i};
 <br>
 run&lt;=last(mdx=Newton(&lt;=f,&lt;={x}),max(norm(f),norm(mdx)));
 <br>
-_rn(&lt;={run},,12) -> infoLost[r ] 3.3306690738754696e-16
+_rn(&lt;=run,,12) -> infoLost[r ] 3.3306690738754696e-16
 <br>
 x -> infoLost[r ] -0.17989326929046887-0.5079280004963925i
 <br>
@@ -4100,7 +4233,7 @@ f&lt;={x0+x1=2,dx0(&lt;={f0})+dx1(&lt;={f1},2)=2+6i};
 <br>
 run&lt;=last(mdx=Newton(&lt;=f,&lt;=x),max(norm(f),norm(mdx)));
 <br>
-_rn(&lt;={run},,12) -> infoLost[ri] 3.236567392072123e-11+O(2e-3)
+_rn(&lt;=run,,12) -> infoLost[ri] 3.236567392072123e-11+O(2e-3)
 <br>
 x ->
 <br>
@@ -4124,7 +4257,7 @@ f&lt;={x0+x1=2,dx0(&lt;={f0})+dx1(&lt;={f1},2)=2+6i};
 <br>
 run&lt;=last(mdx=Newton(&lt;=f,&lt;=x),max(norm(f),norm(mdx)));
 <br>
-_rn(&lt;={run},,12) -> 7.724854831493598e-14+O(9e-4)
+_rn(&lt;=run,,12) -> 7.724854831493598e-14+O(9e-4)
 <br>
 x -> (1.000000000000009+O(1e-5):0.9999999999999909+O(1e-5))
 <hr>
@@ -4252,7 +4385,7 @@ f&lt;={_ix(&lt;={x^2},0,b)=3^3/3};
 <br>
 run&lt;=last(mdx=Newton(&lt;=f,&lt;={b},&lt;={1}),max(norm(f),norm(mdx)));
 <br>
-_rn(&lt;={run},,12) -> infoLost[ i] 1.3839478914652153e-28+O(8e-7)
+_rn(&lt;=run,,12) -> infoLost[ i] 1.3839478914652153e-28+O(8e-7)
 <br>
 b -> infoLost[ri] 2.9999999999999996+4.613167602434132e-34i+O(1e-1+2e-1i)
 <br>
@@ -4274,7 +4407,7 @@ f&lt;={_ix(&lt;={x^4},0,b)=3^5/5};
 <br>
 run&lt;=last(mdx=Newton(&lt;=f,&lt;={b},&lt;={1}),max(norm(f),norm(mdx)));
 <br>
-_rn(&lt;={run},,20) -> 1.4210854715508634e-14+O(8e-7)
+_rn(&lt;=run,,20) -> 1.4210854715508634e-14+O(8e-7)
 <br>
 b -> infoLost[r ] 2.9999999959999992-1.15251646351758e-21i+O(2e-2+2e-2i)
 <br>
@@ -4494,9 +4627,13 @@ sizec(L*R)=sizec(R) -> 0
 <br>
 LpR&lt;={product&lt;=last{LR[ir][ic]=L[ir]trans((trans(R))[ic])},
 <br>
+L=trans(trans(L)),
+<br>
+R=trans(trans(R)),
+<br>
 LR=zeros(sizer(L),sizec(R)),
 <br>
-_sir(&lt;={_sic(&lt;={product},0,sizec(R)-1)},0,sizer(L)-1),
+_sir(&lt;={_sic(&lt;=product,0,sizec(R)-1)},0,sizer(L)-1),
 <br>
 &lt;=LR}=&gt;;
 <br>
@@ -5025,15 +5162,37 @@ x[0]=(b[0]-A[0]x)/A[0][0]; x -> (-3.9999999999999982:4.499999999999999)
 <br>
 storage cleared
 <br>
-A=(1,2:3,4); A=(A[1]:A[0]);
+A=(1,2:3,4);
 <br>
-b={5,6}; b=(b[1]:b[0]);
+b={5,6};
 <br>
-x={,};
+sizeA=size(A);
 <br>
-ic=0; ir=ic;
+x=zeros(sizeA,1),
+<br>
+cond0&lt;={lt(abs(A[ir][ir]),abs(A[ir_comp][ir]))};
+<br>
+proc0&lt;=last{ir_pivot=ir_comp};
+<br>
+cmp&lt;={switch(cond0,&lt;=proc0)};
+<br>
+cond1&lt;={ne(ir,ir_pivot)};
+<br>
+proc1&lt;=last{w=A[ir],A[ir]=A[ir_pivot],A[ir_pivot]=w,
+<br>
+w=b[ir],b[ir]=b[ir_pivot],b[ir_pivot]=w};
+<br>
+pivotting&lt;={ir_comp=ir+1,ir_pivot=ir,cmp,switch(cond1,&lt;=proc1),ir=ir+1,&lt;=A}=&gt;;
+<br>
+ir=0;
+<br>
+pivotting -> (3,4:1,2)
+<br>
+pivotting -> [MyErr]Invalid reference of array
 <br>
 forward&lt;={ir=ir+1,k=A[ir][ic]/A[ic][ic],A[ir]=A[ir]-k(A[ic]),b[ir]=b[ir]-k(b[ic]),&lt;=A}=&gt;;
+<br>
+ic=0; ir=ic;
 <br>
 forward -> (3,4:0,0.6666666666666667)
 <br>
@@ -5043,9 +5202,9 @@ ic=ic+1; ir=ic;
 <br>
 forward -> [MyErr]Invalid reference of array
 <br>
-ir -> 1
-<br>
 backward&lt;={x[ir]=(b[ir]-A[ir]x)/A[ir][ir],ir=ir-1,&lt;=x}=&gt;;
+<br>
+ir -> 1
 <br>
 backward -> (0:4.499999999999999)
 <br>
@@ -5061,33 +5220,65 @@ backward -> [MyErr]Invalid reference of array
 <br>
 storage cleared
 <br>
-A=(1,2:3,4); A=(A[1]:A[0]);
+A=(1,2:3,4);
 <br>
-b={5,6}; b=(b[1]:b[0]);
-<br>
-x={,};
+b={5,6};
 <br>
 sizeA=size(A);
 <br>
+x=zeros(sizeA,1),
+<br>
+cond0&lt;={lt(abs(A[ir][ir]),abs(A[ir_comp][ir]))};
+<br>
+proc0&lt;=last{ir_pivot=ir_comp};
+<br>
+cmp&lt;={switch(cond0,&lt;=proc0)};
+<br>
+cond1&lt;={ne(ir,ir_pivot)};
+<br>
+proc1&lt;=last{w=A[ir],A[ir]=A[ir_pivot],A[ir_pivot]=w,
+<br>
+w=b[ir],b[ir]=b[ir_pivot],b[ir_pivot]=w};
+<br>
+pivotting&lt;=last{ir_pivot=ir,cmp,switch(cond1,&lt;=proc1)};
+<br>
+_sir(&lt;={_sir_comp(&lt;=pivotting,ir+1,sizeA-1)},0,sizeA-2);
+<br>
+A -> (3,4:1,2)
+<br>
 forward&lt;=last{k=A[ir][ic]/A[ic][ic],A[ir]=A[ir]-k(A[ic]),b[ir]=b[ir]-k(b[ic])};
 <br>
-_sic(&lt;={_sir(&lt;={forward},ic+1,sizeA-1)},0,sizeA-2);
+_sic(&lt;={_sir(&lt;=forward,ic+1,sizeA-1)},0,sizeA-2);
 <br>
 A -> (3,4:0,0.6666666666666667)
 <br>
 backward&lt;=last{x[ir]=(b[ir]-A[ir]x)/A[ir][ir]};
 <br>
-_sir(&lt;={backward},sizeA-1,0);
+_sir(&lt;=backward,sizeA-1,0);
 <br>
 x -> (-3.9999999999999982:4.499999999999999)
 <br>
 ・最後に、一連のアルゴリズムをまとめた式変数solvexを定義する
 <br>
-・pivot選択は除外する
+・pivot選択有りの場合
 <br>
 storage cleared
 <br>
-solvex&lt;={
+solvex_pivotting&lt;={
+<br>
+cond0&lt;={lt(abs(A[ir][ir]),abs(A[ir_comp][ir]))},
+<br>
+proc0&lt;=last{ir_pivot=ir_comp},
+<br>
+cmp&lt;={switch(cond0,&lt;=proc0)},
+<br>
+cond1&lt;={ne(ir,ir_pivot)},
+<br>
+proc1&lt;=last{w=A[ir],A[ir]=A[ir_pivot],A[ir_pivot]=w,
+<br>
+w=b[ir],b[ir]=b[ir_pivot],b[ir_pivot]=w},
+<br>
+pivotting&lt;=last{ir_pivot=ir,cmp,switch(cond1,&lt;=proc1)},
 <br>
 forward&lt;=last{k=A[ir][ic]/A[ic][ic],A[ir]=A[ir]-k(A[ic]),b[ir]=b[ir]-k(b[ic])},
 <br>
@@ -5097,9 +5288,31 @@ sizeA=size(A),
 <br>
 x=zeros(sizeA,1),
 <br>
-_sic(&lt;={_sir(&lt;={forward},ic+1,sizeA-1)},0,sizeA-2),
+_sir(&lt;={_sir_comp(&lt;=pivotting,ir+1,sizeA-1)},0,sizeA-2),
 <br>
-_sir(&lt;={backward},sizeA-1,0),
+_sic(&lt;={_sir(&lt;=forward,ic+1,sizeA-1)},0,sizeA-2),
+<br>
+_sir(&lt;=backward,sizeA-1,0),
+<br>
+&lt;=x}=&gt;;
+<br>
+・pivot選択無しの場合
+<br>
+storage cleared
+<br>
+solvex_no_pivotting&lt;={
+<br>
+forward&lt;=last{k=A[ir][ic]/A[ic][ic],A[ir]=A[ir]-k(A[ic]),b[ir]=b[ir]-k(b[ic])},
+<br>
+backward&lt;=last{x[ir]=(b[ir]-A[ir]x)/A[ir][ir]},
+<br>
+sizeA=size(A),
+<br>
+x=zeros(sizeA,1),
+<br>
+_sic(&lt;={_sir(&lt;=forward,ic+1,sizeA-1)},0,sizeA-2),
+<br>
+_sir(&lt;=backward,sizeA-1,0),
 <br>
 &lt;=x}=&gt;;
 <br>
@@ -5107,11 +5320,11 @@ _sir(&lt;={backward},sizeA-1,0),
 <br>
 ・pivot選択有りの場合
 <br>
-A=(1,2:3,4); A=(A[1]:A[0]);
+A=(1,2:3,4);
 <br>
-b={5,6}; b=(b[1]:b[0]);
+b={5,6};
 <br>
-solvex -> (-3.9999999999999982:4.499999999999999)
+solvex_pivotting -> (-3.9999999999999982:4.499999999999999)
 <br>
 ・pivot選択無しの場合（参考）
 <br>
@@ -5119,7 +5332,7 @@ A=(1,2:3,4);
 <br>
 b={5,6};
 <br>
-solvex -> (-4:4.5)
+solvex_no_pivotting -> (-4:4.5)
 <br>
 <br>
 反復法
@@ -5269,7 +5482,7 @@ f&lt;={x0+2x1=5,3x0+4x1=6};
 <br>
 run&lt;=last(mdx=Newton(&lt;=f,&lt;=x,&lt;=x_initial),max(norm(f),norm(mdx)));
 <br>
-_rn(&lt;={run},,3) -> infoLost[ri] 2.2204460494935903e-15
+_rn(&lt;=run,,3) -> infoLost[ri] 2.2204460494935903e-15
 <br>
 x ->
 <br>
@@ -5319,7 +5532,7 @@ x=zeros(sizeA,1);
 <br>
 forward&lt;=last{k=A[ir][ic]/A[ic][ic],A[ir]=A[ir]-k(A[ic]),b[ir]=b[ir]-k(b[ic])};
 <br>
-_sic(&lt;={_sir(&lt;={forward},ic+1,sizeA-1)},0,sizeA-2);
+_sic(&lt;={_sir(&lt;=forward,ic+1,sizeA-1)},0,sizeA-2);
 <br>
 A ->
 <br>
@@ -5335,37 +5548,19 @@ A ->
 <br>
 backward&lt;=last{x[ir]=(b[ir]-A[ir]x)/A[ir][ir]};
 <br>
-_sir(&lt;={backward},sizeA-1,0);
+_sir(&lt;=backward,sizeA-1,0);
 <br>
 x -> (-25.333333333333332:41.666666666666664:-16)
 <br>
-・式変数solvexを使用
-<br>
-storage cleared
-<br>
-solvex&lt;={
-<br>
-forward&lt;=last{k=A[ir][ic]/A[ic][ic],A[ir]=A[ir]-k(A[ic]),b[ir]=b[ir]-k(b[ic])},
-<br>
-backward&lt;=last{x[ir]=(b[ir]-A[ir]x)/A[ir][ir]},
-<br>
-sizeA=size(A),
-<br>
-x=zeros(sizeA,1),
-<br>
-_sic(&lt;={_sir(&lt;={forward},ic+1,sizeA-1)},0,sizeA-2),
-<br>
-_sir(&lt;={backward},sizeA-1,0),
-<br>
-&lt;=x}=&gt;;
+・先述の式変数solvexを使用
 <br>
 ・pivot選択有りの場合
 <br>
-A=(i,2i,3i:4i,5i,6i:7i,8i,9i); A=(A[2]:A[1]:A[0]);
+A=(i,2i,3i:4i,5i,6i:7i,8i,9i);
 <br>
-b={10i,11i,12i}; b=(b[2]:b[1]:b[0]);
+b={10i,11i,12i};
 <br>
-solvex -> (-25.333333333333332:41.666666666666664:-16)
+solvex_pivotting -> (-25.333333333333332:41.666666666666664:-16)
 <br>
 ・pivot選択無しの場合（参考）
 <br>
@@ -5373,7 +5568,7 @@ A=(i,2i,3i:4i,5i,6i:7i,8i,9i);
 <br>
 b={10i,11i,12i};
 <br>
-solvex -> [MyErr]FN isNaN
+solvex_no_pivotting -> [MyErr]FN isNaN
 <br>
 ・前進消去後、rank落ちの対角要素が零になる
 <br>
@@ -5387,7 +5582,7 @@ x=zeros(sizeA,1);
 <br>
 forward&lt;=last{k=A[ir][ic]/A[ic][ic],A[ir]=A[ir]-k(A[ic]),b[ir]=b[ir]-k(b[ic])};
 <br>
-_sic(&lt;={_sir(&lt;={forward},ic+1,sizeA-1)},0,sizeA-2);
+_sic(&lt;={_sir(&lt;=forward,ic+1,sizeA-1)},0,sizeA-2);
 <br>
 A -> (i,2i,3i:0,-3i,-6i:0,0,0)
 <br>
@@ -5418,7 +5613,7 @@ f&lt;={A(x)=b};
 <br>
 run&lt;=last(mdx=Newton(&lt;=f,&lt;=x,&lt;=x_initial),max(norm(f),norm(mdx)));
 <br>
-_rn(&lt;={run},,3) -> 0.000002904400992198821
+_rn(&lt;=run,,3) -> 0.000002904400992198821
 <br>
 x ->
 <br>
@@ -5444,7 +5639,7 @@ f&lt;={A(x)=b};
 <br>
 run&lt;=last(mdx=Newton(&lt;=f,&lt;=x,&lt;=x_initial),max(norm(f),norm(mdx)));
 <br>
-_rn(&lt;={run},,3) -> 0.000011389894276669376
+_rn(&lt;=run,,3) -> 0.000011389894276669376
 <br>
 x ->
 <br>
@@ -5474,7 +5669,7 @@ f&lt;={A(x)=b};
 <br>
 run&lt;=last(mdx=Newton(&lt;=f,&lt;=x,&lt;=x_initial),max(norm(f),norm(mdx)));
 <br>
-_rn(&lt;={run},,3) -> 0.00013856472352298855
+_rn(&lt;=run,,3) -> 0.00013856472352298855
 <br>
 x ->
 <br>
@@ -5588,7 +5783,7 @@ f&lt;={x0+3x1=1,2x0+4x1=0,x2+3x3=0,2x2+4x3=1};
 <br>
 run&lt;=last(mdx=Newton(&lt;=f,&lt;=x),max(norm(f),norm(mdx)));
 <br>
-_rn(&lt;={run},,3) -> infoLost[ri] 4.965068306494841e-16
+_rn(&lt;=run,,3) -> infoLost[ri] 4.965068306494841e-16
 <br>
 Ainv ->
 <br>
@@ -5625,7 +5820,7 @@ f&lt;={Ainv*A=identity3};
 <br>
 run&lt;=last(mdx=Newton(&lt;=f,&lt;=x),max(norm(f),norm(mdx)));
 <br>
-_rn(&lt;={run},,3) -> infoLost[ri] 3.4546432349907805e-16
+_rn(&lt;=run,,3) -> infoLost[ri] 3.4546432349907805e-16
 <br>
 Ainv ->
 <br>
@@ -5682,7 +5877,7 @@ f&lt;={Ainv*A=identity4};
 <br>
 run&lt;=last(mdx=Newton(&lt;=f,&lt;=x),max(norm(f),norm(mdx)));
 <br>
-_rn(&lt;={run},,3) -> infoLost[ri] 2.9893669801409083e-16
+_rn(&lt;=run,,3) -> infoLost[ri] 2.9893669801409083e-16
 <br>
 Ainv ->
 <br>
@@ -5876,7 +6071,7 @@ f&lt;={x0^2+1=0};
 <br>
 run&lt;=last(mdx=Newton(&lt;=f,&lt;=x,&lt;={1+2i}),max(norm(f),norm(mdx)));
 <br>
-_rn(&lt;={run},,6) -> 4.848187063331881e-11
+_rn(&lt;=run,,6) -> 4.848187063331881e-11
 <br>
 x -> 6.918085522901255e-17+0.9999999999999997i
 <br>
@@ -5887,7 +6082,7 @@ x -> 6.918085522901255e-17+0.9999999999999997i
 <br>
 x0=1-2i;
 <br>
-_rn(&lt;={run},,6) -> 4.2544881989018353e-11
+_rn(&lt;=run,,6) -> 4.2544881989018353e-11
 <br>
 x -> -5.067058578678027e-17-1.0000000000000002i
 <br>
@@ -5950,7 +6145,7 @@ run&lt;=last(mdx=Newton(&lt;=f,&lt;=x,&lt;=x_initial),max(norm(f),norm(mdx)));
 <br>
 ・反復6回目の近似解を示す
 <br>
-_rn(&lt;={run},,6) -> infoLost[ i] 2.2368035825474494e-16
+_rn(&lt;=run,,6) -> infoLost[ i] 2.2368035825474494e-16
 <br>
 x ->
 <br>
@@ -5959,7 +6154,7 @@ x ->
 0.07726186556052178-1.434248862158042i)
 <br>
 <br>
-同じく引数の列ベクトルに丸括弧を使用する場合
+同じく引数の列ベクトルに丸括弧()を使用する場合
 <br>
 ・連立非線形方程式と初期値を定義する
 <br>
@@ -5973,7 +6168,7 @@ run&lt;=last(mdx=Newton(&lt;=f,&lt;=x,&lt;=x_initial),max(norm(f),norm(mdx)));
 <br>
 ・反復6回目の近似解を示す
 <br>
-_rn(&lt;={run},,6) -> infoLost[ i] 2.2368035825474494e-16
+_rn(&lt;=run,,6) -> infoLost[ i] 2.2368035825474494e-16
 <br>
 x ->
 <br>
@@ -5994,7 +6189,7 @@ mdx=Newton(&lt;=(x0^i-2x1=3i:3x0+exp(x1)=5i),&lt;=(x0:x1),&lt;=(1+i:1-i)),
 <br>
 norm(mdx));
 <br>
-_rn(&lt;={run},,6) -> 2.2368035825474494e-16
+_rn(&lt;=run,,6) -> 2.2368035825474494e-16
 <br>
 {x0,x1} ->
 <br>
@@ -6468,12 +6663,16 @@ operation.js抜粋
 parser.js抜粋
 <pre><code>
       // reserved word
+      case "ans":
+        tree = DATA.tree_tag("REv", token_lower);
+        break;
       case "clear":
       case "stop":
         throw "Invalid "+token+" called";
         break;
-      case "ans":
-        tree = DATA.tree_tag("REv", token_lower);
+      // "FNhn"
+      case "switch":
+        tree = DATA.tree_tag("FNh", {key: token_lower});
         break;
       // "FN2"
       // only real number

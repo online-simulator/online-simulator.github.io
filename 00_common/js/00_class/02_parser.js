@@ -251,12 +251,16 @@ My_entry.parser.prototype.make_trees = function(sentence, re){
     }
     else switch(token_lower){
       // reserved word
+      case "ans":
+        tree = DATA.tree_tag("REv", token_lower);
+        break;
       case "clear":
       case "stop":
         throw "Invalid "+token+" called";
         break;
-      case "ans":
-        tree = DATA.tree_tag("REv", token_lower);
+      // "FNhn"
+      case "switch":
+        tree = DATA.tree_tag("FNh", {key: token_lower});
         break;
       // "FN2"
       // only real number

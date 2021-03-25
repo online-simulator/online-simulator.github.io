@@ -530,9 +530,12 @@ My_entry.operation.prototype.tree2tree_eqn = function(data, tree){
     var name_eqn = self.get_tagVal(_tree, "REv", "val");
     if(name_eqn){
       _tree = self.restore_eqn(eqns, name_eqn);
+      /* Ver.1.6.3 */  // _rn(<={run},,1) -> _rn(<=run,,1) allowed -> _rn(<=(run),,1)
+/*
       if(_tree){
         _tree = DATA.trees2tree(self.get_tagVal(_tree, BT.REe, "val"));
       }
+*/
     }
   }
   if(!(_tree)){
@@ -1116,6 +1119,43 @@ My_entry.operation.prototype.SX = function(data, rightArr, tagObj){
       else{
         delete vars[name_var];
       }
+    }
+  }
+  return _tree;
+};
+/* Ver.1.6.3 */
+My_entry.operation.prototype.switch = function(data, rightArr, tagObj){
+  var self = this;
+  var DATA = self.entry.DATA;
+  var _tree = null;
+  var len_i = rightArr.length;
+  for(var i=0; i<len_i; ++i){
+    var args = rightArr[i];
+    var com0 = args[0].com;
+    if(com0){
+      var sw = com0.r;
+      if(sw){
+        var arg1 = args[1];
+        if(arg1){
+          if(arg1.com){
+            _tree = DATA.num2tree(arg1);
+          }
+          else{
+            var tree_eqn = self.tree2tree_eqn(data, arg1);
+            _tree = self.tree_eqn2tree(data, tree_eqn);
+          }
+        }
+        else{
+          _tree = DATA.tree_num(0, 0);  // nothing
+        }
+        break;
+      }
+    }
+    else{
+      break;
+    }
+    if(i === len_i-1){
+      _tree = DATA.tree_num(0, 0);  // nothing
     }
   }
   return _tree;
