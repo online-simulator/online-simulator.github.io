@@ -21,18 +21,20 @@ My_entry.calc_simple.prototype.init = function(){
 };
 My_entry.calc_simple.prototype.init_elems = function(){
   var self = this;
+  var $ = self.entry.$;
   self.elems = {};
-  self.elems.i = self.entry.$._id("input");
-  self.elems.o = self.entry.$._id("output");
-  self.elems.h = self.entry.$._id("history");
-  self.entry.$.set_elem(self.elems.i, "readOnly", null);
-  self.entry.$.setup_elems_readonly$("input,textarea");
-  self.entry.$.setup_elems$_tag("button", self.handlers, "onclick");
-  self.entry.$.setup_elems$_tag("input", self.handlers, "onchange");
+  self.elems.i = $._id("input");
+  self.elems.o = $._id("output");
+  self.elems.h = $._id("history");
+  $.set_elem(self.elems.i, "readOnly", null);
+  $.setup_elems_readonly$("input,textarea");
+  $.setup_elems$_tag("button", self.handlers, "onclick");
+  $.setup_elems$_tag("input", self.handlers, "onchange");
   return self;
 };
 My_entry.calc_simple.prototype.init_handlers = function(){
   var self = this;
+  var $ = self.entry.$;
   self.handlers.onload = function(args){
     var self = this;
     self.io = new self.constructors.io();
@@ -40,7 +42,7 @@ My_entry.calc_simple.prototype.init_handlers = function(){
     self.handler_link = new self.constructors.handler_link(json);
     self.handler_link.setter.callback(function(){return self.logh});
     self.handler_drag = new self.constructors.handler_drag("div-drag", "checkbox-drag", {});
-    self.entry.$.change_elems$("input[type='checkbox']");
+    $.change_elems$("input[type='checkbox']");
     self.io.write_stamp(self.elems.h);
     self.logh = self.io.getter.stamp();
     self.logo = "";
@@ -58,8 +60,8 @@ My_entry.calc_simple.prototype.init_handlers = function(){
     var self = this;
     var id = elem.id;
     var TAG = elem.tagName.toUpperCase();
-    var text = elem[self.entry.$.config.REFERRER.text];
-    var val = elem[self.entry.$.config.REFERRER.value];
+    var text = elem[$.config.REFERRER.text];
+    var val = elem[$.config.REFERRER.value];
     var text_half = self.entry.reference.fullStr2half(text);
     switch(text_half){
       case "=":
@@ -70,12 +72,12 @@ My_entry.calc_simple.prototype.init_handlers = function(){
         data.eqns = self.eqns;  // restore eqns
         data.in = self.io.read_text(self.elems.i);
         data.options.makeLog = 2;
-        self.entry.$.get_elemProps("input[type='checkbox']", "checkbox-", "checked", data.options);
-        self.entry.$.get_elemProps("select", "select-", "value", data.options);
-        self.entry.$.get_urlParams(data.options);
+        $.get_elemProps("input[type='checkbox']", "checkbox-", "checked", data.options);
+        $.get_elemProps("select", "select-", "value", data.options);
+        $.get_urlParams(data.options);
         if(data.options.checkError !== false) data.options.checkError = true;
         arr_data_in.push(data);
-        self.run_worker(arr_data_in, self.entry.$.checkbox_id("checkbox-useWorker"));
+        self.run_worker(arr_data_in, $.checkbox_id("checkbox-useWorker"));
         break;
       case "C":
         self.stop_worker();
@@ -110,10 +112,10 @@ My_entry.calc_simple.prototype.init_handlers = function(){
         self.handler_drag.switch();
         break;
       case "checkbox-sw":
-        var isChecked = self.entry.$.checkbox_elem(elem);
+        var isChecked = $.checkbox_elem(elem);
         self.entry.def.mix_over(self.constructors.io, ((isChecked)? self.constructors.io_ex1: self.constructors.io_ex));
-        self.entry.$.set_elem(self.elems.i, "readOnly", ((isChecked)? null: "readonly"));
-        self.entry.$.setup_elems_readonly$("input,textarea");
+        $.set_elem(self.elems.i, "readOnly", ((isChecked)? null: "readonly"));
+        $.setup_elems_readonly$("input,textarea");
         if(!(isChecked)){
           var text = self.io.read_text(self.elems.i);
           self.io.write_text(self.elems.i, "");
@@ -122,12 +124,12 @@ My_entry.calc_simple.prototype.init_handlers = function(){
         }
         break;
       case "checkbox-0x":
-        var isChecked = self.entry.$.checkbox_elem(elem);
-        self.entry.$.show(".ex-0x", isChecked, true);
+        var isChecked = $.checkbox_elem(elem);
+        $.show(".ex-0x", isChecked, true);
         break;
       case "checkbox-useComplex":
-        var isChecked = self.entry.$.checkbox_elem(elem);
-        self.entry.$.show(".ex-com", isChecked);
+        var isChecked = $.checkbox_elem(elem);
+        $.show(".ex-com", isChecked);
         break;
       default:
         break;

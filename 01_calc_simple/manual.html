@@ -167,9 +167,16 @@ e^(-i(1pi(){2/2i}(5-{3-1}){i/(-4)}))
 外部仕様
 </a>
 <br>
-・
+・操作UI
+<br>
+　・
 <a href="#span-out-UI-simple">
-簡易電卓UI
+簡易電卓
+</a>
+<br>
+　・
+<a href="#span-out-UI-gfunction">
+グラフ関数電卓
 </a>
 <br>
 ・
@@ -220,6 +227,13 @@ e^(-i(1pi(){2/2i}(5-{3-1}){i/(-4)}))
 ・
 <a href="#span-out-storage">
 ストレージ
+</a>
+<br>
+・グラフ出力仕様
+<br>
+　・
+<a href="#span-out-plot2d">
+plot2d
 </a>
 <br>
 ・入力仕様
@@ -568,6 +582,23 @@ UI
 ・履歴欄に最新を上にして演算履歴を表示・表示制限5000字以内
 <br>
 ・履歴欄下のリンクから演算履歴の全文をテキスト保存可
+    </td>
+  </tr>
+  <tr>
+    <th>
+<a href="#span-index">
+目次
+</a>
+<br>
+グラフ
+<br>
+関数電卓
+<br>
+UI
+    </th>
+    <td>
+<span id="span-out-UI-gfunction"></span>
+グラフ関数電卓の操作パネルについて記述する
     </td>
   </tr>
   <tr>
@@ -1481,6 +1512,21 @@ main関数　⇔　parse関数　⇔　operation関数
 ・演算実行途中　ローカル変数をread/write
 <br>
 ・演算実行終了　ローカル変数⇒グローバル変数に保存
+    </td>
+  </tr>
+  <tr>
+    <th>
+<a href="#span-index">
+目次
+</a>
+<br>
+plot2d
+<br>
+仕様
+    </th>
+    <td>
+<span id="span-out-plot2d"></span>
+グラフ描画plot2dの仕様について記述する
     </td>
   </tr>
   <tr>
@@ -4625,19 +4671,19 @@ sizec(L*R)=sizec(R) -> 0
 <br>
 ・さらに行列積LRを返す式変数LpRを定義する
 <br>
-LpR&lt;={product&lt;=last{LR[ir][ic]=L[ir]trans((trans(R))[ic])},
+LpR&lt;={product&lt;=last{LR[ir][ic]=ttL[ir]trans((trans(ttR))[ic])},
 <br>
-L=trans(trans(L)),
+ttL=trans(trans(L)),
 <br>
-R=trans(trans(R)),
+ttR=trans(trans(R)),
 <br>
-LR=zeros(sizer(L),sizec(R)),
+LR=zeros(sizer(ttL),sizec(ttR)),
 <br>
-_sir(&lt;={_sic(&lt;=product,0,sizec(R)-1)},0,sizer(L)-1),
+_sir(&lt;={_sic(&lt;=product,0,sizec(ttR)-1)},0,sizer(ttL)-1),
 <br>
 &lt;=LR}=&gt;;
 <br>
-・演算子による行列積L*Rではtrans(R)の転置は1回のみに最適化される
+・演算子による行列積L*Rでは1回の転置trans(R)に最適化される
 <br>
 ・また、この転置時にRの抜け要素を埋める
 <br>
