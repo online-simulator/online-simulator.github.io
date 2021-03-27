@@ -1499,7 +1499,13 @@ operation関数の役割
 ストレージ（storage）について記述する
 <br>
 <br>
-ストレージは変数・式変数を保存するオブジェクトで次の2種類
+ストレージは変数・式変数を保存するオブジェクトで次の3種類
+<br>
+・ローカルstorage
+<br>
+・グローバルstorage
+<br>
+・ローカルbuffer
 <br>
 <br>
 ローカルstorage
@@ -1520,15 +1526,18 @@ operation関数の役割
 ・保存された式変数をグローバル式変数と呼ぶ
 <br>
 <br>
-演算実行確定1回のローカル変数とグローバル変数のフローを示す
+ローカルbuffer
 <br>
-（式変数も同様）
+・ローカルstorageを一時的に記憶する
 <br>
-・演算実行開始　グローバル変数⇒ローカル変数に保存
 <br>
-・演算実行途中　ローカル変数をread/write
+演算実行確定1回のstorageのフローを示す
 <br>
-・演算実行終了　ローカル変数⇒グローバル変数に保存
+・演算実行開始　グローバルstorage　⇒　ローカルstorageに復帰
+<br>
+・演算実行途中　ローカルstorageをread/write　⇔　ローカルbuffer
+<br>
+・演算実行終了　ローカルstorage　⇒　グローバルstorageに保存
     </td>
   </tr>
   <tr>
@@ -1661,11 +1670,11 @@ ans -> [MyErr]Invalid REv(ans)
 <br>
 store
 <br>
-・呼び出し時点までのローカルstorageをバッファに保存する
+・呼び出し時点までのローカルstorageをローカルbufferに保存する
 <br>
 restore
 <br>
-・バッファに保存されたローカルstorageを復帰する
+・ローカルbufferに保存されたローカルstorageを復帰する
 <br>
 clear; x=2; store; x=3; restore; x -> 2
 <br>
@@ -1675,7 +1684,7 @@ clear; x=2; store; y=3; clear; restore; x+y -> [MyErr]Invalid binary operation
 <br>
 clear; x=2; store; y=3; store; clear; restore; x+y -> 5
 <br>
-・演算実行確定1回毎にバッファは消去される
+・演算実行確定1回毎にローカルbufferは消去される
 <br>
 storage cleared
 <br>
