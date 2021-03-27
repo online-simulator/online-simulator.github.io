@@ -96,8 +96,10 @@ My_entry.operation.prototype.init = function(){
   My_entry.def.mix_in_props(My_entry.operation, My_entry.DATA, ["arr2num", "arr2args", "arr2obj_i"]);
   self.arr_precedence = [];
   self.options = {};
-  self.vars = {};
+  self.isLocked_eqns = {};
   self.params = {};
+  self.vars = null;
+  self.eqns = null;
   return self;
 };
 My_entry.operation.prototype.isNotNull = function(arg){
@@ -224,6 +226,29 @@ My_entry.operation.prototype.clear = function(data){
   data.trees = DATA.tree2trees(DATA.tree_tag("out", "local storage cleared"));
   return self;
 };
+/* Ver.1.6.3 */
+My_entry.operation.prototype.store = function(data){
+  var self = this;
+  var def = self.entry.def;
+  var DATA = self.entry.DATA;
+  self.vars = def.newClone(data.vars);
+  self.eqns = def.newClone(data.eqns);
+  data.trees = DATA.tree2trees(DATA.tree_tag("out", "local storage stored"));
+  return self;
+};
+/* Ver.1.6.3 */
+My_entry.operation.prototype.restore = function(data){
+  var self = this;
+  var DATA = self.entry.DATA;
+  var buffer = (self.vars && self.eqns);
+  if(buffer){
+    data.vars = self.vars;
+    data.eqns = self.eqns;
+  }
+  var msg = (buffer)? "local storage restored": "null buffer";
+  data.trees = DATA.tree2trees(DATA.tree_tag("out", msg));
+  return self;
+};
 My_entry.operation.prototype.stop = function(data){
   var self = this;
   var DATA = self.entry.DATA;
@@ -240,7 +265,7 @@ My_entry.operation.prototype.run = function(_data){
       var trees = trees2d[j];
       _data.trees = trees;
       if(Array.isArray(trees)){
-        self.init_vars();
+        self.init_flags();
         self.remake_trees(_data);
         self.SEans(_data, 0);
       }
@@ -260,15 +285,22 @@ My_entry.operation.prototype.run = function(_data){
 //    _data.options.depth_max = self.params.depth_max;
   }
   catch(e){
-    self.init_vars();
-    self.init_params();
+    self.init_buffers();
     throw e;
   }
   return _data;
 };
-My_entry.operation.prototype.init_vars = function(){
+My_entry.operation.prototype.init_buffers = function(){
   var self = this;
-  self.vars = {};
+  self.init_flags();
+  self.init_params();
+  self.vars = null;
+  self.eqns = null;
+  return self;
+};
+My_entry.operation.prototype.init_flags = function(){
+  var self = this;
+  self.isLocked_eqns = {};
   return self;
 };
 My_entry.operation.prototype.init_params = function(){
@@ -1487,13 +1519,13 @@ My_entry.operation.prototype.REv = function(data, i0, tagName, tagObj){
         var tree_eqn = self.restore_eqn(eqns, name);
         var isREe = tree_eqn[self.config.BT.REe];
         if(isREe){
-          if(self.vars[name]){
-            self.vars[name] = false;
+          if(self.isLocked_eqns[name]){
+            self.isLocked_eqns[name] = false;
             throw "Invalid circular("+name+")";
           }
-          self.vars[name] = true;
+          self.isLocked_eqns[name] = true;
           tree = self.tree_eqn2tree(data, tree_eqn);
-          self.vars[name] = false;
+          self.isLocked_eqns[name] = false;
         }
         else{
           tree = tree_eqn;

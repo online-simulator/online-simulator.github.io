@@ -1467,6 +1467,23 @@ main関数　⇔　parse関数　⇔　operation関数
 ・operation関数
 <br>
 　・実行文から演算結果を作ってparse関数に返す
+<br>
+<br>
+parse関数とoepration関数の役割分担を示す
+<br>
+<br>
+parse関数の役割
+<br>
+・括弧の入れ子を解析し、深さ方向にtree化する
+<br>
+・逐次、入力データにtagをつけて実行文に置換する
+<br>
+<br>
+operation関数の役割
+<br>
+・演算の優先順位に従って実行文を実行する
+<br>
+・逐次、実行文のtreeを演算結果に置換する
     </td>
   </tr>
   <tr>
@@ -1583,63 +1600,99 @@ x=-255; int(x/(2^3)) -> -32
 命令文の入力仕様と付随する留意事項について記述する
 <br>
 <br>
-次の命令文は上位の実行文に相当する
+命令文は上位の実行文に相当する
+<br>
+・セミコロン;以外で区切った場合、error終了
+<br>
+clear || clear; -> local storage cleared
+<br>
+clear, || clear: -> [MyErr]Invalid clear called
+<br>
+・括弧の中で呼び出した場合、error終了
+<br>
+(clear) || {clear} -> [MyErr]Invalid clear called
+<br>
+・式変数への代入不可
+<br>
+f&lt;=clear -> [MyErr]Invalid clear called
+<br>
+<br>
+命令文を以下に示す
 <br>
 <br>
 clear
 <br>
-・ローカルstorageをクリアする
+・呼び出し時点までのローカルstorageをクリアする
 <br>
-x=3;演算実行確定
+x=3; x -> 3
 <br>
--> x=3
+clear -> local storage cleared
 <br>
-clear;演算実行確定 -> local storage cleared
+x -> 3
 <br>
-x;演算実行確定 -> 3
+clear; x -> [MyErr]Invalid REv(x)
 <br>
-clear; x;演算実行確定 -> [MyErr]Invalid REv(x)
+x -> 3
 <br>
-x;演算実行確定 -> 3
+clear; ans -> [MyErr]Invalid REv(ans)
 <br>
-clear; ans;演算実行確定 -> [MyErr]Invalid REv(ans)
-<br>
-ans;演算実行確定 -> 3
+ans -> 3
 <br>
 ・続けてグローバルstorageをクリアする場合
 <br>
-クリア実行確定
+クリア実行確定 ->
 <br>
--> storage cleared
+storage cleared
 <br>
-x;演算実行確定 -> [MyErr]Invalid REv(x)
+x -> [MyErr]Invalid REv(x)
 <br>
-ans;演算実行確定 -> [MyErr]Invalid REv(ans)
+ans -> [MyErr]Invalid REv(ans)
 <br>
 ・グローバルstorageに一切の変数を残さない場合
 <br>
-x=3; y=3x; y; clear;演算実行確定
+x=3; y=3x; y; clear -> local storage cleared
 <br>
-x;演算実行確定 -> [MyErr]Invalid REv(x)
+x -> [MyErr]Invalid REv(x)
 <br>
-y;演算実行確定 -> [MyErr]Invalid REv(y)
+y -> [MyErr]Invalid REv(y)
 <br>
-ans;演算実行確定 -> [MyErr]Invalid REv(ans)
+ans -> [MyErr]Invalid REv(ans)
+<br>
+<br>
+store
+<br>
+・呼び出し時点までのローカルstorageをバッファに保存する
+<br>
+restore
+<br>
+・バッファに保存されたローカルstorageを復帰する
+<br>
+clear; x=2; store; x=3; restore; x -> 2
+<br>
+clear; x=2; store; clear; restore; x -> 2
+<br>
+clear; x=2; store; y=3; clear; restore; x+y -> [MyErr]Invalid binary operation
+<br>
+clear; x=2; store; y=3; store; clear; restore; x+y -> 5
+<br>
+・演算実行確定1回毎にバッファは消去される
+<br>
+storage cleared
+<br>
+restore -> null buffer
+<br>
+x=2; store -> local storage stored
+<br>
+restore -> null buffer
+<br>
+restore; x -> [MyErr]Invalid REv(x)
 <br>
 <br>
 stop
 <br>
-・それ以降の演算を中断する
+・呼び出し時点以降の演算を中断する
 <br>
-x=3; 3x; stop; x;演算実行確定
-<br>
-x=3 -> x=3
-<br>
-3x -> 9
-<br>
-stop -> operation stopped
-<br>
-x -> operation stopped
+x=3; 3x; stop; x -> operation stopped
     </td>
   </tr>
   <tr>
@@ -1744,6 +1797,8 @@ x=3; x=2:3x -> (0:6)
 <br>
 無次元の場合、要素を括る丸括弧()と波括弧{}は区別しない
 <br>
+・列挙しなければ括弧の種類は区別しない
+<br>
 <br>
 有次元の場合、ベクトルを括る丸括弧()と波括弧{}は互いに転置の関係
 <br>
@@ -1771,9 +1826,7 @@ trans{1,2:3,4} -> (1,2:3,4)
 <br>
 {1,2} || ({1,2}) || {({1,2})} || ({({1,2})}) -> (1:2)
 <br>
-・上位の処理は列挙しない限り、任意の括弧で括れる
-<br>
-・変数を使用
+・よって上流で列挙しない限り、変数は任意の括弧で括れる
 <br>
 x=(1,2); y={1,2}; x*y || (x)(y) || {x}{y} || ({x}{y}) || {{x}{y}}  -> 5
 <br>
@@ -6705,10 +6758,14 @@ operation.js抜粋
 parser.js抜粋
 <pre><code>
       // reserved word
+      // variable
       case "ans":
         tree = DATA.tree_tag("REv", token_lower);
         break;
+      // command
       case "clear":
+      case "store":
+      case "restore":
       case "stop":
         throw "Invalid "+token+" called";
         break;

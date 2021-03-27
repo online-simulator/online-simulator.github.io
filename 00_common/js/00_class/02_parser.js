@@ -251,10 +251,14 @@ My_entry.parser.prototype.make_trees = function(sentence, re){
     }
     else switch(token_lower){
       // reserved word
+      // variable
       case "ans":
         tree = DATA.tree_tag("REv", token_lower);
         break;
+      // command
       case "clear":
+      case "store":
+      case "restore":
       case "stop":
         throw "Invalid "+token+" called";
         break;
@@ -531,6 +535,8 @@ My_entry.parser.prototype.isCommand = function(sentence){
   var sentence_lower = sentence.toLowerCase();
   switch(sentence_lower){
     case "clear":
+    case "store":
+    case "restore":
     case "stop":
       _command = sentence_lower;
       break;
