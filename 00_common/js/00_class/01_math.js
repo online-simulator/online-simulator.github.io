@@ -235,6 +235,30 @@ My_entry.math.prototype["|"] = function(x, y){
   var self = this;
   return (x|y);
 };
+My_entry.math.prototype["<"] = function(x, y){
+  var self = this;
+  return ((x<y)? 1: 0);
+};
+My_entry.math.prototype["<="] = function(x, y){
+  var self = this;
+  return ((x<=y)? 1: 0);
+};
+My_entry.math.prototype[">="] = function(x, y){
+  var self = this;
+  return ((x>=y)? 1: 0);
+};
+My_entry.math.prototype[">"] = function(x, y){
+  var self = this;
+  return ((x>y)? 1: 0);
+};
+My_entry.math.prototype["=="] = function(x, y){
+  var self = this;
+  return ((x==y)? 1: 0);
+};
+My_entry.math.prototype["<>"] = function(x, y){
+  var self = this;
+  return ((x!=y)? 1: 0);
+};
 My_entry.math.prototype.lcm = function(x, y){
   var self = this;
   if(x < 0 || y < 0) return false;

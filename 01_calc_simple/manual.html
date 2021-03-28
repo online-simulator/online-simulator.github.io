@@ -654,11 +654,11 @@ ans -> 6
 <br>
 ・式変数名のみ明示する
 <br>
-eqn_x&lt;=(a*x+b=0) -> stored_eqn(eqn_x)
+eqn_x=&lt;(a*x+b=0) -> stored_eqn(eqn_x)
 <br>
 3*2 -> 6
 <br>
-eqn_t&lt;=sin(omega(t)) -> stored_eqn(eqn_t)
+eqn_t=&lt;sin(omega(t)) -> stored_eqn(eqn_t)
 <br>
 ans -> 6
 <br>
@@ -790,7 +790,7 @@ max(x=1,(x):2,3)[0]2 || (max((0,1:2,3)[0]))2 || (max(0,1))2 || (1)2 -> 2
     </th>
     <td>
 <span id="span-out-prec-ope"></span>
-演算子の優先順位について抜粋して記述する
+演算子の優先順位と付随する留意事項について記述する
 <br>
 <br>
 除算と乗算の2項演算子は区別せず、結合性に従って演算する
@@ -840,15 +840,38 @@ max(x=1,(x):2,3)[0]2 || (max((0,1:2,3)[0]))2 || (max(0,1))2 || (1)2 -> 2
 -0xff&gt;&gt;1@1 || (-0xff&gt;&gt;1)@1 || (-128)@1 -> -127
 <br>
 <br>
-細かな設定変更は
+ビット演算子は比較演算子・関係演算子より優先する
+<br>
+5<2|4 || 5<(2|4) || 5<6 -> 1
+<br>
+4==2|4 || 4==(2|4) || 4==6 -> 0
+<br>
+・比較演算子は関係演算子より優先する
+<br>
+0==2<1 || 0==(2<1) -> 1
+<br>
+・ビット演算子・比較演算子・関係演算子は実数のみ対応
+<br>
+・被演算子に虚数を入力した場合、零と見なされる
+<br>
+2i>i || real(2i)>real(i) || 0>0 -> 0
+<br>
+i==0 || real(i)==0 -> 1
+<br>
+・not equalの2項演算子は!=の代わりに&lt;&gt;を使用する
+<br>
+1&lt;&gt;2 -> 1
+<br>
+<br>
+比較演算子・関係演算子を代替する関数は<a href="#span-out-FN">関数入力仕様</a>参照
+<br>
+<br>
+演算子の優先順位を変更する場合
+<br>
+記号省略乗算を許容しない場合
+<br>
 <a href="#span-out-config">裏設定</a>
 参照
-<br>
-<br>
-関係演算子・比較演算子は演算子記号を定義せず、関数で代替する
-<br>
-<br>
-詳細は<a href="#span-out-FN">関数入力仕様</a>参照
     </td>
   </tr>
   <tr>
@@ -982,6 +1005,8 @@ ans*1000 -> 9007199254740990
 0.9999999999999999/1000 -> 0.0009999999999999998
 <br>
 ans*1000 -> 0.9999999999999998
+<br>
+・実数演算の場合
 <br>
 ・2の累乗倍で演算すれば仮数部の有効桁はそのまま保持される
 <br>
@@ -1181,7 +1206,7 @@ ans&lt;&lt;3  // 11111000 -> 248
 <br>
 f(x)=x^2のx=1+iにおける1階微分の数値解
 <br>
-x=1+i; _dx(&lt;={x^2})
+x=1+i; _dx(=&lt;{x^2})
 <br>
 -> 1.9999999999996223+1.9999999999996223i+O(1e-12+1e-12i)
 <br>
@@ -1220,7 +1245,7 @@ norm(errr) -> 2.6707272722211015e-13
 <br>
 f(x)=x^4の積分範囲[0,1+i]における定積分の数値解
 <br>
-a=0; b=1+i; _ix(&lt;={x^4},a,b) || ab=[0,1+i]; _ix(&lt;={x^4},ab)
+a=0; b=1+i; _ix(=&lt;{x^4},a,b) || ab=[0,1+i]; _ix(=&lt;{x^4},ab)
 <br>
 -> -0.8000000053333336-0.8000000053333334i+O(1e-8+1e-8i)
 <br>
@@ -1261,7 +1286,7 @@ norm(errr) -> 9.428090312727323e-9
 <br>
 ・数値誤差を含む演算結果に対して
 <br>
-x=1+i; _dx(&lt;={x^2})
+x=1+i; _dx(=&lt;{x^2})
 <br>
 -> 1.9999999999996223+1.9999999999996223i+O(1e-12+1e-12i)
 <br>
@@ -1314,7 +1339,7 @@ index.html?param0=value0&amp;param1=value1&amp;param2=value2&amp;...
 <a href="#span-in-prec">tag名</a>
 を優先順にカンマ区切りで列挙する
 <br>
-precedence=URi,URf,BRp,BRr,BRmo,BRdm,BRsa,BRbs,BRba,BRbx,BRbo
+precedence=URi,URf,BRp,BRr,BRmo,BRdm,BRsa,BRbs,BRba,BRbx,BRbo,BRcn,BRrl
 <br>
 ・別途、乗算記号の省略を許容しない場合、tag名BRmoを削除する
 <br>
@@ -1623,7 +1648,7 @@ clear, || clear: -> [MyErr]Invalid clear called
 <br>
 ・式変数への代入不可
 <br>
-f&lt;=clear -> [MyErr]Invalid clear called
+f=&lt;clear -> [MyErr]Invalid clear called
 <br>
 <br>
 命令文を以下に示す
@@ -1839,7 +1864,7 @@ trans{1,2:3,4} -> (1,2:3,4)
 <br>
 x=(1,2); y={1,2}; x*y || (x)(y) || {x}{y} || ({x}{y}) || {{x}{y}}  -> 5
 <br>
-x&lt;=(1,2); y&lt;={1,2}; x*y || (x)(y) || {x}{y} || ({x}{y}) || {{x}{y}}  -> 5
+x=&lt;(1,2); y=&lt;{1,2}; x*y || (x)(y) || {x}{y} || ({x}{y}) || {{x}{y}}  -> 5
 <br>
 <br>
 2重列挙の場合
@@ -1856,21 +1881,21 @@ x=(1,2); y={3,4}; {x:y} -> (1,2,3:0,0,4)
 <br>
 ・式変数も同様
 <br>
-x&lt;=(1,2); y&lt;={3,4}; (x,y) -> (1,2,3:0,0,4)
+x=&lt;(1,2); y=&lt;{3,4}; (x,y) -> (1,2,3:0,0,4)
 <br>
-x&lt;=(1,2); y&lt;={3,4}; (x:y) -> (1,2:3:4)
+x=&lt;(1,2); y=&lt;{3,4}; (x:y) -> (1,2:3:4)
 <br>
-x&lt;=(1,2); y&lt;={3,4}; {x,y} -> (1,2:3:4)
+x=&lt;(1,2); y=&lt;{3,4}; {x,y} -> (1,2:3:4)
 <br>
-x&lt;=(1,2); y&lt;={3,4}; {x:y} -> (1,2,3:0,0,4)
+x=&lt;(1,2); y=&lt;{3,4}; {x:y} -> (1,2,3:0,0,4)
 <br>
-x&lt;=(1,2); y&lt;={3,4}; z&lt;=(x,y); z -> (1,2,3:0,0,4)
+x=&lt;(1,2); y=&lt;{3,4}; z=&lt;(x,y); z -> (1,2,3:0,0,4)
 <br>
-x&lt;=(1,2); y&lt;={3,4}; z&lt;=(x:y); z -> (1,2:3:4)
+x=&lt;(1,2); y=&lt;{3,4}; z=&lt;(x:y); z -> (1,2:3:4)
 <br>
-x&lt;=(1,2); y&lt;={3,4}; z&lt;={x,y}; z -> (1,2:3:4)
+x=&lt;(1,2); y=&lt;{3,4}; z=&lt;{x,y}; z -> (1,2:3:4)
 <br>
-x&lt;=(1,2); y&lt;={3,4}; z&lt;={x:y}; z -> (1,2,3:0,0,4)
+x=&lt;(1,2); y=&lt;{3,4}; z=&lt;{x:y}; z -> (1,2,3:0,0,4)
 <br>
 ・抜け要素は零として演算する
 <br>
@@ -1967,7 +1992,7 @@ stop=3 -> [MyErr]Invalid stop called
 <br>
 max=3 -> [MyErr]Invalid ans isFound
 <br>
-max&lt;=3 -> [MyErr]Invalid BTe([object Object])
+max=&lt;3 -> [MyErr]Invalid BTe([object Object])
 <br>
 ＭＡＸ=3 -> [MyErr]Invalid ans isFound
 <br>
@@ -2218,17 +2243,17 @@ leftとrightの数値の関係や大小を比較する関数を列挙する
 <br>
 ・実数の場合
 <br>
-　・equal判定関数: eq(left, right)
+　・演算子==を代替するequal判定関数: eq(left, right)
 <br>
-　・not equal判定関数: ne(left, right)
+　・演算子&lt;&gt;を代替するnot equal判定関数: ne(left, right)
 <br>
-　・less than判定関数: lt(left, right)
+　・演算子&lt;を代替するless than判定関数: lt(left, right)
 <br>
-　・less or equal判定関数: le(left, right)
+　・演算子&lt;=を代替するless or equal判定関数: le(left, right)
 <br>
-　・greater than判定関数: gt(left, right)
+　・演算子&gt;を代替するgreater than判定関数: gt(left, right)
 <br>
-　・greater or equal判定関数: ge(left, right)
+　・演算子&gt;=を代替するgreater or equal判定関数: ge(left, right)
 <br>
 ・引数
 <br>
@@ -2886,11 +2911,11 @@ A=(1:1,i:1,i,-i); A[0][1] -> [MyErr]Invalid reference of array
 <br>
 ・式変数を使用
 <br>
-clear; n=2; xn&lt;=(n,2n); xn[0][1] || (xn=&gt;)[0][1] -> 4
+clear; n=2; xn=&lt;(n,2n); xn[0][1] || (xn=&gt;)[0][1] -> 4
 <br>
-clear; n=2; xn&lt;=(n,2n); xn=&gt;[0][1] -> [MyErr]Invalid REe(=&gt;)
+clear; n=2; xn=&lt;(n,2n); xn=&gt;[0][1] -> [MyErr]Invalid REe(=&gt;)
 <br>
-clear; n=2; xn&lt;=(n,2n)[0][1]; xn=&gt; -> 4
+clear; n=2; xn=&lt;(n,2n)[0][1]; xn=&gt; -> 4
 <br>
 <br>
 任意要素を演算
@@ -2982,13 +3007,13 @@ A=(1,2:3,4); A[0.5][0]=-1 -> [MyErr]Invalid reference of array
 <br>
 ・式変数への要素指定・行指定の代入不可
 <br>
-clear; A&lt;=(1,2:3,4); A[1][1]=0 -> [MyErr]Undef var(A)
+clear; A=&lt;(1,2:3,4); A[1][1]=0 -> [MyErr]Undef var(A)
 <br>
-clear; A&lt;=(1,2:3,4); A[1]=(,) -> [MyErr]Undef var(A)
+clear; A=&lt;(1,2:3,4); A[1]=(,) -> [MyErr]Undef var(A)
 <br>
-clear; A&lt;=(1,2:3,4); (A=&gt;)[1][1]=0 || =0-4 -> -4
+clear; A=&lt;(1,2:3,4); (A=&gt;)[1][1]=0 || =0-4 -> -4
 <br>
-clear; A&lt;=(1,2:3,4); (A=&gt;)[1]=(,) || =(,)-(A=&gt;)[1] -> (-3,-4)
+clear; A=&lt;(1,2:3,4); (A=&gt;)[1]=(,) || =(,)-(A=&gt;)[1] -> (-3,-4)
 <br>
 <br>
 ベクトルの結合
@@ -3210,7 +3235,7 @@ testcaseを列挙する
 <br>
 0,0,1.4142135623730951)
 <br>
-t=_dx(&lt;={x},1,1)pi/4+1000i; t
+t=_dx(=&lt;{x},1,1)pi/4+1000i; t
 <br>
 -> infoLost[ i] 0.7853981633974194+1000i+O(8e-13+8e-13i)
 <br>
@@ -3225,11 +3250,11 @@ t=_dx(&lt;={x},1,1)pi/4+1000i; t
 <br>
 回転行列の引数の誤差情報を継承する場合
 <br>
-t=_dx(&lt;={x},1,1)pi/4+1000i;
+t=_dx(=&lt;{x},1,1)pi/4+1000i;
 <br>
 rt=real(t); rt -> infoLost[ i] 0.7853981633974194+O(8e-13)
 <br>
-rotx&lt;=(1,0,0:0,cos(rt),-sin(rt):0,sin(rt),cos(rt));
+rotx=&lt;(1,0,0:0,cos(rt),-sin(rt):0,sin(rt),cos(rt));
 <br>
 rotx ->
 <br>
@@ -3245,9 +3270,9 @@ infoLost[ i] 0.7071067811865679+O(6e-13))
 <br>
 ・一続きにまとめる場合
 <br>
-t=_dx(&lt;={x},1,1)pi/4+1000i;
+t=_dx(=&lt;{x},1,1)pi/4+1000i;
 <br>
-rotx&lt;={rt=real(t),&lt;=(1,0,0:0,cos(rt),-sin(rt):0,sin(rt),cos(rt))}=&gt;;
+rotx=&lt;{rt=real(t),=&lt;(1,0,0:0,cos(rt),-sin(rt):0,sin(rt),cos(rt))}=&gt;;
 <br>
 (sqrt2,,:,sqrt2,:,,sqrt2)rotx ->
 <br>
@@ -3266,11 +3291,11 @@ infoLost[ i] 1.0000000000000289+O(8e-13))
 <br>
 ・x/y/zに対するEuler角をphi/theta/psiとする
 <br>
-rotx&lt;={rt=real(phi),&lt;=(1,,:,cos(rt),-sin(rt):,sin(rt),cos(rt))}=&gt;;
+rotx=&lt;{rt=real(phi),=&lt;(1,,:,cos(rt),-sin(rt):,sin(rt),cos(rt))}=&gt;;
 <br>
-roty&lt;={rt=real(theta),&lt;=(cos(rt),,sin(rt):,1,:-sin(rt),,cos(rt))}=&gt;;
+roty=&lt;{rt=real(theta),=&lt;(cos(rt),,sin(rt):,1,:-sin(rt),,cos(rt))}=&gt;;
 <br>
-rotz&lt;={rt=real(psi),&lt;=(cos(rt),-sin(rt),:sin(rt),cos(rt),:,,1)}=&gt;;
+rotz=&lt;{rt=real(psi),=&lt;(cos(rt),-sin(rt),:sin(rt),cos(rt),:,,1)}=&gt;;
 <br>
 phi=pi/5; rotx-rotationx(phi) -> (0,0,0:0,0,0:0,0,0)
 <br>
@@ -3283,19 +3308,19 @@ psi=pi/5; rotz-rotationz(psi) -> (0,0,0:0,0,0:0,0,0)
 <br>
 ・関数を使用する場合
 <br>
-rotx&lt;={rotationx(phi)};
+rotx=&lt;{rotationx(phi)};
 <br>
-roty&lt;={rotationy(theta)};
+roty=&lt;{rotationy(theta)};
 <br>
-rotz&lt;={rotationz(psi)};
+rotz=&lt;{rotationz(psi)};
 <br>
 ・式変数で定義する場合
 <br>
-rotx&lt;={rt=real(phi),&lt;=(1,,:,cos(rt),-sin(rt):,sin(rt),cos(rt))}=&gt;;
+rotx=&lt;{rt=real(phi),=&lt;(1,,:,cos(rt),-sin(rt):,sin(rt),cos(rt))}=&gt;;
 <br>
-roty&lt;={rt=real(theta),&lt;=(cos(rt),,sin(rt):,1,:-sin(rt),,cos(rt))}=&gt;;
+roty=&lt;{rt=real(theta),=&lt;(cos(rt),,sin(rt):,1,:-sin(rt),,cos(rt))}=&gt;;
 <br>
-rotz&lt;={rt=real(psi),&lt;=(cos(rt),-sin(rt),:sin(rt),cos(rt),:,,1)}=&gt;;
+rotz=&lt;{rt=real(psi),=&lt;(cos(rt),-sin(rt),:sin(rt),cos(rt),:,,1)}=&gt;;
 <br>
 ・一般化した回転行列rot_は対象行列matの左から演算する
 <br>
@@ -3305,7 +3330,7 @@ mat_after=rot_*mat_before
 <br>
 ・回転順序x⇒y⇒z
 <br>
-rot_zyx&lt;={rotz*roty*rotx};
+rot_zyx=&lt;{rotz*roty*rotx};
 <br>
 phi=pi/4; theta=3pi/4; psi=-3pi/4;
 <br>
@@ -3319,7 +3344,7 @@ ans_zyx=rot_zyx; ans_zyx ->
 <br>
 ・回転順序z⇒y⇒x
 <br>
-rot_xyz&lt;={rotx*roty*rotz};
+rot_xyz=&lt;{rotx*roty*rotz};
 <br>
 phi=-pi/4; theta=-3pi/4; psi=3pi/4;
 <br>
@@ -3353,7 +3378,7 @@ ans_zyx*ans_xyz ->
 <br>
 ・回転順序y⇒x⇒z
 <br>
-rot_zxy&lt;={rotz*rotx*roty};
+rot_zxy=&lt;{rotz*rotx*roty};
 <br>
 phi=pi/4; theta=3pi/4; psi=-3pi/4;
 <br>
@@ -3367,7 +3392,7 @@ ans_zxy=rot_zxy; ans_zxy ->
 <br>
 ・回転順序z⇒x⇒y
 <br>
-rot_yxz&lt;={roty*rotx*rotz};
+rot_yxz=&lt;{roty*rotx*rotz};
 <br>
 phi=-pi/4; theta=-3pi/4; psi=3pi/4;
 <br>
@@ -3518,17 +3543,17 @@ clear; x=2:3x -> (0:6)
 式変数の入力仕様と付随する留意事項について記述する
 <br>
 <br>
-式変数へ代入・再代入方法は、式変数名&lt;=方程式または関数式とする
+式変数へ代入・再代入方法は、式変数名=&lt;方程式または関数式とする
 <br>
 ・式変数への代入を以降、式代入と呼ぶ
 <br>
-y&lt;={a*x+b=0}; -> stored_eqn(y)
+y=&lt;{a*x+b=0}; -> stored_eqn(y)
 <br>
-y&lt;=a*x+b=0; -> stored_eqn(y)
+y=&lt;a*x+b=0; -> stored_eqn(y)
 <br>
-y&lt;={a*x+b}; -> stored_eqn(y)
+y=&lt;{a*x+b}; -> stored_eqn(y)
 <br>
-y&lt;=a*x+b; -> stored_eqn(y)
+y=&lt;a*x+b; -> stored_eqn(y)
 <br>
 <br>
 式変数から値を読出す方法は、式変数名=&gt;とする
@@ -3537,48 +3562,48 @@ y&lt;=a*x+b; -> stored_eqn(y)
 <br>
 ・式変数からの値読出しを以降、式読出しと呼ぶ
 <br>
-y&lt;=a*x+b; y=&gt; -> [MyErr]Invalid binary operation
+y=&lt;a*x+b; y=&gt; -> [MyErr]Invalid binary operation
 <br>
-y&lt;=a*x+b; y=&gt;y0 -> [MyErr]Invalid binary operation
+y=&lt;a*x+b; y=&gt;y0 -> [MyErr]Invalid binary operation
 <br>
 <br>
 関数式の変数を定義して再度読出す
 <br>
-y&lt;=a*x+b; a=1; b=2; x=3; y=&gt; || 1*3+2 -> 5
+y=&lt;a*x+b; a=1; b=2; x=3; y=&gt; || 1*3+2 -> 5
 <br>
-y&lt;=a*x+b; a=1; b=2; x=3; y=&gt;y0; y0 -> 5
+y=&lt;a*x+b; a=1; b=2; x=3; y=&gt;y0; y0 -> 5
 <br>
 ・式読出しを括弧で括れば変数同様に扱える
 <br>
-2; y&lt;=ans; max(3,4(y=&gt;)2) || max(3,4*2*2) -> 16
+2; y=&lt;ans; max(3,4(y=&gt;)2) || max(3,4*2*2) -> 16
 <br>
-2; y&lt;=ans; max(3,4(y=&gt;y0)2); y=&gt; -> 16
+2; y=&lt;ans; max(3,4(y=&gt;y0)2); y=&gt; -> 16
 <br>
 <br>
 式変数と同名の変数が未定義の場合、直接、式読出し可
 <br>
-clear; y&lt;=a*x+b; a=1; b=2; x=3; 2y -> 10
+clear; y=&lt;a*x+b; a=1; b=2; x=3; 2y -> 10
 <br>
-clear; y&lt;=a*x+b; a=1; b=2; x=3; y0=2y; y0 -> 10
+clear; y=&lt;a*x+b; a=1; b=2; x=3; y0=2y; y0 -> 10
 <br>
 ・ただし、式読出し記号を明示する方が間違いが少ない
 <br>
-y=-1; y&lt;=a*x+b; a=1; b=2; x=3; 2y -> -2
+y=-1; y=&lt;a*x+b; a=1; b=2; x=3; 2y -> -2
 <br>
-y=-1; y&lt;=a*x+b; a=1; b=2; x=3; 2(y=&gt;) -> 10
+y=-1; y=&lt;a*x+b; a=1; b=2; x=3; 2(y=&gt;) -> 10
 <br>
 ・さらに、式変数名と変数名は区別する方が間違いが少ない
 <br>
-y=3; y&lt;=3y-1; 2y -> 6
+y=3; y=&lt;3y-1; 2y -> 6
 <br>
-y=3; y&lt;=3y-1; y=&gt;y; 2y -> 16
+y=3; y=&lt;3y-1; y=&gt;y; 2y -> 16
 <br>
-y0=3; y&lt;=3y0-1; y=&gt;y1; 2y1 -> 16
+y0=3; y=&lt;3y0-1; y=&gt;y1; 2y1 -> 16
 <br>
 <br>
 式変数名で明示して直接読出す方法も有り得る
 <br>
-clear; eqn_x&lt;=(a*x+b=0); a=1; b=2; x=3; 2eqn_x || 2*(-5) -> -10
+clear; eqn_x=&lt;(a*x+b=0); a=1; b=2; x=3; 2eqn_x || 2*(-5) -> -10
 <br>
 <br>
 以降、変数名と式変数名は被らない前提で式読出し記号を省略する
@@ -3603,38 +3628,38 @@ clear; eqn_x&lt;=(a*x+b=0); a=1; b=2; x=3; 2eqn_x || 2*(-5) -> -10
 <br>
 式変数と同名の変数が未定義で循環参照した場合、error終了
 <br>
-clear; y&lt;=3y-1; y -> [MyErr]Invalid circular(y)
+clear; y=&lt;3y-1; y -> [MyErr]Invalid circular(y)
 <br>
 <br>
-式変数名&lt;=関数名として関数名を任意に変更可（参照渡しを模擬）
+式変数名=&lt;関数名として関数名を任意に変更可（参照渡しを模擬）
 <br>
-clear; tr&lt;=trans; tr(1,2:3,4) || (tr=&gt;)(1,2:3,4) -> (1,3:2,4)
+clear; tr=&lt;trans; tr(1,2:3,4) || (tr=&gt;)(1,2:3,4) -> (1,3:2,4)
 <br>
-clear; htr&lt;=htrans; htr((htr(i,2i:3i,4i))[1]) -> (2i:4i)
+clear; htr=&lt;htrans; htr((htr(i,2i:3i,4i))[1]) -> (2i:4i)
 <br>
-clear; tr&lt;=trans; tr[2] -> [MyErr]Invalid FNm(transpose)
+clear; tr=&lt;trans; tr[2] -> [MyErr]Invalid FNm(transpose)
 <br>
-clear; trans&lt;=trans -> [MyErr]Invalid FNm(transpose)
+clear; trans=&lt;trans -> [MyErr]Invalid FNm(transpose)
 <br>
 ・高階関数の場合
 <br>
-clear; d&lt;=_d -> [MyErr]Invalid FNh called
+clear; d=&lt;_d -> [MyErr]Invalid FNh called
 <br>
-clear; dx&lt;=_dx; dx(&lt;={x^2},1,2)
+clear; dx=&lt;_dx; dx(=&lt;{x^2},1,2)
 <br>
 -> 3.999999999999929+3.5537737875913754e-14i+O(2e-11+1e-12i)
 <br>
 <br>
 式代入を括弧で括った場合、零を返す
 <br>
-(x&lt;=3) -> 0
+(x=&lt;3) -> 0
 <br>
 <br>
 式代入をカンマかコロンで区切った場合、零を返す
 <br>
-clear; x&lt;=2,3x -> (0,6)
+clear; x=&lt;2,3x -> (0,6)
 <br>
-clear; x&lt;=2:3x -> (0:6)
+clear; x=&lt;2:3x -> (0:6)
 <br>
 <br>
 詳細は<a href="#span-out-special">特殊仕様</a>参照
@@ -3646,24 +3671,24 @@ clear; x&lt;=2:3x -> (0:6)
 <br>
 ・式読出し記号を明示する場合
 <br>
-clear; eqn_x&lt;=3x; eqn_y&lt;=(eqn_x=&gt;); x=3; eqn_y=&gt; ->9
+clear; eqn_x=&lt;3x; eqn_y=&lt;(eqn_x=&gt;); x=3; eqn_y=&gt; ->9
 <br>
 ・同名の変数未定義の前提で式読出し記号を省略する場合
 <br>
-clear; eqn_x&lt;=3x; eqn_y&lt;=eqn_x; x=3; eqn_y ->9
+clear; eqn_x=&lt;3x; eqn_y=&lt;eqn_x; x=3; eqn_y ->9
 <br>
 <br>
 式渡しの仕様を列挙する
 <br>
 ・式渡しの直接読出し
 <br>
-(&lt;=3)=&gt; -> 3
+(=&lt;3)=&gt; -> 3
 <br>
-(&lt;={3})=&gt; -> 3
+(=&lt;{3})=&gt; -> 3
 <br>
 ({3})=&gt; -> [MyErr]Invalid mat([object Object])
 <br>
-(1,2,&lt;=3)=&gt; -> 3
+(1,2,=&lt;3)=&gt; -> 3
 <br>
 (1,2,3)=&gt; -> [MyErr]Invalid mat([object Object])
 <br>
@@ -3671,27 +3696,31 @@ clear; eqn_x&lt;=3x; eqn_y&lt;=eqn_x; x=3; eqn_y ->9
 <br>
 ・last行列関数は最終要素しか取り出せない
 <br>
-clear; (x=(1,2),&lt;=x)=&gt; -> (1,2)
+clear; (x=(1,2),=&lt;x)=&gt; -> (1,2)
+<br>
+clear; {x=(1,2:3,4),x=-x,=&lt;x}=&gt; -> (-1,-2:-3,-4)
 <br>
 clear; last(x=(1,2),x) -> 2
 <br>
+clear; last{x=(1,2:3,4),x=-x,x} -> -4
+<br>
 ・式変数の場合も同様
 <br>
-clear; f&lt;={x}; x=(1,2); f=&gt; -> (1,2)
+clear; f=&lt;{x}; x=(1,2); f=&gt; -> (1,2)
 <br>
-clear; (f&lt;={x},x=(1,2),&lt;=f)=&gt; -> (1,2)
+clear; (f=&lt;{x},x=(1,2),=&lt;f)=&gt; -> (1,2)
 <br>
-clear; (f&lt;={x},x=(1,2),f) -> (0,0,1,2)
+clear; (f=&lt;{x},x=(1,2),f) -> (0,0,1,2)
 <br>
-clear; (f&lt;={x},x=(1,2),f)=&gt; -> [MyErr]Invalid mat([object Object])
+clear; (f=&lt;{x},x=(1,2),f)=&gt; -> [MyErr]Invalid mat([object Object])
 <br>
-clear; last(f&lt;={x},x=(1,2),f) -> 2
+clear; last(f=&lt;{x},x=(1,2),f) -> 2
 <br>
-clear; last(f&lt;={x},x=(1,2),&lt;=f) -> [MyErr]Invalid BTe([object Object])
+clear; last(f=&lt;{x},x=(1,2),=&lt;f) -> [MyErr]Invalid BTe([object Object])
 <br>
-clear; (f&lt;={x},x=(1,2),&lt;=f) -> [MyErr]Invalid BTe([object Object])
+clear; (f=&lt;{x},x=(1,2),=&lt;f) -> [MyErr]Invalid BTe([object Object])
 <br>
-clear; (f&lt;={x},x=(1,2),eqn_f&lt;=f); eqn_f -> (1,2)
+clear; (f=&lt;{x},x=(1,2),eqn_f=&lt;f); eqn_f -> (1,2)
 <br>
 ・値渡しの場合、無条件に演算を実行するが、
 <br>
@@ -3728,11 +3757,11 @@ switch高階関数
 ・条件文が不成立の場合、対の処理は実行されない
 <br>
 <br>
-switch(第1引数,&lt;=第2引数:第3引数,&lt;=第4引数:...)
+switch(第1引数,=&lt;第2引数:第3引数,=&lt;第4引数:...)
 <br>
-switch((第1引数,&lt;=第2引数):(第3引数,&lt;=第4引数):...)
+switch((第1引数,=&lt;第2引数):(第3引数,=&lt;第4引数):...)
 <br>
-switch({第1引数:&lt;=第2引数}:{第3引数:&lt;=第4引数}:...)
+switch({第1引数:=&lt;第2引数}:{第3引数:=&lt;第4引数}:...)
 <br>
 ・引数
 <br>
@@ -3764,6 +3793,29 @@ switch(第1引数,第2引数:第3引数,第4引数:...)
 　全条件文不成立時: 0を返す
 <br>
 <br>
+次のNativeによるif文を一例に示す
+<br>
+if(x &gt;= 4) return 4;
+<br>
+else if(x &gt; 3) return 3;
+<br>
+else if(x &gt; 2) return 2;
+<br>
+else return -x;
+<br>
+・値渡しで記述する場合
+<br>
+x=2; switch(x&gt;=4,4:x&gt;3,3:x&gt;2,2:1,-x) -> -2
+<br>
+x=2; switch(ge(x,4),4:gt(x,3),3:gt(x,2),2:1,-x) -> -2
+<br>
+・式渡しで記述する場合
+<br>
+x=2; switch(x&gt;=4,=&lt;4:x&gt;3,=&lt;3:x&gt;2,=&lt;2:1,=&lt;{-x}) -> -2
+<br>
+x=2; switch(ge(x,4),=&lt;4:gt(x,3),=&lt;3:gt(x,2),=&lt;2:1,=&lt;{-x}) -> -2
+<br>
+<br>
 testcaseを列挙する
 <br>
 switch(0) -> 0
@@ -3774,21 +3826,21 @@ switch(1,1) -> 1
 <br>
 switch(0,0:1,2:3,4) -> 2
 <br>
-switch(1,&lt;={1}) -> 1
+switch(1,=&lt;{1}) -> 1
 <br>
-switch(0:1,&lt;={1}) -> 1
+switch(0:1,=&lt;{1}) -> 1
 <br>
-switch(0,0:1,&lt;={1}) || switch((0,0):(1,&lt;={1})) || switch({0:0}:{1:&lt;={1}}) -> 1
+switch(0,0:1,=&lt;{1}) || switch((0,0):(1,=&lt;{1})) || switch({0:0}:{1:=&lt;{1}}) -> 1
 <br>
-switch(0,0,1,&lt;={1})  // NG -> 0
+switch(0,0,1,=&lt;{1})  // NG -> 0
 <br>
-switch(0,0:0,0:0,0:1,&lt;={1}:1,&lt;={2}) -> 1
+switch(0,0:0,0:0,0:1,=&lt;{1}:1,=&lt;{2}) -> 1
 <br>
 ・実数の絶対値abs(real(x))を返す場合
 <br>
-x=1; switch(lt(real(x),0),&lt;={-real(x)}:1,&lt;={real(x)}) -> 1
+x=1; switch(lt(real(x),0),=&lt;{-real(x)}:1,=&lt;{real(x)}) -> 1
 <br>
-x=-1; switch(lt(real(x),0),&lt;={-real(x)}:1,&lt;={real(x)}) -> 1
+x=-1; switch(lt(real(x),0),=&lt;{-real(x)}:1,=&lt;{real(x)}) -> 1
 <hr>
 <br>
 総和高階関数
@@ -3800,7 +3852,7 @@ x=-1; switch(lt(real(x),0),&lt;={-real(x)}:1,&lt;={real(x)}) -> 1
 ・ダミー変数は無次元でローカル変数から独立する
 <br>
 <br>
-_sダミー変数名(&lt;=第1引数,第2引数,第3引数[,第4引数])
+_sダミー変数名(=&lt;第1引数,第2引数,第3引数[,第4引数])
 <br>
 ・第1引数: ダミー変数の関数式を式渡し
 <br>
@@ -3817,69 +3869,69 @@ testcaseを列挙する
 <br>
 ・ダミー変数n=1~10のnの総和
 <br>
-_sn(&lt;={n},1,10) || 1+2+3+4+5+6+7+8+9+10 || (10+1)10/2 -> 55
+_sn(=&lt;{n},1,10) || 1+2+3+4+5+6+7+8+9+10 || (10+1)10/2 -> 55
 <br>
 ・範囲反転を単なる逆順の演算で定義する
 <br>
-_Sn(&lt;={n},10,1) || 10+9+8+7+6+5+4+3+2+1 -> 55
+_Sn(=&lt;{n},10,1) || 10+9+8+7+6+5+4+3+2+1 -> 55
 <br>
 ・ダミー変数が負の場合も同様に定義する
 <br>
-_sn(&lt;={n},-10,-1) || -10-9-8-7-6-5-4-3-2-1 -> -55
+_sn(=&lt;{n},-10,-1) || -10-9-8-7-6-5-4-3-2-1 -> -55
 <br>
-_Sn(&lt;={n},-1,-10) || -1-2-3-4-5-6-7-8-9-10 -> -55
+_Sn(=&lt;{n},-1,-10) || -1-2-3-4-5-6-7-8-9-10 -> -55
 <br>
 ・以降、ダミー変数に零を含めて記述する
 <br>
 ・ステップ2の場合
 <br>
-_sn(&lt;={n},0,10,2) || 0+2+4+6+8+10 -> 30
+_sn(=&lt;{n},0,10,2) || 0+2+4+6+8+10 -> 30
 <br>
-_Sn(&lt;={n},10,0,2) || 10+8+6+4+2+0 -> 30
+_Sn(=&lt;{n},10,0,2) || 10+8+6+4+2+0 -> 30
 <br>
 ・ステップ1未満の場合、暗黙で既定値に変換
 <br>
-_sn(&lt;={n},0,10,0) || _sn(&lt;={n},0,10,1) -> 55
+_sn(=&lt;{n},0,10,0) || _sn(=&lt;{n},0,10,1) -> 55
 <br>
 ・ステップ負の場合、暗黙で絶対値に変換
 <br>
-_sn(&lt;={n},0,10,-2) || _sn(&lt;={n},0,10,2) -> 30
+_sn(=&lt;{n},0,10,-2) || _sn(=&lt;{n},0,10,2) -> 30
 <br>
-_Sn(&lt;={n},10,0,-2) || _Sn(&lt;={n},10,0,2) -> 30
+_Sn(=&lt;{n},10,0,-2) || _Sn(=&lt;{n},10,0,2) -> 30
 <br>
 ・n=0~10の行列の総和
 <br>
-_sn(&lt;={(n,2n:3n,4n)},N=2,5N) -> (55,110:165,220)
+_sn(=&lt;{(n,2n:3n,4n)},N=2,5N) -> (55,110:165,220)
 <br>
-_Sn(&lt;={(n,2n:3n,4n)},10,0) -> (55,110:165,220)
+_Sn(=&lt;{(n,2n:3n,4n)},10,0) -> (55,110:165,220)
 <br>
 ・2変数の多重総和
 <br>
-_sy(&lt;={_sx(&lt;={x+y},0,y)},0,2) || 0+1+2+2+3+4 -> 12
+_sy(=&lt;{_sx(=&lt;{x+y},0,y)},0,2) || 0+1+2+2+3+4 -> 12
 <br>
-_Sy(&lt;={_Sx(&lt;={x+y},y,0)},2,0) || 4+3+2+2+1+0 -> 12
+_Sy(=&lt;{_Sx(=&lt;{x+y},y,0)},2,0) || 4+3+2+2+1+0 -> 12
 <br>
-_sy(&lt;={_Sx(&lt;={x+y},y,0)},0,2) || 0+2+1+4+3+2 -> 12
+_sy(=&lt;{_Sx(=&lt;{x+y},y,0)},0,2) || 0+2+1+4+3+2 -> 12
 <br>
-_Sy(&lt;={_sx(&lt;={x+y},0,y)},2,0) || 0+2+3+4+1+2 -> 12
+_Sy(=&lt;{_sx(=&lt;{x+y},0,y)},2,0) || 0+2+3+4+1+2 -> 12
 <br>
 ・総和を取るダミー変数はローカル変数から独立
 <br>
-x=-1; y=-2; _sy(&lt;={_sx(&lt;={x+y},0,y)},0,2); x+y -> -3
+x=-1; y=-2; _sy(=&lt;{_sx(=&lt;{x+y},0,y)},0,2); x+y -> -3
 <br>
 ・高階関数の引数も関数同様に最終行ベクトルの左から順に参照
 <br>
-_sn(,ns=0,:,ne=10,:&lt;={n},ns,ne) -> 55
+_sn(,is=0,:,ie=10,:=&lt;{n},is,ie) -> 55
 <br>
 ・ダミー変数は変数の命名規則に準拠
 <br>
-_smax(&lt;={0},1,2) -> [MyErr]Invalid max called
+_smax(=&lt;{0},1,2) -> [MyErr]Invalid max called
 <br>
-_spi(&lt;={0},1,2) -> [MyErr]Invalid pi called
+_spi(=&lt;{0},1,2) -> [MyErr]Invalid pi called
 <br>
-_s3(&lt;={0},1,2) -> [MyErr]Invalid 3 called
+_s3(=&lt;{0},1,2) -> [MyErr]Invalid 3 called
 <br>
-_s3n(&lt;={0},1,2) -> [MyErr]Invalid FNh called
+_s3n(=&lt;{0},1,2) -> [MyErr]Invalid FNh called
 <br>
 <br>
 応用例を示す
@@ -3890,7 +3942,7 @@ _s3n(&lt;={0},1,2) -> [MyErr]Invalid FNh called
 <br>
 storage cleared
 <br>
-Pb=3; Pn&lt;={100combin(10,n)(Pb/100)^n((100-Pb)/100)^(10-n)};
+Pb=3; Pn=&lt;{100combin(10,n)(Pb/100)^n((100-Pb)/100)^(10-n)};
 <br>
 n=0; Pn -> 73.74241268949281
 <br>
@@ -3916,27 +3968,27 @@ n=10; Pn -> 5.904899999999982e-14
 <br>
 ・10回試行中、N回以上当たりの確率[%]
 <br>
-N=10; _sn(&lt;=Pn,N,10) || 100(Pb/100)^N -> 5.904899999999982e-14
+N=10; _sn(=&lt;Pn,N,10) || 100(Pb/100)^N -> 5.904899999999982e-14
 <br>
-N=9; _sn(&lt;=Pn,N,10) -> 1.9151558999999963e-11
+N=9; _sn(=&lt;Pn,N,10) -> 1.9151558999999963e-11
 <br>
-N=8; _sn(&lt;=Pn,N,10) -> 2.7971117639999973e-9
+N=8; _sn(=&lt;Pn,N,10) -> 2.7971117639999973e-9
 <br>
-N=7; _sn(&lt;=Pn,N,10) -> 2.42319013884e-7
+N=7; _sn(=&lt;Pn,N,10) -> 2.42319013884e-7
 <br>
-N=6; _sn(&lt;=Pn,N,10) -> 0.000013795266642174013
+N=6; _sn(=&lt;Pn,N,10) -> 0.000013795266642174013
 <br>
-N=5; _sn(&lt;=Pn,N,10) -> 0.0005396496346198251
+N=5; _sn(=&lt;Pn,N,10) -> 0.0005396496346198251
 <br>
-N=4; _sn(&lt;=Pn,N,10) -> 0.014708503438462106
+N=4; _sn(=&lt;Pn,N,10) -> 0.014708503438462106
 <br>
-N=3; _sn(&lt;=Pn,N,10) -> 0.27649494514754835
+N=3; _sn(=&lt;Pn,N,10) -> 0.27649494514754835
 <br>
-N=2; _sn(&lt;=Pn,N,10) -> 3.4506555508702164
+N=2; _sn(=&lt;Pn,N,10) -> 3.4506555508702164
 <br>
-N=1; _sn(&lt;=Pn,N,10) -> 26.257587310507166
+N=1; _sn(=&lt;Pn,N,10) -> 26.257587310507166
 <br>
-N=0; _sn(&lt;=Pn,N,10) -> 99.99999999999999
+N=0; _sn(=&lt;Pn,N,10) -> 99.99999999999999
 <hr>
 <br>
 総乗・総積高階関数
@@ -3948,7 +4000,7 @@ N=0; _sn(&lt;=Pn,N,10) -> 99.99999999999999
 ・ダミー変数は無次元でローカル変数から独立する
 <br>
 <br>
-_pダミー変数名(&lt;=第1引数,第2引数,第3引数[,第4引数])
+_pダミー変数名(=&lt;第1引数,第2引数,第3引数[,第4引数])
 <br>
 ・第1引数: ダミー変数の関数式を式渡し
 <br>
@@ -3965,57 +4017,57 @@ testcaseを列挙する
 <br>
 ・ダミー変数n=1~10のnの総乗
 <br>
-_pn(&lt;={n},1,10) || 1*2*3*4*5*6*7*8*9*10 -> 3628800
+_pn(=&lt;{n},1,10) || 1*2*3*4*5*6*7*8*9*10 -> 3628800
 <br>
 ・範囲反転を単なる逆順の演算で定義する
 <br>
-_Pn(&lt;={n},10,1) || 10*9*8*7*6*5*4*3*2*1 -> 3628800
+_Pn(=&lt;{n},10,1) || 10*9*8*7*6*5*4*3*2*1 -> 3628800
 <br>
 ・ダミー変数が負の場合も同様に定義する
 <br>
-_pn(&lt;={n},-3,-1) || (-3)(-2)(-1) -> -6
+_pn(=&lt;{n},-3,-1) || (-3)(-2)(-1) -> -6
 <br>
-_Pn(&lt;={n},-1,-3) || (-1)(-2)(-3) -> -6
+_Pn(=&lt;{n},-1,-3) || (-1)(-2)(-3) -> -6
 <br>
 ・ステップ2の場合
 <br>
-_pn(&lt;={n},1,10,2) || 1*3*5*7*9 || 9!! -> 945
+_pn(=&lt;{n},1,10,2) || 1*3*5*7*9 || 9!! -> 945
 <br>
-_Pn(&lt;={n},10,1,2) || 10*8*6*4*2 || 10!! -> 3840
+_Pn(=&lt;{n},10,1,2) || 10*8*6*4*2 || 10!! -> 3840
 <br>
 ・ステップ3の場合
 <br>
-_pn(&lt;={n},1,2,3) || 1 -> 1
+_pn(=&lt;{n},1,2,3) || 1 -> 1
 <br>
-_Pn(&lt;={n},2,1,3) || 2 || 2!!! -> 2
+_Pn(=&lt;{n},2,1,3) || 2 || 2!!! -> 2
 <br>
 ・n=1~2の行列の総積
 <br>
-An&lt;=(n,2n:3n,4n); _pn(&lt;={An},1,2) || (1,2:3,4)(2,4:6,8) -> (14,20:30,44)
+An=&lt;(n,2n:3n,4n); _pn(=&lt;{An},1,2) || (1,2:3,4)(2,4:6,8) -> (14,20:30,44)
 <br>
-An&lt;=(n,2n:3n,4n); _Pn(&lt;={An},2,1) || (2,4:6,8)(1,2:3,4) -> (14,20:30,44)
+An=&lt;(n,2n:3n,4n); _Pn(=&lt;{An},2,1) || (2,4:6,8)(1,2:3,4) -> (14,20:30,44)
 <br>
 ・2変数の多重総乗
 <br>
-_py(&lt;={_px(&lt;={(x*y)},1,y)},1,3) || (1*1)(1*2)(2*2)(1*3)(2*3)(3*3) -> 1296
+_py(=&lt;{_px(=&lt;{(x*y)},1,y)},1,3) || (1*1)(1*2)(2*2)(1*3)(2*3)(3*3) -> 1296
 <br>
-_Py(&lt;={_Px(&lt;={(x*y)},y,1)},3,1) || (3*3)(2*3)(1*3)(2*2)(1*2)(1*1) -> 1296
+_Py(=&lt;{_Px(=&lt;{(x*y)},y,1)},3,1) || (3*3)(2*3)(1*3)(2*2)(1*2)(1*1) -> 1296
 <br>
-_py(&lt;={_Px(&lt;={(x*y)},y,1)},1,3) || (1*1)(2*2)(1*2)(3*3)(2*3)(1*3) -> 1296
+_py(=&lt;{_Px(=&lt;{(x*y)},y,1)},1,3) || (1*1)(2*2)(1*2)(3*3)(2*3)(1*3) -> 1296
 <br>
-_Py(&lt;={_px(&lt;={(x*y)},1,y)},3,1) || (1*3)(2*3)(3*3)(1*2)(2*2)(1*1) -> 1296
+_Py(=&lt;{_px(=&lt;{(x*y)},1,y)},3,1) || (1*3)(2*3)(3*3)(1*2)(2*2)(1*1) -> 1296
 <br>
 ・任意行列Aの累乗
 <br>
-A=(1,2:3,4); N=2; _pn(&lt;={A},1,N) -> (7,10:15,22)
+A=(1,2:3,4); N=2; _pn(=&lt;{A},1,N) -> (7,10:15,22)
 <br>
-A=(1,2:3,4); N=5; _pn(&lt;={A},1,N) -> (1069,1558:2337,3406)
+A=(1,2:3,4); N=5; _pn(=&lt;{A},1,N) -> (1069,1558:2337,3406)
 <br>
-A=(1,2:3,4); N=5; _pn(&lt;={trans(A)},1,N) -> (1069,2337:1558,3406)
+A=(1,2:3,4); N=5; _pn(=&lt;{trans(A)},1,N) -> (1069,2337:1558,3406)
 <br>
 ・複素数の任意行列cAの累乗
 <br>
-cA=(e^{i(pi/4)},:,e^{i(-pi/4)}); N=4; _pn(&lt;={cA},1,N)
+cA=(e^{i(pi/4)},:,e^{i(-pi/4)}); N=4; _pn(=&lt;{cA},1,N)
 <br>
 -> (-1+2.7755575615628914e-16i,0:0,-1-2.7755575615628914e-16i)
 <hr>
@@ -4031,7 +4083,7 @@ cA=(e^{i(pi/4)},:,e^{i(-pi/4)}); N=4; _pn(&lt;={cA},1,N)
 ・ダミー変数は無次元でローカル変数から独立する
 <br>
 <br>
-_rダミー変数名(&lt;=第1引数,第2引数,第3引数)
+_rダミー変数名(=&lt;第1引数,第2引数,第3引数)
 <br>
 ・第1引数: 任意処理を式渡し
 <br>
@@ -4046,57 +4098,57 @@ testcaseを列挙する
 <br>
 ・加算の漸化式
 <br>
-_rn(&lt;={n+1},,0) -> 0
+_rn(=&lt;{n+1},,0) -> 0
 <br>
-_rn(&lt;={n+1},,1) -> 1
+_rn(=&lt;{n+1},,1) -> 1
 <br>
-_rn(&lt;={n+1},,2) -> 2
+_rn(=&lt;{n+1},,2) -> 2
 <br>
 ・同義
 <br>
-Pn=0; _rn(&lt;={Pn=Pn+1},0,2); Pn -> 2
+Pn=0; _rn(=&lt;{Pn=Pn+1},0,2); Pn -> 2
 <br>
-_rn(&lt;={Pn=Pn+1},Pn=0,2); Pn -> 2
+_rn(=&lt;{Pn=Pn+1},Pn=0,2); Pn -> 2
 <br>
 ・初期値未定義の場合、error終了
 <br>
-clear; _rn(&lt;={Pn=Pn+1},,2); Pn -> [MyErr]Invalid binary operation
+clear; _rn(=&lt;{Pn=Pn+1},,2); Pn -> [MyErr]Invalid binary operation
 <br>
 ・非同義（変数への代入は零が返る）
 <br>
-clear; _rn(&lt;={n=n+1},,2)  // NG -> 0
+clear; _rn(=&lt;{n=n+1},,2)  // NG -> 0
 <br>
-clear; _rn(&lt;={n=n+1},,2); n -> [MyErr]Invalid REv(n)
+clear; _rn(=&lt;{n=n+1},,2); n -> [MyErr]Invalid REv(n)
 <br>
-clear; _rn(&lt;={n=n+1},n=0,2); n -> 0
+clear; _rn(=&lt;{n=n+1},n=0,2); n -> 0
 <br>
 ・乗算の漸化式
 <br>
-_rn(&lt;={n*2},1,0) -> 1
+_rn(=&lt;{n*2},1,0) -> 1
 <br>
-_rn(&lt;={n*2},1,1) || 2^1 -> 2
+_rn(=&lt;{n*2},1,1) || 2^1 -> 2
 <br>
-_rn(&lt;={n*2},1,2) || 2^2 -> 4
+_rn(=&lt;{n*2},1,2) || 2^2 -> 4
 <br>
-_rn(&lt;={n*2},1,3) || 2^3 -> 8
+_rn(=&lt;{n*2},1,3) || 2^3 -> 8
 <br>
 ・同義
 <br>
-Pn=1; _rn(&lt;={Pn=Pn*2},0,3); Pn -> 8
+Pn=1; _rn(=&lt;{Pn=Pn*2},0,3); Pn -> 8
 <br>
-_rn(&lt;={Pn=Pn*2},Pn=1,3); Pn -> 8
+_rn(=&lt;{Pn=Pn*2},Pn=1,3); Pn -> 8
 <br>
 ・任意行列Aの累乗
 <br>
-An=(1,:,1); A=(1,2:3,4); N=2; _rn(&lt;={An=An*A},,N); An -> (7,10:15,22)
+An=(1,:,1); A=(1,2:3,4); N=2; _rn(=&lt;{An=An*A},,N); An -> (7,10:15,22)
 <br>
-_rn(&lt;={An=An*(1,2:3,4)},An=(1,:,1),5); An -> (1069,1558:2337,3406)
+_rn(=&lt;{An=An*(1,2:3,4)},An=(1,:,1),5); An -> (1069,1558:2337,3406)
 <br>
 ・2変数の多重再帰
 <br>
-_ry(&lt;={_rx(&lt;={x+y},1,2)},1,2) || (1+(2+1))+3 -> 7
+_ry(=&lt;{_rx(=&lt;{x+y},1,2)},1,2) || (1+(2+1))+3 -> 7
 <br>
-_Ry(&lt;={_Rx(&lt;={x+y+1},1,2)},1,2) -> 13
+_Ry(=&lt;{_Rx(=&lt;{x+y+1},1,2)},1,2) -> 13
 <hr>
 <br>
 微分高階関数
@@ -4116,7 +4168,7 @@ _Ry(&lt;={_Rx(&lt;={x+y+1},1,2)},1,2) -> 13
 ・ダミー変数は無次元でローカル変数を参照するが、上書きしない
 <br>
 <br>
-_dダミー変数名(&lt;=第1引数[,第2引数[,第3引数[,第4引数]]])
+_dダミー変数名(=&lt;第1引数[,第2引数[,第3引数[,第4引数]]])
 <br>
 ・第1引数: ダミー変数の関数式を式渡し
 <br>
@@ -4147,11 +4199,11 @@ testcaseを列挙する
 <br>
 ・f(x)=(x+i)^5のx=1における微分を示す
 <br>
-x=1; dxD=1e-3; dx=max(1,abs(x))dxD(1+i); f&lt;={(x+i)^5} -> stored_eqn(f)
+x=1; dxD=1e-3; dx=max(1,abs(x))dxD(1+i); f=&lt;{(x+i)^5} -> stored_eqn(f)
 <br>
 ・0階微分
 <br>
-_dx(&lt;=f,) || _dx(&lt;=f,0)
+_dx(=&lt;f,) || _dx(=&lt;f,0)
 <br>
 -> -4.000000000000002-4.000000000000001i
 <br>
@@ -4159,11 +4211,11 @@ f -> -4.000000000000002-4.000000000000001i
 <br>
 ・1階微分は4次精度
 <br>
-_dx(&lt;=f,1)
+_dx(=&lt;f,1)
 <br>
 -> -19.999999999980833-1.6714783492484858e-13i+O(1e-12+1e-12i)
 <br>
-_dx(&lt;=f)
+_dx(=&lt;f)
 <br>
 -> -19.999999999980833-1.6714783492484858e-13i+O(1e-12+1e-12i)
 <br>
@@ -4171,17 +4223,17 @@ _dx(&lt;=f)
 <br>
 ・差分間隔が異なる多重化とは完全には一致しない
 <br>
-_dx(&lt;=f,2)
+_dx(=&lt;f,2)
 <br>
 -> -39.99999999980588+39.99999999944028i+O(2e-11+2e-11i)
 <br>
-_dx(&lt;={_dx(&lt;=f)})
+_dx(=&lt;{_dx(=&lt;f)})
 <br>
 -> -40.00000000012216+40.00000000037086i+O(8e-12+8e-12i)
 <br>
 ・2階微分を4次精度1階微分で厳密に多重化する場合4次精度以下
 <br>
-_dx(&lt;={_dx(&lt;=f,1,x,dx)},1,x,2dx)
+_dx(=&lt;{_dx(=&lt;f,1,x,dx)},1,x,2dx)
 <br>
 -> -39.99999999980588+39.99999999944028i+O(2e-11+2e-11i)
 <br>
@@ -4189,49 +4241,49 @@ _dx(&lt;={_dx(&lt;=f,1,x,dx)},1,x,2dx)
 <br>
 ・多重化は1階上がる毎に精度悪化
 <br>
-_dx(&lt;=f,3)
+_dx(=&lt;f,3)
 <br>
 -> 2.6203811256259035e-11+120.00084001140233i+O(2e-5+2e-5i)
 <br>
-_dx(&lt;={_dx(&lt;={_dx(&lt;=f)})})
+_dx(=&lt;{_dx(=&lt;{_dx(=&lt;f)})})
 <br>
 -> 4.378068605950494e-8+120.00000084539053i+O(6e-11+6e-11i)
 <br>
 ・3階微分を4次精度1階微分で厳密に多重化する場合3次精度以下
 <br>
-_dx(&lt;={_dx(&lt;={_dx(&lt;=f,1,x,1dx)},1,x,2dx)},1,x,4dx)
+_dx(=&lt;{_dx(=&lt;{_dx(=&lt;f,1,x,1dx)},1,x,2dx)},1,x,4dx)
 <br>
 -> -3.5859384520417787e-10+120.00000000321582i+O(3e-10+3e-10i)
 <br>
 ・4階微分
 <br>
-_dx(&lt;=f,4)
+_dx(=&lt;f,4)
 <br>
 -> 120.00000006268098+120.0000001718161i+O(6e-5+6e-5i)
 <br>
-_dx(&lt;={_dx(&lt;={_dx(&lt;={_dx(&lt;=f)})})})
+_dx(=&lt;{_dx(=&lt;{_dx(=&lt;{_dx(=&lt;f)})})})
 <br>
 -> 120.00001615650766+120.00019838028798i+O(5e-10+5e-10i)
 <br>
 ・4階微分を4次精度1階微分で厳密に多重化する場合2次精度以下
 <br>
-_dx(&lt;={_dx(&lt;={_dx(&lt;={_dx(&lt;=f,1,x,1dx)},1,x,2dx)},1,x,4dx)},1,x,8dx)
+_dx(=&lt;{_dx(=&lt;{_dx(=&lt;{_dx(=&lt;f,1,x,1dx)},1,x,2dx)},1,x,4dx)},1,x,8dx)
 <br>
 -> 119.99999887453464+120.00000028081901i+O(4e-9+4e-9i)
 <br>
 ・5階微分
 <br>
-_dx(&lt;=f,5)
+_dx(=&lt;f,5)
 <br>
 -> 120.00007406068326-0.0000085816675963221i+O(3e-4+3e-4i)
 <br>
-_dx(&lt;={_dx(&lt;={_dx(&lt;={_dx(&lt;={_dx(&lt;=f)})})})})
+_dx(=&lt;{_dx(=&lt;{_dx(=&lt;{_dx(=&lt;{_dx(=&lt;f)})})})})
 <br>
 -> 119.18659727305976+0.3620753183716584i+O(4e-9+4e-9i)
 <br>
 ・5階微分を4次精度1階微分で厳密に多重化する場合2次精度以下
 <br>
-_dx(&lt;={_dx(&lt;={_dx(&lt;={_dx(&lt;={_dx(&lt;=f,1,x,1dx)}
+_dx(=&lt;{_dx(=&lt;{_dx(=&lt;{_dx(=&lt;{_dx(=&lt;f,1,x,1dx)}
 <br>
 ,1,x,2dx)},1,x,4dx)},1,x,8dx)},1,x,16dx)
 <br>
@@ -4239,17 +4291,17 @@ _dx(&lt;={_dx(&lt;={_dx(&lt;={_dx(&lt;={_dx(&lt;=f,1,x,1dx)}
 <br>
 ・6階微分
 <br>
-_dx(&lt;=f,6)
+_dx(=&lt;f,6)
 <br>
 -> -0.0004498352662456228+0.0005560189878646384i+O(1e-3+1e-3i)
 <br>
-_dx(&lt;={_dx(&lt;={_dx(&lt;={_dx(&lt;={_dx(&lt;={_dx(&lt;=f)})})})})})
+_dx(=&lt;{_dx(=&lt;{_dx(=&lt;{_dx(=&lt;{_dx(=&lt;{_dx(=&lt;f)})})})})})
 <br>
 -> -322.002293591315+54.781879309774695i+O(3e-8+3e-8i)
 <br>
 ・6階微分を4次精度1階微分で厳密に多重化する場合2次精度以下
 <br>
-_dx(&lt;={_dx(&lt;={_dx(&lt;={_dx(&lt;={_dx(&lt;={_dx(&lt;=f,1,x,1dx)}
+_dx(=&lt;{_dx(=&lt;{_dx(=&lt;{_dx(=&lt;{_dx(=&lt;{_dx(=&lt;f,1,x,1dx)}
 <br>
 ,1,x,2dx)},1,x,4dx)},1,x,8dx)},1,x,16dx)},1,x,32dx)
 <br>
@@ -4257,17 +4309,17 @@ _dx(&lt;={_dx(&lt;={_dx(&lt;={_dx(&lt;={_dx(&lt;={_dx(&lt;=f,1,x,1dx)}
 <br>
 ・7階微分
 <br>
-_dx(&lt;=f,7)
+_dx(=&lt;f,7)
 <br>
 -> -0.0007280114418273857+0.0030141311391229672i+O(4e-3+4e-3i)
 <br>
-_dx(&lt;={_dx(&lt;={_dx(&lt;={_dx(&lt;={_dx(&lt;={_dx(&lt;={_dx(&lt;=f)})})})})})})
+_dx(=&lt;{_dx(=&lt;{_dx(=&lt;{_dx(=&lt;{_dx(=&lt;{_dx(=&lt;{_dx(=&lt;f)})})})})})})
 <br>
 -> -177398.93670986558-669172.3211788241i+O(3e-7+3e-7i)
 <br>
 ・7階微分を4次精度1階微分で厳密に多重化する場合2次精度以下
 <br>
-_dx(&lt;={_dx(&lt;={_dx(&lt;={_dx(&lt;={_dx(&lt;={_dx(&lt;={_dx(&lt;=f,1,x,1dx)}
+_dx(=&lt;{_dx(=&lt;{_dx(=&lt;{_dx(=&lt;{_dx(=&lt;{_dx(=&lt;{_dx(=&lt;f,1,x,1dx)}
 <br>
 ,1,x,2dx)},1,x,4dx)},1,x,8dx)},1,x,16dx)},1,x,32dx)},1,x,64dx)
 <br>
@@ -4275,53 +4327,53 @@ _dx(&lt;={_dx(&lt;={_dx(&lt;={_dx(&lt;={_dx(&lt;={_dx(&lt;={_dx(&lt;=f,1,x,1dx)}
 <br>
 ・8階微分
 <br>
-_dx(&lt;=f,8)
+_dx(=&lt;f,8)
 <br>
 -> 0.03950452954492218+0.04027593568552271i+O(2e-2+2e-2i)
 <br>
 ・9階微分
 <br>
-_dx(&lt;=f,9)
+_dx(=&lt;f,9)
 <br>
 -> -0.16566502311270223-0.015219989707358128i+O(7e-2+7e-2i)
 <br>
 ・10階微分
 <br>
-_dx(&lt;=f,10)
+_dx(=&lt;f,10)
 <br>
 -> 0.044163954487214524-0.06480605313760723i+O(3e-1+3e-1i)
 <br>
 ・微分位置を大きくした場合
 <br>
-_dx(&lt;={x^2},1,1e10)
+_dx(=&lt;{x^2},1,1e10)
 <br>
 -> 20000000000.027855-2.790277777777778e-12i+O(1e+28+1e-12i)
 <br>
-_dx(&lt;={x^2},2,1e10)
+_dx(=&lt;{x^2},2,1e10)
 <br>
 -> 1.9999999995176474+9.657789228690995e-20i+O(2e+29+2e-11i)
 <br>
-_dx(&lt;={x^2},3,1e10)
+_dx(=&lt;{x^2},3,1e10)
 <br>
 -> 1.894235601707095e-17-5.686908543633962e-27i+O(2e+15+2e-5i)
 <br>
 ・微分位置を小さくした場合
 <br>
-_dx(&lt;={x^2},1,1e-10)
+_dx(=&lt;{x^2},1,1e-10)
 <br>
 -> 2.0000000041847774e-10+7.305374602696278e-19i+O(1e-12+1e-12i)
 <br>
-_dx(&lt;={x^2},2,1e-10)
+_dx(=&lt;{x^2},2,1e-10)
 <br>
 -> 2.0000000000000013+9.411477191714447e-16i+O(2e-11+2e-11i)
 <br>
-_dx(&lt;={x^2},3,1e-10)
+_dx(=&lt;{x^2},3,1e-10)
 <br>
 -> 1.5072697186506098e-13-7.131763305997033e-14i+O(2e-5+2e-5i)
 <br>
 ・2変数の多重微分
 <br>
-_Dy(&lt;={_Dx(&lt;={x*y*y},1,0)},1,1)
+_Dy(=&lt;{_Dx(=&lt;{x*y*y},1,0)},1,1)
 <br>
 -> 1.9999999999998288+1.8785308474662037e-13i+O(8e-12+8e-12i)
 <br>
@@ -4334,11 +4386,11 @@ _Dy(&lt;={_Dx(&lt;={x*y*y},1,0)},1,1)
 <br>
 storage cleared
 <br>
-f&lt;={_dx(&lt;={x^3},2)+x-7(1+i)=0};
+f=&lt;{_dx(=&lt;{x^3},2)+x-7(1+i)=0};
 <br>
-run&lt;=last(mdx=Newton(&lt;=f,&lt;={x}),max(norm(f),norm(mdx)));
+run=&lt;last(mdx=Newton(=&lt;f,=&lt;{x}),max(norm(f),norm(mdx)));
 <br>
-_rn(&lt;=run,,6) -> infoLost[ri] 2.3549912261033786e-10+O(2e-2)
+_rn(=&lt;run,,6) -> infoLost[ri] 2.3549912261033786e-10+O(2e-2)
 <br>
 x -> infoLost[ri] 0.9999999999877383+1.0000000000273828i+O(5e-5+5e-5i)
 <br>
@@ -4348,11 +4400,11 @@ x -> infoLost[ri] 0.9999999999877383+1.0000000000273828i+O(5e-5+5e-5i)
 <br>
 storage cleared
 <br>
-f&lt;={2x*_dx(&lt;={x*exp(3x)})=i};
+f=&lt;{2x*_dx(=&lt;{x*exp(3x)})=i};
 <br>
-run&lt;=last(mdx=Newton(&lt;=f,&lt;={x}),max(norm(f),norm(mdx)));
+run=&lt;last(mdx=Newton(=&lt;f,=&lt;{x}),max(norm(f),norm(mdx)));
 <br>
-_rn(&lt;=run,,12) -> 3.844899655887233e-14+O(1e+0)
+_rn(=&lt;run,,12) -> 3.844899655887233e-14+O(1e+0)
 <br>
 x -> -0.17989326929739397-0.5079280004968542i+O(2e-1+2e-1i)
 <br>
@@ -4360,11 +4412,11 @@ x -> -0.17989326929739397-0.5079280004968542i+O(2e-1+2e-1i)
 <br>
 storage cleared
 <br>
-f&lt;={2x*(1*exp(3x)+x*exp(3x)3)=i};
+f=&lt;{2x*(1*exp(3x)+x*exp(3x)3)=i};
 <br>
-run&lt;=last(mdx=Newton(&lt;=f,&lt;={x}),max(norm(f),norm(mdx)));
+run=&lt;last(mdx=Newton(=&lt;f,=&lt;{x}),max(norm(f),norm(mdx)));
 <br>
-_rn(&lt;=run,,12) -> infoLost[r ] 3.3306690738754696e-16
+_rn(=&lt;run,,12) -> infoLost[r ] 3.3306690738754696e-16
 <br>
 x -> infoLost[r ] -0.17989326929046887-0.5079280004963925i
 <br>
@@ -4372,19 +4424,19 @@ x -> infoLost[r ] -0.17989326929046887-0.5079280004963925i
 <br>
 storage cleared
 <br>
-f0&lt;={1*x0^2+x1};
+f0=&lt;{1*x0^2+x1};
 <br>
-f1&lt;={i*x1^3+x0};
+f1=&lt;{i*x1^3+x0};
 <br>
-dx0&lt;=_dx0; dx1&lt;=_dx1;
+dx0=&lt;_dx0; dx1=&lt;_dx1;
 <br>
-x&lt;={x0,x1};
+x=&lt;{x0,x1};
 <br>
-f&lt;={x0+x1=2,dx0(&lt;={f0})+dx1(&lt;={f1},2)=2+6i};
+f=&lt;{x0+x1=2,dx0(=&lt;{f0})+dx1(=&lt;{f1},2)=2+6i};
 <br>
-run&lt;=last(mdx=Newton(&lt;=f,&lt;=x),max(norm(f),norm(mdx)));
+run=&lt;last(mdx=Newton(=&lt;f,=&lt;x),max(norm(f),norm(mdx)));
 <br>
-_rn(&lt;=run,,12) -> infoLost[ri] 3.236567392072123e-11+O(2e-3)
+_rn(=&lt;run,,12) -> infoLost[ri] 3.236567392072123e-11+O(2e-3)
 <br>
 x ->
 <br>
@@ -4396,19 +4448,19 @@ infoLost[ri] 0.9999999999968879-3.106688703682063e-12i+O(1e-5+1e-5i))
 <br>
 storage cleared
 <br>
-f0&lt;={1*x0^2+x1};
+f0=&lt;{1*x0^2+x1};
 <br>
-f1&lt;={i*x1^3+x0};
+f1=&lt;{i*x1^3+x0};
 <br>
-dx0&lt;=_dx0; dx1&lt;=_dx1;
+dx0=&lt;_dx0; dx1=&lt;_dx1;
 <br>
-x&lt;={x0,x1};
+x=&lt;{x0,x1};
 <br>
-f&lt;={x0+x1=2,dx0(&lt;={f0})+dx1(&lt;={f1},2)=2+6i};
+f=&lt;{x0+x1=2,dx0(=&lt;{f0})+dx1(=&lt;{f1},2)=2+6i};
 <br>
-run&lt;=last(mdx=Newton(&lt;=f,&lt;=x),max(norm(f),norm(mdx)));
+run=&lt;last(mdx=Newton(=&lt;f,=&lt;x),max(norm(f),norm(mdx)));
 <br>
-_rn(&lt;=run,,12) -> 7.724854831493598e-14+O(9e-4)
+_rn(=&lt;run,,12) -> 7.724854831493598e-14+O(9e-4)
 <br>
 x -> (1.000000000000009+O(1e-5):0.9999999999999909+O(1e-5))
 <hr>
@@ -4428,7 +4480,7 @@ x -> (1.000000000000009+O(1e-5):0.9999999999999909+O(1e-5))
 ・ダミー変数は無次元でローカル変数を参照するが、上書きしない
 <br>
 <br>
-_iダミー変数名(&lt;=第1引数,第2引数,第3引数[,第4引数])
+_iダミー変数名(=&lt;第1引数,第2引数,第3引数[,第4引数])
 <br>
 ・第1引数: ダミー変数の関数式を式渡し
 <br>
@@ -4457,69 +4509,69 @@ testcaseを列挙する
 <br>
 ・f(x)=x^4の積分範囲[0,1+i]における定積分を示す
 <br>
-a=0; b=1+i; ab=[a,b]; f&lt;={x^4} -> stored_eqn(f)
+a=0; b=1+i; ab=[a,b]; f=&lt;{x^4} -> stored_eqn(f)
 <br>
 ・分割数100
 <br>
-_ix(&lt;=f,ab) || _ix(&lt;=f,a,b)
+_ix(=&lt;f,ab) || _ix(=&lt;f,a,b)
 <br>
 -> -0.8000000053333336-0.8000000053333334i+O(1e-8+1e-8i)
 <br>
 ・分割数10
 <br>
-_ix(&lt;=f,ab,10)
+_ix(=&lt;f,ab,10)
 <br>
 -> -0.8000533333333335-0.8000533333333333i+O(1e-4+1e-4i)
 <br>
 ・分割数1000
 <br>
-_ix(&lt;=f,ab,1000)
+_ix(=&lt;f,ab,1000)
 <br>
 -> -0.8000000000005332-0.800000000000533i+O(1e-12+1e-12i)
 <br>
 ・積分範囲を反転
 <br>
-_ix(&lt;=f,[b,a]) || _ix(&lt;=f,b,a)
+_ix(=&lt;f,[b,a]) || _ix(=&lt;f,b,a)
 <br>
 -> 0.8000000053333336+0.8000000053333334i+O(1e-8+1e-8i)
 <br>
 ・分割数が奇数の場合、暗黙で+1して偶数に変換される
 <br>
-_ix(&lt;=f,ab,99) || _ix(&lt;=f,ab,99+1)
+_ix(=&lt;f,ab,99) || _ix(=&lt;f,ab,99+1)
 <br>
 -> -0.8000000053333336-0.8000000053333334i+O(1e-8+1e-8i)
 <br>
 ・分割数が負の場合、暗黙で絶対値に変換される
 <br>
-_ix(&lt;=f,ab,-100)
+_ix(=&lt;f,ab,-100)
 <br>
 -> -0.8000000053333336-0.8000000053333334i+O(1e-8+1e-8i)
 <br>
 ・2次精度選択の場合（参考）
 <br>
-_ix(&lt;=f,ab)
+_ix(=&lt;f,ab)
 <br>
 -> -0.8001333320000001-0.8001333319999999i+O(1e-4+1e-4i)
 <br>
 ・2変数の多重積分
 <br>
-_iy(&lt;={_ix(&lt;={x^2*y},0,y)},0,2) -> 2.1333333475555563+O(2e-7)
+_iy(=&lt;{_ix(=&lt;{x^2*y},0,y)},0,2) -> 2.1333333475555563+O(2e-7)
 <br>
-_iy(&lt;={y^4/3},0,2) -> 2.1333333475555563+O(2e-7)
+_iy(=&lt;{y^4/3},0,2) -> 2.1333333475555563+O(2e-7)
 <br>
 ・微分・積分
 <br>
-_ix(&lt;={_dx(&lt;={x^3})},1,2)
+_ix(=&lt;{_dx(=&lt;{x^3})},1,2)
 <br>
 -> 7.000000000000061-3.369899113923336e-14i+O(1e-8+1e-14i)
 <br>
-_Ix(&lt;={_Dx(&lt;={sin(x)},1,0)},-pi,pi)
+_Ix(=&lt;{_Dx(=&lt;{sin(x)},1,0)},-pi,pi)
 <br>
 -> 6.283185307180439+2.010557877134426e-14i+O(2e-5+8e-14i)
 <br>
 ・積分・微分
 <br>
-_dx(&lt;={_ix(&lt;={x^3},0,x)},1,2)
+_dx(=&lt;{_ix(=&lt;{x^3},0,x)},1,2)
 <br>
 -> 7.999999999998895+5.517384388870678e-13i+O(1e-6+1e-12i)
 <br>
@@ -4532,33 +4584,33 @@ _dx(&lt;={_ix(&lt;={x^3},0,x)},1,2)
 <br>
 storage cleared
 <br>
-f&lt;={_ix(&lt;={x^2},0,b)=3^3/3};
+f=&lt;{_ix(=&lt;{x^2},0,b)=3^3/3};
 <br>
-run&lt;=last(mdx=Newton(&lt;=f,&lt;={b},&lt;={1}),max(norm(f),norm(mdx)));
+run=&lt;last(mdx=Newton(=&lt;f,=&lt;{b},=&lt;{1}),max(norm(f),norm(mdx)));
 <br>
-_rn(&lt;=run,,12) -> infoLost[ i] 1.3839478914652153e-28+O(8e-7)
+_rn(=&lt;run,,12) -> infoLost[ i] 1.3839478914652153e-28+O(8e-7)
 <br>
 b -> infoLost[ri] 2.9999999999999996+4.613167602434132e-34i+O(1e-1+2e-1i)
 <br>
 ・2次関数の積分の場合、補間多項式に一致するため、数値誤差が出ない
 <br>
-_ix(&lt;={x^2},0,3,2) -> 9+O(5e+0)
+_ix(=&lt;{x^2},0,3,2) -> 9+O(5e+0)
 <br>
-_ix(&lt;={x^2},0,3,10) -> 8.999999999999998+O(8e-3)
+_ix(=&lt;{x^2},0,3,10) -> 8.999999999999998+O(8e-3)
 <br>
-_ix(&lt;={x^2},0,3,100) -> 8.999999999999998+O(8e-7)
+_ix(=&lt;{x^2},0,3,100) -> 8.999999999999998+O(8e-7)
 <br>
-_ix(&lt;={x^2},0,3,1000) -> 8.999999999999998+O(8e-11)
+_ix(=&lt;{x^2},0,3,1000) -> 8.999999999999998+O(8e-11)
 <br>
 ・f(x)=x^4のx=[0,b]の定積分=3^5/5となる積分方程式の解析解b=3の求解
 <br>
 storage cleared
 <br>
-f&lt;={_ix(&lt;={x^4},0,b)=3^5/5};
+f=&lt;{_ix(=&lt;{x^4},0,b)=3^5/5};
 <br>
-run&lt;=last(mdx=Newton(&lt;=f,&lt;={b},&lt;={1}),max(norm(f),norm(mdx)));
+run=&lt;last(mdx=Newton(=&lt;f,=&lt;{b},=&lt;{1}),max(norm(f),norm(mdx)));
 <br>
-_rn(&lt;=run,,20) -> 1.4210854715508634e-14+O(8e-7)
+_rn(=&lt;run,,20) -> 1.4210854715508634e-14+O(8e-7)
 <br>
 b -> infoLost[r ] 2.9999999959999992-1.15251646351758e-21i+O(2e-2+2e-2i)
 <br>
@@ -4566,13 +4618,13 @@ b -> infoLost[r ] 2.9999999959999992-1.15251646351758e-21i+O(2e-2+2e-2i)
 <br>
 ・得られる近似解の精度は分割数に依存する
 <br>
-_ix(&lt;={x^4},0,3,2) -> 50.62499999999998+O(5e+0)
+_ix(=&lt;{x^4},0,3,2) -> 50.62499999999998+O(5e+0)
 <br>
-_ix(&lt;={x^4},0,3,10) -> 48.60323999999998+O(8e-3)
+_ix(=&lt;{x^4},0,3,10) -> 48.60323999999998+O(8e-3)
 <br>
-_ix(&lt;={x^4},0,3,100) -> 48.60000032400001+O(8e-7)
+_ix(=&lt;{x^4},0,3,100) -> 48.60000032400001+O(8e-7)
 <br>
-_ix(&lt;={x^4},0,3,1000) -> 48.60000000003241+O(8e-11)
+_ix(=&lt;{x^4},0,3,1000) -> 48.60000000003241+O(8e-11)
     </td>
   </tr>
   <tr>
@@ -4613,7 +4665,7 @@ Jacobi高階関数
 ・ローカル変数を参照するが、上書きしない
 <br>
 <br>
-Jacobi(&lt;=第1引数,&lt;=第2引数[,&lt;=第3引数[,&lt;=第4引数]])
+Jacobi(=&lt;第1引数,=&lt;第2引数[,=&lt;第3引数[,=&lt;第4引数]])
 <br>
 ・第1引数: 方程式または関数式の列ベクトルを式渡し
 <br>
@@ -4630,11 +4682,11 @@ Jacobi(&lt;=第1引数,&lt;=第2引数[,&lt;=第3引数[,&lt;=第4引数]])
 <br>
 xの1次方程式の偏微分係数を求める場合
 <br>
-clear; Jacobi(&lt;={3x-3=0},&lt;={x},&lt;={0})
+clear; Jacobi(=&lt;{3x-3=0},=&lt;{x},=&lt;{0})
 <br>
 -> -3.0000000000098264+9.826647183188544e-12i
 <br>
-clear; Jacobi(&lt;={3x-3=0},&lt;={x})
+clear; Jacobi(=&lt;{3x-3=0},=&lt;{x})
 <br>
 -> -3.0000000000098264+9.826647183188544e-12i
 <br>
@@ -4643,7 +4695,7 @@ clear; Jacobi(&lt;={3x-3=0},&lt;={x})
 <br>
 xの2次関数の偏微分係数を求める場合
 <br>
-clear; Jacobi(&lt;={2x^2},&lt;={x},&lt;={1})
+clear; Jacobi(=&lt;{2x^2},=&lt;{x},=&lt;{1})
 <br>
 -> 4.0000200000131025+0.000019999986898147652i
 <br>
@@ -4652,11 +4704,11 @@ clear; Jacobi(&lt;={2x^2},&lt;={x},&lt;={1})
 <br>
 微分位置を大きくした場合
 <br>
-clear; Jacobi(&lt;={2x^2},&lt;={x},&lt;={1e10})  // NG
+clear; Jacobi(=&lt;{2x^2},=&lt;{x},=&lt;{1e10})  // NG
 <br>
 -> 19999999999.999996+19999999999.999996i
 <br>
-clear; a=1e10; h=max(1,abs(a))1e-5(1+i); Jacobi(&lt;={2x^2},&lt;={x},&lt;={a},h)  // OK
+clear; a=1e10; h=max(1,abs(a))1e-5(1+i); Jacobi(=&lt;{2x^2},=&lt;{x},=&lt;{a},h)  // OK
 <br>
 -> 40000200000.65538+199999.3446694911i
 <br>
@@ -4671,7 +4723,7 @@ storage cleared
 <br>
 x=1;
 <br>
-Jacobi(&lt;={2x^2},&lt;={x})
+Jacobi(=&lt;{2x^2},=&lt;{x})
 <br>
 -> 4.0000200000131025+0.000019999986898147652i
 <br>
@@ -4689,7 +4741,7 @@ Newton高階関数
 ・ローカル変数を参照、上書きする
 <br>
 <br>
-Newton(&lt;=第1引数,&lt;=第2引数[,&lt;=第3引数])
+Newton(=&lt;第1引数,=&lt;第2引数[,=&lt;第3引数])
 <br>
 ・第1引数: 方程式または関数式の列ベクトルを式渡し
 <br>
@@ -4776,7 +4828,7 @@ sizec(L*R)=sizec(R) -> 0
 <br>
 ・さらに行列積LRを返す式変数LpRを定義する
 <br>
-LpR&lt;={product&lt;=last{LR[ir][ic]=ttL[ir]trans((trans(ttR))[ic])},
+LpR=&lt;{product=&lt;last{LR[ir][ic]=ttL[ir]trans((trans(ttR))[ic])},
 <br>
 ttL=trans(trans(L)),
 <br>
@@ -4784,9 +4836,9 @@ ttR=trans(trans(R)),
 <br>
 LR=zeros(sizer(ttL),sizec(ttR)),
 <br>
-_sir(&lt;={_sic(&lt;=product,0,sizec(ttR)-1)},0,sizer(ttL)-1),
+_sir(=&lt;{_sic(=&lt;product,0,sizec(ttR)-1)},0,sizer(ttL)-1),
 <br>
-&lt;=LR}=&gt;;
+=&lt;LR}=&gt;;
 <br>
 ・演算子による行列積L*Rでは1回の転置trans(R)に最適化される
 <br>
@@ -4811,9 +4863,9 @@ N=10; N*N*N -> 1000
 <br>
 ・抜け要素を許容する場合
 <br>
-N=4; _sn(&lt;={n*n},1,N) -> 30
+N=4; _sn(=&lt;{n*n},1,N) -> 30
 <br>
-N=10; _sn(&lt;={n*n},1,N) -> 385
+N=10; _sn(=&lt;{n*n},1,N) -> 385
 <br>
 ・4次下三角行列Lの行列積
 <br>
@@ -4994,7 +5046,7 @@ f""(x)=(8(f"'(x+h)-f"'(x-h))-(f"'(x+2h)-f"'(x-2h)))/(12h)+O(h)
 <br>
 2階微分の演算結果を示す
 <br>
-_dx(&lt;={(x+i)^5},2,1)
+_dx(=&lt;{(x+i)^5},2,1)
 <br>
 ・上から順に、2次精度、2次精度拡張、4次精度、4次精度拡張
 <br>
@@ -5017,7 +5069,7 @@ _dx(&lt;={(x+i)^5},2,1)
 <br>
 5階微分の演算結果を示す
 <br>
-_dx(&lt;={(x+i)^5},5,1)
+_dx(=&lt;{(x+i)^5},5,1)
 <br>
 ・上から順に、2次精度、2次精度拡張、4次精度、4次精度拡張
 <br>
@@ -5352,17 +5404,13 @@ sizeA=size(A);
 <br>
 x=zeros(sizeA,1),
 <br>
-cond0&lt;=lt(abs(A[ir][ir]),abs(A[ir_comp][ir]));
+compare=&lt;switch(abs(A[ir][ir])&lt;abs(A[ir_comp][ir]),=&lt;{ir_pivot=ir_comp});
 <br>
-proc0&lt;={ir_pivot=ir_comp};
+cond=&lt;{ir&lt;&gt;ir_pivot};
 <br>
-cmp&lt;=switch(cond0,&lt;=proc0);
+proc=&lt;{w=A[ir],A[ir]=A[ir_pivot],A[ir_pivot]=w,w=b[ir],b[ir]=b[ir_pivot],b[ir_pivot]=w};
 <br>
-cond1&lt;=ne(ir,ir_pivot);
-<br>
-proc1&lt;={w=A[ir],A[ir]=A[ir_pivot],A[ir_pivot]=w,w=b[ir],b[ir]=b[ir_pivot],b[ir_pivot]=w};
-<br>
-pivotting&lt;={ir_comp=ir+1,ir_pivot=ir,cmp,switch(cond1,&lt;=proc1),ir=ir+1,&lt;=A}=&gt;;
+pivotting=&lt;{ir_comp=ir+1,ir_pivot=ir,compare,switch(cond,=&lt;proc),ir=ir+1,=&lt;A}=&gt;;
 <br>
 ir=0;
 <br>
@@ -5370,7 +5418,7 @@ pivotting -> (3,4:1,2)
 <br>
 pivotting -> [MyErr]Invalid reference of array
 <br>
-forward&lt;={ir=ir+1,k=A[ir][ic]/A[ic][ic],A[ir]=A[ir]-k(A[ic]),b[ir]=b[ir]-k(b[ic]),&lt;=A}=&gt;;
+forward=&lt;{ir=ir+1,k=A[ir][ic]/A[ic][ic],A[ir]=A[ir]-k(A[ic]),b[ir]=b[ir]-k(b[ic]),=&lt;A}=&gt;;
 <br>
 ic=0; ir=ic;
 <br>
@@ -5382,7 +5430,7 @@ ic=ic+1; ir=ic;
 <br>
 forward -> [MyErr]Invalid reference of array
 <br>
-backward&lt;={x[ir]=(b[ir]-A[ir]x)/A[ir][ir],ir=ir-1,&lt;=x}=&gt;;
+backward=&lt;{x[ir]=(b[ir]-A[ir]x)/A[ir][ir],ir=ir-1,=&lt;x}=&gt;;
 <br>
 ir -> 1
 <br>
@@ -5408,31 +5456,27 @@ sizeA=size(A);
 <br>
 x=zeros(sizeA,1),
 <br>
-cond0&lt;=lt(abs(A[ir][ir]),abs(A[ir_comp][ir]));
+compare=&lt;switch(abs(A[ir][ir])&lt;abs(A[ir_comp][ir]),=&lt;{ir_pivot=ir_comp});
 <br>
-proc0&lt;={ir_pivot=ir_comp};
+cond=&lt;{ir&lt;&gt;ir_pivot};
 <br>
-cmp&lt;=switch(cond0,&lt;=proc0);
+proc=&lt;{w=A[ir],A[ir]=A[ir_pivot],A[ir_pivot]=w,w=b[ir],b[ir]=b[ir_pivot],b[ir_pivot]=w};
 <br>
-cond1&lt;=ne(ir,ir_pivot);
+pivotting=&lt;last{ir_pivot=ir,compare,switch(cond,=&lt;proc)};
 <br>
-proc1&lt;={w=A[ir],A[ir]=A[ir_pivot],A[ir_pivot]=w,w=b[ir],b[ir]=b[ir_pivot],b[ir_pivot]=w};
-<br>
-pivotting&lt;=last{ir_pivot=ir,cmp,switch(cond1,&lt;=proc1)};
-<br>
-_sir(&lt;={_sir_comp(&lt;=pivotting,ir+1,sizeA-1)},0,sizeA-2);
+_sir(=&lt;{_sir_comp(=&lt;pivotting,ir+1,sizeA-1)},0,sizeA-2);
 <br>
 A -> (3,4:1,2)
 <br>
-forward&lt;=last{k=A[ir][ic]/A[ic][ic],A[ir]=A[ir]-k(A[ic]),b[ir]=b[ir]-k(b[ic])};
+forward=&lt;last{k=A[ir][ic]/A[ic][ic],A[ir]=A[ir]-k(A[ic]),b[ir]=b[ir]-k(b[ic])};
 <br>
-_sic(&lt;={_sir(&lt;=forward,ic+1,sizeA-1)},0,sizeA-2);
+_sic(=&lt;{_sir(=&lt;forward,ic+1,sizeA-1)},0,sizeA-2);
 <br>
 A -> (3,4:0,0.6666666666666667)
 <br>
-backward&lt;={x[ir]=(b[ir]-A[ir]x)/A[ir][ir]};
+backward=&lt;{x[ir]=(b[ir]-A[ir]x)/A[ir][ir]};
 <br>
-_sir(&lt;=backward,sizeA-1,0);
+_sir(=&lt;backward,sizeA-1,0);
 <br>
 x -> (-3.9999999999999982:4.499999999999999)
 <br>
@@ -5442,55 +5486,51 @@ x -> (-3.9999999999999982:4.499999999999999)
 <br>
 storage cleared
 <br>
-solvex_pivotting&lt;={
+solvex_pivotting=&lt;{
 <br>
-cond0&lt;=lt(abs(A[ir][ir]),abs(A[ir_comp][ir])),
+compare=&lt;switch(abs(A[ir][ir])&lt;abs(A[ir_comp][ir]),=&lt;{ir_pivot=ir_comp}),
 <br>
-proc0&lt;={ir_pivot=ir_comp},
+cond=&lt;{ir&lt;&gt;ir_pivot},
 <br>
-cmp&lt;=switch(cond0,&lt;=proc0),
+proc=&lt;{w=A[ir],A[ir]=A[ir_pivot],A[ir_pivot]=w,w=b[ir],b[ir]=b[ir_pivot],b[ir_pivot]=w},
 <br>
-cond1&lt;=ne(ir,ir_pivot),
+pivotting=&lt;last{ir_pivot=ir,compare,switch(cond,=&lt;proc)},
 <br>
-proc1&lt;={w=A[ir],A[ir]=A[ir_pivot],A[ir_pivot]=w,w=b[ir],b[ir]=b[ir_pivot],b[ir_pivot]=w},
+forward=&lt;last{k=A[ir][ic]/A[ic][ic],A[ir]=A[ir]-k(A[ic]),b[ir]=b[ir]-k(b[ic])},
 <br>
-pivotting&lt;=last{ir_pivot=ir,cmp,switch(cond1,&lt;=proc1)},
-<br>
-forward&lt;=last{k=A[ir][ic]/A[ic][ic],A[ir]=A[ir]-k(A[ic]),b[ir]=b[ir]-k(b[ic])},
-<br>
-backward&lt;={x[ir]=(b[ir]-A[ir]x)/A[ir][ir]},
+backward=&lt;{x[ir]=(b[ir]-A[ir]x)/A[ir][ir]},
 <br>
 sizeA=size(A),
 <br>
 x=zeros(sizeA,1),
 <br>
-_sir(&lt;={_sir_comp(&lt;=pivotting,ir+1,sizeA-1)},0,sizeA-2),
+_sir(=&lt;{_sir_comp(=&lt;pivotting,ir+1,sizeA-1)},0,sizeA-2),
 <br>
-_sic(&lt;={_sir(&lt;=forward,ic+1,sizeA-1)},0,sizeA-2),
+_sic(=&lt;{_sir(=&lt;forward,ic+1,sizeA-1)},0,sizeA-2),
 <br>
-_sir(&lt;=backward,sizeA-1,0),
+_sir(=&lt;backward,sizeA-1,0),
 <br>
-&lt;=x}=&gt;;
+=&lt;x}=&gt;;
 <br>
 ・pivot選択無しの場合
 <br>
 storage cleared
 <br>
-solvex_no_pivotting&lt;={
+solvex_no_pivotting=&lt;{
 <br>
-forward&lt;=last{k=A[ir][ic]/A[ic][ic],A[ir]=A[ir]-k(A[ic]),b[ir]=b[ir]-k(b[ic])},
+forward=&lt;last{k=A[ir][ic]/A[ic][ic],A[ir]=A[ir]-k(A[ic]),b[ir]=b[ir]-k(b[ic])},
 <br>
-backward&lt;={x[ir]=(b[ir]-A[ir]x)/A[ir][ir]},
+backward=&lt;{x[ir]=(b[ir]-A[ir]x)/A[ir][ir]},
 <br>
 sizeA=size(A),
 <br>
 x=zeros(sizeA,1),
 <br>
-_sic(&lt;={_sir(&lt;=forward,ic+1,sizeA-1)},0,sizeA-2),
+_sic(=&lt;{_sir(=&lt;forward,ic+1,sizeA-1)},0,sizeA-2),
 <br>
-_sir(&lt;=backward,sizeA-1,0),
+_sir(=&lt;backward,sizeA-1,0),
 <br>
-&lt;=x}=&gt;;
+=&lt;x}=&gt;;
 <br>
 ・続けてtestcaseを示す
 <br>
@@ -5525,21 +5565,21 @@ x0=0;
 <br>
 x1=0;
 <br>
-x&lt;={x0,x1}; x_initial&lt;={x0,x1};
+x=&lt;{x0,x1}; x_initial=&lt;{x0,x1};
 <br>
 ・連立方程式を展開しない場合
 <br>
-f&lt;={A(x)=b}; || f&lt;={=b-A(x)}; || f&lt;={b-A(x)};
+f=&lt;{A(x)=b}; || f=&lt;{=b-A(x)}; || f=&lt;{b-A(x)};
 <br>
 ・連立方程式を展開する場合
 <br>
-f&lt;={x0+2x1=5,3x0+4x1=6};
+f=&lt;{x0+2x1=5,3x0+4x1=6};
 <br>
 ・いずれの結果も以下に同じ
 <br>
 ・続けて以降の処理を反復する
 <br>
-J=Jacobi(&lt;=f,&lt;=x,&lt;=x_initial);
+J=Jacobi(=&lt;f,=&lt;x,=&lt;x_initial);
 <br>
 dx=Gauss(J,-f);
 <br>
@@ -5622,11 +5662,11 @@ x=x-mdx
 <br>
 storage cleared
 <br>
-x&lt;={x0,x1}; x_initial&lt;={0,0};
+x=&lt;{x0,x1}; x_initial=&lt;{0,0};
 <br>
-f&lt;={x0+2x1=5,3x0+4x1=6};
+f=&lt;{x0+2x1=5,3x0+4x1=6};
 <br>
-run&lt;=last(mdx=Newton(&lt;=f,&lt;=x,&lt;=x_initial),max(norm(f),norm(mdx)));
+run=&lt;last(mdx=Newton(=&lt;f,=&lt;x,=&lt;x_initial),max(norm(f),norm(mdx)));
 <br>
 ・実行用の式変数runを定義してノルムのみ表示する
 <br>
@@ -5652,13 +5692,13 @@ infoLost[ri] 4.499999999999999+6.466216308756395e-26i)
 <br>
 storage cleared
 <br>
-x&lt;={x0,x1}; x_initial&lt;={0,0};
+x=&lt;{x0,x1}; x_initial=&lt;{0,0};
 <br>
-f&lt;={x0+2x1=5,3x0+4x1=6};
+f=&lt;{x0+2x1=5,3x0+4x1=6};
 <br>
-run&lt;=last(mdx=Newton(&lt;=f,&lt;=x,&lt;=x_initial),max(norm(f),norm(mdx)));
+run=&lt;last(mdx=Newton(=&lt;f,=&lt;x,=&lt;x_initial),max(norm(f),norm(mdx)));
 <br>
-_rn(&lt;=run,,3) -> infoLost[ri] 2.2204460494935903e-15
+_rn(=&lt;run,,3) -> infoLost[ri] 2.2204460494935903e-15
 <br>
 x ->
 <br>
@@ -5708,9 +5748,9 @@ sizeA=size(A);
 <br>
 x=zeros(sizeA,1);
 <br>
-forward&lt;=last{k=A[ir][ic]/A[ic][ic],A[ir]=A[ir]-k(A[ic]),b[ir]=b[ir]-k(b[ic])};
+forward=&lt;last{k=A[ir][ic]/A[ic][ic],A[ir]=A[ir]-k(A[ic]),b[ir]=b[ir]-k(b[ic])};
 <br>
-_sic(&lt;={_sir(&lt;=forward,ic+1,sizeA-1)},0,sizeA-2);
+_sic(=&lt;{_sir(=&lt;forward,ic+1,sizeA-1)},0,sizeA-2);
 <br>
 A ->
 <br>
@@ -5724,9 +5764,9 @@ A ->
 <br>
 ・よって多くの場合、次の後退代入で解が発散する
 <br>
-backward&lt;={x[ir]=(b[ir]-A[ir]x)/A[ir][ir]};
+backward=&lt;{x[ir]=(b[ir]-A[ir]x)/A[ir][ir]};
 <br>
-_sir(&lt;=backward,sizeA-1,0);
+_sir(=&lt;backward,sizeA-1,0);
 <br>
 x -> (-25.333333333333332:41.666666666666664:-16)
 <br>
@@ -5758,15 +5798,15 @@ sizeA=size(A);
 <br>
 x=zeros(sizeA,1);
 <br>
-forward&lt;=last{k=A[ir][ic]/A[ic][ic],A[ir]=A[ir]-k(A[ic]),b[ir]=b[ir]-k(b[ic])};
+forward=&lt;last{k=A[ir][ic]/A[ic][ic],A[ir]=A[ir]-k(A[ic]),b[ir]=b[ir]-k(b[ic])};
 <br>
-_sic(&lt;={_sir(&lt;=forward,ic+1,sizeA-1)},0,sizeA-2);
+_sic(=&lt;{_sir(=&lt;forward,ic+1,sizeA-1)},0,sizeA-2);
 <br>
 A -> (i,2i,3i:0,-3i,-6i:0,0,0)
 <br>
 ・よって次の後退代入で解が発散する
 <br>
-backward&lt;={x[ir]=(b[ir]-A[ir]x)/A[ir][ir]};
+backward=&lt;{x[ir]=(b[ir]-A[ir]x)/A[ir][ir]};
 <br>
 ir=sizeA-1; A[ir][ir] -> 0
 <br>
@@ -5785,13 +5825,13 @@ A=(i,2i,3i:4i,5i,6i:7i,8i,9i);
 <br>
 b={10i,11i,12i};
 <br>
-x&lt;={x0,x1,x2}; x_initial&lt;={0,0,0};
+x=&lt;{x0,x1,x2}; x_initial=&lt;{0,0,0};
 <br>
-f&lt;={A(x)=b};
+f=&lt;{A(x)=b};
 <br>
-run&lt;=last(mdx=Newton(&lt;=f,&lt;=x,&lt;=x_initial),max(norm(f),norm(mdx)));
+run=&lt;last(mdx=Newton(=&lt;f,=&lt;x,=&lt;x_initial),max(norm(f),norm(mdx)));
 <br>
-_rn(&lt;=run,,3) -> 0.000002904400992198821
+_rn(=&lt;run,,3) -> 0.000002904400992198821
 <br>
 x ->
 <br>
@@ -5811,13 +5851,13 @@ A=(i,2i,3i:4i,5i,6i:7i,8i,9i);
 <br>
 b={10i,11i,12i};
 <br>
-x&lt;={x0,x1,x2}; x_initial&lt;={i,i,i};
+x=&lt;{x0,x1,x2}; x_initial=&lt;{i,i,i};
 <br>
-f&lt;={A(x)=b};
+f=&lt;{A(x)=b};
 <br>
-run&lt;=last(mdx=Newton(&lt;=f,&lt;=x,&lt;=x_initial),max(norm(f),norm(mdx)));
+run=&lt;last(mdx=Newton(=&lt;f,=&lt;x,=&lt;x_initial),max(norm(f),norm(mdx)));
 <br>
-_rn(&lt;=run,,3) -> 0.000011389894276669376
+_rn(=&lt;run,,3) -> 0.000011389894276669376
 <br>
 x ->
 <br>
@@ -5841,13 +5881,13 @@ A=(i,2i,3i:4i,5i,6i:7i,8i,9i);
 <br>
 b={10i,11i,12i};
 <br>
-x&lt;={x0,x1,x2}; x_initial&lt;=(-25.333333333333332:41.666666666666664:-16);
+x=&lt;{x0,x1,x2}; x_initial=&lt;(-25.333333333333332:41.666666666666664:-16);
 <br>
-f&lt;={A(x)=b};
+f=&lt;{A(x)=b};
 <br>
-run&lt;=last(mdx=Newton(&lt;=f,&lt;=x,&lt;=x_initial),max(norm(f),norm(mdx)));
+run=&lt;last(mdx=Newton(=&lt;f,=&lt;x,=&lt;x_initial),max(norm(f),norm(mdx)));
 <br>
-_rn(&lt;=run,,3) -> 0.00013856472352298855
+_rn(=&lt;run,,3) -> 0.00013856472352298855
 <br>
 x ->
 <br>
@@ -5906,11 +5946,11 @@ A=(i,2i,3i:4i,5i,6i:7i,8i,9i);
 <br>
 b={10i,11i,12};
 <br>
-x&lt;={x0,x1,x2};
+x=&lt;{x0,x1,x2};
 <br>
-f&lt;={A(x)=b};
+f=&lt;{A(x)=b};
 <br>
-run&lt;=last(mdx=Newton(&lt;=f,&lt;=x),max(norm(f),norm(mdx)));
+run=&lt;last(mdx=Newton(=&lt;f,=&lt;x),max(norm(f),norm(mdx)));
 <br>
 run -> 234013055737.99323
 <br>
@@ -5945,23 +5985,23 @@ storage cleared
 <br>
 A=(1,2:3,4);
 <br>
-Ainv&lt;=(x0,x1:x2,x3);
+Ainv=&lt;(x0,x1:x2,x3);
 <br>
-x&lt;={x0,x1,x2,x3};
+x=&lt;{x0,x1,x2,x3};
 <br>
 ・連立方程式を展開しない場合
 <br>
-f&lt;={Ainv*A=identity2}; || f&lt;={=identity2-Ainv*A}; || f&lt;={identity2-Ainv*A};
+f=&lt;{Ainv*A=identity2}; || f=&lt;{=identity2-Ainv*A}; || f=&lt;{identity2-Ainv*A};
 <br>
 ・連立方程式を展開する場合
 <br>
-f&lt;={x0+3x1=1,2x0+4x1=0,x2+3x3=0,2x2+4x3=1};
+f=&lt;{x0+3x1=1,2x0+4x1=0,x2+3x3=0,2x2+4x3=1};
 <br>
 ・いずれの結果も以下に同じ
 <br>
-run&lt;=last(mdx=Newton(&lt;=f,&lt;=x),max(norm(f),norm(mdx)));
+run=&lt;last(mdx=Newton(=&lt;f,=&lt;x),max(norm(f),norm(mdx)));
 <br>
-_rn(&lt;=run,,3) -> infoLost[ri] 4.965068306494841e-16
+_rn(=&lt;run,,3) -> infoLost[ri] 4.965068306494841e-16
 <br>
 Ainv ->
 <br>
@@ -5990,15 +6030,15 @@ storage cleared
 <br>
 A=(i,2,3i:4,5i,6:7i,8,9i);
 <br>
-Ainv&lt;=(x0,x1,x2:x3,x4,x5:x6,x7,x8);
+Ainv=&lt;(x0,x1,x2:x3,x4,x5:x6,x7,x8);
 <br>
-x&lt;={x0,x1,x2,x3,x4,x5,x6,x7,x8};
+x=&lt;{x0,x1,x2,x3,x4,x5,x6,x7,x8};
 <br>
-f&lt;={Ainv*A=identity3};
+f=&lt;{Ainv*A=identity3};
 <br>
-run&lt;=last(mdx=Newton(&lt;=f,&lt;=x),max(norm(f),norm(mdx)));
+run=&lt;last(mdx=Newton(=&lt;f,=&lt;x),max(norm(f),norm(mdx)));
 <br>
-_rn(&lt;=run,,3) -> infoLost[ri] 3.4546432349907805e-16
+_rn(=&lt;run,,3) -> infoLost[ri] 3.4546432349907805e-16
 <br>
 Ainv ->
 <br>
@@ -6047,15 +6087,15 @@ storage cleared
 <br>
 A=(i+1,2-i,3i,4:5i,6-i,7,8i:9-5i,10i,-11+3i,12-5i:-13,14i,-15,16i);
 <br>
-Ainv&lt;=(x0,x1,x2,x3:x4,x5,x6,x7:x8,x9,x10,x11:x12,x13,x14,x15);
+Ainv=&lt;(x0,x1,x2,x3:x4,x5,x6,x7:x8,x9,x10,x11:x12,x13,x14,x15);
 <br>
-x&lt;={x0,x1,x2,x3,x4,x5,x6,x7,x8,x9,x10,x11,x12,x13,x14,x15};
+x=&lt;{x0,x1,x2,x3,x4,x5,x6,x7,x8,x9,x10,x11,x12,x13,x14,x15};
 <br>
-f&lt;={Ainv*A=identity4};
+f=&lt;{Ainv*A=identity4};
 <br>
-run&lt;=last(mdx=Newton(&lt;=f,&lt;=x),max(norm(f),norm(mdx)));
+run=&lt;last(mdx=Newton(=&lt;f,=&lt;x),max(norm(f),norm(mdx)));
 <br>
-_rn(&lt;=run,,3) -> infoLost[ri] 2.9893669801409083e-16
+_rn(=&lt;run,,3) -> infoLost[ri] 2.9893669801409083e-16
 <br>
 Ainv ->
 <br>
@@ -6142,11 +6182,11 @@ storage cleared
 <br>
 A=(i,2i,3i:4i,5i,6i:7i,8i,9i);
 <br>
-Ainv&lt;=(x0,x1,x2:x3,x4,x5:x6,x7,x8);
+Ainv=&lt;(x0,x1,x2:x3,x4,x5:x6,x7,x8);
 <br>
-x&lt;={x0,x1,x2,x3,x4,x5,x6,x7,x8};
+x=&lt;{x0,x1,x2,x3,x4,x5,x6,x7,x8};
 <br>
-f&lt;={
+f=&lt;{
 <br>
 x0(i)+x1(4i)+x2(7i)=1,x0(2i)+x1(5i)+x2(8i)=0,x0(3i)+x1(6i)+x2(9i)=0,
 <br>
@@ -6156,9 +6196,9 @@ x6(i)+x7(4i)+x8(7i)=0,x6(2i)+x7(5i)+x8(8i)=0,x6(3i)+x7(6i)+x8(9i)=1
 <br>
 };
 <br>
-f&lt;={Ainv*A=identity3};
+f=&lt;{Ainv*A=identity3};
 <br>
-run&lt;=last(mdx=Newton(&lt;=f,&lt;=x),max(norm(f),norm(mdx)));
+run=&lt;last(mdx=Newton(=&lt;f,=&lt;x),max(norm(f),norm(mdx)));
 <br>
 run -> infoLost[ i] 2787964185176708
 <br>
@@ -6170,17 +6210,17 @@ storage cleared
 <br>
 A=(i,2i,3i:4i,5i,6i:7i,8i,9i);
 <br>
-Ainv&lt;=(x0,x1,x2:x3,x4,x5:x6,x7,x8);
+Ainv=&lt;(x0,x1,x2:x3,x4,x5:x6,x7,x8);
 <br>
-x&lt;={x0,x1,x2,x3,x4,x5,x6,x7,x8};
+x=&lt;{x0,x1,x2,x3,x4,x5,x6,x7,x8};
 <br>
 h=(-i);
 <br>
-x_initial&lt;={h,h,h,h,h,h,h,h,h};
+x_initial=&lt;{h,h,h,h,h,h,h,h,h};
 <br>
-f&lt;={Ainv*A=identity3};
+f=&lt;{Ainv*A=identity3};
 <br>
-run&lt;=last(mdx=Newton(&lt;=f,&lt;=x,&lt;=x_initial),max(norm(f),norm(mdx)));
+run=&lt;last(mdx=Newton(=&lt;f,=&lt;x,=&lt;x_initial),max(norm(f),norm(mdx)));
 <br>
 run -> infoLost[ i] 23884062379.765785
 <br>
@@ -6240,16 +6280,16 @@ x0=-i; x0^2+1=0 -> 1.2246467991473532e-16i
 <br>
 storage cleared
 <br>
-x&lt;={x0};
+x=&lt;{x0};
 <br>
-f&lt;={x0^2+1=0};
+f=&lt;{x0^2+1=0};
 <br>
 <br>
 初期値を1+2iとした反復6回目の近似解を示す
 <br>
-run&lt;=last(mdx=Newton(&lt;=f,&lt;=x,&lt;={1+2i}),max(norm(f),norm(mdx)));
+run=&lt;last(mdx=Newton(=&lt;f,=&lt;x,=&lt;{1+2i}),max(norm(f),norm(mdx)));
 <br>
-_rn(&lt;=run,,6) -> 4.848187063331881e-11
+_rn(=&lt;run,,6) -> 4.848187063331881e-11
 <br>
 x -> 6.918085522901255e-17+0.9999999999999997i
 <br>
@@ -6260,7 +6300,7 @@ x -> 6.918085522901255e-17+0.9999999999999997i
 <br>
 x0=1-2i;
 <br>
-_rn(&lt;=run,,6) -> 4.2544881989018353e-11
+_rn(=&lt;run,,6) -> 4.2544881989018353e-11
 <br>
 x -> -5.067058578678027e-17-1.0000000000000002i
 <br>
@@ -6273,11 +6313,11 @@ x -> -5.067058578678027e-17-1.0000000000000002i
 <br>
 storage cleared
 <br>
-x&lt;={x0};
+x=&lt;{x0};
 <br>
-f&lt;={real(x0)^2+1=0}; || f&lt;={-(real(x0)^2+1)};
+f=&lt;{real(x0)^2+1=0}; || f=&lt;{-(real(x0)^2+1)};
 <br>
-run&lt;=last(mdx=Newton(&lt;=f,&lt;=x,&lt;={1}),max(norm(f),norm(mdx)));
+run=&lt;last(mdx=Newton(=&lt;f,=&lt;x,=&lt;{1}),max(norm(f),norm(mdx)));
 <br>
 run -> 1.414206491330789
 <br>
@@ -6315,15 +6355,15 @@ run -> 38147.63324071567
 <br>
 storage cleared
 <br>
-x&lt;={x0,x1}; x_initial&lt;={1+i,1-i};
+x=&lt;{x0,x1}; x_initial=&lt;{1+i,1-i};
 <br>
-f&lt;={x0^i-2x1=3i,3x0+exp(x1)=5i};
+f=&lt;{x0^i-2x1=3i,3x0+exp(x1)=5i};
 <br>
-run&lt;=last(mdx=Newton(&lt;=f,&lt;=x,&lt;=x_initial),max(norm(f),norm(mdx)));
+run=&lt;last(mdx=Newton(=&lt;f,=&lt;x,=&lt;x_initial),max(norm(f),norm(mdx)));
 <br>
 ・反復6回目の近似解を示す
 <br>
-_rn(&lt;=run,,6) -> infoLost[ i] 2.2368035825474494e-16
+_rn(=&lt;run,,6) -> infoLost[ i] 2.2368035825474494e-16
 <br>
 x ->
 <br>
@@ -6338,15 +6378,15 @@ x ->
 <br>
 storage cleared
 <br>
-x&lt;=(x0:x1); x_initial&lt;=(1+i:1-i);
+x=&lt;(x0:x1); x_initial=&lt;(1+i:1-i);
 <br>
-f&lt;=(x0^i-2x1=3i:3x0+exp(x1)=5i);
+f=&lt;(x0^i-2x1=3i:3x0+exp(x1)=5i);
 <br>
-run&lt;=last(mdx=Newton(&lt;=f,&lt;=x,&lt;=x_initial),max(norm(f),norm(mdx)));
+run=&lt;last(mdx=Newton(=&lt;f,=&lt;x,=&lt;x_initial),max(norm(f),norm(mdx)));
 <br>
 ・反復6回目の近似解を示す
 <br>
-_rn(&lt;=run,,6) -> infoLost[ i] 2.2368035825474494e-16
+_rn(=&lt;run,,6) -> infoLost[ i] 2.2368035825474494e-16
 <br>
 x ->
 <br>
@@ -6361,13 +6401,13 @@ x ->
 <br>
 storage cleared
 <br>
-run&lt;=last(
+run=&lt;last(
 <br>
-mdx=Newton(&lt;=(x0^i-2x1=3i:3x0+exp(x1)=5i),&lt;=(x0:x1),&lt;=(1+i:1-i)),
+mdx=Newton(=&lt;(x0^i-2x1=3i:3x0+exp(x1)=5i),=&lt;(x0:x1),=&lt;(1+i:1-i)),
 <br>
 norm(mdx));
 <br>
-_rn(&lt;=run,,6) -> 2.2368035825474494e-16
+_rn(=&lt;run,,6) -> 2.2368035825474494e-16
 <br>
 {x0,x1} ->
 <br>
@@ -6429,29 +6469,29 @@ ln(1+x)/x  // NG -> infoLost[r ] 0
 <br>
 ・複素数演算の場合
 <br>
-_dx(&lt;={ln(1+x)})/_dx(&lt;={x})  // OK
+_dx(=&lt;{ln(1+x)})/_dx(=&lt;{x})  // OK
 <br>
 -> 1.0000000000031541+4.602212346748365e-14i+O(3e-24i)
 <br>
-_dx(&lt;={ln(1-x)})/_dx(&lt;={-x})  // OK
+_dx(=&lt;{ln(1-x)})/_dx(=&lt;{-x})  // OK
 <br>
 -> 1.0000000000031541+4.602212346748365e-14i+O(2e-16+3e-24i)
 <br>
-_dx(&lt;={ln(1-x)},2)/_dx(&lt;={-x},2)  // NG -> [MyErr]FN isNaN
+_dx(=&lt;{ln(1-x)},2)/_dx(=&lt;{-x},2)  // NG -> [MyErr]FN isNaN
 <br>
-_dx(&lt;={ln(1-x)},2)/_dx(&lt;={(-x)^2},2)  // OK
+_dx(=&lt;{ln(1-x)},2)/_dx(=&lt;{(-x)^2},2)  // OK
 <br>
 -> -0.500000000135999+3.0923761182676057e-12i+O(1e-11+1e-11i)
 <br>
 ・実数演算の場合
 <br>
-_dx(&lt;={ln(1+x)})/_dx(&lt;={x})  // OK -> 0.9999999999991271
+_dx(=&lt;{ln(1+x)})/_dx(=&lt;{x})  // OK -> 0.9999999999991271
 <br>
-_dx(&lt;={ln(1-x)})/_dx(&lt;={-x})  // OK -> 0.9999999999991271
+_dx(=&lt;{ln(1-x)})/_dx(=&lt;{-x})  // OK -> 0.9999999999991271
 <br>
-_dx(&lt;={ln(1-x)},2)/_dx(&lt;={-x},2)  // NG -> -Infinity+O(Infinity)
+_dx(=&lt;{ln(1-x)},2)/_dx(=&lt;{-x},2)  // NG -> -Infinity+O(Infinity)
 <br>
-_dx(&lt;={ln(1-x)},2)/_dx(&lt;={(-x)^2},2)  // OK -> -0.4999999999659258+O(1e-11)
+_dx(=&lt;{ln(1-x)},2)/_dx(=&lt;{(-x)^2},2)  // OK -> -0.4999999999659258+O(1e-11)
 <br>
 ・無限大の極限は自明の演算以外は演算不可
 <br>
@@ -6463,9 +6503,9 @@ y*y  // OK -> Infinity
 <br>
 y/(y*y)  // NG -> [MyErr]FN isNaN
 <br>
-_dy(&lt;={y})/_dy(&lt;={y*y})  // NG -> [MyErr]BRsa isNaN
+_dy(=&lt;{y})/_dy(=&lt;{y*y})  // NG -> [MyErr]BRsa isNaN
 <br>
-_dy(&lt;={1/(y*y)})/_dy(&lt;={1/y})  // NG -> [MyErr]FN isNaN
+_dy(=&lt;{1/(y*y)})/_dy(=&lt;{1/y})  // NG -> [MyErr]FN isNaN
     </td>
   </tr>
   <tr>
@@ -6526,11 +6566,11 @@ _dy(&lt;={1/(y*y)})/_dy(&lt;={1/y})  // NG -> [MyErr]FN isNaN
 <br>
 ・本仕様は式変数への方程式の代入で以下の構文を許容する
 <br>
-f&lt;={x0^2+1=0} || f&lt;={=-(x0^2+1)} || f&lt;={-(x0^2+1)}
+f=&lt;{x0^2+1=0} || f=&lt;{=-(x0^2+1)} || f=&lt;{-(x0^2+1)}
 <br>
-f&lt;={A(x)=b} || f&lt;={=b-A(x)} || f&lt;={b-A(x)}
+f=&lt;{A(x)=b} || f=&lt;{=b-A(x)} || f=&lt;{b-A(x)}
 <br>
-f&lt;={Ainv*A=identity2} || f&lt;={=identity2-Ainv*A} || f&lt;={identity2-Ainv*A}
+f=&lt;{Ainv*A=identity2} || f=&lt;{=identity2-Ainv*A} || f=&lt;{identity2-Ainv*A}
 <br>
 <br>
 行列を扱う上での演算都合上の仕様について記述する
@@ -6561,11 +6601,11 @@ vector={1,2,3}:trans(vector)vector -> (0:14)
 <br>
 ・式変数への代入も同様
 <br>
-(x&lt;=(a,b,c,d,e)) -> 0
+(x=&lt;(a,b,c,d,e)) -> 0
 <br>
 ・変数への式読出しは読出し値が残る
 <br>
-clear; y&lt;=3x-1,x=3,y=&gt;,y=&gt;y0,y0 -> (0,0,8,8,8)
+clear; y=&lt;3x-1,x=3,y=&gt;,y=&gt;y0,y0 -> (0,0,8,8,8)
 <br>
 <br>
 式変数について記述する
@@ -6805,6 +6845,10 @@ operation.js抜粋
         "BRba",  // Binary operatoR bit   and &amp;
         "BRbx",  // Binary operatoR bit   xor @
         "BRbo"   // Binary operatoR bit    or |
+      ],
+      [
+        "BRcn",  // Binary operatoR comparison &lt; || &lt;= || &gt;= || &gt;
+        "BRrl"   // Binary operatoR relational == || &lt;&gt;
       ]
     ],
     [

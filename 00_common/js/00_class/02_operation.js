@@ -65,6 +65,10 @@ My_entry.operation.prototype.config = {
         "BRba",  // Binary operatoR bit   and &
         "BRbx",  // Binary operatoR bit   xor @
         "BRbo"   // Binary operatoR bit    or |
+      ],
+      [
+        "BRcn",  // Binary operatoR comparison < || <= || >= || >
+        "BRrl"   // Binary operatoR relational == || <>
       ]
     ],
     [
@@ -1336,7 +1340,9 @@ My_entry.operation.prototype.init_callbacks_mat = function(options){
   self.callbacks_mat.BRbs =
   self.callbacks_mat.BRba =
   self.callbacks_mat.BRbx =
-  self.callbacks_mat.BRbo = function(tagName, tagObj, leftArr, rightArr){
+  self.callbacks_mat.BRbo =
+  self.callbacks_mat.BRcn =
+  self.callbacks_mat.BRrl = function(tagName, tagObj, leftArr, rightArr){
     var _tree = null;
     if(leftArr && rightArr){
       var left = self.arr2num(leftArr);
@@ -1379,7 +1385,9 @@ My_entry.operation.prototype.BRr =
 My_entry.operation.prototype.BRbs =
 My_entry.operation.prototype.BRba =
 My_entry.operation.prototype.BRbx =
-My_entry.operation.prototype.BRbo = function(data, i0, tagName, tagObj){
+My_entry.operation.prototype.BRbo =
+My_entry.operation.prototype.BRcn =
+My_entry.operation.prototype.BRrl = function(data, i0, tagName, tagObj){
   var self = this;
   var tree = self.BR_original(data, i0, tagName, tagObj);
   if(!(tree)){
