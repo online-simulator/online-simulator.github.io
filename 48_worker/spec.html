@@ -143,6 +143,11 @@ mainからworkerにまとめてarr_dataを渡すhandler_workerを用意し、排
 同様にエラーをcatchして後述するエラー処理self.callbacks_worker.onerrorに渡す
 <pre><code>
   if(self.handler_worker && self.handler_worker.isLocked) return false;
+  arr_data_in.forEach(function(data_in, i){
+    if(typeof data_in.i === "undefined"){
+      data_in.i = i;
+    }
+  });
   self.arr_data_in = arr_data_in;
   self.arr_data_out = [];
   if(self.handler_worker && useWorker){

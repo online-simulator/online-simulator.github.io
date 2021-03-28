@@ -59,6 +59,11 @@ My_entry.original_worker.prototype.set_callbacks_worker = function(){
 My_entry.original_worker.prototype.run_worker = function(arr_data_in, useWorker){
   var self = this;
   if(self.handler_worker && self.handler_worker.isLocked) return false;
+  arr_data_in.forEach(function(data_in, i){
+    if(typeof data_in.i === "undefined"){
+      data_in.i = i;
+    }
+  });
   self.arr_data_in = arr_data_in;
   self.arr_data_out = [];
   if(self.handler_worker && useWorker){

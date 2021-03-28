@@ -96,7 +96,6 @@ My_entry.test_worker.prototype.make_testcase = function(n){
   self.arr_data_out = [];
   for(var i=0; i<n; ++i){
     var data = {};
-    data.i = i;
     data.in = Math.random();
     data.sw_job = self.entry.$.selectText_id("select-job");
     self.arr_data_in.push(data);
