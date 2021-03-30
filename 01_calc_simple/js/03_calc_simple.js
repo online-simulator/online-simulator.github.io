@@ -74,7 +74,8 @@ My_entry.calc_simple.prototype.init_handlers = function(){
         $.get_urlParams(options);
         if(options.checkError !== false) options.checkError = true;
         var arr_data_in = [];
-        for(var i=0; i<1; ++i){
+        var len_i = 1;
+        for(var i=0; i<len_i; ++i){
           var data = self.entry.DATA.data();
           data.in = input;
           data.options = options;
@@ -182,12 +183,11 @@ My_entry.calc_simple.prototype.set_callbacks_worker = function(){
     self.arr_data_out[data.i] = data;
     var len_in = self.arr_data_in.length;
     var len_out = Object.keys(self.arr_data_out).length;
-    self.io.write_text(self.elems.o, "finished "+len_out+"/"+len_in);
+    if(len_in === 1){
+      store(data);
+      output(data);
+    }
     if(len_out === len_in){
-      if(len_in === 1){
-        store(data);
-        output(data);
-      }
       self.stop_worker();
     }
     return self;

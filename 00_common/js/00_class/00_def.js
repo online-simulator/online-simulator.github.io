@@ -81,6 +81,14 @@ My_entry.def.prototype.isNotEmpty = function(arg){
   var self = this;
   return !(self.isEmpty(arg));
 };
+My_entry.def.prototype.isNotNull = function(arg){
+  var self = this;
+  return !(arg === null);
+};
+My_entry.def.prototype.isNotNullStr = function(arg){
+  var self = this;
+  return !(arg === "");
+};
 My_entry.def.prototype.isNaN = function(val){
   var self = this;
   /* isNaN(null || "" || false || true) -> false */

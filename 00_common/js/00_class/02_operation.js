@@ -97,6 +97,7 @@ My_entry.operation.prototype.init = function(){
   var self = this;
   new My_entry.original_main().setup_constructors.call(self);
   new My_entry.original_main().make_instances.call(self, ["$", "def", "math", "math_mat", "DATA", "unit"]);
+  My_entry.def.mix_in_props(My_entry.operation, My_entry.def, ["isNotNull", "isNotNullStr"]);
   My_entry.def.mix_in_props(My_entry.operation, My_entry.DATA, ["arr2num", "arr2args", "arr2obj_i"]);
   self.arr_precedence = [];
   self.options = {};
@@ -105,14 +106,6 @@ My_entry.operation.prototype.init = function(){
   self.vars = null;
   self.eqns = null;
   return self;
-};
-My_entry.operation.prototype.isNotNull = function(arg){
-  var self = this;
-  return !(arg === null);
-};
-My_entry.operation.prototype.isNotNullStr = function(arg){
-  var self = this;
-  return !(arg === "");
 };
 My_entry.operation.prototype.throw_tree = function(tree){
   var self = this;
