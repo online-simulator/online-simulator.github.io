@@ -8,9 +8,6 @@ My_entry.parser = function(){
 
 My_entry.parser.config =
 My_entry.parser.prototype.config = {
-  ERROR: {
-    title: "[MyErr]"
-  },
   SYNTAX: {
     pairs: [
       {s: "{", e: "}"},
@@ -529,14 +526,6 @@ My_entry.parser.prototype.make_trees = function(sentence, re){
   }
   return _trees;
 };
-My_entry.parser.prototype.get_msgError = function(e, msg){
-  var self = this;
-  return (e === false)?
-    self.config.ERROR.title+(msg || ""):
-    (typeof e === "string")?
-      self.config.ERROR.title+e:
-      e.message;
-};
 My_entry.parser.prototype.isCommand = function(sentence){
   var self = this;
   var _command = null;
@@ -586,7 +575,7 @@ My_entry.parser.prototype.run = function(_data){
     }
   }
   catch(e){
-    throw new Error(self.get_msgError(e, "Invalid {([])}"));
+    throw new Error(self.entry.def.get_msgError(e, "Invalid {([])}"));
   }
   try{
     if(trees2d.length){
@@ -597,14 +586,28 @@ My_entry.parser.prototype.run = function(_data){
         _data.log = self.make_log(_data);
         _data.logh = self.make_logh(_data);
         _data.logo = self.make_logo(_data);
+        self.make_arr_num(_data);
       }
     }
   }
   catch(e){
     _data.vars.ans = ans;    // restore
-    throw new Error(self.get_msgError(e, "Invalid operation"));
+    throw new Error(self.entry.def.get_msgError(e, "Invalid operation"));
   }
   return _data;
+};
+My_entry.parser.prototype.make_arr_num = function(data){
+  var self = this;
+  var DATA = self.entry.DATA;
+  data.arr_num = [];
+  data.trees2d.forEach(function(trees, j){
+    trees.forEach(function(tree, i){
+      var mat = tree.mat;
+      var num = (mat)? DATA.arr2num(mat.arr): null;
+      data.arr_num.push(num);
+    });
+  });
+  return self;
 };
 My_entry.parser.prototype.make_log_num = function(num, options){
   var self = this;

@@ -158,7 +158,10 @@ My_entry.math_com.prototype.exp = function(a){
 };
 My_entry.math_com.prototype.pow = function(a, b){
   var self = this;
-  if(!(self.absolute_com(a))) return self.entry.DATA.com(0, 0);
+  if(!(self.absolute_com(a))){
+    var cr = (self.absolute_com(b))? 0: 1;
+    return self.entry.DATA.com(cr, 0);
+  }
   return self.exp(self.mul(self.ln(a), b));
 };
 My_entry.math_com.prototype.sin = function(a){

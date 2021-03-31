@@ -6,6 +6,12 @@ My_entry.def = function(){
   return self;
 };
 
+My_entry.def.config =
+My_entry.def.prototype.config = {
+  ERROR: {
+    title: "[MyErr]"
+  }
+};
 My_entry.def.prototype.init = function(){
   var self = this;
   return self;
@@ -51,6 +57,16 @@ My_entry.def.prototype.mix_in_props = function(_sub, super_, props){
     _sub.prototype[prop] = super_.prototype[prop];
   });
   return _sub;
+};
+My_entry.def.get_msgError =
+My_entry.def.prototype.get_msgError = function(e, msg){
+  var self = this;
+  var title = self.config.ERROR.title;
+  return (e === false)?
+    title+(msg || ""):
+    (typeof e === "string")?
+      title+e:
+      e.message;
 };
 My_entry.def.prototype.hasProp = function(obj, prop){
   var self = this;

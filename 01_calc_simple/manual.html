@@ -351,6 +351,11 @@ plot2d
 </a>
 <br>
 　・
+<a href="#span-out-series">
+級数展開
+</a>
+<br>
+　・
 <a href="#span-out-linear">
 連立線形方程式
 </a>
@@ -5327,6 +5332,66 @@ S=(f[0]+4Σ&lt;k=0,N/2-1&gt;f[2k+1]+2Σ&lt;k=1,N/2-1&gt;f[2k]+f[N])h/3+O(h^4)
 ・両端を除く偶数の離散点f[2k]は2回足されて2倍
 <br>
 ・離散化誤差のオーダーは微小区間の正方形面積h*hの2乗
+    </td>
+  </tr>
+  <tr>
+    <th>
+<a href="#span-index">
+目次
+</a>
+<br>
+級数展開
+<br>
+の解法
+    </th>
+    <td>
+<span id="span-out-series"></span>
+級数展開の解法について記述する
+<br>
+<br>
+Taylor展開・Maclaurin展開
+<br>
+・0の0乗の定義
+<br>
+0^0 || 0**0 || pow(0, 0) -> 1
+<br>
+・f(x)のx=a周辺のN次打切りTaylor展開
+<br>
+Taylor=&lt;_sn(=&lt;{_dx(=&lt;f,n,a)(x-a)^n/n!},0,N);
+<br>
+・f(x)のx=0周辺のN次打切りMaclaurin展開
+<br>
+Maclaurin=&lt;_sn(=&lt;{_dx(=&lt;f,n,0)x^n/n!},0,N);
+<br>
+・f(x)=exp(x)の場合
+<br>
+f=&lt;exp(x);
+<br>
+x=2; f -> 7.38905609893065
+<br>
+・実数演算の場合
+<br>
+x=2; a=0; f=&lt;exp(x);
+<br>
+Taylor=&lt;_sn(=&lt;{_dx(=&lt;f,n,a)(x-a)^n/n!},0,N);
+<br>
+Maclaurin=&lt;_sn(=&lt;{_dx(=&lt;f,n,0)x^n/n!},0,N);
+<br>
+N=3; Taylor || Maclaurin -> 6.3333380025161095+O(2e-5)
+<br>
+N=5; Taylor || Maclaurin -> 7.266696174805806+O(7e-5)
+<br>
+N=7; Taylor || Maclaurin -> 7.381056210596976+O(1e-4)
+<br>
+・複素数演算の場合
+<br>
+x=2; a=0; f=&lt;exp(x); Taylor=&lt;_sn(=&lt;{_dx(=&lt;f,n,a)(x-a)^n/n!},0,N);
+<br>
+N=3; Taylor -> 6.333333332137665+0.00000933215700063301i+O(2e-5+2e-5i)
+<br>
+N=5; Taylor -> 7.266666317607307+0.000058921777380024245i+O(7e-5+7e-5i)
+<br>
+N=7; Taylor -> 7.38095752867692+0.00014973248523188646i+O(1e-4+1e-4i)
     </td>
   </tr>
   <tr>

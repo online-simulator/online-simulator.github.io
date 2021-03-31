@@ -210,6 +210,16 @@ minor update
 <br>
 　変更後: =&lt;
 <br>
+・実数演算に合わせて複素数演算における0の0乗の定義を変更
+<br>
+　7次打切りMaclaurin展開
+<br>
+f=&lt;exp(x); Maclaurin=&lt;_sn(=&lt;{_dx(=&lt;f,n,0)x^n/n!},0,7);
+<br>
+　変更前: 0^0 || 0**0 || pow(0, 0) || x=0; Maclaurin -> 0
+<br>
+　変更後: 0^0 || 0**0 || pow(0, 0) || x=0; Maclaurin -> 1
+<br>
 ・グラフ関数電卓の実装準備
     </td>
     <td>
