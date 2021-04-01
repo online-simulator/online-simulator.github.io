@@ -351,11 +351,6 @@ plot2d
 </a>
 <br>
 　・
-<a href="#span-out-series">
-級数展開
-</a>
-<br>
-　・
 <a href="#span-out-linear">
 連立線形方程式
 </a>
@@ -368,6 +363,11 @@ plot2d
 　・
 <a href="#span-out-non-linear">
 連立非線形方程式
+</a>
+<br>
+　・
+<a href="#span-out-series">
+級数展開
 </a>
 <br>
 　・
@@ -5340,66 +5340,6 @@ S=(f[0]+4Σ&lt;k=0,N/2-1&gt;f[2k+1]+2Σ&lt;k=1,N/2-1&gt;f[2k]+f[N])h/3+O(h^4)
 目次
 </a>
 <br>
-級数展開
-<br>
-の解法
-    </th>
-    <td>
-<span id="span-out-series"></span>
-級数展開の解法について記述する
-<br>
-<br>
-Taylor展開・Maclaurin展開
-<br>
-・0の0乗の定義
-<br>
-0^0 || 0**0 || pow(0, 0) -> 1
-<br>
-・f(x)のx=a周辺のN次打切りTaylor展開
-<br>
-Taylor=&lt;_sn(=&lt;{_dx(=&lt;f,n,a)(x-a)^n/n!},0,N);
-<br>
-・f(x)のx=0周辺のN次打切りMaclaurin展開
-<br>
-Maclaurin=&lt;_sn(=&lt;{_dx(=&lt;f,n,0)x^n/n!},0,N);
-<br>
-・f(x)=exp(x)の場合
-<br>
-f=&lt;exp(x);
-<br>
-x=2; f -> 7.38905609893065
-<br>
-・実数演算の場合
-<br>
-x=2; a=0; f=&lt;exp(x);
-<br>
-Taylor=&lt;_sn(=&lt;{_dx(=&lt;f,n,a)(x-a)^n/n!},0,N);
-<br>
-Maclaurin=&lt;_sn(=&lt;{_dx(=&lt;f,n,0)x^n/n!},0,N);
-<br>
-N=3; Taylor || Maclaurin -> 6.3333380025161095+O(2e-5)
-<br>
-N=5; Taylor || Maclaurin -> 7.266696174805806+O(7e-5)
-<br>
-N=7; Taylor || Maclaurin -> 7.381056210596976+O(1e-4)
-<br>
-・複素数演算の場合
-<br>
-x=2; a=0; f=&lt;exp(x); Taylor=&lt;_sn(=&lt;{_dx(=&lt;f,n,a)(x-a)^n/n!},0,N);
-<br>
-N=3; Taylor -> 6.333333332137665+0.00000933215700063301i+O(2e-5+2e-5i)
-<br>
-N=5; Taylor -> 7.266666317607307+0.000058921777380024245i+O(7e-5+7e-5i)
-<br>
-N=7; Taylor -> 7.38095752867692+0.00014973248523188646i+O(1e-4+1e-4i)
-    </td>
-  </tr>
-  <tr>
-    <th>
-<a href="#span-index">
-目次
-</a>
-<br>
 連立
 <br>
 線形方程式
@@ -6487,6 +6427,111 @@ _rn(=&lt;run,,6) -> 2.2368035825474494e-16
 (infoLost[ i] -0.04901921620544653+2.023423045158351i:
 <br>
 0.07726186556052178-1.434248862158042i)
+    </td>
+  </tr>
+  <tr>
+    <th>
+<a href="#span-index">
+目次
+</a>
+<br>
+級数展開
+<br>
+の解法
+    </th>
+    <td>
+<span id="span-out-series"></span>
+級数展開の解法について記述する
+<br>
+<br>
+Taylor展開・Maclaurin展開
+<br>
+・0の0乗の定義
+<br>
+0^0 || 0**0 || pow(0, 0) -> 1
+<br>
+・f(x)のx=a周辺のN次打切りTaylor展開TaylorN
+<br>
+TaylorN=&lt;_sn(=&lt;{_dx(=&lt;f,n,a)(x-a)^n/n!},0,N);
+<br>
+・f(x)のx=0周辺のN次打切りMaclaurin展開MaclaurinN
+<br>
+MaclaurinN=&lt;_sn(=&lt;{_dx(=&lt;f,n,0)x^n/n!},0,N);
+<br>
+・f(x)=exp(x)の場合
+<br>
+f=&lt;exp(x);
+<br>
+x=2; f -> 7.38905609893065
+<br>
+・実数演算の場合
+<br>
+TaylorN=&lt;_sn(=&lt;{_dx(=&lt;f,n,a)(x-a)^n/n!},0,N);
+<br>
+MaclaurinN=&lt;_sn(=&lt;{_dx(=&lt;f,n,0)x^n/n!},0,N);
+<br>
+f=&lt;exp(x);
+<br>
+x=2;
+<br>
+a=0;
+<br>
+N=3; TaylorN || MaclaurinN -> 6.3333380025161095+O(2e-5)
+<br>
+N=5; TaylorN || MaclaurinN -> 7.266696174805806+O(7e-5)
+<br>
+N=7; TaylorN || MaclaurinN -> 7.381056210596976+O(1e-4)
+<br>
+・複素数演算の場合
+<br>
+TaylorN=&lt;_sn(=&lt;{_dx(=&lt;f,n,a)(x-a)^n/n!},0,N);
+<br>
+f=&lt;exp(x);
+<br>
+x=2;
+<br>
+a=0;
+<br>
+N=3; TaylorN -> 6.333333332137665+0.00000933215700063301i+O(2e-5+2e-5i)
+<br>
+N=5; TaylorN -> 7.266666317607307+0.000058921777380024245i+O(7e-5+7e-5i)
+<br>
+N=7; TaylorN -> 7.38095752867692+0.00014973248523188646i+O(1e-4+1e-4i)
+<br>
+<br>
+収束性
+<br>
+・Taylor展開のN次の項TN
+<br>
+TN=&lt;_sn(=&lt;{_dx(=&lt;f,n,a)(x-a)^n/n!},N,N);
+<br>
+f=&lt;exp(x);
+<br>
+x=2;
+<br>
+a=0;
+<br>
+N=0; TN -> 1
+<br>
+N=1; TN -> 2.000000000000264+3.199902245182912e-15i+O(2e-12+2e-12i)
+<br>
+N=2; TN -> 2.0000000000047273-3.0553419555181785e-12i+O(3e-11+3e-11i)
+<br>
+N=3; TN -> 1.3333333321326732+0.000009332160052775064i+O(2e-5+2e-5i)
+<br>
+N=4; TN -> 0.6666667002412976+0.000018888944812360706i+O(4e-5+4e-5i)
+<br>
+N=5; TN -> 0.26666628522834573+0.00003070067556703053i+O(7e-5+7e-5i)
+<br>
+N=6; TN -> 0.0888888278111036+0.000037059768491892605i+O(9e-5+9e-5i)
+<br>
+N=7; TN -> 0.025402383258507955+0.00005375093935996962i+O(1e-4+1e-4i)
+<br>
+N=8; TN -> 0.006352708017224355+0.00004619914542548148i+O(1e-4+1e-4i)
+<br>
+N=9; TN -> 0.0014113419838348632+0.000038423321810908794i+O(9e-5+9e-5i)
+<br>
+N=10; TN -> 0.000280289701751799+0.00003279136299319164i+O(7e-5+7e-5i)
     </td>
   </tr>
   <tr>

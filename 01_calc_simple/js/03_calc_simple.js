@@ -35,6 +35,23 @@ My_entry.calc_simple.prototype.init_elems = function(){
 My_entry.calc_simple.prototype.init_handlers = function(){
   var self = this;
   var $ = self.entry.$;
+  var get_options = function(){
+    var _options = {};
+    _options.makeLog = 2;
+    $.get_elemProps("input[type='checkbox']", "checkbox-", "checked", _options);
+    $.get_elemProps("select", "select-", "value", _options);
+    $.get_urlParams(_options);
+    if(_options.checkError !== false) _options.checkError = true;
+    return _options;
+  };
+  var get_data = function(input, options){
+    var _data = self.entry.DATA.data();
+    _data.in = input;
+    _data.options = options;
+    _data.vars = self.entry.def.newClone(self.vars);  // restore vars
+    _data.eqns = self.entry.def.newClone(self.eqns);  // restore eqns
+    return _data;
+  };
   self.handlers.onload = function(args){
     var self = this;
     self.io = new self.constructors.io();
@@ -67,20 +84,11 @@ My_entry.calc_simple.prototype.init_handlers = function(){
       case "=":
         if(self.handler_worker && self.handler_worker.isLocked) return false;
         var input = self.io.read_text(self.elems.i);
-        var options = {};
-        options.makeLog = 2;
-        $.get_elemProps("input[type='checkbox']", "checkbox-", "checked", options);
-        $.get_elemProps("select", "select-", "value", options);
-        $.get_urlParams(options);
-        if(options.checkError !== false) options.checkError = true;
+        var options = get_options();
         var arr_data_in = [];
         var len_i = 1;
         for(var i=0; i<len_i; ++i){
-          var data = self.entry.DATA.data();
-          data.in = input;
-          data.options = options;
-          data.vars = self.entry.def.newClone(self.vars);  // restore vars
-          data.eqns = self.entry.def.newClone(self.eqns);  // restore eqns
+          var data = get_data(input, options);
           arr_data_in.push(data);
         }
         self.run_worker(arr_data_in, $.checkbox_id("checkbox-useWorker"));
