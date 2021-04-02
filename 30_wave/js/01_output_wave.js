@@ -268,9 +268,9 @@ My_entry.output_wave.prototype.check_arr_params = function(_arr_params){
 My_entry.output_wave.prototype.get_binary_soundData_LE = function(params){
   var self = this;
   var params = self.check_params(params);
-  return self.encode_soundData_LE(params.number_samples, params.number_channels, params.arr_f, params.arr_g_normalized, params.type);
+  return self.encode_soundData_LE(params.number_samples, params.number_channels, params.arr_f, params.arr_g_normalized, params.type, params.w0);
 };
-My_entry.output_wave.prototype.encode_soundData_LE = function(number_samples, number_channels, arr_f, arr_g, type){
+My_entry.output_wave.prototype.encode_soundData_LE = function(number_samples, number_channels, arr_f, arr_g, type, w0){
   var self = this;
   var _binary = "";
   var Bytes_perSample = self.Bytes_perSample;
@@ -279,6 +279,26 @@ My_entry.output_wave.prototype.encode_soundData_LE = function(number_samples, nu
   var seconds_perSample = 1/self.samples_perSecond;
   var func_t = self.entry.math_wave[type || "sin"];
   var phi0 = 0;
+  var oldVal = offset;
+  var dns = Math.floor(number_samples*0.01);
+  /* Ver.1.4.2 */
+  // average(cut-off) high frequency input at w0 > 0
+  var w0 = w0 || 0;
+  var get_newVal = (w0 > 0)?
+    function(val, ns){
+      var _newVal = val;
+      if(ns < dns){
+        _newVal = w0*oldVal+(1-w0)*val;  // w0 first
+      }
+      else if(number_samples-dns < ns){
+        _newVal = w0*oldVal+(1-w0)*offset;
+      }
+      oldVal = _newVal;
+      return _newVal;
+    }:
+    function(val){
+      return val;
+    };
   for(var ns=0; ns<number_samples; ++ns){
     var t = ns*seconds_perSample;
     var val = 0;
@@ -289,7 +309,7 @@ My_entry.output_wave.prototype.encode_soundData_LE = function(number_samples, nu
     });
     val *= amplitude;
     val += offset;
-    var binary_perChannel = self.int2binary_LE(Bytes_perSample, val);
+    var binary_perChannel = self.int2binary_LE(Bytes_perSample, get_newVal(val, ns));
     for(var nc=0; nc<number_channels; ++nc){
       _binary += binary_perChannel;
     }

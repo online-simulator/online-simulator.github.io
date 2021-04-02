@@ -5,7 +5,6 @@ My_entry.def.mix_in(My_entry.handler_wave, My_entry.original_worker);
 My_entry.handler_wave.prototype.composite_binary_soundData_LE = function(arr_binary, arr_number_samples, data){
   var self = this;
   var isLE = true;
-  var w0 = data.w0 || 0;
   var number_samples_perChannel_max = data.number_samples_perChannel_max;
   var number_channels = self.waveo.number_channels;  // from waveo
   var Bytes_perSample = data.Bytes_perSample;
@@ -32,17 +31,13 @@ My_entry.handler_wave.prototype.composite_binary_soundData_LE = function(arr_bin
       return view["get"+Prop].apply(view, arguments);
     };
     var j_offset = i%number_channels;
-    var oldVal = val_offset;
     for(var j=0, len=arr_number_samples[i]; j<len; ++j){
       var j_new = (j*number_channels+j_offset)*Bytes_perSample;
       var j_out = j*Bytes_perSample;
-      var newVal = newGetter(j_new, isLE)+getter(j_out, isLE)-val_offset;
-      // average(cut-off) high frequency input at w0 > 0
-      newVal = w0*oldVal+(1-w0)*newVal;  // w0 first
-      oldVal = newVal;
-      newSetter(j_new, newVal, isLE);
+      var val = newGetter(j_new, isLE)+getter(j_out, isLE)-val_offset;
+      newSetter(j_new, val, isLE);
       if(isNotExist_ch2){
-        newSetter(j_new+Bytes_perSample, newVal, isLE);
+        newSetter(j_new+Bytes_perSample, val, isLE);
       }
     }
   });
@@ -114,8 +109,11 @@ My_entry.handler_wave.prototype.input2arr = function(input){
   var self = this;
   var _arr_input = [];
   var mcb = input.replace(self.regex.s, "").match(self.regex.mb);
+  /* Ver.1.4.2 */
+  if(!(mcb)) throw new Error("Invalid dataset");
   var number_channels = self.waveo.number_channels;  // from waveo
-  var len_band = mcb.length/number_channels;
+  /* Ver.1.4.2 */
+  var len_band = Math.max(mcb.length/number_channels, 1);
   var str2freq = function(str){
     var _freq = null;
     var mc_oc = str.match(self.regex.oc);

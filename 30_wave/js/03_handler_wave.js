@@ -256,8 +256,8 @@ My_entry.handler_wave.prototype.make_params = function(){
     self.entry.$._id("range-volume").value = volume*100;
   }
   self.params.volume = volume;
+  self.params.w0 = self.entry.$.selectNum_id("select-w0");
   if(self.isScriptMode){
-    self.params.w0 = self.entry.$.selectNum_id("select-w0");
   }
   else{
     self.params.arr_f = self.get_freqs();
