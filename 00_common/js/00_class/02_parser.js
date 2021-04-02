@@ -81,7 +81,7 @@ My_entry.parser.prototype.init = function(){
 };
 My_entry.parser.prototype.script2arr = function(script){
   var self = this;
-  return script.split(";").filter(function(arg){return !(arg === "");});  // semi-colon; is removed
+  return script.split(";").filter(function(arg){return !(arg === "");});  // semi-colon; removed
 };
 My_entry.parser.prototype.replace_series = function(str, bas){
   var self = this;
@@ -238,7 +238,7 @@ My_entry.parser.prototype.make_trees = function(sentence, re){
     if(ip_e){  // difficult to make matrix here "(()(1,2:3(),4))"
       i_next = ip_e;
       var ip_s = i;
-      if(ip_e-(ip_s+1)){  // () is removed
+      if(ip_e-(ip_s+1)){  // () removed
         var str_tokens = tokens.slice(ip_s+1, ip_e).join("");
         tree = DATA.tree_tag(tagName, self.make_trees(str_tokens, re));
       }
@@ -567,7 +567,6 @@ My_entry.parser.prototype.script2trees = function(script){
 My_entry.parser.prototype.run = function(_data){
   var self = this;
   var _data = _data;
-  var ans = _data.vars.ans;  // store
   var trees2d = [];
   try{
     if(_data && _data.in){
@@ -586,12 +585,10 @@ My_entry.parser.prototype.run = function(_data){
         _data.log = self.make_log(_data);
         _data.logh = self.make_logh(_data);
         _data.logo = self.make_logo(_data);
-        self.make_arr_num(_data);
       }
     }
   }
   catch(e){
-    _data.vars.ans = ans;    // restore
     throw new Error(self.entry.def.get_msgError(e, "Invalid operation"));
   }
   return _data;
@@ -599,15 +596,15 @@ My_entry.parser.prototype.run = function(_data){
 My_entry.parser.prototype.make_arr_num = function(data){
   var self = this;
   var DATA = self.entry.DATA;
-  data.arr_num = [];
+  var _arr_num = [];
   data.trees2d.forEach(function(trees, j){
     trees.forEach(function(tree, i){
       var mat = tree.mat;
       var num = (mat)? DATA.arr2num(mat.arr): null;
-      data.arr_num.push(num);
+      _arr_num.push(num);
     });
   });
-  return self;
+  return _arr_num;
 };
 My_entry.parser.prototype.make_log_num = function(num, options){
   var self = this;
@@ -741,15 +738,12 @@ My_entry.parser.prototype.make_logh = function(data){
   var arr_out = self.script2arr(str_out);
   var len_in = arr_in.length;
   var len_out = arr_out.length;
-  if(len_in === len_out){
-    var len = arr_in.length;
-    for(var i=len-1; i>=0; --i){
-      var str_in = arr_in[i];
-      var str_out = arr_out[i];
-      _log += make_line(str_in, str_out);
-    };
+  if(!(len_in === len_out)){
+    arr_in = self.script2arr(self.remove_commentAndWspace(str_in));
   }
-  else{
+  for(var i=len_out-1; i>=0; --i){
+    var str_in = arr_in[i];
+    var str_out = arr_out[i];
     _log += make_line(str_in, str_out);
   }
   return _log;

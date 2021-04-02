@@ -15,7 +15,7 @@ My_entry.calc_simple.prototype.config = {
 };
 My_entry.calc_simple.prototype.init = function(){
   var self = this;
-  self.init_main.call(self, ["reference", "$", "def", "DATA"]);
+  self.init_main.call(self, ["reference", "$", "def", "DATA", "parser"]);
   self.init_worker();
   return self;
 };
@@ -30,6 +30,49 @@ My_entry.calc_simple.prototype.init_elems = function(){
   $.setup_elems_readonly$("input,textarea");
   $.setup_elems$_tag("button", self.handlers, "onclick");
   $.setup_elems$_tag("input", self.handlers, "onchange");
+  $.setup_elems$_tag("select", self.handlers, "onchange");
+  return self;
+};
+My_entry.calc_simple.prototype.output_log = function(data){
+  var self = this;
+  if(data.log){
+    self.io.write_text(self.elems.o, data.log.split(";").join(";\n"));
+    var logh = "";
+    if(data.logh){
+      var bar = self.log_bar;
+      logh += data.logh;
+      logh += bar;
+      if(self.logo !== data.logo){
+        self.logo = data.logo;
+        logh += data.logo;
+        logh += "\n";
+        logh += bar+bar;
+        logh += "\n";
+      }
+      logh += self.logh;
+      self.logh = logh;
+      self.io.write_text(self.elems.h, self.logh.substr(0, self.config.LOG.numberChars));
+    }
+  }
+  return self;
+};
+My_entry.calc_simple.prototype.re_output_log = function(){
+  var self = this;
+  var $ = self.entry.$;
+  if(self.arr_data_out){
+    var len_in = self.arr_data_in.length;
+    var len_out = Object.keys(self.arr_data_out).length;
+    if(len_in === 1 && len_out === 1){  // finished
+      var data = self.arr_data_out[0];
+      data.options.makeLog = 2;
+      data.options.expDigit = $.selectNum_id("select-expDigit");
+      data.log = self.entry.parser.make_log(data);
+      data.logh = self.entry.parser.make_logh(data);
+      data.logo = self.entry.parser.make_logo(data);
+      data.arr_num = self.entry.parser.make_arr_num(data);
+      self.output_log(data);
+    }
+  }
   return self;
 };
 My_entry.calc_simple.prototype.init_handlers = function(){
@@ -37,7 +80,6 @@ My_entry.calc_simple.prototype.init_handlers = function(){
   var $ = self.entry.$;
   var get_options = function(){
     var _options = {};
-    _options.makeLog = 2;
     $.get_elemProps("input[type='checkbox']", "checkbox-", "checked", _options);
     $.get_elemProps("select", "select-", "value", _options);
     $.get_urlParams(_options);
@@ -145,6 +187,9 @@ My_entry.calc_simple.prototype.init_handlers = function(){
         var isChecked = $.checkbox_elem(elem);
         $.show(".ex-com", isChecked);
         break;
+      case "select-expDigit":
+        self.re_output_log();
+        break;
       default:
         break;
     }
@@ -164,27 +209,6 @@ My_entry.calc_simple.prototype.set_callbacks_worker = function(){
       self.eqns[name] = eqns[name];  // store eqns
     }
   };
-  var output = function(data){
-    if(data.log){
-      self.io.write_text(self.elems.o, data.log);
-      var logh = "";
-      if(data.logh){
-        var bar = self.log_bar;
-        logh += data.logh;
-        logh += bar;
-        if(self.logo !== data.logo){
-          self.logo = data.logo;
-          logh += data.logo;
-          logh += "\n";
-          logh += bar+bar;
-          logh += "\n";
-        }
-        logh += self.logh;
-        self.logh = logh;
-        self.io.write_text(self.elems.h, self.logh.substr(0, self.config.LOG.numberChars));
-      }
-    }
-  };
   self.callbacks_worker.onmessage = function(e){
     var self = this;
     var data = e.data;
@@ -193,7 +217,7 @@ My_entry.calc_simple.prototype.set_callbacks_worker = function(){
     var len_out = Object.keys(self.arr_data_out).length;
     if(len_in === 1){
       store(data);
-      output(data);
+      self.re_output_log();
     }
     if(len_out === len_in){
       self.stop_worker();
