@@ -51,6 +51,8 @@ My_entry.original_worker.prototype.set_callbacks_worker = function(){
   };
   self.callbacks_worker.onerror = function(e){
     var self = this;
+    self.arr_data_in = null;
+    self.arr_data_out = null;
     self.stop_worker();
     return self;
   };

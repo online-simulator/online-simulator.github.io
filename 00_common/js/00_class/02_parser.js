@@ -689,6 +689,7 @@ My_entry.parser.prototype.make_log_mat = function(arr, options){
 My_entry.parser.prototype.make_log = function(data){
   var self = this;
   var _log = "";
+  if(!(data.trees2d)) return false;
   var options = data.options;
   data.trees2d.forEach(function(trees, j){
     if(j > 0){
