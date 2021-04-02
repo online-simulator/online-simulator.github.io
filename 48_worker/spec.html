@@ -221,6 +221,8 @@ Object.keys(self.arr_data_out).lengthが
 <br>
 エラー発生時や中断時、body.onbeforeunload時も同様の終了処理を実施する
 <br>
+エラー発生時、上記の配列を初期化init_arr_workerする
+<br>
 なお、callbackは別のスコープから呼ばれるため、thisをインスタンスselfでbindする
 <br>
 元のcallbackを不変の前提で直接bindする場合、再代入が必要であることに留意する
@@ -241,6 +243,7 @@ callback = callback.bind(self);
   self.callbacks_worker.onerror = function(e){
     var self = this;
     self.stop_worker();
+    self.init_arr_worker();
     return self;
   };
   self.entry.$.bind_objs(self, self.callbacks_worker);
@@ -324,6 +327,7 @@ self.workerを再宣言worker.re_initする前に再度終了処理を実施す�
     self.set_callbacks_worker();
     self.entry.$.bind_objs(self, self.callbacks_worker);
     self.handler_worker = new self.constructors.handler_worker(self.url_worker, self.callbacks_worker);
+    self.init_arr_worker();
   }
 </code></pre>
           </td>

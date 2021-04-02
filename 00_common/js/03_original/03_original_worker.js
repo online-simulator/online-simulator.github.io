@@ -3,6 +3,12 @@
 My_entry.original_worker = function(){
 };
 
+My_entry.original_worker.prototype.init_arr_worker = function(){
+  var self = this;
+  self.arr_data_in = null;
+  self.arr_data_out = null;
+  return self;
+};
 My_entry.original_worker.prototype.init_worker = function(){
   var self = this;
   if(self.handler_worker){
@@ -16,6 +22,7 @@ My_entry.original_worker.prototype.init_worker = function(){
     self.set_callbacks_worker();
     self.entry.$.bind_objs(self, self.callbacks_worker);
     self.handler_worker = new self.constructors.handler_worker(self.url_worker, self.callbacks_worker);
+    self.init_arr_worker();
   }
   return self;
 };
@@ -51,9 +58,8 @@ My_entry.original_worker.prototype.set_callbacks_worker = function(){
   };
   self.callbacks_worker.onerror = function(e){
     var self = this;
-    self.arr_data_in = null;
-    self.arr_data_out = null;
     self.stop_worker();
+    self.init_arr_worker();
     return self;
   };
   return self;

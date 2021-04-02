@@ -581,17 +581,31 @@ My_entry.parser.prototype.run = function(_data){
       _data.trees2d = trees2d;
       _data = self.entry.operation.run(_data);
       _data.out = trees2d;
-      if(_data.options.makeLog){
-        _data.log = self.make_log(_data);
-        _data.logh = self.make_logh(_data);
-        _data.logo = self.make_logo(_data);
-      }
     }
   }
   catch(e){
     throw new Error(self.entry.def.get_msgError(e, "Invalid operation"));
   }
+  self.post_try(_data);
   return _data;
+};
+My_entry.parser.prototype.post_try = function(data){
+  var self = this;
+  var trees2d = data.trees2d;
+  try{
+    if(trees2d && trees2d.length){
+      if(data.options.makeLog){
+        data.log = self.make_log(data);
+        data.logh = self.make_logh(data);
+        data.logo = self.make_logo(data);
+        data.arr_num = self.make_arr_num(data);
+      }
+    }
+  }
+  catch(e){
+    throw new Error(self.entry.def.get_msgError(e, "Invalid post"));
+  }
+  return self;
 };
 My_entry.parser.prototype.make_arr_num = function(data){
   var self = this;
@@ -689,7 +703,6 @@ My_entry.parser.prototype.make_log_mat = function(arr, options){
 My_entry.parser.prototype.make_log = function(data){
   var self = this;
   var _log = "";
-  if(!(data.trees2d)) return false;
   var options = data.options;
   data.trees2d.forEach(function(trees, j){
     if(j > 0){

@@ -66,10 +66,12 @@ My_entry.calc_simple.prototype.re_output_log = function(){
       var data = self.arr_data_out[0];
       data.options.makeLog = 2;
       data.options.expDigit = $.selectNum_id("select-expDigit");
-      data.log = self.entry.parser.make_log(data);
-      data.logh = self.entry.parser.make_logh(data);
-      data.logo = self.entry.parser.make_logo(data);
-      data.arr_num = self.entry.parser.make_arr_num(data);
+      try{
+        self.entry.parser.post_try(data);
+      }
+      catch(e){
+        self.callbacks_worker.onerror(e);
+      }
       self.output_log(data);
     }
   }
@@ -228,6 +230,7 @@ My_entry.calc_simple.prototype.set_callbacks_worker = function(){
     var self = this;
     self.io.write_text(self.elems.o, e.message.replace("Uncaught Error: ", ""));
     self.stop_worker();
+    self.init_arr_worker();
     return self;
   };
   return self;
