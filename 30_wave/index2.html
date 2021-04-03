@@ -61,7 +61,7 @@ Byte数/sample：
     <td>
 <select id="select-Bytes_perSample">
   <option value="1">1: 低音質</option>
-  <option value="2">2: 高音質</option>
+  <option value="2" selected="selected">2: 高音質</option>
 </select>
     </td>
   </tr>
@@ -142,7 +142,18 @@ wave-type：
   </label>
 </div>
 <input id="input-fileSize" readonly="readonly">
-&lt;10MB
+&lt;
+  <label>
+<select id="select-fileSizeMax">
+  <option value="10">10MB</option>
+  <option value="20">20MB</option>
+  <option value="30">30MB</option>
+  <option value="40">40MB</option>
+  <option value="50">50MB</option>
+  <option value="100">100MB</option>
+  <option value="200">200MB</option>
+</select>
+  </label>
 <div id="wrapper-link"></div>
 <div class="selection">
   <label>Name:
@@ -154,8 +165,6 @@ wave-type：
   <tr class="border">
     <td>
 オプション:
-<br>
-fade-in/out:
     </td>
     <td>
 <div class="text-right">
@@ -163,8 +172,22 @@ fade-in/out:
     <input id="checkbox-useWorker" type="checkbox" checked="checked">
   </label>
 </div>
+    </td>
+  </tr>
+  <tr class="border">
+    <td>
+<hr>
+fade-in/out:
+<hr>
+出力調整log-log
+<br>
+フィルタゲイン:
+<hr>
+    </td>
+    <td>
+<hr>
 <div>
-  <label>直前値の重み:
+  <label>直前値重み:
 <select id="select-w0">
   <option>0</option>
   <option>0.1</option>
@@ -187,16 +210,35 @@ fade-in/out:
   <option>0.99</option>
 </select>
   </label>
+  <label>範囲割合:
+<select id="select-p0">
+  <option>0</option>
+  <option>0.0001</option>
+  <option>0.0005</option>
+  <option>0.001</option>
+  <option>0.002</option>
+  <option>0.003</option>
+  <option>0.004</option>
+  <option selected="selected">0.005</option>
+  <option>0.006</option>
+  <option>0.007</option>
+  <option>0.008</option>
+  <option>0.009</option>
+  <option>0.01</option>
+  <option>0.015</option>
+  <option>0.02</option>
+  <option>0.03</option>
+  <option>0.04</option>
+  <option>0.05</option>
+  <option>0.06</option>
+  <option>0.07</option>
+  <option>0.08</option>
+  <option>0.09</option>
+  <option>0.1</option>
+</select>
+  </label>
 </div>
-    </td>
-  </tr>
-  <tr class="border">
-    <td>
-出力調整log-log
-<br>
-フィルタゲイン:
-    </td>
-    <td>
+<hr>
 <div>
   <label>f0[Hz]:
 <select id="select-f0">
@@ -255,6 +297,7 @@ fade-in/out:
 </select>
   </label>
 </div>
+<hr>
     </td>
   </tr>
 </tbody></table>
@@ -274,8 +317,7 @@ fade-in/out:
 {3000:r; 500:[o3c0,f523,o5c0]; 500:[o3c2,o4c2,o5c2]; 500:[o3c4,o4c4,o5c4]; 500:[o3c5,o4c5,o5c5];
  500:[o3c7,o4c7,o5c7]; 500:[o3c9,o4c9,o5c9]; 500:[o3c11,o4c11,o5c11]; 500:[o4c0,o5c0,o6c0]; 500:r;}
 {4500:r; 500:[o3c0,f523,o5c0]; 500:[o3c2,o4c2,o5c2]; 500:[o3c4,o4c4,o5c4]; 500:[o3c5,o4c5,o5c5];
- 500:[o3c7,o4c7,o5c7]; 500:[o3c9,o4c9,o5c9]; 500:[o3c11,o4c11,o5c11]; 500:[o4c0,o5c0,o6c0]; 500:r;}
- </textarea>
+ 500:[o3c7,o4c7,o5c7]; 500:[o3c9,o4c9,o5c9]; 500:[o3c11,o4c11,o5c11]; 500:[o4c0,o5c0,o6c0]; 500:r;}</textarea>
     </td>
   </tr>
   <tr class="border">

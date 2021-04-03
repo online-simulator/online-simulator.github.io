@@ -110,7 +110,7 @@ My_entry.handler_wave.prototype.input2arr = function(input){
   var _arr_input = [];
   var mcb = input.replace(self.regex.s, "").match(self.regex.mb);
   /* Ver.1.4.2 */
-  if(!(mcb)) throw new Error("Invalid dataset");
+  if(!(mcb)) throw new Error(self.waveo.config.ERROR.title+"Invalid dataset");
   var number_channels = self.waveo.number_channels;  // from waveo
   /* Ver.1.4.2 */
   var len_band = Math.max(mcb.length/number_channels, 1);

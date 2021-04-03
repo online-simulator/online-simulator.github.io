@@ -248,7 +248,7 @@ My_entry.handler_wave.prototype.make_params = function(){
     sec = 1;
     self.entry.$.inputNum_id("input-time") = sec*1000;
   }
-  self.params.sec = self.entry.math_wave.get_limit(sec, 0, 10);
+  self.params.sec = self.entry.math_wave.get_limit(sec, 0, 1000);
   self.update_number_samples();
   var volume = self.entry.$.inputNum_id("range-volume")*0.01;
   if(isNaN(volume)){
@@ -257,6 +257,8 @@ My_entry.handler_wave.prototype.make_params = function(){
   }
   self.params.volume = volume;
   self.params.w0 = self.entry.$.selectNum_id("select-w0");
+  self.params.p0 = self.entry.$.selectNum_id("select-p0");
+  self.params.fileSizeMax = self.entry.$.selectNum_id("select-fileSizeMax");
   if(self.isScriptMode){
   }
   else{

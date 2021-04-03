@@ -48,7 +48,8 @@ My_entry.output_wave = function(Bytes_perSample, samples_perSecond, number_chann
   return self;
 };
 
-My_entry.output_wave.config = {
+My_entry.output_wave.config =
+My_entry.output_wave.prototype.config = {
   ERROR: {
     title: "[MyErr]"
   }
@@ -241,7 +242,8 @@ My_entry.output_wave.prototype.check_error = function(params){
   var arr_g = params.arr_g;
   if(isNaN(sec) || sec < 0) throw new Error(title+"time is invalid");
   var fileSize = self.get_fileSize(number_samples);
-  if(fileSize > 10*Math.pow(10, 6)) throw new Error(title+"fileSize is over limit(10MB)");
+  var fileSizeMax = params.fileSizeMax*Math.pow(2, 10*2);
+  if(fileSize > fileSizeMax) throw new Error(title+"fileSize is over limit");
   arr_f.forEach(function(f, i){
     if(isNaN(f)) throw new Error(title+"frequency is not a number");
     if(arr_g && arr_g[i] && isNaN(arr_g[i])) throw new Error(title+"gain is not a number");
@@ -268,9 +270,9 @@ My_entry.output_wave.prototype.check_arr_params = function(_arr_params){
 My_entry.output_wave.prototype.get_binary_soundData_LE = function(params){
   var self = this;
   var params = self.check_params(params);
-  return self.encode_soundData_LE(params.number_samples, params.number_channels, params.arr_f, params.arr_g_normalized, params.type, params.w0);
+  return self.encode_soundData_LE(params.number_samples, params.number_channels, params.arr_f, params.arr_g_normalized, params.type, params.w0, params.p0);
 };
-My_entry.output_wave.prototype.encode_soundData_LE = function(number_samples, number_channels, arr_f, arr_g, type, w0){
+My_entry.output_wave.prototype.encode_soundData_LE = function(number_samples, number_channels, arr_f, arr_g, type, w0, p0){
   var self = this;
   var _binary = "";
   var Bytes_perSample = self.Bytes_perSample;
@@ -279,18 +281,21 @@ My_entry.output_wave.prototype.encode_soundData_LE = function(number_samples, nu
   var seconds_perSample = 1/self.samples_perSecond;
   var func_t = self.entry.math_wave[type || "sin"];
   var phi0 = 0;
-  var oldVal = offset;
-  var dns = Math.floor(number_samples*0.01);
   /* Ver.1.4.2 */
   // average(cut-off) high frequency input at w0 > 0
   var w0 = w0 || 0;
+  var p0 = p0 || 0;
+  var oldVal = offset;
+  var dns = Math.floor(number_samples*p0);
+  var ns_in = dns;
+  var ns_out = number_samples-1-dns;
   var get_newVal = (w0 > 0)?
     function(val, ns){
       var _newVal = val;
-      if(ns < dns){
+      if(ns < ns_in){
         _newVal = w0*oldVal+(1-w0)*val;  // w0 first
       }
-      else if(number_samples-dns < ns){
+      else if(ns > ns_out){
         _newVal = w0*oldVal+(1-w0)*offset;
       }
       oldVal = _newVal;
