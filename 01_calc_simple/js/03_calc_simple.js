@@ -83,25 +83,60 @@ My_entry.calc_simple.prototype.re_output_log = function(){
   }
   return self;
 };
+My_entry.calc_simple.prototype.get_options = function(){
+  var self = this;
+  var $ = self.entry.$;
+  var _options = {};
+  $.get_elemProps("input[type='checkbox']", "checkbox-", "checked", _options);
+  $.get_elemProps("select", "select-", "value", _options);
+  $.get_urlParams(_options);
+  if(_options.checkError !== false) _options.checkError = true;
+  return _options;
+};
+My_entry.calc_simple.prototype.get_data = function(input, options){
+  var self = this;
+  var _data = self.entry.DATA.data();
+  _data.in = input;
+  _data.options = options;
+  self.storage.global2local(_data);
+  return _data;
+};
+My_entry.calc_simple.prototype.init_storage = function(){
+  var self = this;
+  self.storage = {};
+  self.storage.clear = function(){
+    self.vars0 = null;
+    self.eqns0 = null;
+    self.vars = {};
+    self.eqns = {};
+  };
+  self.storage.store = function(){
+    self.vars0 = self.entry.def.newClone(self.vars);
+    self.eqns0 = self.entry.def.newClone(self.eqns);
+  };
+  self.storage.restore = function(){
+    self.vars = self.vars0;
+    self.eqns = self.eqns0;
+  };
+  self.storage.global2local = function(data){
+    data.vars = self.entry.def.newClone(self.vars);
+    data.eqns = self.entry.def.newClone(self.eqns);
+  };
+  self.storage.local2global = function(data){
+    var vars = data.vars;
+    var eqns = data.eqns;
+    for(var name in vars){
+      self.vars[name] = vars[name];
+    }
+    for(var name in eqns){
+      self.eqns[name] = eqns[name];
+    }
+  };
+  return self;
+};
 My_entry.calc_simple.prototype.init_handlers = function(){
   var self = this;
   var $ = self.entry.$;
-  var get_options = function(){
-    var _options = {};
-    $.get_elemProps("input[type='checkbox']", "checkbox-", "checked", _options);
-    $.get_elemProps("select", "select-", "value", _options);
-    $.get_urlParams(_options);
-    if(_options.checkError !== false) _options.checkError = true;
-    return _options;
-  };
-  var get_data = function(input, options){
-    var _data = self.entry.DATA.data();
-    _data.in = input;
-    _data.options = options;
-    _data.vars = self.entry.def.newClone(self.vars);  // restore vars
-    _data.eqns = self.entry.def.newClone(self.eqns);  // restore eqns
-    return _data;
-  };
   self.handlers.onload = function(args){
     var self = this;
     self.io = new self.constructors.io();
@@ -113,8 +148,8 @@ My_entry.calc_simple.prototype.init_handlers = function(){
     self.io.write_stamp(self.elems.h);
     self.logh = self.io.getter.stamp();
     self.logo = "";
-    self.vars = {};  // global storage
-    self.eqns = {};  // global storage
+    self.init_storage();
+    self.storage.clear();
     return self;
   };
   self.handlers.onbeforeunload = function(e){
@@ -132,12 +167,13 @@ My_entry.calc_simple.prototype.init_handlers = function(){
     switch(text_half){
       case "=":
         if(self.handler_worker && self.handler_worker.isLocked) return false;
+        self.storage.store();
         var input = self.io.read_text(self.elems.i);
-        var options = get_options();
+        var options = self.get_options();
         var arr_data_in = [];
         var len_n = 1;
         for(var n=0; n<len_n; ++n){
-          var data = get_data(input, options);
+          var data = self.get_data(input, options);
           arr_data_in.push(data);
         }
         self.run_worker(arr_data_in, $.checkbox_id("checkbox-useWorker"));
@@ -146,8 +182,7 @@ My_entry.calc_simple.prototype.init_handlers = function(){
         self.stop_worker();
         var sw = text_half;
         self.io["onclick_"+sw](self.elems, text_half);
-        self.vars = {};  // delete vars
-        self.eqns = {};  // delete eqns
+        self.storage.clear();
         self.output_logh("storage cleared\n\n");
         break;
       case "BS":
@@ -202,16 +237,6 @@ My_entry.calc_simple.prototype.init_handlers = function(){
 };
 My_entry.calc_simple.prototype.set_callbacks_worker = function(){
   var self = this;
-  var store = function(data){
-    var vars = data.vars;
-    var eqns = data.eqns;
-    for(var name in vars){
-      self.vars[name] = vars[name];  // store vars
-    }
-    for(var name in eqns){
-      self.eqns[name] = eqns[name];  // store eqns
-    }
-  };
   self.callbacks_worker.onmessage = function(e){
     var self = this;
     var data = e.data;
@@ -219,8 +244,8 @@ My_entry.calc_simple.prototype.set_callbacks_worker = function(){
     var len_in = self.arr_data_in.length;
     var len_out = Object.keys(self.arr_data_out).length;
     if(len_in === 1){
-      store(data);
-      self.re_output_log();
+      self.storage.local2global(data);
+      self.re_output_log();  // last
     }
     if(len_out === len_in){
       self.stop_worker();
@@ -232,6 +257,7 @@ My_entry.calc_simple.prototype.set_callbacks_worker = function(){
     var msg = self.entry.def.get_msgError(e, "Invalid operation");
     self.io.write_text(self.elems.o, msg.replace("Uncaught Error: ", ""));
     self.stop_worker(true);
+    self.storage.restore();  // clear; f=<x; f -> error@re_output_log
     return self;
   };
   return self;

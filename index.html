@@ -19,7 +19,7 @@
 <script type="text/javascript">
   (function(document){
     document.body.onload = function(e){
-      document.getElementById("VERSION").textContent = "VERSION: "+My_entry.VERSION;
+      document.getElementById("VERSION").textContent = My_entry.VERSION;
       ["calc", "wave", "else"].forEach(function(name){
         document.getElementById("Ver-"+name).textContent = My_entry.Ver[name];
       });
@@ -29,12 +29,13 @@
 
 <div>
 <h1>Simulators with JavaScript</h1>
-<h2 id="VERSION"></h2>
 </div>
 
 <div>
 <table>
-<caption></caption>
+<caption>
+<h2>Repository VERSION: <a id="VERSION" href="https://github.com/online-simulator/online-simulator.github.io"></a></h2>
+</caption>
 <thead>
   <tr>
     <th>
@@ -208,7 +209,13 @@ minor change
 <br>
 ・Graphing Calculatorの初期リリース準備
 <br>
-　・複数のWorkerを扱う
+　・複数のWorkerに対応
+<br>
+[Simple Calculator]
+<br>
+・多角形・星を描画する関数を最適化
+<br>
+・Ver.1.7.3以降のポスト処理error発生時にstorage復帰処理を追加
     </td>
     <td>
 2021/4/7
@@ -286,7 +293,7 @@ f=&lt;exp(x);
 <br>
 　・演算結果の表記選択変更時のログ表示を再演算無しで自動更新
 <br>
-　・ポスト処理を整理
+　・ポスト処理を最適化
     </td>
     <td>
 2021/3/29
