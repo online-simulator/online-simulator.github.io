@@ -33,26 +33,32 @@ My_entry.calc_simple.prototype.init_elems = function(){
   $.setup_elems$_tag("select", self.handlers, "onchange");
   return self;
 };
+My_entry.calc_simple.prototype.output_logh = function(log, logo){
+  var self = this;
+  var ds = My_entry.$.config.DELIMITER;
+  var br = ds.br;
+  var rn = ds.rn;
+  if(log){
+    var logh = log;
+    logh += br;
+    if(logo && self.logo !== logo){
+      self.logo = logo;
+      logh += logo;
+      logh += rn;
+      logh += br+br;
+      logh += rn;
+    }
+    logh += self.logh;
+    self.logh = logh;
+    self.io.write_text(self.elems.h, self.logh.substr(0, self.config.LOG.numberChars));
+  }
+  return self;
+};
 My_entry.calc_simple.prototype.output_log = function(data){
   var self = this;
   if(data.log){
     self.io.write_text(self.elems.o, data.log.split(";").join(";\n"));
-    var logh = "";
-    if(data.logh){
-      var bar = self.log_bar;
-      logh += data.logh;
-      logh += bar;
-      if(self.logo !== data.logo){
-        self.logo = data.logo;
-        logh += data.logo;
-        logh += "\n";
-        logh += bar+bar;
-        logh += "\n";
-      }
-      logh += self.logh;
-      self.logh = logh;
-      self.io.write_text(self.elems.h, self.logh.substr(0, self.config.LOG.numberChars));
-    }
+    self.output_logh(data.logh, data.logo);
   }
   return self;
 };
@@ -101,20 +107,19 @@ My_entry.calc_simple.prototype.init_handlers = function(){
     self.io = new self.constructors.io();
     var json = {p: {id: "wrapper-link"}, a: {id: "a", it: "download-txt by double-click"}, name: "download", ext: "txt"};
     self.handler_link = new self.constructors.handler_link(json);
-    self.handler_link.setter.callback(function(){return self.logh});
+    self.handler_link.setter.callback(function(){return self.logh;});
     self.handler_drag = new self.constructors.handler_drag("div-drag", "checkbox-drag", {});
     $.change_elems$("input[type='checkbox']");
     self.io.write_stamp(self.elems.h);
     self.logh = self.io.getter.stamp();
     self.logo = "";
-    self.log_bar = "--------------------------------\n";
     self.vars = {};  // global storage
     self.eqns = {};  // global storage
     return self;
   };
   self.handlers.onbeforeunload = function(e){
     var self = this;
-    self.stop_worker();
+    self.stop_worker(true);
     return self;
   };
   self.handlers.onclick = function(e, elem){
@@ -130,8 +135,8 @@ My_entry.calc_simple.prototype.init_handlers = function(){
         var input = self.io.read_text(self.elems.i);
         var options = get_options();
         var arr_data_in = [];
-        var len_i = 1;
-        for(var i=0; i<len_i; ++i){
+        var len_n = 1;
+        for(var n=0; n<len_n; ++n){
           var data = get_data(input, options);
           arr_data_in.push(data);
         }
@@ -143,11 +148,7 @@ My_entry.calc_simple.prototype.init_handlers = function(){
         self.io["onclick_"+sw](self.elems, text_half);
         self.vars = {};  // delete vars
         self.eqns = {};  // delete eqns
-        var logh = "storage cleared\n\n";
-        logh += self.log_bar;
-        logh += self.logh;
-        self.logh = logh;
-        self.io.write_text(self.elems.h, self.logh.substr(0, self.config.LOG.numberChars));
+        self.output_logh("storage cleared\n\n");
         break;
       case "BS":
       case "DEL":
@@ -228,9 +229,9 @@ My_entry.calc_simple.prototype.set_callbacks_worker = function(){
   };
   self.callbacks_worker.onerror = function(e){
     var self = this;
-    self.io.write_text(self.elems.o, e.message.replace("Uncaught Error: ", ""));
-    self.stop_worker();
-    self.init_arr_worker();
+    var msg = self.entry.def.get_msgError(e, "Invalid operation");
+    self.io.write_text(self.elems.o, msg.replace("Uncaught Error: ", ""));
+    self.stop_worker(true);
     return self;
   };
   return self;

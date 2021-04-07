@@ -175,8 +175,8 @@ e^(-i(1pi(){2/2i}(5-{3-1}){i/(-4)}))
 </a>
 <br>
 　・
-<a href="#span-out-UI-gfunction">
-グラフ関数電卓
+<a href="#span-out-UI-graphing">
+Graphing Calculator
 </a>
 <br>
 ・
@@ -281,6 +281,11 @@ plot2d
 　・
 <a href="#span-out-FN">
 関数
+</a>
+<br>
+　・
+<a href="#span-out-FNspecial">
+特殊関数
 </a>
 <br>
 　・
@@ -499,6 +504,8 @@ ja.m.wikipedia.org/wiki/項目を列挙する
 ・ラグランジュ補間
 <br>
 ・シンプソンの公式
+<br>
+・フーリエ級数
     </td>
   </tr>
 </tbody>
@@ -539,7 +546,7 @@ UI
 <br>
 ・ドラッグ移動可チェックでドラッグ移動有効化
 <br>
-・出力欄に入力欄の演算結果を表示
+・出力欄に入力欄の演算結果のログを表示
 <br>
 ・入力欄に演算内容を入力
 <br>
@@ -597,15 +604,48 @@ UI
 目次
 </a>
 <br>
-グラフ
+Graphing
 <br>
-関数電卓
+Calculator
 <br>
 UI
     </th>
     <td>
-<span id="span-out-UI-gfunction"></span>
-グラフ関数電卓の操作パネルについて記述する
+<span id="span-out-UI-graphing"></span>
+Graphing Calculatorの操作パネルについて記述する
+<br>
+<br>
+パネル上段について記述する
+<br>
+・canvas上部のリンクから描画結果のpngとcsvを保存可
+<br>
+・canvasにplot2dの描画結果を表示
+<br>
+・出力欄にplot2dの演算結果のログを表示
+<br>
+・plotボタンは描画実行を確定する
+<br>
+・stopボタンは描画実行を中断する
+<br>
+・tの入力欄に媒介変数の範囲下限と範囲上限の複素数値を入力
+<br>
+・媒介変数tの範囲等分割数Nを選択
+<br>
+・x(t)の入力欄に横軸xの演算内容をセミコロン;区切りで入力
+<br>
+　・tは媒介変数
+<br>
+　・対数表示logを選択
+<br>
+　・虚数表示iを選択
+<br>
+・y(t)の入力欄に縦軸yの演算内容をセミコロン;区切りで入力
+<br>
+　・tは媒介変数
+<br>
+　・対数表示logを選択
+<br>
+　・虚数表示iを選択
     </td>
   </tr>
   <tr>
@@ -1593,6 +1633,11 @@ plot2d
     <td>
 <span id="span-out-plot2d"></span>
 グラフ描画plot2dの仕様について記述する
+<br>
+<br>
+plot2dの演算は高速化のため、誤差を評価しない
+<br>
+誤差の見積もりが必要な場合は、別途、通常の演算が必要
     </td>
   </tr>
   <tr>
@@ -1617,7 +1662,7 @@ plot2d
 /* ブロックコメント */
 <br>
 <br>
-testcaseを示す
+test caseを示す
 <br>
 x=-0xff; /*x:16進数値*/ x&gt;&gt;3 // 右シフト3回
 <br>
@@ -2209,7 +2254,7 @@ z=e^(i{pi/4}); arg(z)/pi -> 0.25
 z=e^(i{pi/4}); abs(z) -> 1
 <br>
 <br>
-以上より、次の複素数演算をtestcaseとして初期表示する
+以上より、次の複素数演算をtest caseとして初期表示する
 <br>
 e^(-i(1pi()2/2i(5-3-1)i/(-4)))
 <br>
@@ -2282,7 +2327,7 @@ leftとrightの数値の関係や大小を比較する関数を列挙する
 <br>
 　・不成立時: 0を返す
 <br>
-・testcaseを列挙する
+・test caseを列挙する
 <br>
 ceq(2+3i,3*i-(-2)) -> 1
 <br>
@@ -2386,6 +2431,55 @@ Excel準拠の引数(x,y)は次のatan2_exを使用する
 atan2_ex(0,1)/pi -> 0.5
 <br>
 deg_atan2_ex(0,1) || degrees(atan2_ex(0,1)) -> 90
+<br>
+<br>
+一部の実装関数において引数不足の場合、予期せぬerror終了が発生する
+<br>
+・pow関数を一例に示す
+<br>
+・実数演算の場合、Nativeに同義
+<br>
+pow(2) -> [MyErr]FN isNaN
+<br>
+・複素数演算の場合、逐次引数不足を判定しないため、予期せぬerror終了
+<br>
+pow(2) -> Unexpected error
+    </td>
+  </tr>
+  <tr>
+    <th>
+<a href="#span-index">
+目次
+</a>
+<br>
+特殊関数
+<br>
+入力仕様
+    </th>
+    <td>
+<span id="span-out-FNspecial"></span>
+特殊関数の入力仕様と付随する留意事項について記述する
+<br>
+<br>
+特殊関数（非初等関数）は式変数と高階関数を使用して定義する
+<br>
+・標準正規分布SNDの区間確率P(x)
+<br>
+SND=&lt;exp(-t^2/2)/sqrt(2pi);
+<br>
+Px=&lt;_it(=&lt;SND,0,x)2;
+<br>
+・誤差関数erf(x)
+<br>
+erfx=&lt;_it(=&lt;SND,0,x(sqrt2))2;
+<br>
+・同義
+<br>
+erfx=&lt;_it(=&lt;{exp(-t^2)},0,x)(2/sqrt(pi));
+<br>
+・相補誤差関数erfc(x)
+<br>
+erfcx=&lt;1-erfx;
     </td>
   </tr>
   <tr>
@@ -3188,6 +3282,9 @@ A-ttA ->
 特殊行列関数の入力仕様と付随する留意事項について記述する
 <hr>
 <br>
+特殊行列関数は通常の特殊関数とは異なり、特殊な演算仕様を意味する
+<br>
+<br>
 回転行列
 <br>
 ・3次元Euclid実空間の右手系直交座標系各軸周りの回転行列を演算して返す
@@ -3212,7 +3309,7 @@ rotationz(第1引数)
 ・第1引数: Euler角の弧度数実数値radを値渡し
 <br>
 <br>
-testcaseを列挙する
+test caseを列挙する
 <br>
 (sqrt2,,:,sqrt2,:,,sqrt2)rotationx(pi/4) ->
 <br>
@@ -3843,7 +3940,7 @@ x=2; switch(x&gt;=4,=&lt;4:x&gt;3,=&lt;3:x&gt;2,=&lt;2:1,=&lt;{-x}) -> -2
 x=2; switch(ge(x,4),=&lt;4:gt(x,3),=&lt;3:gt(x,2),=&lt;2:1,=&lt;{-x}) -> -2
 <br>
 <br>
-testcaseを列挙する
+test caseを列挙する
 <br>
 switch(0) -> 0
 <br>
@@ -3892,7 +3989,7 @@ _sダミー変数名(=&lt;第1引数,第2引数,第3引数[,第4引数])
 ・第4引数: ダミー変数のステップ（正の整数）を値渡し[省略時、1]
 <br>
 <br>
-testcaseを列挙する
+test caseを列挙する
 <br>
 ・ダミー変数n=1~10のnの総和
 <br>
@@ -4040,7 +4137,7 @@ _pダミー変数名(=&lt;第1引数,第2引数,第3引数[,第4引数])
 ・第4引数: ダミー変数のステップ（正の整数）を値渡し[省略時、1]
 <br>
 <br>
-testcaseを列挙する
+test caseを列挙する
 <br>
 ・ダミー変数n=1~10のnの総乗
 <br>
@@ -4119,7 +4216,7 @@ _rダミー変数名(=&lt;第1引数,第2引数,第3引数)
 ・第3引数: 再帰回数（正の整数）を値渡し
 <br>
 <br>
-testcaseを列挙する
+test caseを列挙する
 <br>
 ・再帰回数が零以下の場合、初期値を返す
 <br>
@@ -4222,7 +4319,7 @@ _dダミー変数名(=&lt;第1引数[,第2引数[,第3引数[,第4引数]]])
 詳細は<a href="#span-out-fdm">有限差分法</a>参照
 <br>
 <br>
-testcaseを列挙する
+test caseを列挙する
 <br>
 ・f(x)=(x+i)^5のx=1における微分を示す
 <br>
@@ -4532,7 +4629,7 @@ _iダミー変数名(=&lt;第1引数,第2引数,第3引数[,第4引数])
 詳細は<a href="#span-out-fdm">有限差分法</a>参照
 <br>
 <br>
-testcaseを列挙する
+test caseを列挙する
 <br>
 ・f(x)=x^4の積分範囲[0,1+i]における定積分を示す
 <br>
@@ -4905,7 +5002,7 @@ LpR -> (1,0,0,0:2,3,0,0:4,5,6,0:7,8,9,10)
 L*R -> (1,0,0,0:2,3,0,0:4,5,6,0:7,8,9,10)
 <br>
 <br>
-testcaseを列挙する
+test caseを列挙する
 <br>
 ・上記例
 <br>
@@ -4966,7 +5063,7 @@ L*R -> (2,1-i:1+i,1)
 有限差分による微分の数値解法について記述する
 <br>
 <br>
-差分間隔をhとして連続関数f(x)のx周辺の2次打切りテイラー展開より
+差分間隔をhとして連続関数f(x)のx周辺の2次打切りテイラー級数より
 <br>
 f(x-h)=f(x)+f'(x)(-h)+f"(x)(-h)^2/2!+O(h^3)
 <br>
@@ -5004,7 +5101,7 @@ f""(x)=(f"'(x+8h)-f"'(x-8h))/(16h)+O((8h)^2)
 ...
 <br>
 <br>
-続いて4次打切りテイラー展開より
+続いて4次打切りテイラー級数より
 <br>
 f(x-2h)=f(x)+f'(x)(-2h)+f"(x)(-2h)^2/2!+f"'(x)(-2h)^3/3!+f""(x)(-2h)^4/4!+O(h^5)
 <br>
@@ -5025,7 +5122,7 @@ f(x+h)-f(x-h)=f'(x)(2h)-f"'(x)(h)^3/3+O(h^5)
 f'(x)=(8(f(x+h)-f(x-h))-(f(x+2h)-f(x-2h)))/(12h)+O(h^4)
 <br>
 <br>
-さらに5次打切りテイラー展開より
+さらに5次打切りテイラー級数より
 <br>
 ・次の4階微分を消去すれば
 <br>
@@ -5559,7 +5656,7 @@ _sir(=&lt;backward,sizeA-1,0),
 <br>
 =&lt;x}=&gt;;
 <br>
-・続けてtestcaseを示す
+・続けてtest caseを示す
 <br>
 ・pivot選択有りの場合
 <br>
@@ -6458,17 +6555,17 @@ _rn(=&lt;run,,6) -> 2.2368035825474494e-16
 級数展開の解法について記述する
 <br>
 <br>
-Taylor展開・Maclaurin展開
+Taylor級数・Maclaurin級数
 <br>
 ・0の0乗の定義
 <br>
 0^0 || 0**0 || pow(0, 0) -> 1
 <br>
-・f(x)のx=a周辺のN次打切りTaylor展開TaylorN
+・f(x)のx=a周辺のN次打切りTaylor級数TaylorN
 <br>
 TaylorN=&lt;_sn(=&lt;{_dx(=&lt;f,n,a)(x-a)^n/n!},0,N);
 <br>
-・f(x)のx=0周辺のN次打切りMaclaurin展開MaclaurinN
+・f(x)のx=0周辺のN次打切りMaclaurin級数MaclaurinN
 <br>
 MaclaurinN=&lt;_sn(=&lt;{_dx(=&lt;f,n,0)x^n/n!},0,N);
 <br>
@@ -6515,7 +6612,7 @@ N=7; TaylorN -> 7.38095752867692+0.00014973248523188646i+O(1e-4+1e-4i)
 <br>
 収束性
 <br>
-・Taylor展開のN次の項TN
+・Taylor級数のN次の項TN
 <br>
 TN=&lt;_sn(=&lt;{_dx(=&lt;f,n,a)(x-a)^n/n!},N,N);
 <br>
@@ -6546,6 +6643,37 @@ N=8; TN -> 0.006352708017224355+0.00004619914542548148i+O(1e-4+1e-4i)
 N=9; TN -> 0.0014113419838348632+0.000038423321810908794i+O(9e-5+9e-5i)
 <br>
 N=10; TN -> 0.000280289701751799+0.00003279136299319164i+O(7e-5+7e-5i)
+<br>
+<br>
+Fourier級数
+<br>
+・周期関数f(x)のN次打切りFourier級数FourierN
+<br>
+FourierN=&lt;_sn(=&lt;{cn*e^(i(n)x)},-N,N);
+<br>
+cn=&lt;_it(=&lt;{ft*e^(-i(n)t)},-pi,pi)/(2pi);
+<br>
+・f(x)=e^(i(2.5)x)の場合
+<br>
+fx=&lt;e^(i(2.5)x);
+<br>
+ft=&lt;e^(i(2.5)t);
+<br>
+x=2;
+<br>
+fx -> 0.28366218546322625-0.9589242746631385i
+<br>
+N=1; FourierN
+<br>
+-> infoLost[ri] 0.2534807789507349-0.1102612365002427i+O(2e-6+2e-6i)
+<br>
+N=3; FourierN
+<br>
+-> infoLost[ri] 0.3468103654284403-0.7325756973228494i+O(2e-6+2e-6i)
+<br>
+N=5; FourierN
+<br>
+-> infoLost[ri] 0.29934712994045387-1.0833440107828247i+O(2e-6+2e-6i)
     </td>
   </tr>
   <tr>
@@ -6587,7 +6715,7 @@ MIN_VALUE -> 5e-324
 Infinity-Infinity -> [MyErr]BRsa isNaN
 <br>
 <br>
-極限値演算のtestcaseを列挙する
+極限値演算のtest caseを列挙する
 <br>
 x=MIN_VALUE; x -> 5e-324
 <br>

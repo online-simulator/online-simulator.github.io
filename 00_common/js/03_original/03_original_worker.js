@@ -3,12 +3,6 @@
 My_entry.original_worker = function(){
 };
 
-My_entry.original_worker.prototype.init_arr_worker = function(){
-  var self = this;
-  self.arr_data_in = null;
-  self.arr_data_out = null;
-  return self;
-};
 My_entry.original_worker.prototype.init_worker = function(){
   var self = this;
   if(self.handler_worker){
@@ -26,12 +20,21 @@ My_entry.original_worker.prototype.init_worker = function(){
   }
   return self;
 };
-My_entry.original_worker.prototype.stop_worker = function(){
+My_entry.original_worker.prototype.init_arr_worker = function(){
+  var self = this;
+  self.arr_data_in = null;
+  self.arr_data_out = null;
+  return self;
+};
+My_entry.original_worker.prototype.stop_worker = function(isClear){
   var self = this;
   if(self.handler_worker){
     if(self.handler_worker.isLocked){
     }
     self.handler_worker.terminate();
+  }
+  if(isClear){
+    self.init_arr_worker();
   }
   return self;
 };
@@ -51,15 +54,16 @@ My_entry.original_worker.prototype.set_callbacks_worker = function(){
     var self = this;
     var data = e.data;
     self.arr_data_out[data.i] = data;
-    if(Object.keys(self.arr_data_out).length === self.arr_data_in.length){
+    var len_in = self.arr_data_in.length;
+    var len_out = Object.keys(self.arr_data_out).length;
+    if(len_out === len_in){
       self.stop_worker();
     }
     return self;
   };
   self.callbacks_worker.onerror = function(e){
     var self = this;
-    self.stop_worker();
-    self.init_arr_worker();
+    self.stop_worker(true);
     return self;
   };
   return self;

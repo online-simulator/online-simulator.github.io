@@ -300,18 +300,18 @@ My_entry.math.prototype.switch_arr = function(_arr, i, j){
 };
 My_entry.math.prototype.u = function(n, t){
   var self = this;
-  return 0.5*(Math.abs(t-n)-Math.abs(t-(n+1))+1);
+  return (Math.abs(t-n)-Math.abs(t-(n+1))+1)*0.5;
 };
 My_entry.math.prototype.vP_vS = function(iN, isX){
   var self = this;
-  var theta = (1+8*iN)*0.5*Math.PI;
-  return (isX)? Math.cos(theta): Math.sin(theta);
+  var theta = Math.PI*0.5*(1-8*iN);
+  return (!(isX))? Math.cos(theta): Math.sin(theta);
 };
 My_entry.math.prototype.star1 = function(t, N, isX){
   var self = this;
+  var _val = null;
   var t = t;
   var N = N || 5;
-  var isX = (isX)? false: true;
   var u = self.u;
   var vP_vS = self.vP_vS;
   var rN = 1/N;
@@ -321,13 +321,13 @@ My_entry.math.prototype.star1 = function(t, N, isX){
   }
   t %= pi2;
   var Nt = N*t/pi2;
-  var _val = vP_vS(0, isX);
+  _val = vP_vS(0, isX);
   for(var i=0; i<N-1; ++i){
-    var iN = rN*i;
+    var iN = i*rN;
     var ipN = iN+rN;
     _val += u(i, Nt)*(vP_vS(ipN, isX)-vP_vS(iN, isX));
   }
-  var iN = rN*(N-1);
+  var iN = (N-1)*rN;
   _val += u(N-1, Nt)*(vP_vS(0, isX)-vP_vS(iN, isX));
   return _val;
 };
@@ -337,46 +337,30 @@ My_entry.math.prototype.lerp_val = function(left, right, k){
 };
 My_entry.math.prototype.star2 = function(t, N, isX, kr){
   var self = this;
+  var _val = null;
   var t = t;
   var N = N || 5;
-  var rN = 1/N;
-  var pi2 = 2*Math.PI;
-  var dt = pi2*rN;
-  var dtr2 = 0.5*pi2*rN;
+  var pi2 = Math.PI*2;
+  var dt = pi2/N;
+  var dtr2 = dt/2;
   if(t < 0){
     t += Math.ceil(-t/pi2)*pi2;
   }
   t %= pi2;
-  var xt = {};
-  var yt = {};
-  var xc = {};
-  var yc = {};
-  for(var i=0; i<N; ++i){
-    var ti = i*dt;
-    xt[i] = Math.cos(ti);
-    yt[i] = Math.sin(ti);
-    xc[i] = Math.cos(ti+dtr2)*kr;
-    yc[i] = Math.sin(ti+dtr2)*kr;
-  }
   var it = Math.floor(t/dt);
   var it1 = (it+0)%N;
   var it2 = (it+1)%N;
-  var x1 = xt[it1];
-  var y1 = yt[it1];
-  var x2 = xt[it2];
-  var y2 = yt[it2];
   var k = (t-it1*dt)/dt;
-  if(k < 0.5){
-    var k = (t-(it1*dt))/dtr2;
-    var _x = self.lerp_val(x1, xc[it1], k);
-    var _y = self.lerp_val(y1, yc[it1], k);
-  }
-  else{
-    var k = (t-(it1*dt+dtr2))/dtr2;
-    var _x = self.lerp_val(xc[it1], x2, k);
-    var _y = self.lerp_val(yc[it1], y2, k);
-  }
-  return (isX)? _x: _y;
+  var callback_t = (isX)?
+    function(i){return Math.cos(i*dt);}:
+    function(i){return Math.sin(i*dt);};
+  var callback_c = (isX)?
+    function(i){return Math.cos(i*dt+dtr2)*kr;}:
+    function(i){return Math.sin(i*dt+dtr2)*kr;};
+  _val = (k < 0.5)?
+    self.lerp_val(callback_t(it1), callback_c(it1), (t-(it1*dt))/dtr2):
+    self.lerp_val(callback_c(it1), callback_t(it2), (t-(it1*dt+dtr2))/dtr2);
+  return _val;
 };
 My_entry.math.prototype.star = function(t, N, isX, kr){
   var self = this;
@@ -386,19 +370,17 @@ My_entry.math.prototype.star = function(t, N, isX, kr){
 My_entry.math.prototype.poly =
 My_entry.math.prototype.polygon = function(t, N, isX){
   var self = this;
+  var _val = null;
   var t = t;
   var N = N || 5;
-  var rN = 1/N;
-  var pi2 = 2*Math.PI;
+  var pi2 = Math.PI*2;
   var dt = pi2/N;
-  t = t%pi2;
+  t %= pi2;
   var it = Math.floor(t/dt);
-  var x1 = Math.cos(it*dt);
-  var y1 = Math.sin(it*dt);
-  var x2 = Math.cos((it+1)*dt);
-  var y2 = Math.sin((it+1)*dt);
   var k = (t-it*dt)/dt;
-  var _x = x1+(x2-x1)*k;
-  var _y = y1+(y2-y1)*k;
-  return (isX)? _x: _y;
+  var callback_t = (isX)?
+    function(i){return Math.cos(i*dt);}:
+    function(i){return Math.sin(i*dt);};
+  _val = self.lerp_val(callback_t(it), callback_t(it+1), k);
+  return _val;
 };

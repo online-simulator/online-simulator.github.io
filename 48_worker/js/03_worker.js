@@ -28,7 +28,7 @@ My_entry.test_worker.prototype.init_handlers = function(){
   };
   self.handlers.onbeforeunload = function(e){
     var self = this;
-    self.stop_worker();
+    self.stop_worker(true);
     return self;
   };
   self.handlers.onclick = function(e, elem){
@@ -50,7 +50,7 @@ My_entry.test_worker.prototype.init_handlers = function(){
   };
   return self;
 };
-My_entry.test_worker.prototype.stop_worker = function(){
+My_entry.test_worker.prototype.stop_worker = function(isClear){
   var self = this;
   if(self.handler_worker){
     if(self.handler_worker.isLocked){
@@ -58,6 +58,9 @@ My_entry.test_worker.prototype.stop_worker = function(){
     }
     self.handler_worker.terminate();
     self.elem_o.value += "terminated"+"\n";
+  }
+  if(isClear){
+    self.init_arr_worker();
   }
   return self;
 };
@@ -85,7 +88,7 @@ My_entry.test_worker.prototype.set_callbacks_worker = function(){
     var self = this;
     var log = e.message+"\n";
     self.elem_o.value += log;
-    self.stop_worker();
+    self.stop_worker(true);
     return self;
   };
   return self;

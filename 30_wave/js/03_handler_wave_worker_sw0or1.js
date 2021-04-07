@@ -8,7 +8,9 @@ My_entry.handler_wave.prototype.set_callbacks_worker = function(){
     var self = this;
     var data = e.data;
     self.arr_data_out[data.i] = data;
-    if(Object.keys(self.arr_data_out).length === self.arr_data_in.length){
+    var len_in = self.arr_data_in.length;
+    var len_out = Object.keys(self.arr_data_out).length;
+    if(len_out === len_in){
       var binary_header = self.waveo.get_binary_header(data.number_samples);
       var binary_soundData_LE = data.out;
       var binary = binary_header+binary_soundData_LE;
@@ -29,7 +31,7 @@ My_entry.handler_wave.prototype.set_callbacks_worker = function(){
   };
   self.callbacks_worker.onerror = function(e){
     var self = this;
-    self.stop_worker();
+    self.stop_worker(true);
     self.output_log(e.message);
     return self;
   };

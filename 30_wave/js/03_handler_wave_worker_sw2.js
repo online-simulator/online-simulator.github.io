@@ -52,11 +52,12 @@ My_entry.handler_wave.prototype.set_callbacks_worker = function(){
       self.arr_data_out[data.i] = new Array(data.len_j);
     }
     self.arr_data_out[data.i][data.j] = data;
-    var len = 0;
+    var len_in = self.arr_data_in.length;
+    var len_out = 0;
     self.arr_data_out.forEach(function(arr_data_j, i){
-      len += Object.keys(self.arr_data_out[i]).length;
+      len_out += Object.keys(self.arr_data_out[i]).length;
     });
-    if(len === self.arr_data_in.length){
+    if(len_out === len_in){
       var arr_binary = new Array(data.len_i);
       var arr_number_samples = new Array(data.len_i);
       var i0 = null;
@@ -99,7 +100,7 @@ My_entry.handler_wave.prototype.set_callbacks_worker = function(){
   };
   self.callbacks_worker.onerror = function(e){
     var self = this;
-    self.stop_worker();
+    self.stop_worker(true);
     self.output_log(e.message);
     return self;
   };

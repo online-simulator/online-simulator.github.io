@@ -12,6 +12,15 @@ My_entry.$.prototype.config = {
     html: "innerHTML",
     text: "textContent",
     value: "value"
+  },
+  DELIMITER: {
+    br: "--------------------------------\n",
+    sq: "\'",
+    dq: "\"",
+    ca: ",",
+    cn: ":",
+    sc: ";",
+    rn: "\n"
   }
 };
 My_entry.$.prototype.init = function(){
@@ -118,6 +127,27 @@ My_entry.$.prototype.selectNum_id = function(id){
   var self = this;
   var elem = self._id(id);
   return self.selectNum_elem(elem);
+};
+My_entry.$.prototype.set_selectVal_elem = function(elem, val){
+  var self = this;
+  var selectedIndex = -1;
+  var options = elem.options;
+  if(options){
+    for(var i=0, len=options.length; i<len; ++i){
+      var option = options[i];
+      if(option.innerText == String(val)){  // ==
+        selectedIndex = option.index;
+        break;
+      }
+    }
+    elem.selectedIndex = selectedIndex;
+  }
+  return elem.selectedIndex;
+};
+My_entry.$.prototype.set_selectVal_id = function(id, val){
+  var self = this;
+  var elem = self._id(id);
+  return self.set_selectVal_elem(elem, val);
 };
 My_entry.$.prototype.inputVal_elem = function(elem){
   var self = this;
@@ -302,8 +332,11 @@ My_entry.$.prototype.val2literal = function(val){
 My_entry.$.prototype.get_urlParam = function(key_comp){
   var self = this;
   var _val = "";
-  if(location && location.search){
-    var params = location.search.split("?")[1].split("&");
+  var callback = (window.decodeURIComponent)?
+    function(str){return decodeURIComponent(str);}:
+    function(str){return str;};
+  if(window.location && location.search){
+    var params = callback(location.search).split("?")[1].split("&");
     for(var i=0, len=params.length; i<len; ++i){
       var arr = params[i].split("=");
       var key = arr[0];
@@ -321,8 +354,11 @@ My_entry.$.prototype.get_urlParam = function(key_comp){
 My_entry.$.prototype.get_urlParams = function(obj){
   var self = this;
   var _obj = obj || {};
-  if(location && location.search){
-    var params = location.search.split("?")[1].split("&");
+  var callback = (window.decodeURIComponent)?
+    function(str){return decodeURIComponent(str);}:
+    function(str){return str;};
+  if(window.location && location.search){
+    var params = callback(location.search).split("?")[1].split("&");
     for(var i=0, len=params.length; i<len; ++i){
       var arr = params[i].split("=");
       var key = arr[0];

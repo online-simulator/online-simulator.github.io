@@ -21,14 +21,14 @@
     document.body.onload = function(e){
       document.getElementById("VERSION").textContent = "VERSION: "+My_entry.VERSION;
       ["calc", "wave", "else"].forEach(function(name){
-        document.getElementById("Ver-"+name).textContent = My_entry.Ver[name]
+        document.getElementById("Ver-"+name).textContent = My_entry.Ver[name];
       });
     };
   })(document);
 </script>
 
 <div>
-<h1>JavaScriptによるSimulator一覧</h1>
+<h1>Simulators with JavaScript</h1>
 <h2 id="VERSION"></h2>
 </div>
 
@@ -72,11 +72,11 @@ Calculator
 Generator
     </th>
     <td>
-<a title="音源wave-PCM生成（単音）" href="30_wave/index.html">音源wave-PCM生成（単音）</a>
+<a title="音源wave PCM生成（単音）" href="30_wave/index.html">音源wave PCM生成（単音）</a>
 <br>
-<a title="音源wave-PCM生成（和音）" href="30_wave/index1.html">音源wave-PCM生成（和音）</a>
+<a title="音源wave PCM生成（和音）" href="30_wave/index1.html">音源wave PCM生成（和音）</a>
 <br>
-<a title="音源wave-PCM生成（演奏）" href="30_wave/index2.html">音源wave-PCM生成（演奏）</a>
+<a title="音源wave PCM生成（演奏）" href="30_wave/index2.html">音源wave PCM生成（演奏）</a>
     </td>
     <td>
 <a title="[実装テスト]WebWorkers" href="48_worker/index.html">[実装テスト]WebWorkers</a>
@@ -188,6 +188,34 @@ Y/M/D
 <tbody>
   <tr>
     <th>
+2.17.8.3.6
+    </th>
+    <td>
+Calculator
+<br>
+Generator
+    </td>
+    <td>
+1.8.3
+<br>
+1.5.2
+    </td>
+    <td>
+minor change
+    </td>
+    <td>
+[Workerを使用するページ共通]
+<br>
+・Graphing Calculatorの初期リリース準備
+<br>
+　・複数のWorkerを扱う
+    </td>
+    <td>
+2021/4/7
+    </td>
+  </tr>
+  <tr>
+    <th>
 2.17.6.3.6
     </th>
     <td>
@@ -202,7 +230,7 @@ fatal bug-fix
 minor update
     </td>
     <td>
-[音源wave-PCM生成（演奏）]
+[音源wave PCM生成（演奏）]
 <br>
 ・1チャンネルのみの時系列データ再生時の音量不具合を修正
 <br>
@@ -210,7 +238,7 @@ minor update
 <br>
 　1/11変化点から帯域の上限オーバーによる音量に問題あり
 <br>
-[音源wave-PCM生成]
+[音源wave PCM生成]
 <br>
 ・ぶつ切り音を抑制するfade-in/outの機能を追加
     </td>
@@ -254,7 +282,7 @@ Maclaurin7=&lt;_sn(=&lt;{_dx(=&lt;f,n,0)x^n/n!},0,7);
 <br>
 f=&lt;exp(x);
 <br>
-・グラフ関数電卓の実装準備
+・Graphing Calculatorの実装準備
 <br>
 　・演算結果の表記選択変更時のログ表示を再演算無しで自動更新
 <br>
@@ -606,7 +634,7 @@ Generator
 minor change
     </td>
     <td>
-[音源wave-PCM生成ページhtml]
+[音源wave PCM生成ページhtml]
 <br>
 ・tdタグのcolspan=値をcolspan="値"に修正
 <br>
@@ -825,7 +853,7 @@ Generator
 fatal bug-fix
     </td>
     <td>
-[音源wave-PCM生成]
+[音源wave PCM生成]
 <br>
 ・ヘッダー部分の4バイトの型を符号有りから無しに修正
 <br>

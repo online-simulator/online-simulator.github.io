@@ -63,7 +63,7 @@ My_entry.handler_wave.prototype.init_handlers = function(){
     }
     return self;
   };
-  self.handlers.stop_worker = function(){
+  self.handlers.stop_worker = function(isClear){
     var self = this;
     if(self.handler_worker){
       if(self.handler_worker.isLocked){
@@ -71,12 +71,15 @@ My_entry.handler_wave.prototype.init_handlers = function(){
       }
       self.stop_worker();
     }
+    if(isClear){
+      self.init_arr_worker();
+    }
     return self;
   };
   self.handlers.onbeforeunload = function(e){
     var self = this;
     self.handlers.stop_sound(true);
-    self.handlers.stop_worker();
+    self.handlers.stop_worker(true);
     return self;
   };
   self.handlers.onchange = function(e, elem){
