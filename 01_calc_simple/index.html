@@ -1,10 +1,10 @@
 <!DOCTYPE html>
 
-<html lang="ja">
+<html lang="en">
 
 <head>
   <meta charset="utf-8">
-  <meta name="description" content="簡易電卓">
+  <meta name="description" content="Simple Calculator">
   <meta name="author" content="online-simulator.github.io">
   <noscript>JavaScript is not enabled on browser.</noscript>
   <link rel="stylesheet" type="text/css" href="../00_common/css/common.css">
@@ -55,7 +55,7 @@
 </script>
 
 <div class="text-center">
-  <label>ドラッグ移動可draggable
+  <label>draggable
     <input id="checkbox-drag" type="checkbox">
   </label>
 </div>
@@ -66,13 +66,13 @@
     <thead></thead>
     <tbody>
       <tr>
-        <td>出力:</td>
+        <td>out:</td>
         <td colspan="5">
 <input id="output" readonly="readonly">
         </td>
       </tr>
       <tr>
-        <td>入力:</td>
+        <td>in:</td>
         <td colspan="5">
 <input id="input" readonly="readonly">
         </td>
@@ -121,36 +121,37 @@
         <td colspan="5">
   <label><input id="checkbox-useComplex" type="checkbox" checked="checked">:complex</label>
   <label><input id="checkbox-useMatrix" type="checkbox" checked="checked">:matrix</label>
+<br>
   <label>
 <select id="select-expDigit">
-  <option value="-1">小数表記</option>
-  <option value="0">指数表記0桁</option>
-  <option value="1">指数表記1桁</option>
-  <option value="2">指数表記2桁</option>
-  <option value="3">指数表記3桁</option>
-  <option value="4">指数表記4桁</option>
-  <option value="5">指数表記5桁</option>
-  <option value="6">指数表記6桁</option>
-  <option value="7">指数表記7桁</option>
-  <option value="8">指数表記8桁</option>
-  <option value="9">指数表記9桁</option>
-  <option value="10">指数表記10桁</option>
-  <option value="11">指数表記11桁</option>
-  <option value="12">指数表記12桁</option>
-  <option value="13">指数表記13桁</option>
-  <option value="14">指数表記14桁</option>
-  <option value="15">指数表記15桁</option>
-  <option value="16">指数表記16桁</option>
-  <option value="17">指数表記17桁</option>
-  <option value="18">指数表記18桁</option>
-  <option value="19">指数表記19桁</option>
-  <option value="20">指数表記20桁</option>
+  <option value="-1">decimal</option>
+  <option value="0">exponential-0digit</option>
+  <option value="1">exponential-1digit</option>
+  <option value="2">exponential-2digit</option>
+  <option value="3">exponential-3digit</option>
+  <option value="4">exponential-4digit</option>
+  <option value="5">exponential-5digit</option>
+  <option value="6">exponential-6digit</option>
+  <option value="7">exponential-7digit</option>
+  <option value="8">exponential-8digit</option>
+  <option value="9">exponential-9digit</option>
+  <option value="10">exponential-10digit</option>
+  <option value="11">exponential-11digit</option>
+  <option value="12">exponential-12digit</option>
+  <option value="13">exponential-13digit</option>
+  <option value="14">exponential-14digit</option>
+  <option value="15">exponential-15digit</option>
+  <option value="16">exponential-16digit</option>
+  <option value="17">exponential-17digit</option>
+  <option value="18">exponential-18digit</option>
+  <option value="19">exponential-19digit</option>
+  <option value="20">exponential-20digit</option>
 </select>
   </label>
         </td>
       </tr>
       <tr>
-        <td rowspan="2">履歴:</td>
+        <td rowspan="2">history:</td>
         <td colspan="5">
 <textarea id="history" readonly="readonly" rows="5"></textarea>
         </td>
@@ -164,13 +165,13 @@
         <td colspan="6">
 <hr>
 <div class="text-left">
-  <label>・右結合2項演算(rightAssociativity):<input id="checkbox-isRightAssociativityBR" type="checkbox"></label>
+  <label>・rightAssociativity（右結合2項演算）:<input id="checkbox-isRightAssociativityBR" type="checkbox"></label>
 <br>
-  <label>・乗算より除算優先(/prior2omitted*):<input id="checkbox-isDIVprior2OMUL" type="checkbox"></label>
+  <label>・/prior2omitted*（乗算より除算優先）:<input id="checkbox-isDIVprior2OMUL" type="checkbox"></label>
 </div>
 <hr>
 <div class="text-left">
-  <label>・マルチスレッド(Multi-thread)実行:<input id="checkbox-useWorker" type="checkbox" checked="checked"></label>
+  <label>・Multi-thread（マルチスレッド）実行:<input id="checkbox-useWorker" type="checkbox" checked="checked"></label>
 </div>
 <hr>
         </td>
