@@ -8,7 +8,7 @@ My_entry.canvas = function(elem){
 
 My_entry.canvas.prototype.init = function(elem){
   var self = this;
-  My_entry.def.mix_in_props(My_entry.canvas, My_entry.drag, ["get_client"]);
+//  My_entry.def.mix_in_props(My_entry.canvas, My_entry.drag, ["get_client"]);
   self.elem = elem;
   self.elem_p = self.elem.parentElement;
   self.ctx = elem.getContext("2d");
@@ -50,20 +50,29 @@ My_entry.canvas.prototype.remove_onevent = function(){
   });
   return self;
 };
+My_entry.canvas.prototype.get_page = function(e){
+  var self = this;
+  var newE = e;
+  if(e.touches){
+    newE = (e.touches.length)? e.touches[0]: false;
+  }
+  var _page = (newE)? {x: newE.pageX, y: newE.pageY}: false;
+  return _page;
+};
 My_entry.canvas.prototype.get_offset = function(e){
   var self = this;
   var newE = e;
   if(e.touches){
     var elem = self.elem;  // absolute
     var elem_p = self.elem_p;  // relative
-    var client = self.get_client(e);
-    if(client){
+    var page = self.get_page(e);
+    if(page){
       var offsetParent = elem_p.offsetParent;
-      var offsetX = client.x;
-      offsetX -= offsetParent.scrollLeft+offsetParent.offsetLeft;
+      var offsetX = page.x;
+      offsetX -= offsetParent.offsetLeft;
       offsetX -= elem_p.offsetLeft+elem.offsetLeft;
-      var offsetY = client.y;
-      offsetY -= offsetParent.scrollTop+offsetParent.offsetTop;
+      var offsetY = page.y;
+      offsetY -= offsetParent.offsetTop;
       offsetY -= elem_p.offsetTop+elem.offsetTop;
       newE = {offsetX: offsetX, offsetY: offsetY};
     }
