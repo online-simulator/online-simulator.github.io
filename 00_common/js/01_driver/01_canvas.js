@@ -58,8 +58,13 @@ My_entry.canvas.prototype.get_offset = function(e){
     var elem_p = self.elem_p;  // relative
     var client = self.get_client(e);
     if(client){
-      var offsetX = client.x-(elem_p.offsetParent.offsetLeft+elem_p.offsetLeft+elem.offsetLeft);
-      var offsetY = client.y-(elem_p.offsetParent.offsetTop+elem_p.offsetTop+elem.offsetTop);
+      var offsetParent = elem_p.offsetParent;
+      var offsetX = client.x;
+      offsetX -= offsetParent.scrollLeft+offsetParent.offsetLeft;
+      offsetX -= elem_p.offsetLeft+elem.offsetLeft;
+      var offsetY = client.y;
+      offsetY -= offsetParent.scrollTop+offsetParent.offsetTop;
+      offsetY -= elem_p.offsetTop+elem.offsetTop;
       newE = {offsetX: offsetX, offsetY: offsetY};
     }
     else{
