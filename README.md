@@ -12,3 +12,6 @@ https://docs.github.com/
 # Notifications
 en: The downloadable contents by simulators in GitHub Pages including results are completely free under self-responsibility.
 ja: GitHub Pagesのシミュレータによる結果を含むダウンロード素材は自己責任の下に完全フリー
+
+# Graphing Calculator
+![](/02_calc_graphing/img/02_calc_graphing.png)
