@@ -12,8 +12,8 @@ My_entry.drag.prototype.init = function(id, opt_handlers){
   new My_entry.original_main().make_instances.call(self, ["$"]);
   self.id = id;
   self.elem = self.entry.$._id(self.id);
-  self.elem_p = (self.elem)? self.elem.parentElement: self.elem;
-  self.onevent = ["ondragstart", "ondragover", "ondragend"];
+  self.elem_p = self.elem.parentElement;
+  self.onevents = ["ondragstart", "ondragover", "ondragend"];
   self.touch = {
     ondragstart: "ontouchstart",
     ondragover: "ontouchmove",
@@ -35,7 +35,7 @@ My_entry.drag.prototype.set_handlers0 = function(){
     }
   };
   set_position();
-  self.onevent.forEach(function(onevent){
+  self.onevents.forEach(function(onevent){
     var handler = null;
     switch(onevent){
       case "ondragstart":
@@ -74,7 +74,7 @@ My_entry.drag.prototype.get_handler = function(onevent, opt_handlers){
 My_entry.drag.prototype.add_handlers = function(opt_handlers){
   var self = this;
   self.entry.$.set_elem(self.elem, "draggable", true);
-  self.onevent.forEach(function(onevent){
+  self.onevents.forEach(function(onevent){
     var handler = self.get_handler(onevent, opt_handlers);
     self.entry.$.set_elem(self.elem, onevent, handler);
     self.entry.$.set_elem(self.elem, self.touch[onevent], handler);
@@ -85,7 +85,7 @@ My_entry.drag.prototype.add_handlers = function(opt_handlers){
 My_entry.drag.prototype.remove_handlers = function(){
   var self = this;
   self.entry.$.set_elem(self.elem, "draggable", false);
-  self.onevent.forEach(function(onevent){
+  self.onevents.forEach(function(onevent){
     self.entry.$.set_elem(self.elem, onevent, null);
     self.entry.$.set_elem(self.elem, self.touch[onevent], null);
     self.handlers[onevent] = null;
@@ -120,10 +120,10 @@ My_entry.drag.prototype.get_offset = function(){
 };
 My_entry.drag.prototype.get_client = function(e){
   var self = this;
-  var e = e;
+  var newE = e;
   if(e.touches){
-    e = (e.touches.length)? e.touches[0]: false;
+    newE = (e.touches.length)? e.touches[0]: false;
   }
-  var _client = (e)? {x: e.clientX, y: e.clientY}: false;
+  var _client = (newE)? {x: newE.clientX, y: newE.clientY}: false;
   return _client;
 };

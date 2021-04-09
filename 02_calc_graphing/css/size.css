@@ -1,0 +1,25 @@
+@charset "UTF-8";
+
+body{
+  max-width: 1024px;
+}
+
+input{
+  width: 97%;
+}
+textarea{
+  width: 97%;
+}
+
+table, td, th{
+  border: 1px solid;
+}
+
+.left-box{
+  min-width: 512px;
+  width: 256px;
+}
+.button-box{
+  max-width: 64px;
+  width: 100%;
+}

@@ -1,0 +1,543 @@
+<!DOCTYPE html>
+
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="description" content="Graphing Calculator">
+  <meta name="author" content="online-simulator.github.io">
+  <noscript>JavaScript is not enabled on browser.</noscript>
+  <link rel="stylesheet" type="text/css" href="../00_common/css/common.css">
+  <link rel="stylesheet" type="text/css" href="../00_common/css/color.css">
+  <link rel="stylesheet" type="text/css" href="../00_common/css/size.css">
+  <link rel="stylesheet" type="text/css" href="css/common.css">
+  <link rel="stylesheet" type="text/css" href="css/color.css">
+  <link rel="stylesheet" type="text/css" href="css/size.css">
+  <script type="text/javascript" src="../00_common/js/000_namespace/000_entry.js"></script>
+  <script type="text/javascript" src="../00_common/js/00_class/000_reference.js"></script>
+  <script type="text/javascript" src="../00_common/js/00_class/00_$.js"></script>
+  <script type="text/javascript" src="../00_common/js/00_class/00_conv.js"></script>
+  <script type="text/javascript" src="../00_common/js/00_class/00_def.js"></script>
+  <script type="text/javascript" src="../00_common/js/00_class/01_math.js"></script>
+  <script type="text/javascript" src="../00_common/js/00_class/01_math_com.js"></script>
+  <script type="text/javascript" src="../00_common/js/00_class/01_math_mat.js"></script>
+  <script type="text/javascript" src="../00_common/js/00_class/01_solver.js"></script>
+  <script type="text/javascript" src="../00_common/js/00_class/02_DATA.js"></script>
+  <script type="text/javascript" src="../00_common/js/00_class/02_operation.js"></script>
+  <script type="text/javascript" src="../00_common/js/00_class/02_parser.js"></script>
+  <script type="text/javascript" src="../00_common/js/00_class/02_unit.js"></script>
+  <script type="text/javascript" src="../00_common/js/01_driver/01_browser.js"></script>
+  <script type="text/javascript" src="../00_common/js/01_driver/01_canvas.js"></script>
+  <script type="text/javascript" src="../00_common/js/01_driver/01_draw.js"></script>
+  <script type="text/javascript" src="../00_common/js/01_driver/01_drag.js"></script>
+  <script type="text/javascript" src="../00_common/js/01_driver/01_io.js"></script>
+  <script type="text/javascript" src="../00_common/js/01_driver/01_io_ex.js"></script>
+  <script type="text/javascript" src="../00_common/js/01_driver/01_io_ex1.js"></script>
+  <script type="text/javascript" src="../00_common/js/01_driver/01_link.js"></script>
+  <script type="text/javascript" src="../00_common/js/02_handler/02_handler_drag.js"></script>
+  <script type="text/javascript" src="../00_common/js/02_handler/02_handler_link.js"></script>
+  <script type="text/javascript" src="../00_common/js/02_handler/02_handler_worker.js"></script>
+  <script type="text/javascript" src="../00_common/js/02_handler/02_plot2d.js"></script>
+  <script type="text/javascript" src="../00_common/js/03_original/03_original_main.js"></script>
+  <script type="text/javascript" src="../00_common/js/03_original/03_original_workers.js"></script>
+  <script type="text/javascript" src="js/for_importScripts.js"></script>
+  <script type="text/javascript" src="js/03_calc_graphing.js"></script>
+</head>
+
+<body>
+  <div id="div-drag">
+
+<script type="text/javascript">
+  (function(document){
+    document.body.onload = function(e){
+      ["plot"].forEach(function(name){
+        document.getElementById("Ver-"+name).textContent = My_entry.Ver[name];
+      });
+      new My_entry.calc_graphing().onload(e);
+      var $ = new My_entry.$();
+      $._id("input").value = "e^(-i(1pi()2/2i(5-3-1)i/(-4)))/*associativity&precedence test case*/;\ne^(-i(1pi(){2/{2i({5-3}-1)i}}/(-4)))/*default*/;\n=e^(i{-pi/4})/*default answer*/;\ne^(-i({1pi()2}/{{2i(5-{3-1})i}/(-4)}));\n=e^(i{-4pi/3});\ne^(-i(1pi(){2/2i}({5-3}-1){i/(-4)}));\n=e^(i{pi/4});\ne^(-i(1pi(){2/2i}(5-{3-1}){i/(-4)}));\n=e^(i{3pi/4});\nclear;\nvector={1,2,3}/*real vector*/;\ntrans(vector)vector/*(1,2,3){1,2,3}*/;\nvector*trans(vector)/*{1,2,3}(1,2,3)*/;\nclear;\ncvector={1-i,1}/*complex vector*/;\nhtrans(cvector)cvector/*(1+i,1){1-i,1}*/;\ncvector*htrans(cvector)/*{1-i,1}(1+i,1)*/;\nclear;\ncmatrix=(e^(i{pi/4}),:e^(i{-pi/4}),)/*complex matrix*/;\nhtr=<htrans;\nhtr(cmatrix)cmatrix;\ncmatrix*htr(cmatrix);\nclear;\nA=(1,2:3,4);\nb={5,6};\nGauss(A,b)/*Gaussian elimination with pivotting*/;\nstore;\nsolvex_pivotting=<{compare=<switch(abs(A[ir][ir])<abs(A[ir_comp][ir]),=<{ir_pivot=ir_comp}),cond=<{ir<>ir_pivot},proc=<{w=A[ir],A[ir]=A[ir_pivot],A[ir_pivot]=w,w=b[ir],b[ir]=b[ir_pivot],b[ir_pivot]=w},pivotting=<last{ir_pivot=ir,compare,switch(cond,=<proc)},forward=<last{k=A[ir][ic]/A[ic][ic],A[ir]=A[ir]-k(A[ic]),b[ir]=b[ir]-k(b[ic])},backward=<{x[ir]=(b[ir]-A[ir]x)/A[ir][ir]},sizeA=size(A),x=zeros(sizeA,1),_sir(=<{_sir_comp(=<pivotting,ir+1,sizeA-1)},0,sizeA-2),_sic(=<{_sir(=<forward,ic+1,sizeA-1)},0,sizeA-2),_sir(=<backward,sizeA-1,0),=<x}=>;\nsolvex_pivotting;\nrestore;\nx=<{x0,x1};\nx_initial=<{0,0};\nf=<{A(x)=b}/*linear equations*/;\nrun=<last(mdx=Newton(=<f,=<x,=<x_initial),max(norm(f),norm(mdx)))/*Newtonian method*/;\n_Rn(=<run,,3);\nx;\nclear;\nx=<{x0,x1};\nx_initial=<{1+i,1-i};\nf=<{x0^i-2x1=3i,3x0+exp(x1)=5i}/*non-linear equations*/;\nrun=<last(mdx=Newton(=<f,=<x,=<x_initial),max(norm(f),norm(mdx)));\n_Rn(=<run,,6);\nx;\nclear;\nf=<{2x*_dx(=<{x*exp(3x)})=i}/*differential equation*/;\nrun=<last(mdx=Newton(=<f,=<{x}),max(norm(f),norm(mdx)));\n_rn(=<run,,12);\nx;\nclear;\nf=<{_ix(=<{x^2},0,b,10)=3^3/3}/*integral equation*/;\nrun=<last(mdx=Newton(=<f,=<{b},=<{1}),max(norm(f),norm(mdx)));\n_rn(=<run,,8);\nb;\nclear;\n_Sn(=<{(n,2n(i):3n,4n+5n(i))},1,10)/*summation*/;\n_pn(=<{htrans(n,2i:3,4i)},1,2)/*product(1,3:-2i,-4i)(2,3:-2i,-4i)*/;\nclear;\nA=(1,{2,(3,{4,5})})/*concatination test case*/;\nttA=trans(trans(A));\nA*A-ttA*ttA;\nclear;\nx=-1;\nswitch(real(x)<0,=<{-real(x)}:1,=<{real(x)})/*switch test case*/;\nclear;\nTaylorN=<_sn(=<{_dx(=<f,n,a)(x-a)^n/n!},0,N)/*Taylor series*/;\nf=<exp(x);\nx=2;\na=0;\nN=7;\nTaylorN;\nf;\nx=1;\nf=<exp(sin(x)x)cos(x);\nTaylorN;\nf;\nclear;\nFourierN=<_sn(=<{cn*e^(i(n)x)},-N,N)/*Fourier series*/;\ncn=<_it(=<{ft*e^(-i(n)t)},-pi,pi)/(2pi);\nx=2;\nfx=<e^(i(2.5)x);\nft=<e^(i(2.5)t);\nfx;\nN=3,FourierN;\nclear;\n";
+      var setVal = function(){
+        $._id("input-t0").value = arguments[0] || "";
+        $._id("input-t1").value = arguments[1] || "";
+        $._id("input-x").value = arguments[2] || "";
+        $._id("input-y").value = arguments[3] || "";
+        $.set_selectVal_id("select-N", arguments[4] || 10);  // for IE
+      };
+      $._id("ax").onclick = function(){setVal("1e-3(1+i)", "1e2(1+i)", "x=t,x;", "x;2x;3x;4x;5x;6x;7x;8x;9x;10x;");};
+      $._id("pow1").onclick = function(){setVal("-1", "1", "x=t,x;", "x;x^2;x^3;x^4;x^5;", 30);};
+      $._id("pow2").onclick = function(){setVal("-2(1+i)", "2(1+i)", "x=t,x;", "x;x^2;x^3;x^4;x^5;", 30);};
+      $._id("sin").onclick = function(){setVal("0", "2pi", "x=t,x;", "sin(x);cos(x);sin(2x);cos(2x);", 100);};
+      $._id("circle").onclick = function(){setVal("0", "2pi", "cos(t);real(e^(i(t)))2;real(e^(i(t)))3;", "sin(t);imag(e^(i(t)))2;", 100);};
+      $._id("spiral").onclick = function(){setVal("0", "Nr=5,2pi*Nr", "cos(t)t;", "sin(t)t;", 100);};
+      $._id("heart").onclick = function(){setVal("0", "2pi", "pow(sin(t),3);", "y=7cos(t)-4cos(2t) -2cos(3t),y/7;", 50);};
+      $._id("Lissajous").onclick = function(){setVal("0", "2pi", "cos(3t);", "sin(2t+pi/3);", 100);};
+      $._id("rose").onclick = function(){setVal("0", "2pi", "sin(2t)cos(t);sin(4t)cos(t);sin(6t)cos(t);sin(6t)cos(5t);", "sin(2t)sin(t);sin(4t)sin(t);sin(6t)sin(t);sin(6t)sin(5t);", 100);};
+      $._id("polygon").onclick = function(){setVal("0", "2pi", "N=5,poly(t,N,0);", "poly(t,N,1);", 50);};
+      $._id("star1").onclick = function(){setVal("0", "2pi", "N=5,star(t,N,0);", "star(t,N,1);", 50);};
+      $._id("star2").onclick = function(){setVal("0", "2pi", "x=t,N=11,z0=<star(x,N,1)+star(x,N,0)i,z1=<poly(x,N,1)+poly(x,N,0)i,t=-2pi/(3N),real(z0*e^(i(t)));real(z0*e^(i(2t)));real(z0*e^(i(3t)));real(z1);", "imag(z0*e^(i(t)));imag(z0*e^(i(2t)));imag(z0*e^(i(3t)));imag(z1);", 100);};
+      $._id("star3").onclick = function(){setVal("0", "2pi", "x=t,N=11,z0=<star(x,N,1,0.5)+star(x,N,0,0.5)i,z1=<poly(x,N,1)+poly(x,N,0)i,t=-2pi/(3N),real(z0*e^(i(t)));real(z0*e^(i(2t)));real(z0*e^(i(3t)));real(z1);", "imag(z0*e^(i(t)));imag(z0*e^(i(2t)));imag(z0*e^(i(3t)));imag(z1);", 100);};
+      $._id("summation").onclick = function(){setVal("0", "10", "N=t,N;", "fn=<n(1+2i),_sn(=<fn,0,N);(1+2i)55;", 10);};
+      $._id("product").onclick = function(){setVal("1", "10", "N=t,N;", "fn=<n,log10(_pn(=<fn,1,N));log10(10!);log10(_pn(=<fn,1,N,2));log10(9!!);", 10);};
+      $._id("recurrence1").onclick = function(){setVal("0", "30", "N=t,a=0.9i,b=1,z0=0,fz=<a*z+b,real(_rz(=<fz,z0,N));z1=z0,fz1=<last{z=z1,z1=-fz}/*non-dimensionalized arbitrary formula as comma operator||fz1=<(z=z1,z1=-fz)*/,_rn(=<fz1,,N),real(z1);", "imag(_rz(=<fz,z0,N));", 30);};
+      $._id("recurrence2").onclick = function(){setVal("0", "30", "N=t,z0=0,fz=<e^(i(z)),real(_rz(=<fz,z0,N));", "imag(_rz(=<fz,z0,N));z1=z0,fz1=<last{z=-z1,z1=fz}/*non-dimensionalized arbitrary formula as comma operator||fz1=<(z=-z1,z1=fz)*/,_rn(=<fz1,,N),imag(z1);", 30);};
+      $._id("differential1").onclick = function(){setVal("-2", "2", "a=t,a;  // _dx(=<fx,Ndash||1,a,opt_dx||max(1,abs(x))1e-3(1+i)) error=Order(dx^2~dx^4)", "fx=<x^5,_dx(=<fx,0,a);_dx(=<fx,1,a);_dx(=<fx,2,a);_dx(=<fx,3,a);_dx(=<fx,4,a);_dx(=<fx,5,a);_dx(=<fx,6,a);", 10);};
+      $._id("differential2").onclick = function(){setVal("-2", "2", "a=t,a;", "fxy=<x*x*y*y,_Dy(=<{_Dx(=<fxy,1,y)},1,a);24;", 10);};
+      $._id("integral1").onclick = function(){setVal("-2", "2", "b=t,b;  // _ix(=<fx,a,b,opt_NI||100) dx=(b-a)/NI error=Order(dx^4)", "_ix(=<{1},0,b);_ix(=<{x},0,b);_ix(=<{x^2},0,b);_ix(=<{x^3},0,b);2^4/4;", 10);};
+      $._id("integral2").onclick = function(){setVal("-2", "2", "b=t,b;", "fxy=<x*y,_iy(=<{_ix(=<fxy,0,y,10)},0,b,10);2^4/8;_iy(=<{_ix(=<{fxy*fxy},0,y,10)},0,b,10);2^6/18;", 10);};
+      $._id("calculus1").onclick = function(){setVal("-2(1+i)", "2(1+i)", "b=t,b;", "fx=<x^3,_ix(=<{_dx(=<fx,1,x)},0,b,10);-b^3;", 10);};
+      $._id("calculus2").onclick = function(){setVal("-2(1+i)", "2(1+i)", "b=t,b;", "fx=<x^3,_dx(=<{_ix(=<fx,0,x,10)},1,b);-b^3;", 10);};
+      $._id("Maclaurin1").onclick = function(){setVal("-pi", "pi", "x=t,x;", "fx=<sin(x),fx;MaclaurinN=<_sn(=<{_dx(=<fx,n,0)x^n/n!},0,N),N=1,MaclaurinN;N=3,MaclaurinN;N=5,MaclaurinN;N=7,MaclaurinN;N=9,MaclaurinN;", 10);};
+      $._id("Maclaurin2").onclick = function(){setVal("-(1+i)pi/4", "(1+i)pi/4", "x=t,x;", "fx=<sqrt(2-exp(sin(x)^2*x)/cos(x)),fx;MaclaurinN=<_sn(=<{_dx(=<fx,n,0)x^n/n!},0,N),N=1,MaclaurinN;N=3,MaclaurinN;N=5,MaclaurinN;N=7,MaclaurinN;N=9,MaclaurinN;", 10);};
+      $._id("Taylor").onclick = function(){setVal("0", "2(1+i)pi/4", "x=t,x;", "fx=<exp(x)/cos(x),fx;TaylorN=<_sn(=<{_dx(=<fx,n,a)(x-a)^n/n!},0,N),a=(1+i)pi/4,N=1,TaylorN;N=3,TaylorN;N=5,TaylorN;N=7,TaylorN;N=9,TaylorN;", 10);};
+      $._id("Fourier").onclick = function(){setVal("-pi", "pi", "x=t,x;  // too heavy integral", "n0=2.5,n1=4.5,ft=<e^(i(n0)t)+e^(i(n1)t),ft;cn=<_it(=<{ft*e^(-i(n)t)},-pi,pi)/(2pi),FourierN=<_sn(=<{cn*e^(i(n)x)},-N,N),N=1,FourierN;N=2,FourierN;N=3,FourierN;N=4,FourierN;N=5,FourierN;" ,10);};
+      $._id("DFT").onclick = function(){setVal("0", "10", "n=t,n;", "n0=2,n1=4,N=max(n0,n1)*4,fn=<Kdelta(n,n0)+Kdelta(n,n1),fn;ft=<e^((i(n0)t)2pi/N)+e^((i(n1)t)2pi/N),DFT=<_st(=<{ft*e^((-i(n)t)2pi/N)},0,N-1)/N,DFT;", 30);};
+      $._id("IDFT").onclick = function(){setVal("0", "10", "t;", "n0=2,n1=4,N=max(n0,n1)*4,ft=<e^((i(n0)t)2pi/N)+e^((i(n1)t)2pi/N),ft;fn=<Kdelta(n,n0)+Kdelta(n,n1),IDFT=<_sn(=<{fn*e^((i(n)t)2pi/N)},0,N-1),IDFT;", 30);};
+      $._id("SND").onclick = function(){setVal("-5", "5", "t;", "SND=<exp(-t^2/2)/sqrt(2pi),SND;", 50);};
+      $._id("Px").onclick = function(){setVal("-5", "5", "x=t,x;", "SND=<exp(-t^2/2)/sqrt(2pi),Px=<_it(=<SND,-x,x),Px;Px_better=<_it(=<SND,0,x)2,Px_better;", 20);};
+      $._id("erfx").onclick = function(){setVal("-5", "5", "x=t,x;", "SND=<exp(-t^2/2)/sqrt(2pi),erfx=<_it(=<SND,0,x(sqrt2))2,erfx;erfx=<_it(=<{exp(-t^2)},0,x)(2/sqrt(pi)),erfx;", 20);};
+      $._id("erfcx").onclick = function(){setVal("-5", "5", "x=t,x;", "SND=<exp(-t^2/2)/sqrt(2pi),erfx=<_it(=<{exp(-t^2)},0,x)(2/sqrt(pi)),erfcx=<1-erfx,erfcx;", 20);};
+      $._id("probability").onclick = function(){setVal("10", "0", "N=t,t;", "Pb=3/*big prize[%]*/,Pn=<{100combin(10,n)(Pb/100)^n((100-Pb)/100)^(10-n)},n=N,Pn;PN=<_sn(=<Pn,N,10),PN;", 10);};
+      $._id("physics").onclick = function(){setVal("0", "5", "t;", "g=-9.8,v0=20,y0=0,ya=y0+v0*t+g*t^2/2,ya;yn=y0+_it(=<{v0+_it(=<{g},0,t,10)},0,t,10),yn;", 20);};
+    };
+  })(document);
+</script>
+
+<div class="text-center">
+  <label>draggable
+    <input id="checkbox-drag" type="checkbox">
+  </label>
+</div>
+
+<div>
+  <table class="no-border text-center" cellspacing="4">
+    <caption></caption>
+    <thead></thead>
+    <tbody>
+      <tr>
+        <td colspan="3">
+plot2d
+<span id="Ver-plot"></span>
+<span id="wrapper-link-png"></span>
+|
+<span id="wrapper-link-csv"></span>
+<div id="div-plot2d" class="relative"></div>
+        </td>
+        <td rowspan="6">
+<b>test case</b>
+<br>
+<br>
+  <button id="ax">a*x</button>
+  <button id="pow1">pow1</button>
+  <button id="pow2">pow2</button>
+  <button id="sin">sin</button>
+<br>
+  <button id="circle">circle</button>
+  <button id="spiral">spiral</button>
+  <button id="heart">heart</button>
+<br>
+  <button id="Lissajous">Lissajous</button>
+  <button id="rose">rose</button>
+<br>
+  <button id="polygon">polygon</button>
+  <button id="star1">star1</button>
+  <button id="star2">star2</button>
+  <button id="star3">star3</button>
+<br>
+  <button id="summation">summation</button>
+  <button id="product">product</button>
+<br>
+  <button id="recurrence1">recurrence1</button>
+  <button id="recurrence2">recurrence2</button>
+<br>
+  <button id="differential1">differential1</button>
+  <button id="differential2">differential2</button>
+<br>
+  <button id="integral1">integral1</button>
+  <button id="integral2">integral2</button>
+<br>
+  <button id="calculus1">calculus1</button>
+  <button id="calculus2">calculus2</button>
+<br>
+  <button id="Maclaurin1">Maclaurin1</button>
+  <button id="Maclaurin2">Maclaurin2</button>
+<br>
+  <button id="Taylor">Taylor</button>
+  <button id="Fourier">Fourier</button>
+  <button id="DFT">DFT</button>
+  <button id="IDFT">IDFT</button>
+<br>
+  <button id="SND">SND</button>
+  <button id="Px">P(x)</button>
+  <button id="erfx">erf(x)</button>
+  <button id="erfcx">erfc(x)</button>
+<br>
+  <button id="probability">probability</button>
+  <button id="physics">physics</button>
+        </td>
+      </tr>
+      <tr>
+        <td>
+        </td>
+        <td>
+<input id="output-plot" readonly="readonly">
+        </td>
+        <td>
+  <button class="button-box run">plot</button>
+  <button class="button-box clear">stop</button>
+        </td>
+      </tr>
+      <tr>
+        <td>
+t:
+        </td>
+        <td colspan="2">
+<input id="input-t0" class="width-auto">
+~
+<input id="input-t1" class="width-auto">
+  <label>N:
+<select id="select-N">
+  <option>1</option>
+  <option>2</option>
+  <option>4</option>
+  <option>5</option>
+  <option selected="selected">10</option>
+  <option>20</option>
+  <option>30</option>
+  <option>40</option>
+  <option>50</option>
+  <option>60</option>
+  <option>70</option>
+  <option>80</option>
+  <option>90</option>
+  <option>100</option>
+  <option>120</option>
+  <option>140</option>
+  <option>160</option>
+  <option>180</option>
+  <option>200</option>
+  <option>250</option>
+  <option>300</option>
+  <option>400</option>
+  <option>500</option>
+  <option>750</option>
+  <option>1000</option>
+</select>
+  </label>
+        </td>
+      </tr>
+      <tr>
+        <td>
+x(t):
+        </td>
+        <td colspan="2">
+  <label>log:
+<input id="checkbox-log-x" type="checkbox">
+  </label>
+  <label>i:
+<input id="checkbox-imag-x" type="checkbox">
+  </label>
+<input id="input-xmin" class="width-auto" readonly="readonly">
+~
+<input id="input-xmax" class="width-auto" readonly="readonly">
+<br>
+<input id="input-x">
+        </td>
+      </tr>
+      <tr>
+        <td>
+y(t):
+        </td>
+        <td colspan="2">
+  <label>log:
+<input id="checkbox-log-y" type="checkbox">
+  </label>
+  <label>i:
+<input id="checkbox-imag-y" type="checkbox">
+  </label>
+<input id="input-ymin" class="width-auto" readonly="readonly">
+~
+<input id="input-ymax" class="width-auto" readonly="readonly">
+<br>
+<input id="input-y">
+        </td>
+      </tr>
+      <tr>
+        <td>
+z:
+        </td>
+        <td colspan="2">
+<input id="input-z" value="Not yet Installed">
+        </td>
+      </tr>
+      <tr>
+        <td colspan="3">
+<hr>
+  <label>
+　plot-config　<input id="checkbox-config-plot" type="checkbox">
+  </label>
+<hr>
+<div id="div-config-plot">
+  <div class="text-left">
+    <label>canvas-width:
+<select id="select-canvas-width">
+  <option value="32">32px</option>
+  <option value="64">64px</option>
+  <option value="80">80px</option>
+  <option value="128">128px</option>
+  <option value="160">160px</option>
+  <option value="240">240px</option>
+  <option value="256">256px</option>
+  <option value="320">320px</option>
+  <option value="400">400px</option>
+  <option value="480">480px</option>
+  <option value="512" selected="selected">512px</option>
+  <option value="560">560px</option>
+  <option value="640">640px</option>
+  <option value="720">720px</option>
+  <option value="768">768px</option>
+  <option value="800">800px</option>
+  <option value="880">880px</option>
+  <option value="960">960px</option>
+  <option value="1024">1024px</option>
+  <option value="1040">1040px</option>
+  <option value="1120">1120px</option>
+  <option value="1200">1200px</option>
+  <option value="1280">1280px</option>
+</select>
+    </label>
+    <label>canvas-height:
+<select id="select-canvas-height">
+  <option value="32">32px</option>
+  <option value="64">64px</option>
+  <option value="80">80px</option>
+  <option value="128">128px</option>
+  <option value="160">160px</option>
+  <option value="240">240px</option>
+  <option value="256" selected="selected">256px</option>
+  <option value="320">320px</option>
+  <option value="400">400px</option>
+  <option value="480">480px</option>
+  <option value="512">512px</option>
+  <option value="560">560px</option>
+  <option value="640">640px</option>
+  <option value="720">720px</option>
+  <option value="768">768px</option>
+  <option value="800">800px</option>
+  <option value="880">880px</option>
+  <option value="960">960px</option>
+  <option value="1024">1024px</option>
+  <option value="1040">1040px</option>
+  <option value="1120">1120px</option>
+  <option value="1200">1200px</option>
+  <option value="1280">1280px</option>
+</select>
+    </label>
+<br>
+    <label>canvas-background:
+<select id="select-canvas-background">
+  <option value="">transparent</option>
+  <option value="black" selected="selected">black</option>
+  <option value="white">white</option>
+</select>
+    </label>
+    <label>grid-line-width:
+<select id="select-grid-line-width">
+  <option value="0">0px</option>
+  <option value="0.5" selected="selected">0.5px</option>
+  <option value="1">1px</option>
+  <option value="1.5">1.5px</option>
+  <option value="2">2px</option>
+  <option value="2.5">2.5px</option>
+  <option value="3">3px</option>
+  <option value="3.5">3.5px</option>
+  <option value="4">4px</option>
+  <option value="4.5">4.5px</option>
+  <option value="5">5px</option>
+  <option value="6">6px</option>
+  <option value="7">7px</option>
+  <option value="8">8px</option>
+  <option value="9">9px</option>
+  <option value="10">10px</option>
+</select>
+    </label>
+<br>
+    <label>marker-size:
+<select id="select-marker-size">
+  <option>0</option>
+  <option>1</option>
+  <option>2</option>
+  <option>3</option>
+  <option>4</option>
+  <option>5</option>
+  <option>6</option>
+  <option selected="selected">7</option>
+  <option>8</option>
+  <option>9</option>
+  <option>10</option>
+  <option>11</option>
+  <option>12</option>
+  <option>13</option>
+  <option>14</option>
+  <option>15</option>
+  <option>16</option>
+  <option>17</option>
+  <option>18</option>
+  <option>19</option>
+  <option>20</option>
+</select>
+    </label>
+    <label>marker-line-width:
+<select id="select-marker-line-width">
+  <option value="0">0px</option>
+  <option value="1">1px</option>
+  <option value="2">2px</option>
+  <option value="3">3px</option>
+  <option value="4">4px</option>
+  <option value="5">5px</option>
+  <option value="6">6px</option>
+  <option value="7">7px</option>
+  <option value="8">8px</option>
+  <option value="9">9px</option>
+  <option value="10">10px</option>
+  <option value="11">11px</option>
+  <option value="12">12px</option>
+  <option value="13">13px</option>
+  <option value="14">14px</option>
+  <option value="15">15px</option>
+  <option value="16">16px</option>
+</select>
+    </label>
+    <label>plot-line-width:
+<select id="select-plot-line-width">
+  <option value="0">0px</option>
+  <option value="1">1px</option>
+  <option value="2" selected="selected">2px</option>
+  <option value="3">3px</option>
+  <option value="4">4px</option>
+  <option value="5">5px</option>
+  <option value="6">6px</option>
+  <option value="7">7px</option>
+  <option value="8">8px</option>
+  <option value="9">9px</option>
+  <option value="10">10px</option>
+  <option value="11">11px</option>
+  <option value="12">12px</option>
+  <option value="13">13px</option>
+  <option value="14">14px</option>
+  <option value="15">15px</option>
+  <option value="16">16px</option>
+</select>
+    </label>
+  </div>
+<hr>
+</div>
+        </td>
+      </tr>
+      <tr>
+        <td colspan="3">
+  <label><input id="checkbox-useComplex" type="checkbox" checked="checked">:complex</label>
+  <label><input id="checkbox-useMatrix" type="checkbox" checked="checked">:matrix</label>
+  <label>
+<select id="select-expDigit">
+  <option value="-1">decimal</option>
+  <option value="0">exponential-0digit</option>
+  <option value="1">exponential-1digit</option>
+  <option value="2">exponential-2digit</option>
+  <option value="3">exponential-3digit</option>
+  <option value="4">exponential-4digit</option>
+  <option value="5">exponential-5digit</option>
+  <option value="6">exponential-6digit</option>
+  <option value="7">exponential-7digit</option>
+  <option value="8">exponential-8digit</option>
+  <option value="9">exponential-9digit</option>
+  <option value="10">exponential-10digit</option>
+  <option value="11">exponential-11digit</option>
+  <option value="12">exponential-12digit</option>
+  <option value="13">exponential-13digit</option>
+  <option value="14">exponential-14digit</option>
+  <option value="15">exponential-15digit</option>
+  <option value="16">exponential-16digit</option>
+  <option value="17">exponential-17digit</option>
+  <option value="18">exponential-18digit</option>
+  <option value="19">exponential-19digit</option>
+  <option value="20">exponential-20digit</option>
+</select>
+  </label>
+        </td>
+      </tr>
+      <tr>
+        <td colspan="3">
+<textarea id="output" readonly="readonly" rows="5"></textarea>
+        </td>
+      </tr>
+      <tr>
+        <td colspan="3">
+  <button class="cF">&lt;&lt;</button>
+  <button class="cF">&lt;</button>
+  <button class="cF">&gt;</button>
+  <button class="cF">&gt;&gt;</button>
+  <button class="button-box run">=</button>
+<br>
+<textarea id="input" rows="10"></textarea>
+        </td>
+        <td>
+<div class="text-left">
+  <button class="button-box clear">C</button>
+<br>
+<br>
+  <button class="button-box wF">BS</button>
+<br>
+  <button class="button-box wF">DEL</button>
+<br>
+  <button class="button-box wF">i</button>
+<br>
+  <button class="button-box sF">()</button>
+<br>
+<br>
+  <button class="button-box sF">ans</button>
+</div>
+        </td>
+      </tr>
+      <tr>
+        <td colspan="3">
+<textarea id="history" readonly="readonly" rows="5"></textarea>
+        </td>
+      </tr>
+      <tr>
+        <td colspan="3">
+<div id="wrapper-link"></div>
+        </td>
+      </tr>
+      <tr>
+        <td colspan="3">
+<hr>
+  <label>
+　calc-config　<input id="checkbox-config" type="checkbox">
+  </label>
+<hr>
+<div id="div-config">
+  <div class="text-left">
+    <label>right-associativity:<input id="checkbox-isRightAssociativityBR" type="checkbox"></label>
+    <label>/prior2omitted*:<input id="checkbox-isDIVprior2OMUL" type="checkbox"></label>
+    <label>Multi-thread:<input id="checkbox-useWorker" type="checkbox" checked="checked"></label>
+  </div>
+<hr>
+</div>
+        </td>
+      </tr>
+      <tr>
+        <td colspan="3">
+<div class="text-center">
+  <a title="[説明書]電卓" href="../01_calc_simple/manual.html">[説明書]電卓</a>
+</div>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+<br>
+
+  </div>
+</body>
+
+</html>

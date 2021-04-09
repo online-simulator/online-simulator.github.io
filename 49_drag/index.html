@@ -25,7 +25,10 @@
 イベント
           </th>
           <th class="border">
-クライアント座標の取得関数
+client座標の取得関数
+          </th>
+          <th class="border">
+canvas座標の取得関数
           </th>
         </tr>
       </thead>
@@ -36,22 +39,53 @@ ontouchstart
 <br>
 ontouchmove
           </td>
-          <td class="border" colspan="2">
+          <td class="border">
             <pre><code>
-function(e){
-  var e = e;
+var get_client = function(e){
+  var self = this;
+  var newE = e;
   if(e.touches){
-    e = (e.touches.length)? e.touches[0]: false;
+    newE = (e.touches.length)? e.touches[0]: false;
   }
-  var _client = (e)? {x: e.clientX, y: e.clientY}: false;
+  var _client = (newE)? {x: newE.clientX, y: newE.clientY}: false;
   return _client;
-}
+};
+            </code></pre>
+          </td>
+          <td class="border">
+            <pre><code>
+var get_offset = function(e){
+  var self = this;
+  var newE = e;
+  if(e.touches){
+    var elem = self.elem;  // absolute
+    var elem_p = self.elem.parentElement;  // relative
+    var client = self.get_client(e);
+    if(client){
+      var offsetX = client.x-(elem_p.offsetParent.offsetLeft+elem_p.offsetLeft+elem.offsetLeft);
+      var offsetY = client.y-(elem_p.offsetParent.offsetTop+elem_p.offsetTop+elem.offsetTop);
+      newE = {offsetX: offsetX, offsetY: offsetY};
+    }
+    else{
+      newE = false;
+    }
+  }
+  var _offset = (newE)? {x: newE.offsetX, y: newE.offsetY}: false;
+  return _offset;
+};
             </code></pre>
           </td>
         </tr>
         <tr class="border">
           <td class="border">
 ontouchend
+          </td>
+          <td class="border">
+取得不可
+<br>
+            <pre><code>
+e.touches.length = 0
+            </code></pre>
           </td>
           <td class="border">
 取得不可
