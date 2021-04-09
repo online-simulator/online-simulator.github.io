@@ -254,9 +254,9 @@ My_entry.calc_simple.prototype.set_callbacks_worker = function(){
   };
   self.callbacks_worker.onerror = function(e){
     var self = this;
+    self.stop_worker(true);
     var msg = self.entry.def.get_msgError(e, "Invalid operation");
     self.io.write_text(self.elems.o, msg.replace("Uncaught Error: ", ""));
-    self.stop_worker(true);
     self.storage.restore();  // clear; f=<x; f -> error@re_output_log
     return self;
   };
