@@ -25,7 +25,7 @@
 イベント
           </th>
           <th class="border">
-client座標の取得関数
+client座標・page座標の取得関数
           </th>
           <th class="border">
 canvas座標の取得関数
@@ -50,6 +50,16 @@ var get_client = function(e){
   var _client = (newE)? {x: newE.clientX, y: newE.clientY}: false;
   return _client;
 };
+
+var get_page = function(e){
+  var self = this;
+  var newE = e;
+  if(e.touches){
+    newE = (e.touches.length)? e.touches[0]: false;
+  }
+  var _page = (newE)? {x: newE.pageX, y: newE.pageY}: false;
+  return _page;
+};
             </code></pre>
           </td>
           <td class="border">
@@ -60,14 +70,14 @@ var get_offset = function(e){
   if(e.touches){
     var elem = self.elem;  // absolute
     var elem_p = self.elem.parentElement;  // relative
-    var client = self.get_client(e);
-    if(client){
+    var page = self.get_page(e);
+    if(page){
       var offsetParent = elem_p.offsetParent;
-      var offsetX = client.x;
-      offsetX -= offsetParent.scrollLeft+offsetParent.offsetLeft;
+      var offsetX = page.x;
+      offsetX -= offsetParent.offsetLeft;
       offsetX -= elem_p.offsetLeft+elem.offsetLeft;
-      var offsetY = client.y;
-      offsetY -= offsetParent.scrollTop+offsetParent.offsetTop;
+      var offsetY = page.y;
+      offsetY -= offsetParent.offsetTop;
       offsetY -= elem_p.offsetTop+elem.offsetTop;
       newE = {offsetX: offsetX, offsetY: offsetY};
     }
