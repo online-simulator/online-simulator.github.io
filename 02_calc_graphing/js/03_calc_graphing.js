@@ -532,6 +532,7 @@ My_entry.calc_graphing.prototype.init_handlers = function(){
       case "input-bg-color":
       case "input-grid-line-color":
         $.set_elem(elem, "background", elem.value);
+        self.re_plot(true);
         break;
       default:
         break;
