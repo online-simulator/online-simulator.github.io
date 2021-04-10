@@ -185,7 +185,7 @@ My_entry.calc_graphing.prototype.arr_data2arr2d_vec = function(arr_data, options
             var x = arr2d_x[n][j] = num_x.com[sw_ri_x];
             var y =arr2d_y[n][j] = num_y.com[sw_ri_y];
             if(isNaN(self.plot2d.trans(x, isLog_x)) || isNaN(self.plot2d.trans(y, isLog_y))){
-              self.plot2d.objs.temp.remove_onevent();
+              self.plot2d.objs.temp.remove_handlers();
               self.plot2d.isDrawn = false;
               throw "Invalid plot2d isNaN";
             }
@@ -280,6 +280,9 @@ My_entry.calc_graphing.prototype.get_options = function(){
   var _options = {};
   $.get_elemProps("input[type='checkbox']", "checkbox-", "checked", _options);
   $.get_elemProps("select", "select-", "value", _options);
+  _options["input-z"] = $.inputVal_id("input-z");
+  _options["bg-color"] = $.inputVal_id("input-bg-color");
+  _options["grid-line-color"] = $.inputVal_id("input-grid-line-color");
   $.get_urlParams(_options);
   if(_options.checkError !== false) _options.checkError = true;
   return _options;
@@ -525,6 +528,10 @@ My_entry.calc_graphing.prototype.init_handlers = function(){
       case "select-marker-line-width":
       case "select-plot-line-width":
         self.re_plot(true);
+        break;
+      case "input-bg-color":
+      case "input-grid-line-color":
+        $.set_elem(elem, "background", elem.value);
         break;
       default:
         break;

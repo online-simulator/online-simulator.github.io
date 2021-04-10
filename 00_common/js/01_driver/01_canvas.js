@@ -36,14 +36,14 @@ My_entry.canvas.prototype.init = function(elem){
   };
   return self;
 };
-My_entry.canvas.prototype.add_onevent = function(handlers){
+My_entry.canvas.prototype.add_handlers = function(handlers){
   var self = this;
   self.onevents.forEach(function(onevent){
     self.elem[self.touch[onevent]] = self.elem[onevent] = handlers[onevent];
   });
   return self;
 };
-My_entry.canvas.prototype.remove_onevent = function(){
+My_entry.canvas.prototype.remove_handlers = function(){
   var self = this;
   self.onevents.forEach(function(onevent){
     self.elem[self.touch[onevent]] = self.elem[onevent] = null;
@@ -83,28 +83,92 @@ My_entry.canvas.prototype.get_offset = function(e){
   var _offset = (newE)? {x: newE.offsetX, y: newE.offsetY}: false;
   return _offset;
 };
+My_entry.canvas.prototype.hex2dec = function(hex_8bit){
+  var self = this;
+  var dec_8bit = Number("0x"+hex_8bit);
+  if(isNaN(dec_8bit)){
+    dec_8bit = 0;
+  }
+  return Math.min(255, Math.max(0, dec_8bit));
+};
+My_entry.canvas.prototype.hex2rgb = function(hex){
+  var self = this;
+  var newHex = hex.replace(/#/g, "");
+  var len = newHex.length;
+  var r = 0;
+  var g = 0;
+  var b = 0;
+  var a = 0;
+  if(len === 3){
+    r = newHex.substr(0, 1);
+    g = newHex.substr(1, 1);
+    b = newHex.substr(2, 1);
+    r = self.hex2dec(r+r);
+    g = self.hex2dec(g+g);
+    b = self.hex2dec(b+b);
+    a = 255;
+  }
+  else if(len === 4){
+    r = newHex.substr(0, 1);
+    g = newHex.substr(1, 1);
+    b = newHex.substr(2, 1);
+    a = newHex.substr(3, 1);
+    r = self.hex2dec(r+r);
+    g = self.hex2dec(g+g);
+    b = self.hex2dec(b+b);
+    a = self.hex2dec(a+a);
+  }
+  else if(len === 6){
+    r = newHex.substr(0, 2);
+    g = newHex.substr(2, 2);
+    b = newHex.substr(4, 2);
+    r = self.hex2dec(r);
+    g = self.hex2dec(g);
+    b = self.hex2dec(b);
+    a = 255;
+  }
+  else if(len === 8){
+    r = newHex.substr(0, 2);
+    g = newHex.substr(2, 2);
+    b = newHex.substr(4, 2);
+    a = newHex.substr(6, 2);
+    r = self.hex2dec(r);
+    g = self.hex2dec(g);
+    b = self.hex2dec(b);
+    a = self.hex2dec(a);
+  }
+  return "rgba("+r+","+g+","+b+","+a+")";
+};
 My_entry.canvas.prototype.getBase64 = function(){
   var self = this;
   return self.ctx.canvas.toDataURL();
 };
-My_entry.canvas.prototype.putBase64 = function(base64){
+My_entry.canvas.prototype.putBase64 = function(base64, opt_callback){
   var self = this;
   var img = new Image();
   img.onload = function(e){
     self.ctx.drawImage(img, 0, 0);
+    if(opt_callback){
+      opt_callback();
+    }
   };
   img.src = base64;
   return self;
 };
-My_entry.canvas.prototype.putBase64s = function(arr_base64){
+My_entry.canvas.prototype.putBase64s = function(arr_base64, opt_callback){
   var self = this;
   if(arr_base64.length){
     var img = new Image();
     img.onload = function(e){
       self.ctx.drawImage(img, 0, 0);
-      self.putBase64s(arr_base64);
+      self.putBase64s(arr_base64, opt_callback);
     };
     img.src = arr_base64.pop();
+  }
+  else{
+    if(opt_callback){
+      opt_callback();
+    }
   }
   return self;
 };

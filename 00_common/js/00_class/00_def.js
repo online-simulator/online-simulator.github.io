@@ -68,6 +68,10 @@ My_entry.def.prototype.get_msgError = function(e, msg){
       title+e:
       e.message;
 };
+My_entry.def.prototype.hasElem_arr = function(arr, val_comp){
+  var self = this;
+  return arr.filter(function(val){return (val === val_comp);}).length;
+};
 My_entry.def.prototype.hasProp = function(obj, prop){
   var self = this;
   return self.isDef(obj[prop]);

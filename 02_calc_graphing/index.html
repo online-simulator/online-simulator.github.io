@@ -98,6 +98,9 @@
       $._id("erfcx").onclick = function(){setVal("-5", "5", "x=t,x;", "SND=<exp(-t^2/2)/sqrt(2pi),erfx=<_it(=<{exp(-t^2)},0,x)(2/sqrt(pi)),erfcx=<1-erfx,erfcx;", 20);};
       $._id("probability").onclick = function(){setVal("10", "0", "N=t,t;", "Pb=3/*big prize[%]*/,Pn=<{100combin(10,n)(Pb/100)^n((100-Pb)/100)^(10-n)},n=N,Pn;PN=<_sn(=<Pn,N,10),PN;", 10);};
       $._id("physics").onclick = function(){setVal("0", "5", "t;", "g=-9.8,v0=20,y0=0,ya=y0+v0*t+g*t^2/2,ya;yn=y0+_it(=<{v0+_it(=<{g},0,t,10)},0,t,10),yn;", 20);};
+      $._id("legend1").onclick = function(){setVal("1e-3(1+i)", "1e2(1+i)", "x=t,x;", "x;2x;3x;4x;5x;6x;7x;8x;9x;10x;");$._id("input-z").value="circle;";};
+      $._id("legend2").onclick = function(){setVal("1e-3(1+i)", "1e2(1+i)", "x=t,x;", "x;2x;3x;4x;5x;6x;7x;8x;9x;10x;");$._id("input-z").value=":red;:#ffff0055;  // Alpha not supported on IE11";};
+      $._id("legend3").onclick = function(){setVal("1e-3(1+i)", "1e2(1+i)", "x=t,x;", "x;2x;3x;4x;5x;6x;7x;8x;9x;10x;");$._id("input-z").value="circle:red;triangle;triangle2:pink;square:#00ff00;diamond:#00ff0055;cross;";};
     };
   })(document);
 </script>
@@ -174,6 +177,10 @@ plot2d
 <br>
   <button id="probability">probability</button>
   <button id="physics">physics</button>
+<br>
+  <button id="legend1">z-legend1</button>
+  <button id="legend2">legend2</button>
+  <button id="legend3">legend3</button>
         </td>
       </tr>
       <tr>
@@ -267,7 +274,7 @@ y(t):
 z:
         </td>
         <td colspan="2">
-<input id="input-z" value="Not yet Installed">
+<input id="input-z">
         </td>
       </tr>
       <tr>
@@ -341,6 +348,10 @@ z:
   <option value="white">white</option>
 </select>
     </label>
+    <label>bg-color:
+      <input id="input-bg-color" class="width-auto">
+    </label>
+<br>
     <label>grid-line-width:
 <select id="select-grid-line-width">
   <option value="0">0px</option>
@@ -360,6 +371,9 @@ z:
   <option value="9">9px</option>
   <option value="10">10px</option>
 </select>
+    </label>
+    <label>grid-line-color:
+      <input id="input-grid-line-color" class="width-auto" value="gray">
     </label>
 <br>
     <label>marker-size:

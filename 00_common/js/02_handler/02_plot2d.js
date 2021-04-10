@@ -9,7 +9,7 @@ My_entry.plot2d = function(id, opt_px_w, opt_px_h, opt_px_b){
 My_entry.plot2d.prototype.init = function(id, opt_px_w, opt_px_h, opt_px_b){
   var self = this;
   new My_entry.original_main().setup_constructors.call(self);
-  new My_entry.original_main().make_instances.call(self, ["$"]);
+  new My_entry.original_main().make_instances.call(self, ["$", "def"]);
   self.setter = {};
   self.setter.callbacks = function(callbacks){
     self.callbacks = callbacks;
@@ -161,11 +161,11 @@ My_entry.plot2d.prototype.update = function(opt_px_w, opt_px_h, opt_px_b){
   self.update_elem_p(px_w, px_h, px_b);
   return self;
 };
-My_entry.plot2d.prototype.grid = function(x0, y0, x1, y1, Ni, Nj, isLog_x, isLog_y, gridLineWidth){
+My_entry.plot2d.prototype.grid = function(x0, y0, x1, y1, Ni, Nj, isLog_x, isLog_y, gridLineWidth, gridLineColor){
   var self = this;
   var grid = self.objs.grid;
   var lineWidth = gridLineWidth;
-  var styleRGB = "rgb(200, 200, 200)";
+  var styleRGBA = gridLineColor || "gray";
   var dx = (x1-x0)/Ni;
   var dy = (y1-y0)/Nj;
   var len_i = Ni+1;
@@ -176,11 +176,11 @@ My_entry.plot2d.prototype.grid = function(x0, y0, x1, y1, Ni, Nj, isLog_x, isLog
   var ty1 = self.trans(y1, isLog_y);
   for(var i=0; i<len_i; ++i){
     var tx = self.trans(x0+i*dx, isLog_x);
-    grid.line(tx, ty0, tx, ty1, lineWidth, styleRGB);
+    grid.line(tx, ty0, tx, ty1, lineWidth, styleRGBA);
   }
   for(var j=0; j<len_j; ++j){
     var ty = self.trans(y0+j*dy, isLog_y);
-    grid.line(tx0, ty, tx1, ty, lineWidth, styleRGB);
+    grid.line(tx0, ty, tx1, ty, lineWidth, styleRGBA);
   }
   return self;
 };
@@ -207,13 +207,14 @@ My_entry.plot2d.prototype.run = function(arr2d_vec, options){
   if(self.isLocked) return false;
   self.isLocked = true;
   var background = self.objs.background;
-  background.fill(options["canvas-background"]);
+  background.fill(options["bg-color"] || options["canvas-background"]);
   var plot = self.objs.plot;
   var markers = plot.markers;
   var markerSize = options["marker-size"];
   var markerLineWidth = options["marker-line-width"];
   var plotLineWidth = options["plot-line-width"];
   var gridLineWidth = options["grid-line-width"];
+  var gridLineColor = options["grid-line-color"];
   var isLog_x = (options["log-x"])? true: false;
   var isLog_y = (options["log-y"])? true: false;
   var arr2d_x = arr2d_vec.x;
@@ -227,27 +228,49 @@ My_entry.plot2d.prototype.run = function(arr2d_vec, options){
   if(!(self.isChanged)){
     self.change_scale(gxmin, gymin, gxmax, gymax, isLog_x, isLog_y);
   }
-  // grid
-  self.grid(gxmin, gymin, gxmax, gymax, 10, 10, isLog_x, isLog_y, gridLineWidth);
-  // plot
+  // prepare
+  var arr_markerType = new Array(len_j);
+  var arr_styleRGBA = new Array(len_j);
+  var inputZ = options["input-z"] || "";
+  var arr_legend = inputZ.split(";");
+  var markerType = null;
+  var styleRGBA = null;
   for(var j=0; j<len_j; ++j){
-    var marker = markers[j%markers.length];
+    var legend = arr_legend[j];
+    var type = null;
+    var style = null;
+    if(legend){
+      var arr_config = legend.split(":");
+      type = arr_config[0];
+      style = arr_config[1];
+      type = (self.entry.def.hasElem_arr(markers, type))? type: null;
+    }
+    markerType = type || markerType;
+    styleRGBA = style || styleRGBA;
     var G = (len_j>1)? Math.floor(j*255/(len_j-1)): 0;
     var R = Math.floor(255-G)%256;
     var B = Math.floor(G<<1)%(256-1);
-    var styleRGB = "rgb("+R+","+G+","+B+")";
+    arr_markerType[j] = markerType || markers[j%markers.length];
+    arr_styleRGBA[j] = styleRGBA || "rgb("+R+","+G+","+B+")";
+  }
+  // grid
+  self.grid(gxmin, gymin, gxmax, gymax, 10, 10, isLog_x, isLog_y, gridLineWidth, gridLineColor);
+  // plot
+  for(var j=0; j<len_j; ++j){
+    var marker = arr_markerType[j];
+    var styleRGBA = arr_styleRGBA[j];
     for(var n=0; n<len_n-1; ++n){
       var x0 = self.trans(arr2d_x[n][j], isLog_x);
       var y0 = self.trans(arr2d_y[n][j], isLog_y);
       var x1 = self.trans(arr2d_x[n+1][j], isLog_x);
       var y1 = self.trans(arr2d_y[n+1][j], isLog_y);
       if(plotLineWidth){
-        plot.line(x0, y0, x1, y1, plotLineWidth, styleRGB);
+        plot.line(x0, y0, x1, y1, plotLineWidth, styleRGBA);
       }
       if(markerSize){
-        plot[marker](x0, y0, markerSize, markerLineWidth, styleRGB);
+        plot[marker](x0, y0, markerSize, markerLineWidth, styleRGBA);
         if(n === len_n-2){
-          plot[marker](x1, y1, markerSize, markerLineWidth, styleRGB);
+          plot[marker](x1, y1, markerSize, markerLineWidth, styleRGBA);
         }
       }
     }
@@ -263,8 +286,13 @@ My_entry.plot2d.prototype.final = function(arr2d_vec, options){
   self.names.forEach(function(name){
     arr_base64.push(self.objs[name].getBase64());
   });
-  self.objs.all.putBase64s(arr_base64.reverse());
-  temp.add_onevent(self.handlers);
+  var callback = function(){
+    self.names.forEach(function(name){
+      self.objs[name].clear();
+    });
+  };
+  self.objs.all.putBase64s(arr_base64.reverse(), callback);
+  temp.add_handlers(self.handlers);
   self.isDrawn = true;
   self.isLocked = false;
   return self;
