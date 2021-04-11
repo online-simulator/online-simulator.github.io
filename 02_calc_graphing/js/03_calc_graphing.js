@@ -410,7 +410,7 @@ My_entry.calc_graphing.prototype.init_handlers = function(){
     var text_half = self.entry.reference.fullStr2half(text);
     switch(text_half){
       case "plot":
-        if(self.worker_plot && self.worker_plot.isLocked) return false;
+        if(self.worker_plot && self.worker_plot.handler.isLocked) return false;
         if(self.plot2d.isLocked) return false;
         self.plot2d.init_flags();
         var inputs = get_inputs_plot();
@@ -450,7 +450,7 @@ My_entry.calc_graphing.prototype.init_handlers = function(){
         self.re_plot(true);
         break;
       case "=":
-        if(self.worker_calc && self.worker_calc.isLocked) return false;
+        if(self.worker_calc && self.worker_calc.handler.isLocked) return false;
         self.storage.store();
         var input = self.io.read_text(self.elems.i);
         var options = self.get_options();
