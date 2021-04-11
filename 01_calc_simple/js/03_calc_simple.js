@@ -60,6 +60,9 @@ My_entry.calc_simple.prototype.output_log = function(data){
     self.io.write_text(self.elems.o, data.log.split(";").join(";\n"));
     self.output_logh(data.logh, data.logo);
   }
+  else{
+    self.io.write_text(self.elems.o, "");
+  }
   return self;
 };
 My_entry.calc_simple.prototype.re_output_log = function(){
@@ -176,6 +179,7 @@ My_entry.calc_simple.prototype.init_handlers = function(){
           var data = self.get_data(input, options);
           arr_data_in.push(data);
         }
+        self.io.write_text(self.elems.o, "Now calculating...");
         self.run_worker(arr_data_in, $.checkbox_id("checkbox-useWorker"));
         break;
       case "C":

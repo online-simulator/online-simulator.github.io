@@ -63,6 +63,9 @@ My_entry.calc_graphing.prototype.output_log = function(data){
     self.io.write_text(self.elems.o, data.log.split(";").join(";\n"));
     self.output_logh(data.logh, data.logo);
   }
+  else{
+    self.io.write_text(self.elems.o, "");
+  }
   return self;
 };
 My_entry.calc_graphing.prototype.re_output_log = function(){
@@ -438,6 +441,7 @@ My_entry.calc_graphing.prototype.init_handlers = function(){
           data.tci = tci;
           arr_data_in.push(data);
         }
+        self.io.write_text(self.elems.d, "Now calculating...");
         self.worker_plot.run(arr_data_in, $.checkbox_id("checkbox-useWorker"));
         break;
       case "stop":
@@ -456,6 +460,7 @@ My_entry.calc_graphing.prototype.init_handlers = function(){
           var data = self.get_data(input, options);
           arr_data_in.push(data);
         }
+        self.io.write_text(self.elems.o, "Now calculating...");
         self.worker_calc.run(arr_data_in, $.checkbox_id("checkbox-useWorker"));
         break;
       case "C":
