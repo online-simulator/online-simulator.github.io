@@ -146,7 +146,7 @@ My_entry.calc_graphing.prototype.re_plot = function(isFinal){
       catch(e){
         self.output_msgError_plot(e);
       }
-    }, 10);
+    }, 50);
   }
   return self;
 };
@@ -410,6 +410,7 @@ My_entry.calc_graphing.prototype.init_handlers = function(){
     var text_half = self.entry.reference.fullStr2half(text);
     switch(text_half){
       case "plot":
+        // Ver.2.10.4
         if(self.worker_plot && self.worker_plot.handler.isLocked) return false;
         if(self.plot2d.isLocked) return false;
         self.plot2d.init_flags();
@@ -441,8 +442,11 @@ My_entry.calc_graphing.prototype.init_handlers = function(){
           data.tci = tci;
           arr_data_in.push(data);
         }
+        // Ver.2.10.3
         self.io.write_text(self.elems.d, "Now calculating...");
-        self.worker_plot.run(arr_data_in, $.checkbox_id("checkbox-useWorker"));
+        setTimeout(function(){
+          self.worker_plot.run(arr_data_in, $.checkbox_id("checkbox-useWorker"));
+        }, 50);
         break;
       case "stop":
         self.worker_plot.stop();
@@ -450,6 +454,7 @@ My_entry.calc_graphing.prototype.init_handlers = function(){
         self.re_plot(true);
         break;
       case "=":
+        // Ver.2.10.4
         if(self.worker_calc && self.worker_calc.handler.isLocked) return false;
         self.storage.store();
         var input = self.io.read_text(self.elems.i);
@@ -460,8 +465,11 @@ My_entry.calc_graphing.prototype.init_handlers = function(){
           var data = self.get_data(input, options);
           arr_data_in.push(data);
         }
+        // Ver.2.10.3
         self.io.write_text(self.elems.o, "Now calculating...");
-        self.worker_calc.run(arr_data_in, $.checkbox_id("checkbox-useWorker"));
+        setTimeout(function(){
+          self.worker_calc.run(arr_data_in, $.checkbox_id("checkbox-useWorker"));
+        }, 50);
         break;
       case "C":
         self.worker_calc.stop();

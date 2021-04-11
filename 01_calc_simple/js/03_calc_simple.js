@@ -179,8 +179,11 @@ My_entry.calc_simple.prototype.init_handlers = function(){
           var data = self.get_data(input, options);
           arr_data_in.push(data);
         }
+        // Ver.2.10.3
         self.io.write_text(self.elems.o, "Now calculating...");
-        self.run_worker(arr_data_in, $.checkbox_id("checkbox-useWorker"));
+        setTimeout(function(){
+          self.run_worker(arr_data_in, $.checkbox_id("checkbox-useWorker"));
+        }, 50);
         break;
       case "C":
         self.stop_worker();
