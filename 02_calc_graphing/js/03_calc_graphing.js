@@ -73,6 +73,7 @@ My_entry.calc_graphing.prototype.re_output_log = function(){
   var $ = self.entry.$;
   if(self.worker_calc.arr_data_out){
     var data = self.worker_calc.arr_data_out[0];
+    // Ver.1.7.3
     data.options.makeLog = 2;
     data.options.expDigit = $.selectNum_id("select-expDigit");
     try{
@@ -92,14 +93,14 @@ My_entry.calc_graphing.prototype.output_log_plot = function(){
   self.io.write_text(self.elems.d, "finished "+len_out+"/"+len_in);
   return self;
 };
-My_entry.calc_graphing.prototype.output_axis = function(arr2d_vec, options){
+My_entry.calc_graphing.prototype.output_axis = function(arr2d_vec, options_plot){
   var self = this;
   var $ = self.entry.$;
   var xmin = arr2d_vec.xmin;
   var xmax = arr2d_vec.xmax;
   var ymin = arr2d_vec.ymin;
   var ymax = arr2d_vec.ymax;
-  var ed = options.expDigit;
+  var ed = options_plot.expDigit;
   var callback = (ed >= 0)?
     function(x){return x.toExponential(ed);}:
     function(x){return x;};
@@ -116,21 +117,22 @@ My_entry.calc_graphing.prototype.output_msgError_plot = function(e){
   throw false;
   return self;
 };
-My_entry.calc_graphing.prototype.plot = function(arr_data, options, isFinal){
+My_entry.calc_graphing.prototype.plot = function(arr_data, options_plot, isFinal){
   var self = this;
   self.plot2d.re_init();
   arr_data.forEach(function(data){
     data.arr_num = self.entry.parser.make_arr_num(data);
   });
-  var arr2d_vec = self.arr_data2arr2d_vec(arr_data, options);
-  self.output_axis(arr2d_vec, options);
+  var arr2d_vec = self.arr_data2arr2d_vec(arr_data, options_plot);
+  self.output_axis(arr2d_vec, options_plot);
   if(isFinal){
-    self.plot2d.final(arr2d_vec, options);
-    self.output_logh(self.make_log_plot2d()+"\n", self.entry.parser.make_logo({options: options}));
+    self.plot2d.final(arr2d_vec, options_plot);
+    var options_calc = arr_data[0].options;
+    self.output_logh(options_calc.plot2d+"\n", options_calc.logo);  // Ver.2.10.4
     self.elems.d.focus();
   }
   else{
-    self.plot2d.run(arr2d_vec, options);
+    self.plot2d.run(arr2d_vec, options_plot);
   }
   self.output_log_plot();
   return self;
@@ -138,10 +140,11 @@ My_entry.calc_graphing.prototype.plot = function(arr_data, options, isFinal){
 My_entry.calc_graphing.prototype.re_plot = function(isFinal){
   var self = this;
   var $ = self.entry.$;
-  if(self.worker_plot.arr_data_out){
+  var arr_data = self.worker_plot.arr_data_out;
+  if(arr_data){
     setTimeout(function(){
       try{
-        self.plot(self.worker_plot.arr_data_out, self.get_options(), isFinal);
+        self.plot(arr_data, self.get_options(true), isFinal);
       }
       catch(e){
         self.output_msgError_plot(e);
@@ -150,14 +153,14 @@ My_entry.calc_graphing.prototype.re_plot = function(isFinal){
   }
   return self;
 };
-My_entry.calc_graphing.prototype.arr_data2arr2d_vec = function(arr_data, options){
+My_entry.calc_graphing.prototype.arr_data2arr2d_vec = function(arr_data, options_plot){
   var self = this;
   var arr2d_x = null;
   var arr2d_y = null;
-  var isLog_x = (options["log-x"])? true: false;
-  var isLog_y = (options["log-y"])? true: false;
-  var sw_ri_x = (options["imag-x"])? "i": "r";
-  var sw_ri_y = (options["imag-y"])? "i": "r";
+  var isLog_x = (options_plot["log-x"])? true: false;
+  var isLog_y = (options_plot["log-y"])? true: false;
+  var sw_ri_x = (options_plot["imag-x"])? "i": "r";
+  var sw_ri_y = (options_plot["imag-y"])? "i": "r";
   var xmin = Number.MAX_VALUE;
   var ymin = Number.MAX_VALUE;
   var xmax = -Number.MAX_VALUE;
@@ -231,7 +234,7 @@ My_entry.calc_graphing.prototype.make_log_plot2d = function(){
   _log += ")";
   return _log;
 };
-My_entry.calc_graphing.prototype.arr_data2csv = function(arr_data, arr_x, arr_y, options){
+My_entry.calc_graphing.prototype.arr_data2csv = function(arr_data, arr_x, arr_y, options_plot){
   var self = this;
   var $ = self.entry.$;
   var ds = My_entry.$.config.DELIMITER;
@@ -239,8 +242,8 @@ My_entry.calc_graphing.prototype.arr_data2csv = function(arr_data, arr_x, arr_y,
   var ca = ds.ca;
   var rn = ds.rn;
   var _csv = "";
-  var sw_ri_x = (options["imag-x"])? "i": "r";
-  var sw_ri_y = (options["imag-y"])? "i": "r";
+  var sw_ri_x = (options_plot["imag-x"])? "i": "r";
+  var sw_ri_y = (options_plot["imag-y"])? "i": "r";
   if(arr_data){
     // index
     _csv += dq+"real(t)"+dq+ca;
@@ -252,11 +255,12 @@ My_entry.calc_graphing.prototype.arr_data2csv = function(arr_data, arr_x, arr_y,
       _csv += (yj)? dq+yj+dq+ca: "";
     }
     // stamp
-    _csv += dq+self.make_log_plot2d()+dq+ca;
-    _csv += dq+self.entry.parser.make_logo({options: options})+dq+ca;
+    var options_calc = arr_data[0].options;
+    _csv += dq+options_calc.plot2d+dq+ca;  // Ver.2.10.4
+    _csv += dq+options_calc.logo+dq+ca;    // Ver.2.10.4
     _csv += dq+self.io.getter.stamp()+dq+rn;
     // (x,y)
-    var arr2d_vec = self.arr_data2arr2d_vec(arr_data, options);
+    var arr2d_vec = self.arr_data2arr2d_vec(arr_data, options_plot);
     var len_n = arr2d_vec.len_n;
     var len_j = arr2d_vec.len_j;
     for(var n=0; n<len_n; ++n){
@@ -277,17 +281,22 @@ My_entry.calc_graphing.prototype.arr_data2csv = function(arr_data, arr_x, arr_y,
   }
   return _csv;
 };
-My_entry.calc_graphing.prototype.get_options = function(){
+My_entry.calc_graphing.prototype.get_options = function(isPlot){
   var self = this;
   var $ = self.entry.$;
   var _options = {};
   $.get_elemProps("input[type='checkbox']", "checkbox-", "checked", _options);
   $.get_elemProps("select", "select-", "value", _options);
-  _options["input-z"] = $.inputVal_id("input-z");
-  _options["bg-color"] = $.inputVal_id("input-bg-color");
-  _options["grid-line-color"] = $.inputVal_id("input-grid-line-color");
   $.get_urlParams(_options);
   if(_options.checkError !== false) _options.checkError = true;
+  // Ver.2.10.4
+  if(isPlot){
+    _options["logo"] = self.entry.parser.make_logo({options: _options});  // first
+    _options["input-z"] = $.inputVal_id("input-z");
+    _options["bg-color"] = $.inputVal_id("input-bg-color");
+    _options["grid-line-color"] = $.inputVal_id("input-grid-line-color");
+    _options["plot2d"] = self.make_log_plot2d();
+  }
   return _options;
 };
 My_entry.calc_graphing.prototype.get_data = function(input, options){
@@ -382,7 +391,7 @@ My_entry.calc_graphing.prototype.init_handlers = function(){
     self.handler_link_png.setter.callback(function(){return self.entry.conv.base2buffer(self.plot2d.objs.all.getBase64());});
     var json = {p: {id: "wrapper-link-csv"}, a: {id: "a-csv", it: "download-csv by double-click"}, name: "download", ext: "csv"};
     self.handler_link_csv = new self.constructors.handler_link(json);
-    self.handler_link_csv.setter.callback(function(){return self.arr_data2csv(self.worker_plot.arr_data_out, self.arr_x, self.arr_y, self.get_options());});
+    self.handler_link_csv.setter.callback(function(){return self.arr_data2csv(self.worker_plot.arr_data_out, self.arr_x, self.arr_y, self.get_options(true));});
     var json = {p: {id: "wrapper-link"}, a: {id: "a", it: "download-txt by double-click"}, name: "download", ext: "txt"};
     self.handler_link = new self.constructors.handler_link(json);
     self.handler_link.setter.callback(function(){return self.logh;});
@@ -415,7 +424,7 @@ My_entry.calc_graphing.prototype.init_handlers = function(){
         if(self.plot2d.isLocked) return false;
         self.plot2d.init_flags();
         var inputs = get_inputs_plot();
-        var options = self.get_options();
+        var options = self.get_options(true);
         options.checkError = false;
         var t0 = get_num($.inputVal_id("input-t0"), options);
         var t1 = get_num($.inputVal_id("input-t1"), options);
