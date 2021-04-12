@@ -27,6 +27,7 @@ My_entry.calc_graphing.prototype.init_elems = function(){
   self.elems.h = $._id("history");
   self.elems.x = $._id("input-x");
   self.elems.y = $._id("input-y");
+  self.elems.z = $._id("input-z");
   self.elems.d = $._id("output-plot");
   $.set_elem(self.elems.i, "readOnly", null);
   $.setup_elems_readonly$("input,textarea");
@@ -284,18 +285,20 @@ My_entry.calc_graphing.prototype.arr_data2csv = function(arr_data, arr_x, arr_y,
 My_entry.calc_graphing.prototype.get_options = function(isPlot){
   var self = this;
   var $ = self.entry.$;
+  var parser = self.entry.parser;
   var _options = {};
   $.get_elemProps("input[type='checkbox']", "checkbox-", "checked", _options);
   $.get_elemProps("select", "select-", "value", _options);
   $.get_urlParams(_options);
   if(_options.checkError !== false) _options.checkError = true;
+  // Ver.2.11.4
   // Ver.2.10.4
   if(isPlot){
-    _options["logo"] = self.entry.parser.make_logo({options: _options});  // first
-    _options["input-z"] = $.inputVal_id("input-z");
+    _options["input-z"] = parser.remove_commentAndWspace(self.io.read_text(self.elems.z));
     _options["bg-color"] = $.inputVal_id("input-bg-color");
     _options["grid-line-color"] = $.inputVal_id("input-grid-line-color");
-    _options["plot2d"] = self.make_log_plot2d();
+    _options["logo"] = parser.make_logo({options: _options});  // including z
+    _options["plot2d"] = self.make_log_plot2d();               // excluding z
   }
   return _options;
 };

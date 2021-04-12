@@ -24,7 +24,8 @@ My_entry.plot2d.prototype.init = function(id, opt_px_w, opt_px_h, opt_px_b){
   self.isDrawn = false;
   self.isDragging = false;
   self.isChanged = false;
-  self.vec0;
+  self.vec0 = null;
+  self.vec1 = null;
   self.id = id;
   self.tagName = "canvas";
   self.className = self.id+"-"+self.tagName;
@@ -210,13 +211,13 @@ My_entry.plot2d.prototype.run = function(arr2d_vec, options){
   background.fill(options["bg-color"] || options["canvas-background"]);
   var plot = self.objs.plot;
   var markers = plot.markers;
-  var markerSize = options["marker-size"];
-  var markerLineWidth = options["marker-line-width"];
+  var markerSize0 = options["marker-size"];
+  var markerLineWidth0 = options["marker-line-width"];
   var plotLineWidth = options["plot-line-width"];
   var gridLineWidth = options["grid-line-width"];
   var gridLineColor = options["grid-line-color"];
-  var isLog_x = (options["log-x"])? true: false;
-  var isLog_y = (options["log-y"])? true: false;
+  var isLog_x = options["log-x"];
+  var isLog_y = options["log-y"];
   var arr2d_x = arr2d_vec.x;
   var arr2d_y = arr2d_vec.y;
   var len_n = arr2d_vec.len_n;
@@ -228,37 +229,54 @@ My_entry.plot2d.prototype.run = function(arr2d_vec, options){
   if(!(self.isChanged)){
     self.change_scale(gxmin, gymin, gxmax, gymax, isLog_x, isLog_y);
   }
-  // prepare
+  // legend
   var arr_markerType = new Array(len_j);
   var arr_styleRGBA = new Array(len_j);
+  var arr_markerSize = new Array(len_j);
+  var arr_markerLineWidth = new Array(len_j);
   var inputZ = options["input-z"] || "";
   var arr_legend = inputZ.split(";");
   var markerType = null;
   var styleRGBA = null;
+  var markerSize = null;
+  var markerLineWidth = null;
   for(var j=0; j<len_j; ++j){
     var legend = arr_legend[j];
     var type = null;
     var style = null;
+    var size = null;
+    var lineWidth = null;
     if(legend){
       var arr_config = legend.split(":");
       type = arr_config[0];
       style = arr_config[1];
+      size = arr_config[2];
+      lineWidth = arr_config[3];
       type = (self.entry.def.hasElem_arr(markers, type))? type: null;
     }
     markerType = type || markerType;
     styleRGBA = style || styleRGBA;
+    markerSize = Number(size || markerSize);
+    markerLineWidth = Number(lineWidth || markerLineWidth);
+    // Ver.2.11.4
+    markerSize = (isNaN(markerSize))? 0: markerSize;
+    markerLineWidth = (isNaN(markerLineWidth))? 0: markerLineWidth;
     var G = (len_j>1)? Math.floor(j*255/(len_j-1)): 0;
     var R = Math.floor(255-G)%256;
     var B = Math.floor(G<<1)%(256-1);
     arr_markerType[j] = markerType || markers[j%markers.length];
     arr_styleRGBA[j] = styleRGBA || "rgb("+R+","+G+","+B+")";
+    arr_markerSize[j] = markerSize || markerSize0;
+    arr_markerLineWidth[j] = markerLineWidth || markerLineWidth0;
   }
   // grid
   self.grid(gxmin, gymin, gxmax, gymax, 10, 10, isLog_x, isLog_y, gridLineWidth, gridLineColor);
   // plot
   for(var j=0; j<len_j; ++j){
-    var marker = arr_markerType[j];
+    var markerType = arr_markerType[j];
     var styleRGBA = arr_styleRGBA[j];
+    var markerSize = arr_markerSize[j];
+    var markerLineWidth = arr_markerLineWidth[j];
     for(var n=0; n<len_n-1; ++n){
       var x0 = self.trans(arr2d_x[n][j], isLog_x);
       var y0 = self.trans(arr2d_y[n][j], isLog_y);
@@ -268,9 +286,9 @@ My_entry.plot2d.prototype.run = function(arr2d_vec, options){
         plot.line(x0, y0, x1, y1, plotLineWidth, styleRGBA);
       }
       if(markerSize){
-        plot[marker](x0, y0, markerSize, markerLineWidth, styleRGBA);
+        plot[markerType](x0, y0, markerSize, markerLineWidth, styleRGBA);
         if(n === len_n-2){
-          plot[marker](x1, y1, markerSize, markerLineWidth, styleRGBA);
+          plot[markerType](x1, y1, markerSize, markerLineWidth, styleRGBA);
         }
       }
     }

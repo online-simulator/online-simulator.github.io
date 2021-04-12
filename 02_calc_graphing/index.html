@@ -97,9 +97,10 @@
       $._id("erfx").onclick = function(){setVal("-5", "5", "x=t,x;", "SND=<exp(-t^2/2)/sqrt(2pi),erfx=<_it(=<SND,0,x(sqrt2))2,erfx;erfx=<_it(=<{exp(-t^2)},0,x)(2/sqrt(pi)),erfx;", 20);};
       $._id("erfcx").onclick = function(){setVal("-5", "5", "x=t,x;", "SND=<exp(-t^2/2)/sqrt(2pi),erfx=<_it(=<{exp(-t^2)},0,x)(2/sqrt(pi)),erfcx=<1-erfx,erfcx;", 20);};
       $._id("probability").onclick = function(){setVal("10", "0", "N=t,t;", "Pb=3/*big prize[%]*/,Pn=<{100combin(10,n)(Pb/100)^n((100-Pb)/100)^(10-n)},n=N,Pn;PN=<_sn(=<Pn,N,10),PN;", 10);};
-      $._id("physics").onclick = function(){setVal("0", "5", "t;", "g=-9.8,v0=20,y0=0,ya=y0+v0*t+g*t^2/2,ya;yn=y0+_it(=<{v0+_it(=<{g},0,t,10)},0,t,10),yn;", 20);};
-      $._id("legend1").onclick = function(){setVal("1e-3(1+i)", "1e2(1+i)", "x=t,x;", "x;2x;3x;4x;5x;6x;7x;8x;9x;10x;");$._id("input-z").value="circle;";};
-      $._id("legend2").onclick = function(){setVal("1e-3(1+i)", "1e2(1+i)", "x=t,x;", "x;2x;3x;4x;5x;6x;7x;8x;9x;10x;");$._id("input-z").value=":red;:#ffff0055;  // Alpha not supported on IE11";};
+//      $._id("physics").onclick = function(){setVal("0", "5", "t;", "g=-9.8,v0=20,y0=0,ya=y0+v0*t+g*t^2/2,ya;yn=y0+_it(=<{v0+_it(=<{g},0,t,10)},0,t,10),yn;", 20);};
+      $._id("physics").onclick = function(){setVal("0", "5", "g=-9.8,z_a=0+g*i,z_v0=20+20i,z0=0,za=z0+z_v0*t+z_a*t^2/2,real(za);zn=z0+_it(=<{z_v0+_it(=<{z_a},0,t,10)},0,t,10),real(zn);", "imag(za);imag(zn);", 20);};
+      $._id("legend1").onclick = function(){setVal("1e-3(1+i)", "1e2(1+i)", "x=t,x;", "x;2x;3x;4x;5x;6x;7x;8x;9x;10x;");$._id("input-z").value="circle;  // markerType:markerColor:markerSize:markerLineWidth";};
+      $._id("legend2").onclick = function(){setVal("1e-3(1+i)", "1e2(1+i)", "x=t,x;", "x;2x;3x;4x;5x;6x;7x;8x;9x;10x;");$._id("input-z").value=":red:10;::5:2;:#ffff0055:10;  // Alpha not supported on IE11";};
       $._id("legend3").onclick = function(){setVal("1e-3(1+i)", "1e2(1+i)", "x=t,x;", "x;2x;3x;4x;5x;6x;7x;8x;9x;10x;");$._id("input-z").value="circle:red;triangle;triangle2:pink;square:#00ff00;diamond:#00ff0055;cross;";};
     };
   })(document);
@@ -288,8 +289,15 @@ z:
   <div class="text-left">
     <label>canvas-width:
 <select id="select-canvas-width">
+  <option value="16">16px</option>
+  <option value="24">24px</option>
   <option value="32">32px</option>
+  <option value="36">36px</option>
+  <option value="40">40px</option>
+  <option value="48">48px</option>
+  <option value="56">56px</option>
   <option value="64">64px</option>
+  <option value="72">72px</option>
   <option value="80">80px</option>
   <option value="128">128px</option>
   <option value="160">160px</option>
@@ -315,8 +323,15 @@ z:
     </label>
     <label>canvas-height:
 <select id="select-canvas-height">
+  <option value="16">16px</option>
+  <option value="24">24px</option>
   <option value="32">32px</option>
+  <option value="36">36px</option>
+  <option value="40">40px</option>
+  <option value="48">48px</option>
+  <option value="56">56px</option>
   <option value="64">64px</option>
+  <option value="72">72px</option>
   <option value="80">80px</option>
   <option value="128">128px</option>
   <option value="160">160px</option>

@@ -613,8 +613,16 @@ My_entry.parser.prototype.make_arr_num = function(data){
   var _arr_num = [];
   data.trees2d.forEach(function(trees, j){
     trees.forEach(function(tree, i){
+      // Ver.2.11.4
+      var num = null;
       var mat = tree.mat;
-      var num = (mat)? DATA.arr2num(mat.arr): null;
+      var out = tree.out;
+      if(mat){
+        num = DATA.arr2num(mat.arr);
+      }
+      else if(out){
+        num = DATA.num(0, 0);
+      }
       _arr_num.push(num);
     });
   });

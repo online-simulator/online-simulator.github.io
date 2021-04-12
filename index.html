@@ -191,6 +191,44 @@ Y/M/D
 <tbody>
   <tr>
     <th>
+3.20.8.3.7
+    </th>
+    <td>
+Calculator
+    </td>
+    <td>
+2.11.4
+    </td>
+    <td>
+minor update
+    </td>
+    <td>
+[Graphing Calculator]
+<br>
+・zのレジェンド設定項目を追加
+<br>
+markerType:markerColor:markerSize:markerLineWidth
+<br>
+・z入力欄のコメント文入力に対応
+<br>
+・csvとhistoryのログ出力項目の見直し
+<br>
+　変更前: zは出力しない
+<br>
+　変更後: zはoptionsに含めて出力する
+<br>
+・命令文や代入文のみを各軸に入力した場合のplot仕様を変更
+<br>
+　変更前: error終了
+<br>
+　変更後: 零を返して描画
+    </td>
+    <td>
+2021/4/12
+    </td>
+  </tr>
+  <tr>
+    <th>
 3.19.8.3.7
     </th>
     <td>
@@ -481,7 +519,7 @@ minor update
 <br>
 　変更前: グローバル/ローカルで共通
 <br>
-　変更後: グローバル/ローカルを区別
+　変更後: グローバル/ローカルで独立
 <br>
 ・総和高階関数の範囲反転に関する仕様を変更
 <br>
