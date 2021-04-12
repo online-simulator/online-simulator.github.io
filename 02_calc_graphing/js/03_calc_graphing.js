@@ -553,6 +553,7 @@ My_entry.calc_graphing.prototype.init_handlers = function(){
       case "select-marker-line-width":
       case "select-plot-line-width":
       case "input-z":
+      case "select-canvas-globalCompositeOperation":
         self.re_plot(true);
         break;
       case "input-bg-color":

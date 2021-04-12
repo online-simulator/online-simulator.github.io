@@ -32,7 +32,7 @@ My_entry.plot2d.prototype.init = function(id, opt_px_w, opt_px_h, opt_px_b){
   self.classNames = [self.className, "absolute"];
   self.elem_p = self.entry.$._id(self.id);
   self.objs = {};
-  self.names = ["background", "grid", "legend", "plot"];
+  self.names = ["background", "grid", "plot"];
   self.names.forEach(function(name){
     self.add(name);
   });
@@ -305,18 +305,19 @@ My_entry.plot2d.prototype.run = function(arr2d_vec, options){
 };
 My_entry.plot2d.prototype.final = function(arr2d_vec, options){
   var self = this;
+  var all =  self.objs.all;
   var temp =  self.objs.temp;
   self.run(arr2d_vec, options);
-  var arr_base64 = [];
-  self.names.forEach(function(name){
-    arr_base64.push(self.objs[name].getBase64());
-  });
+  var base64_bg = self.objs.background.getBase64();
+  var arr_base64_grid_plot = [self.objs.grid.getBase64(), self.objs.plot.getBase64()];
   var callback = function(){
-    self.names.forEach(function(name){
-      self.objs[name].clear();
-    });
+    all.putBase64s(arr_base64_grid_plot.reverse(), function(){
+      self.names.forEach(function(name){
+        self.objs[name].clear();
+      });
+    }, options["canvas-globalCompositeOperation"]);
   };
-  self.objs.all.putBase64s(arr_base64.reverse(), callback);
+  all.putBase64(base64_bg, callback);  // source-over
   temp.add_handlers(self.handlers);
   self.isDrawn = true;
   self.isLocked = false;

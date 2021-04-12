@@ -678,9 +678,18 @@ markerType:markerColor:markerSize:markerLineWidth:plotLineWidth
 <br>
 plot-configについて記述する
 <br>
-　・bg-colorとgrid-line-color（既定値gray）の入力欄はz同様に色指定可
+・bg-colorとgrid-line-color（既定値gray）の入力欄はz同様に色指定可
 <br>
-　・背景色はbg-colorの入力値優先で省略時、canvas-backgroundの選択値
+・背景色はbg-colorの入力値優先で省略時、canvas-backgroundの選択値
+<br>
+・次のレイヤー3層の合成方法canvas-globalCompositeOperationを選択可
+<br>
+　background &lt;- grid &lt;- plotの順に背景にRGBA値を合成して出力する
+<br>
+<br>
+マルチスレッド実行の場合、plotボタンと=ボタンは並列に実行可
+<br>
+・グローバル変数は共通（ボタン実行確定時に各実行のローカル変数に復帰）
 <br>
 <br>
 その他は<a href="#span-out-UI-simple">Simple Calculator UI</a>参照

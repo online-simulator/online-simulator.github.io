@@ -13,12 +13,12 @@ My_entry.canvas.prototype.init = function(elem){
   self.elem_p = self.elem.parentElement;
   self.ctx = elem.getContext("2d");
   self.draw = new My_entry.draw(self.ctx);
-  self.px_w;
-  self.px_h;
-  self.x0;
-  self.y0;
-  self.dx;
-  self.dy;
+  self.px_w = 0;
+  self.px_h = 0;
+  self.x0 = null;
+  self.y0 = null;
+  self.dx = null;
+  self.dy = null;
   self.markers = ["circle", "triangle", "triangle2", "square", "diamond", "cross"];
   self.markers.forEach(function(type){
     My_entry.canvas.prototype[type] = function(x0, y0, r, opt_lineWidth, opt_styleRGBA){
@@ -63,7 +63,7 @@ My_entry.canvas.prototype.get_offset = function(e){
   var self = this;
   var newE = e;
   if(e.touches){
-    var elem = self.elem;  // absolute
+    var elem = self.elem;      // absolute
     var elem_p = self.elem_p;  // relative
     var page = self.get_page(e);
     if(page){
@@ -143,11 +143,15 @@ My_entry.canvas.prototype.getBase64 = function(){
   var self = this;
   return self.ctx.canvas.toDataURL();
 };
-My_entry.canvas.prototype.putBase64 = function(base64, opt_callback){
+My_entry.canvas.prototype.putBase64 = function(base64, opt_callback, opt_globalCompositeOperation){
   var self = this;
+  var ctx = self.ctx;
   var img = new Image();
   img.onload = function(e){
+    ctx.save();
+    ctx.globalCompositeOperation = opt_globalCompositeOperation || ctx.globalCompositeOperation;
     self.ctx.drawImage(img, 0, 0);
+    ctx.restore();
     if(opt_callback){
       opt_callback();
     }
@@ -155,13 +159,17 @@ My_entry.canvas.prototype.putBase64 = function(base64, opt_callback){
   img.src = base64;
   return self;
 };
-My_entry.canvas.prototype.putBase64s = function(arr_base64, opt_callback){
+My_entry.canvas.prototype.putBase64s = function(arr_base64, opt_callback, opt_globalCompositeOperation){
   var self = this;
+  var ctx = self.ctx;
   if(arr_base64.length){
     var img = new Image();
     img.onload = function(e){
+      ctx.save();
+      ctx.globalCompositeOperation = opt_globalCompositeOperation || ctx.globalCompositeOperation;
       self.ctx.drawImage(img, 0, 0);
-      self.putBase64s(arr_base64, opt_callback);
+      ctx.restore();
+      self.putBase64s(arr_base64, opt_callback, opt_globalCompositeOperation);
     };
     img.src = arr_base64.pop();
   }
