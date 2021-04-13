@@ -162,7 +162,7 @@ My_entry.plot2d.prototype.update = function(opt_px_w, opt_px_h, opt_px_b){
   self.update_elem_p(px_w, px_h, px_b);
   return self;
 };
-My_entry.plot2d.prototype.grid = function(x0, y0, x1, y1, Ni, Nj, isLog_x, isLog_y, gridLineWidth, gridLineColor){
+My_entry.plot2d.prototype.grid = function(x0, y0, x1, y1, Ni, Nj, isLog_x, isLog_y, gridLineWidth, gridLineColor, globalCompositeOperation){
   var self = this;
   var grid = self.objs.grid;
   var lineWidth = gridLineWidth;
@@ -177,11 +177,11 @@ My_entry.plot2d.prototype.grid = function(x0, y0, x1, y1, Ni, Nj, isLog_x, isLog
   var ty1 = self.trans(y1, isLog_y);
   for(var i=0; i<len_i; ++i){
     var tx = self.trans(x0+i*dx, isLog_x);
-    grid.line(tx, ty0, tx, ty1, lineWidth, styleRGBA);
+    grid.line(tx, ty0, tx, ty1, lineWidth, styleRGBA, globalCompositeOperation);
   }
   for(var j=0; j<len_j; ++j){
     var ty = self.trans(y0+j*dy, isLog_y);
-    grid.line(tx0, ty, tx1, ty, lineWidth, styleRGBA);
+    grid.line(tx0, ty, tx1, ty, lineWidth, styleRGBA, globalCompositeOperation);
   }
   return self;
 };
@@ -208,7 +208,6 @@ My_entry.plot2d.prototype.run = function(arr2d_vec, options){
   if(self.isLocked) return false;
   self.isLocked = true;
   var background = self.objs.background;
-  background.fill(options["bg-color"] || options["canvas-background"]);
   var plot = self.objs.plot;
   var markers = plot.markers;
   var markerSize0 = options["marker-size"];
@@ -216,6 +215,7 @@ My_entry.plot2d.prototype.run = function(arr2d_vec, options){
   var plotLineWidth0 = options["plot-line-width"];
   var gridLineWidth = options["grid-line-width"];
   var gridLineColor = options["grid-line-color"];
+  var globalCompositeOperation = null;  // source-over
   var isLog_x = options["log-x"];
   var isLog_y = options["log-y"];
   var arr2d_x = arr2d_vec.x;
@@ -275,8 +275,10 @@ My_entry.plot2d.prototype.run = function(arr2d_vec, options){
     arr_markerLineWidth[j] = markerLineWidth || markerLineWidth0;
     arr_plotLineWidth[j] = plotLineWidth || plotLineWidth0;
   }
+  // background
+  background.fill(options["bg-color"] || options["canvas-background"], globalCompositeOperation);
   // grid
-  self.grid(gxmin, gymin, gxmax, gymax, 10, 10, isLog_x, isLog_y, gridLineWidth, gridLineColor);
+  self.grid(gxmin, gymin, gxmax, gymax, 10, 10, isLog_x, isLog_y, gridLineWidth, gridLineColor, globalCompositeOperation);
   // plot
   for(var j=0; j<len_j; ++j){
     var markerType = arr_markerType[j];
@@ -290,12 +292,12 @@ My_entry.plot2d.prototype.run = function(arr2d_vec, options){
       var x1 = self.trans(arr2d_x[n+1][j], isLog_x);
       var y1 = self.trans(arr2d_y[n+1][j], isLog_y);
       if(plotLineWidth){
-        plot.line(x0, y0, x1, y1, plotLineWidth, styleRGBA);
+        plot.line(x0, y0, x1, y1, plotLineWidth, styleRGBA, globalCompositeOperation);
       }
       if(markerSize){
-        plot[markerType](x0, y0, markerSize, markerLineWidth, styleRGBA);
+        plot[markerType](x0, y0, markerSize, markerLineWidth, styleRGBA, globalCompositeOperation);
         if(n === len_n-2){
-          plot[markerType](x1, y1, markerSize, markerLineWidth, styleRGBA);
+          plot[markerType](x1, y1, markerSize, markerLineWidth, styleRGBA, globalCompositeOperation);
         }
       }
     }

@@ -21,10 +21,10 @@ My_entry.canvas.prototype.init = function(elem){
   self.dy = null;
   self.markers = ["circle", "triangle", "triangle2", "square", "diamond", "cross"];
   self.markers.forEach(function(type){
-    My_entry.canvas.prototype[type] = function(x0, y0, r, opt_lineWidth, opt_styleRGBA){
+    My_entry.canvas.prototype[type] = function(x0, y0, r, opt_lineWidth, opt_styleRGBA, opt_globalCompositeOperation){
       var self = this;
       var vec0 = {x: self.x2xp(x0), y: self.y2myp(y0)};
-      self.draw[type](vec0, r, opt_lineWidth, opt_styleRGBA);
+      self.draw[type](vec0, r, opt_lineWidth, opt_styleRGBA, opt_globalCompositeOperation);
       return self;
     };
   });
@@ -219,11 +219,11 @@ My_entry.canvas.prototype.y2myp = function(y){  // left-handed system
   var self = this;
   return self.px_h-(y-self.y0)*self.px_h/self.dy;
 };
-My_entry.canvas.prototype.line = function(x0, y0, x1, y1, opt_lineWidth, opt_styleRGBA){
+My_entry.canvas.prototype.line = function(x0, y0, x1, y1, opt_lineWidth, opt_styleRGBA, opt_globalCompositeOperation){
   var self = this;
   var vec0 = {x: self.x2xp(x0), y: self.y2myp(y0)};
   var vec1 = {x: self.x2xp(x1), y: self.y2myp(y1)};
-  self.draw.line(vec0, vec1, opt_lineWidth, opt_styleRGBA);
+  self.draw.line(vec0, vec1, opt_lineWidth, opt_styleRGBA, opt_globalCompositeOperation);
   return self;
 };
 My_entry.canvas.prototype.getRGBA_xy = function(x, y){
@@ -267,11 +267,12 @@ My_entry.canvas.prototype.put = function(src){
   src.clear();
   return self;
 };
-My_entry.canvas.prototype.fill = function(opt_styleRGBA){
+My_entry.canvas.prototype.fill = function(opt_styleRGBA, opt_globalCompositeOperation){
   var self = this;
   var ctx = self.ctx;
   ctx.save();
   ctx.fillStyle = ctx.strokeStyle = opt_styleRGBA || "rgba(0, 0, 0, 0)";
+  ctx.globalCompositeOperation = opt_globalCompositeOperation || ctx.globalCompositeOperation;
   self.ctx.fillRect(0, 0, self.px_w, self.px_h);
   ctx.restore();
   return self;
