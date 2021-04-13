@@ -20,7 +20,7 @@
   (function(document){
     document.body.onload = function(e){
       document.getElementById("VERSION").textContent = My_entry.VERSION;
-      ["calc", "wave", "else"].forEach(function(name){
+      ["calc", "edit", "wave", "else"].forEach(function(name){
         document.getElementById("Ver-"+name).textContent = My_entry.Ver[name];
       });
     };
@@ -68,6 +68,18 @@ Calculator
     </td>
     <td>
 <span id="Ver-calc"></span>
+    </td>
+  </tr>
+  <tr>
+    <th>
+Editor
+    </th>
+    <td>
+    </td>
+    <td>
+    </td>
+    <td>
+<span id="Ver-edit"></span>
     </td>
   </tr>
   <tr>
@@ -191,6 +203,30 @@ Y/M/D
 <tbody>
   <tr>
     <th>
+3.20.8.3.8
+    </th>
+    <td>
+Calculator
+    </td>
+    <td>
+2.11.5
+    </td>
+    <td>
+minor bug-fix
+    </td>
+    <td>
+[parser.js]
+<br>
+・一部変数cre/cieのglobal namespace pollutionを修正
+<br>
+　問題なし
+    </td>
+    <td>
+2021/4/14
+    </td>
+  </tr>
+  <tr>
+    <th>
 3.20.8.3.7
     </th>
     <td>
@@ -227,7 +263,7 @@ markerType:markerColor:markerSize:markerLineWidth:plotLineWidth
 <br>
 　background &lt;- grid &lt;- plotの順に背景に合成（IEはAlpha合成非対応）
 <br>
-　既定で各レイヤーには適用しない既定値source-over
+　既定で各レイヤーには適用しない（既定値source-over）
 <br>
 　各レイヤーに適用するURLパラメータglobalCompositeOperationAll
     </td>

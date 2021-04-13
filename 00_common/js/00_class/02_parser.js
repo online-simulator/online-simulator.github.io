@@ -649,9 +649,9 @@ My_entry.parser.prototype.make_log_num = function(num, options){
     else if(li){
       _log += "infoLost[ i] ";
     }
-    cre = (ed>=0)? cr.toExponential(ed): cr;
+    var cre = (ed>=0)? cr.toExponential(ed): cr;
     if(useComplex){
-      cie = (ed>=0)? ci.toExponential(ed): ci;
+      var cie = (ed>=0)? ci.toExponential(ed): ci;
       _log += (cr)? cre: ((ci)? "": cre);
       _log += (cr&&ci)? ((ci>0)? "+": ""): "";
       _log += (ci)?

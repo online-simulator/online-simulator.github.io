@@ -114,7 +114,7 @@ e^(-i(1pi(){2/2i}(5-{3-1}){i/(-4)}))
   </tr>
   <tr>
     <td colspan="4">
-実数演算不可（0*Infinity->NaNが発生するため）
+実数演算不可（0*Infinity->NaNが発生）
     </td>
   </tr>
 </tbody>
@@ -1453,9 +1453,13 @@ checkError=trueの場合、情報落ちの発生や微分・積分の数値誤�
 checkError=falseに設定した場合、演算量が数倍軽くなる
 <br>
 <br>
-各レイヤーの合成方法を変更する場合の一例
+描画canvas各レイヤーの合成方法を変更する場合
 <br>
 globalCompositeOperationAll=xor
+<br>
+globalCompositeOperationAll=multiply
+<br>
+globalCompositeOperationAll=luminosity
     </td>
   </tr>
   <tr>
