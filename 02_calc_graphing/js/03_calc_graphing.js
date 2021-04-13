@@ -121,19 +121,21 @@ My_entry.calc_graphing.prototype.output_msgError_plot = function(e){
 My_entry.calc_graphing.prototype.plot = function(arr_data, options_plot, isFinal){
   var self = this;
   self.plot2d.re_init();
-  arr_data.forEach(function(data){
-    data.arr_num = self.entry.parser.make_arr_num(data);
-  });
-  var arr2d_vec = self.arr_data2arr2d_vec(arr_data, options_plot);
-  self.output_axis(arr2d_vec, options_plot);
-  if(isFinal){
-    self.plot2d.final(arr2d_vec, options_plot);
-    var options_calc = arr_data[0].options;
-    self.output_logh(options_calc.plot2d+"\n", options_calc.logo);  // Ver.2.10.4
-    self.elems.d.focus();
-  }
-  else{
-    self.plot2d.run(arr2d_vec, options_plot);
+  if(arr_data.length){
+    arr_data.forEach(function(data){
+      data.arr_num = self.entry.parser.make_arr_num(data);
+    });
+    var arr2d_vec = self.arr_data2arr2d_vec(arr_data, options_plot);
+    self.output_axis(arr2d_vec, options_plot);
+    if(isFinal){
+      self.plot2d.final(arr2d_vec, options_plot);
+      var options_calc = arr_data[0].options;
+      self.output_logh(options_calc.plot2d+"\n", options_calc.logo);  // Ver.2.10.4
+      self.elems.d.focus();
+    }
+    else{
+      self.plot2d.run(arr2d_vec, options_plot);
+    }
   }
   self.output_log_plot();
   return self;
