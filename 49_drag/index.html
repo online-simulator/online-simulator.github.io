@@ -28,7 +28,7 @@
 client座標・page座標の取得関数
           </th>
           <th class="border">
-canvas座標の取得関数
+canvas等要素offset座標の取得関数
           </th>
         </tr>
       </thead>
@@ -70,7 +70,7 @@ var get_offset = function(e){
   if(e.touches){
     var elem = self.elem;                  // absolute
     var elem_p = self.elem.parentElement;  // relative
-    var page = self.get_page(e);
+    var page = get_page(e);
     if(page){
       var offsetParent = elem_p.offsetParent;
       var offsetX = page.x;

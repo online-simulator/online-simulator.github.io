@@ -11,6 +11,7 @@
   <link rel="stylesheet" type="text/css" href="00_common/css/color.css">
   <link rel="stylesheet" type="text/css" href="00_common/css/size.css">
   <script type="text/javascript" src="00_common/js/000_namespace/000_entry.js"></script>
+  <script type="text/javascript" src="00_common/js/00_class/00_$.js"></script>
 </head>
 
 <body>
@@ -23,6 +24,15 @@
       ["calc", "edit", "wave", "else"].forEach(function(name){
         document.getElementById("Ver-"+name).textContent = My_entry.Ver[name];
       });
+      var $ = new My_entry.$();
+      var elem_s = $._id("select-types");
+      elem_s.onchange = function(e){
+        var type_comp = elem_s.value;
+        $.arr(".types").forEach(function(elem_type){
+          var isHidden = (type_comp === "All" || elem_type.textContent.match(type_comp))? false: true;
+          $.set_elem(elem_type.parentElement, "hidden", isHidden);
+        });
+      };
     };
   })(document);
 </script>
@@ -35,6 +45,7 @@
 <table>
 <caption>
 <h2>Repository VERSION: <a id="VERSION" href="https://github.com/online-simulator/online-simulator.github.io"></a></h2>
+<h3 class="selection">Each page-refresh online -> offline allowed -> No communication</h3>
 </caption>
 <thead>
   <tr>
@@ -149,7 +160,7 @@ Checker
   </tr>
   <tr>
     <td>
-<a title="MathJax表示チェッカー" href="81_mathjax/index.html">MathJax表示チェッカー</a>
+<a title="MathJax表示チェッカー" href="81_mathjax/index.html">MathJax表示チェッカー※cdn通信あり</a>
     </td>
     <td>
     </td>
@@ -177,7 +188,19 @@ Checker
 <div id="div-history">
 <h2>Update history</h2>
 <table>
-<caption></caption>
+<caption>
+<h3 class="selection">
+  <label>Type shown:
+<select id="select-types">
+  <option>All</option>
+  <option>Calculator</option>
+  <option>Editor</option>
+  <option>Generator</option>
+  <option>Checker</option>
+</select>
+  </label>
+</h3>
+</caption>
 <thead>
   <tr>
     <th>
@@ -205,7 +228,7 @@ Y/M/D
     <th>
 3.20.8.3.8
     </th>
-    <td>
+    <td class="types">
 Calculator
     </td>
     <td>
@@ -223,7 +246,7 @@ minor bug-fix
 <br>
 [Graphing Calculator]
 <br>
-・plot実行直後Now Calculating...にstop中断時の予期せぬerrorを修正
+・plot実行直後Now Calculating...にstop中断時の予期せぬerror終了を修正
 <br>
 　修正前: Unexpected error
 <br>
@@ -237,7 +260,7 @@ minor bug-fix
     <th>
 3.20.8.3.7
     </th>
-    <td>
+    <td class="types">
 Calculator
     </td>
     <td>
@@ -283,7 +306,7 @@ markerType:markerColor:markerSize:markerLineWidth:plotLineWidth
     <th>
 3.19.8.3.7
     </th>
-    <td>
+    <td class="types">
 Calculator
     </td>
     <td>
@@ -313,7 +336,7 @@ minor bug-fix
     <th>
 3.19.8.3.6
     </th>
-    <td>
+    <td class="types">
 Calculator
     </td>
     <td>
@@ -341,7 +364,7 @@ minor update
     <th>
 3.18.8.3.6
     </th>
-    <td>
+    <td class="types">
 Calculator
     </td>
     <td>
@@ -363,7 +386,7 @@ major update
     <th>
 2.18.8.3.6
     </th>
-    <td>
+    <td class="types">
 Calculator
     </td>
     <td>
@@ -385,7 +408,7 @@ minor update
     <th>
 2.17.8.3.6
     </th>
-    <td>
+    <td class="types">
 Calculator
 <br>
 Generator
@@ -417,7 +440,7 @@ minor change
     <th>
 2.17.6.3.6
     </th>
-    <td>
+    <td class="types">
 Generator
     </td>
     <td>
@@ -449,7 +472,7 @@ minor update
     <th>
 2.16.6.2.6
     </th>
-    <td>
+    <td class="types">
 Calculator
     </td>
     <td>
@@ -495,7 +518,7 @@ f=&lt;exp(x);
     <th>
 2.15.6.2.6
     </th>
-    <td>
+    <td class="types">
 Generator
     </td>
     <td>
@@ -517,7 +540,7 @@ minor change
     <th>
 2.15.5.2.6
     </th>
-    <td>
+    <td class="types">
 Calculator
     </td>
     <td>
@@ -553,7 +576,7 @@ minor update
     <th>
 2.14.5.2.6
     </th>
-    <td>
+    <td class="types">
 Calculator
     </td>
     <td>
@@ -591,7 +614,7 @@ minor update
 <br>
 ・行列関数を追加
 <br>
-・行列要素参照の予期せぬerrorを予期するerrorに修正
+・行列要素参照の予期せぬerror終了を予期するerror終了に修正
 <br>
 ・回転行列の第1引数が最終要素参照になっていた不具合を修正
     </td>
@@ -603,7 +626,7 @@ minor update
     <th>
 2.13.5.2.6
     </th>
-    <td>
+    <td class="types">
 Calculator
     </td>
     <td>
@@ -645,7 +668,7 @@ fatal bug-fix
     <th>
 2.13.5.1.6
     </th>
-    <td>
+    <td class="types">
 Calculator
     </td>
     <td>
@@ -681,7 +704,7 @@ minor update
     <th>
 2.12.5.1.5
     </th>
-    <td>
+    <td class="types">
 Calculator
     </td>
     <td>
@@ -709,7 +732,7 @@ minor update
     <th>
 2.11.5.1.5
     </th>
-    <td>
+    <td class="types">
 Calculator
     </td>
     <td>
@@ -735,7 +758,7 @@ minor bug-fix
     <th>
 2.11.5.1.4
     </th>
-    <td>
+    <td class="types">
 Calculator
     </td>
     <td>
@@ -757,7 +780,7 @@ minor update
     <th>
 2.10.5.1.4
     </th>
-    <td>
+    <td class="types">
 Calculator
     </td>
     <td>
@@ -779,7 +802,7 @@ minor update
     <th>
 2.9.5.1.4
     </th>
-    <td>
+    <td class="types">
 Calculator
     </td>
     <td>
@@ -801,7 +824,7 @@ major update
     <th>
 1.9.5.1.4
     </th>
-    <td>
+    <td class="types">
 Checker
     </td>
     <td>
@@ -823,7 +846,7 @@ minor bug-fix
     <th>
 1.9.5.1.3
     </th>
-    <td>
+    <td class="types">
 Generator
     </td>
     <td>
@@ -847,7 +870,7 @@ minor change
     <th>
 1.9.4.1.3
     </th>
-    <td>
+    <td class="types">
 Checker
     </td>
     <td>
@@ -871,7 +894,7 @@ minor bug-fix
     <th>
 1.9.4.1.2
     </th>
-    <td>
+    <td class="types">
 Checker
     </td>
     <td>
@@ -893,7 +916,7 @@ minor change
     <th>
 1.9.3.1.2
     </th>
-    <td>
+    <td class="types">
 Checker
     </td>
     <td>
@@ -915,7 +938,7 @@ minor change
     <th>
 1.9.2.1.2
     </th>
-    <td>
+    <td class="types">
 Checker
     </td>
     <td>
@@ -945,7 +968,7 @@ minor change
     <th>
 1.9.1.1.2
     </th>
-    <td>
+    <td class="types">
 Generator
     </td>
     <td>
@@ -971,7 +994,7 @@ minor change
 <br>
 1.9.0.1.2
     </th>
-    <td>
+    <td class="types">
 Checker
     </td>
     <td>
@@ -997,7 +1020,7 @@ minor bug-fix
 <br>
 1.9.0.1.1
     </th>
-    <td>
+    <td class="types">
     </td>
     <td>
     </td>
@@ -1018,7 +1041,7 @@ minor bug-fix
     <th>
 1.9.beta.1.1
     </th>
-    <td>
+    <td class="types">
 Checker
     </td>
     <td>
@@ -1042,7 +1065,7 @@ minor bug-fix
     <th>
 1.9.beta.1.0
     </th>
-    <td>
+    <td class="types">
 Generator
     </td>
     <td>
@@ -1072,7 +1095,7 @@ fatal bug-fix
 <br>
 1.9.beta.0.0
     </th>
-    <td>
+    <td class="types">
 Generator
 <br>
 Checker
@@ -1097,7 +1120,7 @@ minor update
     <th>
 移設開始
     </th>
-    <td>
+    <td class="types">
     </td>
     <td>
     </td>
