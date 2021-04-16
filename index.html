@@ -34,6 +34,15 @@
         });
       };
     };
+    document.body.onbeforeunload = function(e){
+      var $ = new My_entry.$();
+      $.arr("input,textarea,select").forEach(function(elem, i){
+        elem.value = elem.defaultValue;
+      });
+      $.arr("input[type='checkbox']").forEach(function(elem, i){
+        elem.checked = elem.defaultChecked;
+      });
+    };
   })(document);
 </script>
 
