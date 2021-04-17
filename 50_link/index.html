@@ -30,9 +30,9 @@
 
 <script type="text/javascript">
   (function(document){
-    document.body.onload = function(e){
-      new My_entry.test_link().onload(e);
-    };
+    new My_entry.$().onload(document, function(e){
+      new My_entry.test_link().onload(document, e);
+    });
   })(document);
 </script>
 <hr>

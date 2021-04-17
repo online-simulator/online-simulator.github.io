@@ -49,12 +49,12 @@
 
 <script type="text/javascript">
   (function(document){
-    document.body.onload = function(e){
+    var $ = new My_entry.$();
+    $.onload(document, function(e){
       ["plot"].forEach(function(name){
-        document.getElementById("Ver-"+name).textContent = My_entry.Ver[name];
+        $._id("Ver-"+name).textContent = My_entry.Ver[name];
       });
-      new My_entry.calc_graphing().onload(e);
-      var $ = new My_entry.$();
+      new My_entry.calc_graphing().onload(document, e);
       $._id("input").value = "e^(-i(1pi()2/2i(5-3-1)i/(-4)))/*associativity&precedence test case*/;\ne^(-i(1pi(){2/{2i({5-3}-1)i}}/(-4)))/*default*/;\n=e^(i{-pi/4})/*default answer*/;\ne^(-i({1pi()2}/{{2i(5-{3-1})i}/(-4)}));\n=e^(i{-4pi/3});\ne^(-i(1pi(){2/2i}({5-3}-1){i/(-4)}));\n=e^(i{pi/4});\ne^(-i(1pi(){2/2i}(5-{3-1}){i/(-4)}));\n=e^(i{3pi/4});\nclear;\nvector={1,2,3}/*real vector*/;\ntrans(vector)vector/*(1,2,3){1,2,3}*/;\nvector*trans(vector)/*{1,2,3}(1,2,3)*/;\nclear;\ncvector={1-i,1}/*complex vector*/;\nhtrans(cvector)cvector/*(1+i,1){1-i,1}*/;\ncvector*htrans(cvector)/*{1-i,1}(1+i,1)*/;\nclear;\ncmatrix=(e^(i{pi/4}),:e^(i{-pi/4}),)/*complex matrix*/;\nhtr=<htrans;\nhtr(cmatrix)cmatrix;\ncmatrix*htr(cmatrix);\nclear;\nA=(1,2:3,4);\nb={5,6};\nGauss(A,b)/*Gaussian elimination with pivotting*/;\nstore;\nsolvex_pivotting=<{compare=<switch(abs(A[ir][ir])<abs(A[ir_comp][ir]),=<{ir_pivot=ir_comp}),cond=<{ir<>ir_pivot},proc=<{w=A[ir],A[ir]=A[ir_pivot],A[ir_pivot]=w,w=b[ir],b[ir]=b[ir_pivot],b[ir_pivot]=w},pivotting=<last{ir_pivot=ir,compare,switch(cond,=<proc)},forward=<last{k=A[ir][ic]/A[ic][ic],A[ir]=A[ir]-k(A[ic]),b[ir]=b[ir]-k(b[ic])},backward=<{x[ir]=(b[ir]-A[ir]x)/A[ir][ir]},sizeA=size(A),x=zeros(sizeA,1),_sir(=<{_sir_comp(=<pivotting,ir+1,sizeA-1)},0,sizeA-2),_sic(=<{_sir(=<forward,ic+1,sizeA-1)},0,sizeA-2),_sir(=<backward,sizeA-1,0),=<x}=>;\nsolvex_pivotting;\nrestore;\nx=<{x0,x1};\nx_initial=<{0,0};\nf=<{A(x)=b}/*linear equations*/;\nrun=<last(mdx=Newton(=<f,=<x,=<x_initial),max(norm(f),norm(mdx)))/*Newtonian method*/;\n_Rn(=<run,,3);\nx;\nAinv=<(x0,x1:x2,x3)/*inverse matrix*/;\nx=<{x0,x1,x2,x3};\nf=<{Ainv*A=identity2};\nrun=<last(mdx=Newton(=<f,=<x),max(norm(f),norm(mdx)));\n_rn(=<run,,3);\nAinv;\nclear;\nx=<{x0,x1};\nx_initial=<{1+i,1-i};\nf=<{x0^i-2x1=3i,3x0+exp(x1)=5i}/*non-linear equations*/;\nrun=<last(mdx=Newton(=<f,=<x,=<x_initial),max(norm(f),norm(mdx)));\n_Rn(=<run,,6);\nx;\nclear;\nf=<{2x*_dx(=<{x*exp(3x)})=i}/*differential equation*/;\nrun=<last(mdx=Newton(=<f,=<{x}),max(norm(f),norm(mdx)));\n_rn(=<run,,12);\nx;\nclear;\nf=<{_ix(=<{x^2},0,b,10)=3^3/3}/*integral equation*/;\nrun=<last(mdx=Newton(=<f,=<{b},=<{1}),max(norm(f),norm(mdx)));\n_rn(=<run,,8);\nb;\nclear;\n_Sn(=<{(n,2n(i):3n,4n+5n(i))},1,10)/*summation*/;\n_pn(=<{htrans(n,2i:3,4i)},1,2)/*product(1,3:-2i,-4i)(2,3:-2i,-4i)*/;\nclear;\nA=(1,{2,(3,{4,5})})/*concatination test case*/;\nttA=trans(trans(A));\nA*A-ttA*ttA;\nclear;\nx=-1;\nswitch(real(x)<0,=<{-real(x)}:1,=<{real(x)})/*switch test case*/;\nclear;\nTaylorN=<_sn(=<{_dx(=<f,n,a)(x-a)^n/n!},0,N)/*Taylor series*/;\nf=<exp(x);\nx=2;\na=0;\nN=7;\nTaylorN;\nf;\nx=1;\nf=<exp(sin(x)x)cos(x);\nTaylorN;\nf;\nclear;\nFourierN=<_sn(=<{cn*e^(i(n)x)},-N,N)/*Fourier series*/;\ncn=<_it(=<{ft*e^(-i(n)t)},-pi,pi)/(2pi);\nx=2;\nfx=<e^(i(2.5)x);\nft=<e^(i(2.5)t);\nfx;\nN=3,FourierN;\nclear;\n";
       var setVal = function(){
         $._id("input-t0").value = arguments[0] || "";
@@ -102,7 +102,7 @@
       $._id("legend1").onclick = function(){setVal("1e-3(1+i)", "1e2(1+i)", "x=t,x;", "x;2x;3x;4x;5x;6x;7x;8x;9x;10x;");$._id("input-z").value="circle;  // markerType:markerColor:markerSize:markerLineWidth:plotLineWidth";};
       $._id("legend2").onclick = function(){setVal("1e-3(1+i)", "1e2(1+i)", "x=t,x;", "x;2x;3x;4x;5x;6x;7x;8x;9x;10x;");$._id("input-z").value=":red:10;::5:2;:#ffff0055:10;::::10;  // Alpha not supported on IE11";};
       $._id("legend3").onclick = function(){setVal("1e-3(1+i)", "1e2(1+i)", "x=t,x;", "x;2x;3x;4x;5x;6x;7x;8x;9x;10x;");$._id("input-z").value="circle:red;triangle;triangle2:pink;square:#00ff00;diamond:#00ff0055;cross;";};
-    };
+    });
   })(document);
 </script>
 

@@ -25,7 +25,7 @@ My_entry.test_regexp.prototype.init_elems = function(){
 };
 My_entry.test_regexp.prototype.init_handlers = function(){
   var self = this;
-  self.handlers.onload = function(args){
+  self.handlers.onload = function(e){
     var self = this;
     self.output_command();
     var json = {p: {id: "wrapper-link"}, a: {id: "a", it: "download-txt by double-click"}, o: {id: "textarea-output"}, name: "download", ext: "txt"};

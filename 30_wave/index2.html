@@ -38,9 +38,9 @@
 
 <script type="text/javascript">
   (function(document){
-    document.body.onload = function(e){
-      new My_entry.handler_wave().onload(e);
-    };
+    new My_entry.$().onload(document, function(e){
+      new My_entry.handler_wave().onload(document, e);
+    });
   })(document);
 </script>
 <hr>

@@ -23,7 +23,7 @@ My_entry.test_decimal.prototype.init_elems = function(){
 };
 My_entry.test_decimal.prototype.init_handlers = function(){
   var self = this;
-  self.handlers.onload = function(args){
+  self.handlers.onload = function(e){
     var self = this;
     self.drag = new self.constructors.handler_drag("div-drag", "checkbox-drag", {});
     self.entry.$._id("checkbox-drag").onchange();

@@ -23,7 +23,7 @@ My_entry.test_unicode.prototype.init_elems = function(){
 };
 My_entry.test_unicode.prototype.init_handlers = function(){
   var self = this;
-  self.handlers.onload = function(args){
+  self.handlers.onload = function(e){
     var self = this;
     return self;
   };

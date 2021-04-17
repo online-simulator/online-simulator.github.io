@@ -380,7 +380,7 @@ My_entry.calc_graphing.prototype.init_handlers = function(){
     }
     return DATA.out2num(data.out);
   };
-  self.handlers.onload = function(args){
+  self.handlers.onload = function(e){
     var self = this;
     // canvas
     self.plot2d = new self.constructors.plot2d("div-plot2d", 512, 256);

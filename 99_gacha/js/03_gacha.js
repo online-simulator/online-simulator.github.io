@@ -23,7 +23,7 @@ My_entry.test_gacha.prototype.init_elems = function(){
 };
 My_entry.test_gacha.prototype.init_handlers = function(){
   var self = this;
-  self.handlers.onload = function(args){
+  self.handlers.onload = function(e){
     var self = this;
     self.gacha = new self.constructors.gacha();
     self.len_MAX_display = {

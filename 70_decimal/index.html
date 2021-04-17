@@ -28,9 +28,9 @@
 
 <script type="text/javascript">
   (function(document){
-    document.body.onload = function(e){
-      new My_entry.test_decimal().onload(e);
-    };
+    new My_entry.$().onload(document, function(e){
+      new My_entry.test_decimal().onload(document, e);
+    });
   })(document);
 </script>
 <hr>

@@ -29,9 +29,9 @@
 
 <script type="text/javascript">
   (function(document){
-    document.body.onload = function(e){
-      new My_entry.test_worker().onload(e);
-    };
+    new My_entry.$().onload(document, function(e){
+      new My_entry.test_worker().onload(document, e);
+    });
   })(document);
 </script>
 <hr>

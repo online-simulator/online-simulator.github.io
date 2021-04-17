@@ -27,6 +27,30 @@ My_entry.$.prototype.init = function(){
   var self = this;
   return self;
 };
+My_entry.$.prototype.onload = function(document, opt_callback){
+  var self = this;
+  document.body.onload = function(e){
+    if(opt_callback){
+      opt_callback(e);
+    }
+  };
+  return self;
+};
+My_entry.$.prototype.onbeforeunload = function(document, opt_callback){
+  var self = this;
+  document.body.onbeforeunload = function(e){
+    if(opt_callback){
+      opt_callback(e);
+      self.arr("input,textarea,select").forEach(function(elem, i){
+        elem.value = elem.defaultValue;
+      });
+      self.arr("input[type='checkbox']").forEach(function(elem, i){
+        elem.checked = elem.defaultChecked;
+      });
+    }
+  };
+  return self;
+};
 My_entry.$.prototype._id = function(id){
   var self = this;
   return document.getElementById(id);

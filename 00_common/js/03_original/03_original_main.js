@@ -58,17 +58,9 @@ My_entry.original_main.prototype.init_handlers = function(){
   var self = this;
   return self;
 };
-My_entry.original_main.prototype.onload = function(args){
+My_entry.original_main.prototype.onload = function(document, e){
   var self = this;
-  self.handlers.onload.apply(self, arguments);
-  document.body.onbeforeunload = function(e){
-    self.handlers.onbeforeunload(e);
-    self.entry.$.arr("input,textarea,select").forEach(function(elem, i){
-      elem.value = elem.defaultValue;
-    });
-    self.entry.$.arr("input[type='checkbox']").forEach(function(elem, i){
-      elem.checked = elem.defaultChecked;
-    });
-  };
+  self.handlers.onload(e);
+  self.entry.$.onbeforeunload(document, function(e){self.handlers.onbeforeunload(e);});
   return self;
 };

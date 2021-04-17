@@ -19,12 +19,12 @@
 
 <script type="text/javascript">
   (function(document){
-    document.body.onload = function(e){
-      document.getElementById("VERSION").textContent = My_entry.VERSION;
+    var $ = new My_entry.$();
+    $.onload(document, function(e){
+      $._id("VERSION").textContent = My_entry.VERSION;
       ["calc", "edit", "wave", "else"].forEach(function(name){
-        document.getElementById("Ver-"+name).textContent = My_entry.Ver[name];
+        $._id("Ver-"+name).textContent = My_entry.Ver[name];
       });
-      var $ = new My_entry.$();
       var elem_s = $._id("select-types");
       elem_s.onchange = function(e){
         var type_comp = elem_s.value;
@@ -33,16 +33,8 @@
           $.set_elem(elem_type.parentElement, "hidden", isHidden);
         });
       };
-    };
-    document.body.onbeforeunload = function(e){
-      var $ = new My_entry.$();
-      $.arr("input,textarea,select").forEach(function(elem, i){
-        elem.value = elem.defaultValue;
-      });
-      $.arr("input[type='checkbox']").forEach(function(elem, i){
-        elem.checked = elem.defaultChecked;
-      });
-    };
+      $.onbeforeunload(document, function(e){});
+    });
   })(document);
 </script>
 
@@ -169,7 +161,7 @@ Checker
   </tr>
   <tr>
     <td>
-<a title="MathJax表示チェッカー" href="81_mathjax/index.html">MathJax表示チェッカー※cdn通信有り</a>
+<a title="MathJax表示チェッカー" href="81_mathjax/index.html">MathJax表示チェッカー※CDN通信有り</a>
     </td>
     <td>
     </td>
@@ -233,6 +225,53 @@ Y/M/D
   </tr>
 </thead>
 <tbody>
+  <tr>
+    <th>
+3.23.8.3.8
+    </th>
+    <td class="types">
+Calculator
+<br>
+Generator
+<br>
+Checker
+    </td>
+    <td>
+2.12.5
+<br>
+1.6.2
+<br>
+0.13.4
+    </td>
+    <td>
+minor update
+    </td>
+    <td>
+[全ページ共通]
+<br>
+・onload/onbeforeunloadのevent handler呼び出し部分を$.jsの中に統合
+<br>
+　main().onloadの引数変更のため、updateとする
+<pre><code>
+変更前
+  (function(document){
+    document.body.onload = function(e){
+      new My_entry.main().onload(e);
+    };
+  })(document);
+
+変更後
+  (function(document){
+    new My_entry.$().onload(document, function(e){
+      new My_entry.main().onload(document, e);
+    });
+  })(document);
+</code></pre>
+    </td>
+    <td>
+2021/4/17
+    </td>
+  </tr>
   <tr>
     <th>
 3.20.8.3.8
@@ -961,7 +1000,7 @@ minor change
 <br>
 ・ページ遷移時にhtml要素のvalueをdefault値に戻す処理を追加
 <br>
-　戻る操作でページ復帰時にブラウザ毎の既定動作が異なる
+　戻る・進む操作でキャッシュが無効化されるページ復帰時の対策
 <br>
 [全ページhtml]
 <br>

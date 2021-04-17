@@ -42,7 +42,7 @@ My_entry.handler_wave.prototype.init_elems = function(){
 };
 My_entry.handler_wave.prototype.init_handlers = function(){
   var self = this;
-  self.handlers.onload = function(args){
+  self.handlers.onload = function(e){
     var self = this;
     var json = {p: {id: "wrapper-link"}, a: {id: "a", it: self.text_link}, name: self.fileName_default, ext: "wav"};
     self.handler_link = new self.constructors.handler_link(json);

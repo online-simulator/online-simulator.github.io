@@ -36,9 +36,9 @@
 
 <script type="text/javascript">
   (function(document){
-    document.body.onload = function(e){
-      new My_entry.test_mathjax().onload(e);
-    };
+    new My_entry.$().onload(document, function(e){
+      new My_entry.test_mathjax().onload(document, e);
+    });
   })(document);
 </script>
 <hr>
@@ -46,7 +46,9 @@
 <div>
 <table><tbody>
 <tr><td>
-アメリカ数学会が提供するMathJaxをcdn経由で読み込み
+American Mathematical Society提供
+<br>
+MathJaxをCDN経由で読み込み
 <br>
 MathMLまたはLaTeXで記述された入力欄の数式を出力欄に表示
 </td></tr>
