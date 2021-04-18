@@ -215,7 +215,8 @@ My_entry.plot2d.prototype.run = function(arr2d_vec, options){
   var plotLineWidth0 = options["plot-line-width"];
   var gridLineWidth = options["grid-line-width"];
   var gridLineColor = options["grid-line-color"];
-  var globalCompositeOperation = options["globalCompositeOperationAll"] || null;  // urlParam || source-over
+//  var globalCompositeOperation = options["globalCompositeOperationAll"] || null;  // 0.2.0 urlParam || source-over
+  var globalCompositeOperation = options["canvas-globalCompositeOperationLayer"] || null;  // 0.3.0 selectVal || source-over
   var isLog_x = options["log-x"];
   var isLog_y = options["log-y"];
   var arr2d_x = arr2d_vec.x;
@@ -258,14 +259,17 @@ My_entry.plot2d.prototype.run = function(arr2d_vec, options){
       plineWidth = arr_config[4];
       type = (self.entry.def.hasElem_arr(markers, type))? type: null;
     }
+    /* 0.1.0 -> */
     markerType = type || markerType;
     styleRGBA = style || styleRGBA;
+    /* -> 0.1.0 */
+    /* 0.2.0 -> */
     markerSize = Number(size || markerSize);
     markerLineWidth = Number(lineWidth || markerLineWidth);
     plotLineWidth = Number(plineWidth || plotLineWidth);
-    // Ver.2.11.4
     markerSize = (isNaN(markerSize))? 0: markerSize;
     markerLineWidth = (isNaN(markerLineWidth))? 0: markerLineWidth;
+    /* -> 0.2.0 */
     var G = (len_j>1)? Math.floor(j*255/(len_j-1)): 0;
     var R = Math.floor(255-G)%256;
     var B = Math.floor(G<<1)%(256-1);

@@ -150,6 +150,11 @@ My_entry.canvas.prototype.putBase64 = function(base64, opt_callback, opt_globalC
   img.onload = function(e){
     ctx.save();
     ctx.globalCompositeOperation = opt_globalCompositeOperation || ctx.globalCompositeOperation;
+    /* 0.3.0 -> */
+    ctx.shadowBlur = 0;
+    ctx.shadowOffsetX = 0;
+    ctx.shadowOffsetY = 0;
+    /* -> 0.3.0  */
     self.ctx.drawImage(img, 0, 0);
     ctx.restore();
     if(opt_callback){
@@ -163,15 +168,9 @@ My_entry.canvas.prototype.putBase64s = function(arr_base64, opt_callback, opt_gl
   var self = this;
   var ctx = self.ctx;
   if(arr_base64.length){
-    var img = new Image();
-    img.onload = function(e){
-      ctx.save();
-      ctx.globalCompositeOperation = opt_globalCompositeOperation || ctx.globalCompositeOperation;
-      self.ctx.drawImage(img, 0, 0);
-      ctx.restore();
+    self.putBase64(arr_base64.pop(), function(){
       self.putBase64s(arr_base64, opt_callback, opt_globalCompositeOperation);
-    };
-    img.src = arr_base64.pop();
+    }, opt_globalCompositeOperation);  // 0.3.0 simplify
   }
   else{
     if(opt_callback){
@@ -218,6 +217,18 @@ My_entry.canvas.prototype.y2yp = function(y){
 My_entry.canvas.prototype.y2myp = function(y){  // left-handed system
   var self = this;
   return self.px_h-(y-self.y0)*self.px_h/self.dy;
+};
+My_entry.canvas.prototype.x2fxp = function(x){
+  var self = this;
+  return Math.floor(self.x2xp(x));
+};
+My_entry.canvas.prototype.y2fyp = function(y){
+  var self = this;
+  return Math.floor(self.y2yp(y));
+};
+My_entry.canvas.prototype.y2fmyp = function(y){  // left-handed system
+  var self = this;
+  return Math.floor(self.y2myp(y));
 };
 My_entry.canvas.prototype.line = function(x0, y0, x1, y1, opt_lineWidth, opt_styleRGBA, opt_globalCompositeOperation){
   var self = this;

@@ -227,6 +227,36 @@ Y/M/D
 <tbody>
   <tr>
     <th>
+3.24.8.3.8
+    </th>
+    <td class="types">
+Calculator
+    </td>
+    <td>
+2.13.5
+    </td>
+    <td>
+minor update
+    </td>
+    <td>
+[Graphing Calculator]
+<br>
+・各軸のcheckbox（log||i）切替え時にscaleをresetする処理を追加
+<br>
+・plot-configにcanvas-globalCompositeOperationLayerの選択肢を追加
+<br>
+　重複するURLパラメータglobalCompositeOperationAllを廃止
+<br>
+　fillを含めて合成に変更（既定の描画は変更なし）
+<br>
+・背景へのレイヤー合成順の同期保証処理（shadow無しでdraw）を追加
+    </td>
+    <td>
+2021/4/18
+    </td>
+  </tr>
+  <tr>
+    <th>
 3.23.8.3.8
     </th>
     <td class="types">
@@ -298,7 +328,7 @@ minor bug-fix
 <br>
 　修正前: Unexpected error
 <br>
-　修正後: finished 0/N
+　修正後: finished 0/(N+1)
     </td>
     <td>
 2021/4/14
@@ -474,7 +504,7 @@ minor change
 <br>
 ・Graphing Calculatorの初期リリース準備
 <br>
-　・複数のWorkerに対応
+　複数のWorkerに対応
 <br>
 [Simple Calculator]
 <br>
@@ -554,9 +584,9 @@ f=&lt;exp(x);
 <br>
 ・Graphing Calculatorの実装準備
 <br>
-　・演算結果の表記選択変更時のログ表示を再演算無しで自動更新
+　演算結果の表記選択変更時のログ表示を再演算無しで自動更新
 <br>
-　・ポスト処理を最適化
+　ポスト処理を最適化
     </td>
     <td>
 2021/3/29
@@ -908,7 +938,7 @@ minor change
 <br>
 ・tdタグのcolspan=値をcolspan="値"に修正
 <br>
-　いずれも問題なかったのでchangeとする
+　いずれも問題なかったため、changeとする
     </td>
     <td>
 2021/2/7

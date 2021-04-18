@@ -37,14 +37,16 @@ My_entry.draw.prototype.enter = function(r, opt_lineWidth, opt_styleRGBA, opt_gl
   if(opt_styleRGBA){
     ctx.fillStyle = ctx.strokeStyle = opt_styleRGBA;
   }
+  ctx.globalCompositeOperation = opt_globalCompositeOperation || ctx.globalCompositeOperation;  // 0.3.0 moved upper fill
   if(opt_lineWidth){
   }
   else{
     ctx.fill();
-    ctx.globalAlpha = 1;
-    ctx.globalCompositeOperation = "destination-out";
+    if(opt_globalCompositeOperation === "source-over"){  // default
+      ctx.globalAlpha = 1;
+      ctx.globalCompositeOperation = "destination-out";
+    }
   }
-  ctx.globalCompositeOperation = opt_globalCompositeOperation || ctx.globalCompositeOperation;
   ctx.lineCap = "round";  // "butt" || "round" || "square"
   ctx.lineJoin = "round";  // "round" || "bevel" || "miter"
   ctx.lineWidth = opt_lineWidth || r*0.3;
@@ -64,7 +66,9 @@ My_entry.draw.prototype.line = function(vec0, vec1, opt_lineWidth, opt_styleRGBA
   ctx.lineTo(x1, y1);
   ctx.closePath();
   var lineWidth = opt_lineWidth;
-  self.enter(lineWidth, lineWidth, opt_styleRGBA, opt_globalCompositeOperation);
+  if(lineWidth){  // 0.3.0 ctx.lineWidth = 0 -> ctx.lineWidth -> 1
+    self.enter(lineWidth, lineWidth, opt_styleRGBA, opt_globalCompositeOperation);
+  }
   ctx.restore();
   return self;
 };

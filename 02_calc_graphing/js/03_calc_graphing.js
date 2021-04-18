@@ -549,12 +549,16 @@ My_entry.calc_graphing.prototype.init_handlers = function(){
       case "checkbox-log-y":
       case "checkbox-imag-x":
       case "checkbox-imag-y":
+        self.plot2d.init_flags();
+        self.re_plot(true);
+        break;
       case "select-canvas-background":
       case "select-grid-line-width":
       case "select-marker-size":
       case "select-marker-line-width":
       case "select-plot-line-width":
       case "input-z":
+      case "select-canvas-globalCompositeOperationLayer":
       case "select-canvas-globalCompositeOperation":
         self.re_plot(true);
         break;

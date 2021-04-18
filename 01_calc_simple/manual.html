@@ -682,7 +682,9 @@ plot-configについて記述する
 <br>
 ・背景色はbg-colorの入力値優先で省略時、canvas-backgroundの選択値
 <br>
-・次のレイヤー3層の合成方法canvas-globalCompositeOperationを選択可
+・各レイヤーの合成方法canvas-globalCompositeOperationLayerを選択可
+<br>
+・各レイヤーの背景への合成方法canvas-globalCompositeOperationを選択可
 <br>
 　background &lt;- grid &lt;- plotの順に背景にRGBA値を合成して出力する
 <br>
@@ -1451,15 +1453,6 @@ URi,URf,BRp,BRr,BRmo,BRdm,BRsa,BRbs,BRba,BRbx,BRbo,BRcn,BRrl
 checkError=trueの場合、情報落ちの発生や微分・積分の数値誤差を評価する
 <br>
 checkError=falseに設定した場合、演算量が数倍軽くなる
-<br>
-<br>
-描画canvas各レイヤーの合成方法を変更する場合
-<br>
-globalCompositeOperationAll=xor
-<br>
-globalCompositeOperationAll=multiply
-<br>
-globalCompositeOperationAll=luminosity
     </td>
   </tr>
   <tr>
@@ -3691,6 +3684,54 @@ ans_yxz*ans_zxy ->
 ans_zxy*ans_yxz ->
 <br>
 (1,0,-5.551115123125783e-17:0,1,0:-5.551115123125783e-17,0,1)
+<br>
+<br>
+3Dグラフィックスで主流の左手系の場合
+<br>
+rotx_LHS=&lt;{rt=real(phi),=&lt;(1,,:,cos(rt),sin(rt):,-sin(rt),cos(rt))}=&gt;;
+<br>
+roty_LHS=&lt;{rt=real(theta),=&lt;(cos(rt),,-sin(rt):,1,:sin(rt),,cos(rt))}=&gt;;
+<br>
+rotz_LHS=&lt;{rt=real(psi),=&lt;(cos(rt),sin(rt),:-sin(rt),cos(rt),:,,1)}=&gt;;
+<br>
+・同義
+<br>
+rotx_LHS=&lt;{w=phi,phi=real(-phi),ret=rotx,phi=w,=&lt;ret}=&gt;;
+<br>
+roty_LHS=&lt;{w=theta,theta=real(-theta),ret=roty,theta=w,=&lt;ret}=&gt;;
+<br>
+rotz_LHS=&lt;{w=psi,psi=real(-psi),ret=rotz,psi=w,=&lt;ret}=&gt;;
+<br>
+・test caseを示す
+<br>
+phi=pi/4;
+<br>
+rotx -> (
+<br>
+1,0,0:
+<br>
+0,0.7071067811865476,-0.7071067811865475:
+<br>
+0,0.7071067811865475,0.7071067811865476
+<br>
+)
+<br>
+rotx_LHS ->
+<br>
+(
+<br>
+1,0,0:
+<br>
+0,0.7071067811865476,0.7071067811865475:
+<br>
+0,-0.7071067811865475,0.7071067811865476
+<br>
+)
+<br>
+<br>
+2Dの描画canvasも同様にz-index含めて左手系
+<br>
+・左上基準のclient座標系に対して手前方向をz-indexの正とする
     </td>
   </tr>
   <tr>
