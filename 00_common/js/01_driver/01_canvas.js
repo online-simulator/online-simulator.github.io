@@ -170,7 +170,7 @@ My_entry.canvas.prototype.putBase64s = function(arr_base64, opt_callback, opt_gl
   if(arr_base64.length){
     self.putBase64(arr_base64.pop(), function(){
       self.putBase64s(arr_base64, opt_callback, opt_globalCompositeOperation);
-    }, opt_globalCompositeOperation);  // 0.3.0 simplify
+    }, opt_globalCompositeOperation);  // 0.3.0 simplified
   }
   else{
     if(opt_callback){
