@@ -120,15 +120,15 @@ My_entry.conv.prototype.binary2code_utf8 = function(str, n){
 My_entry.conv.prototype.arr_num2arr_uint = function(arr_num_n, n, n_uint){
   var self = this;
   var _arr_uint_ = [];
-  const uint_MAX = Math.pow(2, n_uint)-1;
+  var uint_max = Math.pow(2, n_uint)-1;
   arr_num_n.forEach(function(num_n, i){
     var num_10 = self.n2dec(num_n, n);
     var uint_ = num_10;
     if(isNaN(num_10)){
-      uint_ = uint_MAX;
+      uint_ = uint_max;
     }
     else{
-      uint_ = Math.min(uint_, uint_MAX);
+      uint_ = Math.min(uint_, uint_max);
     }
     _arr_uint_[i] = uint_;
   });
