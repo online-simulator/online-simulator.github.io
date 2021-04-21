@@ -36,14 +36,14 @@ My_entry.canvas.prototype.init = function(elem){
   };
   return self;
 };
-My_entry.canvas.prototype.add_handlers = function(handlers){
+My_entry.canvas.prototype.attach = function(handlers){
   var self = this;
   self.onevents.forEach(function(onevent){
     self.elem[self.touch[onevent]] = self.elem[onevent] = handlers[onevent];
   });
   return self;
 };
-My_entry.canvas.prototype.remove_handlers = function(){
+My_entry.canvas.prototype.detach = function(){
   var self = this;
   self.onevents.forEach(function(onevent){
     self.elem[self.touch[onevent]] = self.elem[onevent] = null;
@@ -158,7 +158,7 @@ My_entry.canvas.prototype.putBase64 = function(base64, opt_callback, opt_globalC
     self.ctx.drawImage(img, 0, 0);
     ctx.restore();
     if(opt_callback){
-      opt_callback();
+      opt_callback(e);
     }
   };
   img.src = base64;
@@ -168,7 +168,7 @@ My_entry.canvas.prototype.putBase64s = function(arr_base64, opt_callback, opt_gl
   var self = this;
   var ctx = self.ctx;
   if(arr_base64.length){
-    self.putBase64(arr_base64.pop(), function(){
+    self.putBase64(arr_base64.pop(), function(e){
       self.putBase64s(arr_base64, opt_callback, opt_globalCompositeOperation);
     }, opt_globalCompositeOperation);  // 0.3.0 simplified
   }
@@ -232,9 +232,22 @@ My_entry.canvas.prototype.y2fmyp = function(y){  // left-handed system
 };
 My_entry.canvas.prototype.line = function(x0, y0, x1, y1, opt_lineWidth, opt_styleRGBA, opt_globalCompositeOperation){
   var self = this;
-  var vec0 = {x: self.x2xp(x0), y: self.y2myp(y0)};
-  var vec1 = {x: self.x2xp(x1), y: self.y2myp(y1)};
-  self.draw.line(vec0, vec1, opt_lineWidth, opt_styleRGBA, opt_globalCompositeOperation);
+  var vecp0 = {x: self.x2xp(x0), y: self.y2myp(y0)};
+  var vecp1 = {x: self.x2xp(x1), y: self.y2myp(y1)};
+  self.draw.line(vecp0, vecp1, opt_lineWidth, opt_styleRGBA, opt_globalCompositeOperation);
+  return self;
+};
+/* 0.4.0 */
+My_entry.canvas.prototype.lines = function(arr_vec, opt_lineWidth, opt_styleRGBA, opt_globalCompositeOperation, opt_fillPath){
+  var self = this;
+  var arr_vecp = [];
+  for(var n=0, len_n=arr_vec.length; n<len_n; ++n){
+    var vecn = arr_vec[n];
+    var x = vecn.x;
+    var y = vecn.y;
+    arr_vecp[n] = {x: self.x2xp(x), y: self.y2myp(y)};
+  }
+  self.draw.lines(arr_vecp, opt_lineWidth, opt_styleRGBA, opt_globalCompositeOperation, opt_fillPath);
   return self;
 };
 My_entry.canvas.prototype.getRGBA_xy = function(x, y){

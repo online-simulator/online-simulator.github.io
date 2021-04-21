@@ -74,7 +74,7 @@ My_entry.calc_graphing.prototype.re_output_log = function(){
   var $ = self.entry.$;
   if(self.worker_calc.arr_data_out){
     var data = self.worker_calc.arr_data_out[0];
-    // Ver.1.7.3
+    /* Ver.1.7.3 */
     data.options.makeLog = 2;
     data.options.expDigit = $.selectNum_id("select-expDigit");
     try{
@@ -137,6 +137,12 @@ My_entry.calc_graphing.prototype.plot = function(arr_data, options_plot, isFinal
       self.plot2d.run(arr2d_vec, options_plot);
     }
   }
+  /* Ver.2.14.5 -> */
+  else{
+    self.plot2d.objs.temp.detach();
+    self.plot2d.isDrawn = false;
+  }
+  /* -> Ver.2.14.5 */
   self.output_log_plot();
   return self;
 };
@@ -194,7 +200,7 @@ My_entry.calc_graphing.prototype.arr_data2arr2d_vec = function(arr_data, options
             var x = arr2d_x[n][j] = num_x.com[sw_ri_x];
             var y =arr2d_y[n][j] = num_y.com[sw_ri_y];
             if(isNaN(self.plot2d.trans(x, isLog_x)) || isNaN(self.plot2d.trans(y, isLog_y))){
-              self.plot2d.objs.temp.remove_handlers();
+              self.plot2d.objs.temp.detach();
               self.plot2d.isDrawn = false;
               throw "Invalid plot2d isNaN";
             }
@@ -293,8 +299,8 @@ My_entry.calc_graphing.prototype.get_options = function(isPlot){
   $.get_elemProps("select", "select-", "value", _options);
   $.get_urlParams(_options);
   if(_options.checkError !== false) _options.checkError = true;
-  // Ver.2.11.4
-  // Ver.2.10.4
+  /* Ver.2.11.4 */
+  /* Ver.2.10.4 */
   if(isPlot){
     _options["input-z"] = parser.remove_commentAndWspace(self.io.read_text(self.elems.z));
     _options["bg-color"] = $.inputVal_id("input-bg-color");
@@ -424,7 +430,7 @@ My_entry.calc_graphing.prototype.init_handlers = function(){
     var text_half = self.entry.reference.fullStr2half(text);
     switch(text_half){
       case "plot":
-        // Ver.2.10.4
+        /* Ver.2.10.4 */
         if(self.worker_plot && self.worker_plot.handler.isLocked) return false;
         if(self.plot2d.isLocked) return false;
         self.plot2d.init_flags();
@@ -456,7 +462,7 @@ My_entry.calc_graphing.prototype.init_handlers = function(){
           data.tci = tci;
           arr_data_in.push(data);
         }
-        // Ver.2.10.3
+        /* Ver.2.10.3 */
         self.io.write_text(self.elems.d, "Now calculating...");
         setTimeout(function(){
           self.worker_plot.run(arr_data_in, $.checkbox_id("checkbox-useWorker"));
@@ -468,7 +474,7 @@ My_entry.calc_graphing.prototype.init_handlers = function(){
         self.re_plot(true);
         break;
       case "=":
-        // Ver.2.10.4
+        /* Ver.2.10.4 */
         if(self.worker_calc && self.worker_calc.handler.isLocked) return false;
         self.storage.store();
         var input = self.io.read_text(self.elems.i);
@@ -479,7 +485,7 @@ My_entry.calc_graphing.prototype.init_handlers = function(){
           var data = self.get_data(input, options);
           arr_data_in.push(data);
         }
-        // Ver.2.10.3
+        /* Ver.2.10.3 */
         self.io.write_text(self.elems.o, "Now calculating...");
         setTimeout(function(){
           self.worker_calc.run(arr_data_in, $.checkbox_id("checkbox-useWorker"));
@@ -536,13 +542,13 @@ My_entry.calc_graphing.prototype.init_handlers = function(){
         self.re_plot(true);
         break;
       case "select-canvas-width":
-        var px_w = $.selectNum_elem(elem);
-        self.plot2d.update(px_w, null);
-        self.re_plot(true);
-        break;
       case "select-canvas-height":
-        var px_h = $.selectNum_elem(elem);
-        self.plot2d.update(null, px_h);
+        var px_w = $.selectNum_id("select-canvas-width");
+        var px_h = $.selectNum_id("select-canvas-height");
+        $._id("input-file-bg").value = null;
+        self.plot2d.setter.base64_bg(null);
+        self.plot2d.setter.img_bg(null);
+        self.plot2d.update(px_w, px_h);
         self.re_plot(true);
         break;
       case "checkbox-log-x":
@@ -566,6 +572,17 @@ My_entry.calc_graphing.prototype.init_handlers = function(){
       case "input-grid-line-color":
         $.set_elem(elem, "background", elem.value);
         self.re_plot(true);
+        break;
+      /* Ver.2.14.5 */
+      case "input-file-bg":
+        $.readFile_elem(elem, "image", function(e){
+          var base64 = e.target.result;
+          self.plot2d.setter.base64_bg(base64);
+          self.entry.conv.base2img(base64, function(e, img){
+            self.plot2d.setter.img_bg(img);
+            self.re_plot(true);
+          });
+        });
         break;
       default:
         break;

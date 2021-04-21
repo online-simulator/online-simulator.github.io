@@ -56,20 +56,52 @@ My_entry.draw.prototype.enter = function(r, opt_lineWidth, opt_styleRGBA, opt_gl
 My_entry.draw.prototype.line = function(vec0, vec1, opt_lineWidth, opt_styleRGBA, opt_globalCompositeOperation){
   var self = this;
   var ctx = self.ctx;
-  var x0 = vec0.x;
-  var y0 = vec0.y;
-  var x1 = vec1.x;
-  var y1 = vec1.y;
-  ctx.save();
-  ctx.beginPath();
-  ctx.moveTo(x0, y0);
-  ctx.lineTo(x1, y1);
-  ctx.closePath();
   var lineWidth = opt_lineWidth;
   if(lineWidth){  // 0.3.0 ctx.lineWidth = 0 -> ctx.lineWidth -> 1
+    var x0 = vec0.x;
+    var y0 = vec0.y;
+    var x1 = vec1.x;
+    var y1 = vec1.y;
+    ctx.save();
+    ctx.beginPath();
+    ctx.moveTo(x0, y0);
+    ctx.lineTo(x1, y1);
+    ctx.closePath();
     self.enter(lineWidth, lineWidth, opt_styleRGBA, opt_globalCompositeOperation);
+    ctx.restore();
   }
-  ctx.restore();
+  return self;
+};
+/* 0.4.0 */
+My_entry.draw.prototype.lines = function(arr_vec, opt_lineWidth, opt_styleRGBA, opt_globalCompositeOperation, opt_fillPath){
+  var self = this;
+  var ctx = self.ctx;
+  var lineWidth = opt_lineWidth;
+  var fillPath = opt_fillPath || false;
+  if(lineWidth){
+    ctx.save();
+    ctx.beginPath();
+    for(var n=0, len_n=arr_vec.length; n<len_n-1; ++n){
+      var vec0 = arr_vec[n];
+      var vec1 = arr_vec[n+1];
+      var x0 = vec0.x;
+      var y0 = vec0.y;
+      var x1 = vec1.x;
+      var y1 = vec1.y;
+      if(fillPath){
+        if(n === 0){
+          ctx.moveTo(x0, y0);
+        }
+      }
+      else{
+        ctx.moveTo(x0, y0);
+      }
+      ctx.lineTo(x1, y1);
+    }
+    ctx.closePath();
+    self.enter(lineWidth, ((fillPath)? null: lineWidth), opt_styleRGBA, opt_globalCompositeOperation);
+    ctx.restore();
+  }
   return self;
 };
 My_entry.draw.prototype.circle = function(vec0, r, opt_lineWidth, opt_styleRGBA, opt_globalCompositeOperation){

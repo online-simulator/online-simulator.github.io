@@ -14,6 +14,15 @@ My_entry.plot2d.prototype.init = function(id, opt_px_w, opt_px_h, opt_px_b){
   self.setter.callbacks = function(callbacks){
     self.callbacks = callbacks;
   };
+  self.setter.base64_bg = function(base64){
+    self.base64_bg = base64;
+  };
+  self.setter.img_bg = function(img){
+    self.img_bg = img;
+    if(img){
+      self.update(img.width, img.height);
+    }
+  };
   self.log10 = function(x){
     return Math.log(x)*Math.LOG10E;
   };
@@ -207,8 +216,10 @@ My_entry.plot2d.prototype.run = function(arr2d_vec, options){
   var self = this;
   if(self.isLocked) return false;
   self.isLocked = true;
+  var def = self.entry.def;
   var background = self.objs.background;
   var plot = self.objs.plot;
+  var temp =  self.objs.temp;
   var markers = plot.markers;
   var markerSize0 = options["marker-size"];
   var markerLineWidth0 = options["marker-line-width"];
@@ -236,6 +247,7 @@ My_entry.plot2d.prototype.run = function(arr2d_vec, options){
   var arr_markerSize = new Array(len_j);
   var arr_markerLineWidth = new Array(len_j);
   var arr_plotLineWidth = new Array(len_j);
+  var arr_fillPath = new Array(len_j);
   var inputZ = options["input-z"] || "";
   var arr_legend = inputZ.split(";");
   var markerType = null;
@@ -243,6 +255,7 @@ My_entry.plot2d.prototype.run = function(arr2d_vec, options){
   var markerSize = null;
   var markerLineWidth = null;
   var plotLineWidth = null;
+  var fillPath = null;
   for(var j=0; j<len_j; ++j){
     var legend = arr_legend[j];
     var type = null;
@@ -250,6 +263,7 @@ My_entry.plot2d.prototype.run = function(arr2d_vec, options){
     var size = null;
     var lineWidth = null;
     var plineWidth = null;
+    var fill = null;
     if(legend){
       var arr_config = legend.split(":");
       type = arr_config[0];
@@ -257,64 +271,90 @@ My_entry.plot2d.prototype.run = function(arr2d_vec, options){
       size = arr_config[2];
       lineWidth = arr_config[3];
       plineWidth = arr_config[4];
+      fill = arr_config[5];
       type = (self.entry.def.hasElem_arr(markers, type))? type: null;
     }
     /* 0.1.0 -> */
     markerType = type || markerType;
     styleRGBA = style || styleRGBA;
     /* -> 0.1.0 */
+    /* 0.4.0 -> */
     /* 0.2.0 -> */
-    markerSize = Number(size || markerSize);
-    markerLineWidth = Number(lineWidth || markerLineWidth);
-    plotLineWidth = Number(plineWidth || plotLineWidth);
-    markerSize = (isNaN(markerSize))? 0: markerSize;
-    markerLineWidth = (isNaN(markerLineWidth))? 0: markerLineWidth;
+    markerSize = def.get_number(size, markerSize, markerSize0);
+    markerLineWidth = def.get_number(lineWidth, markerLineWidth, markerLineWidth0);
+    plotLineWidth = def.get_number(plineWidth, plotLineWidth, plotLineWidth0);
     /* -> 0.2.0 */
+    fillPath = fill || fillPath;
+    /* -> 0.4.0 */
     var G = (len_j>1)? Math.floor(j*255/(len_j-1)): 0;
     var R = Math.floor(255-G)%256;
     var B = Math.floor(G<<1)%(256-1);
     arr_markerType[j] = markerType || markers[j%markers.length];
     arr_styleRGBA[j] = styleRGBA || "rgb("+R+","+G+","+B+")";
-    arr_markerSize[j] = markerSize || markerSize0;
-    arr_markerLineWidth[j] = markerLineWidth || markerLineWidth0;
-    arr_plotLineWidth[j] = plotLineWidth || plotLineWidth0;
+    arr_markerSize[j] = markerSize;
+    arr_markerLineWidth[j] = markerLineWidth;
+    arr_plotLineWidth[j] = plotLineWidth;
+    arr_fillPath[j] = fillPath;
   }
   // background
-  background.fill(options["bg-color"] || options["canvas-background"], globalCompositeOperation);
+  var img_bg = self.img_bg;
+  if(img_bg){
+    background.ctx.drawImage(img_bg, 0, 0);
+  }
+  else{
+    background.fill(options["bg-color"] || options["canvas-background"], globalCompositeOperation);
+  }
   // grid
   self.grid(gxmin, gymin, gxmax, gymax, 10, 10, isLog_x, isLog_y, gridLineWidth, gridLineColor, globalCompositeOperation);
-  // plot
+  // transform
+  var arr2d_tx = new Array(len_n);
+  var arr2d_ty = new Array(len_n);
+  for(var n=0; n<len_n; ++n){
+    arr2d_tx[n] = [];
+    arr2d_ty[n] = [];
+    for(var j=0; j<len_j; ++j){
+      arr2d_tx[n][j] = self.trans(arr2d_x[n][j], isLog_x);
+      arr2d_ty[n][j] = self.trans(arr2d_y[n][j], isLog_y);
+    }
+  }
+  // plot lines
+  for(var j=0; j<len_j; ++j){
+    var styleRGBA = arr_styleRGBA[j];
+    var plotLineWidth = arr_plotLineWidth[j];
+    var fillPath = arr_fillPath[j];
+    if(plotLineWidth){
+      var arr_vec = [];
+      for(var n=0; n<len_n; ++n){
+        var x = arr2d_tx[n][j];
+        var y = arr2d_ty[n][j];
+        arr_vec[n] = {x: x, y: y};
+      }
+      plot.lines(arr_vec, plotLineWidth, styleRGBA, globalCompositeOperation, fillPath);
+    }
+  }
+  // plot markers
   for(var j=0; j<len_j; ++j){
     var markerType = arr_markerType[j];
     var styleRGBA = arr_styleRGBA[j];
     var markerSize = arr_markerSize[j];
     var markerLineWidth = arr_markerLineWidth[j];
-    var plotLineWidth = arr_plotLineWidth[j];
-    for(var n=0; n<len_n-1; ++n){
-      var x0 = self.trans(arr2d_x[n][j], isLog_x);
-      var y0 = self.trans(arr2d_y[n][j], isLog_y);
-      var x1 = self.trans(arr2d_x[n+1][j], isLog_x);
-      var y1 = self.trans(arr2d_y[n+1][j], isLog_y);
-      if(plotLineWidth){
-        plot.line(x0, y0, x1, y1, plotLineWidth, styleRGBA, globalCompositeOperation);
-      }
-      if(markerSize){
-        plot[markerType](x0, y0, markerSize, markerLineWidth, styleRGBA, globalCompositeOperation);
-        if(n === len_n-2){
-          plot[markerType](x1, y1, markerSize, markerLineWidth, styleRGBA, globalCompositeOperation);
-        }
+    if(markerSize){
+      for(var n=0; n<len_n; ++n){
+        var x = arr2d_tx[n][j];
+        var y = arr2d_ty[n][j];
+        plot[markerType](x, y, markerSize, markerLineWidth, styleRGBA, globalCompositeOperation);
       }
     }
   }
+  temp.attach(self.handlers);  // 0.4.0 moved from final()
   self.isLocked = false;
   return self;
 };
 My_entry.plot2d.prototype.final = function(arr2d_vec, options){
   var self = this;
   var all =  self.objs.all;
-  var temp =  self.objs.temp;
   self.run(arr2d_vec, options);
-  var base64_bg = self.objs.background.getBase64();
+  var base64_bg = self.base64_bg || self.objs.background.getBase64();
   var arr_base64_grid_plot = [self.objs.grid.getBase64(), self.objs.plot.getBase64()];
   var callback = function(){
     all.putBase64s(arr_base64_grid_plot.reverse(), function(){
@@ -324,7 +364,6 @@ My_entry.plot2d.prototype.final = function(arr2d_vec, options){
     }, options["canvas-globalCompositeOperation"]);
   };
   all.putBase64(base64_bg, callback);  // source-over
-  temp.add_handlers(self.handlers);
   self.isDrawn = true;
   self.isLocked = false;
   return self;

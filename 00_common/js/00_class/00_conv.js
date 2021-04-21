@@ -32,6 +32,17 @@ My_entry.conv.prototype.text2url = function(text){
   var blob = new Blob([text], {type: "text/plain"});
   return self.blob2url(blob);
 };
+My_entry.conv.prototype.base2img = function(base64, opt_callback){
+  var self = this;
+  var _img = new Image();
+  _img.onload = function(e){
+    if(opt_callback){
+      opt_callback(e, _img);
+    }
+  };
+  _img.src = base64;
+  return _img;
+};
 My_entry.conv.prototype.arrb_uint8_2binary = function(arrb_uint8){
   var self = this;
   var _binary = "";

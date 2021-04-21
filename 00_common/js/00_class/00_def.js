@@ -162,3 +162,16 @@ My_entry.def.prototype.newClone = function(right){
   }
   return _left;
 };
+My_entry.def.prototype.get_number = function(){
+  var self = this;
+  var _num = false;
+  for(var i=0, len=arguments.length; i<len; ++i){
+    var argi = arguments[i];
+    var num = self.Number(argi);
+    if(!(isNaN(num))){
+      _num = num;
+      break;
+    }
+  }
+  return _num;
+};
