@@ -115,6 +115,7 @@ My_entry.calc_graphing.prototype.output_msgError_plot = function(e){
   var self = this;
   var msg = self.entry.def.get_msgError(e, "Invalid plot2d");
   self.io.write_text(self.elems.d, msg.replace("Uncaught Error: ", ""));
+  self.elems.d.focus();
   throw false;
   return self;
 };
