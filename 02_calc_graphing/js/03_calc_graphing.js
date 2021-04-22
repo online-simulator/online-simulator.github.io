@@ -556,6 +556,8 @@ My_entry.calc_graphing.prototype.init_handlers = function(){
       case "checkbox-log-y":
       case "checkbox-imag-x":
       case "checkbox-imag-y":
+      case "checkbox-axis-x":
+      case "checkbox-axis-y":
         self.plot2d.init_flags();
         self.re_plot(true);
         break;
@@ -567,6 +569,7 @@ My_entry.calc_graphing.prototype.init_handlers = function(){
       case "input-z":
       case "select-canvas-globalCompositeOperationLayer":
       case "select-canvas-globalCompositeOperation":
+      case "select-font-size":
         self.re_plot(true);
         break;
       case "input-bg-color":

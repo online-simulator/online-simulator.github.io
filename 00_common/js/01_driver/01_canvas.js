@@ -250,6 +250,26 @@ My_entry.canvas.prototype.lines = function(arr_vec, opt_lineWidth, opt_styleRGBA
   self.draw.lines(arr_vecp, opt_lineWidth, opt_styleRGBA, opt_globalCompositeOperation, opt_fillPath);
   return self;
 };
+/* 0.5.0 -> */
+My_entry.canvas.prototype.text = function(text, x0, y0, opt_fontSize, opt_styleRGBA, opt_globalCompositeOperation){
+  var self = this;
+  var vecp0 = {x: self.x2xp(x0), y: self.y2myp(y0)};
+  self.draw.text(text, vecp0, opt_fontSize, opt_styleRGBA, opt_globalCompositeOperation);
+  return self;
+};
+My_entry.canvas.prototype.label = function(text, x0, y0, opt_fontSize, opt_styleRGBA, opt_globalCompositeOperation, isY){
+  var self = this;
+  var vecp0 = {x: self.x2xp(x0), y: self.y2myp(y0)};
+  self.draw.label(text, vecp0, opt_fontSize, opt_styleRGBA, opt_globalCompositeOperation, isY);
+  return self;
+};
+My_entry.canvas.prototype.axis = function(text, x0, y0, opt_fontSize, opt_styleRGBA, opt_globalCompositeOperation, isY){
+  var self = this;
+  var vecp0 = {x: self.x2xp(x0), y: self.y2myp(y0)};
+  self.draw.axis(text, vecp0, opt_fontSize, opt_styleRGBA, opt_globalCompositeOperation, isY);
+  return self;
+};
+/* -> 0.5.0 */
 My_entry.canvas.prototype.getRGBA_xy = function(x, y){
   var self = this;
   var ID = self.getID_xy(x, y);

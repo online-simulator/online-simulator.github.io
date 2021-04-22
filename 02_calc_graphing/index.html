@@ -236,7 +236,10 @@ t:
       </tr>
       <tr>
         <td>
-x(t):
+  <label>x(t):
+<br>
+<input id="checkbox-axis-x" type="checkbox" checked="checked">
+  </label>
         </td>
         <td colspan="2">
   <label>log:
@@ -254,7 +257,10 @@ x(t):
       </tr>
       <tr>
         <td>
-y(t):
+  <label>y(t):
+<br>
+<input id="checkbox-axis-y" type="checkbox" checked="checked">
+  </label>
         </td>
         <td colspan="2">
   <label>log:
@@ -285,7 +291,8 @@ z:
 　plot-config　<input id="checkbox-config-plot" type="checkbox">
   </label>
 <hr>
-<div id="div-config-plot">
+<div id="div-config-plot" class="selection">
+<hr>
   <div class="text-left">
     <label>canvas-width:
 <select id="select-canvas-width">
@@ -355,10 +362,6 @@ z:
   <option value="1280">1280px</option>
 </select>
     </label>
-    <label>bg-image-file:
-<br>
-      <input id="input-file-bg" type="file">
-    </label>
 <br>
     <label>bg-color:
       <input id="input-bg-color" class="width-auto">
@@ -370,7 +373,7 @@ z:
   <option value="white">white</option>
 </select>
     </label>
-<br>
+<hr>
     <label>grid-line-width:
 <select id="select-grid-line-width">
   <option value="0">0px</option>
@@ -534,6 +537,40 @@ z:
   <option>luminosity</option>
 </select>
     </label>
+<hr>
+    <label>bg-image-file:
+<br>
+      <input id="input-file-bg" type="file">
+    </label>
+<hr>
+    <label>font-size:
+<select id="select-font-size">
+  <option value="5">5px</option>
+  <option value="6">6px</option>
+  <option value="7">7px</option>
+  <option value="8">8px</option>
+  <option value="9">9px</option>
+  <option value="10">10px</option>
+  <option value="11">11px</option>
+  <option value="12" selected="selected">12px</option>
+  <option value="13">13px</option>
+  <option value="14">14px</option>
+  <option value="15">15px</option>
+  <option value="16">16px</option>
+  <option value="17">17px</option>
+  <option value="18">18px</option>
+  <option value="19">19px</option>
+  <option value="20">20px</option>
+  <option value="22">22px</option>
+  <option value="24">24px</option>
+  <option value="26">26px</option>
+  <option value="28">28px</option>
+  <option value="30">30px</option>
+  <option value="35">35px</option>
+  <option value="40">40px</option>
+  <option value="50">50px</option>
+</select>
+    </label>
   </div>
 <hr>
 </div>
@@ -584,7 +621,7 @@ z:
   <button class="cF">&gt;&gt;</button>
   <button class="button-box run">=</button>
 <br>
-<textarea id="input" rows="10"></textarea>
+<textarea id="input" rows="9"></textarea>
         </td>
         <td>
 <div class="text-left">
@@ -621,7 +658,8 @@ z:
 　calc-config　<input id="checkbox-config" type="checkbox">
   </label>
 <hr>
-<div id="div-config">
+<div id="div-config" class="selection">
+<hr>
   <div class="text-left">
     <label>right-associativity:<input id="checkbox-isRightAssociativityBR" type="checkbox"></label>
     <label>/prior2omitted*:<input id="checkbox-isDIVprior2OMUL" type="checkbox"></label>

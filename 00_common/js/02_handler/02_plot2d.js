@@ -6,6 +6,22 @@ My_entry.plot2d = function(id, opt_px_w, opt_px_h, opt_px_b){
   return self;
 };
 
+My_entry.plot2d.prototype.config = {
+  default: {
+    px_w: 512,
+    px_h: 256,
+    gridLineColor: "gray",
+    selectedLineColor: "rgb(7, 135, 200)",
+    Ni: 10,
+    Nj: 10,
+    Ni0: 6,
+    Nj0: 6,
+    fontSize: 12
+  },
+  threshold: {
+    px: 256
+  }
+};
 My_entry.plot2d.prototype.init = function(id, opt_px_w, opt_px_h, opt_px_b){
   var self = this;
   new My_entry.original_main().setup_constructors.call(self);
@@ -91,7 +107,7 @@ My_entry.plot2d.prototype.init_handlers = function(){
       temp.clear();
       var vec0 = self.vec0;
       var vec1 = self.vec1 = temp.get_offset(e);
-      temp.draw.rectangle(vec0, vec1, 3, "rgb(7, 135, 200)");
+      temp.draw.rectangle(vec0, vec1, 3, self.config.default.selectedLineColor);
     }
   };
   handlers.onmouseup = function(e){
@@ -171,11 +187,11 @@ My_entry.plot2d.prototype.update = function(opt_px_w, opt_px_h, opt_px_b){
   self.update_elem_p(px_w, px_h, px_b);
   return self;
 };
-My_entry.plot2d.prototype.grid = function(x0, y0, x1, y1, Ni, Nj, isLog_x, isLog_y, gridLineWidth, gridLineColor, globalCompositeOperation){
+My_entry.plot2d.prototype.grid = function(x0, y0, x1, y1, Ni, Nj, isLog_x, isLog_y, isAxis_x, isAxis_y, fontSize, gridLineWidth, gridLineColor, globalCompositeOperation){
   var self = this;
   var grid = self.objs.grid;
   var lineWidth = gridLineWidth;
-  var styleRGBA = gridLineColor || "gray";
+  var styleRGBA = gridLineColor || self.config.default.gridLineColor;
   var dx = (x1-x0)/Ni;
   var dy = (y1-y0)/Nj;
   var len_i = Ni+1;
@@ -184,17 +200,44 @@ My_entry.plot2d.prototype.grid = function(x0, y0, x1, y1, Ni, Nj, isLog_x, isLog
   var ty0 = self.trans(y0, isLog_y);
   var tx1 = self.trans(x1, isLog_x);
   var ty1 = self.trans(y1, isLog_y);
+  /* 0.5.0 -> */
+  var ed = (Math.min(self.px_w, self.px_h) < self.config.threshold.px)? 0: 1;
+  if(isAxis_x){
+    grid.label("x(t)", (tx0+tx1)/2, ty0, fontSize, styleRGBA, globalCompositeOperation, false);
+  }
+  if(isAxis_y){
+    grid.label("y(t)", tx0, (ty0+ty1)/2, fontSize, styleRGBA, globalCompositeOperation, true);
+  }
+  /* -> 0.5.0 */
   for(var i=0; i<len_i; ++i){
     var tx = self.trans(x0+i*dx, isLog_x);
     grid.line(tx, ty0, tx, ty1, lineWidth, styleRGBA, globalCompositeOperation);
+    if(isAxis_x){
+      grid.axis(tx.toExponential(ed), tx, ty0, fontSize, styleRGBA, globalCompositeOperation, false);
+    }
   }
   for(var j=0; j<len_j; ++j){
     var ty = self.trans(y0+j*dy, isLog_y);
     grid.line(tx0, ty, tx1, ty, lineWidth, styleRGBA, globalCompositeOperation);
+    if(isAxis_y){
+      grid.axis(ty.toExponential(ed), tx0, ty, fontSize, styleRGBA, globalCompositeOperation, true);
+    }
   }
   return self;
 };
-My_entry.plot2d.prototype.change_scale = function(gxmin, gymin, gxmax, gymax, isLog_x, isLog_y){
+/* 0.5.0 -> */
+My_entry.plot2d.prototype.get_kx = function(fontSize){
+  var self = this;
+  var k = (self.px_w < self.config.threshold.px)? 2: 1;
+  return (self.config.default.px_w/self.px_w)*(fontSize/self.config.default.fontSize)*k;
+};
+My_entry.plot2d.prototype.get_ky = function(fontSize){
+  var self = this;
+  var k = (self.px_h < self.config.threshold.px)? 2: 1;
+  return (self.config.default.px_h/self.px_h)*(fontSize/self.config.default.fontSize)*k;
+};
+/* -> 0.5.0 */
+My_entry.plot2d.prototype.change_scale = function(gxmin, gymin, gxmax, gymax, isLog_x, isLog_y, isAxis_x, isAxis_y, fontSize){
   var self = this;
   var grid = self.objs.grid;
   var plot = self.objs.plot;
@@ -204,10 +247,14 @@ My_entry.plot2d.prototype.change_scale = function(gxmin, gymin, gxmax, gymax, is
   var tgymax = self.trans(gymax, isLog_y);
   var tgdx = (tgxmax-tgxmin)*0.125 || 1;
   var tgdy = (tgymax-tgymin)*0.125 || 1;
-  tgxmin -= tgdx;
-  tgymin -= tgdy;
-  tgxmax += tgdx;
-  tgymax += tgdy;
+  /* 0.5.0 -> */
+  var kx = self.get_kx(fontSize);
+  var ky = self.get_ky(fontSize);
+  tgxmin -= (isAxis_y)? tgdx*2.5*kx: tgdx;
+  tgymin -= (isAxis_x)? tgdy*3.0*ky: tgdy;
+  tgxmax += (isAxis_y)? tgdx*1.0*kx: tgdx;
+  tgymax += (isAxis_x)? tgdy*1.0*ky: tgdy;
+  /* -> 0.5.0 */
   grid.change_scale(tgxmin, tgymin, tgxmax, tgymax);
   plot.change_scale(tgxmin, tgymin, tgxmax, tgymax);
   return self;
@@ -230,6 +277,9 @@ My_entry.plot2d.prototype.run = function(arr2d_vec, options){
   var globalCompositeOperation = options["canvas-globalCompositeOperationLayer"] || null;  // 0.3.0 selectVal || source-over
   var isLog_x = options["log-x"];
   var isLog_y = options["log-y"];
+  var isAxis_x = options["axis-x"];
+  var isAxis_y = options["axis-y"];
+  var fontSize = options["font-size"];
   var arr2d_x = arr2d_vec.x;
   var arr2d_y = arr2d_vec.y;
   var len_n = arr2d_vec.len_n;
@@ -239,7 +289,7 @@ My_entry.plot2d.prototype.run = function(arr2d_vec, options){
   var gxmax = arr2d_vec.gxmax;
   var gymax = arr2d_vec.gymax;
   if(!(self.isChanged)){
-    self.change_scale(gxmin, gymin, gxmax, gymax, isLog_x, isLog_y);
+    self.change_scale(gxmin, gymin, gxmax, gymax, isLog_x, isLog_y, isAxis_x, isAxis_y, fontSize);
   }
   // legend
   var arr_markerType = new Array(len_j);
@@ -305,7 +355,11 @@ My_entry.plot2d.prototype.run = function(arr2d_vec, options){
     background.fill(options["bg-color"] || options["canvas-background"], globalCompositeOperation);
   }
   // grid
-  self.grid(gxmin, gymin, gxmax, gymax, 10, 10, isLog_x, isLog_y, gridLineWidth, gridLineColor, globalCompositeOperation);
+  /* 0.5.0 -> */
+  var Ni = (isAxis_x)? Math.floor(self.config.default.Ni0/self.get_kx(fontSize)) || 1: self.config.default.Ni;
+  var Nj = (isAxis_y)? Math.floor(self.config.default.Nj0/self.get_ky(fontSize)) || 1: self.config.default.Nj;
+  /* -> 0.5.0 */
+  self.grid(gxmin, gymin, gxmax, gymax, Ni, Nj, isLog_x, isLog_y, isAxis_x, isAxis_y, fontSize, gridLineWidth, gridLineColor, globalCompositeOperation);
   // transform
   var arr2d_tx = new Array(len_n);
   var arr2d_ty = new Array(len_n);

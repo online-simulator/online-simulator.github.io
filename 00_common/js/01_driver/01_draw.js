@@ -104,6 +104,73 @@ My_entry.draw.prototype.lines = function(arr_vec, opt_lineWidth, opt_styleRGBA, 
   }
   return self;
 };
+/* 0.5.0 -> */
+My_entry.draw.prototype.text = function(text, vec0, opt_fontSize, opt_styleRGBA, opt_globalCompositeOperation){
+  var self = this;
+  var ctx = self.ctx;
+  ctx.save();
+  if(opt_fontSize){
+    ctx.font = opt_fontSize+"px sans-serif";
+  }
+  if(opt_styleRGBA){
+    ctx.fillStyle = ctx.strokeStyle = opt_styleRGBA;
+  }
+  ctx.globalCompositeOperation = opt_globalCompositeOperation || ctx.globalCompositeOperation;
+  var x = Math.floor(vec0.x);
+  var y = Math.floor(vec0.y);
+  ctx.fillText(text, x, y);
+  ctx.strokeText(text, x, y);
+  ctx.restore();
+  return self;
+};
+My_entry.draw.prototype.label = function(text, vec0, opt_fontSize, opt_styleRGBA, opt_globalCompositeOperation, isY){
+  var self = this;
+  var ctx = self.ctx;
+  var fontSize = opt_fontSize || 10;
+  var dfontSize = 2;
+  ctx.save();
+  ctx.font = (fontSize+dfontSize)+"px sans-serif";
+  if(opt_styleRGBA){
+    ctx.fillStyle = ctx.strokeStyle = opt_styleRGBA;
+  }
+  ctx.globalCompositeOperation = opt_globalCompositeOperation || ctx.globalCompositeOperation;
+  var w = ctx.measureText(text).width;
+  var h = fontSize;
+  var w2 = (isY)? -w*(1+Math.min(1, fontSize/10)*2): 0;
+  var h2 = (isY)? 0: h*(3+Math.min(1, fontSize/10)*0.5);
+  var t = (isY)? -Math.PI/2: 0;
+  var x0 = Math.floor(vec0.x+w2);
+  var y0 = Math.floor(vec0.y+h2);
+  ctx.setTransform(Math.cos(t), Math.sin(t), -Math.sin(t), Math.cos(t), x0, y0);
+  var x = Math.floor(-w/2);
+  var y = Math.floor(h/2);
+  ctx.fillText(text, x, y);
+  ctx.strokeText(text, x, y);
+  ctx.restore();
+  return self;
+};
+My_entry.draw.prototype.axis = function(text, vec0, opt_fontSize, opt_styleRGBA, opt_globalCompositeOperation, isY){
+  var self = this;
+  var ctx = self.ctx;
+  var fontSize = opt_fontSize || 10;
+  ctx.save();
+  ctx.font = fontSize+"px sans-serif";
+  if(opt_styleRGBA){
+    ctx.fillStyle = ctx.strokeStyle = opt_styleRGBA;
+  }
+  ctx.globalCompositeOperation = opt_globalCompositeOperation || ctx.globalCompositeOperation;
+  var w = ctx.measureText(text).width;
+  var h = fontSize;
+  var w2 = (isY)? -w-h: -w/2;
+  var h2 = (isY)? h/2: h*2;
+  var x = Math.floor(vec0.x+w2);
+  var y = Math.floor(vec0.y+h2);
+  ctx.fillText(text, x, y);
+  ctx.strokeText(text, x, y);
+  ctx.restore();
+  return self;
+};
+/* -> 0.5.0 */
 My_entry.draw.prototype.circle = function(vec0, r, opt_lineWidth, opt_styleRGBA, opt_globalCompositeOperation){
   var self = this;
   var ctx = self.ctx;

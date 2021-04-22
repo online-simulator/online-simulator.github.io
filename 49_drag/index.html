@@ -41,7 +41,7 @@ ontouchmove
           </td>
           <td class="border">
             <pre><code>
-var get_client = function(e){
+My_entry.drag.prototype.get_client = function(e){
   var self = this;
   var newE = e;
   if(e.touches){
@@ -51,7 +51,7 @@ var get_client = function(e){
   return _client;
 };
 
-var get_page = function(e){
+My_entry.canvas.prototype.get_page = function(e){
   var self = this;
   var newE = e;
   if(e.touches){
@@ -64,13 +64,13 @@ var get_page = function(e){
           </td>
           <td class="border">
             <pre><code>
-var get_offset = function(e){
+My_entry.canvas.prototype.get_offset = function(e){
   var self = this;
   var newE = e;
   if(e.touches){
-    var elem = self.elem;                  // absolute
-    var elem_p = self.elem.parentElement;  // relative
-    var page = get_page(e);
+    var elem = self.elem;      // absolute
+    var elem_p = self.elem_p;  // relative
+    var page = self.get_page(e);
     if(page){
       var offsetParent = elem_p.offsetParent;
       var offsetX = page.x;
