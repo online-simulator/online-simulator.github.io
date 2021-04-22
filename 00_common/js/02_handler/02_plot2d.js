@@ -203,10 +203,12 @@ My_entry.plot2d.prototype.grid = function(x0, y0, x1, y1, Ni, Nj, isLog_x, isLog
   /* 0.5.0 -> */
   var ed = (Math.min(self.px_w, self.px_h) < self.config.threshold.px)? 0: 1;
   if(isAxis_x){
-    grid.label("x(t)", (tx0+tx1)/2, ty0, fontSize, styleRGBA, globalCompositeOperation, false);
+    var text = (isLog_x)? "log10(x(t))": "x(t)";
+    grid.label(text, (tx0+tx1)/2, ty0, fontSize, styleRGBA, globalCompositeOperation, false);
   }
   if(isAxis_y){
-    grid.label("y(t)", tx0, (ty0+ty1)/2, fontSize, styleRGBA, globalCompositeOperation, true);
+    var text = (isLog_y)? "log10(y(t))": "y(t)";
+    grid.label(text, tx0, (ty0+ty1)/2, fontSize, styleRGBA, globalCompositeOperation, true);
   }
   /* -> 0.5.0 */
   for(var i=0; i<len_i; ++i){
