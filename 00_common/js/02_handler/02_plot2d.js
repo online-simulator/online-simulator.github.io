@@ -187,7 +187,7 @@ My_entry.plot2d.prototype.update = function(opt_px_w, opt_px_h, opt_px_b){
   self.update_elem_p(px_w, px_h, px_b);
   return self;
 };
-My_entry.plot2d.prototype.grid = function(x0, y0, x1, y1, Ni, Nj, isLog_x, isLog_y, isAxis_x, isAxis_y, fontSize, gridLineWidth, gridLineColor, globalCompositeOperation){
+My_entry.plot2d.prototype.grid = function(x0, y0, x1, y1, Ni, Nj, isLog_x, isLog_y, label_x, label_y, fontSize, gridLineWidth, gridLineColor, globalCompositeOperation){
   var self = this;
   var grid = self.objs.grid;
   var lineWidth = gridLineWidth;
@@ -202,26 +202,24 @@ My_entry.plot2d.prototype.grid = function(x0, y0, x1, y1, Ni, Nj, isLog_x, isLog
   var ty1 = self.trans(y1, isLog_y);
   /* 0.5.0 -> */
   var ed = (Math.min(self.px_w, self.px_h) < self.config.threshold.px)? 0: 1;
-  if(isAxis_x){
-    var text = (isLog_x)? "log10(x(t))": "x(t)";
-    grid.label(text, (tx0+tx1)/2, ty0, fontSize, styleRGBA, globalCompositeOperation, false);
+  if(label_x){
+    grid.label(label_x, (tx0+tx1)/2, ty0, fontSize, styleRGBA, globalCompositeOperation, false);
   }
-  if(isAxis_y){
-    var text = (isLog_y)? "log10(y(t))": "y(t)";
-    grid.label(text, tx0, (ty0+ty1)/2, fontSize, styleRGBA, globalCompositeOperation, true);
+  if(label_y){
+    grid.label(label_y, tx0, (ty0+ty1)/2, fontSize, styleRGBA, globalCompositeOperation, true);
   }
   /* -> 0.5.0 */
   for(var i=0; i<len_i; ++i){
     var tx = self.trans(x0+i*dx, isLog_x);
     grid.line(tx, ty0, tx, ty1, lineWidth, styleRGBA, globalCompositeOperation);
-    if(isAxis_x){
+    if(label_x){
       grid.axis(tx.toExponential(ed), tx, ty0, fontSize, styleRGBA, globalCompositeOperation, false);
     }
   }
   for(var j=0; j<len_j; ++j){
     var ty = self.trans(y0+j*dy, isLog_y);
     grid.line(tx0, ty, tx1, ty, lineWidth, styleRGBA, globalCompositeOperation);
-    if(isAxis_y){
+    if(label_y){
       grid.axis(ty.toExponential(ed), tx0, ty, fontSize, styleRGBA, globalCompositeOperation, true);
     }
   }
@@ -279,6 +277,8 @@ My_entry.plot2d.prototype.run = function(arr2d_vec, options){
   var globalCompositeOperation = options["canvas-globalCompositeOperationLayer"] || null;  // 0.3.0 selectVal || source-over
   var isLog_x = options["log-x"];
   var isLog_y = options["log-y"];
+  var isImag_x = options["imag-x"];
+  var isImag_y = options["imag-y"];
   var isAxis_x = options["axis-x"];
   var isAxis_y = options["axis-y"];
   var fontSize = options["font-size"];
@@ -360,8 +360,16 @@ My_entry.plot2d.prototype.run = function(arr2d_vec, options){
   /* 0.5.0 -> */
   var Ni = (isAxis_x)? Math.floor(self.config.default.Ni0/self.get_kx(fontSize)) || 1: self.config.default.Ni;
   var Nj = (isAxis_y)? Math.floor(self.config.default.Nj0/self.get_ky(fontSize)) || 1: self.config.default.Nj;
+  var label_x = "x(t)";
+  label_x = (isImag_x)? "imag("+label_x+")": label_x;
+  label_x = (isLog_x)? "log10("+label_x+")": label_x;
+  label_x = (isAxis_x)? label_x: null;
+  var label_y = "y(t)";
+  label_y = (isImag_y)? "imag("+label_y+")": label_y;
+  label_y = (isLog_y)? "log10("+label_y+")": label_y;
+  label_y = (isAxis_y)? label_y: null;
   /* -> 0.5.0 */
-  self.grid(gxmin, gymin, gxmax, gymax, Ni, Nj, isLog_x, isLog_y, isAxis_x, isAxis_y, fontSize, gridLineWidth, gridLineColor, globalCompositeOperation);
+  self.grid(gxmin, gymin, gxmax, gymax, Ni, Nj, isLog_x, isLog_y, label_x, label_y, fontSize, gridLineWidth, gridLineColor, globalCompositeOperation);
   // transform
   var arr2d_tx = new Array(len_n);
   var arr2d_ty = new Array(len_n);
