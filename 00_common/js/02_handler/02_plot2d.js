@@ -206,14 +206,18 @@ My_entry.plot2d.prototype.grid = function(x0, y0, x1, y1, Ni, Nj, isLog_x, isLog
       var tx = self.trans(0, isLog_x);
       grid.line(tx, ty0, tx, ty1, lineWidth, styleRGBA, globalCompositeOperation);
     }
-    grid.label(label_x, (tx0+tx1)/2, self.config.default.ratio_y, fontSize, styleRGBA, globalCompositeOperation, false);
+    if(!(self.isChanged)){
+      grid.label(label_x, (tx0+tx1)/2, self.config.default.ratio_y, fontSize, styleRGBA, globalCompositeOperation, false);
+    }
   }
   if(label_y){
     if(ty0 <= 0 && ty1 >= 0 && !(isLog_y)){
       var ty = self.trans(0, isLog_y);
       grid.line(tx0, ty, tx1, ty, lineWidth, styleRGBA, globalCompositeOperation);
     }
-    grid.label(label_y, self.config.default.ratio_x, (ty0+ty1)/2, fontSize, styleRGBA, globalCompositeOperation, true);
+    if(!(self.isChanged)){
+      grid.label(label_y, self.config.default.ratio_x, (ty0+ty1)/2, fontSize, styleRGBA, globalCompositeOperation, true);
+    }
   }
   /* -> 0.5.0 */
   for(var i=0; i<len_i; ++i){
