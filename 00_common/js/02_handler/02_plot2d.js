@@ -16,7 +16,8 @@ My_entry.plot2d.prototype.config = {
     Nj: 10,
     Ni0: 6,
     Nj0: 6,
-    fontSize: 12
+    fontSize: 12,
+    decDigit: 5
   },
   threshold: {
     px: 256
@@ -25,7 +26,7 @@ My_entry.plot2d.prototype.config = {
 My_entry.plot2d.prototype.init = function(id, opt_px_w, opt_px_h, opt_px_b){
   var self = this;
   new My_entry.original_main().setup_constructors.call(self);
-  new My_entry.original_main().make_instances.call(self, ["$", "def"]);
+  new My_entry.original_main().make_instances.call(self, ["$", "conv", "def"]);
   self.setter = {};
   self.setter.callbacks = function(callbacks){
     self.callbacks = callbacks;
@@ -187,7 +188,7 @@ My_entry.plot2d.prototype.update = function(opt_px_w, opt_px_h, opt_px_b){
   self.update_elem_p(px_w, px_h, px_b);
   return self;
 };
-My_entry.plot2d.prototype.grid = function(x0, y0, x1, y1, Ni, Nj, isLog_x, isLog_y, label_x, label_y, fontSize, gridLineWidth, gridLineColor, globalCompositeOperation){
+My_entry.plot2d.prototype.grid = function(x0, y0, x1, y1, Ni, Nj, isLog_x, isLog_y, label_x, label_y, fontSize, expDigit, gridLineWidth, gridLineColor, globalCompositeOperation){
   var self = this;
   var grid = self.objs.grid;
   var lineWidth = gridLineWidth;
@@ -201,7 +202,6 @@ My_entry.plot2d.prototype.grid = function(x0, y0, x1, y1, Ni, Nj, isLog_x, isLog
   var tx1 = self.trans(x1, isLog_x);
   var ty1 = self.trans(y1, isLog_y);
   /* 0.5.0 -> */
-  var ed = (Math.min(self.px_w, self.px_h) < self.config.threshold.px)? 0: 1;
   if(label_x){
     if(!(isLog_x)){
       var tx = self.trans(0, isLog_x);
@@ -221,14 +221,16 @@ My_entry.plot2d.prototype.grid = function(x0, y0, x1, y1, Ni, Nj, isLog_x, isLog
     var tx = self.trans(x0+i*dx, isLog_x);
     grid.line(tx, ty0, tx, ty1, lineWidth, styleRGBA, globalCompositeOperation);
     if(label_x){
-      grid.axis(tx.toExponential(ed), tx, ty0, fontSize, styleRGBA, globalCompositeOperation, false);
+      var val = self.entry.conv.num2not(tx, self.config.default.decDigit, expDigit);
+      grid.axis(val, tx, ty0, fontSize, styleRGBA, globalCompositeOperation, false);
     }
   }
   for(var j=0; j<len_j; ++j){
     var ty = self.trans(y0+j*dy, isLog_y);
     grid.line(tx0, ty, tx1, ty, lineWidth, styleRGBA, globalCompositeOperation);
     if(label_y){
-      grid.axis(ty.toExponential(ed), tx0, ty, fontSize, styleRGBA, globalCompositeOperation, true);
+      var val = self.entry.conv.num2not(ty, self.config.default.decDigit, expDigit);
+      grid.axis(val, tx0, ty, fontSize, styleRGBA, globalCompositeOperation, true);
     }
   }
   return self;
@@ -276,6 +278,7 @@ My_entry.plot2d.prototype.run = function(arr2d_vec, options){
   var plot = self.objs.plot;
   var temp =  self.objs.temp;
   var markers = plot.markers;
+  var expDigit = options["expDigit"];
   var markerSize0 = options["marker-size"];
   var markerLineWidth0 = options["marker-line-width"];
   var plotLineWidth0 = options["plot-line-width"];
@@ -385,7 +388,7 @@ My_entry.plot2d.prototype.run = function(arr2d_vec, options){
   label_y = (isLog_y)? "log10("+label_y+")": label_y;
   label_y = (isAxis_y)? label_y: null;
   /* -> 0.5.0 */
-  self.grid(gxmin, gymin, gxmax, gymax, Ni, Nj, isLog_x, isLog_y, label_x, label_y, fontSize, gridLineWidth, gridLineColor, globalCompositeOperation);
+  self.grid(gxmin, gymin, gxmax, gymax, Ni, Nj, isLog_x, isLog_y, label_x, label_y, fontSize, expDigit, gridLineWidth, gridLineColor, globalCompositeOperation);
   // transform
   var arr2d_tx = new Array(len_n);
   var arr2d_ty = new Array(len_n);

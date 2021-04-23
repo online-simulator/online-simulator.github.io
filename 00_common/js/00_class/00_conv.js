@@ -43,6 +43,12 @@ My_entry.conv.prototype.base2img = function(base64, opt_callback){
   _img.src = base64;
   return _img;
 };
+My_entry.conv.prototype.num2not = function(num, decDigit, expDigit){
+  var self = this;
+  var len_str = (num < 0)? decDigit+1: decDigit;
+  var _not = (expDigit < 0 && num.toString().length < len_str)? num: num.toExponential(Math.abs(expDigit));
+  return _not;
+};
 My_entry.conv.prototype.arrb_uint8_2binary = function(arrb_uint8){
   var self = this;
   var _binary = "";
