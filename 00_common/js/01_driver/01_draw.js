@@ -136,14 +136,12 @@ My_entry.draw.prototype.label = function(text, vec0, opt_fontSize, opt_styleRGBA
   ctx.globalCompositeOperation = opt_globalCompositeOperation || ctx.globalCompositeOperation;
   var w = ctx.measureText(text).width;
   var h = fontSize;
-  var w2 = (isY)? -fontSize*2*(2.5+Math.min(1, fontSize/12)*1.0): 0;
-  var h2 = (isY)? 0: fontSize*(3+Math.min(1, fontSize/12)*0.5);
   var t = (isY)? -Math.PI/2: 0;
-  var x0 = Math.floor(vec0.x+w2);
-  var y0 = Math.floor(vec0.y+h2);
+  var x0 = Math.floor(vec0.x);
+  var y0 = Math.floor(vec0.y);
   ctx.setTransform(Math.cos(t), Math.sin(t), -Math.sin(t), Math.cos(t), x0, y0);
   var x = Math.floor(-w/2);
-  var y = Math.floor(h/2);
+  var y = (isY)? Math.floor(h): 0;
   ctx.fillText(text, x, y);
   ctx.strokeText(text, x, y);
   ctx.restore();

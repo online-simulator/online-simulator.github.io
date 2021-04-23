@@ -259,7 +259,7 @@ My_entry.canvas.prototype.text = function(text, x0, y0, opt_fontSize, opt_styleR
 };
 My_entry.canvas.prototype.label = function(text, x0, y0, opt_fontSize, opt_styleRGBA, opt_globalCompositeOperation, isY){
   var self = this;
-  var vecp0 = {x: self.x2xp(x0), y: self.y2myp(y0)};
+  var vecp0 = (isY)? {x: self.px_w*x0, y: self.y2myp(y0)}: {x: self.x2xp(x0), y: self.px_h*(1-y0)};
   self.draw.label(text, vecp0, opt_fontSize, opt_styleRGBA, opt_globalCompositeOperation, isY);
   return self;
 };

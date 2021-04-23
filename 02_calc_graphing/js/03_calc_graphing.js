@@ -575,6 +575,7 @@ My_entry.calc_graphing.prototype.init_handlers = function(){
       case "select-font-size":
       case "select-grid-x-Ni":
       case "select-grid-y-Nj":
+      case "select-kx-adjust":
         self.re_plot(true);
         break;
       case "input-bg-color":

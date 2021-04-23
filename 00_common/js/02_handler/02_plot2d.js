@@ -17,10 +17,9 @@ My_entry.plot2d.prototype.config = {
     Ni0: 6,
     Nj0: 6,
     fontSize: 12,
-    decDigit: 5
-  },
-  threshold: {
-    px: 256
+    decDigit: 5,
+    ratio_x: 0.05,
+    ratio_y: 0.05
   }
 };
 My_entry.plot2d.prototype.init = function(id, opt_px_w, opt_px_h, opt_px_b){
@@ -207,14 +206,14 @@ My_entry.plot2d.prototype.grid = function(x0, y0, x1, y1, Ni, Nj, isLog_x, isLog
       var tx = self.trans(0, isLog_x);
       grid.line(tx, ty0, tx, ty1, lineWidth, styleRGBA, globalCompositeOperation);
     }
-    grid.label(label_x, (tx0+tx1)/2, ty0, fontSize, styleRGBA, globalCompositeOperation, false);
+    grid.label(label_x, (tx0+tx1)/2, self.config.default.ratio_y, fontSize, styleRGBA, globalCompositeOperation, false);
   }
   if(label_y){
     if(ty0 <= 0 && ty1 >= 0 && !(isLog_y)){
       var ty = self.trans(0, isLog_y);
       grid.line(tx0, ty, tx1, ty, lineWidth, styleRGBA, globalCompositeOperation);
     }
-    grid.label(label_y, tx0, (ty0+ty1)/2, fontSize, styleRGBA, globalCompositeOperation, true);
+    grid.label(label_y, self.config.default.ratio_x, (ty0+ty1)/2, fontSize, styleRGBA, globalCompositeOperation, true);
   }
   /* -> 0.5.0 */
   for(var i=0; i<len_i; ++i){
@@ -238,16 +237,14 @@ My_entry.plot2d.prototype.grid = function(x0, y0, x1, y1, Ni, Nj, isLog_x, isLog
 /* 0.5.0 -> */
 My_entry.plot2d.prototype.get_kx = function(fontSize){
   var self = this;
-  var k = (self.px_w < self.config.threshold.px)? 2: 1;
-  return (self.config.default.px_w/self.px_w)*(fontSize/self.config.default.fontSize)*k;
+  return (self.config.default.px_w/self.px_w)*(fontSize/self.config.default.fontSize);
 };
 My_entry.plot2d.prototype.get_ky = function(fontSize){
   var self = this;
-  var k = (self.px_h < self.config.threshold.px)? 2: 1;
-  return (self.config.default.px_h/self.px_h)*(fontSize/self.config.default.fontSize)*k;
+  return (self.config.default.px_h/self.px_h)*(fontSize/self.config.default.fontSize);
 };
 /* -> 0.5.0 */
-My_entry.plot2d.prototype.change_scale = function(gxmin, gymin, gxmax, gymax, isLog_x, isLog_y, isAxis_x, isAxis_y, fontSize){
+My_entry.plot2d.prototype.change_scale = function(gxmin, gymin, gxmax, gymax, isLog_x, isLog_y, isAxis_x, isAxis_y, fontSize, kxAdjust){
   var self = this;
   var grid = self.objs.grid;
   var plot = self.objs.plot;
@@ -260,7 +257,7 @@ My_entry.plot2d.prototype.change_scale = function(gxmin, gymin, gxmax, gymax, is
   /* 0.5.0 -> */
   var kx = self.get_kx(fontSize);
   var ky = self.get_ky(fontSize);
-  tgxmin -= (isAxis_y)? tgdx*2.5*kx: tgdx;
+  tgxmin -= (isAxis_y)? tgdx*kxAdjust*kx: tgdx;
   tgymin -= (isAxis_x)? tgdy*3.0*ky: tgdy;
   tgxmax += (isAxis_y)? tgdx*1.0*kx: tgdx;
   tgymax += (isAxis_x)? tgdy*1.0*ky: tgdy;
@@ -295,6 +292,7 @@ My_entry.plot2d.prototype.run = function(arr2d_vec, options){
   var fontSize = options["font-size"];
   var Ni0 = options["grid-x-Ni"];
   var Nj0 = options["grid-y-Nj"];
+  var kxAdjust = options["kx-adjust"];
   var arr2d_x = arr2d_vec.x;
   var arr2d_y = arr2d_vec.y;
   var len_n = arr2d_vec.len_n;
@@ -304,7 +302,7 @@ My_entry.plot2d.prototype.run = function(arr2d_vec, options){
   var gxmax = arr2d_vec.gxmax;
   var gymax = arr2d_vec.gymax;
   if(!(self.isChanged)){
-    self.change_scale(gxmin, gymin, gxmax, gymax, isLog_x, isLog_y, isAxis_x, isAxis_y, fontSize);
+    self.change_scale(gxmin, gymin, gxmax, gymax, isLog_x, isLog_y, isAxis_x, isAxis_y, fontSize, kxAdjust);
   }
   // legend
   var arr_markerType = new Array(len_j);
