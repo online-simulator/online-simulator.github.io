@@ -203,14 +203,14 @@ My_entry.plot2d.prototype.grid = function(x0, y0, x1, y1, Ni, Nj, isLog_x, isLog
   var ty1 = self.trans(y1, isLog_y);
   /* 0.5.0 -> */
   if(label_x){
-    if(!(isLog_x)){
+    if(tx0 <= 0 && tx1 >= 0 && !(isLog_x)){
       var tx = self.trans(0, isLog_x);
       grid.line(tx, ty0, tx, ty1, lineWidth, styleRGBA, globalCompositeOperation);
     }
     grid.label(label_x, (tx0+tx1)/2, ty0, fontSize, styleRGBA, globalCompositeOperation, false);
   }
   if(label_y){
-    if(!(isLog_y)){
+    if(ty0 <= 0 && ty1 >= 0 && !(isLog_y)){
       var ty = self.trans(0, isLog_y);
       grid.line(tx0, ty, tx1, ty, lineWidth, styleRGBA, globalCompositeOperation);
     }
