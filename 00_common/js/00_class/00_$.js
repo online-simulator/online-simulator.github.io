@@ -407,11 +407,11 @@ My_entry.$.prototype.get_elemProps = function(selector, separator, prop, obj){
   });
   return _obj;
 };
-My_entry.$.prototype.readFile_elem = function(elem, type, opt_callback){
+My_entry.$.prototype.readFile_elem = function(elem, re, opt_callback){
   var self = this;
   var _file = null;
   var file = (elem.files)? elem.files[elem.files.length-1]: null;
-  if(window.FileReader && file && file.type.match(type)){
+  if(window.FileReader && file && file.type.match(re)){
     var reader = new FileReader();
     reader.onload = function(e){
       if(opt_callback){
@@ -423,8 +423,8 @@ My_entry.$.prototype.readFile_elem = function(elem, type, opt_callback){
   }
   return _file;
 };
-My_entry.$.prototype.readFile_id = function(id, type, opt_callback){
+My_entry.$.prototype.readFile_id = function(id, re, opt_callback){
   var self = this;
   var elem = self._id(id);
-  return self.readFile_elem(elem, type, opt_callback);
+  return self.readFile_elem(elem, re, opt_callback);
 };

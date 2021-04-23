@@ -387,6 +387,11 @@ My_entry.calc_graphing.prototype.init_handlers = function(){
     }
     return DATA.out2num(data.out);
   };
+  var clear_imageBg = function(){
+    $._id("input-file-bg").value = null;
+    self.plot2d.setter.base64_bg(null);
+    self.plot2d.setter.img_bg(null);
+  };
   self.handlers.onload = function(e){
     var self = this;
     // canvas
@@ -546,9 +551,7 @@ My_entry.calc_graphing.prototype.init_handlers = function(){
       case "select-canvas-height":
         var px_w = $.selectNum_id("select-canvas-width");
         var px_h = $.selectNum_id("select-canvas-height");
-        $._id("input-file-bg").value = null;
-        self.plot2d.setter.base64_bg(null);
-        self.plot2d.setter.img_bg(null);
+        clear_imageBg();
         self.plot2d.update(px_w, px_h);
         self.re_plot(true);
         break;
@@ -570,6 +573,8 @@ My_entry.calc_graphing.prototype.init_handlers = function(){
       case "select-canvas-globalCompositeOperationLayer":
       case "select-canvas-globalCompositeOperation":
       case "select-font-size":
+      case "select-grid-x-Ni":
+      case "select-grid-y-Nj":
         self.re_plot(true);
         break;
       case "input-bg-color":
@@ -577,9 +582,10 @@ My_entry.calc_graphing.prototype.init_handlers = function(){
         $.set_elem(elem, "background", elem.value);
         self.re_plot(true);
         break;
+      /* Ver.2.15.5 */
       /* Ver.2.14.5 */
       case "input-file-bg":
-        $.readFile_elem(elem, "image", function(e){
+        var file = $.readFile_elem(elem, /^image/, function(e){
           var base64 = e.target.result;
           self.plot2d.setter.base64_bg(base64);
           self.entry.conv.base2img(base64, function(e, img){
@@ -587,6 +593,10 @@ My_entry.calc_graphing.prototype.init_handlers = function(){
             self.re_plot(true);
           });
         });
+        if(!(file)){
+          clear_imageBg();
+          self.re_plot(true);
+        }
         break;
       default:
         break;

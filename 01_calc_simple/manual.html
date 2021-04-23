@@ -684,11 +684,15 @@ markerType:markerColor:markerSize:markerLineWidth:plotLineWidth:fillPath
 <br>
 plot-configについて記述する
 <br>
-・描画canvasサイズ(canvas-width, canvas-height)を選択可
+・描画canvasサイズcanvas-width/canvas-heightを選択可
 <br>
 ・bg-image-fileは任意サイズ背景画像ファイルを読込み可
 <br>
-　canvasサイズを変更でreset
+　readキャンセル||image-file以外を選択で背景reset
+<br>
+　canvasサイズはresetしない
+<br>
+　canvasサイズ変更で背景reset
 <br>
 ・背景色はbg-colorの入力値優先で省略時、canvas-backgroundの選択値
 <br>
@@ -696,11 +700,23 @@ plot-configについて記述する
 <br>
 ・bg-colorとgrid-line-color（既定値gray）の入力欄はz同様に色指定可
 <br>
+・grid線幅grid-line-widthを選択可
+<br>
+・markerサイズmarker-sizeを選択可
+<br>
+・marker線幅marker-line-widthを選択可
+<br>
+・plot線幅plot-line-widthを選択可
+<br>
 ・各レイヤーの合成方法canvas-globalCompositeOperationLayerを選択可
 <br>
 ・各レイヤーの背景への合成方法canvas-globalCompositeOperationを選択可
 <br>
 　background &lt;- grid &lt;- plotの順に背景にRGBA値を合成して出力する
+<br>
+・各軸共通のlabel/valueのfont-sizeを選択可
+<br>
+・各軸のgrid分割数grid-x-Ni/grid-y-Njを選択可
 <br>
 <br>
 マルチスレッド実行の場合、plotボタンと=ボタンは並列に実行可

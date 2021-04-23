@@ -203,9 +203,17 @@ My_entry.plot2d.prototype.grid = function(x0, y0, x1, y1, Ni, Nj, isLog_x, isLog
   /* 0.5.0 -> */
   var ed = (Math.min(self.px_w, self.px_h) < self.config.threshold.px)? 0: 1;
   if(label_x){
+    if(!(isLog_x)){
+      var tx = self.trans(0, isLog_x);
+      grid.line(tx, ty0, tx, ty1, lineWidth, styleRGBA, globalCompositeOperation);
+    }
     grid.label(label_x, (tx0+tx1)/2, ty0, fontSize, styleRGBA, globalCompositeOperation, false);
   }
   if(label_y){
+    if(!(isLog_y)){
+      var ty = self.trans(0, isLog_y);
+      grid.line(tx0, ty, tx1, ty, lineWidth, styleRGBA, globalCompositeOperation);
+    }
     grid.label(label_y, tx0, (ty0+ty1)/2, fontSize, styleRGBA, globalCompositeOperation, true);
   }
   /* -> 0.5.0 */
@@ -282,6 +290,8 @@ My_entry.plot2d.prototype.run = function(arr2d_vec, options){
   var isAxis_x = options["axis-x"];
   var isAxis_y = options["axis-y"];
   var fontSize = options["font-size"];
+  var Ni0 = options["grid-x-Ni"];
+  var Nj0 = options["grid-y-Nj"];
   var arr2d_x = arr2d_vec.x;
   var arr2d_y = arr2d_vec.y;
   var len_n = arr2d_vec.len_n;
@@ -358,8 +368,14 @@ My_entry.plot2d.prototype.run = function(arr2d_vec, options){
   }
   // grid
   /* 0.5.0 -> */
-  var Ni = (isAxis_x)? Math.floor(self.config.default.Ni0/self.get_kx(fontSize)) || 1: self.config.default.Ni;
-  var Nj = (isAxis_y)? Math.floor(self.config.default.Nj0/self.get_ky(fontSize)) || 1: self.config.default.Nj;
+  var Ni = Ni0;
+  var Nj = Nj0;
+  if(!(Ni)){
+    Ni = (isAxis_x)? Math.floor(self.config.default.Ni0/self.get_kx(fontSize)) || 1: self.config.default.Ni;
+  }
+  if(!(Nj)){
+    Nj = (isAxis_y)? Math.floor(self.config.default.Nj0/self.get_ky(fontSize)) || 1: self.config.default.Nj;
+  }
   var label_x = "x(t)";
   label_x = (isImag_x)? "imag("+label_x+")": label_x;
   label_x = (isLog_x)? "log10("+label_x+")": label_x;

@@ -102,6 +102,7 @@
       $._id("legend1").onclick = function(){setVal("1e-3(1+i)", "1e2(1+i)", "x=t,x;", "x;2x;3x;4x;5x;6x;7x;8x;9x;10x;");$._id("input-z").value="circle:#f555;:#ff05;:#0f05;  // markerType:markerColor:markerSize:markerLineWidth:plotLineWidth:fillPath";};
       $._id("legend2").onclick = function(){setVal("1e-3(1+i)", "1e2(1+i)", "x=t,x;", "x;2x;3x;4x;5x;6x;7x;8x;9x;10x;");$._id("input-z").value=":red:10;::5:2;:#ffff0055:10;:#ff05/*#ffff0055*/:::10;::::0;  // Alpha not supported on IE11";};
       $._id("legend3").onclick = function(){setVal("1e-3", "1", "x=t,x;", "pow(x,1/4);pow(x,1/2);x;x^2;x^4;x^8;", 30);$._id("input-z").value="circle:red::::1;triangle:green;triangle2:blue;square:#00ff00;diamond:#00ff0055;cross:#ff05;";};
+      $._id("range").onclick = function(){setVal("0", "2pi", "ft=<e^(i(t)),ft;xmin=-2(1+i),xmax=3(1+i),xmin;xmax;", "_dt(=<{-ft});ymin=-3(1+i),ymax=2(1+i),ymin;ymax;", 50);$._id("input-z").value=":yellow;:#0000/*#00000000*/:0:0:0/*or No marker for IE*/;";};
     });
   })(document);
 </script>
@@ -182,6 +183,8 @@ plot2d
   <button id="legend1">z-legend1</button>
   <button id="legend2">legend2</button>
   <button id="legend3">legend3</button>
+<br>
+  <button id="range">axis range</button>
         </td>
       </tr>
       <tr>
@@ -569,6 +572,56 @@ z:
   <option value="35">35px</option>
   <option value="40">40px</option>
   <option value="50">50px</option>
+</select>
+    </label>
+    <label>grid-x-Ni:
+<select id="select-grid-x-Ni">
+  <option value=0>auto</option>
+  <option>1</option>
+  <option>2</option>
+  <option>3</option>
+  <option>4</option>
+  <option>5</option>
+  <option>6</option>
+  <option>7</option>
+  <option>8</option>
+  <option>9</option>
+  <option>10</option>
+  <option>11</option>
+  <option>12</option>
+  <option>13</option>
+  <option>14</option>
+  <option>15</option>
+  <option>16</option>
+  <option>17</option>
+  <option>18</option>
+  <option>19</option>
+  <option>20</option>
+</select>
+    </label>
+    <label>grid-y-Nj:
+<select id="select-grid-y-Nj">
+  <option value=0>auto</option>
+  <option>1</option>
+  <option>2</option>
+  <option>3</option>
+  <option>4</option>
+  <option>5</option>
+  <option>6</option>
+  <option>7</option>
+  <option>8</option>
+  <option>9</option>
+  <option>10</option>
+  <option>11</option>
+  <option>12</option>
+  <option>13</option>
+  <option>14</option>
+  <option>15</option>
+  <option>16</option>
+  <option>17</option>
+  <option>18</option>
+  <option>19</option>
+  <option>20</option>
 </select>
     </label>
   </div>
