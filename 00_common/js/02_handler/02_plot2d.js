@@ -486,7 +486,10 @@ My_entry.plot2d.prototype.run = function(arr2d_vec, options){
       var str = arr_str[j];
       var strFontSize = arr_strFontSize[j];
       if(plotLineWidth || markerSize){
-        var dxp = Math.max(strFontSize, markerSize*2);
+        var dxp = Math.max(strFontSize, plotLineWidth);
+        if(markerSize){
+          dxp = Math.max(dxp, Math.max(markerLineWidth, markerSize)*2);
+        }
         var dyp = (dxp/2)*kh;
         var xp0 = xp;
         var xp1 = xp+Math.max(dxp*2, 10);
