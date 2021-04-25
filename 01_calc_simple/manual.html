@@ -639,6 +639,8 @@ Graphing Calculatorの操作パネルについて記述する
 <br>
 ・stopボタンは演算・描画実行を中断する・軸スケールを初期化する
 <br>
+・lのcheckboxはlegend表示を選択
+<br>
 ・tの入力欄に媒介変数の範囲下限と範囲上限の複素数値を入力
 <br>
 ・媒介変数tの範囲等分割数Nを選択
@@ -667,19 +669,23 @@ Graphing Calculatorの操作パネルについて記述する
 <br>
 　・y(t)の最小値~最大値を出力欄に表示
 <br>
-・zの入力欄にレジェンドのデータセットをセミコロン;区切りで入力
+・zの入力欄にlegendのデータセットをセミコロン;区切りで入力
 <br>
 　・空欄で既定の描画
 <br>
-　・レジェンドのデータセットは設定値をコロン:区切りで入力
+　・legendのデータセットは設定値をコロン:区切りで入力
 <br>
-markerType:markerColor:markerSize:markerLineWidth:plotLineWidth:fillPath
+markerType:markerColor:markerSize:markerLineWidth:plotLineWidth:fillPath:
+<br>
+str:strFontSize
 <br>
 　・markerTypeはcircle||triangle||triangle2||square||diamond||cross
 <br>
 　・markerColorはカラー名（black等）またはHEX表記RGBA（#00000000等）
 <br>
 　・fillPathは0以外を指定でplot線を閉じてfill
+<br>
+　・strはstrFontSizeのlegend文字列
 <br>
 <br>
 plot-configについて記述する
@@ -708,17 +714,21 @@ plot-configについて記述する
 <br>
 ・plot線幅plot-line-widthを選択可
 <br>
-・各レイヤーの合成方法canvas-globalCompositeOperationLayerを選択可
-<br>
-・各レイヤーの背景への合成方法canvas-globalCompositeOperationを選択可
-<br>
-　background &lt;- grid &lt;- plotの順に背景にRGBA値を合成して出力する
-<br>
 ・各軸共通のlabel/valueのfont-sizeを選択可
 <br>
 ・各軸のgrid分割数grid-x-Ni/grid-y-Njを選択可
 <br>
 ・余白の調整係数kx-adjを選択可
+<br>
+・legendのx位置を調整するlegend-kxを選択可
+<br>
+・legendのy位置を調整するlegend-kyを選択可
+<br>
+・各レイヤーの合成方法canvas-globalCompositeOperationLayerを選択可
+<br>
+・各レイヤーの背景への合成方法canvas-globalCompositeOperationを選択可
+<br>
+　background &lt;- grid &lt;- plotの順に背景にRGBA値を合成して出力する
 <br>
 <br>
 マルチスレッド実行の場合、plotボタンと=ボタンは並列に実行可

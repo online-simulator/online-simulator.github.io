@@ -17,9 +17,11 @@ My_entry.plot2d.prototype.config = {
     Ni0: 6,
     Nj0: 6,
     fontSize: 12,
+    dfontSize: 2,
     decDigit: 5,
     ratio_x: 0.05,
-    ratio_y: 0.05
+    ratio_y: 0.05,
+    kh: 1.25
   }
 };
 My_entry.plot2d.prototype.init = function(id, opt_px_w, opt_px_h, opt_px_b){
@@ -107,7 +109,7 @@ My_entry.plot2d.prototype.init_handlers = function(){
       temp.clear();
       var vec0 = self.vec0;
       var vec1 = self.vec1 = temp.get_offset(e);
-      temp.draw.rectangle(vec0, vec1, 3, self.config.default.selectedLineColor);
+      temp.draw.rectangle(vec0, vec1, 3, self.config.default.selectedLineColor, null);
     }
   };
   handlers.onmouseup = function(e){
@@ -207,7 +209,7 @@ My_entry.plot2d.prototype.grid = function(x0, y0, x1, y1, Ni, Nj, isLog_x, isLog
       grid.line(tx, ty0, tx, ty1, lineWidth, styleRGBA, globalCompositeOperation);
     }
     if(!(self.isChanged)){
-      grid.label(label_x, (tx0+tx1)/2, self.config.default.ratio_y, fontSize, styleRGBA, globalCompositeOperation, false);
+      grid.label(label_x, (tx0+tx1)/2, self.config.default.ratio_y, fontSize+self.config.default.dfontSize, styleRGBA, globalCompositeOperation, false);
     }
   }
   if(label_y){
@@ -216,7 +218,7 @@ My_entry.plot2d.prototype.grid = function(x0, y0, x1, y1, Ni, Nj, isLog_x, isLog
       grid.line(tx0, ty, tx1, ty, lineWidth, styleRGBA, globalCompositeOperation);
     }
     if(!(self.isChanged)){
-      grid.label(label_y, self.config.default.ratio_x, (ty0+ty1)/2, fontSize, styleRGBA, globalCompositeOperation, true);
+      grid.label(label_y, self.config.default.ratio_x, (ty0+ty1)/2, fontSize+self.config.default.dfontSize, styleRGBA, globalCompositeOperation, true);
     }
   }
   /* -> 0.5.0 */
@@ -285,6 +287,7 @@ My_entry.plot2d.prototype.run = function(arr2d_vec, options){
   var plotLineWidth0 = options["plot-line-width"];
   var gridLineWidth = options["grid-line-width"];
   var gridLineColor = options["grid-line-color"];
+  var backgroundColor = options["bg-color"] || options["canvas-background"];
 //  var globalCompositeOperation = options["globalCompositeOperationAll"] || null;  // 0.2.0 urlParam || source-over
   var globalCompositeOperation = options["canvas-globalCompositeOperationLayer"] || null;  // 0.3.0 selectVal || source-over
   var isLog_x = options["log-x"];
@@ -293,10 +296,13 @@ My_entry.plot2d.prototype.run = function(arr2d_vec, options){
   var isImag_y = options["imag-y"];
   var isAxis_x = options["axis-x"];
   var isAxis_y = options["axis-y"];
+  var isLegend = options["legend"];
   var fontSize = options["font-size"];
   var Ni0 = options["grid-x-Ni"];
   var Nj0 = options["grid-y-Nj"];
   var kxAdjust = options["kx-adjust"];
+  var legend_kx = options["legend-kx"];
+  var legend_ky = options["legend-ky"];
   var arr2d_x = arr2d_vec.x;
   var arr2d_y = arr2d_vec.y;
   var len_n = arr2d_vec.len_n;
@@ -309,12 +315,22 @@ My_entry.plot2d.prototype.run = function(arr2d_vec, options){
     self.change_scale(gxmin, gymin, gxmax, gymax, isLog_x, isLog_y, isAxis_x, isAxis_y, fontSize, kxAdjust);
   }
   // legend
+  /* 0.1.0 -> */
   var arr_markerType = new Array(len_j);
   var arr_styleRGBA = new Array(len_j);
+  /* -> 0.1.0 */
+  /* 0.2.0 -> */
   var arr_markerSize = new Array(len_j);
   var arr_markerLineWidth = new Array(len_j);
   var arr_plotLineWidth = new Array(len_j);
+  /* -> 0.2.0 */
+  /* 0.4.0 -> */
   var arr_fillPath = new Array(len_j);
+  /* -> 0.4.0 */
+  /* 0.6.0 -> */
+  var arr_str = new Array(len_j);
+  var arr_strFontSize = new Array(len_j);
+  /* -> 0.6.0 */
   var inputZ = options["input-z"] || "";
   var arr_legend = inputZ.split(";");
   var markerType = null;
@@ -323,6 +339,7 @@ My_entry.plot2d.prototype.run = function(arr2d_vec, options){
   var markerLineWidth = null;
   var plotLineWidth = null;
   var fillPath = null;
+  var strFontSize = null;
   for(var j=0; j<len_j; ++j){
     var legend = arr_legend[j];
     var type = null;
@@ -331,6 +348,8 @@ My_entry.plot2d.prototype.run = function(arr2d_vec, options){
     var lineWidth = null;
     var plineWidth = null;
     var fill = null;
+    var str = null;
+    var strSize = null;
     if(legend){
       var arr_config = legend.split(":");
       type = arr_config[0];
@@ -339,6 +358,8 @@ My_entry.plot2d.prototype.run = function(arr2d_vec, options){
       lineWidth = arr_config[3];
       plineWidth = arr_config[4];
       fill = arr_config[5];
+      str = arr_config[6];
+      strSize = arr_config[7];
       type = (self.entry.def.hasElem_arr(markers, type))? type: null;
     }
     /* 0.1.0 -> */
@@ -353,6 +374,9 @@ My_entry.plot2d.prototype.run = function(arr2d_vec, options){
     /* -> 0.2.0 */
     fillPath = fill || fillPath;
     /* -> 0.4.0 */
+    /* 0.6.0 -> */
+    strFontSize = def.get_number(strSize, strFontSize, fontSize);
+    /* -> 0.6.0 */
     var G = (len_j>1)? Math.floor(j*255/(len_j-1)): 0;
     var R = Math.floor(255-G)%256;
     var B = Math.floor(G<<1)%(256-1);
@@ -362,6 +386,8 @@ My_entry.plot2d.prototype.run = function(arr2d_vec, options){
     arr_markerLineWidth[j] = markerLineWidth;
     arr_plotLineWidth[j] = plotLineWidth;
     arr_fillPath[j] = fillPath;
+    arr_str[j] = str;
+    arr_strFontSize[j] = strFontSize;
   }
   // background
   var img_bg = self.img_bg;
@@ -369,7 +395,7 @@ My_entry.plot2d.prototype.run = function(arr2d_vec, options){
     background.ctx.drawImage(img_bg, 0, 0);
   }
   else{
-    background.fill(options["bg-color"] || options["canvas-background"], globalCompositeOperation);
+    background.fill(backgroundColor, globalCompositeOperation);
   }
   // grid
   /* 0.5.0 -> */
@@ -431,6 +457,48 @@ My_entry.plot2d.prototype.run = function(arr2d_vec, options){
       }
     }
   }
+  /* 0.6.0 -> */
+  // legends
+  if(isLegend){
+    var arr_x = arr2d_vec.arr_x;
+    var arr_y = arr2d_vec.arr_y;
+    var text_x = "";
+    var text_y = "";
+//    var markerSize_max = Math.max.apply(Math, arr_markerSize);
+    var kh = self.config.default.kh;
+    var xp = self.px_w*legend_kx;
+    var yp = self.px_h*legend_ky;
+    for(var j=0; j<len_j; ++j){
+      var markerType = arr_markerType[j];
+      var styleRGBA = arr_styleRGBA[j];
+      var markerSize = arr_markerSize[j];
+      var markerLineWidth = arr_markerLineWidth[j];
+      var plotLineWidth = arr_plotLineWidth[j];
+      var str = arr_str[j];
+      var strFontSize = arr_strFontSize[j];
+      if(plotLineWidth || markerSize){
+        var dxp = Math.max(strFontSize, markerSize*2);
+        var dyp = (dxp/2)*kh;
+        var xp0 = xp;
+        var xp1 = xp+Math.max(dxp*2, 10);
+        yp += dyp;
+        var arr_xj = arr_x[j];
+        var arr_yj = arr_y[j];
+        text_x = (arr_xj)? arr_xj: text_x;
+        text_y = (arr_yj)? arr_yj: text_y;
+        var text = str || ""+text_x+";"+text_y+"";
+        plot.draw.textbox(text, {x: xp0, y: yp}, {x: xp1, y: yp}, strFontSize, backgroundColor, gridLineColor, globalCompositeOperation);
+        if(plotLineWidth){
+          plot.draw.line({x: xp0, y: yp}, {x: xp1, y: yp}, plotLineWidth, styleRGBA, globalCompositeOperation);
+        }
+        if(markerSize){
+          plot.draw[markerType]({x: (xp0+xp1)/2, y: yp}, markerSize, markerLineWidth, styleRGBA, globalCompositeOperation);
+        }
+        yp += dyp;
+      }
+    }
+  }
+  /* -> 0.6.0 */
   temp.attach(self.handlers);  // 0.4.0 moved from final()
   self.isLocked = false;
   return self;

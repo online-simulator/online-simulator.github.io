@@ -11,6 +11,77 @@ My_entry.draw.prototype.init = function(ctx){
   self.ctx = ctx;
   return self;
 };
+/* Ver.0.6.0 -> moved from canvas.js */
+My_entry.draw.prototype.hex2dec = function(hex_8bit){
+  var self = this;
+  var dec_8bit = Number("0x"+hex_8bit);
+  if(isNaN(dec_8bit)){
+    dec_8bit = 0;
+  }
+  return Math.min(255, Math.max(0, dec_8bit));
+};
+My_entry.draw.prototype.hex2rgba = function(hex){
+  var self = this;
+  var _rgba = null;
+  if(hex){
+    var re = /#/g;
+    if(hex.match(re)){
+      var newHex = hex.replace(re, "");
+      var len = newHex.length;
+      var r = 0;
+      var g = 0;
+      var b = 0;
+      var a = 0;
+      if(len === 3){
+        r = newHex.substr(0, 1);
+        g = newHex.substr(1, 1);
+        b = newHex.substr(2, 1);
+        r = self.hex2dec(r+r);
+        g = self.hex2dec(g+g);
+        b = self.hex2dec(b+b);
+        a = 255;
+      }
+      else if(len === 4){
+        r = newHex.substr(0, 1);
+        g = newHex.substr(1, 1);
+        b = newHex.substr(2, 1);
+        a = newHex.substr(3, 1);
+        r = self.hex2dec(r+r);
+        g = self.hex2dec(g+g);
+        b = self.hex2dec(b+b);
+        a = self.hex2dec(a+a);
+      }
+      else if(len === 6){
+        r = newHex.substr(0, 2);
+        g = newHex.substr(2, 2);
+        b = newHex.substr(4, 2);
+        r = self.hex2dec(r);
+        g = self.hex2dec(g);
+        b = self.hex2dec(b);
+        a = 255;
+      }
+      else if(len === 8){
+        r = newHex.substr(0, 2);
+        g = newHex.substr(2, 2);
+        b = newHex.substr(4, 2);
+        a = newHex.substr(6, 2);
+        r = self.hex2dec(r);
+        g = self.hex2dec(g);
+        b = self.hex2dec(b);
+        a = self.hex2dec(a);
+      }
+      _rgba = "rgba("+r+","+g+","+b+","+a/255+")";  // a=0~1
+    }
+    else{
+      _rgba = hex;  // "black"
+    }
+  }
+  else{
+    _rgba = "rgba(0, 0, 0, 0)";
+  }
+  return _rgba;
+};
+/* -> Ver.0.6.0 */
 My_entry.draw.prototype.rotate2d_vec = function(vec, t){
   var self = this;
   var cos_t = Math.cos(t);
@@ -18,27 +89,29 @@ My_entry.draw.prototype.rotate2d_vec = function(vec, t){
   return {x: vec.x*(cos_t)-vec.y*(sin_t), y: vec.x*(sin_t)+vec.y*(cos_t)};
 //  return {x: vec.x*(cos_t)+vec.y*(sin_t), y: vec.x*(-sin_t)+vec.y*(cos_t)};
 };
-My_entry.draw.prototype.rectangle = function(vec0, vec1, opt_lineWidth, opt_styleRGBA, opt_globalCompositeOperation){
+My_entry.draw.prototype.rectangle = function(vec0, vec1, opt_lineWidth, opt_styleRGBA, opt_globalCompositeOperation, opt_fill){
   var self = this;
   var ctx = self.ctx;
   ctx.save();
   ctx.lineWidth = opt_lineWidth || 0;
-  if(opt_styleRGBA){
-    ctx.fillStyle = ctx.strokeStyle = opt_styleRGBA;
-  }
+  ctx.fillStyle = ctx.strokeStyle = self.hex2rgba(opt_styleRGBA);
   ctx.globalCompositeOperation = opt_globalCompositeOperation || ctx.globalCompositeOperation;
-  ctx.strokeRect(vec0.x, vec0.y, vec1.x-vec0.x, vec1.y-vec0.y);
+  if(opt_fill){
+    ctx.fillRect(vec0.x, vec0.y, vec1.x-vec0.x, vec1.y-vec0.y);
+  }
+  else{
+    ctx.strokeRect(vec0.x, vec0.y, vec1.x-vec0.x, vec1.y-vec0.y);
+  }
   ctx.restore();
   return self;
 };
 My_entry.draw.prototype.enter = function(r, opt_lineWidth, opt_styleRGBA, opt_globalCompositeOperation){
   var self = this;
   var ctx = self.ctx;
-  if(opt_styleRGBA){
-    ctx.fillStyle = ctx.strokeStyle = opt_styleRGBA;
-  }
+  var lineWidth = opt_lineWidth;
+  ctx.fillStyle = ctx.strokeStyle = self.hex2rgba(opt_styleRGBA);
   ctx.globalCompositeOperation = opt_globalCompositeOperation || ctx.globalCompositeOperation;  // 0.3.0 moved upper fill
-  if(opt_lineWidth){
+  if(lineWidth){
   }
   else{
     ctx.fill();
@@ -49,7 +122,7 @@ My_entry.draw.prototype.enter = function(r, opt_lineWidth, opt_styleRGBA, opt_gl
   }
   ctx.lineCap = "round";  // "butt" || "round" || "square"
   ctx.lineJoin = "round";  // "round" || "bevel" || "miter"
-  ctx.lineWidth = opt_lineWidth || r*0.3;
+  ctx.lineWidth = lineWidth || r*0.3;
   ctx.stroke();
   return self;
 };
@@ -108,13 +181,10 @@ My_entry.draw.prototype.lines = function(arr_vec, opt_lineWidth, opt_styleRGBA, 
 My_entry.draw.prototype.text = function(text, vec0, opt_fontSize, opt_styleRGBA, opt_globalCompositeOperation){
   var self = this;
   var ctx = self.ctx;
+  var fontSize = opt_fontSize || 0;
   ctx.save();
-  if(opt_fontSize){
-    ctx.font = opt_fontSize+"px sans-serif";
-  }
-  if(opt_styleRGBA){
-    ctx.fillStyle = ctx.strokeStyle = opt_styleRGBA;
-  }
+  ctx.font = fontSize+"px sans-serif";
+  ctx.fillStyle = ctx.strokeStyle = self.hex2rgba(opt_styleRGBA);
   ctx.globalCompositeOperation = opt_globalCompositeOperation || ctx.globalCompositeOperation;
   var x = Math.floor(vec0.x);
   var y = Math.floor(vec0.y);
@@ -126,13 +196,10 @@ My_entry.draw.prototype.text = function(text, vec0, opt_fontSize, opt_styleRGBA,
 My_entry.draw.prototype.label = function(text, vec0, opt_fontSize, opt_styleRGBA, opt_globalCompositeOperation, isY){
   var self = this;
   var ctx = self.ctx;
-  var fontSize = opt_fontSize || 10;
-  var dfontSize = 2;
+  var fontSize = opt_fontSize || 0;
   ctx.save();
-  ctx.font = (fontSize+dfontSize)+"px sans-serif";
-  if(opt_styleRGBA){
-    ctx.fillStyle = ctx.strokeStyle = opt_styleRGBA;
-  }
+  ctx.font = fontSize+"px sans-serif";
+  ctx.fillStyle = ctx.strokeStyle = self.hex2rgba(opt_styleRGBA);
   ctx.globalCompositeOperation = opt_globalCompositeOperation || ctx.globalCompositeOperation;
   var w = ctx.measureText(text).width;
   var h = fontSize;
@@ -150,12 +217,10 @@ My_entry.draw.prototype.label = function(text, vec0, opt_fontSize, opt_styleRGBA
 My_entry.draw.prototype.axis = function(text, vec0, opt_fontSize, opt_styleRGBA, opt_globalCompositeOperation, isY){
   var self = this;
   var ctx = self.ctx;
-  var fontSize = opt_fontSize || 10;
+  var fontSize = opt_fontSize || 0;
   ctx.save();
   ctx.font = fontSize+"px sans-serif";
-  if(opt_styleRGBA){
-    ctx.fillStyle = ctx.strokeStyle = opt_styleRGBA;
-  }
+  ctx.fillStyle = ctx.strokeStyle = self.hex2rgba(opt_styleRGBA);
   ctx.globalCompositeOperation = opt_globalCompositeOperation || ctx.globalCompositeOperation;
   var w = ctx.measureText(text).width;
   var h = fontSize;
@@ -169,6 +234,34 @@ My_entry.draw.prototype.axis = function(text, vec0, opt_fontSize, opt_styleRGBA,
   return self;
 };
 /* -> 0.5.0 */
+/* 0.6.0 -> */
+My_entry.draw.prototype.textbox = function(text, vec0, vec1, opt_fontSize, opt_styleRGBA_bg, opt_styleRGBA_fg, opt_globalCompositeOperation){
+  var self = this;
+  var ctx = self.ctx;
+  var fontSize = opt_fontSize || 0;
+  ctx.save();
+  ctx.font = fontSize+"px sans-serif";
+  ctx.fillStyle = ctx.strokeStyle = self.hex2rgba(opt_styleRGBA_bg);
+  var w = ctx.measureText(text).width;
+  var dw = fontSize;
+  var h = fontSize;
+  var hr2 = h/2;
+  ctx.fillRect(vec0.x, vec0.y-hr2, (vec1.x-vec0.x)+w+dw, h);
+  self.text(text, {x: vec1.x+dw, y: vec1.y+hr2}, opt_fontSize, opt_styleRGBA_fg, opt_globalCompositeOperation);
+  ctx.restore();
+  return self;
+};
+My_entry.draw.prototype.fill = function(vec0, vec1, opt_styleRGBA, opt_globalCompositeOperation){
+  var self = this;
+  var ctx = self.ctx;
+  ctx.save();
+  ctx.fillStyle = ctx.strokeStyle = self.hex2rgba(opt_styleRGBA);
+  ctx.globalCompositeOperation = opt_globalCompositeOperation || ctx.globalCompositeOperation;
+  ctx.fillRect(vec0.x, vec0.y, vec1.x-vec0.x, vec1.y-vec0.y);
+  ctx.restore();
+  return self;
+};
+/* -> 0.6.0 */
 My_entry.draw.prototype.circle = function(vec0, r, opt_lineWidth, opt_styleRGBA, opt_globalCompositeOperation){
   var self = this;
   var ctx = self.ctx;

@@ -131,6 +131,10 @@ My_entry.calc_graphing.prototype.plot = function(arr_data, options_plot, isFinal
       data.arr_num = self.entry.parser.make_arr_num(data);
     });
     var arr2d_vec = self.arr_data2arr2d_vec(arr_data, options_plot);
+    /* Ver.2.16.6 -> */
+    arr2d_vec.arr_x = self.arr_x;
+    arr2d_vec.arr_y = self.arr_y;
+    /* -> Ver.2.16.6 */
     self.output_axis(arr2d_vec, options_plot);
     if(isFinal){
       self.plot2d.final(arr2d_vec, options_plot);
@@ -580,6 +584,9 @@ My_entry.calc_graphing.prototype.init_handlers = function(){
       case "select-grid-x-Ni":
       case "select-grid-y-Nj":
       case "select-kx-adjust":
+      case "select-legend-kx":
+      case "select-legend-ky":
+      case "checkbox-legend":
         self.re_plot(true);
         break;
       case "input-bg-color":
