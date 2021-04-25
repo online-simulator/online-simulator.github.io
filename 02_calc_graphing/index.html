@@ -99,8 +99,8 @@
       $._id("probability").onclick = function(){setVal("10", "0", "N=t,t;", "Pb=3/*big prize[%]*/,Pn=<{100combin(10,n)(Pb/100)^n((100-Pb)/100)^(10-n)},n=N,Pn;PN=<_sn(=<Pn,N,10),PN;", 10);};
 //      $._id("physics").onclick = function(){setVal("0", "5", "t;", "g=-9.8,v0=20,y0=0,ya=y0+v0*t+g*t^2/2,ya;yn=y0+_it(=<{v0+_it(=<{g},0,t,10)},0,t,10),yn;", 20);};
       $._id("physics").onclick = function(){setVal("0", "5", "g=-9.8,z_a=0+g*i,z_v0=20+20i,z0=0,za=z0+z_v0*t+z_a*t^2/2,real(za);zn=z0+_it(=<{z_v0+_it(=<{z_a},0,t,10)},0,t,10),real(zn);", "imag(za);imag(zn);", 20);};
-      $._id("legend1").onclick = function(){setVal("1e-3(1+i)", "1e2(1+i)", "x=t,x;", "x;2x;3x;4x;5x;6x;7x;8x;9x;10x;");$._id("input-z").value="circle:#f555;:#ff05;:#0f05;  // markerType:markerColor:markerSize:markerLineWidth:plotLineWidth:fillPath";};
-      $._id("legend2").onclick = function(){setVal("1e-3(1+i)", "1e2(1+i)", "x=t,x;", "x;2x;3x;4x;5x;6x;7x;8x;9x;10x;");$._id("input-z").value=":red:10;::5:2;:#ffff0055:10;:#ff05/*#ffff0055*/:::10;::::0::arbitrary string:20;";};
+      $._id("legend1").onclick = function(){setVal("1e-3(1+i)", "1e2(1+i)", "x=t,x;", "x;2x;3x;4x;5x;6x;7x;8x;9x;10x;");$._id("input-z").value="circle:#f555/*#ff555555*/;:#ff05;:#0f05;  // markerType:markerColor:markerSize:markerLineWidth:plotLineWidth:fillPath:str:strFontSize";};
+      $._id("legend2").onclick = function(){setVal("1e-3(1+i)", "1e2(1+i)", "x=t,x;", "x;2x;3x;4x;5x;6x;7x;8x;9x;10x;");$._id("input-z").value=":red:10;::5:2;:#ffff0055:10;:#ff05:::10;::::0::arbitrary string:20;";};
       $._id("legend3").onclick = function(){setVal("1e-3", "1", "x=t,x;", "pow(x,1/4);pow(x,1/2);x;x^2;x^4;x^8;", 30);$._id("input-z").value="circle:red::::1;triangle:green;triangle2:blue;square:#00ff00;diamond:#00ff0055;cross:#ff05;";};
       $._id("range").onclick = function(){setVal("0", "2pi", "ft=<e^(i(t)),ft;xmin=-2(1+i),xmax=3(1+i),xmin;xmax;", "_dt(=<{-ft});ymin=-3(1+i),ymax=2(1+i),ymin;ymax;", 50);$._id("input-z").value=":yellow;:#0000/*#00000000*/:0:0:0;";};
     });
