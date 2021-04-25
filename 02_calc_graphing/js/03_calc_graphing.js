@@ -314,6 +314,7 @@ My_entry.calc_graphing.prototype.get_options = function(isPlot){
     _options["input-z"] = parser.remove_commentAndWspace(self.io.read_text(self.elems.z));
     _options["bg-color"] = $.inputVal_id("input-bg-color");
     _options["grid-line-color"] = $.inputVal_id("input-grid-line-color");
+    _options["title"] = $.inputVal_id("input-title");
     _options["logo"] = parser.make_logo({options: _options});  // including z
     _options["plot2d"] = self.make_log_plot2d();               // excluding z
   }
@@ -569,6 +570,7 @@ My_entry.calc_graphing.prototype.init_handlers = function(){
       case "checkbox-imag-y":
       case "checkbox-axis-x":
       case "checkbox-axis-y":
+      case "input-title":
         self.plot2d.init_flags();
         self.re_plot(true);
         break;

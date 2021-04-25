@@ -250,7 +250,7 @@ My_entry.plot2d.prototype.get_ky = function(fontSize){
   return (self.config.default.px_h/self.px_h)*(fontSize/self.config.default.fontSize);
 };
 /* -> 0.5.0 */
-My_entry.plot2d.prototype.change_scale = function(gxmin, gymin, gxmax, gymax, isLog_x, isLog_y, isAxis_x, isAxis_y, fontSize, kxAdjust){
+My_entry.plot2d.prototype.change_scale = function(gxmin, gymin, gxmax, gymax, isLog_x, isLog_y, isAxis_x, isAxis_y, fontSize, kxAdjust, kyAdjust){
   var self = this;
   var grid = self.objs.grid;
   var plot = self.objs.plot;
@@ -266,7 +266,7 @@ My_entry.plot2d.prototype.change_scale = function(gxmin, gymin, gxmax, gymax, is
   tgxmin -= (isAxis_y)? tgdx*kxAdjust*kx: tgdx;
   tgymin -= (isAxis_x)? tgdy*3.0*ky: tgdy;
   tgxmax += (isAxis_y)? tgdx*1.0*kx: tgdx;
-  tgymax += (isAxis_x)? tgdy*1.0*ky: tgdy;
+  tgymax += (isAxis_x)? tgdy*kyAdjust*ky: tgdy;
   /* -> 0.5.0 */
   grid.change_scale(tgxmin, tgymin, tgxmax, tgymax);
   plot.change_scale(tgxmin, tgymin, tgxmax, tgymax);
@@ -311,9 +311,6 @@ My_entry.plot2d.prototype.run = function(arr2d_vec, options){
   var gymin = arr2d_vec.gymin;
   var gxmax = arr2d_vec.gxmax;
   var gymax = arr2d_vec.gymax;
-  if(!(self.isChanged)){
-    self.change_scale(gxmin, gymin, gxmax, gymax, isLog_x, isLog_y, isAxis_x, isAxis_y, fontSize, kxAdjust);
-  }
   // legend
   /* 0.1.0 -> */
   var arr_markerType = new Array(len_j);
@@ -397,6 +394,18 @@ My_entry.plot2d.prototype.run = function(arr2d_vec, options){
   else{
     background.fill(backgroundColor, globalCompositeOperation);
   }
+  /* 0.6.0 -> */
+  // title
+  var title = options["title"];
+  if(!(self.isChanged)){
+    var fontSize1 = (title)? fontSize+self.config.default.dfontSize: 0;
+    var kyAdjust = 1+fontSize1*5/self.px_h;
+    self.change_scale(gxmin, gymin, gxmax, gymax, isLog_x, isLog_y, isAxis_x, isAxis_y, fontSize, kxAdjust, kyAdjust);
+    if(title){
+      plot.draw.label(title, {x: self.px_w/2, y: fontSize1}, fontSize1, gridLineColor, globalCompositeOperation, false);
+    }
+  }
+  /* -> 0.6.0 */
   // grid
   /* 0.5.0 -> */
   var Ni = Ni0;
