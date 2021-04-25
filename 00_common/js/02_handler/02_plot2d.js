@@ -486,14 +486,15 @@ My_entry.plot2d.prototype.run = function(arr2d_vec, options){
       var str = arr_str[j];
       var strFontSize = arr_strFontSize[j];
       if(plotLineWidth || markerSize){
-        var dxp = Math.max(strFontSize, plotLineWidth);
+        var drp = Math.max(strFontSize, plotLineWidth);
         if(markerSize){
-          dxp = Math.max(dxp, Math.max(markerLineWidth, markerSize)*2);
+          drp = Math.max(drp, Math.max(markerLineWidth, markerSize)*2);
         }
-        var dyp = (dxp/2)*kh;
+        var dxp = Math.max(drp*2, 10);
+        var dyp_half = (drp/2)*kh;
         var xp0 = xp;
-        var xp1 = xp+Math.max(dxp*2, 10);
-        yp += dyp;
+        var xp1 = xp+dxp;
+        yp += dyp_half;
         var arr_xj = arr_x[j];
         var arr_yj = arr_y[j];
         text_x = (arr_xj)? arr_xj: text_x;
@@ -506,7 +507,7 @@ My_entry.plot2d.prototype.run = function(arr2d_vec, options){
         if(markerSize){
           plot.draw[markerType]({x: (xp0+xp1)/2, y: yp}, markerSize, markerLineWidth, styleRGBA, globalCompositeOperation);
         }
-        yp += dyp;
+        yp += dyp_half;
       }
     }
   }

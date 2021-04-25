@@ -72,10 +72,10 @@
       $._id("heart").onclick = function(){setVal("0", "2pi", "pow(sin(t),3);", "y=7cos(t)-4cos(2t) -2cos(3t),y/7;", 50);};
       $._id("Lissajous").onclick = function(){setVal("0", "2pi", "cos(3t);", "sin(2t+pi/3);", 100);};
       $._id("rose").onclick = function(){setVal("0", "2pi", "sin(2t)cos(t);sin(4t)cos(t);sin(6t)cos(t);sin(6t)cos(5t);", "sin(2t)sin(t);sin(4t)sin(t);sin(6t)sin(t);sin(6t)sin(5t);", 100);};
-      $._id("polygon").onclick = function(){setVal("0", "2pi", "N=5,poly(t,N,0);", "poly(t,N,1);", 50);};
-      $._id("star1").onclick = function(){setVal("0", "2pi", "N=5,star(t,N,0);", "star(t,N,1);", 50);};
+      $._id("polygon").onclick = function(){setVal("0", "2pi", "N=5,poly(t,N,0);poly(t,N,1);", "poly(t,N,1);poly(t,N,0);", 50);};
+      $._id("star1").onclick = function(){setVal("0", "2pi", "N=5,star(t,N,0);kt=0.5,star(t,N,0,kt);", "star(t,N,1);star(t,N,1,kt);", 50);};
       $._id("star2").onclick = function(){setVal("0", "2pi", "x=t,N=11,z0=<star(x,N,1)+star(x,N,0)i,z1=<poly(x,N,1)+poly(x,N,0)i,t=-2pi/(3N),real(z0*e^(i(t)));real(z0*e^(i(2t)));real(z0*e^(i(3t)));real(z1);", "imag(z0*e^(i(t)));imag(z0*e^(i(2t)));imag(z0*e^(i(3t)));imag(z1);", 100);};
-      $._id("star3").onclick = function(){setVal("0", "2pi", "x=t,N=11,z0=<star(x,N,1,0.5)+star(x,N,0,0.5)i,z1=<poly(x,N,1)+poly(x,N,0)i,t=-2pi/(3N),real(z0*e^(i(t)));real(z0*e^(i(2t)));real(z0*e^(i(3t)));real(z1);", "imag(z0*e^(i(t)));imag(z0*e^(i(2t)));imag(z0*e^(i(3t)));imag(z1);", 100);};
+      $._id("star3").onclick = function(){setVal("0", "2pi", "x=t,N=11,kt=0.5,z0=<star(x,N,1,kt)+star(x,N,0,kt)i,z1=<poly(x,N,1)+poly(x,N,0)i,t=-2pi/(3N),real(z0*e^(i(t)));real(z0*e^(i(2t)));real(z0*e^(i(3t)));real(z1);", "imag(z0*e^(i(t)));imag(z0*e^(i(2t)));imag(z0*e^(i(3t)));imag(z1);", 100);};
       $._id("summation").onclick = function(){setVal("0", "10", "N=t,N;", "fn=<n(1+2i),_sn(=<fn,0,N);(1+2i)55;", 10);};
       $._id("product").onclick = function(){setVal("1", "10", "N=t,N;", "fn=<n,log10(_pn(=<fn,1,N));log10(10!);log10(_pn(=<fn,1,N,2));log10(9!!);", 10);};
       $._id("recurrence1").onclick = function(){setVal("0", "30", "N=t,a=0.9i,b=1,z0=0,fz=<a*z+b/*Call-by-Equation*/,fzN=_rz(=<fz,z0,N)/*Call-by-Value*/,real(fzN);z1=z0,fz1=<last{z=z1,z1=-fz}/*non-dimensionalized arbitrary formula as comma operator||fz1=<(z=z1,z1=-fz)*/,_rn(=<fz1,,N),real(z1);", "imag(fzN);", 30);};
