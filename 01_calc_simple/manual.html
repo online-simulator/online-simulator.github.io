@@ -655,7 +655,7 @@ Graphing Calculatorの操作パネルについて記述する
 <br>
 　・iのcheckboxは虚数表示を選択
 <br>
-　・x(t)の最小値~最大値を出力欄に表示
+　・x(t)のgrid最小値~最大値を入力
 <br>
 ・y(t)の入力欄に縦軸yの演算内容をセミコロン;区切りで入力
 <br>
@@ -667,7 +667,7 @@ Graphing Calculatorの操作パネルについて記述する
 <br>
 　・iのcheckboxは虚数表示を選択
 <br>
-　・y(t)の最小値~最大値を出力欄に表示
+　・y(t)のgrid最小値~最大値を入力
 <br>
 ・zの入力欄にlegendのデータセットをセミコロン;区切りで入力
 <br>
@@ -6922,6 +6922,18 @@ N=3; FourierN
 N=5; FourierN
 <br>
 -> infoLost[ri] 0.29934712994045387-1.0833440107828247i+O(2e-6+2e-6i)
+<br>
+・三角波
+<br>
+ft=&lt;asin(sin(t));
+<br>
+・矩形波
+<br>
+ft=&lt;sign(asin(sin(t)));
+<br>
+・のこぎり波
+<br>
+ft=&lt;sin(asin(t));
     </td>
   </tr>
   <tr>

@@ -115,6 +115,20 @@ My_entry.calc_graphing.prototype.output_axis = function(arr2d_vec, options_plot)
   $._id("input-ymax").value = callback(ymax);
   return self;
 };
+/* Ver.2.16.6 */
+My_entry.calc_graphing.prototype.input_axis = function(arr2d_vec){
+  var self = this;
+  var $ = self.entry.$;
+  var xmin = $.inputNum_id("input-xmin");
+  var ymin = $.inputNum_id("input-ymin");
+  var xmax = $.inputNum_id("input-xmax");
+  var ymax = $.inputNum_id("input-ymax");
+  arr2d_vec.gxmin = Math.min(Math.min(xmin, xmax), arr2d_vec.xmin);
+  arr2d_vec.gymin = Math.min(Math.min(ymin, ymax), arr2d_vec.ymin);
+  arr2d_vec.gxmax = Math.max(Math.max(xmin, xmax), arr2d_vec.xmax);
+  arr2d_vec.gymax = Math.max(Math.max(ymin, ymax), arr2d_vec.ymax);
+  return self;
+};
 My_entry.calc_graphing.prototype.output_msgError_plot = function(e){
   var self = this;
   var msg = self.entry.def.get_msgError(e, "Invalid plot2d");
@@ -135,7 +149,12 @@ My_entry.calc_graphing.prototype.plot = function(arr_data, options_plot, isFinal
     arr2d_vec.arr_x = self.arr_x;
     arr2d_vec.arr_y = self.arr_y;
     /* -> Ver.2.16.6 */
-    self.output_axis(arr2d_vec, options_plot);
+    if(self.plot2d.isChanged_axis){
+      self.input_axis(arr2d_vec);
+    }
+    else{
+      self.output_axis(arr2d_vec, options_plot);
+    }
     if(isFinal){
       self.plot2d.final(arr2d_vec, options_plot);
       var options_calc = arr_data[0].options;
@@ -566,6 +585,14 @@ My_entry.calc_graphing.prototype.init_handlers = function(){
         var px_h = $.selectNum_id("select-canvas-height");
         clear_imageBg();
         self.plot2d.update(px_w, px_h);
+        self.re_plot(true);
+        break;
+      /* Ver.2.16.6 */
+      case "input-xmin":
+      case "input-ymin":
+      case "input-xmax":
+      case "input-ymax":
+        self.plot2d.isChanged_axis = true;
         self.re_plot(true);
         break;
       case "checkbox-log-x":

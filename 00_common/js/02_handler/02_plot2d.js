@@ -51,6 +51,7 @@ My_entry.plot2d.prototype.init = function(id, opt_px_w, opt_px_h, opt_px_b){
   self.isDrawn = false;
   self.isDragging = false;
   self.isChanged = false;
+  self.isChanged_axis = false;
   self.vec0 = null;
   self.vec1 = null;
   self.id = id;
@@ -86,6 +87,7 @@ My_entry.plot2d.prototype.init_flags = function(){
   self.isDrawn = false;
   self.isDragging = false;
   self.isChanged = false;
+  self.isChanged_axis = false;
   return self;
 };
 My_entry.plot2d.prototype.init_handlers = function(){

@@ -89,7 +89,8 @@
       $._id("Maclaurin1").onclick = function(){setVal("-pi", "pi", "x=t,x;", "fx=<sin(x),fx;MaclaurinN=<_sn(=<{_dx(=<fx,n,0)x^n/n!},0,N),N=1,MaclaurinN;N=3,MaclaurinN;N=5,MaclaurinN;N=7,MaclaurinN;N=9,MaclaurinN;", 10);};
       $._id("Maclaurin2").onclick = function(){setVal("-(1+i)pi/4", "(1+i)pi/4", "x=t,x;", "fx=<sqrt(2-exp(sin(x)^2*x)/cos(x)),fx;MaclaurinN=<_sn(=<{_dx(=<fx,n,0)x^n/n!},0,N),N=1,MaclaurinN;N=3,MaclaurinN;N=5,MaclaurinN;N=7,MaclaurinN;N=9,MaclaurinN;", 10);};
       $._id("Taylor").onclick = function(){setVal("0", "2(1+i)pi/4", "x=t,x;", "fx=<exp(x)/cos(x),fx;TaylorN=<_sn(=<{_dx(=<fx,n,a)(x-a)^n/n!},0,N),a=(1+i)pi/4,N=1,TaylorN;N=3,TaylorN;N=5,TaylorN;N=7,TaylorN;N=9,TaylorN;", 10);};
-      $._id("Fourier").onclick = function(){setVal("-pi", "pi", "x=t,x;  // too heavy integral", "n0=2.5,n1=4.5,ft=<e^(i(n0)t)+e^(i(n1)t),ft;cn=<_it(=<{ft*e^(-i(n)t)},-pi,pi)/(2pi),FourierN=<_sn(=<{cn*e^(i(n)x)},-N,N),N=1,FourierN;N=2,FourierN;N=3,FourierN;N=4,FourierN;N=5,FourierN;" ,10);};
+//      $._id("Fourier").onclick = function(){setVal("-pi", "pi", "x=t,x;  // too heavy integral", "n0=2.5,n1=4.5,ft=<e^(i(n0)t)+e^(i(n1)t),ft;cn=<_it(=<{ft*e^(-i(n)t)},-pi,pi)/(2pi),FourierN=<_sn(=<{cn*e^(i(n)x)},-N,N),N=1,FourierN;N=2,FourierN;N=3,FourierN;N=4,FourierN;N=5,FourierN;" ,10);};
+      $._id("Fourier").onclick = function(){setVal("-pi", "pi", "x=t,x;  // ft=<asin(sin(t))/*triangle*/,ft=<sign(asin(sin(t)))/*square*/,", "ft=<sin(asin(t))/*sawtooth*/,ft;cn=<_it(=<{ft*e^(-i(n)t)},-pi,pi)/(2pi),FourierN=<_sn(=<{cn*e^(i(n)x)},-N,N),N=1,FourierN;N=3,FourierN;N=5,FourierN;N=7,FourierN;" ,10);};
       $._id("DFT").onclick = function(){setVal("0", "10", "n=t,n;", "n0=2,n1=4,N=max(n0,n1)*4,fn=<Kdelta(n,n0)+Kdelta(n,n1),fn;ft=<e^((i(n0)t)2pi/N)+e^((i(n1)t)2pi/N),DFT=<_st(=<{ft*e^((-i(n)t)2pi/N)},0,N-1)/N,DFT;", 30);};
       $._id("IDFT").onclick = function(){setVal("0", "10", "t;", "n0=2,n1=4,N=max(n0,n1)*4,ft=<e^((i(n0)t)2pi/N)+e^((i(n1)t)2pi/N),ft;fn=<Kdelta(n,n0)+Kdelta(n,n1),IDFT=<_sn(=<{fn*e^((i(n)t)2pi/N)},0,N-1),IDFT;", 30);};
       $._id("SND").onclick = function(){setVal("-5", "5", "t;", "SND=<exp(-t^2/2)/sqrt(2pi),SND;", 50);};
@@ -260,9 +261,9 @@ t:
   <label>i:
 <input id="checkbox-imag-x" type="checkbox">
   </label>
-<input id="input-xmin" class="width-auto" readonly="readonly">
+<input id="input-xmin" type="number" class="width-auto selection">
 ~
-<input id="input-xmax" class="width-auto" readonly="readonly">
+<input id="input-xmax" type="number" class="width-auto selection">
 <br>
 <input id="input-x">
         </td>
@@ -281,9 +282,9 @@ t:
   <label>i:
 <input id="checkbox-imag-y" type="checkbox">
   </label>
-<input id="input-ymin" class="width-auto" readonly="readonly">
+<input id="input-ymin" type="number" class="width-auto selection">
 ~
-<input id="input-ymax" class="width-auto" readonly="readonly">
+<input id="input-ymax" type="number" class="width-auto selection">
 <br>
 <input id="input-y">
         </td>
