@@ -605,7 +605,6 @@ My_entry.calc_graphing.prototype.init_handlers = function(){
         self.plot2d.init_flags();
         self.re_plot(true);
         break;
-      case "select-canvas-background":
       case "select-grid-line-width":
       case "select-marker-size":
       case "select-marker-line-width":
@@ -620,6 +619,12 @@ My_entry.calc_graphing.prototype.init_handlers = function(){
       case "select-legend-kx":
       case "select-legend-ky":
       case "checkbox-legend":
+        self.re_plot(true);
+        break;
+      /* Ver.2.16.6 */
+      case "select-canvas-background":
+        $._id("input-bg-color").value = "";
+        $.set_id("input-bg-color", "background", null);
         self.re_plot(true);
         break;
       case "input-bg-color":
