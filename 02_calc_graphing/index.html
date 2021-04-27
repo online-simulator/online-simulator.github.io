@@ -67,7 +67,7 @@
       $._id("pow1").onclick = function(){setVal("-1", "1", "x=t,x;", "x;x^2;x^3;x^4;x^5;", 30);};
       $._id("pow2").onclick = function(){setVal("-2(1+i)", "2(1+i)", "x=t,x;", "x;x^2;x^3;x^4;x^5;", 30);};
       $._id("sin").onclick = function(){setVal("0", "2pi", "x=t,x;", "sin(x);cos(x);sin(2x);cos(2x);", 100);};
-      $._id("circle").onclick = function(){setVal("0", "2pi", "cos(t);real(e^(i(t)))2;rot=<(cos(t),-sin(t):sin(t),cos(t))/*rotation matrix*/,vec0=(3:0),(rot*vec0)[0];", "sin(t);imag(e^(i(t)))2;(rot*vec0)[1];", 100);};
+      $._id("circle").onclick = function(){setVal("0", "2pi", "cos(t);real(e^(i(t)))2;rot=<(cos(t),-sin(t):sin(t),cos(t))/*rotation matrix*/,vec0=(3:0),(rot*vec0)[0];", "sin(t);imag(e^(i(t)))2/*only complex*/;(rot*vec0)[1];", 100);};
       $._id("spiral").onclick = function(){setVal("0", "Nr=1.5,2pi*Nr", "real(e^(i(t)))t;rot=<(cos(t),-sin(t):sin(t),cos(t))/*rotation matrix*/,vec0=(-t:0),vec1=rot*vec0,vec1[0];", "imag(e^(i(t)))t;vec1[1];", 100);};
       $._id("heart").onclick = function(){setVal("0", "2pi", "pow(sin(t),3);", "y=7cos(t)-4cos(2t) -2cos(3t),y/7;", 50);};
       $._id("Lissajous").onclick = function(){setVal("0", "2pi", "cos(3t);", "sin(2t+pi/3);", 100);};
@@ -134,7 +134,7 @@ plot2d
   <label>
 　test case　<input id="checkbox-test-case" type="checkbox">
   </label>
-<div id="div-test-case" class="selection">
+<div id="div-test-case" class="condition">
 <hr>
   <button id="ax">a*x</button>
   <button id="pow1">pow1</button>
@@ -304,7 +304,7 @@ z:
 　plot-config　<input id="checkbox-config-plot" type="checkbox">
   </label>
 <hr>
-<div id="div-config-plot" class="selection">
+<div id="div-config-plot" class="condition">
 <hr>
   <div class="text-left">
     <label>canvas-width:
@@ -797,7 +797,7 @@ z:
 　calc-config　<input id="checkbox-config" type="checkbox">
   </label>
 <hr>
-<div id="div-config" class="selection">
+<div id="div-config" class="condition">
 <hr>
   <div class="text-left">
     <label>right-associativity:<input id="checkbox-isRightAssociativityBR" type="checkbox"></label>
