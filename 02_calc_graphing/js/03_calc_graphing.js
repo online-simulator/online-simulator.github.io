@@ -140,7 +140,7 @@ My_entry.calc_graphing.prototype.output_msgError_plot = function(e){
 My_entry.calc_graphing.prototype.plot = function(arr_data, options_plot, isFinal){
   var self = this;
   self.plot2d.re_init();
-  if(arr_data.length){
+  if(arr_data && arr_data.length){
     arr_data.forEach(function(data){
       data.arr_num = self.entry.parser.make_arr_num(data);
     });
@@ -208,7 +208,7 @@ My_entry.calc_graphing.prototype.arr_data2arr2d_vec = function(arr_data, options
   var gymax = 0;
   var len_n = 0;
   var len_j = 0;
-  if(arr_data){
+  if(arr_data && arr_data.length){
     arr2d_x = [];
     arr2d_y = [];
     len_n = arr_data.length;
@@ -271,7 +271,7 @@ My_entry.calc_graphing.prototype.make_log_plot2d = function(){
   _log += ")";
   return _log;
 };
-My_entry.calc_graphing.prototype.arr_data2csv = function(arr_data, arr_x, arr_y, options_plot){
+My_entry.calc_graphing.prototype.arr_data2csv = function(arr_data, options_plot){
   var self = this;
   var $ = self.entry.$;
   var ds = My_entry.$.config.DELIMITER;
@@ -281,7 +281,11 @@ My_entry.calc_graphing.prototype.arr_data2csv = function(arr_data, arr_x, arr_y,
   var _csv = "";
   var sw_ri_x = (options_plot["imag-x"])? "i": "r";
   var sw_ri_y = (options_plot["imag-y"])? "i": "r";
-  if(arr_data){
+  /* Ver.2.16.6 -> */
+  if(arr_data && arr_data.length){
+    var arr_x = self.arr_x;
+    var arr_y = self.arr_y;
+  /* -> Ver.2.16.6 */
     // index
     _csv += dq+"real(t)"+dq+ca;
     _csv += dq+"imag(t)"+dq+ca;
@@ -293,8 +297,10 @@ My_entry.calc_graphing.prototype.arr_data2csv = function(arr_data, arr_x, arr_y,
     }
     // stamp
     var options_calc = arr_data[0].options;
-    _csv += dq+options_calc.plot2d+dq+ca;  // Ver.2.10.4
-    _csv += dq+options_calc.logo+dq+ca;    // Ver.2.10.4
+    /* Ver.2.10.4 -> */
+    _csv += dq+options_calc.plot2d+dq+ca;
+    _csv += dq+options_calc.logo+dq+ca;
+    /* -> Ver.2.10.4 */
     _csv += dq+self.io.getter.stamp()+dq+rn;
     // (x,y)
     var arr2d_vec = self.arr_data2arr2d_vec(arr_data, options_plot);
@@ -434,9 +440,9 @@ My_entry.calc_graphing.prototype.init_handlers = function(){
     var json = {p: {id: "wrapper-link-png"}, a: {id: "a-png", it: "download-png"}, name: "download", ext: "png"};
     self.handler_link_png = new self.constructors.handler_link(json);
     self.handler_link_png.setter.callback(function(){return self.entry.conv.base2buffer(self.plot2d.objs.all.getBase64());});
-    var json = {p: {id: "wrapper-link-csv"}, a: {id: "a-csv", it: "download-csv by double-click"}, name: "download", ext: "csv"};
+    var json = {p: {id: "wrapper-link-csv"}, a: {id: "a-csv", it: "-csv by double-click"}, name: "download", ext: "csv"};
     self.handler_link_csv = new self.constructors.handler_link(json);
-    self.handler_link_csv.setter.callback(function(){return self.arr_data2csv(self.worker_plot.arr_data_out, self.arr_x, self.arr_y, self.get_options(true));});
+    self.handler_link_csv.setter.callback(function(){return self.arr_data2csv(self.worker_plot.arr_data_out, self.get_options(true));});
     var json = {p: {id: "wrapper-link"}, a: {id: "a", it: "download-txt by double-click"}, name: "download", ext: "txt"};
     self.handler_link = new self.constructors.handler_link(json);
     self.handler_link.setter.callback(function(){return self.logh;});
