@@ -96,6 +96,11 @@ My_entry.calc_graphing.prototype.output_log_plot = function(){
   var len_out = (arr_data_out)? Object.keys(arr_data_out).length: 0;
   /* -> Ver.2.15.6 */
   self.io.write_text(self.elems.d, "finished "+len_out+"/"+len_in);
+  /* Ver.2.16.6 -> */
+  if(len_out === len_in){
+    self.elems.d.focus();
+  }
+  /* -> Ver.2.16.6 */
   return self;
 };
 My_entry.calc_graphing.prototype.output_axis = function(arr2d_vec, options_plot){
@@ -145,10 +150,6 @@ My_entry.calc_graphing.prototype.plot = function(arr_data, options_plot, isFinal
       data.arr_num = self.entry.parser.make_arr_num(data);
     });
     var arr2d_vec = self.arr_data2arr2d_vec(arr_data, options_plot);
-    /* Ver.2.16.6 -> */
-    arr2d_vec.arr_x = self.arr_x;
-    arr2d_vec.arr_y = self.arr_y;
-    /* -> Ver.2.16.6 */
     if(self.plot2d.isChanged_axis){
       self.input_axis(arr2d_vec);
     }
@@ -283,8 +284,8 @@ My_entry.calc_graphing.prototype.arr_data2csv = function(arr_data, options_plot)
   var sw_ri_y = (options_plot["imag-y"])? "i": "r";
   /* Ver.2.16.6 -> */
   if(arr_data && arr_data.length){
-    var arr_x = self.arr_x;
-    var arr_y = self.arr_y;
+    var arr_x = options_plot.arr_x;
+    var arr_y = options_plot.arr_y;
   /* -> Ver.2.16.6 */
     // index
     _csv += dq+"real(t)"+dq+ca;
@@ -342,6 +343,10 @@ My_entry.calc_graphing.prototype.get_options = function(isPlot){
     _options["title"] = $.inputVal_id("input-title");
     _options["logo"] = parser.make_logo({options: _options});  // including z
     _options["plot2d"] = self.make_log_plot2d();               // excluding z
+    /* Ver.2.16.6 -> */
+    _options.arr_x = self.arr_x;
+    _options.arr_y = self.arr_y;
+    /* -> Ver.2.16.6 */
   }
   return _options;
 };

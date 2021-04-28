@@ -471,8 +471,8 @@ My_entry.plot2d.prototype.run = function(arr2d_vec, options){
   /* 0.6.0 -> */
   // legends
   if(isLegend){
-    var arr_x = arr2d_vec.arr_x;
-    var arr_y = arr2d_vec.arr_y;
+    var arr_x = options.arr_x;
+    var arr_y = options.arr_y;
     var text_x = "";
     var text_y = "";
 //    var markerSize_max = Math.max.apply(Math, arr_markerSize);
