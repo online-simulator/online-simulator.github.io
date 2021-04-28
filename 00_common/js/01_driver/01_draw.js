@@ -6,6 +6,11 @@ My_entry.draw = function(ctx){
   return self;
 };
 
+My_entry.draw.prototype.config = {
+  default: {
+    rgba: "rgba(0, 0, 0, 0)"
+  }
+};
 My_entry.draw.prototype.init = function(ctx){
   var self = this;
   self.ctx = ctx;
@@ -79,7 +84,7 @@ My_entry.draw.prototype.hex2rgba = function(hex){
     }
   }
   else{
-    _rgba = "rgba(0, 0, 0, 0)";
+    _rgba = self.config.default.rgba;
   }
   return _rgba;
 };
@@ -225,17 +230,14 @@ My_entry.draw.prototype.axis = function(text, vec0, opt_fontSize, opt_styleRGBA,
   var fontFamily = self.fontFamily;
   ctx.save();
   ctx.font = fontSize+"px "+fontFamily;
-  ctx.fillStyle = ctx.strokeStyle = self.hex2rgba(opt_styleRGBA);
-  ctx.globalCompositeOperation = opt_globalCompositeOperation || ctx.globalCompositeOperation;
   var w = ctx.measureText(text).width;
   var h = fontSize;
   var w2 = (isY)? -w-h: -w/2;
   var h2 = (isY)? h/2: h*2;
   var x = Math.floor(vec0.x+w2);
   var y = Math.floor(vec0.y+h2);
-  ctx.fillText(text, x, y);
-  ctx.strokeText(text, x, y);
   ctx.restore();
+  self.text(text, {x: x, y: y}, opt_fontSize, opt_styleRGBA, opt_globalCompositeOperation);
   return self;
 };
 /* -> 0.5.0 */
@@ -247,14 +249,13 @@ My_entry.draw.prototype.textbox = function(text, vec0, vec1, opt_fontSize, opt_s
   var fontFamily = self.fontFamily;
   ctx.save();
   ctx.font = fontSize+"px "+fontFamily;
-  ctx.fillStyle = ctx.strokeStyle = self.hex2rgba(opt_styleRGBA_bg);
   var w = ctx.measureText(text).width;
   var dw = fontSize;
   var h = fontSize;
   var hr2 = h/2;
-  ctx.fillRect(vec0.x, vec0.y-hr2, (vec1.x-vec0.x)+w+dw, h);
-  self.text(text, {x: vec1.x+dw, y: vec1.y+hr2}, opt_fontSize, opt_styleRGBA_fg, opt_globalCompositeOperation);
   ctx.restore();
+  self.fill({x: vec0.x, y: vec0.y-hr2}, {x: vec1.x+w+dw, y: vec1.y+hr2}, opt_styleRGBA_bg, opt_globalCompositeOperation);
+  self.text(text, {x: vec1.x+dw, y: vec1.y+hr2}, opt_fontSize, opt_styleRGBA_fg, opt_globalCompositeOperation);
   return self;
 };
 My_entry.draw.prototype.fill = function(vec0, vec1, opt_styleRGBA, opt_globalCompositeOperation){
