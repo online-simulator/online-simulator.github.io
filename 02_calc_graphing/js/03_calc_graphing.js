@@ -87,7 +87,7 @@ My_entry.calc_graphing.prototype.re_output_log = function(){
   }
   return self;
 };
-My_entry.calc_graphing.prototype.output_log_plot = function(){
+My_entry.calc_graphing.prototype.output_log_plot = function(isFinal){
   var self = this;
   /* Ver.2.15.6 -> */
   var arr_data_in = self.worker_plot.arr_data_in;
@@ -97,7 +97,7 @@ My_entry.calc_graphing.prototype.output_log_plot = function(){
   /* -> Ver.2.15.6 */
   self.io.write_text(self.elems.d, "finished "+len_out+"/"+len_in);
   /* Ver.2.16.6 -> */
-  if(len_out === len_in){
+  if(isFinal){
     self.elems.d.focus();
   }
   /* -> Ver.2.16.6 */
@@ -160,7 +160,6 @@ My_entry.calc_graphing.prototype.plot = function(arr_data, options_plot, isFinal
       self.plot2d.final(arr2d_vec, options_plot);
       var options_calc = arr_data[0].options;
       self.output_logh(options_calc.plot2d+"\n", options_calc.logo);  // Ver.2.10.4
-      self.elems.d.focus();
     }
     else{
       self.plot2d.run(arr2d_vec, options_plot);
@@ -172,7 +171,7 @@ My_entry.calc_graphing.prototype.plot = function(arr_data, options_plot, isFinal
     self.plot2d.isDrawn = false;
   }
   /* -> Ver.2.14.5 */
-  self.output_log_plot();
+  self.output_log_plot(isFinal);
   return self;
 };
 My_entry.calc_graphing.prototype.re_plot = function(isFinal){
