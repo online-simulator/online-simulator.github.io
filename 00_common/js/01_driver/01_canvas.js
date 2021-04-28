@@ -24,8 +24,7 @@ My_entry.canvas.prototype.init = function(elem){
     My_entry.canvas.prototype[type] = function(x0, y0, r, opt_lineWidth, opt_styleRGBA, opt_globalCompositeOperation){
       var self = this;
       var vec0 = {x: self.x2xp(x0), y: self.y2myp(y0)};
-      self.draw[type](vec0, r, opt_lineWidth, opt_styleRGBA, opt_globalCompositeOperation);
-      return self;
+      return self.draw[type](vec0, r, opt_lineWidth, opt_styleRGBA, opt_globalCompositeOperation);
     };
   });
   self.onevents = ["onmousedown", "onmousemove", "onmouseup"];
@@ -178,8 +177,7 @@ My_entry.canvas.prototype.line = function(x0, y0, x1, y1, opt_lineWidth, opt_sty
   var self = this;
   var vecp0 = {x: self.x2xp(x0), y: self.y2myp(y0)};
   var vecp1 = {x: self.x2xp(x1), y: self.y2myp(y1)};
-  self.draw.line(vecp0, vecp1, opt_lineWidth, opt_styleRGBA, opt_globalCompositeOperation);
-  return self;
+  return self.draw.line(vecp0, vecp1, opt_lineWidth, opt_styleRGBA, opt_globalCompositeOperation);
 };
 /* 0.4.0 */
 My_entry.canvas.prototype.lines = function(arr_vec, opt_lineWidth, opt_styleRGBA, opt_globalCompositeOperation, opt_fillPath){
@@ -191,34 +189,29 @@ My_entry.canvas.prototype.lines = function(arr_vec, opt_lineWidth, opt_styleRGBA
     var y = vecn.y;
     arr_vecp[n] = {x: self.x2xp(x), y: self.y2myp(y)};
   }
-  self.draw.lines(arr_vecp, opt_lineWidth, opt_styleRGBA, opt_globalCompositeOperation, opt_fillPath);
-  return self;
+  return self.draw.lines(arr_vecp, opt_lineWidth, opt_styleRGBA, opt_globalCompositeOperation, opt_fillPath);
 };
 /* 0.5.0 -> */
 My_entry.canvas.prototype.text = function(text, x0, y0, opt_fontSize, opt_styleRGBA, opt_globalCompositeOperation){
   var self = this;
   var vecp0 = {x: self.x2xp(x0), y: self.y2myp(y0)};
-  self.draw.text(text, vecp0, opt_fontSize, opt_styleRGBA, opt_globalCompositeOperation);
-  return self;
+  return self.draw.text(text, vecp0, opt_fontSize, opt_styleRGBA, opt_globalCompositeOperation);
 };
 My_entry.canvas.prototype.label = function(text, x0, y0, opt_fontSize, opt_styleRGBA, opt_globalCompositeOperation, isY){
   var self = this;
   var vecp0 = (isY)? {x: self.px_w*x0, y: self.y2myp(y0)}: {x: self.x2xp(x0), y: self.px_h*(1-y0)};
-  self.draw.label(text, vecp0, opt_fontSize, opt_styleRGBA, opt_globalCompositeOperation, isY);
-  return self;
+  return self.draw.label(text, vecp0, opt_fontSize, opt_styleRGBA, opt_globalCompositeOperation, isY);
 };
 My_entry.canvas.prototype.axis = function(text, x0, y0, opt_fontSize, opt_styleRGBA, opt_globalCompositeOperation, isY){
   var self = this;
   var vecp0 = {x: self.x2xp(x0), y: self.y2myp(y0)};
-  self.draw.axis(text, vecp0, opt_fontSize, opt_styleRGBA, opt_globalCompositeOperation, isY);
-  return self;
+  return self.draw.axis(text, vecp0, opt_fontSize, opt_styleRGBA, opt_globalCompositeOperation, isY);
 };
 /* -> 0.5.0 */
 /* 0.6.0 -> */
 My_entry.canvas.prototype.fill = function(opt_styleRGBA, opt_globalCompositeOperation){
   var self = this;
-  self.draw.fill({x: 0, y: 0}, {x: self.px_w, y: self.px_h}, opt_styleRGBA, opt_globalCompositeOperation);
-  return self;
+  return self.draw.fill({x: 0, y: 0}, {x: self.px_w, y: self.px_h}, opt_styleRGBA, opt_globalCompositeOperation);
 };
 /* -> 0.6.0 */
 My_entry.canvas.prototype.getRGBA_xy = function(x, y){

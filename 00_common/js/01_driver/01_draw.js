@@ -9,6 +9,8 @@ My_entry.draw = function(ctx){
 My_entry.draw.prototype.init = function(ctx){
   var self = this;
   self.ctx = ctx;
+  self.fontFamily = "sans-serif";
+  self.rn = "\n";
   return self;
 };
 /* Ver.0.6.0 -> moved from canvas.js */
@@ -182,8 +184,9 @@ My_entry.draw.prototype.text = function(text, vec0, opt_fontSize, opt_styleRGBA,
   var self = this;
   var ctx = self.ctx;
   var fontSize = opt_fontSize || 0;
+  var fontFamily = self.fontFamily;
   ctx.save();
-  ctx.font = fontSize+"px sans-serif";
+  ctx.font = fontSize+"px "+fontFamily;
   ctx.fillStyle = ctx.strokeStyle = self.hex2rgba(opt_styleRGBA);
   ctx.globalCompositeOperation = opt_globalCompositeOperation || ctx.globalCompositeOperation;
   var x = Math.floor(vec0.x);
@@ -197,8 +200,9 @@ My_entry.draw.prototype.label = function(text, vec0, opt_fontSize, opt_styleRGBA
   var self = this;
   var ctx = self.ctx;
   var fontSize = opt_fontSize || 0;
+  var fontFamily = self.fontFamily;
   ctx.save();
-  ctx.font = fontSize+"px sans-serif";
+  ctx.font = fontSize+"px "+fontFamily;
   ctx.fillStyle = ctx.strokeStyle = self.hex2rgba(opt_styleRGBA);
   ctx.globalCompositeOperation = opt_globalCompositeOperation || ctx.globalCompositeOperation;
   var w = ctx.measureText(text).width;
@@ -218,8 +222,9 @@ My_entry.draw.prototype.axis = function(text, vec0, opt_fontSize, opt_styleRGBA,
   var self = this;
   var ctx = self.ctx;
   var fontSize = opt_fontSize || 0;
+  var fontFamily = self.fontFamily;
   ctx.save();
-  ctx.font = fontSize+"px sans-serif";
+  ctx.font = fontSize+"px "+fontFamily;
   ctx.fillStyle = ctx.strokeStyle = self.hex2rgba(opt_styleRGBA);
   ctx.globalCompositeOperation = opt_globalCompositeOperation || ctx.globalCompositeOperation;
   var w = ctx.measureText(text).width;
@@ -239,8 +244,9 @@ My_entry.draw.prototype.textbox = function(text, vec0, vec1, opt_fontSize, opt_s
   var self = this;
   var ctx = self.ctx;
   var fontSize = opt_fontSize || 0;
+  var fontFamily = self.fontFamily;
   ctx.save();
-  ctx.font = fontSize+"px sans-serif";
+  ctx.font = fontSize+"px "+fontFamily;
   ctx.fillStyle = ctx.strokeStyle = self.hex2rgba(opt_styleRGBA_bg);
   var w = ctx.measureText(text).width;
   var dw = fontSize;
