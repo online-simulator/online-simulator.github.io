@@ -141,7 +141,7 @@ My_entry.draw.prototype.enter = function(r, opt_lineWidth, opt_styleRGBA, opt_gl
   var lineWidth = opt_lineWidth;
   ctx.fillStyle = ctx.strokeStyle = self.hex2rgba(opt_styleRGBA);
   ctx.globalCompositeOperation = opt_globalCompositeOperation || ctx.globalCompositeOperation;  // 0.3.0 moved upper fill
-  if(lineWidth){
+  if(lineWidth){  // 0 < lineWidth including < 1
   }
   else{
     ctx.fill();
@@ -150,9 +150,12 @@ My_entry.draw.prototype.enter = function(r, opt_lineWidth, opt_styleRGBA, opt_gl
       ctx.globalCompositeOperation = "destination-out";
     }
   }
-  ctx.lineCap = "round";  // "butt" || "round" || "square"
-  ctx.lineJoin = "round";  // "round" || "bevel" || "miter"
-  ctx.lineWidth = self.floor(lineWidth || r*0.3);
-  ctx.stroke();
+  var lineWidthFixed = self.floor(lineWidth || r*0.3);
+  if(lineWidthFixed){  // 0.7.0 ctx.lineWidth = 0 -> ctx.lineWidth -> 1
+    ctx.lineCap = "round";  // "butt" || "round" || "square"
+    ctx.lineJoin = "round";  // "round" || "bevel" || "miter"
+    ctx.lineWidth = lineWidthFixed;
+    ctx.stroke();
+  }
   return self;
 };

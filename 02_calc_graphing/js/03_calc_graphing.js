@@ -98,7 +98,7 @@ My_entry.calc_graphing.prototype.output_log_plot = function(isFinal){
   self.io.write_text(self.elems.d, "finished "+len_out+"/"+len_in);
   /* Ver.2.16.6 -> */
   if(isFinal){
-    self.elems.d.focus();  // only async
+    self.elems.d.focus();
   }
   /* -> Ver.2.16.6 */
   return self;
@@ -477,7 +477,7 @@ My_entry.calc_graphing.prototype.init_handlers = function(){
     self.handler_link_svg = new self.constructors.handler_link(json);
     self.handler_link_svg.setter.callback(function(){return self.re_plot("SVG");});
     /* -> Ver.2.17.6 */
-    var json = {p: {id: "wrapper-link-csv"}, a: {id: "a-csv", it: "-csv by double-click"}, name: "download", ext: "csv"};
+    var json = {p: {id: "wrapper-link-csv"}, a: {id: "a-csv", it: "-csv by dbl-click"}, name: "download", ext: "csv"};
     self.handler_link_csv = new self.constructors.handler_link(json);
     self.handler_link_csv.setter.callback(function(){return self.arr_data2csv(self.worker_plot.arr_data_out, self.get_options(true));});
     var json = {p: {id: "wrapper-link"}, a: {id: "a", it: "download-txt by double-click"}, name: "download", ext: "txt"};
@@ -648,6 +648,7 @@ My_entry.calc_graphing.prototype.init_handlers = function(){
         self.plot2d.init_flags();
         self.re_plot(true);
         break;
+      case "select-decDigit":
       case "select-grid-line-width":
       case "select-marker-size":
       case "select-marker-line-width":

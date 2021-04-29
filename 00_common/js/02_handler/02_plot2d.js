@@ -393,10 +393,11 @@ My_entry.plot2d.prototype.run = function(arr2d_vec, options, toSVG){
   }
   // background
   /* 0.7.0 -> */
+  var decDigit = options["decDigit"];
   plot.draw.setter.backgroundColor(backgroundColor);
   grid.draw.setter.backgroundColor(backgroundColor);
-  plot.draw.setter.decDigit(1);
-  grid.draw.setter.decDigit(1);
+  plot.draw.setter.decDigit(decDigit);
+  grid.draw.setter.decDigit(decDigit);
   /* -> 0.7.0 */
   var img_bg = self.img_bg;
   if(toSVG){

@@ -627,6 +627,8 @@ Graphing Calculatorの操作パネルについて記述する
 <br>
 　・svg||csvはマルチスレッド実行の場合、逐次保存可
 <br>
+　・png||svg出力共通でpixel座標小数点以下の出力桁数0~9桁を選択可
+<br>
 ・canvasにplot2dの描画結果を表示
 <br>
 　・mouseまたはtouchによる範囲選択で拡大表示
@@ -1765,8 +1767,6 @@ svg出力機能について記述する
 ・既定markerのdestination-outは背景色source-overで代替（透明の場合、白）
 <br>
 ・canvas描画処理の継承互換性のため、グループ化等による最適化はしない
-<br>
-・png出力互換性のため、pixel座標は小数点以下1桁まで保持
 <br>
 ・z入力欄から入力不可のセミコロン;等の特殊文字を直接ファイル編集可
     </td>
