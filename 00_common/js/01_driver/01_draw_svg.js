@@ -1,0 +1,410 @@
+// online-simulator.github.io
+
+My_entry.draw_svg = function(ctx){
+};
+
+// instance
+My_entry.draw_svg.prototype.quote = function(arg){
+  var self = this;
+  return "\""+arg+"\"";
+};
+My_entry.draw_svg.prototype.escape = function(text){
+  var self = this;
+  var _text = (text)? String(text).replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;"): text;
+  return _text;
+};
+My_entry.draw_svg.prototype.comment = function(arg){
+  var self = this;
+  return "<!-- "+arg+" -->"+"\n";
+};
+My_entry.draw_svg.prototype.header = function(px_w, px_h){
+  var self = this;
+  var _svg = "";
+  var points = "0 0 "+px_w+" "+px_h;
+  _svg += "<?xml"
+  _svg += " version="+self.quote("1.0");
+  _svg += " encoding="+self.quote("utf-8");
+  _svg += "?>";
+  _svg += "\n";
+  _svg += "<svg";
+  _svg += " version="+self.quote("1.1");
+//  _svg += " id="+self.quote("");
+  _svg += " xmlns="+self.quote("http://www.w3.org/2000/svg");
+  _svg += " xmlns:xlink="+self.quote("http://www.w3.org/1999/xlink");
+  _svg += " width="+self.quote(px_w);
+  _svg += " height="+self.quote(px_h);
+  _svg += " viewBox="+self.quote(points);
+  _svg += ">";
+  _svg += "\n";
+  return _svg;
+};
+My_entry.draw_svg.prototype.footer = function(){
+  var self = this;
+  var _svg = "";
+  _svg += "</svg>";
+  _svg += "\n";
+  return _svg;
+};
+My_entry.draw_svg.prototype.header_group = function(idName){
+  var self = this;
+  var _svg = "";
+  _svg += "<g";
+  _svg += " id="+self.quote(idName);
+  _svg += ">";
+  _svg += "\n";
+  return _svg;
+};
+My_entry.draw_svg.prototype.footer_group = function(){
+  var self = this;
+  var _svg = "";
+  _svg += "</g>";
+  _svg += "\n";
+  return _svg;
+};
+// mix-in
+My_entry.draw_svg.prototype.line = function(vec0, vec1, opt_lineWidth, opt_styleRGBA, opt_globalCompositeOperation){
+  var self = this;
+  var _svg = "";
+  var lineWidth = opt_lineWidth;
+  if(lineWidth){
+    var fillStyle = opt_styleRGBA || self.config.default.rgba;
+    var strokeStyle = fillStyle;
+    var x0 = self.floor(vec0.x);
+    var y0 = self.floor(vec0.y);
+    var x1 = self.floor(vec1.x);
+    var y1 = self.floor(vec1.y);
+    _svg += "<line";
+    _svg += " stroke="+self.quote(strokeStyle);
+    _svg += " stroke-width="+self.quote(self.floor(lineWidth));
+    _svg += " stroke-linecap="+self.quote("round");
+    _svg += " x1="+self.quote(x0);
+    _svg += " y1="+self.quote(y0);
+    _svg += " x2="+self.quote(x1);
+    _svg += " y2="+self.quote(y1);
+    _svg += "/>";
+    _svg += self.rn;
+  }
+  return _svg;
+};
+My_entry.draw_svg.prototype.lines = function(arr_vec, opt_lineWidth, opt_styleRGBA, opt_globalCompositeOperation, opt_fillPath){
+  var self = this;
+  var _svg = "";
+  var lineWidth = opt_lineWidth;
+  if(lineWidth){
+    var fillStyle = opt_styleRGBA || self.config.default.rgba;
+    var strokeStyle = fillStyle;
+    _svg += (opt_fillPath)?
+            "<polygon":
+            "<polyline";
+    _svg += (opt_fillPath)?
+            " fill="+self.quote(fillStyle):
+            " fill="+self.quote("none");
+    _svg += " stroke="+self.quote(strokeStyle);
+    _svg += " stroke-width="+self.quote(self.floor(lineWidth));
+    _svg += " stroke-linecap="+self.quote("round");  // "butt" || "round" || "square"
+    _svg += " stroke-linejoin="+self.quote("round");  // "round" || "bevel" || "miter"
+    var points = "";
+    for(var n=0, len_n=arr_vec.length; n<len_n; ++n){
+      if(n > 0){
+        points += " ";
+      }
+      var vecn = arr_vec[n];
+      var x = self.floor(vecn.x);
+      var y = self.floor(vecn.y);
+      points += x+" "+y;
+    }
+    _svg += " points="+self.quote(points);
+    _svg += "/>";
+    _svg += self.rn;
+  }
+  return _svg;
+};
+My_entry.draw_svg.prototype.text = function(text, vec0, opt_fontSize, opt_styleRGBA, opt_globalCompositeOperation){
+  var self = this;
+  var _svg = "";
+  var ctx = self.ctx;
+  var fontSize = opt_fontSize || 0;
+  var fontFamily = self.fontFamily;
+  if(fontSize){
+    var fillStyle = opt_styleRGBA || self.config.default.rgba;
+    var strokeStyle = fillStyle;
+    var x = self.floor(vec0.x);
+    var y = self.floor(vec0.y);
+    _svg += "<text";
+    _svg += " font-family="+self.quote(fontFamily);
+    _svg += " font-size="+self.quote(fontSize);
+    _svg += " fill="+self.quote(fillStyle);
+    _svg += " stroke="+self.quote(strokeStyle);
+    _svg += " x="+self.quote(x);
+    _svg += " y="+self.quote(y);
+    _svg += ">";
+    _svg += self.escape(text);
+    _svg += "</text>";
+    _svg += self.rn;
+  }
+  return _svg;
+};
+My_entry.draw_svg.prototype.label = function(text, vec0, opt_fontSize, opt_styleRGBA, opt_globalCompositeOperation, isY){
+  var self = this;
+  var _svg = "";
+  var ctx = self.ctx;
+  var fontSize = opt_fontSize || 0;
+  var fontFamily = self.fontFamily;
+  if(fontSize){
+    var fillStyle = opt_styleRGBA || self.config.default.rgba;
+    var strokeStyle = fillStyle;
+    var x0 = self.floor(vec0.x);
+    var y0 = self.floor(vec0.y);
+    ctx.save();
+    ctx.font = fontSize+"px "+fontFamily;
+    var w = ctx.measureText(text).width;
+    var h = fontSize;
+    var t = (isY)? -90: 0;
+    var x = self.floor(-w/2);
+    var y = (isY)? self.floor(h): 0;
+    var points = "";
+    points += x0+" "+y0;
+    var tr = "";
+    tr += (t)? "rotate("+t+" "+points+") ": "";
+    tr += "translate("+points+")";
+//    tr += " scale(1 1)";
+    ctx.restore();
+    _svg += "<text";
+    _svg += " font-family="+self.quote(fontFamily);
+    _svg += " font-size="+self.quote(fontSize);
+    _svg += " fill="+self.quote(fillStyle);
+    _svg += " stroke="+self.quote(strokeStyle);
+    _svg += " transform="+self.quote(tr);
+    _svg += " x="+self.quote(x);
+    _svg += " y="+self.quote(y);
+    _svg += ">";
+    _svg += self.escape(text);
+    _svg += "</text>";
+    _svg += self.rn;
+  }
+  return _svg;
+};
+My_entry.draw_svg.prototype.axis = function(text, vec0, opt_fontSize, opt_styleRGBA, opt_globalCompositeOperation, isY){
+  var self = this;
+  var _svg = "";
+  var ctx = self.ctx;
+  var fontSize = opt_fontSize || 0;
+  var fontFamily = self.fontFamily;
+  if(fontSize){
+    ctx.save();
+    ctx.font = fontSize+"px "+fontFamily;
+    var w = ctx.measureText(text).width;
+    var h = fontSize;
+    var w2 = (isY)? -w-h: -w/2;
+    var h2 = (isY)? h/2: h*2;
+    var x = vec0.x+w2;
+    var y = vec0.y+h2;
+    ctx.restore();
+    _svg += self.text(text, {x: x, y: y}, opt_fontSize, opt_styleRGBA, opt_globalCompositeOperation);
+  }
+  return _svg;
+};
+My_entry.draw_svg.prototype.textbox = function(text, vec0, vec1, opt_fontSize, opt_styleRGBA_bg, opt_styleRGBA_fg, opt_globalCompositeOperation){
+  var self = this;
+  var _svg = "";
+  var ctx = self.ctx;
+  var fontSize = opt_fontSize || 0;
+  var fontFamily = self.fontFamily;
+  ctx.save();
+  ctx.font = fontSize+"px "+fontFamily;
+  var w = ctx.measureText(text).width;
+  var dw = fontSize;
+  var h = fontSize;
+  var hr2 = h/2;
+  ctx.restore();
+  _svg += self.fill({x: vec0.x, y: vec0.y-hr2}, {x: vec1.x+w+dw, y: vec1.y+hr2}, opt_styleRGBA_bg, opt_globalCompositeOperation);
+  _svg += self.text(text, {x: vec1.x+dw, y: vec1.y+hr2}, opt_fontSize, opt_styleRGBA_fg, opt_globalCompositeOperation);
+  return _svg;
+};
+My_entry.draw_svg.prototype.fill = function(vec0, vec1, opt_styleRGBA, opt_globalCompositeOperation){
+  var self = this;
+  var _svg = "";
+  var fillStyle = opt_styleRGBA || self.config.default.rgba;
+  var x0 = self.floor(vec0.x);
+  var y0 = self.floor(vec0.y);
+  var x1 = self.floor(vec1.x);
+  var y1 = self.floor(vec1.y);
+  var points = "";
+  points += x0+" "+y0;
+  points += " "+x1+" "+y0;
+  points += " "+x1+" "+y1;
+  points += " "+x0+" "+y1;
+  _svg += "<polygon";
+  _svg += " fill="+self.quote(fillStyle);
+  _svg += " stroke="+self.quote("none");
+  _svg += " points="+self.quote(points);
+  _svg += "/>";
+  _svg += self.rn;
+  return _svg;
+};
+My_entry.draw_svg.prototype.circle = function(vec0, r, opt_lineWidth, opt_styleRGBA, opt_globalCompositeOperation){
+  var self = this;
+  var _svg = "";
+  var ctx = self.ctx;
+  var lineWidth = opt_lineWidth;
+  if(r){
+    var backgroundColor = (self.backgroundColor === 0)? self.config.default.white: self.backgroundColor;
+    var fillStyle = ((lineWidth)? "none": opt_styleRGBA) || self.config.default.rgba;
+    var strokeStyle = ((lineWidth)? opt_styleRGBA: backgroundColor) || self.config.default.rgba;
+    var x0 = self.floor(vec0.x);
+    var y0 = self.floor(vec0.y);
+    var r0 = self.floor(r);
+    _svg += "<circle";
+    _svg += " r="+self.quote(r0);
+    _svg += " fill="+self.quote(fillStyle);
+    _svg += " stroke="+self.quote(strokeStyle);
+    _svg += " stroke-width="+self.quote(self.floor(lineWidth || r*0.3));
+    _svg += " cx="+self.quote(x0);
+    _svg += " cy="+self.quote(y0);
+    _svg += "/>";
+    _svg += self.rn;
+  }
+  return _svg;
+};
+My_entry.draw_svg.prototype.triangle = function(vec0, r, opt_lineWidth, opt_styleRGBA, opt_globalCompositeOperation, opt_flagFlipY){
+  var self = this;
+  var _svg = "";
+  var lineWidth = opt_lineWidth;
+  if(r){
+    var backgroundColor = (self.backgroundColor === 0)? self.config.default.white: self.backgroundColor;
+    var fillStyle = ((lineWidth)? "none": opt_styleRGBA) || self.config.default.rgba;
+    var strokeStyle = ((lineWidth)? opt_styleRGBA: backgroundColor) || self.config.default.rgba;
+    var x0 = vec0.x;
+    var y0 = vec0.y;
+    var k1 = 1.2091995761561452;
+    var k2 = 0.5773502691896258;
+    var k3 = 1.1547005383792515;
+    var dx = r*k1;
+    var dy = dx*k2;
+    var dy2 = dx*k3;
+    if(opt_flagFlipY){
+      dy = -dy;
+      dy2 = -dy2;
+    }
+    _svg += "<polygon";
+    _svg += (!(lineWidth))?
+            " fill="+self.quote(fillStyle):
+            " fill="+self.quote("none");
+    _svg += " stroke="+self.quote(strokeStyle);
+    _svg += " stroke-width="+self.quote(self.floor(lineWidth || r*0.3));
+    _svg += " stroke-linecap="+self.quote("round");
+    _svg += " stroke-linejoin="+self.quote("round");
+    var points = "";
+    points += self.floor(x0)+" "+self.floor(y0-dy2);
+    points += " "+self.floor(x0-dx)+" "+self.floor(y0+dy);
+    points += " "+self.floor(x0+dx)+" "+self.floor(y0+dy);
+    _svg += " points="+self.quote(points);
+    _svg += "/>";
+    _svg += self.rn;
+  }
+  return _svg;
+};
+My_entry.draw_svg.prototype.triangle2 = function(vec0, r, opt_lineWidth, opt_styleRGBA, opt_globalCompositeOperation){
+  var self = this;
+  return self.triangle(vec0, r, opt_lineWidth, opt_styleRGBA, opt_globalCompositeOperation, true);
+};
+My_entry.draw_svg.prototype.square = function(vec0, r, opt_lineWidth, opt_styleRGBA, opt_globalCompositeOperation){
+  var self = this;
+  var _svg = "";
+  var lineWidth = opt_lineWidth;
+  if(r){
+    var backgroundColor = (self.backgroundColor === 0)? self.config.default.white: self.backgroundColor;
+    var fillStyle = ((lineWidth)? "none": opt_styleRGBA) || self.config.default.rgba;
+    var strokeStyle = ((lineWidth)? opt_styleRGBA: backgroundColor) || self.config.default.rgba;
+    var x0 = vec0.x;
+    var y0 = vec0.y;
+    var dx = r*Math.sqrt(Math.PI)/2;
+    var dy = dx;
+    _svg += "<polygon";
+    _svg += (!(lineWidth))?
+            " fill="+self.quote(fillStyle):
+            " fill="+self.quote("none");
+    _svg += " stroke="+self.quote(strokeStyle);
+    _svg += " stroke-width="+self.quote(self.floor(lineWidth || r*0.3));
+    _svg += " stroke-linecap="+self.quote("round");
+    _svg += " stroke-linejoin="+self.quote("round");
+    var points = "";
+    points += self.floor(x0-dx)+" "+self.floor(y0-dy);
+    points += " "+self.floor(x0+dx)+" "+self.floor(y0-dy);
+    points += " "+self.floor(x0+dx)+" "+self.floor(y0+dy);
+    points += " "+self.floor(x0-dx)+" "+self.floor(y0+dy);
+    _svg += " points="+self.quote(points);
+    _svg += "/>";
+    _svg += self.rn;
+  }
+  return _svg;
+};
+My_entry.draw_svg.prototype.diamond = function(vec0, r, opt_lineWidth, opt_styleRGBA, opt_globalCompositeOperation){
+  var self = this;
+  var _svg = "";
+  var lineWidth = opt_lineWidth;
+  if(r){
+    var backgroundColor = (self.backgroundColor === 0)? self.config.default.white: self.backgroundColor;
+    var fillStyle = ((lineWidth)? "none": opt_styleRGBA) || self.config.default.rgba;
+    var strokeStyle = ((lineWidth)? opt_styleRGBA: backgroundColor) || self.config.default.rgba;
+    var x0 = vec0.x;
+    var y0 = vec0.y;
+    var dx = r*Math.sqrt(Math.PI)/2;
+    var dy = dx;
+    var rad = Math.PI/4;
+    _svg += "<polygon";
+    _svg += (!(lineWidth))?
+            " fill="+self.quote(fillStyle):
+            " fill="+self.quote("none");
+    _svg += " stroke="+self.quote(strokeStyle);
+    _svg += " stroke-width="+self.quote(self.floor(lineWidth || r*0.3));
+    _svg += " stroke-linecap="+self.quote("round");
+    _svg += " stroke-linejoin="+self.quote("round");
+    var points = "";
+    var vec = self.rotate2d_vec({x: -dx, y: -dy}, rad);
+    points += self.floor(x0+vec.x)+" "+self.floor(y0+vec.y);
+    var vec = self.rotate2d_vec({x: +dx, y: -dy}, rad);
+    points += " "+self.floor(x0+vec.x)+" "+self.floor(y0+vec.y);
+    var vec = self.rotate2d_vec({x: +dx, y: +dy}, rad);
+    points += " "+self.floor(x0+vec.x)+" "+self.floor(y0+vec.y);
+    var vec = self.rotate2d_vec({x: -dx, y: +dy}, rad);
+    points += " "+self.floor(x0+vec.x)+" "+self.floor(y0+vec.y);
+    _svg += " points="+self.quote(points);
+    _svg += "/>";
+    _svg += self.rn;
+  }
+  return _svg;
+};
+My_entry.draw_svg.prototype.cross = function(vec0, r, opt_lineWidth, opt_styleRGBA, opt_globalCompositeOperation){
+  var self = this;
+  var _svg = "";
+  var lineWidth = opt_lineWidth;
+  if(r){
+    var strokeStyle = opt_styleRGBA || self.config.default.rgba;
+    var x0 = vec0.x;
+    var y0 = vec0.y;
+    var dx = r*Math.sqrt(Math.PI)/2;
+    var dy = dx;
+    _svg += "<path";
+    _svg += " fill="+self.quote("none");
+    _svg += " stroke="+self.quote(strokeStyle);
+    _svg += " stroke-width="+self.quote(self.floor(lineWidth || self.floor(r/3)+1));
+    _svg += " stroke-linecap="+self.quote("round");
+    _svg += " stroke-linejoin="+self.quote("round");
+    var d = "";
+    d += "M";
+    d += " "+self.floor(x0-dx)+" "+self.floor(y0-dy);
+    d += " L";
+    d += " "+self.floor(x0+dx)+" "+self.floor(y0+dy);
+    d += " Z";
+    d += " M";
+    d += " "+self.floor(x0+dx)+" "+self.floor(y0-dy);
+    d += " L";
+    d += " "+self.floor(x0-dx)+" "+self.floor(y0+dy);
+    d += " Z";
+    _svg += " d="+self.quote(d);
+    _svg += "/>";
+    _svg += self.rn;
+  }
+  return _svg;
+};

@@ -194,6 +194,7 @@ My_entry.plot2d.prototype.update = function(opt_px_w, opt_px_h, opt_px_b){
 My_entry.plot2d.prototype.grid = function(x0, y0, x1, y1, Ni, Nj, isLog_x, isLog_y, label_x, label_y, fontSize, expDigit, gridLineWidth, gridLineColor, globalCompositeOperation){
   var self = this;
   var grid = self.objs.grid;
+  var _svg = "";
   var lineWidth = gridLineWidth;
   var styleRGBA = gridLineColor;
   var dx = (x1-x0)/Ni;
@@ -208,39 +209,39 @@ My_entry.plot2d.prototype.grid = function(x0, y0, x1, y1, Ni, Nj, isLog_x, isLog
   if(label_x){
     if(tx0 <= 0 && tx1 >= 0 && !(isLog_x)){
       var tx = self.trans(0, isLog_x);
-      grid.line(tx, ty0, tx, ty1, lineWidth, styleRGBA, globalCompositeOperation);
+      _svg += grid.line(tx, ty0, tx, ty1, lineWidth, styleRGBA, globalCompositeOperation);
     }
     if(!(self.isChanged)){
-      grid.label(label_x, (tx0+tx1)/2, self.config.default.ratio_y, fontSize+self.config.default.dfontSize, styleRGBA, globalCompositeOperation, false);
+      _svg += grid.label(label_x, (tx0+tx1)/2, self.config.default.ratio_y, fontSize+self.config.default.dfontSize, styleRGBA, globalCompositeOperation, false);
     }
   }
   if(label_y){
     if(ty0 <= 0 && ty1 >= 0 && !(isLog_y)){
       var ty = self.trans(0, isLog_y);
-      grid.line(tx0, ty, tx1, ty, lineWidth, styleRGBA, globalCompositeOperation);
+      _svg += grid.line(tx0, ty, tx1, ty, lineWidth, styleRGBA, globalCompositeOperation);
     }
     if(!(self.isChanged)){
-      grid.label(label_y, self.config.default.ratio_x, (ty0+ty1)/2, fontSize+self.config.default.dfontSize, styleRGBA, globalCompositeOperation, true);
+      _svg += grid.label(label_y, self.config.default.ratio_x, (ty0+ty1)/2, fontSize+self.config.default.dfontSize, styleRGBA, globalCompositeOperation, true);
     }
   }
   /* -> 0.5.0 */
   for(var i=0; i<len_i; ++i){
     var tx = self.trans(x0+i*dx, isLog_x);
-    grid.line(tx, ty0, tx, ty1, lineWidth, styleRGBA, globalCompositeOperation);
+    _svg += grid.line(tx, ty0, tx, ty1, lineWidth, styleRGBA, globalCompositeOperation);
     if(label_x){
       var val = self.entry.conv.num2not(tx, self.config.default.decDigit, expDigit);
-      grid.axis(val, tx, ty0, fontSize, styleRGBA, globalCompositeOperation, false);
+      _svg += grid.axis(val, tx, ty0, fontSize, styleRGBA, globalCompositeOperation, false);
     }
   }
   for(var j=0; j<len_j; ++j){
     var ty = self.trans(y0+j*dy, isLog_y);
-    grid.line(tx0, ty, tx1, ty, lineWidth, styleRGBA, globalCompositeOperation);
+    _svg += grid.line(tx0, ty, tx1, ty, lineWidth, styleRGBA, globalCompositeOperation);
     if(label_y){
       var val = self.entry.conv.num2not(ty, self.config.default.decDigit, expDigit);
-      grid.axis(val, tx0, ty, fontSize, styleRGBA, globalCompositeOperation, true);
+      _svg += grid.axis(val, tx0, ty, fontSize, styleRGBA, globalCompositeOperation, true);
     }
   }
-  return self;
+  return _svg;
 };
 /* 0.5.0 -> */
 My_entry.plot2d.prototype.get_kx = function(fontSize){
@@ -274,15 +275,17 @@ My_entry.plot2d.prototype.change_scale = function(gxmin, gymin, gxmax, gymax, is
   plot.change_scale(tgxmin, tgymin, tgxmax, tgymax);
   return self;
 };
-My_entry.plot2d.prototype.run = function(arr2d_vec, options){
+My_entry.plot2d.prototype.run = function(arr2d_vec, options, toSVG){
   var self = this;
   if(self.isLocked) return false;
   self.isLocked = true;
   var def = self.entry.def;
   var background = self.objs.background;
+  var grid = self.objs.grid;
   var plot = self.objs.plot;
   var temp =  self.objs.temp;
   var markers = plot.markers;
+  var _svg = "";
   var expDigit = options["expDigit"];
   var markerSize0 = options["marker-size"];
   var markerLineWidth0 = options["marker-line-width"];
@@ -389,8 +392,17 @@ My_entry.plot2d.prototype.run = function(arr2d_vec, options){
     arr_strFontSize[j] = strFontSize;
   }
   // background
+  /* 0.7.0 -> */
+  plot.draw.setter.backgroundColor(backgroundColor);
+  grid.draw.setter.backgroundColor(backgroundColor);
+  plot.draw.setter.decDigit(1);
+  grid.draw.setter.decDigit(1);
+  /* -> 0.7.0 */
   var img_bg = self.img_bg;
-  if(img_bg){
+  if(toSVG){
+    _svg += background.fill(backgroundColor, globalCompositeOperation);
+  }
+  else if(img_bg){
     background.ctx.drawImage(img_bg, 0, 0);
   }
   else{
@@ -404,7 +416,7 @@ My_entry.plot2d.prototype.run = function(arr2d_vec, options){
     var kyAdjust = 1+fontSize1*5/self.px_h;
     self.change_scale(gxmin, gymin, gxmax, gymax, isLog_x, isLog_y, isAxis_x, isAxis_y, fontSize, kxAdjust, kyAdjust);
     if(title){
-      plot.draw.label(title, {x: self.px_w/2, y: fontSize1}, fontSize1, gridLineColor, globalCompositeOperation, false);
+      _svg += plot.draw.label(title, {x: self.px_w/2, y: fontSize1}, fontSize1, gridLineColor, globalCompositeOperation, false);
     }
   }
   /* -> 0.6.0 */
@@ -427,7 +439,7 @@ My_entry.plot2d.prototype.run = function(arr2d_vec, options){
   label_y = (isLog_y)? "log10("+label_y+")": label_y;
   label_y = (isAxis_y)? label_y: null;
   /* -> 0.5.0 */
-  self.grid(gxmin, gymin, gxmax, gymax, Ni, Nj, isLog_x, isLog_y, label_x, label_y, fontSize, expDigit, gridLineWidth, gridLineColor, globalCompositeOperation);
+  _svg += self.grid(gxmin, gymin, gxmax, gymax, Ni, Nj, isLog_x, isLog_y, label_x, label_y, fontSize, expDigit, gridLineWidth, gridLineColor, globalCompositeOperation);
   // transform
   var arr2d_tx = new Array(len_n);
   var arr2d_ty = new Array(len_n);
@@ -451,7 +463,7 @@ My_entry.plot2d.prototype.run = function(arr2d_vec, options){
         var y = arr2d_ty[n][j];
         arr_vec[n] = {x: x, y: y};
       }
-      plot.lines(arr_vec, plotLineWidth, styleRGBA, globalCompositeOperation, fillPath);
+      _svg += plot.lines(arr_vec, plotLineWidth, styleRGBA, globalCompositeOperation, fillPath);
     }
   }
   // plot markers
@@ -464,7 +476,7 @@ My_entry.plot2d.prototype.run = function(arr2d_vec, options){
       for(var n=0; n<len_n; ++n){
         var x = arr2d_tx[n][j];
         var y = arr2d_ty[n][j];
-        plot[markerType](x, y, markerSize, markerLineWidth, styleRGBA, globalCompositeOperation);
+        _svg += plot[markerType](x, y, markerSize, markerLineWidth, styleRGBA, globalCompositeOperation);
       }
     }
   }
@@ -502,12 +514,12 @@ My_entry.plot2d.prototype.run = function(arr2d_vec, options){
         text_x = (arr_xj)? arr_xj: text_x;
         text_y = (arr_yj)? arr_yj: text_y;
         var text = str || ""+text_x+";"+text_y+"";
-        plot.draw.textbox(text, {x: xp0, y: yp}, {x: xp1, y: yp}, strFontSize, backgroundColor, gridLineColor, globalCompositeOperation);
+        _svg += plot.draw.textbox(text, {x: xp0, y: yp}, {x: xp1, y: yp}, strFontSize, backgroundColor, gridLineColor, globalCompositeOperation);
         if(plotLineWidth){
-          plot.draw.line({x: xp0, y: yp}, {x: xp1, y: yp}, plotLineWidth, styleRGBA, globalCompositeOperation);
+          _svg += plot.draw.line({x: xp0, y: yp}, {x: xp1, y: yp}, plotLineWidth, styleRGBA, globalCompositeOperation);
         }
         if(markerSize){
-          plot.draw[markerType]({x: (xp0+xp1)/2, y: yp}, markerSize, markerLineWidth, styleRGBA, globalCompositeOperation);
+          _svg += plot.draw[markerType]({x: (xp0+xp1)/2, y: yp}, markerSize, markerLineWidth, styleRGBA, globalCompositeOperation);
         }
         yp += dyp_half;
       }
@@ -516,23 +528,25 @@ My_entry.plot2d.prototype.run = function(arr2d_vec, options){
   /* -> 0.6.0 */
   temp.attach(self.handlers);  // 0.4.0 moved from final()
   self.isLocked = false;
-  return self;
+  return _svg;
 };
-My_entry.plot2d.prototype.final = function(arr2d_vec, options){
+My_entry.plot2d.prototype.final = function(arr2d_vec, options, toSVG){
   var self = this;
   var all =  self.objs.all;
-  self.run(arr2d_vec, options);
-  var base64_bg = self.base64_bg || self.objs.background.getBase64();
-  var arr_base64_grid_plot = [self.objs.grid.getBase64(), self.objs.plot.getBase64()];
-  var callback = function(){
-    all.putBase64s(arr_base64_grid_plot.reverse(), function(){
-      self.names.forEach(function(name){
-        self.objs[name].clear();
-      });
-    }, options["canvas-globalCompositeOperation"]);
-  };
-  all.putBase64(base64_bg, callback);  // source-over
-  self.isDrawn = true;
-  self.isLocked = false;
-  return self;
+  var _svg = self.run(arr2d_vec, options, toSVG);
+  if(!(toSVG)){
+    var base64_bg = self.base64_bg || self.objs.background.getBase64();
+    var arr_base64_grid_plot = [self.objs.grid.getBase64(), self.objs.plot.getBase64()];
+    var callback = function(){
+      all.putBase64s(arr_base64_grid_plot.reverse(), function(){
+        self.names.forEach(function(name){
+          self.objs[name].clear();
+        });
+      }, options["canvas-globalCompositeOperation"]);
+    };
+    all.putBase64(base64_bg, callback);  // source-over
+    self.isDrawn = true;
+    self.isLocked = false;
+  }
+  return _svg;
 };

@@ -15,7 +15,7 @@ My_entry.calc_graphing.prototype.config = {
 };
 My_entry.calc_graphing.prototype.init = function(){
   var self = this;
-  self.init_main.call(self, ["reference", "$", "conv", "def", "DATA", "parser"]);
+  self.init_main.call(self, ["reference", "$", "conv", "def", "DATA", "parser", "draw_svg"]);
   return self;
 };
 My_entry.calc_graphing.prototype.init_elems = function(){
@@ -98,7 +98,7 @@ My_entry.calc_graphing.prototype.output_log_plot = function(isFinal){
   self.io.write_text(self.elems.d, "finished "+len_out+"/"+len_in);
   /* Ver.2.16.6 -> */
   if(isFinal){
-    self.elems.d.focus();
+    self.elems.d.focus();  // only async
   }
   /* -> Ver.2.16.6 */
   return self;
@@ -142,27 +142,39 @@ My_entry.calc_graphing.prototype.output_msgError_plot = function(e){
   throw false;
   return self;
 };
+/* Ver.2.17.6 -> */
 My_entry.calc_graphing.prototype.plot = function(arr_data, options_plot, isFinal){
   var self = this;
-  self.plot2d.re_init();
+  var _svg = "";
+  var toSVG = (isFinal === "SVG");
+  if(!(toSVG)){
+    self.plot2d.re_init();
+  }
   if(arr_data && arr_data.length){
     arr_data.forEach(function(data){
       data.arr_num = self.entry.parser.make_arr_num(data);
     });
     var arr2d_vec = self.arr_data2arr2d_vec(arr_data, options_plot);
-    if(self.plot2d.isChanged_axis){
-      self.input_axis(arr2d_vec);
+    if(toSVG){
+      self.entry.def.mix_over(self.constructors.draw, self.constructors.draw_svg);
+      _svg += self.plot2d.final(arr2d_vec, options_plot, toSVG);
     }
     else{
-      self.output_axis(arr2d_vec, options_plot);
-    }
-    if(isFinal){
-      self.plot2d.final(arr2d_vec, options_plot);
-      var options_calc = arr_data[0].options;
-      self.output_logh(options_calc.plot2d+"\n", options_calc.logo);  // Ver.2.10.4
-    }
-    else{
-      self.plot2d.run(arr2d_vec, options_plot);
+      self.entry.def.mix_over(self.constructors.draw, self.constructors.draw_canvas);
+      if(self.plot2d.isChanged_axis){
+        self.input_axis(arr2d_vec);
+      }
+      else{
+        self.output_axis(arr2d_vec, options_plot);
+      }
+      if(isFinal){
+        self.plot2d.final(arr2d_vec, options_plot, toSVG);
+        var options_calc = arr_data[0].options;
+        self.output_logh(options_calc.plot2d+"\n", options_calc.logo);  // Ver.2.10.4
+      }
+      else{
+        self.plot2d.run(arr2d_vec, options_plot);
+      }
     }
   }
   /* Ver.2.14.5 -> */
@@ -172,23 +184,37 @@ My_entry.calc_graphing.prototype.plot = function(arr_data, options_plot, isFinal
   }
   /* -> Ver.2.14.5 */
   self.output_log_plot(isFinal);
-  return self;
+  return _svg;
 };
+/* -> Ver.2.17.6 */
 My_entry.calc_graphing.prototype.re_plot = function(isFinal){
   var self = this;
-  var $ = self.entry.$;
+  var draw_svg = self.entry.draw_svg;
+  var _svg = "";
   var arr_data = self.worker_plot.arr_data_out;
   if(arr_data){
-    setTimeout(function(){
+    /* Ver.2.17.6 -> */
+    var callback = function(){
       try{
-        self.plot(arr_data, self.get_options(true), isFinal);
+        return self.plot(arr_data, self.get_options(true), isFinal);
       }
       catch(e){
         self.output_msgError_plot(e);
       }
-    }, 50);
+    };
+    var toSVG = (isFinal === "SVG");
+    if(toSVG){
+      _svg += draw_svg.header(self.plot2d.px_w, self.plot2d.px_h);
+      _svg += draw_svg.comment(self.io.getter.stamp());  // 3rd line
+      _svg += callback();        // sync
+      _svg += draw_svg.footer();
+    }
+    else{
+      setTimeout(callback, 50);  // async
+    }
+    /* -> Ver.2.17.6 */
   }
-  return self;
+  return _svg;
 };
 My_entry.calc_graphing.prototype.arr_data2arr2d_vec = function(arr_data, options_plot){
   var self = this;
@@ -444,6 +470,11 @@ My_entry.calc_graphing.prototype.init_handlers = function(){
     var json = {p: {id: "wrapper-link-png"}, a: {id: "a-png", it: "download-png"}, name: "download", ext: "png"};
     self.handler_link_png = new self.constructors.handler_link(json);
     self.handler_link_png.setter.callback(function(){return self.entry.conv.base2buffer(self.plot2d.objs.all.getBase64());});
+    /* Ver.2.17.6 -> */
+    var json = {p: {id: "wrapper-link-svg"}, a: {id: "a-svg", it: "-svg(src-over)"}, name: "download", ext: "svg"};
+    self.handler_link_svg = new self.constructors.handler_link(json);
+    self.handler_link_svg.setter.callback(function(){return self.re_plot("SVG");});
+    /* -> Ver.2.17.6 */
     var json = {p: {id: "wrapper-link-csv"}, a: {id: "a-csv", it: "-csv by double-click"}, name: "download", ext: "csv"};
     self.handler_link_csv = new self.constructors.handler_link(json);
     self.handler_link_csv.setter.callback(function(){return self.arr_data2csv(self.worker_plot.arr_data_out, self.get_options(true));});
