@@ -155,18 +155,18 @@ My_entry.calc_graphing.prototype.plot = function(arr_data, options_plot, isFinal
       data.arr_num = self.entry.parser.make_arr_num(data);
     });
     var arr2d_vec = self.arr_data2arr2d_vec(arr_data, options_plot);
+    if(self.plot2d.isChanged_axis){
+      self.input_axis(arr2d_vec);
+    }
+    else{
+      self.output_axis(arr2d_vec, options_plot);
+    }
     if(toSVG){
       self.entry.def.mix_over(self.constructors.draw, self.constructors.draw_svg);
       _svg += self.plot2d.final(arr2d_vec, options_plot, toSVG);
     }
     else{
       self.entry.def.mix_over(self.constructors.draw, self.constructors.draw_canvas);
-      if(self.plot2d.isChanged_axis){
-        self.input_axis(arr2d_vec);
-      }
-      else{
-        self.output_axis(arr2d_vec, options_plot);
-      }
       if(isFinal){
         self.plot2d.final(arr2d_vec, options_plot, toSVG);
         var options_calc = arr_data[0].options;
