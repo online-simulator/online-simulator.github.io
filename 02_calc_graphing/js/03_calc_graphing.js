@@ -183,7 +183,9 @@ My_entry.calc_graphing.prototype.plot = function(arr_data, options_plot, isFinal
     self.plot2d.isDrawn = false;
   }
   /* -> Ver.2.14.5 */
-  self.output_log_plot(isFinal);
+  if(!(toSVG)){  // for double-click link
+    self.output_log_plot(isFinal);
+  }
   return _svg;
 };
 /* -> Ver.2.17.6 */
