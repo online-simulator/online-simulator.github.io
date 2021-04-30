@@ -90,17 +90,18 @@ My_entry.draw_svg.prototype.lines = function(arr_vec, opt_lineWidth, opt_styleRG
   var self = this;
   var _svg = "";
   var lineWidth = opt_lineWidth;
+  var fillPath = opt_fillPath || false;
   if(lineWidth){
-    var fillStyle = opt_styleRGBA || self.config.default.rgba;
-    var strokeStyle = fillStyle;
-    _svg += (opt_fillPath)?
+    var fillStyle = ((fillPath)? opt_styleRGBA: "none") || self.config.default.rgba;
+    var strokeStyle = ((fillPath)? "none": opt_styleRGBA) || self.config.default.rgba;
+    _svg += (fillPath)?
             "<polygon":
             "<polyline";
-    _svg += (opt_fillPath)?
-            " fill="+self.quote(fillStyle):
-            " fill="+self.quote("none");
+    _svg += " fill="+self.quote(fillStyle);
     _svg += " stroke="+self.quote(strokeStyle);
-    _svg += " stroke-width="+self.quote(self.floor(lineWidth));
+    _svg += (fillPath)?
+            "":
+            " stroke-width="+self.quote(self.floor(lineWidth));
     _svg += " stroke-linecap="+self.quote("round");  // "butt" || "round" || "square"
     _svg += " stroke-linejoin="+self.quote("round");  // "round" || "bevel" || "miter"
     var points = "";
@@ -287,9 +288,7 @@ My_entry.draw_svg.prototype.triangle = function(vec0, r, opt_lineWidth, opt_styl
       dy2 = -dy2;
     }
     _svg += "<polygon";
-    _svg += (!(lineWidth))?
-            " fill="+self.quote(fillStyle):
-            " fill="+self.quote("none");
+    _svg += " fill="+self.quote(fillStyle);
     _svg += " stroke="+self.quote(strokeStyle);
     _svg += " stroke-width="+self.quote(self.floor(lineWidth || r*0.3));
     _svg += " stroke-linecap="+self.quote("round");
@@ -321,9 +320,7 @@ My_entry.draw_svg.prototype.square = function(vec0, r, opt_lineWidth, opt_styleR
     var dx = r*Math.sqrt(Math.PI)/2;
     var dy = dx;
     _svg += "<polygon";
-    _svg += (!(lineWidth))?
-            " fill="+self.quote(fillStyle):
-            " fill="+self.quote("none");
+    _svg += " fill="+self.quote(fillStyle);
     _svg += " stroke="+self.quote(strokeStyle);
     _svg += " stroke-width="+self.quote(self.floor(lineWidth || r*0.3));
     _svg += " stroke-linecap="+self.quote("round");
@@ -353,9 +350,7 @@ My_entry.draw_svg.prototype.diamond = function(vec0, r, opt_lineWidth, opt_style
     var dy = dx;
     var rad = Math.PI/4;
     _svg += "<polygon";
-    _svg += (!(lineWidth))?
-            " fill="+self.quote(fillStyle):
-            " fill="+self.quote("none");
+    _svg += " fill="+self.quote(fillStyle);
     _svg += " stroke="+self.quote(strokeStyle);
     _svg += " stroke-width="+self.quote(self.floor(lineWidth || r*0.3));
     _svg += " stroke-linecap="+self.quote("round");
