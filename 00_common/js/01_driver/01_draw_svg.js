@@ -75,7 +75,7 @@ My_entry.draw_svg.prototype.line = function(vec0, vec1, opt_lineWidth, opt_style
     var y1 = self.floor(vec1.y);
     _svg += "<line";
     _svg += " stroke="+self.quote(strokeStyle);
-    _svg += " stroke-width="+self.quote(self.floor(lineWidth));
+    _svg += " stroke-width="+self.quote(self.floor(lineWidth));  // 0 enabled
     _svg += " stroke-linecap="+self.quote("round");
     _svg += " x1="+self.quote(x0);
     _svg += " y1="+self.quote(y0);
@@ -90,21 +90,11 @@ My_entry.draw_svg.prototype.lines = function(arr_vec, opt_lineWidth, opt_styleRG
   var self = this;
   var _svg = "";
   var lineWidth = opt_lineWidth;
+  var fillStyle = opt_styleRGBA || self.config.default.rgba;
+  var strokeStyle = fillStyle;
   var fillPath = opt_fillPath || false;
-  if(lineWidth){
-    var fillStyle = ((fillPath)? opt_styleRGBA: "none") || self.config.default.rgba;
-    var strokeStyle = ((fillPath)? "none": opt_styleRGBA) || self.config.default.rgba;
-    _svg += (fillPath)?
-            "<polygon":
-            "<polyline";
-    _svg += " fill="+self.quote(fillStyle);
-    _svg += " stroke="+self.quote(strokeStyle);
-    _svg += (fillPath)?
-            "":
-            " stroke-width="+self.quote(self.floor(lineWidth));
-    _svg += " stroke-linecap="+self.quote("round");  // "butt" || "round" || "square"
-    _svg += " stroke-linejoin="+self.quote("round");  // "round" || "bevel" || "miter"
-    var points = "";
+  var points = "";
+  if(fillPath || lineWidth){
     for(var n=0, len_n=arr_vec.length; n<len_n; ++n){
       if(n > 0){
         points += " ";
@@ -114,9 +104,26 @@ My_entry.draw_svg.prototype.lines = function(arr_vec, opt_lineWidth, opt_styleRG
       var y = self.floor(vecn.y);
       points += x+" "+y;
     }
+  }
+  // fill
+  if(fillPath){
+    _svg += "<polygon";
+    _svg += " fill="+self.quote(fillStyle);
+    _svg += " stroke="+self.quote("none");
     _svg += " points="+self.quote(points);
     _svg += "/>";
     _svg += self.rn;
+  }
+  // stroke
+  if(lineWidth){
+    _svg += "<polyline";
+    _svg += " fill="+self.quote("none");
+    _svg += " stroke="+self.quote(strokeStyle);
+    _svg += " stroke-width="+self.quote(self.floor(lineWidth));
+    _svg += " stroke-linecap="+self.quote("round");  // "butt" || "round" || "square"
+    _svg += " stroke-linejoin="+self.quote("round");  // "round" || "bevel" || "miter"
+    _svg += " points="+self.quote(points);
+    _svg += "/>";
   }
   return _svg;
 };

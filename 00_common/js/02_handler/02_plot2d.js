@@ -457,7 +457,7 @@ My_entry.plot2d.prototype.run = function(arr2d_vec, options, toSVG){
     var styleRGBA = arr_styleRGBA[j];
     var plotLineWidth = arr_plotLineWidth[j];
     var fillPath = arr_fillPath[j];
-    if(plotLineWidth){
+//    if(plotLineWidth){  // 0.7.0 comment-out
       var arr_vec = [];
       for(var n=0; n<len_n; ++n){
         var x = arr2d_tx[n][j];
@@ -465,7 +465,7 @@ My_entry.plot2d.prototype.run = function(arr2d_vec, options, toSVG){
         arr_vec[n] = {x: x, y: y};
       }
       _svg += plot.lines(arr_vec, plotLineWidth, styleRGBA, globalCompositeOperation, fillPath);
-    }
+//    }
   }
   // plot markers
   for(var j=0; j<len_j; ++j){
@@ -498,8 +498,14 @@ My_entry.plot2d.prototype.run = function(arr2d_vec, options, toSVG){
       var markerSize = arr_markerSize[j];
       var markerLineWidth = arr_markerLineWidth[j];
       var plotLineWidth = arr_plotLineWidth[j];
+      var fillPath = arr_fillPath[j];
       var str = arr_str[j];
       var strFontSize = arr_strFontSize[j];
+      /* 0.7.0 -> */
+      if(fillPath && !(plotLineWidth) && !(markerSize)){
+        plotLineWidth = strFontSize;
+      }
+      /* -> 0.7.0 */
       if(plotLineWidth || markerSize){
         var drp = Math.max(strFontSize, plotLineWidth);
         if(markerSize){

@@ -23,14 +23,14 @@ My_entry.draw_canvas.prototype.line = function(vec0, vec1, opt_lineWidth, opt_st
   }
   return self;
 };
+/* 0.7.0 -> */
 /* 0.4.0 -> */
 My_entry.draw_canvas.prototype.lines = function(arr_vec, opt_lineWidth, opt_styleRGBA, opt_globalCompositeOperation, opt_fillPath){
   var self = this;
   var ctx = self.ctx;
   var lineWidth = opt_lineWidth;
   var fillPath = opt_fillPath || false;
-  if(lineWidth){
-    ctx.save();
+  var make_path = function(fillPath){
     ctx.beginPath();
     for(var n=0, len_n=arr_vec.length; n<len_n-1; ++n){
       var vec0 = arr_vec[n];
@@ -50,12 +50,23 @@ My_entry.draw_canvas.prototype.lines = function(arr_vec, opt_lineWidth, opt_styl
       ctx.lineTo(x1, y1);
     }
     ctx.closePath();
-    self.enter(lineWidth, ((fillPath)? null: lineWidth), opt_styleRGBA, opt_globalCompositeOperation);
-    ctx.restore();
+  };
+  ctx.save();
+  // fill
+  if(fillPath){
+    make_path(true);
+    self.enter(0, null, opt_styleRGBA, opt_globalCompositeOperation);
   }
+  // stroke
+  if(lineWidth){
+    make_path(false);
+    self.enter(lineWidth, lineWidth, opt_styleRGBA, opt_globalCompositeOperation);
+  }
+  ctx.restore();
   return self;
 };
 /* -> 0.4.0 */
+/* -> 0.7.0 */
 /* 0.5.0 -> */
 My_entry.draw_canvas.prototype.text = function(text, vec0, opt_fontSize, opt_styleRGBA, opt_globalCompositeOperation){
   var self = this;
