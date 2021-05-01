@@ -20,6 +20,11 @@ textarea:read-only,
   cursor: not-allowed;
 }
 
+a, button{
+  -ms-touch-action: none;
+  touch-action: none;
+}
+
 table, th, td{
   border: none;
 }
