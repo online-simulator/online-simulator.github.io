@@ -20,7 +20,7 @@ textarea:read-only,
   cursor: not-allowed;
 }
 
-a, button{
+a, button, .touch-action-none{
   -ms-touch-action: none;
   touch-action: none;
 }
