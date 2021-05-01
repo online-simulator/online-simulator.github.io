@@ -249,19 +249,23 @@ minor change
     <td>
 [全ページ共通]
 <br>
-・a/button要素にtouch-action: none;のCSS適用
+<del>・a/button要素にtouch-action: none;のCSS適用</del>
 <br>
-　操作中のpan/zoom抑止
+<del>　操作中のpan/zoom抑止</del>
+<br>
+・html要素にtouch-action: manipulation;のCSS適用
+<br>
+　double-tapによるzoom抑止
+<br>
+　実機testにて操作性に難があるため、全修正
 <br>
 [Simple Calculator]
 <br>
-・操作panel全体にtouch-action: none;のCSS適用
+<del>・操作panel全体にtouch-action: none;のCSS適用</del>
 <br>
 [Graphing Calculator]
 <br>
-・操作panel<del>全体</del>一部にtouch-action: none;のCSS適用
-<br>
-　実機testにて操作性に難があるため、一部に変更
+<del>・操作panel一部にtouch-action: none;のCSS適用</del>
     </td>
     <td>
 2021/5/1

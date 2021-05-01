@@ -5,6 +5,10 @@ header, footer, main, menu, nav, section, summary{
   display: block;
 }
 
+html{
+  touch-action: manipulation;
+}
+
 body{
   position: relative;
   margin: 0px auto;
@@ -20,17 +24,17 @@ textarea:read-only,
   cursor: not-allowed;
 }
 
-a, button, .touch-action-none{
-  -ms-touch-action: none;
-  touch-action: none;
-}
-
 table, th, td{
   border: none;
 }
 
 label, .label{
   text-align: center;
+}
+
+.touch-action-none{
+  -ms-touch-action: none;
+  touch-action: none;
 }
 
 .text-bold{
