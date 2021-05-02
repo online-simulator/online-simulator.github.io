@@ -4,7 +4,7 @@
 
 <head>
   <meta charset="utf-8">
-  <meta name="description" content="ガチャシミュレータ">
+  <meta name="description" content="Gacha Simulator">
   <meta name="author" content="online-simulator.github.io">
   <noscript>JavaScript is not enabled on browser.</noscript>
   <link rel="stylesheet" type="text/css" href="../00_common/css/common.css">
@@ -38,21 +38,21 @@
 <div>
 <table><tbody>
 <tr><td>
-  <a title="ガチャの仕組み考察と実装例" href="spec.html">ガチャの仕組み考察と実装例</a>
-に基づくJavaScriptによるテスト実装２種類
+  <a title="Gachaの仕組み考察と実装例" href="spec.html">Gachaの仕組み考察と実装例</a>
+に基づくJavaScriptによるtest実装２種類
 </td></tr>
 <tr><td>
-確率抽選: 次の排出商品はランダムに決められる
+確率抽選: 次の排出商品はrandomに決められる
 <br>
-　⇒　テーブル配列の要素番号をランダムに決定して要素の商品を排出
+　⇒　table配列の要素番号をrandomに決定して要素の商品を排出
 <br>
-ボックス抽選: 次の排出商品は予め決まっているリアルガチャと同じ
+BOX抽選: 次の排出商品は予め決まっているreal-Gachaと同じ
 <br>
-　⇒　テーブルを複数個並べてランダムソートした商品を順番に排出
+　⇒　tableを複数個並べてrandom-sortした商品を順番に排出
 </td></tr>
 <tr><td>
   <label for="textarea-table">
-テーブル:
+table:
   </label>
   <label>
     <input id="checkbox-arr_table" type="checkbox">
@@ -76,7 +76,7 @@ len:
   </label>
 </td></tr>
 <tr><td>
-確率抽選ガチャ実行:
+確率抽選Gacha実行:
   <button id="roll_table1" class="run">1roll</button>
   <button id="roll_table10" class="run">10roll</button>
   <button id="roll_table100" class="run">100roll</button>
@@ -88,14 +88,14 @@ len:
 <tr><td>
 <br>
   <table>
-    <caption>提供割合の設定パネル　⇒　共通のテーブルを自動生成</caption>
+    <caption>提供割合の設定panel　⇒　共通のtableを自動生成</caption>
     <thead>
       <tr>
-        <th>レア度</th>
+        <th>rarity</th>
         <th>種類</th>
-        <th>レア度別<br>提供割合</th>
+        <th>rarity別<br>提供割合</th>
         <th>各商品<br>提供割合</th>
-        <th>テーブル内個数<br>
+        <th>table内個数<br>
 全
 <input id="input-len_table0" class="output-val" readonly="readonly">
 個
@@ -305,7 +305,7 @@ len:
 </td></tr>
 <tr><td>
   <label for="textarea-box">
-ボックス:
+BOX:
   </label>
   <label>
     <input id="checkbox-arr_box" type="checkbox">
@@ -329,7 +329,7 @@ k:
   <option>10</option>
 </select>
   </label>
-個のテーブルを並べてランダムソートした）
+個のtableを並べてrandom-sort）
 <br>
 端数を丸めた長さ
   <label>
@@ -347,7 +347,7 @@ len:
   </label>
 </td></tr>
 <tr><td>
-ボックス抽選ガチャ実行:
+BOX抽選Gacha実行:
   <button id="roll_box1" class="run">1roll</button>
   <button id="roll_box10" class="run">10roll</button>
   <button id="roll_box100" class="run">100roll</button>
@@ -357,10 +357,10 @@ len:
   </label>
 </td></tr>
 <tr><td>
-ボックスをランダムソート:
-  <button id="shuffle_box" class="selection">shuffle-box</button>
-中身リセット:
-  <button id="reset_box" class="clear">reset-box</button>
+random-sort:
+  <button id="shuffle_box" class="selection">shuffle-BOX</button>
+reset:
+  <button id="reset_box" class="clear">reset-BOX</button>
 </td></tr>
 <tr><td>
   <label>
@@ -372,7 +372,7 @@ len:
     <input id="input-roll_max_item" class="output-val" readonly="readonly">
   </label>
   <label>
-指定レア度
+指定rarity
     <input id="input-rarity_comp" class="output-val" value="SSR">
   </label>
   <label>

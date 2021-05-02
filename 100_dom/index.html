@@ -4,7 +4,7 @@
 
 <head>
   <meta charset="utf-8">
-  <meta name="description" content="[用語]DOM・ノード・要素の区別">
+  <meta name="description" content="[term]DOM/Node/要素の区別">
   <meta name="author" content="online-simulator.github.io">
   <noscript>JavaScript is not enabled on browser.</noscript>
   <link rel="stylesheet" type="text/css" href="../00_common/css/common.css">
@@ -37,9 +37,9 @@ DOM
           <td class="border">
 Document Object Model
 <br>
-・プログラムから文書を操作するインターフェースを提供する
+・programから文書を操作するinterfaceを提供する
 <br>
-・文書をオブジェクトのツリー構造で表すモデル体系
+・文書をobjectのtree構造で表すmodel体系
 <br>
 ・協調して動作する複数のAPIから構成される
 <br>
@@ -51,7 +51,7 @@ Document Object Model
 EventTarget
           </td>
           <td class="border">
-Nodeの親となるインターフェース
+Nodeの親となるinterface/object
 <br>
 window等
           </td>
@@ -61,9 +61,9 @@ window等
 Node
           </td>
           <td class="border">
-Elementの親となるインターフェース
+Elementの親となるinterface/object
 <br>
-プロパティ: textContent等
+property: textContent等
           </td>
         </tr>
         <tr class="border">
@@ -71,9 +71,9 @@ Elementの親となるインターフェース
 Element
           </td>
           <td class="border">
-HTMLElementの親となるインターフェース
+HTMLElementの親となるinterface/object
 <br>
-プロパティ: innerHTML等
+property: innerHTML等
           </td>
         </tr>
         <tr class="border">
@@ -81,33 +81,33 @@ HTMLElementの親となるインターフェース
 HTMLElement
           </td>
           <td class="border">
-任意のHTML要素を表すインターフェース
+任意のHTML要素を表すinterface/object
 <br>
-プロパティ: innerText他、親から継承した全プロパティ
+property: innerText他、親から継承した全property
           </td>
         </tr>
         <tr class="border">
           <td class="border">
-要素ノード
+要素Node
 <br>
-テキストノード
+Text Node
           </td>
           <td class="border">
-文書内の任意タグで記述される要素のオブジェクト
+文書内の任意tagで記述される要素のobject
 <br>
-文書内の空白やテキストコンテンツのオブジェクト
+文書内の空白やtext contentsのobject
           </td>
         </tr>
         <tr class="border">
           <td class="border">
-ブロックレベル要素
+block-level要素
 <br>
-インライン要素
+inline要素
           </td>
           <td class="border">
 要素を入れ子にできるHTMLのdiv等
 <br>
-ブロックレベル要素を入れ子にできないHTMLのspan等
+block-level要素を入れ子にできないHTMLのspan等
           </td>
         </tr>
       </tbody>

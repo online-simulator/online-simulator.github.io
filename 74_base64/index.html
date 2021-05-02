@@ -4,7 +4,7 @@
 
 <head>
   <meta charset="utf-8">
-  <meta name="description" content="base64変換チェッカー">
+  <meta name="description" content="base64変換Checker">
   <meta name="author" content="online-simulator.github.io">
   <noscript>JavaScript is not enabled on browser.</noscript>
   <link rel="stylesheet" type="text/css" href="../00_common/css/common.css">
@@ -36,12 +36,12 @@
 <div>
 <table><tbody>
 <tr><td>
-マルチバイト文字を含む文字列とbase64文字列を相互変換
+Multi-Byte文字を含む文字列とbase64文字列を相互変換
 </td></tr>
 <tr><td class="text-center">
   <label for="textarea-input">変換対象text</label>
 　
-  <button id="clear" class="clear">クリア</button>
+  <button id="clear" class="clear">Clear</button>
 <br>
   <textarea id="textarea-input" rows="3">テスト😊</textarea>
 <br>
@@ -51,22 +51,22 @@
 <br><br>
 </td></tr>
 <tr><td>
-  <label for="textarea-output_BE">マルチバイト文字列対応:</label>
-  <button id="postset_BE" class="selection" title="変換結果を変換対象に再セット">out ⇒ text</button>
+  <label for="textarea-output_BE">Multi-Byte文字列対応:</label>
+  <button id="postset_BE" class="selection" title="変換結果を変換対象に再set">out ⇒ text</button>
 Big Endianness
 <br>
   <textarea id="textarea-output_BE" readonly="readonly" rows="3"></textarea>
 </td></tr>
 <tr><td>
-  <label for="textarea-output_LE">マルチバイト文字列対応:</label>
-  <button id="postset_LE" class="selection" title="変換結果を変換対象に再セット">out ⇒ text</button>
+  <label for="textarea-output_LE">Multi-Byte文字列対応:</label>
+  <button id="postset_LE" class="selection" title="変換結果を変換対象に再set">out ⇒ text</button>
 Little Endianness
 <br>
   <textarea id="textarea-output_LE" readonly="readonly" rows="3"></textarea>
 </td></tr>
 <tr><td>
-  <label for="textarea-output_native">バイナリ文字列のみ対応:</label>
-  <button id="postset_native" class="selection" title="変換結果を変換対象に再セット">out ⇒ text</button>
+  <label for="textarea-output_native">binary文字列のみ対応:</label>
+  <button id="postset_native" class="selection" title="変換結果を変換対象に再set">out ⇒ text</button>
 Native
 <br>
   <textarea id="textarea-output_native" readonly="readonly" rows="3"></textarea>

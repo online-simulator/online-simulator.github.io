@@ -4,7 +4,7 @@
 
 <head>
   <meta charset="utf-8">
-  <meta name="description" content="Unicode変換チェッカー">
+  <meta name="description" content="Unicode変換Checker">
   <meta name="author" content="online-simulator.github.io">
   <noscript>JavaScript is not enabled on browser.</noscript>
   <link rel="stylesheet" type="text/css" href="../00_common/css/common.css">
@@ -36,17 +36,17 @@
 <div>
 <table><tbody>
 <tr><td>
-文字列とUnicodeスカラ値カンマ区切りを相互変換3種類
+文字列とUnicode Scalar値comma区切りを相互変換3種類
 </td></tr>
 <tr><td>
-16bitスカラ値0~ffffのユニット列で表すUTF-16BE/LE
+16bit Scalar値0~ffffのUnit列で表すUTF-16BE/LE
 <br>
-8bitスカラ値0~ffのバイト列で表すUTF-8
+8bit Scalar値0~ffのByte列で表すUTF-8
 </td></tr>
 <tr><td class="text-center">
   <label for="textarea-input">変換対象text</label>
 　
-  <button id="clear" class="clear">クリア</button>
+  <button id="clear" class="clear">Clear</button>
 <br>
   <textarea id="textarea-input" rows="5">あ16進数表記,UTF-16BE,3042,,,,,,,UTF-16LE,4230,,,,,,UTF-8,e3,81,82,
 あ10進数表記,UTF-16BE,12354,,,,,,UTF-16LE,16944,,,,,UTF-8,227,129,130,
@@ -65,7 +65,7 @@
     </select>
 進数表記
   </label>
-  <button id="code2str" class="run">スカラ値から変換</button>
+  <button id="code2str" class="run">Scalar値から変換</button>
 結果out
 <br><br>
 </td></tr>
@@ -74,14 +74,14 @@
     <tr>
       <td>
 <label for="textarea-output_utf16BE">UTF-16BE:</label>
-<button id="postset_utf16BE" class="selection" title="変換結果を変換対象に再セット">out ⇒ text</button>
+<button id="postset_utf16BE" class="selection" title="変換結果を変換対象に再set">out ⇒ text</button>
 <input id="input-utf16BE" readonly="readonly">
 <br>
 <textarea id="textarea-output_utf16BE" readonly="readonly" rows="5"></textarea>
       </td>
       <td>
 <label for="textarea-output_utf16LE">UTF-16LE:</label>
-<button id="postset_utf16LE" class="selection" title="変換結果を変換対象に再セット">out ⇒ text</button>
+<button id="postset_utf16LE" class="selection" title="変換結果を変換対象に再set">out ⇒ text</button>
 <input id="input-utf16LE" readonly="readonly">
 <br>
 <textarea id="textarea-output_utf16LE" readonly="readonly" rows="5"></textarea>
@@ -90,15 +90,15 @@
     <tr>
       <td>
 <label for="textarea-output_utf8">UTF-8:</label>
-<button id="postset_utf8"  class="selection" title="変換結果を変換対象に再セット">out ⇒ text</button>
+<button id="postset_utf8"  class="selection" title="変換結果を変換対象に再set">out ⇒ text</button>
 <input id="input-utf8" readonly="readonly">
 <br>
 <textarea id="textarea-output_utf8" readonly="readonly" rows="5"></textarea>
       </td>
       <td>
 <label for="textarea-output_utf8IE">UTF-8:</label>
-<button id="postset_utf8IE"  class="selection" title="変換結果を変換対象に再セット">out ⇒ text</button>
-IE対応/バイナリ文字列のみ
+<button id="postset_utf8IE"  class="selection" title="変換結果を変換対象に再set">out ⇒ text</button>
+IE対応/binary文字列のみ
 <br>
 <textarea id="textarea-output_utf8IE" readonly="readonly" rows="5"></textarea>
       </td>

@@ -4,7 +4,7 @@
 
 <head>
   <meta charset="utf-8">
-  <meta name="description" content="[実装テスト]WebWorkers">
+  <meta name="description" content="[test]WebWorkers">
   <meta name="author" content="online-simulator.github.io">
   <noscript>JavaScript is not enabled on browser.</noscript>
   <link rel="stylesheet" type="text/css" href="../00_common/css/common.css">
@@ -39,17 +39,17 @@
 <div>
 <table><tbody>
 <tr><td>
-マルチスレッド実行による並列処理に用いるWebWorkersの実装テスト
+Multi-thread実行による並列処理に用いるWebWorkersのtest
 </td></tr>
 <tr><td>
 数学関数Mathによる単純な乱数の平滑化処理をmainからworkerに依頼する
 <br>
-下記のWebWorkers使用にチェックを付けるとマルチスレッドで実行する
+下記のWebWorkers使用にcheckを付けるとMulti-threadで実行する
 <br>
-※回数nが並列処理の最大スレッド数、実行結果の()内がmain依頼順
+※回数nが並列処理の最大thread数、実行結果の()内がmain依頼順
 </td></tr>
 <tr><td>
-  <label>依頼するジョブ: 乱数の平滑化Math.
+  <label>依頼するjob: 乱数の平滑化Math.
     <select id="select-job">
       <option>floor</option>
       <option selected="selected">round</option>

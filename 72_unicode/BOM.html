@@ -4,7 +4,7 @@
 
 <head>
   <meta charset="utf-8">
-  <meta name="description" content="[覚書]BOM(Byte Order Mark)">
+  <meta name="description" content="[memo]BOM(Byte Order Mark)">
   <meta name="author" content="online-simulator.github.io">
   <noscript>JavaScript is not enabled on browser.</noscript>
   <link rel="stylesheet" type="text/css" href="../00_common/css/common.css">
@@ -25,14 +25,14 @@
 符号化形式
           </th>
           <th class="border">
-環境依存のエンディアン（メモリでのByte順序）
+環境依存のEndianness（memoryでのByte Order）
 <br>
-マルチバイト文字のByte順序が標準出力に影響
+Multi-Byte文字のByte Orderが標準出力に影響
           </th>
           <th class="border">
 BOM(Byte Order Mark)
 <br>
-Byte順序を区別する印
+Byte Orderを区別する印
           </th>
         </tr>
       </thead>
@@ -59,7 +59,7 @@ BE/Big Endianness/Most Significant Byte first
 <br>
 LE/Little Endianness/Least Significant Byte first
 <br>
-BE既定/UTF-8とバイナリ文字列の互換性あり
+BE既定/UTF-8とbinary文字列の互換性あり
           </td>
           <td class="border">
 0xFE 0xFF
@@ -74,7 +74,7 @@ BOMなしの場合
 UTF-16BE
           </td>
           <td class="border">
-BE/上位Byteがメモリの下位アドレスに格納される場合
+BE/上位Byteがmemoryの下位addressに格納される場合
 <br>
 または上位Byteから先に標準出力する場合
           </td>
@@ -87,7 +87,7 @@ BOMなし必須
 UTF-16LE
           </td>
           <td class="border">
-LE/下位Byteがメモリの下位アドレスに格納される場合
+LE/下位Byteがmemoryの下位addressに格納される場合
 <br>
 または下位Byteから先に標準出力する場合
           </td>
@@ -99,7 +99,7 @@ BOMなし必須
           <td class="border">
           </td>
           <td class="border">
-例）下記16進数表記2Bytesのデータ
+例）下記16進数表記2Bytesのdata
 <br>
 0x1234
 <br>
@@ -109,9 +109,9 @@ BOMなし必須
 下位（の桁）1Byte: 0x34
 <br>
 
-BE: 0x12→0x34の順にメモリに格納または標準出力
+BE: 0x12→0x34の順にmemoryに格納または標準出力
 <br>
-LE: 0x34→0x12の順にメモリに格納または標準出力
+LE: 0x34→0x12の順にmemoryに格納または標準出力
           </td>
           <td class="border">
           </td>

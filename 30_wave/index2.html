@@ -49,9 +49,9 @@
 <table class="border"><tbody>
   <tr class="border">
     <td colspan="2">
-時系列の音源wave PCMを生成して再生orダウンロード
+時系列の音源wave PCMを生成してplay||download
 <br>
-IE、Silk等の旧式はダウンロード後、メディア再生のみ可
+IE、Silk等の旧式はdownload後、media再生のみ可
     </td>
   </tr>
   <tr class="border">
@@ -82,7 +82,7 @@ sample数/sec：
   <option>84000</option>
   <option>96000</option>
 </select>
-最大10kHzオーダーの分解能
+最大O(10kHz)の分解能
     </td>
   </tr>
   <tr class="border">
@@ -91,8 +91,8 @@ channel数：
     </td>
     <td>
 <select id="select-number_channels">
-  <option value="1">1: モノラル</option>
-  <option value="2" selected="selected">2: ステレオ</option>
+  <option value="1">1: monaural</option>
+  <option value="2" selected="selected">2: stereo</option>
 </select>
     </td>
   </tr>
@@ -102,16 +102,16 @@ wave-type：
     </td>
     <td>
 <select id="select-type">
-  <option value="sin">正弦波-sin: 自然音</option>
-  <option value="triangle">三角波-triange: 人工音</option>
-  <option value="square">矩形波-square: 不快音</option>
-  <option value="sawtooth">のこぎり波-sawtooth: 注意</option>
+  <option>sin</option>
+  <option>triangle</option>
+  <option>square</option>
+  <option>sawtooth</option>
 </select>
     </td>
   </tr>
   <tr class="border">
     <td>
-時間-time[sec]：
+time[sec]：
     </td>
     <td>
 <input id="input-time" type="number" readonly="readonly">
@@ -119,11 +119,11 @@ wave-type：
   </tr>
   <tr class="border">
     <td>
-音量-volume[%]：
+volume[%]：
     </td>
     <td>
 <input id="range-volume" type="range" min="0" max="100" step="1" value="50">
-<button id="play" class="run">再生-play</button>
+<button id="play" class="run">play</button>
 <button id="stop" class="clear">stop</button>
     </td>
   </tr>
@@ -139,7 +139,7 @@ file name:
     </td>
     <td>
 <div class="selection">
-  <span id="span-log">オフラインで生成ダウンロード可</span>
+  <span id="span-log">downloadable offline</span>
 </div>
 <input id="input-fileSize" readonly="readonly">
 &lt;
@@ -312,7 +312,7 @@ filter gain:
 <table class="border"><tbody>
   <tr class="border">
     <td>
-時系列のスクリプト入力欄　例）左右で3拍子ずらした1オクターブのステレオ出力
+時系列のscript入力欄　例）左右で3拍子ずらした1octaveのstereo出力
   <textarea id="textarea-script" rows="10">
 {500:[o3c0,f523,o5c0]; 500:[o3c2,o4c2,o5c2]; 500:[o3c4,o4c4,o5c4]; 500:[o3c5,o4c5,o5c5];
  500:[o3c7,o4c7,o5c7]; 500:[o3c9,o4c9,o5c9]; 500:[o3c11,o4c11,o5c11]; 500:[o4c0,o5c0,o6c0]; 500:r;}
@@ -326,15 +326,15 @@ filter gain:
   </tr>
   <tr class="border">
     <td>
-スクリプトの入力形式
+scriptの入力形式
 <br>
-・チャンネル1~を区切る波括弧{}
+・channel1~を区切る波括弧{}
 <br>
-　奇数番チャンネルはチャンネル1に合成
+　奇数番channelはchannel1に合成
 <br>
-　偶数番チャンネルはチャンネル数によってチャンネル2または1に合成
+　偶数番channelはchannel数によってchannel2または1に合成
 <br>
-・1拍子のデータセット
+・1拍子のdataset
 <br>
 　時間:音階;　または　時間:[音階0,音階1...];
 <br>
@@ -342,7 +342,7 @@ filter gain:
 <br>
 ・音階の入力形式
 <br>
-　"o"+MIDIオクターブ数-2~8+"c"+0~11~　または　省略可"f"+周波数
+　"o"+MIDI-octave数-2~8+"c"+0~11~　または　省略可"f"+周波数
 <br>
 　例）ド523Hzの指定方法: o4c0 = o3c12 = f523 = 523
 <br>

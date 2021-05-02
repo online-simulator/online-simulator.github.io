@@ -5,7 +5,7 @@
 <head>
 
   <meta charset="utf-8">
-  <meta name="description" content="[仕様]WebWorkers有無の共通化">
+  <meta name="description" content="[spec]WebWorkers有無の共通化">
   <meta name="author" content="online-simulator.github.io">
   <noscript>JavaScript is not enabled on browser.</noscript>
   <link rel="stylesheet" type="text/css" href="../00_common/css/common.css">
@@ -38,9 +38,9 @@ worker
 宣言のURL
           </td>
           <td class="border">
-mainスクリプト内で宣言する外部スクリプトfor_url.jsのURLは
+main script内で宣言する外部script(for_url.js)のURLは
 <br>
-index.htmlからの相対パスで記述する
+index.htmlからの相対pathで記述する
 <br>
 <pre><code>
 self.worker = new Worker("js/for_url.js");
@@ -55,22 +55,22 @@ self.worker = new Worker("js/for_url.js");
           <td class="border">
 worker
 <br>
-外部スクリプト
+外部script
           </td>
           <td class="border">
-共通化する処理jobを別のスクリプトfor_importScripts.jsに定義してimportする
+共通化する処理jobを別のscript(for_importScripts.js)に定義してimportする
 <br>
-importするスクリプトのパスは外部スクリプトfor_url.jsからの相対パスで記述する
+importするscriptのpathは外部script(for_url.js)からの相対pathで記述する
 <br>
-importするスクリプトが複数ある場合、カンマ区切りで読み込み順に並べる（配列渡し不可）
+importするscriptが複数ある場合、comma区切りで読み込み順に並べる（配列渡し不可）
 <br>
-これより外部スクリプトは最も単純に次のように記述される
+これより外部scriptは最も単純に次のように記述される
 <br>
-e.dataがmainから受け取るコピーdata（参照を持たないJSON形式）
+e.dataがmainから受け取るcopy-data（参照を持たないJSON形式）
 <br>
-なお、外部スクリプトに変更を加えた場合、
+なお、外部scriptに変更を加えた場合、
 <br>
-"キャッシュの消去とハード再読込み"をしないと反映されない場合があるので留意する
+"cacheの消去とhard再読込み"をしないと反映されない場合があるので留意する
 <pre><code>
 importScripts("for_importScripts.js");
 
@@ -87,15 +87,15 @@ main/worker
 共通化するjob定義
           </td>
           <td class="border">
-mainとworkerそれぞれでimportする共通のスクリプトにjobを定義する
+mainとworkerそれぞれでimportする共通のscriptにjobを定義する
 <br>
 mainから受け取ったdataを処理した後、同様のdataを返却する
 <br>
-いずれかのエラー発生場所を特定するためにwindowオブジェクトの存在可否を判定する
+いずれかのerror発生場所を特定するためにwindow objectの存在可否を判定する
 <br>
-workerからはmainのwindowやdocumentにアクセスできないことに留意する
+workerからはmainのwindowやdocumentにaccessできないことに留意する
 <br>
-そのため、ここで定義するjobは並列化向きのメディア処理や数値計算が一般的と考えられる
+そのため、ここで定義するjobは並列化向きのmedia処理や数値計算が一般的と考えられる
 <pre><code>
 My_entry.job_imported = function(_data){
   var out = null;
@@ -123,7 +123,7 @@ main
           <td class="border">
 mainからworkerにまとめてarr_dataを渡すhandler_workerを用意し、排他処理を実施する
 <br>
-最も上流の実行命令直後とhandler_worker.runを呼ぶ関数の最初にロック判定処理を加える
+最も上流の実行命令直後とhandler_worker.runを呼ぶ関数の最初にlock判定処理を加える
 <pre><code>
 My_entry.handler_worker.prototype.run = function(arr_data){
   var self = this;
@@ -138,19 +138,19 @@ My_entry.handler_worker.prototype.run = function(arr_data){
 };
 </code></pre>
 <br>
-追加依頼を受けないロック状態にすることで並列処理のスレッド数に制限を設ける
+追加依頼を受けないlock状態にすることで並列処理のthread数に制限を設ける
 <br>
-さらに、スレッドの終了処理を確実に実施してからロック状態を解除する
+さらに、threadの終了処理を確実に実施してからlock状態を解除する
 <br>
 なお、後述する再初期化処理init_workerをhandler_worker.runの直前に実施する
 <br>
-他方、WebWorkersに対応していない環境ではシングルスレッドで実行する
+他方、WebWorkersに対応していない環境ではSingle-threadで実行する
 <br>
 共通化したjob_importedであるself.job_workerをforEachで順番に実行し、
 <br>
 後述する受取り処理self.callbacks_worker.onmessageに返却dataを渡す
 <br>
-同様にエラーをcatchして後述するエラー処理self.callbacks_worker.onerrorに渡す
+同様にerrorをcatchして後述するerror処理self.callbacks_worker.onerrorに渡す
 <pre><code>
 My_entry.original_worker.prototype.run_worker = function(arr_data_in, useWorker){
   var self = this;
@@ -190,11 +190,11 @@ handler_worker
           <td class="border">
 上記のself.handler_worker.runの関数を以下に示す
 <br>
-WebWorkers非対応かロック状態の場合は即座にfalseを返却する
+WebWorkers非対応かlock状態の場合は即座にfalseを返却する
 <br>
-それ以外の場合はロック後、self.workerの中断terminateを判定をしながら
+それ以外の場合はlock後、self.workerの中断terminateを判定をしながら
 <br>
-postMessageで外部スクリプトに繰り返しdataを送信する
+postMessageで外部scriptに繰り返しdataを送信する
 <br>
 なお、繰り返しnew Workerを宣言する必要はないことに留意する
 <pre><code>
@@ -218,10 +218,10 @@ main
 <br>
 受取り処理
 <br>
-エラー処理
+error処理
           </td>
           <td class="border">
-workerに登録する受取り処理とエラー処理のcallbackをmain内に定義する
+workerに登録する受取り処理とerror処理のcallbackをmain内に定義する
 <br>
 workerからはmain依頼順とは順不同にdataが返却されるため、
 <br>
@@ -229,15 +229,15 @@ workerからはmain依頼順とは順不同にdataが返却されるため、
 <br>
 Object.keys(self.arr_data_out).lengthが
 <br>
-依頼したデータの長さself.arr_data_in.lengthに一致すれば終了判定する
+依頼したdataの長さself.arr_data_in.lengthに一致すれば終了判定する
 <br>
 また、終了処理を実施する
 <br>
-エラー発生時や中断時、body.onbeforeunload時も同様の終了処理を実施する
+error発生時や中断時、body.onbeforeunload時も同様の終了処理を実施する
 <br>
-エラー発生時、上記の配列を初期化するself.stop_worker(true)
+error発生時、上記の配列を初期化するself.stop_worker(true)
 <br>
-なお、callbackは別のスコープから呼ばれるため、thisをインスタンスselfでbindする
+なお、callbackは別のscopeから呼ばれるため、thisをinstance selfでbindする
 <br>
 元のcallbackを不変の前提で直接bindする場合、再代入が必要であることに留意する
 <br>
@@ -275,11 +275,11 @@ handler_worker
           <td class="border">
 handler_workerの中断・終了処理の関数を以下に示す
 <br>
-self.worker.terminateを呼び出して全スレッドを強制終了する
+self.worker.terminateを呼び出して全threadを強制終了する
 <br>
-また、メモリを解放するself.worker = null
+また、memoryを解放するself.worker = null
 <br>
-さらに、ロック状態を解除する
+さらに、lock状態を解除する
 <br>
 なお、workerをteminateした時点で再使用できないため、
 <br>
@@ -307,7 +307,7 @@ main
           <td class="border">
 上記のhandler_worker.terminateを呼び出すmainの中断・終了処理を以下に示す
 <br>
-なお、terminateの直前にロック状態を判定して中断ログの表示等を実施する
+なお、terminateの直前にlock状態を判定して中断logの表示等を実施する
 
 <pre><code>
 My_entry.original_worker.prototype.stop_worker = function(isClear){

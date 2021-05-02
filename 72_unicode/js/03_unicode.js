@@ -77,7 +77,7 @@ My_entry.test_unicode.prototype.str2code_sw = function(sw){
       case "utf16BE":
       case "utf16LE":
       case "utf8":
-        var title = (sw === "utf8")? "バイト数: ": "ユニット数: ";
+        var title = (sw === "utf8")? "Byte数: ": "Unit数: ";
         output = self.entry.conv["str2code_"+sw](input, n);
         self.elems["input-"+sw].value = title+output.length;
         break;

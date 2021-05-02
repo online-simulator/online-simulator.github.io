@@ -164,7 +164,7 @@ My_entry.test_gacha.prototype.display_sw = function(sw, arr){
     _str = self.gacha.replace_str(str, q);
   }
   else{
-    _str = "中身非表示でガチャ実行可";
+    _str = "中身非表示でGacha実行可";
   }
   return _str;
 };

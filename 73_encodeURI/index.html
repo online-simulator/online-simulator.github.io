@@ -4,7 +4,7 @@
 
 <head>
   <meta charset="utf-8">
-  <meta name="description" content="encodeURI変換チェッカー">
+  <meta name="description" content="encodeURI変換Checker">
   <meta name="author" content="online-simulator.github.io">
   <noscript>JavaScript is not enabled on browser.</noscript>
   <link rel="stylesheet" type="text/css" href="../00_common/css/common.css">
@@ -36,30 +36,30 @@
 <div>
 <table><tbody>
 <tr><td>
-マルチバイト文字を含むURIを暗号化※または復号化
+Multi-Byte文字を含むURIをencode||decode
 <br>
-※UTF-8バイト列をパーセントエンコーディング
+※UTF-8 Byte列をPercent-encording
 </td></tr>
 <tr><td class="text-center">
   <label for="textarea-input">変換対象text</label>
 　
-  <button id="clear" class="clear">クリア</button>
+  <button id="clear" class="clear">Clear</button>
 <br>
   <textarea id="textarea-input" rows="3">https://online-simulator.github.io/index.html?q=テ/ス/ト/😊</textarea>
 <br>
-  <button id="uri2code" class="run">URI暗号化</button>
-  <button id="code2uri" class="run">URI複号化</button>
+  <button id="uri2code" class="run">encode</button>
+  <button id="code2uri" class="run">decode</button>
 変換結果out
 <br><br>
 </td></tr>
 <tr><td>
   <label for="textarea-output_uri">uri:</label>
-  <button id="postset_uri" class="selection" title="変換結果を変換対象に再セット">out ⇒ text</button>
+  <button id="postset_uri" class="selection" title="変換結果を変換対象に再set">out ⇒ text</button>
 <br>
   <textarea id="textarea-output_uri" readonly="readonly" rows="3"></textarea>
 <br>
   <label for="textarea-output_uriCom">uriComponent(POST用):</label>
-  <button id="postset_uriCom" class="selection" title="変換結果を変換対象に再セット">out ⇒ text</button>
+  <button id="postset_uriCom" class="selection" title="変換結果を変換対象に再set">out ⇒ text</button>
 <br>
   <textarea id="textarea-output_uriCom" readonly="readonly" rows="3"></textarea>
 </td></tr>

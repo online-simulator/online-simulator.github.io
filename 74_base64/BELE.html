@@ -4,7 +4,7 @@
 
 <head>
   <meta charset="utf-8">
-  <meta name="description" content="[覚書]BE/LE指定の実装方法">
+  <meta name="description" content="[memo]BE/LE指定の実装方法">
   <meta name="author" content="online-simulator.github.io">
   <noscript>JavaScript is not enabled on browser.</noscript>
   <link rel="stylesheet" type="text/css" href="../00_common/css/common.css">
@@ -25,7 +25,7 @@
 変換処理
           </th>
           <th class="border">
-バイト順序指定の実装方法
+Byte Order指定の実装方法
           </th>
         </tr>
       </thead>
@@ -35,21 +35,21 @@
 前提
           </td>
           <td class="border">
-・Uint16Array等の型付き配列のバイト順序は環境依存
+・Uint16Array等の型付き配列のByte Orderは環境依存
 <br>
 　⇒　代わりにDataViewを使用する
 <br>
-・バイナリ文字列のコードポイント・符号位置 &lt; 256
+・binary文字列のcode-point・符号位置 &lt; 256
           </td>
         </tr>
         <tr class="border">
           <td class="border">
 文字列　⇒
 <br>
-バイナリ文字列
+binary文字列
           </td>
           <td class="border">
-実装手順と実装コードを以下に示す
+実装手順と実装codeを以下に示す
 <ul>
   <li>
 2Byte大のArrayBufferを作る
@@ -60,7 +60,7 @@ ArrayBufferを操作するDataViewを作る
   <li>
 DataViewを介して
 <br>
-JavaScript文字列で扱うUTF-16コードユニットをArrayBufferに代入する
+JavaScript文字列で扱うUTF-16 code-unitをArrayBufferに代入する
   </li>
   <li>
 既定ではBEで代入されるので、LEで代入する場合は第3引数を追加する
@@ -69,7 +69,7 @@ JavaScript文字列で扱うUTF-16コードユニットをArrayBufferに代入�
 BE/LEを指定して直列化したArrayBufferからuint8のDataViewを作る
   </li>
   <li>
-直列化した順番にuint8コードポイントをバイナリ文字列に変換する
+直列化した順番にuint8 code-pointをbinary文字列に変換する
   </li>
 </ul>
 <pre><code>
@@ -93,15 +93,15 @@ My_entry.conv.prototype.str2binary = function(str, isLE){
         </tr>
         <tr class="border">
           <td class="border">
-バイナリ文字列
+binary文字列
 <br>
 ⇒　文字列
           </td>
           <td class="border">
-実装手順と実装コードを以下に示す
+実装手順と実装codeを以下に示す
 <ul>
   <li>
-バイナリ大のArrayBufferを作る
+binary大のArrayBufferを作る
   </li>
   <li>
 ArrayBufferを操作するDataViewを作る
@@ -109,7 +109,7 @@ ArrayBufferを操作するDataViewを作る
   <li>
 DataViewを介して
 <br>
-バイナリ文字列をuint8コードポイントに変換してArrayBufferに代入する
+binary文字列をuint8 code-pointに変換してArrayBufferに代入する
   </li>
   <li>
 さらにDataViewを介して
@@ -117,7 +117,7 @@ DataViewを介して
 ArrayBufferからBE/LEを指定して2Byte単位で取得したuint16の配列を作る
   </li>
   <li>
-取得した順番にuint16コードポイントを文字列に変換する
+取得した順番にuint16 code-pointを文字列に変換する
   </li>
 </ul>
 <pre><code>

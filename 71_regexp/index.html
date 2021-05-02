@@ -4,7 +4,7 @@
 
 <head>
   <meta charset="utf-8">
-  <meta name="description" content="正規表現テキスト置換">
+  <meta name="description" content="正規表現text置換">
   <meta name="author" content="online-simulator.github.io">
   <noscript>JavaScript is not enabled on browser.</noscript>
   <link rel="stylesheet" type="text/css" href="../00_common/css/common.css">
@@ -40,10 +40,10 @@
 <div>
 <table><tbody>
 <tr><td>
-  <label for="input-pattern">置換パターン</label>
+  <label for="input-pattern">置換pattern</label>
   <select id="select-flag">
-    <option value="" title="フラグなし">フラグなし</option>
-    <option value="g" title="グローバルサーチ">g:グローバルサーチ</option>
+    <option value="" title="flagなし">flagなし</option>
+    <option value="g" title="global search">g:global search</option>
     <option value="i" title="大・小文字区別なし">i:大・小文字区別なし</option>
     <option value="m" title="複数行">m:複数行</option>
     <option value="s" title=".に改行文字を含める">s:.に改行文字を含める</option>
@@ -76,7 +76,7 @@
   </label>
 </td></tr>
 <tr><td>
-  <button id="clear" class="clear">textクリア</button>
+  <button id="clear" class="clear">Clear text</button>
 　
   <label>置換対象text
 <br>
@@ -84,7 +84,7 @@
   </label>
 </td></tr>
 <tr><td>
-  <button id="postset" class="selection" title="置換結果を置換対象に再セット">out ⇒ text</button>
+  <button id="postset" class="selection" title="置換結果を置換対象に再set">out ⇒ text</button>
 　
   <label for="textarea-output">置換結果out</label>
 　
