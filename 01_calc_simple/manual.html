@@ -5781,13 +5781,29 @@ S=(f[0]+4Σ&lt;k=0,N/2-1&gt;f[2k+1]+2Σ&lt;k=1,N/2-1&gt;f[2k]+f[N])h/3+O(h^4)
 <br>
 　・初速z_v0=20+20i
 <br>
-・時間微分をEuler前進差分で離散化
-<br>
 ・時間刻み幅dtの微小区間を積分する式変数stepを定義
 <br>
 ・時間tの区間を積分する式変数evolutionを定義
 <br>
-・step毎に位置z_xと速度z_vの連立方程式を解いて時間発展
+・step毎に位置z_xと速度z_vの連立方程式fを解いて時間発展
+<br>
+・時間微分を1次精度の有限差分で離散化する場合
+<br>
+　・右辺を既知変数とするEuler前進差分explicit Euler method（陽解法）
+<br>
+f=&lt;{(z_x-z_x0)/dt=z_v0,m((z_v-z_v0)/dt)=m*z_a-Cd_sphere*z_v0};
+<br>
+　・右辺を未知変数とするEuler後退差分implicit Euler method（陰解法）
+<br>
+f=&lt;{(z_x-z_x0)/dt=z_v,m((z_v-z_v0)/dt)=m*z_a-Cd_sphere*z_v};
+<br>
+・速度の時間微分が零となる終端速度terminal velocity
+<br>
+0=m*z_a-Cd_sphere*z_v_terminal
+<br>
+z_v_terminal=(m/Cd_sphere)*z_a
+<br>
+・implicit Euler methodによる1次精度の数値誤差O(dt)を含む近似解
 <br>
 g=-9.8;
 <br>
@@ -5815,31 +5831,67 @@ step=&lt;last{_rn(=&lt;run,,3),z_x0=z_x,z_v0=z_v};
 <br>
 evolution=&lt;_rn(=&lt;step,N=round(t/dt),N);
 <br>
-zt=&lt;switch(N==0,z_x0:1,z_x); || zt=&lt;z_x0;
+・t=0の位置z_x0, 速度z_v0
 <br>
-・t=0の位置zt
+t=0; evolution; z_x0 -> 0
 <br>
-t=0; evolution; zt -> 0
+z_v0 -> 20+20i
 <br>
-・t=1の位置zt
+・t=1の位置z_x0, 速度z_v0
 <br>
-t=1; evolution; zt -> infoLost[ri] 11.111111111111112+6.7555555555555555i
+t=1; evolution;
 <br>
-・t=2の位置zt
+z_x0 -> infoLost[ri] 11.111111111111112+6.7555555555555555i
 <br>
-t=1; evolution; zt -> infoLost[ri] 16.049382716049386+4.31358024691358i
+z_v0 -> infoLost[r ] 8.88888888888889+3.444444444444444i
 <br>
-・t=3の位置zt
+・t=2の位置z_x0, 速度z_v0
 <br>
-t=1; evolution; zt -> infoLost[ri] 18.244170096021953-2.216186556927298i
+t=1; evolution;
 <br>
-・t=4の位置zt
+z_x0 -> infoLost[ri] 16.049382716049386+4.31358024691358i
 <br>
-t=1; evolution; zt -> infoLost[ri] 19.21963115378754-10.562749580856577i
+z_v0 -> infoLost[ri] 3.9506172839506175-3.9135802469135803i
 <br>
-・t=5の位置zt
+・t=3の位置z_x0, 速度z_v0
 <br>
-t=1; evolution; zt -> infoLost[ri] 19.653169401683353-19.716777591491812i
+t=1; evolution;
+<br>
+z_x0 -> infoLost[ri] 18.244170096021953-2.216186556927298i
+<br>
+z_v0 -> infoLost[ri] 1.755829903978052-7.183813443072703i
+<br>
+・t=4の位置z_x0, 速度z_v0
+<br>
+t=1; evolution;
+<br>
+z_x0 -> infoLost[ri] 19.21963115378754-10.562749580856577i
+<br>
+z_v0 -> infoLost[ri] 0.7803688462124675-8.637250419143424i
+<br>
+・t=5の位置z_x0, 速度z_v0
+<br>
+t=1; evolution;
+<br>
+z_x0 -> infoLost[ri] 19.653169401683353-19.716777591491812i
+<br>
+z_v0 -> infoLost[ri] 0.3468305983166522-9.28322240850819i
+<br>
+・t=6の位置z_x0, 速度z_v0
+<br>
+t=1; evolution;
+<br>
+z_x0 -> infoLost[ri] 19.845853067414826-29.22967892955192i
+<br>
+z_v0 -> infoLost[ri] 0.15414693258517875-9.570321070448085i
+<br>
+・t=7の位置z_x0, 速度z_v0
+<br>
+t=1; evolution;
+<br>
+z_x0 -> infoLost[ri] 19.931490252184368-38.902079524245295i
+<br>
+z_v0 -> infoLost[ri] 0.068509747815635-9.697920475754705i
     </td>
   </tr>
   <tr>
