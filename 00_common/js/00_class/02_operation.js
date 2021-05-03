@@ -369,7 +369,12 @@ My_entry.operation.prototype.tree2tree_mat = function(tree){
     _tree = tree;
   }
   else{
+    /* Ver.2.19.6 -> */
+/*
     _tree = (self.isType(tree, "FN"))? tree: DATA.tree_mat(DATA.obj2arr(tree));
+*/
+    _tree = DATA.tree_mat(DATA.obj2arr(tree));
+    /* -> Ver.2.19.6 */
   }
 /*
   else if(tree.out){
@@ -1678,6 +1683,8 @@ My_entry.operation.prototype.SEe = function(data, i0, tagName, tagObj){
     if(trees.length > 1){
       var name_eqn = self.get_tagVal(trees[is], "REv", "val");
       var newTrees = trees.slice(is+2, len);
+      /* Ver.2.19.6 -> */
+/*
       if(newTrees.length === 1){
         var newTree = DATA.trees2tree(newTrees);
         if(self.isType(newTree, "FN")){
@@ -1685,6 +1692,9 @@ My_entry.operation.prototype.SEe = function(data, i0, tagName, tagObj){
         }
       }
       tree = tree || DATA.tree_tag(self.config.BT.SEe, newTrees);
+*/
+      tree = DATA.tree_tag(self.config.BT.SEe, newTrees);
+      /* -> Ver.2.19.6 */
       if(name_eqn){
         self.store_eqn(eqns, name_eqn, tree);
         tree = DATA.tree_tag("out", "stored_eqn("+name_eqn+")");

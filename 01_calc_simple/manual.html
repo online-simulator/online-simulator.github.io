@@ -1020,6 +1020,12 @@ i==0 || real(i)==0 -> 1
 <br>
 1&lt;&gt;2 -> 1
 <br>
+・次のような場合、関数で代替する方が間違いが少ない
+<br>
+2&lt;(=2) || lt(2,=2) -> 0
+<br>
+2&lt;=2 -> 1
+<br>
 <br>
 比較演算子・関係演算子を代替する関数は<a href="#span-out-FN">関数入力仕様</a>参照
 <br>
@@ -4064,6 +4070,9 @@ clear; eqn_x=&lt;(a*x+b=0); a=1; b=2; x=3; 2eqn_x || 2*(-5) -> -10
 clear; y=&lt;3y-1; y -> [MyErr]Invalid circular(y)
 <br>
 <br>
+Ver.2.19.6以降、関数の参照渡しの仕様を廃止
+<br>
+<del>
 式変数名=&lt;関数名として関数名を任意に変更可（参照渡しを模擬）
 <br>
 clear; tr=&lt;trans; tr(1,2:3,4) || (tr=&gt;)(1,2:3,4) -> (1,3:2,4)
@@ -4081,6 +4090,7 @@ clear; d=&lt;_d -> [MyErr]Invalid FNh called
 clear; dx=&lt;_dx; dx(=&lt;{x^2},1,2)
 <br>
 -> 3.999999999999929+3.5537737875913754e-14i+O(2e-11+1e-12i)
+</del>
 <br>
 <br>
 式代入を括弧で括った場合、零を返す
@@ -4861,11 +4871,9 @@ f0=&lt;{1*x0^2+x1};
 <br>
 f1=&lt;{i*x1^3+x0};
 <br>
-dx0=&lt;_dx0; dx1=&lt;_dx1;
-<br>
 x=&lt;{x0,x1};
 <br>
-f=&lt;{x0+x1=2,dx0(=&lt;{f0})+dx1(=&lt;{f1},2)=2+6i};
+f=&lt;{x0+x1=2,_dx0(=&lt;{f0})+_dx1(=&lt;{f1},2)=2+6i};
 <br>
 run=&lt;last(mdx=Newton(=&lt;f,=&lt;x),max(norm(f),norm(mdx)));
 <br>
@@ -4885,11 +4893,9 @@ f0=&lt;{1*x0^2+x1};
 <br>
 f1=&lt;{i*x1^3+x0};
 <br>
-dx0=&lt;_dx0; dx1=&lt;_dx1;
-<br>
 x=&lt;{x0,x1};
 <br>
-f=&lt;{x0+x1=2,dx0(=&lt;{f0})+dx1(=&lt;{f1},2)=2+6i};
+f=&lt;{x0+x1=2,_dx0(=&lt;{f0})+_dx1(=&lt;{f1},2)=2+6i};
 <br>
 run=&lt;last(mdx=Newton(=&lt;f,=&lt;x),max(norm(f),norm(mdx)));
 <br>
@@ -7390,6 +7396,9 @@ clear; y=&lt;3x-1,x=3,y=&gt;,y=&gt;y0,y0 -> (0,0,8,8,8)
 残課題について記述する
 <br>
 <br>
+Ver.2.19.6以降、関数の参照渡しの仕様を廃止
+<br>
+<del>
 関数の参照を返値に指定した場合、予期せぬerror終了
 <br>
 (,trans) || (trans)=&gt; -> Unexpected error
@@ -7399,6 +7408,7 @@ clear; y=&lt;3x-1,x=3,y=&gt;,y=&gt;y0,y0 -> (0,0,8,8,8)
 ・現状、高階関数で代替可（関数の参照渡しの必要性が少ない）
 <br>
 ・関数名を短縮する参照渡しを廃止すれば解決
+</del>
 <br>
 <br>
 plot2dのcommand実装
