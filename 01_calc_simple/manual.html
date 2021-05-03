@@ -5785,7 +5785,7 @@ S=(f[0]+4Σ&lt;k=0,N/2-1&gt;f[2k+1]+2Σ&lt;k=1,N/2-1&gt;f[2k]+f[N])h/3+O(h^4)
 <br>
 ・時間tの区間を積分する式変数evolutionを定義
 <br>
-・step毎に位置z_xと速度z_vの連立方程式fを解いて時間発展
+・step毎に位置z_xと速度z_vの連立方程式fの近似解を反復法で求解
 <br>
 ・時間微分を1次精度の有限差分で離散化する場合
 <br>
@@ -5797,13 +5797,13 @@ f=&lt;{(z_x-z_x0)/dt=z_v0,m((z_v-z_v0)/dt)=m*z_a-Cd_sphere*z_v0};
 <br>
 f=&lt;{(z_x-z_x0)/dt=z_v,m((z_v-z_v0)/dt)=m*z_a-Cd_sphere*z_v};
 <br>
-・速度の時間微分が零となる終端速度terminal velocity
+・速度の時間微分が零（抵抗と重力が平衡）となる終端速度terminal velocity
 <br>
 0=m*z_a-Cd_sphere*z_v_terminal
 <br>
 z_v_terminal=(m/Cd_sphere)*z_a
 <br>
-・implicit Euler methodによる1次精度の数値誤差O(dt)を含む近似解
+・implicit Euler methodによる1次精度の数値誤差O(dt)を含む近似解を以下に示す
 <br>
 g=-9.8;
 <br>
@@ -5902,6 +5902,37 @@ t=3; evolution;
 z_x0 -> infoLost[ri] 19.99398542680357-68.20896171406268i
 <br>
 z_v0 -> infoLost[ri] 0.006014573196434349-9.791038285937313i
+<br>
+・terminal velocityに収束
+<br>
+z_v_terminal=(m/Cd_sphere)*z_a; z_v_terminal -> -9.8i
+<br>
+<br>
+厳密に収束判定条件を設ける場合、stepの一例を示す
+<br>
+orderNt=1;
+<br>
+Nmax=10;
+<br>
+epsf=max(eps*1e3,pow(dt,orderNt));
+<br>
+step_pre=&lt;{normf=max_value};
+<br>
+step_iteration=&lt;_rn(=&lt;{switch(normf>epsf,=&lt;{normf=run})},,Nmax);
+<br>
+step_post=&lt;{z_x0=z_x,z_v0=z_v};
+<br>
+step=&lt;last{step_pre,step_iteration,step_post};
+<br>
+t=20; evolution; x ->
+<br>
+(
+<br>
+infoLost[ i] 19.99999819124547-166.20000269504428i:
+<br>
+infoLost[ i] 0.0000018087545367633257-9.79999730495574i
+<br>
+)
     </td>
   </tr>
   <tr>
