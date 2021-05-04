@@ -3563,7 +3563,7 @@ A-ttA ->
 特殊行列関数の入力仕様と付随する留意事項について記述する
 <hr>
 <br>
-特殊行列関数は通常の特殊関数とは異なり、特殊な演算仕様を意味する
+特殊行列関数は通常の特殊関数と異なり、特殊な演算仕様を意味する
 <br>
 <br>
 回転行列
@@ -3981,6 +3981,21 @@ clear; x=2:3x -> (0:6)
 <br>
 <br>
 詳細は<a href="#span-out-special">特殊仕様</a>参照
+<br>
+<br>
+代入の入れ子を許容する
+<br>
+clear; (a=(b=1),{c=2}) -> (0,0)
+<br>
+a,b,c -> (0,1,2)
+<br>
+clear; {a=((b=1),{c=2})}=1 -> 1
+<br>
+a,b,c -> (0,0,1,2)
+<br>
+clear; d={a={(b=1),{c=2}}}; d -> 0
+<br>
+a,b,c,d -> (0,1,2,0:0)
     </td>
   </tr>
   <tr>
@@ -4032,7 +4047,7 @@ clear; ($a,$b)=(1,$b) -> [MyErr]Invalid matching
 <br>
 clear; ($a,$b)=(1) -> [MyErr]Invalid matching(vars)
 <br>
-・代入の入れ子不可
+・通常の代入と異なり、入れ子不可
 <br>
 clear; ($a,(($b)=3))=(1,2) -> [MyErr]Invalid matching(vars)
 <br>
