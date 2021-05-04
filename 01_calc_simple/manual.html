@@ -325,7 +325,7 @@ comment文
 <br>
 　・
 <a href="#span-out-matching">
-pattern matching
+行列要素pattern matching
 </a>
 <br>
 　・
@@ -795,7 +795,7 @@ ans -> 6
 ans -> (6,1)
 <br>
 <br>
-変数への代入の場合
+<a href="#span-out-substitution">変数への代入</a>の場合
 <br>
 ・変数名と代入値を明示する
 <br>
@@ -804,14 +804,14 @@ x=3*2 -> x=6
 x=(3*2,3) -> x=(6,3)
 <br>
 <br>
-括弧内pattern matchingによる変数への代入の場合
+行列要素pattern matchingによる<a href="#span-out-matching">変数への代入</a>の場合
 <br>
 ・変数名のみ明示する
 <br>
 ($a,$b)=(1,2) -> stored_var(a) stored_var(b) 
 <br>
 <br>
-式変数への代入の場合
+<a href="#span-out-substitution-equation">式変数への代入</a>の場合
 <br>
 ・式変数名のみ明示する
 <br>
@@ -4004,6 +4004,8 @@ a,b,c,d -> (0,1,2,0:0)
 目次
 </a>
 <br>
+行列要素
+<br>
 pattern
 <br>
 matching
@@ -4012,10 +4014,15 @@ matching
     </th>
     <td>
 <span id="span-out-matching"></span>
-括弧内pattern matchingの入力仕様と付随する留意事項について記述する
+行列要素pattern matchingの入力仕様と付随する留意事項について記述する
 <br>
 <br>
-括弧内pattern matchingによる変数への値の代入規則を列挙する
+行列要素pattern matchingの定義
+<br>
+・<a href="#span-out-BT">括弧</a>のnestingを解決後、左辺と右辺の対応する各行列要素を比較
+<br>
+<br>
+行列要素pattern matchingによる変数への値の代入規則を列挙する
 <br>
 ・変数は無次元
 <br>

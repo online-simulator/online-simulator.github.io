@@ -421,7 +421,7 @@ My_entry.calc_graphing.prototype.init_storage = function(){
     var _list = "";
     for(var name in self[sw_prop]){
       _list += name;
-      _list += ";\n";
+      _list += "; ";
     }
     return _list;
   };
