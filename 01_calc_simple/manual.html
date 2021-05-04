@@ -1681,7 +1681,7 @@ parse関数とoperation関数の役割分担を示す
 <br>
 parse関数の役割
 <br>
-・括弧の入れ子を解析し、深さ方向にtree化する
+・括弧のnestingを解析し、深さ方向にtree化する
 <br>
 ・逐次、入力dataにtagをつけて実行文に置換する
 <br>
@@ -2066,7 +2066,7 @@ x=3; x=2:3x -> (0:6)
 <br>
 (;) -> [MyErr]Invalid {([])}
 <br>
-・対応関係が取れない括弧の入れ子が見つかった場合、error終了
+・対応関係が取れない括弧のnestingが見つかった場合、error終了
 <br>
 [(0]) -> [MyErr]Invalid {([])}
 <br>
@@ -3477,7 +3477,7 @@ mat -> (1,2,3,4:5,6,7,8:-1,-2,-3,-4:-5,-6,-7,-8)
 <br>
 )
 <br>
-・複雑な入れ子は意図とは異なる可能性
+・複雑なnestingは意図とは異なる可能性
 <br>
 A=(1,{2,3,4,5},(6,7,{8,9}):({10,11}),12,{13,14,(15,16,{17,18})}); A ->
 <br>
@@ -3983,7 +3983,7 @@ clear; x=2:3x -> (0:6)
 詳細は<a href="#span-out-special">特殊仕様</a>参照
 <br>
 <br>
-代入の入れ子を許容する
+代入のnestingを許容する
 <br>
 clear; (a=(b=1),{c=2}) -> (0,0)
 <br>
@@ -4047,7 +4047,7 @@ clear; ($a,$b)=(1,$b) -> [MyErr]Invalid matching
 <br>
 clear; ($a,$b)=(1) -> [MyErr]Invalid matching(vars)
 <br>
-・通常の代入と異なり、入れ子不可
+・通常の代入と異なり、nesting不可
 <br>
 clear; ($a,(($b)=3))=(1,2) -> [MyErr]Invalid matching(vars)
 <br>
