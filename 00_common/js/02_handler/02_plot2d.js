@@ -105,9 +105,15 @@ My_entry.plot2d.prototype.init_handlers = function(){
     self.vec1 = null;
   };
   handlers.onmousemove = function(e){
+    /* 0.8.0 -> */
+/*
     e.preventDefault();
     e.stopPropagation();
+*/
     if(self.isDragging){
+      e.preventDefault();
+      e.stopPropagation();
+    /* -> 0.8.0 */
       temp.clear();
       var vec0 = self.vec0;
       var vec1 = self.vec1 = temp.get_offset(e);
