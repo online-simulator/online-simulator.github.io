@@ -79,11 +79,11 @@ My_entry.calc_graphing.prototype.re_output_log = function(){
     data.options.expDigit = $.selectNum_id("select-expDigit");
     try{
       self.entry.parser.post_try(data);
+      self.output_log(data);  // Ver.2.20.7 moved from out of try{}
     }
     catch(e){
       self.callbacks_worker_calc.onerror(e);
     }
-    self.output_log(data);
   }
   return self;
 };

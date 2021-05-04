@@ -227,6 +227,40 @@ Y/M/D
 <tbody>
   <tr>
     <th>
+3.30.12.3.10
+    </th>
+    <td class="types">
+Calculator
+    </td>
+    <td>
+2.20.7
+    </td>
+    <td class="clear">
+minor bug-fix
+    </td>
+    <td>
+[Calculator]
+<br>
+・Ver.2.10.3以降、post処理でcatchしたerror-log表示が消える不具合を修正
+<br>
+　不具合発生期間: 2021/4/10~2021/5/5
+<br>
+　修正前: (trans) || (e=&lt;2) -> ""
+<br>
+　　　　: trans -> [MyErr]Invalid FNm(transpose)
+<br>
+　　　　: e=&lt;2 -> [MyErr]Invalid BTe([object Object])
+<br>
+　修正後: (trans) || trans -> [MyErr]Invalid FNm(transpose)
+<br>
+　　　　: (e=&lt;2) || e=&lt;2 -> [MyErr]Invalid BTe([object Object])
+    </td>
+    <td>
+2021/5/5
+    </td>
+  </tr>
+  <tr>
+    <th>
 3.30.12.3.9
     </th>
     <td class="types">
