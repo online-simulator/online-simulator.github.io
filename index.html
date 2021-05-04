@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 
-<html lang="ja">
+<html lang="en">
 
 <head>
   <meta charset="utf-8">
@@ -45,7 +45,7 @@
 <div>
 <table>
 <caption>
-<h2>Repository VERSION: <a id="VERSION" href="https://github.com/online-simulator/online-simulator.github.io"></a></h2>
+<h2>Repo VERSION: <a id="VERSION" href="https://github.com/online-simulator/online-simulator.github.io"></a></h2>
 <h3 class="selection">There are cases when need to clear browser cache just after update.<br>Each page-refresh online -> offline allowed -> No data communication</h3>
 </caption>
 <thead>
@@ -225,6 +225,42 @@ Y/M/D
   </tr>
 </thead>
 <tbody>
+  <tr>
+    <th>
+3.30.12.3.9
+    </th>
+    <td class="types">
+Calculator
+    </td>
+    <td>
+2.20.6
+    </td>
+    <td>
+minor update
+    </td>
+    <td>
+[Calculator]
+<br>
+・括弧内pattern matchingによる無次元変数への代入・再代入機能を追加
+<br>
+　<a href="01_calc_simple/manual.html#span-out-matching">[manual]電卓-pattern matching</a>
+<br>
+　abc代入: clear; ($a,{$b,3})=(1,{2,$c}); (a,{b,c}) -> (1,2:0,3)
+<br>
+　ab再代入: ($a,(a,c))=(b,{$b,c},4); (a,{b,c}) -> (2,1:0,3)
+<br>
+[Graphing Calculator]
+<br>
+・panel中段に
+<br>
+　global変数の変数名listを出力欄に表示するlist-vars-buttonを追加
+<br>
+　global式変数の変数名listを出力欄に表示するlist-eqns-buttonを追加
+    </td>
+    <td>
+2021/5/4
+    </td>
+  </tr>
   <tr>
     <th>
 3.29.12.3.9

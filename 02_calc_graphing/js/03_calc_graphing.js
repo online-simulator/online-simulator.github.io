@@ -416,6 +416,15 @@ My_entry.calc_graphing.prototype.init_storage = function(){
       self.eqns[name] = eqns[name];
     }
   };
+  /* Ver.2.20.6 */
+  self.storage.get_list_sw = function(sw_prop){
+    var _list = "";
+    for(var name in self[sw_prop]){
+      _list += name;
+      _list += ";\n";
+    }
+    return _list;
+  };
   return self;
 };
 My_entry.calc_graphing.prototype.init_handlers = function(){
@@ -568,6 +577,14 @@ My_entry.calc_graphing.prototype.init_handlers = function(){
           self.worker_calc.run(arr_data_in, $.checkbox_id("checkbox-useWorker"));
         }, 50);
         break;
+      /* Ver.2.20.6 -> */
+      case "list-vars":
+        self.io.write_text(self.elems.o, self.storage.get_list_sw("vars"));
+        break;
+      case "list-eqns":
+        self.io.write_text(self.elems.o, self.storage.get_list_sw("eqns"));
+        break;
+      /* -> Ver.2.20.6 */
       case "C":
         self.worker_calc.stop();
         var sw = text_half;

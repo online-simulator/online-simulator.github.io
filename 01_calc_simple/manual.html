@@ -324,6 +324,11 @@ comment文
 </a>
 <br>
 　・
+<a href="#span-out-matching">
+pattern matching
+</a>
+<br>
+　・
 <a href="#span-out-eqns">
 式変数
 </a>
@@ -605,9 +610,9 @@ panel中段について記述する
 <br>
 panel下段について記述する
 <br>
-・履歴欄に最新を上にして演算履歴を表示・表示制限5000字以内
+・history欄に最新を上にして演算履歴を表示・表示制限5000字以内
 <br>
-・履歴欄下のlinkから演算履歴の全文をtext保存可
+・history欄下のlinkから演算履歴の全文をtext保存可
     </td>
   </tr>
   <tr>
@@ -740,14 +745,21 @@ plot-configについて記述する
 <br>
 ・各layerの背景への合成方法canvas-globalCompositeOperationを選択可
 <br>
-　background &lt;- grid &lt;- plotの順に背景にRGBA値を合成して出力する
+　background &lt;- grid &lt;- plotの順に背景にRGBA値を合成して出力
 <br>
 ・titleの入力欄にgraph-titleを入力可
 <br>
 <br>
-Multi-thread実行の場合、plot-buttonと＝-buttonは並列に実行可
+panel中段について記述する
 <br>
-・global変数は共通（button実行確定時に各実行のlocal変数に復帰）
+・list-vars-buttonはglobal変数の変数名listを出力欄に表示
+<br>
+・list-eqns-buttonはglobal式変数の変数名listを出力欄に表示
+<br>
+<br>
+Multi-thread実行の場合、plot-buttonと=-buttonは並列に実行可
+<br>
+・global変数・式変数は共通（button実行確定時に各実行のlocal変数に復帰）
 <br>
 <br>
 その他は<a href="#span-out-UI-simple">Simple Calculator UI</a>参照
@@ -791,15 +803,12 @@ x=3*2 -> x=6
 <br>
 x=(3*2,3) -> x=(6,3)
 <br>
-・予約変数ansは更新されない
 <br>
-3*2 -> 6
+括弧内pattern matchingによる変数への代入の場合
 <br>
-ans -> 6
+・変数名のみ明示する
 <br>
-x=2 -> x=2
-<br>
-ans -> 6
+($a,$b)=(1,2) -> stored_var(a) stored_var(b) 
 <br>
 <br>
 式変数への代入の場合
@@ -808,9 +817,16 @@ ans -> 6
 <br>
 eqn_x=&lt;(a*x+b=0) -> stored_eqn(eqn_x)
 <br>
+eqn_t=&lt;sin(omega(t)) -> stored_eqn(eqn_t)
+<br>
+<br>
+代入の場合、予約変数ansは更新されない
+<br>
 3*2 -> 6
 <br>
-eqn_t=&lt;sin(omega(t)) -> stored_eqn(eqn_t)
+ans -> 6
+<br>
+x=2; ($a,$b)=(1,2); eqn_x=&lt;(a*x+b=0) -> stored_eqn(eqn_x)
 <br>
 ans -> 6
 <br>
@@ -3937,7 +3953,7 @@ clear; 2x=4 -> [MyErr]Invalid ans isFound
 変数への代入の入力仕様と付随する留意事項について記述する
 <br>
 <br>
-変数への代入規則を列挙する
+変数への値の代入規則を列挙する
 <br>
 ・代入する変数の左側に数値や演算子を置けない
 <br>
@@ -3965,6 +3981,64 @@ clear; x=2:3x -> (0:6)
 <br>
 <br>
 詳細は<a href="#span-out-special">特殊仕様</a>参照
+    </td>
+  </tr>
+  <tr>
+    <th>
+<a href="#span-index">
+目次
+</a>
+<br>
+pattern
+<br>
+matching
+<br>
+入力仕様
+    </th>
+    <td>
+<span id="span-out-matching"></span>
+括弧内pattern matchingの入力仕様と付随する留意事項について記述する
+<br>
+<br>
+括弧内pattern matchingによる変数への値の代入規則を列挙する
+<br>
+・変数は無次元
+<br>
+・変数名を$でescapeして右辺または左辺の値を代入
+<br>
+clear; ($a,{$b,3})=(1,{2,$c}); (a,{b,c}) -> (1,2:0,3)
+<br>
+・再代入も同様
+<br>
+($a,$b)=1(1,2); (a,b) -> (1,2)
+<br>
+・代入に無関係の要素は変化しない
+<br>
+($a,(a,c))=(b,{$b,c},4); (a,{b,c}) -> (2,1:0,3)
+<br>
+・変数$aが定義済みの場合、変数aへの代入不可
+<br>
+clear; $a=-1; ($a)=1 || -1=1 || =1-(-1) -> 2
+<br>
+clear; ($a)=1; a -> 1
+<br>
+・$でescapeしない場合、error終了
+<br>
+clear; (a)=1 -> [MyErr]Invalid REv(a)
+<br>
+・変数に代入する値が存在しない場合、error終了
+<br>
+clear; ($a,$b)=(1,$b) -> [MyErr]Invalid matching
+<br>
+clear; ($a,$b)=(1) -> [MyErr]Invalid matching(vars)
+<br>
+・代入の入れ子不可
+<br>
+clear; ($a,(($b)=3))=(1,2) -> [MyErr]Invalid matching(vars)
+<br>
+・変数を含む演算不可
+<br>
+clear; ($a,2)=2(1,$b) -> [MyErr]Invalid FN operation
     </td>
   </tr>
   <tr>
@@ -4070,7 +4144,7 @@ clear; eqn_x=&lt;(a*x+b=0); a=1; b=2; x=3; 2eqn_x || 2*(-5) -> -10
 clear; y=&lt;3y-1; y -> [MyErr]Invalid circular(y)
 <br>
 <br>
-Ver.2.19.6以降、関数の参照渡しの仕様を廃止
+Ver.2.19.6以降、関数の参照渡しの仕様を廃止（無駄仕様と判断）
 <br>
 <del>
 式変数名=&lt;関数名として関数名を任意に変更可（参照渡しを模擬）
@@ -5926,7 +6000,7 @@ step_pre=&lt;{normf=max_value};
 <br>
 step_iteration=&lt;_rn(=&lt;{switch(normf>epsf,=&lt;{normf=run})},,Nmax);
 <br>
-step_post=&lt;{z_x0=z_x,z_v0=z_v};
+step_post=&lt;{{$z_x0,$z_v0}=x};
 <br>
 step=&lt;last{step_pre,step_iteration,step_post};
 <br>
@@ -7396,7 +7470,7 @@ clear; y=&lt;3x-1,x=3,y=&gt;,y=&gt;y0,y0 -> (0,0,8,8,8)
 残課題について記述する
 <br>
 <br>
-Ver.2.19.6以降、関数の参照渡しの仕様を廃止
+Ver.2.19.6以降、関数の参照渡しの仕様を廃止して解決
 <br>
 <del>
 関数の参照を返値に指定した場合、予期せぬerror終了

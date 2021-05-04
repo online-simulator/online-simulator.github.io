@@ -1556,6 +1556,71 @@ My_entry.operation.prototype.REv = function(data, i0, tagName, tagObj){
   }
   return self;
 };
+/* Ver.2.20.6 */
+My_entry.operation.prototype.SEv_pattern_matching = function(data, is, ie){
+  var self = this;
+  var trees = data.trees;
+  var vars = data.vars;
+  var DATA = self.entry.DATA;
+  var tree = null;
+  var leftArr = self.get_tagVal(trees[is], "mat", "arr");
+  var rightArr = self.get_tagVal(trees[ie], "mat", "arr");
+  var store_var = function(leftArrij, rightNum){
+    var _out = "";
+    var name_var = self.get_tagVal(leftArrij, "REv", "val");
+    if(name_var){
+      var name_var_escaped = (name_var.charAt(0) === "$")? name_var.substr(1): "";
+      if(name_var_escaped){
+        self.store_var(vars, name_var_escaped, DATA.num2tree(rightNum));
+        _out += "stored_var("+name_var_escaped+") ";
+        --self.params.hasUndefVars;
+      }
+      else{
+        self.throw_tree(leftArrij);
+      }
+    }
+    return _out;
+  };
+  if(leftArr && rightArr){
+    var out = "";
+    var len_i = Math.max(leftArr.length, rightArr.length);
+    for(var i=0; i<len_i; ++i){
+      var leftArri = leftArr[i];
+      var rightArri = rightArr[i];
+      if(leftArri && rightArri){
+        var len_j = Math.max(leftArri.length, rightArri.length);
+        for(var j=0; j<len_j; ++j){
+          var leftArrij = leftArri[j];
+          var rightArrij = rightArri[j];
+          if(leftArrij && rightArrij){
+            if(leftArrij.com){
+              out += store_var(rightArrij, leftArrij);
+            }
+            else if(rightArrij.com){
+              out += store_var(leftArrij, rightArrij);
+            }
+            else{
+              throw "Invalid matching(LR)";
+            }
+          }
+        }
+      }
+    }
+    if(out){
+      tree = DATA.tree_tag("out", out);
+    }
+  }
+  if(tree){
+    self.feedback2trees(data, is, ie, tree);
+  }
+  else{
+    throw "Invalid matching";
+  }
+  if(self.params.hasUndefVars){
+    throw "Invalid matching(vars)";
+  }
+  return self;
+};
 My_entry.operation.prototype.SEv = function(data, i0, tagName, tagObj){
   var self = this;
   var trees = data.trees;
@@ -1595,7 +1660,12 @@ My_entry.operation.prototype.SEv = function(data, i0, tagName, tagObj){
         }
       }
       else{
+        /* Ver.2.20.6 -> */
+/*
         throw "Invalid substitution";
+*/
+        self.SEv_pattern_matching(data, is, ie);
+        /* -> Ver.2.20.6 */
       }
     }
     if(tree){
