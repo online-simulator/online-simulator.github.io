@@ -4165,7 +4165,11 @@ clear; eqn_x=&lt;(a*x+b=0); a=1; b=2; x=3; 2eqn_x || 2*(-5) -> -10
 <br>
 式変数を循環参照した場合、error終了
 <br>
+clear; a=&lt;a; a -> [MyErr]Invalid circular(a)
+<br>
 clear; a=&lt;{a}; a -> [MyErr]Invalid circular(a)
+<br>
+clear; a=&lt;a=&gt;; a -> [MyErr]Invalid circular(a)
 <br>
 clear; a=&lt;{a=&gt;}; a -> [MyErr]Invalid circular(a)
 <br>
@@ -4708,7 +4712,9 @@ _Ry(=&lt;{_Rx(=&lt;{x+y+1},1,2)},1,2) -> 13
 <br>
 ・_ddummy変数名で呼び出す
 <br>
-・dummy変数は無次元でlocal変数を参照するが、上書きしない
+・dummy変数は無次元
+<br>
+・dummy変数と同名のlocal変数を参照するが、上書きしない
 <br>
 <br>
 _ddummy変数名(=&lt;第1引数[,第2引数[,第3引数[,第4引数]]])
@@ -5016,7 +5022,9 @@ x -> (1.000000000000009+O(1e-5):0.9999999999999909+O(1e-5))
 <br>
 ・_idummy変数名で呼び出す
 <br>
-・dummy変数は無次元でlocal変数を参照するが、上書きしない
+・dummy変数は無次元
+<br>
+・dummy変数と同名のlocal変数を参照するが、上書きしない
 <br>
 <br>
 _idummy変数名(=&lt;第1引数,第2引数,第3引数[,第4引数])
@@ -5201,7 +5209,7 @@ Jacobi高階関数
 <br>
 ・微分位置xでの差分刻み幅dxの既定値dx=dxJ(1+i)
 <br>
-・local変数を参照するが、上書きしない
+・未知変数のlocal変数を参照するが、上書きしない
 <br>
 <br>
 Jacobi(=&lt;第1引数,=&lt;第2引数[,=&lt;第3引数[,=&lt;第4引数]])
@@ -5256,7 +5264,7 @@ clear; a=1e10; h=max(1,abs(a))1e-5(1+i); Jacobi(=&lt;{2x^2},=&lt;{x},=&lt;{a},h)
 ・1階偏微分の解析解=4xよりx=1e10周辺の傾き4e10を返す
 <br>
 <br>
-local変数を参照するが、上書きしない
+未知変数のlocal変数を参照するが、上書きしない
 <br>
 storage cleared
 <br>
@@ -5277,7 +5285,7 @@ Newton高階関数
 <br>
 ・返値は符号付の解の修正vector
 <br>
-・local変数を参照、上書きする
+・未知変数のlocal変数を参照、上書きする
 <br>
 <br>
 Newton(=&lt;第1引数,=&lt;第2引数[,=&lt;第3引数])
@@ -5306,7 +5314,9 @@ ODE高階関数
 <br>
 ・_ODEdummy変数名で呼び出す
 <br>
-・dummy変数は無次元でlocal変数を参照、上書きする
+・dummy変数は無次元
+<br>
+・dummy変数と同名のlocal変数を参照、上書きする
 <br>
 ・未知変数のlocal変数を参照、上書きする
 <br>

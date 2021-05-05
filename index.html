@@ -243,13 +243,19 @@ fatal bug-fix
 <br>
 ・Circular Reference発生時の予期せぬerror終了を修正
 <br>
-　修正前: clear; a=&lt;{a}; a -> [MyErr]Invalid circular(a)
+　再帰高階関数で代替のreccursive call非対応
 <br>
-　　　　: clear; a=&lt;{a=&gt;}; a -> Maximum call stack size exceeded
+　before:
 <br>
-　修正後: clear; a=&lt;{a}; a -> [MyErr]Invalid circular(a)
+　　clear; a=&lt;a; a -> [MyErr]Invalid circular(a)
 <br>
-　　　　: clear; a=&lt;{a=&gt;}; a -> [MyErr]Invalid circular(a)
+　　clear; a=&lt;a=&gt;; a -> Maximum call stack size exceeded
+<br>
+　after:
+<br>
+　　clear; a=&lt;a; a -> [MyErr]Invalid circular(a)
+<br>
+　　clear; a=&lt;a=&gt;; a -> [MyErr]Invalid circular(a)
     </td>
     <td>
 2021/5/6
@@ -275,15 +281,19 @@ minor bug-fix
 <br>
 　不具合発生期間: 2021/4/10~2021/5/5
 <br>
-　修正前: (trans) || (e=&lt;2) -> ""
+　before:
 <br>
-　　　　: trans -> [MyErr]Invalid FNm(transpose)
+　　(trans) || (e=&lt;2) -> ""
 <br>
-　　　　: e=&lt;2 -> [MyErr]Invalid BTe([object Object])
+　　trans -> [MyErr]Invalid FNm(transpose)
 <br>
-　修正後: (trans) || trans -> [MyErr]Invalid FNm(transpose)
+　　e=&lt;2 -> [MyErr]Invalid BTe([object Object])
 <br>
-　　　　: (e=&lt;2) || e=&lt;2 -> [MyErr]Invalid BTe([object Object])
+　after:
+<br>
+　　(trans) || trans -> [MyErr]Invalid FNm(transpose)
+<br>
+　　(e=&lt;2) || e=&lt;2 -> [MyErr]Invalid BTe([object Object])
 <br>
 ・ODE高階関数の実装準備
 <br>
@@ -483,13 +493,13 @@ minor update
 <br>
 ・z入力欄のlegend設定項目を追加
 <br>
-markerType:markerColor:
+　markerType:markerColor:
 <br>
-markerSize:markerLineWidth:plotLineWidth:
+　markerSize:markerLineWidth:plotLineWidth:
 <br>
-fillPath:
+　fillPath:
 <br>
-str:strFontSize
+　str:strFontSize
 <br>
 ・plot-configにlegend-kx/legend-kyの選択肢を追加
 <br>
@@ -539,9 +549,7 @@ minor bug-fix
 <br>
 ・Ver.2.11.5log表示不具合の追加修正（入力data無しのcaseに対応）
 <br>
-　修正前: Unexpected error
-<br>
-　修正後: finished 0/0
+　Unexpected error　⇒　finished 0/0
 <br>
 　plot -> stopの実行間隔が約0.2sec以内のcaseに発生
 <br>
@@ -593,13 +601,17 @@ minor update
 <br>
 　不備掲載期間: 2021/3/23~2021/4/23
 <br>
-　修正前: (-1,)((-1,)(1,i)) -> (1,i)
+　before:
 <br>
-　　　　: (-1,)((-1,)((-1,)(1,i))) -> (-1,-i)
+　　(-1,)((-1,)(1,i)) -> (1,i)
 <br>
-　修正後: (-1)((-1)(1,i)) -> (1,i)
+　　(-1,)((-1,)((-1,)(1,i))) -> (-1,-i)
 <br>
-　　　　: (-1)((-1)((-1)(1,i))) -> (-1,-i)
+　after:
+<br>
+　　(-1)((-1)(1,i)) -> (1,i)
+<br>
+　　(-1)((-1)((-1)(1,i))) -> (-1,-i)
     </td>
     <td>
 2021/4/22
@@ -629,11 +641,11 @@ minor update
 <br>
 ・z入力欄のlegend設定項目を追加
 <br>
-markerType:markerColor:
+　markerType:markerColor:
 <br>
-markerSize:markerLineWidth:plotLineWidth:
+　markerSize:markerLineWidth:plotLineWidth:
 <br>
-fillPath
+　fillPath
 <br>
 ・z入力欄のsize||lineWidthの0入力を有効化
 <br>
@@ -661,9 +673,7 @@ minor change
 <br>
 ・const宣言をvar宣言に変更
 <br>
-　変更前: const uint_MAX
-<br>
-　変更後: var uint_max
+　const uint_MAX　⇒　var uint_max
 <br>
 　当面IE supportedのECMAScript5に準拠（namespaceのconst宣言を除く）
     </td>
@@ -729,14 +739,14 @@ minor update
 <br>
 　main().onloadの引数変更のため、updateとする
 <pre><code>
-変更前
+before:
   (function(document){
     document.body.onload = function(e){
       new My_entry.main().onload(e);
     };
   })(document);
 
-変更後
+after:
   (function(document){
     new My_entry.$().onload(document, function(e){
       new My_entry.main().onload(document, e);
@@ -772,9 +782,7 @@ minor bug-fix
 <br>
 ・plot実行直後Now Calculating...にstop中断時の予期せぬerror終了を修正
 <br>
-　修正前: Unexpected error
-<br>
-　修正後: finished 0/(N+1)
+　Unexpected error　⇒　finished 0/(N+1)
     </td>
     <td>
 2021/4/14
@@ -798,23 +806,19 @@ minor update
 <br>
 ・z入力欄のlegend設定項目を追加
 <br>
-markerType:markerColor:
+　markerType:markerColor:
 <br>
-markerSize:markerLineWidth:plotLineWidth
+　markerSize:markerLineWidth:plotLineWidth
 <br>
 ・z入力欄のcomment文入力に対応
 <br>
 ・csvとhistoryのlog出力項目の見直し
 <br>
-　変更前: zは出力しない
-<br>
-　変更後: zはoptionsに含めて出力する
+　zは出力しない　⇒　zはoptionsに含めて出力する
 <br>
 ・命令文や代入文のみを各軸に入力した場合のplot仕様を変更
 <br>
-　変更前: error終了
-<br>
-　変更後: 零を返して描画
+　error終了　⇒　零を返して描画
 <br>
 ・plot-configにcanvas-globalCompositeOperationの選択肢を追加
 <br>
@@ -850,9 +854,7 @@ minor bug-fix
 <br>
 ・csvとhistoryに表示する設定値のlogを修正
 <br>
-　修正前: 現在の設定値を表示
-<br>
-　修正後: 演算時の設定値を表示
+　現在の設定値を表示　⇒　演算時の設定値を表示
     </td>
     <td>
 2021/4/11
@@ -1014,21 +1016,23 @@ minor update
 <br>
 ・式代入記号を変更
 <br>
-　変更前: &lt;=
-<br>
-　変更後: =&lt;
+　&lt;=　⇒　=&lt;
 <br>
 ・実数演算に合わせて複素数演算における0の0乗の定義を変更
 <br>
-　変更前: 0^0 || 0**0 || pow(0,0) || x=0; Maclaurin7 -> 0
+　before:
 <br>
-　変更後: 0^0 || 0**0 || pow(0,0) || x=0; Maclaurin7 -> 1
+　　0^0 || 0**0 || pow(0,0) || x=0; Maclaurin7 -> 0
+<br>
+　after:
+<br>
+　　0^0 || 0**0 || pow(0,0) || x=0; Maclaurin7 -> 1
 <br>
 　7次打切りMaclaurin級数Maclaurin7
 <br>
-Maclaurin7=&lt;_sn(=&lt;{_dx(=&lt;f,n,0)x^n/n!},0,7);
+　　Maclaurin7=&lt;_sn(=&lt;{_dx(=&lt;f,n,0)x^n/n!},0,7);
 <br>
-f=&lt;exp(x);
+　　f=&lt;exp(x);
 <br>
 ・Graphing Calculatorの実装準備
 <br>
@@ -1080,11 +1084,15 @@ minor update
 <br>
 ・定義できない行列積はerror終了に仕様を変更
 <br>
-　変更前: (1,2)(1,2) || (1,2)(1,2:) -> (1,2)
+　before:
 <br>
-　変更後: (1,2)(1,2)  // NG -> error
+　　(1,2)(1,2) || (1,2)(1,2:) -> (1,2)
 <br>
-　　　　: (1,2)(1,2:) -> (1,2)
+　after:
+<br>
+　　(1,2)(1,2)  // NG -> error
+<br>
+　　(1,2)(1,2:) -> (1,2)
 <br>
 ・比較演算子・関係演算子を代替する関数を追加
 <br>
@@ -1118,21 +1126,21 @@ minor update
 <br>
 ・storageに関する仕様をmanual通りに変更
 <br>
-　変更前: global/localで共通
-<br>
-　変更後: global/localで独立
+　global/localで共通　⇒　global/localで独立
 <br>
 ・総和高階関数の範囲反転に関する仕様を変更
 <br>
-　変更前: 符号反転して演算_Sn(=&lt;{n},10,1) -> -55
+　before:
 <br>
-　変更後: 単なる逆順の演算_Sn(=&lt;{n},10,1) -> 55
+　　符号反転して演算_Sn(=&lt;{n},10,1) -> -55
+<br>
+　after:
+<br>
+　　単なる逆順の演算_Sn(=&lt;{n},10,1) -> 55
 <br>
 ・Ver.1.2.0仕様変更に伴う修正漏れに対応
 <br>
-　対応前: 総乗・総積高階関数の呼び出しerror終了
-<br>
-　対応後: 総乗・総積高階関数の呼び出し正常化
+　総乗・総積高階関数の呼び出しerror終了　⇒　正常化
 <br>
 ・行列を整形表示する機能を追加
 <br>
@@ -1166,25 +1174,23 @@ fatal bug-fix
 <br>
 ・行列参照用の括弧[]を行列使用時に自身を参照できない不具合を修正
 <br>
-　修正前: (1,2:3,4)[0] -> (1,2)
-<br>
-　　　　: [1,2:3,4][0] -> error
-<br>
-　修正後: [1,2:3,4][0] -> (1,2)
+　[1,2:3,4][0] -> error　⇒　[1,2:3,4][0] -> (1,2)
 <br>
 ・Ver.1.4.2機能不具合の再修正
 <br>
-　修正前: {1:2:3,4} -> (1,2,3:0,4)
+　before:
 <br>
-　修正後: {1:2:3,4} -> (1,2,3:0,0,4)
+　　{1:2:3,4} -> (1,2,3:0,4)
 <br>
-　　　　: (1,2),{3,4:5:6,7:8} -> (1,2,3,5,6,8:0,0,4,0,7)
+　after:
+<br>
+　　{1:2:3,4} -> (1,2,3:0,0,4)
+<br>
+　　(1,2),{3,4:5:6,7:8} -> (1,2,3,5,6,8:0,0,4,0,7)
 <br>
 ・情報落ちの警告文を実部と虚部の区別がつくように変更
 <br>
-　変更前: infoLost!!
-<br>
-　変更後: infoLost[ri] || infoLost[r ] || infoLost[ i]
+　infoLost!!　⇒　infoLost[ri] || infoLost[r ] || infoLost[ i]
     </td>
     <td>
 2021/3/17
@@ -1210,9 +1216,7 @@ minor update
 <br>
 ・列指定の行列で抜け要素を結合できない機能不具合を修正
 <br>
-　修正前: {:1,2} || {0:1,2} -> (0,1)
-<br>
-　修正後: {:1,2} || {0:1,2} -> (0,1:0,2)
+　{:1,2} || {0:1,2} -> (0,1)　⇒　{:1,2} || {0:1,2} -> (0,1:0,2)
 <br>
 ・入力dataの全角⇒半角変換処理をparser外部から内部に移動
 <br>
@@ -1272,9 +1276,7 @@ minor bug-fix
 <br>
 ・実数演算で複素数演算用の関数を呼ぶとerror終了を修正
 <br>
-　修正前: conjugate(3) -> Unexpected error
-<br>
-　修正後: conjugate(3) -> 3
+　conjugate(3) -> Unexpected error　⇒　conjugate(3) -> 3
     </td>
     <td>
 2021/3/10
