@@ -243,17 +243,13 @@ fatal bug-fix
 <br>
 ・Circular Reference発生時の予期せぬerror終了を修正
 <br>
-　修正前
+　修正前: clear; a=&lt;{a}; a -> [MyErr]Invalid circular(a)
 <br>
-　clear; a=&lt;{a}; a -> [MyErr]Invalid circular(a)
+　　　　: clear; a=&lt;{a=&gt;}; a -> Maximum call stack size exceeded
 <br>
-　clear; a=&lt;{a=&gt;}; a -> Maximum call stack size exceeded
+　修正後: clear; a=&lt;{a}; a -> [MyErr]Invalid circular(a)
 <br>
-　修正後
-<br>
-　clear; a=&lt;{a}; a -> [MyErr]Invalid circular(a)
-<br>
-　clear; a=&lt;{a=&gt;}; a -> [MyErr]Invalid circular(a)
+　　　　: clear; a=&lt;{a=&gt;}; a -> [MyErr]Invalid circular(a)
     </td>
     <td>
 2021/5/6
