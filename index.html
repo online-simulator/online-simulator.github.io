@@ -227,6 +227,40 @@ Y/M/D
 <tbody>
   <tr>
     <th>
+3.30.12.4.10
+    </th>
+    <td class="types">
+Calculator
+    </td>
+    <td>
+2.20.8
+    </td>
+    <td class="clear">
+fatal bug-fix
+    </td>
+    <td>
+[Calculator]
+<br>
+・Circular Reference発生時の予期せぬerror終了を修正
+<br>
+　修正前
+<br>
+　clear; a=&lt;{a}; a -> [MyErr]Invalid circular(a)
+<br>
+　clear; a=&lt;{a=&gt;}; a -> Maximum call stack size exceeded
+<br>
+　修正後
+<br>
+　clear; a=&lt;{a}; a -> [MyErr]Invalid circular(a)
+<br>
+　clear; a=&lt;{a=&gt;}; a -> [MyErr]Invalid circular(a)
+    </td>
+    <td>
+2021/5/6
+    </td>
+  </tr>
+  <tr>
+    <th>
 3.30.12.3.10
     </th>
     <td class="types">
@@ -254,6 +288,10 @@ minor bug-fix
 　修正後: (trans) || trans -> [MyErr]Invalid FNm(transpose)
 <br>
 　　　　: (e=&lt;2) || e=&lt;2 -> [MyErr]Invalid BTe([object Object])
+<br>
+・ODE高階関数の実装準備
+<br>
+　<a href="01_calc_simple/manual.html#span-out-FNmh">[manual]電卓-行列高階関数</a>
     </td>
     <td>
 2021/5/5
@@ -287,9 +325,9 @@ minor update
 <br>
 ・panel中段に
 <br>
-　global変数の変数名listを出力欄に表示するlist-vars-buttonを追加
+　global変数の変数名listをlog出力欄に表示するlist-vars-buttonを追加
 <br>
-　global式変数の変数名listを出力欄に表示するlist-eqns-buttonを追加
+　global式変数の変数名listをlog出力欄に表示するlist-eqns-buttonを追加
 <br>
 　出力listの改行文字をwhite-spaceに変更
 <br>

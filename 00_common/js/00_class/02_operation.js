@@ -1479,6 +1479,18 @@ My_entry.operation.prototype.tree_eqn2tree = function(data, tree){
   var _tree = DATA.trees2tree(trees);
   return _tree;
 };
+/* Ver.2.20.8 */
+My_entry.operation.prototype.tree_eqn2tree_AtREe = function(data, tree, name){
+  var self = this;
+  if(self.isLocked_eqns[name]){
+    self.isLocked_eqns[name] = false;
+    throw "Invalid circular("+name+")";
+  }
+  self.isLocked_eqns[name] = true;
+  var _tree = self.tree_eqn2tree(data, tree);
+  self.isLocked_eqns[name] = false;
+  return _tree;
+};
 My_entry.operation.prototype.tree2tree_ref = function(tree, ref){
   var self = this;
   var DATA = self.entry.DATA;
@@ -1522,20 +1534,12 @@ My_entry.operation.prototype.REv = function(data, i0, tagName, tagObj){
   else{
     if(eqns[name]){
       if(!(isSE)){
-        var tree_eqn = self.restore_eqn(eqns, name);
+        /* Ver.2.20.8 -> */
+        var name_eqn = name;
+        var tree_eqn = self.restore_eqn(eqns, name_eqn);
         var isREe = tree_eqn[self.config.BT.REe];
-        if(isREe){
-          if(self.isLocked_eqns[name]){
-            self.isLocked_eqns[name] = false;
-            throw "Invalid circular("+name+")";
-          }
-          self.isLocked_eqns[name] = true;
-          tree = self.tree_eqn2tree(data, tree_eqn);
-          self.isLocked_eqns[name] = false;
-        }
-        else{
-          tree = tree_eqn;
-        }
+        tree = (isREe)? self.tree_eqn2tree_AtREe(data, tree_eqn, name_eqn): tree_eqn;
+        /* -> Ver.2.20.8 */
         if(ref){
           tree = self.tree2tree_ref(tree, ref);
         }
@@ -1724,7 +1728,9 @@ My_entry.operation.prototype.REe = function(data, i0, tagName, tagObj){
   var tree_eqn = (name_eqn)? self.restore_eqn(eqns, name_eqn): self.tree2restore_eqn(leftTree);
   if(tree_eqn){
     var isREe = tree_eqn[self.config.BT.REe];
-    var tree = (isREe)? self.tree_eqn2tree(data, tree_eqn): tree_eqn;
+    /* Ver.2.20.8 -> */
+    var tree = (isREe)? self.tree_eqn2tree_AtREe(data, tree_eqn, name_eqn): tree_eqn;
+    /* -> Ver.2.20.8 */
     if(tree){
       var name_var = self.get_tagVal(trees[ie], "REv", "val");
       if(name_var){
