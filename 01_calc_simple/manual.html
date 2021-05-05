@@ -516,6 +516,8 @@ ja.m.wikipedia.org/wiki/項目を列挙する
 <br>
 ・有限差分
 <br>
+・ルンゲ＝クッタ法
+<br>
 ・ラグランジュ補間
 <br>
 ・シンプソンの公式
@@ -563,7 +565,7 @@ panel上段について記述する
 <br>
 ・draggable chekedでdrag移動有効化
 <br>
-・出力欄に入力欄の演算結果のlogを表示
+・log出力欄に入力欄の演算結果のlogを表示
 <br>
 ・入力欄に演算内容を入力
 <br>
@@ -580,13 +582,13 @@ panel上段について記述する
 <br>
 panel右側について記述する
 <br>
-・C-buttonは入力欄／出力欄の内容と保存変数のClear実行を確定する
+・C-buttonは入力欄／log出力欄の内容と保存変数のClear実行を確定する
 <br>
 　Multi-thread実行時は演算を中断する
 <br>
 ・BS-buttonは入力欄の選択位置の前を消去する
 <br>
-・ans-buttonは出力欄の演算結果を入力欄に確定する
+・ans-buttonはlog出力欄の演算結果を入力欄に確定する
 <br>
 　演算結果が実数以外の場合、入力欄を消去して予約変数ansを挿入
 <br>
@@ -650,7 +652,7 @@ panel上段について記述する
 <br>
 　・single clickまたはone tapで拡大表示reset
 <br>
-・出力欄にplot2dの演算・描画結果のlogを表示
+・log出力欄にplot2dの演算・描画結果のlogを表示
 <br>
 ・plot-buttonは演算・描画実行を確定する
 <br>
@@ -752,9 +754,9 @@ plot-configについて記述する
 <br>
 panel中段について記述する
 <br>
-・list-vars-buttonはglobal変数の変数名listを出力欄に表示
+・list-vars-buttonはglobal変数の変数名listをlog出力欄に表示
 <br>
-・list-eqns-buttonはglobal式変数の変数名listを出力欄に表示
+・list-eqns-buttonはglobal式変数の変数名listをlog出力欄に表示
 <br>
 <br>
 Multi-thread実行の場合、plot-buttonと=-buttonは並列に実行可
@@ -3015,14 +3017,14 @@ scalars(3,i) -> (i,0,0:0,i,0:0,0,i)
 Scalars(4,3-5i) -> (3-5i,0,0,0:0,3-5i,0,0:0,0,3-5i,0:0,0,0,3-5i)
 <br>
 <br>
-零行列
+zeros行列
 <br>
 zeros(2,2) -> (0,0:0,0)
 <br>
 zeros(3,5) -> (0,0,0,0,0:0,0,0,0,0:0,0,0,0,0)
 <br>
 <br>
-壱行列
+ones行列
 <br>
 ones(2,2) -> (1,1:1,1)
 <br>
@@ -3137,7 +3139,7 @@ vc={1,i,-i}; vc(1/norm(vc)) ->
 <br>
 vr=(1,i,-i); normalizec(vr)  // NG -> (1,i,-i)
 <br>
-・零vectorの場合
+・zeros-vectorの場合
 <br>
 normalize({0,0,0})  // NG -> [MyErr]FN isNaN
 <br>
@@ -4161,9 +4163,11 @@ clear; eqn_x=&lt;(a*x+b=0); a=1; b=2; x=3; 2eqn_x || 2*(-5) -> -10
 式変数への代入の入力仕様と付随する留意事項について記述する
 <br>
 <br>
-式変数と同名の変数が未定義で循環参照した場合、error終了
+式変数を循環参照した場合、error終了
 <br>
-clear; y=&lt;3y-1; y -> [MyErr]Invalid circular(y)
+clear; a=&lt;{a}; a -> [MyErr]Invalid circular(a)
+<br>
+clear; a=&lt;{a=&gt;}; a -> [MyErr]Invalid circular(a)
 <br>
 <br>
 Ver.2.19.6以降、関数の参照渡しの仕様を廃止（無駄仕様と判断）
@@ -5208,7 +5212,7 @@ Jacobi(=&lt;第1引数,=&lt;第2引数[,=&lt;第3引数[,=&lt;第4引数]])
 <br>
 option
 <br>
-・第3引数: 未知変数初期値の列vectorを式渡し[省略時、零vector]
+・第3引数: 未知変数初期値の列vectorを式渡し[省略時、zeros-vector]
 <br>
 　第3引数は未知変数未定義時のみ有効
 <br>
@@ -5284,12 +5288,55 @@ Newton(=&lt;第1引数,=&lt;第2引数[,=&lt;第3引数])
 <br>
 option
 <br>
-・第3引数: 未知変数初期値の列vectorを式渡し[省略時、零vector]
+・第3引数: 未知変数初期値の列vectorを式渡し[省略時、zeros-vector]
 <br>
 　第3引数は未知変数未定義時のみ有効
 <br>
 <br>
 応用例は連立方程式の解法と併せて記述する
+<hr>
+<br>
+ODE高階関数
+<br>
+・dummy変数を媒介する常微分方程式の1step定積分を数値的に演算して返す
+<br>
+・数値誤差O(dt^4以上)を含み、演算結果に目安の解析誤差を表示する
+<br>
+・1階常微分の差分刻み幅実数値dxTの既定値dxT=1e-3
+<br>
+・_ODEdummy変数名で呼び出す
+<br>
+・dummy変数は無次元でlocal変数を参照、上書きする
+<br>
+・未知変数のlocal変数を参照、上書きする
+<br>
+<br>
+_ODEdummy変数名(=&lt;第1引数,=&lt;第2引数[,=&lt;第3引数[,=&lt;第4引数[,=&lt;第5引数]]])
+<br>
+・第1引数: 1階常微分方程式右辺の関数式を式渡し
+<br>
+・第2引数: 未知変数の列vectorを式渡し
+<br>
+option
+<br>
+・第3引数: 未知変数初期値の列vectorを式渡し[省略時、zeros-vector]
+<br>
+　第3引数は未知変数未定義時のみ有効
+<br>
+・第4引数: dummy変数初期値t0を値渡し[省略時、0]
+<br>
+　第4引数はdummy変数と同名のlocal変数が未定義時のみ有効
+<br>
+・第5引数: 常微分の差分刻み幅dtを値渡し[省略時、dxT既定値]
+<br>
+<br>
+数値誤差に関する精度次数について記述する
+<br>
+・数値誤差は絶対誤差
+<br>
+・既定で陽的Runge-Kutta's 3/8rule法による4次精度
+<br>
+・陽的improved Euler法による2次精度を選択可（内部option）
     </td>
   </tr>
   <tr>
@@ -5685,7 +5732,7 @@ S=(f[0]+2Σ&lt;i=1,N-1&gt;f[i]+f[N])h/2+O(h^2)
 <br>
 ・両端を除く離散点f[i]は2回足されて2倍
 <br>
-・離散化誤差のOrderは微小区間の正方形面積h*h
+・全区間の離散化誤差のOrderは微小区間の正方形面積h*h
 <br>
 ・総和によって微小区間の離散化誤差が積算されて精度次数が1次落ちる
 <br>
@@ -5855,7 +5902,7 @@ S=(f[0]+4Σ&lt;k=0,N/2-1&gt;f[2k+1]+2Σ&lt;k=1,N/2-1&gt;f[2k]+f[N])h/3+O(h^4)
 <br>
 ・両端を除く偶数の離散点f[2k]は2回足されて2倍
 <br>
-・離散化誤差のOrderは微小区間の正方形面積h*hの2乗
+・全区間の離散化誤差のOrderは微小区間の正方形面積h*hの2乗
     </td>
   </tr>
   <tr>
@@ -5891,11 +5938,11 @@ S=(f[0]+4Σ&lt;k=0,N/2-1&gt;f[2k+1]+2Σ&lt;k=1,N/2-1&gt;f[2k]+f[N])h/3+O(h^4)
 <br>
 ・時間微分を1次精度の有限差分で離散化する場合
 <br>
-　・右辺を既知変数とするEuler前進差分explicit Euler method（陽解法）
+　・右辺を既知関数とするEuler前進差分の陽解法explicit Euler method
 <br>
 f=&lt;{(z_x-z_x0)/dt=z_v0,m((z_v-z_v0)/dt)=m*z_a-Cd_sphere*z_v0};
 <br>
-　・右辺を未知変数とするEuler後退差分implicit Euler method（陰解法）
+　・右辺を未知関数とするEuler後退差分の陰解法implicit Euler method
 <br>
 f=&lt;{(z_x-z_x0)/dt=z_v,m((z_v-z_v0)/dt)=m*z_a-Cd_sphere*z_v};
 <br>
@@ -5929,7 +5976,9 @@ f=&lt;{(z_x-z_x0)/dt=z_v,m((z_v-z_v0)/dt)=m*z_a-Cd_sphere*z_v};
 <br>
 run=&lt;last(mdx=Newton(=&lt;f,=&lt;x,=&lt;x_initial),max(norm(f),norm(mdx)));
 <br>
-step=&lt;last{_rn(=&lt;run,,3),z_x0=z_x,z_v0=z_v};
+/*step=&lt;last{_rn(=&lt;run,,3),z_x0=z_x,z_v0=z_v};*/
+<br>
+step=&lt;last{_rn(=&lt;run,,3),{$z_x0,$z_v0}=x};
 <br>
 evolution=&lt;_rn(=&lt;step,N=round(t/dt),N);
 <br>
@@ -6012,11 +6061,11 @@ z_v_terminal=(m/Cd_sphere)*z_a; z_v_terminal -> -9.8i
 <br>
 近似解の収束判定条件を設ける場合、stepの一例を示す
 <br>
-orderNt=1;
+orderT=1;
 <br>
 Nmax=10;
 <br>
-epsf=max(eps*1e3,pow(dt,orderNt));
+epsf=max(eps*1e3,pow(dt,orderT));
 <br>
 step_pre=&lt;{normf=max_value};
 <br>
@@ -6533,7 +6582,7 @@ backward -> [MyErr]FN isNaN
 <br>
 ・解が不定のため、偶然得られる近似解は初期値によって大きく異なる
 <br>
-・初期値が零vectorの場合
+・初期値がzeros-vectorの場合
 <br>
 storage cleared
 <br>
@@ -6892,7 +6941,7 @@ A=(i,2i,3i:4i,5i,6i:7i,8i,9i);
 <br>
 ・よって多くの場合、逆行列を求める過程で発散する
 <br>
-・初期値が零vectorの場合
+・初期値がzeros-vectorの場合
 <br>
 storage cleared
 <br>
@@ -7650,6 +7699,12 @@ data.logo -> "makeLog=true"
 <br>
 <br>
 ・orderD: 有限差分による微分の精度次数
+<br>
+<br>
+・dxT: 有限差分による1階常微分の差分刻み幅実数値
+<br>
+<br>
+・orderT: 有限差分による常微分の精度次数
 <br>
 <br>
 ・NI: 有限差分による積分範囲の分割数
