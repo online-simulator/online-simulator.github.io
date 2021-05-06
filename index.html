@@ -227,6 +227,40 @@ Y/M/D
 <tbody>
   <tr>
     <th>
+3.30.12.4.11
+    </th>
+    <td class="types">
+Calculator
+    </td>
+    <td>
+2.20.9
+    </td>
+    <td class="clear">
+minor bug-fix
+    </td>
+    <td>
+[Calculator]
+<br>
+・高階関数dummy変数名のupper case入力に正規表現で対応（including IE）
+<br>
+　<a href="01_calc_simple/manual.html#span-out-vars">[manual]電卓-変数の命名規則</a>に準拠
+<br>
+　before:
+<br>
+　　_dX(=&lt;{X},1,0) || _dx(=&lt;{X},1,0) -> [MyErr]Invalid BRsa operation
+<br>
+　after:
+<br>
+　　_dX(=&lt;{X},1,0) -> 1+O(1e-12+1e-12i)
+<br>
+　　_dx(=&lt;{X},1,0) -> [MyErr]Invalid BRsa operation
+    </td>
+    <td>
+2021/5/6
+    </td>
+  </tr>
+  <tr>
+    <th>
 3.30.12.4.10
     </th>
     <td class="types">
@@ -595,9 +629,9 @@ minor update
 <br>
 ・axis rangeのtest caseを追加
 <br>
-・bg-image-fileのread-cancel時に背景resetの処理を追加（IE除く）
+・bg-image-fileのread-cancel時に背景resetの処理を追加（excluding IE）
 <br>
-　image-file以外を選択時も同様（IE含む）
+　image-file以外を選択時も同様（including IE）
 <br>
 [Calculator]
 <br>

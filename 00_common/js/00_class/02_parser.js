@@ -15,13 +15,15 @@ My_entry.parser.prototype.config = {
       {s: "[", e: "]"}
     ],
     bs: {
+      /* Ver.2.20.9 -> */
       FNh: {
-        RX: /^_r(.*)$/,
-        IX: /^_i(.*)$/,
-        DX: /^_d(.*)$/,
-        PX: /^_p(.*)$/,
-        SX: /^_s(.*)$/
+        RX: /^_r(.*)$/i,
+        IX: /^_i(.*)$/i,
+        DX: /^_d(.*)$/i,
+        PX: /^_p(.*)$/i,
+        SX: /^_s(.*)$/i
       }
+      /* -> Ver.2.20.9 */
     },
     bas: [
       // StorE equation
@@ -250,7 +252,9 @@ My_entry.parser.prototype.make_trees = function(sentence, re){
       tree = DATA.tree_num(self.entry.def.Number(token), 0);
     }
     else{
-      tree = self.compare2bas(token_lower) || self.compare2bs(token_lower, re);
+      /* Ver.2.20.9 -> */
+      tree = self.compare2bas(token) || self.compare2bs(token, re);
+      /* -> Ver.2.20.9 */
     }
     if(ip_e || tree){
     }
