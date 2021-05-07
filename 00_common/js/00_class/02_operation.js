@@ -893,8 +893,6 @@ My_entry.operation.prototype.DX = function(data, rightArr, tagObj){
         var p = 1<<(n-1);
         var hcr = h0cr*p;
         var hci = h0ci*p;
-        var hcrp2 = hcr*hcr;
-        var hcip2 = hci*hci;
         if(n === 1){
           fm0 = calc_f(x, -hcr, -hci);
           fp0 = calc_f(x, hcr, hci);
@@ -905,8 +903,14 @@ My_entry.operation.prototype.DX = function(data, rightArr, tagObj){
         }
         var df = unit["BRs"](options, fp0, fm0);
         var _num = unit["BRd"](options, df, DATA.num(hcr*2, hci*2));
-        _num.err.r = Math.max(hcrp2, df.err.r);
-        _num.err.i = Math.max(hcip2, df.err.i);
+        /* Ver.2.20.10 -> */
+        if(options.checkError){
+          var hcrp2 = hcr*hcr;
+          var hcip2 = hci*hci;
+          _num.err.r = Math.max(hcrp2, df.err.r);
+          _num.err.i = Math.max(hcip2, df.err.i);
+        }
+        /* -> Ver.2.20.10 */
         return _num;
       };
       var DX_order4 = function(x, n){
@@ -915,8 +919,6 @@ My_entry.operation.prototype.DX = function(data, rightArr, tagObj){
         var p = 1<<(n-1);  // extend order2
         var hcr = h0cr*p;
         var hci = h0ci*p;
-        var hcrp2 = hcr*hcr;
-        var hcip2 = hci*hci;
         var hcr2 = hcr*2;
         var hci2 = hci*2;
         if(n === 1){
@@ -935,8 +937,14 @@ My_entry.operation.prototype.DX = function(data, rightArr, tagObj){
         var df1 = unit["BRs"](options, fp1, fm1);
         var df = unit["BRs"](options, unit["BRm"](options, num_8, df0), df1);
         var _num = unit["BRd"](options, df, DATA.num(hcr*12, hci*12));
-        _num.err.r = Math.max(hcrp2*hcrp2, df.err.r);
-        _num.err.i = Math.max(hcip2*hcip2, df.err.i);
+        /* Ver.2.20.10 -> */
+        if(options.checkError){
+          var hcrp2 = hcr*hcr;
+          var hcip2 = hci*hci;
+          _num.err.r = Math.max(hcrp2*hcrp2, df.err.r);
+          _num.err.i = Math.max(hcip2*hcip2, df.err.i);
+        }
+        /* -> Ver.2.20.10 */
         return _num;
       };
       var num = null;
@@ -1009,8 +1017,12 @@ My_entry.operation.prototype.IX = function(data, rightArr, tagObj){
         _sum = unit["BRd"](options, _sum, DATA.num(2, 0));
         _sum = unit["BRa"](options, _sum, sume);
         _sum = unit["BRm"](options, _sum, h0);
-        _sum.err.r = Math.max(hcrp2, _sum.err.r);
-        _sum.err.i = Math.max(hcip2, _sum.err.i);
+        /* Ver.2.20.10 -> */
+        if(options.checkError){
+          _sum.err.r = Math.max(hcrp2, _sum.err.r);
+          _sum.err.i = Math.max(hcip2, _sum.err.i);
+        }
+        /* -> Ver.2.20.10 */
         return _sum;
       };
       var DI_order4 = function(){
@@ -1027,8 +1039,12 @@ My_entry.operation.prototype.IX = function(data, rightArr, tagObj){
         _sum = unit["BRa"](options, _sum, unit["BRm"](options, sume_odd, DATA.num(4, 0)));
         _sum = unit["BRa"](options, _sum, unit["BRm"](options, sume_even, DATA.num(2, 0)));
         _sum = unit["BRm"](options, _sum, DATA.num(h0cr/3, h0ci/3));
-        _sum.err.r = Math.max(hcrp2*hcrp2, _sum.err.r);
-        _sum.err.i = Math.max(hcip2*hcip2, _sum.err.i);
+        /* Ver.2.20.10 -> */
+        if(options.checkError){
+          _sum.err.r = Math.max(hcrp2*hcrp2, _sum.err.r);
+          _sum.err.i = Math.max(hcip2*hcip2, _sum.err.i);
+        }
+        /* -> Ver.2.20.10 */
         return _sum;
       };
       var DI = (options.orderI === 2)? DI_order2: DI_order4;

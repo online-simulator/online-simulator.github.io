@@ -227,6 +227,42 @@ Y/M/D
 <tbody>
   <tr>
     <th>
+3.30.12.4.12
+    </th>
+    <td class="types">
+Calculator
+    </td>
+    <td>
+2.20.10
+    </td>
+    <td class="clear">
+minor bug-fix
+    </td>
+    <td>
+[Calculator]
+<br>
+・URL parameter's checkError=false時の数値誤差評価をmanual通りに修正
+<br>
+　<a href="01_calc_simple/manual.html#span-out-config">[manual]電卓-裏設定</a>参照
+<br>
+　before:
+<br>
+　　_dX(=&lt;{X},1,0)  // bug -> 1+O(1e-12+1e-12i)
+<br>
+　　_dx(=&lt;{x},1,0)1 -> 1
+<br>
+　after:
+<br>
+　　_dX(=&lt;{X},1,0) -> 1
+<br>
+　　_dx(=&lt;{x},1,0)1 -> 1
+    </td>
+    <td>
+2021/5/7
+    </td>
+  </tr>
+  <tr>
+    <th>
 3.30.12.4.11
     </th>
     <td class="types">
@@ -247,7 +283,9 @@ minor bug-fix
 <br>
 　before:
 <br>
-　　_dX(=&lt;{X},1,0) || _dx(=&lt;{X},1,0) -> [MyErr]Invalid BRsa operation
+　　_dX(=&lt;{X},1,0)  // bug -> [MyErr]Invalid BRsa operation
+<br>
+　　_dx(=&lt;{X},1,0) -> [MyErr]Invalid BRsa operation
 <br>
 　after:
 <br>
@@ -283,7 +321,7 @@ fatal bug-fix
 <br>
 　　clear; a=&lt;a; a -> [MyErr]Invalid circular(a)
 <br>
-　　clear; a=&lt;a=&gt;; a -> Maximum call stack size exceeded
+　　clear; a=&lt;a=&gt;; a  // bug -> Maximum call stack size exceeded
 <br>
 　after:
 <br>
@@ -323,7 +361,7 @@ minor bug-fix
 <br>
 　before:
 <br>
-　　(trans) || (e=&lt;2) -> ""
+　　(trans) || (e=&lt;2)  // bug -> ""
 <br>
 　　trans -> [MyErr]Invalid FNm(transpose)
 <br>
@@ -1130,7 +1168,7 @@ minor update
 <br>
 　after:
 <br>
-　　(1,2)(1,2)  // NG -> error
+　　(1,2)(1,2)  // bug -> error
 <br>
 　　(1,2)(1,2:) -> (1,2)
 <br>

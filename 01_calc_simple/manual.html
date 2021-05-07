@@ -1831,9 +1831,20 @@ Edge/Chrome: w -> 43.541015625
 <br>
 ・IEから出力したpngとsvgの表示が一致しない（Edge/Chromeは一致）
 <br>
-・IEは真値の約0.8倍にtext幅を過小評価の可能性
+・IEはJScript由来の問題で真値の約0.8倍にtext幅を過小評価の可能性
 <br>
 ・textを出力しなければbrowser間で大差はない
+<br>
+<br>
+続けて演算結果の相違について記述する
+<br>
+・IEのJScriptとそれ以外のJavaScriptでMachine誤差程度の相違がある
+<br>
+・NativeのMath.sin関数
+<br>
+IE11: sin(5) -> -0.9589242746631384
+<br>
+else: sin(5) -> -0.9589242746631385
     </td>
   </tr>
   <tr>
@@ -3995,6 +4006,10 @@ clear; {a=((b=1),{c=2})}=(d=3)+1 -> 1
 <br>
 a,b,c,d -> (0,0,1,2,3)
 <br>
+clear; ({a=((b=1),{c=b+1})}=(d=c+1)+d) -> 3
+<br>
+a,b,c,d -> (0,0,1,2,3)
+<br>
 clear; d={a={(b=1),{c=2}}}; d -> 0
 <br>
 a,b,c,d -> (0,1,2,0:0)
@@ -4164,6 +4179,8 @@ clear; eqn_x=&lt;(a*x+b=0); a=1; b=2; x=3; 2eqn_x || 2*(-5) -> -10
 <br>
 <br>
 式変数を循環参照した場合、error終了
+<br>
+・再帰高階関数で代替のreccursive call非対応（call stackの独自実装無し）
 <br>
 clear; a=&lt;a; a -> [MyErr]Invalid circular(a)
 <br>
@@ -5314,7 +5331,7 @@ ODE高階関数
 <br>
 ・1階常微分の差分刻み幅実数値dxTの既定値dxT=1e-3
 <br>
-・_ODEdummy変数名で呼び出す
+・_odummy変数名で呼び出す
 <br>
 ・dummy変数は無次元
 <br>
@@ -5323,7 +5340,7 @@ ODE高階関数
 ・未知変数のlocal変数を参照、上書きする
 <br>
 <br>
-_ODEdummy変数名(=&lt;第1引数,=&lt;第2引数[,=&lt;第3引数[,第4引数[,第5引数]]])
+_odummy変数名(=&lt;第1引数,=&lt;第2引数[,=&lt;第3引数[,第4引数[,第5引数]]])
 <br>
 ・第1引数: 1階常微分方程式右辺の関数式を式渡し
 <br>
@@ -7523,6 +7540,10 @@ clear; x=(1,2),x || 0,(1,2) -> (0,1,2)
 clear; max(x=(-1,-2),min(x)) || max(0,-2) -> 0
 <br>
 vector={1,2,3}:trans(vector)vector -> (0:14)
+<br>
+・行列要素pattern matchingによる代入も同様
+<br>
+(($a,$b)=(1,2)) -> 0
 <br>
 ・式変数への代入も同様
 <br>
