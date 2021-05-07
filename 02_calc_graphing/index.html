@@ -101,7 +101,8 @@
       $._id("erfcx").onclick = function(){setVal("-5", "5", "x=t,x;", "SND=<exp(-t^2/2)/sqrt(2pi),erfx=<_it(=<{exp(-t^2)},0,x)(2/sqrt(pi)),erfcx=<1-erfx,erfcx;", 20);};
       $._id("probability").onclick = function(){setVal("10", "0", "N=t,N;", "Pb=3/*big prize[%]*/,Pn=<{100combin(10,n)(Pb/100)^n((100-Pb)/100)^(10-n)},n=N,Pn;PN=<_sn(=<Pn,N,10),PN;", 10);};
 //      $._id("physics").onclick = function(){setVal("0", "5", "t;", "g=-9.8,v0=20,y0=0,ya=y0+v0*t+g*t^2/2,ya;yn=y0+_it(=<{v0+_it(=<{g},0,t,10)},0,t,10),yn;", 20);};
-      $._id("physics").onclick = function(){setVal("0", "5", "g=-9.8,z_a=0+g*i,z_v0=20+20i,z_x0=0,za=z_x0+z_v0*t+z_a*t^2/2,real(za);zn=z_x0+_it(=<{z_v0+_it(=<{z_a},0,t,10)},0,t,10),real(zn);dt=0.5,m=1,Cd_sphere=1,x=<{z_x,z_v},x_initial=<{z_x0,z_v0},f=<{(z_x-z_x0)/dt=z_v,m((z_v-z_v0)/dt)=m*z_a-Cd_sphere*z_v}/*implicit Euler method*/,run=<last(mdx=Newton(=<f,=<x,=<x_initial),max(norm(f),norm(mdx))),step=<last{_rn(=<run,,3),{$z_x0,$z_v0}=x},evolution=<_rn(=<step,N=round(t/dt),N),evolution,zt=z_x0,real(zt);", "imag(za);imag(zn);imag(zt)/*considering Cd_sphere error=Order(dt)*/;", 20);};
+      $._id("physics1").onclick = function(){setVal("0", "5", "g=-9.8,z_a=0+g*i,z_v0=20+20i,z_x0=0,za=z_x0+z_v0*t+z_a*t^2/2,real(za);zn=z_x0+_it(=<{z_v0+_it(=<{z_a},0,t,10)},0,t,10),real(zn);dt=0.5,m=1,Cd_sphere=1,x=<{z_x,z_v},x_initial=<{z_x0,z_v0},f=<{(z_x-z_x0)/dt=z_v,m((z_v-z_v0)/dt)=m*z_a-Cd_sphere*z_v}/*implicit Euler method*/,run=<last(mdx=Newton(=<f,=<x,=<x_initial),max(norm(f),norm(mdx))),step=<last{_rn(=<run,,3),{$z_x0,$z_v0}=x},evolution=<_rn(=<step,N=round(t/dt),N),evolution,zt=z_x0,real(zt);", "imag(za);imag(zn);imag(zt)/*considering Cd_sphere error=Order(dt)*/;", 20);};
+      $._id("physics2").onclick = function(){setVal("0", "5", "g=-9.8,z_a=0+g*i,z_v0=20+20i,z_x0=0,dt=0.5,m=1,Cd_sphere_t=<1,x=<{z_x,z_v},x_initial=<{z_x0,z_v0},f=<{z_v,z_a-(Cd_sphere_t/m)*z_v},step=<last{_otdummy(=<f,=<x,=<x_initial,tdummy=0,dt)}/*non-dimensinalized step*/,evolution=<_rn(=<step,N=round(t/dt),N),evolution,zt=switch(N<=0,z_x0:1,z_x),real(zt);T=1,Cd_sphere_t=<1(1-exp(-tdummy/T)/2),{$z_x,$z_v}=x_initial,evolution,zt2=z_x,real(zt2);", "imag(zt);imag(zt2)/*considering transition Cd_sphere(t/T) error=Order(dt^4)*/;", 20);};
       $._id("legend1").onclick = function(){setVal("1e-3(1+i)", "1e2(1+i)", "x=t,x;", "x;2x;3x;4x;5x;6x;7x;8x;9x;10x;");$._id("input-z").value="circle:#f555/*#ff555555*/;:#ff05;:#0f05;  // markerType:markerColor:markerSize:markerLineWidth:plotLineWidth:fillPath:str:strFontSize";};
       $._id("legend2").onclick = function(){setVal("1e-3(1+i)", "1e2(1+i)", "x=t,x;", "x;2x;3x;4x;5x;6x;7x;8x;9x;10x;");$._id("input-z").value=":red:10;::5:2;:#ffff0055:10;:#ff05:::10;::::0::arbitrary string:20;";};
       $._id("legend3").onclick = function(){setVal("1e-3", "1", "x=t,x;", "pow(x,1/4);pow(x,1/2);x;x^2;x^4;x^8;", 30);$._id("input-z").value="circle:red::::1;triangle:green;triangle2:blue;square:#00ff00;diamond:#00ff0055;cross:#ff05;";};
@@ -201,7 +202,8 @@ plot2d
   <button id="erfcx">erfc(x)</button>
 <br>
   <button id="probability">probability</button>
-  <button id="physics">physics</button>
+  <button id="physics1">physics</button>
+  <button id="physics2">-ODE</button>
 <br>
   <button id="legend1">z-legend1</button>
   <button id="legend2">legend2</button>

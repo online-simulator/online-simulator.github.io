@@ -108,3 +108,11 @@ My_entry.DATA.prototype.arr2obj_i = function(arr, i){
   var _arri = arr[i];
   return _arri[_arri.length-1];
 };
+My_entry.DATA.prototype.vec2arr = function(vec){
+  var self = this;
+  var _arr = [];
+  for(var i=0, len=vec.length; i<len; ++i){
+    _arr[i] = [vec[i]];
+  }
+  return _arr;
+};

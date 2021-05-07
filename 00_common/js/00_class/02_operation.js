@@ -88,6 +88,7 @@ My_entry.operation.prototype.config = {
     REe:     "BT1"
   },
   params: {
+    dxT: 1e-3,
     dxJ: 1e-5,
     dxD: 1e-3,
     NI: 100
@@ -198,6 +199,7 @@ if(tagName === "BRmo"){
 My_entry.operation.prototype.prepare = function(data){
   var self = this;
   var options = data.options;
+  self.options.dxT = options.dxT || self.config.params.dxT;
   self.options.dxJ = options.dxJ || self.config.params.dxJ;
   self.options.dxD = options.dxD || self.config.params.dxD;
   self.options.NI = options.NI || self.config.params.NI;
@@ -605,7 +607,7 @@ My_entry.operation.prototype.get_hc = function(options, x, dx, sw_name){
   var _hc = (isFixed)? h.com: self["get_"+sw_name](x, h);
   return _hc;
 };
-My_entry.operation.prototype.jacobian = function(data, rightArr, isNewtonian){
+My_entry.operation.prototype.jacobian = function(data, rightArr, tagObj){
   var self = this;
   var options = data.options;
   var vars = data.vars;
@@ -652,6 +654,201 @@ My_entry.operation.prototype.jacobian = function(data, rightArr, isNewtonian){
     }
     return _arr;
   };
+  /* Ver.2.21.10 -> */
+  var prop = tagObj.val;
+  var init_x0 = function(arr, names, isFound){
+    var _x0 = [];
+    var get_num_i = function(i, name_var){
+      var _num = null;
+      if(vars[name_var]){
+        isFound[i] = true;
+        var tree = self.restore_var(vars, name_var);
+        _num = self.arr2num(tree.mat.arr);
+      }
+      else{
+        isFound[i] = false;
+        _num = self.arr2obj_i(arr, i);
+        if(_num.com){
+          self.store_var(vars, name_var, DATA.num2tree(_num));
+        }
+        else{
+          self.throw_tree(_num);
+        }
+      }
+      return _num;
+    };
+    for(var i=0; i<len_i; ++i){
+      var name_var = names[i];
+      _x0[i] = get_num_i(i, name_var);
+    }
+    return _x0;
+  };
+  var make_get_f_from_arr_f0 = function(arr_f0, len_i, i0, j0){
+    var _get_f = null;
+    /* Ver.1.5.3 -> f<={A(x)=b} */
+    var len_fi = arr_f0.length;
+    var len_fj = arr_f0[len_fi-1].length;
+    if(len_fi === len_i){
+      _get_f = function(arr_f, i){
+        return self.arr2obj_i(arr_f, i);
+      };
+    }
+    else if(len_fi*len_fj === len_i){
+      for(var i=0; i<len_i; ++i){
+        var ii = Math.floor(i/len_fi);
+        var jj = i-ii*len_fi;
+        var arr_f0ii = arr_f0[ii];
+        if(!(arr_f0ii && arr_f0ii[jj])) throw msgErr;
+        i0[i] = ii;
+        j0[i] = jj;
+      }
+      _get_f = function(arr_f, i){
+        return arr_f[i0[i]][j0[i]];
+      };
+    }
+    else{
+      throw msgErr;
+    }
+    /* -> Ver.1.5.3 */
+    return _get_f;
+  };
+if(prop.key){
+  // ODE
+  prop = prop.key;
+  msgErr = "Invalid "+prop+" arguments";
+  if(len_j > 1){
+    var tree_eqn = get_tree(0);
+    var names = get_names(1);
+    var len_i = names.length;
+    var arr_x = null;
+    if(len_j > 2){
+      arr_x = get_arr(2);
+      if(arr_x.length-len_i) throw msgErr;
+    }
+    else{
+      arr_x = math_mat.zeros2d(len_i, 1);
+    }
+    // t0
+    var name_var = tagObj.val.name;
+    var tree_var = self.restore_var(vars, name_var);
+    var t0 = (tree_var)? self.arr2num(tree_var.mat.arr): args[3] || DATA.num(0, 0);
+    // dt
+    var dt = args[4] || DATA.num(self.options.dxT, 0);
+    // orderT
+    var orderT = (options.orderT === 2)? 2: 4;
+    // x0
+    var x0 = init_x0(arr_x, names, []);
+    // functions
+    var get_dt = function(kcr){
+      return unit["BRm"](options, dt, DATA.num(kcr, 0));
+    };
+    var store_t = function(dt){
+      var t = (dt)? unit["BRa"](options, t0, dt): t0;
+      self.store_var(vars, name_var, DATA.num2tree(t));
+    };
+    var store_x = function(x){
+      for(var i=0; i<len_i; ++i){
+        self.store_var(vars, names[i], DATA.num2tree(x[i]));
+      }
+    };
+    var step_x = function(x, f, dt){
+      var _x = [];
+      for(var i=0; i<len_i; ++i){
+        _x[i] = unit["BRa"](options, x[i], unit["BRm"](options, f[i], dt));
+      }
+      return _x;
+    };
+    var get_f = null;
+    var i0 = [];
+    var j0 = [];
+    var calc_f = function(){
+      var _f = [];
+      var tree = self.tree_eqn2tree(data, tree_eqn);
+      var arr_f = tree.mat.arr;
+      get_f = get_f || make_get_f_from_arr_f0(arr_f, len_i, i0, j0);
+      for(var i=0; i<len_i; ++i){
+        _f[i] = get_f(arr_f, i);
+      }
+      return _f;
+    };
+    var combinate = function(arr_f, arr_kcr){
+      var _f = [];
+      var len_j = arr_f.length;
+      for(var i=0; i<len_i; ++i){
+        _f[i] = DATA.num(0, 0);
+        for(var j=0; j<len_j; ++j){
+          _f[i] = unit["BRa"](options, _f[i], unit["BRm"](options, arr_f[j][i], DATA.num(arr_kcr[j], 0)));
+        }
+      }
+      return _f;
+    };
+    var set_error = function(x){
+      var dtcr = dt.com.r;
+      var dtci = dt.com.i;
+      var dtcrpo = Math.pow(dtcr, orderT);
+      var dtcipo = Math.pow(dtci, orderT);
+      for(var i=0; i<len_i; ++i){
+        var xie = x[i].err;
+        var x0ie = x0[i].err;
+        xie.r = Math.max(dtcrpo, x0ie.r);
+        xie.i = Math.max(dtcipo, x0ie.i);
+      }
+    };
+    // improved Euler method
+    var OX_order2 = function(){
+      var _xc = null;
+      // t0
+      store_t();
+      var f1 = calc_f();
+      var x1 = step_x(x0, f1, dt);
+      store_t(dt);
+      store_x(x1);
+      var f2 = calc_f();
+      var fc = combinate([f1, f2], [0.5, 0.5]);
+      _xc = step_x(x0, fc, dt);
+      if(options.checkError){
+        set_error(_xc);
+      }
+      store_x(_xc);
+      return _xc;
+    };
+    // classical Runge-Kutta method
+    var OX_order4 = function(){
+      var _xc = null;
+      var dtr2 = get_dt(0.5);
+      var kcr_1r6 = 1/6;
+      var kcr_1r3 = 1/3;
+      // t0
+      store_t();
+      var f1 = calc_f();
+      var x1 = step_x(x0, f1, dtr2);
+      store_t(dtr2);
+      store_x(x1);
+      var f2 = calc_f();
+      var x2 = step_x(x0, f2, dtr2);
+      store_x(x2);
+      var f3 = calc_f();
+      var x3 = step_x(x0, f3, dt);
+      store_t(dt);
+      store_x(x3);
+      var f4 = calc_f();
+      var fc = combinate([f1, f2, f3, f4], [kcr_1r6, kcr_1r3, kcr_1r3, kcr_1r6]);
+      _xc = step_x(x0, fc, dt);
+      if(options.checkError){
+        set_error(_xc);
+      }
+      store_x(_xc);
+      return _xc;
+    };
+    var OX = (orderT === 2)? OX_order2: OX_order4;
+    _tree = DATA.tree_mat(DATA.vec2arr(OX()));
+  }
+  else{
+    throw msgErr;
+  }
+}
+else{
+  var isNewtonian = (prop === "newtonian");
   if(len_j > 1){
     var tree_eqn = get_tree(0);
     var names = get_names(1);
@@ -669,69 +866,25 @@ My_entry.operation.prototype.jacobian = function(data, rightArr, isNewtonian){
     var hcr = hc.r;
     var hci = hc.i;
     var h0 = DATA.num(hcr, hci);
-    var isFound_x0 = [];
-    var dx = [];
-    var x0 = [];
-    var x1 = [];
-    var f0 = [];
-    var i0 = [];
-    var j0 = [];
     var J = math_mat.init2d(len_i, len_i);
     // x0
-    for(var i=0; i<len_i; ++i){
-      var name_var = names[i];
-      var num = null;
-      if(vars[name_var]){
-        isFound_x0[i] = true;
-        var tree = self.restore_var(vars, name_var);
-        num = self.arr2num(tree.mat.arr);
-      }
-      else{
-        isFound_x0[i] = false;
-        num = self.arr2obj_i(arr_x, i);
-        if(num.com){
-          self.store_var(vars, name_var, DATA.num2tree(num));
-        }
-        else{
-          self.throw_tree(num);
-        }
-      }
-      x0[i] = num;
-    }
+    var isFound_x0 = [];
+    var x0 = init_x0(arr_x, names, isFound_x0);
     // x1
+    var dx = [];
+    var x1 = [];
     for(var i=0; i<len_i; ++i){
       var x0ic = x0[i].com;
       dx[i] = h0;
       x1[i] = DATA.num(x0ic.r+hcr, x0ic.i+hci);
     }
     // f0
+    var i0 = [];
+    var j0 = [];
+    var f0 = [];
     var tree = self.tree_eqn2tree(data, tree_eqn);
     var arr_f0 = tree.mat.arr;
-    /* Ver.1.5.3 */  // f<={A(x)=b}
-    var len_fi = arr_f0.length;
-    var len_fj = arr_f0[len_fi-1].length;
-    var get_f = null;
-    if(len_fi === len_i){
-      get_f = function(arr_f, i){
-        return self.arr2obj_i(arr_f, i);
-      };
-    }
-    else if(len_fi*len_fj === len_i){
-      for(var i=0; i<len_i; ++i){
-        var ii = Math.floor(i/len_fi);
-        var jj = i-ii*len_fi;
-        var arr_f0ii = arr_f0[ii];
-        if(!(arr_f0ii && arr_f0ii[jj])) throw msgErr;
-        i0[i] = ii;
-        j0[i] = jj;
-      }
-      get_f = function(arr_f, i){
-        return arr_f[i0[i]][j0[i]];
-      };
-    }
-    else{
-      throw msgErr;
-    }
+    var get_f = make_get_f_from_arr_f0(arr_f0, len_i, i0, j0);
     for(var i=0; i<len_i; ++i){
       f0[i] = get_f(arr_f0, i);
     }
@@ -779,6 +932,8 @@ My_entry.operation.prototype.jacobian = function(data, rightArr, isNewtonian){
   else{
     throw msgErr;
   }
+}
+  /* -> Ver.2.21.10 */
   return _tree;
 };
 My_entry.operation.prototype.FNmh = function(data, i0, tagName, tagObj){
@@ -788,8 +943,9 @@ My_entry.operation.prototype.FNmh = function(data, i0, tagName, tagObj){
   var ie = i0+1;
   var rightArr = self.get_tagVal(trees[ie], "mat", "arr");
   if(rightArr){
-    var prop = tagObj.val;
-    var tree = self.jacobian(data, rightArr, (prop === "newtonian"));
+    /* Ver.2.21.10 -> */
+    var tree = self.jacobian(data, rightArr, tagObj);
+    /* -> Ver.2.21.10 */
     self.feedback2trees(data, is, ie, tree);
   }
   return self;

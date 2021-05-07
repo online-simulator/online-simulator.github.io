@@ -15,6 +15,11 @@ My_entry.parser.prototype.config = {
       {s: "[", e: "]"}
     ],
     bs: {
+      /* Ver.2.21.10 -> */
+      FNmh: {
+        OX: /^_o(.*)$/i
+      },
+      /* -> Ver.2.21.10 */
       /* Ver.2.20.9 -> */
       FNh: {
         RX: /^_r(.*)$/i,
@@ -168,7 +173,7 @@ My_entry.parser.prototype.compare2bs = function(token, re){
       var b = bstagName[key];
       var mc = token.match(b);
       if(mc && mc.length > 1){
-        if(tagName === "FNh"){
+        if(tagName === "FNmh" || tagName === "FNh"){  // Ver.2.21.10
           var mc1 = mc[1];
           if(mc1){
             var trees = self.make_trees(mc1, re);
