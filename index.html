@@ -247,7 +247,7 @@ minor bug-fix
 <br>
 　before:
 <br>
-　　_dX(=&lt;{X},1,0)  // bug -> 1+O(1e-12+1e-12i)
+　　<span class="clear">_dX(=&lt;{X},1,0) -> 1+O(1e-12+1e-12i)</span>
 <br>
 　　_dx(=&lt;{x},1,0)1 -> 1
 <br>
@@ -283,7 +283,7 @@ minor bug-fix
 <br>
 　before:
 <br>
-　　_dX(=&lt;{X},1,0)  // bug -> [MyErr]Invalid BRsa operation
+　　<span class="clear">_dX(=&lt;{X},1,0) -> [MyErr]Invalid BRsa operation</span>
 <br>
 　　_dx(=&lt;{X},1,0) -> [MyErr]Invalid BRsa operation
 <br>
@@ -321,7 +321,7 @@ fatal bug-fix
 <br>
 　　clear; a=&lt;a; a -> [MyErr]Invalid circular(a)
 <br>
-　　clear; a=&lt;a=&gt;; a  // bug -> Maximum call stack size exceeded
+　　<span class="clear">clear; a=&lt;a=&gt;; a -> Maximum call stack size exceeded</span>
 <br>
 　after:
 <br>
@@ -361,7 +361,7 @@ minor bug-fix
 <br>
 　before:
 <br>
-　　(trans) || (e=&lt;2)  // bug -> ""
+　　<span class="clear">(trans) || (e=&lt;2) -> ""</span>
 <br>
 　　trans -> [MyErr]Invalid FNm(transpose)
 <br>
@@ -1168,7 +1168,7 @@ minor update
 <br>
 　after:
 <br>
-　　(1,2)(1,2)  // bug -> error
+　　(1,2)(1,2)  // NG -> error
 <br>
 　　(1,2)(1,2:) -> (1,2)
 <br>
