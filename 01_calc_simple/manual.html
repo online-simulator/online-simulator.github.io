@@ -761,7 +761,9 @@ panel中段について記述する
 <br>
 Multi-thread実行の場合、plot-buttonと=-buttonは並列に実行可
 <br>
-・global変数・式変数は共通（button実行確定時に各実行のlocal変数に復帰）
+・shared storage checked時のみglobal storageを共有
+<br>
+・plot-buttonによる演算はglobal storage readonly
 <br>
 <br>
 その他は<a href="#span-out-UI-simple">Simple Calculator UI</a>参照

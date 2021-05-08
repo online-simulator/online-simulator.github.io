@@ -377,12 +377,16 @@ My_entry.calc_graphing.prototype.get_options = function(isPlot){
   }
   return _options;
 };
-My_entry.calc_graphing.prototype.get_data = function(input, options){
+My_entry.calc_graphing.prototype.get_data = function(input, options, sharedStorage){
   var self = this;
   var _data = self.entry.DATA.data();
   _data.in = input;
   _data.options = options;
-  self.storage.global2local(_data);
+  /* Ver.2.21.10 -> */
+  if(sharedStorage){
+    self.storage.global2local(_data);
+  }
+  /* -> Ver.2.21.10 */
   return _data;
 };
 My_entry.calc_graphing.prototype.init_storage = function(){
@@ -453,7 +457,7 @@ My_entry.calc_graphing.prototype.init_handlers = function(){
     return {input: input, len_x: len_x, len_y: len_y};
   };
   var get_num = function(input, options){
-    var data = self.get_data(input, options);
+    var data = self.get_data(input, options, options.sharedStorage);
     try{
       new self.constructors.parser().run(data);
     }
@@ -538,7 +542,7 @@ My_entry.calc_graphing.prototype.init_handlers = function(){
         var arr_data_in = [];
         var len_n = N+1;
         for(var n=0; n<len_n; ++n){
-          var data = self.get_data(inputs.input, options);
+          var data = self.get_data(inputs.input, options, options.sharedStorage);
           data.len_x = inputs.len_x;
           data.len_y = inputs.len_y;
           var tcr = t0cr+dtcr*n;
@@ -568,7 +572,7 @@ My_entry.calc_graphing.prototype.init_handlers = function(){
         var arr_data_in = [];
         var len_n = 1;
         for(var n=0; n<len_n; ++n){
-          var data = self.get_data(input, options);
+          var data = self.get_data(input, options, true);
           arr_data_in.push(data);
         }
         /* Ver.2.10.3 */
