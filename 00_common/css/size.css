@@ -7,6 +7,7 @@ select, button{
   font-weight: bold;
 }
 input[type="checkbox"]{
+  font-size: 12px;
   width: auto;
 }
 input{
