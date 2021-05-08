@@ -6144,7 +6144,7 @@ x_initial=&lt;{z_x0,z_v0};
 <br>
 f=&lt;{z_v,z_a-(Cd_sphere/m)*z_v};
 <br>
-step=&lt;last{_otdummy(=&lt;f,=&lt;x,=&lt;x_initial,tdummy=0,dt)};
+step=&lt;{x_next=_otdummy(=&lt;f,=&lt;x,=&lt;x_initial,tdummy=0,dt)};
 <br>
 evolution=&lt;_rn(=&lt;step,N=round(t/dt),N);
 <br>
