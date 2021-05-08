@@ -4080,6 +4080,28 @@ clear; ($a,(($b)=3))=(1,2) -> [MyErr]Invalid matching(vars)
 ・変数を含む演算不可
 <br>
 clear; ($a,2)=2(1,$b) -> [MyErr]Invalid FN operation
+<br>
+・変数への代入と見なされる場合、左右交換不可
+<br>
+clear; c=&lt;(1,2); ($a,$b)=c; a,b -> (1,2)
+<br>
+clear; c=&lt;(1,2); c=($a,$b) -> [MyErr]Invalid REv($a)
+<br>
+・1重列挙の場合
+<br>
+clear; c=&lt;(1,2); (c)=($a,$b); a,b -> (1,2)
+<br>
+clear; c=&lt;(1,2); {c}=($a,$b); a,b -> (1,2)
+<br>
+・2重列挙の場合
+<br>
+clear; c=&lt;(1,2); (c,)=($a,$b); a,b -> (1,2)
+<br>
+clear; c=&lt;(1,2); (,c)=($a,$b); a,b -> (0,1)
+<br>
+clear; c=&lt;(1,2); {c,}=($a,$b); a,b -> (1,2)
+<br>
+clear; c=&lt;(1,2); {,c}=($a,$b); a,b -> [MyErr]Invalid matching(vars)
     </td>
   </tr>
   <tr>
