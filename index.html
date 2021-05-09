@@ -243,9 +243,27 @@ minor update
 <br>
 ・ODE高階関数の演算による数値誤差の評価方法を変更
 <br>
-　目安の解析誤差の評価方法は変更なし
+　目安の解析誤差の評価方法に変更なし
 <br>
-　微分高階関数の評価方法は変更なし
+　<del>微分高階関数の評価方法に変更なし</del>
+<br>
+・微分高階関数の演算による数値誤差の評価方法を同様に変更
+<br>
+　目安の解析誤差の評価方法に変更なし
+<br>
+　演算結果に変更なし
+<br>
+　初期表示のtest caseの数値誤差表示に影響（4箇所）
+<br>
+　manual該当部分を全修正（微分階数を上げた際の数値誤差の過小評価を修正）
+<br>
+　<a href="01_calc_simple/manual.html#span-out-FNh">[manual]電卓-微分高階関数</a>
+<br>
+　<a href="01_calc_simple/manual.html#span-out-fdm">[manual]電卓-有限差分法</a>
+<br>
+　<a href="01_calc_simple/manual.html#span-out-series">[manual]電卓-級数展開の解法</a>
+<br>
+　<a href="01_calc_simple/manual.html#span-out-limit">[manual]電卓-極限の解法</a>
     </td>
     <td>
 2021/5/9
@@ -585,7 +603,7 @@ minor change
 <br>
 <del>・a/button要素にtouch-action: none;のCSS適用</del>
 <br>
-<del>　操作中のpan/zoom抑止</del>
+　<del>操作中のpan/zoom抑止</del>
 <br>
 ・html要素にtouch-action: manipulation;のCSS適用
 <br>

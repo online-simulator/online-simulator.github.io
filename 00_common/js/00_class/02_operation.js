@@ -1070,13 +1070,13 @@ My_entry.operation.prototype.DX = function(data, rightArr, tagObj){
         if(options.checkError){
           var hcrp2 = hcr*hcr;
           var hcip2 = hci*hci;
-          /* Ver.2.22.10 -> no change */
+          /* Ver.2.22.10 -> */
 /*
-          _num.err.r = Math.max(hcrp2, _num.err.r);
-          _num.err.i = Math.max(hcip2, _num.err.i);
-*/
           _num.err.r = Math.max(hcrp2, df.err.r);
           _num.err.i = Math.max(hcip2, df.err.i);
+*/
+          _num.err.r = Math.max(hcrp2, _num.err.r);
+          _num.err.i = Math.max(hcip2, _num.err.i);
           /* -> Ver.2.22.10 */
         }
         /* -> Ver.2.20.10 */
@@ -1110,13 +1110,13 @@ My_entry.operation.prototype.DX = function(data, rightArr, tagObj){
         if(options.checkError){
           var hcrp2 = hcr*hcr;
           var hcip2 = hci*hci;
-          /* Ver.2.22.10 -> no change */
+          /* Ver.2.22.10 -> */
 /*
-          _num.err.r = Math.max(hcrp2*hcrp2, _num.err.r);
-          _num.err.i = Math.max(hcip2*hcip2, _num.err.i);
-*/
           _num.err.r = Math.max(hcrp2*hcrp2, df.err.r);
           _num.err.i = Math.max(hcip2*hcip2, df.err.i);
+*/
+          _num.err.r = Math.max(hcrp2*hcrp2, _num.err.r);
+          _num.err.i = Math.max(hcip2*hcip2, _num.err.i);
           /* -> Ver.2.22.10 */
         }
         /* -> Ver.2.20.10 */
