@@ -788,10 +788,17 @@ if(prop.key){
       var dtcrpo = Math.pow(dtcr, orderT);
       var dtcipo = Math.pow(dtci, orderT);
       for(var i=0; i<len_i; ++i){
+        /* Ver.2.22.10 -> */
+/*
         var xie = x[i].err;
         var x0ie = x0[i].err;
         xie.r = Math.max(dtcrpo, x0ie.r);
         xie.i = Math.max(dtcipo, x0ie.i);
+*/
+        var xie = x[i].err;
+        xie.r = Math.max(dtcrpo, xie.r);
+        xie.i = Math.max(dtcipo, xie.i);
+        /* -> Ver.2.22.10 */
       }
     };
     // improved Euler method
@@ -1063,8 +1070,14 @@ My_entry.operation.prototype.DX = function(data, rightArr, tagObj){
         if(options.checkError){
           var hcrp2 = hcr*hcr;
           var hcip2 = hci*hci;
+          /* Ver.2.22.10 -> no change */
+/*
+          _num.err.r = Math.max(hcrp2, _num.err.r);
+          _num.err.i = Math.max(hcip2, _num.err.i);
+*/
           _num.err.r = Math.max(hcrp2, df.err.r);
           _num.err.i = Math.max(hcip2, df.err.i);
+          /* -> Ver.2.22.10 */
         }
         /* -> Ver.2.20.10 */
         return _num;
@@ -1097,8 +1110,14 @@ My_entry.operation.prototype.DX = function(data, rightArr, tagObj){
         if(options.checkError){
           var hcrp2 = hcr*hcr;
           var hcip2 = hci*hci;
+          /* Ver.2.22.10 -> no change */
+/*
+          _num.err.r = Math.max(hcrp2*hcrp2, _num.err.r);
+          _num.err.i = Math.max(hcip2*hcip2, _num.err.i);
+*/
           _num.err.r = Math.max(hcrp2*hcrp2, df.err.r);
           _num.err.i = Math.max(hcip2*hcip2, df.err.i);
+          /* -> Ver.2.22.10 */
         }
         /* -> Ver.2.20.10 */
         return _num;
