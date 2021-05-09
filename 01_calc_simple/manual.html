@@ -733,7 +733,11 @@ plot-configについて記述する
 <br>
 ・plot線幅plot-line-widthを選択可
 <br>
-・各軸共通のlabel/valueのfont-sizeを選択可
+・共通のfont-sizeを選択可
+<br>
+　軸value/legend-strのfont-sizeは選択値
+<br>
+　軸label/titleのfont-sizeは選択値+2px
 <br>
 ・各軸のgrid分割数grid-x-Ni/grid-y-Njを選択可
 <br>
@@ -808,7 +812,7 @@ x=3*2 -> x=6
 x=(3*2,3) -> x=(6,3)
 <br>
 <br>
-行列要素pattern matchingによる<a href="#span-out-matching">変数への代入</a>の場合
+<a href="#span-out-matching">行列要素pattern matching</a>による変数への代入の場合
 <br>
 ・変数名のみ明示する
 <br>
@@ -1398,7 +1402,7 @@ x=1+i; _dx(=&lt;{x^2})
 <br>
 x=1+i; 2x -> 2+2i
 <br>
-・変数を使用
+・<a href="#span-out-vars">変数</a>を使用
 <br>
 ansn=1.9999999999996223+1.9999999999996223i;
 <br>
@@ -1437,7 +1441,7 @@ a=0; b=1+i; _ix(=&lt;{x^4},a,b) || ab=[0,1+i]; _ix(=&lt;{x^4},ab)
 <br>
 a=0; b=1+i; (b^5-a^5)/5 -> -0.8000000000000003-0.8000000000000002i
 <br>
-・変数を使用
+・<a href="#span-out-vars">変数</a>を使用
 <br>
 ansn=-0.8000000053333336-0.8000000053333334i;
 <br>
@@ -1782,9 +1786,6 @@ semi-colon;区切りで行列の最終要素の数値をgraphに描画する
 参照
 <br>
 <br>
-操作panel下部のcalcで定義した変数を使用可（readonly）
-<br>
-<br>
 tの下限値と上限値のlocal変数は独立
 <br>
 <br>
@@ -1806,7 +1807,7 @@ svg出力機能について記述する
 <br>
 ・z入力欄から入力不可のsemi-colon;等の特殊文字を直接file編集可
 <br>
-・font-family等も直接file編集可
+・その他、font-family等も直接file編集可
 <br>
 <br>
 png||svg出力の主要browser間の相違について記述する
@@ -2109,7 +2110,7 @@ x=3; x=2:3x -> (0:6)
 <br>
 {1,2:3,4} -> (1,3:2,4)
 <br>
-・転置の関数を使用
+・転置の<a href="#span-out-FNm">行列関数</a>を使用
 <br>
 transpose({1,2:3,4}) || trans({1,2:3,4}) -> (1,2:3,4)
 <br>
@@ -2138,7 +2139,7 @@ x=&lt;(1,2); y=&lt;{1,2}; x*y || (x)(y) || {x}{y} || ({x}{y}) || {{x}{y}}  -> 5
 <br>
 2重列挙の場合
 <br>
-・変数を使用
+・<a href="#span-out-vars">変数</a>を使用
 <br>
 x=(1,2); y={3,4}; (x,y) -> (1,2,3:0,0,4)
 <br>
@@ -2452,7 +2453,7 @@ Napier数eの空括弧()を省略してEulerの公式より極形式の複素数
 sqrt2 || sqrt2() -> 1.4142135623730951
 <br>
 <br>
-変数を使用
+<a href="#span-out-vars">変数</a>を使用
 <br>
 ・複素数zの偏角/piを示す
 <br>
@@ -2627,7 +2628,7 @@ atan2(1,0)/pi -> 0.5
 deg_atan2(1,0) || degrees(atan2(1,0)) -> 90
 <br>
 <br>
-変数を使用
+<a href="#span-out-vars">変数</a>を使用
 <br>
 ・実軸と虚軸の複素数平面から弧度数radに変換する場合
 <br>
@@ -2679,7 +2680,7 @@ pow(2) -> Unexpected error
 特殊関数の入力仕様と付随する留意事項について記述する
 <br>
 <br>
-特殊関数（非初等関数）は式変数と高階関数を使用して定義する
+特殊関数（非初等関数）は<a href="#span-out-eqns">式変数</a>と<a href="#span-out-FNh">高階関数</a>を使用して定義する
 <br>
 ・標準正規分布SNDの区間確率P(x)
 <br>
@@ -2755,7 +2756,7 @@ vectorの入力方法2種類
 <br>
 {1,2:3,4} -> (1,3:2,4)
 <br>
-・転置の関数を使用
+・転置の<a href="#span-out-FNm">行列関数</a>を使用
 <br>
 transpose({1,2:3,4}) || trans({1,2:3,4}) || trans{1,2:3,4} -> (1,2:3,4)
 <br>
@@ -2788,7 +2789,7 @@ transpose({1,2:3,4}) || trans({1,2:3,4}) || trans{1,2:3,4} -> (1,2:3,4)
 <br>
 定義できる行列演算
 <br>
-・積
+・<a href="#span-out-mat-product">行列積</a>
 <br>
 ・乗算記号*同様に積の記号*は省略可
 <br>
@@ -2852,7 +2853,7 @@ k=-3; k(1,2:3,4)  // NG -> [MyErr]Invalid matrix operation
 <br>
 (1,2:3,4)+(1,2:3,4) -> (2,4:6,8)
 <br>
-・変数を使用
+・<a href="#span-out-vars">変数</a>を使用
 <br>
 x=1; y=(x,2x:3x,4x); y*y-y || (7,10:15,22)-(1,2:3,4) -> (6,8:12,18)
 <br>
@@ -2878,7 +2879,7 @@ A=(11:21,22:31,32,33,34); A -> (11:21,22:31,32,33,34)
 <br>
 tA={11:21,22:31,32,33,34}; tA -> (11,21,31:0,22,32:0,0,33:0,0,34)
 <br>
-・行指定の行列で抜け要素がある場合、転置の関数を使用
+・行指定の行列で抜け要素がある場合、転置の<a href="#span-out-FNm">行列関数</a>を使用
 <br>
 A=(11:21,22:31,32,33,34); trans(trans(A)) -> (11,0,0,0:21,22,0,0:31,32,33,34)
 <br>
@@ -3318,7 +3319,7 @@ A=(1,2:3,4); A[1][1] -> 4
 <br>
 A=(1:1,i:1,i,-i); A[0][1] -> [MyErr]Invalid reference of array
 <br>
-・式変数を使用
+・<a href="#span-out-eqns">式変数</a>を使用
 <br>
 clear; n=2; xn=&lt;(n,2n); xn[0][1] || (xn=&gt;)[0][1] -> 4
 <br>
@@ -3343,7 +3344,7 @@ clear; (1,2:3,4)[x] -> [MyErr]Invalid REv(x)
 <br>
 列vectorを取得
 <br>
-・転置の関数を使用
+・転置の<a href="#span-out-FNm">行列関数</a>を使用
 <br>
 A=(1,2:3,4); trans((trans(A))[1]) || htrans((htrans(A))[1]) -> (2:4)
 <br>
@@ -3398,7 +3399,7 @@ A=(1,2:3,4); A[0]=A; A -> (3,4:3,4)
 <br>
 A=(1,2:3,4); A[0]=(A:A(2,:,2)); A -> (6,8:3,4)
 <br>
-・列指定で代入する場合、転置の関数を使用
+・列指定で代入する場合、転置の<a href="#span-out-FNm">行列関数</a>を使用
 <br>
 A=(1,2:3,4); tA=trans(A); tA[0]=-tA[0]; A=trans(tA); A -> (-1,2:-3,4)
 <br>
@@ -3456,7 +3457,7 @@ A=(1,2:3,4); (A[0],A[1]) -> (1,2,3,4)
 <br>
 (zeros2,zeros2:zeros2,zeros2) -> (0,0,0,0:0,0,0,0:0,0,0,0:0,0,0,0)
 <br>
-・変数を使用
+・<a href="#span-out-vars">変数</a>を使用
 <br>
 mat00=(1,2:5,6);
 <br>
@@ -3734,7 +3735,7 @@ roty=&lt;{rotationy(theta)};
 <br>
 rotz=&lt;{rotationz(psi)};
 <br>
-・式変数で定義する場合
+・<a href="#span-out-eqns">式変数</a>で定義する場合
 <br>
 rotx=&lt;{rt=real(phi),=&lt;(1,,:,cos(rt),-sin(rt):,sin(rt),cos(rt))}=&gt;;
 <br>
@@ -3980,7 +3981,7 @@ clear; 3+x=4 -> [MyErr]Invalid binary operation
 <br>
 clear; x=y(z) -> [MyErr]Invalid ans isFound
 <br>
-・このような場合、式変数を使用する
+・このような場合、<a href="#span-out-eqns">式変数</a>を使用する
 <br>
 <br>
 代入を括弧で括った場合、零を返す
@@ -4284,7 +4285,7 @@ clear; eqn_x=&lt;3x; eqn_y=&lt;eqn_x; x=3; eqn_y -> 9
 <br>
 (1,2,3)=&gt; -> [MyErr]Invalid mat([object Object])
 <br>
-・一続きにまとめて変数値を読出す場合、最終引数を式渡し
+・一続きにまとめて変数値を読出す場合、最終要素となる引数を式渡し
 <br>
 ・last行列関数は最終要素しか取り出せない
 <br>
@@ -4401,7 +4402,11 @@ x=2; switch(x&gt;=4,4:x&gt;3,3:x&gt;2,2:1,-x) -> -2
 <br>
 x=2; switch(ge(x,4),4:gt(x,3),3:gt(x,2),2:1,-x) -> -2
 <br>
-・式渡しで記述する場合
+・値渡しの場合、行列要素の演算を実行後、次のswitch高階関数を実行する
+<br>
+x=2; switch(0,4:0,3:0,2:1,-2) -> -2
+<br>
+・式渡しで記述する場合、条件文が成立した場合のみ対の処理を実行する
 <br>
 x=2; switch(x&gt;=4,=&lt;4:x&gt;3,=&lt;3:x&gt;2,=&lt;2:1,=&lt;{-x}) -> -2
 <br>
@@ -4974,7 +4979,7 @@ _Dy(=&lt;{_Dx(=&lt;{x*y*y},1,0)},1,1)
 <br>
 応用例を示す
 <br>
-・非線形方程式の解法を使用
+・<a href="#span-out-non-linear">非線形方程式の解法</a>を使用
 <br>
 ・微分方程式(x^3)"+x-7(1+i)=0の解析解x=1+iの求解
 <br>
@@ -5170,7 +5175,7 @@ _dx(=&lt;{_ix(=&lt;{x^3},0,x)},1,2)
 <br>
 応用例を示す
 <br>
-・非線形方程式の解法を使用
+・<a href="#span-out-non-linear">非線形方程式の解法</a>を使用
 <br>
 ・f(x)=x^2のx=[0,b]の定積分=3^3/3となる積分方程式の解析解b=3の求解
 <br>
@@ -6152,7 +6157,7 @@ infoLost[ i] 0.0000018087545367633257-9.79999730495574i
 )
 <br>
 <br>
-ODE高階関数を使用する場合、stepを陽的に解くため、収束演算不要
+ODE<a href="#span-out-FNmh">高階関数</a>を使用する場合、stepを陽的に解くため、収束演算不要
 <br>
 g=-9.8;
 <br>
@@ -6374,7 +6379,7 @@ x[1]=b[1]/A[1][1]; x -> (0:4.499999999999999)
 <br>
 x[0]=(b[0]-A[0]x)/A[0][0]; x -> (-3.9999999999999982:4.499999999999999)
 <br>
-・式変数を使用して上記algorithmを一般化する
+・<a href="#span-out-eqns">式変数</a>を使用して上記algorithmを一般化する
 <br>
 storage cleared
 <br>
@@ -6424,7 +6429,7 @@ backward -> [MyErr]Invalid reference of array
 <br>
 ・実際には自明の演算は行わないが、ここでは簡潔に記述する
 <br>
-・さらに総和高階関数を使用して反復処理を簡潔にまとめる
+・さらに総和<a href="#span-out-FNh">高階関数</a>を使用して反復処理を簡潔にまとめる
 <br>
 ・dummy変数を使用するだけで総和は無次元の零を返す
 <br>
@@ -6670,7 +6675,7 @@ x ->
 infoLost[ri] 4.499999999999999+6.466216308756395e-26i)
 <br>
 <br>
-再帰高階関数を使用して反復を実行
+再帰<a href="#span-out-FNh">高階関数</a>を使用して反復を実行
 <br>
 storage cleared
 <br>
