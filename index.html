@@ -227,6 +227,46 @@ Y/M/D
 <tbody>
   <tr>
     <th>
+3.32.14.4.13
+    </th>
+    <td class="types">
+Calculator
+    </td>
+    <td>
+2.22.11
+    </td>
+    <td class="clear">
+minor bug-fix
+    </td>
+    <td>
+[Calculator]
+<br>
+・行列sizeを指定する行列関数の予期せぬerror終了を修正
+<br>
+・行列sizeの上限URL parameter's matSizeMax（default: 1000）を追加
+<br>
+・history欄同様にlog出力欄に表示制限5000字以内を設定log.length&lt;5000
+<br>
+　<a href="01_calc_simple/manual.html#span-out-FNm">[manual]Calculator-行列関数</a>
+<br>
+　before:
+<br>
+　　<span class="clear">identity(0) || zeros(-1,1) -> Unexpected error</span>
+<br>
+　after:
+<br>
+　　identity(0) || zeros(-1,1) -> [MyErr]Invalid matrix size
+<br>
+　　identity(1001) || zeros(1001,1) -> [MyErr]Invalid matSizeMax over
+<br>
+　　identity(100) -> (1,0,0,...,0,0,0,...
+    </td>
+    <td>
+2021/5/10
+    </td>
+  </tr>
+  <tr>
+    <th>
 3.32.14.4.12
     </th>
     <td class="types">

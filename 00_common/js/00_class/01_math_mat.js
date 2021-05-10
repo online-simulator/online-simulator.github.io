@@ -32,37 +32,41 @@ My_entry.math_mat.prototype.init2d_num = function(len_i, len_j, num){
   }
   return _arr;
 };
+/* Ver.2.22.11 */
+My_entry.math_mat.prototype.num2size = function(options, num){
+  var self = this;
+  var _n = (num && num.com)? Math.floor(num.com.r): 0;
+  if(_n <= 0) throw "Invalid matrix size";
+  if(_n > options.matSizeMax) throw "Invalid matSizeMax over";
+  return _n;
+};
 My_entry.math_mat.prototype.identity = function(options, arr){
   var self = this;
   var args = self.arr2args(arr);
   var num = args[0];
-  if(!(num && num.com)) throw "Invalid matrix size";
-  return self.Imat(num.com.r);
+  return self.Imat(self.num2size(options, num));  // Ver.2.22.11
 };
 My_entry.math_mat.prototype.scalars = function(options, arr){
   var self = this;
   var args = self.arr2args(arr);
   var num0 = args[0];
   var num1 = args[1];
-  if(!(num0 && num0.com)) throw "Invalid matrix size";
   if(!(num1 && num1.com)) throw "Invalid Scalar";
-  return self.Imat_num(num0.com.r, num1);
+  return self.Imat_num(self.num2size(options, num0), num1);  // Ver.2.22.11
 };
 My_entry.math_mat.prototype.zeros = function(options, arr){
   var self = this;
   var args = self.arr2args(arr);
   var num0 = args[0];
   var num1 = args[1];
-  if(!(num0 && num0.com && num1 && num1.com)) throw "Invalid matrix size";
-  return self.zeros2d(num0.com.r, num1.com.r);
+  return self.zeros2d(self.num2size(options, num0), self.num2size(options, num1));  // Ver.2.22.11
 };
 My_entry.math_mat.prototype.ones = function(options, arr){
   var self = this;
   var args = self.arr2args(arr);
   var num0 = args[0];
   var num1 = args[1];
-  if(!(num0 && num0.com && num1 && num1.com)) throw "Invalid matrix size";
-  return self.ones2d(num0.com.r, num1.com.r);
+  return self.ones2d(self.num2size(options, num0), self.num2size(options, num1));  // Ver.2.22.11
 };
 My_entry.math_mat.prototype.zeros2d = function(len_i, len_j){
   var self = this;

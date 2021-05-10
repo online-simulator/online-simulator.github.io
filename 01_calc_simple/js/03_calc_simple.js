@@ -10,7 +10,11 @@ My_entry.def.mix_in(My_entry.calc_simple, My_entry.original_main, My_entry.origi
 
 My_entry.calc_simple.prototype.config = {
   LOG: {
-    numberChars: 5000
+    sizeMax: 5000
+  },
+  /* Ver.2.22.11 */
+  MAT: {
+    sizeMax: 1000
   }
 };
 My_entry.calc_simple.prototype.init = function(){
@@ -50,14 +54,19 @@ My_entry.calc_simple.prototype.output_logh = function(log, logo){
     }
     logh += self.logh;
     self.logh = logh;
-    self.io.write_text(self.elems.h, self.logh.substr(0, self.config.LOG.numberChars));
+    self.io.write_text(self.elems.h, self.logh.substr(0, self.config.LOG.sizeMax));
   }
   return self;
 };
 My_entry.calc_simple.prototype.output_log = function(data){
   var self = this;
   if(data.log){
+    /* Ver.2.22.11 -> */
+/*
     self.io.write_text(self.elems.o, data.log.split(";").join(";\n"));
+*/
+    self.io.write_text(self.elems.o, data.log.split(";").join(";\n").substr(0, self.config.LOG.sizeMax));
+    /* -> Ver.2.22.11 */
     self.output_logh(data.logh, data.logo);
   }
   else{
@@ -95,6 +104,9 @@ My_entry.calc_simple.prototype.get_options = function(){
   $.get_elemProps("select", "select-", "value", _options);
   $.get_urlParams(_options);
   if(_options.checkError !== false) _options.checkError = true;
+  /* Ver.2.22.11 -> */
+  _options.matSizeMax = (isNaN(_options.matSizeMax)? null: _options.matSizeMax) || self.config.MAT.sizeMax;
+  /* -> Ver.2.22.11 */
   return _options;
 };
 My_entry.calc_simple.prototype.get_data = function(input, options){
