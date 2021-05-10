@@ -3044,6 +3044,34 @@ scalars(3,i) -> (i,0,0:0,i,0:0,0,i)
 <br>
 Scalars(4,3-5i) -> (3-5i,0,0,0:0,3-5i,0,0:0,0,3-5i,0:0,0,0,3-5i)
 <br>
+N=10; z=1+i; A=htrans(scalars(N,z))identity(N)scalars(N,z); A ||
+<br>
+N=10; z=1+i; A=scalars(N,z)identity(N)htrans(scalars(N,z)); A ->
+<br>
+(
+<br>
+2,0,0,0,0,0,0,0,0,0:
+<br>
+0,2,0,0,0,0,0,0,0,0:
+<br>
+0,0,2,0,0,0,0,0,0,0:
+<br>
+0,0,0,2,0,0,0,0,0,0:
+<br>
+0,0,0,0,2,0,0,0,0,0:
+<br>
+0,0,0,0,0,2,0,0,0,0:
+<br>
+0,0,0,0,0,0,2,0,0,0:
+<br>
+0,0,0,0,0,0,0,2,0,0:
+<br>
+0,0,0,0,0,0,0,0,2,0:
+<br>
+0,0,0,0,0,0,0,0,0,2
+<br>
+)
+<br>
 <br>
 zeros行列
 <br>
@@ -4338,6 +4366,49 @@ clear; (f=&lt;{x},x=(1,2),eqn_f=&lt;f); eqn_f -> (1,2)
 ・式渡しの場合、呼び出しまで演算を実行しない
 <br>
 ・本仕様は括弧優先の高階関数の実装において必須
+<br>
+<br>
+式代入のnestingを一例に示す
+<br>
+・式変数aのみが定義される
+<br>
+clear; (a=&lt;(b=&lt;{c=&lt;2})); b -> [MyErr]Invalid REv(b)
+<br>
+clear; (a=&lt;(b={c=2})); b -> [MyErr]Invalid REv(b)
+<br>
+・式変数aとbを順番に実行することで式変数cが定義される
+<br>
+clear; (a=&lt;(b=&lt;{c=&lt;2})); a,c -> [MyErr]Invalid REv(c)
+<br>
+clear; (a=&lt;(b=&lt;{c=&lt;2})); a,b -> (0,0)
+<br>
+clear; (a=&lt;(b=&lt;{c=&lt;2})); a,b,c -> (0,0,2)
+<br>
+・式変数aを実行することで変数bとcが定義される
+<br>
+clear; (a=&lt;(b={c=2})); a,c -> (0,2)
+<br>
+clear; (a=&lt;(b={c=2})); a,b -> (0,0)
+<br>
+clear; (a=&lt;(b={c=2})); a,b,c -> (0,0,2)
+<br>
+・以下、同様
+<br>
+clear; {a=&lt;((b=&lt;1),{c=&lt;2})}=(d=&lt;3)+1; a,b,c,d -> (0,0,1,2,3)
+<br>
+clear; ({a=&lt;((b=&lt;1),{c=&lt;b+1})}=(d=&lt;c+1)+d) -> [MyErr]Invalid binary operation
+<br>
+clear; ({a=&lt;((b=&lt;1),{c=&lt;b+1})}=(d=&lt;c+1)); d -> [MyErr]Invalid binary operation
+<br>
+clear; ({a=&lt;((b=&lt;1),{c=&lt;b+1})}=(d=&lt;c+1)); a,b,c,d -> (0,0,1,2,3)
+<br>
+clear; d=&lt;{a=&lt;{(b=&lt;1),{c=&lt;2}}}; a -> [MyErr]Invalid REv(a)
+<br>
+clear; d=&lt;{a=&lt;{(b=&lt;1),{c=&lt;2}}}; d,b -> [MyErr]Invalid REv(b)
+<br>
+clear; d=&lt;{a=&lt;{(b=&lt;1),{c=&lt;2}}}; d,c -> [MyErr]Invalid REv(c)
+<br>
+clear; d=&lt;{a=&lt;{(b=&lt;1),{c=&lt;2}}}; d,a,b,c -> (0,0,1,2:0,0)
     </td>
   </tr>
   <tr>
@@ -5271,9 +5342,7 @@ Jacobi高階関数
 <br>
 　微分位置に応じて差分刻み幅を可変すると収束速度が悪化する
 <br>
-　近似解の目安の解析誤差が過大評価される背反が残る
-<br>
-・1次精度の数値誤差O(dx)を含むが、演算結果に表示しない
+・1次精度の数値誤差O(dx)を含むが、目安の解析誤差を評価・表示しない
 <br>
 ・1階偏微分の差分刻み幅実数値dxJの既定値dxJ=1e-5
 <br>
