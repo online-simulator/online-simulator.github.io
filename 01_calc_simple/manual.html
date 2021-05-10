@@ -4,7 +4,7 @@
 
 <head>
   <meta charset="utf-8">
-  <meta name="description" content="[manual]電卓">
+  <meta name="description" content="[manual]Calculator">
   <meta name="author" content="online-simulator.github.io">
   <noscript>JavaScript is not enabled on browser.</noscript>
   <link rel="stylesheet" type="text/css" href="../00_common/css/common.css">
@@ -19,7 +19,7 @@
   <div class="absolute">
 
 <div>
-<h2>[manual]電卓</h2>
+<h2>[manual]Calculator</h2>
 </div>
 
 <hr>
@@ -29,16 +29,16 @@
 <thead>
   <tr>
     <th>
-結合条件
+Associativity
     </th>
     <th>
-優先条件
+/prior2omitted*
     </th>
     <th>
 条件設定に依らない括弧明示
     </th>
     <th>
-解
+Answer
     </th>
   </tr>
 </thead>
@@ -49,33 +49,31 @@
     </td>
     <td>
 e^(-i(1pi()2/2i(5-3-1)i/(-4)))
-←初期表示
     </td>
     <td>
 =e^(i{t})
    </td>
   </tr>
   <tr>
-    <td>
-左結合
+    <td class="condition">
+left
     </td>
-    <td>
-記号省略乗算優先
+    <td class="condition">
+false
     </td>
-    <td>
+    <td class="condition">
 e^(-i(1pi(){2/{2i({5-3}-1)i}}/(-4)))
-←既定
     </td>
-    <td>
+    <td class="condition">
 =e^(i{-pi/4})
     </td>
   </tr>
   <tr>
     <td>
-右結合
+right
     </td>
     <td>
-記号省略乗算優先
+false
     </td>
     <td>
 e^(-i({1pi()2}/{{2i(5-{3-1})i}/(-4)}))
@@ -86,10 +84,10 @@ e^(-i({1pi()2}/{{2i(5-{3-1})i}/(-4)}))
   </tr>
   <tr>
     <td>
-左結合
+left
     </td>
     <td>
-除算優先
+true
     </td>
     <td>
 e^(-i(1pi(){2/2i}({5-3}-1){i/(-4)}))
@@ -100,10 +98,10 @@ e^(-i(1pi(){2/2i}({5-3}-1){i/(-4)}))
   </tr>
   <tr>
     <td>
-右結合
+right
     </td>
     <td>
-除算優先
+true
     </td>
     <td>
 e^(-i(1pi(){2/2i}(5-{3-1}){i/(-4)}))
@@ -124,7 +122,7 @@ e^(-i(1pi(){2/2i}(5-{3-1}){i/(-4)}))
 
 <div>
 <table>
-<caption>電卓manualの前置き</caption>
+<caption>[manual]Calculatorの前置き</caption>
 <thead>
   <tr>
     <th>
@@ -532,7 +530,7 @@ ja.m.wikipedia.org/wiki/項目を列挙する
 
 <div>
 <table>
-<caption><span id="span-out">電卓の設定項目と入力仕様に関する外部仕様</span></caption>
+<caption><span id="span-out">Calculatorの設定項目と入力仕様に関する外部仕様</span></caption>
 <thead>
   <tr>
     <th>
