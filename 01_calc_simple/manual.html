@@ -1026,7 +1026,7 @@ bit演算子は比較演算子・関係演算子より優先する
 <br>
 ・bit演算子・比較演算子・関係演算子の被演算子は実数のみ対応
 <br>
-・被演算子に虚数を入力した場合、0と見なされる
+・被演算子に虚数を入力した場合、0と判別される
 <br>
 i&lt;&lt;2 || real(i)&lt;&lt;2 || 0&lt;&lt;2 -> 0
 <br>
@@ -1910,11 +1910,11 @@ clear || clear; -> local storage cleared
 <br>
 clear, || clear: -> [MyErr]Invalid clear called
 <br>
-・括弧の中で呼び出した場合、error終了
+・括弧の中で呼出した場合、error終了
 <br>
 (clear) || {clear} -> [MyErr]Invalid clear called
 <br>
-・式変数への代入不可
+・<a href="#span-out-substitution-equation">式変数への代入</a>不可
 <br>
 f=&lt;clear -> [MyErr]Invalid clear called
 <br>
@@ -1924,7 +1924,7 @@ f=&lt;clear -> [MyErr]Invalid clear called
 <br>
 clear
 <br>
-・呼び出し時点までのlocal storageをclearする
+・呼出し時点までのlocal storageをclearする
 <br>
 x=3; x -> 3
 <br>
@@ -1963,7 +1963,7 @@ ans -> [MyErr]Invalid REv(ans)
 <br>
 store
 <br>
-・呼び出し時点までのlocal storageをlocal bufferに保存する
+・呼出し時点までのlocal storageをlocal bufferに保存する
 <br>
 restore
 <br>
@@ -1992,7 +1992,7 @@ restore; x -> [MyErr]Invalid REv(x)
 <br>
 stop
 <br>
-・呼び出し時点以降の演算を中断する
+・呼出し時点以降の演算を中断する
 <br>
 x=3; 3x; stop; x -> operation stopped
     </td>
@@ -2322,7 +2322,7 @@ eは指数と区別するために空括弧()を付ける方が間違いが少�
 <br>
 random() || random || rand -> 0.7479324154774045
 <br>
-・本来、関数の呼び出し時に空括弧を含めて判別するが、
+・本来、関数の呼出し時に空括弧を含めて判別するが、
 <br>
 ・定数の引数括弧の有無と記号省略乗算を同時に許容した弊害への対策
 <br>
@@ -2358,7 +2358,7 @@ pi=3 || pi()=3 || =3-pi -> -0.14159265358979312
 <br>
 2pi || 2*pi -> 6.283185307179586
 <br>
-・pi2と入力した場合、変数と見なされる
+・pi2と入力した場合、変数と判別される
 <br>
 pi2 -> [MyErr]Invalid REv(pi2)
 <br>
@@ -3983,6 +3983,9 @@ max=3 -> [MyErr]Invalid ans isFound
 clear; 2x=4 -> [MyErr]Invalid ans isFound
 <br>
 <br>
+変数名を関数に渡す場合、変数symbol名と表記する
+<br>
+<br>
 予約変数を示す
 <br>
 ・ansは直前の実行文の演算結果を保持する
@@ -4092,7 +4095,7 @@ matching
 <br>
 ・変数は無次元
 <br>
-・変数名を$でescapeして右辺または左辺の値を代入
+・変数symbol名を$でescapeして右辺または左辺の値を代入
 <br>
 clear; ($a,{$b,3})=(1,{2,$c}); (a,{b,c}) -> (1,2:0,3)
 <br>
@@ -4128,7 +4131,7 @@ clear; ($a,(($b)=3))=(1,2) -> [MyErr]Invalid matching(vars)
 <br>
 clear; ($a,2)=2(1,$b) -> [MyErr]Invalid FN operation
 <br>
-・変数への代入と見なされる場合、左右交換不可
+・<a href="#span-out-substitution">変数への代入</a>と判別される場合、左右交換不可
 <br>
 clear; c=&lt;(1,2); ($a,$b)=c; a,b -> (1,2)
 <br>
@@ -4153,6 +4156,10 @@ clear; c=&lt;(1,2); {,c}=($a,$b); a,b -> [MyErr]Invalid matching(vars)
 ・複数列挙の場合
 <br>
 clear; {($a,$b)=(1,2):($c,$d)=(3,4),(a,b,c,d)} -> (0,0:0,1,2,3,4)
+<br>
+・予約語への代入の場合、読出し不可
+<br>
+clear; ($max)=(2); max -> [MyErr]Invalid FNn(max)
     </td>
   </tr>
   <tr>
@@ -4363,7 +4370,7 @@ clear; (f=&lt;{x},x=(1,2),eqn_f=&lt;f); eqn_f -> (1,2)
 <br>
 ・値渡しの場合、無条件に演算を実行するが、
 <br>
-・式渡しの場合、呼び出しまで演算を実行しない
+・式渡しの場合、呼出しまで演算を実行しない
 <br>
 ・本仕様は括弧優先の<a href="#span-out-FNh">高階関数</a>の実装において必須
 <br>
@@ -4533,12 +4540,12 @@ x=-1; switch(lt(real(x),0),=&lt;{-real(x)}:1,=&lt;{real(x)}) -> 1
 <br>
 ・任意関数のdummy変数整数範囲[a,b]の総和を演算して返す
 <br>
-・_sdummy変数名で呼び出す
+・_sdummy変数symbol名で呼出す
 <br>
 ・dummy変数は無次元でlocal変数から独立する
 <br>
 <br>
-_sdummy変数名(=&lt;第1引数,第2引数,第3引数[,第4引数])
+_sdummy変数symbol名(=&lt;第1引数,第2引数,第3引数[,第4引数])
 <br>
 ・第1引数: dummy変数の関数式を式渡し
 <br>
@@ -4609,7 +4616,7 @@ x=-1; y=-2; _sy(=&lt;{_sx(=&lt;{x+y},0,y)},0,2); x+y -> -3
 <br>
 _sn(,is=0,:,ie=10,:=&lt;{n},is,ie) -> 55
 <br>
-・dummy変数は変数の命名規則に準拠
+・dummy変数は<a href="#span-out-vars">変数</a>の命名規則に準拠
 <br>
 _smax(=&lt;{0},1,2) -> [MyErr]Invalid max called
 <br>
@@ -4681,12 +4688,12 @@ N=0; _sn(=&lt;Pn,N,10) -> 99.99999999999999
 <br>
 ・任意関数のdummy変数整数範囲[a,b]の総乗・総積を演算して返す
 <br>
-・_pdummy変数名で呼び出す
+・_pdummy変数symbol名で呼出す
 <br>
 ・dummy変数は無次元でlocal変数から独立する
 <br>
 <br>
-_pdummy変数名(=&lt;第1引数,第2引数,第3引数[,第4引数])
+_pdummy変数symbol名(=&lt;第1引数,第2引数,第3引数[,第4引数])
 <br>
 ・第1引数: dummy変数の関数式を式渡し
 <br>
@@ -4764,12 +4771,12 @@ cA=(e^{i(pi/4)},:,e^{i(-pi/4)}); N=4; _pn(=&lt;{cA},1,N)
 <br>
 ・最後の演算結果を返す
 <br>
-・_rdummy変数名で呼び出す
+・_rdummy変数symbol名で呼出す
 <br>
 ・dummy変数は無次元でlocal変数から独立する
 <br>
 <br>
-_rdummy変数名(=&lt;第1引数,第2引数,第3引数)
+_rdummy変数symbol名(=&lt;第1引数,第2引数,第3引数)
 <br>
 ・第1引数: 任意処理を式渡し
 <br>
@@ -4800,7 +4807,7 @@ _rn(=&lt;{Pn=Pn+1},Pn=0,2); Pn -> 2
 <br>
 clear; _rn(=&lt;{Pn=Pn+1},,2); Pn -> [MyErr]Invalid binary operation
 <br>
-・非同義（変数への代入は0が返る）
+・非同義（<a href="#span-out-substitution">変数への代入</a>は0が返る）
 <br>
 clear; _rn(=&lt;{n=n+1},,2)  // NG -> 0
 <br>
@@ -4849,14 +4856,14 @@ _Ry(=&lt;{_Rx(=&lt;{x+y+1},1,2)},1,2) -> 13
 <br>
 ・微分位置xでの差分刻み幅dxの既定値dx=max(1,abs(x))dxD(1+i)
 <br>
-・_ddummy変数名で呼び出す
+・_ddummy変数symbol名で呼出す
 <br>
 ・dummy変数は無次元
 <br>
 ・dummy変数と同名のlocal変数を参照するが、上書きしない
 <br>
 <br>
-_ddummy変数名(=&lt;第1引数[,第2引数[,第3引数[,第4引数]]])
+_ddummy変数symbol名(=&lt;第1引数[,第2引数[,第3引数[,第4引数]]])
 <br>
 ・第1引数: dummy変数の関数式を式渡し
 <br>
@@ -5165,14 +5172,14 @@ x -> (1.000000000000009+O(3e-5):0.9999999999999909+O(3e-5))
 <br>
 ・積分の差分刻み幅dxI=(b-a)/NI
 <br>
-・_idummy変数名で呼び出す
+・_idummy変数symbol名で呼出す
 <br>
 ・dummy変数は無次元
 <br>
 ・dummy変数と同名のlocal変数を参照するが、上書きしない
 <br>
 <br>
-_idummy変数名(=&lt;第1引数,第2引数,第3引数[,第4引数])
+_idummy変数symbol名(=&lt;第1引数,第2引数,第3引数[,第4引数])
 <br>
 ・第1引数: dummy変数の関数式を式渡し
 <br>
@@ -5457,7 +5464,7 @@ ODE高階行列関数
 <br>
 ・1階常微分の差分刻み幅実数値dxTの既定値dxT=1e-3
 <br>
-・_odummy変数名で呼び出す
+・_odummy変数symbol名で呼出す
 <br>
 ・dummy変数は無次元
 <br>
@@ -5466,7 +5473,7 @@ ODE高階行列関数
 ・未知変数のlocal変数を参照、上書きする
 <br>
 <br>
-_odummy変数名(=&lt;第1引数,=&lt;第2引数[,=&lt;第3引数[,第4引数[,第5引数]]])
+_odummy変数symbol名(=&lt;第1引数,=&lt;第2引数[,=&lt;第3引数[,第4引数[,第5引数]]])
 <br>
 ・第1引数: 1階常微分方程式右辺の関数式を式渡し
 <br>
@@ -5501,7 +5508,7 @@ symbolic高階行列関数
 <br>
 ・未知変数symbol名連番0~のm行n列の行列を<a href="#span-out-eqns">式変数</a>に式代入して0を返す
 <br>
-・_e式変数名(=&lt;{未知変数symbol名},m,n)で呼び出す
+・_e式変数symbol名(=&lt;{未知変数symbol名},m,n)で呼出す
 <br>
 <br>
 test caseを列挙する
@@ -6272,7 +6279,7 @@ z_v_terminal=(m/Cd_sphere)*z_a; z_v_terminal -> -9.8i
 <br>
 近似解の収束判定条件を設ける場合、stepの一例を示す
 <br>
-・上記の線形方程式の場合、3回で十分なため、固定値を設定
+・上記の線形方程式の場合、反復3回で十分収束するため、固定値を設定
 <br>
 orderT=1;
 <br>
