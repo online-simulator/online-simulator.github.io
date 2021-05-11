@@ -227,6 +227,42 @@ Y/M/D
 <tbody>
   <tr>
     <th>
+3.33.14.4.13
+    </th>
+    <td class="types">
+Calculator
+    </td>
+    <td>
+2.23.11
+    </td>
+    <td>
+minor update
+    </td>
+    <td>
+[Calculator]
+<br>
+・symbolic高階行列関数を追加
+<br>
+　<a href="01_calc_simple/manual.html#span-out-FNmh">[manual]Calculator-高階行列関数</a>
+<br>
+　初期表示のtest caseに逆行列を解く式変数solveAinvを追加
+<br>
+　A=(1+i,2:3i,4-i); solveAinv*A ->
+<br>
+　(
+<br>
+　infoLost[ i] 1+1.1102230246251565e-16i,infoLost[ i] 0:
+<br>
+　infoLost[r ] 1.1102230246251565e-16,infoLost[r ] 1
+<br>
+　)
+    </td>
+    <td>
+2021/5/11
+    </td>
+  </tr>
+  <tr>
+    <th>
 3.32.14.4.13
     </th>
     <td class="types">
@@ -281,7 +317,7 @@ minor update
     <td>
 [Calculator]
 <br>
-・ODE高階関数の演算による数値誤差の評価方法を変更
+・ODE高階行列関数の演算による数値誤差の評価方法を変更
 <br>
 　目安の解析誤差の評価方法に変更なし
 <br>
@@ -289,7 +325,7 @@ minor update
 <br>
 　<del>微分高階関数の評価方法に変更なし</del>
 <br>
-・微分高階関数の演算による数値誤差の評価方法をODE高階関数同様に変更
+・微分高階関数の演算による数値誤差の評価方法をODE高階行列関数同様に変更
 <br>
 　目安の解析誤差の評価方法に変更なし
 <br>
@@ -375,9 +411,9 @@ minor update
 <br>
 [Calculator]
 <br>
-・ODE高階関数（explicit ODE solver）を追加
+・ODE高階行列関数（explicit ODE solver）を追加
 <br>
-　<a href="01_calc_simple/manual.html#span-out-FNmh">[manual]Calculator-行列高階関数</a>
+　<a href="01_calc_simple/manual.html#span-out-FNmh">[manual]Calculator-高階行列関数</a>
 <br>
 　default: classical Runge-Kutta method
 <br>
@@ -509,9 +545,9 @@ fatal bug-fix
 <br>
 ・Summariesの書式を変更
 <br>
-・ODE高階関数の実装準備・一部記述不備を修正
+・ODE高階行列関数の実装準備・一部記述不備を修正
 <br>
-　<a href="01_calc_simple/manual.html#span-out-FNmh">[manual]Calculator-行列高階関数</a>
+　<a href="01_calc_simple/manual.html#span-out-FNmh">[manual]Calculator-高階行列関数</a>
     </td>
     <td>
 2021/5/6
@@ -551,9 +587,9 @@ minor bug-fix
 <br>
 　　(e=&lt;2) || e=&lt;2 -> [MyErr]Invalid BTe([object Object])
 <br>
-・ODE高階関数の実装準備
+・ODE高階行列関数の実装準備
 <br>
-　<a href="01_calc_simple/manual.html#span-out-FNmh">[manual]Calculator-行列高階関数</a>
+　<a href="01_calc_simple/manual.html#span-out-FNmh">[manual]Calculator-高階行列関数</a>
     </td>
     <td>
 2021/5/5

@@ -611,6 +611,7 @@ My_entry.operation.prototype.jacobian = function(data, rightArr, tagObj){
   var self = this;
   var options = data.options;
   var vars = data.vars;
+  var eqns = data.eqns;
   var math_mat = self.entry.math_mat;
   var DATA = self.entry.DATA;
   var unit = self.entry.unit;
@@ -713,10 +714,40 @@ My_entry.operation.prototype.jacobian = function(data, rightArr, tagObj){
     return _get_f;
   };
 if(prop.key){
-  // ODE
+  /* Ver.2.23.11 -> */
   prop = prop.key;
   msgErr = "Invalid "+prop+" arguments";
-  if(len_j > 1){
+  if(prop === "EX"){
+    if(len_j > 2){
+      var names = get_names(0);
+      var name_var = names[names.length-1];
+      var name_eqn = tagObj.val.name;
+      var len_i = math_mat.num2size(options, args[1]);
+      var len_j = math_mat.num2size(options, args[2]);
+      var counter = 0;
+      var trees = [];
+      for(var i=0; i<len_i; ++i){
+        if(i){
+          trees.push(DATA.tree_tag("SRr", ":"));
+        }
+        for(var j=0; j<len_j; ++j){
+          if(j){
+            trees.push(DATA.tree_tag("SRt", ","));
+          }
+          trees.push(DATA.tree_tag("REv", name_var+String(counter++)));
+        }
+      }
+      var tree = DATA.tree_tag(self.config.BT.SEe, trees);
+      self.store_eqn(eqns, name_eqn, tree);
+      _tree = DATA.tree_num(0, 0);
+    }
+    else{
+      throw msgErr;
+    }
+  }
+  // ODE
+  else if(len_j > 1){
+  /* -> Ver.2.23.11 */
     var tree_eqn = get_tree(0);
     var names = get_names(1);
     var len_i = names.length;
