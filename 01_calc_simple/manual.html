@@ -252,6 +252,11 @@ plot2d
 ・入力仕様
 <br>
 　・
+<a href="#span-out-plot2d-command">
+plot2d-command
+</a>
+<br>
+　・
 <a href="#span-out-comment">
 comment文
 </a>
@@ -1534,6 +1539,22 @@ browser上部のURL入力欄のGET入力で
 index.html?param0=value0&amp;param1=value1&amp;param2=value2&amp;...
 <br>
 <br>
+厳密modeで実行する場合
+<br>
+useStrict=true
+<br>
+・乗算記号*省略不可
+<br>
+・式読出し記号=&gt;省略不可
+<br>
+<br>
+情報落ちの発生や微分・積分の数値誤差を評価しない場合
+<br>
+checkError=false
+<br>
+・演算量が数倍軽くなる
+<br>
+<br>
 演算子の優先順位を変更する場合
 <br>
 ・演算子の
@@ -1547,11 +1568,6 @@ URi,URf,BRp,BRr,BRmo,BRdm,BRsa,BRbs,BRba,BRbx,BRbo,BRcn,BRrl
 ・別途、乗算記号*の省略を許容しない場合、tag名BRmoを削除する
 <br>
 　その場合、treeを全走査判定する無駄な演算量が減る
-<br>
-<br>
-checkError=trueの場合、情報落ちの発生や微分・積分の数値誤差を評価する
-<br>
-checkError=falseに設定した場合、演算量が数倍軽くなる
     </td>
   </tr>
   <tr>
@@ -1772,7 +1788,7 @@ only online-test環境
     </th>
     <td>
 <span id="span-out-requirements"></span>
-browserの動作要件について記述する
+browserの動作要件を列挙する
 <br>
 ・ECMAScript5対応
 <br>
@@ -1926,6 +1942,72 @@ Edge/Chrome: w -> 43.541015625
 IE11: sin(5) -> -0.9589242746631384
 <br>
 else: sin(5) -> -0.9589242746631385
+    </td>
+  </tr>
+  <tr>
+    <th>
+<a href="#span-index">
+目次
+</a>
+<br>
+plot2d
+<br>
+-command
+<br>
+入力仕様
+    </th>
+    <td>
+<span id="span-out-plot2d-command"></span>
+plot2d-commandの入力仕様について記述する
+<br>
+<br>
+circleを描く時系列data作成の一例を示す
+<br>
+・<a href="#span-out-eqns">式変数</a>の式読出し記号=&gt;を省略する場合、変数名の重複に留意する
+<br>
+storage cleared
+<br>
+t0=0;
+<br>
+t1=2pi;
+<br>
+tn=&lt;t0+(t1-t0)*n/N;
+<br>
+N=10;
+<br>
+init=&lt;last{xt=zeros(N+1,1),yt=zeros(N+1,1)};
+<br>
+stepn=&lt;last{xt[n]=cos(tn),yt[n]=sin(tn)};
+<br>
+evolutionN=&lt;_sn(=&lt;stepn,0,N);
+<br>
+init; evolutionN; xt,yt ->
+<br>
+(
+<br>
+1,0:
+<br>
+0.8090169943749475,0.5877852522924731:
+<br>
+0.30901699437494745,0.9510565162951535:
+<br>
+-0.3090169943749471,0.9510565162951536:
+<br>
+-0.8090169943749473,0.5877852522924732:
+<br>
+-1,1.2246467991473532e-16:
+<br>
+-0.8090169943749478,-0.5877852522924727:
+<br>
+-0.30901699437494756,-0.9510565162951535:
+<br>
+0.30901699437494723,-0.9510565162951536:
+<br>
+0.8090169943749473,-0.5877852522924734:
+<br>
+1,-2.4492935982947064e-16
+<br>
+)
     </td>
   </tr>
   <tr>
@@ -4500,6 +4582,9 @@ clear; d=&lt;{a=&lt;{(b=&lt;1),{c=&lt;2}}}; d,b -> [MyErr]Invalid REv(b)
 clear; d=&lt;{a=&lt;{(b=&lt;1),{c=&lt;2}}}; d,c -> [MyErr]Invalid REv(c)
 <br>
 clear; d=&lt;{a=&lt;{(b=&lt;1),{c=&lt;2}}}; d,a,b,c -> (0,0,1,2:0,0)
+<br>
+<br>
+応用例は<a href="#span-out-plot2d-command">plot2d-command入力仕様</a>参照
     </td>
   </tr>
   <tr>
@@ -8124,11 +8209,15 @@ Ver.2.19.6以降、
 </del>
 <br>
 <br>
-plot2dのcommand実装
+<a href="#span-out-plot2d-command">plot2d-command入力仕様</a>参照
+<br>
+<del>
+plot2d-commandの実装
 <br>
 ・予め演算した結果をplotする場合の仕様が必要
 <br>
 ・命令文よりも最上位で単独のcommand仕様が必要
+</del>
     </td>
   </tr>
 </tbody>
@@ -8241,6 +8330,9 @@ data.logo -> "makeLog=true"
 <br>
 <br>
 以降、省略で既定値
+<br>
+<br>
+・useStrict: 厳密mode実行を使用するflag
 <br>
 <br>
 ・isRightAssociativityBR: 2項演算子の結合性を右結合に変更するflag

@@ -100,6 +100,7 @@ My_entry.operation.prototype.init = function(){
   new My_entry.original_main().make_instances.call(self, ["$", "def", "math", "math_mat", "DATA", "unit"]);
   My_entry.def.mix_in_props(My_entry.operation, My_entry.def, ["isNotNull", "isNotNullStr"]);
   My_entry.def.mix_in_props(My_entry.operation, My_entry.DATA, ["arr2num", "arr2args", "arr2obj_i"]);
+  self.notUseStrict = null;
   self.arr_precedence = [];
   self.options = {};
   self.isLocked_eqns = {};
@@ -199,6 +200,8 @@ if(tagName === "BRmo"){
 My_entry.operation.prototype.prepare = function(data){
   var self = this;
   var options = data.options;
+  /* Ver.2.24.11 -> */
+  self.notUseStrict = !(options.useStrict);
   self.options.dxT = options.dxT || self.config.params.dxT;
   self.options.dxJ = options.dxJ || self.config.params.dxJ;
   self.options.dxD = options.dxD || self.config.params.dxD;
@@ -208,6 +211,10 @@ My_entry.operation.prototype.prepare = function(data){
     arr_precedence[1] = options.precedence.split(",");
   }
   else{
+    if(options.useStrict){
+      arr_precedence[1][2] = null;
+    }
+  /* -> Ver.2.24.11 */
     if(options.isDIVprior2OMUL){
       self.entry.math.switch_arr(arr_precedence[1], 2, 3);
     }
@@ -495,8 +502,8 @@ My_entry.operation.prototype.SRr_or_SRt = function(data, i0, tagName, tagObj, is
     for(var i=0; i<len_i; ++i){
       var leftArri = leftArr[i];
       var rightArri = rightArr[i];
-      /* Ver.1.4.2 */  // {:1,2} || {0:1,2} -> (0,1:0,2)
-      /* Ver.1.4.3 */  // (1,2),{3,4:5:6,7:8,9,10} -> (1,2,3,5,6,8:0,0,4,0,7,9:0,0,0,0,0,10)
+      /* Ver.1.4.3 (1,2),{3,4:5:6,7:8,9,10} -> (1,2,3,5,6,8:0,0,4,0,7,9:0,0,0,0,0,10) */
+      /* Ver.1.4.2 {:1,2} || {0:1,2} -> (0,1:0,2) */
       if(leftArri){
         len_j = leftArri.length;
       }
@@ -566,7 +573,7 @@ My_entry.operation.prototype.tree2tree_eqn = function(data, tree){
     var name_eqn = self.get_tagVal(_tree, "REv", "val");
     if(name_eqn){
       _tree = self.restore_eqn(eqns, name_eqn);
-      /* Ver.1.6.3 */  // _rn(<={run},,1) -> _rn(<=run,,1) allowed -> _rn(<=(run),,1)
+      /* Ver.1.6.3 _rn(<={run},,1) -> _rn(<=run,,1) allowed -> _rn(<=(run),,1) */
 /*
       if(_tree){
         _tree = DATA.trees2tree(self.get_tagVal(_tree, BT.REe, "val"));
@@ -1754,7 +1761,12 @@ My_entry.operation.prototype.REv = function(data, i0, tagName, tagObj){
     }
   }
   else{
+    /* Ver.2.24.11 -> */
+/*
     if(eqns[name]){
+*/
+    if(eqns[name] && self.notUseStrict){
+    /* -> Ver.2.24.11 */
       if(!(isSE)){
         /* Ver.2.20.8 -> */
         var name_eqn = name;

@@ -71,9 +71,9 @@ Ver.
 Calculator
     </th>
     <td>
-<a title="Simple Calculator" href="01_calc_simple/index.html?precedence=default&checkError=true">Simple Calculator</a>
+<a title="Simple Calculator" href="01_calc_simple/index.html?useStrict=false&checkError=true">Simple Calculator</a>
 <br>
-<a title="Graphing Calculator" href="02_calc_graphing/index.html?checkError=true">Graphing Calculator</a>
+<a title="Graphing Calculator" href="02_calc_graphing/index.html?useStrict=false&checkError=true">Graphing Calculator</a>
     </td>
     <td>
 <a title="[manual]Calculator" href="01_calc_simple/manual.html">[manual]Calculator</a>
@@ -225,6 +225,40 @@ Y/M/D
   </tr>
 </thead>
 <tbody>
+  <tr>
+    <th>
+3.34.14.4.13
+    </th>
+    <td class="types">
+Calculator
+    </td>
+    <td>
+2.24.11
+    </td>
+    <td>
+minor update
+    </td>
+    <td>
+[Calculator]
+<br>
+・厳密modeで実行するURL parameter's useStrict（default: false）を追加
+<br>
+　<a href="01_calc_simple/manual.html#span-out-config">[manual]Calculator-裏設定</a>
+<br>
+　useStrict=true
+<br>
+　　omitted multiplication sign(*) disabled
+<br>
+　　omitted equation call sign(=&gt;) disabled
+<br>
+・plot2d-command実装準備
+<br>
+　<a href="01_calc_simple/manual.html#span-out-plot2d-command">[manual]Calculator-plot2d-command</a>
+    </td>
+    <td>
+2021/5/12
+    </td>
+  </tr>
   <tr>
     <th>
 3.33.14.4.13
