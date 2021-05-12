@@ -859,7 +859,7 @@ ans -> 6
 <br>
 表示仕様ではないが、以下の演算都合上の仕様について記述する
 <br>
-・代入を括弧で括った場合、0を返す
+・代入を<a href="#span-out-BT">括弧</a>で括った場合、0を返す
 <br>
 (x=3) || (3=3) -> 0
 <br>
@@ -1040,6 +1040,24 @@ bit演算子は比較演算子・関係演算子より優先する
 <br>
 4==2|4 || 4==(2|4) || 4==6 -> 0
 <br>
+・bit演算子で代替可能な論理OR記号||と論理AND記号&amp;&amp;は未実装
+<br>
+・論理ORをbit ORで代替する場合、<a href="#span-out-BT">括弧</a>を明示する
+<br>
+(1==1)|(1==-1) || 1|0 -> 1
+<br>
+左結合既定時　1==1|1==-1 || 1==(1|1)==-1 || (1==1)==-1 || 1==-1 -> 0
+<br>
+右結合選択時　1==1|1==-1 || 1==(1|1)==-1 || 1==(1==-1) || 1==0 -> 0
+<br>
+・同様に論理ANDをbit ANDで代替する場合、<a href="#span-out-BT">括弧</a>を明示する
+<br>
+(1==1)&amp;(1==-1) -> 0
+<br>
+左結合既定時　1==1&amp;1==-1 || 1==(1&amp;1)==-1 || (1==1)==-1 || 1==-1 -> 0
+<br>
+右結合選択時　1==1&amp;1==-1 || 1==(1&amp;1)==-1 || 1==(1==-1) || 1==0 -> 0
+<br>
 ・比較演算子は関係演算子より優先する
 <br>
 1==2>1 || 1==(2>1) || 1==1 -> 1
@@ -1053,6 +1071,12 @@ i&lt;&lt;2 || real(i)&lt;&lt;2 || 0&lt;&lt;2 -> 0
 2i>i || real(2i)>real(i) || 0>0 -> 0
 <br>
 i==0 || real(i)==0 -> 1
+<br>
+・被演算子に行列を入力した場合、最終要素を取り出す
+<br>
+・last<a href="#span-out-FNm">行列関数</a>を使用
+<br>
+(1,2)==(3,2) || last(1,2)==last(3,2) || 2==2 -> 1
 <br>
 ・代入と判別されないequal記号=は、右辺移行の2項演算子として扱う
 <br>
@@ -1530,9 +1554,7 @@ ans*0 -> 0
 UIには表示しない裏設定について記述する
 <br>
 <br>
-browser上部のURL入力欄のGET入力で
-<a href="#span-in-options">内部option</a>
-を変更可
+browser上部のURL入力欄のGET入力で<a href="#span-in-options">内部option</a>を変更可
 <br>
 ・html直後の?に続けて&amp;区切りでparameterを渡す
 <br>
@@ -1559,9 +1581,7 @@ checkError=false
 <br>
 <a href="#span-out-prec-ope">演算子の優先順位</a>を変更する場合
 <br>
-・演算子の
-<a href="#span-in-prec">tag名</a>
-を優先順にcomma,区切りで列挙する
+・演算子の<a href="#span-in-prec">tag名</a>を優先順にcomma,区切りで列挙する
 <br>
 precedence=
 <br>
@@ -1661,7 +1681,7 @@ sqrt(1,2,3:4,5,6) || sqrt(4,5,6) || sqrt(4) -> 2
 <br>
 定義できない行列演算
 <br>
-・定義できない行列積の場合、error終了
+・定義できない<a href="#span-out-mat-product">行列積</a>の場合、error終了
 <br>
 (1,2)(1,2) -> [MyErr]Invalid matrix operation
 <br>
@@ -1831,7 +1851,7 @@ offline/online-test環境
 <br>
 only online-test環境
 <br>
-・Amazon Silk
+・latest Amazon Silk
     </td>
   </tr>
   <tr>
@@ -1877,9 +1897,7 @@ semi-colon;区切りで行列の最終要素の数値をgraphに描画する
 <br>
 ・処理を列挙する場合、最終列挙の要素が最終要素とは限らない点、留意が必要
 <br>
-詳細は
-last<a href="#span-out-FNm">行列関数</a>
-参照
+詳細はlast<a href="#span-out-FNm">行列関数</a>参照
 <br>
 <br>
 tの下限値と上限値のlocal変数は独立
@@ -2094,7 +2112,7 @@ clear || clear; -> local storage cleared
 <br>
 clear, || clear: -> [MyErr]Invalid clear called
 <br>
-・括弧の中で呼出した場合、error終了
+・<a href="#span-out-BT">括弧</a>の中で呼出した場合、error終了
 <br>
 (clear) || {clear} -> [MyErr]Invalid clear called
 <br>
@@ -2258,7 +2276,7 @@ x=3; x=2:3x -> (0:6)
 ・角括弧[]
 <br>
 <br>
-括弧は区切り文字に含める
+括弧は<a href="#span-out-SR">区切り文字</a>に含める
 <br>
 ・実行文を区切るsemi-colon;を括弧の中で使用した場合、error終了
 <br>
@@ -2391,9 +2409,7 @@ A=(1,2:3,4); A[1,2:3,4] -> (7,10:15,22)
 [1,2:3,4][1] -> (3,4)
 <br>
 <br>
-詳細は
-<a href="#span-out-concat">行列操作入力仕様</a>
-参照
+詳細は<a href="#span-out-concat">行列操作入力仕様</a>参照
     </td>
   </tr>
   <tr>
@@ -2413,19 +2429,21 @@ A=(1,2:3,4); A[1,2:3,4] -> (7,10:15,22)
 <br>
 予約語の種類を列挙する
 <br>
-・comment文
+・<a href="#span-out-plot2d-command">plot2d-command</a>
 <br>
-・命令文
+・<a href="#span-out-comment">comment文</a>
 <br>
-・区切り文字・括弧
+・<a href="#span-out-command">命令文</a>
 <br>
-・定数含む関数名
+・<a href="#span-out-SR">区切り文字</a>・<a href="#span-out-BT">括弧</a>
 <br>
-・演算子記号
+・<a href="#span-out-FN0">定数</a>含む<a href="#span-out-FN">関数</a>名
+<br>
+・<a href="#span-out-prec-ope">演算子</a>記号
 <br>
 ・被演算子記号
 <br>
-　・予約変数
+　・予約<a href="#span-out-vars">変数</a>
 <br>
 　・10進数値小数
 <br>
@@ -2449,9 +2467,7 @@ max=&lt;3 -> [MyErr]Invalid BTe([object Object])
 ＭＡＸ=3 -> [MyErr]Invalid ans isFound
 <br>
 <br>
-予約語の一覧は
-<a href="#span-in-FN">内部仕様</a>
-参照
+予約語の一覧は<a href="#span-in-FN">内部仕様</a>参照
    </td>
   </tr>
   <tr>
@@ -2469,7 +2485,7 @@ max=&lt;3 -> [MyErr]Invalid BTe([object Object])
 定数の入力仕様と付随する留意事項について記述する
 <br>
 <br>
-定数は引数括弧無しで厳密には関数に含めない
+定数は引数<a href="#span-out-BT">括弧</a>無しで厳密には関数に含めない
 <br>
 ・実行文を作るparse段階で数値に変換する
 <br>
@@ -2508,7 +2524,7 @@ random() || random || rand -> 0.7479324154774045
 <br>
 ・本来、関数の呼出し時に空括弧を含めて判別するが、
 <br>
-・定数の引数括弧の有無と<a href="#span-out-BRmo">記号省略乗算</a>を同時に許容した弊害への対策
+・定数の引数<a href="#span-out-BT">括弧</a>の有無と<a href="#span-out-BRmo">記号省略乗算</a>を同時に許容した弊害への対策
 <br>
 <br>
 次の場合、代入errorとは判別されず、右辺に移項して演算される
@@ -2542,16 +2558,16 @@ pi=3 || pi()=3 || =3-pi -> -0.14159265358979312
 <br>
 2pi || 2*pi -> 6.283185307179586
 <br>
-・pi2と入力した場合、変数と判別される
+・pi2と入力した場合、<a href="#span-out-vars">変数</a>と判別される
 <br>
 pi2 -> [MyErr]Invalid REv(pi2)
 <br>
-・piの後に続ける場合、括弧で区切るか乗算記号*を明示する
+・piの後に続ける場合、<a href="#span-out-BT">括弧</a>で区切るか乗算記号*を明示する
 <br>
 pi(2) || pi*2 -> 6.283185307179586
 <br>
 <br>
-角括弧[]は使用不可
+角<a href="#span-out-BT">括弧</a>[]は使用不可
 <br>
 pi[2] -> [MyErr]Invalid reference of array
 <br>
@@ -2655,7 +2671,7 @@ e^(-i(1pi()2/2i(5-3-1)i/(-4)))
 e^(-i(1pi(){2/{2i({5-3}-1)i}}/(-4)))
 <br>
 <br>
-2項の結合性や演算子の優先順位によって解が異なる場合、入力を見直す
+2項の結合性や<a href="#span-out-prec-ope">演算子の優先順位</a>によって解が異なる場合、入力を見直す
 <br>
 <br>
 具体的には次のように対策する
@@ -2664,7 +2680,7 @@ a={5-3}-1; b=2/{2i(a)i}; e^(-i(1pi()b/(-4)))
 <br>
 ・一部分を変数に代入し、semi-colon;区切りで演算順序を明確化する
 <br>
-・2項演算子が連続する場合、括弧を明示する
+・2項演算子が連続する場合、<a href="#span-out-BT">括弧</a>を明示する
 <br>
 <br>
 実数演算の場合、虚数は0のため、次の極形式は使用不可
@@ -2691,7 +2707,7 @@ pcomp(1,t) || ecomp(t) || cos(t)+real(i)sin(t) || cos(t) -> 0.7071067811865476
 関数の入力仕様と付随する留意事項について記述する
 <br>
 <br>
-関数の引数を括る括弧は丸括弧()で統一する
+関数の引数を括る<a href="#span-out-BT">括弧</a>は丸括弧()で統一する
 <br>
 <br>
 leftとrightの数値の関係や大小を比較する関数を列挙する
@@ -2944,13 +2960,13 @@ transpose({1,2:3,4}) || trans({1,2:3,4}) || trans{1,2:3,4} -> (1,2:3,4)
 <br>
 ({1,2},{3:4}) || (trans(1,2),trans(3:4)) -> (1,3,4:2)
 <br>
-・1重列挙の場合、外側の括弧に結合性は存在しない
+・1重列挙の場合、外側の<a href="#span-out-BT">括弧</a>に結合性は存在しない
 <br>
 (1,2) || {(1,2)} || ({(1,2)}) || {({(1,2)})} -> (1,2)
 <br>
 {1,2} || ({1,2}) || {({1,2})} || ({({1,2})}) -> (1:2)
 <br>
-・多重列挙の場合、vectorを括る括弧の結合性に依存する
+・多重列挙の場合、vectorを括る<a href="#span-out-BT">括弧</a>の結合性に依存する
 <br>
 {(1,2),(3:4)} -> (1,2:3:4)
 <br>
@@ -3070,7 +3086,7 @@ A=(11:21,22:31,32,33,34); htrans(htrans(A)) -> (11,0,0,0:21,22,0,0:31,32,33,34)
 ・結合処理が重くなるため、行指定の行列は抜け要素を自動で埋めない
 <br>
 <br>
-定義できない行列積の場合、error終了
+定義できない<a href="#span-out-mat-product">行列積</a>の場合、error終了
 <br>
 (1,2)(1,2) -> [MyErr]Invalid matrix operation
 <br>
@@ -3146,10 +3162,10 @@ A=(11:21,22:31,32,33,34); htrans(htrans(A)) -> (11,0,0,0:21,22,0,0:31,32,33,34)
     </th>
     <td>
 <span id="span-out-FNm0"></span>
-定数扱いの行列の入力仕様と付随する留意事項について記述する
+<a href="#span-out-FN0">定数</a>扱いの行列の入力仕様と付随する留意事項について記述する
 <br>
 <br>
-定数同様に扱う行列を列挙する
+<a href="#span-out-FN0">定数</a>同様に扱う行列を列挙する
 <br>
 vector2r || vector2r() -> (0,0)
 <br>
@@ -3219,7 +3235,7 @@ identity(1001) -> [MyErr]Invalid matSizeMax over
 <br>
 identity(100) -> (1,0,0,...,0,0,0,...
 <br>
-・log表示負荷を下げる場合、変数に代入して括弧で括る
+・log表示負荷を下げる場合、変数に代入して<a href="#span-out-BT">括弧</a>で括る
 <br>
 (A=identity(100),A2=A*A) -> (0,0)
 <br>
@@ -3459,7 +3475,7 @@ last(1,2:3,4) -> 4
 <br>
 last{1,2:3,4} -> 4
 <br>
-・同じ括弧でcomma,を括る限り、last行列関数はcomma演算子同様に働く
+・同じ<a href="#span-out-BT">括弧</a>でcomma,を括る限り、last行列関数はcomma演算子同様に働く
 <br>
 last((1,2):(3,4)) -> 4
 <br>
@@ -3481,7 +3497,7 @@ last{{1,2}:{3,4}} -> 4
 <br>
 last(1,(2:3),4) -> 3
 <br>
-・括弧を統一しない場合、意図とは異なる可能性
+・<a href="#span-out-BT">括弧</a>を統一しない場合、意図とは異なる可能性
 <br>
 ({1,2},3,4) ->
 <br>
@@ -3497,7 +3513,7 @@ last({1,2},3,4) -> 2
 <br>
 ・最終列挙の要素を取り出す場合の対策
 <br>
-・常にlast行列関数で括弧の中身を無次元化する
+・常にlast行列関数で<a href="#span-out-BT">括弧</a>の中身を無次元化する
 <br>
 last(1,last(2:3),4) -> 4
 <br>
@@ -3588,7 +3604,7 @@ trans((trans(1,2:3,4))[1]) || htrans((htrans(1,2:3,4))[1]) -> (2:4)
 <br>
 trans((trans(i,2i:3i,4i))[1]) || htrans((htrans(i,2i:3i,4i))[1]) -> (2i:4i)
 <br>
-・括弧は関数より優先するため、関数の外側を上位の括弧で括る
+・<a href="#span-out-BT">括弧</a>は関数より優先するため、関数の外側を上位の括弧で括る
 <br>
 A=(1,2:3,4); (trans(A))[1]  // OK -> (2,4)
 <br>
@@ -3670,7 +3686,7 @@ A=(1,2:3,4); (A[0],A[1]) -> (1,2,3,4)
 <br>
 (vector4c,vector4c,vector4c) -> (0,0,0:0,0,0:0,0,0:0,0,0)
 <br>
-・区切り文字の左から順に結合する
+・<a href="#span-out-SR">区切り文字</a>の左から順に結合する
 <br>
 ((1,2),{3,4},{3,4,5}) -> (1,2,3,3:0,0,4,4:0,0,0,5)
 <br>
@@ -4221,7 +4237,7 @@ clear; x=y(z) -> [MyErr]Invalid ans isFound
 ・このような場合、<a href="#span-out-eqns">式変数</a>を使用する
 <br>
 <br>
-代入を括弧で括った場合、0を返す
+代入を<a href="#span-out-BT">括弧</a>で括った場合、0を返す
 <br>
 (x=3) -> 0
 <br>
@@ -4401,7 +4417,7 @@ y=&lt;a*x+b; a=1; b=2; x=3; y=&gt; || 1*3+2 -> 5
 <br>
 y=&lt;a*x+b; a=1; b=2; x=3; y=&gt;y0; y0 -> 5
 <br>
-・式読出しを括弧で括れば変数同様に扱える
+・式読出しを<a href="#span-out-BT">括弧</a>で括れば変数同様に扱える
 <br>
 2; y=&lt;ans; max(3,4(y=&gt;)2) || max(3,4*2*2) -> 16
 <br>
@@ -4480,7 +4496,7 @@ clear; tr=&lt;trans; tr[2] -> [MyErr]Invalid FNm(transpose)
 <br>
 clear; trans=&lt;trans -> [MyErr]Invalid FNm(transpose)
 <br>
-・高階関数の場合
+・<a href="#span-out-FNh">高階関数</a>の場合
 <br>
 clear; d=&lt;_d -> [MyErr]Invalid FNh called
 <br>
@@ -4490,7 +4506,7 @@ clear; dx=&lt;_dx; dx(=&lt;{x^2},1,2)
 </del>
 <br>
 <br>
-式代入を括弧で括った場合、0を返す
+式代入を<a href="#span-out-BT">括弧</a>で括った場合、0を返す
 <br>
 (x=&lt;3) -> 0
 <br>
@@ -4566,7 +4582,7 @@ clear; (f=&lt;{x},x=(1,2),eqn_f=&lt;f); eqn_f -> (1,2)
 <br>
 ・式渡しの場合、呼出しまで演算を実行しない
 <br>
-・本仕様は括弧優先の<a href="#span-out-FNh">高階関数</a>の実装において必須
+・本仕様は<a href="#span-out-BT">括弧</a>優先の<a href="#span-out-FNh">高階関数</a>の実装において必須
 <br>
 <br>
 式代入のnestingを一例に示す
@@ -4704,6 +4720,17 @@ x=2; switch(0,4:0,3:0,2:1,-2) -> -2
 x=2; switch(x&gt;=4,=&lt;4:x&gt;3,=&lt;3:x&gt;2,=&lt;2:1,=&lt;{-x}) -> -2
 <br>
 x=2; switch(ge(x,4),=&lt;4:gt(x,3),=&lt;3:gt(x,2),=&lt;2:1,=&lt;{-x}) -> -2
+<br>
+<br>
+未実装の論理記号をbit演算子で代替する場合
+<br>
+<a href="#span-out-prec-ope">演算子の優先順位</a>に応じて<a href="#span-out-BT">括弧</a>を明示する
+<br>
+switch(1==1|1==-1,1) || switch(1==(1|1)==-1,1) -> 0
+<br>
+switch((1==1)|(1==-1),1) -> 1
+<br>
+switch((1==1)&amp;(1==-1),1) -> 0
 <br>
 <br>
 test caseを列挙する
@@ -6079,7 +6106,7 @@ _dx(=&lt;{(x+i)^5},5,1)
 <br>
 以上より、微分階数が2階までは4次精度拡張、それ以降は2次精度拡張とする
 <br>
-・3階微分以降は精度よりも演算速度優先
+・3階微分以降は精度より演算速度を優先
 <br>
 ・非線形性が強い関数・<a href="#span-out-series">級数</a>・<a href="#span-out-limit">極限</a>の演算結果は当てにならない
 <br>
@@ -8163,7 +8190,7 @@ f=&lt;{Ainv*A=identity2} || f=&lt;{=identity2-Ainv*A} || f=&lt;{identity2-Ainv*A
 <br>
 行列を扱う上での演算都合上の仕様について記述する
 <br>
-・代入を括弧で括った場合、0を返す
+・代入を<a href="#span-out-BT">括弧</a>で括った場合、0を返す
 <br>
 (x=3) || (3=3) -> 0
 <br>
@@ -8229,9 +8256,9 @@ Ver.2.19.6以降、
 <br>
 (,trans) || (trans)=&gt; -> Unexpected error
 <br>
-・区切り文字の演算時に型checkが必要
+・<a href="#span-out-SR">区切り文字</a>の演算時に型checkが必要
 <br>
-・現状、高階関数で代替可（関数の参照渡しの必要性が少ない）
+・現状、<a href="#span-out-FNh">高階関数</a>で代替可（関数の参照渡しの必要性が少ない）
 <br>
 ・関数名を短縮する参照渡しを廃止すれば解決
 </del>
@@ -8244,7 +8271,7 @@ plot2d-commandの実装
 <br>
 ・予め演算した結果をplotする場合の仕様が必要
 <br>
-・命令文よりも最上位で単独のcommand仕様が必要
+・<a href="#span-out-command">命令文</a>よりも最上位で単独のcommand仕様が必要
 </del>
     </td>
   </tr>
@@ -8425,7 +8452,7 @@ browserから実行する場合、URLのGET入力で既定値を上書き可
     </th>
     <td>
 <span id="span-in-prec"></span>
-変数・関数・区切り文字・演算子の優先順位について記述する
+<a href="#span-out-vars">変数</a>・<a href="#span-out-FN">関数</a>・<a href="#span-out-SR">区切り文字</a>・<a href="#span-out-prec-ope">演算子の優先順位</a>について記述する
 <br>
 <br>
 配列要素の定義順で優先順位を動的に変更可能とする
@@ -8521,7 +8548,7 @@ operation.js抜粋
     </th>
     <td>
 <span id="span-in-FN"></span>
-定義済みの関数・予約語について記述する
+定義済みの<a href="#span-out-FN">関数</a>・<a href="#span-out-RW">予約語</a>について記述する
 <br>
 <br>
 予約語は大文字・小文字・全角・半角を区別しない
