@@ -223,6 +223,21 @@ option
 </a>
 <br>
 ・
+<a href="#span-out-development">
+開発環境
+</a>
+<br>
+・
+<a href="#span-out-system">
+動作test環境
+</a>
+<br>
+・
+<a href="#span-out-requirements">
+動作要件
+</a>
+<br>
+・
 <a href="#span-out-storage">
 storage
 </a>
@@ -1705,6 +1720,71 @@ operation関数の役割はinterpreter
 目次
 </a>
 <br>
+開発環境
+    </th>
+    <td>
+<span id="span-out-development"></span>
+さらに、JavaScriptのinterpreterを介してbrowser上で演算を実行する
+<br>
+・よってNativeに近い言語で直接記述するよりthroughputは圧倒的に低いが、
+<br>
+・Google Chrome Developer Toolsによるcross-platform開発の容易さと、
+<br>
+・Github Pagesでのonline-test管理の容易さを選択
+    </td>
+  </tr>
+  <tr>
+    <th>
+<a href="#span-index">
+目次
+</a>
+<br>
+動作test環境
+    </th>
+    <td>
+<span id="span-out-system"></span>
+browserの動作test環境について記述する
+<br>
+<br>
+offline/online-test環境
+<br>
+・latest Chrome
+<br>
+・latest Edge
+<br>
+・Internet Explorer 11（以降、IEと省略する）
+<br>
+・IE以外の互換性は高いため、Chrome DevTools-emulatorで動作確認
+<br>
+<br>
+only online-test環境
+<br>
+・Amazon Silk
+    </td>
+  </tr>
+  <tr>
+    <th>
+<a href="#span-index">
+目次
+</a>
+<br>
+動作要件
+    </th>
+    <td>
+<span id="span-out-requirements"></span>
+browserの動作要件について記述する
+<br>
+・ECMAScript5対応
+<br>
+・HTML5対応
+    </td>
+  </tr>
+  <tr>
+    <th>
+<a href="#span-index">
+目次
+</a>
+<br>
 storage
     </th>
     <td>
@@ -2634,7 +2714,7 @@ z=e^(i{pi/6}); atan2(imag(z),real(z)) -> 0.5235987755982987
 <br>
 z=e^(i{pi/6}); arg(z) -> 0.5235987755982987
 <br>
-・さらに度数degに変換する場合
+・さらに、度数degに変換する場合
 <br>
 degrees(ans) || deg_atan2(imag(z),real(z)) -> 29.999999999999993
 <br>
@@ -3034,6 +3114,10 @@ identity(1001) -> [MyErr]Invalid matSizeMax over
 ・出力logの文字数制限log.length&lt;5000
 <br>
 identity(100) -> (1,0,0,...,0,0,0,...
+<br>
+・log表示負荷を下げる場合、変数に代入して括弧で括る
+<br>
+(A=identity(100),A2=A*A) -> (0,0)
 <br>
 <br>
 Scalar行列
@@ -5622,7 +5706,7 @@ sizec(L*R)=sizec(R) -> 0
 <br>
 ・L指定行とR指定列の内積を取る式変数productを定義する
 <br>
-・さらに行列積LRを返す式変数LpRを定義する
+・さらに、行列積LRを返す式変数LpRを定義する
 <br>
 LpR=&lt;{product=&lt;last{LR[ir][ic]=ttL[ir]trans((trans(ttR))[ic])},
 <br>
@@ -5794,7 +5878,7 @@ f(x+h)-f(x-h)=f'(x)(2h)-f"'(x)(h)^3/3+O(h^5)
 f'(x)=(8(f(x+h)-f(x-h))-(f(x+2h)-f(x-2h)))/(12h)+O(h^4)
 <br>
 <br>
-さらに5次打切りTaylor級数より
+さらに、5次打切りTaylor級数より
 <br>
 ・次の4階微分を消去すれば
 <br>
@@ -6108,7 +6192,7 @@ x2=x1+h
 <br>
 dS[0]+dS[1]=(h/3)(1,4,1)(f[0]:f[1]:f[2])+O(h^5)
 <br>
-・さらに分割数Nは正の偶数を前提として総和を取ることで
+・さらに、分割数Nは正の偶数を前提として総和を取ることで
 <br>
 S=Σ&lt;k=0,N/2-1&gt;(dS[2k]+dS[2k+1])+O(h^4)
 <br>
@@ -6578,7 +6662,7 @@ backward -> [MyErr]Invalid reference of array
 <br>
 ・実際には自明の演算は行わないが、ここでは簡潔に記述する
 <br>
-・さらに総和<a href="#span-out-FNh">高階関数</a>を使用して反復処理を簡潔にまとめる
+・さらに、総和<a href="#span-out-FNh">高階関数</a>を使用して反復処理を簡潔にまとめる
 <br>
 ・dummy変数を使用するだけで総和は無次元の0を返す
 <br>
@@ -6785,7 +6869,7 @@ x={-dx[j]}
 <br>
 b={f[i]}
 <br>
-・さらに得られた符号付の解の修正vectorをmdxとして
+・さらに、得られた符号付の解の修正vectorをmdxとして
 <br>
 ・近似解のvectorを一度に修正する（local変数を上書きする）
 <br>
