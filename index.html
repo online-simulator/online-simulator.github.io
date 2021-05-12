@@ -227,6 +227,42 @@ Y/M/D
 <tbody>
   <tr>
     <th>
+3.34.14.4.14
+    </th>
+    <td class="types">
+Calculator
+    </td>
+    <td>
+2.24.12
+    </td>
+    <td class="clear">
+minor bug-fix
+    </td>
+    <td>
+[Calculator]
+<br>
+・行列要素pattern matchingによる予約語への代入をparserでerror終了に修正
+<br>
+　<a href="01_calc_simple/manual.html#span-out-matching">[manual]Calculator-行列要素pattern matching</a>
+<br>
+　before:
+<br>
+　　clear; <span class="clear">($max)=(2)</span>; max -> [MyErr]Invalid FNn(max)
+<br>
+　　clear; $max ->  [MyErr]Invalid REv($max)
+<br>
+　after:
+<br>
+　　clear; ($max)=(2) -> [MyErr]Invalid max called
+<br>
+　　clear; $max || $$max || $$$max ->  [MyErr]Invalid max called
+    </td>
+    <td>
+2021/5/13
+    </td>
+  </tr>
+  <tr>
+    <th>
 3.34.14.4.13
     </th>
     <td class="types">
@@ -253,7 +289,9 @@ minor update
 <br>
 　　omitted Call-by-Equation's bracket({}) disabled
 <br>
-・plot2d-command実装準備
+[Graphing Calculator]
+<br>
+・plot2d-commandの実装準備
 <br>
 　<a href="01_calc_simple/manual.html#span-out-plot2d-command">[manual]Calculator-plot2d-command</a>
     </td>
@@ -419,7 +457,7 @@ minor change
 <br>
 ・body要素直下のdiv要素にposition: absolute;のCSS適用
 <br>
-　VERSION.3.31.12.4.12実機testによる全修正（responsive改善）
+　VERSION.3.31.12.4.12online-testによる全修正（responsive改善）
     </td>
     <td>
 2021/5/8
@@ -737,7 +775,7 @@ minor change
 <br>
 　double-tapによるzoom抑止
 <br>
-　実機testにて全修正（操作性に難有り）
+　online-testにて全修正（操作性に難有り）
 <br>
 [Simple Calculator]
 <br>

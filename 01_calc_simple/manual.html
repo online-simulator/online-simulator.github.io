@@ -4345,9 +4345,15 @@ clear; c=&lt;(1,2); {,c}=($a,$b); a,b -> [MyErr]Invalid matching(vars)
 <br>
 clear; {($a,$b)=(1,2):($c,$d)=(3,4),(a,b,c,d)} -> (0,0:0,1,2,3,4)
 <br>
-・予約語への代入の場合、読出し不可
+・予約語への代入不可
 <br>
-clear; ($max)=(2); max -> [MyErr]Invalid FNn(max)
+clear; $max || $$max || $$$max ->  [MyErr]Invalid max called
+<br>
+clear; ($max)=(2) -> [MyErr]Invalid max called
+<br>
+clear; ($$max)=(2) -> [MyErr]Invalid max called
+<br>
+clear; ($$$max)=(2) -> [MyErr]Invalid max called
     </td>
   </tr>
   <tr>
@@ -8784,6 +8790,11 @@ parser.js抜粋
         tree = DATA.tree_tag("FNn", token_lower);
         break;
       default:
+        /* Ver.2.24.12 -> */
+        if(token.charAt(0) === "$"){
+          self.check_varName(token.substr(1), re);
+        }
+        /* -> Ver.2.24.12 */
         tree = DATA.tree_tag("REv", token);
         break;
 </code></pre>

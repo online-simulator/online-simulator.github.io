@@ -162,6 +162,23 @@ My_entry.parser.prototype.compare2pairs = function(tokens, i){
   });
   return _ip_e;
 };
+/* Ver.2.24.12 */
+My_entry.parser.prototype.check_varName = function(token, re){
+  var self = this;
+  var _tree = null;
+  var DATA = self.entry.DATA;
+  var trees = self.make_trees(token, re);
+  if(trees.length === 1){
+    var tree = DATA.trees2tree(trees);
+    if(tree["REv"]){
+      _tree = tree["REv"]["val"];
+    }
+    else{
+      throw "Invalid "+token+" called";
+    }
+  }
+  return _tree;
+};
 My_entry.parser.prototype.compare2bs = function(token, re){
   var self = this;
   var _tree = null;
@@ -179,16 +196,7 @@ My_entry.parser.prototype.compare2bs = function(token, re){
         if(tagName === "FNmh" || tagName === "FNh"){  // Ver.2.21.10
           var mc1 = mc[1];
           if(mc1){
-            var trees = self.make_trees(mc1, re);
-            if(trees.length === 1){
-              var tree = DATA.trees2tree(trees);
-              if(tree["REv"]){
-                _tree = DATA.tree_tag(tagName, {key: key, name: tree["REv"]["val"]});
-              }
-              else{
-                throw "Invalid "+mc1+" called";
-              }
-            }
+            _tree = DATA.tree_tag(tagName, {key: key, name: self.check_varName(mc1, re)});  // Ver.2.24.12
           }
         }
         if(!(_tree)){
@@ -528,6 +536,11 @@ My_entry.parser.prototype.make_trees = function(sentence, re){
         tree = DATA.tree_tag("FNn", token_lower);
         break;
       default:
+        /* Ver.2.24.12 -> */
+        if(token.charAt(0) === "$"){
+          self.check_varName(token.substr(1), re);
+        }
+        /* -> Ver.2.24.12 */
         tree = DATA.tree_tag("REv", token);
         break;
     }
