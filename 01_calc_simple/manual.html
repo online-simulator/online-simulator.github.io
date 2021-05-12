@@ -218,6 +218,11 @@ option
 </a>
 <br>
 ・
+<a href="#span-out-storage">
+storage
+</a>
+<br>
+・
 <a href="#span-out-flow">
 演算flow
 </a>
@@ -235,11 +240,6 @@ option
 ・
 <a href="#span-out-requirements">
 動作要件
-</a>
-<br>
-・
-<a href="#span-out-storage">
-storage
 </a>
 <br>
 ・graph出力仕様
@@ -1547,6 +1547,8 @@ useStrict=true
 <br>
 ・式読出し記号=&gt;省略不可
 <br>
+・式渡しの括弧省略不可
+<br>
 <br>
 情報落ちの発生や微分・積分の数値誤差を評価しない場合
 <br>
@@ -1685,6 +1687,60 @@ sqrt(1,2,3:4,5,6) || sqrt(4,5,6) || sqrt(4) -> 2
 目次
 </a>
 <br>
+storage
+    </th>
+    <td>
+<span id="span-out-storage"></span>
+storageについて記述する
+<br>
+<br>
+storageは<a href="#span-out-vars">変数</a>・<a href="#span-out-eqns">式変数</a>を保存するobjectで次の3種類
+<br>
+・local storage
+<br>
+・global storage
+<br>
+・local buffer
+<br>
+<br>
+local storage
+<br>
+・演算実行確定1回の各実行文の<a href="#span-out-vars">変数</a>・<a href="#span-out-eqns">式変数</a>を保存する
+<br>
+・保存された変数をlocal変数と呼ぶ
+<br>
+・保存された式変数をlocal式変数と呼ぶ
+<br>
+<br>
+global storage
+<br>
+・演算実行確定1回毎に返される<a href="#span-out-vars">変数</a>・<a href="#span-out-eqns">式変数</a>を累積保存する
+<br>
+・保存された変数をglobal変数と呼ぶ
+<br>
+・保存された式変数をglobal式変数と呼ぶ
+<br>
+<br>
+local buffer
+<br>
+・local storageを一時的に記憶する
+<br>
+<br>
+演算実行確定1回のstorageのflowを示す
+<br>
+・演算実行開始　global storage　⇒　local storageに復帰
+<br>
+・演算実行途中　local storageをread/write　⇔　local buffer
+<br>
+・演算実行終了　local storage　⇒　global storageに保存
+    </td>
+  </tr>
+  <tr>
+    <th>
+<a href="#span-index">
+目次
+</a>
+<br>
 演算flow
     </th>
     <td>
@@ -1718,14 +1774,14 @@ parse関数とoperation関数の役割分担を示す
 <br>
 parse関数の役割はcompiler
 <br>
-・括弧のnestingを解析し、深さ方向にtree化する
+・<a href="#span-out-BT">括弧</a>のnestingを解析し、深さ方向にtree化する
 <br>
 ・逐次、入力dataにtagをつけて実行文に置換する
 <br>
 <br>
 operation関数の役割はinterpreter
 <br>
-・演算の優先順位に従って実行文を実行する
+・<a href="#span-out-prec">演算の優先順位</a>に従って実行文を実行する
 <br>
 ・逐次、実行文のtreeを演算結果に置換する
     </td>
@@ -1801,60 +1857,6 @@ browserの動作要件を列挙する
 目次
 </a>
 <br>
-storage
-    </th>
-    <td>
-<span id="span-out-storage"></span>
-storageについて記述する
-<br>
-<br>
-storageは<a href="#span-out-vars">変数</a>・<a href="#span-out-eqns">式変数</a>を保存するobjectで次の3種類
-<br>
-・local storage
-<br>
-・global storage
-<br>
-・local buffer
-<br>
-<br>
-local storage
-<br>
-・演算実行確定1回の各実行文の<a href="#span-out-vars">変数</a>・<a href="#span-out-eqns">式変数</a>を保存する
-<br>
-・保存された変数をlocal変数と呼ぶ
-<br>
-・保存された式変数をlocal式変数と呼ぶ
-<br>
-<br>
-global storage
-<br>
-・演算実行確定1回毎に返される変数・式変数を累積保存する
-<br>
-・保存された変数をglobal変数と呼ぶ
-<br>
-・保存された式変数をglobal式変数と呼ぶ
-<br>
-<br>
-local buffer
-<br>
-・local storageを一時的に記憶する
-<br>
-<br>
-演算実行確定1回のstorageのflowを示す
-<br>
-・演算実行開始　global storage　⇒　local storageに復帰
-<br>
-・演算実行途中　local storageをread/write　⇔　local buffer
-<br>
-・演算実行終了　local storage　⇒　global storageに保存
-    </td>
-  </tr>
-  <tr>
-    <th>
-<a href="#span-index">
-目次
-</a>
-<br>
 plot2d
 <br>
 仕様
@@ -1904,7 +1906,7 @@ svg出力機能について記述する
 ・その他、font-family等も直接file編集可
 <br>
 <br>
-png||svg出力の主要browser間の相違について記述する
+png||svg出力のbrowser間の相違について記述する
 <br>
 ・browserによってtext幅のNative測定値が異なる
 <br>
@@ -1971,7 +1973,7 @@ t0=0;
 <br>
 t1=2pi;
 <br>
-tn=&lt;t0+(t1-t0)*n/N;
+tn=&lt;t0+(t1-t0)n/N;
 <br>
 N=10;
 <br>
@@ -1982,6 +1984,26 @@ stepn=&lt;last{xt[n]=cos(tn),yt[n]=sin(tn)};
 evolutionN=&lt;_sn(=&lt;stepn,0,N);
 <br>
 init; evolutionN; xt,yt ->
+<br>
+・<a href="#span-out-config">厳密mode実行</a>に対応する場合
+<br>
+storage cleared
+<br>
+t0=0;
+<br>
+t1=2*pi;
+<br>
+tn=&lt;t0+(t1-t0)*n/N;
+<br>
+N=10;
+<br>
+init=&lt;last{xt=zeros(N+1,1),yt=zeros(N+1,1)};
+<br>
+stepn=&lt;last{tn=tn=&gt;,xt[n]=cos(tn),yt[n]=sin(tn)};
+<br>
+evolutionN=&lt;_sn(=&lt;{stepn=&gt;},0,N);
+<br>
+init=&gt;; evolutionN=&gt;; xt,yt ->
 <br>
 (
 <br>
