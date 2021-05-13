@@ -25,7 +25,7 @@
 <hr>
 <div>
 <table>
-<caption>初期表示の複素数演算の解はoptionの条件設定によって異なる</caption>
+<caption>初期表示の<a href="#span-out-com">複素数</a>演算の解はoptionの条件設定によって異なる</caption>
 <thead>
   <tr>
     <th>
@@ -615,9 +615,9 @@ panel右側について記述する
 <br>
 panel中段について記述する
 <br>
-・complex checkedで複素数演算を有効化・iの入力buttonを表示
+・complex checkedで<a href="#span-out-com">複素数</a>演算を有効化・iの入力buttonを表示
 <br>
-・matrix checkedで行列演算を有効化
+・matrix checkedで<a href="#span-out-mat">行列</a>演算を有効化
 <br>
 　定義できる2項の演算のみ
 <br>
@@ -1297,7 +1297,7 @@ Math.pow(2,Math.pow(2,10)) || 2**(2**10) -> Infinity
 <br>
 pow(2,pow(2,10)) || 2**(2**10) || 2^(2^10) -> Infinity
 <br>
-・複素数演算の場合、辛うじてMAX_VALUEに近い値が得られる
+・<a href="#span-out-com">複素数</a>演算の場合、辛うじてMAX_VALUEに近い値が得られる
 <br>
 pow(2,pow(2,10)) || 2**(2**10) || 2^(2^10) -> 1.7976931348622732e+308
 <br>
@@ -1376,7 +1376,7 @@ i+1e-16i -> infoLost[ i] i
 1-epsilon/2 -> infoLost[r ] 0.9999999999999999
 <br>
 <br>
-虚数単位iを求める複素数演算を一例に誤差情報の特徴を示す
+虚数単位iを求める<a href="#span-out-com">複素数</a>演算を一例に誤差情報の特徴を示す
 <br>
 (-1)^0.5 -> 6.123233995736766e-17+i
 <br>
@@ -1617,11 +1617,11 @@ URi,URf,BRp,BRr,BRmo,BRdm,BRsa,BRbs,BRba,BRbx,BRbo,BRcn,BRrl
 <br>
 UI設定によって対応する用途を4種類示す
 <br>
-・有次元の複素数の行列演算（complex/matrixにcheck）
+・有次元の複素数の<a href="#span-out-mat">行列</a>演算（complex/matrixにcheck）
 <br>
-・有次元の実数の行列演算（matrixにcheck）
+・有次元の実数の<a href="#span-out-mat">行列</a>演算（matrixにcheck）
 <br>
-・無次元の複素数演算（complexにcheck）
+・無次元の<a href="#span-out-com">複素数</a>演算（complexにcheck）
 <br>
 ・無次元の実数演算（check無し）
 <br>
@@ -1689,7 +1689,7 @@ max(1,2,3:-1,-2,-3) || max(-1,-2,-3) -> -1
 sqrt(1,2,3:4,5,6) || sqrt(4,5,6) || sqrt(4) -> 2
 <br>
 <br>
-定義できない行列演算
+定義できない<a href="#span-out-mat">行列</a>演算
 <br>
 ・定義できない<a href="#span-out-mat-product">行列積</a>の場合、error終了
 <br>
@@ -3005,7 +3005,7 @@ deg_atan2_ex(0,1) || degrees(atan2_ex(0,1)) -> 90
 <br>
 pow(2) -> [MyErr]FN isNaN
 <br>
-・複素数演算の場合、逐次引数不足を判定しないため、予期せぬerror終了
+・<a href="#span-out-com">複素数</a>演算の場合、逐次引数不足を判定しないため、予期せぬerror終了
 <br>
 pow(2) -> Unexpected error
     </td>
@@ -3309,7 +3309,7 @@ A=(11:21,22:31,32,33,34); htrans(htrans(A)) -> (11,0,0,0:21,22,0,0:31,32,33,34)
     </th>
     <td>
 <span id="span-out-FNm0"></span>
-<a href="#span-out-FN0">定数</a>扱いの行列の入力仕様と付随する留意事項について記述する
+定数扱いの行列の入力仕様と付随する留意事項について記述する
 <br>
 <br>
 <a href="#span-out-FN0">定数</a>同様に扱う行列を列挙する
@@ -6539,7 +6539,7 @@ S=(f[0]+4Σ&lt;k=0,N/2-1&gt;f[2k+1]+2Σ&lt;k=1,N/2-1&gt;f[2k]+f[N])h/3+O(h^4)
 <br>
 球の空気抵抗Cd_sphereを考慮する2次元の運動方程式を一例に示す
 <br>
-・vector演算を複素数演算で代替
+・vector演算を<a href="#span-out-com">複素数</a>演算で代替
 <br>
 ・t=0の複素数zの初期値
 <br>
@@ -8111,7 +8111,7 @@ N=5; TaylorN || MaclaurinN -> 7.266696174805806+O(2e+1)
 <br>
 N=7; TaylorN || MaclaurinN -> 7.381056210596976+O(2e+2)
 <br>
-・複素数演算の場合
+・<a href="#span-out-com">複素数</a>演算の場合
 <br>
 TaylorN=&lt;_sn(=&lt;{_dx(=&lt;f,n,a)(x-a)^n/n!},0,N);
 <br>
@@ -8219,7 +8219,7 @@ ft=&lt;atan(tan(t));
 極限の解法について記述する
 <br>
 <br>
-複素数演算の場合、次の極限演算不可
+<a href="#span-out-com">複素数</a>演算の場合、次の極限演算不可
 <br>
 1/0 -> [MyErr]FN isNaN
 <br>
@@ -8257,7 +8257,7 @@ ln(1+x)/x  // NG -> infoLost[r ] 0
 <br>
 ・L'Hôpitalの定理
 <br>
-・複素数演算の場合
+・<a href="#span-out-com">複素数</a>演算の場合
 <br>
 _dx(=&lt;{ln(1+x)})/_dx(=&lt;{x})  // OK
 <br>
@@ -8488,7 +8488,7 @@ source抜粋
 <br>
 ・関数の引数vectorはarr[arr.length-1]を参照する
 <br>
-・無次元の演算や定義できない行列演算はarrの最終要素を参照する
+・無次元の演算や定義できない<a href="#span-out-mat">行列</a>演算はarrの最終要素を参照する
 <br>
 <pre><code>
             j-th sentence
@@ -8583,7 +8583,7 @@ data.logo -> "makeLog=true"
 ・matSizeMax: 行列size指定の上限値
 <br>
 <br>
-・dxJ: Jacobi行列演算時の1階偏微分の差分刻み幅実数値
+・dxJ: Jacobi<a href="#span-out-mat">行列</a>演算時の1階偏微分の差分刻み幅実数値
 <br>
 <br>
 ・dxD: 有限差分による1階微分の差分刻み幅実数値
