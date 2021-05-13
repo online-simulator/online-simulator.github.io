@@ -1044,6 +1044,8 @@ bit演算子は比較演算子・関係演算子より優先する
 <br>
 ・論理ORをbit ORで代替する場合、<a href="#span-out-BT">括弧</a>を明示する
 <br>
+・1==1 || 1==-1の一例
+<br>
 (1==1)|(1==-1) || 1|0 -> 1
 <br>
 左結合既定時　1==1|1==-1 || 1==(1|1)==-1 || (1==1)==-1 || 1==-1 -> 0
@@ -1051,6 +1053,8 @@ bit演算子は比較演算子・関係演算子より優先する
 右結合選択時　1==1|1==-1 || 1==(1|1)==-1 || 1==(1==-1) || 1==0 -> 0
 <br>
 ・同様に論理ANDをbit ANDで代替する場合、<a href="#span-out-BT">括弧</a>を明示する
+<br>
+・1==1 &amp;&amp; 1==-1の一例
 <br>
 (1==1)&amp;(1==-1) || 1&amp;0 -> 0
 <br>
@@ -1567,9 +1571,15 @@ useStrict=true
 <br>
 ・乗算記号*省略不可
 <br>
+　omitted multiplication sign(*) disabled
+<br>
 ・式読出し記号=&gt;省略不可
 <br>
+　omitted equation call sign(=&gt;) disabled
+<br>
 ・式渡しの括弧{}省略不可
+<br>
+　omitted Call-by-Equation's bracket({}) disabled
 <br>
 <br>
 情報落ちの発生や微分・積分の数値誤差を評価しない場合
@@ -1900,12 +1910,14 @@ semi-colon;区切りで行列の最終要素の数値をgraphに描画する
 詳細はlast<a href="#span-out-FNm">行列関数</a>参照
 <br>
 <br>
-tの範囲下限t0と範囲上限t1のlocal変数は独立
+tの範囲下限t0と範囲上限t1のlocal storageは独立
 <br>
-・global storageを共有する場合、shared storageをcheckする
+・global storageをreadonlyで共有する場合、shared storageをcheckする
 <br>
 <br>
-x軸とy軸のlocal変数はx軸優先で共通
+x軸とy軸のlocal storageはx軸優先で共通
+<br>
+・global storageをreadonlyで共有する場合、shared storageをcheckする
 <br>
 <br>
 tの演算をSingle-threadで実行後、x/yの演算をMulti-threadで実行
@@ -1936,7 +1948,7 @@ png||svg出力のbrowser間の相違について記述する
 <br>
 　var w = ctx.measureText(text).width;
 <br>
-IE11: w -> 29
+IE: w -> 29
 <br>
 Edge/Chrome: w -> 36.2841796875
 <br>
@@ -1944,7 +1956,7 @@ Edge/Chrome: w -> 36.2841796875
 <br>
 　var w = ctx.measureText(text).width;
 <br>
-IE11: w -> 35
+IE: w -> 35
 <br>
 Edge/Chrome: w -> 43.541015625
 <br>
@@ -1961,7 +1973,7 @@ Edge/Chrome: w -> 43.541015625
 <br>
 ・NativeのMath.sin関数
 <br>
-IE11: sin(5) -> -0.9589242746631384
+IE: sin(5) -> -0.9589242746631384
 <br>
 else: sin(5) -> -0.9589242746631385
     </td>
@@ -4881,11 +4893,17 @@ x=2; switch(ge(x,4),=&lt;4:gt(x,3),=&lt;3:gt(x,2),=&lt;2:1,=&lt;{-x}) -> -2
 <br>
 未実装の論理記号をbit演算子で代替する場合
 <br>
-<a href="#span-out-prec-ope">演算子の優先順位</a>に応じて<a href="#span-out-BT">括弧</a>を明示する
+・<a href="#span-out-prec-ope">演算子の優先順位</a>に応じて<a href="#span-out-BT">括弧</a>を明示する
+<br>
+・if(1==1 || 1==-1) return 1;のNG例
 <br>
 switch(1==1|1==-1,1) || switch(1==(1|1)==-1,1) -> 0
 <br>
+・if(1==1 || 1==-1) return 1;の一例
+<br>
 switch((1==1)|(1==-1),1) -> 1
+<br>
+・if(1==1 &amp;&amp; 1==-1) return 1;の一例
 <br>
 switch((1==1)&amp;(1==-1),1) -> 0
 <br>
@@ -8556,7 +8574,7 @@ data.logo -> "makeLog=true"
 ・expDigit: 演算結果を表示する指数表記の桁数
 <br>
 <br>
-・precedence: comma,区切りで演算子のtag名を列挙した文字列
+・precedence: comma,区切りで演算子の<a href="#span-in-prec">tag名</a>を列挙した文字列
 <br>
 <br>
 ・checkError: 情報落ちの発生や微分・積分の数値誤差を評価するflag
