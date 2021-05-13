@@ -40,6 +40,20 @@ My_entry.math_mat.prototype.num2size = function(options, num){
   if(_n > options.matSizeMax) throw "Invalid matSizeMax over";
   return _n;
 };
+/* Ver.2.25.12 -> */
+My_entry.math_mat.prototype.vectorr = function(options, arr){
+  var self = this;
+  var args = self.arr2args(arr);
+  var num = args[0];
+  return self.zeros2d(1, self.num2size(options, num));
+};
+My_entry.math_mat.prototype.vectorc = function(options, arr){
+  var self = this;
+  var args = self.arr2args(arr);
+  var num = args[0];
+  return self.zeros2d(self.num2size(options, num), 1);
+};
+/* -> Ver.2.25.12 */
 My_entry.math_mat.prototype.identity = function(options, arr){
   var self = this;
   var args = self.arr2args(arr);

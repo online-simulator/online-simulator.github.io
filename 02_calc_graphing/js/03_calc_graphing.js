@@ -161,7 +161,12 @@ My_entry.calc_graphing.prototype.plot = function(arr_data, options_plot, isFinal
   }
   if(arr_data && arr_data.length){
     arr_data.forEach(function(data){
+      /* Ver.2.25.12 -> */
+/*
       data.arr_num = self.entry.parser.make_arr_num(data);
+*/
+      data.arr_num = data.arr_num || self.entry.parser.make_arr_num(data);
+      /* -> Ver.2.25.12 */
     });
     var arr2d_vec = self.arr_data2arr2d_vec(arr_data, options_plot);
     if(self.plot2d.isChanged_axis){
@@ -179,7 +184,11 @@ My_entry.calc_graphing.prototype.plot = function(arr_data, options_plot, isFinal
       if(isFinal){
         self.plot2d.final(arr2d_vec, options_plot, toSVG);
         var options_calc = arr_data[0].options;
-        self.output_logh(options_calc.plot2d+"\n", options_calc.logo);  // Ver.2.10.4
+        /* Ver.2.25.12 -> */
+        if(options_calc){
+          self.output_logh(options_calc.plot2d+"\n", options_calc.logo);  // Ver.2.10.4
+        }
+        /* -> Ver.2.25.12 */
       }
       else{
         self.plot2d.run(arr2d_vec, options_plot);
@@ -304,7 +313,12 @@ My_entry.calc_graphing.prototype.make_log_plot2d = function(){
   _log += sq+$.inputVal_id("input-t1")+sq+ca;
   _log += sq+$.inputVal_id("input-x")+sq+ca;
   _log += sq+$.inputVal_id("input-y")+sq+ca;
+  /* Ver.2.25.12 -> */
+/*
   _log += $.selectVal_id("select-N");
+*/
+  _log += sq+$.selectVal_id("select-N")+sq;
+  /* -> Ver.2.25.12 */
   _log += ")";
   return _log;
 };
@@ -334,10 +348,14 @@ My_entry.calc_graphing.prototype.arr_data2csv = function(arr_data, options_plot)
     }
     // stamp
     var options_calc = arr_data[0].options;
+    /* Ver.2.25.12 -> */
     /* Ver.2.10.4 -> */
-    _csv += dq+options_calc.plot2d+dq+ca;
-    _csv += dq+options_calc.logo+dq+ca;
+    if(options_calc){
+      _csv += dq+options_calc.plot2d+dq+ca;
+      _csv += dq+options_calc.logo+dq+ca;
+    }
     /* -> Ver.2.10.4 */
+    /* -> Ver.2.25.12 */
     _csv += dq+self.io.getter.stamp()+dq+rn;
     // (x,y)
     var arr2d_vec = self.arr_data2arr2d_vec(arr_data, options_plot);
@@ -483,6 +501,64 @@ My_entry.calc_graphing.prototype.init_handlers = function(){
     self.plot2d.setter.base64_bg(null);
     self.plot2d.setter.img_bg(null);
   };
+  /* Ver.2.25.12 -> */
+  var plot2d_from_log = function(tokens){
+    var re = /\'/g;
+    $._id("input-t0").value = tokens[0].replace(re, "");
+    $._id("input-t1").value = tokens[1].replace(re, "");
+    $._id("input-x").value = tokens[2].replace(re, "");
+    $._id("input-y").value = tokens[3].replace(re, "");
+    if(tokens[4]){
+      $.set_selectVal_id("select-N", tokens[4].replace(re, ""));
+    }
+    $._id("button-plot").onclick();
+  };
+  var plot2d_from_arr = function(tokens){
+    var name_x = tokens[0];
+    var name_y = tokens[1];
+    var var_x = self.vars[name_x];
+    var var_y = self.vars[name_y];
+    if(var_x && var_y){
+      var arr2d_x = (var_x.mat)? var_x.mat.arr: null;
+      var arr2d_y = (var_y.mat)? var_y.mat.arr: null;
+      if(arr2d_x && arr2d_y){
+        var len_x = arr2d_x[0].length;
+        var len_y = arr2d_y[0].length;
+        var len_n = Math.min(arr2d_x.length, arr2d_y.length);
+        // str
+        var arr_x = [];
+        var arr_y = [];
+        for(var j=0; j<len_x; ++j){
+          arr_x.push("x"+String(j));
+        }
+        for(var j=0; j<len_y; ++j){
+          arr_y.push("y"+String(j));
+        }
+        self.arr_x = arr_x;
+        self.arr_y = arr_y;
+        // arr_data
+        var arr_data = [];
+        for(var n=0; n<len_n; ++n){
+          var data = self.get_data();  // self
+          var arr_num = [];
+          for(var j=0; j<len_x; ++j){
+            arr_num.push(arr2d_x[n][j]);
+          }
+          for(var j=0; j<len_y; ++j){
+            arr_num.push(arr2d_y[n][j]);
+          }
+          data.arr_num = arr_num;
+          data.len_x = len_x;
+          data.len_y = len_y;
+          arr_data.push(data);
+        }
+        self.worker_plot.arr_data_in = new Array(len_n);
+        self.worker_plot.arr_data_out = arr_data;
+        self.re_plot(true);
+      }
+    }
+  };
+  /* -> Ver.2.25.12 */
   self.handlers.onload = function(e){
     var self = this;
     // canvas
@@ -581,17 +657,41 @@ My_entry.calc_graphing.prototype.init_handlers = function(){
         self.storage.store();
         var input = self.io.read_text(self.elems.i);
         var options = self.get_options();
-        var arr_data_in = [];
-        var len_n = 1;
-        for(var n=0; n<len_n; ++n){
-          var data = self.get_data(input, options, true);
-          arr_data_in.push(data);
+        /* Ver.2.25.12 -> */
+        var mc = self.entry.def.get_command(parser.remove_commentAndWspace(input), "plot2d", true);
+        if(mc && mc.length === 2){
+          try{
+            var mc1 = mc[1];
+            var tokens_quotation = mc1.match(/\'.*?\'/g);
+            var tokens_comma = mc1.split(",");
+            if(tokens_quotation && tokens_quotation.length > 3){
+              plot2d_from_log(tokens_quotation);
+            }
+            else if(tokens_comma && tokens_comma.length === 2){
+              plot2d_from_arr(tokens_comma);
+            }
+            else{
+              throw false;
+            }
+          }
+          catch(e){
+            self.io.write_text(self.elems.o, self.entry.def.get_msgError(e, "plot2d-command data not found"));
+          }
         }
-        /* Ver.2.10.3 */
-        self.io.write_text(self.elems.o, "Now calculating...");
-        setTimeout(function(){
-          self.worker_calc.run(arr_data_in, $.checkbox_id("checkbox-useWorker"));
-        }, 50);
+        else{
+          var arr_data_in = [];
+          var len_n = 1;
+          for(var n=0; n<len_n; ++n){
+            var data = self.get_data(input, options, true);
+            arr_data_in.push(data);
+          }
+          /* Ver.2.10.3 */
+          self.io.write_text(self.elems.o, "Now calculating...");
+          setTimeout(function(){
+            self.worker_calc.run(arr_data_in, $.checkbox_id("checkbox-useWorker"));
+          }, 50);
+        }
+        /* -> Ver.2.25.12 */
         break;
       /* Ver.2.20.6 -> */
       case "list-vars":

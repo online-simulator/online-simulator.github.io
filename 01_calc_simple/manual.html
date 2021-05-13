@@ -678,7 +678,7 @@ panel上段について記述する
 <br>
 ・lのcheckboxはlegend表示を選択
 <br>
-・tの入力欄に媒介変数の範囲下限と範囲上限の複素数値を入力
+・tの入力欄に媒介変数の範囲下限t0と範囲上限t1の複素数値を入力
 <br>
 ・媒介変数tの範囲等分割数Nを選択
 <br>
@@ -1052,7 +1052,7 @@ bit演算子は比較演算子・関係演算子より優先する
 <br>
 ・同様に論理ANDをbit ANDで代替する場合、<a href="#span-out-BT">括弧</a>を明示する
 <br>
-(1==1)&amp;(1==-1) -> 0
+(1==1)&amp;(1==-1) || 1&amp;0 -> 0
 <br>
 左結合既定時　1==1&amp;1==-1 || 1==(1&amp;1)==-1 || (1==1)==-1 || 1==-1 -> 0
 <br>
@@ -1561,7 +1561,7 @@ browser上部のURL入力欄のGET入力で<a href="#span-in-options">内部opti
 index.html?param0=value0&amp;param1=value1&amp;param2=value2&amp;...
 <br>
 <br>
-厳密modeで実行する場合
+strict-modeで実行する場合
 <br>
 useStrict=true
 <br>
@@ -1981,7 +1981,45 @@ plot2d
 plot2d-commandの入力仕様について記述する
 <br>
 <br>
-circleを描く時系列data作成の一例を示す
+plot2d-commandは操作panel中段のtext入力欄から実行する
+<br>
+・演算の実行文と共存不可
+<br>
+<br>
+history/csvに記録されるlogからplot2d-commandを実行する場合
+<br>
+・plot2d-from-logのformatを次に示す
+<br>
+plot2d('t0','t1','xt','yt','N')
+<br>
+・Ver.2.25.12以降、第5引数Nにsingle quotationを付与
+<br>
+・plot2d-commandの一例を示す
+<br>
+plot2d('-5','5','t;','SND=&lt;exp(-t^2/2)/sqrt(2pi),SND;','50')
+<br>
+・N入力値はselect値が存在する場合のみ有効
+<br>
+<br>
+時系列dataからplot2d-commandを実行する場合
+<br>
+・plot2d-from-arrのformatを次に示す
+<br>
+plot2d
+<br>
+(
+<br>
+x(t)変数名symbol,
+<br>
+y(t)変数名symbol
+<br>
+)
+<br>
+・xt,ytの場合
+<br>
+plot2d(xt,yt)
+<br>
+・circleを描く時系列data作成の一例を示す
 <br>
 ・<a href="#span-out-eqns">式変数</a>の式読出し記号=&gt;を省略する場合、変数名の重複に留意する
 <br>
@@ -1995,7 +2033,9 @@ tn=&lt;t0+(t1-t0)n/N;
 <br>
 N=10;
 <br>
-init=&lt;last{xt=zeros(N+1,1),yt=zeros(N+1,1)};
+/*init=&lt;last{xt=zeros(N+1,1),yt=zeros(N+1,1)};*/
+<br>
+init=&lt;last{xt=vectorc(N+1),yt=vectorc(N+1)};
 <br>
 stepn=&lt;last{xt[n]=cos(tn),yt[n]=sin(tn)};
 <br>
@@ -2003,7 +2043,7 @@ evolutionN=&lt;_sn(=&lt;stepn,0,N);
 <br>
 init; evolutionN; xt,yt ->
 <br>
-・<a href="#span-out-config">厳密mode実行</a>に対応する場合
+・<a href="#span-out-config">strict-mode実行</a>に対応する場合
 <br>
 storage cleared
 <br>
@@ -2015,7 +2055,9 @@ tn=&lt;t0+(t1-t0)*n/N;
 <br>
 N=10;
 <br>
-init=&lt;last{xt=zeros(N+1,1),yt=zeros(N+1,1)};
+/*init=&lt;last{xt=zeros(N+1,1),yt=zeros(N+1,1)};*/
+<br>
+init=&lt;last{xt=vectorc(N+1),yt=vectorc(N+1)};
 <br>
 stepn=&lt;last{xt[n]=cos(tn=&gt;tn),yt[n]=sin(tn)};
 <br>
@@ -2046,6 +2088,97 @@ init=&gt;; evolutionN=&gt;; xt,yt ->
 0.8090169943749473,-0.5877852522924734:
 <br>
 1,-2.4492935982947064e-16
+<br>
+)
+<br>
+<br>
+複数の時系列dataを作成してplot2d-commandを実行する一例を以下に示す
+<br>
+・上記xt,ytの元dataを結合して作る場合
+<br>
+xt4=(xt*0,xt*1,xt*2,xt*3); yt4=(yt*0,yt*1,yt*2,yt*3);
+<br>
+plot2d(xt4,yt4)
+<br>
+・case違いの演算を繰り返してxt,ytを作り直す場合
+<br>
+・<a href="#span-out-config">strict-mode実行</a>に対応する場合
+<br>
+storage cleared
+<br>
+t0=0;
+<br>
+t1=2*pi;
+<br>
+tn=&lt;t0+(t1-t0)*n/N;
+<br>
+N=10;
+<br>
+M=3;
+<br>
+init=&lt;last{xt=zeros(N+1,M+1),yt=zeros(N+1,M+1)};
+<br>
+stepnm=&lt;last{xt[n][m]=cos(tn=&gt;tn)*m,yt[n][m]=sin(tn)*m};
+<br>
+evolutionN=&lt;_sn(=&lt;{casesM=&gt;},0,N);
+<br>
+casesM=&lt;_sm(=&lt;{stepnm=&gt;},0,M);
+<br>
+init=&gt;; evolutionN=&gt;;
+<br>
+xt ->
+<br>
+(
+<br>
+0,1,2,3:
+<br>
+0,0.8090169943749475,1.618033988749895,2.4270509831248424:
+<br>
+0,0.30901699437494745,0.6180339887498949,0.9270509831248424:
+<br>
+0,-0.3090169943749471,-0.6180339887498942,-0.9270509831248414:
+<br>
+0,-0.8090169943749473,-1.6180339887498947,-2.427050983124842:
+<br>
+0,-1,-2,-3:
+<br>
+0,-0.8090169943749478,-1.6180339887498956,-2.4270509831248432:
+<br>
+0,-0.30901699437494756,-0.6180339887498951,-0.9270509831248427:
+<br>
+0,0.30901699437494723,0.6180339887498945,0.9270509831248417:
+<br>
+0,0.8090169943749473,1.6180339887498947,2.427050983124842:
+<br>
+0,1,2,3
+<br>
+)
+<br>
+yt ->
+<br>
+(
+<br>
+0,0,0,0:
+<br>
+0,0.5877852522924731,1.1755705045849463,1.7633557568774194:
+<br>
+0,0.9510565162951535,1.902113032590307,2.8531695488854605:
+<br>
+0,0.9510565162951536,1.9021130325903073,2.853169548885461:
+<br>
+0,0.5877852522924732,1.1755705045849465,1.7633557568774196:
+<br>
+0,1.2246467991473532e-16,2.4492935982947064e-16,3.6739403974420594e-16:
+<br>
+0,-0.5877852522924727,-1.1755705045849454,-1.763355756877418:
+<br>
+0,-0.9510565162951535,-1.902113032590307,-2.8531695488854605:
+<br>
+0,-0.9510565162951536,-1.9021130325903073,-2.853169548885461:
+<br>
+0,-0.5877852522924734,-1.1755705045849467,-1.76335575687742:
+<br>
+0,-2.4492935982947064e-16,-4.898587196589413e-16,-7.347880794884119e-16
 <br>
 )
     </td>
@@ -3213,6 +3346,28 @@ identity4 -> (1,0,0,0:0,1,0,0:0,0,1,0:0,0,0,1)
 行列関数の入力仕様と付随する留意事項について記述する
 <br>
 <br>
+行vector
+<br>
+vectorr(3.3) || vectorr(3) || vector3r -> (0,0,0)
+<br>
+vectorr(6) -> (0,0,0,0,0,0)
+<br>
+vectorr(9) -> (0,0,0,0,0,0,0,0,0)
+<br>
+vectorr(0) || vectorr(-1) -> [MyErr]Invalid matrix size
+<br>
+vectorr(1001) -> [MyErr]Invalid matSizeMax over
+<br>
+<br>
+列vector
+<br>
+vectorc(3) || vector3c -> (0:0:0)
+<br>
+vectorc(6) -> (0:0:0:0:0:0)
+<br>
+vectorc(9) -> (0:0:0:0:0:0:0:0:0)
+<br>
+<br>
 単位行列
 <br>
 identity(3) -> (1,0,0:0,1,0:0,0,1)
@@ -4187,7 +4342,7 @@ max=3 -> [MyErr]Invalid ans isFound
 clear; 2x=4 -> [MyErr]Invalid ans isFound
 <br>
 <br>
-変数名を関数に渡す場合、変数symbol名と表記する
+変数名を関数に渡す場合、変数名symbolと表記する
 <br>
 <br>
 予約変数を示す
@@ -4299,7 +4454,7 @@ matching
 <br>
 ・変数は無次元
 <br>
-・変数symbol名を$でescapeして右辺または左辺の値を代入
+・変数名symbolを$でescapeして右辺または左辺の値を代入
 <br>
 clear; ($a,{$b,3})=(1,{2,$c}); (a,{b,c}) -> (1,2:0,3)
 <br>
@@ -4764,12 +4919,12 @@ x=-1; switch(lt(real(x),0),=&lt;{-real(x)}:1,=&lt;{real(x)}) -> 1
 <br>
 ・任意関数のdummy変数整数範囲[a,b]の総和を演算して返す
 <br>
-・_sdummy変数symbol名で呼出す
+・_sdummy変数名symbolで呼出す
 <br>
 ・dummy変数は無次元でlocal変数から独立する
 <br>
 <br>
-_sdummy変数symbol名(=&lt;第1引数,第2引数,第3引数[,第4引数])
+_sdummy変数名symbol(=&lt;第1引数,第2引数,第3引数[,第4引数])
 <br>
 ・第1引数: dummy変数の関数式を式渡し
 <br>
@@ -4912,12 +5067,12 @@ N=0; _sn(=&lt;Pn,N,10) -> 99.99999999999999
 <br>
 ・任意関数のdummy変数整数範囲[a,b]の総乗・総積を演算して返す
 <br>
-・_pdummy変数symbol名で呼出す
+・_pdummy変数名symbolで呼出す
 <br>
 ・dummy変数は無次元でlocal変数から独立する
 <br>
 <br>
-_pdummy変数symbol名(=&lt;第1引数,第2引数,第3引数[,第4引数])
+_pdummy変数名symbol(=&lt;第1引数,第2引数,第3引数[,第4引数])
 <br>
 ・第1引数: dummy変数の関数式を式渡し
 <br>
@@ -4995,12 +5150,12 @@ cA=(e^{i(pi/4)},:,e^{i(-pi/4)}); N=4; _pn(=&lt;{cA},1,N)
 <br>
 ・最後の演算結果を返す
 <br>
-・_rdummy変数symbol名で呼出す
+・_rdummy変数名symbolで呼出す
 <br>
 ・dummy変数は無次元でlocal変数から独立する
 <br>
 <br>
-_rdummy変数symbol名(=&lt;第1引数,第2引数,第3引数)
+_rdummy変数名symbol(=&lt;第1引数,第2引数,第3引数)
 <br>
 ・第1引数: 任意処理を式渡し
 <br>
@@ -5080,14 +5235,14 @@ _Ry(=&lt;{_Rx(=&lt;{x+y+1},1,2)},1,2) -> 13
 <br>
 ・微分位置xでの差分刻み幅dxの既定値dx=max(1,abs(x))dxD(1+i)
 <br>
-・_ddummy変数symbol名で呼出す
+・_ddummy変数名symbolで呼出す
 <br>
 ・dummy変数は無次元
 <br>
 ・dummy変数と同名のlocal変数を参照するが、上書きしない
 <br>
 <br>
-_ddummy変数symbol名(=&lt;第1引数[,第2引数[,第3引数[,第4引数]]])
+_ddummy変数名symbol(=&lt;第1引数[,第2引数[,第3引数[,第4引数]]])
 <br>
 ・第1引数: dummy変数の関数式を式渡し
 <br>
@@ -5396,14 +5551,14 @@ x -> (1.000000000000009+O(3e-5):0.9999999999999909+O(3e-5))
 <br>
 ・積分の差分刻み幅dxI=(b-a)/NI
 <br>
-・_idummy変数symbol名で呼出す
+・_idummy変数名symbolで呼出す
 <br>
 ・dummy変数は無次元
 <br>
 ・dummy変数と同名のlocal変数を参照するが、上書きしない
 <br>
 <br>
-_idummy変数symbol名(=&lt;第1引数,第2引数,第3引数[,第4引数])
+_idummy変数名symbol(=&lt;第1引数,第2引数,第3引数[,第4引数])
 <br>
 ・第1引数: dummy変数の関数式を式渡し
 <br>
@@ -5590,7 +5745,7 @@ Jacobi(=&lt;第1引数,=&lt;第2引数[,=&lt;第3引数[,第4引数]])
 <br>
 ・第1引数: 方程式または関数式の列vectorを式渡し
 <br>
-・第2引数: 未知変数symbol名の列vectorを式渡し
+・第2引数: 未知変数名symbolの列vectorを式渡し
 <br>
 option
 <br>
@@ -5666,7 +5821,7 @@ Newton(=&lt;第1引数,=&lt;第2引数[,=&lt;第3引数[,第4引数]])
 <br>
 ・第1引数: 方程式または関数式の列vectorを式渡し
 <br>
-・第2引数: 未知変数symbol名の列vectorを式渡し
+・第2引数: 未知変数名symbolの列vectorを式渡し
 <br>
 option
 <br>
@@ -5688,7 +5843,7 @@ ODE高階行列関数
 <br>
 ・1階常微分の差分刻み幅実数値dxTの既定値dxT=1e-3
 <br>
-・_odummy変数symbol名で呼出す
+・_odummy変数名symbolで呼出す
 <br>
 ・dummy変数は無次元
 <br>
@@ -5697,11 +5852,11 @@ ODE高階行列関数
 ・未知変数のlocal変数を参照、上書きする
 <br>
 <br>
-_odummy変数symbol名(=&lt;第1引数,=&lt;第2引数[,=&lt;第3引数[,第4引数[,第5引数]]])
+_odummy変数名symbol(=&lt;第1引数,=&lt;第2引数[,=&lt;第3引数[,第4引数[,第5引数]]])
 <br>
 ・第1引数: 1階常微分方程式右辺の関数式を式渡し
 <br>
-・第2引数: 未知変数symbol名の列vectorを式渡し
+・第2引数: 未知変数名symbolの列vectorを式渡し
 <br>
 option
 <br>
@@ -5730,9 +5885,9 @@ option
 <br>
 symbolic高階行列関数
 <br>
-・未知変数symbol名連番0~のm行n列の行列を<a href="#span-out-eqns">式変数</a>に式代入して0を返す
+・未知変数名symbol連番0~のm行n列の行列を<a href="#span-out-eqns">式変数</a>に式代入して0を返す
 <br>
-・_e式変数symbol名(=&lt;{未知変数symbol名},m,n)で呼出す
+・_e式変数名symbol(=&lt;{未知変数名symbol},m,n)で呼出す
 <br>
 <br>
 test caseを列挙する
@@ -8387,7 +8542,7 @@ data.logo -> "makeLog=true"
 以降、省略で既定値
 <br>
 <br>
-・useStrict: 厳密mode実行を使用するflag
+・useStrict: strict-mode実行を使用するflag
 <br>
 <br>
 ・isRightAssociativityBR: 2項演算子の結合性を右結合に変更するflag
@@ -8617,6 +8772,8 @@ parser.js抜粋
         tree = DATA.tree_mat(math_mat[token_lower]());
         break;
       // "FNm1"
+      case "vectorr":
+      case "vectorc":
       case "identity":
       case "first":
       case "last":

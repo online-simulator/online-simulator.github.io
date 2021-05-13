@@ -164,7 +164,9 @@ My_entry.$.prototype.set_selectVal_elem = function(elem, val){
         break;
       }
     }
-    elem.selectedIndex = selectedIndex;
+    if(selectedIndex >= 0){
+      elem.selectedIndex = selectedIndex;
+    }
   }
   return elem.selectedIndex;
 };

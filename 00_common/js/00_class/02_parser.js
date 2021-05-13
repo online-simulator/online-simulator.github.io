@@ -336,6 +336,8 @@ My_entry.parser.prototype.make_trees = function(sentence, re){
         tree = DATA.tree_mat(math_mat[token_lower]());
         break;
       // "FNm1"
+      case "vectorr":
+      case "vectorc":
       case "identity":
       case "first":
       case "last":
