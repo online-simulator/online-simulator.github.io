@@ -4359,7 +4359,11 @@ clear; 2x=4 -> [MyErr]Invalid ans isFound
 <br>
 ・single||double quotation mark使用不可
 <br>
+' || " || '' || "" -> [MyErr]Invalid null string
+<br>
 "x"=2; "x" || x -> 2
+<br>
+""=2 || =2 -> 2
 <br>
 <br>
 変数名を関数に渡す場合、変数名symbolと表記する
