@@ -227,6 +227,38 @@ Y/M/D
 <tbody>
   <tr>
     <th>
+3.35.14.4.15
+    </th>
+    <td class="types">
+Calculator
+    </td>
+    <td>
+2.25.13
+    </td>
+    <td class="clear">
+minor bug-fix
+    </td>
+    <td>
+[Calculator]
+<br>
+・null string入力時の予期せぬerror終了を修正
+<br>
+　before:
+<br>
+　　' || " || '' || "" -> Unexpected error
+<br>
+　after:
+<br>
+　　' || " || '' || "" -> [MyErr]Invalid null string
+<br>
+・manual整備
+    </td>
+    <td>
+2021/5/14
+    </td>
+  </tr>
+  <tr>
+    <th>
 3.35.14.4.14
     </th>
     <td class="types">

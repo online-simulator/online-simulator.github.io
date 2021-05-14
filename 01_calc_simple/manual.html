@@ -1962,14 +1962,16 @@ Edge/Chrome: w -> 43.541015625
 <br>
 ・IEから出力したpngとsvgの表示が一致しない（Edge/Chromeは一致）
 <br>
-・IEはJScript由来の問題で真値の約0.8倍にtext幅を過小評価の可能性
+・IEはJScript-originの問題で真値の約0.8倍にtext幅を過小評価の可能性
+<br>
+　IEの開発終了とサポート縮小に伴い、補正係数導入等の一時的な対策はしない
 <br>
 ・textを出力しなければbrowser間で大差はない
 <br>
 <br>
 続けて演算結果の相違について記述する
 <br>
-・IEのJScriptとそれ以外のJavaScriptでMachine誤差程度の相違がある
+・IEのJScript-originとそれ以外のJavaScriptでMachine誤差程度の相違がある
 <br>
 ・NativeのMath.sin関数
 <br>
@@ -2006,7 +2008,7 @@ history/csvに記録されるlogからplot2d-commandを実行する場合
 <br>
 plot2d('t0','t1','xt','yt','N')
 <br>
-・Ver.2.25.12以降、第5引数Nにsingle quotationを付与
+・Ver.2.25.12以降、第5引数Nにsingle quotation markを付与
 <br>
 ・plot2d-commandの一例を示す
 <br>
@@ -4166,7 +4168,7 @@ rotz=&lt;{rt=real(psi),=&lt;(cos(rt),-sin(rt),:sin(rt),cos(rt),:,,1)}=&gt;;
 <br>
 mat_after=rot_*mat_before
 <br>
-・よって回転順序は回転行列並び順の逆となる
+・よって回転順序は回転行列並び順の逆順となる
 <br>
 ・回転順序x⇒y⇒z
 <br>
@@ -4354,6 +4356,10 @@ max=3 -> [MyErr]Invalid ans isFound
 ・数字から開始不可
 <br>
 clear; 2x=4 -> [MyErr]Invalid ans isFound
+<br>
+・single||double quotation mark使用不可
+<br>
+"x"=2; "x" || x -> 2
 <br>
 <br>
 変数名を関数に渡す場合、変数名symbolと表記する
