@@ -66,9 +66,6 @@ My_entry.handler_wave.prototype.init_handlers = function(){
   self.handlers.stop_worker = function(isClear){
     var self = this;
     if(self.handler_worker){
-      if(self.handler_worker.isLocked){
-        self.output_log("stopped by onchange");
-      }
       self.stop_worker();
     }
     if(isClear){

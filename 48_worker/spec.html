@@ -197,6 +197,10 @@ WebWorkers非対応かlock状態の場合は即座にfalseを返却する
 postMessageで外部scriptに繰り返しdataを送信する
 <br>
 なお、繰り返しnew Workerを宣言する必要はないことに留意する
+<br>
+また、postMessage後のerror処理の伝播はworkerをterminateしても中断できないため、
+<br>
+構文error等は事前に弾いてrunを実行しない方が望ましい
 <pre><code>
 My_entry.handler_worker.prototype.run = function(arr_data){
   var self = this;
@@ -307,13 +311,16 @@ main
           <td class="border">
 上記のhandler_worker.terminateを呼び出すmainの中断・終了処理を以下に示す
 <br>
-なお、terminateの直前にlock状態を判定して中断logの表示等を実施する
+なお、terminateの直前にlock状態を判定して中断logの表示等を1回のみ実施する
 
 <pre><code>
 My_entry.original_worker.prototype.stop_worker = function(isClear){
   var self = this;
   if(self.handler_worker){
     if(self.handler_worker.isLocked){
+      if(self.callbacks_worker.final){
+        self.callbacks_worker.final();
+      }
     }
     self.handler_worker.terminate();
   }

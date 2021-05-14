@@ -87,14 +87,14 @@ My_entry.handler_wave.prototype.set_callbacks_worker = function(){
       var fileName = "made_by_script.wav";
       self.handler_link.link.name = fileName;
       self.handler_link.link.set_url(buffer);
-      self.output_log();
-      self.output_fileName(fileName);
       var base64 = (window.btoa)? "data:audio/wav;base64,"+btoa(binary): "";
       var isIE = self.handler_link.browser.sws.isIE;
       if(!(isIE)){
         self.waveo.play_base64(base64, data.volume);
       }
       self.stop_worker();
+      self.output_log();
+      self.output_fileName(fileName);
     }
     return self;
   };
@@ -102,6 +102,11 @@ My_entry.handler_wave.prototype.set_callbacks_worker = function(){
     var self = this;
     self.stop_worker(true);
     self.output_log(e.message);
+    return self;
+  };
+  self.callbacks_worker.final = function(){
+    var self = this;
+    self.output_log("stopped by onchange");
     return self;
   };
   return self;

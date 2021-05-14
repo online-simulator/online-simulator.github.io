@@ -30,6 +30,9 @@ My_entry.original_worker.prototype.stop_worker = function(isClear){
   var self = this;
   if(self.handler_worker){
     if(self.handler_worker.isLocked){
+      if(self.callbacks_worker.final){
+        self.callbacks_worker.final();
+      }
     }
     self.handler_worker.terminate();
   }
