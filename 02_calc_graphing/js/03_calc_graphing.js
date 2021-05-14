@@ -145,10 +145,15 @@ My_entry.calc_graphing.prototype.input_axis = function(arr2d_vec){
 };
 My_entry.calc_graphing.prototype.output_msgError_plot = function(e){
   var self = this;
-  var msg = self.entry.def.get_msgError(e, "Invalid plot2d");
-  self.io.write_text(self.elems.d, msg.replace("Uncaught Error: ", ""));
-  self.elems.d.focus();
-  throw false;
+  /* Ver.2.25.14 -> */
+  if(!(self.isCheckedError)){
+    var msg = self.entry.def.get_msgError(e, "Invalid plot2d");
+    self.io.write_text(self.elems.d, msg.replace("Uncaught Error: ", ""));
+    self.elems.d.focus();
+    self.isCheckedError = true;
+    throw false;
+  }
+  /* -> Ver.2.25.14 */
   return self;
 };
 /* Ver.2.17.6 -> */
@@ -286,7 +291,12 @@ My_entry.calc_graphing.prototype.arr_data2arr2d_vec = function(arr_data, options
             }
           }
           else{
+            /* Ver.2.25.14 -> */
+/*
             throw "Invalid (x(t),y(t))";
+*/
+            throw "Invalid x(t) || y(t)";
+            /* -> Ver.2.25.14 */
           }
         }
       }
@@ -480,22 +490,37 @@ My_entry.calc_graphing.prototype.init_handlers = function(){
       input = x+";"+y;
     }
     else{
+      /* Ver.2.25.14 -> */
+/*
       self.output_msgError_plot("Invalid (x(t),y(t))");
+*/
+      self.output_msgError_plot("Invalid x(t) || y(t)");
+      /* -> Ver.2.25.14 */
     }
     self.arr_x = arr_x;
     self.arr_y = arr_y;
     return {input: input, len_x: len_x, len_y: len_y};
   };
+  /* Ver.2.25.14 -> */
   var get_num = function(input, options){
+    var _num = null;
     var data = self.get_data(input, options, options.sharedStorage);
-    try{
-      new self.constructors.parser().run(data);
+    new self.constructors.parser().run(data);
+    if(data.out){
+      _num = DATA.out2num(data.out);
     }
-    catch(e){
-      self.output_msgError_plot("Invalid t");
+    else{
+      throw false;
     }
-    return DATA.out2num(data.out);
+    if(!(_num && _num.com)){
+      throw false;
+    }
+    if(isNaN(_num.com.r) || isNaN(_num.com.i)){
+      throw false;
+    }
+    return _num;
   };
+  /* -> Ver.2.25.14 */
   var clear_imageBg = function(){
     $._id("input-file-bg").value = null;
     self.plot2d.setter.base64_bg(null);
@@ -556,11 +581,23 @@ My_entry.calc_graphing.prototype.init_handlers = function(){
         self.worker_plot.arr_data_out = arr_data;
         self.re_plot(true);
       }
+    /* Ver.2.25.14 -> */
+      else{
+        throw false;
+      }
     }
+    else{
+      throw false;
+    }
+    /* -> Ver.2.25.14 */
   };
   /* -> Ver.2.25.12 */
   self.handlers.onload = function(e){
     var self = this;
+    /* Ver.2.25.14 -> */
+    // flag
+    self.isCheckedError = false;
+    /* -> Ver.2.25.14 */
     // canvas
     self.plot2d = new self.constructors.plot2d("div-plot2d", 512, 256);
     self.plot2d.setter.callbacks({onmouseup: function(){self.re_plot(true);}});
@@ -611,19 +648,31 @@ My_entry.calc_graphing.prototype.init_handlers = function(){
         /* Ver.2.10.4 */
         if(self.worker_plot && self.worker_plot.handler.isLocked) return false;
         if(self.plot2d.isLocked) return false;
+        self.isCheckedError = false;  // Ver.2.25.14
         self.plot2d.init_flags();
         var inputs = get_inputs_plot();
         var options = self.get_options(true);
         options.checkError = false;
-        var t0 = get_num($.inputVal_id("input-t0"), options);
-        var t1 = get_num($.inputVal_id("input-t1"), options);
+        /* Ver.2.25.14 -> */
+        var t0 = null;
+        var t1 = null;
+        try{
+          t0 = get_num($.inputVal_id("input-t0"), options);
+          t1 = get_num($.inputVal_id("input-t1"), options);
+        }
+        catch(e){
+          self.output_msgError_plot("Invalid t0 || t1");
+        }
         var t0cr = t0.com.r;
         var t0ci = t0.com.i;
         var t1cr = t1.com.r;
         var t1ci = t1.com.i;
+/*
         if(isNaN(t0cr) || isNaN(t0ci) || isNaN(t1cr) || isNaN(t1ci)){
           self.output_msgError_plot("Invalid t");
         }
+*/
+        /* -> Ver.2.25.14 */
         var N = $.selectNum_id("select-N");
         var dtcr = (t1cr-t0cr)/N;
         var dtci = (t1ci-t0ci)/N;

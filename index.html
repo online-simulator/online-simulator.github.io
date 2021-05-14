@@ -227,6 +227,52 @@ Y/M/D
 <tbody>
   <tr>
     <th>
+3.35.15.5.15
+    </th>
+    <td class="types">
+Calculator
+    </td>
+    <td>
+2.25.14
+    </td>
+    <td class="clear">
+fatal bug-fix
+    </td>
+    <td>
+[Graphing Calculator]
+<br>
+・WebWorkers-post-processing in background bug-fixed
+<br>
+　before:
+<br>
+　　plot2d('-5','5','t;',<span class="clear">'""','1000'</span>) -> throw false; 1000 times
+<br>
+　after:
+<br>
+　　plot2d('-5','5','t;','""','1000') -> throw false; 1 time only
+<br>
+・t0||t1のerror処理を追加
+<br>
+　plot2d(<span class="clear">'',''</span>,'t;'t;','10') -> [MyErr]Invalid t0 || t1
+<br>
+・plot2d-from-arrのerror処理を追加
+<br>
+　plot2d(test,test) -> [MyErr]plot2d-command data not found
+<br>
+・t0||t1のerror-log表示を変更
+<br>
+　Invalid t　⇒　Invalid t0 || t1
+<br>
+・x(t)||y(t)のerror-log表示を変更
+<br>
+　Invalid (x(t),y(t))　⇒　Invalid x(t) || y(t)
+    </td>
+    <td>
+2021/5/15
+    </td>
+  </tr>
+  <tr>
+    <th>
 3.35.15.4.15
     </th>
     <td class="types">
@@ -314,6 +360,8 @@ minor update
 ・plot2d-commandを追加
 <br>
 　<a href="01_calc_simple/manual.html#span-out-plot2d-command">[manual]Calculator-plot2d-command</a>
+<br>
+　plot2d('t0','t1','xt','yt','N') || plot2d(xt,yt)
     </td>
     <td>
 2021/5/13
