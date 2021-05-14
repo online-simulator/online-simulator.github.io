@@ -245,7 +245,7 @@ My_entry.parser.prototype.make_trees = function(sentence, re){
   var math_mat = self.entry.math_mat;
   var DATA = self.entry.DATA;
   var tokens = sentence.match(re);
-  if(!(tokens)) throw "Invalid null string";
+  if(!(tokens)) throw "Invalid null string";  // Ver.2.25.13
   for(var i=0, len_i=tokens.length; i<len_i; ++i){
     var i_next = i;
     var tree = undefined;
