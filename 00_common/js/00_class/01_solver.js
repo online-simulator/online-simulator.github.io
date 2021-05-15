@@ -40,7 +40,7 @@ My_entry.solver.prototype.gaussian_pre = function(options, obj_Axb){
         i_switch = ii;
       }
     }
-    if(i-i_switch){
+    if(i !== i_switch){
       math.switch_arr(A, i, i_switch);
       math.switch_arr(b, i, i_switch);
     }
@@ -73,19 +73,11 @@ My_entry.solver.prototype.gaussian_backward = function(options, obj_Axb){
   var A = obj_Axb.A;
   var x = obj_Axb.x;
   var b = obj_Axb.b;
-/*
-  obj_Axb.nume = [];
-  obj_Axb.deno = [];
-*/
   if(N > 0){
     var i = N-1;
     var nume = b[i][0];
     var deno = A[i][i];
     x[i][0] = unit["BRd"](options, nume, deno);
-/*
-    obj_Axb.nume[i] = nume;
-    obj_Axb.deno[i] = deno;
-*/
   }
   if(N > 1){
     for(var i=N-2; i>=0; --i){
@@ -95,10 +87,6 @@ My_entry.solver.prototype.gaussian_backward = function(options, obj_Axb){
       }
       var deno = A[i][i];
       x[i][0] = unit["BRd"](options, nume, deno);
-/*
-      obj_Axb.nume[i] = nume;
-      obj_Axb.deno[i] = deno;
-*/
     }
   }
   return self;

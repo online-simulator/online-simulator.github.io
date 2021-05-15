@@ -293,7 +293,7 @@ My_entry.math_mat.prototype.gaussian = function(options, arr){
   var lens = self.get_lens(arr);
   var len_i = lens.i;
   var len_j = lens.j;
-  if(len_i-(len_j-1)) throw "Invalid irregular matrix";  // arr=concat(A, b) len_i = len_j-1
+  if(len_i !== (len_j-1)) throw "Invalid irregular matrix";  // arr=concat(A, b) len_i = len_j-1
   var obj_Axb = {};
   var A = [];
   var b = [];
@@ -369,7 +369,7 @@ My_entry.math_mat.prototype.BRm = function(options, left, right){
   var rightLens = self.get_lens(right);
   var len_i = leftLens.i;
   var len_j = rightLens.j;
-  if(leftLens.j-rightLens.i) throw "Invalid matrix operation";
+  if(leftLens.j !== rightLens.i) throw "Invalid matrix operation";
   var newRight = self.transpose(options, right);
   var _arr = self.init2d(len_i, len_j);
   for(var i=0; i<len_i; ++i){
@@ -385,7 +385,7 @@ My_entry.math_mat.prototype.BRsa = function(options, left, right, sw_sa){
   var unit = self.entry.unit;
   var leftLens = self.get_lens(left);
   var rightLens = self.get_lens(right);
-  if(leftLens.i-rightLens.i || leftLens.j-rightLens.j) throw "Invalid matrix operation";
+  if(leftLens.i !== rightLens.i || leftLens.j !== rightLens.j) throw "Invalid matrix operation";
   var lens = leftLens;
   var len_i = lens.i;
   var len_j = lens.j;

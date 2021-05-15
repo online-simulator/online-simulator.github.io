@@ -762,6 +762,10 @@ My_entry.calc_graphing.prototype.init_handlers = function(){
         self.storage.clear();
         self.output_logh("storage cleared\n\n");
         break;
+      /* Ver.2.26.14 */
+      case "C-input":
+        self.io.write_text(self.elems.i, "");
+        break;
       case "BS":
       case "DEL":
       case "ans":
