@@ -709,6 +709,10 @@ My_entry.calc_graphing.prototype.init_handlers = function(){
         /* Ver.2.25.12 -> */
         var mc = self.entry.def.get_command(parser.remove_commentAndWspace(input), "plot2d", true);
         if(mc && mc.length === 2){
+          /* Ver.2.25.14 -> */
+          if(self.worker_plot && self.worker_plot.handler.isLocked) return false;
+          if(self.plot2d.isLocked) return false;
+          /* -> Ver.2.25.14 */
           try{
             var mc1 = mc[1];
             var tokens_quotation = mc1.match(/\'.*?\'/g);
@@ -718,6 +722,7 @@ My_entry.calc_graphing.prototype.init_handlers = function(){
             }
             else if(tokens_comma && tokens_comma.length === 2){
               plot2d_from_arr(tokens_comma);
+              self.io.write_text(self.elems.o, "plot2d-from-arr finished");  // Ver.2.25.14
             }
             else{
               throw false;
