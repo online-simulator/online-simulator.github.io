@@ -912,7 +912,7 @@ option
 <br>
 -(1,1)-(2,2) || ((0,0)-((1,1)-(2,2))) -> (1,1)
 <br>
-・前置き単項の符号は同種の2項演算子と区別しない
+・前置単項の符号は同種の2項演算子と区別しない
 <br>
 ・符号の左側には0またはzeros行列が存在すると仮定して結合する
 <br>
@@ -987,7 +987,7 @@ max(x=1,(x):2,3)[0]2 || (max((0,1:2,3)[0]))2 || (max(0,1))2 || (1)2 -> 2
 演算子の優先順位と付随する留意事項について記述する
 <br>
 <br>
-除算と乗算の2項演算子は区別せず、結合性に従って演算する
+除算と乗算の2項演算子は区別せず、<a href="#span-out-options">結合性</a>に従って演算する
 <br>
 左結合既定時　1*2/3*4/5 || ((((1*2)/3)*4)/5) -> 0.5333333333333333
 <br>
@@ -1001,16 +1001,16 @@ max(x=1,(x):2,3)[0]2 || (max((0,1:2,3)[0]))2 || (max(0,1))2 || (1)2 -> 2
 　　　　除算優先選択時　1/2(2) || (1/2)(2) -> 1
 <br>
 <br>
-減算と加算の2項演算子は区別せず、結合性に従って演算する
+減算と加算の2項演算子は区別せず、<a href="#span-out-options">結合性</a>に従って演算する
 <br>
-前置き単項の符号は同種の2項演算子と区別せず、結合性に従って演算する
+前置単項の符号は同種の2項演算子と区別せず、<a href="#span-out-options">結合性</a>に従って演算する
 <br>
 左結合既定時　+3-5+7-9 || ((((0+3)-5)+7)-9) -> -4
 <br>
 右結合選択時　+3-5+7-9 || (0+(3-(5+(7-9)))) -> 0
 <br>
 <br>
-後置きの単項演算子は2項演算子より優先する
+後置の単項演算子は2項演算子より優先する
 <br>
 3^2! || 3^(2!) -> 9
 <br>
@@ -1018,12 +1018,12 @@ max(x=1,(x):2,3)[0]2 || (max((0,1:2,3)[0]))2 || (max(0,1))2 || (1)2 -> 2
 <br>
 ・階乗の被演算子は自然数のみ対応
 <br>
-・虚数単位iは後置きの単項演算子とする
+・虚数単位iは後置の単項演算子とする
 <br>
 1/2i || 1/(2i) -> -0.5i
 <br>
 <br>
-bit演算子を除く2項演算子は前置き単項の符号より優先する
+bit演算子を除く2項演算子は前置単項の符号より優先する
 <br>
 -2^2 || -(2^2) -> -4
 <br>
@@ -1357,7 +1357,7 @@ epsilon -> 2.220446049250313e-16
 <br>
 2つの数値の減算または加算で情報落ちが発生した場合、警告文を表示する
 <br>
-・警告文は前置きのinfoLost[実部r虚部i]とする
+・警告文は前置のinfoLost[実部r虚部i]とする
 <br>
 1+1e-16 -> infoLost[r ] 1
 <br>
@@ -1435,7 +1435,7 @@ ans&lt;&lt;3  // 11111000 -> 248
 <br>
 数値誤差は目安の解析誤差（絶対誤差）のOrderを表示する
 <br>
-・Order表示は後置きの+O(実部+虚部i)とする
+・Order表示は後置の+O(実部+虚部i)とする
 <br>
 <br>
 f(x)=x^2のx=1+iにおける1階微分の数値解
@@ -2065,7 +2065,7 @@ evolutionN=&lt;_sn(=&lt;stepn,0,N);
 <br>
 init; evolutionN; xt,yt ->
 <br>
-・<a href="#span-out-config">strict-mode実行</a>に対応する場合
+・<a href="#span-out-config">strict-mode</a>に対応する場合
 <br>
 storage cleared
 <br>
@@ -2182,7 +2182,7 @@ yt4=yt*(0,1,2,3); yt4 ->
 <br>
 ・case違いの演算を繰り返してxt,ytを作り直す場合
 <br>
-・<a href="#span-out-config">strict-mode実行</a>に対応する場合
+・<a href="#span-out-config">strict-mode</a>に対応する場合
 <br>
 storage cleared
 <br>
@@ -2380,13 +2380,19 @@ store
 <br>
 ・呼出し時点までのlocal storageをlocal bufferに保存する
 <br>
+・元objectを新規objectに複製する
+<br>
 restore
 <br>
 ・local bufferに保存されたlocal storageを復帰する
 <br>
+・複製した新規objectをそのまま復帰する（元objectの参照を切る仕様）
+<br>
 clear; x=2; store; x=3; restore; x -> 2
 <br>
 clear; x=2; store; clear; restore; x -> 2
+<br>
+・store~restore間に新規に定義された<a href="#span-out-vars">変数</a>・<a href="#span-out-eqns">式変数</a>は参照不可
 <br>
 clear; x=2; store; y=3; clear; restore; x+y -> [MyErr]Invalid binary operation
 <br>
@@ -2442,7 +2448,7 @@ vector: vector: ...
 要素, 要素, ... || 引数, 引数, ...
 <br>
 <br>
-区切り文字は2項の結合性や深さとは関係なく左から順に演算する
+区切り文字は2項の<a href="#span-out-options">結合性</a>や深さとは関係なく左から順に演算する
 <br>
 ・区切り文字の優先順位は最優先
 <br>
@@ -2808,7 +2814,7 @@ x=2; [2]x -> [MyErr]Invalid reference
 複素数の入力仕様と付随する留意事項について記述する
 <br>
 <br>
-虚数単位iは後置きの単項演算子とする
+虚数単位iは後置の単項演算子とする
 <br>
 (+1)i || +(1)i || +1(i) || +(i) -> i
 <br>
@@ -2884,7 +2890,7 @@ e^(-i(1pi()2/2i(5-3-1)i/(-4)))
 e^(-i(1pi(){2/{2i({5-3}-1)i}}/(-4)))
 <br>
 <br>
-2項の結合性や<a href="#span-out-prec-ope">演算子の優先順位</a>によって解が異なる場合、入力を見直す
+2項の<a href="#span-out-options">結合性</a>や<a href="#span-out-prec-ope">演算子の優先順位</a>によって解が異なる場合、入力を見直す
 <br>
 <br>
 具体的には次のように対策する
@@ -2931,7 +2937,7 @@ leftとrightの数値の関係や大小を比較する関数を列挙する
 <br>
 　・not equal判定関数: cne(left, right)
 <br>
-・被演算子が実数の場合、中間記法の演算子を代替可
+・被演算子が実数の場合、中置の演算子を代替可
 <br>
 　・left==rightを代替するequal判定関数: eq(left, right)
 <br>
@@ -3348,7 +3354,7 @@ A=(11:21,22:31,32,33,34); htrans(htrans(A)) -> (11,0,0,0:21,22,0,0:31,32,33,34)
 (2,4,8)&gt;&gt;(3,1) || (8)&gt;&gt;(1) -> 4
 <br>
 <br>
-行列に対して後置きの単項演算を実行した場合も無次元確定とする
+行列に対して後置の単項演算を実行した場合も無次元確定とする
 <br>
 (5,3)i || (3)i -> 3i
 <br>
@@ -4724,6 +4730,12 @@ clear; a=&lt;{a}; a -> [MyErr]Invalid circular(a)
 clear; a=&lt;a=&gt;; a -> [MyErr]Invalid circular(a)
 <br>
 clear; a=&lt;{a=&gt;}; a -> [MyErr]Invalid circular(a)
+<br>
+・<a href="#span-out-config">strict-mode</a>の場合
+<br>
+clear; a=&lt;a=&gt;; a=&gt; -> [MyErr]Invalid circular(a)
+<br>
+clear; a=&lt;{a=&gt;}; a=&gt; -> [MyErr]Invalid circular(a)
 <br>
 <br>
 Ver.2.19.6以降、関数の参照渡しの仕様を廃止（無駄仕様と判断）
@@ -8385,9 +8397,9 @@ _dy(=&lt;{1/(y*y)})/_dy(=&lt;{1/y})  // NG -> [MyErr]FN isNaN
 最後に一般的でない可能性のある仕様について記述する
 <br>
 <br>
-前置き単項の符号の扱いについて記述する
+前置単項の符号の扱いについて記述する
 <br>
-・単項の符号は同種の2項演算子と区別せず、結合性に従って演算する
+・単項の符号は同種の2項演算子と区別せず、<a href="#span-out-options">結合性</a>に従って演算する
 <br>
 ・この時、符号の左側には0が存在すると仮定する
 <br>
@@ -8414,7 +8426,7 @@ _dy(=&lt;{1/(y*y)})/_dy(=&lt;{1/y})  // NG -> [MyErr]FN isNaN
 <br>
 ・代入と判別されないequal記号=は、右辺移行の2項演算子として扱う
 <br>
-・2項の結合性に依存するが、単体使用を前提とする
+・2項の<a href="#span-out-options">結合性</a>に依存するが、単体使用を前提とする
 <br>
 -3=5 || (0-3)=5 || =5+3 -> 8
 <br>
@@ -8636,10 +8648,10 @@ data.logo -> "makeLog=true"
 以降、省略で既定値
 <br>
 <br>
-・useStrict: strict-mode実行を使用するflag
+・useStrict: <a href="#span-out-config">strict-mode</a>を使用するflag
 <br>
 <br>
-・isRightAssociativityBR: 2項演算子の結合性を右結合に変更するflag
+・isRightAssociativityBR: 2項演算子の<a href="#span-out-options">結合性</a>を右結合に変更するflag
 <br>
 <br>
 ・isDIVprior2OMUL: <a href="#span-out-BRmo">記号省略乗算</a>より除算を優先するflag
