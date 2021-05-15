@@ -600,22 +600,22 @@ panel上段について記述する
 <br>
 panel右側について記述する
 <br>
-・C-buttonは入力欄／log出力欄の内容と保存変数のClear実行を確定する
+・C-buttonは入力欄／log出力欄の内容とglobal <a href="#span-out-storage">storage</a>のClear実行を確定する
 <br>
 　Multi-thread実行時は演算を中断する
 <br>
-・BS-buttonは入力欄の選択位置の前を消去する
+・BS-buttonは入力欄の選択位置の1字前を消去する
 <br>
 ・ans-buttonはlog出力欄の演算結果を入力欄に確定する
 <br>
-　演算結果が実数以外の場合、入力欄を消去して予約変数ansを挿入
+　演算結果が実数以外の場合、入力欄を消去して予約変数ansのtextを挿入
 <br>
 ・＝-buttonは入力欄の内容で演算実行を確定する
 <br>
 <br>
 panel中段について記述する
 <br>
-・complex checkedで<a href="#span-out-com">複素数</a>演算を有効化・iの入力buttonを表示
+・complex checkedで<a href="#span-out-com">複素数</a>演算を有効化・虚数単位iの入力buttonを表示
 <br>
 ・matrix checkedで<a href="#span-out-mat">行列</a>演算を有効化
 <br>
@@ -776,19 +776,49 @@ plot-configについて記述する
 <br>
 panel中段について記述する
 <br>
-・list-vars-buttonはglobal変数の変数名listをlog出力欄に表示
+・C-input-buttonは入力欄のtextを消去する
 <br>
-・list-eqns-buttonはglobal式変数の変数名listをlog出力欄に表示
+・list-vars-buttonはglobal変数の変数名listをlog出力欄に表示する
+<br>
+・list-eqns-buttonはglobal式変数の変数名listをlog出力欄に表示する
+<br>
+・plot2d(,)-buttonは入力欄の選択位置にplot2d(,)のtextを挿入する
+<br>
+・&lt;&lt;-buttonは入力欄の選択位置を最初に移動する
+<br>
+・&lt;-buttonは入力欄の選択位置を1字前に移動する
+<br>
+・&gt;-buttonは入力欄の選択位置を1字後に移動する
+<br>
+・&gt;&gt;-buttonは入力欄の選択位置を最後に移動する
+<br>
+・=-buttonは入力欄の内容で演算実行を確定する
+<br>
+・C-buttonは入力欄／log出力欄の内容とglobal <a href="#span-out-storage">storage</a>のClear実行を確定する
+<br>
+　Multi-thread実行時は演算を中断する
+<br>
+・BS-buttonは入力欄の選択位置の1字前を消去する
+<br>
+・DEL-buttonは入力欄の選択位置の1字後を消去する
+<br>
+・i-buttonは入力欄の選択位置に虚数単位iのtextを挿入する
+<br>
+・()-buttonは入力欄の選択位置に()のtextを挿入する
+<br>
+・{}-buttonは入力欄の選択位置に{}のtextを挿入する
+<br>
+・ans-buttonは入力欄の選択位置にansのtextを挿入する
 <br>
 <br>
 Multi-thread実行の場合、plot-buttonと=-buttonは並列に実行可
 <br>
-・shared storage checked時のみglobal storageを共有
+・shared storage checked時のみglobal <a href="#span-out-storage">storage</a>を共有
 <br>
 ・plot-buttonによる演算はglobal storage readonly
 <br>
 <br>
-その他は<a href="#span-out-UI-simple">Simple Calculator UI</a>参照
+panel下段は<a href="#span-out-UI-simple">Simple Calculator UI</a>参照
     </td>
   </tr>
   <tr>
@@ -1910,14 +1940,14 @@ semi-colon;区切りで行列の最終要素の数値をgraphに描画する
 詳細はlast<a href="#span-out-FNm">行列関数</a>参照
 <br>
 <br>
-tの範囲下限t0と範囲上限t1のlocal storageは独立
+tの範囲下限t0と範囲上限t1のlocal <a href="#span-out-storage">storage</a>は独立
 <br>
-・global storageをreadonlyで共有する場合、shared storageをcheckする
+・global <a href="#span-out-storage">storage</a>をreadonlyで共有する場合、shared storageをcheckする
 <br>
 <br>
-x軸とy軸のlocal storageはx軸優先で共通
+x軸とy軸のlocal <a href="#span-out-storage">storage</a>はx軸優先で共通
 <br>
-・global storageをreadonlyで共有する場合、shared storageをcheckする
+・global <a href="#span-out-storage">storage</a>をreadonlyで共有する場合、shared storageをcheckする
 <br>
 <br>
 tの演算をSingle-threadで実行後、x/yの演算をMulti-threadで実行
@@ -2339,7 +2369,7 @@ f=&lt;clear -> [MyErr]Invalid clear called
 <br>
 clear
 <br>
-・呼出し時点までのlocal storageをclearする
+・呼出し時点までのlocal <a href="#span-out-storage">storage</a>をclearする
 <br>
 x=3; x -> 3
 <br>
@@ -2355,7 +2385,7 @@ clear; ans -> [MyErr]Invalid REv(ans)
 <br>
 ans -> 3
 <br>
-・続けてglobal storageをclearする場合
+・続けてglobal <a href="#span-out-storage">storage</a>をclearする場合
 <br>
 Clear実行確定 ->
 <br>
@@ -2365,7 +2395,7 @@ x -> [MyErr]Invalid REv(x)
 <br>
 ans -> [MyErr]Invalid REv(ans)
 <br>
-・global storageに一切の変数を残さない場合
+・global <a href="#span-out-storage">storage</a>に一切の変数を残さない場合
 <br>
 x=3; y=3x; y; clear -> local storage cleared
 <br>
@@ -2378,13 +2408,13 @@ ans -> [MyErr]Invalid REv(ans)
 <br>
 store
 <br>
-・呼出し時点までのlocal storageをlocal bufferに保存する
+・呼出し時点までのlocal <a href="#span-out-storage">storage</a>をlocal <a href="#span-out-storage">buffer</a>に保存する
 <br>
 ・元objectを新規objectに複製する
 <br>
 restore
 <br>
-・local bufferに保存されたlocal storageを復帰する
+・local <a href="#span-out-storage">buffer</a>に保存されたlocal <a href="#span-out-storage">storage</a>を復帰する
 <br>
 ・複製した新規objectをそのまま復帰する（元objectの参照を切る仕様）
 <br>
@@ -2398,7 +2428,7 @@ clear; x=2; store; y=3; clear; restore; x+y -> [MyErr]Invalid binary operation
 <br>
 clear; x=2; store; y=3; store; clear; restore; x+y -> 5
 <br>
-・演算実行確定1回毎にlocal bufferは消去される
+・演算実行確定1回毎にlocal <a href="#span-out-storage">buffer</a>は消去される
 <br>
 storage cleared
 <br>

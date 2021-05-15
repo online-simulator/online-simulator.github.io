@@ -768,7 +768,11 @@ My_entry.calc_graphing.prototype.init_handlers = function(){
         break;
       case "BS":
       case "DEL":
+      /* Ver.2.26.14 -> */
+/*
       case "ans":
+*/
+      /* -> Ver.2.26.14 */
       case "<<":
       case ">>":
         var sw = text_half;
@@ -781,6 +785,9 @@ My_entry.calc_graphing.prototype.init_handlers = function(){
         self.io["onclick_default"](self.elems, "", 1);
         break;
       case "()":
+      /* Ver.2.26.14 -> */
+      case "{}":
+      /* -> Ver.2.26.14 */
         self.io["onclick_default"](self.elems, text_half, -1);
         break;
       default:
