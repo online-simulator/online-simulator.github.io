@@ -1189,9 +1189,9 @@ pow(2,-51) || 2^(-51) -> 4.440892098500626e-16
 <br>
 pow(2,-52) || 2^(-52) -> 2.220446049250313e-16
 <br>
-・この最小値より小さな有効数字は保持できない
+・この最小値O(1e-16)より小さな有効数字は保持できない
 <br>
-・これを丸める誤差をMachine-Epsilon（以降、Machine誤差）と呼ぶ
+・これを丸める誤差をMachine epsilonと呼ぶ
 <br>
 ・仮数部の最下位bitの有効数字未満を丸める相対誤差を次のεで定義する
 <br>
@@ -1236,7 +1236,7 @@ epsilon || eps || pow(2,-52) -> 2.220446049250313e-16
 <br>
 -0.9999999999999999 -> -0.9999999999999999
 <br>
-・17桁の小数を入力した場合、先述のMachine誤差が生じる
+・17桁の小数を入力した場合、先述のMachine epsilonが生じる
 <br>
 0.99999999999999999 -> 1
 <br>
@@ -1244,7 +1244,7 @@ epsilon || eps || pow(2,-52) -> 2.220446049250313e-16
 <br>
 ・整数も小数同様の形式で保存される
 <br>
-・よって17桁以上の整数を入力した場合、小数同様にMachine誤差が生じる
+・よって17桁以上の整数を入力した場合、小数同様にMachine epsilonが生じる
 <br>
 9007199254740991 -> 9007199254740991
 <br>
@@ -1260,7 +1260,7 @@ epsilon || eps || pow(2,-52) -> 2.220446049250313e-16
 <br>
 9007199254740991111111 -> 9.007199254740991e+21
 <br>
-・1000で割って1000を掛けた場合、Machine誤差が生じる
+・1000で割って1000を掛けた場合、Machine epsilonが生じる
 <br>
 9007199254740991/1000 -> 9007199254740.99
 <br>
@@ -1374,7 +1374,7 @@ pow(2,pow(2,10)) || 2**(2**10) || 2^(2^10) -> 1.7976931348622732e+308
 <br>
 pi -> 3.141592653589793
 <br>
-・円周率20桁の絶対誤差はMachine誤差epsilonに相当する
+・円周率20桁の絶対誤差はMachine epsilonに相当する
 <br>
 0.00000000000000023846 -> 2.3846e-16
 <br>
@@ -1410,7 +1410,7 @@ i+1e-16i -> infoLost[ i] i
 <br>
 (-1)^0.5 -> 6.123233995736766e-17+i
 <br>
-・実部にMachine誤差が残るため、1を加算すると情報落ちが発生する
+・実部にMachine epsilonが残るため、1を加算すると情報落ちが発生する
 <br>
 ans+1 -> infoLost[r ] 1+i
 <br>
@@ -2001,7 +2001,7 @@ Edge/Chrome: w -> 43.541015625
 <br>
 続けて演算結果の相違について記述する
 <br>
-・IEのJScript-originとそれ以外のJavaScriptでMachine誤差程度の相違がある
+・IEのJScript-originとそれ以外のJavaScriptで<a href="#span-out-float">Machine epsilon</a>程度の相違がある
 <br>
 ・NativeのMath.sin関数
 <br>
@@ -2371,7 +2371,7 @@ evolutionN=&lt;_sn(=&lt;{stepn=&gt;},0,N);
 <br>
 init=&gt;; evolutionN=&gt;; xt,yt ->
 <br>
-・<a href="#span-out-evolution">時間発展の解法</a>に示す近似解に一致する
+・<a href="#span-out-evolution">時間発展の解法</a>に示す位置z_x=xt+yt*iの近似解に一致する
 <br>
 (
 <br>
@@ -2978,7 +2978,7 @@ iの2乗の演算方法を2項演算子または関数を使用して3種類示�
 <br>
 (i)^2 || (i)**2 || pow(i,2) -> -1+1.2246467991473532e-16i
 <br>
-・浮動小数点演算では、epsilonに相当するMachine誤差O(1e-16)が残る
+・浮動小数点演算では、次のepsilonに相当する<a href="#span-out-float">Machine epsilon</a>が残る
 <br>
 epsilon || eps -> 2.220446049250313e-16
 <br>
@@ -4713,7 +4713,7 @@ clear; ($a,$b)=(1,$b) -> [MyErr]Invalid matching
 <br>
 clear; ($a,$b)=(1) -> [MyErr]Invalid matching(vars)
 <br>
-・通常の代入と異なり、nesting不可
+・<a href="#span-out-substitution">変数への代入</a>と異なり、nesting不可
 <br>
 clear; ($a,(($b)=3))=(1,2) -> [MyErr]Invalid matching(vars)
 <br>
@@ -5713,7 +5713,7 @@ _rn(=&lt;run,,6) -> infoLost[ri] 2.3549912261033786e-10+O(8e+0)
 <br>
 x -> infoLost[ri] 0.9999999999877383+1.0000000000273828i+O(1e-5+9e-6i)
 <br>
-・normがMachine誤差まで収束困難のため、一定回数の反復で打切る
+・normが<a href="#span-out-float">Machine epsilon</a>まで収束困難のため、一定回数の反復で打切る
 <br>
 ・次に数値解の一例を示す
 <br>
@@ -7357,7 +7357,7 @@ x0 -> infoLost[ri] -3.999999999999999-3.362471994400586e-26i
 <br>
 x1 -> infoLost[ri] 4.499999999999999+6.466216308756395e-26i
 <br>
-・normがMachine誤差O(1e-16)に収束すれば収束判定条件を満たす
+・normが<a href="#span-out-float">Machine epsilon</a>に収束すれば収束判定条件を満たす
 <br>
 ・その場合、近似解は厳密解にほぼ一致する
 <br>
@@ -8612,11 +8612,11 @@ clear; max(x=(-1,-2),min(x)) || max(0,-2) -> 0
 <br>
 vector={1,2,3}:trans(vector)vector -> (0:14)
 <br>
-・行列要素pattern matchingによる代入も同様
+・<a href="#span-out-matching">行列要素pattern matching</a>による代入も同様
 <br>
 (($a,$b)=(1,2)) -> 0
 <br>
-・式変数への代入も同様
+・<a href="#span-out-substitution-equation">式変数への代入</a>も同様
 <br>
 (x=&lt;(a,b,c,d,e)) -> 0
 <br>
