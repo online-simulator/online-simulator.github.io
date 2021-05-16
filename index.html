@@ -227,6 +227,42 @@ Y/M/D
 <tbody>
   <tr>
     <th>
+3.36.16.5.15
+    </th>
+    <td class="types">
+Calculator
+    </td>
+    <td>
+2.27.14
+    </td>
+    <td>
+minor update
+    </td>
+    <td>
+[Graphing Calculator]
+<br>
+・Ver.2.11.4仕様変更を取消しplot2d-command-log's sixth z added
+<br>
+　plot2d('t0','t1','xt','yt','N')　⇒　plot2d('t0','t1','xt','yt','N','z')
+<br>
+　legend-str等の追加により、zを含めた方が再現しやすい
+<br>
+　重複するoptions-input-z出力は維持（comment削除後のzを残す）
+<br>
+・plot2d-commandのsixth z&amp;commnet入力に対応
+<br>
+　<a href="01_calc_simple/manual.html#span-out-plot2d-command">[manual]Calculator-plot2d-command</a>
+<br>
+[Calculator]
+<br>
+・manual整備
+    </td>
+    <td>
+2021/5/16
+    </td>
+  </tr>
+  <tr>
+    <th>
 3.35.16.5.15
     </th>
     <td class="types">
@@ -303,7 +339,7 @@ fatal bug-fix
 <br>
 ・t0||t1のerror処理を追加
 <br>
-　plot2d('','','t;'t;','10') -> [MyErr]Invalid t0 || t1
+　plot2d('','','t;'t;') -> [MyErr]Invalid t0 || t1
 <br>
 ・plot2d-from-arrのerror処理を追加
 <br>
@@ -415,7 +451,7 @@ minor update
 <br>
 　<a href="01_calc_simple/manual.html#span-out-plot2d-command">[manual]Calculator-plot2d-command</a>
 <br>
-　plot2d('t0','t1','xt','yt','N') || plot2d(xt,yt)
+　plot2d('t0','t1','xt','yt') || plot2d(xt,yt)
     </td>
     <td>
 2021/5/13
@@ -1814,9 +1850,9 @@ minor update
 <br>
 ・微分高階関数の微分位置と微分階数の引数順序を入替え
 <br>
-・微分高階関数の差分刻み幅に情報落ちの対策を追加
+・微分高階関数の差分刻みに情報落ちの対策を追加
 <br>
-・Jacobi高階関数に第4引数（1階偏微分の差分刻み幅）を追加
+・Jacobi高階関数に第4引数（1階偏微分の差分刻み）を追加
 <br>
 ・情報落ち発生の評価をabout評価から厳密評価に変更
     </td>

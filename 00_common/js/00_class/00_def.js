@@ -179,5 +179,5 @@ My_entry.def.prototype.get_command = function(input, command, isLongest){
   var self = this;
   var pat = (isLongest)? "(.*)": "(.*?)";
   var re = new RegExp(command+"\\("+pat+"\\)");
-  return input.match(re);
+  return input.replace(/\s/g, "").match(re);
 };

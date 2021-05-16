@@ -329,6 +329,10 @@ My_entry.calc_graphing.prototype.make_log_plot2d = function(){
 */
   _log += sq+$.selectVal_id("select-N")+sq;
   /* -> Ver.2.25.12 */
+  /* Ver.2.27.14 -> */
+  var inputZ = $.inputVal_id("input-z");
+  _log += (inputZ)? ca+sq+inputZ+sq: "";
+  /* -> Ver.2.27.14 */
   _log += ")";
   return _log;
 };
@@ -409,7 +413,7 @@ My_entry.calc_graphing.prototype.get_options = function(isPlot){
     _options["grid-line-color"] = $.inputVal_id("input-grid-line-color");
     _options["title"] = $.inputVal_id("input-title");
     _options["logo"] = parser.make_logo({options: _options});  // including z
-    _options["plot2d"] = self.make_log_plot2d();               // excluding z
+    _options["plot2d"] = self.make_log_plot2d();               // including z
     /* Ver.2.16.6 -> */
     _options.arr_x = self.arr_x;
     _options.arr_y = self.arr_y;
@@ -536,6 +540,11 @@ My_entry.calc_graphing.prototype.init_handlers = function(){
     if(tokens[4]){
       $.set_selectVal_id("select-N", tokens[4].replace(re, ""));
     }
+    /* Ver.2.27.14 -> */
+    if(tokens[5]){
+      $._id("input-z").value = tokens[5].replace(re, "");
+    }
+    /* -> Ver.2.27.14 */
     $._id("button-plot").onclick();
   };
   var plot2d_from_arr = function(tokens){
@@ -707,7 +716,12 @@ My_entry.calc_graphing.prototype.init_handlers = function(){
         var input = self.io.read_text(self.elems.i);
         var options = self.get_options();
         /* Ver.2.25.12 -> */
+        /* Ver.2.27.14 -> comment allowed */
+/*
         var mc = self.entry.def.get_command(parser.remove_commentAndWspace(input), "plot2d", true);
+*/
+        var mc = self.entry.def.get_command(input, "plot2d", true);
+        /* -> Ver.2.27.14 */
         if(mc && mc.length === 2){
           /* Ver.2.25.14 -> */
           if(self.worker_plot && self.worker_plot.handler.isLocked) return false;
