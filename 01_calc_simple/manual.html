@@ -112,7 +112,7 @@ e^(-i(1pi(){2/2i}(5-{3-1}){i/(-4)}))
   </tr>
   <tr>
     <td colspan="4">
-実数演算不可（0*Infinity->NaN発生）
+<a href="#span-out-ope">実数演算</a>不可（0*Infinity->NaN発生）
     </td>
   </tr>
 </tbody>
@@ -188,18 +188,33 @@ option
 </a>
 <br>
 ・
+<a href="#span-out-associativity">
+associativity
+</a>
+<br>
+・
 <a href="#span-out-prec">
-演算の優先順位
+演算のprecedence
 </a>
 <br>
 ・
 <a href="#span-out-prec-ope">
-演算子の優先順位
+演算子のprecedence
 </a>
 <br>
 ・
 <a href="#span-out-float">
 浮動小数点演算
+</a>
+<br>
+・
+<a href="#span-out-epsilon">
+Machine epsilon
+</a>
+<br>
+・
+<a href="#span-out-number">
+Number型定数
 </a>
 <br>
 ・
@@ -337,6 +352,11 @@ comment文
 </a>
 <br>
 　・
+<a href="#span-out-ans">
+予約変数
+</a>
+<br>
+　・
 <a href="#span-out-substitution">
 変数への代入
 </a>
@@ -361,9 +381,59 @@ comment文
 高階関数
 </a>
 <br>
+　　・
+<a href="#span-out-FNh-switch">
+switch高階関数
+</a>
+<br>
+　　・
+<a href="#span-out-FNh-SX">
+総和高階関数
+</a>
+<br>
+　　・
+<a href="#span-out-FNh-PX">
+総乗・総積高階関数
+</a>
+<br>
+　　・
+<a href="#span-out-FNh-RX">
+再帰高階関数
+</a>
+<br>
+　　・
+<a href="#span-out-FNh-DX">
+微分高階関数
+</a>
+<br>
+　　・
+<a href="#span-out-FNh-IX">
+積分高階関数
+</a>
+<br>
 　・
 <a href="#span-out-FNmh">
 高階行列関数
+</a>
+<br>
+　　・
+<a href="#span-out-FNmh-jacobian">
+Jacobi高階行列関数
+</a>
+<br>
+　　・
+<a href="#span-out-FNmh-newtonian">
+Newton高階行列関数
+</a>
+<br>
+　　・
+<a href="#span-out-FNmh-OX">
+ODE高階行列関数
+</a>
+<br>
+　　・
+<a href="#span-out-FNmh-EX">
+symbolic高階行列関数
 </a>
 <br>
 ・解法
@@ -376,6 +446,16 @@ comment文
 　・
 <a href="#span-out-fdm">
 有限差分法
+</a>
+<br>
+　　・
+<a href="#span-out-fdm-differential">
+微分の数値解法
+</a>
+<br>
+　　・
+<a href="#span-out-fdm-integral">
+積分の数値解法
 </a>
 <br>
 　・
@@ -403,6 +483,16 @@ comment文
 級数展開
 </a>
 <br>
+　　・
+<a href="#span-out-series-Taylor">
+Taylor級数・Maclaurin級数
+</a>
+<br>
+　　・
+<a href="#span-out-series-Fourier">
+Fourier級数
+</a>
+<br>
 　・
 <a href="#span-out-limit">
 極限
@@ -411,6 +501,11 @@ comment文
 ・
 <a href="#span-out-special">
 特殊仕様
+</a>
+<br>
+・
+<a href="#span-out-application">
+application
 </a>
 <br>
 ・
@@ -435,7 +530,7 @@ option
 <br>
 ・
 <a href="#span-in-prec">
-変数・関数・区切り文字・演算子の優先順位
+変数・関数・区切り文字・演算子のprecedence
 </a>
 <br>
 ・
@@ -458,6 +553,8 @@ option
 ・arrow記号->の左側に入力の演算内容、右側に出力の演算結果を示す
 <br>
 　入力演算内容 -> 出力演算結果
+<br>
+　入力演算内容case1 || 入力演算内容case2 -> 出力演算結果
 <br>
 ・誤差のOrderをLandauの記号O(指数表記1e-16等)で表記する
 <br>
@@ -484,7 +581,7 @@ evalに代わる実装項目とfile名の対応関係を列挙する
 <br>
 ・構文解析・字句解析・単位tree構造: parser.js/operation.js/DATA.js
 <br>
-・変数・関数・区切り文字・演算子の優先順位: operation.js
+・変数・関数・区切り文字・演算子のprecedence: operation.js
 <br>
 ・演算unit: operation.js/unit.js
 <br>
@@ -581,26 +678,28 @@ Simple Calculatorの操作panelについて記述する
 <br>
 panel上段について記述する
 <br>
-・draggable checkedでdrag移動有効化
+・draggable checked時、drag移動有効化
 <br>
-・log出力欄に入力欄の演算結果のlogを表示・表示制限5000字以内
+・log出力欄に入力欄の演算結果のlogを表示
+<br>
+　文字数制限5000字以内
 <br>
 ・入力欄に演算内容を入力
 <br>
-・sw checkedでpush/pop入力と直接入力を切替え可
+・sw checked時、push/pop入力と直接入力を切替え可
 <br>
-・0x checkedで16進数のa-fの入力buttonを追加表示
+・0x checked時、16進数のa-f-buttonを追加表示
 <br>
-・その下のiの入力buttonはcomplex checked時のみ表示
+・complex checked時、虚数単位i-buttonを追加表示
 <br>
-・左側に0-9の数字と小数点.の入力buttonを表示
+・左側に0-9の数字と小数点.-buttonを表示
 <br>
-・その右側に四則演算の演算子記号の入力buttonを表示
+・右側に四則演算の演算子記号-buttonを表示
 <br>
 <br>
 panel右側について記述する
 <br>
-・C-buttonは入力欄／log出力欄の内容とglobal <a href="#span-out-storage">storage</a>のClear実行を確定する
+・C-buttonは入力欄&amp;log出力欄の内容とglobal <a href="#span-out-storage">storage</a>のClear実行を確定する
 <br>
 　Multi-thread実行時は演算を中断する
 <br>
@@ -608,18 +707,20 @@ panel右側について記述する
 <br>
 ・ans-buttonはlog出力欄の演算結果を入力欄に確定する
 <br>
-　演算結果が実数以外の場合、入力欄を消去して予約変数ansのtextを挿入
+　演算結果が実数以外の場合、入力欄を消去して<a href="#span-out-ans">予約変数</a>ansのtextを挿入
 <br>
 ・＝-buttonは入力欄の内容で演算実行を確定する
 <br>
 <br>
 panel中段について記述する
 <br>
-・complex checkedで<a href="#span-out-com">複素数</a>演算を有効化・虚数単位iの入力buttonを表示
+・complex checked時、<a href="#span-out-com">複素数</a>演算を有効化
 <br>
-・matrix checkedで<a href="#span-out-mat">行列</a>演算を有効化
+　虚数単位i-buttonを追加表示
 <br>
-　定義できる2項の演算のみ
+・matrix checked時、<a href="#span-out-mat">行列</a>演算を有効化
+<br>
+　定義できる2項演算のみ
 <br>
 ・演算結果の小数表記と指数表記を選択可
 <br>
@@ -630,9 +731,16 @@ panel中段について記述する
 <br>
 panel下段について記述する
 <br>
-・history欄に最新を上にして演算履歴を表示・表示制限5000字以内
+・history欄に最新を上にして演算履歴を表示
+<br>
+　文字数制限5000字以内
 <br>
 ・history欄下のlinkから演算履歴の全文をtext保存可
+<br>
+<br>
+一般的な電卓の操作感を再現する場合、all checkbox unchecked
+<br>
+・遅延しないSingle-threadの<a href="#span-out-ope">実数演算</a>
     </td>
   </tr>
   <tr>
@@ -664,19 +772,19 @@ panel上段について記述する
 <br>
 　・png||svg出力共通でpixel座標小数点以下floorの出力桁数0~9桁を選択可
 <br>
-・canvasにplot2dの描画結果を表示
+・canvasにplot2dの演算&amp;描画結果を表示
 <br>
 　・mouseまたはtouchによる範囲選択で拡大表示
 <br>
 　・single clickまたはone tapで拡大表示reset
 <br>
-・log出力欄にplot2dの演算・描画結果のlogを表示
+・log出力欄にplot2dの演算&amp;描画結果のlogを表示
 <br>
-・plot-buttonは演算・描画実行を確定する
+・plot-buttonは演算&amp;描画実行を確定する
 <br>
-・stop-buttonは演算・描画実行を中断する・軸scaleを初期化する
+・stop-buttonは演算&amp;描画実行を中断する・軸scaleを初期化する
 <br>
-・lのcheckboxはlegend表示を選択
+・l-checkboxはlegend表示を選択
 <br>
 ・tの入力欄に媒介変数の範囲下限t0と範囲上限t1の複素数値を入力
 <br>
@@ -688,11 +796,11 @@ panel上段について記述する
 <br>
 　・直下のcheckboxは軸label/value表示を選択
 <br>
-　・logのcheckboxは対数表示を選択
+　・log-checkboxは対数表示を選択
 <br>
-　・iのcheckboxは虚数表示を選択
+　・i-checkboxは虚数表示を選択
 <br>
-　・x(t)のgrid最小値~最大値を入力
+　・x(t)のplot範囲外grid最小値~最大値を入力
 <br>
 ・y(t)の入力欄に縦軸yの演算内容をsemi-colon;区切りで入力
 <br>
@@ -700,11 +808,11 @@ panel上段について記述する
 <br>
 　・直下のcheckboxは軸label/value表示を選択
 <br>
-　・logのcheckboxは対数表示を選択
+　・log-checkboxは対数表示を選択
 <br>
-　・iのcheckboxは虚数表示を選択
+　・i-checkboxは虚数表示を選択
 <br>
-　・y(t)のgrid最小値~最大値を入力
+　・y(t)のplot範囲外grid最小値~最大値を入力
 <br>
 ・zの入力欄にlegendのdatasetをsemi-colon;区切りで入力
 <br>
@@ -720,9 +828,17 @@ str:strFontSize
 <br>
 　・markerColorはcolor名（black等）またはHEX表記RGBA（#00000000等）
 <br>
+　・markerSizeはmarkerTypeの目安size
+<br>
+　・markerLineWidthはmarker-line-widthのpx数値
+<br>
+　・plotLineWidthはplot-line-widthのpx数値
+<br>
 　・fillPathは0以外を指定でplot線を閉じてfill
 <br>
-　・strはstrFontSizeのlegend文字列
+　・strはlegend-string
+<br>
+　・strFontSizeはlegend-stringのfont-sizeのpx数値
 <br>
 <br>
 plot-configについて記述する
@@ -741,19 +857,19 @@ plot-configについて記述する
 <br>
 　背景画像file未指定時のみ有効
 <br>
-・bg-colorとgrid-line-color（既定値gray）の入力欄はz同様に色指定可
+・bg-colorとgrid-line-color（既定値gray）の入力欄はz-markerColor同様に色指定可
 <br>
-・grid線幅grid-line-widthを選択可
+・grid-line-widthを選択可
 <br>
 ・marker-sizeを選択可
 <br>
-・marker線幅marker-line-widthを選択可
+・marker-line-widthを選択可
 <br>
-・plot線幅plot-line-widthを選択可
+・plot-line-widthを選択可
 <br>
-・共通のfont-sizeを選択可
+・font-sizeを選択可
 <br>
-　軸value/legend-strのfont-sizeは選択値
+　軸value/legend-stringのfont-sizeは選択値
 <br>
 　軸label/titleのfont-sizeは選択値+2px
 <br>
@@ -794,7 +910,7 @@ panel中段について記述する
 <br>
 ・=-buttonは入力欄の内容で演算実行を確定する
 <br>
-・C-buttonは入力欄／log出力欄の内容とglobal <a href="#span-out-storage">storage</a>のClear実行を確定する
+・C-buttonは入力欄&amp;log出力欄の内容とglobal <a href="#span-out-storage">storage</a>のClear実行を確定する
 <br>
 　Multi-thread実行時は演算を中断する
 <br>
@@ -804,16 +920,16 @@ panel中段について記述する
 <br>
 ・i-buttonは入力欄の選択位置に虚数単位iのtextを挿入する
 <br>
-・()-buttonは入力欄の選択位置に()のtextを挿入する
+・()-buttonは入力欄の選択位置に丸括弧()のtextを挿入する
 <br>
-・{}-buttonは入力欄の選択位置に{}のtextを挿入する
+・{}-buttonは入力欄の選択位置に波括弧{}のtextを挿入する
 <br>
-・ans-buttonは入力欄の選択位置にansのtextを挿入する
+・ans-buttonは入力欄の選択位置に<a href="#span-out-ans">予約変数</a>ansのtextを挿入する
 <br>
 <br>
 Multi-thread実行の場合、plot-buttonと=-buttonは並列に実行可
 <br>
-・shared storage checked時のみglobal <a href="#span-out-storage">storage</a>を共有
+・shared storage checked時、global <a href="#span-out-storage">storage</a>を共有
 <br>
 ・plot-buttonによる演算はglobal storage readonly
 <br>
@@ -840,7 +956,7 @@ log表示上の仕様と付随する留意事項について記述する
 <br>
 ・演算後の値のみ表示する
 <br>
-・直前の実行文の演算結果を保持する予約変数ansへの代入を明示しない
+・直前の実行文の演算結果を保持する<a href="#span-out-ans">予約変数</a>ansへの代入を明示しない
 <br>
 3*2 -> 6
 <br>
@@ -876,7 +992,7 @@ eqn_x=&lt;(a*x+b=0) -> stored_eqn(eqn_x)
 eqn_t=&lt;sin(omega(t)) -> stored_eqn(eqn_t)
 <br>
 <br>
-代入の場合、予約変数ansは更新されない
+代入の場合、<a href="#span-out-ans">予約変数</a>ansは更新されない
 <br>
 3*2 -> 6
 <br>
@@ -903,7 +1019,7 @@ max(x=3,-1,-2) || max(0,-1,-2) -> 0
 <br>
 (1,2:3,4:x=5,x) -> (1,2:3,4:0,5)
 <br>
-・ただし、行列を代入しても次元は残らない
+・ただし、<a href="#span-out-mat">行列</a>を代入しても次元は残らない
 <br>
 (x=(1,2:3,4)) -> 0
 <br>
@@ -924,13 +1040,11 @@ option
 選択可能なoption設定について記述する
 <br>
 <br>
-2項演算子の結合性を左右選択可
+2項演算子の結合性<a href="#span-out-associativity">associativity</a>を左右選択可
 <br>
-・左から順に結合する場合、左結合（既定）
+・左から順に結合する場合、左結合default
 <br>
 +3-5+7-9 || ((((0+3)-5)+7)-9) -> -4
-<br>
-3^2^3 || 3**2**3 || ((3^2)^3) || ((3**2)**3) -> 729
 <br>
 -(1,1)-(2,2) || (((0,0)-(1,1))-(2,2)) -> (-3,-3)
 <br>
@@ -938,20 +1052,16 @@ option
 <br>
 +3-5+7-9 || (0+(3-(5+(7-9)))) -> 0
 <br>
-3^2^3 || 3**2**3 || (3^(2^3)) || (3**(2**3)) -> 6561
-<br>
 -(1,1)-(2,2) || ((0,0)-((1,1)-(2,2))) -> (1,1)
 <br>
 ・前置単項の符号は同種の2項演算子と区別しない
 <br>
 ・符号の左側には0またはzeros行列が存在すると仮定して結合する
 <br>
-・べき乗の2項演算子は^と**を区別しない
 <br>
+<a href="#span-out-BRmo">記号省略乗算</a>と除算のprecedenceを切替え可
 <br>
-<a href="#span-out-BRmo">記号省略乗算</a>と除算の優先順位を切替え可
-<br>
-・除算より記号省略乗算優先（既定）
+・除算より記号省略乗算優先default
 <br>
 1/2(2) || 1/(2(2)) -> 0.25
 <br>
@@ -971,19 +1081,52 @@ Multi-thread実行を選択可
 目次
 </a>
 <br>
+associativity
+    </th>
+    <td>
+<span id="span-out-associativity"></span>
+2項演算子の結合性associativityについて記述する
+<br>
+<br>
+左結合left-associativity
+<br>
++3-5+7-9 || ((((0+3)-5)+7)-9) -> -4
+<br>
+3^2^3 || ((3^2)^3) -> 729
+<br>
+3**2**3 || ((3**2)**3) -> 729
+<br>
+・べき乗の2項演算子は^と**を区別しない
+<br>
+<br>
+右結合right-associativity
+<br>
++3-5+7-9 || (0+(3-(5+(7-9)))) -> 0
+<br>
+3^2^3 || (3^(2^3)) -> 6561
+<br>
+3**2**3 || (3**(2**3)) -> 6561
+    </td>
+  </tr>
+  <tr>
+    <th>
+<a href="#span-index">
+目次
+</a>
+<br>
 演算の
 <br>
-優先順位
+precedence
     </th>
     <td>
 <span id="span-out-prec"></span>
-演算の優先順位について記述する
+演算のprecedenceについて記述する
 <br>
 <br>
-演算の優先順位に従って実行文を解釈し、順番に演算を実行する
+演算のprecedenceに従って実行文を解釈し、順番に演算を実行する
 <br>
 <br>
-主要な優先順位を優先順に列挙する
+主要なprecedenceを優先順に列挙する
 <br>
 ・<a href="#span-out-SR">区切り文字</a>
 <br>
@@ -1010,14 +1153,14 @@ max(x=1,(x):2,3)[0]2 || (max((0,1:2,3)[0]))2 || (max(0,1))2 || (1)2 -> 2
 <br>
 演算子の
 <br>
-優先順位
+precedence
     </th>
     <td>
 <span id="span-out-prec-ope"></span>
-演算子の優先順位と付随する留意事項について記述する
+演算子のprecedenceと付随する留意事項について記述する
 <br>
 <br>
-除算と乗算の2項演算子は区別せず、<a href="#span-out-options">結合性</a>に従って演算する
+除算と乗算の2項演算子は区別せず、<a href="#span-out-associativity">associativity</a>に従って演算する
 <br>
 左結合既定時　1*2/3*4/5 || ((((1*2)/3)*4)/5) -> 0.5333333333333333
 <br>
@@ -1031,9 +1174,9 @@ max(x=1,(x):2,3)[0]2 || (max((0,1:2,3)[0]))2 || (max(0,1))2 || (1)2 -> 2
 　　　　除算優先選択時　1/2(2) || (1/2)(2) -> 1
 <br>
 <br>
-減算と加算の2項演算子は区別せず、<a href="#span-out-options">結合性</a>に従って演算する
+減算と加算の2項演算子は区別せず、<a href="#span-out-associativity">associativity</a>に従って演算する
 <br>
-前置単項の符号は同種の2項演算子と区別せず、<a href="#span-out-options">結合性</a>に従って演算する
+前置単項の符号は同種の2項演算子と区別せず、<a href="#span-out-associativity">associativity</a>に従って演算する
 <br>
 左結合既定時　+3-5+7-9 || ((((0+3)-5)+7)-9) -> -4
 <br>
@@ -1059,7 +1202,7 @@ bit演算子を除く2項演算子は前置単項の符号より優先する
 <br>
 -0xff&gt;&gt;2 || (-0xff)&gt;&gt;2 || (-255)&gt;&gt;2 -> -64
 <br>
-・排他的論理和XORの2項演算子は^の代わりに@を使用する
+・排他的論理和XORのbit演算子は^の代わりに@を使用する
 <br>
 -0xff&gt;&gt;1@1 || (-0xff&gt;&gt;1)@1 || (-128)@1 -> -127
 <br>
@@ -1068,9 +1211,11 @@ bit演算子は比較演算子・関係演算子より優先する
 <br>
 5&lt;2|4 || 5&lt;(2|4) || 5&lt;6 -> 1
 <br>
+・bit演算子は短絡評価しない
+<br>
 4==2|4 || 4==(2|4) || 4==6 -> 0
 <br>
-・bit演算子で代替可能な論理OR記号||と論理AND記号&amp;&amp;は未実装
+・bit演算子で代替可能な論理OR演算子||と論理AND演算子&amp;&amp;は未実装
 <br>
 ・論理ORをbit ORで代替する場合、<a href="#span-out-BT">括弧</a>を明示する
 <br>
@@ -1130,7 +1275,7 @@ i==0 || real(i)==0 -> 1
 比較演算子・関係演算子を代替する関数は<a href="#span-out-FN">関数入力仕様</a>参照
 <br>
 <br>
-演算子の優先順位を変更する場合
+演算子のprecedenceを変更する場合
 <br>
 <a href="#span-out-BRmo">記号省略乗算</a>を許容しない場合
 <br>
@@ -1191,11 +1336,102 @@ pow(2,-52) || 2^(-52) -> 2.220446049250313e-16
 <br>
 ・この最小値O(1e-16)より小さな有効数字は保持できない
 <br>
-・これを丸める誤差をMachine epsilonと呼ぶ
+・これを丸める誤差を<a href="#span-out-epsilon">Machine epsilon</a>と呼ぶ
 <br>
-・仮数部の最下位bitの有効数字未満を丸める相対誤差を次のεで定義する
+<br>
+64bit2進形式の浮動小数点演算の挙動を示す
+<br>
+・16桁の小数を入力した場合、同じ
+<br>
+0.9999999999999999 -> 0.9999999999999999
+<br>
+-0.9999999999999999 -> -0.9999999999999999
+<br>
+・17桁の小数を入力した場合、<a href="#span-out-epsilon">Machine epsilon</a>が生じる
+<br>
+0.99999999999999999 -> 1
+<br>
+-0.99999999999999999 -> -1
+<br>
+・整数も小数同様の形式で保存される
+<br>
+・よって17桁以上の整数を入力した場合、小数同様に<a href="#span-out-epsilon">Machine epsilon</a>が生じる
+<br>
+9007199254740991 -> 9007199254740991
+<br>
+90071992547409911 -> 90071992547409900
+<br>
+900719925474099111 -> 900719925474099100
+<br>
+9007199254740991111 -> 9007199254740991000
+<br>
+90071992547409911111 -> 90071992547409900000
+<br>
+900719925474099111111 -> 900719925474099100000
+<br>
+9007199254740991111111 -> 9.007199254740991e+21
+<br>
+・1000で割って1000を掛けた場合、<a href="#span-out-epsilon">Machine epsilon</a>が生じる
+<br>
+9007199254740991/1000 -> 9007199254740.99
+<br>
+ans*1000 -> 9007199254740990
+<br>
+0.9999999999999999/1000 -> 0.0009999999999999998
+<br>
+ans*1000 -> 0.9999999999999998
+<br>
+・<a href="#span-out-ope">実数演算</a>の場合
+<br>
+・2の累乗倍で演算すれば仮数部の有効桁はそのまま保持される
+<br>
+9007199254740991/1024 -> 8796093022207.999
+<br>
+ans*1024 -> 9007199254740991
+<br>
+9007199254740991/2^100 -> 7.105427357601001e-15
+<br>
+ans*2^100 -> 9007199254740991
+<br>
+9007199254740991/2^(-100) -> 1.1417981541647678e+46
+<br>
+ans*2^(-100) -> 9007199254740991
+<br>
+0.9999999999999999/1024 -> 0.0009765624999999999
+<br>
+ans*1024 -> 0.9999999999999999
+<br>
+0.9999999999999999/2^100 -> 7.888609052210117e-31
+<br>
+ans*2^100 -> 0.9999999999999999
+<br>
+0.9999999999999999/2^(-100) -> 1.2676506002282293e+30
+<br>
+ans*2^(-100) -> 0.9999999999999999
+    </td>
+  </tr>
+  <tr>
+    <th>
+<a href="#span-index">
+目次
+</a>
+<br>
+Machine
+<br>
+epsilon
+    </th>
+    <td>
+<span id="span-out-epsilon"></span>
+浮動小数点演算のMachine epsilonについて記述する
+<br>
+<br>
+仮数部の最下位bitの有効数字未満を丸める相対誤差をMachine epsilonと呼ぶ
+<br>
+・次のepsilonで定義する
 <br>
 epsilon || eps || pow(2,-52) -> 2.220446049250313e-16
+<br>
+・test caseを列挙する
 <br>
 1+epsilon -> 1.0000000000000002
 <br>
@@ -1226,80 +1462,26 @@ epsilon || eps || pow(2,-52) -> 2.220446049250313e-16
 1000-1000epsilon/4 -> 1000
 <br>
 1e4-1e4epsilon/4 -> 10000
+    </td>
+  </tr>
+  <tr>
+    <th>
+<a href="#span-index">
+目次
+</a>
+<br>
+Number型
+<br>
+定数
+    </th>
+    <td>
+<span id="span-out-number"></span>
+JavaScriptのNumber型の定数について記述する
 <br>
 <br>
-64bit2進形式の浮動小数点演算の挙動を示す
+JavaScriptのNumber型の定数は<a href="#span-out-FN0">定数</a>として定義する
 <br>
-・16桁の小数を入力した場合、同じ
-<br>
-0.9999999999999999 -> 0.9999999999999999
-<br>
--0.9999999999999999 -> -0.9999999999999999
-<br>
-・17桁の小数を入力した場合、先述のMachine epsilonが生じる
-<br>
-0.99999999999999999 -> 1
-<br>
--0.99999999999999999 -> -1
-<br>
-・整数も小数同様の形式で保存される
-<br>
-・よって17桁以上の整数を入力した場合、小数同様にMachine epsilonが生じる
-<br>
-9007199254740991 -> 9007199254740991
-<br>
-90071992547409911 -> 90071992547409900
-<br>
-900719925474099111 -> 900719925474099100
-<br>
-9007199254740991111 -> 9007199254740991000
-<br>
-90071992547409911111 -> 90071992547409900000
-<br>
-900719925474099111111 -> 900719925474099100000
-<br>
-9007199254740991111111 -> 9.007199254740991e+21
-<br>
-・1000で割って1000を掛けた場合、Machine epsilonが生じる
-<br>
-9007199254740991/1000 -> 9007199254740.99
-<br>
-ans*1000 -> 9007199254740990
-<br>
-0.9999999999999999/1000 -> 0.0009999999999999998
-<br>
-ans*1000 -> 0.9999999999999998
-<br>
-・実数演算の場合
-<br>
-・2の累乗倍で演算すれば仮数部の有効桁はそのまま保持される
-<br>
-9007199254740991/1024 -> 8796093022207.999
-<br>
-ans*1024 -> 9007199254740991
-<br>
-9007199254740991/2^100 -> 7.105427357601001e-15
-<br>
-ans*2^100 -> 9007199254740991
-<br>
-9007199254740991/2^(-100) -> 1.1417981541647678e+46
-<br>
-ans*2^(-100) -> 9007199254740991
-<br>
-0.9999999999999999/1024 -> 0.0009765624999999999
-<br>
-ans*1024 -> 0.9999999999999999
-<br>
-0.9999999999999999/2^100 -> 7.888609052210117e-31
-<br>
-ans*2^100 -> 0.9999999999999999
-<br>
-0.9999999999999999/2^(-100) -> 1.2676506002282293e+30
-<br>
-ans*2^(-100) -> 0.9999999999999999
-<br>
-<br>
-JavaScriptのNumber型の定数を示す
+・test caseを列挙する
 <br>
 EPSILON -> 2.220446049250313e-16
 <br>
@@ -1323,7 +1505,7 @@ MAX_VALUE*(1+EPSILON) -> Infinity
 <br>
 Math.pow(2,Math.pow(2,10)) || 2**(2**10) -> Infinity
 <br>
-・実数演算の場合、Nativeに同義
+・<a href="#span-out-ope">実数演算</a>の場合、Nativeに同義
 <br>
 pow(2,pow(2,10)) || 2**(2**10) || 2^(2^10) -> Infinity
 <br>
@@ -1374,7 +1556,7 @@ pow(2,pow(2,10)) || 2**(2**10) || 2^(2^10) -> 1.7976931348622732e+308
 <br>
 pi -> 3.141592653589793
 <br>
-・円周率20桁の絶対誤差はMachine epsilonに相当する
+・円周率20桁の絶対誤差は<a href="#span-out-epsilon">Machine epsilon</a>に相当する
 <br>
 0.00000000000000023846 -> 2.3846e-16
 <br>
@@ -1410,7 +1592,7 @@ i+1e-16i -> infoLost[ i] i
 <br>
 (-1)^0.5 -> 6.123233995736766e-17+i
 <br>
-・実部にMachine epsilonが残るため、1を加算すると情報落ちが発生する
+・実部に<a href="#span-out-epsilon">Machine epsilon</a>が残るため、1を加算すると情報落ちが発生する
 <br>
 ans+1 -> infoLost[r ] 1+i
 <br>
@@ -1621,7 +1803,7 @@ checkError=false
 ・演算量が数倍軽くなる
 <br>
 <br>
-<a href="#span-out-prec-ope">演算子の優先順位</a>を変更する場合
+<a href="#span-out-prec-ope">演算子のprecedence</a>を変更する場合
 <br>
 ・演算子の<a href="#span-in-prec">tag名</a>を優先順にcomma,区切りで列挙する
 <br>
@@ -1649,13 +1831,13 @@ URi,URf,BRp,BRr,BRmo,BRdm,BRsa,BRbs,BRba,BRbx,BRbo,BRcn,BRrl
 <br>
 UI設定によって対応する用途を4種類示す
 <br>
-・有次元の複素数の<a href="#span-out-mat">行列</a>演算（complex/matrixにcheck）
+・有次元の複素数の<a href="#span-out-mat">行列</a>演算（complex&amp;matrix checked）
 <br>
-・有次元の実数の<a href="#span-out-mat">行列</a>演算（matrixにcheck）
+・有次元の実数の<a href="#span-out-mat">行列</a>演算（only matrix checked）
 <br>
-・無次元の<a href="#span-out-com">複素数</a>演算（complexにcheck）
+・無次元の<a href="#span-out-com">複素数</a>演算（only complex checked）
 <br>
-・無次元の実数演算（check無し）
+・無次元の実数演算（complex&amp;matrix unchecked）
 <br>
 <br>
 次の2次の正方行列の積を一例に
@@ -1845,7 +2027,7 @@ parse関数の役割はcompiler
 <br>
 operation関数の役割はinterpreter
 <br>
-・<a href="#span-out-prec">演算の優先順位</a>に従って実行文を実行する
+・<a href="#span-out-prec">演算のprecedence</a>に従って実行文を実行する
 <br>
 ・逐次、実行文のtreeを演算結果に置換する
     </td>
@@ -1937,7 +2119,7 @@ plot2dの演算は高速化のため、誤差を評価しない・logを作ら�
 <br>
 csv/history出力のplot2d-command-logとoptions-logについて記述する
 <br>
-・整合性保証のため、plot2d演算実行確定時のlogを表示する
+・整合性保証のため、plot2dの演算実行確定時のlogを表示する
 <br>
 ・よって演算終了後に変更した現在のzをlogに残す場合、再演算が必要
 <br>
@@ -1953,12 +2135,12 @@ semi-colon;区切りで行列の最終要素の数値をgraphに描画する
 <br>
 tの範囲下限t0と範囲上限t1のlocal <a href="#span-out-storage">storage</a>は独立
 <br>
-・global <a href="#span-out-storage">storage</a>をreadonlyで共有する場合、shared storageをcheckする
+・global <a href="#span-out-storage">storage</a>をreadonlyで共有する場合、shared storage checked
 <br>
 <br>
 x軸とy軸のlocal <a href="#span-out-storage">storage</a>はx軸優先で共通
 <br>
-・global <a href="#span-out-storage">storage</a>をreadonlyで共有する場合、shared storageをcheckする
+・global <a href="#span-out-storage">storage</a>をreadonlyで共有する場合、shared storage checked
 <br>
 <br>
 tの演算をSingle-threadで実行後、x/yの演算をMulti-threadで実行
@@ -2012,7 +2194,7 @@ Edge/Chrome: w -> 43.541015625
 <br>
 続けて演算結果の相違について記述する
 <br>
-・IEのJScript-originとそれ以外のJavaScriptで<a href="#span-out-float">Machine epsilon</a>程度の相違がある
+・IEのJScript-originとそれ以外のJavaScriptで<a href="#span-out-epsilon">Machine epsilon</a>程度の相違がある
 <br>
 ・NativeのMath.sin関数を一例に示す
 <br>
@@ -2334,7 +2516,7 @@ yt4=yt; yt4 ->
 <br>
 ・total時間積分回数がplot2d-buttonのN回に対して1回で済むため、圧倒的に速い
 <br>
-・時間発展の時間刻みを次の式変数dtnで定義してevolutionNで時間発展する
+・時間刻みを次の<a href="#span-out-eqns">式変数</a>dtnで定義してevolutionNで時間発展する
 <br>
 dtn=&lt;switch(n&lt;=0,0:1,dt);
 <br>
@@ -2477,6 +2659,10 @@ clear, || clear: -> [MyErr]Invalid clear called
 <br>
 (clear) || {clear} -> [MyErr]Invalid clear called
 <br>
+・<a href="#span-out-substitution">変数への代入</a>不可
+<br>
+clear; x=clear -> [MyErr]Invalid clear called
+<br>
 ・<a href="#span-out-substitution-equation">式変数への代入</a>不可
 <br>
 f=&lt;clear -> [MyErr]Invalid clear called
@@ -2587,7 +2773,7 @@ x=3; 3x; stop; x -> operation stopped
 <br>
 実行文; 実行文; ...
 <br>
-・行列の各vectorを区切るcolon:
+・<a href="#span-out-mat">行列</a>の各vectorを区切るcolon:
 <br>
 vector: vector: ...
 <br>
@@ -2596,20 +2782,20 @@ vector: vector: ...
 要素, 要素, ... || 引数, 引数, ...
 <br>
 <br>
-区切り文字は2項の<a href="#span-out-options">結合性</a>や深さとは関係なく左から順に演算する
+区切り文字は2項の<a href="#span-out-associativity">associativity</a>や深さとは関係なく左から順に演算する
 <br>
-・区切り文字の優先順位は最優先
+・区切り文字のprecedenceは最優先
 <br>
 x=3,(x=9),2x -> (0,0,18)
 <br>
 x -> 9
 <br>
-・よって変数は実行直前ではなく列挙直前の代入値を参照する
+・よって<a href="#span-out-vars">変数</a>は実行直前ではなく列挙直前の代入値を参照する
 <br>
 x=3; x=2:3x -> (0:6)
 <br>
 <br>
-区切り文字はcomma演算子同様に働くが、行列の次元は残る
+区切り文字はNativeのcomma演算子同様に働くが、<a href="#span-out-mat">行列</a>の次元は残る
 <br>
 (x=1,x=2x:x=2x,x) -> (0,0:0,4)
 <br>
@@ -2666,12 +2852,12 @@ x=3; x=2:3x -> (0:6)
 {列vector: 列vector: ...}
 <br>
 <br>
-無次元の演算の場合、要素を括る丸括弧()と波括弧{}は区別しない
+<a href="#span-out-ope">無次元</a>の演算の場合、要素を括る丸括弧()と波括弧{}は区別しない
 <br>
 ・列挙しなければ括弧の種類は区別しない
 <br>
 <br>
-有次元の場合、vectorを括る丸括弧()と波括弧{}は互いに転置の関係
+<a href="#span-out-ope">有次元</a>の場合、vectorを括る丸括弧()と波括弧{}は互いに転置の関係
 <br>
 (1,2:3,4) -> (1,2:3,4)
 <br>
@@ -2757,7 +2943,7 @@ x=(1,2); y={3,4}; trans(trans((x:y))) -> (1,2:3,0:4,0)
 <br>
 角括弧[]は直前の行列要素の参照位置を指定する
 <br>
-・よって括弧の中で最下位の優先順位
+・よって括弧の中で最下位のprecedence
 <br>
 ・唯一の右結合（右から左を参照）
 <br>
@@ -2810,7 +2996,7 @@ A=(1,2:3,4); A[1,2:3,4] -> (7,10:15,22)
 <br>
 ・被演算子記号
 <br>
-　・予約<a href="#span-out-vars">変数</a>
+　・<a href="#span-out-ans">予約変数</a>
 <br>
 　・10進数値小数
 <br>
@@ -2823,7 +3009,7 @@ A=(1,2:3,4); A[1,2:3,4] -> (7,10:15,22)
 <br>
 ・大文字・小文字・全角・半角を区別しない
 <br>
-・変数名・式変数名に使用不可
+・<a href="#span-out-vars">式変数</a>名・<a href="#span-out-eqns">式変数</a>名に使用不可
 <br>
 stop=3 -> [MyErr]Invalid stop called
 <br>
@@ -2852,7 +3038,7 @@ max=&lt;3 -> [MyErr]Invalid BTe([object Object])
 定数の入力仕様と付随する留意事項について記述する
 <br>
 <br>
-定数は引数<a href="#span-out-BT">括弧</a>無しで厳密には関数に含めない
+定数は引数<a href="#span-out-BT">括弧</a>無しで厳密には<a href="#span-out-FN">関数</a>に含めない
 <br>
 ・実行文を作るparse段階で数値に変換する
 <br>
@@ -2884,6 +3070,10 @@ eは指数と区別するために空括弧()を付ける方が間違いが少�
 ()3()/()3() || 3/3 -> 1
 <br>
 () ->
+<br>
+(()) -> 0
+<br>
+(({})) -> 0
 <br>
 ・乱数
 <br>
@@ -2989,11 +3179,11 @@ iの2乗の演算方法を2項演算子または関数を使用して3種類示�
 <br>
 (i)^2 || (i)**2 || pow(i,2) -> -1+1.2246467991473532e-16i
 <br>
-・浮動小数点演算では、次のepsilonに相当する<a href="#span-out-float">Machine epsilon</a>が残る
+・<a href="#span-out-float">浮動小数点演算</a>では、次のepsilonに相当する<a href="#span-out-epsilon">Machine epsilon</a>が残る
 <br>
 epsilon || eps -> 2.220446049250313e-16
 <br>
-・この傾向は演算量に応じて実数演算よりも顕著に現れる
+・この傾向は演算量に応じて<a href="#span-out-ope">実数演算</a>よりも顕著に現れる
 <br>
 <br>
 -1の平方根の演算方法を3種類示す
@@ -3033,12 +3223,12 @@ z=e^(i{pi/4}); abs(z) -> 1
 <br>
 e^(-i(1pi()2/2i(5-3-1)i/(-4)))
 <br>
-・既定では左結合の2項演算で除算より<a href="#span-out-BRmo">記号省略乗算</a>を優先する
+・既定ではleft-<a href="#span-out-associativity">associativity</a>の2項演算で除算より<a href="#span-out-BRmo">記号省略乗算</a>を優先する
 <br>
 e^(-i(1pi(){2/{2i({5-3}-1)i}}/(-4)))
 <br>
 <br>
-2項の<a href="#span-out-options">結合性</a>や<a href="#span-out-prec-ope">演算子の優先順位</a>によって解が異なる場合、入力を見直す
+2項の<a href="#span-out-associativity">associativity</a>や<a href="#span-out-prec-ope">演算子のprecedence</a>によって解が異なる場合、入力を見直す
 <br>
 <br>
 具体的には次のように対策する
@@ -3050,7 +3240,7 @@ a={5-3}-1; b=2/{2i(a)i}; e^(-i(1pi()b/(-4)))
 ・2項演算子が連続する場合、<a href="#span-out-BT">括弧</a>を明示する
 <br>
 <br>
-実数演算の場合、虚数は0のため、次の極形式は使用不可
+<a href="#span-out-ope">実数演算</a>の場合、虚数は0のため、次の極形式は使用不可
 <br>
 t=pi/4; e^(i{t}) || e^(real(i)t) || e^(0)  // NG -> 1
 <br>
@@ -3221,7 +3411,7 @@ deg_atan2_ex(0,1) || degrees(atan2_ex(0,1)) -> 90
 <br>
 ・pow関数を一例に示す
 <br>
-・実数演算の場合、Nativeに同義
+・<a href="#span-out-ope">実数演算</a>の場合、Nativeに同義
 <br>
 pow(2) -> [MyErr]FN isNaN
 <br>
@@ -3480,7 +3670,7 @@ A=(11:21,22:31,32,33,34); htrans(htrans(A)) -> (11,0,0,0:21,22,0,0:31,32,33,34)
 (1,2:3,4)+(-1,2:) || (1,2:3,4)+(-1,2:,) || (1,2:3,4)+(-1,2:0,0) -> (0,4:3,4)
 <br>
 <br>
-無次元の演算の場合、行列の演算規則とは関係なく最終要素を演算する
+<a href="#span-out-ope">無次元</a>の演算の場合、行列の演算規則とは関係なく最終要素を演算する
 <br>
 (1,2:3)1 || (3)*1 -> 3
 <br>
@@ -3616,7 +3806,7 @@ identity(3.3) || identity(3) -> (1,0,0:0,1,0:0,0,1)
 <br>
 identity(0) || identity(-1)  -> [MyErr]Invalid matrix size
 <br>
-・内部optionのmatSizeMax既定値1000を超過の場合、error終了
+・<a href="#span-in-options">内部option</a>のmatSizeMax既定値1000を超過の場合、error終了
 <br>
 identity(1001) -> [MyErr]Invalid matSizeMax over
 <br>
@@ -3710,7 +3900,7 @@ norm(-i:2i:-3i) || norm{-i,2i,-3i} -> 3.7416573867739413
 <br>
 norm((1-i)/sqrt2:2i:-3i) || norm{(1-i)/sqrt2,2i,-3i} -> 3.7416573867739413
 <br>
-・有次元の場合、同義
+・<a href="#span-out-ope">有次元</a>の場合、同義
 <br>
 x={(1-i)/sqrt2,2i,-3i}; sqrt(htrans(x)x) -> 3.7416573867739413
 <br>
@@ -3722,7 +3912,7 @@ x={(1-i)/sqrt2,2i,-3i}; htrans(x)x -> 14
 <br>
 x={(1-i)/sqrt2,2i,-3i}; trans(x)x -> -13-0.9999999999999998i
 <br>
-・よって複素数の場合、非同義
+・よって<a href="#span-out-com">複素数</a>の場合、非同義
 <br>
 x={(1-i)/sqrt2,2i,-3i}; abs(sqrt(trans(x)x))  // NG -> 3.6108731368472777
 <br>
@@ -3993,7 +4183,7 @@ trans((trans(1,2:3,4))[1]) || htrans((htrans(1,2:3,4))[1]) -> (2:4)
 <br>
 trans((trans(i,2i:3i,4i))[1]) || htrans((htrans(i,2i:3i,4i))[1]) -> (2i:4i)
 <br>
-・<a href="#span-out-BT">括弧</a>は関数より優先するため、関数の外側を上位の括弧で括る
+・<a href="#span-out-BT">括弧</a>は<a href="#span-out-FNm">関数</a>より優先するため、関数の外側を上位の括弧で括る
 <br>
 A=(1,2:3,4); (trans(A))[1]  // OK -> (2,4)
 <br>
@@ -4567,7 +4757,7 @@ x0=1; x1=2; x0+x1 -> 3
 <br>
 番号=1; 番号 -> 1
 <br>
-・予約語は使用不可
+・<a href="#span-out-RW">予約語</a>は使用不可
 <br>
 max=3 -> [MyErr]Invalid ans isFound
 <br>
@@ -4585,11 +4775,26 @@ clear; 2x=4 -> [MyErr]Invalid ans isFound
 <br>
 <br>
 変数名を関数に渡す場合、変数名symbolと表記する
+    </td>
+  </tr>
+  <tr>
+    <th>
+<a href="#span-index">
+目次
+</a>
+<br>
+予約変数
+<br>
+入力仕様
+    </th>
+    <td>
+<span id="span-out-ans"></span>
+予約変数の入力仕様と付随する留意事項について記述する
 <br>
 <br>
-予約変数を示す
+予約変数ans
 <br>
-・ansは直前の実行文の演算結果を保持する
+・直前の実行文の演算結果を保持する
 <br>
 2; ans*2; ans*2; ans -> 8
 <br>
@@ -4758,7 +4963,7 @@ clear; c=&lt;(1,2); {,c}=($a,$b); a,b -> [MyErr]Invalid matching(vars)
 <br>
 clear; {($a,$b)=(1,2):($c,$d)=(3,4),(a,b,c,d)} -> (0,0:0,1,2,3,4)
 <br>
-・予約語への代入不可
+・<a href="#span-out-RW">予約語</a>への代入不可
 <br>
 clear; $max || $$max || $$$max ->  [MyErr]Invalid max called
 <br>
@@ -4799,7 +5004,7 @@ y=&lt;a*x+b; -> stored_eqn(y)
 <br>
 式変数から値を読出す方法は、式変数名=&gt;とする
 <br>
-式変数から変数に値代入する方法は、式変数名=&gt;変数名とする
+式変数から<a href="#span-out-vars">変数</a>に値代入する方法は、式変数名=&gt;変数名とする
 <br>
 ・式変数からの値読出しを以降、式読出しと呼ぶ
 <br>
@@ -4808,7 +5013,7 @@ y=&lt;a*x+b; y=&gt; -> [MyErr]Invalid binary operation
 y=&lt;a*x+b; y=&gt;y0 -> [MyErr]Invalid binary operation
 <br>
 <br>
-関数式の変数を定義して再度読出す
+関数式の<a href="#span-out-vars">変数</a>を定義して再度読出す
 <br>
 y=&lt;a*x+b; a=1; b=2; x=3; y=&gt; || 1*3+2 -> 5
 <br>
@@ -4869,7 +5074,7 @@ clear; eqn_x=&lt;(a*x+b=0); a=1; b=2; x=3; 2eqn_x || 2*(-5) -> -10
 <br>
 式変数を循環参照した場合、error終了
 <br>
-・再帰<a href="#span-out-FNh">高階関数</a>で代替のreccursive call非対応（call stackの独自実装無し）
+・<a href="#span-out-FNh-RX">再帰高階関数</a>で代替のreccursive call非対応（call stackの独自実装無し）
 <br>
 clear; a=&lt;a; a -> [MyErr]Invalid circular(a)
 <br>
@@ -5004,7 +5209,7 @@ clear; (a=&lt;(b=&lt;{c=&lt;2})); a,b -> (0,0)
 <br>
 clear; (a=&lt;(b=&lt;{c=&lt;2})); a,b,c -> (0,0,2)
 <br>
-・式変数aを実行することで変数bとcが定義される
+・式変数aを実行することで<a href="#span-out-vars">変数</a>bとcが定義される
 <br>
 clear; (a=&lt;(b={c=2})); a,c -> (0,2)
 <br>
@@ -5046,9 +5251,35 @@ clear; d=&lt;{a=&lt;{(b=&lt;1),{c=&lt;2}}}; d,a,b,c -> (0,0,1,2:0,0)
     </th>
     <td>
 <span id="span-out-FNh"></span>
-高階関数の入力仕様と付随する留意事項について記述する
-<hr>
+高階関数を列挙する
 <br>
+・<a href="#span-out-FNh-switch">switch高階関数</a>
+<br>
+・<a href="#span-out-FNh-SX">総和高階関数</a>
+<br>
+・<a href="#span-out-FNh-PX">総乗・総積高階関数</a>
+<br>
+・<a href="#span-out-FNh-RX">再帰高階関数</a>
+<br>
+・<a href="#span-out-FNh-DX">微分高階関数</a>
+<br>
+・<a href="#span-out-FNh-IX">積分高階関数</a>
+    </td>
+  </tr>
+  <tr>
+    <th>
+<a href="#span-index">
+目次
+</a>
+<br>
+switch
+<br>
+高階関数
+<br>
+入力仕様
+    </th>
+    <td>
+<span id="span-out-FNh-switch"></span>
 switch高階関数
 <br>
 ・任意個数の条件分岐による処理を実行する
@@ -5125,9 +5356,9 @@ x=2; switch(x&gt;=4,=&lt;4:x&gt;3,=&lt;3:x&gt;2,=&lt;2:1,=&lt;{-x}) -> -2
 x=2; switch(ge(x,4),=&lt;4:gt(x,3),=&lt;3:gt(x,2),=&lt;2:1,=&lt;{-x}) -> -2
 <br>
 <br>
-未実装の論理記号をbit演算子で代替する場合
+未実装の論理演算子をbit演算子で代替する場合
 <br>
-・<a href="#span-out-prec-ope">演算子の優先順位</a>に応じて<a href="#span-out-BT">括弧</a>を明示する
+・<a href="#span-out-prec-ope">演算子のprecedence</a>に応じて<a href="#span-out-BT">括弧</a>を明示する
 <br>
 ・if(1==1 || 1==-1) return 1;のNG例
 <br>
@@ -5167,8 +5398,22 @@ switch(0,0:0,0:0,0:1,=&lt;{1}:1,=&lt;{2}) -> 1
 x=1; switch(lt(real(x),0),=&lt;{-real(x)}:1,=&lt;{real(x)}) -> 1
 <br>
 x=-1; switch(lt(real(x),0),=&lt;{-real(x)}:1,=&lt;{real(x)}) -> 1
-<hr>
+    </td>
+  </tr>
+  <tr>
+    <th>
+<a href="#span-index">
+目次
+</a>
 <br>
+総和
+<br>
+高階関数
+<br>
+入力仕様
+    </th>
+    <td>
+<span id="span-out-FNh-SX"></span>
 総和高階関数
 <br>
 ・任意関数のdummy変数整数範囲[a,b]の総和を演算して返す
@@ -5245,7 +5490,7 @@ _Sy(=&lt;{_sx(=&lt;{x+y},0,y)},2,0) || 0+2+3+4+1+2 -> 12
 <br>
 x=-1; y=-2; _sy(=&lt;{_sx(=&lt;{x+y},0,y)},0,2); x+y -> -3
 <br>
-・高階関数の引数も関数同様に最終行vectorの左から順に参照
+・<a href="#span-out-FNh">高階関数</a>の引数も関数同様に最終行vectorの左から順に参照
 <br>
 _sn(,is=0,:,ie=10,:=&lt;{n},is,ie) -> 55
 <br>
@@ -5315,8 +5560,22 @@ N=2; _sn(=&lt;Pn,N,10) -> 3.4506555508702164
 N=1; _sn(=&lt;Pn,N,10) -> 26.257587310507166
 <br>
 N=0; _sn(=&lt;Pn,N,10) -> 99.99999999999999
-<hr>
+    </td>
+  </tr>
+  <tr>
+    <th>
+<a href="#span-index">
+目次
+</a>
 <br>
+総乗・総積
+<br>
+高階関数
+<br>
+入力仕様
+    </th>
+    <td>
+<span id="span-out-FNh-PX"></span>
 総乗・総積高階関数
 <br>
 ・任意関数のdummy変数整数範囲[a,b]の総乗・総積を演算して返す
@@ -5396,8 +5655,22 @@ A=(1,2:3,4); N=5; _pn(=&lt;{trans(A)},1,N) -> (1069,2337:1558,3406)
 cA=(e^{i(pi/4)},:,e^{i(-pi/4)}); N=4; _pn(=&lt;{cA},1,N)
 <br>
 -> (-1+2.7755575615628914e-16i,0:0,-1-2.7755575615628914e-16i)
-<hr>
+    </td>
+  </tr>
+  <tr>
+    <th>
+<a href="#span-index">
+目次
+</a>
 <br>
+再帰
+<br>
+高階関数
+<br>
+入力仕様
+    </th>
+    <td>
+<span id="span-out-FNh-RX"></span>
 再帰高階関数
 <br>
 ・任意処理の演算結果をdummy変数に代入する操作を再帰回数繰り返す
@@ -5475,8 +5748,22 @@ _rn(=&lt;{An=An*(1,2:3,4)},An=(1,:,1),5); An -> (1069,1558:2337,3406)
 _ry(=&lt;{_rx(=&lt;{x+y},1,2)},1,2) || (1+(2+1))+3 -> 7
 <br>
 _Ry(=&lt;{_Rx(=&lt;{x+y+1},1,2)},1,2) -> 13
-<hr>
+    </td>
+  </tr>
+  <tr>
+    <th>
+<a href="#span-index">
+目次
+</a>
 <br>
+微分
+<br>
+高階関数
+<br>
+入力仕様
+    </th>
+    <td>
+<span id="span-out-FNh-DX"></span>
 微分高階関数
 <br>
 ・連続関数のdummy変数微分位置における微分係数を数値的に演算して返す
@@ -5522,7 +5809,7 @@ option
 ・微分階数が3階以降は中心差分法による2次精度以下
 <br>
 <br>
-詳細は<a href="#span-out-fdm">有限差分法</a>参照
+詳細は<a href="#span-out-fdm-differential">微分の数値解法</a>参照
 <br>
 <br>
 test caseを列挙する
@@ -5724,7 +6011,7 @@ _rn(=&lt;run,,6) -> infoLost[ri] 2.3549912261033786e-10+O(8e+0)
 <br>
 x -> infoLost[ri] 0.9999999999877383+1.0000000000273828i+O(1e-5+9e-6i)
 <br>
-・normが<a href="#span-out-float">Machine epsilon</a>まで収束困難のため、一定回数の反復で打切る
+・normが<a href="#span-out-epsilon">Machine epsilon</a>まで収束困難のため、一定回数の反復で打切る
 <br>
 ・次に数値解の一例を示す
 <br>
@@ -5776,7 +6063,7 @@ infoLost[ri] 0.9999999999968879-3.106688703682063e-12i+O(1e-5+2e-5i)
 <br>
 )
 <br>
-・同じく実数演算の場合
+・同じく<a href="#span-out-ope">実数演算</a>の場合
 <br>
 storage cleared
 <br>
@@ -5793,8 +6080,22 @@ run=&lt;last(mdx=Newton(=&lt;f,=&lt;x),max(norm(f),norm(mdx)));
 _rn(=&lt;run,,12) -> 7.724854831493598e-14+O(7e+0)
 <br>
 x -> (1.000000000000009+O(3e-5):0.9999999999999909+O(3e-5))
-<hr>
+    </td>
+  </tr>
+  <tr>
+    <th>
+<a href="#span-index">
+目次
+</a>
 <br>
+積分
+<br>
+高階関数
+<br>
+入力仕様
+    </th>
+    <td>
+<span id="span-out-FNh-IX"></span>
 積分高階関数
 <br>
 ・連続関数のdummy変数積分範囲[a,b]における定積分を数値的に演算して返す
@@ -5831,10 +6132,10 @@ option
 <br>
 ・既定で合成Simpson公式による4次精度
 <br>
-・台形公式による2次精度を選択可（内部option）
+・台形公式による2次精度を<a href="#span-in-options">内部option</a>で選択可
 <br>
 <br>
-詳細は<a href="#span-out-fdm">有限差分法</a>参照
+詳細は<a href="#span-out-fdm-integral">積分の数値解法</a>参照
 <br>
 <br>
 test caseを列挙する
@@ -5965,17 +6266,37 @@ _ix(=&lt;{x^4},0,3,1000) -> 48.60000000003241+O(8e-11)
 目次
 </a>
 <br>
-高階
-<br>
-行列関数
+高階行列関数
 <br>
 入力仕様
     </th>
     <td>
 <span id="span-out-FNmh"></span>
-高階行列関数の入力仕様と付随する留意事項について記述する
-<hr>
+高階行列関数を列挙する
 <br>
+・<a href="#span-out-FNmh-jacobian">Jacobi高階行列関数</a>
+<br>
+・<a href="#span-out-FNmh-newtonian">Newton高階行列関数</a>
+<br>
+・<a href="#span-out-FNmh-OX">ODE高階行列関数</a>
+<br>
+・<a href="#span-out-FNmh-EX">symbolic高階行列関数</a>
+    </td>
+  </tr>
+  <tr>
+    <th>
+<a href="#span-index">
+目次
+</a>
+<br>
+Jacobi
+<br>
+高階行列関数
+<br>
+入力仕様
+    </th>
+    <td>
+<span id="span-out-FNmh-jacobian"></span>
 Jacobi高階行列関数
 <br>
 ・Jacobi行列を数値的に演算して返す
@@ -6058,13 +6379,27 @@ Jacobi(=&lt;{2x^2},=&lt;{x})
 -> 4.0000200000131025+0.000019999986898147652i
 <br>
 x -> 1
-<hr>
+    </td>
+  </tr>
+  <tr>
+    <th>
+<a href="#span-index">
+目次
+</a>
 <br>
+Newton
+<br>
+高階行列関数
+<br>
+入力仕様
+    </th>
+    <td>
+<span id="span-out-FNmh-newtonian"></span>
 Newton高階行列関数
 <br>
 ・Newton法による反復1回の演算結果を返す
 <br>
-・引数はJacobi高階行列関数に同じ
+・引数は<a href="#span-out-FNmh-jacobian">Jacobi高階行列関数</a>に同じ
 <br>
 ・返値は符号付の解の修正vector
 <br>
@@ -6087,8 +6422,22 @@ option
 <br>
 <br>
 応用例は<a href="#span-out-linear">連立方程式の解法</a>参照
-<hr>
+    </td>
+  </tr>
+  <tr>
+    <th>
+<a href="#span-index">
+目次
+</a>
 <br>
+ODE
+<br>
+高階行列関数
+<br>
+入力仕様
+    </th>
+    <td>
+<span id="span-out-FNmh-OX"></span>
 ODE高階行列関数
 <br>
 ・dummy変数を媒介する常微分方程式の1step定積分を数値的に演算して返す
@@ -6131,15 +6480,29 @@ option
 <br>
 ・既定で陽的Runge-Kutta法による4次精度
 <br>
-・陽的improved Euler法による2次精度を選択可（内部option）
+・陽的improved Euler法による2次精度を<a href="#span-in-options">内部option</a>で選択可
 <br>
 <br>
 応用例は<a href="#span-out-evolution">時間発展の解法</a>参照
-<hr>
+    </td>
+  </tr>
+  <tr>
+    <th>
+<a href="#span-index">
+目次
+</a>
 <br>
+symbolic
+<br>
+高階行列関数
+<br>
+入力仕様
+    </th>
+    <td>
+<span id="span-out-FNmh-EX"></span>
 symbolic高階行列関数
 <br>
-・未知変数名symbol連番0~のm行n列の行列を<a href="#span-out-eqns">式変数</a>に式代入して0を返す
+・未知変数名symbol連番0~のm行n列の<a href="#span-out-mat">行列</a>を<a href="#span-out-eqns">式変数</a>に式代入して0を返す
 <br>
 ・_e式変数名symbol(=&lt;{未知変数名symbol},m,n)で呼出す
 <br>
@@ -6253,9 +6616,9 @@ sizec(L*R)=sizec(R) -> 0
 <br>
 以上より、行列積のalgorithmを以下に示す
 <br>
-・L指定行とR指定列の内積を取る式変数productを定義する
+・L指定行とR指定列の内積を取る<a href="#span-out-eqns">式変数</a>productを定義する
 <br>
-・さらに、行列積LRを返す式変数LpRを定義する
+・さらに、行列積LRを返す<a href="#span-out-eqns">式変数</a>LpRを定義する
 <br>
 LpR=&lt;{product=&lt;last{LR[ir][ic]=ttL[ir]trans((trans(ttR))[ic])},
 <br>
@@ -6362,9 +6725,25 @@ L*R -> (2,1-i:1+i,1)
     </th>
     <td>
 <span id="span-out-fdm"></span>
-有限差分法の解法について記述する
-<hr>
+有限差分法の解法を列挙する
 <br>
+・<a href="#span-out-fdm-differential">微分の数値解法</a>
+<br>
+・<a href="#span-out-fdm-integral">積分の数値解法</a>
+    </td>
+  </tr>
+  <tr>
+    <th>
+<a href="#span-index">
+目次
+</a>
+<br>
+微分
+<br>
+の数値解法
+    </th>
+    <td>
+<span id="span-out-fdm-differential"></span>
 有限差分による微分の数値解法について記述する
 <br>
 <br>
@@ -6517,7 +6896,7 @@ _dx(=&lt;{(x+i)^5},5,1)
 <br>
 ・3階微分以降は精度より演算速度を優先
 <br>
-・非線形性が強い関数・<a href="#span-out-series">級数</a>・<a href="#span-out-limit">極限</a>の演算結果は当てにならない
+・非線形性が強い<a href="#span-out-FN">関数</a>・<a href="#span-out-series">級数</a>・<a href="#span-out-limit">極限</a>の演算結果は当てにならない
 <br>
 f'(x)=(8(f(x+h)-f(x-h))-(f(x+2h)-f(x-2h)))/(12h)+O(h^4)
 <br>
@@ -6528,18 +6907,30 @@ f"'(x)=(f"(x+4h)-f"(x-4h))/(8h)+O((4h)^2)
 f""(x)=(f"'(x+4h)-f"'(x-8h))/(16h)+O((8h)^2)
 <br>
 ...
-<hr>
+    </td>
+  </tr>
+  <tr>
+    <th>
+<a href="#span-index">
+目次
+</a>
 <br>
+積分
+<br>
+の数値解法
+    </th>
+    <td>
+<span id="span-out-fdm-integral"></span>
 有限差分による積分の数値解法について記述する
 <br>
 <br>
 前提を列挙する
 <br>
-・2項演算子は左結合を前提に記述する
+・2項演算子はleft-<a href="#span-out-associativity">associativity</a>を前提に記述する
 <br>
 ・除算より<a href="#span-out-BRmo">記号省略乗算</a>優先を前提に記述する
 <br>
-・行列は本manualの構文を前提に記述する
+・<a href="#span-out-FNm">行列</a>は本manualの構文を前提に記述する
 <br>
 ・総和をΣ&lt;変数=開始値,終了値&gt;で記述する
 <br>
@@ -6564,7 +6955,7 @@ dS[i], i=0~N-1
 <br>
 S=Σ&lt;i=0,N-1&gt;dS[i]
 <br>
-・x、f、dSは列vectorとして添字iで各要素の離散点を参照する
+・各変数は列vectorとして添字iで各要素の離散点を参照する
 <br>
 <br>
 微小区間の関数fを線形補間する場合、2次精度の台形公式
@@ -6781,9 +7172,9 @@ S=(f[0]+4Σ&lt;k=0,N/2-1&gt;f[2k+1]+2Σ&lt;k=1,N/2-1&gt;f[2k]+f[N])h/3+O(h^4)
 <br>
 　・初速z_v0=20+20i
 <br>
-・時間刻みdtの微小区間を積分する式変数stepを定義
+・時間刻みdtの微小区間を積分する<a href="#span-out-eqns">式変数</a>stepを定義
 <br>
-・時間tの区間を積分する式変数evolutionを定義
+・時間tの区間を積分する<a href="#span-out-eqns">式変数</a>evolutionを定義
 <br>
 ・step毎に位置z_xと速度z_vの連立方程式fの近似解を反復法で求解
 <br>
@@ -6939,7 +7330,7 @@ infoLost[ i] 0.0000018087545367633257-9.79999730495574i
 )
 <br>
 <br>
-ODE<a href="#span-out-FNmh">高階行列関数</a>を使用する場合、stepを陽的に解くため、収束演算不要
+<a href="#span-out-FNmh-OX">ODE高階行列関数</a>を使用する場合、stepを陽的に解くため、収束演算不要
 <br>
 ・実軸の時間積分の場合、目安の解析誤差は実数のみ表示される（仕様）
 <br>
@@ -7213,7 +7604,7 @@ backward -> [MyErr]Invalid reference of array
 <br>
 ・実際には自明の演算は行わないが、ここでは簡潔に記述する
 <br>
-・さらに、総和<a href="#span-out-FNh">高階関数</a>を使用して反復処理を簡潔にまとめる
+・さらに、<a href="#span-out-FNh-SX">総和高階関数</a>を使用して反復処理を記述する
 <br>
 ・dummy変数を使用するだけで総和は無次元の0を返す
 <br>
@@ -7251,7 +7642,7 @@ _sir(=&lt;backward,sizeA-1,0);
 <br>
 x -> (-3.9999999999999982:4.499999999999999)
 <br>
-・最後に、一連のalgorithmをまとめた式変数solvexを定義する
+・最後に、一連のalgorithmを一般化した<a href="#span-out-eqns">式変数</a>solvexを定義する
 <br>
 ・pivot選択有りの場合
 <br>
@@ -7370,7 +7761,7 @@ x0 -> infoLost[ri] -3.999999999999999-3.362471994400586e-26i
 <br>
 x1 -> infoLost[ri] 4.499999999999999+6.466216308756395e-26i
 <br>
-・normが<a href="#span-out-float">Machine epsilon</a>に収束すれば収束判定条件を満たす
+・normが<a href="#span-out-epsilon">Machine epsilon</a>に収束すれば収束判定条件を満たす
 <br>
 ・その場合、近似解は厳密解にほぼ一致する
 <br>
@@ -7408,9 +7799,9 @@ b={-f[i]}
 ・直接法で求解した解の修正vector dxを用いて近似解を修正する
 <br>
 <br>
-上記の反復1回の処理をまとめたNewton<a href="#span-out-FNmh">高階行列関数</a>について記述する
+上記の反復1回の処理をまとめた<a href="#span-out-FNmh-newtonian">Newton高階行列関数</a>について記述する
 <br>
-・引数はJacobi高階行列関数に同じとする
+・引数は<a href="#span-out-FNmh-jacobian">Jacobi高階行列関数</a>に同じとする
 <br>
 ・Scalar倍の符号位置を変えて次の連立線形方程式を直接法で解く
 <br>
@@ -7439,7 +7830,7 @@ f=&lt;{x0+2x1=5,3x0+4x1=6};
 <br>
 run=&lt;last(mdx=Newton(=&lt;f,=&lt;x,=&lt;x_initial),max(norm(f),norm(mdx)));
 <br>
-・実行用の式変数runを定義してnormのみ表示する
+・実行用の<a href="#span-out-eqns">式変数</a>runを定義してnormのみ表示する
 <br>
 <br>
 反復を実行
@@ -7463,7 +7854,7 @@ infoLost[ri] 4.499999999999999+6.466216308756395e-26i
 )
 <br>
 <br>
-再帰<a href="#span-out-FNh">高階関数</a>を使用して反復を実行
+<a href="#span-out-FNh-RX">再帰高階関数</a>を使用して反復を実行
 <br>
 storage cleared
 <br>
@@ -7553,7 +7944,7 @@ _sir(=&lt;backward,sizeA-1,0);
 <br>
 x -> (-25.333333333333332:41.666666666666664:-16)
 <br>
-・先述の式変数solvexを使用
+・先述の<a href="#span-out-eqns">式変数</a>solvexを使用
 <br>
 ・pivot選択有りの場合
 <br>
@@ -7835,15 +8226,15 @@ infoLost[ i] 1+2.4652091778734548e-27i
 )
 <br>
 <br>
-symbolic<a href="#span-out-FNmh">高階行列関数</a>を使用
+<a href="#span-out-FNmh-EX">symbolic高階行列関数</a>を使用
 <br>
-・逆行列Ainvと未知変数ベクトルxを簡潔に記述する
+・逆行列Ainvと未知変数ベクトルxを一般化して記述する
 <br>
 Ainv=&lt;(x0,x1,x2:x3,x4,x5:x6,x7,x8) || _eAinv(=&lt;{x},3,3) -> 0
 <br>
 x=&lt;{x0,x1,x2,x3,x4,x5,x6,x7,x8} || _ex(=&lt;{x},3*3,1) -> 0
 <br>
-・逆行列を解く式変数solveAinvを定義する
+・逆行列を解く<a href="#span-out-eqns">式変数</a>solveAinvを定義する
 <br>
 solveAinv=&lt;{
 <br>
@@ -7880,7 +8271,7 @@ _rn(=&lt;run,,3) -> infoLost[ri] 3.4546432349907805e-16
 <br>
 Ainv ->
 <br>
-・式変数solveAinvを使用
+・<a href="#span-out-eqns">式変数</a>solveAinvを使用
 <br>
 A=(i,2,3i:4,5i,6:7i,8,9i); solveAinv ->
 <br>
@@ -7949,7 +8340,7 @@ _rn(=&lt;run,,3) -> infoLost[ri] 2.9893669801409083e-16
 <br>
 Ainv ->
 <br>
-・式変数solveAinvを使用
+・<a href="#span-out-eqns">式変数</a>solveAinvを使用
 <br>
 A=(i+1,2-i,3i,4:5i,6-i,7,8i:9-5i,10i,-11+3i,12-5i:-13,14i,-15,16i); solveAinv ->
 <br>
@@ -8173,7 +8564,7 @@ x -> -5.067058578678027e-17-1.0000000000000002i
 ・方程式または関数の次数に応じて収束までの反復回数が増える
 <br>
 <br>
-実数演算の場合、解が存在しないため、収束しない
+<a href="#span-out-ope">実数演算</a>の場合、解が存在しないため、収束しない
 <br>
 ・2次の方程式の場合、右辺に移項した関数の極値周辺を右往左往する
 <br>
@@ -8219,6 +8610,8 @@ run -> 38147.63324071567
 <br>
 ・連立非線形方程式と初期値を定義する
 <br>
+・反復6回目の近似解を示す
+<br>
 storage cleared
 <br>
 x=&lt;{x0,x1}; x_initial=&lt;{1+i,1-i};
@@ -8226,8 +8619,6 @@ x=&lt;{x0,x1}; x_initial=&lt;{1+i,1-i};
 f=&lt;{x0^i-2x1=3i,3x0+exp(x1)=5i};
 <br>
 run=&lt;last(mdx=Newton(=&lt;f,=&lt;x,=&lt;x_initial),max(norm(f),norm(mdx)));
-<br>
-・反復6回目の近似解を示す
 <br>
 _rn(=&lt;run,,6) -> infoLost[ i] 2.2368035825474494e-16
 <br>
@@ -8246,6 +8637,8 @@ infoLost[ i] -0.04901921620544653+2.023423045158351i:
 <br>
 ・連立非線形方程式と初期値を定義する
 <br>
+・反復6回目の近似解を示す
+<br>
 storage cleared
 <br>
 x=&lt;(x0:x1); x_initial=&lt;(1+i:1-i);
@@ -8253,8 +8646,6 @@ x=&lt;(x0:x1); x_initial=&lt;(1+i:1-i);
 f=&lt;(x0^i-2x1=3i:3x0+exp(x1)=5i);
 <br>
 run=&lt;last(mdx=Newton(=&lt;f,=&lt;x,=&lt;x_initial),max(norm(f),norm(mdx)));
-<br>
-・反復6回目の近似解を示す
 <br>
 _rn(=&lt;run,,6) -> infoLost[ i] 2.2368035825474494e-16
 <br>
@@ -8271,7 +8662,7 @@ infoLost[ i] -0.04901921620544653+2.023423045158351i:
 <br>
 同じく引数の列vectorを直接式渡しする場合
 <br>
-・mdxのnormを返す式変数runを定義して反復6回目の近似解を示す
+・mdxのnormを返す<a href="#span-out-eqns">式変数</a>runを定義して反復6回目の近似解を示す
 <br>
 storage cleared
 <br>
@@ -8306,7 +8697,34 @@ infoLost[ i] -0.04901921620544653+2.023423045158351i:
     </th>
     <td>
 <span id="span-out-series"></span>
-級数展開の解法について記述する
+級数展開の解法を列挙する
+<br>
+・<a href="#span-out-series-Taylor">Taylor級数・Maclaurin級数の解法</a>
+<br>
+・<a href="#span-out-series-Fourier">Fourier級数の解法</a>
+    </td>
+  </tr>
+  <tr>
+    <th>
+<a href="#span-index">
+目次
+</a>
+<br>
+Taylor・
+<br>
+Maclaurin
+<br>
+級数の解法
+    </th>
+    <td>
+<span id="span-out-series-Taylor"></span>
+Taylor級数・Maclaurin級数の解法について記述する
+<br>
+・Computer Algebra System未実装で得られる解は数値解
+<br>
+・<a href="#span-out-FNh-DX">微分高階関数</a>の精度に依存
+<br>
+・3階微分以降、既定の2次精度では精度不足
 <br>
 <br>
 Taylor級数・Maclaurin級数
@@ -8329,7 +8747,7 @@ f=&lt;exp(x);
 <br>
 x=2; f -> 7.38905609893065
 <br>
-・実数演算の場合
+・<a href="#span-out-ope">実数演算</a>の場合
 <br>
 TaylorN=&lt;_sn(=&lt;{_dx(=&lt;f,n,a)(x-a)^n/n!},0,N);
 <br>
@@ -8397,6 +8815,27 @@ N=8; TN -> 0.006352708017224355+0.00004619914542548148i+O(2e+1+4e-1i)
 N=9; TN -> 0.0014113419838348632+0.000038423321810908794i+O(5e+0+5e+0i)
 <br>
 N=10; TN -> 0.000280289701751799+0.00003279136299319164i+O(1e+0+2e-2i)
+    </td>
+  </tr>
+  <tr>
+    <th>
+<a href="#span-index">
+目次
+</a>
+<br>
+Fourier
+<br>
+級数の解法
+    </th>
+    <td>
+<span id="span-out-series-Fourier"></span>
+Fourier級数の解法について記述する
+<br>
+・Computer Algebra System未実装で得られる解は数値解
+<br>
+・<a href="#span-out-FNh-IX">積分高階関数</a>の精度に依存
+<br>
+・既定で4次精度の積分範囲100分割
 <br>
 <br>
 Fourier級数
@@ -8454,6 +8893,10 @@ ft=&lt;atan(tan(t));
 <span id="span-out-limit"></span>
 極限の解法について記述する
 <br>
+・Computer Algebra System未実装で得られる解は限定的な数値解
+<br>
+・L'Hôpitalの定理を使用する場合、<a href="#span-out-FNh-DX">微分高階関数</a>の精度に依存
+<br>
 <br>
 <a href="#span-out-com">複素数</a>演算の場合、次の極限演算不可
 <br>
@@ -8464,7 +8907,7 @@ ft=&lt;atan(tan(t));
 0*Infinity -> [MyErr]FN isNaN
 <br>
 <br>
-complexのcheckを外して実数演算
+complex uncheckedの<a href="#span-out-ope">実数演算</a>
 <br>
 1/0 -> Infinity
 <br>
@@ -8509,7 +8952,7 @@ _dx(=&lt;{ln(1-x)},2)/_dx(=&lt;{(-x)^2},2)  // OK
 <br>
 -> -0.500000000135999+3.0923761182676057e-12i+O(3e-10+1e-11i)
 <br>
-・実数演算の場合
+・<a href="#span-out-ope">実数演算</a>の場合
 <br>
 _dx(=&lt;{ln(1+x)})/_dx(=&lt;{x})  // OK -> 0.9999999999991271
 <br>
@@ -8549,7 +8992,7 @@ _dy(=&lt;{1/(y*y)})/_dy(=&lt;{1/y})  // NG -> [MyErr]FN isNaN
 <br>
 前置単項の符号の扱いについて記述する
 <br>
-・単項の符号は同種の2項演算子と区別せず、<a href="#span-out-options">結合性</a>に従って演算する
+・単項の符号は同種の2項演算子と区別せず、<a href="#span-out-associativity">associativity</a>に従って演算する
 <br>
 ・この時、符号の左側には0が存在すると仮定する
 <br>
@@ -8557,7 +9000,7 @@ _dy(=&lt;{1/(y*y)})/_dy(=&lt;{1/y})  // NG -> [MyErr]FN isNaN
 <br>
 右結合選択時　+3-5+7-9 || (0+(3-(5+(7-9)))) -> 0
 <br>
-・行列も同様に単項の符号はzeros行列との差分またはScalar倍として扱う
+・<a href="#span-out-mat">行列</a>も同様に単項の符号はzeros行列との差分またはScalar倍として扱う
 <br>
 -(1,2:3,4) || (,:,)-(1,2:3,4) || (-1,:,-1)(1,2:3,4) -> (-1,-2:-3,-4)
 <br>
@@ -8576,7 +9019,7 @@ _dy(=&lt;{1/(y*y)})/_dy(=&lt;{1/y})  // NG -> [MyErr]FN isNaN
 <br>
 ・代入と判別されないequal記号=は、右辺移行の2項演算子として扱う
 <br>
-・2項の<a href="#span-out-options">結合性</a>に依存するが、単体使用を前提とする
+・2項の<a href="#span-out-associativity">associativity</a>に依存するが、単体使用を前提とする
 <br>
 -3=5 || (0-3)=5 || =5+3 -> 8
 <br>
@@ -8590,7 +9033,7 @@ _dy(=&lt;{1/(y*y)})/_dy(=&lt;{1/y})  // NG -> [MyErr]FN isNaN
 <br>
 =(1,2:3,4) || (,:,)=(1,2:3,4) || =(1,2:3,4)-(,:,) -> (1,2:3,4)
 <br>
-・本仕様は式変数への方程式の代入で以下の構文を許容する
+・本仕様は<a href="#span-out-eqns">式変数</a>への方程式の代入で以下の構文を許容する
 <br>
 f=&lt;{x0^2+1=0} || f=&lt;{=-(x0^2+1)} || f=&lt;{-(x0^2+1)}
 <br>
@@ -8599,7 +9042,7 @@ f=&lt;{A(x)=b} || f=&lt;{=b-A(x)} || f=&lt;{b-A(x)}
 f=&lt;{Ainv*A=identity2} || f=&lt;{=identity2-Ainv*A} || f=&lt;{identity2-Ainv*A}
 <br>
 <br>
-行列を扱う上での演算都合上の仕様について記述する
+<a href="#span-out-mat">行列</a>を扱う上での演算都合上の仕様について記述する
 <br>
 ・代入を<a href="#span-out-BT">括弧</a>で括った場合、0を返す
 <br>
@@ -8615,7 +9058,7 @@ max(x=3,-1,-2) || max(0,-1,-2) -> 0
 <br>
 clear; (1,2:3,4:x=5,x) -> (1,2:3,4:0,5)
 <br>
-・ただし、行列を代入しても次元は残らない
+・ただし、<a href="#span-out-mat">行列</a>を代入しても次元は残らない
 <br>
 (x=(1,2:3,4)) -> 0
 <br>
@@ -8642,7 +9085,39 @@ clear; y=&lt;3x-1,x=3,y=&gt;,y=&gt;y0,y0 -> (0,0,8,8,8)
 <br>
 ・式変数、式代入、式読出し、式渡しの仕様は呼び名含めて一般的でない
 <br>
-・連立方程式をscript入力から解くために独自に定義している
+・連立方程式をscript-inputから解くために独自に定義している
+    </td>
+  </tr>
+  <tr>
+    <th>
+<a href="#span-index">
+目次
+</a>
+<br>
+application
+    </th>
+    <td>
+<span id="span-out-application"></span>
+applicationについて記述する
+<br>
+<br>
+Painter's SVG-path||pattern||filter||gradation生成
+<br>
+<br>
+Circuit Simulator's arbitrary non-linear||impedance element
+<br>
+・Arrhenius equationのnon-dimensionalized<a href="#span-out-eqns">式変数</a>fの一例
+<br>
+　回路要素電流Iに対する未知電圧Vを解く場合
+<br>
+f=&lt;last{I=1,E=0,k=1,I=exp(k*(V-E))-exp(-k*(V-E))}
+<br>
+　回路要素電圧Vに対する未知電流Iを解く場合
+<br>
+f=&lt;last{V=1,E=0,k=1,I=exp(k*(V-E))-exp(-k*(V-E))}
+<br>
+<br>
+上記数値解の演算速度を優先するため、Computer Algebra System未実装
     </td>
   </tr>
   <tr>
@@ -8722,9 +9197,9 @@ source抜粋
 <br>
 ・i行j列の行列要素は2次元配列arr[i][j]を参照する
 <br>
-・関数の引数vectorはarr[arr.length-1]を参照する
+・<a href="#span-out-FN">関数</a>の引数vectorはarr[arr.length-1]を参照する
 <br>
-・無次元の演算や定義できない<a href="#span-out-mat">行列</a>演算はarrの最終要素を参照する
+・<a href="#span-out-ope">無次元</a>の演算や定義できない<a href="#span-out-mat">行列</a>演算はarrの最終要素を参照する
 <br>
 <pre><code>
             j-th sentence
@@ -8789,19 +9264,19 @@ data.log -> "6"
 data.logh -> "2*3\n6"
 data.logo -> "makeLog=true"
 </code></pre>
-・useComplex: 複素数を使用するflag
+・<a href="#span-out-ope">useComplex</a>: 複素数を使用するflag
 <br>
 <br>
-・useMatrix: 行列を使用するflag
+・<a href="#span-out-ope">useMatrix</a>: 行列を使用するflag
 <br>
 <br>
 以降、省略で既定値
 <br>
 <br>
-・useStrict: <a href="#span-out-config">strict-mode</a>を使用するflag
+・<a href="#span-out-config">useStrict</a>: strict-modeを使用するflag
 <br>
 <br>
-・isRightAssociativityBR: 2項演算子の<a href="#span-out-options">結合性</a>を右結合に変更するflag
+・isRightAssociativityBR: 2項演算子の<a href="#span-out-associativity">associativity</a>を右結合に変更するflag
 <br>
 <br>
 ・isDIVprior2OMUL: <a href="#span-out-BRmo">記号省略乗算</a>より除算を優先するflag
@@ -8810,34 +9285,34 @@ data.logo -> "makeLog=true"
 ・expDigit: 演算結果を表示する指数表記の桁数
 <br>
 <br>
-・precedence: comma,区切りで演算子の<a href="#span-in-prec">tag名</a>を列挙した文字列
+・<a href="#span-out-config">checkError</a>: 情報落ちの発生や微分・積分の数値誤差を評価するflag
 <br>
 <br>
-・checkError: 情報落ちの発生や微分・積分の数値誤差を評価するflag
+・<a href="#span-out-config">precedence</a>: comma,区切りで演算子の<a href="#span-in-prec">tag名</a>を列挙した文字列
 <br>
 <br>
-・matSizeMax: 行列size指定の上限値
+・<a href="#span-out-FNm">matSizeMax</a>: 行列size指定の上限値
 <br>
 <br>
-・dxJ: Jacobi<a href="#span-out-mat">行列</a>演算時の1階偏微分の差分刻み実数値
+・<a href="#span-out-FNmh-jacobian">dxJ</a>: Jacobi行列演算時の1階偏微分の差分刻み実数値
 <br>
 <br>
-・dxD: 有限差分による1階微分の差分刻み実数値
+・<a href="#span-out-FNh-DX">dxD</a>: 有限差分による1階微分の差分刻み実数値
 <br>
 <br>
-・orderD: 有限差分による微分の精度次数
+・<a href="#span-out-FNh-DX">orderD</a>: 有限差分による微分の精度次数
 <br>
 <br>
-・dxT: 有限差分による1階常微分の差分刻み実数値
+・<a href="#span-out-FNmh-OX">dxT</a>: 有限差分による1階常微分の差分刻み実数値
 <br>
 <br>
-・orderT: 有限差分による常微分の精度次数
+・<a href="#span-out-FNmh-OX">orderT</a>: 有限差分による常微分の精度次数
 <br>
 <br>
-・NI: 有限差分による積分範囲の分割数
+・<a href="#span-out-FNh-IX">NI</a>: 有限差分による積分範囲の分割数
 <br>
 <br>
-・orderI: 有限差分による積分の精度次数
+・<a href="#span-out-FNh-IX">orderI</a>: 有限差分による積分の精度次数
 <br>
 <br>
 以降、command-line実行は無効
@@ -8859,14 +9334,16 @@ browserから実行する場合、URLのGET入力で既定値を上書き可
 <br>
 区切り文字・
 <br>
-演算子の優先順位
+演算子の
+<br>
+precedence
     </th>
     <td>
 <span id="span-in-prec"></span>
-<a href="#span-out-vars">変数</a>・<a href="#span-out-FN">関数</a>・<a href="#span-out-SR">区切り文字</a>・<a href="#span-out-prec-ope">演算子の優先順位</a>について記述する
+<a href="#span-out-vars">変数</a>・<a href="#span-out-FN">関数</a>・<a href="#span-out-SR">区切り文字</a>・<a href="#span-out-prec-ope">演算子のprecedence</a>について記述する
 <br>
 <br>
-配列要素の定義順で優先順位を動的に変更可能とする
+配列要素の定義順でprecedenceを動的に変更可能とする
 <br>
 <br>
 operation.js抜粋
