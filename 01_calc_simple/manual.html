@@ -482,7 +482,7 @@ option
 <br>
 evalに代わる実装項目とfile名の対応関係を列挙する
 <br>
-・構文解析・単位tree構造: parser.js/operation.js/DATA.js
+・構文解析・字句解析・単位tree構造: parser.js/operation.js/DATA.js
 <br>
 ・変数・関数・区切り文字・演算子の優先順位: operation.js
 <br>
@@ -1467,6 +1467,8 @@ ans&lt;&lt;3  // 11111000 -> 248
 <br>
 ・Order表示は後置の+O(実部+虚部i)とする
 <br>
+・目安の解析誤差は当てにならないため、解の二重checkが必要
+<br>
 <br>
 f(x)=x^2のx=1+iにおける1階微分の数値解
 <br>
@@ -1836,7 +1838,9 @@ parse関数の役割はcompiler
 <br>
 ・<a href="#span-out-BT">括弧</a>のnestingを解析し、深さ方向にtree化する
 <br>
-・逐次、入力dataにtagをつけて実行文に置換する
+・入力dataの字句を解析してtagを付ける
+<br>
+・逐次、入力dataを実行文のtreeに置換する
 <br>
 <br>
 operation関数の役割はinterpreter
@@ -1931,6 +1935,13 @@ plot2dの演算は高速化のため、誤差を評価しない・logを作ら�
 ・誤差を含めたlogを作る場合、別途、通常の演算が必要
 <br>
 <br>
+csv/history出力のplot2d-command-logとoptions-logについて記述する
+<br>
+・整合性保証のため、plot2d演算実行確定時のlogを表示する
+<br>
+・よって演算終了後に変更した現在のzをlogに残す場合、再演算が必要
+<br>
+<br>
 semi-colon;区切りで行列の最終要素の数値をgraphに描画する
 <br>
 ・命令文や代入文のみを各軸に入力した場合、0を返して描画する
@@ -2003,7 +2014,7 @@ Edge/Chrome: w -> 43.541015625
 <br>
 ・IEのJScript-originとそれ以外のJavaScriptで<a href="#span-out-float">Machine epsilon</a>程度の相違がある
 <br>
-・NativeのMath.sin関数
+・NativeのMath.sin関数を一例に示す
 <br>
 IE: sin(5) -> -0.9589242746631384
 <br>
@@ -2038,7 +2049,7 @@ plot2d(xt,yt)
 ・plot-button実行中の割込み不可
 <br>
 <br>
-history/csvに記録されるlogからplot2d-commandを実行する場合
+csv/historyに記録されるlogからplot2d-commandを実行する場合
 <br>
 ・plot2d-from-logのformatを次に示す
 <br>
@@ -6929,6 +6940,8 @@ infoLost[ i] 0.0000018087545367633257-9.79999730495574i
 <br>
 <br>
 ODE<a href="#span-out-FNmh">高階行列関数</a>を使用する場合、stepを陽的に解くため、収束演算不要
+<br>
+・実軸の時間積分の場合、目安の解析誤差は実数のみ表示される（仕様）
 <br>
 g=-9.8;
 <br>
