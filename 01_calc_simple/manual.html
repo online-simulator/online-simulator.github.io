@@ -738,7 +738,7 @@ panel下段について記述する
 ・history欄下のlinkから演算履歴の全文をtext保存可
 <br>
 <br>
-一般的な電卓の操作感を再現する場合、all checkbox unchecked
+一般的な電卓の操作性を再現する場合、all checkbox unchecked
 <br>
 ・遅延しないSingle-threadの<a href="#span-out-ope">実数演算</a>
     </td>
@@ -1787,11 +1787,11 @@ useStrict=true
 <br>
 　omitted multiplication sign(*) disabled
 <br>
-・式読出し記号=&gt;省略不可
+・<a href="#span-out-eqns">式読出し</a>記号=&gt;省略不可
 <br>
 　omitted equation call sign(=&gt;) disabled
 <br>
-・式渡しの括弧{}省略不可
+・<a href="#span-out-substitution-equation">式渡し</a>の括弧{}省略不可
 <br>
 　omitted Call-by-Equation's bracket({}) disabled
 <br>
@@ -1831,7 +1831,7 @@ URi,URf,BRp,BRr,BRmo,BRdm,BRsa,BRbs,BRba,BRbx,BRbo,BRcn,BRrl
 <br>
 UI設定によって対応する用途を4種類示す
 <br>
-・有次元の複素数の<a href="#span-out-mat">行列</a>演算（complex&amp;matrix checked）
+・有次元の<a href="#span-out-com">複素数</a>の<a href="#span-out-mat">行列</a>演算（complex&amp;matrix checked）
 <br>
 ・有次元の実数の<a href="#span-out-mat">行列</a>演算（only matrix checked）
 <br>
@@ -5303,7 +5303,7 @@ switch({第1引数:=&lt;第2引数}:{第3引数:=&lt;第4引数}:...)
 <br>
 　・第奇数番引数: 0||0以外を返す条件文を値渡し
 <br>
-　・第偶数番引数: 条件文成立時に実行する処理を式渡し
+　・第偶数番引数: 条件文成立時に実行する処理を<a href="#span-out-substitution-equation">式渡し</a>
 <br>
 ・返値
 <br>
@@ -5349,7 +5349,7 @@ x=2; switch(ge(x,4),4:gt(x,3),3:gt(x,2),2:1,-x) -> -2
 <br>
 x=2; switch(0,4:0,3:0,2:1,-2) -> -2
 <br>
-・式渡しで記述する場合、条件文が成立した場合のみ対の処理を実行する
+・<a href="#span-out-substitution-equation">式渡し</a>で記述する場合、条件文が成立した場合のみ対の処理を実行する
 <br>
 x=2; switch(x&gt;=4,=&lt;4:x&gt;3,=&lt;3:x&gt;2,=&lt;2:1,=&lt;{-x}) -> -2
 <br>
@@ -5425,7 +5425,7 @@ x=-1; switch(lt(real(x),0),=&lt;{-real(x)}:1,=&lt;{real(x)}) -> 1
 <br>
 _sdummy変数名symbol(=&lt;第1引数,第2引数,第3引数[,第4引数])
 <br>
-・第1引数: dummy変数の関数式を式渡し
+・第1引数: dummy変数の関数式を<a href="#span-out-substitution-equation">式渡し</a>
 <br>
 ・第2引数: dummy変数の範囲下限a（整数）を値渡し
 <br>
@@ -5587,7 +5587,7 @@ N=0; _sn(=&lt;Pn,N,10) -> 99.99999999999999
 <br>
 _pdummy変数名symbol(=&lt;第1引数,第2引数,第3引数[,第4引数])
 <br>
-・第1引数: dummy変数の関数式を式渡し
+・第1引数: dummy変数の関数式を<a href="#span-out-substitution-equation">式渡し</a>
 <br>
 ・第2引数: dummy変数の範囲下限a（整数）を値渡し
 <br>
@@ -5684,7 +5684,7 @@ cA=(e^{i(pi/4)},:,e^{i(-pi/4)}); N=4; _pn(=&lt;{cA},1,N)
 <br>
 _rdummy変数名symbol(=&lt;第1引数,第2引数,第3引数)
 <br>
-・第1引数: 任意処理を式渡し
+・第1引数: 任意処理を<a href="#span-out-substitution-equation">式渡し</a>
 <br>
 ・第2引数: dummy変数の初期値を値渡し
 <br>
@@ -5785,7 +5785,7 @@ _Ry(=&lt;{_Rx(=&lt;{x+y+1},1,2)},1,2) -> 13
 <br>
 _ddummy変数名symbol(=&lt;第1引数[,第2引数[,第3引数[,第4引数]]])
 <br>
-・第1引数: dummy変数の関数式を式渡し
+・第1引数: dummy変数の関数式を<a href="#span-out-substitution-equation">式渡し</a>
 <br>
 option
 <br>
@@ -6115,7 +6115,7 @@ x -> (1.000000000000009+O(3e-5):0.9999999999999909+O(3e-5))
 <br>
 _idummy変数名symbol(=&lt;第1引数,第2引数,第3引数[,第4引数])
 <br>
-・第1引数: dummy変数の関数式を式渡し
+・第1引数: dummy変数の関数式を<a href="#span-out-substitution-equation">式渡し</a>
 <br>
 ・第2引数: dummy変数の積分下限aを値渡し
 <br>
@@ -6318,13 +6318,13 @@ Jacobi高階行列関数
 <br>
 Jacobi(=&lt;第1引数,=&lt;第2引数[,=&lt;第3引数[,第4引数]])
 <br>
-・第1引数: 方程式または関数式の列vectorを式渡し
+・第1引数: 方程式または関数式の列vectorを<a href="#span-out-substitution-equation">式渡し</a>
 <br>
-・第2引数: 未知変数名symbolの列vectorを式渡し
+・第2引数: 未知変数名symbolの列vectorを<a href="#span-out-substitution-equation">式渡し</a>
 <br>
 option
 <br>
-・第3引数: 未知変数初期値の列vectorを式渡し[省略時、zeros-vector]
+・第3引数: 未知変数初期値の列vectorを<a href="#span-out-substitution-equation">式渡し</a>[省略時、zeros-vector]
 <br>
 　第3引数は未知変数未定義時のみ有効
 <br>
@@ -6408,13 +6408,13 @@ Newton高階行列関数
 <br>
 Newton(=&lt;第1引数,=&lt;第2引数[,=&lt;第3引数[,第4引数]])
 <br>
-・第1引数: 方程式または関数式の列vectorを式渡し
+・第1引数: 方程式または関数式の列vectorを<a href="#span-out-substitution-equation">式渡し</a>
 <br>
-・第2引数: 未知変数名symbolの列vectorを式渡し
+・第2引数: 未知変数名symbolの列vectorを<a href="#span-out-substitution-equation">式渡し</a>
 <br>
 option
 <br>
-・第3引数: 未知変数初期値の列vectorを式渡し[省略時、zeros-vector]
+・第3引数: 未知変数初期値の列vectorを<a href="#span-out-substitution-equation">式渡し</a>[省略時、zeros-vector]
 <br>
 　第3引数は未知変数未定義時のみ有効
 <br>
@@ -6457,13 +6457,13 @@ ODE高階行列関数
 <br>
 _odummy変数名symbol(=&lt;第1引数,=&lt;第2引数[,=&lt;第3引数[,第4引数[,第5引数]]])
 <br>
-・第1引数: 1階常微分方程式右辺の関数式を式渡し
+・第1引数: 1階常微分方程式右辺の関数式を<a href="#span-out-substitution-equation">式渡し</a>
 <br>
-・第2引数: 未知変数名symbolの列vectorを式渡し
+・第2引数: 未知変数名symbolの列vectorを<a href="#span-out-substitution-equation">式渡し</a>
 <br>
 option
 <br>
-・第3引数: 未知変数初期値の列vectorを式渡し[省略時、zeros-vector]
+・第3引数: 未知変数初期値の列vectorを<a href="#span-out-substitution-equation">式渡し</a>[省略時、zeros-vector]
 <br>
 　第3引数は未知変数未定義時のみ有効
 <br>
@@ -6502,7 +6502,7 @@ symbolic
 <span id="span-out-FNmh-EX"></span>
 symbolic高階行列関数
 <br>
-・未知変数名symbol連番0~のm行n列の<a href="#span-out-mat">行列</a>を<a href="#span-out-eqns">式変数</a>に式代入して0を返す
+・未知変数名symbol連番0~のm行n列の<a href="#span-out-mat">行列</a>を<a href="#span-out-eqns">式変数</a>に<a href="#span-out-eqns">式代入</a>して0を返す
 <br>
 ・_e式変数名symbol(=&lt;{未知変数名symbol},m,n)で呼出す
 <br>
@@ -8660,7 +8660,7 @@ infoLost[ i] -0.04901921620544653+2.023423045158351i:
 )
 <br>
 <br>
-同じく引数の列vectorを直接式渡しする場合
+同じく引数の列vectorを直接<a href="#span-out-substitution-equation">式渡し</a>する場合
 <br>
 ・mdxのnormを返す<a href="#span-out-eqns">式変数</a>runを定義して反復6回目の近似解を示す
 <br>
@@ -9076,14 +9076,14 @@ vector={1,2,3}:trans(vector)vector -> (0:14)
 <br>
 (x=&lt;(a,b,c,d,e)) -> 0
 <br>
-・変数への式読出しは読出し値が残る
+・<a href="#span-out-vars">変数</a>への<a href="#span-out-eqns">式読出し</a>は読出し値が残る
 <br>
 clear; y=&lt;3x-1,x=3,y=&gt;,y=&gt;y0,y0 -> (0,0,8,8,8)
 <br>
 <br>
 <a href="#span-out-eqns">式変数</a>について記述する
 <br>
-・式変数、式代入、式読出し、式渡しの仕様は呼び名含めて一般的でない
+・<a href="#span-out-eqns">式変数</a>、<a href="#span-out-eqns">式代入</a>、<a href="#span-out-eqns">式読出し</a>、<a href="#span-out-substitution-equation">式渡し</a>の仕様は呼び名含めて一般的でない
 <br>
 ・連立方程式をscript-inputから解くために独自に定義している
     </td>
