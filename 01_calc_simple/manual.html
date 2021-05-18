@@ -372,8 +372,18 @@ comment文
 </a>
 <br>
 　・
+<a href="#span-out-eqns-call">
+式読出し
+</a>
+<br>
+　・
+<a href="#span-out-call-by-equation">
+式渡し
+</a>
+<br>
+　・
 <a href="#span-out-substitution-equation">
-式変数への代入
+式変数への代入・式代入
 </a>
 <br>
 　・
@@ -1787,11 +1797,11 @@ useStrict=true
 <br>
 　omitted multiplication sign(*) disabled
 <br>
-・<a href="#span-out-eqns">式読出し</a>記号=&gt;省略不可
+・<a href="#span-out-eqns-call">式読出し</a>記号=&gt;省略不可
 <br>
 　omitted equation call sign(=&gt;) disabled
 <br>
-・<a href="#span-out-substitution-equation">式渡し</a>の括弧{}省略不可
+・<a href="#span-out-call-by-equation">式渡し</a>の括弧{}省略不可
 <br>
 　omitted Call-by-Equation's bracket({}) disabled
 <br>
@@ -4989,7 +4999,7 @@ clear; ($$$max)=(2) -> [MyErr]Invalid max called
 式変数の入力仕様と付随する留意事項について記述する
 <br>
 <br>
-式変数へ代入・再代入方法は、式変数名=&lt;方程式または関数式とする
+式変数への代入・再代入方法は、式変数名=&lt;方程式または関数式とする
 <br>
 ・式変数への代入を以降、式代入と呼ぶ
 <br>
@@ -5000,6 +5010,21 @@ y=&lt;a*x+b=0; -> stored_eqn(y)
 y=&lt;{a*x+b}; -> stored_eqn(y)
 <br>
 y=&lt;a*x+b; -> stored_eqn(y)
+    </td>
+  </tr>
+  <tr>
+    <th>
+<a href="#span-index">
+目次
+</a>
+<br>
+式読出し
+<br>
+入力仕様
+    </th>
+    <td>
+<span id="span-out-eqns-call"></span>
+式読出しの入力仕様と付随する留意事項について記述する
 <br>
 <br>
 式変数から値を読出す方法は、式変数名=&gt;とする
@@ -5061,15 +5086,88 @@ clear; eqn_x=&lt;(a*x+b=0); a=1; b=2; x=3; 2eqn_x || 2*(-5) -> -10
 目次
 </a>
 <br>
+式渡し
+<br>
+入力仕様
+    </th>
+    <td>
+<span id="span-out-call-by-equation"></span>
+式渡しの入力仕様と付随する留意事項について記述する
+<br>
+<br>
+<a href="#span-out-FN">関数</a>の引数に方程式または関数式を渡す場合
+<br>
+・通常の値渡しに対して式渡しと定義する
+<br>
+・この場合の関数を<a href="#span-out-FNh">高階関数</a>と定義する
+<br>
+<br>
+式渡しの仕様を列挙する
+<br>
+・式渡しの直接読出し
+<br>
+(=&lt;3)=&gt; -> 3
+<br>
+(=&lt;{3})=&gt; -> 3
+<br>
+({3})=&gt; -> [MyErr]Invalid mat([object Object])
+<br>
+(1,2,=&lt;3)=&gt; -> 3
+<br>
+(1,2,3)=&gt; -> [MyErr]Invalid mat([object Object])
+<br>
+・一続きにまとめて変数値を読出す場合、最終要素となる引数を式渡し
+<br>
+・last<a href="#span-out-FNm">行列関数</a>は最終要素しか取り出せない
+<br>
+clear; (x=(1,2),=&lt;x)=&gt; -> (1,2)
+<br>
+clear; {x=(1,2:3,4),x=-x,=&lt;x}=&gt; -> (-1,-2:-3,-4)
+<br>
+clear; last(x=(1,2),x) -> 2
+<br>
+clear; last{x=(1,2:3,4),x=-x,x} -> -4
+<br>
+・式変数の場合も同様
+<br>
+clear; f=&lt;{x}; x=(1,2); f=&gt; -> (1,2)
+<br>
+clear; (f=&lt;{x},x=(1,2),=&lt;f)=&gt; -> (1,2)
+<br>
+clear; (f=&lt;{x},x=(1,2),f) -> (0,0,1,2)
+<br>
+clear; (f=&lt;{x},x=(1,2),f)=&gt; -> [MyErr]Invalid mat([object Object])
+<br>
+clear; last(f=&lt;{x},x=(1,2),f) -> 2
+<br>
+clear; last(f=&lt;{x},x=(1,2),=&lt;f) -> [MyErr]Invalid BTe([object Object])
+<br>
+clear; (f=&lt;{x},x=(1,2),=&lt;f) -> [MyErr]Invalid BTe([object Object])
+<br>
+clear; (f=&lt;{x},x=(1,2),eqn_f=&lt;f); eqn_f -> (1,2)
+<br>
+・値渡しの場合、無条件に演算を実行するが、
+<br>
+・式渡しの場合、呼出しまで演算を実行しない
+<br>
+・本仕様は<a href="#span-out-BT">括弧</a>優先の<a href="#span-out-FNh">高階関数</a>の実装において必須
+    </td>
+  </tr>
+  <tr>
+    <th>
+<a href="#span-index">
+目次
+</a>
+<br>
 式変数への
 <br>
-代入
+代入・式代入
 <br>
 入力仕様
     </th>
     <td>
 <span id="span-out-substitution-equation"></span>
-式変数への代入の入力仕様と付随する留意事項について記述する
+式変数への代入・式代入の入力仕様と付随する留意事項について記述する
 <br>
 <br>
 式変数を循環参照した場合、error終了
@@ -5131,8 +5229,6 @@ clear; x=&lt;2:3x -> (0:6)
 <br>
 式変数を式代入可
 <br>
-・式変数の式代入を以降、通常の値渡しに対して式渡しと呼ぶ
-<br>
 ・式読出し記号=&gt;を明示する場合
 <br>
 clear; eqn_x=&lt;3x; eqn_y=&lt;(eqn_x=&gt;); x=3; eqn_y=&gt; -> 9
@@ -5140,57 +5236,6 @@ clear; eqn_x=&lt;3x; eqn_y=&lt;(eqn_x=&gt;); x=3; eqn_y=&gt; -> 9
 ・同名の変数未定義の前提で式読出し記号=&gt;を省略する場合
 <br>
 clear; eqn_x=&lt;3x; eqn_y=&lt;eqn_x; x=3; eqn_y -> 9
-<br>
-<br>
-式渡しの仕様を列挙する
-<br>
-・式渡しの直接読出し
-<br>
-(=&lt;3)=&gt; -> 3
-<br>
-(=&lt;{3})=&gt; -> 3
-<br>
-({3})=&gt; -> [MyErr]Invalid mat([object Object])
-<br>
-(1,2,=&lt;3)=&gt; -> 3
-<br>
-(1,2,3)=&gt; -> [MyErr]Invalid mat([object Object])
-<br>
-・一続きにまとめて変数値を読出す場合、最終要素となる引数を式渡し
-<br>
-・last<a href="#span-out-FNm">行列関数</a>は最終要素しか取り出せない
-<br>
-clear; (x=(1,2),=&lt;x)=&gt; -> (1,2)
-<br>
-clear; {x=(1,2:3,4),x=-x,=&lt;x}=&gt; -> (-1,-2:-3,-4)
-<br>
-clear; last(x=(1,2),x) -> 2
-<br>
-clear; last{x=(1,2:3,4),x=-x,x} -> -4
-<br>
-・<a href="#span-out-eqns">式変数</a>の場合も同様
-<br>
-clear; f=&lt;{x}; x=(1,2); f=&gt; -> (1,2)
-<br>
-clear; (f=&lt;{x},x=(1,2),=&lt;f)=&gt; -> (1,2)
-<br>
-clear; (f=&lt;{x},x=(1,2),f) -> (0,0,1,2)
-<br>
-clear; (f=&lt;{x},x=(1,2),f)=&gt; -> [MyErr]Invalid mat([object Object])
-<br>
-clear; last(f=&lt;{x},x=(1,2),f) -> 2
-<br>
-clear; last(f=&lt;{x},x=(1,2),=&lt;f) -> [MyErr]Invalid BTe([object Object])
-<br>
-clear; (f=&lt;{x},x=(1,2),=&lt;f) -> [MyErr]Invalid BTe([object Object])
-<br>
-clear; (f=&lt;{x},x=(1,2),eqn_f=&lt;f); eqn_f -> (1,2)
-<br>
-・値渡しの場合、無条件に演算を実行するが、
-<br>
-・式渡しの場合、呼出しまで演算を実行しない
-<br>
-・本仕様は<a href="#span-out-BT">括弧</a>優先の<a href="#span-out-FNh">高階関数</a>の実装において必須
 <br>
 <br>
 式代入のnestingを一例に示す
@@ -5303,7 +5348,7 @@ switch({第1引数:=&lt;第2引数}:{第3引数:=&lt;第4引数}:...)
 <br>
 　・第奇数番引数: 0||0以外を返す条件文を値渡し
 <br>
-　・第偶数番引数: 条件文成立時に実行する処理を<a href="#span-out-substitution-equation">式渡し</a>
+　・第偶数番引数: 条件文成立時に実行する処理を<a href="#span-out-call-by-equation">式渡し</a>
 <br>
 ・返値
 <br>
@@ -5349,7 +5394,7 @@ x=2; switch(ge(x,4),4:gt(x,3),3:gt(x,2),2:1,-x) -> -2
 <br>
 x=2; switch(0,4:0,3:0,2:1,-2) -> -2
 <br>
-・<a href="#span-out-substitution-equation">式渡し</a>で記述する場合、条件文が成立した場合のみ対の処理を実行する
+・<a href="#span-out-call-by-equation">式渡し</a>で記述する場合、条件文が成立した場合のみ対の処理を実行する
 <br>
 x=2; switch(x&gt;=4,=&lt;4:x&gt;3,=&lt;3:x&gt;2,=&lt;2:1,=&lt;{-x}) -> -2
 <br>
@@ -5425,7 +5470,7 @@ x=-1; switch(lt(real(x),0),=&lt;{-real(x)}:1,=&lt;{real(x)}) -> 1
 <br>
 _sdummy変数名symbol(=&lt;第1引数,第2引数,第3引数[,第4引数])
 <br>
-・第1引数: dummy変数の関数式を<a href="#span-out-substitution-equation">式渡し</a>
+・第1引数: dummy変数の関数式を<a href="#span-out-call-by-equation">式渡し</a>
 <br>
 ・第2引数: dummy変数の範囲下限a（整数）を値渡し
 <br>
@@ -5587,7 +5632,7 @@ N=0; _sn(=&lt;Pn,N,10) -> 99.99999999999999
 <br>
 _pdummy変数名symbol(=&lt;第1引数,第2引数,第3引数[,第4引数])
 <br>
-・第1引数: dummy変数の関数式を<a href="#span-out-substitution-equation">式渡し</a>
+・第1引数: dummy変数の関数式を<a href="#span-out-call-by-equation">式渡し</a>
 <br>
 ・第2引数: dummy変数の範囲下限a（整数）を値渡し
 <br>
@@ -5684,7 +5729,7 @@ cA=(e^{i(pi/4)},:,e^{i(-pi/4)}); N=4; _pn(=&lt;{cA},1,N)
 <br>
 _rdummy変数名symbol(=&lt;第1引数,第2引数,第3引数)
 <br>
-・第1引数: 任意処理を<a href="#span-out-substitution-equation">式渡し</a>
+・第1引数: 任意処理を<a href="#span-out-call-by-equation">式渡し</a>
 <br>
 ・第2引数: dummy変数の初期値を値渡し
 <br>
@@ -5785,7 +5830,7 @@ _Ry(=&lt;{_Rx(=&lt;{x+y+1},1,2)},1,2) -> 13
 <br>
 _ddummy変数名symbol(=&lt;第1引数[,第2引数[,第3引数[,第4引数]]])
 <br>
-・第1引数: dummy変数の関数式を<a href="#span-out-substitution-equation">式渡し</a>
+・第1引数: dummy変数の関数式を<a href="#span-out-call-by-equation">式渡し</a>
 <br>
 option
 <br>
@@ -6115,7 +6160,7 @@ x -> (1.000000000000009+O(3e-5):0.9999999999999909+O(3e-5))
 <br>
 _idummy変数名symbol(=&lt;第1引数,第2引数,第3引数[,第4引数])
 <br>
-・第1引数: dummy変数の関数式を<a href="#span-out-substitution-equation">式渡し</a>
+・第1引数: dummy変数の関数式を<a href="#span-out-call-by-equation">式渡し</a>
 <br>
 ・第2引数: dummy変数の積分下限aを値渡し
 <br>
@@ -6318,13 +6363,13 @@ Jacobi高階行列関数
 <br>
 Jacobi(=&lt;第1引数,=&lt;第2引数[,=&lt;第3引数[,第4引数]])
 <br>
-・第1引数: 方程式または関数式の列vectorを<a href="#span-out-substitution-equation">式渡し</a>
+・第1引数: 方程式または関数式の列vectorを<a href="#span-out-call-by-equation">式渡し</a>
 <br>
-・第2引数: 未知変数名symbolの列vectorを<a href="#span-out-substitution-equation">式渡し</a>
+・第2引数: 未知変数名symbolの列vectorを<a href="#span-out-call-by-equation">式渡し</a>
 <br>
 option
 <br>
-・第3引数: 未知変数初期値の列vectorを<a href="#span-out-substitution-equation">式渡し</a>[省略時、zeros-vector]
+・第3引数: 未知変数初期値の列vectorを<a href="#span-out-call-by-equation">式渡し</a>[省略時、zeros-vector]
 <br>
 　第3引数は未知変数未定義時のみ有効
 <br>
@@ -6408,13 +6453,13 @@ Newton高階行列関数
 <br>
 Newton(=&lt;第1引数,=&lt;第2引数[,=&lt;第3引数[,第4引数]])
 <br>
-・第1引数: 方程式または関数式の列vectorを<a href="#span-out-substitution-equation">式渡し</a>
+・第1引数: 方程式または関数式の列vectorを<a href="#span-out-call-by-equation">式渡し</a>
 <br>
-・第2引数: 未知変数名symbolの列vectorを<a href="#span-out-substitution-equation">式渡し</a>
+・第2引数: 未知変数名symbolの列vectorを<a href="#span-out-call-by-equation">式渡し</a>
 <br>
 option
 <br>
-・第3引数: 未知変数初期値の列vectorを<a href="#span-out-substitution-equation">式渡し</a>[省略時、zeros-vector]
+・第3引数: 未知変数初期値の列vectorを<a href="#span-out-call-by-equation">式渡し</a>[省略時、zeros-vector]
 <br>
 　第3引数は未知変数未定義時のみ有効
 <br>
@@ -6457,13 +6502,13 @@ ODE高階行列関数
 <br>
 _odummy変数名symbol(=&lt;第1引数,=&lt;第2引数[,=&lt;第3引数[,第4引数[,第5引数]]])
 <br>
-・第1引数: 1階常微分方程式右辺の関数式を<a href="#span-out-substitution-equation">式渡し</a>
+・第1引数: 1階常微分方程式右辺の関数式を<a href="#span-out-call-by-equation">式渡し</a>
 <br>
-・第2引数: 未知変数名symbolの列vectorを<a href="#span-out-substitution-equation">式渡し</a>
+・第2引数: 未知変数名symbolの列vectorを<a href="#span-out-call-by-equation">式渡し</a>
 <br>
 option
 <br>
-・第3引数: 未知変数初期値の列vectorを<a href="#span-out-substitution-equation">式渡し</a>[省略時、zeros-vector]
+・第3引数: 未知変数初期値の列vectorを<a href="#span-out-call-by-equation">式渡し</a>[省略時、zeros-vector]
 <br>
 　第3引数は未知変数未定義時のみ有効
 <br>
@@ -6502,7 +6547,7 @@ symbolic
 <span id="span-out-FNmh-EX"></span>
 symbolic高階行列関数
 <br>
-・未知変数名symbol連番0~のm行n列の<a href="#span-out-mat">行列</a>を<a href="#span-out-eqns">式変数</a>に<a href="#span-out-eqns">式代入</a>して0を返す
+・未知変数名symbol連番0~のm行n列の<a href="#span-out-mat">行列</a>を<a href="#span-out-eqns">式変数</a>に<a href="#span-out-substitution-equation">式代入</a>して0を返す
 <br>
 ・_e式変数名symbol(=&lt;{未知変数名symbol},m,n)で呼出す
 <br>
@@ -8660,7 +8705,7 @@ infoLost[ i] -0.04901921620544653+2.023423045158351i:
 )
 <br>
 <br>
-同じく引数の列vectorを直接<a href="#span-out-substitution-equation">式渡し</a>する場合
+同じく引数の列vectorを直接<a href="#span-out-call-by-equation">式渡し</a>する場合
 <br>
 ・mdxのnormを返す<a href="#span-out-eqns">式変数</a>runを定義して反復6回目の近似解を示す
 <br>
@@ -9033,7 +9078,7 @@ _dy(=&lt;{1/(y*y)})/_dy(=&lt;{1/y})  // NG -> [MyErr]FN isNaN
 <br>
 =(1,2:3,4) || (,:,)=(1,2:3,4) || =(1,2:3,4)-(,:,) -> (1,2:3,4)
 <br>
-・本仕様は<a href="#span-out-eqns">式変数</a>への方程式の代入で以下の構文を許容する
+・本仕様は<a href="#span-out-eqns">式変数</a>への方程式の<a href="#span-out-substitution-equation">式代入</a>で以下の構文を許容する
 <br>
 f=&lt;{x0^2+1=0} || f=&lt;{=-(x0^2+1)} || f=&lt;{-(x0^2+1)}
 <br>
@@ -9076,14 +9121,14 @@ vector={1,2,3}:trans(vector)vector -> (0:14)
 <br>
 (x=&lt;(a,b,c,d,e)) -> 0
 <br>
-・<a href="#span-out-vars">変数</a>への<a href="#span-out-eqns">式読出し</a>は読出し値が残る
+・<a href="#span-out-vars">変数</a>への<a href="#span-out-eqns-call">式読出し</a>は読出し値が残る
 <br>
 clear; y=&lt;3x-1,x=3,y=&gt;,y=&gt;y0,y0 -> (0,0,8,8,8)
 <br>
 <br>
 <a href="#span-out-eqns">式変数</a>について記述する
 <br>
-・<a href="#span-out-eqns">式変数</a>、<a href="#span-out-eqns">式代入</a>、<a href="#span-out-eqns">式読出し</a>、<a href="#span-out-substitution-equation">式渡し</a>の仕様は呼び名含めて一般的でない
+・<a href="#span-out-eqns">式変数</a>、<a href="#span-out-eqns-call">式読出し</a>、<a href="#span-out-call-by-equation">式渡し</a>、<a href="#span-out-substitution-equation">式代入</a>の仕様は呼び名含めて一般的でない
 <br>
 ・連立方程式をscript-inputから解くために独自に定義している
     </td>
