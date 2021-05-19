@@ -1644,7 +1644,7 @@ ans*0 -> infoLost[r ] 0
 <br>
 ・丸め誤差を含む2つの整数を作る
 <br>
-・commentに有効桁のbitの並びを示す
+・<a href="#span-out-comment">comment文</a>に有効桁のbitの並びを示す
 <br>
 255  // 11111111 -> 255
 <br>
@@ -1674,7 +1674,7 @@ ans&lt;&lt;3  // 11111000 -> 248
 <br>
 ・Order表示は後置の+O(実部+虚部i)とする
 <br>
-・目安の解析誤差は当てにならないため、解の二重checkが必要
+・目安の解析誤差は当てにならないため、解のdouble-checkが必要
 <br>
 <br>
 f(x)=x^2のx=1+iにおける1階微分の数値解
@@ -1932,7 +1932,7 @@ UI設定によって対応する用途を4種類示す
 <br>
 ・複素数や整数、文字列等の型は定義しない
 <br>
-・<a href="#span-out-FNh">高階関数</a>と<a href="#span-out-FNmh">高階行列関数</a>で扱う<a href="#span-out-vars-symbol">変数名symbol</a>のみ、呼出し時に内部で判定する
+・<a href="#span-out-FNh">高階関数</a>と<a href="#span-out-FNmh">高階行列関数</a>で扱う<a href="#span-out-vars-symbol">変数名symbol</a>のみ、呼出し時に内部で判別する
 <br>
 ・よって<a href="#span-out-ope">用途</a>をseamlessに切替えて演算量を調整する
 <br>
@@ -1993,9 +1993,18 @@ sqrt(1,2,3:4,5,6) || sqrt(4,5,6) || sqrt(4) -> 2
 ・<a href="#span-out-eqns">式変数</a>
 <br>
 <br>
-変数にscopeの概念はなく、各変数の<a href="#span-out-storage">storage</a>を共有する
+各変数にscopeの概念はない
+<br>
+・変数毎に<a href="#span-out-storage">storage</a>を共有する
 <br>
 ・<a href="#span-out-FNh">高階関数</a>と<a href="#span-out-FNmh">高階行列関数</a>で扱うdummy変数のみ、scopeが独立する
+<br>
+<br>
+次の<a href="#span-out-command">命令文</a>の組合せで完全独立のlocal scopeを代替可
+<br>
+・<a href="#span-out-comment">comment文</a>を使用
+<br>
+x=2; store; clear; x=3/*independent local scope*/; restore; x -> 2
     </td>
   </tr>
   <tr>
@@ -2011,7 +2020,7 @@ storage
 storageについて記述する
 <br>
 <br>
-storageは<a href="#span-out-vars">変数</a>・<a href="#span-out-eqns">式変数</a>を保存するobjectで次の3種類
+storageは<a href="#span-out-vars">変数</a>・<a href="#span-out-eqns">式変数</a>を別々に保存するobjectで次の3種類
 <br>
 ・local storage
 <br>
@@ -2318,7 +2327,7 @@ plot2d('t0','t1','xt','yt','N','z')
 <br>
 ・Ver.2.25.12以降、第5引数Nにsingle quotation markを付与
 <br>
-・Ver.2.27.14以降、第6引数z&amp;comment入力に対応
+・Ver.2.27.14以降、第6引数z&amp;<a href="#span-out-comment">comment文</a>入力に対応
 <br>
 ・plot2d-commandの一例を示す
 <br>
@@ -2330,7 +2339,7 @@ plot2d('-5','5','t;','SND=&lt;exp(-t^2/2)/sqrt(2pi),SND;','50','circle')
 <br>
 ・N入力値はselect値が存在する場合のみ有効
 <br>
-・comment入力の一例を示す
+・<a href="#span-out-comment">comment文</a>入力の一例を示す
 <br>
 ・tokenを区切るsingle quotation markは使用不可
 <br>
@@ -2639,8 +2648,6 @@ evolutionN=&lt;_sn(=&lt;{stepn=&gt;},0,N);
 <br>
 init=&gt;; evolutionN=&gt;; xt,yt ->
 <br>
-・<a href="#span-out-evolution">時間発展の解法</a>に示す位置z_x=xt+yt*iの近似解に一致する
-<br>
 (
 <br>
 0,0:
@@ -2664,6 +2671,36 @@ init=&gt;; evolutionN=&gt;; xt,yt ->
 19.77702700592188+O(6e-2),-14.6322297611764:
 <br>
 19.86470649057239+O(6e-2),-19.40158732904714
+<br>
+)
+<br>
+・<a href="#span-out-evolution">時間発展の解法</a>に示す各時刻の位置z_xの近似解に一致する
+<br>
+xt+yt*i ->
+<br>
+(
+<br>
+0:
+<br>
+7.864583333333332+6.818229166666667i+O(6e-2):
+<br>
+12.636583116319443+9.028508843315972i+O(6e-2):
+<br>
+15.532093401308412+8.442819167949535i+O(6e-2):
+<br>
+17.289004589856408+6.160616838886046i+O(6e-2):
+<br>
+18.355047055824333+2.849020113178252i+O(6e-2):
+<br>
+19.001890531268412-1.0871831084100707i+O(6e-2):
+<br>
+19.394376285899845-5.402379334009235i+O(6e-2):
+<br>
+19.63252519430902-9.947537460479563i+O(6e-2):
+<br>
+19.77702700592188-14.6322297611764i+O(6e-2):
+<br>
+19.86470649057239-19.40158732904714i+O(6e-2)
 <br>
 )
     </td>
@@ -2806,6 +2843,12 @@ clear; x=2; store; clear; restore; x -> 2
 clear; x=2; store; y=3; clear; restore; x+y -> [MyErr]Invalid binary operation
 <br>
 clear; x=2; store; y=3; store; clear; restore; x+y -> 5
+<br>
+・store;clear~restore間のscopeは完全独立
+<br>
+clear; x=2; store; clear; x=3; restore; x -> 2
+<br>
+clear; x=2; store; clear; x -> [MyErr]Invalid REv(x)
 <br>
 ・演算実行確定1回毎にlocal <a href="#span-out-storage">buffer</a>は消去される
 <br>
@@ -5254,7 +5297,7 @@ clear; (f=&lt;{x},x=(1,2),eqn_f=&lt;f); eqn_f -> (1,2)
 <br>
 ・当初、括弧より関数優先で式渡しの仕様はなかったが、
 <br>
-・記号を定義した方が間違いが少ないと判断し、括弧優先で実装し直した
+・式渡しの記号を明示した方が間違いが少ないと判断し、括弧優先で実装し直した
 <br>
 ・さらに、Native無名関数の代替手段として流用した
     </td>
@@ -5339,9 +5382,21 @@ clear; x=&lt;2:3x -> (0:6)
 <br>
 clear; eqn_x=&lt;3x; eqn_y=&lt;(eqn_x=&gt;); x=3; eqn_y=&gt; -> 9
 <br>
+clear; a=&lt;1; b=&lt;a=&gt;; b -> 1
+<br>
+clear; a=&lt;1; b=&lt;a=&gt;; (=&lt;{b=&gt;})=&gt; -> 1
+<br>
 ・同名の変数未定義の前提で式読出し記号=&gt;を省略する場合
 <br>
 clear; eqn_x=&lt;3x; eqn_y=&lt;eqn_x; x=3; eqn_y -> 9
+<br>
+clear; a=&lt;1; b=&lt;a; b=&gt; -> 1
+<br>
+clear; a=&lt;1; b=&lt;a; (b)=&gt; -> [MyErr]Invalid mat([object Object])
+<br>
+clear; a=&lt;1; b=&lt;a; (=&lt;b)=&gt; -> 1
+<br>
+clear; a=&lt;1; b=&lt;a; =&lt;b=&gt; -> [MyErr]Invalid BTe([object Object],[object Object])
 <br>
 <br>
 式代入のnestingを一例に示す
@@ -7675,7 +7730,7 @@ b={5,6};
 <br>
 x=Gauss(A,b); x -> (-3.9999999999999982:4.499999999999999)
 <br>
-・解の二重check
+・解のdouble-check
 <br>
 A(x) -> (5:6.000000000000002)
 <br>
