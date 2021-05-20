@@ -227,6 +227,48 @@ Y/M/D
 <tbody>
   <tr>
     <th>
+3.36.16.5.16
+    </th>
+    <td class="types">
+Calculator
+    </td>
+    <td>
+2.27.15
+    </td>
+    <td class="clear">
+minor bug-fix
+    </td>
+    <td>
+[Calculator]
+<br>
+・Unexpected error at null-equation called bug-fixed
+<br>
+　<span class="clear">=&gt;</span> -> Cannot read property 'length' of null　⇒　[MyErr]Invalid null=>
+<br>
+・Ver.1.7.3仕様変更に伴うerror-log表示を修正
+<br>
+　=&lt; -> [MyErr]Invalid eqn<span class="clear">&lt;=</span>　⇒　[MyErr]Invalid =&lt;null
+<br>
+・式変数へのnull代入をerror終了に修正
+<br>
+　x=&lt;; x -> <span class="clear">0</span>　⇒　[MyErr]Invalid =&lt;null
+<br>
+・変数の命名規則を追加
+<br>
+　<a href="01_calc_simple/manual.html#span-out-vars">[manual]Calculator-変数の命名規則</a>
+<br>
+　$a=1 -> [MyErr]Invalid SEv($a)
+<br>
+　$a=&lt;1 -> [MyErr]Invalid SEe($a)
+<br>
+・manual更新
+    </td>
+    <td>
+2021/5/21
+    </td>
+  </tr>
+  <tr>
+    <th>
 3.36.16.5.15
     </th>
     <td class="types">

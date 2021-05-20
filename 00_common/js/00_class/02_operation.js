@@ -92,6 +92,10 @@ My_entry.operation.prototype.config = {
     dxJ: 1e-5,
     dxD: 1e-3,
     NI: 100
+  },
+  /* Ver.2.27.15 */
+  isEscaped: function(name){
+    return (name.charAt(0) === "$");
   }
 };
 My_entry.operation.prototype.init = function(){
@@ -561,6 +565,37 @@ My_entry.operation.prototype.tree_BT2tree = function(data, tree){
   }
   return _tree;
 };
+/* Ver.2.27.15 -> */
+My_entry.operation.prototype.get_names = function(data, tree_BT){
+  var self = this;
+  var _names = [];
+  var tree = self.tree_BT2tree(data, tree_BT);
+  var arr = self.get_tagVal(tree, "mat", "arr");
+  if(arr){
+    var len_i = arr.length;
+    for(var i=0; i<len_i; ++i){
+      var name = self.get_tagVal(self.arr2obj_i(arr, i), "REv", "val");
+      if(name){
+        _names.push(name);
+      }
+      else{
+        _names = [];
+        break;
+      }
+    }
+  }
+  return _names;
+};
+My_entry.operation.prototype.get_name_escaped = function(tree){
+  var self = this;
+  var _name = "";
+  var name = self.get_tagVal(tree, "REv", "val");
+  if(name && self.config.isEscaped(name)){
+    _name = name.substr(1);
+  }
+  return _name;
+};
+/* -> Ver.2.27.15 */
 My_entry.operation.prototype.tree2tree_eqn = function(data, tree){
   var self = this;
   var eqns = data.eqns;
@@ -628,28 +663,6 @@ My_entry.operation.prototype.jacobian = function(data, rightArr, tagObj){
   var len_j = args.length;
   var get_tree = function(j){
     return self.tree2tree_eqn(data, args[j]);
-  };
-  var get_names = function(j){
-    var _names = [];
-    var tree_BT = get_tree(j);
-    var tree = self.tree_BT2tree(data, tree_BT);
-    var arr = self.get_tagVal(tree, "mat", "arr");
-    if(arr){
-      var len_i = arr.length;
-      for(var i=0; i<len_i; ++i){
-        var name = self.get_tagVal(self.arr2obj_i(arr, i), "REv", "val");
-        if(name){
-          _names.push(name);
-        }
-        else{
-          throw msgErr;
-        }
-      }
-    }
-    else{
-      throw msgErr;
-    }
-    return _names;
   };
   var get_arr = function(j){
     var _arr = [];
@@ -726,7 +739,11 @@ if(prop.key){
   msgErr = "Invalid "+prop+" arguments";
   if(prop === "EX"){
     if(len_j > 2){
-      var names = get_names(0);
+      /* Ver.2.27.15 -> */
+      var tree_BT = get_tree(0);
+      var names = self.get_names(data, tree_BT);
+      if(!(names.length)) throw msgErr;
+      /* -> Ver.2.27.15 */
       var name_var = names[names.length-1];
       var name_eqn = tagObj.val.name;
       var len_i = math_mat.num2size(options, args[1]);
@@ -756,7 +773,11 @@ if(prop.key){
   else if(len_j > 1){
   /* -> Ver.2.23.11 */
     var tree_eqn = get_tree(0);
-    var names = get_names(1);
+    /* Ver.2.27.15 -> */
+    var tree_BT = get_tree(1);
+    var names = self.get_names(data, tree_BT);
+    if(!(names.length)) throw msgErr;
+    /* -> Ver.2.27.15 */
     var len_i = names.length;
     var arr_x = null;
     if(len_j > 2){
@@ -896,7 +917,11 @@ else{
   var isNewtonian = (prop === "newtonian");
   if(len_j > 1){
     var tree_eqn = get_tree(0);
-    var names = get_names(1);
+    /* Ver.2.27.15 -> */
+    var tree_BT = get_tree(1);
+    var names = self.get_names(data, tree_BT);
+    if(!(names.length)) throw msgErr;
+    /* -> Ver.2.27.15 */
     var len_i = names.length;
     var arr_x = null;
     if(len_j > 2){
@@ -1711,13 +1736,19 @@ My_entry.operation.prototype.tree_eqn2tree = function(data, tree){
 /* Ver.2.20.8 */
 My_entry.operation.prototype.tree_eqn2tree_AtREe = function(data, tree, name){
   var self = this;
+  /* Ver.2.27.15 (=<3)=> null-name -> */
   if(self.isLocked_eqns[name]){
     self.isLocked_eqns[name] = false;
     throw "Invalid circular("+name+")";
   }
-  self.isLocked_eqns[name] = true;
+  if(name){
+    self.isLocked_eqns[name] = true;
+  }
   var _tree = self.tree_eqn2tree(data, tree);
-  self.isLocked_eqns[name] = false;
+  if(name){
+    self.isLocked_eqns[name] = false;
+  }
+  /* -> Ver.2.27.15 */
   return _tree;
 };
 My_entry.operation.prototype.tree2tree_ref = function(tree, ref){
@@ -1807,7 +1838,7 @@ My_entry.operation.prototype.SEv_pattern_matching = function(data, is, ie){
     var _out = "";
     var name_var = self.get_tagVal(leftArrij, "REv", "val");
     if(name_var){
-      var name_var_escaped = (name_var.charAt(0) === "$")? name_var.substr(1): "";
+      var name_var_escaped = self.get_name_escaped(leftArrij);  // Ver.2.27.15
       if(name_var_escaped){
         self.store_var(vars, name_var_escaped, DATA.num2tree(rightNum));
         _out += "stored_var("+name_var_escaped+") ";
@@ -1872,6 +1903,7 @@ My_entry.operation.prototype.SEv = function(data, i0, tagName, tagObj){
     if(trees.length === 3){
       var name_var = self.get_tagVal(leftTree, "REv", "val");  // clear; f<={(x)=1}; f
       if(name_var){
+        if(self.config.isEscaped(name_var)) throw "Invalid SEv("+name_var+")";  // Ver.2.27.15
         tree = trees[ie];
         if(self.get_tag(tree, "mat")){  // only matrix is stored
           var ref = self.get_tagVal(leftTree, "REv", "ref");
@@ -1933,10 +1965,12 @@ My_entry.operation.prototype.restore_eqn = function(eqns, name){
 My_entry.operation.prototype.tree2restore_eqn = function(tree){
   var self = this;
   var _tree = null;
-  var tree = self.arr2num(self.get_tagVal(tree, "mat", "arr"));
-  if(tree){
+  /* Ver.2.27.15 -> */
+  var tree_ = self.arr2num(self.get_tagVal(tree, "mat", "arr"));
+  if(tree_){
     var BT = self.config.BT;
-    var isSEe = tree[BT.SEe];
+    var isSEe = tree_[BT.SEe];
+  /* -> Ver.2.27.15 */
     if(isSEe){
       _tree = {};
       _tree[BT.REe] = isSEe;
@@ -1958,6 +1992,7 @@ My_entry.operation.prototype.REe = function(data, i0, tagName, tagObj){
   var is = i0-1;
   var ie = i0+1;
   var leftTree = trees[is];
+  if(!(leftTree)) throw "Invalid null=>";  // Ver.2.27.15
   var name_eqn = self.get_tagVal(leftTree, "REv", "val");
   var tree_eqn = (name_eqn)? self.restore_eqn(eqns, name_eqn): self.tree2restore_eqn(leftTree);
   if(tree_eqn){
@@ -1988,9 +2023,14 @@ My_entry.operation.prototype.SEe = function(data, i0, tagName, tagObj){
   var len = trees.length;
   var is = i0-1;
   var ie = len-1;
+  /* Ver.2.27.15 -> */
+  var rightTree = trees[i0+1];
+  if(!(rightTree)) throw "Invalid =<null";
   if(i0 < 2){  // <=f || f<=x
     var tree = null;
+/*
     if(trees.length > 1){
+*/
       var name_eqn = self.get_tagVal(trees[is], "REv", "val");
       var newTrees = trees.slice(is+2, len);
       /* Ver.2.19.6 -> */
@@ -2006,17 +2046,21 @@ My_entry.operation.prototype.SEe = function(data, i0, tagName, tagObj){
       tree = DATA.tree_tag(self.config.BT.SEe, newTrees);
       /* -> Ver.2.19.6 */
       if(name_eqn){
+        if(self.config.isEscaped(name_eqn)) throw "Invalid SEe("+name_eqn+")";  // Ver.2.27.15
         self.store_eqn(eqns, name_eqn, tree);
         tree = DATA.tree_tag("out", "stored_eqn("+name_eqn+")");
       }
+/*
     }
     else{
       throw "Invalid eqn<=";
     }
+*/
     if(tree){
       self.feedback2trees(data, is, ie, tree);
     }
   }
+  /* -> Ver.2.27.15 */
   return self;
 };
 My_entry.operation.prototype.SEans = function(data, i0, tagName, tagObj){
