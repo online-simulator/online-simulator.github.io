@@ -1155,7 +1155,11 @@ precedence
 <br>
 ・<a href="#span-out-SR">区切り文字</a>
 <br>
+・<a href="#span-out-substitution-equation">式代入</a>
+<br>
 ・<a href="#span-out-BT">括弧</a>
+<br>
+・<a href="#span-out-eqns-call">式読出し</a>
 <br>
 ・<a href="#span-out-FN">関数</a>
 <br>
@@ -1646,19 +1650,19 @@ ans*0 -> infoLost[r ] 0
 <br>
 ・<a href="#span-out-comment">comment文</a>に有効桁のbitの並びを示す
 <br>
-255  // 11111111 -> 255
+255  <span class="selection">// 11111111</span> -> 255
 <br>
-255&gt;&gt;2  // 111111 -> 63
+255&gt;&gt;2  <span class="selection">// 111111</span> -> 63
 <br>
-ans&lt;&lt;2  // 11111100 -> 252
+ans&lt;&lt;2  <span class="selection">// 11111100</span> -> 252
 <br>
-255&gt;&gt;3  // 11111 -> 31
+255&gt;&gt;3  <span class="selection">// 11111</span> -> 31
 <br>
-ans&lt;&lt;3  // 11111000 -> 248
+ans&lt;&lt;3  <span class="selection">// 11111000</span> -> 248
 <br>
 ・2つの整数の差を取ると有効桁が減少して丸め誤差が拡大する
 <br>
-252-248  // 100 -> 4
+252-248  <span class="selection">// 100</span> -> 4
 <br>
 <br>
 数値誤差は無限を有限で数学的に近似する際の、
@@ -2004,7 +2008,7 @@ sqrt(1,2,3:4,5,6) || sqrt(4,5,6) || sqrt(4) -> 2
 <br>
 ・<a href="#span-out-comment">comment文</a>を使用
 <br>
-x=2; store; clear; x=3/*independent local scope*/; restore; x -> 2
+x=2; store; clear; x=3<span class="selection">/*independent local scope*/</span>; restore; x -> 2
     </td>
   </tr>
   <tr>
@@ -2325,9 +2329,9 @@ plot2d('t0','t1','xt','yt','N')
 <br>
 plot2d('t0','t1','xt','yt','N','z')
 <br>
-・Ver.2.25.12以降、第5引数Nにsingle quotation markを付与
+・<span class="run">Ver.2.25.12以降</span>、第5引数Nにsingle quotation markを付与
 <br>
-・Ver.2.27.14以降、第6引数z&amp;<a href="#span-out-comment">comment文</a>入力に対応
+・<span class="run">Ver.2.27.14以降</span>、第6引数z&amp;<a href="#span-out-comment">comment文</a>入力に対応
 <br>
 ・plot2d-commandの一例を示す
 <br>
@@ -2345,13 +2349,13 @@ plot2d('-5','5','t;','SND=&lt;exp(-t^2/2)/sqrt(2pi),SND;','50','circle')
 <br>
 plot2d(
 <br>
-'1e-3(1+i)/*t0*/','1e2(1+i)/*t1*/',
+'1e-3(1+i)<span class="selection">/*t0*/</span>','1e2(1+i)<span class="selection">/*t1*/</span>',
 <br>
-'x=t,x/*xt*/;','x;2x;3x;4x;5x;6x;7x;8x;9x;10x/*yt*/;',
+'x=t,x<span class="selection">/*xt*/</span>;','x;2x;3x;4x;5x;6x;7x;8x;9x;10x<span class="selection">/*yt*/</span>;',
 <br>
 '10',
 <br>
-'circle/*marker*/;'
+'circle<span class="selection">/*marker*/</span>;'
 <br>
 )
 <br>
@@ -2722,14 +2726,14 @@ comment文の入力仕様と付随する留意事項について記述する
 <br>
 次のcomment文2種類は実行文に含まれない
 <br>
-// line comment
+<span class="selection">// line comment</span>
 <br>
-/* block comment */
+<span class="selection">/* block comment */</span>
 <br>
 <br>
 test caseを示す
 <br>
-x=-0xff; /*x:16進数値*/ x&gt;&gt;3 // 右shift3回
+x=-0xff; <span class="selection">/*x:16進数値*/</span> x&gt;&gt;3 <span class="selection">// 右shift3回</span>
 <br>
 -> -32
 <br>
@@ -3360,7 +3364,7 @@ a={5-3}-1; b=2/{2i(a)i}; e^(-i(1pi()b/(-4)))
 <br>
 <a href="#span-out-ope">実数演算</a>の場合、虚数は0のため、次の極形式は使用不可
 <br>
-t=pi/4; e^(i{t}) || e^(real(i)t) || e^(0)  // NG -> 1
+t=pi/4; e^(i{t}) || e^(real(i)t) || e^(0)  <span class="selection">// NG</span> -> 1
 <br>
 ・極形式の関数を使用
 <br>
@@ -3429,17 +3433,17 @@ eq(2+3i,2-3i) || eq(2,2) -> 1
 <br>
 ne(5,-5) -> 1
 <br>
-lt(1,2)&amp;lt(3,4) || 1&amp;1  // AND -> 1
+lt(1,2)&amp;lt(3,4) || 1&amp;1  <span class="selection">// AND</span> -> 1
 <br>
-lt(1,2)&amp;gt(3,4) || 1&amp;0  // AND -> 0
+lt(1,2)&amp;gt(3,4) || 1&amp;0  <span class="selection">// AND</span> -> 0
 <br>
-lt(1,2)@lt(3,4) || 1@1  // XOR -> 0
+lt(1,2)@lt(3,4) || 1@1  <span class="selection">// XOR</span> -> 0
 <br>
-lt(1,2)@gt(3,4) || 1@0  // XOR -> 1
+lt(1,2)@gt(3,4) || 1@0  <span class="selection">// XOR</span> -> 1
 <br>
-lt(1,2)|lt(3,4) || 1|1  // OR -> 1
+lt(1,2)|lt(3,4) || 1|1  <span class="selection">// OR</span> -> 1
 <br>
-lt(1,2)|gt(3,4) || 1|0  // OR -> 1
+lt(1,2)|gt(3,4) || 1|0  <span class="selection">// OR</span> -> 1
 <br>
 le(1,1)*ge(1,1) || 1*1 -> 1
 <br>
@@ -3712,7 +3716,7 @@ k=-3; (k,:,k) -> (-3,0:0,-3)
 <br>
 k=-3; (k,:,k)(1,2:3,4) || (1,2:3,4)(k,:,k) -> (-3,-6:-9,-12)
 <br>
-k=-3; k(1,2:3,4)  // NG -> [MyErr]Invalid matrix operation
+k=-3; k(1,2:3,4)  <span class="selection">// NG</span> -> [MyErr]Invalid matrix operation
 <br>
 ・符号
 <br>
@@ -4032,11 +4036,11 @@ x={(1-i)/sqrt2,2i,-3i}; trans(x)x -> -13-0.9999999999999998i
 <br>
 ・よって<a href="#span-out-com">複素数</a>の場合、非同義
 <br>
-x={(1-i)/sqrt2,2i,-3i}; abs(sqrt(trans(x)x))  // NG -> 3.6108731368472777
+x={(1-i)/sqrt2,2i,-3i}; abs(sqrt(trans(x)x))  <span class="selection">// NG</span> -> 3.6108731368472777
 <br>
 ・行vectorを誤入力した場合
 <br>
-norm((1-i)/sqrt2,2i,-3i) || norm(-3i)  // NG -> 3
+norm((1-i)/sqrt2,2i,-3i) || norm(-3i)  <span class="selection">// NG</span> -> 3
 <br>
 <br>
 行列size
@@ -4098,11 +4102,11 @@ vc={1,i,-i}; vc(1/norm(vc)) ->
 <br>
 ・行vectorを誤入力した場合
 <br>
-vr=(1,i,-i); normalizec(vr)  // NG -> (1,i,-i)
+vr=(1,i,-i); normalizec(vr)  <span class="selection">// NG</span> -> (1,i,-i)
 <br>
 ・zeros-vectorの場合
 <br>
-normalize({0,0,0})  // NG -> [MyErr]FN isNaN
+normalize({0,0,0})  <span class="selection">// NG</span> -> [MyErr]FN isNaN
 <br>
 <br>
 行列の正規化
@@ -4303,13 +4307,13 @@ trans((trans(i,2i:3i,4i))[1]) || htrans((htrans(i,2i:3i,4i))[1]) -> (2i:4i)
 <br>
 ・<a href="#span-out-BT">括弧</a>は<a href="#span-out-FNm">関数</a>より優先するため、関数の外側を上位の括弧で括る
 <br>
-A=(1,2:3,4); (trans(A))[1]  // OK -> (2,4)
+A=(1,2:3,4); (trans(A))[1]  <span class="selection">// OK</span> -> (2,4)
 <br>
-(trans(1,2:3,4))[1]  // OK -> (2,4)
+(trans(1,2:3,4))[1]  <span class="selection">// OK</span> -> (2,4)
 <br>
-A=(1,2:3,4); trans(A)[1] || trans((A)[1])  // NG -> (3:4)
+A=(1,2:3,4); trans(A)[1] || trans((A)[1])  <span class="selection">// NG</span> -> (3:4)
 <br>
-trans(1,2:3,4)[1] || trans((1,2:3,4)[1])  // NG -> (3:4)
+trans(1,2:3,4)[1] || trans((1,2:3,4)[1])  <span class="selection">// NG</span> -> (3:4)
 <br>
 <br>
 定義済みの行列要素のみ代入可
@@ -4726,7 +4730,7 @@ ans_xyz=rot_xyz; ans_xyz ->
 <br>
 ・回転の逆回転を順序通りに記憶して演算すると単位行列に戻る
 <br>
-rot_xyz*rot_zyx  // NG -> ...
+rot_xyz*rot_zyx  <span class="selection">// NG</span> -> ...
 <br>
 ans_xyz*ans_zyx ->
 <br>
@@ -5148,6 +5152,8 @@ y=&lt;a*x+b=0; -> stored_eqn(y)
 y=&lt;{a*x+b}; -> stored_eqn(y)
 <br>
 y=&lt;a*x+b; -> stored_eqn(y)
+<br>
+・式変数は<a href="#span-out-vars">変数の命名規則</a>に準拠
     </td>
   </tr>
   <tr>
@@ -5248,6 +5254,8 @@ clear; eqn_x=&lt;(a*x+b=0); a=1; b=2; x=3; 2eqn_x || 2*(-5) -> -10
 <br>
 (=&lt;{3})=&gt; || {=&lt;{3}}=&gt; -> 3
 <br>
+=&lt;3=&gt; -> [MyErr]Invalid BTe([object Object],[object Object])
+<br>
 (3)=&gt; || {3}=&gt; -> [MyErr]Invalid mat([object Object])
 <br>
 ・Native無名関数(function(){1; 2; return 3;})();の一例
@@ -5343,7 +5351,7 @@ clear; a=&lt;a=&gt;; a=&gt; -> [MyErr]Invalid circular(a)
 clear; a=&lt;{a=&gt;}; a=&gt; -> [MyErr]Invalid circular(a)
 <br>
 <br>
-Ver.2.19.6以降、<a href="#span-out-FN">関数</a>の参照渡しの仕様を廃止（無駄仕様と判断）
+<span class="run">Ver.2.19.6以降</span>、<a href="#span-out-FN">関数</a>の参照渡しの仕様を廃止（無駄仕様と判断）
 <br>
 <del>
 式変数名=&lt;関数名として関数名を任意に変更可（参照渡しを模擬）
@@ -5387,21 +5395,23 @@ clear; x=&lt;2:3x -> (0:6)
 <br>
 clear; eqn_x=&lt;3x; eqn_y=&lt;(eqn_x=&gt;); x=3; eqn_y=&gt; -> 9
 <br>
-clear; a=&lt;1; b=&lt;a=&gt;; b -> 1
+clear; a=&lt;1; b=&lt;a=&gt;; b=&gt; -> 1
+<br>
+clear; a=&lt;1; b=&lt;a=&gt;; (b)=&gt; -> [MyErr]Invalid mat([object Object])
 <br>
 clear; a=&lt;1; b=&lt;a=&gt;; (=&lt;{b=&gt;})=&gt; -> 1
+<br>
+clear; a=&lt;1; b=&lt;a=&gt;; (=&lt;b=&gt;)=&gt; -> 1
+<br>
+clear; a=&lt;1; b=&lt;a=&gt;; =&lt;b=&gt; -> [MyErr]Invalid BTe([object Object],[object Object])
 <br>
 ・同名の変数未定義の前提で式読出し記号=&gt;を省略する場合
 <br>
 clear; eqn_x=&lt;3x; eqn_y=&lt;eqn_x; x=3; eqn_y -> 9
 <br>
-clear; a=&lt;1; b=&lt;a; b=&gt; -> 1
-<br>
-clear; a=&lt;1; b=&lt;a; (b)=&gt; -> [MyErr]Invalid mat([object Object])
+clear; a=&lt;1; b=&lt;a; b -> 1
 <br>
 clear; a=&lt;1; b=&lt;a; (=&lt;b)=&gt; -> 1
-<br>
-clear; a=&lt;1; b=&lt;a; =&lt;b=&gt; -> [MyErr]Invalid BTe([object Object],[object Object])
 <br>
 <br>
 式代入のnestingを一例に示す
@@ -5512,7 +5522,7 @@ switch({第1引数:=&lt;第2引数}:{第3引数:=&lt;第4引数}:...)
 <br>
 ・引数
 <br>
-　・第奇数番引数: 0||0以外を返す条件文を値渡し
+　・第奇数番引数: 0||not0を返す条件文を値渡し
 <br>
 　・第偶数番引数: 条件文成立時に実行する処理を<a href="#span-out-call-by-equation">式渡し</a>
 <br>
@@ -5529,7 +5539,7 @@ switch(第1引数,第2引数:第3引数,第4引数:...)
 <br>
 ・引数
 <br>
-　・第奇数番引数: 0||0以外を返す条件文を値渡し
+　・第奇数番引数: 0||not0を返す条件文を値渡し
 <br>
 　・第偶数番引数: 条件文成立時の返却値を値渡し
 <br>
@@ -5600,15 +5610,49 @@ switch(0:1,=&lt;{1}) -> 1
 <br>
 switch(0,0:1,=&lt;{1}) || switch((0,0):(1,=&lt;{1})) || switch({0:0}:{1:=&lt;{1}}) -> 1
 <br>
-switch(0,0,1,=&lt;{1})  // NG -> 0
+switch(0,0,1,=&lt;{1})  <span class="selection">// NG</span> -> 0
 <br>
 switch(0,0:0,0:0,0:1,=&lt;{1}:1,=&lt;{2}) -> 1
 <br>
 ・実数の絶対値abs(real(x))を返す場合
 <br>
-x=1; switch(lt(real(x),0),=&lt;{-real(x)}:1,=&lt;{real(x)}) -> 1
+x=2; switch(lt(real(x),0),=&lt;{-real(x)}:1,=&lt;{real(x)}) -> 2
 <br>
-x=-1; switch(lt(real(x),0),=&lt;{-real(x)}:1,=&lt;{real(x)}) -> 1
+x=-2; switch(lt(real(x),0),=&lt;{-real(x)}:1,=&lt;{real(x)}) -> 2
+<br>
+・<a href="#span-out-eqns">式変数</a>を使用
+<br>
+cond_m=&lt;lt(real(x),0); proc_m=&lt;{-real(x)}; cond_p=&lt;1; proc_p=&lt;{real(x)};
+<br>
+x=-2; (cond_m,proc_m:cond_p,proc_p) -> (1,2:1,-2)
+<br>
+x=-2; switch(cond_m,proc_m:cond_p,proc_p) -> 2
+<br>
+x=-2; (cond_m,=&lt;proc_m:cond_p,=&lt;proc_p) -> [MyErr]Invalid BTe([object Object])
+<br>
+x=-2; switch(cond_m,=&lt;proc_m:cond_p,=&lt;proc_p) -> 2
+<br>
+・丸<a href="#span-out-BT">括弧</a>()で<a href="#span-out-eqns">式変数</a>のnesting可
+<br>
+・値渡しで記述
+<br>
+cp_m=&lt;(cond_m,proc_m); cp_p=&lt;(cond_p,proc_p);
+<br>
+cp_mp=&lt;(cp_m:cp_p);
+<br>
+x=-2; (cp_mp) -> (1,2:1,-2)
+<br>
+x=-2; switch(cp_mp) -> 2
+<br>
+・<a href="#span-out-call-by-equation">式渡し</a>で記述
+<br>
+cp_m=&lt;(cond_m,=&lt;proc_m); cp_p=&lt;(cond_p,=&lt;proc_p);
+<br>
+cp_mp=&lt;(cp_m:cp_p);
+<br>
+x=-2; (cp_mp) -> [MyErr]Invalid BTe([object Object])
+<br>
+x=-2; switch(cp_mp) -> 2
     </td>
   </tr>
   <tr>
@@ -5705,7 +5749,7 @@ x=-1; y=-2; _sy(=&lt;{_sx(=&lt;{x+y},0,y)},0,2); x+y -> -3
 <br>
 _sn(,is=0,:,ie=10,:=&lt;{n},is,ie) -> 55
 <br>
-・dummy変数は<a href="#span-out-vars">変数</a>の命名規則に準拠
+・dummy変数は<a href="#span-out-vars">変数の命名規則</a>に準拠
 <br>
 _smax(=&lt;{0},1,2) -> [MyErr]Invalid max called
 <br>
@@ -5926,7 +5970,7 @@ clear; _rn(=&lt;{Pn=Pn+1},,2); Pn -> [MyErr]Invalid binary operation
 <br>
 ・非同義（<a href="#span-out-substitution">変数への代入</a>は0が返る）
 <br>
-clear; _rn(=&lt;{n=n+1},,2)  // NG -> 0
+clear; _rn(=&lt;{n=n+1},,2)  <span class="selection">// NG</span> -> 0
 <br>
 clear; _rn(=&lt;{n=n+1},,2); n -> [MyErr]Invalid REv(n)
 <br>
@@ -6566,11 +6610,11 @@ clear; Jacobi(=&lt;{2x^2},=&lt;{x},=&lt;{1})
 <br>
 微分位置を大きくした場合
 <br>
-clear; Jacobi(=&lt;{2x^2},=&lt;{x},=&lt;{1e10})  // NG
+clear; Jacobi(=&lt;{2x^2},=&lt;{x},=&lt;{1e10})  <span class="selection">// NG</span>
 <br>
 -> 19999999999.999996+19999999999.999996i
 <br>
-clear; a=1e10; h=max(1,abs(a))1e-5(1+i); Jacobi(=&lt;{2x^2},=&lt;{x},=&lt;{a},h)  // OK
+clear; a=1e10; h=max(1,abs(a))1e-5(1+i); Jacobi(=&lt;{2x^2},=&lt;{x},=&lt;{a},h)  <span class="selection">// OK</span>
 <br>
 -> 40000200000.65538+199999.3446694911i
 <br>
@@ -9139,53 +9183,53 @@ Infinity-Infinity -> [MyErr]BRsa isNaN
 <br>
 x=MIN_VALUE; x -> 5e-324
 <br>
-sin(x)/x  // OK -> 1
+sin(x)/x  <span class="selection">// OK</span> -> 1
 <br>
-sin(-x)/(-x)  // OK -> 1
+sin(-x)/(-x)  <span class="selection">// OK</span> -> 1
 <br>
-ln(1+x)/x  // NG -> infoLost[r ] 0
+ln(1+x)/x  <span class="selection">// NG</span> -> infoLost[r ] 0
 <br>
 ・L'Hôpitalの定理
 <br>
 ・<a href="#span-out-com">複素数</a>演算の場合
 <br>
-_dx(=&lt;{ln(1+x)})/_dx(=&lt;{x})  // OK
+_dx(=&lt;{ln(1+x)})/_dx(=&lt;{x})  <span class="selection">// OK</span>
 <br>
 -> 1.0000000000031541+4.602212346748365e-14i+O(3e-24i)
 <br>
-_dx(=&lt;{ln(1-x)})/_dx(=&lt;{-x})  // OK
+_dx(=&lt;{ln(1-x)})/_dx(=&lt;{-x})  <span class="selection">// OK</span>
 <br>
 -> 1.0000000000031541+4.602212346748365e-14i+O(2e-16+3e-24i)
 <br>
-_dx(=&lt;{ln(1-x)},2)/_dx(=&lt;{-x},2)  // NG -> [MyErr]FN isNaN
+_dx(=&lt;{ln(1-x)},2)/_dx(=&lt;{-x},2)  <span class="selection">// NG</span> -> [MyErr]FN isNaN
 <br>
-_dx(=&lt;{ln(1-x)},2)/_dx(=&lt;{(-x)^2},2)  // OK
+_dx(=&lt;{ln(1-x)},2)/_dx(=&lt;{(-x)^2},2)  <span class="selection">// OK</span>
 <br>
 -> -0.500000000135999+3.0923761182676057e-12i+O(3e-10+1e-11i)
 <br>
 ・<a href="#span-out-ope">実数演算</a>の場合
 <br>
-_dx(=&lt;{ln(1+x)})/_dx(=&lt;{x})  // OK -> 0.9999999999991271
+_dx(=&lt;{ln(1+x)})/_dx(=&lt;{x})  <span class="selection">// OK</span> -> 0.9999999999991271
 <br>
-_dx(=&lt;{ln(1-x)})/_dx(=&lt;{-x})  // OK -> 0.9999999999991271
+_dx(=&lt;{ln(1-x)})/_dx(=&lt;{-x})  <span class="selection">// OK</span> -> 0.9999999999991271
 <br>
-_dx(=&lt;{ln(1-x)},2)/_dx(=&lt;{-x},2)  // NG -> -Infinity+O(Infinity)
+_dx(=&lt;{ln(1-x)},2)/_dx(=&lt;{-x},2)  <span class="selection">// NG</span> -> -Infinity+O(Infinity)
 <br>
-_dx(=&lt;{ln(1-x)},2)/_dx(=&lt;{(-x)^2},2)  // OK -> -0.4999999999659258+O(3e-10)
+_dx(=&lt;{ln(1-x)},2)/_dx(=&lt;{(-x)^2},2)  <span class="selection">// OK</span> -> -0.4999999999659258+O(3e-10)
 <br>
 ・無限大の極限は自明の演算以外は演算不可
 <br>
 y=pInf -> y=Infinity
 <br>
-(1/y)/y  // OK -> 0
+(1/y)/y  <span class="selection">// OK</span> -> 0
 <br>
-y*y  // OK -> Infinity
+y*y  <span class="selection">// OK</span> -> Infinity
 <br>
-y/(y*y)  // NG -> [MyErr]FN isNaN
+y/(y*y)  <span class="selection">// NG</span> -> [MyErr]FN isNaN
 <br>
-_dy(=&lt;{y})/_dy(=&lt;{y*y})  // NG -> [MyErr]BRsa isNaN
+_dy(=&lt;{y})/_dy(=&lt;{y*y})  <span class="selection">// NG</span> -> [MyErr]BRsa isNaN
 <br>
-_dy(=&lt;{1/(y*y)})/_dy(=&lt;{1/y})  // NG -> [MyErr]FN isNaN
+_dy(=&lt;{1/(y*y)})/_dy(=&lt;{1/y})  <span class="selection">// NG</span> -> [MyErr]FN isNaN
     </td>
   </tr>
   <tr>
@@ -9344,7 +9388,7 @@ f=&lt;last{V=1,E=0,k=1,I=exp(k*(V-E))-exp(-k*(V-E))}
 残課題について記述する
 <br>
 <br>
-Ver.2.19.6以降、
+<span class="run">Ver.2.19.6以降</span>、
 <a href="#span-out-substitution-equation">関数の参照渡しの仕様を廃止</a>
 して解決
 <br>
