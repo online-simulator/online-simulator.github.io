@@ -231,6 +231,12 @@ My_entry.calc_graphing.prototype.re_plot = function(isFinal){
     if(toSVG){
       _svg += draw_svg.header(self.plot2d.px_w, self.plot2d.px_h);
       _svg += draw_svg.comment(self.io.getter.stamp());  // 3rd line
+      /* Ver.2.27.14 -> */
+      var options_calc = (arr_data.length)? arr_data[0].options: null;  // check length
+      if(options_calc){
+        _svg += draw_svg.comment(options_calc.plot2d);  // 4th line
+      }
+      /* -> Ver.2.27.14 */
       _svg += callback();        // sync
       _svg += draw_svg.footer();
     }
