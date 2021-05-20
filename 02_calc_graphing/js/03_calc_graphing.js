@@ -235,6 +235,7 @@ My_entry.calc_graphing.prototype.re_plot = function(isFinal){
       var options_calc = (arr_data.length)? arr_data[0].options: null;  // check length
       if(options_calc){
         _svg += draw_svg.comment(options_calc.plot2d);  // 4th line
+        _svg += draw_svg.comment(options_calc.logo);    // 5th line
       }
       /* -> Ver.2.27.14 */
       _svg += callback();        // sync
