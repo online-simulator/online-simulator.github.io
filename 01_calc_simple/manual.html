@@ -5319,9 +5319,23 @@ clear; (f=&lt;{x},x=(1,2),eqn_f=&lt;f); eqn_f -> (1,2)
 <br>
 ・<span class="run">Ver.2.27.15</span>以降、nestingに対応
 <br>
+・(function(){return (function(){return (function(){return 3;})();})();})();
+<br>
 (=&lt;(=&lt;(=&lt;3)=&gt;)=&gt;)=&gt; -> 3
 <br>
+・(function(){return (function(){return (function(){return 3;})()+1;})()+2;})();
+<br>
+(=&lt;(=&lt;(=&lt;3)=&gt;+1)=&gt;+2)=&gt; -> 6
+<br>
+・var a=3; (function(){return (function(){return (function(){return a;})();})();})();
+<br>
+a=3; (=&lt;(=&lt;(=&lt;{a})=&gt;)=&gt;)=&gt; -> 3
+<br>
 a=&lt;3; (=&lt;(=&lt;(=&lt;{a=&gt;})=&gt;)=&gt;)=&gt; -> 3
+<br>
+・var a=[1,2]; (function(){1; return (function(){1; return (function(){1; return a;})();})();})();
+<br>
+a=(1,2); (1,=&lt;(1,=&lt;(1,=&lt;{a})=&gt;)=&gt;)=&gt; -> (1,2)
 <br>
 a=&lt;(1,2); (1,=&lt;(1,=&lt;(1,=&lt;{a=&gt;})=&gt;)=&gt;)=&gt; -> (1,2)
 <br>
