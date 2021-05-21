@@ -22,6 +22,10 @@ My_entry.operation.prototype.config = {
         "SEe"    // StorE obvious equation including bracket
       ],
       [
+        /* following function */
+        "FNc"    // FunctioN for command prior to bracket
+      ],
+      [
         /* following delimiter */
         "BT2",   // BrackeT {
         "BT1",   // BrackeT (
@@ -596,6 +600,56 @@ My_entry.operation.prototype.get_name_escaped = function(tree){
   return _name;
 };
 /* -> Ver.2.27.15 */
+/* Ver.2.28.15 -> */
+My_entry.operation.prototype.FNc = function(data, i0, tagName, tagObj){
+  var self = this;
+  var trees = data.trees;
+  var vars = data.vars;
+  var eqns = data.eqns;
+  var DATA = self.entry.DATA;
+  var is = i0;
+  var ie = i0+1;
+  var rightTree = trees[ie];
+  if(rightTree){
+    var prop = tagObj.val;
+    var msgErr = "Invalid "+prop+" arguments";
+    var names = self.get_names(data, rightTree);
+    if(!(names.length)) throw msgErr;
+    var name = names[names.length-1];
+    if(name){
+      var tree = null;
+      var get_tree_sw = function(sw){
+        return DATA.tree_num(((sw)? 1: 0), 0);
+      };
+      switch(prop){
+        case "hasvar":
+          tree = get_tree_sw(vars[name]);
+          break;
+        case "haseqn":
+          tree = get_tree_sw(eqns[name]);
+          break;
+        case "delvar":
+          tree = get_tree_sw(vars[name]);
+          if(vars[name]){
+            delete vars[name];
+          }
+          break;
+        case "deleqn":
+          if(self.isLocked_eqns[name]) throw "Invalid delEqnSelf("+name+")";
+          tree = get_tree_sw(eqns[name]);
+          if(eqns[name]){
+            delete eqns[name];
+          }
+          break;
+        default:
+          break;
+      }
+      self.feedback2trees(data, is, ie, tree);
+    }
+  }
+  return self;
+};
+/* Ver.2.28.15 -> */
 My_entry.operation.prototype.tree2tree_eqn = function(data, tree){
   var self = this;
   var eqns = data.eqns;

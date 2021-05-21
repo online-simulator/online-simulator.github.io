@@ -297,6 +297,11 @@ comment文
 </a>
 <br>
 　・
+<a href="#span-out-FNc">
+最上位関数
+</a>
+<br>
+　・
 <a href="#span-out-BT">
 括弧
 </a>
@@ -1157,6 +1162,8 @@ precedence
 <br>
 ・<a href="#span-out-substitution-equation">式代入</a>
 <br>
+・<a href="#span-out-FNc">最上位関数</a>
+<br>
 ・<a href="#span-out-BT">括弧</a>
 <br>
 ・<a href="#span-out-eqns-call">式読出し</a>
@@ -1825,7 +1832,7 @@ useStrict=true
 　omitted Call-by-Equation's bracket({}) disabled
 <br>
 <br>
-情報落ちの発生や微分・積分の数値誤差を評価しない場合
+情報落ちの発生や微分・積分の数値<a href="#span-out-error">誤差</a>を評価しない場合
 <br>
 checkError=false
 <br>
@@ -2200,9 +2207,9 @@ plot2d
 Graphing Calculator's plot2dの出力仕様について記述する
 <br>
 <br>
-plot2dの演算は高速化のため、誤差を評価しない・logを作らない
+plot2dの演算は高速化のため、<a href="#span-out-error">誤差</a>を評価しない・logを作らない
 <br>
-・誤差を含めたlogを作る場合、別途、通常の演算が必要
+・<a href="#span-out-error">誤差</a>を含めたlogを作る場合、別途、通常の演算が必要
 <br>
 <br>
 csv/history出力のplot2d-command-logとplot2d-options-logについて記述する
@@ -2922,6 +2929,146 @@ x=3; x=2:3x -> (0:6)
 (x=1,x=2x:x=2x,x) -> (0,0:0,4)
 <br>
 {x=1,x=2x:x=2x,x} -> (0,0:0,4)
+    </td>
+  </tr>
+  <tr>
+    <th>
+<a href="#span-index">
+目次
+</a>
+<br>
+最上位関数
+<br>
+入力仕様
+    </th>
+    <td>
+<span id="span-out-FNc"></span>
+最上位関数の入力仕様と付随する留意事項について記述する
+<br>
+<br>
+以下の最上位関数は<a href="#span-out-BT">括弧</a>より優先する
+<br>
+<br>
+hasVar最上位関数
+<br>
+・<a href="#span-out-vars">変数</a>のlocal <a href="#span-out-storage">storage</a>存在可否を判定する
+<br>
+・引数
+<br>
+　・第1引数: <a href="#span-out-vars-symbol">変数名symbol</a>
+<br>
+・返値
+<br>
+　・exist時: 1を返す
+<br>
+　・not exist時: 0を返す
+<br>
+・test caseを列挙する
+<br>
+clear; a=2; hasVar(a) -> 1
+<br>
+clear; a=2; hasVar(b) -> 0
+<br>
+・第1引数は最終要素を参照する
+<br>
+clear; a=2; hasVar(b,c:a) -> 1
+<br>
+clear; a=2; hasVar(a,b:c) -> 0
+<br>
+clear; a=2; hasVar((b,a),c) -> 0
+<br>
+clear; a=2; hasVar({b,a},c) -> 1
+<br>
+・引数不正の場合、error終了
+<br>
+hasVar() -> [MyErr]Invalid FNc(hasvar)
+<br>
+hasVar(2) || hasVar(a=2) -> [MyErr]Invalid hasvar arguments
+<br>
+<br>
+hasEqn最上位関数
+<br>
+・<a href="#span-out-eqns">式変数</a>のlocal <a href="#span-out-storage">storage</a>存在可否を判定する
+<br>
+・hasVar最上位関数同様
+<br>
+・test caseを列挙する
+<br>
+clear; a=2; hasEqn(a) -> 0
+<br>
+clear; a=&lt;2; hasEqn(a) -> 1
+<br>
+clear; a=&lt;2; hasEqn(b) -> 0
+<br>
+<br>
+delVar最上位関数
+<br>
+・<a href="#span-out-vars">変数</a>をlocal <a href="#span-out-storage">storage</a>から削除する
+<br>
+・引数
+<br>
+　・第1引数: <a href="#span-out-vars-symbol">変数名symbol</a>
+<br>
+・返値
+<br>
+　・削除対象exist時: 1を返す
+<br>
+　・削除対象not exist時: 0を返す
+<br>
+・test caseを列挙する
+<br>
+clear; a=2; delVar(a) -> 1
+<br>
+clear; a=2; delVar(b) -> 0
+<br>
+clear; a=2; (delVar(a)) -> 1
+<br>
+clear; a=2; (delVar(a),a)  <span class="selection">// a deleted</span> -> [MyErr]Invalid REv(a)
+<br>
+clear; a=2; (delVar(b),a) -> (0,2)
+<br>
+clear; a=2; a*delVar(a)  <span class="selection">// a deleted</span> -> [MyErr]Invalid binary operation
+<br>
+・第1引数は最終要素を参照する
+<br>
+clear; a=2; (delVar(b,c:a),a)  <span class="selection">// a deleted</span> -> [MyErr]Invalid REv(a)
+<br>
+clear; a=2; (delVar(a,b:c),a) -> (0,2)
+<br>
+clear; a=2; (delVar((b,a),c),a) -> (0,2)
+<br>
+clear; a=2; (delVar({b,a},c),a)  <span class="selection">// a deleted</span> -> [MyErr]Invalid REv(a)
+<br>
+<br>
+delEqn最上位関数
+<br>
+・<a href="#span-out-eqns">式変数</a>をlocal <a href="#span-out-storage">storage</a>から削除する
+<br>
+・delVar最上位関数同様
+<br>
+・test caseを列挙する
+<br>
+clear; a=2; delEqn(a) -> 0
+<br>
+clear; a=&lt;2; delEqn(a) -> 1
+<br>
+clear; a=&lt;2; delEqn(b) -> 0
+<br>
+clear; a=&lt;2; (delEqn(a)) -> 1
+<br>
+clear; a=&lt;2; (delEqn(a),a=&gt;)  <span class="selection">// a deleted</span> -> [MyErr]Invalid REv(a)
+<br>
+clear; a=&lt;2; (delEqn(b),a=&gt;) -> (0,2)
+<br>
+・<a href="#span-out-command">命令文</a>を使用
+<br>
+clear; a=&lt;2; store; delEqn(a); a=&gt;  <span class="selection">// a deleted</span> -> [MyErr]Invalid REv(a)
+<br>
+clear; a=&lt;2; store; delEqn(a); restore; a=&gt; -> 2
+<br>
+・自身をdelete不可
+<br>
+clear; delete=&lt;delEqn(delete); delete=&gt; -> [MyErr]Invalid delEqnSelf(delete)
     </td>
   </tr>
   <tr>
@@ -4545,7 +4692,7 @@ A-ttA ->
 <br>
 　回転方向は、x⇒y⇒z⇒x軸の正循環で各軸に向ける方向を正とする
 <br>
-・返値の回転行列は引数の誤差情報を継承しない
+・返値の回転行列は引数の<a href="#span-out-error">誤差</a>情報を継承しない
 <br>
 <br>
 rotationx(第1引数)
@@ -4620,7 +4767,7 @@ t=_dx(=&lt;{x},1,1)pi/4+1000i; t
 0,0.9999999999999711,1.0000000000000289)
 <br>
 <br>
-回転行列の引数の誤差情報を継承する場合
+回転行列の引数の<a href="#span-out-error">誤差</a>情報を継承する場合
 <br>
 t=_dx(=&lt;{x},1,1)pi/4+1000i;
 <br>
@@ -4920,6 +5067,8 @@ symbol
 変数名symbolと表記するcaseを列挙する
 <br>
 ・<a href="#span-out-plot2d-command">plot2d-command</a>の引数に変数名を渡す場合
+<br>
+・<a href="#span-out-FNc">最上位関数</a>の引数に変数名を渡す場合
 <br>
 ・<a href="#span-out-FNh">高階関数</a>の引数に変数名を<a href="#span-out-call-by-equation">式渡し</a>で渡す場合
 <br>
@@ -6090,7 +6239,7 @@ _Ry(=&lt;{_Rx(=&lt;{x+y+1},1,2)},1,2) -> 13
 <br>
 ・精度優先で微分位置に応じた情報落ちを対策する
 <br>
-・数値誤差O(dx^4以上)を含み、演算結果に目安の解析誤差を表示する
+・数値誤差O(dx^4以上)を含み、演算結果に目安の解析<a href="#span-out-error">誤差</a>を表示する
 <br>
 ・1階微分の差分刻み実数値dxDの既定値dxD=1e-3
 <br>
@@ -6118,7 +6267,7 @@ option
 <br>
 数値誤差に関する精度次数について記述する
 <br>
-・数値誤差は絶対誤差
+・数値<a href="#span-out-error">誤差</a>は絶対誤差
 <br>
 ・微分階数が1階上がる毎に差分刻み2倍を仮定
 <br>
@@ -6420,7 +6569,7 @@ x -> (1.000000000000009+O(3e-5):0.9999999999999909+O(3e-5))
 <br>
 ・連続関数のdummy変数積分範囲[a,b]における定積分を数値的に演算して返す
 <br>
-・数値誤差O(dxI^4以上)を含み、演算結果に目安の解析誤差を表示する
+・数値誤差O(dxI^4以上)を含み、演算結果に目安の解析<a href="#span-out-error">誤差</a>を表示する
 <br>
 ・積分範囲の分割数の既定値NI=100
 <br>
@@ -6448,7 +6597,7 @@ option
 <br>
 数値誤差に関する精度次数について記述する
 <br>
-・数値誤差は絶対誤差
+・数値<a href="#span-out-error">誤差</a>は絶対誤差
 <br>
 ・既定で合成Simpson公式による4次精度
 <br>
@@ -6545,7 +6694,7 @@ _rn(=&lt;run,,12) -> infoLost[ i] 1.3839478914652153e-28+O(8e-7)
 <br>
 b -> infoLost[ri] 2.9999999999999996+4.613167602434132e-34i+O(1e-1+2e-1i)
 <br>
-・2次関数の積分の場合、補間多項式に一致するため、数値誤差が出ない
+・2次関数の積分の場合、補間多項式に一致するため、数値<a href="#span-out-error">誤差</a>が出ない
 <br>
 _ix(=&lt;{x^2},0,3,2) -> 9+O(5e+0)
 <br>
@@ -6627,7 +6776,7 @@ Jacobi高階行列関数
 <br>
 　微分位置に応じて差分刻みを可変すると収束速度が悪化する
 <br>
-・1次精度の数値誤差O(dx)を含むが、目安の解析誤差を評価・表示しない
+・1次精度の数値誤差O(dx)を含むが、目安の解析<a href="#span-out-error">誤差</a>を評価・表示しない
 <br>
 ・1階偏微分の差分刻み実数値dxJの既定値dxJ=1e-5
 <br>
@@ -6762,7 +6911,7 @@ ODE高階行列関数
 <br>
 ・dummy変数を媒介する常微分方程式の1step定積分を数値的に演算して返す
 <br>
-・数値誤差O(dt^4以上)を含み、演算結果に目安の解析誤差を表示する
+・数値誤差O(dt^4以上)を含み、演算結果に目安の解析<a href="#span-out-error">誤差</a>を表示する
 <br>
 ・1階常微分の差分刻み実数値dxTの既定値dxT=1e-3
 <br>
@@ -6796,7 +6945,7 @@ option
 <br>
 数値誤差に関する精度次数について記述する
 <br>
-・数値誤差は絶対誤差
+・数値<a href="#span-out-error">誤差</a>は絶対誤差
 <br>
 ・既定で陽的Runge-Kutta法による4次精度
 <br>
@@ -7294,9 +7443,9 @@ S=(f[0]+2Σ&lt;i=1,N-1&gt;f[i]+f[N])h/2+O(h^2)
 <br>
 ・両端を除く離散点f[i]は2回足されて2倍
 <br>
-・全区間の離散化誤差のOrderは微小区間の正方形面積h*h
+・全区間の離散化<a href="#span-out-error">誤差</a>のOrderは微小区間の正方形面積h*h
 <br>
-・総和によって微小区間の離散化誤差が積算されて精度次数が1次落ちる
+・総和によって微小区間の離散化<a href="#span-out-error">誤差</a>が積算されて精度次数が1次落ちる
 <br>
 <br>
 微小区間の関数fを1次多項式で補間する場合も同様
@@ -7325,7 +7474,7 @@ r1=(f[0]:f[1])
 <br>
 ・離散点がすべて独立であればVの逆行列が一意に存在する
 <br>
-・予め逆行列を解いた方が丸め誤差の影響を受けにくい
+・予め逆行列を解いた方が丸め<a href="#span-out-error">誤差</a>の影響を受けにくい
 <br>
 ・その形式に変形したLagrange基底の補間多項式を導出する
 <br>
@@ -7464,7 +7613,7 @@ S=(f[0]+4Σ&lt;k=0,N/2-1&gt;f[2k+1]+2Σ&lt;k=1,N/2-1&gt;f[2k]+f[N])h/3+O(h^4)
 <br>
 ・両端を除く偶数の離散点f[2k]は2回足されて2倍
 <br>
-・全区間の離散化誤差のOrderは微小区間の正方形面積h*hの2乗
+・全区間の離散化<a href="#span-out-error">誤差</a>のOrderは微小区間の正方形面積h*hの2乗
     </td>
   </tr>
   <tr>
@@ -7652,7 +7801,7 @@ infoLost[ i] 0.0000018087545367633257-9.79999730495574i
 <br>
 <a href="#span-out-FNmh-OX">ODE高階行列関数</a>を使用する場合、stepを陽的に解くため、収束演算不要
 <br>
-・実軸の時間積分の場合、目安の解析誤差は実数のみ表示される（仕様）
+・実軸の時間積分の場合、目安の解析<a href="#span-out-error">誤差</a>は実数のみ表示される（仕様）
 <br>
 g=-9.8;
 <br>
@@ -8375,7 +8524,7 @@ A(x) -> (10.000000000000002i:11.000000000000005i:12.000000000000007i)
 <br>
 ・rank落ちの場合、近似解が厳密解に近づくとは限らない
 <br>
-・Jacobi行列の数値誤差が初期値の厳密解に上乗せして残る
+・Jacobi行列の数値<a href="#span-out-error">誤差</a>が初期値の厳密解に上乗せして残る
 <br>
 storage cleared
 <br>
@@ -9605,7 +9754,7 @@ data.logo -> "makeLog=true"
 ・expDigit: 演算結果を表示する指数表記の桁数
 <br>
 <br>
-・<a href="#span-out-config">checkError</a>: 情報落ちの発生や微分・積分の数値誤差を評価するflag
+・<a href="#span-out-config">checkError</a>: 情報落ちの発生や微分・積分の数値<a href="#span-out-error">誤差</a>を評価するflag
 <br>
 <br>
 ・<a href="#span-out-config">precedence</a>: comma,区切りで演算子の<a href="#span-in-prec">tag名</a>を列挙した文字列
@@ -9680,6 +9829,10 @@ operation.js抜粋
       [
         /* following store */
         "SEe"    // StorE obvious equation including bracket
+      ],
+      [
+        /* following function */
+        "FNc"    // FunctioN for command prior to bracket
       ],
       [
         /* following delimiter */
@@ -9775,6 +9928,13 @@ parser.js抜粋
       case "restore":
       case "stop":
         throw "Invalid "+token+" called";
+        break;
+      // "FNc"
+      case "hasvar":
+      case "haseqn":
+      case "delvar":
+      case "deleqn":
+        tree = DATA.tree_tag("FNc", token_lower);
         break;
       // "FNhn"
       case "switch":

@@ -59,6 +59,7 @@ My_entry.parser.prototype.config = {
       ";": "SRs",  // sentence;sentence
       ":": "SRr",  // record:record
       ",": "SRt",  // tokens,tokens
+      // FunctioN command: "FNc"
       // BrackeT: "BT"
       "{": "BT2",
       "(": "BT1",
@@ -287,6 +288,13 @@ My_entry.parser.prototype.make_trees = function(sentence, re){
       case "restore":
       case "stop":
         throw "Invalid "+token+" called";
+        break;
+      // "FNc"
+      case "hasvar":
+      case "haseqn":
+      case "delvar":
+      case "deleqn":
+        tree = DATA.tree_tag("FNc", token_lower);
         break;
       // "FNhn"
       case "switch":
