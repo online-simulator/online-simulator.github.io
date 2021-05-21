@@ -5265,7 +5265,7 @@ clear; eqn_x=&lt;(a*x+b=0); a=1; b=2; x=3; 2eqn_x || 2*(-5) -> -10
 ・この場合の関数を<a href="#span-out-FNh">高階関数</a>と定義する
 <br>
 <br>
-式渡しの直接読出し
+Native無名関数を代替する式渡しの直接読出し
 <br>
 ・Native無名関数(function(){return 3;})();の一例
 <br>
@@ -5316,6 +5316,14 @@ clear; last(f=&lt;{x},x=(1,2),=&lt;f) -> [MyErr]Invalid BTe([object Object])
 clear; (f=&lt;{x},x=(1,2),=&lt;f) -> [MyErr]Invalid BTe([object Object])
 <br>
 clear; (f=&lt;{x},x=(1,2),eqn_f=&lt;f); eqn_f -> (1,2)
+<br>
+・<span class="run">Ver.2.27.15</span>以降、nestingに対応
+<br>
+(=&lt;(=&lt;(=&lt;3)=&gt;)=&gt;)=&gt; -> 3
+<br>
+a=&lt;3; (=&lt;(=&lt;(=&lt;{a=&gt;})=&gt;)=&gt;)=&gt; -> 3
+<br>
+a=&lt;(1,2); (1,=&lt;(1,=&lt;(1,=&lt;{a=&gt;})=&gt;)=&gt;)=&gt; -> (1,2)
 <br>
 <br>
 本仕様は<a href="#span-out-BT">括弧</a>優先の<a href="#span-out-FNh">高階関数</a>の実装において必須

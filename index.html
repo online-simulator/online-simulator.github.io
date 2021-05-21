@@ -261,6 +261,14 @@ minor bug-fix
 <br>
 　$a=&lt;1 -> [MyErr]Invalid SEe($a)
 <br>
+・null-nameのCircular Referenceを修正
+<br>
+　式渡しの直接読出し（Native無名関数を代替）のnestingに対応
+<br>
+　a=&lt;(1,2); (1,=&lt;(1,=&lt;(1,=&lt;{a=&gt;})=&gt;)=&gt;)=&gt; ->
+<br>
+　<span class="clear">[MyErr]Invalid circular(null)</span>　⇒　(1,2)
+<br>
 ・manual更新
     </td>
     <td>
