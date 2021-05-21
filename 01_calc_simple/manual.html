@@ -2111,7 +2111,7 @@ parse関数とoperation関数の役割分担を示す
 <br>
 parse関数の役割はcompiler
 <br>
-・<a href="#span-out-BT">括弧</a>のnestingを解析し、深さ方向にtree化する
+・<a href="#span-out-BT">括弧</a>のnestingを解析し、深さ方向にtreeを階層化する
 <br>
 ・入力dataの字句を解析してtagを付ける
 <br>
@@ -2911,7 +2911,7 @@ vector: vector: ...
 要素, 要素, ... || 引数, 引数, ...
 <br>
 <br>
-区切り文字は2項の<a href="#span-out-associativity">associativity</a>や深さとは関係なく左から順に演算する
+区切り文字は2項の<a href="#span-out-associativity">associativity</a>や階層の深さとは関係なく左から順に演算する
 <br>
 ・区切り文字のprecedenceは最優先
 <br>
@@ -5774,17 +5774,17 @@ else if(x &gt; 2) return 2;
 <br>
 else return -x;
 <br>
-・値渡しで記述する場合
+・対の処理を値渡しで記述する場合
 <br>
 x=2; switch(x&gt;=4,4:x&gt;3,3:x&gt;2,2:1,-x) -> -2
 <br>
 x=2; switch(ge(x,4),4:gt(x,3),3:gt(x,2),2:1,-x) -> -2
 <br>
-・値渡しの場合、行列要素の演算を実行後、次のswitch高階関数を実行する
+・値渡しの場合、行列要素の演算を実行後、次の実行文を実行する
 <br>
 x=2; switch(0,4:0,3:0,2:1,-2) -> -2
 <br>
-・<a href="#span-out-call-by-equation">式渡し</a>で記述する場合、条件文が成立した場合のみ対の処理を実行する
+・対の処理を<a href="#span-out-call-by-equation">式渡し</a>で記述する場合、条件文が成立した場合のみ実行する
 <br>
 x=2; switch(x&gt;=4,=&lt;4:x&gt;3,=&lt;3:x&gt;2,=&lt;2:1,=&lt;{-x}) -> -2
 <br>
@@ -5846,9 +5846,9 @@ x=-2; (cond_m,=&lt;proc_m:cond_p,=&lt;proc_p) -> [MyErr]Invalid BTe([object Obje
 <br>
 x=-2; switch(cond_m,=&lt;proc_m:cond_p,=&lt;proc_p) -> 2
 <br>
-・丸<a href="#span-out-BT">括弧</a>()で<a href="#span-out-eqns">式変数</a>のnesting可
+・丸<a href="#span-out-BT">括弧</a>()で<a href="#span-out-substitution-equation">式代入</a>のnesting可
 <br>
-・値渡しで記述する場合
+・対の処理を値渡しで記述する場合
 <br>
 cp_m=&lt;(cond_m,proc_m); cp_p=&lt;(cond_p,proc_p);
 <br>
@@ -5858,7 +5858,7 @@ x=-2; (cp_mp) -> (1,2:1,-2)
 <br>
 x=-2; switch(cp_mp) -> 2
 <br>
-・<a href="#span-out-call-by-equation">式渡し</a>で記述する場合
+・対の処理を<a href="#span-out-call-by-equation">式渡し</a>で記述する場合
 <br>
 cp_m=&lt;(cond_m,=&lt;proc_m); cp_p=&lt;(cond_p,=&lt;proc_p);
 <br>
@@ -9362,7 +9362,7 @@ ft=&lt;atan(tan(t));
 <span id="span-out-limit"></span>
 極限の解法について記述する
 <br>
-・Computer Algebra System未実装で得られる解は限定的な数値解
+・Computer Algebra System未実装で得られる解は限定的なcaseの数値解
 <br>
 ・L'Hôpitalの定理を使用する場合、<a href="#span-out-FNh-DX">微分高階関数</a>の精度に依存
 <br>
