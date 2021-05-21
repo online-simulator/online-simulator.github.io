@@ -263,11 +263,11 @@ minor bug-fix
 <br>
 ・null-nameのCircular Referenceを修正
 <br>
-　式渡しの直接読出し（Native無名関数を代替）のnestingに対応
+　式渡しの直接読出しのnestingに対応（Native無名関数の最短表記を許容）
 <br>
 　a=&lt;(1,2); (1,=&lt;(1,=&lt;(1,=&lt;{a=&gt;})=&gt;)=&gt;)=&gt; ->
 <br>
-　<span class="clear">[MyErr]Invalid circular(null)</span>　⇒　(1,2)
+　[MyErr]Invalid <span class="clear">circular(null)</span>　⇒　(1,2)
 <br>
 ・初期表示のtest caseに(=&lt;(=&lt;(=&lt;3)=&gt;+1)=&gt;+2)=&gt;を追加
 <br>

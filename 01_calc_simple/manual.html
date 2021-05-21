@@ -1454,7 +1454,7 @@ epsilon
 浮動小数点演算のMachine epsilonについて記述する
 <br>
 <br>
-仮数部の最下位bitの有効数字未満を丸める相対誤差をMachine epsilonと呼ぶ
+<a href="#span-out-float">仮数部</a>の最下位bitの有効数字未満を丸める相対誤差をMachine epsilonと呼ぶ
 <br>
 ・次のepsilonで定義する
 <br>
@@ -1575,7 +1575,7 @@ pow(2,pow(2,10)) || 2**(2**10) || 2^(2^10) -> 1.7976931348622732e+308
 　・打切り誤差（絶対収束する無限級数を有限の次数で打切る場合）
 <br>
 <br>
-丸め誤差は無理数等を仮数部の有効桁に丸める際の、
+丸め誤差は無理数等を<a href="#span-out-float">仮数部</a>の有効桁に丸める際の、
 <br>
 近似値の真値に対する絶対誤差または相対誤差と定義する
 <br>
@@ -5319,6 +5319,10 @@ clear; (f=&lt;{x},x=(1,2),eqn_f=&lt;f); eqn_f -> (1,2)
 <br>
 ・<span class="run">Ver.2.27.15</span>以降、nestingに対応
 <br>
+・階層毎の引数&amp;<a href="#span-out-types-vars">scope</a>無しで無名関数の最短表記を許容
+<br>
+・本来、最短表記はdebugの支障が少ないcaseに限られる
+<br>
 ・(function(){return (function(){return (function(){return 3;})();})();})();
 <br>
 (=&lt;(=&lt;(=&lt;3)=&gt;)=&gt;)=&gt; -> 3
@@ -5329,15 +5333,35 @@ clear; (f=&lt;{x},x=(1,2),eqn_f=&lt;f); eqn_f -> (1,2)
 <br>
 ・var a=3; (function(){return (function(){return (function(){return a;})();})();})();
 <br>
-a=3; (=&lt;(=&lt;(=&lt;{a})=&gt;)=&gt;)=&gt; -> 3
+clear; a=3; (=&lt;(=&lt;(=&lt;{a})=&gt;)=&gt;)=&gt; -> 3
 <br>
-a=&lt;3; (=&lt;(=&lt;(=&lt;{a=&gt;})=&gt;)=&gt;)=&gt; -> 3
+clear; a=&lt;3; (=&lt;(=&lt;(=&lt;{a=&gt;})=&gt;)=&gt;)=&gt; -> 3
 <br>
 ・var a=[1,2]; (function(){1; return (function(){1; return (function(){1; return a;})();})();})();
 <br>
-a=(1,2); (1,=&lt;(1,=&lt;(1,=&lt;{a})=&gt;)=&gt;)=&gt; -> (1,2)
+clear; a=(1,2); (1,=&lt;(1,=&lt;(1,=&lt;{a})=&gt;)=&gt;)=&gt; -> (1,2)
 <br>
-a=&lt;(1,2); (1,=&lt;(1,=&lt;(1,=&lt;{a=&gt;})=&gt;)=&gt;)=&gt; -> (1,2)
+clear; a=&lt;(1,2); (1,=&lt;(1,=&lt;(1,=&lt;{a=&gt;})=&gt;)=&gt;)=&gt; -> (1,2)
+<br>
+・(function(){return (function(){var a=1; return (function(){return 3;})()+a;})()*2;})();
+<br>
+clear; (=&lt;(=&lt;(a=1,=&lt;3)=&gt;+a)=&gt;*2)=&gt; -> 8
+<br>
+clear; (=&lt;(a=1,=&lt;(=&lt;3)=&gt;+a)=&gt;*2)=&gt; -> 8
+<br>
+clear; (a=1,=&lt;(=&lt;(=&lt;3)=&gt;+a)=&gt;*2)=&gt; -> 8
+<br>
+clear; a=1,(=&lt;(=&lt;(=&lt;3)=&gt;+a)=&gt;*2)=&gt; -> (0,8)
+<br>
+・(function(){var a=1; return (function(){return (function(){return 3;})()+1;})()*a;})();
+<br>
+clear; (=&lt;(=&lt;(a=1,=&lt;3)=&gt;+1)=&gt;*a)=&gt; -> 4
+<br>
+clear; (=&lt;(a=1,=&lt;(=&lt;3)=&gt;+1)=&gt;*a)=&gt; -> 4
+<br>
+clear; (a=1,=&lt;(=&lt;(=&lt;3)=&gt;+1)=&gt;*a)=&gt; -> 4
+<br>
+clear; a=1,(=&lt;(=&lt;(=&lt;3)=&gt;+1)=&gt;*a)=&gt; -> (0,4)
 <br>
 <br>
 本仕様は<a href="#span-out-BT">括弧</a>優先の<a href="#span-out-FNh">高階関数</a>の実装において必須
@@ -5675,7 +5699,7 @@ x=-2; switch(cond_m,=&lt;proc_m:cond_p,=&lt;proc_p) -> 2
 <br>
 ・丸<a href="#span-out-BT">括弧</a>()で<a href="#span-out-eqns">式変数</a>のnesting可
 <br>
-・値渡しで記述
+・値渡しで記述する場合
 <br>
 cp_m=&lt;(cond_m,proc_m); cp_p=&lt;(cond_p,proc_p);
 <br>
@@ -5685,7 +5709,7 @@ x=-2; (cp_mp) -> (1,2:1,-2)
 <br>
 x=-2; switch(cp_mp) -> 2
 <br>
-・<a href="#span-out-call-by-equation">式渡し</a>で記述
+・<a href="#span-out-call-by-equation">式渡し</a>で記述する場合
 <br>
 cp_m=&lt;(cond_m,=&lt;proc_m); cp_p=&lt;(cond_p,=&lt;proc_p);
 <br>
