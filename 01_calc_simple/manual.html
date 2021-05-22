@@ -197,7 +197,7 @@ associativity
 演算のprecedence
 </a>
 <br>
-・
+　・
 <a href="#span-out-prec-ope">
 演算子のprecedence
 </a>
@@ -207,12 +207,12 @@ associativity
 浮動小数点演算
 </a>
 <br>
-・
+　・
 <a href="#span-out-epsilon">
 Machine epsilon
 </a>
 <br>
-・
+　・
 <a href="#span-out-number">
 Number型定数
 </a>
@@ -220,6 +220,11 @@ Number型定数
 ・
 <a href="#span-out-error">
 誤差の扱い
+</a>
+<br>
+　・
+<a href="#span-out-error-numerical">
+数値解の数値誤差
 </a>
 <br>
 ・
@@ -351,6 +356,11 @@ comment文
 行列関数
 </a>
 <br>
+　　・
+<a href="#span-out-FNm-last">
+last行列関数
+</a>
+<br>
 　・
 <a href="#span-out-concat">
 行列操作
@@ -366,17 +376,17 @@ comment文
 変数
 </a>
 <br>
-　・
+　　・
 <a href="#span-out-vars-symbol">
 変数名symbol
 </a>
 <br>
-　・
+　　・
 <a href="#span-out-ans">
 予約変数
 </a>
 <br>
-　・
+　　・
 <a href="#span-out-substitution">
 変数への代入
 </a>
@@ -391,17 +401,17 @@ comment文
 式変数
 </a>
 <br>
-　・
+　　・
 <a href="#span-out-eqns-call">
 式読出し
 </a>
 <br>
-　・
+　　・
 <a href="#span-out-call-by-equation">
 式渡し
 </a>
 <br>
-　・
+　　・
 <a href="#span-out-substitution-equation">
 式変数への式代入
 </a>
@@ -1160,7 +1170,7 @@ precedence
 <br>
 ・<a href="#span-out-SR">区切り文字</a>
 <br>
-・<a href="#span-out-substitution-equation">式代入</a>
+・<a href="#span-out-substitution-equation">式変数への式代入</a>
 <br>
 ・<a href="#span-out-FNc">最上位関数</a>
 <br>
@@ -1171,6 +1181,8 @@ precedence
 ・<a href="#span-out-FN">関数</a>
 <br>
 ・<a href="#span-out-prec-ope">演算子</a>
+<br>
+・<a href="#span-out-substitution">変数への代入</a>
 <br>
 <br>
 これに従う演算結果の一例を示す
@@ -1287,9 +1299,9 @@ i&lt;&lt;2 || real(i)&lt;&lt;2 || 0&lt;&lt;2 -> 0
 <br>
 i==0 || real(i)==0 -> 1
 <br>
-・被演算子に行列を入力した場合、最終要素を取り出す
+・被演算子に行列を入力した場合、<a href="#span-out-FNm-last">最終要素</a>を取り出す
 <br>
-・last<a href="#span-out-FNm">行列関数</a>を使用
+・<a href="#span-out-FNm-last">last行列関数</a>を使用
 <br>
 (1,2)==(3,2) || last(1,2)==last(3,2) || 2==2 -> 1
 <br>
@@ -1372,7 +1384,7 @@ pow(2,-52) || 2^(-52) -> 2.220446049250313e-16
 <br>
 ・この最小値O(1e-16)より小さな有効数字は保持できない
 <br>
-・これを丸める誤差を<a href="#span-out-epsilon">Machine epsilon</a>と呼ぶ
+・これを丸める<a href="#span-out-error">誤差</a>を<a href="#span-out-epsilon">Machine epsilon</a>と呼ぶ
 <br>
 <br>
 64bit2進形式の浮動小数点演算の挙動を示す
@@ -1461,7 +1473,7 @@ epsilon
 浮動小数点演算のMachine epsilonについて記述する
 <br>
 <br>
-<a href="#span-out-float">仮数部</a>の最下位bitの有効数字未満を丸める相対誤差をMachine epsilonと呼ぶ
+<a href="#span-out-float">仮数部</a>の最下位bitの有効数字未満を丸める相対<a href="#span-out-error">誤差</a>をMachine epsilonと呼ぶ
 <br>
 ・次のepsilonで定義する
 <br>
@@ -1649,7 +1661,7 @@ ans+1 -> infoLost[r ] 5+i
 ans*0 -> infoLost[r ] 0
 <br>
 <br>
-桁落ちは判定困難で評価にかかる演算量を見積もれないため、評価しない
+桁落ちは判定困難で評価にかかる<a href="#span-out-ope">演算量</a>を見積もれないため、評価しない
 <br>
 ・整数演算を一例に示す
 <br>
@@ -1670,6 +1682,21 @@ ans&lt;&lt;3  <span class="selection">// 11111000</span> -> 248
 ・2つの整数の差を取ると有効桁が減少して丸め誤差が拡大する
 <br>
 252-248  <span class="selection">// 100</span> -> 4
+    </td>
+  </tr>
+  <tr>
+    <th>
+<a href="#span-index">
+目次
+</a>
+<br>
+数値解の
+<br>
+数値誤差
+    </th>
+    <td>
+<span id="span-out-error-numerical"></span>
+数値解の数値誤差について記述する
 <br>
 <br>
 数値誤差は無限を有限で数学的に近似する際の、
@@ -1832,11 +1859,11 @@ useStrict=true
 　omitted Call-by-Equation's bracket({}) disabled
 <br>
 <br>
-情報落ちの発生や微分・積分の数値<a href="#span-out-error">誤差</a>を評価しない場合
+<a href="#span-out-error">情報落ち</a>の発生や微分・積分の<a href="#span-out-error-numerical">数値誤差</a>を評価しない場合
 <br>
 checkError=false
 <br>
-・演算量が数倍軽くなる
+・<a href="#span-out-ope">演算量</a>が数倍軽くなる
 <br>
 <br>
 <a href="#span-out-prec-ope">演算子のprecedence</a>を変更する場合
@@ -1849,7 +1876,7 @@ URi,URf,BRp,BRr,BRmo,BRdm,BRsa,BRbs,BRba,BRbx,BRbo,BRcn,BRrl
 <br>
 ・別途、乗算記号*の省略を許容しない場合、tag名BRmoを削除する
 <br>
-　その場合、treeを全走査判定する無駄な演算量が減る
+　その場合、treeを全走査判定する無駄な<a href="#span-out-ope">演算量</a>が減る
     </td>
   </tr>
   <tr>
@@ -1902,7 +1929,7 @@ UI設定によって対応する用途を4種類示す
 {x=1,x=2x:x=2x,x} -> (0,0:0,4)
 <br>
 <br>
-その上で、無次元の演算の場合、行列の最終要素を取り出して演算する
+その上で、無次元の演算の場合、行列の<a href="#span-out-FNm-last">最終要素</a>を取り出して演算する
 <br>
 (x=1,x=2x:x=2x,x)1 || {x=1,x=2x:x=2x,x}1 || (0,0:0,4)1 || (4)*1 -> 4
 <br>
@@ -1939,13 +1966,14 @@ UI設定によって対応する用途を4種類示す
 <br>
 ・<a href="#span-out-float">浮動小数点数</a>の実部と虚部から成る<a href="#span-out-com">複素数</a>の<a href="#span-out-mat">行列</a>
 <br>
+<br>
 演算単位のstructureを以降、<a href="#span-in-tree">単位tree構造</a>と呼ぶ
 <br>
 ・複素数や整数、文字列等の型は定義しない
 <br>
-・<a href="#span-out-FNh">高階関数</a>と<a href="#span-out-FNmh">高階行列関数</a>で扱う<a href="#span-out-vars-symbol">変数名symbol</a>のみ、呼出し時に内部で判別する
+・<a href="#span-out-vars-symbol">変数名symbol</a>のみ、呼出し時に内部で判別する
 <br>
-・よって<a href="#span-out-ope">用途</a>をseamlessに切替えて演算量を調整する
+・よって<a href="#span-out-ope">用途</a>をseamlessに切替えて<a href="#span-out-ope">演算量</a>を調整する
 <br>
 <br>
 合わせて共通化する仕様について記述する
@@ -1970,11 +1998,11 @@ sqrt(1,2,3:4,5,6) || sqrt(4,5,6) || sqrt(4) -> 2
 <br>
 (1,2:3,4)-(-1) -> [MyErr]Invalid matrix operation
 <br>
-・無次元の演算の場合、行列の最終要素を演算・無次元化するのと同様に
+・無次元の演算の場合、行列の<a href="#span-out-FNm-last">最終要素</a>を演算・無次元化するのと同様に
 <br>
 (1,3)+(1) || (3)+(1) -> 4
 <br>
-・剰余等の演算を実行した場合、行列の最終要素を参照して演算・無次元化
+・剰余等の演算を実行した場合、行列の<a href="#span-out-FNm-last">最終要素</a>を参照して演算・無次元化
 <br>
 (1,2)%2 || (2)%2 -> 0
 <br>
@@ -2219,13 +2247,13 @@ csv/history出力のplot2d-command-logとplot2d-options-logについて記述す
 ・よって演算終了後に変更した現在のzをlogに残す場合、再演算が必要
 <br>
 <br>
-semi-colon;区切りで行列の最終要素の数値をgraphに描画する
+semi-colon;区切りで行列の<a href="#span-out-FNm-last">最終要素</a>の数値をgraphに描画する
 <br>
 ・命令文や代入文のみを各軸に入力した場合、0を返して描画する
 <br>
-・処理を列挙する場合、最終列挙の要素が最終要素とは限らない点、留意が必要
+・処理を列挙する場合、最終列挙の要素が<a href="#span-out-FNm-last">最終要素</a>とは限らない点、留意が必要
 <br>
-詳細はlast<a href="#span-out-FNm">行列関数</a>参照
+詳細は<a href="#span-out-FNm-last">last行列関数</a>参照
 <br>
 <br>
 tの範囲下限t0と範囲上限t1のlocal <a href="#span-out-storage">storage</a>は独立
@@ -2744,7 +2772,7 @@ x=-0xff; <span class="selection">/*x:16進数値*/</span> x&gt;&gt;3 <span class
 <br>
 -> -32
 <br>
-・parse後の実行文を示す
+・<a href="#span-out-flow">parse</a>後の実行文を示す
 <br>
 x=-0xff; x&gt;&gt;3 -> -32
 <br>
@@ -2969,7 +2997,7 @@ clear; a=2; hasVar(a) -> 1
 <br>
 clear; a=2; hasVar(b) -> 0
 <br>
-・第1引数は最終要素を参照する
+・第1引数は<a href="#span-out-FNm-last">最終要素</a>を参照する
 <br>
 clear; a=2; hasVar(b,c:a) -> 1
 <br>
@@ -3029,7 +3057,7 @@ clear; a=2; (delVar(b),a) -> (0,2)
 <br>
 clear; a=2; a*delVar(a)  <span class="selection">// a deleted</span> -> [MyErr]Invalid binary operation
 <br>
-・第1引数は最終要素を参照する
+・第1引数は<a href="#span-out-FNm-last">最終要素</a>を参照する
 <br>
 clear; a=2; (delVar(b,c:a),a)  <span class="selection">// a deleted</span> -> [MyErr]Invalid REv(a)
 <br>
@@ -3309,11 +3337,11 @@ max=&lt;3 -> [MyErr]Invalid BTe([object Object])
 <br>
 定数は引数<a href="#span-out-BT">括弧</a>無しで厳密には<a href="#span-out-FN">関数</a>に含めない
 <br>
-・実行文を作るparse段階で数値に変換する
+・実行文を作る<a href="#span-out-flow">parse</a>段階で数値に変換する
 <br>
 ・Excel同様に空括弧()付を許容する
 <br>
-・空括弧()はparse段階で除去する
+・空括弧()は<a href="#span-out-flow">parse</a>段階で除去する
 <br>
 <br>
 関数を使用して円周率piとNapier数eを一例に示す
@@ -3332,7 +3360,7 @@ eは指数と区別するために空括弧()を付ける方が間違いが少�
 ・<a href="#span-out-BRmo">記号省略乗算</a>を許容した弊害への対策
 <br>
 <br>
-定数に限らず、空括弧()はparse段階ですべて除去する
+定数に限らず、空括弧()は<a href="#span-out-flow">parse</a>段階ですべて除去する
 <br>
 ()3()3() || 3*3 -> 9
 <br>
@@ -3357,7 +3385,7 @@ random() || random || rand -> 0.7479324154774045
 <br>
 pi=3 || pi()=3 || =3-pi -> -0.14159265358979312
 <br>
-・parse後の実行文を示す
+・<a href="#span-out-flow">parse</a>後の実行文を示す
 <br>
 3.141592653589793=3 || =3-3.141592653589793 -> -0.14159265358979312
 <br>
@@ -3452,7 +3480,7 @@ iの2乗の演算方法を2項演算子または関数を使用して3種類示�
 <br>
 epsilon || eps -> 2.220446049250313e-16
 <br>
-・この傾向は演算量に応じて<a href="#span-out-ope">実数演算</a>よりも顕著に現れる
+・この傾向は<a href="#span-out-ope">演算量</a>に応じて<a href="#span-out-ope">実数演算</a>よりも顕著に現れる
 <br>
 <br>
 -1の平方根の演算方法を3種類示す
@@ -3939,7 +3967,7 @@ A=(11:21,22:31,32,33,34); htrans(htrans(A)) -> (11,0,0,0:21,22,0,0:31,32,33,34)
 (1,2:3,4)+(-1,2:) || (1,2:3,4)+(-1,2:,) || (1,2:3,4)+(-1,2:0,0) -> (0,4:3,4)
 <br>
 <br>
-<a href="#span-out-ope">無次元</a>の演算の場合、行列の演算規則とは関係なく最終要素を演算する
+<a href="#span-out-ope">無次元</a>の演算の場合、行列の演算規則とは関係なく<a href="#span-out-FNm-last">最終要素</a>を演算する
 <br>
 (1,2:3)1 || (3)*1 -> 3
 <br>
@@ -4307,6 +4335,21 @@ trans((1/norm(trans(A[1])))A[1])
 trans((1/norm(trans(A[2])))A[2])
 <br>
 -> (0.5773502691896258:0.5773502691896258i:-0.5773502691896258i)
+    </td>
+  </tr>
+  <tr>
+    <th>
+<a href="#span-index">
+目次
+</a>
+<br>
+last行列関数
+<br>
+入力仕様
+    </th>
+    <td>
+<span id="span-out-FNm-last"></span>
+last行列関数の入力仕様と付随する留意事項について記述する
 <br>
 <br>
 行列要素を取得
@@ -4323,7 +4366,10 @@ last(1,2:3,4) -> 4
 <br>
 last{1,2:3,4} -> 4
 <br>
-・同じ<a href="#span-out-BT">括弧</a>でcomma,を括る限り、last行列関数はcomma演算子同様に働く
+<br>
+last行列関数はNativeのcomma演算子同様に、<a href="#span-out-BT">括弧</a>内の最終要素を返す
+<br>
+・同じ<a href="#span-out-BT">括弧</a>でcomma,を括る場合
 <br>
 last((1,2):(3,4)) -> 4
 <br>
@@ -4359,9 +4405,10 @@ last(1,(2:3),4) -> 3
 <br>
 last({1,2},3,4) -> 2
 <br>
-・最終列挙の要素を取り出す場合の対策
 <br>
-・常にlast行列関数で<a href="#span-out-BT">括弧</a>の中身を無次元化する
+最終列挙の要素を取得する場合
+<br>
+・常にlast行列関数で<a href="#span-out-BT">括弧</a>内の最終要素を取り出す
 <br>
 last(1,last(2:3),4) -> 4
 <br>
@@ -4473,7 +4520,7 @@ A=(1,2:3,4); ii=1; A[ii][ii]=-1; A -> (1,2:3,-1)
 <br>
 A=(1,2:3,4); A[1][1]=(x=2); A -> (1,2:3,0)
 <br>
-・行列を代入した場合、最終要素を代入
+・行列を代入した場合、<a href="#span-out-FNm-last">最終要素</a>を代入
 <br>
 A=(1,2:3,4); A[0][0]=A; A -> (4,2:3,4)
 <br>
@@ -4692,7 +4739,7 @@ A-ttA ->
 <br>
 　回転方向は、x⇒y⇒z⇒x軸の正循環で各軸に向ける方向を正とする
 <br>
-・返値の回転行列は引数の<a href="#span-out-error">誤差</a>情報を継承しない
+・返値の回転行列は引数の<a href="#span-out-error">誤差情報</a>を継承しない
 <br>
 <br>
 rotationx(第1引数)
@@ -4767,7 +4814,7 @@ t=_dx(=&lt;{x},1,1)pi/4+1000i; t
 0,0.9999999999999711,1.0000000000000289)
 <br>
 <br>
-回転行列の引数の<a href="#span-out-error">誤差</a>情報を継承する場合
+回転行列の引数の<a href="#span-out-error">誤差情報</a>を継承する場合
 <br>
 t=_dx(=&lt;{x},1,1)pi/4+1000i;
 <br>
@@ -4979,9 +5026,9 @@ rotx_LHS ->
 )
 <br>
 <br>
-2Dの描画canvasも同様にz-index含めて左手系
+2DのHTML5描画canvasも同様にCSS/z-index含めて左手系
 <br>
-・左上基準のclient座標系に対して手前方向をz-indexの正とする
+・browser左上originのclient座標系に対して手前方向をCSS/z-indexの正とする
     </td>
   </tr>
   <tr>
@@ -5438,7 +5485,7 @@ Native無名関数を代替する式渡しの直接読出し
 <br>
 {a=1,b=2,c=3,=&lt;(a,b,c)}=&gt; -> (1,2,3)
 <br>
-・last<a href="#span-out-FNm">行列関数</a>は最終要素しか取り出せない
+・<a href="#span-out-FNm-last">last行列関数</a>は<a href="#span-out-FNm-last">最終要素</a>しか取り出せない
 <br>
 clear; (x=(1,2),=&lt;x)=&gt; -> (1,2)
 <br>
@@ -6237,9 +6284,9 @@ _Ry(=&lt;{_Rx(=&lt;{x+y+1},1,2)},1,2) -> 13
 <br>
 ・連続関数のdummy変数微分位置における微分係数を数値的に演算して返す
 <br>
-・精度優先で微分位置に応じた情報落ちを対策する
+・精度優先で微分位置に応じた<a href="#span-out-error">情報落ち</a>を対策する
 <br>
-・数値誤差O(dx^4以上)を含み、演算結果に目安の解析<a href="#span-out-error">誤差</a>を表示する
+・<a href="#span-out-error-numerical">数値誤差</a>O(dx^4以上)を含み、演算結果に<a href="#span-out-error-numerical">目安の解析誤差</a>を表示する
 <br>
 ・1階微分の差分刻み実数値dxDの既定値dxD=1e-3
 <br>
@@ -6265,9 +6312,9 @@ option
 ・第4引数: 1階微分の差分刻みdx0を値渡し[省略時、dx既定値]
 <br>
 <br>
-数値誤差に関する精度次数について記述する
+<a href="#span-out-error-numerical">数値誤差</a>に関する精度次数について記述する
 <br>
-・数値<a href="#span-out-error">誤差</a>は絶対誤差
+・<a href="#span-out-error-numerical">数値誤差</a>は絶対誤差
 <br>
 ・微分階数が1階上がる毎に差分刻み2倍を仮定
 <br>
@@ -6482,7 +6529,7 @@ x -> infoLost[ri] 0.9999999999877383+1.0000000000273828i+O(1e-5+9e-6i)
 <br>
 ・normが<a href="#span-out-epsilon">Machine epsilon</a>まで収束困難のため、一定回数の反復で打切る
 <br>
-・次に数値解の一例を示す
+・次に<a href="#span-out-error-numerical">数値解</a>の一例を示す
 <br>
 storage cleared
 <br>
@@ -6494,7 +6541,7 @@ _rn(=&lt;run,,12) -> 3.844899655887233e-14+O(8e+0)
 <br>
 x -> -0.17989326929739397-0.5079280004968542i+O(2e-1+5e-1i)
 <br>
-・続けて厳密解同等の数値解を示す
+・続けて厳密解同等の<a href="#span-out-error-numerical">数値解</a>を示す
 <br>
 storage cleared
 <br>
@@ -6569,7 +6616,7 @@ x -> (1.000000000000009+O(3e-5):0.9999999999999909+O(3e-5))
 <br>
 ・連続関数のdummy変数積分範囲[a,b]における定積分を数値的に演算して返す
 <br>
-・数値誤差O(dxI^4以上)を含み、演算結果に目安の解析<a href="#span-out-error">誤差</a>を表示する
+・<a href="#span-out-error-numerical">数値誤差</a>O(dxI^4以上)を含み、演算結果に<a href="#span-out-error-numerical">目安の解析誤差</a>を表示する
 <br>
 ・積分範囲の分割数の既定値NI=100
 <br>
@@ -6595,9 +6642,9 @@ option
 ・第4引数: 積分範囲の分割数（正の偶数）を値渡し[省略時、NI既定値]
 <br>
 <br>
-数値誤差に関する精度次数について記述する
+<a href="#span-out-error-numerical">数値誤差</a>に関する精度次数について記述する
 <br>
-・数値<a href="#span-out-error">誤差</a>は絶対誤差
+・<a href="#span-out-error-numerical">数値誤差</a>は絶対誤差
 <br>
 ・既定で合成Simpson公式による4次精度
 <br>
@@ -6694,7 +6741,7 @@ _rn(=&lt;run,,12) -> infoLost[ i] 1.3839478914652153e-28+O(8e-7)
 <br>
 b -> infoLost[ri] 2.9999999999999996+4.613167602434132e-34i+O(1e-1+2e-1i)
 <br>
-・2次関数の積分の場合、補間多項式に一致するため、数値<a href="#span-out-error">誤差</a>が出ない
+・2次関数の積分の場合、補間多項式に一致するため、<a href="#span-out-error-numerical">数値誤差</a>が出ない
 <br>
 _ix(=&lt;{x^2},0,3,2) -> 9+O(5e+0)
 <br>
@@ -6776,7 +6823,7 @@ Jacobi高階行列関数
 <br>
 　微分位置に応じて差分刻みを可変すると収束速度が悪化する
 <br>
-・1次精度の数値誤差O(dx)を含むが、目安の解析<a href="#span-out-error">誤差</a>を評価・表示しない
+・1次精度の<a href="#span-out-error-numerical">数値誤差</a>O(dx)を含むが、<a href="#span-out-error-numerical">目安の解析誤差</a>を評価・表示しない
 <br>
 ・1階偏微分の差分刻み実数値dxJの既定値dxJ=1e-5
 <br>
@@ -6832,7 +6879,7 @@ clear; a=1e10; h=max(1,abs(a))1e-5(1+i); Jacobi(=&lt;{2x^2},=&lt;{x},=&lt;{a},h)
 <br>
 -> 40000200000.65538+199999.3446694911i
 <br>
-・情報落ちの対策が必要
+・<a href="#span-out-error">情報落ち</a>の対策が必要
 <br>
 ・1階偏微分の解析解=4xよりx=1e10周辺の傾き4e10を返す
 <br>
@@ -6911,7 +6958,7 @@ ODE高階行列関数
 <br>
 ・dummy変数を媒介する常微分方程式の1step定積分を数値的に演算して返す
 <br>
-・数値誤差O(dt^4以上)を含み、演算結果に目安の解析<a href="#span-out-error">誤差</a>を表示する
+・<a href="#span-out-error-numerical">数値誤差</a>O(dt^4以上)を含み、演算結果に<a href="#span-out-error-numerical">目安の解析誤差</a>を表示する
 <br>
 ・1階常微分の差分刻み実数値dxTの既定値dxT=1e-3
 <br>
@@ -6943,9 +6990,9 @@ option
 ・第5引数: 常微分の差分刻みdtを値渡し[省略時、dxT既定値]
 <br>
 <br>
-数値誤差に関する精度次数について記述する
+<a href="#span-out-error-numerical">数値誤差</a>に関する精度次数について記述する
 <br>
-・数値<a href="#span-out-error">誤差</a>は絶対誤差
+・<a href="#span-out-error-numerical">数値誤差</a>は絶対誤差
 <br>
 ・既定で陽的Runge-Kutta法による4次精度
 <br>
@@ -7000,7 +7047,7 @@ clear; _ex(=&lt;{x},2,2); ($x0,$x1,$x2,$x3)=(1,2,3,4); x -> (1,2:3,4)
 <br>
 clear; x=&lt;(x0,x1:x2,x3); ($x0,$x1,$x2,$x3)=(1,2,3,4); x -> (1,2:3,4)
 <br>
-・symbol名は最終要素を参照
+・symbol名は<a href="#span-out-FNm-last">最終要素</a>を参照
 <br>
 clear; _ex(=&lt;{test,test:x},2,2); x -> [MyErr]Invalid REv(test0)
 <br>
@@ -7110,9 +7157,9 @@ trans(R) -> (1,3:2,4:0,5)
 ・さらに、Lの抜け要素の部分はRと内積を取らない（自明の演算は行わない）
 <br>
 <br>
-行列積L*Rの演算量を多少減らすために抜け要素を許容する
+行列積L*Rの<a href="#span-out-ope">演算量</a>を多少減らすために抜け要素を許容する
 <br>
-・N次下三角行列Lの場合、最高効率で演算量が半減する
+・N次下三角行列Lの場合、最高効率で<a href="#span-out-ope">演算量</a>が半減する
 <br>
 ・行列積の乗算回数を以下に比較して示す
 <br>
@@ -7363,7 +7410,7 @@ _dx(=&lt;{(x+i)^5},5,1)
 <br>
 以上より、微分階数が2階までは4次精度拡張、それ以降は2次精度拡張とする
 <br>
-・3階微分以降は精度より演算速度を優先
+・3階微分以降は精度より<a href="#span-out-ope">演算速度</a>を優先
 <br>
 ・非線形性が強い<a href="#span-out-FN">関数</a>・<a href="#span-out-series">級数</a>・<a href="#span-out-limit">極限</a>の演算結果は当てにならない
 <br>
@@ -7443,9 +7490,9 @@ S=(f[0]+2Σ&lt;i=1,N-1&gt;f[i]+f[N])h/2+O(h^2)
 <br>
 ・両端を除く離散点f[i]は2回足されて2倍
 <br>
-・全区間の離散化<a href="#span-out-error">誤差</a>のOrderは微小区間の正方形面積h*h
+・全区間の<a href="#span-out-error">離散化誤差</a>のOrderは微小区間の正方形面積h*h
 <br>
-・総和によって微小区間の離散化<a href="#span-out-error">誤差</a>が積算されて精度次数が1次落ちる
+・総和によって微小区間の<a href="#span-out-error">離散化誤差</a>が積算されて精度次数が1次落ちる
 <br>
 <br>
 微小区間の関数fを1次多項式で補間する場合も同様
@@ -7474,7 +7521,7 @@ r1=(f[0]:f[1])
 <br>
 ・離散点がすべて独立であればVの逆行列が一意に存在する
 <br>
-・予め逆行列を解いた方が丸め<a href="#span-out-error">誤差</a>の影響を受けにくい
+・予め逆行列を解いた方が<a href="#span-out-error">丸め誤差</a>の影響を受けにくい
 <br>
 ・その形式に変形したLagrange基底の補間多項式を導出する
 <br>
@@ -7613,7 +7660,7 @@ S=(f[0]+4Σ&lt;k=0,N/2-1&gt;f[2k+1]+2Σ&lt;k=1,N/2-1&gt;f[2k]+f[N])h/3+O(h^4)
 <br>
 ・両端を除く偶数の離散点f[2k]は2回足されて2倍
 <br>
-・全区間の離散化<a href="#span-out-error">誤差</a>のOrderは微小区間の正方形面積h*hの2乗
+・全区間の<a href="#span-out-error">離散化誤差</a>のOrderは微小区間の正方形面積h*hの2乗
     </td>
   </tr>
   <tr>
@@ -7663,7 +7710,7 @@ f=&lt;{(z_x-z_x0)/dt=z_v,m((z_v-z_v0)/dt)=m*z_a-Cd_sphere*z_v};
 <br>
 z_v_terminal=(m/Cd_sphere)*z_a
 <br>
-・implicit Euler methodによる1次精度の数値誤差O(dt)を含む近似解を以下に示す
+・implicit Euler methodによる1次精度の<a href="#span-out-error-numerical">数値誤差</a>O(dt)を含む近似解を以下に示す
 <br>
 g=-9.8;
 <br>
@@ -7801,7 +7848,7 @@ infoLost[ i] 0.0000018087545367633257-9.79999730495574i
 <br>
 <a href="#span-out-FNmh-OX">ODE高階行列関数</a>を使用する場合、stepを陽的に解くため、収束演算不要
 <br>
-・実軸の時間積分の場合、目安の解析<a href="#span-out-error">誤差</a>は実数のみ表示される（仕様）
+・実軸の時間積分の場合、<a href="#span-out-error-numerical">目安の解析誤差</a>は実数のみ表示される（仕様）
 <br>
 g=-9.8;
 <br>
@@ -8524,7 +8571,7 @@ A(x) -> (10.000000000000002i:11.000000000000005i:12.000000000000007i)
 <br>
 ・rank落ちの場合、近似解が厳密解に近づくとは限らない
 <br>
-・Jacobi行列の数値<a href="#span-out-error">誤差</a>が初期値の厳密解に上乗せして残る
+・Jacobi行列の<a href="#span-out-error-numerical">数値誤差</a>が初期値の厳密解に上乗せして残る
 <br>
 storage cleared
 <br>
@@ -9189,7 +9236,7 @@ Maclaurin
 <span id="span-out-series-Taylor"></span>
 Taylor級数・Maclaurin級数の解法について記述する
 <br>
-・Computer Algebra System未実装で得られる解は数値解
+・Computer Algebra System未実装で得られる解は<a href="#span-out-error-numerical">数値解</a>
 <br>
 ・<a href="#span-out-FNh-DX">微分高階関数</a>の精度に依存
 <br>
@@ -9300,7 +9347,7 @@ Fourier
 <span id="span-out-series-Fourier"></span>
 Fourier級数の解法について記述する
 <br>
-・Computer Algebra System未実装で得られる解は数値解
+・Computer Algebra System未実装で得られる解は<a href="#span-out-error-numerical">数値解</a>
 <br>
 ・<a href="#span-out-FNh-IX">積分高階関数</a>の精度に依存
 <br>
@@ -9362,7 +9409,7 @@ ft=&lt;atan(tan(t));
 <span id="span-out-limit"></span>
 極限の解法について記述する
 <br>
-・Computer Algebra System未実装で得られる解は限定的なcaseの数値解
+・Computer Algebra System未実装で得られる解は限定的なcaseの<a href="#span-out-error-numerical">数値解</a>
 <br>
 ・L'Hôpitalの定理を使用する場合、<a href="#span-out-FNh-DX">微分高階関数</a>の精度に依存
 <br>
@@ -9586,7 +9633,7 @@ f=&lt;last{I=1,E=0,k=1,I=exp(k*(V-E))-exp(-k*(V-E))}
 f=&lt;last{V=1,E=0,k=1,I=exp(k*(V-E))-exp(-k*(V-E))}
 <br>
 <br>
-上記数値解の演算速度を優先するため、Computer Algebra System未実装
+上記<a href="#span-out-error-numerical">数値解</a>の<a href="#span-out-ope">演算速度</a>を優先するため、Computer Algebra System未実装
     </td>
   </tr>
   <tr>
@@ -9668,7 +9715,7 @@ source抜粋
 <br>
 ・<a href="#span-out-FN">関数</a>の引数vectorはarr[arr.length-1]を参照する
 <br>
-・<a href="#span-out-ope">無次元</a>の演算や定義できない<a href="#span-out-mat">行列</a>演算はarrの最終要素を参照する
+・<a href="#span-out-ope">無次元</a>の演算や定義できない<a href="#span-out-mat">行列</a>演算はarrの<a href="#span-out-FNm-last">最終要素</a>を参照する
 <br>
 <pre><code>
             j-th sentence
@@ -9754,7 +9801,7 @@ data.logo -> "makeLog=true"
 ・expDigit: 演算結果を表示する指数表記の桁数
 <br>
 <br>
-・<a href="#span-out-config">checkError</a>: 情報落ちの発生や微分・積分の数値<a href="#span-out-error">誤差</a>を評価するflag
+・<a href="#span-out-config">checkError</a>: <a href="#span-out-error">情報落ち</a>の発生や微分・積分の<a href="#span-out-error-numerical">数値誤差</a>を評価するflag
 <br>
 <br>
 ・<a href="#span-out-config">precedence</a>: comma,区切りで演算子の<a href="#span-in-prec">tag名</a>を列挙した文字列
