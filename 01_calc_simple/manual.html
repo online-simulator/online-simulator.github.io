@@ -1854,9 +1854,9 @@ useStrict=true
 <br>
 　omitted equation call sign(=&gt;) disabled
 <br>
-・<a href="#span-out-call-by-equation">式渡し</a>の括弧{}省略不可
+<del>・<a href="#span-out-call-by-equation">式渡し</a>の括弧{}省略不可
 <br>
-　omitted Call-by-Equation's bracket({}) disabled
+　omitted Call-by-Equation's bracket({}) disabled</del><span class="run">Ver.2.28.15</span>以降、text modified
 <br>
 <br>
 <a href="#span-out-error">情報落ち</a>の発生や微分・積分の<a href="#span-out-error-numerical">数値誤差</a>を評価しない場合
@@ -2455,7 +2455,9 @@ init=&lt;last{xt=vectorc(N+1),yt=vectorc(N+1)};
 <br>
 stepn=&lt;last{xt[n]=cos(tn=&gt;tn),yt[n]=sin(tn)};
 <br>
-evolutionN=&lt;_sn(=&lt;{stepn=&gt;},0,N);
+/*evolutionN=&lt;_sn(=&lt;{stepn=&gt;},0,N);*/
+<br>
+evolutionN=&lt;_sn(=&lt;stepn,0,N);
 <br>
 init=&gt;; evolutionN=&gt;; xt,yt ->
 <br>
@@ -2572,9 +2574,9 @@ init=&lt;last{xt=zeros(N+1,M+1),yt=zeros(N+1,M+1)};
 <br>
 stepnm=&lt;last{xt[n][m]=cos(tn=&gt;tn)*m,yt[n][m]=sin(tn)*m};
 <br>
-evolutionN=&lt;_sn(=&lt;{casesM=&gt;},0,N);
+evolutionN=&lt;_sn(=&lt;casesM,0,N);
 <br>
-casesM=&lt;_sm(=&lt;{stepnm=&gt;},0,M);
+casesM=&lt;_sm(=&lt;stepnm,0,M);
 <br>
 init=&gt;; evolutionN=&gt;;
 <br>
@@ -2683,7 +2685,7 @@ init=&lt;last{xt=vectorc(N+1),yt=vectorc(N+1)};
 <br>
 stepn=&lt;last{step=&gt;,xt[n]=real(z_x),yt[n]=imag(z_x)};
 <br>
-evolutionN=&lt;_sn(=&lt;{stepn=&gt;},0,N);
+evolutionN=&lt;_sn(=&lt;stepn,0,N);
 <br>
 init=&gt;; evolutionN=&gt;; xt,yt ->
 <br>
@@ -5513,7 +5515,16 @@ clear; (f=&lt;{x},x=(1,2),=&lt;f) -> [MyErr]Invalid BTe([object Object])
 <br>
 clear; (f=&lt;{x},x=(1,2),eqn_f=&lt;f); eqn_f -> (1,2)
 <br>
-・<span class="run">Ver.2.27.15</span>以降、nestingに対応
+・<a href="#span-out-config">strict-mode</a>の場合
+<br>
+clear; (f=&lt;{x},x=(1,2),=&lt;f)=&gt; -> [MyErr]Invalid REv(f)
+<br>
+clear; (f=&lt;{x},x=(1,2),=&lt;f=&gt;)=&gt; -> (1,2)
+<br>
+clear; (f=&lt;x,x=(1,2),=&lt;f=&gt;)=&gt; -> (1,2)
+<br>
+<br>
+<span class="run">Ver.2.27.15</span>以降、式渡しの直接読出しのnestingに対応
 <br>
 ・階層毎の引数&amp;<a href="#span-out-types-vars">scope</a>無しで無名関数の最短表記を許容
 <br>
