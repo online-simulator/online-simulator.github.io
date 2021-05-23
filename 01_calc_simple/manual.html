@@ -639,6 +639,11 @@ solveAinv
 </a>
 <br>
 ・
+<a href="#span-eqn-solvex_non_linear">
+solvex_non_linear
+</a>
+<br>
+・
 <a href="#span-eqn-MaclaurinN">
 MaclaurinN
 </a>
@@ -10809,7 +10814,7 @@ f=&lt;{A*(x=&gt;)=b},
 <br>
 run_iteration=&lt;last(mdx=Newton(=&lt;f,=&lt;x),max(norm(f=&gt;),norm(mdx))),
 <br>
-_rn(=&lt;run_iteration,,3)
+_rn(=&lt;run_iteration,,N)
 <br>
 },
 <br>
@@ -10817,7 +10822,7 @@ init=&gt;,run=&gt;,return=out=&gt;,delete_init=&gt;,
 <br>
 =&lt;return}=&gt;;
 <br>
-A=(i,2,3i:4,5i,6:7i,8,9i); b={1,2i,4}; solvex_iteration=&gt;;
+A=(i,2,3i:4,5i,6:7i,8,9i); b={1,2i,4}; N=3; solvex_iteration=&gt;;
     </td>
   </tr>
   <tr>
@@ -10848,7 +10853,7 @@ f=&lt;{(Ainv=&gt;)*A=identity(sizeA)},
 <br>
 run_iteration=&lt;last(mdx=Newton(=&lt;f,=&lt;x),max(norm(f=&gt;),norm(mdx))),
 <br>
-_rn(=&lt;run_iteration,,3)
+_rn(=&lt;run_iteration,,N)
 <br>
 },
 <br>
@@ -10856,7 +10861,46 @@ init=&gt;,run=&gt;,return=out=&gt;,delete_init=&gt;,
 <br>
 =&lt;return}=&gt;;
 <br>
-A=(i,2,3i:4,5i,6:7i,8,9i); solveAinv=&gt;;
+A=(i,2,3i:4,5i,6:7i,8,9i); N=3; solveAinv=&gt;;
+    </td>
+  </tr>
+  <tr>
+    <th>
+<a href="#span-index">
+目次
+</a>
+<br>
+solvex
+<br>
+_non_linear
+    </th>
+    <td>
+<span id="span-eqn-solvex_non_linear"></span>
+<a href="#span-out-non-linear">連立非線形方程式の解法</a>参照
+<br>
+clear;
+<br>
+solvex_non_linear=&lt;{
+<br>
+out=&lt;x=&gt;,
+<br>
+delete_init=&lt;last{delEqn(x)},
+<br>
+init=&lt;last{_ex(=&lt;{x},sizer(x_initial=&gt;),1)},
+<br>
+run=&lt;last{
+<br>
+run_iteration=&lt;last(mdx=Newton(=&lt;f,=&lt;x,=&lt;x_initial),max(norm(f=&gt;),norm(mdx))),
+<br>
+_rn(=&lt;run_iteration,,N)
+<br>
+},
+<br>
+init=&gt;,run=&gt;,return=out=&gt;,delete_init=&gt;,
+<br>
+=&lt;return}=&gt;;
+<br>
+f=&lt;{x0^i-2*x1=3i,3*x0+exp(x1)=5i}; x_initial=&lt;{1+i,1-i}; N=6; solvex_non_linear=&gt;;
     </td>
   </tr>
   <tr>
