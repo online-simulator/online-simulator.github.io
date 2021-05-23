@@ -5607,14 +5607,32 @@ clear; (f=&lt;{x},x=(1,2),eqn_f=&lt;f); eqn_f -> (1,2)
 <br>
 ・<a href="#span-out-config">strict-mode</a>の場合
 <br>
+clear; a=1; (=&lt;a)=&gt; -> 1
+<br>
+clear; a=&lt;2; (=&lt;a)=&gt; -> [MyErr]Invalid REv(a)
+<br>
+clear; a=1; a=&lt;2; (=&lt;a)=&gt; -> 1
+<br>
+clear; a=1; a=&lt;2; (=&lt;a=&gt;)=&gt; -> 2
+<br>
 clear; (f=&lt;{x},x=(1,2),=&lt;f)=&gt; -> [MyErr]Invalid REv(f)
 <br>
 clear; (f=&lt;{x},x=(1,2),=&lt;f=&gt;)=&gt; -> (1,2)
 <br>
 clear; (f=&lt;x,x=(1,2),=&lt;f=&gt;)=&gt; -> (1,2)
 <br>
+clear; (f=&lt;x,x=&lt;(1,2),=&lt;f=&gt;)=&gt; -> [MyErr]Invalid REv(x)
+<br>
+clear; (f=&lt;x=&gt;,x=&lt;(1,2),=&lt;f=&gt;)=&gt; -> (1,2)
+<br>
+clear; (f=&lt;{x=&gt;},x=&lt;(1,2),=&lt;{f=&gt;})=&gt; -> (1,2)
+<br>
+clear; (f=&lt;{(x=&gt;)},x=&lt;(1,2),=&lt;{(f=&gt;)})=&gt; -> (1,2)
+<br>
 <br>
 <span class="run">Ver.2.27.15</span>以降、式渡しの直接読出しのnestingに対応
+<br>
+clear; (f=&lt;{(x=&gt;)},x=&lt;(1,2),=&lt;{=&lt;{(f=&gt;)}}=&gt;)=&gt; -> (1,2)
 <br>
 ・<a href="#span-out-flow">階層</a>毎の引数&amp;<a href="#span-out-types-vars">scope</a>無しで無名関数の最短表記を許容
 <br>
@@ -5886,7 +5904,7 @@ switch({第1引数:=&lt;第2引数}:{第3引数:=&lt;第4引数}:...)
 <br>
 　・第奇数番引数: 0||not0を返す条件文を値渡し
 <br>
-　・第偶数番引数: 条件文成立時に実行する処理を<a href="#span-out-call-by-equation">式渡し</a>
+　・第偶数番引数: 条件文成立時に実行する処理||<a href="#span-out-vars-symbol">式変数名symbol</a>を<a href="#span-out-call-by-equation">式渡し</a>
 <br>
 ・返値
 <br>
@@ -6042,7 +6060,7 @@ x=-2; switch(cp_mp) -> 2
 <br>
 _sdummy<a href="#span-out-vars-symbol">変数名symbol</a>(=&lt;第1引数,第2引数,第3引数[,第4引数])
 <br>
-・第1引数: dummy変数の関数式を<a href="#span-out-call-by-equation">式渡し</a>
+・第1引数: dummy変数の関数式||<a href="#span-out-vars-symbol">式変数名symbol</a>を<a href="#span-out-call-by-equation">式渡し</a>
 <br>
 ・第2引数: dummy変数の範囲下限a（整数）を値渡し
 <br>
@@ -6204,7 +6222,7 @@ N=0; _sn(=&lt;Pn,N,10) -> 99.99999999999999
 <br>
 _pdummy<a href="#span-out-vars-symbol">変数名symbol</a>(=&lt;第1引数,第2引数,第3引数[,第4引数])
 <br>
-・第1引数: dummy変数の関数式を<a href="#span-out-call-by-equation">式渡し</a>
+・第1引数: dummy変数の関数式||<a href="#span-out-vars-symbol">式変数名symbol</a>を<a href="#span-out-call-by-equation">式渡し</a>
 <br>
 ・第2引数: dummy変数の範囲下限a（整数）を値渡し
 <br>
@@ -6301,7 +6319,7 @@ cA=(e^{i(pi/4)},:,e^{i(-pi/4)}); N=4; _pn(=&lt;{cA},1,N)
 <br>
 _rdummy<a href="#span-out-vars-symbol">変数名symbol</a>(=&lt;第1引数,第2引数,第3引数)
 <br>
-・第1引数: 任意処理を<a href="#span-out-call-by-equation">式渡し</a>
+・第1引数: 任意処理||<a href="#span-out-vars-symbol">式変数名symbol</a>を<a href="#span-out-call-by-equation">式渡し</a>
 <br>
 ・第2引数: dummy変数の初期値を値渡し
 <br>
@@ -6402,7 +6420,7 @@ _Ry(=&lt;{_Rx(=&lt;{x+y+1},1,2)},1,2) -> 13
 <br>
 _ddummy<a href="#span-out-vars-symbol">変数名symbol</a>(=&lt;第1引数[,第2引数[,第3引数[,第4引数]]])
 <br>
-・第1引数: dummy変数の関数式を<a href="#span-out-call-by-equation">式渡し</a>
+・第1引数: dummy変数の関数式||<a href="#span-out-vars-symbol">式変数名symbol</a>を<a href="#span-out-call-by-equation">式渡し</a>
 <br>
 option
 <br>
@@ -6732,7 +6750,7 @@ x -> (1.000000000000009+O(3e-5):0.9999999999999909+O(3e-5))
 <br>
 _idummy<a href="#span-out-vars-symbol">変数名symbol</a>(=&lt;第1引数,第2引数,第3引数[,第4引数])
 <br>
-・第1引数: dummy変数の関数式を<a href="#span-out-call-by-equation">式渡し</a>
+・第1引数: dummy変数の関数式||<a href="#span-out-vars-symbol">式変数名symbol</a>を<a href="#span-out-call-by-equation">式渡し</a>
 <br>
 ・第2引数: dummy変数の積分下限aを値渡し
 <br>
@@ -6935,13 +6953,13 @@ Jacobi高階行列関数
 <br>
 Jacobi(=&lt;第1引数,=&lt;第2引数[,=&lt;第3引数[,第4引数]])
 <br>
-・第1引数: 方程式または関数式の列vectorを<a href="#span-out-call-by-equation">式渡し</a>
+・第1引数: 方程式または関数式の列vector||<a href="#span-out-vars-symbol">式変数名symbol</a>を<a href="#span-out-call-by-equation">式渡し</a>
 <br>
-・第2引数: 未知<a href="#span-out-vars-symbol">変数名symbol</a>の列vectorを<a href="#span-out-call-by-equation">式渡し</a>
+・第2引数: 未知<a href="#span-out-vars-symbol">変数名symbol</a>の列vector||<a href="#span-out-vars-symbol">式変数名symbol</a>を<a href="#span-out-call-by-equation">式渡し</a>
 <br>
 option
 <br>
-・第3引数: 未知変数初期値の列vectorを<a href="#span-out-call-by-equation">式渡し</a>[省略時、zeros-vector]
+・第3引数: 未知変数初期値の列vector||<a href="#span-out-vars-symbol">式変数名symbol</a>を<a href="#span-out-call-by-equation">式渡し</a>[省略時、zeros-vector]
 <br>
 　第3引数は未知変数未定義時のみ有効
 <br>
@@ -7025,13 +7043,13 @@ Newton高階行列関数
 <br>
 Newton(=&lt;第1引数,=&lt;第2引数[,=&lt;第3引数[,第4引数]])
 <br>
-・第1引数: 方程式または関数式の列vectorを<a href="#span-out-call-by-equation">式渡し</a>
+・第1引数: 方程式または関数式の列vector||<a href="#span-out-vars-symbol">式変数名symbol</a>を<a href="#span-out-call-by-equation">式渡し</a>
 <br>
-・第2引数: 未知<a href="#span-out-vars-symbol">変数名symbol</a>の列vectorを<a href="#span-out-call-by-equation">式渡し</a>
+・第2引数: 未知<a href="#span-out-vars-symbol">変数名symbol</a>の列vector||<a href="#span-out-vars-symbol">式変数名symbol</a>を<a href="#span-out-call-by-equation">式渡し</a>
 <br>
 option
 <br>
-・第3引数: 未知変数初期値の列vectorを<a href="#span-out-call-by-equation">式渡し</a>[省略時、zeros-vector]
+・第3引数: 未知変数初期値の列vector||<a href="#span-out-vars-symbol">式変数名symbol</a>を<a href="#span-out-call-by-equation">式渡し</a>[省略時、zeros-vector]
 <br>
 　第3引数は未知変数未定義時のみ有効
 <br>
@@ -7074,13 +7092,13 @@ ODE高階行列関数
 <br>
 _odummy<a href="#span-out-vars-symbol">変数名symbol</a>(=&lt;第1引数,=&lt;第2引数[,=&lt;第3引数[,第4引数[,第5引数]]])
 <br>
-・第1引数: 1階常微分方程式右辺の関数式を<a href="#span-out-call-by-equation">式渡し</a>
+・第1引数: 1階常微分方程式右辺の関数式||<a href="#span-out-vars-symbol">式変数名symbol</a>を<a href="#span-out-call-by-equation">式渡し</a>
 <br>
-・第2引数: 未知<a href="#span-out-vars-symbol">変数名symbol</a>の列vectorを<a href="#span-out-call-by-equation">式渡し</a>
+・第2引数: 未知<a href="#span-out-vars-symbol">変数名symbol</a>の列vector||<a href="#span-out-vars-symbol">式変数名symbol</a>を<a href="#span-out-call-by-equation">式渡し</a>
 <br>
 option
 <br>
-・第3引数: 未知変数初期値の列vectorを<a href="#span-out-call-by-equation">式渡し</a>[省略時、zeros-vector]
+・第3引数: 未知変数初期値の列vector||<a href="#span-out-vars-symbol">式変数名symbol</a>を<a href="#span-out-call-by-equation">式渡し</a>[省略時、zeros-vector]
 <br>
 　第3引数は未知変数未定義時のみ有効
 <br>
@@ -8492,6 +8510,39 @@ infoLost[ri] -3.999999999999999-3.362471994400586e-26i:
 infoLost[ri] 4.499999999999999+6.466216308756395e-26i
 <br>
 )
+<br>
+<br>
+<a href="#span-out-config">strict-mode</a>で<a href="#span-out-vars-symbol">式変数名symbol</a>を<a href="#span-out-call-by-equation">式渡し</a>する場合
+<br>
+storage cleared
+<br>
+x=&lt;{x0,x1}; x_initial=&lt;{0,0};
+<br>
+f=&lt;{x0+2*x1=5,3*x0+4*x1=6};
+<br>
+run=&lt;last(mdx=Newton(=&lt;f,=&lt;x,=&lt;x_initial),max(norm(f=&gt;),norm(mdx)));
+<br>
+_rn(=&lt;run,,3) -> infoLost[ri] 2.2204460494935903e-15
+<br>
+<br>
+<a href="#span-out-config">strict-mode</a>で直接<a href="#span-out-call-by-equation">式渡し</a>する場合
+<br>
+storage cleared
+<br>
+run=&lt;last(mdx=Newton(=&lt;{x0+2*x1=5,3*x0+4*x1=6},=&lt;{x0,x1},=&lt;{0,0}),norm(mdx));
+<br>
+_rn(=&lt;run,,3) -> infoLost[ri] 2.2204460494935903e-15
+<br>
+<br>
+<a href="#span-out-config">strict-mode</a>の最短表記
+<br>
+storage cleared
+<br>
+_rn(=&lt;{
+<br>
+last(mdx=Newton(=&lt;{x0+2*x1=5,3*x0+4*x1=6},=&lt;{x0,x1},=&lt;{0,0}),norm(mdx))
+<br>
+},,3) -> infoLost[ri] 2.2204460494935903e-15
 <br>
 <br>
 rank落ち3元⇒実質2元1次の連立線形方程式Ax=bを一例に示す
@@ -10739,12 +10790,6 @@ solvex_iteration=&lt;{
 <br>
 out=&lt;x=&gt;,
 <br>
-store_in=&lt;last{temp_A=A,temp_b=b},
-<br>
-restore_in=&lt;last{A=temp_A,b=temp_b},
-<br>
-delete_temp=&lt;last{delVar(temp_A),delVar(temp_b)},
-<br>
 delete_init=&lt;last{delVar(sizeA),delEqn(x)},
 <br>
 init=&lt;last{sizeA=size(A),_ex(=&lt;{x},sizeA,1)},
@@ -10759,7 +10804,7 @@ _rn(=&lt;run_iteration,,3)
 <br>
 },
 <br>
-store_in=&gt;,init=&gt;,run=&gt;,return=out=&gt;,restore_in=&gt;,delete_init=&gt;,delete_temp=&gt;,
+init=&gt;,run=&gt;,return=out=&gt;,delete_init=&gt;,
 <br>
 =&lt;return}=&gt;;
 <br>
@@ -10784,12 +10829,6 @@ solveAinv=&lt;{
 <br>
 out=&lt;Ainv=&gt;,
 <br>
-store_in=&lt;last{temp_A=A},
-<br>
-restore_in=&lt;last{A=temp_A},
-<br>
-delete_temp=&lt;last{delVar(temp_A)},
-<br>
 delete_init=&lt;last{delVar(sizeA),delEqn(Ainv),delEqn(x)},
 <br>
 init=&lt;last{sizeA=size(A),_eAinv(=&lt;{x},sizeA,sizeA),_ex(=&lt;{x},sizeA*sizeA,1)},
@@ -10804,7 +10843,7 @@ _rn(=&lt;run_iteration,,3)
 <br>
 },
 <br>
-store_in=&gt;,init=&gt;,run=&gt;,return=out=&gt;,restore_in=&gt;,delete_init=&gt;,delete_temp=&gt;,
+init=&gt;,run=&gt;,return=out=&gt;,delete_init=&gt;,
 <br>
 =&lt;return}=&gt;;
 <br>
