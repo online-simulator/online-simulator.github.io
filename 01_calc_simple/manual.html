@@ -5548,11 +5548,18 @@ clear; eqn_x=&lt;(a*x+b=0); a=1; b=2; x=3; 2eqn_x || 2*(-5) -> -10
 式渡しの入力仕様と付随する留意事項について記述する
 <br>
 <br>
-<a href="#span-out-FN">関数</a>の引数に方程式または関数式を渡す場合
+<a href="#span-out-FN">関数</a>の引数に方程式または関数式||<a href="#span-out-vars-symbol">式変数名symbol</a>を渡す場合
 <br>
-・通常の値渡しに対して式渡しと定義する
+・値||<a href="#span-out-vars-symbol">変数名symbol</a>の値渡しに対して式渡しと定義する
 <br>
 ・この場合の関数を<a href="#span-out-FNh">高階関数</a>と定義する
+<br>
+<br>
+式渡しの方法は、&lt;=方程式または関数式||<a href="#span-out-vars-symbol">式変数名symbol</a>とする
+<br>
+・<a href="#span-out-substitution-equation">式代入</a>記号&lt;=を流用
+<br>
+・よって<a href="#span-out-substitution-equation">式代入</a>同等の<a href="#span-out-prec">演算のprecedence</a>
 <br>
 <br>
 Native無名関数を代替する式渡しの直接読出し
