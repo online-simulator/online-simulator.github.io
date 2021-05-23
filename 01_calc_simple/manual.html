@@ -577,6 +577,81 @@ option
 <a href="#span-in-FN">
 定義済みの関数・予約語
 </a>
+<br>
+<br>
+<a href="#span-eqn">
+strict-mode式変数list
+</a>
+<br>
+・
+<a href="#span-eqn-template">
+template
+</a>
+<br>
+・
+<a href="#span-eqn-plot2d_circle">
+plot2d_circle
+</a>
+<br>
+・
+<a href="#span-eqn-plot2d_evolution">
+plot2d_evolution
+</a>
+<br>
+・
+<a href="#span-eqn-SND_Px_erfx_erfcx">
+SND/P(x)/erf(x)/erfc(x)
+</a>
+<br>
+・
+<a href="#span-eqn-matrix_product">
+matrix_product
+</a>
+<br>
+・
+<a href="#span-eqn-rotationxyz">
+rotationx/rotationy/rotationz-Right-Handed-System
+</a>
+<br>
+・
+<a href="#span-eqn-rotationxyz_LHS">
+rotationx/rotationy/rotationz-Left-Handed-System
+</a>
+<br>
+・
+<a href="#span-eqn-solvex_pivotting">
+solvex_pivotting
+</a>
+<br>
+・
+<a href="#span-eqn-solvex_no_pivotting">
+solvex_no_pivotting
+</a>
+<br>
+・
+<a href="#span-eqn-solvex_iteration">
+solvex_iteration
+</a>
+<br>
+・
+<a href="#span-eqn-solveAinv">
+solveAinv
+</a>
+<br>
+・
+<a href="#span-eqn-MaclaurinN">
+MaclaurinN
+</a>
+<br>
+・
+<a href="#span-eqn-TaylorN">
+TaylorN
+</a>
+<br>
+・
+<a href="#span-eqn-FourierN">
+FourierN
+</a>
     </td>
   </tr>
   <tr>
@@ -781,6 +856,8 @@ panel下段について記述する
 一般的な電卓の操作性を再現する場合、all checkbox unchecked
 <br>
 ・遅延しないSingle-threadの<a href="#span-out-ope">実数演算</a>
+<br>
+・応答時間=log表示待機時間50msec+<a href="#span-out-ope">演算量</a>に応じた演算時間
     </td>
   </tr>
   <tr>
@@ -965,6 +1042,13 @@ panel中段について記述する
 ・{}-buttonは入力欄の選択位置に波括弧{}のtextを挿入する
 <br>
 ・ans-buttonは入力欄の選択位置に<a href="#span-out-ans">予約変数</a>ansのtextを挿入する
+<br>
+<br>
+strict-mode equation-listについて記述する
+<br>
+・各buttonは入力欄の選択位置に<a href="#span-out-config">strict-mode</a>で記述した<a href="#span-out-eqns">式変数</a>を挿入する
+<br>
+詳細は<a href="#span-eqn">strict-mode式変数list</a>参照
 <br>
 <br>
 Multi-thread実行の場合、plot-buttonと=-buttonは並列に実行可
@@ -1327,8 +1411,7 @@ i==0 || real(i)==0 -> 1
 <br>
 <a href="#span-out-BRmo">記号省略乗算</a>を許容しない場合
 <br>
-<a href="#span-out-config">裏設定</a>
-参照
+<a href="#span-out-config">裏設定</a>参照
     </td>
   </tr>
   <tr>
@@ -2044,6 +2127,9 @@ sqrt(1,2,3:4,5,6) || sqrt(4,5,6) || sqrt(4) -> 2
 ・<a href="#span-out-comment">comment文</a>を使用
 <br>
 x=2; store; clear; x=3<span class="selection">/*independent local scope*/</span>; restore; x -> 2
+<br>
+<br>
+一般的なscopeを模擬する場合、<a href="#span-eqn-solvex_pivotting">strict-mode式変数list</a>参照
     </td>
   </tr>
   <tr>
@@ -2941,7 +3027,7 @@ vector: vector: ...
 要素, 要素, ... || 引数, 引数, ...
 <br>
 <br>
-区切り文字は2項の<a href="#span-out-associativity">associativity</a>や階層の深さとは関係なく左から順に演算する
+区切り文字は2項の<a href="#span-out-associativity">associativity</a>や<a href="#span-out-flow">階層</a>の深さとは関係なく左から順に演算する
 <br>
 ・区切り文字のprecedenceは最優先
 <br>
@@ -3169,11 +3255,15 @@ transpose({1,2:3,4}) || trans({1,2:3,4}) -> (1,2:3,4)
 <br>
 <a href="#span-out-FN">関数</a>の引数を括る括弧は丸括弧()で統一する
 <br>
-・波括弧{}を使用した場合、引数も転置される
+・波括弧{}を使用した場合、引数が転置される
 <br>
 trans(1,2:3,4) -> (1,3:2,4)
 <br>
 trans{1,2:3,4} -> (1,2:3,4)
+<br>
+max(2,1) -> 2
+<br>
+max{2,1} -> 1
 <br>
 <br>
 1重列挙の場合、外側の括弧は上記の結合性が存在しない
@@ -3423,7 +3513,7 @@ pi2 -> [MyErr]Invalid REv(pi2)
 pi(2) || pi*2 -> 6.283185307179586
 <br>
 <br>
-角<a href="#span-out-BT">括弧</a>[]は使用不可
+<a href="#span-out-BT">角括弧</a>[]は使用不可
 <br>
 pi[2] -> [MyErr]Invalid reference of array
 <br>
@@ -5526,7 +5616,7 @@ clear; (f=&lt;x,x=(1,2),=&lt;f=&gt;)=&gt; -> (1,2)
 <br>
 <span class="run">Ver.2.27.15</span>以降、式渡しの直接読出しのnestingに対応
 <br>
-・階層毎の引数&amp;<a href="#span-out-types-vars">scope</a>無しで無名関数の最短表記を許容
+・<a href="#span-out-flow">階層</a>毎の引数&amp;<a href="#span-out-types-vars">scope</a>無しで無名関数の最短表記を許容
 <br>
 ・本来、最短表記はdebugの支障が少ないcaseに限られる
 <br>
@@ -10253,6 +10343,531 @@ parser.js抜粋
         tree = DATA.tree_tag("REv", token);
         break;
 </code></pre>
+    </td>
+  </tr>
+</tbody>
+</table>
+</div>
+<hr>
+
+<div>
+<table>
+<caption><span id="span-eqn"><a href="#span-out-config">strict-mode</a>式変数list</span></caption>
+<thead>
+  <tr>
+    <th>
+式変数名
+    </th>
+    <th>
+algorithm
+    </th>
+  </tr>
+</thead>
+<tbody>
+  <tr>
+    <th>
+<a href="#span-index">
+目次
+</a>
+<br>
+template
+    </th>
+    <td>
+<span id="span-eqn-template"></span>
+clear;
+<br>
+template=&lt;{
+<br>
+out=&lt;0,
+<br>
+store_in=&lt;last{0},
+<br>
+restore_in=&lt;last{0},
+<br>
+delete_temp=&lt;last{0},
+<br>
+delete_init=&lt;last{0},
+<br>
+init=&lt;last{0},
+<br>
+run=&lt;last{0},
+<br>
+store_in=&gt;,init=&gt;,run=&gt;,return=out=&gt;,restore_in=&gt;,delete_init=&gt;,delete_temp=&gt;,
+<br>
+=&lt;return}=&gt;;
+<br>
+template=&gt;;
+    </td>
+  </tr>
+  <tr>
+    <th>
+<a href="#span-index">
+目次
+</a>
+<br>
+plot2d
+<br>
+_circle
+    </th>
+    <td>
+<span id="span-eqn-plot2d_circle"></span>
+<a href="#span-out-plot2d-command">plot2d-command入力仕様</a>参照
+<br>
+clear;
+<br>
+plot2d_circle=&lt;{
+<br>
+out=&lt;(xt,yt),
+<br>
+init=&lt;last{
+<br>
+t0=0,t1=2*pi,tn=&lt;t0+(t1-t0)*n/N,N=10,M=3,
+<br>
+xt=zeros(N+1,M+1),yt=zeros(N+1,M+1),
+<br>
+stepnm=&lt;last{xt[n][m]=cos(tn=&gt;tn)*m,yt[n][m]=sin(tn)*m},
+<br>
+},
+<br>
+run=&lt;last{
+<br>
+evolutionN=&lt;_sn(=&lt;casesM,0,N),
+<br>
+casesM=&lt;_sm(=&lt;stepnm,0,M),
+<br>
+evolutionN=&gt;
+<br>
+},
+<br>
+init=&gt;,run=&gt;,return=out=&gt;,
+<br>
+=&lt;return}=&gt;;
+<br>
+plot2d_circle=&gt;;
+    </td>
+  </tr>
+  <tr>
+    <th>
+<a href="#span-index">
+目次
+</a>
+<br>
+plot2d
+<br>
+_evolution
+    </th>
+    <td>
+<span id="span-eqn-plot2d_evolution"></span>
+<a href="#span-out-plot2d-command">plot2d-command入力仕様</a>参照
+<br>
+clear;
+<br>
+plot2d_evolution=&lt;{
+<br>
+out=&lt;(xt,yt),
+<br>
+init=&lt;last{
+<br>
+g=-9.8,z_a=0+g*i,z_v0=20+20i,z_x0=0,dt=0.5,m=1,Cd_sphere=1,
+<br>
+x=&lt;{z_x,z_v},
+<br>
+x_initial=&lt;{z_x0,z_v0},
+<br>
+f=&lt;{z_v,z_a-(Cd_sphere/m)*z_v},
+<br>
+t0=0,t1=5,N=round((t1-t0)/dt),M=0,
+<br>
+xt=zeros(N+1,M+1),yt=zeros(N+1,M+1),
+<br>
+stepnm=&lt;last{step=&gt;,xt[n][mdummy]=real(z_x),yt[n][mdummy]=imag(z_x)}
+<br>
+},
+<br>
+run=&lt;last{
+<br>
+dtn=&lt;switch(n&lt;=0,0:1,dt),
+<br>
+step=&lt;{x_next=_otdummy(=&lt;f,=&lt;x,=&lt;x_initial,tdummy=0,dtn=&gt;)},
+<br>
+evolutionN=&lt;_sn(=&lt;casesM,0,N),
+<br>
+casesM=&lt;_smdummy(=&lt;stepnm,0,M)/*m reserved*/,
+<br>
+evolutionN=&gt;
+<br>
+},
+<br>
+init=&gt;,run=&gt;,return=out=&gt;,
+<br>
+=&lt;return}=&gt;;
+<br>
+plot2d_evolution=&gt;;
+    </td>
+  </tr>
+  <tr>
+    <th>
+<a href="#span-index">
+目次
+</a>
+<br>
+SND/P(x)/
+<br>
+erf(x)/erfc(x)
+    </th>
+    <td>
+<span id="span-eqn-SND_Px_erfx_erfcx"></span>
+<a href="#span-out-FNspecial">特殊関数入力仕様</a>参照
+<br>
+clear;
+<br>
+SND=&lt;exp(-t^2/2)/sqrt(2*pi);
+<br>
+Px=&lt;_it(=&lt;SND,0,x)*2;
+<br>
+erfx=&lt;_it(=&lt;SND,0,x*sqrt2)*2;
+<br>
+erfcx=&lt;1-erfx=&gt;;
+<br>
+t=3; x=3; (SND=&gt;,Px=&gt;,erfx=&gt;,erfcx=&gt;);
+    </td>
+  </tr>
+  <tr>
+    <th>
+<a href="#span-index">
+目次
+</a>
+<br>
+matrix
+<br>
+_product
+    </th>
+    <td>
+<span id="span-eqn-matrix_product"></span>
+<a href="#span-out-mat-product">行列積の解法</a>参照
+<br>
+clear;
+<br>
+LpR=&lt;{product=&lt;last{LR[ir][ic]=ttL[ir]*trans((trans(ttR))[ic])},
+<br>
+ttL=trans(trans(L)),
+<br>
+ttR=trans(trans(R)),
+<br>
+LR=zeros(sizer(ttL),sizec(ttR)),
+<br>
+_sir(=&lt;{_sic(=&lt;product,0,sizec(ttR)-1)},0,sizer(ttL)-1),
+<br>
+=&lt;LR}=&gt;;
+<br>
+L=(1,2:3:4,5:6); R=(1,2:3,4,5); LpR=&gt;;
+    </td>
+  </tr>
+  <tr>
+    <th>
+<a href="#span-index">
+目次
+</a>
+<br>
+rotationxyz
+    </th>
+    <td>
+<span id="span-eqn-rotationxyz"></span>
+<a href="#span-out-FNmspecial">特殊行列関数入力仕様</a>参照
+<br>
+clear;
+<br>
+rotx=&lt;{rt=real(phi),=&lt;(1,,:,cos(rt),-sin(rt):,sin(rt),cos(rt))}=&gt;;
+<br>
+roty=&lt;{rt=real(theta),=&lt;(cos(rt),,sin(rt):,1,:-sin(rt),,cos(rt))}=&gt;;
+<br>
+rotz=&lt;{rt=real(psi),=&lt;(cos(rt),-sin(rt),:sin(rt),cos(rt),:,,1)}=&gt;;
+<br>
+phi=pi/4; rotx=&gt;;
+    </td>
+  </tr>
+  <tr>
+    <th>
+<a href="#span-index">
+目次
+</a>
+<br>
+rotationxyz
+<br>
+_LHS
+    </th>
+    <td>
+<span id="span-eqn-rotationxyz_LHS"></span>
+<a href="#span-out-FNmspecial">特殊行列関数入力仕様</a>参照
+<br>
+clear;
+<br>
+rotx_LHS=&lt;{rt=real(phi),=&lt;(1,,:,cos(rt),sin(rt):,-sin(rt),cos(rt))}=&gt;;
+<br>
+roty_LHS=&lt;{rt=real(theta),=&lt;(cos(rt),,-sin(rt):,1,:sin(rt),,cos(rt))}=&gt;;
+<br>
+rotz_LHS=&lt;{rt=real(psi),=&lt;(cos(rt),sin(rt),:-sin(rt),cos(rt),:,,1)}=&gt;;
+<br>
+phi=pi/4; rotx_LHS=&gt;;
+    </td>
+  </tr>
+  <tr>
+    <th>
+<a href="#span-index">
+目次
+</a>
+<br>
+solvex
+<br>
+_pivotting
+    </th>
+    <td>
+<span id="span-eqn-solvex_pivotting"></span>
+<a href="#span-out-linear">連立線形方程式の解法</a>参照
+<br>
+clear;
+<br>
+solvex_pivotting=&lt;{
+<br>
+out=&lt;x,
+<br>
+store_in=&lt;last{temp_A=A,temp_b=b},
+<br>
+restore_in=&lt;last{A=temp_A,b=temp_b},
+<br>
+delete_temp=&lt;last{delVar(temp_A),delVar(temp_b)},
+<br>
+delete_init=&lt;last{delVar(sizeA),delVar(x)},
+<br>
+init=&lt;last{sizeA=size(A),x=zeros(sizeA,1)},
+<br>
+run=&lt;last{
+<br>
+compare=&lt;switch(abs(A[ir][ir])&lt;abs(A[ir_comp][ir]),=&lt;{ir_pivot=ir_comp}),
+<br>
+cond=&lt;{ir&lt;&gt;ir_pivot},
+<br>
+proc=&lt;{w=A[ir],A[ir]=A[ir_pivot],A[ir_pivot]=w,w=b[ir],b[ir]=b[ir_pivot],b[ir_pivot]=w},
+<br>
+pivotting=&lt;last{ir_pivot=ir,compare=&gt;,switch(cond=&gt;,=&lt;proc)},
+<br>
+forward=&lt;last{k=A[ir][ic]/A[ic][ic],A[ir]=A[ir]-k*(A[ic]),b[ir]=b[ir]-k*(b[ic])},
+<br>
+backward=&lt;{x[ir]=(b[ir]-A[ir]*x)/A[ir][ir]},
+<br>
+_sir(=&lt;{_sir_comp(=&lt;pivotting,ir+1,sizeA-1)},0,sizeA-2),
+<br>
+_sic(=&lt;{_sir(=&lt;forward,ic+1,sizeA-1)},0,sizeA-2),
+<br>
+_sir(=&lt;backward,sizeA-1,0),
+<br>
+},
+<br>
+store_in=&gt;,init=&gt;,run=&gt;,return=out=&gt;,restore_in=&gt;,delete_init=&gt;,delete_temp=&gt;,
+<br>
+=&lt;return}=&gt;;
+<br>
+A=(i,2,3i:4,5i,6:7i,8,9i); b={1,2i,4}; solvex_pivotting=&gt;;
+    </td>
+  </tr>
+  <tr>
+    <th>
+<a href="#span-index">
+目次
+</a>
+<br>
+solvex
+<br>
+_no_pivotting
+    </th>
+    <td>
+<span id="span-eqn-solvex_no_pivotting"></span>
+<a href="#span-out-linear">連立線形方程式の解法</a>参照
+<br>
+clear;
+<br>
+solvex_no_pivotting=&lt;{
+<br>
+out=&lt;x,
+<br>
+store_in=&lt;last{temp_A=A,temp_b=b},
+<br>
+restore_in=&lt;last{A=temp_A,b=temp_b},
+<br>
+delete_temp=&lt;last{delVar(temp_A),delVar(temp_b)},
+<br>
+delete_init=&lt;last{delVar(sizeA),delVar(x)},
+<br>
+init=&lt;last{sizeA=size(A),x=zeros(sizeA,1)},
+<br>
+run=&lt;last{
+<br>
+forward=&lt;last{k=A[ir][ic]/A[ic][ic],A[ir]=A[ir]-k*(A[ic]),b[ir]=b[ir]-k*(b[ic])},
+<br>
+backward=&lt;{x[ir]=(b[ir]-A[ir]*x)/A[ir][ir]},
+<br>
+_sic(=&lt;{_sir(=&lt;forward,ic+1,sizeA-1)},0,sizeA-2),
+<br>
+_sir(=&lt;backward,sizeA-1,0),
+<br>
+},
+<br>
+store_in=&gt;,init=&gt;,run=&gt;,return=out=&gt;,restore_in=&gt;,delete_init=&gt;,delete_temp=&gt;,
+<br>
+=&lt;return}=&gt;;
+<br>
+A=(i,2,3i:4,5i,6:7i,8,9i); b={1,2i,4}; solvex_no_pivotting=&gt;;
+    </td>
+  </tr>
+  <tr>
+    <th>
+<a href="#span-index">
+目次
+</a>
+<br>
+solvex
+<br>
+_iteration
+    </th>
+    <td>
+<span id="span-eqn-solvex_iteration"></span>
+<a href="#span-out-linear">連立線形方程式の解法</a>参照
+<br>
+clear;
+<br>
+solvex_iteration=&lt;{
+<br>
+out=&lt;x=&gt;,
+<br>
+store_in=&lt;last{temp_A=A,temp_b=b},
+<br>
+restore_in=&lt;last{A=temp_A,b=temp_b},
+<br>
+delete_temp=&lt;last{delVar(temp_A),delVar(temp_b)},
+<br>
+delete_init=&lt;last{delVar(sizeA),delEqn(x)},
+<br>
+init=&lt;last{sizeA=size(A),_ex(=&lt;{x},sizeA,1)},
+<br>
+run=&lt;last{
+<br>
+f=&lt;{A*(x=&gt;)=b},
+<br>
+run_iteration=&lt;last(mdx=Newton(=&lt;f,=&lt;x),max(norm(f=&gt;),norm(mdx))),
+<br>
+_rn(=&lt;run_iteration,,3)
+<br>
+},
+<br>
+store_in=&gt;,init=&gt;,run=&gt;,return=out=&gt;,restore_in=&gt;,delete_init=&gt;,delete_temp=&gt;,
+<br>
+=&lt;return}=&gt;;
+<br>
+A=(i,2,3i:4,5i,6:7i,8,9i); b={1,2i,4}; solvex_iteration=&gt;;
+    </td>
+  </tr>
+  <tr>
+    <th>
+<a href="#span-index">
+目次
+</a>
+<br>
+solveAinv
+    </th>
+    <td>
+<span id="span-eqn-solveAinv"></span>
+<a href="#span-out-inverse">逆行列の解法</a>参照
+<br>
+clear;
+<br>
+solveAinv=&lt;{
+<br>
+out=&lt;Ainv=&gt;,
+<br>
+store_in=&lt;last{temp_A=A},
+<br>
+restore_in=&lt;last{A=temp_A},
+<br>
+delete_temp=&lt;last{delVar(temp_A)},
+<br>
+delete_init=&lt;last{delVar(sizeA),delEqn(Ainv),delEqn(x)},
+<br>
+init=&lt;last{sizeA=size(A),_eAinv(=&lt;{x},sizeA,sizeA),_ex(=&lt;{x},sizeA*sizeA,1)},
+<br>
+run=&lt;last{
+<br>
+f=&lt;{(Ainv=&gt;)*A=identity(sizeA)},
+<br>
+run_iteration=&lt;last(mdx=Newton(=&lt;f,=&lt;x),max(norm(f=&gt;),norm(mdx))),
+<br>
+_rn(=&lt;run_iteration,,3)
+<br>
+},
+<br>
+store_in=&gt;,init=&gt;,run=&gt;,return=out=&gt;,restore_in=&gt;,delete_init=&gt;,delete_temp=&gt;,
+<br>
+=&lt;return}=&gt;;
+<br>
+A=(i,2,3i:4,5i,6:7i,8,9i); solveAinv=&gt;;
+    </td>
+  </tr>
+  <tr>
+    <th>
+<a href="#span-index">
+目次
+</a>
+<br>
+MaclaurinN
+    </th>
+    <td>
+<span id="span-eqn-MaclaurinN"></span>
+<a href="#span-out-series-Taylor">Taylor級数・Maclaurin級数の解法</a>参照
+<br>
+clear;
+<br>
+MaclaurinN=&lt;_sn(=&lt;{_dx(=&lt;f,n,0)*x^n/n!},0,N);
+<br>
+f=&lt;exp(x); x=2; N=5; MaclaurinN=&gt;;
+    </td>
+  </tr>
+  <tr>
+    <th>
+<a href="#span-index">
+目次
+</a>
+<br>
+TaylorN
+    </th>
+    <td>
+<span id="span-eqn-TaylorN"></span>
+<a href="#span-out-series-Taylor">Taylor級数・Maclaurin級数の解法</a>参照
+<br>
+clear;
+<br>
+TaylorN=&lt;_sn(=&lt;{_dx(=&lt;f,n,a)*(x-a)^n/n!},0,N);
+<br>
+f=&lt;exp(x); x=2; a=0; N=5; TaylorN=&gt;;
+    </td>
+  </tr>
+  <tr>
+    <th>
+<a href="#span-index">
+目次
+</a>
+<br>
+FourierN
+    </th>
+    <td>
+<span id="span-eqn-FourierN"></span>
+<a href="#span-out-series-Fourier">Fourier級数の解法</a>参照
+<br>
+clear;
+<br>
+FourierN=&lt;_sn(=&lt;{(cn=&gt;)*e^(i*(n)*x)},-N,N);
+<br>
+cn=&lt;_it(=&lt;{(ft=&gt;)*e^(-i*(n)*t)},-pi,pi)/(2*pi);
+<br>
+ft=&lt;e^(i*(2.5)*t); x=2; N=5; FourierN=&gt;;
     </td>
   </tr>
 </tbody>

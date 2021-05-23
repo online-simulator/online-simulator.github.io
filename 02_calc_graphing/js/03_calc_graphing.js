@@ -837,6 +837,10 @@ My_entry.calc_graphing.prototype.init_handlers = function(){
         var isChecked = $.checkbox_elem(elem);
         $.show("#div-test-case", isChecked, true);
         break;
+      case "checkbox-equation-list":
+        var isChecked = $.checkbox_elem(elem);
+        $.show("#div-equation-list", isChecked, true);
+        break;
       case "select-expDigit":
         self.re_output_log();
         self.re_plot(true);
