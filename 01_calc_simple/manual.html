@@ -4648,7 +4648,9 @@ A=(1,2:3,4); A[1]=0 || A[1]=(1) || A[1]=(,,) || A[1]={,} -> [MyErr]Invalid store
 <br>
 A=(1,2:3,4); A[2]=A[1] -> [MyErr]Invalid reference of array
 <br>
-A=(1,2:3,4); A[1]=-1 || A[2][0]=5 -> [MyErr]Invalid substitution
+A=(1,2:3,4); A[1]=-1 -> [MyErr]Invalid store array
+<br>
+A=(1,2:3,4); A[2][0]=5 -> [MyErr]Invalid reference of array
 <br>
 A=(1,2:3,4); A[0.5][0]=-1 -> [MyErr]Invalid reference of array
 <br>
@@ -9897,7 +9899,7 @@ option
     </th>
     <td>
 <span id="span-in-options"></span>
-command-line実行で必要な内部のoption項目について記述する
+console-CLI実行で必要な内部のoption項目について記述する
 <br>
 <br>
 全objectはglobal scopeから見えないMy_entryで始まる
@@ -9905,7 +9907,7 @@ command-line実行で必要な内部のoption項目について記述する
 <br>
 My_entry.parserに渡すdata objectを示す
 <br>
-var data = {options:{}, vars:{}, eqns:{}};
+var data = {trees:{}, options:{}, vars:{}, eqns:{}};
 <br>
 <br>
 内部optionに相当するdata.optionsのpropertyを以下に列挙する
@@ -9917,7 +9919,7 @@ var data = {options:{}, vars:{}, eqns:{}};
 <br>
 　makeLog=2設定で行列を整形表示するlogを作成
 <br>
-　command-lineからlogを見る場合、flagを立てる
+　console-CLI実行でlogを作る場合、flagを立てる
 <br>
 　一例を次に示す（以降のflagも同様）
 <pre><code>
@@ -9983,13 +9985,13 @@ data.logo -> "makeLog=true"
 ・<a href="#span-out-FNh-IX">orderI</a>: 有限差分による積分の精度次数
 <br>
 <br>
-以降、command-line実行は無効
+以降、console-CLI実行は無効
 <br>
 <br>
 ・useWorker: Workerを使用するflag
 <br>
 <br>
-browserから実行する場合、URLのGET入力で既定値を上書き可
+browser-GUI実行の場合、URLのGET入力で既定値を上書き可
     </td>
   </tr>
   <tr>
@@ -10620,7 +10622,7 @@ L=(1,2:3:4,5:6); R=(1,2:3,4,5); LpR=&gt;;
 目次
 </a>
 <br>
-rotationxyz
+rotationx/y/z
     </th>
     <td>
 <span id="span-eqn-rotationxyz"></span>
@@ -10643,7 +10645,7 @@ phi=pi/4; rotx=&gt;;
 目次
 </a>
 <br>
-rotationxyz
+rotationx/y/z
 <br>
 _LHS
     </th>
