@@ -693,10 +693,16 @@ My_entry.operation.prototype.get_dxD = function(x, h){
   var hci = Math.max(1, Math.abs(xc.i))*hc.i;
   return DATA.com(hcr, hci);
 };
+/* differential step */
 My_entry.operation.prototype.get_hc = function(options, x, dx, sw_name){
   var self = this;
   var DATA = self.entry.DATA;
+  /* Ver.2.29.15 isFixed excluding 0 -> */
+/*
   var isFixed = (dx && dx.com);
+*/
+  var isFixed = (dx && dx.com && (dx.com.r || dx.com.i));
+  /* -> Ver.2.29.15 */
   var dxo = self.options[sw_name];
   var dx0 = (isFixed)? dx: DATA.num(dxo, dxo);
   var h = DATA.num(dx0.com.r, ((options.useComplex)? dx0.com.i: 0));
@@ -719,7 +725,7 @@ My_entry.operation.prototype.jacobian = function(data, rightArr, tagObj){
     return self.tree2tree_eqn(data, args[j]);
   };
   var get_arr = function(j){
-    var _arr = [];
+    var _arr = null;
     var tree = self.tree_eqn2tree(data, get_tree(j));
     if(tree.mat){
       _arr = tree.mat.arr;
@@ -834,19 +840,26 @@ if(prop.key){
     /* -> Ver.2.27.15 */
     var len_i = names.length;
     var arr_x = null;
-    if(len_j > 2){
+    /* Ver.2.29.15 -> */
+    if(args[2] && !(args[2].com)){
       arr_x = get_arr(2);
       if(arr_x.length-len_i) throw msgErr;
     }
-    else{
+    if(!(arr_x)){
       arr_x = math_mat.zeros2d(len_i, 1);
     }
+    /* -> Ver.2.29.15 */
     // t0
     var name_var = tagObj.val.name;
     var tree_var = self.restore_var(vars, name_var);
     var t0 = (tree_var)? self.arr2num(tree_var.mat.arr): args[3] || DATA.num(0, 0);
     // dt
     var dt = args[4] || DATA.num(self.options.dxT, 0);
+    /* Ver.2.29.15 -> */
+    // Niteration
+    var argN = args[5];
+    var Niteration = (argN && argN.com)? Math.floor(argN.com.r): 1;  // 0 enabled
+    /* -> Ver.2.29.15 */
     // orderT
     var orderT = (options.orderT === 2)? 2: 4;
     // x0
@@ -961,7 +974,16 @@ if(prop.key){
       return _xc;
     };
     var OX = (orderT === 2)? OX_order2: OX_order4;
-    _tree = DATA.tree_mat(DATA.vec2arr(OX()));
+/* Ver.2.29.15 -> */
+    var vec = x0;  // initialize
+for(var n=0; n<Niteration; ++n){
+      vec = OX();
+      // update
+      t0 = unit["BRa"](options, t0, dt);
+      x0 = init_x0(arr_x, names, []);
+}
+    _tree = DATA.tree_mat(DATA.vec2arr(vec));
+/* -> Ver.2.29.15 */
   }
   else{
     throw msgErr;
@@ -978,41 +1000,49 @@ else{
     /* -> Ver.2.27.15 */
     var len_i = names.length;
     var arr_x = null;
-    if(len_j > 2){
+    /* Ver.2.29.15 -> */
+    if(args[2] && !(args[2].com)){
       arr_x = get_arr(2);
       if(arr_x.length-len_i) throw msgErr;
     }
-    else{
+    if(!(arr_x)){
       arr_x = math_mat.zeros2d(len_i, 1);
     }
+    /* -> Ver.2.29.15 */
     /* Ver.1.3.1 */
     var hc = self.get_hc(options, null, args[3], "dxJ");
     var hcr = hc.r;
     var hci = hc.i;
     var h0 = DATA.num(hcr, hci);
-    var J = math_mat.init2d(len_i, len_i);
+/* Ver.2.29.15 -> */
+    var J = null;
     // x0
     var isFound_x0 = [];
     var x0 = init_x0(arr_x, names, isFound_x0);
     // x1
     var dx = [];
     var x1 = [];
+    // f0
+    var get_f = null;
+    var i0 = [];
+    var j0 = [];
+    var f0 = [];
+var step = function(){
+    // x1
     for(var i=0; i<len_i; ++i){
       var x0ic = x0[i].com;
       dx[i] = h0;
       x1[i] = DATA.num(x0ic.r+hcr, x0ic.i+hci);
     }
     // f0
-    var i0 = [];
-    var j0 = [];
-    var f0 = [];
     var tree = self.tree_eqn2tree(data, tree_eqn);
-    var arr_f0 = tree.mat.arr;
-    var get_f = make_get_f_from_arr_f0(arr_f0, len_i, i0, j0);
+    var arr_f = tree.mat.arr;
+    get_f = get_f || make_get_f_from_arr_f0(arr_f, len_i, i0, j0);
     for(var i=0; i<len_i; ++i){
-      f0[i] = get_f(arr_f0, i);
+      f0[i] = get_f(arr_f, i);
     }
     // J
+    J = math_mat.init2d(len_i, len_i);
     for(var j=0; j<len_i; ++j){
       for(var i=0; i<len_i; ++i){
         var name_var = names[i];
@@ -1026,20 +1056,45 @@ else{
         J[i][j] = unit["BRd"](options, unit["BRs"](options, f1i, f0[i]), dx[i]);
       }
     }
+};
     if(isNewtonian){
+      // Niteration
+      var argN = args[4];
+      var Niteration = (argN && argN.com)? Math.floor(argN.com.r): 1;  // 0 enabled
+      _tree = DATA.tree_mat(DATA.vec2arr(x0));  // initialize
+      var arr_mdx = null;
+for(var n=0; n<Niteration; ++n){
+      step();
       for(var i=0; i<len_i; ++i){
         J[i].push(f0[i]);
       }
-      var arr_mdx = math_mat.gaussian(options, J);
-      _tree = DATA.tree_mat(arr_mdx);
+      arr_mdx = math_mat.gaussian(options, J);
       // store x_next
       for(var i=0; i<len_i; ++i){
         var name_var = names[i];
         var mdxi = self.arr2obj_i(arr_mdx, i);
         self.store_var(vars, name_var, DATA.num2tree(unit["BRs"](options, x0[i], mdxi)));
       }
+      // update
+      x0 = init_x0(arr_x, names, []);
+}
+      if(arr_mdx){
+        if(options.checkError && argN && argN.com){
+          for(var i=0; i<len_i; ++i){
+            var name_var = names[i];
+            var mdxi = self.arr2obj_i(arr_mdx, i);
+            var x0ie = x0[i].err;
+            x0ie.r = Math.max(Math.abs(mdxi.com.r), x0ie.r);
+            x0ie.i = Math.max(Math.abs(mdxi.com.i), x0ie.i);
+            self.store_var(vars, name_var, DATA.num2tree(x0[i]));
+          }
+        }
+        _tree = DATA.tree_mat(arr_mdx);
+      }
     }
     else{
+      step();
+/* -> Ver.2.29.15 */
       _tree = DATA.tree_mat(J);
       // restore x0
       for(var i=0; i<len_i; ++i){
@@ -1280,7 +1335,12 @@ My_entry.operation.prototype.IX = function(data, rightArr, tagObj){
       var tree_eqn = self.tree2tree_eqn(data, args[0]);
       var N = args[3];
       N = (N && N.com)? N.com.r: null;
+      /* Ver.2.29.15 -> */
+/*
       N = Math.abs(Math.floor(N || self.options.NI));  // N > 0
+*/
+      N = Math.abs(Math.floor(N) || self.options.NI);  // N > 0
+      /* -> Ver.2.29.15 */
       N = (N%2)? N+1: N;
       var acr = a.com.r;
       var aci = a.com.i;

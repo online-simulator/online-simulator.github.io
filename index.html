@@ -227,6 +227,54 @@ Y/M/D
 <tbody>
   <tr>
     <th>
+3.38.16.5.16
+    </th>
+    <td class="types">
+Calculator
+    </td>
+    <td>
+2.29.15
+    </td>
+    <td>
+minor update
+    </td>
+    <td>
+[Calculator]
+<br>
+・Newton高階関数に5th-arg iteration count added
+<br>
+　<a href="01_calc_simple/manual.html#span-out-FNmh-newtonian">[manual]Calculator-Newton高階関数</a>
+<br>
+・ODE高階関数に6th-arg iteration count added
+<br>
+　<a href="01_calc_simple/manual.html#span-out-FNmh-OX">[manual]Calculator-ODE高階関数</a>
+<br>
+・manual更新
+<br>
+　追加校正21箇所
+<br>
+[Graphing Calculator]
+<br>
+・test case-physics-ODE's input-x text bug-fixed
+<br>
+　every step initialized tdummy=0
+<br>
+　result is changed in case of time-transition Cd(t/T)
+<br>
+before: 
+<br>
+　step=&lt;{x_next=_otdummy(=&lt;f,=&lt;x,=&lt;x_initial,<span class="clear">tdummy=0</span>,dt)},
+<br>
+after: 
+<br>
+　step=&lt;{x_next=_otdummy(=&lt;f,=&lt;x,=&lt;x_initial,0,dt)},
+    </td>
+    <td>
+2021/5/24
+    </td>
+  </tr>
+  <tr>
+    <th>
 3.37.16.5.16
     </th>
     <td class="types">

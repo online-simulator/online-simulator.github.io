@@ -810,7 +810,7 @@ panel上段について記述する
 <br>
 ・0x checked時、16進数のa-f-buttonを追加表示
 <br>
-・complex checked時、虚数単位i-buttonを追加表示
+・complex checked時、<a href="#span-out-com">虚数単位</a>i-buttonを追加表示
 <br>
 ・左側に0-9の数字と小数点.-buttonを表示
 <br>
@@ -836,7 +836,7 @@ panel中段について記述する
 <br>
 ・complex checked時、<a href="#span-out-com">複素数</a>演算を有効化
 <br>
-　虚数単位i-buttonを追加表示
+　<a href="#span-out-com">虚数単位</a>i-buttonを追加表示
 <br>
 ・matrix checked時、<a href="#span-out-mat">行列</a>演算を有効化
 <br>
@@ -1040,7 +1040,7 @@ panel中段について記述する
 <br>
 ・DEL-buttonは入力欄の選択位置の1字後を消去する
 <br>
-・i-buttonは入力欄の選択位置に虚数単位iのtextを挿入する
+・i-buttonは入力欄の選択位置に<a href="#span-out-com">虚数単位</a>iのtextを挿入する
 <br>
 ・()-buttonは入力欄の選択位置に丸括弧()のtextを挿入する
 <br>
@@ -1328,7 +1328,7 @@ precedence
 <br>
 ・階乗の被演算子は自然数のみ対応
 <br>
-・虚数単位iは後置の単項演算子とする
+・<a href="#span-out-com">虚数単位</a>iは後置の単項演算子とする
 <br>
 1/2i || 1/(2i) -> -0.5i
 <br>
@@ -1724,7 +1724,7 @@ i+1e-16i -> infoLost[ i] i
 1-epsilon/2 -> infoLost[r ] 0.9999999999999999
 <br>
 <br>
-虚数単位iを求める<a href="#span-out-com">複素数</a>演算を一例に誤差情報の特徴を示す
+<a href="#span-out-com">虚数単位</a>iを求める<a href="#span-out-com">複素数</a>演算を一例に誤差情報の特徴を示す
 <br>
 (-1)^0.5 -> 6.123233995736766e-17+i
 <br>
@@ -2769,7 +2769,7 @@ x_initial=&lt;{z_x0,z_v0};
 <br>
 f=&lt;{z_v,z_a-(Cd_sphere/m)*z_v};
 <br>
-step=&lt;{x_next=_otdummy(=&lt;f,=&lt;x,=&lt;x_initial,tdummy=0,dtn=&gt;)};
+step=&lt;{x_next=_otdummy(=&lt;f,=&lt;x,=&lt;x_initial,0,dtn=&gt;)};
 <br>
 /*{$z_x,$z_v}=x_initial=&gt;;*/
 <br>
@@ -6430,9 +6430,9 @@ _Ry(=&lt;{_Rx(=&lt;{x+y+1},1,2)},1,2) -> 13
 <br>
 ・<a href="#span-out-error-numerical">数値誤差</a>O(dx^4以上)を含み、演算結果に<a href="#span-out-error-numerical">目安の解析誤差</a>を表示する
 <br>
-・1階微分の差分刻み実数値dxDの既定値dxD=1e-3
+・1階微分の差分刻み実数値dxD既定値dxD=1e-3
 <br>
-・微分位置xでの差分刻みdxの既定値dx=max(1,abs(x))dxD(1+i)
+・微分位置xでの差分刻みdx既定値dx=max(1,abs(x))dxD(1+i)
 <br>
 ・_ddummy<a href="#span-out-vars-symbol">変数名symbol</a>で呼び出す
 <br>
@@ -6451,7 +6451,7 @@ option
 <br>
 ・第3引数: 微分位置aを値渡し[省略時、local変数を参照]
 <br>
-・第4引数: 1階微分の差分刻みdx0を値渡し[省略時、dx既定値]
+・第4引数: 1階微分の差分刻みdx0を値渡し[0||省略時、dx既定値]
 <br>
 <br>
 <a href="#span-out-error-numerical">数値誤差</a>に関する精度次数について記述する
@@ -6653,6 +6653,13 @@ _Dy(=&lt;{_Dx(=&lt;{x*y*y},1,0)},1,1)
 -> 1.9999999999998288+1.8785308474662037e-13i+O(7e-10+1e-12i)
 <br>
 <br>
+<span class="run">Ver.2.29.15</span>以降、微分の差分刻みdx0=0の場合、省略と同義として扱う
+<br>
+_dx(=&lt;{x^2},1,1,0) || _dx(=&lt;{x^2},1,1)
+<br>
+-> 1.9999999999998392+1.6112448952215134e-13i+O(1e-12+1e-12i)
+<br>
+<br>
 応用例を示す
 <br>
 ・<a href="#span-out-non-linear">非線形方程式の解法</a>を使用
@@ -6781,7 +6788,7 @@ _idummy<a href="#span-out-vars-symbol">変数名symbol</a>(=&lt;第1引数,第2�
 <br>
 option
 <br>
-・第4引数: 積分範囲の分割数（正の偶数）を値渡し[省略時、NI既定値]
+・第4引数: 積分範囲の分割数（正の偶数）を値渡し[0||省略時、NI既定値]
 <br>
 <br>
 <a href="#span-out-error-numerical">数値誤差</a>に関する精度次数について記述する
@@ -6967,9 +6974,9 @@ Jacobi高階行列関数
 <br>
 ・1次精度の<a href="#span-out-error-numerical">数値誤差</a>O(dx)を含むが、<a href="#span-out-error-numerical">目安の解析誤差</a>を評価・表示しない
 <br>
-・1階偏微分の差分刻み実数値dxJの既定値dxJ=1e-5
+・1階偏微分の差分刻み実数値dxJ既定値dxJ=1e-5
 <br>
-・微分位置xでの差分刻みdxの既定値dx=dxJ(1+i)
+・微分位置xでの差分刻みdx既定値dx=dxJ(1+i)
 <br>
 ・未知変数のlocal変数を参照するが、上書きしない
 <br>
@@ -6982,11 +6989,11 @@ Jacobi(=&lt;第1引数,=&lt;第2引数[,=&lt;第3引数[,第4引数]])
 <br>
 option
 <br>
-・第3引数: 未知変数初期値の列vector||<a href="#span-out-vars-symbol">式変数名symbol</a>を<a href="#span-out-call-by-equation">式渡し</a>[省略時、zeros-vector]
+・第3引数: 未知変数初期値の列vector||<a href="#span-out-vars-symbol">式変数名symbol</a>を<a href="#span-out-call-by-equation">式渡し</a>[0||省略時、zeros-vector]
 <br>
 　第3引数は未知変数未定義時のみ有効
 <br>
-・第4引数: 偏微分の差分刻みdxを値渡し[省略時、dx既定値]
+・第4引数: 偏微分の差分刻みdxを値渡し[0||省略時、dx既定値]
 <br>
 <br>
 xの1次方程式の偏微分係数を求める場合
@@ -7057,16 +7064,14 @@ Newton高階行列関数
 <br>
 ・Newton法による反復1回の演算結果を返す
 <br>
-・引数は<a href="#span-out-FNmh-jacobian">Jacobi高階行列関数</a>に同じ
+・引数は第4引数まで<a href="#span-out-FNmh-jacobian">Jacobi高階行列関数</a>に同じ
 <br>
 ・返値は符号付の解の修正vector
-<br>
-・本来、反復最後の残差が誤差として残るが、反復1回毎に反映・表示しない
 <br>
 ・未知変数のlocal変数を参照、上書きする
 <br>
 <br>
-Newton(=&lt;第1引数,=&lt;第2引数[,=&lt;第3引数[,第4引数]])
+Newton(=&lt;第1引数,=&lt;第2引数[,=&lt;第3引数[,第4引数[,第5引数]]])
 <br>
 ・第1引数: 方程式または関数式の列vector||<a href="#span-out-vars-symbol">式変数名symbol</a>を<a href="#span-out-call-by-equation">式渡し</a>
 <br>
@@ -7074,14 +7079,110 @@ Newton(=&lt;第1引数,=&lt;第2引数[,=&lt;第3引数[,第4引数]])
 <br>
 option
 <br>
-・第3引数: 未知変数初期値の列vector||<a href="#span-out-vars-symbol">式変数名symbol</a>を<a href="#span-out-call-by-equation">式渡し</a>[省略時、zeros-vector]
+・第3引数: 未知変数初期値の列vector||<a href="#span-out-vars-symbol">式変数名symbol</a>を<a href="#span-out-call-by-equation">式渡し</a>[0||省略時、zeros-vector]
 <br>
 　第3引数は未知変数未定義時のみ有効
 <br>
-・第4引数: 偏微分の差分刻みdxを値渡し[省略時、dx既定値]
+・第4引数: 偏微分の差分刻みdxを値渡し[0||省略時、dx既定値]
+<br>
+<span class="run">Ver.2.29.15</span>以降、第5引数追加
+<br>
+・第5引数: 反復回数（正の整数）を値渡し[省略時、1]
 <br>
 <br>
 応用例は<a href="#span-out-linear">連立方程式の解法</a>参照
+<br>
+<br>
+test caseを列挙する
+<br>
+・<a href="#span-out-config">strict-mode</a>で<a href="#span-out-vars-symbol">式変数名symbol</a>を<a href="#span-out-call-by-equation">式渡し</a>する場合
+<br>
+storage cleared
+<br>
+x=&lt;{x0,x1}; x_initial=&lt;{0,0};
+<br>
+f=&lt;{x0+2*x1=5,3*x0+4*x1=6};
+<br>
+run=&lt;last(mdx=Newton(=&lt;f,=&lt;x,=&lt;x_initial),max(norm(f=&gt;),norm(mdx)));
+<br>
+_rn(=&lt;run,,3) -> infoLost[ri] 2.2204460494935903e-15
+<br>
+・<a href="#span-out-config">strict-mode</a>で直接<a href="#span-out-call-by-equation">式渡し</a>する場合
+<br>
+storage cleared
+<br>
+run=&lt;last(mdx=Newton(=&lt;{x0+2*x1=5,3*x0+4*x1=6},=&lt;{x0,x1},=&lt;{0,0}),norm(mdx));
+<br>
+_rn(=&lt;run,,3) -> infoLost[ri] 2.2204460494935903e-15
+<br>
+・<a href="#span-out-config">strict-mode</a>の最短表記
+<br>
+storage cleared
+<br>
+_rn(=&lt;{
+<br>
+last(mdx=Newton(=&lt;{x0+2*x1=5,3*x0+4*x1=6},=&lt;{x0,x1},=&lt;{0,0}),norm(mdx))
+<br>
+},,3) -> infoLost[ri] 2.2204460494935903e-15
+<br>
+<br>
+<span class="run">Ver.2.29.15</span>以降
+<br>
+・第3引数0の場合、zeros-vector
+<br>
+・第4引数0の場合、偏微分の差分刻みdx=dx既定値
+<br>
+・第5引数で反復回数を指定可
+<br>
+・反復0回の場合、初期値を返す
+<br>
+storage cleared
+<br>
+mdx=Newton(=&lt;{x0+2*x1=5,3*x0+4*x1=6},=&lt;{x0,x1},,,0);
+<br>
+norm(mdx) -> 0
+<br>
+{x0,x1} -> (0:0)
+<br>
+・反復3回の場合
+<br>
+storage cleared
+<br>
+mdx=Newton(=&lt;{x0+2*x1=5,3*x0+4*x1=6},=&lt;{x0,x1},,,3);
+<br>
+norm(mdx) -> infoLost[ri] 2.2204460494935903e-15
+<br>
+・反復最後の残差を<a href="#span-out-error-numerical">目安の解析誤差</a>として表示する
+<br>
+{x0,x1} ->
+<br>
+(
+<br>
+infoLost[ri] -3.999999999999999-3.362471994400586e-26i+O(2e-15+2e-20i):
+<br>
+infoLost[ri] 4.499999999999999+6.466216308756395e-26i+O(1e-15+2e-20i)
+<br>
+)
+<br>
+・反復1回指定で3回繰り返した場合、反復1回目の残差が<a href="#span-out-error-numerical">目安の解析誤差</a>として残る
+<br>
+storage cleared
+<br>
+_rn(=&lt;{
+<br>
+mdx=Newton(=&lt;{x0+2*x1=5,3*x0+4*x1=6},=&lt;{x0,x1},,,1)
+<br>
+},,3);
+<br>
+{x0,x1} ->
+<br>
+(
+<br>
+infoLost[ri] -3.999999999999999-3.362471994400586e-26i+O(4e+0+2e-10i):
+<br>
+infoLost[ri] 4.499999999999999+6.466216308756395e-26i+O(4e+0+1e-5i)
+<br>
+)
     </td>
   </tr>
   <tr>
@@ -7104,7 +7205,7 @@ ODE高階行列関数
 <br>
 ・<a href="#span-out-error-numerical">数値誤差</a>O(dt^4以上)を含み、演算結果に<a href="#span-out-error-numerical">目安の解析誤差</a>を表示する
 <br>
-・1階常微分の差分刻み実数値dxTの既定値dxT=1e-3
+・1階常微分の差分刻み実数値dxT既定値dxT=1e-3
 <br>
 ・_odummy<a href="#span-out-vars-symbol">変数名symbol</a>で呼び出す
 <br>
@@ -7115,7 +7216,7 @@ ODE高階行列関数
 ・未知変数のlocal変数を参照、上書きする
 <br>
 <br>
-_odummy<a href="#span-out-vars-symbol">変数名symbol</a>(=&lt;第1引数,=&lt;第2引数[,=&lt;第3引数[,第4引数[,第5引数]]])
+_odummy<a href="#span-out-vars-symbol">変数名symbol</a>(=&lt;第1引数,=&lt;第2引数[,=&lt;第3引数[,第4引数[,第5引数[,第6引数]]]])
 <br>
 ・第1引数: 1階常微分方程式右辺の関数式||<a href="#span-out-vars-symbol">式変数名symbol</a>を<a href="#span-out-call-by-equation">式渡し</a>
 <br>
@@ -7123,7 +7224,7 @@ _odummy<a href="#span-out-vars-symbol">変数名symbol</a>(=&lt;第1引数,=&lt;
 <br>
 option
 <br>
-・第3引数: 未知変数初期値の列vector||<a href="#span-out-vars-symbol">式変数名symbol</a>を<a href="#span-out-call-by-equation">式渡し</a>[省略時、zeros-vector]
+・第3引数: 未知変数初期値の列vector||<a href="#span-out-vars-symbol">式変数名symbol</a>を<a href="#span-out-call-by-equation">式渡し</a>[0||省略時、zeros-vector]
 <br>
 　第3引数は未知変数未定義時のみ有効
 <br>
@@ -7132,6 +7233,10 @@ option
 　第4引数はdummy変数と同名のlocal変数未定義時のみ有効
 <br>
 ・第5引数: 常微分の差分刻みdtを値渡し[省略時、dxT既定値]
+<br>
+<span class="run">Ver.2.29.15</span>以降、第6引数追加
+<br>
+・第6引数: 反復回数（正の整数）を値渡し[省略時、1]
 <br>
 <br>
 <a href="#span-out-error-numerical">数値誤差</a>に関する精度次数について記述する
@@ -8014,7 +8119,7 @@ x_initial=&lt;{z_x0,z_v0};
 <br>
 f=&lt;{z_v,z_a-(Cd_sphere/m)*z_v};
 <br>
-step=&lt;{x_next=_otdummy(=&lt;f,=&lt;x,=&lt;x_initial,tdummy=0,dt)};
+step=&lt;{x_next=_otdummy(=&lt;f,=&lt;x,=&lt;x_initial,0,dt)};
 <br>
 evolution=&lt;_rn(=&lt;step,N=round(t/dt),N);
 <br>
@@ -8139,6 +8244,69 @@ t=10; evolution; x ->
 19.998345638774897-68.20246499822541i+O(3e-1):
 <br>
 0.0016543612251060553-9.797535001774593i+O(3e-1)
+<br>
+)
+<br>
+<br>
+<span class="run">Ver.2.29.15</span>以降、<a href="#span-out-FNmh-OX">ODE高階行列関数</a>第6引数で反復回数を指定する場合
+<br>
+g=-9.8;
+<br>
+z_a=0+g*i;
+<br>
+z_v0=20+20i;
+<br>
+z_x0=0;
+<br>
+dt=0.5;
+<br>
+m=1;
+<br>
+Cd_sphere=1;
+<br>
+x=&lt;{z_x,z_v};
+<br>
+x_initial=&lt;{z_x0,z_v0};
+<br>
+f=&lt;{z_v,z_a-(Cd_sphere/m)*z_v};
+<br>
+stepN=&lt;last{N=round(t/dt),x_next=_otdummy(=&lt;f,=&lt;x,=&lt;x_initial,0,dt,N)};
+<br>
+evolution=&lt;stepN;
+<br>
+・t=0
+<br>
+t=0; evolution; x ->
+<br>
+(
+<br>
+0:
+<br>
+20+20i
+<br>
+)
+<br>
+・t=5
+<br>
+t=5; evolution; x ->
+<br>
+(
+<br>
+19.86470649057239-19.40158732904714i+O(6e-2):
+<br>
+0.1352935094276103-9.598412670952861i+O(6e-2)
+<br>
+)
+<br>
+・t=10
+<br>
+t=5; evolution; x ->
+<br>
+(
+<br>
+19.999084783315336-68.20136367286014i+O(6e-2):
+<br>
+0.0009152166846619435-9.798636327139855i+O(6e-2)
 <br>
 )
     </td>
@@ -8461,8 +8629,6 @@ b={-f[i]}
 <br>
 上記の反復1回の処理をまとめた<a href="#span-out-FNmh-newtonian">Newton高階行列関数</a>について記述する
 <br>
-・引数は<a href="#span-out-FNmh-jacobian">Jacobi高階行列関数</a>に同じとする
-<br>
 ・Scalar倍の符号位置を変えて次の連立線形方程式を直接法で解く
 <br>
 A=(df[i]/dx[j])
@@ -8476,8 +8642,6 @@ b={f[i]}
 ・近似解のvectorを一度に修正する（local変数を上書きする）
 <br>
 x=x-mdx
-<br>
-・関数の返値はmdxとする
 <br>
 <br>
 以上より、反復1回の処理を簡潔にまとめる
@@ -8535,39 +8699,6 @@ infoLost[ri] -3.999999999999999-3.362471994400586e-26i:
 infoLost[ri] 4.499999999999999+6.466216308756395e-26i
 <br>
 )
-<br>
-<br>
-<a href="#span-out-config">strict-mode</a>で<a href="#span-out-vars-symbol">式変数名symbol</a>を<a href="#span-out-call-by-equation">式渡し</a>する場合
-<br>
-storage cleared
-<br>
-x=&lt;{x0,x1}; x_initial=&lt;{0,0};
-<br>
-f=&lt;{x0+2*x1=5,3*x0+4*x1=6};
-<br>
-run=&lt;last(mdx=Newton(=&lt;f,=&lt;x,=&lt;x_initial),max(norm(f=&gt;),norm(mdx)));
-<br>
-_rn(=&lt;run,,3) -> infoLost[ri] 2.2204460494935903e-15
-<br>
-<br>
-<a href="#span-out-config">strict-mode</a>で直接<a href="#span-out-call-by-equation">式渡し</a>する場合
-<br>
-storage cleared
-<br>
-run=&lt;last(mdx=Newton(=&lt;{x0+2*x1=5,3*x0+4*x1=6},=&lt;{x0,x1},=&lt;{0,0}),norm(mdx));
-<br>
-_rn(=&lt;run,,3) -> infoLost[ri] 2.2204460494935903e-15
-<br>
-<br>
-<a href="#span-out-config">strict-mode</a>の最短表記
-<br>
-storage cleared
-<br>
-_rn(=&lt;{
-<br>
-last(mdx=Newton(=&lt;{x0+2*x1=5,3*x0+4*x1=6},=&lt;{x0,x1},=&lt;{0,0}),norm(mdx))
-<br>
-},,3) -> infoLost[ri] 2.2204460494935903e-15
 <br>
 <br>
 rank落ち3元⇒実質2元1次の連立線形方程式Ax=bを一例に示す
@@ -8714,7 +8845,7 @@ x ->
 <br>
 A(x) -> (-2.3283064365386963e-10+10.000000000116415i:11i:12i)
 <br>
-・初期値が虚数単位vectorの場合
+・初期値が<a href="#span-out-com">虚数単位</a>vectorの場合
 <br>
 storage cleared
 <br>
@@ -9216,7 +9347,7 @@ infoLost[ i] 0.9858055114746094+0.008953094482421875i
 連立非線形方程式の反復解法について記述する
 <br>
 <br>
-虚数単位を求めるfull-rank1元2次の方程式を一例に示す
+<a href="#span-out-com">虚数単位</a>を求めるfull-rank1元2次の方程式を一例に示す
 <br>
 x0^2+1=0
 <br>
@@ -9413,7 +9544,7 @@ Maclaurin
 <span id="span-out-series-Taylor"></span>
 Taylor級数・Maclaurin級数の解法について記述する
 <br>
-・Computer Algebra System未実装で得られる解は<a href="#span-out-error-numerical">数値解</a>
+・<a href="#span-out-error-numerical">Computer Algebra System</a>未実装で得られる解は<a href="#span-out-error-numerical">数値解</a>
 <br>
 ・<a href="#span-out-FNh-DX">微分高階関数</a>の精度に依存
 <br>
@@ -9524,7 +9655,7 @@ Fourier
 <span id="span-out-series-Fourier"></span>
 Fourier級数の解法について記述する
 <br>
-・Computer Algebra System未実装で得られる解は<a href="#span-out-error-numerical">数値解</a>
+・<a href="#span-out-error-numerical">Computer Algebra System</a>未実装で得られる解は<a href="#span-out-error-numerical">数値解</a>
 <br>
 ・<a href="#span-out-FNh-IX">積分高階関数</a>の精度に依存
 <br>
@@ -9586,7 +9717,7 @@ ft=&lt;atan(tan(t));
 <span id="span-out-limit"></span>
 極限の解法について記述する
 <br>
-・Computer Algebra System未実装で得られる解は限定的なcaseの<a href="#span-out-error-numerical">数値解</a>
+・<a href="#span-out-error-numerical">Computer Algebra System</a>未実装で得られる解は限定的なcaseの<a href="#span-out-error-numerical">数値解</a>
 <br>
 ・L'Hôpitalの定理を使用する場合、<a href="#span-out-FNh-DX">微分高階関数</a>の精度に依存
 <br>
@@ -10561,7 +10692,7 @@ run=&lt;last{
 <br>
 dtn=&lt;switch(n&lt;=0,0:1,dt),
 <br>
-step=&lt;{x_next=_otdummy(=&lt;f,=&lt;x,=&lt;x_initial,tdummy=0,dtn=&gt;)},
+step=&lt;{x_next=_otdummy(=&lt;f,=&lt;x,=&lt;x_initial,0,dtn=&gt;)},
 <br>
 evolutionN=&lt;_sn(=&lt;casesM,0,N),
 <br>
@@ -10820,9 +10951,7 @@ run=&lt;last{
 <br>
 f=&lt;{A*(x=&gt;)=b},
 <br>
-run_iteration=&lt;last(mdx=Newton(=&lt;f,=&lt;x),max(norm(f=&gt;),norm(mdx))),
-<br>
-_rn(=&lt;run_iteration,,N)
+mdx=Newton(=&lt;f,=&lt;x,,,N)
 <br>
 },
 <br>
@@ -10859,9 +10988,7 @@ run=&lt;last{
 <br>
 f=&lt;{(Ainv=&gt;)*A=identity(sizeA)},
 <br>
-run_iteration=&lt;last(mdx=Newton(=&lt;f,=&lt;x),max(norm(f=&gt;),norm(mdx))),
-<br>
-_rn(=&lt;run_iteration,,N)
+mdx=Newton(=&lt;f,=&lt;x,,,N)
 <br>
 },
 <br>
@@ -10898,9 +11025,7 @@ init=&lt;last{_ex(=&lt;{x},sizer(x_initial=&gt;),1)},
 <br>
 run=&lt;last{
 <br>
-run_iteration=&lt;last(mdx=Newton(=&lt;f,=&lt;x,=&lt;x_initial),max(norm(f=&gt;),norm(mdx))),
-<br>
-_rn(=&lt;run_iteration,,N)
+mdx=Newton(=&lt;f,=&lt;x,=&lt;x_initial,,N)
 <br>
 },
 <br>
