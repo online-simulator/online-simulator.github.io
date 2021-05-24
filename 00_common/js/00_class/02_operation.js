@@ -92,6 +92,7 @@ My_entry.operation.prototype.config = {
     REe:     "BT1"
   },
   params: {
+    epsN: 1e-16,
     dxT: 1e-3,
     dxJ: 1e-5,
     dxD: 1e-3,
@@ -210,6 +211,7 @@ My_entry.operation.prototype.prepare = function(data){
   var options = data.options;
   /* Ver.2.24.11 -> */
   self.notUseStrict = !(options.useStrict);
+  self.options.epsN = options.epsN || self.config.params.epsN;
   self.options.dxT = options.dxT || self.config.params.dxT;
   self.options.dxJ = options.dxJ || self.config.params.dxJ;
   self.options.dxD = options.dxD || self.config.params.dxD;
@@ -1061,6 +1063,9 @@ var step = function(){
       // Niteration
       var argN = args[4];
       var Niteration = (argN && argN.com)? Math.floor(argN.com.r): 1;  // 0 enabled
+      // epsN
+      var arg5 = args[5];
+      var epsN = (arg5 && arg5.com)? arg5.com.r: self.options.epsN;  // 0 enabled
       _tree = DATA.tree_mat(DATA.vec2arr(x0));  // initialize
       var arr_mdx = null;
 for(var n=0; n<Niteration; ++n){
@@ -1077,6 +1082,15 @@ for(var n=0; n<Niteration; ++n){
       }
       // update
       x0 = init_x0(arr_x, names, []);
+/*
+      // check convergence of relative error
+      var normdx = math_mat.euclidean(options, arr_mdx);
+      var normx0 = math_mat.euclidean(options, DATA.vec2arr(x0));
+      if(self.arr2num(normdx).com.r < epsN*self.arr2num(normx0).com.r) break;
+*/
+      // check convergence of absolute error
+      var normdx = math_mat.euclidean(options, arr_mdx);
+      if(self.arr2num(normdx).com.r < epsN) break;
 }
       if(arr_mdx){
         if(options.checkError && argN && argN.com){

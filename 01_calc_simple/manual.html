@@ -6788,7 +6788,7 @@ _idummy<a href="#span-out-vars-symbol">変数名symbol</a>(=&lt;第1引数,第2�
 <br>
 option
 <br>
-・第4引数: 積分範囲の分割数（正の偶数）を値渡し[0||省略時、NI既定値]
+・第4引数: 積分範囲の分割数NI（正の偶数）を値渡し[0||省略時、NI既定値]
 <br>
 <br>
 <a href="#span-out-error-numerical">数値誤差</a>に関する精度次数について記述する
@@ -7066,12 +7066,14 @@ Newton高階行列関数
 <br>
 ・引数は第4引数まで<a href="#span-out-FNmh-jacobian">Jacobi高階行列関数</a>に同じ
 <br>
-・返値は符号付の解の修正vector
+・返値は符号付の解の修正vector（以降、残差と呼ぶ）
+<br>
+・絶対誤差の残差norm収束判定実数値epsN既定値epsN=1e-16
 <br>
 ・未知変数のlocal変数を参照、上書きする
 <br>
 <br>
-Newton(=&lt;第1引数,=&lt;第2引数[,=&lt;第3引数[,第4引数[,第5引数]]])
+Newton(=&lt;第1引数,=&lt;第2引数[,=&lt;第3引数[,第4引数[,第5引数[,第6引数]]]])
 <br>
 ・第1引数: 方程式または関数式の列vector||<a href="#span-out-vars-symbol">式変数名symbol</a>を<a href="#span-out-call-by-equation">式渡し</a>
 <br>
@@ -7085,9 +7087,11 @@ option
 <br>
 ・第4引数: 偏微分の差分刻みdxを値渡し[0||省略時、dx既定値]
 <br>
-<span class="run">Ver.2.29.15</span>以降、第5引数追加
+<span class="run">Ver.2.29.15</span>以降、第5引数・第6引数追加
 <br>
 ・第5引数: 反復回数（正の整数）を値渡し[省略時、1]
+<br>
+・第6引数: 絶対誤差の残差norm収束判定実数値epsNを値渡し[省略時、epsN既定値]
 <br>
 <br>
 応用例は<a href="#span-out-linear">連立方程式の解法</a>参照
@@ -7134,6 +7138,8 @@ last(mdx=Newton(=&lt;{x0+2*x1=5,3*x0+4*x1=6},=&lt;{x0,x1},=&lt;{0,0}),norm(mdx))
 <br>
 ・第5引数で反復回数を指定可
 <br>
+・第6引数で絶対誤差の収束判定値を指定可
+<br>
 ・反復0回の場合、初期値を返す
 <br>
 storage cleared
@@ -7146,13 +7152,13 @@ norm(mdx) -> 0
 <br>
 ・反復3回の場合
 <br>
+・反復最後の残差を<a href="#span-out-error-numerical">目安の解析誤差</a>として表示する
+<br>
 storage cleared
 <br>
 mdx=Newton(=&lt;{x0+2*x1=5,3*x0+4*x1=6},=&lt;{x0,x1},,,3);
 <br>
 norm(mdx) -> infoLost[ri] 2.2204460494935903e-15
-<br>
-・反復最後の残差を<a href="#span-out-error-numerical">目安の解析誤差</a>として表示する
 <br>
 {x0,x1} ->
 <br>
@@ -7164,7 +7170,55 @@ infoLost[ri] 4.499999999999999+6.466216308756395e-26i+O(1e-15+2e-20i)
 <br>
 )
 <br>
-・反復1回指定で3回繰り返した場合、反復1回目の残差が<a href="#span-out-error-numerical">目安の解析誤差</a>として残る
+・反復10回以内に絶対誤差のnorm収束判定値1e-8を指定する場合
+<br>
+・収束判定成立時の残差を<a href="#span-out-error-numerical">目安の解析誤差</a>として表示する
+<br>
+storage cleared
+<br>
+mdx=Newton(=&lt;{x0+2*x1=5,3*x0+4*x1=6},=&lt;{x0,x1},,,10,1e-8);
+<br>
+norm(mdx) -> 2.0548659974995737e-10
+<br>
+{x0,x1} ->
+<br>
+(
+<br>
+-4.000000000000001+2.1963377172690418e-20i+O(1e-10+1e-10i):
+<br>
+4.500000000000001-1.7499160954924154e-20i+O(1e-10+1e-10i)
+<br>
+)
+<br>
+・反復10回以内に相対誤差のnorm収束判定値1e-8を指定する場合
+<br>
+・未知変数の初期化が必要
+<br>
+storage cleared
+<br>
+{$x0,$x1}={,};
+<br>
+mdx=Newton(=&lt;{x0+2*x1=5,3*x0+4*x1=6},=&lt;{x0,x1},,,10,1e-8*norm{x0,x1});
+<br>
+norm(mdx) -> infoLost[ri] 2.2204460494895584e-15
+<br>
+1e-8*norm{x0,x1} -> infoLost[ri] 6.02079728939615e-8+O(2e-33i)
+<br>
+norm(mdx)/norm{x0,x1} -> infoLost[ri] 3.6879601533840316e-16+O(1e-41i)
+<br>
+{x0,x1} ->
+<br>
+(
+<br>
+infoLost[ri] -4.000000000000001+1.9139665347514104e-25i+O(2e-15+2e-25i):
+<br>
+infoLost[ri] 4.500000000000001-1.4354751880569493e-25i+O(1e-15+2e-25i)
+<br>
+)
+<br>
+・反復1回指定で3回繰り返した場合
+<br>
+・反復1回目の最大残差が<a href="#span-out-error-numerical">目安の解析誤差</a>として残る
 <br>
 storage cleared
 <br>
@@ -8084,13 +8138,120 @@ step_post=&lt;{{$z_x0,$z_v0}=x};
 <br>
 step=&lt;last{step_pre,step_iteration,step_post};
 <br>
-t=20; evolution; x ->
+・t=10
+<br>
+t=10; evolution; x ->
+<br>
+(
+<br>
+19.993985426803565-68.20896171406268i:
+<br>
+0.006014573196434349-9.791038285937313i
+<br>
+)
+<br>
+・t=20
+<br>
+t=10; evolution; x ->
 <br>
 (
 <br>
 infoLost[ i] 19.99999819124547-166.20000269504428i:
 <br>
 infoLost[ i] 0.0000018087545367633257-9.79999730495574i
+<br>
+)
+<br>
+<br>
+<span class="run">Ver.2.29.15</span>以降、<a href="#span-out-FNmh-newtonian">Newton高階行列関数</a>で収束判定条件を設定する場合
+<br>
+g=-9.8;
+<br>
+z_a=0+g*i;
+<br>
+z_v0=20+20i;
+<br>
+z_x0=0;
+<br>
+dt=0.5;
+<br>
+m=1;
+<br>
+Cd_sphere=1;
+<br>
+x=&lt;{z_x,z_v};
+<br>
+x_initial=&lt;{z_x0,z_v0};
+<br>
+f=&lt;{(z_x-z_x0)/dt=z_v,m((z_v-z_v0)/dt)=m*z_a-Cd_sphere*z_v};
+<br>
+orderT=1;
+<br>
+Nmax=10;
+<br>
+epsN=max(eps*1e3,pow(dt,orderT));
+<br>
+step_post=&lt;{{$z_x0,$z_v0}=x};
+<br>
+step=&lt;last{step_iteration,step_post};
+<br>
+evolution=&lt;_rn(=&lt;step,N=round(t/dt),N);
+<br>
+・絶対誤差指定の場合
+<br>
+step_iteration=&lt;mdx=Newton(=&lt;f,=&lt;x,=&lt;x_initial,,Nmax,epsN);
+<br>
+・t=10
+<br>
+t=10; evolution; x ->
+<br>
+(
+<br>
+19.993985426803565-68.20896171406268i+O(1e+1+1e+1i):
+<br>
+0.006014573196434349-9.791038285937313i+O(5e+0+6e+0i)
+<br>
+)
+<br>
+・t=20
+<br>
+t=10; evolution; x ->
+<br>
+(
+<br>
+infoLost[ i] 19.99999819124547-166.20000269504428i+O(1e+1+1e+1i):
+<br>
+infoLost[ i] 0.0000018087545367633257-9.79999730495574i+O(5e+0+6e+0i)
+<br>
+)
+<br>
+・相対誤差指定の場合
+<br>
+{$z_x,$z_v}=x_initial;
+<br>
+step_iteration=&lt;mdx=Newton(=&lt;f,=&lt;x,=&lt;x_initial,,Nmax,epsN*norm(x));
+<br>
+・t=10
+<br>
+t=10; evolution; x ->
+<br>
+(
+<br>
+19.99398542072955-68.2089617113703i+O(9e+0+8e+0i):
+<br>
+0.006014573196568362-9.791038285939853i+O(4e+0+7e+0i)
+<br>
+)
+<br>
+・t=20
+<br>
+t=10; evolution; x ->
+<br>
+(
+<br>
+19.999998167764087-166.20000267865885i+O(9e+0+8e+0i):
+<br>
+0.000001808754536971318-9.799997304955744i+O(4e+0+7e+0i)
 <br>
 )
 <br>
@@ -10113,6 +10274,9 @@ data.logo -> "makeLog=true"
 <br>
 <br>
 ・<a href="#span-out-FNm">matSizeMax</a>: 行列size指定の上限値
+<br>
+<br>
+・<a href="#span-out-FNmh-newtonian">epsN</a>: Newton法の絶対誤差の収束判定実数値
 <br>
 <br>
 ・<a href="#span-out-FNmh-jacobian">dxJ</a>: Jacobi行列演算時の1階偏微分の差分刻み実数値
