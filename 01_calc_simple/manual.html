@@ -1354,21 +1354,21 @@ bit演算子は比較演算子・関係演算子より優先する
 <br>
 ・bit演算子で代替可能な論理OR演算子||と論理AND演算子&amp;&amp;は未実装
 <br>
-・論理ORをbit ORで代替する場合、<a href="#span-out-BT">括弧</a>を明示する
+・論理ORをbit ORで代替する場合、<a href="#span-out-BT">括弧</a>を明示するか<a href="#span-out-FN">関数</a>を使用する
 <br>
 ・1==1 || 1==-1の一例
 <br>
-(1==1)|(1==-1) || 1|0 -> 1
+(1==1)|(1==-1) || eq(1,1)|eq(1,-1) || 1|0 -> 1
 <br>
 左結合既定時　1==1|1==-1 || 1==(1|1)==-1 || (1==1)==-1 || 1==-1 -> 0
 <br>
 右結合選択時　1==1|1==-1 || 1==(1|1)==-1 || 1==(1==-1) || 1==0 -> 0
 <br>
-・同様に論理ANDをbit ANDで代替する場合、<a href="#span-out-BT">括弧</a>を明示する
+・同様に論理ANDをbit ANDで代替する場合、<a href="#span-out-BT">括弧</a>を明示するか<a href="#span-out-FN">関数</a>を使用する
 <br>
 ・1==1 &amp;&amp; 1==-1の一例
 <br>
-(1==1)&amp;(1==-1) || 1&amp;0 -> 0
+(1==1)&amp;(1==-1) || eq(1,1)&amp;eq(1,-1) || 1&amp;0 -> 0
 <br>
 左結合既定時　1==1&amp;1==-1 || 1==(1&amp;1)==-1 || (1==1)==-1 || 1==-1 -> 0
 <br>
@@ -1787,6 +1787,15 @@ ans&lt;&lt;3  <span class="selection">// 11111000</span> -> 248
 数値解の数値誤差について記述する
 <br>
 <br>
+Computer Algebra Systemで解析的に真値||厳密解||解析解を得られない場合
+<br>
+・数値誤差を許容した数値解を得る（例えば、微分・積分）
+<br>
+・<a href="#span-out-application">application</a>の数値解の<a href="#span-out-ope">演算速度</a>を優先するため、Computer Algebra System未実装
+<br>
+・よって解析解が得られるcaseも数値誤差を許容する
+<br>
+<br>
 数値誤差は無限を有限で数学的に近似する際の、
 <br>
 近似値の真値に対する絶対誤差または相対誤差、あるいは、
@@ -1991,7 +2000,7 @@ UI設定によって対応する用途を4種類示す
 ・無次元の実数演算（complex&amp;matrix unchecked）
 <br>
 <br>
-次の2次の正方行列の積を一例に
+次の2次の正方行列の<a href="#span-out-mat-product">行列積</a>を一例に
 <br>
 (0,0:0,1+i)(1,0:0,1)
 <br>
@@ -2026,7 +2035,7 @@ UI設定によって対応する用途を4種類示す
 (x=1,x=2x:x=2x,x){x=1,x=2x:x=2x,x} || (4)*{4} -> 16
 <br>
 <br>
-以上より、n次の正方行列の積の演算量を用途順に概算して示す
+以上より、n次の正方行列の<a href="#span-out-mat-product">行列積</a>の演算量を用途順に概算して示す
 <br>
 4*(n*n)*(n*n)
 <br>
@@ -2976,7 +2985,7 @@ clear; x=2; store; y=3; clear; restore; x+y -> [MyErr]Invalid binary operation
 <br>
 clear; x=2; store; y=3; store; clear; restore; x+y -> 5
 <br>
-・store;clear~restore間のscopeは完全独立
+・store;clear~restore間の<a href="#span-out-types-vars">scope</a>は完全独立
 <br>
 clear; x=2; store; clear; x=3; restore; x -> 2
 <br>
@@ -5973,7 +5982,7 @@ x=2; switch(ge(x,4),=&lt;4:gt(x,3),=&lt;3:gt(x,2),=&lt;2:1,=&lt;{-x}) -> -2
 <br>
 未実装の論理演算子をbit演算子で代替する場合
 <br>
-・<a href="#span-out-prec-ope">演算子のprecedence</a>に応じて<a href="#span-out-BT">括弧</a>を明示する
+・<a href="#span-out-prec-ope">演算子のprecedence</a>に応じて<a href="#span-out-BT">括弧</a>を明示するか<a href="#span-out-FN">関数</a>を使用する
 <br>
 ・if(1==1 || 1==-1) return 1;のNG例
 <br>
@@ -5981,11 +5990,11 @@ switch(1==1|1==-1,1) || switch(1==(1|1)==-1,1) -> 0
 <br>
 ・if(1==1 || 1==-1) return 1;の一例
 <br>
-switch((1==1)|(1==-1),1) -> 1
+switch((1==1)|(1==-1),1) || switch(eq(1,1)|eq(1,-1),1) -> 1
 <br>
 ・if(1==1 &amp;&amp; 1==-1) return 1;の一例
 <br>
-switch((1==1)&amp;(1==-1),1) -> 0
+switch((1==1)&amp;(1==-1),1) || switch(eq(1,1)&amp;eq(1,-1),1) -> 0
 <br>
 <br>
 test caseを列挙する
@@ -7051,6 +7060,8 @@ Newton高階行列関数
 ・引数は<a href="#span-out-FNmh-jacobian">Jacobi高階行列関数</a>に同じ
 <br>
 ・返値は符号付の解の修正vector
+<br>
+・本来、反復最後の残差が誤差として残るが、反復1回毎に反映・表示しない
 <br>
 ・未知変数のlocal変数を参照、上書きする
 <br>
@@ -9797,9 +9808,6 @@ f=&lt;last{I=1,E=0,k=1,I=exp(k*(V-E))-exp(-k*(V-E))}
 　回路要素電圧Vに対する未知電流Iを解く場合
 <br>
 f=&lt;last{V=1,E=0,k=1,I=exp(k*(V-E))-exp(-k*(V-E))}
-<br>
-<br>
-上記<a href="#span-out-error-numerical">数値解</a>の<a href="#span-out-ope">演算速度</a>を優先するため、Computer Algebra System未実装
     </td>
   </tr>
   <tr>
