@@ -11245,7 +11245,7 @@ run=&lt;last{
 <br>
 f=&lt;{A*(x=&gt;)=b},
 <br>
-mdx=Newton(=&lt;f,=&lt;x,,,N)
+mdx=Newton(=&lt;f,=&lt;x,,,N,1e-16,1)
 <br>
 },
 <br>
@@ -11282,7 +11282,7 @@ run=&lt;last{
 <br>
 f=&lt;{(Ainv=&gt;)*A=identity(sizeA)},
 <br>
-mdx=Newton(=&lt;f,=&lt;x,,,N)
+mdx=Newton(=&lt;f,=&lt;x,,,N,1e-16,1)
 <br>
 },
 <br>
@@ -11319,7 +11319,7 @@ init=&lt;last{_ex(=&lt;{x},sizer(x_initial=&gt;),1)},
 <br>
 run=&lt;last{
 <br>
-mdx=Newton(=&lt;f,=&lt;x,=&lt;x_initial,,N)
+mdx=Newton(=&lt;f,=&lt;x,=&lt;x_initial,,N,1e-16,1)
 <br>
 },
 <br>
