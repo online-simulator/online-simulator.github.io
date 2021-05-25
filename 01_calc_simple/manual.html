@@ -6174,6 +6174,10 @@ _s3(=&lt;{0},1,2) -> [MyErr]Invalid 3 called
 <br>
 _s3n(=&lt;{0},1,2) -> [MyErr]Invalid FNh called
 <br>
+・<span class="run">Ver.2.29.15</span>以降
+<br>
+_s$n(=&lt;{0},1,2) -> [MyErr]Invalid dummy($n)
+<br>
 <br>
 応用例を示す
 <br>
@@ -7403,6 +7407,13 @@ clear; _ex(=&lt;{test,test:test,x},2,2); ($x0,$x1,$x2,$x3)=(1,2,3,4); x -> (1,2:
 clear; _ex(=&lt;{x},2,0) -> [MyErr]Invalid matrix size
 <br>
 clear; _ex(=&lt;{x},2) -> [MyErr]Invalid EX arguments
+<br>
+<br>
+<span class="run">Ver.2.29.15</span>以降、<a href="#span-out-vars">変数の命名規則</a>に準拠
+<br>
+_ex(=&lt;{$x},2,2) -> [MyErr]Invalid REv($x)
+<br>
+_e$x(=&lt;{x},2,2) -> [MyErr]Invalid dummy($x)
 <br>
 <br>
 応用例は<a href="#span-out-inverse">逆行列の解法</a>参照
@@ -10834,7 +10845,7 @@ parser.js抜粋
         break;
       default:
         /* Ver.2.24.12 -> */
-        if(token.charAt(0) === "$"){
+        if(self.entry.operation.config.isEscaped(token)){
           self.check_varName(token.substr(1), re);
         }
         /* -> Ver.2.24.12 */

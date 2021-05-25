@@ -197,6 +197,11 @@ My_entry.parser.prototype.compare2bs = function(token, re){
         if(tagName === "FNmh" || tagName === "FNh"){  // Ver.2.21.10
           var mc1 = mc[1];
           if(mc1){
+            /* Ver.2.29.15 -> */
+            if(self.entry.operation.config.isEscaped(mc1)){
+              throw "Invalid dummy("+mc1+")";
+            }
+            /* -> Ver.2.29.15 */
             _tree = DATA.tree_tag(tagName, {key: key, name: self.check_varName(mc1, re)});  // Ver.2.24.12
           }
         }
@@ -548,7 +553,7 @@ My_entry.parser.prototype.make_trees = function(sentence, re){
         break;
       default:
         /* Ver.2.24.12 -> */
-        if(token.charAt(0) === "$"){
+        if(self.entry.operation.config.isEscaped(token)){
           self.check_varName(token.substr(1), re);
         }
         /* -> Ver.2.24.12 */

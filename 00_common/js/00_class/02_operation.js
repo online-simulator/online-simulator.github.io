@@ -810,6 +810,7 @@ if(prop.key){
       /* -> Ver.2.27.15 */
       var name_var = names[names.length-1];
       var name_eqn = tagObj.val.name;
+      if(self.config.isEscaped(name_var)) throw "Invalid REv("+name_var+")";  // Ver.2.29.15
       var len_i = math_mat.num2size(options, args[1]);
       var len_j = math_mat.num2size(options, args[2]);
       var counter = 0;
