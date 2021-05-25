@@ -1066,6 +1066,9 @@ var step = function(){
       // epsN
       var arg5 = args[5];
       var epsN = (arg5 && arg5.com)? arg5.com.r: self.options.epsN;  // 0 enabled
+      // isRelative_epsN
+      var arg6 = args[6];
+      var isRelative_epsN = (arg6 && arg6.com)? arg6.com.r: false;  // 0||not0
       _tree = DATA.tree_mat(DATA.vec2arr(x0));  // initialize
       var arr_mdx = null;
 for(var n=0; n<Niteration; ++n){
@@ -1082,15 +1085,18 @@ for(var n=0; n<Niteration; ++n){
       }
       // update
       x0 = init_x0(arr_x, names, []);
-/*
-      // check convergence of relative error
-      var normdx = math_mat.euclidean(options, arr_mdx);
-      var normx0 = math_mat.euclidean(options, DATA.vec2arr(x0));
-      if(self.arr2num(normdx).com.r < epsN*self.arr2num(normx0).com.r) break;
-*/
-      // check convergence of absolute error
-      var normdx = math_mat.euclidean(options, arr_mdx);
-      if(self.arr2num(normdx).com.r < epsN) break;
+      // check convergence
+      if(isRelative_epsN){
+        // relative error
+        var normdx = math_mat.euclidean(options, arr_mdx);
+        var normx0 = math_mat.euclidean(options, DATA.vec2arr(x0));
+        if(self.arr2num(normdx).com.r < epsN*self.arr2num(normx0).com.r) break;
+      }
+      else{
+        // absolute error
+        var normdx = math_mat.euclidean(options, arr_mdx);
+        if(self.arr2num(normdx).com.r < epsN) break;
+      }
 }
       if(arr_mdx){
         if(options.checkError && argN && argN.com){
@@ -2013,9 +2019,13 @@ My_entry.operation.prototype.SEv_pattern_matching = function(data, is, ie){
   else{
     throw "Invalid matching";
   }
+  /* Ver.2.29.15 comment-out -> */
+/*
   if(self.params.hasUndefVars){
     throw "Invalid matching(vars)";
   }
+*/
+  /* -> Ver.2.29.15 */
   return self;
 };
 My_entry.operation.prototype.SEv = function(data, i0, tagName, tagObj){
@@ -2198,6 +2208,11 @@ My_entry.operation.prototype.SEans = function(data, i0, tagName, tagObj){
   var is = i0;
   var ie = i0;
   if(i0 === 0){
+    /* Ver.2.29.15 pattern matching nesting allowed -> */
+    if((self.params.hasUndefVars || 0) !== 0){
+      throw "Invalid var isFound";
+    }
+    /* -> Ver.2.29.15 */
     if(trees.length < 2){
       var tree = DATA.trees2tree(trees);
       if(tree){
