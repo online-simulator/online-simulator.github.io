@@ -92,6 +92,7 @@ My_entry.operation.prototype.config = {
     REe:     "BT1"
   },
   params: {
+    isRelative_epsN: false,
     epsN: 1e-16,
     dxT: 1e-3,
     dxJ: 1e-5,
@@ -211,6 +212,7 @@ My_entry.operation.prototype.prepare = function(data){
   var options = data.options;
   /* Ver.2.24.11 -> */
   self.notUseStrict = !(options.useStrict);
+  self.options.isRelative_epsN = options.isRelative_epsN || self.config.params.isRelative_epsN;
   self.options.epsN = options.epsN || self.config.params.epsN;
   self.options.dxT = options.dxT || self.config.params.dxT;
   self.options.dxJ = options.dxJ || self.config.params.dxJ;
@@ -1068,7 +1070,7 @@ var step = function(){
       var epsN = (arg5 && arg5.com)? arg5.com.r: self.options.epsN;  // 0 enabled
       // isRelative_epsN
       var arg6 = args[6];
-      var isRelative_epsN = (arg6 && arg6.com)? arg6.com.r: false;  // 0||not0
+      var isRelative_epsN = (arg6 && arg6.com)? arg6.com.r: self.options.isRelative_epsN;  // 0||not0
       _tree = DATA.tree_mat(DATA.vec2arr(x0));  // initialize
       var arr_mdx = null;
 for(var n=0; n<Niteration; ++n){
