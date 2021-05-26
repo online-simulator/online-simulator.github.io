@@ -11189,7 +11189,7 @@ proc=&lt;{w=A[ir],A[ir]=A[ir_pivot],A[ir_pivot]=w,w=b[ir],b[ir]=b[ir_pivot],b[ir
 <br>
 pivotting=&lt;last{ir_pivot=ir,compare=&gt;,switch(cond=&gt;,=&lt;proc)},
 <br>
-forward=&lt;last{k=A[ir][ic]/A[ic][ic],A[ir]=A[ir]-k*(A[ic]),b[ir]=b[ir]-k*(b[ic])},
+forward=&lt;last{k=A[ir][ic]/A[ic][ic],A[ir]=A[ir]-k*A[ic],b[ir]=b[ir]-k*b[ic]},
 <br>
 backward=&lt;{x[ir]=(b[ir]-A[ir]*x)/A[ir][ir]},
 <br>
@@ -11242,7 +11242,7 @@ init=&lt;last{sizeA=size(A),x=zeros(sizeA,1)},
 <div class="run">
 run=&lt;last{
 <br>
-forward=&lt;last{k=A[ir][ic]/A[ic][ic],A[ir]=A[ir]-k*(A[ic]),b[ir]=b[ir]-k*(b[ic])},
+forward=&lt;last{k=A[ir][ic]/A[ic][ic],A[ir]=A[ir]-k*A[ic],b[ir]=b[ir]-k*b[ic]},
 <br>
 backward=&lt;{x[ir]=(b[ir]-A[ir]*x)/A[ir][ir]},
 <br>
@@ -11440,7 +11440,7 @@ evolution=&lt;_rn(=&lt;step,N=round(t/dt),N),
 <br>
 evolution=&gt;,
 <br>
-t_total=t_total+t
+t_total=t_total+N*dt
 <br>
 },
 </div>
@@ -11517,7 +11517,7 @@ evolution=&lt;stepN=&gt;,
 <br>
 evolution=&gt;,
 <br>
-t_total=t_total+t
+t_total=t_total+N*dt
 <br>
 },
 </div>

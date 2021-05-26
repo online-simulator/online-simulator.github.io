@@ -74,7 +74,7 @@ stored_eqn(proc)
 cond_error=(hasVar(t_total)==0)&hasEqn(x)
 cond_error=0
 
-ODE_RK4=<{out=<{t_total,x=>},init=<last{g=-9.8,z_a=0+g*i,z_v0=20+20i,z_x0=0,dt=0.5,m=1,Cd_sphere=1,x=<{z_x,z_v},x_initial=<{z_x0,z_v0},f=<{z_v,z_a-(Cd_sphere/m)*z_v},t_total=0},run=<last{stepN=<last{N=round(t/dt),x_next=_otdummy(=<f,=<x,=<x_initial,0,dt,N)},evolution=<stepN=>,evolution=>,t_total=t_total+t},switch(hasEqn(x)==0,=<init),run=>,return=out=>,=<return}=>
+ODE_RK4=<{out=<{t_total,x=>},init=<last{g=-9.8,z_a=0+g*i,z_v0=20+20i,z_x0=0,dt=0.5,m=1,Cd_sphere=1,x=<{z_x,z_v},x_initial=<{z_x0,z_v0},f=<{z_v,z_a-(Cd_sphere/m)*z_v},t_total=0},run=<last{stepN=<last{N=round(t/dt),x_next=_otdummy(=<f,=<x,=<x_initial,0,dt,N)},evolution=<stepN=>,evolution=>,t_total=t_total+N*dt},switch(hasEqn(x)==0,=<init),run=>,return=out=>,=<return}=>
 stored_eqn(ODE_RK4)
 
 switch(cond_error==0,=<proc:1,-999)
@@ -93,7 +93,7 @@ stored_eqn(proc)
 cond_error=(hasVar(t_total)==0)&hasEqn(x)
 cond_error=0
 
-Euler_method=<{out=<{t_total,x=>},init=<last{g=-9.8,z_a=0+g*i,z_v0=20+20i,z_x0=0,dt=0.5,m=1,Cd_sphere=1,x=<{z_x,z_v},x_initial=<{z_x0,z_v0},switch(isImplicit,=<{f=<{(z_x-z_x0)/dt=z_v,m*((z_v-z_v0)/dt)=m*z_a-Cd_sphere*z_v}}:1,=<{f=<{(z_x-z_x0)/dt=z_v0,m*((z_v-z_v0)/dt)=m*z_a-Cd_sphere*z_v0}}),orderT=1,Nmax=10,epsN=max(eps*1e3,pow(dt,orderT)),isRelative_epsN=1,t_total=0},run=<last{step_iteration=<mdx=Newton(=<f,=<x,=<x_initial,,Nmax,epsN,isRelative_epsN),step_post=<{$z_x0,$z_v0}=x=>,step=<last{step_iteration=>,step_post=>},evolution=<_rn(=<step,N=round(t/dt),N),evolution=>,t_total=t_total+t},switch(hasEqn(x)==0,=<init),run=>,return=out=>,=<return}=>
+Euler_method=<{out=<{t_total,x=>},init=<last{g=-9.8,z_a=0+g*i,z_v0=20+20i,z_x0=0,dt=0.5,m=1,Cd_sphere=1,x=<{z_x,z_v},x_initial=<{z_x0,z_v0},switch(isImplicit,=<{f=<{(z_x-z_x0)/dt=z_v,m*((z_v-z_v0)/dt)=m*z_a-Cd_sphere*z_v}}:1,=<{f=<{(z_x-z_x0)/dt=z_v0,m*((z_v-z_v0)/dt)=m*z_a-Cd_sphere*z_v0}}),orderT=1,Nmax=10,epsN=max(eps*1e3,pow(dt,orderT)),isRelative_epsN=1,t_total=0},run=<last{step_iteration=<mdx=Newton(=<f,=<x,=<x_initial,,Nmax,epsN,isRelative_epsN),step_post=<{$z_x0,$z_v0}=x=>,step=<last{step_iteration=>,step_post=>},evolution=<_rn(=<step,N=round(t/dt),N),evolution=>,t_total=t_total+N*dt},switch(hasEqn(x)==0,=<init),run=>,return=out=>,=<return}=>
 stored_eqn(Euler_method)
 
 solvex_non_linear=>
@@ -191,7 +191,7 @@ i,2,3i:
 7i,8,9i
 )
 
-solvex_no_pivotting=<{out=<x,store_in=<last{temp_A=A,temp_b=b},restore_in=<last{A=temp_A,b=temp_b},delete_temp=<last{delVar(temp_A),delVar(temp_b)},delete_init=<last{delVar(sizeA),delVar(x)},init=<last{sizeA=size(A),x=zeros(sizeA,1)},run=<last{forward=<last{k=A[ir][ic]/A[ic][ic],A[ir]=A[ir]-k*(A[ic]),b[ir]=b[ir]-k*(b[ic])},backward=<{x[ir]=(b[ir]-A[ir]*x)/A[ir][ir]},_sic(=<{_sir(=<forward,ic+1,sizeA-1)},0,sizeA-2),_sir(=<backward,sizeA-1,0)},store_in=>,init=>,run=>,return=out=>,restore_in=>,delete_init=>,delete_temp=>,=<return}=>
+solvex_no_pivotting=<{out=<x,store_in=<last{temp_A=A,temp_b=b},restore_in=<last{A=temp_A,b=temp_b},delete_temp=<last{delVar(temp_A),delVar(temp_b)},delete_init=<last{delVar(sizeA),delVar(x)},init=<last{sizeA=size(A),x=zeros(sizeA,1)},run=<last{forward=<last{k=A[ir][ic]/A[ic][ic],A[ir]=A[ir]-k*A[ic],b[ir]=b[ir]-k*b[ic]},backward=<{x[ir]=(b[ir]-A[ir]*x)/A[ir][ir]},_sic(=<{_sir(=<forward,ic+1,sizeA-1)},0,sizeA-2),_sir(=<backward,sizeA-1,0)},store_in=>,init=>,run=>,return=out=>,restore_in=>,delete_init=>,delete_temp=>,=<return}=>
 stored_eqn(solvex_no_pivotting)
 
 clear
@@ -218,7 +218,7 @@ i,2,3i:
 7i,8,9i
 )
 
-solvex_pivotting=<{out=<x,store_in=<last{temp_A=A,temp_b=b},restore_in=<last{A=temp_A,b=temp_b},delete_temp=<last{delVar(temp_A),delVar(temp_b)},delete_init=<last{delVar(sizeA),delVar(x)},init=<last{sizeA=size(A),x=zeros(sizeA,1)},run=<last{compare=<switch(abs(A[ir][ir])<abs(A[ir_comp][ir]),=<{ir_pivot=ir_comp}),cond=<{ir<>ir_pivot},proc=<{w=A[ir],A[ir]=A[ir_pivot],A[ir_pivot]=w,w=b[ir],b[ir]=b[ir_pivot],b[ir_pivot]=w},pivotting=<last{ir_pivot=ir,compare=>,switch(cond=>,=<proc)},forward=<last{k=A[ir][ic]/A[ic][ic],A[ir]=A[ir]-k*(A[ic]),b[ir]=b[ir]-k*(b[ic])},backward=<{x[ir]=(b[ir]-A[ir]*x)/A[ir][ir]},_sir(=<{_sir_comp(=<pivotting,ir+1,sizeA-1)},0,sizeA-2),_sic(=<{_sir(=<forward,ic+1,sizeA-1)},0,sizeA-2),_sir(=<backward,sizeA-1,0)},store_in=>,init=>,run=>,return=out=>,restore_in=>,delete_init=>,delete_temp=>,=<return}=>
+solvex_pivotting=<{out=<x,store_in=<last{temp_A=A,temp_b=b},restore_in=<last{A=temp_A,b=temp_b},delete_temp=<last{delVar(temp_A),delVar(temp_b)},delete_init=<last{delVar(sizeA),delVar(x)},init=<last{sizeA=size(A),x=zeros(sizeA,1)},run=<last{compare=<switch(abs(A[ir][ir])<abs(A[ir_comp][ir]),=<{ir_pivot=ir_comp}),cond=<{ir<>ir_pivot},proc=<{w=A[ir],A[ir]=A[ir_pivot],A[ir_pivot]=w,w=b[ir],b[ir]=b[ir_pivot],b[ir_pivot]=w},pivotting=<last{ir_pivot=ir,compare=>,switch(cond=>,=<proc)},forward=<last{k=A[ir][ic]/A[ic][ic],A[ir]=A[ir]-k*A[ic],b[ir]=b[ir]-k*b[ic]},backward=<{x[ir]=(b[ir]-A[ir]*x)/A[ir][ir]},_sir(=<{_sir_comp(=<pivotting,ir+1,sizeA-1)},0,sizeA-2),_sic(=<{_sir(=<forward,ic+1,sizeA-1)},0,sizeA-2),_sir(=<backward,sizeA-1,0)},store_in=>,init=>,run=>,return=out=>,restore_in=>,delete_init=>,delete_temp=>,=<return}=>
 stored_eqn(solvex_pivotting)
 
 clear
@@ -378,4 +378,4 @@ drag=false&test-case=false&legend=true&axis-x=true&log-x=false&imag-x=false&axis
 --------------------------------
 --------------------------------
 
-online-simulator.github.io.3.38.16.5.16 @ Wed May 26 2021 10:35:53 GMT+0900 (日本標準時)
+online-simulator.github.io.3.38.16.5.16 @ Wed May 26 2021 12:50:17 GMT+0900 (日本標準時)
