@@ -644,6 +644,21 @@ solvex_non_linear
 </a>
 <br>
 ・
+<a href="#span-eqn-implicit-Euler_method">
+implicit Euler_method
+</a>
+<br>
+・
+<a href="#span-eqn-explicit-Euler_method">
+explicit Euler_method
+</a>
+<br>
+・
+<a href="#span-eqn-explicit-ODE_RK4">
+explicit ODE_RK4
+</a>
+<br>
+・
 <a href="#span-eqn-MaclaurinN">
 MaclaurinN
 </a>
@@ -2674,9 +2689,9 @@ init=&lt;last{xt=zeros(N+1,M+1),yt=zeros(N+1,M+1)};
 <br>
 stepnm=&lt;last{xt[n][m]=cos(tn=&gt;tn)*m,yt[n][m]=sin(tn)*m};
 <br>
-evolutionN=&lt;_sn(=&lt;casesM,0,N);
-<br>
 casesM=&lt;_sm(=&lt;stepnm,0,M);
+<br>
+evolutionN=&lt;_sn(=&lt;casesM,0,N);
 <br>
 init=&gt;; evolutionN=&gt;;
 <br>
@@ -2769,19 +2784,19 @@ x_initial=&lt;{z_x0,z_v0};
 <br>
 f=&lt;{z_v,z_a-(Cd_sphere/m)*z_v};
 <br>
-step=&lt;{x_next=_otdummy(=&lt;f,=&lt;x,=&lt;x_initial,0,dtn=&gt;)};
-<br>
 /*{$z_x,$z_v}=x_initial=&gt;;*/
 <br>
 t0=0;
 <br>
 t1=5;
 <br>
-dtn=&lt;switch(n&lt;=0,0:1,dt);
-<br>
 N=round((t1-t0)/dt);
 <br>
 init=&lt;last{xt=vectorc(N+1),yt=vectorc(N+1)};
+<br>
+dtn=&lt;switch(n&lt;=0,0:1,dt);
+<br>
+step=&lt;{x_next=_otdummy(=&lt;f,=&lt;x,=&lt;x_initial,0,dtn=&gt;)};
 <br>
 stepn=&lt;last{step=&gt;,xt[n]=real(z_x),yt[n]=imag(z_x)};
 <br>
@@ -8052,11 +8067,11 @@ S=(f[0]+4Σ&lt;k=0,N/2-1&gt;f[2k+1]+2Σ&lt;k=1,N/2-1&gt;f[2k]+f[N])h/3+O(h^4)
 <br>
 　・右辺を既知関数とするEuler前進差分の陽解法explicit Euler method
 <br>
-f=&lt;{(z_x-z_x0)/dt=z_v0,m((z_v-z_v0)/dt)=m*z_a-Cd_sphere*z_v0};
+f=&lt;{(z_x-z_x0)/dt=z_v0,m*((z_v-z_v0)/dt)=m*z_a-Cd_sphere*z_v0};
 <br>
 　・右辺を未知関数とするEuler後退差分の陰解法implicit Euler method
 <br>
-f=&lt;{(z_x-z_x0)/dt=z_v,m((z_v-z_v0)/dt)=m*z_a-Cd_sphere*z_v};
+f=&lt;{(z_x-z_x0)/dt=z_v,m*((z_v-z_v0)/dt)=m*z_a-Cd_sphere*z_v};
 <br>
 ・速度の時間微分が0（抵抗と重力が平衡）となる終端速度terminal velocity
 <br>
@@ -8065,6 +8080,8 @@ f=&lt;{(z_x-z_x0)/dt=z_v,m((z_v-z_v0)/dt)=m*z_a-Cd_sphere*z_v};
 z_v_terminal=(m/Cd_sphere)*z_a
 <br>
 ・implicit Euler methodによる1次精度の<a href="#span-out-error-numerical">数値誤差</a>O(dt)を含む近似解を以下に示す
+<br>
+storage cleared
 <br>
 g=-9.8;
 <br>
@@ -8084,7 +8101,7 @@ x=&lt;{z_x,z_v};
 <br>
 x_initial=&lt;{z_x0,z_v0};
 <br>
-f=&lt;{(z_x-z_x0)/dt=z_v,m((z_v-z_v0)/dt)=m*z_a-Cd_sphere*z_v};
+f=&lt;{(z_x-z_x0)/dt=z_v,m*((z_v-z_v0)/dt)=m*z_a-Cd_sphere*z_v};
 <br>
 run=&lt;last(mdx=Newton(=&lt;f,=&lt;x,=&lt;x_initial),max(norm(f),norm(mdx)));
 <br>
@@ -8185,7 +8202,7 @@ step_pre=&lt;{normf=max_value};
 <br>
 step_iteration=&lt;_rn(=&lt;{switch(normf>epsf,=&lt;{normf=run})},,Nmax);
 <br>
-step_post=&lt;{{$z_x0,$z_v0}=x};
+step_post=&lt;{$z_x0,$z_v0}=x;
 <br>
 step=&lt;last{step_pre,step_iteration,step_post};
 <br>
@@ -8216,6 +8233,8 @@ infoLost[ i] 0.0000018087545367633257-9.79999730495574i
 <br>
 <span class="run">Ver.2.29.15</span>以降、<a href="#span-out-FNmh-newtonian">Newton高階行列関数</a>で収束判定条件を設定する場合
 <br>
+storage cleared
+<br>
 g=-9.8;
 <br>
 z_a=0+g*i;
@@ -8234,7 +8253,7 @@ x=&lt;{z_x,z_v};
 <br>
 x_initial=&lt;{z_x0,z_v0};
 <br>
-f=&lt;{(z_x-z_x0)/dt=z_v,m((z_v-z_v0)/dt)=m*z_a-Cd_sphere*z_v};
+f=&lt;{(z_x-z_x0)/dt=z_v,m*((z_v-z_v0)/dt)=m*z_a-Cd_sphere*z_v};
 <br>
 orderT=1;
 <br>
@@ -8242,7 +8261,7 @@ Nmax=10;
 <br>
 epsN=max(eps*1e3,pow(dt,orderT));
 <br>
-step_post=&lt;{{$z_x0,$z_v0}=x};
+step_post=&lt;{$z_x0,$z_v0}=x;
 <br>
 step=&lt;last{step_iteration,step_post};
 <br>
@@ -8339,6 +8358,8 @@ t=10; evolution; x ->
 <br>
 ・次のstepを許容するが、別々に記述した方が間違いが少ない
 <br>
+storage cleared
+<br>
 step=&lt;last{mdx=Newton(=&lt;f,=&lt;x,=&lt;x_initial,,Nmax,epsN),{$z_x0,$z_v0}=x};
 <br>
 g=-9.8;
@@ -8359,7 +8380,7 @@ x=&lt;{z_x,z_v};
 <br>
 x_initial=&lt;{z_x0,z_v0};
 <br>
-f=&lt;{(z_x-z_x0)/dt=z_v,m((z_v-z_v0)/dt)=m*z_a-Cd_sphere*z_v};
+f=&lt;{(z_x-z_x0)/dt=z_v,m*((z_v-z_v0)/dt)=m*z_a-Cd_sphere*z_v};
 <br>
 orderT=1;
 <br>
@@ -8397,6 +8418,8 @@ infoLost[ i] 0.0000018087545367633257-9.79999730495574i+O(5e+0+6e+0i)
 <a href="#span-out-FNmh-OX">ODE高階行列関数</a>を使用する場合、stepを陽的に解くため、収束演算不要
 <br>
 ・実軸の時間積分の場合、<a href="#span-out-error-numerical">目安の解析誤差</a>は実数のみ表示される（仕様）
+<br>
+storage cleared
 <br>
 g=-9.8;
 <br>
@@ -8548,6 +8571,8 @@ t=10; evolution; x ->
 <br>
 <br>
 <span class="run">Ver.2.29.15</span>以降、<a href="#span-out-FNmh-OX">ODE高階行列関数</a>第6引数で反復回数を指定する場合
+<br>
+storage cleared
 <br>
 g=-9.8;
 <br>
@@ -10896,11 +10921,12 @@ restore_in=&lt;last{0},
 delete_temp=&lt;last{0},
 <br>
 delete_init=&lt;last{0},
-<br>
+<div class="condition">
 init=&lt;last{0},
-<br>
+</div>
+<div class="run">
 run=&lt;last{0},
-<br>
+</div>
 store_in=&gt;,init=&gt;,run=&gt;,return=out=&gt;,restore_in=&gt;,delete_init=&gt;,delete_temp=&gt;,
 <br>
 =&lt;return}=&gt;;
@@ -10927,27 +10953,28 @@ clear;
 plot2d_circle=&lt;{
 <br>
 out=&lt;(xt,yt),
-<br>
+<div class="condition">
 init=&lt;last{
 <br>
 t0=0,t1=2*pi,tn=&lt;t0+(t1-t0)*n/N,N=10,M=3,
 <br>
-xt=zeros(N+1,M+1),yt=zeros(N+1,M+1),
+xt=zeros(N+1,M+1),yt=zeros(N+1,M+1)
+<br>
+},
+</div>
+<div class="run">
+run=&lt;last{
 <br>
 stepnm=&lt;last{xt[n][m]=cos(tn=&gt;tn)*m,yt[n][m]=sin(tn)*m},
 <br>
-},
-<br>
-run=&lt;last{
+casesM=&lt;_sm(=&lt;stepnm,0,M),
 <br>
 evolutionN=&lt;_sn(=&lt;casesM,0,N),
-<br>
-casesM=&lt;_sm(=&lt;stepnm,0,M),
 <br>
 evolutionN=&gt;
 <br>
 },
-<br>
+</div>
 init=&gt;,run=&gt;,return=out=&gt;,
 <br>
 =&lt;return}=&gt;;
@@ -10974,7 +11001,7 @@ clear;
 plot2d_evolution=&lt;{
 <br>
 out=&lt;(xt,yt),
-<br>
+<div class="condition">
 init=&lt;last{
 <br>
 g=-9.8,z_a=0+g*i,z_v0=20+20i,z_x0=0,dt=0.5,m=1,Cd_sphere=1,
@@ -10987,26 +11014,27 @@ f=&lt;{z_v,z_a-(Cd_sphere/m)*z_v},
 <br>
 t0=0,t1=5,N=round((t1-t0)/dt),M=0,
 <br>
-xt=zeros(N+1,M+1),yt=zeros(N+1,M+1),
-<br>
-stepnm=&lt;last{step=&gt;,xt[n][mdummy]=real(z_x),yt[n][mdummy]=imag(z_x)}
+xt=zeros(N+1,M+1),yt=zeros(N+1,M+1)
 <br>
 },
-<br>
+</div>
+<div class="run">
 run=&lt;last{
 <br>
 dtn=&lt;switch(n&lt;=0,0:1,dt),
 <br>
 step=&lt;{x_next=_otdummy(=&lt;f,=&lt;x,=&lt;x_initial,0,dtn=&gt;)},
 <br>
-evolutionN=&lt;_sn(=&lt;casesM,0,N),
+stepnm=&lt;last{step=&gt;,xt[n][mdummy]=real(z_x),yt[n][mdummy]=imag(z_x)},
 <br>
 casesM=&lt;_smdummy(=&lt;stepnm,0,M)/*m reserved*/,
+<br>
+evolutionN=&lt;_sn(=&lt;casesM,0,N),
 <br>
 evolutionN=&gt;
 <br>
 },
-<br>
+</div>
 init=&gt;,run=&gt;,return=out=&gt;,
 <br>
 =&lt;return}=&gt;;
@@ -11147,9 +11175,10 @@ restore_in=&lt;last{A=temp_A,b=temp_b},
 delete_temp=&lt;last{delVar(temp_A),delVar(temp_b)},
 <br>
 delete_init=&lt;last{delVar(sizeA),delVar(x)},
-<br>
+<div class="condition">
 init=&lt;last{sizeA=size(A),x=zeros(sizeA,1)},
-<br>
+</div>
+<div class="run">
 run=&lt;last{
 <br>
 compare=&lt;switch(abs(A[ir][ir])&lt;abs(A[ir_comp][ir]),=&lt;{ir_pivot=ir_comp}),
@@ -11168,10 +11197,10 @@ _sir(=&lt;{_sir_comp(=&lt;pivotting,ir+1,sizeA-1)},0,sizeA-2),
 <br>
 _sic(=&lt;{_sir(=&lt;forward,ic+1,sizeA-1)},0,sizeA-2),
 <br>
-_sir(=&lt;backward,sizeA-1,0),
+_sir(=&lt;backward,sizeA-1,0)
 <br>
 },
-<br>
+</div>
 store_in=&gt;,init=&gt;,run=&gt;,return=out=&gt;,restore_in=&gt;,delete_init=&gt;,delete_temp=&gt;,
 <br>
 =&lt;return}=&gt;;
@@ -11207,8 +11236,10 @@ delete_temp=&lt;last{delVar(temp_A),delVar(temp_b)},
 <br>
 delete_init=&lt;last{delVar(sizeA),delVar(x)},
 <br>
+<div class="condition">
 init=&lt;last{sizeA=size(A),x=zeros(sizeA,1)},
-<br>
+</div>
+<div class="run">
 run=&lt;last{
 <br>
 forward=&lt;last{k=A[ir][ic]/A[ic][ic],A[ir]=A[ir]-k*(A[ic]),b[ir]=b[ir]-k*(b[ic])},
@@ -11217,10 +11248,10 @@ backward=&lt;{x[ir]=(b[ir]-A[ir]*x)/A[ir][ir]},
 <br>
 _sic(=&lt;{_sir(=&lt;forward,ic+1,sizeA-1)},0,sizeA-2),
 <br>
-_sir(=&lt;backward,sizeA-1,0),
+_sir(=&lt;backward,sizeA-1,0)
 <br>
 },
-<br>
+</div>
 store_in=&gt;,init=&gt;,run=&gt;,return=out=&gt;,restore_in=&gt;,delete_init=&gt;,delete_temp=&gt;,
 <br>
 =&lt;return}=&gt;;
@@ -11250,8 +11281,10 @@ out=&lt;x=&gt;,
 <br>
 delete_init=&lt;last{delVar(sizeA),delEqn(x)},
 <br>
+<div class="condition">
 init=&lt;last{sizeA=size(A),_ex(=&lt;{x},sizeA,1)},
-<br>
+</div>
+<div class="run">
 run=&lt;last{
 <br>
 f=&lt;{A*(x=&gt;)=b},
@@ -11259,7 +11292,7 @@ f=&lt;{A*(x=&gt;)=b},
 mdx=Newton(=&lt;f,=&lt;x,,,N,1e-16,1)
 <br>
 },
-<br>
+</div>
 init=&gt;,run=&gt;,return=out=&gt;,delete_init=&gt;,
 <br>
 =&lt;return}=&gt;;
@@ -11287,8 +11320,10 @@ out=&lt;Ainv=&gt;,
 <br>
 delete_init=&lt;last{delVar(sizeA),delEqn(Ainv),delEqn(x)},
 <br>
+<div class="condition">
 init=&lt;last{sizeA=size(A),_eAinv(=&lt;{x},sizeA,sizeA),_ex(=&lt;{x},sizeA*sizeA,1)},
-<br>
+</div>
+<div class="run">
 run=&lt;last{
 <br>
 f=&lt;{(Ainv=&gt;)*A=identity(sizeA)},
@@ -11296,7 +11331,7 @@ f=&lt;{(Ainv=&gt;)*A=identity(sizeA)},
 mdx=Newton(=&lt;f,=&lt;x,,,N,1e-16,1)
 <br>
 },
-<br>
+</div>
 init=&gt;,run=&gt;,return=out=&gt;,delete_init=&gt;,
 <br>
 =&lt;return}=&gt;;
@@ -11325,20 +11360,176 @@ solvex_non_linear=&lt;{
 out=&lt;x=&gt;,
 <br>
 delete_init=&lt;last{delEqn(x)},
-<br>
+<div class="condition">
 init=&lt;last{_ex(=&lt;{x},sizer(x_initial=&gt;),1)},
-<br>
+</div>
+<div class="run">
 run=&lt;last{
 <br>
 mdx=Newton(=&lt;f,=&lt;x,=&lt;x_initial,,N,1e-16,1)
 <br>
 },
-<br>
+</div>
 init=&gt;,run=&gt;,return=out=&gt;,delete_init=&gt;,
 <br>
 =&lt;return}=&gt;;
 <br>
 f=&lt;{x0^i-2*x1=3i,3*x0+exp(x1)=5i}; x_initial=&lt;{1+i,1-i}; N=6; solvex_non_linear=&gt;;
+    </td>
+  </tr>
+  <tr>
+    <th>
+<a href="#span-index">
+目次
+</a>
+<br>
+implicit
+<br>
+Euler_method
+    </th>
+    <td>
+<span id="span-eqn-implicit-Euler_method"></span>
+<a href="#span-out-evolution">時間発展の解法</a>参照
+<br>
+Euler_method=&lt;{
+<br>
+out=&lt;{t_total,x=&gt;},
+<div class="condition">
+init=&lt;last{
+<br>
+g=-9.8,z_a=0+g*i,z_v0=20+20i,z_x0=0,dt=0.5,m=1,Cd_sphere=1,
+<br>
+x=&lt;{z_x,z_v},
+<br>
+x_initial=&lt;{z_x0,z_v0},
+<br>
+switch(
+<br>
+isImplicit,
+<br>
+=&lt;{f=&lt;{(z_x-z_x0)/dt=z_v,m*((z_v-z_v0)/dt)=m*z_a-Cd_sphere*z_v}}:
+<br>
+1/*else explicit*/,
+<br>
+=&lt;{f=&lt;{(z_x-z_x0)/dt=z_v0,m*((z_v-z_v0)/dt)=m*z_a-Cd_sphere*z_v0}}
+<br>
+),
+<br>
+orderT=1,
+<br>
+Nmax=10,
+<br>
+epsN=max(eps*1e3,pow(dt,orderT)),
+<br>
+isRelative_epsN=1,
+<br>
+t_total=0
+<br>
+},
+</div>
+<div class="run">
+run=&lt;last{
+<br>
+step_iteration=&lt;mdx=Newton(=&lt;f,=&lt;x,=&lt;x_initial,,Nmax,epsN,isRelative_epsN),
+<br>
+step_post=&lt;{$z_x0,$z_v0}=x=&gt;,
+<br>
+step=&lt;last{step_iteration=&gt;,step_post=&gt;},
+<br>
+evolution=&lt;_rn(=&lt;step,N=round(t/dt),N),
+<br>
+evolution=&gt;,
+<br>
+t_total=t_total+t
+<br>
+},
+</div>
+switch(hasEqn(x)==0,=&lt;init),run=&gt;,return=out=&gt;,
+<br>
+=&lt;return}=&gt;;
+<br>
+cond_error=(hasVar(t_total)==0)&amp;hasEqn(x);
+<br>
+proc=&lt;{isImplicit=1,=&lt;Euler_method=&gt;}=&gt;/*nesting return*/;
+<br>
+t=1; switch(cond_error==0,=&lt;proc:1,-999/*error code*/);
+    </td>
+  </tr>
+  <tr>
+    <th>
+<a href="#span-index">
+目次
+</a>
+<br>
+explicit
+<br>
+Euler_method
+    </th>
+    <td>
+<span id="span-eqn-explicit-Euler_method"></span>
+<a href="#span-out-evolution">時間発展の解法</a>参照
+<br>
+cond_error=(hasVar(t_total)==0)&amp;hasEqn(x);
+<br>
+proc=&lt;{isImplicit=0,=&lt;Euler_method=&gt;}=&gt;/*nesting return*/;
+<br>
+t=1; switch(cond_error==0,=&lt;proc:1,-999/*error code*/);
+    </td>
+  </tr>
+  <tr>
+    <th>
+<a href="#span-index">
+目次
+</a>
+<br>
+explicit
+<br>
+ODE_RK4
+    </th>
+    <td>
+<span id="span-eqn-explicit-ODE_RK4"></span>
+<a href="#span-out-evolution">時間発展の解法</a>参照
+<br>
+ODE_RK4=&lt;{
+<br>
+out=&lt;{t_total,x=&gt;},
+<div class="condition">
+init=&lt;last{
+<br>
+g=-9.8,z_a=0+g*i,z_v0=20+20i,z_x0=0,dt=0.5,m=1,Cd_sphere=1,
+<br>
+x=&lt;{z_x,z_v},
+<br>
+x_initial=&lt;{z_x0,z_v0},
+<br>
+f=&lt;{z_v,z_a-(Cd_sphere/m)*z_v},
+<br>
+t_total=0
+<br>
+},
+</div>
+<div class="run">
+run=&lt;last{
+<br>
+stepN=&lt;last{N=round(t/dt),x_next=_otdummy(=&lt;f,=&lt;x,=&lt;x_initial,0,dt,N)},
+<br>
+evolution=&lt;stepN=&gt;,
+<br>
+evolution=&gt;,
+<br>
+t_total=t_total+t
+<br>
+},
+</div>
+switch(hasEqn(x)==0,=&lt;init),run=&gt;,return=out=&gt;,
+<br>
+=&lt;return}=&gt;;
+<br>
+cond_error=(hasVar(t_total)==0)&amp;hasEqn(x);
+<br>
+proc=&lt;ODE_RK4=&gt;/*nesting return*/;
+<br>
+t=1; switch(cond_error==0,=&lt;proc:1,-999/*error code*/);
     </td>
   </tr>
   <tr>
