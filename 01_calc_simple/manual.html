@@ -11492,7 +11492,7 @@ ODE_RK4
 <br>
 ODE_RK4=&lt;{
 <br>
-out=&lt;{t_total,x=&gt;},
+out=&lt;{tdummy,x=&gt;},
 <div class="condition">
 init=&lt;last{
 <br>
@@ -11502,9 +11502,7 @@ x=&lt;{z_x,z_v},
 <br>
 x_initial=&lt;{z_x0,z_v0},
 <br>
-f=&lt;{z_v,z_a-(Cd_sphere/m)*z_v},
-<br>
-t_total=0
+f=&lt;{z_v,z_a-(Cd_sphere/m)*z_v}
 <br>
 },
 </div>
@@ -11515,9 +11513,7 @@ stepN=&lt;last{N=round(t/dt),x_next=_otdummy(=&lt;f,=&lt;x,=&lt;x_initial,0,dt,N
 <br>
 evolution=&lt;stepN=&gt;,
 <br>
-evolution=&gt;,
-<br>
-t_total=t_total+N*dt
+evolution=&gt;
 <br>
 },
 </div>
@@ -11525,7 +11521,7 @@ switch(hasEqn(x)==0,=&lt;init),run=&gt;,return=out=&gt;,
 <br>
 =&lt;return}=&gt;;
 <br>
-cond_error=(hasVar(t_total)==0)&amp;hasEqn(x);
+cond_error=(hasVar(tdummy)==0)&amp;hasEqn(x);
 <br>
 proc=&lt;ODE_RK4=&gt;/*nesting return*/;
 <br>

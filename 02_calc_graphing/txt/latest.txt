@@ -59,11 +59,7 @@ clear
 local storage cleared
 
 switch(cond_error==0,=<proc:1,-999)
-(
-2:
-13.8525390625+6.629345703124999i+O(6e-2+2e-4i):
-6.1474609375-0.6402832031250005i+O(6e-2+2e-5i)
-)
+-999
 
 t=1
 t=1
@@ -71,10 +67,10 @@ t=1
 proc=<ODE_RK4=>
 stored_eqn(proc)
 
-cond_error=(hasVar(t_total)==0)&hasEqn(x)
-cond_error=0
+cond_error=(hasVar(tdummy)==0)&hasEqn(x)
+cond_error=1
 
-ODE_RK4=<{out=<{t_total,x=>},init=<last{g=-9.8,z_a=0+g*i,z_v0=20+20i,z_x0=0,dt=0.5,m=1,Cd_sphere=1,x=<{z_x,z_v},x_initial=<{z_x0,z_v0},f=<{z_v,z_a-(Cd_sphere/m)*z_v},t_total=0},run=<last{stepN=<last{N=round(t/dt),x_next=_otdummy(=<f,=<x,=<x_initial,0,dt,N)},evolution=<stepN=>,evolution=>,t_total=t_total+N*dt},switch(hasEqn(x)==0,=<init),run=>,return=out=>,=<return}=>
+ODE_RK4=<{out=<{tdummy,x=>},init=<last{g=-9.8,z_a=0+g*i,z_v0=20+20i,z_x0=0,dt=0.5,m=1,Cd_sphere=1,x=<{z_x,z_v},x_initial=<{z_x0,z_v0},f=<{z_v,z_a-(Cd_sphere/m)*z_v}},run=<last{stepN=<last{N=round(t/dt),x_next=_otdummy(=<f,=<x,=<x_initial,0,dt,N)},evolution=<stepN=>,evolution=>},switch(hasEqn(x)==0,=<init),run=>,return=out=>,=<return}=>
 stored_eqn(ODE_RK4)
 
 switch(cond_error==0,=<proc:1,-999)
@@ -378,4 +374,7 @@ drag=false&test-case=false&legend=true&axis-x=true&log-x=false&imag-x=false&axis
 --------------------------------
 --------------------------------
 
-online-simulator.github.io.3.38.16.5.16 @ Wed May 26 2021 12:50:17 GMT+0900 (日本標準時)
+storage cleared
+
+--------------------------------
+online-simulator.github.io.3.38.16.5.16 @ Wed May 26 2021 16:02:45 GMT+0900 (日本標準時)
