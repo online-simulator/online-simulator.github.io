@@ -89,7 +89,7 @@ stored_eqn(proc)
 cond_error=(hasVar(t_total)==0)&hasEqn(x)
 cond_error=0
 
-Euler_method=<{out=<{t_total,x=>},init=<last{g=-9.8,z_a=0+g*i,z_v0=20+20i,z_x0=0,dt=0.5,m=1,Cd_sphere=1,x=<{z_x,z_v},x_initial=<{z_x0,z_v0},switch(isImplicit,=<{f=<{(z_x-z_x0)/dt=z_v,m*((z_v-z_v0)/dt)=m*z_a-Cd_sphere*z_v}}:1,=<{f=<{(z_x-z_x0)/dt=z_v0,m*((z_v-z_v0)/dt)=m*z_a-Cd_sphere*z_v0}}),orderT=1,Nmax=10,epsN=max(eps*1e3,pow(dt,orderT)),isRelative_epsN=1,t_total=0},run=<last{step_iteration=<mdx=Newton(=<f,=<x,=<x_initial,,Nmax,epsN,isRelative_epsN),step_post=<{$z_x0,$z_v0}=x=>,step=<last{step_iteration=>,step_post=>},evolution=<_rn(=<step,N=round(t/dt),N),evolution=>,t_total=t_total+N*dt},switch(hasEqn(x)==0,=<init),run=>,return=out=>,=<return}=>
+Euler_method=<{out=<{t_total,x=>},init=<last{g=-9.8,z_a=0+g*i,z_v0=20+20i,z_x0=0,dt=0.5,m=1,Cd_sphere=1,x=<{z_x,z_v},x_initial=<{z_x0,z_v0},switch(isImplicit,=<{f=<{(z_x-z_x0)/dt=z_v,m*((z_v-z_v0)/dt)=m*z_a-Cd_sphere*z_v}}:1,=<{f=<{(z_x-z_x0)/dt=z_v0,m*((z_v-z_v0)/dt)=m*z_a-Cd_sphere*z_v0}}),orderT=1,epsN=max(eps*1e3,pow(dt,orderT)),isRelative_epsN=1,relative_epsN=(epsN,isRelative_epsN),t_total=0},run=<last{args_Newton=(=<f,=<x,=<x_initial,Nmax=10,Nmax,relative_epsN),step_iteration=<mdx=Newton(args_Newton),step_post=<{$z_x0,$z_v0}=x=>,step=<last{step_iteration=>,step_post=>},evolution=<_rn(=<step,N=round(t/dt),N),evolution=>,t_total=t_total+N*dt},switch(hasEqn(x)==0,=<init),run=>,return=out=>,=<return}=>
 stored_eqn(Euler_method)
 
 solvex_non_linear=>
@@ -98,16 +98,13 @@ infoLost[ i] -0.04901921620544653+2.023423045158351i+O(3e-17+6e-18i):
 0.07726186556052178-1.434248862158042i+O(1e-17+2e-16i)
 )
 
-N=6
-N=6
-
 x_initial=<{1+i,1-i}
 stored_eqn(x_initial)
 
 f=<{x0^i-2*x1=3i,3*x0+exp(x1)=5i}
 stored_eqn(f)
 
-solvex_non_linear=<{out=<x=>,delete_init=<last{delEqn(x)},init=<last{_ex(=<{x},sizer(x_initial=>),1)},run=<last{mdx=Newton(=<f,=<x,=<x_initial,,N,1e-16,1)},init=>,run=>,return=out=>,delete_init=>,=<return}=>
+solvex_non_linear=<{out=<x=>,delete_init=<last{delEqn(x)},init=<last{_ex(=<{x},sizer(x_initial=>),1)},run=<last{mdx=Newton(=<f,=<x,=<x_initial,Nmax=6,Nmax,1e-16,1)},init=>,run=>,return=out=>,delete_init=>,=<return}=>
 stored_eqn(solvex_non_linear)
 
 clear
@@ -120,9 +117,6 @@ infoLost[ri] 0.05000000000000003+8.567561244782949e-29i+O(4e-17+9e-26i),infoLost
 infoLost[ri] 2.8820733759262382e-36-0.5583333333333333i+O(5e-25+3e-36i),infoLost[ri] 0.05+4.64802404929633e-38i+O(5e-38+9e-26i),infoLost[ri] -9.847979430502188e-37+0.10833333333333334i+O(2e-25+1e-36i)
 )
 
-N=3
-N=3
-
 A=(i,2,3i:4,5i,6:7i,8,9i)
 A=(
 i,2,3i:
@@ -130,7 +124,7 @@ i,2,3i:
 7i,8,9i
 )
 
-solveAinv=<{out=<Ainv=>,delete_init=<last{delVar(sizeA),delEqn(Ainv),delEqn(x)},init=<last{sizeA=size(A),_eAinv(=<{x},sizeA,sizeA),_ex(=<{x},sizeA*sizeA,1)},run=<last{f=<{(Ainv=>)*A=identity(sizeA)},mdx=Newton(=<f,=<x,,,N,1e-16,1)},init=>,run=>,return=out=>,delete_init=>,=<return}=>
+solveAinv=<{out=<Ainv=>,delete_init=<last{delVar(sizeA),delEqn(Ainv),delEqn(x)},init=<last{sizeA=size(A),_eAinv(=<{x},sizeA,sizeA),_ex(=<{x},sizeA*sizeA,1)},run=<last{f=<{(Ainv=>)*A=identity(sizeA)},mdx=Newton(=<f,=<x,,Nmax=3,Nmax,1e-16,1)},init=>,run=>,return=out=>,delete_init=>,=<return}=>
 stored_eqn(solveAinv)
 
 clear
@@ -142,9 +136,6 @@ infoLost[ri] -4.240273974030199e-28-0.024999999999999967i+O(1e-24+2e-17i):
 infoLost[ri] 0.44999999999999996-5.918446341796992e-29i+O(4e-17+1e-24i):
 infoLost[ri] 2.333674190982996e-28-0.02500000000000003i+O(1e-24+2e-17i)
 )
-
-N=3
-N=3
 
 b={1,2i,4}
 b=(
@@ -160,7 +151,7 @@ i,2,3i:
 7i,8,9i
 )
 
-solvex_iteration=<{out=<x=>,delete_init=<last{delVar(sizeA),delEqn(x)},init=<last{sizeA=size(A),_ex(=<{x},sizeA,1)},run=<last{f=<{A*(x=>)=b},mdx=Newton(=<f,=<x,,,N,1e-16,1)},init=>,run=>,return=out=>,delete_init=>,=<return}=>
+solvex_iteration=<{out=<x=>,delete_init=<last{delVar(sizeA),delEqn(x)},init=<last{sizeA=size(A),_ex(=<{x},sizeA,1)},run=<last{f=<{A*(x=>)=b},mdx=Newton(=<f,=<x,,Nmax=3,Nmax,1e-16,1)},init=>,run=>,return=out=>,delete_init=>,=<return}=>
 stored_eqn(solvex_iteration)
 
 clear
@@ -374,7 +365,4 @@ drag=false&test-case=false&legend=true&axis-x=true&log-x=false&imag-x=false&axis
 --------------------------------
 --------------------------------
 
-storage cleared
-
---------------------------------
-online-simulator.github.io.3.38.16.5.16 @ Wed May 26 2021 16:02:45 GMT+0900 (日本標準時)
+online-simulator.github.io.3.38.16.5.16 @ Wed May 26 2021 23:08:08 GMT+0900 (日本標準時)

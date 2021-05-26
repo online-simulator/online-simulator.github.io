@@ -6062,7 +6062,7 @@ x=-2; (cond_m,=&lt;proc_m:cond_p,=&lt;proc_p) -> [MyErr]Invalid BTe([object Obje
 <br>
 x=-2; switch(cond_m,=&lt;proc_m:cond_p,=&lt;proc_p) -> 2
 <br>
-・丸<a href="#span-out-BT">括弧</a>()で<a href="#span-out-substitution-equation">式代入</a>のnesting可
+・<a href="#span-out-BT">丸括弧</a>()で<a href="#span-out-substitution">代入</a>・<a href="#span-out-substitution-equation">式代入</a>のnesting可（<a href="#span-out-BT">括弧</a>より優先の<a href="#span-out-FNc">最上位関数</a>を除く）
 <br>
 ・対の処理を値渡しで記述する場合
 <br>
@@ -9781,7 +9781,7 @@ infoLost[ i] -0.04901921620544653+2.023423045158351i:
 )
 <br>
 <br>
-同じく引数の列vectorに丸括弧()を使用する場合
+同じく引数の列vectorに<a href="#span-out-BT">丸括弧</a>()を使用する場合
 <br>
 ・連立非線形方程式と初期値を定義する
 <br>
@@ -11289,7 +11289,7 @@ run=&lt;last{
 <br>
 f=&lt;{A*(x=&gt;)=b},
 <br>
-mdx=Newton(=&lt;f,=&lt;x,,,N,1e-16,1)
+mdx=Newton(=&lt;f,=&lt;x,,Nmax=3,Nmax,1e-16,1)
 <br>
 },
 </div>
@@ -11297,7 +11297,7 @@ init=&gt;,run=&gt;,return=out=&gt;,delete_init=&gt;,
 <br>
 =&lt;return}=&gt;;
 <br>
-A=(i,2,3i:4,5i,6:7i,8,9i); b={1,2i,4}; N=3; solvex_iteration=&gt;;
+A=(i,2,3i:4,5i,6:7i,8,9i); b={1,2i,4}; solvex_iteration=&gt;;
     </td>
   </tr>
   <tr>
@@ -11328,7 +11328,7 @@ run=&lt;last{
 <br>
 f=&lt;{(Ainv=&gt;)*A=identity(sizeA)},
 <br>
-mdx=Newton(=&lt;f,=&lt;x,,,N,1e-16,1)
+mdx=Newton(=&lt;f,=&lt;x,,Nmax=3,Nmax,1e-16,1)
 <br>
 },
 </div>
@@ -11336,7 +11336,7 @@ init=&gt;,run=&gt;,return=out=&gt;,delete_init=&gt;,
 <br>
 =&lt;return}=&gt;;
 <br>
-A=(i,2,3i:4,5i,6:7i,8,9i); N=3; solveAinv=&gt;;
+A=(i,2,3i:4,5i,6:7i,8,9i); solveAinv=&gt;;
     </td>
   </tr>
   <tr>
@@ -11366,7 +11366,7 @@ init=&lt;last{_ex(=&lt;{x},sizer(x_initial=&gt;),1)},
 <div class="run">
 run=&lt;last{
 <br>
-mdx=Newton(=&lt;f,=&lt;x,=&lt;x_initial,,N,1e-16,1)
+mdx=Newton(=&lt;f,=&lt;x,=&lt;x_initial,Nmax=6,Nmax,1e-16,1)
 <br>
 },
 </div>
@@ -11374,7 +11374,7 @@ init=&gt;,run=&gt;,return=out=&gt;,delete_init=&gt;,
 <br>
 =&lt;return}=&gt;;
 <br>
-f=&lt;{x0^i-2*x1=3i,3*x0+exp(x1)=5i}; x_initial=&lt;{1+i,1-i}; N=6; solvex_non_linear=&gt;;
+f=&lt;{x0^i-2*x1=3i,3*x0+exp(x1)=5i}; x_initial=&lt;{1+i,1-i}; solvex_non_linear=&gt;;
     </td>
   </tr>
   <tr>
@@ -11417,11 +11417,11 @@ isImplicit,
 <br>
 orderT=1,
 <br>
-Nmax=10,
-<br>
 epsN=max(eps*1e3,pow(dt,orderT)),
 <br>
 isRelative_epsN=1,
+<br>
+relative_epsN=(epsN,isRelative_epsN)/*(epsN,flag)*/,
 <br>
 t_total=0
 <br>
@@ -11430,7 +11430,9 @@ t_total=0
 <div class="run">
 run=&lt;last{
 <br>
-step_iteration=&lt;mdx=Newton(=&lt;f,=&lt;x,=&lt;x_initial,,Nmax,epsN,isRelative_epsN),
+args_Newton=(=&lt;f,=&lt;x,=&lt;x_initial,Nmax=10,Nmax,relative_epsN)/*(args)*/,
+<br>
+step_iteration=&lt;mdx=Newton(args_Newton),
 <br>
 step_post=&lt;{$z_x0,$z_v0}=x=&gt;,
 <br>
