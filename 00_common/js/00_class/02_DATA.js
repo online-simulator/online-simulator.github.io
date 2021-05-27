@@ -91,12 +91,17 @@ My_entry.DATA.prototype.arr2num = function(arr){
   var arri = arr[arr.length-1];
   return arri[arri.length-1];
 };
-My_entry.DATA.prototype.out2num = function(out){
+My_entry.DATA.prototype.tree2num = function(tree){
   var self = this;
-  var mat = (out.length)? out[out.length-1][0].mat: null;
+  var mat = (tree)? tree.mat: null;
   var arr = (mat)? mat.arr: null;
   var _num = (arr)? self.arr2num(arr): null;
   return _num;
+};
+My_entry.DATA.prototype.out2num = function(out){
+  var self = this;
+  var tree = (out.length)? out[out.length-1][0]: null;
+  return self.tree2num(tree);
 };
 My_entry.DATA.prototype.arr2args = function(arr){
   var self = this;

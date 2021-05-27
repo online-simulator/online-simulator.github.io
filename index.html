@@ -227,6 +227,58 @@ Y/M/D
 <tbody>
   <tr>
     <th>
+3.39.16.5.16
+    </th>
+    <td class="types">
+Calculator
+    </td>
+    <td>
+2.30.15
+    </td>
+    <td>
+minor update
+    </td>
+    <td>
+[Calculator]
+<br>
+・再帰高階関数に4th-arg Call-by-Equation's condition-break added
+<br>
+　<a href="01_calc_simple/manual.html#span-out-FNh-RX">[manual]Calculator-再帰高階関数</a>
+<br>
+　_rn(=&lt;{n+1},,100,=&lt;{n&gt;=50}) -> 51
+<br>
+　_rn(=&lt;{Pn=Pn*2},Pn=1,10,=&lt;{Pn>100}); Pn -> 128
+<br>
+・初期表示のtest caseにreccursive function's break added
+<br>
+・manual更新
+<br>
+　追加校正2箇所
+<br>
+・manual残課題[TBD-status]scopeの実装を追加
+<br>
+　<a href="01_calc_simple/manual.html#span-out-remain">[manual]Calculator-残課題</a>
+<br>
+　now before:
+<br>
+　　[a=2,[a=1,a],a] -> (0,0,1,1)
+<br>
+　　[a=2,=&lt;[a=1,=&lt;a]=&gt;+a]=&gt; -> 2
+<br>
+　future after:
+<br>
+　　[a=2,[a=1,a],a] -> (0,0,1,2)
+<br>
+　　[a=2,=&lt;[a=1,=&lt;a]=&gt;+a]=&gt; -> 3
+<br>
+・初期表示のtest caseにscope added in advance
+    </td>
+    <td>
+2021/5/27
+    </td>
+  </tr>
+  <tr>
+    <th>
 3.38.16.5.16
     </th>
     <td class="types">
@@ -257,7 +309,7 @@ minor update
 <br>
 　<a href="01_calc_simple/manual.html#span-out-FNmh-OX">[manual]Calculator-ODE高階行列関数</a>
 <br>
-・行列要素pattern matchingのnesting allowed
+・行列要素pattern matchingのnesting disabled　⇒　enabled
 <br>
 　<a href="01_calc_simple/manual.html#span-out-matching">[manual]Calculator-行列要素pattern matching</a>
 <br>
@@ -277,7 +329,9 @@ minor update
 <br>
 　追加校正21箇所
 <br>
-　追加校正2箇所
+　追加校正1箇所
+<br>
+　仕様追記1箇所
 <br>
 [Graphing Calculator]
 <br>

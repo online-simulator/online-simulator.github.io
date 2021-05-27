@@ -872,6 +872,8 @@ panel下段について記述する
 <br>
 ・history欄下のlinkから演算履歴の全文をtext保存可
 <br>
+　入力欄のspell-check等でbrowser-busy状態の場合、download開始の待ち時間が生じる
+<br>
 <br>
 一般的な電卓の操作性を再現する場合、all checkbox unchecked
 <br>
@@ -6379,6 +6381,10 @@ _rdummy<a href="#span-out-vars-symbol">変数名symbol</a>(=&lt;第1引数,第2�
 <br>
 ・第3引数: 再帰回数（正の整数）を値渡し
 <br>
+<span class="run">Ver.2.30.15</span>以降、第4引数追加
+<br>
+・第4引数: 再帰処理をbreakする条件（not0でbreak）を<a href="#span-out-call-by-equation">式渡し</a>
+<br>
 <br>
 test caseを列挙する
 <br>
@@ -6434,9 +6440,36 @@ _rn(=&lt;{An=An*(1,2:3,4)},An=(1,:,1),5); An -> (1069,1558:2337,3406)
 <br>
 ・2変数の多重再帰
 <br>
-_ry(=&lt;{_rx(=&lt;{x+y},1,2)},1,2) || (1+(2+1))+3 -> 7
+_ry(=&lt;{_rx(=&lt;{x+y},1,2)},1,2) || (1+(3))+3/*(x)+y*/ -> 7
 <br>
 _Ry(=&lt;{_Rx(=&lt;{x+y+1},1,2)},1,2) -> 13
+<br>
+<br>
+<span class="run">Ver.2.30.15</span>以降、第4引数追加
+<br>
+・第4引数で再帰処理のbreak条件を指定可
+<br>
+・本来、Maximum call stack sizeの制限O(10000~1000000)を受けるが、
+<br>
+・単なるfor-loopのため、再帰回数とbreak条件以外の制限はない
+<br>
+・test caseを列挙する
+<br>
+_rn(=&lt;{n+1},,100,=&lt;{n&gt;=50}) -> 51
+<br>
+_rn(=&lt;{n+1},,1000000,=&lt;{n&gt;=500000}) -> 500001
+<br>
+_rn(=&lt;{Pn=Pn+1},Pn=0,100,=&lt;{Pn&gt;=50}); Pn -> 50
+<br>
+_rn(=&lt;{Pn=Pn+1},Pn=0,100,=&lt;{n&gt;=50}); Pn -> 100
+<br>
+_rn(=&lt;{last{Pn=Pn+1,Pn}},Pn=0,100,=&lt;{n&gt;=50}); Pn -> 51
+<br>
+_rn(=&lt;{Pn=Pn*2},Pn=1,10,=&lt;{Pn>100}); Pn -> 128
+<br>
+_rn(=&lt;{last{Pn=Pn*2,n+1}},Pn=1,10,=&lt;{Pn>100}) -> 7
+<br>
+_ry(=&lt;{_rx(=&lt;{x+y},1,2,=&lt;{y==1})},1,2) || (1+(2))+2/*(x)+y*/ -> 5
     </td>
   </tr>
   <tr>
@@ -10275,14 +10308,50 @@ f=&lt;last{V=1,E=0,k=1,I=exp(k*(V-E))-exp(-k*(V-E))}
     </th>
     <td>
 <span id="span-out-remain"></span>
-残課題について記述する
+残課題について優先順に記述する
+<br>
+<br>
+[TBD-status]
+<a href="#span-out-types-vars">scope</a>の実装（影響範囲大で未確定）
+<br>
+・now before
+<br>
+[a=2,[a=1,a],a] -> (0,0,1,1)
+<br>
+[a=2,=&lt;[a=1,=&lt;a]=&gt;+a]=&gt; -> 2
+<br>
+・future after
+<br>
+[a=2,[a=1,a],a] -> (0,0,1,2)
+<br>
+[a=2,=&lt;[a=1,=&lt;a]=&gt;+a]=&gt; -> 3
+<br>
+・実装前後で演算結果が変わるtest caseはないはず（<a href="#span-out-vars-symbol">変数名symbol</a>は重複しない）
+<br>
+・過去の後方互換性をほぼ完全に維持する場合、<a href="#span-out-BT">角括弧</a>[]のみ<a href="#span-out-types-vars">scope</a>を追加
+<br>
+・後方互換性を完全に維持する場合、URL parameter's useScopeを追加（避けたい）
+<br>
+・store時、scope objectをref object同列に追加
+<br>
+・restore時、parent-treeへの再帰的なreference手段が必要（<a href="#span-out-flow">parse</a>段階で追加が理想）
+<br>
+・tree置換時、未知変数存在の場合、child-scope object継承が必要の可能性
+<br>
+・[a=1,=&lt;a]のtree置換後の<a href="#span-out-eqns-call">式読出し</a>時、<a href="#span-out-vars">変数</a>aのsearch-precedence（短絡評価）
+<br>
+child-scope object || self-scope object || parents-scope object || local <a href="#span-out-storage">storage</a> object
+<br>
+・<a href="#span-out-FNc">最上位関数</a>のhas対象も同様、del対象は変更なし
+<br>
+・<a href="#span-out-storage">storage</a>のみを扱う<a href="#span-out-command">命令文</a>への影響なし
 <br>
 <br>
 <span class="run">Ver.2.19.6</span>以降、
 <a href="#span-out-substitution-equation">関数の参照渡しの仕様を廃止</a>
 して解決
 <br>
-<del>
+[Resolved-status]<del>
 <a href="#span-out-FN">関数</a>の参照を返値に指定した場合、予期せぬerror終了
 <br>
 (,trans) || (trans)=&gt; -> Unexpected error
@@ -10295,9 +10364,10 @@ f=&lt;last{V=1,E=0,k=1,I=exp(k*(V-E))-exp(-k*(V-E))}
 </del>
 <br>
 <br>
+<span class="run">Ver.2.25.12</span>以降、
 <a href="#span-out-plot2d-command">plot2d-command入力仕様</a>参照
 <br>
-<del>
+[Resolved-status]<del>
 plot2d-commandの実装
 <br>
 ・予め演算した結果をplotする場合の仕様が必要

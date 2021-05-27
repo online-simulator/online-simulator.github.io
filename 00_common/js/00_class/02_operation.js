@@ -1188,11 +1188,24 @@ My_entry.operation.prototype.RX = function(data, rightArr, tagObj){
     if(a.com && b.com){
       var tree_eqn = self.tree2tree_eqn(data, args[0]);
       var br = Math.floor(b.com.r);
-      var RX = function(callback){
-        for(var i=1; i<=br; ++i){  // i=1
-          callback(i);
-        }
-      };
+      /* Ver.2.30.15 -> */
+      var arg3 = args[3];
+      var tree_eqn_break = (arg3)? self.tree2tree_eqn(data, arg3): null;
+      var RX = (tree_eqn_break)?
+        function(callback){
+          for(var i=1; i<=br; ++i){  // i=1
+            callback(i);
+            var tree_break = self.tree_eqn2tree(data, tree_eqn_break);
+            var num = DATA.tree2num(tree_break);
+            if(num && num.com.r) break;
+          }
+        }:
+        function(callback){
+          for(var i=1; i<=br; ++i){  // i=1
+            callback(i);
+          }
+        };
+      /* -> Ver.2.30.15 */
       var name_var = tagObj.val.name;
       var tree_var = self.restore_var(vars, name_var);
       var tree = DATA.num2tree(a);
