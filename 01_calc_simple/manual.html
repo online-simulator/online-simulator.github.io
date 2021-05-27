@@ -6484,13 +6484,13 @@ _ry(=&lt;{_rx(=&lt;{x+y},1,2,=&lt;{y==1})},1,2) || (1+(2))+2<span class="selecti
 <br>
 ・break条件にn==1を設定
 <br>
-_rn(=&lt;{last{Pn=Pn*n,n-1}},last(Pn=1,10),1e6,=&lt;{n==1}),Pn -> 0,3628800
+_rn(=&lt;{last{Pn=Pn*n,n-1}},last(Pn=1,10),1e6,=&lt;{n==1}),Pn -> (0,3628800)
 <br>
 ・Pn=Pn*1の演算後、n-1して0が返る
 <br>
 ・自明の演算Pn=Pn*1を除く場合、break条件にn==2を設定
 <br>
-_rn(=&lt;{last{Pn=Pn*n,n-1}},last(Pn=1,10),1e6,=&lt;{n==2}),Pn -> 1,3628800
+_rn(=&lt;{last{Pn=Pn*n,n-1}},last(Pn=1,10),1e6,=&lt;{n==2}),Pn -> (1,3628800)
 <br>
 ・同様に、Pn=Pn*2の演算後、n-1して1が返る
 <br>
