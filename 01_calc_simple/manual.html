@@ -2196,7 +2196,7 @@ local storage
 <br>
 global storage
 <br>
-・演算実行確定1回毎に返される<a href="#span-out-vars">変数</a>・<a href="#span-out-eqns">式変数</a>を累積保存する
+・演算実行確定1回毎に返る<a href="#span-out-vars">変数</a>・<a href="#span-out-eqns">式変数</a>を累積保存する
 <br>
 ・保存された変数をglobal変数と呼ぶ
 <br>
@@ -4314,11 +4314,11 @@ htrans(1-i,1-2i:1-3i,1-4i) || hermitian(1-i,1-2i:1-3i,1-4i) -> (1+i,1+3i:1+2i,1+
 <br>
 列vectorのEuclidian norm（vectorの長さ）
 <br>
-norm(1:2:3) || norm{1,2,3} -> 3.7416573867739413
+norm(1:2:3) || norm{1,2,3} || norm({1,2,3}) -> 3.7416573867739413
 <br>
-norm(-i:2i:-3i) || norm{-i,2i,-3i} -> 3.7416573867739413
+norm(-i:2i:-3i) || norm{-i,2i,-3i} || norm({-i,2i,-3i}) -> 3.7416573867739413
 <br>
-norm((1-i)/sqrt2:2i:-3i) || norm{(1-i)/sqrt2,2i,-3i} -> 3.7416573867739413
+norm((1-i)/sqrt2:2i:-3i) || norm({(1-i)/sqrt2,2i,-3i}) -> 3.7416573867739413
 <br>
 ・<a href="#span-out-ope">有次元</a>の場合、同義
 <br>
@@ -6440,7 +6440,7 @@ _rn(=&lt;{An=An*(1,2:3,4)},An=(1,:,1),5); An -> (1069,1558:2337,3406)
 <br>
 ・2変数の多重再帰
 <br>
-_ry(=&lt;{_rx(=&lt;{x+y},1,2)},1,2) || (1+(3))+3/*(x)+y*/ -> 7
+_ry(=&lt;{_rx(=&lt;{x+y},1,2)},1,2) || (1+(3))+3<span class="selection">/*(x)+y*/</span> -> 7
 <br>
 _Ry(=&lt;{_Rx(=&lt;{x+y+1},1,2)},1,2) -> 13
 <br>
@@ -6471,7 +6471,28 @@ _rn(=&lt;{Pn=Pn*2},Pn=1,10,=&lt;{Pn>100}); Pn -> 128
 <br>
 _rn(=&lt;{last{Pn=Pn*2,n+1}},Pn=1,10,=&lt;{Pn>100}) -> 7
 <br>
-_ry(=&lt;{_rx(=&lt;{x+y},1,2,=&lt;{y==1})},1,2) || (1+(2))+2/*(x)+y*/ -> 5
+_ry(=&lt;{_rx(=&lt;{x+y},1,2,=&lt;{y==1})},1,2) || (1+(2))+2<span class="selection">/*(x)+y*/</span> -> 5
+<br>
+<br>
+階乗の一例10!=3628800を示す
+<br>
+・n=10を初期値に設定
+<br>
+・Pn=1を初期値とする漸化式last{Pn=Pn*n,n-1}を設定
+<br>
+・一般的な再帰回数上限値1e6を設定
+<br>
+・break条件にn==1を設定
+<br>
+_rn(=&lt;{last{Pn=Pn*n,n-1}},last(Pn=1,10),1e6,=&lt;{n==1}),Pn -> 0,3628800
+<br>
+・Pn=Pn*1の演算後、n-1して0が返る
+<br>
+・自明の演算Pn=Pn*1を除く場合、break条件にn==2を設定
+<br>
+_rn(=&lt;{last{Pn=Pn*n,n-1}},last(Pn=1,10),1e6,=&lt;{n==2}),Pn -> 1,3628800
+<br>
+・同様に、Pn=Pn*2の演算後、n-1して1が返る
 <br>
 <br>
 応用例を示す
@@ -6502,21 +6523,21 @@ clear;
 <br>
 run=&lt;last{mdx=Newton(=&lt;{x0+2*x1=5,3*x0+4*x1=6},=&lt;{x0,x1})};
 <br>
-_rn(=&lt;run,Nmax=10,Nmax,=&lt;{norm(mdx)/norm{x0,x1}&lt;1e-3});
+_rn(=&lt;run,Nmax=10,Nmax,=&lt;{norm(mdx)/norm({x0,x1})&lt;1e-3});
 <br>
 norm(mdx) -> 2.0548659974995737e-10
 <br>
-norm(mdx)/norm{x0,x1} -> 3.4129466559497216e-11
+norm(mdx)/norm({x0,x1}) -> 3.4129466559497216e-11
 <br>
 clear;
 <br>
 run=&lt;last{mdx=Newton(=&lt;{x0+2*x1=5,3*x0+4*x1=6},=&lt;{x0,x1})};
 <br>
-_rn(=&lt;run,Nmax=10,Nmax,=&lt;{norm(mdx)/norm{x0,x1}&lt;1e-12});
+_rn(=&lt;run,Nmax=10,Nmax,=&lt;{norm(mdx)/norm({x0,x1})&lt;1e-12});
 <br>
 norm(mdx) -> infoLost[ri] 2.2204460494935903e-15
 <br>
-norm(mdx)/norm{x0,x1} -> infoLost[ri] 3.6879601533907295e-16
+norm(mdx)/norm({x0,x1}) -> infoLost[ri] 3.6879601533907295e-16
     </td>
   </tr>
   <tr>
@@ -7315,13 +7336,13 @@ storage cleared
 <br>
 {$x0,$x1}={,};
 <br>
-mdx=Newton(=&lt;{x0+2*x1=5,3*x0+4*x1=6},=&lt;{x0,x1},,,10,1e-8*norm{x0,x1});
+mdx=Newton(=&lt;{x0+2*x1=5,3*x0+4*x1=6},=&lt;{x0,x1},,,10,1e-8*norm({x0,x1}));
 <br>
 norm(mdx) -> infoLost[ri] 2.2204460494895584e-15
 <br>
-1e-8*norm{x0,x1} -> infoLost[ri] 6.02079728939615e-8+O(2e-33i)
+1e-8*norm({x0,x1}) -> infoLost[ri] 6.02079728939615e-8+O(2e-33i)
 <br>
-norm(mdx)/norm{x0,x1} -> infoLost[ri] 3.6879601533840316e-16+O(1e-41i)
+norm(mdx)/norm({x0,x1}) -> infoLost[ri] 3.6879601533840316e-16+O(1e-41i)
 <br>
 {x0,x1} ->
 <br>
@@ -7343,7 +7364,7 @@ mdx=Newton(=&lt;{x0+2*x1=5,3*x0+4*x1=6},=&lt;{x0,x1},,,10,1e-8,1);
 <br>
 norm(mdx) -> 2.0548659974995737e-10
 <br>
-norm(mdx)/norm{x0,x1} -> 3.4129466559497216e-11+O(4e-22+4e-22i)
+norm(mdx)/norm({x0,x1}) -> 3.4129466559497216e-11+O(4e-22+4e-22i)
 <br>
 {x0,x1} ->
 <br>
@@ -7684,9 +7705,7 @@ L*R -> (2,1-i:1+i,1)
 目次
 </a>
 <br>
-有限
-<br>
-差分法
+有限差分法
     </th>
     <td>
 <span id="span-out-fdm"></span>
