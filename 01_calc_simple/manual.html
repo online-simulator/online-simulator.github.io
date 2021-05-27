@@ -6455,6 +6455,8 @@ _Ry(=&lt;{_Rx(=&lt;{x+y+1},1,2)},1,2) -> 13
 <br>
 ・test caseを列挙する
 <br>
+_rn(=&lt;{n+1},,100,=&lt;1) -> 1
+<br>
 _rn(=&lt;{n+1},,100,=&lt;{n&gt;=50}) -> 51
 <br>
 _rn(=&lt;{n+1},,1000000,=&lt;{n&gt;=500000}) -> 500001
@@ -6470,6 +6472,51 @@ _rn(=&lt;{Pn=Pn*2},Pn=1,10,=&lt;{Pn>100}); Pn -> 128
 _rn(=&lt;{last{Pn=Pn*2,n+1}},Pn=1,10,=&lt;{Pn>100}) -> 7
 <br>
 _ry(=&lt;{_rx(=&lt;{x+y},1,2,=&lt;{y==1})},1,2) || (1+(2))+2/*(x)+y*/ -> 5
+<br>
+<br>
+応用例を示す
+<br>
+・<a href="#span-out-non-linear">非線形方程式の解法</a>を使用
+<br>
+・絶対誤差指定で収束判定条件を設定する場合
+<br>
+clear;
+<br>
+run=&lt;last{mdx=Newton(=&lt;{x0+2*x1=5,3*x0+4*x1=6},=&lt;{x0,x1})};
+<br>
+_rn(=&lt;run,Nmax=10,Nmax,=&lt;{norm(mdx)&lt;1e-3});
+<br>
+norm(mdx) -> 2.0548659974995737e-10
+<br>
+clear;
+<br>
+run=&lt;last{mdx=Newton(=&lt;{x0+2*x1=5,3*x0+4*x1=6},=&lt;{x0,x1})};
+<br>
+_rn(=&lt;run,Nmax=10,Nmax,=&lt;{norm(mdx)&lt;1e-12});
+<br>
+norm(mdx) -> infoLost[ri] 2.2204460494935903e-15
+<br>
+・相対誤差指定で収束判定条件を設定する場合
+<br>
+clear;
+<br>
+run=&lt;last{mdx=Newton(=&lt;{x0+2*x1=5,3*x0+4*x1=6},=&lt;{x0,x1})};
+<br>
+_rn(=&lt;run,Nmax=10,Nmax,=&lt;{norm(mdx)/norm{x0,x1}&lt;1e-3});
+<br>
+norm(mdx) -> 2.0548659974995737e-10
+<br>
+norm(mdx)/norm{x0,x1} -> 3.4129466559497216e-11
+<br>
+clear;
+<br>
+run=&lt;last{mdx=Newton(=&lt;{x0+2*x1=5,3*x0+4*x1=6},=&lt;{x0,x1})};
+<br>
+_rn(=&lt;run,Nmax=10,Nmax,=&lt;{norm(mdx)/norm{x0,x1}&lt;1e-12});
+<br>
+norm(mdx) -> infoLost[ri] 2.2204460494935903e-15
+<br>
+norm(mdx)/norm{x0,x1} -> infoLost[ri] 3.6879601533907295e-16
     </td>
   </tr>
   <tr>
@@ -8221,7 +8268,7 @@ z_v0 -> infoLost[ri] 0.006014573196434349-9.791038285937313i
 z_v_terminal=(m/Cd_sphere)*z_a; z_v_terminal -> -9.8i
 <br>
 <br>
-近似解の収束判定条件を設ける場合、stepの一例を示す
+近似解の収束判定条件を設定する場合、stepの一例を示す
 <br>
 ・上記の線形方程式の場合、反復3回で十分収束するため、固定値を設定
 <br>
