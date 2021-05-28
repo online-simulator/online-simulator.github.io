@@ -98,13 +98,17 @@ My_entry.calc_graphing.prototype.re_output_log = function(){
 };
 My_entry.calc_graphing.prototype.output_log_plot = function(isFinal){
   var self = this;
+  /* Ver.2.30.15 -> */
   /* Ver.2.15.6 -> */
   var arr_data_in = self.worker_plot.arr_data_in;
   var arr_data_out = self.worker_plot.arr_data_out;
-  var len_in = (arr_data_in)? arr_data_in.length: 0;
-  var len_out = (arr_data_out)? Object.keys(arr_data_out).length: 0;
+  if(!(self.isCheckedError)){
+    var len_in = (arr_data_in)? arr_data_in.length: 0;
+    var len_out = (arr_data_out)? Object.keys(arr_data_out).length: 0;
+    self.io.write_text(self.elems.d, "finished "+len_out+"/"+len_in);
+  }
   /* -> Ver.2.15.6 */
-  self.io.write_text(self.elems.d, "finished "+len_out+"/"+len_in);
+  /* -> Ver.2.30.15 */
   /* Ver.2.16.6 -> */
   if(isFinal){
     self.elems.d.focus();
