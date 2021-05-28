@@ -161,7 +161,7 @@ Checker
   </tr>
   <tr>
     <td>
-<a title="MathJax表示Checker" href="81_mathjax/index.html">MathJax表示Checker※CDN通信有り</a>
+<a title="MathJax表示Checker" href="81_mathjax/index.html">MathJax表示Checker※CDN通信あり</a>
     </td>
     <td>
     </td>
@@ -241,16 +241,6 @@ minor update
     <td>
 [Calculator]
 <br>
-・再帰高階関数に4th-arg Call-by-Equation's condition-break added
-<br>
-　<a href="01_calc_simple/manual.html#span-out-FNh-RX">[manual]Calculator-再帰高階関数</a>
-<br>
-　_rn(=&lt;{n+1},,100,=&lt;{n&gt;=50}) -> 51
-<br>
-　_rn(=&lt;{Pn=Pn*2},Pn=1,10,=&lt;{Pn>100}); Pn -> 128
-<br>
-・初期表示のtest caseにreccursive function's break added
-<br>
 ・omitted Call-by-Equation's bracket disabled　⇒　enabled
 <br>
 　clear; _sn(=&lt;n,0,2) -> [MyErr]Invalid =&lt;Call-by-Equation
@@ -258,6 +248,20 @@ minor update
 　clear; n=&lt;n; _sn(=&lt;n,0,2) || _rn(=&lt;n=&gt;,0,2) || 0+1+2 -> 3
 <br>
 　clear; _sn(=&lt;n+1,0,2) || _sn(=&lt;{n+1},0,2) || 1+2+3 -> 6
+<br>
+・再帰高階関数に4th-arg Call-by-Equation's condition-break added
+<br>
+　<a href="01_calc_simple/manual.html#span-out-FNh-RX">[manual]Calculator-再帰高階関数</a>
+<br>
+　_rn(=&lt;{n+1},,100,=&lt;{n&gt;=50}) -> 51
+<br>
+　_rn(=&lt;n+1,,100,=&lt;n&gt;=50) -> 51
+<br>
+　_rn(=&lt;{Pn=Pn*2},Pn=1,10,=&lt;{Pn>100}); Pn -> 128
+<br>
+　_rn(=&lt;Pn=Pn*2,Pn=1,10,=&lt;Pn>100); Pn -> 128
+<br>
+・初期表示のtest caseにreccursive function's break added
 <br>
 　<a href="01_calc_simple/manual.html#span-out-call-by-equation">[manual]Calculator-式渡し</a>
 <br>
@@ -272,6 +276,8 @@ minor update
 　追加校正1箇所・再校正1箇所
 <br>
 　追加校正8箇所
+<br>
+　追加校正56箇所
 <br>
 ・manual残課題[TBD-status]scopeの実装を追加
 <br>
@@ -613,7 +619,7 @@ minor change
 <br>
 ・{}-button追加
 <br>
-・ans-buttonをC-input無しのinsert-textに変更
+・ans-buttonをC-inputなしのinsert-textに変更
 <br>
 ・time evolutionの時系列data作成の一例を追加
 <br>
@@ -1327,7 +1333,7 @@ minor change
 <br>
 　double-tapによるzoom抑止
 <br>
-　online-testにて全修正（操作性に難有り）
+　online-testにて全修正（操作性に難あり）
 <br>
 [Simple Calculator]
 <br>
@@ -1467,7 +1473,7 @@ minor bug-fix
     <td>
 [Graphing Calculator]
 <br>
-・Ver.2.11.5log表示不具合の追加修正（入力data無しのcaseに対応）
+・Ver.2.11.5log表示不具合の追加修正（入力dataなしのcaseに対応）
 <br>
 　Unexpected error　⇒　finished 0/0
 <br>
@@ -1625,7 +1631,7 @@ minor update
 <br>
 　fillを含めて合成に変更（既定の描画は変更なし）
 <br>
-・背景へのlayer合成順の同期保証処理（shadow無しでdraw）を追加
+・背景へのlayer合成順の同期保証処理（shadowなしでdraw）を追加
     </td>
     <td>
 2021/4/18
@@ -1902,11 +1908,11 @@ minor update
     <td>
 [音源wave PCM生成（演奏）]
 <br>
-・1channelのみの時系列data再生時のvolume不具合を修正
+・1channelのみの時系列data再生時のoutput's sound volume不具合を修正
 <br>
 　不具合発生期間: 2021/1/11~2021/4/3
 <br>
-　1/11変化点から帯域の上限overによるvolumeに問題あり
+　1/11変化点からband-widthのlimit-overによるsound volumeに問題あり
 <br>
 [音源wave PCM生成]
 <br>
@@ -1956,7 +1962,7 @@ minor update
 <br>
 ・Graphing Calculatorの実装準備
 <br>
-　演算結果の表記選択変更時のlog表示を再演算無しで自動更新
+　演算結果の表記選択変更時のlog表示を再演算なしで自動更新
 <br>
 　post処理を最適化
     </td>
@@ -1980,7 +1986,7 @@ minor change
     <td>
 [Workerを使用するpage共通]
 <br>
-・data.iの初期化処理を各mainからoriginal_worker内に移動
+・data.iの初期化処理を移動各main　⇒　original_worker内
     </td>
     <td>
 2021/3/28
@@ -2138,7 +2144,7 @@ minor update
 <br>
 　{:1,2} || {0:1,2} -> (0,1)　⇒　{:1,2} || {0:1,2} -> (0,1:0,2)
 <br>
-・入力dataの全角⇒半角変換処理をparser外部から内部に移動
+・入力dataの全角⇒半角変換処理を移動parser外部　⇒　内部
 <br>
 ・定数扱いの行列を追加
 <br>
@@ -2172,7 +2178,7 @@ minor update
 <br>
 ・Jacobi高階関数に第4引数（1階偏微分の差分刻み）を追加
 <br>
-・情報落ち発生の評価をabout評価から厳密評価に変更
+・情報落ち発生の評価方法を変更about評価　⇒　厳密評価
     </td>
     <td>
 2021/3/12
@@ -2525,11 +2531,11 @@ fatal bug-fix
     <td>
 [音源wave PCM生成]
 <br>
-・header部分の4Bytesの型を符号有りから無しに修正
+・header部分の4Bytesの型を修正signed　⇒　unsigned
 <br>
 　file-size大のwave生成時に問題あり
 <br>
-・低音質dataの型を符号有りから無しに修正
+・低音質dataの型を修正signed　⇒　unsigned
 <br>
 　単音と和音は問題なかったが、演奏のbinary合成時に問題あり
     </td>

@@ -2136,7 +2136,8 @@ My_entry.operation.prototype.restore_eqn = function(eqns, name){
   }
   return _tree;
 };
-My_entry.operation.prototype.tree2restore_eqn = function(tree){
+/* Ver.2.30.15 name changed tree2restore_eqn -> tree_no_name2restore_eqn */
+My_entry.operation.prototype.tree_no_name2restore_eqn = function(tree){
   var self = this;
   var _tree = null;
   /* Ver.2.27.15 -> */
@@ -2168,7 +2169,7 @@ My_entry.operation.prototype.REe = function(data, i0, tagName, tagObj){
   var leftTree = trees[is];
   if(!(leftTree)) throw "Invalid null=>";  // Ver.2.27.15
   var name_eqn = self.get_tagVal(leftTree, "REv", "val");
-  var tree_eqn = (name_eqn)? self.restore_eqn(eqns, name_eqn): self.tree2restore_eqn(leftTree);
+  var tree_eqn = (name_eqn)? self.restore_eqn(eqns, name_eqn): self.tree_no_name2restore_eqn(leftTree);
   if(tree_eqn){
     var isREe = tree_eqn[self.config.BT.REe];
     /* Ver.2.20.8 -> */
@@ -2244,7 +2245,7 @@ My_entry.operation.prototype.SEans = function(data, i0, tagName, tagObj){
   var is = i0;
   var ie = i0;
   if(i0 === 0){
-    /* Ver.2.29.15 pattern matching nesting allowed -> */
+    /* Ver.2.29.15 pattern matching nesting enabled -> */
     if((self.params.hasUndefVars || 0) !== 0){
       throw "Invalid var isFound";
     }

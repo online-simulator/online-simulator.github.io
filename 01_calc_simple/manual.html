@@ -693,9 +693,9 @@ FourierN
 <br>
 ・誤差のOrderをLandauの記号O(指数表記1e-16等)で表記する
 <br>
-・数学で言うvectorまたは行列の成分を要素と表記する
+・vector||行列の成分を要素と表記する
 <br>
-・方程式または関数式を引数に取る関数を高階関数と表記する
+・方程式||関数式を引数に取る関数を高階関数と表記する
 <br>
 　この場合の引数を通常の値渡しに対して式渡しと表記する
     </td>
@@ -903,9 +903,9 @@ panel上段について記述する
 <br>
 ・canvas上部のlinkから描画結果のpng||svg||csvを保存可
 <br>
-　・pngは描画終了または中断後に保存可（逐次layer合成しない）
+　・pngは描画終了||中断後に保存可（逐次layer合成しない）
 <br>
-　・右clickまたはlong-tapによるpng保存不可（最前面は透明layer）
+　・右click||long-tapによるpng保存不可（最前面は透明layer）
 <br>
 　・svg||csvはMulti-thread実行の場合、逐次保存可
 <br>
@@ -913,9 +913,9 @@ panel上段について記述する
 <br>
 ・canvasにplot2dの演算&amp;描画結果を表示
 <br>
-　・mouseまたはtouchによる範囲選択で拡大表示
+　・mouse||touchによる範囲選択で拡大表示
 <br>
-　・single clickまたはone tapで拡大表示reset
+　・single click||one tapで拡大表示reset
 <br>
 ・log出力欄にplot2dの演算&amp;描画結果のlogを表示
 <br>
@@ -965,7 +965,7 @@ str:strFontSize
 <br>
 　・markerTypeはcircle||triangle||triangle2||square||diamond||cross
 <br>
-　・markerColorはcolor名（black等）またはHEX表記RGBA（#00000000等）
+　・markerColorはcolor名（black等）||HEX表記RGBA（#00000000等）
 <br>
 　・markerSizeはmarkerTypeの目安size
 <br>
@@ -1159,7 +1159,7 @@ ans -> 6
 <br>
 2(x=3) || 2(3=3) || 2(=3-3) || 2(0) -> 0
 <br>
-・代入をcomma,またはcolon:で区切った場合、0を返す
+・代入をcomma,||colon:で区切った場合、0を返す
 <br>
 max(x=3,-1,-2) || max(0,-1,-2) -> 0
 <br>
@@ -1202,7 +1202,7 @@ option
 <br>
 ・前置単項の符号は同種の2項演算子と区別しない
 <br>
-・符号の左側には0またはzeros行列が存在すると仮定して結合する
+・符号の左側には0||zeros行列が存在すると仮定して結合する
 <br>
 <br>
 <a href="#span-out-BRmo">記号省略乗算</a>と除算のprecedenceを切替え可
@@ -1461,9 +1461,9 @@ JavaScriptによる実数の浮動小数点演算について記述する
 <br>
 =(-1)^(符号部1bit)*pow(基数2,指数部11bit-bias)*(0||1+仮数部52bit)
 <br>
-・指数部・仮数部は符号無しの2進数
+・指数部・仮数部は符号なしの2進数
 <br>
-・指数部は符号有りを符号無しに変換する次のbiasを持つ
+・指数部は符号ありを符号なしに変換する次のbiasを持つ
 <br>
 bias=2^(11-1)-1=1023
 <br>
@@ -1688,7 +1688,7 @@ pow(2,pow(2,10)) || 2**(2**10) || 2^(2^10) -> 1.7976931348622732e+308
 <br>
 ・丸め誤差: 計算機での数値表現由来の誤差
 <br>
-　・情報落ち（絶対値の大きく異なる2つの数値の差または和を取る場合）
+　・情報落ち（絶対値の大きく異なる2つの数値の差||和を取る場合）
 <br>
 　・桁落ち（丸め誤差を含む同符号の2つの近い数値の差を取る場合）
 <br>
@@ -1701,7 +1701,7 @@ pow(2,pow(2,10)) || 2**(2**10) || 2^(2^10) -> 1.7976931348622732e+308
 <br>
 丸め誤差は無理数等を<a href="#span-out-float">仮数部</a>の有効桁に丸める際の、
 <br>
-近似値の真値に対する絶対誤差または相対誤差と定義する
+近似値の真値に対する絶対誤差||相対誤差と定義する
 <br>
 ・円周率20桁の演算結果を一例に示す
 <br>
@@ -1720,7 +1720,7 @@ epsilon -> 2.220446049250313e-16
 0.00000000000000023846/pi -> 7.590417545938672e-17
 <br>
 <br>
-2つの数値の減算または加算で情報落ちが発生した場合、警告文を表示する
+2つの数値の減算||加算で情報落ちが発生した場合、警告文を表示する
 <br>
 ・警告文は前置のinfoLost[実部r虚部i]とする
 <br>
@@ -1815,11 +1815,11 @@ Computer Algebra Systemで解析的に真値||厳密解||解析解を得られ�
 <br>
 数値誤差は無限を有限で数学的に近似する際の、
 <br>
-近似値の真値に対する絶対誤差または相対誤差、あるいは、
+近似値の真値に対する絶対誤差||相対誤差、あるいは、
 <br>
-近似解の厳密解に対する絶対誤差または相対誤差、あるいは、
+近似解の厳密解に対する絶対誤差||相対誤差、あるいは、
 <br>
-数値解の解析解に対する絶対誤差または相対誤差と定義する
+数値解の解析解に対する絶対誤差||相対誤差と定義する
 <br>
 <br>
 数値誤差は目安の解析誤差（絶対誤差）のOrderを表示する
@@ -1925,7 +1925,7 @@ ans*ans -> 7.999999999996978i+O(8e-12i)
 <br>
 sinh(ans) -> 0.9893582466238214i+O(1e-12i)
 <br>
-・解析誤差は符号がないため、減算または加算では誤差の最大値を選択する
+・解析誤差は符号がないため、減算||加算では誤差の最大値を選択する
 <br>
 ans+2ans -> 2.968074739871464i+O(2e-12i)
 <br>
@@ -2003,7 +2003,7 @@ URi,URf,BRp,BRr,BRmo,BRdm,BRsa,BRbs,BRba,BRbx,BRbo,BRcn,BRrl
     </th>
     <td>
 <span id="span-out-ope"></span>
-演算量または演算速度に関係する演算仕様の概要について記述する
+演算量||演算速度に関係する演算仕様の概要について記述する
 <br>
 <br>
 UI設定によって対応する用途を4種類示す
@@ -3053,7 +3053,7 @@ x=3; 3x; stop; x -> operation stopped
 <br>
 vector: vector: ...
 <br>
-・vectorの各要素または<a href="#span-out-FN">関数</a>の引数を区切るcomma,
+・vectorの各要素||<a href="#span-out-FN">関数</a>の引数を区切るcomma,
 <br>
 要素, 要素, ... || 引数, 引数, ...
 <br>
@@ -3351,7 +3351,7 @@ trans{trans{(1,2:3:4)}} -> (1,2:3,0:4,0)
 x=(1,2); y={3,4}; trans(trans((x:y))) -> (1,2:3,0:4,0)
 <br>
 <br>
-括弧無しで要素を列挙した場合、行vector扱いの丸括弧()で括られる
+括弧なしで要素を列挙した場合、行vector扱いの丸括弧()で括られる
 <br>
 1,2,3 -> (1,2,3)
 <br>
@@ -3458,7 +3458,7 @@ max=&lt;3 -> [MyErr]Invalid BTe([object Object])
 定数の入力仕様と付随する留意事項について記述する
 <br>
 <br>
-定数は引数<a href="#span-out-BT">括弧</a>無しで厳密には<a href="#span-out-FN">関数</a>に含めない
+定数は引数<a href="#span-out-BT">括弧</a>なしで厳密には<a href="#span-out-FN">関数</a>に含めない
 <br>
 ・実行文を作る<a href="#span-out-flow">parse</a>段階で数値に変換する
 <br>
@@ -3595,7 +3595,7 @@ real(3+i) -> 3
 imag(3+i) -> 1
 <br>
 <br>
-iの2乗の演算方法を2項演算子または関数を使用して3種類示す
+iの2乗の演算方法を2項演算子||関数を使用して3種類示す
 <br>
 (i)^2 || (i)**2 || pow(i,2) -> -1+1.2246467991473532e-16i
 <br>
@@ -5321,7 +5321,7 @@ clear; x=y(z) -> [MyErr]Invalid ans isFound
 (x=3) -> 0
 <br>
 <br>
-代入をcomma,またはcolon:で区切った場合、0を返す
+代入をcomma,||colon:で区切った場合、0を返す
 <br>
 clear; x=2,3x -> (0,6)
 <br>
@@ -5378,7 +5378,7 @@ matching
 <br>
 ・変数は無次元
 <br>
-・<a href="#span-out-vars-symbol">変数名symbol</a>を$でescapeして右辺または左辺の値を代入
+・<a href="#span-out-vars-symbol">変数名symbol</a>を$でescapeして右辺||左辺の値を代入
 <br>
 clear; ($a,{$b,3})=(1,{2,$c}); (a,{b,c}) -> (1,2:0,3)
 <br>
@@ -5479,7 +5479,7 @@ clear; ($a,(($b,($c)={,4})=(,3)))=(1,2); (a,b,c) -> (1,0,0)
 式変数の入力仕様と付随する留意事項について記述する
 <br>
 <br>
-式変数への代入・再代入方法は、式変数名=&lt;方程式または関数式とする
+式変数への代入・再代入方法は、式変数名=&lt;方程式||関数式とする
 <br>
 ・式変数への代入を以降、<a href="#span-out-substitution-equation">式代入</a>と呼ぶ
 <br>
@@ -5568,7 +5568,7 @@ y=3; y=&lt;3y-1; y=&gt;y; 2y -> 16
 y0=3; y=&lt;3y0-1; y=&gt;y1; 2y1 -> 16
 <br>
 <br>
-式変数名で明示して直接読出す方法も有り得る
+式変数名で明示して直接読出す方法もあり得る
 <br>
 clear; eqn_x=&lt;(a*x+b=0); a=1; b=2; x=3; 2eqn_x || 2*(-5) -> -10
 <br>
@@ -5591,14 +5591,14 @@ clear; eqn_x=&lt;(a*x+b=0); a=1; b=2; x=3; 2eqn_x || 2*(-5) -> -10
 式渡しの入力仕様と付随する留意事項について記述する
 <br>
 <br>
-<a href="#span-out-FN">関数</a>の引数に方程式または関数式||<a href="#span-out-vars-symbol">式変数名symbol</a>を渡す場合
+<a href="#span-out-FN">関数</a>の引数に方程式||関数式||<a href="#span-out-vars-symbol">式変数名symbol</a>を渡す場合
 <br>
 ・値||<a href="#span-out-vars-symbol">変数名symbol</a>の値渡しに対して式渡しと定義する
 <br>
 ・この場合の関数を<a href="#span-out-FNh">高階関数</a>と定義する
 <br>
 <br>
-式渡しの方法は、&lt;=方程式または関数式||<a href="#span-out-vars-symbol">式変数名symbol</a>とする
+式渡しの方法は、&lt;=方程式||関数式||<a href="#span-out-vars-symbol">式変数名symbol</a>とする
 <br>
 ・<a href="#span-out-substitution-equation">式代入</a>記号&lt;=を流用
 <br>
@@ -5686,7 +5686,7 @@ clear; (f=&lt;{(x=&gt;)},x=&lt;(1,2),=&lt;{(f=&gt;)})=&gt; -> (1,2)
 <br>
 clear; (f=&lt;{(x=&gt;)},x=&lt;(1,2),=&lt;{=&lt;{(f=&gt;)}}=&gt;)=&gt; -> (1,2)
 <br>
-・<a href="#span-out-flow">階層</a>毎の引数&amp;<a href="#span-out-types-vars">scope</a>無しで無名関数の最短表記を許容
+・<a href="#span-out-flow">階層</a>毎の引数&amp;<a href="#span-out-types-vars">scope</a>なしで無名関数の最短表記を許容
 <br>
 ・本来、最短表記はdebugの支障が少ないcaseに限られる
 <br>
@@ -5795,7 +5795,7 @@ clear; _sn(=&lt;1,0,2) || _sn(=&lt;{1},0,2) || 1+1+1 -> 3
 <br>
 式変数を循環参照した場合、error終了
 <br>
-・<a href="#span-out-FNh-RX">再帰高階関数</a>で代替のreccursive call非対応（call stackの独自実装無し）
+・<a href="#span-out-FNh-RX">再帰高階関数</a>で代替のreccursive call非対応（call stackの独自実装なし）
 <br>
 clear; a=&lt;a; a -> [MyErr]Invalid circular(a)
 <br>
@@ -5840,7 +5840,7 @@ clear; dx=&lt;_dx; dx(=&lt;{x^2},1,2)
 (x=&lt;3) -> 0
 <br>
 <br>
-式代入をcomma,またはcolon:で区切った場合、0を返す
+式代入をcomma,||colon:で区切った場合、0を返す
 <br>
 clear; x=&lt;2,3x -> (0,6)
 <br>
@@ -6414,7 +6414,7 @@ option
 <br>
 <span class="run">Ver.2.30.15</span>以降、第4引数追加
 <br>
-・第4引数: 再帰処理をbreakする条件（not0でbreak）を<a href="#span-out-call-by-equation">式渡し</a>[省略時、break判定無し]
+・第4引数: 再帰処理をbreakする条件（not0でbreak）を<a href="#span-out-call-by-equation">式渡し</a>[省略時、break判定なし]
 <br>
 <br>
 test caseを列挙する
@@ -7146,7 +7146,7 @@ Jacobi高階行列関数
 <br>
 Jacobi(=&lt;第1引数,=&lt;第2引数[,=&lt;第3引数[,第4引数]])
 <br>
-・第1引数: 方程式または関数式の列vector||<a href="#span-out-vars-symbol">式変数名symbol</a>を<a href="#span-out-call-by-equation">式渡し</a>
+・第1引数: 方程式||関数式の列vector||<a href="#span-out-vars-symbol">式変数名symbol</a>を<a href="#span-out-call-by-equation">式渡し</a>
 <br>
 ・第2引数: 未知<a href="#span-out-vars-symbol">変数名symbol</a>の列vector||<a href="#span-out-vars-symbol">式変数名symbol</a>を<a href="#span-out-call-by-equation">式渡し</a>
 <br>
@@ -7238,7 +7238,7 @@ Newton高階行列関数
 <br>
 Newton(=&lt;第1引数,=&lt;第2引数[,=&lt;第3引数[,第4引数[,第5引数[,第6引数[,第7引数]]]]])
 <br>
-・第1引数: 方程式または関数式の列vector||<a href="#span-out-vars-symbol">式変数名symbol</a>を<a href="#span-out-call-by-equation">式渡し</a>
+・第1引数: 方程式||関数式の列vector||<a href="#span-out-vars-symbol">式変数名symbol</a>を<a href="#span-out-call-by-equation">式渡し</a>
 <br>
 ・第2引数: 未知<a href="#span-out-vars-symbol">変数名symbol</a>の列vector||<a href="#span-out-vars-symbol">式変数名symbol</a>を<a href="#span-out-call-by-equation">式渡し</a>
 <br>
@@ -7317,6 +7317,12 @@ norm(mdx) -> 0
 <br>
 {x0,x1} -> (0:0)
 <br>
+・残差の最大値を演算する場合、転置の<a href="#span-out-FNm">行列関数</a>を使用
+<br>
+・両符号の残差を結合した列vectorを転置して行vectorに変換後、maxを取る
+<br>
+max(trans({mdx,-mdx})) -> 0
+<br>
 ・反復3回の場合
 <br>
 ・反復最後の残差を<a href="#span-out-error-numerical">目安の解析誤差</a>として表示する
@@ -7326,6 +7332,8 @@ storage cleared
 mdx=Newton(=&lt;{x0+2*x1=5,3*x0+4*x1=6},=&lt;{x0,x1},,,3);
 <br>
 norm(mdx) -> infoLost[ri] 2.2204460494935903e-15
+<br>
+max(trans({mdx,-mdx})) -> infoLost[ri] 1.7763568394338757e-15
 <br>
 {x0,x1} ->
 <br>
@@ -7346,6 +7354,8 @@ storage cleared
 mdx=Newton(=&lt;{x0+2*x1=5,3*x0+4*x1=6},=&lt;{x0,x1},,,10,1e-8);
 <br>
 norm(mdx) -> 2.0548659974995737e-10
+<br>
+max(trans({mdx,-mdx})) -> 1.0355938329098548e-10
 <br>
 {x0,x1} ->
 <br>
@@ -7375,6 +7385,8 @@ norm(mdx) -> infoLost[ri] 2.2204460494895584e-15
 <br>
 norm(mdx)/norm({x0,x1}) -> infoLost[ri] 3.6879601533840316e-16+O(1e-41i)
 <br>
+max(trans({mdx,-mdx})) -> infoLost[ri] 1.7763568395916467e-15
+<br>
 {x0,x1} ->
 <br>
 (
@@ -7397,6 +7409,8 @@ norm(mdx) -> 2.0548659974995737e-10
 <br>
 norm(mdx)/norm({x0,x1}) -> 3.4129466559497216e-11+O(4e-22+4e-22i)
 <br>
+max(trans({mdx,-mdx})) -> 1.0355938329098548e-10
+<br>
 {x0,x1} ->
 <br>
 (
@@ -7418,6 +7432,10 @@ _rn(=&lt;{
 mdx=Newton(=&lt;{x0+2*x1=5,3*x0+4*x1=6},=&lt;{x0,x1},,,1)
 <br>
 },,3);
+<br>
+norm(mdx) -> infoLost[ri] 2.2204460494935903e-15+O(2e-5+5e-6i)
+<br>
+max(trans({mdx,-mdx})) -> infoLost[ri] 1.7763568394338757e-15+O(2e-5)
 <br>
 {x0,x1} ->
 <br>
@@ -7875,9 +7893,9 @@ _dx(=&lt;{(x+i)^5},2,1)
 <br>
 　・1階微分を多重化して再帰的に微分階数を上げる際、
 <br>
-　・拡張無しは差分刻み一定
+　・拡張なしは差分刻み一定
 <br>
-　・拡張有りは1階上がる毎に差分刻み2倍の関係を仮定
+　・拡張ありは1階上がる毎に差分刻み2倍の関係を仮定
 <br>
 -> -40.000079995027676+40.000100045239535i+O(5e-4+1e-6i)
 <br>
@@ -8926,7 +8944,7 @@ x -> (-3.9999999999999982:4.499999999999999)
 <br>
 ・最後に、一連のalgorithmを一般化した<a href="#span-out-eqns">式変数</a>solvexを定義する
 <br>
-・pivot選択有りの場合
+・pivot選択ありの場合
 <br>
 storage cleared
 <br>
@@ -8956,7 +8974,7 @@ _sir(=&lt;backward,sizeA-1,0),
 <br>
 =&lt;x}=&gt;;
 <br>
-・pivot選択無しの場合
+・pivot選択なしの場合
 <br>
 storage cleared
 <br>
@@ -8978,7 +8996,7 @@ _sir(=&lt;backward,sizeA-1,0),
 <br>
 ・続けてtest caseを示す
 <br>
-・pivot選択有りの場合
+・pivot選択ありの場合
 <br>
 A=(1,2:3,4);
 <br>
@@ -8986,7 +9004,7 @@ b={5,6};
 <br>
 solvex_pivotting -> (-3.9999999999999982:4.499999999999999)
 <br>
-・pivot選択無しの場合（参考）
+・pivot選択なしの場合（参考）
 <br>
 A=(1,2:3,4);
 <br>
@@ -9066,7 +9084,7 @@ x1 -> infoLost[ri] 4.499999999999999+6.466216308756395e-26i
 <br>
 ・Ax=bの連立線形方程式に一般化されたNewton法が導出される
 <br>
-・ここで符号はzeros行列との差分またはScalar倍で定義される
+・ここで符号はzeros行列との差分||Scalar倍で定義される
 <br>
 (df[i]/dx[j]){dx[j]}={-f[i]}
 <br>
@@ -9224,7 +9242,7 @@ x -> (-25.333333333333332:41.666666666666664:-16)
 <br>
 ・先述の<a href="#span-out-eqns">式変数</a>solvexを使用
 <br>
-・pivot選択有りの場合
+・pivot選択ありの場合
 <br>
 A=(i,2i,3i:4i,5i,6i:7i,8i,9i);
 <br>
@@ -9232,7 +9250,7 @@ b={10i,11i,12i};
 <br>
 solvex_pivotting -> (-25.333333333333332:41.666666666666664:-16)
 <br>
-・pivot選択無しの場合（参考）
+・pivot選択なしの場合（参考）
 <br>
 A=(i,2i,3i:4i,5i,6i:7i,8i,9i);
 <br>
@@ -9839,7 +9857,7 @@ _rn(=&lt;run,,6) -> 4.2544881989018353e-11
 <br>
 x -> -5.067058578678027e-17-1.0000000000000002i
 <br>
-・方程式または関数の次数に応じて収束までの反復回数が増える
+・方程式||関数の次数に応じて収束までの反復回数が増える
 <br>
 <br>
 <a href="#span-out-ope">実数演算</a>の場合、解が存在しないため、収束しない
@@ -9881,7 +9899,7 @@ run -> 38147.63324071567
 <br>
 ・解が存在しない場合、解が収束しないか解が無限大に発散する
 <br>
-・高次の方程式または関数の場合、解が存在しても初期値によっては発散する
+・高次の方程式||関数の場合、解が存在しても初期値によっては発散する
 <br>
 <br>
 次に関数を使用したfull-rank2元の連立非線形方程式を一例に示す
@@ -10278,7 +10296,7 @@ _dy(=&lt;{1/(y*y)})/_dy(=&lt;{1/y})  <span class="selection">// NG</span> -> [My
 <br>
 右結合選択時　+3-5+7-9 || (0+(3-(5+(7-9)))) -> 0
 <br>
-・<a href="#span-out-mat">行列</a>も同様に単項の符号はzeros行列との差分またはScalar倍として扱う
+・<a href="#span-out-mat">行列</a>も同様に単項の符号はzeros行列との差分||Scalar倍として扱う
 <br>
 -(1,2:3,4) || (,:,)-(1,2:3,4) || (-1,:,-1)(1,2:3,4) -> (-1,-2:-3,-4)
 <br>
@@ -10305,7 +10323,7 @@ _dy(=&lt;{1/(y*y)})/_dy(=&lt;{1/y})  <span class="selection">// NG</span> -> [My
 <br>
 (1,2:3,4)=(,) || =(,)-(1,2:3,4) -> [MyErr]Invalid matrix operation
 <br>
-・単項の場合、符号同様に左辺には0またはzeros行列が存在すると仮定する
+・単項の場合、符号同様に左辺には0||zeros行列が存在すると仮定する
 <br>
 =8 || 0=8 || =8-0 -> 8
 <br>
@@ -10330,7 +10348,7 @@ f=&lt;{Ainv*A=identity2} || f=&lt;{=identity2-Ainv*A} || f=&lt;{identity2-Ainv*A
 <br>
 2(x=3) || 2(3=3) || 2(=3-3) || 2(0) -> 0
 <br>
-・代入をcomma,またはcolon:で区切った場合、0を返す
+・代入をcomma,||colon:で区切った場合、0を返す
 <br>
 max(x=3,-1,-2) || max(0,-1,-2) -> 0
 <br>
@@ -10557,7 +10575,7 @@ var data = {trees:{}, options:{}, vars:{}, eqns:{}};
 <br>
 ・makeLog: 演算終了後にlog出力用の文字列を作成するflag
 <br>
-　makeLog=true設定で整形無しのlogを作成
+　makeLog=true設定で整形なしのlogを作成
 <br>
 　makeLog=2設定で行列を整形表示するlogを作成
 <br>
