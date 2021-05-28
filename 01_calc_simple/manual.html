@@ -3284,7 +3284,7 @@ clear; delete=&lt;delEqn(delete); delete=&gt; -> [MyErr]Invalid delEqnSelf(delet
 transpose({1,2:3,4}) || trans({1,2:3,4}) -> (1,2:3,4)
 <br>
 <br>
-<a href="#span-out-FN">関数</a>の引数を括る括弧は丸括弧()で統一する
+<a href="#span-out-FN">関数</a>の引数を括る括弧は丸括弧()で統一する（<a href="#span-out-FNm-last">last行列関数</a>を除く）
 <br>
 ・波括弧{}を使用した場合、引数が転置される
 <br>
@@ -3684,7 +3684,7 @@ pcomp(1,t) || ecomp(t) || cos(t)+real(i)sin(t) || cos(t) -> 0.7071067811865476
 関数の入力仕様と付随する留意事項について記述する
 <br>
 <br>
-関数の引数を括る<a href="#span-out-BT">括弧</a>は丸括弧()で統一する
+関数の引数を括る<a href="#span-out-BT">括弧</a>は丸括弧()で統一する（<a href="#span-out-FNm-last">last行列関数</a>を除く）
 <br>
 <br>
 leftとrightの数値の関係や大小を比較する関数を列挙する
@@ -5731,6 +5731,35 @@ clear; (a=1,=&lt;(=&lt;(=&lt;3)=&gt;+1)=&gt;*a)=&gt; -> 4
 clear; a=1,(=&lt;(=&lt;(=&lt;3)=&gt;+1)=&gt;*a)=&gt; -> (0,4)
 <br>
 <br>
+<span class="run">Ver.2.30.15</span>以降、<a href="#span-out-substitution-equation">式代入</a>同様に、式渡しの仕様を緩和
+<br>
+・<a href="#span-out-FNh-SX">総和高階関数</a>を使用
+<br>
+・次の場合、<a href="#span-out-vars-symbol">式変数名symbol</a>と判別する
+<br>
+clear; _sn(=&lt;n,0,2) -> [MyErr]Invalid =&lt;Call-by-Equation
+<br>
+clear; n=1; _sn(=&lt;n,0,2) -> [MyErr]Invalid =&lt;Call-by-Equation
+<br>
+clear; n=&lt;n; _sn(=&lt;n,0,2) || 0+1+2 -> 3
+<br>
+・次の場合、dummy変数と判別する
+<br>
+clear; _sn(=&lt;{n},0,2) -> 3
+<br>
+clear; n=2; _sn(=&lt;{n},0,2) -> 3
+<br>
+・次の場合、<a href="#span-out-BT">括弧</a>省略と判別する
+<br>
+clear; _sn(=&lt;n+1,0,2) || _sn(=&lt;{n+1},0,2) || 1+2+3 -> 6
+<br>
+clear; n=&lt;n; _sn(=&lt;n=&gt;,0,2) || _sn(=&lt;{n=&gt;},0,2) -> 3
+<br>
+・次の場合、<a href="#span-out-BT">括弧</a>省略と判別する
+<br>
+clear; _sn(=&lt;1,0,2) || _sn(=&lt;{1},0,2) || 1+1+1 -> 3
+<br>
+<br>
 本仕様は<a href="#span-out-BT">括弧</a>優先の<a href="#span-out-FNh">高階関数</a>の実装において必須
 <br>
 ・引数が値渡しの場合、関数呼出し前に引数の演算を実行するが、
@@ -6640,7 +6669,7 @@ _dx(=&lt;{_dx(=&lt;f)})
 <br>
 -> -40.00000000012216+40.00000000037086i+O(7e-10+1e-12i)
 <br>
-・2階微分を4次精度1階微分で厳密に多重化する場合4次精度以下
+・2階微分を4次精度1階微分で厳密に多重化する場合、4次精度以下
 <br>
 _dx(=&lt;{_dx(=&lt;f,1,x,dx)},1,x,2dx)
 <br>
@@ -6658,7 +6687,7 @@ _dx(=&lt;{_dx(=&lt;{_dx(=&lt;f)})})
 <br>
 -> 4.378068605950494e-8+120.00000084539053i+O(2e-7+2e-7i)
 <br>
-・3階微分を4次精度1階微分で厳密に多重化する場合3次精度以下
+・3階微分を4次精度1階微分で厳密に多重化する場合、3次精度以下
 <br>
 _dx(=&lt;{_dx(=&lt;{_dx(=&lt;f,1,x,1dx)},1,x,2dx)},1,x,4dx)
 <br>
@@ -6674,7 +6703,7 @@ _dx(=&lt;{_dx(=&lt;{_dx(=&lt;{_dx(=&lt;f)})})})
 <br>
 -> 120.00001615650766+120.00019838028798i+O(1e-4+7e-7i)
 <br>
-・4階微分を4次精度1階微分で厳密に多重化する場合2次精度以下
+・4階微分を4次精度1階微分で厳密に多重化する場合、2次精度以下
 <br>
 _dx(=&lt;{_dx(=&lt;{_dx(=&lt;{_dx(=&lt;f,1,x,1dx)},1,x,2dx)},1,x,4dx)},1,x,8dx)
 <br>
@@ -6690,7 +6719,7 @@ _dx(=&lt;{_dx(=&lt;{_dx(=&lt;{_dx(=&lt;{_dx(=&lt;f)})})})})
 <br>
 -> 119.18659727305976+0.3620753183716584i+O(5e-2+5e-2i)
 <br>
-・5階微分を4次精度1階微分で厳密に多重化する場合2次精度以下
+・5階微分を4次精度1階微分で厳密に多重化する場合、2次精度以下
 <br>
 _dx(=&lt;{_dx(=&lt;{_dx(=&lt;{_dx(=&lt;{_dx(=&lt;f,1,x,1dx)}
 <br>
@@ -6708,7 +6737,7 @@ _dx(=&lt;{_dx(=&lt;{_dx(=&lt;{_dx(=&lt;{_dx(=&lt;{_dx(=&lt;f)})})})})})
 <br>
 -> -322.002293591315+54.781879309774695i+O(3e+1+2e-1i)
 <br>
-・6階微分を4次精度1階微分で厳密に多重化する場合2次精度以下
+・6階微分を4次精度1階微分で厳密に多重化する場合、2次精度以下
 <br>
 _dx(=&lt;{_dx(=&lt;{_dx(=&lt;{_dx(=&lt;{_dx(=&lt;{_dx(=&lt;f,1,x,1dx)}
 <br>
@@ -6726,7 +6755,7 @@ _dx(=&lt;{_dx(=&lt;{_dx(=&lt;{_dx(=&lt;{_dx(=&lt;{_dx(=&lt;{_dx(=&lt;f)})})})})}
 <br>
 -> -177398.93670986558-669172.3211788241i+O(1e+4+1e+4i)
 <br>
-・7階微分を4次精度1階微分で厳密に多重化する場合2次精度以下
+・7階微分を4次精度1階微分で厳密に多重化する場合、2次精度以下
 <br>
 _dx(=&lt;{_dx(=&lt;{_dx(=&lt;{_dx(=&lt;{_dx(=&lt;{_dx(=&lt;{_dx(=&lt;f,1,x,1dx)}
 <br>
@@ -11161,7 +11190,7 @@ run=&lt;last{
 <br>
 dtn=&lt;switch(n&lt;=0,0:1,dt),
 <br>
-step=&lt;{x_next=_otdummy(=&lt;f,=&lt;x,=&lt;x_initial,0,dtn=&gt;)},
+step=&lt;x_next=_otdummy(=&lt;f,=&lt;x,=&lt;x_initial,0,dtn=&gt;),
 <br>
 stepnm=&lt;last{step=&gt;,xt[n][mdummy]=real(z_x),yt[n][mdummy]=imag(z_x)},
 <br>
@@ -11231,7 +11260,7 @@ ttR=trans(trans(R)),
 <br>
 LR=zeros(sizer(ttL),sizec(ttR)),
 <br>
-_sir(=&lt;{_sic(=&lt;product,0,sizec(ttR)-1)},0,sizer(ttL)-1),
+_sir(=&lt;_sic(=&lt;product,0,sizec(ttR)-1),0,sizer(ttL)-1),
 <br>
 =&lt;LR}=&gt;;
 <br>
@@ -11331,9 +11360,9 @@ forward=&lt;last{k=A[ir][ic]/A[ic][ic],A[ir]=A[ir]-k*A[ic],b[ir]=b[ir]-k*b[ic]},
 <br>
 backward=&lt;{x[ir]=(b[ir]-A[ir]*x)/A[ir][ir]},
 <br>
-_sir(=&lt;{_sir_comp(=&lt;pivotting,ir+1,sizeA-1)},0,sizeA-2),
+_sir(=&lt;_sir_comp(=&lt;pivotting,ir+1,sizeA-1),0,sizeA-2),
 <br>
-_sic(=&lt;{_sir(=&lt;forward,ic+1,sizeA-1)},0,sizeA-2),
+_sic(=&lt;_sir(=&lt;forward,ic+1,sizeA-1),0,sizeA-2),
 <br>
 _sir(=&lt;backward,sizeA-1,0)
 <br>
@@ -11384,7 +11413,7 @@ forward=&lt;last{k=A[ir][ic]/A[ic][ic],A[ir]=A[ir]-k*A[ic],b[ir]=b[ir]-k*b[ic]},
 <br>
 backward=&lt;{x[ir]=(b[ir]-A[ir]*x)/A[ir][ir]},
 <br>
-_sic(=&lt;{_sir(=&lt;forward,ic+1,sizeA-1)},0,sizeA-2),
+_sic(=&lt;_sir(=&lt;forward,ic+1,sizeA-1),0,sizeA-2),
 <br>
 _sir(=&lt;backward,sizeA-1,0)
 <br>
@@ -11682,7 +11711,7 @@ MaclaurinN
 <br>
 clear;
 <br>
-MaclaurinN=&lt;_sn(=&lt;{_dx(=&lt;f,n,0)*x^n/n!},0,N);
+MaclaurinN=&lt;_sn(=&lt;_dx(=&lt;f,n,0)*x^n/n!,0,N);
 <br>
 f=&lt;exp(x); x=2; N=5; MaclaurinN=&gt;;
     </td>
@@ -11701,7 +11730,7 @@ TaylorN
 <br>
 clear;
 <br>
-TaylorN=&lt;_sn(=&lt;{_dx(=&lt;f,n,a)*(x-a)^n/n!},0,N);
+TaylorN=&lt;_sn(=&lt;_dx(=&lt;f,n,a)*(x-a)^n/n!,0,N);
 <br>
 f=&lt;exp(x); x=2; a=0; N=5; TaylorN=&gt;;
     </td>
@@ -11720,9 +11749,9 @@ FourierN
 <br>
 clear;
 <br>
-FourierN=&lt;_sn(=&lt;{(cn=&gt;)*e^(i*(n)*x)},-N,N);
+FourierN=&lt;_sn(=&lt;(cn=&gt;)*e^(i*(n)*x),-N,N);
 <br>
-cn=&lt;_it(=&lt;{(ft=&gt;)*e^(-i*(n)*t)},-pi,pi)/(2*pi);
+cn=&lt;_it(=&lt;(ft=&gt;)*e^(-i*(n)*t),-pi,pi)/(2*pi);
 <br>
 ft=&lt;e^(i*(2.5)*t); x=2; N=5; FourierN=&gt;;
     </td>

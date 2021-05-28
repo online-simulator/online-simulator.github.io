@@ -604,7 +604,7 @@ My_entry.operation.prototype.get_name_escaped = function(tree){
   return _name;
 };
 /* -> Ver.2.27.15 */
-/* Ver.2.28.15 -> */
+/* Ver.2.28.15 */
 My_entry.operation.prototype.FNc = function(data, i0, tagName, tagObj){
   var self = this;
   var trees = data.trees;
@@ -653,30 +653,50 @@ My_entry.operation.prototype.FNc = function(data, i0, tagName, tagObj){
   }
   return self;
 };
-/* Ver.2.28.15 -> */
 My_entry.operation.prototype.tree2tree_eqn = function(data, tree){
   var self = this;
   var eqns = data.eqns;
   var DATA = self.entry.DATA;
   var BT = self.config.BT;
   var _tree = null;
-  var trees = self.get_tagVal(tree, BT.SEe, "val");
+  /* Ver.2.30.15 -> */
+  var isSEe = tree[BT.SEe];
+  if(isSEe){
+    var trees = isSEe.val;
+    var name_eqn = (trees && trees.length === 1)? self.get_tagVal(DATA.trees2tree(trees), "REv", "val"): null;
+    if(name_eqn){
+      _tree = self.restore_eqn(eqns, name_eqn);  // trees.length === 1
+    }
+    else{
+      _tree = {};
+      _tree[BT.REe] = isSEe;
+    }
+  }
+  if(!(_tree)){
+    throw "Invalid =<Call-by-Equation";
+  }
+/*
   if(trees){
     _tree = DATA.trees2tree(trees);
     var name_eqn = self.get_tagVal(_tree, "REv", "val");
     if(name_eqn){
       _tree = self.restore_eqn(eqns, name_eqn);
-      /* Ver.1.6.3 _rn(<={run},,1) -> _rn(<=run,,1) allowed -> _rn(<=(run),,1) */
+*/
+      /* Ver.1.6.3 _rn(<={run},,1) -> _rn(<=run,,1) allowed -> _rn(<=(run),,1) -> */
 /*
       if(_tree){
         _tree = DATA.trees2tree(self.get_tagVal(_tree, BT.REe, "val"));
       }
 */
+      /* -> Ver.1.6.3 */
+/*
     }
   }
   if(!(_tree)){
     self.throw_tree(tree);
   }
+*/
+  /* -> Ver.2.30.15 */
   return _tree;
 };
 My_entry.operation.prototype.get_dxJ = function(x, h){

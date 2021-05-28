@@ -251,6 +251,16 @@ minor update
 <br>
 ・初期表示のtest caseにreccursive function's break added
 <br>
+・omitted Call-by-Equation's bracket disabled　⇒　enabled
+<br>
+　clear; _sn(=&lt;n,0,2) -> [MyErr]Invalid =&lt;Call-by-Equation
+<br>
+　clear; n=&lt;n; _sn(=&lt;n,0,2) || _rn(=&lt;n=&gt;,0,2) || 0+1+2 -> 3
+<br>
+　clear; _sn(=&lt;n+1,0,2) || _sn(=&lt;{n+1},0,2) || 1+2+3 -> 6
+<br>
+　<a href="01_calc_simple/manual.html#span-out-call-by-equation">[manual]Calculator-式渡し</a>
+<br>
 ・manual更新
 <br>
 　追加校正2箇所
@@ -260,6 +270,8 @@ minor update
 　追加校正14箇所
 <br>
 　追加校正1箇所・再校正1箇所
+<br>
+　追加校正8箇所
 <br>
 ・manual残課題[TBD-status]scopeの実装を追加
 <br>
