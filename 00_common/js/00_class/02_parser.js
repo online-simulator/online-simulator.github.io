@@ -550,6 +550,7 @@ My_entry.parser.prototype.make_trees = function(sentence, re){
       // only real number
       case "min":
       case "max":
+      // My defined
       // |complex number|
       case "cmin":
       case "cmax":
