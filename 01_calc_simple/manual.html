@@ -3895,6 +3895,12 @@ cmax(0,-1+i,2i-2) || abs(2i-2) -> 2.8284271247461903
 <br>
 cmin({0,-1+i,2i-2}) || cmin(2i-2)  <span class="selection">// NG</span> -> -2+2i
 <br>
+・引数不足を含めて一般化する場合、abs関数を使用
+<br>
+abs(cmin(i)) -> 1
+<br>
+abs(cmin({0,-1+i,2i-2})) || abs(cmin(2i-2)) -> 2.8284271247461903
+<br>
 ・<a href="#span-out-FNm-trans">転置行列関数</a>を使用
 <br>
 cmin(trans({0,-1+i,2i-2})) || cmin(trans{0,-1+i,2i-2}) || cmin(0,-1+i,2i-2) -> 0
@@ -9011,11 +9017,9 @@ x=zeros(sizeA,1),
 <br>
 compare=&lt;switch(abs(A[ir][ir])&lt;abs(A[ir_comp][ir]),=&lt;{ir_pivot=ir_comp});
 <br>
-cond=&lt;{ir&lt;&gt;ir_pivot};
-<br>
 proc=&lt;{w=A[ir],A[ir]=A[ir_pivot],A[ir_pivot]=w,w=b[ir],b[ir]=b[ir_pivot],b[ir_pivot]=w};
 <br>
-pivotting=&lt;{ir_comp=ir+1,ir_pivot=ir,compare,switch(cond,=&lt;proc),ir=ir+1,=&lt;A}=&gt;;
+pivotting=&lt;{ir_comp=ir+1,ir_pivot=ir,compare,switch(ir&lt;&gt;ir_pivot,=&lt;proc),ir=ir+1,=&lt;A}=&gt;;
 <br>
 ir=0;
 <br>
@@ -9063,11 +9067,9 @@ x=zeros(sizeA,1),
 <br>
 compare=&lt;switch(abs(A[ir][ir])&lt;abs(A[ir_comp][ir]),=&lt;{ir_pivot=ir_comp});
 <br>
-cond=&lt;{ir&lt;&gt;ir_pivot};
-<br>
 proc=&lt;{w=A[ir],A[ir]=A[ir_pivot],A[ir_pivot]=w,w=b[ir],b[ir]=b[ir_pivot],b[ir_pivot]=w};
 <br>
-pivotting=&lt;last{ir_pivot=ir,compare,switch(cond,=&lt;proc)};
+pivotting=&lt;last{ir_pivot=ir,compare,switch(ir&lt;&gt;ir_pivot,=&lt;proc)};
 <br>
 _sir(=&lt;{_sir_comp(=&lt;pivotting,ir+1,sizeA-1)},0,sizeA-2);
 <br>
@@ -9095,11 +9097,9 @@ solvex_pivotting=&lt;{
 <br>
 compare=&lt;switch(abs(A[ir][ir])&lt;abs(A[ir_comp][ir]),=&lt;{ir_pivot=ir_comp}),
 <br>
-cond=&lt;{ir&lt;&gt;ir_pivot},
-<br>
 proc=&lt;{w=A[ir],A[ir]=A[ir_pivot],A[ir_pivot]=w,w=b[ir],b[ir]=b[ir_pivot],b[ir_pivot]=w},
 <br>
-pivotting=&lt;last{ir_pivot=ir,compare,switch(cond,=&lt;proc)},
+pivotting=&lt;last{ir_pivot=ir,compare,switch(ir&lt;&gt;ir_pivot,=&lt;proc)},
 <br>
 forward=&lt;last{k=A[ir][ic]/A[ic][ic],A[ir]=A[ir]-k(A[ic]),b[ir]=b[ir]-k(b[ic])},
 <br>
@@ -11553,17 +11553,15 @@ init=&lt;last{sizeA=size(A),x=zeros(sizeA,1)},
 <div class="run">
 run=&lt;last{
 <br>
-compare=&lt;switch(abs(A[ir][ir])&lt;abs(A[ir_comp][ir]),=&lt;{ir_pivot=ir_comp}),
-<br>
-cond=&lt;{ir&lt;&gt;ir_pivot},
+compare=&lt;switch(abs(A[ir][ir])&lt;abs(A[ir_comp][ir]),=&lt;ir_pivot=ir_comp),
 <br>
 proc=&lt;{w=A[ir],A[ir]=A[ir_pivot],A[ir_pivot]=w,w=b[ir],b[ir]=b[ir_pivot],b[ir_pivot]=w},
 <br>
-pivotting=&lt;last{ir_pivot=ir,compare=&gt;,switch(cond=&gt;,=&lt;proc)},
+pivotting=&lt;last{ir_pivot=ir,compare=&gt;,switch(ir&lt;&gt;ir_pivot,=&lt;proc)},
 <br>
 forward=&lt;last{k=A[ir][ic]/A[ic][ic],A[ir]=A[ir]-k*A[ic],b[ir]=b[ir]-k*b[ic]},
 <br>
-backward=&lt;{x[ir]=(b[ir]-A[ir]*x)/A[ir][ir]},
+backward=&lt;x[ir]=(b[ir]-A[ir]*x)/A[ir][ir],
 <br>
 _sir(=&lt;_sir_comp(=&lt;pivotting,ir+1,sizeA-1),0,sizeA-2),
 <br>
@@ -11616,7 +11614,7 @@ run=&lt;last{
 <br>
 forward=&lt;last{k=A[ir][ic]/A[ic][ic],A[ir]=A[ir]-k*A[ic],b[ir]=b[ir]-k*b[ic]},
 <br>
-backward=&lt;{x[ir]=(b[ir]-A[ir]*x)/A[ir][ir]},
+backward=&lt;x[ir]=(b[ir]-A[ir]*x)/A[ir][ir],
 <br>
 _sic(=&lt;_sir(=&lt;forward,ic+1,sizeA-1),0,sizeA-2),
 <br>
@@ -11659,7 +11657,7 @@ init=&lt;last{sizeA=size(A),_ex(=&lt;{x},sizeA,1)},
 <div class="run">
 run=&lt;last{
 <br>
-f=&lt;{A*(x=&gt;)=b},
+f=&lt;A*(x=&gt;)=b,
 <br>
 mdx=Newton(=&lt;f,=&lt;x,,Nmax=3,Nmax,1e-16,1)
 <br>
@@ -11698,7 +11696,7 @@ init=&lt;last{sizeA=size(A),_eAinv(=&lt;{x},sizeA,sizeA),_ex(=&lt;{x},sizeA*size
 <div class="run">
 run=&lt;last{
 <br>
-f=&lt;{(Ainv=&gt;)*A=identity(sizeA)},
+f=&lt;(Ainv=&gt;)*A=identity(sizeA),
 <br>
 mdx=Newton(=&lt;f,=&lt;x,,Nmax=3,Nmax,1e-16,1)
 <br>
@@ -11779,11 +11777,11 @@ switch(
 <br>
 isImplicit,
 <br>
-=&lt;{f=&lt;{(z_x-z_x0)/dt=z_v,m*((z_v-z_v0)/dt)=m*z_a-Cd_sphere*z_v}}:
+=&lt;f=&lt;{(z_x-z_x0)/dt=z_v,m*((z_v-z_v0)/dt)=m*z_a-Cd_sphere*z_v}:
 <br>
 1/*else explicit*/,
 <br>
-=&lt;{f=&lt;{(z_x-z_x0)/dt=z_v0,m*((z_v-z_v0)/dt)=m*z_a-Cd_sphere*z_v0}}
+=&lt;f=&lt;{(z_x-z_x0)/dt=z_v0,m*((z_v-z_v0)/dt)=m*z_a-Cd_sphere*z_v0}
 <br>
 ),
 <br>
