@@ -243,9 +243,17 @@ minor update
 <br>
 ・cmin&amp;cmax function(tagName:FNn) added
 <br>
+　<a href="01_calc_simple/manual.html#span-out-FN">[manual]Calculator-関数</a>
+<br>
+　cmin(i)  // NG -> i
+<br>
 　cmin(0,-1+i,2i-2) -> 0
 <br>
 　cmax(0,-1+i,2i-2) || abs(2i-2) -> 2.8284271247461903
+<br>
+　cmin({0,-1+i,2i-2}) || cmin(2i-2)  // NG -> -2+2i
+<br>
+　cmin(trans({0,-1+i,2i-2})) || cmin(0,-1+i,2i-2) -> 0
 <br>
 [Calculator]
 <br>
@@ -253,7 +261,7 @@ minor update
 <br>
 　clear; _sn(=&lt;n,0,2) -> [MyErr]Invalid =&lt;Call-by-Equation
 <br>
-　clear; n=&lt;n; _sn(=&lt;n,0,2) || _rn(=&lt;n=&gt;,0,2) || 0+1+2 -> 3
+　clear; n=&lt;n; _sn(=&lt;n,0,2) || _sn(=&lt;n=&gt;,0,2) || 0+1+2 -> 3
 <br>
 　clear; _sn(=&lt;n+1,0,2) || _sn(=&lt;{n+1},0,2) || 1+2+3 -> 6
 <br>
@@ -288,6 +296,8 @@ minor update
 　追加校正56箇所
 <br>
 　追加校正7箇所
+<br>
+　追加校正29箇所
 <br>
 ・manual残課題[TBD-status]scopeの実装を追加
 <br>

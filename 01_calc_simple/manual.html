@@ -357,13 +357,28 @@ comment文
 </a>
 <br>
 　　・
+<a href="#span-out-FNm-trans">
+転置行列関数
+</a>
+<br>
+　　・
 <a href="#span-out-FNm-last">
 last行列関数
 </a>
 <br>
 　・
-<a href="#span-out-concat">
+<a href="#span-out-array">
 行列操作
+</a>
+<br>
+　　・
+<a href="#span-out-substitution-mat">
+行列への代入
+</a>
+<br>
+　　・
+<a href="#span-out-concatination">
+行列結合
 </a>
 <br>
 　・
@@ -3279,7 +3294,7 @@ clear; delete=&lt;delEqn(delete); delete=&gt; -> [MyErr]Invalid delEqnSelf(delet
 <br>
 {1,2:3,4} -> (1,3:2,4)
 <br>
-・転置の<a href="#span-out-FNm">行列関数</a>を使用
+・<a href="#span-out-FNm-trans">転置行列関数</a>を使用
 <br>
 transpose({1,2:3,4}) || trans({1,2:3,4}) -> (1,2:3,4)
 <br>
@@ -3297,7 +3312,7 @@ max(2,1) -> 2
 max{2,1} -> 1
 <br>
 <br>
-1重列挙の場合、外側の括弧は上記の結合性が存在しない
+1重列挙の場合、外側に括弧の結合性は存在しない
 <br>
 (1,2) || {(1,2)} || ({(1,2)}) || {({(1,2)})} -> (1,2)
 <br>
@@ -3382,7 +3397,7 @@ A=(1,2:3,4); A[1,2:3,4] -> (7,10:15,22)
 [1,2:3,4][1] -> (3,4)
 <br>
 <br>
-詳細は<a href="#span-out-concat">行列操作入力仕様</a>参照
+詳細は<a href="#span-out-array">行列操作入力仕様</a>参照
     </td>
   </tr>
   <tr>
@@ -3833,11 +3848,32 @@ deg_atan2_ex(0,1) || degrees(atan2_ex(0,1)) -> 90
 <br>
 ・<a href="#span-out-ope">実数演算</a>の場合、Nativeに同義
 <br>
-pow(2) -> [MyErr]FN isNaN
+pow(2)  <span class="selection">// NG</span> -> [MyErr]FN isNaN
 <br>
 ・<a href="#span-out-com">複素数</a>演算の場合、逐次引数不足を判定しないため、予期せぬerror終了
 <br>
-pow(2) -> Unexpected error
+pow(2)  <span class="selection">// NG</span> -> Unexpected error
+<br>
+<br>
+一部の実装関数において引数不足の場合、不正な結果を返す
+<br>
+cmin(i)  <span class="selection">// NG</span> -> i
+<br>
+cmin(0,-1+i,2i-2) -> 0
+<br>
+cmax(0,-1+i,2i-2) || abs(2i-2) -> 2.8284271247461903
+<br>
+cmin({0,-1+i,2i-2}) || cmin(2i-2)  <span class="selection">// NG</span> -> -2+2i
+<br>
+・<a href="#span-out-FNm-trans">転置行列関数</a>を使用
+<br>
+cmin(trans({0,-1+i,2i-2})) || cmin(trans{0,-1+i,2i-2}) || cmin(0,-1+i,2i-2) -> 0
+<br>
+・<a href="#span-out-vars">変数</a>を使用
+<br>
+clear; x=(0,-1+i,2i-2); cmin(x) || cmin{x} || cmin({x}) || cmin{{x}} -> 0
+<br>
+・1重列挙の場合、外側に<a href="#span-out-BT">括弧の結合性</a>は存在しない
     </td>
   </tr>
   <tr>
@@ -3931,19 +3967,19 @@ vectorの入力方法2種類
 <br>
 {1,2:3,4} -> (1,3:2,4)
 <br>
-・転置の<a href="#span-out-FNm">行列関数</a>を使用
+・<a href="#span-out-FNm-trans">転置行列関数</a>を使用
 <br>
 transpose({1,2:3,4}) || trans({1,2:3,4}) || trans{1,2:3,4} -> (1,2:3,4)
 <br>
 ({1,2},{3:4}) || (trans(1,2),trans(3:4)) -> (1,3,4:2)
 <br>
-・1重列挙の場合、外側の<a href="#span-out-BT">括弧</a>に結合性は存在しない
+・1重列挙の場合、外側に<a href="#span-out-BT">括弧の結合性</a>は存在しない
 <br>
 (1,2) || {(1,2)} || ({(1,2)}) || {({(1,2)})} -> (1,2)
 <br>
 {1,2} || ({1,2}) || {({1,2})} || ({({1,2})}) -> (1:2)
 <br>
-・多重列挙の場合、vectorを括る<a href="#span-out-BT">括弧</a>の結合性に依存する
+・多重列挙の場合、vectorを括る<a href="#span-out-BT">括弧の結合性</a>に依存する
 <br>
 {(1,2),(3:4)} -> (1,2:3:4)
 <br>
@@ -4054,7 +4090,7 @@ A=(11:21,22:31,32,33,34); A -> (11:21,22:31,32,33,34)
 <br>
 tA={11:21,22:31,32,33,34}; tA -> (11,21,31:0,22,32:0,0,33:0,0,34)
 <br>
-・行指定の行列で抜け要素がある場合、転置の<a href="#span-out-FNm">行列関数</a>を使用
+・行指定の行列で抜け要素がある場合、<a href="#span-out-FNm-trans">転置行列関数</a>を使用
 <br>
 A=(11:21,22:31,32,33,34); trans(trans(A)) -> (11,0,0,0:21,22,0,0:31,32,33,34)
 <br>
@@ -4247,6 +4283,8 @@ scalars(3,i) -> (i,0,0:0,i,0:0,0,i)
 <br>
 Scalars(4,3-5i) -> (3-5i,0,0,0:0,3-5i,0,0:0,0,3-5i,0:0,0,0,3-5i)
 <br>
+・<a href="#span-out-FNm-trans">転置行列関数</a>を使用
+<br>
 N=10; z=1+i; A=htrans(scalars(N,z))identity(N)scalars(N,z); A ||
 <br>
 N=10; z=1+i; A=scalars(N,z)identity(N)htrans(scalars(N,z)); A ->
@@ -4294,53 +4332,6 @@ ones(2,2) -> (1,1:1,1)
 ones(5,3) -> (1,1,1:1,1,1:1,1,1:1,1,1:1,1,1)
 <br>
 <br>
-行列の転置
-<br>
-trans(1,2:3,4) -> (1,3:2,4)
-<br>
-・行vectorを列vectorに変換
-<br>
-transpose(1,2,3) || trans(1,2,3) -> (1:2:3)
-<br>
-・列vectorを行vectorに変換
-<br>
-trans({1,2,3}) || trans{1,2,3} -> (1,2,3)
-<br>
-<br>
-<a href="#span-out-com">複素数</a>の行列のHermit転置
-<br>
-htrans(1-i,1-2i:1-3i,1-4i) || hermitian(1-i,1-2i:1-3i,1-4i) -> (1+i,1+3i:1+2i,1+4i)
-<br>
-<br>
-列vectorのEuclidian norm（vectorの長さ）
-<br>
-norm(1:2:3) || norm{1,2,3} || norm({1,2,3}) -> 3.7416573867739413
-<br>
-norm(-i:2i:-3i) || norm{-i,2i,-3i} || norm({-i,2i,-3i}) -> 3.7416573867739413
-<br>
-norm((1-i)/sqrt2:2i:-3i) || norm({(1-i)/sqrt2,2i,-3i}) -> 3.7416573867739413
-<br>
-・<a href="#span-out-ope">有次元</a>の場合、同義
-<br>
-x={(1-i)/sqrt2,2i,-3i}; sqrt(htrans(x)x) -> 3.7416573867739413
-<br>
-・Hermit内積
-<br>
-x={(1-i)/sqrt2,2i,-3i}; htrans(x)x -> 14
-<br>
-・標準内積
-<br>
-x={(1-i)/sqrt2,2i,-3i}; trans(x)x -> -13-0.9999999999999998i
-<br>
-・よって<a href="#span-out-com">複素数</a>の場合、非同義
-<br>
-x={(1-i)/sqrt2,2i,-3i}; abs(sqrt(trans(x)x))  <span class="selection">// NG</span> -> 3.6108731368472777
-<br>
-・行vectorを誤入力した場合
-<br>
-norm((1-i)/sqrt2,2i,-3i) || norm(-3i)  <span class="selection">// NG</span> -> 3
-<br>
-<br>
 行列size
 <br>
 ・行size
@@ -4377,6 +4368,8 @@ normalizer(vr) ->
 ・同義
 <br>
 ・行vectorの左からnormの逆数を積
+<br>
+・<a href="#span-out-FNm-trans">転置行列関数</a>を使用
 <br>
 vr=(1,i,-i); (1/norm(trans(vr)))vr ->
 <br>
@@ -4421,7 +4414,9 @@ normalizer(A) ->
 <br>
 0.5773502691896258,0.5773502691896258i,-0.5773502691896258i)
 <br>
-・各行vectorを行列操作で正規化する場合
+・各行vectorを<a href="#span-out-array">行列操作</a>で正規化する場合
+<br>
+・<a href="#span-out-FNm-trans">転置行列関数</a>を使用
 <br>
 (1/norm(trans(A[0])))A[0] -> 1
 <br>
@@ -4445,7 +4440,9 @@ normalizec(tA) ->
 <br>
 0,0,-0.5773502691896258i)
 <br>
-・各列vectorを行列操作で正規化する場合
+・各列vectorを<a href="#span-out-array">行列操作</a>で正規化する場合
+<br>
+・<a href="#span-out-FNm-trans">転置行列関数</a>を使用
 <br>
 tA={1:1,i:1,i,-i}; A=trans(tA); A -> (1,0,0:1,i,0:1,i,-i)
 <br>
@@ -4466,6 +4463,68 @@ trans((1/norm(trans(A[2])))A[2])
 目次
 </a>
 <br>
+転置行列関数
+<br>
+入力仕様
+    </th>
+    <td>
+<span id="span-out-FNm-trans"></span>
+転置行列関数の入力仕様と付随する留意事項について記述する
+<br>
+<br>
+<a href="#span-out-mat">行列</a>の転置
+<br>
+trans(1,2:3,4) -> (1,3:2,4)
+<br>
+・行vectorを列vectorに変換
+<br>
+transpose(1,2,3) || trans(1,2,3) -> (1:2:3)
+<br>
+・列vectorを行vectorに変換
+<br>
+trans({1,2,3}) || trans{1,2,3} -> (1,2,3)
+<br>
+<br>
+<a href="#span-out-com">複素数</a>の<a href="#span-out-mat">行列</a>のHermit転置
+<br>
+htrans(1-i,1-2i:1-3i,1-4i) || hermitian(1-i,1-2i:1-3i,1-4i) -> (1+i,1+3i:1+2i,1+4i)
+<br>
+<br>
+列vectorのEuclidian norm（vectorの長さ）
+<br>
+norm(1:2:3) || norm{1,2,3} || norm({1,2,3}) -> 3.7416573867739413
+<br>
+norm(-i:2i:-3i) || norm{-i,2i,-3i} || norm({-i,2i,-3i}) -> 3.7416573867739413
+<br>
+norm((1-i)/sqrt2:2i:-3i) || norm({(1-i)/sqrt2,2i,-3i}) -> 3.7416573867739413
+<br>
+・<a href="#span-out-ope">有次元</a>の場合、同義
+<br>
+x={(1-i)/sqrt2,2i,-3i}; sqrt(htrans(x)x) -> 3.7416573867739413
+<br>
+・Hermit内積
+<br>
+x={(1-i)/sqrt2,2i,-3i}; htrans(x)x -> 14
+<br>
+・標準内積
+<br>
+x={(1-i)/sqrt2,2i,-3i}; trans(x)x -> -13-0.9999999999999998i
+<br>
+・よって<a href="#span-out-com">複素数</a>の場合、非同義
+<br>
+x={(1-i)/sqrt2,2i,-3i}; abs(sqrt(trans(x)x))  <span class="selection">// NG</span> -> 3.6108731368472777
+<br>
+・行vectorを誤入力した場合
+<br>
+norm((1-i)/sqrt2,2i,-3i) || norm(-3i)  <span class="selection">// NG</span> -> 3
+    </td>
+  </tr>
+  <tr>
+    <th>
+<a href="#span-index">
+目次
+</a>
+<br>
 last行列関数
 <br>
 入力仕様
@@ -4477,13 +4536,13 @@ last行列関数の入力仕様と付随する留意事項について記述す�
 <br>
 行列要素を取得
 <br>
-・最初要素（行列の最初行の最初列の要素）
+・最初要素（<a href="#span-out-mat">行列</a>の最初行の最初列の要素）
 <br>
 first(1,2:3,4) -> 1
 <br>
 first{1,2:3,4} -> 1
 <br>
-・最終要素（行列の最終行の最終列の要素）
+・最終要素（<a href="#span-out-mat">行列</a>の最終行の最終列の要素）
 <br>
 last(1,2:3,4) -> 4
 <br>
@@ -4551,7 +4610,7 @@ last(last{1,2},last{3:4}) -> 4
 <br>
 last(last{1,2}:last{3:4}) -> 4
 <br>
-・仕様上、代入は次元を残さず、無次元の0を返す
+・仕様上、<a href="#span-out-substitution">変数への代入</a>は次元を残さず、無次元の0を返す
 <br>
 (vc={1,2,3},vr=(1,2,3),norm(vc)) -> (0,0,3.7416573867739413)
 <br>
@@ -4575,7 +4634,7 @@ last(ans) -> 3.7416573867739413
 入力仕様
     </th>
     <td>
-<span id="span-out-concat"></span>
+<span id="span-out-array"></span>
 行列操作の入力仕様と付随する留意事項について記述する
 <br>
 <br>
@@ -4612,7 +4671,7 @@ clear; (1,2:3,4)[x] -> [MyErr]Invalid REv(x)
 <br>
 列vectorを取得
 <br>
-・転置の<a href="#span-out-FNm">行列関数</a>を使用
+・<a href="#span-out-FNm-trans">転置行列関数</a>を使用
 <br>
 A=(1,2:3,4); trans((trans(A))[1]) || htrans((htrans(A))[1]) -> (2:4)
 <br>
@@ -4631,6 +4690,21 @@ A=(1,2:3,4); (trans(A))[1]  <span class="selection">// OK</span> -> (2,4)
 A=(1,2:3,4); trans(A)[1] || trans((A)[1])  <span class="selection">// NG</span> -> (3:4)
 <br>
 trans(1,2:3,4)[1] || trans((1,2:3,4)[1])  <span class="selection">// NG</span> -> (3:4)
+    </td>
+  </tr>
+  <tr>
+    <th>
+<a href="#span-index">
+目次
+</a>
+<br>
+行列への代入
+<br>
+入力仕様
+    </th>
+    <td>
+<span id="span-out-substitution-mat"></span>
+行列への代入の入力仕様と付随する留意事項について記述する
 <br>
 <br>
 定義済みの行列要素のみ代入可
@@ -4667,7 +4741,7 @@ A=(1,2:3,4); A[0]=A; A -> (3,4:3,4)
 <br>
 A=(1,2:3,4); A[0]=(A:A(2,:,2)); A -> (6,8:3,4)
 <br>
-・列指定で代入する場合、転置の<a href="#span-out-FNm">行列関数</a>を使用
+・列指定で代入する場合、<a href="#span-out-FNm-trans">転置行列関数</a>を使用
 <br>
 A=(1,2:3,4); tA=trans(A); tA[0]=-tA[0]; A=trans(tA); A -> (-1,2:-3,4)
 <br>
@@ -4694,6 +4768,21 @@ clear; A=&lt;(1,2:3,4); A[1]=(,) -> [MyErr]Undef var(A)
 clear; A=&lt;(1,2:3,4); (A=&gt;)[1][1]=0 || =0-4 -> -4
 <br>
 clear; A=&lt;(1,2:3,4); (A=&gt;)[1]=(,) || =(,)-(A=&gt;)[1] -> (-3,-4)
+    </td>
+  </tr>
+  <tr>
+    <th>
+<a href="#span-index">
+目次
+</a>
+<br>
+行列結合
+<br>
+入力仕様
+    </th>
+    <td>
+<span id="span-out-concatination"></span>
+行列結合の入力仕様と付随する留意事項について記述する
 <br>
 <br>
 vectorの結合
@@ -7317,7 +7406,7 @@ norm(mdx) -> 0
 <br>
 {x0,x1} -> (0:0)
 <br>
-・残差の最大値を演算する場合、転置の<a href="#span-out-FNm">行列関数</a>を使用
+・残差の最大値を演算する場合、<a href="#span-out-FNm-trans">転置行列関数</a>を使用
 <br>
 ・残差を結合した列vectorを転置して行vectorに変換後、maxを取る
 <br>
@@ -8852,7 +8941,7 @@ x=Gauss(A,b); x -> (-3.9999999999999982:4.499999999999999)
 <br>
 A(x) -> (5:6.000000000000002)
 <br>
-・行列操作を駆使して演算内容を以下に示す
+・<a href="#span-out-array">行列操作</a>を駆使して演算内容を以下に示す
 <br>
 ・pivot選択
 <br>
@@ -9226,7 +9315,7 @@ A(x) -> (10i:10.999999999999986i:12i)
 <br>
 ・algorithmを以下に示す
 <br>
-・pivot選択は行列操作で示す
+・pivot選択は<a href="#span-out-array">行列操作</a>で示す
 <br>
 storage cleared
 <br>
