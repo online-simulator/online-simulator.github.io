@@ -257,6 +257,18 @@ minor update
 <br>
 [Calculator]
 <br>
+・static-method's default eval() for console-CLI added
+<br>
+　<a href="01_calc_simple/manual.html#span-in-myeval">[manual]Calculator-独自eval</a>
+<br>
+　My_entry.eval("clear; x=i; x*x;"); -> "local storage cleared;x=i;-1"
+<br>
+　My_entry.eval("(1,2:3,4)(1,2:3,4)"); -> "(7,10:15,22)"
+<br>
+　My_entry.eval("_sn(=&lt;{n+1},0,2)"); -> "6"
+<br>
+　My_entry.eval("1-"); -> "[MyErr]Invalid binary operation"
+<br>
 ・omitted Call-by-Equation's bracket disabled　⇒　enabled
 <br>
 　clear; _sn(=&lt;n,0,2) -> [MyErr]Invalid =&lt;Call-by-Equation
@@ -298,6 +310,8 @@ minor update
 　追加校正7箇所
 <br>
 　追加校正29箇所
+<br>
+　追加校正20箇所
 <br>
 ・manual残課題[TBD-status]scopeの実装を追加
 <br>
@@ -1685,14 +1699,14 @@ minor update
 <br>
 　main().onloadの引数変更のため、updateとする
 <pre><code>
-before:
+  before:
   (function(document){
     document.body.onload = function(e){
       new My_entry.main().onload(e);
     };
   })(document);
 
-after:
+  after:
   (function(document){
     new My_entry.$().onload(document, function(e){
       new My_entry.main().onload(document, e);

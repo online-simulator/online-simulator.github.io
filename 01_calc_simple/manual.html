@@ -311,6 +311,11 @@ comment文
 括弧
 </a>
 <br>
+　　・
+<a href="#span-out-BT-associativity">
+括弧の結合性
+</a>
+<br>
 　・
 <a href="#span-out-RW">
 予約語
@@ -584,6 +589,11 @@ option
 </a>
 <br>
 ・
+<a href="#span-in-myeval">
+独自eval
+</a>
+<br>
+・
 <a href="#span-in-prec">
 変数・関数・区切り文字・演算子のprecedence
 </a>
@@ -724,10 +734,10 @@ FourierN
 内部仕様の前提について記述する
 <br>
 <br>
-直接入力による構文解析で問題となるeval不使用
+eval()不使用Non-use of JavaScript's eval()
 <br>
 <br>
-evalに代わる実装項目とfile名の対応関係を列挙する
+Calculator用途に特化した実装項目とfile名の対応関係を列挙する
 <br>
 ・構文解析・字句解析・単位tree構造: parser.js/operation.js/DATA.js
 <br>
@@ -3288,7 +3298,7 @@ clear; delete=&lt;delEqn(delete); delete=&gt; -> [MyErr]Invalid delEqnSelf(delet
 ・列挙しなければ括弧の種類は区別しない
 <br>
 <br>
-<a href="#span-out-ope">有次元</a>の場合、vectorを括る丸括弧()と波括弧{}は互いに転置の関係
+<a href="#span-out-ope">有次元</a>の場合、vectorを括る丸括弧()と波括弧{}は互いに<a href="#span-out-FNm-trans">転置の関係</a>
 <br>
 (1,2:3,4) -> (1,2:3,4)
 <br>
@@ -3312,13 +3322,65 @@ max(2,1) -> 2
 max{2,1} -> 1
 <br>
 <br>
-1重列挙の場合、外側に括弧の結合性は存在しない
+括弧なしで要素を列挙した場合、行vector扱いの丸括弧()で括られる
+<br>
+1,2,3 -> (1,2,3)
+<br>
+<br>
+演算結果のlog表示は丸括弧()
+<br>
+{1,2:3,4} || [1,3:2,4] -> (1,3:2,4)
+<br>
+<br>
+角括弧[]は直前の行列要素の参照位置を指定する
+<br>
+・よって括弧の中で最下位のprecedence
+<br>
+・唯一の右結合（右から左を参照）
+<br>
+A=(1,2:3,4); A[0][0] || (1,2:3,4)[0][0] -> 1
+<br>
+A=(1,2:3,4); A[1][1] || (1,2:3,4)[1][1] -> 4
+<br>
+・複数の要素を持つ場合のみ、行列として使用可
+<br>
+A=(1,2:3,4); A[1,2:3,4] -> (7,10:15,22)
+<br>
+[1,2][0][0] -> 1
+<br>
+[1,2:3,4][0] -> (1,2)
+<br>
+[1,2:3,4][1] -> (3,4)
+<br>
+<br>
+詳細は<a href="#span-out-array">行列操作入力仕様</a>参照
+    </td>
+  </tr>
+  <tr>
+    <th>
+<a href="#span-index">
+目次
+</a>
+<br>
+括弧の結合性
+<br>
+入力仕様
+    </th>
+    <td>
+<span id="span-out-BT-associativity"></span>
+括弧の結合性の入力仕様と付随する留意事項について記述する
+<br>
+<br>
+vectorを括る丸括弧()と波括弧{}は互いに<a href="#span-out-FNm-trans">転置の関係</a>で<a href="#span-out-BT">括弧</a>の結合性が存在する
+<br>
+<br>
+1重列挙の場合、外側に<a href="#span-out-BT">括弧</a>の結合性は存在しない
 <br>
 (1,2) || {(1,2)} || ({(1,2)}) || {({(1,2)})} -> (1,2)
 <br>
 {1,2} || ({1,2}) || {({1,2})} || ({({1,2})}) -> (1:2)
 <br>
-・よって上流で列挙しない限り、<a href="#span-out-vars">変数</a>・<a href="#span-out-eqns">式変数</a>は任意の括弧で括れる
+・よって上流で列挙しない限り、<a href="#span-out-vars">変数</a>・<a href="#span-out-eqns">式変数</a>は任意の<a href="#span-out-BT">括弧</a>で括れる
 <br>
 x=(1,2); y={1,2}; x*y || (x)(y) || {x}{y} || ({x}{y}) || {{x}{y}}  -> 5
 <br>
@@ -3357,6 +3419,8 @@ x=&lt;(1,2); y=&lt;{3,4}; z=&lt;{x:y}; z -> (1,2,3:0,0,4)
 <br>
 ・抜け要素は0として演算する
 <br>
+・<a href="#span-out-FNm-trans">転置行列関数</a>を使用
+<br>
 trans(trans((1,2:3:4))) -> (1,2:3,0:4,0)
 <br>
 trans(trans{(1,2:3:4)}) -> (1,2:3,0:4,0)
@@ -3364,40 +3428,6 @@ trans(trans{(1,2:3:4)}) -> (1,2:3,0:4,0)
 trans{trans{(1,2:3:4)}} -> (1,2:3,0:4,0)
 <br>
 x=(1,2); y={3,4}; trans(trans((x:y))) -> (1,2:3,0:4,0)
-<br>
-<br>
-括弧なしで要素を列挙した場合、行vector扱いの丸括弧()で括られる
-<br>
-1,2,3 -> (1,2,3)
-<br>
-<br>
-演算結果のlog表示は丸括弧()
-<br>
-{1,2:3,4} || [1,3:2,4] -> (1,3:2,4)
-<br>
-<br>
-角括弧[]は直前の行列要素の参照位置を指定する
-<br>
-・よって括弧の中で最下位のprecedence
-<br>
-・唯一の右結合（右から左を参照）
-<br>
-A=(1,2:3,4); A[0][0] || (1,2:3,4)[0][0] -> 1
-<br>
-A=(1,2:3,4); A[1][1] || (1,2:3,4)[1][1] -> 4
-<br>
-・複数の要素を持つ場合のみ、行列として使用可
-<br>
-A=(1,2:3,4); A[1,2:3,4] -> (7,10:15,22)
-<br>
-[1,2][0][0] -> 1
-<br>
-[1,2:3,4][0] -> (1,2)
-<br>
-[1,2:3,4][1] -> (3,4)
-<br>
-<br>
-詳細は<a href="#span-out-array">行列操作入力仕様</a>参照
     </td>
   </tr>
   <tr>
@@ -3873,7 +3903,7 @@ cmin(trans({0,-1+i,2i-2})) || cmin(trans{0,-1+i,2i-2}) || cmin(0,-1+i,2i-2) -> 0
 <br>
 clear; x=(0,-1+i,2i-2); cmin(x) || cmin{x} || cmin({x}) || cmin{{x}} -> 0
 <br>
-・1重列挙の場合、外側に<a href="#span-out-BT">括弧の結合性</a>は存在しない
+・1重列挙の場合、外側に<a href="#span-out-BT-associativity">括弧の結合性</a>は存在しない
     </td>
   </tr>
   <tr>
@@ -3961,7 +3991,7 @@ vectorの入力方法2種類
 {{1:2}:{3:4}} || {1:2:3:4} -> (1,2,3,4)
 <br>
 <br>
-行指定の行列と列指定の行列は互いに転置の関係
+行指定の行列と列指定の行列は互いに<a href="#span-out-FNm-trans">転置の関係</a>
 <br>
 (1,2:3,4) -> (1,2:3,4)
 <br>
@@ -3973,13 +4003,13 @@ transpose({1,2:3,4}) || trans({1,2:3,4}) || trans{1,2:3,4} -> (1,2:3,4)
 <br>
 ({1,2},{3:4}) || (trans(1,2),trans(3:4)) -> (1,3,4:2)
 <br>
-・1重列挙の場合、外側に<a href="#span-out-BT">括弧の結合性</a>は存在しない
+・1重列挙の場合、外側に<a href="#span-out-BT-associativity">括弧の結合性</a>は存在しない
 <br>
 (1,2) || {(1,2)} || ({(1,2)}) || {({(1,2)})} -> (1,2)
 <br>
 {1,2} || ({1,2}) || {({1,2})} || ({({1,2})}) -> (1:2)
 <br>
-・多重列挙の場合、vectorを括る<a href="#span-out-BT">括弧の結合性</a>に依存する
+・多重列挙の場合、vectorを括る<a href="#span-out-BT-associativity">括弧の結合性</a>に依存する
 <br>
 {(1,2),(3:4)} -> (1,2:3:4)
 <br>
@@ -6223,7 +6253,7 @@ x=-2; switch(cp_mp) -> 2
 <br>
 ・任意関数のdummy変数整数範囲[a,b]の総和を演算して返す
 <br>
-・_sdummy<a href="#span-out-vars-symbol">変数名symbol</a>で呼び出す
+・_sdummy<a href="#span-out-vars-symbol">変数名symbol</a>でcallする
 <br>
 ・dummy変数は無次元でlocal変数から独立する
 <br>
@@ -6389,7 +6419,7 @@ N=0; _sn(=&lt;Pn,N,10) -> 99.99999999999999
 <br>
 ・任意関数のdummy変数整数範囲[a,b]の総乗・総積を演算して返す
 <br>
-・_pdummy<a href="#span-out-vars-symbol">変数名symbol</a>で呼び出す
+・_pdummy<a href="#span-out-vars-symbol">変数名symbol</a>でcallする
 <br>
 ・dummy変数は無次元でlocal変数から独立する
 <br>
@@ -6486,7 +6516,7 @@ cA=(e^{i(pi/4)},:,e^{i(-pi/4)}); N=4; _pn(=&lt;{cA},1,N)
 <br>
 ・最後の演算結果を返す
 <br>
-・_rdummy<a href="#span-out-vars-symbol">変数名symbol</a>で呼び出す
+・_rdummy<a href="#span-out-vars-symbol">変数名symbol</a>でcallする
 <br>
 ・dummy変数は無次元でlocal変数から独立する
 <br>
@@ -6686,7 +6716,7 @@ norm(mdx)/norm({x0,x1}) -> infoLost[ri] 3.6879601533907295e-16
 <br>
 ・微分位置xでの差分刻みdx既定値dx=max(1,abs(x))dxD(1+i)
 <br>
-・_ddummy<a href="#span-out-vars-symbol">変数名symbol</a>で呼び出す
+・_ddummy<a href="#span-out-vars-symbol">変数名symbol</a>でcallする
 <br>
 ・dummy変数は無次元
 <br>
@@ -7023,7 +7053,7 @@ x -> (1.000000000000009+O(3e-5):0.9999999999999909+O(3e-5))
 <br>
 ・積分の差分刻みdxI=(b-a)/NI
 <br>
-・_idummy<a href="#span-out-vars-symbol">変数名symbol</a>で呼び出す
+・_idummy<a href="#span-out-vars-symbol">変数名symbol</a>でcallする
 <br>
 ・dummy変数は無次元
 <br>
@@ -7583,7 +7613,7 @@ ODE高階行列関数
 <br>
 ・1階常微分の差分刻み実数値dxT既定値dxT=1e-3
 <br>
-・_odummy<a href="#span-out-vars-symbol">変数名symbol</a>で呼び出す
+・_odummy<a href="#span-out-vars-symbol">変数名symbol</a>でcallする
 <br>
 ・dummy変数は無次元
 <br>
@@ -7645,7 +7675,7 @@ symbolic高階行列関数
 <br>
 ・未知<a href="#span-out-vars-symbol">変数名symbol</a>連番0~のm行n列の<a href="#span-out-mat">行列</a>を<a href="#span-out-eqns">式変数</a>に<a href="#span-out-substitution-equation">式代入</a>して0を返す
 <br>
-・_e式<a href="#span-out-vars-symbol">変数名symbol</a>(=&lt;{未知<a href="#span-out-vars-symbol">変数名symbol</a>},m,n)で呼出す
+・_e式<a href="#span-out-vars-symbol">変数名symbol</a>(=&lt;{未知<a href="#span-out-vars-symbol">変数名symbol</a>},m,n)でcallする
 <br>
 <br>
 test caseを列挙する
@@ -10707,6 +10737,7 @@ data.log -> "6"
 data.logh -> "2*3\n6"
 data.logo -> "makeLog=true"
 </code></pre>
+<br>
 ・<a href="#span-out-ope">useComplex</a>: 複素数を使用するflag
 <br>
 <br>
@@ -10771,6 +10802,44 @@ data.logo -> "makeLog=true"
 <br>
 <br>
 browser-GUI実行の場合、URLのGET入力で既定値を上書き可
+    </td>
+  </tr>
+  <tr>
+    <th>
+<a href="#span-index">
+目次
+</a>
+<br>
+独自eval
+    </th>
+    <td>
+<span id="span-in-myeval"></span>
+console-CLI実行用の独自evalについて記述する
+<br>
+<br>
+独自evalは次のstatic-methodでconsoleからcallする
+<br>
+・演算内容の文字列を引数に渡すと演算結果の文字列が返る
+<br>
+My_entry.eval("2*3") -> "6"
+<br>
+<br>
+<a href="#span-in-options">内部option</a>は以下の既定値
+<pre><code>
+data.options.useComplex = true;
+data.options.useMatrix = true;
+data.options.makeLog = true;
+</code></pre>
+<br>
+test caseを列挙する
+<pre><code>
+My_entry.eval("clear; x=i; x*x;"); -> "local storage cleared;x=i;-1"
+My_entry.eval("(1,2:3,4)(1,2:3,4)"); -> "(7,10:15,22)"
+My_entry.eval("_sn(=&lt;{n+1},0,2)"); -> "6"
+My_entry.eval("1-"); -> "[MyErr]Invalid binary operation"
+My_entry.eval(0xf); -> "15"
+My_entry.eval(3i); -> Uncaught SyntaxError: Invalid or unexpected token
+</code></pre>
     </td>
   </tr>
   <tr>

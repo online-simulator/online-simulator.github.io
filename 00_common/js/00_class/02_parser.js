@@ -610,12 +610,36 @@ My_entry.parser.prototype.script2trees = function(script){
   });
   return _trees2d;
 };
-My_entry.parser.prototype.run = function(_data){
+/* Ver.2.30.15 default eval() -> */
+My_entry.eval = function(script){
+  return new My_entry.parser().eval(script);
+};
+My_entry.parser.prototype.eval = function(script){
   var self = this;
-  var _data = _data;
+  var DATA = self.entry.DATA;
+  var _msg = "";
+  var data = new DATA.data();
+  data.in = script;
+  data.options.useComplex = true;
+  data.options.useMatrix = true;
+  data.options.makeLog = true;
+  try{
+    self.run(data);
+    _msg = data.log;
+  }
+  catch(e){
+    _msg = self.entry.def.get_msgError(e, "Invalid operation");
+  }
+  return _msg;
+};
+/* -> Ver.2.30.15 */
+My_entry.parser.prototype.run = function(data){
+  var self = this;
+  var _data = data;
   var trees2d = [];
   try{
     if(_data && _data.in){
+      _data.in = String(_data.in);  // Ver.2.30.15
       trees2d = self.script2trees(self.entry.reference.fullStr2half(_data.in));
     }
   }
