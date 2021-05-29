@@ -42,6 +42,14 @@ My_entry.math_com.prototype.cne = function(a, b){
   var sw = !((a.r == b.r) && (a.i == b.i));
   return self.entry.DATA.com(((sw)? 1: 0), 0);
 };
+My_entry.math_com.prototype.cmin = function(a, b){
+  var self = this;
+  return self.entry.DATA.com(Math.min(self.absolute_com(a),self.absolute_com(b)), 0);
+};
+My_entry.math_com.prototype.cmax = function(a, b){
+  var self = this;
+  return self.entry.DATA.com(Math.max(self.absolute_com(a),self.absolute_com(b)), 0);
+};
 My_entry.math_com.prototype.comp =
 My_entry.math_com.prototype.complex = function(a, b){
   var self = this;

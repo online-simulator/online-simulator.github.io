@@ -547,8 +547,12 @@ My_entry.parser.prototype.make_trees = function(sentence, re){
       case "lcm":
       case "gcd":
       // Both defined
+      // only real number
       case "min":
       case "max":
+      // |complex number|
+      case "cmin":
+      case "cmax":
         tree = DATA.tree_tag("FNn", token_lower);
         break;
       default:

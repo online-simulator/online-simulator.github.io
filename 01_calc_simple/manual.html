@@ -7319,9 +7319,13 @@ norm(mdx) -> 0
 <br>
 ・残差の最大値を演算する場合、転置の<a href="#span-out-FNm">行列関数</a>を使用
 <br>
-・両符号の残差を結合した列vectorを転置して行vectorに変換後、maxを取る
+・残差を結合した列vectorを転置して行vectorに変換後、maxを取る
 <br>
-max(trans({mdx,-mdx})) -> 0
+max(trans({mdx,-mdx}))  <span class="selection">// real-part</span> -> 0
+<br>
+max(i*trans({mdx,-mdx}))  <span class="selection">// imag-part</span> -> 0
+<br>
+cmax(trans(mdx))  <span class="selection">// |both-part|</span> -> 0
 <br>
 ・反復3回の場合
 <br>
@@ -7333,7 +7337,11 @@ mdx=Newton(=&lt;{x0+2*x1=5,3*x0+4*x1=6},=&lt;{x0,x1},,,3);
 <br>
 norm(mdx) -> infoLost[ri] 2.2204460494935903e-15
 <br>
-max(trans({mdx,-mdx})) -> infoLost[ri] 1.7763568394338757e-15
+max(trans({mdx,-mdx}))  <span class="selection">// real-part</span> -> infoLost[ri] 1.7763568394338757e-15
+<br>
+max(i*trans({mdx,-mdx}))  <span class="selection">// imag-part</span> -> infoLost[ri] 2.1963410797410362e-20
+<br>
+cmax(trans(mdx))  <span class="selection">// |both-part|</span> -> infoLost[ri] 1.7763568395696568e-15
 <br>
 {x0,x1} ->
 <br>
@@ -7355,7 +7363,11 @@ mdx=Newton(=&lt;{x0+2*x1=5,3*x0+4*x1=6},=&lt;{x0,x1},,,10,1e-8);
 <br>
 norm(mdx) -> 2.0548659974995737e-10
 <br>
-max(trans({mdx,-mdx})) -> 1.0355938329098548e-10
+max(trans({mdx,-mdx}))  <span class="selection">// real-part</span> -> 1.0355938329098548e-10
+<br>
+max(i*trans({mdx,-mdx}))  <span class="selection">// imag-part</span> -> 1.0355819825427455e-10
+<br>
+cmax(trans(mdx))  <span class="selection">// |both-part|</span> -> 1.464542464160083e-10
 <br>
 {x0,x1} ->
 <br>
@@ -7385,7 +7397,11 @@ norm(mdx) -> infoLost[ri] 2.2204460494895584e-15
 <br>
 norm(mdx)/norm({x0,x1}) -> infoLost[ri] 3.6879601533840316e-16+O(1e-41i)
 <br>
-max(trans({mdx,-mdx})) -> infoLost[ri] 1.7763568395916467e-15
+max(trans({mdx,-mdx}))  <span class="selection">// real-part</span> -> infoLost[ri] 1.7763568395916467e-15
+<br>
+max(i*trans({mdx,-mdx}))  <span class="selection">// imag-part</span> -> infoLost[ri] 2.250213020433239e-25
+<br>
+cmax(trans(mdx))  <span class="selection">// |both-part|</span> -> infoLost[ri] 1.7763568395916467e-15
 <br>
 {x0,x1} ->
 <br>
@@ -7409,7 +7425,11 @@ norm(mdx) -> 2.0548659974995737e-10
 <br>
 norm(mdx)/norm({x0,x1}) -> 3.4129466559497216e-11+O(4e-22+4e-22i)
 <br>
-max(trans({mdx,-mdx})) -> 1.0355938329098548e-10
+max(trans({mdx,-mdx}))  <span class="selection">// real-part</span> -> 1.0355938329098548e-10
+<br>
+max(i*trans({mdx,-mdx}))  <span class="selection">// imag-part</span> -> 1.0355819825427455e-10
+<br>
+cmax(trans(mdx))  <span class="selection">// |both-part|</span> -> 1.464542464160083e-10
 <br>
 {x0,x1} ->
 <br>
@@ -7435,7 +7455,11 @@ mdx=Newton(=&lt;{x0+2*x1=5,3*x0+4*x1=6},=&lt;{x0,x1},,,1)
 <br>
 norm(mdx) -> infoLost[ri] 2.2204460494935903e-15+O(2e-5+5e-6i)
 <br>
-max(trans({mdx,-mdx})) -> infoLost[ri] 1.7763568394338757e-15+O(2e-5)
+max(trans({mdx,-mdx}))  <span class="selection">// real-part</span> -> infoLost[ri] 1.7763568394338757e-15+O(2e-5)
+<br>
+max(i*trans({mdx,-mdx}))  <span class="selection">// imag-part</span> -> infoLost[ri] 2.1963410797410362e-20+O(1e-5)
+<br>
+cmax(trans(mdx))  <span class="selection">// |both-part|</span> -> infoLost[ri] 1.7763568395696568e-15+O(2e-5)
 <br>
 {x0,x1} ->
 <br>
@@ -11049,8 +11073,12 @@ parser.js抜粋
       case "lcm":
       case "gcd":
       // Both defined
+      // only real number
       case "min":
       case "max":
+      // |complex number|
+      case "cmin":
+      case "cmax":
         tree = DATA.tree_tag("FNn", token_lower);
         break;
       default:
