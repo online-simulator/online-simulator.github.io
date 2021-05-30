@@ -644,6 +644,11 @@ rotationx/rotationy/rotationz-Left-Handed-System
 </a>
 <br>
 ・
+<a href="#span-eqn-solvex_Gauss">
+solvex_Gauss
+</a>
+<br>
+・
 <a href="#span-eqn-solvex_pivotting">
 solvex_pivotting
 </a>
@@ -3540,9 +3545,9 @@ eは指数と区別するために空括弧()を付ける方が間違いが少�
 <br>
 (({})) -> 0
 <br>
-・乱数
+<del>・乱数
 <br>
-random() || random || rand -> 0.7479324154774045
+random() || random || rand -> 0.7479324154774045</del><span class="run">Ver.2.30.15</span>以降、引数0個の<a href="#span-out-FN">関数</a>に昇格
 <br>
 ・本来、<a href="#span-out-FN">関数</a>の呼出し時に空括弧を含めて判別するが、
 <br>
@@ -3870,6 +3875,13 @@ Excel準拠の引数(x,y)は次のatan2_exを使用する
 atan2_ex(0,1)/pi -> 0.5
 <br>
 deg_atan2_ex(0,1) || degrees(atan2_ex(0,1)) -> 90
+<br>
+<br>
+<span class="run">Ver.2.30.15</span>以降、乱数の即時callに対応
+<br>
+random() || random || rand -> 0.7479324154774045
+<br>
+A=0; _rn(=&lt;A=(A,rand),,2); A -> (0,0.12740820474199377,0.7111903938956377)
 <br>
 <br>
 一部の実装関数において引数不足の場合、予期せぬerror終了が発生する
@@ -9049,7 +9061,9 @@ backward -> (-3.9999999999999982:4.499999999999999)
 <br>
 backward -> [MyErr]Invalid reference of array
 <br>
-・実際には自明の演算は行わないが、ここでは簡潔に記述する
+・実際には重複する演算や自明の演算は行わないが、ここでは簡潔に記述する
+<br>
+　厳密な記述は<a href="#span-eqn-solvex_Gauss">strict-mode式変数list-solvex_Gauss</a>参照
 <br>
 ・さらに、<a href="#span-out-FNh-SX">総和高階関数</a>を使用して反復処理を記述する
 <br>
@@ -10729,7 +10743,7 @@ var data = {trees:{}, options:{}, vars:{}, eqns:{}};
 var data = new My_entry.DATA().data();
 data.in = "2*3";
 new My_entry.parser().run(data);
-data.out -> [Array(1)]  // 上記の単位tree構造が返却される
+data.out -> [Array(1)]  // 上記の単位tree構造が返る
 data.log -> undefined
 data.options.makeLog = true;
 new My_entry.parser().run(data);
@@ -11121,7 +11135,6 @@ parser.js抜粋
       case "log10e":
       case "sqrt1_2":
       case "sqrt2":
-      // "FN0orCT"
       // Both defined
       case "e":
       case "pi":  // pi || PI() in Excel
@@ -11132,7 +11145,7 @@ parser.js抜粋
       case "random":
       // Excel defined
       case "rand":
-        tree = DATA.tree_num(Math.random(), 0);
+        tree = DATA.tree_tag("FN", "random");
         break;
       // "FN1"
       case "ln":
@@ -11518,6 +11531,72 @@ roty_LHS=&lt;{rt=real(theta),=&lt;(cos(rt),,-sin(rt):,1,:sin(rt),,cos(rt))}=&gt;
 rotz_LHS=&lt;{rt=real(psi),=&lt;(cos(rt),sin(rt),:-sin(rt),cos(rt),:,,1)}=&gt;;
 <br>
 phi=pi/4; rotx_LHS=&gt;;
+    </td>
+  </tr>
+  <tr>
+    <th>
+<a href="#span-index">
+目次
+</a>
+<br>
+solvex
+<br>
+_Gauss
+    </th>
+    <td>
+<span id="span-eqn-solvex_Gauss"></span>
+<a href="#span-out-linear">連立線形方程式の解法</a>参照
+<br>
+clear;
+<br>
+solvex_Gauss=&lt;{
+<br>
+out=&lt;x,
+<br>
+store_in=&lt;last{temp_A=A,temp_b=b},
+<br>
+restore_in=&lt;last{A=temp_A,b=temp_b},
+<br>
+delete_temp=&lt;last{delVar(temp_A),delVar(temp_b)},
+<br>
+delete_init=&lt;last{delVar(sizeA),delVar(x)},
+<div class="condition">
+init=&lt;last{sizeA=size(A),x=zeros(sizeA,1)},
+</div>
+<div class="run">
+run=&lt;last{
+<br>
+compare=&lt;last{absA_comp=abs(A[ir_comp][ir]),
+<br>
+switch(absA_pivot&lt;absA_comp,=&lt;last{ir_pivot=ir_comp,absA_pivot=absA_comp})},
+<br>
+proc=&lt;{w=A[ir],A[ir]=A[ir_pivot],A[ir_pivot]=w,w=b[ir],b[ir]=b[ir_pivot],b[ir_pivot]=w},
+<br>
+pivotting=&lt;last{ir_pivot=ir,absA_pivot=abs(A[ir][ir]),
+<br>
+_sir_comp(=&lt;compare,ir+1,sizeA-1),switch(ir&lt;&gt;ir_pivot,=&lt;proc)},
+<br>
+forward=&lt;last{k=A[ir][ic]/A[ic][ic],A[ir]=A[ir]-k*A[ic],b[ir]=b[ir]-k*b[ic]},
+<br>
+backward=&lt;last{r=b[ir],_sic(=&lt;r=r-A[ir][ic]*x[ic],ir+1,sizeA-1),x[ir]=r/A[ir][ir]},
+<br>
+_sir(=&lt;pivotting,0,sizeA-2),
+<br>
+_sic(=&lt;_sir(=&lt;forward,ic+1,sizeA-1),0,sizeA-2),
+<br>
+x[sizeA-1]=b[sizeA-1]/A[sizeA-1][sizeA-1],_sir(=&lt;backward,sizeA-2,0)
+<br>
+},
+</div>
+store_in=&gt;,init=&gt;,run=&gt;,return=out=&gt;,restore_in=&gt;,delete_init=&gt;,delete_temp=&gt;,
+<br>
+=&lt;return}=&gt;;
+<br>
+rand_Ab=&lt;last{N=5,A=zeros(N,N),b=vectorc(N),gen_rand=&lt;rand()+rand()*i,
+<br>
+_sir(=&lt;last{_sic(=&lt;A[ir][ic]=gen_rand=&gt;,0,N-1),b[ir]=gen_rand=&gt;},0,N-1)};
+<br>
+rand_Ab=&gt;; x=solvex_Gauss=&gt;; /*optimized*/Gauss(A,b)-x;
     </td>
   </tr>
   <tr>

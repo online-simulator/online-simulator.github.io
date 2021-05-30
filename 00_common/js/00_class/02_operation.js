@@ -1641,9 +1641,17 @@ My_entry.operation.prototype.FNn = function(data, i0, tagName, tagObj){
   var unit = self.entry.unit;
   var is = i0;
   var ie = i0+1;
+  /* Ver.2.30.15 -> */
+  var prop = tagObj.val;
+  var isFN0 = prop === "random";
   var rightArr = self.get_tagVal(trees[ie], "mat", "arr");
-  if(rightArr){
-    var prop = tagObj.val;
+  if(isFN0){
+    var tree = DATA.tree_num(Math[prop](), 0);
+    ie = is;
+    self.feedback2trees(data, is, ie, tree);
+  }
+  else if(rightArr){
+  /* -> Ver.2.30.15 */
     var args = self.arr2args(rightArr);
     var tree = DATA.num2tree(unit[tagName].apply(unit, [prop, options].concat(args)));  // arguments.length < O(10000)
     self.feedback2trees(data, is, ie, tree);

@@ -437,7 +437,6 @@ My_entry.parser.prototype.make_trees = function(sentence, re){
       case "log10e":
       case "sqrt1_2":
       case "sqrt2":
-      // "FN0orCT"
       // Both defined
       case "e":
       case "pi":  // pi || PI() in Excel
@@ -448,7 +447,7 @@ My_entry.parser.prototype.make_trees = function(sentence, re){
       case "random":
       // Excel defined
       case "rand":
-        tree = DATA.tree_num(Math.random(), 0);
+        tree = DATA.tree_tag("FN", "random");
         break;
       // "FN1"
       case "ln":
