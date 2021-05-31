@@ -1992,7 +1992,7 @@ browser上部のURL入力欄のGET入力で<a href="#span-in-options">内部opti
 index.html?param0=value0&amp;param1=value1&amp;param2=value2&amp;...
 <br>
 <br>
-strict-modeで実行する場合
+strict-modeで実行する場合、not false||not0を設定
 <br>
 useStrict=true
 <br>
@@ -2009,7 +2009,7 @@ useStrict=true
 　omitted Call-by-Equation's bracket({}) disabled</del><span class="run">Ver.2.28.15</span>以降、text modified
 <br>
 <br>
-<a href="#span-out-error">情報落ち</a>の発生や微分・積分の<a href="#span-out-error-numerical">数値誤差</a>を評価しない場合
+<a href="#span-out-error">情報落ち</a>の発生や微分・積分の<a href="#span-out-error-numerical">数値誤差</a>を評価しない場合、false（0 disabled）を設定
 <br>
 checkError=false
 <br>
@@ -10606,15 +10606,21 @@ f=&lt;last{V=1,E=0,k=1,I=exp(k*(V-E))-exp(-k*(V-E))}
 <br>
 [a=2,=&lt;[a=1,=&lt;a]=&gt;+a]=&gt; -> 3
 <br>
-・実装前後で演算結果が変わるtest caseはないはず（<a href="#span-out-vars-symbol">変数名symbol</a>は重複しない）
+・過去の後方互換性をほぼ完全に維持する場合、<a href="#span-out-BT">角括弧</a>[]のみ<a href="#span-out-types-vars">scope</a>を追加（default）
 <br>
-・過去の後方互換性をほぼ完全に維持する場合、<a href="#span-out-BT">角括弧</a>[]のみ<a href="#span-out-types-vars">scope</a>を追加
+　実装前後で演算結果が変わるtest caseはないはず
 <br>
-・後方互換性を完全に維持する場合、URL parameter's useScopeを追加（避けたい）
+・後方互換性を完全に維持する場合、URL parameter's useScopeを追加
 <br>
-・store時、scope objectをref object同列に追加
+　useScope=falseの場合、scopeを一切使用しない
 <br>
-・restore時、parent-treeへの再帰的なreference手段が必要（<a href="#span-out-flow">parse</a>段階で追加が理想）
+　useScope=trueの場合、すべての<a href="#span-out-BT">括弧</a>にscopeを使用する
+<br>
+・<a href="#span-out-flow">parse</a>段階で<a href="#span-out-flow">階層</a>毎にscope object追加が理想
+<br>
+　self-scope objectをref object同列に追加
+<br>
+　restore時、parents-scope objectへの再帰的なreference手段が必要
 <br>
 ・tree置換時、未知変数存在の場合、child-scope object継承が必要の可能性
 <br>
