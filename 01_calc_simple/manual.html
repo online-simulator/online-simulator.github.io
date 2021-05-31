@@ -189,7 +189,7 @@ option
 <br>
 ・
 <a href="#span-out-associativity">
-associativity
+2項演算子のassociativity
 </a>
 <br>
 ・
@@ -313,7 +313,7 @@ comment文
 <br>
 　　・
 <a href="#span-out-BT-associativity">
-括弧の結合性
+括弧のassociativity
 </a>
 <br>
 　・
@@ -1216,15 +1216,15 @@ option
 選択可能なoption設定について記述する
 <br>
 <br>
-2項演算子の結合性<a href="#span-out-associativity">associativity</a>を左右選択可
+<a href="#span-out-associativity">2項演算子のassociativity</a>を左右選択可
 <br>
-・左から順に結合する場合、左結合default
+・左から順に結合する場合、Left-Associativity（default）
 <br>
 +3-5+7-9 || ((((0+3)-5)+7)-9) -> -4
 <br>
 -(1,1)-(2,2) || (((0,0)-(1,1))-(2,2)) -> (-3,-3)
 <br>
-・右から順に結合する場合、右結合
+・右から順に結合する場合、Right-Associativity
 <br>
 +3-5+7-9 || (0+(3-(5+(7-9)))) -> 0
 <br>
@@ -1235,9 +1235,9 @@ option
 ・符号の左側には0||zeros行列が存在すると仮定して結合する
 <br>
 <br>
-<a href="#span-out-BRmo">記号省略乗算</a>と除算のprecedenceを切替え可
+<a href="#span-out-BRmo">記号省略乗算</a>と除算の<a href="#span-out-prec-ope">演算子のprecedence</a>を切替え可
 <br>
-・除算より記号省略乗算優先default
+・除算より記号省略乗算優先（default）
 <br>
 1/2(2) || 1/(2(2)) -> 0.25
 <br>
@@ -1257,14 +1257,18 @@ Multi-thread実行を選択可
 目次
 </a>
 <br>
+2項演算子の
+<br>
 associativity
     </th>
     <td>
 <span id="span-out-associativity"></span>
-2項演算子の結合性associativityについて記述する
+2項演算子のassociativityについて記述する
 <br>
 <br>
-左結合left-associativity
+Left-Associativity（以降、LAと省略する）
+<br>
+・左から順に結合する場合
 <br>
 +3-5+7-9 || ((((0+3)-5)+7)-9) -> -4
 <br>
@@ -1275,7 +1279,9 @@ associativity
 ・べき乗の2項演算子は^と**を区別しない
 <br>
 <br>
-右結合right-associativity
+Right-Associativity（以降、RAと省略する）
+<br>
+・右から順に結合する場合
 <br>
 +3-5+7-9 || (0+(3-(5+(7-9)))) -> 0
 <br>
@@ -1344,11 +1350,11 @@ precedence
 演算子のprecedenceと付随する留意事項について記述する
 <br>
 <br>
-除算と乗算の2項演算子は区別せず、<a href="#span-out-associativity">associativity</a>に従って演算する
+除算と乗算は区別せず、<a href="#span-out-associativity">2項演算子のassociativity</a>に従って演算する
 <br>
-左結合既定時　1*2/3*4/5 || ((((1*2)/3)*4)/5) -> 0.5333333333333333
+LA既定時　1*2/3*4/5 || ((((1*2)/3)*4)/5) -> 0.5333333333333333
 <br>
-右結合選択時　1*2/3*4/5 || (1*(2/(3*(4/5)))) -> 0.8333333333333333
+RA選択時　1*2/3*4/5 || (1*(2/(3*(4/5)))) -> 0.8333333333333333
 <br>
 <br>
 <a href="#span-out-BRmo">記号省略乗算</a>は除算より優先する
@@ -1358,13 +1364,13 @@ precedence
 　　　　除算優先選択時　1/2(2) || (1/2)(2) -> 1
 <br>
 <br>
-減算と加算の2項演算子は区別せず、<a href="#span-out-associativity">associativity</a>に従って演算する
+減算と加算は区別せず、<a href="#span-out-associativity">2項演算子のassociativity</a>に従って演算する
 <br>
-前置単項の符号は同種の2項演算子と区別せず、<a href="#span-out-associativity">associativity</a>に従って演算する
+前置単項の符号は同種の2項演算子と区別せず、<a href="#span-out-associativity">2項演算子のassociativity</a>に従って演算する
 <br>
-左結合既定時　+3-5+7-9 || ((((0+3)-5)+7)-9) -> -4
+LA既定時　+3-5+7-9 || ((((0+3)-5)+7)-9) -> -4
 <br>
-右結合選択時　+3-5+7-9 || (0+(3-(5+(7-9)))) -> 0
+RA選択時　+3-5+7-9 || (0+(3-(5+(7-9)))) -> 0
 <br>
 <br>
 後置の単項演算子は2項演算子より優先する
@@ -1407,9 +1413,9 @@ bit演算子は比較演算子・関係演算子より優先する
 <br>
 (1==1)|(1==-1) || eq(1,1)|eq(1,-1) || 1|0 -> 1
 <br>
-左結合既定時　1==1|1==-1 || 1==(1|1)==-1 || (1==1)==-1 || 1==-1 -> 0
+LA既定時　1==1|1==-1 || 1==(1|1)==-1 || (1==1)==-1 || 1==-1 -> 0
 <br>
-右結合選択時　1==1|1==-1 || 1==(1|1)==-1 || 1==(1==-1) || 1==0 -> 0
+RA選択時　1==1|1==-1 || 1==(1|1)==-1 || 1==(1==-1) || 1==0 -> 0
 <br>
 ・同様に論理ANDをbit ANDで代替する場合、<a href="#span-out-BT">括弧</a>を明示するか<a href="#span-out-FN">関数</a>を使用する
 <br>
@@ -1417,9 +1423,9 @@ bit演算子は比較演算子・関係演算子より優先する
 <br>
 (1==1)&amp;(1==-1) || eq(1,1)&amp;eq(1,-1) || 1&amp;0 -> 0
 <br>
-左結合既定時　1==1&amp;1==-1 || 1==(1&amp;1)==-1 || (1==1)==-1 || 1==-1 -> 0
+LA既定時　1==1&amp;1==-1 || 1==(1&amp;1)==-1 || (1==1)==-1 || 1==-1 -> 0
 <br>
-右結合選択時　1==1&amp;1==-1 || 1==(1&amp;1)==-1 || 1==(1==-1) || 1==0 -> 0
+RA選択時　1==1&amp;1==-1 || 1==(1&amp;1)==-1 || 1==(1==-1) || 1==0 -> 0
 <br>
 ・比較演算子は関係演算子より優先する
 <br>
@@ -3088,9 +3094,9 @@ vector: vector: ...
 要素, 要素, ... || 引数, 引数, ...
 <br>
 <br>
-区切り文字は2項の<a href="#span-out-associativity">associativity</a>や<a href="#span-out-flow">階層</a>の深さとは関係なく左から順に演算する
+区切り文字は<a href="#span-out-associativity">2項演算子のassociativity</a>や<a href="#span-out-flow">階層</a>の深さとは無関係に左から順に演算する
 <br>
-・区切り文字のprecedenceは最優先
+・区切り文字の<a href="#span-out-prec">演算のprecedence</a>は最優先
 <br>
 x=3,(x=9),2x -> (0,0,18)
 <br>
@@ -3339,9 +3345,9 @@ max{2,1} -> 1
 <br>
 角括弧[]は直前の行列要素の参照位置を指定する
 <br>
-・よって括弧の中で最下位のprecedence
+・よって括弧の中で最下位の<a href="#span-out-prec">演算のprecedence</a>
 <br>
-・唯一の右結合（右から左を参照）
+・唯一のRA（右から左を参照）
 <br>
 A=(1,2:3,4); A[0][0] || (1,2:3,4)[0][0] -> 1
 <br>
@@ -3367,19 +3373,21 @@ A=(1,2:3,4); A[1,2:3,4] -> (7,10:15,22)
 目次
 </a>
 <br>
-括弧の結合性
+括弧の
+<br>
+associativity
 <br>
 入力仕様
     </th>
     <td>
 <span id="span-out-BT-associativity"></span>
-括弧の結合性の入力仕様と付随する留意事項について記述する
+括弧のassociativityの入力仕様と付随する留意事項について記述する
 <br>
 <br>
-vectorを括る丸括弧()と波括弧{}は互いに<a href="#span-out-FNm-trans">転置の関係</a>で<a href="#span-out-BT">括弧</a>の結合性が存在する
+vectorを括る丸括弧()と波括弧{}は互いに<a href="#span-out-FNm-trans">転置の関係</a>で<a href="#span-out-BT">括弧</a>のassociativityが存在する
 <br>
 <br>
-1重列挙の場合、外側に<a href="#span-out-BT">括弧</a>の結合性は存在しない
+1重列挙の場合、外側に<a href="#span-out-BT">括弧</a>のassociativityは存在しない
 <br>
 (1,2) || {(1,2)} || ({(1,2)}) || {({(1,2)})} -> (1,2)
 <br>
@@ -3693,12 +3701,12 @@ z=e^(i{pi/4}); abs(z) -> 1
 <br>
 e^(-i(1pi()2/2i(5-3-1)i/(-4)))
 <br>
-・既定ではleft-<a href="#span-out-associativity">associativity</a>の2項演算で除算より<a href="#span-out-BRmo">記号省略乗算</a>を優先する
+・既定で<a href="#span-out-associativity">2項演算子のassociativity</a>はLAで除算より<a href="#span-out-BRmo">記号省略乗算</a>を優先する
 <br>
 e^(-i(1pi(){2/{2i({5-3}-1)i}}/(-4)))
 <br>
 <br>
-2項の<a href="#span-out-associativity">associativity</a>や<a href="#span-out-prec-ope">演算子のprecedence</a>によって解が異なる場合、入力を見直す
+<a href="#span-out-associativity">2項演算子のassociativity</a>や<a href="#span-out-prec-ope">演算子のprecedence</a>によって解が異なる場合、入力を見直す
 <br>
 <br>
 具体的には次のように対策する
@@ -3921,7 +3929,7 @@ cmin(trans({0,-1+i,2i-2})) || cmin(trans{0,-1+i,2i-2}) || cmin(0,-1+i,2i-2) -> 0
 <br>
 clear; x=(0,-1+i,2i-2); cmin(x) || cmin{x} || cmin({x}) || cmin{{x}} -> 0
 <br>
-・1重列挙の場合、外側に<a href="#span-out-BT-associativity">括弧の結合性</a>は存在しない
+・1重列挙の場合、外側に<a href="#span-out-BT-associativity">括弧のassociativity</a>は存在しない
     </td>
   </tr>
   <tr>
@@ -4021,13 +4029,13 @@ transpose({1,2:3,4}) || trans({1,2:3,4}) || trans{1,2:3,4} -> (1,2:3,4)
 <br>
 ({1,2},{3:4}) || (trans(1,2),trans(3:4)) -> (1,3,4:2)
 <br>
-・1重列挙の場合、外側に<a href="#span-out-BT-associativity">括弧の結合性</a>は存在しない
+・1重列挙の場合、外側に<a href="#span-out-BT-associativity">括弧のassociativity</a>は存在しない
 <br>
 (1,2) || {(1,2)} || ({(1,2)}) || {({(1,2)})} -> (1,2)
 <br>
 {1,2} || ({1,2}) || {({1,2})} || ({({1,2})}) -> (1:2)
 <br>
-・多重列挙の場合、vectorを括る<a href="#span-out-BT-associativity">括弧の結合性</a>に依存する
+・多重列挙の場合、vectorを括る<a href="#span-out-BT-associativity">括弧のassociativity</a>に依存する
 <br>
 {(1,2),(3:4)} -> (1,2:3:4)
 <br>
@@ -4174,7 +4182,7 @@ A=(11:21,22:31,32,33,34); htrans(htrans(A)) -> (11,0,0,0:21,22,0,0:31,32,33,34)
 (1,2:3,4)+(-1,2:) || (1,2:3,4)+(-1,2:,) || (1,2:3,4)+(-1,2:0,0) -> (0,4:3,4)
 <br>
 <br>
-<a href="#span-out-ope">無次元</a>の演算の場合、行列の演算規則とは関係なく<a href="#span-out-FNm-last">最終要素</a>を演算する
+<a href="#span-out-ope">無次元</a>の演算の場合、行列の演算規則とは無関係に<a href="#span-out-FNm-last">最終要素</a>を演算する
 <br>
 (1,2:3)1 || (3)*1 -> 3
 <br>
@@ -8120,7 +8128,7 @@ f""(x)=(f"'(x+4h)-f"'(x-8h))/(16h)+O((8h)^2)
 <br>
 前提を列挙する
 <br>
-・2項演算子はleft-<a href="#span-out-associativity">associativity</a>を前提に記述する
+・<a href="#span-out-associativity">2項演算子のassociativity</a>はLAを前提に記述する
 <br>
 ・除算より<a href="#span-out-BRmo">記号省略乗算</a>優先を前提に記述する
 <br>
@@ -9063,7 +9071,7 @@ backward -> [MyErr]Invalid reference of array
 <br>
 ・実際には重複する演算や自明の演算は行わないが、ここでは簡潔に記述する
 <br>
-　厳密な記述は<a href="#span-eqn-solvex_Gauss">strict-mode式変数list-solvex_Gauss</a>参照
+厳密な記述は<a href="#span-eqn-solvex_Gauss">strict-mode式変数list-solvex_Gauss</a>参照
 <br>
 ・さらに、<a href="#span-out-FNh-SX">総和高階関数</a>を使用して反復処理を記述する
 <br>
@@ -10445,34 +10453,34 @@ _dy(=&lt;{1/(y*y)})/_dy(=&lt;{1/y})  <span class="selection">// NG</span> -> [My
 <br>
 前置単項の符号の扱いについて記述する
 <br>
-・単項の符号は同種の2項演算子と区別せず、<a href="#span-out-associativity">associativity</a>に従って演算する
+・単項の符号は同種の2項演算子と区別せず、<a href="#span-out-associativity">2項演算子のassociativity</a>に従って演算する
 <br>
 ・この時、符号の左側には0が存在すると仮定する
 <br>
-左結合既定時　+3-5+7-9 || ((((0+3)-5)+7)-9) -> -4
+LA既定時　+3-5+7-9 || ((((0+3)-5)+7)-9) -> -4
 <br>
-右結合選択時　+3-5+7-9 || (0+(3-(5+(7-9)))) -> 0
+RA選択時　+3-5+7-9 || (0+(3-(5+(7-9)))) -> 0
 <br>
 ・<a href="#span-out-mat">行列</a>も同様に単項の符号はzeros行列との差分||Scalar倍として扱う
 <br>
 -(1,2:3,4) || (,:,)-(1,2:3,4) || (-1,:,-1)(1,2:3,4) -> (-1,-2:-3,-4)
 <br>
-・よって実用しないが、符号が連続する場合、右結合選択時のみ演算可
+・よって実用しないが、符号が連続する場合、RA選択時のみ演算可
 <br>
-左結合既定時　--(1,i) || (-)-(1,i) -> Invalid binary operation
+LA既定時　--(1,i) || (-)-(1,i) -> Invalid binary operation
 <br>
-右結合選択時　--(1,i) || (,)-((,)-(1,i)) || (-1)((-1)(1,i)) -> (1,i)
+RA選択時　--(1,i) || (,)-((,)-(1,i)) || (-1)((-1)(1,i)) -> (1,i)
 <br>
-左結合既定時　---(1,i) || ((-)-)-(1,i) -> Invalid binary operation
+LA既定時　---(1,i) || ((-)-)-(1,i) -> Invalid binary operation
 <br>
-右結合選択時　---(1,i) || (,)-((,)-((,)-(1,i))) || (-1)((-1)((-1)(1,i))) -> (-1,-i)
+RA選択時　---(1,i) || (,)-((,)-((,)-(1,i))) || (-1)((-1)((-1)(1,i))) -> (-1,-i)
 <br>
 <br>
 次にequal記号=の扱いについて記述する
 <br>
 ・代入と判別されないequal記号=は、右辺移行の2項演算子として扱う
 <br>
-・2項の<a href="#span-out-associativity">associativity</a>に依存するが、単体使用を前提とする
+・<a href="#span-out-associativity">2項演算子のassociativity</a>に依存するが、単体使用を前提とする
 <br>
 -3=5 || (0-3)=5 || =5+3 -> 8
 <br>
@@ -10722,7 +10730,7 @@ console-CLI実行で必要な内部のoption項目について記述する
 全objectはglobal scopeから見えないMy_entryで始まる
 <br>
 <br>
-My_entry.parserに渡すdata objectを示す
+My_entry.parserに渡すdata objectを次に示す
 <br>
 var data = {trees:{}, options:{}, vars:{}, eqns:{}};
 <br>
@@ -10764,7 +10772,7 @@ data.logo -> "makeLog=true"
 ・<a href="#span-out-config">useStrict</a>: strict-modeを使用するflag
 <br>
 <br>
-・isRightAssociativityBR: 2項演算子の<a href="#span-out-associativity">associativity</a>を右結合に変更するflag
+・isRightAssociativityBR: <a href="#span-out-associativity">2項演算子のassociativity</a>をRAに変更するflag
 <br>
 <br>
 ・isDIVprior2OMUL: <a href="#span-out-BRmo">記号省略乗算</a>より除算を優先するflag
@@ -10875,7 +10883,7 @@ precedence
 <a href="#span-out-vars">変数</a>・<a href="#span-out-FN">関数</a>・<a href="#span-out-SR">区切り文字</a>・<a href="#span-out-prec-ope">演算子のprecedence</a>について記述する
 <br>
 <br>
-配列要素の定義順でprecedenceを動的に変更可能とする
+配列要素の定義順で<a href="#span-out-prec">演算のprecedence</a>を動的に変更可能とする
 <br>
 <br>
 operation.js抜粋
