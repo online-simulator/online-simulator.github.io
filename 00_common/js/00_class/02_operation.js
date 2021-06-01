@@ -2091,7 +2091,7 @@ My_entry.operation.prototype.SEv = function(data, i0, tagName, tagObj){
           var ref = self.get_tagVal(leftTree, "REv", "ref");
           if(ref){
             if(ref.length < 3){
-              tree_var = self.restore_var(vars, name_var);
+              var tree_var = self.restore_var(vars, name_var);  // Ver.2.30.16
               if(tree_var){
                 self.store_arr(tree_var.mat.arr, ref, tree.mat.arr);
                 tree = tree_var;
