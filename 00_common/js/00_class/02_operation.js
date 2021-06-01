@@ -2018,6 +2018,7 @@ My_entry.operation.prototype.SEv_pattern_matching = function(data, is, ie){
     if(name_var){
       var name_var_escaped = self.get_name_escaped(leftArrij);  // Ver.2.27.15
       if(name_var_escaped){
+        if(self.config.isEscaped(name_var_escaped)) throw "Invalid SEv("+name_var_escaped+")";  // Ver.2.30.16
         self.store_var(vars, name_var_escaped, DATA.num2tree(rightNum));
         _out += "stored_var("+name_var_escaped+") ";
         --self.params.hasUndefVars;
