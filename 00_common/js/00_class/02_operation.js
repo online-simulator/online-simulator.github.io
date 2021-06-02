@@ -236,11 +236,18 @@ My_entry.operation.prototype.prepare = function(data){
   self.init_callbacks_mat(options);
   return self;
 };
+/* Ver.2.30.17 original reference to storage object saved -> */
 My_entry.operation.prototype.clear = function(data){
   var self = this;
+  var vars = data.vars;
+  var eqns = data.eqns;
   var DATA = self.entry.DATA;
-  data.vars = {};
-  data.eqns = {};
+  for(var name in vars){
+    delete vars[name];
+  }
+  for(var name in eqns){
+    delete eqns[name];
+  }
   data.trees = DATA.tree2trees(DATA.tree_tag("out", "local storage cleared"));
   return self;
 };
@@ -257,16 +264,25 @@ My_entry.operation.prototype.store = function(data){
 /* Ver.1.6.3 */
 My_entry.operation.prototype.restore = function(data){
   var self = this;
+  var def = self.entry.def;
+  var vars = data.vars;
+  var eqns = data.eqns;
   var DATA = self.entry.DATA;
   var buffer = (self.vars && self.eqns);
   if(buffer){
-    data.vars = self.vars;
-    data.eqns = self.eqns;
+    self.clear(data);
+    for(var name in self.vars){
+      vars[name] = def.newClone(self.vars[name]);
+    }
+    for(var name in self.eqns){
+      eqns[name] = def.newClone(self.eqns[name]);
+    }
   }
   var msg = (buffer)? "local storage restored": "null buffer";
   data.trees = DATA.tree2trees(DATA.tree_tag("out", msg));
   return self;
 };
+/* -> Ver.2.30.17 */
 My_entry.operation.prototype.stop = function(data){
   var self = this;
   var DATA = self.entry.DATA;

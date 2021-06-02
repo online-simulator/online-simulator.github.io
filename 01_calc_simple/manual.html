@@ -3042,11 +3042,17 @@ restore
 <br>
 ・local <a href="#span-out-storage">buffer</a>に保存されたlocal <a href="#span-out-storage">storage</a>を復帰する
 <br>
-・複製した新規objectをそのまま復帰する（元objectの参照を切る仕様）
+<del>・複製した新規objectをそのまま復帰する（元objectの参照を切る仕様）</del>
+<br>
+<span class="run">Ver.2.30.17</span>以降、元の参照を保存
 <br>
 clear; x=2; store; x=3; restore; x -> 2
 <br>
 clear; x=2; store; clear; restore; x -> 2
+<br>
+<span class="run">Ver.2.30.17</span>以降、新規objectを複製してから復帰する（再利用に対応）
+<br>
+clear; a=2; store; a=3; restore; a; a=3; restore; a -> 2
 <br>
 ・store~restore間に新規に定義された<a href="#span-out-vars">変数</a>・<a href="#span-out-eqns">式変数</a>は参照不可
 <br>
@@ -3763,7 +3769,7 @@ pcomp(1,t) || ecomp(t) || cos(t)+real(i)sin(t) || cos(t) -> 0.7071067811865476
 <br>
 leftとrightの数値の関係や大小を比較する関数を列挙する
 <br>
-・被演算子が複素数の場合
+・被演算子が<a href="#span-out-com">複素数</a>の場合
 <br>
 　・equal判定関数: ceq(left, right)
 <br>
@@ -3822,7 +3828,7 @@ le(1,1)*ge(1,1) || 1*1 -> 1
 le(1,1)*ge(1,2) || 1*0 -> 0
 <br>
 <br>
-関数の引数に行列を指定した場合、最終行vectorの左から順に参照する
+関数の引数に<a href="#span-out-mat">行列</a>を指定した場合、最終行vectorの左から順に参照する
 <br>
 ・引数1個の関数の場合
 <br>
@@ -3879,7 +3885,7 @@ deg_atan2(1,0) || degrees(atan2(1,0)) -> 90
 <br>
 <a href="#span-out-vars">変数</a>を使用
 <br>
-・実軸と虚軸の複素数平面から弧度数radに変換する場合
+・実軸と虚軸の<a href="#span-out-com">複素数</a>平面から弧度数radに変換する場合
 <br>
 z=e^(i{pi/6}); atan2(imag(z),real(z)) -> 0.5235987755982987
 <br>
@@ -6551,7 +6557,7 @@ A=(1,2:3,4); N=5; _pn(=&lt;{A},1,N) -> (1069,1558:2337,3406)
 <br>
 A=(1,2:3,4); N=5; _pn(=&lt;{trans(A)},1,N) -> (1069,2337:1558,3406)
 <br>
-・複素数の任意行列cAの累乗
+・<a href="#span-out-com">複素数</a>の任意行列cAの累乗
 <br>
 cA=(e^{i(pi/4)},:,e^{i(-pi/4)}); N=4; _pn(=&lt;{cA},1,N)
 <br>

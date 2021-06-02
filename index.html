@@ -227,6 +227,42 @@ Y/M/D
 <tbody>
   <tr>
     <th>
+3.39.16.5.18
+    </th>
+    <td class="types">
+Calculator
+    </td>
+    <td>
+2.30.17
+    </td>
+    <td class="clear">
+minor bug-fix
+    </td>
+    <td>
+[Calculator]
+<br>
+・restore-command's series action bug-fixed
+<br>
+　<a href="01_calc_simple/manual.html#span-out-command">[manual]Calculator-命令文</a>
+<br>
+　before:
+<br>
+　　clear; a=2; store; a=3; <span class="clear">restore</span>; a; a=3; <span class="clear">restore</span>; a -> a=2;a=3;2;a=3;<span class="clear">3</span>
+<br>
+　after:
+<br>
+　　clear; a=2; store; a=3; restore; a; a=3; restore; a -> a=2;a=3;2;a=3;2
+<br>
+・manual更新
+<br>
+　追加校正6箇所
+    </td>
+    <td>
+2021/6/3
+    </td>
+  </tr>
+  <tr>
+    <th>
 3.39.16.5.17
     </th>
     <td class="types">
@@ -241,7 +277,7 @@ minor bug-fix
     <td>
 [operation.js]
 <br>
-・一部変数tree_varのglobal namespace pollution bug-fixed
+・一部変数<span class="clear">tree_var's global namespace pollution</span> bug-fixed
 <br>
 　results are no change excluding list-solvex_Gauss-button using rand()
 <br>
@@ -250,8 +286,6 @@ minor bug-fix
 ・a typing-mistake@Ver.2.30.15 in My_entry.eval() modified
 <br>
 　new DATA.data();　⇒　DATA.data();
-<br>
-[Calculator]
 <br>
 ・Ver.2.27.15変数の命名規則の追加による修正漏れに対応（Ver.2.29.15の別件）
 <br>
@@ -763,7 +797,7 @@ fatal bug-fix
 <br>
 　before:
 <br>
-　　plot2d('-5','5','t;',<span class="clear">'""','1000'</span>) -> throw false; 1000 times
+　　plot2d('-5','5','t;',<span class="clear">'""','1000') -> throw false; 1000 times</span>
 <br>
 　after:
 <br>
