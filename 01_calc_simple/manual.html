@@ -871,7 +871,7 @@ panel右側について記述する
 <br>
 ・C-buttonは入力欄&amp;log出力欄の内容とglobal <a href="#span-out-storage">storage</a>のClear実行を確定する
 <br>
-　Multi-thread実行時は演算を中断する
+　Multi-thread実行の場合、演算を中断する
 <br>
 ・BS-buttonは入力欄の選択位置の1字前を消去する
 <br>
@@ -1086,7 +1086,7 @@ panel中段について記述する
 <br>
 ・C-buttonは入力欄&amp;log出力欄の内容とglobal <a href="#span-out-storage">storage</a>のClear実行を確定する
 <br>
-　Multi-thread実行時は演算を中断する
+　Multi-thread実行の場合、演算を中断する
 <br>
 ・BS-buttonは入力欄の選択位置の1字前を消去する
 <br>
@@ -1253,7 +1253,7 @@ option
 <br>
 Multi-thread実行を選択可
 <br>
-・Single-thread実行時はtimeoutまで演算を中断不可
+・Single-thread実行の場合、timeoutまで演算を中断不可
     </td>
   </tr>
   <tr>
@@ -1703,7 +1703,7 @@ Math.pow(2,Math.pow(2,10)) || 2**(2**10) -> Infinity
 <br>
 pow(2,pow(2,10)) || 2**(2**10) || 2^(2^10) -> Infinity
 <br>
-・<a href="#span-out-com">複素数</a>演算の場合、辛うじてMAX_VALUEに近い値が得られる
+・<a href="#span-out-com">複素数</a>演算の場合、MAX_VALUEに近い値が得られる
 <br>
 pow(2,pow(2,10)) || 2**(2**10) || 2^(2^10) -> 1.7976931348622732e+308
 <br>
@@ -4779,6 +4779,11 @@ trans(1,2:3,4)[1] || trans((1,2:3,4)[1])  <span class="selection">// NG</span> -
 行列への代入の入力仕様と付随する留意事項について記述する
 <br>
 <br>
+行列への代入は<a href="#span-out-vars">変数</a>を使用する
+<br>
+・よって<a href="#span-out-substitution">変数への代入</a>と同義として扱う
+<br>
+<br>
 定義済みの行列要素のみ代入可
 <br>
 ・要素指定の代入
@@ -5440,11 +5445,13 @@ symbol
 <br>
 2; (ans*2,ans*3); ans -> (4,6)
 <br>
-・代入ではansは更新されない
+・<a href="#span-out-substitution">変数への代入</a>||<a href="#span-out-substitution-equation">式変数への式代入</a>の場合、ansは更新されない
 <br>
 2; x=3; ans -> 2
 <br>
-・error終了時はansは更新されない
+2; x=&lt;3; ans -> 2
+<br>
+・error終了の場合、ansは更新されない
     </td>
   </tr>
   <tr>
@@ -10649,21 +10656,31 @@ f=&lt;last{V=1,E=0,k=1,I=exp(k*(V-E))-exp(-k*(V-E))}
 <br>
 　useScope=trueの場合、すべての<a href="#span-out-BT">括弧</a>にscopeを使用する
 <br>
-・<a href="#span-out-flow">parse</a>段階で<a href="#span-out-flow">階層</a>毎にscope object追加が理想
+・store/restore時、<a href="#span-out-flow">階層</a>毎にscope objectが必要
 <br>
-　self-scope objectをref object同列に追加
+　<a href="#span-out-flow">parse</a>段階で実行文j、<a href="#span-out-flow">階層</a>nのscopes2d arrayを作成
 <br>
-　restore時、parents-scope objectへの再帰的なreference手段が必要
+　n=0に<a href="#span-out-storage">storage</a> object元のreferenceを統合・共通化
 <br>
-・tree置換時、未知変数存在の場合、child-scope object継承が必要の可能性
+・restore時、parents-scope objectの再帰的なreference手段が必要
+<br>
+　Circular Reference回避のため、scopes2d arrayの要素id=[j,n]でreferenceを代替
+<br>
+　各<a href="#span-out-flow">階層</a>のref object同列にids2d arrayを追加
+<br>
+・tree置換時、未知変数存在の場合、child-scope object継承が必要
 <br>
 ・[a=1,=&lt;a]のtree置換後の<a href="#span-out-eqns-call">式読出し</a>時、<a href="#span-out-vars">変数</a>aのsearch-precedence（短絡評価）
 <br>
-child-scope object || self-scope object || parents-scope object || local <a href="#span-out-storage">storage</a> object
+child-scope object || self-scope object || parents-scope object || <a href="#span-out-storage">storage</a> object
 <br>
-・<a href="#span-out-FNc">最上位関数</a>のhas対象も同様、del対象は変更なし
+・search-precedenceに従う<a href="#span-out-FNc">最上位関数</a>hasv/haseを追加
 <br>
-・<a href="#span-out-storage">storage</a>のみを扱う<a href="#span-out-command">命令文</a>への影響なし
+・<a href="#span-out-storage">storage</a>のみを扱う<a href="#span-out-command">命令文</a>への影響
+<br>
+　<a href="#span-out-storage">storage</a> objectをscopes2d arrayに統合するため、影響あり
+<br>
+　clear/store/restoreについて<a href="#span-out-storage">storage</a> object元のreferenceを切らないように修正
 <br>
 <br>
 <span class="run">Ver.2.19.6</span>以降、
