@@ -6483,7 +6483,9 @@ clear; (f=&lt;{(x=&gt;)},x=&lt;(1,2),=&lt;{(f=&gt;)})=&gt; -> (1,2)
 <br>
 clear; (f=&lt;{(x=&gt;)},x=&lt;(1,2),=&lt;{=&lt;{(f=&gt;)}}=&gt;)=&gt; -> (1,2)
 <br>
-・<a href="#span-out-bracket">階層</a>毎の引数&amp;<a href="#span-out-scope-vars">変数のscope</a>なしで無名関数の最短表記を許容
+・<del><a href="#span-out-bracket">階層</a>毎の引数&amp;<a href="#span-out-scope-vars">変数のscope</a>なしで</del><span class="run">Ver.2.31.17</span>以降、<a href="#span-out-scope-vars">変数のscope</a>を追加
+<br>
+・無名関数の最短表記を許容
 <br>
 ・本来、最短表記はdebugの支障が少ないcaseに限られる
 <br>
@@ -12120,6 +12122,8 @@ clear;
 plot2d_circle=&lt;[
 <br>
 out=&lt;(xt,yt),
+<br>
+scope2storage=&lt;last{addVar(xt),addVar(yt)},
 <div class="condition">
 init=&lt;last{
 <br>
@@ -12142,7 +12146,7 @@ evolutionN=&gt;
 <br>
 },
 </div>
-init=&gt;,run=&gt;,return=out=&gt;,
+init=&gt;,run=&gt;,return=out=&gt;,scope2storage=&gt;,
 <br>
 =&lt;return]=&gt;;
 <br>
@@ -12168,6 +12172,8 @@ clear;
 plot2d_evolution=&lt;[
 <br>
 out=&lt;(xt,yt),
+<br>
+scope2storage=&lt;last{addVar(xt),addVar(yt)},
 <div class="condition">
 init=&lt;last{
 <br>
@@ -12202,7 +12208,7 @@ evolutionN=&gt;
 <br>
 },
 </div>
-init=&gt;,run=&gt;,return=out=&gt;,
+init=&gt;,run=&gt;,return=out=&gt;,scope2storage=&gt;,
 <br>
 =&lt;return]=&gt;;
 <br>

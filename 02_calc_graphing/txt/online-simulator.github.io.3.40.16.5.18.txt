@@ -226,11 +226,11 @@ Gauss(A,b)-x
 
 x=solvex_Gauss=>
 x=(
--0.6070785052411145-0.4147777114596155i:
--0.8513933806065335+0.42556922292422533i:
-0.11014776359914207-1.7785748460102973i:
-1.5920173436926353+0.054923697352463136i:
-0.3613256103088847+1.3913016682820742i
+1.1703488904435815+3.0357505802996383i:
+0.20576524325000609-1.8501343983287952i:
+-1.9506898175844534+1.441158010563126i:
+2.287705482187403-1.4812371943938971i:
+0.6283659942679656-0.7508558932761252i
 )
 
 rand_Ab=>
@@ -358,7 +358,7 @@ plot2d_evolution=>
 19.86470649057239+O(6e-2),-19.40158732904714
 )
 
-plot2d_evolution=<[out=<(xt,yt),init=<last{g=-9.8,z_a=0+g*i,z_v0=20+20i,z_x0=0,dt=0.5,m=1,Cd_sphere=1,x=<{z_x,z_v},x_initial=<{z_x0,z_v0},f=<{z_v,z_a-(Cd_sphere/m)*z_v},t0=0,t1=5,N=round((t1-t0)/dt),M=0,xt=zeros(N+1,M+1),yt=zeros(N+1,M+1)},run=<last{dtn=<switch(n<=0,0:1,dt),step=<x_next=_otdummy(=<f,=<x,=<x_initial,0,dtn=>),stepnm=<last{step=>,xt[n][mdummy]=real(z_x),yt[n][mdummy]=imag(z_x)},casesM=<_smdummy(=<stepnm,0,M),evolutionN=<_sn(=<casesM,0,N),evolutionN=>},init=>,run=>,return=out=>,=<return]=>
+plot2d_evolution=<[out=<(xt,yt),scope2storage=<last{addVar(xt),addVar(yt)},init=<last{g=-9.8,z_a=0+g*i,z_v0=20+20i,z_x0=0,dt=0.5,m=1,Cd_sphere=1,x=<{z_x,z_v},x_initial=<{z_x0,z_v0},f=<{z_v,z_a-(Cd_sphere/m)*z_v},t0=0,t1=5,N=round((t1-t0)/dt),M=0,xt=zeros(N+1,M+1),yt=zeros(N+1,M+1)},run=<last{dtn=<switch(n<=0,0:1,dt),step=<x_next=_otdummy(=<f,=<x,=<x_initial,0,dtn=>),stepnm=<last{step=>,xt[n][mdummy]=real(z_x),yt[n][mdummy]=imag(z_x)},casesM=<_smdummy(=<stepnm,0,M),evolutionN=<_sn(=<casesM,0,N),evolutionN=>},init=>,run=>,return=out=>,scope2storage=>,=<return]=>
 stored_eqn(plot2d_evolution)
 
 clear
@@ -379,7 +379,7 @@ plot2d_circle=>
 0,1,2,3,0,-2.4492935982947064e-16,-4.898587196589413e-16,-7.347880794884119e-16
 )
 
-plot2d_circle=<[out=<(xt,yt),init=<last{t0=0,t1=2*pi,tn=<t0+(t1-t0)*n/N,N=10,M=3,xt=zeros(N+1,M+1),yt=zeros(N+1,M+1)},run=<last{stepnm=<last{xt[n][m]=cos(tn=>tn)*m,yt[n][m]=sin(tn)*m},casesM=<_sm(=<stepnm,0,M),evolutionN=<_sn(=<casesM,0,N),evolutionN=>},init=>,run=>,return=out=>,=<return]=>
+plot2d_circle=<[out=<(xt,yt),scope2storage=<last{addVar(xt),addVar(yt)},init=<last{t0=0,t1=2*pi,tn=<t0+(t1-t0)*n/N,N=10,M=3,xt=zeros(N+1,M+1),yt=zeros(N+1,M+1)},run=<last{stepnm=<last{xt[n][m]=cos(tn=>tn)*m,yt[n][m]=sin(tn)*m},casesM=<_sm(=<stepnm,0,M),evolutionN=<_sn(=<casesM,0,N),evolutionN=>},init=>,run=>,return=out=>,scope2storage=>,=<return]=>
 stored_eqn(plot2d_circle)
 
 clear
@@ -399,4 +399,4 @@ drag=false&test-case=false&legend=true&axis-x=true&log-x=false&imag-x=false&axis
 --------------------------------
 --------------------------------
 
-online-simulator.github.io.3.40.16.5.18 @ Sat Jun 05 2021 21:41:32 GMT+0900 (日本標準時)
+online-simulator.github.io.3.40.16.5.18 @ Sun Jun 06 2021 00:51:04 GMT+0900 (日本標準時)
