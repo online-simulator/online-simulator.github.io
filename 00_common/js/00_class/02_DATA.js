@@ -86,6 +86,10 @@ My_entry.DATA.prototype.data = function(trees, options, vars, eqns){
   var self = this;
   return {trees: trees, options: options || {}, vars: vars || {}, eqns: eqns || {}};
 };
+My_entry.DATA.prototype.scope = function(vars, eqns){
+  var self = this;
+  return {vars: vars || {}, eqns: eqns || {}};
+};
 My_entry.DATA.prototype.arr2num = function(arr){
   var self = this;
   var arri = arr[arr.length-1];

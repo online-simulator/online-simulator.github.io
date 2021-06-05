@@ -145,7 +145,7 @@ My_entry.def.prototype.newClone = function(right){
   }
   if(isDeep){
     for(var prop in right){
-      if(right[prop]){
+      if(right[prop]){  // non-filter
         // value or reference
         _left[prop] = self.newClone(right[prop]);
       }
@@ -161,6 +161,26 @@ My_entry.def.prototype.newClone = function(right){
     _left = right;
   }
   return _left;
+};
+My_entry.def.prototype.join_arr = function(right, prop_comp, arr, callback){
+  var self = this;
+  if(self.isArray(right) || self.isObject(right)){
+    for(var prop in right){
+      var rightprop = right[prop];
+      if(rightprop){
+        if(prop === prop_comp){
+          if(callback){
+            callback(rightprop);
+          }
+          Array.prototype.push.apply(rightprop, arr);
+        }
+        else{
+          self.join_arr(rightprop, prop_comp, arr, callback);
+        }
+      }
+    }
+  }
+  return self;
 };
 My_entry.def.prototype.get_number = function(){
   var self = this;

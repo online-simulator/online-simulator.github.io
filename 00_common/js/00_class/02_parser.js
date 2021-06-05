@@ -37,7 +37,7 @@ My_entry.parser.prototype.config = {
       // StorE equation
       {b: /=</, a: "SEe"},
       // RestorE equation
-      {b: /=>/, a: "REe"},
+      {b: /[=]{1,2}>/, a: "REe"},  // Ver.2.31.17
       // fact -> "URf"
       {b: /!+/, a: function(str){
         return "URf"+","+str.length;
@@ -295,10 +295,16 @@ My_entry.parser.prototype.make_trees = function(sentence, re){
         throw "Invalid "+token+" called";
         break;
       // "FNc"
+      // storage
       case "hasvar":
       case "haseqn":
       case "delvar":
       case "deleqn":
+      case "addvar":
+      case "addeqn":
+      // scopes+storage
+      case "hasv":
+      case "hase":
         tree = DATA.tree_tag("FNc", token_lower);
         break;
       // "FNhn"
@@ -587,27 +593,76 @@ My_entry.parser.prototype.isCommand = function(sentence){
   }
   return _command;
 };
-My_entry.parser.prototype.script2trees = function(script){
+/* Ver.2.31.17 (1,[2,{3,4}]) -> */
+My_entry.parser.prototype.make_scopes = function(useScope, trees, scopes_parent, ids2d_parent, j){
   var self = this;
-  var _trees2d = [];
-  var script = self.remove_commentAndWspace(script);
-  var arr_sentence = self.script2arr(script);
-  arr_sentence.forEach(function(sentence){
-    var isOK = self.check_syntax(sentence);
-    if(isOK){
-      var trees = null;
-      var command = self.isCommand(sentence);
-      if(command){
-        trees = command;
+  var DATA = self.entry.DATA;
+  var operation = self.entry.operation;
+  if(trees && trees.length){
+    trees.forEach(function(tree){
+      if(operation.isType(tree, "BT")){
+        var tagName = Object.keys(tree)[0];
+        var obj = tree[tagName];
+        var trees_child = obj.val;
+        var scopes = scopes_parent;
+        var ids2d = [];  // new
+        /* [a=1,a[0][0]=2,[(3,3)]] */
+        if(trees_child && trees_child.length){
+          if(operation.config.BT.hasScope(useScope, tagName)){
+            var scope = DATA.scope();
+            var n = scopes.length;
+            scopes[n] = scope;
+            var ids1d = [j, n];
+            ids2d.push(ids1d);
+          }
+        }
+        if(ids2d_parent && ids2d_parent.length){
+          Array.prototype.push.apply(ids2d, ids2d_parent);  // FIFO-stack
+        }
+        if(ids2d.length){
+          obj.ids = ids2d;  // scope ids cloned without Circular Reference at remake_trees
+        }
+        self.make_scopes(useScope, trees_child, scopes, ids2d, j);
       }
-      else{
-        var re = new RegExp(self.get_pattern(), "g");
-        trees = self.make_trees(sentence, re);
-      }
-      _trees2d.push(trees);
+    });
+  }
+  return self;
+};
+My_entry.parser.prototype.script2objs2d = function(data){
+  var self = this;
+  var DATA = self.entry.DATA;
+  var trees2d = null;
+  var scopes2d = null;
+  if(data && data.in){
+    data.in = String(data.in);  // Ver.2.30.15
+    var script = self.remove_commentAndWspace(self.entry.reference.fullStr2half(data.in));
+    var arr_sentence = self.script2arr(script);
+    if(arr_sentence && arr_sentence.length){
+      trees2d = [];
+      scopes2d = [];
+      arr_sentence.forEach(function(sentence, j){
+        var isOK = self.check_syntax(sentence);
+        if(isOK){
+          var trees = null;
+          var scopes = [];
+          scopes.push(DATA.scope(data.vars, data.eqns));  // including command
+          var command = self.isCommand(sentence);
+          if(command){
+            trees = command;
+          }
+          else{
+            var re = new RegExp(self.get_pattern(), "g");
+            trees = self.make_trees(sentence, re);
+            var ids2d = [[j, 0]];
+            self.make_scopes(data.options.useScope, trees, scopes, ids2d, j);
+          }
+          trees2d.push(trees);
+          scopes2d.push(scopes);
+        }
+      });
     }
-  });
-  return _trees2d;
+  }
+  return {trees: trees2d, scopes: scopes2d};
 };
 /* Ver.2.30.15 default eval() -> */
 My_entry.eval = function(script){
@@ -635,19 +690,20 @@ My_entry.parser.prototype.eval = function(script){
 My_entry.parser.prototype.run = function(data){
   var self = this;
   var _data = data;
-  var trees2d = [];
+  var trees2d = null;
+  var scopes2d = null;
   try{
-    if(_data && _data.in){
-      _data.in = String(_data.in);  // Ver.2.30.15
-      trees2d = self.script2trees(self.entry.reference.fullStr2half(_data.in));
-    }
+    var objs2d = self.script2objs2d(_data);
+    trees2d = objs2d.trees;
+    scopes2d = objs2d.scopes;
   }
   catch(e){
     throw new Error(self.entry.def.get_msgError(e, "Invalid {([])}"));
   }
   try{
-    if(trees2d.length){
+    if(trees2d && trees2d.length){
       _data.trees2d = trees2d;
+      _data.scopes2d = scopes2d;
       _data = self.entry.operation.run(_data);
       _data.out = trees2d;
     }
@@ -658,6 +714,7 @@ My_entry.parser.prototype.run = function(data){
   self.post_try(_data);
   return _data;
 };
+/* -> Ver.2.31.17 */
 My_entry.parser.prototype.post_try = function(data){
   var self = this;
   var trees2d = data.trees2d;
