@@ -2567,7 +2567,7 @@ clear; [a=&lt;last[d=-100,sum=b+c+d,last[,-sum]],c=2,=&lt;[d=3,b=1,a==&gt;,=&lt;
 <br>
 ・scope継承callのnesting
 <br>
-clear; a=&lt;b; b=0; last[b=1,c=&lt;a=&gt;,[b=2,c=&gt;]] -> [MyErr]Invalid REv(b)
+clear; a=&lt;b; b=0; last[b=1,c=&lt;a=&gt;,[b=2,c=&gt;]] -> 0
 <br>
 clear; a=&lt;b; b=0; last[b=1,c=&lt;a=&gt;,[b=2,c==&gt;]] -> 0
 <br>
@@ -2588,11 +2588,11 @@ clear; s0=&lt;[s1=1,[s1,s2=2,[s2,s3=3,[s3,s4=4,[s4,s5=5]]]]]; [s0=&gt;,] -> (0,1
 <br>
 clear; s0=0,[s1=1,[s2=&lt;[s3=s1+2,[s4=s3+1,s4]],[s5=last[s2==&gt;],s5]]] -> (0,0,0,0,4)
 <br>
-・通常の<a href="#span-out-eqns-call">式読出し</a>=&gt;の場合、<a href="#span-out-vars">変数</a>s0はlocal storageに定義される
+・<a href="#span-out-eqns">式変数</a>s0の通常call=&gt;の場合、<a href="#span-out-vars">変数</a>s0はlocal storageに定義される
 <br>
 clear; s0=&lt;s0=[s1=1,[s1,s2=2,[s2,s3=3]]]; [s0=&gt;,s0,hasVar(s0),hasV(s0)] -> (0,0,1,0,2,0,1,1)
 <br>
-・scope継承call==&gt;の場合、<a href="#span-out-vars">変数</a>s0はscope内に定義される
+・<a href="#span-out-eqns">式変数</a>s0のscope継承call==&gt;の場合、<a href="#span-out-vars">変数</a>s0はscope内に定義される
 <br>
 clear; s0=&lt;s0=[s1=1,[s1,s2=2,[s2,s3=3]]]; [s0==&gt;,s0,hasVar(s0),hasV(s0)] -> (0,0,1,0,2,0,0,1)
 <br>
@@ -2679,9 +2679,13 @@ local buffer
 <br>
 ・以上より階層の概念を次に示す
 <br>
-実行文A[,]; 実行文B[,[],[,[,[,]]]];
+実行文A[,];
 <br>
--> 0階層[A-1階層,]; [B-1階層,[B-2階層並列1],[B-2階層並列2,[B-3階層直列,[B-4階層直列,]]]];
+実行文B[,[],[],[,[,[,]]]]; ->
+<br>
+0階層[A-1階層,];
+<br>
+0階層[B-1階層,[B-2階層並列1],[B-2階層並列2],[B-2階層並列3,[B-3階層直列,[B-4階層直列,]]]];
 <br>
 <br>
 定義を列挙する
@@ -2692,7 +2696,7 @@ local buffer
 <br>
 ・自身の階層の深さ以下の直列<a href="#span-out-scope-vars">scope</a>は参照可能で、直列<a href="#span-out-scope-vars">scope</a>内と定義する
 <br>
-・自身の階層から参照できない<a href="#span-out-scope-vars">scope</a>を直列<a href="#span-out-scope-vars">scope</a>外と定義する
+・それ以外の参照できない<a href="#span-out-scope-vars">scope</a>を直列<a href="#span-out-scope-vars">scope</a>外と定義する
 <br>
 ・同じ階層の並列scopeは直列scope外に含む
 <br>
@@ -2701,11 +2705,19 @@ local buffer
 <br>
 直列scope内の<a href="#span-out-vars">変数</a>・<a href="#span-out-eqns">式変数</a>のsearch-precedenceの一例を示す
 <br>
+・上記B-2階層並列1の場合、次の論理ORを短絡評価
+<br>
+B-2階層並列1 || B-1階層 || 0階層
+<br>
+・上記B-3階層直列の場合、次の論理ORを短絡評価
+<br>
+B-3階層直列 || B-2階層並列3 || B-1階層 || 0階層
+<br>
 ・上記B-4階層直列の場合、次の論理ORを短絡評価
 <br>
-B-4階層直列 || B-3階層直列 || B-2階層並列2 || B-1階層 || 0階層
+B-4階層直列 || B-3階層直列 || B-2階層並列3 || B-1階層 || 0階層
 <br>
-・よって<a href="#span-out-bracket">階層</a>の深さの降順で0階層のlocal <a href="#span-out-storage">storage</a>が最下位のprecedence
+・よって直列scope内の<a href="#span-out-bracket">階層</a>の深さの降順で0階層のlocal <a href="#span-out-storage">storage</a>が最下位のprecedence
     </td>
   </tr>
   <tr>
@@ -3804,9 +3816,7 @@ clear; [a=&lt;2,[a=&lt;3,([a=&lt;5,],addEqn(a))]]; a=&gt; -> 3
 <br>
 hasV最上位関数
 <br>
-・<a href="#span-out-scope-vars">変数のscope</a>から次の<a href="#span-out-bracket">search-precedence</a>に従って<a href="#span-out-vars">変数</a>の存在可否を判定する
-<br>
-self-scope object || parents-scope object || local <a href="#span-out-storage">storage</a> object
+・<a href="#span-out-vars">変数</a>の<a href="#span-out-bracket">直列scope内</a>存在可否を判定する
 <br>
 ・引数
 <br>
@@ -3833,9 +3843,7 @@ clear; a=2; hasV(a),[b=3,[hasV(a),hasV(b)]],hasV(b) -> (1,0,1,1,0)
 <br>
 hasE最上位関数
 <br>
-・<a href="#span-out-scope-vars">変数のscope</a>から次の<a href="#span-out-bracket">search-precedence</a>に従って<a href="#span-out-eqns">式変数</a>の存在可否を判定する
-<br>
-self-scope object || parents-scope object || local <a href="#span-out-storage">storage</a> object
+・<a href="#span-out-eqns">式変数</a>の<a href="#span-out-bracket">直列scope内</a>存在可否を判定する
 <br>
 ・hasV最上位関数同様
 <br>
