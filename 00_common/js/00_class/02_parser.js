@@ -593,38 +593,47 @@ My_entry.parser.prototype.isCommand = function(sentence){
   }
   return _command;
 };
+/* Ver.2.32.17 */
 /* Ver.2.31.17 (1,[2,{3,4}]) -> */
 My_entry.parser.prototype.make_scopes = function(useScope, trees, scopes_parent, ids2d_parent, j){
   var self = this;
   var DATA = self.entry.DATA;
   var operation = self.entry.operation;
+  var loop_tree_BT = function(tree_BT){
+    var tagName = operation.isType(tree_BT, "BT");
+    if(tagName){
+      var obj = tree_BT[tagName];
+      var trees_child = obj.val;
+      var scopes = scopes_parent;
+      var ids2d = [];  // new
+      /* [a=1,a[0][0]=2,[(3,3)]] */
+      if(trees_child && trees_child.length){
+        if(operation.config.BT.hasScope(useScope, tagName)){
+          var scope = DATA.scope();
+          var n = scopes.length;
+          scopes[n] = scope;
+          var ids1d = [j, n];
+          ids2d.push(ids1d);
+        }
+      }
+      if(ids2d_parent && ids2d_parent.length){
+        Array.prototype.push.apply(ids2d, ids2d_parent);  // FIFO-stack
+      }
+      if(ids2d.length){
+        obj.ids = ids2d;  // scope ids cloned without Circular Reference at remake_trees
+      }
+      self.make_scopes(useScope, trees_child, scopes, ids2d, j);
+    }
+  };
   if(trees && trees.length){
     trees.forEach(function(tree){
-      if(operation.isType(tree, "BT")){
-        var tagName = Object.keys(tree)[0];
-        var obj = tree[tagName];
-        var trees_child = obj.val;
-        var scopes = scopes_parent;
-        var ids2d = [];  // new
-        /* [a=1,a[0][0]=2,[(3,3)]] */
-        if(trees_child && trees_child.length){
-          if(operation.config.BT.hasScope(useScope, tagName)){
-            var scope = DATA.scope();
-            var n = scopes.length;
-            scopes[n] = scope;
-            var ids1d = [j, n];
-            ids2d.push(ids1d);
-          }
-        }
-        if(ids2d_parent && ids2d_parent.length){
-          Array.prototype.push.apply(ids2d, ids2d_parent);  // FIFO-stack
-        }
-        if(ids2d.length){
-          obj.ids = ids2d;  // scope ids cloned without Circular Reference at remake_trees
-        }
-        self.make_scopes(useScope, trees_child, scopes, ids2d, j);
-      }
+      loop_tree_BT(tree);
     });
+  }
+  else if(self.entry.def.isObject(trees)){
+    for(var name in trees){
+      loop_tree_BT(trees[name]);
+    }
   }
   return self;
 };
@@ -637,6 +646,7 @@ My_entry.parser.prototype.script2objs2d = function(data){
     data.in = String(data.in);  // Ver.2.30.15
     var script = self.remove_commentAndWspace(self.entry.reference.fullStr2half(data.in));
     var arr_sentence = self.script2arr(script);
+    var scope0 = DATA.scope(data.vars, data.eqns);
     if(arr_sentence && arr_sentence.length){
       trees2d = [];
       scopes2d = [];
@@ -644,8 +654,7 @@ My_entry.parser.prototype.script2objs2d = function(data){
         var isOK = self.check_syntax(sentence);
         if(isOK){
           var trees = null;
-          var scopes = [];
-          scopes.push(DATA.scope(data.vars, data.eqns));  // including command
+          var scopes = [scope0];  // including command
           var command = self.isCommand(sentence);
           if(command){
             trees = command;
@@ -660,6 +669,15 @@ My_entry.parser.prototype.script2objs2d = function(data){
           scopes2d.push(scopes);
         }
       });
+      /* Ver.2.32.17 re-use of equations with static scope supported -> */
+      if(data.eqns){
+        var j = scopes2d.length;
+        var scopes = [scope0];
+        var ids2d = [[j, 0]];
+        self.make_scopes(data.options.useScope, data.eqns, scopes, ids2d, j);
+        scopes2d.push(scopes);
+      }
+      /* -> Ver.2.32.17 */
     }
   }
   return {trees: trees2d, scopes: scopes2d};

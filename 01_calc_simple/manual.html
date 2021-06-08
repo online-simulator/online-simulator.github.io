@@ -268,6 +268,11 @@ storage
 </a>
 <br>
 ・
+<a href="#span-out-eqns-args">
+式変数のarguments
+</a>
+<br>
+・
 <a href="#span-out-bracket">
 演算flow
 </a>
@@ -2051,7 +2056,7 @@ useScope=BT2の場合、<a href="#span-out-BT">波括弧{}</a>のみ<a href="#sp
 <br>
 useScope=BT1の場合、<a href="#span-out-BT">丸括弧()</a>のみ<a href="#span-out-scope-vars">変数のscope</a>を使用する
 <br>
-・<a href="#span-out-call-by-equation">式読出し</a>時、既定で<a href="#span-out-BT">丸括弧()</a>で括るが、<a href="#span-out-bracket">parse</a>段階で作る<a href="#span-out-bracket">scope</a>以外は無効（参考）
+・<a href="#span-out-call-by-equation">式読出し</a>時、既定で<a href="#span-out-BT">丸括弧()</a>で括るが、<a href="#span-out-bracket">parse</a>段階で作る<a href="#span-in-scope-vars">static scopes2d array</a>以外は無効
 <br>
 useScope=defaultの場合（上記以外の場合）、<a href="#span-out-BT-square">角括弧[]</a>のみ<a href="#span-out-scope-vars">変数のscope</a>を使用する
 <br>
@@ -2547,6 +2552,16 @@ clear; a=&lt;b+c; [c=2,=&lt;[b=1,=&lt;a==&gt;]=&gt;]=&gt; -> 3
 <br>
 clear; a=&lt;b+c+d; d=3; [c=2,=&lt;[b=1,=&lt;a==&gt;]=&gt;]=&gt; -> 6
 <br>
+clear; a=&lt;last[sum=b+c+d,sum]; d=3; [c=2,=&lt;[b=1,=&lt;a==&gt;]=&gt;]=&gt; -> 6
+<br>
+clear; a=&lt;last[sum=b+c+d,last[,-sum]]; d=3; [c=2,=&lt;[b=1,=&lt;a==&gt;]=&gt;]=&gt; -> -6
+<br>
+clear; a=&lt;last[sum=b+c+d,last[,-sum]]; d=3; [c=2,=&lt;[b=1,=&lt;a==&gt;]=&gt;]=&gt; -> -6
+<br>
+clear; a=&lt;last[sum=b+c+d,last[,-sum]]; d=3; [c=2,=&lt;[c=-c,b=1,=&lt;a==&gt;]=&gt;]=&gt; -> -2
+<br>
+clear; a=&lt;last[sum=b+c+d,last[,-sum]]; d=3; [c=-d,=&lt;[b=1,=&lt;a==&gt;]=&gt;]=&gt; -> -1
+<br>
 clear; a=&lt;last{sum=b+c+d,last[,-sum]}; d=3; [c=2,=&lt;[b=1,=&lt;a==&gt;]=&gt;]=&gt; -> -6
 <br>
 clear; a=&lt;last{d=-100,sum=b+c+d,last[,-sum]}; d=3; [c=2,=&lt;[b=1,=&lt;a==&gt;]=&gt;]=&gt; -> 97
@@ -2574,6 +2589,8 @@ clear; a=&lt;b; b=0; last[b=1,c=&lt;a=&gt;,[b=2,c==&gt;]] -> 0
 clear; a=&lt;b; b=0; last[b=1,c=&lt;a==&gt;,[b=2,c=&gt;]] -> 1
 <br>
 clear; a=&lt;b; b=0; last[b=1,c=&lt;a==&gt;,[b=2,c==&gt;]] -> 2
+<br>
+clear; a=&lt;b==&gt;; b=&lt;0; last[b=&lt;1,c=&lt;a==&gt;,[b=&lt;2,c==&gt;]] -> 2
 <br>
 <br>
 実装logicのtest caseを以下に示す
@@ -2652,6 +2669,19 @@ local buffer
 ・演算実行途中　local storageをread/write　⇔　local buffer
 <br>
 ・演算実行終了　local storage　⇒　global storageに保存
+<br>
+<br>
+<a href="#span-out-bracket">scope</a>との関係について記述する
+<br>
+・local storageを<a href="#span-in-scope-vars">static scopes2d array</a>の<a href="#span-out-bracket">0階層</a>に割当てる
+<br>
+・演算実行確定1回毎にlocal storageを除くscope内の<a href="#span-out-vars">変数</a>・<a href="#span-out-eqns">式変数</a>は破棄する
+<br>
+<span class="run">Ver.2.32.17</span>以降、<a href="#span-out-scope-vars">変数のscope</a>付式変数の再利用に対応
+<br>
+・global storage　⇒　local storageのflowで<a href="#span-out-eqns">式変数</a>の復帰時、
+<br>
+　新規に作られる<a href="#span-in-scope-vars">scopes2d array ids</a>から<a href="#span-in-scope-vars">self-children ids</a>を更新
     </td>
   </tr>
   <tr>
@@ -2702,6 +2732,8 @@ local buffer
 <br>
 ・よって0階層のlocal <a href="#span-out-storage">storage</a>はすべての<a href="#span-out-scope-vars">scope</a>の直列scope内で共通化される
 <br>
+・以上より<a href="#span-out-bracket">parse</a>段階で作る<a href="#span-out-scope-vars">scope</a>の配列を<a href="#span-in-scope-vars">static scopes2d array</a>と定義する
+<br>
 <br>
 直列scope内の<a href="#span-out-vars">変数</a>・<a href="#span-out-eqns">式変数</a>のsearch-precedenceの一例を示す
 <br>
@@ -2718,6 +2750,33 @@ B-3階層直列 || B-2階層並列3 || B-1階層 || 0階層
 B-4階層直列 || B-3階層直列 || B-2階層並列3 || B-1階層 || 0階層
 <br>
 ・よって直列scope内の<a href="#span-out-bracket">階層</a>の深さの降順で0階層のlocal <a href="#span-out-storage">storage</a>が最下位のprecedence
+<br>
+<br>
+<span class="run">Ver.2.32.17</span>以降、<a href="#span-out-eqns-args">式変数のarguments</a>を追加
+<br>
+・引数のみ独立として<a href="#span-in-scope-vars">static scopes2d array</a>を共有する
+<br>
+・よって定義元とcall時の<a href="#span-out-vars-symbol">式変数名symbol</a>の重複不可
+<br>
+　重複した場合、Circular Reference occurred||Invalid answer returned
+    </td>
+  </tr>
+  <tr>
+    <th>
+<a href="#span-index">
+目次
+</a>
+<br>
+式変数の
+<br>
+arguments
+    </th>
+    <td>
+<span id="span-out-eqns-args"></span>
+式変数のargumentsについて記述する
+<br>
+<br>
+Now online-testing...
     </td>
   </tr>
   <tr>
@@ -3738,7 +3797,7 @@ clear; delete=&lt;delEqn(delete); delete=&gt; -> [MyErr]Invalid delEqnSelf(delet
 <br>
 addVar最上位関数
 <br>
-・<a href="#span-out-scope-vars">変数のscope</a>内の<a href="#span-out-vars">変数</a>をlocal <a href="#span-out-storage">storage</a>に追加する
+・<a href="#span-out-bracket">直列scope内</a>の<a href="#span-out-vars">変数</a>をlocal <a href="#span-out-storage">storage</a>に追加する
 <br>
 ・引数
 <br>
@@ -3781,7 +3840,7 @@ clear; [a=2,[a=3,([a=5,],addVar(a))]]; a -> 3
 <br>
 addEqn最上位関数
 <br>
-・<a href="#span-out-scope-vars">変数のscope</a>内の<a href="#span-out-eqns">式変数</a>をlocal <a href="#span-out-storage">storage</a>に追加する
+・<a href="#span-out-bracket">直列scope内</a>の<a href="#span-out-eqns">式変数</a>をlocal <a href="#span-out-storage">storage</a>に追加する
 <br>
 ・addVar最上位関数同様
 <br>
@@ -6491,11 +6550,7 @@ clear; (f=&lt;{(x=&gt;)},x=&lt;(1,2),=&lt;{(f=&gt;)})=&gt; -> (1,2)
 <br>
 clear; (f=&lt;{(x=&gt;)},x=&lt;(1,2),=&lt;{=&lt;{(f=&gt;)}}=&gt;)=&gt; -> (1,2)
 <br>
-・<del><a href="#span-out-bracket">階層</a>毎の引数&amp;<a href="#span-out-scope-vars">変数のscope</a>なしで</del><span class="run">Ver.2.31.17</span>以降、<a href="#span-out-scope-vars">変数のscope</a>を追加
-<br>
-・無名関数の最短表記を許容
-<br>
-・本来、最短表記はdebugの支障が少ないcaseに限られる
+・debug機能なしで無名関数の最短表記を許容
 <br>
 ・(function(){return (function(){return (function(){return 3;})();})();})();
 <br>
@@ -11259,7 +11314,10 @@ f=&lt;last{V=1,E=0,k=1,I=exp(k*(V-E))-exp(-k*(V-E))}
 残課題について優先順に記述する
 <br>
 <br>
-[TBD-status]<a href="#span-out-eqns">式変数</a>のargumentsの実装（影響範囲大で未確定）
+<span class="run">Ver.2.32.17</span>以降、<a href="#span-out-eqns-args">式変数のarguments</a>を追加
+<br>
+[Resolved-status]<del>
+<a href="#span-out-eqns">式変数</a>のargumentsの実装（影響範囲大で未確定）
 <br>
 ・<a href="#span-out-scope-vars">変数のscope</a>に加えて<a href="#span-out-eqns">式変数</a>に引数を渡せないと不十分
 <br>
@@ -11274,7 +11332,10 @@ Newton_simplified(=&lt;f,=&lt;x,Nmax)=&lt;[mdx=Newton(=&lt;f,=&lt;x,,Nmax,1e-16,
 x=Newton_simplified(=&lt;{x0+x1=2,x0*x1=5},=&lt;{x0,x1},6)=&gt;;
 <br>
 ・<a href="#span-out-eqns-call">式読出し</a>記号=&gt;の省略可否を検討
+</del>
 <br>
+<br>
+<span class="run">Ver.2.32.17</span>以降、変数のscope付式変数の再利用に対応
 <br>
 <span class="run">Ver.2.31.17</span>以降、変数のscopeを追加
 <br>
@@ -11443,7 +11504,7 @@ scopes2d arrayのstructureを以下に示す
 <br>
 ・以降、このreferenceをidsと呼ぶ
 <br>
-・<a href="#span-out-bracket">parse</a>段階で<a href="#span-out-bracket">階層とscopeの関係</a>に基づくscopes2d arrayを作成
+・<a href="#span-out-bracket">parse</a>段階で<a href="#span-out-bracket">階層とscopeの関係</a>に基づくstatic scopes2d arrayを作成
 <br>
 ・同時に対応するidsを<a href="#span-in-tree">単位tree構造</a>のtag.val同列に保存
 <br>
@@ -11481,6 +11542,27 @@ clear; [a=2,=&lt;[b=1,a=&lt;first[[b,],b,],=&lt;a=&gt;]=&gt;+a]=&gt; -> 3
 ・上記a=&lt;first[[b,],b,]<a href="#span-out-substitution-equation">式代入</a>時、self-children-idsを継承
 <br>
 ・上記=&lt;a=&gt;<a href="#span-out-call-by-equation">式渡し</a>時、self-children-idsを継承
+<br>
+・<a href="#span-out-inherit-scope-eqns">式変数のscope継承call</a>時、call元のself-parents-idsを継承
+<br>
+<span class="run">Ver.2.32.17</span>以降、<a href="#span-out-scope-vars">変数のscope</a>付式変数の再利用に対応
+<br>
+・global <a href="#span-out-storage">storage</a>　⇒　local <a href="#span-out-storage">storage</a>で<a href="#span-out-eqns">式変数</a>の復帰時、<a href="#span-in-scope-vars">self-children ids</a>を更新
+<br>
+<span class="run">Ver.2.32.17</span>以降、<a href="#span-out-eqns-args">式変数のarguments</a>を追加
+<br>
+・<a href="#span-out-eqns">式変数</a>のcall時、<a href="#span-out-eqns-args">式変数のarguments</a>に定義元のself-parents-idsを継承
+<br>
+<br>
+<a href="#span-out-eqns-args">式変数のarguments</a>について記述する
+<br>
+・定義元の<a href="#span-out-eqns">式変数</a>のcall毎に動的にscopeは作らない
+<br>
+・<a href="#span-out-bracket">parse</a>段階で割当てた定義元の<a href="#span-out-eqns">式変数</a>のstatic scopes2d arrayを共有する
+<br>
+・argumentsのみ、call前後でbuffer経由store/restoreで模擬的にscopeが独立する
+<br>
+　<a href="#span-out-FNh">高階関数</a>のdummy変数同様（参考）
 <br>
 <br>
 <a href="#span-out-inherit-scope-eqns">式変数のscope継承call</a>について記述する
@@ -12097,7 +12179,6 @@ template=&lt;[
 out=&lt;0,
 <br>
 scope2storage=&lt;last{0},
-<br>
 <div class="condition">
 init=&lt;last{0},
 </div>
@@ -12127,7 +12208,7 @@ _circle
 <br>
 clear;
 <br>
-plot2d_circle=&lt;[
+plot2d_circle(t0,t1,N,M)=&lt;[
 <br>
 out=&lt;(xt,yt),
 <br>
@@ -12135,7 +12216,7 @@ scope2storage=&lt;last{addVar(xt),addVar(yt)},
 <div class="condition">
 init=&lt;last{
 <br>
-t0=0,t1=2*pi,tn=&lt;t0+(t1-t0)*n/N,N=10,M=3,
+tn=&lt;t0+(t1-t0)*n/N,
 <br>
 xt=zeros(N+1,M+1),yt=zeros(N+1,M+1)
 <br>
@@ -12158,7 +12239,7 @@ init=&gt;,run=&gt;,return=out=&gt;,scope2storage=&gt;,
 <br>
 =&lt;return]=&gt;;
 <br>
-plot2d_circle=&gt;;
+plot2d_circle(0,2*pi,10,3)=&gt;;
     </td>
   </tr>
   <tr>
@@ -12177,7 +12258,7 @@ _evolution
 <br>
 clear;
 <br>
-plot2d_evolution=&lt;[
+plot2d_evolution(t0,t1,dt,z_x0,z_v0,m,Cd_sphere)=&lt;[
 <br>
 out=&lt;(xt,yt),
 <br>
@@ -12185,7 +12266,7 @@ scope2storage=&lt;last{addVar(xt),addVar(yt)},
 <div class="condition">
 init=&lt;last{
 <br>
-g=-9.8,z_a=0+g*i,z_v0=20+20i,z_x0=0,dt=0.5,m=1,Cd_sphere=1,
+g=-9.8,z_a=0+g*i,
 <br>
 x=&lt;{z_x,z_v},
 <br>
@@ -12193,7 +12274,7 @@ x_initial=&lt;{z_x0,z_v0},
 <br>
 f=&lt;{z_v,z_a-(Cd_sphere/m)*z_v},
 <br>
-t0=0,t1=5,N=round((t1-t0)/dt),M=0,
+N=round((t1-t0)/dt),M=0,
 <br>
 xt=zeros(N+1,M+1),yt=zeros(N+1,M+1)
 <br>
@@ -12220,7 +12301,7 @@ init=&gt;,run=&gt;,return=out=&gt;,scope2storage=&gt;,
 <br>
 =&lt;return]=&gt;;
 <br>
-plot2d_evolution=&gt;;
+plot2d_evolution(0,5,0.5,0,20+20i,1,1)=&gt;;
     </td>
   </tr>
   <tr>
@@ -12239,15 +12320,15 @@ erf(x)/erfc(x)
 <br>
 clear;
 <br>
-SND=&lt;exp(-t^2/2)/sqrt(2*pi);
+SND(t)=&lt;exp(-t^2/2)/sqrt(2*pi);
 <br>
-Px=&lt;_it(=&lt;SND,0,x)*2;
+Px(x)=&lt;_it(=&lt;SND(t)=&gt;,0,x)*2;
 <br>
-erfx=&lt;_it(=&lt;SND,0,x*sqrt2)*2;
+erfx(x)=&lt;_it(=&lt;SND(t)=&gt;,0,x*sqrt2)*2;
 <br>
-erfcx=&lt;1-erfx=&gt;;
+erfcx(x)=&lt;1-erfx(x)=&gt;;
 <br>
-t=3; x=3; (SND=&gt;,Px=&gt;,erfx=&gt;,erfcx=&gt;);
+[x=3,SND(x)=&gt;,Px(x)=&gt;,erfx(x)=&gt;,erfcx(x)=&gt;];
     </td>
   </tr>
   <tr>
@@ -12266,7 +12347,7 @@ _product
 <br>
 clear;
 <br>
-LpR=&lt;[product=&lt;last{LR[ir][ic]=ttL[ir]*trans((trans(ttR))[ic])},
+LpR(L,R)=&lt;[product=&lt;last{LR[ir][ic]=ttL[ir]*trans((trans(ttR))[ic])},
 <br>
 ttL=trans(trans(L)),
 <br>
@@ -12278,7 +12359,7 @@ _sir(=&lt;_sic(=&lt;product,0,sizec(ttR)-1),0,sizer(ttL)-1),
 <br>
 =&lt;LR]=&gt;;
 <br>
-L=(1,2:3:4,5:6); R=(1,2:3,4,5); LpR=&gt;;
+[L=(1,2:3:4,5:6),R=(1,2:3,4,5),=&lt;LpR(=&lt;L,=&lt;R)=&gt;]=&gt;;
     </td>
   </tr>
   <tr>
@@ -12295,13 +12376,13 @@ rotationx/y/z
 <br>
 clear;
 <br>
-rotx=&lt;[rt=real(phi),=&lt;(1,,:,cos(rt),-sin(rt):,sin(rt),cos(rt))]=&gt;;
+rotx(phi)=&lt;[rt=real(phi),=&lt;(1,,:,cos(rt),-sin(rt):,sin(rt),cos(rt))]=&gt;;
 <br>
-roty=&lt;[rt=real(theta),=&lt;(cos(rt),,sin(rt):,1,:-sin(rt),,cos(rt))]=&gt;;
+roty(theta)=&lt;[rt=real(theta),=&lt;(cos(rt),,sin(rt):,1,:-sin(rt),,cos(rt))]=&gt;;
 <br>
-rotz=&lt;[rt=real(psi),=&lt;(cos(rt),-sin(rt),:sin(rt),cos(rt),:,,1)]=&gt;;
+rotz(psi)=&lt;[rt=real(psi),=&lt;(cos(rt),-sin(rt),:sin(rt),cos(rt),:,,1)]=&gt;;
 <br>
-phi=pi/4; rotx=&gt;;
+[t=pi/4,=&lt;[rotx(t)=&gt;,roty(t)=&gt;,rotz(t)=&gt;]]=&gt;;
     </td>
   </tr>
   <tr>
@@ -12320,13 +12401,13 @@ _LHS
 <br>
 clear;
 <br>
-rotx_LHS=&lt;[rt=real(phi),=&lt;(1,,:,cos(rt),sin(rt):,-sin(rt),cos(rt))]=&gt;;
+rotx_LHS(phi)=&lt;[rt=real(phi),=&lt;(1,,:,cos(rt),sin(rt):,-sin(rt),cos(rt))]=&gt;;
 <br>
-roty_LHS=&lt;[rt=real(theta),=&lt;(cos(rt),,-sin(rt):,1,:sin(rt),,cos(rt))]=&gt;;
+roty_LHS(theta)=&lt;[rt=real(theta),=&lt;(cos(rt),,-sin(rt):,1,:sin(rt),,cos(rt))]=&gt;;
 <br>
-rotz_LHS=&lt;[rt=real(psi),=&lt;(cos(rt),sin(rt),:-sin(rt),cos(rt),:,,1)]=&gt;;
+rotz_LHS(psi)=&lt;[rt=real(psi),=&lt;(cos(rt),sin(rt),:-sin(rt),cos(rt),:,,1)]=&gt;;
 <br>
-phi=pi/4; rotx_LHS=&gt;;
+[t=pi/4,=&lt;[rotx_LHS(t)=&gt;,roty_LHS(t)=&gt;,rotz_LHS(t)=&gt;]]=&gt;;
     </td>
   </tr>
   <tr>
@@ -12345,17 +12426,9 @@ _Gauss
 <br>
 clear;
 <br>
-solvex_Gauss=&lt;{
+solvex_Gauss(A,b)=&lt;[
 <br>
 out=&lt;x,
-<br>
-store_in=&lt;last{temp_A=A,temp_b=b},
-<br>
-restore_in=&lt;last{A=temp_A,b=temp_b},
-<br>
-delete_temp=&lt;last{delVar(temp_A),delVar(temp_b)},
-<br>
-delete_init=&lt;last{delVar(sizeA),delVar(x)},
 <div class="condition">
 init=&lt;last{sizeA=size(A),x=zeros(sizeA,1)},
 </div>
@@ -12384,15 +12457,15 @@ x[sizeA-1]=b[sizeA-1]/A[sizeA-1][sizeA-1],_sir(=&lt;backward,sizeA-2,0)
 <br>
 },
 </div>
-store_in=&gt;,init=&gt;,run=&gt;,return=out=&gt;,restore_in=&gt;,delete_init=&gt;,delete_temp=&gt;,
+init=&gt;,run=&gt;,return=out=&gt;,
 <br>
-=&lt;return}=&gt;;
+=&lt;return]=&gt;;
 <br>
-rand_Ab=&lt;last{N=5,A=zeros(N,N),b=vectorc(N),gen_rand=&lt;rand()+rand()*i,
+[rand_Ab=&lt;last{N=5,A=zeros(N,N),b=vectorc(N),gen_rand=&lt;rand()+rand()*i,
 <br>
-_sir(=&lt;last{_sic(=&lt;A[ir][ic]=gen_rand=&gt;,0,N-1),b[ir]=gen_rand=&gt;},0,N-1)};
+_sir(=&lt;last{_sic(=&lt;A[ir][ic]=gen_rand=&gt;,0,N-1),b[ir]=gen_rand=&gt;},0,N-1)},
 <br>
-rand_Ab=&gt;; x=solvex_Gauss=&gt;; /*optimized*/Gauss(A,b)-x;
+rand_Ab=&gt;,=&lt;/*optimized*/Gauss(A,b)-solvex_Gauss(=&lt;A,=&lt;b)=&gt;]=&gt;;
     </td>
   </tr>
   <tr>
@@ -12411,17 +12484,9 @@ _pivotting
 <br>
 clear;
 <br>
-solvex_pivotting=&lt;{
+solvex_pivotting(A,b)=&lt;[
 <br>
 out=&lt;x,
-<br>
-store_in=&lt;last{temp_A=A,temp_b=b},
-<br>
-restore_in=&lt;last{A=temp_A,b=temp_b},
-<br>
-delete_temp=&lt;last{delVar(temp_A),delVar(temp_b)},
-<br>
-delete_init=&lt;last{delVar(sizeA),delVar(x)},
 <div class="condition">
 init=&lt;last{sizeA=size(A),x=zeros(sizeA,1)},
 </div>
@@ -12446,11 +12511,11 @@ _sir(=&lt;backward,sizeA-1,0)
 <br>
 },
 </div>
-store_in=&gt;,init=&gt;,run=&gt;,return=out=&gt;,restore_in=&gt;,delete_init=&gt;,delete_temp=&gt;,
+init=&gt;,run=&gt;,return=out=&gt;,
 <br>
-=&lt;return}=&gt;;
+=&lt;return]=&gt;;
 <br>
-A=(i,2,3i:4,5i,6:7i,8,9i); b={1,2i,4}; solvex_pivotting=&gt;;
+[A=(i,2,3i:4,5i,6:7i,8,9i),b={1,2i,4},=&lt;solvex_pivotting(=&lt;A,=&lt;b)=&gt;]=&gt;;
     </td>
   </tr>
   <tr>
@@ -12469,18 +12534,9 @@ _no_pivotting
 <br>
 clear;
 <br>
-solvex_no_pivotting=&lt;{
+solvex_no_pivotting(A,b)=&lt;[
 <br>
 out=&lt;x,
-<br>
-store_in=&lt;last{temp_A=A,temp_b=b},
-<br>
-restore_in=&lt;last{A=temp_A,b=temp_b},
-<br>
-delete_temp=&lt;last{delVar(temp_A),delVar(temp_b)},
-<br>
-delete_init=&lt;last{delVar(sizeA),delVar(x)},
-<br>
 <div class="condition">
 init=&lt;last{sizeA=size(A),x=zeros(sizeA,1)},
 </div>
@@ -12497,11 +12553,11 @@ _sir(=&lt;backward,sizeA-1,0)
 <br>
 },
 </div>
-store_in=&gt;,init=&gt;,run=&gt;,return=out=&gt;,restore_in=&gt;,delete_init=&gt;,delete_temp=&gt;,
+init=&gt;,run=&gt;,return=out=&gt;,
 <br>
-=&lt;return}=&gt;;
+=&lt;return]=&gt;;
 <br>
-A=(i,2,3i:4,5i,6:7i,8,9i); b={1,2i,4}; solvex_no_pivotting=&gt;;
+[A=(i,2,3i:4,5i,6:7i,8,9i),b={1,2i,4},=&lt;solvex_no_pivotting(=&lt;A,=&lt;b)=&gt;]=&gt;;
     </td>
   </tr>
   <tr>
@@ -12520,10 +12576,9 @@ _iteration
 <br>
 clear;
 <br>
-solvex_iteration=&lt;[
+solvex_iteration(A,b)=&lt;[
 <br>
 out=&lt;x=&gt;,
-<br>
 <div class="condition">
 init=&lt;last{sizeA=size(A),_ex(=&lt;{x},sizeA,1)},
 </div>
@@ -12540,7 +12595,7 @@ init=&gt;,run=&gt;,return=out=&gt;,
 <br>
 =&lt;return]=&gt;;
 <br>
-A=(i,2,3i:4,5i,6:7i,8,9i); b={1,2i,4}; solvex_iteration=&gt;;
+[A=(i,2,3i:4,5i,6:7i,8,9i),b={1,2i,4},=&lt;solvex_iteration(=&lt;A,=&lt;b)=&gt;]=&gt;;
     </td>
   </tr>
   <tr>
@@ -12557,10 +12612,9 @@ solveAinv
 <br>
 clear;
 <br>
-solveAinv=&lt;[
+solveAinv(A)=&lt;[
 <br>
 out=&lt;Ainv=&gt;,
-<br>
 <div class="condition">
 init=&lt;last{sizeA=size(A),_eAinv(=&lt;{x},sizeA,sizeA),_ex(=&lt;{x},sizeA*sizeA,1)},
 </div>
@@ -12577,7 +12631,7 @@ init=&gt;,run=&gt;,return=out=&gt;,
 <br>
 =&lt;return]=&gt;;
 <br>
-A=(i,2,3i:4,5i,6:7i,8,9i); solveAinv=&gt;;
+[A=(i,2,3i:4,5i,6:7i,8,9i),=&lt;solveAinv(=&lt;A)=&gt;]=&gt;;
     </td>
   </tr>
   <tr>
@@ -12596,11 +12650,9 @@ _non_linear
 <br>
 clear;
 <br>
-solvex_non_linear=&lt;{
+solvex_non_linear(=&lt;f,=&lt;x_initial)=&lt;[
 <br>
 out=&lt;x=&gt;,
-<br>
-delete_init=&lt;last{delEqn(x)},
 <div class="condition">
 init=&lt;last{_ex(=&lt;{x},sizer(x_initial=&gt;),1)},
 </div>
@@ -12611,11 +12663,11 @@ mdx=Newton(=&lt;f,=&lt;x,=&lt;x_initial,Nmax=6,Nmax,1e-16,1)
 <br>
 },
 </div>
-init=&gt;,run=&gt;,return=out=&gt;,delete_init=&gt;,
+init=&gt;,run=&gt;,return=out=&gt;,
 <br>
-=&lt;return}=&gt;;
+=&lt;return]=&gt;;
 <br>
-f=&lt;{x0^i-2*x1=3i,3*x0+exp(x1)=5i}; x_initial=&lt;{1+i,1-i}; solvex_non_linear=&gt;;
+solvex_non_linear(=&lt;{x0^i-2*x1=3i,3*x0+exp(x1)=5i},=&lt;{1+i,1-i})=&gt;;
     </td>
   </tr>
   <tr>
@@ -12632,7 +12684,7 @@ Euler_method
 <span id="span-eqn-implicit-Euler_method"></span>
 <a href="#span-out-evolution">時間発展の解法</a>参照
 <br>
-Euler_method=&lt;[
+Euler_method(t,dt,z_x00,z_v00,m,Cd_sphere,isImplicit)=&lt;[
 <br>
 out=&lt;{t_total,x=&gt;},
 <br>
@@ -12640,9 +12692,9 @@ scope2storage=&lt;last{addVar(z_x0),addVar(z_v0),addVar(t_total)},
 <div class="condition">
 init=&lt;last{
 <br>
-switch(hasVar(t_total)==0,=&lt;last{t_total=0,z_v0=20+20i,z_x0=0}),
+switch(hasVar(t_total)==0,=&lt;last{t_total=0,z_x0=z_x00,z_v0=z_v00}),
 <br>
-g=-9.8,z_a=0+g*i,dt=0.5,m=1,Cd_sphere=1,
+g=-9.8,z_a=0+g*i,
 <br>
 x=&lt;{z_x,z_v},
 <br>
@@ -12693,11 +12745,11 @@ init=&gt;,run=&gt;,return=out=&gt;,scope2storage=&gt;,
 <br>
 =&lt;return]=&gt;;
 <br>
-cond_error=(hasVar(t_total)==0)&amp;hasVar(z_x0);
+[cond_error=(hasVar(t_total)==0)&amp;hasVar(z_x0),
 <br>
-proc=&lt;{isImplicit=1,=&lt;Euler_method=&gt;}=&gt;/*nesting-return*/;
+proc=&lt;[args=(1,0.5,0,20+20i,1,1),=&lt;Euler_method(args,1)=&gt;]=&gt;/*nesting-return*/,
 <br>
-t=1; switch(cond_error==0,=&lt;proc:1,-999/*error-code*/);
+=&lt;switch(cond_error==0,=&lt;proc:1,-999/*error-code*/)]=&gt;;
     </td>
   </tr>
   <tr>
@@ -12714,11 +12766,11 @@ Euler_method
 <span id="span-eqn-explicit-Euler_method"></span>
 <a href="#span-out-evolution">時間発展の解法</a>参照
 <br>
-cond_error=(hasVar(t_total)==0)&amp;hasVar(z_x0);
+[cond_error=(hasVar(t_total)==0)&amp;hasVar(z_x0),
 <br>
-proc=&lt;{isImplicit=0,=&lt;Euler_method=&gt;}=&gt;/*nesting-return*/;
+proc=&lt;[args=(1,0.5,0,20+20i,1,1),=&lt;Euler_method(args,0)=&gt;]=&gt;/*nesting-return*/,
 <br>
-t=1; switch(cond_error==0,=&lt;proc:1,-999/*error-code*/);
+=&lt;switch(cond_error==0,=&lt;proc:1,-999/*error-code*/)]=&gt;;
     </td>
   </tr>
   <tr>
@@ -12735,7 +12787,7 @@ ODE_RK4
 <span id="span-eqn-explicit-ODE_RK4"></span>
 <a href="#span-out-evolution">時間発展の解法</a>参照
 <br>
-ODE_RK4=&lt;[
+ODE_RK4(t,dt,z_x00,z_v00,m,Cd_sphere)=&lt;[
 <br>
 out=&lt;{tdummy,x=&gt;},
 <br>
@@ -12743,9 +12795,9 @@ scope2storage=&lt;last{addVar(z_x),addVar(z_v),addVar(tdummy)},
 <div class="condition">
 init=&lt;last{
 <br>
-switch(hasVar(tdummy)==0,=&lt;last{z_v0=20+20i,z_x0=0}),
+switch(hasVar(tdummy)==0,=&lt;last{z_x0=z_x00,z_v0=z_v00}),
 <br>
-g=-9.8,z_a=0+g*i,dt=0.5,m=1,Cd_sphere=1,
+g=-9.8,z_a=0+g*i,
 <br>
 x=&lt;{z_x,z_v},
 <br>
@@ -12770,11 +12822,11 @@ init=&gt;,run=&gt;,return=out=&gt;,scope2storage=&gt;,
 <br>
 =&lt;return]=&gt;;
 <br>
-cond_error=(hasVar(tdummy)==0)&amp;hasVar(z_x);
+[cond_error=(hasVar(tdummy)==0)&amp;hasVar(z_x),
 <br>
-proc=&lt;ODE_RK4=&gt;/*nesting-return*/;
+proc=&lt;[args=(1,0.5,0,20+20i,1,1),=&lt;ODE_RK4(args)=&gt;]=&gt;/*nesting-return*/,
 <br>
-t=1; switch(cond_error==0,=&lt;proc:1,-999/*error-code*/);
+=&lt;switch(cond_error==0,=&lt;proc:1,-999/*error-code*/)]=&gt;;
     </td>
   </tr>
   <tr>
@@ -12791,9 +12843,9 @@ MaclaurinN
 <br>
 clear;
 <br>
-MaclaurinN=&lt;_sn(=&lt;_dx(=&lt;f,n,0)*x^n/n!,0,N);
+MaclaurinN(x,N)=&lt;_sn(=&lt;_dx(=&lt;f,n,0)*x^n/n!,0,N);
 <br>
-f=&lt;exp(x); x=2; N=5; MaclaurinN=&gt;;
+last[f=&lt;exp(x),MaclaurinN(2,5)==&gt;/*scope-inherited-call*/];
     </td>
   </tr>
   <tr>
@@ -12810,9 +12862,9 @@ TaylorN
 <br>
 clear;
 <br>
-TaylorN=&lt;_sn(=&lt;_dx(=&lt;f,n,a)*(x-a)^n/n!,0,N);
+TaylorN(a,x,N)=&lt;_sn(=&lt;_dx(=&lt;f,n,a)*(x-a)^n/n!,0,N);
 <br>
-f=&lt;exp(x); x=2; a=0; N=5; TaylorN=&gt;;
+last[f=&lt;exp(x),TaylorN(0,2,5)==&gt;/*scope-inherited-call*/];
     </td>
   </tr>
   <tr>
@@ -12829,11 +12881,11 @@ FourierN
 <br>
 clear;
 <br>
-FourierN=&lt;_sn(=&lt;(cn=&gt;)*e^(i*(n)*x),-N,N);
+FourierN(x,N)=&lt;_sn(=&lt;(cn(n)=&gt;)*e^(i*(n)*x),-N,N);
 <br>
-cn=&lt;_it(=&lt;(ft=&gt;)*e^(-i*(n)*t),-pi,pi)/(2*pi);
+last[cn(n)=&lt;_it(=&lt;(ft=&gt;)*e^(-i*(n)*t),-pi,pi)/(2*pi),
 <br>
-ft=&lt;e^(i*(2.5)*t); x=2; N=5; FourierN=&gt;;
+ft=&lt;e^(i*(2.5)*t),FourierN(2,5)==&gt;/*scope-inherited-call*/];
     </td>
   </tr>
 </tbody>
