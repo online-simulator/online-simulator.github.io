@@ -1,7 +1,7 @@
 clear
 local storage cleared
 
-add(a,=<b)=<a+b=>/*equation arguments test case*/,add(-1,=<-1)/*Call-by-Value,Call-by-Equation*/,A=(1,2:3,4),B=<(1,2:3,4),add(A_,=<B_)=<[A_+B_=>]/*default [scope] enabled in case of matrix*/,A=<(,:,),add[0](=<A,=<B)=>/*Call-by-Symbol variable first, equation second in Non-strict-mode (2,4:6,8)[0]*/,add[0](=<A=>/*obvious equation call=>*/,=<B)=>,add[1](=<(1,2:3,4),=<(1,2:3,4)){1,-1}/*omitted =>* (6,8){1,-1} -> -2*/,last[add(A_,=<B_)=<(a=-0xf,A_+B_=>)/*with underscore avoiding circular(B)*/,[B=<(-100,-100:-100,-100),add[1](=<(1,2:3,4),=<B)==>/*scope-inherited-call*/,a/*static scope shared*/]]
+add(a,=<b)=<a+b=>/*equation's arguments test case*/,add(-1,=<-1)/*Call-by-Value,Call-by-Equation*/,A=(1,2:3,4),B=<(1,2:3,4),add(A_,=<B_)=<[A_+B_=>]/*default [scope] enabled in case of matrix*/,A=<(,:,),add[0](=<A,=<B)=>/*Call-by-Symbol variable first, equation second in Non-strict-mode (2,4:6,8)[0]*/,add[0](=<A=>/*obvious equation call=>*/,=<B)=>,add[1](=<(1,2:3,4),=<(1,2:3,4)){1,-1}/*omitted =>* (6,8){1,-1} -> -2*/,last[add(A_,=<B_)=<(a=-0xf,A_+B_=>)/*with underscore avoiding circular(B)*/,[B=<(-100,-100:-100,-100),add[1](=<(1,2:3,4),=<B)==>/*scope-inherited-call*/,a/*static scope shared*/]]
 (
 0,-2,0,0,0,0,2,4,1,2,-2,-15
 )
@@ -389,4 +389,4 @@ drag=false&sw=false&0x=false&useComplex=true&useMatrix=true&isRightAssociativity
 --------------------------------
 --------------------------------
 
-online-simulator.github.io.3.41.16.5.18 @ Tue Jun 08 2021 15:42:41 GMT+0900 (日本標準時)
+online-simulator.github.io.3.41.16.5.18 @ Tue Jun 08 2021 16:28:46 GMT+0900 (日本標準時)
