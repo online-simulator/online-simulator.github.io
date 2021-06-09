@@ -650,7 +650,9 @@ My_entry.operation.prototype.get_symbol = function(treeTagName){
   var self = this;
   var tagVal = treeTagName.val;
   var tagName_REv = (tagVal.length === 1)? tagVal[0]["REv"]: null;
-  return (tagName_REv)? tagName_REv.val: null;
+  var _symbol = (tagName_REv)? tagName_REv.val: "";
+  if(self.config.isEscaped(_symbol)) throw "Invalid symbol("+_symbol+")";
+  return _symbol;
 };
 /* Ver.2.27.15 -> */
 My_entry.operation.prototype.get_names = function(data, tree_BT, isRow){

@@ -253,9 +253,13 @@ minor update
 <br>
 　[add(A_,=&lt;B_)=&lt;(A_+B_=&gt;),[add(=&lt;(1,2),=&lt;(3,4))]] -> (0,4,6)
 <br>
-　[add(A_,=&lt;B_)=&lt;(a=-9,A_+B_=&gt;),[B=&lt;(-1:-1),add[1](=&lt;(2:4),=&lt;B)==&gt;,a]]
+　[add(A_,=&lt;B_)=&lt;(a=-9,A_+B_=&gt;),[B=&lt;(-1:-1),add[1](=&lt;(2:4),=&lt;B),a]]
 <br>
 　-> (0,0,0,3,-9)
+<br>
+　[add(A_,=&lt;B_)=&lt;[a=-9,A_+B_=&gt;],[B=&lt;(-1:-1),add[1](=&lt;(2:4),=&lt;B),a]]
+<br>
+　-> [MyErr]Invalid REv(a)
 <br>
 ・re-use of stored equations with static scope supported
 <br>
@@ -264,14 +268,20 @@ minor update
 　add(1,-3),add(1,i) -> (-2,1+i)
 <br>
 　add(1,add(1,add(1,add(1,i)))) -> 4+i
-<br>
+br>
+　add(1,add(1,add(1,add(1,i))add(1,i))add(1,i))add(1,i) -> -5+5i
+br>
 ・equation's arguments test case added
 <br>
 　value's nesting-return added
 <br>
+　comments modified
+<br>
 ・manual更新
 <br>
 　追加校正約70箇所
+<br>
+　追加校正10箇所
 <br>
 [Graphing Calculator]
 <br>
