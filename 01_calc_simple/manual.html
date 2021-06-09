@@ -2058,6 +2058,14 @@ useScope=BT1の場合、<a href="#span-out-BT">丸括弧()</a>のみ<a href="#sp
 <br>
 ・<a href="#span-out-call-by-equation">式読出し</a>時、既定で<a href="#span-out-BT">丸括弧()</a>で括るが、<a href="#span-out-bracket">parse</a>段階で作る<a href="#span-in-scope-vars">static scopes2d array</a>以外は無効
 <br>
+<span class="run">Ver.2.32.17</span>以降、以下の条件を追加
+<br>
+useScope=notBT2の場合、<a href="#span-out-BT">波括弧{}</a>を除いて<a href="#span-out-scope-vars">変数のscope</a>を使用する
+<br>
+useScope=notBT1の場合、<a href="#span-out-BT">丸括弧()</a>を除いて<a href="#span-out-scope-vars">変数のscope</a>を使用する
+<br>
+useScope=notBT0の場合、<a href="#span-out-BT-square">角括弧[]</a>を除いて<a href="#span-out-scope-vars">変数のscope</a>を使用する
+<br>
 useScope=defaultの場合（上記以外の場合）、<a href="#span-out-BT-square">角括弧[]</a>のみ<a href="#span-out-scope-vars">変数のscope</a>を使用する
 <br>
 <br>
@@ -12174,9 +12182,9 @@ template
 <span id="span-eqn-template"></span>
 clear;
 <br>
-template=&lt;[
+template(x,y,=&lt;symbol_eqn_,=&lt;eqn_)=&lt;[
 <br>
-out=&lt;0,
+out=&lt;[=&lt;(symbol_eqn_=&gt;,eqn_=&gt;)]=&gt;,
 <br>
 scope2storage=&lt;last{0},
 <div class="condition">
@@ -12189,7 +12197,19 @@ init=&gt;,run=&gt;,return=out=&gt;,scope2storage=&gt;,
 <br>
 =&lt;return]=&gt;;
 <br>
-template=&gt;;
+[x=1,y=2,f=3,f=&lt;[last(x=-2*x,x),y],=&lt;template(x,=&lt;last(f)/*var||eqn*/,=&lt;f,=&lt;[x,y])=&gt;]=&gt;;
+<br>
+/*following eqn(f) without scope called twice*/
+<br>
+[x=1,y=2,f=3,f=&lt;(last(x=-2*x,x),y),=&lt;template(x,=&lt;last(f=&gt;),=&lt;f,=&lt;(x,y))=&gt;]=&gt;;
+<br>
+[x=1,y=2,f=3,f=&lt;(last(x=-2*x,x),y),=&lt;template(x,=&lt;last(f=&gt;),=&lt;f,=&lt;[x,y])=&gt;]=&gt;;
+<br>
+/*following eqn(f) with static scope called twice*/
+<br>
+[x=1,y=2,f=3,f=&lt;[last(x=-2*x,x),y],=&lt;template(x,=&lt;last(f=&gt;),=&lt;f,=&lt;(x,y))=&gt;]=&gt;;
+<br>
+[x=1,y=2,f=3,f=&lt;[last(x=-2*x,x),y],=&lt;template(x,=&lt;last(f=&gt;),=&lt;f,=&lt;[x,y])=&gt;]=&gt;;
     </td>
   </tr>
   <tr>
@@ -12650,16 +12670,16 @@ _non_linear
 <br>
 clear;
 <br>
-solvex_non_linear(=&lt;f,=&lt;x_initial)=&lt;[
+solvex_non_linear(=&lt;f_,=&lt;x_initial_)=&lt;[
 <br>
 out=&lt;x=&gt;,
 <div class="condition">
-init=&lt;last{_ex(=&lt;{x},sizer(x_initial=&gt;),1)},
+init=&lt;last{_ex(=&lt;{x},sizer(x_initial_=&gt;),1)},
 </div>
 <div class="run">
 run=&lt;last{
 <br>
-mdx=Newton(=&lt;f,=&lt;x,=&lt;x_initial,Nmax=6,Nmax,1e-16,1)
+mdx=Newton(=&lt;f_,=&lt;x,=&lt;x_initial_,Nmax=6,Nmax,1e-16,1)
 <br>
 },
 </div>
@@ -12667,7 +12687,7 @@ init=&gt;,run=&gt;,return=out=&gt;,
 <br>
 =&lt;return]=&gt;;
 <br>
-solvex_non_linear(=&lt;{x0^i-2*x1=3i,3*x0+exp(x1)=5i},=&lt;{1+i,1-i})=&gt;;
+[f=&lt;{x0^i-2*x1=3i,3*x0+exp(x1)=5i},=&lt;solvex_non_linear(=&lt;f,=&lt;{1+i,1-i})=&gt;]=&gt;;
     </td>
   </tr>
   <tr>

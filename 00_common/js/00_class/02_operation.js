@@ -89,11 +89,20 @@ My_entry.operation.prototype.config = {
     /* Ver.2.31.17 */
     hasScope: function(useScope, tagName){
       var _sw = false;
+      /* Ver.2.32.17 */
+      var get_sw = function(notBT){
+        return (tagName.substr(0, 2) === "BT" && tagName !== "BTe"  && tagName !== notBT);
+      };
       switch(useScope){
         case false:
           break;
         case true:
-          _sw = (tagName.substr(0, 2) === "BT" && tagName !== "BTe");  // Ver.2.32.17
+          _sw = get_sw("");
+          break;
+        case "notBT2":
+        case "notBT1":
+        case "notBT0":
+          _sw = get_sw(useScope.substr(3));
           break;
         case "BT2":
         case "BT1":
@@ -636,6 +645,12 @@ My_entry.operation.prototype.tree_BT2tree = function(data, tree, opt_ids){
     _tree = DATA.trees2tree(newData.trees);
   }
   return _tree;
+};
+My_entry.operation.prototype.get_symbol = function(treeTagName){
+  var self = this;
+  var tagVal = treeTagName.val;
+  var tagName_REv = (tagVal.length === 1)? tagVal[0]["REv"]: null;
+  return (tagName_REv)? tagName_REv.val: null;
 };
 /* Ver.2.27.15 -> */
 My_entry.operation.prototype.get_names = function(data, tree_BT, isRow){
@@ -2376,13 +2391,29 @@ My_entry.operation.prototype.REe = function(data, i0, tagName, tagObj){
           buffer_eqns[name] = self.restore_eqn(name, scopes, ids_buffer);
           var isSEe = argi[BT.SEe];
           if(isSEe){
-            if(ids_args_eqn){
-              self.inherit_ids_sw(BT.SEe, argi, ids_args_eqn);  // solvex_non_linear
+            var symbol = self.get_symbol(isSEe);
+            if(symbol){
+              var ids_SEe = isSEe.ids;
+              var tree_symbol = self.restore_eqn(symbol, scopes, ids_SEe);
+              if(tree_symbol){
+                tree = self.tree_REe2SEe(tree_symbol);
+              }
+              else{
+                throw "Undef eqn("+symbol+")";
+              }
             }
-            self.store_eqn(name, argi, scopes, ids_buffer);  // only argi stored
+            else{
+              tree = argi;
+            }
+            if(ids_args_eqn){
+              self.inherit_ids_sw(BT.SEe, tree, ids_args_eqn);  // solvex_non_linear
+            }
           }
           else{
             throw "Invalid args."+name+"("+name_eqn+")";
+          }
+          if(tree){
+            self.store_eqn(name, tree, scopes, ids_buffer);
           }
         }
         else{
@@ -2393,10 +2424,8 @@ My_entry.operation.prototype.REe = function(data, i0, tagName, tagObj){
           if(isSEe){
             var tree_eqn_call = self.tree_SEe2REe(argi);
             tree = self.tree_eqn2tree(data, tree_eqn_call);  // called equation's ids
-            if(!(tree.mat)){
-              var names = self.get_names(data, tree);  // symbol
-              var ids_SEe = isSEe.ids;
-              tree = self.restore_var(names[names.length-1], scopes, ids_SEe);
+            if(!(tree && tree.mat)){
+              throw "Undef args.var||eqn("+name+")";
             }
           }
           else{
