@@ -2904,7 +2904,7 @@ clear; add(A,=&lt;B_)=&lt;[A+B_=&gt;]; B=&lt;(3,4); add(=&lt;(1,2),=&lt;B=&gt;)=
 clear; add(A,=&lt;B_)=&lt;[A+B_=&gt;]; B=&lt;(3,4); add(=&lt;(1,2),=&lt;B)=&gt; -> (4,6)
 <br>
 <br>
-symbol渡しの場合、定義元の<a href="#span-out-bracket">scope</a>を意識する必要がない
+symbol渡しの場合、定義元の<a href="#span-out-bracket">scope</a>に留意が不要（別<a href="#span-out-bracket">scope</a>を参照するcaseを除く）
 <br>
 ・次の場合、<a href="#span-out-eqns">式変数</a>Bの中身(a,4)を定義元の<a href="#span-out-eqns">式変数</a>B_に継承する
 <br>
@@ -2927,7 +2927,7 @@ clear; add(A,=&lt;B_)=&lt;[a=-1,=&lt;A+B_=&gt;]=&gt;; B=&lt;(a,4); a=1; add(=&lt
 ・<a href="#span-out-FNh">高階関数</a>のsymbolのみを渡す引数と異なる
 <br>
 <br>
-<a href="#span-out-call-by-equation">式渡し</a>の場合、定義元の<a href="#span-out-bracket">scope</a>を意識する必要がある
+<a href="#span-out-call-by-equation">式渡し</a>の場合、定義元の<a href="#span-out-bracket">scope</a>に留意が必要
 <br>
 ・次の場合、B=&gt;を定義元の<a href="#span-out-eqns">式変数</a>B_に継承する
 <br>
@@ -2941,13 +2941,13 @@ clear; add(A,=&lt;B_)=&lt;[a=-1,=&lt;A+B_=&gt;]=&gt;; B=&lt;(a,4); a=1; add(=&lt
 <br>
 clear; add(A,=&lt;B_)=&lt;[a=-1,=&lt;A+B_=&gt;]=&gt;; B=&lt;(a,4); a=1; add(=&lt;(1,2),=&lt;[B=&gt;])=&gt; -> (2,6)
 <br>
-・以上の場合、定義元の<a href="#span-out-bracket">scope</a>から見えるlocal <a href="#span-out-storage">storage</a>に定義された<a href="#span-out-eqns">式変数</a>Bをcallする
+・以上の場合、定義元の<a href="#span-out-bracket">scope</a>から参照できるlocal <a href="#span-out-storage">storage</a>に定義された<a href="#span-out-eqns">式変数</a>Bをcallする
 <br>
 ・よって定義元の<a href="#span-out-bracket">scope</a>を<a href="#span-out-eqns">式変数</a>Bに継承する場合、<a href="#span-out-inherit-scope-eqns">式変数のscope継承call</a>をnestingする
 <br>
 clear; add(A,=&lt;B_)=&lt;[a=-1,=&lt;A+B_==&gt;]=&gt;; B=&lt;(a,4); a=1; add(=&lt;(1,2),=&lt;(B==&gt;))=&gt; -> (0,6)
 <br>
-・独立scopeに<a href="#span-out-eqns">式変数</a>Bが定義された場合、定義元の<a href="#span-out-bracket">scope</a>からは見えない
+・独立scopeに<a href="#span-out-eqns">式変数</a>Bが定義された場合、定義元の<a href="#span-out-bracket">scope</a>から参照不可
 <br>
 clear; add(A,=&lt;B_)=&lt;[a=-1,=&lt;A+B_=&gt;]=&gt;;
 <br>
@@ -8751,6 +8751,11 @@ _e$x(=&lt;{x},2,2) -> [MyErr]Invalid dummy($x)
 _e$$x(=&lt;{x},2,2) -> [MyErr]Invalid dummy($$x)
 <br>
 <br>
+<span class="run">Ver.2.32.17</span>以降、第1引数の<a href="#span-out-BT">括弧</a>省略可
+<br>
+clear; _ex(=&lt;x,1,4); ($x0,$x1:$x2,$x3)=identity2; x -> (1,0,0,1)
+<br>
+<br>
 応用例は<a href="#span-out-inverse">逆行列の解法</a>参照
     </td>
   </tr>
@@ -12870,7 +12875,7 @@ solvex_iteration(A,b)=&lt;[
 <br>
 out=&lt;x=&gt;,
 <div class="condition">
-init=&lt;last{sizeA=size(A),_ex(=&lt;{x},sizeA,1)},
+init=&lt;last{sizeA=size(A),_ex(=&lt;x,sizeA,1)},
 </div>
 <div class="run">
 run=&lt;last{
@@ -12906,7 +12911,7 @@ solveAinv(A)=&lt;[
 <br>
 out=&lt;Ainv=&gt;,
 <div class="condition">
-init=&lt;last{sizeA=size(A),_eAinv(=&lt;{x},sizeA,sizeA),_ex(=&lt;{x},sizeA*sizeA,1)},
+init=&lt;last{sizeA=size(A),_eAinv(=&lt;x,sizeA,sizeA),_ex(=&lt;x,sizeA*sizeA,1)},
 </div>
 <div class="run">
 run=&lt;last{
@@ -12944,7 +12949,7 @@ solvex_non_linear(=&lt;f_,=&lt;x_initial_)=&lt;[
 <br>
 out=&lt;x=&gt;,
 <div class="condition">
-init=&lt;last{_ex(=&lt;{x},sizer(x_initial_=&gt;),1)},
+init=&lt;last{_ex(=&lt;x,sizer(x_initial_=&gt;),1)},
 </div>
 <div class="run">
 run=&lt;last{

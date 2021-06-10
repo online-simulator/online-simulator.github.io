@@ -932,11 +932,18 @@ if(prop.key){
   /* Ver.2.23.11 -> */
   prop = prop.key;
   msgErr = "Invalid "+prop+" arguments";
+  // symbolic
   if(prop === "EX"){
     if(len_j > 2){
+      /* Ver.2.32.17 */
+      var get_names = function(j){
+        var isSEe = args[j][self.config.BT.SEe];
+        var symbol = (isSEe)? self.get_symbol(isSEe): "";
+        var _names = (symbol)? [symbol]: self.get_names(data, get_tree(j));
+        return _names;
+      };
       /* Ver.2.27.15 -> */
-      var tree_BT = get_tree(0);
-      var names = self.get_names(data, tree_BT);
+      var names = get_names(0);
       if(!(names.length)) throw msgErr;
       /* -> Ver.2.27.15 */
       var name_var = names[names.length-1];

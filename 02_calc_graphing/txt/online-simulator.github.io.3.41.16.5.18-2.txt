@@ -51,7 +51,7 @@ infoLost[ i] -0.04901921620544653+2.023423045158351i+O(3e-17+6e-18i):
 0.07726186556052178-1.434248862158042i+O(1e-17+2e-16i)
 )
 
-solvex_non_linear(=<f_,=<x_initial_)=<[out=<x=>,init=<last{_ex(=<{x},sizer(x_initial_=>),1)},run=<last{mdx=Newton(=<f_,=<x,=<x_initial_,Nmax=6,Nmax,1e-16,1)},init=>,run=>,return=out=>,=<return]=>
+solvex_non_linear(=<f_,=<x_initial_)=<[out=<x=>,init=<last{_ex(=<x,sizer(x_initial_=>),1)},run=<last{mdx=Newton(=<f_,=<x,=<x_initial_,Nmax=6,Nmax,1e-16,1)},init=>,run=>,return=out=>,=<return]=>
 stored_eqn(solvex_non_linear)
 
 clear
@@ -64,7 +64,7 @@ infoLost[ri] 0.05000000000000003+8.567561244782949e-29i+O(4e-17+9e-26i),infoLost
 infoLost[ri] 2.8820733759262382e-36-0.5583333333333333i+O(5e-25+3e-36i),infoLost[ri] 0.05+4.64802404929633e-38i+O(5e-38+9e-26i),infoLost[ri] -9.847979430502188e-37+0.10833333333333334i+O(2e-25+1e-36i)
 )
 
-solveAinv(A)=<[out=<Ainv=>,init=<last{sizeA=size(A),_eAinv(=<{x},sizeA,sizeA),_ex(=<{x},sizeA*sizeA,1)},run=<last{f=<(Ainv=>)*A=identity(sizeA),mdx=Newton(=<f,=<x,,Nmax=3,Nmax,1e-16,1)},init=>,run=>,return=out=>,=<return]=>
+solveAinv(A)=<[out=<Ainv=>,init=<last{sizeA=size(A),_eAinv(=<x,sizeA,sizeA),_ex(=<x,sizeA*sizeA,1)},run=<last{f=<(Ainv=>)*A=identity(sizeA),mdx=Newton(=<f,=<x,,Nmax=3,Nmax,1e-16,1)},init=>,run=>,return=out=>,=<return]=>
 stored_eqn(solveAinv)
 
 clear
@@ -77,7 +77,7 @@ infoLost[ri] 0.44999999999999996-5.918446341796992e-29i+O(4e-17+1e-24i):
 infoLost[ri] 2.333674190982996e-28-0.02500000000000003i+O(1e-24+2e-17i)
 )
 
-solvex_iteration(A,b)=<[out=<x=>,init=<last{sizeA=size(A),_ex(=<{x},sizeA,1)},run=<last{f=<A*(x=>)=b,mdx=Newton(=<f,=<x,,Nmax=3,Nmax,1e-16,1)},init=>,run=>,return=out=>,=<return]=>
+solvex_iteration(A,b)=<[out=<x=>,init=<last{sizeA=size(A),_ex(=<x,sizeA,1)},run=<last{f=<A*(x=>)=b,mdx=Newton(=<f,=<x,,Nmax=3,Nmax,1e-16,1)},init=>,run=>,return=out=>,=<return]=>
 stored_eqn(solvex_iteration)
 
 clear
@@ -274,4 +274,4 @@ drag=false&test-case=false&legend=true&axis-x=true&log-x=false&imag-x=false&axis
 --------------------------------
 --------------------------------
 
-online-simulator.github.io.3.41.16.5.18 @ Wed Jun 09 2021 10:24:10 GMT+0900 (日本標準時)
+online-simulator.github.io.3.41.16.5.18 @ Thu Jun 10 2021 22:07:18 GMT+0900 (日本標準時)
