@@ -2125,6 +2125,10 @@ clear; times(a,b)=&lt;a<span class="condition">*</span>b; times(-2,3) -> -6
 <br>
 clear; times(a,b)=&lt;a<span class="condition">*</span>b; times(-2,3)<span class="clear">=&gt;</span> -> -6
 <br>
+clear; times(a,b)=&lt;a<span class="condition">*</span>b; times=2; times(-2,3)<span class="clear">=&gt;</span> -> -6
+<br>
+clear; times(a,b)=&lt;a<span class="condition">*</span>b; times=2; times(-2,3) -> (-4,6)
+<br>
 ・strict-modeの場合
 <br>
 clear; times(a,b)=&lt;a(b); times(-2,3) -> [MyErr]Invalid ans isFound
@@ -2138,6 +2142,10 @@ clear; a(b)=&lt;-999; times(a,b)=&lt;a(b)<span class="clear">=&gt;</span>; times
 clear; times(a,b)=&lt;a<span class="condition">*</span>b; times(-2,3) -> [MyErr]Invalid ans isFound
 <br>
 clear; times(a,b)=&lt;a<span class="condition">*</span>b; times(-2,3)<span class="clear">=&gt;</span> -> -6
+<br>
+clear; times(a,b)=&lt;a<span class="condition">*</span>b; times=2; times(-2,3)<span class="clear">=&gt;</span> -> -6
+<br>
+clear; times(a,b)=&lt;a<span class="condition">*</span>b; times=2; times(-2,3) -> [MyErr]Invalid ans isFound
 <br>
 <br>
 strict-modeで実行する場合、<a href="#span-out-config">裏設定</a>参照
