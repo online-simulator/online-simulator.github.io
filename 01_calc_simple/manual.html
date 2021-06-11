@@ -2113,23 +2113,31 @@ strict-modeは演算内容の入力規則に以下2点の制約条件を追加�
 <br>
 ・Non-strict-modeの場合
 <br>
-times(a,b)=&lt;a(b); times(-2,3) -> -6
+clear; times(a,b)=&lt;a(b); times(-2,3) -> -6
 <br>
-times(a,b)=&lt;a(b); times(-2,3)<span class="clear">=&gt;</span> -> -6
+clear; times(a,b)=&lt;a(b); times(-2,3)<span class="clear">=&gt;</span> -> -6
 <br>
-times(a,b)=&lt;a<span class="condition">*</span>b; times(-2,3) -> -6
+clear; a(b)=&lt;-999; times(a,b)=&lt;a(b); times(-2,3)<span class="clear">=&gt;</span> -> -6
 <br>
-times(a,b)=&lt;a<span class="condition">*</span>b; times(-2,3)<span class="clear">=&gt;</span> -> -6
+clear; a(b)=&lt;-999; times(a,b)=&lt;a(b)<span class="clear">=&gt;</span>; times(-2,3)<span class="clear">=&gt;</span> -> -999
+<br>
+clear; times(a,b)=&lt;a<span class="condition">*</span>b; times(-2,3) -> -6
+<br>
+clear; times(a,b)=&lt;a<span class="condition">*</span>b; times(-2,3)<span class="clear">=&gt;</span> -> -6
 <br>
 ・strict-modeの場合
 <br>
-times(a,b)=&lt;a(b); times(-2,3) -> [MyErr]Invalid ans isFound
+clear; times(a,b)=&lt;a(b); times(-2,3) -> [MyErr]Invalid ans isFound
 <br>
-times(a,b)=&lt;a(b); times(-2,3)<span class="clear">=&gt;</span> -> [MyErr]Invalid operation
+clear; times(a,b)=&lt;a(b); times(-2,3)<span class="clear">=&gt;</span> -> [MyErr]Invalid operation
 <br>
-times(a,b)=&lt;a<span class="condition">*</span>b; times(-2,3) -> [MyErr]Invalid ans isFound
+clear; a(b)=&lt;-999; times(a,b)=&lt;a(b); times(-2,3)<span class="clear">=&gt;</span> -> [MyErr]Invalid operation
 <br>
-times(a,b)=&lt;a<span class="condition">*</span>b; times(-2,3)<span class="clear">=&gt;</span> -> -6
+clear; a(b)=&lt;-999; times(a,b)=&lt;a(b)<span class="clear">=&gt;</span>; times(-2,3)<span class="clear">=&gt;</span> -> -999
+<br>
+clear; times(a,b)=&lt;a<span class="condition">*</span>b; times(-2,3) -> [MyErr]Invalid ans isFound
+<br>
+clear; times(a,b)=&lt;a<span class="condition">*</span>b; times(-2,3)<span class="clear">=&gt;</span> -> -6
 <br>
 <br>
 strict-modeで実行する場合、<a href="#span-out-config">裏設定</a>参照
