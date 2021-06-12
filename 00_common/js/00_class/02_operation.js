@@ -2383,11 +2383,19 @@ My_entry.operation.prototype.REe = function(data, i0, tagName, tagObj){
       var ids_args_eqn = null;
       /* solvex_Gauss()=<[inherit scope here]=> */
       if(isREe.val.length < 3){
-        var tree_BT = isREe.val[0];
-        var tagName_BT = self.isType(tree_BT, "BT");  // tagName_BT
-        if(tagName_BT){
+        var isREeVal = isREe.val;
+        var tagName0_BT = (isREeVal[0])? self.isType(isREeVal[0], "BT"): "";
+        var tagName1_BT = (isREeVal[1])? self.isType(isREeVal[1], "BT"): "";
+        var inherit_id0 = function(i, tagName_BT){
+          var tree_BT = isREe.val[i];
           ids_args_eqn = tree_BT[tagName_BT].ids || [[0, 0]];
-          id0 = ids_args_eqn[0];
+          id0 = ids_args_eqn[0];  // ids[0]
+        };
+        if(tagName0_BT && !(tagName1_BT)){       // f(x)=<[,x] ||  f(x)=<[,=<x]=>
+          inherit_id0(0, tagName0_BT);
+        }
+        else if(!(tagName0_BT) && tagName1_BT){  // f(x)=<last[,x]
+          inherit_id0(1, tagName1_BT);
         }
       }
       ids_buffer = [[].concat(id0)];

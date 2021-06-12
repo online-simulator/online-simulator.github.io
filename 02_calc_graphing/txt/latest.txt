@@ -1,25 +1,25 @@
-last[cn(n)=<_it(=<(ft=>)*e^(-i*(n)*t),-pi,pi)/(2*pi),ft=<e^(i*(2.5)*t),FourierN(2,5)==>]
+last[ft=<e^(i*(2.5)*t),FourierN(=<ft,2,5)=>]
 infoLost[ri] 0.29934712994045387-1.0833440107828247i+O(2e-6+2e-6i)
 
-FourierN(x,N)=<_sn(=<(cn(n)=>)*e^(i*(n)*x),-N,N)
+FourierN(=<ft_,x,N)=<last[cn(n)=<_it(=<(ft_=>)*e^(-i*(n)*t),-pi,pi)/(2*pi),_sn(=<(cn(n)=>)*e^(i*(n)*x),-N,N)]
 stored_eqn(FourierN)
 
 clear
 local storage cleared
 
-last[f=<exp(x),TaylorN(0,2,5)==>]
+last[f=<exp(x),TaylorN(=<f,0,2,5)=>]
 7.266666317607307+0.000058921777380024245i+O(4e+0+4e+0i)
 
-TaylorN(a,x,N)=<_sn(=<_dx(=<f,n,a)*(x-a)^n/n!,0,N)
+TaylorN(=<f_,a,x,N)=<_sn(=<_dx(=<f_,n,a)*(x-a)^n/n!,0,N)
 stored_eqn(TaylorN)
 
 clear
 local storage cleared
 
-last[f=<exp(x),MaclaurinN(2,5)==>]
+last[f=<exp(x),MaclaurinN(=<f,2,5)=>]
 7.266666317607307+0.000058921777380024245i+O(4e+0+4e+0i)
 
-MaclaurinN(x,N)=<_sn(=<_dx(=<f,n,0)*x^n/n!,0,N)
+MaclaurinN(=<f_,x,N)=<_sn(=<_dx(=<f_,n,0)*x^n/n!,0,N)
 stored_eqn(MaclaurinN)
 
 clear
@@ -274,4 +274,4 @@ drag=false&test-case=false&legend=true&axis-x=true&log-x=false&imag-x=false&axis
 --------------------------------
 --------------------------------
 
-online-simulator.github.io.3.41.16.5.18 @ Thu Jun 10 2021 22:07:18 GMT+0900 (日本標準時)
+online-simulator.github.io.3.41.16.5.18 @ Sat Jun 12 2021 11:03:01 GMT+0900 (日本標準時)
