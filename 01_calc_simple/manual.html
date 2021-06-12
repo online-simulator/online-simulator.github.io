@@ -3212,11 +3212,11 @@ add(1,add(1,add(1,add(1,i))add(1,i))add(1,i))add(1,i) -> -5+5i
 <br>
 ・call先argumentsが<a href="#span-out-bracket">scope</a>を持つ場合
 <br>
-clear; add(a,b)=&lt;last[,a+b]; add(last[,1+i],last[,1-i]) -> 2
+clear; add(=&lt;a,=&lt;b)=&lt;last[,a=&gt;+b=&gt;]; add(=&lt;last[,1+i],=&lt;last[,1-i]) -> 2
 <br>
 ・同義
 <br>
-clear; last[a=last[,1+i],b=last[,1-i],a+b] -> 2
+clear; last[a=&lt;last[,1+i],b=&lt;last[,1-i],a=&gt;+b=&gt;] -> 2
 <br>
 <br>
 <a href="#span-out-FNm-last">last行列関数</a>を代替する<a href="#span-out-eqns">式変数</a>last_ttを以下に示す
