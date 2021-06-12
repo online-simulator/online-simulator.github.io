@@ -10,6 +10,16 @@ My_entry.conv.prototype.init = function(){
   var self = this;
   return self;
 };
+My_entry.conv.prototype.dec2round_sw = function(dec, sw, opt_digit){
+  var self = this;
+  var _dec = Number(dec);
+  var digit = Number(opt_digit || 1);
+  var mc = (isNaN(_dec))? null: _dec.toExponential(digit+1).split("e");
+  if(mc && mc.length === 2){
+    _dec = Math[sw || "floor"](Number(mc[0])*Math.pow(10, digit))*Math.pow(10, Number(mc[1])-digit);
+  }
+  return _dec;
+};
 My_entry.conv.prototype.dec2n = function(val, n){
   var self = this;
   return parseInt(val).toString(parseInt(n));

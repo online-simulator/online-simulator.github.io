@@ -254,6 +254,7 @@ My_entry.calc_graphing.prototype.re_plot = function(isFinal){
 };
 My_entry.calc_graphing.prototype.arr_data2arr2d_vec = function(arr_data, options_plot){
   var self = this;
+  var conv = self.entry.conv;
   var arr2d_x = null;
   var arr2d_y = null;
   var isLog_x = (options_plot["log-x"])? true: false;
@@ -312,10 +313,20 @@ My_entry.calc_graphing.prototype.arr_data2arr2d_vec = function(arr_data, options
         }
       }
     }
-    gxmin = xmin;
-    gymin = ymin;
-    gxmax = xmax;
-    gymax = ymax;
+    /* Ver.2.33.17 -> */
+    if(options_plot.oldPlot2d){
+      gxmin = xmin;
+      gymin = ymin;
+      gxmax = xmax;
+      gymax = ymax;
+    }
+    else{
+      gxmin = conv.dec2round_sw(xmin);
+      gymin = conv.dec2round_sw(ymin);
+      gxmax = conv.dec2round_sw(xmax, "ceil");
+      gymax = conv.dec2round_sw(ymax, "ceil");
+    }
+    /* -> Ver.2.33.17 */
     len_n = arr2d_x.length;
   }
   return {x: arr2d_x, y: arr2d_y, len_n: len_n, len_j: len_j, xmin: xmin, ymin: ymin, xmax: xmax, ymax: ymax, gxmin: gxmin, gymin: gymin, gxmax: gxmax, gymax: gymax};
@@ -599,6 +610,7 @@ My_entry.calc_graphing.prototype.init_handlers = function(){
         }
         self.worker_plot.arr_data_in = new Array(len_n);
         self.worker_plot.arr_data_out = arr_data;
+        self.isCheckedError = false;  // Ver.2.33.17
         self.re_plot(true);
       }
     /* Ver.2.25.14 -> */
@@ -718,6 +730,7 @@ My_entry.calc_graphing.prototype.init_handlers = function(){
       case "stop":
         self.worker_plot.stop();
         self.plot2d.init_flags();
+        self.isCheckedError = false;  // Ver.2.33.17
         self.re_plot(true);
         break;
       case "=":
@@ -847,6 +860,7 @@ My_entry.calc_graphing.prototype.init_handlers = function(){
         break;
       case "select-expDigit":
         self.re_output_log();
+        self.isCheckedError = false;  // Ver.2.33.17
         self.re_plot(true);
         break;
       case "select-canvas-width":
@@ -855,6 +869,7 @@ My_entry.calc_graphing.prototype.init_handlers = function(){
         var px_h = $.selectNum_id("select-canvas-height");
         clear_imageBg();
         self.plot2d.update(px_w, px_h);
+        self.isCheckedError = false;  // Ver.2.33.17
         self.re_plot(true);
         break;
       /* Ver.2.16.6 */
@@ -863,6 +878,7 @@ My_entry.calc_graphing.prototype.init_handlers = function(){
       case "input-xmax":
       case "input-ymax":
         self.plot2d.isChanged_axis = true;
+        self.isCheckedError = false;  // Ver.2.33.17
         self.re_plot(true);
         break;
       case "checkbox-log-x":
@@ -873,6 +889,7 @@ My_entry.calc_graphing.prototype.init_handlers = function(){
       case "checkbox-axis-y":
       case "input-title":
         self.plot2d.init_flags();
+        self.isCheckedError = false;  // Ver.2.33.17
         self.re_plot(true);
         break;
       case "select-decDigit":
@@ -890,17 +907,20 @@ My_entry.calc_graphing.prototype.init_handlers = function(){
       case "select-legend-kx":
       case "select-legend-ky":
       case "checkbox-legend":
+        self.isCheckedError = false;  // Ver.2.33.17
         self.re_plot(true);
         break;
       /* Ver.2.16.6 */
       case "select-canvas-background":
         $._id("input-bg-color").value = "";
         $.set_id("input-bg-color", "background", null);
+        self.isCheckedError = false;  // Ver.2.33.17
         self.re_plot(true);
         break;
       case "input-bg-color":
       case "input-grid-line-color":
         $.set_elem(elem, "background", elem.value);
+        self.isCheckedError = false;  // Ver.2.33.17
         self.re_plot(true);
         break;
       /* Ver.2.15.5 */
@@ -911,11 +931,13 @@ My_entry.calc_graphing.prototype.init_handlers = function(){
           self.plot2d.setter.base64_bg(base64);
           self.entry.conv.base2img(base64, function(e, img){
             self.plot2d.setter.img_bg(img);
+            self.isCheckedError = false;  // Ver.2.33.17
             self.re_plot(true);
           });
         });
         if(!(file)){
           clear_imageBg();
+          self.isCheckedError = false;  // Ver.2.33.17
           self.re_plot(true);
         }
         break;
