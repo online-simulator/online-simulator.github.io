@@ -241,17 +241,31 @@ minor bug-fix
     <td>
 [operation.js]
 <br>
-・<span class="clear">initialization</span> to inherit scope ids with equation's arguments modified
+・<span class="clear">initialization</span> to inherit scope ids with equation's arguments <span class="clear">bug-fixed</span>&amp;<span class="condition">modifed</span>
 <br>
-　results are no change in manual and test case
+　results are no change in manual and test case because below <span class="clear">[[0, 0]]</span> unreached
 <br>
-　<a href="01_calc_simple/manual.html#span-out-scope-inherited-call-memo">[manual]Calculator-式変数のscope継承call覚書</a>
+　<a href="01_calc_simple/manual.html#span-out-scope-inherited-call-memo">[manual]Calculator-式変数のscope継承callまとめ</a>
+<br>
+　before:
+<br>
+　　var id0 = isREe.ids[0] || <span class="clear">[[0, 0]]</span>;
+<br>
+　　var ids_args_eqn = null;
+<br>
+　after:
+<br>
+　　var ids_args_eqn = <span class="condition">isREe.ids</span> || [[0, 0]];
+<br>
+　　var id0 = ids_args_eqn[0];
 <br>
 [Calculator]
 <br>
 ・manual更新
 <br>
 　仕様訂正1箇所・追加校正14箇所
+<br>
+　追加校正8箇所
     </td>
     <td>
 2021/6/13

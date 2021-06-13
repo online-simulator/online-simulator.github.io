@@ -284,7 +284,7 @@ scope付式変数の再利用
 <br>
 　・
 <a href="#span-out-scope-inherited-call-memo">
-式変数のscope継承call覚書
+式変数のscope継承callまとめ
 </a>
 <br>
 ・
@@ -2659,7 +2659,7 @@ clear; a=&lt;last{sum=b+c+d,last[,-sum]}; d=3; [c=2,=&lt;[b=1,=&lt;a==&gt;]=&gt;
 <br>
 clear; a=&lt;last{d=-100,sum=b+c+d,last[,-sum]}; d=3; [c=2,=&lt;[b=1,=&lt;a==&gt;]=&gt;]=&gt; -> 97
 <br>
-・callする<a href="#span-out-eqns">式変数</a>の0<a href="#span-out-bracket">階層</a>に宣言される<a href="#span-out-vars">変数</a>はcall先<a href="#span-out-bracket">scope</a>に定義される
+・callする<a href="#span-out-eqns">式変数</a>の0<a href="#span-out-bracket">階層</a>に宣言される<a href="#span-out-vars">変数</a>はcall先<a href="#span-out-bracket">scope</a>に定義する
 <br>
 clear; a=&lt;last{d=-100,sum=b+c+d,last[,-sum]}; d=3; [c=2,=&lt;[b=1,a==&gt;,=&lt;d]=&gt;]=&gt; -> -100
 <br>
@@ -3049,7 +3049,7 @@ clear; a(b,c,d)=&lt;last{b=-1,b+c+d}; d=3; [c=2,=&lt;[b=1,=&lt;[a(b,c,d),b]]=&gt
 <br>
 clear; a(b,c,d)=&lt;last{b=-1,b+c+d}; d=3; [c=2,=&lt;[=&lt;[a(b,c,d),b]]=&gt;]=&gt; -> [MyErr]Invalid REv(b)
 <br>
-・通常callの場合、定義元で宣言される<a href="#span-out-vars">変数</a>・<a href="#span-out-eqns">式変数</a>は定義元<a href="#span-out-bracket">scope</a>に定義される
+・通常callの場合、定義元で宣言される<a href="#span-out-vars">変数</a>・<a href="#span-out-eqns">式変数</a>は定義元<a href="#span-out-bracket">scope</a>に定義する
 <br>
 clear; a(b_,c,d)=&lt;last{b=b_,b_+c+d}; d=3; [c=2,=&lt;[=&lt;[a(1,c,d),b]]=&gt;]=&gt;,b -> (6,1,1)
 <br>
@@ -3267,11 +3267,11 @@ scope
 <br>
 継承call
 <br>
-覚書
+まとめ
     </th>
     <td>
 <span id="span-out-scope-inherited-call-memo"></span>
-式変数のscope継承call覚書について記述する
+式変数のscope継承callについてまとめる
 <br>
 <br>
 仕様を列挙する
@@ -3282,12 +3282,72 @@ let a=()=&gt;b; (function(){let b=1; return a();})();  <span class="selection">/
 <br>
 clear; a=&lt;b; [b=1,=&lt;a=&gt;]=&gt; -> [MyErr]Invalid REv(b)
 <br>
-・<a href="#span-out-scope-inherited-call">式変数のscope継承call</a>を使用
+・<a href="#span-out-scope-inherited-call">式変数のscope継承call</a>を使用して<a href="#span-out-call-by-equation">式読出し</a>時の<a href="#span-out-bracket">階層</a>を継承する
 <br>
 clear; a=&lt;b; [b=1,=&lt;a==&gt;]=&gt; -> 1
 <br>
+・<a href="#span-out-eqns-args">式変数のarguments</a>を使用して<a href="#span-out-scope-inherited-call">式変数のscope継承call</a>を代替する
+<br>
+clear; a(b)=&lt;b; [b=1,=&lt;a(b)=&gt;]=&gt;  <span class="selection">// better</span> -> 1
+<br>
+・<a href="#span-out-eqns">式変数</a>の定義元に対してcall先と区別する
+<br>
 <br>
 <span class="run">Ver.2.33.18</span>以降、<a href="#span-out-eqns-args">定義元arguments</a>の<a href="#span-out-eqns">式変数</a>は宣言時の<a href="#span-out-bracket">階層</a>に依存する
+<br>
+・通常callの場合
+<br>
+clear; conv(=&lt;a_)=&lt;last(a_=&gt;),[a=3,conv(=&lt;a)=&gt;] -> [MyErr]Undef eqn(a)
+<br>
+clear; conv(=&lt;a_)=&lt;last(a_=&gt;),[a=3,a=&lt;a,conv(=&lt;a)=&gt;] -> [MyErr]Invalid REv(a)
+<br>
+clear; conv(=&lt;a_)=&lt;last(a_=&gt;),[a=3,conv(=&lt;(a))=&gt;] -> [MyErr]Invalid REv(a)
+<br>
+clear; [conv(=&lt;a_)=&lt;last(a_=&gt;),[a=3,conv(=&lt;(a))=&gt;]] -> [MyErr]Invalid REv(a)
+<br>
+・定義元で宣言される<a href="#span-out-vars">変数</a>・<a href="#span-out-eqns">式変数</a>は定義元<a href="#span-out-bracket">scope</a>に定義する
+<br>
+clear; conv(=&lt;a_)=&lt;last(a=-3,a_=&gt;),[a=3,a=&lt;a,conv(=&lt;a)=&gt;,a],a -> (0,0,0,-3,3,-3)
+<br>
+clear; conv(=&lt;a_)=&lt;last(a=-3,a_=&gt;),[a=3,conv(=&lt;(a))=&gt;,a],a -> (0,0,-3,3,-3)
+<br>
+clear; [conv(=&lt;a_)=&lt;last(a=-3,a_=&gt;),[a=3,conv(=&lt;(a))=&gt;,a],a] -> (0,0,-3,3,-3)
+<br>
+clear; [conv(=&lt;a_)=&lt;last(a=-3,a_=&gt;),[a=3,conv(=&lt;(a))=&gt;,a],a],a -> [MyErr]Invalid REv(a)
+<br>
+・<a href="#span-out-scope-inherited-call">式変数のscope継承call</a>の場合
+<br>
+clear; conv(=&lt;a_)=&lt;last(a_=&gt;),[a=3,a=&lt;a,conv(=&lt;a)==&gt;,a] -> (0,0,0,3,3)
+<br>
+clear; conv(=&lt;a_)=&lt;last(a_=&gt;),[a=3,conv(=&lt;(a))==&gt;,a] -> (0,0,3,3)
+<br>
+clear; [conv(=&lt;a_)=&lt;last(a_=&gt;),[a=3,conv(=&lt;(a))==&gt;,a]] -> (0,0,3,3)
+<br>
+・定義元で宣言される<a href="#span-out-vars">変数</a>・<a href="#span-out-eqns">式変数</a>はcall先<a href="#span-out-bracket">scope</a>に定義する
+<br>
+clear; conv(=&lt;a_)=&lt;last(a=-3,a_=&gt;),[a=3,a=&lt;a,conv(=&lt;a)==&gt;,a] -> (0,0,0,-3,-3)
+<br>
+clear; conv(=&lt;a_)=&lt;last(a=-3,a_=&gt;),[a=3,conv(=&lt;(a))==&gt;,a] -> (0,0,-3,-3)
+<br>
+clear; [conv(=&lt;a_)=&lt;last(a=-3,a_=&gt;),[a=3,conv(=&lt;(a))==&gt;,a]] -> (0,0,-3,-3)
+<br>
+clear; [conv(=&lt;a_)=&lt;last(a=-3,a_=&gt;),[a=3,conv(=&lt;(a))==&gt;,a],a] -> [MyErr]Invalid REv(a)
+<br>
+clear; [conv(=&lt;a_)=&lt;last(b=4,a_=&gt;),[a=3,conv(=&lt;(a))==&gt;,b],b] -> [MyErr]Invalid REv(b)
+<br>
+clear; [conv(=&lt;a_)=&lt;last(b=4,a_=&gt;),[a=3,conv(=&lt;(a))==&gt;,b]] -> (0,0,3,4)
+<br>
+・定義元とcall先の<a href="#span-out-bracket">scope</a>を区別する場合
+<br>
+・定義元で宣言される<a href="#span-out-vars">変数</a>・<a href="#span-out-eqns">式変数</a>はcall先から参照不可
+<br>
+clear; [conv(=&lt;a_)=&lt;last[b=4,a_=&gt;],[a=3,conv(=&lt;(a))==&gt;,b]] -> [MyErr]Invalid REv(b)
+<br>
+clear; [conv(=&lt;a_)=&lt;last[b=&lt;4,a_=&gt;],[a=3,conv(=&lt;(a))==&gt;,b=&gt;]] -> [MyErr]Invalid REv(b)
+<br>
+clear; [conv(=&lt;a_)=&lt;last[b=4,a_=&gt;+b],[a=3,conv(=&lt;(a))==&gt;]] -> (0,0,7)
+<br>
+clear; [conv(=&lt;a_)=&lt;last[b=&lt;4,a_=&gt;+b=&gt;],[a=3,conv(=&lt;(a))==&gt;]] -> (0,0,7)
     </td>
   </tr>
   <tr>
