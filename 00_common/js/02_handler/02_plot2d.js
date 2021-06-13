@@ -197,7 +197,7 @@ My_entry.plot2d.prototype.update = function(opt_px_w, opt_px_h, opt_px_b){
   self.update_elem_p(px_w, px_h, px_b);
   return self;
 };
-My_entry.plot2d.prototype.grid = function(x0, y0, x1, y1, Ni, Nj, isLog_x, isLog_y, label_x, label_y, fontSize, expDigit, gridLineWidth, gridLineColor, globalCompositeOperation){
+My_entry.plot2d.prototype.grid = function(options, x0, y0, x1, y1, Ni, Nj, isLog_x, isLog_y, label_x, label_y, fontSize, expDigit, gridLineWidth, gridLineColor, globalCompositeOperation){
   var self = this;
   var grid = self.objs.grid;
   var _svg = "";
@@ -211,6 +211,10 @@ My_entry.plot2d.prototype.grid = function(x0, y0, x1, y1, Ni, Nj, isLog_x, isLog
   var ty0 = self.trans(y0, isLog_y);
   var tx1 = self.trans(x1, isLog_x);
   var ty1 = self.trans(y1, isLog_y);
+  /* 1.0.0 -> */
+  var tdx = (tx1-tx0)/Ni;
+  var tdy = (ty1-ty0)/Nj;
+  /* -> 1.0.0 */
   /* 0.5.0 -> */
   if(label_x){
     if(tx0 <= 0 && tx1 >= 0 && !(isLog_x)){
@@ -232,7 +236,12 @@ My_entry.plot2d.prototype.grid = function(x0, y0, x1, y1, Ni, Nj, isLog_x, isLog
   }
   /* -> 0.5.0 */
   for(var i=0; i<len_i; ++i){
-    var tx = self.trans(x0+i*dx, isLog_x);
+    /* 1.0.0 -> */
+    var tx = tx0+i*tdx;
+    if(options.oldPlot2d){
+      tx = self.trans(x0+i*dx, isLog_x);
+    }
+    /* -> 1.0.0 */
     _svg += grid.line(tx, ty0, tx, ty1, lineWidth, styleRGBA, globalCompositeOperation);
     if(label_x){
       var val = self.entry.conv.num2not(tx, self.config.default.decDigit, expDigit);
@@ -240,7 +249,12 @@ My_entry.plot2d.prototype.grid = function(x0, y0, x1, y1, Ni, Nj, isLog_x, isLog
     }
   }
   for(var j=0; j<len_j; ++j){
-    var ty = self.trans(y0+j*dy, isLog_y);
+    /* 1.0.0 -> */
+    var ty = ty0+j*tdy;
+    if(options.oldPlot2d){
+      ty = self.trans(y0+j*dy, isLog_y);
+    }
+    /* -> 1.0.0 */
     _svg += grid.line(tx0, ty, tx1, ty, lineWidth, styleRGBA, globalCompositeOperation);
     if(label_y){
       var val = self.entry.conv.num2not(ty, self.config.default.decDigit, expDigit);
@@ -446,7 +460,7 @@ My_entry.plot2d.prototype.run = function(arr2d_vec, options, toSVG){
   label_y = (isLog_y)? "log10("+label_y+")": label_y;
   label_y = (isAxis_y)? label_y: null;
   /* -> 0.5.0 */
-  _svg += self.grid(gxmin, gymin, gxmax, gymax, Ni, Nj, isLog_x, isLog_y, label_x, label_y, fontSize, expDigit, gridLineWidth, gridLineColor, globalCompositeOperation);
+  _svg += self.grid(options, gxmin, gymin, gxmax, gymax, Ni, Nj, isLog_x, isLog_y, label_x, label_y, fontSize, expDigit, gridLineWidth, gridLineColor, globalCompositeOperation);
   // transform
   var arr2d_tx = new Array(len_n);
   var arr2d_ty = new Array(len_n);

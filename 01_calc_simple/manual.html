@@ -2765,11 +2765,11 @@ local buffer
 <br>
 ・演算実行確定1回毎にlocal storageを除くscope内の<a href="#span-out-vars">変数</a>・<a href="#span-out-eqns">式変数</a>は破棄する
 <br>
-<span class="run">Ver.2.32.17</span>以降、<a href="#span-out-scope-vars">変数のscope</a>付<a href="#span-out-eqns">式変数</a>の再利用に対応
+<span class="run">Ver.2.32.17</span>以降、<a href="#span-out-eqns-re-use">scope付式変数の再利用</a>に対応
 <br>
 ・global storage　⇒　local storageのflowで<a href="#span-out-eqns">式変数</a>の復帰時、
 <br>
-　新規に作られる<a href="#span-in-scope-vars">scopes2d array ids</a>から<a href="#span-in-scope-vars">self-children ids</a>を更新
+　新規に作る<a href="#span-in-scope-vars">scopes2d array ids</a>から<a href="#span-in-scope-vars">self-children ids</a>を更新
     </td>
   </tr>
   <tr>
@@ -2808,13 +2808,13 @@ local buffer
 <br>
 定義を列挙する
 <br>
-・階層毎に並列に並んだ<a href="#span-out-scope-vars">scope</a>は互いに独立で、並列<a href="#span-out-scope-vars">scope</a>と定義する
+・階層毎に並列に並んだ<a href="#span-out-scope-vars">scope</a>は互いに独立で、並列scopeと定義する
 <br>
-・階層の深さ方向に直列に並んだ<a href="#span-out-scope-vars">scope</a>を直列<a href="#span-out-scope-vars">scope</a>と定義する
+・階層の深さ方向に直列に並んだ<a href="#span-out-scope-vars">scope</a>を直列scopeと定義する
 <br>
-・自身の階層の深さ以下の直列<a href="#span-out-scope-vars">scope</a>は参照可能で、直列<a href="#span-out-scope-vars">scope</a>内と定義する
+・自身の階層の深さ以下の直列scopeは参照可能で、直列scope内と定義する
 <br>
-・それ以外の参照できない<a href="#span-out-scope-vars">scope</a>を直列<a href="#span-out-scope-vars">scope</a>外と定義する
+・それ以外の参照できない<a href="#span-out-scope-vars">scope</a>を直列scope外と定義する
 <br>
 ・同じ階層の並列scopeは直列scope外に含む
 <br>
@@ -2857,7 +2857,7 @@ arguments
 <br>
 <a href="#span-out-eqns">式変数</a>のargumentsは次の関数定義と関数callを代替する
 <br>
-let add = (a,b)=&gt;a+b; add(1,2)  <span class="selection">// ES6</span> -> 3
+let add=(a,b)=&gt;a+b; add(1,2)  <span class="selection">// ES6</span> -> 3
 <br>
 clear; add(a,b)=&lt;a+b; add(1,2)=&gt; || add(1,2) -> 3
 <br>
@@ -12078,7 +12078,7 @@ clear; [a=2,=&lt;[b=1,a=&lt;first[[b,],b,],=&lt;a=&gt;]=&gt;+a]=&gt; -> 3
 <br>
 <span class="run">Ver.2.32.17</span>以降、<a href="#span-out-eqns-re-use">scope付式変数の再利用</a>に対応
 <br>
-・global <a href="#span-out-storage">storage</a>　⇒　local <a href="#span-out-storage">storage</a>で<a href="#span-out-eqns">式変数</a>の復帰時、<a href="#span-in-scope-vars">self-children ids</a>を更新
+・global <a href="#span-out-storage">storage</a>　⇒　local <a href="#span-out-storage">storage</a>で<a href="#span-out-eqns">式変数</a>の復帰時、self-children idsを更新
 <br>
 <span class="run">Ver.2.32.17</span>以降、<a href="#span-out-eqns-args">式変数のarguments</a>を追加
 <br>
