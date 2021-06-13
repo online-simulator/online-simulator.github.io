@@ -258,7 +258,7 @@ strict-mode
 </a>
 <br>
 　・
-<a href="#span-out-inherit-scope-eqns">
+<a href="#span-out-scope-inherited-call">
 式変数のscope継承call
 </a>
 <br>
@@ -280,6 +280,11 @@ storage
 　・
 <a href="#span-out-eqns-re-use">
 scope付式変数の再利用
+</a>
+<br>
+　・
+<a href="#span-out-scope-inherited-call-memo">
+式変数のscope継承call覚書
 </a>
 <br>
 ・
@@ -2433,7 +2438,7 @@ let a=()=&gt;b; (function(){let b=1; return a();})();  <span class="selection">/
 <br>
 clear; a=&lt;b; [b=1,=&lt;a=&gt;]=&gt; -> [MyErr]Invalid REv(b)
 <br>
-・<a href="#span-out-call-by-equation">式読出し</a>時の<a href="#span-out-bracket">階層</a>を継承する場合、<a href="#span-out-inherit-scope-eqns">式変数のscope継承call</a>を使用
+・<a href="#span-out-call-by-equation">式読出し</a>時の<a href="#span-out-bracket">階層</a>を継承する場合、<a href="#span-out-scope-inherited-call">式変数のscope継承call</a>を使用
 <br>
 ・式読出し記号==&gt;
 <br>
@@ -2597,7 +2602,7 @@ scope
 継承call
     </th>
     <td>
-<span id="span-out-inherit-scope-eqns"></span>
+<span id="span-out-scope-inherited-call"></span>
 式変数のscope継承callについて記述する
 <br>
 <br>
@@ -2654,7 +2659,7 @@ clear; a=&lt;last{sum=b+c+d,last[,-sum]}; d=3; [c=2,=&lt;[b=1,=&lt;a==&gt;]=&gt;
 <br>
 clear; a=&lt;last{d=-100,sum=b+c+d,last[,-sum]}; d=3; [c=2,=&lt;[b=1,=&lt;a==&gt;]=&gt;]=&gt; -> 97
 <br>
-・callする<a href="#span-out-eqns">式変数</a>の0<a href="#span-out-bracket">階層</a>に宣言される<a href="#span-out-vars">変数</a>はcall先の<a href="#span-out-bracket">scope</a>に定義される
+・callする<a href="#span-out-eqns">式変数</a>の0<a href="#span-out-bracket">階層</a>に宣言される<a href="#span-out-vars">変数</a>はcall先<a href="#span-out-bracket">scope</a>に定義される
 <br>
 clear; a=&lt;last{d=-100,sum=b+c+d,last[,-sum]}; d=3; [c=2,=&lt;[b=1,a==&gt;,=&lt;d]=&gt;]=&gt; -> -100
 <br>
@@ -3017,7 +3022,7 @@ clear; add(A,=&lt;B_)=&lt;[a=-1,=&lt;A+B_=&gt;]=&gt;; B=&lt;(a,4); a=1; add(=&lt
 <br>
 ・以上の場合、定義元<a href="#span-out-bracket">scope</a>から参照できるlocal <a href="#span-out-storage">storage</a>に定義された<a href="#span-out-eqns">式変数</a>Bをcallする
 <br>
-・よって定義元<a href="#span-out-bracket">scope</a>を<a href="#span-out-eqns">式変数</a>Bに継承する場合、<a href="#span-out-inherit-scope-eqns">式変数のscope継承call</a>をnestingする
+・よって定義元<a href="#span-out-bracket">scope</a>を<a href="#span-out-eqns">式変数</a>Bに継承する場合、<a href="#span-out-scope-inherited-call">式変数のscope継承call</a>をnestingする
 <br>
 clear; add(A,=&lt;B_)=&lt;[a=-1,=&lt;A+B_==&gt;]=&gt;; B=&lt;(a,4); a=1; add(=&lt;(1,2),=&lt;(B==&gt;))=&gt; -> (0,6)
 <br>
@@ -3028,7 +3033,7 @@ clear; add(A,=&lt;B_)=&lt;[a=-1,=&lt;A+B_=&gt;]=&gt;;
 [B=&lt;(a,4),a=1,add(=&lt;(1,2),=&lt;B=&gt;)=&gt;] -> [MyErr]Invalid REv(B)
 <br>
 <br>
-<a href="#span-out-inherit-scope-eqns">式変数のscope継承call</a>を代替する一例を次に示す
+<a href="#span-out-scope-inherited-call">式変数のscope継承call</a>を代替する一例を次に示す
 <br>
 clear; a=&lt;b+c+d; d=3; [c=2,=&lt;[b=1,=&lt;a==&gt;]=&gt;]=&gt; -> 6
 <br>
@@ -3044,27 +3049,15 @@ clear; a(b,c,d)=&lt;last{b=-1,b+c+d}; d=3; [c=2,=&lt;[b=1,=&lt;[a(b,c,d),b]]=&gt
 <br>
 clear; a(b,c,d)=&lt;last{b=-1,b+c+d}; d=3; [c=2,=&lt;[=&lt;[a(b,c,d),b]]=&gt;]=&gt; -> [MyErr]Invalid REv(b)
 <br>
-・定義元で宣言される<a href="#span-out-vars">変数</a>・<a href="#span-out-eqns">式変数</a>はcall先<a href="#span-out-bracket">scope</a>に定義される
+・通常callの場合、定義元で宣言される<a href="#span-out-vars">変数</a>・<a href="#span-out-eqns">式変数</a>は定義元<a href="#span-out-bracket">scope</a>に定義される
 <br>
-clear; a(b_,c,d)=&lt;last{b=b_,b_+c+d}; d=3; [c=2,=&lt;[=&lt;[a(1,c,d),b]]=&gt;]=&gt; -> (6,1)
+clear; a(b_,c,d)=&lt;last{b=b_,b_+c+d}; d=3; [c=2,=&lt;[=&lt;[a(1,c,d),b]]=&gt;]=&gt;,b -> (6,1,1)
 <br>
-clear; a(b_,c,d)=&lt;last{b=&lt;1,b_+c+d}; d=3; [c=2,=&lt;[=&lt;[a(1,c,d),b=&gt;]]=&gt;]=&gt; -> (6,1)
+clear; a(b_,c,d)=&lt;last{b=&lt;1,b_+c+d}; d=3; [c=2,=&lt;[=&lt;[a(1,c,d),b=&gt;]]=&gt;]=&gt;,b=&gt; -> (6,1,1)
 <br>
 clear; a(b_,c,d)=&lt;last{b=b_,b_+c+d}; d=3; [c=2,=&lt;[=&lt;[a(1,c,d),b_]]=&gt;]=&gt;
 <br>
 -> [MyErr]Invalid REv(b_)
-<br>
-・定義元で宣言される<a href="#span-out-vars">変数</a>・<a href="#span-out-eqns">式変数</a>を残さない場合、定義元とcall先の<a href="#span-out-bracket">scope</a>を区別する
-<br>
-clear; a(b_,c,d)=&lt;last[b=b_,b_+c+d]; d=3; [c=2,=&lt;[=&lt;[a(1,c,d),]]=&gt;]=&gt; -> (6,0)
-<br>
-clear; a(b_,c,d)=&lt;last[b=b_,b_+c+d];
-<br>
-d=3; [c=2,=&lt;[=&lt;[a(1,c,d),b]]=&gt;]=&gt; -> [MyErr]Invalid REv(b)
-<br>
-clear; a(b_,c,d)=&lt;last[b=&lt;1,b_+c+d];
-<br>
-d=3; [c=2,=&lt;[=&lt;[a(1,c,d),b=&gt;]]=&gt;]=&gt; -> [MyErr]Invalid REv(b)
 <br>
 <br>
 以上のtestcaseを列挙する
@@ -3260,6 +3253,41 @@ ttA=trans(trans(A)) ->
 sizer(A)-sizer(ttA),sizer(A) -> (0,3)
 <br>
 sizec(A)-sizec(ttA),sizec(A),size(A) -> (0,4,4)
+    </td>
+  </tr>
+  <tr>
+    <th>
+<a href="#span-index">
+目次
+</a>
+<br>
+式変数の
+<br>
+scope
+<br>
+継承call
+<br>
+覚書
+    </th>
+    <td>
+<span id="span-out-scope-inherited-call-memo"></span>
+式変数のscope継承call覚書について記述する
+<br>
+<br>
+仕様を列挙する
+<br>
+・<a href="#span-out-vars">変数</a>・<a href="#span-out-eqns">式変数</a>は宣言時の<a href="#span-out-bracket">階層</a>に依存するため、次の場合、error終了
+<br>
+let a=()=&gt;b; (function(){let b=1; return a();})();  <span class="selection">// ES6</span> -> b is not defined
+<br>
+clear; a=&lt;b; [b=1,=&lt;a=&gt;]=&gt; -> [MyErr]Invalid REv(b)
+<br>
+・<a href="#span-out-scope-inherited-call">式変数のscope継承call</a>を使用
+<br>
+clear; a=&lt;b; [b=1,=&lt;a==&gt;]=&gt; -> 1
+<br>
+<br>
+<span class="run">Ver.2.33.18</span>以降、<a href="#span-out-eqns-args">定義元arguments</a>の<a href="#span-out-eqns">式変数</a>は宣言時の<a href="#span-out-bracket">階層</a>に依存する
     </td>
   </tr>
   <tr>
@@ -6915,7 +6943,7 @@ y=&lt;a*x+b; y=&gt;y0 -> [MyErr]Invalid binary operation
 =&gt; -> [MyErr]Invalid null=&gt;
 <br>
 <br>
-<span class="run">Ver.2.31.17</span>以降、<a href="#span-out-inherit-scope-eqns">式変数のscope継承call</a>の式読出し記号==&gt;を追加
+<span class="run">Ver.2.31.17</span>以降、<a href="#span-out-scope-inherited-call">式変数のscope継承call</a>の式読出し記号==&gt;を追加
 <br>
 <br>
 関数式の<a href="#span-out-vars">変数</a>を定義して再度読出す
@@ -12074,7 +12102,7 @@ clear; [a=2,=&lt;[b=1,a=&lt;first[[b,],b,],=&lt;a=&gt;]=&gt;+a]=&gt; -> 3
 <br>
 ・上記=&lt;a=&gt;<a href="#span-out-call-by-equation">式渡し</a>時、self-children-idsを継承
 <br>
-・<a href="#span-out-inherit-scope-eqns">式変数のscope継承call</a>時、call先のself-parents-idsを継承
+・<a href="#span-out-scope-inherited-call">式変数のscope継承call</a>時、call先のself-parents-idsを継承
 <br>
 <span class="run">Ver.2.32.17</span>以降、<a href="#span-out-eqns-re-use">scope付式変数の再利用</a>に対応
 <br>
@@ -12096,7 +12124,7 @@ clear; [a=2,=&lt;[b=1,a=&lt;first[[b,],b,],=&lt;a=&gt;]=&gt;+a]=&gt; -> 3
 　<a href="#span-out-FNh">高階関数</a>のdummy変数同様（参考）
 <br>
 <br>
-<a href="#span-out-inherit-scope-eqns">式変数のscope継承call</a>について記述する
+<a href="#span-out-scope-inherited-call">式変数のscope継承call</a>について記述する
 <br>
 ・<a href="#span-out-bracket">直列scope内</a>の<a href="#span-out-eqns">式変数</a>のみcall可
 <br>
