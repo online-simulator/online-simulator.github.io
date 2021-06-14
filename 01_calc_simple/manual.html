@@ -3335,7 +3335,7 @@ clear; [conv(=&lt;a_)=&lt;last(a=-3,a_=&gt;),[a=3,conv(=&lt;(a))==&gt;,a],a] -> 
 <br>
 clear; [conv(=&lt;a_)=&lt;last(b=4,a_=&gt;),[a=3,conv(=&lt;(a))==&gt;,b],b] -> [MyErr]Invalid REv(b)
 <br>
-clear; [conv(=&lt;a_)=&lt;last(b=4,a_=&gt;),[a=3,conv(=&lt;(a))==&gt;,b]] -> (0,0,3,4)
+clear; [conv(=&lt;a_)=&lt;last(b=4,a_=&gt;),[a=3,conv(=&lt;(a))==&gt;,a,b]] -> (0,0,3,3,4)
 <br>
 ・定義元とcall先の<a href="#span-out-bracket">scope</a>を区別する場合
 <br>
