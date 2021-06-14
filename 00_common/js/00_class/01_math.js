@@ -384,3 +384,7 @@ My_entry.math.prototype.polygon = function(t, N, isX){
   _val = self.lerp_val(callback_t(it), callback_t(it+1), k);
   return _val;
 };
+My_entry.math.prototype.lerp_sw = function(t0, t1, k, isLog){
+  var self = this;
+  return ((isLog)? Math.exp(Math.log(t0)+(Math.log(t1)-Math.log(t0))*k): t0+(t1-t0)*k);
+};

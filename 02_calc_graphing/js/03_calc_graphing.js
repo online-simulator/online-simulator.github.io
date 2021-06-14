@@ -19,7 +19,7 @@ My_entry.calc_graphing.prototype.config = {
 };
 My_entry.calc_graphing.prototype.init = function(){
   var self = this;
-  self.init_main.call(self, ["reference", "$", "conv", "def", "DATA", "parser", "draw_svg"]);
+  self.init_main.call(self, ["reference", "$", "conv", "def", "math_com", "DATA", "parser", "draw_svg"]);
   return self;
 };
 My_entry.calc_graphing.prototype.init_elems = function(){
@@ -500,6 +500,7 @@ My_entry.calc_graphing.prototype.init_storage = function(){
 My_entry.calc_graphing.prototype.init_handlers = function(){
   var self = this;
   var $ = self.entry.$;
+  var math_com = self.entry.math_com;
   var DATA = self.entry.DATA;
   var parser = self.entry.parser;
   var get_inputs_plot = function(){
@@ -682,45 +683,45 @@ My_entry.calc_graphing.prototype.init_handlers = function(){
         if(self.plot2d.isLocked) return false;
         self.isCheckedError = false;  // Ver.2.25.14
         self.plot2d.init_flags();
-        var inputs = get_inputs_plot();
         var options = self.get_options(true);
         options.checkError = false;
-        /* Ver.2.25.14 -> */
-        var t0 = null;
-        var t1 = null;
+        /* Ver.2.34.18 -> */
+        // check t first
+        var isAxisT = options["axis-t"];
+        var N = options["N"];
+        var t = new Array(N);
+        var len_n = N+1;
         try{
-          t0 = get_num($.inputVal_id("input-t0"), options);
-          t1 = get_num($.inputVal_id("input-t1"), options);
+          var t0 = get_num($.inputVal_id("input-t0"), options);
+          var t1 = get_num($.inputVal_id("input-t1"), options);
+          for(var n=0; n<len_n; ++n){
+            var tn = math_com.lerp_sw(t0.com, t1.com, n/N, isAxisT);
+            var tcr = tn.r;
+            var tci = tn.i;
+            if(isNaN(tcr) || isNaN(tci)) throw false;
+            t[n] = tn;
+          }
         }
         catch(e){
-          self.output_msgError_plot("Invalid t0 || t1");
+          self.output_msgError_plot((isAxisT)? "Invalid log(t0 || t1)": "Invalid t0 || t1");
         }
-        var t0cr = t0.com.r;
-        var t0ci = t0.com.i;
-        var t1cr = t1.com.r;
-        var t1ci = t1.com.i;
-/*
-        if(isNaN(t0cr) || isNaN(t0ci) || isNaN(t1cr) || isNaN(t1ci)){
-          self.output_msgError_plot("Invalid t");
-        }
-*/
-        /* -> Ver.2.25.14 */
-        var N = $.selectNum_id("select-N");
-        var dtcr = (t1cr-t0cr)/N;
-        var dtci = (t1ci-t0ci)/N;
+        // check x||y second
+        var inputs = get_inputs_plot();
+        // make arr_data_in
         var arr_data_in = [];
-        var len_n = N+1;
         for(var n=0; n<len_n; ++n){
+          var tn = t[n];
+          var tcr = tn.r;
+          var tci = tn.i;
           var data = self.get_data(inputs.input, options, options.sharedStorage);
           data.len_x = inputs.len_x;
           data.len_y = inputs.len_y;
-          var tcr = t0cr+dtcr*n;
-          var tci = t0ci+dtci*n;
           data.vars.t = DATA.tree_num(tcr, tci);
           data.tcr = tcr;
           data.tci = tci;
           arr_data_in.push(data);
         }
+        /* -> Ver.2.34.18 */
         /* Ver.2.10.3 */
         self.io.write_text(self.elems.d, "Now calculating...");
         setTimeout(function(){

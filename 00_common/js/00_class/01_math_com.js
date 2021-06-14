@@ -271,3 +271,8 @@ My_entry.math_com.prototype.atanh = function(z){
   var r1mz = self.sub(r1, z);
   return self.mul(r0p5, self.ln(self.div(r1pz, r1mz)));
 };
+My_entry.math_com.prototype.lerp_sw = function(t0, t1, k, isLog){
+  var self = this;
+  var math = self.entry.math;
+  return self.entry.DATA.com(math.lerp_sw(t0.r, t1.r, k, isLog), math.lerp_sw(t0.i, t1.i, k, isLog));
+};
