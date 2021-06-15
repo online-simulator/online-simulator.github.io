@@ -195,9 +195,36 @@ My_entry.def.prototype.get_number = function(){
   }
   return _num;
 };
+My_entry.def.prototype.get_title = function(input, title, isLongest, opt_i){
+  var self = this;
+  var pairs = [
+    {s: "\\{", e: "\\}"},
+    {s: "\\(", e: "\\)"},
+    {s: "\\[", e: "\\]"}
+  ];
+  var pat = (isLongest)? "(.*)": "(.*?)";
+  var pair = pairs[opt_i || 0];
+  var re = new RegExp(title+pair.s+pat+pair.e);  // single
+  var mc = input.replace(/\s/g, "").match(re);
+  return ((mc && mc.length === 2)? mc[1]: null);  // if(mc && mc.length)
+};
+My_entry.def.prototype.remove_title = function(input, title, isLongest, opt_i){
+  var self = this;
+  var pairs = [
+    {s: "\\{", e: "\\}"},
+    {s: "\\(", e: "\\)"},
+    {s: "\\[", e: "\\]"}
+  ];
+  var pat = (isLongest)? "(.*)": "(.*?)";
+  var pair = pairs[opt_i || 0];
+  var re = new RegExp(title+pair.s+pat+pair.e, "g");  // all
+  return input.replace(re, "");
+};
 My_entry.def.prototype.get_command = function(input, command, isLongest){
   var self = this;
-  var pat = (isLongest)? "(.*)": "(.*?)";
-  var re = new RegExp(command+"\\("+pat+"\\)");
-  return input.replace(/\s/g, "").match(re);
+  return self.get_title(input, command, isLongest, 1);
+};
+My_entry.def.prototype.remove_command = function(input, command, isLongest){
+  var self = this;
+  return self.remove_title(input, command, isLongest, 1);
 };

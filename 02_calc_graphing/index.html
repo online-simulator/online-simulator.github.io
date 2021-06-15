@@ -106,9 +106,10 @@
       $._id("physics1").onclick = function(){setVal("0", "5", "g=-9.8,z_a=0+g*i,z_v0=20+20i,z_x0=0,za=z_x0+z_v0*t+z_a*t^2/2,real(za);zn=z_x0+_it(=<z_v0+_it(=<{z_a},0,t,10),0,t,10),real(zn);dt=0.5,m=1,Cd_sphere=1,x=<{z_x,z_v},x_initial=<{z_x0,z_v0},f=<{(z_x-z_x0)/dt=z_v,m*((z_v-z_v0)/dt)=m*z_a-Cd_sphere*z_v}/*implicit Euler method*/,run=<last(mdx=Newton(=<f,=<x,=<x_initial),max(norm(f),norm(mdx))),step=<last{_rn(=<run,,3),{$z_x0,$z_v0}=x}/*non-dimensionalized step*/,evolution=<_rn(=<step,N=round(t/dt),N),evolution,zt=z_x0,real(zt);", "imag(za);imag(zn);imag(zt)/*considering Cd_sphere error=Order(dt)*/;", 20);};
       $._id("physics2").onclick = function(){setVal("0", "5", "g=-9.8,z_a=0+g*i,z_v0=20+20i,z_x0=0,dt=0.5,m=1,Cd_sphere_t=<1,x=<{z_x,z_v},x_initial=<{z_x0,z_v0},f=<{z_v,z_a-(Cd_sphere_t/m)*z_v},step=<x_next=_otdummy(=<f,=<x,=<x_initial,0,dt),evolution=<_rn(=<step,N=round(t/dt),N),evolution,zt=switch(N<=0,z_x0:1,z_x),real(zt);T=1,Cd_sphere_t=<1(1-exp(-tdummy/T)/2),{$z_x,$z_v}=x_initial,tdummy=0,evolution,zt2=z_x,real(zt2);stepN=<last{N=round(t/dt),x_next=_otdummy(=<f,=<x,=<x_initial,0,dt,N)},{$z_x,$z_v}=x_initial,tdummy=0,stepN,zt3=z_x,real(zt3);", "imag(zt);imag(zt2)/*considering transition Cd_sphere(t/T) error=Order(dt^4)*/;imag(zt3);", 20);};
       $._id("legend1").onclick = function(){setVal("1e-3(1+i)", "1e2(1+i)", "x=t,x;", "x;2x;3x;4x;5x;6x;7x;8x;9x;10x;");$._id("input-z").value="circle:#f555/*#ff555555*/;:#ff05;:#0f05;  // markerType:markerColor:markerSize:markerLineWidth:plotLineWidth:fillPath:str:strFontSize";};
-      $._id("legend2").onclick = function(){setVal("1e-3(1+i)", "1e2(1+i)", "x=t,x;", "x;2x;3x;4x;5x;6x;7x;8x;9x;10x;");$._id("input-z").value=":red:10;::5:2;:#ffff0055:10;:#ff05:::10;::::0::arbitrary string:20;";};
+      $._id("legend2").onclick = function(){setVal("1e-3(1+i)", "1e2(1+i)", "x=t,x;", "x;2x;3x;4x;5x;6x;7x;8x;9x;10x;");$._id("input-z").value=":red:10;::5:2;:#ffff0055:10;:#ff05:::10;::::0::arbitrary-string:20;";};
       $._id("legend3").onclick = function(){setVal("1e-3", "1", "x=t,x;", "pow(x,1/4);pow(x,1/2);x;x^2;x^4;x^8;", 30);$._id("input-z").value="circle:red::::1;triangle:green;triangle2:blue;square:#00ff00;diamond:#00ff0055;cross:#ff05;";};
       $._id("range").onclick = function(){setVal("0", "2pi", "ft=<e^(i(t)),ft;xmin=-2(1+i),xmax=3(1+i),xmin;xmax;", "_dt(=<-ft);ymin=-3(1+i),ymax=2(1+i),ymin;ymax;", 50);$._id("input-z").value=":yellow;:#0000/*#00000000*/:0:0:0;";};
+      $._id("title").onclick = function(){setVal("0", "2pi", "ft=<e^(i(t)),ft;xmin=-2(1+i),xmax=3(1+i),xmin;xmax;", "_dt(=<-ft);ymin=-3(1+i),ymax=2(1+i),ymin;ymax;", 50);$._id("input-z").value="title{graph-title}/*title{}*/:yellow;";};
       // strict-mode equation-list
       /* out=text.replace(/\s/g,"\n"); */
 //      $._id("").onclick = function(){io["onclick_default"](elems, "", 0);};
@@ -234,6 +235,7 @@ plot2d
   <button id="legend3">legend3</button>
 <br>
   <button id="range">axis range</button>
+  <button id="title">graph-title</button>
 <hr>
 </div>
 <hr>
@@ -752,10 +754,6 @@ z:
   <option>color</option>
   <option>luminosity</option>
 </select>
-    </label>
-<hr>
-    <label>title:
-<input id="input-title">
     </label>
 <hr>
     <label>bg-image-file:

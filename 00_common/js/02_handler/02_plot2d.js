@@ -354,6 +354,16 @@ My_entry.plot2d.prototype.run = function(arr2d_vec, options, toSVG){
   var arr_strFontSize = new Array(len_j);
   /* -> 0.6.0 */
   var inputZ = options["input-z"] || "";
+  /* 1.0.0 -> */
+  var title = "";
+  if(inputZ){
+    var title_inputZ = def.get_title(inputZ, "title");
+    if(title_inputZ){
+      title = title_inputZ;
+      inputZ = def.remove_title(inputZ, "title");
+    }
+  }
+  /* -> 1.0.0 */
   var arr_legend = inputZ.split(";");
   var markerType = null;
   var styleRGBA = null;
@@ -431,7 +441,6 @@ My_entry.plot2d.prototype.run = function(arr2d_vec, options, toSVG){
   }
   /* 0.6.0 -> */
   // title
-  var title = options["title"];
   if(!(self.isChanged)){
     var fontSize1 = (title)? fontSize+self.config.default.dfontSize: 0;
     var kyAdjust = 1+fontSize1*5/self.px_h;

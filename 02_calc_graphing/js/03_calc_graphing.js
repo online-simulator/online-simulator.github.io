@@ -433,7 +433,6 @@ My_entry.calc_graphing.prototype.get_options = function(isPlot){
     _options["input-z"] = parser.remove_commentAndWspace(self.io.read_text(self.elems.z));
     _options["bg-color"] = $.inputVal_id("input-bg-color");
     _options["grid-line-color"] = $.inputVal_id("input-grid-line-color");
-    _options["title"] = $.inputVal_id("input-title");
     _options["logo"] = parser.make_logo({options: _options});  // including z
     _options["plot2d"] = self.make_log_plot2d();               // including z
     /* Ver.2.16.6 -> */
@@ -741,21 +740,19 @@ My_entry.calc_graphing.prototype.init_handlers = function(){
         var input = self.io.read_text(self.elems.i);
         var options = self.get_options();
         /* Ver.2.25.12 -> */
+        /* Ver.2.34.18 -> */
         /* Ver.2.27.14 -> comment allowed */
-/*
-        var mc = self.entry.def.get_command(parser.remove_commentAndWspace(input), "plot2d", true);
-*/
-        var mc = self.entry.def.get_command(input, "plot2d", true);
+        var command = self.entry.def.get_command(input, "plot2d", true);
         /* -> Ver.2.27.14 */
-        if(mc && mc.length === 2){
+        if(command){
           /* Ver.2.25.14 -> */
           if(self.worker_plot && self.worker_plot.handler.isLocked) return false;
           if(self.plot2d.isLocked) return false;
           /* -> Ver.2.25.14 */
           try{
-            var mc1 = mc[1];
-            var tokens_quotation = mc1.match(/\'.*?\'/g);
-            var tokens_comma = mc1.split(",");
+            var tokens_quotation = command.match(/\'.*?\'/g);
+            var tokens_comma = command.split(",");
+        /* -> Ver.2.34.18 */
             if(tokens_quotation && tokens_quotation.length > 3){
               plot2d_from_log(tokens_quotation);
             }
@@ -888,7 +885,6 @@ My_entry.calc_graphing.prototype.init_handlers = function(){
       case "checkbox-imag-y":
       case "checkbox-axis-x":
       case "checkbox-axis-y":
-      case "input-title":
         self.plot2d.init_flags();
         self.isCheckedError = false;  // Ver.2.33.17
         self.re_plot(true);

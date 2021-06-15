@@ -270,7 +270,7 @@ My_entry.operation.prototype.prepare = function(data){
   self.init_callbacks_mat(options);
   return self;
 };
-/* Ver.2.30.17 original reference to local storage object saved -> */
+/* Ver.2.30.17 -> original reference to local storage object saved */
 My_entry.operation.prototype.clear = function(data){
   var self = this;
   var vars = data.vars;
@@ -835,7 +835,7 @@ My_entry.operation.prototype.get_dxD = function(x, h){
 My_entry.operation.prototype.get_hc = function(options, x, dx, sw_name){
   var self = this;
   var DATA = self.entry.DATA;
-  /* Ver.2.29.15 isFixed excluding 0 -> */
+  /* Ver.2.29.15 -> isFixed excluding 0 */
   var isFixed = (dx && dx.com && (dx.com.r || dx.com.i));
   /* -> Ver.2.29.15 */
   var dxo = self.options[sw_name];
@@ -2027,7 +2027,7 @@ My_entry.operation.prototype.tree_eqn2tree = function(data, tree){
 /* Ver.2.20.8 */
 My_entry.operation.prototype.tree_eqn2tree_AtREe = function(data, tree, name, opt_ids){
   var self = this;
-  /* Ver.2.27.15 (=<3)=> null-name -> */
+  /* Ver.2.27.15 -> (=<3)=> null-name */
   var ids = opt_ids || [[0, 0]];  // || sentence without bracket including command
   var id0 = ids[0];
   var j = id0[0];
@@ -2063,7 +2063,7 @@ My_entry.operation.prototype.tree2tree_ref = function(tree, ref){
 My_entry.operation.prototype.REv = function(data, i0, tagName, tagObj){
   var self = this;
   var trees = data.trees;
-  /* Ver.2.31.17 [a=1,a[0][0]=2,(a,3)] -> */
+  /* Ver.2.31.17 -> [a=1,a[0][0]=2,(a,3)] */
   var scopes = data.scopes;
   var ids = data.ids;
   var DATA = self.entry.DATA;
@@ -2324,7 +2324,7 @@ My_entry.operation.prototype.restore_eqn = function(name, scopes, ids, isREee){
   }
   return _tree;
 };
-/* Ver.2.30.15 name changed tree2restore_eqn -> tree_no_name2restore_eqn */
+/* Ver.2.30.15 name changed */
 My_entry.operation.prototype.tree_no_name2restore_eqn = function(tree){
   var self = this;
   var _tree = null;
@@ -2358,7 +2358,7 @@ My_entry.operation.prototype.REe = function(data, i0, tagName, tagObj){
   var leftTree = trees[i0-1];
   var rightTree = trees[i0+1];
   if(!(leftTree)) throw "Invalid null=>";  // Ver.2.27.15
-  /* add(=<a,b)=<a=>+b; add(=<2,3)=> -> */
+  /* add(=<a,b)=<a=>+b; add(=<2,3)=> */
   var buffer_vars = {};
   var buffer_eqns = {};
   var ids_buffer = null;
@@ -2379,7 +2379,7 @@ My_entry.operation.prototype.REe = function(data, i0, tagName, tagObj){
     var args = self.arr2args(arr);
     var len_args = args.length;
     if(len_args_eqn === len_args){
-      /* Ver.2.33.18 [conv(=<a_)=<last(b=4,a_=>),[a=3,conv(=<(a))==>,b]] -> */
+      /* Ver.2.33.18 -> [conv(=<a_)=<last(b=4,a_=>),[a=3,conv(=<(a))==>,b]] */
       var ids_args_eqn = isREe.ids || [[0, 0]];
       var id0 = ids_args_eqn[0];  // ids[0]
       /* -> Ver.2.33.18 */
@@ -2572,7 +2572,7 @@ My_entry.operation.prototype.SEans = function(data, i0, tagName, tagObj){
   var is = i0;
   var ie = i0;
   if(i0 === 0){
-    /* Ver.2.29.15 pattern matching nesting enabled -> */
+    /* Ver.2.29.15 -> pattern matching nesting enabled */
     if((self.params.hasUndefVars || 0) !== 0){
       throw "Invalid var isFound";
     }
