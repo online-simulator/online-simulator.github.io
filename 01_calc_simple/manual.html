@@ -1002,7 +1002,7 @@ panel上段について記述する
 <br>
 ・tの入力欄に媒介変数の範囲下限t0と範囲上限t1の複素数値を入力
 <br>
-・t-checkboxはlinear||logarithmicの軸scaleを選択
+・<span class="run">Ver.2.34.18</span>以降、t-checkboxはlinear||logarithmicの軸scaleを選択
 <br>
 ・媒介変数tの範囲等分割数Nを選択
 <br>
@@ -1058,7 +1058,7 @@ str:strFontSize
 <br>
 　・字句解析の都合上、strのwhite space disabled
 <br>
-・zの入力欄にgraph-titleをtitle{graph-title}で入力
+・<span class="run">Ver.2.34.18</span>以降、zの入力欄にgraph-titleをtitle{graph-title}で入力
 <br>
 　・入力欄の任意位置に挿入可
 <br>
@@ -3306,6 +3306,10 @@ clear; a(b)=&lt;b; [b=1,=&lt;a(b)=&gt;]=&gt;  <span class="selection">// better<
 <br>
 ・<a href="#span-out-eqns">式変数</a>の定義元に対してcall先と区別する
 <br>
+・<a href="#span-out-eqns-args">定義元arguments</a>の<a href="#span-out-vars-symbol">変数名symbol</a>は独立する
+<br>
+clear; a(b)=&lt;last(b=-1,b); (b=1,a(b)=&gt;,b) -> (0,-1,1)
+<br>
 <br>
 <span class="run">Ver.2.33.18</span>以降、<a href="#span-out-eqns-args">定義元arguments</a>の<a href="#span-out-eqns">式変数</a>は宣言時の<a href="#span-out-bracket">階層</a>に依存する
 <br>
@@ -3362,6 +3366,34 @@ clear; [conv(=&lt;a_)=&lt;last[b=&lt;4,a_=&gt;],[a=3,conv(=&lt;(a))==&gt;,b=&gt;
 clear; [conv(=&lt;a_)=&lt;last[b=4,a_=&gt;+b],[a=3,conv(=&lt;(a))==&gt;]] -> (0,0,7)
 <br>
 clear; [conv(=&lt;a_)=&lt;last[b=&lt;4,a_=&gt;+b=&gt;],[a=3,conv(=&lt;(a))==&gt;]] -> (0,0,7)
+<br>
+・symbol渡しで定義元<a href="#span-out-bracket">scope</a>を継承する場合
+<br>
+clear; conv(=&lt;a_)=&lt;[a=-1,=&lt;a+a_==&gt;]=&gt;*2; a=&lt;a; a=1; conv(=&lt;a)=&gt; -> -4
+<br>
+・symbol渡しを<a href="#span-out-scope-inherited-call">式変数のscope継承call</a>で代替する場合、nestingが必要
+<br>
+clear; conv(=&lt;a_)=&lt;[=&lt;a+a_=&gt;]=&gt;*2; a=&lt;-a; a=1; conv(=&lt;a)=&gt; -> 0
+<br>
+clear; conv(=&lt;a_)=&lt;[=&lt;a+a_=&gt;]=&gt;*2; a=&lt;a; a=1; conv(=&lt;(a=&gt;))=&gt; -> 4
+<br>
+clear; conv(=&lt;a_)=&lt;[a=-1,=&lt;a+a_=&gt;]=&gt;*2; a=&lt;a; a=1; conv(=&lt;(a=&gt;))=&gt; -> 0
+<br>
+clear; conv(=&lt;a_)=&lt;[a=-1,=&lt;a+a_=&gt;]=&gt;*2; a=&lt;a; a=1; conv(=&lt;(a==&gt;))=&gt; -> 0
+<br>
+clear; conv(=&lt;a_)=&lt;[a=-1,=&lt;a+a_==&gt;]=&gt;*2; a=&lt;a; a=1; conv(=&lt;(a=&gt;))=&gt; -> 0
+<br>
+clear; conv(=&lt;a_)=&lt;[a=-1,=&lt;a+a_==&gt;]=&gt;*2; a=&lt;a; a=1; conv(=&lt;(a==&gt;))=&gt; -> -4
+<br>
+・単独<a href="#span-out-bracket">scope</a>と判別される場合、定義元のみ通常callに短縮可
+<br>
+clear; conv(=&lt;a_)=&lt;[a=-1,=&lt;a+a_==&gt;]=&gt;; a=&lt;a; a=1; conv(=&lt;(a==&gt;))=&gt; -> -2
+<br>
+clear; conv(=&lt;a_)=&lt;[a=-1,=&lt;a+a_=&gt;]=&gt;; a=&lt;a; a=1; conv(=&lt;(a==&gt;))=&gt; -> -2
+<br>
+clear; conv(=&lt;a_)=&lt;[a=-1,=&lt;a+a_==&gt;]=&gt;; a=&lt;a; a=1; conv(=&lt;(a=&gt;))=&gt; -> 0
+<br>
+clear; conv(=&lt;a_)=&lt;[a=-1,=&lt;a+a_=&gt;]=&gt;; a=&lt;a; a=1; conv(=&lt;(a=&gt;))=&gt; -> 0
     </td>
   </tr>
   <tr>
