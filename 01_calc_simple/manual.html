@@ -3369,31 +3369,35 @@ clear; [conv(=&lt;a_)=&lt;last[b=&lt;4,a_=&gt;+b=&gt;],[a=3,conv(=&lt;(a))==&gt;
 <br>
 ・symbol渡しで定義元<a href="#span-out-bracket">scope</a>を継承する場合
 <br>
-clear; conv(=&lt;a_)=&lt;[a=-1,=&lt;a+a_==&gt;]=&gt;*2; a=&lt;a; a=1; conv(=&lt;a)=&gt; -> -4
+clear; conv(=&lt;a_)=&lt;(a=-1,=&lt;a+a_=&gt;)=&gt;*2; a=&lt;a; a=1; conv(=&lt;a)=&gt;,a -> (-4,-1)
+<br>
+clear; conv(=&lt;a_)=&lt;[a=-1,=&lt;a+a_=&gt;]=&gt;*2; a=&lt;a; a=1; conv(=&lt;a)=&gt;,a -> (0,1)
+<br>
+clear; conv(=&lt;a_)=&lt;[a=-1,=&lt;a+a_==&gt;]=&gt;*2; a=&lt;a; a=1; conv(=&lt;a)=&gt;,a -> (-4,1)
 <br>
 ・symbol渡しを<a href="#span-out-scope-inherited-call">式変数のscope継承call</a>で代替する場合、nestingが必要
 <br>
-clear; conv(=&lt;a_)=&lt;[=&lt;a+a_=&gt;]=&gt;*2; a=&lt;-a; a=1; conv(=&lt;a)=&gt; -> 0
+clear; conv(=&lt;a_)=&lt;[=&lt;a+a_=&gt;]=&gt;*2; a=&lt;-a; a=1; conv(=&lt;a)=&gt;,a -> (0,1)
 <br>
-clear; conv(=&lt;a_)=&lt;[=&lt;a+a_=&gt;]=&gt;*2; a=&lt;a; a=1; conv(=&lt;(a=&gt;))=&gt; -> 4
+clear; conv(=&lt;a_)=&lt;[=&lt;a+a_=&gt;]=&gt;*2; a=&lt;a; a=1; conv(=&lt;(a=&gt;))=&gt;,a -> (4,1)
 <br>
-clear; conv(=&lt;a_)=&lt;[a=-1,=&lt;a+a_=&gt;]=&gt;*2; a=&lt;a; a=1; conv(=&lt;(a=&gt;))=&gt; -> 0
+clear; conv(=&lt;a_)=&lt;[a=-1,=&lt;a+a_=&gt;]=&gt;*2; a=&lt;a; a=1; conv(=&lt;(a=&gt;))=&gt;,a -> (0,1)
 <br>
-clear; conv(=&lt;a_)=&lt;[a=-1,=&lt;a+a_=&gt;]=&gt;*2; a=&lt;a; a=1; conv(=&lt;(a==&gt;))=&gt; -> 0
+clear; conv(=&lt;a_)=&lt;[a=-1,=&lt;a+a_=&gt;]=&gt;*2; a=&lt;a; a=1; conv(=&lt;(a==&gt;))=&gt;,a -> (0,1)
 <br>
-clear; conv(=&lt;a_)=&lt;[a=-1,=&lt;a+a_==&gt;]=&gt;*2; a=&lt;a; a=1; conv(=&lt;(a=&gt;))=&gt; -> 0
+clear; conv(=&lt;a_)=&lt;[a=-1,=&lt;a+a_==&gt;]=&gt;*2; a=&lt;a; a=1; conv(=&lt;(a=&gt;))=&gt;,a -> (0,1)
 <br>
-clear; conv(=&lt;a_)=&lt;[a=-1,=&lt;a+a_==&gt;]=&gt;*2; a=&lt;a; a=1; conv(=&lt;(a==&gt;))=&gt; -> -4
+clear; conv(=&lt;a_)=&lt;[a=-1,=&lt;a+a_==&gt;]=&gt;*2; a=&lt;a; a=1; conv(=&lt;(a==&gt;))=&gt;,a -> (-4,1)
 <br>
 ・単独<a href="#span-out-bracket">scope</a>と判別される場合、定義元のみ通常callに短縮可
 <br>
-clear; conv(=&lt;a_)=&lt;[a=-1,=&lt;a+a_==&gt;]=&gt;; a=&lt;a; a=1; conv(=&lt;(a==&gt;))=&gt; -> -2
+clear; conv(=&lt;a_)=&lt;[a=-1,=&lt;a+a_==&gt;]=&gt;; a=&lt;a; a=1; conv(=&lt;(a==&gt;))=&gt;,a -> (-2,1)
 <br>
-clear; conv(=&lt;a_)=&lt;[a=-1,=&lt;a+a_=&gt;]=&gt;; a=&lt;a; a=1; conv(=&lt;(a==&gt;))=&gt; -> -2
+clear; conv(=&lt;a_)=&lt;[a=-1,=&lt;a+a_=&gt;]=&gt;; a=&lt;a; a=1; conv(=&lt;(a==&gt;))=&gt;,a -> (-2,1)
 <br>
-clear; conv(=&lt;a_)=&lt;[a=-1,=&lt;a+a_==&gt;]=&gt;; a=&lt;a; a=1; conv(=&lt;(a=&gt;))=&gt; -> 0
+clear; conv(=&lt;a_)=&lt;[a=-1,=&lt;a+a_==&gt;]=&gt;; a=&lt;a; a=1; conv(=&lt;(a=&gt;))=&gt;,a -> (0,1)
 <br>
-clear; conv(=&lt;a_)=&lt;[a=-1,=&lt;a+a_=&gt;]=&gt;; a=&lt;a; a=1; conv(=&lt;(a=&gt;))=&gt; -> 0
+clear; conv(=&lt;a_)=&lt;[a=-1,=&lt;a+a_=&gt;]=&gt;; a=&lt;a; a=1; conv(=&lt;(a=&gt;))=&gt;,a -> (0,1)
     </td>
   </tr>
   <tr>
