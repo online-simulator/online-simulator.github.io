@@ -8,7 +8,8 @@ My_entry.canvas = function(elem){
 
 My_entry.canvas.prototype.init = function(elem){
   var self = this;
-//  My_entry.def.mix_in_props(My_entry.canvas, My_entry.drag, ["get_client"]);
+  new My_entry.original_main().setup_constructors.call(self);
+  new My_entry.original_main().make_instances.call(self, ["$", "def"]);
   self.elem = elem;
   self.elem_p = self.elem.parentElement;
   self.ctx = elem.getContext("2d");
@@ -191,6 +192,26 @@ My_entry.canvas.prototype.lines = function(arr_vec, opt_lineWidth, opt_styleRGBA
   }
   return self.draw.lines(arr_vecp, opt_lineWidth, opt_styleRGBA, opt_globalCompositeOperation, opt_fillPath);
 };
+/* 1.0.0 -> */
+My_entry.canvas.prototype.none = function(){
+  var self = this;
+  return self.draw.none();
+};
+My_entry.canvas.prototype.textpath = function(text, arr_vec, opt_fontSize, opt_styleRGBA, opt_globalCompositeOperation, j){
+  var self = this;
+  var arr_vecp = [];
+  for(var n=0, len_n=arr_vec.length; n<len_n; ++n){
+    var vecn = arr_vec[n];
+    var x = vecn.x;
+    var y = vecn.y;
+    arr_vecp[n] = {x: self.x2xp(x), y: self.y2myp(y)};
+  }
+  var config = "";
+  var text_ = self.entry.def.enter_name(text, "config", false, 2, function(content){config = content;});
+  var records = self.entry.$.get_records(config, ":", 0, ["fontFamily", "fontSize", "isBold", "isItalic", "isReverse", "styleRGBA_bg", "styleRGBA_fg", "fillStr", "spacingX", "spacingY", "offsetX", "offsetY", "blur"]);
+  return self.draw.textpath(text_, arr_vecp, records.fontFamily, records.fontSize || opt_fontSize, records.isBold, records.isItalic, records.isReverse, records.styleRGBA_bg || opt_styleRGBA, records.styleRGBA_fg || opt_styleRGBA, records.fillStr, records.spacingX, records.spacingY, records.offsetX, records.offsetY, records.blur, opt_globalCompositeOperation, j);
+};
+/* -> 1.0.0 */
 /* 0.5.0 -> */
 My_entry.canvas.prototype.text = function(text, x0, y0, opt_fontSize, opt_styleRGBA, opt_globalCompositeOperation){
   var self = this;

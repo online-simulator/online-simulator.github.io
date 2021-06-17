@@ -45,11 +45,13 @@ My_entry.draw_svg.prototype.footer = function(){
   _svg += "\n";
   return _svg;
 };
-My_entry.draw_svg.prototype.header_group = function(idName){
+/* 1.0.0 */
+My_entry.draw_svg.prototype.header_group = function(idName, svg_config){
   var self = this;
   var _svg = "";
   _svg += "<g";
-  _svg += " id="+self.quote(idName);
+  _svg += (idName)? " id="+self.quote(idName): "";
+  _svg += (svg_config)? svg_config: "";
   _svg += ">";
   _svg += "\n";
   return _svg;
@@ -124,9 +126,48 @@ My_entry.draw_svg.prototype.lines = function(arr_vec, opt_lineWidth, opt_styleRG
     _svg += " stroke-linejoin="+self.quote("round");  // "round" || "bevel" || "miter"
     _svg += " points="+self.quote(points);
     _svg += "/>";
+    _svg += self.rn;  // 1.0.0
   }
   return _svg;
 };
+/* 1.0.0 -> */
+My_entry.draw_svg.prototype.none = function(){
+  var self = this;
+  var _svg = "";
+  return _svg;
+};
+My_entry.draw_svg.prototype.def_dropShadow = function(idName, style, offsetX, offsetY, blur){
+  var self = this;
+  var _svg = "";
+  if(blur){
+    _svg += "<defs>";
+    _svg += "<filter";
+    _svg += " id="+self.quote(idName);
+    _svg += ">";
+    _svg += "<feDropShadow";
+    _svg += " flood-color="+self.quote(style);
+    _svg += " dx="+self.quote(offsetX);
+    _svg += " dy="+self.quote(offsetY);
+    _svg += " stdDeviation="+self.quote(blur);
+    _svg += "/>";
+    _svg += "</filter>";
+    _svg += "</defs>";
+    _svg += self.rn;
+  }
+  return _svg;
+};
+My_entry.draw_svg.prototype.use_filter = function(idName){
+  var self = this;
+  var _svg = "";
+  _svg += " style="+self.quote("filter:url(#"+idName+")");
+  return _svg;
+};
+My_entry.draw_svg.prototype.textpath = function(text, arr_vec, opt_fontFamily, opt_fontSize, isBold, isItalic, isReverse, opt_styleRGBA_bg, opt_styleRGBA_fg, fillStr, spacingX, spacingY, offsetX, offsetY, blur, opt_globalCompositeOperation, j){
+  var self = this;
+  Array.prototype.push.apply(arguments, [true]);
+  return self.textpath_sw.apply(self, arguments);
+};
+/* -> 1.0.0 */
 My_entry.draw_svg.prototype.text = function(text, vec0, opt_fontSize, opt_styleRGBA, opt_globalCompositeOperation){
   var self = this;
   var _svg = "";

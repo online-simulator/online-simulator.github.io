@@ -430,3 +430,20 @@ My_entry.$.prototype.readFile_id = function(id, re, opt_callback){
   var elem = self._id(id);
   return self.readFile_elem(elem, re, opt_callback);
 };
+My_entry.$.prototype.get_records = function(input, separator, val0, props){
+  var self = this;
+  var _obj = {};
+  var sc = (input || "").split(separator);
+  props.forEach(function(prop, i){
+    if(prop){
+      var val = sc[i];
+      if(typeof val === "undefined"){
+        _obj[prop] = val0;
+      }
+      else{
+        _obj[prop] = (isNaN(Number(val)))? self.val2literal(val): Number(val);
+      }
+    }
+  });
+  return _obj;
+};

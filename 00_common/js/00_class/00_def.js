@@ -228,3 +228,15 @@ My_entry.def.prototype.remove_command = function(input, command, isLongest){
   var self = this;
   return self.remove_title(input, command, isLongest, 1);
 };
+My_entry.def.prototype.enter_name = function(input, name, isLongest, opt_i, opt_callback){
+  var self = this;
+  var _input = input;
+  var content = self.get_title(_input, name, isLongest, opt_i);
+  if(content){
+    if(opt_callback){
+      opt_callback(content);
+    }
+    _input = self.remove_title(_input, name, isLongest, opt_i);
+  }
+  return _input;
+};

@@ -353,15 +353,12 @@ My_entry.plot2d.prototype.run = function(arr2d_vec, options, toSVG){
   var arr_str = new Array(len_j);
   var arr_strFontSize = new Array(len_j);
   /* -> 0.6.0 */
-  var inputZ = options["input-z"] || "";
   /* 1.0.0 -> */
+  var arr_strPath = new Array(len_j);
+  var inputZ = options["input-z"] || "";
   var title = "";
   if(inputZ){
-    var title_inputZ = def.get_title(inputZ, "title");
-    if(title_inputZ){
-      title = title_inputZ;
-      inputZ = def.remove_title(inputZ, "title");
-    }
+    inputZ = def.enter_name(inputZ, "title", false, 0, function(content){title = content;});
   }
   /* -> 1.0.0 */
   var arr_legend = inputZ.split(";");
@@ -383,6 +380,11 @@ My_entry.plot2d.prototype.run = function(arr2d_vec, options, toSVG){
     var str = null;
     var strSize = null;
     if(legend){
+      /* 1.0.0 -> */
+      var strPath = "";
+      legend = def.enter_name(legend, "string", false, 0, function(content){strPath = content;});
+      arr_strPath[j] = strPath;
+      /* -> 1.0.0 */
       var arr_config = legend.split(":");
       type = arr_config[0];
       style = arr_config[1];
@@ -392,7 +394,7 @@ My_entry.plot2d.prototype.run = function(arr2d_vec, options, toSVG){
       fill = arr_config[5];
       str = arr_config[6];
       strSize = arr_config[7];
-      type = (self.entry.def.hasElem_arr(markers, type))? type: null;
+      type = (type === "none" || self.entry.def.hasElem_arr(markers, type))? type: null;  // 1.0.0
     }
     /* 0.1.0 -> */
     markerType = type || markerType;
@@ -481,21 +483,25 @@ My_entry.plot2d.prototype.run = function(arr2d_vec, options, toSVG){
       arr2d_ty[n][j] = self.trans(arr2d_y[n][j], isLog_y);
     }
   }
+  /* 1.0.0 -> */
+  // make arr2d_tvec
+  var arr2d_tvec = new Array(len_j);
+  for(var j=0; j<len_j; ++j){
+    arr2d_tvec[j] = new Array(len_n);
+    for(var n=0; n<len_n; ++n){
+      var x = arr2d_tx[n][j];
+      var y = arr2d_ty[n][j];
+      arr2d_tvec[j][n] = {x: x, y: y};
+    }
+  }
   // plot lines
   for(var j=0; j<len_j; ++j){
     var styleRGBA = arr_styleRGBA[j];
     var plotLineWidth = arr_plotLineWidth[j];
     var fillPath = arr_fillPath[j];
-//    if(plotLineWidth){  // 0.7.0 comment-out
-      var arr_vec = [];
-      for(var n=0; n<len_n; ++n){
-        var x = arr2d_tx[n][j];
-        var y = arr2d_ty[n][j];
-        arr_vec[n] = {x: x, y: y};
-      }
-      _svg += plot.lines(arr_vec, plotLineWidth, styleRGBA, globalCompositeOperation, fillPath);
-//    }
+    _svg += plot.lines(arr2d_tvec[j], plotLineWidth, styleRGBA, globalCompositeOperation, fillPath);
   }
+  /* -> 1.0.0 */
   // plot markers
   for(var j=0; j<len_j; ++j){
     var markerType = arr_markerType[j];
@@ -562,6 +568,17 @@ My_entry.plot2d.prototype.run = function(arr2d_vec, options, toSVG){
     }
   }
   /* -> 0.6.0 */
+  /* 1.0.0 -> */
+  // string with SVG-path
+  for(var j=0; j<len_j; ++j){
+    var styleRGBA = arr_styleRGBA[j];
+    var strFontSize = arr_strFontSize[j];
+    var strPath = arr_strPath[j];
+    if(strPath){
+      _svg += plot.textpath(strPath, arr2d_tvec[j], strFontSize, styleRGBA, globalCompositeOperation, j);
+    }
+  }
+  /* -> 1.0.0 */
   temp.attach(self.handlers);  // 0.4.0 moved from final()
   self.isLocked = false;
   return _svg;

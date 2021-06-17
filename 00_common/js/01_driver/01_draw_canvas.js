@@ -67,6 +67,17 @@ My_entry.draw_canvas.prototype.lines = function(arr_vec, opt_lineWidth, opt_styl
 };
 /* -> 0.4.0 */
 /* -> 0.7.0 */
+/* 1.0.0 -> */
+My_entry.draw_canvas.prototype.none = function(){
+  var self = this;
+  return self;
+};
+My_entry.draw_canvas.prototype.textpath = function(text, arr_vec, opt_fontFamily, opt_fontSize, isBold, isItalic, isReverse, opt_styleRGBA_bg, opt_styleRGBA_fg, fillStr, spacingX, spacingY, offsetX, offsetY, blur, opt_globalCompositeOperation, j){
+  var self = this;
+  self.textpath_sw.apply(self, arguments);
+  return self;
+};
+/* -> 1.0.0 */
 /* 0.5.0 -> */
 My_entry.draw_canvas.prototype.text = function(text, vec0, opt_fontSize, opt_styleRGBA, opt_globalCompositeOperation){
   var self = this;

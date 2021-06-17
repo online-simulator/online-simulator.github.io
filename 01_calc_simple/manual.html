@@ -1030,17 +1030,17 @@ panel上段について記述する
 <br>
 　・y(t)のplot範囲外grid最小値~最大値を入力
 <br>
-・zの入力欄にlegendのdatasetをsemi-colon;区切りで入力
+・zの入力欄にlegend-datasetをsemi-colon;区切りで入力
 <br>
 　・空欄で既定の描画
 <br>
-　・legendのdatasetは設定値をcolon:区切りで入力
+　・legend-datasetは設定値をcolon:区切りで入力
 <br>
 markerType:markerColor:markerSize:markerLineWidth:plotLineWidth:fillPath:
 <br>
 str:strFontSize
 <br>
-　・markerTypeはcircle||triangle||triangle2||square||diamond||cross
+　・markerTypeはnone||circle||triangle||triangle2||square||diamond||cross
 <br>
 　・markerColorはcolor名（black等）||HEX表記RGBA（#00000000等）
 <br>
@@ -1056,13 +1056,65 @@ str:strFontSize
 <br>
 　・strFontSizeはlegend-stringのfont-sizeのpx数値
 <br>
-　・字句解析の都合上、strのwhite space disabled
+　・字句解析の都合上、legend-stringのwhite space||semi-colon; disabled
 <br>
 ・<span class="run">Ver.2.34.18</span>以降、zの入力欄にgraph-titleをtitle{graph-title}で入力
 <br>
 　・入力欄の任意位置に挿入可
 <br>
-　・字句解析の都合上、titleのwhite space disabled
+　・字句解析の都合上、graph-titleのwhite space disabled
+<br>
+・<span class="run">Ver.2.34.18</span>以降、zの入力欄にSVG-path付stringをstring{config[]string-path}で入力
+<br>
+　・入力欄のlegend-dataset任意位置に挿入可
+<br>
+　・config[]省略時、legend-datasetの設定値を使用
+<br>
+　・config[]内datasetは設定値をcolon:区切りで入力
+<br>
+fontFamily:fontSize:isBold:isItalic:isReverse:
+<br>
+styleRGBA_bg:styleRGBA_fg:fillStr:spacingX:spacingY:
+<br>
+offsetX:offsetY:blur
+<br>
+　・fontSizeはstring-pathのfont-sizeのpx数値
+<br>
+　・isBold=0以外でbold typeを使用
+<br>
+　・isItalic=0以外でitalic typeを使用
+<br>
+　・isReverse=0で始点から順送り・それ以外は終点から順送り
+<br>
+　・styleRGBA_bgはfill-style
+<br>
+　・styleRGBA_fgはstroke-style
+<br>
+　・fillStr=0でstrokeのみ・fillStr=1でfillのみ・それ以外はstroke&amp;fill
+<br>
+　・spacingXは文字送り空白部分のpx数値
+<br>
+　・spacingYは高さ方向空白部分のpx数値
+<br>
+　・blur&gt;0でshadow有効
+<br>
+　　・shadowColor=styleRGBA_fg
+<br>
+　　・shadowOffsetX=offsetX
+<br>
+　　・shadowOffsetY=offsetY
+<br>
+　　・shadowBlur=blur
+<br>
+　・png出力の弧度数radの出力桁数2桁以上推奨（svg出力の度数degに対して桁数不足）
+<br>
+　・以上の座標変換はcharacterのbottom-left基準
+<br>
+　・字句解析の都合上、string-pathのwhite space||semi-colon; disabled
+<br>
+　・仕様上、string-pathの4Bytes character disabled
+<br>
+　・svg出力のみ4Bytes characterを含む特殊文字等、直接file編集可（group化済み）
 <br>
 <br>
 plot-configについて記述する
@@ -1564,7 +1616,7 @@ bias=2^(11-1)-1=1023
 <br>
 pow(2,10) || 2^10 || 1024 -> 1.024e3
 <br>
-・仮数部が小数点以下の有効桁（10進換算で16~17桁）を保持する
+・仮数部が小数点以下の有効桁（10進換算で約16桁）を保持する
 <br>
 ・最上位bitから最下位bitまでの10進換算した有効数字の演算結果を示す
 <br>

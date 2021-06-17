@@ -159,3 +159,110 @@ My_entry.draw.prototype.enter = function(r, opt_lineWidth, opt_styleRGBA, opt_gl
   }
   return self;
 };
+/* 1.0.0 -> */
+My_entry.draw.prototype.get_path = function(arr_vec, isReverse){
+  var self = this;
+  var _style = "";
+  _style += "M";
+  for(var n=0, len_n=arr_vec.length; n<len_n; ++n){
+    if(n > 0){
+      _style += " L";
+    }
+    var vecn = arr_vec[(isReverse)? (len_n-1)-n: n];
+    var x = self.floor(vecn.x);
+    var y = self.floor(vecn.y);
+    _style += x+" "+y;
+  }
+  _style += " Z";
+  return _style;
+};
+My_entry.draw.prototype.textpath_sw = function(text, arr_vec, opt_fontFamily, opt_fontSize, isBold, isItalic, isReverse, opt_styleRGBA_bg, opt_styleRGBA_fg, fillStr, spacingX, spacingY, offsetX, offsetY, blur, opt_globalCompositeOperation, j, toSVG){
+  var self = this;
+  var _svg = "";
+  var ctx = self.ctx;
+  var path = document.createElementNS("http://www.w3.org/2000/svg", "path");
+  path.setAttribute("d", self.get_path(arr_vec, isReverse));
+  var x0 = 0;
+  var fontSize = opt_fontSize || 0;
+  var fontFamily = opt_fontFamily || self.fontFamily;
+  ctx.save();
+  ctx.font = fontSize+"px "+fontFamily;
+  if(isBold){
+    ctx.font = "bold "+ctx.font;
+  }
+  if(isItalic){
+    ctx.font = "italic "+ctx.font;
+  }
+  ctx.fillStyle = self.hex2rgba(opt_styleRGBA_bg);
+  ctx.strokeStyle = self.hex2rgba(opt_styleRGBA_fg);
+  if(toSVG){
+    var fillStyle = ctx.fillStyle;
+    var strokeStyle = ctx.strokeStyle;
+    var idName = "filter"+j;
+    _svg += self.def_dropShadow(idName, strokeStyle, offsetX, offsetY, blur);
+    var svg_config = "";
+    svg_config += " font-family="+self.quote(fontFamily);
+    svg_config += " font-size="+self.quote(fontSize);
+    svg_config += (isBold)? " font-weight="+self.quote("bold"): "";
+    svg_config += (isItalic)? " font-style="+self.quote("italic"): "";
+    svg_config += " fill="+self.quote((fillStr !== 0)? fillStyle: "none");
+    svg_config += " stroke="+self.quote((fillStr !== 1)? strokeStyle: "none");
+    svg_config += (blur)? self.use_filter(idName): "";
+    _svg += self.header_group(null, svg_config);
+  }
+  else{
+    if(blur){
+      ctx.shadowColor = ctx.strokeStyle;
+      ctx.shadowOffsetX = offsetX;
+      ctx.shadowOffsetY = offsetY;
+      ctx.shadowBlur = blur;
+    }
+    ctx.globalCompositeOperation = opt_globalCompositeOperation || ctx.globalCompositeOperation;
+  }
+  for(var i=0, len=text.length; i<len; ++i){
+    var chari = text.charAt(i);
+    var wi = ctx.measureText(chari).width;
+    // character's bottom-left based
+    var pt0 = path.getPointAtLength(x0);
+    var pt1 = path.getPointAtLength(x0+1);
+    var x = self.floor(pt0.x);
+    var y = self.floor(pt0.y);
+    var t = Math.atan2(pt1.y-pt0.y, pt1.x-pt0.x);
+    t = (toSVG)? self.floor(180*t/Math.PI): self.floor(t);
+    if(toSVG){
+      var points = "";
+      points += x+" "+y;
+      var tr = "";
+      tr += (t)? "rotate("+t+" "+points+") ": "";
+      tr += "translate("+points+")";
+      _svg += "<text";
+      _svg += " transform="+self.quote(tr);
+      _svg += " x="+self.quote(0);
+      _svg += " y="+self.quote(spacingY);
+      _svg += ">";
+      _svg += self.escape(chari);
+      _svg += "</text>";
+      _svg += self.rn;
+    }
+    else{
+      ctx.save();
+      ctx.translate(x, y);
+      ctx.rotate(t);
+      ctx.translate(0, spacingY);
+      if(fillStr !== 0){
+        ctx.fillText(chari, 0, 0);
+      }
+      if(fillStr !== 1){
+        ctx.strokeText(chari, 0, 0);
+      }
+      ctx.restore();
+    }
+    x0 += wi+spacingX;
+  }
+  if(toSVG){
+    _svg += self.footer_group();
+  }
+  ctx.restore();
+  return _svg;
+};
+/* -> 1.0.0 */
