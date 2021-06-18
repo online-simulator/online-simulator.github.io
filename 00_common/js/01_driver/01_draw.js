@@ -227,9 +227,9 @@ My_entry.draw.prototype.textpath_sw = function(text, arr_vec, opt_fontFamily, op
     var pt1 = path.getPointAtLength(x0+1);
     var x = self.floor(pt0.x);
     var y = self.floor(pt0.y);
-    var t = Math.atan2(pt1.y-pt0.y, pt1.x-pt0.x);
     var dx = self.floor(0);
     var dy = self.floor(spacingY);
+    var t = Math.atan2(pt1.y-pt0.y, pt1.x-pt0.x);
     t = (toSVG)? self.floor(180*t/Math.PI): self.floor(t);
     if(toSVG){
       var points = "";
