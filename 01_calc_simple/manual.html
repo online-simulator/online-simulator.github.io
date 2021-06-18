@@ -1002,13 +1002,13 @@ panel上段について記述する
 <br>
 ・l-checkboxはlegend表示を選択
 <br>
-・tの入力欄に媒介変数の範囲下限t0と範囲上限t1の複素数値を入力
+・t入力欄に媒介変数の範囲下限t0と範囲上限t1の複素数値を入力
 <br>
 ・<span class="run">Ver.2.34.18</span>以降、t-checkboxはlinear||logarithmicの軸scaleを選択
 <br>
 ・媒介変数tの範囲等分割数Nを選択
 <br>
-・x(t)の入力欄に横軸xの演算内容をsemi-colon;区切りで入力
+・x(t)入力欄に横軸xの演算内容をsemi-colon;区切りで入力
 <br>
 　・tは媒介変数で上書き可能なlocal変数
 <br>
@@ -1020,7 +1020,7 @@ panel上段について記述する
 <br>
 　・x(t)のplot範囲外grid最小値~最大値を入力
 <br>
-・y(t)の入力欄に縦軸yの演算内容をsemi-colon;区切りで入力
+・y(t)入力欄に縦軸yの演算内容をsemi-colon;区切りで入力
 <br>
 　・tは媒介変数で上書き可能なlocal変数
 <br>
@@ -1032,7 +1032,12 @@ panel上段について記述する
 <br>
 　・y(t)のplot範囲外grid最小値~最大値を入力
 <br>
-・zの入力欄にlegend-datasetをsemi-colon;区切りで入力
+<br>
+z入力欄について記述する
+<br>
+<span class="run">Ver.2.35.18</span>以降、graph-title/legend-string/string-pathのwhite space enabled
+<br>
+・legend-datasetをsemi-colon;区切りで入力
 <br>
 　・空欄で既定の描画
 <br>
@@ -1058,15 +1063,13 @@ str:strFontSize
 <br>
 　・strFontSizeはlegend-stringのfont-sizeのpx数値
 <br>
-　・字句解析の都合上、legend-stringのwhite space||semi-colon; disabled
+　・字句解析の都合上、legend-stringのsemi-colon; disabled
 <br>
-・<span class="run">Ver.2.34.18</span>以降、zの入力欄にgraph-titleをtitle{graph-title}で入力
+・<span class="run">Ver.2.34.18</span>以降、z入力欄にgraph-titleをtitle||TITLE{graph-title}で入力
 <br>
 　・入力欄の任意位置に挿入可
 <br>
-　・字句解析の都合上、graph-titleのwhite space disabled
-<br>
-・<span class="run">Ver.2.34.18</span>以降、zの入力欄にSVG-path付stringをstring{config[]string-path}で入力
+・<span class="run">Ver.2.34.18</span>以降、z入力欄にstring-pathをstring||STRING{config[]string-path}で入力
 <br>
 　・入力欄のlegend-dataset任意位置に挿入可
 <br>
@@ -1082,17 +1085,17 @@ offsetX:offsetY:blur
 <br>
 　・fontSizeはstring-pathのfont-sizeのpx数値
 <br>
-　・isBold=0以外でbold typeを使用
+　・isBold=0||white space以外でbold typeを使用
 <br>
-　・isItalic=0以外でitalic typeを使用
+　・isItalic=0||white space以外でitalic typeを使用
 <br>
-　・isReverse=0で始点から順送り・それ以外は終点から順送り
+　・isReverse=0||white spaceで始点から順送り・それ以外は終点から順送り
 <br>
 　・styleRGBA_bgはfill-style
 <br>
 　・styleRGBA_fgはstroke-style
 <br>
-　・fillStr=0でstrokeのみ・fillStr=1でfillのみ・それ以外はstroke&amp;fill
+　・fillStr=0||white spaceでstrokeのみ・fillStr=1でfillのみ・それ以外はstroke&amp;fill
 <br>
 　・spacingXは文字送り空白部分のpx数値
 <br>
@@ -1112,7 +1115,7 @@ offsetX:offsetY:blur
 <br>
 　・以上の座標変換はcharacterのbottom-left基準
 <br>
-　・字句解析の都合上、string-pathのwhite space||semi-colon; disabled
+　・字句解析の都合上、string-pathのsemi-colon; disabled
 <br>
 　・仕様上、string-pathの4Bytes character disabled
 <br>
@@ -1135,7 +1138,7 @@ plot-configについて記述する
 <br>
 　背景画像file未指定時のみ有効
 <br>
-・bg-colorとgrid-line-color（既定値gray）の入力欄はz-markerColor同様に色指定可
+・bg-colorとgrid-line-color（既定値gray）入力欄はz-markerColor同様に色指定可
 <br>
 ・grid-line-widthを選択可
 <br>
@@ -1165,7 +1168,7 @@ plot-configについて記述する
 <br>
 　background &lt;- grid &lt;- plotの順に背景にRGBA値を合成して出力
 <br>
-<del>・titleの入力欄にgraph-titleを入力可</del><span class="run">Ver.2.34.18</span>以降、zの入力欄に統合
+<del>・title入力欄にgraph-titleを入力可</del><span class="run">Ver.2.34.18</span>以降、z入力欄に統合
 <br>
 <br>
 panel中段について記述する

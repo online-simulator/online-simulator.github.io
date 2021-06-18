@@ -102,6 +102,13 @@ My_entry.parser.prototype.replace_series = function(str, bas){
   });
   return _str;
 };
+My_entry.parser.prototype.remove_comment = function(script){
+  var self = this;
+  var bas = [];
+  bas.push({b: /\/\*[\s\S]*?\*\//g, a: ""});
+  bas.push({b: /[\/]{2}.*$/gm,      a: ""});
+  return self.replace_series(script, bas);
+};
 My_entry.parser.prototype.remove_commentAndWspace = function(script){
   var self = this;
   var bas = [];

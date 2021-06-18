@@ -122,6 +122,7 @@ My_entry.def.prototype.isNumber = function(val){
 };
 My_entry.def.prototype.Number = function(val){
   var self = this;
+  /* Number( ) -> 0 */
   /* Number(010) -> 8 */
   /* parseFloat(011) -> 9 */
   /* parseFloat("011") -> 11 */
@@ -204,8 +205,8 @@ My_entry.def.prototype.get_title = function(input, title, isLongest, opt_i){
   ];
   var pat = (isLongest)? "(.*)": "(.*?)";
   var pair = pairs[opt_i || 0];
-  var re = new RegExp(title+pair.s+pat+pair.e);  // single
-  var mc = input.replace(/\s/g, "").match(re);
+  var re = new RegExp(title+pair.s+pat+pair.e, "i");  // single
+  var mc = input.match(re);
   return ((mc && mc.length === 2)? mc[1]: null);  // if(mc && mc.length)
 };
 My_entry.def.prototype.remove_title = function(input, title, isLongest, opt_i){
@@ -217,7 +218,7 @@ My_entry.def.prototype.remove_title = function(input, title, isLongest, opt_i){
   ];
   var pat = (isLongest)? "(.*)": "(.*?)";
   var pair = pairs[opt_i || 0];
-  var re = new RegExp(title+pair.s+pat+pair.e, "g");  // all
+  var re = new RegExp(title+pair.s+pat+pair.e, "gi");  // all
   return input.replace(re, "");
 };
 My_entry.def.prototype.get_command = function(input, command, isLongest){
