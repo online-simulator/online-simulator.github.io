@@ -430,7 +430,14 @@ My_entry.calc_graphing.prototype.get_options = function(isPlot){
   /* Ver.2.11.4 */
   /* Ver.2.10.4 */
   if(isPlot){
-    _options["input-z"] = parser.remove_comment(self.io.read_text(self.elems.z));  // Ver.2.35.18
+    /* Ver.2.35.18 -> */
+    if(_options.oldPlot2d){
+      _options["input-z"] = parser.remove_commentAndWspace(self.io.read_text(self.elems.z));
+    }
+    else{
+      _options["input-z"] = parser.remove_comment(self.io.read_text(self.elems.z));
+    }
+    /* -> Ver.2.35.18 */
     _options["bg-color"] = $.inputVal_id("input-bg-color");
     _options["grid-line-color"] = $.inputVal_id("input-grid-line-color");
     _options["logo"] = parser.make_logo({options: _options});  // including z
