@@ -110,7 +110,7 @@
       $._id("legend3").onclick = function(){setVal("1e-3", "1", "x=t,x;", "pow(x,1/4);pow(x,1/2);x;x^2;x^4;x^8;", 30);$._id("input-z").value="circle:red::::1;triangle:green;triangle2:blue;square:#00ff00;diamond:#00ff0055;cross:#ff05;";};
       $._id("range").onclick = function(){setVal("0", "2pi", "ft=<e^(i(t)),ft;xmin=-2(1+i),xmax=3(1+i),xmin;xmax;", "_dt(=<-ft);ymin=-3(1+i),ymax=2(1+i),ymin;ymax;", 50);$._id("input-z").value=":yellow;:#0000/*#00000000*/:0:0:0;";};
       $._id("title").onclick = function(){setVal("0", "2pi", "f(t)=<e^(i(t)),f(t);xmin=-3(1+i),xmax=3(1+i),xmin;xmax;", "_dt(=<-f(t));ymin=-3(1+i),ymax=3(1+i),ymin;ymax;", 50);$._id("input-z").value="TITLE{graph title}/*title{}*/diamond;";};
-      $._id("string").onclick = function(){setVal("0", "2pi", "zt(N,kr,rot)=<(star(t,N,0,kr)+star(t,N,1,kr)i)e^(i(rot)),zt1=zt(5,0.5,-pi/8),zt2=zt(7,0.9,pi/4)2,zt3=zt(13,1,0)2.3,real(zt1);real(zt2);real(zt3);", "imag(zt1);imag(zt2);imag(zt3);", 70);$._id("input-z").value="none/*marker*/STRING{config[sans-serif/*font-family*/:22/*font-size*/:0/*bold*/:0/*italic*/:0/*reverse*/:pink/*fill*/:red/*stroke*/:2/*stroke&fill*/:3/*spacingX*/:0/*spacingY*/:0/*offsetX*/:0/*offsetY*/:10/*blur*/]abcdefghijklmnopqrstuvwxyz0123456789};STRING{config[cursive:34:1:1:1:#ffffff99:#99999999:2:3:10:3:3:3]abcdefghijklmnopqrstuvwxyz0123456789};STRING{abcdefghijklmnopqrstuvwxyz   0123456789};";};
+      $._id("string").onclick = function(){setVal("-pi/7/*offset*/", "-pi/7+2pi", "zt(N,kr,rot/*rotation*/)=<(star(t,N,0,kr)+star(t,N,1,kr)i)e^(i(rot)),zt1=zt(5,0.5,-pi/8),zt2=zt(7,0.9,pi/4)2,zt3=zt(13,1,-pi/7)2.3,real(zt1);real(zt2);real(zt3);", "imag(zt1);imag(zt2);imag(zt3);", 70);$._id("input-z").value="none/*marker*/STRING{config[Times New Roman/*font-family*/:22/*font-size*/:0/*bold*/:0/*italic*/:0/*reverse*/:pink/*fill*/:red/*stroke*/:2/*stroke&fill*/:3/*spacingX*/:0/*spacingY*/:0/*offsetX*/:0/*offsetY*/:10/*blur*/]abcdefghijklmnopqrstuvwxyz0123456789};STRING{config[cursive:34:1:1:1:#ffffff99:#99999999:2:3:10:3:3:3]abcdefghijklmnopqrstuvwxyz0123456789};STRING{abcdefghijklmnopqrstuvwxyz   0123456789};";};
       // strict-mode equation-list
       /* out=text.replace(/\s/g,"\n"); */
 //      $._id("").onclick = function(){io["onclick_default"](elems, "", 0);};
@@ -157,8 +157,8 @@ plot2d
   <label>
 <select id="select-decDigit">
   <option value="0">0digit</option>
-  <option value="1">1digit</option>
-  <option value="2" selected="selected">2digit</option>
+  <option value="1" selected="selected">1digit</option>
+  <option value="2">2digit</option>
   <option value="3">3digit</option>
   <option value="4">4digit</option>
   <option value="5">5digit</option>

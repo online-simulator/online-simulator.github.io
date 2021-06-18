@@ -1083,6 +1083,8 @@ styleRGBA_bg:styleRGBA_fg:fillStr:spacingX:spacingY:
 <br>
 offsetX:offsetY:blur
 <br>
+　・fontFamilyはfont-family名（<span class="run">Ver.2.35.18</span>以降、white space付family名に対応）
+<br>
 　・fontSizeはstring-pathのfont-sizeのpx数値
 <br>
 　・isBold=0||white space以外でbold typeを使用
@@ -1101,7 +1103,7 @@ offsetX:offsetY:blur
 <br>
 　・spacingYは高さ方向空白部分のpx数値
 <br>
-　・blur&gt;0でshadow有効
+　・blur&gt;0でshadow有効（png/svg出力の互換性なし）
 <br>
 　　・shadowColor=styleRGBA_fg
 <br>
@@ -1111,7 +1113,7 @@ offsetX:offsetY:blur
 <br>
 　　・shadowBlur=blur
 <br>
-　・png出力の弧度数radの出力桁数2桁以上推奨（svg出力の度数degに対して桁数不足）
+　・character毎にsvg出力の度数degをpng出力の弧度数radに変換して互換性を確保
 <br>
 　・以上の座標変換はcharacterのbottom-left基準
 <br>

@@ -230,12 +230,14 @@ My_entry.draw.prototype.textpath_sw = function(text, arr_vec, opt_fontFamily, op
     var dx = self.floor(0);
     var dy = self.floor(spacingY);
     var t = Math.atan2(pt1.y-pt0.y, pt1.x-pt0.x);
-    t = (toSVG)? self.floor(180*t/Math.PI): self.floor(t);
+    var r2d = 180/Math.PI;
+    var deg = self.floor(t*r2d);
+    var rad = deg/r2d;
     if(toSVG){
       var points = "";
       points += x+" "+y;
       var tr = "";
-      tr += (t)? "rotate("+t+" "+points+") ": "";
+      tr += (deg)? "rotate("+deg+" "+points+") ": "";
       tr += "translate("+points+")";
       _svg += "<text";
       _svg += " transform="+self.quote(tr);
@@ -249,7 +251,7 @@ My_entry.draw.prototype.textpath_sw = function(text, arr_vec, opt_fontFamily, op
     else{
       ctx.save();
       ctx.translate(x, y);
-      ctx.rotate(t);
+      ctx.rotate(rad);
       ctx.translate(dx, dy);
       if(fillStr !== 0){
         ctx.fillText(chari, 0, 0);
