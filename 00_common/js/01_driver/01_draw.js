@@ -193,13 +193,12 @@ My_entry.draw.prototype.textpath_sw = function(text, arr_vec, opt_fontFamily, op
   if(isItalic){
     ctx.font = "italic "+ctx.font;
   }
-  ctx.fillStyle = self.hex2rgba(opt_styleRGBA_bg);
-  ctx.strokeStyle = self.hex2rgba(opt_styleRGBA_fg);
+  var fillStyle = self.hex2rgba(opt_styleRGBA_bg);
+  var strokeStyle = self.hex2rgba(opt_styleRGBA_fg);
+  var shadowColor = (fillStr < 0)? fillStyle: strokeStyle;
   if(toSVG){
-    var fillStyle = ctx.fillStyle;
-    var strokeStyle = ctx.strokeStyle;
     var idName = "filter"+j;
-    _svg += self.def_dropShadow(idName, strokeStyle, offsetX, offsetY, blur);
+    _svg += self.def_dropShadow(idName, shadowColor, offsetX, offsetY, blur);
     var svg_config = "";
     svg_config += " font-family="+self.quote(fontFamily);
     svg_config += " font-size="+self.quote(fontSize);
@@ -211,8 +210,10 @@ My_entry.draw.prototype.textpath_sw = function(text, arr_vec, opt_fontFamily, op
     _svg += self.header_group(null, svg_config);
   }
   else{
+    ctx.fillStyle = fillStyle;
+    ctx.strokeStyle = strokeStyle;
     if(blur){
-      ctx.shadowColor = ctx.strokeStyle;
+      ctx.shadowColor = shadowColor;
       ctx.shadowOffsetX = offsetX;
       ctx.shadowOffsetY = offsetY;
       ctx.shadowBlur = blur;
