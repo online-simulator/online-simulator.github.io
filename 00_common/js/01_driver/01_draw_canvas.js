@@ -86,7 +86,7 @@ My_entry.draw_canvas.prototype.text = function(text, vec0, opt_fontSize, opt_sty
   var fontFamily = self.fontFamily;
   ctx.save();
   ctx.font = fontSize+"px "+fontFamily;
-  ctx.fillStyle = ctx.strokeStyle = self.hex2rgba(opt_styleRGBA);
+  ctx.fillStyle = ctx.strokeStyle = self.color2style(opt_styleRGBA);
   ctx.globalCompositeOperation = opt_globalCompositeOperation || ctx.globalCompositeOperation;
   var x = self.floor(vec0.x);
   var y = self.floor(vec0.y);
@@ -102,7 +102,7 @@ My_entry.draw_canvas.prototype.label = function(text, vec0, opt_fontSize, opt_st
   var fontFamily = self.fontFamily;
   ctx.save();
   ctx.font = fontSize+"px "+fontFamily;
-  ctx.fillStyle = ctx.strokeStyle = self.hex2rgba(opt_styleRGBA);
+  ctx.fillStyle = ctx.strokeStyle = self.color2style(opt_styleRGBA);
   ctx.globalCompositeOperation = opt_globalCompositeOperation || ctx.globalCompositeOperation;
   var x0 = self.floor(vec0.x);
   var y0 = self.floor(vec0.y);
@@ -160,7 +160,7 @@ My_entry.draw_canvas.prototype.fill = function(vec0, vec1, opt_styleRGBA, opt_gl
   var x1 = self.floor(vec1.x);
   var y1 = self.floor(vec1.y);
   ctx.save();
-  ctx.fillStyle = ctx.strokeStyle = self.hex2rgba(opt_styleRGBA);
+  ctx.fillStyle = ctx.strokeStyle = self.color2style(opt_styleRGBA);
   ctx.globalCompositeOperation = opt_globalCompositeOperation || ctx.globalCompositeOperation;
   ctx.fillRect(x0, y0, x1-x0, y1-y0);
   ctx.restore();

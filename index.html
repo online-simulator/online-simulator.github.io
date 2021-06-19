@@ -243,9 +243,15 @@ minor update
 <br>
 ・source-code arranged
 <br>
-　var shadowColor = (fillStr &lt; 0)? fillStyle: strokeStyle;
+・linear-interpolation of RGBA implemented in advance for gradation
 <br>
-・png/svg compatibility(default: 1digit) restored excluding drop shadow
+　<del>var shadowColor = (fillStr &lt; 0)? fillStyle: strokeStyle;</del>
+<br>
+　k = Math.min(1, Math.abs(fillStr)/255)
+<br>
+　shadowColor.r = strokeStyle.r+(fillStyle.r-strokeStyle.r)*k
+<br>
+・png/svg compatibility(default: 1digit) restored excluding drop-shadow
 <br>
 　rad2digit_png　⇒　rad_png = deg1digit_svg*Math.PI/180
 <br>
@@ -264,6 +270,8 @@ minor update
 　追加校正3箇所
 <br>
 　追加校正1箇所
+<br>
+　追加校正9箇所
     </td>
     <td>
 2021/6/18

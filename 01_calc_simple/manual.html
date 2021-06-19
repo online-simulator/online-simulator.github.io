@@ -1033,6 +1033,23 @@ panel上段について記述する
 　・y(t)のplot範囲外grid最小値~最大値を入力
 <br>
 <br>
+HTML5/CSS3準拠のcolor入力方法を次に示す
+<br>
+・color名||HEX表記RGB||RGBA||rgb(r,g,b=0~255)||rgba(r,g,b,不透明度a=0~1)
+<br>
+・black入力の場合
+<br>
+black||#000||#000f||#000000||#000000ff||rgb(0,0,0)||rgba(0,0,0,1)
+<br>
+・red入力の場合
+<br>
+red||#f00||#f00f||#ff0000||#ff0000ff||rgb(255,0,0)||rgba(255,0,0,1)
+<br>
+・blue入力の不透明度a=0.333333333333333の場合
+<br>
+#00f5||#0000ff55||rgba(0,0,255,0.333333333333333)
+<br>
+<br>
 z入力欄について記述する
 <br>
 <span class="run">Ver.2.35.18</span>以降、graph-title/legend-string/string-pathのwhite space enabled
@@ -1049,7 +1066,7 @@ str:strFontSize
 <br>
 　・markerTypeはnone||circle||triangle||triangle2||square||diamond||cross
 <br>
-　・markerColorはcolor名（black等）||HEX表記RGBA（#00000000等）
+　・markerColorはmarker-colorの入力値
 <br>
 　・markerSizeはmarkerTypeの目安size
 <br>
@@ -1079,7 +1096,7 @@ str:strFontSize
 <br>
 fontFamily:fontSize:isBold:isItalic:isReverse:
 <br>
-styleRGBA_bg:styleRGBA_fg:fillStr:spacingX:spacingY:
+fillStyle:strokeStyle:fillStr:spacingX:spacingY:
 <br>
 offsetX:offsetY:blur
 <br>
@@ -1093,11 +1110,11 @@ offsetX:offsetY:blur
 <br>
 　・isReverse=0||white spaceで始点から順送り・それ以外は終点から順送り
 <br>
-　・styleRGBA_bgはfill-style
+　・fillStyleはfill-style
 <br>
-　・styleRGBA_fgはstroke-style
+　・strokeStyleはstroke-style
 <br>
-　・fillStr=0||white spaceでstrokeのみ・fillStr=1でfillのみ・それ以外はstroke&amp;fill
+　・fillStr=falseでstrokeのみ・fillStr=trueでfillのみ・それ以外はstroke&amp;fill
 <br>
 　・spacingXは文字送り空白部分のpx数値
 <br>
@@ -1105,7 +1122,13 @@ offsetX:offsetY:blur
 <br>
 　・blur&gt;0でshadow有効（png/svg出力の互換性なし）
 <br>
-　　・shadowColor = (fillStr &lt; 0)? styleRGBA_bg: styleRGBA_fg
+　　・shadowColorはfillStr=falseでstrokeStyle・fillStr=trueでfillStyle
+<br>
+　　・それ以外はfillStr=0~255を比例係数とするstrokeStyleとfillStyleのRGBA値の線形補間
+<br>
+　　・R値の一例を次に示す
+<br>
+shadowColor.r = strokeStyle.r+(fillStyle.r-strokeStyle.r)*Math.min(1, Math.abs(fillStr)/255)
 <br>
 　　・shadowOffsetX=offsetX
 <br>
@@ -1126,7 +1149,7 @@ offsetX:offsetY:blur
 <br>
 plot-configについて記述する
 <br>
-・描画canvas-size(canvas-width/canvas-height)を選択可
+・描画canvas-sizeのcanvas-width||canvas-heightを選択可
 <br>
 ・bg-image-fileは任意size背景画像fileをread可
 <br>
@@ -1140,7 +1163,9 @@ plot-configについて記述する
 <br>
 　背景画像file未指定時のみ有効
 <br>
-・bg-colorとgrid-line-color（既定値gray）入力欄はz-markerColor同様に色指定可
+・bg-colorを入力可
+<br>
+・grid-line-colorを入力可
 <br>
 ・grid-line-widthを選択可
 <br>
