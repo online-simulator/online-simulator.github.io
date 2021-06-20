@@ -299,6 +299,7 @@ My_entry.plot2d.prototype.run = function(arr2d_vec, options, toSVG){
   var self = this;
   if(self.isLocked) return false;
   self.isLocked = true;
+  var $ = self.entry.$;
   var def = self.entry.def;
   var background = self.objs.background;
   var grid = self.objs.grid;
@@ -394,7 +395,7 @@ My_entry.plot2d.prototype.run = function(arr2d_vec, options, toSVG){
       fill = arr_config[5];
       str = arr_config[6];
       strSize = arr_config[7];
-      type = (type === "none" || self.entry.def.hasElem_arr(markers, type))? type: null;  // 1.0.0
+      type = (type === "none" || def.hasElem_arr(markers, type))? type: null;  // 1.0.0
     }
     /* 0.1.0 -> */
     markerType = type || markerType;
@@ -575,7 +576,11 @@ My_entry.plot2d.prototype.run = function(arr2d_vec, options, toSVG){
     var strFontSize = arr_strFontSize[j];
     var strPath = arr_strPath[j];
     if(strPath){
-      _svg += plot.textpath(strPath, arr2d_tvec[j], strFontSize, styleRGBA, globalCompositeOperation, j);
+      var text = strPath;
+      var config = "";
+      text = def.enter_name(text, "config", false, 2, function(content){config = content;});
+      var records = $.get_records(config, ":", 0, ["fontFamily", "fontSize", "isBold", "isItalic", "isReverse", "styleRGBA_bg", "styleRGBA_fg", "fillStr", "spacingX", "spacingY", "offsetX", "offsetY", "blur"]);
+      _svg += plot.textpath(text, arr2d_tvec[j], strFontSize, styleRGBA, globalCompositeOperation, j, records);
     }
   }
   /* -> 1.0.0 */

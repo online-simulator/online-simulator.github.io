@@ -62,7 +62,7 @@ My_entry.draw.prototype.color2rgba = function(color){
   var a = 0;
   if(color){
     var re_hex = /#/g;
-    var re_rgb = /rgb[a]{0,1}\((.*?)\)/;
+    var re_rgb = /rgb[a]{0,1}\((.*?)\)/i;
     var mc_hex0 = color.match(re_hex);  // filter #000f for IE
     ctx.save();
     ctx.shadowColor = color;
@@ -217,7 +217,7 @@ My_entry.draw.prototype.get_path = function(arr_vec, isReverse){
   _style += " Z";
   return _style;
 };
-My_entry.draw.prototype.textpath_sw = function(text, arr_vec, opt_fontFamily, opt_fontSize, isBold, isItalic, isReverse, opt_styleRGBA_bg, opt_styleRGBA_fg, fillStr, spacingX, spacingY, offsetX, offsetY, blur, opt_globalCompositeOperation, j, toSVG){
+My_entry.draw.prototype.textpath_sw = function(text, arr_vec, opt_globalCompositeOperation, j, opt_fontFamily, opt_fontSize, isBold, isItalic, isReverse, opt_styleRGBA_bg, opt_styleRGBA_fg, fillStr, spacingX, spacingY, offsetX, offsetY, blur, toSVG){
   var self = this;
   var _svg = "";
   var ctx = self.ctx;

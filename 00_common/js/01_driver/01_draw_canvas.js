@@ -72,7 +72,7 @@ My_entry.draw_canvas.prototype.none = function(){
   var self = this;
   return self;
 };
-My_entry.draw_canvas.prototype.textpath = function(text, arr_vec, opt_fontFamily, opt_fontSize, isBold, isItalic, isReverse, opt_styleRGBA_bg, opt_styleRGBA_fg, fillStr, spacingX, spacingY, offsetX, offsetY, blur, opt_globalCompositeOperation, j){
+My_entry.draw_canvas.prototype.textpath = function(text, arr_vec, opt_globalCompositeOperation, j, opt_fontFamily, opt_fontSize, isBold, isItalic, isReverse, opt_styleRGBA_bg, opt_styleRGBA_fg, fillStr, spacingX, spacingY, offsetX, offsetY, blur){
   var self = this;
   self.textpath_sw.apply(self, arguments);
   return self;
