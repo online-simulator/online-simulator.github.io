@@ -297,6 +297,11 @@ scope付式変数の再利用
 開発環境
 </a>
 <br>
+　・
+<a href="#span-out-development-additional">
+実装の特徴
+</a>
+<br>
 ・
 <a href="#span-out-system">
 動作test環境
@@ -2442,7 +2447,7 @@ scope内での<a href="#span-out-vars">変数</a>||<a href="#span-out-eqns">式�
 <br>
 <a href="#span-out-bracket">直列scope内</a>の変数はreadonly（pollution disabled）
 <br>
-scopeから直接、local <a href="#span-out-storage">storage</a>をread-writeする場合、<a href="#span-out-FNc">最上位関数</a>参照
+scopeから直接、local <a href="#span-out-storage">storage</a>にwriteする場合、<a href="#span-out-FNc">最上位関数</a>参照
 <br>
 ・test caseを列挙する
 <br>
@@ -2853,7 +2858,7 @@ local buffer
 <br>
 ・演算実行開始　global storage　⇒　local storageに復帰
 <br>
-・演算実行途中　local storageをread/write　⇔　local buffer
+・演算実行途中　local storageのread-write　⇔　local buffer
 <br>
 ・演算実行終了　local storage　⇒　global storageに保存
 <br>
@@ -3556,6 +3561,25 @@ operation関数の役割はinterpreter
 ・Google Chrome Developer Toolsによるcross-platform開発の容易さと、
 <br>
 ・Github Pagesでのonline-test管理の容易さを選択
+    </td>
+  </tr>
+  <tr>
+    <th>
+<a href="#span-index">
+目次
+</a>
+<br>
+実装の特徴
+    </th>
+    <td>
+<span id="span-out-development-additional"></span>
+基本構文のみで最短かつ確実な実装を選択したため、platform以前に最適化の余地がある
+<br>
+・例えば、<a href="#span-out-vars">変数</a>のread-writeは<a href="#span-in-tree">tree構造</a>を複製して参照上の問題を単純に回避する
+<br>
+・<a href="#span-out-eqns">式変数</a>のcall時も同様
+<br>
+・よって<a href="#span-out-FNh-DX">微分の多重化</a>等、<a href="#span-out-FNh">高階関数</a>をnestingする場合、致命的にthroughputが低下する
     </td>
   </tr>
   <tr>
@@ -13355,7 +13379,7 @@ run=&lt;last{
 <br>
 f=&lt;A*(x=&gt;)=b,
 <br>
-mdx=Newton(=&lt;f,=&lt;x,,Nmax=3,Nmax,1e-16,1)
+mdx=Newton(=&lt;f,=&lt;x,,Nmax=20,Nmax,1e-10,1)
 <br>
 },
 </div>
@@ -13391,7 +13415,7 @@ run=&lt;last{
 <br>
 f=&lt;(Ainv=&gt;)*A=identity(sizeA),
 <br>
-mdx=Newton(=&lt;f,=&lt;x,,Nmax=3,Nmax,1e-16,1)
+mdx=Newton(=&lt;f,=&lt;x,,Nmax=20,Nmax,1e-10,1)
 <br>
 },
 </div>
@@ -13427,7 +13451,7 @@ init=&lt;last{_ex(=&lt;x,sizer(x_initial_=&gt;),1)},
 <div class="run">
 run=&lt;last{
 <br>
-mdx=Newton(=&lt;f_,=&lt;x,=&lt;x_initial_,Nmax=6,Nmax,1e-16,1)
+mdx=Newton(=&lt;f_,=&lt;x,=&lt;x_initial_,Nmax=20,Nmax,1e-10,1)
 <br>
 },
 </div>
@@ -13493,7 +13517,7 @@ relative_epsN=(epsN,isRelative_epsN)/*(epsN,flag)*/
 <div class="run">
 run=&lt;last{
 <br>
-args_Newton=(=&lt;f,=&lt;x,=&lt;x_initial,Nmax=10,Nmax,relative_epsN)/*(args)*/,
+args_Newton=(=&lt;f,=&lt;x,=&lt;x_initial,Nmax=20,Nmax,relative_epsN)/*(args)*/,
 <br>
 step_iteration=&lt;mdx=Newton(args_Newton),
 <br>
