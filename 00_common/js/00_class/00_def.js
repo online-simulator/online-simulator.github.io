@@ -132,6 +132,10 @@ My_entry.def.prototype.Number = function(val){
   var _num = (self.isNumber(val))? Number(val): NaN;
   return _num;
 };
+My_entry.def.prototype.limit = function(num, num_min, num_max, num0){
+  var self = this;
+  return (isNaN(num)? num0: Math.min(num_max, Math.max(num_min, num)));
+};
 My_entry.def.prototype.newClone = function(right){
   var self = this;
   var _left = null;
@@ -146,20 +150,16 @@ My_entry.def.prototype.newClone = function(right){
   }
   if(isDeep){
     for(var prop in right){
-      if(right[prop]){  // non-filter
-        // value or reference
-        _left[prop] = self.newClone(right[prop]);
+      if(right[prop]){                             // no filter
+        _left[prop] = self.newClone(right[prop]);  // value || reference
       }
       else{
-        // value
-        _left[prop] = right[prop];
+        _left[prop] = right[prop];                 // value
       }
     }
   }
   else{
-    // value: number/string/boolean
-    // reference: function
-    _left = right;
+    _left = right;                                 // value || reference
   }
   return _left;
 };

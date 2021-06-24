@@ -295,7 +295,7 @@ My_entry.plot2d.prototype.change_scale = function(gxmin, gymin, gxmax, gymax, is
   plot.change_scale(tgxmin, tgymin, tgxmax, tgymax);
   return self;
 };
-My_entry.plot2d.prototype.run = function(arr2d_vec, options, toSVG){
+My_entry.plot2d.prototype.run = function(arr2d_vec, options, toSVG, isFinal){
   var self = this;
   if(self.isLocked) return false;
   self.isLocked = true;
@@ -322,6 +322,7 @@ My_entry.plot2d.prototype.run = function(arr2d_vec, options, toSVG){
   var isImag_y = options["imag-y"];
   var isAxis_x = options["axis-x"];
   var isAxis_y = options["axis-y"];
+  var isAxis_z = options["axis-z"];
   var isLegend = options["legend"];
   var fontSize = options["font-size"];
   var Ni0 = options["grid-x-Ni"];
@@ -356,6 +357,7 @@ My_entry.plot2d.prototype.run = function(arr2d_vec, options, toSVG){
   /* -> 0.6.0 */
   /* 1.0.0 -> */
   var arr_strPath = new Array(len_j);
+  var arr_gradation = new Array(len_j);
   var inputZ = options["input-z"] || "";
   var title = "";
   if(inputZ){
@@ -382,6 +384,9 @@ My_entry.plot2d.prototype.run = function(arr2d_vec, options, toSVG){
     var strSize = null;
     if(legend){
       /* 1.0.0 -> */
+      var gradation = "";
+      legend = def.enter_name(legend, "gradation", false, 0, function(content){gradation = content;});
+      arr_gradation[j] = gradation;
       var strPath = "";
       legend = def.enter_name(legend, "string", false, 0, function(content){strPath = content;});
       arr_strPath[j] = strPath;
@@ -472,7 +477,11 @@ My_entry.plot2d.prototype.run = function(arr2d_vec, options, toSVG){
   label_y = (isLog_y)? "log10("+label_y+")": label_y;
   label_y = (isAxis_y)? label_y: null;
   /* -> 0.5.0 */
+  /* 1.0.0 -> */
+if(isAxis_z){
   _svg += self.grid(options, gxmin, gymin, gxmax, gymax, Ni, Nj, isLog_x, isLog_y, label_x, label_y, fontSize, expDigit, gridLineWidth, gridLineColor, globalCompositeOperation);
+}
+  /* -> 1.0.0 */
   // transform
   var arr2d_tx = new Array(len_n);
   var arr2d_ty = new Array(len_n);
@@ -495,6 +504,33 @@ My_entry.plot2d.prototype.run = function(arr2d_vec, options, toSVG){
       arr2d_tvec[j][n] = {x: x, y: y};
     }
   }
+  // gradation
+  for(var j=0; j<len_j; ++j){
+    var styleRGBA = arr_styleRGBA[j];
+    var gradation = arr_gradation[j];
+    if(gradation){
+      var text = gradation;
+      var config = "";
+      text = def.enter_name(text, "config", false, 2, function(content){config = content;});
+      var records = $.get_records(config, ":", 0, ["x0", "y0", "offsetR", "orderR", "NrandR", "NrandT", "isMin", "isRound", "Nrender", "Ncycle"]);
+      records.x0 = self.trans((isNaN(records.x0))? 0: records.x0, isLog_x);
+      records.y0 = self.trans((isNaN(records.y0))? 0: records.y0, isLog_y);
+      records.offsetR = def.limit(records.offsetR, 0, 1, 0);
+      records.orderR = def.limit(records.orderR, 0, 10, 1);
+      records.NrandR = def.limit(Math.floor(records.NrandR), 0, 255, 0);
+      records.NrandT = def.limit(Math.floor(records.NrandT), 0, 255, 0);
+      records.isMin = def.limit(records.isMin, -10, 10, true);
+      records.isRound = def.limit(records.isRound, -10, 10, true);
+      records.Nrender = def.limit(Math.floor(records.Nrender), 1, 25600, options.N);
+      records.Ncycle = def.limit(Math.floor(records.Ncycle), 0, 127, 0);
+      var colors = (text || styleRGBA).split(":");
+      var hasRand = records.NrandR || records.NrandT;
+      if(!(hasRand) || (hasRand && isFinal)){
+        _svg += plot.gradation(colors, arr2d_tvec[j], globalCompositeOperation, records);
+      }
+    }
+  }
+if(isAxis_z){
   // plot lines
   for(var j=0; j<len_j; ++j){
     var styleRGBA = arr_styleRGBA[j];
@@ -502,7 +538,6 @@ My_entry.plot2d.prototype.run = function(arr2d_vec, options, toSVG){
     var fillPath = arr_fillPath[j];
     _svg += plot.lines(arr2d_tvec[j], plotLineWidth, styleRGBA, globalCompositeOperation, fillPath);
   }
-  /* -> 1.0.0 */
   // plot markers
   for(var j=0; j<len_j; ++j){
     var markerType = arr_markerType[j];
@@ -569,7 +604,7 @@ My_entry.plot2d.prototype.run = function(arr2d_vec, options, toSVG){
     }
   }
   /* -> 0.6.0 */
-  /* 1.0.0 -> */
+}
   // string with SVG-path
   for(var j=0; j<len_j; ++j){
     var styleRGBA = arr_styleRGBA[j];
@@ -591,7 +626,7 @@ My_entry.plot2d.prototype.run = function(arr2d_vec, options, toSVG){
 My_entry.plot2d.prototype.final = function(arr2d_vec, options, toSVG){
   var self = this;
   var all =  self.objs.all;
-  var _svg = self.run(arr2d_vec, options, toSVG);
+  var _svg = self.run(arr2d_vec, options, toSVG, true);
   if(!(toSVG)){
     var base64_bg = self.base64_bg || self.objs.background.getBase64();
     var arr_base64_grid_plot = [self.objs.grid.getBase64(), self.objs.plot.getBase64()];

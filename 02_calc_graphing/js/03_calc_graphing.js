@@ -911,6 +911,7 @@ My_entry.calc_graphing.prototype.init_handlers = function(){
       case "select-legend-kx":
       case "select-legend-ky":
       case "checkbox-legend":
+      case "checkbox-axis-z":
         self.isCheckedError = false;  // Ver.2.33.17
         self.re_plot(true);
         break;

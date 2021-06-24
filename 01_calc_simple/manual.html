@@ -177,6 +177,51 @@ Simple Calculator
 Graphing Calculator
 </a>
 <br>
+　　・
+<a href="#span-out-UI-graphing-color">
+color入力仕様
+</a>
+<br>
+　　・
+<a href="#span-out-UI-graphing-z">
+z入力仕様
+</a>
+<br>
+　　　・
+<a href="#span-out-UI-graphing-legend">
+legend-dataset
+</a>
+<br>
+　　　・
+<a href="#span-out-UI-graphing-title">
+graph-title特定項目仕様
+</a>
+<br>
+　　　・
+<a href="#span-out-UI-graphing-string-path">
+string-path特定項目仕様
+</a>
+<br>
+　　　・
+<a href="#span-out-UI-graphing-gradation">
+gradation特定項目仕様
+</a>
+<br>
+　　・
+<a href="#span-out-UI-graphing-layer">
+plot-layer描画順
+</a>
+<br>
+　　・
+<a href="#span-out-UI-graphing-config">
+plot-config
+</a>
+<br>
+　　・
+<a href="#span-out-UI-graphing-list">
+strict-mode equation-list
+</a>
+<br>
 ・
 <a href="#span-out-log">
 log表示仕様
@@ -760,8 +805,10 @@ FourierN
     </th>
     <td>
 <span id="span-pre-out"></span>
-外部仕様の前提を列挙する
+外部仕様の前提について記述する
 <br>
+<br>
+説明上の前提を列挙する
 <br>
 ・論理記号||は、ORを意味する
 <br>
@@ -789,7 +836,9 @@ FourierN
 内部仕様の前提について記述する
 <br>
 <br>
-eval()不使用Non-use of JavaScript's eval()
+任意scriptを実行可能なeval()不使用
+<br>
+Non-use of JavaScript's eval()
 <br>
 <br>
 Calculator用途に特化した実装項目とfile名の対応関係を列挙する
@@ -1037,10 +1086,77 @@ panel上段について記述する
 <br>
 　・y(t)のplot範囲外grid最小値~最大値を入力
 <br>
+・<span class="run">Ver.2.36.18</span>以降、z-checkboxは<a href="#span-out-UI-graphing-title">graph-title</a>等特定項目以外の表示を選択
+<br>
+<br>
+panel中段について記述する
+<br>
+・C-input-buttonは入力欄のtextを消去する
+<br>
+・list-vars-buttonはglobal変数の変数名listをlog出力欄に表示する
+<br>
+・list-eqns-buttonはglobal式変数の変数名listをlog出力欄に表示する
+<br>
+・plot2d(,)-buttonは入力欄の選択位置にplot2d(,)のtextを挿入する
+<br>
+・&lt;&lt;-buttonは入力欄の選択位置を最初に移動する
+<br>
+・&lt;-buttonは入力欄の選択位置を1字前に移動する
+<br>
+・&gt;-buttonは入力欄の選択位置を1字後に移動する
+<br>
+・&gt;&gt;-buttonは入力欄の選択位置を最後に移動する
+<br>
+・=-buttonは入力欄の内容で演算実行を確定する
+<br>
+・C-buttonは入力欄&amp;log出力欄の内容とglobal <a href="#span-out-storage">storage</a>のClear実行を確定する
+<br>
+　Multi-thread実行の場合、演算を中断する
+<br>
+・BS-buttonは入力欄の選択位置の1字前を消去する
+<br>
+・DEL-buttonは入力欄の選択位置の1字後を消去する
+<br>
+・i-buttonは入力欄の選択位置に<a href="#span-out-com">虚数単位</a>iのtextを挿入する
+<br>
+・()-buttonは入力欄の選択位置に丸括弧()のtextを挿入する
+<br>
+・{}-buttonは入力欄の選択位置に波括弧{}のtextを挿入する
+<br>
+・ans-buttonは入力欄の選択位置に<a href="#span-out-ans">予約変数</a>ansのtextを挿入する
+<br>
+<br>
+Multi-thread実行の場合、plot-buttonと=-buttonは並列に実行可
+<br>
+・shared storage checked時、global <a href="#span-out-storage">storage</a>を共有
+<br>
+・plot-buttonによる演算はglobal storage readonly
+<br>
+<br>
+panel下段は<a href="#span-out-UI-simple">Simple Calculator UI</a>参照
+    </td>
+  </tr>
+  <tr>
+    <th>
+<a href="#span-index">
+目次
+</a>
+<br>
+color
+<br>
+入力仕様
+    </th>
+    <td>
+<span id="span-out-UI-graphing-color"></span>
+color入力仕様について記述する
+<br>
 <br>
 HTML5/CSS3準拠のcolor入力方法を次に示す
 <br>
-・color名||HEX表記RGB||RGBA||rgb(r,g,b=0~255)||rgba(r,g,b,不透明度a=0~1)
+color名||HEX表記RGB||RGBA||rgb(r,g,b=0~255)||rgba(r,g,b,不透明度a=0~1)
+<br>
+<br>
+color入力の一例を示す
 <br>
 ・black入力の場合
 <br>
@@ -1054,105 +1170,358 @@ red||#f00||#f00f||#ff0000||#ff0000ff||rgb(255,0,0)||rgba(255,0,0,1)
 <br>
 #00f5||#0000ff55||rgba(0,0,255,0.333333333333333)
 <br>
+・rainbowのdataset入力の場合
 <br>
-z入力欄について記述する
+violet:indigo:blue:green:yellow:orange:red
 <br>
-<span class="run">Ver.2.35.18</span>以降、graph-title/legend-string/string-pathのwhite space enabled
+#ee82ee:#4b0082:#0000ff:#00ff00:#ffff00:#ffa500:#ff0000
 <br>
-・legend-datasetをsemi-colon;区切りで入力
+#ee82eecc:#4b0082cc:#0000ffcc:#00ff00cc:#ffff00cc:#ffa500cc:#ff0000cc
+    </td>
+  </tr>
+  <tr>
+    <th>
+<a href="#span-index">
+目次
+</a>
 <br>
-　・空欄で既定の描画
+z入力仕様
+    </th>
+    <td>
+<span id="span-out-UI-graphing-z"></span>
+z入力欄の入力仕様について記述する
 <br>
-　・legend-datasetは設定値をcolon:区切りで入力
+<br>
+<a href="#span-out-UI-graphing-legend">legend-dataset</a>をsemi-colon;区切りで入力
+<br>
+・空欄で既定の描画
+<br>
+・datasetは設定値をcolon:区切りで入力
 <br>
 markerType:markerColor:markerSize:markerLineWidth:plotLineWidth:fillPath:
 <br>
 str:strFontSize
 <br>
-　・markerTypeはnone||circle||triangle||triangle2||square||diamond||cross
 <br>
-　・markerColorはmarker-colorの入力値
+<span class="run">Ver.2.34.18</span>以降、<a href="#span-out-UI-graphing-title">graph-title</a>をtitle||TITLE{graph-title}で入力
 <br>
-　・markerSizeはmarkerTypeの目安size
+・任意位置に挿入可
 <br>
-　・markerLineWidthはmarker-line-widthのpx数値
 <br>
-　・plotLineWidthはplot-line-widthのpx数値
+<span class="run">Ver.2.34.18</span>以降、<a href="#span-out-UI-graphing-string-path">string-path</a>をstring||STRING{config[]string-path}で入力
 <br>
-　・fillPathは0以外を指定でplot線を閉じてfill
+・各<a href="#span-out-UI-graphing-legend">legend-dataset</a>の任意位置に挿入可
 <br>
-　・strはlegend-string
+・config[]省略時、<a href="#span-out-UI-graphing-legend">legend-dataset</a>の設定値を使用
 <br>
-　・strFontSizeはlegend-stringのfont-sizeのpx数値
-<br>
-　・字句解析の都合上、legend-stringのsemi-colon; disabled
-<br>
-・<span class="run">Ver.2.34.18</span>以降、z入力欄にgraph-titleをtitle||TITLE{graph-title}で入力
-<br>
-　・入力欄の任意位置に挿入可
-<br>
-・<span class="run">Ver.2.34.18</span>以降、z入力欄にstring-pathをstring||STRING{config[]string-path}で入力
-<br>
-　・入力欄のlegend-dataset任意位置に挿入可
-<br>
-　・config[]省略時、legend-datasetの設定値を使用
-<br>
-　・config[]内datasetは設定値をcolon:区切りで入力
+・config[]内datasetは設定値をcolon:区切りで入力
 <br>
 fontFamily:fontSize:isBold:isItalic:isReverse:
 <br>
 fillStyle:strokeStyle:fillStr:spacingX:spacingY:
 <br>
-offsetX:offsetY:blur
+shadowOffsetX:shadowOffsetY:shadowBlur
 <br>
-　・fontFamilyはfont-family名（<span class="run">Ver.2.35.18</span>以降、white space付family名に対応）
 <br>
-　・fontSizeはstring-pathのfont-sizeのpx数値
+<span class="run">Ver.2.35.18</span>以降、<a href="#span-out-UI-graphing-title">graph-title</a>/<a href="#span-out-UI-graphing-legend">legend-string</a>/<a href="#span-out-UI-graphing-string-path">string-path</a>のwhite space enabled
 <br>
-　・isBold=0||white space以外でbold typeを使用
 <br>
-　・isItalic=0||white space以外でitalic typeを使用
+<span class="run">Ver.2.36.18</span>以降、<a href="#span-out-UI-graphing-gradation">gradation</a>をgradation||GRADATION{config[]colors}で入力
 <br>
-　・isReverse=0||white spaceで始点から順送り・それ以外は終点から順送り
+・各<a href="#span-out-UI-graphing-legend">legend-dataset</a>の任意位置に挿入可
 <br>
-　・fillStyleはfill-style
+・config[]省略時、<a href="#span-out-UI-graphing-legend">legend-dataset</a>の設定値を使用
 <br>
-　・strokeStyleはstroke-style
+・config[]内datasetは設定値をcolon:区切りで入力
 <br>
-　・fillStr=falseでstrokeのみ・fillStr=trueでfillのみ・それ以外はstroke&amp;fill
+originX:originY:offsetR:orderR:NrandR:NrandT:isMin:isRound:Nrender:Ncycle
+    </td>
+  </tr>
+  <tr>
+    <th>
+<a href="#span-index">
+目次
+</a>
 <br>
-　・spacingXは文字送り空白部分のpx数値
+legend
 <br>
-　・spacingYは高さ方向空白部分のpx数値
+-dataset
+    </th>
+    <td>
+<span id="span-out-UI-graphing-legend"></span>
+legend-datasetについて記述する
 <br>
-　・blur&gt;0でshadow有効（png/svg出力の互換性なし）
 <br>
-　　・shadowColorはfillStr=falseでstrokeStyle・fillStr=trueでfillStyle
+<a href="#span-out-UI-graphing-z">z入力欄</a>にlegend-datasetをsemi-colon;区切りで入力
 <br>
-　　・それ以外はfillStr=0~255を比例係数とするstrokeStyleとfillStyleのRGBA値の線形補間
+・datasetは設定値をcolon:区切りで入力
 <br>
-　　・R値の一例を次に示す
+markerType:markerColor:markerSize:markerLineWidth:plotLineWidth:fillPath:
+<br>
+str:strFontSize
+<br>
+・markerTypeはnone||circle||triangle||triangle2||square||diamond||cross
+<br>
+・markerColorはmarker-colorの入力値
+<br>
+・markerSizeはmarkerTypeの目安size
+<br>
+・markerLineWidthはmarker-line-widthのpx数値
+<br>
+・plotLineWidthはplot-line-widthのpx数値
+<br>
+・fillPathは0以外を指定でplot線を閉じてfill
+<br>
+・strはlegend-string
+<br>
+・strFontSizeはlegend-stringのfont-sizeのpx数値
+<br>
+・字句解析の都合上、legend-stringのsemi-colon; disabled
+    </td>
+  </tr>
+  <tr>
+    <th>
+<a href="#span-index">
+目次
+</a>
+<br>
+graph-title
+<br>
+特定項目仕様
+    </th>
+    <td>
+<span id="span-out-UI-graphing-title"></span>
+graph-title特定項目仕様について記述する
+<br>
+<br>
+<a href="#span-out-UI-graphing-z">z入力欄</a>にtitle||TITLE{graph-title}で入力
+<br>
+・任意位置に挿入可
+    </td>
+  </tr>
+  <tr>
+    <th>
+<a href="#span-index">
+目次
+</a>
+<br>
+string-path
+<br>
+特定項目仕様
+    </th>
+    <td>
+<span id="span-out-UI-graphing-string-path"></span>
+string-path特定項目仕様について記述する
+<br>
+<br>
+<a href="#span-out-UI-graphing-z">z入力欄</a>にstring-pathをstring||STRING{config[]string-path}で入力
+<br>
+・各<a href="#span-out-UI-graphing-legend">legend-dataset</a>の任意位置に挿入可
+<br>
+・config[]省略時、<a href="#span-out-UI-graphing-legend">legend-dataset</a>の設定値を使用
+<br>
+・config[]内datasetは設定値をcolon:区切りで入力
+<br>
+fontFamily:fontSize:isBold:isItalic:isReverse:
+<br>
+fillStyle:strokeStyle:fillStr:spacingX:spacingY:
+<br>
+shadowOffsetX:shadowOffsetY:shadowBlur
+<br>
+・fontFamilyはfont-family名（<span class="run">Ver.2.35.18</span>以降、white space付family名に対応）
+<br>
+・fontSizeはstring-pathのfont-sizeのpx数値
+<br>
+・isBold=0||white space以外でbold typeを使用
+<br>
+・isItalic=0||white space以外でitalic typeを使用
+<br>
+・isReverse=0||white spaceで始点から順送り・それ以外は終点から順送り
+<br>
+・fillStyleはfill-style
+<br>
+・strokeStyleはstroke-style
+<br>
+・fillStr=falseでstrokeのみ・fillStr=trueでfillのみ・それ以外はstroke&amp;fill
+<br>
+・spacingXは文字送り空白部分のpx数値
+<br>
+・spacingYは高さ方向空白部分のpx数値
+<br>
+・shadowBlur&gt;0でshadow有効（png/svg出力の互換性なし）
+<br>
+・shadowColorはfillStr=falseでstrokeStyle・fillStr=trueでfillStyle
+<br>
+・それ以外はfillStr=0~255を比例係数とするstrokeStyleとfillStyleのRGBA値の線形補間
+<br>
+・R値の一例を次に示す
 <br>
 shadowColor.r = strokeStyle.r+(fillStyle.r-strokeStyle.r)*Math.min(1, Math.abs(fillStr)/255)
 <br>
-　　・shadowOffsetX=offsetX
+・shadowOffsetXはshadowのx方向offsetのpx数値
 <br>
-　　・shadowOffsetY=offsetY
+・shadowOffsetYはshadowのy方向offsetのpx数値
 <br>
-　　・shadowBlur=blur
+・shadowBlurはshadowの偏差
 <br>
-　・character毎にsvg出力の度数degをpng出力の弧度数radに変換して互換性を確保
+・character毎にsvg出力の度数degをpng出力の弧度数radに変換して互換性を確保
 <br>
-　・以上の座標変換はcharacterのbottom-left基準
+・以上の座標変換はcharacterのbottom-left基準
 <br>
-　・字句解析の都合上、string-pathのsemi-colon; disabled
+・字句解析の都合上、string-pathのsemi-colon; disabled
 <br>
-　・仕様上、string-pathの4Bytes character disabled
+・仕様上、string-pathの4Bytes character disabled
 <br>
-　・svg出力のみ4Bytes characterを含む特殊文字等、直接file編集可（group化済み）
+・svg出力のみ4Bytes characterを含む特殊文字等、直接file編集可（group化済み）
+    </td>
+  </tr>
+  <tr>
+    <th>
+<a href="#span-index">
+目次
+</a>
+<br>
+gradation
+<br>
+特定項目仕様
+    </th>
+    <td>
+<span id="span-out-UI-graphing-gradation"></span>
+gradation特定項目仕様と付随する留意事項について記述する
 <br>
 <br>
+<a href="#span-out-UI-graphing-z">z入力欄</a>に<a href="#span-out-UI-graphing-gradation">gradation</a>をgradation||GRADATION{config[]colors}で入力
+<br>
+・各<a href="#span-out-UI-graphing-legend">legend-dataset</a>の任意位置に挿入可
+<br>
+・config[]省略時、<a href="#span-out-UI-graphing-legend">legend-dataset</a>の設定値を使用
+<br>
+・config[]内datasetは設定値をcolon:区切りで入力
+<br>
+originX:originY:offsetR:<span class="clear">orderR:NrandR:NrandT:isMin:isRound:Nrender</span>:Ncycle
+<br>
+・svg出力は<span class="clear">orderR:NrandR:NrandT:isMin:isRound:Nrender</span> disabled
+<br>
+・originXはplot座標系x方向のgradation起点
+<br>
+・originYはplot座標系y方向のgradation起点
+<br>
+・offsetR=0~1はgradation代表長さのoffset係数
+<br>
+　offsetR=0の場合、最外周を除く内周にgradationの周期境界条件を課す
+<br>
+・orderR=0~10は半径方向の補間次数
+<br>
+　orderR=0の場合、svg出力相当のuniform
+<br>
+　orderR=1の場合、既定の線形補間
+<br>
+・NrandR=0~255はgradation代表長さの乱数
+<br>
+・NrandT=0~255はgradation分布の乱数
+<br>
+・isMin=false||true||&lt;0(auto)はgradation代表長さの一意な決め方を指定する
+<br>
+　falseの場合、各半径方向の最大値を保持
+<br>
+　trueの場合、各半径方向の最小値を保持
+<br>
+　負の場合、成行きで保持
+<br>
+・isRound=false||trueはplot点の存在しない領域の補間方法を指定する
+<br>
+　falseの場合、plot座標系で線形補間
+<br>
+　trueの場合、gradation起点からplot点までの長さ空間で線形補間
+<br>
+・Nrender=1~25600は周方向のrendering分割数
+<br>
+・Ncycle=0~127は半径方向のrendering周期数
+<br>
+<br>
+algorithmが異なるため、png/svg出力の互換性なし
+<br>
+<br>
+svg出力の特徴を列挙する
+<br>
+・plot点に比例係数を演算してgradationを作るため、意図に近い結果が得られる
+<br>
+・legend間のgradation合成可（source-over）
+<br>
+・乱数使用不可
+<br>
+<br>
+png出力の特徴を列挙する
+<br>
+・rendering方式でRGBA値を補間するため、gradationの精度が高い
+<br>
+・isMin設定値によってcyclic star||spiral等、意図した結果が得られるとは限らない
+<br>
+・legend間のgradation合成不可（合成する場合、複数回の分割出力が必要）
+<br>
+・乱数使用可
+<br>
+<br>
+形状精度||gradation精度に関係する設定項目を列挙する
+<br>
+・媒介変数tの範囲等分割数N
+<br>
+・周方向のrendering分割数Nrender
+<br>
+・png||svg出力桁数
+<br>
+<br>
+留意事項を列挙する
+<br>
+・上記精度を上げ過ぎると、svg出力のfile sizeやpost処理の負荷が増大する
+<br>
+・乱数設定時、flickering防止のため、plot終了まで逐次描画しない
+    </td>
+  </tr>
+  <tr>
+    <th>
+<a href="#span-index">
+目次
+</a>
+<br>
+plot-layer
+<br>
+描画順
+    </th>
+    <td>
+<span id="span-out-UI-graphing-layer"></span>
+plot-layer描画順について記述する
+<br>
+<br>
+plot-layerに描画する項目を描画順に列挙する
+<br>
+・<a href="#span-out-UI-graphing-title">graph-title</a>
+<br>
+・<a href="#span-out-UI-graphing-gradation">gradation</a>
+<br>
+・plot-lines
+<br>
+・plot-markers
+<br>
+・legends
+<br>
+・<a href="#span-out-UI-graphing-string-path">string-path</a>
+    </td>
+  </tr>
+  <tr>
+    <th>
+<a href="#span-index">
+目次
+</a>
+<br>
+plot-config
+    </th>
+    <td>
+<span id="span-out-UI-graphing-config"></span>
 plot-configについて記述する
+<br>
+<br>
+plot-configの設定項目を列挙する
 <br>
 ・描画canvas-sizeのcanvas-width||canvas-heightを選択可
 <br>
@@ -1200,61 +1569,28 @@ plot-configについて記述する
 <br>
 　background &lt;- grid &lt;- plotの順に背景にRGBA値を合成して出力
 <br>
-<del>・title入力欄にgraph-titleを入力可</del><span class="run">Ver.2.34.18</span>以降、z入力欄に統合
+<del>・title入力欄にgraph-titleを入力可</del><span class="run">Ver.2.34.18</span>以降、<a href="#span-out-UI-graphing-z">z入力欄</a>に統合
+    </td>
+  </tr>
+  <tr>
+    <th>
+<a href="#span-index">
+目次
+</a>
 <br>
+strict-mode
 <br>
-panel中段について記述する
-<br>
-・C-input-buttonは入力欄のtextを消去する
-<br>
-・list-vars-buttonはglobal変数の変数名listをlog出力欄に表示する
-<br>
-・list-eqns-buttonはglobal式変数の変数名listをlog出力欄に表示する
-<br>
-・plot2d(,)-buttonは入力欄の選択位置にplot2d(,)のtextを挿入する
-<br>
-・&lt;&lt;-buttonは入力欄の選択位置を最初に移動する
-<br>
-・&lt;-buttonは入力欄の選択位置を1字前に移動する
-<br>
-・&gt;-buttonは入力欄の選択位置を1字後に移動する
-<br>
-・&gt;&gt;-buttonは入力欄の選択位置を最後に移動する
-<br>
-・=-buttonは入力欄の内容で演算実行を確定する
-<br>
-・C-buttonは入力欄&amp;log出力欄の内容とglobal <a href="#span-out-storage">storage</a>のClear実行を確定する
-<br>
-　Multi-thread実行の場合、演算を中断する
-<br>
-・BS-buttonは入力欄の選択位置の1字前を消去する
-<br>
-・DEL-buttonは入力欄の選択位置の1字後を消去する
-<br>
-・i-buttonは入力欄の選択位置に<a href="#span-out-com">虚数単位</a>iのtextを挿入する
-<br>
-・()-buttonは入力欄の選択位置に丸括弧()のtextを挿入する
-<br>
-・{}-buttonは入力欄の選択位置に波括弧{}のtextを挿入する
-<br>
-・ans-buttonは入力欄の選択位置に<a href="#span-out-ans">予約変数</a>ansのtextを挿入する
-<br>
-<br>
+equation-list
+    </th>
+    <td>
+<span id="span-out-UI-graphing-list"></span>
 strict-mode equation-listについて記述する
 <br>
-・各buttonは入力欄の選択位置に<a href="#span-out-config-strict">strict-mode</a>で記述した<a href="#span-out-eqns">式変数</a>を挿入する
+<br>
+各buttonはtext入力欄の選択位置に<a href="#span-out-config-strict">strict-mode</a>で記述した<a href="#span-out-eqns">式変数</a>を挿入する
+<br>
 <br>
 詳細は<a href="#span-eqn">strict-mode式変数list</a>参照
-<br>
-<br>
-Multi-thread実行の場合、plot-buttonと=-buttonは並列に実行可
-<br>
-・shared storage checked時、global <a href="#span-out-storage">storage</a>を共有
-<br>
-・plot-buttonによる演算はglobal storage readonly
-<br>
-<br>
-panel下段は<a href="#span-out-UI-simple">Simple Calculator UI</a>参照
     </td>
   </tr>
   <tr>
@@ -1984,11 +2320,11 @@ ans&lt;&lt;3  <span class="selection">// 11111000</span> -> 248
 数値解の数値誤差について記述する
 <br>
 <br>
-Computer Algebra Systemで解析的に真値||厳密解||解析解を得られない場合
+Computer Algebra Systemで解析的に真値||厳密解||解析解が得られない場合
 <br>
 ・数値誤差を許容した数値解を得る（例えば、微分・積分）
 <br>
-・<a href="#span-out-application">application</a>の数値解の<a href="#span-out-ope">演算速度</a>を優先するため、Computer Algebra System未実装
+・<a href="#span-out-application">application</a>の数値解のthroughputを優先するため、Computer Algebra System未実装
 <br>
 ・よって解析解が得られるcaseも数値誤差を許容する
 <br>
@@ -3575,9 +3911,9 @@ operation関数の役割はinterpreter
 <span id="span-out-development-additional"></span>
 基本構文のみで最短かつ確実な実装を選択したため、platform以前に最適化の余地がある
 <br>
-・例えば、<a href="#span-out-vars">変数</a>のread-writeは<a href="#span-in-tree">tree構造</a>を複製して参照上の問題を単純に回避する
+・例えば、<a href="#span-out-vars">変数</a>のread-writeは<a href="#span-in-tree">tree構造</a>を複製して参照上の副作用を単純に回避する
 <br>
-・<a href="#span-out-eqns">式変数</a>のcall時も同様
+・<a href="#span-out-eqns">式変数</a>のread-write||call時も同様
 <br>
 ・よって<a href="#span-out-FNh-DX">微分の多重化</a>等、<a href="#span-out-FNh">高階関数</a>をnestingする場合、致命的にthroughputが低下する
     </td>
@@ -3687,7 +4023,7 @@ svg出力機能について記述する
 <br>
 ・canvas描画処理の継承互換性のため、group化等による最適化はしない
 <br>
-・z入力欄から入力不可のsemi-colon;等の特殊文字を直接file編集可
+・<a href="#span-out-UI-graphing-z">z入力欄</a>から入力不可のsemi-colon;等の特殊文字を直接file編集可
 <br>
 ・その他、font-family等も直接file編集可
 <br>
@@ -8307,7 +8643,7 @@ _dx(=&lt;{_dx(=&lt;f)})
 <br>
 ・2階微分を4次精度1階微分で厳密に多重化する場合、4次精度以下
 <br>
-_dx(=&lt;{_dx(=&lt;f,1,x,dx)},1,x,2dx)
+_dx(=&lt;{_dx(=&lt;f,1,x,1dx)},1,x,2dx)
 <br>
 -> -39.99999999980588+39.99999999944028i+O(3e-10+2e-11i)
 <br>
@@ -11967,11 +12303,11 @@ RA選択時　+3-5+7-9 || (0+(3-(5+(7-9)))) -> 0
 <br>
 ・よって実用しないが、符号が連続する場合、RA選択時のみ演算可
 <br>
-LA既定時　--(1,i) || (-)-(1,i) -> Invalid binary operation
+LA既定時　--(1,i) || (-)-(1,i) -> [MyErr]Invalid binary operation
 <br>
 RA選択時　--(1,i) || (,)-((,)-(1,i)) || (-1)((-1)(1,i)) -> (1,i)
 <br>
-LA既定時　---(1,i) || ((-)-)-(1,i) -> Invalid binary operation
+LA既定時　---(1,i) || ((-)-)-(1,i) -> [MyErr]Invalid binary operation
 <br>
 RA選択時　---(1,i) || (,)-((,)-((,)-(1,i))) || (-1)((-1)((-1)(1,i))) -> (-1,-i)
 <br>

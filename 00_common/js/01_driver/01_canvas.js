@@ -205,6 +205,10 @@ My_entry.canvas.prototype.textpath = function(text, arr_vec, opt_fontSize, opt_s
   var self = this;
   return self.draw.textpath(text, self.arr_vec2arr_vecp(arr_vec), opt_globalCompositeOperation, j, records.fontFamily, records.fontSize || opt_fontSize, records.isBold, records.isItalic, records.isReverse, records.styleRGBA_bg || opt_styleRGBA, records.styleRGBA_fg || opt_styleRGBA, records.fillStr, records.spacingX, records.spacingY, records.offsetX, records.offsetY, records.blur);
 };
+My_entry.canvas.prototype.gradation = function(colors, arr_vec, opt_globalCompositeOperation, records){
+  var self = this;
+  return self.draw.gradation(self.getID(), colors, self.arr_vec2arr_vecp(arr_vec), opt_globalCompositeOperation, {x: self.x2xp(records.x0), y: self.y2myp(records.y0)}, records.offsetR, records.orderR, records.NrandR, records.NrandT, records.isMin, records.isRound, records.Nrender, records.Ncycle);
+};
 /* -> 1.0.0 */
 /* 0.5.0 -> */
 My_entry.canvas.prototype.text = function(text, x0, y0, opt_fontSize, opt_styleRGBA, opt_globalCompositeOperation){

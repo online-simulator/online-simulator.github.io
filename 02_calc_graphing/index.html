@@ -111,6 +111,8 @@
       $._id("range").onclick = function(){setVal("0", "2pi", "ft=<e^(i(t)),ft;xmin=-2(1+i),xmax=3(1+i),xmin;xmax;", "_dt(=<-ft);ymin=-3(1+i),ymax=2(1+i),ymin;ymax;", 50);$._id("input-z").value=":yellow;:#0000/*#00000000*/:0:0:0;";};
       $._id("title").onclick = function(){setVal("0", "2pi", "f(t)=<e^(i(t)),f(t);xmin=-3(1+i),xmax=3(1+i),xmin;xmax;", "_dt(=<-f(t));ymin=-3(1+i),ymax=3(1+i),ymin;ymax;", 50);$._id("input-z").value="TITLE{graph title}/*title{}*/diamond;";};
       $._id("string").onclick = function(){setVal("-pi/7/*offset*/", "-pi/7+2pi", "zt(N,kr,rot/*rotation*/)=<(star(t,N,0,kr)+star(t,N,1,kr)i)e^(i(rot)),zt1=zt(5,0.5,-pi/8),zt2=zt(7,0.9,pi/4)2,zt3=zt(13,1,-pi/7)2.3,real(zt1);real(zt2);real(zt3);", "imag(zt1);imag(zt2);imag(zt3);", 70);$._id("input-z").value="none/*marker*/STRING{config[Times New Roman/*font-family*/:22/*font-size*/:0/*bold*/:0/*italic*/:0/*reverse*/:pink/*fill*/:red/*stroke*/:0/*fillStr=false(stroke)||true(fill)||0~255(stroke&fill)->shadowColor=stroke(0)~fill(255)*/:3/*spacingX*/:0/*spacingY*/:0/*shadowOffsetX*/:0/*shadowOffsetY*/:10/*shadowBlur*/]abcdefghijklmnopqrstuvwxyz0123456789};STRING{config[cursive:34:1:1:1:#ffffff99:#99999999:2:3:10:3:3:3]abcdefghijklmnopqrstuvwxyz0123456789};STRING{abcdefghijklmnopqrstuvwxyz   0123456789};";};
+      $._id("gradation1").onclick = function(){setVal("-pi/7/*offset*/", "-pi/7+2pi", "zt(N,kr,rot/*rotation*/)=<(star(t,N,0,kr)+star(t,N,1,kr)i)e^(i(rot)),zt1=zt(5,0.5,-pi/8),zt2=zt(7,0.9,pi/4)2,zt3=zt(13,1,-pi/7)2.3,real(zt1);real(zt3);", "imag(zt1);imag(zt3);", 70);$._id("input-z").value="none/*marker*/GRADATION{config[0/*originX*/:0/*originY*/:0/*offsetR=0~1*/:1/*orderR=0(uniform)~10*/:0/*NrandR=0~255*/:0/*NrandT=0~255*/:false/*isMin=false||true||<0(auto)*/:false/*isRound=false||true*/:2560/*Nrender=1~25600*/:2/*Ncycle=0~127*/]violet:indigo:blue:green:yellow:orange:red};GRADATION{config[0:0:0.5:1:0:0:false:false:2560:3]#ee82ee55:#4b0082aa:#0000ffaa:#00ff00aa:#ffff00aa:#ffa500aa:#ff000055}STRING{config[cursive:34:1:1:1:#ffffff99:#99999999:2:3:20:3:3:3]abcdefghijklmnopqrstuvwxyz0123456789};GRADATION{config[0:0:0:1:0:0:false:false:2560:0]};";};
+      $._id("gradation2").onclick = function(){setVal("0", "1", "0.1;1;/*plotted only final frame in the case of using png's rand()*/", "t;", 70);$._id("input-z").value="none/*marker*/GRADATION{config[0:0.5:0:1:150:20:false:false:2560:10]#ee82eecc:#4b0082cc:#0000ffcc:#00ff00cc:#ffff00cc:#ffa500cc:#ff0000cc};";};
       // strict-mode equation-list
       /* out=text.replace(/\s/g,"\n"); */
 //      $._id("").onclick = function(){io["onclick_default"](elems, "", 0);};
@@ -239,6 +241,9 @@ plot2d
   <button id="title">graph title</button>
 <br>
   <button id="string">string-path</button>
+  <button id="gradation1">gradation1</button>
+<br>
+  <button id="gradation2">gradation2</button>
 <hr>
 </div>
 <hr>
@@ -280,25 +285,72 @@ plot2d
   <option>8</option>
   <option>9</option>
   <option selected="selected">10</option>
+  <option>11</option>
+  <option>12</option>
+  <option>13</option>
+  <option>14</option>
+  <option>15</option>
+  <option>16</option>
+  <option>17</option>
+  <option>18</option>
+  <option>19</option>
   <option>20</option>
+  <option>21</option>
+  <option>22</option>
+  <option>23</option>
+  <option>24</option>
+  <option>25</option>
+  <option>26</option>
+  <option>27</option>
+  <option>28</option>
+  <option>29</option>
   <option>30</option>
+  <option>32</option>
   <option>40</option>
   <option>50</option>
   <option>60</option>
+  <option>64</option>
   <option>70</option>
   <option>80</option>
   <option>90</option>
   <option>100</option>
+  <option>110</option>
   <option>120</option>
+  <option>128</option>
+  <option>130</option>
   <option>140</option>
+  <option>150</option>
   <option>160</option>
+  <option>170</option>
   <option>180</option>
+  <option>190</option>
   <option>200</option>
+  <option>210</option>
+  <option>220</option>
+  <option>230</option>
+  <option>240</option>
   <option>250</option>
+  <option>256</option>
+  <option>260</option>
+  <option>270</option>
+  <option>280</option>
+  <option>290</option>
   <option>300</option>
+  <option>320</option>
   <option>400</option>
+  <option>480</option>
   <option>500</option>
+  <option>512</option>
+  <option>560</option>
+  <option>600</option>
+  <option>640</option>
+  <option>700</option>
+  <option>720</option>
   <option>750</option>
+  <option>800</option>
+  <option>880</option>
+  <option>900</option>
+  <option>960</option>
   <option>1000</option>
 </select>
   </label>
@@ -348,7 +400,9 @@ plot2d
       </tr>
       <tr>
         <td>
-z:
+  <label>z:
+<input id="checkbox-axis-z" type="checkbox" checked="checked">
+  </label>
         </td>
         <td colspan="2">
 <input id="input-z">

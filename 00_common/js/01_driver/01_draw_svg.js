@@ -167,6 +167,59 @@ My_entry.draw_svg.prototype.textpath = function(text, arr_vec, opt_globalComposi
   Array.prototype.push.apply(arguments, [true]);
   return self.textpath_sw.apply(self, arguments);
 };
+My_entry.draw_svg.prototype.gradation = function(ID, colors, arr_vec, opt_globalCompositeOperation, vec0, offsetR, orderR, NrandR, NrandT, isMin, isRound, Nrender, Ncycle){
+  var self = this;
+  var _svg = "";
+  var ctx = self.ctx;
+  var px_w = ctx.canvas.width;
+  var px_h = ctx.canvas.height;
+  var len_n = arr_vec.length;
+  var x0 = vec0.x;
+  var y0 = vec0.y;
+  var Ncolor = colors.length;
+  var arr_style = [];
+  colors.forEach(function(color, i){
+    arr_style[i] = self.rgba2style(self.color2rgba(color));
+  });
+  var lerp_arr_vec = function(k){
+    var _arr_vec = [];
+    for(var n=0; n<len_n; ++n){
+      var vecn = arr_vec[n];
+      var x = vecn.x;
+      var y = vecn.y;
+      _arr_vec[n] = {x: x0+(x-x0)*k, y: y0+(y-y0)*k};
+    }
+    return _arr_vec;
+  };
+  var isOutOfScreen = function(arr_vec){
+    var _isOut = true;
+    for(var n=0; n<len_n; ++n){
+      var vecn = arr_vec[n];
+      var x = vecn.x;
+      var y = vecn.y;
+      if(!(x < 0 || x > px_w || y < 0 || y > px_h)){
+        _isOut = false;
+        break;
+      }
+    }
+    return _isOut;
+  };
+  for(var cycle=0; cycle<Ncycle; ++cycle){
+    var arr_vec0 = lerp_arr_vec(offsetR+cycle);
+    for(var i=0; i<Ncolor; ++i){
+      arr_vec0.reverse();
+      var arr_veck = lerp_arr_vec(offsetR+(1-offsetR)*(i+1)/Ncolor+cycle);
+      _svg += self.lines(arr_vec0.concat(arr_veck), 0, arr_style[i], opt_globalCompositeOperation, true);
+      arr_vec0 = arr_veck;
+    }
+/*
+    if(isOutOfScreen(arr_vec0)){  // scaling disabled
+      break;
+    }
+*/
+  }
+  return _svg;
+};
 /* -> 1.0.0 */
 My_entry.draw_svg.prototype.text = function(text, vec0, opt_fontSize, opt_styleRGBA, opt_globalCompositeOperation){
   var self = this;

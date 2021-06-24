@@ -77,6 +77,161 @@ My_entry.draw_canvas.prototype.textpath = function(text, arr_vec, opt_globalComp
   self.textpath_sw.apply(self, arguments);
   return self;
 };
+My_entry.draw_canvas.prototype.make_gradLEN = function(arr_vec, vec0, isMin, isRound, Nrender){
+  var self = this;
+  var _gradLEN = [];
+  var pi2 = Math.PI*2;
+  var rdt = Nrender/pi2;
+  var x0 = vec0.x;
+  var y0 = vec0.y;
+  var sw = (isMin)? "min": "max";
+  var callback = (isMin < 0)?
+    function(n, len){
+      var nr = (n+Nrender)%Nrender;
+      _gradLEN[nr] = len;
+    }:
+    function(n, len){
+      var nr = (n+Nrender)%Nrender;
+      var len0 = _gradLEN[nr];
+      _gradLEN[nr] = (typeof len0 === "undefined")? len: Math[sw](len0, len);
+    };
+  for(var i=0, len=arr_vec.length; i<len-1; ++i){
+    var veci0 = arr_vec[i];
+    var veci1 = arr_vec[i+1] || veci0;
+    var dvec10 = {x: veci1.x-veci0.x, y: veci1.y-veci0.y};
+    var dx0 = veci0.x-x0;
+    var dy0 = veci0.y-y0;
+    var dx1 = veci1.x-x0;
+    var dy1 = veci1.y-y0;
+    var t0 = Math.atan2(dy0, dx0);
+    var t1 = Math.atan2(dy1, dx1);
+    var n0 = Math.round(t0*rdt);
+    var n1 = Math.round(t1*rdt);
+    var dn = n1-n0;
+    var dn0 = (n1+Nrender)-n0;
+    var dn1 = n1-(n0+Nrender);
+    var adn = Math.abs(dn);
+    if(adn > Math.abs(dn0)){
+      dn = dn0;
+    }
+    else if(adn > Math.abs(dn1)){
+      dn = dn1;
+    }
+    var len0 = Math.sqrt(dx0*dx0+dy0*dy0);
+    var len1 = Math.sqrt(dx1*dx1+dy1*dy1);
+    var get_len = (isRound)?
+      function(n){
+        var k = (n-n0)/(dn || 1);
+        return len0+(len1-len0)*k;
+      }:
+      function(n){
+        var k = (n-n0)/(dn || 1);
+        var dxn = dx0+dvec10.x*k;
+        var dyn = dy0+dvec10.y*k;
+        return Math.sqrt(dxn*dxn+dyn*dyn);
+      };
+    if(dn < 0){
+      for(var n=n0; n>=n0+dn; --n){
+        callback(n, get_len(n));
+      }
+    }
+    else{
+      for(var n=n0; n<=n0+dn; ++n){
+        callback(n, get_len(n));
+      }
+    }
+  }
+  return _gradLEN;
+};
+My_entry.draw_canvas.prototype.make_krandR = function(krandR0, Ncycle){
+  var self = this;
+  var _krandR = [];
+  for(var n=0; n<Ncycle; ++n){
+    _krandR[n] = 1+(Math.random()-0.5)*krandR0;  // [0.5,1.5)
+  }
+  return _krandR;
+};
+My_entry.draw_canvas.prototype.make_sum_krandR = function(krandR){
+  var self = this;
+  var _sum_krandR = [0];
+  for(var n=1, len_n=krandR.length; n<=len_n; ++n){
+    _sum_krandR[n] = krandR[n-1]+_sum_krandR[n-1];
+  }
+  return _sum_krandR;
+};
+My_entry.draw_canvas.prototype.get_cycle = function(sum_krandR, LEN, len){
+  var self = this;
+  var _cycle = 0;
+  for(var n=sum_krandR.length-1; n>=0; --n){
+    if(sum_krandR[n]*LEN < len){
+      _cycle = n;
+      break;
+    }
+  }
+  return _cycle;
+};
+My_entry.draw_canvas.prototype.gradation = function(ID, colors, arr_vec, opt_globalCompositeOperation, vec0, offsetR, orderR, NrandR, NrandT, isMin, isRound, Nrender, Ncycle){
+  var self = this;
+  var ctx = self.ctx;
+  var data = ID.data;
+  var px_w = ID.width;
+  var px_h = ID.height;
+  var pi2 = Math.PI*2;
+  var rdt = Nrender/pi2;
+  var x0 = vec0.x;
+  var y0 = vec0.y;
+  var krandT0 = NrandT/255;
+  var Ncolor = colors.length;
+  var arr_rgba = [];
+  colors.forEach(function(color, i){
+    arr_rgba[i] = self.color2rgba(color);
+  });
+  var gradLEN = self.make_gradLEN(arr_vec, vec0, isMin, isRound, Nrender);
+  var krandR = self.make_krandR(NrandR/255, Ncycle);
+  var sum_krandR = self.make_sum_krandR(krandR);
+  var Ncycle_krandR = sum_krandR[sum_krandR.length-1];
+  for(var yp=0; yp<px_h; ++yp){
+    for(var xp=0; xp<px_w; ++xp){
+      var dx = xp+0.5-x0;
+      var dy = yp+0.5-y0;
+      var t = Math.atan2(dy, dx);  // (-pi,pi]
+      var n = Math.round(t*rdt);
+      var LEN0 = gradLEN[(n+Nrender)%Nrender];
+      if(LEN0){
+        var len0 = Math.sqrt(dx*dx+dy*dy);
+        var len = len0+LEN0*(Math.random()-0.5)*krandT0;
+        if(len < LEN0*Ncycle_krandR){
+          var cycle = self.get_cycle(sum_krandR, LEN0, len);
+          var LEN = LEN0*krandR[cycle];
+          var LEN_filter = LEN*offsetR;
+          var deno = LEN-LEN_filter;
+          var nume = len-LEN0*sum_krandR[cycle]-LEN_filter;
+          if(nume > 0){
+            var isBound = (orderR && (offsetR || cycle+1 === Ncycle));
+            var N = (isBound)? Ncolor-1: Ncolor;
+            var dLEN = deno/N;
+            var ic = Math.floor(nume/dLEN);
+            var rgba0 = arr_rgba[ic];
+            var rgba1 = arr_rgba[ic+1] || arr_rgba[0];  // cyclic boundary condition
+            if(rgba0 && rgba1){
+              var k = (orderR)? Math.pow((nume%dLEN)/dLEN, orderR): 0;
+              var ired = 4*(px_w*yp+xp);
+              data[ired+0] = rgba0.r+(rgba1.r-rgba0.r)*k;
+              data[ired+1] = rgba0.g+(rgba1.g-rgba0.g)*k;
+              data[ired+2] = rgba0.b+(rgba1.b-rgba0.b)*k;
+              data[ired+3] = rgba0.a+(rgba1.a-rgba0.a)*k;
+            }
+            else{
+              break;
+            }
+          }
+        }
+      }
+    }
+  }
+  ctx.putImageData(ID, 0, 0);  // sync compositeOperationLayer disabled
+  return self;
+};
 /* -> 1.0.0 */
 /* 0.5.0 -> */
 My_entry.draw_canvas.prototype.text = function(text, vec0, opt_fontSize, opt_styleRGBA, opt_globalCompositeOperation){
