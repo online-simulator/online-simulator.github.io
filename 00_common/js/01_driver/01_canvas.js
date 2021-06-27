@@ -213,7 +213,7 @@ My_entry.canvas.prototype.none = function(){
 };
 My_entry.canvas.prototype.textpath = function(text, arr_vec, opt_fontSize, opt_styleRGBA, opt_globalCompositeOperation, j, records){
   var self = this;
-  return self.draw.textpath(text, self.arr_vec2arr_vecp(arr_vec), opt_globalCompositeOperation, j, records.fontFamily, records.fontSize || opt_fontSize, records.isBold, records.isItalic, records.isReverse, records.styleRGBA_bg || opt_styleRGBA, records.styleRGBA_fg || opt_styleRGBA, records.fillStr, records.spacingX, records.spacingY, records.offsetX, records.offsetY, records.blur);
+  return self.draw.textpath(text, self.arr_vec2arr_vecp(arr_vec), opt_globalCompositeOperation, j, records.fontFamily, records.fontSize || opt_fontSize, records.isBold, records.isItalic, records.isReverse, records.styleRGBA_bg || opt_styleRGBA, records.styleRGBA_fg || opt_styleRGBA, records.fillStr, records.spacingX, records.spacingY, records.offsetX, records.offsetY, records.blur, records.deg0);
 };
 My_entry.canvas.prototype.gradation = function(colors, arr_vec, opt_globalCompositeOperation, records){
   var self = this;

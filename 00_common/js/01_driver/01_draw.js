@@ -217,13 +217,16 @@ My_entry.draw.prototype.get_path = function(arr_vec, isReverse){
   _style += " Z";
   return _style;
 };
-My_entry.draw.prototype.textpath_sw = function(text, arr_vec, opt_globalCompositeOperation, j, opt_fontFamily, opt_fontSize, isBold, isItalic, isReverse, opt_styleRGBA_bg, opt_styleRGBA_fg, fillStr, spacingX, spacingY, offsetX, offsetY, blur, toSVG){
+My_entry.draw.prototype.textpath_sw = function(text, arr_vec, opt_globalCompositeOperation, j, opt_fontFamily, opt_fontSize, isBold, isItalic, isReverse, opt_styleRGBA_bg, opt_styleRGBA_fg, fillStr, spacingX, spacingY, offsetX, offsetY, blur, deg0, toSVG){
   var self = this;
   var _svg = "";
   var ctx = self.ctx;
   var path = document.createElementNS("http://www.w3.org/2000/svg", "path");
   var style_path = self.get_path(arr_vec, isReverse);
   path.setAttribute("d", style_path);
+  var hasSpace = (spacingX || spacingY);
+  var r2d = 180/Math.PI;
+  var t0 = (hasSpace)? deg0/r2d: 0;
   var x0 = 0;
   var fontSize = self.floor(opt_fontSize || 0);
   var fontFamily = opt_fontFamily || self.fontFamily;
@@ -251,7 +254,6 @@ My_entry.draw.prototype.textpath_sw = function(text, arr_vec, opt_globalComposit
     var rgbak = self.lerp_rgba(rgba0, rgba1, Math.min(1, Nk));
     shadowColor = self.rgba2style(rgbak);
   }
-  var hasSpace = (spacingX || spacingY);
   var idName_path = "path"+j;
   var idName_filter = "filter"+j;
   if(toSVG){
@@ -308,13 +310,12 @@ My_entry.draw.prototype.textpath_sw = function(text, arr_vec, opt_globalComposit
     var wi = ctx.measureText(chari).width;
     // character's bottom-left based
     var pt0 = path.getPointAtLength(x0);
-    var pt1 = path.getPointAtLength(x0+1);
+    var pt1 = path.getPointAtLength(x0+wi);
     var x = self.floor(pt0.x);
     var y = self.floor(pt0.y);
     var dx = self.floor(0);
     var dy = self.floor(spacingY);
-    var t = Math.atan2(pt1.y-pt0.y, pt1.x-pt0.x);
-    var r2d = 180/Math.PI;
+    var t = t0 || Math.atan2(pt1.y-pt0.y, pt1.x-pt0.x);
     var deg = self.floor(t*r2d);
     var rad = deg/r2d;
     if(toSVG){

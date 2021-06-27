@@ -1236,7 +1236,7 @@ fontFamily:fontSize:isBold:isItalic:isReverse:
 <br>
 fillStyle:strokeStyle:fillStr:spacingX:spacingY:
 <br>
-shadowOffsetX:shadowOffsetY:shadowBlur
+shadowOffsetX:shadowOffsetY:shadowBlur:deg0
 <br>
 <br>
 <span class="run">Ver.2.35.18</span>以降、<a href="#span-out-UI-graphing-title">graph-title</a>/<a href="#span-out-UI-graphing-legend">legend-string</a>/<a href="#span-out-UI-graphing-string-path">string-path</a>のwhite space enabled
@@ -1348,7 +1348,7 @@ fontFamily:fontSize:isBold:isItalic:isReverse:
 <br>
 fillStyle:strokeStyle:fillStr:spacingX:spacingY:
 <br>
-shadowOffsetX:shadowOffsetY:shadowBlur
+shadowOffsetX:shadowOffsetY:shadowBlur:deg0
 <br>
 <span class="run">Ver.2.37.18</span>以降、各設定値の上下限範囲を追加
 <br>
@@ -1392,6 +1392,14 @@ shadowColor.r = strokeStyle.r+(fillStyle.r-strokeStyle.r)*Math.min(1, Math.abs(f
 <br>
 ・以上の座標変換はcharacterのbottom-left基準
 <br>
+　<span class="run">Ver.2.37.18</span>以降、path上の回転角のみ、svg-&lt;textPath&gt;準拠のbottom基準に変更
+<br>
+・<span class="run">Ver.2.37.18</span>以降、deg0追加
+<br>
+・deg0=0~360はcharacterのbottom-left基準の回転角の度数deg
+<br>
+　deg0=0||省略時・spacingX/Y=0||省略時、path上の回転角を使用
+<br>
 ・字句解析の都合上、string-pathのsemi-colon; disabled
 <br>
 ・仕様上、string-pathの4Bytes character disabled
@@ -1399,11 +1407,11 @@ shadowColor.r = strokeStyle.r+(fillStyle.r-strokeStyle.r)*Math.min(1, Math.abs(f
 ・svg出力のみ4Bytes characterを含む特殊文字等、直接file編集可（group化済み）
 <br>
 <br>
-<span class="run">Ver.2.37.18</span>以降、spacingX/Y=0||省略時、Native-&lt;textPath&gt;によるsvg出力に対応
+<span class="run">Ver.2.37.18</span>以降、spacingX/Y=0||省略時、&lt;textPath&gt;によるsvg出力に対応
 <br>
-・png出力のspacingと若干のかい離があり、互換性を失う
+・png出力と若干のかい離があり、互換性を失う
 <br>
-・また、string-pathにwhite spacesを含む場合、spellの扱いが異なる
+・string-pathにwhite spacesを含む場合、spellの扱いが異なる
 <br>
 ・&lt;textPath&gt;以外への流用等、利便性を考慮し、既定で&lt;path&gt;を出力する
     </td>

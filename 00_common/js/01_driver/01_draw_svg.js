@@ -200,7 +200,7 @@ My_entry.draw_svg.prototype.use_mask = function(idName){
   _svg += " style="+self.quote("mask:url(#"+idName+")");
   return _svg;
 };
-My_entry.draw_svg.prototype.textpath = function(text, arr_vec, opt_globalCompositeOperation, j, opt_fontFamily, opt_fontSize, isBold, isItalic, isReverse, opt_styleRGBA_bg, opt_styleRGBA_fg, fillStr, spacingX, spacingY, offsetX, offsetY, blur){
+My_entry.draw_svg.prototype.textpath = function(){
   var self = this;
   Array.prototype.push.apply(arguments, [true]);
   return self.textpath_sw.apply(self, arguments);

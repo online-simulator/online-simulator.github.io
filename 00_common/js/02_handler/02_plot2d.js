@@ -639,13 +639,14 @@ if(isAxis_z){
       var text = strPath;
       var config = "";
       text = def.enter_name(text, "config", false, 2, function(content){config = content;});
-      var records = $.get_records(config, ":", 0, ["fontFamily", "fontSize", "isBold", "isItalic", "isReverse", "styleRGBA_bg", "styleRGBA_fg", "fillStr", "spacingX", "spacingY", "offsetX", "offsetY", "blur"]);
+      var records = $.get_records(config, ":", 0, ["fontFamily", "fontSize", "isBold", "isItalic", "isReverse", "styleRGBA_bg", "styleRGBA_fg", "fillStr", "spacingX", "spacingY", "offsetX", "offsetY", "blur", "deg0"]);
       records.fontSize = def.limit(records.fontSize, 0, NUMMAX, 0);
       records.spacingX = def.limit(records.spacingX, NUMMIN, NUMMAX, 0);
       records.spacingY = def.limit(records.spacingY, NUMMIN, NUMMAX, 0);
       records.offsetX = def.limit(records.offsetX, NUMMIN, NUMMAX, 0);
       records.offsetY = def.limit(records.offsetY, NUMMIN, NUMMAX, 0);
       records.blur = def.limit(records.blur, NUMMIN, NUMMAX, 0);
+      records.deg0 = def.limit(records.deg0, 0, 360, 0);
       _svg += plot.textpath(text, arr2d_tvec[j], strFontSize, styleRGBA, globalCompositeOperation, j, records);
     }
   }
