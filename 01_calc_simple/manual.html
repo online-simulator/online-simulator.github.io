@@ -1072,7 +1072,7 @@ panel上段について記述する
 <br>
 　・i-checkboxは虚数表示を選択
 <br>
-　・x(t)のplot範囲外grid最小値~最大値を入力
+　・x(t)のplot範囲のgrid最小値~最大値を入力
 <br>
 ・y(t)入力欄に縦軸yの演算内容をsemi-colon;区切りで入力
 <br>
@@ -1084,9 +1084,18 @@ panel上段について記述する
 <br>
 　・i-checkboxは虚数表示を選択
 <br>
-　・y(t)のplot範囲外grid最小値~最大値を入力
+　・y(t)のplot範囲のgrid最小値~最大値を入力
 <br>
 ・<span class="run">Ver.2.36.18</span>以降、z-checkboxは<a href="#span-out-UI-graphing-title">graph-title</a>等特定項目以外の表示を選択
+<br>
+　最終frameまでの描画待ち時間||描画負荷を省略する際に有効
+<br>
+<br>
+<span class="run">Ver.2.37.18</span>以降、gridのscalingに対応
+<br>
+・canvas範囲選択でx(t)||yt(t)のplot範囲のgrid最小値~最大値をlinear-scaleで自動更新
+<br>
+　複数の方程式||関数式の交点等を求める際に有効
 <br>
 <br>
 panel中段について記述する
@@ -1170,7 +1179,10 @@ red||#f00||#f00f||#ff0000||#ff0000ff||rgb(255,0,0)||rgba(255,0,0,1)
 <br>
 #00f5||#0000ff55||rgba(0,0,255,0.333333333333333)
 <br>
-・rainbowのdataset入力の場合
+<br>
+color-dataset入力の一例を示す
+<br>
+・<a href="#span-out-UI-graphing-gradation">gradation-colors</a>のrainbow入力の場合
 <br>
 violet:indigo:blue:green:yellow:orange:red
 <br>
@@ -1207,10 +1219,14 @@ str:strFontSize
 <br>
 ・任意位置に挿入可
 <br>
+・graph-titleはcanvas上部に表示するtitleの任意文字列
+<br>
 <br>
 <span class="run">Ver.2.34.18</span>以降、<a href="#span-out-UI-graphing-string-path">string-path</a>をstring||STRING{config[]string-path}で入力
 <br>
 ・各<a href="#span-out-UI-graphing-legend">legend-dataset</a>の任意位置に挿入可
+<br>
+・string-pathはplot-lines上のpathに表示する任意文字列
 <br>
 ・config[]省略時、<a href="#span-out-UI-graphing-legend">legend-dataset</a>の設定値を使用
 <br>
@@ -1229,6 +1245,8 @@ shadowOffsetX:shadowOffsetY:shadowBlur
 <span class="run">Ver.2.36.18</span>以降、<a href="#span-out-UI-graphing-gradation">gradation</a>をgradation||GRADATION{config[]colors}で入力
 <br>
 ・各<a href="#span-out-UI-graphing-legend">legend-dataset</a>の任意位置に挿入可
+<br>
+・colorsは<a href="#span-out-UI-graphing-color">color-dataset</a>をcolon:区切りで入力
 <br>
 ・config[]省略時、<a href="#span-out-UI-graphing-legend">legend-dataset</a>の設定値を使用
 <br>
@@ -1297,6 +1315,8 @@ graph-title特定項目仕様について記述する
 <a href="#span-out-UI-graphing-z">z入力欄</a>にtitle||TITLE{graph-title}で入力
 <br>
 ・任意位置に挿入可
+<br>
+・graph-titleはcanvas上部に表示するtitleの任意文字列
     </td>
   </tr>
   <tr>
@@ -1318,6 +1338,8 @@ string-path特定項目仕様について記述する
 <br>
 ・各<a href="#span-out-UI-graphing-legend">legend-dataset</a>の任意位置に挿入可
 <br>
+・string-pathはplot-lines上のpathに表示する任意文字列
+<br>
 ・config[]省略時、<a href="#span-out-UI-graphing-legend">legend-dataset</a>の設定値を使用
 <br>
 ・config[]内datasetは設定値をcolon:区切りで入力
@@ -1328,9 +1350,11 @@ fillStyle:strokeStyle:fillStr:spacingX:spacingY:
 <br>
 shadowOffsetX:shadowOffsetY:shadowBlur
 <br>
+<span class="run">Ver.2.37.18</span>以降、各設定値の上下限範囲を追加
+<br>
 ・fontFamilyはfont-family名（<span class="run">Ver.2.35.18</span>以降、white space付family名に対応）
 <br>
-・fontSizeはstring-pathのfont-sizeのpx数値
+・fontSize=0~32767はstring-pathのfont-sizeのpx数値
 <br>
 ・isBold=0||white space以外でbold typeを使用
 <br>
@@ -1344,9 +1368,9 @@ shadowOffsetX:shadowOffsetY:shadowBlur
 <br>
 ・fillStr=falseでstrokeのみ・fillStr=trueでfillのみ・それ以外はstroke&amp;fill
 <br>
-・spacingXは文字送り空白部分のpx数値
+・spacingX=-32768~32767は文字送り空白部分のpx数値
 <br>
-・spacingYは高さ方向空白部分のpx数値
+・spacingY=-32768~32767は高さ方向空白部分のpx数値
 <br>
 ・shadowBlur&gt;0でshadow有効（png/svg出力の互換性なし）
 <br>
@@ -1358,11 +1382,11 @@ shadowOffsetX:shadowOffsetY:shadowBlur
 <br>
 shadowColor.r = strokeStyle.r+(fillStyle.r-strokeStyle.r)*Math.min(1, Math.abs(fillStr)/255)
 <br>
-・shadowOffsetXはshadowのx方向offsetのpx数値
+・shadowOffsetX=-32768~32767はshadowのx方向offsetのpx数値
 <br>
-・shadowOffsetYはshadowのy方向offsetのpx数値
+・shadowOffsetY=-32768~32767はshadowのy方向offsetのpx数値
 <br>
-・shadowBlurはshadowの偏差
+・shadowBlur=-32768~32767はshadowの偏差
 <br>
 ・character毎にsvg出力の度数degをpng出力の弧度数radに変換して互換性を確保
 <br>
@@ -1373,6 +1397,15 @@ shadowColor.r = strokeStyle.r+(fillStyle.r-strokeStyle.r)*Math.min(1, Math.abs(f
 ・仕様上、string-pathの4Bytes character disabled
 <br>
 ・svg出力のみ4Bytes characterを含む特殊文字等、直接file編集可（group化済み）
+<br>
+<br>
+<span class="run">Ver.2.37.18</span>以降、spacingX/Y=0||省略時、Native-&lt;textPath&gt;によるsvg出力に対応
+<br>
+・png出力のspacingと若干のかい離があり、互換性を失う
+<br>
+・また、string-pathにwhite spacesを含む場合、spellの扱いが異なる
+<br>
+・&lt;textPath&gt;以外への流用等、利便性を考慮し、既定で&lt;path&gt;を出力する
     </td>
   </tr>
   <tr>
@@ -1390,9 +1423,11 @@ gradation
 gradation特定項目仕様と付随する留意事項について記述する
 <br>
 <br>
-<a href="#span-out-UI-graphing-z">z入力欄</a>に<a href="#span-out-UI-graphing-gradation">gradation</a>をgradation||GRADATION{config[]colors}で入力
+<a href="#span-out-UI-graphing-z">z入力欄</a>にgradationをgradation||GRADATION{config[]colors}で入力
 <br>
 ・各<a href="#span-out-UI-graphing-legend">legend-dataset</a>の任意位置に挿入可
+<br>
+・colorsは<a href="#span-out-UI-graphing-color">color-dataset</a>をcolon:区切りで入力
 <br>
 ・config[]省略時、<a href="#span-out-UI-graphing-legend">legend-dataset</a>の設定値を使用
 <br>
@@ -1434,7 +1469,7 @@ originX:originY:offsetR:<span class="clear">orderR:NrandR:NrandT:isMin:isRound:N
 <br>
 　trueの場合、gradation起点からplot点までの長さ空間で線形補間
 <br>
-・Nrender=1~25600は周方向のrendering分割数
+・Nrender=1~32767は周方向のrendering分割数
 <br>
 ・Ncycle=0~127は半径方向のrendering周期数
 <br>
@@ -1459,7 +1494,11 @@ png出力の特徴を列挙する
 <br>
 ・legend間のgradation合成不可（合成する場合、複数回の分割出力が必要）
 <br>
+・putImageDataによる同期出力のため、layer合成無効（source-over）
+<br>
 ・乱数使用可
+<br>
+・Nrender=1で真円のgradationが簡単に得られる
 <br>
 <br>
 形状精度||gradation精度に関係する設定項目を列挙する
@@ -1473,7 +1512,7 @@ png出力の特徴を列挙する
 <br>
 留意事項を列挙する
 <br>
-・上記精度を上げ過ぎると、svg出力のfile sizeやpost処理の負荷が増大する
+・上記精度を上げ過ぎた場合、svg出力のfile sizeやpost処理の負荷が増大する
 <br>
 ・乱数設定時、flickering防止のため、plot終了の最終frameまで逐次描画しない
     </td>
@@ -1495,15 +1534,15 @@ plot-layer描画順について記述する
 <br>
 plot-layerに描画する項目を描画順に列挙する
 <br>
-・<a href="#span-out-UI-graphing-title">graph-title</a>
-<br>
 ・<a href="#span-out-UI-graphing-gradation">gradation</a>
 <br>
 ・plot-lines
 <br>
 ・plot-markers
 <br>
-・legends
+・<a href="#span-out-UI-graphing-legend">legends</a>
+<br>
+・<a href="#span-out-UI-graphing-title">graph-title</a>
 <br>
 ・<a href="#span-out-UI-graphing-string-path">string-path</a>
     </td>
@@ -4017,7 +4056,7 @@ tの演算をSingle-threadで実行後、x/yの演算をMulti-threadで実行
 <br>
 svg出力機能について記述する
 <br>
-・layer合成無効（source-overのみ）
+・layer合成無効（source-over）
 <br>
 ・既定markerのdestination-outは背景色source-overで代替（透明の場合、白）
 <br>

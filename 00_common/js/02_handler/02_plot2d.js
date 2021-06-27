@@ -8,6 +8,8 @@ My_entry.plot2d = function(id, opt_px_w, opt_px_h, opt_px_b){
 
 My_entry.plot2d.prototype.config = {
   default: {
+    NUMMIN: -32768,
+    NUMMAX: 32767,
     px_w: 512,
     px_h: 256,
     gridLineColor: "gray",
@@ -51,7 +53,6 @@ My_entry.plot2d.prototype.init = function(id, opt_px_w, opt_px_h, opt_px_b){
   self.isDrawn = false;
   self.isDragging = false;
   self.isChanged = false;
-  self.isChanged_axis = false;
   self.vec0 = null;
   self.vec1 = null;
   self.id = id;
@@ -87,7 +88,6 @@ My_entry.plot2d.prototype.init_flags = function(){
   self.isDrawn = false;
   self.isDragging = false;
   self.isChanged = false;
-  self.isChanged_axis = false;
   return self;
 };
 My_entry.plot2d.prototype.init_handlers = function(){
@@ -106,10 +106,6 @@ My_entry.plot2d.prototype.init_handlers = function(){
   };
   handlers.onmousemove = function(e){
     /* 0.8.0 -> */
-/*
-    e.preventDefault();
-    e.stopPropagation();
-*/
     if(self.isDragging){
       e.preventDefault();
       e.stopPropagation();
@@ -126,18 +122,21 @@ My_entry.plot2d.prototype.init_handlers = function(){
     temp.clear();
     var vec0 = self.vec0;
     var vec1 = self.vec1;
+    /* 1.0.0 -> */
+    var data = null;
     if(vec1 && (vec1.x-vec0.x || vec1.y-vec0.y)){  // check no move
       var gxmin = grid.xp2x(Math.min(vec0.x, vec1.x));
       var gymin = grid.myp2y(Math.max(vec0.y, vec1.y));  // max
       var gxmax = grid.xp2x(Math.max(vec0.x, vec1.x));
       var gymax = grid.myp2y(Math.min(vec0.y, vec1.y));  // min
-      self.change_scale(gxmin, gymin, gxmax, gymax);
+      data = {gxmin: gxmin, gymin: gymin, gxmax: gxmax, gymax: gymax};
       self.isChanged = true;
     }
     else{
       self.isChanged = false;
     }
-    self.callbacks.onmouseup(e);
+    self.callbacks.onmouseup(e, data);
+    /* -> 1.0.0 */
     self.isDragging = false;
   };
   self.entry.$.bind_objs(self, self.handlers);
@@ -197,51 +196,35 @@ My_entry.plot2d.prototype.update = function(opt_px_w, opt_px_h, opt_px_b){
   self.update_elem_p(px_w, px_h, px_b);
   return self;
 };
-My_entry.plot2d.prototype.grid = function(options, x0, y0, x1, y1, Ni, Nj, isLog_x, isLog_y, label_x, label_y, fontSize, expDigit, gridLineWidth, gridLineColor, globalCompositeOperation){
+/* 1.0.0 */
+My_entry.plot2d.prototype.grid = function(options, tx0, ty0, tx1, ty1, Ni, Nj, isLog_x, isLog_y, label_x, label_y, fontSize, expDigit, gridLineWidth, gridLineColor, globalCompositeOperation){
   var self = this;
   var grid = self.objs.grid;
   var _svg = "";
   var lineWidth = gridLineWidth;
   var styleRGBA = gridLineColor;
-  var dx = (x1-x0)/Ni;
-  var dy = (y1-y0)/Nj;
   var len_i = Ni+1;
   var len_j = Nj+1;
-  var tx0 = self.trans(x0, isLog_x);
-  var ty0 = self.trans(y0, isLog_y);
-  var tx1 = self.trans(x1, isLog_x);
-  var ty1 = self.trans(y1, isLog_y);
-  /* 1.0.0 -> */
   var tdx = (tx1-tx0)/Ni;
   var tdy = (ty1-ty0)/Nj;
-  /* -> 1.0.0 */
   /* 0.5.0 -> */
   if(label_x){
     if(tx0 <= 0 && tx1 >= 0 && !(isLog_x)){
       var tx = self.trans(0, isLog_x);
       _svg += grid.line(tx, ty0, tx, ty1, lineWidth, styleRGBA, globalCompositeOperation);
     }
-    if(!(self.isChanged)){
-      _svg += grid.label(label_x, (tx0+tx1)/2, self.config.default.ratio_y, fontSize+self.config.default.dfontSize, styleRGBA, globalCompositeOperation, false);
-    }
+    _svg += grid.label(label_x, (tx0+tx1)/2, self.config.default.ratio_y, fontSize+self.config.default.dfontSize, styleRGBA, globalCompositeOperation, false);
   }
   if(label_y){
     if(ty0 <= 0 && ty1 >= 0 && !(isLog_y)){
       var ty = self.trans(0, isLog_y);
       _svg += grid.line(tx0, ty, tx1, ty, lineWidth, styleRGBA, globalCompositeOperation);
     }
-    if(!(self.isChanged)){
-      _svg += grid.label(label_y, self.config.default.ratio_x, (ty0+ty1)/2, fontSize+self.config.default.dfontSize, styleRGBA, globalCompositeOperation, true);
-    }
+    _svg += grid.label(label_y, self.config.default.ratio_x, (ty0+ty1)/2, fontSize+self.config.default.dfontSize, styleRGBA, globalCompositeOperation, true);
   }
   /* -> 0.5.0 */
   for(var i=0; i<len_i; ++i){
-    /* 1.0.0 -> */
     var tx = tx0+i*tdx;
-    if(options.oldPlot2d){
-      tx = self.trans(x0+i*dx, isLog_x);
-    }
-    /* -> 1.0.0 */
     _svg += grid.line(tx, ty0, tx, ty1, lineWidth, styleRGBA, globalCompositeOperation);
     if(label_x){
       var val = self.entry.conv.num2not(tx, self.config.default.decDigit, expDigit);
@@ -249,12 +232,7 @@ My_entry.plot2d.prototype.grid = function(options, x0, y0, x1, y1, Ni, Nj, isLog
     }
   }
   for(var j=0; j<len_j; ++j){
-    /* 1.0.0 -> */
     var ty = ty0+j*tdy;
-    if(options.oldPlot2d){
-      ty = self.trans(y0+j*dy, isLog_y);
-    }
-    /* -> 1.0.0 */
     _svg += grid.line(tx0, ty, tx1, ty, lineWidth, styleRGBA, globalCompositeOperation);
     if(label_y){
       var val = self.entry.conv.num2not(ty, self.config.default.decDigit, expDigit);
@@ -273,14 +251,11 @@ My_entry.plot2d.prototype.get_ky = function(fontSize){
   return (self.config.default.px_h/self.px_h)*(fontSize/self.config.default.fontSize);
 };
 /* -> 0.5.0 */
-My_entry.plot2d.prototype.change_scale = function(gxmin, gymin, gxmax, gymax, isLog_x, isLog_y, isAxis_x, isAxis_y, fontSize, kxAdjust, kyAdjust){
+/* 1.0.0 */
+My_entry.plot2d.prototype.change_scale = function(tgxmin, tgymin, tgxmax, tgymax, isAxis_x, isAxis_y, fontSize, kxAdjust, kyAdjust){
   var self = this;
   var grid = self.objs.grid;
   var plot = self.objs.plot;
-  var tgxmin = self.trans(gxmin, isLog_x);
-  var tgymin = self.trans(gymin, isLog_y);
-  var tgxmax = self.trans(gxmax, isLog_x);
-  var tgymax = self.trans(gymax, isLog_y);
   var tgdx = (tgxmax-tgxmin)*0.125 || 1;
   var tgdy = (tgymax-tgymin)*0.125 || 1;
   /* 0.5.0 -> */
@@ -320,10 +295,10 @@ My_entry.plot2d.prototype.run = function(arr2d_vec, options, toSVG, isFinal){
   var isLog_y = options["log-y"];
   var isImag_x = options["imag-x"];
   var isImag_y = options["imag-y"];
+  var isLegend = options["legend"];
   var isAxis_x = options["axis-x"];
   var isAxis_y = options["axis-y"];
   var isAxis_z = options["axis-z"];
-  var isLegend = options["legend"];
   var fontSize = options["font-size"];
   var Ni0 = options["grid-x-Ni"];
   var Nj0 = options["grid-y-Nj"];
@@ -338,8 +313,29 @@ My_entry.plot2d.prototype.run = function(arr2d_vec, options, toSVG, isFinal){
   var gymin = arr2d_vec.gymin;
   var gxmax = arr2d_vec.gxmax;
   var gymax = arr2d_vec.gymax;
-  // legend
+  /* 1.0.0 -> */
+  var NUMMIN = self.config.default.NUMMIN;
+  var NUMMAX = self.config.default.NUMMAX;
+  if(!(isAxis_z)){
+    gridLineWidth = 0;
+    isLegend = false;
+    isAxis_x = false;
+    isAxis_y = false;
+  }
+  var tgxmin = self.trans(gxmin, isLog_x);
+  var tgymin = self.trans(gymin, isLog_y);
+  var tgxmax = self.trans(gxmax, isLog_x);
+  var tgymax = self.trans(gymax, isLog_y);
+  if(!(isFinite(tgxmin)) || !(isFinite(tgymin)) || !(isFinite(tgxmax)) || !(isFinite(tgymax))){
+    temp.detach();
+    self.isDrawn = false;
+    throw "Invalid plot2d isInf";
+  }
+  var dtgx0 = tgxmax-tgxmin;  // dx(grid)
+  var dtgy0 = tgymax-tgymin;  // dy(grid)
+  /* -> 1.0.0 */
   /* 0.1.0 -> */
+  // legend
   var arr_markerType = new Array(len_j);
   var arr_styleRGBA = new Array(len_j);
   /* -> 0.1.0 */
@@ -363,6 +359,10 @@ My_entry.plot2d.prototype.run = function(arr2d_vec, options, toSVG, isFinal){
   if(inputZ){
     inputZ = def.enter_name(inputZ, "title", false, 0, function(content){title = content;});
   }
+  // scaling
+  var fontSize1 = (title)? fontSize+self.config.default.dfontSize: 0;
+  var kyAdjust = 1+fontSize1*5/self.px_h;
+  self.change_scale(tgxmin, tgymin, tgxmax, tgymax, isAxis_x, isAxis_y, fontSize, kxAdjust, kyAdjust);
   /* -> 1.0.0 */
   var arr_legend = inputZ.split(";");
   var markerType = null;
@@ -447,17 +447,6 @@ My_entry.plot2d.prototype.run = function(arr2d_vec, options, toSVG, isFinal){
   else{
     background.fill(backgroundColor, globalCompositeOperation);
   }
-  /* 0.6.0 -> */
-  // title
-  if(!(self.isChanged)){
-    var fontSize1 = (title)? fontSize+self.config.default.dfontSize: 0;
-    var kyAdjust = 1+fontSize1*5/self.px_h;
-    self.change_scale(gxmin, gymin, gxmax, gymax, isLog_x, isLog_y, isAxis_x, isAxis_y, fontSize, kxAdjust, kyAdjust);
-    if(title){
-      _svg += plot.draw.label(title, {x: self.px_w/2, y: fontSize1}, fontSize1, gridLineColor, globalCompositeOperation, false);
-    }
-  }
-  /* -> 0.6.0 */
   // grid
   /* 0.5.0 -> */
   var Ni = Ni0;
@@ -478,10 +467,8 @@ My_entry.plot2d.prototype.run = function(arr2d_vec, options, toSVG, isFinal){
   label_y = (isAxis_y)? label_y: null;
   /* -> 0.5.0 */
   /* 1.0.0 -> */
-if(isAxis_z){
-  _svg += self.grid(options, gxmin, gymin, gxmax, gymax, Ni, Nj, isLog_x, isLog_y, label_x, label_y, fontSize, expDigit, gridLineWidth, gridLineColor, globalCompositeOperation);
-}
-  /* -> 1.0.0 */
+  // grid
+  _svg += self.grid(options, tgxmin, tgymin, tgxmax, tgymax, Ni, Nj, isLog_x, isLog_y, label_x, label_y, fontSize, expDigit, gridLineWidth, gridLineColor, globalCompositeOperation);
   // transform
   var arr2d_tx = new Array(len_n);
   var arr2d_ty = new Array(len_n);
@@ -493,7 +480,6 @@ if(isAxis_z){
       arr2d_ty[n][j] = self.trans(arr2d_y[n][j], isLog_y);
     }
   }
-  /* 1.0.0 -> */
   // make arr2d_tvec
   var arr2d_tvec = new Array(len_j);
   for(var j=0; j<len_j; ++j){
@@ -504,7 +490,20 @@ if(isAxis_z){
       arr2d_tvec[j][n] = {x: x, y: y};
     }
   }
+  // masking
+  var idName_mask = "mask_lines_and_gradations";
+  var dtgx = dtgx0*1e-15;
+  var dtgy = dtgy0*1e-15;
+  var tgxmin_mask = tgxmin-dtgx;
+  var tgymin_mask = tgymin-dtgy;
+  var tgxmax_mask = tgxmax+dtgx;
+  var tgymax_mask = tgymax+dtgy;
   // gradation
+  if(!(options.oldPlot2d)){
+    if(toSVG){
+      _svg += plot.draw.header_group(null, plot.draw.use_mask(idName_mask));
+    }
+  }
   for(var j=0; j<len_j; ++j){
     var styleRGBA = arr_styleRGBA[j];
     var gradation = arr_gradation[j];
@@ -521,7 +520,7 @@ if(isAxis_z){
       records.NrandT = def.limit(Math.floor(records.NrandT), 0, 255, 0);
       records.isMin = def.limit(records.isMin, -10, 10, true);
       records.isRound = def.limit(records.isRound, -10, 10, true);
-      records.Nrender = def.limit(Math.floor(records.Nrender), 1, 25600, options.N);
+      records.Nrender = def.limit(Math.floor(records.Nrender), 1, NUMMAX, options.N);
       records.Ncycle = def.limit(Math.floor(records.Ncycle), 0, 127, 0);
       var colors = (text || styleRGBA).split(":");
       var hasRand = records.NrandR || records.NrandT;
@@ -530,13 +529,30 @@ if(isAxis_z){
       }
     }
   }
+  if(!(options.oldPlot2d)){
+    if(toSVG){
+      _svg += plot.draw.footer_group();
+    }
+  }
 if(isAxis_z){
   // plot lines
+  if(!(options.oldPlot2d)){
+    if(toSVG){
+      _svg += plot.draw.header_group(null, plot.draw.use_mask(idName_mask));
+    }
+  }
   for(var j=0; j<len_j; ++j){
     var styleRGBA = arr_styleRGBA[j];
     var plotLineWidth = arr_plotLineWidth[j];
     var fillPath = arr_fillPath[j];
     _svg += plot.lines(arr2d_tvec[j], plotLineWidth, styleRGBA, globalCompositeOperation, fillPath);
+  }
+  // mask
+  if(!(options.oldPlot2d)){
+    if(toSVG){
+      _svg += plot.draw.footer_group();
+    }
+    _svg += plot.mask(tgxmin_mask, tgymin_mask, tgxmax_mask, tgymax_mask, idName_mask);
   }
   // plot markers
   for(var j=0; j<len_j; ++j){
@@ -548,10 +564,13 @@ if(isAxis_z){
       for(var n=0; n<len_n; ++n){
         var x = arr2d_tx[n][j];
         var y = arr2d_ty[n][j];
-        _svg += plot[markerType](x, y, markerSize, markerLineWidth, styleRGBA, globalCompositeOperation);
+        if(options.oldPlot2d || !(x < tgxmin_mask || x > tgxmax_mask || y < tgymin_mask || y > tgymax_mask)){
+          _svg += plot[markerType](x, y, markerSize, markerLineWidth, styleRGBA, globalCompositeOperation);
+        }
       }
     }
   }
+}
   /* 0.6.0 -> */
   // legends
   if(isLegend){
@@ -604,7 +623,13 @@ if(isAxis_z){
     }
   }
   /* -> 0.6.0 */
-}
+  /* 1.0.0 -> */
+  /* 0.6.0 -> */
+  // title
+  if(title){
+    _svg += plot.draw.label(title, {x: self.px_w/2, y: fontSize1}, fontSize1, gridLineColor, globalCompositeOperation, false);
+  }
+  /* -> 0.6.0 */
   // string with SVG-path
   for(var j=0; j<len_j; ++j){
     var styleRGBA = arr_styleRGBA[j];
@@ -615,6 +640,12 @@ if(isAxis_z){
       var config = "";
       text = def.enter_name(text, "config", false, 2, function(content){config = content;});
       var records = $.get_records(config, ":", 0, ["fontFamily", "fontSize", "isBold", "isItalic", "isReverse", "styleRGBA_bg", "styleRGBA_fg", "fillStr", "spacingX", "spacingY", "offsetX", "offsetY", "blur"]);
+      records.fontSize = def.limit(records.fontSize, 0, NUMMAX, 0);
+      records.spacingX = def.limit(records.spacingX, NUMMIN, NUMMAX, 0);
+      records.spacingY = def.limit(records.spacingY, NUMMIN, NUMMAX, 0);
+      records.offsetX = def.limit(records.offsetX, NUMMIN, NUMMAX, 0);
+      records.offsetY = def.limit(records.offsetY, NUMMIN, NUMMAX, 0);
+      records.blur = def.limit(records.blur, NUMMIN, NUMMAX, 0);
       _svg += plot.textpath(text, arr2d_tvec[j], strFontSize, styleRGBA, globalCompositeOperation, j, records);
     }
   }

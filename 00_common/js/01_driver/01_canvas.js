@@ -197,6 +197,16 @@ My_entry.canvas.prototype.lines = function(arr_vec, opt_lineWidth, opt_styleRGBA
   var self = this;
   return self.draw.lines(self.arr_vec2arr_vecp(arr_vec), opt_lineWidth, opt_styleRGBA, opt_globalCompositeOperation, opt_fillPath);
 };
+My_entry.canvas.prototype.mask = function(gxmin, gymin, gxmax, gymax, idName){
+  var self = this;
+  var xpmin = self.x2xp(gxmin);
+  var ypmin = self.y2myp(gymax);  // gymax(grid) -> ypmin(screen)
+  var xpmax = self.x2xp(gxmax);
+  var ypmax = self.y2myp(gymin);  // gymin(grid) -> ypmax(screen)
+  var w = xpmax-xpmin+1;
+  var h = ypmax-ypmin+1;
+  return self.draw.mask(xpmin, ypmin, w, h, idName);
+};
 My_entry.canvas.prototype.none = function(){
   var self = this;
   return self.draw.none();

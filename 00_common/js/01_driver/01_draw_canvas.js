@@ -68,6 +68,22 @@ My_entry.draw_canvas.prototype.lines = function(arr_vec, opt_lineWidth, opt_styl
 /* -> 0.4.0 */
 /* -> 0.7.0 */
 /* 1.0.0 -> */
+My_entry.draw_canvas.prototype.mask = function(x, y, w, h){
+  var self = this;
+  var ctx = self.ctx;
+  var px_w = ctx.canvas.width;
+  var px_h = ctx.canvas.height;
+  var x0 = self.floor(x);
+  var y0 = self.floor(y);
+  var w0 = self.floor(w);
+  var h0 = self.floor(h);
+  if(w0 && h0){
+    var ID = ctx.getImageData(x0, y0, w0, h0);
+    ctx.clearRect(0, 0, px_w, px_h);
+    ctx.putImageData(ID, x0, y0);
+  }
+  return self;
+};
 My_entry.draw_canvas.prototype.none = function(){
   var self = this;
   return self;
@@ -237,7 +253,7 @@ My_entry.draw_canvas.prototype.gradation = function(ID, colors, arr_vec, opt_glo
 My_entry.draw_canvas.prototype.text = function(text, vec0, opt_fontSize, opt_styleRGBA, opt_globalCompositeOperation){
   var self = this;
   var ctx = self.ctx;
-  var fontSize = opt_fontSize || 0;
+  var fontSize = self.floor(opt_fontSize || 0);
   var fontFamily = self.fontFamily;
   ctx.save();
   ctx.font = fontSize+"px "+fontFamily;
@@ -253,7 +269,7 @@ My_entry.draw_canvas.prototype.text = function(text, vec0, opt_fontSize, opt_sty
 My_entry.draw_canvas.prototype.label = function(text, vec0, opt_fontSize, opt_styleRGBA, opt_globalCompositeOperation, isY){
   var self = this;
   var ctx = self.ctx;
-  var fontSize = opt_fontSize || 0;
+  var fontSize = self.floor(opt_fontSize || 0);
   var fontFamily = self.fontFamily;
   ctx.save();
   ctx.font = fontSize+"px "+fontFamily;
@@ -275,7 +291,7 @@ My_entry.draw_canvas.prototype.label = function(text, vec0, opt_fontSize, opt_st
 My_entry.draw_canvas.prototype.axis = function(text, vec0, opt_fontSize, opt_styleRGBA, opt_globalCompositeOperation, isY){
   var self = this;
   var ctx = self.ctx;
-  var fontSize = opt_fontSize || 0;
+  var fontSize = self.floor(opt_fontSize || 0);
   var fontFamily = self.fontFamily;
   ctx.save();
   ctx.font = fontSize+"px "+fontFamily;
@@ -294,7 +310,7 @@ My_entry.draw_canvas.prototype.axis = function(text, vec0, opt_fontSize, opt_sty
 My_entry.draw_canvas.prototype.textbox = function(text, vec0, vec1, opt_fontSize, opt_styleRGBA_bg, opt_styleRGBA_fg, opt_globalCompositeOperation){
   var self = this;
   var ctx = self.ctx;
-  var fontSize = opt_fontSize || 0;
+  var fontSize = self.floor(opt_fontSize || 0);
   var fontFamily = self.fontFamily;
   ctx.save();
   ctx.font = fontSize+"px "+fontFamily;

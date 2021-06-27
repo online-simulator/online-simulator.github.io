@@ -131,6 +131,10 @@ My_entry.draw_svg.prototype.lines = function(arr_vec, opt_lineWidth, opt_styleRG
   return _svg;
 };
 /* 1.0.0 -> */
+My_entry.draw_svg.prototype.mask = function(x, y, w, h, idName){
+  var self = this;
+  return self.def_mask(idName, "#ffffff", x, y, w, h);
+};
 My_entry.draw_svg.prototype.none = function(){
   var self = this;
   var _svg = "";
@@ -139,18 +143,46 @@ My_entry.draw_svg.prototype.none = function(){
 My_entry.draw_svg.prototype.def_dropShadow = function(idName, style, offsetX, offsetY, blur){
   var self = this;
   var _svg = "";
-  if(blur){
+  if(blur){  // blur
+    var offsetX0 = self.floor(offsetX);
+    var offsetY0 = self.floor(offsetY);
+    var blur0 = self.floor(blur);
     _svg += "<defs>";
     _svg += "<filter";
     _svg += " id="+self.quote(idName);
     _svg += ">";
     _svg += "<feDropShadow";
     _svg += " flood-color="+self.quote(style);
-    _svg += " dx="+self.quote(offsetX);
-    _svg += " dy="+self.quote(offsetY);
-    _svg += " stdDeviation="+self.quote(blur);
+    _svg += " dx="+self.quote(offsetX0);
+    _svg += " dy="+self.quote(offsetY0);
+    _svg += " stdDeviation="+self.quote(blur0);
     _svg += "/>";
     _svg += "</filter>";
+    _svg += "</defs>";
+    _svg += self.rn;
+  }
+  return _svg;
+};
+My_entry.draw_svg.prototype.def_mask = function(idName, style, x, y, w, h){
+  var self = this;
+  var _svg = "";
+  var w0 = self.floor(w);
+  var h0 = self.floor(h);
+  if(w0 && h0){
+    var x0 = self.floor(x);
+    var y0 = self.floor(y);
+    _svg += "<defs>";
+    _svg += "<mask";
+    _svg += " id="+self.quote(idName);
+    _svg += ">";
+    _svg += "<rect";
+    _svg += " x="+self.quote(x0);
+    _svg += " y="+self.quote(y0);
+    _svg += " width="+self.quote(w0);
+    _svg += " height="+self.quote(h0);
+    _svg += " fill="+self.quote(style);
+    _svg += "/>";
+    _svg += "</mask>";
     _svg += "</defs>";
     _svg += self.rn;
   }
@@ -160,6 +192,12 @@ My_entry.draw_svg.prototype.use_filter = function(idName){
   var self = this;
   var _svg = "";
   _svg += " style="+self.quote("filter:url(#"+idName+")");
+  return _svg;
+};
+My_entry.draw_svg.prototype.use_mask = function(idName){
+  var self = this;
+  var _svg = "";
+  _svg += " style="+self.quote("mask:url(#"+idName+")");
   return _svg;
 };
 My_entry.draw_svg.prototype.textpath = function(text, arr_vec, opt_globalCompositeOperation, j, opt_fontFamily, opt_fontSize, isBold, isItalic, isReverse, opt_styleRGBA_bg, opt_styleRGBA_fg, fillStr, spacingX, spacingY, offsetX, offsetY, blur){
@@ -191,19 +229,6 @@ My_entry.draw_svg.prototype.gradation = function(ID, colors, arr_vec, opt_global
     }
     return _arr_vec;
   };
-  var isOutOfScreen = function(arr_vec){
-    var _isOut = true;
-    for(var n=0; n<len_n; ++n){
-      var vecn = arr_vec[n];
-      var x = vecn.x;
-      var y = vecn.y;
-      if(!(x < 0 || x > px_w || y < 0 || y > px_h)){
-        _isOut = false;
-        break;
-      }
-    }
-    return _isOut;
-  };
   for(var cycle=0; cycle<Ncycle; ++cycle){
     var arr_vec0 = lerp_arr_vec(offsetR+cycle);
     for(var i=0; i<Ncolor; ++i){
@@ -212,11 +237,6 @@ My_entry.draw_svg.prototype.gradation = function(ID, colors, arr_vec, opt_global
       _svg += self.lines(arr_vec0.concat(arr_veck), 0, arr_style[i], opt_globalCompositeOperation, true);
       arr_vec0 = arr_veck;
     }
-/*
-    if(isOutOfScreen(arr_vec0)){  // scaling disabled
-      break;
-    }
-*/
   }
   return _svg;
 };
@@ -225,7 +245,7 @@ My_entry.draw_svg.prototype.text = function(text, vec0, opt_fontSize, opt_styleR
   var self = this;
   var _svg = "";
   var ctx = self.ctx;
-  var fontSize = opt_fontSize || 0;
+  var fontSize = self.floor(opt_fontSize || 0);
   var fontFamily = self.fontFamily;
   if(fontSize){
     var fillStyle = opt_styleRGBA || self.config.default.rgba;
@@ -250,7 +270,7 @@ My_entry.draw_svg.prototype.label = function(text, vec0, opt_fontSize, opt_style
   var self = this;
   var _svg = "";
   var ctx = self.ctx;
-  var fontSize = opt_fontSize || 0;
+  var fontSize = self.floor(opt_fontSize || 0);
   var fontFamily = self.fontFamily;
   if(fontSize){
     var fillStyle = opt_styleRGBA || self.config.default.rgba;
@@ -290,7 +310,7 @@ My_entry.draw_svg.prototype.axis = function(text, vec0, opt_fontSize, opt_styleR
   var self = this;
   var _svg = "";
   var ctx = self.ctx;
-  var fontSize = opt_fontSize || 0;
+  var fontSize = self.floor(opt_fontSize || 0);
   var fontFamily = self.fontFamily;
   if(fontSize){
     ctx.save();
@@ -310,7 +330,7 @@ My_entry.draw_svg.prototype.textbox = function(text, vec0, vec1, opt_fontSize, o
   var self = this;
   var _svg = "";
   var ctx = self.ctx;
-  var fontSize = opt_fontSize || 0;
+  var fontSize = self.floor(opt_fontSize || 0);
   var fontFamily = self.fontFamily;
   ctx.save();
   ctx.font = fontSize+"px "+fontFamily;

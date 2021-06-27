@@ -222,9 +222,10 @@ My_entry.draw.prototype.textpath_sw = function(text, arr_vec, opt_globalComposit
   var _svg = "";
   var ctx = self.ctx;
   var path = document.createElementNS("http://www.w3.org/2000/svg", "path");
-  path.setAttribute("d", self.get_path(arr_vec, isReverse));
+  var style_path = self.get_path(arr_vec, isReverse);
+  path.setAttribute("d", style_path);
   var x0 = 0;
-  var fontSize = opt_fontSize || 0;
+  var fontSize = self.floor(opt_fontSize || 0);
   var fontFamily = opt_fontFamily || self.fontFamily;
   ctx.save();
   ctx.font = fontSize+"px "+fontFamily;
@@ -250,9 +251,17 @@ My_entry.draw.prototype.textpath_sw = function(text, arr_vec, opt_globalComposit
     var rgbak = self.lerp_rgba(rgba0, rgba1, Math.min(1, Nk));
     shadowColor = self.rgba2style(rgbak);
   }
+  var hasSpace = (spacingX || spacingY);
+  var idName_path = "path"+j;
+  var idName_filter = "filter"+j;
   if(toSVG){
-    var idName = "filter"+j;
-    _svg += self.def_dropShadow(idName, shadowColor, offsetX, offsetY, blur);
+    _svg += "<path id="+self.quote(idName_path);
+    _svg += " fill="+self.quote("none");
+    _svg += " stroke="+self.quote("none");
+    _svg += " d="+self.quote(style_path);
+    _svg += "/>";
+    _svg += self.rn;
+    _svg += self.def_dropShadow(idName_filter, shadowColor, offsetX, offsetY, blur);
     var svg_config = "";
     svg_config += " font-family="+self.quote(fontFamily);
     svg_config += " font-size="+self.quote(fontSize);
@@ -260,19 +269,39 @@ My_entry.draw.prototype.textpath_sw = function(text, arr_vec, opt_globalComposit
     svg_config += (isItalic)? " font-style="+self.quote("italic"): "";
     svg_config += " fill="+self.quote((fillStr !== false)? fillStyle: "none");
     svg_config += " stroke="+self.quote((fillStr !== true)? strokeStyle: "none");
-    svg_config += (blur)? self.use_filter(idName): "";
+    svg_config += (blur)? self.use_filter(idName_filter): "";
     _svg += self.header_group(null, svg_config);
   }
   else{
     ctx.fillStyle = fillStyle;
     ctx.strokeStyle = strokeStyle;
     if(blur){
+      var offsetX0 = self.floor(offsetX);
+      var offsetY0 = self.floor(offsetY);
+      var blur0 = self.floor(blur);
       ctx.shadowColor = shadowColor;
-      ctx.shadowOffsetX = offsetX;
-      ctx.shadowOffsetY = offsetY;
-      ctx.shadowBlur = blur;
+      ctx.shadowOffsetX = offsetX0;
+      ctx.shadowOffsetY = offsetY0;
+      ctx.shadowBlur = blur0;
     }
     ctx.globalCompositeOperation = opt_globalCompositeOperation || ctx.globalCompositeOperation;
+  }
+  if(toSVG){
+    var svg_textPath = "";
+    svg_textPath += "<text";
+    svg_textPath += ">";
+    svg_textPath += "<textPath href="+self.quote("#"+idName_path);
+    svg_textPath += ">";
+    svg_textPath += text;
+    svg_textPath += "</textPath>";
+    svg_textPath += "</text>";
+    if(hasSpace){
+      _svg += self.comment(svg_textPath);
+    }
+    else{
+      _svg += svg_textPath;
+      _svg += self.rn;
+    }
   }
   for(var i=0, len=text.length; i<len; ++i){
     var chari = text.charAt(i);
@@ -289,19 +318,21 @@ My_entry.draw.prototype.textpath_sw = function(text, arr_vec, opt_globalComposit
     var deg = self.floor(t*r2d);
     var rad = deg/r2d;
     if(toSVG){
-      var points = "";
-      points += x+" "+y;
-      var tr = "";
-      tr += (deg)? "rotate("+deg+" "+points+") ": "";
-      tr += "translate("+points+")";
-      _svg += "<text";
-      _svg += " transform="+self.quote(tr);
-      _svg += " x="+self.quote(dx);
-      _svg += " y="+self.quote(dy);
-      _svg += ">";
-      _svg += self.escape(chari);
-      _svg += "</text>";
-      _svg += self.rn;
+      if(hasSpace){
+        var points = "";
+        points += x+" "+y;
+        var tr = "";
+        tr += (deg)? "rotate("+deg+" "+points+") ": "";
+        tr += "translate("+points+")";
+        _svg += "<text";
+        _svg += " transform="+self.quote(tr);
+        _svg += " x="+self.quote(dx);
+        _svg += " y="+self.quote(dy);
+        _svg += ">";
+        _svg += self.escape(chari);
+        _svg += "</text>";
+        _svg += self.rn;
+      }
     }
     else{
       ctx.save();

@@ -133,6 +133,7 @@ My_entry.calc_graphing.prototype.output_axis = function(arr2d_vec, options_plot)
   $._id("input-ymax").value = callback(ymax);
   return self;
 };
+/* Ver.2.37.18 */
 /* Ver.2.16.6 */
 My_entry.calc_graphing.prototype.input_axis = function(arr2d_vec){
   var self = this;
@@ -141,10 +142,14 @@ My_entry.calc_graphing.prototype.input_axis = function(arr2d_vec){
   var ymin = $.inputNum_id("input-ymin");
   var xmax = $.inputNum_id("input-xmax");
   var ymax = $.inputNum_id("input-ymax");
-  arr2d_vec.gxmin = Math.min(Math.min(xmin, xmax), arr2d_vec.xmin);
-  arr2d_vec.gymin = Math.min(Math.min(ymin, ymax), arr2d_vec.ymin);
-  arr2d_vec.gxmax = Math.max(Math.max(xmin, xmax), arr2d_vec.xmax);
-  arr2d_vec.gymax = Math.max(Math.max(ymin, ymax), arr2d_vec.ymax);
+  var gxmin = Math.min(xmin, xmax);
+  var gymin = Math.min(ymin, ymax);
+  var gxmax = Math.max(xmin, xmax);
+  var gymax = Math.max(ymin, ymax);
+  arr2d_vec.gxmin = gxmin;
+  arr2d_vec.gymin = gymin;
+  arr2d_vec.gxmax = gxmax;
+  arr2d_vec.gymax = gymax;
   return self;
 };
 My_entry.calc_graphing.prototype.output_msgError_plot = function(e){
@@ -178,7 +183,7 @@ My_entry.calc_graphing.prototype.plot = function(arr_data, options_plot, isFinal
       /* -> Ver.2.25.12 */
     });
     var arr2d_vec = self.arr_data2arr2d_vec(arr_data, options_plot);
-    if(self.plot2d.isChanged_axis){
+    if(self.plot2d.isChanged){
       self.input_axis(arr2d_vec);
     }
     else{
@@ -639,7 +644,30 @@ My_entry.calc_graphing.prototype.init_handlers = function(){
     /* -> Ver.2.25.14 */
     // canvas
     self.plot2d = new self.constructors.plot2d("div-plot2d", 512, 256);
-    self.plot2d.setter.callbacks({onmouseup: function(){self.re_plot(true);}});
+    /* Ver.2.37.18 -> */
+    self.trans = function(x, isLog){
+      return ((isLog)? Math.pow(10, x): x);
+    };
+    self.plot2d.setter.callbacks({
+      onmouseup: function(e, data){
+        if(data){
+          var options_plot = self.get_options(true);
+          var isLog_x = options_plot["log-x"];
+          var isLog_y = options_plot["log-y"];
+          var gxmin = data.gxmin;
+          var gymin = data.gymin;
+          var gxmax = data.gxmax;
+          var gymax = data.gymax;
+          var xmin = self.trans(gxmin, isLog_x);
+          var ymin = self.trans(gymin, isLog_y);
+          var xmax = self.trans(gxmax, isLog_x);
+          var ymax = self.trans(gymax, isLog_y);
+          self.output_axis({xmin: xmin, ymin: ymin, xmax: xmax, ymax: ymax}, options_plot);
+        }
+        self.re_plot(true);
+      }
+    });
+    /* -> Ver.2.37.18 */
     // workers
     self.set_callbacks_worker();
     self.worker_calc = new self.constructors.original_workers(My_entry.job_imported, "js/for_url.js", self.callbacks_worker_calc);
@@ -882,16 +910,12 @@ My_entry.calc_graphing.prototype.init_handlers = function(){
       case "input-ymin":
       case "input-xmax":
       case "input-ymax":
-        self.plot2d.isChanged_axis = true;
+        self.plot2d.isChanged = true;
         self.isCheckedError = false;  // Ver.2.33.17
         self.re_plot(true);
         break;
-      case "checkbox-log-x":
-      case "checkbox-log-y":
       case "checkbox-imag-x":
       case "checkbox-imag-y":
-      case "checkbox-axis-x":
-      case "checkbox-axis-y":
         self.plot2d.init_flags();
         self.isCheckedError = false;  // Ver.2.33.17
         self.re_plot(true);
@@ -910,7 +934,11 @@ My_entry.calc_graphing.prototype.init_handlers = function(){
       case "select-kx-adjust":
       case "select-legend-kx":
       case "select-legend-ky":
+      case "checkbox-log-x":
+      case "checkbox-log-y":
       case "checkbox-legend":
+      case "checkbox-axis-x":
+      case "checkbox-axis-y":
       case "checkbox-axis-z":
         self.isCheckedError = false;  // Ver.2.33.17
         self.re_plot(true);
