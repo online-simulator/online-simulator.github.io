@@ -356,14 +356,23 @@ My_entry.plot2d.prototype.run = function(arr2d_vec, options, toSVG, isFinal){
   var arr_gradation = new Array(len_j);
   var inputZ = options["input-z"] || "";
   var title = "";
-  if(inputZ){
+  if(isAxis_z && inputZ){
     inputZ = def.enter_name(inputZ, "title", false, 0, function(content){title = content;});
+  }
+  var label_x = "";
+  if(isAxis_x && isAxis_z && inputZ){
+    inputZ = def.enter_name(inputZ, "xlabel", false, 0, function(content){label_x = content;});
+  }
+  var label_y = "";
+  if(isAxis_y && isAxis_z && inputZ){
+    inputZ = def.enter_name(inputZ, "ylabel", false, 0, function(content){label_y = content;});
   }
   // scaling
   var fontSize1 = (title)? fontSize+self.config.default.dfontSize: 0;
   var kyAdjust = 1+fontSize1*5/self.px_h;
   self.change_scale(tgxmin, tgymin, tgxmax, tgymax, isAxis_x, isAxis_y, fontSize, kxAdjust, kyAdjust);
   /* -> 1.0.0 */
+  // legends
   var arr_legend = inputZ.split(";");
   var markerType = null;
   var styleRGBA = null;
@@ -447,6 +456,13 @@ My_entry.plot2d.prototype.run = function(arr2d_vec, options, toSVG, isFinal){
   else{
     background.fill(backgroundColor, globalCompositeOperation);
   }
+  /* 1.0.0 -> */
+  /* 0.6.0 -> */
+  // title
+  if(title){
+    _svg += grid.draw.label(title, {x: self.px_w/2, y: fontSize1}, fontSize1, gridLineColor, globalCompositeOperation, false);
+  }
+  /* -> 0.6.0 */
   // grid
   /* 0.5.0 -> */
   var Ni = Ni0;
@@ -457,17 +473,18 @@ My_entry.plot2d.prototype.run = function(arr2d_vec, options, toSVG, isFinal){
   if(!(Nj)){
     Nj = (isAxis_y)? Math.floor(self.config.default.Nj0/self.get_ky(fontSize)) || 1: self.config.default.Nj;
   }
-  var label_x = "x(t)";
-  label_x = (isImag_x)? "imag("+label_x+")": label_x;
-  label_x = (isLog_x)? "log10("+label_x+")": label_x;
-  label_x = (isAxis_x)? label_x: null;
-  var label_y = "y(t)";
-  label_y = (isImag_y)? "imag("+label_y+")": label_y;
-  label_y = (isLog_y)? "log10("+label_y+")": label_y;
-  label_y = (isAxis_y)? label_y: null;
+  // labels
+  if(isAxis_x && !(label_x)){
+    label_x = "x(t)";
+    label_x = (isImag_x)? "imag("+label_x+")": label_x;
+    label_x = (isLog_x)? "log10("+label_x+")": label_x;
+  }
+  if(isAxis_y && !(label_y)){
+    label_y = "y(t)";
+    label_y = (isImag_y)? "imag("+label_y+")": label_y;
+    label_y = (isLog_y)? "log10("+label_y+")": label_y;
+  }
   /* -> 0.5.0 */
-  /* 1.0.0 -> */
-  // grid
   _svg += self.grid(options, tgxmin, tgymin, tgxmax, tgymax, Ni, Nj, isLog_x, isLog_y, label_x, label_y, fontSize, expDigit, gridLineWidth, gridLineColor, globalCompositeOperation);
   // transform
   var arr2d_tx = new Array(len_n);
@@ -621,13 +638,6 @@ if(isAxis_z){
         yp += dyp_half;
       }
     }
-  }
-  /* -> 0.6.0 */
-  /* 1.0.0 -> */
-  /* 0.6.0 -> */
-  // title
-  if(title){
-    _svg += plot.draw.label(title, {x: self.px_w/2, y: fontSize1}, fontSize1, gridLineColor, globalCompositeOperation, false);
   }
   /* -> 0.6.0 */
   // string with SVG-path

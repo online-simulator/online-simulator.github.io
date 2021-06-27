@@ -198,6 +198,11 @@ graph-title特定項目仕様
 </a>
 <br>
 　　　・
+<a href="#span-out-UI-graphing-labels">
+axis-labels特定項目仕様
+</a>
+<br>
+　　　・
 <a href="#span-out-UI-graphing-string-path">
 string-path特定項目仕様
 </a>
@@ -208,7 +213,7 @@ gradation特定項目仕様
 </a>
 <br>
 　　・
-<a href="#span-out-UI-graphing-layer">
+<a href="#span-out-UI-graphing-layer-plot">
 plot-layer描画順
 </a>
 <br>
@@ -1066,7 +1071,7 @@ panel上段について記述する
 <br>
 　・tは媒介変数で上書き可能なlocal変数
 <br>
-　・直下のcheckboxは軸label/value表示を選択
+　・直下のcheckboxは<a href="#span-out-UI-graphing-labels">axis-label</a>/axis-values表示を選択
 <br>
 　・log-checkboxは対数表示を選択
 <br>
@@ -1078,7 +1083,7 @@ panel上段について記述する
 <br>
 　・tは媒介変数で上書き可能なlocal変数
 <br>
-　・直下のcheckboxは軸label/value表示を選択
+　・直下のcheckboxは<a href="#span-out-UI-graphing-labels">axis-label</a>/axis-values表示を選択
 <br>
 　・log-checkboxは対数表示を選択
 <br>
@@ -1086,9 +1091,9 @@ panel上段について記述する
 <br>
 　・y(t)のplot範囲のgrid最小値~最大値を入力
 <br>
-・<span class="run">Ver.2.36.18</span>以降、z-checkboxは<a href="#span-out-UI-graphing-title">graph-title</a>等特定項目以外の表示を選択
+・<span class="run">Ver.2.36.18</span>以降、z-checkboxは<a href="#span-out-UI-graphing-gradation">gradation</a>/<a href="#span-out-UI-graphing-string-path">string-path</a>以外の表示を選択
 <br>
-　最終frameまでの描画待ち時間||描画負荷を省略する際に有効
+　最終frameまでの特定項目を除く描画待ち時間||描画負荷を省略する際にunchecked
 <br>
 <br>
 <span class="run">Ver.2.37.18</span>以降、gridのscalingに対応
@@ -1219,14 +1224,28 @@ str:strFontSize
 <br>
 ・任意位置に挿入可
 <br>
-・graph-titleはcanvas上部に表示するtitleの任意文字列
+・graph-titleはcanvas上部に表示するtitleの任意文字列でgrid-layerに描画
+<br>
+<br>
+<span class="run">Ver.2.37.18</span>以降、<a href="#span-out-UI-graphing-labels">x-label</a>をxlabel||XLABEL{x-label}で入力
+<br>
+・任意位置に挿入可
+<br>
+・x-labelはx軸余白に表示するlabelの任意文字列でgrid-layerに描画
+<br>
+<br>
+<span class="run">Ver.2.37.18</span>以降、<a href="#span-out-UI-graphing-labels">y-label</a>をylabel||YLABEL{y-label}で入力
+<br>
+・任意位置に挿入可
+<br>
+・y-labelはy軸余白に表示するlabelの任意文字列でgrid-layerに描画
 <br>
 <br>
 <span class="run">Ver.2.34.18</span>以降、<a href="#span-out-UI-graphing-string-path">string-path</a>をstring||STRING{config[]string-path}で入力
 <br>
 ・各<a href="#span-out-UI-graphing-legend">legend-dataset</a>の任意位置に挿入可
 <br>
-・string-pathはplot-lines上のpathに表示する任意文字列
+・string-pathはplot-lines上のpathに表示する任意文字列で<a href="#span-out-UI-graphing-layer-plot">plot-layer</a>に描画
 <br>
 ・config[]省略時、<a href="#span-out-UI-graphing-legend">legend-dataset</a>の設定値を使用
 <br>
@@ -1243,6 +1262,8 @@ shadowOffsetX:shadowOffsetY:shadowBlur:deg0
 <br>
 <br>
 <span class="run">Ver.2.36.18</span>以降、<a href="#span-out-UI-graphing-gradation">gradation</a>をgradation||GRADATION{config[]colors}で入力
+<br>
+・gradationは<a href="#span-out-UI-graphing-layer-plot">plot-layer</a>に描画
 <br>
 ・各<a href="#span-out-UI-graphing-legend">legend-dataset</a>の任意位置に挿入可
 <br>
@@ -1271,6 +1292,8 @@ legend-datasetについて記述する
 <br>
 <br>
 <a href="#span-out-UI-graphing-z">z入力欄</a>にlegend-datasetをsemi-colon;区切りで入力
+<br>
+・legendは<a href="#span-out-UI-graphing-layer-plot">plot-layer</a>に描画
 <br>
 ・datasetは設定値をcolon:区切りで入力
 <br>
@@ -1312,11 +1335,40 @@ graph-title
 graph-title特定項目仕様について記述する
 <br>
 <br>
-<a href="#span-out-UI-graphing-z">z入力欄</a>にtitle||TITLE{graph-title}で入力
+<a href="#span-out-UI-graphing-z">z入力欄</a>にgraph-titleをtitle||TITLE{graph-title}で入力
 <br>
 ・任意位置に挿入可
 <br>
-・graph-titleはcanvas上部に表示するtitleの任意文字列
+・graph-titleはcanvas上部に表示するtitleの任意文字列でgrid-layerに描画
+    </td>
+  </tr>
+  <tr>
+    <th>
+<a href="#span-index">
+目次
+</a>
+<br>
+axis-labels
+<br>
+特定項目仕様
+    </th>
+    <td>
+<span id="span-out-UI-graphing-labels"></span>
+axis-labels特定項目仕様について記述する
+<br>
+<br>
+<a href="#span-out-UI-graphing-z">z入力欄</a>にx-labelをxlabel||XLABEL{x-label}で入力
+<br>
+・任意位置に挿入可
+<br>
+・x-labelはx軸余白に表示するlabelの任意文字列でgrid-layerに描画
+<br>
+<br>
+<a href="#span-out-UI-graphing-z">z入力欄</a>にy-labelをylabel||YLABEL{y-label}で入力
+<br>
+・任意位置に挿入可
+<br>
+・y-labelはy軸余白に表示するlabelの任意文字列でgrid-layerに描画
     </td>
   </tr>
   <tr>
@@ -1338,7 +1390,7 @@ string-path特定項目仕様について記述する
 <br>
 ・各<a href="#span-out-UI-graphing-legend">legend-dataset</a>の任意位置に挿入可
 <br>
-・string-pathはplot-lines上のpathに表示する任意文字列
+・string-pathはplot-lines上のpathに表示する任意文字列で<a href="#span-out-UI-graphing-layer-plot">plot-layer</a>に描画
 <br>
 ・config[]省略時、<a href="#span-out-UI-graphing-legend">legend-dataset</a>の設定値を使用
 <br>
@@ -1394,7 +1446,7 @@ shadowColor.r = strokeStyle.r+(fillStyle.r-strokeStyle.r)*Math.min(1, Math.abs(f
 <br>
 　<span class="run">Ver.2.37.18</span>以降、path上の回転角のみ、svg-&lt;textPath&gt;準拠のbottom基準に変更
 <br>
-・<span class="run">Ver.2.37.18</span>以降、deg0追加
+・<span class="run">Ver.2.37.18</span>以降、config[]内datasetに設定項目deg0を追加
 <br>
 ・deg0=0~360はcharacterのbottom-left基準の回転角の度数deg
 <br>
@@ -1404,7 +1456,7 @@ shadowColor.r = strokeStyle.r+(fillStyle.r-strokeStyle.r)*Math.min(1, Math.abs(f
 <br>
 ・仕様上、string-pathの4Bytes character disabled
 <br>
-・svg出力のみ4Bytes characterを含む特殊文字等、直接file編集可（group化済み）
+・svg出力のみ、4Bytes characterを含む特殊文字等、直接file編集可（group化済み）
 <br>
 <br>
 <span class="run">Ver.2.37.18</span>以降、spacingX/Y=0||省略時、&lt;textPath&gt;によるsvg出力に対応
@@ -1432,6 +1484,8 @@ gradation特定項目仕様と付随する留意事項について記述する
 <br>
 <br>
 <a href="#span-out-UI-graphing-z">z入力欄</a>にgradationをgradation||GRADATION{config[]colors}で入力
+<br>
+・gradationは<a href="#span-out-UI-graphing-layer-plot">plot-layer</a>に描画
 <br>
 ・各<a href="#span-out-UI-graphing-legend">legend-dataset</a>の任意位置に挿入可
 <br>
@@ -1465,9 +1519,9 @@ originX:originY:offsetR:<span class="clear">orderR:NrandR:NrandT:isMin:isRound:N
 <br>
 ・isMin=false||true||&lt;0(auto)はgradation代表長さの一意な決め方を指定する
 <br>
-　falseの場合、各半径方向の最大値を保持
+　falseの場合、gradation起点から各周plot点までの最大値を保持
 <br>
-　trueの場合、各半径方向の最小値を保持
+　trueの場合、gradation起点から各周plot点までの最小値を保持
 <br>
 　負の場合、成行きで保持
 <br>
@@ -1536,7 +1590,7 @@ plot-layer
 描画順
     </th>
     <td>
-<span id="span-out-UI-graphing-layer"></span>
+<span id="span-out-UI-graphing-layer-plot"></span>
 plot-layer描画順について記述する
 <br>
 <br>
@@ -1550,9 +1604,10 @@ plot-layerに描画する項目を描画順に列挙する
 <br>
 ・<a href="#span-out-UI-graphing-legend">legends</a>
 <br>
-・<a href="#span-out-UI-graphing-title">graph-title</a>
-<br>
 ・<a href="#span-out-UI-graphing-string-path">string-path</a>
+<br>
+<br>
+<span class="run">Ver.2.37.18</span>以降、<a href="#span-out-UI-graphing-title">graph-title</a>はgrid-layerに描画
     </td>
   </tr>
   <tr>
@@ -1598,9 +1653,9 @@ plot-configの設定項目を列挙する
 <br>
 ・font-sizeを選択可
 <br>
-　軸value/legend-stringのfont-sizeは選択値
+　axis-values/<a href="#span-out-UI-graphing-legend">legend-string</a>のfont-sizeは選択値
 <br>
-　軸label/titleのfont-sizeは選択値+2px
+　<a href="#span-out-UI-graphing-labels">axis-labels</a>/<a href="#span-out-UI-graphing-title">graph-title</a>のfont-sizeは選択値+2px
 <br>
 ・各軸のgrid分割数grid-x-Ni/grid-y-Njを選択可
 <br>
