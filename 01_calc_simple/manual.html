@@ -25,14 +25,14 @@
 <hr>
 <div>
 <table>
-<caption>初期表示の<a href="#span-out-com">複素数</a>演算の解はoptionの条件設定によって異なる</caption>
+<caption>初期表示の<a href="#span-out-com">複素数</a>演算の解は<a href="#span-out-options">option</a>の条件設定によって異なる</caption>
 <thead>
   <tr>
     <th>
-Associativity
+<a href="#span-out-associativity">Associativity</a>
     </th>
     <th>
-/prior2omitted*
+/prior2<a href="#span-out-BRmo">omitted*</a>
     </th>
     <th>
 条件設定に依らない括弧明示
@@ -355,6 +355,11 @@ scope付式変数の再利用
 ・
 <a href="#span-out-system">
 動作test環境
+</a>
+<br>
+　・
+<a href="#span-out-system-test">
+実機online-test手順
 </a>
 <br>
 ・
@@ -1701,9 +1706,7 @@ strict-mode equation-listについて記述する
 目次
 </a>
 <br>
-log
-<br>
-表示仕様
+log表示仕様
     </th>
     <td>
 <span id="span-out-log"></span>
@@ -1854,11 +1857,15 @@ Left-Associativity（以降、LAと省略する）
 <br>
 +3-5+7-9 || ((((0+3)-5)+7)-9) -> -4
 <br>
+(1,2)-(3,4)-(5,6) || ((1,2)-(3,4))-(5,6) -> (-7,-8)
+<br>
+(1,2){3,4}(5,6) || ((1,2){3,4})(5,6) || 11(5,6) -> (55,66)
+<br>
 3^2^3 || ((3^2)^3) -> 729
 <br>
 3**2**3 || ((3**2)**3) -> 729
 <br>
-・べき乗の2項演算子は^と**を区別しない
+・べき乗の2項演算子記号^は**と同義
 <br>
 <br>
 Right-Associativity（以降、RAと省略する）
@@ -1866,6 +1873,10 @@ Right-Associativity（以降、RAと省略する）
 ・右から順に結合する場合
 <br>
 +3-5+7-9 || (0+(3-(5+(7-9)))) -> 0
+<br>
+(1,2)-(3,4)-(5,6) || (1,2)-((3,4)-(5,6)) -> (3,4)
+<br>
+(1,2){3,4}(5,6) || (1,2)({3,4}(5,6)) || (1,2)(15,18:20,24) -> (55,66)
 <br>
 3^2^3 || (3^(2^3)) -> 6561
 <br>
@@ -3996,9 +4007,20 @@ operation関数の役割はinterpreter
 <br>
 ・よってNativeに近い言語で直接記述するよりthroughputは圧倒的に低いが、
 <br>
-・Google Chrome Developer Toolsによるcross-platform開発の容易さと、
+・以下のcross-platform開発とonline-test管理の容易さを選択
 <br>
-・Github Pagesでのonline-test管理の容易さを選択
+<br>
+開発環境を列挙する
+<br>
+・Microsoft windows 10
+<br>
+・Google Chrome Developer Tools
+<br>
+・Apache HTTP Server
+<br>
+・Github Desktop
+<br>
+・Github Pages
     </td>
   </tr>
   <tr>
@@ -4013,11 +4035,24 @@ operation関数の役割はinterpreter
 <span id="span-out-development-additional"></span>
 基本構文のみで最短かつ確実な実装を選択したため、platform以前に最適化の余地がある
 <br>
-・例えば、<a href="#span-out-vars">変数</a>のread-writeは<a href="#span-in-tree">tree構造</a>を複製して参照上の副作用を単純に回避する
+<br>
+実装の特徴を列挙する
+<br>
+・<a href="#span-out-vars">変数</a>のread-writeは<a href="#span-in-tree">tree構造</a>を複製して参照上の副作用を単純に回避する
 <br>
 ・<a href="#span-out-eqns">式変数</a>のread-write||call時も同様
 <br>
+・<a href="#span-out-mat">行列</a>演算を含む<a href="#span-out-associativity">2項演算子のassociativity</a>は単なるfor-loopで結合順||演算順を保証する
+<br>
+・reccursive callを代替する<a href="#span-out-FNh-RX">再帰高階関数</a>も同様に、独自のcallstackを実装しない
+<br>
 ・よって<a href="#span-out-FNh-DX">微分の多重化</a>等、<a href="#span-out-FNh">高階関数</a>をnestingする場合、致命的にthroughputが低下する
+<br>
+・<a href="#span-out-scope-vars">変数のscope</a>はstaticで再利用可能な実装としたが、最善を追及していない
+<br>
+・debug機能が存在しないため、<a href="#span-out-vars">変数</a>・<a href="#span-out-eqns">式変数</a>はpollution disabledの厳格な制約条件を課す
+<br>
+・よって<a href="#span-out-bracket">scope</a>本来の利便性を大きく損なうが、緩和の見通しはない
     </td>
   </tr>
   <tr>
@@ -4033,7 +4068,7 @@ operation関数の役割はinterpreter
 browserの動作test環境について記述する
 <br>
 <br>
-offline/online-test環境
+localhost offline/online-test環境
 <br>
 ・latest Chrome
 <br>
@@ -4044,9 +4079,92 @@ offline/online-test環境
 ・IE以外の互換性は高いため、Chrome DevTools-emulatorで動作確認
 <br>
 <br>
-online-test環境
+実機online-test環境
+<br>
+・latest Chrome
 <br>
 ・latest Amazon Silk
+    </td>
+  </tr>
+  <tr>
+    <th>
+<a href="#span-index">
+目次
+</a>
+<br>
+実機
+<br>
+online-test
+<br>
+手順
+    </th>
+    <td>
+<span id="span-out-system-test"></span>
+実機mobile端末のonline-test手順について記述する
+<br>
+<br>
+<span class="run">Ver.2.37.18</span>以降、実機online-testのcommit前実施に対応
+<br>
+・Github Pages上で実施していた実機testの大半を以下の手順でcommit前に実施する
+<br>
+・さらに、今後の<a href="#span-out-application">application</a>開発で必要な実機online-testのdebug環境を整備する
+<br>
+<br>
+実機online-testのcommit前実施準備を以下に示す
+<br>
+・localhost Apache HTTP Serverのhttpd.confの設定を変更する
+<br>
+　Require all denied
+<br>
+　Require ip 192.168.
+<br>
+・localhost Apache HTTP Serverを再起動して設定変更を反映する
+<br>
+<br>
+実機online-testのcommit前実施手順を以下に示す
+<br>
+・localhostのWi-Fi接続先propertyのnetwork profileを確認する
+<br>
+・localhost Firewallの設定でApache HTTP Serverのprivate||publicを許可する
+<br>
+・localhostと実機を同一のWi-Fiに接続する
+<br>
+・localhost IPv4 addressを確認する
+<br>
+・実機browserのURLにlocalhost IPv4 addressを入力して更新する
+<br>
+・localhost Apache HTTP ServerのDocumentRootからの相対パスでtestするpageを開く
+<br>
+・Wi-Fiを介して実機online-testを実施する
+<br>
+・test終了後、必要に応じてlocalhost Firewallの設定を元に戻す
+<br>
+<br>
+さらに、localhost Chrome DevToolsでAndroid端末を操作してdebugする手順を以下に示す
+<br>
+・Android端末のBuild numberを7回tapしてDeveloper optionsを表示する
+<br>
+・System-Advanced-Developer optionsを開く
+<br>
+・USB debuggingを有効化する
+<br>
+・Android端末をlocalhostにUSB接続してUSB debugging connectedを確認する
+<br>
+・localhost ChromeのURLにchrome://inspect/#devicesを入力して更新する
+<br>
+・Android端末に表示されるcomputer's RSA keyによる接続を許可する
+<br>
+・先述の実施手順に従ってAndroid端末Chromeでlocalhostのdebugするpageを開く
+<br>
+・localhost Chromeに戻ってAndroid端末情報を確認する
+<br>
+・debugするpage URLのinspectを実行して新しいwindowを開く
+<br>
+・Chromeの同一page上でlocalhostとAndroid端末の操作が連動することを確認する
+<br>
+・以上より、Wi-Fiを介して実機online-testによるdebugを実施する
+<br>
+・test終了後、必要に応じてAndroid端末の設定を元に戻す
     </td>
   </tr>
   <tr>
