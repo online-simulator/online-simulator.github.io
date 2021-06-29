@@ -221,7 +221,7 @@ tableの長さは各商品の提供割合の逆数の最小公倍数で決まる
 　乱数を発生させてrandomに決定したtable商品番号の商品を排出するJavaScript
   <ol>
     <li>
-予め上記tableの配列datatableをdatabaseに登録する
+予め上記tableの配列dataをtableとしてdatabaseに登録する
 <br>
 例）var table = ['N0','N1','N2','N3','N4','N5','N6','N7','N8','N9','N10','N11','N12',
       'R0','R1','R2','R3','SR0','SR1','SSR0'];
@@ -418,7 +418,7 @@ BOXの中身は最後から最初にloopすると仮定して（後述）
 天井要件が未達の場合はrandom-sortを何回かやり直す
     </li>
     <li>
-完成したBOXの配列databoxをdatabaseに登録する
+完成したBOXの配列dataをboxとしてdatabaseに登録する
     </li>
     <li>
 BOXの長さを参照してlenに代入する
@@ -439,7 +439,7 @@ obj_index[id] = index0;
 <br>
 Gacha1回毎に商品番号の商品itemを排出して、その利用者の商品番号を1進める
 <br>
-ただし、商品番号がBOXの最後まで進んだら最初にloopする
+ただし、商品番号がBOXの最後まで進んだ場合、最初にloopする
 <br>
 var index = obj_index[id];
 <br>
@@ -500,7 +500,7 @@ data-access回数自体が1/10に低減するため、cost面での対策効果�
 <br>
 Gacha10連1回毎に10連分の商品itemsをまとめて排出して、その利用者の商品番号を10進める
 <br>
-ただし、商品番号がBOXの最後を超えたら最初にloopする
+ただし、商品番号がBOXの最後を超えた場合、最初にloopする（BOX最後の10連は丸め誤差に含む）
 <br>
 var index = obj_index[id];
 <br>
@@ -630,7 +630,9 @@ real-GachaはBOX、商品番号ともに全利用者で共通と見なすこと�
 </div>
 <br>
 <div>
-　これより実際の運用においては、主にcostの兼ね合いで確率抽選とBOX抽選のいずれか一方を選ぶか、あるいは併用するか検討することになると考えられる
+　これより実際の運用においては、主にcostの兼ね合いで確率抽選とBOX抽選のいずれか一方を選ぶか、
+<br>
+　あるいは併用するか検討することになると考えられる
 <br>
 　確率抽選を選択する場合のcost対策としては、演出等で実行間隔を引き延ばして負荷分散を図る方法が考えられる
 <br>
