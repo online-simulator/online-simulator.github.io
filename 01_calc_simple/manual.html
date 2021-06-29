@@ -1268,11 +1268,11 @@ shadowOffsetX:shadowOffsetY:shadowBlur:deg0
 <br>
 <span class="run">Ver.2.36.18</span>以降、<a href="#span-out-UI-graphing-gradation">gradation</a>をgradation||GRADATION{config[]colors}で入力
 <br>
-・gradationは<a href="#span-out-UI-graphing-layer-plot">plot-layer</a>に描画
-<br>
 ・各<a href="#span-out-UI-graphing-legend">legend-dataset</a>の任意位置に挿入可
 <br>
 ・colorsは<a href="#span-out-UI-graphing-color">color-dataset</a>をcolon:区切りで入力
+<br>
+・gradationは<a href="#span-out-UI-graphing-layer-plot">plot-layer</a>に描画
 <br>
 ・config[]省略時、<a href="#span-out-UI-graphing-legend">legend-dataset</a>の設定値を使用
 <br>
@@ -1490,11 +1490,11 @@ gradation特定項目仕様と付随する留意事項について記述する
 <br>
 <a href="#span-out-UI-graphing-z">z入力欄</a>にgradationをgradation||GRADATION{config[]colors}で入力
 <br>
-・gradationは<a href="#span-out-UI-graphing-layer-plot">plot-layer</a>に描画
-<br>
 ・各<a href="#span-out-UI-graphing-legend">legend-dataset</a>の任意位置に挿入可
 <br>
 ・colorsは<a href="#span-out-UI-graphing-color">color-dataset</a>をcolon:区切りで入力
+<br>
+・gradationは<a href="#span-out-UI-graphing-layer-plot">plot-layer</a>に描画
 <br>
 ・config[]省略時、<a href="#span-out-UI-graphing-legend">legend-dataset</a>の設定値を使用
 <br>
@@ -1561,7 +1561,7 @@ png出力の特徴を列挙する
 <br>
 ・legend間のgradation合成不可（合成する場合、複数回の分割出力が必要）
 <br>
-・putImageDataによる同期出力のため、layer合成無効（source-over）
+・putImageDataによる同期出力のため、layer合成無効（RGBA値source-over）
 <br>
 ・乱数使用可
 <br>
@@ -1807,13 +1807,21 @@ option
 <br>
 +3-5+7-9 || ((((0+3)-5)+7)-9) -> -4
 <br>
+(1,2)-(3,4)-(5,6) || (((1,2)-(3,4))-(5,6)) -> (-7,-8)
+<br>
 -(1,1)-(2,2) || (((0,0)-(1,1))-(2,2)) -> (-3,-3)
+<br>
+(1,2){3,4}(5,6) || (((1,2){3,4})(5,6)) || 11(5,6) -> (55,66)
 <br>
 ・右から順に結合する場合、Right-Associativity
 <br>
 +3-5+7-9 || (0+(3-(5+(7-9)))) -> 0
 <br>
+(1,2)-(3,4)-(5,6) || ((1,2)-((3,4)-(5,6))) -> (3,4)
+<br>
 -(1,1)-(2,2) || ((0,0)-((1,1)-(2,2))) -> (1,1)
+<br>
+(1,2){3,4}(5,6) || ((1,2)({3,4}(5,6))) || (1,2)(15,18:20,24) -> (55,66)
 <br>
 ・前置単項の符号は同種の2項演算子と区別しない
 <br>
@@ -1857,9 +1865,11 @@ Left-Associativity（以降、LAと省略する）
 <br>
 +3-5+7-9 || ((((0+3)-5)+7)-9) -> -4
 <br>
-(1,2)-(3,4)-(5,6) || ((1,2)-(3,4))-(5,6) -> (-7,-8)
+(1,2)-(3,4)-(5,6) || (((1,2)-(3,4))-(5,6)) -> (-7,-8)
 <br>
-(1,2){3,4}(5,6) || ((1,2){3,4})(5,6) || 11(5,6) -> (55,66)
+-(1,1)-(2,2) || (((0,0)-(1,1))-(2,2)) -> (-3,-3)
+<br>
+(1,2){3,4}(5,6) || (((1,2){3,4})(5,6)) || 11(5,6) -> (55,66)
 <br>
 3^2^3 || ((3^2)^3) -> 729
 <br>
@@ -1874,9 +1884,11 @@ Right-Associativity（以降、RAと省略する）
 <br>
 +3-5+7-9 || (0+(3-(5+(7-9)))) -> 0
 <br>
-(1,2)-(3,4)-(5,6) || (1,2)-((3,4)-(5,6)) -> (3,4)
+(1,2)-(3,4)-(5,6) || ((1,2)-((3,4)-(5,6))) -> (3,4)
 <br>
-(1,2){3,4}(5,6) || (1,2)({3,4}(5,6)) || (1,2)(15,18:20,24) -> (55,66)
+-(1,1)-(2,2) || ((0,0)-((1,1)-(2,2))) -> (1,1)
+<br>
+(1,2){3,4}(5,6) || ((1,2)({3,4}(5,6))) || (1,2)(15,18:20,24) -> (55,66)
 <br>
 3^2^3 || (3^(2^3)) -> 6561
 <br>
@@ -4014,7 +4026,7 @@ operation関数の役割はinterpreter
 <br>
 ・Microsoft windows 10
 <br>
-・Google Chrome Developer Tools
+・Google Chrome Developer Tools（以降、Chrome DevToolsと省略する）
 <br>
 ・Apache HTTP Server
 <br>
@@ -4112,7 +4124,7 @@ online-test
 <br>
 実機online-testのcommit前実施準備を以下に示す
 <br>
-・localhost Apache HTTP Serverのhttpd.confの設定を変更する
+・localhost Apache HTTP ServerのDocumentRootのaccess制限を設定する
 <br>
 　Require all denied
 <br>
@@ -12906,7 +12918,7 @@ clear; [a=2,=&lt;[b=1,a=&lt;first[[b,],b,],=&lt;a=&gt;]=&gt;+a]=&gt; -> 3
 <br>
 ・callする<a href="#span-out-eqns">式変数</a>のself-children-idsからpopで取出した後、継承する
 <br>
-・よってidsはn=0の0階層から取出すFIFO-stackとする
+・よってidsはn=0の0階層から取出すFIFO-queueとする
     </td>
   </tr>
   <tr>

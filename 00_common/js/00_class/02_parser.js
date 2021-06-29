@@ -624,7 +624,7 @@ My_entry.parser.prototype.make_scopes = function(useScope, trees, scopes_parent,
         }
       }
       if(ids2d_parent && ids2d_parent.length){
-        Array.prototype.push.apply(ids2d, ids2d_parent);  // FIFO-stack
+        Array.prototype.push.apply(ids2d, ids2d_parent);  // FIFO-queue
       }
       if(ids2d.length){
         obj.ids = ids2d;  // scope ids cloned without Circular Reference at remake_trees
