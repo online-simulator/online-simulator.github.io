@@ -120,7 +120,7 @@ BOX抽選（BOX-Gacha）
 </div>
 
 <div>
-　ただし、多段階抽選の場合は確率抽選とBOX抽選を併用するcaseも考えられる
+　ただし、多段階抽選の場合、確率抽選とBOX抽選を併用するcaseも考えられる
 </div>
 
 <br><hr>
@@ -255,6 +255,29 @@ return table[index];
 <h3>確率抽選1回のserverにかかる計算負荷</h3>
 <div>
 Math.floor(Math.random()*len);
+</div>
+<br>
+
+<hr>
+<h3>tableの長さについて余談</h3>
+<div>
+  <ul>
+    <li>
+tableの長さは各商品の提供割合の逆数の最小公倍数で決まるため、tableがdatabaseに収まらないcaseが起こり得る
+    </li>
+    <li>
+その場合、全商品に対して正規化した確率分布をtable化して乱数を範囲判定した結果を上記の手順4に反映する
+    </li>
+    <li>
+本実装例より厳格な仕組みである一方、範囲判定のcostが不確定な上、現実的でない可能性が非常に高い
+    </li>
+    <li>
+よって多くの場合、tableがdatabaseに収まるように全商品の提供割合を見直すことになると考えられる
+    </li>
+    <li>
+以上より、<a title="Gacha Simulator" href="index.html">Gacha Simulator</a>のpanel設定値の微調整は不可とする
+    </li>
+  </ul>
 </div>
 <br>
 
@@ -415,7 +438,7 @@ random-sortにはFisher-Yates shuffleを利用する
 <br>
 BOXの中身は最後から最初にloopすると仮定して（後述）
 <br>
-天井要件が未達の場合はrandom-sortを何回かやり直す
+天井要件が未達の場合、random-sortを何回かやり直す
     </li>
     <li>
 完成したBOXの配列dataをboxとしてdatabaseに登録する
