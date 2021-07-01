@@ -16,7 +16,7 @@ My_entry.io.prototype.init = function(){
   };
   // getter function
   self.getter = {
-    stamp: function(){return My_entry.VERSION+" @ "+new Date();}
+    stamp: function(){return My_entry.VERSION+" @ "+new Date()+" @ "+window.navigator.userAgent;}
   };
   // initialize
   // re-initialize

@@ -96,6 +96,7 @@ My_entry.drag.prototype.set_offset0 = function(e){
   var self = this;
   self.offset0 = self.get_offset();
   self.client0 = self.get_client(e);
+  self.client = self.client0;  // for Firefox
   return self;
 };
 My_entry.drag.prototype.set_offset = function(e){
@@ -105,12 +106,19 @@ My_entry.drag.prototype.set_offset = function(e){
     var parent = self.elem_p;
     var offset0 = self.offset0;
     var client0 = self.client0;
-    var left = parent.scrollLeft+offset0.left;
-        left += (client.x-client0.x);
-    var top = parent.scrollTop+offset0.top;
-        top += (client.y-client0.y);
+    var x0 = client0.x;
+    var y0 = client0.y;
+    var x = client.x;
+    var y = client.y;
+    if(x === 0 && y === 0){
+      x = self.client.x;
+      y = self.client.y;
+    }
+    var left = parent.scrollLeft+offset0.left+(x-x0);
+    var top = parent.scrollTop+offset0.top+(y-y0);
     self.entry.$.set_elem(self.elem, "left", left+"px");
     self.entry.$.set_elem(self.elem, "top", top+"px");
+    self.client = client;  // for Firefox
   }
   return self;
 };

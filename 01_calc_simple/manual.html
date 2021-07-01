@@ -891,6 +891,8 @@ en.m.wikipedia.org/wiki/項目を列挙する
 <br>
 ja.m.wikipedia.org/wiki/項目を列挙する
 <br>
+・JavaScriptエンジン
+<br>
 ・演算子の優先順位
 <br>
 ・IEEE_754
@@ -4090,12 +4092,22 @@ localhost offline/online-test環境
 <br>
 ・IE以外の互換性は高いため、Chrome DevTools-emulatorで動作確認
 <br>
+<span class="run">Ver.2.38.18</span>以降、対応
+<br>
+・latest Firefox
+<br>
 <br>
 実機online-test環境
 <br>
+・latest Amazon Silk
+<br>
+<span class="run">Ver.2.37.18</span>以降、追加
+<br>
 ・latest Chrome
 <br>
-・latest Amazon Silk
+<span class="run">Ver.2.38.18</span>以降、対応
+<br>
+・latest Firefox
     </td>
   </tr>
   <tr>
@@ -4274,6 +4286,8 @@ IE: w -> 29
 <br>
 Edge/Chrome: w -> 36.2841796875
 <br>
+Firefox: w -> 30
+<br>
 　ctx.font = "12px sans-serif";
 <br>
 　var w = ctx.measureText(text).width;
@@ -4282,24 +4296,26 @@ IE: w -> 35
 <br>
 Edge/Chrome: w -> 43.541015625
 <br>
-・IEから出力したpngとsvgの表示が一致しない（Edge/Chromeは一致）
+Firefox: w -> 31
 <br>
-・IEはJScript-originの問題で真値の約0.8倍にtext幅を過小評価の可能性
+・IE/Firefoxから出力したpngとsvgの表示が一致しない（Edge/Chromeは一致）
 <br>
-　IEの開発終了とsupport縮小に伴い、補正係数導入等の一時的な対策はしない
+　JavaScript engineの系統による違いと推察されるが、規則性がなく対応未定
 <br>
 ・textを出力しなければbrowser間で大差はない
 <br>
 <br>
 続けて演算結果の相違について記述する
 <br>
-・IEのJScript-originとそれ以外のJavaScriptで<a href="#span-out-epsilon">Machine epsilon</a>程度の相違がある
-<br>
-・NativeのMath.sin関数を一例に示す
+・browser間で<a href="#span-out-epsilon">Machine epsilon</a>程度の相違がある
 <br>
 IE: sin(5) -> -0.9589242746631384
 <br>
-else: sin(5) -> -0.9589242746631385
+Edge/Chrome/Firefox: sin(5) -> -0.9589242746631385
+<br>
+IE/Edge/Chrome: exp(i) -> 0.5403023058681398+0.8414709848078965i
+<br>
+Firefox: exp(i) -> 0.5403023058681397+0.8414709848078965i
     </td>
   </tr>
   <tr>
