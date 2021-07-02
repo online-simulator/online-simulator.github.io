@@ -367,6 +367,11 @@ scope付式変数の再利用
 動作要件
 </a>
 <br>
+　・
+<a href="#span-out-browsers">
+browser間の相違
+</a>
+<br>
 ・graph出力仕様
 <br>
 　・
@@ -4067,6 +4072,13 @@ operation関数の役割はinterpreter
 ・debug機能が存在しないため、<a href="#span-out-vars">変数</a>・<a href="#span-out-eqns">式変数</a>はpollution disabledの厳格な制約条件を課す
 <br>
 ・よって<a href="#span-out-bracket">scope</a>本来の利便性を大きく損なうが、緩和の見通しはない
+<br>
+<br>
+JavaScript特有の実装を列挙する
+<br>
+・namespaceの中に全objectを宣言してglobal searchを省略する
+<br>
+・static methodを多用する場合、一定の効果が見込める
     </td>
   </tr>
   <tr>
@@ -4214,6 +4226,67 @@ browserの動作要件を列挙する
 目次
 </a>
 <br>
+browser間
+<br>
+の相違
+    </th>
+    <td>
+<span id="span-out-browsers"></span>
+browser間の相違について記述する
+<br>
+<br>
+png||svg出力の相違について記述する
+<br>
+・browserによってtext幅のNative測定値が異なる
+<br>
+　var text = "x=t,x;x";
+<br>
+　ctx.font = "10px sans-serif";
+<br>
+　var w = ctx.measureText(text).width;
+<br>
+IE: w -> 29
+<br>
+Edge/Chrome: w -> 36.2841796875
+<br>
+Firefox: w -> 30
+<br>
+　ctx.font = "12px sans-serif";
+<br>
+　var w = ctx.measureText(text).width;
+<br>
+IE: w -> 35
+<br>
+Edge/Chrome: w -> 43.541015625
+<br>
+Firefox: w -> 31
+<br>
+・Edge/Chromeはpngとsvgの表示が一致するが、IE/Firefoxは一致しない
+<br>
+　JavaScript engineの系統による違いと推察されるが、規則性がなく対応未定
+<br>
+・textを出力しなければbrowser間で大差はない
+<br>
+<br>
+演算結果の相違について記述する
+<br>
+・browser間で<a href="#span-out-epsilon">Machine epsilon</a>程度の相違がある
+<br>
+IE: sin(5) -> -0.9589242746631384
+<br>
+Edge/Chrome/Firefox: sin(5) -> -0.9589242746631385
+<br>
+IE/Edge/Chrome: exp(i) -> 0.5403023058681398+0.8414709848078965i
+<br>
+Firefox: exp(i) -> 0.5403023058681397+0.8414709848078965i
+    </td>
+  </tr>
+  <tr>
+    <th>
+<a href="#span-index">
+目次
+</a>
+<br>
 plot2d
 <br>
 出力仕様
@@ -4270,52 +4343,6 @@ svg出力機能について記述する
 ・<a href="#span-out-UI-graphing-z">z入力欄</a>から入力不可のsemi-colon;等の特殊文字を直接file編集可
 <br>
 ・その他、font-family等も直接file編集可
-<br>
-<br>
-png||svg出力のbrowser間の相違について記述する
-<br>
-・browserによってtext幅のNative測定値が異なる
-<br>
-　var text = "x=t,x;x";
-<br>
-　ctx.font = "10px sans-serif";
-<br>
-　var w = ctx.measureText(text).width;
-<br>
-IE: w -> 29
-<br>
-Edge/Chrome: w -> 36.2841796875
-<br>
-Firefox: w -> 30
-<br>
-　ctx.font = "12px sans-serif";
-<br>
-　var w = ctx.measureText(text).width;
-<br>
-IE: w -> 35
-<br>
-Edge/Chrome: w -> 43.541015625
-<br>
-Firefox: w -> 31
-<br>
-・IE/Firefoxから出力したpngとsvgの表示が一致しない（Edge/Chromeは一致）
-<br>
-　JavaScript engineの系統による違いと推察されるが、規則性がなく対応未定
-<br>
-・textを出力しなければbrowser間で大差はない
-<br>
-<br>
-続けて演算結果の相違について記述する
-<br>
-・browser間で<a href="#span-out-epsilon">Machine epsilon</a>程度の相違がある
-<br>
-IE: sin(5) -> -0.9589242746631384
-<br>
-Edge/Chrome/Firefox: sin(5) -> -0.9589242746631385
-<br>
-IE/Edge/Chrome: exp(i) -> 0.5403023058681398+0.8414709848078965i
-<br>
-Firefox: exp(i) -> 0.5403023058681397+0.8414709848078965i
     </td>
   </tr>
   <tr>
