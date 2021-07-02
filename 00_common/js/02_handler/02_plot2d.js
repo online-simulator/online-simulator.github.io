@@ -8,6 +8,7 @@ My_entry.plot2d = function(id, opt_px_w, opt_px_h, opt_px_b){
 
 My_entry.plot2d.prototype.config = {
   default: {
+    msec_snapping: 300,
     NUMMIN: -32768,
     NUMMAX: 32767,
     px_w: 512,
@@ -53,8 +54,13 @@ My_entry.plot2d.prototype.init = function(id, opt_px_w, opt_px_h, opt_px_b){
   self.isDrawn = false;
   self.isDragging = false;
   self.isChanged = false;
+  self.sw_snap = 0;
+  self.screen_xy = null;
   self.vec0 = null;
   self.vec1 = null;
+  self.vec2 = null;
+  self.vec10 = null;
+  self.vec20 = null;
   self.id = id;
   self.tagName = "canvas";
   self.className = self.id+"-"+self.tagName;
@@ -88,7 +94,44 @@ My_entry.plot2d.prototype.init_flags = function(){
   self.isDrawn = false;
   self.isDragging = false;
   self.isChanged = false;
+  self.sw_snap = 0;
   return self;
+};
+/* 1.0.0 -> */
+My_entry.plot2d.prototype.vec2vec_snapped = function(vec){
+  var self = this;
+  var _vec = vec;
+  var screen_xy = self.screen_xy;
+  if(screen_xy && vec){
+    var x0 = screen_xy.xpmin;
+    var y0 = screen_xy.ypmin;
+    var dx = screen_xy.dxp;
+    var dy = screen_xy.dyp;
+    var x1 = vec.x;
+    var y1 = vec.y;
+    _vec  = {x: x0+Math.round((x1-x0)/dx)*dx, y: y0+Math.round((y1-y0)/dy)*dy};
+  }
+  return _vec;
+};
+My_entry.plot2d.prototype.vec2data_centering = function(vec){
+  var self = this;
+  var grid =  self.objs.grid;
+  var _data = null;
+  var screen_xy = self.screen_xy;
+  if(screen_xy && vec){
+    var x0 = screen_xy.xpmin;
+    var y0 = screen_xy.ypmin;
+    var x1 = screen_xy.xpmax;
+    var y1 = screen_xy.ypmax;
+    var xc0 = screen_xy.xpc;
+    var yc0 = screen_xy.ypc;
+    var xc1 = vec.x;
+    var yc1 = vec.y;
+    var dx = xc1-xc0;
+    var dy = yc1-yc0;
+    _data = grid.screen2plot(x0+dx, y0+dy, x1+dx, y1+dy);
+  }
+  return _data;
 };
 My_entry.plot2d.prototype.init_handlers = function(){
   var self = this;
@@ -101,47 +144,88 @@ My_entry.plot2d.prototype.init_handlers = function(){
     e.preventDefault();
     e.stopPropagation();
     self.isDragging = true;
+    if(self.sw_snap){
+      self.sw_snap = -2;
+    }
+    else{
+      self.sw_snap = -1;
+      setTimeout(function(){
+        if(self.sw_snap === -1){
+          self.sw_snap = 1;
+        }
+      }, self.config.default.msec_snapping);
+    }
     self.vec0 = temp.get_offset(e);
     self.vec1 = null;
+    self.vec2 = null;
+    self.vec10 = null;
+    self.vec20 = null;
   };
   handlers.onmousemove = function(e){
-    /* 0.8.0 -> */
     if(self.isDragging){
       e.preventDefault();
       e.stopPropagation();
-    /* -> 0.8.0 */
       temp.clear();
+      if(self.sw_snap === -1){
+        self.sw_snap = -2;
+      }
       var vec0 = self.vec0;
-      var vec1 = self.vec1 = temp.get_offset(e);
+      var vec1 = null;
+      var vec2 = null;
+      if(e.touches && e.touches.length === 2){
+        vec1 = self.vec1 = temp.get_offset({touches: [e.touches[0]]});
+        vec2 = self.vec2 = temp.get_offset({touches: [e.touches[1]]});
+        self.vec10 = self.vec10 || self.vec1;
+        self.vec20 = self.vec20 || self.vec2;
+      }
+      else{
+        vec1 = self.vec1 = temp.get_offset(e);
+      }
+      vec0 = vec2 || vec0;
+      if(self.sw_snap > 0){
+        vec0 = self.vec2vec_snapped(vec0);
+        vec1 = self.vec2vec_snapped(vec1);
+        self.sw_snap = 2;
+      }
       temp.draw.rectangle(vec0, vec1, 3, self.config.default.selectedLineColor, null);
     }
   };
-  handlers.onmouseup = function(e){
+  handlers.onmouseup = function(e){  // always
     e.preventDefault();
     e.stopPropagation();
     temp.clear();
-    var vec0 = self.vec0;
+    var vec0 = self.vec2 || self.vec0;
     var vec1 = self.vec1;
-    /* 1.0.0 -> */
+    if(self.sw_snap > 0){
+      vec0 = self.vec2vec_snapped(vec0);
+      vec1 = self.vec2vec_snapped(vec1);
+    }
     var data = null;
-    if(vec1 && (vec1.x-vec0.x || vec1.y-vec0.y)){  // check no move
-      var gxmin = grid.xp2x(Math.min(vec0.x, vec1.x));
-      var gymin = grid.myp2y(Math.max(vec0.y, vec1.y));  // max
-      var gxmax = grid.xp2x(Math.max(vec0.x, vec1.x));
-      var gymax = grid.myp2y(Math.min(vec0.y, vec1.y));  // min
-      data = {gxmin: gxmin, gymin: gymin, gxmax: gxmax, gymax: gymax};
+    var isMoved = (vec1 && (vec1.x-vec0.x || vec1.y-vec0.y));
+    if(isMoved){
+      data = grid.screen2plot(vec0.x, vec0.y, vec1.x, vec1.y);
       self.isChanged = true;
     }
     else{
-      self.isChanged = false;
+      if(self.sw_snap === 1){
+        self.sw_snap = -2;
+        data = self.vec2data_centering(vec0);
+        self.isChanged = true;
+      }
+      else{
+        self.isChanged = false;
+      }
     }
-    self.callbacks.onmouseup(e, data);
-    /* -> 1.0.0 */
+    if(isMoved || self.sw_snap < 1){
+      self.callbacks.onmouseup(e, data);
+    }
     self.isDragging = false;
+    self.sw_snap = 0;
   };
   self.entry.$.bind_objs(self, self.handlers);
   return self;
 };
+/* -> 1.0.0 */
 My_entry.plot2d.prototype.throw_msg = function(msg){
   var self = this;
   self.isLocked = false;
@@ -484,6 +568,7 @@ My_entry.plot2d.prototype.run = function(arr2d_vec, options, toSVG, isFinal){
     label_y = (isImag_y)? "imag("+label_y+")": label_y;
     label_y = (isLog_y)? "log10("+label_y+")": label_y;
   }
+  self.screen_xy = grid.plot2screen(tgxmin, tgymin, tgxmax, tgymax, Ni, Nj);
   /* -> 0.5.0 */
   _svg += self.grid(options, tgxmin, tgymin, tgxmax, tgymax, Ni, Nj, isLog_x, isLog_y, label_x, label_y, fontSize, expDigit, gridLineWidth, gridLineColor, globalCompositeOperation);
   // transform

@@ -174,13 +174,31 @@ My_entry.canvas.prototype.y2fmyp = function(y){  // left-handed system
   var self = this;
   return Math.floor(self.y2myp(y));
 };
+/* 1.0.0 -> */
+My_entry.canvas.prototype.plot2screen = function(gxmin, gymin, gxmax, gymax, Ni, Nj){
+  var self = this;
+  var xpmin = self.x2xp(Math.min(gxmin, gxmax));
+  var ypmin = self.y2myp(Math.max(gymin, gymax));  // gymax(grid) -> ypmin(screen)
+  var xpmax = self.x2xp(Math.max(gxmin, gxmax));
+  var ypmax = self.y2myp(Math.min(gymin, gymax));  // gymin(grid) -> ypmax(screen)
+  var xpc = xpmin+(xpmax-xpmin)/2;
+  var ypc = ypmin+(ypmax-ypmin)/2;
+  return {xpmin: xpmin, ypmin: ypmin, xpmax: xpmax, ypmax: ypmax, xpc: xpc, ypc: ypc, dxp: (xpmax-xpmin)/Ni, dyp: (ypmax-ypmin)/Nj};
+};
+My_entry.canvas.prototype.screen2plot = function(xpmin, ypmin, xpmax, ypmax){
+  var self = this;
+  var gxmin = self.xp2x(Math.min(xpmin, xpmax));
+  var gymin = self.myp2y(Math.max(ypmin, ypmax));  // max
+  var gxmax = self.xp2x(Math.max(xpmin, xpmax));
+  var gymax = self.myp2y(Math.min(ypmin, ypmax));  // min
+  return {gxmin: gxmin, gymin: gymin, gxmax: gxmax, gymax: gymax};
+};
 My_entry.canvas.prototype.line = function(x0, y0, x1, y1, opt_lineWidth, opt_styleRGBA, opt_globalCompositeOperation){
   var self = this;
   var vecp0 = {x: self.x2xp(x0), y: self.y2myp(y0)};
   var vecp1 = {x: self.x2xp(x1), y: self.y2myp(y1)};
   return self.draw.line(vecp0, vecp1, opt_lineWidth, opt_styleRGBA, opt_globalCompositeOperation);
 };
-/* 1.0.0 -> */
 My_entry.canvas.prototype.arr_vec2arr_vecp = function(arr_vec){
   var self = this;
   var _arr_vecp = [];

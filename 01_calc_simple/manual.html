@@ -1115,6 +1115,15 @@ panel上段について記述する
 　複数の方程式||関数式の交点等を求める際に有効
 <br>
 <br>
+<span class="run">Ver.2.39.18</span>以降、gridのsnappingに対応
+<br>
+・long-tap||clickの300msec後にsnapping開始
+<br>
+　・canvas範囲選択でscaling
+<br>
+　・その場releaseでcentering
+<br>
+<br>
 panel中段について記述する
 <br>
 ・C-input-buttonは入力欄のtextを消去する
@@ -7194,7 +7203,7 @@ infoLost[ i] 1.0000000000000289+O(8e-13))
 <br>
 回転行列を<a href="#span-out-eqns">式変数</a>で定義する場合
 <br>
-・x/y/zに対するEuler角をphi/theta/psiとする
+・各軸x/y/zに対するEuler角をphi/theta/psiとする
 <br>
 rotx=&lt;{rt=real(phi),=&lt;(1,,:,cos(rt),-sin(rt):,sin(rt),cos(rt))}=&gt;;
 <br>
