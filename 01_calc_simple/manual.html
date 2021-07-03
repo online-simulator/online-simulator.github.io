@@ -228,6 +228,11 @@ strict-mode equation-list
 </a>
 <br>
 ・
+<a href="#span-out-log-stamp">
+log-stamp仕様
+</a>
+<br>
+・
 <a href="#span-out-log">
 log表示仕様
 </a>
@@ -1121,6 +1126,8 @@ panel上段について記述する
 <br>
 ・x1-buttonはscalingをresetする
 <br>
+・checkbox-rel.はzoom中心位置を原点に対して相対的に移動するrelative zoomingを選択
+<br>
 <br>
 <span class="run">Ver.2.39.18</span>以降、gridのsnappingに対応
 <br>
@@ -1725,6 +1732,32 @@ strict-mode equation-listについて記述する
 <br>
 <br>
 詳細は<a href="#span-eqn">strict-mode式変数list</a>参照
+    </td>
+  </tr>
+  <tr>
+    <th>
+<a href="#span-index">
+目次
+</a>
+<br>
+log-stamp
+<br>
+仕様
+    </th>
+    <td>
+<span id="span-out-log-stamp"></span>
+log-stamp仕様について記述する
+<br>
+<br>
+svg||csv||history-txt出力時に記録するlog-stampの情報を列挙する
+<br>
+・Repository VERSION
+<br>
+・new Date()によるtime-stamp
+<br>
+<span class="run">Ver.2.38.18</span>以降、追加
+<br>
+・window.navigator.userAgentによるbrowser識別情報
     </td>
   </tr>
   <tr>
@@ -4096,9 +4129,7 @@ operation関数の役割はinterpreter
 <br>
 JavaScript特有の実装を列挙する
 <br>
-・namespaceの中に全objectを宣言してglobal searchを省略する
-<br>
-・static methodを多用する場合、一定の効果が見込める
+・namespaceの中に全objectを宣言してglobal searchを省略する（定量的な効果は不明）
     </td>
   </tr>
   <tr>
@@ -4321,7 +4352,7 @@ plot2dの演算は高速化のため、<a href="#span-out-error">誤差</a>を�
 ・<a href="#span-out-error">誤差</a>を含めたlogを作る場合、別途、通常の演算が必要
 <br>
 <br>
-csv/history出力のplot2d-command-logとplot2d-options-logについて記述する
+csv/history-txt出力のplot2d-command-logとplot2d-options-logについて記述する
 <br>
 ・整合性保証のため、plot2dの演算実行確定時のlogを表示する
 <br>
@@ -4393,7 +4424,7 @@ plot2d(xt,yt)
 ・plot-button実行中の割込み不可
 <br>
 <br>
-csv/historyに記録されるlogからplot2d-commandを実行する場合
+csv/history-txtに記録されるlogからplot2d-commandを実行する場合
 <br>
 ・plot2d-from-logのformatを次に示す
 <br>
@@ -13115,7 +13146,7 @@ browser-GUI実行の場合、URLのGET入力で既定値を上書き可
 console-CLI実行用の独自evalについて記述する
 <br>
 <br>
-独自evalは次のstatic-methodでconsoleからcallする
+独自evalは次のstatic methodでconsoleからcallする
 <br>
 ・演算内容の文字列を引数に渡すと演算結果の文字列が返る
 <br>

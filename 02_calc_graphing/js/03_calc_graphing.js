@@ -116,7 +116,31 @@ My_entry.calc_graphing.prototype.output_log_plot = function(isFinal){
   /* -> Ver.2.16.6 */
   return self;
 };
-/* Ver.2.39.18 */
+/* Ver.2.39.18 -> */
+My_entry.calc_graphing.prototype.get_axis_zooming = function(rate, options_plot){
+  var self = this;
+  var $ = self.entry.$;
+  var isRelative = options_plot.relzooming;
+  var xmin = $.inputNum_id("input-xmin");
+  var ymin = $.inputNum_id("input-ymin");
+  var xmax = $.inputNum_id("input-xmax");
+  var ymax = $.inputNum_id("input-ymax");
+  if(isRelative){
+    var xc = (xmin+xmax)/2;
+    var yc = (ymin+ymax)/2;
+    xmin = xc+(xmin-xc)*rate;
+    ymin = yc+(ymin-yc)*rate;
+    xmax = xc+(xmax-xc)*rate;
+    ymax = yc+(ymax-yc)*rate;
+  }
+  else{
+    xmin *= rate;
+    ymin *= rate;
+    xmax *= rate;
+    ymax *= rate;
+  }
+  return {xmin: xmin, ymin: ymin, xmax: xmax, ymax: ymax};
+};
 My_entry.calc_graphing.prototype.output_axis = function(arr2d_vec, options_plot){
   var self = this;
   var $ = self.entry.$;
@@ -134,6 +158,7 @@ My_entry.calc_graphing.prototype.output_axis = function(arr2d_vec, options_plot)
   if(!(isNaN(ymax))) $._id("input-ymax").value = callback(ymax);
   return self;
 };
+/* -> Ver.2.39.18 */
 /* Ver.2.37.18 */
 /* Ver.2.16.6 */
 My_entry.calc_graphing.prototype.input_axis = function(arr2d_vec){
@@ -872,11 +897,7 @@ My_entry.calc_graphing.prototype.init_handlers = function(){
       case "x10":
         var options_plot = self.get_options(true);
         var rate = 1/Number(text_half.replace(/x/, ""));
-        var xmin = $.inputNum_id("input-xmin")*rate;
-        var ymin = $.inputNum_id("input-ymin")*rate;
-        var xmax = $.inputNum_id("input-xmax")*rate;
-        var ymax = $.inputNum_id("input-ymax")*rate;
-        self.output_axis({xmin: xmin, ymin: ymin, xmax: xmax, ymax: ymax}, options_plot);
+        self.output_axis(self.get_axis_zooming(rate, options_plot), options_plot);
         $._id("input-xmin").onchange();
         break;
       /* -> Ver.2.39.18 */

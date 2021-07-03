@@ -181,8 +181,8 @@ My_entry.canvas.prototype.plot2screen = function(gxmin, gymin, gxmax, gymax, Ni,
   var ypmin = self.y2myp(Math.max(gymin, gymax));  // gymax(grid) -> ypmin(screen)
   var xpmax = self.x2xp(Math.max(gxmin, gxmax));
   var ypmax = self.y2myp(Math.min(gymin, gymax));  // gymin(grid) -> ypmax(screen)
-  var xpc = xpmin+(xpmax-xpmin)/2;
-  var ypc = ypmin+(ypmax-ypmin)/2;
+  var xpc = (xpmin+xpmax)/2;
+  var ypc = (ypmin+ypmax)/2;
   return {xpmin: xpmin, ypmin: ypmin, xpmax: xpmax, ypmax: ypmax, xpc: xpc, ypc: ypc, dxp: (xpmax-xpmin)/Ni, dyp: (ypmax-ypmin)/Nj};
 };
 My_entry.canvas.prototype.screen2plot = function(xpmin, ypmin, xpmax, ypmax){
