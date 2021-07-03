@@ -1063,7 +1063,7 @@ panel上段について記述する
 <br>
 　・mouse||touchによる範囲選択で拡大表示
 <br>
-　・single click||one tapで拡大表示reset
+　・single click||one tapで<del>拡大表示reset</del><span class="run">Ver.2.39.18</span>以降、その場でcentering
 <br>
 ・log出力欄にplot2dの演算&amp;描画結果のlogを表示
 <br>
@@ -1115,6 +1115,13 @@ panel上段について記述する
 　複数の方程式||関数式の交点等を求める際に有効
 <br>
 <br>
+<span class="run">Ver.2.39.18</span>以降、x0.1/x0.5/x1/x2/x10-buttonsは指定のzoom倍率でscalingを確定する
+<br>
+・zoom倍率はlinear-scale
+<br>
+・x1-buttonはscalingをresetする
+<br>
+<br>
 <span class="run">Ver.2.39.18</span>以降、gridのsnappingに対応
 <br>
 ・long-tap||clickの300msec後にsnapping開始
@@ -1122,6 +1129,8 @@ panel上段について記述する
 　・canvas範囲選択でscaling
 <br>
 　・その場releaseでcentering
+<br>
+・checkbox-snapはgrid snappingを選択
 <br>
 <br>
 panel中段について記述する
@@ -1484,7 +1493,9 @@ shadowColor.r = strokeStyle.r+(fillStyle.r-strokeStyle.r)*Math.min(1, Math.abs(f
 <br>
 ・png出力と若干のかい離があり、互換性を失う
 <br>
-・string-pathにwhite spacesを含む場合、spellの扱いが異なる
+・svg出力は縮小表示でtextPathが非表示になるが、png出力は非表示にならない
+<br>
+・string-pathにwhite spacesを含む場合、spellの扱いが異なる（1字に変換すれば統一可）
 <br>
 ・&lt;textPath&gt;以外への流用等、利便性を考慮し、既定で&lt;path&gt;を出力する
     </td>
@@ -4272,7 +4283,7 @@ Firefox: w -> 31
 <br>
 ・Edge/Chromeはpngとsvgの表示が一致するが、IE/Firefoxは一致しない
 <br>
-　JavaScript engineの系統による違いと推察されるが、規則性がなく対応未定
+　JavaScript engineの系統による違いと推察されるが、規則性が不明で対応未定
 <br>
 ・textを出力しなければbrowser間で大差はない
 <br>
@@ -12664,7 +12675,7 @@ clear; y=&lt;3x-1,x=3,y=&gt;,y=&gt;y0,y0 -> (0,0,8,8,8)
 <br>
 <a href="#span-out-eqns">式変数</a>について記述する
 <br>
-・<a href="#span-out-eqns">式変数</a>、<a href="#span-out-eqns-call">式読出し</a>、<a href="#span-out-call-by-equation">式渡し</a>、<a href="#span-out-substitution-equation">式代入</a>の仕様は呼び名含めて一般的でない
+・<a href="#span-out-eqns">式変数</a>、<a href="#span-out-eqns-call">式読出し</a>、<a href="#span-out-call-by-equation">式渡し</a>、<a href="#span-out-substitution-equation">式代入</a>、<a href="#span-out-scope-inherited-call">scope継承call</a>の仕様は呼び名含めて一般的でない
 <br>
 ・連立方程式をscript-inputから解くために独自に定義している
     </td>

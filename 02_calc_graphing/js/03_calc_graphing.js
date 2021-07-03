@@ -116,6 +116,7 @@ My_entry.calc_graphing.prototype.output_log_plot = function(isFinal){
   /* -> Ver.2.16.6 */
   return self;
 };
+/* Ver.2.39.18 */
 My_entry.calc_graphing.prototype.output_axis = function(arr2d_vec, options_plot){
   var self = this;
   var $ = self.entry.$;
@@ -127,10 +128,10 @@ My_entry.calc_graphing.prototype.output_axis = function(arr2d_vec, options_plot)
   var callback = (ed >= 0)?
     function(x){return x.toExponential(ed);}:
     function(x){return x;};
-  $._id("input-xmin").value = callback(xmin);
-  $._id("input-ymin").value = callback(ymin);
-  $._id("input-xmax").value = callback(xmax);
-  $._id("input-ymax").value = callback(ymax);
+  if(!(isNaN(xmin))) $._id("input-xmin").value = callback(xmin);
+  if(!(isNaN(ymin))) $._id("input-ymin").value = callback(ymin);
+  if(!(isNaN(xmax))) $._id("input-xmax").value = callback(xmax);
+  if(!(isNaN(ymax))) $._id("input-ymax").value = callback(ymax);
   return self;
 };
 /* Ver.2.37.18 */
@@ -861,6 +862,24 @@ My_entry.calc_graphing.prototype.init_handlers = function(){
       /* -> Ver.2.26.14 */
         self.io["onclick_default"](self.elems, text_half, -1);
         break;
+      /* Ver.2.39.18 -> */
+      case "x 1":
+        $._id("checkbox-imag-x").onchange();
+        break;
+      case "x0.1":
+      case "x0.5":
+      case "x 2":
+      case "x10":
+        var options_plot = self.get_options(true);
+        var rate = 1/Number(text_half.replace(/x/, ""));
+        var xmin = $.inputNum_id("input-xmin")*rate;
+        var ymin = $.inputNum_id("input-ymin")*rate;
+        var xmax = $.inputNum_id("input-xmax")*rate;
+        var ymax = $.inputNum_id("input-ymax")*rate;
+        self.output_axis({xmin: xmin, ymin: ymin, xmax: xmax, ymax: ymax}, options_plot);
+        $._id("input-xmin").onchange();
+        break;
+      /* -> Ver.2.39.18 */
       default:
         var sw = "default";
         self.io["onclick_"+sw](self.elems, text_half);

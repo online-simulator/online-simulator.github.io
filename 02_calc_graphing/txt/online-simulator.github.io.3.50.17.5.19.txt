@@ -270,8 +270,8 @@ clear
 local storage cleared
 
 --------------------------------
-drag=false&test-case=false&legend=true&axis-t=false&axis-x=true&log-x=false&imag-x=false&axis-y=true&log-y=false&imag-y=false&axis-z=true&config-plot=false&useComplex=true&useMatrix=true&sharedStorage=false&equation-list=true&config=false&isRightAssociativityBR=false&isDIVprior2OMUL=false&useWorker=true&decDigit=1&N=10&canvas-width=512&canvas-height=256&canvas-background=black&grid-line-width=0.5&marker-size=7&marker-line-width=0&plot-line-width=2&font-size=12&grid-x-Ni=0&grid-y-Nj=0&kx-adjust=2.5&legend-kx=0.25&legend-ky=0.1&canvas-globalCompositeOperationLayer=source-over&canvas-globalCompositeOperation=source-over&expDigit=-1&useStrict=true&checkError=true&matSizeMax=1000&makeLog=2
+drag=false&test-case=false&legend=true&axis-t=false&axis-x=true&log-x=false&imag-x=false&axis-y=true&log-y=false&imag-y=false&axis-z=true&config-plot=false&snap=true&useComplex=true&useMatrix=true&sharedStorage=false&equation-list=true&config=false&isRightAssociativityBR=false&isDIVprior2OMUL=false&useWorker=true&decDigit=1&N=10&canvas-width=512&canvas-height=256&canvas-background=black&grid-line-width=0.5&marker-size=7&marker-line-width=0&plot-line-width=2&font-size=12&grid-x-Ni=0&grid-y-Nj=0&kx-adjust=2.5&legend-kx=0.25&legend-ky=0.1&canvas-globalCompositeOperationLayer=source-over&canvas-globalCompositeOperation=source-over&expDigit=-1&useStrict=true&checkError=true&matSizeMax=1000&makeLog=2
 --------------------------------
 --------------------------------
 
-online-simulator.github.io.3.50.17.5.19 @ Fri Jul 02 2021 22:13:48 GMT+0900 (日本標準時) @ Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.124 Safari/537.36
+online-simulator.github.io.3.50.17.5.19 @ Sat Jul 03 2021 17:01:36 GMT+0900 (日本標準時) @ Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.124 Safari/537.36

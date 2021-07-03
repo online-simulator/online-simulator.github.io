@@ -182,7 +182,8 @@ My_entry.plot2d.prototype.init_handlers = function(){
         vec1 = self.vec1 = temp.get_offset(e);
       }
       vec0 = vec2 || vec0;
-      if(self.sw_snap > 0){
+      var isSnapped = (self.entry.$._id("checkbox-snap").checked || self.sw_snap > 0);
+      if(isSnapped){
         vec0 = self.vec2vec_snapped(vec0);
         vec1 = self.vec2vec_snapped(vec1);
         self.sw_snap = 2;
@@ -196,7 +197,8 @@ My_entry.plot2d.prototype.init_handlers = function(){
     temp.clear();
     var vec0 = self.vec2 || self.vec0;
     var vec1 = self.vec1;
-    if(self.sw_snap > 0){
+    var isSnapped = (self.entry.$._id("checkbox-snap").checked || self.sw_snap > 0);
+    if(isSnapped){
       vec0 = self.vec2vec_snapped(vec0);
       vec1 = self.vec2vec_snapped(vec1);
     }
@@ -207,16 +209,10 @@ My_entry.plot2d.prototype.init_handlers = function(){
       self.isChanged = true;
     }
     else{
-      if(self.sw_snap > 0){  // cancel disabled
-        self.sw_snap = -2;
-        data = self.vec2data_centering(vec0);
-        self.isChanged = true;
-      }
-      else{
-        self.isChanged = false;
-      }
+      data = self.vec2data_centering(vec0);
+      self.isChanged = true;
     }
-    if(isMoved || self.sw_snap < 1){
+    if(isMoved || self.sw_snap){
       self.callbacks.onmouseup(e, data);
     }
     self.isDragging = false;
