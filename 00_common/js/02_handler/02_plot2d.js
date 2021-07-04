@@ -81,6 +81,7 @@ My_entry.plot2d.prototype.init = function(id, opt_px_w, opt_px_h, opt_px_b){
   self.init_handlers();
   return self;
 };
+/* 1.0.1 */
 My_entry.plot2d.prototype.init_canvas = function(){
   var self = this;
   self.names.forEach(function(name){
@@ -354,9 +355,11 @@ My_entry.plot2d.prototype.run = function(arr2d_vec, options, toSVG, isFinal){
   var self = this;
   if(self.isLocked) return false;
   self.isLocked = true;
+  /* 1.0.1 -> */
   if(!(toSVG)){
     self.init_canvas();
   }
+  /* -> 1.0.1 */
   var $ = self.entry.$;
   var def = self.entry.def;
   var background = self.objs.background;
@@ -778,9 +781,11 @@ My_entry.plot2d.prototype.final = function(arr2d_vec, options, toSVG){
   var self = this;
   var all =  self.objs.all;
   self.arr_ID_plot = [];
+  /* 1.0.1 -> */
   var _svg = self.run(arr2d_vec, options, toSVG, true) || "";
   if(!(toSVG)){
     if(self.isLocked) return false;
+  /* -> 1.0.1 */
     var base64_bg = self.base64_bg || self.objs.background.getBase64();
     var arr_base64_grid_plot = [];
     arr_base64_grid_plot.push(self.objs.grid.getBase64());
