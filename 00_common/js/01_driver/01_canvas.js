@@ -235,7 +235,7 @@ My_entry.canvas.prototype.textpath = function(text, arr_vec, opt_fontSize, opt_s
 };
 My_entry.canvas.prototype.gradation = function(colors, arr_vec, opt_globalCompositeOperation, records){
   var self = this;
-  return self.draw.gradation(self.getID(), colors, self.arr_vec2arr_vecp(arr_vec), opt_globalCompositeOperation, {x: self.x2xp(records.x0), y: self.y2myp(records.y0)}, records.offsetR, records.orderR, records.NrandR, records.NrandT, records.isMin, records.isRound, records.Nrender, records.Ncycle);
+  return self.draw.gradation(colors, self.arr_vec2arr_vecp(arr_vec), opt_globalCompositeOperation, {x: self.x2xp(records.x0), y: self.y2myp(records.y0)}, records.offsetR, records.orderR, records.NrandR, records.NrandT, records.isMin, records.isRound, records.Nrender, records.Ncycle);
 };
 /* -> 1.0.0 */
 /* 0.5.0 -> */

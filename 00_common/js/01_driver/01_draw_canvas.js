@@ -82,7 +82,8 @@ My_entry.draw_canvas.prototype.mask = function(x, y, w, h){
     ctx.clearRect(0, 0, px_w, px_h);
     ctx.putImageData(ID, x0, y0);
   }
-  return self;
+  var _ID = ctx.getImageData(0, 0, px_w, px_h);
+  return _ID;
 };
 My_entry.draw_canvas.prototype.none = function(){
   var self = this;
@@ -186,12 +187,13 @@ My_entry.draw_canvas.prototype.get_cycle = function(sum_krandR, LEN, len){
   }
   return _cycle;
 };
-My_entry.draw_canvas.prototype.gradation = function(ID, colors, arr_vec, opt_globalCompositeOperation, vec0, offsetR, orderR, NrandR, NrandT, isMin, isRound, Nrender, Ncycle){
+My_entry.draw_canvas.prototype.gradation = function(colors, arr_vec, opt_globalCompositeOperation, vec0, offsetR, orderR, NrandR, NrandT, isMin, isRound, Nrender, Ncycle){
   var self = this;
   var ctx = self.ctx;
-  var data = ID.data;
-  var px_w = ID.width;
-  var px_h = ID.height;
+  var px_w = ctx.canvas.width;
+  var px_h = ctx.canvas.height;
+  var _ID = ctx.getImageData(0, 0, px_w, px_h);
+  var data = _ID.data;
   var pi2 = Math.PI*2;
   var rdt = Nrender/pi2;
   var x0 = vec0.x;
@@ -245,8 +247,7 @@ My_entry.draw_canvas.prototype.gradation = function(ID, colors, arr_vec, opt_glo
       }
     }
   }
-  ctx.putImageData(ID, 0, 0);  // sync compositeOperationLayer disabled
-  return self;
+  return _ID;
 };
 /* -> 1.0.0 */
 /* 0.5.0 -> */

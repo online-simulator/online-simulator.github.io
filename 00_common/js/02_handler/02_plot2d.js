@@ -61,6 +61,7 @@ My_entry.plot2d.prototype.init = function(id, opt_px_w, opt_px_h, opt_px_b){
   self.vec2 = null;
   self.vec10 = null;
   self.vec20 = null;
+  self.arr_ID_plot = null;
   self.id = id;
   self.tagName = "canvas";
   self.className = self.id+"-"+self.tagName;
@@ -622,8 +623,29 @@ My_entry.plot2d.prototype.run = function(arr2d_vec, options, toSVG, isFinal){
       records.Ncycle = def.limit(Math.floor(records.Ncycle), 0, 127, 0);
       var colors = (text || styleRGBA).split(":");
       var hasRand = records.NrandR || records.NrandT;
-      if(!(hasRand) || (hasRand && isFinal)){
-        _svg += plot.gradation(colors, arr2d_tvec[j], globalCompositeOperation, records);
+      var ID_or_svg = plot.gradation(colors, arr2d_tvec[j], globalCompositeOperation, records);
+      if(isFinal){
+        if(toSVG){
+          _svg += ID_or_svg;
+        }
+        else{
+          if(isAxis_z){
+            if(!(options.oldPlot2d)){
+              plot.putID(ID_or_svg);
+              ID_or_svg = plot.mask(tgxmin_mask, tgymin_mask, tgxmax_mask, tgymax_mask, idName_mask);
+              plot.clear();
+            }
+          }
+          self.arr_ID_plot.push(ID_or_svg);
+        }
+      }
+      else if(!(hasRand)){
+        if(toSVG){
+          _svg += ID_or_svg;
+        }
+        else{
+          plot.putID(ID_or_svg);  // sync compositeOperationLayer disabled
+        }
       }
     }
   }
@@ -650,7 +672,10 @@ if(isAxis_z){
     if(toSVG){
       _svg += plot.draw.footer_group();
     }
-    _svg += plot.mask(tgxmin_mask, tgymin_mask, tgxmax_mask, tgymax_mask, idName_mask);
+    var ID_or_svg = plot.mask(tgxmin_mask, tgymin_mask, tgxmax_mask, tgymax_mask, idName_mask);
+    if(toSVG){
+      _svg += ID_or_svg;
+    }
   }
   // plot markers
   for(var j=0; j<len_j; ++j){
@@ -746,23 +771,40 @@ if(isAxis_z){
   self.isLocked = false;
   return _svg;
 };
+/* 1.0.0 */
 My_entry.plot2d.prototype.final = function(arr2d_vec, options, toSVG){
   var self = this;
   var all =  self.objs.all;
+  self.arr_ID_plot = [];
   var _svg = self.run(arr2d_vec, options, toSVG, true);
   if(!(toSVG)){
     var base64_bg = self.base64_bg || self.objs.background.getBase64();
-    var arr_base64_grid_plot = [self.objs.grid.getBase64(), self.objs.plot.getBase64()];
-    var callback = function(){
-      all.putBase64s(arr_base64_grid_plot.reverse(), function(){
-        self.names.forEach(function(name){
-          self.objs[name].clear();
-        });
-      }, options["canvas-globalCompositeOperation"]);
+    var arr_base64_grid_plot = [];
+    arr_base64_grid_plot.push(self.objs.grid.getBase64());
+    var arr_base64_plot = [];
+    self.arr_ID_plot.forEach(function(ID){
+      all.putID(ID);
+      arr_base64_plot.push(all.getBase64());
+    });
+    arr_base64_plot.push(self.objs.plot.getBase64());
+    var callback0 = function(){
+      arr_base64_grid_plot.push(all.getBase64());
+      var callback1 = function(){
+        var callback2 = function(){
+          self.names.forEach(function(name){
+            self.objs[name].clear();  // here for flickering-proof
+          });
+          self.isDrawn = true;
+          self.isLocked = false;
+        };
+        all.putBase64s(arr_base64_grid_plot.reverse(), callback2, options["canvas-globalCompositeOperation"]);
+      };
+      all.clear();
+      all.putBase64(base64_bg, callback1);  // bg(source-over) <- grid <- plot
     };
-    all.putBase64(base64_bg, callback);  // source-over
-    self.isDrawn = true;
-    self.isLocked = false;
+    self.isLocked = true;
+    all.clear();
+    all.putBase64s(arr_base64_plot.reverse(), callback0, options["canvas-globalCompositeOperationLayer"]);
   }
   return _svg;
 };

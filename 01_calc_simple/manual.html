@@ -1126,7 +1126,7 @@ panel上段について記述する
 <br>
 ・x1-buttonはscalingをresetする
 <br>
-・checkbox-rel.はzoom中心位置を原点に対して相対的に移動するrelative zoomingを選択
+・checkbox-rel.は原点に対してzoom中心位置を相対的に移動するrelative zoomingを選択
 <br>
 <br>
 <span class="run">Ver.2.39.18</span>以降、gridのsnappingに対応
@@ -1284,9 +1284,7 @@ str:strFontSize
 <br>
 ・string-pathはplot-lines上のpathに表示する任意文字列で<a href="#span-out-UI-graphing-layer-plot">plot-layer</a>に描画
 <br>
-・config[]省略時、<a href="#span-out-UI-graphing-legend">legend-dataset</a>の設定値を使用
-<br>
-・config[]内datasetは設定値をcolon:区切りで入力
+・config[]内datasetは設定値をcolon:区切りで入力（省略時、<a href="#span-out-UI-graphing-legend">legend-dataset</a>の設定値）
 <br>
 fontFamily:fontSize:isBold:isItalic:isReverse:
 <br>
@@ -1302,13 +1300,11 @@ shadowOffsetX:shadowOffsetY:shadowBlur:deg0
 <br>
 ・各<a href="#span-out-UI-graphing-legend">legend-dataset</a>の任意位置に挿入可
 <br>
-・colorsは<a href="#span-out-UI-graphing-color">color-dataset</a>をcolon:区切りで入力
-<br>
 ・gradationは<a href="#span-out-UI-graphing-layer-plot">plot-layer</a>に描画
 <br>
-・config[]省略時、<a href="#span-out-UI-graphing-legend">legend-dataset</a>の設定値を使用
+・colorsは<a href="#span-out-UI-graphing-color">color-dataset</a>をcolon:区切りで入力（省略時、<a href="#span-out-UI-graphing-legend">legend-dataset</a>のmarkerColor）
 <br>
-・config[]内datasetは設定値をcolon:区切りで入力
+・config[]内datasetは設定値をcolon:区切りで入力（省略不可）
 <br>
 originX:originY:offsetR:orderR:NrandR:NrandT:isMin:isRound:Nrender:Ncycle
     </td>
@@ -1429,9 +1425,7 @@ string-path特定項目仕様について記述する
 <br>
 ・string-pathはplot-lines上のpathに表示する任意文字列で<a href="#span-out-UI-graphing-layer-plot">plot-layer</a>に描画
 <br>
-・config[]省略時、<a href="#span-out-UI-graphing-legend">legend-dataset</a>の設定値を使用
-<br>
-・config[]内datasetは設定値をcolon:区切りで入力
+・config[]内datasetは設定値をcolon:区切りで入力（省略時、<a href="#span-out-UI-graphing-legend">legend-dataset</a>の設定値）
 <br>
 fontFamily:fontSize:isBold:isItalic:isReverse:
 <br>
@@ -1526,13 +1520,11 @@ gradation特定項目仕様と付随する留意事項について記述する
 <br>
 ・各<a href="#span-out-UI-graphing-legend">legend-dataset</a>の任意位置に挿入可
 <br>
-・colorsは<a href="#span-out-UI-graphing-color">color-dataset</a>をcolon:区切りで入力
-<br>
 ・gradationは<a href="#span-out-UI-graphing-layer-plot">plot-layer</a>に描画
 <br>
-・config[]省略時、<a href="#span-out-UI-graphing-legend">legend-dataset</a>の設定値を使用
+・colorsは<a href="#span-out-UI-graphing-color">color-dataset</a>をcolon:区切りで入力（省略時、<a href="#span-out-UI-graphing-legend">legend-dataset</a>のmarkerColor）
 <br>
-・config[]内datasetは設定値をcolon:区切りで入力
+・config[]内datasetは設定値をcolon:区切りで入力（省略不可）
 <br>
 originX:originY:offsetR:<span class="clear">orderR:NrandR:NrandT:isMin:isRound:Nrender</span>:Ncycle
 <br>
@@ -1593,13 +1585,15 @@ png出力の特徴を列挙する
 <br>
 ・isMin設定値によってcyclic star||spiral等、意図した結果が得られるとは限らない
 <br>
-・legend間のgradation合成不可（合成する場合、複数回の分割出力が必要）
+・<span class="run">Ver.2.40.18</span>以降、legend間のgradation合成に対応
 <br>
-・putImageDataによる同期出力のため、layer合成無効（RGBA値source-over）
+<del>・legend間のgradation合成不可（合成する場合、複数回の分割出力が必要）
+<br>
+・putImageDataによる同期出力のため、layer合成無効（RGBA値source-over）</del>
 <br>
 ・乱数使用可
 <br>
-・Nrender=1で真円のgradationが簡単に得られる
+・Nrender=1で真円のgradationが比較的簡単に得られる
 <br>
 <br>
 形状精度||gradation精度に関係する設定項目を列挙する
@@ -1616,6 +1610,8 @@ png出力の特徴を列挙する
 ・上記精度を上げ過ぎた場合、svg出力のfile sizeやpost処理の負荷が増大する
 <br>
 ・乱数設定時、flickering防止のため、plot終了の最終frameまで逐次描画しない
+<br>
+・非同期出力のため、plot終了の最終frameにlegend順を保証してgradationを合成する
     </td>
   </tr>
   <tr>
@@ -1631,6 +1627,15 @@ plot-layer
     <td>
 <span id="span-out-UI-graphing-layer-plot"></span>
 plot-layer描画順について記述する
+<br>
+<br>
+描画canvasのlayerを描画順に列挙する
+<br>
+・background-layer
+<br>
+・grid-layer
+<br>
+・plot-layer
 <br>
 <br>
 plot-layerに描画する項目を描画順に列挙する
@@ -4093,6 +4098,10 @@ operation関数の役割はinterpreter
 ・Github Desktop
 <br>
 ・Github Pages
+<br>
+commit E-mail addressを変更する場合（参考）
+<br>
+・Git Bash（first-commit前にgit config user.emailで設定を変更する）
     </td>
   </tr>
   <tr>

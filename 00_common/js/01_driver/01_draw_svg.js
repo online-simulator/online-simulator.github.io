@@ -205,7 +205,7 @@ My_entry.draw_svg.prototype.textpath = function(){
   Array.prototype.push.apply(arguments, [true]);
   return self.textpath_sw.apply(self, arguments);
 };
-My_entry.draw_svg.prototype.gradation = function(ID, colors, arr_vec, opt_globalCompositeOperation, vec0, offsetR, orderR, NrandR, NrandT, isMin, isRound, Nrender, Ncycle){
+My_entry.draw_svg.prototype.gradation = function(colors, arr_vec, opt_globalCompositeOperation, vec0, offsetR, orderR, NrandR, NrandT, isMin, isRound, Nrender, Ncycle){
   var self = this;
   var _svg = "";
   var ctx = self.ctx;
