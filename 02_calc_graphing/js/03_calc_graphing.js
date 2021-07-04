@@ -196,9 +196,6 @@ My_entry.calc_graphing.prototype.plot = function(arr_data, options_plot, isFinal
   var self = this;
   var _svg = "";
   var toSVG = (isFinal === "SVG");
-  if(!(toSVG)){
-    self.plot2d.re_init();
-  }
   if(arr_data && arr_data.length){
     arr_data.forEach(function(data){
       /* Ver.2.25.12 -> */
