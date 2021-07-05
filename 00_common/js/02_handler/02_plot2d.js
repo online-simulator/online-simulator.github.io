@@ -51,7 +51,6 @@ My_entry.plot2d.prototype.init = function(id, opt_px_w, opt_px_h, opt_px_b){
     return ((isLog)? self.log10(x): x);
   };
   self.isLocked = false;
-  self.isDrawn = false;
   self.isDragging = false;
   self.isChanged = false;
   self.sw_snap = 0;
@@ -92,7 +91,6 @@ My_entry.plot2d.prototype.init_canvas = function(){
 };
 My_entry.plot2d.prototype.init_flags = function(){
   var self = this;
-  self.isDrawn = false;
   self.isDragging = false;
   self.isChanged = false;
   self.sw_snap = 0;
@@ -362,11 +360,6 @@ My_entry.plot2d.prototype.run = function(arr2d_vec, options, toSVG, isFinal){
   var self = this;
   if(self.isLocked) return false;
   self.isLocked = true;
-  /* 1.0.1 -> */
-  if(!(toSVG)){
-    self.init_canvas();
-  }
-  /* -> 1.0.1 */
   var $ = self.entry.$;
   var def = self.entry.def;
   var background = self.objs.background;
@@ -419,11 +412,15 @@ My_entry.plot2d.prototype.run = function(arr2d_vec, options, toSVG, isFinal){
   var tgymin = self.trans(gymin, isLog_y);
   var tgxmax = self.trans(gxmax, isLog_x);
   var tgymax = self.trans(gymax, isLog_y);
+  /* 1.0.1 -> */
   if(!(isFinite(tgxmin)) || !(isFinite(tgymin)) || !(isFinite(tgxmax)) || !(isFinite(tgymax))){
     temp.detach();
-    self.isDrawn = false;
-    throw "Invalid plot2d isInf";
+    self.throw_msg("Invalid plot2d isInf");
   }
+  if(!(toSVG)){
+    self.init_canvas();
+  }
+  /* -> 1.0.1 */
   var dtgx0 = tgxmax-tgxmin;  // dx(grid)
   var dtgy0 = tgymax-tgymin;  // dy(grid)
   /* -> 1.0.0 */
@@ -809,7 +806,6 @@ My_entry.plot2d.prototype.final = function(arr2d_vec, options, toSVG){
           self.names.forEach(function(name){
             self.objs[name].clear();  // here for flickering-proof
           });
-          self.isDrawn = true;
           self.isLocked = false;
         };
         all.putBase64s(arr_base64_grid_plot.reverse(), callback2, options["canvas-globalCompositeOperation"]);

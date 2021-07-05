@@ -250,7 +250,6 @@ My_entry.calc_graphing.prototype.plot = function(arr_data, options_plot, isFinal
   /* Ver.2.14.5 -> */
   else{
     self.plot2d.objs.temp.detach();
-    self.plot2d.isDrawn = false;
   }
   /* -> Ver.2.14.5 */
   if(!(toSVG)){  // for double-click link
@@ -335,7 +334,6 @@ My_entry.calc_graphing.prototype.arr_data2arr2d_vec = function(arr_data, options
             var y =arr2d_y[n][j] = num_y.com[sw_ri_y];
             if(isNaN(self.plot2d.trans(x, isLog_x)) || isNaN(self.plot2d.trans(y, isLog_y))){
               self.plot2d.objs.temp.detach();
-              self.plot2d.isDrawn = false;
               throw "Invalid plot2d isNaN";
             }
             else{
