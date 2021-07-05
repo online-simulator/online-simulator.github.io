@@ -60,7 +60,6 @@ My_entry.plot2d.prototype.init = function(id, opt_px_w, opt_px_h, opt_px_b){
   self.vec2 = null;
   self.vec10 = null;
   self.vec20 = null;
-  self.arr_ID_plot = null;
   self.id = id;
   self.tagName = "canvas";
   self.className = self.id+"-"+self.tagName;
@@ -81,12 +80,14 @@ My_entry.plot2d.prototype.init = function(id, opt_px_w, opt_px_h, opt_px_b){
   return self;
 };
 /* 1.0.1 */
-My_entry.plot2d.prototype.init_canvas = function(){
+My_entry.plot2d.prototype.init_canvas = function(isAll){
   var self = this;
   self.names.forEach(function(name){
     self.objs[name].clear();
   });
-  self.objs.all.clear();
+  if(isAll){
+    self.objs.all.clear();
+  }
   return self;
 };
 My_entry.plot2d.prototype.init_flags = function(){
@@ -217,7 +218,7 @@ My_entry.plot2d.prototype.init_handlers = function(){
       gaxis = self.vec2gaxis_centering(vec0);
       self.isChanged = true;
     }
-    if(gaxis){
+    if(!(self.isLocked) && gaxis){
       self.callbacks.onmouseup(e, gaxis);
     }
     /* -> 1.0.1 */
@@ -418,7 +419,7 @@ My_entry.plot2d.prototype.run = function(arr2d_vec, options, toSVG, isFinal){
     self.throw_msg("Invalid plot2d isInf");
   }
   if(!(toSVG)){
-    self.init_canvas();
+    self.init_canvas(true);
   }
   /* -> 1.0.1 */
   var dtgx0 = tgxmax-tgxmin;  // dx(grid)
@@ -645,7 +646,9 @@ My_entry.plot2d.prototype.run = function(arr2d_vec, options, toSVG, isFinal){
               plot.clear();
             }
           }
-          self.arr_ID_plot.push(ID_or_svg);
+          if(options._arr_ID_plot){
+            options._arr_ID_plot.push(ID_or_svg);
+          }
         }
       }
       else if(!(hasRand)){
@@ -784,7 +787,7 @@ if(isAxis_z){
 My_entry.plot2d.prototype.final = function(arr2d_vec, options, toSVG){
   var self = this;
   var all =  self.objs.all;
-  self.arr_ID_plot = [];
+  options._arr_ID_plot = [];
   /* 1.0.1 -> */
   var _svg = self.run(arr2d_vec, options, toSVG, true) || "";
   if(!(toSVG)){
@@ -794,7 +797,7 @@ My_entry.plot2d.prototype.final = function(arr2d_vec, options, toSVG){
     var arr_base64_grid_plot = [];
     arr_base64_grid_plot.push(self.objs.grid.getBase64());
     var arr_base64_plot = [];
-    self.arr_ID_plot.forEach(function(ID){
+    options._arr_ID_plot.forEach(function(ID){
       all.putID(ID);
       arr_base64_plot.push(all.getBase64());
     });
@@ -803,9 +806,7 @@ My_entry.plot2d.prototype.final = function(arr2d_vec, options, toSVG){
       arr_base64_grid_plot.push(all.getBase64());
       var callback1 = function(){
         var callback2 = function(){
-          self.names.forEach(function(name){
-            self.objs[name].clear();  // here for flickering-proof
-          });
+          self.init_canvas(false);  // here for flickering-proof
           self.isLocked = false;
         };
         all.putBase64s(arr_base64_grid_plot.reverse(), callback2, options["canvas-globalCompositeOperation"]);

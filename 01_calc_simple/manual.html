@@ -1094,7 +1094,7 @@ panel上段について記述する
 <br>
 　・i-checkboxは虚数表示を選択
 <br>
-　・x(t)のplot範囲のgrid最小値~最大値を入力
+　・x(t)のplot範囲のaxis最小値~最大値を入力
 <br>
 ・y(t)入力欄に縦軸yの演算内容をsemi-colon;区切りで入力
 <br>
@@ -1106,7 +1106,7 @@ panel上段について記述する
 <br>
 　・i-checkboxは虚数表示を選択
 <br>
-　・y(t)のplot範囲のgrid最小値~最大値を入力
+　・y(t)のplot範囲のaxis最小値~最大値を入力
 <br>
 ・<span class="run">Ver.2.36.18</span>以降、z-checkboxは<a href="#span-out-UI-graphing-gradation">gradation</a>/<a href="#span-out-UI-graphing-string-path">string-path</a>以外の表示を選択
 <br>
@@ -1115,7 +1115,7 @@ panel上段について記述する
 <br>
 <span class="run">Ver.2.37.18</span>以降、gridのscalingに対応
 <br>
-・canvas範囲選択でx(t)||yt(t)のplot範囲のgrid最小値~最大値をlinear-scaleで自動更新
+・canvas範囲選択でx(t)||yt(t)のplot範囲の各axis最小値~最大値をlinear-scaleで自動更新
 <br>
 　複数の方程式||関数式の交点等を求める際に有効
 <br>
@@ -1143,6 +1143,8 @@ panel上段について記述する
 <br>
 <br>
 <span class="run">Ver.2.40.19</span>以降、click||tap連打による描画の排他処理を修正
+<br>
+・連打による副作用をonmouseup-handlerでlock判定して回避
 <br>
 ・副次的に2本指での範囲選択に対応
 <br>
