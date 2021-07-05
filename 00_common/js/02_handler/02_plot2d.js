@@ -114,10 +114,10 @@ My_entry.plot2d.prototype.vec2vec_snapped = function(vec){
   }
   return _vec;
 };
-My_entry.plot2d.prototype.vec2data_centering = function(vec){
+My_entry.plot2d.prototype.vec2gaxis_centering = function(vec){
   var self = this;
   var grid =  self.objs.grid;
-  var _data = null;
+  var _gaxis = null;
   var screen_xy = self.screen_xy;
   if(screen_xy && vec){
     var x0 = screen_xy.xpmin;
@@ -130,9 +130,9 @@ My_entry.plot2d.prototype.vec2data_centering = function(vec){
     var yc1 = vec.y;
     var dx = xc1-xc0;
     var dy = yc1-yc0;
-    _data = grid.screen2plot(x0+dx, y0+dy, x1+dx, y1+dy);
+    _gaxis = grid.screen2plot(x0+dx, y0+dy, x1+dx, y1+dy);
   }
-  return _data;
+  return _gaxis;
 };
 My_entry.plot2d.prototype.init_handlers = function(){
   var self = this;
@@ -196,26 +196,33 @@ My_entry.plot2d.prototype.init_handlers = function(){
     e.preventDefault();
     e.stopPropagation();
     temp.clear();
+    /* 1.0.1 -> */
     var vec0 = self.vec2 || self.vec0;
-    var vec1 = self.vec1;
+    var vec1 = self.vec1 || self.vec0;
     var isSnapped = (self.entry.$._id("checkbox-snap").checked || self.sw_snap > 0);
     if(isSnapped){
       vec0 = self.vec2vec_snapped(vec0);
       vec1 = self.vec2vec_snapped(vec1);
     }
-    var data = null;
-    var isMoved = (vec1 && (vec1.x-vec0.x || vec1.y-vec0.y));
+    var x0 = vec0.x;
+    var y0 = vec0.y;
+    var x1 = vec1.x;
+    var y1 = vec1.y;
+    var gaxis = null;
+    var isMoved = (x1-x0 && y1-y0);
+    var isCentering = (x0 === x1 && y0 === y1);
     if(isMoved){
-      data = grid.screen2plot(vec0.x, vec0.y, vec1.x, vec1.y);
+      gaxis = grid.screen2plot(x0, y0, x1, y1);
       self.isChanged = true;
     }
-    else{
-      data = self.vec2data_centering(vec0);
+    else if(isCentering){
+      gaxis = self.vec2gaxis_centering(vec0);
       self.isChanged = true;
     }
-    if(isMoved || self.sw_snap){
-      self.callbacks.onmouseup(e, data);
+    if(gaxis){
+      self.callbacks.onmouseup(e, gaxis);
     }
+    /* -> 1.0.1 */
     self.isDragging = false;
     self.sw_snap = 0;
   };
