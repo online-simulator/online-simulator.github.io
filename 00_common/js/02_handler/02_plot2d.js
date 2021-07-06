@@ -413,7 +413,7 @@ My_entry.plot2d.prototype.run = function(arr2d_vec, options, toSVG, isFinal){
   var tgymin = self.trans(gymin, isLog_y);
   var tgxmax = self.trans(gxmax, isLog_x);
   var tgymax = self.trans(gymax, isLog_y);
-  /* 1.0.1 -> */
+  /* 1.0.2 -> */
   if(!(isFinite(tgxmin)) || !(isFinite(tgymin)) || !(isFinite(tgxmax)) || !(isFinite(tgymax))){
     temp.detach();
     self.throw_msg("Invalid plot2d isInf");
@@ -421,7 +421,7 @@ My_entry.plot2d.prototype.run = function(arr2d_vec, options, toSVG, isFinal){
   if(!(toSVG)){
     self.init_canvas(true);
   }
-  /* -> 1.0.1 */
+  /* -> 1.0.2 */
   var dtgx0 = tgxmax-tgxmin;  // dx(grid)
   var dtgy0 = tgymax-tgymin;  // dy(grid)
   /* -> 1.0.0 */
@@ -792,6 +792,7 @@ My_entry.plot2d.prototype.final = function(arr2d_vec, options, toSVG){
   var _svg = self.run(arr2d_vec, options, toSVG, true) || "";
   if(!(toSVG)){
     if(self.isLocked) return false;
+    self.isLocked = true;
   /* -> 1.0.1 */
     var base64_bg = self.base64_bg || self.objs.background.getBase64();
     var arr_base64_grid_plot = [];
@@ -814,7 +815,6 @@ My_entry.plot2d.prototype.final = function(arr2d_vec, options, toSVG){
       all.clear();
       all.putBase64(base64_bg, callback1);  // bg(source-over) <- grid <- plot
     };
-    self.isLocked = true;
     all.clear();
     all.putBase64s(arr_base64_plot.reverse(), callback0, options["canvas-globalCompositeOperationLayer"]);
   }
