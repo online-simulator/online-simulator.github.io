@@ -1146,6 +1146,8 @@ panel上段について記述する
 <br>
 ・連打による副作用をonmouseup-handlerでlock判定して回避
 <br>
+・checkbox切替え時も同様にlock判定されるため、弾かれた場合、unlock後に再描画が必要
+<br>
 ・副次的に2本指での範囲選択に対応
 <br>
 <br>
@@ -3101,7 +3103,7 @@ let b=-1; (function(){let a=()=&gt;b; let c=a(); let b=3; return c;})();  <span 
 <br>
 clear; [a=&lt;b,c=a=&gt;,b=1,=&lt;c]=&gt; -> [MyErr]Invalid REv(b)
 <br>
-clear; b=-1; [a=&lt;b,c=a=&gt;,b=1,=&lt;c]=&gt;  <span class="selection">// No alert</span> -> -1
+clear; b=-1; [a=&lt;b,c=a=&gt;,b=1,=&lt;c]=&gt;  <span class="selection">// not hoisted</span> -> -1
 <br>
 let b=-1; (function(){let a=()=&gt;b; let c=a(); return c;})();  <span class="selection">// ES6</span> -> -1
 <br>
@@ -4151,6 +4153,8 @@ commit E-mail addressを変更する場合（参考）
 JavaScript特有の実装を列挙する
 <br>
 ・namespaceの中に全objectを宣言してglobal searchを省略する（定量的な効果は不明）
+<br>
+・よって関数式のconstructorはhoistingなしの前提で実装する
     </td>
   </tr>
   <tr>
@@ -4243,7 +4247,7 @@ online-test
 <br>
 ・localhost Apache HTTP ServerのDocumentRootからの相対pathでtestするpageを開く
 <br>
-・Wi-Fiを介して実機online-testを実施する
+・以上より、Wi-Fiを介して実機online-testを実施する
 <br>
 ・test終了後、必要に応じてlocalhost Firewallの設定を元に戻す
 <br>
@@ -4270,7 +4274,7 @@ online-test
 <br>
 ・Chromeの同一page上でlocalhostとAndroid端末の操作が連動することを確認する
 <br>
-・以上より、Wi-Fiを介して実機online-testによるdebugを実施する
+・以上より、Wi-Fiを介して実機online-testとともにdebugを実施する
 <br>
 ・test終了後、必要に応じてAndroid端末の設定を元に戻す
     </td>
