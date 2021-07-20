@@ -24,15 +24,16 @@
 </head>
 
 <body>
-  <div class="absolute">
 
 <script type="text/javascript">
-  (function(document){
-    new My_entry.$().onload(document, function(e){
-      new My_entry.test_gacha().onload(document, e);
+  (function(){
+    new My_entry.$().onload(function(e){
+      new My_entry.test_gacha().onload(e);
     });
-  })(document);
+  })();
 </script>
+
+  <div class="absolute">
 
 <hr>
 <div>
@@ -384,6 +385,7 @@ BOX抽選Gacha実行:
 <hr>
 
   </div>
+
 </body>
 
 </html>

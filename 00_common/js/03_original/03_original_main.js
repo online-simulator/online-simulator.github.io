@@ -58,9 +58,9 @@ My_entry.original_main.prototype.init_handlers = function(){
   var self = this;
   return self;
 };
-My_entry.original_main.prototype.onload = function(document, e){
+My_entry.original_main.prototype.onload = function(e){
   var self = this;
   self.handlers.onload(e);
-  self.entry.$.onbeforeunload(document, function(e){self.handlers.onbeforeunload(e);});
+  self.entry.$.onbeforeunload(function(e){self.handlers.onbeforeunload(e);});
   return self;
 };

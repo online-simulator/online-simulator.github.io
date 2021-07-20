@@ -45,9 +45,15 @@ My_entry.drag.prototype.set_handlers0 = function(){
         };
         break;
       case "ondragover":
+        handler = function(e){
+          $.set_elem(self.elem, "opacity", 0.5);
+          self.set_offset(e);
+        };
+        break;
       case "ondragend":
         handler = function(e){
           self.set_offset(e);
+          $.set_elem(self.elem, "opacity", null);
         };
         break;
       default:

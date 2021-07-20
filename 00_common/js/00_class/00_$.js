@@ -27,7 +27,7 @@ My_entry.$.prototype.init = function(){
   var self = this;
   return self;
 };
-My_entry.$.prototype.onload = function(document, opt_callback){
+My_entry.$.prototype.onload = function(opt_callback){
   var self = this;
   document.body.onload = function(e){
     if(opt_callback){
@@ -36,7 +36,7 @@ My_entry.$.prototype.onload = function(document, opt_callback){
   };
   return self;
 };
-My_entry.$.prototype.onbeforeunload = function(document, opt_callback){
+My_entry.$.prototype.onbeforeunload = function(opt_callback){
   var self = this;
   document.body.onbeforeunload = function(e){
     if(opt_callback){
@@ -380,9 +380,9 @@ My_entry.$.prototype.get_urlParam = function(key_comp){
   }
   return _val;
 };
-My_entry.$.prototype.get_urlParams = function(obj){
+My_entry.$.prototype.get_urlParams = function(opt_obj){
   var self = this;
-  var _obj = obj || {};
+  var _obj = opt_obj || {};
   var callback = (window.decodeURIComponent)?
     function(str){return decodeURIComponent(str);}:
     function(str){return str;};
@@ -399,9 +399,9 @@ My_entry.$.prototype.get_urlParams = function(obj){
   }
   return _obj;
 };
-My_entry.$.prototype.get_elemProps = function(selector, separator, prop, obj){
+My_entry.$.prototype.get_elemProps = function(selector, separator, prop, opt_obj){
   var self = this;
-  var _obj = obj || {};
+  var _obj = opt_obj || {};
   var arr = self.arr(selector);
   arr.forEach(function(elem){
     var val = elem[prop];
@@ -409,6 +409,18 @@ My_entry.$.prototype.get_elemProps = function(selector, separator, prop, obj){
       val = (isNaN(Number(val)))? val: Number(val);
     }
     _obj[elem.id.split(separator)[1]] = val;
+  });
+  return _obj;
+};
+My_entry.$.prototype.get_elemPos = function(selector, opt_obj){
+  var self = this;
+  var _obj = opt_obj || {};
+  var arr = self.arr(selector);
+  arr.forEach(function(elem){
+    var id = elem.id;
+    if(id){
+      _obj[id] = {clientLeft: self.get_elem(elem, "clientLeft"), clientTop: self.get_elem(elem, "clientTop")};
+    }
   });
   return _obj;
 };

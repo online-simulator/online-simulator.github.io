@@ -25,17 +25,18 @@
 </head>
 
 <body>
-  <div class="absolute">
 
 <script type="text/javascript">
-  (function(document){
-    new My_entry.$().onload(document, function(e){
-      new My_entry.test_worker().onload(document, e);
+  (function(){
+    new My_entry.$().onload(function(e){
+      new My_entry.test_worker().onload(e);
     });
-  })(document);
+  })();
 </script>
-<hr>
 
+  <div class="absolute">
+
+<hr>
 <div>
 <table><tbody>
 <tr><td>
@@ -80,6 +81,7 @@ Multi-thread実行による並列処理に用いるWebWorkersのtest
 <hr>
 
   </div>
+
 </body>
 
 </html>
