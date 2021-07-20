@@ -15,12 +15,11 @@
 </head>
 
 <body>
-  <div class="absolute">
 
 <script type="text/javascript">
-  (function(document){
+  (function(){
     var $ = new My_entry.$();
-    $.onload(document, function(e){
+    $.onload(function(e){
       $._id("VERSION").textContent = My_entry.VERSION;
       ["calc", "edit", "wave", "else"].forEach(function(name){
         $._id("Ver-"+name).textContent = My_entry.Ver[name];
@@ -33,10 +32,12 @@
           $.set_elem(elem_type.parentElement, "hidden", isHidden);
         });
       };
-      $.onbeforeunload(document, function(e){});
+      $.onbeforeunload(function(e){});
     });
-  })(document);
+  })();
 </script>
+
+  <div class="absolute">
 
 <div>
 <h1>Simulators in HTML5/CSS with JavaScript</h1>
@@ -225,6 +226,83 @@ Y/M/D
   </tr>
 </thead>
 <tbody>
+  <tr>
+    <th>
+3.55.17.6.20
+    </th>
+    <td class="types">
+Generator
+    </td>
+    <td>
+1.12.2
+    </td>
+    <td>
+minor update
+    </td>
+    <td>
+[音源wave PCM生成]
+<br>
+・time's upper-limit removed
+<br>
+・time's lower-limiter normalized
+    </td>
+    <td>
+2021/7/20
+    </td>
+  </tr>
+  <tr>
+    <th>
+3.54.17.6.20
+    </th>
+    <td class="types">
+Calculator
+<br>
+Generator
+<br>
+Checker
+    </td>
+    <td>
+2.41.20
+<br>
+1.11.2
+<br>
+0.19.4
+    </td>
+    <td>
+minor update
+    </td>
+    <td>
+[drag.js]
+<br>
+・opacity=0.5 ondragover
+<br>
+[全page共通]
+<br>
+・VERSION.3.23.8.3.8追加変更
+<pre><code>
+  before:
+  (function(document){
+    new My_entry.$().onload(document, function(e){
+      new My_entry.main().onload(document, e);
+    });
+  })(document);
+
+  after:
+  (function(){
+    new My_entry.$().onload(function(e){
+      new My_entry.main().onload(e);
+    });
+  })();
+</code></pre>
+<br>
+[全page html]
+<br>
+・&lt;script&gt; moved outside of &lt;div&gt;
+    </td>
+    <td>
+2021/7/20
+    </td>
+  </tr>
   <tr>
     <th>
 3.51.17.6.20
@@ -3466,6 +3544,7 @@ minor update
 <br>
 
   </div>
+
 </body>
 
 </html>

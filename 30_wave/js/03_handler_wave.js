@@ -244,11 +244,11 @@ My_entry.handler_wave.prototype.make_params = function(){
   self.params.number_channels = self.entry.$.selectNum_id("select-number_channels");
   self.params.type = self.entry.$.selectVal_id("select-type");
   var sec = self.entry.$.inputNum_id("input-time")*0.001;
-  if(isNaN(sec)){
+  if(isNaN(sec) || sec < 0){
     sec = 1;
-    self.entry.$.inputNum_id("input-time") = sec*1000;
+    self.entry.$._id("input-time").value = sec*1000;
   }
-  self.params.sec = self.entry.math_wave.get_limit(sec, 0, 1000);
+  self.params.sec = sec;
   self.update_number_samples();
   var volume = self.entry.$.inputNum_id("range-volume")*0.01;
   if(isNaN(volume)){

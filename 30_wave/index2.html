@@ -34,17 +34,18 @@
 </head>
 
 <body>
-  <div class="absolute">
 
 <script type="text/javascript">
-  (function(document){
-    new My_entry.$().onload(document, function(e){
-      new My_entry.handler_wave().onload(document, e);
+  (function(){
+    new My_entry.$().onload(function(e){
+      new My_entry.handler_wave().onload(e);
     });
-  })(document);
+  })();
 </script>
-<hr>
 
+  <div class="absolute">
+
+<hr>
 <div>
 <table class="border"><tbody>
   <tr class="border">
@@ -355,6 +356,7 @@ scriptの入力形式
 <hr>
 
   </div>
+
 </body>
 
 </html>
