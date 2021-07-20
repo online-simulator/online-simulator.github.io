@@ -213,6 +213,11 @@ gradation特定項目仕様
 </a>
 <br>
 　　・
+<a href="#span-out-UI-graphing-layer-grid">
+grid-layer描画順
+</a>
+<br>
+　　・
 <a href="#span-out-UI-graphing-layer-plot">
 plot-layer描画順
 </a>
@@ -343,7 +348,7 @@ scope付式変数の再利用
 </a>
 <br>
 ・
-<a href="#span-out-bracket">
+<a href="#span-out-flow">
 演算flow
 </a>
 <br>
@@ -1279,21 +1284,21 @@ str:strFontSize
 <br>
 ・任意位置に挿入可
 <br>
-・graph-titleはcanvas上部に表示するtitleの任意文字列でgrid-layerに描画
+・graph-titleはcanvas上部に表示するtitleの任意文字列で<a href="#span-out-UI-graphing-layer-grid">grid-layer</a>に描画
 <br>
 <br>
 <span class="run">Ver.2.37.18</span>以降、<a href="#span-out-UI-graphing-labels">x-label</a>をxlabel||XLABEL{x-label}で入力
 <br>
 ・任意位置に挿入可
 <br>
-・x-labelはx軸余白に表示するlabelの任意文字列でgrid-layerに描画
+・x-labelはx軸余白に表示するlabelの任意文字列で<a href="#span-out-UI-graphing-layer-grid">grid-layer</a>に描画
 <br>
 <br>
 <span class="run">Ver.2.37.18</span>以降、<a href="#span-out-UI-graphing-labels">y-label</a>をylabel||YLABEL{y-label}で入力
 <br>
 ・任意位置に挿入可
 <br>
-・y-labelはy軸余白に表示するlabelの任意文字列でgrid-layerに描画
+・y-labelはy軸余白に表示するlabelの任意文字列で<a href="#span-out-UI-graphing-layer-grid">grid-layer</a>に描画
 <br>
 <br>
 <span class="run">Ver.2.34.18</span>以降、<a href="#span-out-UI-graphing-string-path">string-path</a>をstring||STRING{config[]string-path}で入力
@@ -1390,7 +1395,7 @@ graph-title特定項目仕様について記述する
 <br>
 ・任意位置に挿入可
 <br>
-・graph-titleはcanvas上部に表示するtitleの任意文字列でgrid-layerに描画
+・graph-titleはcanvas上部に表示するtitleの任意文字列で<a href="#span-out-UI-graphing-layer-grid">grid-layer</a>に描画
     </td>
   </tr>
   <tr>
@@ -1412,14 +1417,14 @@ axis-labels特定項目仕様について記述する
 <br>
 ・任意位置に挿入可
 <br>
-・x-labelはx軸余白に表示するlabelの任意文字列でgrid-layerに描画
+・x-labelはx軸余白に表示するlabelの任意文字列で<a href="#span-out-UI-graphing-layer-grid">grid-layer</a>に描画
 <br>
 <br>
 <a href="#span-out-UI-graphing-z">z入力欄</a>にy-labelをylabel||YLABEL{y-label}で入力
 <br>
 ・任意位置に挿入可
 <br>
-・y-labelはy軸余白に表示するlabelの任意文字列でgrid-layerに描画
+・y-labelはy軸余白に表示するlabelの任意文字列で<a href="#span-out-UI-graphing-layer-grid">grid-layer</a>に描画
     </td>
   </tr>
   <tr>
@@ -1451,7 +1456,7 @@ fillStyle:strokeStyle:fillStr:spacingX:spacingY:
 <br>
 shadowOffsetX:shadowOffsetY:shadowBlur:deg0
 <br>
-<span class="run">Ver.2.37.18</span>以降、各設定値の上下限範囲を追加
+<span class="run">Ver.2.37.18</span>以降、各設定値の上下限を追加
 <br>
 ・fontFamilyはfont-family名（<span class="run">Ver.2.35.18</span>以降、white space付family名に対応）
 <br>
@@ -1532,6 +1537,9 @@ gradation
     <td>
 <span id="span-out-UI-graphing-gradation"></span>
 gradation特定項目仕様と付随する留意事項について記述する
+<br>
+<br>
+指向性のないGaussぼかしでは再現困難な機能としてgradationを追加する
 <br>
 <br>
 <a href="#span-out-UI-graphing-z">z入力欄</a>にgradationをgradation||GRADATION{config[]colors}で入力
@@ -1638,13 +1646,13 @@ png出力の特徴を列挙する
 目次
 </a>
 <br>
-plot-layer
+grid-layer
 <br>
 描画順
     </th>
     <td>
-<span id="span-out-UI-graphing-layer-plot"></span>
-plot-layer描画順について記述する
+<span id="span-out-UI-graphing-layer-grid"></span>
+grid-layer描画順について記述する
 <br>
 <br>
 描画canvasのlayerを描画順に列挙する
@@ -1654,6 +1662,30 @@ plot-layer描画順について記述する
 ・grid-layer
 <br>
 ・plot-layer
+<br>
+<br>
+grid-layerに描画する項目を描画順に列挙する
+<br>
+・<a href="#span-out-UI-graphing-title">graph-title</a>
+<br>
+・<a href="#span-out-UI-graphing-labels">axis-labels</a>
+<br>
+・grid-lines/axis-values
+    </td>
+  </tr>
+  <tr>
+    <th>
+<a href="#span-index">
+目次
+</a>
+<br>
+plot-layer
+<br>
+描画順
+    </th>
+    <td>
+<span id="span-out-UI-graphing-layer-plot"></span>
+plot-layer描画順について記述する
 <br>
 <br>
 plot-layerに描画する項目を描画順に列挙する
@@ -1669,7 +1701,7 @@ plot-layerに描画する項目を描画順に列挙する
 ・<a href="#span-out-UI-graphing-string-path">string-path</a>
 <br>
 <br>
-<span class="run">Ver.2.37.18</span>以降、<a href="#span-out-UI-graphing-title">graph-title</a>はgrid-layerに描画
+<span class="run">Ver.2.37.18</span>以降、<a href="#span-out-UI-graphing-title">graph-title</a>は<a href="#span-out-UI-graphing-layer-grid">grid-layer</a>に描画
     </td>
   </tr>
   <tr>
@@ -3443,7 +3475,7 @@ local buffer
 <br>
 ・0階層を除く階層は実行文毎に独立する
 <br>
-・以上より階層の概念を次に示す
+・以上より、階層の概念を次に示す
 <br>
 実行文A[,];
 <br>
@@ -3468,7 +3500,7 @@ local buffer
 <br>
 ・よって0階層のlocal <a href="#span-out-storage">storage</a>はすべての<a href="#span-out-scope-vars">scope</a>の直列scope内で共通化される
 <br>
-・以上より<a href="#span-out-bracket">parse</a>段階で作る<a href="#span-out-scope-vars">scope</a>の配列を<a href="#span-in-scope-vars">static scopes2d array</a>と定義する
+・以上より、<a href="#span-out-bracket">parse</a>段階で作る<a href="#span-out-scope-vars">scope</a>の配列を<a href="#span-in-scope-vars">static scopes2d array</a>と定義する
 <br>
 <br>
 直列scope内の<a href="#span-out-vars">変数</a>・<a href="#span-out-eqns">式変数</a>のsearch-precedenceの一例を示す
@@ -4143,11 +4175,15 @@ commit E-mail addressを変更する場合（参考）
 <br>
 ・<a href="#span-out-mat">行列</a>演算を含む<a href="#span-out-associativity">2項演算子のassociativity</a>は単なるfor-loopで結合順||演算順を保証する
 <br>
-・reccursive callを代替する<a href="#span-out-FNh-RX">再帰高階関数</a>も同様に、独自のcallstackを実装しない
+・reccursive callを代替する<a href="#span-out-FNh-RX">再帰高階関数</a>も同様に、独自のcall stackを実装しない
 <br>
 ・よって<a href="#span-out-FNh-DX">微分の多重化</a>等、<a href="#span-out-FNh">高階関数</a>をnestingする場合、致命的にthroughputが低下する
 <br>
-・<a href="#span-out-scope-vars">変数のscope</a>はstaticで再利用可能な実装としたが、最善を追及していない
+・<a href="#span-out-flow">parser</a>は複数種類の<a href="#span-out-BT">括弧</a>のnestingに対応し、再帰的に<a href="#span-in-tree">tree構造</a>を階層化する
+<br>
+・よって<a href="#span-out-bracket">階層</a>に紐付く<a href="#span-out-scope-vars">変数のscope</a>はstaticで再利用可能としたが、最善を追及していない
+<br>
+・<a href="#span-out-eqns-args">式変数のarguments</a>も同様に最善の仕様を追及していない
 <br>
 ・debug機能が存在しないため、<a href="#span-out-vars">変数</a>・<a href="#span-out-eqns">式変数</a>はpollution disabledの厳格な制約条件を課す
 <br>
@@ -4159,6 +4195,8 @@ JavaScript特有の実装を列挙する
 ・namespaceの中に全objectを宣言してglobal searchを省略する（定量的な効果は不明）
 <br>
 ・よって関数式のconstructorはhoistingなしの前提で実装する
+<br>
+・この制約の下、既存のframework||plug-inを一切使用しない
     </td>
   </tr>
   <tr>
