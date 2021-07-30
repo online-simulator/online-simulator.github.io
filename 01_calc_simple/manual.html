@@ -213,11 +213,16 @@ gradation特定項目仕様
 </a>
 <br>
 　　・
+<a href="#span-out-UI-graphing-layer">
+layer描画順
+</a>
+<br>
+　　　・
 <a href="#span-out-UI-graphing-layer-grid">
 grid-layer描画順
 </a>
 <br>
-　　・
+　　　・
 <a href="#span-out-UI-graphing-layer-plot">
 plot-layer描画順
 </a>
@@ -833,6 +838,9 @@ FourierN
 外部仕様の前提について記述する
 <br>
 <br>
+主として数値計算の基本となるCalculatorの仕様とtest caseを記録
+<br>
+<br>
 説明上の前提を列挙する
 <br>
 ・論理記号||は、ORを意味する
@@ -902,6 +910,8 @@ developer.mozilla.org/ja/docs/項目を列挙する
 en.m.wikipedia.org/wiki/項目を列挙する
 <br>
 ・Rotation_formalisms_in_three_dimensions
+<br>
+・Rainbow
 <br>
 <br>
 ja.m.wikipedia.org/wiki/項目を列挙する
@@ -1249,11 +1259,27 @@ color-dataset入力の一例を示す
 <br>
 ・<a href="#span-out-UI-graphing-gradation">gradation-colors</a>のrainbow入力の場合
 <br>
+・7色の場合（modern風）
+<br>
+violet:blue:cyan:green:yellow:orange:red
+<br>
+#ee82ee:#0000ff:#00ffff:#00ff00:#ffff00:#ffa500:#ff0000
+<br>
+#ee82eecc:#0000ffcc:#00ffffcc:#00ff00cc:#ffff00cc:#ffa500cc:#ff0000cc
+<br>
+・7色の場合（音階に倣うNewton説）
+<br>
 violet:indigo:blue:green:yellow:orange:red
 <br>
 #ee82ee:#4b0082:#0000ff:#00ff00:#ffff00:#ffa500:#ff0000
 <br>
 #ee82eecc:#4b0082cc:#0000ffcc:#00ff00cc:#ffff00cc:#ffa500cc:#ff0000cc
+<br>
+・近年、短波長側のcyan||indigoを消去して6色と数える場合が多い
+<br>
+・主虹を裸眼で見る場合、長波長で屈折率の低いredを外周とする（反射回数1回）
+<br>
+・副虹はその逆でredを内周とする（反射回数2回）
     </td>
   </tr>
   <tr>
@@ -1646,6 +1672,30 @@ png出力の特徴を列挙する
 目次
 </a>
 <br>
+layer
+<br>
+描画順
+    </th>
+    <td>
+<span id="span-out-UI-graphing-layer"></span>
+layer描画順について記述する
+<br>
+<br>
+描画canvasのlayerを描画順に列挙する
+<br>
+・background-layer
+<br>
+・<a href="#span-out-UI-graphing-layer-grid">grid-layer</a>
+<br>
+・<a href="#span-out-UI-graphing-layer-plot">plot-layer</a>
+    </td>
+  </tr>
+  <tr>
+    <th>
+<a href="#span-index">
+目次
+</a>
+<br>
 grid-layer
 <br>
 描画順
@@ -1653,15 +1703,6 @@ grid-layer
     <td>
 <span id="span-out-UI-graphing-layer-grid"></span>
 grid-layer描画順について記述する
-<br>
-<br>
-描画canvasのlayerを描画順に列挙する
-<br>
-・background-layer
-<br>
-・grid-layer
-<br>
-・plot-layer
 <br>
 <br>
 grid-layerに描画する項目を描画順に列挙する
@@ -2515,9 +2556,7 @@ ans+1 -> infoLost[r ] 4+i
 <br>
 ans+1 -> infoLost[r ] 5+i
 <br>
-・真値が0との乗算では、本来、誤差情報も消えるが、
-<br>
-・逐次判定しないため、誤差情報が残る
+・真値が0との乗算では本来、誤差情報も消えるが、逐次判定しないため、誤差情報が残る
 <br>
 ans*0 -> infoLost[r ] 0
 <br>
@@ -2933,7 +2972,7 @@ UI設定によって対応する用途を4種類示す
 ・よって<a href="#span-out-ope">用途</a>をseamlessに切替えて<a href="#span-out-ope">演算量</a>を調整する
 <br>
 <br>
-合わせて共通化する仕様について記述する
+併せて共通化する仕様について記述する
 <br>
 <br>
 <a href="#span-out-FN">関数</a>の引数vector
@@ -4196,7 +4235,7 @@ JavaScript特有の実装を列挙する
 <br>
 ・よって関数式のconstructorはhoistingなしの前提で実装する
 <br>
-・この制約の下、既存のframework||plug-inを一切使用しない
+・同制約の下、既存のframework||plug-inを一切使用しない
     </td>
   </tr>
   <tr>
