@@ -1851,9 +1851,7 @@ svg||csv||history-txt出力時に記録するlog-stampの情報を列挙する
 <br>
 ・new Date()によるtime-stamp
 <br>
-<span class="run">Ver.2.38.18</span>以降、追加
-<br>
-・window.navigator.userAgentによるbrowser識別情報
+・<span class="run">Ver.2.38.18</span>以降、window.navigator.userAgentによるbrowser識別情報
     </td>
   </tr>
   <tr>
@@ -2375,7 +2373,7 @@ epsilon
 浮動小数点演算のMachine epsilonについて記述する
 <br>
 <br>
-<a href="#span-out-float">仮数部</a>の最下位bitの有効数字未満を丸める相対<a href="#span-out-error">誤差</a>をMachine epsilonと呼ぶ
+<a href="#span-out-float">仮数部</a>の最下位bitの有効数字未満を丸める<a href="#span-out-error">相対誤差</a>をMachine epsilonと呼ぶ
 <br>
 ・次のepsilonで定義する
 <br>
@@ -2431,7 +2429,7 @@ JavaScriptのNumber型の定数について記述する
 <br>
 JavaScriptのNumber型の定数は<a href="#span-out-FN0">定数</a>として定義する
 <br>
-・test caseを列挙する
+・Number型の定数を列挙する
 <br>
 EPSILON -> 2.220446049250313e-16
 <br>
@@ -2441,11 +2439,14 @@ MAX_SAFE_INTEGER || +(2^53-1) -> 9007199254740991
 <br>
 MIN_VALUE -> 5e-324
 <br>
+MAX_VALUE -> 1.7976931348623157e+308
+<br>
+<br>
+test caseを列挙する
+<br>
 MIN_VALUE/2 -> 0
 <br>
 MIN_VALUE*(1-EPSILON) -> 5e-324
-<br>
-MAX_VALUE -> 1.7976931348623157e+308
 <br>
 MAX_VALUE*2 -> Infinity
 <br>
@@ -3930,7 +3931,7 @@ add(1,add(1,add(1,add(1,i))add(1,i))add(1,i))add(1,i) -> -5+5i
 <br>
 clear; last_tt(A)=&lt;(trans(trans(A)))[sizer(A)-1][sizec(A)-1]; A=(1,2:3,4); last_tt(=&lt;A) -> 4
 <br>
-・<a href="#span-out-BT-square">行列要素参照の角括弧[]</a>も同様に<a href="#span-out-bracket">scope</a>を持つ
+・<a href="#span-out-BT-square">行列要素参照の角括弧[]</a>も同様に、<a href="#span-out-bracket">scope</a>を持つ
 <br>
 A=(1,2:3,(,:,4),5); last(A) -> 4
 <br>
@@ -4222,7 +4223,7 @@ commit E-mail addressを変更する場合（参考）
 <br>
 ・よって<a href="#span-out-bracket">階層</a>に紐付く<a href="#span-out-scope-vars">変数のscope</a>はstaticで再利用可能としたが、最善を追及していない
 <br>
-・<a href="#span-out-eqns-args">式変数のarguments</a>も同様に最善の仕様を追及していない
+・<a href="#span-out-eqns-args">式変数のarguments</a>も同様に、最善の仕様を追及していない
 <br>
 ・debug機能が存在しないため、<a href="#span-out-vars">変数</a>・<a href="#span-out-eqns">式変数</a>はpollution disabledの厳格な制約条件を課す
 <br>
@@ -4259,24 +4260,18 @@ localhost offline/online-test環境
 <br>
 ・Internet Explorer 11（以降、IEと省略する）
 <br>
-・IE以外の互換性は高いため、Chrome DevTools-emulatorで動作確認
+・<span class="run">Ver.2.38.18</span>以降、latest Firefox
 <br>
-<span class="run">Ver.2.38.18</span>以降、対応
-<br>
-・latest Firefox
+・その他、Chrome DevTools-emulatorで動作確認
 <br>
 <br>
 実機online-test環境
 <br>
 ・latest Amazon Silk
 <br>
-<span class="run">Ver.2.37.18</span>以降、追加
+・<span class="run">Ver.2.37.18</span>以降、latest Chrome
 <br>
-・latest Chrome
-<br>
-<span class="run">Ver.2.38.18</span>以降、対応
-<br>
-・latest Firefox
+・<span class="run">Ver.2.38.18</span>以降、latest Firefox
     </td>
   </tr>
   <tr>
@@ -5045,6 +5040,7 @@ store
 <br>
 ・元objectを新規objectに複製する
 <br>
+<br>
 restore
 <br>
 ・local <a href="#span-out-storage">buffer</a>に保存されたlocal <a href="#span-out-storage">storage</a>を復帰する
@@ -5715,7 +5711,7 @@ max=&lt;3 -> [MyErr]Invalid BTe([object Object])
 <br>
 ・実行文を作る<a href="#span-out-bracket">parse</a>段階で数値に変換する
 <br>
-・Excel同様に空括弧()付を許容する
+・Excel同様に、空括弧()付を許容する
 <br>
 ・空括弧()は<a href="#span-out-bracket">parse</a>段階で除去する
 <br>
@@ -11260,6 +11256,8 @@ A=(1,2:3,4);
 b={5,6};
 <br>
 x=Gauss(A,b); x -> (-3.9999999999999982:4.499999999999999)
+<br>
+x=Gauss((1,2:3,4),{5,6}); x -> (-3.9999999999999982:4.499999999999999)
 <br>
 ・解のdouble-check
 <br>
