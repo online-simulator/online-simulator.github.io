@@ -387,6 +387,11 @@ scope付式変数の再利用
 browser間の相違
 </a>
 <br>
+　・
+<a href="#span-out-browsers-ie">
+Internet Explorer非対応の機能
+</a>
+<br>
 ・graph出力仕様
 <br>
 　・
@@ -1541,7 +1546,7 @@ shadowColor.r = strokeStyle.r+(fillStyle.r-strokeStyle.r)*Math.min(1, Math.abs(f
 <br>
 <span class="run">Ver.2.37.18</span>以降、spacingX/Y=0||省略時、&lt;textPath&gt;によるsvg出力に対応
 <br>
-・png出力と若干のかい離があり、互換性を失う
+・回転角を含む座標変換のalgorithmが異なるため、png出力と若干の互換性を失う
 <br>
 ・svg出力は縮小表示でtextPathが非表示になるが、png出力は非表示にならない
 <br>
@@ -1762,13 +1767,11 @@ plot-configの設定項目を列挙する
 <br>
 ・描画canvas-sizeのcanvas-width||canvas-heightを選択可
 <br>
-・bg-image-fileは任意size背景画像fileをread可
+・bg-image-fileは任意size背景画像fileをread可（<span class="clear">Internet Explorer非対応</span>）
 <br>
-　read-cancel||image-file以外を選択で背景reset
+　read-cancel||image-file以外を選択||canvas-size変更で背景reset
 <br>
-　canvas-sizeはresetしない
-<br>
-　canvas-size変更で背景reset
+　svg出力は背景image-file無効
 <br>
 ・背景色はbg-colorの入力値優先で省略時、canvas-backgroundの選択値
 <br>
@@ -4431,6 +4434,28 @@ Edge/Chrome/Firefox: sin(5) -> -0.9589242746631385
 IE/Edge/Chrome: exp(i) -> 0.5403023058681398+0.8414709848078965i
 <br>
 Firefox: exp(i) -> 0.5403023058681397+0.8414709848078965i
+    </td>
+  </tr>
+  <tr>
+    <th>
+<a href="#span-index">
+目次
+</a>
+<br>
+Internet
+<br>
+Explorer
+<br>
+非対応の機能
+    </th>
+    <td>
+<span id="span-out-browsers-ie"></span>
+IE非対応の機能について記述する
+<br>
+<br>
+IE非対応の機能（その原因）を列挙する
+<br>
+・<a href="#span-out-UI-graphing-config">bg-image-file</a>（描画更新時、SCRIPT5022: SecurityError）
     </td>
   </tr>
   <tr>
