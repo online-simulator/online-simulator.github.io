@@ -71,6 +71,13 @@ My_entry.original_worker.prototype.set_callbacks_worker = function(){
   };
   return self;
 };
+My_entry.original_worker.prototype.set_n_thread_worker = function(n_thread){
+  var self = this;
+  if(self.handler_worker){
+    self.handler_worker.setter.n_thread(n_thread);
+  }
+  return self;
+};
 My_entry.original_worker.prototype.run_worker = function(arr_data_in, useWorker){
   var self = this;
   if(self.handler_worker && self.handler_worker.isLocked) return false;

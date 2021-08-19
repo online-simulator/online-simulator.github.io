@@ -27,21 +27,26 @@ My_entry.handler_wave.prototype.init = function(){
   self.regex.freq = /^f(\d+)/;
   self.regex.rest = /^r/;
   self.params = {};
+  if(self.isScriptMode){
+    self.set_n_thread_worker(self.entry.$.selectNum_id("select-n_thread"));
+  }
   return self;
 };
 My_entry.handler_wave.prototype.init_elems = function(){
   var self = this;
-  self.elem_log = self.entry.$._id("span-log");
-  self.elem_name = self.entry.$._id("span-name");
-  self.elem_time = self.entry.$._id("input-time");
-  self.elem_top = self.entry.$._id("select-Bytes_perSample");
-  self.entry.$.setup_elems$_tag("button", self.handlers, "onclick");
-  self.entry.$.setup_elems$_tag("input", self.handlers, "onchange");
-  self.entry.$.setup_elems$_tag("select", self.handlers, "onchange");
+  var $ = self.entry.$;
+  self.elem_log = $._id("span-log");
+  self.elem_name = $._id("span-name");
+  self.elem_time = $._id("input-time");
+  self.elem_top = $._id("select-Bytes_perSample");
+  $.setup_elems$_tag("button", self.handlers, "onclick");
+  $.setup_elems$_tag("input", self.handlers, "onchange");
+  $.setup_elems$_tag("select", self.handlers, "onchange");
   return self;
 };
 My_entry.handler_wave.prototype.init_handlers = function(){
   var self = this;
+  var $ = self.entry.$;
   self.handlers.onload = function(e){
     var self = this;
     var json = {p: {id: "wrapper-link"}, a: {id: "a", it: self.text_link}, name: self.fileName_default, ext: "wav"};
@@ -79,26 +84,10 @@ My_entry.handler_wave.prototype.init_handlers = function(){
     self.handlers.stop_worker(true);
     return self;
   };
-  self.handlers.onchange = function(e, elem){
-    var self = this;
-    self.handlers.onbeforeunload();
-    if(self.isSingle && elem.tagName.toUpperCase() === "SELECT"){
-      self.output_freq();
-    }
-    self.waveo = new self.constructors.output_wave();
-    self.make_params();
-    self.waveo.init(self.params.Bytes_perSample, self.params.samples_perSecond, self.params.number_channels);
-    if(self.isScriptMode){
-      self.output_time("");
-    }
-    else{
-      self.output_fileSize();
-    }
-    return self;
-  };
   self.handlers.onclick = function(e, elem){
     var self = this;
-    switch(elem.id){
+    var id = elem.id;
+    switch(id){
       case "play":
         if(self.waveo.audio) return false;
         if(self.handler_worker && self.handler_worker.isLocked) return false;
@@ -106,7 +95,7 @@ My_entry.handler_wave.prototype.init_handlers = function(){
         try{
           var arr_params = [];
           if(self.isScriptMode){
-            var input = self.entry.$._id("textarea-script").value;
+            var input = $._id("textarea-script").value;
             if(input){
               arr_params = self.check_script(input);
             }
@@ -116,7 +105,7 @@ My_entry.handler_wave.prototype.init_handlers = function(){
           }
           if(arr_params.length){
             self.update_number_samples();
-            var useWorker = self.entry.$.checkbox_id("checkbox-useWorker");
+            var useWorker = $.checkbox_id("checkbox-useWorker");
             setTimeout(function(){
               self.run_worker(arr_params, useWorker);
             }, 50);
@@ -135,13 +124,39 @@ My_entry.handler_wave.prototype.init_handlers = function(){
         self.output_log("stopped");
         break;
       case "uncheck":
-        self.entry.$.arr("input[type='checkbox']").forEach(function(elem){
-          var mc = elem.id.match(self.regex.oc);
+        $.arr("input[type='checkbox']").forEach(function(elem){
+          var id = elem.id;
+          var mc = id.match(self.regex.oc);
           if(mc && elem.checked){
             elem.checked = false;
           }
         });
         self.elem_top.onchange();
+        break;
+      default:
+        break;
+    }
+    return self;
+  };
+  self.handlers.onchange = function(e, elem){
+    var self = this;
+    var id = elem.id;
+    self.handlers.onbeforeunload();
+    if(self.isSingle && elem.tagName.toUpperCase() === "SELECT"){
+      self.output_freq();
+    }
+    self.waveo = new self.constructors.output_wave();
+    self.make_params();
+    self.waveo.init(self.params.Bytes_perSample, self.params.samples_perSecond, self.params.number_channels);
+    if(self.isScriptMode){
+      self.output_time("");
+    }
+    else{
+      self.output_fileSize();
+    }
+    switch(id){
+      case "select-n_thread":
+        self.set_n_thread_worker($.selectNum_id(id));
         break;
       default:
         break;

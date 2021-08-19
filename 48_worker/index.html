@@ -40,14 +40,12 @@
 <div>
 <table><tbody>
 <tr><td>
-Multi-thread実行による並列処理に用いるWebWorkersのtest
+Parallel Multi-threadingに用いるWebWorkersのtest
 </td></tr>
 <tr><td>
-数学関数Mathによる単純な乱数の平滑化処理をmainからworkerに依頼する
+数学関数Mathによる乱数の平滑化処理をmainからworkerに依頼する
 <br>
-下記のWebWorkers使用にcheckを付けるとMulti-threadで実行する
-<br>
-※回数nが並列処理の最大thread数、実行結果の()内がmain依頼順
+同時並列数N-thread実行checkedの場合、Multi-threadで実行する
 </td></tr>
 <tr><td>
   <label>依頼するjob: 乱数の平滑化Math.
@@ -59,15 +57,51 @@ Multi-thread実行による並列処理に用いるWebWorkersのtest
   </label>
 </td></tr>
 <tr><td>
-  <label>WebWorkers使用:
+  <label>parallel N:
+<select id="select-n_thread">
+  <option>1</option>
+  <option>2</option>
+  <option>3</option>
+  <option selected="selected">4</option>
+  <option>5</option>
+  <option>6</option>
+  <option>7</option>
+  <option>8</option>
+  <option>9</option>
+  <option>10</option>
+  <option>11</option>
+  <option>12</option>
+  <option>13</option>
+  <option>14</option>
+  <option>15</option>
+  <option>16</option>
+  <option>17</option>
+  <option>18</option>
+  <option>19</option>
+  <option>20</option>
+  <option>21</option>
+  <option>22</option>
+  <option>23</option>
+  <option>24</option>
+</select>
+  </label>
+  <label>-thread実行:
     <input id="checkbox-useWorker" type="checkbox" checked="checked">
   </label>
-　
+</td></tr>
+<tr><td>
   <label>n:
     <select id="select-n">
-      <option>5</option>
       <option>10</option>
+      <option>20</option>
       <option>30</option>
+      <option>40</option>
+      <option>50</option>
+      <option>100</option>
+      <option>200</option>
+      <option>300</option>
+      <option>400</option>
+      <option>500</option>
     </select>
   </label>
   <button id="run" class="run">回依頼実行</button>

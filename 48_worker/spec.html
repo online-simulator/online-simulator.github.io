@@ -48,7 +48,7 @@ self.worker = new Worker("js/for_url.js");
 <br>
 なお、main内の関数をcreateObjectURLで指定する方法は
 <br>
-次に示すimportScriptsを使用しない場合に限られる
+次に示すimportScriptsを使用しないcaseに限られる
           </td>
         </tr>
         <tr class="border">
@@ -66,11 +66,6 @@ importするscriptが複数ある場合、comma区切りで読み込み順に並
 <br>
 これより外部scriptは最も単純に次のように記述される
 <br>
-e.dataがmainから受け取るcopy-data（参照を持たないJSON形式）
-<br>
-なお、外部scriptに変更を加えた場合、
-<br>
-"cacheの消去とhard再読込み"をしないと反映されない場合があるので留意する
 <pre><code>
 importScripts("for_importScripts.js");
 
@@ -78,6 +73,32 @@ onmessage = function(e){
   postMessage(My_entry.job_imported(e.data));
 };
 </code></pre>
+<br>
+e.dataがmainから受け取るcopy-data（参照を持たないJSON形式）
+<br>
+なお、外部scriptに変更を加えた場合、
+<br>
+"cacheの消去とhard再読込み"をしないと反映されないcaseがあるので留意する
+          </td>
+        </tr>
+        <tr class="border">
+          <td class="border">
+worker
+<br>
+同時並列化
+          </td>
+          <td class="border">
+threadを同時並列化する場合、同時並列数self.n_threadのWorkerを宣言する
+<br>
+<pre><code>
+  for(var i=0; i&lt;self.n_thread; ++i){
+    self.workers[i] = new Worker(self.url);
+  }
+</code></pre>
+<br>
+なお、overheadとthroughputのtrade-offに応じて最適なn_threadを選択する
+<br>
+通常、memory sizeが問題にならない場合、最適なn_thread=CPU-core数*(1~2)
           </td>
         </tr>
         <tr class="border">
@@ -89,13 +110,6 @@ main/worker
           <td class="border">
 mainとworkerそれぞれでimportする共通のscriptにjobを定義する
 <br>
-mainから受け取ったdataを処理した後、同様のdataを返却する
-<br>
-いずれかのerror発生場所を特定するためにwindow objectの存在可否を判定する
-<br>
-workerからはmainのwindowやdocumentにaccessできないことに留意する
-<br>
-そのため、ここで定義するjobは並列化向きのmedia処理や数値計算が一般的と考えられる
 <pre><code>
 My_entry.job_imported = function(_data){
   var out = null;
@@ -112,6 +126,14 @@ My_entry.job_imported = function(_data){
   return _data;
 };
 </code></pre>
+<br>
+mainから受け取ったdataを処理した後、同様のdataを返却する
+<br>
+いずれかのerror発生場所を特定するためにwindow objectの存在可否を判定する
+<br>
+なお、workerからはmainのwindowやdocumentにaccessできないことに留意する
+<br>
+そのため、ここで定義するjobは並列化向きのmedia処理や数値計算が一般的と考えられる
           </td>
         </tr>
         <tr class="border">
@@ -123,34 +145,8 @@ main
           <td class="border">
 mainからworkerにまとめてarr_dataを渡すhandler_workerを用意し、排他処理を実施する
 <br>
-最も上流の実行命令直後とhandler_worker.runを呼ぶ関数の最初にlock判定処理を加える
-<pre><code>
-My_entry.handler_worker.prototype.run = function(arr_data){
-  var self = this;
-  if(!(self.hasWorker) || self.isLocked) return false;
-  self.isLocked = true;
-  arr_data.forEach(function(data){
-    if(self.worker){  // check null
-      self.worker.postMessage(data);
-    }
-  });
-  return self;
-};
-</code></pre>
+最も上流の実行命令直後とhandler_worker.runを呼ぶ関数の最初にlock判定を加える
 <br>
-追加依頼を受けないlock状態にすることで並列処理のthread数に制限を設ける
-<br>
-さらに、threadの終了処理を確実に実施してからlock状態を解除する
-<br>
-なお、後述する再初期化処理init_workerをhandler_worker.runの直前に実施する
-<br>
-他方、WebWorkersに対応していない環境ではSingle-threadで実行する
-<br>
-共通化したjob_importedであるself.job_workerをforEachで順番に実行し、
-<br>
-後述する受取り処理self.callbacks_worker.onmessageに返却dataを渡す
-<br>
-同様にerrorをcatchして後述するerror処理self.callbacks_worker.onerrorに渡す
 <pre><code>
 My_entry.original_worker.prototype.run_worker = function(arr_data_in, useWorker){
   var self = this;
@@ -179,6 +175,20 @@ My_entry.original_worker.prototype.run_worker = function(arr_data_in, useWorker)
   return self;
 };
 </code></pre>
+<br>
+追加依頼を受けないlock状態にすることで最大thread数に制限を設ける
+<br>
+さらに、threadの終了処理を確実に実施してからlock状態を解除する
+<br>
+なお、後述する再初期化処理init_workerをhandler_worker.runの直前に実施する
+<br>
+他方、WebWorkers非対応の環境ではSingle-threadで実行する
+<br>
+共通化したjob_importedであるself.job_workerをforEachで順番に実行し、
+<br>
+後述する受取り処理self.callbacks_worker.onmessageに返却dataを渡す
+<br>
+同様にerrorをcatchして後述するerror処理self.callbacks_worker.onerrorに渡す
           </td>
         </tr>
         <tr class="border">
@@ -188,11 +198,26 @@ handler_worker
 実行処理
           </td>
           <td class="border">
-上記のself.handler_worker.runの関数を以下に示す
+上記のhandler_worker.runの関数を以下に示す
 <br>
-WebWorkers非対応かlock状態の場合は即座にfalseを返却する
+<pre><code>
+My_entry.handler_worker.prototype.run = function(arr_data){
+  var self = this;
+  if(!(self.hasWorker) || self.isLocked) return false;
+  self.isLocked = true;
+  arr_data.forEach(function(data, i){
+    var worker = self.workers[i%self.n_thread];
+    if(worker){  // check null
+      worker.postMessage(data);
+    }
+  });
+  return self;
+};
+</code></pre>
 <br>
-それ以外の場合はlock後、self.workerの中断terminateを判定をしながら
+WebWorkers非対応||lock状態の場合、即座にfalseを返却する
+<br>
+それ以外の場合、lock後、同時並列化したworkerの中断terminateを判定をしながら
 <br>
 postMessageで外部scriptに繰り返しdataを送信する
 <br>
@@ -201,19 +226,6 @@ postMessageで外部scriptに繰り返しdataを送信する
 また、postMessage後のerror処理の伝播はworkerをterminateしても中断できないため、
 <br>
 構文error等は事前に弾いてrunを実行しない方が望ましい
-<pre><code>
-My_entry.handler_worker.prototype.run = function(arr_data){
-  var self = this;
-  if(!(self.hasWorker) || self.isLocked) return false;
-  self.isLocked = true;
-  arr_data.forEach(function(data){
-    if(self.worker){
-      self.worker.postMessage(data);
-    }
-  });
-  return self;
-};
-</code></pre>
           </td>
         </tr>
         <tr class="border">
@@ -227,25 +239,6 @@ error処理
           <td class="border">
 workerに登録する受取り処理とerror処理のcallbackをmain内に定義する
 <br>
-workerからはmain依頼順とは順不同にdataが返却されるため、
-<br>
-依頼順data.iに結果が並ぶように配列に代入してarr_data_out[data.i] = data
-<br>
-Object.keys(self.arr_data_out).lengthが
-<br>
-依頼したdataの長さself.arr_data_in.lengthに一致すれば終了判定する
-<br>
-また、終了処理を実施する
-<br>
-error発生時や中断時、body.onbeforeunload時も同様の終了処理を実施する
-<br>
-error発生時、上記の配列を初期化するself.stop_worker(true)
-<br>
-なお、callbackは別のscopeから呼ばれるため、thisをinstance selfでbindする
-<br>
-元のcallbackを不変の前提で直接bindする場合、再代入が必要であることに留意する
-<br>
-callback = callback.bind(self);
 <pre><code>
 My_entry.original_worker.prototype.set_callbacks_worker = function(){
   var self = this;
@@ -268,6 +261,26 @@ My_entry.original_worker.prototype.set_callbacks_worker = function(){
   return self;
 };
 </code></pre>
+<br>
+workerからはmain依頼順とは順不同にdataが返却されるため、
+<br>
+依頼順data.iに結果が並ぶように配列に代入してarr_data_out[data.i] = data
+<br>
+Object.keys(self.arr_data_out).lengthが
+<br>
+依頼したdataの長さself.arr_data_in.lengthに一致すれば終了判定する
+<br>
+また、終了処理を実施する
+<br>
+error発生時や中断時、body.onbeforeunload時も同様の終了処理を実施する
+<br>
+error発生時、上記の配列を初期化するself.stop_worker(true)
+<br>
+なお、callbackは別のscopeから呼ばれるため、thisをinstance selfでbindする
+<br>
+元のcallbackを不変の前提で直接bindする場合、再代入が必要であることに留意する
+<br>
+callback = callback.bind(self);
           </td>
         </tr>
         <tr class="border">
@@ -279,27 +292,29 @@ handler_worker
           <td class="border">
 handler_workerの中断・終了処理の関数を以下に示す
 <br>
-self.worker.terminateを呼び出して全threadを強制終了する
-<br>
-また、memoryを解放するself.worker = null
-<br>
-さらに、lock状態を解除する
-<br>
-なお、workerをteminateした時点で再使用できないため、
-<br>
-再使用する場合は必要になった時点でself.workerを再宣言する
-
 <pre><code>
 My_entry.handler_worker.prototype.terminate = function(){
   var self = this;
-  if(self.worker){
-    self.worker.terminate();
-  }
-  self.worker = null;
+  self.workers.forEach(function(worker){
+    if(worker){
+      worker.terminate();
+    }
+  });
+  self.workers = [];
   self.isLocked = false;
   return self;
 };
 </code></pre>
+<br>
+worker.terminateをcallして全threadを強制終了する
+<br>
+また、memoryを解放するself.workers = []
+<br>
+さらに、lock状態を解除する
+<br>
+なお、workerをteminateした時点で再利用不可のため、
+<br>
+再利用する場合、必要になった時点でself.workersを再宣言する
           </td>
         </tr>
         <tr class="border">
@@ -309,10 +324,8 @@ main
 中断・終了処理
           </td>
           <td class="border">
-上記のhandler_worker.terminateを呼び出すmainの中断・終了処理を以下に示す
+上記のhandler_worker.terminateをcallするmainの中断・終了処理を以下に示す
 <br>
-なお、terminateの直前にlock状態を判定して中断logの表示等を1回のみ実施する
-
 <pre><code>
 My_entry.original_worker.prototype.stop_worker = function(isClear){
   var self = this;
@@ -330,6 +343,8 @@ My_entry.original_worker.prototype.stop_worker = function(isClear){
   return self;
 };
 </code></pre>
+<br>
+なお、terminate直前にlock判定して中断log表示等を1回のみ実施する
           </td>
         </tr>
         <tr class="border">
@@ -341,10 +356,6 @@ main
           <td class="border">
 mainの再初期化処理を以下に示す
 <br>
-self.workerを再宣言worker.re_initする前に再度終了処理を実施する
-<br>
-なお、new Workerが重複宣言されないように留意する
-
 <pre><code>
 My_entry.original_worker.prototype.init_worker = function(){
   var self = this;
@@ -364,6 +375,10 @@ My_entry.original_worker.prototype.init_worker = function(){
   return self;
 };
 </code></pre>
+<br>
+self.workersを再宣言するhandler_worker.re_init直前に再度terminateを実施する
+<br>
+なお、new Workerが重複宣言されないように留意する
           </td>
         </tr>
       </tbody>

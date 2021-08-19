@@ -12,16 +12,20 @@ My_entry.test_worker.prototype.init = function(){
   var self = this;
   self.init_main.call(self, ["$"]);
   self.init_worker();
+  self.set_n_thread_worker(self.entry.$.selectNum_id("select-n_thread"));
   return self;
 };
 My_entry.test_worker.prototype.init_elems = function(){
   var self = this;
-  self.elem_o = self.entry.$._id("textarea-output");
-  self.entry.$.setup_elems$_tag("button", self.handlers, "onclick");
+  var $ = self.entry.$;
+  self.elem_o = $._id("textarea-output");
+  $.setup_elems$_tag("button", self.handlers, "onclick");
+  $.setup_elems$_tag("select", self.handlers, "onchange");
   return self;
 };
 My_entry.test_worker.prototype.init_handlers = function(){
   var self = this;
+  var $ = self.entry.$;
   self.handlers.onload = function(e){
     var self = this;
     return self;
@@ -37,11 +41,23 @@ My_entry.test_worker.prototype.init_handlers = function(){
       case "run":
         if(self.handler_worker && self.handler_worker.isLocked) return false;
         self.elem_o.value = "";
-        self.make_testcase(self.entry.$.selectNum_id("select-n"));
-        self.run_worker(self.arr_data_in, self.entry.$.checkbox_id("checkbox-useWorker"));
+        self.make_testcase($.selectNum_id("select-n"));
+        self.run_worker(self.arr_data_in, $.checkbox_id("checkbox-useWorker"));
         break;
       case "stop":
         self.stop_worker();
+        break;
+      default:
+        break;
+    }
+    return self;
+  };
+  self.handlers.onchange = function(e, elem){
+    var self = this;
+    var id = elem.id;
+    switch(id){
+      case "select-n_thread":
+        self.set_n_thread_worker($.selectNum_id(id));
         break;
       default:
         break;
