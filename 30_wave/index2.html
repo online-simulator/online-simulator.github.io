@@ -361,21 +361,20 @@ scriptの入力形式
 <br>
 　奇数番channelはchannel1に合成
 <br>
-　偶数番channelはchannel数によってchannel2または1に合成
+　偶数番channelはchannel数によってchannel2||1に合成
 <br>
 ・1拍子のdataset
 <br>
-　時間:音階;　または　時間:[音階0,音階1...];
-<br>
-　時間:休止記号"r";
+　時間:音階;||時間:[音階0,音階1...];||時間:休止記号"r";
 <br>
 ・音階の入力形式
 <br>
-　"o"+MIDI-octave数-2~8+"c"+0~11~　または　省略可"f"+周波数
+　"o"+MIDI-octave数-2~8+"c"+0~11~||"f"+周波数||周波数
 <br>
 　例）ド523Hzの指定方法: o4c0 = o3c12 = f523 = 523
 <br>
 ・時間の単位: msec
+<br>
 ・周波数の単位: Hz
     </td>
   </tr>
