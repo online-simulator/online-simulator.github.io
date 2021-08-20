@@ -78,6 +78,14 @@ My_entry.original_worker.prototype.set_n_thread_worker = function(n_thread){
   }
   return self;
 };
+My_entry.original_worker.prototype.get_arr_data = function(){
+  var self = this;
+  var _arr_data = self.arr_data_out;
+  if(_arr_data && _arr_data.length){
+    _arr_data = _arr_data.filter(function(arg){return !(arg === null)});
+  }
+  return _arr_data;
+};
 My_entry.original_worker.prototype.run_worker = function(arr_data_in, useWorker){
   var self = this;
   if(self.handler_worker && self.handler_worker.isLocked) return false;

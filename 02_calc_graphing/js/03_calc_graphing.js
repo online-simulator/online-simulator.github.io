@@ -262,12 +262,7 @@ My_entry.calc_graphing.prototype.re_plot = function(isFinal){
   var self = this;
   var draw_svg = self.entry.draw_svg;
   var _svg = "";
-  var arr_data = self.worker_plot.arr_data_out;
-  /* Ver.2.43.20 -> */
-  if(arr_data && arr_data.length){
-    arr_data = arr_data.filter(self.entry.def.isNotNull);
-  }
-  /* -> Ver.2.43.20 */
+  var arr_data = self.worker_plot.get_arr_data();  // Ver.2.43.20  // Ver.2.43.21
   if(arr_data){
     /* Ver.2.17.6 -> */
     var callback = function(){
@@ -373,6 +368,10 @@ My_entry.calc_graphing.prototype.arr_data2arr2d_vec = function(arr_data, options
       gymax = conv.dec2round_sw(ymax, "ceil");
     }
     /* -> Ver.2.33.17 */
+    /* Ver.2.43.21 -> */
+    arr2d_x = arr2d_x.filter(self.entry.def.isNotNull);
+    arr2d_y = arr2d_y.filter(self.entry.def.isNotNull);
+    /* -> Ver.2.43.21 */
     len_n = arr2d_x.length;
   }
   return {x: arr2d_x, y: arr2d_y, len_n: len_n, len_j: len_j, xmin: xmin, ymin: ymin, xmax: xmax, ymax: ymax, gxmin: gxmin, gymin: gymin, gxmax: gxmax, gymax: gymax};
@@ -715,15 +714,7 @@ My_entry.calc_graphing.prototype.init_handlers = function(){
     /* -> Ver.2.17.6 */
     var json = {p: {id: "wrapper-link-csv"}, a: {id: "a-csv", it: "-csv by dbl-click"}, name: "download", ext: "csv"};
     self.handler_link_csv = new self.constructors.handler_link(json);
-    /* Ver.2.43.20 -> */
-    self.handler_link_csv.setter.callback(function(){
-      var arr_data = self.worker_plot.arr_data_out;
-      if(arr_data && arr_data.length){
-        arr_data = arr_data.filter(self.entry.def.isNotNull);
-      }
-      return self.arr_data2csv(arr_data, self.get_options(true));
-    });
-    /* -> Ver.2.43.20 */
+    self.handler_link_csv.setter.callback(function(){return self.arr_data2csv(self.worker_plot.get_arr_data(), self.get_options(true));});  // Ver.2.43.20  // Ver.2.43.21
     var json = {p: {id: "wrapper-link"}, a: {id: "a", it: "download-txt by double-click"}, name: "download", ext: "txt"};
     self.handler_link = new self.constructors.handler_link(json);
     self.handler_link.setter.callback(function(){return self.logh;});

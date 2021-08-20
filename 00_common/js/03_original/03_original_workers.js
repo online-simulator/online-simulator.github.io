@@ -64,6 +64,14 @@ My_entry.original_workers.prototype.set_n_thread = function(n_thread){
   }
   return self;
 };
+My_entry.original_workers.prototype.get_arr_data = function(){
+  var self = this;
+  var _arr_data = self.arr_data_out;
+  if(_arr_data && _arr_data.length){
+    _arr_data = _arr_data.filter(function(arg){return !(arg === null)});
+  }
+  return _arr_data;
+};
 My_entry.original_workers.prototype.run = function(arr_data_in, useWorker){
   var self = this;
   if(self.handler && self.handler.isLocked) return false;
