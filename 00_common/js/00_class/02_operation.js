@@ -2460,8 +2460,15 @@ My_entry.operation.prototype.REe = function(data, i0, tagName, tagObj){
     }
   }
   else{
-    name_eqn = self.get_tagVal(leftTree, "REv", "val");
-    tree_eqn = (name_eqn)? self.restore_eqn(name_eqn, scopes, ids, (tagObj.val === "==>")): self.tree_no_name2restore_eqn(leftTree);  // Ver.2.31.17
+    /* Ver.2.43.22 -> */
+    if(tagName === "REv"){
+      throw "Invalid null args("+name_eqn+")";
+    }
+    else{
+      name_eqn = self.get_tagVal(leftTree, "REv", "val");
+      tree_eqn = (name_eqn)? self.restore_eqn(name_eqn, scopes, ids, (tagObj.val === "==>")): self.tree_no_name2restore_eqn(leftTree);  // Ver.2.31.17
+    }
+    /* -> Ver.2.43.22 */
   }
   var ref = (name_eqn)? trees[(hasArgs)? i0-2: i0-1]["REv"]["ref"]: null;
   if(tree_eqn){

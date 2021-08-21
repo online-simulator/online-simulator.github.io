@@ -1130,7 +1130,7 @@ panel上段について記述する
 <br>
 ・<span class="run">Ver.2.36.18</span>以降、z-checkboxは<a href="#span-out-UI-graphing-gradation">gradation</a>/<a href="#span-out-UI-graphing-string-path">string-path</a>以外の表示を選択
 <br>
-　最終frameまでの特定項目を除く描画待ち時間||描画負荷を省略する際にunchecked
+　最終frameまでの特定項目を除く描画待ち時間||描画負荷を省略する場合、unchecked
 <br>
 <br>
 <span class="run">Ver.2.37.18</span>以降、gridのscalingに対応
@@ -3844,6 +3844,31 @@ clear; add(A,B)=&lt;A+B; add[0][0](=&lt;(1,2:3,4),=&lt;(5,6:7,8))=&gt; -> 6
 clear; add(A,B)=&lt;A+B; add[1][1](=&lt;(1,2:3,4),=&lt;(5,6:7,8))=&gt; -> 12
 <br>
 <br>
+call先arguments省略の場合、定義元argumentsを無視してcall可（<span class="run">Ver.2.43.22</span>追記）
+<br>
+clear; x(t)=&lt;-t; f=&lt;x+1; f -> [MyErr]Invalid null args(x)
+<br>
+clear; x(t)=&lt;-t; f=&lt;x=&gt;+1; f -> [MyErr]Invalid binary operation
+<br>
+clear; t=-999; x(t)=&lt;-t; f=&lt;x=&gt;+1; f -> 1000
+<br>
+clear; t=-999; x(t)=&lt;-t; [t=1,f=&lt;x=&gt;+1,f] -> (0,0,1000)
+<br>
+clear; t=-999; x(t)=&lt;-t; [t=1,f=&lt;x==&gt;+1,f] -> (0,0,0)
+<br>
+clear; t=-999; x(t)=&lt;-t; [t=1,f=&lt;x(t)==&gt;+1,f] -> (0,0,0)
+<br>
+clear; t=-999; x(t)=&lt;-t; [t=1,f=&lt;x(t)=&gt;+1,f] -> (0,0,0)
+<br>
+clear; t=-999; x(t)=&lt;-t; [t=1,f=&lt;x(t)+1,f] -> (0,0,0)
+<br>
+clear; t=-999; x=&lt;-t; [t=1,f=&lt;x+1,f] -> (0,0,1000)
+<br>
+clear; t=-999; x=&lt;-t; [t=1,f=&lt;x=&gt;+1,f] -> (0,0,1000)
+<br>
+clear; t=-999; x=&lt;-t; [t=1,f=&lt;x==&gt;+1,f] -> (0,0,0)
+<br>
+<br>
 arguments不正の場合、error終了
 <br>
 ・定義元argumentsに<a href="#span-out-FN">関数</a>を指定した場合、<a href="#span-out-vars-symbol">変数名symbol</a>とは判別されない
@@ -4978,7 +5003,7 @@ x=-0xff; <span class="selection">/*x:16進数値*/</span> x&gt;&gt;3 <span class
 <br>
 x=-0xff; x&gt;&gt;3 -> -32
 <br>
-・以下の演算に同義
+・同義
 <br>
 x=-255; floor(x/(2^3)) -> -32
 <br>
@@ -5833,6 +5858,41 @@ x=2; x[0] -> 2
 x=2; x[2] -> [MyErr]Invalid reference of array
 <br>
 x=2; [2]x -> [MyErr]Invalid reference
+<br>
+<br>
+<span class="run">Ver.2.32.17</span>以降、<a href="#span-out-eqns-args">式変数のarguments</a>を追加
+<br>
+・記号省略乗算より<a href="#span-out-eqns-args">call先arguments</a>を優先する（<span class="run">Ver.2.43.22</span>追記）
+<br>
+clear; x(t)=&lt;-t; f=&lt;x(1)+1; f -> 0
+<br>
+clear; x(t)=&lt;-t; f=&lt;x(1)2+1; f -> -1
+<br>
+clear; x(t)=&lt;-t; f=&lt;x(1)(2)+1; f -> -1
+<br>
+clear; x(t)=&lt;-t; f=&lt;(x(1))(2)+1; f -> -1
+<br>
+clear; x(t)=&lt;-t; f=&lt;x(1(-2))+1; f -> 3
+<br>
+clear; x(t)=&lt;-t; f=&lt;x(1(-2))(2)+1; f -> 5
+<br>
+clear; x(t)=&lt;-t; f=&lt;x(1(-2))2+1; f -> 5
+<br>
+clear; x(t)=&lt;-t; f=&lt;x((1(-2))3)+1; f -> 7
+<br>
+clear; x(t)=&lt;-t; f=&lt;x((1(-2))3+1); f -> 5
+<br>
+clear; x(t)=&lt;-t; x=-999; f=&lt;x(1)+1; f -> -998
+<br>
+clear; x(t)=&lt;-t; x=-999; f=&lt;x(1)=&gt;+1; f -> 0
+<br>
+clear; x(t)=&lt;-t; x=-999; f=&lt;x(1)=&gt;2+1; f -> -1
+<br>
+clear; x(t)=&lt;-t; x=-999; f=&lt;x(1)=&gt;(x)+1; f -> 1000
+<br>
+clear; x(t)=&lt;-t; x=-999; f=&lt;x(1)=&gt;x+1; f -> 0
+<br>
+clear; x(t)=&lt;-t; x=-999; f=&lt;x(1)=&gt;x+1; f; x -> -1
     </td>
   </tr>
   <tr>
