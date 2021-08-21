@@ -140,7 +140,6 @@ My_entry.operation.prototype.init = function(){
   var self = this;
   new My_entry.original_main().setup_constructors.call(self);
   new My_entry.original_main().make_instances.call(self, ["$", "def", "math", "math_mat", "DATA", "unit"]);
-  My_entry.def.mix_in_props(My_entry.operation, My_entry.def, ["isNotNull", "isNotNullStr"]);
   My_entry.def.mix_in_props(My_entry.operation, My_entry.DATA, ["arr2num", "arr2args", "arr2obj_i"]);
   self.useTest = null;
   self.notUseStrict = null;
@@ -265,7 +264,7 @@ My_entry.operation.prototype.prepare = function(data){
       self.entry.math.switch_arr(arr_precedence[1], 2, 3);
     }
   }
-  self.arr_precedence = arr_precedence.join().split(",").filter(self.isNotNullStr);
+  self.arr_precedence = arr_precedence.join().split(",").filter(Boolean);  // Ver.2.43.21
   self.init_callbacks(options);
   self.init_callbacks_mat(options);
   return self;
@@ -420,7 +419,7 @@ My_entry.operation.prototype.data2trees = function(data){
   data.trees = self.entry.def.newClone(data.trees);  // tree_eqn is re-used
   self.arr_precedence.forEach(function(tagName){
     self.callbacks[tagName](data);
-    data.trees = data.trees.filter(self.isNotNull);
+    data.trees = data.trees.filter(Boolean);  // Ver.2.43.21
   });
   self.params.depth = depth;
   return data.trees;
@@ -1306,7 +1305,7 @@ My_entry.operation.prototype.arr_tree2tree = function(data, i0, tagName, tagObj,
   var DATA = self.entry.DATA;
   var newData = self.get_newData(data, DATA.make_trees(arr_tree), ids);  // Ver.2.31.17
   self[tagName](newData, i0, tagName, tagObj);
-  return DATA.trees2tree(newData.trees.filter(self.isNotNull));
+  return DATA.trees2tree(newData.trees.filter(Boolean));  // Ver.2.43.21
 };
 My_entry.operation.prototype.RX = function(data, rightArr, tagObj){
   var self = this;
