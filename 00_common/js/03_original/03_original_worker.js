@@ -78,11 +78,11 @@ My_entry.original_worker.prototype.set_n_thread_worker = function(n_thread){
   }
   return self;
 };
-My_entry.original_worker.prototype.get_arr_data = function(){
+My_entry.original_worker.prototype.get_arr_data_worker = function(){
   var self = this;
   var _arr_data = self.arr_data_out;
   if(_arr_data && _arr_data.length){
-    _arr_data = _arr_data.filter(function(arg){return !(arg === null)});
+    _arr_data = _arr_data.filter(Boolean);
   }
   return _arr_data;
 };

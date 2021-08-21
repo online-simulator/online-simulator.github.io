@@ -369,8 +369,8 @@ My_entry.calc_graphing.prototype.arr_data2arr2d_vec = function(arr_data, options
     }
     /* -> Ver.2.33.17 */
     /* Ver.2.43.21 -> */
-    arr2d_x = arr2d_x.filter(self.entry.def.isNotNull);
-    arr2d_y = arr2d_y.filter(self.entry.def.isNotNull);
+    arr2d_x = arr2d_x.filter(Boolean);
+    arr2d_y = arr2d_y.filter(Boolean);
     /* -> Ver.2.43.21 */
     len_n = arr2d_x.length;
   }
@@ -558,8 +558,10 @@ My_entry.calc_graphing.prototype.init_handlers = function(){
     var input = "";
     var x = parser.remove_commentAndWspace(self.io.read_text(self.elems.x));
     var y = parser.remove_commentAndWspace(self.io.read_text(self.elems.y));
-    var arr_x = x.split(";").filter(self.entry.def.isNotNullStr);
-    var arr_y = y.split(";").filter(self.entry.def.isNotNullStr);
+    /* Ver.2.43.21 -> */
+    var arr_x = x.split(";").filter(Boolean);
+    var arr_y = y.split(";").filter(Boolean);
+    /* -> Ver.2.43.21 */
     var len_x = arr_x.length;
     var len_y = arr_y.length;
     if(len_x && len_y){

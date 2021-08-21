@@ -68,7 +68,7 @@ My_entry.original_workers.prototype.get_arr_data = function(){
   var self = this;
   var _arr_data = self.arr_data_out;
   if(_arr_data && _arr_data.length){
-    _arr_data = _arr_data.filter(function(arg){return !(arg === null)});
+    _arr_data = _arr_data.filter(Boolean);
   }
   return _arr_data;
 };
