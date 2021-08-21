@@ -3858,23 +3858,23 @@ clear; x(t)=&lt;-t; f=&lt;x+1; f -> [MyErr]Invalid null args(x)
 <br>
 clear; x(t)=&lt;-t; f=&lt;x=&gt;+1; f -> [MyErr]Invalid binary operation
 <br>
-clear; t=-999; x(t)=&lt;-t; f=&lt;x=&gt;+1; f -> 1000
+clear; x(t)=&lt;-t; t=-999; f=&lt;x=&gt;+1; f -> 1000
 <br>
-clear; t=-999; x(t)=&lt;-t; [t=1,f=&lt;x=&gt;+1,f] -> (0,0,1000)
+clear; x(t)=&lt;-t; t=-999; [t=1,f=&lt;x=&gt;+1,f] -> (0,0,1000)
 <br>
-clear; t=-999; x(t)=&lt;-t; [t=1,f=&lt;x==&gt;+1,f] -> (0,0,0)
+clear; x(t)=&lt;-t; t=-999; [t=1,f=&lt;x==&gt;+1,f] -> (0,0,0)
 <br>
-clear; t=-999; x(t)=&lt;-t; [t=1,f=&lt;x(t)==&gt;+1,f] -> (0,0,0)
+clear; x(t)=&lt;-t; t=-999; [t=1,f=&lt;x(t)==&gt;+1,f] -> (0,0,0)
 <br>
-clear; t=-999; x(t)=&lt;-t; [t=1,f=&lt;x(t)=&gt;+1,f] -> (0,0,0)
+clear; x(t)=&lt;-t; t=-999; [t=1,f=&lt;x(t)=&gt;+1,f] -> (0,0,0)
 <br>
-clear; t=-999; x(t)=&lt;-t; [t=1,f=&lt;x(t)+1,f] -> (0,0,0)
+clear; x(t)=&lt;-t; t=-999; [t=1,f=&lt;x(t)+1,f] -> (0,0,0)
 <br>
-clear; t=-999; x=&lt;-t; [t=1,f=&lt;x+1,f] -> (0,0,1000)
+clear; x=&lt;-t; t=-999; [t=1,f=&lt;x+1,f] -> (0,0,1000)
 <br>
-clear; t=-999; x=&lt;-t; [t=1,f=&lt;x=&gt;+1,f] -> (0,0,1000)
+clear; x=&lt;-t; t=-999; [t=1,f=&lt;x=&gt;+1,f] -> (0,0,1000)
 <br>
-clear; t=-999; x=&lt;-t; [t=1,f=&lt;x==&gt;+1,f] -> (0,0,0)
+clear; x=&lt;-t; t=-999; [t=1,f=&lt;x==&gt;+1,f] -> (0,0,0)
 <br>
 <br>
 arguments不正の場合、error終了
