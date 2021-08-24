@@ -212,6 +212,11 @@ string-path特定項目仕様
 gradation特定項目仕様
 </a>
 <br>
+　　　・
+<a href="#span-out-UI-graphing-filter">
+filter特定項目仕様
+</a>
+<br>
 　　・
 <a href="#span-out-UI-graphing-layer">
 layer描画順
@@ -1264,14 +1269,6 @@ color-dataset入力の一例を示す
 <br>
 ・<a href="#span-out-UI-graphing-gradation">gradation-colors</a>の7色rainbow入力の場合
 <br>
-・<span class="run">Ver.2.42.20</span>以降、modern風
-<br>
-violet:blue:cyan:green:yellow:orange:red
-<br>
-#ee82ee:#0000ff:#00ffff:#00ff00:#ffff00:#ffa500:#ff0000
-<br>
-#ee82eecc:#0000ffcc:#00ffffcc:#00ff00cc:#ffff00cc:#ffa500cc:#ff0000cc
-<br>
 ・Newton説（音階analogyによる）
 <br>
 violet:indigo:blue:green:yellow:orange:red
@@ -1280,7 +1277,19 @@ violet:indigo:blue:green:yellow:orange:red
 <br>
 #ee82eecc:#4b0082cc:#0000ffcc:#00ff00cc:#ffff00cc:#ffa500cc:#ff0000cc
 <br>
-・近年、短波長側のcyan||indigoを消去して6色と数えるcaseが多い（虹の特殊文字等）
+・<span class="run">Ver.2.42.20</span>以降、modern風
+<br>
+violet:blue:cyan:green:yellow:orange:red
+<br>
+#ee82ee:#0000ff:#00ffff:#00ff00:#ffff00:#ffa500:#ff0000
+<br>
+#ee82eecc:#0000ffcc:#00ffffcc:#00ff00cc:#ffff00cc:#ffa500cc:#ff0000cc
+<br>
+・<span class="run">Ver.2.44.22</span>以降、fade-in/out境界条件を追加
+<br>
+#ee82ee00:#ee82eecc:#0000ffcc:#00ffffcc:#00ff00cc:#ffff00cc:#ffa500cc:#ff0000cc:#ff000000
+<br>
+・近年、短波長側のindigo||cyanを消去して6色と数えるcaseが多い（虹の特殊文字等）
 <br>
 ・主虹を裸眼で見る場合、長波長で屈折率の低いredを外周とする（反射回数1回）
 <br>
@@ -1361,6 +1370,15 @@ shadowOffsetX:shadowOffsetY:shadowBlur:deg0
 ・config[]内datasetは設定値をcolon:区切りで入力（省略不可）
 <br>
 originX:originY:offsetR:orderR:NrandR:NrandT:isMin:isRound:Nrender:Ncycle
+<br>
+<br>
+<span class="run">Ver.2.44.22</span>以降、<a href="#span-out-UI-graphing-filter">filter</a>をfilter||FILTER{filters}で入力
+<br>
+・任意位置に挿入可
+<br>
+・filterはlayer合成後のpost最終処理（svg出力は無効）
+<br>
+・filtersはfilterを適用順にcolon:区切りで入力
     </td>
   </tr>
   <tr>
@@ -1669,6 +1687,113 @@ png出力の特徴を列挙する
 ・乱数設定時、flickering防止のため、plot終了の最終frameまで逐次描画しない
 <br>
 ・非同期出力のため、plot終了の最終frameにlegend順を保証してgradationを合成する
+    </td>
+  </tr>
+  <tr>
+    <th>
+<a href="#span-index">
+目次
+</a>
+<br>
+filter
+<br>
+特定項目仕様
+    </th>
+    <td>
+<span id="span-out-UI-graphing-filter"></span>
+filter特定項目仕様と付随する留意事項について記述する
+<br>
+<br>
+post処理の付録機能としてfilterを追加する
+<br>
+<br>
+<a href="#span-out-UI-graphing-z">z入力欄</a>にfilterをfilter||FILTER{filters}で入力
+<br>
+・任意位置に挿入可
+<br>
+・filterはlayer合成後のpost最終処理（svg出力は無効）
+<br>
+・filtersはfilterを適用順にcolon:区切りで入力
+<br>
+<br>
+加重平均filterの一例を示す
+<br>
+・各RGBA値gaussian3x3（簡略化）
+<br>
+rgba[1,2,1,2,4,2,1,2,1]
+<br>
+・対象pixelの重みを最大値4として周囲pixelを含む次の重み平均を正規化する
+<br>
+[
+<br>
+1,2,1,
+<br>
+2,<span class="selection">4</span>,2,
+<br>
+1,2,1
+<br>
+]
+<br>
+・各RGB値average3x3
+<br>
+rgb[1,1,1,1,1,1,1,1,1]
+<br>
+[
+<br>
+1,1,1,
+<br>
+1,<span class="selection">1</span>,1,
+<br>
+1,1,1
+<br>
+]
+<br>
+・各RGB値average5x5
+<br>
+rgb[1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1]
+<br>
+[
+<br>
+1,1,1,1,1,
+<br>
+1,1,1,1,1,
+<br>
+1,1,<span class="selection">1</span>,1,1,
+<br>
+1,1,1,1,1,
+<br>
+1,1,1,1,1
+<br>
+]
+<br>
+・average4x4は定義不可（average3x3に同義）
+<br>
+rgb[1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1]
+<br>
+[
+<br>
+1,1,1,
+<br>
+1,<span class="selection">1</span>,1,
+<br>
+1,1,1
+<br>
+]
+<br>
+<br>
+edge抽出filter（重みの総和=0）の一例を示す
+<br>
+・各RGB値edge3x3
+<br>
+rgb[-1,-1,-1,-1,8,-1,-1,-1,-1]
+<br>
+・R値Laplacian3x3
+<br>
+r[0,-1,0,-1,4,-1,0,-1,0]
+<br>
+・G値emboss3x3
+<br>
+g[-1,0,0,0,1,0,0,0,0]
     </td>
   </tr>
   <tr>

@@ -50,6 +50,7 @@ My_entry.plot2d.prototype.init = function(id, opt_px_w, opt_px_h, opt_px_b){
   self.trans = function(x, isLog){
     return ((isLog)? self.log10(x): x);
   };
+  self.filter = new self.constructors.filter();  // 1.1.2
   self.isLocked = false;
   self.isDragging = false;
   self.isChanged = false;
@@ -458,6 +459,9 @@ My_entry.plot2d.prototype.run = function(arr2d_vec, options, toSVG, isFinal){
   if(isAxis_y && isAxis_z && inputZ){
     inputZ = def.enter_name(inputZ, "ylabel", false, 0, function(content){label_y = content;});
   }
+  /* 1.1.2 -> */
+  inputZ = def.enter_name(inputZ, "filter", false, 0, function(content){options._filter = content;});
+  /* -> 1.1.2 */
   // scaling
   var fontSize1 = (title)? fontSize+self.config.default.dfontSize: 0;
   var kyAdjust = 1+fontSize1*5/self.px_h;
@@ -803,10 +807,29 @@ My_entry.plot2d.prototype.final = function(arr2d_vec, options, toSVG){
       arr_base64_plot.push(all.getBase64());
     });
     arr_base64_plot.push(self.objs.plot.getBase64());
+    /* 1.1.2 -> */
+    var callback_filter = function(){
+      var filters = options._filter.split(":");
+      filters.forEach(function(filter){
+        var mc = filter.match(/\[(.*?)\]/);
+        /* ES6: var arr_w = (mc && mc.length)? mc[1].split(",").map(Number): []; */
+        var arr_w = (mc && mc.length)? mc[1].split(","): [];
+        arr_w.forEach(function(w, i){
+          arr_w[i] = Number(w);
+        });
+        all.putID(self.filter.run(all.ctx, {rgba: filter, arr_w: arr_w}));
+      });
+    };
+    /* -> 1.1.2 */
     var callback0 = function(){
       arr_base64_grid_plot.push(all.getBase64());
       var callback1 = function(){
         var callback2 = function(){
+          /* 1.1.2 -> */
+          if(options._filter){
+            callback_filter();
+          };
+          /* -> 1.1.2 */
           self.init_canvas(false);  // here for flickering-proof
           self.isLocked = false;
         };
