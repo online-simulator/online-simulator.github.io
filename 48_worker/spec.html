@@ -150,7 +150,7 @@ mainからworkerにまとめてarr_dataを渡すhandler_workerを用意し、排
 <pre><code>
 My_entry.original_worker.prototype.run_worker = function(arr_data_in, useWorker){
   var self = this;
-  if(self.handler_worker && self.handler_worker.isLocked) return false;
+  if(self.handler_worker &amp;&amp; self.handler_worker.isLocked) return false;
   arr_data_in.forEach(function(data_in, i){
     if(typeof data_in.i === "undefined"){
       data_in.i = i;
@@ -158,7 +158,7 @@ My_entry.original_worker.prototype.run_worker = function(arr_data_in, useWorker)
   });
   self.arr_data_in = arr_data_in;
   self.arr_data_out = [];
-  if(self.handler_worker && useWorker){
+  if(self.handler_worker &amp;&amp; useWorker){
     self.init_worker();
     self.handler_worker.run(self.arr_data_in);
   }
