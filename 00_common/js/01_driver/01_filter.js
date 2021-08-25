@@ -48,6 +48,7 @@ My_entry.filter.prototype.run = function(ctx, params){
       }
       return ((sum_w)? _sum/sum_w: _sum);
     };
+    /* not optimized */
     for(var j=0; j<px_h; ++j){
       for(var i=0; i<px_w; ++i){
         var ired = get_idata(i, j, 0);

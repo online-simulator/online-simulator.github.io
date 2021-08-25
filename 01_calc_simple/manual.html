@@ -1704,7 +1704,7 @@ filter
 filter特定項目仕様と付随する留意事項について記述する
 <br>
 <br>
-post処理の付録機能としてfilterを追加する
+post処理の付録機能（未最適化）としてfilterを追加する
 <br>
 <br>
 <a href="#span-out-UI-graphing-z">z入力欄</a>にfilterをfilter||FILTER{filters}で入力
@@ -1720,7 +1720,7 @@ post処理の付録機能としてfilterを追加する
 <br>
 ・各RGBA値Gaussian3x3（簡略化）
 <br>
-rgba[1,2,1,2,4,2,1,2,1]
+rgba[1,2,1,2,<span class="selection">4</span>,2,1,2,1]
 <br>
 ・<span class="selection">対象pixel</span>の重みを最大値4として周囲pixelを含む次の重み平均を正規化する
 <br>
@@ -1736,7 +1736,7 @@ rgba[1,2,1,2,4,2,1,2,1]
 <br>
 ・各RGB値average3x3
 <br>
-rgb[1,1,1,1,1,1,1,1,1]
+rgb[1,1,1,1,<span class="selection">1</span>,1,1,1,1]
 <br>
 [
 <br>
@@ -1750,7 +1750,7 @@ rgb[1,1,1,1,1,1,1,1,1]
 <br>
 ・各RGB値average5x5
 <br>
-rgb[1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1]
+rgb[1,1,1,1,1,1,1,1,1,1,1,1,<span class="selection">1</span>,1,1,1,1,1,1,1,1,1,1,1,1]
 <br>
 [
 <br>
@@ -1766,9 +1766,9 @@ rgb[1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1]
 <br>
 ]
 <br>
-・average4x4は定義不可（average3x3に同義）
+・average4x4は<span class="clear">定義不可</span>（average3x3に同義）
 <br>
-rgb[1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1]
+rgb[1,1,1,1,<span class="selection">1</span>,1,1,1,1<span class="clear">,1,1,1,1,1,1,1</span>]
 <br>
 [
 <br>
@@ -1783,9 +1783,11 @@ rgb[1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1]
 <br>
 edge抽出filter（重みの総和=0）の一例を示す
 <br>
+・imageDataが欠落する境界は加重平均filterとして扱う（意図とは異なる可能性）
+<br>
 ・各RGB値edge3x3
 <br>
-rgb[-1,-1,-1,-1,8,-1,-1,-1,-1]
+rgb[-1,-1,-1,-1,<span class="selection">8</span>,-1,-1,-1,-1]
 <br>
 [
 <br>
@@ -1799,7 +1801,7 @@ rgb[-1,-1,-1,-1,8,-1,-1,-1,-1]
 <br>
 ・R値Laplacian3x3
 <br>
-r[0,-1,0,-1,4,-1,0,-1,0]
+r[0,-1,0,-1,<span class="selection">4</span>,-1,0,-1,0]
 <br>
 [
 <br>
@@ -1813,7 +1815,7 @@ r[0,-1,0,-1,4,-1,0,-1,0]
 <br>
 ・G値emboss3x3
 <br>
-g[-1,0,0,0,1,0,0,0,0]
+g[-1,0,0,0,<span class="selection">1</span>,0,0,0,0]
 <br>
 [
 <br>
@@ -7006,7 +7008,7 @@ trans({1,2,3}) || trans{1,2,3} -> (1,2,3)
 <br>
 <a href="#span-out-com">複素数</a>の<a href="#span-out-mat">行列</a>のHermit転置
 <br>
-htrans(1-i,1-2i:1-3i,1-4i) || hermitian(1-i,1-2i:1-3i,1-4i) -> (1+i,1+3i:1+2i,1+4i)
+htrans(1-i,1-2i:1-3i,1-4i) || Hermitian(1-i,1-2i:1-3i,1-4i) -> (1+i,1+3i:1+2i,1+4i)
 <br>
 <br>
 列vectorのEuclidian norm（vectorの長さ）
