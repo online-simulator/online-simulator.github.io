@@ -45,7 +45,7 @@ My_entry.filter.prototype.run = function(ctx, params){
         for(var i=-di; i<=di; ++i){
           var data0i = data0[get_idata0(is+i0+i, js+j0+j, n)];
           var wi = arr_w[iw++];
-          if(data0i && wi){
+          if(data0i >= 0 && wi){  // Ver.2.44.23
             _sum += data0i*wi;
             sum_w += wi;
           }
