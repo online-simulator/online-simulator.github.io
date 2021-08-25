@@ -12,23 +12,28 @@ My_entry.filter.prototype.init = function(){
 };
 My_entry.filter.prototype.run = function(ctx, params){
   var self = this;
+  var px_w0 = ctx.canvas.width;
+  var px_h0 = ctx.canvas.height;
   var is = params.is || 0;
   var js = params.js || 0;
-  var px_w = params.px_w || ctx.canvas.width;
-  var px_h = params.px_h || ctx.canvas.height;
+  var px_w = params.px_w || px_w0;
+  var px_h = params.px_h || px_h0;
   var _ID = ctx.getImageData(is, js, px_w, px_h);
   var _data = _ID.data;
   var arr_w = params.arr_w || [];
   var len = arr_w.length;
   if(len){
-    var ID = ctx.getImageData(is, js, px_w, px_h);
-    var data =  ID.data;
+    var ID0 = ctx.getImageData(0, 0, px_w0, px_h0);
+    var data0 =  ID0.data;
     var sw_re = function(re){
       return ((params.rgba)? Boolean(params.rgba.match(re)): false);
     };
     var sw_rgba = [sw_re(/r/i), sw_re(/g/i), sw_re(/b/i), sw_re(/a/i)];
     var di = Math.floor((Math.sqrt(len)-1)/2);
     var dj = di;
+    var get_idata0 = function(i, j, n){
+      return (4*(px_w0*j+i)+n);
+    };
     var get_idata = function(i, j, n){
       return (4*(px_w*j+i)+n);
     };
@@ -38,10 +43,10 @@ My_entry.filter.prototype.run = function(ctx, params){
       var iw = 0;
       for(var j=-dj; j<=dj; ++j){
         for(var i=-di; i<=di; ++i){
-          var datai = data[get_idata(i0+i, j0+j, n)];
+          var data0i = data0[get_idata0(is+i0+i, js+j0+j, n)];
           var wi = arr_w[iw++];
-          if(datai && wi){
-            _sum += datai*wi;
+          if(data0i && wi){
+            _sum += data0i*wi;
             sum_w += wi;
           }
         }
