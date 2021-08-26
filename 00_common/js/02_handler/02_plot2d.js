@@ -817,7 +817,7 @@ My_entry.plot2d.prototype.final = function(arr2d_vec, options, toSVG){
         arr_w.forEach(function(w, i){
           arr_w[i] = Number(w);
         });
-        all.putID(self.filter.run(all.ctx, {rgba: filter, arr_w: arr_w}));
+        all.putID(self.filter.run(all.ctx, {rgba: filter, arr_w: arr_w}));  // 1.1.3
       });
     };
     /* -> 1.1.2 */

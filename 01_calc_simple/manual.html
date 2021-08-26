@@ -1605,9 +1605,9 @@ originX:originY:offsetR:<span class="clear">orderR:NrandR:NrandT:isMin:isRound:N
 <br>
 ・svg出力は<span class="clear">orderR:NrandR:NrandT:isMin:isRound:Nrender</span> disabled
 <br>
-・originXはplot座標系x方向のgradation起点
+・originXはplot座標系x方向linear-scaleのgradation起点
 <br>
-・originYはplot座標系y方向のgradation起点
+・originYはplot座標系y方向linear-scaleのgradation起点
 <br>
 ・offsetR=0~1はgradation代表長さのoffset係数
 <br>
@@ -1871,6 +1871,8 @@ g[-1,0,0,0,<span class="selection">1</span>,0,0,0,0]
 <br>
 <br>
 留意事項を列挙する
+<br>
+・putImageDataによる同期出力のため、layer合成無効
 <br>
 ・imageDataが欠落する境界は加重平均filterとして扱う（意図とは異なる可能性）
 <br>
@@ -13133,7 +13135,7 @@ application
 applicationについて記述する
 <br>
 <br>
-Painter's SVG-path||pattern||filter||gradation生成
+Painter's pattern||SVG-path||gradation||filter
 <br>
 <br>
 Circuit Simulator's arbitrary non-linear||impedance element
