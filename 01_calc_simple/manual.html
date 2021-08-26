@@ -1720,8 +1720,6 @@ filter特定項目仕様と付随する留意事項について記述する
 <br>
 加重平均filterの一例を示す
 <br>
-・imageDataが欠落する境界は意図した結果が得られるとは限らない
-<br>
 ・各RGBA値Gaussian3x3（簡略化）
 <br>
 rgba[1,2,1,2,<span class="selection">4</span>,2,1,2,1]
@@ -1735,6 +1733,48 @@ rgba[1,2,1,2,<span class="selection">4</span>,2,1,2,1]
 2,<span class="selection">4</span>,2,
 <br>
 1,2,1
+<br>
+]
+<br>
+・各RGBA値x方向average3x3
+<br>
+rgba[0,0,0,1,<span class="selection">1</span>,1,0,0,0]
+<br>
+[
+<br>
+0,0,0,
+<br>
+1,<span class="selection">1</span>,1,
+<br>
+0,0,0
+<br>
+]
+<br>
+・各RGBA値y方向average3x3
+<br>
+rgba[0,1,0,0,<span class="selection">1</span>,0,0,1,0]
+<br>
+[
+<br>
+0,1,0,
+<br>
+0,<span class="selection">1</span>,0,
+<br>
+0,1,0
+<br>
+]
+<br>
+・各RGBA値x/y方向average3x3
+<br>
+rgba[0,1,0,1,<span class="selection">1</span>,1,0,1,0]
+<br>
+[
+<br>
+0,1,0,
+<br>
+1,<span class="selection">1</span>,1,
+<br>
+0,1,0
 <br>
 ]
 <br>
@@ -1787,8 +1827,6 @@ rgb[1,1,1,1,<span class="selection">1</span>,1,1,1,1<span class="clear">,1,1,1,1
 <br>
 edge抽出filter（重みの総和=0）の一例を示す
 <br>
-・imageDataが欠落する境界は加重平均filterとして扱う（意図とは異なる可能性）
-<br>
 ・各RGB値edge3x3
 <br>
 rgb[-1,-1,-1,-1,<span class="selection">8</span>,-1,-1,-1,-1]
@@ -1830,6 +1868,13 @@ g[-1,0,0,0,<span class="selection">1</span>,0,0,0,0]
 0,0,0
 <br>
 ]
+<br>
+<br>
+留意事項を列挙する
+<br>
+・imageDataが欠落する境界は加重平均filterとして扱う（意図とは異なる可能性）
+<br>
+・<a href="#span-out-UI-graphing-config">canvas-background</a>にtransparent選択の場合、背景色は黒の透明（#0000）とする
     </td>
   </tr>
   <tr>

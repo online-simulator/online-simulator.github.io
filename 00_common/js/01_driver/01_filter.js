@@ -43,12 +43,15 @@ My_entry.filter.prototype.run = function(ctx, params){
       var iw = 0;
       for(var j=-dj; j<=dj; ++j){
         for(var i=-di; i<=di; ++i){
-          var data0i = data0[get_idata0(is+i0+i, js+j0+j, n)];
+          /* Ver.2.44.23 -> */
+          var ired0 = get_idata0(is+i0+i, js+j0+j, 0);
+          var data0i = data0[ired0+n];
           var wi = arr_w[iw++];
-          if(data0i >= 0 && wi){  // Ver.2.44.23
-            _sum += data0i*wi;
+          if(data0i >= 0){      // exclude undefined
+            _sum += wi*data0i;  // wi first
             sum_w += wi;
           }
+          /* -> Ver.2.44.23 */
         }
       }
       return ((sum_w)? _sum/sum_w: _sum);
