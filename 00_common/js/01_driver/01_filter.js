@@ -10,7 +10,15 @@ My_entry.filter.prototype.init = function(){
   var self = this;
   return self;
 };
-/* Ver.2.44.23 */
+/* Ver.2.44.23 -> */
+My_entry.filter.prototype.get_di = function(len){
+  var self = this;
+  return Math.floor((Math.sqrt(len)-1)/2);
+};
+My_entry.filter.prototype.get_len = function(di){
+  var self = this;
+  return ((2*di+1)*(2*di+1));
+};
 My_entry.filter.prototype.composite = function(arr_w, data0, px_w0, is, js, di, dj, i0, j0, n0){
   var self = this;
   var _sum = 0;
@@ -20,7 +28,7 @@ My_entry.filter.prototype.composite = function(arr_w, data0, px_w0, is, js, di, 
     for(var i=-di; i<=di; ++i){
       var ired0 = 4*(px_w0*(js+j0+j)+is+i0+i);
       var data0i = data0[ired0+n0];
-      var wi = arr_w[iw++];
+      var wi = arr_w[iw++] || 0;
       if(data0i >= 0){      // exclude undefined
         _sum += wi*data0i;  // wi first
         sum_w += wi;
@@ -29,6 +37,7 @@ My_entry.filter.prototype.composite = function(arr_w, data0, px_w0, is, js, di, 
   }
   return ((sum_w)? _sum/sum_w: _sum);
 };
+/* -> Ver.2.44.23 */
 /* Ver.2.44.22 */
 My_entry.filter.prototype.run = function(ctx, params){
   var self = this;
@@ -50,22 +59,22 @@ My_entry.filter.prototype.run = function(ctx, params){
     var sw_re = function(re){
       return ((params.rgba)? Boolean(params.rgba.match(re)): false);
     };
-    var sw_rgba = [sw_re(/r/i), sw_re(/g/i), sw_re(/b/i), sw_re(/a/i)];
-    var di = Math.floor((Math.sqrt(len)-1)/2);
+    /* Ver.2.44.23 -> */
+    var sws_rgba = [sw_re(/r/i), sw_re(/g/i), sw_re(/b/i), sw_re(/a/i)];
+    var di = self.get_di(len);
     var dj = di;
     /* not optimized */
     for(var j=0; j<px_h; ++j){
       for(var i=0; i<px_w; ++i){
-        /* Ver.2.44.23 -> */
         var ired = 4*(px_w*j+i);
         for(var n=0; n<4; ++n){
-          if(sw_rgba[n]){
+          if(sws_rgba[n]){
             _data[ired+n] = self.composite(arr_w, data0, px_w0, is, js, di, dj, i, j, n);
           }
         }
-        /* -> Ver.2.44.23 */
       }
     }
+    /* -> Ver.2.44.23 */
   }
   return _ID;
 };

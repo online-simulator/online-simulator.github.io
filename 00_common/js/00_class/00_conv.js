@@ -10,6 +10,24 @@ My_entry.conv.prototype.init = function(){
   var self = this;
   return self;
 };
+My_entry.conv.prototype.arr_str2arr_num = function(arr_str, num_NaN, num_min, num_max){
+  var self = this;
+  var _arr_num = [];
+  arr_str.forEach(function(str, i){
+    var num = Number(str);
+    if(isNaN(num)){
+      num = num_NaN;
+    }
+    else if(num < num_min){
+      num = num_min;
+    }
+    else if(num > num_max){
+      num = num_max;
+    }
+    _arr_num[i] = num;
+  });
+  return _arr_num;
+};
 My_entry.conv.prototype.dec2round_sw = function(dec, sw, opt_digit){
   var self = this;
   var _dec = Number(dec);

@@ -790,6 +790,7 @@ if(isAxis_z){
 /* 1.0.0 */
 My_entry.plot2d.prototype.final = function(arr2d_vec, options, toSVG){
   var self = this;
+  var conv = self.entry.conv;
   var all =  self.objs.all;
   options._arr_ID_plot = [];
   /* 1.0.1 -> */
@@ -814,10 +815,10 @@ My_entry.plot2d.prototype.final = function(arr2d_vec, options, toSVG){
         var mc = filter.match(/\[(.*?)\]/);
         /* ES6: var arr_w = (mc && mc.length)? mc[1].split(",").map(Number): []; */
         var arr_w = (mc && mc.length)? mc[1].split(","): [];
-        arr_w.forEach(function(w, i){
-          arr_w[i] = Number(w);
-        });
-        all.putID(self.filter.run(all.ctx, {rgba: filter, arr_w: arr_w}));  // 1.1.3
+        /* 1.1.3 -> */
+        arr_w = conv.arr_str2arr_num(arr_w, 0);
+        all.putID(self.filter.run(all.ctx, {rgba: filter, arr_w: arr_w}));
+        /* -> 1.1.3 */
       });
     };
     /* -> 1.1.2 */

@@ -1718,9 +1718,18 @@ filter特定項目仕様と付随する留意事項について記述する
 ・filtersはfilterを適用順にcolon:区切りで入力
 <br>
 <br>
+filterは上下左右対称(2n-1)x(2n-1)sizeの2次元配列を1次元に直列化して定義する
+<br>
+・2次元配列の中央要素をfilter対象pixelとして周囲pixelを含む重みを数値で指定する
+<br>
+・非対称(2n)x(2n)sizeのfilterは対称(2n+1)x(2n+1)sizeを基準に設定する
+<br>
+・filterを適用するRGBA値の組合せは任意に選択可（順不同）
+<br>
+<br>
 加重平均filterの一例を示す
 <br>
-・各RGBA値Gaussian3x3（簡略化）
+・RGBA値Gaussian3x3（簡略化）
 <br>
 rgba[1,2,1,2,<span class="selection">4</span>,2,1,2,1]
 <br>
@@ -1736,7 +1745,7 @@ rgba[1,2,1,2,<span class="selection">4</span>,2,1,2,1]
 <br>
 ]
 <br>
-・各RGBA値x方向average3x3
+・RGBA値x方向average3x3
 <br>
 rgba[0,0,0,1,<span class="selection">1</span>,1,0,0,0]
 <br>
@@ -1750,7 +1759,7 @@ rgba[0,0,0,1,<span class="selection">1</span>,1,0,0,0]
 <br>
 ]
 <br>
-・各RGBA値y方向average3x3
+・RGBA値y方向average3x3
 <br>
 rgba[0,1,0,0,<span class="selection">1</span>,0,0,1,0]
 <br>
@@ -1764,7 +1773,7 @@ rgba[0,1,0,0,<span class="selection">1</span>,0,0,1,0]
 <br>
 ]
 <br>
-・各RGBA値x/y方向average3x3
+・RGBA値x/y方向average3x3
 <br>
 rgba[0,1,0,1,<span class="selection">1</span>,1,0,1,0]
 <br>
@@ -1778,7 +1787,7 @@ rgba[0,1,0,1,<span class="selection">1</span>,1,0,1,0]
 <br>
 ]
 <br>
-・各RGB値average3x3
+・RGB値average3x3
 <br>
 rgb[1,1,1,1,<span class="selection">1</span>,1,1,1,1]
 <br>
@@ -1792,7 +1801,7 @@ rgb[1,1,1,1,<span class="selection">1</span>,1,1,1,1]
 <br>
 ]
 <br>
-・各RGB値average5x5
+・RGB値average5x5
 <br>
 rgb[1,1,1,1,1,1,1,1,1,1,1,1,<span class="selection">1</span>,1,1,1,1,1,1,1,1,1,1,1,1]
 <br>
@@ -1827,7 +1836,7 @@ rgb[1,1,1,1,<span class="selection">1</span>,1,1,1,1<span class="clear">,1,1,1,1
 <br>
 edge抽出filter（重みの総和=0）の一例を示す
 <br>
-・各RGB値edge3x3
+・RGB値edge3x3
 <br>
 rgb[-1,-1,-1,-1,<span class="selection">8</span>,-1,-1,-1,-1]
 <br>
@@ -1877,6 +1886,8 @@ g[-1,0,0,0,<span class="selection">1</span>,0,0,0,0]
 ・imageDataが欠落する境界は加重平均filterとして扱う（意図とは異なる可能性）
 <br>
 ・<a href="#span-out-UI-graphing-config">canvas-background</a>にtransparent選択の場合、背景色は黒の透明（#0000）とする
+<br>
+・<span class="run">Ver.2.44.23</span>以降、filter配列要素に数値以外を指定した場合、0とする
     </td>
   </tr>
   <tr>
