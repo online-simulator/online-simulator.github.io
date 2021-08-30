@@ -1948,7 +1948,7 @@ r[1]g[2]b || g[1]r[2]b || b[1]g[2]r -> rgb[1]
 <br>
 ・putImageData()同期出力のため、layer合成無効
 <br>
-・加重平均filterは重みを正規化するが、edge抽出filterは正規化しない
+・加重平均filterは重みを正規化するが、edge抽出filterは正規化しない（白黒飛びを許容）
 <br>
 ・imageDataが欠落する境界は加重平均filterとして扱う（意図とは異なる可能性）
 <br>
@@ -4531,6 +4531,8 @@ commit E-mail addressを変更する場合（参考）
     <td>
 <span id="span-out-development-additional"></span>
 基本構文のみで最短かつ確実な実装を選択したため、platform以前に最適化の余地がある
+<br>
+また、すべての結果の確からしさは自己判断のため、致命的な見落としを残す可能性がある
 <br>
 <br>
 実装の特徴を列挙する
