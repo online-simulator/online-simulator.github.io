@@ -281,28 +281,29 @@ My_entry.output_wave.prototype.encode_soundData_LE = function(number_samples, nu
   var seconds_perSample = 1/self.samples_perSecond;
   var func_t = self.entry.math_wave[type || "sin"];
   var phi0 = 0;
+  /* Ver.1.13.3 */
   /* Ver.1.4.2 */
   // average(cut-off) high frequency input at w0 > 0
   var w0 = w0 || 0;
   var p0 = p0 || 0;
-  var oldVal = offset;
+  var oldAmp = 0;
   var dns = Math.floor(number_samples*p0);
   var ns_in = dns;
   var ns_out = number_samples-1-dns;
-  var get_newVal = (w0 > 0)?
-    function(val, ns){
-      var _newVal = val;
+  var get_newAmp = (w0 > 0)?
+    function(ns){
+      var _newAmp = amplitude;
       if(ns < ns_in){
-        _newVal = w0*oldVal+(1-w0)*val;  // w0 first
+        _newAmp = w0*oldAmp+(1-w0)*amplitude;  // w0 first
       }
       else if(ns > ns_out){
-        _newVal = w0*oldVal+(1-w0)*offset;
+        _newAmp = w0*oldAmp;
       }
-      oldVal = _newVal;
-      return _newVal;
+      oldAmp = _newAmp;
+      return _newAmp;
     }:
-    function(val){
-      return val;
+    function(ns){
+      return amplitude;
     };
   for(var ns=0; ns<number_samples; ++ns){
     var t = ns*seconds_perSample;
@@ -312,9 +313,9 @@ My_entry.output_wave.prototype.encode_soundData_LE = function(number_samples, nu
       var gain_normalized = arr_g[i];
       val += gain_normalized*func_t(f, t, phi0);  // gain first
     });
-    val *= amplitude;
+    val *= get_newAmp(ns);
     val += offset;
-    var binary_perChannel = self.int2binary_LE(Bytes_perSample, get_newVal(val, ns));
+    var binary_perChannel = self.int2binary_LE(Bytes_perSample, val);
     for(var nc=0; nc<number_channels; ++nc){
       _binary += binary_perChannel;
     }
