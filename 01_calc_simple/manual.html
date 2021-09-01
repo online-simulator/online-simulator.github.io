@@ -698,6 +698,11 @@ Fourier級数
 application
 </a>
 <br>
+　・
+<a href="#span-out-application-output">
+最終output
+</a>
+<br>
 ・
 <a href="#span-out-remain">
 残課題
@@ -1167,7 +1172,7 @@ panel上段について記述する
 ・checkbox-snapはgrid snappingを選択
 <br>
 <br>
-<span class="run">Ver.2.40.19</span>以降、click||tap連打による描画の排他処理を修正
+<span class="clear">Ver.2.40.19</span>以降、click||tap連打による描画の排他処理を修正
 <br>
 ・連打による副作用をonmouseup-handlerでlock判定して回避
 <br>
@@ -1175,12 +1180,12 @@ panel上段について記述する
 <br>
 ・lock判定のreturn false直後にisLocked=true
 <br>
-・<span class="run">Ver.2.40.20</span>以降、error終了時、isLocked=falseでdeadlockを回避
+・<span class="clear">Ver.2.40.20</span>以降、error終了時、isLocked=falseでdeadlockを回避
 <br>
 ・以上より、副次的に2本指での範囲選択に対応
 <br>
 <br>
-<span class="run">Ver.2.40.20</span>以降、plot2d isNaN||isInfのerror終了時、描画resetから描画lockに変更
+<span class="clear">Ver.2.40.20</span>以降、plot2d isNaN||isInfのerror終了時、描画resetから描画lockに変更
 <br>
 <br>
 panel中段について記述する
@@ -1633,9 +1638,9 @@ originX:originY:offsetR:<span class="clear">orderR:NrandR:NrandT:isMin:isRound:N
 <br>
 ・isRound=false||trueはplot点の存在しない領域の補間方法を指定する
 <br>
-　falseの場合、plot座標系で線形補間
+　falseの場合、plot座標系で線形補間（<span class="clear">plot間vectorを等分割して回転角に変換する誤差あり</span>）
 <br>
-　trueの場合、gradation起点からplot点までの長さ空間で線形補間
+　trueの場合、gradation起点からplot点までの長さ空間で線形補間（<span class="clear">false同様の誤差あり</span>）
 <br>
 ・Nrender=1~32767は周方向のrendering分割数
 <br>
@@ -1659,6 +1664,10 @@ png出力の特徴を列挙する
 ・rendering方式でRGBA値を補間するため、gradationの精度が高い
 <br>
 ・isMin設定値によってcyclic star||spiral等、意図した結果が得られるとは限らない
+<br>
+・isRound設定項目の変換誤差を許容するため、
+<br>
+　svg出力同等||完全に意図通りの結果は得られない（<span class="clear">Ver.2.44.23</span>追記）
 <br>
 ・<span class="run">Ver.2.40.18</span>以降、legend間のgradation合成に対応
 <br>
@@ -1706,7 +1715,7 @@ filter特定項目仕様と付随する留意事項について記述する
 <br>
 <span class="run">Ver.2.44.22</span>以降、post処理の付録機能（未最適化）としてfilterを追加する
 <br>
-・<span class="run">Ver.2.44.23</span>以降、各RGBA値=0で正常に機能しない致命的な不具合を修正
+・<span class="clear">Ver.2.44.23</span>以降、各RGBA値=0で正常に機能しない致命的な不具合を修正
 <br>
 <br>
 <a href="#span-out-UI-graphing-z">z入力欄</a>にfilterをfilter||FILTER{filters}で入力
@@ -1931,7 +1940,7 @@ b[<span class="selection">0</span>]
 ]
 <br>
 <br>
-<span class="run">Ver.2.44.23</span>以降、irregular入力に対応
+<span class="clear">Ver.2.44.23</span>以降、irregular入力に対応
 <br>
 r || rr || rrr || r[] || []r || [0]r || [string]r -> r[0]
 <br>
@@ -1954,7 +1963,7 @@ r[1]g[2]b || g[1]r[2]b || b[1]g[2]r -> rgb[1]
 <br>
 ・<a href="#span-out-UI-graphing-config">canvas-background</a>にtransparent選択の場合、背景色は黒の透明（#0000）とする
 <br>
-・<span class="run">Ver.2.44.23</span>以降、filter配列要素に数値以外を指定した場合、該当の重み=0とする
+・<span class="clear">Ver.2.44.23</span>以降、filter配列要素に数値以外を指定した場合、該当の重み=0とする
     </td>
   </tr>
   <tr>
@@ -4138,7 +4147,7 @@ clear; add(A,B)=&lt;A+B; add[0][0](=&lt;(1,2:3,4),=&lt;(5,6:7,8))=&gt; -> 6
 clear; add(A,B)=&lt;A+B; add[1][1](=&lt;(1,2:3,4),=&lt;(5,6:7,8))=&gt; -> 12
 <br>
 <br>
-call先arguments省略の場合、定義元argumentsを無視してcall可（<span class="run">Ver.2.43.22</span>追記）
+call先arguments省略の場合、定義元argumentsを無視してcall可（<span class="clear">Ver.2.43.22</span>追記）
 <br>
 clear; x(t)=&lt;-t; f=&lt;x+1; f -> [MyErr]Invalid null args(x)
 <br>
@@ -5397,13 +5406,13 @@ restore
 <br>
 <del>・複製した新規objectをそのまま復帰する（元objectの参照を切る仕様）</del>
 <br>
-<span class="run">Ver.2.30.17</span>以降、元objectの参照を保存
+<span class="clear">Ver.2.30.17</span>以降、元objectの参照を保存
 <br>
 clear; x=2; store; x=3; restore; x -> 2
 <br>
 clear; x=2; store; clear; restore; x -> 2
 <br>
-<span class="run">Ver.2.30.17</span>以降、clear実行後、新規objectを複製してから復帰する（再利用に対応）
+<span class="clear">Ver.2.30.17</span>以降、clear実行後、新規objectを複製してから復帰する（再利用に対応）
 <br>
 clear; a=2; store; a=3; restore; a; a=3; restore; a -> 2
 <br>
@@ -6158,7 +6167,7 @@ x=2; [2]x -> [MyErr]Invalid reference
 <br>
 <span class="run">Ver.2.32.17</span>以降、<a href="#span-out-eqns-args">式変数のarguments</a>を追加
 <br>
-・記号省略乗算より<a href="#span-out-eqns-args">call先arguments</a>を優先する（<span class="run">Ver.2.43.22</span>追記）
+・記号省略乗算より<a href="#span-out-eqns-args">call先arguments</a>を優先する（<span class="clear">Ver.2.43.22</span>追記）
 <br>
 clear; x(t)=&lt;-t; f=&lt;x(1)+1; f -> 0
 <br>
@@ -7954,7 +7963,7 @@ x0=1; x1=2; x0+x1 -> 3
 <br>
 max=3 -> [MyErr]Invalid ans isFound
 <br>
-・<span class="run">Ver.2.27.15</span>以降、$から開始不可
+・<span class="clear">Ver.2.27.15</span>以降、$から開始不可
 <br>
 $a=1 -> [MyErr]Invalid SEv($a)
 <br>
@@ -8162,7 +8171,7 @@ clear; ($a,{$b,3})=(1,{2,$c}); (a,{b,c}) -> (1,2:0,3)
 clear; $a=-1; ($a)=1 || (-1)=1 || =1-(-1) -> 2
 <br>
 clear; ($a)=1; a -> 1
-</del><span class="run">Ver.2.27.15</span>以降、<a href="#span-out-vars">変数の命名規則</a>で対策済み
+</del><span class="clear">Ver.2.27.15</span>以降、<a href="#span-out-vars">変数の命名規則</a>で対策済み
 <br>
 ・$でescapeしない場合、error終了
 <br>
@@ -8231,7 +8240,7 @@ clear; ($a,(($b,($c)=4)=(,3)))=(1,2); (a,b,c) -> (1,0,4)
 clear; ($a,(($b,($c)={,4})=(,3)))=(1,2); (a,b,c) -> (1,0,0)
 <br>
 <br>
-<span class="run">Ver.2.30.16</span>以降、<a href="#span-out-vars">変数の命名規則</a>に準拠
+<span class="clear">Ver.2.30.16</span>以降、<a href="#span-out-vars">変数の命名規則</a>に準拠
 <br>
 ($$a)=1 -> [MyErr]Invalid SEv($a)
 <br>
@@ -8269,7 +8278,7 @@ y=&lt;a*x+b; -> stored_eqn(y)
 <br>
 =&lt; -> [MyErr]Invalid =&lt;null
 <br>
-・<span class="run">Ver.2.27.15</span>以降、null代入不可
+・<span class="clear">Ver.2.27.15</span>以降、null代入不可
 <br>
 x=&lt;; x -> [MyErr]Invalid =&lt;null
 <br>
@@ -8305,7 +8314,7 @@ y=&lt;a*x+b; y=&gt; -> [MyErr]Invalid binary operation
 <br>
 y=&lt;a*x+b; y=&gt;y0 -> [MyErr]Invalid binary operation
 <br>
-・<span class="run">Ver.2.27.15</span>以降、null-leftの場合、error終了
+・<span class="clear">Ver.2.27.15</span>以降、null-leftの場合、error終了
 <br>
 =&gt; -> [MyErr]Invalid null=&gt;
 <br>
@@ -8467,7 +8476,7 @@ clear; (f=&lt;{x=&gt;},x=&lt;(1,2),=&lt;{f=&gt;})=&gt; -> (1,2)
 clear; (f=&lt;{(x=&gt;)},x=&lt;(1,2),=&lt;{(f=&gt;)})=&gt; -> (1,2)
 <br>
 <br>
-<span class="run">Ver.2.27.15</span>以降、式渡しの直接式読出しのnestingに対応
+<span class="clear">Ver.2.27.15</span>以降、式渡しの直接式読出しのnestingに対応
 <br>
 clear; (f=&lt;{(x=&gt;)},x=&lt;(1,2),=&lt;{=&lt;{(f=&gt;)}}=&gt;)=&gt; -> (1,2)
 <br>
@@ -13229,6 +13238,28 @@ f=&lt;last{I=1,E=0,k=1,I=exp(k*(V-E))-exp(-k*(V-E))}
 　回路要素電圧Vに対する未知電流Iを解く場合
 <br>
 f=&lt;last{V=1,E=0,k=1,I=exp(k*(V-E))-exp(-k*(V-E))}
+    </td>
+  </tr>
+  <tr>
+    <th>
+<a href="#span-index">
+目次
+</a>
+<br>
+最終output
+    </th>
+    <td>
+<span id="span-out-application-output"></span>
+数値計算を応用した最終outputについて記述する
+<br>
+<br>
+Electrochemical cells 2D-simulation with heat and fluid flow
+<br>
+・Circuit Simulator with impedance spectroscopy
+<br>
+・Heat and Fluid Flow Simulator
+<br>
+・Electrochemical Cell Simulator
     </td>
   </tr>
   <tr>
