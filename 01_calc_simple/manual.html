@@ -217,6 +217,11 @@ gradation特定項目仕様
 filter特定項目仕様
 </a>
 <br>
+　　　・
+<a href="#span-out-UI-graphing-blur">
+blur特定項目仕様
+</a>
+<br>
 　　・
 <a href="#span-out-UI-graphing-layer">
 layer描画順
@@ -1384,6 +1389,21 @@ originX:originY:offsetR:orderR:NrandR:NrandT:isMin:isRound:Nrender:Ncycle
 ・filterはlayer合成後のpost最終処理（svg出力は無効）
 <br>
 ・filtersはfilterを適用順にcolon:区切りで入力
+<br>
+<br>
+<span class="run">Ver.2.45.23</span>以降、<a href="#span-out-UI-graphing-blur">blur</a>をblur||BLUR{config[]strengths}で入力
+<br>
+・任意位置に挿入可
+<br>
+・blurは<a href="#span-out-UI-graphing-filter">filtering</a>直前のpost処理（svg出力は無効）
+<br>
+・strengthsはfilter(2n-1)x(2n-1)sizeのn=0~20の数値をcolon:区切りで入力（省略時、0:10）
+<br>
+・config[]内datasetは設定値をcolon:区切りで入力（省略不可）
+<br>
+originX:originY:offsetR:orderR:NrandR:NrandT:isMin:isRound:Nrender:Ncycle:
+<br>
+isCyclic:isAverage:Nlegend
     </td>
   </tr>
   <tr>
@@ -1636,7 +1656,7 @@ originX:originY:offsetR:<span class="clear">orderR:NrandR:NrandT:isMin:isRound:N
 <br>
 　負の場合、成行きで保持
 <br>
-・isRound=false||trueはplot点の存在しない領域の補間方法を指定する
+・isRound=false||trueはplot点の存在しない領域の補間方法を選択する
 <br>
 　falseの場合、plot座標系で線形補間（<span class="clear">plot間vectorを等分割して回転角に変換する誤差あり</span>）
 <br>
@@ -1751,6 +1771,18 @@ rgba[1,2,1,2,<span class="selection">4</span>,2,1,2,1]
 2,<span class="selection">4</span>,2,
 <br>
 1,2,1
+<br>
+]
+<br>
+・Gaussian3x3
+<br>
+[
+<br>
+0.36787944117144233,0.6065306597126334,0.36787944117144233,
+<br>
+0.6065306597126334,<span class="selection">1</span>,0.6065306597126334,
+<br>
+0.36787944117144233,0.6065306597126334,0.36787944117144233
 <br>
 ]
 <br>
@@ -1957,6 +1989,8 @@ r[1]g[2]b || g[1]r[2]b || b[1]g[2]r -> rgb[1]
 <br>
 ・putImageData()同期出力のため、layer合成無効
 <br>
+・filter sizeに応じてpost処理の負荷が相乗的に増大する（中断不可）
+<br>
 ・加重平均filterは重みを正規化するが、edge抽出filterは正規化しない（白黒飛びを許容）
 <br>
 ・imageDataが欠落する境界は加重平均filterとして扱う（意図とは異なる可能性）
@@ -1964,6 +1998,64 @@ r[1]g[2]b || g[1]r[2]b || b[1]g[2]r -> rgb[1]
 ・<a href="#span-out-UI-graphing-config">canvas-background</a>にtransparent選択の場合、背景色は黒の透明（#0000）とする
 <br>
 ・<span class="clear">Ver.2.44.23</span>以降、filter配列要素に数値以外を指定した場合、該当の重み=0とする
+    </td>
+  </tr>
+  <tr>
+    <th>
+<a href="#span-index">
+目次
+</a>
+<br>
+blur
+<br>
+特定項目仕様
+    </th>
+    <td>
+<span id="span-out-UI-graphing-blur"></span>
+blur特定項目仕様と付随する留意事項について記述する
+<br>
+<br>
+<span class="run">Ver.2.45.23</span>以降、<a href="#span-out-UI-graphing-filter">filter</a>を応用して指向性のblurを追加する
+<br>
+<br>
+<a href="#span-out-UI-graphing-z">z入力欄</a>にblurをblur||BLUR{config[]strengths}で入力
+<br>
+・任意位置に挿入可
+<br>
+・blurは<a href="#span-out-UI-graphing-filter">filtering</a>直前のpost処理（svg出力は無効）
+<br>
+・strengthsはfilter(2n-1)x(2n-1)sizeのn=0~20の数値をcolon:区切りで入力（省略時、0:10）
+<br>
+・config[]内datasetは設定値をcolon:区切りで入力（省略不可）
+<br>
+<span class="selection">originX:originY:offsetR:orderR:NrandR:NrandT:isMin:isRound:Nrender:Ncycle</span>:
+<br>
+isCyclic:isAverage:Nlegend
+<br>
+・<span class="selection">上段</span>は<a href="#span-out-UI-graphing-gradation">gradation</a>参照
+<br>
+・isCyclic=false||trueは1周期外（2周期目以降）のblur条件を選択する
+<br>
+　falseの場合、strengthsの最終値で固定してblurを適用
+<br>
+　trueの場合、周期的にblurを適用
+<br>
+・isAverage=false||trueは適用する<a href="#span-out-UI-graphing-filter">filter</a>を選択する
+<br>
+　falseの場合、average(2n-1)x(2n-1)の<a href="#span-out-UI-graphing-filter">filter</a>を円形にtrimmingして適用
+<br>
+　trueの場合、average(2n-1)x(2n-1)の<a href="#span-out-UI-graphing-filter">filter</a>を適用
+<br>
+・Nlegend=1~lastはblurを適用するplot点のlegend番号
+<br>
+　範囲外の数値||数値以外を指定した場合、最終legendを選択
+<br>
+<br>
+留意事項を列挙する
+<br>
+・strengthsの数値に応じてpost処理の負荷が相乗的に増大する（中断不可）
+<br>
+・strengthsに数値以外を指定した場合、該当のstrength=0とする
     </td>
   </tr>
   <tr>

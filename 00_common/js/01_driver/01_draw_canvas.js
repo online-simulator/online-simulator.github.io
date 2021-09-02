@@ -250,6 +250,90 @@ My_entry.draw_canvas.prototype.gradation = function(colors, arr_vec, opt_globalC
   return _ID;
 };
 /* -> 1.0.0 */
+/* 1.2.3 -> */
+My_entry.draw_canvas.prototype.blur = function(arr_s, arr_vec, opt_globalCompositeOperation, vec0, offsetR, orderR, NrandR, NrandT, isMin, isRound, Nrender, Ncycle, isCyclic, isAverage){
+  var self = this;
+  var filter = new My_entry.filter();
+  var ctx = self.ctx;
+  var px_w = ctx.canvas.width;
+  var px_h = ctx.canvas.height;
+  var _ID = ctx.getImageData(0, 0, px_w, px_h);
+  var data = _ID.data;
+  var ID0 = ctx.getImageData(0, 0, px_w, px_h);
+  var data0 = ID0.data;
+  var pi2 = Math.PI*2;
+  var rdt = Nrender/pi2;
+  var x0 = vec0.x;
+  var y0 = vec0.y;
+  var krandT0 = NrandT/255;
+  var Ns = arr_s.length;
+  var gradLEN = self.make_gradLEN(arr_vec, vec0, isMin, isRound, Nrender);
+  var krandR = self.make_krandR(NrandR/255, Ncycle);
+  var sum_krandR = self.make_sum_krandR(krandR);
+  var Ncycle_krandR = sum_krandR[sum_krandR.length-1];
+  var make_arr_w = function(sk){
+    var len = filter.get_len(sk);
+    var di = 2*sk+1;
+    var _arr_w = [];
+    for(var i=0; i<len; ++i){
+      var jj = Math.floor(i/di);
+      var ii = i%di;
+      var s2 = (ii-sk)*(ii-sk)+(jj-sk)*(jj-sk);
+//      _arr_w[i] = Math.exp(-0.5*s2);
+      _arr_w[i] = (!(isAverage) && s2 > sk*sk)? 0: 1;
+    }
+    return _arr_w;
+  };
+  var arr_w2d = [];
+  for(var s=0, len_s=21; s<len_s; ++s){
+    arr_w2d[s] = make_arr_w(s);
+  }
+  for(var yp=0; yp<px_h; ++yp){
+    for(var xp=0; xp<px_w; ++xp){
+      var dx = xp+0.5-x0;
+      var dy = yp+0.5-y0;
+      var t = Math.atan2(dy, dx);  // (-pi,pi]
+      var n = Math.round(t*rdt);
+      var LEN0 = gradLEN[(n+Nrender)%Nrender];
+      if(LEN0){
+        var len0 = Math.sqrt(dx*dx+dy*dy);
+        var len = len0+LEN0*(Math.random()-0.5)*krandT0;
+        if(len < LEN0*Ncycle_krandR){
+          var cycle = self.get_cycle(sum_krandR, LEN0, len);
+          var LEN = LEN0*krandR[cycle];
+          var LEN_filter = LEN*offsetR;
+          var deno = LEN-LEN_filter;
+          var nume = len-LEN0*sum_krandR[cycle]-LEN_filter;
+          if(nume > 0){
+            var isBound = (isCyclic && orderR && (offsetR || cycle+1 === Ncycle));
+            var N = (!(isCyclic) || isBound)? Ns-1: Ns;
+            var dLEN = deno/N;
+            var ic = Math.floor(nume/dLEN);
+            var s0 = arr_s[ic];
+            var s1 = arr_s[ic+1] || arr_s[0];  // cyclic boundary condition
+            if(!(isCyclic) && cycle > 0){
+              s0 = arr_s[Ns-1];
+              s1 = s0;
+            }
+            if(s0 >= 0 && s1 >= 0){
+              var k = (orderR)? Math.pow((nume%dLEN)/dLEN, orderR): 0;
+              var sk = Math.floor(s0+(s1-s0)*k);
+              var ired = 4*(px_w*yp+xp);
+              for(var n=0; n<4; ++n){
+                data[ired+n] = filter.composite(arr_w2d[sk] || make_arr_w(sk), data0, px_w, 0, 0, sk, sk, xp, yp, n);
+              }
+            }
+            else{
+              break;
+            }
+          }
+        }
+      }
+    }
+  }
+  return _ID;
+};
+/* -> 1.2.3 */
 /* 0.5.0 -> */
 My_entry.draw_canvas.prototype.text = function(text, vec0, opt_fontSize, opt_styleRGBA, opt_globalCompositeOperation){
   var self = this;

@@ -344,6 +344,7 @@ My_entry.plot2d.prototype.change_scale = function(tgxmin, tgymin, tgxmax, tgymax
   var self = this;
   var grid = self.objs.grid;
   var plot = self.objs.plot;
+  var all = self.objs.all;
   var tgdx = (tgxmax-tgxmin)*0.125 || 1;
   var tgdy = (tgymax-tgymin)*0.125 || 1;
   /* 0.5.0 -> */
@@ -356,6 +357,7 @@ My_entry.plot2d.prototype.change_scale = function(tgxmin, tgymin, tgxmax, tgymax
   /* -> 0.5.0 */
   grid.change_scale(tgxmin, tgymin, tgxmax, tgymax);
   plot.change_scale(tgxmin, tgymin, tgxmax, tgymax);
+  all.change_scale(tgxmin, tgymin, tgxmax, tgymax);  // 1.2.3
   return self;
 };
 My_entry.plot2d.prototype.run = function(arr2d_vec, options, toSVG, isFinal){
@@ -462,6 +464,9 @@ My_entry.plot2d.prototype.run = function(arr2d_vec, options, toSVG, isFinal){
   /* 1.1.2 -> */
   inputZ = def.enter_name(inputZ, "filter", false, 0, function(content){options._filter = content;});
   /* -> 1.1.2 */
+  /* 1.2.3 -> */
+  inputZ = def.enter_name(inputZ, "blur", false, 0, function(content){options._blur = content;});
+  /* -> 1.2.3 */
   // scaling
   var fontSize1 = (title)? fontSize+self.config.default.dfontSize: 0;
   var kyAdjust = 1+fontSize1*5/self.px_h;
@@ -603,6 +608,7 @@ My_entry.plot2d.prototype.run = function(arr2d_vec, options, toSVG, isFinal){
       arr2d_tvec[j][n] = {x: x, y: y};
     }
   }
+  options._arr2d_tvec = arr2d_tvec;  // 1.2.3
   // masking
   var idName_mask = "mask_lines_and_gradations";
   var dtgx = dtgx0*1e-15;
@@ -790,6 +796,7 @@ if(isAxis_z){
 /* 1.0.0 */
 My_entry.plot2d.prototype.final = function(arr2d_vec, options, toSVG){
   var self = this;
+  var $ = self.entry.$;
   var conv = self.entry.conv;
   var def = self.entry.def;
   var all =  self.objs.all;
@@ -809,6 +816,35 @@ My_entry.plot2d.prototype.final = function(arr2d_vec, options, toSVG){
       arr_base64_plot.push(all.getBase64());
     });
     arr_base64_plot.push(self.objs.plot.getBase64());
+    /* 1.2.3 -> */
+    var callback_blur = function(){
+      var isLog_x = options["log-x"];
+      var isLog_y = options["log-y"];
+      var NUMMIN = self.config.default.NUMMIN;
+      var NUMMAX = self.config.default.NUMMAX;
+      var arr2d_tvec = options._arr2d_tvec;
+      var len = arr2d_tvec.length;
+      var text = options._blur;
+      var config = "";
+      text = def.enter_name(text, "config", false, 2, function(content){config = content;});
+      var records = $.get_records(config, ":", 0, ["x0", "y0", "offsetR", "orderR", "NrandR", "NrandT", "isMin", "isRound", "Nrender", "Ncycle", "isCyclic", "isAverage", "Nlegend"]);
+      records.x0 = self.trans((isNaN(records.x0))? 0: records.x0, isLog_x);  // linear-scale
+      records.y0 = self.trans((isNaN(records.y0))? 0: records.y0, isLog_y);  // linear-scale
+      records.offsetR = def.limit(records.offsetR, 0, 1, 0);
+      records.orderR = def.limit(records.orderR, 0, 10, 1);
+      records.NrandR = def.limit(Math.floor(records.NrandR), 0, 255, 0);
+      records.NrandT = def.limit(Math.floor(records.NrandT), 0, 255, 0);
+      records.isMin = def.limit(records.isMin, -10, 10, true);
+      records.isRound = def.limit(records.isRound, -10, 10, true);
+      records.Nrender = def.limit(Math.floor(records.Nrender), 1, NUMMAX, options.N);
+      records.Ncycle = def.limit(Math.floor(records.Ncycle), 0, 127, 0);
+      records.isCyclic = def.limit(records.isCyclic, -10, 10, true);
+      records.isAverage = def.limit(records.isAverage, -10, 10, true);
+      var Nlegend = def.limit(Math.floor(records.Nlegend), NUMMIN, NUMMAX, len);
+      var arr_s = conv.arr_str2arr_num((text || "0:10").split(":"), 0, 0, 20);
+      all.putID(all.blur(arr_s, arr2d_tvec[Nlegend-1] || arr2d_tvec[len-1], null, records));
+    };
+    /* -> 1.2.3 */
     /* 1.1.2 -> */
     var callback_filter = function(){
       var filters = options._filter.split(":");
@@ -827,6 +863,11 @@ My_entry.plot2d.prototype.final = function(arr2d_vec, options, toSVG){
       arr_base64_grid_plot.push(all.getBase64());
       var callback1 = function(){
         var callback2 = function(){
+          /* 1.2.3 -> */
+          if(options._blur){
+            callback_blur();
+          };
+          /* -> 1.2.3 */
           /* 1.1.2 -> */
           if(options._filter){
             callback_filter();
