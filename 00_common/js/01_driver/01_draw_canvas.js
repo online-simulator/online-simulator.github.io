@@ -310,7 +310,12 @@ My_entry.draw_canvas.prototype.blur = function(arr_s, arr_vec, opt_globalComposi
             var dLEN = deno/N;
             var ic = Math.floor(nume/dLEN);
             var s0 = arr_s[ic];
-            var s1 = arr_s[ic+1] || arr_s[0];  // cyclic boundary condition
+            var s1 = arr_s[ic+1];
+            /* 1.2.4 -> */
+            if(isNaN(s1)){
+              s1 = arr_s[0];  // cyclic boundary condition
+            }
+            /* -> 1.2.4 */
             if(!(isCyclic) && cycle > 0){
               s0 = arr_s[Ns-1];
               s1 = s0;
