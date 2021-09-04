@@ -807,15 +807,15 @@ My_entry.plot2d.prototype.final = function(arr2d_vec, options, toSVG){
     if(self.isLocked) return false;
     self.isLocked = true;
   /* -> 1.0.1 */
-    var base64_bg = self.base64_bg || self.objs.background.getBase64();
+    var base64_bg = self.base64_bg || self.objs.background.get_base64();
     var arr_base64_grid_plot = [];
-    arr_base64_grid_plot.push(self.objs.grid.getBase64());
+    arr_base64_grid_plot.push(self.objs.grid.get_base64());
     var arr_base64_plot = [];
     options._arr_ID_plot.forEach(function(ID){
       all.putID(ID);
-      arr_base64_plot.push(all.getBase64());
+      arr_base64_plot.push(all.get_base64());
     });
-    arr_base64_plot.push(self.objs.plot.getBase64());
+    arr_base64_plot.push(self.objs.plot.get_base64());
     /* 1.2.3 -> */
     var callback_blur = function(){
       var isLog_x = options["log-x"];
@@ -860,7 +860,7 @@ My_entry.plot2d.prototype.final = function(arr2d_vec, options, toSVG){
     };
     /* -> 1.1.2 */
     var callback0 = function(){
-      arr_base64_grid_plot.push(all.getBase64());
+      arr_base64_grid_plot.push(all.get_base64());
       var callback1 = function(){
         var callback2 = function(){
           /* 1.2.3 -> */
@@ -876,13 +876,13 @@ My_entry.plot2d.prototype.final = function(arr2d_vec, options, toSVG){
           self.init_canvas(false);  // here for flickering-proof
           self.isLocked = false;
         };
-        all.putBase64s(arr_base64_grid_plot.reverse(), callback2, options["canvas-globalCompositeOperation"]);
+        all.draw_base64s(arr_base64_grid_plot.reverse(), callback2, options["canvas-globalCompositeOperation"]);
       };
       all.clear();
-      all.putBase64(base64_bg, callback1);  // bg(source-over) <- grid <- plot
+      all.draw_base64(base64_bg, callback1);  // bg(source-over) <- grid <- plot
     };
     all.clear();
-    all.putBase64s(arr_base64_plot.reverse(), callback0, options["canvas-globalCompositeOperationLayer"]);
+    all.draw_base64s(arr_base64_plot.reverse(), callback0, options["canvas-globalCompositeOperationLayer"]);
   }
   return _svg;
 };

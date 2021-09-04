@@ -83,11 +83,11 @@ My_entry.canvas.prototype.get_offset = function(e){
   var _offset = (newE)? {x: newE.offsetX, y: newE.offsetY}: false;
   return _offset;
 };
-My_entry.canvas.prototype.getBase64 = function(){
+My_entry.canvas.prototype.get_base64 = function(){
   var self = this;
   return self.ctx.canvas.toDataURL();
 };
-My_entry.canvas.prototype.putBase64 = function(base64, opt_callback, opt_globalCompositeOperation){
+My_entry.canvas.prototype.draw_base64 = function(base64, opt_callback, opt_globalCompositeOperation){
   var self = this;
   var ctx = self.ctx;
   var img = new Image();
@@ -108,12 +108,12 @@ My_entry.canvas.prototype.putBase64 = function(base64, opt_callback, opt_globalC
   img.src = base64;
   return self;
 };
-My_entry.canvas.prototype.putBase64s = function(arr_base64, opt_callback, opt_globalCompositeOperation){
+My_entry.canvas.prototype.draw_base64s = function(arr_base64, opt_callback, opt_globalCompositeOperation){
   var self = this;
   var ctx = self.ctx;
   if(arr_base64.length){
-    self.putBase64(arr_base64.pop(), function(e){
-      self.putBase64s(arr_base64, opt_callback, opt_globalCompositeOperation);
+    self.draw_base64(arr_base64.pop(), function(e){
+      self.draw_base64s(arr_base64, opt_callback, opt_globalCompositeOperation);
     }, opt_globalCompositeOperation);  // 0.3.0 simplified
   }
   else{
