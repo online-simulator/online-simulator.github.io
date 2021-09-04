@@ -21,7 +21,7 @@
     var $ = new My_entry.$();
     $.onload(function(e){
       $._id("VERSION").textContent = My_entry.VERSION;
-      ["calc", "edit", "wave", "else"].forEach(function(name){
+      ["checklist", "calc", "circuit", "fluid", "cell", "paint", "wave", "else"].forEach(function(name){
         $._id("Ver-"+name).textContent = My_entry.Ver[name];
       });
       var elem_s = $._id("select-types");
@@ -68,7 +68,21 @@ Ver.
 </thead>
 <tbody>
   <tr>
-    <th>
+    <th class="clear">
+Checklist
+    </th>
+    <td>
+<a href="#span-release-checklist">History-VERSION.4.59.18.9.22</a>~
+    </td>
+    <td>
+<a title="[memo]checklist" href="00_common/checklist.html">[memo]checklist</a>
+    </td>
+    <td>
+<span id="Ver-checklist"></span>
+    </td>
+  </tr>
+  <tr>
+    <th class="run">
 Calculator
     </th>
     <td>
@@ -84,7 +98,7 @@ Calculator
     </td>
   </tr>
   <tr>
-    <th rowspan="3">
+    <th class="run" rowspan="3">
 Scientific
     </th>
     <td>
@@ -93,7 +107,7 @@ Circuit Simulator
     <td>
     </td>
     <td>
-TBD-status
+<span id="Ver-circuit"></span>
     </td>
   </tr>
   <tr>
@@ -103,7 +117,7 @@ Heat and Fluid Flow Simulator
     <td>
     </td>
     <td>
-TBD-status
+<span id="Ver-fluid"></span>
     </td>
   </tr>
   <tr>
@@ -113,23 +127,24 @@ Electrochemical Cell Simulator
     <td>
     </td>
     <td>
-TBD-status
+<span id="Ver-cell"></span>
     </td>
   </tr>
   <tr>
-    <th>
+    <th class="condition">
 Editor
     </th>
     <td>
+Painter
     </td>
     <td>
     </td>
     <td>
-<span id="Ver-edit"></span>
+<span id="Ver-paint"></span>
     </td>
   </tr>
   <tr>
-    <th>
+    <th class="condition">
 Generator
     </th>
     <td>
@@ -228,6 +243,7 @@ Checker
   <label>Type shown:
 <select id="select-types">
   <option>All</option>
+  <option>Checklist</option>
   <option>Calculator</option>
   <option>Editor</option>
   <option>Generator</option>
@@ -259,6 +275,29 @@ Y/M/D
   </tr>
 </thead>
 <tbody>
+  <tr>
+    <th>
+4.59.18.9.22
+    </th>
+    <td class="types">
+Checklist
+    </td>
+    <td>
+1.0.0
+    </td>
+    <td class="run">
+major update
+    </td>
+    <td>
+<span id="span-release-checklist"></span>
+[Checklist]
+<br>
+・<a href="00_common/checklist.html">[memo]checklist</a> made to avoid missing bugs
+    </td>
+    <td>
+2021/9/4
+    </td>
+  </tr>
   <tr>
     <th>
 3.59.18.9.22

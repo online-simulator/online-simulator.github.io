@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="description" content="[memo]checklist">
+  <meta name="author" content="online-simulator.github.io">
+  <noscript>JavaScript is not enabled on browser.</noscript>
+  <link rel="stylesheet" type="text/css" href="css/common.css">
+  <link rel="stylesheet" type="text/css" href="css/color.css">
+  <link rel="stylesheet" type="text/css" href="css/size.css">
+</head>
+
+<body>
+  <div class="absolute">
+    <table class="border">
+      <caption><a href="../index.html#span-release-checklist">History-VERSION.4.59.18.9.22</a>~checklist</caption>
+      <thead>
+        <tr class="border">
+          <th class="border">
+Item
+          </th>
+          <th class="border">
+Measures
+          </th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr class="border">
+          <td class="border">
+if(num) -> if(!(undefined))
+          </td>
+          <td class="border">
+if(!(isNaN(num))) || if(num &gt;= 0)
+          </td>
+        </tr>
+        <tr class="border">
+          <td class="border">
+if(num) -> if(!(undefined) &amp;&amp; !(null))
+          </td>
+          <td class="border">
+if(!(isNaN(num)) &amp;&amp; num !== null)
+          </td>
+        </tr>
+        <tr class="border">
+          <td class="border">
+num = undefined || 1 || 0;
+          </td>
+          <td class="border">
+if(isNaN(num)){num = 1;}
+          </td>
+        </tr>
+        <tr class="border">
+          <td class="border">
+num = undefined || null || 1 || 0;
+          </td>
+          <td class="border">
+if(isNaN(num) || num === null){num = 1;}
+          </td>
+        </tr>
+        <tr class="border">
+          <td class="border">
+UI-input
+          </td>
+          <td class="border">
+check null || initialization || limiter
+          </td>
+        </tr>
+        <tr class="border">
+          <td class="border">
+global namespace pollution
+          </td>
+          <td class="border">
+check all initializations
+          </td>
+        </tr>
+        <tr class="border">
+          <td class="border">
+mutual exclusion || deadlock
+          </td>
+          <td class="border">
+check flag just after onevent || lock/unlock timings
+          </td>
+        </tr>
+        <tr class="border">
+          <td class="border">
+minimizing exceptions
+          </td>
+          <td class="border">
+try/catch in the most upstream process
+          </td>
+        </tr>
+        <tr class="border">
+          <td class="border">
+missing errors
+          </td>
+          <td class="border">
+make comprehensive test cases
+          </td>
+        </tr>
+        <tr class="border">
+          <td class="border">
+logic || algorithm
+          </td>
+          <td class="border">
+theoretical modelling
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</body>
+
+</html>
