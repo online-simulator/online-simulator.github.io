@@ -28,11 +28,16 @@ Measures
       </thead>
       <tbody>
         <tr class="border">
+          <td class="border condition" colspan="2">
+Syntax
+          </td>
+        </tr>
+        <tr class="border">
           <td class="border">
 if(num) -> if(!(undefined))
           </td>
           <td class="border">
-if(!(isNaN(num))) || if(num &gt;= 0)
+if(!(isNaN(num)))
           </td>
         </tr>
         <tr class="border">
@@ -57,6 +62,11 @@ num = undefined || null || 1 || 0;
           </td>
           <td class="border">
 if(isNaN(num) || num === null){num = 1;}
+          </td>
+        </tr>
+        <tr class="border">
+          <td class="border condition" colspan="2">
+Design
           </td>
         </tr>
         <tr class="border">
