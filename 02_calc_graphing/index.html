@@ -115,6 +115,7 @@
       $._id("gradation2").onclick = function(){setVal("-1", "1", "0.1;1;/*plotted only final frame in the case of using png's rand()*/", "t;", 70);$._id("input-z").value="none/*marker*/GRADATION{config[0:0:0:1:150:20:false:false:2560:10]#ee82eecc:#0000ffcc:#00ffffcc:#00ff00cc:#ffff00cc:#ffa500cc:#ff0000cc};";};
       $._id("filter1").onclick = function(){setVal("0", "2pi", "f(t,k)=<e^(i(k)t),k=1,f(t,k);", "_dt(=<-f(t,k));", 50);$._id("input-z").value="FILTER{/*Gaussian3x3*/rgba[1,2,1,2,4,2,1,2,1]:/*average5x5*/rgba[1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1]}GRADATION{config[0:-1:0.5:0:0:0:false:false:2560:3]#ee82eeaa:#0000ffaa:#00ffffaa:#00ff00aa:#ffff00aa:#ffa500aa:#ff0000aa};";};
       $._id("filter2").onclick = function(){setVal("0", "2pi", "f(t,k)=<e^(i(k)t),k=1,f(t,k);", "_dt(=<-f(t,k));", 50);$._id("input-z").value="FILTER{/*edge3x3*/r[-10,-10,-10,-10,80,-10,-10,-10,-10]:/*Laplacian3x3*/g[0,-10,0,-10,40,-10,0,-10,0]:/*emboss3x3*/b[-10,0,0,0,10,0,0,0,0]}GRADATION{config[0:-1:0.5:0:0:0:false:false:2560:3]#ee82eeaa:#0000ffaa:#00ffffaa:#00ff00aa:#ffff00aa:#ffa500aa:#ff0000aa};";};
+      $._id("filter3").onclick = function(){setVal("0", "2pi", "f(t,k)=<e^(i(k)t),f(t,3);", "_dt(=<-f(t,2));", 200);$._id("input-z").value="none/*marker*/FILTER{hsv[-10,0,0,0,10,0,0,0,0]:/*monotone*/s_cone[0]}GRADATION{config[0:0:0.5:1:0:0:false:false:25600:10]#ee82ee00:#ee82eeaa:#0000ffaa:#00ffffaa:#00ff00aa:#ffff00aa:#ffa500aa:#ff0000aa:#ff000000};";};
       $._id("blur1").onclick = function(){setVal("0", "2pi", "pow(sin(t),3);", "y=7cos(t)-4cos(2t)-2cos(3t),y/7;", 50);$._id("input-z").value="BLUR{config[0:0:0:1:0:0:false:false:2560:4/*<-the-same-as-gradation*/:false/*isCyclic=false||true*/:false/*isAverage=false||true*/:1/*Nlegend=1~last*/]0:1:2:4}GRADATION{config[0:0:0:0:0:0:false:false:2560:4]white:gray:white:gray:white:gray:white:gray};";};
       $._id("blur2").onclick = function(){setVal("0", "2pi", "pow(sin(t),3);", "y=7cos(t)-4cos(2t)-2cos(3t),y/7;", 50);$._id("input-z").value="BLUR{config[0:0:0:1:0:0:false:false:2560:4:true:false:last]8:0:8:0}GRADATION{config[0:0:0:0:0:0:false:false:2560:4]white:gray:white:gray:white:gray:white:gray};";};
       // strict-mode equation-list
@@ -253,6 +254,7 @@ plot2d
   <button id="filter1">filter1</button>
   <button id="filter2">filter2</button>
 <br>
+  <button id="filter3">filter3</button>
   <button id="blur1">blur1</button>
   <button id="blur2">blur2</button>
 <hr>
@@ -697,6 +699,36 @@ plot2d
   <option>18</option>
   <option>19</option>
   <option>20</option>
+  <option>21</option>
+  <option>22</option>
+  <option>23</option>
+  <option>24</option>
+  <option>25</option>
+  <option>26</option>
+  <option>27</option>
+  <option>28</option>
+  <option>29</option>
+  <option>30</option>
+  <option>32</option>
+  <option>40</option>
+  <option>50</option>
+  <option>60</option>
+  <option>64</option>
+  <option>70</option>
+  <option>80</option>
+  <option>90</option>
+  <option>100</option>
+  <option>110</option>
+  <option>120</option>
+  <option>128</option>
+  <option>130</option>
+  <option>140</option>
+  <option>150</option>
+  <option>160</option>
+  <option>170</option>
+  <option>180</option>
+  <option>190</option>
+  <option>200</option>
 </select>
     </label>
     <label>grid-y-Nj:
@@ -722,6 +754,36 @@ plot2d
   <option>18</option>
   <option>19</option>
   <option>20</option>
+  <option>21</option>
+  <option>22</option>
+  <option>23</option>
+  <option>24</option>
+  <option>25</option>
+  <option>26</option>
+  <option>27</option>
+  <option>28</option>
+  <option>29</option>
+  <option>30</option>
+  <option>32</option>
+  <option>40</option>
+  <option>50</option>
+  <option>60</option>
+  <option>64</option>
+  <option>70</option>
+  <option>80</option>
+  <option>90</option>
+  <option>100</option>
+  <option>110</option>
+  <option>120</option>
+  <option>128</option>
+  <option>130</option>
+  <option>140</option>
+  <option>150</option>
+  <option>160</option>
+  <option>170</option>
+  <option>180</option>
+  <option>190</option>
+  <option>200</option>
 </select>
     </label>
     <label>kx-adj:

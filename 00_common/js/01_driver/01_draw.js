@@ -134,7 +134,85 @@ My_entry.draw.prototype.rgba2style = function(rgba){
   var a = Math.floor(rgba.a);
   return ((a >= 255)? "rgb("+r+","+g+","+b+")": "rgba("+r+","+g+","+b+","+a/255+")");  // floor(rgba)=0~255 for IE -> a=0~1
 };
-/* 0.6.0 -> moved from canvas.js */
+/* 1.3.4 -> */
+My_entry.draw.prototype.rgb2hsv = function(arr, opt_k, opt_isConical){
+  var self = this;
+  var k = opt_k || 1;
+  var r = arr[0]/k;
+  var g = arr[1]/k;
+  var b = arr[2]/k;
+  var min = Math.min.apply(Math, [r, g, b]);
+  var max = Math.max.apply(Math, [r, g, b]);
+  var c = max-min;
+  var v = max;
+  var s = (v)? ((opt_isConical)? c: c/v): 0;  // not0
+  var h = 0;
+  if(c){  // not0
+    if(max === r){
+      h = (g-b)/c+0;  // [-1,1]
+      h = (h+6)%6;    // [0,1][5,6)  // 0 -> 0
+    }
+    else if(max === g){
+      h = (b-r)/c+2;  // [1,3]
+    }
+    else{
+      h = (r-g)/c+4;  // [3,5]
+    }
+    h /= 6;           // [0,1)
+  }
+  return [h*k, s*k, v*k];
+};
+My_entry.draw.prototype.hsv2rgb = function(arr, opt_k, opt_isConical){
+  var self = this;
+  var k = opt_k || 1;
+  var h = arr[0]/k;
+  var s = arr[1]/k;
+  var v = arr[2]/k;
+  var c = (opt_isConical)? s: v*s;
+  var m = v-c;
+  var r = 0;
+  var g = 0;
+  var b = 0;
+  if(c){  // not0
+    var h6 = h*6;
+    var x = c*(1-Math.abs(h6%2-1));
+    switch(Math.ceil(h6)){
+      case 0:
+      case 1:
+        r = c;
+        g = x;
+        break;
+      case 2:
+        r = x;
+        g = c;
+        break;
+      case 3:
+        g = c;
+        b = x;
+        break;
+      case 4:
+        g = x;
+        b = c;
+        break;
+      case 5:
+        b = c;
+        r = x;
+        break;
+      case 6:
+        b = x;
+        r = c;
+        break;
+      default:
+        break;
+    }
+  }
+  r += m;
+  g += m;
+  b += m;
+  return [r*k, g*k, b*k];
+};
+/* -> 1.3.4 */
+/* 0.6.0 -> */
 My_entry.draw.prototype.hex2dec = function(hex_8bit){
   var self = this;
   var dec_8bit = Number("0x"+hex_8bit);

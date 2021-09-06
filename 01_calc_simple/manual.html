@@ -178,6 +178,11 @@ Graphing Calculator
 </a>
 <br>
 　　・
+<a href="#span-out-UI-graphing-color-space">
+color空間
+</a>
+<br>
+　　・
 <a href="#span-out-UI-graphing-color">
 color入力仕様
 </a>
@@ -933,6 +938,8 @@ en.m.wikipedia.org/wiki/項目を列挙する
 <br>
 ・Rainbow
 <br>
+・HSL_and_HSV
+<br>
 <br>
 ja.m.wikipedia.org/wiki/項目を列挙する
 <br>
@@ -1238,6 +1245,52 @@ Multi-thread実行の場合、plot-buttonと=-buttonは並列に実行可
 <br>
 <br>
 panel下段は<a href="#span-out-UI-simple">Simple Calculator UI</a>参照
+    </td>
+  </tr>
+  <tr>
+    <th>
+<a href="#span-index">
+目次
+</a>
+<br>
+color空間
+    </th>
+    <td>
+<span id="span-out-UI-graphing-color-space"></span>
+color空間について記述する
+<br>
+<br>
+RGB-color空間
+<br>
+・Red（赤）
+<br>
+・Green（緑）
+<br>
+・Blue（青）
+<br>
+　主な用途は光の三原色による加法混合のdisplay
+<br>
+<br>
+RGBA-color空間
+<br>
+・Alpha（不透明度）
+<br>
+　主な用途はcomputer graphics（HTML5描画canvas等）
+<br>
+<br>
+HSV-color空間
+<br>
+・Hue（色相）
+<br>
+・Saturation（彩度∝RGB最大値-RGB最小値）
+<br>
+・Value（明度=RGB最大値）
+<br>
+　主な用途は直感的な操作のcolor-picker
+<br>
+　・SaturationをValueで正規化する場合、円柱model（色相環内側のpicker領域がsquare）
+<br>
+　・Saturationを正規化しない場合、円錐model（色相環内側のpicker領域がtriangle）
     </td>
   </tr>
   <tr>
@@ -1753,7 +1806,15 @@ filterは上下左右対称(2n-1)x(2n-1)sizeの2次元配列を1次元に直列�
 <br>
 ・非対称(2n)x(2n)sizeのfilterは対称(2n+1)x(2n+1)sizeを基準に設定する
 <br>
-・filterを適用するRGBA値の組合せは任意に選択可（順不同）
+・filterを適用するRGBAの組合せは任意に選択可（順不同）
+<br>
+・<span class="run">Ver.2.46.24</span>以降、円柱HSV||円錐HSV_coneの組合せを追加
+<br>
+・RGBA/HSVの組合せを併記した場合、filtering手順を次に示す
+<br>
+　結果を取得　⇒　RGBからHSVに非線形な順変換　⇒　HSV-<a href="#span-out-UI-graphing-color-space">color空間</a>でfiltering
+<br>
+　⇒　HSVからRGBに非線形な逆変換　⇒　RGBA-<a href="#span-out-UI-graphing-color-space">color空間</a>でfiltering　⇒　結果を表示
 <br>
 <br>
 加重平均filterの一例を示す
@@ -2019,11 +2080,9 @@ b[-10,0,0,0,<span class="selection">10</span>,0,0,0,0]
 <br>
 b[<span class="selection">0</span>]
 <br>
-[
+・S値zero化1x1（monotone化）
 <br>
-<span class="selection">0</span>
-<br>
-]
+s[<span class="selection">0</span>] || s_cone[<span class="selection">0</span>]
 <br>
 <br>
 <span class="clear">Ver.2.44.23</span>以降、irregular入力に対応
@@ -2037,6 +2096,21 @@ r[1]g[2]b || g[1]r[2]b || b[1]g[2]r -> rgb[1]
 []r[1]g[2]b || [0]r[1]g[2]b -> rgb[0]
 <br>
 [0xa]r[1]g[2]b[3] -> rgb[10]
+<br>
+<br>
+<span class="run">Ver.2.46.24</span>以降、HSV-<a href="#span-out-UI-graphing-color-space">color空間</a>に対応
+<br>
+・円柱model
+<br>
+rgba[1]hsv || hsv[1]:rgba[1] -> hsvrgba[1]
+<br>
+・円錐model
+<br>
+hsv_cone[1]:rgba[1] -> hsvrgba_cone[1]
+<br>
+・HSV-<a href="#span-out-UI-graphing-color-space">color空間</a>よりRGBA-<a href="#span-out-UI-graphing-color-space">color空間</a>を優先する場合
+<br>
+rgba[1]:hsv[1]
 <br>
 <br>
 留意事項を列挙する
@@ -2588,7 +2662,9 @@ RA選択時　+3-5+7-9 || (0+(3-(5+(7-9)))) -> 0
 <br>
 2*3!! || 2*(3!!) -> 6
 <br>
-・階乗の被演算子は自然数のみ対応
+・階乗の被演算子は0を含む自然数のみ対応
+<br>
+0! || 0!! || 0!!! -> 1
 <br>
 ・<a href="#span-out-com">虚数単位</a>iは後置の単項演算子とする
 <br>
@@ -6559,6 +6635,10 @@ x=(1,2,3:4); atan2(x) || atan2(4) -> [MyErr]FN isNaN
 <br>
 x=(1,2,3:4,5,6); max(x) || max(4,5,6) -> 6
 <br>
+x=(1,2,3:4,5,6); lcm(x) || lcm(4,5,6) -> 60
+<br>
+x=(1,2,3:4,5,6:7*1,7*2,7*3); gcd(x) || gcd(7,14,21) -> 7
+<br>
 <br>
 log関数の仕様はJavaScript準拠の自然対数とする
 <br>
@@ -6663,6 +6743,31 @@ cmin(trans({0,-1+i,2i-2})) || cmin(trans{0,-1+i,2i-2}) || cmin(0,-1+i,2i-2) -> 0
 clear; x=(0,-1+i,2i-2); cmin(x) || cmin{x} || cmin({x}) || cmin{{x}} -> 0
 <br>
 ・1重列挙の場合、外側に<a href="#span-out-BT-associativity">括弧のassociativity</a>は存在しない
+<br>
+<br>
+一部の実装関数において引数不正の場合、未定義のfalseを返す（<span class="run">Ver.2.46.24</span>追記）
+<br>
+・最小公倍数を求めるlcm関数の引数は0を含む自然数のみ有効
+<br>
+lcm(0,2,4,6,0) -> 0
+<br>
+lcm(2,4,6) -> 12
+<br>
+・最大公約数を求めるgcd関数の引数は正の整数のみ有効
+<br>
+gcd(0,2,4,6,0) || gcd(2,4,6) -> 2
+<br>
+・引数不正の場合
+<br>
+lcm(-1,2,-3) || gcd(-1,2,-3) -> false
+<br>
+false -> [MyErr]Invalid REv(false)
+<br>
+・falseは0として扱う
+<br>
+clear; x=gcd(-1,2,-3); x -> false
+<br>
+clear; x=gcd(-1,2,-3); x*1 || 0*1 -> 0
     </td>
   </tr>
   <tr>
