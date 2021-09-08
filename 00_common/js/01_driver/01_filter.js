@@ -36,9 +36,29 @@ My_entry.filter.prototype.composite = function(arr_w, data0, px_w0, is, js, di, 
       }
     }
   }
-  return ((sum_w)? _sum/sum_w: _sum);
+  return _sum/(sum_w || 1);  // || not0
 };
 /* -> Ver.2.44.23 */
+/* Ver.2.47.24 */
+My_entry.filter.prototype.composite_sw = function(arr_w, data0, px_w0, is, js, di, dj, i0, j0, n0){
+  var self = this;
+  var _t = 0;
+  var slope = arr_w[0];
+  var offset = arr_w[1] || 0;
+  var gamma = arr_w[2] || 1;
+  var th = arr_w[3] || 0;
+  if(slope === -1){
+    offset += 255;
+  }
+  var ired0 = 4*(px_w0*(js+j0)+is+i0);
+  var data0i = data0[ired0+n0];
+  _t = data0i;
+  var t0 = (_t-th < 0)? 0: 255;
+  _t = Math.pow((_t-th)/(t0-th || 1), gamma)*(t0-th)+th;  // || not0
+  _t *= slope;
+  _t += offset;
+  return _t;
+};
 /* Ver.2.46.24 */
 My_entry.filter.prototype.convID_hsv = function(ID, isHSV2RGB, isConical){
   var self = this;
@@ -77,6 +97,7 @@ My_entry.filter.prototype.run = function(ctx, params){
   var arr_w = params.arr_w || [];
   var len = arr_w.length;
   if(len){
+    var composite = (len < 9)? self.composite_sw: self.composite;  // Ver.2.47.24
     var ID0 = ctx.getImageData(0, 0, px_w0, px_h0);
     var data0 =  ID0.data;
     var sw_re = function(re){
@@ -108,7 +129,7 @@ My_entry.filter.prototype.run = function(ctx, params){
       filter_callback(function(i, j, ired, ired0){
         for(var n=0; n<3; ++n){  // exclude a
           if(sws_hsv[n]){
-            _data[ired+n] = self.composite(arr_w, data1, px_w0, is, js, di, dj, i, j, n);
+            _data[ired+n] = composite(arr_w, data1, px_w0, is, js, di, dj, i, j, n);
           }
           else{
             _data[ired+n] = data1[ired0+n];
@@ -129,7 +150,7 @@ My_entry.filter.prototype.run = function(ctx, params){
       filter_callback(function(i, j, ired, ired0){
         for(var n=0; n<4; ++n){  // include a
           if(sws_rgba[n]){
-            _data[ired+n] = self.composite(arr_w, data0, px_w0, is, js, di, dj, i, j, n);
+            _data[ired+n] = composite(arr_w, data0, px_w0, is, js, di, dj, i, j, n);
           }
         }
       });

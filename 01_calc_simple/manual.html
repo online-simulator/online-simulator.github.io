@@ -222,6 +222,11 @@ gradation特定項目仕様
 filter特定項目仕様
 </a>
 <br>
+　　　　・
+<a href="#span-out-UI-graphing-filter-tone-curve">
+tone-curve特定項目仕様
+</a>
+<br>
 　　　・
 <a href="#span-out-UI-graphing-blur">
 blur特定項目仕様
@@ -968,6 +973,10 @@ ja.m.wikipedia.org/wiki/項目を列挙する
 ・シンプソンの公式
 <br>
 ・フーリエ級数
+<br>
+・ガンマ補正
+<br>
+・グレースケール
     </td>
   </tr>
 </tbody>
@@ -1812,9 +1821,9 @@ filterは上下左右対称(2n-1)x(2n-1)sizeの2次元配列を1次元に直列�
 <br>
 ・RGBA/HSVの組合せを併記した場合、filtering手順を次に示す
 <br>
-　結果を取得　⇒　RGBからHSVに非線形な順変換　⇒　HSV-<a href="#span-out-UI-graphing-color-space">color空間</a>でfiltering
+　最終frameを取得　⇒　RGB->HSV非線形順変換　⇒　HSV-<a href="#span-out-UI-graphing-color-space">color空間</a>でfiltering
 <br>
-　⇒　HSVからRGBに非線形な逆変換　⇒　RGBA-<a href="#span-out-UI-graphing-color-space">color空間</a>でfiltering　⇒　結果を表示
+　⇒　HSV->RGB非線形逆変換　⇒　RGBA-<a href="#span-out-UI-graphing-color-space">color空間</a>でfiltering　⇒　処理結果を出力
 <br>
 <br>
 加重平均filterの一例を示す
@@ -1989,6 +1998,20 @@ b[0,0,0,1,0,0,0,0,1,1,1,1,1,0,0,1,1,1,1,1,0,1,1,1,<span class="selection">1</spa
 <br>
 ]
 <br>
+・RGB値sharpness3x3
+<br>
+rgba[-1,-1,-1,-1,9,-1,-1,-1,-1]
+<br>
+[
+<br>
+-1,-1,-1,
+<br>
+-1,<span class="selection">9</span>,-1,
+<br>
+-1,-1,-1
+<br>
+]
+<br>
 <br>
 edge抽出filter（重みの総和=0）の一例を示す
 <br>
@@ -2117,7 +2140,7 @@ rgba[1]:hsv[1]
 <br>
 ・putImageData()同期出力のため、layer合成無効
 <br>
-・filter sizeに応じてpost処理の負荷が相乗的に増大する（中断不可）
+・filter sizeに応じてpost処理の負荷がexponentialに増大する（中断不可）
 <br>
 ・加重平均filterは重みを正規化するが、edge抽出filterは正規化しない（白黒飛びを許容）
 <br>
@@ -2126,6 +2149,93 @@ rgba[1]:hsv[1]
 ・<a href="#span-out-UI-graphing-config">canvas-background</a>にtransparent選択の場合、背景色は黒の透明（#0000）とする
 <br>
 ・<span class="clear">Ver.2.44.23</span>以降、filter配列要素に数値以外を指定した場合、該当の重み=0とする
+    </td>
+  </tr>
+  <tr>
+    <th>
+<a href="#span-index">
+目次
+</a>
+<br>
+tone-curve
+<br>
+特定項目仕様
+    </th>
+    <td>
+<span id="span-out-UI-graphing-filter-tone-curve"></span>
+tone-curve特定項目仕様について記述する
+<br>
+<br>
+<span class="run">Ver.2.47.24</span>以降、<a href="#span-out-UI-graphing-filter">filter</a>を代用してgamma補正を含むtone-curve調整機能を追加する
+<br>
+・<a href="#span-out-UI-graphing-filter">filter</a>定義length=1~4
+<br>
+hsvrgba[slope,offset||0,gamma||1,threshold||th=0~255||0]
+<br>
+・べき乗則のgamma値を拡張して連続的なtone-curveに一般化する定義式を次に示す
+<br>
+t=hsvrgba
+<br>
+t0=switch(t-th&lt;0,0:1,255)
+<br>
+t=pow((t-th)/switch(t0-th==0,1:1,t0-th),gamma)*(t0-th)+th
+<br>
+・tone-curve調整後、一次変換
+<br>
+t=t*slope+offset
+<br>
+・slope=-1の場合、反転を定義
+<br>
+offset=offset+255
+<br>
+<br>
+test caseを列挙する
+<br>
+・R値係数倍(=R*2)
+<br>
+r[2]
+<br>
+・R値反転(=-R+255)
+<br>
+r[-1]
+<br>
+・R値一次変換(=R*2+50)
+<br>
+r[2,50]
+<br>
+・R値反転一次変換(=-R+255+50)
+<br>
+r[-1,50]
+<br>
+・sepia-tone化
+<br>
+r[0.9]:g[0.7]:b[0.4]
+<br>
+・線形輝度Y値化（輝度の可視化）
+<br>
+r[0.2126]:g[0.7152]:b[0.0722]
+<br>
+・NTSC加重平均Y'値化
+<br>
+r[0.2989]:g[0.5866]:b[0.1145]
+<br>
+・下凸のgamma補正
+<br>
+[1,,2,0]
+<br>
+[1,,0.5,255]
+<br>
+・上凸のgamma補正
+<br>
+[1,,0.5,0]
+<br>
+[1,,2,255]
+<br>
+・S字のtone-curve調整
+<br>
+[1,,0.5,127]
+<br>
+[1,,2,127]
     </td>
   </tr>
   <tr>
@@ -2183,7 +2293,7 @@ isCyclic:isAverage:Nlegend
 <br>
 留意事項を列挙する
 <br>
-・strengthsの数値に応じてpost処理の負荷が相乗的に増大する（中断不可）
+・strengthsの数値に応じてpost処理の負荷がexponentialに増大する（中断不可）
 <br>
 ・strengthsに数値以外を指定した場合、該当のstrength=0とする
     </td>
@@ -6766,6 +6876,8 @@ false -> [MyErr]Invalid REv(false)
 ・falseは0として扱う
 <br>
 clear; x=gcd(-1,2,-3); x -> false
+<br>
+clear; x=gcd(-1,2,-3); x==0 || 0==x -> 1
 <br>
 clear; x=gcd(-1,2,-3); x*1 || 0*1 -> 0
     </td>
@@ -13518,6 +13630,16 @@ Electrochemical cells 2D-simulation with heat and fluid flow
 cellの定性的な理解を目的として以上の解析技術を実装予定
 <br>
 ・一般的に、外部の火花発生や内部の短絡riskに対してhard/soft両面の対策が必要とされる
+<br>
+・例えば、充電電流を上げて急速充電の時間を過度に短縮した場合、
+<br>
+　負極に挿入不能で行き場を失う過剰なionが副反応（金属析出等）に消費されるため、
+<br>
+　経年劣化（活性ion等の不可逆なloss）とともにmicro-scaleの内部短絡riskが生じる
+<br>
+・とくに、ionの拡散・反応速度はArrhenius equationに従ってexponentialに変化するため、
+<br>
+　cell間内部温度のばらつきは無視できない可能性が高い
     </td>
   </tr>
   <tr>

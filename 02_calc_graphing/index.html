@@ -117,7 +117,8 @@
       $._id("filter2").onclick = function(){setVal("0", "2pi", "f(t,k)=<e^(i(k)t),k=1,f(t,k);", "_dt(=<-f(t,k));", 50);$._id("input-z").value="FILTER{/*edge3x3*/r[-10,-10,-10,-10,80,-10,-10,-10,-10]:/*Laplacian3x3*/g[0,-10,0,-10,40,-10,0,-10,0]:/*emboss3x3*/b[-10,0,0,0,10,0,0,0,0]}GRADATION{config[0:-1:0.5:0:0:0:false:false:2560:3]#ee82eeaa:#0000ffaa:#00ffffaa:#00ff00aa:#ffff00aa:#ffa500aa:#ff0000aa};";};
       $._id("filter3").onclick = function(){setVal("0", "2pi", "f(t,k)=<e^(i(k)t),f(t,3);", "_dt(=<-f(t,2));", 200);$._id("input-z").value="none/*marker*/FILTER{hsv[-10,0,0,0,10,0,0,0,0]:/*monotone*/s_cone[0]}GRADATION{config[0:0:0.5:1:0:0:false:false:25600:10]#ee82ee00:#ee82eeaa:#0000ffaa:#00ffffaa:#00ff00aa:#ffff00aa:#ffa500aa:#ff0000aa:#ff000000};";};
       $._id("blur1").onclick = function(){setVal("0", "2pi", "pow(sin(t),3);", "y=7cos(t)-4cos(2t)-2cos(3t),y/7;", 50);$._id("input-z").value="BLUR{config[0:0:0:1:0:0:false:false:2560:4/*<-the-same-as-gradation*/:false/*isCyclic=false||true*/:false/*isAverage=false||true*/:1/*Nlegend=1~last*/]0:1:2:4}GRADATION{config[0:0:0:0:0:0:false:false:2560:4]white:gray:white:gray:white:gray:white:gray};";};
-      $._id("blur2").onclick = function(){setVal("0", "2pi", "pow(sin(t),3);", "y=7cos(t)-4cos(2t)-2cos(3t),y/7;", 50);$._id("input-z").value="BLUR{config[0:0:0:1:0:0:false:false:2560:4:true:false:last]8:0:8:0}GRADATION{config[0:0:0:0:0:0:false:false:2560:4]white:gray:white:gray:white:gray:white:gray};";};
+      $._id("blur2").onclick = function(){setVal("0", "2pi", "pow(sin(t),3);", "y=7cos(t)-4cos(2t)-2cos(3t),y/7;", 50);$._id("input-z").value="FILTER{/*inverse*/rgb[-1]}BLUR{config[0:0:0:1:0:0:false:false:2560:4:true:false:last]8:0:8:0}GRADATION{config[0:0:0:0:0:0:false:false:2560:4]white:gray:white:gray:white:gray:white:gray};";};
+      $._id("filter4").onclick = function(){setVal("0", "255", "t;/*tone-curve with gamma*/", "filter={1,0,4,127},slope=filter[0],offset=filter[1],gamma=filter[2],th=filter[3],t0=switch(t-th<0,0:1,255),t=pow((t-th)/switch(t0-th==0,1:1,t0-th),gamma)*(t0-th)+th,t=t*slope+offset,t;", 100);$._id("input-z").value="none/*marker*/FILTER{rgb[1/*slope*/,0/*offset*/,4/*gamma*/,127/*threshold||th=0~255*/]:/*inverse twice*/rgb[-1]:rgb[-1]}GRADATION{config[127:127:0:1:0:0:false:false:25600:1]#ee82ee00:#ee82eeaa:#0000ffaa:#00ffffaa:#00ff00aa:#ffff00aa:#ffa500aa:#ff0000aa:#ff000000};";};
       // strict-mode equation-list
       /* out=text.replace(/\s/g,"\n"); */
 //      $._id("").onclick = function(){io["onclick_default"](elems, "", 0);};
@@ -184,7 +185,7 @@ plot2d
 <div id="div-plot2d" class="relative"></div>
 <hr>
         </td>
-        <td rowspan="6">
+        <td rowspan="7">
 <hr>
   <label>
 　test case　<input id="checkbox-test-case" type="checkbox">
@@ -257,6 +258,8 @@ plot2d
   <button id="filter3">filter3</button>
   <button id="blur1">blur1</button>
   <button id="blur2">blur2</button>
+<br>
+  <button id="filter4">tone-curve</button>
 <hr>
 </div>
 <hr>
@@ -437,6 +440,10 @@ plot2d
   <label><input id="checkbox-snap" type="checkbox" checked="checked">:snap</label>
 　
 <hr>
+        </td>
+      </tr>
+      <tr>
+        <td colspan="3">
 <div id="div-config-plot" class="condition">
 <hr>
   <div class="text-left">
