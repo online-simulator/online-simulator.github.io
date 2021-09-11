@@ -160,6 +160,11 @@ e^(-i(1pi(){2/2i}(5-{3-1}){i/(-4)}))
 参考文献
 </a>
 <br>
+・
+<a href="#span-pre-pat">
+参考特許文献
+</a>
+<br>
 <br>
 <a href="#span-out">
 外部仕様
@@ -225,6 +230,11 @@ filter特定項目仕様
 　　　　・
 <a href="#span-out-UI-graphing-filter-tone-curve">
 tone-curve特定項目仕様
+</a>
+<br>
+　　　　・
+<a href="#span-out-UI-graphing-post-processor">
+post-processor特定項目仕様
 </a>
 <br>
 　　　・
@@ -979,6 +989,22 @@ ja.m.wikipedia.org/wiki/項目を列挙する
 ・グレースケール
     </td>
   </tr>
+  <tr>
+    <th>
+参考特許文献
+    </th>
+    <td>
+<span id="span-pre-pat"></span>
+参考特許文献について記述する
+<br>
+<br>
+公開番号と発明の名称を列挙する
+<br>
+・WO2013128652
+<br>
+　リチウム二次電池用液保持体およびリチウム二次電池
+    </td>
+  </tr>
 </tbody>
 </table>
 </div>
@@ -1300,6 +1326,13 @@ HSV-color空間
 　・SaturationをValueで正規化する場合、円柱model（色相環内側のpicker領域がsquare）
 <br>
 　・Saturationを正規化しない場合、円錐model（色相環内側のpicker領域がtriangle）
+<br>
+<br>
+HSL-color空間
+<br>
+・Lightness（輝度=(RGB最小値+RGB最大値)/2）
+<br>
+　主な用途は直感的な操作のcolor-picker
     </td>
   </tr>
   <tr>
@@ -2000,7 +2033,7 @@ b[0,0,0,1,0,0,0,0,1,1,1,1,1,0,0,1,1,1,1,1,0,1,1,1,<span class="selection">1</spa
 <br>
 ・RGB値sharpness3x3
 <br>
-rgba[-1,-1,-1,-1,9,-1,-1,-1,-1]
+rgb[-1,-1,-1,-1,9,-1,-1,-1,-1]
 <br>
 [
 <br>
@@ -2168,6 +2201,9 @@ tone-curve特定項目仕様について記述する
 <br>
 <span class="run">Ver.2.47.24</span>以降、<a href="#span-out-UI-graphing-filter">filter</a>を代用してgamma補正を含むtone-curve調整機能を追加する
 <br>
+<br>
+tone-curveの仕様を列挙する
+<br>
 ・<a href="#span-out-UI-graphing-filter">filter</a>定義length=1~4
 <br>
 hsvrgba[slope,offset||0,gamma||1,threshold||th=0~255||0]
@@ -2186,7 +2222,7 @@ t=t*slope+offset
 <br>
 ・slope=-1の場合、反転を定義
 <br>
-offset=offset+255
+offset=offset+255 -> t=-t+offset+255
 <br>
 <br>
 test caseを列挙する
@@ -2211,13 +2247,13 @@ r[-1,50]
 <br>
 r[0.9]:g[0.7]:b[0.4]
 <br>
-・線形輝度Y値化（輝度の可視化）
+・相対輝度Y値化（輝度の可視化）
 <br>
 r[0.2126]:g[0.7152]:b[0.0722]
 <br>
-・NTSC加重平均Y'値化
+・NTSC加重平均法の輝度Y'値化
 <br>
-r[0.2989]:g[0.5866]:b[0.1145]
+r[0.29891]:g[0.58661]:b[0.11448]
 <br>
 ・下凸のgamma補正
 <br>
@@ -2236,6 +2272,90 @@ r[0.2989]:g[0.5866]:b[0.1145]
 [1,,0.5,127]
 <br>
 [1,,2,127]
+    </td>
+  </tr>
+  <tr>
+    <th>
+<a href="#span-index">
+目次
+</a>
+<br>
+post
+<br>
+-processor
+<br>
+特定項目仕様
+    </th>
+    <td>
+<span id="span-out-UI-graphing-post-processor"></span>
+post-processor特定項目仕様について記述する
+<br>
+<br>
+<span class="run">Ver.2.48.24</span>以降、<a href="#span-out-UI-graphing-filter">filter</a>を代用してpost-processorを追加する
+<br>
+<br>
+post-processorの仕様を列挙する
+<br>
+・hsvlrgba||HSVLRGBAのalphabetを除外してpost-processor処理名を定義する
+<br>
+・post-processor処理は単独処理で処理名の併記不可
+<br>
+<br>
+post-processor処理を優先順に列挙する
+<br>
+・左右反転
+<br>
+fx_rgba[offsetX||0]
+<br>
+・上下反転
+<br>
+fy_rgba[offsetY||0]
+<br>
+・dot化（mosaic化）
+<br>
+dot_rgba[dx=1~||1,dy=1~||dx]
+<br>
+・2値化（各RGBA値）
+<br>
+to2_rgba[threshold=0~255||0]
+<br>
+・2値化（輝度）
+<br>
+to2[threshold=0~255||0,sw=0~5||0]
+<br>
+・monotone化（輝度）
+<br>
+mono[sw=0~5||0]
+<br>
+<br>
+2値化||monotone化の輝度選択switch
+<br>
+sw=0: NTSC加重平均法の輝度Y'=0.29891*r+0.58661*g+0.11448*b
+<br>
+sw=1: 相対輝度Y=0.2126*r+0.7152*g+0.0722*b
+<br>
+sw=2: HSL-<a href="#span-out-UI-graphing-color-space">color空間</a>の輝度L=(min+max)/2
+<br>
+sw=3: RGB平均値average=(r+g+b)/3
+<br>
+sw=4: RGB最小値min
+<br>
+sw=5: RGB最大値max
+<br>
+<br>
+test caseを列挙する
+<br>
+・R値右移動100px
+<br>
+fx_r:fx_r[100]
+<br>
+・G値上移動100px
+<br>
+fy_g:fy_g[-100]
+<br>
+・RGBA値上下左右反転
+<br>
+fy_rgba:fx_rgba
     </td>
   </tr>
   <tr>
@@ -13631,15 +13751,29 @@ cellの定性的な理解を目的として以上の解析技術を実装予定
 <br>
 ・一般的に、外部の火花発生や内部の短絡riskに対してhard/soft両面の対策が必要とされる
 <br>
-・例えば、充電電流を上げて急速充電の時間を過度に短縮した場合、
+・例えば、充電電流||充電電力を上げて急速充電の時間を過度に短縮した場合、過充電同様、
 <br>
 　負極に挿入不能で行き場を失う過剰なionが副反応（金属析出等）に消費されるため、
 <br>
 　経年劣化（活性ion等の不可逆なloss）とともにmicro-scaleの内部短絡riskが生じる
 <br>
-・とくに、ionの拡散・反応速度はArrhenius equationに従ってexponentialに変化するため、
+・通常の充放電時も同様に、副反応の平衡電位に応じて起こり得るが、
+<br>
+　性能とのtrade-offで経年劣化に見込むこと（不活性な被膜に変質する成長の範囲内）で、
+<br>
+　ある程度は許容するものと考えられる
+<br>
+・その上で、ionの拡散/反応速度はArrhenius equationに従ってexponentialに変化するため、
 <br>
 　cell間内部温度のばらつきは無視できない可能性が高い
+<br>
+・とくに低温では、被膜を含む反応抵抗の増加によって副反応の平衡電位に到達しやすく、
+<br>
+　実用想定のcycle試験等、許容範囲の見極めが重要になると考えられる
+<br>
+・その他、電極面積に応じて反応不均一（構造由来||液枯れ等）が生じた場合、
+<br>
+　以上の傾向を増長する懸念があり、これらを対策する<a href="#span-pre-pat">特許文献</a>が考え方の参考になる
     </td>
   </tr>
   <tr>
