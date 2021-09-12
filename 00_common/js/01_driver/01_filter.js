@@ -53,6 +53,23 @@ My_entry.filter.prototype.make_get_y = function(sw){
         return max;
       };
       break;
+    case 6:
+      _get_y = function(r, g, b){
+        var _median = g;
+        var min = Math.min.apply(Math, [r, g, b]);
+        var max = Math.max.apply(Math, [r, g, b]);
+        if(min === r){
+          _median = (g < b)? g: b;
+        }
+        else if(min === g){
+          _median = (b < r)? b: r;
+        }
+        else{
+          _median = (r < g)? r: g;
+        }
+        return _median;
+      };
+      break;
     default:
       break;
   }

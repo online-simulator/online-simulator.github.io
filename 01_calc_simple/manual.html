@@ -2321,11 +2321,11 @@ to2_rgba[threshold=0~255||0]
 <br>
 ・2値化（輝度）
 <br>
-to2[threshold=0~255||0,sw=0~5||0]
+to2[threshold=0~255||0,sw=0~6||0]
 <br>
 ・monotone化（輝度）
 <br>
-mono[sw=0~5||0]
+mono[sw=0~6||0]
 <br>
 <br>
 2値化||monotone化の輝度選択switch
@@ -2340,7 +2340,9 @@ sw=3: RGB平均値average=(r+g+b)/3
 <br>
 sw=4: RGB最小値min
 <br>
-sw=5: RGB最大値max
+sw=5: RGB最大値max||HSV-<a href="#span-out-UI-graphing-color-space">color空間</a>の明度V
+<br>
+sw=6: RGB中央値median
 <br>
 <br>
 test caseを列挙する
