@@ -325,7 +325,7 @@ My_entry.draw_canvas.prototype.blur = function(arr_s, arr_vec, opt_globalComposi
               var sk = Math.floor(s0+(s1-s0)*k);
               var ired = 4*(px_w*yp+xp);
               for(var n=0; n<4; ++n){
-                data[ired+n] = filter.composite(arr_w2d[sk] || make_arr_w(sk), data0, px_w, 0, 0, sk, sk, xp, yp, n);
+                data[ired+n] = filter.composite(arr_w2d[sk] || make_arr_w(sk), data0, px_w, px_h, sk, sk, 0+xp, 0+yp, n);  // 1.5.5
               }
             }
             else{

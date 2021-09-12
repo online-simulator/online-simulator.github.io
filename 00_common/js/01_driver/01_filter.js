@@ -85,18 +85,23 @@ My_entry.filter.prototype.get_len = function(di){
   var self = this;
   return ((2*di+1)*(2*di+1));
 };
-My_entry.filter.prototype.composite = function(arr_w, data0, px_w0, is, js, di, dj, i0, j0, n0){
+/* Ver.2.48.25 */
+My_entry.filter.prototype.composite = function(arr_w, data0, px_w0, px_h0, di, dj, i0, j0, n0){
   var self = this;
   var _sum = 0;
   var sum_w = 0;
   var iw = 0;
-  for(var j=-dj; j<=dj; ++j){
-    for(var i=-di; i<=di; ++i){
-      var ired0 = 4*(px_w0*(js+j0+j)+is+i0+i);
-      var data0i = data0[ired0+n0];
+  var is = Math.max(i0-di, 0);
+  var js = Math.max(j0-dj, 0);
+  var ie = Math.min(i0+di, px_w0-1);
+  var je = Math.min(j0+dj, px_h0-1);
+  for(var j=j0-dj; j<=j0+dj; ++j){
+    for(var i=i0-di; i<=i0+di; ++i){
       var wi = arr_w[iw++] || 0;
-      if(!(isNaN(data0i))){  // exclude undefined  // Ver.2.46.24
-        _sum += wi*data0i;   // wi first
+      if(i >= is && i <= ie && j >= js && j <= je){
+        var ired0 = 4*(px_w0*j+i);
+        var data0i = data0[ired0+n0];
+        _sum += wi*data0i;  // wi first
         sum_w += wi;
       }
     }
@@ -105,7 +110,7 @@ My_entry.filter.prototype.composite = function(arr_w, data0, px_w0, is, js, di, 
 };
 /* -> Ver.2.44.23 */
 /* Ver.2.47.24 */
-My_entry.filter.prototype.composite_sw = function(arr_w, data0, px_w0, is, js, di, dj, i0, j0, n0){
+My_entry.filter.prototype.composite_sw = function(arr_w, data0, px_w0, px_h0, di, dj, i0, j0, n0){
   var self = this;
   var _t = 0;
   var slope = arr_w[0];
@@ -115,7 +120,7 @@ My_entry.filter.prototype.composite_sw = function(arr_w, data0, px_w0, is, js, d
   if(slope === -1){
     offset += 255;
   }
-  var ired0 = 4*(px_w0*(js+j0)+is+i0);
+  var ired0 = 4*(px_w0*j0+i0);
   var data0i = data0[ired0+n0];
   _t = data0i;
   var t0 = (_t-th < 0)? 0: 255;
@@ -226,32 +231,33 @@ My_entry.filter.prototype.run = function(ctx, params){
         var data0 =  ID0.data;
         filter_callback(function(i, j, ired, ired0){
           if(i%w0 === 0 && j%w1 === 0){
+            /* Ver.2.48.25 -> */
+            var len_i0 = Math.min(is+i+w0, px_w0);
+            var len_j0 = Math.min(js+j+w1, px_h0);
+            var len_ii = Math.min(i+w0, px_w);
+            var len_jj = Math.min(j+w1, px_h);
             for(var n=0; n<4; ++n){
               if(sws_rgba[n]){
                 var sum = 0;
                 var sum_w = 0;
-                for(var j0=js+j; j0<js+j+w1; ++j0){
-                  for(var i0=is+i; i0<is+i+w0; ++i0){
+                for(var j0=js+j; j0<len_j0; ++j0){
+                  for(var i0=is+i; i0<len_i0; ++i0){
                     var ired0 = 4*(px_w0*j0+i0);
                     var data0i = data0[ired0+n];
-                    if(!(isNaN(data0i))){
-                      sum += data0i;
-                      ++sum_w;
-                    }
+                    sum += data0i;
+                    ++sum_w;
                   }
                 }
                 sum /= (sum_w || 1);  // || not0
-                for(var jj=j; jj<j+w1; ++jj){
-                  for(var ii=i; ii<i+w0; ++ii){
+                for(var jj=j; jj<len_jj; ++jj){
+                  for(var ii=i; ii<len_ii; ++ii){
                     var ired = 4*(px_w*jj+ii);
-                    var _datai = _data[ired+n];
-                    if(!(isNaN(_datai))){
-                      _data[ired+n] = sum;
-                    }
+                    _data[ired+n] = sum;
                   }
                 }
               }
             }
+            /* -> Ver.2.48.25 */
           }
         });
       }
@@ -313,7 +319,7 @@ My_entry.filter.prototype.run = function(ctx, params){
         filter_callback(function(i, j, ired, ired0){
           for(var n=0; n<3; ++n){  // exclude a
             if(sws_hsv[n]){
-              _data[ired+n] = composite(arr_w, data1, px_w0, is, js, di, dj, i, j, n);
+              _data[ired+n] = composite(arr_w, data1, px_w0, px_h0, di, dj, is+i, js+j, n);
             }
             else{
               _data[ired+n] = data1[ired0+n];
@@ -334,7 +340,7 @@ My_entry.filter.prototype.run = function(ctx, params){
         filter_callback(function(i, j, ired, ired0){
           for(var n=0; n<4; ++n){  // include a
             if(sws_rgba[n]){
-              _data[ired+n] = composite(arr_w, data0, px_w0, is, js, di, dj, i, j, n);
+              _data[ired+n] = composite(arr_w, data0, px_w0, px_h0, di, dj, is+i, js+j, n);
             }
           }
         });
