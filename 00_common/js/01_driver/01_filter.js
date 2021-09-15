@@ -70,6 +70,12 @@ My_entry.filter.prototype.make_get_y = function(sw){
         return _median;
       };
       break;
+    /* Ver.2.49.25 */
+    case -1:
+      _get_y = function(r, g, b, wr, wg, wb){
+        return (wr*r+wg*g+wb*b)/(wr+wg+wb || 1);  // || not0
+      };
+      break;
     default:
       break;
   }
@@ -225,17 +231,17 @@ My_entry.filter.prototype.run = function(ctx, params){
         });
       }
       else if(isDot){
-        w0 = Math.abs(w0 || 1);
-        w1 = Math.abs(w1 || w0);
+        var dx = Math.abs(w0 || 1);
+        var dy = Math.abs(w1 || dx);
         var ID0 = ctx.getImageData(0, 0, px_w0, px_h0);
         var data0 =  ID0.data;
         filter_callback(function(i, j, ired, ired0){
-          if(i%w0 === 0 && j%w1 === 0){
+          if(i%dx === 0 && j%dy === 0){
             /* Ver.2.48.25 -> */
-            var len_i0 = Math.min(is+i+w0, px_w0);
-            var len_j0 = Math.min(js+j+w1, px_h0);
-            var len_ii = Math.min(i+w0, px_w);
-            var len_jj = Math.min(j+w1, px_h);
+            var len_i0 = Math.min(is+i+dx, px_w0);
+            var len_j0 = Math.min(js+j+dy, px_h0);
+            var len_ii = Math.min(i+dx, px_w);
+            var len_jj = Math.min(j+dy, px_h);
             for(var n=0; n<4; ++n){
               if(sws_rgba[n]){
                 var sum = 0;
@@ -274,6 +280,11 @@ My_entry.filter.prototype.run = function(ctx, params){
           });
         }
         else{
+          /* Ver.2.49.25 -> */
+          var wr = arr_w[2] || 0;
+          var wg = arr_w[3] || 0;
+          var wb = arr_w[4] || 0;
+          /* -> Ver.2.49.25 */
           var get_y = self.make_get_y(w1);
           filter_callback(function(i, j, ired, ired0){
             var ired1 = ired;
@@ -281,7 +292,7 @@ My_entry.filter.prototype.run = function(ctx, params){
             var g = data1[ired1+1];
             var b = data1[ired1+2];
             var a = data1[ired1+3];
-            var rgb = (get_y(r, g, b) > w0)? 255: 0;
+            var rgb = (get_y(r, g, b, wr, wg, wb) > w0)? 255: 0;  // Ver.2.49.25
             _data[ired+0] = rgb;
             _data[ired+1] = rgb;
             _data[ired+2] = rgb;
@@ -290,13 +301,18 @@ My_entry.filter.prototype.run = function(ctx, params){
         }
       }
       else if(isMono){
+        /* Ver.2.49.25 -> */
+        var wr = arr_w[1] || 0;
+        var wg = arr_w[2] || 0;
+        var wb = arr_w[3] || 0;
+        /* -> Ver.2.49.25 */
         var get_y = self.make_get_y(w0);
         filter_callback(function(i, j, ired, ired0){
           var ired1 = ired;
           var r = data1[ired1+0];
           var g = data1[ired1+1];
           var b = data1[ired1+2];
-          var rgb = get_y(r, g, b);
+          var rgb = get_y(r, g, b, wr, wg, wb);  // Ver.2.49.25
           _data[ired+0] = rgb;
           _data[ired+1] = rgb;
           _data[ired+2] = rgb;

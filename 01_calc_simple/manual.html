@@ -674,6 +674,16 @@ symbolic高階行列関数
 </a>
 <br>
 　・
+<a href="#span-out-fvm">
+有限体積法
+</a>
+<br>
+　　・
+<a href="#span-out-fvm-about">
+有限体積法応用の前提
+</a>
+<br>
+　・
 <a href="#span-out-evolution">
 時間発展
 </a>
@@ -1710,6 +1720,8 @@ gradation特定項目仕様と付随する留意事項について記述する
 <br>
 <span class="run">Ver.2.36.18</span>以降、指向性のないGaussぼかしでは再現困難な機能としてgradationを追加する
 <br>
+・<span class="run">Ver.2.40.18</span>以降、legend間のgradation合成に対応
+<br>
 <br>
 <a href="#span-out-UI-graphing-z">z入力欄</a>にgradationをgradation||GRADATION{config[]colors}で入力
 <br>
@@ -1831,6 +1843,8 @@ filter特定項目仕様と付随する留意事項について記述する
 <span class="run">Ver.2.44.22</span>以降、post処理の付録機能（未最適化）としてfilterを追加する
 <br>
 ・<span class="clear">Ver.2.44.23</span>以降、各RGBA値=0で正常に機能しない致命的な不具合を修正
+<br>
+・<span class="run">Ver.2.46.24</span>以降、HSV-<a href="#span-out-UI-graphing-color-space">color空間</a>に対応
 <br>
 ・<span class="clear">Ver.2.48.25</span>以降、描画canvas境界で正常に機能しない不具合を修正
 <br>
@@ -2297,6 +2311,8 @@ post-processor特定項目仕様について記述する
 <br>
 ・<span class="clear">Ver.2.48.25</span>以降、描画canvas境界で正常に機能しないdot化の不具合を修正
 <br>
+・<span class="run">Ver.2.49.25</span>以降、2値化||monotone化（輝度）のsw=-1任意のRGB重み平均値に対応
+<br>
 <br>
 post-processorの仕様を列挙する
 <br>
@@ -2325,11 +2341,11 @@ to2_rgba[threshold=0~255||0]
 <br>
 ・2値化（輝度）
 <br>
-to2[threshold=0~255||0,sw=0~6||0]
+to2[threshold=0~255||0,sw=0~6||0<span class="run">,wr,wg,wb</span>]
 <br>
 ・monotone化（輝度）
 <br>
-mono[sw=0~6||0]
+mono[sw=0~6||0<span class="run">,wr,wg,wb</span>]
 <br>
 <br>
 2値化||monotone化の輝度選択switch
@@ -2347,6 +2363,10 @@ sw=4: RGB最小値min
 sw=5: RGB最大値max||HSV-<a href="#span-out-UI-graphing-color-space">color空間</a>の明度V
 <br>
 sw=6: RGB中央値median
+<br>
+<span class="run">Ver.2.49.25</span>以降
+<br>
+sw=-1: 任意のRGB重み平均値average=(wr*r+wg*g+wb*b)/(wr+wg+wb||1)
 <br>
 <br>
 test caseを列挙する
@@ -3257,6 +3277,8 @@ pow(2,pow(2,10)) || 2**(2**10) || 2^(2^10) -> 1.7976931348622732e+308
 　・離散化誤差（微分・積分の無限小を有限の幅で離散化する場合）
 <br>
 　・打切り誤差（絶対収束する無限級数を有限の次数で打切る場合）
+<br>
+　・modelling誤差（離散化誤差と打切り誤差を含めて対象を理論的にmodel化する場合）
 <br>
 <br>
 丸め誤差は無理数等を<a href="#span-out-float">仮数部</a>の有効桁に丸める際の、
@@ -11076,7 +11098,7 @@ L*R -> (2,1-i:1+i,1)
     </th>
     <td>
 <span id="span-out-fdm"></span>
-有限差分法の解法を列挙する
+有限差分法Finite Difference Methodの解法を列挙する
 <br>
 ・<a href="#span-out-fdm-differential">微分の数値解法</a>
 <br>
@@ -11496,6 +11518,66 @@ S=(f[0]+4Σ&lt;k=0,N/2-1&gt;f[2k+1]+2Σ&lt;k=1,N/2-1&gt;f[2k]+f[N])h/3+O(h^4)
 ・両端を除く偶数の離散点f[2k]は2回足されて2倍
 <br>
 ・全区間の<a href="#span-out-error">離散化誤差</a>のOrderは微小区間の正方形面積h*hの2乗
+    </td>
+  </tr>
+  <tr>
+    <th>
+<a href="#span-index">
+目次
+</a>
+<br>
+有限体積法
+    </th>
+    <td>
+<span id="span-out-fvm"></span>
+有限体積法Finite Volume Methodの応用手順を列挙する
+<br>
+・<a href="#span-out-fvm-about">有限体積法応用の前提</a>
+    </td>
+  </tr>
+  <tr>
+    <th>
+<a href="#span-index">
+目次
+</a>
+<br>
+有限体積法
+<br>
+応用の前提
+    </th>
+    <td>
+<span id="span-out-fvm-about"></span>
+有限体積法応用の前提について記述する
+<br>
+<br>
+有限体積法は状態量（物理量）のfluxを基準にcontrol volume内の保存則を離散化する
+<br>
+・主な示強性状態量は温度||速さ||濃度||電位potential
+<br>
+・fluxは離散化した基準面を通過する単位面積当たりの状態量（Fick's first law）
+<br>
+・1次元の場合、x方向の左右の面を通過するfluxを考慮する
+<br>
+・2次元の場合、左右に加えてy方向の上下の面を通過するfluxを考慮する
+<br>
+・3次元の場合、上下左右に加えてz方向の面を通過するfluxを考慮する
+<br>
+・よって単位体積当たりの状態量の<a href="#span-out-evolution">時間微分</a>は
+<br>
+　fluxのdivergence項とsource||sink項の和で表される（Fick's second law）
+<br>
+<br>
+有限体積法に基づくsimplified modellingの有用性を列挙する
+<br>
+・一般的な漸化式に帰結するmodel式を、制御のfeed-forward||backward項に応用する
+<br>
+・定性的に物理定数||物性値と紐付くため、model式のparameter数を最少化する
+<br>
+・各parameterを分離可能な特定条件の実測値から逆算して各物性値のOrderを推定する
+<br>
+・各parameterの最適化||機械学習によって制御量の定量性を改善する（<a href="#span-out-error">modelling誤差</a>を除く）
+<br>
+・環境温度等による状態量の変化傾向を理論的に予測する
     </td>
   </tr>
   <tr>
@@ -13780,6 +13862,20 @@ cellの定性的な理解を目的として以上の解析技術を実装予定
 ・その他、電極面積に応じて反応不均一（構造由来||液枯れ等）が生じた場合、
 <br>
 　以上の傾向を増長する懸念があり、これらを対策する<a href="#span-pre-pat">特許文献</a>が考え方の参考になる
+<hr>
+・固体電解質については、液系由来の問題（副反応を除く）は解消されるが、
+<br>
+　cycle試験中の電解質||電極の膨張収縮による導電path切れが問題となっている印象を受ける
+<br>
+・ただし、bulk型の減圧密閉/拘束圧縮後の空隙の状態とその変化による影響は不明
+<br>
+・仮に、物理的な導電path切れの場合、浮遊分の活性ionと反応界面を同時に失うため、
+<br>
+　満充電容量の低下と見かけの抵抗上昇に繋がる
+<br>
+・一方、電気的な導電path上の固体電解質/活物質界面における被膜成長の場合、液系同様、
+<br>
+　副反応量に応じた満充電容量の低下と実質の界面抵抗上昇に繋がる
     </td>
   </tr>
   <tr>
