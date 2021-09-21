@@ -912,6 +912,11 @@ FourierN
 <a href="#span-eqn-plot2d_EIS">
 plot2d_EIS
 </a>
+<br>
+・
+<a href="#span-eqn-plot2d_IV">
+plot2d_IV
+</a>
     </td>
   </tr>
   <tr>
@@ -11975,7 +11980,7 @@ Electrochemical Impedance Spectroscopy（以降、EISと省略する）
 ・最後に、得られた各<a href="#span-out-com">複素数</a>から<a href="#span-out-eqns">式変数</a>calc_ZでZ=zV/zIに変換する
 <br>
 <br>
-<a href="#span-eqn-plot2d_EIS">plot2d_EIS</a>に示すsimulation対象cellの等価回路要素（直列接続）を列挙する
+<a href="#span-eqn-plot2d_EIS">plot2d_EIS</a>||<a href="#span-eqn-plot2d_IV">plot2d_IV</a>に示すsimulation対象cellの等価回路要素（直列接続）を列挙する
 <br>
 ・構造由来のinductance: L
 <br>
@@ -11996,7 +12001,7 @@ Electrochemical Impedance Spectroscopy（以降、EISと省略する）
 <br>
 test caseを示す
 <br>
-・測定条件
+・<a href="#span-eqn-plot2d_EIS">plot2d_EIS</a>測定条件
 <br>
 電流振幅dI=1e-3
 <br>
@@ -16025,9 +16030,11 @@ oldV1=newV1,
 <br>
 oldV2=newV2,
 <br>
+Vt=L*dIt+R0*It+newV1+newV2,
+<br>
 tI[n]=It,
 <br>
-tV[n]=L*dIt+R0*It+newV1+newV2
+tV[n]=Vt
 <br>
 },0,N)
 <br>
@@ -16036,7 +16043,7 @@ tV[n]=L*dIt+R0*It+newV1+newV2
 <br>
 int_IV(IV,f,dt)=&lt;[
 <br>
-out=&lt;intIV,
+out=&lt;zIV,
 <div class="condition">
 init=&lt;last{N=sizer(IV)-1},
 </div>
@@ -16049,7 +16056,7 @@ calc_w(n)=&lt;switch((n==0)|(n==N),1:n%2==0,2:1,4),
 <br>
 calc_v(n,t,val)=&lt;calc_w(n)=&gt;*val*exp(i*omega*t),
 <br>
-intIV=_sn(=&lt;calc_v(n,n*dt,IV[n])=&gt;,0,N)*dt/3
+zIV=_sn(=&lt;calc_v(n,n*dt,IV[n])=&gt;,0,N)*dt/3
 <br>
 },
 </div>
@@ -16113,7 +16120,11 @@ scope2storage=&lt;last{addVar(xt),addVar(yt)},
 init=&lt;last{N=sizer(fZ),xt=zeros(N,1),yt=zeros(N,1)},
 </div>
 <div class="run">
-run=&lt;last{_sn(=&lt;last{Z=fZ[n][1],xt[n]=real(Z),yt[n]=imag(Z)},0,N-1)},
+run=&lt;last{
+<br>
+_sn(=&lt;last{Z=fZ[n][1],xt[n]=real(Z),yt[n]=imag(Z)},0,N-1)
+<br>
+},
 </div>
 init=&gt;,run=&gt;,return=out=&gt;,scope2storage=&gt;,
 <br>
@@ -16123,6 +16134,103 @@ init=&gt;,run=&gt;,return=out=&gt;,scope2storage=&gt;,
 [isImplicit=1,
 <br>
 =&lt;plot2d_EIS(=&lt;sweep_f(1e-3,1e3,0.01,10,100,1,isImplicit)=&gt;)=&gt;]=&gt;;
+    </td>
+  </tr>
+  <tr>
+    <th>
+<a href="#span-index">
+目次
+</a>
+<br>
+plot2d
+<br>
+_IV
+    </th>
+    <td>
+<span id="span-eqn-plot2d_IV"></span>
+<a href="#span-out-simulation-EIS">EIS simulation</a>参照
+<br>
+clear;
+<br>
+<br>
+make_tIV(dI,f,Nt,Nint,isImplicit)=&lt;last{
+<br>
+L=1e-4,
+<br>
+R0=1,
+<br>
+R1=2,C1=0.1,
+<br>
+a1=1/(R1*C1),b1=1/C1,
+<br>
+a2=0.01,b2=0.12,
+<br>
+omega=2*pi*f,
+<br>
+dt=1/(f*Nt),
+<br>
+N=Nt*Nint,
+<br>
+tt=zeros(N+1,1),tI=zeros(N+1,1),tV=zeros(N+1,1),
+<br>
+oldV1=0,
+<br>
+oldV2=0,
+<br>
+_sn(=&lt;last{
+<br>
+t=n*dt,
+<br>
+It=dI*sin(omega*t),
+<br>
+dIt=dI*cos(omega*t)*omega,
+<br>
+newV1=switch(isImplicit,(oldV1+b1*dt*It)/(1+a1*dt):1,(1-a1*dt)*oldV1+b1*dt*It),
+<br>
+newV2=switch(isImplicit,(oldV2+b2*dt*It)/(1+a2*dt):1,(1-a2*dt)*oldV2+b2*dt*It),
+<br>
+oldV1=newV1,
+<br>
+oldV2=newV2,
+<br>
+Vt=L*dIt+R0*It+newV1+newV2,
+<br>
+tt[n]=t,
+<br>
+tI[n]=It,
+<br>
+tV[n]=Vt
+<br>
+},0,N)
+<br>
+};
+<br>
+<br>
+plot2d_IV(dI,f,Nt,Nint,isImplicit)=&lt;[
+<br>
+out=&lt;(xt,yt),
+<br>
+scope2storage=&lt;last{addVar(xt),addVar(yt)},
+<div class="condition">
+init=&lt;last{N=Nt*Nint,xt=zeros(N+1,1),yt=zeros(N+1,2)},
+</div>
+<div class="run">
+run=&lt;last{
+<br>
+make_tIV(dI,f,Nt,Nint,isImplicit)==&gt;,
+<br>
+_sn(=&lt;last{xt[n]=tt[n],yt[n]=(tI[n],tV[n])},0,N)
+<br>
+},
+</div>
+init=&gt;,run=&gt;,return=out=&gt;,scope2storage=&gt;,
+<br>
+=&lt;return]=&gt;;
+<br>
+<br>
+[isImplicit=1,
+<br>
+=&lt;plot2d_IV(1e-3,0.5,100,2,isImplicit)=&gt;]=&gt;;
     </td>
   </tr>
 </tbody>
