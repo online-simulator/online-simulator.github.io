@@ -11971,13 +11971,15 @@ Electrochemical Impedance Spectroscopy（以降、EISと省略する）
 <br>
 ・電流Iと電圧Vは正の相関を持つと仮定する
 <br>
-・各実測波形の角周波数をomegaとして時間tに対する基準波形exp(i*omega*t)を作る
+・各実測波形の角周波数をomegaとして時間tに対する基準波形exp(-i*omega*t)を作る
 <br>
 ・得られた<a href="#span-out-com">複素数</a>の基準波形を各実測波形に時間領域で乗算する
 <br>
 ・得られた<a href="#span-out-com">複素数</a>の各波形を<a href="#span-out-eqns">式変数</a>int_IVの<a href="#span-out-fdm-integral">合成Simpson公式</a>で時間積分する
 <br>
-・最後に、得られた各<a href="#span-out-com">複素数</a>から<a href="#span-out-eqns">式変数</a>calc_ZでZ=zV/zIに変換する
+・最後に、得られた各<a href="#span-out-com">複素数</a>の比からZ=zV/zIに変換する
+<br>
+・低周波数側のZの位相が負にならない場合、基準波形を見直す
 <br>
 <br>
 <a href="#span-eqn-plot2d_EIS">plot2d_EIS</a>||<a href="#span-eqn-plot2d_IV">plot2d_IV</a>に示すsimulation対象cellの等価回路要素（直列接続）を列挙する
@@ -16054,7 +16056,7 @@ omega=2*pi*f,
 <br>
 calc_w(n)=&lt;switch((n==0)|(n==N),1:n%2==0,2:1,4),
 <br>
-calc_v(n,t,val)=&lt;calc_w(n)=&gt;*val*exp(i*omega*t),
+calc_v(n,t,val)=&lt;calc_w(n)=&gt;*val*exp(-i*omega*t),
 <br>
 zIV=_sn(=&lt;calc_v(n,n*dt,IV[n])=&gt;,0,N)*dt/3
 <br>
@@ -16122,7 +16124,7 @@ init=&lt;last{N=sizer(fZ),xt=zeros(N,1),yt=zeros(N,1)},
 <div class="run">
 run=&lt;last{
 <br>
-_sn(=&lt;last{Z=fZ[n][1],xt[n]=real(Z),yt[n]=imag(Z)},0,N-1)
+_sn(=&lt;last{Z=fZ[n][1],xt[n]=real(Z),yt[n]=-imag(Z)},0,N-1)
 <br>
 },
 </div>
