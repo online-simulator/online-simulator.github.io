@@ -680,7 +680,37 @@ symbolic高階行列関数
 <br>
 　　・
 <a href="#span-out-fvm-about">
-有限体積法応用の前提
+有限体積法の概要
+</a>
+<br>
+　・
+<a href="#span-out-modelling">
+simplified modelling
+</a>
+<br>
+　　・
+<a href="#span-out-modelling-usefulness">
+simplified modellingの有用性
+</a>
+<br>
+　　・
+<a href="#span-out-modelling-application1">
+RC並列回路simplified modelling
+</a>
+<br>
+　　・
+<a href="#span-out-modelling-application2">
+拡散方程式simplified modelling
+</a>
+<br>
+　・
+<a href="#span-out-simulation">
+simulation
+</a>
+<br>
+　　・
+<a href="#span-out-simulation-EIS">
+EIS simulation
 </a>
 <br>
 　・
@@ -876,6 +906,11 @@ TaylorN
 ・
 <a href="#span-eqn-FourierN">
 FourierN
+</a>
+<br>
+・
+<a href="#span-eqn-plot2d_EIS">
+plot2d_EIS
 </a>
     </td>
   </tr>
@@ -1169,6 +1204,10 @@ panel上段について記述する
 <br>
 ・<span class="run">Ver.2.34.18</span>以降、t-checkboxはlinear||logarithmicの軸scaleを選択
 <br>
+　<span class="run">Ver.2.50.25</span>以降、checked時、t0||t1の入力規則を緩和（実部||虚部のみに対応）
+<br>
+　<span class="run">Ver.2.50.25</span>以降、副次的にcomplex unchecked時、logarithmic-scale選択不能の不具合を解消
+<br>
 ・媒介変数tの範囲等分割数Nを選択
 <br>
 ・x(t)入力欄に横軸xの演算内容をsemi-colon;区切りで入力
@@ -1253,7 +1292,9 @@ panel中段について記述する
 <br>
 ・list-eqns-buttonはglobal式変数の変数名listをlog出力欄に表示する
 <br>
-・plot2d(,)-buttonは入力欄の選択位置にplot2d(,)のtextを挿入する
+・plot2d(,)-buttonは入力欄の選択位置に<del>plot2d(,)</del>
+<br>
+　<span class="run">Ver.2.50.25</span>以降、plot2d(xt,yt)のtextを挿入する
 <br>
 ・&lt;&lt;-buttonは入力欄の選択位置を最初に移動する
 <br>
@@ -3278,7 +3319,7 @@ pow(2,pow(2,10)) || 2**(2**10) || 2^(2^10) -> 1.7976931348622732e+308
 <br>
 　・打切り誤差（絶対収束する無限級数を有限の次数で打切る場合）
 <br>
-　・modelling誤差（離散化誤差と打切り誤差を含めて対象を理論的にmodel化する場合）
+　・modelling誤差（数値誤差を許容して対象を理論的にmodel化する場合）
 <br>
 <br>
 丸め誤差は無理数等を<a href="#span-out-float">仮数部</a>の有効桁に丸める際の、
@@ -3685,9 +3726,9 @@ UI設定によって対応する用途を4種類示す
 <br>
 ・有次元の<a href="#span-out-com">複素数</a>の<a href="#span-out-mat">行列</a>演算（complex&amp;matrix checked）
 <br>
-・有次元の実数の<a href="#span-out-mat">行列</a>演算（only matrix checked）
+・有次元の実数の<a href="#span-out-mat">行列</a>演算（matrix checked）
 <br>
-・無次元の<a href="#span-out-com">複素数</a>演算（only complex checked）
+・無次元の<a href="#span-out-com">複素数</a>演算（complex checked）
 <br>
 ・無次元の実数演算（complex&amp;matrix unchecked）
 <br>
@@ -6746,7 +6787,7 @@ epsilon || eps -> 2.220446049250313e-16
 1/(-i) -> i
 <br>
 <br>
-Napier数eの空括弧()を省略してEulerの公式より極形式の複素数を示す
+Napier数eの空括弧()を省略してEulerの公式から極形式の複素数を示す
 <br>
 (sqrt2)e^(i{pi/4}) || sqrt2()ecomp(pi/4) -> 1.0000000000000002+i
 <br>
@@ -10485,7 +10526,7 @@ clear; Jacobi(=&lt;{2x^2},=&lt;{x},=&lt;{1})
 <br>
 -> 4.0000200000131025+0.000019999986898147652i
 <br>
-・1階偏微分の解析解=4xよりx=1周辺の傾き4を返す
+・1階偏微分の解析解=4xからx=1周辺の傾き4を返す
 <br>
 <br>
 微分位置を大きくした場合
@@ -10500,7 +10541,7 @@ clear; a=1e10; h=max(1,abs(a))1e-5(1+i); Jacobi(=&lt;{2x^2},=&lt;{x},=&lt;{a},h)
 <br>
 ・<a href="#span-out-error">情報落ち</a>の対策が必要
 <br>
-・1階偏微分の解析解=4xよりx=1e10周辺の傾き4e10を返す
+・1階偏微分の解析解=4xからx=1e10周辺の傾き4e10を返す
 <br>
 <br>
 未知変数のlocal変数を参照するが、上書きしない
@@ -11120,7 +11161,7 @@ L*R -> (2,1-i:1+i,1)
 有限差分による微分の数値解法について記述する
 <br>
 <br>
-差分刻みをhとして連続関数f(x)のx周辺の2次打切りTaylor級数より
+差分刻みをhとして連続関数f(x)のx周辺の2次打切りTaylor級数から
 <br>
 f(x-h)=f(x)+f'(x)(-h)+f"(x)(-h)^2/2!+O(h^3)
 <br>
@@ -11158,7 +11199,7 @@ f""(x)=(f"'(x+8h)-f"'(x-8h))/(16h)+O((8h)^2)
 ...
 <br>
 <br>
-続いて4次打切りTaylor級数より
+続いて4次打切りTaylor級数から
 <br>
 f(x-2h)=f(x)+f'(x)(-2h)+f"(x)(-2h)^2/2!+f"'(x)(-2h)^3/3!+f""(x)(-2h)^4/4!+O(h^5)
 <br>
@@ -11179,7 +11220,7 @@ f(x+h)-f(x-h)=f'(x)(2h)-f"'(x)(h)^3/3+O(h^5)
 f'(x)=(8(f(x+h)-f(x-h))-(f(x+2h)-f(x-2h)))/(12h)+O(h^4)
 <br>
 <br>
-さらに、5次打切りTaylor級数より
+さらに、5次打切りTaylor級数から
 <br>
 ・次の4階微分を消去すれば
 <br>
@@ -11388,13 +11429,13 @@ l=f[0]-(f[0]-f[1])/(x0-x1)*x0
 <br>
 (l:m)=(-x1/(x0-x1),x0/(x0-x1):1/(x0-x1),-1/(x0-x1))(f[0]:f[1])
 <br>
-・y1=inverse(V1)*r1より
+・y1=inverse(V1)*r1から
 <br>
 ・V1の逆行列inverse(V1)
 <br>
 inverse(V1)=(-x1/(x0-x1),x0/(x0-x1):1/(x0-x1),-1/(x0-x1))
 <br>
-・P1(x)=(1,x)(l:m)=(1,x)*inverse(V1)*(f[0]:f[1])より
+・P1(x)=(1,x)(l:m)=(1,x)*inverse(V1)*(f[0]:f[1])から
 <br>
 ・1次のLagrange基底多項式のvector L1=(1,x)*inverse(V1)
 <br>
@@ -11530,9 +11571,9 @@ S=(f[0]+4Σ&lt;k=0,N/2-1&gt;f[2k+1]+2Σ&lt;k=1,N/2-1&gt;f[2k]+f[N])h/3+O(h^4)
     </th>
     <td>
 <span id="span-out-fvm"></span>
-有限体積法Finite Volume Methodの応用手順を列挙する
+有限体積法Finite Volume Methodの解法を列挙する
 <br>
-・<a href="#span-out-fvm-about">有限体積法応用の前提</a>
+・<a href="#span-out-fvm-about">有限体積法の概要</a>
     </td>
   </tr>
   <tr>
@@ -11543,11 +11584,11 @@ S=(f[0]+4Σ&lt;k=0,N/2-1&gt;f[2k+1]+2Σ&lt;k=1,N/2-1&gt;f[2k]+f[N])h/3+O(h^4)
 <br>
 有限体積法
 <br>
-応用の前提
+の概要
     </th>
     <td>
 <span id="span-out-fvm-about"></span>
-有限体積法応用の前提について記述する
+有限体積法の概要について記述する
 <br>
 <br>
 有限体積法は状態量（物理量）のfluxを基準にcontrol volume内の保存則を離散化する
@@ -11565,9 +11606,49 @@ S=(f[0]+4Σ&lt;k=0,N/2-1&gt;f[2k+1]+2Σ&lt;k=1,N/2-1&gt;f[2k]+f[N])h/3+O(h^4)
 ・よって単位体積当たりの状態量の<a href="#span-out-evolution">時間微分</a>は
 <br>
 　fluxのdivergence項とsource||sink項の和で表される（Fick's second law）
+    </td>
+  </tr>
+  <tr>
+    <th>
+<a href="#span-index">
+目次
+</a>
+<br>
+simplified
+<br>
+modelling
+    </th>
+    <td>
+<span id="span-out-modelling"></span>
+simplified modellingの応用手順を列挙する
+<br>
+・<a href="#span-out-modelling-usefulness">simplified modellingの有用性</a>
+<br>
+・<a href="#span-out-modelling-application1">RC並列回路simplified modelling</a>
+<br>
+・<a href="#span-out-modelling-application2">拡散方程式simplified modelling</a>
+<br>
+・<a href="#span-out-simulation-EIS">EIS simulation</a>
+    </td>
+  </tr>
+  <tr>
+    <th>
+<a href="#span-index">
+目次
+</a>
+<br>
+simplified
+<br>
+modelling
+<br>
+の有用性
+    </th>
+    <td>
+<span id="span-out-modelling-usefulness"></span>
+simplified modellingの有用性について記述する
 <br>
 <br>
-有限体積法に基づくsimplified modellingの有用性を列挙する
+<a href="#span-out-fdm">有限差分法</a>||<a href="#span-out-fvm">有限体積法</a>に基づくsimplified modellingの有用性を列挙する
 <br>
 ・一般的な漸化式に帰結するmodel式を、制御のfeed-forward||backward項に応用する
 <br>
@@ -11578,6 +11659,399 @@ S=(f[0]+4Σ&lt;k=0,N/2-1&gt;f[2k+1]+2Σ&lt;k=1,N/2-1&gt;f[2k]+f[N])h/3+O(h^4)
 ・各parameterの最適化||機械学習によって制御量の定量性を改善する（<a href="#span-out-error">modelling誤差</a>を除く）
 <br>
 ・環境温度等による状態量の変化傾向を理論的に予測する
+    </td>
+  </tr>
+  <tr>
+    <th>
+<a href="#span-index">
+目次
+</a>
+<br>
+RC並列回路
+<br>
+simplified
+<br>
+modelling
+    </th>
+    <td>
+<span id="span-out-modelling-application1"></span>
+RC並列回路のsimplified modellingについて記述する
+<br>
+<br>
+1次遅れ系のRC並列回路要素（以降、RC-1次遅れ要素と省略する）のmodellingを一例に示す
+<br>
+・保存則はKirchhoff's laws
+<br>
+・<a href="#span-out-fdm">有限差分法</a>を用いて時間を離散化する
+<br>
+<br>
+前提を列挙する
+<br>
+・電流Iと電圧Vは正の相関を持つと仮定する
+<br>
+・Laplace領域における合成impedanceの伝達関数Z(s)は電流I(s)に対する電圧V(s)の比で表す
+<br>
+Z(s)=V(s)/I(s)
+<br>
+・RLC直列回路要素のZ(s)を一例に示す
+<br>
+Z(s)=R+L*s+1/(C*s)
+<br>
+・各回路要素の電流の変数名をI_要素とする
+<br>
+・各回路要素の電圧の変数名をV_要素とする
+<br>
+<br>
+RC-1次遅れ要素のZ(s)を導出する
+<br>
+・Kirchhoff's Current Law(KCL)
+<br>
+I=I_R+I_C
+<br>
+・Kirchhoff's Voltage Law(KVL)
+<br>
+V_R-V_C=0
+<br>
+V=V_R=R*I_R
+<br>
+V=V_C=I_C/(C*s)
+<br>
+・KVLからI_RとI_Cの関係を得る
+<br>
+R*I_R-I_C/(C*s)=0
+<br>
+I_R=I_C/(R*C*s)
+<br>
+・得られたI_RとKCLからI_CとIの関係を得る
+<br>
+I=I_C*(1+R*C*s)/(R*C*s)
+<br>
+I_C=I*(R*C*s)/(1+R*C*s)
+<br>
+・得られたI_CとKVLからVとIの関係を得る
+<br>
+V=I*R/(1+R*C*s)
+<br>
+・以上より、RC-1次遅れ要素のZ(s)が得られる
+<br>
+V=I*R/(1+R*C*s) -> Z(s)=R/(1+R*C*s)
+<br>
+<br>
+RC-1次遅れ要素の<a href="#span-out-evolution">時間発展</a>方程式を導出する
+<br>
+・得られたVとIの関係から
+<br>
+V+V*R*C*s=I*R
+<br>
+V*s=-V/(R*C)+I/C
+<br>
+・次の定数を定義する
+<br>
+a=1/(R*C)
+<br>
+b=1/C
+<br>
+・定数aの物理的な定義を示す
+<br>
+時定数1/a=R*C -> 周期=2pi*R*C
+<br>
+cut-off角周波数a=1/(R*C) -> cut-off周波数=1/周期=1/(2pi*R*C)
+<br>
+・以上より、RC-1次遅れ要素の<a href="#span-out-evolution">時間発展</a>方程式が得られる
+<br>
+V*s=-V/(R*C)+I/C -> V*s=-a*V+b*I
+<br>
+<br>
+<a href="#span-out-evolution">時間発展</a>方程式を離散化して漸化式を導出する
+<br>
+・時間刻みをdtとして<a href="#span-out-evolution">時間微分</a>V*sを1次精度の<a href="#span-out-fdm-differential">有限差分</a>で離散化する場合
+<br>
+　・右辺を既知関数とするEuler前進差分の陽解法explicit Euler method
+<br>
+(newV-oldV)/dt=-a*oldV+b*I -> newV=(1-a*dt)*oldV+b*dt*I
+<br>
+　・右辺を未知関数とするEuler後退差分の陰解法implicit Euler method
+<br>
+(newV-oldV)/dt=-a*newV+b*I -> newV=(oldV+b*dt*I)/(1+a*dt)
+<br>
+　・<a href="#span-out-error">modelling誤差</a>はOrder(dt)
+<br>
+・以上より、離散化した<a href="#span-out-evolution">時間発展</a>方程式は1次の漸化式に帰結する
+<br>
+<br>
+漸化式の数値的安定性の要件を示す
+<br>
+・陽解法の場合、0&lt;1-a*dt&lt;1から0&lt;dt&lt;R*C（0＜時間刻み＜時定数）
+<br>
+・陰解法の場合、常に安定系（時間刻みに依存しない）
+<br>
+<br>
+各parameterのOrder推定方法を示す
+<br>
+・<a href="#span-out-simulation-EIS">交流impedance</a>実測結果のs→∞に漸近する高周波数のZ(s)=R+1/(C*s)からRを推定
+<br>
+・推定Rとcut-off周波数=1/(2pi*R*C)からCを推定
+<br>
+<br>
+実施例は<a href="#span-out-simulation-EIS">EIS simulation</a>参照
+    </td>
+  </tr>
+  <tr>
+    <th>
+<a href="#span-index">
+目次
+</a>
+<br>
+拡散方程式
+<br>
+simplified
+<br>
+modelling
+    </th>
+    <td>
+<span id="span-out-modelling-application2"></span>
+拡散方程式のsimplified modellingについて記述する
+<br>
+<br>
+1次元拡散方程式のmodellingを一例に示す
+<br>
+・保存則はFick's laws
+<br>
+・<a href="#span-out-fdm">有限差分法</a>を用いて時間を離散化する
+<br>
+・<a href="#span-out-fvm">有限体積法</a>を用いて空間を離散化する
+<br>
+<br>
+前提を列挙する
+<br>
+・電流Iと電圧Vは正の相関を持つと仮定する
+<br>
+・Faraday定数をF[C/mol]とする
+<br>
+・拡散の代表長さをdxとする
+<br>
+・拡散係数をDとする
+<br>
+・反応面積をSとする
+<br>
+・濃度変化量Δc=代表濃度-平均濃度を定義する
+<br>
+・限界濃度をcmaxとする
+<br>
+・比例係数をkとする電圧Vの関係式V=Δc/(cmax*k)を仮定する
+<br>
+<br>
+1次元拡散方程式の右辺を示す
+<br>
+・活物質内を想定して左右の面のfluxを仮定する
+<br>
+電解質側の右面flux=I/(F*S)
+<br>
+活物質側の左面flux=D*Δc/dx
+<br>
+・fluxのdivergence項=(右面flux-左面flux)/dx
+<br>
+右辺=-D*Δc/dx^2+I/(F*S*dx)
+<br>
+<br>
+1次元拡散方程式の<a href="#span-out-evolution">時間発展</a>方程式を示す
+<br>
+・Fick's second law
+<br>
+Δc'=-D*Δc/dx^2+I/(F*S*dx)
+<br>
+cmax*k*V'=-D*cmax*k*V/dx^2+I/(F*S*dx)
+<br>
+V'=-D*V/dx^2+I/(F*S*dx*cmax*k)
+<br>
+・次の定数を定義する
+<br>
+a=D/dx^2
+<br>
+b=1/(F*S*dx*cmax*k)
+<br>
+・<a href="#span-out-modelling-application1">RC並列回路</a>のanalogyから定数aの物理的な定義を示す
+<br>
+拡散の時定数1/a=dx^2/D
+<br>
+拡散のcut-off角周波数a=D/dx^2
+<br>
+・以上より、拡散方程式の<a href="#span-out-evolution">時間発展</a>方程式が得られる
+<br>
+V'=-D*V/dx^2+I/(F*S*dx*cmax*k) -> V'=-a*V+b*I
+<br>
+<br>
+<a href="#span-out-evolution">時間発展</a>方程式を離散化して漸化式を導出する
+<br>
+・時間刻みをdtとして<a href="#span-out-evolution">時間微分</a>V'を1次精度の<a href="#span-out-fdm-differential">有限差分</a>で離散化する場合
+<br>
+　・右辺を既知関数とするEuler前進差分の陽解法explicit Euler method
+<br>
+(newV-oldV)/dt=-a*oldV+b*I -> newV=(1-a*dt)*oldV+b*dt*I
+<br>
+　・右辺を未知関数とするEuler後退差分の陰解法implicit Euler method
+<br>
+(newV-oldV)/dt=-a*newV+b*I -> newV=(oldV+b*dt*I)/(1+a*dt)
+<br>
+　・<a href="#span-out-error">modelling誤差</a>はOrder(dt)
+<br>
+・以上より、離散化した<a href="#span-out-evolution">時間発展</a>方程式は1次の漸化式に帰結する
+<br>
+<br>
+漸化式の数値的安定性の要件を示す
+<br>
+・陽解法の場合、0&lt;1-a*dt&lt;1から0&lt;dt&lt;dx^2/D（0＜時間刻み＜拡散の時定数）
+<br>
+・陰解法の場合、常に安定系（時間刻みに依存しない）
+<br>
+＜補足＞
+<br>
+・陽解法の安定条件はVon Neumannの安定性解析結果に同義
+<br>
+<br>
+各parameterのOrder推定方法を示す
+<br>
+・低周波数側の<a href="#span-out-simulation-EIS">交流impedance</a>実測結果から<a href="#span-out-modelling-application1">RC並列回路</a>同様に推定
+<br>
+・または、充放電後の緩和過程の電圧変化からaを推定
+<br>
+・推定aと充放電中の電圧変化からbを推定
+<br>
+<br>
+実施例は<a href="#span-out-simulation-EIS">EIS simulation</a>参照
+    </td>
+  </tr>
+  <tr>
+    <th>
+<a href="#span-index">
+目次
+</a>
+<br>
+simulation
+    </th>
+    <td>
+<span id="span-out-simulation"></span>
+数値計算を応用するsimulationの実施例を列挙する
+<br>
+・<a href="#span-out-simulation-EIS">EIS simulation</a>
+    </td>
+  </tr>
+  <tr>
+    <th>
+<a href="#span-index">
+目次
+</a>
+<br>
+EIS
+<br>
+simulation
+    </th>
+    <td>
+<span id="span-out-simulation-EIS"></span>
+EIS simulationの実施例について記述する
+<br>
+<br>
+Electrochemical Impedance Spectroscopy（以降、EISと省略する）
+<br>
+のsimulationの背景と目的を列挙する
+<br>
+・等価回路fittingによる電気化学cellのsimulationは交流impedance実測結果の再現性が低い
+<br>
+・測定機の後処理同等（noise処理を除く）のalgorithmを実装することで再現性を改善する
+<br>
+・定性的な理解とともにparameter推定の定量性改善に繋がる可能性が考えられる
+<br>
+<br>
+<a href="#span-eqn-plot2d_EIS">plot2d_EIS</a>に示すZ変換（impedance演算部）の想定algorithmを列挙する
+<br>
+・電流Iと電圧Vは正の相関を持つと仮定する
+<br>
+・各実測波形の角周波数をomegaとして時間tに対する基準波形exp(i*omega*t)を作る
+<br>
+・得られた<a href="#span-out-com">複素数</a>の基準波形を各実測波形に時間領域で乗算する
+<br>
+・得られた<a href="#span-out-com">複素数</a>の各波形を<a href="#span-out-eqns">式変数</a>int_IVの<a href="#span-out-fdm-integral">合成Simpson公式</a>で時間積分する
+<br>
+・最後に、得られた各<a href="#span-out-com">複素数</a>から<a href="#span-out-eqns">式変数</a>calc_ZでZ=zV/zIに変換する
+<br>
+<br>
+<a href="#span-eqn-plot2d_EIS">plot2d_EIS</a>に示すsimulation対象cellの等価回路要素（直列接続）を列挙する
+<br>
+・構造由来のinductance: L
+<br>
+・導電path上の電子||ion伝導を合成する直流抵抗: R0
+<br>
+・<a href="#span-out-modelling-application1">RC並列回路</a>で表すion挿入/脱離の反応抵抗: R1,C1 -> a1,b1
+<br>
+・ion濃度分布緩和過程の電位変化に伴う<a href="#span-out-modelling-application2">拡散抵抗</a>（Warburg's Zの代替）: a2,b2
+<br>
+＜補足・詳細simulationで要修正＞
+<br>
+・負極||電解質||正極の影響は合成して区別しない
+<br>
+・電解質/活物質界面の被膜抵抗は反応抵抗に合成して区別しない
+<br>
+・限界電流密度は考慮しない
+<br>
+<br>
+test caseを示す
+<br>
+・測定条件
+<br>
+電流振幅dI=1e-3
+<br>
+積分1周期分割数Nt=100
+<br>
+積分周回数Nint=1
+<br>
+・各parameterの設定値
+<br>
+L=1e-4,
+<br>
+R0=1,
+<br>
+R1=2,C1=0.1,
+<br>
+a1=1/(R1*C1),b1=1/C1,
+<br>
+a2=0.01,b2=0.12,
+<br>
+・<a href="#span-out-eqns">式変数</a>sweep_f範囲[1e3,0.01]の対数10等分割の周波数に対するZのsimulation結果
+<br>
+(
+<br>
+999.9999999999998,infoLost[ri] 1.000054390110971-0.626708495177503i:
+<br>
+316.22776601683796,infoLost[ri] 1.000197769963539-0.1936010152622332i:
+<br>
+100.00000000000004,infoLost[ri] 1.0008791279248923-0.046741593442684845i:
+<br>
+31.62277660168379,infoLost[ri] 1.0051946423727691+0.030877367568292336i:
+<br>
+10.00000000000001,infoLost[ri] 1.0370746940376958+0.15139417727049678i:
+<br>
+3.162277660168381,infoLost[ri] 1.2428463848394768+0.4426585101482536i:
+<br>
+1,infoLost[ri] 1.9692074050771464+0.8189304441759584i:
+<br>
+0.3162277660168378,infoLost[ri] 2.7478680202043564+0.6543142174993192i:
+<br>
+0.10000000000000024,infoLost[ri] 2.978079231896037+0.42406164035890753i:
+<br>
+0.031622776601683854,infoLost[ri] 3.0951852485694045+0.675153482065019i:
+<br>
+0.010000000000000012,infoLost[ri] 3.711459875093761+1.811702692783572i
+<br>
+)
+<br>
+<br>
+正確なimpedance測定の要件を列挙する（参考）
+<br>
+・Open Circuit Voltage測定中に測定対象は測定機の影響を受けて変化しない
+<br>
+・測定電流||電圧の入力と測定対象の応答がButler-Volmer式の線形領域の範囲内に収まる
+<br>
+・測定機と測定対象の接続線impedance（主にinductance）を分離できる
     </td>
   </tr>
   <tr>
@@ -11611,7 +12085,7 @@ S=(f[0]+4Σ&lt;k=0,N/2-1&gt;f[2k+1]+2Σ&lt;k=1,N/2-1&gt;f[2k]+f[N])h/3+O(h^4)
 <br>
 ・step毎に位置z_xと速度z_vの連立方程式fの近似解を反復法で求解
 <br>
-・時間微分を1次精度の有限差分で離散化する場合
+・時間微分を1次精度の<a href="#span-out-fdm-differential">有限差分</a>で離散化する場合
 <br>
 　・右辺を既知関数とするEuler前進差分の陽解法explicit Euler method
 <br>
@@ -11620,6 +12094,8 @@ f=&lt;{(z_x-z_x0)/dt=z_v0,m*((z_v-z_v0)/dt)=m*z_a-Cd_sphere*z_v0};
 　・右辺を未知関数とするEuler後退差分の陰解法implicit Euler method
 <br>
 f=&lt;{(z_x-z_x0)/dt=z_v,m*((z_v-z_v0)/dt)=m*z_a-Cd_sphere*z_v};
+<br>
+　・<a href="#span-out-error">modelling誤差</a>はOrder(dt)
 <br>
 ・速度の時間微分が0（抵抗と重力が平衡）となる終端速度terminal velocity
 <br>
@@ -13601,7 +14077,7 @@ ft=&lt;atan(tan(t));
 0*Infinity -> [MyErr]FN isNaN
 <br>
 <br>
-complex uncheckedの<a href="#span-out-ope">実数演算</a>
+complex unchecked時、<a href="#span-out-ope">実数演算</a>の場合
 <br>
 1/0 -> Infinity
 <br>
@@ -13823,7 +14299,7 @@ f=&lt;last{V=1,E=0,k=1,I=exp(k*(V-E))-exp(-k*(V-E))}
     </th>
     <td>
 <span id="span-out-application-output"></span>
-数値計算を応用した最終outputについて記述する
+数値計算を応用する最終outputについて記述する
 <br>
 <br>
 Electrochemical cells 2D-simulation with heat and fluid flow
@@ -13834,8 +14310,10 @@ Electrochemical cells 2D-simulation with heat and fluid flow
 <br>
 ・Electrochemical Cell Simulator
 <br>
+・Electrochemical Impedance Spectroscopy(EIS) Simulator
 <br>
-cellの定性的な理解を目的として以上の解析技術を実装予定
+<br>
+電気化学cellの定性的な理解を目的として以上の解析技術を実装予定
 <br>
 ・一般的に、外部の火花発生や内部の短絡riskに対してhard/soft両面の対策が必要とされる
 <br>
@@ -13867,13 +14345,19 @@ cellの定性的な理解を目的として以上の解析技術を実装予定
 <br>
 　cycle試験中の電解質||電極の膨張収縮による導電path切れが問題となっている印象を受ける
 <br>
-・ただし、bulk型の減圧密閉/拘束圧縮後の空隙の状態とその変化による影響は不明
+・ただし、bulk型の減圧密閉/拘束圧縮後の空隙の状態とその変化による影響に加えて、
+<br>
+　電解質||電極の種類によるporous全体の塑性変形（熱可塑性を含む）の影響等、詳細は不明
 <br>
 ・仮に、物理的な導電path切れの場合、浮遊分の活性ionと反応界面を同時に失うため、
 <br>
 　満充電容量の低下と見かけの抵抗上昇に繋がる
 <br>
-・一方、電気的な導電path上の固体電解質/活物質界面における被膜成長の場合、液系同様、
+・一方、電気的な導電path上の固体電解質/活物質界面の接触不良（binderを含む）の場合、
+<br>
+　実質の界面抵抗上昇に繋がり、さらに剥離が進行した場合、物理的な導電path切れに繋がる
+<br>
+・他方、電気的な導電path上の固体電解質/活物質界面における被膜成長の場合、液系同様、
 <br>
 　副反応量に応じた満充電容量の低下と実質の界面抵抗上昇に繋がる
     </td>
@@ -15482,6 +15966,163 @@ _sn(=&lt;(cn(n)=&gt;)*e^(i*(n)*x),-N,N)
 ];
 <br>
 last[ft=&lt;e^(i*(2.5)*t),FourierN(=&lt;ft,2,5)=&gt;];
+    </td>
+  </tr>
+  <tr>
+    <th>
+<a href="#span-index">
+目次
+</a>
+<br>
+plot2d
+<br>
+_EIS
+    </th>
+    <td>
+<span id="span-eqn-plot2d_EIS"></span>
+<a href="#span-out-simulation-EIS">EIS simulation</a>参照
+<br>
+clear;
+<br>
+<br>
+make_IV(dI,f,Nt,Nint,isImplicit)=&lt;last{
+<br>
+L=1e-4,
+<br>
+R0=1,
+<br>
+R1=2,C1=0.1,
+<br>
+a1=1/(R1*C1),b1=1/C1,
+<br>
+a2=0.01,b2=0.12,
+<br>
+omega=2*pi*f,
+<br>
+dt=1/(f*Nt),
+<br>
+N=Nt*Nint,
+<br>
+tI=zeros(N+1,1),tV=zeros(N+1,1),
+<br>
+oldV1=0,
+<br>
+oldV2=0,
+<br>
+_sn(=&lt;last{
+<br>
+t=n*dt,
+<br>
+It=dI*sin(omega*t),
+<br>
+dIt=dI*cos(omega*t)*omega,
+<br>
+newV1=switch(isImplicit,(oldV1+b1*dt*It)/(1+a1*dt):1,(1-a1*dt)*oldV1+b1*dt*It),
+<br>
+newV2=switch(isImplicit,(oldV2+b2*dt*It)/(1+a2*dt):1,(1-a2*dt)*oldV2+b2*dt*It),
+<br>
+oldV1=newV1,
+<br>
+oldV2=newV2,
+<br>
+tI[n]=It,
+<br>
+tV[n]=L*dIt+R0*It+newV1+newV2
+<br>
+},0,N)
+<br>
+};
+<br>
+<br>
+int_IV(IV,f,dt)=&lt;[
+<br>
+out=&lt;intIV,
+<div class="condition">
+init=&lt;last{N=sizer(IV)-1},
+</div>
+<div class="run">
+run=&lt;last{
+<br>
+omega=2*pi*f,
+<br>
+calc_w(n)=&lt;switch((n==0)|(n==N),1:n%2==0,2:1,4),
+<br>
+calc_v(n,t,val)=&lt;calc_w(n)=&gt;*val*exp(i*omega*t),
+<br>
+intIV=_sn(=&lt;calc_v(n,n*dt,IV[n])=&gt;,0,N)*dt/3
+<br>
+},
+</div>
+init=&gt;,run=&gt;,return=out=&gt;,
+<br>
+=&lt;return]=&gt;;
+<br>
+<br>
+calc_Z(zI,zV)=&lt;[
+<br>
+out=&lt;Z,
+<div class="condition">
+init=&lt;last{0},
+</div>
+<div class="run">
+run=&lt;last{
+<br>
+Z=zV/zI
+<br>
+},
+</div>
+init=&gt;,run=&gt;,return=out=&gt;,
+<br>
+=&lt;return]=&gt;;
+<br>
+<br>
+sweep_f(dI,f0,f1,Nf,Nt,Nint,isImplicit)=&lt;[
+<br>
+out=&lt;fZ,
+<div class="condition">
+init=&lt;last{fZ=zeros(Nf+1,2)},
+</div>
+<div class="run">
+run=&lt;last{
+<br>
+calc_f(n)=&lt;exp(log(f0)+(log(f1)-log(f0))*n/Nf),
+<br>
+_sn(=&lt;last{
+<br>
+f=calc_f(n)=&gt;,
+<br>
+make_IV(dI,f,Nt,Nint,isImplicit)==&gt;,
+<br>
+fZ[n]=(f,calc_Z(int_IV(=&lt;tI,f,dt)=&gt;,int_IV(=&lt;tV,f,dt)=&gt;)=&gt;)
+<br>
+},0,Nf)
+<br>
+},
+</div>
+init=&gt;,run=&gt;,return=out=&gt;,
+<br>
+=&lt;return]=&gt;;
+<br>
+<br>
+plot2d_EIS(fZ)=&lt;[
+<br>
+out=&lt;(xt,yt),
+<br>
+scope2storage=&lt;last{addVar(xt),addVar(yt)},
+<div class="condition">
+init=&lt;last{N=sizer(fZ),xt=zeros(N,1),yt=zeros(N,1)},
+</div>
+<div class="run">
+run=&lt;last{_sn(=&lt;last{Z=fZ[n][1],xt[n]=real(Z),yt[n]=imag(Z)},0,N-1)},
+</div>
+init=&gt;,run=&gt;,return=out=&gt;,scope2storage=&gt;,
+<br>
+=&lt;return]=&gt;;
+<br>
+<br>
+[isImplicit=1,
+<br>
+=&lt;plot2d_EIS(=&lt;sweep_f(1e-3,1e3,0.01,10,100,1,isImplicit)=&gt;)=&gt;]=&gt;;
     </td>
   </tr>
 </tbody>

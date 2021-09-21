@@ -418,7 +418,6 @@ My_entry.plot2d.prototype.run = function(arr2d_vec, options, toSVG, isFinal){
   var tgymax = self.trans(gymax, isLog_y);
   /* 1.0.2 -> */
   if(!(isFinite(tgxmin)) || !(isFinite(tgymin)) || !(isFinite(tgxmax)) || !(isFinite(tgymax))){
-    temp.detach();
     self.throw_msg("Invalid plot2d isInf");
   }
   if(!(toSVG)){

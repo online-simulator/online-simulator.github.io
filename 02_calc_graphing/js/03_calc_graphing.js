@@ -197,6 +197,7 @@ My_entry.calc_graphing.prototype.output_msgError_plot = function(e){
   var self = this;
   /* Ver.2.25.14 -> */
   if(!(self.isCheckedError)){
+    self.plot2d.objs.temp.detach();  // Ver.2.50.25
     var msg = self.entry.def.get_msgError(e, "Invalid plot2d");
     self.io.write_text(self.elems.d, msg.replace("Uncaught Error: ", ""));
     self.elems.d.focus();
@@ -249,7 +250,9 @@ My_entry.calc_graphing.prototype.plot = function(arr_data, options_plot, isFinal
   }
   /* Ver.2.14.5 -> */
   else{
-    self.plot2d.objs.temp.detach();
+    if(!(toSVG)){
+      self.plot2d.objs.temp.detach();  // tap || stop
+    }
   }
   /* -> Ver.2.14.5 */
   if(!(toSVG)){  // for double-click link
@@ -333,7 +336,6 @@ My_entry.calc_graphing.prototype.arr_data2arr2d_vec = function(arr_data, options
             var x = arr2d_x[n][j] = num_x.com[sw_ri_x];
             var y =arr2d_y[n][j] = num_y.com[sw_ri_y];
             if(isNaN(self.plot2d.trans(x, isLog_x)) || isNaN(self.plot2d.trans(y, isLog_y))){
-              self.plot2d.objs.temp.detach();
               throw "Invalid plot2d isNaN";
             }
             else{
@@ -764,7 +766,22 @@ My_entry.calc_graphing.prototype.init_handlers = function(){
             var tn = math_com.lerp_sw(t0.com, t1.com, n/N, isAxisT);
             var tcr = tn.r;
             var tci = tn.i;
-            if(isNaN(tcr) || isNaN(tci)) throw false;
+            /* Ver.2.50.25 -> */
+            if(isNaN(tcr) || isNaN(tci)){
+              if(isNaN(tcr) && isNaN(tci)){
+                throw false;
+              }
+              else if(isNaN(tcr) && !(t0.com.r) && !(t1.com.r)){
+                tn.r = 0;
+              }
+              else if(isNaN(tci) && !(t0.com.i) && !(t1.com.i)){
+                tn.i = 0;
+              }
+              else{
+                throw false;
+              }
+            }
+            /* -> Ver.2.50.25 */
             t[n] = tn;
           }
         }
@@ -868,6 +885,10 @@ My_entry.calc_graphing.prototype.init_handlers = function(){
       /* Ver.2.26.14 */
       case "C-input":
         self.io.write_text(self.elems.i, "");
+        break;
+      /* Ver.2.50.25 */
+      case "plot2d(,)":
+        self.io["onclick_default"](self.elems, "plot2d(xt,yt)", -1);
         break;
       case "BS":
       case "DEL":
