@@ -212,7 +212,7 @@ stored_eqn(make_tIV)
 clear
 local storage cleared
 
-[isImplicit=1,=<plot2d_EIS(=<sweep_f(1e-3,1e3,0.01,10,100,1,isImplicit)=>)=>]=>
+[isImplicit=1,isBode=0,=<plot2d_EIS(isBode,=<sweep_f(1e-3,1e3,0.01,10,100,1,isImplicit)=>)=>]=>
 (
 infoLost[ri] 1.000054390110971,infoLost[ri] -0.626708495177503:
 infoLost[ri] 1.000197769963539,infoLost[ri] -0.1936010152622332:
@@ -227,7 +227,7 @@ infoLost[ri] 3.0951852485694045,infoLost[ri] 0.675153482065019:
 infoLost[ri] 3.711459875093761,infoLost[ri] 1.811702692783572
 )
 
-plot2d_EIS(fZ)=<[out=<(xt,yt),scope2storage=<last{addVar(xt),addVar(yt)},init=<last{N=sizer(fZ),xt=zeros(N,1),yt=zeros(N,1)},run=<last{_sn(=<last{Z=fZ[n][1],xt[n]=real(Z),yt[n]=-imag(Z)},0,N-1)},init=>,run=>,return=out=>,scope2storage=>,=<return]=>
+plot2d_EIS(isBode,fZ)=<[out=<(xt,yt),scope2storage=<last{addVar(xt),addVar(yt)},init=<last{N=sizer(fZ),xt=zeros(N,1),yt=zeros(N,1)},run=<last{switch(isBode==0,=<_sn(=<last{Z=fZ[n][1],xt[n]=real(Z),yt[n]=-imag(Z)},0,N-1):isBode>0,=<_sn(=<last{f=fZ[n][0],Z=fZ[n][1],xt[n]=log10(f),yt[n]=abs(Z)},0,N-1):1,=<_sn(=<last{f=fZ[n][0],Z=fZ[n][1],xt[n]=log10(f),yt[n]=deg_atan2(imag(Z),real(Z))},0,N-1))},init=>,run=>,return=out=>,scope2storage=>,=<return]=>
 stored_eqn(plot2d_EIS)
 
 sweep_f(dI,f0,f1,Nf,Nt,Nint,isImplicit)=<[out=<fZ,init=<last{fZ=zeros(Nf+1,2)},run=<last{calc_f(n)=<exp(log(f0)+(log(f1)-log(f0))*n/Nf),_sn(=<last{f=calc_f(n)=>,make_IV(dI,f,Nt,Nint,isImplicit)==>,fZ[n]=(f,calc_Z(int_IV(=<tI,f,dt)=>,int_IV(=<tV,f,dt)=>)=>)},0,Nf)},init=>,run=>,return=out=>,=<return]=>
@@ -521,4 +521,4 @@ drag=false&test-case=false&legend=true&axis-t=false&axis-x=true&log-x=false&imag
 --------------------------------
 --------------------------------
 
-online-simulator.github.io.4.64.18.9.23 @ Wed Sep 22 2021 02:30:59 GMT+0900 (日本標準時) @ Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/93.0.4577.82 Safari/537.36
+online-simulator.github.io.4.64.18.9.23 @ Wed Sep 22 2021 19:33:12 GMT+0900 (日本標準時) @ Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/93.0.4577.82 Safari/537.36
