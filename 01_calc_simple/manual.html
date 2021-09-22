@@ -11818,9 +11818,11 @@ modelling
 拡散方程式のsimplified modellingについて記述する
 <br>
 <br>
-1次元拡散方程式のmodellingを一例に示す
+電極活物質内ionの1次元拡散方程式のmodellingを一例に示す
 <br>
-・保存則はFick's laws
+・物質量||濃度の保存則はFick's laws
+<br>
+・反応物質量の保存則はFaraday's laws
 <br>
 ・<a href="#span-out-fdm">有限差分法</a>を用いて時間を離散化する
 <br>
@@ -11837,43 +11839,47 @@ modelling
 <br>
 ・拡散係数をDとする
 <br>
+・反応ionの価数をnとする
+<br>
 ・反応面積をSとする
 <br>
 ・濃度変化量Δc=代表濃度-平均濃度を定義する
 <br>
 ・限界濃度をcmaxとする
 <br>
-・比例係数をkとする電圧Vの関係式V=Δc/(cmax*k)を仮定する
+・比例係数をkとする濃度変化量Δcと電圧Vの関係式V=Δc/(cmax*k)を仮定する
 <br>
 <br>
 1次元拡散方程式の右辺を示す
 <br>
 ・活物質内を想定して左右の面のfluxを仮定する
 <br>
-電解質側の右面flux=I/(F*S)
+電解質側の右面flux=I/(n*F*S)
 <br>
 活物質側の左面flux=D*Δc/dx
 <br>
 ・fluxのdivergence項=(右面flux-左面flux)/dx
 <br>
-右辺=-D*Δc/dx^2+I/(F*S*dx)
+右辺=-D*Δc/dx^2+I/(n*F*S*dx)
 <br>
 <br>
 1次元拡散方程式の<a href="#span-out-evolution">時間発展</a>方程式を示す
 <br>
 ・Fick's second law
 <br>
-Δc'=-D*Δc/dx^2+I/(F*S*dx)
+Δc'=-D*Δc/dx^2+I/(n*F*S*dx)
 <br>
-cmax*k*V'=-D*cmax*k*V/dx^2+I/(F*S*dx)
+・濃度変化に伴う電圧に変換する
 <br>
-V'=-D*V/dx^2+I/(F*S*dx*cmax*k)
+cmax*k*V'=-D*cmax*k*V/dx^2+I/(n*F*S*dx)
+<br>
+V'=-D*V/dx^2+I/(n*F*S*dx*cmax*k)
 <br>
 ・次の定数を定義する
 <br>
 a=D/dx^2
 <br>
-b=1/(F*S*dx*cmax*k)
+b=1/(n*F*S*dx*cmax*k)
 <br>
 ・<a href="#span-out-modelling-application1">RC並列回路</a>のanalogyから定数aの物理的な定義を示す
 <br>
@@ -11883,7 +11889,7 @@ b=1/(F*S*dx*cmax*k)
 <br>
 ・以上より、1次元拡散方程式の<a href="#span-out-evolution">時間発展</a>方程式が得られる
 <br>
-V'=-D*V/dx^2+I/(F*S*dx*cmax*k) -> V'=-a*V+b*I
+V'=-D*V/dx^2+I/(n*F*S*dx*cmax*k) -> V'=-a*V+b*I
 <br>
 <br>
 <a href="#span-out-evolution">時間発展</a>方程式を離散化して漸化式を導出する
