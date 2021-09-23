@@ -11786,7 +11786,7 @@ V*s=-V/(R*C)+I/C -> V*s=-a*V+b*I
 <br>
 漸化式の数値的安定性の要件を示す
 <br>
-・陽解法の場合、0&lt;1-a*dt&lt;1から0&lt;dt&lt;R*C（0＜時間刻み＜時定数）
+・陽解法の場合、0&lt;1-a*dt&lt;1から0&lt;dt&lt;1/a（0＜時間刻み＜時定数）
 <br>
 ・陰解法の場合、無条件安定（時間刻みに依存しない）
 <br>
@@ -11818,11 +11818,15 @@ modelling
 拡散方程式のsimplified modellingについて記述する
 <br>
 <br>
-電極活物質内ionの1次元拡散方程式のmodellingを一例に示す
+<span class="clear">porous</span>電極活物質内ionの1次元拡散方程式のmodellingを一例に示す
 <br>
 ・物質量||濃度の保存則はFick's laws
 <br>
 ・反応物質量の保存則はFaraday's laws
+<br>
+・<span class="condition">反応ionの価数</span>を追加考慮
+<br>
+・<span class="clear">活物質の体積分率</span>を追加考慮
 <br>
 ・<a href="#span-out-fdm">有限差分法</a>を用いて時間を離散化する
 <br>
@@ -11837,59 +11841,63 @@ modelling
 <br>
 ・拡散の代表長さをdxとする
 <br>
-・拡散係数をDとする
+・拡散係数をDsとする
 <br>
-・反応ionの価数をnとする
+・<span class="clear">活物質の体積分率</span>を<span class="clear">es</span>とする
+<br>
+・<span class="clear">有効拡散</span>係数を<span class="clear">Ds_eff</span>とする（<span class="clear">tortuosity</span>によって例えば、Ds_eff=Ds*es^1.5）
+<br>
+・<span class="condition">反応ionの価数</span>を<span class="condition">n</span>とする
 <br>
 ・反応面積をSとする
 <br>
-・濃度変化量Δc=代表濃度-平均濃度を定義する
+・ion濃度変化量Δc=代表濃度-平均濃度を定義する
 <br>
 ・限界濃度をcmaxとする
 <br>
-・比例係数をkとする濃度変化量Δcと電圧Vの関係式V=Δc/(cmax*k)を仮定する
+・比例係数をkとするion濃度変化量Δcと電圧Vの関係式V=Δc/(cmax*k)を仮定する
 <br>
 <br>
 1次元拡散方程式の右辺を示す
 <br>
-・活物質内を想定して左右の面のfluxを仮定する
+・<span class="clear">形状因子を考慮しない</span>活物質内を想定して左右の面のfluxを仮定する
 <br>
-電解質側の右面flux=I/(n*F*S)
+電解質側の右面flux=I/(<span class="condition">n*</span>F*S)
 <br>
-活物質側の左面flux=D*Δc/dx
+活物質側の左面flux=<span class="clear">Ds_eff*</span>Δc/dx
 <br>
 ・fluxのdivergence項=(右面flux-左面flux)/dx
 <br>
-右辺=-D*Δc/dx^2+I/(n*F*S*dx)
+右辺=-<span class="clear">Ds_eff*</span>Δc/dx^2+I/(<span class="condition">n*</span>F*S*dx)
 <br>
 <br>
 1次元拡散方程式の<a href="#span-out-evolution">時間発展</a>方程式を示す
 <br>
 ・Fick's second law
 <br>
-Δc'=-D*Δc/dx^2+I/(n*F*S*dx)
+<span class="clear">es*</span>Δc'=-<span class="clear">Ds_eff*</span>Δc/dx^2+I/(<span class="condition">n*</span>F*S*dx)
 <br>
 ・濃度変化に伴う電圧に変換する
 <br>
-cmax*k*V'=-D*cmax*k*V/dx^2+I/(n*F*S*dx)
+<span class="clear">es*</span>cmax*k*V'=-<span class="clear">Ds_eff*</span>cmax*k*V/dx^2+I/(<span class="condition">n*</span>F*S*dx)
 <br>
-V'=-D*V/dx^2+I/(n*F*S*dx*cmax*k)
+V'=-<span class="clear">Ds_eff*</span>V/(dx^2<span class="clear">*es</span>)+I/(<span class="condition">n*</span>F*S*dx*<span class="clear">es*</span>cmax*k)
 <br>
 ・次の定数を定義する
 <br>
-a=D/dx^2
+a=<span class="clear">Ds_eff</span>/(dx^2<span class="clear">*es</span>)
 <br>
-b=1/(n*F*S*dx*cmax*k)
+b=1/(<span class="condition">n*</span>F*S*dx*<span class="clear">es*</span>cmax*k)
 <br>
 ・<a href="#span-out-modelling-application1">RC並列回路</a>のanalogyから定数aの物理的な定義を示す
 <br>
-拡散の時定数1/a=dx^2/D
+<span class="clear">有効拡散</span>の時定数1/a=(dx^2<span class="clear">*es</span>)/<span class="clear">Ds_eff</span>
 <br>
-拡散のcut-off角周波数a=D/dx^2
+<span class="clear">有効拡散</span>のcut-off角周波数a=<span class="clear">Ds_eff</span>/(dx^2<span class="clear">*es</span>)
 <br>
-・以上より、1次元拡散方程式の<a href="#span-out-evolution">時間発展</a>方程式が得られる
+・以上より、電圧に変換した1次元拡散方程式の<a href="#span-out-evolution">時間発展</a>方程式が得られる
 <br>
-V'=-D*V/dx^2+I/(n*F*S*dx*cmax*k) -> V'=-a*V+b*I
+V'=-<span class="clear">Ds_eff*</span>V/(dx^2<span class="clear">*es</span>)+I/(<span class="condition">n*</span>F*S*dx*<span class="clear">es*</span>cmax*k) -> V'=-a*V+b*I
 <br>
 <br>
 <a href="#span-out-evolution">時間発展</a>方程式を離散化して漸化式を導出する
@@ -11911,7 +11919,7 @@ V'=-D*V/dx^2+I/(n*F*S*dx*cmax*k) -> V'=-a*V+b*I
 <br>
 漸化式の数値的安定性の要件を示す
 <br>
-・陽解法の場合、0&lt;1-a*dt&lt;1から0&lt;dt&lt;dx^2/D（0＜時間刻み＜拡散の時定数）
+・陽解法の場合、0&lt;1-a*dt&lt;1から0&lt;dt&lt;1/a（0＜時間刻み＜<span class="clear">有効拡散</span>の時定数）
 <br>
 ・陰解法の場合、無条件安定（時間刻みに依存しない）
 <br>
