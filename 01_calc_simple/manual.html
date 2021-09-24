@@ -11687,7 +11687,7 @@ RC並列回路のsimplified modellingについて記述する
 <br>
 ・保存則はKirchhoff's laws
 <br>
-・<a href="#span-out-fdm">有限差分法</a>を用いて時間を離散化する
+・時間を<a href="#span-out-fdm">有限差分法</a>で離散化
 <br>
 <br>
 前提を列挙する
@@ -11828,9 +11828,9 @@ modelling
 <br>
 ・<span class="clear">活物質の体積分率</span>を追加考慮
 <br>
-・<a href="#span-out-fdm">有限差分法</a>を用いて時間を離散化する
+・時間を<a href="#span-out-fdm">有限差分法</a>で離散化
 <br>
-・<a href="#span-out-fvm">有限体積法</a>を用いて空間を離散化する
+・空間を<a href="#span-out-fvm">有限体積法</a>で離散化
 <br>
 <br>
 前提を列挙する
@@ -11849,18 +11849,20 @@ modelling
 <br>
 ・<span class="condition">反応ionの価数</span>を<span class="condition">n</span>とする
 <br>
-・反応面積をSとする
+・反応面積（反応界面の総表面積）をSとする
 <br>
 ・<span class="condition">ion</span>濃度変化量Δc=代表濃度-平均濃度を定義する
 <br>
-・限界濃度をcmaxとする
+・限界<span class="condition">ion</span>濃度をcmaxとする
 <br>
 ・比例係数をkとする<span class="condition">ion</span>濃度変化量Δcと電圧Vの関係式V=Δc/(cmax*k)を仮定する
+<br>
+　⇒　θ=c/cmaxにおける微分係数V/Δθの逆数をkとする
 <br>
 <br>
 1次元拡散方程式の右辺を示す
 <br>
-・<span class="clear">形状因子を考慮しない</span>活物質内を想定して左右の面のfluxを仮定する
+・左右の面のfluxを仮定する（<span class="clear">形状因子を考慮しない</span>活物質内を想定）
 <br>
 電解質側の右面flux=I/(<span class="condition">n*</span>F*S)
 <br>
@@ -11989,13 +11991,13 @@ Electrochemical Impedance Spectroscopy（以降、EISと省略する）
 <br>
 ・得られた<a href="#span-out-com">複素数</a>の基準波形を各実測波形に時間領域で乗算する
 <br>
-・得られた<a href="#span-out-com">複素数</a>の各波形を<a href="#span-out-eqns">式変数</a>int_IVの<a href="#span-out-fdm-integral">合成Simpson公式</a>で時間積分する
+・さらに、得られた<a href="#span-out-com">複素数</a>の各波形を<a href="#span-out-fdm-integral">合成Simpson公式</a>で時間積分する（<a href="#span-out-eqns">式変数</a><a href="#span-eqn-plot2d_EIS">int_IV</a>）
 <br>
-・最後に、得られた各<a href="#span-out-com">複素数</a>の比からZ=zV/zIに変換する
+・最後に、得られた各<a href="#span-out-com">複素数</a>の比からZ=zV/zIに変換する（<a href="#span-out-eqns">式変数</a><a href="#span-eqn-plot2d_EIS">calc_Z</a>）
 <br>
 ・仮に、<a href="#span-out-modelling-application1">RC並列回路</a>のcut-off周波数で
 <br>
-　Zが複素数平面の第4象限（位相が負）に位置しない場合、<span class="clear">基準波形を見直す</span>
+　Zが<a href="#span-out-com">複素数</a>平面の第4象限（位相が負）に位置しない場合、<span class="clear">基準波形を見直す</span>
 <br>
 <br>
 <a href="#span-eqn-plot2d_EIS">plot2d_EIS</a>||<a href="#span-eqn-plot2d_IV">plot2d_IV</a>に示すsimulation対象cellの等価回路要素（直列接続）を列挙する
@@ -12067,10 +12069,94 @@ a2=0.01,b2=0.12,
 <br>
 )
 <br>
+・Nyquist-plot(real(Z),-imag(Z))
+<br>
+(
+<br>
+infoLost[ri] 1.000054390110971,infoLost[ri] -0.626708495177503:
+<br>
+infoLost[ri] 1.000197769963539,infoLost[ri] -0.1936010152622332:
+<br>
+infoLost[ri] 1.0008791279248923,infoLost[ri] -0.046741593442684845:
+<br>
+infoLost[ri] 1.0051946423727691,infoLost[ri] 0.030877367568292336:
+<br>
+infoLost[ri] 1.0370746940376958,infoLost[ri] 0.15139417727049678:
+<br>
+infoLost[ri] 1.2428463848394768,infoLost[ri] 0.4426585101482536:
+<br>
+infoLost[ri] 1.9692074050771464,infoLost[ri] 0.8189304441759584:
+<br>
+infoLost[ri] 2.7478680202043564,infoLost[ri] 0.6543142174993192:
+<br>
+infoLost[ri] 2.978079231896037,infoLost[ri] 0.42406164035890753:
+<br>
+infoLost[ri] 3.0951852485694045,infoLost[ri] 0.675153482065019:
+<br>
+infoLost[ri] 3.711459875093761,infoLost[ri] 1.811702692783572
+<br>
+)
+<br>
+・Bode-plot(log10(f),|Z|)
+<br>
+(
+<br>
+3,infoLost[ri] 1.1802001190933158:
+<br>
+2.5,infoLost[ri] 1.018762451286169:
+<br>
+2,infoLost[ri] 1.0019699622609723:
+<br>
+1.5,infoLost[ri] 1.005668772948065:
+<br>
+1.0000000000000004,infoLost[ri] 1.0480668480229642:
+<br>
+0.5000000000000002,infoLost[ri] 1.3193231950190327:
+<br>
+0,infoLost[ri] 2.13270365419317:
+<br>
+-0.5000000000000002,infoLost[ri] 2.8246956918725874:
+<br>
+-0.9999999999999989,infoLost[ri] 3.008119709432186:
+<br>
+-1.4999999999999991,infoLost[ri] 3.1679652692708244:
+<br>
+-1.9999999999999993,infoLost[ri] 4.130036446748411
+<br>
+)
+<br>
+・Bode-plot(log10(f),deg_phi)
+<br>
+(
+<br>
+3,infoLost[ri] 32.07431944473854:
+<br>
+2.5,infoLost[ri] 10.954854996909933:
+<br>
+2,infoLost[ri] 2.6738010400823766:
+<br>
+1.5,infoLost[ri] -1.7594470164364941:
+<br>
+1.0000000000000004,infoLost[ri] -8.305482098595858:
+<br>
+0.5000000000000002,infoLost[ri] -19.604124709935633:
+<br>
+0,infoLost[ri] -22.58086538727024:
+<br>
+-0.5000000000000002,infoLost[ri] -13.393680249677557:
+<br>
+-0.9999999999999989,infoLost[ri] -8.104114612346955:
+<br>
+-1.4999999999999991,infoLost[ri] -12.305194523809629:
+<br>
+-1.9999999999999993,infoLost[ri] -26.018737805525532
+<br>
+)
+<br>
 <br>
 電気化学cellの交流impedance測定における留意事項を列挙する（参考）
 <br>
-・Open Circuit Voltage測定中に測定対象は測定機の影響を受けて変化しない
+・Open Circuit Voltage測定中に測定対象は測定機の影響（主に暗電流）を受けて変化しない
 <br>
 ・測定電流||電圧の入力と測定対象の応答がButler-Volmer式の線形領域の範囲内に収まる
 <br>
