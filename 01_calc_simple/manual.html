@@ -1034,6 +1034,8 @@ ja.m.wikipedia.org/wiki/項目を列挙する
 <br>
 ・フーリエ級数
 <br>
+・フォン・ノイマンの安定性解析
+<br>
 ・ガンマ補正
 <br>
 ・グレースケール
@@ -11786,7 +11788,9 @@ V*s=-V/(R*C)+I/C -> V*s=-a*V+b*I
 <br>
 漸化式の数値的安定性の要件を示す
 <br>
-・陽解法の場合、0&lt;1-a*dt&lt;1から0&lt;dt&lt;1/a（0＜時間刻み＜時定数）
+・陽解法の場合、|1-a*dt|&le;1から0&le;dt&le;2/a（0≦時間刻み≦時定数<span class="selection">*2</span>）
+<br>
+　<span class="run">Ver.2.51.25</span>以降、時定数の係数倍<span class="selection">*2</span>を追記して訂正
 <br>
 ・陰解法の場合、無条件安定（時間刻みに依存しない）
 <br>
@@ -11921,7 +11925,9 @@ V'=-<span class="clear">Ds_eff*</span>V/(dx^2<span class="clear">*es</span>)+I/(
 <br>
 漸化式の数値的安定性の要件を示す
 <br>
-・陽解法の場合、0&lt;1-a*dt&lt;1から0&lt;dt&lt;1/a（0＜時間刻み＜<span class="clear">有効拡散</span>の時定数）
+・陽解法の場合、|1-a*dt|&le;1から0&le;dt&le;2/a（0≦時間刻み≦<span class="clear">有効拡散</span>の時定数<span class="selection">*2</span>）
+<br>
+　<span class="run">Ver.2.51.25</span>以降、時定数の係数倍<span class="selection">*2</span>を追記して訂正
 <br>
 ・陰解法の場合、無条件安定（時間刻みに依存しない）
 <br>
@@ -12029,6 +12035,12 @@ test caseを示す
 <br>
 電流振幅dI=1e-3
 <br>
+sweep開始周波数f0=1e3
+<br>
+sweep終了周波数f1=0.01
+<br>
+sweep周波数分割数Nf=10
+<br>
 積分1周期分割数Nt=100
 <br>
 積分周回数Nint=1
@@ -12041,11 +12053,15 @@ R0=1,
 <br>
 R1=2,C1=0.1, -> 1/(2pi*R1*C1)=0.7957747154594768（<span class="condition">cut-off周波数</span>≒1）
 <br>
-a1=1/(R1*C1),b1=1/C1,
+a1=1/(R1*C1),b1=1/C1, -> 1/a1=0.2（<span class="selection">時定数</span>=0.2）
 <br>
-a2=0.01,b2=0.12,
+a2=0.01,b2=0.12, -> 1/a2=100（<span class="selection">有効拡散の時定数</span>=100）
 <br>
-・<a href="#span-out-eqns">式変数</a>sweep_f範囲[1e3,0.01]の対数10等分割の周波数に対するZのsimulation結果
+・<a href="#span-out-evolution">時間発展</a>の解法の設定値（陰解法選択）
+<br>
+isImplicit=1,
+<br>
+・logarithmic-scale等分割の周波数に対するZのsimulation結果
 <br>
 (
 <br>
@@ -12247,6 +12263,45 @@ infoLost[ri] 3.711459875093761,infoLost[ri] 1.811702692783572
 0.031622776601683854,infoLost[ri] 3.0824015886720364-0.6769040880523296i:
 <br>
 0.010000000000000012,infoLost[ri] 3.5317647358815623-1.8403531943834652i
+<br>
+)
+<br>
+<br>
+続けて<a href="#span-out-evolution">時間発展</a>の解法のみ変更isImplicit=0（陽解法選択）の影響
+<br>
+・<span class="selection">陽解法の安定条件</span>
+<br>
+dt&lt;min(0.2,100)<span class="selection">*2</span>
+<br>
+1/(f*Nt)&lt;0.4
+<br>
+<span class="selection">f&gt;0.025</span>
+<br>
+・Zのsimulation結果は<span class="selection">陽解法の安定条件</span>の範囲内で定性的に大差なし
+<br>
+(
+<br>
+<span class="selection">999.9999999999998,infoLost[ri] 1.0000543929898555+0.626708415628734i:</span>
+<br>
+<span class="selection">316.22776601683796,infoLost[ri] 1.0001978068781259+0.19360021990102563i:</span>
+<br>
+<span class="selection">100.00000000000004,infoLost[ri] 1.0008797482133391+0.04673364653178407i:</span>
+<br>
+<span class="selection">31.62277660168379,infoLost[ri] 1.0052082296658387-0.03095637279042429i:</span>
+<br>
+<span class="selection">10.00000000000001,infoLost[ri] 1.0373952733381435-0.15214941818882316i:</span>
+<br>
+<span class="selection">3.162277660168381,infoLost[ri] 1.2486473969330358-0.4481778175693221i:</span>
+<br>
+<span class="condition">1,infoLost[ri] 2.012036843642123-0.8250361448914947i:</span>
+<br>
+<span class="selection">0.3162277660168378,infoLost[ri] 2.8088203160184415-0.5898729668672302i:</span>
+<br>
+<span class="selection">0.10000000000000024,infoLost[ri] 3.003399673907799-0.3117472516446023i:</span>
+<br>
+<span class="selection">0.031622776601683854,infoLost[ri] 3.1017196891639354-0.5529342786020476i:</span>
+<br>
+0.010000000000000012,infoLost[ri] -6.24810011909696e+55-7.398061071461481e+55i
 <br>
 )
 <br>
