@@ -11995,7 +11995,7 @@ Electrochemical Impedance Spectroscopy（以降、EISと省略する）
 <br>
 ・最後に、得られた各<a href="#span-out-com">複素数</a>の比からZ=zV/zIに変換する（<a href="#span-out-eqns">式変数</a><a href="#span-eqn-plot2d_EIS">calc_Z</a>）
 <br>
-・仮に、<a href="#span-out-modelling-application1">RC並列回路</a>の<span class="condition">cut-off周波数で</span>
+・仮に、<a href="#span-out-modelling-application1">RC並列回路</a>の<span class="condition">cut-off周波数</span>で
 <br>
 　Zが<a href="#span-out-com">複素数</a>平面の<span class="condition">第4象限</span>（半円の頂点で位相が負）に位置しない場合、<span class="clear">基準波形を見直す</span>
 <br>
@@ -12004,9 +12004,9 @@ Electrochemical Impedance Spectroscopy（以降、EISと省略する）
 <br>
 ・構造由来のinductance: L
 <br>
-・導電path上の電子||ion伝導を合成する直流抵抗: R0
+・導電path上の電子伝導とion伝導を合成する直流抵抗: R0
 <br>
-・<a href="#span-out-modelling-application1">RC並列回路</a>で表すion挿入/脱離の反応抵抗: R1,C1 -> a1,b1
+・<a href="#span-out-modelling-application1">RC並列回路</a>で表すion挿入/脱離||還元/酸化の反応抵抗: R1,C1 -> a1,b1
 <br>
 ・ion濃度分布緩和過程の電位変化に伴う<a href="#span-out-modelling-application2">拡散抵抗</a>（Warburg's Zの代替）: a2,b2
 <br>
@@ -12015,6 +12015,10 @@ Electrochemical Impedance Spectroscopy（以降、EISと省略する）
 ・負極||電解質||正極の影響は合成して区別しない
 <br>
 ・電解質/活物質界面の被膜抵抗は反応抵抗に合成して区別しない
+<br>
+・電荷移動律速過程におけるButler-Volmer式の非線形性は考慮しない
+<br>
+・拡散律速過程における拡散抵抗の非線形性は考慮しない
 <br>
 ・限界電流密度は考慮しない
 <br>
@@ -12035,7 +12039,7 @@ L=1e-4,
 <br>
 R0=1,
 <br>
-R1=2,C1=0.1,
+R1=2,C1=0.1, -> 1/(2pi*R1*C1)=0.7957747154594768（<span class="condition">cut-off周波数</span>≒1）
 <br>
 a1=1/(R1*C1),b1=1/C1,
 <br>
