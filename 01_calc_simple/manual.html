@@ -161,6 +161,11 @@ e^(-i(1pi(){2/2i}(5-{3-1}){i/(-4)}))
 </a>
 <br>
 ・
+<a href="#span-pre-paper">
+参考論文
+</a>
+<br>
+・
 <a href="#span-pre-pat">
 参考特許文献
 </a>
@@ -1043,6 +1048,23 @@ ja.m.wikipedia.org/wiki/項目を列挙する
   </tr>
   <tr>
     <th>
+参考論文
+    </th>
+    <td>
+<span id="span-pre-paper"></span>
+参考論文について記述する
+<br>
+<br>
+title/発行元(発行年)を列挙する
+<br>
+<span id="span-pre-paper1"></span>
+1. THERMAL-ELECTROCHEMICAL COUPLED MODELING OF A LITHIUM-ION CELL
+<br>
+　Proceedings of the ECS(2000)
+    </td>
+  </tr>
+  <tr>
+    <th>
 参考特許文献
     </th>
     <td>
@@ -1050,9 +1072,10 @@ ja.m.wikipedia.org/wiki/項目を列挙する
 参考特許文献について記述する
 <br>
 <br>
-公開番号と発明の名称を列挙する
+公開番号/発明の名称を列挙する
 <br>
-・WO2013128652
+<span id="span-pre-pat1"></span>
+1. WO2013128652
 <br>
 　リチウム二次電池用液保持体およびリチウム二次電池
     </td>
@@ -11788,11 +11811,13 @@ V*s=-V/(R*C)+I/C -> V*s=-a*V+b*I
 <br>
 漸化式の数値的安定性の要件を示す
 <br>
+・a&gt;0の前提
+<br>
 ・陽解法の場合、|1-a*dt|&le;1から0&le;dt&le;2/a（0≦時間刻み≦時定数<span class="selection">*2</span>）
 <br>
-　<span class="run">Ver.2.51.25</span>以降、時定数の係数倍<span class="selection">*2</span>を追記して訂正
+　<span class="run">Ver.2.51.25</span>以降、Von Neumannの安定性解析結果から時定数の係数倍<span class="selection">*2</span>を追記して訂正
 <br>
-・陰解法の場合、無条件安定（時間刻みに依存しない）
+・陰解法の場合、|1/(1+a*dt)|&le;1からdt&le;-2/a||0&le;dt（0≦時間刻みの範囲で無条件安定）
 <br>
 <br>
 各parameterのOrder推定方法を示す
@@ -11822,7 +11847,7 @@ modelling
 拡散方程式のsimplified modellingについて記述する
 <br>
 <br>
-<span class="clear">porous</span><span class="condition">電極活物質内ionの</span>1次元拡散方程式のmodellingを一例に示す
+<span class="clear">porous電極</span><span class="jF">活物質内</span><span class="condition">ionの</span>1次元拡散方程式のmodellingを一例に示す
 <br>
 ・物質量||濃度の保存則はFick's laws
 <br>
@@ -11831,6 +11856,8 @@ modelling
 ・<span class="condition">反応ionの価数</span>を追加考慮
 <br>
 ・<span class="clear">活物質の体積分率</span>を追加考慮
+<br>
+・<span class="run">Ver.2.51.25</span>以降、<span class="jF">活物質の形状因子</span>を追加考慮（<a href="#span-pre-paper1">参考論文[1]</a>）
 <br>
 ・時間を<a href="#span-out-fdm">有限差分法</a>で離散化
 <br>
@@ -11855,6 +11882,10 @@ modelling
 <br>
 ・反応面積（反応界面の総表面積）をSとする
 <br>
+・<span class="jF">活物質の形状因子</span>を<span class="jF">as</span>とする
+<br>
+・有効反応面積をS<span class="jF">*as</span>とする
+<br>
 ・<span class="condition">ion</span>濃度変化量Δc=代表濃度-平均濃度を定義する
 <br>
 ・限界<span class="condition">ion</span>濃度をcmaxとする
@@ -11866,34 +11897,34 @@ modelling
 <br>
 1次元拡散方程式の右辺を示す
 <br>
-・左右の面のfluxを仮定する（<span class="clear">形状因子を考慮しない</span>活物質内を想定）
+・活物質内を想定して左右の面のfluxをaboutに仮定する
 <br>
-電解質側の右面flux=I/(<span class="condition">n*</span>F*S)
+電解質側の右面flux=I/(<span class="condition">n*</span>F*S<span class="jF">*as</span>)
 <br>
 活物質側の左面flux=<span class="clear">Ds_eff*</span>Δc/dx
 <br>
 ・fluxのdivergence項=(右面flux-左面flux)/dx
 <br>
-右辺=-<span class="clear">Ds_eff*</span>Δc/dx^2+I/(<span class="condition">n*</span>F*S*dx)
+右辺=-<span class="clear">Ds_eff*</span>Δc/dx^2+I/(<span class="condition">n*</span>F*S<span class="jF">*as</span>*dx)
 <br>
 <br>
 1次元拡散方程式の<a href="#span-out-evolution">時間発展</a>方程式を示す
 <br>
 ・Fick's second law
 <br>
-<span class="clear">es*</span>Δc'=-<span class="clear">Ds_eff*</span>Δc/dx^2+I/(<span class="condition">n*</span>F*S*dx)
+<span class="clear">es*</span>Δc'=-<span class="clear">Ds_eff*</span>Δc/dx^2+I/(<span class="condition">n*</span>F*S<span class="jF">*as</span>*dx)
 <br>
 ・<span class="condition">ion</span>濃度変化に伴う電圧に変換する
 <br>
-<span class="clear">es*</span>cmax*k*V'=-<span class="clear">Ds_eff*</span>cmax*k*V/dx^2+I/(<span class="condition">n*</span>F*S*dx)
+<span class="clear">es*</span>cmax*k*V'=-<span class="clear">Ds_eff*</span>cmax*k*V/dx^2+I/(<span class="condition">n*</span>F*S<span class="jF">*as</span>*dx)
 <br>
-V'=-<span class="clear">Ds_eff*</span>V/(dx^2<span class="clear">*es</span>)+I/(<span class="condition">n*</span>F*S*dx*<span class="clear">es*</span>cmax*k)
+V'=-<span class="clear">Ds_eff*</span>V/(dx^2<span class="clear">*es</span>)+I/(<span class="condition">n*</span>F*S<span class="jF">*as</span>*dx*<span class="clear">es*</span>cmax*k)
 <br>
 ・次の定数を定義する
 <br>
 a=<span class="clear">Ds_eff</span>/(dx^2<span class="clear">*es</span>)
 <br>
-b=1/(<span class="condition">n*</span>F*S*dx*<span class="clear">es*</span>cmax*k)
+b=1/(<span class="condition">n*</span>F*S<span class="jF">*as</span>*dx*<span class="clear">es*</span>cmax*k)
 <br>
 ・<a href="#span-out-modelling-application1">RC並列回路</a>のanalogyから定数aの物理的な定義を示す
 <br>
@@ -11903,7 +11934,7 @@ b=1/(<span class="condition">n*</span>F*S*dx*<span class="clear">es*</span>cmax*
 <br>
 ・以上より、電圧に変換した1次元拡散方程式の<a href="#span-out-evolution">時間発展</a>方程式が得られる
 <br>
-V'=-<span class="clear">Ds_eff*</span>V/(dx^2<span class="clear">*es</span>)+I/(<span class="condition">n*</span>F*S*dx*<span class="clear">es*</span>cmax*k) -> V'=-a*V+b*I
+V'=-<span class="clear">Ds_eff*</span>V/(dx^2<span class="clear">*es</span>)+I/(<span class="condition">n*</span>F*S<span class="jF">*as</span>*dx*<span class="clear">es*</span>cmax*k) -> V'=-a*V+b*I
 <br>
 <br>
 <a href="#span-out-evolution">時間発展</a>方程式を離散化して漸化式を導出する
@@ -11925,15 +11956,13 @@ V'=-<span class="clear">Ds_eff*</span>V/(dx^2<span class="clear">*es</span>)+I/(
 <br>
 漸化式の数値的安定性の要件を示す
 <br>
+・a&gt;0の前提
+<br>
 ・陽解法の場合、|1-a*dt|&le;1から0&le;dt&le;2/a（0≦時間刻み≦<span class="clear">有効拡散</span>の時定数<span class="selection">*2</span>）
 <br>
-　<span class="run">Ver.2.51.25</span>以降、時定数の係数倍<span class="selection">*2</span>を追記して訂正
+　<span class="run">Ver.2.51.25</span>以降、Von Neumannの安定性解析結果から時定数の係数倍<span class="selection">*2</span>を追記して訂正
 <br>
-・陰解法の場合、無条件安定（時間刻みに依存しない）
-<br>
-＜補足＞
-<br>
-・陽解法の安定条件はVon Neumannの安定性解析結果に同義
+・陰解法の場合、|1/(1+a*dt)|&le;1からdt&le;-2/a||0&le;dt（0≦時間刻みの範囲で無条件安定）
 <br>
 <br>
 各parameterのOrder推定方法を示す
@@ -12271,11 +12300,11 @@ infoLost[ri] 3.711459875093761,infoLost[ri] 1.811702692783572
 <br>
 ・<span class="selection">陽解法の安定条件</span>
 <br>
-dt&lt;min(0.2,100)<span class="selection">*2</span>
+dt&le;min(0.2,100)<span class="selection">*2</span>
 <br>
-1/(f*Nt)&lt;0.4
+1/(f*Nt)&le;0.4
 <br>
-<span class="selection">f&gt;0.025</span>
+<span class="selection">f&ge;0.025</span>
 <br>
 ・Zのsimulation結果は<span class="selection">陽解法の安定条件</span>の範囲内で定性的に大差なし
 <br>
@@ -14600,7 +14629,7 @@ Electrochemical cells 2D-simulation with heat and fluid flow
 <br>
 ・その他、電極面積に応じて反応不均一（構造由来||液枯れ等）が生じた場合、
 <br>
-　以上の傾向を増長する懸念があり、これらを対策する<a href="#span-pre-pat">特許文献</a>が考え方の参考になる
+　以上の傾向を増長する懸念があり、これらを対策する<a href="#span-pre-pat1">参考特許文献[1]</a>が考え方の参考になる
 <hr>
 ・固体電解質については、液系由来の問題（副反応を除く）は解消されるが、
 <br>
