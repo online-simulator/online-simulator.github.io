@@ -460,6 +460,9 @@ My_entry.plot2d.prototype.run = function(arr2d_vec, options, toSVG, isFinal){
   if(isAxis_y && isAxis_z && inputZ){
     inputZ = def.enter_name(inputZ, "ylabel", false, 0, function(content){label_y = content;});
   }
+  /* 1.8.5 -> */
+  inputZ = def.enter_name(inputZ, "transform", false, 0, function(content){options._transform = content;});
+  /* -> 1.8.5 */
   /* 1.1.2 -> */
   inputZ = def.enter_name(inputZ, "filter", false, 0, function(content){options._filter = content;});
   /* -> 1.1.2 */
@@ -844,24 +847,44 @@ My_entry.plot2d.prototype.final = function(arr2d_vec, options, toSVG){
       all.putID(all.blur(arr_s, arr2d_tvec[Nlegend-1] || arr2d_tvec[len-1], null, records));
     };
     /* -> 1.2.3 */
+    /* 1.8.5 -> */
     /* 1.1.2 -> */
     var callback_filter = function(){
       var filters = options._filter.split(":");
       filters.forEach(function(filter){
         /* 1.1.3 -> */
         var re = /\[.*?\]/g;
-        var content = def.get_title(filter, "", false, 2);
+        var text = filter;
+        var area = "";
+        text = def.enter_name(text, "area", false, 2, function(content){area = content;});
+        var content = def.get_title(text, "", false, 2);
         var arr_w = (content || "").split(",");  // rgba || rgba[] -> [""]
         arr_w = conv.arr_str2arr_num(arr_w, 0);  // [""] || [string] -> [0]
-        all.putID(self.filter.run(all.ctx, {rgba: filter.replace(re, ""), arr_w: arr_w}));
+        var params = $.get_records(area, ",", 0, ["is", "js", "px_w", "px_h"], true);
+        params.rgba = text.replace(re, "");
+        params.arr_w = arr_w;
+        all.putID_xy(self.filter.run(all.ctx, params), params.is, params.js);
         /* -> 1.1.3 */
       });
     };
     /* -> 1.1.2 */
+    var callback_transform = function(){
+      var text = options._transform;
+      var params = $.get_records(text, ",", 0, ["a", "b", "c", "d", "e", "f"], true);
+      all.ctx.setTransform(params.a, params.b, params.c, params.d, params.e, params.f);
+    };
     var callback0 = function(){
       arr_base64_grid_plot.push(all.get_base64());
       var callback1 = function(){
+        if(options._transform){
+          all.ctx.save();
+          callback_transform();
+        };
         var callback2 = function(){
+          if(options._transform){
+            all.ctx.restore();
+          }
+    /* -> 1.8.5 */
           /* 1.2.3 -> */
           if(options._blur){
             callback_blur();

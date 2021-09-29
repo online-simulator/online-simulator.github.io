@@ -445,7 +445,7 @@ My_entry.$.prototype.readFile_id = function(id, re, opt_callback){
   var elem = self._id(id);
   return self.readFile_elem(elem, re, opt_callback);
 };
-My_entry.$.prototype.get_records = function(input, separator, val0, props){
+My_entry.$.prototype.get_records = function(input, separator, val0, props, isNumber){
   var self = this;
   var _obj = {};
   var sc = (input || "").split(separator);
@@ -456,7 +456,12 @@ My_entry.$.prototype.get_records = function(input, separator, val0, props){
         _obj[prop] = val0;
       }
       else{
-        _obj[prop] = (isNaN(Number(val)))? self.val2literal(val): Number(val);
+        var val1 = (isNaN(Number(val)))? self.val2literal(val): Number(val);
+        if(isNumber && isNaN(val1)){
+          var num = (isNaN(val0))? 0: Number(val0);
+          val1 = num;
+        }
+        _obj[prop] = val1;
       }
     }
   });

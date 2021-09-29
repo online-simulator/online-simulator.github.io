@@ -228,6 +228,11 @@ gradation特定項目仕様
 </a>
 <br>
 　　　・
+<a href="#span-out-UI-graphing-transform">
+transform特定項目仕様
+</a>
+<br>
+　　　・
 <a href="#span-out-UI-graphing-filter">
 filter特定項目仕様
 </a>
@@ -1558,11 +1563,22 @@ shadowOffsetX:shadowOffsetY:shadowBlur:deg0
 originX:originY:offsetR:orderR:NrandR:NrandT:isMin:isRound:Nrender:Ncycle
 <br>
 <br>
-<span class="run">Ver.2.44.22</span>以降、<a href="#span-out-UI-graphing-filter">filter</a>をfilter||FILTER{filters}で入力
+<span class="run">Ver.2.52.25</span>以降、<a href="#span-out-UI-graphing-transform">transform</a>をtransform||TRANSFORM{args}で入力
+<br>
+・任意位置に挿入可
+<br>
+・transformはlayer合成時のpost処理（svg出力は無効）
+<br>
+・argsはcanvas座標変換の引数をcomma,区切りで入力
+<br>
+<br>
+<span class="run">Ver.2.44.22</span>以降、<a href="#span-out-UI-graphing-filter">filter</a>をfilter||FILTER{area[]filters}で入力
 <br>
 ・任意位置に挿入可
 <br>
 ・filterはlayer合成後のpost最終処理（svg出力は無効）
+<br>
+・area[]内datasetは適用canvas-areaをcomma,区切りで入力（省略時、canvas全体に適用）
 <br>
 ・filtersはfilterを適用順にcolon:区切りで入力
 <br>
@@ -1902,6 +1918,137 @@ png出力の特徴を列挙する
 目次
 </a>
 <br>
+transform
+<br>
+特定項目仕様
+    </th>
+    <td>
+<span id="span-out-UI-graphing-transform"></span>
+transform特定項目仕様と付随する留意事項について記述する
+<br>
+<br>
+<span class="run">Ver.2.52.25</span>以降、layer合成時の座標変換機能を追加する
+<br>
+<br>
+<a href="#span-out-UI-graphing-z">z入力欄</a>にtransformをtransform||TRANSFORM{args}で入力
+<br>
+・任意位置に挿入可
+<br>
+・transformはlayer合成時のpost処理（svg出力は無効）
+<br>
+・argsはcanvas座標変換ctx.setTransform(<span class="selection">a,b,c,d,e,f</span>)の引数をcomma,区切りで入力
+<br>
+transform{<span class="selection">a,b,c,d,e,f</span>}
+<br>
+・各引数の定義を示す
+<br>
+2次元Euclid実空間の<a href="#span-out-FNmspecial">回転行列</a>(<span class="selection">a,b:c,d</span>)
+<br>
+px数値の並進vector{<span class="selection">e,f</span>}
+<br>
+・列vectorの場合
+<br>
+{x_after,y_after,1}=(
+<br>
+<span class="selection">
+a,b,e:
+<br>
+c,d,f:
+</span>
+<br>
+0,0,1
+<br>
+){x_before,y_before,1}
+<br>
+・行vectorの場合
+<br>
+(x_after,y_after,1)=(x_before,y_before,1)(
+<br>
+<span class="selection">a,c,</span>0:
+<br>
+<span class="selection">b,d,</span>0:
+<br>
+<span class="selection">e,f,</span>1
+<br>
+)
+<br>
+・同義
+<br>
+x_after=x_before<span class="selection">*a</span>+y_before<span class="selection">*b</span>+1<span class="selection">*e</span>
+<br>
+y_after=x_before<span class="selection">*c</span>+y_before<span class="selection">*d</span>+1<span class="selection">*f</span>
+<br>
+<br>
+test caseを列挙する
+<br>
+・基準
+<br>
+{1,0,0,1,0,0}
+<br>
+・x方向2倍(a,d)=(2,1)
+<br>
+{2,0,0,1,0,0}
+<br>
+・y方向2倍(a,d)=(1,2)
+<br>
+{1,0,0,2,0,0}
+<br>
+・並進(e,f)=(-100,100)
+<br>
+{1,0,0,1,-100,100}
+<br>
+・x方向反転並進(a,e)=(-1,100)
+<br>
+{-1,0,0,1,100,0}
+<br>
+・y方向反転並進(d,f)=(-1,100)
+<br>
+{1,0,0,-1,0,100}
+<br>
+・x/y方向反転並進(a,d,e,f)=(-1,-1,100,100)
+<br>
+{-1,0,0,-1,100,100}
+<br>
+・中心(e,f)=(0,0)の回転(a,b)=(d,-c)
+<br>
+　・回転角=pi/4
+<br>
+<a href="#span-eqn-rotationxyz_LHS">rotz_LHS(psi)</a>=&lt;{rt=real(psi),=&lt;(cos(rt),sin(rt),:-sin(rt),cos(rt),:,,1)}=&gt;;
+<br>
+Rz=rotz_LHS(pi/4); Rz[0][0],Rz[0][1],Rz[1][0],Rz[1][1]
+<br>
+-> 0.7071067811865476,0.7071067811865475,-0.7071067811865475,0.7071067811865476
+<br>
+{0.7071067811865476,0.7071067811865475,-0.7071067811865475,0.7071067811865476,0,0}
+<br>
+　・(a,b)=(0.5,0.2)
+<br>
+{0.5,0.2,-0.2,0.5,0,0}
+<br>
+・x方向せん断変形(b,c)=(0,0.5)
+<br>
+{1,0,0.5,1,0,0}
+<br>
+・y方向せん断変形(b,c)=(0.5,0)
+<br>
+{1,0.5,0,1,0,0}
+<br>
+・視線変更
+<br>
+{1,0.1,-0.5,0.5,50,50}
+<br>
+<br>
+留意事項を列挙する
+<br>
+・layer合成後の<a href="#span-out-UI-graphing-filter">filtering</a>||<a href="#span-out-UI-graphing-blur">blurring</a>はputImageData()同期出力のため、transform無効
+    </td>
+  </tr>
+  <tr>
+    <th>
+<a href="#span-index">
+目次
+</a>
+<br>
 filter
 <br>
 特定項目仕様
@@ -1919,12 +2066,18 @@ filter特定項目仕様と付随する留意事項について記述する
 <br>
 ・<span class="clear">Ver.2.48.25</span>以降、描画canvas境界で正常に機能しない不具合を修正
 <br>
+・<span class="run">Ver.2.52.25</span>以降、filterを適用するcanvas-areaの設定項目を追加
 <br>
-<a href="#span-out-UI-graphing-z">z入力欄</a>にfilterをfilter||FILTER{filters}で入力
+<br>
+<a href="#span-out-UI-graphing-z">z入力欄</a>にfilterをfilter||FILTER{area[]filters}で入力
 <br>
 ・任意位置に挿入可
 <br>
 ・filterはlayer合成後のpost最終処理（svg出力は無効）
+<br>
+・area[]内datasetは適用canvas-areaをcomma,区切りで入力（省略時、canvas全体に適用）
+<br>
+area[x||0,y||0,w||canvas-width,h||canvas-height]
 <br>
 ・filtersはfilterを適用順にcolon:区切りで入力
 <br>
@@ -2256,6 +2409,17 @@ hsv_cone[1]:rgba[1] -> hsvrgba_cone[1]
 rgba[1]:hsv[1]
 <br>
 <br>
+<span class="run">Ver.2.52.25</span>以降、filterを適用するcanvas-areaの設定項目を追加
+<br>
+・canvas-areaは始点(x,y)と範囲(w,h)を直列化してpx数値で指定する
+<br>
+area[x||0,y||0,w||canvas-width,h||canvas-height]
+<br>
+・始点(x,y)=(10,20)・範囲(w,h)=(30,40)　⇒　終点(x,y)=(10+30-1,20+40-1)
+<br>
+area[10,20,30,40]
+<br>
+<br>
 留意事項を列挙する
 <br>
 ・putImageData()同期出力のため、layer合成無効
@@ -2509,6 +2673,8 @@ isCyclic:isAverage:Nlegend
 <br>
 <br>
 留意事項を列挙する
+<br>
+・putImageData()同期出力のため、layer合成無効
 <br>
 ・strengthsの数値に応じてpost処理の負荷がexponentialに増大する（中断不可）
 <br>
