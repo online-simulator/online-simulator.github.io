@@ -1929,7 +1929,7 @@ transform特定項目仕様と付随する留意事項について記述する
 <br>
 <span class="run">Ver.2.52.25</span>以降、layer合成時の座標変換機能を追加する
 <br>
-・<span class="clear">Ver.2.53.25</span>以降、<span class="run">せん断変形の結果</span>から<span class="condition">座標変換行列</span>の一部(b,c)の位置関係を交換して訂正
+・<span class="clear">Ver.2.53.25</span>以降、<span class="run">せん断変形の結果</span>から<span class="condition">座標変換行列</span>の一部(<span class="clear">b:c</span>)の位置関係を交換して訂正
 <br>
 <br>
 <a href="#span-out-UI-graphing-z">z入力欄</a>にtransformをtransform||TRANSFORM{args}で入力
@@ -1944,7 +1944,7 @@ transform{<span class="selection">a,b,c,d,e,f</span>}
 <br>
 ・各引数の定義
 <br>
-2次元Euclid実空間の<a href="#span-out-FNmspecial">回転行列</a>(<span class="selection">a,c:b,d</span>)
+2次元Euclid実空間の<a href="#span-out-FNmspecial">回転行列</a>(<span class="selection">a</span>,<span class="clear">c:b</span>,<span class="selection">d</span>)
 <br>
 px数値の並進vector{<span class="selection">e,f</span>}
 <br>
@@ -1989,7 +1989,7 @@ y_after=x_before<span class="selection">*b</span>+y_before<span class="selection
 <br>
 test caseを列挙する
 <br>
-・基準(x_before,y_before)=(1,1)
+・基準{x_before,y_before,1}={1,1,1}
 <br>
 {1,0,0,1,0,0}
 <br>
