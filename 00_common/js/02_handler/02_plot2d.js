@@ -448,18 +448,16 @@ My_entry.plot2d.prototype.run = function(arr2d_vec, options, toSVG, isFinal){
   var arr_strPath = new Array(len_j);
   var arr_gradation = new Array(len_j);
   var inputZ = options["input-z"] || "";
+  /* 1.8.6 -> */
   var title = "";
+  var label_x = "";
+  var label_y = "";
   if(isAxis_z && inputZ){
     inputZ = def.enter_name(inputZ, "title", false, 0, function(content){title = content;});
+    inputZ = def.enter_name(inputZ, "xlabel", false, 0, function(content){if(isAxis_x){label_x = content;}});
+    inputZ = def.enter_name(inputZ, "ylabel", false, 0, function(content){if(isAxis_y){label_y = content;}});
   }
-  var label_x = "";
-  if(isAxis_x && isAxis_z && inputZ){
-    inputZ = def.enter_name(inputZ, "xlabel", false, 0, function(content){label_x = content;});
-  }
-  var label_y = "";
-  if(isAxis_y && isAxis_z && inputZ){
-    inputZ = def.enter_name(inputZ, "ylabel", false, 0, function(content){label_y = content;});
-  }
+  /* -> 1.8.6 */
   /* 1.8.5 -> */
   inputZ = def.enter_name(inputZ, "transform", false, 0, function(content){options._transform = content;});
   /* -> 1.8.5 */
