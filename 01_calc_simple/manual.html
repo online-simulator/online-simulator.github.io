@@ -1929,6 +1929,8 @@ transform特定項目仕様と付随する留意事項について記述する
 <br>
 <span class="run">Ver.2.52.25</span>以降、layer合成時の座標変換機能を追加する
 <br>
+・<span class="clear">Ver.2.53.25</span>以降、<span class="run">せん断変形の結果</span>から<span class="condition">座標変換行列</span>の一部(b,c)の位置関係を交換して訂正
+<br>
 <br>
 <a href="#span-out-UI-graphing-z">z入力欄</a>にtransformをtransform||TRANSFORM{args}で入力
 <br>
@@ -1940,74 +1942,102 @@ transform特定項目仕様と付随する留意事項について記述する
 <br>
 transform{<span class="selection">a,b,c,d,e,f</span>}
 <br>
-・各引数の定義を示す
+・各引数の定義
 <br>
-2次元Euclid実空間の<a href="#span-out-FNmspecial">回転行列</a>(<span class="selection">a,b:c,d</span>)
+2次元Euclid実空間の<a href="#span-out-FNmspecial">回転行列</a>(<span class="selection">a,c:b,d</span>)
 <br>
 px数値の並進vector{<span class="selection">e,f</span>}
 <br>
-・列vectorの場合
+・<span class="condition">座標変換行列</span>の定義
 <br>
-{x_after,y_after,1}=(
+transform3x3=(
 <br>
 <span class="selection">
-a,b,e:
+a,c,e:
 <br>
-c,d,f:
+b,d,f:
 </span>
 <br>
 0,0,1
 <br>
-){x_before,y_before,1}
+);
 <br>
-・行vectorの場合
+trans(transform3x3) -> (
 <br>
-(x_after,y_after,1)=(x_before,y_before,1)(
+<span class="selection">a,b,</span>0:
 <br>
-<span class="selection">a,c,</span>0:
-<br>
-<span class="selection">b,d,</span>0:
+<span class="selection">c,d,</span>0:
 <br>
 <span class="selection">e,f,</span>1
 <br>
 )
 <br>
+・列vectorの場合
+<br>
+{x_after,y_after,1}=transform3x3*{x_before,y_before,1}
+<br>
+・行vectorの場合
+<br>
+(x_after,y_after,1)=(x_before,y_before,1)*trans(transform3x3)
+<br>
 ・同義
 <br>
-x_after=x_before<span class="selection">*a</span>+y_before<span class="selection">*b</span>+1<span class="selection">*e</span>
+x_after=x_before<span class="selection">*a</span>+y_before<span class="selection">*c</span>+1<span class="selection">*e</span>
 <br>
-y_after=x_before<span class="selection">*c</span>+y_before<span class="selection">*d</span>+1<span class="selection">*f</span>
+y_after=x_before<span class="selection">*b</span>+y_before<span class="selection">*d</span>+1<span class="selection">*f</span>
 <br>
 <br>
 test caseを列挙する
 <br>
-・基準
+・基準(x_before,y_before)=(1,1)
 <br>
 {1,0,0,1,0,0}
+<br>
+args={1,0,0,1,0,0};
+<br>
+transform3x3=(args[0],args[2],args[4]:args[1],args[3],args[5]:0,0,1);
+<br>
+{$x_before,$y_before,1}={1,1,1};
+<br>
+{$x_after,$y_after,1}=transform3x3*{x_before,y_before,1};
+<br>
+{x_after,y_after,1} -> (1:1:1)
 <br>
 ・x方向2倍(a,d)=(2,1)
 <br>
 {2,0,0,1,0,0}
 <br>
+{x_after,y_after,1} -> (2:1:1)
+<br>
 ・y方向2倍(a,d)=(1,2)
 <br>
 {1,0,0,2,0,0}
+<br>
+{x_after,y_after,1} -> (1:2:1)
 <br>
 ・並進(e,f)=(-100,100)
 <br>
 {1,0,0,1,-100,100}
 <br>
+{x_after,y_after,1} -> (-99:101:1)
+<br>
 ・x方向反転並進(a,e)=(-1,100)
 <br>
 {-1,0,0,1,100,0}
+<br>
+{x_after,y_after,1} -> (99:1:1)
 <br>
 ・y方向反転並進(d,f)=(-1,100)
 <br>
 {1,0,0,-1,0,100}
 <br>
+{x_after,y_after,1} -> (1:99:1)
+<br>
 ・x/y方向反転並進(a,d,e,f)=(-1,-1,100,100)
 <br>
 {-1,0,0,-1,100,100}
+<br>
+{x_after,y_after,1} -> (99:99:1)
 <br>
 ・中心(e,f)=(0,0)の回転(a,b)=(d,-c)
 <br>
@@ -2021,21 +2051,31 @@ Rz=rotz_LHS(pi/4); Rz[0][0],Rz[0][1],Rz[1][0],Rz[1][1]
 <br>
 {0.7071067811865476,0.7071067811865475,-0.7071067811865475,0.7071067811865476,0,0}
 <br>
+{x_after,y_after,1} -> (1.1102230246251565e-16:1.414213562373095:1)
+<br>
 　・(a,b)=(0.5,0.2)
 <br>
 {0.5,0.2,-0.2,0.5,0,0}
 <br>
-・x方向せん断変形(b,c)=(0,0.5)
+{x_after,y_after,1} -> (0.3:0.7:1)
+<br>
+・x方向<span class="run">せん断変形</span>(b,c)=(0,0.5)
 <br>
 {1,0,0.5,1,0,0}
 <br>
-・y方向せん断変形(b,c)=(0.5,0)
+{x_after,y_after,1} -> (1.5:1:1)
+<br>
+・y方向<span class="run">せん断変形</span>(b,c)=(0.5,0)
 <br>
 {1,0.5,0,1,0,0}
+<br>
+{x_after,y_after,1} -> (1:1.5:1)
 <br>
 ・視線変更
 <br>
 {1,0.1,-0.5,0.5,50,50}
+<br>
+{x_after,y_after,1} -> (50.5:50.6:1)
 <br>
 <br>
 留意事項を列挙する
