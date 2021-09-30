@@ -1572,15 +1572,15 @@ originX:originY:offsetR:orderR:NrandR:NrandT:isMin:isRound:Nrender:Ncycle
 ・argsはcanvas座標変換の引数をcomma,区切りで入力
 <br>
 <br>
-<span class="run">Ver.2.44.22</span>以降、<a href="#span-out-UI-graphing-filter">filter</a>をfilter||FILTER{area[]filters}で入力
+<span class="run">Ver.2.44.22</span>以降、<a href="#span-out-UI-graphing-filter">filter</a>をfilter||FILTER{filters}で入力
 <br>
 ・任意位置に挿入可
 <br>
 ・filterはlayer合成後のpost最終処理（svg出力は無効）
 <br>
-・area[]内datasetは適用canvas-areaをcomma,区切りで入力（省略時、canvas全体に適用）
+・filtersは<span class="condition">area[]</span>filterを適用順にcolon:区切りで入力
 <br>
-・filtersはfilterを適用順にcolon:区切りで入力
+・<span class="run">Ver.2.52.25</span>以降、<span class="condition">area[]</span>内datasetは設定値をcomma,区切りで入力（省略時、全体に適用）
 <br>
 <br>
 <span class="run">Ver.2.45.23</span>以降、<a href="#span-out-UI-graphing-blur">blur</a>をblur||BLUR{config[]strengths}で入力
@@ -2059,17 +2059,17 @@ Rz=rotz_LHS(pi/4); Rz[0][0],Rz[0][1],Rz[1][0],Rz[1][1]
 <br>
 {x_after,y_after,1} -> (0.3:0.7:1)
 <br>
-・x方向<span class="run">せん断変形</span>(b,c)=(0,0.5)
+・<span class="run">x方向せん断変形</span>(b,c)=(0,0.5)
 <br>
 {1,0,0.5,1,0,0}
 <br>
-{x_after,y_after,1} -> (1.5:1:1)
+{x_after,y_after,1} -> (<span class="run">1.5</span>:1:1)
 <br>
-・y方向<span class="run">せん断変形</span>(b,c)=(0.5,0)
+・<span class="run">y方向せん断変形</span>(b,c)=(0.5,0)
 <br>
 {1,0.5,0,1,0,0}
 <br>
-{x_after,y_after,1} -> (1:1.5:1)
+{x_after,y_after,1} -> (1:<span class="run">1.5</span>:1)
 <br>
 ・視線変更
 <br>
@@ -2106,20 +2106,20 @@ filter特定項目仕様と付随する留意事項について記述する
 <br>
 ・<span class="clear">Ver.2.48.25</span>以降、描画canvas境界で正常に機能しない不具合を修正
 <br>
-・<span class="run">Ver.2.52.25</span>以降、filterを適用するcanvas-areaの設定項目を追加
+・<span class="run">Ver.2.52.25</span>以降、filterを適用する<span class="condition">canvas-area</span>の設定項目を追加
 <br>
 <br>
-<a href="#span-out-UI-graphing-z">z入力欄</a>にfilterをfilter||FILTER{area[]filters}で入力
+<a href="#span-out-UI-graphing-z">z入力欄</a>にfilterをfilter||FILTER{filters}で入力
 <br>
 ・任意位置に挿入可
 <br>
 ・filterはlayer合成後のpost最終処理（svg出力は無効）
 <br>
-・area[]内datasetは適用canvas-areaをcomma,区切りで入力（省略時、canvas全体に適用）
+・filtersは<span class="condition">area[]</span>filterを適用順にcolon:区切りで入力
+<br>
+・<span class="run">Ver.2.52.25</span>以降、<span class="condition">area[]</span>内datasetは設定値をcomma,区切りで入力（省略時、全体に適用）
 <br>
 area[x||0,y||0,w||canvas-width,h||canvas-height]
-<br>
-・filtersはfilterを適用順にcolon:区切りで入力
 <br>
 <br>
 filterは上下左右対称(2n-1)x(2n-1)sizeの2次元配列を1次元に直列化して定義する
@@ -2449,9 +2449,9 @@ hsv_cone[1]:rgba[1] -> hsvrgba_cone[1]
 rgba[1]:hsv[1]
 <br>
 <br>
-<span class="run">Ver.2.52.25</span>以降、filterを適用するcanvas-areaの設定項目を追加
+<span class="run">Ver.2.52.25</span>以降、filterを適用する<span class="condition">canvas-area</span>の設定項目を追加
 <br>
-・canvas-areaは始点(x,y)と範囲(w,h)を直列化してpx数値で指定する
+・<span class="condition">canvas-area</span>は始点(x,y)と範囲(w,h)を直列化してpx数値で指定する
 <br>
 area[x||0,y||0,w||canvas-width,h||canvas-height]
 <br>
