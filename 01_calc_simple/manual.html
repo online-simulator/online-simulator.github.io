@@ -243,6 +243,11 @@ tone-curve特定項目仕様
 </a>
 <br>
 　　　　・
+<a href="#span-out-UI-graphing-post-transformer">
+post-transformer特定項目仕様
+</a>
+<br>
+　　　　・
 <a href="#span-out-UI-graphing-post-processor">
 post-processor特定項目仕様
 </a>
@@ -713,6 +718,11 @@ RC並列回路simplified modelling
 拡散方程式simplified modelling
 </a>
 <br>
+　　・
+<a href="#span-out-modelling-application3">
+1D-cell simplified modelling
+</a>
+<br>
 　・
 <a href="#span-out-simulation">
 simulation
@@ -721,6 +731,16 @@ simulation
 　　・
 <a href="#span-out-simulation-EIS">
 EIS simulation
+</a>
+<br>
+　　・
+<a href="#span-out-simulation-EIS-1D-cell">
+1D-cell EIS simulation
+</a>
+<br>
+　　・
+<a href="#span-out-simulation-IV-1D-cell">
+1D-cell IV simulation
 </a>
 <br>
 　・
@@ -1219,7 +1239,7 @@ panel上段について記述する
 <br>
 　・svg||csvはMulti-thread実行の場合、逐次保存可
 <br>
-　・png||svg出力共通でpixel座標小数点以下floorの出力桁数0~9桁を選択可
+　・png||svg出力共通でcanvas座標小数点以下floorの出力桁数0~9桁を選択可
 <br>
 ・canvasにplot2dの演算&amp;描画結果を表示
 <br>
@@ -1809,7 +1829,7 @@ gradation
 gradation特定項目仕様と付随する留意事項について記述する
 <br>
 <br>
-<span class="run">Ver.2.36.18</span>以降、指向性のないGaussぼかしでは再現困難な機能としてgradationを追加する
+<span class="run">Ver.2.36.18</span>以降、指向性のない<a href="#span-out-UI-graphing-filter">Gaussぼかし</a>では再現困難な機能としてgradationを追加する
 <br>
 ・<span class="run">Ver.2.40.18</span>以降、legend間のgradation合成に対応
 <br>
@@ -1966,7 +1986,7 @@ b,d,f:
 <br>
 );
 <br>
-trans(transform3x3) -> (
+transpose(transform3x3) -> (
 <br>
 <span class="selection">a,b,</span>0:
 <br>
@@ -1982,13 +2002,33 @@ trans(transform3x3) -> (
 <br>
 ・行vectorの場合
 <br>
-(x_after,y_after,1)=(x_before,y_before,1)*trans(transform3x3)
+(x_after,y_after,1)=(x_before,y_before,1)*transpose(transform3x3)
 <br>
 ・同義
 <br>
 x_after=x_before<span class="selection">*a</span>+y_before<span class="selection">*c</span>+1<span class="selection">*e</span>
 <br>
 y_after=x_before<span class="selection">*b</span>+y_before<span class="selection">*d</span>+1<span class="selection">*f</span>
+<br>
+・逆変換
+<br>
+det=(a*d-b*c)
+<br>
+inverse(transform3x3) -> (
+<br>
+(1/det)*(d,-c,c*f-e*d):
+<br>
+(1/det)*(-b,a,e*b-a*f):
+<br>
+(1/det)*(0,0,a*d-c*b)
+<br>
+)
+<br>
+x_before=(1/det)*(x_after<span class="selection">*d</span>+y_after<span class="selection">*(-c)</span>+1<span class="selection">*(c*f-e*d)</span>)
+<br>
+y_before=(1/det)*(x_after<span class="selection">*(-b)</span>+y_after<span class="selection">*a</span>+1<span class="selection">*(e*b-a*f)</span>)
+<br>
+・演算に使用する場合、<a href="#span-out-com">Napier数</a>eと区別が必要
 <br>
 <br>
 test caseを列挙する
@@ -2043,7 +2083,7 @@ transform3x3=(args[0],args[2],args[4]:args[1],args[3],args[5]:0,0,1);
 <br>
 {x_after,y_after,1} -> (99:99:1)
 <br>
-・中心(e,f)=(0,0)の回転(a,b)=(d,-c)
+・回転(a,b)=(d,-c)
 <br>
 　・回転角=pi/4
 <br>
@@ -2085,6 +2125,8 @@ Rz=rotz_LHS(pi/4); Rz[0][0],Rz[0][1],Rz[1][0],Rz[1][1]
 留意事項を列挙する
 <br>
 ・layer合成後の<a href="#span-out-UI-graphing-filter">filtering</a>||<a href="#span-out-UI-graphing-blur">blurring</a>はputImageData()同期出力のため、transform無効
+<br>
+・layer合成後の<a href="#span-out-UI-graphing-filter">filtering</a>||<a href="#span-out-UI-graphing-blur">blurring</a>に座標変換を適用する場合、<a href="#span-out-UI-graphing-post-transformer">post-transformer</a>参照
     </td>
   </tr>
   <tr>
@@ -2499,7 +2541,7 @@ tone-curve特定項目仕様について記述する
 <br>
 tone-curveの仕様を列挙する
 <br>
-・<a href="#span-out-UI-graphing-filter">filter</a>定義length=1~4
+・<a href="#span-out-UI-graphing-filter">filter</a>定義（配列length=1~4）
 <br>
 hsvrgba[slope,offset||0,gamma||1,threshold||th=0~255||0]
 <br>
@@ -2567,6 +2609,65 @@ r[0.29891]:g[0.58661]:b[0.11448]
 [1,,0.5,127]
 <br>
 [1,,2,127]
+    </td>
+  </tr>
+  <tr>
+    <th>
+<a href="#span-index">
+目次
+</a>
+<br>
+post
+<br>
+-transformer
+<br>
+特定項目仕様
+    </th>
+    <td>
+<span id="span-out-UI-graphing-post-transformer"></span>
+post-transformer特定項目仕様と付随する留意事項について記述する
+<br>
+<br>
+<span class="run">Ver.2.54.26</span>以降、<a href="#span-out-UI-graphing-filter">filter</a>を代用して<a href="#span-out-UI-graphing-transform">transform</a>同等のpost-transformerを追加する
+<br>
+<br>
+post-transformerの仕様を列挙する
+<br>
+・<a href="#span-out-UI-graphing-filter">filter</a>定義（配列length=6~7）
+<br>
+rgba[<span class="selection">a,b,c,d,e,f</span>,isForward||0]
+<br>
+・配列はcanvas座標変換ctx.setTransform(<span class="selection">a,b,c,d,e,f</span>)の引数をcomma,区切りで入力
+<br>
+・各引数の詳細は<a href="#span-out-UI-graphing-transform">transform</a>参照
+<br>
+・isForwardは座標変換後の各RGBA値の代入方法を数値で指定する
+<br>
+　0の場合、canvas座標を逆変換して変換前の各RGBA値を参照して代入
+<br>
+　1の場合、canvas座標を順変換して変換前の各RGBA値を成行きで上書き代入
+<br>
+<br>
+test caseを列挙する
+<br>
+・canvas全体のRGBA値に<a href="#span-out-UI-graphing-filter">Gaussぼかし</a>を適用後、座標変換を適用
+<br>
+area[0]rgba[1,2,1,2,4,2,1,2,1]:area[0]rgba[1,0.1,-0.5,0.5,65,40]
+<br>
+・canvas全体のRGBA値に座標変換を適用後、<a href="#span-out-UI-graphing-filter">Gaussぼかし</a>を適用
+<br>
+area[0]rgba[1,0.1,-0.5,0.5,65,40]:area[0]rgba[1,2,1,2,4,2,1,2,1]
+<br>
+<br>
+留意事項を列挙する
+<br>
+・変換後のcanvas座標を丸めるため、<a href="#span-out-UI-graphing-transform">transform</a>よりRGBA値の補間精度が悪化する
+<br>
+・順変換の場合、空白発生の可能性がある（例えば、rgba[1,0.1,-0.5,1,0,0,1]）
+<br>
+・別途、<a href="#span-out-UI-graphing-blur">blurring</a>のみを<a href="#span-out-UI-graphing-transform">transform</a>の対象とする場合、plot点に<a href="#span-out-FNmspecial">右手系</a>の座標変換を適用する
+<br>
+　<a href="#span-out-FNmspecial">左手系</a>のcanvas座標変換と等価変換は困難のため、例えば、<a href="#span-out-UI-graphing-transform">transform3x3</a>をplot点に演算
     </td>
   </tr>
   <tr>
@@ -6838,7 +6939,7 @@ max=&lt;3 -> [MyErr]Invalid BTe([object Object])
 ・空括弧()は<a href="#span-out-bracket">parse</a>段階で除去する
 <br>
 <br>
-<a href="#span-out-FN">関数</a>を使用して円周率piとNapier数eを一例に示す
+<a href="#span-out-FN">関数</a>を使用して円周率piと<a href="#span-out-com">Napier数</a>eを一例に示す
 <br>
 PI() || pi || 2acos(0) || 2asin(1) || 4atan(1) -> 3.141592653589793
 <br>
@@ -8405,6 +8506,10 @@ A-ttA ->
 <hr>
 <br>
 特殊行列関数は通常の<a href="#span-out-FNspecial">特殊関数</a>と異なり、特殊な演算仕様を意味する
+<br>
+・右手系をRHS(Right Handed System)と省略する
+<br>
+・左手系をLHS(Left Handed System)と省略する
 <br>
 <br>
 回転行列
@@ -11869,6 +11974,12 @@ simplified modellingの応用手順を列挙する
 ・<a href="#span-out-modelling-application2">拡散方程式simplified modelling</a>
 <br>
 ・<a href="#span-out-simulation-EIS">EIS simulation</a>
+<br>
+・<a href="#span-out-modelling-application3">1D-cell simplified modelling</a>
+<br>
+・<a href="#span-out-simulation-EIS-1D-cell">1D-cell EIS simulation</a>
+<br>
+・<a href="#span-out-simulation-IV-1D-cell">1D-cell IV simulation</a>
     </td>
   </tr>
   <tr>
@@ -12193,6 +12304,26 @@ V'=-<span class="selection">Ds_eff*</span>V/(dx^2<span class="selection">*es</sp
 目次
 </a>
 <br>
+1D-cell
+<br>
+simplified
+<br>
+modelling
+    </th>
+    <td>
+<span id="span-out-modelling-application3"></span>
+1D-cellのsimplified modellingについて記述する
+<br>
+<br>
+実施例は<a href="#span-out-simulation-EIS-1D-cell">1D-cell EIS simulation</a>||<a href="#span-out-simulation-IV-1D-cell">1D-cell IV simulation</a>参照
+    </td>
+  </tr>
+  <tr>
+    <th>
+<a href="#span-index">
+目次
+</a>
+<br>
 simulation
     </th>
     <td>
@@ -12200,6 +12331,10 @@ simulation
 数値計算を応用するsimulationの実施例を列挙する
 <br>
 ・<a href="#span-out-simulation-EIS">EIS simulation</a>
+<br>
+・<a href="#span-out-simulation-EIS-1D-cell">1D-cell EIS simulation</a>
+<br>
+・<a href="#span-out-simulation-IV-1D-cell">1D-cell IV simulation</a>
     </td>
   </tr>
   <tr>
@@ -12552,6 +12687,44 @@ dt&le;min(0.2,100)<span class="selection">*2</span>
 ・測定電流||電圧の入力と測定対象の応答がButler-Volmer式の線形領域の範囲内に収まる
 <br>
 ・測定機と測定対象の接続線impedance（主にinductance）を分離できる
+    </td>
+  </tr>
+  <tr>
+    <th>
+<a href="#span-index">
+目次
+</a>
+<br>
+1D-cell
+<br>
+EIS
+<br>
+simulation
+    </th>
+    <td>
+<span id="span-out-simulation-EIS-1D-cell"></span>
+1D-cell EIS simulationの実施例について記述する
+<br>
+<br>
+    </td>
+  </tr>
+  <tr>
+    <th>
+<a href="#span-index">
+目次
+</a>
+<br>
+1D-cell
+<br>
+IV
+<br>
+simulation
+    </th>
+    <td>
+<span id="span-out-simulation-IV-1D-cell"></span>
+1D-cell IV simulationの実施例について記述する
+<br>
+<br>
     </td>
   </tr>
   <tr>

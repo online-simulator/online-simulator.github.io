@@ -319,6 +319,59 @@ My_entry.filter.prototype.run = function(ctx, params){
         });
       }
     }
+    /* Ver.2.54.26 -> */
+    else if(len_w > 5 && len_w < 9){
+      var ID0 = ctx.getImageData(0, 0, px_w0, px_h0);
+      var data0 =  ID0.data;
+      var a = arr_w[0] || 0;
+      var b = arr_w[1] || 0;
+      var c = arr_w[2] || 0;
+      var d = arr_w[3] || 0;
+      var e = arr_w[4] || 0;
+      var f = arr_w[5] || 0;
+      var isForward = arr_w[6] || 0;
+      var det = (a*d-b*c);
+      var ad = d/det;
+      var bd = (-b)/det;
+      var cd = (-c)/det;
+      var dd = a/det;
+      var ed = (c*f-e*d)/det;
+      var fd = (e*b-a*f)/det;
+      var callback_transform = (isForward)?
+        function(i, j, ired, ired0, n){
+          var ii = Math.round(i*a+j*c+e);
+          var jj = Math.round(i*b+j*d+f);
+          if(ii >= 0 && ii < px_w && jj >= 0 && jj < px_h){
+            var ired = 4*(px_w*jj+ii);
+            _data[ired+n] = data0[ired0+n];
+          }
+        }:
+        function(i, j, ired, ired0, n){
+          var ii = Math.round(i*ad+j*cd+ed);
+          var jj = Math.round(i*bd+j*dd+fd);
+          if(ii >= 0 && ii < px_w && jj >= 0 && jj < px_h){
+            ii += is;
+            jj += js;
+            if(ii >= 0 && ii < px_w0 && jj >= 0 && jj < px_h0){
+              var ired0 = 4*(px_w0*jj+ii);
+              _data[ired+n] = data0[ired0+n];
+            }
+          }
+        };
+      if(hasRGBA && det){  // && not0
+        _ID = ctx.createImageData(px_w, px_h);  // the same as original size
+        _data = _ID.data;
+        // rgba-color-space
+        filter_callback(function(i, j, ired, ired0){
+          for(var n=0; n<4; ++n){  // include a
+            if(sws_rgba[n]){
+              callback_transform(i, j, ired, ired0, n);
+            }
+          }
+        });
+      }
+    }
+    /* -> Ver.2.54.26 */
     else{
       var ID0 = ctx.getImageData(0, 0, px_w0, px_h0);
       var data0 =  ID0.data;
