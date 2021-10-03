@@ -238,6 +238,16 @@ filter特定項目仕様
 </a>
 <br>
 　　　　・
+<a href="#span-out-UI-graphing-filter-average">
+averageぼかし
+</a>
+<br>
+　　　　・
+<a href="#span-out-UI-graphing-filter-Gaussian">
+Gaussぼかし
+</a>
+<br>
+　　　　・
 <a href="#span-out-UI-graphing-filter-tone-curve">
 tone-curve特定項目仕様
 </a>
@@ -846,6 +856,16 @@ strict-mode式変数list
 ・
 <a href="#span-eqn-template">
 template
+</a>
+<br>
+・
+<a href="#span-eqn-average">
+average
+</a>
+<br>
+・
+<a href="#span-eqn-Gaussian">
+Gaussian
 </a>
 <br>
 ・
@@ -1829,7 +1849,7 @@ gradation
 gradation特定項目仕様と付随する留意事項について記述する
 <br>
 <br>
-<span class="run">Ver.2.36.18</span>以降、指向性のない<a href="#span-out-UI-graphing-filter">Gaussぼかし</a>では再現困難な機能としてgradationを追加する
+<span class="run">Ver.2.36.18</span>以降、指向性のない<a href="#span-out-UI-graphing-filter-Gaussian">Gaussぼかし</a>では再現困難な機能としてgradationを追加する
 <br>
 ・<span class="run">Ver.2.40.18</span>以降、legend間のgradation合成に対応
 <br>
@@ -2012,21 +2032,21 @@ y_after=x_before<span class="selection">*b</span>+y_before<span class="selection
 <br>
 ・逆変換
 <br>
-det=(a*d-b*c)
+determinant=(<span class="selection">a*d-b*c</span>)
 <br>
 inverse(transform3x3) -> (
 <br>
-(1/det)*(d,-c,c*f-e*d):
+(1/determinant)*(d,-c,c*f-e*d):
 <br>
-(1/det)*(-b,a,e*b-a*f):
+(1/determinant)*(-b,a,e*b-a*f):
 <br>
-(1/det)*(0,0,a*d-c*b)
+(1/determinant)*(0,0,a*d-c*b)
 <br>
 )
 <br>
-x_before=(1/det)*(x_after<span class="selection">*d</span>+y_after<span class="selection">*(-c)</span>+1<span class="selection">*(c*f-e*d)</span>)
+x_before=(1/determinant)*(x_after<span class="selection">*d</span>+y_after<span class="selection">*(-c)</span>+1<span class="selection">*(c*f-e*d)</span>)
 <br>
-y_before=(1/det)*(x_after<span class="selection">*(-b)</span>+y_after<span class="selection">*a</span>+1<span class="selection">*(e*b-a*f)</span>)
+y_before=(1/determinant)*(x_after<span class="selection">*(-b)</span>+y_after<span class="selection">*a</span>+1<span class="selection">*(e*b-a*f)</span>)
 <br>
 ・演算に使用する場合、<a href="#span-out-com">Napier数</a>eと区別が必要
 <br>
@@ -2187,7 +2207,7 @@ filterは上下左右対称(2n-1)x(2n-1)sizeの2次元配列を1次元に直列�
 <br>
 加重平均filterの一例を示す
 <br>
-・RGBA値Gaussian3x3（簡略なGaussぼかし）
+・RGBA値Gaussian3x3（<a href="#span-out-UI-graphing-filter-Gaussian">簡易なGaussぼかし</a>）
 <br>
 rgba[1,2,1,2,<span class="selection">4</span>,2,1,2,1]
 <br>
@@ -2200,18 +2220,6 @@ rgba[1,2,1,2,<span class="selection">4</span>,2,1,2,1]
 2,<span class="selection">4</span>,2,
 <br>
 1,2,1
-<br>
-]
-<br>
-・Gaussian3x3（厳密なGaussぼかし）
-<br>
-[
-<br>
-0.36787944117144233,0.6065306597126334,0.36787944117144233,
-<br>
-0.6065306597126334,<span class="selection">1</span>,0.6065306597126334,
-<br>
-0.36787944117144233,0.6065306597126334,0.36787944117144233
 <br>
 ]
 <br>
@@ -2257,7 +2265,7 @@ rgba[0,1,0,1,<span class="selection">1</span>,1,0,1,0]
 <br>
 ]
 <br>
-・RGB値average3x3
+・RGB値<a href="#span-out-UI-graphing-filter-average">average_square</a>3x3
 <br>
 rgb[1,1,1,1,<span class="selection">1</span>,1,1,1,1]
 <br>
@@ -2271,25 +2279,7 @@ rgb[1,1,1,1,<span class="selection">1</span>,1,1,1,1]
 <br>
 ]
 <br>
-・RGB値average5x5
-<br>
-rgb[1,1,1,1,1,1,1,1,1,1,1,1,<span class="selection">1</span>,1,1,1,1,1,1,1,1,1,1,1,1]
-<br>
-[
-<br>
-1,1,1,1,1,
-<br>
-1,1,1,1,1,
-<br>
-1,1,<span class="selection">1</span>,1,1,
-<br>
-1,1,1,1,1,
-<br>
-1,1,1,1,1
-<br>
-]
-<br>
-・average4x4は<span class="clear">定義不可</span>（average3x3に同義）
+・<a href="#span-out-UI-graphing-filter-average">average_square</a>4x4は<span class="clear">定義不可</span>（<a href="#span-out-UI-graphing-filter-average">average_square</a>3x3に同義）
 <br>
 rgb[1,1,1,1,<span class="selection">1</span>,1,1,1,1<span class="clear">,1,1,1,1,1,1,1</span>]
 <br>
@@ -2303,9 +2293,9 @@ rgb[1,1,1,1,<span class="selection">1</span>,1,1,1,1<span class="clear">,1,1,1,1
 <br>
 ]
 <br>
-・R値average_circle3x3
+・RGB値<a href="#span-out-UI-graphing-filter-average">average_circle</a>3x3
 <br>
-r[0,1,0,1,<span class="selection">1</span>,1,0,1,0]
+rgb[0,1,0,1,<span class="selection">1</span>,1,0,1,0]
 <br>
 [
 <br>
@@ -2314,46 +2304,6 @@ r[0,1,0,1,<span class="selection">1</span>,1,0,1,0]
 1,<span class="selection">1</span>,1,
 <br>
 0,1,0
-<br>
-]
-<br>
-・G値average_circle5x5
-<br>
-g[0,0,1,0,0,0,1,1,1,0,1,1,<span class="selection">1</span>,1,1,0,1,1,1,0,0,0,1,0,0]
-<br>
-[
-<br>
-0,0,1,0,0,
-<br>
-0,1,1,1,0,
-<br>
-1,1,<span class="selection">1</span>,1,1,
-<br>
-0,1,1,1,0,
-<br>
-0,0,1,0,0
-<br>
-]
-<br>
-・B値average_circle7x7
-<br>
-b[0,0,0,1,0,0,0,0,1,1,1,1,1,0,0,1,1,1,1,1,0,1,1,1,<span class="selection">1</span>,1,1,1,0,1,1,1,1,1,0,0,1,1,1,1,1,0,0,0,0,1,0,0,0]
-<br>
-[
-<br>
-0,0,0,1,0,0,0,
-<br>
-0,1,1,1,1,1,0,
-<br>
-0,1,1,1,1,1,0,
-<br>
-1,1,1,<span class="selection">1</span>,1,1,1,
-<br>
-0,1,1,1,1,1,0,
-<br>
-0,1,1,1,1,1,0,
-<br>
-0,0,0,1,0,0,0
 <br>
 ]
 <br>
@@ -2527,6 +2477,592 @@ area[10,20,30,40]
 目次
 </a>
 <br>
+average
+<br>
+ぼかし
+    </th>
+    <td>
+<span id="span-out-UI-graphing-filter-average"></span>
+averageぼかしについて記述する
+<br>
+<br>
+<a href="#span-out-UI-graphing-filter">filter</a>を代用してaverageぼかしを定義する
+<br>
+・単純な<a href="#span-out-UI-graphing-filter">加重平均filter</a>として<a href="#span-out-UI-graphing-blur">blurring</a>に使用する
+<br>
+<br>
+averageぼかしの仕様を列挙する
+<br>
+・ぼかしの強度は<a href="#span-out-UI-graphing-filter">filter</a>(N)x(N)sizeのNに比例する
+<br>
+<br>
+2値化の分布形状を固定してN違いの<a href="#span-out-UI-graphing-filter">filter配列</a>を以下の<a href="#span-out-ope">実数演算</a>で生成する
+<br>
+・average_square
+<br>
+[N=3,N2=int(N/2),filter=vectorc(N*N),
+<br>
+calc_w(s2)=&lt;1,
+<br>
+_sir(=&lt;{_sic(=&lt;filter[(ir+N2)*N+(ic+N2)]=calc_w(ir**2+ic**2)=&gt;,-N2,N2)},-N2,N2),
+<br>
+=&lt;trans(filter)]=&gt;
+<br>
+・average_circle
+<br>
+[N=3,N2=int(N/2),filter=vectorc(N*N),
+<br>
+calc_w(s2)=&lt;switch(s2&gt;N2**2,0:1,1),
+<br>
+_sir(=&lt;{_sic(=&lt;filter[(ir+N2)*N+(ic+N2)]=calc_w(ir**2+ic**2)=&gt;,-N2,N2)},-N2,N2),
+<br>
+=&lt;trans(filter)]=&gt;
+<br>
+<br>
+average_squareの<a href="#span-out-UI-graphing-filter">filter配列</a>を列挙する
+<br>
+・N=3
+<br>
+[
+<br>
+1,1,1,
+<br>
+1,<span class="selection">1</span>,1,
+<br>
+1,1,1
+<br>
+]
+<br>
+・N=5
+<br>
+[
+<br>
+1,1,1,1,1,
+<br>
+1,1,1,1,1,
+<br>
+1,1,<span class="selection">1</span>,1,1,
+<br>
+1,1,1,1,1,
+<br>
+1,1,1,1,1
+<br>
+]
+<br>
+・N=7
+<br>
+[
+<br>
+1,1,1,1,1,1,1,
+<br>
+1,1,1,1,1,1,1,
+<br>
+1,1,1,1,1,1,1,
+<br>
+1,1,1,<span class="selection">1</span>,1,1,1,
+<br>
+1,1,1,1,1,1,1,
+<br>
+1,1,1,1,1,1,1,
+<br>
+1,1,1,1,1,1,1
+<br>
+]
+<br>
+・N=9
+<br>
+[
+<br>
+1,1,1,1,1,1,1,1,1,
+<br>
+1,1,1,1,1,1,1,1,1,
+<br>
+1,1,1,1,1,1,1,1,1,
+<br>
+1,1,1,1,1,1,1,1,1,
+<br>
+1,1,1,1,<span class="selection">1</span>,1,1,1,1,
+<br>
+1,1,1,1,1,1,1,1,1,
+<br>
+1,1,1,1,1,1,1,1,1,
+<br>
+1,1,1,1,1,1,1,1,1,
+<br>
+1,1,1,1,1,1,1,1,1
+<br>
+]
+<br>
+・N=11
+<br>
+[
+<br>
+1,1,1,1,1,1,1,1,1,1,1,
+<br>
+1,1,1,1,1,1,1,1,1,1,1,
+<br>
+1,1,1,1,1,1,1,1,1,1,1,
+<br>
+1,1,1,1,1,1,1,1,1,1,1,
+<br>
+1,1,1,1,1,1,1,1,1,1,1,
+<br>
+1,1,1,1,1,<span class="selection">1</span>,1,1,1,1,1,
+<br>
+1,1,1,1,1,1,1,1,1,1,1,
+<br>
+1,1,1,1,1,1,1,1,1,1,1,
+<br>
+1,1,1,1,1,1,1,1,1,1,1,
+<br>
+1,1,1,1,1,1,1,1,1,1,1,
+<br>
+1,1,1,1,1,1,1,1,1,1,1
+<br>
+]
+<br>
+・N=13
+<br>
+[
+<br>
+1,1,1,1,1,1,1,1,1,1,1,1,1,
+<br>
+1,1,1,1,1,1,1,1,1,1,1,1,1,
+<br>
+1,1,1,1,1,1,1,1,1,1,1,1,1,
+<br>
+1,1,1,1,1,1,1,1,1,1,1,1,1,
+<br>
+1,1,1,1,1,1,1,1,1,1,1,1,1,
+<br>
+1,1,1,1,1,1,1,1,1,1,1,1,1,
+<br>
+1,1,1,1,1,1,<span class="selection">1</span>,1,1,1,1,1,1,
+<br>
+1,1,1,1,1,1,1,1,1,1,1,1,1,
+<br>
+1,1,1,1,1,1,1,1,1,1,1,1,1,
+<br>
+1,1,1,1,1,1,1,1,1,1,1,1,1,
+<br>
+1,1,1,1,1,1,1,1,1,1,1,1,1,
+<br>
+1,1,1,1,1,1,1,1,1,1,1,1,1,
+<br>
+1,1,1,1,1,1,1,1,1,1,1,1,1
+<br>
+]
+<br>
+・N=15
+<br>
+[
+<br>
+1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,
+<br>
+1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,
+<br>
+1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,
+<br>
+1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,
+<br>
+1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,
+<br>
+1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,
+<br>
+1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,
+<br>
+1,1,1,1,1,1,1,<span class="selection">1</span>,1,1,1,1,1,1,1,
+<br>
+1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,
+<br>
+1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,
+<br>
+1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,
+<br>
+1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,
+<br>
+1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,
+<br>
+1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,
+<br>
+1,1,1,1,1,1,1,1,1,1,1,1,1,1,1
+<br>
+]
+<br>
+<br>
+average_circleの<a href="#span-out-UI-graphing-filter">filter配列</a>を列挙する
+<br>
+・N=3
+<br>
+[
+<br>
+0,1,0,
+<br>
+1,<span class="selection">1</span>,1,
+<br>
+0,1,0
+<br>
+]
+<br>
+・N=5
+<br>
+[
+<br>
+0,0,1,0,0,
+<br>
+0,1,1,1,0,
+<br>
+1,1,<span class="selection">1</span>,1,1,
+<br>
+0,1,1,1,0,
+<br>
+0,0,1,0,0
+<br>
+]
+<br>
+・N=7
+<br>
+[
+<br>
+0,0,0,1,0,0,0,
+<br>
+0,1,1,1,1,1,0,
+<br>
+0,1,1,1,1,1,0,
+<br>
+1,1,1,<span class="selection">1</span>,1,1,1,
+<br>
+0,1,1,1,1,1,0,
+<br>
+0,1,1,1,1,1,0,
+<br>
+0,0,0,1,0,0,0
+<br>
+]
+<br>
+・N=9
+<br>
+[
+<br>
+0,0,0,0,1,0,0,0,0,
+<br>
+0,0,1,1,1,1,1,0,0,
+<br>
+0,1,1,1,1,1,1,1,0,
+<br>
+0,1,1,1,1,1,1,1,0,
+<br>
+1,1,1,1,<span class="selection">1</span>,1,1,1,1,
+<br>
+0,1,1,1,1,1,1,1,0,
+<br>
+0,1,1,1,1,1,1,1,0,
+<br>
+0,0,1,1,1,1,1,0,0,
+<br>
+0,0,0,0,1,0,0,0,0
+<br>
+]
+<br>
+・N=11
+<br>
+[
+<br>
+0,0,0,0,0,1,0,0,0,0,0,
+<br>
+0,0,1,1,1,1,1,1,1,0,0,
+<br>
+0,1,1,1,1,1,1,1,1,1,0,
+<br>
+0,1,1,1,1,1,1,1,1,1,0,
+<br>
+0,1,1,1,1,1,1,1,1,1,0,
+<br>
+1,1,1,1,1,<span class="selection">1</span>,1,1,1,1,1,
+<br>
+0,1,1,1,1,1,1,1,1,1,0,
+<br>
+0,1,1,1,1,1,1,1,1,1,0,
+<br>
+0,1,1,1,1,1,1,1,1,1,0,
+<br>
+0,0,1,1,1,1,1,1,1,0,0,
+<br>
+0,0,0,0,0,1,0,0,0,0,0
+<br>
+]
+<br>
+・N=13
+<br>
+[
+<br>
+0,0,0,0,0,0,1,0,0,0,0,0,0,
+<br>
+0,0,0,1,1,1,1,1,1,1,0,0,0,
+<br>
+0,0,1,1,1,1,1,1,1,1,1,0,0,
+<br>
+0,1,1,1,1,1,1,1,1,1,1,1,0,
+<br>
+0,1,1,1,1,1,1,1,1,1,1,1,0,
+<br>
+0,1,1,1,1,1,1,1,1,1,1,1,0,
+<br>
+1,1,1,1,1,1,<span class="selection">1</span>,1,1,1,1,1,1,
+<br>
+0,1,1,1,1,1,1,1,1,1,1,1,0,
+<br>
+0,1,1,1,1,1,1,1,1,1,1,1,0,
+<br>
+0,1,1,1,1,1,1,1,1,1,1,1,0,
+<br>
+0,0,1,1,1,1,1,1,1,1,1,0,0,
+<br>
+0,0,0,1,1,1,1,1,1,1,0,0,0,
+<br>
+0,0,0,0,0,0,1,0,0,0,0,0,0
+<br>
+]
+<br>
+・N=15
+<br>
+[
+<br>
+0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,
+<br>
+0,0,0,0,1,1,1,1,1,1,1,0,0,0,0,
+<br>
+0,0,0,1,1,1,1,1,1,1,1,1,0,0,0,
+<br>
+0,0,1,1,1,1,1,1,1,1,1,1,1,0,0,
+<br>
+0,1,1,1,1,1,1,1,1,1,1,1,1,1,0,
+<br>
+0,1,1,1,1,1,1,1,1,1,1,1,1,1,0,
+<br>
+0,1,1,1,1,1,1,1,1,1,1,1,1,1,0,
+<br>
+1,1,1,1,1,1,1,<span class="selection">1</span>,1,1,1,1,1,1,1,
+<br>
+0,1,1,1,1,1,1,1,1,1,1,1,1,1,0,
+<br>
+0,1,1,1,1,1,1,1,1,1,1,1,1,1,0,
+<br>
+0,1,1,1,1,1,1,1,1,1,1,1,1,1,0,
+<br>
+0,0,1,1,1,1,1,1,1,1,1,1,1,0,0,
+<br>
+0,0,0,1,1,1,1,1,1,1,1,1,0,0,0,
+<br>
+0,0,0,0,1,1,1,1,1,1,1,0,0,0,0,
+<br>
+0,0,0,0,0,0,0,1,0,0,0,0,0,0,0
+<br>
+]
+    </td>
+  </tr>
+  <tr>
+    <th>
+<a href="#span-index">
+目次
+</a>
+<br>
+Gauss
+<br>
+ぼかし
+    </th>
+    <td>
+<span id="span-out-UI-graphing-filter-Gaussian"></span>
+Gaussぼかしについて記述する
+<br>
+<br>
+<a href="#span-out-UI-graphing-filter">filter</a>を代用してGaussぼかしを再現する
+<br>
+・高速な<a href="#span-out-UI-graphing-blur">blurring</a>の<a href="#span-out-UI-graphing-filter">加重平均filter</a>として多用されるが、仕様上、高速化の恩恵は受けられない
+<br>
+<br>
+Gaussぼかしの仕様を列挙する
+<br>
+・Gauss分布の再現精度は<a href="#span-out-UI-graphing-filter">filter</a>(N)x(N)sizeのNに依存する
+<br>
+・ぼかしの強度は<a href="#span-out-UI-graphing-filter">filter</a>の適用回数で変更する
+<br>
+<br>
+分布関数を固定してN違いの<a href="#span-out-UI-graphing-filter">filter配列</a>を以下の<a href="#span-out-ope">実数演算</a>で生成する
+<br>
+・簡易なGaussぼかしの場合、配列要素を丸める（量子化bit数=N-1を仮定）
+<br>
+[N=3,N2=int(N/2),filter=vectorc(N*N),Nbit=N-1,wmax=2**Nbit,
+<br>
+calc_w(s2)=&lt;round(wmax*exp(-0.5*s2)),
+<br>
+_sir(=&lt;{_sic(=&lt;filter[(ir+N2)*N+(ic+N2)]=calc_w(ir**2+ic**2)=&gt;,-N2,N2)},-N2,N2),
+<br>
+=&lt;trans(filter)]=&gt;
+<br>
+・厳密なGaussぼかしの場合、配列要素を丸めない
+<br>
+[N=3,N2=int(N/2),filter=vectorc(N*N),
+<br>
+calc_w(s2)=&lt;exp(-0.5*s2),
+<br>
+_sir(=&lt;{_sic(=&lt;filter[(ir+N2)*N+(ic+N2)]=calc_w(ir**2+ic**2)=&gt;,-N2,N2)},-N2,N2),
+<br>
+=&lt;trans(filter)]=&gt;
+<br>
+<br>
+簡易なGaussぼかしの<a href="#span-out-UI-graphing-filter">filter配列</a>を列挙する
+<br>
+・N=3
+<br>
+[
+<br>
+1,2,1,
+<br>
+2,<span class="selection">4</span>,2,
+<br>
+1,2,1
+<br>
+]
+<br>
+・N=5
+<br>
+[
+<br>
+0,1,2,1,0,
+<br>
+1,6,10,6,1,
+<br>
+2,10,<span class="selection">16</span>,10,2,
+<br>
+1,6,10,6,1,
+<br>
+0,1,2,1,0
+<br>
+]
+<br>
+・N=7
+<br>
+[
+<br>
+0,0,0,1,0,0,0,
+<br>
+0,1,5,9,5,1,0,
+<br>
+0,5,24,39,24,5,0,
+<br>
+1,9,39,<span class="selection">64</span>,39,9,1,
+<br>
+0,5,24,39,24,5,0,
+<br>
+0,1,5,9,5,1,0,
+<br>
+0,0,0,1,0,0,0
+<br>
+]
+<br>
+・N=9
+<br>
+[
+<br>
+0,0,0,0,0,0,0,0,0,
+<br>
+0,0,0,2,3,2,0,0,0,
+<br>
+0,0,5,21,35,21,5,0,0,
+<br>
+0,2,21,94,155,94,21,2,0,
+<br>
+0,3,35,155,<span class="selection">256</span>,155,35,3,0,
+<br>
+0,2,21,94,155,94,21,2,0,
+<br>
+0,0,5,21,35,21,5,0,0,
+<br>
+0,0,0,2,3,2,0,0,0,
+<br>
+0,0,0,0,0,0,0,0,0
+<br>
+]
+<br>
+・N=11
+<br>
+[
+<br>
+0,0,0,0,0,0,0,0,0,0,0,
+<br>
+0,0,0,0,0,0,0,0,0,0,0,
+<br>
+0,0,0,2,7,11,7,2,0,0,0,
+<br>
+0,0,2,19,84,139,84,19,2,0,0,
+<br>
+0,0,7,84,377,621,377,84,7,0,0,
+<br>
+0,0,11,139,621,<span class="selection">1024</span>,621,139,11,0,0,
+<br>
+0,0,7,84,377,621,377,84,7,0,0,
+<br>
+0,0,2,19,84,139,84,19,2,0,0,
+<br>
+0,0,0,2,7,11,7,2,0,0,0,
+<br>
+0,0,0,0,0,0,0,0,0,0,0,
+<br>
+0,0,0,0,0,0,0,0,0,0,0
+<br>
+]
+<br>
+<br>
+厳密なGaussぼかしの<a href="#span-out-UI-graphing-filter">filter配列</a>を列挙する
+<br>
+・N=3
+<br>
+[
+<br>
+0.36787944117144233,0.6065306597126334,0.36787944117144233,
+<br>
+0.6065306597126334,<span class="selection">1</span>,0.6065306597126334,
+<br>
+0.36787944117144233,0.6065306597126334,0.36787944117144233
+<br>
+]
+<br>
+・N=5
+<br>
+[
+<br>
+0.01831563888873418,0.0820849986238988,0.1353352832366127,
+<br>
+0.0820849986238988,0.01831563888873418,
+<br>
+0.0820849986238988,0.36787944117144233,0.6065306597126334,
+<br>
+0.36787944117144233,0.0820849986238988,
+<br>
+0.1353352832366127,0.6065306597126334,<span class="selection">1</span>,
+<br>
+0.6065306597126334,0.1353352832366127,
+<br>
+0.0820849986238988,0.36787944117144233,0.6065306597126334,
+<br>
+0.36787944117144233,0.0820849986238988,
+<br>
+0.01831563888873418,0.0820849986238988,0.1353352832366127,
+<br>
+0.0820849986238988,0.01831563888873418
+<br>
+]
+<br>
+・N=7以降、省略
+    </td>
+  </tr>
+  <tr>
+    <th>
+<a href="#span-index">
+目次
+</a>
+<br>
 tone-curve
 <br>
 特定項目仕様
@@ -2652,23 +3188,23 @@ rgba[<span class="selection">a,b,c,d,e,f</span>,isForward||0]
 <br>
 test caseを列挙する
 <br>
-・canvas全体のRGBA値に<a href="#span-out-UI-graphing-filter">簡略なGaussぼかし</a>を適用後、座標変換を適用
+・canvas全体のRGBA値に<a href="#span-out-UI-graphing-filter-Gaussian">簡易なGaussぼかし</a>を適用後、座標変換を適用
 <br>
 area[0]rgba[1,2,1,2,4,2,1,2,1]:area[0]rgba[1,0.1,-0.5,0.5,65,40]
 <br>
-・canvas全体のRGBA値に座標変換を適用後、<a href="#span-out-UI-graphing-filter">簡略なGaussぼかし</a>を適用
+・canvas全体のRGBA値に座標変換を適用後、<a href="#span-out-UI-graphing-filter-Gaussian">簡易なGaussぼかし</a>を適用
 <br>
 area[0]rgba[1,0.1,-0.5,0.5,65,40]:area[0]rgba[1,2,1,2,4,2,1,2,1]
 <br>
-・canvas全体のRGBA値に<a href="#span-out-UI-graphing-filter">簡略なGaussぼかし</a>を3回適用後、座標変換を適用
+・canvas全体のRGBA値に<a href="#span-out-UI-graphing-filter-Gaussian">簡易なGaussぼかし</a>を3回適用後、座標変換を適用
 <br>
 rgba[1,2,1,2,4,2,1,2,1]:rgba[1,2,1,2,4,2,1,2,1]:rgba[1,2,1,2,4,2,1,2,1]:rgba[1,0.1,-0.5,0.5,65,40]
 <br>
-・canvas全体のRGBA値に座標変換を適用後、<a href="#span-out-UI-graphing-filter">簡略なGaussぼかし</a>を3回適用
+・canvas全体のRGBA値に座標変換を適用後、<a href="#span-out-UI-graphing-filter-Gaussian">簡易なGaussぼかし</a>を3回適用
 <br>
 rgba[1,0.1,-0.5,0.5,65,40]:rgba[1,2,1,2,4,2,1,2,1]:rgba[1,2,1,2,4,2,1,2,1]:rgba[1,2,1,2,4,2,1,2,1]
 <br>
-・canvas-area[30,30]のRGBA値に座標変換を適用
+・<a href="#span-out-UI-graphing-filter">canvas-area</a>[30,30]のRGBA値に座標変換を適用
 <br>
 area[30,30]rgba[1,0.1,-0.5,0.5,65,40]
 <br>
@@ -2820,11 +3356,11 @@ isCyclic:isAverage:Nlegend
 <br>
 　trueの場合、周期的にblurを適用
 <br>
-・isAverage=false||trueは適用する<a href="#span-out-UI-graphing-filter">filter</a>を選択する
+・isAverage=false||trueは適用する<a href="#span-out-UI-graphing-filter">filter</a>の種類を選択する
 <br>
-　falseの場合、average_circle(2n-1)x(2n-1)の<a href="#span-out-UI-graphing-filter">filter</a>を適用
+　falseの場合、<a href="#span-out-UI-graphing-filter-average">average_circle</a>を適用
 <br>
-　trueの場合、average(2n-1)x(2n-1)の<a href="#span-out-UI-graphing-filter">filter</a>を適用
+　trueの場合、<a href="#span-out-UI-graphing-filter-average">average_square</a>を適用
 <br>
 ・Nlegend=1~lastはblurを適用するplot点のlegend番号
 <br>
@@ -9873,6 +10409,8 @@ _sn(=&lt;{n},-10,-1) || -10-9-8-7-6-5-4-3-2-1 -> -55
 <br>
 _Sn(=&lt;{n},-1,-10) || -1-2-3-4-5-6-7-8-9-10 -> -55
 <br>
+_Sn(=&lt;{n},1,-3) || 1+0-1-2-3 -> -5
+<br>
 ・以降、dummy変数に0を含めて記述する
 <br>
 ・step=2の場合
@@ -9880,6 +10418,8 @@ _Sn(=&lt;{n},-1,-10) || -1-2-3-4-5-6-7-8-9-10 -> -55
 _sn(=&lt;{n},0,10,2) || 0+2+4+6+8+10 -> 30
 <br>
 _Sn(=&lt;{n},10,0,2) || 10+8+6+4+2+0 -> 30
+<br>
+_Sn(=&lt;{n},1,-3,2) || 1-1-3 -> -3
 <br>
 ・step&lt;1の場合、暗黙で既定値に変換
 <br>
@@ -10041,11 +10581,15 @@ _pn(=&lt;{n},-3,-1) || (-3)(-2)(-1) -> -6
 <br>
 _Pn(=&lt;{n},-1,-3) || (-1)(-2)(-3) -> -6
 <br>
+_Pn(=&lt;{n},1,-3) || (1)(0)(-1)(-2)(-3) -> 0
+<br>
 ・step=2の場合
 <br>
 _pn(=&lt;{n},1,10,2) || 1*3*5*7*9 || 9!! -> 945
 <br>
 _Pn(=&lt;{n},10,1,2) || 10*8*6*4*2 || 10!! -> 3840
+<br>
+_Pn(=&lt;{n},1,-3,2) || (1)(-1)(-3) -> 3
 <br>
 ・step=3の場合
 <br>
@@ -15953,6 +16497,52 @@ init=&gt;,run=&gt;,return=out=&gt;,scope2storage=&gt;,
 [x=1,y=2,f=3,f=&lt;[last(x=-2*x,x),y],=&lt;template(x,=&lt;last(f=&gt;),=&lt;f,=&lt;(x,y))=&gt;]=&gt;;
 <br>
 [x=1,y=2,f=3,f=&lt;[last(x=-2*x,x),y],=&lt;template(x,=&lt;last(f=&gt;),=&lt;f,=&lt;[x,y])=&gt;]=&gt;;
+    </td>
+  </tr>
+  <tr>
+    <th>
+<a href="#span-index">
+目次
+</a>
+<br>
+average
+    </th>
+    <td>
+<span id="span-eqn-average"></span>
+<a href="#span-out-UI-graphing-filter-average">averageぼかし</a>参照
+<br>
+clear;
+<br>
+[isCircle=0,N=3,N2=int(N/2),filter=vectorc(N*N),
+<br>
+calc_w(s2)=&lt;switch(isCircle==0,1:1,switch(s2&gt;N2**2,0:1,1)),
+<br>
+_sir(=&lt;{_sic(=&lt;filter[(ir+N2)*N+(ic+N2)]=calc_w(ir**2+ic**2)=&gt;,-N2,N2)},-N2,N2),
+<br>
+=&lt;trans(filter)]=&gt;;
+    </td>
+  </tr>
+  <tr>
+    <th>
+<a href="#span-index">
+目次
+</a>
+<br>
+Gaussian
+    </th>
+    <td>
+<span id="span-eqn-Gaussian"></span>
+<a href="#span-out-UI-graphing-filter-Gaussian">Gaussぼかし</a>参照
+<br>
+clear;
+<br>
+[isStrict=0,N=3,N2=int(N/2),filter=vectorc(N*N),Nbit=N-1,wmax=2**Nbit,
+<br>
+calc_w(s2)=&lt;switch(isStrict==0,round(wmax*exp(-0.5*s2)):1,exp(-0.5*s2)),
+<br>
+_sir(=&lt;{_sic(=&lt;filter[(ir+N2)*N+(ic+N2)]=calc_w(ir**2+ic**2)=&gt;,-N2,N2)},-N2,N2),
+<br>
+=&lt;trans(filter)]=&gt;;
     </td>
   </tr>
   <tr>
