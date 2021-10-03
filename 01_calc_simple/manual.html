@@ -1984,7 +1984,7 @@ b,d,f:
 <br>
 0,0,1
 <br>
-);
+)
 <br>
 transpose(transform3x3) -> (
 <br>
@@ -2187,7 +2187,7 @@ filterは上下左右対称(2n-1)x(2n-1)sizeの2次元配列を1次元に直列�
 <br>
 加重平均filterの一例を示す
 <br>
-・RGBA値Gaussian3x3（簡略化）
+・RGBA値Gaussian3x3（簡略なGaussぼかし）
 <br>
 rgba[1,2,1,2,<span class="selection">4</span>,2,1,2,1]
 <br>
@@ -2203,7 +2203,7 @@ rgba[1,2,1,2,<span class="selection">4</span>,2,1,2,1]
 <br>
 ]
 <br>
-・Gaussian3x3
+・Gaussian3x3（厳密なGaussぼかし）
 <br>
 [
 <br>
@@ -2647,16 +2647,30 @@ rgba[<span class="selection">a,b,c,d,e,f</span>,isForward||0]
 <br>
 　1の場合、canvas座標を順変換して変換前の各RGBA値を成行きで上書き代入
 <br>
+・座標変換の原点は<a href="#span-out-UI-graphing-filter">canvas-area</a>の始点とする
+<br>
 <br>
 test caseを列挙する
 <br>
-・canvas全体のRGBA値に<a href="#span-out-UI-graphing-filter">Gaussぼかし</a>を適用後、座標変換を適用
+・canvas全体のRGBA値に<a href="#span-out-UI-graphing-filter">簡略なGaussぼかし</a>を適用後、座標変換を適用
 <br>
 area[0]rgba[1,2,1,2,4,2,1,2,1]:area[0]rgba[1,0.1,-0.5,0.5,65,40]
 <br>
-・canvas全体のRGBA値に座標変換を適用後、<a href="#span-out-UI-graphing-filter">Gaussぼかし</a>を適用
+・canvas全体のRGBA値に座標変換を適用後、<a href="#span-out-UI-graphing-filter">簡略なGaussぼかし</a>を適用
 <br>
 area[0]rgba[1,0.1,-0.5,0.5,65,40]:area[0]rgba[1,2,1,2,4,2,1,2,1]
+<br>
+・canvas全体のRGBA値に<a href="#span-out-UI-graphing-filter">簡略なGaussぼかし</a>を3回適用後、座標変換を適用
+<br>
+rgba[1,2,1,2,4,2,1,2,1]:rgba[1,2,1,2,4,2,1,2,1]:rgba[1,2,1,2,4,2,1,2,1]:rgba[1,0.1,-0.5,0.5,65,40]
+<br>
+・canvas全体のRGBA値に座標変換を適用後、<a href="#span-out-UI-graphing-filter">簡略なGaussぼかし</a>を3回適用
+<br>
+rgba[1,0.1,-0.5,0.5,65,40]:rgba[1,2,1,2,4,2,1,2,1]:rgba[1,2,1,2,4,2,1,2,1]:rgba[1,2,1,2,4,2,1,2,1]
+<br>
+・canvas-area[30,30]のRGBA値に座標変換を適用
+<br>
+area[30,30]rgba[1,0.1,-0.5,0.5,65,40]
 <br>
 <br>
 留意事項を列挙する
