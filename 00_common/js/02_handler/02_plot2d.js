@@ -866,18 +866,22 @@ My_entry.plot2d.prototype.final = function(arr2d_vec, options, toSVG){
       });
     };
     /* -> 1.1.2 */
-    var callback_transform = function(){
+    /* 1.10.6 -> */
+    var callback_transform = function(withBackground){
       var text = options._transform;
-      var params = $.get_records(text, ",", 0, ["a", "b", "c", "d", "e", "f"], true);
-      all.ctx.setTransform(params.a, params.b, params.c, params.d, params.e, params.f);
+      var params = $.get_records(text, ",", 0, ["a", "b", "c", "d", "e", "f", "withBackground"], true);
+      if((withBackground && params.withBackground) || (!(withBackground) && !(params.withBackground))){
+        all.ctx.save();
+        all.ctx.setTransform(params.a, params.b, params.c, params.d, params.e, params.f);
+      }
     };
     var callback0 = function(){
       arr_base64_grid_plot.push(all.get_base64());
       var callback1 = function(){
         if(options._transform){
-          all.ctx.save();
-          callback_transform();
+          callback_transform(false);
         };
+    /* -> 1.10.6 */
         var callback2 = function(){
           if(options._transform){
             all.ctx.restore();
@@ -898,7 +902,12 @@ My_entry.plot2d.prototype.final = function(arr2d_vec, options, toSVG){
         };
         all.draw_base64s(arr_base64_grid_plot.reverse(), callback2, options["canvas-globalCompositeOperation"]);
       };
+      /* 1.10.6 -> */
       all.clear();
+      if(options._transform){
+        callback_transform(true);
+      };
+      /* -> 1.10.6 */
       all.draw_base64(base64_bg, callback1);  // bg(source-over) <- grid <- plot
     };
     all.clear();

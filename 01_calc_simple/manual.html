@@ -233,6 +233,11 @@ transform特定項目仕様
 </a>
 <br>
 　　　・
+<a href="#span-out-UI-graphing-blur">
+blur特定項目仕様
+</a>
+<br>
+　　　・
 <a href="#span-out-UI-graphing-filter">
 filter特定項目仕様
 </a>
@@ -262,11 +267,6 @@ post-transformer特定項目仕様
 post-processor特定項目仕様
 </a>
 <br>
-　　　・
-<a href="#span-out-UI-graphing-blur">
-blur特定項目仕様
-</a>
-<br>
 　　・
 <a href="#span-out-UI-graphing-layer">
 layer描画順
@@ -280,6 +280,16 @@ grid-layer描画順
 　　　・
 <a href="#span-out-UI-graphing-layer-plot">
 plot-layer描画順
+</a>
+<br>
+　　・
+<a href="#span-out-UI-graphing-layer2">
+layer合成手順
+</a>
+<br>
+　　・
+<a href="#span-out-UI-graphing-post">
+post処理順
 </a>
 <br>
 　　・
@@ -1253,7 +1263,7 @@ panel上段について記述する
 <br>
 ・canvas上部のlinkから描画結果のpng||svg||csvを保存可
 <br>
-　・pngは描画終了||中断後に保存可（逐次layer合成しない）
+　・pngは描画終了||中断後に保存可（逐次<a href="#span-out-UI-graphing-layer2">layer合成</a>しない）
 <br>
 　・右click||long-tapによるpng保存不可（最前面は透明layer）
 <br>
@@ -1440,7 +1450,7 @@ RGBA-color空間
 <br>
 ・Alpha（不透明度）
 <br>
-　主な用途はcomputer graphics（HTML5描画canvas等）
+　主な用途はcomputer graphics（HTML5描画canvas標準の場合、sRGBA-color空間）
 <br>
 <br>
 HSV-color空間
@@ -1611,20 +1621,9 @@ originX:originY:offsetR:orderR:NrandR:NrandT:isMin:isRound:Nrender:Ncycle
 <br>
 ・任意位置に挿入可
 <br>
-・transformはlayer合成時のpost処理（svg出力は無効）
+・transformは<a href="#span-out-UI-graphing-layer2">layer合成</a>時のpost処理（svg出力は無効）
 <br>
 ・argsはcanvas座標変換の引数をcomma,区切りで入力
-<br>
-<br>
-<span class="run">Ver.2.44.22</span>以降、<a href="#span-out-UI-graphing-filter">filter</a>をfilter||FILTER{filters}で入力
-<br>
-・任意位置に挿入可
-<br>
-・filterはlayer合成後のpost最終処理（svg出力は無効）
-<br>
-・filtersは<span class="condition">area[]</span>filterを適用順にcolon:区切りで入力
-<br>
-・<span class="run">Ver.2.52.25</span>以降、<span class="condition">area[]</span>内datasetは設定値をcomma,区切りで入力（省略時、全体に適用）
 <br>
 <br>
 <span class="run">Ver.2.45.23</span>以降、<a href="#span-out-UI-graphing-blur">blur</a>をblur||BLUR{config[]strengths}で入力
@@ -1640,6 +1639,17 @@ originX:originY:offsetR:orderR:NrandR:NrandT:isMin:isRound:Nrender:Ncycle
 originX:originY:offsetR:orderR:NrandR:NrandT:isMin:isRound:Nrender:Ncycle:
 <br>
 isCyclic:<span class="run">isSquare</span>:Nlegend（<span class="run">Ver.2.55.26</span>以降、項目名を変更）
+<br>
+<br>
+<span class="run">Ver.2.44.22</span>以降、<a href="#span-out-UI-graphing-filter">filter</a>をfilter||FILTER{filters}で入力
+<br>
+・任意位置に挿入可
+<br>
+・filterは<a href="#span-out-UI-graphing-layer2">layer合成</a>後のpost最終処理（svg出力は無効）
+<br>
+・filtersは<span class="condition">area[]</span>filterを適用順にcolon:区切りで入力
+<br>
+・<span class="run">Ver.2.52.25</span>以降、<span class="condition">area[]</span>内datasetは設定値をcomma,区切りで入力（省略時、全体に適用）
     </td>
   </tr>
   <tr>
@@ -1931,7 +1941,7 @@ png出力の特徴を列挙する
 <br>
 <del>・legend間のgradation合成不可（合成する場合、複数回の分割出力が必要）
 <br>
-・putImageData()同期出力のため、layer合成無効（RGBA値source-over）</del>
+・putImageData()同期出力のため、<a href="#span-out-UI-graphing-layer2">canvas-globalCompositeOperation</a>無効（RGBA値source-over）</del>
 <br>
 ・乱数使用可
 <br>
@@ -1971,26 +1981,30 @@ transform
 transform特定項目仕様と付随する留意事項について記述する
 <br>
 <br>
-<span class="run">Ver.2.52.25</span>以降、layer合成時の座標変換機能を追加する
+<span class="run">Ver.2.52.25</span>以降、<a href="#span-out-UI-graphing-layer2">layer合成</a>時の座標変換機能を追加する
 <br>
 ・<span class="clear">Ver.2.53.25</span>以降、<span class="run">せん断変形の結果</span>から<span class="condition">座標変換行列</span>の一部(<span class="clear">b:c</span>)の位置関係を交換して訂正
+<br>
+・<span class="run">Ver.2.56.26</span>以降、設定項目withBackgroundを追加
 <br>
 <br>
 <a href="#span-out-UI-graphing-z">z入力欄</a>にtransformをtransform||TRANSFORM{args}で入力
 <br>
 ・任意位置に挿入可
 <br>
-・transformはlayer合成時のpost処理（svg出力は無効）
+・transformは<a href="#span-out-UI-graphing-layer2">layer合成</a>時のpost処理（svg出力は無効）
 <br>
 ・argsはcanvas座標変換ctx.setTransform(<span class="selection">a,b,c,d,e,f</span>)の引数をcomma,区切りで入力
 <br>
-transform{<span class="selection">a,b,c,d,e,f</span>}
+transform{<span class="selection">a,b,c,d,e,f</span>,withBackground||0}
 <br>
 ・各引数の定義
 <br>
 2次元Euclid実空間の<a href="#span-out-FNmspecial">回転行列</a>(<span class="selection">a</span>,<span class="clear">c:b</span>,<span class="selection">d</span>)
 <br>
 px数値の並進vector{<span class="selection">e,f</span>}
+<br>
+・withBackground=0||1（background-layerにtransformを適用する場合、1）
 <br>
 ・<span class="condition">座標変換行列</span>の定義
 <br>
@@ -2144,9 +2158,73 @@ Rz=rotz_LHS(pi/4); Rz[0][0],Rz[0][1],Rz[1][0],Rz[1][1]
 <br>
 留意事項を列挙する
 <br>
-・layer合成後の<a href="#span-out-UI-graphing-filter">filtering</a>||<a href="#span-out-UI-graphing-blur">blurring</a>はputImageData()同期出力のため、transform無効
+・<a href="#span-out-UI-graphing-layer2">layer合成</a>後の<a href="#span-out-UI-graphing-blur">blurring</a>||<a href="#span-out-UI-graphing-filter">filtering</a>はputImageData()同期出力のため、transform無効
 <br>
-・layer合成後の<a href="#span-out-UI-graphing-filter">filtering</a>||<a href="#span-out-UI-graphing-blur">blurring</a>に座標変換を適用する場合、<a href="#span-out-UI-graphing-post-transformer">post-transformer</a>参照
+・<a href="#span-out-UI-graphing-layer2">layer合成</a>後の<a href="#span-out-UI-graphing-blur">blurring</a>||<a href="#span-out-UI-graphing-filter">filtering</a>にtransformを適用する場合、<a href="#span-out-UI-graphing-post-transformer">post-transformer</a>参照
+    </td>
+  </tr>
+  <tr>
+    <th>
+<a href="#span-index">
+目次
+</a>
+<br>
+blur
+<br>
+特定項目仕様
+    </th>
+    <td>
+<span id="span-out-UI-graphing-blur"></span>
+blur特定項目仕様と付随する留意事項について記述する
+<br>
+<br>
+<span class="run">Ver.2.45.23</span>以降、<a href="#span-out-UI-graphing-filter-average">averageぼかし</a>を応用して指向性のblurを追加する
+<br>
+・<span class="clear">Ver.2.45.24</span>以降、strength=0で正常に機能しない致命的な不具合を修正
+<br>
+・<span class="run">Ver.2.55.26</span>以降、一部の設定項目名を変更
+<br>
+<br>
+<a href="#span-out-UI-graphing-z">z入力欄</a>にblurをblur||BLUR{config[]strengths}で入力
+<br>
+・任意位置に挿入可
+<br>
+・blurは<a href="#span-out-UI-graphing-filter">filtering</a>直前のpost処理（svg出力は無効）
+<br>
+・strengthsはfilter(2n-1)x(2n-1)sizeのn=0~20の数値をcolon:区切りで入力（省略時、0:10）
+<br>
+・config[]内datasetは設定値をcolon:区切りで入力（省略不可）
+<br>
+<span class="selection">originX:originY:offsetR:orderR:NrandR:NrandT:isMin:isRound:Nrender:Ncycle</span>:
+<br>
+isCyclic:<span class="run">isSquare</span>:Nlegend（<span class="run">Ver.2.55.26</span>以降、項目名を変更）
+<br>
+・<span class="selection">上段</span>は<a href="#span-out-UI-graphing-gradation">gradation</a>参照
+<br>
+・isCyclic=false||trueは1周期外（2周期目以降）のblur条件を選択する
+<br>
+　falseの場合、strengthsの最終値で固定してblurを適用
+<br>
+　trueの場合、周期的にblurを適用
+<br>
+・<span class="run">isSquare</span>=false||trueは適用する<a href="#span-out-UI-graphing-filter">filter</a>の種類を選択する
+<br>
+　falseの場合、<a href="#span-out-UI-graphing-filter-average">average_circle</a>
+<br>
+　trueの場合、<a href="#span-out-UI-graphing-filter-average">average_square</a>
+<br>
+・Nlegend=1~lastはblurを適用するplot点のlegend番号
+<br>
+　範囲外の数値||数値以外を指定した場合、最終legendを選択
+<br>
+<br>
+留意事項を列挙する
+<br>
+・putImageData()同期出力のため、<a href="#span-out-UI-graphing-layer2">canvas-globalCompositeOperation</a>無効
+<br>
+・strengthsの数値に応じてpost処理の負荷がexponentialに増大する（中断不可）
+<br>
+・strengthsに数値以外を指定した場合、該当のstrength=0とする
     </td>
   </tr>
   <tr>
@@ -2179,7 +2257,7 @@ filter特定項目仕様と付随する留意事項について記述する
 <br>
 ・任意位置に挿入可
 <br>
-・filterはlayer合成後のpost最終処理（svg出力は無効）
+・filterは<a href="#span-out-UI-graphing-layer2">layer合成</a>後のpost最終処理（svg出力は無効）
 <br>
 ・filtersは<span class="condition">area[]</span>filterを適用順にcolon:区切りで入力
 <br>
@@ -2458,7 +2536,7 @@ area[10,20,30,40]
 <br>
 留意事項を列挙する
 <br>
-・putImageData()同期出力のため、layer合成無効
+・putImageData()同期出力のため、<a href="#span-out-UI-graphing-layer2">canvas-globalCompositeOperation</a>無効
 <br>
 ・filter sizeに応じてpost処理の負荷がexponentialに増大する（中断不可）
 <br>
@@ -2488,14 +2566,14 @@ averageぼかしについて記述する
 <br>
 <a href="#span-out-UI-graphing-filter">filter</a>を代用してaverageぼかしを定義する
 <br>
-・単純な<a href="#span-out-UI-graphing-filter">加重平均filter</a>として<a href="#span-out-UI-graphing-blur">blurring</a>に使用する
+・単純な<a href="#span-out-UI-graphing-filter">加重平均filter</a>として<a href="#span-out-UI-graphing-blur">指向性のblurring</a>に応用する
 <br>
 <br>
 averageぼかしの仕様を列挙する
 <br>
 ・ぼかし強度は<a href="#span-out-UI-graphing-filter">filter</a>(N)x(N)sizeのNに比例する
 <br>
-・高速化のため、<a href="#span-out-UI-graphing-filter">filter配列</a>要素を0||1で2値化する
+・高速化のため、<a href="#span-out-UI-graphing-filter">filter配列</a>要素の重みを0||1で2値化する
 <br>
 <br>
 2値化の分布形状を固定してN違いの<a href="#span-out-UI-graphing-filter">filter配列</a>を以下の<a href="#span-out-ope">実数演算</a>で生成する
@@ -4396,7 +4474,7 @@ Gaussぼかしの仕様を列挙する
 <br>
 分布関数を固定してN違いの<a href="#span-out-UI-graphing-filter">filter配列</a>を以下の<a href="#span-out-ope">実数演算</a>で生成する
 <br>
-・簡易なGaussぼかしの場合、配列要素を丸める（量子化bit数=N-1を仮定）
+・簡易なGaussぼかしの場合、配列要素の重みを丸める（量子化bit数=N-1を仮定）
 <br>
 [N=3,N2=int(N/2),filter=vectorc(N*N),Nbit=N-1,wmax=2**Nbit,
 <br>
@@ -4406,7 +4484,7 @@ _sir(=&lt;{_sic(=&lt;filter[(ir+N2)*N+(ic+N2)]=calc_w(ir**2+ic**2)=&gt;,-N2,N2)}
 <br>
 =&lt;trans(filter)]=&gt;
 <br>
-・厳密なGaussぼかしの場合、配列要素を丸めない
+・厳密なGaussぼかしの場合、配列要素の重みを丸めない
 <br>
 [N=3,N2=int(N/2),filter=vectorc(N*N),
 <br>
@@ -4699,7 +4777,7 @@ rgba[<span class="selection">a,b,c,d,e,f</span>,isForward||0]
 <br>
 ・各引数の詳細は<a href="#span-out-UI-graphing-transform">transform</a>参照
 <br>
-・isForwardは座標変換後の各RGBA値の代入方法を数値で指定する
+・isForward=0||1は座標変換後の各RGBA値の代入方法を数値で指定する
 <br>
 　0の場合、canvas座標を逆変換して変換前の各RGBA値を参照して代入
 <br>
@@ -4842,70 +4920,6 @@ fy_rgba:fx_rgba
 目次
 </a>
 <br>
-blur
-<br>
-特定項目仕様
-    </th>
-    <td>
-<span id="span-out-UI-graphing-blur"></span>
-blur特定項目仕様と付随する留意事項について記述する
-<br>
-<br>
-<span class="run">Ver.2.45.23</span>以降、<a href="#span-out-UI-graphing-filter">filter</a>を応用して指向性のblurを追加する
-<br>
-・<span class="clear">Ver.2.45.24</span>以降、strength=0で正常に機能しない致命的な不具合を修正
-<br>
-・<span class="run">Ver.2.55.26</span>以降、一部の設定項目名を変更
-<br>
-<br>
-<a href="#span-out-UI-graphing-z">z入力欄</a>にblurをblur||BLUR{config[]strengths}で入力
-<br>
-・任意位置に挿入可
-<br>
-・blurは<a href="#span-out-UI-graphing-filter">filtering</a>直前のpost処理（svg出力は無効）
-<br>
-・strengthsはfilter(2n-1)x(2n-1)sizeのn=0~20の数値をcolon:区切りで入力（省略時、0:10）
-<br>
-・config[]内datasetは設定値をcolon:区切りで入力（省略不可）
-<br>
-<span class="selection">originX:originY:offsetR:orderR:NrandR:NrandT:isMin:isRound:Nrender:Ncycle</span>:
-<br>
-isCyclic:<span class="run">isSquare</span>:Nlegend（<span class="run">Ver.2.55.26</span>以降、項目名を変更）
-<br>
-・<span class="selection">上段</span>は<a href="#span-out-UI-graphing-gradation">gradation</a>参照
-<br>
-・isCyclic=false||trueは1周期外（2周期目以降）のblur条件を選択する
-<br>
-　falseの場合、strengthsの最終値で固定してblurを適用
-<br>
-　trueの場合、周期的にblurを適用
-<br>
-・<span class="run">isSquare</span>=false||trueは適用する<a href="#span-out-UI-graphing-filter">filter</a>の種類を選択する
-<br>
-　falseの場合、<a href="#span-out-UI-graphing-filter-average">average_circle</a>
-<br>
-　trueの場合、<a href="#span-out-UI-graphing-filter-average">average_square</a>
-<br>
-・Nlegend=1~lastはblurを適用するplot点のlegend番号
-<br>
-　範囲外の数値||数値以外を指定した場合、最終legendを選択
-<br>
-<br>
-留意事項を列挙する
-<br>
-・putImageData()同期出力のため、layer合成無効
-<br>
-・strengthsの数値に応じてpost処理の負荷がexponentialに増大する（中断不可）
-<br>
-・strengthsに数値以外を指定した場合、該当のstrength=0とする
-    </td>
-  </tr>
-  <tr>
-    <th>
-<a href="#span-index">
-目次
-</a>
-<br>
 layer
 <br>
 描画順
@@ -4985,6 +4999,60 @@ plot-layerに描画する項目を描画順に列挙する
 目次
 </a>
 <br>
+layer
+<br>
+合成手順
+    </th>
+    <td>
+<span id="span-out-UI-graphing-layer2"></span>
+layer合成手順について記述する
+<br>
+<br>
+drawImage()非同期出力のlayer合成手順を示す
+<br>
+・layerをclear
+<br>
+・完了後、同layerに<a href="#span-out-UI-graphing-transform">transform</a>を適用（withBackground=1の場合）
+<br>
+・完了後、同layerにbackground-layerを合成（source-over）
+<br>
+・完了後、同layerに<a href="#span-out-UI-graphing-transform">transform</a>を適用（withBackground=0の場合）
+<br>
+・完了後、同layerに<a href="#span-out-UI-graphing-layer-grid">grid-layer</a>を合成（canvas-globalCompositeOperationを適用）
+<br>
+・完了後、同layerに<a href="#span-out-UI-graphing-layer-plot">plot-layer</a>を合成（canvas-globalCompositeOperationを適用）
+    </td>
+  </tr>
+  <tr>
+    <th>
+<a href="#span-index">
+目次
+</a>
+<br>
+post
+<br>
+処理順
+    </th>
+    <td>
+<span id="span-out-UI-graphing-post"></span>
+post処理順について記述する
+<br>
+<br>
+<a href="#span-out-UI-graphing-layer2">layer合成</a>後、putImageData()同期出力のpost処理を処理順に列挙する
+<br>
+・<a href="#span-out-UI-graphing-blur">blur</a>
+<br>
+・<a href="#span-out-UI-graphing-filter">filter</a>
+<br>
+　<a href="#span-out-UI-graphing-filter-average">averageぼかし</a>||<a href="#span-out-UI-graphing-filter-Gaussian">Gaussぼかし</a>||<a href="#span-out-UI-graphing-filter-tone-curve">tone-curve</a>||<a href="#span-out-UI-graphing-post-transformer">post-transformer</a>||<a href="#span-out-UI-graphing-post-processor">post-processor</a>
+    </td>
+  </tr>
+  <tr>
+    <th>
+<a href="#span-index">
+目次
+</a>
+<br>
 plot-config
     </th>
     <td>
@@ -5038,9 +5106,7 @@ plot-configの設定項目を列挙する
 <br>
 ・各layerの合成方法canvas-globalCompositeOperationLayerを選択可
 <br>
-・各layerの背景への合成方法canvas-globalCompositeOperationを選択可
-<br>
-　background &lt;- grid &lt;- plotの順に背景にRGBA値を合成して出力
+・各layerの背景への合成方法<a href="#span-out-UI-graphing-layer2">canvas-globalCompositeOperation</a>を選択可
 <br>
 <del>・title入力欄にgraph-titleを入力可</del><span class="run">Ver.2.34.18</span>以降、<a href="#span-out-UI-graphing-z">z入力欄</a>に統合
     </td>
@@ -7783,7 +7849,7 @@ tの演算をSingle-threadで実行後、x/yの演算をMulti-threadで実行
 <br>
 svg出力機能について記述する
 <br>
-・layer合成無効（source-over）
+・<a href="#span-out-UI-graphing-layer2">canvas-globalCompositeOperation</a>無効（source-over）
 <br>
 ・既定markerのdestination-outは背景色source-overで代替（透明の場合、白）
 <br>
