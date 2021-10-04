@@ -241,7 +241,7 @@ My_entry.canvas.prototype.gradation = function(colors, arr_vec, opt_globalCompos
 /* 1.2.3 -> */
 My_entry.canvas.prototype.blur = function(arr_s, arr_vec, opt_globalCompositeOperation, records){
   var self = this;
-  return self.draw.blur(arr_s, self.arr_vec2arr_vecp(arr_vec), opt_globalCompositeOperation, {x: self.x2xp(records.x0), y: self.y2myp(records.y0)}, records.offsetR, records.orderR, records.NrandR, records.NrandT, records.isMin, records.isRound, records.Nrender, records.Ncycle, records.isCyclic, records.isAverage);
+  return self.draw.blur(arr_s, self.arr_vec2arr_vecp(arr_vec), opt_globalCompositeOperation, {x: self.x2xp(records.x0), y: self.y2myp(records.y0)}, records.offsetR, records.orderR, records.NrandR, records.NrandT, records.isMin, records.isRound, records.Nrender, records.Ncycle, records.isCyclic, records.isSquare);  // 1.9.6
 };
 /* -> 1.2.3 */
 /* 0.5.0 -> */

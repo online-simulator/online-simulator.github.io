@@ -1639,7 +1639,7 @@ originX:originY:offsetR:orderR:NrandR:NrandT:isMin:isRound:Nrender:Ncycle
 <br>
 originX:originY:offsetR:orderR:NrandR:NrandT:isMin:isRound:Nrender:Ncycle:
 <br>
-isCyclic:isAverage:Nlegend
+isCyclic:<span class="run">isSquare</span>:Nlegend（<span class="run">Ver.2.55.26</span>以降、項目名を変更）
     </td>
   </tr>
   <tr>
@@ -4855,6 +4855,8 @@ blur特定項目仕様と付随する留意事項について記述する
 <br>
 ・<span class="clear">Ver.2.45.24</span>以降、strength=0で正常に機能しない致命的な不具合を修正
 <br>
+・<span class="run">Ver.2.55.26</span>以降、一部の設定項目名を変更
+<br>
 <br>
 <a href="#span-out-UI-graphing-z">z入力欄</a>にblurをblur||BLUR{config[]strengths}で入力
 <br>
@@ -4868,7 +4870,7 @@ blur特定項目仕様と付随する留意事項について記述する
 <br>
 <span class="selection">originX:originY:offsetR:orderR:NrandR:NrandT:isMin:isRound:Nrender:Ncycle</span>:
 <br>
-isCyclic:isAverage:Nlegend
+isCyclic:<span class="run">isSquare</span>:Nlegend（<span class="run">Ver.2.55.26</span>以降、項目名を変更）
 <br>
 ・<span class="selection">上段</span>は<a href="#span-out-UI-graphing-gradation">gradation</a>参照
 <br>
@@ -4878,11 +4880,11 @@ isCyclic:isAverage:Nlegend
 <br>
 　trueの場合、周期的にblurを適用
 <br>
-・isAverage=false||trueは適用する<a href="#span-out-UI-graphing-filter">filter</a>の種類を選択する
+・<span class="run">isSquare</span>=false||trueは適用する<a href="#span-out-UI-graphing-filter">filter</a>の種類を選択する
 <br>
-　falseの場合、<a href="#span-out-UI-graphing-filter-average">average_circle</a>を適用
+　falseの場合、<a href="#span-out-UI-graphing-filter-average">average_circle</a>
 <br>
-　trueの場合、<a href="#span-out-UI-graphing-filter-average">average_square</a>を適用
+　trueの場合、<a href="#span-out-UI-graphing-filter-average">average_square</a>
 <br>
 ・Nlegend=1~lastはblurを適用するplot点のlegend番号
 <br>
@@ -18035,9 +18037,9 @@ average
 <br>
 clear;
 <br>
-[isCircle=0,N=3,N2=int(N/2),filter=vectorc(N*N),
+[isSquare=0,N=3,N2=int(N/2),filter=vectorc(N*N),
 <br>
-calc_w(s2)=&lt;switch(isCircle==0,1:1,switch(s2&gt;N2**2,0:1,1)),
+calc_w(s2)=&lt;switch(isSquare==0,switch(s2&gt;N2**2,0:1,1):1,1),
 <br>
 _sir(=&lt;{_sic(=&lt;filter[(ir+N2)*N+(ic+N2)]=calc_w(ir**2+ic**2)=&gt;,-N2,N2)},-N2,N2),
 <br>

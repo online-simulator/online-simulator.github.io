@@ -827,7 +827,7 @@ My_entry.plot2d.prototype.final = function(arr2d_vec, options, toSVG){
       var text = options._blur;
       var config = "";
       text = def.enter_name(text, "config", false, 2, function(content){config = content;});
-      var records = $.get_records(config, ":", 0, ["x0", "y0", "offsetR", "orderR", "NrandR", "NrandT", "isMin", "isRound", "Nrender", "Ncycle", "isCyclic", "isAverage", "Nlegend"]);
+      var records = $.get_records(config, ":", 0, ["x0", "y0", "offsetR", "orderR", "NrandR", "NrandT", "isMin", "isRound", "Nrender", "Ncycle", "isCyclic", "isSquare", "Nlegend"]);  // 1.9.6
       records.x0 = self.trans((isNaN(records.x0))? 0: records.x0, isLog_x);  // linear-scale
       records.y0 = self.trans((isNaN(records.y0))? 0: records.y0, isLog_y);  // linear-scale
       records.offsetR = def.limit(records.offsetR, 0, 1, 0);
@@ -839,7 +839,7 @@ My_entry.plot2d.prototype.final = function(arr2d_vec, options, toSVG){
       records.Nrender = def.limit(Math.floor(records.Nrender), 1, NUMMAX, options.N);
       records.Ncycle = def.limit(Math.floor(records.Ncycle), 0, 127, 0);
       records.isCyclic = def.limit(records.isCyclic, -10, 10, true);
-      records.isAverage = def.limit(records.isAverage, -10, 10, true);
+      records.isSquare = def.limit(records.isSquare, -10, 10, true);  // 1.9.6
       var Nlegend = def.limit(Math.floor(records.Nlegend), NUMMIN, NUMMAX, len);
       var arr_s = conv.arr_str2arr_num((text || "0:10").split(":"), 0, 0, 20);
       all.putID(all.blur(arr_s, arr2d_tvec[Nlegend-1] || arr2d_tvec[len-1], null, records));

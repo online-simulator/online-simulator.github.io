@@ -251,7 +251,7 @@ My_entry.draw_canvas.prototype.gradation = function(colors, arr_vec, opt_globalC
 };
 /* -> 1.0.0 */
 /* 1.2.3 -> */
-My_entry.draw_canvas.prototype.blur = function(arr_s, arr_vec, opt_globalCompositeOperation, vec0, offsetR, orderR, NrandR, NrandT, isMin, isRound, Nrender, Ncycle, isCyclic, isAverage){
+My_entry.draw_canvas.prototype.blur = function(arr_s, arr_vec, opt_globalCompositeOperation, vec0, offsetR, orderR, NrandR, NrandT, isMin, isRound, Nrender, Ncycle, isCyclic, isSquare){
   var self = this;
   var filter = new My_entry.filter();
   var ctx = self.ctx;
@@ -280,7 +280,7 @@ My_entry.draw_canvas.prototype.blur = function(arr_s, arr_vec, opt_globalComposi
       var ii = i%di;
       var s2 = (ii-sk)*(ii-sk)+(jj-sk)*(jj-sk);
 //      _arr_w[i] = Math.exp(-0.5*s2);
-      _arr_w[i] = (!(isAverage) && s2 > sk*sk)? 0: 1;
+      _arr_w[i] = (!(isSquare) && s2 > sk*sk)? 0: 1;  // 1.9.6
     }
     return _arr_w;
   };
