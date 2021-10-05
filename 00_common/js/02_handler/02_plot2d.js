@@ -792,6 +792,13 @@ else{
     }
   }
   /* -> 0.6.0 */
+  /* 1.10.6 -> */
+  var idName_mask = "mask_string_path";
+  if(toSVG && options._transform){
+    _svg += plot.draw.mask(0, 0, plot.px_w, plot.px_h, idName_mask);
+    _svg += plot.draw.header_group(null, plot.draw.use_mask(idName_mask));
+  }
+  /* -> 1.10.6 */
   // string with SVG-path
   for(var j=0; j<len_j; ++j){
     var styleRGBA = arr_styleRGBA[j];
@@ -815,6 +822,7 @@ else{
   /* -> 1.0.0 */
   /* 1.10.6 -> */
   if(toSVG && options._transform){
+    _svg += plot.draw.footer_group();
     _svg += plot.draw.footer_group();
   }
   /* -> 1.10.6 */
