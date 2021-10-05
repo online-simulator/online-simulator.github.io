@@ -283,13 +283,18 @@ plot-layer描画順
 </a>
 <br>
 　　・
-<a href="#span-out-UI-graphing-layer2">
-layer合成手順
-</a>
-<br>
-　　・
 <a href="#span-out-UI-graphing-post">
 post処理順
+</a>
+<br>
+　　　・
+<a href="#span-out-UI-graphing-post1">
+layer合成順
+</a>
+<br>
+　　　・
+<a href="#span-out-UI-graphing-post2">
+post最終処理順
 </a>
 <br>
 　　・
@@ -1263,7 +1268,7 @@ panel上段について記述する
 <br>
 ・canvas上部のlinkから描画結果のpng||svg||csvを保存可
 <br>
-　・pngは描画終了||中断後に保存可（逐次<a href="#span-out-UI-graphing-layer2">layer合成</a>しない）
+　・pngは描画終了||中断後に保存可（逐次<a href="#span-out-UI-graphing-post1">layer合成</a>しない）
 <br>
 　・右click||long-tapによるpng保存不可（最前面は透明layer）
 <br>
@@ -1621,7 +1626,7 @@ originX:originY:offsetR:orderR:NrandR:NrandT:isMin:isRound:Nrender:Ncycle
 <br>
 ・任意位置に挿入可
 <br>
-・transformは<a href="#span-out-UI-graphing-layer2">layer合成</a>時のpost処理（svg出力は無効）
+・transformは<a href="#span-out-UI-graphing-post1">layer合成</a>時の<a href="#span-out-UI-graphing-post">post処理</a>（<span class="run">Ver.2.56.26</span>以降、svg出力に対応）
 <br>
 ・argsはcanvas座標変換の引数をcomma,区切りで入力
 <br>
@@ -1630,7 +1635,7 @@ originX:originY:offsetR:orderR:NrandR:NrandT:isMin:isRound:Nrender:Ncycle
 <br>
 ・任意位置に挿入可
 <br>
-・blurは<a href="#span-out-UI-graphing-filter">filtering</a>直前のpost処理（svg出力は無効）
+・blurは<a href="#span-out-UI-graphing-filter">filtering</a>直前の<a href="#span-out-UI-graphing-post2">post最終処理</a>（svg出力は無効）
 <br>
 ・strengthsはfilter(2n-1)x(2n-1)sizeのn=0~20の数値をcolon:区切りで入力（省略時、0:10）
 <br>
@@ -1645,7 +1650,7 @@ isCyclic:<span class="run">isSquare</span>:Nlegend（<span class="run">Ver.2.55.
 <br>
 ・任意位置に挿入可
 <br>
-・filterは<a href="#span-out-UI-graphing-layer2">layer合成</a>後のpost最終処理（svg出力は無効）
+・filterは<a href="#span-out-UI-graphing-post1">layer合成</a>後の<a href="#span-out-UI-graphing-post2">post最終処理</a>（svg出力は無効）
 <br>
 ・filtersは<span class="condition">area[]</span>filterを適用順にcolon:区切りで入力
 <br>
@@ -1941,7 +1946,7 @@ png出力の特徴を列挙する
 <br>
 <del>・legend間のgradation合成不可（合成する場合、複数回の分割出力が必要）
 <br>
-・putImageData()同期出力のため、<a href="#span-out-UI-graphing-layer2">canvas-globalCompositeOperation</a>無効（RGBA値source-over）</del>
+・putImageData()同期出力のため、<a href="#span-out-UI-graphing-post1">canvas-globalCompositeOperation</a>無効（source-over）</del>
 <br>
 ・乱数使用可
 <br>
@@ -1959,7 +1964,7 @@ png出力の特徴を列挙する
 <br>
 留意事項を列挙する
 <br>
-・上記精度を上げ過ぎた場合、svg出力のfile sizeやpost処理の負荷が増大する
+・上記精度を上げ過ぎた場合、svg出力のfile sizeや<a href="#span-out-UI-graphing-post">post処理</a>の負荷が増大する
 <br>
 ・乱数設定時、flickering防止のため、plot終了の最終frameまで逐次描画しない
 <br>
@@ -1981,18 +1986,20 @@ transform
 transform特定項目仕様と付随する留意事項について記述する
 <br>
 <br>
-<span class="run">Ver.2.52.25</span>以降、<a href="#span-out-UI-graphing-layer2">layer合成</a>時の座標変換機能を追加する
+<span class="run">Ver.2.52.25</span>以降、<a href="#span-out-UI-graphing-post1">layer合成</a>時の座標変換機能を追加する
 <br>
 ・<span class="clear">Ver.2.53.25</span>以降、<span class="run">せん断変形の結果</span>から<span class="condition">座標変換行列</span>の一部(<span class="clear">b:c</span>)の位置関係を交換して訂正
 <br>
 ・<span class="run">Ver.2.56.26</span>以降、設定項目withBackgroundを追加
+<br>
+・<span class="run">Ver.2.56.26</span>以降、svg出力に対応
 <br>
 <br>
 <a href="#span-out-UI-graphing-z">z入力欄</a>にtransformをtransform||TRANSFORM{args}で入力
 <br>
 ・任意位置に挿入可
 <br>
-・transformは<a href="#span-out-UI-graphing-layer2">layer合成</a>時のpost処理（svg出力は無効）
+・transformは<a href="#span-out-UI-graphing-post1">layer合成</a>時の<a href="#span-out-UI-graphing-post">post処理</a>（<span class="run">Ver.2.56.26</span>以降、svg出力に対応）
 <br>
 ・argsはcanvas座標変換ctx.setTransform(<span class="selection">a,b,c,d,e,f</span>)の引数をcomma,区切りで入力
 <br>
@@ -2158,9 +2165,9 @@ Rz=rotz_LHS(pi/4); Rz[0][0],Rz[0][1],Rz[1][0],Rz[1][1]
 <br>
 留意事項を列挙する
 <br>
-・<a href="#span-out-UI-graphing-layer2">layer合成</a>後の<a href="#span-out-UI-graphing-blur">blurring</a>||<a href="#span-out-UI-graphing-filter">filtering</a>はputImageData()同期出力のため、transform無効
+・<a href="#span-out-UI-graphing-post1">layer合成</a>後の<a href="#span-out-UI-graphing-blur">blurring</a>||<a href="#span-out-UI-graphing-filter">filtering</a>はputImageData()同期出力のため、transform無効
 <br>
-・<a href="#span-out-UI-graphing-layer2">layer合成</a>後の<a href="#span-out-UI-graphing-blur">blurring</a>||<a href="#span-out-UI-graphing-filter">filtering</a>にtransformを適用する場合、<a href="#span-out-UI-graphing-post-transformer">post-transformer</a>参照
+・<a href="#span-out-UI-graphing-post1">layer合成</a>後の<a href="#span-out-UI-graphing-blur">blurring</a>||<a href="#span-out-UI-graphing-filter">filtering</a>にtransformを適用する場合、<a href="#span-out-UI-graphing-post-transformer">post-transformer</a>参照
     </td>
   </tr>
   <tr>
@@ -2189,7 +2196,7 @@ blur特定項目仕様と付随する留意事項について記述する
 <br>
 ・任意位置に挿入可
 <br>
-・blurは<a href="#span-out-UI-graphing-filter">filtering</a>直前のpost処理（svg出力は無効）
+・blurは<a href="#span-out-UI-graphing-filter">filtering</a>直前の<a href="#span-out-UI-graphing-post2">post最終処理</a>（svg出力は無効）
 <br>
 ・strengthsはfilter(2n-1)x(2n-1)sizeのn=0~20の数値をcolon:区切りで入力（省略時、0:10）
 <br>
@@ -2220,9 +2227,11 @@ isCyclic:<span class="run">isSquare</span>:Nlegend（<span class="run">Ver.2.55.
 <br>
 留意事項を列挙する
 <br>
-・putImageData()同期出力のため、<a href="#span-out-UI-graphing-layer2">canvas-globalCompositeOperation</a>無効
+・svg出力は無効
 <br>
-・strengthsの数値に応じてpost処理の負荷がexponentialに増大する（中断不可）
+・putImageData()同期出力のため、<a href="#span-out-UI-graphing-post1">canvas-globalCompositeOperation</a>無効（source-over）
+<br>
+・strengthsの数値に応じて<a href="#span-out-UI-graphing-post">post処理</a>の負荷がexponentialに増大する（中断不可）
 <br>
 ・strengthsに数値以外を指定した場合、該当のstrength=0とする
     </td>
@@ -2242,7 +2251,7 @@ filter
 filter特定項目仕様と付随する留意事項について記述する
 <br>
 <br>
-<span class="run">Ver.2.44.22</span>以降、post処理の付録機能（未最適化）としてfilterを追加する
+<span class="run">Ver.2.44.22</span>以降、<a href="#span-out-UI-graphing-post">post処理</a>の付録機能（未最適化）としてfilterを追加する
 <br>
 ・<span class="clear">Ver.2.44.23</span>以降、各RGBA値=0で正常に機能しない致命的な不具合を修正
 <br>
@@ -2257,7 +2266,7 @@ filter特定項目仕様と付随する留意事項について記述する
 <br>
 ・任意位置に挿入可
 <br>
-・filterは<a href="#span-out-UI-graphing-layer2">layer合成</a>後のpost最終処理（svg出力は無効）
+・filterは<a href="#span-out-UI-graphing-post1">layer合成</a>後の<a href="#span-out-UI-graphing-post2">post最終処理</a>（svg出力は無効）
 <br>
 ・filtersは<span class="condition">area[]</span>filterを適用順にcolon:区切りで入力
 <br>
@@ -2536,9 +2545,11 @@ area[10,20,30,40]
 <br>
 留意事項を列挙する
 <br>
-・putImageData()同期出力のため、<a href="#span-out-UI-graphing-layer2">canvas-globalCompositeOperation</a>無効
+・svg出力は無効
 <br>
-・filter sizeに応じてpost処理の負荷がexponentialに増大する（中断不可）
+・putImageData()同期出力のため、<a href="#span-out-UI-graphing-post1">canvas-globalCompositeOperation</a>無効（source-over）
+<br>
+・filter sizeに応じて<a href="#span-out-UI-graphing-post">post処理</a>の負荷がexponentialに増大する（中断不可）
 <br>
 ・加重平均filterは重みを正規化するが、edge抽出filterは正規化しない（白黒飛びを許容）
 <br>
@@ -4999,16 +5010,53 @@ plot-layerに描画する項目を描画順に列挙する
 目次
 </a>
 <br>
-layer
+post
 <br>
-合成手順
+処理順
     </th>
     <td>
-<span id="span-out-UI-graphing-layer2"></span>
-layer合成手順について記述する
+<span id="span-out-UI-graphing-post"></span>
+post処理順について記述する
 <br>
 <br>
-drawImage()非同期出力のlayer合成手順を示す
+post処理を処理順に列挙する
+<br>
+・<a href="#span-out-UI-graphing-post1">layer合成</a>
+<br>
+・<a href="#span-out-UI-graphing-post2">post最終処理</a>
+    </td>
+  </tr>
+  <tr>
+    <th>
+<a href="#span-index">
+目次
+</a>
+<br>
+layer
+<br>
+合成順
+    </th>
+    <td>
+<span id="span-out-UI-graphing-post1"></span>
+layer合成順について記述する
+<br>
+<br>
+svg出力の場合、同期処理をlayer合成順に列挙する
+<br>
+・layerをclear
+<br>
+・同layerに<a href="#span-out-UI-graphing-transform">transform</a>を適用（withBackground=1の場合）
+<br>
+・同layerにbackground-layerを合成（source-over・<a href="#span-out-UI-graphing-config">背景image-file</a>無効）
+<br>
+・同layerに<a href="#span-out-UI-graphing-transform">transform</a>を適用（withBackground=0の場合）
+<br>
+・同layerに<a href="#span-out-UI-graphing-layer-grid">grid-layer</a>を合成（source-over）
+<br>
+・同layerに<a href="#span-out-UI-graphing-layer-plot">plot-layer</a>を合成（source-over）
+<br>
+<br>
+png出力||描画canvas出力の場合、drawImage()非同期処理をlayer合成順に列挙する
 <br>
 ・layerをclear
 <br>
@@ -5021,6 +5069,8 @@ drawImage()非同期出力のlayer合成手順を示す
 ・完了後、同layerに<a href="#span-out-UI-graphing-layer-grid">grid-layer</a>を合成（canvas-globalCompositeOperationを適用）
 <br>
 ・完了後、同layerに<a href="#span-out-UI-graphing-layer-plot">plot-layer</a>を合成（canvas-globalCompositeOperationを適用）
+<br>
+・完了後、同layerの<a href="#span-out-UI-graphing-post2">post最終処理</a>に移行（source-over）
     </td>
   </tr>
   <tr>
@@ -5031,20 +5081,25 @@ drawImage()非同期出力のlayer合成手順を示す
 <br>
 post
 <br>
-処理順
+最終処理順
     </th>
     <td>
-<span id="span-out-UI-graphing-post"></span>
-post処理順について記述する
+<span id="span-out-UI-graphing-post2"></span>
+post最終処理順と付随する留意事項について記述する
 <br>
 <br>
-<a href="#span-out-UI-graphing-layer2">layer合成</a>後、putImageData()同期出力のpost処理を処理順に列挙する
+<a href="#span-out-UI-graphing-post1">layer合成</a>後、putImageData()同期出力のpost最終処理を処理順に列挙する
 <br>
 ・<a href="#span-out-UI-graphing-blur">blur</a>
 <br>
 ・<a href="#span-out-UI-graphing-filter">filter</a>
 <br>
 　<a href="#span-out-UI-graphing-filter-average">averageぼかし</a>||<a href="#span-out-UI-graphing-filter-Gaussian">Gaussぼかし</a>||<a href="#span-out-UI-graphing-filter-tone-curve">tone-curve</a>||<a href="#span-out-UI-graphing-post-transformer">post-transformer</a>||<a href="#span-out-UI-graphing-post-processor">post-processor</a>
+<br>
+<br>
+留意事項を列挙する
+<br>
+・putImageData()同期出力の場合、<a href="#span-out-UI-graphing-post1">canvas-globalCompositeOperation</a>無効（source-over）
     </td>
   </tr>
   <tr>
@@ -5106,7 +5161,7 @@ plot-configの設定項目を列挙する
 <br>
 ・各layerの合成方法canvas-globalCompositeOperationLayerを選択可
 <br>
-・各layerの背景への合成方法<a href="#span-out-UI-graphing-layer2">canvas-globalCompositeOperation</a>を選択可
+・各layerの背景への合成方法<a href="#span-out-UI-graphing-post1">canvas-globalCompositeOperation</a>を選択可
 <br>
 <del>・title入力欄にgraph-titleを入力可</del><span class="run">Ver.2.34.18</span>以降、<a href="#span-out-UI-graphing-z">z入力欄</a>に統合
     </td>
@@ -7849,7 +7904,7 @@ tの演算をSingle-threadで実行後、x/yの演算をMulti-threadで実行
 <br>
 svg出力機能について記述する
 <br>
-・<a href="#span-out-UI-graphing-layer2">canvas-globalCompositeOperation</a>無効（source-over）
+・<a href="#span-out-UI-graphing-post1">canvas-globalCompositeOperation</a>無効（source-over）
 <br>
 ・既定markerのdestination-outは背景色source-overで代替（透明の場合、白）
 <br>

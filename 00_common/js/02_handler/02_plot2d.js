@@ -538,6 +538,17 @@ My_entry.plot2d.prototype.run = function(arr2d_vec, options, toSVG, isFinal){
     arr_str[j] = str;
     arr_strFontSize[j] = strFontSize;
   }
+  /* 1.10.6 -> */
+  var callback_transform_toSVG = function(withBackground){
+    var text = options._transform;
+    var params = $.get_records(text, ",", 0, ["a", "b", "c", "d", "e", "f", "withBackground"], true);
+    if((withBackground && params.withBackground) || (!(withBackground) && !(params.withBackground))){
+      _svg += plot.draw.header_group(null, plot.draw.transform(params.a, params.b, params.c, params.d, params.e, params.f));
+    }
+  };
+  if(toSVG && options._transform){
+    callback_transform_toSVG(true);
+  }
   // background
   /* 0.7.0 -> */
   var decDigit = options["decDigit"];
@@ -556,6 +567,10 @@ My_entry.plot2d.prototype.run = function(arr2d_vec, options, toSVG, isFinal){
   else{
     background.fill(backgroundColor, globalCompositeOperation);
   }
+  if(toSVG && options._transform){
+    callback_transform_toSVG(false);
+  }
+  /* -> 1.10.6 */
   /* 1.0.0 -> */
   /* 0.6.0 -> */
   // title
@@ -789,6 +804,11 @@ if(isAxis_z){
     }
   }
   /* -> 1.0.0 */
+  /* 1.10.6 -> */
+  if(toSVG && options._transform){
+    _svg += plot.draw.footer_group();
+  }
+  /* -> 1.10.6 */
   temp.attach(self.handlers);  // 0.4.0 moved from final()
   self.isLocked = false;
   return _svg;

@@ -131,6 +131,22 @@ My_entry.draw_svg.prototype.lines = function(arr_vec, opt_lineWidth, opt_styleRG
   return _svg;
 };
 /* 1.0.0 -> */
+/* 1.10.6 -> */
+My_entry.draw_svg.prototype.transform = function(a, b, c, d, e, f){
+  var self = this;
+  var _svg = "";
+  var mat = "matrix";
+  mat += "("+self.floor(a);
+  mat += " "+self.floor(b);
+  mat += " "+self.floor(c);
+  mat += " "+self.floor(d);
+  mat += " "+self.floor(e);
+  mat += " "+self.floor(f);
+  mat += ")";
+  _svg += " transform="+self.quote(mat);
+  return _svg;
+};
+/* -> 1.10.6 */
 My_entry.draw_svg.prototype.mask = function(x, y, w, h, idName){
   var self = this;
   return self.def_mask(idName, "#ffffff", x, y, w, h);
