@@ -731,6 +731,15 @@ if(isAxis_z){
     }
   }
 }
+  /* 1.10.6 -> */
+else{
+  if(!(options.oldPlot2d)){
+    if(toSVG){
+      _svg += plot.draw.mask(0, 0, plot.px_w, plot.px_h, idName_mask);
+    }
+  }
+}
+  /* -> 1.10.6 */
   /* 0.6.0 -> */
   // legends
   if(isLegend){
