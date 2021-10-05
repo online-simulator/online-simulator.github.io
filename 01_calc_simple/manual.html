@@ -5038,7 +5038,7 @@ layer
     </th>
     <td>
 <span id="span-out-UI-graphing-post1"></span>
-layer合成順について記述する
+layer合成順と付随する留意事項について記述する
 <br>
 <br>
 svg出力の場合、同期処理をlayer合成順に列挙する
@@ -5071,6 +5071,11 @@ png出力||描画canvas出力の場合、drawImage()非同期処理をlayer合�
 ・完了後、同layerに<a href="#span-out-UI-graphing-layer-plot">plot-layer</a>を合成（canvas-globalCompositeOperationを適用）
 <br>
 ・完了後、同layerの<a href="#span-out-UI-graphing-post2">post最終処理</a>に移行（source-over）
+<br>
+<br>
+留意事項を列挙する
+<br>
+・svg出力の場合、<a href="#span-out-UI-graphing-post1">canvas-globalCompositeOperation</a>無効（source-over）
     </td>
   </tr>
   <tr>
