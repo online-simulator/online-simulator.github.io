@@ -1674,7 +1674,7 @@ originX:originY:offsetR:orderR:NrandR:NrandT:isMin:isRound:Nrender:Ncycle
 ・argsはcanvas座標変換の引数をcomma,区切りで入力
 <br>
 <br>
-<span class="run">Ver.2.45.23</span>以降、<a href="#span-out-UI-graphing-blur">blur</a>をblur||BLUR{<span class="run">asym[]</span>config[]strengths}で入力
+<span class="run">Ver.2.45.23</span>以降、<a href="#span-out-UI-graphing-blur">blur</a>をblur||BLUR{<span class="condition">asym[]</span>config[]strengths}で入力
 <br>
 ・任意位置に挿入可
 <br>
@@ -2257,7 +2257,7 @@ isCyclic:<span class="run">isSquare</span>:Nlegend（<span class="run">Ver.2.55.
 <br>
 ・<span class="selection">上段</span>は<a href="#span-out-UI-graphing-gradation">gradation</a>参照
 <br>
-・<span class="run">Ver.2.57.26</span>以降、Nrender=1~2560に上限値を圧縮
+・<span class="run">Ver.2.57.26</span>以降、<span class="selection">Nrender</span>=1~2560に上限値を圧縮（memory size&lt;200MB）
 <br>
 ・isCyclic=false||trueは1周期外（2周期目以降）のblur条件を選択する
 <br>
@@ -2298,8 +2298,6 @@ config[0:0:0:1:0:50:false:false:2560:4:true:false:last]
 ・媒介変数tの範囲等分割数N
 <br>
 ・周方向のrendering分割数Nrender
-<br>
-・<a href="#span-out-UI-graphing-filter-average-asym">非対称averageぼかし</a>の場合、最大で約200MBのmemory sizeが必要
 <br>
 <br>
 留意事項を列挙する
@@ -5607,7 +5605,7 @@ Gaussぼかしの仕様を列挙する
 ・ぼかし強度は<a href="#span-out-UI-graphing-filter">filter</a>の適用回数で変更する（例えば、<a href="#span-out-UI-graphing-post-transformer">post-transformer</a>参照）
 <br>
 <br>
-分布関数を固定してN違いの<a href="#span-out-UI-graphing-filter">filter配列</a>を以下の<a href="#span-out-ope">実数演算</a>で生成する
+σ=1pxの分布関数を固定してN違いの<a href="#span-out-UI-graphing-filter">filter配列</a>を以下の<a href="#span-out-ope">実数演算</a>で生成する
 <br>
 ・簡易なGaussぼかしの場合、配列要素の重みを丸める（量子化bit数=N-1を仮定）
 <br>
