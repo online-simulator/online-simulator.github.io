@@ -878,8 +878,14 @@ My_entry.plot2d.prototype.final = function(arr2d_vec, options, toSVG){
       records.isCyclic = def.limit(records.isCyclic, -10, 10, true);
       records.isSquare = def.limit(records.isSquare, -10, 10, true);  // 1.9.6
       var Nlegend = def.limit(Math.floor(records.Nlegend), NUMMIN, NUMMAX, len);
+      /* 1.11.6 -> */
+      records.Nrender = Math.min(records.Nrender, 2560);
+      var asym = "";
+      text = def.enter_name(text, "asym", false, 2, function(content){asym = content;});
+      var records_asym = $.get_records(asym, ",", 0, ["x_asym", "y_asym", "k_asym", "Nrad_asym"], true);
       var arr_s = conv.arr_str2arr_num((text || "0:10").split(":"), 0, 0, 20);
-      all.putID(all.blur(arr_s, arr2d_tvec[Nlegend-1] || arr2d_tvec[len-1], null, records));
+      all.putID(all.blur(arr_s, arr2d_tvec[Nlegend-1] || arr2d_tvec[len-1], null, records, records_asym));
+      /* -> 1.11.6 */
     };
     /* -> 1.2.3 */
     /* 1.8.5 -> */

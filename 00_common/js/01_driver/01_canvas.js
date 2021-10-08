@@ -238,12 +238,12 @@ My_entry.canvas.prototype.gradation = function(colors, arr_vec, opt_globalCompos
   return self.draw.gradation(colors, self.arr_vec2arr_vecp(arr_vec), opt_globalCompositeOperation, {x: self.x2xp(records.x0), y: self.y2myp(records.y0)}, records.offsetR, records.orderR, records.NrandR, records.NrandT, records.isMin, records.isRound, records.Nrender, records.Ncycle);
 };
 /* -> 1.0.0 */
-/* 1.2.3 -> */
-My_entry.canvas.prototype.blur = function(arr_s, arr_vec, opt_globalCompositeOperation, records){
+/* 1.11.6 */
+/* 1.2.3 */
+My_entry.canvas.prototype.blur = function(arr_s, arr_vec, opt_globalCompositeOperation, records, records_asym){
   var self = this;
-  return self.draw.blur(arr_s, self.arr_vec2arr_vecp(arr_vec), opt_globalCompositeOperation, {x: self.x2xp(records.x0), y: self.y2myp(records.y0)}, records.offsetR, records.orderR, records.NrandR, records.NrandT, records.isMin, records.isRound, records.Nrender, records.Ncycle, records.isCyclic, records.isSquare);  // 1.9.6
+  return self.draw.blur(arr_s, self.arr_vec2arr_vecp(arr_vec), opt_globalCompositeOperation, {x: self.x2xp(records.x0), y: self.y2myp(records.y0)}, records.offsetR, records.orderR, records.NrandR, records.NrandT, records.isMin, records.isRound, records.Nrender, records.Ncycle, records.isCyclic, records.isSquare, records_asym.x_asym, records_asym.y_asym, records_asym.k_asym, records_asym.Nrad_asym);  // 1.9.6
 };
-/* -> 1.2.3 */
 /* 0.5.0 -> */
 My_entry.canvas.prototype.text = function(text, x0, y0, opt_fontSize, opt_styleRGBA, opt_globalCompositeOperation){
   var self = this;

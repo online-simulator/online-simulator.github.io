@@ -110,7 +110,8 @@ My_entry.draw_canvas.prototype.make_gradLEN = function(arr_vec, vec0, isMin, isR
     function(n, len){
       var nr = (n+Nrender)%Nrender;
       var len0 = _gradLEN[nr];
-      _gradLEN[nr] = (typeof len0 === "undefined")? len: Math[sw](len0, len);
+      var len1 = (isNaN(len0))? len: Math[sw](len0, len);  // 1.11.6
+      _gradLEN[nr] = len1;
     };
   for(var i=0, len=arr_vec.length; i<len-1; ++i){
     var veci0 = arr_vec[i];
@@ -159,6 +160,79 @@ My_entry.draw_canvas.prototype.make_gradLEN = function(arr_vec, vec0, isMin, isR
     }
   }
   return _gradLEN;
+};
+/* 1.11.6 */
+My_entry.draw_canvas.prototype.make_blurRAD = function(arr_vec, vec0, isMin, isRound, Nrender){
+  var self = this;
+  var _blurRAD = [];
+  var gradLEN = [];
+  var pi2 = Math.PI*2;
+  var rdt = Nrender/pi2;
+  var x0 = vec0.x;
+  var y0 = vec0.y;
+  var sw = (isMin)? "min": "max";
+  var callback = (isMin < 0)?
+    function(n, len, phi){
+      var nr = (n+Nrender)%Nrender;
+      gradLEN[nr] = len;
+      _blurRAD[nr] = phi;
+    }:
+    function(n, len, phi){
+      var nr = (n+Nrender)%Nrender;
+      var phi0 = _blurRAD[nr];
+      var len0 = gradLEN[nr];
+      var len1 = (isNaN(len0))? len: Math[sw](len0, len);
+      gradLEN[nr] = len1;
+      _blurRAD[nr] = (isNaN(phi0) || len1 === len)? phi: phi0;
+    };
+  for(var i=0, len=arr_vec.length; i<len-1; ++i){
+    var veci0 = arr_vec[i];
+    var veci1 = arr_vec[i+1] || veci0;
+    var dvec10 = {x: veci1.x-veci0.x, y: veci1.y-veci0.y};
+    var dx0 = veci0.x-x0;
+    var dy0 = veci0.y-y0;
+    var dx1 = veci1.x-x0;
+    var dy1 = veci1.y-y0;
+    var t0 = Math.atan2(dy0, dx0);
+    var t1 = Math.atan2(dy1, dx1);
+    var n0 = Math.round(t0*rdt);
+    var n1 = Math.round(t1*rdt);
+    var dn = n1-n0;
+    var dn0 = (n1+Nrender)-n0;
+    var dn1 = n1-(n0+Nrender);
+    var adn = Math.abs(dn);
+    if(adn > Math.abs(dn0)){
+      dn = dn0;
+    }
+    else if(adn > Math.abs(dn1)){
+      dn = dn1;
+    }
+    var len0 = Math.sqrt(dx0*dx0+dy0*dy0);
+    var len1 = Math.sqrt(dx1*dx1+dy1*dy1);
+    var get_len = (isRound)?
+      function(n){
+        var k = (n-n0)/(dn || 1);
+        return len0+(len1-len0)*k;
+      }:
+      function(n){
+        var k = (n-n0)/(dn || 1);
+        var dxn = dx0+dvec10.x*k;
+        var dyn = dy0+dvec10.y*k;
+        return Math.sqrt(dxn*dxn+dyn*dyn);
+      };
+    var phi = Math.atan2(dvec10.y, dvec10.x);
+    if(dn < 0){
+      for(var n=n0; n>=n0+dn; --n){
+        callback(n, get_len(n), phi);
+      }
+    }
+    else{
+      for(var n=n0; n<=n0+dn; ++n){
+        callback(n, get_len(n), phi);
+      }
+    }
+  }
+  return _blurRAD;
 };
 My_entry.draw_canvas.prototype.make_krandR = function(krandR0, Ncycle){
   var self = this;
@@ -214,7 +288,8 @@ My_entry.draw_canvas.prototype.gradation = function(colors, arr_vec, opt_globalC
       var dy = yp+0.5-y0;
       var t = Math.atan2(dy, dx);  // (-pi,pi]
       var n = Math.round(t*rdt);
-      var LEN0 = gradLEN[(n+Nrender)%Nrender];
+      var nr = (n+Nrender)%Nrender;  // 1.11.6
+      var LEN0 = gradLEN[nr];
       if(LEN0){
         var len0 = Math.sqrt(dx*dx+dy*dy);
         var len = len0+LEN0*(Math.random()-0.5)*krandT0;
@@ -250,8 +325,9 @@ My_entry.draw_canvas.prototype.gradation = function(colors, arr_vec, opt_globalC
   return _ID;
 };
 /* -> 1.0.0 */
-/* 1.2.3 -> */
-My_entry.draw_canvas.prototype.blur = function(arr_s, arr_vec, opt_globalCompositeOperation, vec0, offsetR, orderR, NrandR, NrandT, isMin, isRound, Nrender, Ncycle, isCyclic, isSquare){
+/* 1.11.6 */
+/* 1.2.3 */
+My_entry.draw_canvas.prototype.blur = function(arr_s, arr_vec, opt_globalCompositeOperation, vec0, offsetR, orderR, NrandR, NrandT, isMin, isRound, Nrender, Ncycle, isCyclic, isSquare, x_asym, y_asym, k_asym, Nrad_asym){
   var self = this;
   var filter = new My_entry.filter();
   var ctx = self.ctx;
@@ -268,33 +344,90 @@ My_entry.draw_canvas.prototype.blur = function(arr_s, arr_vec, opt_globalComposi
   var krandT0 = NrandT/255;
   var Ns = arr_s.length;
   var gradLEN = self.make_gradLEN(arr_vec, vec0, isMin, isRound, Nrender);
+  /* 1.11.6 -> */
+  var hasAsym = (x_asym || y_asym || k_asym || Nrad_asym);
+  var rad_asym = (Nrad_asym)? Math.PI/Nrad_asym: 0;
+  var blurRAD = self.make_blurRAD(arr_vec, vec0, isMin, isRound, Nrender);
   var krandR = self.make_krandR(NrandR/255, Ncycle);
   var sum_krandR = self.make_sum_krandR(krandR);
   var Ncycle_krandR = sum_krandR[sum_krandR.length-1];
-  var make_arr_w = function(sk){
-    var len = filter.get_len(sk);
-    var di = 2*sk+1;
-    var _arr_w = [];
-    for(var i=0; i<len; ++i){
-      var jj = Math.floor(i/di);
-      var ii = i%di;
-      var s2 = (ii-sk)*(ii-sk)+(jj-sk)*(jj-sk);
-//      _arr_w[i] = Math.exp(-0.5*s2);
-      _arr_w[i] = (!(isSquare) && s2 > sk*sk)? 0: 1;  // 1.9.6
-    }
-    return _arr_w;
-  };
+  var make_arr_w = null;
+  var get_arr_w2d = null;
+  var arr_w3d = [];
   var arr_w2d = [];
-  for(var s=0, len_s=21; s<len_s; ++s){
-    arr_w2d[s] = make_arr_w(s);
+  if(hasAsym){
+    make_arr_w = function(sk, rad0){
+      var _arr_w = [];
+      var rad = rad0+rad_asym;
+      var len = filter.get_len(sk);
+      var di = 2*sk+1;
+      for(var i=0; i<len; ++i){
+        var jj = Math.floor(i/di);
+        var ii = i%di;
+        var xb = ii-sk-x_asym;
+        var yb = jj-sk-y_asym;
+        var xa = +Math.cos(rad)*xb+Math.sin(rad)*yb;
+        var ya = -Math.sin(rad)*xb+Math.cos(rad)*yb;
+        ya *= k_asym;
+        var x2 = xa*xa;
+        var y2 = ya*ya;
+        var s2 = sk*sk;
+        var isOutOfArea = (isSquare)? (x2 > s2 || y2 > s2): (x2+y2 > s2);
+        var w = (isOutOfArea)? 0: 1;
+        _arr_w[i] = w;
+      }
+      return _arr_w;
+    };
+    for(var nr=0, len_nr=blurRAD.length; nr<len_nr; ++nr){
+      var arr_w2d = [];
+      for(var s=0, len_s=21; s<len_s; ++s){
+        var rad0 = blurRAD[nr] || 0;
+        arr_w2d[s] = make_arr_w(s, rad0);
+      }
+      arr_w3d[nr] = arr_w2d;
+    }
+    get_arr_w2d = function(nr){
+      return arr_w3d[nr];
+    };
   }
+  else{
+    make_arr_w = function(sk, dummy_rad0){
+      var _arr_w = [];
+      var len = filter.get_len(sk);
+      var di = 2*sk+1;
+      for(var i=0; i<len; ++i){
+        var jj = Math.floor(i/di);
+        var ii = i%di;
+        var xa = ii-sk;
+        var ya = jj-sk;
+        var x2 = xa*xa;
+        var y2 = ya*ya;
+        var s2 = sk*sk;
+        var isOutOfArea = (isSquare)? 0: (x2+y2 > s2);
+        var w = (isOutOfArea)? 0: 1;
+        _arr_w[i] = w;
+      }
+      return _arr_w;
+    };
+    for(var s=0, len_s=21; s<len_s; ++s){
+      arr_w2d[s] = make_arr_w(s, 0);
+    }
+    get_arr_w2d = function(nr){
+      return arr_w2d;
+    };
+  }
+  /* -> 1.11.6 */
   for(var yp=0; yp<px_h; ++yp){
     for(var xp=0; xp<px_w; ++xp){
       var dx = xp+0.5-x0;
       var dy = yp+0.5-y0;
       var t = Math.atan2(dy, dx);  // (-pi,pi]
       var n = Math.round(t*rdt);
-      var LEN0 = gradLEN[(n+Nrender)%Nrender];
+      /* 1.11.6 -> */
+      var nr = (n+Nrender)%Nrender;
+      var arr_w2d = get_arr_w2d(nr);
+      var LEN0 = gradLEN[nr];
+      /* -> 1.11.6 */
       if(LEN0){
         var len0 = Math.sqrt(dx*dx+dy*dy);
         var len = len0+LEN0*(Math.random()-0.5)*krandT0;
@@ -325,7 +458,10 @@ My_entry.draw_canvas.prototype.blur = function(arr_s, arr_vec, opt_globalComposi
               var sk = Math.floor(s0+(s1-s0)*k);
               var ired = 4*(px_w*yp+xp);
               for(var n=0; n<4; ++n){
-                data[ired+n] = filter.composite(arr_w2d[sk] || make_arr_w(sk), data0, px_w, px_h, sk, sk, 0+xp, 0+yp, n);  // 1.5.5
+                /* 1.11.6 -> */
+                var arr_w = arr_w2d[sk] || make_arr_w(sk, 0);
+                data[ired+n] = filter.composite(arr_w, data0, px_w, px_h, sk, sk, 0+xp, 0+yp, n);  // 1.5.5
+                /* -> 1.11.6 */
               }
             }
             else{
@@ -338,7 +474,6 @@ My_entry.draw_canvas.prototype.blur = function(arr_s, arr_vec, opt_globalComposi
   }
   return _ID;
 };
-/* -> 1.2.3 */
 /* 0.5.0 -> */
 My_entry.draw_canvas.prototype.text = function(text, vec0, opt_fontSize, opt_styleRGBA, opt_globalCompositeOperation){
   var self = this;
