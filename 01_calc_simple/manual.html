@@ -1686,7 +1686,7 @@ originX:originY:offsetR:orderR:NrandR:NrandT:isMin:isRound:Nrender:Ncycle
 <br>
 originX:originY:offsetR:orderR:NrandR:NrandT:isMin:isRound:Nrender:Ncycle:
 <br>
-isCyclic:<span class="run">isSquare</span>:Nlegend（<span class="run">Ver.2.55.26</span>以降、項目名を変更）
+isCyclic:<span class="jF">isSquare</span>:Nlegend（<span class="run">Ver.2.55.26</span>以降、項目名を変更）
 <br>
 ・<span class="run">Ver.2.57.26</span>以降、<span class="condition">asym[]</span>内datasetは設定値をcamma,区切りで入力（省略時、0,0,1,0）
 <br>
@@ -2236,7 +2236,7 @@ blur特定項目仕様と付随する留意事項について記述する
 <br>
 ・<span class="clear">Ver.2.45.24</span>以降、strength=0で正常に機能しない致命的な不具合を修正
 <br>
-・<span class="run">Ver.2.55.26</span>以降、一部の設定項目名を変更
+・<span class="run">Ver.2.55.26</span>以降、一部の設定項目名を<span class="jF">isSquare</span>に変更
 <br>
 ・<span class="run">Ver.2.57.26</span>以降、<a href="#span-out-UI-graphing-filter-average-asym">非対称averageぼかし</a>に対応（<span class="condition">asym[]</span>の設定項目を追加）
 <br>
@@ -2253,7 +2253,7 @@ blur特定項目仕様と付随する留意事項について記述する
 <br>
 <span class="selection">originX:originY:offsetR:orderR:NrandR:NrandT:isMin:isRound:Nrender:Ncycle</span>:
 <br>
-isCyclic:<span class="run">isSquare</span>:Nlegend（<span class="run">Ver.2.55.26</span>以降、項目名を変更）
+isCyclic:<span class="jF">isSquare</span>:Nlegend（<span class="run">Ver.2.55.26</span>以降、項目名を変更）
 <br>
 ・<span class="selection">上段</span>は<a href="#span-out-UI-graphing-gradation">gradation</a>参照
 <br>
@@ -2269,7 +2269,7 @@ isCyclic:<span class="run">isSquare</span>:Nlegend（<span class="run">Ver.2.55.
 <br>
 　trueの場合、周期的にblurを適用
 <br>
-・<span class="run">isSquare</span>=false||trueは適用する<a href="#span-out-UI-graphing-filter">filter</a>の種類を選択する
+・<span class="jF">isSquare</span>=false||trueは適用する<a href="#span-out-UI-graphing-filter">filter</a>の種類を選択する
 <br>
 　falseの場合、<a href="#span-out-UI-graphing-filter-average">average_circle</a>
 <br>
@@ -6186,7 +6186,7 @@ post-processor特定項目仕様について記述する
 <br>
 ・<span class="clear">Ver.2.48.25</span>以降、描画canvas境界で正常に機能しないdot化の不具合を修正
 <br>
-・<span class="run">Ver.2.49.25</span>以降、2値化||monotone化（輝度）のsw=-1任意のRGB重み平均値に対応
+・<span class="run">Ver.2.49.25</span>以降、2値化||monotone化（輝度）のsw=-1<span class="selection">任意のRGB重み平均値</span>に対応
 <br>
 <br>
 post-processorの仕様を列挙する
@@ -6216,11 +6216,11 @@ to2_rgba[threshold=0~255||0]
 <br>
 ・2値化（輝度）
 <br>
-to2[threshold=0~255||0,sw=-1~6||0<span class="run">,wr,wg,wb</span>]
+to2[threshold=0~255||0,sw=-1~6||0<span class="selection">,wr,wg,wb</span>]
 <br>
 ・monotone化（輝度）
 <br>
-mono[sw=-1~6||0<span class="run">,wr,wg,wb</span>]
+mono[sw=-1~6||0<span class="selection">,wr,wg,wb</span>]
 <br>
 <br>
 2値化||monotone化の輝度選択switch
