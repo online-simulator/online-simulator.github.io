@@ -879,7 +879,6 @@ My_entry.plot2d.prototype.final = function(arr2d_vec, options, toSVG){
       records.isSquare = def.limit(records.isSquare, -10, 10, true);  // 1.9.6
       var Nlegend = def.limit(Math.floor(records.Nlegend), NUMMIN, NUMMAX, len);
       /* 1.11.6 -> */
-      records.Nrender = Math.min(records.Nrender, 2560);
       var asym = "";
       text = def.enter_name(text, "asym", false, 2, function(content){asym = content;});
       var records_asym = $.get_records(asym, ",", 0, ["x_asym", "y_asym", "k_asym", "Nrad_asym"], true);

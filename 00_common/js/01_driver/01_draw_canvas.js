@@ -338,16 +338,15 @@ My_entry.draw_canvas.prototype.blur = function(arr_s, arr_vec, opt_globalComposi
   var ID0 = ctx.getImageData(0, 0, px_w, px_h);
   var data0 = ID0.data;
   var pi2 = Math.PI*2;
+  /* 1.11.6 -> */
+  var hasAsym = (x_asym || y_asym || k_asym || Nrad_asym);
+  var Nrender = (hasAsym)? Math.min(Nrender, 2560): Nrender;
   var rdt = Nrender/pi2;
   var x0 = vec0.x;
   var y0 = vec0.y;
   var krandT0 = NrandT/255;
   var Ns = arr_s.length;
   var gradLEN = self.make_gradLEN(arr_vec, vec0, isMin, isRound, Nrender);
-  /* 1.11.6 -> */
-  var hasAsym = (x_asym || y_asym || k_asym || Nrad_asym);
-  var rad_asym = (Nrad_asym)? Math.PI/Nrad_asym: 0;
-  var blurRAD = self.make_blurRAD(arr_vec, vec0, isMin, isRound, Nrender);
   var krandR = self.make_krandR(NrandR/255, Ncycle);
   var sum_krandR = self.make_sum_krandR(krandR);
   var Ncycle_krandR = sum_krandR[sum_krandR.length-1];
@@ -356,6 +355,8 @@ My_entry.draw_canvas.prototype.blur = function(arr_s, arr_vec, opt_globalComposi
   var arr_w3d = [];
   var arr_w2d = [];
   if(hasAsym){
+    var rad_asym = (Nrad_asym)? Math.PI/Nrad_asym: 0;
+    var blurRAD = self.make_blurRAD(arr_vec, vec0, isMin, isRound, Nrender);
     make_arr_w = function(sk, rad0){
       var _arr_w = [];
       var rad = rad0+rad_asym;
