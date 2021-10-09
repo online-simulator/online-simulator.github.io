@@ -1688,7 +1688,7 @@ originX:originY:offsetR:orderR:NrandR:NrandT:isMin:isRound:Nrender:Ncycle:
 <br>
 isCyclic:<span class="jF">isSquare</span>:Nlegend（<span class="run">Ver.2.55.26</span>以降、項目名を変更）
 <br>
-・<span class="run">Ver.2.57.26</span>以降、<span class="condition">asym[]</span>内datasetは設定値をcamma,区切りで入力（省略時、0,0,1,0）
+・<span class="run">Ver.2.57.26</span>以降、<span class="condition">asym[]</span>内datasetは設定値をcomma,区切りで入力（省略時、0,0,1,0）
 <br>
 x,y,k,Nrad
 <br>
@@ -2257,7 +2257,7 @@ isCyclic:<span class="jF">isSquare</span>:Nlegend（<span class="run">Ver.2.55.2
 <br>
 ・<span class="selection">上段</span>は<a href="#span-out-UI-graphing-gradation">gradation</a>参照
 <br>
-・<span class="run">Ver.2.57.26</span>以降、<a href="#span-out-UI-graphing-filter-average-asym">非対称averageぼかし</a>の場合、<span class="selection">Nrender</span>=1~2560に上限値を圧縮
+・<span class="run">Ver.2.57.26</span>以降、<a href="#span-out-UI-graphing-filter-average-asym">非対称averageぼかし</a>の場合、<span class="selection">Nrender</span>=1~2560に下流で上限値を圧縮
 <br>
 　<a href="#span-out-UI-graphing-filter-average">averageぼかし</a>の場合、memory size&lt;20MB
 <br>
@@ -2279,7 +2279,7 @@ isCyclic:<span class="jF">isSquare</span>:Nlegend（<span class="run">Ver.2.55.2
 <br>
 　範囲外の数値||数値以外を指定した場合、最終legendを選択
 <br>
-・<span class="run">Ver.2.57.26</span>以降、<span class="condition">asym[]</span>内datasetは設定値をcamma,区切りで入力（省略時、0,0,1,0）
+・<span class="run">Ver.2.57.26</span>以降、<span class="condition">asym[]</span>内datasetは設定値をcomma,区切りで入力（省略時、0,0,1,0）
 <br>
 asym[x||0,y||0,k||0,Nrad||0]
 <br>
@@ -2292,7 +2292,7 @@ asym[x||0,y||0,k||0,Nrad||0]
 <br>
 test caseを列挙する
 <br>
-・strengthの分布に乱数を適用（glass morphism効果を模擬）
+・strength分布に乱数を適用（glass morphism効果を模擬）
 <br>
 config[0:0:0:1:0:50:false:false:2560:4:true:false:last]
 <br>
