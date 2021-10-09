@@ -2292,7 +2292,7 @@ asym[x||0,y||0,k||0,Nrad||0]
 <br>
 test caseを列挙する
 <br>
-・glass morphism効果
+・strengthの分布に乱数を適用（glass morphism効果を模擬）
 <br>
 config[0:0:0:1:0:50:false:false:2560:4:true:false:last]
 <br>
@@ -2315,6 +2315,8 @@ config[0:0:0:1:0:50:false:false:2560:4:true:false:last]
 ・strengthsに数値以外を指定した場合、該当のstrength=0とする
 <br>
 ・<a href="#span-out-UI-graphing-filter-average-asym">非対称averageぼかし</a>の場合、strength&lt;max(x,y)の領域で空白発生の可能性がある
+<br>
+・同様に、imageDataが欠落する描画canvas境界で空白発生の可能性がある
 <br>
 ・空白部分は黒色の透明（#0000）とする
     </td>
@@ -2636,7 +2638,7 @@ area[10,20,30,40]
 <br>
 ・加重平均filterは重みを正規化するが、edge抽出filterは正規化しない（白黒飛びを許容）
 <br>
-・imageDataが欠落する境界は加重平均filterとして扱う（意図とは異なる可能性）
+・imageDataが欠落する描画canvas境界は加重平均filterとして扱う（意図とは異なる可能性）
 <br>
 ・<a href="#span-out-UI-graphing-config">canvas-background</a>にtransparent選択の場合、背景色は黒色の透明（#0000）とする
 <br>
