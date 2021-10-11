@@ -25,14 +25,14 @@
 <hr>
 <div>
 <table>
-<caption>初期表示の<a href="#span-out-com">複素数</a>演算の解は<a href="#span-out-options">option</a>の条件設定によって異なる</caption>
+<caption>初期表示の<a href="#span-out-com">複素数</a>演算の解は<a href="#span-out-options">外部option</a>の条件設定によって異なる</caption>
 <thead>
   <tr>
     <th>
-<a href="#span-out-associativity">Associativity</a>
+<a href="#span-out-option1">Associativity</a>
     </th>
     <th>
-/prior2<a href="#span-out-BRmo">omitted*</a>
+<a href="#span-out-option2">/prior2omitted*</a>
     </th>
     <th>
 条件設定に依らない括弧明示
@@ -324,7 +324,27 @@ log表示仕様
 <br>
 ・
 <a href="#span-out-options">
-option
+外部option
+</a>
+<br>
+　・
+<a href="#span-out-option1">
+2項演算子のassociativity
+</a>
+<br>
+　・
+<a href="#span-out-option2">
+記号省略乗算
+</a>
+<br>
+　・
+<a href="#span-out-option3">
+Multi-thread実行
+</a>
+<br>
+・
+<a href="#span-out-type-ope">
+演算子の大分類
 </a>
 <br>
 ・
@@ -340,6 +360,31 @@ option
 　・
 <a href="#span-out-prec-ope">
 演算子のprecedence
+</a>
+<br>
+　　・
+<a href="#span-out-prec-ope-arithmetic">
+算術演算子
+</a>
+<br>
+　　・
+<a href="#span-out-prec-ope-bit">
+bit演算子
+</a>
+<br>
+　　・
+<a href="#span-out-prec-ope-comparison">
+比較演算子
+</a>
+<br>
+　　・
+<a href="#span-out-prec-ope-relational">
+関係演算子
+</a>
+<br>
+　　・
+<a href="#span-out-prec-ope-logical">
+論理演算子
 </a>
 <br>
 ・
@@ -850,7 +895,7 @@ application
 <br>
 ・
 <a href="#span-in-options">
-option
+内部option
 </a>
 <br>
 ・
@@ -1213,7 +1258,7 @@ panel右側について記述する
 <br>
 ・C-buttonは入力欄&amp;log出力欄の内容とglobal <a href="#span-out-storage">storage</a>のClear実行を確定する
 <br>
-　Multi-thread実行の場合、演算を中断する
+　<a href="#span-out-option3">Multi-thread実行</a>の場合、演算を中断する
 <br>
 ・BS-buttonは入力欄の選択位置の1字前を消去する
 <br>
@@ -1284,7 +1329,7 @@ panel上段について記述する
 <br>
 　・右click||long-tapによるpng保存不可（最前面は透明layer）
 <br>
-　・svg||csvはMulti-thread実行の場合、逐次保存可
+　・svg||csvは<a href="#span-out-option3">Multi-thread実行</a>の場合、逐次保存可
 <br>
 　・png||svg出力共通でcanvas座標小数点以下floorの出力桁数0~9桁を選択可
 <br>
@@ -1414,7 +1459,7 @@ panel中段について記述する
 <br>
 ・C-buttonは入力欄&amp;log出力欄の内容とglobal <a href="#span-out-storage">storage</a>のClear実行を確定する
 <br>
-　Multi-thread実行の場合、演算を中断する
+　<a href="#span-out-option3">Multi-thread実行</a>の場合、演算を中断する
 <br>
 ・BS-buttonは入力欄の選択位置の1字前を消去する
 <br>
@@ -1429,7 +1474,7 @@ panel中段について記述する
 ・ans-buttonは入力欄の選択位置に<a href="#span-out-ans">予約変数</a>ansのtextを挿入する
 <br>
 <br>
-Multi-thread実行の場合、plot-buttonと=-buttonは並列に実行可
+<a href="#span-out-option3">Multi-thread実行</a>の場合、plot-buttonと=-buttonは並列に実行可
 <br>
 ・shared storage checked時、global <a href="#span-out-storage">storage</a>を共有
 <br>
@@ -2000,7 +2045,7 @@ png出力の特徴を列挙する
 ・Nrender=1で真円のgradationが比較的簡単に得られる
 <br>
 <br>
-形状精度||gradation精度に関係する設定項目を列挙する
+形状再現精度||gradation精度に関係する設定項目を列挙する
 <br>
 ・媒介変数tの範囲等分割数N
 <br>
@@ -2303,7 +2348,7 @@ config[0:0:0:1:0:200:false:false:2560:4:true:false:last]0:10:0:10:0:10:0:10:0:10
 config[0:0:0:1:0:200:false:false:2560:4:true:false:last]10:0:10:0:10:0:10:0:10:0:10:0
 <br>
 <br>
-形状精度||blur精度に関係する設定項目を列挙する
+形状再現精度||blur精度に関係する設定項目を列挙する
 <br>
 ・媒介変数tの範囲等分割数N
 <br>
@@ -6483,7 +6528,7 @@ plot-configについて記述する
 <br>
 plot-configの設定項目を列挙する
 <br>
-・<span class="run">Ver.2.43.20</span>以降、Multi-thread実行時の同時並列数Nthreadを選択可
+・<span class="run">Ver.2.43.20</span>以降、<a href="#span-out-option3">Multi-thread実行</a>時の同時並列数Nthreadを選択可
 <br>
 　通常、memory sizeが問題にならない場合、最適なNthread=CPU-core数*(1~2)
 <br>
@@ -6583,7 +6628,9 @@ svg||csv||history-txt出力時に記録するlog-stampの情報を列挙する
 目次
 </a>
 <br>
-log表示仕様
+log
+<br>
+表示仕様
     </th>
     <td>
 <span id="span-out-log"></span>
@@ -6671,16 +6718,42 @@ max(x=3,-1,-2) || max(0,-1,-2) -> 0
 目次
 </a>
 <br>
-option
+外部option
     </th>
     <td>
 <span id="span-out-options"></span>
-選択可能なoption設定について記述する
+外部optionの設定項目を列挙する
+<br>
+・<a href="#span-out-option1">2項演算子のassociativity</a>
+<br>
+・<a href="#span-out-option2">記号省略乗算</a>
+<br>
+・<a href="#span-out-option3">Multi-thread実行</a>
+    </td>
+  </tr>
+  <tr>
+    <th>
+<a href="#span-index">
+目次
+</a>
+<br>
+2項演算子の
+<br>
+associativity
+    </th>
+    <td>
+<span id="span-out-option1"></span>
+外部optionの2項演算子のassociativityと付随する留意事項について記述する
 <br>
 <br>
-<a href="#span-out-associativity">2項演算子のassociativity</a>を左右選択可
+<a href="#span-out-associativity">2項演算子のassociativity</a>を選択可
 <br>
-・左から順に結合する場合、Left-Associativity（default）
+・左から順に結合する場合、左結合（以降、Left-AssociativityをLAと省略する）
+<br>
+・右から順に結合する場合、右結合（以降、Right-AssociativityをRAと省略する）
+<br>
+<br>
+LA既定
 <br>
 +3-5+7-9 || ((((0+3)-5)+7)-9) -> -4
 <br>
@@ -6690,7 +6763,8 @@ option
 <br>
 (1,2){3,4}(5,6) || (((1,2){3,4})(5,6)) || 11(5,6) -> (55,66)
 <br>
-・右から順に結合する場合、Right-Associativity
+<br>
+RA選択
 <br>
 +3-5+7-9 || (0+(3-(5+(7-9)))) -> 0
 <br>
@@ -6700,25 +6774,112 @@ option
 <br>
 (1,2){3,4}(5,6) || ((1,2)({3,4}(5,6))) || (1,2)(15,18:20,24) -> (55,66)
 <br>
-・前置単項の符号は同種の2項演算子と区別しない
+<br>
+留意事項を列挙する
+<br>
+・<a href="#span-out-type-ope">前置単項演算子</a>の符号は同種の<a href="#span-out-type-ope">中置2項演算子</a>と区別しない
 <br>
 ・符号の左側には0||zeros行列が存在すると仮定して結合する
 <br>
 <br>
+詳細は<a href="#span-out-special">特殊仕様</a>参照
+    </td>
+  </tr>
+  <tr>
+    <th>
+<a href="#span-index">
+目次
+</a>
+<br>
+記号省略乗算
+    </th>
+    <td>
+<span id="span-out-option2"></span>
+外部optionの記号省略乗算と付随する留意事項について記述する
+<br>
+<br>
 <a href="#span-out-BRmo">記号省略乗算</a>と除算の<a href="#span-out-prec-ope">演算子のprecedence</a>を切替え可
 <br>
-・除算より記号省略乗算優先（default）
+<br>
+除算より記号省略乗算優先既定
 <br>
 1/2(2) || 1/(2(2)) -> 0.25
 <br>
-・記号省略乗算より除算優先
+<br>
+記号省略乗算より除算優先選択
 <br>
 1/2(2) || (1/2)(2) -> 1
 <br>
 <br>
+<a href="#span-out-BRmo">記号省略乗算</a>を許容しない場合、<a href="#span-out-config">裏設定</a>参照
+    </td>
+  </tr>
+  <tr>
+    <th>
+<a href="#span-index">
+目次
+</a>
+<br>
+Multi-thread
+<br>
+実行
+    </th>
+    <td>
+<span id="span-out-option3"></span>
+外部optionのMulti-thread実行と付随する留意事項について記述する
+<br>
+<br>
 Multi-thread実行を選択可
 <br>
-・Single-thread実行の場合、timeoutまで演算を中断不可
+・Single-thread実行の場合、演算を中断不可
+<br>
+・Multi-thread実行の場合、演算を中断可
+<br>
+<br>
+<a href="#span-out-UI-graphing">Graphing Calculator</a>の場合、Single-thread実行の演算||処理を列挙する
+<br>
+・<a href="#span-out-UI-graphing">t0/t1</a>の演算
+<br>
+・<a href="#span-out-UI-graphing-post">post処理</a>を含むcanvas描画処理
+<br>
+<br>
+留意事項を列挙する
+<br>
+・Single-thread実行の場合、browser既定のtimeoutまで演算||処理を中断不可
+    </td>
+  </tr>
+  <tr>
+    <th>
+<a href="#span-index">
+目次
+</a>
+<br>
+演算子
+<br>
+の大分類
+    </th>
+    <td>
+<span id="span-out-type-ope"></span>
+演算子の大分類と付随する留意事項について記述する
+<br>
+<br>
+主要な演算子の大分類と記法を列挙する
+<br>
+・後置単項演算子: left-operand operator
+<br>
+・前置単項演算子: operator right-operand
+<br>
+・中置2項演算子: left-operand operator right-operand
+<br>
+・中置3項演算子: left-operand-boolean operator1 right-operand1 operator2 right-operand2
+<br>
+<br>
+留意事項を列挙する
+<br>
+・3項演算子は未実装
+<br>
+<br>
+小分類は<a href="#span-out-prec-ope">演算子のprecedence</a>参照
     </td>
   </tr>
   <tr>
@@ -6733,12 +6894,10 @@ associativity
     </th>
     <td>
 <span id="span-out-associativity"></span>
-2項演算子のassociativityについて記述する
+2項演算子のassociativityと付随する留意事項について記述するについて記述する
 <br>
 <br>
-Left-Associativity（以降、LAと省略する）
-<br>
-・左から順に結合する場合
+左結合（Left-Associativity）
 <br>
 +3-5+7-9 || ((((0+3)-5)+7)-9) -> -4
 <br>
@@ -6752,12 +6911,8 @@ Left-Associativity（以降、LAと省略する）
 <br>
 3**2**3 || ((3**2)**3) -> 729
 <br>
-・べき乗の2項演算子記号^は**と同義
 <br>
-<br>
-Right-Associativity（以降、RAと省略する）
-<br>
-・右から順に結合する場合
+右結合（Right-Associativity）
 <br>
 +3-5+7-9 || (0+(3-(5+(7-9)))) -> 0
 <br>
@@ -6770,6 +6925,14 @@ Right-Associativity（以降、RAと省略する）
 3^2^3 || (3^(2^3)) -> 6561
 <br>
 3**2**3 || (3**(2**3)) -> 6561
+<br>
+<br>
+留意事項を列挙する
+<br>
+・<a href="#span-out-type-ope">中置2項演算子</a>を短絡評価する場合、<a href="#span-out-prec-ope-logical">論理演算子</a>参照
+<br>
+<br>
+<a href="#span-out-type-ope">中置2項演算子</a>のassociativityを選択する場合、<a href="#span-out-option1">外部option</a>参照
     </td>
   </tr>
   <tr>
@@ -6784,7 +6947,7 @@ precedence
     </th>
     <td>
 <span id="span-out-prec"></span>
-演算のprecedenceについて記述する
+演算のprecedenceと付随する留意事項について記述する
 <br>
 <br>
 演算のprecedenceに従って実行文を解釈し、順番に演算を実行する
@@ -6814,6 +6977,11 @@ precedence
 max(x=1,(x):2,3)[0]2 || (max((0,1:2,3)[0]))2 || (max(0,1))2 || (1)2 -> 2
 <br>
 <br>
+留意事項を列挙する
+<br>
+・演算のprecedenceは言語仕様によって異なる
+<br>
+<br>
 詳細は<a href="#span-in-prec">内部仕様</a>参照
     </td>
   </tr>
@@ -6832,106 +7000,299 @@ precedence
 演算子のprecedenceと付随する留意事項について記述する
 <br>
 <br>
-除算と乗算は区別せず、<a href="#span-out-associativity">2項演算子のassociativity</a>に従って演算する
+演算子のprecedenceを優先順に列挙する
 <br>
-LA既定時　1*2/3*4/5 || ((((1*2)/3)*4)/5) -> 0.5333333333333333
+・<a href="#span-out-prec-ope-arithmetic">算術演算子</a>
 <br>
-RA選択時　1*2/3*4/5 || (1*(2/(3*(4/5)))) -> 0.8333333333333333
+　・<a href="#span-out-type-ope">後置単項演算子</a>
+<br>
+　　・<a href="#span-out-com">虚数単位</a> i
+<br>
+　　・階乗記号 ! || !!...
+<br>
+　・<a href="#span-out-type-ope">中置2項演算子</a>
+<br>
+　　・べき乗演算子 ** || ^
+<br>
+　　・剰余演算子 %
+<br>
+　　・四則演算子
+<br>
+　　　・<a href="#span-out-BRmo">記号省略乗算</a>
+<br>
+　　　・除算||乗算演算子 / || *
+<br>
+　　　・減算||加算演算子 - || +
+<br>
+　・<a href="#span-out-type-ope">前置単項演算子</a>
+<br>
+　　・減算-||加算+の符号は同種の<a href="#span-out-type-ope">中置2項演算子</a>と区別しない
+<br>
+・<a href="#span-out-prec-ope-bit">bit演算子</a>
+<br>
+　・<a href="#span-out-type-ope">中置2項演算子</a>
+<br>
+　　・bit shift演算子 &lt;&lt; || &gt;&gt; || &gt;&gt;&gt;
+<br>
+　　・bit and演算子 &amp;
+<br>
+　　・bit xor演算子 @
+<br>
+　　・bit or演算子 |
+<br>
+・<a href="#span-out-prec-ope-comparison">比較演算子</a>
+<br>
+　・<a href="#span-out-type-ope">中置2項演算子</a>
+<br>
+　　・大小比較演算子 &lt; || &lt;= || &gt;= || &gt;
+<br>
+・<a href="#span-out-prec-ope-relational">関係演算子</a>
+<br>
+　・<a href="#span-out-type-ope">中置2項演算子</a>
+<br>
+　　・一致||不一致関係演算子 == || &lt;&gt;
+<br>
+・<a href="#span-out-prec-ope-logical">論理演算子</a>
+<br>
+　・<a href="#span-out-type-ope">中置2項演算子</a>
+<br>
+　　・論理AND演算子 &amp;&amp;
+<br>
+　　・論理OR演算子 ||
 <br>
 <br>
-<a href="#span-out-BRmo">記号省略乗算</a>は除算より優先する
+演算子のprecedenceを変更する場合、<a href="#span-out-config">裏設定</a>参照
+    </td>
+  </tr>
+  <tr>
+    <th>
+<a href="#span-index">
+目次
+</a>
 <br>
-記号省略乗算優先既定時　1/2(2) || 1/(2(2)) -> 0.25
-<br>
-　　　　除算優先選択時　1/2(2) || (1/2)(2) -> 1
+算術演算子
+    </th>
+    <td>
+<span id="span-out-prec-ope-arithmetic"></span>
+算術演算子と付随する留意事項について記述する
 <br>
 <br>
 減算と加算は区別せず、<a href="#span-out-associativity">2項演算子のassociativity</a>に従って演算する
 <br>
-前置単項の符号は同種の2項演算子と区別せず、<a href="#span-out-associativity">2項演算子のassociativity</a>に従って演算する
+<a href="#span-out-option1">LA既定</a>時　+3-5+7-9 || ((((0+3)-5)+7)-9) -> -4
 <br>
-LA既定時　+3-5+7-9 || ((((0+3)-5)+7)-9) -> -4
-<br>
-RA選択時　+3-5+7-9 || (0+(3-(5+(7-9)))) -> 0
+<a href="#span-out-option1">RA選択</a>時　+3-5+7-9 || (0+(3-(5+(7-9)))) -> 0
 <br>
 <br>
-後置の単項演算子は2項演算子より優先する
+除算と乗算は区別せず、<a href="#span-out-associativity">2項演算子のassociativity</a>に従って演算する
+<br>
+<a href="#span-out-option1">LA既定</a>時　1*2/3*4/5 || ((((1*2)/3)*4)/5) -> 0.5333333333333333
+<br>
+<a href="#span-out-option1">RA選択</a>時　1*2/3*4/5 || (1*(2/(3*(4/5)))) -> 0.8333333333333333
+<br>
+<br>
+<a href="#span-out-BRmo">記号省略乗算</a>は除算より優先する
+<br>
+<a href="#span-out-option2">記号省略乗算優先既定</a>時　1/2(2) || 1/(2(2)) -> 0.25
+<br>
+　　　　<a href="#span-out-option2">除算優先選択</a>時　1/2(2) || (1/2)(2) -> 1
+<br>
+<br>
+べき乗と剰余の<a href="#span-out-type-ope">中置2項演算子</a>は四則演算子より優先する
+<br>
+-2^2 || (0-(2^2)) -> -4
+<br>
+-3^2 || (0-(3^2)) -> -8.999999999999998
+<br>
+-3%2 || (0-(3%2)) -> -1
+<br>
+-3^2%2 || -((3^2)%2) || (0-(8.999999999999998%2)) -> -0.9999999999999982
+<br>
+-3%2^2 || -(3%(2^2)) || (0-(3%4)) -> -3
+<br>
+-(2)3%2^2 || (0-((2)3)) -> -6
+<br>
+<br>
+<a href="#span-out-type-ope">後置単項演算子</a>は<a href="#span-out-type-ope">中置2項演算子</a>より優先する
 <br>
 3^2! || 3^(2!) -> 9
 <br>
 2*3!! || 2*(3!!) -> 6
 <br>
-・階乗の被演算子は0を含む自然数のみ対応
+・階乗のoperandは0を含む自然数のみ対応
 <br>
 0! || 0!! || 0!!! -> 1
 <br>
-・<a href="#span-out-com">虚数単位</a>iは後置の単項演算子とする
+・<a href="#span-out-com">虚数単位</a>iは<a href="#span-out-type-ope">後置単項演算子</a>とする
 <br>
 1/2i || 1/(2i) -> -0.5i
 <br>
 <br>
-bit演算子を除く2項演算子は前置単項の符号より優先する
+算術演算子は<a href="#span-out-prec-ope-bit">bit演算子</a>より優先する
 <br>
--2^2 || -(2^2) -> -4
+-0xff&gt;&gt;2 || (-0xff)&gt;&gt;2 || ((0-255)&gt;&gt;2) -> -64
 <br>
--0xff&gt;&gt;2 || (-0xff)&gt;&gt;2 || (-255)&gt;&gt;2 -> -64
-<br>
-・排他的論理和XORのbit演算子は^の代わりに@を使用する
-<br>
--0xff&gt;&gt;1@1 || (-0xff&gt;&gt;1)@1 || (-128)@1 -> -127
+-0xff&gt;&gt;1@1 || (-0xff&gt;&gt;1)@1 || ((0-128)@1) -> -127
 <br>
 <br>
-bit演算子は比較演算子・関係演算子より優先する
+<a href="#span-out-BRmo">記号省略乗算</a>を許容しない場合、<a href="#span-out-config">裏設定</a>参照
+    </td>
+  </tr>
+  <tr>
+    <th>
+<a href="#span-index">
+目次
+</a>
+<br>
+bit演算子
+    </th>
+    <td>
+<span id="span-out-prec-ope-bit"></span>
+bit演算子と付随する留意事項について記述する
+<br>
+<br>
+bit or
+<br>
+1|1  <span class="selection">// 00000001|00000001->00000001</span> -> 1
+<br>
+1|2  <span class="selection">// 00000001|00000010->00000011</span> -> 3
+<br>
+2|2  <span class="selection">// 00000010|00000010->00000010</span> -> 2
+<br>
+2|-2  <span class="selection">// 00000010|11111110->11111110</span> -> -2
+<br>
+2|-3  <span class="selection">// 00000010|11111101->11111111</span> -> -1
+<br>
+1|-3  <span class="selection">// 00000001|11111101->11111101</span> -> -3
+<br>
+1|-2  <span class="selection">// 00000001|11111110->11111111</span> -> -1
+<br>
+1|0.5  <span class="selection">// 00000001|00000000->00000001</span> -> 1
+<br>
+1.1|0.1  <span class="selection">// 00000001|00000000->00000001</span> -> 1
+<br>
+0|0.1  <span class="selection">// 00000000|00000000->00000000</span> -> 0
+<br>
+<br>
+bit and
+<br>
+1&amp;1  <span class="selection">// 00000001&amp;00000001->00000001</span> -> 1
+<br>
+1&amp;2  <span class="selection">// 00000001&amp;00000010->00000000</span> -> 0
+<br>
+2&amp;2  <span class="selection">// 00000010&amp;00000010->00000010</span> -> 2
+<br>
+2&amp;-2  <span class="selection">// 00000010&amp;11111110->00000010</span> -> 2
+<br>
+2&amp;-3  <span class="selection">// 00000010&amp;11111101->00000000</span> -> 0
+<br>
+1&amp;-3  <span class="selection">// 00000001&amp;11111101->00000001</span> -> 1
+<br>
+1&amp;-2  <span class="selection">// 00000001&amp;11111110->00000000</span> -> 0
+<br>
+1&amp;0.5  <span class="selection">// 00000001&amp;00000000->00000000</span> -> 0
+<br>
+1.1&amp;0.1  <span class="selection">// 00000001&amp;00000000->00000000</span> -> 0
+<br>
+0&amp;0.1  <span class="selection">// 00000000&amp;00000000->00000000</span> -> 0
+<br>
+<br>
+bit演算子は<a href="#span-out-prec-ope-comparison">比較演算子</a>・<a href="#span-out-prec-ope-relational">関係演算子</a>より優先する
 <br>
 5&lt;2|4 || 5&lt;(2|4) || 5&lt;6 -> 1
 <br>
-・bit演算子は短絡評価しない
-<br>
 4==2|4 || 4==(2|4) || 4==6 -> 0
 <br>
-・bit演算子で代替可能な論理OR演算子||と論理AND演算子&amp;&amp;は未実装
 <br>
-・論理ORをbit ORで代替する場合、<a href="#span-out-BT">括弧</a>を明示するか<a href="#span-out-FN">関数</a>を使用する
+留意事項を列挙する
 <br>
-・1==1 || 1==-1の一例
+・operandは実数のみ対応
 <br>
-(1==1)|(1==-1) || eq(1,1)|eq(1,-1) || 1|0 -> 1
+・bit演算子は短絡評価しない
+    </td>
+  </tr>
+  <tr>
+    <th>
+<a href="#span-index">
+目次
+</a>
 <br>
-LA既定時　1==1|1==-1 || 1==(1|1)==-1 || (1==1)==-1 || 1==-1 -> 0
+比較演算子
+    </th>
+    <td>
+<span id="span-out-prec-ope-comparison"></span>
+比較演算子と付随する留意事項について記述する
 <br>
-RA選択時　1==1|1==-1 || 1==(1|1)==-1 || 1==(1==-1) || 1==0 -> 0
 <br>
-・同様に論理ANDをbit ANDで代替する場合、<a href="#span-out-BT">括弧</a>を明示するか<a href="#span-out-FN">関数</a>を使用する
-<br>
-・1==1 &amp;&amp; 1==-1の一例
-<br>
-(1==1)&amp;(1==-1) || eq(1,1)&amp;eq(1,-1) || 1&amp;0 -> 0
-<br>
-LA既定時　1==1&amp;1==-1 || 1==(1&amp;1)==-1 || (1==1)==-1 || 1==-1 -> 0
-<br>
-RA選択時　1==1&amp;1==-1 || 1==(1&amp;1)==-1 || 1==(1==-1) || 1==0 -> 0
-<br>
-・比較演算子は関係演算子より優先する
+比較演算子は<a href="#span-out-prec-ope-relational">関係演算子</a>より優先する
 <br>
 1==2>1 || 1==(2>1) || 1==1 -> 1
 <br>
-・bit演算子・比較演算子・関係演算子の被演算子は実数のみ対応
 <br>
-・被演算子に虚数を入力した場合、0と判別される
+留意事項を列挙する
+<br>
+・operandは実数のみ対応
+<br>
+・operandに虚数を入力した場合、0と判別される
 <br>
 i&lt;&lt;2 || real(i)&lt;&lt;2 || 0&lt;&lt;2 -> 0
 <br>
 2i>i || real(2i)>real(i) || 0>0 -> 0
 <br>
+<br>
+比較演算子を代替する関数は<a href="#span-out-FN">関数入力仕様</a>参照
+    </td>
+  </tr>
+  <tr>
+    <th>
+<a href="#span-index">
+目次
+</a>
+<br>
+関係演算子
+    </th>
+    <td>
+<span id="span-out-prec-ope-relational"></span>
+関係演算子と付随する留意事項について記述する
+<br>
+<br>
+論理ORをbit orで代替する場合、<a href="#span-out-BT">括弧</a>を明示するか<a href="#span-out-FN">関数</a>を使用する
+<br>
+・1==1 || 1==-1
+<br>
+(1==1)|(1==-1) || eq(1,1)|eq(1,-1) || 1|0 -> 1
+<br>
+<a href="#span-out-option1">LA既定</a>時　1==1|1==-1 || 1==(1|1)==-1 || (1==1)==-1 || 1==-1  <span class="selection">// NG</span> -> 0
+<br>
+<a href="#span-out-option1">RA選択</a>時　1==1|1==-1 || 1==(1|1)==-1 || 1==(1==-1) || 1==0  <span class="selection">// NG</span> -> 0
+<br>
+<br>
+論理ANDをbit andで代替する場合、<a href="#span-out-BT">括弧</a>を明示するか<a href="#span-out-FN">関数</a>を使用する
+<br>
+・1==1 &amp;&amp; 1==-1
+<br>
+(1==1)&amp;(1==-1) || eq(1,1)&amp;eq(1,-1) || 1&amp;0 -> 0
+<br>
+<a href="#span-out-option1">LA既定</a>時　1==1&amp;1==-1 || 1==(1&amp;1)==-1 || (1==1)==-1 || 1==-1  <span class="selection">// NG</span> -> 0
+<br>
+<a href="#span-out-option1">RA選択</a>時　1==1&amp;1==-1 || 1==(1&amp;1)==-1 || 1==(1==-1) || 1==0  <span class="selection">// NG</span> -> 0
+<br>
+<br>
+留意事項を列挙する
+<br>
+・operandは実数のみ対応
+<br>
+・operandに虚数を入力した場合、0と判別される
+<br>
 i==0 || real(i)==0 -> 1
 <br>
-・被演算子に行列を入力した場合、<a href="#span-out-FNm-last">最終要素</a>を取り出す
+・operandに行列を入力した場合、<a href="#span-out-FNm-last">最終要素</a>を取り出す
 <br>
 ・<a href="#span-out-FNm-last">last行列関数</a>を使用
 <br>
 (1,2)==(3,2) || last(1,2)==last(3,2) || 2==2 -> 1
 <br>
-・代入と判別されないequal記号=は、右辺移項の2項演算子として扱う
+・代入と判別されないequal記号=は、右辺移項の<a href="#span-out-type-ope">中置2項演算子</a>として扱う
 <br>
 2!=1 || 2=1 || =1-2 -> -1
 <br>
@@ -6946,14 +7307,33 @@ i==0 || real(i)==0 -> 1
 2&lt;=2 -> 1
 <br>
 <br>
-比較演算子・関係演算子を代替する関数は<a href="#span-out-FN">関数入力仕様</a>参照
+関係演算子を代替する関数は<a href="#span-out-FN">関数入力仕様</a>参照
+    </td>
+  </tr>
+  <tr>
+    <th>
+<a href="#span-index">
+目次
+</a>
+<br>
+論理演算子
+    </th>
+    <td>
+<span id="span-out-prec-ope-logical"></span>
+論理演算子と付随する留意事項について記述する
 <br>
 <br>
-演算子のprecedenceを変更する場合
+留意事項を列挙する
 <br>
-<a href="#span-out-BRmo">記号省略乗算</a>を許容しない場合
+・operandは実数のみ対応
 <br>
-<a href="#span-out-config">裏設定</a>参照
+・論理AND演算子は0を短絡評価する
+<br>
+・論理OR演算子はnot0を短絡評価する
+<br>
+・<a href="#span-out-option1">LA既定</a>の場合、<a href="#span-out-type-ope">中置2項演算子</a>のright-operandよりleft-operandを優先して左から評価する
+<br>
+・<a href="#span-out-option1">RA選択</a>の場合、<a href="#span-out-type-ope">中置2項演算子</a>のleft-operandよりright-operandを優先して右から評価する
     </td>
   </tr>
   <tr>
@@ -9263,9 +9643,11 @@ x軸とy軸のlocal <a href="#span-out-storage">storage</a>はx軸優先で共�
 ・global <a href="#span-out-storage">storage</a>をreadonlyで共有する場合、shared storage checked
 <br>
 <br>
-tの演算をSingle-threadで実行後、x/yの演算をMulti-threadで実行
+t0/t1の演算を実行後、x/yの演算を実行
 <br>
-・tの演算中はstop中断不可
+・t0/t1の演算はSingle-thread実行で中断不可
+<br>
+・x/yの演算は<a href="#span-out-option3">Multi-thread実行</a>を選択可
 <br>
 <br>
 svg出力機能について記述する
@@ -10435,7 +10817,7 @@ clear; 3*[a=2,a]; a -> [MyErr]Invalid REv(a)
 <br>
 予約語の種類を列挙する
 <br>
-・Graphing Calculator's <a href="#span-out-plot2d-command">plot2d-command</a>
+・<a href="#span-out-UI-graphing">Graphing Calculator</a>'s <a href="#span-out-plot2d-command">plot2d-command</a>
 <br>
 ・<a href="#span-out-comment">comment文</a>
 <br>
@@ -10447,7 +10829,7 @@ clear; 3*[a=2,a]; a -> [MyErr]Invalid REv(a)
 <br>
 ・<a href="#span-out-prec-ope">演算子</a>記号
 <br>
-・被演算子記号
+・operand記号
 <br>
 　・<a href="#span-out-ans">予約変数</a>
 <br>
@@ -10640,7 +11022,7 @@ clear; x(t)=&lt;-t; x=-999; f=&lt;x(1)=&gt;x+1; f; x -> -1
 複素数の入力仕様と付随する留意事項について記述する
 <br>
 <br>
-虚数単位iは後置の単項演算子とする
+虚数単位iは<a href="#span-out-type-ope">後置単項演算子</a>とする
 <br>
 (+1)i || +(1)i || +1(i) || +(i) -> i
 <br>
@@ -10663,7 +11045,7 @@ real(3+i) -> 3
 imag(3+i) -> 1
 <br>
 <br>
-iの2乗の演算方法を2項演算子||<a href="#span-out-FN">関数</a>を使用して3種類示す
+iの2乗の演算方法を<a href="#span-out-type-ope">中置2項演算子</a>||<a href="#span-out-FN">関数</a>を使用して3種類示す
 <br>
 (i)^2 || (i)**2 || pow(i,2) -> -1+1.2246467991473532e-16i
 <br>
@@ -10711,7 +11093,7 @@ z=e^(i{pi/4}); abs(z) -> 1
 <br>
 e^(-i(1pi()2/2i(5-3-1)i/(-4)))
 <br>
-・既定で<a href="#span-out-associativity">2項演算子のassociativity</a>はLAで除算より<a href="#span-out-BRmo">記号省略乗算</a>を優先する
+・<a href="#span-out-associativity">2項演算子のassociativity</a>は<a href="#span-out-option1">LA既定</a>で除算より<a href="#span-out-BRmo">記号省略乗算</a>を優先する
 <br>
 e^(-i(1pi(){2/{2i({5-3}-1)i}}/(-4)))
 <br>
@@ -10725,7 +11107,7 @@ a={5-3}-1; b=2/{2i(a)i}; e^(-i(1pi()b/(-4)))
 <br>
 ・一部分を変数に代入し、semi-colon;区切りで演算順序を明確化する
 <br>
-・2項演算子が連続する場合、<a href="#span-out-BT">括弧</a>を明示する
+・<a href="#span-out-type-ope">中置2項演算子</a>が連続する場合、<a href="#span-out-BT">括弧</a>を明示する
 <br>
 <br>
 <a href="#span-out-ope">実数演算</a>の場合、虚数は0のため、次の極形式は使用不可
@@ -10757,13 +11139,13 @@ pcomp(1,t) || ecomp(t) || cos(t)+real(i)sin(t) || cos(t) -> 0.7071067811865476
 <br>
 leftとrightの数値の関係や大小を比較する関数を列挙する
 <br>
-・被演算子が<a href="#span-out-com">複素数</a>の場合
+・operandが<a href="#span-out-com">複素数</a>の場合
 <br>
 　・equal判定関数: ceq(left, right)
 <br>
 　・not equal判定関数: cne(left, right)
 <br>
-・被演算子が実数の場合、中置の演算子を代替可
+・operandが実数の場合、<a href="#span-out-type-ope">中置2項演算子</a>を代替可
 <br>
 　・left==rightを代替するequal判定関数: eq(left, right)
 <br>
@@ -11234,7 +11616,7 @@ A=(11:21,22:31,32,33,34); htrans(htrans(A)) -> (11,0,0,0:21,22,0,0:31,32,33,34)
 (1,2:3)-(4,5:6:7) || (3)-(7) -> -4
 <br>
 <br>
-行列に対して明確に定義できない2項演算を実行した場合も同様とする
+行列に対して明確に定義できない<a href="#span-out-type-ope">2項演算</a>を実行した場合、同様に無次元化する
 <br>
 (5,3,1)/(3i,i) || (1)/(i) -> -i
 <br>
@@ -11245,7 +11627,7 @@ A=(11:21,22:31,32,33,34); htrans(htrans(A)) -> (11,0,0,0:21,22,0,0:31,32,33,34)
 (2,4,8)&gt;&gt;(3,1) || (8)&gt;&gt;(1) -> 4
 <br>
 <br>
-行列に対して後置の単項演算を実行した場合も無次元確定とする
+行列に対して<a href="#span-out-type-ope">後置単項演算</a>を実行した場合、同様に無次元化する
 <br>
 (5,3)i || (3)i -> 3i
 <br>
@@ -13220,7 +13602,7 @@ switch高階関数
 <br>
 ・条件文と成立時に実行する処理を対にしてcolon:区切りで引数を渡す
 <br>
-・引数の左から順番に条件文を判定する
+・引数の左から順に条件文を判定する
 <br>
 ・条件文が成立した場合、対の処理を実行して終了する
 <br>
@@ -13290,19 +13672,17 @@ x=2; switch(x&gt;=4,=&lt;4:x&gt;3,=&lt;3:x&gt;2,=&lt;2:1,=&lt;{-x}) -> -2
 x=2; switch(ge(x,4),=&lt;4:gt(x,3),=&lt;3:gt(x,2),=&lt;2:1,=&lt;{-x}) -> -2
 <br>
 <br>
-未実装の論理演算子をbit演算子で代替する場合
+<a href="#span-out-prec-ope-logical">論理演算子</a>を<a href="#span-out-prec-ope-bit">bit演算子</a>で代替する場合
 <br>
 ・<a href="#span-out-prec-ope">演算子のprecedence</a>に応じて<a href="#span-out-BT">括弧</a>を明示するか<a href="#span-out-FN">関数</a>を使用する
 <br>
-・if(1==1 || 1==-1) return 1;のNG例
+・if(1==1 || 1==-1) return 1;
 <br>
-switch(1==1|1==-1,1) || switch(1==(1|1)==-1,1) -> 0
-<br>
-・if(1==1 || 1==-1) return 1;の一例
+switch(1==1|1==-1,1) || switch(1==(1|1)==-1,1)  <span class="selection">// NG</span> -> 0
 <br>
 switch((1==1)|(1==-1),1) || switch(eq(1,1)|eq(1,-1),1) -> 1
 <br>
-・if(1==1 &amp;&amp; 1==-1) return 1;の一例
+・if(1==1 &amp;&amp; 1==-1) return 1;
 <br>
 switch((1==1)&amp;(1==-1),1) || switch(eq(1,1)&amp;eq(1,-1),1) -> 0
 <br>
@@ -15254,7 +15634,7 @@ f""(x)=(f"'(x+4h)-f"'(x-8h))/(16h)+O((8h)^2)
 <br>
 前提を列挙する
 <br>
-・<a href="#span-out-associativity">2項演算子のassociativity</a>はLAを前提に記述する
+・<a href="#span-out-associativity">2項演算子のassociativity</a>は<a href="#span-out-option1">LA既定</a>を前提に記述する
 <br>
 ・除算より<a href="#span-out-BRmo">記号省略乗算</a>優先を前提に記述する
 <br>
@@ -18402,15 +18782,15 @@ _dy(=&lt;{1/(y*y)})/_dy(=&lt;{1/y})  <span class="selection">// NG</span> -> [My
 最後に一般的でない可能性のある仕様について記述する
 <br>
 <br>
-前置単項の符号の扱いについて記述する
+<a href="#span-out-type-ope">前置単項演算子</a>の符号の扱いについて記述する
 <br>
-・単項の符号は同種の2項演算子と区別せず、<a href="#span-out-associativity">2項演算子のassociativity</a>に従って演算する
+・単項の符号は同種の<a href="#span-out-type-ope">中置2項演算子</a>と区別せず、<a href="#span-out-associativity">2項演算子のassociativity</a>に従って演算する
 <br>
 ・この時、符号の左側には0が存在すると仮定する
 <br>
-LA既定時　+3-5+7-9 || ((((0+3)-5)+7)-9) -> -4
+<a href="#span-out-option1">LA既定</a>時　+3-5+7-9 || ((((0+3)-5)+7)-9) -> -4
 <br>
-RA選択時　+3-5+7-9 || (0+(3-(5+(7-9)))) -> 0
+<a href="#span-out-option1">RA選択</a>時　+3-5+7-9 || (0+(3-(5+(7-9)))) -> 0
 <br>
 ・<a href="#span-out-mat">行列</a>も同様に、単項の符号はScalar倍||zeros行列との差||和として扱う
 <br>
@@ -18418,20 +18798,20 @@ RA選択時　+3-5+7-9 || (0+(3-(5+(7-9)))) -> 0
 <br>
 +(1,2:3,4) || (+1,:,+1)(1,2:3,4) || (,:,)+(1,2:3,4) -> (1,2:3,4)
 <br>
-・よって実用しないが、符号が連続する場合、RA選択時のみ演算可
+・よって実用しないが、符号が連続する場合、<a href="#span-out-option1">RA選択</a>時のみ演算可
 <br>
-LA既定時　--(1,i) || (-)-(1,i) -> [MyErr]Invalid binary operation
+<a href="#span-out-option1">LA既定</a>時　--(1,i) || (-)-(1,i) -> [MyErr]Invalid binary operation
 <br>
-RA選択時　--(1,i) || (,)-((,)-(1,i)) || (-1)((-1)(1,i)) -> (1,i)
+<a href="#span-out-option1">RA選択</a>時　--(1,i) || (,)-((,)-(1,i)) || (-1)((-1)(1,i)) -> (1,i)
 <br>
-LA既定時　---(1,i) || ((-)-)-(1,i) -> [MyErr]Invalid binary operation
+<a href="#span-out-option1">LA既定</a>時　---(1,i) || ((-)-)-(1,i) -> [MyErr]Invalid binary operation
 <br>
-RA選択時　---(1,i) || (,)-((,)-((,)-(1,i))) || (-1)((-1)((-1)(1,i))) -> (-1,-i)
+<a href="#span-out-option1">RA選択</a>時　---(1,i) || (,)-((,)-((,)-(1,i))) || (-1)((-1)((-1)(1,i))) -> (-1,-i)
 <br>
 <br>
 次にequal記号=の扱いについて記述する
 <br>
-・代入と判別されないequal記号=は、右辺移項の2項演算子として扱う
+・代入と判別されないequal記号=は、右辺移項の<a href="#span-out-type-ope">中置2項演算子</a>として扱う
 <br>
 ・<a href="#span-out-associativity">2項演算子のassociativity</a>に依存するが、単体使用を前提とする
 <br>
@@ -18885,11 +19265,11 @@ clear; [a=2,=&lt;[b=1,a=&lt;first[[b,],b,],=&lt;a=&gt;]=&gt;+a]=&gt; -> 3
 目次
 </a>
 <br>
-option
+内部option
     </th>
     <td>
 <span id="span-in-options"></span>
-console-CLI実行で必要な内部のoption項目について記述する
+console-CLI実行で必要な内部optionの設定項目について記述する
 <br>
 <br>
 全objectはglobal scopeから見えないMy_entryで始まる
@@ -18940,7 +19320,7 @@ data.logo -> "makeLog=true"
 ・<a href="#span-out-scope-vars">useScope</a>: 変数のscopeを使用するflag
 <br>
 <br>
-・isRightAssociativityBR: <a href="#span-out-associativity">2項演算子のassociativity</a>をRAに変更するflag
+・isRightAssociativityBR: <a href="#span-out-associativity">2項演算子のassociativity</a>を<a href="#span-out-option1">RA選択</a>に変更するflag
 <br>
 <br>
 ・isDIVprior2OMUL: <a href="#span-out-BRmo">記号省略乗算</a>より除算を優先するflag
@@ -19103,8 +19483,8 @@ operation.js抜粋
         "URf"    // factorial mark ! || !!... operand is only natural number
       ],
       [
-        "BRp",   // Binary operatoR ** || ^ -&gt; pow(left, right)
-        "BRr"    // Binary operatoR %       -&gt; mod(left, right)
+        "BRp",   // Binary operatoR ** || ^ -> pow(left, right)
+        "BRr"    // Binary operatoR %       -> mod(left, right)
       ],
       [
         "BRmo"   // omitted multiplication sign
