@@ -51,7 +51,12 @@ My_entry.parser.prototype.config = {
       {b: /<>/, a: "BRrl"},
       // comparison operator check second
       {b: /<[=]{0,1}/, a: "BRcn"},
-      {b: />[=]{0,1}/, a: "BRcn"}
+      {b: />[=]{0,1}/, a: "BRcn"},
+      /* Ver.2.59.26 -> */
+      // logical operator
+      {b: /[&]{2}/, a: "BRlA"},
+      {b: /[|]{2}/, a: "BRlO"}
+      /* -> Ver.2.59.26 */
     ],
     tagNames: {
       // delimiter
@@ -80,6 +85,8 @@ My_entry.parser.prototype.config = {
       "|": "BRbo",  // bit  or
       // comparison operator: "BRcn"
       // relational operator: "BRrl"
+      // logical AND: "BRlA"
+      // logical  OR: "BRlO"
       "=": "BRe"  // x+3=1 -> x=1-3 prior to substitution
     }
   }

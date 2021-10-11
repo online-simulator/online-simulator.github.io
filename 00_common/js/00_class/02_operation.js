@@ -72,7 +72,9 @@ My_entry.operation.prototype.config = {
       ],
       [
         "BRcn",  // Binary operatoR comparison < || <= || >= || >
-        "BRrl"   // Binary operatoR relational == || <>
+        "BRrl",  // Binary operatoR relational == || <>
+        "BRlA",  // Binary operatoR logical AND &&
+        "BRlO"   // Binary operatoR logical  OR ||
       ]
     ],
     [
@@ -1886,7 +1888,11 @@ My_entry.operation.prototype.init_callbacks_mat = function(options){
   };
   self.callbacks_mat.BRp =
   self.callbacks_mat.BRr =
-  self.callbacks_mat.BRd = function(tagName, tagObj, leftArr, rightArr){
+  self.callbacks_mat.BRd =
+  /* Ver.2.59.26 -> */
+  self.callbacks_mat.BRlA =
+  self.callbacks_mat.BRlO = function(tagName, tagObj, leftArr, rightArr){
+  /* -> Ver.2.59.26 */
     var _tree = null;
     if(leftArr && rightArr){
       var left = self.arr2num(leftArr);
@@ -1920,7 +1926,11 @@ My_entry.operation.prototype.BRba =
 My_entry.operation.prototype.BRbx =
 My_entry.operation.prototype.BRbo =
 My_entry.operation.prototype.BRcn =
-My_entry.operation.prototype.BRrl = function(data, i0, tagName, tagObj){
+My_entry.operation.prototype.BRrl =
+/* Ver.2.59.26 -> */
+My_entry.operation.prototype.BRlA =
+My_entry.operation.prototype.BRlO = function(data, i0, tagName, tagObj){
+/* -> Ver.2.59.26 */
   var self = this;
   var tree = self.BR_original(data, i0, tagName, tagObj);
   if(!(tree)){

@@ -6079,6 +6079,10 @@ t0=switch(t-th&lt;0,0:1,255)
 <br>
 t=pow((t-th)/switch(t0-th==0,1:1,t0-th),gamma)*(t0-th)+th
 <br>
+・<span class="run">Ver.2.59.26</span>以降、<a href="#span-out-prec-ope-logical">論理演算子</a>を追加
+<br>
+t=pow((t-th)/(t0-th||1),gamma)*(t0-th)+th
+<br>
 ・tone-curve調整後、一次変換
 <br>
 t=t*slope+offset
@@ -7052,7 +7056,7 @@ precedence
 <br>
 　　・一致||不一致関係演算子 == || &lt;&gt;
 <br>
-・<a href="#span-out-prec-ope-logical">論理演算子</a>
+・<span class="run">Ver.2.59.26</span>以降、<a href="#span-out-prec-ope-logical">論理演算子</a>を追加
 <br>
 　・<a href="#span-out-type-ope">中置2項演算子</a>
 <br>
@@ -7266,6 +7270,10 @@ i&lt;&lt;2 || real(i)&lt;&lt;2 || 0&lt;&lt;2 -> 0
 <br>
 <a href="#span-out-option1">RA選択</a>時　1==1|1==-1 || 1==(1|1)==-1 || 1==(1==-1) || 1==0  <span class="selection">// NG</span> -> 0
 <br>
+・<span class="run">Ver.2.59.26</span>以降、<a href="#span-out-prec-ope-logical">論理演算子</a>を追加
+<br>
+1==1||1==-1 || (1==1)||(1==-1) -> 1
+<br>
 <br>
 論理ANDをbit andで代替する場合、<a href="#span-out-BT">括弧</a>を明示するか<a href="#span-out-FN">関数</a>を使用する
 <br>
@@ -7276,6 +7284,10 @@ i&lt;&lt;2 || real(i)&lt;&lt;2 || 0&lt;&lt;2 -> 0
 <a href="#span-out-option1">LA既定</a>時　1==1&amp;1==-1 || 1==(1&amp;1)==-1 || (1==1)==-1 || 1==-1  <span class="selection">// NG</span> -> 0
 <br>
 <a href="#span-out-option1">RA選択</a>時　1==1&amp;1==-1 || 1==(1&amp;1)==-1 || 1==(1==-1) || 1==0  <span class="selection">// NG</span> -> 0
+<br>
+・<span class="run">Ver.2.59.26</span>以降、<a href="#span-out-prec-ope-logical">論理演算子</a>を追加
+<br>
+1==1&amp;&amp;1==-1 || (1==1)&amp;&amp;(1==-1) -> 0
 <br>
 <br>
 留意事項を列挙する
@@ -7323,13 +7335,117 @@ i==0 || real(i)==0 -> 1
 論理演算子と付随する留意事項について記述する
 <br>
 <br>
+論理OR
+<br>
+・<a href="#span-out-option1">LA既定</a>
+<br>
+0||1 -> 1
+<br>
+0||1||2 -> 1
+<br>
+2||1||0 -> 2
+<br>
+2i||1i||0i -> 2i
+<br>
+0i||1i||2i -> i
+<br>
+0(1-i)||1(1-i)||2(1-i) -> 1-i
+<br>
+0(1-i)||1(1-i)||2(1-i)||3(1-i) -> 1-i
+<br>
+real(0(1-i)||1(1-i)||2(1-i)||3(1-i)) -> 1
+<br>
+imag(0(1-i)||1(1-i)||2(1-i)||3(1-i)) -> -1
+<br>
+・<a href="#span-out-option1">RA選択</a>
+<br>
+0||1 -> 1
+<br>
+0||1||2 -> 2
+<br>
+2||1||0 -> 1
+<br>
+2i||1i||0i -> i
+<br>
+0i||1i||2i -> 2i
+<br>
+0(1-i)||1(1-i)||2(1-i) -> 2-2i
+<br>
+0(1-i)||1(1-i)||2(1-i)||3(1-i) -> 3-3i
+<br>
+real(0(1-i)||1(1-i)||2(1-i)||3(1-i)) -> 3
+<br>
+imag(0(1-i)||1(1-i)||2(1-i)||3(1-i)) -> -3
+<br>
+<br>
+論理AND
+<br>
+・<a href="#span-out-option1">LA既定</a>
+<br>
+0&amp;&amp;1&amp;&amp;2 -> 0
+<br>
+2&amp;&amp;1&amp;&amp;0 -> 0
+<br>
+1&amp;&amp;0&amp;&amp;2 -> 0
+<br>
+1i&amp;&amp;0i&amp;&amp;2i -> 0
+<br>
+1&amp;&amp;2&amp;&amp;3 -> 3
+<br>
+1i&amp;&amp;2i&amp;&amp;3i -> 3i
+<br>
+1(1-i)&amp;&amp;2(1-i)&amp;&amp;3(1-i) -> 3-3i
+<br>
+1(1-i)&amp;&amp;2(1-i)&amp;&amp;3(1-i)&amp;&amp;4(1-i) -> 4-4i
+<br>
+real(1(1-i)&amp;&amp;2(1-i)&amp;&amp;3(1-i)&amp;&amp;4(1-i)) -> 4
+<br>
+imag(1(1-i)&amp;&amp;2(1-i)&amp;&amp;3(1-i)&amp;&amp;4(1-i)) -> -4
+<br>
+1(1-i)||2(1-i)&amp;&amp;3(1-i)&amp;&amp;4(1-i) -> 1-i
+<br>
+1(1-i)&amp;&amp;2(1-i)||3(1-i)&amp;&amp;4(1-i) -> 2-2i
+<br>
+1(1-i)&amp;&amp;2(1-i)&amp;&amp;3(1-i)||4(1-i) -> 3-3i
+<br>
+・<a href="#span-out-option1">RA選択</a>
+<br>
+0&amp;&amp;1&amp;&amp;2 -> 0
+<br>
+2&amp;&amp;1&amp;&amp;0 -> 0
+<br>
+1&amp;&amp;0&amp;&amp;2 -> 0
+<br>
+1i&amp;&amp;0i&amp;&amp;2i -> 0
+<br>
+1&amp;&amp;2&amp;&amp;3 -> 1
+<br>
+1i&amp;&amp;2i&amp;&amp;3i -> i
+<br>
+1(1-i)&amp;&amp;2(1-i)&amp;&amp;3(1-i) -> 1-i
+<br>
+1(1-i)&amp;&amp;2(1-i)&amp;&amp;3(1-i)&amp;&amp;4(1-i) -> 1-i
+<br>
+real(1(1-i)&amp;&amp;2(1-i)&amp;&amp;3(1-i)&amp;&amp;4(1-i)) -> 1
+<br>
+imag(1(1-i)&amp;&amp;2(1-i)&amp;&amp;3(1-i)&amp;&amp;4(1-i)) -> -1
+<br>
+1(1-i)||2(1-i)&amp;&amp;3(1-i)&amp;&amp;4(1-i) -> 2-2i
+<br>
+1(1-i)&amp;&amp;2(1-i)||3(1-i)&amp;&amp;4(1-i) -> 3-3i
+<br>
+1(1-i)&amp;&amp;2(1-i)&amp;&amp;3(1-i)||4(1-i) -> 4-4i
+<br>
+<br>
 留意事項を列挙する
 <br>
-・operandは実数のみ対応
+・operandは<a href="#span-out-com">複素数</a>に対応
 <br>
-・論理AND演算子は0を短絡評価する
+・実装の都合上、すべてのoperandを評価して短絡評価を模擬する（throughputに影響なし）
 <br>
-・論理OR演算子はnot0を短絡評価する
+・論理AND演算子は<a href="#span-out-error-numerical">数値誤差</a>を無視して0の短絡評価を再現する
+<br>
+・論理OR演算子は<a href="#span-out-error-numerical">数値誤差</a>を無視してnot0の短絡評価を再現する
 <br>
 ・<a href="#span-out-option1">LA既定</a>の場合、<a href="#span-out-type-ope">中置2項演算子</a>のright-operandよりleft-operandを優先して左から評価する
 <br>
@@ -7902,9 +8018,11 @@ useScope=defaultの場合（上記以外の場合）、<a href="#span-out-BT-squ
 <br>
 ・演算子の<a href="#span-in-prec">tag名</a>を優先順にcomma,区切りで列挙する
 <br>
+・<span class="run">Ver.2.59.26</span>以降、<a href="#span-out-prec-ope-logical">論理演算子</a>を追加
+<br>
 precedence=
 <br>
-URi,URf,BRp,BRr,BRmo,BRdm,BRsa,BRbs,BRba,BRbx,BRbo,BRcn,BRrl
+URi,URf,BRp,BRr,BRmo,BRdm,BRsa,BRbs,BRba,BRbx,BRbo,BRcn,BRrl<span class="run">,BRlA,BRlO</span>
 <br>
 ・別途、乗算記号*の省略を許容しない場合、tag名BRmoを削除する
 <br>
@@ -13617,7 +13735,7 @@ switch({第1引数:=&lt;第2引数}:{第3引数:=&lt;第4引数}:...)
 <br>
 ・引数
 <br>
-　・第奇数番引数: 0||not0を返す条件文を値渡し
+　・第奇数番引数: 0||not0の実数値を返す条件文を値渡し
 <br>
 　・第偶数番引数: 条件文成立時に実行する処理||<a href="#span-out-vars-symbol">式変数名symbol</a>を<a href="#span-out-call-by-equation">式渡し</a>
 <br>
@@ -13634,7 +13752,7 @@ switch(第1引数,第2引数:第3引数,第4引数:...)
 <br>
 ・引数
 <br>
-　・第奇数番引数: 0||not0を返す条件文を値渡し
+　・第奇数番引数: 0||not0の実数値を返す条件文を値渡し
 <br>
 　・第偶数番引数: 条件文成立時の返却値を値渡し
 <br>
@@ -13686,6 +13804,12 @@ switch((1==1)|(1==-1),1) || switch(eq(1,1)|eq(1,-1),1) -> 1
 <br>
 switch((1==1)&amp;(1==-1),1) || switch(eq(1,1)&amp;eq(1,-1),1) -> 0
 <br>
+・<span class="run">Ver.2.59.26</span>以降、<a href="#span-out-prec-ope-logical">論理演算子</a>を追加
+<br>
+switch(1==1||1==-1,1) || switch((1==1)||(1==-1),1) -> 1
+<br>
+switch(1==1&amp;&amp;1==-1,1) || switch((1==1)&amp;&amp;(1==-1),1) -> 0
+<br>
 <br>
 test caseを列挙する
 <br>
@@ -13693,9 +13817,25 @@ switch(0) -> 0
 <br>
 switch(1) -> 0
 <br>
+switch(i) -> 0
+<br>
 switch(1,1) -> 1
 <br>
+switch(i,1) -> 0
+<br>
 switch(0,0:1,2:3,4) -> 2
+<br>
+switch(0,0:1i,2:3,4) -> 4
+<br>
+switch(0,0:real(1i),2:3,4) -> 4
+<br>
+switch(0,0:imag(1i),2:3,4) -> 2
+<br>
+switch(0,0:1(1-i),2:3,4) -> 2
+<br>
+switch(0,0:real(1(1-i)),2:3,4) -> 2
+<br>
+switch(0,0:imag(1(1-i)),2:3,4) -> 2
 <br>
 switch(1,=&lt;{1}) -> 1
 <br>
@@ -19503,7 +19643,9 @@ operation.js抜粋
       ],
       [
         "BRcn",  // Binary operatoR comparison &lt; || &lt;= || &gt;= || &gt;
-        "BRrl"   // Binary operatoR relational == || &lt;&gt;
+        "BRrl",  // Binary operatoR relational == || &lt;&gt;
+        "BRlA",  // Binary operatoR logical AND &amp;&amp;
+        "BRlO"   // Binary operatoR logical  OR ||
       ]
     ],
     [

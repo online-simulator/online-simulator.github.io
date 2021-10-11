@@ -193,6 +193,37 @@ My_entry.unit.prototype.BRa = function(options, left, right){
   };
   return self.BRsa_call(callback, options, left, right);
 };
+/* Ver.2.59.26 -> */
+My_entry.unit.prototype.BRlA = function(options, left, right, islO){
+  var self = this;
+  var _num = null;
+  var DATA = self.entry.DATA;
+  var useComplex = options.useComplex;
+  var isRA = options.isRightAssociativityBR;
+  var num_1st = left;
+  var num_2nd = right;
+  if(isRA){
+    num_1st = right;
+    num_2nd = left;
+  }
+  var com_1st = num_1st.com;
+  var has_1st = (useComplex)? (com_1st.r || com_1st.i): com_1st.r;
+  var select_num = (islO)?
+    function(){
+      return ((has_1st)? num_1st: num_2nd);
+    }:
+    function(){
+      return ((has_1st)? num_2nd: num_1st);
+    };
+  var num = select_num();
+  _num = (useComplex)? DATA.newNum(num): DATA.numFull(num.com.r, 0, num.err.r, 0, num.isL.r, 0);
+  return _num;
+};
+My_entry.unit.prototype.BRlO = function(options, left, right){
+  var self = this;
+  return self.BRlA(options, left, right, true);
+};
+/* -> Ver.2.59.26 */
 My_entry.unit.prototype.BRe = function(options, left, right){
   var self = this;
   return self.BRs(options, right, left);
