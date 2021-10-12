@@ -6880,7 +6880,7 @@ Multi-thread実行を選択可
 <br>
 留意事項を列挙する
 <br>
-・3項演算子は未実装
+・未実装の3項演算子は<a href="#span-out-FNh-switch">switch高階関数</a>で代替する
 <br>
 <br>
 小分類は<a href="#span-out-prec-ope">演算子のprecedence</a>参照
@@ -13782,7 +13782,7 @@ switch(第1引数,第2引数:第3引数,第4引数:...)
 　全条件文不成立時: 0を返す
 <br>
 <br>
-次のNativeによるif文を一例に示す
+Nativeのif文を一例に示す
 <br>
 if(x &gt;= 4) return 4;
 <br>
@@ -13807,6 +13807,65 @@ x=2; switch(0,4:0,3:0,2:1,-2) -> -2
 x=2; switch(x&gt;=4,=&lt;4:x&gt;3,=&lt;3:x&gt;2,=&lt;2:1,=&lt;{-x}) -> -2
 <br>
 x=2; switch(ge(x,4),=&lt;4:gt(x,3),=&lt;3:gt(x,2),=&lt;2:1,=&lt;{-x}) -> -2
+<br>
+<br>
+Nativeの<a href="#span-out-type-ope">中置3項演算子</a>を一例に示す
+<br>
+var y = ((x &lt; 0)? -x: x);
+<br>
+・対の処理を値渡しで記述する場合
+<br>
+y=&lt;switch(x&lt;0,-x:1,x);
+<br>
+y=&lt;switch(lt(real(x),0),-real(x):1,real(x));
+<br>
+x=2; y -> 2
+<br>
+x=-2; y -> 2
+<br>
+・対の処理を<a href="#span-out-call-by-equation">式渡し</a>で記述する場合
+<br>
+y=&lt;switch(x&lt;0,=&lt;-x:1,=&lt;{x});
+<br>
+y=&lt;switch(lt(real(x),0),=&lt;-real(x):1,=&lt;real(x));
+<br>
+x=2; y -> 2
+<br>
+x=-2; y -> 2
+<br>
+・<a href="#span-out-eqns">式変数</a>を使用
+<br>
+cond_m=&lt;lt(real(x),0); proc_m=&lt;-real(x); cond_p=&lt;1; proc_p=&lt;real(x);
+<br>
+x=-2; (cond_m,proc_m:cond_p,proc_p) -> (1,2:1,-2)
+<br>
+x=-2; switch(cond_m,proc_m:cond_p,proc_p) -> 2
+<br>
+x=-2; (cond_m,=&lt;proc_m:cond_p,=&lt;proc_p) -> [MyErr]Invalid BTe([object Object])
+<br>
+x=-2; switch(cond_m,=&lt;proc_m:cond_p,=&lt;proc_p) -> 2
+<br>
+・<a href="#span-out-BT">丸括弧()</a>で<a href="#span-out-substitution">代入</a>・<a href="#span-out-substitution-equation">式代入</a>のnesting可（<a href="#span-out-BT">括弧</a>より優先の<a href="#span-out-FNc">最上位関数</a>を除く）
+<br>
+・対の処理を値渡しで記述する場合
+<br>
+cp_m=&lt;(cond_m,proc_m); cp_p=&lt;(cond_p,proc_p);
+<br>
+cp_mp=&lt;(cp_m:cp_p);
+<br>
+x=-2; (cp_mp) -> (1,2:1,-2)
+<br>
+x=-2; switch(cp_mp) -> 2
+<br>
+・対の処理を<a href="#span-out-call-by-equation">式渡し</a>で記述する場合
+<br>
+cp_m=&lt;(cond_m,=&lt;proc_m); cp_p=&lt;(cond_p,=&lt;proc_p);
+<br>
+cp_mp=&lt;(cp_m:cp_p);
+<br>
+x=-2; (cp_mp) -> [MyErr]Invalid BTe([object Object])
+<br>
+x=-2; switch(cp_mp) -> 2
 <br>
 <br>
 <a href="#span-out-prec-ope-logical">論理演算子</a>を<a href="#span-out-prec-ope-bit">bit演算子</a>で代替する場合
@@ -13863,46 +13922,6 @@ switch(0,0:1,=&lt;{1}) || switch((0,0):(1,=&lt;{1})) || switch({0:0}:{1:=&lt;{1}
 switch(0,0,1,=&lt;{1})  <span class="selection">// NG</span> -> 0
 <br>
 switch(0,0:0,0:0,0:1,=&lt;{1}:1,=&lt;{2}) -> 1
-<br>
-・実数の絶対値abs(real(x))を返す場合
-<br>
-x=2; switch(lt(real(x),0),=&lt;{-real(x)}:1,=&lt;{real(x)}) -> 2
-<br>
-x=-2; switch(lt(real(x),0),=&lt;{-real(x)}:1,=&lt;{real(x)}) -> 2
-<br>
-・<a href="#span-out-eqns">式変数</a>を使用
-<br>
-cond_m=&lt;lt(real(x),0); proc_m=&lt;{-real(x)}; cond_p=&lt;1; proc_p=&lt;{real(x)};
-<br>
-x=-2; (cond_m,proc_m:cond_p,proc_p) -> (1,2:1,-2)
-<br>
-x=-2; switch(cond_m,proc_m:cond_p,proc_p) -> 2
-<br>
-x=-2; (cond_m,=&lt;proc_m:cond_p,=&lt;proc_p) -> [MyErr]Invalid BTe([object Object])
-<br>
-x=-2; switch(cond_m,=&lt;proc_m:cond_p,=&lt;proc_p) -> 2
-<br>
-・<a href="#span-out-BT">丸括弧()</a>で<a href="#span-out-substitution">代入</a>・<a href="#span-out-substitution-equation">式代入</a>のnesting可（<a href="#span-out-BT">括弧</a>より優先の<a href="#span-out-FNc">最上位関数</a>を除く）
-<br>
-・対の処理を値渡しで記述する場合
-<br>
-cp_m=&lt;(cond_m,proc_m); cp_p=&lt;(cond_p,proc_p);
-<br>
-cp_mp=&lt;(cp_m:cp_p);
-<br>
-x=-2; (cp_mp) -> (1,2:1,-2)
-<br>
-x=-2; switch(cp_mp) -> 2
-<br>
-・対の処理を<a href="#span-out-call-by-equation">式渡し</a>で記述する場合
-<br>
-cp_m=&lt;(cond_m,=&lt;proc_m); cp_p=&lt;(cond_p,=&lt;proc_p);
-<br>
-cp_mp=&lt;(cp_m:cp_p);
-<br>
-x=-2; (cp_mp) -> [MyErr]Invalid BTe([object Object])
-<br>
-x=-2; switch(cp_mp) -> 2
     </td>
   </tr>
   <tr>
