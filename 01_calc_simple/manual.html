@@ -6867,15 +6867,23 @@ Multi-thread実行を選択可
 演算子の大分類と付随する留意事項について記述する
 <br>
 <br>
-主要な演算子の大分類と記法を列挙する
+主要な演算子の大分類/記法を列挙する
 <br>
-・後置単項演算子: left-operand operator
+・後置単項演算子
 <br>
-・前置単項演算子: operator right-operand
+　left-operand operator
 <br>
-・中置2項演算子: left-operand operator right-operand
+・前置単項演算子
 <br>
-・中置3項演算子: left-operand-boolean operator1 right-operand1 operator2 right-operand2
+　operator right-operand
+<br>
+・中置2項演算子
+<br>
+　left-operand operator right-operand
+<br>
+・中置3項演算子
+<br>
+　left-operand-boolean operator1 right-operand1 operator2 right-operand2
 <br>
 <br>
 留意事項を列挙する
@@ -13868,9 +13876,7 @@ x=-2; (cp_mp) -> [MyErr]Invalid BTe([object Object])
 x=-2; switch(cp_mp) -> 2
 <br>
 <br>
-<a href="#span-out-prec-ope-logical">論理演算子</a>を<a href="#span-out-prec-ope-bit">bit演算子</a>で代替する場合
-<br>
-・<a href="#span-out-prec-ope">演算子のprecedence</a>に応じて<a href="#span-out-BT">括弧</a>を明示するか<a href="#span-out-FN">関数</a>を使用する
+<a href="#span-out-prec-ope-logical">論理演算子</a>を<a href="#span-out-prec-ope-bit">bit演算子</a>で代替する場合、<a href="#span-out-BT">括弧</a>を明示するか<a href="#span-out-FN">関数</a>を使用する
 <br>
 ・if(1==1 || 1==-1) return 1;
 <br>
