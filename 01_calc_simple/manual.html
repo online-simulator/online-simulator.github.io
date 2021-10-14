@@ -1960,12 +1960,16 @@ gradation特定項目仕様と付随する留意事項について記述する
 <br>
 ・<span class="run">Ver.2.40.18</span>以降、legend間のgradation合成に対応
 <br>
+・<span class="run">Ver.2.60.26</span>以降、<span class="condition">circle-mode@Ncycle=0</span>を追加
+<br>
 <br>
 <a href="#span-out-UI-graphing-z">z入力欄</a>にgradationをgradation||GRADATION{config[]colors}で入力
 <br>
 ・各<a href="#span-out-UI-graphing-legend">legend-dataset</a>の任意位置に挿入可
 <br>
 ・gradationは<a href="#span-out-UI-graphing-layer-plot">plot-layer</a>に描画
+<br>
+・gradation起点からplot-lineまでの半径方向に生成
 <br>
 ・colorsは<a href="#span-out-UI-graphing-color">color-dataset</a>をcolon:区切りで入力（省略時、<a href="#span-out-UI-graphing-legend">legend-dataset</a>のmarkerColor）
 <br>
@@ -2010,6 +2014,23 @@ originX:originY:offsetR:<span class="clear">orderR:NrandR:NrandT:isMin:isRound:N
 ・Nrender=1~32767は周方向のrendering分割数（数値以外を指定時、tの範囲等分割数N）
 <br>
 ・Ncycle=0~127は半径方向のrendering周期数
+<br>
+<br>
+<span class="run">Ver.2.60.26</span>以降、<span class="condition">circle-mode@Ncycle=0</span>を追加
+<br>
+・canvas座標でgradation起点を中心にplot-lineの周方向に生成（<a href="#span-out-UI-graphing-config">canvas-size</a>に依存）
+<br>
+・config[]内datasetの変化点を示す
+<br>
+originX:originY:offsetR:orderR:NrandR:NrandT:<span class="clear">isMin:isRound</span>:Nrender:<span class="condition">Ncycle=0</span>
+<br>
+・<span class="clear">isMin:isRound</span> disabled
+<br>
+・offsetR=0~1は1周のoffset係数
+<br>
+　offsetR=0の場合、gradationの周期境界条件を課す
+<br>
+・NrandR=0~255はgradation間隔の乱数
 <br>
 <br>
 algorithmが異なるため、png/svg出力の互換性なし
@@ -7449,7 +7470,13 @@ imag(1(1-i)&amp;&amp;2(1-i)&amp;&amp;3(1-i)&amp;&amp;4(1-i)) -> -1
 <br>
 clear; x=&lt;a=3; (0||x=&gt;||2,a)  <span class="selection">// (0||0||2,3)</span> -> (2,3)
 <br>
+clear; x=&lt;a=3; (0||x=&gt;||a)  <span class="selection">// (0||0||3)</span> -> 3
+<br>
+clear; x=&lt;a=3; (0||(x=&gt;)||a)  <span class="selection">// (0||0||3)</span> -> 3
+<br>
 clear; 0||(a=3)||a  <span class="selection">// 0||0||3</span> -> 3
+<br>
+clear; a=3||3,a  <span class="selection">// a=(3||3),a</span> -> (0,3)
 <br>
 clear; 1||a=3  <span class="selection">// (1||a)=3</span> -> [MyErr]Invalid binary operation
 <br>

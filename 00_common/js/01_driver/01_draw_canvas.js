@@ -238,7 +238,8 @@ My_entry.draw_canvas.prototype.make_krandR = function(krandR0, Ncycle){
   var self = this;
   var _krandR = [];
   for(var n=0; n<Ncycle; ++n){
-    _krandR[n] = 1+(Math.random()-0.5)*krandR0;  // [0.5,1.5)
+    var krandR = krandR0*(Math.random()-0.5);  // krandR0 first
+    _krandR[n] = 1+krandR;  // [0.5,1.5)
   }
   return _krandR;
 };
@@ -272,14 +273,17 @@ My_entry.draw_canvas.prototype.gradation = function(colors, arr_vec, opt_globalC
   var rdt = Nrender/pi2;
   var x0 = vec0.x;
   var y0 = vec0.y;
+  /* 1.12.6 -> */
+  var krandR0 = NrandR/255;
   var krandT0 = NrandT/255;
   var Ncolor = colors.length;
   var arr_rgba = [];
   colors.forEach(function(color, i){
     arr_rgba[i] = self.color2rgba(color);
   });
+if(Ncycle){
   var gradLEN = self.make_gradLEN(arr_vec, vec0, isMin, isRound, Nrender);
-  var krandR = self.make_krandR(NrandR/255, Ncycle);
+  var krandR = self.make_krandR(krandR0, Ncycle);
   var sum_krandR = self.make_sum_krandR(krandR);
   var Ncycle_krandR = sum_krandR[sum_krandR.length-1];
   for(var yp=0; yp<px_h; ++yp){
@@ -291,8 +295,9 @@ My_entry.draw_canvas.prototype.gradation = function(colors, arr_vec, opt_globalC
       var nr = (n+Nrender)%Nrender;  // 1.11.6
       var LEN0 = gradLEN[nr];
       if(LEN0){
+        var krandT = krandT0*(Math.random()-0.5);  // krandT0 first
         var len0 = Math.sqrt(dx*dx+dy*dy);
-        var len = len0+LEN0*(Math.random()-0.5)*krandT0;
+        var len = len0+krandT*LEN0;
         if(len < LEN0*Ncycle_krandR){
           var cycle = self.get_cycle(sum_krandR, LEN0, len);
           var LEN = LEN0*krandR[cycle];
@@ -322,6 +327,54 @@ My_entry.draw_canvas.prototype.gradation = function(colors, arr_vec, opt_globalC
       }
     }
   }
+}
+else{
+  var krandR = self.make_krandR(krandR0, Ncolor);
+  var sum_krandR = self.make_sum_krandR(krandR);
+  var Ncolor_krandR = ((orderR && offsetR)? sum_krandR[sum_krandR.length-2]: null) || sum_krandR[sum_krandR.length-1];
+  var n0 = Nrender*offsetR;
+  var kn0 = n0/Nrender;
+  for(var i=0, len=arr_vec.length; i<len; ++i){
+    var arr_veci = arr_vec[i];
+    var xb = arr_veci.x-x0;
+    var yb = arr_veci.y-y0;
+    for(var n=n0; n<Nrender; ++n){
+      var kn = n/Nrender;
+      var rad = kn*pi2;
+      var xa = +Math.cos(rad)*xb+Math.sin(rad)*yb;
+      var ya = -Math.sin(rad)*xb+Math.cos(rad)*yb;
+      var xp = Math.floor(x0+xa);
+      var yp = Math.floor(y0+ya);
+      if(xp >= 0 && xp < px_w && yp >= 0 && yp < px_h){
+        var krandT = krandT0*(Math.random()-0.5);  // krandT0 first
+        var deno = (1-offsetR || 1);
+        var nume = kn-kn0+krandT/Ncolor;
+        var icn = nume/deno;
+        icn = (offsetR)? Math.min(Math.max(icn, 0), 1): (icn+1)%1;
+        icn *= Ncolor_krandR;
+        var ic = self.get_cycle(sum_krandR, 1, icn);
+        var rgba0 = arr_rgba[ic];
+        var rgba1 = arr_rgba[ic+1];
+        if(offsetR){
+          rgba0 = rgba0 || arr_rgba[0];
+          rgba1 = rgba1 || arr_rgba[Ncolor-1];
+        }
+        else{
+          rgba1 = rgba1 || arr_rgba[0];
+        }
+        if(rgba0 && rgba1){
+          var k = (orderR)? Math.pow((icn-ic)/(krandR[ic] || krandR[0]), orderR): 0;
+          var ired = 4*(px_w*yp+xp);
+          data[ired+0] = rgba0.r+(rgba1.r-rgba0.r)*k;
+          data[ired+1] = rgba0.g+(rgba1.g-rgba0.g)*k;
+          data[ired+2] = rgba0.b+(rgba1.b-rgba0.b)*k;
+          data[ired+3] = rgba0.a+(rgba1.a-rgba0.a)*k;
+        }
+      }
+    }
+  }
+}
+  /* -> 1.12.6 */
   return _ID;
 };
 /* -> 1.0.0 */
