@@ -235,6 +235,8 @@ My_entry.draw_svg.prototype.gradation = function(colors, arr_vec, opt_globalComp
   colors.forEach(function(color, i){
     arr_style[i] = self.rgba2style(self.color2rgba(color));
   });
+  /* 1.12.6 -> */
+if(Ncycle){
   var lerp_arr_vec = function(k){
     var _arr_vec = [];
     for(var n=0; n<len_n; ++n){
@@ -254,6 +256,39 @@ My_entry.draw_svg.prototype.gradation = function(colors, arr_vec, opt_globalComp
       arr_vec0 = arr_veck;
     }
   }
+}
+else{
+  var pi2 = Math.PI*2;
+  var N = NrandT || 10;
+  var lerp_arr_vec = function(k){
+    var _arr_vec = [];
+    var rad = k*pi2;
+    for(var n=0; n<len_n; ++n){
+      var vecn = arr_vec[n];
+      var x = vecn.x;
+      var y = vecn.y;
+      var xb = x-x0;
+      var yb = y-y0;
+      var xa = +Math.cos(rad)*xb+Math.sin(rad)*yb;
+      var ya = -Math.sin(rad)*xb+Math.cos(rad)*yb;
+      var xp = x0+xa;
+      var yp = y0+ya;
+      _arr_vec[n] = {x: xp, y: yp};
+    }
+    return _arr_vec;
+  };
+  var arr_vec0 = lerp_arr_vec(offsetR);
+  for(var i=0; i<Ncolor; ++i){
+    for(var n=0; n<N; ++n){
+      arr_vec0.reverse();
+      var di = (n+1)/N;
+      var arr_veck = lerp_arr_vec(offsetR+(1-offsetR)*(i+di)/Ncolor);
+      _svg += self.lines(arr_vec0.concat(arr_veck), 0, arr_style[i], opt_globalCompositeOperation, true);
+      arr_vec0 = arr_veck;
+    }
+  }
+}
+  /* -> 1.12.6 */
   return _svg;
 };
 /* -> 1.0.0 */

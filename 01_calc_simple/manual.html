@@ -2038,11 +2038,15 @@ algorithmが異なるため、png/svg出力の互換性なし
 <br>
 svg出力の特徴を列挙する
 <br>
+・Nrender無効
+<br>
 ・plot点に比例係数を演算してgradationを作るため、意図に近い結果が得られる
 <br>
 ・legend間のgradation合成可（source-over）
 <br>
 ・乱数使用不可
+<br>
+・<span class="condition">circle-mode@Ncycle=0</span>の場合、周方向の分割数=(NrandT||10)*colors.length
 <br>
 <br>
 png出力の特徴を列挙する
