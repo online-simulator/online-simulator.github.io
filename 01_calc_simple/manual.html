@@ -2022,9 +2022,15 @@ originX:originY:offsetR:<span class="clear">orderR:NrandR:NrandT:isMin:isRound:N
 <br>
 ・config[]内datasetの変化点を示す
 <br>
-originX:originY:offsetR:orderR:NrandR:NrandT:<span class="clear">isMin:isRound</span>:Nrender:<span class="selection">Ncycle=0</span>
+originX:originY:offsetR:orderR:NrandR:NrandT:isMin:<span class="clear">isRound</span>:Nrender:<span class="selection">Ncycle=0</span>
 <br>
-・<span class="clear">isMin:isRound</span> disabled
+・<span class="clear">isRound</span> disabled
+<br>
+・isMin=false||trueはrenderingの重複を判定する
+<br>
+　falseの場合、成行きでrendering
+<br>
+　trueの場合、重複判定でrenderingをskip
 <br>
 ・offsetR=0~1は1周のoffset係数
 <br>

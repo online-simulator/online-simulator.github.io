@@ -329,6 +329,7 @@ if(Ncycle){
   }
 }
 else{
+  var data_isOver = ctx.createImageData(px_w, px_h).data;
   var krandR = self.make_krandR(krandR0, Ncolor);
   var sum_krandR = self.make_sum_krandR(krandR);
   var Ncolor_krandR = ((orderR && offsetR)? sum_krandR[sum_krandR.length-2]: null) || sum_krandR[sum_krandR.length-1];
@@ -362,13 +363,15 @@ else{
         else{
           rgba1 = rgba1 || arr_rgba[0];
         }
-        if(rgba0 && rgba1){
+        var ired = 4*(px_w*yp+xp);
+        var isOver = (isMin)? data_isOver[ired+0]: false;
+        if(rgba0 && rgba1 && !(isOver)){
           var k = (orderR)? Math.pow((icn-ic)/(krandR[ic] || krandR[0]), orderR): 0;
-          var ired = 4*(px_w*yp+xp);
           data[ired+0] = rgba0.r+(rgba1.r-rgba0.r)*k;
           data[ired+1] = rgba0.g+(rgba1.g-rgba0.g)*k;
           data[ired+2] = rgba0.b+(rgba1.b-rgba0.b)*k;
           data[ired+3] = rgba0.a+(rgba1.a-rgba0.a)*k;
+          data_isOver[ired+0] = 1;
         }
       }
     }
@@ -531,6 +534,7 @@ if(Ncycle){
   }
 }
 else{
+  var data_isOver = ctx.createImageData(px_w, px_h).data;
   var krandR = self.make_krandR(krandR0, Ns);
   var sum_krandR = self.make_sum_krandR(krandR);
   var Ns_krandR = ((orderR && offsetR)? sum_krandR[sum_krandR.length-2]: null) || sum_krandR[sum_krandR.length-1];
@@ -570,14 +574,16 @@ else{
             s1 = (isCyclic)? arr_s[0]: arr_s[Ns-1];
           }
         }
-        if(s0 >= 0 && s1 >= 0){
+        var ired = 4*(px_w*yp+xp);
+        var isOver = (isMin)? data_isOver[ired+0]: false;
+        if(s0 >= 0 && s1 >= 0 && !(isOver)){
           var k = (orderR)? Math.pow((icn-ic)/(krandR[ic] || krandR[0]), orderR): 0;
           var sk = Math.floor(s0+(s1-s0)*k);
-          var ired = 4*(px_w*yp+xp);
           for(var nn=0; nn<4; ++nn){  // nn
             var arr_w = arr_w2d[sk] || make_arr_w(sk, 0);
             data[ired+nn] = filter.composite(arr_w, data0, px_w, px_h, sk, sk, 0+xp, 0+yp, nn);
           }
+          data_isOver[ired+0] = 1;
         }
       }
     }
