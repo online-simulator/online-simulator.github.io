@@ -1960,7 +1960,7 @@ gradation特定項目仕様と付随する留意事項について記述する
 <br>
 ・<span class="run">Ver.2.40.18</span>以降、legend間のgradation合成に対応
 <br>
-・<span class="run">Ver.2.60.26</span>以降、<span class="condition">circle-mode@Ncycle=0</span>を追加
+・<span class="run">Ver.2.60.26</span>以降、<span class="selection">circle-mode@Ncycle=0</span>を追加
 <br>
 <br>
 <a href="#span-out-UI-graphing-z">z入力欄</a>にgradationをgradation||GRADATION{config[]colors}で入力
@@ -2016,13 +2016,13 @@ originX:originY:offsetR:<span class="clear">orderR:NrandR:NrandT:isMin:isRound:N
 ・Ncycle=0~127は半径方向のrendering周期数
 <br>
 <br>
-<span class="run">Ver.2.60.26</span>以降、<span class="condition">circle-mode@Ncycle=0</span>を追加
+<span class="run">Ver.2.60.26</span>以降、<span class="selection">circle-mode@Ncycle=0</span>を追加
 <br>
 ・canvas座標でgradation起点を中心にplot-lineの周方向に生成（<a href="#span-out-UI-graphing-config">canvas-size</a>に依存）
 <br>
 ・config[]内datasetの変化点を示す
 <br>
-originX:originY:offsetR:orderR:NrandR:NrandT:<span class="clear">isMin:isRound</span>:Nrender:<span class="condition">Ncycle=0</span>
+originX:originY:offsetR:orderR:NrandR:NrandT:<span class="clear">isMin:isRound</span>:Nrender:<span class="selection">Ncycle=0</span>
 <br>
 ・<span class="clear">isMin:isRound</span> disabled
 <br>
@@ -2046,7 +2046,7 @@ svg出力の特徴を列挙する
 <br>
 ・乱数使用不可
 <br>
-・<span class="condition">circle-mode@Ncycle=0</span>の場合、周方向の分割数=(NrandT||10)*colors.length
+・<span class="selection">circle-mode@Ncycle=0</span>の場合、周方向の分割数=(NrandT||10)*colors.length
 <br>
 ・gradation精度を上げる場合、colorsを細かく刻んで指定する
 <br>
@@ -2312,6 +2312,8 @@ blur特定項目仕様と付随する留意事項について記述する
 <br>
 ・<span class="run">Ver.2.57.26</span>以降、<a href="#span-out-UI-graphing-filter-average-asym">非対称averageぼかし</a>に対応（<span class="condition">asym[]</span>の設定項目を追加）
 <br>
+・<span class="run">Ver.2.60.26</span>以降、<span class="selection">circle-mode@Ncycle=0</span>を追加
+<br>
 <br>
 <a href="#span-out-UI-graphing-z">z入力欄</a>にblurをblur||BLUR{<span class="condition">asym[]</span>config[]strengths}で入力
 <br>
@@ -2373,6 +2375,32 @@ config[0:0:0:1:0:50:false:false:2560:4:true:false:last]
 config[0:0:0:1:0:200:false:false:2560:4:true:false:last]0:10:0:10:0:10:0:10:0:10:0:10
 <br>
 config[0:0:0:1:0:200:false:false:2560:4:true:false:last]10:0:10:0:10:0:10:0:10:0:10:0
+<br>
+<span class="run">Ver.2.60.26</span>以降、<span class="selection">circle-mode@Ncycle=0</span>を追加
+<br>
+・Nlegend=1のplot-line上でstrength=0の周期境界条件を適用
+<br>
+config[0:0:0:1:0:0:false:false:2560:0:true:false:1]0:8
+<br>
+config[0:0:0:1:0:0:false:false:2560:0:true:false:1]0:8:8
+<br>
+・Nlegend=1のplot-line上でstrength=0の非周期境界条件を適用
+<br>
+config[0:0:0:1:0:0:false:false:2560:0:false:false:1]0:8:0
+<br>
+config[0:0:0:1:0:0:false:false:2560:0:false:false:1]0:8:8:0
+<br>
+・Nlegend=1のplot-line上でstrength=8の周期境界条件を適用
+<br>
+config[0:0:0:1:0:0:false:false:2560:0:true:false:1]8:0
+<br>
+config[0:0:0:1:0:0:false:false:2560:0:true:false:1]8:0:0
+<br>
+・Nlegend=1のplot-line上でstrength=8の非周期境界条件を適用
+<br>
+config[0:0:0:1:0:0:false:false:2560:0:false:false:1]8:0:8
+<br>
+config[0:0:0:1:0:0:false:false:2560:0:false:false:1]8:0:0:8
 <br>
 <br>
 形状再現精度||blur精度に関係する設定項目を列挙する

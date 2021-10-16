@@ -397,12 +397,9 @@ My_entry.draw_canvas.prototype.blur = function(arr_s, arr_vec, opt_globalComposi
   var rdt = Nrender/pi2;
   var x0 = vec0.x;
   var y0 = vec0.y;
+  var krandR0 = NrandR/255;
   var krandT0 = NrandT/255;
   var Ns = arr_s.length;
-  var gradLEN = self.make_gradLEN(arr_vec, vec0, isMin, isRound, Nrender);
-  var krandR = self.make_krandR(NrandR/255, Ncycle);
-  var sum_krandR = self.make_sum_krandR(krandR);
-  var Ncycle_krandR = sum_krandR[sum_krandR.length-1];
   var make_arr_w = null;
   var get_arr_w2d = null;
   var arr_w3d = [];
@@ -471,6 +468,12 @@ My_entry.draw_canvas.prototype.blur = function(arr_s, arr_vec, opt_globalComposi
     };
   }
   /* -> 1.11.6 */
+  /* 1.12.6 -> */
+if(Ncycle){
+  var gradLEN = self.make_gradLEN(arr_vec, vec0, isMin, isRound, Nrender);
+  var krandR = self.make_krandR(krandR0, Ncycle);
+  var sum_krandR = self.make_sum_krandR(krandR);
+  var Ncycle_krandR = sum_krandR[sum_krandR.length-1];
   for(var yp=0; yp<px_h; ++yp){
     for(var xp=0; xp<px_w; ++xp){
       var dx = xp+0.5-x0;
@@ -526,6 +529,61 @@ My_entry.draw_canvas.prototype.blur = function(arr_s, arr_vec, opt_globalComposi
       }
     }
   }
+}
+else{
+  var krandR = self.make_krandR(krandR0, Ns);
+  var sum_krandR = self.make_sum_krandR(krandR);
+  var Ns_krandR = ((orderR && offsetR)? sum_krandR[sum_krandR.length-2]: null) || sum_krandR[sum_krandR.length-1];
+  var n0 = Nrender*offsetR;
+  var kn0 = n0/Nrender;
+  for(var i=0, len=arr_vec.length; i<len; ++i){
+    var arr_veci = arr_vec[i];
+    var xb = arr_veci.x-x0;
+    var yb = arr_veci.y-y0;
+    for(var n=n0; n<Nrender; ++n){
+      var kn = n/Nrender;
+      var rad = kn*pi2;
+      var xa = +Math.cos(rad)*xb+Math.sin(rad)*yb;
+      var ya = -Math.sin(rad)*xb+Math.cos(rad)*yb;
+      var xp = Math.floor(x0+xa);
+      var yp = Math.floor(y0+ya);
+      if(xp >= 0 && xp < px_w && yp >= 0 && yp < px_h){
+        var krandT = krandT0*(Math.random()-0.5);  // krandT0 first
+        var deno = (1-offsetR || 1);
+        var nume = kn-kn0+krandT/Ns;
+        var icn = nume/deno;
+        icn = (offsetR)? Math.min(Math.max(icn, 0), 1): (icn+1)%1;
+        icn *= Ns_krandR;
+        var ic = self.get_cycle(sum_krandR, 1, icn);
+        var s0 = arr_s[ic];
+        var s1 = arr_s[ic+1];
+        if(offsetR){
+          if(isNaN(s0)){
+            s0 = arr_s[0];
+          }
+          if(isNaN(s1)){
+            s1 = arr_s[Ns-1];
+          }
+        }
+        else{
+          if(isNaN(s1)){
+            s1 = (isCyclic)? arr_s[0]: arr_s[Ns-1];
+          }
+        }
+        if(s0 >= 0 && s1 >= 0){
+          var k = (orderR)? Math.pow((icn-ic)/(krandR[ic] || krandR[0]), orderR): 0;
+          var sk = Math.floor(s0+(s1-s0)*k);
+          var ired = 4*(px_w*yp+xp);
+          for(var nn=0; nn<4; ++nn){  // nn
+            var arr_w = arr_w2d[sk] || make_arr_w(sk, 0);
+            data[ired+nn] = filter.composite(arr_w, data0, px_w, px_h, sk, sk, 0+xp, 0+yp, nn);
+          }
+        }
+      }
+    }
+  }
+}
+  /* -> 1.12.6 */
   return _ID;
 };
 /* 0.5.0 -> */
