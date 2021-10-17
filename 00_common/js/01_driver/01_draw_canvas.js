@@ -574,16 +574,21 @@ else{
             s1 = (isCyclic)? arr_s[0]: arr_s[Ns-1];
           }
         }
-        var ired = 4*(px_w*yp+xp);
-        var isOver = (isMin)? data_isOver[ired+0]: false;
-        if(s0 >= 0 && s1 >= 0 && !(isOver)){
+        if(s0 >= 0 && s1 >= 0){
           var k = (orderR)? Math.pow((icn-ic)/(krandR[ic] || krandR[0]), orderR): 0;
           var sk = Math.floor(s0+(s1-s0)*k);
-          for(var nn=0; nn<4; ++nn){  // nn
-            var arr_w = arr_w2d[sk] || make_arr_w(sk, 0);
-            data[ired+nn] = filter.composite(arr_w, data0, px_w, px_h, sk, sk, 0+xp, 0+yp, nn);
+          var ired = 4*(px_w*yp+xp);
+          var isOver0 = data_isOver[ired+0];
+          var isOver1 = data_isOver[ired+1];
+          var isOver = (isMin)? isOver0: (isOver0 && sk === isOver1);
+          if(!(isOver)){
+            for(var nn=0; nn<4; ++nn){  // nn
+              var arr_w = arr_w2d[sk] || make_arr_w(sk, 0);
+              data[ired+nn] = filter.composite(arr_w, data0, px_w, px_h, sk, sk, 0+xp, 0+yp, nn);
+            }
+            data_isOver[ired+0] = 1;
+            data_isOver[ired+1] = sk;  // 0<=sk<=20
           }
-          data_isOver[ired+0] = 1;
         }
       }
     }
