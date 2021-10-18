@@ -165,10 +165,12 @@ My_entry.filter.prototype.run = function(ctx, params){
   var self = this;
   var px_w0 = ctx.canvas.width;
   var px_h0 = ctx.canvas.height;
-  var is = params.is || 0;
-  var js = params.js || 0;
-  var px_w = params.px_w || px_w0-is;
-  var px_h = params.px_h || px_h0-js;
+  /* Ver.2.60.27 -> */
+  var is = Math.min(Math.max(params.is || 0, 0), px_w0-1);
+  var js = Math.min(Math.max(params.js || 0, 0), px_h0-1);
+  var px_w = Math.min(Math.max(params.px_w || px_w0-is, 1), px_w0);
+  var px_h = Math.min(Math.max(params.px_h || px_h0-js, 1), px_h0);
+  /* -> Ver.2.60.27 */
   var _ID = ctx.getImageData(is, js, px_w, px_h);
   var _data = _ID.data;
   var arr_w = params.arr_w || [];
