@@ -1873,7 +1873,7 @@ fillStyle:strokeStyle:fillStr:spacingX:spacingY:
 <br>
 shadowOffsetX:shadowOffsetY:shadowBlur:deg0
 <br>
-<span class="run">Ver.2.37.18</span>以降、各設定値の上下限を追加
+<span class="run">Ver.2.37.18</span>以降、各設定値のlimiterを追加
 <br>
 ・fontFamilyはfont-family名（<span class="run">Ver.2.35.18</span>以降、white space付family名に対応）
 <br>
@@ -2468,7 +2468,17 @@ filter特定項目仕様と付随する留意事項について記述する
 <br>
 ・<span class="run">Ver.2.52.25</span>以降、filterを適用する<span class="condition">canvas-area</span>の設定項目を追加
 <br>
-・<span class="clear">Ver.2.60.27</span>以降、<span class="condition">canvas-area</span>の上下限（<a href="#span-out-UI-graphing-config">canvas-size</a>の範囲内）を追加
+・<span class="clear">Ver.2.60.27</span>以降、<span class="condition">canvas-area</span>のlimiter-<a href="#span-out-UI-graphing-config">canvas-size(canvas-width,canvas-height)</a>を追加
+<br>
+　⇒　次の致命的な不具合に繋がる入力を回避
+<br>
+area[0,0,<span class="clear">1e13</span>] -> Value is outside the 'long' value range.
+<br>
+　⇒　area[0,0,<a href="#span-out-UI-graphing-config">canvas-width,canvas-height</a>]
+<br>
+area[<span class="clear">-1e9,,1e9</span>] -> Out of memory at ImageData creation
+<br>
+　⇒　area[0,0,<a href="#span-out-UI-graphing-config">canvas-width,canvas-height</a>]
 <br>
 <br>
 <a href="#span-out-UI-graphing-z">z入力欄</a>にfilterをfilter||FILTER{filters}で入力
@@ -6609,7 +6619,7 @@ plot-configの設定項目を列挙する
 <br>
 　通常、memory sizeが問題にならない場合、最適なNthread=CPU-core数*(1~2)
 <br>
-・描画canvas-sizeのcanvas-width||canvas-heightを選択可
+・描画canvasのcanvas-size(canvas-width,canvas-height)を選択可
 <br>
 ・bg-image-fileは任意size背景画像fileをread可（<span class="clear">Internet Explorer非対応</span>）
 <br>
@@ -19146,7 +19156,7 @@ clear; y=&lt;3x-1,x=3,y=&gt;,y=&gt;y0,y0 -> (0,0,8,8,8)
 <br>
 ・<a href="#span-out-eqns">式変数</a>、<a href="#span-out-eqns-call">式読出し</a>、<a href="#span-out-call-by-equation">式渡し</a>、<a href="#span-out-substitution-equation">式代入</a>、<a href="#span-out-scope-inherited-call">scope継承call</a>の仕様は呼び名含めて一般的でない
 <br>
-・連立方程式をscript-inputから解くために独自に定義している
+・連立方程式をscript入力から解くために独自に定義している
     </td>
   </tr>
   <tr>

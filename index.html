@@ -282,7 +282,9 @@ Y/M/D
 <tbody>
   <tr>
     <th>
-4.70.22.9.25
+4.70.22.<del>9.25</del>
+<br>
+4.70.22.10.24
     </th>
     <td class="types">
 Calculator
@@ -291,12 +293,18 @@ Calculator
 2.60.27
     </td>
     <td class="clear">
-minor bug-fix
+<del>minor bug-fix</del>
+<br>
+fatal bug-fix
     </td>
     <td>
 [filter.js]
 <br>
-・FILTER{area[limiter of canvas-size]} added
+・FILTER{area[limiter of canvas-size(w,h)]} added as a fatal bug-fix
+<br>
+area[0,0,<span class="clear">1e13</span>] -> Value is outside the 'long' value range.　⇒　area[0,0,w,h]
+<br>
+area[<span class="clear">-1e9,,1e9</span>] -> Out of memory at ImageData creation　⇒　area[0,0,w,h]
 <br>
 　<a href="01_calc_simple/manual.html#span-out-UI-graphing-filter">[manual]Calculator-filter特定項目仕様</a>
 <br>
@@ -305,6 +313,8 @@ minor bug-fix
 ・manual更新
 <br>
 　追加校正2箇所
+<br>
+　追加校正4箇所
     </td>
     <td>
 2021/10/19
