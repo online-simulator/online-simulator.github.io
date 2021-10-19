@@ -2470,16 +2470,6 @@ filter特定項目仕様と付随する留意事項について記述する
 <br>
 ・<span class="clear">Ver.2.60.27</span>以降、<span class="condition">canvas-area</span>のlimiter-<a href="#span-out-UI-graphing-config">canvas-size(canvas-width,canvas-height)</a>を追加
 <br>
-　⇒　次の致命的な不具合に繋がる入力を回避
-<br>
-area[0,0,<span class="clear">1e13</span>] -> Value is outside the 'long' value range.
-<br>
-　⇒　area[0,0,<a href="#span-out-UI-graphing-config">canvas-width,canvas-height</a>]
-<br>
-area[<span class="clear">-1e9,,1e9</span>] -> Out of memory at ImageData creation
-<br>
-　⇒　area[0,0,<a href="#span-out-UI-graphing-config">canvas-width,canvas-height</a>]
-<br>
 <br>
 <a href="#span-out-UI-graphing-z">z入力欄</a>にfilterをfilter||FILTER{filters}で入力
 <br>
@@ -2491,7 +2481,15 @@ area[<span class="clear">-1e9,,1e9</span>] -> Out of memory at ImageData creatio
 <br>
 ・<span class="run">Ver.2.52.25</span>以降、<span class="condition">area[]</span>内datasetは設定値をcomma,区切りで入力（省略時、全体に適用）
 <br>
-area[x||0,y||0,w||canvas-width,h||canvas-height]
+area[x||0,y||0,w||<a href="#span-out-UI-graphing-config">canvas-width</a>,h||<a href="#span-out-UI-graphing-config">canvas-height</a>]
+<br>
+・<span class="clear">Ver.2.60.27</span>以降、致命的な不具合に繋がる入力を回避
+<br>
+area[0,0,<span class="clear">1e13</span>] -> Value is outside the 'long' value range.
+<br>
+area[<span class="clear">-1e9,,1e9</span>] -> Out of memory at ImageData creation
+<br>
+　⇒　area[0,0,<a href="#span-out-UI-graphing-config">canvas-width,canvas-height</a>]
 <br>
 <br>
 filterは上下左右対称(2n-1)x(2n-1)sizeの2次元配列を1次元に直列化して定義する
@@ -2755,7 +2753,7 @@ rgba[1]:hsv[1]
 <br>
 ・<span class="condition">canvas-area</span>は始点(x,y)と範囲(w,h)を直列化してpx数値で指定する
 <br>
-area[x||0,y||0,w||canvas-width,h||canvas-height]
+area[x||0,y||0,w||<a href="#span-out-UI-graphing-config">canvas-width</a>,h||<a href="#span-out-UI-graphing-config">canvas-height</a>]
 <br>
 ・始点(x,y)=(10,20)・範囲(w,h)=(30,40)　⇒　終点(x,y)=(10+30-1,20+40-1)
 <br>
