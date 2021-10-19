@@ -50,7 +50,7 @@ My_entry.math_wave.prototype.get_rms = function(len, fn, freq){
 };
 My_entry.math_wave.prototype.getY_linear_baseE = function(x, x0, x1, y0, y1, isLogE_x, isLogE_y){
   var self = this;
-  var x  = (isLogE_x)? Math.log(x) : x;
+  var x = (isLogE_x)? Math.log(x) : x;
   var x0 = (isLogE_x)? Math.log(x0): x0;
   var x1 = (isLogE_x)? Math.log(x1): x1;
   var y0 = (isLogE_y)? Math.log(y0): y0;
@@ -63,7 +63,7 @@ My_entry.math_wave.prototype.getY_linear_baseE = function(x, x0, x1, y0, y1, isL
 My_entry.math_wave.prototype.getY_linear_base10 = function(x, x0, x1, y0, y1, isLog10_x, isLog10_y){
   var self = this;
   // IE not supported
-  var x  = (isLog10_x)? Math.log10(x) : x;
+  var x = (isLog10_x)? Math.log10(x) : x;
   var x0 = (isLog10_x)? Math.log10(x0): x0;
   var x1 = (isLog10_x)? Math.log10(x1): x1;
   var y0 = (isLog10_y)? Math.log10(y0): y0;

@@ -110,13 +110,13 @@ My_entry.plot2d.prototype.vec2vec_snapped = function(vec){
     var dy = screen_xy.dyp;
     var x1 = vec.x;
     var y1 = vec.y;
-    _vec  = {x: x0+Math.round((x1-x0)/dx)*dx, y: y0+Math.round((y1-y0)/dy)*dy};
+    _vec = {x: x0+Math.round((x1-x0)/dx)*dx, y: y0+Math.round((y1-y0)/dy)*dy};
   }
   return _vec;
 };
 My_entry.plot2d.prototype.vec2gaxis_centering = function(vec){
   var self = this;
-  var grid =  self.objs.grid;
+  var grid = self.objs.grid;
   var _gaxis = null;
   var screen_xy = self.screen_xy;
   if(screen_xy && vec){
@@ -136,8 +136,8 @@ My_entry.plot2d.prototype.vec2gaxis_centering = function(vec){
 };
 My_entry.plot2d.prototype.init_handlers = function(){
   var self = this;
-  var grid =  self.objs.grid;
-  var temp =  self.objs.temp;
+  var grid = self.objs.grid;
+  var temp = self.objs.temp;
   var elem = temp.elem;
   var ctx = temp.ctx;
   var handlers = self.handlers;
@@ -369,7 +369,7 @@ My_entry.plot2d.prototype.run = function(arr2d_vec, options, toSVG, isFinal){
   var background = self.objs.background;
   var grid = self.objs.grid;
   var plot = self.objs.plot;
-  var temp =  self.objs.temp;
+  var temp = self.objs.temp;
   var markers = plot.markers;
   var _svg = "";
   var expDigit = options["expDigit"];
@@ -836,7 +836,7 @@ My_entry.plot2d.prototype.final = function(arr2d_vec, options, toSVG){
   var $ = self.entry.$;
   var conv = self.entry.conv;
   var def = self.entry.def;
-  var all =  self.objs.all;
+  var all = self.objs.all;
   options._arr_ID_plot = [];
   /* 1.0.1 -> */
   var _svg = self.run(arr2d_vec, options, toSVG, true) || "";
@@ -903,6 +903,7 @@ My_entry.plot2d.prototype.final = function(arr2d_vec, options, toSVG){
         var params = $.get_records(area, ",", 0, ["is", "js", "px_w", "px_h"], true);
         params.rgba = text.replace(re, "");
         params.arr_w = arr_w;
+        params.content = content;  // 1.13.7
         all.putID_xy(self.filter.run(all.ctx, params), params.is, params.js);
         /* -> 1.1.3 */
       });
