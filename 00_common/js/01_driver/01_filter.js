@@ -8,8 +8,8 @@ My_entry.filter = function(){
 
 My_entry.filter.prototype.init = function(){
   var self = this;
-  self.draw = new My_entry.draw();  // Ver.2.46.24
   self.reference = new My_entry.reference();  // Ver.2.62.27
+  self.draw = new My_entry.draw();  // Ver.2.46.24
   return self;
 };
 /* Ver.2.48.24 -> */

@@ -2345,7 +2345,7 @@ isCyclic:<span class="jF">isSquare</span>:Nlegend（<span class="run">Ver.2.55.2
 <br>
 ・<span class="selection">上段</span>は<a href="#span-out-UI-graphing-gradation">gradation</a>参照
 <br>
-・<span class="run">Ver.2.57.26</span>以降、<a href="#span-out-UI-graphing-filter-average-asym">非対称averageぼかし</a>の場合、<span class="selection">Nrender</span>=1~2560に下流で上限値を圧縮
+・<span class="run">Ver.2.57.26</span>以降、<a href="#span-out-UI-graphing-filter-average-asym">非対称averageぼかし</a>の場合、下流側で<span class="selection">Nrender</span>=1~2560に上限値を圧縮
 <br>
 　<a href="#span-out-UI-graphing-filter-average">averageぼかし</a>の場合、memory size&lt;20MB
 <br>
@@ -2485,7 +2485,7 @@ filter特定項目仕様と付随する留意事項について記述する
 <br>
 area[x||0,y||0,w||<a href="#span-out-UI-graphing-config">canvas-width</a>,h||<a href="#span-out-UI-graphing-config">canvas-height</a>]
 <br>
-・<span class="clear">Ver.2.60.27</span>以降、致命的な不具合に繋がる入力を回避
+・<span class="clear">Ver.2.60.27</span>以降、下流側で致命的な不具合に繋がる入力を回避
 <br>
 area[0,0,<span class="clear">1e13</span>] -> Value is outside the 'long' value range.
 <br>
@@ -6352,11 +6352,11 @@ fy_rgba[offsetY||0]
 <br>
 dot_rgba[dx=1~||1,dy=1~||dx]
 <br>
-・<span class="run">Ver.2.62.27</span>以降、不可逆な<span class="jF">encode</span>（decodeする場合、encodeの<a href="#span-out-FN">乱数</a>seed値を指定）
+・不可逆な<span class="jF">encode</span>（decodeする場合、encodeの<a href="#span-out-FN">乱数</a>seed値を指定）
 <br>
 encode_rgba[dx=1~||1,dy=1~||dx]
 <br>
-・<span class="run">Ver.2.61.27</span>以降、<span class="condition">塗りつぶし</span>（fill-inをfiinと省略する）
+・<span class="condition">塗りつぶし</span>（fill-inをfiinと省略する）
 <br>
 fiin[targetX||0,targetY||0,<a href="#span-out-UI-graphing-color">color</a>,<span class="condition">Nwrap</span>=1~256||1]
 <br>
