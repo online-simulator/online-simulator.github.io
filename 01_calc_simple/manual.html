@@ -1119,6 +1119,8 @@ developer.mozilla.org/ja/docs/項目を列挙する
 <br>
 en.m.wikipedia.org/wiki/項目を列挙する
 <br>
+・Fisher-Yates_shuffle
+<br>
 ・Rotation_formalisms_in_three_dimensions
 <br>
 ・Rainbow
@@ -1993,9 +1995,9 @@ originX:originY:offsetR:<span class="clear">orderR:NrandR:NrandT:isMin:isRound:N
 <br>
 　orderR=1の場合、既定の線形補間
 <br>
-・NrandR=0~255はgradation代表長さの乱数
+・NrandR=0~255はgradation代表長さの<a href="#span-out-FN">乱数</a>
 <br>
-・NrandT=0~255はgradation分布の乱数
+・NrandT=0~255はgradation分布の<a href="#span-out-FN">乱数</a>
 <br>
 ・isMin=false||true||&lt;0(auto)はgradation代表長さの一意な決め方を指定する
 <br>
@@ -2030,7 +2032,7 @@ originX:originY:offsetR:orderR:NrandR:NrandT:isMin:<span class="clear">isRound</
 <br>
 　offsetR=0の場合、gradationの周期境界条件を課す
 <br>
-・NrandR=0~255はgradation間隔の乱数
+・NrandR=0~255はgradation間隔の<a href="#span-out-FN">乱数</a>
 <br>
 ・isMin=false||trueはrenderingの重複を判定する
 <br>
@@ -2050,7 +2052,7 @@ svg出力の特徴を列挙する
 <br>
 ・legend間のgradation合成可（source-over）
 <br>
-・乱数使用不可
+・<a href="#span-out-FN">乱数</a>使用不可
 <br>
 ・<span class="selection">circle-mode@Ncycle=0</span>の場合、周方向の分割数=(NrandT||10)*colors.length
 <br>
@@ -2073,7 +2075,7 @@ png出力の特徴を列挙する
 <br>
 ・putImageData()同期出力のため、<a href="#span-out-UI-graphing-post1">canvas-globalCompositeOperation</a>無効（source-over）</del>
 <br>
-・乱数使用可
+・<a href="#span-out-FN">乱数</a>使用可
 <br>
 ・Nrender=1で真円のgradationが比較的簡単に得られる
 <br>
@@ -2097,7 +2099,7 @@ png出力の特徴を列挙する
 <br>
 ・上記精度を上げ過ぎた場合、svg出力のfile sizeや<a href="#span-out-UI-graphing-post">post処理</a>の負荷が増大する
 <br>
-・乱数設定時、flickering防止のため、plot終了の最終frameまで逐次描画しない
+・<a href="#span-out-FN">乱数</a>設定時、flickering防止のため、plot終了の最終frameまで逐次描画しない
 <br>
 ・drawImage()非同期出力のため、最終frameにlegend順を保証してgradationを合成する
     </td>
@@ -2378,7 +2380,7 @@ asym[x||0,y||0,k||0,Nrad||0]
 <br>
 test caseを列挙する
 <br>
-・strength分布に乱数を適用（glass morphism効果を模擬）
+・strength分布に<a href="#span-out-FN">乱数</a>を適用（glass morphism効果を模擬）
 <br>
 config[0:0:0:1:0:50:false:false:2560:4:true:false:last]
 <br>
@@ -6326,6 +6328,8 @@ post-processor特定項目仕様について記述する
 <br>
 ・<span class="run">Ver.2.61.27</span>以降、<span class="condition">塗りつぶし</span>機能を追加（<span class="condition">Nwrap</span>を周回数とする独自の回り込み方式）
 <br>
+・<span class="run">Ver.2.62.27</span>以降、不可逆な<span class="jF">encode</span>機能を追加（<a href="#span-out-FN">乱数</a>seed値不定のFisher-Yates shuffle）
+<br>
 <br>
 post-processorの仕様を列挙する
 <br>
@@ -6347,6 +6351,10 @@ fy_rgba[offsetY||0]
 ・dot化（mosaic化）
 <br>
 dot_rgba[dx=1~||1,dy=1~||dx]
+<br>
+・<span class="run">Ver.2.62.27</span>以降、不可逆な<span class="jF">encode</span>（decodeする場合、encodeの<a href="#span-out-FN">乱数</a>seed値を指定）
+<br>
+encode_rgba[dx=1~||1,dy=1~||dx]
 <br>
 ・<span class="run">Ver.2.61.27</span>以降、<span class="condition">塗りつぶし</span>（fill-inをfiinと省略する）
 <br>
@@ -6402,9 +6410,19 @@ fy_g:fy_g[-100]
 <br>
 fy_rgba:fx_rgba
 <br>
+・不可逆な<span class="jF">encode</span>
+<br>
+encode_rgba[6,3]
+<br>
+encode_r[6,3]:encode_g[6,3]:encode_b[6,3]:encode_a[6,3]
+<br>
 ・<a href="#span-out-UI-graphing-color">color</a>指定で絶対始点(0px,0px)の<span class="condition">塗りつぶし</span>
 <br>
 fiin[0,0,yellow,8]
+<br>
+fiin[0,0,green,8]
+<br>
+fiin[0,0,#0123,8] || fiin[0,0,#00112233,8]
 <br>
 ・area[30,30]基準の<a href="#span-out-UI-graphing-color">color</a>-picked相対位置(10px,10px)指定で相対始点(0px,0px)の<span class="condition">塗りつぶし</span>
 <br>

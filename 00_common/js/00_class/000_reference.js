@@ -46,8 +46,8 @@ My_entry.reference.prototype.calc_freq = function(octave, code){
   return _freq;
 };
 
-// ja.m.wikipedia.org about Fisher-Yates shuffle
-// to 99_gacha
+// en.m.wikipedia.org/wiki/Fisher-Yates_shuffle
+// to 02_calc_graphing 99_gacha
 My_entry.reference.prototype.sort_random = function(_arr){
   var self = this;
   for(var i=_arr.length-1; i>0; --i){

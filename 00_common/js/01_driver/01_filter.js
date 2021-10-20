@@ -9,6 +9,7 @@ My_entry.filter = function(){
 My_entry.filter.prototype.init = function(){
   var self = this;
   self.draw = new My_entry.draw();  // Ver.2.46.24
+  self.reference = new My_entry.reference();  // Ver.2.62.27
   return self;
 };
 /* Ver.2.48.24 -> */
@@ -91,6 +92,23 @@ My_entry.filter.prototype.get_len = function(di){
   var self = this;
   return ((2*di+1)*(2*di+1));
 };
+/* Ver.2.62.27 -> */
+My_entry.filter.prototype.sort_random = function(_arr){
+  var self = this;
+  return self.reference.sort_random.call(self, _arr);
+};
+My_entry.filter.prototype.switch_arr = function(_arr, i, j){
+  var self = this;
+  var w = _arr[i];
+  _arr[i] = _arr[j];
+  _arr[j] = w;
+  return _arr;
+};
+My_entry.filter.prototype.gen_irand = function(len){
+  var self = this;
+  return Math.floor(Math.random()*len);
+};
+/* -> Ver.2.62.27 */
 /* Ver.2.48.25 */
 My_entry.filter.prototype.composite = function(arr_w, data0, px_w0, px_h0, di, dj, i0, j0, n0){
   var self = this;
@@ -182,10 +200,11 @@ My_entry.filter.prototype.run = function(ctx, params){
     var isFx = sw_re(/fx/i);
     var isFy = sw_re(/fy/i);
     var isDot = sw_re(/dot/i);
+    var isEncode = sw_re(/encode/i);  // Ver.2.62.27
     var isFiin = sw_re(/fiin/i);  // Ver.2.61.27
     var isTo2 = sw_re(/to2/i);
     var isMono = sw_re(/mono/i);
-    var isPost = isFx || isFy || isDot || isFiin || isTo2 || isMono;
+    var isPost = isFx || isFy || isDot || isEncode || isFiin || isTo2 || isMono;
     var isConical = sw_re(/cone/i);
     var sws_hsv = [sw_re(/h/i), sw_re(/s/i), sw_re(/v/i)];
     var sws_rgba = [sw_re(/r/i), sw_re(/g/i), sw_re(/b/i), sw_re(/a/i)];
@@ -270,6 +289,47 @@ My_entry.filter.prototype.run = function(ctx, params){
           }
         });
       }
+      /* Ver.2.62.27 -> */
+      else if(isEncode){
+        var dx = Math.abs(w0 || 1);
+        var dy = Math.abs(w1 || dx);
+        var ID0 = ctx.getImageData(0, 0, px_w0, px_h0);
+        var data0 = ID0.data;
+        filter_callback(function(i, j, ired, ired0){
+          if(i%dx === 0 && j%dy === 0){
+            var len_i0 = Math.min(is+i+dx, px_w0);
+            var len_j0 = Math.min(js+j+dy, px_h0);
+            var len_ii = Math.min(i+dx, px_w);
+            var len_jj = Math.min(j+dy, px_h);
+            var arr_str_ij = [];
+            for(var j0=js+j; j0<len_j0; ++j0){
+              for(var i0=is+i; i0<len_i0; ++i0){
+                arr_str_ij.push(i0+","+j0);
+              }
+            }
+            self.sort_random(arr_str_ij);
+            for(var n=0; n<4; ++n){
+              if(sws_rgba[n]){
+                var ij = 0;
+                for(var jj=j; jj<len_jj; ++jj){
+                  for(var ii=i; ii<len_ii; ++ii){
+                    var str_ij = arr_str_ij[ij++];
+                    if(str_ij){
+                      var i1j1 = str_ij.split(",");
+                      var i1 = Number(i1j1[0]);
+                      var j1 = Number(i1j1[1]);
+                      var ired = 4*(px_w*jj+ii);
+                      var ired1 = 4*(px_w0*j1+i1);
+                      _data[ired+n] = data0[ired1+n];
+                    }
+                  }
+                }
+              }
+            }
+          }
+        });
+      }
+      /* -> Ver.2.62.27 */
       /* Ver.2.61.27 -> */
       else if(isFiin){
         var i0 = w0;
