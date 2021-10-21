@@ -6322,13 +6322,15 @@ post-processor特定項目仕様について記述する
 <br>
 <span class="run">Ver.2.48.24</span>以降、<a href="#span-out-UI-graphing-filter">filter</a>を代用してpost-processorを追加する
 <br>
-・<span class="clear">Ver.2.48.25</span>以降、描画canvas境界で正常に機能しないdot化の不具合を修正
+・<span class="clear">Ver.2.48.25</span>以降、描画canvas境界で正常に機能しないmosaic化の不具合を修正
 <br>
 ・<span class="run">Ver.2.49.25</span>以降、2値化||monotone化（輝度）のsw=-1<span class="selection">任意のRGB重み平均値</span>に対応
 <br>
 ・<span class="run">Ver.2.61.27</span>以降、<span class="condition">塗りつぶし</span>機能を追加（<span class="condition">Nwrap</span>を周回数とする独自の回り込み方式）
 <br>
 ・<span class="run">Ver.2.62.27</span>以降、不可逆な<span class="jF">encode</span>機能を追加（<a href="#span-out-FN">乱数</a>seed値不定のFisher-Yates shuffle）
+<br>
+　⇒　確率抽選の反復sortのため、一様<a href="#span-out-FN">乱数</a>の前提で完全random性を数学的に保証する
 <br>
 <br>
 post-processorの仕様を列挙する
@@ -6348,11 +6350,11 @@ fx_rgba[offsetX||0]
 <br>
 fy_rgba[offsetY||0]
 <br>
-・dot化（mosaic化）
+・mosaic化（不可逆な平均値化）
 <br>
 dot_rgba[dx=1~||1,dy=1~||dx]
 <br>
-・不可逆な<span class="jF">encode</span>（decodeする場合、encodeの<a href="#span-out-FN">乱数</a>seed値を指定）
+・不可逆な<span class="jF">encode</span>（decodeする場合、encodeの<a href="#span-out-FN">乱数</a>seed値を連番等で指定）
 <br>
 encode_rgba[dx=1~||1,dy=1~||dx]
 <br>
@@ -6415,6 +6417,10 @@ fy_rgba:fx_rgba
 encode_rgba[6,3]
 <br>
 encode_r[6,3]:encode_g[6,3]:encode_b[6,3]:encode_a[6,3]
+<br>
+encode_rgba[256,256]
+<br>
+encode_r[256,256]:encode_g[256,256]:encode_b[256,256]:encode_a[256,256]
 <br>
 ・<a href="#span-out-UI-graphing-color">color</a>指定で絶対始点(0px,0px)の<span class="condition">塗りつぶし</span>
 <br>
