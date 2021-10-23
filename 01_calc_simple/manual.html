@@ -11559,7 +11559,11 @@ deg_atan2_ex(0,1) || degrees(atan2_ex(0,1)) -> 90
 <br>
 <span class="run">Ver.2.30.15</span>以降、乱数の即時callに対応
 <br>
-・seed値は現在時刻（指定不可）
+・NativeのMath.random()に同義
+<br>
+　・区間[0,1)の擬似的な一様乱数を返す
+<br>
+　・乱数生成器のseed値は現在時刻（指定不可）
 <br>
 random() || random || rand -> 0.7479324154774045
 <br>
