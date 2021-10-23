@@ -6330,7 +6330,7 @@ post-processor特定項目仕様について記述する
 <br>
 ・<span class="run">Ver.2.62.27</span>以降、不可逆な<span class="jF">encode</span>機能を追加（<a href="#span-out-FN">乱数</a>seed値不定のFisher-Yates shuffle）
 <br>
-　⇒　確率抽選の反復sortのため、一様<a href="#span-out-FN">乱数</a>の前提で完全random性を数学的に保証する
+　⇒　確率抽選の反復sortのため、<a href="#span-out-FN">一様乱数</a>の前提で完全random性を数学的に保証する
 <br>
 <br>
 post-processorの仕様を列挙する
@@ -11561,7 +11561,7 @@ deg_atan2_ex(0,1) || degrees(atan2_ex(0,1)) -> 90
 <br>
 ・NativeのMath.random()に同義
 <br>
-　・区間[0,1)の擬似的な一様乱数を返す
+　・返値は区間[0,1)の一様乱数（0以上~1未満の擬似乱数）
 <br>
 　・乱数生成器のseed値は現在時刻（指定不可）
 <br>
