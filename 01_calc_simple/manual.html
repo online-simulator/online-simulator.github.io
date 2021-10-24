@@ -2485,6 +2485,8 @@ filter特定項目仕様と付随する留意事項について記述する
 <br>
 area[x||0,y||0,w||<a href="#span-out-UI-graphing-config">canvas-width</a>,h||<a href="#span-out-UI-graphing-config">canvas-height</a>]
 <br>
+・<span class="condition">canvas-area</span>は始点(x,y)と範囲(w,h)を直列化してpx数値で指定する
+<br>
 ・<span class="clear">Ver.2.60.27</span>以降、下流側で致命的な不具合に繋がる入力を回避
 <br>
 area[0,0,<span class="clear">1e13</span>] -> Value is outside the 'long' value range.
@@ -6328,7 +6330,7 @@ post-processor特定項目仕様について記述する
 <br>
 ・<span class="run">Ver.2.61.27</span>以降、<span class="condition">塗りつぶし</span>機能を追加（<span class="condition">Nwrap</span>を周回数とする独自の回り込み方式）
 <br>
-・<span class="run">Ver.2.62.27</span>以降、不可逆な<span class="jF">encode</span>機能を追加（<a href="#span-out-FN">乱数</a>seed値不定のFisher-Yates shuffle）
+・<span class="run">Ver.2.62.27</span>以降、不可逆な<span class="jF">encode</span>機能を追加（<a href="#span-out-FN">乱数seed値</a>不定のFisher-Yates shuffle）
 <br>
 　⇒　確率抽選の反復sortのため、<a href="#span-out-FN">一様乱数</a>の前提で完全random性を数学的に保証する
 <br>
@@ -6354,7 +6356,7 @@ fy_rgba[offsetY||0]
 <br>
 dot_rgba[dx=1~||1,dy=1~||dx]
 <br>
-・不可逆な<span class="jF">encode</span>（decodeする場合、encodeの<a href="#span-out-FN">乱数</a>seed値を連番等で指定）
+・不可逆な<span class="jF">encode</span>（decodeする場合、encodeの<a href="#span-out-FN">乱数seed値</a>を連番等で指定）
 <br>
 encode_rgba[dx=1~||1,dy=1~||dx]
 <br>
