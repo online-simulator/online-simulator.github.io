@@ -345,6 +345,7 @@ My_entry.plot2d.prototype.change_scale = function(tgxmin, tgymin, tgxmax, tgymax
   var grid = self.objs.grid;
   var plot = self.objs.plot;
   var all = self.objs.all;
+  var temp = self.objs.temp;
   var tgdx = (tgxmax-tgxmin)*0.125 || 1;
   var tgdy = (tgymax-tgymin)*0.125 || 1;
   /* 0.5.0 -> */
@@ -358,6 +359,7 @@ My_entry.plot2d.prototype.change_scale = function(tgxmin, tgymin, tgxmax, tgymax
   grid.change_scale(tgxmin, tgymin, tgxmax, tgymax);
   plot.change_scale(tgxmin, tgymin, tgxmax, tgymax);
   all.change_scale(tgxmin, tgymin, tgxmax, tgymax);  // 1.2.3
+  temp.change_scale(tgxmin, tgymin, tgxmax, tgymax);  // 1.15.7
   return self;
 };
 My_entry.plot2d.prototype.run = function(arr2d_vec, options, toSVG, isFinal){
@@ -467,6 +469,9 @@ My_entry.plot2d.prototype.run = function(arr2d_vec, options, toSVG, isFinal){
   /* 1.2.3 -> */
   inputZ = def.enter_name(inputZ, "blur", false, 0, function(content){options._blur = content;});
   /* -> 1.2.3 */
+  /* 1.15.7 -> */
+  inputZ = def.enter_name(inputZ, "cut", false, 0, function(content){options._cut = content;});
+  /* -> 1.15.7 */
   // scaling
   var fontSize1 = (title)? fontSize+self.config.default.dfontSize: 0;
   var kyAdjust = 1+fontSize1*5/self.px_h;
@@ -538,6 +543,39 @@ My_entry.plot2d.prototype.run = function(arr2d_vec, options, toSVG, isFinal){
     arr_str[j] = str;
     arr_strFontSize[j] = strFontSize;
   }
+  /* 1.15.7 -> */
+  // transform
+  var arr2d_tx = new Array(len_n);
+  var arr2d_ty = new Array(len_n);
+  for(var n=0; n<len_n; ++n){
+    arr2d_tx[n] = [];
+    arr2d_ty[n] = [];
+    for(var j=0; j<len_j; ++j){
+      arr2d_tx[n][j] = self.trans(arr2d_x[n][j], isLog_x);
+      arr2d_ty[n][j] = self.trans(arr2d_y[n][j], isLog_y);
+    }
+  }
+  // make arr2d_tvec
+  var arr2d_tvec = new Array(len_j);
+  for(var j=0; j<len_j; ++j){
+    arr2d_tvec[j] = new Array(len_n);
+    for(var n=0; n<len_n; ++n){
+      var x = arr2d_tx[n][j];
+      var y = arr2d_ty[n][j];
+      arr2d_tvec[j][n] = {x: x, y: y};
+    }
+  }
+  options._arr2d_tvec = arr2d_tvec;  // 1.2.3
+  if(toSVG && options._cut){
+    var len_j = arr2d_tvec.length;
+    var text = options._cut;
+    var records = $.get_records(text, ",", 0, ["Nlegend"]);
+    var Nlegend = def.limit(Math.floor(records.Nlegend), NUMMIN, NUMMAX, len_j);
+    var idName_mask = "mask_cut";
+    _svg += plot.draw.def_mask_style(idName_mask, plot.lines(arr2d_tvec[Nlegend-1] || arr2d_tvec[len_j-1], 0, "#ffffff", null, true));
+    _svg += plot.draw.header_group(null, plot.draw.use_mask(idName_mask));
+  }
+  /* -> 1.15.7 */
   /* 1.10.6 -> */
   var callback_transform_toSVG = function(withBackground){
     var text = options._transform;
@@ -602,28 +640,6 @@ My_entry.plot2d.prototype.run = function(arr2d_vec, options, toSVG, isFinal){
   self.screen_xy = grid.plot2screen(tgxmin, tgymin, tgxmax, tgymax, Ni, Nj);
   /* -> 0.5.0 */
   _svg += self.grid(options, tgxmin, tgymin, tgxmax, tgymax, Ni, Nj, isLog_x, isLog_y, label_x, label_y, fontSize, expDigit, gridLineWidth, gridLineColor, globalCompositeOperation);
-  // transform
-  var arr2d_tx = new Array(len_n);
-  var arr2d_ty = new Array(len_n);
-  for(var n=0; n<len_n; ++n){
-    arr2d_tx[n] = [];
-    arr2d_ty[n] = [];
-    for(var j=0; j<len_j; ++j){
-      arr2d_tx[n][j] = self.trans(arr2d_x[n][j], isLog_x);
-      arr2d_ty[n][j] = self.trans(arr2d_y[n][j], isLog_y);
-    }
-  }
-  // make arr2d_tvec
-  var arr2d_tvec = new Array(len_j);
-  for(var j=0; j<len_j; ++j){
-    arr2d_tvec[j] = new Array(len_n);
-    for(var n=0; n<len_n; ++n){
-      var x = arr2d_tx[n][j];
-      var y = arr2d_ty[n][j];
-      arr2d_tvec[j][n] = {x: x, y: y};
-    }
-  }
-  options._arr2d_tvec = arr2d_tvec;  // 1.2.3
   // masking
   var idName_mask = "mask_lines_and_gradations";
   var dtgx = dtgx0*1e-15;
@@ -826,6 +842,11 @@ else{
     _svg += plot.draw.footer_group();
   }
   /* -> 1.10.6 */
+  /* 1.15.7 -> */
+  if(toSVG && options._cut){
+    _svg += plot.draw.footer_group();
+  }
+  /* -> 1.15.7 */
   temp.attach(self.handlers);  // 0.4.0 moved from final()
   self.isLocked = false;
   return _svg;
@@ -837,13 +858,22 @@ My_entry.plot2d.prototype.final = function(arr2d_vec, options, toSVG){
   var conv = self.entry.conv;
   var def = self.entry.def;
   var all = self.objs.all;
+  /* 1.15.7 -> */
+  var temp = self.objs.temp;
+  var isLog_x = options["log-x"];
+  var isLog_y = options["log-y"];
+  var NUMMIN = self.config.default.NUMMIN;
+  var NUMMAX = self.config.default.NUMMAX;
   options._arr_ID_plot = [];
   /* 1.0.1 -> */
   var _svg = self.run(arr2d_vec, options, toSVG, true) || "";
+  var arr2d_tvec = options._arr2d_tvec;
+  var len_j = (arr2d_tvec)? arr2d_tvec.length: 0;
   if(!(toSVG)){
     if(self.isLocked) return false;
     self.isLocked = true;
   /* -> 1.0.1 */
+  /* -> 1.15.7 */
     var base64_bg = self.base64_bg || self.objs.background.get_base64();
     var arr_base64_grid_plot = [];
     arr_base64_grid_plot.push(self.objs.grid.get_base64());
@@ -855,12 +885,6 @@ My_entry.plot2d.prototype.final = function(arr2d_vec, options, toSVG){
     arr_base64_plot.push(self.objs.plot.get_base64());
     /* 1.2.3 -> */
     var callback_blur = function(){
-      var isLog_x = options["log-x"];
-      var isLog_y = options["log-y"];
-      var NUMMIN = self.config.default.NUMMIN;
-      var NUMMAX = self.config.default.NUMMAX;
-      var arr2d_tvec = options._arr2d_tvec;
-      var len = arr2d_tvec.length;
       var text = options._blur;
       var config = "";
       text = def.enter_name(text, "config", false, 2, function(content){config = content;});
@@ -877,18 +901,40 @@ My_entry.plot2d.prototype.final = function(arr2d_vec, options, toSVG){
       records.Ncycle = def.limit(Math.floor(records.Ncycle), 0, 127, 0);
       records.isCyclic = def.limit(records.isCyclic, -10, 10, true);
       records.isSquare = def.limit(records.isSquare, -10, 10, true);  // 1.9.6
-      var Nlegend = def.limit(Math.floor(records.Nlegend), NUMMIN, NUMMAX, len);
+      var Nlegend = def.limit(Math.floor(records.Nlegend), NUMMIN, NUMMAX, len_j);
       /* 1.11.6 -> */
       var asym = "";
       text = def.enter_name(text, "asym", false, 2, function(content){asym = content;});
       var records_asym = $.get_records(asym, ",", 0, ["x_asym", "y_asym", "k_asym", "Nrad_asym"], true);
       var arr_s = conv.arr_str2arr_num((text || "0:10").split(":"), 0, 0, 20);
-      all.putID(all.blur(arr_s, arr2d_tvec[Nlegend-1] || arr2d_tvec[len-1], null, records, records_asym));
+      all.putID(all.blur(arr_s, arr2d_tvec[Nlegend-1] || arr2d_tvec[len_j-1], null, records, records_asym));
       /* -> 1.11.6 */
     };
     /* -> 1.2.3 */
     /* 1.8.5 -> */
     /* 1.1.2 -> */
+    /* 1.15.7 -> */
+    var get_records_mask = function(content){
+      var _records = $.get_records(content || "", ",", 0, ["Nlegend", "isInverse", "isClear"]);
+      _records.Nlegend = def.limit(Math.floor(_records.Nlegend), NUMMIN, NUMMAX, len_j);
+      _records.isInverse = def.limit(_records.isInverse, -10, 10, true);
+      _records.isClear = def.limit(_records.isClear, -10, 10, true);
+      return _records;
+    };
+    var callback_cut = function(){
+      var text = options._cut;
+      var records_mask = get_records_mask(text);
+      var Nlegend = records_mask.Nlegend;
+      temp.lines(arr2d_tvec[Nlegend-1] || arr2d_tvec[len_j-1], 0, "#ffffff", null, true);
+//      all.draw_base64(temp.get_base64(), null, "destination-atop");
+      var params = {};
+      params.arr_w = ["dummy"];
+      params.ID_mask = temp.getID();
+      params.isClear = true;
+      all.putID(self.filter.run(all.ctx, params));
+      temp.clear();
+    };
+    /* -> 1.15.7 */
     var callback_filter = function(){
       var filters = options._filter.split(":");
       filters.forEach(function(filter){
@@ -897,6 +943,10 @@ My_entry.plot2d.prototype.final = function(arr2d_vec, options, toSVG){
         var text = filter;
         var area = "";
         text = def.enter_name(text, "area", false, 2, function(content){area = content;});
+        /* 1.15.7 -> */
+        var mask = "";
+        text = def.enter_name(text, "mask", false, 2, function(content){mask = content;});
+        /* -> 1.15.7 */
         var content = def.get_title(text, "", false, 2);
         var arr_w = (content || "").split(",");  // rgba || rgba[] -> [""]
         arr_w = conv.arr_str2arr_num(arr_w, 0);  // [""] || [string] -> [0]
@@ -904,6 +954,19 @@ My_entry.plot2d.prototype.final = function(arr2d_vec, options, toSVG){
         params.rgba = text.replace(re, "");
         params.arr_w = arr_w;
         params.content = content;  // 1.13.7
+        /* 1.15.7 -> */
+        if(mask){
+          var records_mask = get_records_mask(mask);
+          var Nlegend = records_mask.Nlegend;
+          var isInverse = records_mask.isInverse;
+          var isClear = records_mask.isClear;
+          temp.lines(arr2d_tvec[Nlegend-1] || arr2d_tvec[len_j-1], 0, "#ffffff", null, true);
+          params.ID_mask = temp.getID();
+          params.isInverse = isInverse;
+          params.isClear = isClear;
+          temp.clear();
+        }
+        /* -> 1.15.7 */
         all.putID_xy(self.filter.run(all.ctx, params), params.is, params.js);
         /* -> 1.1.3 */
       });
@@ -939,6 +1002,11 @@ My_entry.plot2d.prototype.final = function(arr2d_vec, options, toSVG){
           if(options._filter){
             callback_filter();
           };
+          /* 1.15.7 -> */
+          if(options._cut){
+            callback_cut();
+          };
+          /* -> 1.15.7 */
           /* -> 1.1.2 */
           self.init_canvas(false);  // here for flickering-proof
           self.isLocked = false;
@@ -953,6 +1021,7 @@ My_entry.plot2d.prototype.final = function(arr2d_vec, options, toSVG){
       /* -> 1.10.6 */
       all.draw_base64(base64_bg, callback1);  // bg(source-over) <- grid <- plot
     };
+    temp.clear();  // 1.15.7
     all.clear();
     all.draw_base64s(arr_base64_plot.reverse(), callback0, options["canvas-globalCompositeOperationLayer"]);
   }

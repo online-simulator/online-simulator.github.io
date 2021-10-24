@@ -204,6 +204,22 @@ My_entry.draw_svg.prototype.def_mask = function(idName, style, x, y, w, h){
   }
   return _svg;
 };
+/* 1.15.7 */
+My_entry.draw_svg.prototype.def_mask_style = function(idName, style){
+  var self = this;
+  var _svg = "";
+  if(style){
+    _svg += "<defs>";
+    _svg += "<mask";
+    _svg += " id="+self.quote(idName);
+    _svg += ">";
+    _svg += style;
+    _svg += "</mask>";
+    _svg += "</defs>";
+    _svg += self.rn;
+  }
+  return _svg;
+};
 My_entry.draw_svg.prototype.use_filter = function(idName){
   var self = this;
   var _svg = "";

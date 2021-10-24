@@ -272,6 +272,11 @@ post-transformer特定項目仕様
 post-processor特定項目仕様
 </a>
 <br>
+　　　・
+<a href="#span-out-UI-graphing-cut">
+cut特定項目仕様
+</a>
+<br>
 　　・
 <a href="#span-out-UI-graphing-layer">
 layer描画順
@@ -1660,28 +1665,36 @@ markerType:markerColor:markerSize:markerLineWidth:plotLineWidth:fillPath:
 str:strFontSize
 <br>
 <br>
-<span class="run">Ver.2.34.18</span>以降、<a href="#span-out-UI-graphing-title">graph-title</a>をtitle||TITLE{graph-title}で入力
+<span class="run">Ver.2.34.18</span>以降、<a href="#span-out-UI-graphing-title">graph-title</a>を追加
+<br>
+title||TITLE{graph-title}
 <br>
 ・任意位置に挿入可
 <br>
 ・graph-titleはcanvas上部に表示するtitleの任意文字列で<a href="#span-out-UI-graphing-layer-grid">grid-layer</a>に描画
 <br>
 <br>
-<span class="run">Ver.2.37.18</span>以降、<a href="#span-out-UI-graphing-labels">x-label</a>をxlabel||XLABEL{x-label}で入力
+<span class="run">Ver.2.37.18</span>以降、<a href="#span-out-UI-graphing-labels">x-label</a>を追加
+<br>
+xlabel||XLABEL{x-label}
 <br>
 ・任意位置に挿入可
 <br>
 ・x-labelはx軸余白に表示するlabelの任意文字列で<a href="#span-out-UI-graphing-layer-grid">grid-layer</a>に描画
 <br>
 <br>
-<span class="run">Ver.2.37.18</span>以降、<a href="#span-out-UI-graphing-labels">y-label</a>をylabel||YLABEL{y-label}で入力
+<span class="run">Ver.2.37.18</span>以降、<a href="#span-out-UI-graphing-labels">y-label</a>を追加
+<br>
+ylabel||YLABEL{y-label}
 <br>
 ・任意位置に挿入可
 <br>
 ・y-labelはy軸余白に表示するlabelの任意文字列で<a href="#span-out-UI-graphing-layer-grid">grid-layer</a>に描画
 <br>
 <br>
-<span class="run">Ver.2.34.18</span>以降、<a href="#span-out-UI-graphing-string-path">string-path</a>をstring||STRING{config[]string-path}で入力
+<span class="run">Ver.2.34.18</span>以降、<a href="#span-out-UI-graphing-string-path">string-path</a>を追加
+<br>
+string||STRING{config[]string-path}
 <br>
 ・各<a href="#span-out-UI-graphing-legend">legend-dataset</a>の任意位置に挿入可
 <br>
@@ -1699,7 +1712,9 @@ shadowOffsetX:shadowOffsetY:shadowBlur:deg0
 <span class="run">Ver.2.35.18</span>以降、<a href="#span-out-UI-graphing-title">graph-title</a>/<a href="#span-out-UI-graphing-legend">legend-string</a>/<a href="#span-out-UI-graphing-string-path">string-path</a>のwhite space enabled
 <br>
 <br>
-<span class="run">Ver.2.36.18</span>以降、<a href="#span-out-UI-graphing-gradation">gradation</a>をgradation||GRADATION{config[]colors}で入力
+<span class="run">Ver.2.36.18</span>以降、<a href="#span-out-UI-graphing-gradation">gradation</a>を追加
+<br>
+gradation||GRADATION{config[]colors}
 <br>
 ・各<a href="#span-out-UI-graphing-legend">legend-dataset</a>の任意位置に挿入可
 <br>
@@ -1712,7 +1727,9 @@ shadowOffsetX:shadowOffsetY:shadowBlur:deg0
 originX:originY:offsetR:orderR:NrandR:NrandT:isMin:isRound:Nrender:Ncycle
 <br>
 <br>
-<span class="run">Ver.2.52.25</span>以降、<a href="#span-out-UI-graphing-transform">transform</a>をtransform||TRANSFORM{args}で入力
+<span class="run">Ver.2.52.25</span>以降、<a href="#span-out-UI-graphing-transform">transform</a>を追加
+<br>
+transform||TRANSFORM{args}
 <br>
 ・任意位置に挿入可
 <br>
@@ -1721,7 +1738,9 @@ originX:originY:offsetR:orderR:NrandR:NrandT:isMin:isRound:Nrender:Ncycle
 ・argsはcanvas座標変換の引数をcomma,区切りで入力
 <br>
 <br>
-<span class="run">Ver.2.45.23</span>以降、<a href="#span-out-UI-graphing-blur">blur</a>をblur||BLUR{<span class="condition">asym[]</span>config[]strengths}で入力
+<span class="run">Ver.2.45.23</span>以降、<a href="#span-out-UI-graphing-blur">blur</a>を追加
+<br>
+blur||BLUR{<span class="condition">asym[]</span>config[]strengths}
 <br>
 ・任意位置に挿入可
 <br>
@@ -1740,15 +1759,30 @@ isCyclic:<span class="jF">isSquare</span>:Nlegend（<span class="run">Ver.2.55.2
 x,y,k,Nrad
 <br>
 <br>
-<span class="run">Ver.2.44.22</span>以降、<a href="#span-out-UI-graphing-filter">filter</a>をfilter||FILTER{filters}で入力
+<span class="run">Ver.2.44.22</span>以降、<a href="#span-out-UI-graphing-filter">filter</a>を追加
+<br>
+filter||FILTER{filters}
 <br>
 ・任意位置に挿入可
 <br>
 ・filterは<a href="#span-out-UI-graphing-post1">layer合成</a>後の<a href="#span-out-UI-graphing-post2">post最終処理</a>（svg出力は無効）
 <br>
-・filtersは<span class="condition">area[]</span>filterを適用順にcolon:区切りで入力
+・filtersは<span class="jF">mask[]</span><span class="condition">area[]</span>filterを適用順にcolon:区切りで入力
 <br>
 ・<span class="run">Ver.2.52.25</span>以降、<span class="condition">area[]</span>内datasetは設定値をcomma,区切りで入力（省略時、全体に適用）
+<br>
+・<span class="run">Ver.2.63.27</span>以降、<span class="jF">mask[]</span>内datasetは設定値をcomma,区切りで入力（省略時、全体に適用）
+<br>
+<br>
+<span class="run">Ver.2.63.27</span>以降、<a href="#span-out-UI-graphing-cut">cut</a>を追加
+<br>
+cut||CUT{args}
+<br>
+・任意位置に挿入可
+<br>
+・cutは<a href="#span-out-UI-graphing-post2">post最終処理</a>（svg出力は<a href="#span-out-UI-graphing-post1">layer合成</a>）
+<br>
+・argsはcut領域を指定する条件をcomma,区切りで入力
     </td>
   </tr>
   <tr>
@@ -1810,7 +1844,9 @@ graph-title
 graph-title特定項目仕様について記述する
 <br>
 <br>
-<a href="#span-out-UI-graphing-z">z入力欄</a>にgraph-titleをtitle||TITLE{graph-title}で入力
+<a href="#span-out-UI-graphing-z">z入力欄</a>にgraph-titleを入力
+<br>
+title||TITLE{graph-title}
 <br>
 ・任意位置に挿入可
 <br>
@@ -1832,14 +1868,18 @@ axis-labels
 axis-labels特定項目仕様について記述する
 <br>
 <br>
-<a href="#span-out-UI-graphing-z">z入力欄</a>にx-labelをxlabel||XLABEL{x-label}で入力
+<a href="#span-out-UI-graphing-z">z入力欄</a>にx-labelを入力
+<br>
+xlabel||XLABEL{x-label}
 <br>
 ・任意位置に挿入可
 <br>
 ・x-labelはx軸余白に表示するlabelの任意文字列で<a href="#span-out-UI-graphing-layer-grid">grid-layer</a>に描画
 <br>
 <br>
-<a href="#span-out-UI-graphing-z">z入力欄</a>にy-labelをylabel||YLABEL{y-label}で入力
+<a href="#span-out-UI-graphing-z">z入力欄</a>にy-labelを入力
+<br>
+ylabel||YLABEL{y-label}
 <br>
 ・任意位置に挿入可
 <br>
@@ -1861,7 +1901,9 @@ string-path
 string-path特定項目仕様について記述する
 <br>
 <br>
-<a href="#span-out-UI-graphing-z">z入力欄</a>にstring-pathをstring||STRING{config[]string-path}で入力
+<a href="#span-out-UI-graphing-z">z入力欄</a>にstring-pathを入力
+<br>
+string||STRING{config[]string-path}
 <br>
 ・各<a href="#span-out-UI-graphing-legend">legend-dataset</a>の任意位置に挿入可
 <br>
@@ -1965,7 +2007,9 @@ gradation特定項目仕様と付随する留意事項について記述する
 ・<span class="run">Ver.2.60.26</span>以降、<span class="selection">circle-mode@Ncycle=0</span>を追加
 <br>
 <br>
-<a href="#span-out-UI-graphing-z">z入力欄</a>にgradationをgradation||GRADATION{config[]colors}で入力
+<a href="#span-out-UI-graphing-z">z入力欄</a>にgradationを入力
+<br>
+gradation||GRADATION{config[]colors}
 <br>
 ・各<a href="#span-out-UI-graphing-legend">legend-dataset</a>の任意位置に挿入可
 <br>
@@ -2128,7 +2172,9 @@ transform特定項目仕様と付随する留意事項について記述する
 ・<span class="run">Ver.2.56.26</span>以降、svg出力に対応
 <br>
 <br>
-<a href="#span-out-UI-graphing-z">z入力欄</a>にtransformをtransform||TRANSFORM{args}で入力
+<a href="#span-out-UI-graphing-z">z入力欄</a>にtransformを入力
+<br>
+transform||TRANSFORM{args}
 <br>
 ・任意位置に挿入可
 <br>
@@ -2329,7 +2375,9 @@ blur特定項目仕様と付随する留意事項について記述する
 ・<span class="run">Ver.2.60.26</span>以降、<span class="selection">circle-mode@Ncycle=0</span>を追加
 <br>
 <br>
-<a href="#span-out-UI-graphing-z">z入力欄</a>にblurをblur||BLUR{<span class="condition">asym[]</span>config[]strengths}で入力
+<a href="#span-out-UI-graphing-z">z入力欄</a>にblurを入力
+<br>
+blur||BLUR{<span class="condition">asym[]</span>config[]strengths}
 <br>
 ・任意位置に挿入可
 <br>
@@ -2472,14 +2520,18 @@ filter特定項目仕様と付随する留意事項について記述する
 <br>
 ・<span class="clear">Ver.2.60.27</span>以降、<span class="condition">canvas-area</span>のlimiter-<a href="#span-out-UI-graphing-config">canvas-size(canvas-width,canvas-height)</a>を追加
 <br>
+・<span class="run">Ver.2.63.27</span>以降、filter適用前後のmask領域を指定する<span class="jF">canvas-mask</span>の設定項目を追加
 <br>
-<a href="#span-out-UI-graphing-z">z入力欄</a>にfilterをfilter||FILTER{filters}で入力
+<br>
+<a href="#span-out-UI-graphing-z">z入力欄</a>にfilterを入力
+<br>
+filter||FILTER{filters}
 <br>
 ・任意位置に挿入可
 <br>
 ・filterは<a href="#span-out-UI-graphing-post1">layer合成</a>後の<a href="#span-out-UI-graphing-post2">post最終処理</a>（svg出力は無効）
 <br>
-・filtersは<span class="condition">area[]</span>filterを適用順にcolon:区切りで入力
+・filtersは<span class="jF">mask[]</span><span class="condition">area[]</span>filterを適用順にcolon:区切りで入力
 <br>
 ・<span class="run">Ver.2.52.25</span>以降、<span class="condition">area[]</span>内datasetは設定値をcomma,区切りで入力（省略時、全体に適用）
 <br>
@@ -2494,6 +2546,26 @@ area[0,0,<span class="clear">1e13</span>] -> Value is outside the 'long' value r
 area[<span class="clear">-1e9,,1e9</span>] -> Out of memory at ImageData creation
 <br>
 　⇒　area[0,0,<a href="#span-out-UI-graphing-config">canvas-width,canvas-height</a>]
+<br>
+・<span class="run">Ver.2.63.27</span>以降、<span class="jF">mask[]</span>内datasetは設定値をcomma,区切りで入力（省略時、全体に適用）
+<br>
+mask[Nlegend||last,isInverse||false,isClear||false]
+<br>
+・Nlegend=1~lastはmask領域を指定するplot-lineのlegend番号
+<br>
+　範囲外の数値||数値以外を指定した場合、最終legendを選択
+<br>
+・isInverse=false||trueはmask領域の内外を反転する
+<br>
+　falseの場合、mask領域の内側のみにfilterを適用
+<br>
+　trueの場合、mask領域の外側のみにfilterを適用
+<br>
+・isClear=false||trueはmask領域外の処理を選択する
+<br>
+　falseの場合、filter適用前のRGBA値を保持
+<br>
+　trueの場合、黒色の透明（#0000）にRGBA値をclear
 <br>
 <br>
 filterは上下左右対称(2n-1)x(2n-1)sizeの2次元配列を1次元に直列化して定義する
@@ -6451,6 +6523,43 @@ mono[-1,0.2126,0.7152,0.0722]
 目次
 </a>
 <br>
+cut
+<br>
+特定項目仕様
+    </th>
+    <td>
+<span id="span-out-UI-graphing-cut"></span>
+cut特定項目仕様と付随する留意事項について記述する
+<br>
+<br>
+<span class="run">Ver.2.63.27</span>以降、指定領域のcut機能を追加する
+<br>
+<br>
+<a href="#span-out-UI-graphing-z">z入力欄</a>にcutを入力
+<br>
+cut||CUT{args}
+<br>
+・任意位置に挿入可
+<br>
+・cutは<a href="#span-out-UI-graphing-post2">post最終処理</a>（svg出力は<a href="#span-out-UI-graphing-post1">layer合成</a>）
+<br>
+・argsはcut領域を指定する条件をcomma,区切りで入力
+<br>
+cut{Nlegend||last,withTransform||false}
+<br>
+・Nlegend=1~lastはcut領域を指定するplot-lineのlegend番号
+<br>
+　範囲外の数値||数値以外を指定した場合、最終legendを選択
+<br>
+・withTransform=false||trueは<a href="#span-out-UI-graphing-transform">transform</a>の反映を選択（未実装）
+    </td>
+  </tr>
+  <tr>
+    <th>
+<a href="#span-index">
+目次
+</a>
+<br>
 layer
 <br>
 描画順
@@ -6575,6 +6684,8 @@ svg出力の場合、同期処理をlayer合成順に列挙する
 <br>
 ・同layerに<a href="#span-out-UI-graphing-layer-plot">plot-layer</a>を合成（source-over）
 <br>
+・同layerに<a href="#span-out-UI-graphing-cut">cut</a>を適用
+<br>
 <br>
 png出力||描画canvas出力の場合、drawImage()非同期処理をlayer合成順に列挙する
 <br>
@@ -6618,6 +6729,8 @@ post最終処理順と付随する留意事項について記述する
 ・<a href="#span-out-UI-graphing-blur">blur</a>
 <br>
 ・<a href="#span-out-UI-graphing-filter">filter</a>
+<br>
+・<a href="#span-out-UI-graphing-cut">cut</a>
 <br>
 <br>
 <a href="#span-out-UI-graphing-filter">filter</a>を代用する項目を列挙する
@@ -11628,7 +11741,7 @@ gcd(0,2,4,6,0) || gcd(2,4,6) -> 2
 <br>
 lcm(-1,2,-3) || gcd(-1,2,-3) -> false
 <br>
-false -> [MyErr]Invalid REv(false)
+clear; false -> [MyErr]Invalid REv(false)
 <br>
 ・falseは0として扱う
 <br>
@@ -13663,15 +13776,15 @@ clear; n=&lt;n; _sn(=&lt;n,0,2) || 0+1+2 -> 3
 <br>
 ・次の場合、dummy変数と判別する
 <br>
-clear; _sn(=&lt;{n},0,2) -> 3
+clear; _sn(=&lt;{n},0,2) || 0+1+2 -> 3
 <br>
-clear; n=2; _sn(=&lt;{n},0,2) -> 3
+clear; n=2; _sn(=&lt;{n},0,2) || 0+1+2 -> 3
 <br>
 ・次の場合、<a href="#span-out-BT">括弧</a>省略と判別する
 <br>
 clear; _sn(=&lt;n+1,0,2) || _sn(=&lt;{n+1},0,2) || 1+2+3 -> 6
 <br>
-clear; n=&lt;n; _sn(=&lt;n=&gt;,0,2) || _sn(=&lt;{n=&gt;},0,2) -> 3
+clear; n=&lt;n; _sn(=&lt;n=&gt;,0,2) || _sn(=&lt;{n=&gt;},0,2) || 0+1+2 -> 3
 <br>
 ・次の場合、<a href="#span-out-BT">括弧</a>省略と判別する
 <br>

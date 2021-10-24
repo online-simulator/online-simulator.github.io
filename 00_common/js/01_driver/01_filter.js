@@ -630,6 +630,32 @@ My_entry.filter.prototype.run = function(ctx, params){
         });
       }
     }
+    /* Ver.2.63.27 -> */
+    if(params.ID_mask){
+      var ID0 = ctx.getImageData(0, 0, px_w0, px_h0);
+      var data0 = ID0.data;
+      var data_mask = params.ID_mask.data;
+      var isInverse = params.isInverse;
+      var isClear = params.isClear;
+      filter_callback(function(i, j, ired, ired0){
+        var mask_r = data_mask[ired0+0];
+        var mask_g = data_mask[ired0+1];
+        var mask_b = data_mask[ired0+2];
+        var mask_a = data_mask[ired0+3];
+        var isInMask = mask_r || mask_g || mask_b || mask_a;
+        for(var n=0; n<4; ++n){
+          var data_in = _data[ired+n];
+          var data_out = (isClear)? 0: data0[ired0+n];
+          if(isInverse){
+            _data[ired+n] = (isInMask)? data_out: data_in;
+          }
+          else{
+            _data[ired+n] = (isInMask)? data_in: data_out;
+          }
+        }
+      });
+    }
+    /* -> Ver.2.63.27 */
   }
   return _ID;
 };
