@@ -272,6 +272,11 @@ post-transformer特定項目仕様
 post-processor特定項目仕様
 </a>
 <br>
+　　　　・
+<a href="#span-out-UI-graphing-post-compressor">
+post-compressor特定項目仕様
+</a>
+<br>
 　　　・
 <a href="#span-out-UI-graphing-cut">
 cut特定項目仕様
@@ -841,6 +846,26 @@ EIS simulation
 　・
 <a href="#span-out-non-linear">
 連立非線形方程式
+</a>
+<br>
+　・
+<a href="#span-out-transform">
+信号変換
+</a>
+<br>
+　　・
+<a href="#span-out-transform-fft">
+高速Fourier変換
+</a>
+<br>
+　　・
+<a href="#span-out-transform-dft">
+離散Fourier変換
+</a>
+<br>
+　　・
+<a href="#span-out-transform-dwt">
+離散Wavelet変換
 </a>
 <br>
 　・
@@ -1780,7 +1805,7 @@ cut||CUT{args}
 <br>
 ・任意位置に挿入可
 <br>
-・cutは<a href="#span-out-UI-graphing-post2">post最終処理</a>（svg出力は<a href="#span-out-UI-graphing-post1">layer合成</a>）
+・cutは<a href="#span-out-UI-graphing-filter">filtering</a>直後の<a href="#span-out-UI-graphing-post2">post最終処理</a>（svg出力は<a href="#span-out-UI-graphing-post1">layer合成</a>）
 <br>
 ・argsはcut領域を指定する条件をcomma,区切りで入力
     </td>
@@ -6404,7 +6429,7 @@ post-processor特定項目仕様について記述する
 <br>
 ・<span class="run">Ver.2.62.27</span>以降、不可逆な<span class="jF">encode</span>機能を追加（<a href="#span-out-FN">乱数seed値</a>不定のFisher-Yates shuffle）
 <br>
-　⇒　確率抽選の反復sortのため、<a href="#span-out-FN">一様乱数</a>の前提で完全random性を数学的に保証する
+　⇒　<a href="../99_gacha/index.html">確率抽選</a>の反復sortのため、<a href="#span-out-FN">一様乱数</a>の前提で完全random性を数学的に保証する
 <br>
 <br>
 post-processorの仕様を列挙する
@@ -6523,6 +6548,48 @@ mono[-1,0.2126,0.7152,0.0722]
 目次
 </a>
 <br>
+post
+<br>
+-compressor
+<br>
+特定項目仕様
+    </th>
+    <td>
+<span id="span-out-UI-graphing-post-compressor"></span>
+post-compressor特定項目仕様について記述する
+<br>
+<br>
+<a href="#span-out-UI-graphing-filter">filter</a>を代用してpost-compressor（画像圧縮のdemonstration機能）を追加予定
+<br>
+<br>
+post-compressorの仕様を列挙する
+<br>
+・hsvlrgba||HSVLRGBAのalphabetを除外してpost-compressor処理名を定義する
+<br>
+・post-compressor処理は単独処理で処理名の併記不可
+<br>
+<br>
+post-compressor処理を優先順に列挙する
+<br>
+・<a href="#span-out-transform-fft">高速Fourier変換</a>
+<br>
+fft_rgba[]
+<br>
+・<a href="#span-out-transform-dft">離散Fourier変換</a>
+<br>
+dft_rgba[]
+<br>
+・<a href="#span-out-transform-dwt">離散Wavelet変換</a>
+<br>
+dwt_rgba[]
+    </td>
+  </tr>
+  <tr>
+    <th>
+<a href="#span-index">
+目次
+</a>
+<br>
 cut
 <br>
 特定項目仕様
@@ -6541,7 +6608,7 @@ cut||CUT{args}
 <br>
 ・任意位置に挿入可
 <br>
-・cutは<a href="#span-out-UI-graphing-post2">post最終処理</a>（svg出力は<a href="#span-out-UI-graphing-post1">layer合成</a>）
+・cutは<a href="#span-out-UI-graphing-filter">filtering</a>直後の<a href="#span-out-UI-graphing-post2">post最終処理</a>（svg出力は<a href="#span-out-UI-graphing-post1">layer合成</a>）
 <br>
 ・argsはcut領域を指定する条件をcomma,区切りで入力
 <br>
@@ -6748,6 +6815,8 @@ post最終処理順と付随する留意事項について記述する
 ・<a href="#span-out-UI-graphing-post-transformer">post-transformer</a>
 <br>
 ・<a href="#span-out-UI-graphing-post-processor">post-processor</a>
+<br>
+・<a href="#span-out-UI-graphing-post-compressor">post-compressor</a>
 <br>
 <br>
 留意事項を列挙する
@@ -18911,6 +18980,255 @@ infoLost[ i] -0.04901921620544653+2.023423045158351i:
 0.07726186556052178-1.434248862158042i
 <br>
 )
+    </td>
+  </tr>
+  <tr>
+    <th>
+<a href="#span-index">
+目次
+</a>
+<br>
+信号変換
+<br>
+の解法
+    </th>
+    <td>
+<span id="span-out-transform"></span>
+信号変換の解法を列挙する
+<br>
+・<a href="#span-out-transform-fft">高速Fourier変換の解法</a>
+<br>
+・<a href="#span-out-transform-dft">離散Fourier変換の解法</a>
+<br>
+・<a href="#span-out-transform-dwt">離散Wavelet変換の解法</a>
+    </td>
+  </tr>
+  <tr>
+    <th>
+<a href="#span-index">
+目次
+</a>
+<br>
+高速
+<br>
+Fourier変換
+<br>
+の解法
+    </th>
+    <td>
+<span id="span-out-transform-fft"></span>
+高速Fourier変換Fast Fourier Transform(FFT)の解法について記述する
+<br>
+<br>
+Split-Radix-2 FFTを一例に示す（LaTeX形式）
+<br>
+・<a href="../81_mathjax/index.html">MathJax表示Checker※CDN通信あり</a>
+<br>
+<br>
+1次元FFT@Split-Radix-2
+<br>
+実空間
+<br>
+\(x=0,1,...,N_p-1\)
+<br>
+における偏角
+<br>
+\(\theta_{x,p}=x2\pi/N_p\)
+<br>
+とする標本点
+<br>
+\(f(x)\)
+<br>
+に対する1次元FFT@Split-Radix-2
+<br>
+\(N_p=2^p\)
+<br>
+\(p=0\)
+<br>
+\(F^{N_p=1}_x(u)=f(0)\)
+<br>
+\(0\lt p\)
+<br>
+\(F_x^{N_p=2^p}(u)\)
+<br>
+\(=\sum_{x=0}^{N_p-1}f(x)\mathrm{e}^{-\mathrm{i}u\theta_{x,p}}\)
+<br>
+\(=\sum_{x=0}^{N_{p-1}-1}\{f(x)\mathrm{e}^{-\mathrm{i}u\theta_{x,p}}\)
+<br>
+\(+f(x+N_{p-1})\mathrm{e}^{-\mathrm{i}u\theta_{x,p}}\mathrm{e}^{-\mathrm{i}u\pi}\}\)
+<br>
+\(=\sum_{x=0}^{N_{p-1}-1}\{f(x)\mathrm{e}^{-\mathrm{i}u\theta_{x,p-1}/2}\)
+<br>
+\(+f(x+N_{p-1})\mathrm{e}^{-\mathrm{i}u\theta_{x,p-1}/2}\mathrm{e}^{-\mathrm{i}u\pi}\}\)
+<br>
+\(=F_x^{N_{p-1}}(u/2)+F_{x+N_{p-1}}^{N_{p-1}}(u/2)\mathrm{e}^{-\mathrm{i}u\pi}\)
+    </td>
+  </tr>
+  <tr>
+    <th>
+<a href="#span-index">
+目次
+</a>
+<br>
+離散
+<br>
+Fourier変換
+<br>
+の解法
+    </th>
+    <td>
+<span id="span-out-transform-dft"></span>
+離散Fourier変換Discrete Fourier Transform(DFT)の解法について記述する
+<br>
+<br>
+逆変換に正規化係数1/Nを付与するDFTの一例を示す（LaTeX形式）
+<br>
+・<a href="../81_mathjax/index.html">MathJax表示Checker※CDN通信あり</a>
+<br>
+<br>
+1次元DFT
+<br>
+実空間
+<br>
+\(x=0,1,...,N-1\)
+<br>
+における偏角
+<br>
+\(\theta_x=x2\pi/N\)
+<br>
+とする標本点
+<br>
+\(f(x)\)
+<br>
+に対する1次元DFT
+<br>
+\(F(u)\)
+<br>
+\(=\sum_{x=0}^{N-1}f(x)\mathrm{e}^{-\mathrm{i}u\theta_x}\)
+<br>
+\(=F_x^N(u)\)
+<br>
+<br>
+1次元IDFT
+<br>
+波数空間
+<br>
+\(u=0,1,...,N-1\)
+<br>
+における偏角
+<br>
+\(\theta_u=u2\pi/N\)
+<br>
+とする標本点
+<br>
+\(F(u)\)
+<br>
+に対する1次元IDFT
+<br>
+\(f(x)\)
+<br>
+\(=\frac{1}{N}\sum_{u=0}^{N-1}F(u)\mathrm{e}^{\mathrm{i}x\theta_u}\)
+<br>
+\(=\frac{1}{N}\overline{\sum_{u=0}^{N-1}\overline{F(u)}\mathrm{e}^{-\mathrm{i}x\theta_u}}\)
+<br>
+\(=f_u^N(x)\)
+<br>
+<br>
+2次元DFT
+<br>
+実空間
+<br>
+\(x=0,1,...,N-1\)
+<br>
+\(y=0,1,...,M-1\)
+<br>
+における偏角
+<br>
+\(\theta_x=x2\pi/N\)
+<br>
+\(\theta_y=y2\pi/M\)
+<br>
+とする標本点
+<br>
+\(f(x,y)\)
+<br>
+に対する2次元DFT
+<br>
+\(F(u,v)\)
+<br>
+\(=\sum_{y=0}^{M-1}\sum_{x=0}^{N-1}
+<br>
+f(x,y)\mathrm{e}^{-\mathrm{i}(u\theta_x+v\theta_y)}\)
+<br>
+\(=\sum_{y=0}^{M-1}\sum_{x=0}^{N-1}
+<br>
+f(x,y)\mathrm{e}^{-\mathrm{i}u\theta_x}\mathrm{e}^{-\mathrm{i}v\theta_y}\)
+<br>
+\(=\sum_{y=0}^{M-1}F_x^N(u,y)\mathrm{e}^{-\mathrm{i}v\theta_y}\)
+<br>
+\(=F_{xy}^{NM}(u,v)\)
+<br>
+<br>
+2次元IDFT
+<br>
+波数空間
+<br>
+\(u=0,1,...,N-1\)
+<br>
+\(v=0,1,...,M-1\)
+<br>
+における偏角
+<br>
+\(\theta_u=u2\pi/N\)
+<br>
+\(\theta_v=v2\pi/M\)
+<br>
+とする標本点
+<br>
+\(F(u,v)\)
+<br>
+に対する2次元IDFT
+<br>
+\(f(x,y)\)
+<br>
+\(=\frac{1}{NM}\sum_{v=0}^{M-1}\sum_{u=0}^{N-1}
+<br>
+F(u,v)\mathrm{e}^{\mathrm{i}(x\theta_u+y\theta_v)}\)
+<br>
+\(=\frac{1}{NM}\sum_{v=0}^{M-1}\sum_{u=0}^{N-1}
+<br>
+F(u,v)\mathrm{e}^{\mathrm{i}x\theta_u}\mathrm{e}^{\mathrm{i}y\theta_v}\)
+<br>
+\(=\frac{1}{NM}\sum_{v=0}^{M-1}\sum_{u=0}^{N-1}
+<br>
+\overline{F(u,v)}\mathrm{e}^{-\mathrm{i}x\theta_u}\mathrm{e}^{\mathrm{i}y\theta_v}\)
+<br>
+\(=\frac{1}{NM}\sum_{v=0}^{M-1}
+<br>
+\overline{f_u^N(x,v)}\mathrm{e}^{\mathrm{i}y\theta_v}\)
+<br>
+\(=\frac{1}{NM}\overline{\sum_{v=0}^{M-1}
+<br>
+\overline{f_u^N(x,v)}\mathrm{e}^{-\mathrm{i}y\theta_v}}\)
+<br>
+\(=f_{uv}^{NM}(x,y)\)
+    </td>
+  </tr>
+  <tr>
+    <th>
+<a href="#span-index">
+目次
+</a>
+<br>
+離散
+<br>
+Wavelet変換
+<br>
+の解法
+    </th>
+    <td>
+<span id="span-out-transform-dwt"></span>
+離散Wavelet変換Discrete Wavelet Transform(DWT)の解法について記述する
     </td>
   </tr>
   <tr>
