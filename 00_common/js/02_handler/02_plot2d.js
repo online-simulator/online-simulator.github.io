@@ -566,15 +566,18 @@ My_entry.plot2d.prototype.run = function(arr2d_vec, options, toSVG, isFinal){
     }
   }
   options._arr2d_tvec = arr2d_tvec;  // 1.2.3
-  if(toSVG && options._cut){
-    var len_j = arr2d_tvec.length;
+  var callback_cut_toSVG = function(withTransform){
     var text = options._cut;
-    var records = $.get_records(text, ",", 0, ["Nlegend"]);
-    var Nlegend = def.limit(Math.floor(records.Nlegend), NUMMIN, NUMMAX, len_j);
-    var idName_mask = "mask_cut";
-    _svg += plot.draw.def_mask_style(idName_mask, plot.lines(arr2d_tvec[Nlegend-1] || arr2d_tvec[len_j-1], 0, "#ffffff", null, true));
-    _svg += plot.draw.header_group(null, plot.draw.use_mask(idName_mask));
-  }
+    var records = $.get_records(text, ",", 0, ["Nlegend", "withTransform"]);
+    records.withTransform = def.limit(records.withTransform, -10, 10, true);
+    if((withTransform && records.withTransform) || (!(withTransform) && !(records.withTransform))){
+      var len_j = arr2d_tvec.length;
+      var Nlegend = def.limit(Math.floor(records.Nlegend), NUMMIN, NUMMAX, len_j);
+      var idName_mask = "mask_cut";
+      _svg += plot.draw.def_mask_style(idName_mask, plot.lines(arr2d_tvec[Nlegend-1] || arr2d_tvec[len_j-1], 0, "#ffffff", null, true));
+      _svg += plot.draw.header_group(null, plot.draw.use_mask(idName_mask));
+    }
+  };
   /* -> 1.15.7 */
   /* 1.10.6 -> */
   var callback_transform_toSVG = function(withBackground){
@@ -584,9 +587,17 @@ My_entry.plot2d.prototype.run = function(arr2d_vec, options, toSVG, isFinal){
       _svg += plot.draw.header_group(null, plot.draw.transform(params.a, params.b, params.c, params.d, params.e, params.f));
     }
   };
+  /* 1.15.7 -> */
+  if(toSVG && options._cut){
+    callback_cut_toSVG(false);
+  }
   if(toSVG && options._transform){
     callback_transform_toSVG(true);
   }
+  if(toSVG && options._cut){
+    callback_cut_toSVG(true);
+  }
+  /* -> 1.15.7 */
   // background
   /* 0.7.0 -> */
   var decDigit = options["decDigit"];
@@ -925,6 +936,13 @@ My_entry.plot2d.prototype.final = function(arr2d_vec, options, toSVG){
       var text = options._cut;
       var records_mask = get_records_mask(text);
       var Nlegend = records_mask.Nlegend;
+      var withTransform = records_mask.isInverse;
+      temp.ctx.save();
+      if(options._transform && withTransform){
+        var text = options._transform;
+        var params = $.get_records(text, ",", 0, ["a", "b", "c", "d", "e", "f", "withBackground"], true);
+        temp.ctx.setTransform(params.a, params.b, params.c, params.d, params.e, params.f);
+      }
       temp.lines(arr2d_tvec[Nlegend-1] || arr2d_tvec[len_j-1], 0, "#ffffff", null, true);
 //      all.draw_base64(temp.get_base64(), null, "destination-atop");
       var params = {};
@@ -932,6 +950,7 @@ My_entry.plot2d.prototype.final = function(arr2d_vec, options, toSVG){
       params.ID_mask = temp.getID();
       params.isClear = true;
       all.putID(self.filter.run(all.ctx, params));
+      temp.ctx.restore();
       temp.clear();
     };
     /* -> 1.15.7 */

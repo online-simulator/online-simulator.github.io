@@ -2561,7 +2561,7 @@ mask[Nlegend||last,isInverse||false,isClear||false]
 <br>
 　trueの場合、mask領域の外側のみにfilterを適用
 <br>
-・isClear=false||trueはmask領域外の処理を選択する
+・isClear=false||trueはfilterの適用範囲外の処理を選択する
 <br>
 　falseの場合、filter適用前のRGBA値を保持
 <br>
@@ -6551,7 +6551,9 @@ cut{Nlegend||last,withTransform||false}
 <br>
 　範囲外の数値||数値以外を指定した場合、最終legendを選択
 <br>
-・withTransform=false||trueは<a href="#span-out-UI-graphing-transform">transform</a>の反映を選択（未実装）
+・withTransform=false||trueは<a href="#span-out-UI-graphing-transform">transform</a>の反映を選択
+<br>
+　svg出力の場合、<a href="#span-out-UI-graphing-transform">withBackground</a>=1のみ有効
     </td>
   </tr>
   <tr>
