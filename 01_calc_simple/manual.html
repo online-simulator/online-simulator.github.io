@@ -1064,6 +1064,11 @@ plot2d_EIS
 </a>
 <br>
 ・
+<a href="#span-eqn-plot2d_EIS_DFT">
+plot2d_EIS_DFT
+</a>
+<br>
+・
 <a href="#span-eqn-plot2d_IV">
 plot2d_IV
 </a>
@@ -16834,7 +16839,28 @@ Electrochemical Impedance Spectroscopy（以降、EISと省略する）
 　Zが<a href="#span-out-com">複素数</a>平面の<span class="condition">第4象限</span>（半円の頂点で位相が負）に位置しない場合、<span class="clear">基準波形を見直す</span>
 <br>
 <br>
-<a href="#span-eqn-plot2d_EIS">plot2d_EIS</a>||<a href="#span-eqn-plot2d_IV">plot2d_IV</a>に示すsimulation対象cellの等価回路要素（直列接続）を列挙する
+<span class="run">Ver.2.64.27</span>以降、<a href="#span-eqn-plot2d_EIS_DFT">plot2d_EIS_DFT</a>に示す
+<br>
+hard/softの制約を考慮する場合、<a href="#span-eqn-plot2d_EIS">plot2d_EIS</a>の変化点を列挙する
+<br>
+・時間tに対する電流波形I(t)と電圧波形V(t)のsampling時刻/sampling間隔が同一を前提とする
+<br>
+・<span class="clear">基準波形</span>を含む時間積分を<a href="#span-out-transform-dft">離散Fourier変換</a>で代替する
+<br>
+・Laplace領域||波数領域の変数s=i*omegaを定義する
+<br>
+I(s)=DFT(I(t))
+<br>
+V(s)=DFT(V(t))
+<br>
+Z(s)=V(s)/I(s)
+<br>
+・以上より、時間領域から波数領域のZ(s)に変換する（高精度の時間積分は不要）
+<br>
+<br>
+<a href="#span-eqn-plot2d_EIS">plot2d_EIS</a>||<a href="#span-eqn-plot2d_EIS_DFT">plot2d_EIS_DFT</a>||<a href="#span-eqn-plot2d_IV">plot2d_IV</a>に示す
+<br>
+simulation対象cellの等価回路要素（直列接続）を列挙する
 <br>
 ・構造由来のinductance: L
 <br>
@@ -17130,6 +17156,37 @@ dt&le;min(0.2,100)<span class="selection">*2</span>
 <span class="selection">0.031622776601683854,infoLost[ri] 3.1017196891639354-0.5529342786020476i:</span>
 <br>
 0.010000000000000012,infoLost[ri] -6.24810011909696e+55-7.398061071461481e+55i
+<br>
+)
+<br>
+<br>
+続けて時間積分を<a href="#span-out-transform-dft">離散Fourier変換</a>で代替（<a href="#span-eqn-plot2d_EIS_DFT">plot2d_EIS_DFT</a>に変更）の影響
+<br>
+・Zのsimulation結果は定性的に大差なし
+<br>
+(
+<br>
+999.9999999999998,infoLost[ri] 1.0000543892797595+0.6392747864438679i:
+<br>
+316.22776601683796,infoLost[ri] 1.0001977616975484+0.19757406150509768i:
+<br>
+100.00000000000004,infoLost[ri] 1.0008790467041697+0.04799047769435572i:
+<br>
+31.62277660168379,infoLost[ri] 1.0051938738253914-0.030553331468587727i:
+<br>
+10.00000000000001,infoLost[ri] 1.0370682220140526-0.15188583273656356i:
+<br>
+3.162277660168381,infoLost[ri] 1.2428077197277516-0.4463003704640858i:
+<br>
+<span class="condition">1,infoLost[ri] 1.9691091944331642-0.8282224753004641i:</span>
+<br>
+0.3162277660168378,infoLost[ri] 2.747797860771646-0.6608797016283408i:
+<br>
+0.10000000000000024,infoLost[ri] 2.9780526592821848-0.42653152705817254i:
+<br>
+0.031622776601683854,infoLost[ri] 3.095161552636316-0.6774520967840967i:
+<br>
+0.010000000000000012,infoLost[ri] 3.71133683621205-1.8234973547405815i
 <br>
 )
 <br>
@@ -21634,6 +21691,207 @@ init=&gt;,run=&gt;,return=out=&gt;,scope2storage=&gt;,
 [isImplicit=1,isBode=0,
 <br>
 =&lt;plot2d_EIS(isBode,=&lt;sweep_f(1e-3,1e3,0.01,10,100,1,isImplicit)=&gt;)=&gt;]=&gt;;
+    </td>
+  </tr>
+  <tr>
+    <th>
+<a href="#span-index">
+目次
+</a>
+<br>
+plot2d
+<br>
+_EIS_DFT
+    </th>
+    <td>
+<span id="span-eqn-plot2d_EIS_DFT"></span>
+<a href="#span-out-simulation-EIS">EIS simulation</a>参照
+<br>
+clear;
+<br>
+<br>
+make_IV(dI,f,Nt,Nint,isImplicit)=&lt;last{
+<br>
+L=1e-4,
+<br>
+R0=1,
+<br>
+R1=2,C1=0.1,
+<br>
+a1=1/(R1*C1),b1=1/C1,
+<br>
+a2=0.01,b2=0.12,
+<br>
+omega=2*pi*f,
+<br>
+dt=1/(f*Nt),
+<br>
+N=Nt*Nint,
+<br>
+tI=zeros(N+1,1),tV=zeros(N+1,1),
+<br>
+oldV1=0,
+<br>
+oldV2=0,
+<br>
+_sn(=&lt;last{
+<br>
+t=n*dt,
+<br>
+It=dI*sin(omega*t),
+<br>
+dIt=dI*cos(omega*t)*omega,
+<br>
+newV1=switch(isImplicit,(oldV1+b1*dt*It)/(1+a1*dt):1,(1-a1*dt)*oldV1+b1*dt*It),
+<br>
+newV2=switch(isImplicit,(oldV2+b2*dt*It)/(1+a2*dt):1,(1-a2*dt)*oldV2+b2*dt*It),
+<br>
+oldV1=newV1,
+<br>
+oldV2=newV2,
+<br>
+Vt=L*dIt+R0*It+newV1+newV2,
+<br>
+tI[n]=It,
+<br>
+tV[n]=Vt
+<br>
+},0,N)
+<br>
+};
+<br>
+<br>
+DFT_IV(IV,f,dt)=&lt;[
+<br>
+out=&lt;zIV,
+<div class="condition">
+init=&lt;last{N=sizer(IV)-1},
+</div>
+<div class="run">
+run=&lt;last{
+<br>
+omega=2*pi*f,
+<br>
+zIV=_sn(=&lt;IV[n]*exp(-i*omega*n*dt),0,N)
+<br>
+},
+</div>
+init=&gt;,run=&gt;,return=out=&gt;,
+<br>
+=&lt;return]=&gt;;
+<br>
+<br>
+calc_Z(zI,zV)=&lt;[
+<br>
+out=&lt;Z,
+<div class="condition">
+init=&lt;last{0},
+</div>
+<div class="run">
+run=&lt;last{
+<br>
+Z=zV/zI
+<br>
+},
+</div>
+init=&gt;,run=&gt;,return=out=&gt;,
+<br>
+=&lt;return]=&gt;;
+<br>
+<br>
+sweep_f(dI,f0,f1,Nf,Nt,Nint,isImplicit)=&lt;[
+<br>
+out=&lt;fZ,
+<div class="condition">
+init=&lt;last{fZ=zeros(Nf+1,2)},
+</div>
+<div class="run">
+run=&lt;last{
+<br>
+calc_f(n)=&lt;exp(log(f0)+(log(f1)-log(f0))*n/Nf),
+<br>
+_sn(=&lt;last{
+<br>
+f=calc_f(n)=&gt;,
+<br>
+make_IV(dI,f,Nt,Nint,isImplicit)==&gt;,
+<br>
+fZ[n]=(f,calc_Z(DFT_IV(=&lt;tI,f,dt)=&gt;,DFT_IV(=&lt;tV,f,dt)=&gt;)=&gt;)
+<br>
+},0,Nf)
+<br>
+},
+</div>
+init=&gt;,run=&gt;,return=out=&gt;,
+<br>
+=&lt;return]=&gt;;
+<br>
+<br>
+plot2d_EIS_DFT(isBode,fZ)=&lt;[
+<br>
+out=&lt;(xt,yt),
+<br>
+scope2storage=&lt;last{addVar(xt),addVar(yt)},
+<div class="condition">
+init=&lt;last{N=sizer(fZ),xt=zeros(N,1),yt=zeros(N,1)},
+</div>
+<div class="run">
+run=&lt;last{
+<br>
+switch(
+<br>
+isBode==0/*Nyquist-plot(real(Z),-imag(Z))*/,
+<br>
+=&lt;_sn(=&lt;last{
+<br>
+Z=fZ[n][1],
+<br>
+xt[n]=real(Z),
+<br>
+yt[n]=-imag(Z)
+<br>
+},0,N-1):
+<br>
+isBode&gt;0/*Bode-plot(log10(f),|Z|)*/,
+<br>
+=&lt;_sn(=&lt;last{
+<br>
+f=fZ[n][0],
+<br>
+Z=fZ[n][1],
+<br>
+xt[n]=log10(f),
+<br>
+yt[n]=abs(Z)
+<br>
+},0,N-1):
+<br>
+1/*else-Bode-plot(log10(f),deg_phi)*/,
+<br>
+=&lt;_sn(=&lt;last{
+<br>
+f=fZ[n][0],
+<br>
+Z=fZ[n][1],
+<br>
+xt[n]=log10(f),
+<br>
+yt[n]=deg_atan2(imag(Z),real(Z))
+<br>
+},0,N-1)
+<br>
+)
+<br>
+},
+</div>
+init=&gt;,run=&gt;,return=out=&gt;,scope2storage=&gt;,
+<br>
+=&lt;return]=&gt;;
+<br>
+<br>
+[isImplicit=1,isBode=0,
+<br>
+=&lt;plot2d_EIS_DFT(isBode,=&lt;sweep_f(1e-3,1e3,0.01,10,100,1,isImplicit)=&gt;)=&gt;]=&gt;;
     </td>
   </tr>
   <tr>
