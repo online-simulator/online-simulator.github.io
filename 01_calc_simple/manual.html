@@ -122,7 +122,7 @@ e^(-i(1pi(){2/2i}(5-{3-1}){i/(-4)}))
 
 <div>
 <table>
-<caption>[manual]Calculatorの前置き</caption>
+<caption>[manual]Calculatorの前書き</caption>
 <thead>
   <tr>
     <th>
@@ -1191,6 +1191,10 @@ ja.m.wikipedia.org/wiki/項目を列挙する
 <br>
 ・シンプソンの公式
 <br>
+・ラプラス変換
+<br>
+・フーリエ変換
+<br>
 ・フーリエ級数
 <br>
 ・フォン・ノイマンの安定性解析
@@ -1666,9 +1670,9 @@ violet:blue:cyan:green:yellow:orange:red
 <br>
 ・近年、短波長側のindigo||cyanを消去して6色と数えるcaseが多い（虹の特殊文字等）
 <br>
-・主虹を裸眼で見る場合、長波長で屈折率の低いredを外周とする（反射回数1回）
+・主虹を裸眼で目視する場合、長波長で屈折率の低いredを外周とする（反射回数1回）
 <br>
-・副虹はその逆でredを内周とする（反射回数2回）
+・主虹の外側に薄く映る副虹はその逆でredを内周とする（反射回数2回）
     </td>
   </tr>
   <tr>
@@ -12687,7 +12691,7 @@ trans(1,2:3,4)[1] || trans((1,2:3,4)[1])  <span class="selection">// NG</span> -
 <br>
 行列への代入は<a href="#span-out-vars">変数</a>を使用する
 <br>
-・よって<a href="#span-out-substitution">変数への代入</a>と同義として扱う
+・よって<a href="#span-out-substitution">変数への代入</a>に同義として扱う
 <br>
 <br>
 定義済みの行列要素のみ代入可
@@ -14968,7 +14972,7 @@ _Dy(=&lt;{_Dx(=&lt;{x*y*y},1,0)},1,1)
 -> 1.9999999999998288+1.8785308474662037e-13i+O(7e-10+1e-12i)
 <br>
 <br>
-<span class="run">Ver.2.29.15</span>以降、微分の差分刻みdx0=0の場合、省略と同義として扱う
+<span class="run">Ver.2.29.15</span>以降、微分の差分刻みdx0=0の場合、省略に同義として扱う
 <br>
 _dx(=&lt;{x^2},1,1,0) || _dx(=&lt;{x^2},1,1)
 <br>
@@ -16830,7 +16834,7 @@ Electrochemical Impedance Spectroscopy（以降、EISと省略する）
 <br>
 ・得られた<a href="#span-out-com">複素数</a>の基準波形を各実測波形に時間領域で乗算する
 <br>
-・さらに、得られた<a href="#span-out-com">複素数</a>の各波形を<a href="#span-out-fdm-integral">合成Simpson公式</a>で時間積分する（<a href="#span-out-eqns">式変数</a><a href="#span-eqn-plot2d_EIS">int_IV</a>）
+・さらに、得られた<a href="#span-out-com">複素数</a>の各波形を<a href="#span-out-fdm-integral">合成Simpson公式</a>で時間積分する（<a href="#span-out-eqns">式変数</a><a href="#span-eqn-plot2d_EIS">FT_IV</a>）
 <br>
 ・最後に、得られた各<a href="#span-out-com">複素数</a>の比からZ=zV/zIに変換する（<a href="#span-out-eqns">式変数</a><a href="#span-eqn-plot2d_EIS">calc_Z</a>）
 <br>
@@ -16839,15 +16843,28 @@ Electrochemical Impedance Spectroscopy（以降、EISと省略する）
 　Zが<a href="#span-out-com">複素数</a>平面の<span class="condition">第4象限</span>（半円の頂点で位相が負）に位置しない場合、<span class="clear">基準波形を見直す</span>
 <br>
 <br>
+<span class="run">Ver.2.64.27</span>以降、想定algorithmの補足を列挙する
+<br>
+・<span class="clear">基準波形</span>を含む時間積分は周期関数の連続Fourier変換||Laplace変換に同義
+<br>
+・Laplace領域||波数領域の変数s=i*omegaを定義して各実測波形を連続Fourier変換する
+<br>
+I(s)=FT(I(t))
+<br>
+V(s)=FT(V(t))
+<br>
+Z(s)=V(s)/I(s)
+<br>
+・以上より、時間領域から波数領域のZ(s)に変換する
+<br>
+<br>
 <span class="run">Ver.2.64.27</span>以降、<a href="#span-eqn-plot2d_EIS_DFT">plot2d_EIS_DFT</a>に示す
 <br>
 hard/softの制約を考慮する場合、<a href="#span-eqn-plot2d_EIS">plot2d_EIS</a>の変化点を列挙する
 <br>
 ・時間tに対する電流波形I(t)と電圧波形V(t)のsampling時刻/sampling間隔が同一を前提とする
 <br>
-・<span class="clear">基準波形</span>を含む時間積分を<a href="#span-out-transform-dft">離散Fourier変換</a>で代替する
-<br>
-・Laplace領域||波数領域の変数s=i*omegaを定義する
+・各実測波形の連続Fourier変換を<a href="#span-out-transform-dft">離散Fourier変換</a>で代替する
 <br>
 I(s)=DFT(I(t))
 <br>
@@ -17160,7 +17177,7 @@ dt&le;min(0.2,100)<span class="selection">*2</span>
 )
 <br>
 <br>
-続けて時間積分を<a href="#span-out-transform-dft">離散Fourier変換</a>で代替（<a href="#span-eqn-plot2d_EIS_DFT">plot2d_EIS_DFT</a>に変更）の影響
+続けて連続Fourier変換を<a href="#span-out-transform-dft">離散Fourier変換</a>で代替（<a href="#span-eqn-plot2d_EIS_DFT">plot2d_EIS_DFT</a>に変更）の影響
 <br>
 ・Zのsimulation結果は定性的に大差なし
 <br>
@@ -19138,7 +19155,14 @@ Fourier変換
 離散Fourier変換Discrete Fourier Transform(DFT)の解法について記述する
 <br>
 <br>
-逆変換に正規化係数1/Nを付与するDFTの一例を示す（LaTeX形式）
+前提を列挙する
+<br>
+・1次元の標本点数をNとして順変換DFTと逆変換IDFTの正規化係数(Nf,Ni)の制約条件を示す
+<br>
+Nf*Ni=1/N
+<br>
+<br>
+(Nf,Ni)=(1,1/N)のDFT/IDFTを一例に示す（LaTeX形式）
 <br>
 ・<a href="../81_mathjax/index.html">MathJax表示Checker※CDN通信あり</a>
 <br>
@@ -21556,7 +21580,7 @@ tV[n]=Vt
 };
 <br>
 <br>
-int_IV(IV,f,dt)=&lt;[
+FT_IV(IV,f,dt)=&lt;[
 <br>
 out=&lt;zIV,
 <div class="condition">
@@ -21615,7 +21639,7 @@ f=calc_f(n)=&gt;,
 <br>
 make_IV(dI,f,Nt,Nint,isImplicit)==&gt;,
 <br>
-fZ[n]=(f,calc_Z(int_IV(=&lt;tI,f,dt)=&gt;,int_IV(=&lt;tV,f,dt)=&gt;)=&gt;)
+fZ[n]=(f,calc_Z(FT_IV(=&lt;tI,f,dt)=&gt;,FT_IV(=&lt;tV,f,dt)=&gt;)=&gt;)
 <br>
 },0,Nf)
 <br>
