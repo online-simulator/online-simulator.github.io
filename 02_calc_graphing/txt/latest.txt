@@ -236,7 +236,7 @@ stored_eqn(sweep_f)
 calc_Z(zI,zV)=<[out=<Z,init=<last{0},run=<last{Z=zV/zI},init=>,run=>,return=out=>,=<return]=>
 stored_eqn(calc_Z)
 
-DFT_IV(IV,f,dt)=<[out=<zIV,init=<last{N=sizer(IV)-1},run=<last{omega=2*pi*f,zIV=_sn(=<IV[n]*exp(-i*omega*n*dt),0,N)},init=>,run=>,return=out=>,=<return]=>
+DFT_IV(IV,f,dt)=<[out=<zIV,init=<last{N=sizer(IV)},run=<last{omega=2*pi*f,zIV=_sn(=<IV[n]*exp(-i*omega*n*dt),0,N-1)},init=>,run=>,return=out=>,=<return]=>
 stored_eqn(DFT_IV)
 
 make_IV(dI,f,Nt,Nint,isImplicit)=<last{L=1e-4,R0=1,R1=2,C1=0.1,a1=1/(R1*C1),b1=1/C1,a2=0.01,b2=0.12,omega=2*pi*f,dt=1/(f*Nt),N=Nt*Nint,tI=zeros(N+1,1),tV=zeros(N+1,1),oldV1=0,oldV2=0,_sn(=<last{t=n*dt,It=dI*sin(omega*t),dIt=dI*cos(omega*t)*omega,newV1=switch(isImplicit,(oldV1+b1*dt*It)/(1+a1*dt):1,(1-a1*dt)*oldV1+b1*dt*It),newV2=switch(isImplicit,(oldV2+b2*dt*It)/(1+a2*dt):1,(1-a2*dt)*oldV2+b2*dt*It),oldV1=newV1,oldV2=newV2,Vt=L*dIt+R0*It+newV1+newV2,tI[n]=It,tV[n]=Vt},0,N)}
@@ -269,7 +269,7 @@ stored_eqn(sweep_f)
 calc_Z(zI,zV)=<[out=<Z,init=<last{0},run=<last{Z=zV/zI},init=>,run=>,return=out=>,=<return]=>
 stored_eqn(calc_Z)
 
-FT_IV(IV,f,dt)=<[out=<zIV,init=<last{N=sizer(IV)-1},run=<last{omega=2*pi*f,calc_w(n)=<switch((n==0)|(n==N),1:n%2==0,2:1,4),calc_v(n,t,val)=<calc_w(n)=>*val*exp(-i*omega*t),zIV=_sn(=<calc_v(n,n*dt,IV[n])=>,0,N)*dt/3},init=>,run=>,return=out=>,=<return]=>
+FT_IV(IV,f,dt)=<[out=<zIV,init=<last{N=sizer(IV)},run=<last{omega=2*pi*f,calc_w(n)=<switch((n==0)|(n==N-1),1:n%2==0,2:1,4),calc_v(n,t,val)=<calc_w(n)=>*val*exp(-i*omega*t),zIV=_sn(=<calc_v(n,n*dt,IV[n])=>,0,N-1)*dt/3},init=>,run=>,return=out=>,=<return]=>
 stored_eqn(FT_IV)
 
 make_IV(dI,f,Nt,Nint,isImplicit)=<last{L=1e-4,R0=1,R1=2,C1=0.1,a1=1/(R1*C1),b1=1/C1,a2=0.01,b2=0.12,omega=2*pi*f,dt=1/(f*Nt),N=Nt*Nint,tI=zeros(N+1,1),tV=zeros(N+1,1),oldV1=0,oldV2=0,_sn(=<last{t=n*dt,It=dI*sin(omega*t),dIt=dI*cos(omega*t)*omega,newV1=switch(isImplicit,(oldV1+b1*dt*It)/(1+a1*dt):1,(1-a1*dt)*oldV1+b1*dt*It),newV2=switch(isImplicit,(oldV2+b2*dt*It)/(1+a2*dt):1,(1-a2*dt)*oldV2+b2*dt*It),oldV1=newV1,oldV2=newV2,Vt=L*dIt+R0*It+newV1+newV2,tI[n]=It,tV[n]=Vt},0,N)}
@@ -578,4 +578,4 @@ drag=false&test-case=false&legend=true&axis-t=false&axis-x=true&log-x=false&imag
 --------------------------------
 --------------------------------
 
-online-simulator.github.io.4.73.23.10.24 @ Mon Oct 25 2021 23:22:45 GMT+0900 (日本標準時) @ Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/94.0.4606.81 Safari/537.36
+online-simulator.github.io.4.73.23.10.24 @ Tue Oct 26 2021 15:10:45 GMT+0900 (日本標準時) @ Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/95.0.4638.54 Safari/537.36

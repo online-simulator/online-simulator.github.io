@@ -16501,7 +16501,7 @@ RC並列回路のsimplified modellingについて記述する
 <br>
 前提を列挙する
 <br>
-・電流Iと電圧Vは正の相関を持つと仮定する
+・電流Iと電圧Vは正の相関を前提とする
 <br>
 ・Laplace領域における合成impedanceの伝達関数Z(s)は電流I(s)に対する電圧V(s)の比で表す
 <br>
@@ -16650,7 +16650,7 @@ modelling
 <br>
 前提を列挙する
 <br>
-・電流Iと電圧Vは正の相関を持つと仮定する
+・電流Iと電圧Vは正の相関を前提とする
 <br>
 ・Faraday定数をF[C/mol]とする
 <br>
@@ -16828,7 +16828,7 @@ Electrochemical Impedance Spectroscopy（以降、EISと省略する）
 <br>
 <a href="#span-eqn-plot2d_EIS">plot2d_EIS</a>に示すZ変換（impedance演算部）の想定algorithmを列挙する
 <br>
-・電流Iと電圧Vは正の相関を持つと仮定する
+・電流Iと電圧Vは正の相関を前提とする
 <br>
 ・各実測波形の角周波数をomegaとして時間tに対する<span class="clear">基準波形</span>exp(<span class="clear">-</span>i*omega*t)を作る
 <br>
@@ -16873,6 +16873,19 @@ V(s)=DFT(V(t))
 Z(s)=V(s)/I(s)
 <br>
 ・以上より、時間領域から波数領域のZ(s)に変換する（高精度の時間積分は不要）
+<br>
+<br>
+<span class="run">Ver.2.64.27</span>以降、想定algorithmの<a href="#span-out-error">数値誤差</a>について補足を列挙する
+<br>
+・時間積分に換算してZ変換の<a href="#span-out-error">数値誤差</a>を示す
+<br>
+　連続Fourier変換の場合、<a href="#span-out-fdm-integral">合成Simpson公式</a>のOrder(dt^4)
+<br>
+　<a href="#span-out-transform-dft">離散Fourier変換</a>の場合、<a href="#span-out-fdm-integral">台形公式</a>より低次のOrder(dt)
+<br>
+・I(t)||V(t)の<a href="#span-out-error">modelling誤差</a>がOrder(dt)の場合、Z変換の<a href="#span-out-error">数値誤差</a>は同等以下で支配しない
+<br>
+・実測結果も同様に、影響は少ないと考えられるが、厳密にはZ変換前の波形を比較する
 <br>
 <br>
 <a href="#span-eqn-plot2d_EIS">plot2d_EIS</a>||<a href="#span-eqn-plot2d_EIS_DFT">plot2d_EIS_DFT</a>||<a href="#span-eqn-plot2d_IV">plot2d_IV</a>に示す
@@ -19094,6 +19107,15 @@ Fourier変換
 高速Fourier変換Fast Fourier Transform(FFT)の解法について記述する
 <br>
 <br>
+前提を列挙する
+<br>
+・信号変換前の領域を実空間（時間領域を含む）と記述する
+<br>
+・信号変換後の領域を波数領域と記述する
+<br>
+・信号変換前後のsampling離散点を標本点と記述する
+<br>
+<br>
 Split-Radix-2 FFTを一例に示す（LaTeX形式）
 <br>
 ・<a href="../81_mathjax/index.html">MathJax表示Checker※CDN通信あり</a>
@@ -19192,7 +19214,7 @@ Nf*Ni=1/N
 <br>
 1次元IDFT
 <br>
-波数空間
+波数領域
 <br>
 \(u=0,1,...,N-1\)
 <br>
@@ -19252,7 +19274,7 @@ f(x,y)\mathrm{e}^{-\mathrm{i}u\theta_x}\mathrm{e}^{-\mathrm{i}v\theta_y}\)
 <br>
 2次元IDFT
 <br>
-波数空間
+波数領域
 <br>
 \(u=0,1,...,N-1\)
 <br>
@@ -21584,18 +21606,18 @@ FT_IV(IV,f,dt)=&lt;[
 <br>
 out=&lt;zIV,
 <div class="condition">
-init=&lt;last{N=sizer(IV)-1},
+init=&lt;last{N=sizer(IV)},
 </div>
 <div class="run">
 run=&lt;last{
 <br>
 omega=2*pi*f,
 <br>
-calc_w(n)=&lt;switch((n==0)|(n==N),1:n%2==0,2:1,4),
+calc_w(n)=&lt;switch((n==0)|(n==N-1),1:n%2==0,2:1,4),
 <br>
 calc_v(n,t,val)=&lt;calc_w(n)=&gt;*val*exp(-i*omega*t),
 <br>
-zIV=_sn(=&lt;calc_v(n,n*dt,IV[n])=&gt;,0,N)*dt/3
+zIV=_sn(=&lt;calc_v(n,n*dt,IV[n])=&gt;,0,N-1)*dt/3
 <br>
 },
 </div>
@@ -21789,14 +21811,14 @@ DFT_IV(IV,f,dt)=&lt;[
 <br>
 out=&lt;zIV,
 <div class="condition">
-init=&lt;last{N=sizer(IV)-1},
+init=&lt;last{N=sizer(IV)},
 </div>
 <div class="run">
 run=&lt;last{
 <br>
 omega=2*pi*f,
 <br>
-zIV=_sn(=&lt;IV[n]*exp(-i*omega*n*dt),0,N)
+zIV=_sn(=&lt;IV[n]*exp(-i*omega*n*dt),0,N-1)
 <br>
 },
 </div>
