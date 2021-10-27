@@ -14260,6 +14260,14 @@ switch(0,0:1,=&lt;{1}) || switch((0,0):(1,=&lt;{1})) || switch({0:0}:{1:=&lt;{1}
 switch(0,0,1,=&lt;{1})  <span class="selection">// NG</span> -> 0
 <br>
 switch(0,0:0,0:0,0:1,=&lt;{1}:1,=&lt;{2}) -> 1
+<br>
+clear; b=1; a=&lt;b=2; b=&lt;b; switch(0,a:1,=&lt;b) -> 2
+<br>
+clear; b=1; a=&lt;b=2; b=&lt;b; switch(1,=&lt;b:0,a) -> 2
+<br>
+clear; b=1; a=&lt;b=2; b=&lt;b; switch(1,=&lt;b:0,=&lt;a) -> 1
+<br>
+clear; b=1; a=&lt;b=2; b=&lt;b; switch(0,=&lt;a:1,=&lt;b) -> 1
     </td>
   </tr>
   <tr>
@@ -19114,6 +19122,8 @@ Fourier変換
 ・信号変換後の領域を波数領域と記述する
 <br>
 ・信号変換前後のsampling離散点を標本点と記述する
+<br>
+・複素共役をoverlineで記述する
 <br>
 <br>
 Split-Radix-2 FFTを一例に示す（LaTeX形式）
