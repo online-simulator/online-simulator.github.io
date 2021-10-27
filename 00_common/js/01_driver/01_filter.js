@@ -205,6 +205,12 @@ My_entry.filter.prototype.run = function(ctx, params){
     var isTo2 = sw_re(/to2/i);
     var isMono = sw_re(/mono/i);
     var isPost = isFx || isFy || isDot || isEncode || isFiin || isTo2 || isMono;
+    /* Ver.2.65.27 -> */
+    var isFFT = false;
+    var isDFT = sw_re(/dft/i);
+    var isDWT = sw_re(/dwt/i);
+    isPost = isPost || isFFT || isDFT || isDWT;
+    /* -> Ver.2.65.27 */
     var isConical = sw_re(/cone/i);
     var sws_hsv = [sw_re(/h/i), sw_re(/s/i), sw_re(/v/i)];
     var sws_rgba = [sw_re(/r/i), sw_re(/g/i), sw_re(/b/i), sw_re(/a/i)];
@@ -214,7 +220,7 @@ My_entry.filter.prototype.run = function(ctx, params){
       for(var j=0; j<px_h; ++j){
         for(var i=0; i<px_w; ++i){
           var ired = 4*(px_w*j+i);
-          var ired0 = 4*(px_w0*(js+j)+is+i);
+          var ired0 = 4*(px_w0*(js+j)+(is+i));
           callback(i, j, ired, ired0);
         }
       }
@@ -533,6 +539,128 @@ My_entry.filter.prototype.run = function(ctx, params){
           _data[ired+2] = rgb;
         });
       }
+      /* Ver.2.65.27 -> */
+      else if(isFFT || isDFT){
+        var pi2 = Math.PI*2;
+        var get_power = function(radix, val, power){
+          var _power = power || 0;
+          var _val = val/radix;
+          if(_val < 1){
+            return _power;
+          }
+          else{
+            return get_power(radix, _val, ++_power);
+          }
+        };
+        var radix_FFT = 2;
+        var N = (isFFT)? Math.pow(radix_FFT, get_power(radix_FFT, px_w)): px_w;
+        var M = (isFFT)? Math.pow(radix_FFT, get_power(radix_FFT, px_h)): px_h;
+        N = Math.min(N, 256);
+        M = Math.min(M, 256);
+        var init_arr = function(N, M, hasID){
+          var _arr = [];
+          var data = (hasID)? ctx.getImageData(is, js, N, M).data: null;
+          for(var i=0; i<N; ++i){
+            _arr[i] = [];
+            for(var j=0; j<M; ++j){
+              var ired = 4*(N*j+i);  // N
+              _arr[i][j] = [];
+              for(var n=0; n<4; ++n){
+                _arr[i][j][n] = (data)? data[ired+n]: 0;
+              }
+            }
+          }
+          return _arr;
+        };
+        var forward = function(ijr, iji, uvr, uvi, N, M, Nf, Mf, cutoffU, cutoffV, isInverse){
+          var ujr = init_arr(N, M);
+          var uji = init_arr(N, M);
+          // (i,j) -> (u,j)
+          for(var j=0; j<M; ++j){
+            for(var u=0; u<N; ++u){
+              var arr_sumr = [0, 0, 0, 0];
+              var arr_sumi = [0, 0, 0, 0];
+              for(var i=0; i<N; ++i){
+                var theta0 = u*i*pi2/N;
+                var theta = (isInverse)? theta0: -theta0;
+                var rcr = Math.cos(theta);
+                var rci = Math.sin(theta);
+                var ijrij = ijr[i][j];
+                var ijiij = iji[i][j];
+                for(var n=0; n<4; ++n){
+                  var lcr = ijrij[n];
+                  var lci = ijiij[n];
+                  arr_sumr[n] += lcr*rcr-lci*rci;
+                  arr_sumi[n] += lcr*rci+lci*rcr;
+                }
+              }
+              for(var n=0; n<4; ++n){
+                ujr[u][j][n] = arr_sumr[n]*Nf;
+                uji[u][j][n] = arr_sumi[n]*Nf;
+              }
+            }
+          }
+          // (u,j) -> (u,v)
+          for(var u=0; u<N; ++u){
+            for(var v=0; v<M; ++v){
+              var isCutOff = (u >= cutoffU*N && v >= cutoffV*M);
+              if(isCutOff){
+                for(var n=0; n<4; ++n){
+                  uvr[u][v][n] = 0;
+                  uvi[u][v][n] = 0;
+                }
+              }
+              else{
+                var arr_sumr = [0, 0, 0, 0];
+                var arr_sumi = [0, 0, 0, 0];
+                for(var j=0; j<M; ++j){
+                  var theta0 = v*j*pi2/M;
+                  var theta = (isInverse)? theta0: -theta0;
+                  var rcr = Math.cos(theta);
+                  var rci = Math.sin(theta);
+                  var ujruj = ujr[u][j];
+                  var ujiuj = uji[u][j];
+                  for(var n=0; n<4; ++n){
+                    var lcr = ujruj[n];
+                    var lci = ujiuj[n];
+                    arr_sumr[n] += lcr*rcr-lci*rci;
+                    arr_sumi[n] += lcr*rci+lci*rcr;
+                  }
+                }
+                for(var n=0; n<4; ++n){
+                  uvr[u][v][n] = arr_sumr[n]*Mf;
+                  uvi[u][v][n] = arr_sumi[n]*Mf;
+                }
+              }
+            }
+          }
+        };
+        var inverse = function(ijr, iji, uvr, uvi, N, M, Nf, Mf, cutoffU, cutoffV){
+          return forward(ijr, iji, uvr, uvi, N, M, Nf, Mf, cutoffU, cutoffV, true);
+        };
+        var output_data = function(ij){
+          for(var n=0; n<4; ++n){
+            if(sws_rgba[n]){
+              for(var j=0; j<M; ++j){
+                for(var i=0; i<N; ++i){
+                  var ired = 4*(px_w*j+i);  // px_w
+                  _data[ired+n] = Math.round(ij[i][j][n]);
+                }
+              }
+            }
+          }
+        };
+        var ijr = init_arr(N, M, true);
+        var iji = init_arr(N, M);
+        var uvr = init_arr(N, M);
+        var uvi = init_arr(N, M);
+        var cutoffU = arr_w[0] || 0;
+        var cutoffV = arr_w[1] || 0;
+        forward(ijr, iji, uvr, uvi, N, M, 1, 1, cutoffU, cutoffV);
+        inverse(uvr, uvi, ijr, iji, N, M, 1/N, 1/M, 1, 1);
+        output_data(ijr);
+      }
+      /* -> Ver.2.65.27 */
     }
     /* Ver.2.54.26 -> */
     else if(len_w > 5 && len_w < 9){

@@ -2571,7 +2571,7 @@ filter||FILTER{filters}
 <br>
 area[x||0,y||0,w||<a href="#span-out-UI-graphing-config">canvas-width</a>,h||<a href="#span-out-UI-graphing-config">canvas-height</a>]
 <br>
-・<span class="condition">canvas-area</span>は始点(x,y)と範囲(w,h)を直列化してpx数値で指定する
+・<span class="condition">canvas-area</span>は始点(x,y)とarea-size(w,h)を直列化してpx数値で指定する
 <br>
 ・<span class="clear">Ver.2.60.27</span>以降、下流側で致命的な不具合に繋がる入力を回避
 <br>
@@ -2861,11 +2861,11 @@ rgba[1]:hsv[1]
 <br>
 <span class="run">Ver.2.52.25</span>以降、filterを適用する<span class="condition">canvas-area</span>の設定項目を追加
 <br>
-・<span class="condition">canvas-area</span>は始点(x,y)と範囲(w,h)を直列化してpx数値で指定する
+・<span class="condition">canvas-area</span>は始点(x,y)とarea-size(w,h)を直列化してpx数値で指定する
 <br>
 area[x||0,y||0,w||<a href="#span-out-UI-graphing-config">canvas-width</a>,h||<a href="#span-out-UI-graphing-config">canvas-height</a>]
 <br>
-・始点(x,y)=(10,20)・範囲(w,h)=(30,40)　⇒　終点(x,y)=(10+30-1,20+40-1)
+・始点(x,y)=(10,20)・area-size(w,h)=(30,40)　⇒　終点(x,y)=(10+30-1,20+40-1)
 <br>
 area[10,20,30,40]
 <br>
@@ -6568,7 +6568,7 @@ post
 post-compressor特定項目仕様について記述する
 <br>
 <br>
-<a href="#span-out-UI-graphing-filter">filter</a>を代用してpost-compressor（画像圧縮のdemonstration機能）を追加予定
+<span class="run">Ver.2.65.27</span>以降、<a href="#span-out-UI-graphing-filter">filter</a>を代用してpost-compressor（画像圧縮のdemonstration機能）を追加
 <br>
 <br>
 post-compressorの仕様を列挙する
@@ -6580,15 +6580,15 @@ post-compressorの仕様を列挙する
 <br>
 post-compressor処理を優先順に列挙する
 <br>
-・<a href="#span-out-transform-fft">高速Fourier変換</a>
+・<a href="#span-out-transform-fft">高速Fourier変換</a>は不採用（overhead大）
 <br>
-fft_rgba[]
+<del>fft_rgba[]</del>
 <br>
-・<a href="#span-out-transform-dft">離散Fourier変換</a>
+・<a href="#span-out-transform-dft">離散Fourier変換</a>※下流側で<a href="#span-out-UI-graphing-filter">area-size</a>(w,h&lt;=256)を制限（memory size&lt;100MB）
 <br>
-dft_rgba[]
+dft_rgba[cutoffU=0~1||0,cutoffV=0~1||0]
 <br>
-・<a href="#span-out-transform-dwt">離散Wavelet変換</a>
+・<a href="#span-out-transform-dwt">離散Wavelet変換</a>（未実装）
 <br>
 dwt_rgba[]
     </td>
@@ -19153,7 +19153,7 @@ Split-Radix-2 FFTを一例に示す（LaTeX形式）
 <br>
 \(F^{N_p=1}_x(u)=f(0)\)
 <br>
-\(0\lt p\)
+\(p\gt0\)
 <br>
 \(F_x^{N_p=2^p}(u)\)
 <br>
