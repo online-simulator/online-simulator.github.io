@@ -601,9 +601,11 @@ My_entry.filter.prototype.run = function(ctx, params){
             }
           }
           // (u,j) -> (u,v)
+          var threshold_u = cutoffU*N;
+          var threshold_v = cutoffV*M;
           for(var u=0; u<N; ++u){
             for(var v=0; v<M; ++v){
-              var isCutOff = (u >= cutoffU*N && v >= cutoffV*M);
+              var isCutOff = (u >= threshold_u && v >= threshold_v);
               if(isCutOff){
                 for(var n=0; n<4; ++n){
                   uvr[u][v][n] = 0;
@@ -636,7 +638,8 @@ My_entry.filter.prototype.run = function(ctx, params){
           }
         };
         var inverse = function(ijr, iji, uvr, uvi, N, M, Nf, Mf, cutoffU, cutoffV){
-          return forward(ijr, iji, uvr, uvi, N, M, Nf, Mf, cutoffU, cutoffV, true);
+          Array.prototype.push.apply(arguments, [true]);
+          return forward.apply(self, arguments);
         };
         var output_data = function(ij){
           for(var n=0; n<4; ++n){
