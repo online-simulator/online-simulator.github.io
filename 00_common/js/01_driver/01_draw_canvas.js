@@ -396,7 +396,9 @@ My_entry.draw_canvas.prototype.blur = function(arr_s, arr_vec, opt_globalComposi
   var pi2 = Math.PI*2;
   /* 1.11.6 -> */
   var hasAsym = (x_asym || y_asym || k_asym || Nrad_asym);
+  /* limiter -> */
   var Nrender = (hasAsym)? Math.min(Nrender, 2560): Nrender;
+  /* -> limiter */
   var rdt = Nrender/pi2;
   var x0 = vec0.x;
   var y0 = vec0.y;

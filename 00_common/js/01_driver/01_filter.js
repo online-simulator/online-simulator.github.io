@@ -184,10 +184,12 @@ My_entry.filter.prototype.run = function(ctx, params){
   var px_w0 = ctx.canvas.width;
   var px_h0 = ctx.canvas.height;
   /* Ver.2.60.27 -> */
+  /* limiter -> */
   var is = Math.min(Math.max(Math.floor(params.is || 0), 0), px_w0-1);
   var js = Math.min(Math.max(Math.floor(params.js || 0), 0), px_h0-1);
   var px_w = Math.min(Math.max(Math.floor(params.px_w || px_w0-is), 1), px_w0-is);
   var px_h = Math.min(Math.max(Math.floor(params.px_h || px_h0-js), 1), px_h0-js);
+  /* -> limiter */
   /* -> Ver.2.60.27 */
   var _ID = ctx.getImageData(is, js, px_w, px_h);
   var _data = _ID.data;
@@ -540,23 +542,30 @@ My_entry.filter.prototype.run = function(ctx, params){
         });
       }
       /* Ver.2.65.27 -> */
-      else if(isFFT || isDFT){
+      else if(isFFT || isDFT || isDWT){
         var pi2 = Math.PI*2;
-        var get_power = function(radix, val, power){
-          var _power = power || 0;
-          var _val = val/radix;
-          if(_val < 1){
-            return _power;
-          }
-          else{
-            return get_power(radix, _val, ++_power);
-          }
-        };
-        var radix_FFT = 2;
-        var N = (isFFT)? Math.pow(radix_FFT, get_power(radix_FFT, px_w)): px_w;
-        var M = (isFFT)? Math.pow(radix_FFT, get_power(radix_FFT, px_h)): px_h;
+        var N = px_w;
+        var M = px_h;
+        if(isFFT || isDWT){
+          var get_power = function(radix, val, power){
+            var _power = power || 0;
+            var _val = val/radix;
+            if(_val < 1){
+              return _power;
+            }
+            else{
+              return get_power(radix, _val, ++_power);
+            }
+          };
+          var radix_FFT = 2;
+          var radix = (isDWT)? 2: radix_FFT;
+          N = Math.pow(radix, get_power(radix, px_w));
+          M = Math.pow(radix, get_power(radix, px_h));
+        }
+        /* limiter -> */
         N = Math.min(N, 256);
         M = Math.min(M, 256);
+        /* -> limiter */
         var init_arr = function(N, M, hasID){
           var _arr = [];
           var data = (hasID)? ctx.getImageData(is, js, N, M).data: null;
@@ -572,7 +581,7 @@ My_entry.filter.prototype.run = function(ctx, params){
           }
           return _arr;
         };
-        var forward = function(ijr, iji, uvr, uvi, N, M, Nf, Mf, cutoffU, cutoffV, isInverse){
+        var forward_DFT = function(ijr, iji, uvr, uvi, N, M, Nf, Mf, cutoffU, cutoffV, isInverse){
           var ujr = init_arr(N, M);
           var uji = init_arr(N, M);
           // (i,j) -> (u,j)
@@ -637,9 +646,9 @@ My_entry.filter.prototype.run = function(ctx, params){
             }
           }
         };
-        var inverse = function(ijr, iji, uvr, uvi, N, M, Nf, Mf, cutoffU, cutoffV){
+        var inverse_DFT = function(ijr, iji, uvr, uvi, N, M, Nf, Mf, cutoffU, cutoffV){
           Array.prototype.push.apply(arguments, [true]);
-          return forward.apply(self, arguments);
+          return forward_DFT.apply(self, arguments);
         };
         var output_data = function(ij){
           for(var n=0; n<4; ++n){
@@ -653,15 +662,21 @@ My_entry.filter.prototype.run = function(ctx, params){
             }
           }
         };
-        var ijr = init_arr(N, M, true);
-        var iji = init_arr(N, M);
-        var uvr = init_arr(N, M);
-        var uvi = init_arr(N, M);
-        var cutoffU = arr_w[0] || 0;
-        var cutoffV = arr_w[1] || 0;
-        forward(ijr, iji, uvr, uvi, N, M, 1, 1, cutoffU, cutoffV);
-        inverse(uvr, uvi, ijr, iji, N, M, 1/N, 1/M, 1, 1);
-        output_data(ijr);
+        if(isFFT){
+        }
+        else if(isDFT){
+          var ijr = init_arr(N, M, true);
+          var iji = init_arr(N, M);
+          var uvr = init_arr(N, M);
+          var uvi = init_arr(N, M);
+          var cutoffU = arr_w[0] || 0;
+          var cutoffV = arr_w[1] || 0;
+          forward_DFT(ijr, iji, uvr, uvi, N, M, 1, 1, cutoffU, cutoffV);
+          inverse_DFT(uvr, uvi, ijr, iji, N, M, 1/N, 1/M, 1, 1);
+          output_data(ijr);
+        }
+        else if(isDWT){
+        }
       }
       /* -> Ver.2.65.27 */
     }
