@@ -67,6 +67,7 @@ My_entry.plot2d.prototype.init = function(id, opt_px_w, opt_px_h, opt_px_b){
   self.classNames = [self.className, "absolute"];
   self.elem_p = self.entry.$._id(self.id);
   self.objs = {};
+  self.add("background_grid");  // 1.17.7
   self.names = ["background", "grid", "plot"];
   self.names.forEach(function(name){
     self.add(name);
@@ -272,6 +273,7 @@ My_entry.plot2d.prototype.update_elems = function(px_w, px_h){
   for(var name in objs){
     objs[name].change_size(px_w, px_h);
   }
+  objs.background_grid.draw_grid();  // 1.17.7
   return self;
 };
 My_entry.plot2d.prototype.update = function(opt_px_w, opt_px_h, opt_px_b){
@@ -450,6 +452,10 @@ My_entry.plot2d.prototype.run = function(arr2d_vec, options, toSVG, isFinal){
   var arr_strPath = new Array(len_j);
   var arr_gradation = new Array(len_j);
   var inputZ = options["input-z"] || "";
+  /* 1.17.7 -> */
+  inputZ = def.enter_name(inputZ, "bgcolor", false, 0, function(content){backgroundColor = content;});
+  inputZ = def.enter_name(inputZ, "gdcolor", false, 0, function(content){gridLineColor = content;});
+  /* -> 1.17.7 */
   /* 1.8.6 -> */
   var title = "";
   var label_x = "";
@@ -868,9 +874,14 @@ My_entry.plot2d.prototype.final = function(arr2d_vec, options, toSVG){
   var $ = self.entry.$;
   var conv = self.entry.conv;
   var def = self.entry.def;
-  var all = self.objs.all;
-  /* 1.15.7 -> */
+  /* 1.17.7 -> */
+  var background = self.objs.background;
+  var grid = self.objs.grid;
+  var plot = self.objs.plot;
   var temp = self.objs.temp;
+  var all = self.objs.all;
+  /* -> 1.17.7 */
+  /* 1.15.7 -> */
   var isLog_x = options["log-x"];
   var isLog_y = options["log-y"];
   var NUMMIN = self.config.default.NUMMIN;
@@ -885,15 +896,15 @@ My_entry.plot2d.prototype.final = function(arr2d_vec, options, toSVG){
     self.isLocked = true;
   /* -> 1.0.1 */
   /* -> 1.15.7 */
-    var base64_bg = self.base64_bg || self.objs.background.get_base64();
+    var base64_bg = self.base64_bg || background.get_base64();
     var arr_base64_grid_plot = [];
-    arr_base64_grid_plot.push(self.objs.grid.get_base64());
+    arr_base64_grid_plot.push(grid.get_base64());
     var arr_base64_plot = [];
     options._arr_ID_plot.forEach(function(ID){
       all.putID(ID);
       arr_base64_plot.push(all.get_base64());
     });
-    arr_base64_plot.push(self.objs.plot.get_base64());
+    arr_base64_plot.push(plot.get_base64());
     /* 1.2.3 -> */
     var callback_blur = function(){
       var text = options._blur;
@@ -1038,6 +1049,9 @@ My_entry.plot2d.prototype.final = function(arr2d_vec, options, toSVG){
         callback_transform(true);
       };
       /* -> 1.10.6 */
+      /* 1.17.7 -> */
+//      background.clear();  // not implemented for flickering-proof
+      /* -> 1.17.7 */
       all.draw_base64(base64_bg, callback1);  // bg(source-over) <- grid <- plot
     };
     temp.clear();  // 1.15.7

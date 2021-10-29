@@ -208,6 +208,16 @@ legend-dataset
 </a>
 <br>
 　　　・
+<a href="#span-out-UI-graphing-bgcolor">
+bgcolor特定項目仕様
+</a>
+<br>
+　　　・
+<a href="#span-out-UI-graphing-gdcolor">
+gdcolor特定項目仕様
+</a>
+<br>
+　　　・
 <a href="#span-out-UI-graphing-title">
 graph-title特定項目仕様
 </a>
@@ -285,6 +295,11 @@ cut特定項目仕様
 　　・
 <a href="#span-out-UI-graphing-layer">
 layer描画順
+</a>
+<br>
+　　　・
+<a href="#span-out-UI-graphing-layer-background">
+背景優先順
 </a>
 <br>
 　　　・
@@ -1368,7 +1383,7 @@ panel上段について記述する
 <br>
 　・pngは描画終了||中断後に保存可（逐次<a href="#span-out-UI-graphing-post1">layer合成</a>しない）
 <br>
-　・右click||long-tapによるpng保存不可（最前面は透明layer）
+　・右click||long-tapによるpng保存不可（<a href="#span-out-UI-graphing-layer">最前面固定layer</a>は範囲選択領域の描画用）
 <br>
 　・svg||csvは<a href="#span-out-option3">Multi-thread実行</a>の場合、逐次保存可
 <br>
@@ -1629,17 +1644,37 @@ HTML5/CSS3準拠のcolor入力方法を次に示す
 color名||HEX表記RGB||RGBA||rgb(r,g,b=0~255)||rgba(r,g,b,不透明度a=0~1)
 <br>
 <br>
+透明黒色の初期状態を定義する
+<br>
+#0000||#00000000||rgba(0,0,0,0)
+<br>
+<br>
+<a href="#span-out-UI-graphing-layer">最背面固定layer</a>に描画する千鳥格子の配色を定義する
+<br>
+rgba(211,211,211,1)||lightgray
+<br>
+rgba(240,240,240,1)
+<br>
+<br>
 color入力の一例を示す
 <br>
-・black入力の場合
+・white
+<br>
+white||#fff||#ffff||#ffffff||#ffffffff||rgb(255,255,255)||rgba(255,255,255,1)
+<br>
+・black
 <br>
 black||#000||#000f||#000000||#000000ff||rgb(0,0,0)||rgba(0,0,0,1)
 <br>
-・red入力の場合
+・gray
+<br>
+gray||#808080||#808080ff
+<br>
+・red
 <br>
 red||#f00||#f00f||#ff0000||#ff0000ff||rgb(255,0,0)||rgba(255,0,0,1)
 <br>
-・blue入力の不透明度a=0.333333333333333の場合
+・blueの不透明度a=0.333333333333333
 <br>
 #00f5||#0000ff55||rgba(0,0,255,0.333333333333333)
 <br>
@@ -1697,6 +1732,24 @@ z入力欄の入力仕様について記述する
 markerType:markerColor:markerSize:markerLineWidth:plotLineWidth:fillPath:
 <br>
 str:strFontSize
+<br>
+<br>
+<span class="run">Ver.2.66.27</span>以降、<a href="#span-out-UI-graphing-bgcolor">bgcolor</a>を追加
+<br>
+bgcolor||BGCOLOR{<a href="#span-out-UI-graphing-color">color</a>}
+<br>
+・任意位置に挿入可
+<br>
+・<a href="#span-out-UI-graphing-layer-background">background-layer</a>に<a href="#span-out-UI-graphing-color">color</a>指定値を適用
+<br>
+<br>
+<span class="run">Ver.2.66.27</span>以降、<a href="#span-out-UI-graphing-gdcolor">gdcolor</a>を追加
+<br>
+gdcolor||GDCOLOR{<a href="#span-out-UI-graphing-color">color</a>}
+<br>
+・任意位置に挿入可
+<br>
+・<a href="#span-out-UI-graphing-layer-grid">grid-layer</a>に<a href="#span-out-UI-graphing-color">color</a>指定値を適用
 <br>
 <br>
 <span class="run">Ver.2.34.18</span>以降、<a href="#span-out-UI-graphing-title">graph-title</a>を追加
@@ -1869,6 +1922,54 @@ str:strFontSize
 目次
 </a>
 <br>
+bgcolor
+<br>
+特定項目仕様
+    </th>
+    <td>
+<span id="span-out-UI-graphing-bgcolor"></span>
+bgcolor特定項目仕様について記述する
+<br>
+<br>
+<span class="run">Ver.2.66.27</span>以降、<a href="#span-out-UI-graphing-z">z入力欄</a>にbgcolorを入力
+<br>
+bgcolor||BGCOLOR{<a href="#span-out-UI-graphing-color">color</a>}
+<br>
+・任意位置に挿入可
+<br>
+・<a href="#span-out-UI-graphing-layer-background">background-layer</a>に<a href="#span-out-UI-graphing-color">color</a>指定値を適用
+    </td>
+  </tr>
+  <tr>
+    <th>
+<a href="#span-index">
+目次
+</a>
+<br>
+gdcolor
+<br>
+特定項目仕様
+    </th>
+    <td>
+<span id="span-out-UI-graphing-gdcolor"></span>
+gdcolor特定項目仕様について記述する
+<br>
+<br>
+<span class="run">Ver.2.66.27</span>以降、<a href="#span-out-UI-graphing-z">z入力欄</a>にgdcolorを入力
+<br>
+gdcolor||GDCOLOR{<a href="#span-out-UI-graphing-color">color</a>}
+<br>
+・任意位置に挿入可
+<br>
+・<a href="#span-out-UI-graphing-layer-grid">grid-layer</a>に<a href="#span-out-UI-graphing-color">color</a>指定値を適用
+    </td>
+  </tr>
+  <tr>
+    <th>
+<a href="#span-index">
+目次
+</a>
+<br>
 graph-title
 <br>
 特定項目仕様
@@ -1878,7 +1979,7 @@ graph-title
 graph-title特定項目仕様について記述する
 <br>
 <br>
-<a href="#span-out-UI-graphing-z">z入力欄</a>にgraph-titleを入力
+<span class="run">Ver.2.34.18</span>以降、<a href="#span-out-UI-graphing-z">z入力欄</a>にgraph-titleを入力
 <br>
 title||TITLE{graph-title}
 <br>
@@ -1902,7 +2003,7 @@ axis-labels
 axis-labels特定項目仕様について記述する
 <br>
 <br>
-<a href="#span-out-UI-graphing-z">z入力欄</a>にx-labelを入力
+<span class="run">Ver.2.37.18</span>以降、<a href="#span-out-UI-graphing-z">z入力欄</a>にx-labelを入力
 <br>
 xlabel||XLABEL{x-label}
 <br>
@@ -1911,7 +2012,7 @@ xlabel||XLABEL{x-label}
 ・x-labelはx軸余白に表示するlabelの任意文字列で<a href="#span-out-UI-graphing-layer-grid">grid-layer</a>に描画
 <br>
 <br>
-<a href="#span-out-UI-graphing-z">z入力欄</a>にy-labelを入力
+<span class="run">Ver.2.37.18</span>以降、<a href="#span-out-UI-graphing-z">z入力欄</a>にy-labelを入力
 <br>
 ylabel||YLABEL{y-label}
 <br>
@@ -1935,7 +2036,7 @@ string-path
 string-path特定項目仕様について記述する
 <br>
 <br>
-<a href="#span-out-UI-graphing-z">z入力欄</a>にstring-pathを入力
+<span class="run">Ver.2.34.18</span>以降、<a href="#span-out-UI-graphing-z">z入力欄</a>にstring-pathを入力
 <br>
 string||STRING{config[]string-path}
 <br>
@@ -2224,7 +2325,7 @@ transform{<span class="selection">a,b,c,d,e,f</span>,withBackground||0}
 <br>
 px数値の並進vector{<span class="selection">e,f</span>}
 <br>
-・withBackground=0||1（background-layerにtransformを適用する場合、1）
+・withBackground=0||1（<a href="#span-out-UI-graphing-layer-background">background-layer</a>にtransformを適用する場合、1）
 <br>
 ・<span class="condition">座標変換行列</span>の定義
 <br>
@@ -2524,7 +2625,7 @@ config[0:0:0:1:0:0:false:false:2560:0:false:false:1]8:0:0:8
 <br>
 ・同様に、ImageDataが欠落する描画canvas境界で空白発生の可能性がある
 <br>
-・空白部分は黒色の透明（#0000）とする
+・空白部分は<a href="#span-out-UI-graphing-color">透明黒色</a>とする
     </td>
   </tr>
   <tr>
@@ -2599,7 +2700,7 @@ mask[Nlegend||last,isInverse||false,isClear||false]
 <br>
 　falseの場合、filter適用前のRGBA値を保持
 <br>
-　trueの場合、黒色の透明（#0000）にRGBA値をclear
+　trueの場合、<a href="#span-out-UI-graphing-color">透明黒色</a>にRGBA値をclear
 <br>
 <br>
 filterは上下左右対称(2n-1)x(2n-1)sizeの2次元配列を1次元に直列化して定義する
@@ -2882,7 +2983,7 @@ area[10,20,30,40]
 <br>
 ・ImageDataが欠落する描画canvas境界は加重平均filterとして扱う（意図とは異なる可能性）
 <br>
-・<a href="#span-out-UI-graphing-config">canvas-background</a>にtransparent選択の場合、背景色は黒色の透明（#0000）とする
+・<a href="#span-out-UI-graphing-config">canvas-background</a>にtransparent選択の場合、背景色は<a href="#span-out-UI-graphing-color">透明黒色</a>とする
 <br>
 ・<span class="clear">Ver.2.44.23</span>以降、filter配列要素に数値以外を指定した場合、該当の重み=0とする
     </td>
@@ -6404,7 +6505,7 @@ area[0]rgba[2,0,0,2,0,0,1]
 <br>
 ・順変換の場合、等倍でも空白発生の可能性がある（例えば、rgba[1,0.1,-0.5,1,0,0,1]）
 <br>
-・空白部分は黒色の透明（#0000）とする
+・空白部分は<a href="#span-out-UI-graphing-color">透明黒色</a>とする
 <br>
 ・別途、<a href="#span-out-UI-graphing-blur">blurring</a>のみを<a href="#span-out-UI-graphing-transform">transform</a>の対象とする場合、plot点に<a href="#span-out-FNmspecial">右手系</a>の座標変換を適用する
 <br>
@@ -6580,7 +6681,7 @@ post-compressorの仕様を列挙する
 <br>
 post-compressor処理を優先順に列挙する
 <br>
-・<a href="#span-out-transform-fft">高速Fourier変換</a>は不採用（overhead大）
+・<a href="#span-out-transform-fft">高速Fourier変換</a>は不採用（<a href="#span-out-UI-graphing-filter">filter</a>代用の仕様上、overhead大）
 <br>
 <del>fft_rgba[]</del>
 <br>
@@ -6644,16 +6745,55 @@ layer
     </th>
     <td>
 <span id="span-out-UI-graphing-layer"></span>
-layer描画順について記述する
+layer描画順と付随する留意事項について記述する
 <br>
 <br>
 描画canvasのlayerを描画順に列挙する
 <br>
-・background-layer
+・<span class="run">Ver.2.66.27</span>以降
+<br>
+　最背面固定layer（<a href="#span-out-UI-graphing-color">透明黒色</a>の初期状態を表す<a href="#span-out-UI-graphing-color">千鳥格子</a>の描画用）
+<br>
+・<a href="#span-out-UI-graphing-layer-background">background-layer</a>
 <br>
 ・<a href="#span-out-UI-graphing-layer-grid">grid-layer</a>
 <br>
 ・<a href="#span-out-UI-graphing-layer-plot">plot-layer</a>
+<br>
+・<a href="#span-out-UI-graphing-post1">layer合成</a>用layer
+<br>
+・最前面固定layer（<a href="#span-out-UI-graphing">mouse||touchによる範囲選択</a>領域の描画用）
+<br>
+<br>
+留意事項を列挙する
+<br>
+・最背面/最前面固定layerはpng||svg出力に反映しない
+    </td>
+  </tr>
+  <tr>
+    <th>
+<a href="#span-index">
+目次
+</a>
+<br>
+背景
+<br>
+優先順
+    </th>
+    <td>
+<span id="span-out-UI-graphing-layer-background"></span>
+背景優先順について記述する
+<br>
+<br>
+background-layerに<a href="#span-out-UI-graphing-config">背景画像file</a>||<a href="#span-out-UI-graphing-color">color</a>指定値を適用する項目を優先順に列挙する
+<br>
+・<a href="#span-out-UI-graphing-config">bg-image-file@plot-config</a>（svg出力は無効・<span class="clear">Internet Explorer非対応</span>）
+<br>
+・<a href="#span-out-UI-graphing-bgcolor">bgcolor</a>特定項目指定値
+<br>
+・<a href="#span-out-UI-graphing-config">bg-color@plot-config</a>入力値
+<br>
+・<a href="#span-out-UI-graphing-config">canvas-background@plot-config</a>選択値
     </td>
   </tr>
   <tr>
@@ -6678,6 +6818,13 @@ grid-layerに描画する項目を描画順に列挙する
 ・<a href="#span-out-UI-graphing-labels">axis-labels</a>
 <br>
 ・grid-lines/axis-values
+<br>
+<br>
+grid-layerに<a href="#span-out-UI-graphing-color">color</a>指定値を適用する項目を優先順に列挙する
+<br>
+・<a href="#span-out-UI-graphing-gdcolor">gdcolor</a>特定項目指定値
+<br>
+・<a href="#span-out-UI-graphing-config">grid-line-color@plot-config</a>入力値
     </td>
   </tr>
   <tr>

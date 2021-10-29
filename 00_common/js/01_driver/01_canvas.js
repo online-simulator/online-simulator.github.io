@@ -123,6 +123,54 @@ My_entry.canvas.prototype.draw_base64s = function(arr_base64, opt_callback, opt_
   }
   return self;
 };
+// 1.17.7
+My_entry.canvas.prototype.draw_grid = function(opt_dx, opt_dy){
+  var self = this;
+  var ctx = self.ctx;
+  var px_w = self.px_w;
+  var px_h = self.px_h;
+  var dx = Math.floor(opt_dx || 8);
+  var dy = Math.floor(opt_dy || 8);
+  var rgb0 = 211;
+  var rgb1 = 240;
+  if(ctx){
+    var ID0 = ctx.createImageData(dx, dy);
+    var data0 = ID0.data;
+    var ID1 = ctx.createImageData(dx, dy);
+    var data1 = ID1.data;
+    for(var j=0; j<dy; ++j){
+      for(var i=0; i<dx; ++i){
+        var ired = 4*(dx*j+i);
+        data0[ired+0] = rgb0;
+        data0[ired+1] = rgb0;
+        data0[ired+2] = rgb0;
+        data0[ired+3] = 255;
+        data1[ired+0] = rgb1;
+        data1[ired+1] = rgb1;
+        data1[ired+2] = rgb1;
+        data1[ired+3] = 255;
+      }
+    }
+    self.clear();
+    for(var j=0; j<px_h; ++j){
+      for(var i=0; i<px_w; ++i){
+        if(i%dx === 0 && j%dy === 0){
+          var igrid = Math.floor(i/dx);
+          var jgrid = Math.floor(j/dy);
+          var isEven = (igrid%2 === 0 && jgrid%2 === 0);
+          var isOdd = (igrid%2 === 1 && jgrid%2 === 1);
+          if(isEven || isOdd){
+            self.putID_xy(ID0, i, j);
+          }
+          else{
+            self.putID_xy(ID1, i, j);
+          }
+        }
+      }
+    }
+  }
+  return self;
+};
 My_entry.canvas.prototype.change_size = function(px_w, px_h){
   var self = this;
   var elem = self.elem;
