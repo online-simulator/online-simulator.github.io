@@ -809,6 +809,11 @@ simplified modellingの有用性
 </a>
 <br>
 　　・
+<a href="#span-out-modelling-trade-off">
+simplified modellingのtrade-off
+</a>
+<br>
+　　・
 <a href="#span-out-modelling-application1">
 RC並列回路simplified modelling
 </a>
@@ -16587,6 +16592,8 @@ simplified modellingの応用手順を列挙する
 <br>
 ・<a href="#span-out-modelling-usefulness">simplified modellingの有用性</a>
 <br>
+・<a href="#span-out-modelling-trade-off">simplified modellingのtrade-off</a>
+<br>
 ・<a href="#span-out-modelling-application1">RC並列回路simplified modelling</a>
 <br>
 ・<a href="#span-out-modelling-application2">拡散方程式simplified modelling</a>
@@ -16628,6 +16635,50 @@ simplified modellingの有用性について記述する
 ・各parameterの最適化||機械学習によって制御量の定量性を改善する（<a href="#span-out-error">modelling誤差</a>を除く）
 <br>
 ・環境温度等による状態量の変化傾向を理論的に予測する
+    </td>
+  </tr>
+  <tr>
+    <th>
+<a href="#span-index">
+目次
+</a>
+<br>
+simplified
+<br>
+modelling
+<br>
+のtrade-off
+    </th>
+    <td>
+<span id="span-out-modelling-trade-off"></span>
+simplified modellingのtrade-offについて記述する
+<br>
+<br>
+simplified modellingのtrade-offを列挙する
+<br>
+・一般的に、modelling対象の性能を最大化する実用想定では<a href="#span-out-error">modelling誤差</a>を無視できない
+<br>
+・詳細modellingからsimplifiedの過程で次元||自由度を落とした現象||影響が顕著になる
+<br>
+・この影響をparameterで誤学習||過学習した場合、全体の定量性を悪化させる可能性がある
+<br>
+・制御の場合、tableを含む次元の拡張等、対策が考えられるが、hard/softの制約が存在する
+<br>
+・さらに科学的な対策の根拠と定量的な効果を示すには仮説と実証実験の繰り返しを伴う上、
+<br>
+・耐久性を評価するcycle試験||加速試験の場合、相当の時間を要する
+<br>
+・よって詳細modellingから寄与度に応じてparameter数を削減するapproachもあり得る
+<br>
+・一方、現象の強連成が困難な場合、机上見積もりでsimplifiedと擬似||弱連成を許容する
+<br>
+・他方、未知の現象（劣化mode等）が判明した場合、手戻りが発生する懸念が残るが、
+<br>
+・結局、parameter学習と<a href="#span-out-error">modelling誤差</a>を含めた許容誤差の見極めが重要になると考えられる
+<br>
+・同時に、model入力値の測定誤差の影響を考慮する
+<br>
+・その上で目標値の達成が困難な場合、modelling対象を含む設計に手戻りの可能性が生じる
     </td>
   </tr>
   <tr>

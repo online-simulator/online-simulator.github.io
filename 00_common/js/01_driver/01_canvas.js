@@ -126,14 +126,15 @@ My_entry.canvas.prototype.draw_base64s = function(arr_base64, opt_callback, opt_
 // 1.17.7
 My_entry.canvas.prototype.draw_grid = function(opt_dx, opt_dy){
   var self = this;
+  var def = self.entry.def;
   var ctx = self.ctx;
   var px_w = self.px_w;
   var px_h = self.px_h;
-  var dx = Math.floor(opt_dx || 8);
-  var dy = Math.floor(opt_dy || 8);
   var rgb0 = 211;
   var rgb1 = 240;
   if(ctx){
+    var dx = def.limit(Math.floor(opt_dx), 1, px_w, 8);
+    var dy = def.limit(Math.floor(opt_dy), 1, px_h, 8);
     var ID0 = ctx.createImageData(dx, dy);
     var data0 = ID0.data;
     var ID1 = ctx.createImageData(dx, dy);
