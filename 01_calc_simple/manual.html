@@ -228,6 +228,11 @@ axis-labels特定項目仕様
 </a>
 <br>
 　　　・
+<a href="#span-out-UI-graphing-origin">
+origin特定項目仕様
+</a>
+<br>
+　　　・
 <a href="#span-out-UI-graphing-string-path">
 string-path特定項目仕様
 </a>
@@ -1739,6 +1744,9 @@ markerType:markerColor:markerSize:markerLineWidth:plotLineWidth:fillPath:
 str:strFontSize
 <br>
 <br>
+以降、その他の特定項目を抽出順に列挙する
+<br>
+<br>
 <span class="run">Ver.2.66.27</span>以降、<a href="#span-out-UI-graphing-bgcolor">bgcolor</a>を追加
 <br>
 bgcolor||BGCOLOR{<a href="#span-out-UI-graphing-color">color</a>}
@@ -1782,6 +1790,19 @@ ylabel||YLABEL{y-label}
 ・任意位置に挿入可
 <br>
 ・y-labelはy軸余白に表示するlabelの任意文字列で<a href="#span-out-UI-graphing-layer-grid">grid-layer</a>に描画
+<br>
+<br>
+<span class="run">Ver.2.67.27</span>以降、<a href="#span-out-UI-graphing-origin">origin</a>を追加
+<br>
+origin||ORIGIN{args}
+<br>
+・任意位置に挿入可
+<br>
+・originはorigin-labelと原点を通るorigin-lineで<a href="#span-out-UI-graphing-layer-grid">grid-layer</a>に描画
+<br>
+・argsは設定値をcomma,区切りで入力（省略時、<a href="#span-out-UI-graphing-legend">legend-dataset</a>の設定値）
+<br>
+lineWidth,<a href="#span-out-UI-graphing-color">color</a>,labelSize
 <br>
 <br>
 <span class="run">Ver.2.34.18</span>以降、<a href="#span-out-UI-graphing-string-path">string-path</a>を追加
@@ -2024,6 +2045,34 @@ ylabel||YLABEL{y-label}
 ・任意位置に挿入可
 <br>
 ・y-labelはy軸余白に表示するlabelの任意文字列で<a href="#span-out-UI-graphing-layer-grid">grid-layer</a>に描画
+    </td>
+  </tr>
+  <tr>
+    <th>
+<a href="#span-index">
+目次
+</a>
+<br>
+origin
+<br>
+特定項目仕様
+    </th>
+    <td>
+<span id="span-out-UI-graphing-origin"></span>
+origin特定項目仕様について記述する
+<br>
+<br>
+<span class="run">Ver.2.67.27</span>以降、<a href="#span-out-UI-graphing-z">z入力欄</a>にoriginを入力
+<br>
+origin||ORIGIN{args}
+<br>
+・任意位置に挿入可
+<br>
+・originはorigin-labelと原点を通るorigin-lineで<a href="#span-out-UI-graphing-layer-grid">grid-layer</a>に描画
+<br>
+・argsは設定値をcomma,区切りで入力（省略時、<a href="#span-out-UI-graphing-legend">legend-dataset</a>の設定値）
+<br>
+lineWidth,<a href="#span-out-UI-graphing-color">color</a>,labelSize
     </td>
   </tr>
   <tr>
@@ -6822,6 +6871,8 @@ grid-layerに描画する項目を描画順に列挙する
 <br>
 ・<a href="#span-out-UI-graphing-labels">axis-labels</a>
 <br>
+・<a href="#span-out-UI-graphing-origin">origin-label/origin-line</a>
+<br>
 ・grid-lines/axis-values
 <br>
 <br>
@@ -7032,7 +7083,7 @@ plot-configの設定項目を列挙する
 <br>
 　axis-values/<a href="#span-out-UI-graphing-legend">legend-string</a>のfont-sizeは選択値
 <br>
-　<a href="#span-out-UI-graphing-labels">axis-labels</a>/<a href="#span-out-UI-graphing-title">graph-title</a>のfont-sizeは選択値+2px
+　<a href="#span-out-UI-graphing-title">graph-title</a>/<a href="#span-out-UI-graphing-labels">axis-labels</a>/<a href="#span-out-UI-graphing-origin">origin</a>のfont-sizeは選択値+2px
 <br>
 ・各軸のgrid分割数grid-x-Ni/grid-y-Njを選択可
 <br>

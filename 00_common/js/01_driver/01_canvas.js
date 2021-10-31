@@ -24,8 +24,8 @@ My_entry.canvas.prototype.init = function(elem){
   self.markers.forEach(function(type){
     My_entry.canvas.prototype[type] = function(x0, y0, r, opt_lineWidth, opt_styleRGBA, opt_globalCompositeOperation){
       var self = this;
-      var vec0 = {x: self.x2xp(x0), y: self.y2myp(y0)};
-      return self.draw[type](vec0, r, opt_lineWidth, opt_styleRGBA, opt_globalCompositeOperation);
+      var vecp0 = self.xy2xyp(x0, y0);  // 1.18.7
+      return self.draw[type](vecp0, r, opt_lineWidth, opt_styleRGBA, opt_globalCompositeOperation);
     };
   });
   self.onevents = ["onmousedown", "onmousemove", "onmouseup"];
@@ -244,9 +244,14 @@ My_entry.canvas.prototype.screen2plot = function(xpmin, ypmin, xpmax, ypmax){
 };
 My_entry.canvas.prototype.line = function(x0, y0, x1, y1, opt_lineWidth, opt_styleRGBA, opt_globalCompositeOperation){
   var self = this;
-  var vecp0 = {x: self.x2xp(x0), y: self.y2myp(y0)};
-  var vecp1 = {x: self.x2xp(x1), y: self.y2myp(y1)};
+  var vecp0 = self.xy2xyp(x0, y0);  // 1.18.7
+  var vecp1 = self.xy2xyp(x1, y1);  // 1.18.7
   return self.draw.line(vecp0, vecp1, opt_lineWidth, opt_styleRGBA, opt_globalCompositeOperation);
+};
+/* 1.18.7 */
+My_entry.canvas.prototype.xy2xyp = function(x, y){
+  var self = this;
+  return {x: self.x2xp(x), y: self.y2myp(y)};
 };
 My_entry.canvas.prototype.arr_vec2arr_vecp = function(arr_vec){
   var self = this;
@@ -255,7 +260,7 @@ My_entry.canvas.prototype.arr_vec2arr_vecp = function(arr_vec){
     var vecn = arr_vec[n];
     var x = vecn.x;
     var y = vecn.y;
-    _arr_vecp[n] = {x: self.x2xp(x), y: self.y2myp(y)};
+    _arr_vecp[n] = self.xy2xyp(x, y);  // 1.18.7
   }
   return _arr_vecp;
 };
@@ -284,19 +289,21 @@ My_entry.canvas.prototype.textpath = function(text, arr_vec, opt_fontSize, opt_s
 };
 My_entry.canvas.prototype.gradation = function(colors, arr_vec, opt_globalCompositeOperation, records){
   var self = this;
-  return self.draw.gradation(colors, self.arr_vec2arr_vecp(arr_vec), opt_globalCompositeOperation, {x: self.x2xp(records.x0), y: self.y2myp(records.y0)}, records.offsetR, records.orderR, records.NrandR, records.NrandT, records.isMin, records.isRound, records.Nrender, records.Ncycle);
+  var vecp0 = self.xy2xyp(records.x0, records.y0);  // 1.18.7
+  return self.draw.gradation(colors, self.arr_vec2arr_vecp(arr_vec), opt_globalCompositeOperation, vecp0, records.offsetR, records.orderR, records.NrandR, records.NrandT, records.isMin, records.isRound, records.Nrender, records.Ncycle);
 };
 /* -> 1.0.0 */
 /* 1.11.6 */
 /* 1.2.3 */
 My_entry.canvas.prototype.blur = function(arr_s, arr_vec, opt_globalCompositeOperation, records, records_asym){
   var self = this;
-  return self.draw.blur(arr_s, self.arr_vec2arr_vecp(arr_vec), opt_globalCompositeOperation, {x: self.x2xp(records.x0), y: self.y2myp(records.y0)}, records.offsetR, records.orderR, records.NrandR, records.NrandT, records.isMin, records.isRound, records.Nrender, records.Ncycle, records.isCyclic, records.isSquare, records_asym.x_asym, records_asym.y_asym, records_asym.k_asym, records_asym.Nrad_asym);  // 1.9.6
+  var vecp0 = self.xy2xyp(records.x0, records.y0);  // 1.18.7
+  return self.draw.blur(arr_s, self.arr_vec2arr_vecp(arr_vec), opt_globalCompositeOperation, vecp0, records.offsetR, records.orderR, records.NrandR, records.NrandT, records.isMin, records.isRound, records.Nrender, records.Ncycle, records.isCyclic, records.isSquare, records_asym.x_asym, records_asym.y_asym, records_asym.k_asym, records_asym.Nrad_asym);  // 1.9.6
 };
 /* 0.5.0 -> */
 My_entry.canvas.prototype.text = function(text, x0, y0, opt_fontSize, opt_styleRGBA, opt_globalCompositeOperation){
   var self = this;
-  var vecp0 = {x: self.x2xp(x0), y: self.y2myp(y0)};
+  var vecp0 = self.xy2xyp(x0, y0);  // 1.18.7
   return self.draw.text(text, vecp0, opt_fontSize, opt_styleRGBA, opt_globalCompositeOperation);
 };
 My_entry.canvas.prototype.label = function(text, x0, y0, opt_fontSize, opt_styleRGBA, opt_globalCompositeOperation, isY){
@@ -306,7 +313,7 @@ My_entry.canvas.prototype.label = function(text, x0, y0, opt_fontSize, opt_style
 };
 My_entry.canvas.prototype.axis = function(text, x0, y0, opt_fontSize, opt_styleRGBA, opt_globalCompositeOperation, isY){
   var self = this;
-  var vecp0 = {x: self.x2xp(x0), y: self.y2myp(y0)};
+  var vecp0 = self.xy2xyp(x0, y0);  // 1.18.7
   return self.draw.axis(text, vecp0, opt_fontSize, opt_styleRGBA, opt_globalCompositeOperation, isY);
 };
 /* -> 0.5.0 */

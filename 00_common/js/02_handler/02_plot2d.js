@@ -293,26 +293,53 @@ My_entry.plot2d.prototype.grid = function(options, tx0, ty0, tx1, ty1, Ni, Nj, i
   var _svg = "";
   var lineWidth = gridLineWidth;
   var styleRGBA = gridLineColor;
+  /* 1.18.7 -> */
+  var fontSize1 = fontSize+self.config.default.dfontSize;
+  var lineWidth0 = (isNaN(options._lineWidth0))? gridLineWidth: options._lineWidth0;
+  var styleRGBA0 = options._styleRGBA0 || gridLineColor;
+  var labelSize0 = (isNaN(options._labelSize0))? fontSize1: options._labelSize0;
+  /* -> 1.18.7 */
   var len_i = Ni+1;
   var len_j = Nj+1;
   var tdx = (tx1-tx0)/Ni;
   var tdy = (ty1-ty0)/Nj;
+  /* 1.18.7 -> */
+  var hasOx = (tx0 <= 0 && tx1 >= 0 && !(isLog_x));
+  var hasOy = (ty0 <= 0 && ty1 >= 0 && !(isLog_y));
   /* 0.5.0 -> */
+  // labels
   if(label_x){
-    if(tx0 <= 0 && tx1 >= 0 && !(isLog_x)){
-      var tx = self.trans(0, isLog_x);
-      _svg += grid.line(tx, ty0, tx, ty1, lineWidth, styleRGBA, globalCompositeOperation);
-    }
-    _svg += grid.label(label_x, (tx0+tx1)/2, self.config.default.ratio_y, fontSize+self.config.default.dfontSize, styleRGBA, globalCompositeOperation, false);
+    _svg += grid.label(label_x, (tx0+tx1)/2, self.config.default.ratio_y, fontSize1, styleRGBA, globalCompositeOperation, false);
   }
   if(label_y){
-    if(ty0 <= 0 && ty1 >= 0 && !(isLog_y)){
+    _svg += grid.label(label_y, self.config.default.ratio_x, (ty0+ty1)/2, fontSize1, styleRGBA, globalCompositeOperation, true);
+  }
+  if(label_x && label_y && options._labelSize0){
+    if(hasOx && hasOy){
+      var label_o = "O";
+      var tx = self.trans(0, isLog_x);
       var ty = self.trans(0, isLog_y);
-      _svg += grid.line(tx0, ty, tx1, ty, lineWidth, styleRGBA, globalCompositeOperation);
+      var vecp0 = grid.xy2xyp(tx, ty);
+      vecp0.x -= labelSize0*0.5;
+      vecp0.y += labelSize0*0.89;
+      _svg += grid.draw.label(label_o, vecp0, labelSize0, styleRGBA0, globalCompositeOperation, false);
     }
-    _svg += grid.label(label_y, self.config.default.ratio_x, (ty0+ty1)/2, fontSize+self.config.default.dfontSize, styleRGBA, globalCompositeOperation, true);
+  }
+  // grid-lines
+  if(label_x){
+    if(hasOx){
+      var tx = self.trans(0, isLog_x);
+      _svg += grid.line(tx, ty0, tx, ty1, lineWidth0, styleRGBA0, globalCompositeOperation);
+    }
+  }
+  if(label_y){
+    if(hasOy){
+      var ty = self.trans(0, isLog_y);
+      _svg += grid.line(tx0, ty, tx1, ty, lineWidth0, styleRGBA0, globalCompositeOperation);
+    }
   }
   /* -> 0.5.0 */
+  /* -> 1.18.7 */
   for(var i=0; i<len_i; ++i){
     var tx = tx0+i*tdx;
     _svg += grid.line(tx, ty0, tx, ty1, lineWidth, styleRGBA, globalCompositeOperation);
@@ -456,16 +483,26 @@ My_entry.plot2d.prototype.run = function(arr2d_vec, options, toSVG, isFinal){
   inputZ = def.enter_name(inputZ, "bgcolor", false, 0, function(content){backgroundColor = content;});
   inputZ = def.enter_name(inputZ, "gdcolor", false, 0, function(content){gridLineColor = content;});
   /* -> 1.17.7 */
+  /* 1.18.7 -> */
   /* 1.8.6 -> */
   var title = "";
   var label_x = "";
   var label_y = "";
+  var origin = "";
   if(isAxis_z && inputZ){
     inputZ = def.enter_name(inputZ, "title", false, 0, function(content){title = content;});
     inputZ = def.enter_name(inputZ, "xlabel", false, 0, function(content){if(isAxis_x){label_x = content;}});
     inputZ = def.enter_name(inputZ, "ylabel", false, 0, function(content){if(isAxis_y){label_y = content;}});
+    inputZ = def.enter_name(inputZ, "origin", false, 0, function(content){origin = content;});
+    if(origin){
+      var sc = origin.split(",");
+      options._lineWidth0 = sc[0];
+      options._styleRGBA0 = sc[1];
+      options._labelSize0 = sc[2];
+    }
   }
   /* -> 1.8.6 */
+  /* -> 1.18.7 */
   /* 1.8.5 -> */
   inputZ = def.enter_name(inputZ, "transform", false, 0, function(content){options._transform = content;});
   /* -> 1.8.5 */
