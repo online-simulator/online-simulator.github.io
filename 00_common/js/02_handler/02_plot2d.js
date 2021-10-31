@@ -295,9 +295,20 @@ My_entry.plot2d.prototype.grid = function(options, tx0, ty0, tx1, ty1, Ni, Nj, i
   var styleRGBA = gridLineColor;
   /* 1.18.7 -> */
   var fontSize1 = fontSize+self.config.default.dfontSize;
-  var lineWidth0 = (isNaN(options._lineWidth0))? gridLineWidth: options._lineWidth0;
-  var styleRGBA0 = options._styleRGBA0 || gridLineColor;
-  var labelSize0 = (isNaN(options._labelSize0))? fontSize1: options._labelSize0;
+  var lineWidth0 = gridLineWidth;
+  var styleRGBA0 = gridLineColor;
+  var labelSize0 = fontSize1;
+  var origin = options._origin;
+  if(origin){
+    var sc = origin.split(",");
+    if(!(isNaN(sc[0]))){
+      lineWidth0 = sc[0];
+    }
+    styleRGBA0 = sc[1] || styleRGBA0;
+    if(!(isNaN(sc[2]))){
+      labelSize0 = sc[2];
+    }
+  }
   /* -> 1.18.7 */
   var len_i = Ni+1;
   var len_j = Nj+1;
@@ -314,7 +325,7 @@ My_entry.plot2d.prototype.grid = function(options, tx0, ty0, tx1, ty1, Ni, Nj, i
   if(label_y){
     _svg += grid.label(label_y, self.config.default.ratio_x, (ty0+ty1)/2, fontSize1, styleRGBA, globalCompositeOperation, true);
   }
-  if(label_x && label_y && options._labelSize0){
+  if(label_x && label_y && (origin || origin === "")){
     if(hasOx && hasOy){
       var label_o = "O";
       var tx = self.trans(0, isLog_x);
@@ -493,13 +504,7 @@ My_entry.plot2d.prototype.run = function(arr2d_vec, options, toSVG, isFinal){
     inputZ = def.enter_name(inputZ, "title", false, 0, function(content){title = content;});
     inputZ = def.enter_name(inputZ, "xlabel", false, 0, function(content){if(isAxis_x){label_x = content;}});
     inputZ = def.enter_name(inputZ, "ylabel", false, 0, function(content){if(isAxis_y){label_y = content;}});
-    inputZ = def.enter_name(inputZ, "origin", false, 0, function(content){origin = content;});
-    if(origin){
-      var sc = origin.split(",");
-      options._lineWidth0 = sc[0];
-      options._styleRGBA0 = sc[1];
-      options._labelSize0 = sc[2];
-    }
+    inputZ = def.enter_name(inputZ, "origin", false, 0, function(content){options._origin = content;});
   }
   /* -> 1.8.6 */
   /* -> 1.18.7 */

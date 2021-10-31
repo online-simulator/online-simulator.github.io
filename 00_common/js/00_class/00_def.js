@@ -233,7 +233,7 @@ My_entry.def.prototype.enter_name = function(input, name, isLongest, opt_i, opt_
   var self = this;
   var _input = input;
   var content = self.get_title(_input, name, isLongest, opt_i);
-  if(content){
+  if(content || content === ""){  // || empty
     if(opt_callback){
       opt_callback(content);
     }
