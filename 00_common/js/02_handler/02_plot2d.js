@@ -517,6 +517,9 @@ My_entry.plot2d.prototype.run = function(arr2d_vec, options, toSVG, isFinal){
   /* 1.2.3 -> */
   inputZ = def.enter_name(inputZ, "blur", false, 0, function(content){options._blur = content;});
   /* -> 1.2.3 */
+  /* 1.19.7 -> */
+  inputZ = def.enter_name(inputZ, "tile", false, 0, function(content){options._tile = content;});
+  /* -> 1.19.7 */
   /* 1.15.7 -> */
   inputZ = def.enter_name(inputZ, "cut", false, 0, function(content){options._cut = content;});
   /* -> 1.15.7 */
@@ -1007,6 +1010,21 @@ My_entry.plot2d.prototype.final = function(arr2d_vec, options, toSVG){
       temp.clear();
     };
     /* -> 1.15.7 */
+    /* 1.19.7 -> */
+    var callback_tile = function(){
+      var text = options._tile;
+      var records = $.get_records(text, ",", 0, ["dx", "dy", "x0", "y0", "x1", "y1"], true);
+      var dx = def.limit(Math.floor(records.dx), 1, 256, 1);
+      var dy = def.limit(Math.floor(records.dy), 1, 256, 1);
+      var x0 = def.limit(Math.floor(records.x0), NUMMIN, NUMMAX, 0);
+      var y0 = def.limit(Math.floor(records.y0), NUMMIN, NUMMAX, 0);
+      var x1 = def.limit(Math.floor(records.x1), NUMMIN, NUMMAX, 0);
+      var y1 = def.limit(Math.floor(records.y1), NUMMIN, NUMMAX, 0);
+      var ID0 = all.ctx.getImageData(x0, y0, dx, dy);
+      var ID1 = all.ctx.getImageData(x1, y1, dx, dy);
+      all.draw_grid(dx, dy, ID0, ID1);
+    };
+    /* -> 1.19.7 */
     var callback_filter = function(){
       var filters = options._filter.split(":");
       filters.forEach(function(filter){
@@ -1074,12 +1092,17 @@ My_entry.plot2d.prototype.final = function(arr2d_vec, options, toSVG){
           if(options._filter){
             callback_filter();
           };
+          /* -> 1.1.2 */
+          /* 1.19.7 -> */
+          if(options._tile || options._tile === ""){
+            callback_tile();
+          };
+          /* -> 1.19.7 */
           /* 1.15.7 -> */
           if(options._cut){
             callback_cut();
           };
           /* -> 1.15.7 */
-          /* -> 1.1.2 */
           self.init_canvas(false);  // here for flickering-proof
           self.isLocked = false;
         };

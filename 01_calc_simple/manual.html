@@ -293,6 +293,11 @@ post-compressor特定項目仕様
 </a>
 <br>
 　　　・
+<a href="#span-out-UI-graphing-tile">
+tile特定項目仕様
+</a>
+<br>
+　　　・
 <a href="#span-out-UI-graphing-cut">
 cut特定項目仕様
 </a>
@@ -1885,6 +1890,17 @@ filter||FILTER{filters}
 ・<span class="run">Ver.2.52.25</span>以降、<span class="condition">area[]</span>内datasetは設定値をcomma,区切りで入力（省略時、全体に適用）
 <br>
 ・<span class="run">Ver.2.63.27</span>以降、<span class="jF">mask[]</span>内datasetは設定値をcomma,区切りで入力（省略時、全体に適用）
+<br>
+<br>
+<span class="run">Ver.2.68.27</span>以降、<a href="#span-out-UI-graphing-tile">tile</a>を追加
+<br>
+tile||TILE{args}
+<br>
+・任意位置に挿入可
+<br>
+・tileは<a href="#span-out-UI-graphing-filter">filtering</a>直後の<a href="#span-out-UI-graphing-post2">post最終処理</a>（svg出力は無効）
+<br>
+・argsはtile領域を指定する条件をcomma,区切りで入力
 <br>
 <br>
 <span class="run">Ver.2.63.27</span>以降、<a href="#span-out-UI-graphing-cut">cut</a>を追加
@@ -6754,13 +6770,54 @@ dwt_rgba[]
 目次
 </a>
 <br>
+tile
+<br>
+特定項目仕様
+    </th>
+    <td>
+<span id="span-out-UI-graphing-tile"></span>
+tile特定項目仕様について記述する
+<br>
+<br>
+<span class="run">Ver.2.68.27</span>以降、指定領域の<a href="#span-out-UI-graphing-color">千鳥格子</a>tile機能を追加する
+<br>
+<br>
+<a href="#span-out-UI-graphing-z">z入力欄</a>にtileを入力
+<br>
+tile||TILE{args}
+<br>
+・任意位置に挿入可
+<br>
+・tileは<a href="#span-out-UI-graphing-filter">filtering</a>直後の<a href="#span-out-UI-graphing-post2">post最終処理</a>（svg出力は無効）
+<br>
+・argsはtile領域を指定する条件をcomma,区切りで入力
+<br>
+tile{dx||1,dy||1,x0||0,y0||0,x1||0,y1||0}
+<br>
+・(dx,dy=1~256)は格子1/格子2のtile-size(w,h)をpx数値で指定する
+<br>
+・(x0,y0=-32768~32767)は格子1のcanvas座標の始点(x,y)をpx数値で指定する
+<br>
+　描画canvas境界外の座標を指定した場合、境界外の領域は<a href="#span-out-UI-graphing-color">透明黒色</a>
+<br>
+・(x1,y1=-32768~32767)は格子2のcanvas座標の始点(x,y)をpx数値で指定する
+<br>
+　描画canvas境界外の座標を指定した場合、境界外の領域は<a href="#span-out-UI-graphing-color">透明黒色</a>
+    </td>
+  </tr>
+  <tr>
+    <th>
+<a href="#span-index">
+目次
+</a>
+<br>
 cut
 <br>
 特定項目仕様
     </th>
     <td>
 <span id="span-out-UI-graphing-cut"></span>
-cut特定項目仕様と付随する留意事項について記述する
+cut特定項目仕様について記述する
 <br>
 <br>
 <span class="run">Ver.2.63.27</span>以降、指定領域のcut機能を追加する
@@ -6782,7 +6839,7 @@ cut{Nlegend||last,withTransform||false}
 <br>
 　範囲外の数値||数値以外を指定した場合、最終legendを選択
 <br>
-・withTransform=false||trueは<a href="#span-out-UI-graphing-transform">transform</a>の反映を選択
+・withTransform=false||trueは<a href="#span-out-UI-graphing-transform">transform</a>の反映を選択する
 <br>
 　svg出力の場合、<a href="#span-out-UI-graphing-transform">withBackground</a>=1のみ有効
     </td>
@@ -7011,6 +7068,8 @@ post最終処理順と付随する留意事項について記述する
 <br>
 ・<a href="#span-out-UI-graphing-filter">filter</a>
 <br>
+・<a href="#span-out-UI-graphing-tile">tile</a>
+<br>
 ・<a href="#span-out-UI-graphing-cut">cut</a>
 <br>
 <br>
@@ -7140,9 +7199,13 @@ svg||csv||history-txt出力時に記録するlog-stampの情報を列挙する
 <br>
 ・Repository VERSION
 <br>
-・new Date()によるtime-stamp
+・time-stamp
 <br>
-・<span class="run">Ver.2.38.18</span>以降、window.navigator.userAgentによるbrowser識別情報
+　new Date()
+<br>
+・<span class="run">Ver.2.38.18</span>以降、browser識別情報
+<br>
+　window.navigator.userAgent
     </td>
   </tr>
   <tr>
