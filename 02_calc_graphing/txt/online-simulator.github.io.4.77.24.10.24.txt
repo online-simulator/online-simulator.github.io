@@ -327,7 +327,7 @@ infoLost[ri] 3.000000000000002+2.9999999999999973i,infoLost[ri] 6.99999999999999
 infoLost[ri] 4.000000000000005+3.9999999999999987i,infoLost[ri] 8+8i,infoLost[ri] 12+12.000000000000002i,infoLost[ri] 15.999999999999996+16.000000000000004i
 )
 
-DFT2d_xy(f)=<[out=<f,init=<last{N=sizer(f),M=sizec(f),Nf=1,Ni=1/N,Mf=1,Mi=1/M,F=zeros(N,M)},run=<last{F(u,v)=<{_sy(=<{_sx(=<f[x][y]*e^(-i*u*x*2*pi/N),0,N-1)*Nf}*e^(-i*v*y*2*pi/M),0,M-1)*Mf},_sv(=<_su(=<F[u][v]=F(u,v)=>,0,N-1),0,M-1),f=zeros(N,M),f(x,y)=<{_sv(=<{_su(=<F[u][v]*e^(i*x*u*2*pi/N),0,N-1)*Ni}*e^(i*y*v*2*pi/M),0,M-1)*Mi},_sx(=<_sy(=<f[x][y]=f(x,y)=>,0,N-1),0,M-1)},init=>,run=>,return=out=>,=<return]=>
+DFT2d_xy(f)=<[out=<f,init=<last{N=sizer(f),M=sizec(f),Nf=1,Ni=1/N,Mf=1,Mi=1/M,F=zeros(N,M)},run=<last{F(u,v)=<{_sy(=<{_sx(=<f[x][y]*e^(-i*u*x*2*pi/N),0,N-1)*Nf}*e^(-i*v*y*2*pi/M),0,M-1)*Mf},_sv(=<_su(=<F[u][v]=F(u,v)=>,0,N-1),0,M-1),f=zeros(N,M),f(x,y)=<{_sv(=<{_su(=<F[u][v]*e^(i*x*u*2*pi/N),0,N-1)*Ni}*e^(i*y*v*2*pi/M),0,M-1)*Mi},_sy(=<_sx(=<f[x][y]=f(x,y)=>,0,N-1),0,M-1)},init=>,run=>,return=out=>,=<return]=>
 stored_eqn(DFT2d_xy)
 
 clear
@@ -620,4 +620,4 @@ drag=false&test-case=false&legend=true&axis-t=false&axis-x=true&log-x=false&imag
 --------------------------------
 --------------------------------
 
-online-simulator.github.io.4.77.24.10.24 @ Wed Nov 03 2021 02:17:27 GMT+0900 (日本標準時) @ Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/95.0.4638.69 Safari/537.36
+online-simulator.github.io.4.77.24.10.24 @ Wed Nov 03 2021 02:49:59 GMT+0900 (日本標準時) @ Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/95.0.4638.69 Safari/537.36
