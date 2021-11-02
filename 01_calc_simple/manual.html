@@ -19835,7 +19835,7 @@ infoLost[r ] 1.1102230246251565e-15+4.218847493575595e-15i:
 <br>
 f=zeros(N,M);
 <br>
-f(x,y)=&lt;{_sv(=&lt;{_su(=&lt;F[u][v]*e^(i*u*x*2*pi/N),0,N-1)*Ni}*e^(i*v*y*2*pi/M),0,M-1)*Mi};
+f(x,y)=&lt;{_sv(=&lt;{_su(=&lt;F[u][v]*e^(i*x*u*2*pi/N),0,N-1)*Ni}*e^(i*y*v*2*pi/M),0,M-1)*Mi};
 <br>
 _sx(=&lt;_sy(=&lt;f[x][y]=f(x,y)=&gt;,0,N-1),0,M-1);
 <br>
@@ -19925,7 +19925,7 @@ infoLost[r ] -8.000000000000004+7.999999999999993i,
 <br>
 f=zeros(N,M);
 <br>
-f(y,x)=&lt;{_su(=&lt;{_sv(=&lt;F[u][v]*e^(i*v*y*2*pi/M),0,M-1)*Mi}*e^(i*u*x*2*pi/N),0,N-1)*Ni};
+f(y,x)=&lt;{_su(=&lt;{_sv(=&lt;F[u][v]*e^(i*y*v*2*pi/M),0,M-1)*Mi}*e^(i*x*u*2*pi/N),0,N-1)*Ni};
 <br>
 _sx(=&lt;_sy(=&lt;f[x][y]=f(y,x)=&gt;,0,M-1),0,N-1);
 <br>
