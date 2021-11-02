@@ -1074,6 +1074,21 @@ explicit ODE_RK4
 </a>
 <br>
 ・
+<a href="#span-eqn-DFT1d">
+DFT1d
+</a>
+<br>
+・
+<a href="#span-eqn-DFT2d_xy">
+DFT2d_xy
+</a>
+<br>
+・
+<a href="#span-eqn-DFT2d_yx">
+DFT2d_yx
+</a>
+<br>
+・
 <a href="#span-eqn-MaclaurinN">
 MaclaurinN
 </a>
@@ -22120,6 +22135,138 @@ init=&gt;,run=&gt;,return=out=&gt;,scope2storage=&gt;,
 proc=&lt;[args=(1,0.5,0,20+20i,1,1),=&lt;ODE_RK4(args)=&gt;]=&gt;/*nesting-return*/,
 <br>
 =&lt;switch(cond_error==0,=&lt;proc:1,-999/*error-code*/)]=&gt;;
+    </td>
+  </tr>
+  <tr>
+    <th>
+<a href="#span-index">
+目次
+</a>
+<br>
+DFT1d
+    </th>
+    <td>
+<span id="span-eqn-DFT1d"></span>
+<a href="#span-out-transform-dft">離散Fourier変換の解法</a>参照
+<br>
+clear;
+<br>
+DFT1d(f)=&lt;[
+<br>
+out=&lt;f,
+<div class="condition">
+init=&lt;last{N=sizer(f),Nf=1,Ni=1/N,F=zeros(N,1)},
+</div>
+<div class="run">
+run=&lt;last{
+<br>
+F(u)=&lt;{_sx(=&lt;f[x]*e^(-i*u*x*2*pi/N),0,N-1)*Nf},
+<br>
+_su(=&lt;F[u]=F(u)=&gt;,0,N-1),
+<br>
+f=zeros(N,1),
+<br>
+f(x)=&lt;{_su(=&lt;F[u]*e^(i*x*u*2*pi/N),0,N-1)*Ni},
+<br>
+_sx(=&lt;f[x]=f(x)=&gt;,0,N-1)
+<br>
+},
+</div>
+init=&gt;,run=&gt;,return=out=&gt;,
+<br>
+=&lt;return]=&gt;;
+<br>
+[f={1,2,3,4},f=f*scalars(sizec(f),1+i),
+<br>
+=&lt;DFT1d(=&lt;f)=&gt;]=&gt;;
+    </td>
+  </tr>
+  <tr>
+    <th>
+<a href="#span-index">
+目次
+</a>
+<br>
+DFT2d_xy
+    </th>
+    <td>
+<span id="span-eqn-DFT2d_xy"></span>
+<a href="#span-out-transform-dft">離散Fourier変換の解法</a>参照
+<br>
+clear;
+<br>
+DFT2d_xy(f)=&lt;[
+<br>
+out=&lt;f,
+<div class="condition">
+init=&lt;last{N=sizer(f),M=sizec(f),Nf=1,Ni=1/N,Mf=1,Mi=1/M,F=zeros(N,M)},
+</div>
+<div class="run">
+run=&lt;last{
+<br>
+F(u,v)=&lt;{_sy(=&lt;{_sx(=&lt;f[x][y]*e^(-i*u*x*2*pi/N),0,N-1)*Nf}*e^(-i*v*y*2*pi/M),0,M-1)*Mf},
+<br>
+_sv(=&lt;_su(=&lt;F[u][v]=F(u,v)=&gt;,0,N-1),0,M-1),
+<br>
+f=zeros(N,M),
+<br>
+f(x,y)=&lt;{_sv(=&lt;{_su(=&lt;F[u][v]*e^(i*x*u*2*pi/N),0,N-1)*Ni}*e^(i*y*v*2*pi/M),0,M-1)*Mi},
+<br>
+_sx(=&lt;_sy(=&lt;f[x][y]=f(x,y)=&gt;,0,N-1),0,M-1)
+<br>
+},
+</div>
+init=&gt;,run=&gt;,return=out=&gt;,
+<br>
+=&lt;return]=&gt;;
+<br>
+[f={1,2,3,4:5,6,7,8:9,10,11,12:13,14,15,16},f=f*scalars(sizec(f),1+i),
+<br>
+=&lt;DFT2d_xy(=&lt;f)=&gt;]=&gt;;
+    </td>
+  </tr>
+  <tr>
+    <th>
+<a href="#span-index">
+目次
+</a>
+<br>
+DFT2d_yx
+    </th>
+    <td>
+<span id="span-eqn-DFT2d_yx"></span>
+<a href="#span-out-transform-dft">離散Fourier変換の解法</a>参照
+<br>
+clear;
+<br>
+DFT2d_yx(f)=&lt;[
+<br>
+out=&lt;f,
+<div class="condition">
+init=&lt;last{N=sizer(f),M=sizec(f),Nf=1,Ni=1/N,Mf=1,Mi=1/M,F=zeros(N,M)},
+</div>
+<div class="run">
+run=&lt;last{
+<br>
+F(v,u)=&lt;{_sx(=&lt;{_sy(=&lt;f[x][y]*e^(-i*v*y*2*pi/M),0,M-1)*Mf}*e^(-i*u*x*2*pi/N),0,N-1)*Nf},
+<br>
+_su(=&lt;_sv(=&lt;F[u][v]=F(v,u)=&gt;,0,M-1),0,N-1),
+<br>
+f=zeros(N,M),
+<br>
+f(y,x)=&lt;{_su(=&lt;{_sv(=&lt;F[u][v]*e^(i*y*v*2*pi/M),0,M-1)*Mi}*e^(i*x*u*2*pi/N),0,N-1)*Ni},
+<br>
+_sx(=&lt;_sy(=&lt;f[x][y]=f(y,x)=&gt;,0,M-1),0,N-1)
+<br>
+},
+</div>
+init=&gt;,run=&gt;,return=out=&gt;,
+<br>
+=&lt;return]=&gt;;
+<br>
+[f={1,2,3,4:5,6,7,8:9,10,11,12:13,14,15,16},f=f*scalars(sizec(f),1+i),
+<br>
+=&lt;DFT2d_yx(=&lt;f)=&gt;]=&gt;;
     </td>
   </tr>
   <tr>
