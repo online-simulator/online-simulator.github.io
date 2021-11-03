@@ -522,6 +522,11 @@ scope付式変数の再利用
 実装の特徴
 </a>
 <br>
+　・
+<a href="#span-out-development-problems">
+仕様上の問題点
+</a>
+<br>
 ・
 <a href="#span-out-system">
 動作test環境
@@ -10155,6 +10160,27 @@ JavaScript特有の実装を列挙する
 目次
 </a>
 <br>
+仕様上の
+<br>
+問題点
+    </th>
+    <td>
+<span id="span-out-development-problems"></span>
+仕様上の問題点を列挙する
+<br>
+・2次元の<a href="#span-out-types">行列の型</a>||<a href="#span-in-tree">tree構造</a>を前提とする設計のため、3次元以上の配列は定義不能
+<br>
+・3次元以上の配列に相当する自由度は<a href="#span-out-vars-symbol">変数名symbol</a>で区別する
+<br>
+・3次元以上の配列に相当するfor-loopは展開して記述する
+    </td>
+  </tr>
+  <tr>
+    <th>
+<a href="#span-index">
+目次
+</a>
+<br>
 動作test環境
     </th>
     <td>
@@ -19728,8 +19754,6 @@ F ->
 <br>
 ・1次元IDFT
 <br>
-f=zeros(N,1);
-<br>
 f(x)=&lt;{_su(=&lt;F[u]*e^(i*x*u*2*pi/N),0,N-1)*Ni};
 <br>
 _sx(=&lt;f[x]=f(x)=&gt;,0,N-1);
@@ -19848,8 +19872,6 @@ infoLost[r ] 1.1102230246251565e-15+4.218847493575595e-15i:
 <br>
 ・2次元IDFT(x,y)->(u,y)->(u,v)->(x,v)->(x,y)
 <br>
-f=zeros(N,M);
-<br>
 f(x,y)=&lt;{_sv(=&lt;{_su(=&lt;F[u][v]*e^(i*x*u*2*pi/N),0,N-1)*Ni}*e^(i*y*v*2*pi/M),0,M-1)*Mi};
 <br>
 _sy(=&lt;_sx(=&lt;f[x][y]=f(x,y)=&gt;,0,N-1),0,M-1);
@@ -19937,8 +19959,6 @@ infoLost[r ] -8.000000000000004+7.999999999999993i,
 )
 <br>
 ・2次元IDFT(x,y)->(x,v)->(u,v)->(u,y)->(x,y)
-<br>
-f=zeros(N,M);
 <br>
 f(y,x)=&lt;{_su(=&lt;{_sv(=&lt;F[u][v]*e^(i*y*v*2*pi/M),0,M-1)*Mi}*e^(i*x*u*2*pi/N),0,N-1)*Ni};
 <br>
@@ -22164,8 +22184,6 @@ F(u)=&lt;{_sx(=&lt;f[x]*e^(-i*u*x*2*pi/N),0,N-1)*Nf},
 <br>
 _su(=&lt;F[u]=F(u)=&gt;,0,N-1),
 <br>
-f=zeros(N,1),
-<br>
 f(x)=&lt;{_su(=&lt;F[u]*e^(i*x*u*2*pi/N),0,N-1)*Ni},
 <br>
 _sx(=&lt;f[x]=f(x)=&gt;,0,N-1)
@@ -22208,8 +22226,6 @@ F(u,v)=&lt;{_sy(=&lt;{_sx(=&lt;f[x][y]*e^(-i*u*x*2*pi/N),0,N-1)*Nf}*e^(-i*v*y*2*
 <br>
 _sv(=&lt;_su(=&lt;F[u][v]=F(u,v)=&gt;,0,N-1),0,M-1),
 <br>
-f=zeros(N,M),
-<br>
 f(x,y)=&lt;{_sv(=&lt;{_su(=&lt;F[u][v]*e^(i*x*u*2*pi/N),0,N-1)*Ni}*e^(i*y*v*2*pi/M),0,M-1)*Mi},
 <br>
 _sy(=&lt;_sx(=&lt;f[x][y]=f(x,y)=&gt;,0,N-1),0,M-1)
@@ -22251,8 +22267,6 @@ run=&lt;last{
 F(v,u)=&lt;{_sx(=&lt;{_sy(=&lt;f[x][y]*e^(-i*v*y*2*pi/M),0,M-1)*Mf}*e^(-i*u*x*2*pi/N),0,N-1)*Nf},
 <br>
 _su(=&lt;_sv(=&lt;F[u][v]=F(v,u)=&gt;,0,M-1),0,N-1),
-<br>
-f=zeros(N,M),
 <br>
 f(y,x)=&lt;{_su(=&lt;{_sv(=&lt;F[u][v]*e^(i*y*v*2*pi/M),0,M-1)*Mi}*e^(i*x*u*2*pi/N),0,N-1)*Ni},
 <br>
