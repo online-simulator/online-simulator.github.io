@@ -12226,9 +12226,13 @@ fact(3i) || (3i)! || 0! -> 1
 <br>
 fact(3+3i) || (3+3i)! || 3! || 3*2*1 -> 6
 <br>
-fact(0) || 0! -> 1
-<br>
 <span class="clear">fact(-3) || (-3)!</span> -> 0
+<br>
+<span class="selection">fact(0) || 0! -> 1</span>
+<br>
+fact(1) || 1! || 1 -> 1
+<br>
+fact(2) || 2! || 2*1 -> 2
 <br>
 fact(3) || 3! || 3*2*1 -> 6
 <br>
@@ -12254,13 +12258,13 @@ permut(3i,1) || permut(0,1) -> 0
 <br>
 permut(3+3i,1) || permut(3,1) -> 3
 <br>
-permut(3,0) -> 1
-<br>
-permut(0,0) -> 1
-<br>
 <span class="clear">permut(-1,0)</span> -> 0
 <br>
 <span class="clear">permut(0,-1)</span> -> 0
+<br>
+<span class="selection">permut(0,0) -> 1</span>
+<br>
+permut(3,0) -> 1
 <br>
 permut(3,3) || 3*2*1 -> 6
 <br>
@@ -12296,13 +12300,13 @@ combin(3i,1) || combin(0,1) -> 0
 <br>
 combin(3+3i,1) || combin(3,1) -> 3
 <br>
-combin(3,0) -> 1
-<br>
-combin(0,0) -> 1
-<br>
 <span class="clear">combin(-1,0)</span> -> 0
 <br>
 <span class="clear">combin(0,-1)</span> -> 0
+<br>
+<span class="selection">combin(0,0) -> 1</span>
+<br>
+combin(3,0) -> 1
 <br>
 combin(3,3) || (3*2*1)/(3*2*1) -> 1
 <br>
