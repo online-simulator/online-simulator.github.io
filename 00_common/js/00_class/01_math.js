@@ -129,23 +129,6 @@ My_entry.math.prototype.sign = function(XYZ){
   }
   return false;
 };
-My_entry.math.prototype.fact = function(n){
-  var self = this;
-  return self.fact_k(n, 0);
-};
-My_entry.math.prototype.fact_k = function(n, k){
-  var self = this;
-  if(n < k) return 0;
-  var n = Math.floor(n);
-  if(n === k) return 1;
-  return self.fact_k(n-1, k)*n;
-};
-My_entry.math.prototype.fact_m = function(n, m){
-  var self = this;
-  var n = Math.floor(n);
-  if(n <= 0) return 1;
-  return self.fact_m(n-m, m)*n;
-};
 My_entry.math.prototype.degrees = function(rad){
   var self = this;
   return (rad*180/Math.PI);
@@ -178,18 +161,88 @@ My_entry.math.prototype.deg_atan = function(x){
   var self = this;
   return self.degrees(Math.atan(x));
 };
-My_entry.math.prototype.combin =
-My_entry.math.prototype.combination = function(n, r){
+/* Ver.2.69.28 -> */
+/*
+My_entry.math.prototype.fact = function(n){
   var self = this;
-  if(n < r) return 0;
-  return self.permut(n, r)/self.fact(r);
+  return self.fact_k(n, n);
+};
+My_entry.math.prototype.fact_k = function(left, right){
+  var self = this;
+  var n = Math.floor(left);
+  var k = Math.floor(right);
+  if(n < 0 || k < 0 || n < k) return 0;  // undefined first
+  if(k === 1) return n;                  // permut(3,3) || fact(3) || 3*2*1 -> 6
+  if(k === 0) return 1;                  // permut(3,0) || combin(3,0) -> 1
+  return self.fact_k(n-1, k-1)*n;        // do not use --n
+};
+My_entry.math.prototype.fact_m = function(left, right){
+  var self = this;
+  var n = Math.floor(left);
+  var m = Math.floor(right);
+  if(n < 0 || m <= 0) return 0;  // undefined first
+  if(n === 0) return 1;          // 0! || 0!! -> 1
+  if(n <= m) return n;           // 3!!! -> 3
+  return self.fact_m(n-m, m)*n;
+};
+*/
+My_entry.math.prototype.fact = function(left){
+  var self = this;
+  var _fact = 1;
+  var n = Math.floor(left);
+  if(n < 0){
+    _fact = 0;
+  }
+  else{
+    for(var i=n; i>0; --i){
+      _fact *= i;
+    }
+  }
+  return _fact;
+};
+My_entry.math.prototype.fact_k = function(left, right){
+  var self = this;
+  if(isNaN(right)) return 0;
+  var _fact = 1;
+  var n = Math.floor(left);
+  var k = Math.floor(right);
+  if(n < 0 || k < 0 || n < k){
+    _fact = 0;
+  }
+  else{
+    for(var i=n; i>n-k; --i){
+      _fact *= i;
+    }
+  }
+  return _fact;
+};
+My_entry.math.prototype.fact_m = function(left, right){
+  var self = this;
+  if(isNaN(right)) return 0;
+  var _fact = 1;
+  var n = Math.floor(left);
+  var m = Math.floor(right);
+  if(n < 0 || m <= 0){
+    _fact = 0;
+  }
+  else{
+    for(var i=n; i>0; i-=m){
+      _fact *= i;
+    }
+  }
+  return _fact;
 };
 My_entry.math.prototype.permut =
 My_entry.math.prototype.permutation = function(n, k){
   var self = this;
-  if(n < k) return 0;
-  return self.fact_k(n, n-k);
+  return self.fact_k(n, k);
 };
+My_entry.math.prototype.combin =
+My_entry.math.prototype.combination = function(n, r){
+  var self = this;
+  return self.permut(n, r)/(self.fact(r) || 1);  // || not0
+};
+/* -> Ver.2.69.28 */
 My_entry.math.prototype.deg_atan2 = function(y, x){
   var self = this;
   return self.degrees(Math.atan2(y, x));

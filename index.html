@@ -282,6 +282,62 @@ Y/M/D
 <tbody>
   <tr>
     <th>
+4.77.24.11.24
+    </th>
+    <td class="types">
+Calculator
+    </td>
+    <td>
+2.69.28
+    </td>
+    <td class="clear">
+fatal bug-fix
+    </td>
+    <td>
+[math.js]
+<br>
+・fact/permutation/combination specifications reviewed
+<br>
+　<a href="01_calc_simple/manual.html#span-out-prec-ope-arithmetic">[manual]Calculator-算術演算子</a>
+<br>
+　<a href="01_calc_simple/manual.html#span-out-FN-fact">[manual]Calculator-階乗関数</a>
+<br>
+・fact/permutation/combination bug-fixed reccursive call　⇒　for-loop
+<br>
+fact(<span class="clear">1e6</span>) || <span class="clear">1e6</span>! || <span class="clear">1e6</span>!! -> Maximum call stack size exceeded　⇒　Infinity
+<br>
+permutation(1<span class="clear">)</span> -> Maximum call stack size exceeded　⇒　0
+<br>
+combination(1<span class="clear">)</span> -> Maximum call stack size exceeded　⇒　0
+<br>
+[Calculator]
+<br>
+・fact/permutation/combination test case added
+<br>
+・manual更新
+<br>
+　追加校正約130箇所
+<br>
+　<a href="01_calc_simple/manual.html#span-out-FN">[manual]Calculator-関数入力仕様</a>
+<br>
+　<a href="01_calc_simple/manual.html#span-out-FN-args">[manual]Calculator-関数の引数</a>
+<br>
+　<a href="01_calc_simple/manual.html#span-out-FN-ope">[manual]Calculator-演算子代替関数</a>
+<br>
+　<a href="01_calc_simple/manual.html#span-out-FN-rand">[manual]Calculator-乱数関数</a>
+<br>
+　<a href="01_calc_simple/manual.html#span-out-FN-fact">[manual]Calculator-階乗関数</a>
+<br>
+　<a href="01_calc_simple/manual.html#span-out-FN-log">[manual]Calculator-log関数</a>
+<br>
+　<a href="01_calc_simple/manual.html#span-out-FN-atan2">[manual]Calculator-atan2関数</a>
+    </td>
+    <td>
+2021/11/4
+    </td>
+  </tr>
+  <tr>
+    <th>
 4.77.24.10.24
     </th>
     <td class="types">
@@ -304,7 +360,7 @@ minor change
 <br>
 [Calculator]
 <br>
-・test case追記から2D-IDFTの数式を一部訂正
+・test case追記から<span class="clear">2D-IDFTの数式</span>を一部訂正
 <br>
 　results are no change
 <br>

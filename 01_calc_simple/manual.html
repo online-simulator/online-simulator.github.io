@@ -626,6 +626,36 @@ comment文
 関数
 </a>
 <br>
+　　・
+<a href="#span-out-FN-args">
+関数の引数
+</a>
+<br>
+　　・
+<a href="#span-out-FN-ope">
+演算子代替関数
+</a>
+<br>
+　　・
+<a href="#span-out-FN-rand">
+乱数関数
+</a>
+<br>
+　　・
+<a href="#span-out-FN-fact">
+階乗関数
+</a>
+<br>
+　　・
+<a href="#span-out-FN-log">
+log関数
+</a>
+<br>
+　　・
+<a href="#span-out-FN-atan2">
+atan2関数
+</a>
+<br>
 　・
 <a href="#span-out-FNspecial">
 特殊関数
@@ -2264,9 +2294,9 @@ originX:originY:offsetR:<span class="clear">orderR:NrandR:NrandT:isMin:isRound:N
 <br>
 　orderR=1の場合、既定の線形補間
 <br>
-・NrandR=0~255はgradation代表長さの<a href="#span-out-FN">乱数</a>
+・NrandR=0~255はgradation代表長さの<a href="#span-out-FN-rand">乱数</a>
 <br>
-・NrandT=0~255はgradation分布の<a href="#span-out-FN">乱数</a>
+・NrandT=0~255はgradation分布の<a href="#span-out-FN-rand">乱数</a>
 <br>
 ・isMin=false||true||&lt;0(auto)はgradation代表長さの一意な決め方を指定する
 <br>
@@ -2301,7 +2331,7 @@ originX:originY:offsetR:orderR:NrandR:NrandT:isMin:<span class="clear">isRound</
 <br>
 　offsetR=0の場合、gradationの周期境界条件を課す
 <br>
-・NrandR=0~255はgradation間隔の<a href="#span-out-FN">乱数</a>
+・NrandR=0~255はgradation間隔の<a href="#span-out-FN-rand">乱数</a>
 <br>
 ・isMin=false||trueはrenderingの重複を判定する
 <br>
@@ -2321,7 +2351,7 @@ svg出力の特徴を列挙する
 <br>
 ・legend間のgradation合成可（source-over）
 <br>
-・<a href="#span-out-FN">乱数</a>使用不可
+・<a href="#span-out-FN-rand">乱数</a>使用不可
 <br>
 ・<span class="selection">circle-mode@Ncycle=0</span>の場合、周方向の分割数=(NrandT||10)*colors.length
 <br>
@@ -2344,7 +2374,7 @@ png出力の特徴を列挙する
 <br>
 ・putImageData()同期出力のため、<a href="#span-out-UI-graphing-post1">canvas-globalCompositeOperation</a>無効（source-over）</del>
 <br>
-・<a href="#span-out-FN">乱数</a>使用可
+・<a href="#span-out-FN-rand">乱数</a>使用可
 <br>
 ・Nrender=1で真円のgradationが比較的簡単に得られる
 <br>
@@ -2368,7 +2398,7 @@ png出力の特徴を列挙する
 <br>
 ・上記精度を上げ過ぎた場合、svg出力のfile sizeや<a href="#span-out-UI-graphing-post">post処理</a>の負荷が増大する
 <br>
-・<a href="#span-out-FN">乱数</a>設定時、flickering防止のため、plot終了の最終frameまで逐次描画しない
+・<a href="#span-out-FN-rand">乱数</a>設定時、flickering防止のため、plot終了の最終frameまで逐次描画しない
 <br>
 ・drawImage()非同期出力のため、最終frameにlegend順を保証してgradationを合成する
     </td>
@@ -2653,7 +2683,7 @@ asym[x||0,y||0,k||0,Nrad||0]
 <br>
 test caseを列挙する
 <br>
-・strength分布に<a href="#span-out-FN">乱数</a>を適用（glass morphism効果を模擬）
+・strength分布に<a href="#span-out-FN-rand">乱数</a>を適用（glass morphism効果を模擬）
 <br>
 config[0:0:0:1:0:50:false:false:2560:4:true:false:last]
 <br>
@@ -6627,9 +6657,9 @@ post-processor特定項目仕様について記述する
 <br>
 ・<span class="run">Ver.2.61.27</span>以降、<span class="condition">塗りつぶし</span>機能を追加（<span class="condition">Nwrap</span>を周回数とする独自の回り込み方式）
 <br>
-・<span class="run">Ver.2.62.27</span>以降、不可逆な<span class="jF">encode</span>機能を追加（<a href="#span-out-FN">乱数seed値</a>不定のFisher-Yates shuffle）
+・<span class="run">Ver.2.62.27</span>以降、不可逆な<span class="jF">encode</span>機能を追加（<a href="#span-out-FN-rand">乱数seed値</a>不定のFisher-Yates shuffle）
 <br>
-　⇒　<a href="../99_gacha/index.html">確率抽選</a>の反復sortのため、<a href="#span-out-FN">一様乱数</a>の前提で完全random性を数学的に保証する
+　⇒　<a href="../99_gacha/index.html">確率抽選</a>の反復sortのため、<a href="#span-out-FN-rand">一様乱数</a>の前提で完全random性を数学的に保証する
 <br>
 <br>
 post-processorの仕様を列挙する
@@ -6653,7 +6683,7 @@ fy_rgba[offsetY||0]
 <br>
 dot_rgba[dx=1~||1,dy=1~||dx]
 <br>
-・不可逆な<span class="jF">encode</span>（decodeする場合、encodeの<a href="#span-out-FN">乱数seed値</a>を連番等で指定）
+・不可逆な<span class="jF">encode</span>（decodeする場合、encodeの<a href="#span-out-FN-rand">乱数seed値</a>を連番等で指定）
 <br>
 encode_rgba[dx=1~||1,dy=1~||dx]
 <br>
@@ -7622,7 +7652,7 @@ precedence
 <br>
 　　・<a href="#span-out-com">虚数単位</a> i
 <br>
-　　・階乗記号 ! || !!...
+　　・<a href="#span-out-FN-fact">階乗</a>記号 ! || !!...
 <br>
 　・<a href="#span-out-type-ope">中置2項演算子</a>
 <br>
@@ -7729,11 +7759,11 @@ precedence
 <br>
 <a href="#span-out-type-ope">後置単項演算子</a>は<a href="#span-out-type-ope">中置2項演算子</a>より優先する
 <br>
-3^2! || 3^(2!) || 3^(2*1) -> 9
+3^2! || 3^(2!) || 3^(2*1) -> 8.999999999999998
 <br>
 2*3!! || 2*(3!!) || 2*(3*1) -> 6
 <br>
-・階乗のoperandは0を含む自然数のみ対応
+・<a href="#span-out-FN-fact">階乗</a>のoperandは0を含む自然数のみ対応
 <br>
 0! || 0!! || 0!!! -> 1
 <br>
@@ -7745,11 +7775,11 @@ precedence
 <br>
 -(3)! || (0-(3!)) || (0-(3*2*1)) -> -6
 <br>
-・階乗のoperandが負の場合、未定義で1を返す
+・<a href="#span-out-FN-fact">階乗</a>のoperandが負の場合、未定義で<del>1を返す</del><span class="clear">Ver.2.69.28</span>以降、0を返す
 <br>
-(-3)! || ((-3)!) -> 1
+<span class="clear">(-3)!</span> || ((-3)!) -> 0
 <br>
-(-3)!! || ((-3)!!) -> 1
+<span class="clear">(-3)!!</span> || ((-3)!!) -> 0
 <br>
 (-3)*!! || (-3)*(0!!) -> -3
 <br>
@@ -7872,7 +7902,7 @@ i&lt;&lt;2 || real(i)&lt;&lt;2 || 0&lt;&lt;2 -> 0
 2i>i || real(2i)>real(i) || 0>0 -> 0
 <br>
 <br>
-比較演算子を代替する関数は<a href="#span-out-FN">関数入力仕様</a>参照
+比較演算子を代替する関数は<a href="#span-out-FN-ope">演算子代替関数入力仕様</a>参照
     </td>
   </tr>
   <tr>
@@ -7888,7 +7918,7 @@ i&lt;&lt;2 || real(i)&lt;&lt;2 || 0&lt;&lt;2 -> 0
 関係演算子と付随する留意事項について記述する
 <br>
 <br>
-論理ORをbit orで代替する場合、<a href="#span-out-BT">括弧</a>を明示するか<a href="#span-out-FN">関数</a>を使用する
+論理ORをbit orで代替する場合、<a href="#span-out-BT">括弧</a>を明示するか<a href="#span-out-FN-ope">関数</a>を使用する
 <br>
 ・1==1 || 1==-1
 <br>
@@ -7903,7 +7933,7 @@ i&lt;&lt;2 || real(i)&lt;&lt;2 || 0&lt;&lt;2 -> 0
 1==1||1==-1 || (1==1)||(1==-1) || 1||0 -> 1
 <br>
 <br>
-論理ANDをbit andで代替する場合、<a href="#span-out-BT">括弧</a>を明示するか<a href="#span-out-FN">関数</a>を使用する
+論理ANDをbit andで代替する場合、<a href="#span-out-BT">括弧</a>を明示するか<a href="#span-out-FN-ope">関数</a>を使用する
 <br>
 ・1==1 &amp;&amp; 1==-1
 <br>
@@ -7940,14 +7970,14 @@ i==0 || real(i)==0 -> 1
 <br>
 1&lt;&gt;2 -> 1
 <br>
-・次のような場合、<a href="#span-out-FN">関数</a>で代替する方が間違いが少ない
+・次のような場合、<a href="#span-out-FN-ope">関数</a>で代替する方が間違いが少ない
 <br>
 2&lt;(=2) || lt(2,=2) -> 0
 <br>
 2&lt;=2 -> 1
 <br>
 <br>
-関係演算子を代替する関数は<a href="#span-out-FN">関数入力仕様</a>参照
+関係演算子を代替する関数は<a href="#span-out-FN-ope">演算子代替関数入力仕様</a>参照
     </td>
   </tr>
   <tr>
@@ -11706,7 +11736,7 @@ eは指数と区別するために空括弧()を付ける方が間違いが少�
 <br>
 (({})) -> 0
 <br>
-<del>・乱数</del><span class="run">Ver.2.30.15</span>以降、乱数は引数0個の<a href="#span-out-FN">関数</a>に昇格
+<del>・乱数</del><span class="run">Ver.2.30.15</span>以降、乱数は引数0個の<a href="#span-out-FN-rand">関数</a>に昇格
 <br>
 <del>random() || random || rand -> 0.7479324154774045</del>
 <br>
@@ -11933,67 +11963,6 @@ pcomp(1,t) || ecomp(t) || cos(t)+real(i)sin(t) || cos(t) -> 0.7071067811865476
 関数の引数を括る<a href="#span-out-BT">括弧</a>は丸括弧()で統一する（<a href="#span-out-FNm-last">last行列関数</a>を除く）
 <br>
 <br>
-leftとrightの数値の関係や大小を比較する関数を列挙する
-<br>
-・operandが<a href="#span-out-com">複素数</a>の場合
-<br>
-　・equal判定関数: ceq(left, right)
-<br>
-　・not equal判定関数: cne(left, right)
-<br>
-・operandが実数の場合、<a href="#span-out-type-ope">中置2項演算子</a>を代替可
-<br>
-　・left==rightを代替するequal判定関数: eq(left, right)
-<br>
-　・left&lt;&gt;rightを代替するnot equal判定関数: ne(left, right)
-<br>
-　・left&lt;rightを代替するless than判定関数: lt(left, right)
-<br>
-　・left&lt;=rightを代替するless or equal判定関数: le(left, right)
-<br>
-　・left&gt;rightを代替するgreater than判定関数: gt(left, right)
-<br>
-　・left&gt;=rightを代替するgreater or equal判定関数: ge(left, right)
-<br>
-・引数
-<br>
-　・第1引数: leftの数値を値渡し
-<br>
-　・第2引数: rightの数値を値渡し
-<br>
-・返値
-<br>
-　・成立時: 1を返す
-<br>
-　・不成立時: 0を返す
-<br>
-・test caseを列挙する
-<br>
-ceq(2+3i,3*i-(-2)) -> 1
-<br>
-cne(2+3i,3*i-(-2)) -> 0
-<br>
-eq(2+3i,2-3i) || eq(2,2) -> 1
-<br>
-ne(5,-5) -> 1
-<br>
-lt(1,2)&amp;lt(3,4) || 1&amp;1  <span class="selection">// AND</span> -> 1
-<br>
-lt(1,2)&amp;gt(3,4) || 1&amp;0  <span class="selection">// AND</span> -> 0
-<br>
-lt(1,2)@lt(3,4) || 1@1  <span class="selection">// XOR</span> -> 0
-<br>
-lt(1,2)@gt(3,4) || 1@0  <span class="selection">// XOR</span> -> 1
-<br>
-lt(1,2)|lt(3,4) || 1|1  <span class="selection">// OR</span> -> 1
-<br>
-lt(1,2)|gt(3,4) || 1|0  <span class="selection">// OR</span> -> 1
-<br>
-le(1,1)*ge(1,1) || 1*1 -> 1
-<br>
-le(1,1)*ge(1,2) || 1*0 -> 0
-<br>
-<br>
 関数の引数に<a href="#span-out-mat">行列</a>を指定した場合、最終行vectorの左から順に参照する
 <br>
 ・引数1個の関数の場合
@@ -12017,77 +11986,21 @@ x=(1,2,3:4,5,6); max(x) || max(4,5,6) -> 6
 x=(1,2,3:4,5,6); lcm(x) || lcm(4,5,6) -> 60
 <br>
 x=(1,2,3:4,5,6:7*1,7*2,7*3); gcd(x) || gcd(7,14,21) -> 7
+    </td>
+  </tr>
+  <tr>
+    <th>
+<a href="#span-index">
+目次
+</a>
 <br>
+関数の引数
 <br>
-log関数の仕様はJavaScript準拠の自然対数とする
-<br>
-ln(e) || log(e) -> 1
-<br>
-ln(10) || ln10() -> 2.302585092994046
-<br>
-ln(2) || ln2() -> 0.6931471805599453
-<br>
-<br>
-常用対数
-<br>
-log10(10) -> 1
-<br>
-x=10; log(x)log10e() -> 1
-<br>
-x=100; log(x)log10e() -> 2
-<br>
-<br>
-Excel準拠の引数(値,底||10)は次のlog_exを使用する
-<br>
-log_ex(10) || log_ex(10,10) -> 1
-<br>
-log_ex(e) || log10e() -> 0.43429448190325176
-<br>
-log_ex(e,2) || log2e() -> 1.4426950408889634
-<br>
-<br>
-atan2関数の仕様はJavaScript準拠の引数(y,x)とする
-<br>
-atan2(1,0)/pi -> 0.5
-<br>
-deg_atan2(1,0) || degrees(atan2(1,0)) -> 90
-<br>
-<br>
-<a href="#span-out-vars">変数</a>を使用
-<br>
-・実軸と虚軸の<a href="#span-out-com">複素数</a>平面から弧度数radに変換する場合
-<br>
-z=e^(i{pi/6}); atan2(imag(z),real(z)) -> 0.5235987755982987
-<br>
-z=e^(i{pi/6}); arg(z) -> 0.5235987755982987
-<br>
-・さらに、度数degに変換する場合
-<br>
-degrees(ans) || deg_atan2(imag(z),real(z)) -> 29.999999999999993
-<br>
-・再度、弧度数radに変換
-<br>
-radians(ans) -> 0.5235987755982987
-<br>
-<br>
-Excel準拠の引数(x,y)は次のatan2_exを使用する
-<br>
-atan2_ex(0,1)/pi -> 0.5
-<br>
-deg_atan2_ex(0,1) || degrees(atan2_ex(0,1)) -> 90
-<br>
-<br>
-<span class="run">Ver.2.30.15</span>以降、乱数の即時callに対応
-<br>
-・NativeのMath.random()に同義
-<br>
-　・返値は区間[0,1)の一様乱数（0以上~1未満の擬似乱数）
-<br>
-　・乱数生成器のseed値は現在時刻（指定不可）
-<br>
-random() || random || rand -> 0.7479324154774045
-<br>
-A=0; _rn(=&lt;A=(A,rand),,2); A -> (0,0.12740820474199377,0.7111903938956377)
+入力仕様
+    </th>
+    <td>
+<span id="span-out-FN-args"></span>
+関数の引数の入力仕様と付随する留意事項について記述する
 <br>
 <br>
 一部の実装関数において引数不足の場合、予期せぬerror終了が発生する
@@ -12155,6 +12068,353 @@ clear; x=gcd(-1,2,-3); x -> false
 clear; x=gcd(-1,2,-3); x==0 || 0==x -> 1
 <br>
 clear; x=gcd(-1,2,-3); x*1 || 0*1 -> 0
+    </td>
+  </tr>
+  <tr>
+    <th>
+<a href="#span-index">
+目次
+</a>
+<br>
+演算子
+<br>
+代替関数
+<br>
+入力仕様
+    </th>
+    <td>
+<span id="span-out-FN-ope"></span>
+演算子代替関数の入力仕様と付随する留意事項について記述する
+<br>
+<br>
+leftとrightの数値の関係||大小を比較する関数について記述する
+<br>
+<br>
+operandが<a href="#span-out-com">複素数</a>の場合
+<br>
+・equal判定関数: ceq(left, right)
+<br>
+・not equal判定関数: cne(left, right)
+<br>
+<br>
+operandが実数の場合、<a href="#span-out-type-ope">中置2項演算子</a>を代替可
+<br>
+・left==rightを代替するequal判定関数: eq(left, right)
+<br>
+・left&lt;&gt;rightを代替するnot equal判定関数: ne(left, right)
+<br>
+・left&lt;rightを代替するless than判定関数: lt(left, right)
+<br>
+・left&lt;=rightを代替するless or equal判定関数: le(left, right)
+<br>
+・left&gt;rightを代替するgreater than判定関数: gt(left, right)
+<br>
+・left&gt;=rightを代替するgreater or equal判定関数: ge(left, right)
+<br>
+<br>
+引数
+<br>
+・第1引数: leftの数値を値渡し
+<br>
+・第2引数: rightの数値を値渡し
+<br>
+<br>
+返値
+<br>
+・成立時: 1を返す
+<br>
+・不成立時: 0を返す
+<br>
+<br>
+test caseを列挙する
+<br>
+ceq(2+3i,3*i-(-2)) -> 1
+<br>
+cne(2+3i,3*i-(-2)) -> 0
+<br>
+eq(2+3i,2-3i) || eq(2,2) -> 1
+<br>
+ne(5,-5) -> 1
+<br>
+lt(1,2)&amp;lt(3,4) || 1&amp;1  <span class="selection">// AND</span> -> 1
+<br>
+lt(1,2)&amp;gt(3,4) || 1&amp;0  <span class="selection">// AND</span> -> 0
+<br>
+lt(1,2)@lt(3,4) || 1@1  <span class="selection">// XOR</span> -> 0
+<br>
+lt(1,2)@gt(3,4) || 1@0  <span class="selection">// XOR</span> -> 1
+<br>
+lt(1,2)|lt(3,4) || 1|1  <span class="selection">// OR</span> -> 1
+<br>
+lt(1,2)|gt(3,4) || 1|0  <span class="selection">// OR</span> -> 1
+<br>
+le(1,1)*ge(1,1) || 1*1 -> 1
+<br>
+le(1,1)*ge(1,2) || 1*0 -> 0
+    </td>
+  </tr>
+  <tr>
+    <th>
+<a href="#span-index">
+目次
+</a>
+<br>
+乱数関数
+<br>
+入力仕様
+    </th>
+    <td>
+<span id="span-out-FN-rand"></span>
+乱数関数の入力仕様と付随する留意事項について記述する
+<br>
+<br>
+<span class="run">Ver.2.30.15</span>以降、乱数の即時callに対応
+<br>
+<br>
+乱数の仕様はNativeのMath.random()に同義
+<br>
+・返値は区間[0,1)の一様乱数（0以上~1未満の擬似乱数）
+<br>
+・乱数生成器のseed値は現在時刻（指定不可）
+<br>
+<br>
+test caseを列挙する
+<br>
+random() || random || rand -> 0.7479324154774045
+<br>
+A=0; _rn(=&lt;A=(A,rand),,2); A -> (0,0.12740820474199377,0.7111903938956377)
+    </td>
+  </tr>
+  <tr>
+    <th>
+<a href="#span-index">
+目次
+</a>
+<br>
+階乗関数
+<br>
+入力仕様
+    </th>
+    <td>
+<span id="span-out-FN-fact"></span>
+階乗関数の入力仕様と付随する留意事項について記述する
+<br>
+<br>
+<span class="clear">Ver.2.69.28</span>以降、階乗の仕様を見直して次の致命的な不具合に繋がる入力を回避
+<br>
+<span class="clear">Maximum call stack size exceeded</span>
+<br>
+・再帰処理を単なるfor-loopに修正
+<br>
+・順列||組合せ関数の引数不足による無限loopを対策
+<br>
+<br>
+階乗の仕様を列挙する
+<br>
+・operandは0を含む自然数のみ対応
+<br>
+・operandが負の場合、未定義で0を返す
+<br>
+<br>
+test caseを列挙する
+<br>
+・階乗
+<br>
+fact(3.3) || 3.3! || 3! || 3*2*1 -> 6
+<br>
+fact(3i) || (3i)! || 0! -> 1
+<br>
+fact(3+3i) || (3+3i)! || 3! || 3*2*1 -> 6
+<br>
+fact(0) || 0! -> 1
+<br>
+<span class="clear">fact(-3) || (-3)!</span> -> 0
+<br>
+fact(3) || 3! || 3*2*1 -> 6
+<br>
+fact(4) || 4! || 4*3*2*1 -> 24
+<br>
+fact(5) || 5! || 5*4*3*2*1 -> 120
+<br>
+fact(6) || 6! || 6*5*4*3*2*1 -> 720
+<br>
+fact(7) || 7! || 7*6*5*4*3*2*1 -> 5040
+<br>
+fact(8) || 8! || 8*7*6*5*4*3*2*1 -> 40320
+<br>
+fact(9) || 9! || 9*8*7*6*5*4*3*2*1 -> 362880
+<br>
+fact(10) || 10! || 10*9*8*7*6*5*4*3*2*1 -> 3628800
+<br>
+・順列
+<br>
+permut(3.3,1.6) || permut(3,1) || permutation(3,1) -> 3
+<br>
+permut(3i,1) || permut(0,1) -> 0
+<br>
+permut(3+3i,1) || permut(3,1) -> 3
+<br>
+permut(3,0) -> 1
+<br>
+permut(0,0) -> 1
+<br>
+<span class="clear">permut(-1,0)</span> -> 0
+<br>
+<span class="clear">permut(0,-1)</span> -> 0
+<br>
+permut(3,3) || 3*2*1 -> 6
+<br>
+permut(3,2) || 3*2 -> 6
+<br>
+permut(3,1) || 3 -> 3
+<br>
+permut(3,0) -> 1
+<br>
+permut(3,-1) -> 0
+<br>
+permut(5,5) || 5*4*3*2*1 -> 120
+<br>
+permut(5,4) || 5*4*3*2 -> 120
+<br>
+permut(5,3) || 5*4*3 -> 60
+<br>
+permut(5,2) || 5*4 -> 20
+<br>
+permut(5,1) || 5 -> 5
+<br>
+permut(5,0) -> 1
+<br>
+permut(5,-1) -> 0
+<br>
+<span class="clear">permut(5)</span> -> 0
+<br>
+・組合せ
+<br>
+combin(3.3,1.6) || combin(3,1) || combination(3,1) -> 3
+<br>
+combin(3i,1) || combin(0,1) -> 0
+<br>
+combin(3+3i,1) || combin(3,1) -> 3
+<br>
+combin(3,0) -> 1
+<br>
+combin(0,0) -> 1
+<br>
+<span class="clear">combin(-1,0)</span> -> 0
+<br>
+<span class="clear">combin(0,-1)</span> -> 0
+<br>
+combin(3,3) || (3*2*1)/(3*2*1) -> 1
+<br>
+combin(3,2) || (3*2)/(2*1) -> 3
+<br>
+combin(3,1) || (3)/(1) -> 3
+<br>
+combin(3,0) -> 1
+<br>
+combin(5,5) || (5*4*3*2*1)/(5*4*3*2*1) -> 1
+<br>
+combin(5,4) || (5*4*3*2)/(4*3*2*1) -> 5
+<br>
+combin(5,3) || (5*4*3)/(3*2*1) -> 10
+<br>
+combin(5,2) || (5*4)/(2*1) -> 10
+<br>
+combin(5,1) || (5)/(1) -> 5
+<br>
+combin(5,0) -> 1
+<br>
+combin(5,-1) -> 0
+<br>
+<span class="clear">combin(5)</span> -> 0
+    </td>
+  </tr>
+  <tr>
+    <th>
+<a href="#span-index">
+目次
+</a>
+<br>
+log関数
+<br>
+入力仕様
+    </th>
+    <td>
+<span id="span-out-FN-log"></span>
+log関数の入力仕様と付随する留意事項について記述する
+<br>
+<br>
+log関数の仕様はJavaScript準拠の自然対数とする
+<br>
+ln(e) || log(e) -> 1
+<br>
+ln(10) || ln10() -> 2.302585092994046
+<br>
+ln(2) || ln2() -> 0.6931471805599453
+<br>
+<br>
+常用対数
+<br>
+log10(10) -> 1
+<br>
+x=10; log(x)log10e() -> 1
+<br>
+x=100; log(x)log10e() -> 2
+<br>
+<br>
+Excel準拠の引数(値,底||10)は次のlog_exを使用する
+<br>
+log_ex(10) || log_ex(10,10) -> 1
+<br>
+log_ex(e) || log10e() -> 0.43429448190325176
+<br>
+log_ex(e,2) || log2e() -> 1.4426950408889634
+    </td>
+  </tr>
+  <tr>
+    <th>
+<a href="#span-index">
+目次
+</a>
+<br>
+atan2関数
+<br>
+入力仕様
+    </th>
+    <td>
+<span id="span-out-FN-atan2"></span>
+atan2関数の入力仕様と付随する留意事項について記述する
+<br>
+<br>
+atan2関数の仕様はJavaScript準拠の引数(y,x)とする
+<br>
+atan2(1,0)/pi -> 0.5
+<br>
+deg_atan2(1,0) || degrees(atan2(1,0)) -> 90
+<br>
+<br>
+<a href="#span-out-vars">変数</a>を使用
+<br>
+・実軸と虚軸の<a href="#span-out-com">複素数</a>平面から弧度数radに変換する場合
+<br>
+z=e^(i{pi/6}); atan2(imag(z),real(z)) -> 0.5235987755982987
+<br>
+z=e^(i{pi/6}); arg(z) -> 0.5235987755982987
+<br>
+・さらに、度数degに変換する場合
+<br>
+degrees(ans) || deg_atan2(imag(z),real(z)) -> 29.999999999999993
+<br>
+・再度、弧度数radに変換
+<br>
+radians(ans) -> 0.5235987755982987
+<br>
+<br>
+Excel準拠の引数(x,y)は次のatan2_exを使用する
+<br>
+atan2_ex(0,1)/pi -> 0.5
+<br>
+deg_atan2_ex(0,1) || degrees(atan2_ex(0,1)) -> 90
     </td>
   </tr>
   <tr>
@@ -14559,7 +14819,7 @@ x=-2; (cp_mp) -> [MyErr]Invalid BTe([object Object])
 x=-2; switch(cp_mp) -> 2
 <br>
 <br>
-<a href="#span-out-prec-ope-logical">論理演算子</a>を<a href="#span-out-prec-ope-bit">bit演算子</a>で代替する場合、<a href="#span-out-BT">括弧</a>を明示するか<a href="#span-out-FN">関数</a>を使用する
+<a href="#span-out-prec-ope-logical">論理演算子</a>を<a href="#span-out-prec-ope-bit">bit演算子</a>で代替する場合、<a href="#span-out-BT">括弧</a>を明示するか<a href="#span-out-FN-ope">関数</a>を使用する
 <br>
 ・if(1==1 || 1==-1) return 1;
 <br>
@@ -15020,7 +15280,7 @@ _rn(=&lt;{last{Pn=Pn*2,n+1}},Pn=1,10,=&lt;{Pn>100}) -> 7
 _ry(=&lt;{_rx(=&lt;{x+y},1,2,=&lt;{y==1})},1,2) || (1+(2))+2<span class="selection">/*(x)+y*/</span> -> 5
 <br>
 <br>
-階乗の一例10!=3628800を示す
+<a href="#span-out-FN-fact">階乗</a>の一例10!=3628800を示す
 <br>
 ・n=10を初期値に設定
 <br>
