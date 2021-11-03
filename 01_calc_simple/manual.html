@@ -12564,6 +12564,32 @@ scalars(3,i) -> (i,0,0:0,i,0:0,0,i)
 <br>
 Scalars(4,3-5i) -> (3-5i,0,0,0:0,3-5i,0,0:0,0,3-5i,0:0,0,0,3-5i)
 <br>
+・任意size行列AのScalar倍
+<br>
+A=(1,2,3,4:5,6,7,8); scalars(sizer(A),2)*A || A*scalars(sizec(A),2) ->
+<br>
+(
+<br>
+2,4,6,8:
+<br>
+10,12,14,16
+<br>
+)
+<br>
+A={1,2,3,4:5,6,7,8}; scalars(sizer(A),2)*A || A*scalars(sizec(A),2) ->
+<br>
+(
+<br>
+2,10:
+<br>
+4,12:
+<br>
+6,14:
+<br>
+8,16
+<br>
+)
+<br>
 ・<a href="#span-out-FNm-trans">転置行列関数</a>を使用
 <br>
 N=10; z=1+i; A=htrans(scalars(N,z))identity(N)scalars(N,z); A ||
