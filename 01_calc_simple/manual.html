@@ -1277,6 +1277,10 @@ ja.m.wikipedia.org/wiki/項目を列挙する
 <br>
 ・フーリエ級数
 <br>
+・ハールウェーブレット
+<br>
+・多重解像度解析
+<br>
 ・フォン・ノイマンの安定性解析
 <br>
 ・ガンマ補正
@@ -20064,7 +20068,7 @@ f->
 <br>
 )
 <br>
-・1次元DFT
+・1次元DFT(x)->(u)
 <br>
 f={1,2,3,4};
 <br>
@@ -20094,7 +20098,7 @@ F ->
 <br>
 )
 <br>
-・1次元IDFT
+・1次元IDFT(u)->(x)
 <br>
 f(x)=&lt;{_su(=&lt;F[u]*e^(i*x*u*2*pi/N),0,N-1)*Ni};
 <br>
@@ -20360,6 +20364,144 @@ Wavelet変換
     <td>
 <span id="span-out-transform-dwt"></span>
 離散Wavelet変換Discrete Wavelet Transform(DWT)の解法について記述する
+<br>
+<br>
+前提を列挙する
+<br>
+・1次元の標本点数をNとして順変換DWTと逆変換IDWTの制約条件を示す
+<br>
+N=2^p
+<br>
+・量子化bit数=p
+<br>
+・信号変換の解像度をscalingするtwo-scale関係が成立する
+<br>
+<br>
+多重解像度解析のHaar's DWT/IDWTを一例に示す
+<br>
+<br>
+1次元DWT(x)->(u)
+<br>
+・標本点
+<br>
+<span class="condition">1,2,3,4,5,6,7,8</span>
+<br>
+・two-scale関係式
+<br>
+left_after=left_before+right_before
+<br>
+right_after=left_before-right_before
+<br>
+・左右に和情報と差情報を分離して再帰的に和情報を左側に寄せる
+<br>
+<span class="condition">1+2,3+4,5+6,7+8</span>,1-2,3-4,5-6,7-8
+<br>
+<span class="condition">1+2+3+4,5+6+7+8</span>,1+2-(3+4),5+6-(7+8),1-2,3-4,5-6,7-8
+<br>
+<span class="condition">1+2+3+4+5+6+7+8</span>,1+2+3+4-(5+6+7+8),1+2-(3+4),5+6-(7+8),1-2,3-4,5-6,7-8
+<br>
+・整理して示す
+<br>
+<span class="condition">1,2,3,4,5,6,7,8</span>
+<br>
+<span class="condition">3,7,11,15</span>,-1,-1,-1,-1
+<br>
+<span class="condition">10,26</span>,-4,-4,-1,-1,-1,-1
+<br>
+<span class="condition">36</span>,-16,-4,-4,-1,-1,-1,-1
+<br>
+<br>
+1次元IDWT(u)->(x)
+<br>
+・標本点
+<br>
+<span class="condition">36</span>,-16,-4,-4,-1,-1,-1,-1
+<br>
+・two-scale関係式
+<br>
+left_before=(left_after+right_after)/2
+<br>
+right_before=(left_after-right_after)/2
+<br>
+・再帰的に左右の情報を復元する
+<br>
+<span class="condition">(36+(-16))/2,(36-(-16))/2</span>,-4,-4,-1,-1,-1,-1
+<br>
+<span class="condition">(10+(-4))/2,(10-(-4))/2,(26+(-4))/2,(26-(-4))/2</span>,-1,-1,-1,-1
+<br>
+<span class="condition">(3+(-1))/2,(3-(-1))/2,(7+(-1))/2,(7-(-1))/2,(11+(-1))/2,(11-(-1))/2,(15+(-1))/2,(15-(-1))/2</span>
+<br>
+・整理して示す
+<br>
+<span class="condition">36</span>,-16,-4,-4,-1,-1,-1,-1
+<br>
+<span class="condition">10,26</span>,-4,-4,-1,-1,-1,-1
+<br>
+<span class="condition">3,7,11,15</span>,-1,-1,-1,-1
+<br>
+<span class="condition">1,2,3,4,5,6,7,8</span>
+<br>
+<br>
+2次元DWT/IDWT(x,y)⇔(u,y)⇔(u,v)
+<br>
+1,2,3,4:
+<br>
+5,6,7,8:
+<br>
+9,10,11,12:
+<br>
+13,14,15,16
+<br>
+⇔
+<br>
+10,-4,-1,-1:
+<br>
+26,-4,-1,-1:
+<br>
+42,-4,-1,-1:
+<br>
+58,-4,-1,-1
+<br>
+⇔
+<br>
+136,-16,-4,-4:
+<br>
+-64,0,0,0:
+<br>
+-16,0,0,0:
+<br>
+-16,0,0,0
+<br>
+<br>
+2次元DWT/IDWT(x,y)⇔(x,v)⇔(u,v)
+<br>
+1,2,3,4:
+<br>
+5,6,7,8:
+<br>
+9,10,11,12:
+<br>
+13,14,15,16
+<br>
+⇔
+<br>
+28,32,36,40:
+<br>
+-16,-16,-16,-16:
+<br>
+-4,-4,-4,-4:
+<br>
+-4,-4,-4,-4
+<br>
+⇔
+<br>
+136,-16,-4,-4:
+<br>
+-64,0,0,0:
+<br>
+-16,0,0,0:
+<br>
+-16,0,0,0
     </td>
   </tr>
   <tr>
