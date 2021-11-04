@@ -1,9 +1,9 @@
 clear
 local storage cleared
 
-[-1e1!!,fact(10.3),-permut(5,3.3),combin(5.3,3)]
+[1e4!,-10!,16!!!,-1e1(1.6+1.3i)!!,(-1e1(1.6+1.3i))!!!,-(+1e1(1.6+1.3i))!!!,fact(10.6(1+i)),-permut(5,3.3(1+i)),combin(5.6(1+i),3)]
 (
--3840,3628800,-60,10
+Infinity,-3628800,58240,-10,0,-58240,3628800,-60,10
 )
 
 clear
@@ -405,4 +405,4 @@ drag=false&sw=false&0x=false&useComplex=true&useMatrix=true&isRightAssociativity
 --------------------------------
 --------------------------------
 
-online-simulator.github.io.4.77.24.11.24 @ Thu Nov 04 2021 05:46:03 GMT+0900 (日本標準時) @ Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/95.0.4638.69 Safari/537.36
+online-simulator.github.io.4.77.24.11.24 @ Thu Nov 04 2021 13:43:40 GMT+0900 (日本標準時) @ Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/95.0.4638.69 Safari/537.36
