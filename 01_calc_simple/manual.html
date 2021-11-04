@@ -12206,14 +12206,16 @@ A=0; _rn(=&lt;A=(A,rand),,2); A -> (0,0.12740820474199377,0.7111903938956377)
 <br>
 ・再帰処理を単なるfor-loopに修正
 <br>
-・順列||組合せ関数の引数不足による無限loopを対策
+・順列||組合せ関数の引数不足による無限loopを修正
 <br>
 <br>
 階乗の仕様を列挙する
 <br>
 ・operandは0を含む自然数のみ対応
 <br>
-・operandが負の場合、未定義で0を返す
+・<span class="jF">operandが負の場合、未定義で0を返す</span>
+<br>
+・<span class="condition">operand=0の場合、1を返す</span>
 <br>
 <br>
 test caseを列挙する
@@ -12226,9 +12228,9 @@ fact(3i) || (3i)! || 0! -> 1
 <br>
 fact(3+3i) || (3+3i)! || 3! || 3*2*1 -> 6
 <br>
-<span class="clear">fact(-3) || (-3)! -> 0</span>
+<span class="jF">fact(-3) || (-3)! -> 0</span>
 <br>
-<span class="selection">fact(0) || 0! -> 1</span>
+<span class="condition">fact(0) || 0! -> 1</span>
 <br>
 fact(1) || 1! || 1 -> 1
 <br>
@@ -12254,6 +12256,10 @@ fact(1e2) || 1e2! -> 9.332621544394418e+157
 <br>
 fact(1e3) || 1e3! -> Infinity
 <br>
+<span class="clear">fact(1e4) || 1e4! -> Infinity</span>
+<br>
+<span class="clear">fact(1e5) || 1e5! -> Infinity</span>
+<br>
 <span class="clear">fact(1e6) || 1e6! -> Infinity</span>
 <br>
 ・順列
@@ -12264,15 +12270,19 @@ permut(3i,1) || permut(0,1) -> 0
 <br>
 permut(3+3i,1) || permut(3,1) -> 3
 <br>
-<span class="selection">permut(0,0) -> 1</span>
+permut(0,3) -> 0
 <br>
-<span class="clear">permut(-1,0) -> 0</span>
+<span class="jF">permut(-1,3) -> 0</span>
 <br>
-<span class="clear">permut(0,-1) -> 0</span>
+<span class="jF">permut(-1,0) -> 0</span>
 <br>
-<span class="clear">permut(3,-1) -> 0</span>
+<span class="jF">permut(0,-1) -> 0</span>
 <br>
-permut(3,0) -> 1
+<span class="jF">permut(3,-1) -> 0</span>
+<br>
+<span class="condition">permut(0,0) -> 1</span>
+<br>
+permut(3,0) || 1 -> 1
 <br>
 permut(3,1) || 3 -> 3
 <br>
@@ -12290,15 +12300,19 @@ permut(5,2) || 5*4 -> 20
 <br>
 permut(5,1) || 5 -> 5
 <br>
-permut(5,0) -> 1
+permut(5,0) || 1 -> 1
 <br>
-<span class="clear">permut(5,-1) -> 0</span>
+<span class="jF">permut(5,-1) -> 0</span>
 <br>
 <span class="clear">permut(5) -> 0</span>
 <br>
 permut(1e2,1e2) || 1e2! -> 9.332621544394418e+157
 <br>
 permut(1e3,1e3) || 1e3! -> Infinity
+<br>
+<span class="clear">permut(1e4,1e4) || 1e4! -> Infinity</span>
+<br>
+<span class="clear">permut(1e5,1e5) || 1e5! -> Infinity</span>
 <br>
 <span class="clear">permut(1e6,1e6) || 1e6! -> Infinity</span>
 <br>
@@ -12310,15 +12324,19 @@ combin(3i,1) || combin(0,1) -> 0
 <br>
 combin(3+3i,1) || combin(3,1) -> 3
 <br>
-<span class="selection">combin(0,0) -> 1</span>
+combin(0,3) -> 0
 <br>
-<span class="clear">combin(-1,0) -> 0</span>
+<span class="jF">combin(-1,3) -> 0</span>
 <br>
-<span class="clear">combin(0,-1) -> 0</span>
+<span class="jF">combin(-1,0) -> 0</span>
 <br>
-<span class="clear">combin(3,-1) -> 0</span>
+<span class="jF">combin(0,-1) -> 0</span>
 <br>
-combin(3,0) || permut(3,0)/fact(0) -> 1
+<span class="jF">combin(3,-1) -> 0</span>
+<br>
+<span class="condition">combin(0,0) -> 1</span>
+<br>
+combin(3,0) || permut(3,0)/fact(0) || (1)/(1) -> 1
 <br>
 combin(3,1) || permut(3,1)/fact(1) || (3)/(1) -> 3
 <br>
@@ -12336,25 +12354,33 @@ combin(5,2) || permut(5,2)/fact(2) || (5*4)/(2*1) -> 10
 <br>
 combin(5,1) || permut(5,1)/fact(1) || (5)/(1) -> 5
 <br>
-combin(5,0) || permut(5,0)/fact(0) -> 1
+combin(5,0) || permut(5,0)/fact(0) || (1)/(1) -> 1
 <br>
-<span class="clear">combin(5,-1) -> 0</span>
+<span class="jF">combin(5,-1) -> 0</span>
 <br>
-permut(5,-1)/fact(-1) || 0/0  <span class="selection">// NG</span> -> [MyErr]FN isNaN
+permut(5,-1)/fact(-1) || (0)/(0) -> [MyErr]FN isNaN
 <br>
 <span class="clear">combin(5) -> 0</span>
 <br>
-combin(1e2,1e2) || 9.332621544394418e+157/9.332621544394418e+157 -> 1
+combin(1e2,1e2) -> 1
 <br>
 ・<a href="#span-out-com">複素数</a>演算の場合
 <br>
 permut(1e2,1e2)/fact(1e2)  <span class="selection">// NG</span> -> [MyErr]FN isNaN
 <br>
+9.332621544394418e+157/9.332621544394418e+157  <span class="selection">// NG</span> -> [MyErr]FN isNaN
+<br>
 ・<a href="#span-out-ope">実数演算</a>の場合
 <br>
 permut(1e2,1e2)/fact(1e2)  <span class="selection">// OK</span> -> 1
 <br>
+9.332621544394418e+157/9.332621544394418e+157  <span class="selection">// OK</span> -> 1
+<br>
 combin(1e3,1e3) || Infinity/Infinity -> [MyErr]FN isNaN
+<br>
+<span class="clear">combin(1e4,1e4) || Infinity/Infinity -> [MyErr]FN isNaN</span>
+<br>
+<span class="clear">combin(1e5,1e5) || Infinity/Infinity -> [MyErr]FN isNaN</span>
 <br>
 <span class="clear">combin(1e6,1e6) || Infinity/Infinity -> [MyErr]FN isNaN</span>
     </td>
