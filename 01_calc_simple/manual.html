@@ -20374,10 +20374,10 @@ N=2^p
 <br>
 ・量子化bit数=p
 <br>
-・信号変換の解像度をscalingするtwo-scale関係が成立する
+・可逆的に信号変換の解像度をscalingするtwo-scale関係が成立する
 <br>
 <br>
-多重解像度解析のHaar's DWT/IDWTを一例に示す
+多重解像度解析の最も単純なHaar's DWT/IDWTを一例に示す
 <br>
 <br>
 1次元DWT(x)->(u)
@@ -20388,11 +20388,11 @@ N=2^p
 <br>
 ・two-scale関係式
 <br>
-left_after=left_before+right_before
+scaling(t)=scaling(2t)+scaling(2t+1)
 <br>
-right_after=left_before-right_before
+wavelet(t)=scaling(2t)-scaling(2t+1)
 <br>
-・左右に和情報と差情報を分離して再帰的に和情報を左側に寄せる
+・左右にscaling情報とwavelet情報を分離して再帰的にscaling情報を左側に寄せる
 <br>
 <span class="condition">1+2,3+4,5+6,7+8</span>,1-2,3-4,5-6,7-8
 <br>
@@ -20400,7 +20400,7 @@ right_after=left_before-right_before
 <br>
 <span class="condition">1+2+3+4+5+6+7+8</span>,1+2+3+4-(5+6+7+8),1+2-(3+4),5+6-(7+8),1-2,3-4,5-6,7-8
 <br>
-・整理して示す
+・整理して示す（波数領域の解像度の降順）
 <br>
 <span class="condition">1,2,3,4,5,6,7,8</span>
 <br>
@@ -20419,9 +20419,9 @@ right_after=left_before-right_before
 <br>
 ・two-scale関係式
 <br>
-left_before=(left_after+right_after)/2
+scaling(2t)=(scaling(t)+wavelet(t))/2
 <br>
-right_before=(left_after-right_after)/2
+scaling(2t+1)=(scaling(t)-wavelet(t))/2
 <br>
 ・再帰的に左右の情報を復元する
 <br>
@@ -20431,7 +20431,7 @@ right_before=(left_after-right_after)/2
 <br>
 <span class="condition">(3+(-1))/2,(3-(-1))/2,(7+(-1))/2,(7-(-1))/2,(11+(-1))/2,(11-(-1))/2,(15+(-1))/2,(15-(-1))/2</span>
 <br>
-・整理して示す
+・整理して示す（波数領域の解像度の昇順）
 <br>
 <span class="condition">36</span>,-16,-4,-4,-1,-1,-1,-1
 <br>
@@ -20444,6 +20444,7 @@ right_before=(left_after-right_after)/2
 <br>
 2次元DWT/IDWT(x,y)⇔(u,y)⇔(u,v)
 <br>
+<span class="condition">
 1,2,3,4:
 <br>
 5,6,7,8:
@@ -20451,20 +20452,21 @@ right_before=(left_after-right_after)/2
 9,10,11,12:
 <br>
 13,14,15,16
+</span>
 <br>
 ⇔
 <br>
-10,-4,-1,-1:
+<span class="condition">10</span>,-4,-1,-1:
 <br>
-26,-4,-1,-1:
+<span class="condition">26</span>,-4,-1,-1:
 <br>
-42,-4,-1,-1:
+<span class="condition">42</span>,-4,-1,-1:
 <br>
-58,-4,-1,-1
+<span class="condition">58</span>,-4,-1,-1
 <br>
 ⇔
 <br>
-136,-16,-4,-4:
+<span class="condition">136</span>,-16,-4,-4:
 <br>
 -64,0,0,0:
 <br>
@@ -20475,6 +20477,7 @@ right_before=(left_after-right_after)/2
 <br>
 2次元DWT/IDWT(x,y)⇔(x,v)⇔(u,v)
 <br>
+<span class="condition">
 1,2,3,4:
 <br>
 5,6,7,8:
@@ -20482,10 +20485,11 @@ right_before=(left_after-right_after)/2
 9,10,11,12:
 <br>
 13,14,15,16
+</span>
 <br>
 ⇔
 <br>
-28,32,36,40:
+<span class="condition">28,32,36,40</span>:
 <br>
 -16,-16,-16,-16:
 <br>
@@ -20495,7 +20499,7 @@ right_before=(left_after-right_after)/2
 <br>
 ⇔
 <br>
-136,-16,-4,-4:
+<span class="condition">136</span>,-16,-4,-4:
 <br>
 -64,0,0,0:
 <br>
