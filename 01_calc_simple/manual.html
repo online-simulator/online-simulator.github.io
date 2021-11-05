@@ -527,6 +527,11 @@ scope付式変数の再利用
 仕様上の問題点
 </a>
 <br>
+　　・
+<a href="#span-out-development-problems-complex">
+複素数演算の問題点
+</a>
+<br>
 ・
 <a href="#span-out-system">
 動作test環境
@@ -8809,7 +8814,7 @@ strict-modeで実行する場合、<a href="#span-out-config">裏設定</a>参�
 演算量||演算速度に関係する演算仕様の概要について記述する
 <br>
 <br>
-UI設定によって対応する用途を4種類示す
+<a href="#span-out-UI-simple">UI設定</a>によって対応する用途を4種類示す
 <br>
 ・有次元の<a href="#span-out-com">複素数</a>の<a href="#span-out-mat">行列</a>演算（complex&amp;matrix checked）
 <br>
@@ -9961,6 +9966,39 @@ clear; a(b)=&lt;b; [b=1,=&lt;a(b)=&gt;]=&gt;  <span class="selection">// better<
 clear; a(b)=&lt;last(b=-1,b); (b=1,a(b)=&gt;,b) -> (0,-1,1)
 <br>
 <br>
+<span class="run">Ver.2.33.18</span>以降、<a href="#span-out-eqns-args">定義元arguments</a>の<a href="#span-out-vars">変数</a>は宣言時の<a href="#span-out-bracket">階層</a>に依存する（<span class="run">Ver.2.70.28</span>追記）
+<br>
+・定義元とcall先の<a href="#span-out-bracket">scope</a>が同一の場合
+<br>
+・A[1]のcall時、A=A[0]更新後のA=(1,2)を参照するため、error終了
+<br>
+clear; add(A,B)=&lt;A+B; A=(1,2:3,4); add(=&lt;A[0],=&lt;A[1]) -> [MyErr]Invalid reference of array
+<br>
+clear; add(A,B)=&lt;A+B; A=&lt;(1,2:3,4); add(=&lt;A[0],=&lt;A[1]) -> [MyErr]Invalid reference of array
+<br>
+・<a href="#span-out-eqns-args">定義元arguments</a>の<a href="#span-out-vars-symbol">変数名symbol</a>を区別する場合
+<br>
+clear; add(A_,B_)=&lt;A_+B_; A=(1,2:3,4); add(=&lt;A[0],=&lt;A[1]) -> (4,6)
+<br>
+clear; add(A_,B_)=&lt;A_+B_; A=&lt;(1,2:3,4); add(=&lt;A[0],=&lt;A[1]) -> (4,6)
+<br>
+・<a href="#span-out-vars">変数</a>と<a href="#span-out-eqns">式変数</a>の<a href="#span-out-vars-symbol">変数名symbol</a>を区別する場合
+<br>
+clear; add(A,B)=&lt;A+B; A=&lt;(1,2:3,4); add(=&lt;A[0]=&gt;,=&lt;A[1]=&gt;) -> (4,6)
+<br>
+clear; add(=&lt;A,=&lt;B)=&lt;A=&gt;+B=&gt;; A=(1,2:3,4); add(=&lt;A[0],=&lt;A[1]) -> (4,6)
+<br>
+・定義元とcall先の<a href="#span-out-bracket">scope</a>を区別する場合
+<br>
+clear; add(A,B)=&lt;[A+B]; A=(1,2:3,4); add(=&lt;A[0],=&lt;A[1]) -> (4,6)
+<br>
+clear; add(A,B)=&lt;[A+B]; A=&lt;(1,2:3,4); add(=&lt;A[0],=&lt;A[1]) -> (4,6)
+<br>
+clear; add(=&lt;A,=&lt;B)=&lt;[A=&gt;+B=&gt;]; A=(1,2:3,4); add(=&lt;A[0],=&lt;A[1]) -> (4,6)
+<br>
+clear; add(=&lt;A_,=&lt;B_)=&lt;[A_=&gt;+B_=&gt;]; A=&lt;(1,2:3,4); add(=&lt;A[0],=&lt;A[1]) -> (4,6)
+<br>
+<br>
 <span class="run">Ver.2.33.18</span>以降、<a href="#span-out-eqns-args">定義元arguments</a>の<a href="#span-out-eqns">式変数</a>は宣言時の<a href="#span-out-bracket">階層</a>に依存する
 <br>
 ・通常callの場合
@@ -10202,11 +10240,62 @@ JavaScript特有の実装を列挙する
 <span id="span-out-development-problems"></span>
 仕様上の問題点を列挙する
 <br>
-・2次元の<a href="#span-out-types">行列の型</a>||<a href="#span-in-tree">tree構造</a>を前提とする設計のため、3次元以上の配列は定義不能
+・2次元の<a href="#span-out-types">行列の型</a>||<a href="#span-in-tree">tree構造</a>を前提とする設計のため、<span class="clear">3次元以上の配列は定義不能</span>
 <br>
 ・3次元以上の配列に相当する自由度は<a href="#span-out-vars-symbol">変数名symbol</a>で区別する
 <br>
 ・3次元以上の配列に相当するfor-loopは展開して記述する
+    </td>
+  </tr>
+  <tr>
+    <th>
+<a href="#span-index">
+目次
+</a>
+<br>
+複素数演算の
+<br>
+問題点
+    </th>
+    <td>
+<span id="span-out-development-problems-complex"></span>
+<a href="#span-out-com">複素数</a>演算の問題点を列挙する
+<br>
+・演算後に<a href="#span-out-epsilon">Machine epsilon</a>が残りやすく、整数を意識する負担がある
+<br>
+(-1)^0.5 || (-1)**0.5 || pow(-1,0.5) -> <span class="clear">6.123233995736766e-17</span>+i
+<br>
+2^3 || 2**3 || pow(2,3) -> <span class="clear">7.999999999999998</span>
+<br>
+・同時に、減算||加算で<a href="#span-out-error">情報落ち</a>が発生しやすく、警告文の判断が難しい
+<br>
+(-1)^0.5 || (-1)**0.5 || pow(-1,0.5) -> <span class="clear">6.123233995736766e-17</span>+i
+<br>
+ans+1 -> <span class="clear">infoLost[r ]</span> 1+i
+<br>
+・<a href="#span-out-ope">実数演算</a>の場合（参考）
+<br>
+(-1)^0.5 || (-1)**0.5 || pow(-1,0.5) -> [MyErr]FN isNaN
+<br>
+2^3 || 2**3 || pow(2,3) -> 8
+<br>
+・<a href="#span-out-UI-simple">UI設定</a>以外で<a href="#span-out-ope">実数演算</a>を切替え不可（自動判別しない）
+<br>
+2^3 || 2**3 || pow(2,3) -> <span class="clear">7.999999999999998</span>
+<br>
+round(2^3) -> 8
+<br>
+vectorr(2^3) || vectorr(7)  <span class="selection">// NG</span> -> (0,0,0,0,0,0,0)
+<br>
+vectorr(round(2^3)) || vectorr(8)  <span class="selection">// OK</span> -> (0,0,0,0,0,0,0,0)
+<br>
+・整数演算の場合、<a href="#span-out-prec-ope">四則演算子</a>||<a href="#span-out-prec-ope">bit shift演算子</a>を活用する
+<br>
+2*2*2 -> 8
+<br>
+1&lt;&lt;3 || 1*2*2*2 -> 8
+<br>
+vectorr(1&lt;&lt;3) || vectorr(8)  <span class="selection">// OK</span> -> (0,0,0,0,0,0,0,0)
     </td>
   </tr>
   <tr>
@@ -20506,6 +20595,107 @@ scaling(2t+1)=(scaling(t)-wavelet(t))/2
 -16,0,0,0:
 <br>
 -16,0,0,0
+<br>
+<br>
+test caseを示す
+<br>
+・1次元の標本点
+<br>
+w={1,2,3,4,5,6,7,8};
+<br>
+w->
+<br>
+(
+<br>
+1:
+<br>
+2:
+<br>
+3:
+<br>
+4:
+<br>
+5:
+<br>
+6:
+<br>
+7:
+<br>
+8
+<br>
+)
+<br>
+・1次元DWT(x)->(u)
+<br>
+w={1,2,3,4,5,6,7,8};
+<br>
+<span class="clear">N=sizer(w);</span>
+<br>
+<span class="clear">p=round(log_ex(N,2));</span>
+<br>
+W=zeros(N,1);
+<br>
+W(w,N)=&lt;_st(=&lt;last{
+<br>
+a=w[2*t],b=w[2*t+1],W[t]=a+b,W[t+N2]=a-b
+<br>
+},N2=N&gt;&gt;1,N2-1);
+<br>
+_rn(=&lt;last{W(=&lt;w,first{Np,Np=Np&gt;&gt;1})=&gt;,w=W},Np=1&lt;&lt;p,p);
+<br>
+W ->
+<br>
+(
+<br>
+36:
+<br>
+-16:
+<br>
+-4:
+<br>
+-4:
+<br>
+-1:
+<br>
+-1:
+<br>
+-1:
+<br>
+-1
+<br>
+)
+<br>
+・1次元IDWT(u)->(x)
+<br>
+w(W,N2)=&lt;_st(=&lt;last{
+<br>
+a=W[t],b=W[N2+t],w[2*t]=(a+b)/2,w[2*t+1]=(a-b)/2
+<br>
+},0,N2-1);
+<br>
+_rn(=&lt;last{w(=&lt;W,first{Np,Np=Np&lt;&lt;1})=&gt;,W=w},Np=1,p);
+<br>
+w ->
+<br>
+(
+<br>
+1:
+<br>
+2:
+<br>
+3:
+<br>
+4:
+<br>
+5:
+<br>
+6:
+<br>
+7:
+<br>
+8
+<br>
+)
     </td>
   </tr>
   <tr>
