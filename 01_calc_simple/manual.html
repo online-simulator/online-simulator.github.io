@@ -7837,6 +7837,71 @@ bit演算子
 bit演算子と付随する留意事項について記述する
 <br>
 <br>
+bit shift
+<br>
+・<a href="#span-out-float">単精度32bit</a>の符号あり整数
+<br>
+-round(pow(2,31)) -> -2147483648
+<br>
+-1&lt;&lt;31 || -1&lt;&lt;63  <span class="selection">// 10000000000000000000000000000000</span> -> -2147483648
+<br>
+-1&lt;&lt;30 || -1&lt;&lt;62  <span class="selection">// 11000000000000000000000000000000</span> -> -1073741824
+<br>
+-1&lt;&lt;20 || -1&lt;&lt;52  <span class="selection">// 11111111111100000000000000000000</span> -> -1048576
+<br>
+-1&lt;&lt;10 || -1&lt;&lt;42  <span class="selection">// 11111111111111111111110000000000</span> -> -1024
+<br>
+-1&lt;&lt;3 || -1&lt;&lt;35  <span class="selection">// 11111111111111111111111111111000</span> -> -8
+<br>
+-1&lt;&lt;2 || -1&lt;&lt;34  <span class="selection">// 11111111111111111111111111111100</span> -> -4
+<br>
+-1&lt;&lt;1 || -1&lt;&lt;33  <span class="selection">// 11111111111111111111111111111110</span> -> -2
+<br>
+-1&gt;&gt;0 || -1&gt;&gt;32  <span class="selection">// 11111111111111111111111111111111</span> -> -1
+<br>
+-8&gt;&gt;0 || -8&gt;&gt;32  <span class="selection">// 11111111111111111111111111111000</span> -> -8
+<br>
+-8&gt;&gt;1 || -8&gt;&gt;33  <span class="selection">// 11111111111111111111111111111100</span> -> -4
+<br>
+-8&gt;&gt;2 || -8&gt;&gt;34  <span class="selection">// 1111111111111111111111111111110</span> -> -2
+<br>
+-8&gt;&gt;3 || -8&gt;&gt;35  <span class="selection">// 11111111111111111111111111111111</span> -> -1
+<br>
+-1&gt;&gt;3 || -1&gt;&gt;35  <span class="selection">// 11111111111111111111111111111111</span> -> -1
+<br>
+-1&gt;&gt;10 || -1&gt;&gt;42  <span class="selection">// 11111111111111111111111111111111</span> -> -1
+<br>
+-1&gt;&gt;20 || -1&gt;&gt;52  <span class="selection">// 11111111111111111111111111111111</span> -> -1
+<br>
+-1&gt;&gt;30 || -1&gt;&gt;62  <span class="selection">// 11111111111111111111111111111111</span> -> -1
+<br>
+-1&gt;&gt;31 || -1&gt;&gt;63  <span class="selection">// 11111111111111111111111111111111</span> -> -1
+<br>
+・<a href="#span-out-float">単精度32bit</a>の符号なし整数
+<br>
+round(pow(2,32)-1) -> 4294967295
+<br>
+-1&gt;&gt;&gt;0 || -1&gt;&gt;&gt;32  <span class="selection">// 11111111111111111111111111111111</span> -> 4294967295
+<br>
+-8&gt;&gt;&gt;0 || -8&gt;&gt;&gt;32  <span class="selection">// 11111111111111111111111111111000</span> -> 4294967288
+<br>
+-8&gt;&gt;&gt;1 || -8&gt;&gt;&gt;33  <span class="selection">// 01111111111111111111111111111100</span> -> 2147483644
+<br>
+-8&gt;&gt;&gt;2 || -8&gt;&gt;&gt;34  <span class="selection">// 0011111111111111111111111111110</span> -> 1073741822
+<br>
+-8&gt;&gt;&gt;3 || -8&gt;&gt;&gt;35  <span class="selection">// 00011111111111111111111111111111</span> -> 536870911
+<br>
+-1&gt;&gt;&gt;3 || -1&gt;&gt;&gt;35  <span class="selection">// 00011111111111111111111111111111</span> -> 536870911
+<br>
+-1&gt;&gt;&gt;10 || -1&gt;&gt;&gt;42  <span class="selection">// 00000000001111111111111111111111</span> -> 4194303
+<br>
+-1&gt;&gt;&gt;20 || -1&gt;&gt;&gt;52  <span class="selection">// 00000000000000000000111111111111</span> -> 4095
+<br>
+-1&gt;&gt;&gt;30 || -1&gt;&gt;&gt;62  <span class="selection">// 00000000000000000000000000000011</span> -> 3
+<br>
+-1&gt;&gt;&gt;31 || -1&gt;&gt;&gt;63  <span class="selection">// 00000000000000000000000000000001</span> -> 1
+<br>
+<br>
 bit or
 <br>
 1|1  <span class="selection">// 00000001|00000001->00000001</span> -> 1
@@ -7894,7 +7959,12 @@ bit演算子は<a href="#span-out-prec-ope-comparison">比較演算子</a>・<a 
 <br>
 ・operandは実数のみ対応
 <br>
+・operandは<a href="#span-out-float">倍精度64bit</a>から<a href="#span-out-float">単精度32bit</a>に変換される
+<br>
 ・bit演算子は短絡評価しない
+<br>
+<br>
+符号なし整数の場合、<a href="../70_decimal/index.html">n進数⇒m進数変換</a>参照
     </td>
   </tr>
   <tr>
@@ -10318,15 +10388,15 @@ vectorr(2^3) || vectorr(7)  <span class="selection">// NG</span> -> (0,0,0,0,0,0
 <br>
 vectorr(round(2^3)) || vectorr(8)  <span class="selection">// OK</span> -> (0,0,0,0,0,0,0,0)
 <br>
-・整数演算の場合、<a href="#span-out-prec-ope">四則演算子</a>||<a href="#span-out-prec-ope">bit shift演算子</a>を活用する
+・整数演算の場合、<a href="#span-out-prec-ope">四則演算子</a>||<a href="#span-out-prec-ope-bit">bit shift演算子</a>を活用する
 <br>
 2*2*2 -> 8
 <br>
-1&lt;&lt;3 || 1*2*2*2 -> 8
-<br>
 2&lt;&lt;2 || 2*2*2 -> 8
 <br>
-vectorr(1&lt;&lt;3) || vectorr(8)  <span class="selection">// OK</span> -> (0,0,0,0,0,0,0,0)
+1&lt;&lt;3 || 1*2*2*2 -> 8
+<br>
+8&gt;&gt;&gt;3 || 8&gt;&gt;3 || (((8/2)/2)/2) || 8/(2*2*2) -> 1
     </td>
   </tr>
   <tr>
@@ -19417,9 +19487,9 @@ run -> [MyErr]FN isNaN
 逆行列の反復解法について記述する
 <br>
 <br>
-任意の正方行列Aについて
+任意の正方行列Aの逆行列Ainvを次の関係式から反復法で求解する
 <br>
-Ainv*A=単位行列identity(size(A))となるAの逆行列Ainvを反復法で求解する
+Ainv*A=単位行列identity(size(A))
 <br>
 <br>
 full-rank2階の場合
