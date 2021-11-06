@@ -1129,6 +1129,21 @@ DFT2d_yx
 </a>
 <br>
 ・
+<a href="#span-eqn-DWT1d">
+DWT1d
+</a>
+<br>
+・
+<a href="#span-eqn-DWT2d_xy">
+DWT2d_xy
+</a>
+<br>
+・
+<a href="#span-eqn-DWT2d_yx">
+DWT2d_yx
+</a>
+<br>
+・
 <a href="#span-eqn-MaclaurinN">
 MaclaurinN
 </a>
@@ -9961,16 +9976,30 @@ clear; a(b)=&lt;b; [b=1,=&lt;a(b)=&gt;]=&gt;  <span class="selection">// better<
 <br>
 ・<a href="#span-out-eqns">式変数</a>の定義元に対してcall先と区別する
 <br>
-・<a href="#span-out-eqns-args">定義元arguments</a>の<a href="#span-out-vars-symbol">変数名symbol</a>は独立する
+・<a href="#span-out-eqns-args">定義元arguments</a>の<a href="#span-out-vars-symbol">変数名symbol</a>は独立する（参照渡しは未実装）
 <br>
 clear; a(b)=&lt;last(b=-1,b); (b=1,a(b)=&gt;,b) -> (0,-1,1)
+<br>
+clear; a(B)=&lt;{B[0]=B[1],=&lt;B}=&gt;; B=(1,2:3,4); (B,a(=&lt;B)=&gt;,B) ->
+<br>
+(
+<br>
+1,2,3,4,1,2:
+<br>
+3,4,3,4,3,4
+<br>
+)
 <br>
 <br>
 <span class="run">Ver.2.33.18</span>以降、<a href="#span-out-eqns-args">定義元arguments</a>の<a href="#span-out-vars">変数</a>は宣言時の<a href="#span-out-bracket">階層</a>に依存する（<span class="run">Ver.2.70.28</span>追記）
 <br>
 ・定義元とcall先の<a href="#span-out-bracket">scope</a>が同一の場合
 <br>
-・A[1]のcall時、A=A[0]更新後のA=(1,2)を参照するため、error終了
+　・<a href="#span-out-eqns-args">symbol渡し</a>の場合、定義元とcall先のAは同一
+<br>
+clear; add(A,B)=&lt;A+B; A=(1,2:3,4); add(=&lt;A,=&lt;A) -> (2,4:6,8)
+<br>
+　・<a href="#span-out-call-by-equation">式渡し</a>の場合、A[1]のcall時、A=A[0]更新後のA=(1,2)を参照するため、error終了
 <br>
 clear; add(A,B)=&lt;A+B; A=(1,2:3,4); add(=&lt;A[0],=&lt;A[1]) -> [MyErr]Invalid reference of array
 <br>
@@ -10279,7 +10308,7 @@ ans+1 -> <span class="clear">infoLost[r ]</span> 1+i
 <br>
 2^3 || 2**3 || pow(2,3) -> 8
 <br>
-・<a href="#span-out-UI-simple">UI設定</a>以外で<a href="#span-out-ope">実数演算</a>に切替え不可（自動判別しない）
+・<a href="#span-out-UI-simple">UI設定</a>||<a href="#span-out-config">裏設定</a>以外で<a href="#span-out-ope">実数演算</a>に切替え不可（自動判別しない）
 <br>
 2^3 || 2**3 || pow(2,3) -> <span class="clear">7.999999999999998</span>
 <br>
@@ -10294,6 +10323,8 @@ vectorr(round(2^3)) || vectorr(8)  <span class="selection">// OK</span> -> (0,0,
 2*2*2 -> 8
 <br>
 1&lt;&lt;3 || 1*2*2*2 -> 8
+<br>
+2&lt;&lt;2 || 2*2*2 -> 8
 <br>
 vectorr(1&lt;&lt;3) || vectorr(8)  <span class="selection">// OK</span> -> (0,0,0,0,0,0,0,0)
     </td>
@@ -12804,6 +12835,12 @@ A=(11:21,22:31,32,33,34); htrans(htrans(A)) -> (11,0,0,0:21,22,0,0:31,32,33,34)
 <br>
 (1,2:3,4)+(-1,2:,,) -> [MyErr]Invalid matrix operation
 <br>
+A=(1,2:); A[0]+A[1] -> [MyErr]Invalid matrix operation
+<br>
+A=(1,2:); ttA=trans(trans(A)); ttA[0]+ttA[1] -> (1,2)
+<br>
+A=(1,2:,); A[0]+A[1] -> (1,2)
+<br>
 <br>
 抜け要素を埋めて行列sizeが一致する場合、差と和の演算を許容する
 <br>
@@ -13481,6 +13518,18 @@ A=(1,2:3,4); A[1]=-2A[1]; A -> (1,2:-6,-8)
 A=(1,2:3,4); A[1]=(,); A -> (1,2:0,0)
 <br>
 A=(1,2:3,4); w=A[1]; A[1]=A[0]; A[0]=w; A -> (3,4:1,2)
+<br>
+A=(1,2:); A[0]=A[1] -> [MyErr]Invalid store array
+<br>
+A=(1,2:); A[1]=A[0] -> [MyErr]Invalid store array
+<br>
+A=(1,2:); ttA=trans(trans(A)); ttA[0]=ttA[1]; ttA -> (0,0:0,0)
+<br>
+A=(1,2:); ttA=trans(trans(A)); ttA[1]=ttA[0]; ttA -> (1,2:1,2)
+<br>
+A=(1,2:,); A[0]=A[1]; A -> (0,0:0,0)
+<br>
+A=(1,2:,); A[1]=A[0]; A -> (1,2:1,2)
 <br>
 ・行列を代入した場合、最終行vectorを代入
 <br>
@@ -20512,6 +20561,18 @@ scaling(2t)=(scaling(t)+wavelet(t))/2
 <br>
 scaling(2t+1)=(scaling(t)-wavelet(t))/2
 <br>
+・<span class="selection">列vector</span>の場合
+<br>
+scaling(2t)=(scaling(t)+wavelet(t))<span class="selection">*0.5</span>
+<br>
+scaling(2t+1)=(scaling(t)-wavelet(t))<span class="selection">*0.5</span>
+<br>
+・<span class="selection">行vector</span>の場合
+<br>
+scaling(2t)=<span class="selection">0.5*</span>(scaling(t)+wavelet(t))
+<br>
+scaling(2t+1)=<span class="selection">0.5*</span>(scaling(t)-wavelet(t))
+<br>
 ・scaling情報とwavelet情報から再帰的に元のscaling情報を復元する
 <br>
 <span class="condition">(36+(-16))/2,(36-(-16))/2</span>,-4,-4,-1,-1,-1,-1
@@ -20631,9 +20692,9 @@ w={1,2,3,4,5,6,7,8};
 <br>
 <span class="clear">N=sizer(w);</span>
 <br>
-<span class="clear">p=round(log_ex(N,2));</span>
-<br>
 W=zeros(N,1);
+<br>
+<span class="clear">p=round(log_ex(N,2));</span>
 <br>
 W(w,N)=&lt;_st(=&lt;last{
 <br>
@@ -20669,7 +20730,7 @@ W ->
 <br>
 w(W,N2)=&lt;_st(=&lt;last{
 <br>
-a=W[t],b=W[N2+t],w[2*t]=(a+b)/2,w[2*t+1]=(a-b)/2
+a=W[t],b=W[N2+t],w[2*t]=<span class="selection">0.5*</span>(a+b),w[2*t+1]=<span class="selection">0.5*</span>(a-b)
 <br>
 },0,N2-1);
 <br>
@@ -20694,6 +20755,184 @@ w ->
 7:
 <br>
 8
+<br>
+)
+<br>
+・2次元の標本点
+<br>
+w={
+<br>
+1,2,3,4:
+<br>
+5,6,7,8:
+<br>
+9,10,11,12:
+<br>
+13,14,15,16
+<br>
+};
+<br>
+w ->
+<br>
+(
+<br>
+1,5,9,13:
+<br>
+2,6,10,14:
+<br>
+3,7,11,15:
+<br>
+4,8,12,16
+<br>
+)
+<br>
+・2次元DWT(x,y)->(u,y)->(u,v)※N&gt;1
+<br>
+w={
+<br>
+1,2,3,4:
+<br>
+5,6,7,8:
+<br>
+9,10,11,12:
+<br>
+13,14,15,16
+<br>
+};
+<br>
+<span class="clear">N=sizer(w);</span>
+<br>
+M=sizec(w);
+<br>
+W=zeros(N,M);
+<br>
+<span class="clear">p=round(log_ex(N,2));</span>
+<br>
+q=round(log_ex(M,2));
+<br>
+W(w,N)=&lt;_st(=&lt;last{
+<br>
+a=w[2*t],b=w[2*t+1],W[t]=a+b,W[t+N2]=a-b
+<br>
+},N2=N&gt;&gt;1,N2-1);
+<br>
+_rn(=&lt;last{W(=&lt;w,first{Np,Np=Np&gt;&gt;1})=&gt;,w=W},Np=1&lt;&lt;p,p);
+<br>
+W=trans(W);
+<br>
+_rn(=&lt;last{w=W,W(=&lt;w,first{Nq,Nq=Nq&gt;&gt;1})=&gt;},Nq=1&lt;&lt;q,q);
+<br>
+W=trans(W);
+<br>
+W ->
+<br>
+(
+<br>
+136,-64,-16,-16:
+<br>
+-16,0,0,0:
+<br>
+-4,0,0,0:
+<br>
+-4,0,0,0
+<br>
+)
+<br>
+・2次元IDWT(x,y)->(u,y)->(u,v)->(x,v)->(x,y)
+<br>
+w(W,N2)=&lt;_st(=&lt;last{
+<br>
+a=W[t],b=W[N2+t],w[2*t]=<span class="selection">0.5*</span>(a+b),w[2*t+1]=<span class="selection">0.5*</span>(a-b)
+<br>
+},0,N2-1);
+<br>
+w=W;
+<br>
+_rn(=&lt;last{w(=&lt;W,first{Np,Np=Np&lt;&lt;1})=&gt;,W=w},Np=1,p);
+<br>
+w=trans(w);
+<br>
+_rn(=&lt;last{W=w,w(=&lt;W,first{Nq,Nq=Nq&lt;&lt;1})=&gt;},Nq=1,q);
+<br>
+w=trans(w);
+<br>
+w ->
+<br>
+(
+<br>
+1,5,9,13:
+<br>
+2,6,10,14:
+<br>
+3,7,11,15:
+<br>
+4,8,12,16
+<br>
+)
+<br>
+・2次元DWT(x,y)->(x,v)->(u,v)※M&gt;1
+<br>
+W(w,N)=&lt;_st(=&lt;last{
+<br>
+a=w[2*t],b=w[2*t+1],W[t]=a+b,W[t+N2]=a-b
+<br>
+},N2=N&gt;&gt;1,N2-1);
+<br>
+w=trans(w);
+<br>
+W=trans(W);
+<br>
+_rn(=&lt;last{W(=&lt;w,first{Nq,Nq=Nq&gt;&gt;1})=&gt;,w=W},Nq=1&lt;&lt;q,q);
+<br>
+W=trans(W);
+<br>
+_rn(=&lt;last{w=W,W(=&lt;w,first{Np,Np=Np&gt;&gt;1})=&gt;},Np=1&lt;&lt;p,p);
+<br>
+W ->
+<br>
+(
+<br>
+136,-64,-16,-16:
+<br>
+-16,0,0,0:
+<br>
+-4,0,0,0:
+<br>
+-4,0,0,0
+<br>
+)
+<br>
+・2次元IDWT(x,y)->(x,v)->(u,v)->(u,y)->(x,y)
+<br>
+w(W,N2)=&lt;_st(=&lt;last{
+<br>
+a=W[t],b=W[N2+t],w[2*t]=<span class="selection">0.5*</span>(a+b),w[2*t+1]=<span class="selection">0.5*</span>(a-b)
+<br>
+},0,N2-1);
+<br>
+w=W;
+<br>
+W=trans(W);
+<br>
+w=trans(w);
+<br>
+_rn(=&lt;last{w(=&lt;W,first{Nq,Nq=Nq&lt;&lt;1})=&gt;,W=w},Nq=1,q);
+<br>
+w=trans(w);
+<br>
+_rn(=&lt;last{W=w,w(=&lt;W,first{Np,Np=Np&lt;&lt;1})=&gt;},Np=1,p);
+<br>
+w ->
+<br>
+(
+<br>
+1,5,9,13:
+<br>
+2,6,10,14:
+<br>
+3,7,11,15:
+<br>
+4,8,12,16
 <br>
 )
     </td>
@@ -22959,6 +23198,204 @@ init=&gt;,run=&gt;,return=out=&gt;,
 [f={1,2,3,4:5,6,7,8},f=f*scalars(sizec(f),1+i),
 <br>
 =&lt;DFT2d_yx(=&lt;f)=&gt;]=&gt;;
+    </td>
+  </tr>
+  <tr>
+    <th>
+<a href="#span-index">
+目次
+</a>
+<br>
+DWT1d
+    </th>
+    <td>
+<span id="span-eqn-DWT1d"></span>
+<a href="#span-out-transform-dwt">離散Wavelet変換の解法</a>参照
+<br>
+clear;
+<br>
+DWT1d(w)=&lt;[
+<br>
+out=&lt;w,
+<div class="condition">
+init=&lt;last{N=sizer(w),W=zeros(N,1),p=round(log_ex(N,2))},
+</div>
+<div class="run">
+run=&lt;last{
+<br>
+W(w,N)=&lt;_st(=&lt;last{
+<br>
+a=w[2*t],b=w[2*t+1],W[t]=a+b,W[t+N2]=a-b
+<br>
+},N2=N&gt;&gt;1,N2-1),
+<br>
+_rn(=&lt;last{W(=&lt;w,first{Np,Np=Np&gt;&gt;1})=&gt;,w=W},Np=1&lt;&lt;p,p),
+<br>
+buffer=W,
+<br>
+w(W,N2)=&lt;_st(=&lt;last{
+<br>
+a=W[t],b=W[N2+t],w[2*t]=<span class="selection">0.5*</span>(a+b),w[2*t+1]=<span class="selection">0.5*</span>(a-b)
+<br>
+},0,N2-1),
+<br>
+_rn(=&lt;last{w(=&lt;W,first{Np,Np=Np&lt;&lt;1})=&gt;,W=w},Np=1,p),
+<br>
+W=buffer
+<br>
+},
+</div>
+init=&gt;,run=&gt;,return=out=&gt;,
+<br>
+=&lt;return]=&gt;;
+<br>
+[w={1,2,3,4},w=w*scalars(sizec(w),1+i),
+<br>
+=&lt;DWT1d(=&lt;w)=&gt;]=&gt;;
+    </td>
+  </tr>
+  <tr>
+    <th>
+<a href="#span-index">
+目次
+</a>
+<br>
+DWT2d_xy
+    </th>
+    <td>
+<span id="span-eqn-DWT2d_xy"></span>
+<a href="#span-out-transform-dwt">離散Wavelet変換の解法</a>参照
+<br>
+clear;
+<br>
+DWT2d_xy(w)=&lt;[
+<br>
+out=&lt;w,
+<div class="condition">
+init=&lt;last{N=sizer(w)/*N&gt;1*/,M=sizec(w),W=zeros(N,M),
+<br>
+p=round(log_ex(N,2)),q=round(log_ex(M,2))},
+</div>
+<div class="run">
+run=&lt;last{
+<br>
+W(w,N)=&lt;_st(=&lt;last{
+<br>
+a=w[2*t],b=w[2*t+1],W[t]=a+b,W[t+N2]=a-b
+<br>
+},N2=N&gt;&gt;1,N2-1),
+<br>
+_rn(=&lt;last{W(=&lt;w,first{Np,Np=Np&gt;&gt;1})=&gt;,w=W},Np=1&lt;&lt;p,p),
+<br>
+W=trans(W),
+<br>
+_rn(=&lt;last{w=W,W(=&lt;w,first{Nq,Nq=Nq&gt;&gt;1})=&gt;},Nq=1&lt;&lt;q,q),
+<br>
+W=trans(W),
+<br>
+buffer=W,
+<br>
+w(W,N2)=&lt;_st(=&lt;last{
+<br>
+a=W[t],b=W[N2+t],w[2*t]=<span class="selection">0.5*</span>(a+b),w[2*t+1]=<span class="selection">0.5*</span>(a-b)
+<br>
+},0,N2-1),
+<br>
+w=W,
+<br>
+_rn(=&lt;last{w(=&lt;W,first{Np,Np=Np&lt;&lt;1})=&gt;,W=w},Np=1,p),
+<br>
+w=trans(w),
+<br>
+_rn(=&lt;last{W=w,w(=&lt;W,first{Nq,Nq=Nq&lt;&lt;1})=&gt;},Nq=1,q),
+<br>
+w=trans(w),
+<br>
+W=buffer
+<br>
+},
+</div>
+init=&gt;,run=&gt;,return=out=&gt;,
+<br>
+=&lt;return]=&gt;;
+<br>
+[w={1,2,3,4:5,6,7,8},w=w*scalars(sizec(w),1+i),
+<br>
+=&lt;DWT2d_xy(=&lt;w)=&gt;]=&gt;;
+    </td>
+  </tr>
+  <tr>
+    <th>
+<a href="#span-index">
+目次
+</a>
+<br>
+DWT2d_yx
+    </th>
+    <td>
+<span id="span-eqn-DWT2d_yx"></span>
+<a href="#span-out-transform-dwt">離散Wavelet変換の解法</a>参照
+<br>
+clear;
+<br>
+DWT2d_yx(w)=&lt;[
+<br>
+out=&lt;w,
+<div class="condition">
+init=&lt;last{N=sizer(w),M=sizec(w)/*M&gt;1*/,W=zeros(N,M),
+<br>
+p=round(log_ex(N,2)),q=round(log_ex(M,2))},
+</div>
+<div class="run">
+run=&lt;last{
+<br>
+W(w,N)=&lt;_st(=&lt;last{
+<br>
+a=w[2*t],b=w[2*t+1],W[t]=a+b,W[t+N2]=a-b
+<br>
+},N2=N&gt;&gt;1,N2-1),
+<br>
+w=trans(w),
+<br>
+W=trans(W),
+<br>
+_rn(=&lt;last{W(=&lt;w,first{Nq,Nq=Nq&gt;&gt;1})=&gt;,w=W},Nq=1&lt;&lt;q,q),
+<br>
+W=trans(W),
+<br>
+_rn(=&lt;last{w=W,W(=&lt;w,first{Np,Np=Np&gt;&gt;1})=&gt;},Np=1&lt;&lt;p,p),
+<br>
+buffer=W,
+<br>
+w(W,N2)=&lt;_st(=&lt;last{
+<br>
+a=W[t],b=W[N2+t],w[2*t]=<span class="selection">0.5*</span>(a+b),w[2*t+1]=<span class="selection">0.5*</span>(a-b)
+<br>
+},0,N2-1),
+<br>
+w=W,
+<br>
+W=trans(W),
+<br>
+w=trans(w),
+<br>
+_rn(=&lt;last{w(=&lt;W,first{Nq,Nq=Nq&lt;&lt;1})=&gt;,W=w},Nq=1,q),
+<br>
+w=trans(w),
+<br>
+_rn(=&lt;last{W=w,w(=&lt;W,first{Np,Np=Np&lt;&lt;1})=&gt;},Np=1,p),
+<br>
+W=buffer
+<br>
+},
+</div>
+init=&gt;,run=&gt;,return=out=&gt;,
+<br>
+=&lt;return]=&gt;;
+<br>
+[w={1,2,3,4:5,6,7,8},w=w*scalars(sizec(w),1+i),
+<br>
+=&lt;DWT2d_yx(=&lt;w)=&gt;]=&gt;;
     </td>
   </tr>
   <tr>
