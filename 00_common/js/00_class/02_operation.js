@@ -65,10 +65,11 @@ My_entry.operation.prototype.config = {
         "BRsa"   // Binary operatoR - || + including Pre-Unary operator - || +
       ],
       [
-        "BRbs",  // Binary operatoR bit shift << || >> || >>>
-        "BRba",  // Binary operatoR bit   and &
-        "BRbx",  // Binary operatoR bit   xor @
-        "BRbo"   // Binary operatoR bit    or |
+        "PUbn",  // Pre-Unary operator bit not ~
+        "BRbs",  // Binary operatoR bit  shift << || >> || >>>
+        "BRba",  // Binary operatoR bit    and &
+        "BRbx",  // Binary operatoR bit    xor @
+        "BRbo"   // Binary operatoR bit     or |
       ],
       [
         "BRcn",  // Binary operatoR comparison < || <= || >= || >
@@ -1796,14 +1797,20 @@ My_entry.operation.prototype.URf = function(data, i0, tagName, tagObj){
   self.feedback2trees(data, is, ie, tree);
   return self;
 };
-My_entry.operation.prototype.PU = function(data, i0, tagName, tagObj){
+/* Ver.2.71.28 */
+My_entry.operation.prototype.PUbn = function(data, i0, tagName, tagObj){
   var self = this;
   var trees = data.trees;
+  var options = data.options;
+  var DATA = self.entry.DATA;
+  var unit = self.entry.unit;
   var is = i0;
   var ie = i0+1;
   var leftArr = self.get_tagVal(trees[is-1], "mat", "arr");
   var rightArr = self.get_tagVal(trees[ie], "mat", "arr");
   if(!(leftArr) && rightArr){
+    var right = self.arr2num(rightArr);
+    var tree = DATA.num2tree(unit["FN"](tagObj.val, options, right));
     self.feedback2trees(data, is, ie, tree);
   }
   return self;

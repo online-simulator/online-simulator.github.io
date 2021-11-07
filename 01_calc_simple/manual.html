@@ -7698,6 +7698,10 @@ precedence
 <br>
 ・<a href="#span-out-prec-ope-bit">bit演算子</a>
 <br>
+　・<a href="#span-out-type-ope">前置単項演算子</a>
+<br>
+　　・bit not演算子 ~　<span class="run">Ver.2.71.28</span>以降、追加
+<br>
 　・<a href="#span-out-type-ope">中置2項演算子</a>
 <br>
 　　・bit shift演算子 &lt;&lt; || &gt;&gt; || &gt;&gt;&gt;
@@ -7720,7 +7724,7 @@ precedence
 <br>
 　　・一致||不一致関係演算子 == || &lt;&gt;
 <br>
-・<span class="run">Ver.2.59.26</span>以降、<a href="#span-out-prec-ope-logical">論理演算子</a>を追加
+・<a href="#span-out-prec-ope-logical">論理演算子</a>　<span class="run">Ver.2.59.26</span>以降、追加
 <br>
 　・<a href="#span-out-type-ope">中置2項演算子</a>
 <br>
@@ -7839,6 +7843,8 @@ bit演算子と付随する留意事項について記述する
 <br>
 bit or
 <br>
+・<a href="#span-out-float">単精度32bit</a>の符号あり整数
+<br>
 1|1  <span class="selection">// 00000001|00000001->00000001</span> -> 1
 <br>
 1|2  <span class="selection">// 00000001|00000010->00000011</span> -> 3
@@ -7861,6 +7867,8 @@ bit or
 <br>
 <br>
 bit and
+<br>
+・<a href="#span-out-float">単精度32bit</a>の符号あり整数
 <br>
 1&amp;1  <span class="selection">// 00000001&amp;00000001->00000001</span> -> 1
 <br>
@@ -7946,6 +7954,31 @@ round(pow(2,32)-1) -> 4294967295
 -1&gt;&gt;&gt;30 || -1&gt;&gt;&gt;62  <span class="selection">// 00000000000000000000000000000011</span> -> 3
 <br>
 -1&gt;&gt;&gt;31 || -1&gt;&gt;&gt;63  <span class="selection">// 00000000000000000000000000000001</span> -> 1
+<br>
+<br>
+bit not
+<br>
+・<a href="#span-out-float">単精度32bit</a>の符号あり整数
+<br>
+~0  <span class="selection">// 11111111111111111111111111111111</span> -> -1
+<br>
+~1  <span class="selection">// 11111111111111111111111111111110</span> -> -2
+<br>
+~-1 || (~(-1))  <span class="selection">// 00000000000000000000000000000000</span> -> 0
+<br>
+~-2 || (~(-2))  <span class="selection">// 00000000000000000000000000000001</span> -> 1
+<br>
+~-4 || (~(-4))  <span class="selection">// 00000000000000000000000000000011</span> -> 3
+<br>
+~-8 || (~(-8))  <span class="selection">// 00000000000000000000000000000111</span> -> 7
+<br>
+~3  <span class="selection">// 11111111111111111111111111111100</span> -> -4
+<br>
+~7  <span class="selection">// 11111111111111111111111111111000</span> -> -8
+<br>
+~-1&gt;&gt;&gt;31 || ((~(-1))&gt;&gt;&gt;31)  <span class="selection">// 00000000000000000000000000000000</span> -> 0
+<br>
+~(-1&gt;&gt;&gt;31) || (~(-1&gt;&gt;&gt;31))  <span class="selection">// 11111111111111111111111111111110</span> -> -2
 <br>
 <br>
 bit演算子は<a href="#span-out-prec-ope-comparison">比較演算子</a>・<a href="#span-out-prec-ope-relational">関係演算子</a>より優先する
@@ -8797,9 +8830,11 @@ useScope=defaultの場合（上記以外の場合）、<a href="#span-out-BT-squ
 <br>
 ・<span class="run">Ver.2.59.26</span>以降、<a href="#span-out-prec-ope-logical">論理演算子</a>を追加
 <br>
+・<span class="run">Ver.2.71.28</span>以降、<a href="#span-out-prec-ope-bit">bit not演算子</a>を追加
+<br>
 precedence=
 <br>
-URi,URf,BRp,BRr,BRmo,BRdm,BRsa,BRbs,BRba,BRbx,BRbo,BRcn,BRrl<span class="run">,BRlA,BRlO</span>
+URi,URf,BRp,BRr,BRmo,BRdm,BRsa<span class="run">,PUbn</span>,BRbs,BRba,BRbx,BRbo,BRcn,BRrl<span class="run">,BRlA,BRlO</span>
 <br>
 ・別途、乗算記号*の省略を許容しない場合、tag名BRmoを削除する
 <br>
@@ -22026,10 +22061,11 @@ operation.js抜粋
         "BRsa"   // Binary operatoR - || + including Pre-Unary operator - || +
       ],
       [
-        "BRbs",  // Binary operatoR bit shift &lt;&lt; || &gt;&gt; || &gt;&gt;&gt;
-        "BRba",  // Binary operatoR bit   and &amp;
-        "BRbx",  // Binary operatoR bit   xor @
-        "BRbo"   // Binary operatoR bit    or |
+        "PUbn",  // Pre-Unary operator bit not ~
+        "BRbs",  // Binary operatoR bit  shift &lt;&lt; || &gt;&gt; || &gt;&gt;&gt;
+        "BRba",  // Binary operatoR bit    and &amp;
+        "BRbx",  // Binary operatoR bit    xor @
+        "BRbo"   // Binary operatoR bit     or |
       ],
       [
         "BRcn",  // Binary operatoR comparison &lt; || &lt;= || &gt;= || &gt;

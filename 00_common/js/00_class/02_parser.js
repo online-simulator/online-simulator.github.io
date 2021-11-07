@@ -79,6 +79,7 @@ My_entry.parser.prototype.config = {
       "/": "BRdm", "*": "BRdm",
       // Pre-Unary operator minus or plus: "PUmp"
       "-": "BRsa", "+": "BRsa",
+      "~": "PUbn",  // bit not
       // bit shift: "BRbs"
       "&": "BRba",  // bit and
       "@": "BRbx",  // bit xor

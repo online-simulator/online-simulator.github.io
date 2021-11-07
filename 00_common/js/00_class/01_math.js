@@ -257,12 +257,16 @@ My_entry.math.prototype.atan2_ex = function(x, y){
 };
 My_entry.math.prototype.kdelta = function(i, j){
   var self = this;
-  return (i === j)? 1: 0;
+  return ((i === j)? 1: 0);
 };
 My_entry.math.prototype.mod = 
 My_entry.math.prototype.fmod = function(x, y){
   var self = this;
-  return x%y;
+  return (x%y);
+};
+My_entry.math.prototype["~"] = function(y){
+  var self = this;
+  return (~y);
 };
 My_entry.math.prototype["<<"] = function(x, y){
   var self = this;
