@@ -10116,11 +10116,20 @@ clear; a(B)=&lt;{B[0]=B[1],=&lt;B}=&gt;; B=(1,2:3,4); (B,a(=&lt;B)=&gt;,B) ->
 <br>
 clear; add(A,B)=&lt;A+B; A=(1,2:3,4); add(=&lt;A,=&lt;A) -> (2,4:6,8)
 <br>
-　・<a href="#span-out-call-by-equation">式渡し</a>の場合、A[1]のcall時、A=A[0]更新後のA=(1,2)を参照するため、error終了
+　
+<del>
+・<a href="#span-out-call-by-equation">式渡し</a>の場合、A[1]のcall時、A=A[0]更新後のA=(1,2)を参照するため、error終了
 <br>
 clear; add(A,B)=&lt;A+B; A=(1,2:3,4); add(=&lt;A[0],=&lt;A[1]) -> [MyErr]Invalid reference of array
 <br>
 clear; add(A,B)=&lt;A+B; A=&lt;(1,2:3,4); add(=&lt;A[0],=&lt;A[1]) -> [MyErr]Invalid reference of array
+</del>
+<br>
+　・<span class="clear">Ver.2.71.29</span>以降、<a href="#span-out-eqns-args">定義元arguments</a>の<a href="#span-out-vars">変数</a>・<a href="#span-out-eqns">式変数</a>の初期化algorithmを修正
+<br>
+clear; add(A,B)=&lt;A+B; A=(1,2:3,4); add(=&lt;A[0],=&lt;A[1]) -> (4,6)
+<br>
+clear; add(A,B)=&lt;A+B; A=&lt;(1,2:3,4); add(=&lt;A[0],=&lt;A[1]) -> (4,6)
 <br>
 ・<a href="#span-out-eqns-args">定義元arguments</a>の<a href="#span-out-vars-symbol">変数名symbol</a>を区別する場合
 <br>

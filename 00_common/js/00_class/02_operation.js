@@ -2416,12 +2416,16 @@ My_entry.operation.prototype.REe = function(data, i0, tagName, tagObj){
           inherit_id0(1, tagName1_BT);
         }
       }
+      /* Ver.2.71.29 -> */
+      var args_eqns = [];
+      var args_vars = [];
+      /* -> Ver.2.71.29 */
       ids_buffer = [[].concat(id0)];
       for(var i=0; i<len_args; ++i){
         var argi_eqn = args_eqn[i];
         var argi = args[i];
+        var tree = null;  // Ver.2.71.29
         if(self.config.isEscaped(argi_eqn)){
-          var tree = null;
           var name = argi_eqn.substr(1);
           buffer_eqns[name] = self.restore_eqn(name, scopes, ids_buffer);
           var isSEe = argi[BT.SEe];
@@ -2447,12 +2451,9 @@ My_entry.operation.prototype.REe = function(data, i0, tagName, tagObj){
           else{
             throw "Invalid args."+name+"("+name_eqn+")";
           }
-          if(tree){
-            self.store_eqn(name, tree, scopes, ids_buffer);
-          }
+          args_eqns.push([name, tree]);  // Ver.2.71.29
         }
         else{
-          var tree = null;
           var name = argi_eqn;
           buffer_vars[name] = self.restore_var(name, scopes, ids_buffer);
           var isSEe = argi[BT.SEe];
@@ -2466,11 +2467,24 @@ My_entry.operation.prototype.REe = function(data, i0, tagName, tagObj){
           else{
             tree = DATA.num2tree(argi);
           }
-          if(tree){
-            self.store_var(name, tree, scopes, ids_buffer);
-          }
+          args_vars.push([name, tree]);  // Ver.2.71.29
         }
       }
+      /* Ver.2.71.29 -> */
+      var store_args = function(args, isVars){
+        var store_sw = (isVars)? self.store_var: self.store_eqn;
+        for(var i=0, len=args.length; i<len; ++i){
+          var argsi = args[i];
+          var name = argsi[0];
+          var tree = argsi[1];
+          if(tree){
+            store_sw.call(self, name, tree, scopes, ids_buffer);  // .call
+          }
+        }
+      };
+      store_args(args_eqns, false);
+      store_args(args_vars, true);
+      /* -> Ver.2.71.29 */
     }
     else{
       throw "Invalid args.length="+len_args_eqn+"("+name_eqn+")";
