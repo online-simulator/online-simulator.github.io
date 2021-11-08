@@ -6810,10 +6810,12 @@ post
     </th>
     <td>
 <span id="span-out-UI-graphing-post-compressor"></span>
-post-compressor特定項目仕様について記述する
+post-compressor特定項目仕様と付随する留意事項について記述する
 <br>
 <br>
 <span class="run">Ver.2.65.27</span>以降、<a href="#span-out-UI-graphing-filter">filter</a>を代用してpost-compressor（noise処理等、情報量の圧縮機能）を追加
+<br>
+・<span class="run">Ver.2.72.29</span>以降、<a href="#span-out-transform-dwt">離散Wavelet変換</a>を追加
 <br>
 <br>
 post-compressorの仕様を列挙する
@@ -6829,13 +6831,32 @@ post-compressor処理を優先順に列挙する
 <br>
 <del>fft_rgba[]</del>
 <br>
-・<a href="#span-out-transform-dft">離散Fourier変換</a>※下流側で<a href="#span-out-UI-graphing-filter">area-size</a>(w,h&lt;=256)を制限（memory size&lt;100MB）
+・<a href="#span-out-transform-dft">離散Fourier変換</a>
 <br>
 dft_rgba[cutoffU=0~1||0,cutoffV=0~1||0]
 <br>
-・<a href="#span-out-transform-dwt">離散Wavelet変換</a>（未実装）
+・<a href="#span-out-transform-dwt">離散Wavelet変換</a>　<span class="run">Ver.2.72.29</span>以降、追加
 <br>
-dwt_rgba[]
+dwt_rgba[cutoffU=0~1||0,cutoffV=0~1||0]
+<br>
+<br>
+留意事項を列挙する
+<br>
+・cutoffU/Vは高周波数側の2次元AND領域の情報をnoiseとして強制的に遮断する
+<br>
+　<a href="#span-out-transform-dft">離散Fourier変換</a>の場合、spectrum強度=0
+<br>
+　<a href="#span-out-transform-dwt">離散Wavelet変換</a>の場合、<a href="#span-out-transform-dwt">wavelet情報</a>=0
+<br>
+・<a href="#span-out-transform-dwt">離散Wavelet変換</a>の場合、<a href="#span-out-UI-graphing-filter">area-size</a>の制約が存在する（自動re-size）
+<br>
+　量子化bit数=pの場合、w=2^p
+<br>
+　量子化bit数=qの場合、h=2^q
+<br>
+・未最適化のため、下流側で<a href="#span-out-UI-graphing-filter">area-size</a>(w,h&lt;=256)を制限する
+<br>
+　memory size&lt;100MB
     </td>
   </tr>
   <tr>
@@ -20856,7 +20877,7 @@ W ->
 <br>
 w(W,N2)=&lt;_st(=&lt;last{
 <br>
-a=W[t],b=W[N2+t],w[2*t]=<span class="selection">0.5*</span>(a+b),w[2*t+1]=<span class="selection">0.5*</span>(a-b)
+a=W[t],b=W[t+N2],w[2*t]=<span class="selection">0.5*</span>(a+b),w[2*t+1]=<span class="selection">0.5*</span>(a-b)
 <br>
 },0,N2-1);
 <br>
@@ -20968,7 +20989,7 @@ W ->
 <br>
 w(W,N2)=&lt;_st(=&lt;last{
 <br>
-a=W[t],b=W[N2+t],w[2*t]=<span class="selection">0.5*</span>(a+b),w[2*t+1]=<span class="selection">0.5*</span>(a-b)
+a=W[t],b=W[t+N2],w[2*t]=<span class="selection">0.5*</span>(a+b),w[2*t+1]=<span class="selection">0.5*</span>(a-b)
 <br>
 },0,N2-1);
 <br>
@@ -21032,7 +21053,7 @@ W ->
 <br>
 w(W,N2)=&lt;_st(=&lt;last{
 <br>
-a=W[t],b=W[N2+t],w[2*t]=<span class="selection">0.5*</span>(a+b),w[2*t+1]=<span class="selection">0.5*</span>(a-b)
+a=W[t],b=W[t+N2],w[2*t]=<span class="selection">0.5*</span>(a+b),w[2*t+1]=<span class="selection">0.5*</span>(a-b)
 <br>
 },0,N2-1);
 <br>
@@ -23362,7 +23383,7 @@ buffer=W,
 <br>
 w(W,N2)=&lt;_st(=&lt;last{
 <br>
-a=W[t],b=W[N2+t],w[2*t]=<span class="selection">0.5*</span>(a+b),w[2*t+1]=<span class="selection">0.5*</span>(a-b)
+a=W[t],b=W[t+N2],w[2*t]=<span class="selection">0.5*</span>(a+b),w[2*t+1]=<span class="selection">0.5*</span>(a-b)
 <br>
 },0,N2-1),
 <br>
@@ -23424,7 +23445,7 @@ buffer=W,
 <br>
 w(W,N2)=&lt;_st(=&lt;last{
 <br>
-a=W[t],b=W[N2+t],w[2*t]=<span class="selection">0.5*</span>(a+b),w[2*t+1]=<span class="selection">0.5*</span>(a-b)
+a=W[t],b=W[t+N2],w[2*t]=<span class="selection">0.5*</span>(a+b),w[2*t+1]=<span class="selection">0.5*</span>(a-b)
 <br>
 },0,N2-1),
 <br>
@@ -23496,7 +23517,7 @@ buffer=W,
 <br>
 w(W,N2)=&lt;_st(=&lt;last{
 <br>
-a=W[t],b=W[N2+t],w[2*t]=<span class="selection">0.5*</span>(a+b),w[2*t+1]=<span class="selection">0.5*</span>(a-b)
+a=W[t],b=W[t+N2],w[2*t]=<span class="selection">0.5*</span>(a+b),w[2*t+1]=<span class="selection">0.5*</span>(a-b)
 <br>
 },0,N2-1),
 <br>

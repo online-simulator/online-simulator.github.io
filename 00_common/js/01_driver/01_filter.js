@@ -546,26 +546,20 @@ My_entry.filter.prototype.run = function(ctx, params){
         var pi2 = Math.PI*2;
         var N = px_w;
         var M = px_h;
-        if(isFFT || isDWT){
-          var get_power = function(radix, val, power){
-            var _power = power || 0;
-            var _val = val/radix;
-            if(_val < 1){
-              return _power;
-            }
-            else{
-              return get_power(radix, _val, ++_power);
-            }
-          };
-          var radix_FFT = 2;
-          var radix = (isDWT)? 2: radix_FFT;
-          N = Math.pow(radix, get_power(radix, px_w));
-          M = Math.pow(radix, get_power(radix, px_h));
-        }
         /* limiter -> */
         N = Math.min(N, 256);
         M = Math.min(M, 256);
         /* -> limiter */
+        var get_power = function(radix, val, power){
+          var _power = power || 0;
+          var _val = val/radix;
+          if(_val < 1){
+            return _power;
+          }
+          else{
+            return get_power(radix, _val, ++_power);
+          }
+        };
         var init_arr = function(N, M, hasID){
           var _arr = [];
           var data = (hasID)? ctx.getImageData(is, js, N, M).data: null;
@@ -650,6 +644,125 @@ My_entry.filter.prototype.run = function(ctx, params){
           Array.prototype.push.apply(arguments, [true]);
           return forward_DFT.apply(self, arguments);
         };
+        /* Ver.2.72.29 -> */
+        var forward_DWT = function(ijr, uvr, p, q, cutoffU, cutoffV){
+          var radix = 2;
+          var N = Math.pow(radix, p);
+          var M = Math.pow(radix, q);
+          var ujr = init_arr(N, M);
+          var i2u = function(j){
+            var N2 = N;
+            for(var Np=0; Np<p; ++Np){
+              N2 /= 2;
+              for(var i=0; i<N2; ++i){
+                for(var n=0; n<4; ++n){
+                  var a = ijr[2*i][j][n];
+                  var b = ijr[2*i+1][j][n];
+                  ujr[i][j][n] = a+b;
+                  ujr[i+N2][j][n] = a-b;
+                }
+              }
+              for(var u=0; u<N2; ++u){
+                for(var n=0; n<4; ++n){
+                  ijr[u][j][n] = ujr[u][j][n];
+                }
+              }
+            }
+          };
+          var j2v = function(u){
+            var M2 = M;
+            for(var Nq=0; Nq<q; ++Nq){
+              M2 /= 2;
+              for(var j=0; j<M2; ++j){
+                for(var n=0; n<4; ++n){
+                  var a = ujr[u][2*j][n];
+                  var b = ujr[u][2*j+1][n];
+                  uvr[u][j][n] = a+b;
+                  uvr[u][j+M2][n] = a-b;
+                }
+              }
+              for(var v=0; v<M2; ++v){
+                for(var n=0; n<4; ++n){
+                  ujr[u][v][n] = uvr[u][v][n];
+                }
+              }
+            }
+          };
+          // (i,j) -> (u,j)
+          for(var j=0; j<M; ++j){
+            i2u(j);
+          }
+          // (u,j) -> (u,v)
+          for(var u=0; u<N; ++u){
+            j2v(u);
+          }
+          // cut-off wavelet
+          var threshold_u = cutoffU*N;
+          var threshold_v = cutoffV*M;
+          for(var v=0; v<M; ++v){
+            for(var u=0; u<N; ++u){
+              var isCutOff = (u >= threshold_u && v >= threshold_v);
+              if(isCutOff){
+                for(var n=0; n<4; ++n){
+                  uvr[u][v][n] = 0;
+                }
+              }
+            }
+          }
+        };
+        var inverse_DWT = function(uvr, ijr, p, q){
+          var radix = 2;
+          var N = Math.pow(radix, p);
+          var M = Math.pow(radix, q);
+          var ivr = init_arr(N, M);
+          var u2i = function(v){
+            var N2 = 1;
+            for(var Np=0; Np<p; ++Np){
+              for(var u=0; u<N2; ++u){
+                for(var n=0; n<4; ++n){
+                  var a = uvr[u][v][n];
+                  var b = uvr[u+N2][v][n];
+                  ivr[2*u][v][n] = 0.5*(a+b);
+                  ivr[2*u+1][v][n] = 0.5*(a-b);
+                }
+              }
+              N2 *= 2;
+              for(var i=0; i<N2; ++i){
+                for(var n=0; n<4; ++n){
+                  uvr[i][v][n] = ivr[i][v][n];
+                }
+              }
+            }
+          };
+          var v2j = function(i){
+            var M2 = 1;
+            for(var Nq=0; Nq<q; ++Nq){
+              for(var v=0; v<M2; ++v){
+                for(var n=0; n<4; ++n){
+                  var a = ivr[i][v][n];
+                  var b = ivr[i][v+M2][n];
+                  ijr[i][2*v][n] = 0.5*(a+b);
+                  ijr[i][2*v+1][n] = 0.5*(a-b);
+                }
+              }
+              M2 *= 2;
+              for(var j=0; j<M2; ++j){
+                for(var n=0; n<4; ++n){
+                  ivr[i][j][n] = ijr[i][j][n];
+                }
+              }
+            }
+          };
+          // (u,v) -> (i,v)
+          for(var v=0; v<M; ++v){
+            u2i(v);
+          }
+          // (i,v) -> (i,j)
+          for(var i=0; i<N; ++i){
+            v2j(i);
+          }
+        };
+        /* -> Ver.2.72.29 */
         var output_data = function(ij){
           for(var n=0; n<4; ++n){
             if(sws_rgba[n]){
@@ -675,8 +788,22 @@ My_entry.filter.prototype.run = function(ctx, params){
           inverse_DFT(uvr, uvi, ijr, iji, N, M, 1/N, 1/M, 1, 1);
           output_data(ijr);
         }
+        /* Ver.2.72.29 -> */
         else if(isDWT){
+          var radix = 2;
+          var p = get_power(radix, N);
+          var q = get_power(radix, M);
+          var N = Math.pow(radix, p);
+          var M = Math.pow(radix, q);
+          var ijr = init_arr(N, M, true);
+          var uvr = init_arr(N, M);
+          var cutoffU = arr_w[0] || 0;
+          var cutoffV = arr_w[1] || 0;
+          forward_DWT(ijr, uvr, p, q, cutoffU, cutoffV);
+          inverse_DWT(uvr, ijr, p, q);
+          output_data(ijr);
         }
+        /* -> Ver.2.72.29 */
       }
       /* -> Ver.2.65.27 */
     }
