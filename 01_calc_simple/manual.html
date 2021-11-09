@@ -1259,9 +1259,9 @@ developer.mozilla.org/ja/docs/項目を列挙する
 <br>
 en.m.wikipedia.org/wiki/項目を列挙する
 <br>
-・Fisher-Yates_shuffle
-<br>
 ・Von_Neumann_stability_analysis
+<br>
+・Fisher-Yates_shuffle
 <br>
 ・Enigma_machine
 <br>
@@ -6671,6 +6671,75 @@ area[0]rgba[2,0,0,2,0,0,1]
 <br>
 post
 <br>
+-compressor
+<br>
+特定項目仕様
+    </th>
+    <td>
+<span id="span-out-UI-graphing-post-compressor"></span>
+post-compressor特定項目仕様と付随する留意事項について記述する
+<br>
+<br>
+<span class="run">Ver.2.65.27</span>以降、<a href="#span-out-UI-graphing-filter">filter</a>を代用してpost-compressor（<a href="#span-out-UI-graphing-post-processor-encode">noise</a>処理等、情報量の圧縮機能）を追加
+<br>
+・<span class="run">Ver.2.72.29</span>以降、<a href="#span-out-transform-dwt">離散Wavelet変換</a>を追加
+<br>
+<br>
+post-compressorの仕様を列挙する
+<br>
+・hsvlrgba||HSVLRGBAのalphabetを除外してpost-compressor処理名を定義する
+<br>
+・post-compressor処理は単独処理で処理名の併記不可
+<br>
+<br>
+post-compressor処理を優先順に列挙する
+<br>
+・<a href="#span-out-transform-fft">高速Fourier変換</a>は不採用（<a href="#span-out-UI-graphing-filter">filter</a>代用の仕様上、overhead大）
+<br>
+<del>fft_rgba[]</del>
+<br>
+・<a href="#span-out-transform-dft">離散Fourier変換</a>
+<br>
+dft_rgba[cutoffU=0~1||0,cutoffV=0~1||0]
+<br>
+・<a href="#span-out-transform-dwt">離散Wavelet変換</a>　<span class="run">Ver.2.72.29</span>以降、追加
+<br>
+dwt_rgba[cutoffU=0~1||0,cutoffV=0~1||0]
+<br>
+<br>
+留意事項を列挙する
+<br>
+・cutoffU/Vは高周波数側の2次元AND領域の情報を<a href="#span-out-UI-graphing-post-processor-encode">noise</a>として強制的に遮断する
+<br>
+　<a href="#span-out-transform-dft">離散Fourier変換</a>の場合、spectrum強度=0
+<br>
+　<a href="#span-out-transform-dwt">離散Wavelet変換</a>の場合、<a href="#span-out-transform-dwt">wavelet情報</a>=0
+<br>
+・<a href="#span-out-transform-dwt">離散Wavelet変換</a>の場合、<a href="#span-out-UI-graphing-filter">area-size</a>の制約が存在する（自動re-size）
+<br>
+　量子化bit数=pの場合、w=2^p
+<br>
+　量子化bit数=qの場合、h=2^q
+<br>
+・未最適化のため、下流側で<a href="#span-out-UI-graphing-filter">area-size</a>(w,h&lt;=256)を制限する
+<br>
+　memory size&lt;100MB
+<br>
+・canvas全体に適用する場合、<a href="#span-out-UI-graphing-filter">canvas-area</a>を変えて列挙する
+<br>
+dft_rgba[0.05,0.05]:area[256,0]dft_rgba[0.05,0.05]
+<br>
+dwt_rgba[0.05,0.05]:area[256,0]dwt_rgba[0.05,0.05]
+    </td>
+  </tr>
+  <tr>
+    <th>
+<a href="#span-index">
+目次
+</a>
+<br>
+post
+<br>
 -processor
 <br>
 特定項目仕様
@@ -6847,75 +6916,6 @@ substitution方式のencodeの一例を列挙する（参考）
 ・<a href="../73_encodeURI/index.html">encodeURI変換Checker</a>
 <br>
 ・<a href="../74_base64/index.html">base64変換Checker</a>
-    </td>
-  </tr>
-  <tr>
-    <th>
-<a href="#span-index">
-目次
-</a>
-<br>
-post
-<br>
--compressor
-<br>
-特定項目仕様
-    </th>
-    <td>
-<span id="span-out-UI-graphing-post-compressor"></span>
-post-compressor特定項目仕様と付随する留意事項について記述する
-<br>
-<br>
-<span class="run">Ver.2.65.27</span>以降、<a href="#span-out-UI-graphing-filter">filter</a>を代用してpost-compressor（<a href="#span-out-UI-graphing-post-processor-encode">noise</a>処理等、情報量の圧縮機能）を追加
-<br>
-・<span class="run">Ver.2.72.29</span>以降、<a href="#span-out-transform-dwt">離散Wavelet変換</a>を追加
-<br>
-<br>
-post-compressorの仕様を列挙する
-<br>
-・hsvlrgba||HSVLRGBAのalphabetを除外してpost-compressor処理名を定義する
-<br>
-・post-compressor処理は単独処理で処理名の併記不可
-<br>
-<br>
-post-compressor処理を優先順に列挙する
-<br>
-・<a href="#span-out-transform-fft">高速Fourier変換</a>は不採用（<a href="#span-out-UI-graphing-filter">filter</a>代用の仕様上、overhead大）
-<br>
-<del>fft_rgba[]</del>
-<br>
-・<a href="#span-out-transform-dft">離散Fourier変換</a>
-<br>
-dft_rgba[cutoffU=0~1||0,cutoffV=0~1||0]
-<br>
-・<a href="#span-out-transform-dwt">離散Wavelet変換</a>　<span class="run">Ver.2.72.29</span>以降、追加
-<br>
-dwt_rgba[cutoffU=0~1||0,cutoffV=0~1||0]
-<br>
-<br>
-留意事項を列挙する
-<br>
-・cutoffU/Vは高周波数側の2次元AND領域の情報を<a href="#span-out-UI-graphing-post-processor-encode">noise</a>として強制的に遮断する
-<br>
-　<a href="#span-out-transform-dft">離散Fourier変換</a>の場合、spectrum強度=0
-<br>
-　<a href="#span-out-transform-dwt">離散Wavelet変換</a>の場合、<a href="#span-out-transform-dwt">wavelet情報</a>=0
-<br>
-・<a href="#span-out-transform-dwt">離散Wavelet変換</a>の場合、<a href="#span-out-UI-graphing-filter">area-size</a>の制約が存在する（自動re-size）
-<br>
-　量子化bit数=pの場合、w=2^p
-<br>
-　量子化bit数=qの場合、h=2^q
-<br>
-・未最適化のため、下流側で<a href="#span-out-UI-graphing-filter">area-size</a>(w,h&lt;=256)を制限する
-<br>
-　memory size&lt;100MB
-<br>
-・canvas全体に適用する場合、<a href="#span-out-UI-graphing-filter">canvas-area</a>を変えて列挙する
-<br>
-dft_rgba[0.05,0.05]:area[256,0]dft_rgba[0.05,0.05]
-<br>
-dwt_rgba[0.05,0.05]:area[256,0]dwt_rgba[0.05,0.05]
     </td>
   </tr>
   <tr>
@@ -7239,9 +7239,9 @@ post最終処理順と付随する留意事項について記述する
 <br>
 ・<a href="#span-out-UI-graphing-post-transformer">post-transformer</a>
 <br>
-・<a href="#span-out-UI-graphing-post-processor">post-processor</a>
-<br>
 ・<a href="#span-out-UI-graphing-post-compressor">post-compressor</a>
+<br>
+・<a href="#span-out-UI-graphing-post-processor">post-processor</a>
 <br>
 <br>
 留意事項を列挙する
