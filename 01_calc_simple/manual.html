@@ -287,6 +287,11 @@ post-transformer特定項目仕様
 post-processor特定項目仕様
 </a>
 <br>
+　　　　　・
+<a href="#span-out-UI-graphing-post-processor-encode">
+encode仕様
+</a>
+<br>
 　　　　・
 <a href="#span-out-UI-graphing-post-compressor">
 post-compressor特定項目仕様
@@ -1256,13 +1261,17 @@ en.m.wikipedia.org/wiki/項目を列挙する
 <br>
 ・Fisher-Yates_shuffle
 <br>
+・Von_Neumann_stability_analysis
+<br>
+・Enigma_machine
+<br>
 ・Rotation_formalisms_in_three_dimensions
 <br>
-・Rainbow
+・CIE_1931_color_space
 <br>
 ・HSL_and_HSV
 <br>
-・CIE_1931_color_space
+・Rainbow
 <br>
 <br>
 ja.m.wikipedia.org/wiki/項目を列挙する
@@ -1300,8 +1309,6 @@ ja.m.wikipedia.org/wiki/項目を列挙する
 ・ハールウェーブレット
 <br>
 ・多重解像度解析
-<br>
-・フォン・ノイマンの安定性解析
 <br>
 ・ガンマ補正
 <br>
@@ -6681,9 +6688,7 @@ post-processor特定項目仕様について記述する
 <br>
 ・<span class="run">Ver.2.61.27</span>以降、<span class="condition">塗りつぶし</span>機能を追加（<span class="condition">Nwrap</span>を周回数とする独自の回り込み方式）
 <br>
-・<span class="run">Ver.2.62.27</span>以降、不可逆な<span class="jF">encode</span>機能を追加（<a href="#span-out-FN-rand">乱数seed値</a>不定のFisher-Yates shuffle）
-<br>
-　⇒　<a href="../99_gacha/index.html">確率抽選</a>の反復sortのため、<a href="#span-out-FN-rand">一様乱数</a>の前提で完全random性を数学的に保証する
+・<span class="run">Ver.2.62.27</span>以降、<a href="#span-out-UI-graphing-post-processor-encode">不可逆な<span class="jF">encode</span></a>機能を追加（<a href="#span-out-FN-rand">乱数seed値</a>不定のFisher-Yates shuffle）
 <br>
 <br>
 post-processorの仕様を列挙する
@@ -6707,7 +6712,7 @@ fy_rgba[offsetY||0]
 <br>
 dot_rgba[dx=1~||1,dy=1~||dx]
 <br>
-・不可逆な<span class="jF">encode</span>（decodeする場合、encodeの<a href="#span-out-FN-rand">乱数seed値</a>を連番等で指定）
+・<a href="#span-out-UI-graphing-post-processor-encode">不可逆な<span class="jF">encode</span></a>
 <br>
 encode_rgba[dx=1~||1,dy=1~||dx]
 <br>
@@ -6765,7 +6770,7 @@ fy_g:fy_g[-100]
 <br>
 fy_rgba:fx_rgba
 <br>
-・不可逆な<span class="jF">encode</span>
+・<a href="#span-out-UI-graphing-post-processor-encode">不可逆な<span class="jF">encode</span></a>
 <br>
 encode_rgba[6,3]
 <br>
@@ -6802,6 +6807,54 @@ mono[-1,0.2126,0.7152,0.0722]
 目次
 </a>
 <br>
+encode仕様
+    </th>
+    <td>
+<span id="span-out-UI-graphing-post-processor-encode"></span>
+post-processor特定項目のencode仕様について記述する
+<br>
+<br>
+<span class="run">Ver.2.62.27</span>以降、<a href="#span-out-UI-graphing-post-processor">post-processor</a>に不可逆なencode機能を追加する
+<br>
+・noise付与に代用（<span class="run">Ver.2.72.29</span>追記）
+<br>
+<br>
+encodeの仕様/補足を列挙する
+<br>
+・transposition方式
+<br>
+　通常、直列化した任意dataを可逆的な規則性に従って並び替える
+<br>
+・理想的なrandom-sortのFisher-Yates shuffle
+<br>
+　<a href="../99_gacha/index.html">確率抽選</a>の反復sortのため、<a href="#span-out-FN-rand">一様乱数</a>の前提で完全random性を数学的に保証する
+<br>
+・<a href="#span-out-FN-rand">乱数seed値</a>不定の仕様上、不可逆
+<br>
+　decodeする場合、encodeの<a href="#span-out-FN-rand">乱数seed値</a>を連番等で指定する（sort規則を予め指定する）
+<br>
+<br>
+substitution方式のencodeの一例を列挙する（参考）
+<br>
+・Enigma
+<br>
+・<a href="../70_decimal/index.html">n進数⇒m進数変換</a>
+<br>
+・<a href="../71_regexp/index.html">正規表現text置換</a>
+<br>
+・<a href="../72_unicode/index.html">Unicode変換Checker※IE一部非対応</a>
+<br>
+・<a href="../73_encodeURI/index.html">encodeURI変換Checker</a>
+<br>
+・<a href="../74_base64/index.html">base64変換Checker</a>
+    </td>
+  </tr>
+  <tr>
+    <th>
+<a href="#span-index">
+目次
+</a>
+<br>
 post
 <br>
 -compressor
@@ -6813,7 +6866,7 @@ post
 post-compressor特定項目仕様と付随する留意事項について記述する
 <br>
 <br>
-<span class="run">Ver.2.65.27</span>以降、<a href="#span-out-UI-graphing-filter">filter</a>を代用してpost-compressor（noise処理等、情報量の圧縮機能）を追加
+<span class="run">Ver.2.65.27</span>以降、<a href="#span-out-UI-graphing-filter">filter</a>を代用してpost-compressor（<a href="#span-out-UI-graphing-post-processor-encode">noise</a>処理等、情報量の圧縮機能）を追加
 <br>
 ・<span class="run">Ver.2.72.29</span>以降、<a href="#span-out-transform-dwt">離散Wavelet変換</a>を追加
 <br>
@@ -6842,7 +6895,7 @@ dwt_rgba[cutoffU=0~1||0,cutoffV=0~1||0]
 <br>
 留意事項を列挙する
 <br>
-・cutoffU/Vは高周波数側の2次元AND領域の情報をnoiseとして強制的に遮断する
+・cutoffU/Vは高周波数側の2次元AND領域の情報を<a href="#span-out-UI-graphing-post-processor-encode">noise</a>として強制的に遮断する
 <br>
 　<a href="#span-out-transform-dft">離散Fourier変換</a>の場合、spectrum強度=0
 <br>
@@ -10102,7 +10155,7 @@ scope
 式変数のscope継承callについてまとめる
 <br>
 <br>
-仕様を列挙する
+<a href="#span-out-scope-inherited-call">式変数のscope継承call</a>の仕様を列挙する
 <br>
 ・<a href="#span-out-vars">変数</a>・<a href="#span-out-eqns">式変数</a>は宣言時の<a href="#span-out-bracket">階層</a>に依存するため、次の場合、error終了
 <br>
@@ -17837,7 +17890,7 @@ Electrochemical Impedance Spectroscopy（以降、EISと省略する）
 <br>
 ・等価回路fittingによる電気化学cellのsimulationは交流impedance実測結果の再現性が低い
 <br>
-・測定機の後処理同等（noise処理を除く）のalgorithmを実装することで再現性を改善する
+・測定機の後処理同等（<a href="#span-out-UI-graphing-post-processor-encode">noise</a>処理を除く）のalgorithmを実装することで再現性を改善する
 <br>
 ・定性的な理解とともにparameter推定の定量性改善に繋がる可能性が考えられる
 <br>
