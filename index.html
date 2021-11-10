@@ -282,6 +282,86 @@ Y/M/D
 <tbody>
   <tr>
     <th>
+4.81.25.11.25
+    </th>
+    <td class="types">
+Calculator
+    </td>
+    <td>
+2.74.29
+    </td>
+    <td>
+minor update
+    </td>
+    <td>
+[Calculator]
+<br>
+・all operations extended further
+<br>
+　than Ver.2.73.29 excluding FunctioN(FN)
+<br>
+・checkbox-comma in calc-config added for consistency of comma-operator
+<br>
+x={0,1,2,3,4,5,6,7};
+<br>
+y=(x*1,x*2,x*3)/(i,-2,3);
+<br>
+y  <span class="run">// comma-unchecked</span> ->
+<br>
+(
+<br>
+0,0,0:
+<br>
+-i,-1,1:
+<br>
+-2i,-2,2:
+<br>
+-3i,-3,3:
+<br>
+-4i,-4,4:
+<br>
+-5i,-5,5:
+<br>
+-6i,-6,6:
+<br>
+-7i,-7,7
+<br>
+)
+<br>
+min(y),max(y) -> (0,0:-1,1:-2,2:-3,3:-4,4:-5,5:-6,6:-7,7)
+<br>
+y  <span class="selection">// comma-checked</span> ->
+<br>
+(
+<br>
+0:
+<br>
+1:
+<br>
+2:
+<br>
+3:
+<br>
+4:
+<br>
+5:
+<br>
+6:
+<br>
+7
+<br>
+)
+<br>
+min(y),max(y)  <span class="selection">// Ver.2.73.29</span> -> (0,0:1,1:2,2:3,3:4,4:5,5:6,6:7,7)
+<br>
+・manual未更新（全page検証中）
+    </td>
+    <td>
+2021/11/11
+    </td>
+  </tr>
+  <tr>
+    <th>
 4.80.25.11.25
     </th>
     <td class="types">
