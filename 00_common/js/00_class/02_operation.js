@@ -1743,6 +1743,7 @@ My_entry.operation.prototype.FNn = function(data, i0, tagName, tagObj){
   var self = this;
   var trees = data.trees;
   var options = data.options;
+  var math_mat = self.entry.math_mat;
   var DATA = self.entry.DATA;
   var unit = self.entry.unit;
   var is = i0;
@@ -1758,8 +1759,22 @@ My_entry.operation.prototype.FNn = function(data, i0, tagName, tagObj){
   }
   else if(rightArr){
   /* -> Ver.2.30.15 */
-    var args = self.arr2args(rightArr);
-    var tree = DATA.num2tree(unit[tagName].apply(unit, [prop, options].concat(args)));  // arguments.length < O(10000)
+    /* Ver.2.73.29 -> */
+    var tree = null;
+    var len_i = rightArr.length;
+    if(options.useMatrix && len_i > 1){
+      var arr = math_mat.init2d(len_i, 1);
+      for(var i=0; i<len_i; ++i){
+        var args = rightArr[i];
+        arr[i][0] = unit[tagName].apply(unit, [prop, options].concat(args));
+      }
+      tree = DATA.tree_mat(arr);
+    }
+    else{
+      var args = self.arr2args(rightArr);
+      tree = DATA.num2tree(unit[tagName].apply(unit, [prop, options].concat(args)));  // arguments.length < O(10000)
+    }
+    /* -> Ver.2.73.29 */
     self.feedback2trees(data, is, ie, tree);
   }
   return self;
@@ -1768,14 +1783,29 @@ My_entry.operation.prototype.URi = function(data, i0, tagName, tagObj){
   var self = this;
   var trees = data.trees;
   var options = data.options;
+  var math_mat = self.entry.math_mat;
   var DATA = self.entry.DATA;
   var unit = self.entry.unit;
   var is = i0-1;
   var ie = i0;
+  /* Ver.2.73.29 -> */
   var leftArr = self.get_tagVal(trees[is], "mat", "arr");
-  var left = (leftArr)? self.arr2num(leftArr): DATA.num(1, 0);
   var right = DATA.num(0, 1);
-  var tree = DATA.num2tree(unit["BRm"](options, left, right));
+  var tree = null;
+  var len_i = (leftArr)? leftArr.length: 1;
+  if(options.useMatrix && len_i > 1){
+    var arr = math_mat.init2d(len_i, 1);
+    for(var i=0; i<len_i; ++i){
+      var left = self.arr2obj_i(leftArr, i);
+      arr[i][0] = unit["BRm"](options, left, right);
+    }
+    tree = DATA.tree_mat(arr);
+  }
+  else{
+    var left = (leftArr)? self.arr2num(leftArr): DATA.num(1, 0);
+    tree = DATA.num2tree(unit["BRm"](options, left, right));
+  }
+  /* -> Ver.2.73.29 */
   var is = (leftArr)? is: i0;
   self.feedback2trees(data, is, ie, tree);
   return self;
@@ -1784,15 +1814,32 @@ My_entry.operation.prototype.URf = function(data, i0, tagName, tagObj){
   var self = this;
   var trees = data.trees;
   var options = data.options;
+  var math_mat = self.entry.math_mat;
   var DATA = self.entry.DATA;
   var unit = self.entry.unit;
   var is = i0-1;
   var ie = i0;
+  /* Ver.2.73.29 -> */
+  var prop = tagObj.val;
   var leftArr = self.get_tagVal(trees[is], "mat", "arr");
-  var left = (leftArr)? self.arr2num(leftArr): DATA.num(1, 0);
-  var arg0 = left;
-  var arg1 = DATA.num(Number(tagObj.val), 0);
-  var tree = DATA.num2tree(unit["FN"]("fact_m", options, arg0, arg1));
+  var arg1 = DATA.num(Number(prop), 0);
+  var tree = null;
+  var len_i = (leftArr)? leftArr.length: 1;
+  if(options.useMatrix && len_i > 1){
+    var arr = math_mat.init2d(len_i, 1);
+    for(var i=0; i<len_i; ++i){
+      var left = self.arr2obj_i(leftArr, i);
+      var arg0 = left;
+      arr[i][0] = unit["FN"]("fact_m", options, arg0, arg1);
+    }
+    tree = DATA.tree_mat(arr);
+  }
+  else{
+    var left = (leftArr)? self.arr2num(leftArr): DATA.num(1, 0);
+    var arg0 = left;
+    tree = DATA.num2tree(unit["FN"]("fact_m", options, arg0, arg1));
+  }
+  /* -> Ver.2.73.29 */
   var is = (leftArr)? is: i0;
   self.feedback2trees(data, is, ie, tree);
   return self;
@@ -1802,6 +1849,7 @@ My_entry.operation.prototype.PUbn = function(data, i0, tagName, tagObj){
   var self = this;
   var trees = data.trees;
   var options = data.options;
+  var math_mat = self.entry.math_mat;
   var DATA = self.entry.DATA;
   var unit = self.entry.unit;
   var is = i0;
@@ -1809,8 +1857,23 @@ My_entry.operation.prototype.PUbn = function(data, i0, tagName, tagObj){
   var leftArr = self.get_tagVal(trees[is-1], "mat", "arr");
   var rightArr = self.get_tagVal(trees[ie], "mat", "arr");
   if(!(leftArr) && rightArr){
-    var right = self.arr2num(rightArr);
-    var tree = DATA.num2tree(unit["FN"](tagObj.val, options, right));
+    /* Ver.2.73.29 -> */
+    var prop = tagObj.val;
+    var tree = null;
+    var len_i = rightArr.length;
+    if(options.useMatrix && len_i > 1){
+      var arr = math_mat.init2d(len_i, 1);
+      for(var i=0; i<len_i; ++i){
+        var right = self.arr2obj_i(rightArr, i);
+        arr[i][0] = unit["FN"](prop, options, right);
+      }
+      tree = DATA.tree_mat(arr);
+    }
+    else{
+      var right = self.arr2num(rightArr);
+      tree = DATA.num2tree(unit["FN"](prop, options, right));
+    }
+    /* -> Ver.2.73.29 */
     self.feedback2trees(data, is, ie, tree);
   }
   return self;
@@ -1887,9 +1950,28 @@ My_entry.operation.prototype.init_callbacks_mat = function(options){
   self.callbacks_mat.BRrl = function(tagName, tagObj, leftArr, rightArr){
     var _tree = null;
     if(leftArr && rightArr){
-      var left = self.arr2num(leftArr);
-      var right = self.arr2num(rightArr);
-      _tree = DATA.num2tree(unit["FN"](tagObj.val, options, left, right));
+      /* Ver.2.73.29 -> */
+      var prop = tagObj.val;
+      var len_i = Math.max(leftArr.length, rightArr.length);
+      if(options.useMatrix && len_i > 1){
+        var arr = math_mat.init2d(len_i, 1);
+        var il = 0;
+        var ir = 0;
+        for(var i=0; i<len_i; ++i){
+          il = (leftArr[i])? i: il;
+          ir = (rightArr[i])? i: ir;
+          var left = self.arr2obj_i(leftArr, il);
+          var right = self.arr2obj_i(rightArr, ir);
+          arr[i][0] = unit["FN"](prop, options, left, right);
+        }
+        _tree = DATA.tree_mat(arr);
+      }
+      else{
+        var left = self.arr2num(leftArr);
+        var right = self.arr2num(rightArr);
+        _tree = DATA.num2tree(unit["FN"](prop, options, left, right));
+      }
+      /* -> Ver.2.73.29 */
     }
     return _tree;
   };
@@ -1902,9 +1984,27 @@ My_entry.operation.prototype.init_callbacks_mat = function(options){
   /* -> Ver.2.59.26 */
     var _tree = null;
     if(leftArr && rightArr){
-      var left = self.arr2num(leftArr);
-      var right = self.arr2num(rightArr);
-      _tree = DATA.num2tree(unit[tagName](options, left, right));
+      /* Ver.2.73.29 -> */
+      var len_i = Math.max(leftArr.length, rightArr.length);
+      if(options.useMatrix && len_i > 1){
+        var arr = math_mat.init2d(len_i, 1);
+        var il = 0;
+        var ir = 0;
+        for(var i=0; i<len_i; ++i){
+          il = (leftArr[i])? i: il;
+          ir = (rightArr[i])? i: ir;
+          var left = self.arr2obj_i(leftArr, il);
+          var right = self.arr2obj_i(rightArr, ir);
+          arr[i][0] = unit[tagName](options, left, right);
+        }
+        _tree = DATA.tree_mat(arr);
+      }
+      else{
+        var left = self.arr2num(leftArr);
+        var right = self.arr2num(rightArr);
+        _tree = DATA.num2tree(unit[tagName](options, left, right));
+      }
+      /* -> Ver.2.73.29 */
     }
     return _tree;
   };

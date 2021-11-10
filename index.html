@@ -282,6 +282,72 @@ Y/M/D
 <tbody>
   <tr>
     <th>
+4.80.25.11.25
+    </th>
+    <td class="types">
+Calculator
+    </td>
+    <td>
+2.73.29
+    </td>
+    <td>
+minor update
+    </td>
+    <td>
+[Calculator]
+<br>
+・following extended operations test case added
+<br>
+　<span class="run">past results including test cases are no change</span>
+<br>
+　過去の結果に影響しない機能拡張のため、minorとする
+<br>
+・all operations extended
+<br>
+x={0,1,2,3,4,5,6,7};
+<br>
+N=sizer(x);
+<br>
+f=e^((x*2*pi/N)i); f ->
+<br>
+(
+<br>
+1:
+<br>
+0.7071067811865476+0.7071067811865475i:
+<br>
+6.123233995736766e-17+i:
+<br>
+-0.7071067811865475+0.7071067811865476i:
+<br>
+-1+1.2246467991473532e-16i:
+<br>
+-0.7071067811865477-0.7071067811865475i:
+<br>
+-1.8369701987210297e-16-i:
+<br>
+0.7071067811865474-0.7071067811865477i
+<br>
+)
+<br>
+round_real(f,n)=&lt;round(real(f)*round(10**(n||1)))/round(10**(n||1));
+<br>
+round_imag(f,n)=&lt;round(imag(f)*round(10**(n||1)))/round(10**(n||1));
+<br>
+round_f(f,nr,ni)=&lt;round_real(=&lt;f,nr)+(round_imag(=&lt;f,ni))i;
+<br>
+round_f(=&lt;f,,2) -> (1:0.7+0.71i:i:-0.7+0.71i:-1:-0.7-0.71i:-i:0.7-0.71i)
+<br>
+0||~(x&lt;&lt;1)%3 -> (-1:-3:-2:-1:-3:-2:-1:-3)
+<br>
+・manual未更新（全page検証中）
+    </td>
+    <td>
+2021/11/10
+    </td>
+  </tr>
+  <tr>
+    <th>
 4.79.25.11.25
     </th>
     <td class="types">
