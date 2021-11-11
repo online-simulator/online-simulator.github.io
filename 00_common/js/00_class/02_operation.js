@@ -1960,10 +1960,10 @@ My_entry.operation.prototype.init_callbacks_mat = function(options){
       /* Ver.2.73.29 -> */
       if(options.useMatrix){
         var arr = [];
-        var il = 0;
-        var ir = 0;
         var len_i = Math.max(leftArr.length, rightArr.length);
         if(options.useComma){
+          var il = 0;
+          var ir = 0;
           for(var i=0; i<len_i; ++i){
             il = (leftArr[i])? i: il;
             ir = (rightArr[i])? i: ir;
@@ -1973,17 +1973,17 @@ My_entry.operation.prototype.init_callbacks_mat = function(options){
           }
         }
         else{
+          var lArri = null;
+          var rArri = null;
           for(var i=0; i<len_i; ++i){
-            il = (leftArr[i])? i: il;
-            ir = (rightArr[i])? i: ir;
+            lArri = leftArr[i] || lArri;
+            rArri = rightArr[i] || rArri;
             arr[i] = [];
-            var jl = 0;
-            var jr = 0;
-            for(var j=0, len_j=Math.max(leftArr[il].length, rightArr[ir].length); j<len_j; ++j){
-              jl = (leftArr[il][j])? j: jl;
-              jr = (rightArr[ir][j])? j: jr;
-              var left = leftArr[il][jl];
-              var right = rightArr[ir][jr];
+            var left = null;
+            var right = null;
+            for(var j=0, len_j=Math.max(lArri.length, rArri.length); j<len_j; ++j){
+              left = lArri[j] || left;
+              right = rArri[j] || right;
               arr[i][j] = callback(left, right);
             }
           }
