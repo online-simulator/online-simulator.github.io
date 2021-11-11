@@ -1780,49 +1780,8 @@ My_entry.operation.prototype.FNn = function(data, i0, tagName, tagObj){
   }
   return self;
 };
-My_entry.operation.prototype.URi = function(data, i0, tagName, tagObj){
-  var self = this;
-  var trees = data.trees;
-  var options = data.options;
-  var DATA = self.entry.DATA;
-  var unit = self.entry.unit;
-  var is = i0-1;
-  var ie = i0;
-  /* Ver.2.74.29 -> */
-  /* Ver.2.73.29 -> */
-  var leftArr = self.get_tagVal(trees[is], "mat", "arr");
-  var right = DATA.num(0, 1);
-  var tree = null;
-  var len_i = (leftArr)? leftArr.length: 1;
-  if(options.useMatrix && len_i > 1){
-    var arr = [];
-    if(options.useComma){
-      for(var i=0; i<len_i; ++i){
-        var left = self.arr2obj_i(leftArr, i);
-        arr[i] = [unit["BRm"](options, left, right)];
-      }
-    }
-    else{
-      for(var i=0; i<len_i; ++i){
-        arr[i] = [];
-        for(var j=0, len_j=leftArr[i].length; j<len_j; ++j){
-          var left = leftArr[i][j];
-          arr[i][j] = unit["BRm"](options, left, right);
-        }
-      }
-    }
-    tree = DATA.tree_mat(arr);
-  }
-  else{
-    var left = (leftArr)? self.arr2num(leftArr): DATA.num(1, 0);
-    tree = DATA.num2tree(unit["BRm"](options, left, right));
-  }
-  /* -> Ver.2.73.29 */
-  /* -> Ver.2.74.29 */
-  var is = (leftArr)? is: i0;
-  self.feedback2trees(data, is, ie, tree);
-  return self;
-};
+/* Ver.2.74.29 -> */
+My_entry.operation.prototype.URi =
 My_entry.operation.prototype.URf = function(data, i0, tagName, tagObj){
   var self = this;
   var trees = data.trees;
@@ -1831,45 +1790,56 @@ My_entry.operation.prototype.URf = function(data, i0, tagName, tagObj){
   var unit = self.entry.unit;
   var is = i0-1;
   var ie = i0;
-  /* Ver.2.74.29 -> */
   /* Ver.2.73.29 -> */
   var prop = tagObj.val;
   var leftArr = self.get_tagVal(trees[is], "mat", "arr");
-  var arg1 = DATA.num(Number(prop), 0);
+  var right = (tagName === "URi")?
+    DATA.num(0, 1):
+    DATA.num(Number(prop), 0);
   var tree = null;
-  var len_i = (leftArr)? leftArr.length: 1;
-  if(options.useMatrix && len_i > 1){
-    var arr = [];
-    if(options.useComma){
-      for(var i=0; i<len_i; ++i){
-        var left = self.arr2obj_i(leftArr, i);
-        var arg0 = left;
-        arr[i] = [unit["FN"]("fact_m", options, arg0, arg1)];
-      }
-    }
-    else{
-      for(var i=0; i<len_i; ++i){
-        arr[i] = [];
-        for(var j=0, len_j=leftArr[i].length; j<len_j; ++j){
-          var left = leftArr[i][j];
-          var arg0 = left;
-          arr[i][j] = unit["FN"]("fact_m", options, arg0, arg1);
+  var callback = (tagName === "URi")?
+    function(left, right){
+      return unit["BRm"](options, left, right);
+    }:
+    function(left, right){
+      return unit["FN"]("fact_m", options, left, right);
+    };
+  if(leftArr){
+    if(options.useMatrix){
+      var arr = [];
+      var len_i = leftArr.length;
+      if(options.useComma){
+        for(var i=0; i<len_i; ++i){
+          var left = self.arr2obj_i(leftArr, i);
+          arr[i] = [callback(left, right)];
         }
       }
+      else{
+        for(var i=0; i<len_i; ++i){
+          arr[i] = [];
+          for(var j=0, len_j=leftArr[i].length; j<len_j; ++j){
+            var left = leftArr[i][j];
+            arr[i][j] = callback(left, right);
+          }
+        }
+      }
+      tree = DATA.tree_mat(arr);
     }
-    tree = DATA.tree_mat(arr);
+    else{
+      var left = self.arr2num(leftArr);
+      tree = DATA.num2tree(callback(left, right));
+    }
   }
   else{
-    var left = (leftArr)? self.arr2num(leftArr): DATA.num(1, 0);
-    var arg0 = left;
-    tree = DATA.num2tree(unit["FN"]("fact_m", options, arg0, arg1));
+    var left = DATA.num(1, 0);
+    tree = DATA.num2tree(callback(left, right));
   }
   /* -> Ver.2.73.29 */
-  /* -> Ver.2.74.29 */
   var is = (leftArr)? is: i0;
   self.feedback2trees(data, is, ie, tree);
   return self;
 };
+/* -> Ver.2.74.29 */
 /* Ver.2.71.28 */
 My_entry.operation.prototype.PUbn = function(data, i0, tagName, tagObj){
   var self = this;
@@ -1886,13 +1856,16 @@ My_entry.operation.prototype.PUbn = function(data, i0, tagName, tagObj){
     /* Ver.2.73.29 -> */
     var prop = tagObj.val;
     var tree = null;
-    var len_i = rightArr.length;
-    if(options.useMatrix && len_i > 1){
+    var callback = function(right){
+      return unit["FN"](prop, options, right);
+    };
+    if(options.useMatrix){
       var arr = [];
+      var len_i = rightArr.length;
       if(options.useComma){
         for(var i=0; i<len_i; ++i){
           var right = self.arr2obj_i(rightArr, i);
-          arr[i] = [unit["FN"](prop, options, right)];
+          arr[i] = [callback(right)];
         }
       }
       else{
@@ -1900,7 +1873,7 @@ My_entry.operation.prototype.PUbn = function(data, i0, tagName, tagObj){
           arr[i] = [];
           for(var j=0, len_j=rightArr[i].length; j<len_j; ++j){
             var right = rightArr[i][j];
-            arr[i][j] = unit["FN"](prop, options, right);
+            arr[i][j] = callback(right);
           }
         }
       }
@@ -1908,7 +1881,7 @@ My_entry.operation.prototype.PUbn = function(data, i0, tagName, tagObj){
     }
     else{
       var right = self.arr2num(rightArr);
-      tree = DATA.num2tree(unit["FN"](prop, options, right));
+      tree = DATA.num2tree(callback(right));
     }
     /* -> Ver.2.73.29 */
     /* -> Ver.2.74.29 */
@@ -1985,11 +1958,11 @@ My_entry.operation.prototype.init_callbacks_mat = function(options){
     var _tree = null;
     if(leftArr && rightArr){
       /* Ver.2.73.29 -> */
-      var len_i = Math.max(leftArr.length, rightArr.length);
-      if(options.useMatrix && len_i > 1){
+      if(options.useMatrix){
         var arr = [];
         var il = 0;
         var ir = 0;
+        var len_i = Math.max(leftArr.length, rightArr.length);
         if(options.useComma){
           for(var i=0; i<len_i; ++i){
             il = (leftArr[i])? i: il;
