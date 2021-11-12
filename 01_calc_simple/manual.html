@@ -378,6 +378,11 @@ log表示仕様
 </a>
 <br>
 　・
+<a href="#span-out-option4">
+comma演算子
+</a>
+<br>
+　・
 <a href="#span-out-option3">
 Multi-thread実行
 </a>
@@ -465,6 +470,11 @@ strict-mode
 ・
 <a href="#span-out-ope">
 演算仕様
+</a>
+<br>
+　・
+<a href="#span-out-ope-extended">
+拡張行列演算
 </a>
 <br>
 ・
@@ -7468,6 +7478,8 @@ max(x=3,-1,-2) || max(0,-1,-2) -> 0
 <br>
 ・<a href="#span-out-option2">記号省略乗算</a>
 <br>
+・<a href="#span-out-option4">comma演算子</a>
+<br>
 ・<a href="#span-out-option3">Multi-thread実行</a>
     </td>
   </tr>
@@ -7552,6 +7564,46 @@ RA選択
 <br>
 <br>
 <a href="#span-out-BRmo">記号省略乗算</a>を許容しない場合、<a href="#span-out-config">裏設定</a>参照
+    </td>
+  </tr>
+  <tr>
+    <th>
+<a href="#span-index">
+目次
+</a>
+<br>
+comma
+<br>
+演算子
+    </th>
+    <td>
+<span id="span-out-option4"></span>
+外部optionのcomma演算子と付随する留意事項について記述する
+<br>
+<br>
+<span class="run">Ver.2.74.29</span>以降、<a href="#span-out-ope-extended">拡張行列演算</a>におけるcomma演算子の使用を選択可
+<br>
+<br>
+comma演算子は行vectorの<a href="#span-out-FNm-last">最終要素</a>を取り出す
+<br>
+<br>
+comma演算子未使用既定
+<br>
+(1,2:3,4)i -> (i,2i:3i,4i)
+<br>
+(1,2:3,4)(i) || (1,2:3,4)*i -> [MyErr]Invalid matrix operation
+<br>
+<br>
+comma演算子使用選択
+<br>
+(1,2:3,4)i || ((1,2)i:(3,4)i) -> (2i:4i)
+<br>
+(1,2:3,4)(i) || (1,2:3,4)*i -> [MyErr]Invalid matrix operation
+<br>
+<br>
+留意事項を列挙する
+<br>
+・<a href="#span-out-ope">無次元</a>の演算の場合、comma演算子は常に有効
     </td>
   </tr>
   <tr>
@@ -8324,6 +8376,8 @@ clear; x=&lt;a=3; (0||(x=&gt;)||a)  <span class="selection">// (0||0||3)</span> 
 <br>
 clear; 0||(a=3)||a  <span class="selection">// 0||0||3</span> -> 3
 <br>
+clear; 0||(a=3)||(a=-3)||a  <span class="selection">// 0||0||0||-3</span> -> -3
+<br>
 clear; a=3||3,a  <span class="selection">// a=(3||3),a</span> -> (0,3)
 <br>
 clear; 1||a=3  <span class="selection">// (1||a)=3</span> -> [MyErr]Invalid binary operation
@@ -8369,9 +8423,9 @@ clear; 0||i=3  <span class="selection">// (0||i)=3</span> -> 3-i
 JavaScriptによる実数の浮動小数点演算について記述する
 <br>
 <br>
-次のIEEE754規格の倍精度64bit2進形式の浮動小数点数を使用する
+JavaScriptの<a href="#span-out-number">Number</a>型はIEEE754規格の倍精度64bit2進形式の浮動小数点数を使用する
 <br>
-浮動小数点数による演算を以降、浮動小数点演算と呼ぶ
+・浮動小数点数による演算を以降、浮動小数点演算と呼ぶ
 <br>
 ・64bitの上位から順に3つのfield（符号部・指数部・仮数部）を持つ
 <br>
@@ -8424,7 +8478,7 @@ pow(2,-52) || 2^(-52) -> 2.220446049250313e-16
 <br>
 -0.99999999999999999 -> -1
 <br>
-・整数も小数同様の形式で保存される
+・整数も小数同様に、<a href="#span-out-number">Number</a>型で保存される
 <br>
 ・よって17桁以上の整数を入力した場合、小数同様に<a href="#span-out-epsilon">Machine epsilon</a>が生じる
 <br>
@@ -8550,9 +8604,7 @@ Number型
 JavaScriptのNumber型の定数について記述する
 <br>
 <br>
-JavaScriptのNumber型の定数は<a href="#span-out-FN0">定数</a>として定義する
-<br>
-・Number型の定数を列挙する
+JavaScriptのNumber型の<a href="#span-out-FN0">定数</a>を列挙する
 <br>
 EPSILON -> 2.220446049250313e-16
 <br>
@@ -9089,6 +9141,133 @@ strict-modeで実行する場合、<a href="#span-out-config">裏設定</a>参�
 目次
 </a>
 <br>
+拡張行列演算
+    </th>
+    <td>
+<span id="span-out-ope-extended"></span>
+拡張行列演算の演算仕様について記述する
+<br>
+<br>
+<span class="run">Ver.2.73.29</span>以降、<span class="clear">本来、定義できない<a href="#span-out-mat">行列</a>演算を拡張</span>して<span class="run">拡張行列演算</span>を定義する
+<br>
+・定義できない<a href="#span-out-mat">行列</a>演算は実用しないため、拡張前の演算結果に影響なし
+<br>
+・<span class="run">Ver.2.74.29</span>以降、<a href="#span-out-type-ope">演算子のoperand</a>を追加で拡張
+<br>
+<br>
+拡張行列演算の仕様を列挙する
+<br>
+・拡張対象は<a href="#span-out-FN">関数の引数vector</a>||<a href="#span-out-type-ope">演算子のoperand</a>
+<br>
+・定義可能な<a href="#span-out-prec-ope">乗算||減算||加算演算子</a>は拡張対象外（変更なし）
+<br>
+<br>
+定義できない<a href="#span-out-mat">行列</a>演算の拡張履歴を示す（参考）
+<br>
+・<a href="#span-out-FN">関数の引数vector</a>の場合
+<br>
+最終行vector　⇒　<span class="run">Ver.2.73.29</span>以降、各行vectorに拡張
+<br>
+・<a href="#span-out-type-ope">演算子のoperand</a>の場合
+<br>
+最終行vector　⇒　<span class="run">Ver.2.73.29</span>以降、各行vectorに拡張（<a href="#span-out-option4">comma演算子</a>を適用）
+<br>
+　　　　　　　⇒　<span class="run">Ver.2.74.29</span>以降、各要素に拡張
+<br>
+<br>
+test caseを列挙する
+<br>
+・<a href="#span-out-ope">実数演算</a>
+<br>
+min(1,2:3,4) || (min(1,2):min(3,4)) -> (1:3)
+<br>
+max(1,2:3,4) || (max(1,2):max(3,4)) -> (2:4)
+<br>
+(2,3,4)^(1,2) || (2,3,4)^(1,2,2) -> (2,9,16)
+<br>
+(2,3)**{1,2} || (2,3:2,3)**{1,2:1,2} || (2,3:2,3)**(1,1:2,2) -> (2,3:4,9)
+<br>
+(1,2:3,4:5)**{1,2} || (1,2:3,4:5)**{1,2,2:1,2} || (1,2:3,4:5)**(1,1:2,2:2) -> (1,2:9,16:25)
+<br>
+(3,5,7)%(1,5) || (3,5,7)%(1,5,5) -> (0,0,2)
+<br>
+(1,2,4)/2 -> (0.5,1,2)
+<br>
+2/(1,2,4) -> (2,1,0.5)
+<br>
+(2,4,8)&gt;&gt;(3,1) || (2,4,8)&gt;&gt;(3,1,1) -> (0,2,4)
+<br>
+clear; (x={0,1,2,3,4,5,6,7})||~(x&lt;&lt;1)%3 -> (-1:-3:-2:-1:-3:-2:-1:-3)
+<br>
+・<a href="#span-out-com">複素数</a>演算
+<br>
+cmin((1,2:3,4)i) || (cmin(1i,2i):cmin(3i,4i)) -> (1:3)
+<br>
+cmax((1,2:3,4)i) || (cmax(1i,2i):cmax(3i,4i)) -> (2:4)
+<br>
+(5,3,1)/(2i,i) || (5,3,1)/(2i,i,i) -> (-2.5i,-3i,-i)
+<br>
+clear; x={0,1,2,3,4,5,6,7}; y=(x*1,x*2,x*3)/(i,-2,3); y ->
+<br>
+(
+<br>
+0,0,0:
+<br>
+-i,-1,1:
+<br>
+-2i,-2,2:
+<br>
+-3i,-3,3:
+<br>
+-4i,-4,4:
+<br>
+-5i,-5,5:
+<br>
+-6i,-6,6:
+<br>
+-7i,-7,7
+<br>
+)
+<br>
+min(y),max(y) -> (0,0:-1,1:-2,2:-3,3:-4,4:-5,5:-6,6:-7,7)
+<br>
+clear; x={0,1,2,3,4,5,6,7}; N=sizer(x); f=e^((x*2*pi/N)i); f ->
+<br>
+(
+<br>
+1:
+<br>
+0.7071067811865476+0.7071067811865475i:
+<br>
+6.123233995736766e-17+i:
+<br>
+-0.7071067811865475+0.7071067811865476i:
+<br>
+-1+1.2246467991473532e-16i:
+<br>
+-0.7071067811865477-0.7071067811865475i:
+<br>
+-1.8369701987210297e-16-i:
+<br>
+0.7071067811865474-0.7071067811865477i
+<br>
+)
+<br>
+round_real(f,n)=&lt;round(real(f)*round(10**(n||1)))/round(10**(n||1));
+<br>
+round_imag(f,n)=&lt;round(imag(f)*round(10**(n||1)))/round(10**(n||1));
+<br>
+round_f(f,nr,ni)=&lt;round_real(=&lt;f,nr)+(round_imag(=&lt;f,ni))i;
+<br>
+round_f(=&lt;f,,2) -> (1:0.7+0.71i:i:-0.7+0.71i:-1:-0.7-0.71i:-i:0.7-0.71i)
+    </td>
+  </tr>
+  <tr>
+    <th>
+<a href="#span-index">
+目次
+</a>
+<br>
 型の種類
     </th>
     <td>
@@ -9108,37 +9287,6 @@ strict-modeで実行する場合、<a href="#span-out-config">裏設定</a>参�
 ・<a href="#span-out-vars-symbol">変数名symbol</a>のみ、呼出し時に内部で判別する
 <br>
 ・よって<a href="#span-out-ope">用途</a>をseamlessに切替えて<a href="#span-out-ope">演算量</a>を調整する
-<br>
-<br>
-併せて共通化する仕様について記述する
-<br>
-<br>
-<a href="#span-out-FN">関数</a>の引数vector
-<br>
-・行列の最終行vectorを左から順に参照
-<br>
-max(1,2,3:-1,-2,-3) || max(-1,-2,-3) -> -1
-<br>
-sqrt(1,2,3:4,5,6) || sqrt(4,5,6) || sqrt(4) -> 2
-<br>
-<br>
-定義できない<a href="#span-out-mat">行列</a>演算
-<br>
-・定義できない<a href="#span-out-mat-product">行列積</a>の場合、error終了
-<br>
-(1,2)(1,2) -> [MyErr]Invalid matrix operation
-<br>
-・行列sizeの一致しない差と和の場合、error終了
-<br>
-(1,2:3,4)-(-1) -> [MyErr]Invalid matrix operation
-<br>
-・無次元の演算の場合、行列の<a href="#span-out-FNm-last">最終要素</a>を演算・無次元化するのと同様に
-<br>
-(1,3)+(1) || (3)+(1) -> 4
-<br>
-・剰余等の演算を実行した場合、行列の<a href="#span-out-FNm-last">最終要素</a>を参照して演算・無次元化
-<br>
-(1,2)%2 || (2)%2 -> 0
 <br>
 <br>
 詳細は<a href="#span-in-tree">単位tree構造</a>参照
@@ -11460,7 +11608,7 @@ x -> 9
 x=3; x=2:3x -> (0:6)
 <br>
 <br>
-区切り文字はNativeのcomma演算子同様に働くが、<a href="#span-out-mat">行列</a>の次元は残る
+区切り文字はNativeの<a href="#span-out-option4">comma演算子</a>同様に働くが、<a href="#span-out-mat">行列</a>の次元は残る
 <br>
 (x=1,x=2x:x=2x,x) -> (0,0:0,4)
 <br>
@@ -11810,7 +11958,9 @@ trans{1,2:3,4} -> (1,2:3,4)
 <br>
 max(2,1) -> 2
 <br>
-max{2,1} -> 1
+<del>max{2,1} -> 1</del><span class="run">Ver.2.73.29</span>以降、<a href="#span-out-ope-extended">拡張行列演算</a>参照
+<br>
+max{2,1} -> (2:1)
 <br>
 <br>
 括弧なしで要素を列挙した場合、行vector扱いの丸括弧()で括られる
@@ -12293,29 +12443,41 @@ pcomp(1,t) || ecomp(t) || cos(t)+real(i)sin(t) || cos(t) -> 0.7071067811865476
 関数の引数を括る<a href="#span-out-BT">括弧</a>は丸括弧()で統一する（<a href="#span-out-FNm-last">last行列関数</a>を除く）
 <br>
 <br>
-関数の引数に<a href="#span-out-mat">行列</a>を指定した場合、最終行vectorの左から順に参照する
+関数の引数に<a href="#span-out-mat">行列</a>を指定した場合、<del>最終行vector</del>
+<br>
+<span class="run">Ver.2.73.29</span>以降、各行vectorの左から順に参照する
 <br>
 ・引数1個の関数の場合
 <br>
-x=(1,2,3:4,5,6); log(x) || log(4,5,6) || log(4) -> 1.3862943611198906
+clear; x=(1,2,3); log(x) || log(1) -> 0
+<br>
+clear; x=(1,2,3:4,5,6); log(x) || (log(1):log(4)) -> (0:1.3862943611198906)
 <br>
 ・引数1個||2個の関数の場合
 <br>
-x=(1,2,3:4,5,6); log_ex(x) || log_ex(4,5,6) || log_ex(4,5) -> 0.8613531161467861
+clear; x=(1,2,3); log_ex(x) || log_ex(1,2) -> 0
+<br>
+clear; x=(1,2,3:4); log_ex(x) || (log_ex(1,2):log_ex(4)) -> (0:0.6020599913279623)
 <br>
 ・引数2個の関数の場合
 <br>
-x=(1,2,3:4,5,6); atan2(x) || atan2(4,5,6) || atan2(4,5) -> 0.6747409422235527
+clear; x=(1,2,3); atan2(x) || atan2(1,2) -> 0.4636476090008061
 <br>
-x=(1,2,3:4); atan2(x) || atan2(4) -> [MyErr]FN isNaN
+clear; x=(1,2,3:4,5,6); atan2(x) || (atan2(1,2):atan2(4,5)) ->
+<br>
+(0.4636476090008061:0.6747409422235527)
+<br>
+clear; x=(1,2,3:4); atan2(x) || (atan2(1,2):atan2(4)) -> [MyErr]FN isNaN
 <br>
 ・引数不定の関数の場合
 <br>
-x=(1,2,3:4,5,6); max(x) || max(4,5,6) -> 6
+clear; x=(1,2,3); max(x) || max(1,2,3) -> 3
 <br>
-x=(1,2,3:4,5,6); lcm(x) || lcm(4,5,6) -> 60
+clear; x=(1,2,3:4,5,6); max(x) || (max(1,2,3):max(4,5,6)) -> (3:6)
 <br>
-x=(1,2,3:4,5,6:7*1,7*2,7*3); gcd(x) || gcd(7,14,21) -> 7
+clear; x=(1,2,3:4,5,6); lcm(x) || (lcm(1,2,3):lcm(4,5,6)) -> (6:60)
+<br>
+clear; x=(1,2,3:4*(1,2,3)); gcd(x) || (gcd(1,2,3):gcd(4*(1,2,3))) -> (1:4)
     </td>
   </tr>
   <tr>
@@ -12969,11 +13131,11 @@ transpose({1,2:3,4}) || trans({1,2:3,4}) || trans{1,2:3,4} -> (1,2:3,4)
 <br>
 k=1; (k,:,k) -> (1,0:0,1)
 <br>
-・Scalar行列
+・<a href="#span-out-FNm">Scalar行列</a>
 <br>
 k=-3; (k,:,k) -> (-3,0:0,-3)
 <br>
-・左右可換のScalar倍（同sizeのScalar行列との積）
+・左右可換の<a href="#span-out-FNm">Scalar倍</a>（同sizeの<a href="#span-out-FNm">Scalar行列</a>との積）
 <br>
 k=-3; (k,:,k)(1,2:3,4) || (1,2:3,4)(k,:,k) -> (-3,-6:-9,-12)
 <br>
@@ -13070,28 +13232,9 @@ A=(1,2:,); A[0]+A[1] -> (1,2)
 (1,2:3)-(4,5:6:7) || (3)-(7) -> -4
 <br>
 <br>
-行列に対して明確に定義できない<a href="#span-out-type-ope">2項演算</a>を実行した場合、同様に無次元化する
+<span class="run">Ver.2.73.29</span>以降
 <br>
-(5,3,1)/(3i,i) || (1)/(i) -> -i
-<br>
-(1,2,3)^(1.5,0.5) || (3)^(0.5) -> 1.7320508075688772
-<br>
-(3,5,7)%(1,5) || (7)%(5) -> 2
-<br>
-(2,4,8)&gt;&gt;(3,1) || (8)&gt;&gt;(1) -> 4
-<br>
-<br>
-行列に対して<a href="#span-out-type-ope">後置単項演算</a>を実行した場合、同様に無次元化する
-<br>
-(5,3)i || (3)i -> 3i
-<br>
-(10,5:,)! || (0)! -> 1
-<br>
-・次の場合、扱いが異なる
-<br>
-(5,3)(i) || (5,3)*(i) -> [MyErr]Invalid matrix operation
-<br>
-(5,3)(!) || (5,3)*(1) -> [MyErr]Invalid matrix operation
+定義できない行列演算の場合、<a href="#span-out-ope-extended">拡張行列演算</a>参照
     </td>
   </tr>
   <tr>
@@ -13534,7 +13677,7 @@ last(1,2:3,(,:,4),5) -> 4
 last(trans(trans(1,2:3,(,:,4),5))) -> 0
 <br>
 <br>
-last行列関数はNativeのcomma演算子同様に、<a href="#span-out-BT">括弧</a>内の最終要素を返す
+last行列関数はNativeの<a href="#span-out-option4">comma演算子</a>同様に、<a href="#span-out-BT">括弧</a>内の最終要素を返す
 <br>
 ・同じ<a href="#span-out-BT">括弧</a>でcomma,を括る場合
 <br>
@@ -13763,9 +13906,9 @@ A=(1,2:3,4); A[0.5][0]=-1 -> [MyErr]Invalid reference of array
 <br>
 ・<a href="#span-out-eqns">式変数</a>への要素指定・行指定の代入不可
 <br>
-clear; A=&lt;(1,2:3,4); A[1][1]=0 -> [MyErr]Undef var(A)
+clear; A=&lt;(1,2:3,4); A[1][1]=0 -> [MyErr]Invalid SEv-scope(A)
 <br>
-clear; A=&lt;(1,2:3,4); A[1]=(,) -> [MyErr]Undef var(A)
+clear; A=&lt;(1,2:3,4); A[1]=(,) -> [MyErr]Invalid SEv-scope(A)
 <br>
 clear; A=&lt;(1,2:3,4); (A=&gt;)[1][1]=0 || =0-4 -> -4
 <br>
@@ -14757,7 +14900,7 @@ clear; a=3; [a]=&gt; -> [MyErr]Invalid reference
 <br>
 {a=1,b=2,c=3,=&lt;(a,b,c)}=&gt; -> (1,2,3)
 <br>
-・<a href="#span-out-FNm-last">last行列関数</a>は<a href="#span-out-FNm-last">最終要素</a>しか取り出せない
+・<a href="#span-out-FNm-last">last行列関数</a>は<a href="#span-out-FNm-last">最終要素</a>のみ取り出す
 <br>
 clear; (x=(1,2),=&lt;x)=&gt; -> (1,2)
 <br>
@@ -19243,7 +19386,7 @@ x1 -> infoLost[ri] 4.499999999999999+6.466216308756395e-26i
 <br>
 ・Ax=bの連立線形方程式に一般化されたNewton法が導出される
 <br>
-・ここで、単項の符号はScalar倍||zeros行列との差||和で定義される
+・ここで、単項の符号は<a href="#span-out-FNm">Scalar倍</a>||zeros行列との差||和で定義される
 <br>
 (df[i]/dx[j]){dx[j]}={-f[i]}
 <br>
@@ -19260,7 +19403,7 @@ b={-f[i]}
 <br>
 上記の反復1回の処理をまとめた<a href="#span-out-FNmh-newtonian">Newton高階行列関数</a>について記述する
 <br>
-・Scalar倍の符号位置を変えて次の連立線形方程式を直接法で解く
+・<a href="#span-out-FNm">Scalar倍</a>の符号位置を変えて次の連立線形方程式を直接法で解く
 <br>
 A=(df[i]/dx[j])
 <br>
@@ -21458,7 +21601,7 @@ _dy(=&lt;{1/(y*y)})/_dy(=&lt;{1/y})  <span class="selection">// NG</span> -> [My
 <br>
 <a href="#span-out-option1">RA選択</a>時　+3-5+7-9 || (0+(3-(5+(7-9)))) -> 0
 <br>
-・<a href="#span-out-mat">行列</a>も同様に、単項の符号はScalar倍||zeros行列との差||和として扱う
+・<a href="#span-out-mat">行列</a>も同様に、単項の符号は<a href="#span-out-FNm">Scalar倍</a>||zeros行列との差||和として扱う
 <br>
 -(1,2:3,4) || (-1,:,-1)(1,2:3,4) || (,:,)-(1,2:3,4) -> (-1,-2:-3,-4)
 <br>
@@ -21806,13 +21949,19 @@ source抜粋
 演算単位となる単位tree構造を以下に示す
 <br>
 <br>
-これに基づく<a href="#span-out-ope">演算仕様</a>について記述する
+<a href="#span-out-ope">演算仕様</a>を列挙する
 <br>
-・i行j列の行列要素は2次元配列arr[i][j]を参照する
+・i行j列の<a href="#span-out-mat">行列</a>要素は2次元配列arr[i][j]を参照する
 <br>
-・<a href="#span-out-FN">関数</a>の引数vectorはarr[arr.length-1]を参照する
+・<a href="#span-out-ope">無次元</a>の演算の場合、2次元配列の<a href="#span-out-FNm-last">最終要素</a>を参照する
 <br>
-・<a href="#span-out-ope">無次元</a>の演算や定義できない<a href="#span-out-mat">行列</a>演算はarrの<a href="#span-out-FNm-last">最終要素</a>を参照する
+<span class="run">Ver.2.73.29</span>以降、定義できない<a href="#span-out-mat">行列</a>演算の<a href="#span-out-ope-extended">拡張機能</a>を追加
+<br>
+<span class="run">Ver.2.74.29</span>以降、<a href="#span-out-ope-extended">拡張行列演算</a>における<a href="#span-out-option4">comma演算子</a>の使用を選択可
+<br>
+・<a href="#span-out-FN">関数の引数vector</a>の場合、2次元配列の各行arr[i]を参照する
+<br>
+・<a href="#span-out-type-ope">演算子のoperand</a>の場合、2次元配列の各要素arr[i][j]を参照する
 <br>
 <pre><code>
             j-th sentence
@@ -21920,9 +22069,9 @@ clear; [a=2,=&lt;[b=1,a=&lt;first[[b,],b,],=&lt;a=&gt;]=&gt;+a]=&gt; -> 3
 <br>
 ・callする<a href="#span-out-eqns">式変数</a>のself-parents-idsとcall先のself-parents-idsの重複するidsを
 <br>
-・callする<a href="#span-out-eqns">式変数</a>のself-children-idsからpopで取出した後、継承する
+・callする<a href="#span-out-eqns">式変数</a>のself-children-idsからpopで取り出した後、継承する
 <br>
-・よってidsはn=0の0階層から取出すFIFO-queueとする
+・よってidsはn=0の0階層から取り出すFIFO-queueとする
     </td>
   </tr>
   <tr>
