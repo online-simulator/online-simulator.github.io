@@ -2103,20 +2103,60 @@ My_entry.operation.prototype.store_var = function(name, tree, scopes, ids){
   return self;
 };
 /* -> Ver.2.31.17 */
+/* Ver.2.76.29 -> */
 My_entry.operation.prototype.restore_arr = function(arr, ref){
   var self = this;
+  var math_mat = self.entry.math_mat;
   var _arr = [];
   var _arri = _arr;
   var arri = arr;
   var len_ref = ref.length;
-  ref.forEach(function(i_ref, i){
-    if(!(Array.isArray(arri)) ||  typeof arri[i_ref] === "undefined") throw "Invalid reference of array";
-    _arri[0] = (i === len_ref-1)? arri[i_ref]: [];
-    _arri = _arri[0];
-    arri = arri[i_ref];
-  });
+  if(len_ref === 2 && ref[0] < 0){
+    var tarr = math_mat.transpose(null, arr);
+    var j_ref = ref[1];
+    var tarrj = tarr[j_ref];
+    if(tarrj){
+      for(var i=0, len_i=tarrj.length; i<len_i; ++i){
+        _arr[i] = [tarrj[i]];
+      }
+    }
+    else{
+      throw "Invalid reference of array(column)";
+    }
+  }
+  else{
+    ref.forEach(function(i_ref, i){
+      if(!(Array.isArray(arri)) ||  typeof arri[i_ref] === "undefined") throw "Invalid reference of array";
+      _arri[0] = (i === len_ref-1)? arri[i_ref]: [];
+      _arri = _arri[0];
+      arri = arri[i_ref];
+    });
+  }
   return _arr;
 };
+My_entry.operation.prototype.store_arr_col = function(_arr, ref, arr){
+  var self = this;
+  var math_mat = self.entry.math_mat;
+  var _tarr = math_mat.transpose(null, _arr);
+  var tarr = math_mat.transpose(null, arr);
+  var tarr_stored = self.arr2args(tarr);
+  var j_ref = ref[1];
+  var _tarrj = _tarr[j_ref];
+  if(_tarrj && (_tarrj.length === tarr_stored.length)){
+    _tarr[j_ref] = tarr_stored;
+    var _ttarr = math_mat.transpose(null, _tarr);
+    for(var i=0, len_i=_ttarr.length; i<len_i; ++i){
+      for(var j=0, len_j=_ttarr[i].length; j<len_j; ++j){
+        _arr[i][j] = _ttarr[i][j];
+      }
+    }
+  }
+  else{
+    throw "Invalid store array(column)";
+  }
+  return _arr;
+};
+/* -> Ver.2.76.29 */
 My_entry.operation.prototype.store_arr = function(_arr, ref, arr){
   var self = this;
   var _arri = _arr;
@@ -2372,23 +2412,29 @@ My_entry.operation.prototype.SEv = function(data, i0, tagName, tagObj){
         if(self.get_tag(tree, "mat")){  // only matrix is stored
           var ref = self.get_tagVal(leftTree, "REv", "ref");
           if(ref){
-            if(ref.length < 3){
-              /* Ver.2.31.17 -> */
-              var scope = self.get_scope0_RE_sw("vars", name_var, scopes, ids);
-              if(!(scope)) throw "Invalid SEv-scope("+name_var+")";  // x=(,),[x[0][0]=1,]
-              var tree_var = self.restore_var(name_var, scopes, ids);  // Ver.2.30.16
-              /* -> Ver.2.31.17 */
-              if(tree_var){
+            /* Ver.2.76.29 -> */
+            /* Ver.2.31.17 -> */
+            var scope = self.get_scope0_RE_sw("vars", name_var, scopes, ids);
+            if(!(scope)) throw "Invalid SEv-scope("+name_var+")";  // x=(,),[x[0][0]=1,]
+            var tree_var = self.restore_var(name_var, scopes, ids);  // Ver.2.30.16
+            /* -> Ver.2.31.17 */
+            if(tree_var){
+              var len_ref = ref.length;
+              if(len_ref === 2 && ref[0] < 0){
+                self.store_arr_col(tree_var.mat.arr, ref, tree.mat.arr);
+              }
+              else if(len_ref < 3){
                 self.store_arr(tree_var.mat.arr, ref, tree.mat.arr);
-                tree = tree_var;
               }
               else{
-                throw "Undef var("+name_var+")";
+                throw "Invalid substitution";
               }
+              tree = tree_var;
             }
             else{
-              throw "Invalid substitution";
+              throw "Undef var("+name_var+")";
             }
+            /* -> Ver.2.76.29 */
           }
           self.store_var(name_var, tree, scopes, ids);  // Ver.2.31.17
           tree = DATA.tag("out", {name: name_var, arr: tree.mat.arr});
