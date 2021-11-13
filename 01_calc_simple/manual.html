@@ -477,6 +477,11 @@ strict-mode
 拡張行列演算
 </a>
 <br>
+　　・
+<a href="#span-out-ope-extended-history">
+拡張履歴
+</a>
+<br>
 ・
 <a href="#span-out-types">
 型の種類
@@ -6725,7 +6730,7 @@ dwt_rgba[cutoffU=0~1||0,cutoffV=0~1||0]
 <br>
 　<a href="#span-out-transform-dwt">離散Wavelet変換</a>の場合、<a href="#span-out-transform-dwt">wavelet情報</a>=0
 <br>
-・<a href="#span-out-transform-dwt">離散Wavelet変換</a>の場合、<a href="#span-out-UI-graphing-filter">area-size</a>の制約が存在する（自動re-size）
+・<a href="#span-out-transform-dwt">離散Wavelet変換</a>の場合、<a href="#span-out-UI-graphing-filter">area-size</a>の制約が存在する（切捨て側に自動re-size）
 <br>
 　量子化bit数=pの場合、w=2^p
 <br>
@@ -8480,7 +8485,7 @@ pow(2,-52) || 2^(-52) -> 2.220446049250313e-16
 <br>
 ・整数も小数同様に、<a href="#span-out-number">Number</a>型で保存される
 <br>
-・よって17桁以上の整数を入力した場合、小数同様に<a href="#span-out-epsilon">Machine epsilon</a>が生じる
+・よって17桁以上の整数を入力した場合、<a href="#span-out-epsilon">Machine epsilon</a>が生じる
 <br>
 9007199254740991 -> 9007199254740991
 <br>
@@ -8506,9 +8511,7 @@ ans*1000 -> 9007199254740990
 <br>
 ans*1000 -> 0.9999999999999998
 <br>
-・<a href="#span-out-ope">実数演算</a>の場合
-<br>
-・2の累乗倍で演算すれば仮数部の有効桁はそのまま保持される
+・<a href="#span-out-ope">実数演算</a>の場合、2の累乗倍で演算すれば仮数部の有効桁が保持される
 <br>
 9007199254740991/1024 -> 8796093022207.999
 <br>
@@ -9154,25 +9157,14 @@ strict-modeで実行する場合、<a href="#span-out-config">裏設定</a>参�
 <br>
 ・<span class="run">Ver.2.74.29</span>以降、<a href="#span-out-type-ope">演算子のoperand</a>を追加で拡張
 <br>
+詳細は<a href="#span-out-ope-extended-history">拡張履歴</a>参照
+<br>
 <br>
 拡張行列演算の仕様を列挙する
 <br>
 ・拡張対象は<a href="#span-out-FN">関数の引数vector</a>||<a href="#span-out-type-ope">演算子のoperand</a>
 <br>
-・定義可能な<a href="#span-out-prec-ope">乗算||減算||加算演算子</a>は拡張対象外（変更なし）
-<br>
-<br>
-定義できない<a href="#span-out-mat">行列</a>演算の拡張履歴を示す（参考）
-<br>
-・<a href="#span-out-FN">関数の引数vector</a>の場合
-<br>
-最終行vector　⇒　<span class="run">Ver.2.73.29</span>以降、各行vectorに拡張
-<br>
-・<a href="#span-out-type-ope">演算子のoperand</a>の場合
-<br>
-最終行vector　⇒　<span class="run">Ver.2.73.29</span>以降、各行vectorに拡張（<a href="#span-out-option4">comma演算子</a>を適用）
-<br>
-　　　　　　　⇒　<span class="run">Ver.2.74.29</span>以降、各要素に拡張
+・定義可能な<a href="#span-out-mat">行列</a>演算の<a href="#span-out-prec-ope">乗算||減算||加算演算子</a>は拡張対象外（変更なし）
 <br>
 <br>
 test caseを列挙する
@@ -9260,6 +9252,32 @@ round_imag(f,n)=&lt;round(imag(f)*round(10**(n||1)))/round(10**(n||1));
 round_f(f,nr,ni)=&lt;round_real(=&lt;f,nr)+(round_imag(=&lt;f,ni))i;
 <br>
 round_f(=&lt;f,,2) -> (1:0.7+0.71i:i:-0.7+0.71i:-1:-0.7-0.71i:-i:0.7-0.71i)
+    </td>
+  </tr>
+  <tr>
+    <th>
+<a href="#span-index">
+目次
+</a>
+<br>
+拡張履歴
+    </th>
+    <td>
+<span id="span-out-ope-extended-history"></span>
+拡張行列演算の拡張履歴について記述する
+<br>
+<br>
+<a href="#span-out-ope-extended">拡張行列演算</a>の拡張履歴を示す
+<br>
+・<a href="#span-out-FN">関数の引数vector</a>の場合
+<br>
+最終行vector　⇒　<span class="run">Ver.2.73.29</span>以降、各行vectorに拡張
+<br>
+・<a href="#span-out-type-ope">演算子のoperand</a>の場合
+<br>
+最終行vector　⇒　<span class="run">Ver.2.73.29</span>以降、各行vectorに拡張（<a href="#span-out-option4">comma演算子</a>を適用）
+<br>
+　　　　　　　⇒　<span class="run">Ver.2.74.29</span>以降、各要素に拡張
     </td>
   </tr>
   <tr>
