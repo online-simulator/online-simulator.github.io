@@ -22636,6 +22636,8 @@ var data = {trees:null, options:{}, vars:{}, eqns:{}};
 <br>
 ・<span class="clear">Ver.2.76.30</span>以降、makeLogの<a href="#span-out-config">裏設定</a>が反映されない不具合を修正
 <br>
+・<span class="clear">Ver.2.76.30</span>以降、expDigitの仕様追記（<a href="#span-out-config">裏設定</a>は無効）
+<br>
 <br>
 ・makeLog: 演算終了後にlog出力用の文字列を作成するflag
 <br>
@@ -22680,7 +22682,7 @@ data.logo -> "makeLog=true"
 ・isDIVprior2OMUL: <a href="#span-out-BRmo">記号省略乗算</a>より除算を優先するflag
 <br>
 <br>
-・expDigit: 演算結果を表示する指数表記の桁数
+・expDigit: 演算結果を表示する指数表記の桁数（<span class="clear"><a href="#span-out-config">裏設定</a>は無効</span>）
 <br>
 <br>
 ・<a href="#span-out-config">checkError</a>: <a href="#span-out-error">情報落ち</a>の発生や微分・積分の<a href="#span-out-error-numerical">数値誤差</a>を評価するflag
