@@ -12233,11 +12233,15 @@ x=(1,2); y={3,4}; trans(trans((x:y))) -> (1,2:3,0:4,0)
 角括弧[]の入力仕様と付随する留意事項について記述する
 <br>
 <br>
-角括弧[]は直前の行列要素の行/列indexを指定する
+角括弧[]は直前の<a href="#span-out-mat">行列</a>要素の行/列indexを指定する
 <br>
 <a href="#span-out-mat">行列</a>[行index][列index]
 <br>
 <a href="#span-out-vars">変数</a>[行index][列index]
+<br>
+<a href="#span-out-eqns">式変数</a>[行index][列index]=&gt;
+<br>
+<a href="#span-out-eqns">式変数</a>[行index][列index](<a href="#span-out-eqns-args">arguments</a>)=&gt;
 <br>
 ・よって<a href="#span-out-BT">括弧</a>の中で最下位の<a href="#span-out-prec">演算のprecedence</a>
 <br>
@@ -12303,6 +12307,14 @@ clear; 3*[a=2,a]; a -> [MyErr]Invalid REv(a)
 <br>
 列指定で<a href="#span-out-mat">行列</a>の列vectorを参照する場合
 <br>
+<a href="#span-out-mat">行列</a>[<span class="condition">-1</span>][列index]
+<br>
+<a href="#span-out-vars">変数</a>[<span class="condition">-1</span>][列index]
+<br>
+<a href="#span-out-eqns">式変数</a>[<span class="condition">-1</span>][列index]=&gt;
+<br>
+<a href="#span-out-eqns">式変数</a>[<span class="condition">-1</span>][列index](<a href="#span-out-eqns-args">arguments</a>)=&gt;
+<br>
 ・<a href="#span-out-BT-square">行index</a>に<span class="condition">負値</span>を指定する
 <br>
 A=(1,2:3,4); A[<span class="condition">-1</span>][0] || (1,2:3,4)[<span class="condition">-1</span>][0] -> (1:3)
@@ -12347,6 +12359,80 @@ area参照
     <td>
 <span id="span-out-BT-square-area"></span>
 area参照の入力仕様と付随する留意事項について記述する
+<br>
+<br>
+<span class="run">Ver.2.77.30</span>以降、<a href="#span-out-mat">行列</a>のarea参照と<a href="#span-out-substitution-mat-area">area代入</a>を追加
+<br>
+<br>
+area指定で範囲内の<a href="#span-out-mat">行列</a>要素を参照する場合
+<br>
+<a href="#span-out-mat">行列</a>[開始行index][開始列index][参照行size][参照列size]
+<br>
+<a href="#span-out-vars">変数</a>[開始行index][開始列index][参照行size][参照列size]
+<br>
+<a href="#span-out-eqns">式変数</a>[開始行index][開始列index][参照行size][参照列size]=&gt;
+<br>
+<a href="#span-out-eqns">式変数</a>[開始行index][開始列index][参照行size][参照列size](<a href="#span-out-eqns-args">arguments</a>)=&gt;
+<br>
+・<a href="#span-out-BT-square">角括弧[]</a>で指定する
+<br>
+A=(1,2:3,4:); A[0][0][0][0] || A[0][0][sizer(A)][sizec(A)] -> (1,2:3,4:0,0)
+<br>
+・参照行/列size=0の場合、参照size=<a href="#span-out-mat">行列</a>size
+<br>
+A=(1,2:3,4:); A[0][0][0][1] || A[0][0][sizer(A)][1] -> (1:3:0)
+<br>
+A=(1,2:3,4:); A[0][0][1][0] || A[0][0][1][sizec(A)] -> (1,2)
+<br>
+・自動で抜け要素を埋める
+<br>
+A=(1,2:3,4:); A -> (1,2:3,4:0)
+<br>
+A=(1,2:3,4:); A[0][0][0][0] || trans(trans(A)) -> (1,2:3,4:0,0)
+<br>
+・参照行/列sizeを指定
+<br>
+A=(1,2:3,4:); A[0][0][1][1] || A[0][0] -> 1
+<br>
+A=(1,2:3,4:); A[1][0][1][1] || A[1][0] -> 3
+<br>
+A=(1,2:3,4:); A[0][1][1][1] || A[0][1] -> 2
+<br>
+A=(1,2:3,4:); A[0][0][2][2] -> (1,2:3,4)
+<br>
+・周期境界条件を適用
+<br>
+A=(1,2:3,4:); A[1][1][2][2] -> (4,3:0,0)
+<br>
+A=(1,2:3,4:); A[1][0][2][2] -> (3,4:0,0)
+<br>
+A=(1,2:3,4:); A[2][0][2][2] -> (0,0:1,2)
+<br>
+A=(1,2:3,4:); A[2][1][2][2] -> (0,0:2,1)
+<br>
+A=(1,2:3,4:); A[1][0][0][0] -> (3,4:0,0:1,2)
+<br>
+A=(1,2:3,4:); A[2][0][0][0] -> (0,0:1,2:3,4)
+<br>
+A=(1,2:3,4:); A[3][0][0][0] -> [MyErr]Invalid reference of array(area)
+<br>
+A=(1,2:3,4:); A[0][1][0][0] -> (2,1:4,3:0,0)
+<br>
+A=(1,2:3,4:); A[0][2][0][0] -> [MyErr]Invalid reference of array(area)
+<br>
+・開始行/列indexが負の場合、反転参照を定義する
+<br>
+A=(1,2:3,4:); A[-1][-1][0][0] -> (0,0:4,3:2,1)
+<br>
+A=(1,2:3,4:); A[-1][0][0][0] -> (0,0:3,4:1,2)
+<br>
+A=(1,2:3,4:); A[-2][0][0][0] -> (3,4:1,2:0,0)
+<br>
+A=(1,2:3,4:); A[-3][0][0][0] -> [MyErr]Invalid reference of array(area)
+<br>
+A=(1,2:3,4:); A[0][-1][0][0] -> (2,1:4,3:0,0)
+<br>
+A=(1,2:3,4:); A[0][-2][0][0] -> [MyErr]Invalid reference of array(area)
     </td>
   </tr>
   <tr>
@@ -14244,6 +14330,42 @@ area代入
     <td>
 <span id="span-out-substitution-mat-area"></span>
 area代入の入力仕様と付随する留意事項について記述する
+<br>
+<br>
+<span class="run">Ver.2.77.30</span>以降、行列の<a href="#span-out-BT-square-area">area参照</a>とarea代入を追加
+<br>
+<br>
+area指定の代入
+<br>
+・自動で抜け要素を埋める
+<br>
+A=(1,2:3,4:); A=A; A -> (1,2:3,4:0)
+<br>
+A=(1,2:3,4:); A[0][0][0][0]=A; A -> (1,2:3,4:0,0)
+<br>
+A=(1,2:3,4:); A[0][0][sizer(A)][sizec(A)]=A; A -> (1,2:3,4:0,0)
+<br>
+A=(1,2:3,4:); A=trans(trans(A)); A -> (1,2:3,4:0,0)
+<br>
+・周期境界条件を適用
+<br>
+A=(1,2:3,4:); A[1][0][0][0]=A; A -> (0,0:1,2:3,4)
+<br>
+A=(1,2:3,4:); A[2][0][0][0]=A; A -> (3,4:0,0:1,2)
+<br>
+A=(1,2:3,4:); A[3][0][0][0]=A; A -> [MyErr]Invalid store array(area)
+<br>
+A=(1,2:3,4:); A[0][1][0][0]=A; A -> (2,1:4,3:0,0)
+<br>
+A=(1,2:3,4:); A[0][2][0][0]=A; A -> [MyErr]Invalid store array(area)
+<br>
+・<a href="#span-out-BT-square-area">開始行/列index</a>が負の場合、反転代入を定義する
+<br>
+A=(1,2:3,4:); A[-1][-1][0][0]=A; A -> (0,0:4,3:2,1)
+<br>
+A=(1,2:3,4:); A[-1][0][0][0]=A; A -> (0,0:3,4:1,2)
+<br>
+A=(1,2:3,4:); A[0][-1][0][0]=A; A -> (2,1:4,3:0,0)
     </td>
   </tr>
   <tr>

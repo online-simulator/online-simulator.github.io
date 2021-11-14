@@ -2124,6 +2124,34 @@ My_entry.operation.prototype.restore_arr = function(arr, ref){
       throw "Invalid reference of array(column)";
     }
   }
+  /* Ver.2.77.30 -> */
+  else if(len_ref === 4){
+    var ttarr = math_mat.transpose(null, math_mat.transpose(null, arr));
+    var _di = ttarr.length;
+    var _dj = ttarr[0].length;
+    var _i = ref[0];
+    var _j = ref[1];
+    var di = ref[2] || _di;  // || not0
+    var dj = ref[3] || _dj;  // || not0
+    var _di2 = _di*2;
+    var _dj2 = _dj*2;
+    var hasArea0 = (_di >= di && _dj >= dj);
+    var isInArea = (Math.abs(_i) < _di && Math.abs(_j) < _dj);
+    if(hasArea0 && isInArea){
+      for(var i=0; i<di; ++i){
+        _arr[i] = [];
+        for(var j=0; j<dj; ++j){
+          var ii = (_i < 0)? (_i-i+_di2)%_di: (_i+i)%_di;
+          var jj = (_j < 0)? (_j-j+_dj2)%_dj: (_j+j)%_dj;
+          _arr[i][j] = ttarr[ii][jj];
+        }
+      }
+    }
+    else{
+      throw "Invalid reference of array(area)";
+    }
+  }
+  /* -> Ver.2.77.30 */
   else{
     ref.forEach(function(i_ref, i){
       if(!(Array.isArray(arri)) ||  typeof arri[i_ref] === "undefined") throw "Invalid reference of array";
@@ -2134,6 +2162,43 @@ My_entry.operation.prototype.restore_arr = function(arr, ref){
   }
   return _arr;
 };
+/* Ver.2.77.30 -> */
+My_entry.operation.prototype.store_arr_area = function(_arr, ref, arr){
+  var self = this;
+  var math_mat = self.entry.math_mat;
+  var _ttarr = math_mat.transpose(null, math_mat.transpose(null, _arr));
+  var ttarr = math_mat.transpose(null, math_mat.transpose(null, arr));
+  var _di = _ttarr.length;
+  var _dj = _ttarr[0].length;
+  var _i = ref[0];
+  var _j = ref[1];
+  var di = ref[2] || _di;  // || not0
+  var dj = ref[3] || _dj;  // || not0
+  var _di2 = _di*2;
+  var _dj2 = _dj*2;
+  var hasArea0 = (_di >= di && _dj >= dj);
+  var hasArea1 = (ttarr.length === di && ttarr[0].length === dj);
+  var isInArea = (Math.abs(_i) < _di && Math.abs(_j) < _dj);
+  if(hasArea0 && hasArea1 && isInArea){
+    for(var i=0, len_i=_ttarr.length; i<len_i; ++i){
+      for(var j=0, len_j=_ttarr[i].length; j<len_j; ++j){
+        _arr[i][j] = _ttarr[i][j];
+      }
+    }
+    for(var i=0; i<di; ++i){
+      for(var j=0; j<dj; ++j){
+        var ii = (_i < 0)? (_i-i+_di2)%_di: (_i+i)%_di;
+        var jj = (_j < 0)? (_j-j+_dj2)%_dj: (_j+j)%_dj;
+        _arr[ii][jj] = ttarr[i][j];
+      }
+    }
+  }
+  else{
+    throw "Invalid store array(area)";
+  }
+  return _arr;
+};
+/* -> Ver.2.77.30 */
 My_entry.operation.prototype.store_arr_col = function(_arr, ref, arr){
   var self = this;
   var math_mat = self.entry.math_mat;
@@ -2426,6 +2491,11 @@ My_entry.operation.prototype.SEv = function(data, i0, tagName, tagObj){
               else if(len_ref < 3){
                 self.store_arr(tree_var.mat.arr, ref, tree.mat.arr);
               }
+              /* Ver.2.77.30 -> */
+              else if(len_ref === 4){
+                self.store_arr_area(tree_var.mat.arr, ref, tree.mat.arr);
+              }
+              /* -> Ver.2.77.30 */
               else{
                 throw "Invalid substitution";
               }
