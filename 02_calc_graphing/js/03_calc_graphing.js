@@ -84,7 +84,7 @@ My_entry.calc_graphing.prototype.re_output_log = function(){
   if(self.worker_calc.arr_data_out){
     var data = self.worker_calc.arr_data_out[0];
     /* Ver.1.7.3 */
-    data.options.makeLog = 2;
+    data.options.makeLog = data.options.makeLog || 2;  // || not0  // Ver.2.76.30
     data.options.expDigit = $.selectNum_id("select-expDigit");
     try{
       self.entry.parser.post_try(data);

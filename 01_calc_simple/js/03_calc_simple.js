@@ -83,7 +83,7 @@ My_entry.calc_simple.prototype.re_output_log = function(){
     if(len_in === 1 && len_out === 1){  // finished
       var data = self.arr_data_out[0];
       // Ver.1.7.3
-      data.options.makeLog = 2;
+      data.options.makeLog = data.options.makeLog || 2;  // || not0  // Ver.2.76.30
       data.options.expDigit = $.selectNum_id("select-expDigit");
       try{
         self.entry.parser.post_try(data);

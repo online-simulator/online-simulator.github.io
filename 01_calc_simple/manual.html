@@ -12303,7 +12303,7 @@ clear; 3*[a=2,a]; a -> [MyErr]Invalid REv(a)
 <br>
 列指定で<a href="#span-out-mat">行列</a>の列vectorを参照する場合
 <br>
-・行indexに<span class="condition">負値</span>を指定する
+・<a href="#span-out-BT-square">行index</a>に<span class="condition">負値</span>を指定する
 <br>
 A=(1,2:3,4); A[<span class="condition">-1</span>][0] || (1,2:3,4)[<span class="condition">-1</span>][0] -> (1:3)
 <br>
@@ -14178,7 +14178,7 @@ clear; A=&lt;(1,2:3,4); (A=&gt;)[1]=(,) || =(,)-(A=&gt;)[1] -> (-3,-4)
 <br>
 列指定の代入
 <br>
-・列vectorを代入する場合、行indexに<span class="condition">負値</span>を指定する
+・列vectorを代入する場合、<a href="#span-out-BT-square">行index</a>に<span class="condition">負値</span>を指定する
 <br>
 A=(,:,); A[<span class="condition">-1</span>][0]={1,2}; A -> (1,0:2,0)
 <br>
@@ -22633,6 +22633,8 @@ var data = {trees:null, options:{}, vars:{}, eqns:{}};
 <br>
 <br>
 内部optionに相当するdata.optionsのpropertyを以下に列挙する
+<br>
+・<span class="clear">Ver.2.76.30</span>以降、makeLogの<a href="#span-out-config">裏設定</a>が反映されない不具合を修正
 <br>
 <br>
 ・makeLog: 演算終了後にlog出力用の文字列を作成するflag
