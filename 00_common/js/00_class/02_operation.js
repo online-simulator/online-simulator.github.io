@@ -2113,9 +2113,15 @@ My_entry.operation.prototype.restore_arr = function(arr, ref){
   var len_ref = ref.length;
   if(len_ref === 2 && ref[0] < 0){
     var tarr = math_mat.transpose(null, arr);
-    var j_ref = ref[1];
+    /* Ver.2.78.31 -> */
+    var _j = ref[1];
+    var dj = tarr.length;
+    var j_ref = (_j+dj)%dj;
     var tarrj = tarr[j_ref];
-    if(tarrj){
+    var hasArea0 = (_j%1 === 0);
+    var isInArea = (_j >= -dj && _j < dj);
+    if(hasArea0 && isInArea){
+    /* -> Ver.2.78.31 */
       for(var i=0, len_i=tarrj.length; i<len_i; ++i){
         _arr[i] = [tarrj[i]];
       }
@@ -2136,7 +2142,7 @@ My_entry.operation.prototype.restore_arr = function(arr, ref){
     var _di2 = _di*2;
     var _dj2 = _dj*2;
     var hasArea0 = (_i%1 === 0 && _j%1 === 0 && di%1 === 0 && dj%1 === 0 && _di >= di && _dj >= dj);  // Ver.2.77.31
-    var isInArea = (Math.abs(_i) < _di && Math.abs(_j) < _dj);
+    var isInArea = (_i >= -_di && _i < _di && _j >= -_dj && _j < _dj);  // Ver.2.78.31
     if(hasArea0 && isInArea){
       for(var i=0; i<di; ++i){
         _arr[i] = [];
@@ -2152,14 +2158,25 @@ My_entry.operation.prototype.restore_arr = function(arr, ref){
     }
   }
   /* -> Ver.2.77.30 */
+  /* Ver.2.78.31 -> */
   else{
-    ref.forEach(function(i_ref, i){
-      if(!(Array.isArray(arri)) ||  typeof arri[i_ref] === "undefined") throw "Invalid reference of array";
-      _arri[0] = (i === len_ref-1)? arri[i_ref]: [];
+    ref.forEach(function(i_ref0, i){
+      var _i = i_ref0;
+      var di = arri.length;
+      var i_ref = (_i+di)%di;
+      var hasArea0 = (_i%1 === 0);
+      var isInArea = (_i >= -di && _i < di);
+      if(hasArea0 && isInArea){
+        _arri[0] = (i === len_ref-1)? arri[i_ref]: [];
+      }
+      else{
+        throw "Invalid reference of array";
+      }
       _arri = _arri[0];
       arri = arri[i_ref];
     });
   }
+  /* -> Ver.2.78.31 */
   return _arr;
 };
 /* Ver.2.77.30 -> */
@@ -2176,26 +2193,33 @@ My_entry.operation.prototype.store_arr_area = function(_arr, ref, arr){
   var dj = ref[3] || _dj;  // || not0
   var _di2 = _di*2;
   var _dj2 = _dj*2;
+  /* Ver.2.78.31 -> */
   var hasArea0 = (_i%1 === 0 && _j%1 === 0 && di%1 === 0 && dj%1 === 0 && _di >= di && _dj >= dj);  // Ver.2.77.31
-  var hasArea1 = (ttarr.length === di && ttarr[0].length === dj);
-  var isInArea = (Math.abs(_i) < _di && Math.abs(_j) < _dj);
-  if(hasArea0 && hasArea1 && isInArea){
-    for(var i=0, len_i=_ttarr.length; i<len_i; ++i){
-      for(var j=0, len_j=_ttarr[i].length; j<len_j; ++j){
-        _arr[i][j] = _ttarr[i][j];
+  var isInArea = (_i >= -_di && _i < _di && _j >= -_dj && _j < _dj);
+  if(hasArea0 && isInArea){
+    var hasArea1 = (ttarr.length === di && ttarr[0].length === dj);
+    if(hasArea1){
+      for(var i=0, len_i=_ttarr.length; i<len_i; ++i){
+        for(var j=0, len_j=_ttarr[i].length; j<len_j; ++j){
+          _arr[i][j] = _ttarr[i][j];
+        }
+      }
+      for(var i=0; i<di; ++i){
+        for(var j=0; j<dj; ++j){
+          var ii = (_i < 0)? (_i-i+_di2)%_di: (_i+i)%_di;
+          var jj = (_j < 0)? (_j-j+_dj2)%_dj: (_j+j)%_dj;
+          _arr[ii][jj] = ttarr[i][j];
+        }
       }
     }
-    for(var i=0; i<di; ++i){
-      for(var j=0; j<dj; ++j){
-        var ii = (_i < 0)? (_i-i+_di2)%_di: (_i+i)%_di;
-        var jj = (_j < 0)? (_j-j+_dj2)%_dj: (_j+j)%_dj;
-        _arr[ii][jj] = ttarr[i][j];
-      }
+    else{
+      throw "Invalid store array(area)";
     }
   }
   else{
-    throw "Invalid store array(area)";
+    throw "Invalid reference of array(area)";
   }
+  /* -> Ver.2.78.31 */
   return _arr;
 };
 /* -> Ver.2.77.30 */
@@ -2205,20 +2229,33 @@ My_entry.operation.prototype.store_arr_col = function(_arr, ref, arr){
   var _tarr = math_mat.transpose(null, _arr);
   var tarr = math_mat.transpose(null, arr);
   var tarr_stored = self.arr2args(tarr);
-  var j_ref = ref[1];
+  /* Ver.2.78.31 -> */
+  var _j = ref[1];
+  var _dj = _tarr.length;
+  var j_ref = (_j+_dj)%_dj;
   var _tarrj = _tarr[j_ref];
-  if(_tarrj && (_tarrj.length === tarr_stored.length)){
-    _tarr[j_ref] = tarr_stored;
-    var _ttarr = math_mat.transpose(null, _tarr);
-    for(var i=0, len_i=_ttarr.length; i<len_i; ++i){
-      for(var j=0, len_j=_ttarr[i].length; j<len_j; ++j){
-        _arr[i][j] = _ttarr[i][j];
+  var di = (_tarrj)? _tarrj.length: 0;
+  var hasArea0 = (_j%1 === 0);
+  var isInArea = (_j >= -_dj && _j < _dj);
+  if(hasArea0 && isInArea){
+    var hasArea1 = (tarr_stored.length === di);
+    if(hasArea1){
+      _tarr[j_ref] = tarr_stored;
+      var _ttarr = math_mat.transpose(null, _tarr);
+      for(var i=0, len_i=_ttarr.length; i<len_i; ++i){
+        for(var j=0, len_j=_ttarr[i].length; j<len_j; ++j){
+          _arr[i][j] = _ttarr[i][j];
+        }
       }
+    }
+    else{
+      throw "Invalid store array(column)";
     }
   }
   else{
-    throw "Invalid store array(column)";
+    throw "Invalid reference of array(column)";
   }
+  /* -> Ver.2.78.31 */
   return _arr;
 };
 /* -> Ver.2.76.29 */
@@ -2237,18 +2274,32 @@ My_entry.operation.prototype.store_arr = function(_arr, ref, arr){
   else{
     throw "Invalid store array";
   }
-  ref.forEach(function(i_ref, i){
-    if(!(Array.isArray(_arri)) ||  typeof _arri[i_ref] === "undefined") throw "Invalid reference of array";
-    if(i === len_ref-1){
-      if(_arri[i_ref].length === arr_stored.length){
-        _arri[i_ref] = arr_stored;
+  /* Ver.2.78.31 -> */
+  ref.forEach(function(i_ref0, i){
+    var _i = i_ref0;
+    var _di = (_arri)? _arri.length: 0;
+    var i_ref = (_i+_di)%_di;
+    var _arrii = _arri[i_ref];
+    var hasArea0 = (_i%1 === 0);
+    var isInArea = (_i >= -_di && _i < _di);
+    if(hasArea0 && isInArea){
+      if(i === len_ref-1){
+        var _dj = _arrii.length;
+        var hasArea1 = (arr_stored.length === _dj);
+        if(hasArea1){
+          _arri[i_ref] = arr_stored;
+        }
+        else{
+          throw "Invalid store array";
+        }
       }
-      else{
-        throw "Invalid store array";
-      }
+      _arri = _arri[i_ref];
     }
-    _arri = _arri[i_ref];
+    else{
+      throw "Invalid reference of array";
+    }
   });
+  /* -> Ver.2.78.31 */
   return _arr;
 };
 My_entry.operation.prototype.tree_eqn2tree = function(data, tree){
