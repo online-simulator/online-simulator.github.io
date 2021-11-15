@@ -12337,7 +12337,7 @@ A=(1:3,4:); get_vectorc(=&lt;A,0) -> (1:3:0)
 <br>
 A=(1:3,4:); get_vectorc(=&lt;A,1) -> (0:4:0)
 <br>
-・未定義の<a href="#span-out-mat">行列</a>要素への代入不可
+・未定義の<a href="#span-out-mat">行列</a>要素の参照不可
 <br>
 A=(1:3,4:); get_vectorc(=&lt;A,2) -> [MyErr]Invalid reference of array
 <br>
@@ -12363,6 +12363,10 @@ area参照の入力仕様と付随する留意事項について記述する
 <br>
 <span class="run">Ver.2.77.30</span>以降、<a href="#span-out-mat">行列</a>のarea参照と<a href="#span-out-substitution-mat-area">area代入</a>を追加
 <br>
+・<span class="clear">Ver.2.77.31</span>以降、開始行/列indexが非整数の場合、予期せぬerror終了を修正
+<br>
+・<span class="clear">Ver.2.77.31</span>以降、参照行/列sizeが非整数の場合、error終了に修正
+<br>
 <br>
 area指定で範囲内の<a href="#span-out-mat">行列</a>要素を参照する場合
 <br>
@@ -12378,7 +12382,7 @@ area指定で範囲内の<a href="#span-out-mat">行列</a>要素を参照する
 <br>
 A=(1,2:3,4:); A[0][0][0][0] || A[0][0][sizer(A)][sizec(A)] -> (1,2:3,4:0,0)
 <br>
-・参照行/列size=0の場合、参照size=<a href="#span-out-mat">行列</a>size
+・参照行/列size=0の場合、参照size=<a href="#span-out-FNm">行列size</a>
 <br>
 A=(1,2:3,4:); A[0][0][0][1] || A[0][0][sizer(A)][1] -> (1:3:0)
 <br>
@@ -12414,11 +12418,21 @@ A=(1,2:3,4:); A[1][0][0][0] -> (3,4:0,0:1,2)
 <br>
 A=(1,2:3,4:); A[2][0][0][0] -> (0,0:1,2:3,4)
 <br>
-A=(1,2:3,4:); A[3][0][0][0] -> [MyErr]Invalid reference of array(area)
-<br>
 A=(1,2:3,4:); A[0][1][0][0] -> (2,1:4,3:0,0)
 <br>
+・未定義の<a href="#span-out-mat">行列</a>要素の参照不可
+<br>
+A=(1,2:3,4:); A[3][0][0][0] -> [MyErr]Invalid reference of array(area)
+<br>
 A=(1,2:3,4:); A[0][2][0][0] -> [MyErr]Invalid reference of array(area)
+<br>
+<span class="clear">A=(1,2:3,4:); A[0.1][0][0][0] -> [MyErr]Invalid reference of array(area)</span>
+<br>
+<span class="clear">A=(1,2:3,4:); A[0][0.1][0][0] -> [MyErr]Invalid reference of array(area)</span>
+<br>
+<span class="clear">A=(1,2:3,4:); A[0][0][0.1][0] -> [MyErr]Invalid reference of array(area)</span>
+<br>
+<span class="clear">A=(1,2:3,4:); A[0][0][0][0.1] -> [MyErr]Invalid reference of array(area)</span>
 <br>
 ・開始行/列indexが負の場合、反転参照を定義する
 <br>
@@ -13522,7 +13536,7 @@ A=(11:21,22:31,32,33,34); htrans(htrans(A)) -> (11,0,0,0:21,22,0,0:31,32,33,34)
 (1,2)(1,2) -> [MyErr]Invalid matrix operation
 <br>
 <br>
-行列sizeの一致しない差と和の場合、error終了
+<a href="#span-out-FNm">行列size</a>の一致しない差と和の場合、error終了
 <br>
 (1,2:3,4)-(-1) -> [MyErr]Invalid matrix operation
 <br>
@@ -13539,7 +13553,7 @@ A=(1,2:); ttA=trans(trans(A)); ttA[0]+ttA[1] -> (1,2)
 A=(1,2:,); A[0]+A[1] -> (1,2)
 <br>
 <br>
-抜け要素を埋めて行列sizeが一致する場合、差と和の演算を許容する
+抜け要素を埋めて<a href="#span-out-FNm">行列size</a>が一致する場合、差と和の演算を許容する
 <br>
 (1,2:3,4)-(-1,:) || (1,2:3,4)-(-1,:,) || (1,2:3,4)-(-1,0:0,0) -> (2,2:3,4)
 <br>
@@ -14001,9 +14015,21 @@ last{1,2:3,4} -> 4
 <br>
 ・<a href="#span-in-tree">単位tree構造</a>の仕様上、行vectorの抜け要素を自動で埋めない
 <br>
-last(1,2:3,(,:,4),5) -> 4
+A=(1,2:3,(,:,4),5); A ->
 <br>
-last(trans(trans(1,2:3,(,:,4),5))) -> 0
+(
+<br>
+1,2:
+<br>
+3,0,0,5:
+<br>
+0,0,4
+<br>
+)
+<br>
+last(A) -> 4
+<br>
+last(trans(trans(A))) -> 0
 <br>
 <br>
 last行列関数はNativeの<a href="#span-out-option4">comma演算子</a>同様に、<a href="#span-out-BT">括弧</a>内の最終要素を返す
@@ -14288,7 +14314,7 @@ A=(:,:); A[<span class="condition">-1</span>][0]={1,2,3}; A -> (1,0:2,0:3,0)
 <br>
 ・同義
 <br>
-set_vectorc(A,ic,vecc)=&lt;[tA=trans(A),tA[ic]=trans(vecc),=&lt;trans(tA)]=&gt;;
+set_vectorc(A,ic,vc)=&lt;[tA=trans(A),tA[ic]=trans(vc),=&lt;trans(tA)]=&gt;;
 <br>
 A=(:,:); A=set_vectorc(=&lt;A,0,=&lt;{1,2,3}); A -> (1,0:2,0:3,0)
 <br>
@@ -14334,6 +14360,8 @@ area代入の入力仕様と付随する留意事項について記述する
 <br>
 <span class="run">Ver.2.77.30</span>以降、行列の<a href="#span-out-BT-square-area">area参照</a>とarea代入を追加
 <br>
+・<span class="clear">Ver.2.77.31</span>以降、<a href="#span-out-BT-square-area">開始行/列index</a>が非整数の場合、予期せぬerror終了を修正
+<br>
 <br>
 area指定の代入
 <br>
@@ -14353,11 +14381,25 @@ A=(1,2:3,4:); A[1][0][0][0]=A; A -> (0,0:1,2:3,4)
 <br>
 A=(1,2:3,4:); A[2][0][0][0]=A; A -> (3,4:0,0:1,2)
 <br>
-A=(1,2:3,4:); A[3][0][0][0]=A; A -> [MyErr]Invalid store array(area)
-<br>
 A=(1,2:3,4:); A[0][1][0][0]=A; A -> (2,1:4,3:0,0)
 <br>
+A=(1,2:3,4:); A[0][0][2][2]=A[1][1][2][2]; A -> (4,3:0,0:0,0)
+<br>
+A=(1,2:3,4:); A[1][1][2][2]=A[0][0][2][2]; A -> (1,2:2,1:4,3)
+<br>
+・未定義の行列要素への代入不可
+<br>
+A=(1,2:3,4:); A[3][0][0][0]=A; A -> [MyErr]Invalid store array(area)
+<br>
 A=(1,2:3,4:); A[0][2][0][0]=A; A -> [MyErr]Invalid store array(area)
+<br>
+<span class="clear">A=(1,2:3,4:); A[0.1][0][0][0]=A; A -> [MyErr]Invalid store array(area)</span>
+<br>
+<span class="clear">A=(1,2:3,4:); A[0][0.1][0][0]=A; A -> [MyErr]Invalid store array(area)</span>
+<br>
+A=(1,2:3,4:); A[0][0][0.1][0]=A; A -> [MyErr]Invalid store array(area)
+<br>
+A=(1,2:3,4:); A[0][0][0][0.1]=A; A -> [MyErr]Invalid store array(area)
 <br>
 ・<a href="#span-out-BT-square-area">開始行/列index</a>が負の場合、反転代入を定義する
 <br>
@@ -14366,6 +14408,14 @@ A=(1,2:3,4:); A[-1][-1][0][0]=A; A -> (0,0:4,3:2,1)
 A=(1,2:3,4:); A[-1][0][0][0]=A; A -> (0,0:3,4:1,2)
 <br>
 A=(1,2:3,4:); A[0][-1][0][0]=A; A -> (2,1:4,3:0,0)
+<br>
+A=(1,2:3,4:); A[-1][-1][0][0]=A[-1][-1][0][0]; A -> (1,2:3,4:0,0)
+<br>
+A=(1,2:3,4:); A[-1][-1][2][2]=A[-1][-1][2][2]; A -> (1,2:3,4:0,0)
+<br>
+A=(1,2:3,4:); A[-1][-1][2][2]=A[0][0][2][2]; A -> (1,2:4,3:2,1)
+<br>
+A=(1,2:3,4:); A[-1][-1][2][2]=A[1][1][2][2]; A -> (1,2:0,0:3,4)
     </td>
   </tr>
   <tr>
@@ -17426,7 +17476,7 @@ clear; _ex(=&lt;x,1,4); ($x0,$x1:$x2,$x3)=identity2; x -> (1,0,0,1)
 (3,4:0,0)(3,4:0,0) -> (9,12:0,0)
 <br>
 <br>
-行列sizeの異なる次のLとRを一例に示す
+<a href="#span-out-FNm">行列size</a>の異なる次のLとRを一例に示す
 <br>
 L=(1,2:3:4,5:6);
 <br>
@@ -17436,7 +17486,7 @@ R=(1,2:3,4,5);
 <br>
 L*R -> (7,10,10:3,6,0:19,28,25:6,12,0)
 <br>
-・行列size
+・<a href="#span-out-FNm">行列size</a>
 <br>
 sizer(L) -> 4
 <br>
@@ -17450,7 +17500,7 @@ sizer(L*R) -> 4
 <br>
 sizec(L*R) -> 3
 <br>
-・行列sizeについて次の関係が成立する
+・<a href="#span-out-FNm">行列size</a>について次の関係が成立する
 <br>
 sizer(L*R)=sizer(L) -> 0
 <br>
@@ -22813,7 +22863,7 @@ data.logo -> "makeLog=true"
 ・<a href="#span-out-config">precedence</a>: comma,区切りで演算子の<a href="#span-in-prec">tag名</a>を列挙した文字列
 <br>
 <br>
-・<a href="#span-out-FNm">matSizeMax</a>: 行列size指定の行||列のlengthの上限値
+・<a href="#span-out-FNm">matSizeMax</a>: <a href="#span-out-FNm">行列size</a>指定の行||列のlengthの上限値
 <br>
 <br>
 ・<a href="#span-out-FNmh-newtonian">isRelative_epsN</a>: epsNを相対誤差に変換するflag

@@ -2135,7 +2135,7 @@ My_entry.operation.prototype.restore_arr = function(arr, ref){
     var dj = ref[3] || _dj;  // || not0
     var _di2 = _di*2;
     var _dj2 = _dj*2;
-    var hasArea0 = (_di >= di && _dj >= dj);
+    var hasArea0 = (_i%1 === 0 && _j%1 === 0 && di%1 === 0 && dj%1 === 0 && _di >= di && _dj >= dj);  // Ver.2.77.31
     var isInArea = (Math.abs(_i) < _di && Math.abs(_j) < _dj);
     if(hasArea0 && isInArea){
       for(var i=0; i<di; ++i){
@@ -2176,7 +2176,7 @@ My_entry.operation.prototype.store_arr_area = function(_arr, ref, arr){
   var dj = ref[3] || _dj;  // || not0
   var _di2 = _di*2;
   var _dj2 = _dj*2;
-  var hasArea0 = (_di >= di && _dj >= dj);
+  var hasArea0 = (_i%1 === 0 && _j%1 === 0 && di%1 === 0 && dj%1 === 0 && _di >= di && _dj >= dj);  // Ver.2.77.31
   var hasArea1 = (ttarr.length === di && ttarr[0].length === dj);
   var isInArea = (Math.abs(_i) < _di && Math.abs(_j) < _dj);
   if(hasArea0 && hasArea1 && isInArea){

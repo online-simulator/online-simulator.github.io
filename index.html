@@ -282,6 +282,48 @@ Y/M/D
 <tbody>
   <tr>
     <th>
+4.83.26.11.27
+    </th>
+    <td class="types">
+Calculator
+    </td>
+    <td>
+2.77.31
+    </td>
+    <td class="clear">
+minor bug-fix
+    </td>
+    <td>
+[Calculator]
+<br>
+・Unexpected error@Ver.2.77.30 bug-fixed
+<br>
+　<a href="01_calc_simple/manual.html#span-out-BT-square-area">[manual]Calculator-area参照</a>
+<br>
+　<a href="01_calc_simple/manual.html#span-out-substitution-mat-area">[manual]Calculator-area代入</a>
+<br>
+　before:
+<br>
+　　A=(1,2:3,4:); A[<span class="clear">0.1</span>][0][0][0] -> Cannot set properties of undefined
+<br>
+　　A=(1,2:3,4:); A[0][<span class="clear">0.1</span>][0][0]=A -> Cannot set properties of undefined
+<br>
+　after:
+<br>
+　　A=(1,2:3,4:); A[<span class="clear">0.1</span>][0][0][0] -> [MyErr]Invalid reference of array(area)
+<br>
+　　A=(1,2:3,4:); A[0][<span class="clear">0.1</span>][0][0]=A -> [MyErr]Invalid store array(area)
+<br>
+・manual更新
+<br>
+　追加校正20箇所
+    </td>
+    <td>
+2021/11/15
+    </td>
+  </tr>
+  <tr>
+    <th>
 4.83.26.11.26
     </th>
     <td class="types">
