@@ -771,6 +771,11 @@ norm行列関数
 area参照
 </a>
 <br>
+　　　・
+<a href="#span-out-reference-mat-band">
+band参照
+</a>
+<br>
 　　・
 <a href="#span-out-substitution-mat">
 行列への代入
@@ -794,6 +799,11 @@ area参照
 　　　・
 <a href="#span-out-substitution-mat-area">
 area代入
+</a>
+<br>
+　　　・
+<a href="#span-out-substitution-mat-band">
+band代入
 </a>
 <br>
 　　・
@@ -2629,7 +2639,7 @@ x_before=(1/determinant)*(x_after<span class="selection">*d</span>+y_after<span 
 <br>
 y_before=(1/determinant)*(x_after<span class="selection">*(-b)</span>+y_after<span class="selection">*a</span>+1<span class="selection">*(e*b-a*f)</span>)
 <br>
-・演算に使用する場合、<a href="#span-out-com">Napier数</a>eと区別が必要
+・演算に使用する場合、<a href="#span-out-com">Napier数e</a>と区別が必要
 <br>
 <br>
 test caseを列挙する
@@ -12406,7 +12416,7 @@ max=&lt;3 -> [MyErr]Invalid BTe([object Object])
 ・空括弧()は<a href="#span-out-bracket">parse</a>段階で除去する
 <br>
 <br>
-<a href="#span-out-FN">関数</a>を使用して円周率piと<a href="#span-out-com">Napier数</a>eを一例に示す
+<a href="#span-out-FN">関数</a>を使用して円周率piと<a href="#span-out-com">Napier数e</a>を一例に示す
 <br>
 PI() || pi || 2acos(0) || 2asin(1) || 4atan(1) -> 3.141592653589793
 <br>
@@ -14063,6 +14073,8 @@ trans((1/norm(trans(A[2])))A[2])
 <br>
 ・<a href="#span-out-reference-mat-area">area参照</a>
 <br>
+・<a href="#span-out-reference-mat-band">band参照</a>
+<br>
 <br>
 <a href="#span-out-substitution-mat">行列への代入</a>方法を列挙する
 <br>
@@ -14073,6 +14085,8 @@ trans((1/norm(trans(A[2])))A[2])
 ・<a href="#span-out-substitution-mat-elem">要素代入</a>
 <br>
 ・<a href="#span-out-substitution-mat-area">area代入</a>
+<br>
+・<a href="#span-out-substitution-mat-band">band代入</a>
     </td>
   </tr>
   <tr>
@@ -14102,6 +14116,8 @@ trans((1/norm(trans(A[2])))A[2])
 ・<a href="#span-out-reference-mat-elem">要素参照</a>
 <br>
 ・<a href="#span-out-reference-mat-area">area参照</a>
+<br>
+・<a href="#span-out-reference-mat-band">band参照</a>
     </td>
   </tr>
   <tr>
@@ -14198,30 +14214,32 @@ A=&lt;(1:3,4:); A[0.3]=&gt; -> [MyErr]Invalid reference of array
 <br>
 ・<span class="run">Ver.2.78.31</span>以降、行列の列参照と<a href="#span-out-substitution-mat-col">列代入</a>の<span class="selection">反転機能</span>を追加
 <br>
+・<span class="run">Ver.2.79.31</span>以降、行index=-1　⇒　<span class="condition">Napier数e</span>に仕様変更
+<br>
 <br>
 列指定で行列の列vectorを参照する場合
 <br>
-<a href="#span-out-mat">行列</a>[<span class="condition">-1</span>][列index]
+<a href="#span-out-mat">行列</a>[<span class="condition">e</span>][列index]
 <br>
-<a href="#span-out-vars">変数</a>[<span class="condition">-1</span>][列index]
+<a href="#span-out-vars">変数</a>[<span class="condition">e</span>][列index]
 <br>
-<a href="#span-out-eqns">式変数</a>[<span class="condition">-1</span>][列index]=&gt;
+<a href="#span-out-eqns">式変数</a>[<span class="condition">e</span>][列index]=&gt;
 <br>
-<a href="#span-out-eqns">式変数</a>[<span class="condition">-1</span>][列index](<a href="#span-out-eqns-args">arguments</a>)=&gt;
+<a href="#span-out-eqns">式変数</a>[<span class="condition">e</span>][列index](<a href="#span-out-eqns-args">arguments</a>)=&gt;
 <br>
-・<a href="#span-out-BT-square">行index</a>に<span class="condition">負値</span>を指定する
+・<a href="#span-out-BT-square">行index</a>に<span class="condition">Napier数e</span>を指定する
 <br>
-A=(1,2:3,4); A[<span class="condition">-1</span>][0] || (1,2:3,4)[<span class="condition">-1</span>][0] -> (1:3)
+A=(1,2:3,4); A[<span class="condition">e</span>][0] || (1,2:3,4)[<span class="condition">e</span>][0] -> (1:3)
 <br>
-A=(1,2:3,4); A[<span class="condition">-1</span>][1] || (1,2:3,4)[<span class="condition">-1</span>][1] -> (2:4)
+A=(1,2:3,4); A[<span class="condition">e</span>][1] || (1,2:3,4)[<span class="condition">e</span>][1] -> (2:4)
 <br>
 ・自動で抜け要素を埋める
 <br>
-A=(1:3,4); A[<span class="condition">-1</span>][1] || (1:3,4)[<span class="condition">-1</span>][1] -> (0:4)
+A=(1:3,4); A[<span class="condition">e</span>][1] || (1:3,4)[<span class="condition">e</span>][1] -> (0:4)
 <br>
-A=(1:3,4:); A[<span class="condition">-1</span>][1] || (1:3,4)[<span class="condition">-1</span>][1] -> (0:4:0)
+A=(1:3,4:); A[<span class="condition">e</span>][1] || (1:3,4)[<span class="condition">e</span>][1] -> (0:4:0)
 <br>
-A=(1:3,4:); A[<span class="condition">-1</span>][0] || (1:3,4)[<span class="condition">-1</span>][0] -> (1:3:0)
+A=(1:3,4:); A[<span class="condition">e</span>][0] || (1:3,4)[<span class="condition">e</span>][0] -> (1:3:0)
 <br>
 ・同義
 <br>
@@ -14235,17 +14253,17 @@ A=(1:3,4:); get_vectorc(=&lt;A,1) -> (0:4:0)
 <br>
 A=(1:3,4:); get_vectorc(=&lt;A,2) -> [MyErr]Invalid reference of array
 <br>
-A=(1:3,4:); A[<span class="condition">-1</span>][2] || (1:3,4)[<span class="condition">-1</span>][2] -> [MyErr]Invalid reference of array(column)
+A=(1:3,4:); A[<span class="condition">e</span>][2] || (1:3,4)[<span class="condition">e</span>][2] -> [MyErr]Invalid reference of array(column)
 <br>
-A=(1:3,4:); A[<span class="condition">-1</span>][0.3] || (1:3,4)[<span class="condition">-1</span>][0.3] -> [MyErr]Invalid reference of array(column)
+A=(1:3,4:); A[<span class="condition">e</span>][0.3] || (1:3,4)[<span class="condition">e</span>][0.3] -> [MyErr]Invalid reference of array(column)
 <br>
 ・<a href="#span-out-BT-square">列index</a>が負の場合、<span class="selection">反転参照</span>を定義する
 <br>
-A=(1,2:3,4); A[<span class="condition">-1</span>][<span class="selection">-1</span>] || (1,2:3,4)[<span class="condition">-1</span>][<span class="selection">-1</span>] -> (2:4)
+A=(1,2:3,4); A[<span class="condition">e</span>][<span class="selection">-1</span>] || (1,2:3,4)[<span class="condition">e</span>][<span class="selection">-1</span>] -> (2:4)
 <br>
-A=(1,2:3,4); A[<span class="condition">-1</span>][<span class="selection">-2</span>] || (1,2:3,4)[<span class="condition">-1</span>][<span class="selection">-2</span>] -> (1:3)
+A=(1,2:3,4); A[<span class="condition">e</span>][<span class="selection">-2</span>] || (1,2:3,4)[<span class="condition">e</span>][<span class="selection">-2</span>] -> (1:3)
 <br>
-A=(1,2:3,4); A[<span class="condition">-1</span>][<span class="selection">-3</span>] || (1,2:3,4)[<span class="condition">-1</span>][<span class="selection">-3</span>] -> [MyErr]Invalid reference of array(column)
+A=(1,2:3,4); A[<span class="condition">e</span>][<span class="selection">-3</span>] || (1,2:3,4)[<span class="condition">e</span>][<span class="selection">-3</span>] -> [MyErr]Invalid reference of array(column)
 <br>
 ・<a href="#span-out-FNm-trans">転置行列関数</a>を使用
 <br>
@@ -14343,7 +14361,19 @@ A(t)=&lt;(t,2t:3t,4t)[0][0]; A[0][0](-1)=&gt; || (A(-1)=&gt;)[0][0] -> -1
 <br>
 A(t)=&lt;(t,2t:3t,4t)[0][0]; A[0][1](-1)=&gt; || (A(-1)=&gt;)[0][1] -> [MyErr]Invalid reference of array
 <br>
-・<span class="run">Ver.2.78.31</span>以降、<a href="#span-out-BT-square">列index</a>のみ<span class="selection">反転参照</span>可
+・<span class="run">Ver.2.79.31</span>以降、<span class="selection">反転参照</span>可
+<br>
+A=&lt;(1,2:3,4); A[<span class="selection">-1</span>][<span class="selection">-1</span>]=&gt; -> 4
+<br>
+A=&lt;(1,2:3,4); A[<span class="selection">-2</span>][<span class="selection">-2</span>]=&gt; -> 1
+<br>
+A=&lt;(1,2:3,4); A[<span class="selection">-1</span>][0]=&gt; -> 3
+<br>
+A=&lt;(1,2:3,4); A[<span class="selection">-2</span>][0]=&gt; -> 1
+<br>
+A=&lt;(1,2:3,4); A[<span class="selection">-1</span>][1]=&gt; -> 4
+<br>
+A=&lt;(1,2:3,4); A[<span class="selection">-2</span>][1]=&gt; -> 2
 <br>
 A=&lt;(1,2:3,4); A[0][<span class="selection">-1</span>]=&gt; -> 2
 <br>
@@ -14483,6 +14513,21 @@ A=(1,2:3,4:); A[0][<span class="selection">-1</span>][0][0] -> (2,1:4,3:0,0)
 目次
 </a>
 <br>
+band参照
+<br>
+入力仕様
+    </th>
+    <td>
+<span id="span-out-reference-mat-band"></span>
+band参照の入力仕様と付随する留意事項について記述する
+    </td>
+  </tr>
+  <tr>
+    <th>
+<a href="#span-index">
+目次
+</a>
+<br>
 行列への代入
 <br>
 入力仕様
@@ -14509,6 +14554,8 @@ A=(1,2:3,4:); A[0][<span class="selection">-1</span>][0][0] -> (2,1:4,3:0,0)
 ・<a href="#span-out-substitution-mat-elem">要素代入</a>
 <br>
 ・<a href="#span-out-substitution-mat-area">area代入</a>
+<br>
+・<a href="#span-out-substitution-mat-band">band代入</a>
     </td>
   </tr>
   <tr>
@@ -14642,30 +14689,32 @@ A=(1,2:3,4); A[0]=(A:A(2,:,2)); A -> (6,8:3,4)
 <br>
 ・<span class="run">Ver.2.78.31</span>以降、<span class="clear">error判定処理</span>を分割
 <br>
+・<span class="run">Ver.2.79.31</span>以降、行index=-1　⇒　<span class="condition">Napier数e</span>に仕様変更
+<br>
 <br>
 列指定の代入
 <br>
-・列vectorを代入する場合、<a href="#span-out-BT-square">行index</a>に<span class="condition">負値</span>を指定する
+・列vectorを代入する場合、<a href="#span-out-BT-square">行index</a>に<span class="condition">Napier数e</span>を指定する
 <br>
-A=(,:,); A[<span class="condition">-1</span>][0]={1,2}; A -> (1,0:2,0)
+A=(,:,); A[<span class="condition">e</span>][0]={1,2}; A -> (1,0:2,0)
 <br>
-A=(,:,); A[<span class="condition">-1</span>][1]={1,2}; A -> (0,1:0,2)
+A=(,:,); A[<span class="condition">e</span>][1]={1,2}; A -> (0,1:0,2)
 <br>
 ・<a href="#span-out-reference-mat-col">列参照</a>を使用
 <br>
-A=(1,2:3,4); A[<span class="condition">-1</span>][1]=A[-1][0]; A -> (1,1:3,3)
+A=(1,2:3,4); A[<span class="condition">e</span>][1]=A[e][0]; A -> (1,1:3,3)
 <br>
-A=(1,2:3,4); A[<span class="condition">-1</span>][1]=A[-1][1]; A -> (1,2:3,4)
+A=(1,2:3,4); A[<span class="condition">e</span>][1]=A[e][1]; A -> (1,2:3,4)
 <br>
-A=(1,2:3,4); A[<span class="condition">-1</span>][0]=A[-1][1]; A -> (2,2:4,4)
+A=(1,2:3,4); A[<span class="condition">e</span>][0]=A[e][1]; A -> (2,2:4,4)
 <br>
 ・自動で抜け要素を埋める
 <br>
-A=(:,); A[<span class="condition">-1</span>][1]={1,2}; A -> (0,1:0,2)
+A=(:,); A[<span class="condition">e</span>][1]={1,2}; A -> (0,1:0,2)
 <br>
-A=(:,:); A[<span class="condition">-1</span>][1]={1,2,3}; A -> (0,1:0,2:0,3)
+A=(:,:); A[<span class="condition">e</span>][1]={1,2,3}; A -> (0,1:0,2:0,3)
 <br>
-A=(:,:); A[<span class="condition">-1</span>][0]={1,2,3}; A -> (1,0:2,0:3,0)
+A=(:,:); A[<span class="condition">e</span>][0]={1,2,3}; A -> (1,0:2,0:3,0)
 <br>
 ・同義
 <br>
@@ -14679,35 +14728,35 @@ A=(:,:); A=set_vectorc(=&lt;A,1,=&lt;{1,2,3}); A -> (0,1:0,2:0,3)
 <br>
 A=(:,:); A=set_vectorc(=&lt;A,2,=&lt;{1,2,3}); A -> [MyErr]Invalid reference of array
 <br>
-<span class="clear">A=(:,:); A[<span class="condition">-1</span>][2]={1,2,3}; A -> [MyErr]Invalid reference of array(column)</span>
+<span class="clear">A=(:,:); A[<span class="condition">e</span>][2]={1,2,3}; A -> [MyErr]Invalid reference of array(column)</span>
 <br>
-<span class="clear">A=(:,:); A[<span class="condition">-1</span>][0.3]={1,2,3}; A -> [MyErr]Invalid reference of array(column)</span>
+<span class="clear">A=(:,:); A[<span class="condition">e</span>][0.3]={1,2,3}; A -> [MyErr]Invalid reference of array(column)</span>
 <br>
 ・行列を代入した場合、最終列vectorを代入
 <br>
-A=(1,2:3,4); A[<span class="condition">-1</span>][0]=A; A -> (2,2:4,4)
+A=(1,2:3,4); A[<span class="condition">e</span>][0]=A; A -> (2,2:4,4)
 <br>
-A=(1,2:3,4); A[<span class="condition">-1</span>][0]=(A,A(2,:,2)); A -> (4,2:8,4)
+A=(1,2:3,4); A[<span class="condition">e</span>][0]=(A,A(2,:,2)); A -> (4,2:8,4)
 <br>
 ・<a href="#span-out-FNm-size">行size</a>の異なる代入不可
 <br>
-<span class="clear">A=(,:,); A[<span class="condition">-1</span>][0]=(A:A) -> [MyErr]Invalid store array(column)</span>
+<span class="clear">A=(,:,); A[<span class="condition">e</span>][0]=(A:A) -> [MyErr]Invalid store array(column)</span>
 <br>
-<span class="clear">A=(,:,); A[<span class="condition">-1</span>][0]=(1) -> [MyErr]Invalid store array(column)</span>
+<span class="clear">A=(,:,); A[<span class="condition">e</span>][0]=(1) -> [MyErr]Invalid store array(column)</span>
 <br>
-<span class="clear">A=(,:,); A[<span class="condition">-1</span>][0]=(1,2) -> [MyErr]Invalid store array(column)</span>
+<span class="clear">A=(,:,); A[<span class="condition">e</span>][0]=(1,2) -> [MyErr]Invalid store array(column)</span>
 <br>
-<span class="clear">A=(,:,); A[<span class="condition">-1</span>][0]={1,2,3} -> [MyErr]Invalid store array(column)</span>
+<span class="clear">A=(,:,); A[<span class="condition">e</span>][0]={1,2,3} -> [MyErr]Invalid store array(column)</span>
 <br>
 ・<a href="#span-out-BT-square">列index</a>が負の場合、<span class="selection">反転代入</span>を定義する
 <br>
-A=(1,2:3,4); A[<span class="condition">-1</span>][<span class="selection">-1</span>]=A[-1][0]; A -> (1,1:3,3)
+A=(1,2:3,4); A[<span class="condition">e</span>][<span class="selection">-1</span>]=A[e][0]; A -> (1,1:3,3)
 <br>
-A=(1,2:3,4); A[<span class="condition">-1</span>][<span class="selection">-1</span>]=A[-1][1]; A -> (1,2:3,4)
+A=(1,2:3,4); A[<span class="condition">e</span>][<span class="selection">-1</span>]=A[e][1]; A -> (1,2:3,4)
 <br>
-A=(1,2:3,4); A[<span class="condition">-1</span>][<span class="selection">-2</span>]=A[-1][1]; A -> (2,2:4,4)
+A=(1,2:3,4); A[<span class="condition">e</span>][<span class="selection">-2</span>]=A[e][1]; A -> (2,2:4,4)
 <br>
-A=(1,2:3,4); A[<span class="condition">-1</span>][<span class="selection">-3</span>]=A[-1][1]; A -> [MyErr]Invalid reference of array(column)
+A=(1,2:3,4); A[<span class="condition">e</span>][<span class="selection">-3</span>]=A[e][1]; A -> [MyErr]Invalid reference of array(column)
 <br>
 ・<a href="#span-out-FNm-trans">転置行列関数</a>を使用
 <br>
@@ -14751,7 +14800,19 @@ A=(1,2:3,4); A[0][0]=first(A); A -> (1,2:3,4)
 <br>
 A=(1,2:3,4); A[1][1]=(x=2,-2x); A -> (1,2:3,-4)
 <br>
-・<span class="run">Ver.2.78.31</span>以降、<a href="#span-out-BT-square">列index</a>のみ<span class="selection">反転代入</span>可
+・<span class="run">Ver.2.79.31</span>以降、<span class="selection">反転代入</span>可
+<br>
+A=(1,2:3,4); A[<span class="selection">-1</span>][<span class="selection">-1</span>]=-1; A -> (1,2:3,-1)
+<br>
+A=(1,2:3,4); A[<span class="selection">-2</span>][<span class="selection">-2</span>]=-1; A -> (-1,2:3,4)
+<br>
+A=(1,2:3,4); A[<span class="selection">-1</span>][0]=-1; A -> (1,2:-1,4)
+<br>
+A=(1,2:3,4); A[<span class="selection">-2</span>][0]=-1; A -> (-1,2:3,4)
+<br>
+A=(1,2:3,4); A[<span class="selection">-1</span>][1]=-1; A -> (1,2:3,-1)
+<br>
+A=(1,2:3,4); A[<span class="selection">-2</span>][1]=-1; A -> (1,-1:3,4)
 <br>
 A=(1,2:3,4); A[0][<span class="selection">-1</span>]=-1; A -> (1,-1:3,4)
 <br>
@@ -14762,6 +14823,10 @@ A=(1,2:3,4); A[1][<span class="selection">-1</span>]=-1; A -> (1,2:3,-1)
 A=(1,2:3,4); A[1][<span class="selection">-2</span>]=-1; A -> (1,2:-1,4)
 <br>
 ・未定義の行列要素への代入不可
+<br>
+A=(1,2:3,4); A[<span class="selection">-3</span>][0]=-1 -> [MyErr]Invalid reference of array
+<br>
+A=(1,2:3,4); A[<span class="selection">-3</span>][1]=-1 -> [MyErr]Invalid reference of array
 <br>
 A=(1,2:3,4); A[0][<span class="selection">-3</span>]=-1 -> [MyErr]Invalid reference of array
 <br>
@@ -14882,6 +14947,21 @@ A=(1,2:3,4:); A[<span class="selection">-1</span>][<span class="selection">-1</s
 A=(1,2:3,4:); A[<span class="selection">-1</span>][<span class="selection">-1</span>][2][2]=A[0][0][2][2]; A -> (1,2:4,3:2,1)
 <br>
 A=(1,2:3,4:); A[<span class="selection">-1</span>][<span class="selection">-1</span>][2][2]=A[1][1][2][2]; A -> (1,2:0,0:3,4)
+    </td>
+  </tr>
+  <tr>
+    <th>
+<a href="#span-index">
+目次
+</a>
+<br>
+band代入
+<br>
+入力仕様
+    </th>
+    <td>
+<span id="span-out-substitution-mat-band"></span>
+band代入の入力仕様と付随する留意事項について記述する
     </td>
   </tr>
   <tr>
@@ -22278,6 +22358,8 @@ Wavelet変換
 <br>
 <span class="run">Ver.2.76.29</span>以降、<a href="#span-out-mat">行列</a>の<a href="#span-out-reference-mat-col">列参照</a>と<a href="#span-out-substitution-mat-col">列代入</a>を駆使して<a href="#span-out-transform-dwt">2次元DWT/IDWT</a>のalgorithmを整理する
 <br>
+・<span class="run">Ver.2.79.31</span>以降、<a href="#span-out-reference-mat-col">列参照</a>と<a href="#span-out-substitution-mat-col">列代入</a>の行index=-1　⇒　<span class="condition">Napier数e</span>に仕様変更
+<br>
 ・2次元の標本点
 <br>
 w={
@@ -22338,7 +22420,7 @@ a=w[2*t],b=w[2*t+1],W[t]=a+b,W[t+N2]=a-b
 <br>
 W_col(w,N)=&lt;_st(=&lt;last{
 <br>
-a=w[<span class="condition">-1</span>][2*t],b=w[<span class="condition">-1</span>][2*t+1],W[<span class="condition">-1</span>][t]=a+b,W[<span class="condition">-1</span>][t+N2]=a-b
+a=w[<span class="condition">e</span>][2*t],b=w[<span class="condition">e</span>][2*t+1],W[<span class="condition">e</span>][t]=a+b,W[<span class="condition">e</span>][t+N2]=a-b
 <br>
 },N2=N&gt;&gt;1,N2-1);
 <br>
@@ -22370,7 +22452,7 @@ a=W[t],b=W[t+N2],w[2*t]=<span class="selection">0.5*</span>(a+b),w[2*t+1]=<span 
 <br>
 w_col(W,N2)=&lt;_st(=&lt;last{
 <br>
-a=W[<span class="condition">-1</span>][t],b=W[<span class="condition">-1</span>][t+N2],w[<span class="condition">-1</span>][2*t]=(a+b)<span class="selection">*0.5</span>,w[<span class="condition">-1</span>][2*t+1]=(a-b)<span class="selection">*0.5</span>
+a=W[<span class="condition">e</span>][t],b=W[<span class="condition">e</span>][t+N2],w[<span class="condition">e</span>][2*t]=(a+b)<span class="selection">*0.5</span>,w[<span class="condition">e</span>][2*t+1]=(a-b)<span class="selection">*0.5</span>
 <br>
 },0,N2-1);
 <br>
@@ -22404,7 +22486,7 @@ a=w[2*t],b=w[2*t+1],W[t]=a+b,W[t+N2]=a-b
 <br>
 W_col(w,N)=&lt;_st(=&lt;last{
 <br>
-a=w[<span class="condition">-1</span>][2*t],b=w[<span class="condition">-1</span>][2*t+1],W[<span class="condition">-1</span>][t]=a+b,W[<span class="condition">-1</span>][t+N2]=a-b
+a=w[<span class="condition">e</span>][2*t],b=w[<span class="condition">e</span>][2*t+1],W[<span class="condition">e</span>][t]=a+b,W[<span class="condition">e</span>][t+N2]=a-b
 <br>
 },N2=N&gt;&gt;1,N2-1);
 <br>
@@ -22436,7 +22518,7 @@ a=W[t],b=W[t+N2],w[2*t]=<span class="selection">0.5*</span>(a+b),w[2*t+1]=<span 
 <br>
 w_col(W,N2)=&lt;_st(=&lt;last{
 <br>
-a=W[<span class="condition">-1</span>][t],b=W[<span class="condition">-1</span>][t+N2],w[<span class="condition">-1</span>][2*t]=(a+b)<span class="selection">*0.5</span>,w[<span class="condition">-1</span>][2*t+1]=(a-b)<span class="selection">*0.5</span>
+a=W[<span class="condition">e</span>][t],b=W[<span class="condition">e</span>][t+N2],w[<span class="condition">e</span>][2*t]=(a+b)<span class="selection">*0.5</span>,w[<span class="condition">e</span>][2*t+1]=(a-b)<span class="selection">*0.5</span>
 <br>
 },0,N2-1);
 <br>
@@ -24822,7 +24904,7 @@ a=w[2*t],b=w[2*t+1],W[t]=a+b,W[t+N2]=a-b
 <br>
 W_col(w,N)=&lt;_st(=&lt;last{
 <br>
-a=w[<span class="condition">-1</span>][2*t],b=w[<span class="condition">-1</span>][2*t+1],W[<span class="condition">-1</span>][t]=a+b,W[<span class="condition">-1</span>][t+N2]=a-b
+a=w[<span class="condition">e</span>][2*t],b=w[<span class="condition">e</span>][2*t+1],W[<span class="condition">e</span>][t]=a+b,W[<span class="condition">e</span>][t+N2]=a-b
 <br>
 },N2=N&gt;&gt;1,N2-1),
 <br>
@@ -24840,7 +24922,7 @@ a=W[t],b=W[t+N2],w[2*t]=<span class="selection">0.5*</span>(a+b),w[2*t+1]=<span 
 <br>
 w_col(W,N2)=&lt;_st(=&lt;last{
 <br>
-a=W[<span class="condition">-1</span>][t],b=W[<span class="condition">-1</span>][t+N2],w[<span class="condition">-1</span>][2*t]=(a+b)<span class="selection">*0.5</span>,w[<span class="condition">-1</span>][2*t+1]=(a-b)<span class="selection">*0.5</span>
+a=W[<span class="condition">e</span>][t],b=W[<span class="condition">e</span>][t+N2],w[<span class="condition">e</span>][2*t]=(a+b)<span class="selection">*0.5</span>,w[<span class="condition">e</span>][2*t+1]=(a-b)<span class="selection">*0.5</span>
 <br>
 },0,N2-1),
 <br>
@@ -24896,7 +24978,7 @@ a=w[2*t],b=w[2*t+1],W[t]=a+b,W[t+N2]=a-b
 <br>
 W_col(w,N)=&lt;_st(=&lt;last{
 <br>
-a=w[<span class="condition">-1</span>][2*t],b=w[<span class="condition">-1</span>][2*t+1],W[<span class="condition">-1</span>][t]=a+b,W[<span class="condition">-1</span>][t+N2]=a-b
+a=w[<span class="condition">e</span>][2*t],b=w[<span class="condition">e</span>][2*t+1],W[<span class="condition">e</span>][t]=a+b,W[<span class="condition">e</span>][t+N2]=a-b
 <br>
 },N2=N&gt;&gt;1,N2-1),
 <br>
@@ -24914,7 +24996,7 @@ a=W[t],b=W[t+N2],w[2*t]=<span class="selection">0.5*</span>(a+b),w[2*t+1]=<span 
 <br>
 w_col(W,N2)=&lt;_st(=&lt;last{
 <br>
-a=W[<span class="condition">-1</span>][t],b=W[<span class="condition">-1</span>][t+N2],w[<span class="condition">-1</span>][2*t]=(a+b)<span class="selection">*0.5</span>,w[<span class="condition">-1</span>][2*t+1]=(a-b)<span class="selection">*0.5</span>
+a=W[<span class="condition">e</span>][t],b=W[<span class="condition">e</span>][t+N2],w[<span class="condition">e</span>][2*t]=(a+b)<span class="selection">*0.5</span>,w[<span class="condition">e</span>][2*t+1]=(a-b)<span class="selection">*0.5</span>
 <br>
 },0,N2-1),
 <br>

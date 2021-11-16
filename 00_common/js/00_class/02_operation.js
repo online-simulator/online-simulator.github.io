@@ -2111,7 +2111,7 @@ My_entry.operation.prototype.restore_arr = function(arr, ref){
   var _arri = _arr;
   var arri = arr;
   var len_ref = ref.length;
-  if(len_ref === 2 && ref[0] < 0){
+  if(len_ref === 2 && ref[0] === Math.E){  // Ver.2.79.31
     var tarr = math_mat.transpose(null, arr);
     /* Ver.2.78.31 -> */
     var _j = ref[1];
@@ -2536,7 +2536,7 @@ My_entry.operation.prototype.SEv = function(data, i0, tagName, tagObj){
             /* -> Ver.2.31.17 */
             if(tree_var){
               var len_ref = ref.length;
-              if(len_ref === 2 && ref[0] < 0){
+              if(len_ref === 2 && ref[0] === Math.E){  // Ver.2.79.31
                 self.store_arr_col(tree_var.mat.arr, ref, tree.mat.arr);
               }
               else if(len_ref < 3){
