@@ -12440,7 +12440,7 @@ area参照の入力仕様と付随する留意事項について記述する
 <br>
 <span class="run">Ver.2.77.30</span>以降、<a href="#span-out-mat">行列</a>のarea参照と<a href="#span-out-substitution-mat-area">area代入</a>を追加
 <br>
-・<span class="clear">Ver.2.77.31</span>以降、開始行/列indexが非整数の場合、予期せぬerror終了を修正
+・<span class="clear">Ver.2.77.31</span>以降、開始行/列indexが非整数の場合、<span class="clear">予期せぬerror終了</span>を修正
 <br>
 ・<span class="clear">Ver.2.77.31</span>以降、参照行/列sizeが非整数の場合、error終了に修正
 <br>
@@ -14443,6 +14443,8 @@ A=(1,2:3); A[1]=0 -> (1,2:0)
 <br>
 ・<span class="run">Ver.2.78.31</span>以降、行列の<a href="#span-out-BT-square-col">列参照</a>と列代入の<span class="selection">反転機能</span>を追加
 <br>
+・<span class="run">Ver.2.78.31</span>以降、<span class="clear">error判定処理</span>を分割
+<br>
 <br>
 列指定の代入
 <br>
@@ -14480,9 +14482,9 @@ A=(:,:); A=set_vectorc(=&lt;A,1,=&lt;{1,2,3}); A -> (0,1:0,2:0,3)
 <br>
 A=(:,:); A=set_vectorc(=&lt;A,2,=&lt;{1,2,3}); A -> [MyErr]Invalid reference of array
 <br>
-A=(:,:); A[<span class="condition">-1</span>][2]={1,2,3}; A -> [MyErr]Invalid reference of array(column)
+<span class="clear">A=(:,:); A[<span class="condition">-1</span>][2]={1,2,3}; A -> [MyErr]Invalid reference of array(column)</span>
 <br>
-A=(:,:); A[<span class="condition">-1</span>][0.3]={1,2,3}; A -> [MyErr]Invalid reference of array(column)
+<span class="clear">A=(:,:); A[<span class="condition">-1</span>][0.3]={1,2,3}; A -> [MyErr]Invalid reference of array(column)</span>
 <br>
 ・行列を代入した場合、最終列vectorを代入
 <br>
@@ -14492,11 +14494,11 @@ A=(1,2:3,4); A[<span class="condition">-1</span>][0]=(A,A(2,:,2)); A -> (4,2:8,4
 <br>
 ・<a href="#span-out-FNm">行size</a>の異なる代入不可
 <br>
-A=(,:,); A[<span class="condition">-1</span>][0]=(1) -> [MyErr]Invalid store array(column)
+<span class="clear">A=(,:,); A[<span class="condition">-1</span>][0]=(1) -> [MyErr]Invalid store array(column)</span>
 <br>
-A=(,:,); A[<span class="condition">-1</span>][0]=(1,2) -> [MyErr]Invalid store array(column)
+<span class="clear">A=(,:,); A[<span class="condition">-1</span>][0]=(1,2) -> [MyErr]Invalid store array(column)</span>
 <br>
-A=(,:,); A[<span class="condition">-1</span>][0]={1,2,3} -> [MyErr]Invalid store array(column)
+<span class="clear">A=(,:,); A[<span class="condition">-1</span>][0]={1,2,3} -> [MyErr]Invalid store array(column)</span>
 <br>
 ・<a href="#span-out-BT-square">列index</a>が負の場合、<span class="selection">反転代入</span>を定義する
 <br>
@@ -14526,9 +14528,11 @@ area代入の入力仕様と付随する留意事項について記述する
 <br>
 <span class="run">Ver.2.77.30</span>以降、行列の<a href="#span-out-BT-square-area">area参照</a>とarea代入を追加
 <br>
-・<span class="clear">Ver.2.77.31</span>以降、<a href="#span-out-BT-square-area">開始行/列index</a>が非整数の場合、予期せぬerror終了を修正
+・<span class="clear">Ver.2.77.31</span>以降、<a href="#span-out-BT-square-area">開始行/列index</a>が非整数の場合、<span class="clear">予期せぬerror終了</span>を修正
 <br>
 ・<span class="run">Ver.2.78.31</span>以降、<span class="selection">反転機能の有効範囲</span>を修正
+<br>
+・<span class="run">Ver.2.78.31</span>以降、<span class="clear">error判定処理</span>を分割
 <br>
 <br>
 area指定の代入
@@ -14569,9 +14573,9 @@ A=(1,2:3,4:); A[0][0][0.1][0]=A; A -> [MyErr]Invalid reference of array(area)
 <br>
 A=(1,2:3,4:); A[0][0][0][0.1]=A; A -> [MyErr]Invalid reference of array(area)
 <br>
-A=(1,2:3,4:); A[0][0][5][5]=A; A -> [MyErr]Invalid reference of array(area)
+<span class="clear">A=(1,2:3,4:); A[0][0][5][5]=A; A -> [MyErr]Invalid reference of array(area)</span>
 <br>
-A=(1,2:3,4:); A[0][0][2][2]=A; A -> [MyErr]Invalid store array(area)
+<span class="clear">A=(1,2:3,4:); A[0][0][2][2]=A; A -> [MyErr]Invalid store array(area)</span>
 <br>
 ・<a href="#span-out-BT-square-area">開始行/列index</a>が負の場合、<span class="selection">反転代入</span>を定義する
 <br>
