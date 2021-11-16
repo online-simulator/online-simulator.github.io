@@ -2639,7 +2639,7 @@ x_before=(1/determinant)*(x_after<span class="selection">*d</span>+y_after<span 
 <br>
 y_before=(1/determinant)*(x_after<span class="selection">*(-b)</span>+y_after<span class="selection">*a</span>+1<span class="selection">*(e*b-a*f)</span>)
 <br>
-・演算に使用する場合、<a href="#span-out-com">Napier数e</a>と区別が必要
+・演算に使用する場合、<a href="#span-out-FN0">Napier数e</a>と区別が必要
 <br>
 <br>
 test caseを列挙する
@@ -12416,7 +12416,7 @@ max=&lt;3 -> [MyErr]Invalid BTe([object Object])
 ・空括弧()は<a href="#span-out-bracket">parse</a>段階で除去する
 <br>
 <br>
-<a href="#span-out-FN">関数</a>を使用して円周率piと<a href="#span-out-com">Napier数e</a>を一例に示す
+<a href="#span-out-FN">関数</a>を使用して円周率piとNapier数eを一例に示す
 <br>
 PI() || pi || 2acos(0) || 2asin(1) || 4atan(1) -> 3.141592653589793
 <br>
@@ -12605,7 +12605,7 @@ epsilon || eps -> 2.220446049250313e-16
 1/(-i) -> i
 <br>
 <br>
-Napier数eの空括弧()を省略してEulerの公式から極形式の複素数を示す
+<a href="#span-out-FN0">Napier数e</a>の空括弧()を省略してEulerの公式から極形式の複素数を示す
 <br>
 (sqrt2)e^(i{pi/4}) || sqrt2()ecomp(pi/4) -> 1.0000000000000002+i
 <br>
@@ -14214,7 +14214,7 @@ A=&lt;(1:3,4:); A[0.3]=&gt; -> [MyErr]Invalid reference of array
 <br>
 ・<span class="run">Ver.2.78.31</span>以降、行列の列参照と<a href="#span-out-substitution-mat-col">列代入</a>の<span class="selection">反転機能</span>を追加
 <br>
-・<span class="run">Ver.2.79.31</span>以降、行index=-1　⇒　<span class="condition">Napier数e</span>に仕様変更
+・<span class="run">Ver.2.79.31</span>以降、行index=-1　⇒　<span class="condition"><a href="#span-out-FN0">Napier数e</a></span>に仕様変更
 <br>
 <br>
 列指定で行列の列vectorを参照する場合
@@ -14227,7 +14227,7 @@ A=&lt;(1:3,4:); A[0.3]=&gt; -> [MyErr]Invalid reference of array
 <br>
 <a href="#span-out-eqns">式変数</a>[<span class="condition">e</span>][列index](<a href="#span-out-eqns-args">arguments</a>)=&gt;
 <br>
-・<a href="#span-out-BT-square">行index</a>に<span class="condition">Napier数e</span>を指定する
+・<a href="#span-out-BT-square">行index</a>に<span class="condition"><a href="#span-out-FN0">Napier数e</a></span>を指定する
 <br>
 A=(1,2:3,4); A[<span class="condition">e</span>][0] || (1,2:3,4)[<span class="condition">e</span>][0] -> (1:3)
 <br>
@@ -14693,12 +14693,12 @@ A=(1,2:3,4); A[0]=(A:A(2,:,2)); A -> (6,8:3,4)
 <br>
 ・<span class="run">Ver.2.78.31</span>以降、<span class="clear">error判定処理</span>を分割
 <br>
-・<span class="run">Ver.2.79.31</span>以降、行index=-1　⇒　<span class="condition">Napier数e</span>に仕様変更
+・<span class="run">Ver.2.79.31</span>以降、行index=-1　⇒　<span class="condition"><a href="#span-out-FN0">Napier数e</a></span>に仕様変更
 <br>
 <br>
 列指定の代入
 <br>
-・列vectorを代入する場合、<a href="#span-out-BT-square">行index</a>に<span class="condition">Napier数e</span>を指定する
+・列vectorを代入する場合、<a href="#span-out-BT-square">行index</a>に<span class="condition"><a href="#span-out-FN0">Napier数e</a></span>を指定する
 <br>
 A=(,:,); A[<span class="condition">e</span>][0]={1,2}; A -> (1,0:2,0)
 <br>
@@ -22362,7 +22362,7 @@ Wavelet変換
 <br>
 <span class="run">Ver.2.76.29</span>以降、<a href="#span-out-mat">行列</a>の<a href="#span-out-reference-mat-col">列参照</a>と<a href="#span-out-substitution-mat-col">列代入</a>を駆使して<a href="#span-out-transform-dwt">2次元DWT/IDWT</a>のalgorithmを整理する
 <br>
-・<span class="run">Ver.2.79.31</span>以降、<a href="#span-out-reference-mat-col">列参照</a>と<a href="#span-out-substitution-mat-col">列代入</a>の行index=-1　⇒　<span class="condition">Napier数e</span>に仕様変更
+・<span class="run">Ver.2.79.31</span>以降、<a href="#span-out-reference-mat-col">列参照</a>と<a href="#span-out-substitution-mat-col">列代入</a>の行index=-1　⇒　<span class="condition"><a href="#span-out-FN0">Napier数e</a></span>に仕様変更
 <br>
 ・2次元の標本点
 <br>
