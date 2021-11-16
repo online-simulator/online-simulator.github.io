@@ -641,21 +641,6 @@ comment文
 角括弧
 </a>
 <br>
-　　　・
-<a href="#span-out-BT-square-row">
-行参照
-</a>
-<br>
-　　　・
-<a href="#span-out-BT-square-col">
-列参照
-</a>
-<br>
-　　　・
-<a href="#span-out-BT-square-area">
-area参照
-</a>
-<br>
 　・
 <a href="#span-out-RW">
 予約語
@@ -741,9 +726,49 @@ atan2関数
 last行列関数
 </a>
 <br>
+　　・
+<a href="#span-out-FNm-size">
+size行列関数
+</a>
+<br>
+　　・
+<a href="#span-out-FNm-norm">
+norm行列関数
+</a>
+<br>
+　　・
+<a href="#span-out-FNm-normalize">
+正規化行列関数
+</a>
+<br>
 　・
 <a href="#span-out-array">
 行列操作
+</a>
+<br>
+　　・
+<a href="#span-out-reference-mat">
+行列への参照
+</a>
+<br>
+　　　・
+<a href="#span-out-reference-mat-row">
+行参照
+</a>
+<br>
+　　　・
+<a href="#span-out-reference-mat-col">
+列参照
+</a>
+<br>
+　　　・
+<a href="#span-out-reference-mat-elem">
+要素参照
+</a>
+<br>
+　　　・
+<a href="#span-out-reference-mat-area">
+area参照
 </a>
 <br>
 　　・
@@ -759,6 +784,11 @@ last行列関数
 　　　・
 <a href="#span-out-substitution-mat-col">
 列代入
+</a>
+<br>
+　　　・
+<a href="#span-out-substitution-mat-elem">
+要素代入
 </a>
 <br>
 　　　・
@@ -1742,9 +1772,9 @@ HSV-color空間
 <br>
 　主な用途は直感的な操作のcolor-picker
 <br>
-　・SaturationをValueで正規化する場合、円柱model（色相環内側のpicker領域がsquare）
+　・SaturationをValueで<a href="#span-out-FNm-normalize">正規化</a>する場合、円柱model（色相環内側のpicker領域がsquare）
 <br>
-　・Saturationを正規化しない場合、円錐model（色相環内側のpicker領域がtriangle）
+　・Saturationを<a href="#span-out-FNm-normalize">正規化</a>しない場合、円錐model（色相環内側のpicker領域がtriangle）
 <br>
 <br>
 HSL-color空間
@@ -2942,7 +2972,7 @@ filterは上下左右対称(2n-1)x(2n-1)sizeの2次元配列を1次元に直列�
 <br>
 rgba[1,2,1,2,<span class="selection">4</span>,2,1,2,1]
 <br>
-・<span class="selection">対象pixel</span>の重みを最大値4として周囲pixelを含む次の重み平均を正規化する
+・<span class="selection">対象pixel</span>の重みを最大値4として周囲pixelを含む次の重み平均を<a href="#span-out-FNm-normalize">正規化</a>する
 <br>
 [
 <br>
@@ -3195,7 +3225,7 @@ area[10,20,30,40]
 <br>
 ・filter sizeに応じて<a href="#span-out-UI-graphing-post">post処理</a>の負荷がexponentialに増大する（中断不可）
 <br>
-・加重平均filterは重みを正規化するが、edge抽出filterは正規化しない（白黒飛びを許容）
+・加重平均filterは重みを<a href="#span-out-FNm-normalize">正規化</a>するが、edge抽出filterは<a href="#span-out-FNm-normalize">正規化</a>しない（白黒飛びを許容）
 <br>
 ・ImageDataが欠落する描画canvas境界は加重平均filterとして扱う（意図とは異なる可能性）
 <br>
@@ -8889,7 +8919,7 @@ erra=abs(real(dans))+abs(imag(dans))i; erra
 <br>
 -> 3.7769787297747826e-13+3.7769787297747826e-13i
 <br>
-・絶対誤差のEuclidian norm
+・絶対誤差の<a href="#span-out-FNm-norm">Euclidian norm</a>
 <br>
 norm(erra) -> 5.341454544442203e-13
 <br>
@@ -8899,7 +8929,7 @@ errr=abs(real(erra)/real(ansa))+abs(imag(erra)/imag(ansa))i; errr
 <br>
 -> 1.8884893648873913e-13+1.8884893648873913e-13i
 <br>
-・相対誤差のEuclidian norm
+・相対誤差の<a href="#span-out-FNm-norm">Euclidian norm</a>
 <br>
 norm(errr) -> 2.6707272722211015e-13
 <br>
@@ -8928,7 +8958,7 @@ erra=abs(real(dans))+abs(imag(dans))i; erra
 <br>
 -> 5.333333330526102e-9+5.3333332195038e-9i
 <br>
-・絶対誤差のEuclidian norm
+・絶対誤差の<a href="#span-out-FNm-norm">Euclidian norm</a>
 <br>
 norm(erra) -> 7.54247225018186e-9
 <br>
@@ -8938,7 +8968,7 @@ errr=abs(real(erra)/real(ansa))+abs(imag(erra)/imag(ansa))i; errr
 <br>
 -> 6.666666663157625e-9+6.666666524379749e-9i
 <br>
-・相対誤差のEuclidian norm
+・相対誤差の<a href="#span-out-FNm-norm">Euclidian norm</a>
 <br>
 norm(errr) -> 9.428090312727323e-9
 <br>
@@ -9224,6 +9254,8 @@ strict-modeで実行する場合、<a href="#span-out-config">裏設定</a>参�
 <br>
 ・拡張対象は<a href="#span-out-FN">関数の引数vector</a>||<a href="#span-out-type-ope">演算子のoperand</a>
 <br>
+・<a href="#span-out-FNh">高階関数</a>の反復処理より高速に演算可
+<br>
 ・定義可能な<a href="#span-out-mat">行列</a>演算の<a href="#span-out-prec-ope">乗算||減算||加算演算子</a>は拡張対象外（変更なし）
 <br>
 <br>
@@ -9243,9 +9275,9 @@ max(1,2:3,4) || (max(1,2):max(3,4)) -> (2:4)
 <br>
 (3,5,7)%(1,5) || (3,5,7)%(1,5,5) -> (0,0,2)
 <br>
-(1,2,4)/2 -> (0.5,1,2)
+(1,2,4)/2 || (1,2,4)/(2,2,2) -> (0.5,1,2)
 <br>
-2/(1,2,4) -> (2,1,0.5)
+2/(1,2,4) || (2,2,2)/(1,2,4) -> (2,1,0.5)
 <br>
 (2,4,8)&gt;&gt;(3,1) || (2,4,8)&gt;&gt;(3,1,1) -> (0,2,4)
 <br>
@@ -12243,27 +12275,25 @@ x=(1,2); y={3,4}; trans(trans((x:y))) -> (1,2:3,0:4,0)
 角括弧[]の入力仕様と付随する留意事項について記述する
 <br>
 <br>
-角括弧[]は直前の<a href="#span-out-mat">行列</a>要素の行/列indexを指定する
+角括弧[]は次の規則で直前の<a href="#span-out-mat">行列</a>要素の行/列indexを指定する
 <br>
 <a href="#span-out-mat">行列</a>[行index][列index]
 <br>
 <a href="#span-out-vars">変数</a>[行index][列index]
 <br>
-<a href="#span-out-eqns">式変数</a>[行index][列index]=&gt;
+<a href="#span-out-eqns">式変数</a>[行index][列index]=&gt; || (<a href="#span-out-eqns">式変数</a>=&gt;)[行index][列index]
 <br>
-<a href="#span-out-eqns">式変数</a>[行index][列index](<a href="#span-out-eqns-args">arguments</a>)=&gt;
+<a href="#span-out-eqns">式変数</a>[行index][列index](<a href="#span-out-eqns-args">arguments</a>)=&gt; || (<a href="#span-out-eqns">式変数</a>(<a href="#span-out-eqns-args">arguments</a>)=&gt;)[行index][列index]
 <br>
-・よって<a href="#span-out-BT">括弧</a>の中で最下位の<a href="#span-out-prec">演算のprecedence</a>
+<br>
+詳細は<a href="#span-out-array">行列操作入力仕様</a>参照
+<br>
+<br>
+仕様を列挙する
+<br>
+・<a href="#span-out-BT">括弧</a>の中で最下位の<a href="#span-out-prec">演算のprecedence</a>
 <br>
 ・唯一のRight-Associativity（右から左を参照）
-<br>
-A=(1,2:3,4); A[0][0] || (1,2:3,4)[0][0] -> 1
-<br>
-A=(1,2:3,4); A[1][1] || (1,2:3,4)[1][1] -> 4
-<br>
-A=(1,2:3,4); A[0] || (1,2:3,4)[0] -> (1,2)
-<br>
-A=(1,2:3,4); A[1] || (1,2:3,4)[1] -> (3,4)
 <br>
 ・複数の要素を持つcaseのみ、<a href="#span-out-mat">行列</a>として使用可
 <br>
@@ -12274,9 +12304,6 @@ A=(1,2:3,4); A[1,2:3,4] -> (7,10:15,22)
 [1,2:3,4][0] -> (1,2)
 <br>
 [1,2:3,4][1] -> (3,4)
-<br>
-<br>
-詳細は<a href="#span-out-array">行列操作入力仕様</a>参照
 <br>
 <br>
 <span class="run">Ver.2.31.17</span>以降、<a href="#span-out-scope-vars">変数のscope</a>を追加
@@ -12295,241 +12322,6 @@ clear; 3*[a=2,a]; a -> [MyErr]Invalid REv(a)
 <br>
 <br>
 詳細は<a href="#span-out-scope-vars">変数のscope</a>参照
-    </td>
-  </tr>
-  <tr>
-    <th>
-<a href="#span-index">
-目次
-</a>
-<br>
-行参照
-<br>
-入力仕様
-    </th>
-    <td>
-<span id="span-out-BT-square-row"></span>
-行参照の入力仕様と付随する留意事項について記述する
-<br>
-<br>
-<span class="run">Ver.2.78.31</span>以降、<a href="#span-out-mat">行列</a>の行参照と<a href="#span-out-substitution-mat-row">行代入</a>の<span class="selection">反転機能</span>を追加
-<br>
-<br>
-行指定で<a href="#span-out-mat">行列</a>の行vectorを参照する場合
-<br>
-<a href="#span-out-mat">行列</a>[行index]
-<br>
-<a href="#span-out-vars">変数</a>[行index]
-<br>
-<a href="#span-out-eqns">式変数</a>[行index]=&gt;
-<br>
-<a href="#span-out-eqns">式変数</a>[行index](<a href="#span-out-eqns-args">arguments</a>)=&gt;
-<br>
-・<a href="#span-out-BT-square">列index</a>を省略する
-<br>
-A=&lt;(1,2:3,4); A[0] || (1,2:3,4)[0] -> (1,2)
-<br>
-A=&lt;(1,2:3,4); A[1] || (1,2:3,4)[1] -> (3,4)
-<br>
-・抜け要素を自動で埋めない
-<br>
-A=&lt;(1:3,4); A[0] -> 1
-<br>
-A=&lt;(1:3,4); A[1] -> (3,4)
-<br>
-・<a href="#span-out-BT-square">行index</a>が負の場合、<span class="selection">反転参照</span>を定義する
-<br>
-A=&lt;(1:3,4:); A[<span class="selection">-1</span>] -> 0
-<br>
-A=&lt;(1:3,4:); A[<span class="selection">-2</span>] -> (3,4)
-<br>
-A=&lt;(1:3,4:); A[<span class="selection">-3</span>] -> 1
-<br>
-・未定義の<a href="#span-out-mat">行列</a>要素の参照不可
-<br>
-A=&lt;(1:3,4:); A[<span class="selection">-4</span>] -> [MyErr]Invalid reference of array
-<br>
-A=&lt;(1:3,4:); A[3] -> [MyErr]Invalid reference of array
-<br>
-A=&lt;(1:3,4:); A[0.3] -> [MyErr]Invalid reference of array
-    </td>
-  </tr>
-  <tr>
-    <th>
-<a href="#span-index">
-目次
-</a>
-<br>
-列参照
-<br>
-入力仕様
-    </th>
-    <td>
-<span id="span-out-BT-square-col"></span>
-列参照の入力仕様と付随する留意事項について記述する
-<br>
-<br>
-<span class="run">Ver.2.76.29</span>以降、<a href="#span-out-mat">行列</a>の列参照と<a href="#span-out-substitution-mat-col">列代入</a>を追加
-<br>
-・<span class="run">Ver.2.78.31</span>以降、<a href="#span-out-mat">行列</a>の列参照と<a href="#span-out-substitution-mat-col">列代入</a>の<span class="selection">反転機能</span>を追加
-<br>
-<br>
-列指定で<a href="#span-out-mat">行列</a>の列vectorを参照する場合
-<br>
-<a href="#span-out-mat">行列</a>[<span class="condition">-1</span>][列index]
-<br>
-<a href="#span-out-vars">変数</a>[<span class="condition">-1</span>][列index]
-<br>
-<a href="#span-out-eqns">式変数</a>[<span class="condition">-1</span>][列index]=&gt;
-<br>
-<a href="#span-out-eqns">式変数</a>[<span class="condition">-1</span>][列index](<a href="#span-out-eqns-args">arguments</a>)=&gt;
-<br>
-・<a href="#span-out-BT-square">行index</a>に<span class="condition">負値</span>を指定する
-<br>
-A=(1,2:3,4); A[<span class="condition">-1</span>][0] || (1,2:3,4)[<span class="condition">-1</span>][0] -> (1:3)
-<br>
-A=(1,2:3,4); A[<span class="condition">-1</span>][1] || (1,2:3,4)[<span class="condition">-1</span>][1] -> (2:4)
-<br>
-・自動で抜け要素を埋める
-<br>
-A=(1:3,4); A[<span class="condition">-1</span>][1] || (1:3,4)[<span class="condition">-1</span>][1] -> (0:4)
-<br>
-A=(1:3,4:); A[<span class="condition">-1</span>][1] || (1:3,4)[<span class="condition">-1</span>][1] -> (0:4:0)
-<br>
-A=(1:3,4:); A[<span class="condition">-1</span>][0] || (1:3,4)[<span class="condition">-1</span>][0] -> (1:3:0)
-<br>
-・同義
-<br>
-get_vectorc(A,ic)=&lt;trans((trans(A))[ic]);
-<br>
-A=(1:3,4:); get_vectorc(=&lt;A,0) -> (1:3:0)
-<br>
-A=(1:3,4:); get_vectorc(=&lt;A,1) -> (0:4:0)
-<br>
-・未定義の<a href="#span-out-mat">行列</a>要素の参照不可
-<br>
-A=(1:3,4:); get_vectorc(=&lt;A,2) -> [MyErr]Invalid reference of array
-<br>
-A=(1:3,4:); A[<span class="condition">-1</span>][2] || (1:3,4)[<span class="condition">-1</span>][2] -> [MyErr]Invalid reference of array(column)
-<br>
-A=(1:3,4:); A[<span class="condition">-1</span>][0.3] || (1:3,4)[<span class="condition">-1</span>][0.3] -> [MyErr]Invalid reference of array(column)
-<br>
-・<a href="#span-out-BT-square">列index</a>が負の場合、<span class="selection">反転参照</span>を定義する
-<br>
-A=(1,2:3,4); A[<span class="condition">-1</span>][<span class="selection">-1</span>] || (1,2:3,4)[<span class="condition">-1</span>][<span class="selection">-1</span>] -> (2:4)
-<br>
-A=(1,2:3,4); A[<span class="condition">-1</span>][<span class="selection">-2</span>] || (1,2:3,4)[<span class="condition">-1</span>][<span class="selection">-2</span>] -> (1:3)
-<br>
-A=(1,2:3,4); A[<span class="condition">-1</span>][<span class="selection">-3</span>] || (1,2:3,4)[<span class="condition">-1</span>][<span class="selection">-3</span>] -> [MyErr]Invalid reference of array(column)
-    </td>
-  </tr>
-  <tr>
-    <th>
-<a href="#span-index">
-目次
-</a>
-<br>
-area参照
-<br>
-入力仕様
-    </th>
-    <td>
-<span id="span-out-BT-square-area"></span>
-area参照の入力仕様と付随する留意事項について記述する
-<br>
-<br>
-<span class="run">Ver.2.77.30</span>以降、<a href="#span-out-mat">行列</a>のarea参照と<a href="#span-out-substitution-mat-area">area代入</a>を追加
-<br>
-・<span class="clear">Ver.2.77.31</span>以降、開始行/列indexが非整数の場合、<span class="clear">予期せぬerror終了</span>を修正
-<br>
-・<span class="clear">Ver.2.77.31</span>以降、参照行/列sizeが非整数の場合、error終了に修正
-<br>
-・<span class="run">Ver.2.78.31</span>以降、<span class="selection">反転機能の有効範囲</span>を修正
-<br>
-<br>
-area指定で範囲内の<a href="#span-out-mat">行列</a>要素を参照する場合
-<br>
-<a href="#span-out-mat">行列</a>[開始行index][開始列index][参照行size][参照列size]
-<br>
-<a href="#span-out-vars">変数</a>[開始行index][開始列index][参照行size][参照列size]
-<br>
-<a href="#span-out-eqns">式変数</a>[開始行index][開始列index][参照行size][参照列size]=&gt;
-<br>
-<a href="#span-out-eqns">式変数</a>[開始行index][開始列index][参照行size][参照列size](<a href="#span-out-eqns-args">arguments</a>)=&gt;
-<br>
-・<a href="#span-out-BT-square">角括弧[]</a>で指定する
-<br>
-A=(1,2:3,4:); A[0][0][0][0] || A[0][0][sizer(A)][sizec(A)] -> (1,2:3,4:0,0)
-<br>
-・参照行/列size=0の場合、参照size=<a href="#span-out-FNm">行列size</a>
-<br>
-A=(1,2:3,4:); A[0][0][0][1] || A[0][0][sizer(A)][1] -> (1:3:0)
-<br>
-A=(1,2:3,4:); A[0][0][1][0] || A[0][0][1][sizec(A)] -> (1,2)
-<br>
-・自動で抜け要素を埋める
-<br>
-A=(1,2:3,4:); A -> (1,2:3,4:0)
-<br>
-A=(1,2:3,4:); A[0][0][0][0] || trans(trans(A)) -> (1,2:3,4:0,0)
-<br>
-・参照行/列sizeを指定
-<br>
-A=(1,2:3,4:); A[0][0][1][1] || A[0][0] -> 1
-<br>
-A=(1,2:3,4:); A[1][0][1][1] || A[1][0] -> 3
-<br>
-A=(1,2:3,4:); A[0][1][1][1] || A[0][1] -> 2
-<br>
-A=(1,2:3,4:); A[0][0][2][2] -> (1,2:3,4)
-<br>
-・周期境界条件を適用
-<br>
-A=(1,2:3,4:); A[1][1][2][2] -> (4,3:0,0)
-<br>
-A=(1,2:3,4:); A[1][0][2][2] -> (3,4:0,0)
-<br>
-A=(1,2:3,4:); A[2][0][2][2] -> (0,0:1,2)
-<br>
-A=(1,2:3,4:); A[2][1][2][2] -> (0,0:2,1)
-<br>
-A=(1,2:3,4:); A[1][0][0][0] -> (3,4:0,0:1,2)
-<br>
-A=(1,2:3,4:); A[2][0][0][0] -> (0,0:1,2:3,4)
-<br>
-A=(1,2:3,4:); A[0][1][0][0] -> (2,1:4,3:0,0)
-<br>
-・未定義の<a href="#span-out-mat">行列</a>要素の参照不可
-<br>
-A=(1,2:3,4:); A[3][0][0][0] -> [MyErr]Invalid reference of array(area)
-<br>
-A=(1,2:3,4:); A[0][2][0][0] -> [MyErr]Invalid reference of array(area)
-<br>
-<span class="clear">A=(1,2:3,4:); A[0.1][0][0][0] -> [MyErr]Invalid reference of array(area)</span>
-<br>
-<span class="clear">A=(1,2:3,4:); A[0][0.1][0][0] -> [MyErr]Invalid reference of array(area)</span>
-<br>
-<span class="clear">A=(1,2:3,4:); A[0][0][0.1][0] -> [MyErr]Invalid reference of array(area)</span>
-<br>
-<span class="clear">A=(1,2:3,4:); A[0][0][0][0.1] -> [MyErr]Invalid reference of array(area)</span>
-<br>
-・開始行/列indexが負の場合、<span class="selection">反転参照</span>を定義する
-<br>
-A=(1,2:3,4:); A[<span class="selection">-1</span>][<span class="selection">-1</span>][0][0] -> (0,0:4,3:2,1)
-<br>
-A=(1,2:3,4:); A[<span class="selection">-1</span>][0][0][0] -> (0,0:3,4:1,2)
-<br>
-A=(1,2:3,4:); A[<span class="selection">-2</span>][0][0][0] -> (3,4:1,2:0,0)
-<br>
-<span class="selection">A=(1,2:3,4:); A[-3][0][0][0] -> (1,2:0,0:3,4)</span>
-<br>
-<span class="selection">A=(1,2:3,4:); A[-4][0][0][0] -> [MyErr]Invalid reference of array(area)</span>
-<br>
-A=(1,2:3,4:); A[0][<span class="selection">-1</span>][0][0] -> (2,1:4,3:0,0)
-<br>
-<span class="selection">A=(1,2:3,4:); A[0][-2][0][0] -> (1,2:3,4:0,0)</span>
-<br>
-<span class="selection">A=(1,2:3,4:); A[0][-3][0][0] -> [MyErr]Invalid reference of array(area)</span>
     </td>
   </tr>
   <tr>
@@ -13619,7 +13411,7 @@ A=(11:21,22:31,32,33,34); htrans(htrans(A)) -> (11,0,0,0:21,22,0,0:31,32,33,34)
 (1,2)(1,2) -> [MyErr]Invalid matrix operation
 <br>
 <br>
-<a href="#span-out-FNm">行列size</a>の一致しない差と和の場合、error終了
+<a href="#span-out-FNm-size">行列size</a>の一致しない差と和の場合、error終了
 <br>
 (1,2:3,4)-(-1) -> [MyErr]Invalid matrix operation
 <br>
@@ -13636,7 +13428,7 @@ A=(1,2:); ttA=trans(trans(A)); ttA[0]+ttA[1] -> (1,2)
 A=(1,2:,); A[0]+A[1] -> (1,2)
 <br>
 <br>
-抜け要素を埋めて<a href="#span-out-FNm">行列size</a>が一致する場合、差と和の演算を許容する
+抜け要素を埋めて<a href="#span-out-FNm-size">行列size</a>が一致する場合、差と和の演算を許容する
 <br>
 (1,2:3,4)-(-1,:) || (1,2:3,4)-(-1,:,) || (1,2:3,4)-(-1,0:0,0) -> (2,2:3,4)
 <br>
@@ -13756,11 +13548,11 @@ identity(3) -> (1,0,0:0,1,0:0,0,1)
 <br>
 identity(5) -> (1,0,0,0,0:0,1,0,0,0:0,0,1,0,0:0,0,0,1,0:0,0,0,0,1)
 <br>
-・行列sizeは正の整数にfloor
+・<a href="#span-out-FNm-size">行列size</a>は正の整数にfloor
 <br>
 identity(3.3) || identity(3) -> (1,0,0:0,1,0:0,0,1)
 <br>
-・行列sizeが0以下の場合、error終了
+・<a href="#span-out-FNm-size">行列size</a>が0以下の場合、error終了
 <br>
 identity(0) || identity(-1)  -> [MyErr]Invalid matrix size
 <br>
@@ -13858,151 +13650,6 @@ ones行列
 ones(2,2) -> (1,1:1,1)
 <br>
 ones(5,3) -> (1,1,1:1,1,1:1,1,1:1,1,1:1,1,1)
-<br>
-<br>
-行列size（自動で抜け要素を埋める）
-<br>
-・行size
-<br>
-sizer(1,2:3,4) -> 2
-<br>
-sizer(1,2:3,4)[0] || sizer(1,2) -> 1
-<br>
-sizer(1:3,4) -> 2
-<br>
-sizer(1:3,4:) -> 3
-<br>
-・列size
-<br>
-size(1,2:3,4) || sizec(1,2:3,4) -> 2
-<br>
-sizec(1,2:3,4)[0] || sizec(1,2) -> 2
-<br>
-sizec(1,2:3) -> 2
-<br>
-sizec(1,2:3:4,5,) -> 3
-<br>
-・定義済み<a href="#span-out-vars">変数</a>を含まない場合
-<br>
-clear; sizer(a,b:c,d) || sizer(,:,) -> 2
-<br>
-clear; sizec(a,b:c,d) || sizec(,:,) -> 2
-<br>
-・定義済み<a href="#span-out-vars">変数</a>を含む場合
-<br>
-clear; A=(,:,); sizer(A,b:c,d) || sizer(A,:,) -> 3
-<br>
-clear; A=(,:,); sizec(A,b:c,d) || sizec(A,:,) -> 3
-<br>
-clear; A=(,:,); sizer(A,b:c,A) || sizer(A,:,A) -> 4
-<br>
-clear; A=(,:,); sizec(A,b:c,A) || sizec(A,:,A) -> 3
-<br>
-clear; A=(,:,); sizer(A,A:A,A) -> 4
-<br>
-clear; A=(,:,); sizec(A,A:A,A) -> 4
-<br>
-<br>
-vectorの正規化
-<br>
-・行vectorを正規化する場合
-<br>
-vr=(1,i,-i); vr -> (1,i,-i)
-<br>
-normalizer(vr) ->
-<br>
-(0.5773502691896258,0.5773502691896258i,-0.5773502691896258i)
-<br>
-・同義
-<br>
-・行vectorの左からnormの逆数を積
-<br>
-・<a href="#span-out-FNm-trans">転置行列関数</a>を使用
-<br>
-vr=(1,i,-i); (1/norm(trans(vr)))vr ->
-<br>
-(0.5773502691896258,0.5773502691896258i,-0.5773502691896258i)
-<br>
-・列vectorを正規化する場合
-<br>
-vc={1,i,-i}; vc -> (1:i:-i)
-<br>
-normalize(vc) || normalizec(vc) -> 
-<br>
-(0.5773502691896258:0.5773502691896258i:-0.5773502691896258i)
-<br>
-・同義
-<br>
-・列vectorの右からnormの逆数を積
-<br>
-vc={1,i,-i}; vc(1/norm(vc)) ->
-<br>
-(0.5773502691896258:0.5773502691896258i:-0.5773502691896258i)
-<br>
-・行vectorを誤入力した場合
-<br>
-vr=(1,i,-i); normalizec(vr)  <span class="selection">// NG</span> -> (1,i,-i)
-<br>
-・zeros-vectorの場合
-<br>
-normalize({0,0,0})  <span class="selection">// NG</span> -> [MyErr]FN isNaN
-<br>
-<br>
-行列の正規化（自動で抜け要素を埋める）
-<br>
-・すべての行vectorを正規化する場合
-<br>
-A=(1:1,i:1,i,-i); A -> (1:1,i:1,i,-i)
-<br>
-normalizer(A) ->
-<br>
-(1,0,0:
-<br>
-0.7071067811865475,0.7071067811865475i,0:
-<br>
-0.5773502691896258,0.5773502691896258i,-0.5773502691896258i)
-<br>
-・各行vectorを<a href="#span-out-array">行列操作</a>で正規化する場合
-<br>
-・<a href="#span-out-FNm-trans">転置行列関数</a>を使用
-<br>
-(1/norm(trans(A[0])))A[0] -> 1
-<br>
-(1/norm(trans(A[1])))A[1]
-<br>
--> (0.7071067811865475,0.7071067811865475i)
-<br>
-(1/norm(trans(A[2])))A[2]
-<br>
--> (0.5773502691896258,0.5773502691896258i,-0.5773502691896258i)
-<br>
-・すべての列vectorを正規化する場合
-<br>
-tA={1:1,i:1,i,-i}; tA -> (1,1,1:0,i,i:0,0,-i)
-<br>
-normalizec(tA) ->
-<br>
-(1,0.7071067811865475,0.5773502691896258:
-<br>
-0,0.7071067811865475i,0.5773502691896258i:
-<br>
-0,0,-0.5773502691896258i)
-<br>
-・各列vectorを<a href="#span-out-array">行列操作</a>で正規化する場合
-<br>
-・<a href="#span-out-FNm-trans">転置行列関数</a>を使用
-<br>
-tA={1:1,i:1,i,-i}; A=trans(tA); A -> (1,0,0:1,i,0:1,i,-i)
-<br>
-trans((1/norm(trans(A[0])))A[0]) -> (1:0:0)
-<br>
-trans((1/norm(trans(A[1])))A[1])
-<br>
--> (0.7071067811865475:0.7071067811865475i:0)
-<br>
-trans((1/norm(trans(A[2])))A[2])
-<br>
--> (0.5773502691896258:0.5773502691896258i:-0.5773502691896258i)
     </td>
   </tr>
   <tr>
@@ -14011,7 +13658,9 @@ trans((1/norm(trans(A[2])))A[2])
 目次
 </a>
 <br>
-転置行列関数
+転置
+<br>
+行列関数
 <br>
 入力仕様
     </th>
@@ -14036,35 +13685,6 @@ trans({1,2,3}) || trans{1,2,3} -> (1,2,3)
 <a href="#span-out-com">複素数</a>の<a href="#span-out-mat">行列</a>のHermit転置
 <br>
 htrans(1-i,1-2i:1-3i,1-4i) || Hermitian(1-i,1-2i:1-3i,1-4i) -> (1+i,1+3i:1+2i,1+4i)
-<br>
-<br>
-列vectorのEuclidian norm（vectorの長さ）
-<br>
-norm(1:2:3) || norm{1,2,3} || norm({1,2,3}) -> 3.7416573867739413
-<br>
-norm(-i:2i:-3i) || norm{-i,2i,-3i} || norm({-i,2i,-3i}) -> 3.7416573867739413
-<br>
-norm((1-i)/sqrt2:2i:-3i) || norm({(1-i)/sqrt2,2i,-3i}) -> 3.7416573867739413
-<br>
-・<a href="#span-out-ope">有次元</a>の場合、同義
-<br>
-x={(1-i)/sqrt2,2i,-3i}; sqrt(htrans(x)x) -> 3.7416573867739413
-<br>
-・Hermit内積
-<br>
-x={(1-i)/sqrt2,2i,-3i}; htrans(x)x -> 14
-<br>
-・標準内積
-<br>
-x={(1-i)/sqrt2,2i,-3i}; trans(x)x -> -13-0.9999999999999998i
-<br>
-・よって<a href="#span-out-com">複素数</a>の場合、非同義
-<br>
-x={(1-i)/sqrt2,2i,-3i}; abs(sqrt(trans(x)x))  <span class="selection">// NG</span> -> 3.6108731368472777
-<br>
-・行vectorを誤入力した場合
-<br>
-norm((1-i)/sqrt2,2i,-3i) || norm(-3i)  <span class="selection">// NG</span> -> 3
     </td>
   </tr>
   <tr>
@@ -14073,7 +13693,9 @@ norm((1-i)/sqrt2,2i,-3i) || norm(-3i)  <span class="selection">// NG</span> -> 3
 目次
 </a>
 <br>
-last行列関数
+last
+<br>
+行列関数
 <br>
 入力仕様
     </th>
@@ -14195,6 +13817,233 @@ last(ans) -> 3.7416573867739413
 目次
 </a>
 <br>
+size
+<br>
+行列関数
+<br>
+入力仕様
+    </th>
+    <td>
+<span id="span-out-FNm-size"></span>
+size行列関数の入力仕様と付随する留意事項について記述する
+<br>
+<br>
+行列size（自動で抜け要素を埋める）
+<br>
+・行size
+<br>
+sizer(1,2:3,4) -> 2
+<br>
+sizer(1,2:3,4)[0] || sizer(1,2) -> 1
+<br>
+sizer(1:3,4) -> 2
+<br>
+sizer(1:3,4:) -> 3
+<br>
+・列size
+<br>
+size(1,2:3,4) || sizec(1,2:3,4) -> 2
+<br>
+sizec(1,2:3,4)[0] || sizec(1,2) -> 2
+<br>
+sizec(1,2:3) -> 2
+<br>
+sizec(1,2:3:4,5,) -> 3
+<br>
+・定義済み<a href="#span-out-vars">変数</a>を含まない場合
+<br>
+clear; sizer(a,b:c,d) || sizer(,:,) -> 2
+<br>
+clear; sizec(a,b:c,d) || sizec(,:,) -> 2
+<br>
+・定義済み<a href="#span-out-vars">変数</a>を含む場合
+<br>
+clear; A=(,:,); sizer(A,b:c,d) || sizer(A,:,) -> 3
+<br>
+clear; A=(,:,); sizec(A,b:c,d) || sizec(A,:,) -> 3
+<br>
+clear; A=(,:,); sizer(A,b:c,A) || sizer(A,:,A) -> 4
+<br>
+clear; A=(,:,); sizec(A,b:c,A) || sizec(A,:,A) -> 3
+<br>
+clear; A=(,:,); sizer(A,A:A,A) -> 4
+<br>
+clear; A=(,:,); sizec(A,A:A,A) -> 4
+    </td>
+  </tr>
+  <tr>
+    <th>
+<a href="#span-index">
+目次
+</a>
+<br>
+norm
+<br>
+行列関数
+<br>
+入力仕様
+    </th>
+    <td>
+<span id="span-out-FNm-norm"></span>
+norm行列関数の入力仕様と付随する留意事項について記述する
+<br>
+<br>
+列vectorのEuclidian norm（vectorの長さ）
+<br>
+norm(1:2:3) || norm{1,2,3} || norm({1,2,3}) -> 3.7416573867739413
+<br>
+norm(-i:2i:-3i) || norm{-i,2i,-3i} || norm({-i,2i,-3i}) -> 3.7416573867739413
+<br>
+norm((1-i)/sqrt2:2i:-3i) || norm({(1-i)/sqrt2,2i,-3i}) -> 3.7416573867739413
+<br>
+・<a href="#span-out-ope">有次元</a>の場合、同義
+<br>
+x={(1-i)/sqrt2,2i,-3i}; sqrt(htrans(x)x) -> 3.7416573867739413
+<br>
+・Hermit内積
+<br>
+x={(1-i)/sqrt2,2i,-3i}; htrans(x)x -> 14
+<br>
+・標準内積
+<br>
+x={(1-i)/sqrt2,2i,-3i}; trans(x)x -> -13-0.9999999999999998i
+<br>
+・よって<a href="#span-out-com">複素数</a>の場合、非同義
+<br>
+x={(1-i)/sqrt2,2i,-3i}; abs(sqrt(trans(x)x))  <span class="selection">// NG</span> -> 3.6108731368472777
+<br>
+・行vectorを誤入力した場合
+<br>
+norm((1-i)/sqrt2,2i,-3i) || norm(-3i)  <span class="selection">// NG</span> -> 3
+    </td>
+  </tr>
+  <tr>
+    <th>
+<a href="#span-index">
+目次
+</a>
+<br>
+正規化
+<br>
+行列関数
+<br>
+入力仕様
+    </th>
+    <td>
+<span id="span-out-FNm-normalize"></span>
+正規化行列関数の入力仕様と付随する留意事項について記述する
+<br>
+<br>
+vectorの正規化
+<br>
+・行vectorを正規化する場合
+<br>
+vr=(1,i,-i); vr -> (1,i,-i)
+<br>
+normalizer(vr) ->
+<br>
+(0.5773502691896258,0.5773502691896258i,-0.5773502691896258i)
+<br>
+norm(trans(normalizer(vr)))
+<br>
+・同義
+<br>
+・行vectorの左からnormの逆数を積
+<br>
+・<a href="#span-out-FNm-trans">転置行列関数</a>を使用
+<br>
+vr=(1,i,-i); (1/norm(trans(vr)))vr ->
+<br>
+(0.5773502691896258,0.5773502691896258i,-0.5773502691896258i)
+<br>
+・列vectorを正規化する場合
+<br>
+vc={1,i,-i}; vc -> (1:i:-i)
+<br>
+normalize(vc) || normalizec(vc) -> 
+<br>
+(0.5773502691896258:0.5773502691896258i:-0.5773502691896258i)
+<br>
+・同義
+<br>
+・列vectorの右からnormの逆数を積
+<br>
+vc={1,i,-i}; vc(1/norm(vc)) ->
+<br>
+(0.5773502691896258:0.5773502691896258i:-0.5773502691896258i)
+<br>
+・行vectorを誤入力した場合
+<br>
+vr=(1,i,-i); normalizec(vr)  <span class="selection">// NG</span> -> (1,i,-i)
+<br>
+・zeros-vectorの場合
+<br>
+normalize({0,0,0})  <span class="selection">// NG</span> -> [MyErr]FN isNaN
+<br>
+<br>
+行列の正規化（自動で抜け要素を埋める）
+<br>
+・すべての行vectorを正規化する場合
+<br>
+A=(1:1,i:1,i,-i); A -> (1:1,i:1,i,-i)
+<br>
+normalizer(A) ->
+<br>
+(1,0,0:
+<br>
+0.7071067811865475,0.7071067811865475i,0:
+<br>
+0.5773502691896258,0.5773502691896258i,-0.5773502691896258i)
+<br>
+・各行vectorを<a href="#span-out-array">行列操作</a>で正規化する場合
+<br>
+・<a href="#span-out-FNm-trans">転置行列関数</a>を使用
+<br>
+(1/norm(trans(A[0])))A[0] -> 1
+<br>
+(1/norm(trans(A[1])))A[1]
+<br>
+-> (0.7071067811865475,0.7071067811865475i)
+<br>
+(1/norm(trans(A[2])))A[2]
+<br>
+-> (0.5773502691896258,0.5773502691896258i,-0.5773502691896258i)
+<br>
+・すべての列vectorを正規化する場合
+<br>
+tA={1:1,i:1,i,-i}; tA -> (1,1,1:0,i,i:0,0,-i)
+<br>
+normalizec(tA) ->
+<br>
+(1,0.7071067811865475,0.5773502691896258:
+<br>
+0,0.7071067811865475i,0.5773502691896258i:
+<br>
+0,0,-0.5773502691896258i)
+<br>
+・各列vectorを<a href="#span-out-array">行列操作</a>で正規化する場合
+<br>
+・<a href="#span-out-FNm-trans">転置行列関数</a>を使用
+<br>
+tA={1:1,i:1,i,-i}; A=trans(tA); A -> (1,0,0:1,i,0:1,i,-i)
+<br>
+trans((1/norm(trans(A[0])))A[0]) -> (1:0:0)
+<br>
+trans((1/norm(trans(A[1])))A[1])
+<br>
+-> (0.7071067811865475:0.7071067811865475i:0)
+<br>
+trans((1/norm(trans(A[2])))A[2])
+<br>
+-> (0.5773502691896258:0.5773502691896258i:-0.5773502691896258i)
+    </td>
+  </tr>
+  <tr>
+    <th>
+<a href="#span-index">
+目次
+</a>
+<br>
 行列操作
 <br>
 入力仕様
@@ -14204,38 +14053,199 @@ last(ans) -> 3.7416573867739413
 行列操作の入力仕様と付随する留意事項について記述する
 <br>
 <br>
-任意要素を取得
+<a href="#span-out-reference-mat">行列への参照</a>方法を列挙する
 <br>
-A=(1,2:3,4); A[0][0] -> 1
+・<a href="#span-out-reference-mat-row">行参照</a>
 <br>
-A=(1,2:3,4); A[1][1] -> 4
+・<a href="#span-out-reference-mat-col">列参照</a>
 <br>
-A=(1:1,i:1,i,-i); A[0][1] -> [MyErr]Invalid reference of array
+・<a href="#span-out-reference-mat-elem">要素参照</a>
 <br>
-・<a href="#span-out-eqns">式変数</a>を使用
-<br>
-clear; n=2; xn=&lt;(n,2n); xn[0][1] || (xn=&gt;)[0][1] -> 4
-<br>
-clear; n=2; xn=&lt;(n,2n); xn=&gt;[0][1] -> [MyErr]Invalid REe(=&gt;)
-<br>
-clear; n=2; xn=&lt;(n,2n)[0][1]; xn=&gt; -> 4
+・<a href="#span-out-reference-mat-area">area参照</a>
 <br>
 <br>
-任意要素を演算
+<a href="#span-out-substitution-mat">行列への代入</a>方法を列挙する
 <br>
-(1,2:3,4)[0][0]3 || 1*3 -> 3
+・<a href="#span-out-substitution-mat-row">行代入</a>
 <br>
-(1)[0][0]3=(x=3) || 1*3=0 -> -3
+・<a href="#span-out-substitution-mat-col">列代入</a>
+<br>
+・<a href="#span-out-substitution-mat-elem">要素代入</a>
+<br>
+・<a href="#span-out-substitution-mat-area">area代入</a>
+    </td>
+  </tr>
+  <tr>
+    <th>
+<a href="#span-index">
+目次
+</a>
+<br>
+行列への参照
+<br>
+入力仕様
+    </th>
+    <td>
+<span id="span-out-reference-mat"></span>
+行列への参照の入力仕様と付随する留意事項について記述する
 <br>
 <br>
-行vectorを取得
-<br>
-A=(1,2:3,4); A[1] -> (3,4)
-<br>
-clear; (1,2:3,4)[x] -> [MyErr]Invalid REv(x)
+行列への参照は<a href="#span-out-BT-square">角括弧[]</a>で指定する
 <br>
 <br>
-列vectorを取得（<span class="run">Ver.2.76.29</span>以降、<a href="#span-out-BT-square-col">列参照</a>参照）
+行列への参照方法を列挙する
+<br>
+・<a href="#span-out-reference-mat-row">行参照</a>
+<br>
+・<a href="#span-out-reference-mat-col">列参照</a>
+<br>
+・<a href="#span-out-reference-mat-elem">要素参照</a>
+<br>
+・<a href="#span-out-reference-mat-area">area参照</a>
+    </td>
+  </tr>
+  <tr>
+    <th>
+<a href="#span-index">
+目次
+</a>
+<br>
+行参照
+<br>
+入力仕様
+    </th>
+    <td>
+<span id="span-out-reference-mat-row"></span>
+行参照の入力仕様と付随する留意事項について記述する
+<br>
+<br>
+<span class="run">Ver.2.78.31</span>以降、行列の行参照と<a href="#span-out-substitution-mat-row">行代入</a>の<span class="selection">反転機能</span>を追加
+<br>
+<br>
+行指定で行列の行vectorを参照する場合
+<br>
+<a href="#span-out-mat">行列</a>[行index]
+<br>
+<a href="#span-out-vars">変数</a>[行index]
+<br>
+<a href="#span-out-eqns">式変数</a>[行index]=&gt;
+<br>
+<a href="#span-out-eqns">式変数</a>[行index](<a href="#span-out-eqns-args">arguments</a>)=&gt;
+<br>
+・<a href="#span-out-BT-square">列index</a>を省略する
+<br>
+A=(1,2:3,4); A[0] || (1,2:3,4)[0] -> (1,2)
+<br>
+A=(1,2:3,4); A[1] || (1,2:3,4)[1] -> (3,4)
+<br>
+・以降、<a href="#span-out-eqns">式変数</a>を使用
+<br>
+A=&lt;(1,2:3,4); A[0]=&gt; || (1,2:3,4)[0] -> (1,2)
+<br>
+A=&lt;(1,2:3,4); A[1]=&gt; || (1,2:3,4)[1] -> (3,4)
+<br>
+A(t)=&lt;(t,2t:3t,4t)[0]; A(-1)=&gt; || A(-1)=&gt; -> (-1,-2)
+<br>
+A(t)=&lt;(t,2t:3t,4t)[1]; A(-1)=&gt; || A(-1)=&gt; -> (-3,-4)
+<br>
+A(t)=&lt;(t,2t:3t,4t); A[0](-1)=&gt; || (A(-1)=&gt;)[0] -> (-1,-2)
+<br>
+A(t)=&lt;(t,2t:3t,4t); A[1](-1)=&gt; || (A(-1)=&gt;)[1] -> (-3,-4)
+<br>
+A(t)=&lt;(t,2t:3t,4t); A(-1)=&gt;[1] -> [MyErr]Invalid REe(=&gt;)
+<br>
+A(t)=&lt;(t,2t:3t,4t); A(-1)[1]=&gt; -> [MyErr]Invalid reference of array
+<br>
+・抜け要素を自動で埋めない
+<br>
+A=&lt;(1:3,4); A[0]=&gt; -> 1
+<br>
+A=&lt;(1:3,4); A[1]=&gt; -> (3,4)
+<br>
+・<a href="#span-out-BT-square">行index</a>が負の場合、<span class="selection">反転参照</span>を定義する
+<br>
+A=&lt;(1:3,4:); A[<span class="selection">-1</span>]=&gt; -> 0
+<br>
+A=&lt;(1:3,4:); A[<span class="selection">-2</span>]=&gt; -> (3,4)
+<br>
+A=&lt;(1:3,4:); A[<span class="selection">-3</span>]=&gt; -> 1
+<br>
+・未定義の行列要素の参照不可
+<br>
+A=&lt;(1:3,4:); A[<span class="selection">-4</span>]=&gt; -> [MyErr]Invalid reference of array
+<br>
+A=&lt;(1:3,4:); A[3]=&gt; -> [MyErr]Invalid reference of array
+<br>
+A=&lt;(1:3,4:); A[0.3]=&gt; -> [MyErr]Invalid reference of array
+    </td>
+  </tr>
+  <tr>
+    <th>
+<a href="#span-index">
+目次
+</a>
+<br>
+列参照
+<br>
+入力仕様
+    </th>
+    <td>
+<span id="span-out-reference-mat-col"></span>
+列参照の入力仕様と付随する留意事項について記述する
+<br>
+<br>
+<span class="run">Ver.2.76.29</span>以降、行列の列参照と<a href="#span-out-substitution-mat-col">列代入</a>を追加
+<br>
+・<span class="run">Ver.2.78.31</span>以降、行列の列参照と<a href="#span-out-substitution-mat-col">列代入</a>の<span class="selection">反転機能</span>を追加
+<br>
+<br>
+列指定で行列の列vectorを参照する場合
+<br>
+<a href="#span-out-mat">行列</a>[<span class="condition">-1</span>][列index]
+<br>
+<a href="#span-out-vars">変数</a>[<span class="condition">-1</span>][列index]
+<br>
+<a href="#span-out-eqns">式変数</a>[<span class="condition">-1</span>][列index]=&gt;
+<br>
+<a href="#span-out-eqns">式変数</a>[<span class="condition">-1</span>][列index](<a href="#span-out-eqns-args">arguments</a>)=&gt;
+<br>
+・<a href="#span-out-BT-square">行index</a>に<span class="condition">負値</span>を指定する
+<br>
+A=(1,2:3,4); A[<span class="condition">-1</span>][0] || (1,2:3,4)[<span class="condition">-1</span>][0] -> (1:3)
+<br>
+A=(1,2:3,4); A[<span class="condition">-1</span>][1] || (1,2:3,4)[<span class="condition">-1</span>][1] -> (2:4)
+<br>
+・自動で抜け要素を埋める
+<br>
+A=(1:3,4); A[<span class="condition">-1</span>][1] || (1:3,4)[<span class="condition">-1</span>][1] -> (0:4)
+<br>
+A=(1:3,4:); A[<span class="condition">-1</span>][1] || (1:3,4)[<span class="condition">-1</span>][1] -> (0:4:0)
+<br>
+A=(1:3,4:); A[<span class="condition">-1</span>][0] || (1:3,4)[<span class="condition">-1</span>][0] -> (1:3:0)
+<br>
+・同義
+<br>
+get_vectorc(A,ic)=&lt;trans((trans(A))[ic]);
+<br>
+A=(1:3,4:); get_vectorc(=&lt;A,0) -> (1:3:0)
+<br>
+A=(1:3,4:); get_vectorc(=&lt;A,1) -> (0:4:0)
+<br>
+・未定義の行列要素の参照不可
+<br>
+A=(1:3,4:); get_vectorc(=&lt;A,2) -> [MyErr]Invalid reference of array
+<br>
+A=(1:3,4:); A[<span class="condition">-1</span>][2] || (1:3,4)[<span class="condition">-1</span>][2] -> [MyErr]Invalid reference of array(column)
+<br>
+A=(1:3,4:); A[<span class="condition">-1</span>][0.3] || (1:3,4)[<span class="condition">-1</span>][0.3] -> [MyErr]Invalid reference of array(column)
+<br>
+・<a href="#span-out-BT-square">列index</a>が負の場合、<span class="selection">反転参照</span>を定義する
+<br>
+A=(1,2:3,4); A[<span class="condition">-1</span>][<span class="selection">-1</span>] || (1,2:3,4)[<span class="condition">-1</span>][<span class="selection">-1</span>] -> (2:4)
+<br>
+A=(1,2:3,4); A[<span class="condition">-1</span>][<span class="selection">-2</span>] || (1,2:3,4)[<span class="condition">-1</span>][<span class="selection">-2</span>] -> (1:3)
+<br>
+A=(1,2:3,4); A[<span class="condition">-1</span>][<span class="selection">-3</span>] || (1,2:3,4)[<span class="condition">-1</span>][<span class="selection">-3</span>] -> [MyErr]Invalid reference of array(column)
 <br>
 ・<a href="#span-out-FNm-trans">転置行列関数</a>を使用
 <br>
@@ -14247,7 +14257,7 @@ trans((trans(1,2:3,4))[1]) || htrans((htrans(1,2:3,4))[1]) -> (2:4)
 <br>
 trans((trans(i,2i:3i,4i))[1]) || htrans((htrans(i,2i:3i,4i))[1]) -> (2i:4i)
 <br>
-・<a href="#span-out-BT">括弧</a>は<a href="#span-out-FNm">関数</a>より優先するため、<a href="#span-out-FN">関数</a>の外側を上位の括弧で括る
+・<a href="#span-out-BT">括弧</a>は<a href="#span-out-FNm">関数</a>より優先するため、<a href="#span-out-FN">関数</a>の外側を上位の<a href="#span-out-BT">括弧</a>で括る
 <br>
 A=(1,2:3,4); (trans(A))[1]  <span class="selection">// OK</span> -> (2,4)
 <br>
@@ -14256,6 +14266,215 @@ A=(1,2:3,4); (trans(A))[1]  <span class="selection">// OK</span> -> (2,4)
 A=(1,2:3,4); trans(A)[1] || trans((A)[1])  <span class="selection">// NG</span> -> (3:4)
 <br>
 trans(1,2:3,4)[1] || trans((1,2:3,4)[1])  <span class="selection">// NG</span> -> (3:4)
+    </td>
+  </tr>
+  <tr>
+    <th>
+<a href="#span-index">
+目次
+</a>
+<br>
+要素参照
+<br>
+入力仕様
+    </th>
+    <td>
+<span id="span-out-reference-mat-elem"></span>
+要素参照の入力仕様と付随する留意事項について記述する
+<br>
+<br>
+行/列指定で行列要素を参照する場合
+<br>
+<a href="#span-out-mat">行列</a>[行index][列index]
+<br>
+<a href="#span-out-vars">変数</a>[行index][列index]
+<br>
+<a href="#span-out-eqns">式変数</a>[行index][列index]=&gt;
+<br>
+<a href="#span-out-eqns">式変数</a>[行index][列index](<a href="#span-out-eqns-args">arguments</a>)=&gt;
+<br>
+・<a href="#span-out-BT-square">角括弧[]</a>で指定する
+<br>
+A=(1,2:3,4); A[0][0] || (1,2:3,4)[0][0] -> 1
+<br>
+A=(1,2:3,4); A[0][1] || (1,2:3,4)[0][1] -> 2
+<br>
+A=(1,2:3,4); A[1][0] || (1,2:3,4)[1][0] -> 3
+<br>
+A=(1,2:3,4); A[1][1] || (1,2:3,4)[1][1] -> 4
+<br>
+・任意要素を演算
+<br>
+(1,2:3,4)[0][0]3 || 1*3 -> 3
+<br>
+(1)[0][0]3=(x=3) || 1*3=0 -> -3
+<br>
+・以降、<a href="#span-out-eqns">式変数</a>を使用
+<br>
+A=&lt;(1,2:3,4); A[0][0]=&gt; -> 1
+<br>
+A=&lt;(1,2:3,4); A[0][1]=&gt; -> 2
+<br>
+A=&lt;(1,2:3,4); A[1][0]=&gt; -> 3
+<br>
+A=&lt;(1,2:3,4); A[1][1]=&gt; -> 4
+<br>
+A(t)=&lt;(t,2t:3t,4t); A[0][0](-1)=&gt; || (A(-1)=&gt;)[0][0] -> -1
+<br>
+A(t)=&lt;(t,2t:3t,4t); A[0][1](-1)=&gt; || (A(-1)=&gt;)[0][1] -> -2
+<br>
+A(t)=&lt;(t,2t:3t,4t); A[1][0](-1)=&gt; || (A(-1)=&gt;)[1][0] -> -3
+<br>
+A(t)=&lt;(t,2t:3t,4t); A[1][1](-1)=&gt; || (A(-1)=&gt;)[1][1] -> -4
+<br>
+A(t)=&lt;(t,2t:3t,4t)[0]; A[0][0](-1)=&gt; || (A(-1)=&gt;)[0][0] -> -1
+<br>
+A(t)=&lt;(t,2t:3t,4t)[0]; A[0][1](-1)=&gt; || (A(-1)=&gt;)[0][1] -> -2
+<br>
+A(t)=&lt;(t,2t:3t,4t)[0]; A[1][0](-1)=&gt; || (A(-1)=&gt;)[1][0] -> [MyErr]Invalid reference of array
+<br>
+A(t)=&lt;(t,2t:3t,4t)[1]; A[0][0](-1)=&gt; || (A(-1)=&gt;)[0][0] -> -3
+<br>
+A(t)=&lt;(t,2t:3t,4t)[1]; A[0][1](-1)=&gt; || (A(-1)=&gt;)[0][1] -> -4
+<br>
+A(t)=&lt;(t,2t:3t,4t)[1]; A[1][0](-1)=&gt; || (A(-1)=&gt;)[1][0] -> [MyErr]Invalid reference of array
+<br>
+A(t)=&lt;(t,2t:3t,4t)[0][0]; A[0][0](-1)=&gt; || (A(-1)=&gt;)[0][0] -> -1
+<br>
+A(t)=&lt;(t,2t:3t,4t)[0][0]; A[0][1](-1)=&gt; || (A(-1)=&gt;)[0][1] -> [MyErr]Invalid reference of array
+<br>
+・<span class="run">Ver.2.78.31</span>以降、<a href="#span-out-BT-square">列index</a>のみ<span class="selection">反転参照</span>可
+<br>
+A=&lt;(1,2:3,4); A[0][<span class="selection">-1</span>]=&gt; -> 2
+<br>
+A=&lt;(1,2:3,4); A[0][<span class="selection">-2</span>]=&gt; -> 1
+<br>
+A=&lt;(1,2:3,4); A[1][<span class="selection">-1</span>]=&gt; -> 4
+<br>
+A=&lt;(1,2:3,4); A[1][<span class="selection">-2</span>]=&gt; -> 3
+<br>
+・未定義の行列要素の参照不可
+<br>
+A=&lt;(1,2:3,4); A[0][<span class="selection">-3</span>]=&gt; -> [MyErr]Invalid reference of array
+<br>
+A=&lt;(1,2:3,4); A[1][<span class="selection">-3</span>]=&gt; -> [MyErr]Invalid reference of array
+<br>
+A=&lt;(1,2:3,4); A[0][2]=&gt; -> [MyErr]Invalid reference of array
+<br>
+A=&lt;(1,2:3,4); A[2][0]=&gt; -> [MyErr]Invalid reference of array
+<br>
+A=&lt;(1,2:3,4); A[0.1][0]=&gt; -> [MyErr]Invalid reference of array
+<br>
+A=&lt;(1,2:3,4); A[0][0.2]=&gt; -> [MyErr]Invalid reference of array
+    </td>
+  </tr>
+  <tr>
+    <th>
+<a href="#span-index">
+目次
+</a>
+<br>
+area参照
+<br>
+入力仕様
+    </th>
+    <td>
+<span id="span-out-reference-mat-area"></span>
+area参照の入力仕様と付随する留意事項について記述する
+<br>
+<br>
+<span class="run">Ver.2.77.30</span>以降、行列のarea参照と<a href="#span-out-substitution-mat-area">area代入</a>を追加
+<br>
+・<span class="clear">Ver.2.77.31</span>以降、開始行/列indexが非整数の場合、<span class="clear">予期せぬerror終了</span>を修正
+<br>
+・<span class="clear">Ver.2.77.31</span>以降、参照行/列sizeが非整数の場合、<span class="clear">error終了</span>に修正
+<br>
+・<span class="run">Ver.2.78.31</span>以降、<span class="selection">反転機能の有効範囲</span>を修正
+<br>
+<br>
+area指定で範囲内の行列要素を参照する場合
+<br>
+<a href="#span-out-mat">行列</a>[開始行index][開始列index][参照行size][参照列size]
+<br>
+<a href="#span-out-vars">変数</a>[開始行index][開始列index][参照行size][参照列size]
+<br>
+<a href="#span-out-eqns">式変数</a>[開始行index][開始列index][参照行size][参照列size]=&gt;
+<br>
+<a href="#span-out-eqns">式変数</a>[開始行index][開始列index][参照行size][参照列size](<a href="#span-out-eqns-args">arguments</a>)=&gt;
+<br>
+・<a href="#span-out-BT-square">角括弧[]</a>で指定する
+<br>
+A=(1,2:3,4:); A[0][0][0][0] || A[0][0][sizer(A)][sizec(A)] -> (1,2:3,4:0,0)
+<br>
+・参照行/列size=0の場合、参照size=<a href="#span-out-FNm-size">行列size</a>
+<br>
+A=(1,2:3,4:); A[0][0][0][1] || A[0][0][sizer(A)][1] -> (1:3:0)
+<br>
+A=(1,2:3,4:); A[0][0][1][0] || A[0][0][1][sizec(A)] -> (1,2)
+<br>
+・自動で抜け要素を埋める
+<br>
+A=(1,2:3,4:); A -> (1,2:3,4:0)
+<br>
+A=(1,2:3,4:); A[0][0][0][0] || trans(trans(A)) -> (1,2:3,4:0,0)
+<br>
+・参照行/列sizeを指定
+<br>
+A=(1,2:3,4:); A[0][0][1][1] || A[0][0] -> 1
+<br>
+A=(1,2:3,4:); A[1][0][1][1] || A[1][0] -> 3
+<br>
+A=(1,2:3,4:); A[0][1][1][1] || A[0][1] -> 2
+<br>
+A=(1,2:3,4:); A[0][0][2][2] -> (1,2:3,4)
+<br>
+・周期境界条件を適用
+<br>
+A=(1,2:3,4:); A[1][1][2][2] -> (4,3:0,0)
+<br>
+A=(1,2:3,4:); A[1][0][2][2] -> (3,4:0,0)
+<br>
+A=(1,2:3,4:); A[2][0][2][2] -> (0,0:1,2)
+<br>
+A=(1,2:3,4:); A[2][1][2][2] -> (0,0:2,1)
+<br>
+A=(1,2:3,4:); A[1][0][0][0] -> (3,4:0,0:1,2)
+<br>
+A=(1,2:3,4:); A[2][0][0][0] -> (0,0:1,2:3,4)
+<br>
+A=(1,2:3,4:); A[0][1][0][0] -> (2,1:4,3:0,0)
+<br>
+・未定義の行列要素の参照不可
+<br>
+A=(1,2:3,4:); A[3][0][0][0] -> [MyErr]Invalid reference of array(area)
+<br>
+A=(1,2:3,4:); A[0][2][0][0] -> [MyErr]Invalid reference of array(area)
+<br>
+<span class="clear">A=(1,2:3,4:); A[0.1][0][0][0] -> [MyErr]Invalid reference of array(area)</span>
+<br>
+<span class="clear">A=(1,2:3,4:); A[0][0.1][0][0] -> [MyErr]Invalid reference of array(area)</span>
+<br>
+<span class="clear">A=(1,2:3,4:); A[0][0][0.1][0] -> [MyErr]Invalid reference of array(area)</span>
+<br>
+<span class="clear">A=(1,2:3,4:); A[0][0][0][0.1] -> [MyErr]Invalid reference of array(area)</span>
+<br>
+・開始行/列indexが負の場合、<span class="selection">反転参照</span>を定義する
+<br>
+A=(1,2:3,4:); A[<span class="selection">-1</span>][<span class="selection">-1</span>][0][0] -> (0,0:4,3:2,1)
+<br>
+A=(1,2:3,4:); A[<span class="selection">-1</span>][0][0][0] -> (0,0:3,4:1,2)
+<br>
+A=(1,2:3,4:); A[<span class="selection">-2</span>][0][0][0] -> (3,4:1,2:0,0)
+<br>
+<span class="selection">A=(1,2:3,4:); A[-3][0][0][0] -> (1,2:0,0:3,4)</span>
+<br>
+<span class="selection">A=(1,2:3,4:); A[-4][0][0][0] -> [MyErr]Invalid reference of array(area)</span>
+<br>
+A=(1,2:3,4:); A[0][<span class="selection">-1</span>][0][0] -> (2,1:4,3:0,0)
+<br>
+<span class="selection">A=(1,2:3,4:); A[0][-2][0][0] -> (1,2:3,4:0,0)</span>
+<br>
+<span class="selection">A=(1,2:3,4:); A[0][-3][0][0] -> [MyErr]Invalid reference of array(area)</span>
     </td>
   </tr>
   <tr>
@@ -14278,23 +14497,102 @@ trans(1,2:3,4)[1] || trans((1,2:3,4)[1])  <span class="selection">// NG</span> -
 ・よって<a href="#span-out-substitution">変数への代入</a>に同義として扱う
 <br>
 <br>
-定義済みの行列要素のみ代入可
+行列への参照は<a href="#span-out-BT-square">角括弧[]</a>で指定する
 <br>
-・要素指定の代入
 <br>
-A=(1,2:3,4); A[0][0]=-1; A -> (-1,2:3,4)
+行列への代入方法を列挙する
 <br>
-A=(1,2:3,4); ii=1; A[ii][ii]=-1; A -> (1,2:3,-1)
+・<a href="#span-out-substitution-mat-row">行代入</a>
 <br>
-A=(1,2:3,4); A[1][1]=(x=2); A -> (1,2:3,0)
+・<a href="#span-out-substitution-mat-col">列代入</a>
 <br>
-・行列を代入した場合、<a href="#span-out-FNm-last">最終要素</a>を代入
+・<a href="#span-out-substitution-mat-elem">要素代入</a>
 <br>
-A=(1,2:3,4); A[0][0]=A; A -> (4,2:3,4)
+・<a href="#span-out-substitution-mat-area">area代入</a>
+    </td>
+  </tr>
+  <tr>
+    <th>
+<a href="#span-index">
+目次
+</a>
 <br>
-A=(1,2:3,4); A[1][1]=(x=2,-2x); A -> (1,2:3,-4)
+行代入
 <br>
-・行指定の代入
+入力仕様
+    </th>
+    <td>
+<span id="span-out-substitution-mat-row"></span>
+行代入の入力仕様と付随する留意事項について記述する
+<br>
+<br>
+<span class="run">Ver.2.78.31</span>以降、行列の<a href="#span-out-reference-mat-row">行参照</a>と行代入の<span class="selection">反転機能</span>を追加
+<br>
+<br>
+行指定の代入
+<br>
+・行vectorを代入する場合、<a href="#span-out-BT-square">列index</a>を省略する
+<br>
+A=(,:,); A[0]=(1,2); A -> (1,2:0,0)
+<br>
+A=(,:,); A[1]=(1,2); A -> (0,0:1,2)
+<br>
+・<a href="#span-out-reference-mat-row">行参照</a>を使用
+<br>
+A=(1,2:3,4); A[0]=A[1]; A -> (3,4:3,4)
+<br>
+A=(1,2:3,4); A[1]=A[0]; A -> (1,2:1,2)
+<br>
+・抜け要素を自動で埋めない
+<br>
+A=(,:); A[0]=(1,2); A -> (1,2:0)
+<br>
+A=(:,); A[1]=(1,2); A -> (0:1,2)
+<br>
+・<a href="#span-out-BT-square">行index</a>が負の場合、<span class="selection">反転代入</span>を定義する
+<br>
+A=(,:,); A[<span class="selection">-1</span>]=(1,2); A -> (0,0:1,2)
+<br>
+A=(,:,); A[<span class="selection">-2</span>]=(1,2); A -> (1,2:0,0)
+<br>
+・未定義の行列要素への代入不可
+<br>
+A=(,:,); A[<span class="selection">-3</span>]=(1,2); A -> [MyErr]Invalid reference of array
+<br>
+A=(,:,); A[2]=(1,2); A -> [MyErr]Invalid reference of array
+<br>
+A=(,:,); A[0.3]=(1,2); A -> [MyErr]Invalid reference of array
+<br>
+・行列を代入した場合、最終行vectorを代入
+<br>
+A=(1,2:3,4); A[0]=A; A -> (3,4:3,4)
+<br>
+A=(1,2:3,4); A[1]=A; A -> (1,2:3,4)
+<br>
+A=(1,2:3,4); A[1]=trans(A); A -> (1,2:2,4)
+<br>
+A=(1,2:3,4); A[1]=(A:A); A -> (1,2:3,4)
+<br>
+・<a href="#span-out-FNm-size">列size</a>の異なる代入不可
+<br>
+A=(1,2:3,4); A[1]=(A,A) -> [MyErr]Invalid store array
+<br>
+A=(1,2:3,4); A[1]=1 -> [MyErr]Invalid store array
+<br>
+A=(1,2:3,4); A[1]=(,,) -> [MyErr]Invalid store array
+<br>
+A=(1,2:3,4); A[1]=(::) -> [MyErr]Invalid store array
+<br>
+A=(1,2:3); A[1]=0 -> (1,2:0)
+<br>
+・<a href="#span-out-eqns">式変数</a>への代入不可
+<br>
+clear; A=&lt;(1,2:3,4); A[1]=(,) -> [MyErr]Invalid SEv-scope(A)
+<br>
+clear; A=&lt;(1,2:3,4); (A=&gt;)[1]=(,) || =(,)-(A=&gt;)[1] -> (-3,-4)
+<br>
+<br>
+test caseを列挙する
 <br>
 A=(1,2:3,4); A[1]=A[0]; A -> (1,2:1,2)
 <br>
@@ -14318,110 +14616,9 @@ A=(1,2:,); A[0]=A[1]; A -> (0,0:0,0)
 <br>
 A=(1,2:,); A[1]=A[0]; A -> (1,2:1,2)
 <br>
-・行列を代入した場合、最終行vectorを代入
-<br>
 A=(1,2:3,4); A[0]=A; A -> (3,4:3,4)
 <br>
 A=(1,2:3,4); A[0]=(A:A(2,:,2)); A -> (6,8:3,4)
-<br>
-・列指定で代入する場合、<a href="#span-out-FNm-trans">転置行列関数</a>を使用（<span class="run">Ver.2.76.29</span>以降、<a href="#span-out-substitution-mat-col">列代入</a>参照）
-<br>
-A=(1,2:3,4); tA=trans(A); tA[0]=-tA[0]; A=trans(tA); A -> (-1,2:-3,4)
-<br>
-・<a href="#span-out-FNm">列size</a>の異なる代入不可
-<br>
-A=(1,2:3,4); A[1]=0 || A[1]=(1) || A[1]=(,,) || A[1]={,} -> [MyErr]Invalid store array
-<br>
-・未定義の行列要素への代入不可
-<br>
-A=(1,2:3,4); A[2]=A[1] -> [MyErr]Invalid reference of array
-<br>
-A=(1,2:3,4); A[1]=-1 -> [MyErr]Invalid store array
-<br>
-A=(1,2:3,4); A[2][0]=5 -> [MyErr]Invalid reference of array
-<br>
-A=(1,2:3,4); A[0.5][0]=-1 -> [MyErr]Invalid reference of array
-<br>
-・<a href="#span-out-eqns">式変数</a>への要素指定・行指定の代入不可
-<br>
-clear; A=&lt;(1,2:3,4); A[1][1]=0 -> [MyErr]Invalid SEv-scope(A)
-<br>
-clear; A=&lt;(1,2:3,4); A[1]=(,) -> [MyErr]Invalid SEv-scope(A)
-<br>
-clear; A=&lt;(1,2:3,4); (A=&gt;)[1][1]=0 || =0-4 -> -4
-<br>
-clear; A=&lt;(1,2:3,4); (A=&gt;)[1]=(,) || =(,)-(A=&gt;)[1] -> (-3,-4)
-    </td>
-  </tr>
-  <tr>
-    <th>
-<a href="#span-index">
-目次
-</a>
-<br>
-行代入
-<br>
-入力仕様
-    </th>
-    <td>
-<span id="span-out-substitution-mat-row"></span>
-行代入の入力仕様と付随する留意事項について記述する
-<br>
-<br>
-<span class="run">Ver.2.78.31</span>以降、行列の<a href="#span-out-BT-square-row">行参照</a>と行代入の<span class="selection">反転機能</span>を追加
-<br>
-<br>
-行指定の代入
-<br>
-・行vectorを代入する場合、<a href="#span-out-BT-square">列index</a>を省略する
-<br>
-A=(,:,); A[0]=(1,2); A -> (1,2:0,0)
-<br>
-A=(,:,); A[1]=(1,2); A -> (0,0:1,2)
-<br>
-・<a href="#span-out-BT-square-row">行参照</a>を使用
-<br>
-A=(1,2:3,4); A[0]=A[1]; A -> (3,4:3,4)
-<br>
-A=(1,2:3,4); A[1]=A[0]; A -> (1,2:1,2)
-<br>
-・抜け要素を自動で埋めない
-<br>
-A=(,:); A[0]=(1,2); A -> (1,2:0)
-<br>
-A=(:,); A[1]=(1,2); A -> (0:1,2)
-<br>
-・<a href="#span-out-BT-square">行index</a>が負の場合、<span class="selection">反転代入</span>を定義する
-<br>
-A=(,:,); A[<span class="selection">-1</span>]=(1,2); A -> (0,0:1,2)
-<br>
-A=(,:,); A[<span class="selection">-2</span>]=(1,2); A -> (1,2:0,0)
-<br>
-・未定義の行列要素の代入不可
-<br>
-A=(,:,); A[<span class="selection">-3</span>]=(1,2); A -> [MyErr]Invalid reference of array
-<br>
-A=(,:,); A[2]=(1,2); A -> [MyErr]Invalid reference of array
-<br>
-A=(,:,); A[0.3]=(1,2); A -> [MyErr]Invalid reference of array
-<br>
-・行列を代入した場合、最終行vectorを代入
-<br>
-A=(1,2:3,4); A[0]=A; A -> (3,4:3,4)
-<br>
-A=(1,2:3,4); A[1]=A; A -> (1,2:3,4)
-<br>
-A=(1,2:3,4); A[1]=trans(A); A -> (1,2:2,4)
-<br>
-・<a href="#span-out-FNm">列size</a>の異なる代入不可
-<br>
-A=(1,2:3,4); A[1]=1 -> [MyErr]Invalid store array
-<br>
-A=(1,2:3,4); A[1]=(,,) -> [MyErr]Invalid store array
-<br>
-A=(1,2:3,4); A[1]=(::) -> [MyErr]Invalid store array
-<br>
-A=(1,2:3); A[1]=0 -> (1,2:0)
     </td>
   </tr>
   <tr>
@@ -14439,9 +14636,9 @@ A=(1,2:3); A[1]=0 -> (1,2:0)
 列代入の入力仕様と付随する留意事項について記述する
 <br>
 <br>
-<span class="run">Ver.2.76.29</span>以降、行列の<a href="#span-out-BT-square-col">列参照</a>と列代入を追加
+<span class="run">Ver.2.76.29</span>以降、行列の<a href="#span-out-reference-mat-col">列参照</a>と列代入を追加
 <br>
-・<span class="run">Ver.2.78.31</span>以降、行列の<a href="#span-out-BT-square-col">列参照</a>と列代入の<span class="selection">反転機能</span>を追加
+・<span class="run">Ver.2.78.31</span>以降、行列の<a href="#span-out-reference-mat-col">列参照</a>と列代入の<span class="selection">反転機能</span>を追加
 <br>
 ・<span class="run">Ver.2.78.31</span>以降、<span class="clear">error判定処理</span>を分割
 <br>
@@ -14454,7 +14651,7 @@ A=(,:,); A[<span class="condition">-1</span>][0]={1,2}; A -> (1,0:2,0)
 <br>
 A=(,:,); A[<span class="condition">-1</span>][1]={1,2}; A -> (0,1:0,2)
 <br>
-・<a href="#span-out-BT-square-col">列参照</a>を使用
+・<a href="#span-out-reference-mat-col">列参照</a>を使用
 <br>
 A=(1,2:3,4); A[<span class="condition">-1</span>][1]=A[-1][0]; A -> (1,1:3,3)
 <br>
@@ -14492,7 +14689,9 @@ A=(1,2:3,4); A[<span class="condition">-1</span>][0]=A; A -> (2,2:4,4)
 <br>
 A=(1,2:3,4); A[<span class="condition">-1</span>][0]=(A,A(2,:,2)); A -> (4,2:8,4)
 <br>
-・<a href="#span-out-FNm">行size</a>の異なる代入不可
+・<a href="#span-out-FNm-size">行size</a>の異なる代入不可
+<br>
+<span class="clear">A=(,:,); A[<span class="condition">-1</span>][0]=(A:A) -> [MyErr]Invalid store array(column)</span>
 <br>
 <span class="clear">A=(,:,); A[<span class="condition">-1</span>][0]=(1) -> [MyErr]Invalid store array(column)</span>
 <br>
@@ -14509,6 +14708,87 @@ A=(1,2:3,4); A[<span class="condition">-1</span>][<span class="selection">-1</sp
 A=(1,2:3,4); A[<span class="condition">-1</span>][<span class="selection">-2</span>]=A[-1][1]; A -> (2,2:4,4)
 <br>
 A=(1,2:3,4); A[<span class="condition">-1</span>][<span class="selection">-3</span>]=A[-1][1]; A -> [MyErr]Invalid reference of array(column)
+<br>
+・<a href="#span-out-FNm-trans">転置行列関数</a>を使用
+<br>
+A=(1,2:3,4); tA=trans(A); tA[0]=-tA[0]; A=trans(tA); A -> (-1,2:-3,4)
+    </td>
+  </tr>
+  <tr>
+    <th>
+<a href="#span-index">
+目次
+</a>
+<br>
+要素代入
+<br>
+入力仕様
+    </th>
+    <td>
+<span id="span-out-substitution-mat-elem"></span>
+要素代入の入力仕様と付随する留意事項について記述する
+<br>
+<br>
+要素指定の代入
+<br>
+・抜け要素を自動で埋めない
+<br>
+A=(,:); A[0][0]=1; A -> (1,0:0)
+<br>
+A=(,:); A[0][1]=1; A -> (0,1:0)
+<br>
+A=(,:); A[1][0]=1; A -> (0,0:1)
+<br>
+A=(,:); A[1][1]=1; A -> [MyErr]Invalid reference of array
+<br>
+・行列を代入した場合、<a href="#span-out-FNm-last">最終要素</a>を代入
+<br>
+A=(1,2:3,4); A[0][0]=A; A -> (4,2:3,4)
+<br>
+A=(1,2:3,4); A[0][0]=last(A); A -> (4,2:3,4)
+<br>
+A=(1,2:3,4); A[0][0]=first(A); A -> (1,2:3,4)
+<br>
+A=(1,2:3,4); A[1][1]=(x=2,-2x); A -> (1,2:3,-4)
+<br>
+・<span class="run">Ver.2.78.31</span>以降、<a href="#span-out-BT-square">列index</a>のみ<span class="selection">反転代入</span>可
+<br>
+A=(1,2:3,4); A[0][<span class="selection">-1</span>]=-1; A -> (1,-1:3,4)
+<br>
+A=(1,2:3,4); A[0][<span class="selection">-2</span>]=-1; A -> (-1,2:3,4)
+<br>
+A=(1,2:3,4); A[1][<span class="selection">-1</span>]=-1; A -> (1,2:3,-1)
+<br>
+A=(1,2:3,4); A[1][<span class="selection">-2</span>]=-1; A -> (1,2:-1,4)
+<br>
+・未定義の行列要素への代入不可
+<br>
+A=(1,2:3,4); A[0][<span class="selection">-3</span>]=-1 -> [MyErr]Invalid reference of array
+<br>
+A=(1,2:3,4); A[1][<span class="selection">-3</span>]=-1 -> [MyErr]Invalid reference of array
+<br>
+A=(1,2:3,4); A[0][2]=-1 -> [MyErr]Invalid reference of array
+<br>
+A=(1,2:3,4); A[2][0]=-1 -> [MyErr]Invalid reference of array
+<br>
+A=(1,2:3,4); A[0.1][0]=-1 -> [MyErr]Invalid reference of array
+<br>
+A=(1,2:3,4); A[0][0.2]=-1 -> [MyErr]Invalid reference of array
+<br>
+・<a href="#span-out-eqns">式変数</a>への代入不可
+<br>
+clear; A=&lt;(1,2:3,4); A[1][1]=0 -> [MyErr]Invalid SEv-scope(A)
+<br>
+clear; A=&lt;(1,2:3,4); (A=&gt;)[1][1]=0 || =0-4 -> -4
+<br>
+<br>
+test caseを列挙する
+<br>
+A=(1,2:3,4); A[0][0]=-1; A -> (-1,2:3,4)
+<br>
+A=(1,2:3,4); ii=1; A[ii][ii]=-1; A -> (1,2:3,-1)
+<br>
+A=(1,2:3,4); A[1][1]=(x=2); A -> (1,2:3,0)
     </td>
   </tr>
   <tr>
@@ -14526,9 +14806,9 @@ area代入
 area代入の入力仕様と付随する留意事項について記述する
 <br>
 <br>
-<span class="run">Ver.2.77.30</span>以降、行列の<a href="#span-out-BT-square-area">area参照</a>とarea代入を追加
+<span class="run">Ver.2.77.30</span>以降、行列の<a href="#span-out-reference-mat-area">area参照</a>とarea代入を追加
 <br>
-・<span class="clear">Ver.2.77.31</span>以降、<a href="#span-out-BT-square-area">開始行/列index</a>が非整数の場合、<span class="clear">予期せぬerror終了</span>を修正
+・<span class="clear">Ver.2.77.31</span>以降、<a href="#span-out-reference-mat-area">開始行/列index</a>が非整数の場合、<span class="clear">予期せぬerror終了</span>を修正
 <br>
 ・<span class="run">Ver.2.78.31</span>以降、<span class="selection">反転機能の有効範囲</span>を修正
 <br>
@@ -14577,7 +14857,7 @@ A=(1,2:3,4:); A[0][0][0][0.1]=A; A -> [MyErr]Invalid reference of array(area)
 <br>
 <span class="clear">A=(1,2:3,4:); A[0][0][2][2]=A; A -> [MyErr]Invalid store array(area)</span>
 <br>
-・<a href="#span-out-BT-square-area">開始行/列index</a>が負の場合、<span class="selection">反転代入</span>を定義する
+・<a href="#span-out-reference-mat-area">開始行/列index</a>が負の場合、<span class="selection">反転代入</span>を定義する
 <br>
 A=(1,2:3,4:); A[<span class="selection">-1</span>][<span class="selection">-1</span>][0][0]=A; A -> (0,0:4,3:2,1)
 <br>
@@ -17662,7 +17942,7 @@ clear; _ex(=&lt;x,1,4); ($x0,$x1:$x2,$x3)=identity2; x -> (1,0,0,1)
 (3,4:0,0)(3,4:0,0) -> (9,12:0,0)
 <br>
 <br>
-<a href="#span-out-FNm">行列size</a>の異なる次のLとRを一例に示す
+<a href="#span-out-FNm-size">行列size</a>の異なる次のLとRを一例に示す
 <br>
 L=(1,2:3:4,5:6);
 <br>
@@ -17672,7 +17952,7 @@ R=(1,2:3,4,5);
 <br>
 L*R -> (7,10,10:3,6,0:19,28,25:6,12,0)
 <br>
-・<a href="#span-out-FNm">行列size</a>
+・<a href="#span-out-FNm-size">行列size</a>
 <br>
 sizer(L) -> 4
 <br>
@@ -17686,7 +17966,7 @@ sizer(L*R) -> 4
 <br>
 sizec(L*R) -> 3
 <br>
-・<a href="#span-out-FNm">行列size</a>について次の関係が成立する
+・<a href="#span-out-FNm-size">行列size</a>について次の関係が成立する
 <br>
 sizer(L*R)=sizer(L) -> 0
 <br>
@@ -21086,7 +21366,7 @@ Fourier変換
 <br>
 前提を列挙する
 <br>
-・1次元の標本点数をNとして順変換DFTと逆変換IDFTの正規化係数(Nf,Ni)の制約条件を示す
+・1次元の標本点数をNとして順変換DFTと逆変換IDFTの<a href="#span-out-FNm-normalize">正規化</a>係数(Nf,Ni)の制約条件を示す
 <br>
 Nf*Ni=1/N
 <br>
@@ -21996,7 +22276,7 @@ Wavelet変換
 離散Wavelet変換の解法（列代入）について記述する
 <br>
 <br>
-<span class="run">Ver.2.76.29</span>以降、<a href="#span-out-mat">行列</a>の<a href="#span-out-BT-square-col">列参照</a>と<a href="#span-out-substitution-mat-col">列代入</a>を駆使して<a href="#span-out-transform-dwt">2次元DWT/IDWT</a>のalgorithmを整理する
+<span class="run">Ver.2.76.29</span>以降、<a href="#span-out-mat">行列</a>の<a href="#span-out-reference-mat-col">列参照</a>と<a href="#span-out-substitution-mat-col">列代入</a>を駆使して<a href="#span-out-transform-dwt">2次元DWT/IDWT</a>のalgorithmを整理する
 <br>
 ・2次元の標本点
 <br>
