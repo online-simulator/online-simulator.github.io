@@ -14476,6 +14476,8 @@ area参照の入力仕様と付随する留意事項について記述する
 <br>
 ・<span class="run">Ver.2.78.31</span>以降、<span class="selection">反転機能の有効範囲</span>を修正
 <br>
+・<span class="clear">Ver.2.79.32</span>以降、参照行/列sizeが負の場合、<span class="clear">予期せぬerror終了</span>を修正
+<br>
 <br>
 area指定で範囲内の行列要素を参照する場合
 <br>
@@ -14542,6 +14544,10 @@ A=(1,2:3,4:); A[0][2][0][0] -> [MyErr]Invalid reference of array(area)
 <span class="clear">A=(1,2:3,4:); A[0][0][0.1][0] -> [MyErr]Invalid reference of array(area)</span>
 <br>
 <span class="clear">A=(1,2:3,4:); A[0][0][0][0.1] -> [MyErr]Invalid reference of array(area)</span>
+<br>
+A=(1,2:3,4:); A[0][0][<span class="clear">-1</span>][0] -> [MyErr]Invalid reference of array(area)
+<br>
+A=(1,2:3,4:); A[0][0][0][<span class="clear">-1</span>] -> [MyErr]Invalid reference of array(area)
 <br>
 ・開始行/列indexが負の場合、<span class="selection">反転参照</span>を定義する
 <br>
@@ -14934,6 +14940,8 @@ area代入の入力仕様と付随する留意事項について記述する
 <br>
 ・<span class="run">Ver.2.78.31</span>以降、<span class="clear">error判定処理</span>を分割
 <br>
+・<span class="clear">Ver.2.79.32</span>以降、<a href="#span-out-reference-mat-area">参照行/列size</a>が負の場合、error判定処理を修正
+<br>
 <br>
 area指定の代入
 <br>
@@ -14976,6 +14984,10 @@ A=(1,2:3,4:); A[0][0][0][0.1]=A; A -> [MyErr]Invalid reference of array(area)
 <span class="clear">A=(1,2:3,4:); A[0][0][5][5]=A; A -> [MyErr]Invalid reference of array(area)</span>
 <br>
 <span class="clear">A=(1,2:3,4:); A[0][0][2][2]=A; A -> [MyErr]Invalid store array(area)</span>
+<br>
+A=(1,2:3,4:); A[0][0][-1][0]=A; A -> <span class="clear">[MyErr]Invalid reference of array(area)</span>
+<br>
+A=(1,2:3,4:); A[0][0][0][-1]=A; A -> <span class="clear">[MyErr]Invalid reference of array(area)</span>
 <br>
 ・<a href="#span-out-reference-mat-area">開始行/列index</a>が負の場合、<span class="selection">反転代入</span>を定義する
 <br>

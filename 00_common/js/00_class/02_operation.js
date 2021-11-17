@@ -2130,36 +2130,9 @@ My_entry.operation.prototype.restore_arr = function(arr, ref){
       throw "Invalid reference of array(column)";
     }
   }
-  /* Ver.2.77.30 -> */
-  else if(len_ref === 4){
-    var ttarr = math_mat.transpose(null, math_mat.transpose(null, arr));
-    var _di = ttarr.length;
-    var _dj = ttarr[0].length;
-    var _i = ref[0];
-    var _j = ref[1];
-    var di = ref[2] || _di;  // || not0
-    var dj = ref[3] || _dj;  // || not0
-    var _di2 = _di*2;
-    var _dj2 = _dj*2;
-    var hasArea0 = (_i%1 === 0 && _j%1 === 0 && di%1 === 0 && dj%1 === 0 && _di >= di && _dj >= dj);  // Ver.2.77.31
-    var isInArea = (_i >= -_di && _i < _di && _j >= -_dj && _j < _dj);  // Ver.2.78.31
-    if(hasArea0 && isInArea){
-      for(var i=0; i<di; ++i){
-        _arr[i] = [];
-        for(var j=0; j<dj; ++j){
-          var ii = (_i < 0)? (_i-i+_di2)%_di: (_i+i)%_di;
-          var jj = (_j < 0)? (_j-j+_dj2)%_dj: (_j+j)%_dj;
-          _arr[i][j] = ttarr[ii][jj];
-        }
-      }
-    }
-    else{
-      throw "Invalid reference of array(area)";
-    }
-  }
-  /* -> Ver.2.77.30 */
+  /* Ver.2.79.32 -> */
   /* Ver.2.78.31 -> */
-  else{
+  else if(len_ref < 3){
     ref.forEach(function(i_ref0, i){
       var _i = i_ref0;
       var di = arri.length;
@@ -2177,6 +2150,40 @@ My_entry.operation.prototype.restore_arr = function(arr, ref){
     });
   }
   /* -> Ver.2.78.31 */
+  /* -> Ver.2.79.32 */
+  /* Ver.2.77.30 -> */
+  else if(len_ref === 4){
+    var ttarr = math_mat.transpose(null, math_mat.transpose(null, arr));
+    var _di = ttarr.length;
+    var _dj = ttarr[0].length;
+    var _i = ref[0];
+    var _j = ref[1];
+    var di = ref[2] || _di;  // || not0
+    var dj = ref[3] || _dj;  // || not0
+    var _di2 = _di*2;
+    var _dj2 = _dj*2;
+    var hasArea0 = (_i%1 === 0 && _j%1 === 0 && di%1 === 0 && dj%1 === 0 && _di >= di && _dj >= dj && di > 0 && dj > 0);  // Ver.2.77.31  // Ver.2.79.32
+    var isInArea = (_i >= -_di && _i < _di && _j >= -_dj && _j < _dj);  // Ver.2.78.31
+    if(hasArea0 && isInArea){
+      for(var i=0; i<di; ++i){
+        _arr[i] = [];
+        for(var j=0; j<dj; ++j){
+          var ii = (_i < 0)? (_i-i+_di2)%_di: (_i+i)%_di;
+          var jj = (_j < 0)? (_j-j+_dj2)%_dj: (_j+j)%_dj;
+          _arr[i][j] = ttarr[ii][jj];
+        }
+      }
+    }
+    else{
+      throw "Invalid reference of array(area)";
+    }
+  }
+  /* -> Ver.2.77.30 */
+  /* Ver.2.79.32 -> */
+  else{
+    throw "Invalid reference";
+  }
+  /* -> Ver.2.79.32 */
   return _arr;
 };
 /* Ver.2.77.30 -> */
@@ -2194,7 +2201,7 @@ My_entry.operation.prototype.store_arr_area = function(_arr, ref, arr){
   var _di2 = _di*2;
   var _dj2 = _dj*2;
   /* Ver.2.78.31 -> */
-  var hasArea0 = (_i%1 === 0 && _j%1 === 0 && di%1 === 0 && dj%1 === 0 && _di >= di && _dj >= dj);  // Ver.2.77.31
+  var hasArea0 = (_i%1 === 0 && _j%1 === 0 && di%1 === 0 && dj%1 === 0 && _di >= di && _dj >= dj && di > 0 && dj > 0);  // Ver.2.77.31  // Ver.2.79.32
   var isInArea = (_i >= -_di && _i < _di && _j >= -_dj && _j < _dj);
   if(hasArea0 && isInArea){
     var hasArea1 = (ttarr.length === di && ttarr[0].length === dj);
