@@ -14985,9 +14985,9 @@ A=(1,2:3,4:); A[0][0][0][0.1]=A; A -> [MyErr]Invalid reference of array(area)
 <br>
 <span class="clear">A=(1,2:3,4:); A[0][0][2][2]=A; A -> [MyErr]Invalid store array(area)</span>
 <br>
-A=(1,2:3,4:); A[0][0][-1][0]=A; A -> <span class="clear">[MyErr]Invalid reference of array(area)</span>
+A=(1,2:3,4:); A[0][0][<span class="clear">-1</span>][0]=A; A -> <span class="clear">[MyErr]Invalid reference of array(area)</span>
 <br>
-A=(1,2:3,4:); A[0][0][0][-1]=A; A -> <span class="clear">[MyErr]Invalid reference of array(area)</span>
+A=(1,2:3,4:); A[0][0][0][<span class="clear">-1</span>]=A; A -> <span class="clear">[MyErr]Invalid reference of array(area)</span>
 <br>
 ・<a href="#span-out-reference-mat-area">開始行/列index</a>が負の場合、<span class="selection">反転代入</span>を定義する
 <br>
