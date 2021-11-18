@@ -13889,7 +13889,7 @@ size
 size行列関数の入力仕様と付随する留意事項について記述する
 <br>
 <br>
-行列size（自動で抜け要素を埋める）
+行列size（抜け要素を自動で埋める）
 <br>
 ・行size
 <br>
@@ -14042,7 +14042,7 @@ vr=(1,i,-i); normalizec(vr)  <span class="selection">// NG</span> -> (1,i,-i)
 normalize({0,0,0})  <span class="selection">// NG</span> -> [MyErr]FN isNaN
 <br>
 <br>
-行列の正規化（自動で抜け要素を埋める）
+行列の正規化（抜け要素を自動で埋める）
 <br>
 ・すべての行vectorを正規化する場合
 <br>
@@ -14189,7 +14189,7 @@ trans((1/norm(trans(A[2])))A[2])
 <span class="run">Ver.2.78.31</span>以降、行列の行参照と<a href="#span-out-substitution-mat-row">行代入</a>の<span class="selection">反転機能</span>を追加
 <br>
 <br>
-行指定で行列の行vectorを参照する場合
+行参照
 <br>
 <a href="#span-out-mat">行列</a>[行index]
 <br>
@@ -14199,7 +14199,7 @@ trans((1/norm(trans(A[2])))A[2])
 <br>
 <a href="#span-out-eqns">式変数</a>[行index](<a href="#span-out-eqns-args">arguments</a>)=&gt;
 <br>
-・<a href="#span-out-BT-square">列index</a>を省略する
+・行vectorを参照する場合、<span class="clear">1個の<a href="#span-out-BT-square">角括弧[]</a></span>で行indexを指定する
 <br>
 A=(1,2:3,4); A[0] || (1,2:3,4)[0] -> (1,2)
 <br>
@@ -14229,7 +14229,7 @@ A=&lt;(1:3,4); A[0]=&gt; -> 1
 <br>
 A=&lt;(1:3,4); A[1]=&gt; -> (3,4)
 <br>
-・<a href="#span-out-BT-square">行index</a>が負の場合、<span class="selection">反転参照</span>を定義する
+・行indexが負の場合、<span class="selection">反転参照</span>を定義する
 <br>
 A=&lt;(1:3,4:); A[<span class="selection">-1</span>]=&gt; -> 0
 <br>
@@ -14268,7 +14268,7 @@ A=&lt;(1:3,4:); A[0.3]=&gt; -> [MyErr]Invalid reference of array
 ・<span class="run">Ver.2.79.31</span>以降、行index=-1　⇒　<span class="condition"><a href="#span-out-FN0">Napier数e</a></span>に<span class="run"><a href="#span-out-spec-changed-history">仕様変更</a></span>
 <br>
 <br>
-列指定で行列の列vectorを参照する場合
+列参照
 <br>
 <a href="#span-out-mat">行列</a>[<span class="condition">e</span>][列index]
 <br>
@@ -14278,13 +14278,13 @@ A=&lt;(1:3,4:); A[0.3]=&gt; -> [MyErr]Invalid reference of array
 <br>
 <a href="#span-out-eqns">式変数</a>[<span class="condition">e</span>][列index](<a href="#span-out-eqns-args">arguments</a>)=&gt;
 <br>
-・<a href="#span-out-BT-square">行index</a>に<span class="condition"><a href="#span-out-FN0">Napier数e</a></span>を指定する
+・列vectorを参照する場合、<span class="clear">2個の<a href="#span-out-BT-square">角括弧[]</a></span>で行indexに<span class="condition"><a href="#span-out-FN0">Napier数e</a></span>を指定する
 <br>
 A=(1,2:3,4); A[<span class="condition">e</span>][0] || (1,2:3,4)[<span class="condition">e</span>][0] -> (1:3)
 <br>
 A=(1,2:3,4); A[<span class="condition">e</span>][1] || (1,2:3,4)[<span class="condition">e</span>][1] -> (2:4)
 <br>
-・自動で抜け要素を埋める
+・抜け要素を自動で埋める
 <br>
 A=(1:3,4); A[<span class="condition">e</span>][1] || (1:3,4)[<span class="condition">e</span>][1] -> (0:4)
 <br>
@@ -14308,7 +14308,7 @@ A=(1:3,4:); A[<span class="condition">e</span>][2] || (1:3,4)[<span class="condi
 <br>
 A=(1:3,4:); A[<span class="condition">e</span>][0.3] || (1:3,4)[<span class="condition">e</span>][0.3] -> [MyErr]Invalid reference of array(column)
 <br>
-・<a href="#span-out-BT-square">列index</a>が負の場合、<span class="selection">反転参照</span>を定義する
+・列indexが負の場合、<span class="selection">反転参照</span>を定義する
 <br>
 A=(1,2:3,4); A[<span class="condition">e</span>][<span class="selection">-1</span>] || (1,2:3,4)[<span class="condition">e</span>][<span class="selection">-1</span>] -> (2:4)
 <br>
@@ -14352,7 +14352,7 @@ trans(1,2:3,4)[1] || trans((1,2:3,4)[1])  <span class="selection">// NG</span> -
 要素参照の入力仕様と付随する留意事項について記述する
 <br>
 <br>
-行/列指定で行列要素を参照する場合
+要素参照
 <br>
 <a href="#span-out-mat">行列</a>[行index][列index]
 <br>
@@ -14362,7 +14362,7 @@ trans(1,2:3,4)[1] || trans((1,2:3,4)[1])  <span class="selection">// NG</span> -
 <br>
 <a href="#span-out-eqns">式変数</a>[行index][列index](<a href="#span-out-eqns-args">arguments</a>)=&gt;
 <br>
-・<a href="#span-out-BT-square">角括弧[]</a>で指定する
+・行列要素を参照する場合、<span class="clear">2個の<a href="#span-out-BT-square">角括弧[]</a></span>で行/列indexを指定する
 <br>
 A=(1,2:3,4); A[0][0] || (1,2:3,4)[0][0] -> 1
 <br>
@@ -14479,7 +14479,7 @@ area参照の入力仕様と付随する留意事項について記述する
 ・<span class="clear">Ver.2.79.32</span>以降、参照行/列sizeが負の場合、<span class="clear">予期せぬerror終了</span>を修正
 <br>
 <br>
-area指定で範囲内の行列要素を参照する場合
+area参照
 <br>
 <a href="#span-out-mat">行列</a>[開始行index][開始列index][参照行size][参照列size]
 <br>
@@ -14489,7 +14489,7 @@ area指定で範囲内の行列要素を参照する場合
 <br>
 <a href="#span-out-eqns">式変数</a>[開始行index][開始列index][参照行size][参照列size](<a href="#span-out-eqns-args">arguments</a>)=&gt;
 <br>
-・<a href="#span-out-BT-square">角括弧[]</a>で指定する
+・矩形範囲の行列要素を参照する場合、<span class="clear">4個の<a href="#span-out-BT-square">角括弧[]</a></span>でindex/sizeを指定する
 <br>
 A=(1,2:3,4:); A[0][0][0][0] || A[0][0][sizer(A)][sizec(A)] -> (1,2:3,4:0,0)
 <br>
@@ -14499,7 +14499,7 @@ A=(1,2:3,4:); A[0][0][0][1] || A[0][0][sizer(A)][1] -> (1:3:0)
 <br>
 A=(1,2:3,4:); A[0][0][1][0] || A[0][0][1][sizec(A)] -> (1,2)
 <br>
-・自動で抜け要素を埋める
+・抜け要素を自動で埋める
 <br>
 A=(1,2:3,4:); A -> (1,2:3,4:0)
 <br>
@@ -14637,9 +14637,9 @@ band参照の入力仕様と付随する留意事項について記述する
 <span class="run">Ver.2.78.31</span>以降、行列の<a href="#span-out-reference-mat-row">行参照</a>と行代入の<span class="selection">反転機能</span>を追加
 <br>
 <br>
-行指定の代入
+行代入
 <br>
-・行vectorを代入する場合、<a href="#span-out-BT-square">列index</a>を省略する
+・行vectorを代入する場合、<span class="clear">1個の<a href="#span-out-BT-square">角括弧[]</a></span>で<a href="#span-out-reference-mat-row">行index</a>を指定する
 <br>
 A=(,:,); A[0]=(1,2); A -> (1,2:0,0)
 <br>
@@ -14657,7 +14657,7 @@ A=(,:); A[0]=(1,2); A -> (1,2:0)
 <br>
 A=(:,); A[1]=(1,2); A -> (0:1,2)
 <br>
-・<a href="#span-out-BT-square">行index</a>が負の場合、<span class="selection">反転代入</span>を定義する
+・<a href="#span-out-reference-mat-row">行index</a>が負の場合、<span class="selection">反転代入</span>を定義する
 <br>
 A=(,:,); A[<span class="selection">-1</span>]=(1,2); A -> (0,0:1,2)
 <br>
@@ -14753,9 +14753,9 @@ A=(1,2:3,4); A[0]=(A:A(2,:,2)); A -> (6,8:3,4)
 ・<span class="run">Ver.2.79.31</span>以降、行index=-1　⇒　<span class="condition"><a href="#span-out-FN0">Napier数e</a></span>に<span class="run"><a href="#span-out-spec-changed-history">仕様変更</a></span>
 <br>
 <br>
-列指定の代入
+列代入
 <br>
-・列vectorを代入する場合、<a href="#span-out-BT-square">行index</a>に<span class="condition"><a href="#span-out-FN0">Napier数e</a></span>を指定する
+・列vectorを代入する場合、<span class="clear">2個の<a href="#span-out-BT-square">角括弧[]</a></span>で<a href="#span-out-reference-mat-col">行index</a>に<span class="condition"><a href="#span-out-FN0">Napier数e</a></span>を指定する
 <br>
 A=(,:,); A[<span class="condition">e</span>][0]={1,2}; A -> (1,0:2,0)
 <br>
@@ -14769,7 +14769,7 @@ A=(1,2:3,4); A[<span class="condition">e</span>][1]=A[e][1]; A -> (1,2:3,4)
 <br>
 A=(1,2:3,4); A[<span class="condition">e</span>][0]=A[e][1]; A -> (2,2:4,4)
 <br>
-・自動で抜け要素を埋める
+・抜け要素を自動で埋める
 <br>
 A=(:,); A[<span class="condition">e</span>][1]={1,2}; A -> (0,1:0,2)
 <br>
@@ -14809,7 +14809,7 @@ A=(1,2:3,4); A[<span class="condition">e</span>][0]=(A,A(2,:,2)); A -> (4,2:8,4)
 <br>
 <span class="clear">A=(,:,); A[<span class="condition">e</span>][0]={1,2,3} -> [MyErr]Invalid store array(column)</span>
 <br>
-・<a href="#span-out-BT-square">列index</a>が負の場合、<span class="selection">反転代入</span>を定義する
+・<a href="#span-out-reference-mat-col">列index</a>が負の場合、<span class="selection">反転代入</span>を定義する
 <br>
 A=(1,2:3,4); A[<span class="condition">e</span>][<span class="selection">-1</span>]=A[e][0]; A -> (1,1:3,3)
 <br>
@@ -14839,11 +14839,13 @@ A=(1,2:3,4); tA=trans(A); tA[0]=-tA[0]; A=trans(tA); A -> (-1,2:-3,4)
 要素代入の入力仕様と付随する留意事項について記述する
 <br>
 <br>
-要素指定の代入
+要素代入
 <br>
-・抜け要素を自動で埋めない
+・行列要素を代入する場合、<span class="clear">2個の<a href="#span-out-BT-square">角括弧[]</a></span>で<a href="#span-out-reference-mat-elem">行/列index</a>を指定する
 <br>
 A=(,:); A[0][0]=1; A -> (1,0:0)
+<br>
+・抜け要素を自動で埋めない
 <br>
 A=(,:); A[0][1]=1; A -> (0,1:0)
 <br>
@@ -14943,17 +14945,19 @@ area代入の入力仕様と付随する留意事項について記述する
 ・<span class="clear">Ver.2.79.32</span>以降、<a href="#span-out-reference-mat-area">参照行/列size</a>が負の場合、<span class="clear">error判定処理</span>を修正
 <br>
 <br>
-area指定の代入
+area代入
 <br>
-・自動で抜け要素を埋める
-<br>
-A=(1,2:3,4:); A=A; A -> (1,2:3,4:0)
-<br>
-A=(1,2:3,4:); ttA=trans(trans(A)); ttA -> (1,2:3,4:0,0)
+・矩形範囲の行列要素を代入する場合、<span class="clear">4個の<a href="#span-out-BT-square">角括弧[]</a></span>で<a href="#span-out-reference-mat-area">index/size</a>を指定する
 <br>
 A=(1,2:3,4:); A[0][0][0][0]=A; A -> (1,2:3,4:0,0)
 <br>
 A=(1,2:3,4:); A[0][0][sizer(A)][sizec(A)]=A; A -> (1,2:3,4:0,0)
+<br>
+・抜け要素を自動で埋める
+<br>
+A=(1,2:3,4:); A=A; A -> (1,2:3,4:0)
+<br>
+A=(1,2:3,4:); ttA=trans(trans(A)); ttA -> (1,2:3,4:0,0)
 <br>
 ・周期境界条件を適用
 <br>
