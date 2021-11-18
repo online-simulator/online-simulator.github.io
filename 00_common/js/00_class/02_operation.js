@@ -2107,6 +2107,7 @@ My_entry.operation.prototype.store_var = function(name, tree, scopes, ids){
 My_entry.operation.prototype.restore_arr = function(arr, ref){
   var self = this;
   var math_mat = self.entry.math_mat;
+  var DATA = self.entry.DATA;
   var _arr = [];
   var _arri = _arr;
   var arri = arr;
@@ -2179,6 +2180,41 @@ My_entry.operation.prototype.restore_arr = function(arr, ref){
     }
   }
   /* -> Ver.2.77.30 */
+  /* Ver.2.80.32 -> */
+  else if((len_ref+1)%2 === 0){
+    var tarr = math_mat.transpose(null, arr);
+    var ttarr = math_mat.transpose(null, tarr);
+    var len_i = ttarr.length;
+    var len_j = ttarr[0].length;
+    var len_min = Math.min(len_i, len_j);
+    var hasArea0 = true;
+    var isInArea = true;
+    for(var i=0; i<len_ref; ++i){
+      var refi = ref[i];
+      hasArea0 = hasArea0 && (refi%1 === 0);
+      isInArea = isInArea && ((refi < 0)? (-refi < len_i): (refi < len_j));
+    }
+    if(hasArea0 && isInArea){
+      for(var i=0; i<len_min; ++i){
+        _arr[i] = [];
+      }
+      var num0 = DATA.num(0, 0);
+      for(var j=0; j<len_ref; ++j){
+        var refj = ref[j];
+        var abs_refj = Math.abs(refj);
+        var arr_sw = (refj < 0)? ttarr: tarr;
+        for(var i=0; i<len_min; ++i){
+          var ji = abs_refj+i;
+          var right = ((arr_sw[ji])? arr_sw[ji][i]: null) || num0;  // cloned@self.store_var()
+          _arr[i][j] = right;
+        }
+      }
+    }
+    else{
+      throw "Invalid reference of array(band)";
+    }
+  }
+  /* -> Ver.2.80.32 */
   /* Ver.2.79.32 -> */
   else{
     throw "Invalid reference";
@@ -2186,6 +2222,61 @@ My_entry.operation.prototype.restore_arr = function(arr, ref){
   /* -> Ver.2.79.32 */
   return _arr;
 };
+/* Ver.2.80.32 -> */
+My_entry.operation.prototype.store_arr_band = function(_arr, ref, arr){
+  var self = this;
+  var math_mat = self.entry.math_mat;
+  var _ttarr = math_mat.transpose(null, math_mat.transpose(null, _arr));
+  var ttarr = math_mat.transpose(null, math_mat.transpose(null, arr));
+  var len_ref = ref.length;
+  var len_i = _ttarr.length;
+  var len_j = _ttarr[0].length;
+  var len_min = Math.min(len_i, len_j);
+  var hasArea0 = true;
+  var isInArea = true;
+  for(var i=0; i<len_ref; ++i){
+    var refi = ref[i];
+    hasArea0 = hasArea0 && (refi%1 === 0);
+    isInArea = isInArea && ((refi < 0)? (-refi < len_i): (refi < len_j));
+  }
+  if(hasArea0 && isInArea){
+    var hasArea1 = (ttarr[0].length === len_ref);
+    if(hasArea1){
+      for(var i=0, len_i=_ttarr.length; i<len_i; ++i){
+        for(var j=0, len_j=_ttarr[i].length; j<len_j; ++j){
+          _arr[i][j] = _ttarr[i][j];
+        }
+      }
+      for(var j=0; j<len_ref; ++j){
+        var refj = ref[j];
+        var abs_refj = Math.abs(refj);
+        var right = null;
+        for(var i=0; i<len_min; ++i){
+          right = (ttarr[i])? ttarr[i][j]: right;  // cloned@self.store_var()
+          var ji = abs_refj+i;
+          if(refj < 0){
+            if(ji < len_i && i < len_j){
+              _arr[ji][i] = right;
+            }
+          }
+          else{
+            if(i < len_i && ji < len_j){
+              _arr[i][ji] = right;
+            }
+          }
+        }
+      }
+    }
+    else{
+      throw "Invalid store array(band)";
+    }
+  }
+  else{
+    throw "Invalid reference of array(band)";
+  }
+  return _arr;
+};
+/* -> Ver.2.80.32 */
 /* Ver.2.77.30 -> */
 My_entry.operation.prototype.store_arr_area = function(_arr, ref, arr){
   var self = this;
@@ -2554,6 +2645,11 @@ My_entry.operation.prototype.SEv = function(data, i0, tagName, tagObj){
                 self.store_arr_area(tree_var.mat.arr, ref, tree.mat.arr);
               }
               /* -> Ver.2.77.30 */
+              /* Ver.2.80.32 -> */
+              else if((len_ref+1)%2 === 0){
+                self.store_arr_band(tree_var.mat.arr, ref, tree.mat.arr);
+              }
+              /* -> Ver.2.80.32 */
               else{
                 throw "Invalid substitution";
               }
