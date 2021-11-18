@@ -282,6 +282,42 @@ Y/M/D
 <tbody>
   <tr>
     <th>
+4.85.26.12.28
+    </th>
+    <td class="types">
+Generator
+    </td>
+    <td>
+1.13.4
+    </td>
+    <td class="clear">
+fatal bug-fix
+    </td>
+    <td>
+[音源wave PCM生成]
+<br>
+・scientific pitch notation supported
+<br>
+　<a href="30_wave/index2.html#span-history">音源wave PCM生成（演奏）</a>
+<br>
+　MIDI-octave: <span class="clear">-2~8</span>　⇒　-1~9
+<br>
+　例）<span class="clear">A4(69)</span>＝ラ440Hz
+<br>
+　before:
+<br>
+　　o-2c69 -> [MyErr]frequency is not a number
+<br>
+　after:
+<br>
+　　o4c9 = o3c21 = o2c33 = o1c45 = o0c57 = <span class="clear">o-1c69 = n69</span> = f440 = 440
+    </td>
+    <td>
+2021/11/18
+    </td>
+  </tr>
+  <tr>
+    <th>
 4.85.26.11.28
     </th>
     <td class="types">

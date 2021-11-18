@@ -346,14 +346,14 @@ filter gain:
     <td>
 時系列のscript入力欄　例）左右で3拍子ずらした1octaveのstereo出力
   <textarea id="textarea-script" rows="10">
-{500:[o3c0,f523,o5c0]; 500:[o3c2,o4c2,o5c2]; 500:[o3c4,o4c4,o5c4]; 500:[o3c5,o4c5,o5c5];
- 500:[o3c7,o4c7,o5c7]; 500:[o3c9,o4c9,o5c9]; 500:[o3c11,o4c11,o5c11]; 500:[o4c0,o5c0,o6c0]; 500:r;}
-{1500:r; 500:[o3c0,f523,o5c0]; 500:[o3c2,o4c2,o5c2]; 500:[o3c4,o4c4,o5c4]; 500:[o3c5,o4c5,o5c5];
- 500:[o3c7,o4c7,o5c7]; 500:[o3c9,o4c9,o5c9]; 500:[o3c11,o4c11,o5c11]; 500:[o4c0,o5c0,o6c0]; 500:r;}
-{3000:r; 500:[o3c0,f523,o5c0]; 500:[o3c2,o4c2,o5c2]; 500:[o3c4,o4c4,o5c4]; 500:[o3c5,o4c5,o5c5];
- 500:[o3c7,o4c7,o5c7]; 500:[o3c9,o4c9,o5c9]; 500:[o3c11,o4c11,o5c11]; 500:[o4c0,o5c0,o6c0]; 500:r;}
-{4500:r; 500:[o3c0,f523,o5c0]; 500:[o3c2,o4c2,o5c2]; 500:[o3c4,o4c4,o5c4]; 500:[o3c5,o4c5,o5c5];
- 500:[o3c7,o4c7,o5c7]; 500:[o3c9,o4c9,o5c9]; 500:[o3c11,o4c11,o5c11]; 500:[o4c0,o5c0,o6c0]; 500:r;}</textarea>
+{500:[o-1c60,f523,n84]; 500:[o4c2,o5c2,o6c2]; 500:[o4c4,o5c4,o6c4]; 500:[o4c5,o5c5,o6c5];
+ 500:[o4c7,o5c7,o6c7]; 500:[o4c9,o5c9,o6c9]; 500:[o4c11,o5c11,o6c11]; 500:[o5c0,o6c0,o7c0]; 500:r;}
+{1500:r; 500:[o4c0,f523,o6c0]; 500:[o4c2,o5c2,o6c2]; 500:[o4c4,o5c4,o6c4]; 500:[o4c5,o5c5,o6c5];
+ 500:[o4c7,o5c7,o6c7]; 500:[o4c9,o5c9,o6c9]; 500:[o4c11,o5c11,o6c11]; 500:[o5c0,o6c0,o7c0]; 500:r;}
+{3000:r; 500:[o4c0,f523,o6c0]; 500:[o4c2,o5c2,o6c2]; 500:[o4c4,o5c4,o6c4]; 500:[o4c5,o5c5,o6c5];
+ 500:[o4c7,o5c7,o6c7]; 500:[o4c9,o5c9,o6c9]; 500:[o4c11,o5c11,o6c11]; 500:[o5c0,o6c0,o7c0]; 500:r;}
+{4500:r; 500:[o4c0,f523,o6c0]; 500:[o4c2,o5c2,o6c2]; 500:[o4c4,o5c4,o6c4]; 500:[o4c5,o5c5,o6c5];
+ 500:[o4c7,o5c7,o6c7]; 500:[o4c9,o5c9,o6c9]; 500:[o4c11,o5c11,o6c11]; 500:[o5c0,o6c0,o7c0]; 500:r;}</textarea>
     </td>
   </tr>
   <tr class="border">
@@ -372,9 +372,15 @@ scriptの入力形式
 <br>
 ・音階の入力形式
 <br>
-　"o"+MIDI-octave数-2~8+"c"+0~11~ || "f"+周波数 || 周波数
+　"o"+<span class="clear">MIDI-octave数-1~9</span>+"c"+<span class="clear">MIDI-note数相対値0~11~</span>
 <br>
-　例）ド523Hzの指定方法: o4c0 = o3c12 = f523 = 523
+　"n"+<span class="clear">MIDI-note数絶対値0~</span>
+<br>
+　"f"+周波数 || 周波数
+<br>
+　例）<span class="clear">A4(69)</span>＝ラ440Hz
+<br>
+　o4c9 = o3c21 = o2c33 = o1c45 = o0c57 = <span class="clear">o-1c69 = n69</span> = f440 = 440
 <br>
 ・時間の単位: msec
 <br>
@@ -391,6 +397,16 @@ scriptの入力形式
     <td>
 <span id="span-history"></span>
 機能の更新履歴
+<br>
+・<span class="clear">Ver.1.13.4</span>以降、88鍵盤標準の<span class="clear">scientific pitch記法</span>に準拠
+<br>
+・<span class="clear">Ver.1.13.4</span>以降、MIDI-octave数に負数を指定できない致命的な不具合を修正
+<br>
+　MIDI-octave数<span class="clear">-2</span>~8　⇒　<span class="clear">-1~9</span>
+<br>
+　過去の入力形式から変更する場合、octave数の降順に1加算して<a href="../71_regexp/index.html">正規表現text置換</a>の要修正
+<br>
+　out=text.replace(/o8/gim,"o9");　⇒　out=text.replace(/o7/gim,"o8");　⇒　...
 <br>
 ・<span class="clear">Ver.1.13.3</span>以降、pitchに影響する生値fade-in/out　⇒　物理的な振幅fade-in/outに修正
 <br>

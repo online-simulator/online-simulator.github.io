@@ -37,12 +37,13 @@ My_entry.reference.prototype.fullStr2half = function(fullStr){
   return fullStr.replace(ba.b, ba.a);
 };
 
+// en.m.wikipedia.org/wiki/Scientific_pitch_notation
 // en.m.wikipedia.org/wiki/MIDI_tuning_standard
 // to 30_wave
-My_entry.reference.prototype.calc_freq = function(octave, code){
+My_entry.reference.prototype.calc_freq = function(octave, note){
   var self = this;
-  var d = (octave+2)*12+code;
-  var _freq = Math.pow(2, (d-69)/12)*440;
+  var m = (octave+1)*12+note;
+  var _freq = Math.pow(2, (m-69)/12)*440;
   return _freq;
 };
 

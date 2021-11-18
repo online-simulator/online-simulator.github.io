@@ -123,6 +123,7 @@ My_entry.handler_wave.prototype.input2arr = function(input){
   var str2freq = function(str){
     var _freq = null;
     var mc_oc = str.match(self.regex.oc);
+    var mc_nc = str.match(self.regex.nc);  // Ver.1.13.4
     var mc_f = str.match(self.regex.freq);
     var mc_r = str.match(self.regex.rest);
     if(mc_oc){
@@ -130,6 +131,13 @@ My_entry.handler_wave.prototype.input2arr = function(input){
       var code = Number(mc_oc[2]);
       _freq = self.calc_freq(octave, code);
     }
+    /* Ver.1.13.4 -> */
+    else if(mc_nc){
+      var octave = -1;
+      var code = Number(mc_nc[1]);
+      _freq = self.calc_freq(octave, code);
+    }
+    /* -> Ver.1.13.4 */
     else if(mc_f){
       _freq = Number(mc_f[1]);
     }
