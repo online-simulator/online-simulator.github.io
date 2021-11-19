@@ -563,6 +563,11 @@ scope付式変数の再利用
 </a>
 <br>
 　　・
+<a href="#span-out-development-problems-matrix">
+行列演算の問題点
+</a>
+<br>
+　　・
 <a href="#span-out-development-problems-CBR">
 未実装の参照渡し
 </a>
@@ -10800,6 +10805,8 @@ JavaScript特有の実装を列挙する
 <br>
 ・<a href="#span-out-development-problems-complex">複素数演算の問題点</a>
 <br>
+・<a href="#span-out-development-problems-matrix">行列演算の問題点</a>
+<br>
 ・<a href="#span-out-development-problems-CBR">未実装の参照渡し</a>
 <br>
 ・<a href="#span-out-development-problems-CAS">未実装のCAS</a>
@@ -10877,6 +10884,27 @@ vectorr(round(2^3)) || vectorr(8)  <span class="selection">// OK</span> -> (0,0,
 1&lt;&lt;3 || 1*2*2*2 -> 8
 <br>
 8&gt;&gt;&gt;3 || 8&gt;&gt;3 || (((8/2)/2)/2) || 8/(2*2*2) -> 1
+    </td>
+  </tr>
+  <tr>
+    <th>
+<a href="#span-index">
+目次
+</a>
+<br>
+行列演算の
+<br>
+問題点
+    </th>
+    <td>
+<span id="span-out-development-problems-matrix"></span>
+行列演算の問題点を列挙する
+<br>
+・当初、<a href="#span-out-mat-product">行列積</a>の<a href="#span-out-ope">演算量</a>を多少減らすため、抜け要素を許容したが、
+<br>
+・<span class="run">Ver.2.76.29</span>以降、<a href="#span-out-array">行列操作</a>の<a href="#span-out-ope">演算速度</a>を犠牲にする弊害の方が圧倒的に大きい
+<br>
+・よって抜け要素がある場合、error終了の方が実装効率||演算効率が高い
     </td>
   </tr>
   <tr>
@@ -12474,7 +12502,7 @@ PI() || pi || 2acos(0) || 2asin(1) || 4atan(1) -> 3.141592653589793
 E() || e || e^1 || exp(1) ||  -> 2.718281828459045
 <br>
 <br>
-eは指数と区別するために空括弧()を付ける方が間違いが少ない
+eは指数と区別するため、空括弧()を付ける方が間違いが少ない
 <br>
 2e-1 || 2E-1 -> 0.2
 <br>
@@ -14658,17 +14686,91 @@ A=A0; A[-3][-2][-1][0][0][1][2][3][4] ->
 <br>
 9,7,6,1,1,2,3,4,5:
 <br>
-0,0,0,0,0,0,0,0,0:
+<span class="clear">0</span>,0,0,0,0,0,0,0,<span class="clear">0</span>:
 <br>
-0,0,0,8,8,0,0,0,0:
+<span class="clear">0,0</span>,0,8,8,0,0,<span class="clear">0,0</span>:
 <br>
-0,0,0,0,0,0,0,0,0
+<span class="clear">0,0,0</span>,0,0,0,<span class="clear">0,0,0</span>
+<br>
+)
+<br>
+A=A0; A[-3][-3][-3] ->
+<br>
+(
+<br>
+9,9,9:
+<br>
+<span class="clear">0,0,0</span>:
+<br>
+<span class="clear">0,0,0</span>:
+<br>
+<span class="clear">0,0,0</span>
+<br>
+)
+<br>
+A=A0; A[-1][-1][-1] ->
+<br>
+(
+<br>
+6,6,6:
+<br>
+0,0,0:
+<br>
+0,0,0:
+<br>
+<span class="clear">0,0,0</span>
+<br>
+)
+<br>
+A=A0; A[0][0][0] ->
+<br>
+(
+<br>
+1,1,1:
+<br>
+0,0,0:
+<br>
+8,8,8:
+<br>
+0,0,0
+<br>
+)
+<br>
+A=A0; A[1][1][1] ->
+<br>
+(
+<br>
+2,2,2:
+<br>
+0,0,0:
+<br>
+0,0,0:
+<br>
+0,0,0
+<br>
+)
+<br>
+A=A0; A[3][3][3] ->
+<br>
+(
+<br>
+4,4,4:
+<br>
+0,0,0:
+<br>
+<span class="clear">0,0,0</span>:
+<br>
+<span class="clear">0,0,0</span>
 <br>
 )
 <br>
 ・対角要素の列vectorを<a href="#span-out-reference-mat-col">列参照</a>
 <br>
-A=A0; (A[-1][0][1])[<span class="condition">e</span>][1] ->
+A=A0; (A[-1][0][1])[<span class="condition">e</span>][1] ||
+<br>
+A=A0; (A[0][0][0])[<span class="condition">e</span>][0] ||
+<br>
+A=A0; A000=A[0][0][0]; A000[<span class="condition">e</span>][0] ->
 <br>
 (
 <br>
@@ -18529,7 +18631,7 @@ trans(R) -> (1,3:2,4:0,5)
 ・さらに、Lの抜け要素の部分はRと内積を取らない（自明の演算は行わない）
 <br>
 <br>
-行列積L*Rの<a href="#span-out-ope">演算量</a>を多少減らすために抜け要素を許容する
+行列積L*Rの<a href="#span-out-ope">演算量</a>を多少減らすため、抜け要素を許容する
 <br>
 ・N次下三角行列Lの場合、最高効率で<a href="#span-out-ope">演算量</a>が半減する
 <br>
@@ -23394,7 +23496,7 @@ clear; y=&lt;3x-1,x=3,y=&gt;,y=&gt;y0,y0 -> (0,0,8,8,8)
 <br>
 ・<a href="#span-out-eqns">式変数</a>、<a href="#span-out-eqns-call">式読出し</a>、<a href="#span-out-call-by-equation">式渡し</a>、<a href="#span-out-substitution-equation">式代入</a>、<a href="#span-out-scope-inherited-call">scope継承call</a>の仕様は呼び名含めて一般的でない
 <br>
-・連立方程式をscript入力から解くために独自に定義している
+・連立方程式をscript入力から解くため、独自に定義している
     </td>
   </tr>
   <tr>
