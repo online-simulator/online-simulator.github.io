@@ -74,8 +74,9 @@ My_entry.operation.prototype.config = {
       [
         "BRcn",  // Binary operatoR comparison < || <= || >= || >
         "BRrl",  // Binary operatoR relational == || <>
-        "BRlA",  // Binary operatoR logical AND &&
-        "BRlO"   // Binary operatoR logical  OR ||
+        "PUlN",  // Pre-Unary operator logical NOT ~~
+        "BRlA",  // Binary operatoR logical    AND &&
+        "BRlO"   // Binary operatoR logical     OR ||
       ]
     ],
     [
@@ -1841,7 +1842,10 @@ My_entry.operation.prototype.URf = function(data, i0, tagName, tagObj){
 };
 /* -> Ver.2.74.29 */
 /* Ver.2.71.28 */
-My_entry.operation.prototype.PUbn = function(data, i0, tagName, tagObj){
+My_entry.operation.prototype.PUbn =
+/* Ver.2.81.32 -> */
+My_entry.operation.prototype.PUlN = function(data, i0, tagName, tagObj){
+/* -> Ver.2.81.32 */
   var self = this;
   var trees = data.trees;
   var options = data.options;

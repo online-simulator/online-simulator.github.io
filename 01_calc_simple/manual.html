@@ -7963,6 +7963,10 @@ precedence
 <br>
 ・<a href="#span-out-prec-ope-logical">論理演算子</a>　<span class="run">Ver.2.59.26</span>以降、追加
 <br>
+　・<a href="#span-out-type-ope">前置単項演算子</a>
+<br>
+　　・論理NOT演算子 ~~　<span class="run">Ver.2.81.32</span>以降、追加
+<br>
 　・<a href="#span-out-type-ope">中置2項演算子</a>
 <br>
 　　・論理AND演算子 &amp;&amp;
@@ -8476,6 +8480,33 @@ imag(1(1-i)&amp;&amp;2(1-i)&amp;&amp;3(1-i)&amp;&amp;4(1-i)) -> -1
 1(1-i)&amp;&amp;2(1-i)&amp;&amp;3(1-i)||4(1-i) -> 4-4i
 <br>
 <br>
+論理NOT
+<br>
+~~0 -> 1
+<br>
+~~1 -> 0
+<br>
+~~-1 -> 0
+<br>
+~~i || ~~0 -> 1
+<br>
+~~1+i || ~~1 -> 0
+<br>
+~~~0 || ~~(~0) || ~~(-1) -> 0
+<br>
+~~~1 || ~~(~1) || ~~(-2) -> 0
+<br>
+~~~-1 || ~~(~-1) || ~~(0) -> 1
+<br>
+(~~0||~~1) || ((~~0)||(~~1)) -> 1
+<br>
+(~~1||~~1) || ((~~1)||(~~1)) -> 0
+<br>
+~~1&lt;0&amp;&amp;2 || ((~~(1&lt;0))&amp;&amp;2) -> 2
+<br>
+~~1&gt;0&amp;&amp;2 || ((~~(1&gt;0))&amp;&amp;2) -> 0
+<br>
+<br>
 論理演算子は最下位の<a href="#span-out-prec-ope">演算子のprecedence</a>で<a href="#span-out-substitution">変数への代入</a>より優先する
 <br>
 clear; x=&lt;a=3; (0||x=&gt;||2,a)  <span class="selection">// (0||0||2,3)</span> -> (2,3)
@@ -8503,7 +8534,12 @@ clear; i||0=3  <span class="selection">// (i||0)=3</span> -> 3-i
 clear; 0||i=3  <span class="selection">// (0||i)=3</span> -> 3-i
 <br>
 <br>
-留意事項を列挙する
+論理NOT演算子の留意事項を列挙する
+<br>
+・operandは実数のみ対応
+<br>
+<br>
+論理AND||OR演算子の留意事項を列挙する
 <br>
 ・operandは<a href="#span-out-com">複素数</a>に対応
 <br>
@@ -9089,9 +9125,13 @@ useScope=defaultの場合（上記以外の場合）、<a href="#span-out-BT-squ
 <br>
 ・<span class="run">Ver.2.71.28</span>以降、<a href="#span-out-prec-ope-bit">bit not演算子</a>を追加
 <br>
+・<span class="run">Ver.2.81.32</span>以降、<a href="#span-out-prec-ope-logical">論理NOT演算子</a>を追加
+<br>
 precedence=
 <br>
-URi,URf,BRp,BRr,BRmo,BRdm,BRsa<span class="run">,PUbn</span>,BRbs,BRba,BRbx,BRbo,BRcn,BRrl<span class="run">,BRlA,BRlO</span>
+URi,URf,BRp,BRr,BRmo,BRdm,BRsa,
+<br>
+<span class="run">PUbn</span>,BRbs,BRba,BRbx,BRbo,BRcn,BRrl,<span class="run">PUlN</span>,<span class="run">BRlA,BRlO</span>
 <br>
 ・別途、乗算記号*の省略を許容しない場合、tag名BRmoを削除する
 <br>
@@ -24132,8 +24172,9 @@ operation.js抜粋
       [
         "BRcn",  // Binary operatoR comparison &lt; || &lt;= || &gt;= || &gt;
         "BRrl",  // Binary operatoR relational == || &lt;&gt;
-        "BRlA",  // Binary operatoR logical AND &amp;&amp;
-        "BRlO"   // Binary operatoR logical  OR ||
+        "PUlN",  // Pre-Unary operator logical NOT ~~
+        "BRlA",  // Binary operatoR logical    AND &amp;&amp;
+        "BRlO"   // Binary operatoR logical     OR ||
       ]
     ],
     [

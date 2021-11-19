@@ -54,6 +54,7 @@ My_entry.parser.prototype.config = {
       {b: />[=]{0,1}/, a: "BRcn"},
       /* Ver.2.59.26 -> */
       // logical operator
+      {b: /[~]{2}/, a: "PUlN"},  // Ver.2.81.32
       {b: /[&]{2}/, a: "BRlA"},
       {b: /[|]{2}/, a: "BRlO"}
       /* -> Ver.2.59.26 */
@@ -86,6 +87,7 @@ My_entry.parser.prototype.config = {
       "|": "BRbo",  // bit  or
       // comparison operator: "BRcn"
       // relational operator: "BRrl"
+      // logical NOT: "PUlN"
       // logical AND: "BRlA"
       // logical  OR: "BRlO"
       "=": "BRe"  // x+3=1 -> x=1-3 prior to substitution
