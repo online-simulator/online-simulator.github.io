@@ -969,6 +969,11 @@ simplified modelling
 </a>
 <br>
 　　・
+<a href="#span-out-modelling-about">
+simplified modellingの前提
+</a>
+<br>
+　　・
 <a href="#span-out-modelling-usefulness">
 simplified modellingの有用性
 </a>
@@ -989,7 +994,12 @@ RC並列回路simplified modelling
 </a>
 <br>
 　　・
-<a href="#span-out-modelling-application3">
+<a href="#span-out-modelling-application-0D-cell">
+0D-cell simplified modelling
+</a>
+<br>
+　　・
+<a href="#span-out-modelling-application-1D-cell">
 1D-cell simplified modelling
 </a>
 <br>
@@ -1001,6 +1011,11 @@ simulation
 　　・
 <a href="#span-out-simulation-EIS">
 EIS simulation
+</a>
+<br>
+　　・
+<a href="#span-out-simulation-EIS-0D-cell">
+0D-cell EIS simulation
 </a>
 <br>
 　　・
@@ -7911,9 +7926,9 @@ precedence
 <br>
 　・<a href="#span-out-type-ope">後置単項演算子</a>
 <br>
-　　・<a href="#span-out-com">虚数単位</a> i
+　　・<a href="#span-out-com">虚数単位</a>演算子 i
 <br>
-　　・<a href="#span-out-FN-fact">階乗</a>記号 ! || !!...
+　　・<a href="#span-out-FN-fact">階乗</a>演算子 ! || !!...
 <br>
 　・<a href="#span-out-type-ope">中置2項演算子</a>
 <br>
@@ -8562,7 +8577,15 @@ clear; 0||i=3  <span class="selection">// (0||i)=3</span> -> 3-i
 ・<a href="#span-out-option1">RA選択</a>の場合、<a href="#span-out-type-ope">中置2項演算子</a>のleft-operandよりright-operandを優先して右から評価する
 <br>
 <br>
-論理ORを厳密に短絡評価して処理を切替える場合、<a href="#span-out-FNh-switch">switch高階関数</a>参照
+論理ORを厳密に短絡評価して処理を切替える場合
+<br>
+・<a href="#span-out-FNh-switch">switch高階関数</a>を使用
+<br>
+clear; set_a0=&lt;a=0; set_a1=&lt;a=1; switch(1,set_a0=&gt;:1,set_a1=&gt;); a  <span class="selection">// NG</span> -> 1
+<br>
+clear; set_a0=&lt;a=0; set_a1=&lt;a=1; switch(1,<span class="condition">=&lt;</span>set_a0=&gt;:1,<span class="condition">=&lt;</span>set_a1=&gt;); a  <span class="selection">// OK</span> -> 0
+<br>
+clear; set_a0=&lt;a=0; set_a1=&lt;a=1; switch(0,<span class="condition">=&lt;</span>set_a0=&gt;:1,<span class="condition">=&lt;</span>set_a1=&gt;); a  <span class="selection">// OK</span> -> 1
     </td>
   </tr>
   <tr>
@@ -14722,7 +14745,7 @@ A=A0; A[-1][0][1] ->
 <br>
 0,8,0:
 <br>
-0,0,0
+<span class="clear">0</span>,0,0
 <br>
 )
 <br>
@@ -19242,7 +19265,15 @@ modelling
     </th>
     <td>
 <span id="span-out-modelling"></span>
-simplified modellingの応用手順を列挙する
+simplified modellingについて記述する
+<br>
+<br>
+modelling対象を各種制約によって簡易化||単純化する場合、simplified modellingと表記する
+<br>
+<br>
+simplified modellingの応用手順の一例を列挙する
+<br>
+・<a href="#span-out-modelling-about">simplified modellingの前提</a>
 <br>
 ・<a href="#span-out-modelling-usefulness">simplified modellingの有用性</a>
 <br>
@@ -19252,13 +19283,47 @@ simplified modellingの応用手順を列挙する
 <br>
 ・<a href="#span-out-modelling-application2">拡散方程式simplified modelling</a>
 <br>
+・<a href="#span-out-modelling-application-0D-cell">0D-cell simplified modelling</a>
+<br>
 ・<a href="#span-out-simulation-EIS">EIS simulation</a>
 <br>
-・<a href="#span-out-modelling-application3">1D-cell simplified modelling</a>
+・<a href="#span-out-simulation-EIS-0D-cell">0D-cell EIS simulation</a>
+<br>
+・<a href="#span-out-modelling-application-1D-cell">1D-cell simplified modelling</a>
 <br>
 ・<a href="#span-out-simulation-EIS-1D-cell">1D-cell EIS simulation</a>
 <br>
 ・<a href="#span-out-simulation-IV-1D-cell">1D-cell IV simulation</a>
+    </td>
+  </tr>
+  <tr>
+    <th>
+<a href="#span-index">
+目次
+</a>
+<br>
+simplified
+<br>
+modelling
+<br>
+の前提
+    </th>
+    <td>
+<span id="span-out-modelling-about"></span>
+simplified modellingの前提について記述する
+<br>
+<br>
+simplified modellingの前提を列挙する
+<br>
+・Euclid実空間を無次元化する場合、0D-model/0D-simulationと表記する
+<br>
+・Euclid実空間を1次元化する場合、1D-model/1D-simulationと表記する
+<br>
+・Euclid実空間を2次元化する場合、2D-model/2D-simulationと表記する
+<br>
+・Euclid実空間を3次元化する場合、3D-model/3D-simulationと表記する
+<br>
+・最も詳細にmodellingする場合、詳細model/詳細simulationと表記する
     </td>
   </tr>
   <tr>
@@ -19471,7 +19536,7 @@ V*s=-V/(R*C)+I/C -> V*s=-a*V+b*I
 ・推定Rとcut-off周波数=1/(2pi*R*C)からCを推定
 <br>
 <br>
-実施例は<a href="#span-out-simulation-EIS">EIS simulation</a>参照
+実施例は<a href="#span-out-simulation-EIS-0D-cell">0D-cell EIS simulation</a>参照
     </td>
   </tr>
   <tr>
@@ -19618,7 +19683,51 @@ V'=-<span class="selection">Ds_eff*</span>V/(dx^2<span class="selection">*es</sp
 ・推定aと充放電中の電圧変化からbを推定
 <br>
 <br>
-実施例は<a href="#span-out-simulation-EIS">EIS simulation</a>参照
+実施例は<a href="#span-out-simulation-EIS-0D-cell">0D-cell EIS simulation</a>参照
+    </td>
+  </tr>
+  <tr>
+    <th>
+<a href="#span-index">
+目次
+</a>
+<br>
+0D-cell
+<br>
+simplified
+<br>
+modelling
+    </th>
+    <td>
+<span id="span-out-modelling-application-0D-cell"></span>
+電気化学cellを無次元化する0D-cellのsimplified modellingについて記述する
+<br>
+<br>
+simplifiedの仮定を列挙する
+<br>
+・負極||電解質||正極の影響は合成して区別しない
+<br>
+・電解質/活物質界面の被膜抵抗は反応抵抗に合成して区別しない
+<br>
+・電荷移動律速過程におけるButler-Volmer式の非線形性は考慮しない
+<br>
+・拡散律速過程における拡散抵抗の非線形性は考慮しない
+<br>
+・限界電流密度は考慮しない
+<br>
+<br>
+<a href="#span-eqn-plot2d_EIS">plot2d_EIS</a>||<a href="#span-eqn-plot2d_EIS_DFT">plot2d_EIS_DFT</a>||<a href="#span-eqn-plot2d_IV">plot2d_IV</a>に示す0D-cellの等価回路要素（直列接続）を列挙する
+<br>
+・構造由来のinductance: L
+<br>
+・導電path上の電子伝導とion伝導を合成する直流抵抗: R0
+<br>
+・<a href="#span-out-modelling-application1">RC並列回路</a>で表すion挿入/脱離||還元/酸化の反応抵抗: R1,C1 -> a1,b1
+<br>
+・ion濃度分布緩和過程の電位変化に伴う<a href="#span-out-modelling-application2">拡散抵抗</a>（Warburg's Zの代替）: a2,b2
+<br>
+<br>
+実施例は<a href="#span-out-simulation-EIS-0D-cell">0D-cell EIS simulation</a>参照
     </td>
   </tr>
   <tr>
@@ -19634,8 +19743,8 @@ simplified
 modelling
     </th>
     <td>
-<span id="span-out-modelling-application3"></span>
-1D-cellのsimplified modellingについて記述する
+<span id="span-out-modelling-application-1D-cell"></span>
+電気化学cellを1次元化する1D-cellのsimplified modellingについて記述する
 <br>
 <br>
 実施例は<a href="#span-out-simulation-EIS-1D-cell">1D-cell EIS simulation</a>||<a href="#span-out-simulation-IV-1D-cell">1D-cell IV simulation</a>参照
@@ -19654,6 +19763,8 @@ simulation
 数値計算を応用するsimulationの実施例を列挙する
 <br>
 ・<a href="#span-out-simulation-EIS">EIS simulation</a>
+<br>
+・<a href="#span-out-simulation-EIS-0D-cell">0D-cell EIS simulation</a>
 <br>
 ・<a href="#span-out-simulation-EIS-1D-cell">1D-cell EIS simulation</a>
 <br>
@@ -19750,32 +19861,33 @@ Z(s)=V(s)/I(s)
 　Z変換のalgorithmを統一する||Z変換前の波形を比較する
 <br>
 <br>
-<a href="#span-eqn-plot2d_EIS">plot2d_EIS</a>||<a href="#span-eqn-plot2d_EIS_DFT">plot2d_EIS_DFT</a>||<a href="#span-eqn-plot2d_IV">plot2d_IV</a>に示す
+電気化学cellの交流impedance測定における留意事項を列挙する（参考）
 <br>
-simulation対象cellの等価回路要素（直列接続）を列挙する
+・Open Circuit Voltage測定中に測定対象は測定機の影響（主に暗電流）を受けて変化しない
 <br>
-・構造由来のinductance: L
+・測定電流||電圧の入力と測定対象の応答がButler-Volmer式の線形領域の範囲内に収まる
 <br>
-・導電path上の電子伝導とion伝導を合成する直流抵抗: R0
+・測定機と測定対象の接続線impedance（主にinductance）を分離できる
+    </td>
+  </tr>
+  <tr>
+    <th>
+<a href="#span-index">
+目次
+</a>
 <br>
-・<a href="#span-out-modelling-application1">RC並列回路</a>で表すion挿入/脱離||還元/酸化の反応抵抗: R1,C1 -> a1,b1
+0D-cell
 <br>
-・ion濃度分布緩和過程の電位変化に伴う<a href="#span-out-modelling-application2">拡散抵抗</a>（Warburg's Zの代替）: a2,b2
+EIS
 <br>
-＜補足・詳細simulationで要修正＞
-<br>
-・負極||電解質||正極の影響は合成して区別しない
-<br>
-・電解質/活物質界面の被膜抵抗は反応抵抗に合成して区別しない
-<br>
-・電荷移動律速過程におけるButler-Volmer式の非線形性は考慮しない
-<br>
-・拡散律速過程における拡散抵抗の非線形性は考慮しない
-<br>
-・限界電流密度は考慮しない
+simulation
+    </th>
+    <td>
+<span id="span-out-simulation-EIS-0D-cell"></span>
+0D-cell EIS simulationの実施例について記述する
 <br>
 <br>
-test caseを示す
+<a href="#span-out-modelling-application-0D-cell">0D-cell</a>のEIS simulationの実施例を示す
 <br>
 ・<a href="#span-eqn-plot2d_EIS">plot2d_EIS</a>測定条件
 <br>
@@ -19920,7 +20032,7 @@ infoLost[ri] 3.711459875093761,infoLost[ri] 1.811702692783572
 )
 <br>
 <br>
-続けて電流振幅のみ変更dI=1の影響
+電流振幅のみ変更dI=1の影響
 <br>
 ・線形modelを前提とするため、Zのsimulation結果はほぼ一致
 <br>
@@ -19951,7 +20063,7 @@ infoLost[ri] 3.711459875093761,infoLost[ri] 1.811702692783572
 )
 <br>
 <br>
-続けて1周期分割数のみ変更Nt=300の影響
+1周期分割数のみ変更Nt=300の影響
 <br>
 ・Zのsimulation結果は<a href="#span-out-error">modelling誤差</a>のOrder(dt)で定量的に大差なし
 <br>
@@ -19982,7 +20094,7 @@ infoLost[ri] 3.711459875093761,infoLost[ri] 1.811702692783572
 )
 <br>
 <br>
-続けて積分周回数のみ変更Nint=3の影響
+積分周回数のみ変更Nint=3の影響
 <br>
 ・Zのsimulation結果は定性的に大差なし
 <br>
@@ -20013,7 +20125,7 @@ infoLost[ri] 3.711459875093761,infoLost[ri] 1.811702692783572
 )
 <br>
 <br>
-続けて<a href="#span-out-evolution">時間発展</a>の解法のみ変更isImplicit=0（陽解法選択）の影響
+<a href="#span-out-evolution">時間発展</a>の解法のみ変更isImplicit=0（陽解法選択）の影響
 <br>
 ・<span class="selection">陽解法の安定条件</span>
 <br>
@@ -20052,7 +20164,7 @@ dt&le;min(0.2,100)<span class="selection">*2</span>
 )
 <br>
 <br>
-続けて連続Fourier変換を<a href="#span-out-transform-dft">離散Fourier変換</a>で代替の影響（<span class="run">Ver.2.64.27</span>追記）
+連続Fourier変換を<a href="#span-out-transform-dft">離散Fourier変換</a>で代替の影響（<span class="run">Ver.2.64.27</span>追記）
 <br>
 ・<a href="#span-eqn-plot2d_EIS_DFT">plot2d_EIS_DFT</a>に示すZのsimulation結果は定性的に大差なし
 <br>
@@ -20081,15 +20193,6 @@ dt&le;min(0.2,100)<span class="selection">*2</span>
 0.010000000000000012,infoLost[ri] 3.71133683621205-1.8234973547405815i
 <br>
 )
-<br>
-<br>
-電気化学cellの交流impedance測定における留意事項を列挙する（参考）
-<br>
-・Open Circuit Voltage測定中に測定対象は測定機の影響（主に暗電流）を受けて変化しない
-<br>
-・測定電流||電圧の入力と測定対象の応答がButler-Volmer式の線形領域の範囲内に収まる
-<br>
-・測定機と測定対象の接続線impedance（主にinductance）を分離できる
     </td>
   </tr>
   <tr>
@@ -20944,7 +21047,8 @@ _sir(=&lt;backward,sizeA-1,0),
 <br>
 =&lt;x}=&gt;;
 <br>
-・続けてtest caseを示す
+<br>
+test caseを示す
 <br>
 ・pivot選択ありの場合
 <br>
@@ -21342,7 +21446,7 @@ A(x) ->
 )
 <br>
 <br>
-続けてrank落ち3元⇒実質2元1次の連立線形方程式Ax=bを一例に示す
+rank落ち3元⇒実質2元1次の連立線形方程式Ax=bを一例に示す
 <br>
 A=(i,2i,3i:4i,5i,6i:7i,8i,9i);
 <br>
@@ -25694,7 +25798,7 @@ _EIS
     </th>
     <td>
 <span id="span-eqn-plot2d_EIS"></span>
-<a href="#span-out-simulation-EIS">EIS simulation</a>参照
+<a href="#span-out-simulation-EIS-0D-cell">0D-cell EIS simulation</a>参照
 <br>
 clear;
 <br>
@@ -25899,7 +26003,7 @@ _EIS_DFT
     </th>
     <td>
 <span id="span-eqn-plot2d_EIS_DFT"></span>
-<a href="#span-out-simulation-EIS">EIS simulation</a>参照
+<a href="#span-out-simulation-EIS-0D-cell">0D-cell EIS simulation</a>参照
 <br>
 clear;
 <br>
@@ -26100,7 +26204,7 @@ _IV
     </th>
     <td>
 <span id="span-eqn-plot2d_IV"></span>
-<a href="#span-out-simulation-EIS">EIS simulation</a>参照
+<a href="#span-out-simulation-EIS-0D-cell">0D-cell EIS simulation</a>参照
 <br>
 clear;
 <br>
