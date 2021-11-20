@@ -37,8 +37,13 @@
 
 <script type="text/javascript">
   (function(){
-    new My_entry.$().onload(function(e){
+    var $ = new My_entry.$();
+    $.onload(function(e){
       new My_entry.handler_wave().onload(e);
+      $._id("select-MIDI-octave").onchange =
+      $._id("input-MIDI-note").onchange = function(){
+        $._id("input-frequency").value = new My_entry.reference().calc_freq($.selectNum_id("select-MIDI-octave"), $.inputNum_id("input-MIDI-note"));
+      };
     });
   })();
 </script>
@@ -245,6 +250,12 @@ fade-in/out:
 filter gain:
 </div>
 <hr>
+<div>
+frequency
+<br>
+checker:
+</div>
+<hr>
     </td>
     <td>
 <hr>
@@ -360,6 +371,31 @@ filter gain:
   <option>0.9</option>
   <option>1</option>
 </select>
+  </label>
+</div>
+<hr>
+<div>
+  <label>MIDI-octave:
+<select id="select-MIDI-octave">
+  <option>-1</option>
+  <option>0</option>
+  <option>1</option>
+  <option>2</option>
+  <option>3</option>
+  <option>4</option>
+  <option>5</option>
+  <option>6</option>
+  <option>7</option>
+  <option>8</option>
+  <option>9</option>
+</select>
+  </label>
+  <label>-note:
+<input id="input-MIDI-note" type="number" min="-1024" max="1024" step="1" value="69">
+  </label>
+<br>
+  <label>frequency[Hz]:
+<input id="input-frequency" type="number" value="440" readonly="readonly">
   </label>
 </div>
 <hr>
