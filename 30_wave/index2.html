@@ -382,13 +382,13 @@ checker:
     <td>
 時系列のscript入力欄　例）左右で3拍子ずらした1octaveのstereo出力
   <textarea id="textarea-script" rows="10">
-{500:[o-1c60,f523,n84]; 500:[o4c2,o5c2,o6c2]; 500:[o4c4,o5c4,o6c4]; 500:[o4c5,o5c5,o6c5];
+{500:[C4,C5,C6]; 500:[D4,D5,D6]; 500:[E4,E5,E6]; 500:[F4,F5,F6];
+ 500:[G4,G5,G6]; 500:[A4,A5,A6]; 500:[B4,B5,B6]; 500:[C5,C6,C7]; 500:r;}
+{1500:r; 500:[n60,n72,n84]; 500:[n62,n74,n86]; 500:[n64,n76,n88]; 500:[n65,n77,n89];
+ 500:[n67,n79,n91]; 500:[n69,n81,n93]; 500:[n71,n83,n95]; 500:[n72,n84,n96]; 500:r;}
+{3000:r; 500:[o-1c60,f523,1046]; 500:[o4c2,o5c2,o6c2]; 500:[o4c4,o5c4,o6c4]; 500:[o4c5,o5c5,o6c5];
  500:[o4c7,o5c7,o6c7]; 500:[o4c9,o5c9,o6c9]; 500:[o4c11,o5c11,o6c11]; 500:[o5c0,o6c0,o7c0]; 500:r;}
-{1500:r; 500:[o4c0,f523,o6c0]; 500:[o4c2,o5c2,o6c2]; 500:[o4c4,o5c4,o6c4]; 500:[o4c5,o5c5,o6c5];
- 500:[o4c7,o5c7,o6c7]; 500:[o4c9,o5c9,o6c9]; 500:[o4c11,o5c11,o6c11]; 500:[o5c0,o6c0,o7c0]; 500:r;}
-{3000:r; 500:[o4c0,f523,o6c0]; 500:[o4c2,o5c2,o6c2]; 500:[o4c4,o5c4,o6c4]; 500:[o4c5,o5c5,o6c5];
- 500:[o4c7,o5c7,o6c7]; 500:[o4c9,o5c9,o6c9]; 500:[o4c11,o5c11,o6c11]; 500:[o5c0,o6c0,o7c0]; 500:r;}
-{4500:r; 500:[o4c0,f523,o6c0]; 500:[o4c2,o5c2,o6c2]; 500:[o4c4,o5c4,o6c4]; 500:[o4c5,o5c5,o6c5];
+{4500:r; 500:[o4c0,o5c0,o6c0]; 500:[o4c2,o5c2,o6c2]; 500:[o4c4,o5c4,o6c4]; 500:[o4c5,o5c5,o6c5];
  500:[o4c7,o5c7,o6c7]; 500:[o4c9,o5c9,o6c9]; 500:[o4c11,o5c11,o6c11]; 500:[o5c0,o6c0,o7c0]; 500:r;}</textarea>
     </td>
   </tr>
@@ -414,9 +414,9 @@ scriptの入力形式
 <br>
 　"f"+周波数 || 周波数
 <br>
-　例）<span class="clear">A4(69)</span>＝ラ440Hz
+　例）<span class="run">A4</span><span class="clear">(69)</span>＝ラ440Hz
 <br>
-　o4c9 = o3c21 = o2c33 = o1c45 = o0c57 = <span class="clear">o-1c69 = n69</span> = f440 = 440
+　o4c9 = o3c21 = o2c33 = o1c45 = o0c57 <span class="clear">= o-1c69 = n69</span> <span class="run">= A4</span> = f440 = 440
 <br>
 　<span class="selection">次の数式で周波数に換算する場合、</span><a title="Graphing Calculator" href="../02_calc_graphing/index.html?useStrict=false&checkError=false">Graphing Calculator-test case-MIDI</a><span class="selection">参照</span>
 <br>
@@ -428,29 +428,31 @@ scriptの入力形式
 <br>
 ・<span class="clear">MIDI-相対note数0~11</span>と音階の対応表
 <br>
-　<span class="clear">00</span> C（ド）
+　　　　　　　　入力例）octave=4の<span class="run">pitch記法</span>
 <br>
-　<span class="clear">01</span> C＃/D♭
+　<span class="clear">00</span> C（ド）　　C4
 <br>
-　<span class="clear">02</span> D（レ）
+　<span class="clear">01</span> C＃/D♭　　C4s || D4f
 <br>
-　<span class="clear">03</span> D＃/E♭
+　<span class="clear">02</span> D（レ）　　D4
 <br>
-　<span class="clear">04</span> E（ミ）
+　<span class="clear">03</span> D＃/E♭　　D4s || E4f
 <br>
-　<span class="clear">05</span> F（ファ）
+　<span class="clear">04</span> E（ミ）　　E4
 <br>
-　<span class="clear">06</span> F＃/G♭
+　<span class="clear">05</span> F（ファ）　F4
 <br>
-　<span class="clear">07</span> G（ソ）
+　<span class="clear">06</span> F＃/G♭　　F4s || G4f
 <br>
-　<span class="clear">08</span> G＃/A♭
+　<span class="clear">07</span> G（ソ）　　G4
 <br>
-　<span class="clear">09</span> A（ラ）
+　<span class="clear">08</span> G＃/A♭　　G4s || A4f
 <br>
-　<span class="clear">10</span> A＃/B♭
+　<span class="clear">09</span> A（ラ）　　A4
 <br>
-　<span class="clear">11</span> B（シ）
+　<span class="clear">10</span> A＃/B♭　　A4s || B4f
+<br>
+　<span class="clear">11</span> B（シ）　　B4
 <br>
 ・時間の単位: msec
 <br>
@@ -467,6 +469,8 @@ scriptの入力形式
     <td>
 <span id="span-history"></span>
 機能の更新履歴
+<br>
+・<span class="run">Ver.1.14.4</span>以降、<span class="run">scientific pitch記法</span>に対応
 <br>
 ・<span class="run">Ver.1.14.4</span>以降、frequency checkerを追加
 <br>

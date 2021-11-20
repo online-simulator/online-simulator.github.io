@@ -25,8 +25,10 @@ My_entry.handler_wave.prototype.init = function(){
   self.regex.rl = /\[|\]/g;
   self.regex.oc = /^o([+-]?\d+)c(\d+)$/;  // Ver.1.13.4
   self.regex.nc = /^n(\d+)$/;  // Ver.1.13.4
+  self.regex.sn = /^([A-G]?)([+-]?\d+)([sf]?)$/;  // Ver.1.14.4
   self.regex.freq = /^f(\d+)/;
   self.regex.rest = /^r/;
+  self.notes = {C: 0, D: 2, E: 4, F: 5, G: 7, A: 9, B: 11};
   self.params = {};
   if(self.isScriptMode){
     self.set_n_thread_worker(self.entry.$.selectNum_id("select-n_thread"));
