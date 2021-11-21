@@ -146,7 +146,8 @@ My_entry.operation.prototype.init = function(){
   new My_entry.original_main().make_instances.call(self, ["$", "def", "math", "math_mat", "DATA", "unit"]);
   My_entry.def.mix_in_props(My_entry.operation, My_entry.DATA, ["arr2num", "arr2args", "arr2obj_i"]);
   self.useTest = null;
-  self.notUseStrict = null;
+  self.useStrict = null;
+  self.useEmpty = null;
   self.arr_precedence = [];
   self.options = {};
   self.isLocked_eqns = [[{}]];  // Ver.2.32.17
@@ -248,7 +249,8 @@ My_entry.operation.prototype.prepare = function(data){
   var options = data.options;
   /* Ver.2.24.11 -> */
   self.useTest = options.useTest;
-  self.notUseStrict = !(options.useStrict);
+  self.useStrict = options.useStrict;
+  self.useEmpty = (options.checkError === 0 || options.checkError < 0)? false: true;  // Ver.2.84.32
   self.options.isRelative_epsN = options.isRelative_epsN || self.config.params.isRelative_epsN;
   self.options.epsN = options.epsN || self.config.params.epsN;
   self.options.dxT = options.dxT || self.config.params.dxT;
@@ -2158,7 +2160,12 @@ My_entry.operation.prototype.restore_arr = function(arr, ref){
   /* -> Ver.2.79.32 */
   /* Ver.2.77.30 -> */
   else if(len_ref === 4){
-    var ttarr = math_mat.transpose(null, math_mat.transpose(null, arr));
+    /* Ver.2.84.32 -> */
+    var ttarr = arr;
+    if(self.useEmpty){
+      ttarr = math_mat.transpose(null, math_mat.transpose(null, arr));
+    }
+    /* -> Ver.2.84.32 */
     var _di = ttarr.length;
     var _dj = ttarr[0].length;
     var _i = ref[0];
@@ -2187,7 +2194,12 @@ My_entry.operation.prototype.restore_arr = function(arr, ref){
   /* Ver.2.80.32 -> */
   else if((len_ref+1)%2 === 0){
     var tarr = math_mat.transpose(null, arr);
-    var ttarr = math_mat.transpose(null, tarr);
+    /* Ver.2.84.32 -> */
+    var ttarr = arr;
+    if(self.useEmpty){
+      ttarr = math_mat.transpose(null, tarr);
+    }
+    /* -> Ver.2.84.32 */
     var len_i = ttarr.length;
     var len_j = ttarr[0].length;
     var len_min = Math.min(len_i, len_j);
@@ -2230,8 +2242,14 @@ My_entry.operation.prototype.restore_arr = function(arr, ref){
 My_entry.operation.prototype.store_arr_band = function(_arr, ref, arr){
   var self = this;
   var math_mat = self.entry.math_mat;
-  var _ttarr = math_mat.transpose(null, math_mat.transpose(null, _arr));
-  var ttarr = math_mat.transpose(null, math_mat.transpose(null, arr));
+  /* Ver.2.84.32 -> */
+  var _ttarr = _arr;
+  var ttarr = arr;
+  if(self.useEmpty){
+    _ttarr = math_mat.transpose(null, math_mat.transpose(null, _arr));
+    ttarr = math_mat.transpose(null, math_mat.transpose(null, arr));
+  }
+  /* -> Ver.2.84.32 */
   var len_ref = ref.length;
   var len_i = _ttarr.length;
   var len_j = _ttarr[0].length;
@@ -2285,8 +2303,14 @@ My_entry.operation.prototype.store_arr_band = function(_arr, ref, arr){
 My_entry.operation.prototype.store_arr_area = function(_arr, ref, arr){
   var self = this;
   var math_mat = self.entry.math_mat;
-  var _ttarr = math_mat.transpose(null, math_mat.transpose(null, _arr));
-  var ttarr = math_mat.transpose(null, math_mat.transpose(null, arr));
+  /* Ver.2.84.32 -> */
+  var _ttarr = _arr;
+  var ttarr = arr;
+  if(self.useEmpty){
+    _ttarr = math_mat.transpose(null, math_mat.transpose(null, _arr));
+    ttarr = math_mat.transpose(null, math_mat.transpose(null, arr));
+  }
+  /* -> Ver.2.84.32 */
   var _di = _ttarr.length;
   var _dj = _ttarr[0].length;
   var _i = ref[0];
@@ -2471,7 +2495,7 @@ My_entry.operation.prototype.REv = function(data, i0, tagName, tagObj){
     /* Ver.2.24.11 -> */
     if(tree){
     }
-    else if(self.notUseStrict){
+    else if(!(self.useStrict)){
       tree = self.restore_eqn(name, scopes, ids);
       if(tree){
         /* Ver.2.20.8 -> */

@@ -470,7 +470,6 @@ My_entry.calc_graphing.prototype.get_options = function(isPlot){
   $.get_elemProps("input[type='checkbox']", "checkbox-", "checked", _options);
   $.get_elemProps("select", "select-", "value", _options);
   $.get_urlParams(_options);
-  if(_options.checkError !== false) _options.checkError = true;
   /* Ver.2.22.11 -> */
   _options.matSizeMax = (isNaN(_options.matSizeMax)? null: _options.matSizeMax) || self.config.MAT.sizeMax;
   /* -> Ver.2.22.11 */

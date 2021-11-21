@@ -9109,20 +9109,34 @@ browser上部のURL入力欄のGET入力で<a href="#span-in-options">内部opti
 index.html?param0=value0&amp;param1=value1&amp;param2=value2&amp;...
 <br>
 <br>
-<a href="#span-out-config-strict">strict-mode</a>で実行する場合、not false&amp;not0を設定
+<a href="#span-out-config-strict">strict-mode</a>で実行する場合、false||0以外を設定
 <br>
 useStrict=true
+<br>
+useStrict=1
 <br>
 ・乗算記号*省略不可
 <br>
 ・<a href="#span-out-eqns-call">式読出し</a>記号=&gt;省略不可
 <br>
 <br>
-<a href="#span-out-error">情報落ち</a>の発生や<a href="#span-out-FNh-DX">微分</a>・<a href="#span-out-FNh-IX">積分</a>の<a href="#span-out-error-numerical">数値誤差</a>を評価しない場合、false（0 disabled）を設定
+<a href="#span-out-error">情報落ち</a>の発生や<a href="#span-out-FNh-DX">微分</a>・<a href="#span-out-FNh-IX">積分</a>の<a href="#span-out-error-numerical">数値誤差</a>を評価しない場合、falseを設定
 <br>
 checkError=false
 <br>
 ・<a href="#span-out-ope">演算量</a>が数倍軽くなる
+<br>
+・<span class="run">Ver.2.84.32</span>以降、さらに<a href="#span-out-array">行列操作</a>を最適化する場合、0を設定
+<br>
+checkError=0
+<br>
+・抜け要素を含む<a href="#span-out-array">行列操作</a>の予期せぬerror終了を許容する
+<br>
+(1,2:3)[0][0][0][0] -> Cannot read properties of undefined
+<br>
+・<span class="run">Ver.2.84.32</span>以降、<a href="#span-out-error-numerical">数値誤差</a>を評価して<a href="#span-out-array">行列操作</a>のみを最適化する場合、負数を設定
+<br>
+checkError=-1
 <br>
 <br>
 <span class="run">Ver.2.31.17</span>以降、useScopeを追加
@@ -10976,6 +10990,8 @@ vectorr(round(2^3)) || vectorr(8)  <span class="selection">// OK</span> -> (0,0,
 ・<span class="run">Ver.2.76.29</span>以降、<a href="#span-out-array">行列操作</a>の<a href="#span-out-ope">演算速度</a>を犠牲にする弊害の方が圧倒的に大きい
 <br>
 ・よって抜け要素がある場合、error終了の方が実装効率||演算効率が高い
+<br>
+後者の演算効率を選択して<a href="#span-out-array">行列操作</a>を最適化する場合、<a href="#span-out-config">裏設定</a>参照
     </td>
   </tr>
   <tr>
