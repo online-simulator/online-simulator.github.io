@@ -704,8 +704,10 @@ My_entry.plot2d.prototype.run = function(arr2d_vec, options, toSVG, isFinal){
   _svg += self.grid(options, tgxmin, tgymin, tgxmax, tgymax, Ni, Nj, isLog_x, isLog_y, label_x, label_y, fontSize, expDigit, gridLineWidth, gridLineColor, globalCompositeOperation);
   // masking
   var idName_mask = "mask_lines_and_gradations";
-  var dtgx = dtgx0*1e-15;
-  var dtgy = dtgy0*1e-15;
+  /* 1.21.7 -> */
+  var dtgx = dtgx0*1e-5;
+  var dtgy = dtgy0*1e-5;
+  /* -> 1.21.7 */
   var tgxmin_mask = tgxmin-dtgx;
   var tgymin_mask = tgymin-dtgy;
   var tgxmax_mask = tgxmax+dtgx;
