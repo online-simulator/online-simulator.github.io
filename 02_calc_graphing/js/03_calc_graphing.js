@@ -799,6 +799,13 @@ My_entry.calc_graphing.prototype.init_handlers = function(){
           data.len_x = inputs.len_x;
           data.len_y = inputs.len_y;
           data.vars.t = DATA.tree_num(tcr, tci);
+          /* Ver.2.85.32 -> */
+          var tc0 = t[0];
+          var tc1 = t[N];
+          data.vars.N = DATA.tree_num(N, 0);
+          data.vars.t0 = DATA.tree_num(tc0.r, tc0.i);
+          data.vars.t1 = DATA.tree_num(tc1.r, tc1.i);
+          /* -> Ver.2.85.32 */
           data.tcr = tcr;
           data.tci = tci;
           arr_data_in.push(data);
