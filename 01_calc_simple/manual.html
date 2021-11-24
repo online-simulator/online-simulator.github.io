@@ -13242,6 +13242,8 @@ floor(-3.2i) -> 0
 <br>
 clear; a=-3.2; b=2; m=a-int(a/b)*b; m || mod(a,b) || -3.2%2 -> -1.2000000000000002
 <br>
+clear; a=-3.2; b=2; mod(a,b) || fmod(a,b) -> -1.2000000000000002
+<br>
 clear; a=-3.2; b=2; q=int(a/b); q || quot(a,b) || -3.2%%2 -> -1
 <br>
 clear; a=-3.2; b=2; m=a-floor(a/b)*b; m  <span class="selection">// NG</span> -> 0.7999999999999998
@@ -13251,7 +13253,7 @@ clear; a=-3.2; b=2; q=floor(a/b); q  <span class="selection">// NG</span> -> -2
 <br>
 留意事項を列挙する
 <br>
-・operandは整数のみ対応
+・operandは実数のみ対応
     </td>
   </tr>
   <tr>
