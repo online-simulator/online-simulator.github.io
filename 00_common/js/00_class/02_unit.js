@@ -100,17 +100,14 @@ My_entry.unit.prototype.BRr = function(options, left, right){
   var self = this;
   return self.FN("mod", options, left, right);
 };
-My_entry.unit.prototype.BRm = function(options, left, right){
+/* Ver.2.87.32 -> */
+My_entry.unit.prototype.BRpp = function(options, left, right){
   var self = this;
-  var cmath = self.entry.math_com;
-  var DATA = self.entry.DATA;
-  var useComplex = options.useComplex;
-  var callback = function(leftCom, rightCom){
-    return ((useComplex)?
-      cmath.mul(leftCom, rightCom):
-      DATA.com(leftCom.r*rightCom.r, 0));
-  };
-  return self.FN_call(callback, options, left, right);
+  return self.FN("pow", options, left, right);
+};
+My_entry.unit.prototype.BRrr = function(options, left, right){
+  var self = this;
+  return self.FN("quot", options, left, right);
 };
 My_entry.unit.prototype.BRd = function(options, left, right){
   var self = this;
@@ -124,6 +121,19 @@ My_entry.unit.prototype.BRd = function(options, left, right){
   };
   return self.FN_call(callback, options, left, right);
 };
+My_entry.unit.prototype.BRm = function(options, left, right){
+  var self = this;
+  var cmath = self.entry.math_com;
+  var DATA = self.entry.DATA;
+  var useComplex = options.useComplex;
+  var callback = function(leftCom, rightCom){
+    return ((useComplex)?
+      cmath.mul(leftCom, rightCom):
+      DATA.com(leftCom.r*rightCom.r, 0));
+  };
+  return self.FN_call(callback, options, left, right);
+};
+/* -> Ver.2.87.32 */
 My_entry.unit.prototype.get_isInfoLost = function(sw_ri){
   var self = this;
   var _isL = false;

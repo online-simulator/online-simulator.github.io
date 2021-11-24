@@ -52,14 +52,14 @@ My_entry.operation.prototype.config = {
         "URf"    // factorial mark ! || !!... operand is only natural number
       ],
       [
-        "BRp",   // Binary operatoR ** || ^ -> pow(left, right)
-        "BRr"    // Binary operatoR %       -> mod(left, right)
+        "BRpp",  // Binary operatoR ** -> pow(left, right)@Right-Associativity
+        "BRp",   // Binary operatoR ^  -> pow(left, right)
       ],
       [
         "BRmo"   // omitted multiplication sign
       ],
       [
-        "BRdm"   // Binary operatoR / || *
+        "BRdm"   // Binary operatoR % || %% || / || *
       ],
       [
         "BRsa"   // Binary operatoR - || + including Pre-Unary operator - || +
@@ -178,6 +178,7 @@ My_entry.operation.prototype.init_callback = function(options, tagName){
   var tagName_comp = tagName;
   var sw_tagName = tagName;
   var isRAandBR = (options.isRightAssociativityBR && (type === "BR"));
+  var isBRpp = (tagName === "BRpp");  // Ver.2.87.32
   var isBTref = (tagName === self.config.BT.ref);
   var isSEv = (tagName === "SEv");
   if(isBTref){
@@ -186,7 +187,7 @@ My_entry.operation.prototype.init_callback = function(options, tagName){
   else if(isSEv){
     tagName_comp = "BRe";
   }
-  if(isRAandBR || isBTref){
+  if(isRAandBR || isBRpp || isBTref){
     self.callbacks[tagName] = function(data){
       var trees = data.trees;
       var len_i = trees.length;
@@ -2019,6 +2020,10 @@ My_entry.operation.prototype.init_callbacks_mat = function(options){
   };
   self.callbacks_mat.BRp =
   self.callbacks_mat.BRr =
+  /* Ver.2.87.32 -> */
+  self.callbacks_mat.BRpp =
+  self.callbacks_mat.BRrr =
+  /* -> Ver.2.87.32 */
   self.callbacks_mat.BRd =
   /* Ver.2.59.26 -> */
   self.callbacks_mat.BRlA =
@@ -2032,6 +2037,7 @@ My_entry.operation.prototype.init_callbacks_mat = function(options){
   /* -> Ver.2.74.29 */
   return self;
 };
+/* Ver.2.87.32 -> */
 My_entry.operation.prototype.BR_original = function(data, i0, tagName, tagObj){
   var self = this;
   var trees = data.trees;
@@ -2044,12 +2050,38 @@ My_entry.operation.prototype.BR_original = function(data, i0, tagName, tagObj){
   var _tree = (!(isLeftVar))? self.callbacks_mat[tagName](tagName, tagObj, leftArr, rightArr): null;
   if(_tree){
     var is = (leftArr)? is: i0;
-    self.feedback2trees(data, is, ie, _tree, options.isRightAssociativityBR);
+    var isRightAssociativity = options.isRightAssociativityBR;
+    self.feedback2trees(data, is, ie, _tree, isRightAssociativity);
   }
   return _tree;
 };
+My_entry.operation.prototype.BR_original_RA = function(data, i0, tagName, tagObj){
+  var self = this;
+  var trees = data.trees;
+  var options = data.options;
+  var is = i0-1;
+  var ie = i0+1;
+  var leftArr = self.get_tagVal(trees[is], "mat", "arr");
+  var rightArr = self.get_tagVal(trees[ie], "mat", "arr");
+  var isLeftVar = self.get_tag(trees[is], "REv");
+  var _tree = (!(isLeftVar))? self.callbacks_mat[tagName](tagName, tagObj, leftArr, rightArr): null;
+  if(_tree){
+    var is = (leftArr)? is: i0;
+    var isRightAssociativity = true;
+    self.feedback2trees(data, is, ie, _tree, isRightAssociativity);
+  }
+  return _tree;
+};
+My_entry.operation.prototype.BRpp = function(data, i0, tagName, tagObj){
+  var self = this;
+  var tree = self.BR_original_RA(data, i0, tagName, tagObj);
+  if(!(tree)){
+    throw "Invalid binary operation";
+  }
+  return self;
+};
+/* -> Ver.2.87.32 */
 My_entry.operation.prototype.BRp =
-My_entry.operation.prototype.BRr =
 My_entry.operation.prototype.BRbs =
 My_entry.operation.prototype.BRba =
 My_entry.operation.prototype.BRbx =
@@ -2070,8 +2102,25 @@ My_entry.operation.prototype.BRlO = function(data, i0, tagName, tagObj){
 /* Ver.1.2.0 */
 My_entry.operation.prototype.BRdm = function(data, i0, tagName, tagObj){
   var self = this;
-  var sw_tagName = (tagObj.val === "/")? "BRd": "BRm";
-  var tree = self.BR_original(data, i0, sw_tagName, tagObj);
+  var tree = null;
+  /* Ver.2.87.32 -> */
+  switch(tagObj.val){
+    case "*":
+      tree = self.BR_original(data, i0, "BRm", tagObj);
+      break;
+    case "/":
+      tree = self.BR_original(data, i0, "BRd", tagObj);
+      break;
+    case "%":
+      tree = self.BR_original(data, i0, "BRr", tagObj);
+      break;
+    case "%%":
+      tree = self.BR_original(data, i0, "BRrr", tagObj);
+      break;
+    default:
+      break;
+  }
+  /* -> Ver.2.87.32 */
   if(!(tree)){
     throw "Invalid binary operation";
   }

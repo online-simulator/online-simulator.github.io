@@ -39,6 +39,12 @@ My_entry.math.prototype.isInf = function(val){
   return false;
 };
 /* for CALC */
+/* 2.87.32 -> */
+My_entry.math.prototype.int = function(x){
+  var self = this;
+  return Math.floor((x >= 0 || x%1 === 0)? x: x+1);
+};
+/* -> 2.87.32 */
 My_entry.math.prototype.eq = function(a, b){
   var self = this;
   return ((a == b)? 1: 0);
@@ -259,11 +265,18 @@ My_entry.math.prototype.kdelta = function(i, j){
   var self = this;
   return ((i === j)? 1: 0);
 };
-My_entry.math.prototype.mod = 
+/* Ver.2.87.32 -> */
+My_entry.math.prototype.mod =
 My_entry.math.prototype.fmod = function(x, y){
   var self = this;
   return (x%y);
+//  return (x-self.int(x/y)*y);
 };
+My_entry.math.prototype.quot = function(x, y){
+  var self = this;
+  return self.int(x/y);
+};
+/* -> Ver.2.87.32 */
 My_entry.math.prototype["~"] = function(y){
   var self = this;
   return (~y);

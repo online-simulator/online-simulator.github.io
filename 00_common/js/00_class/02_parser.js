@@ -43,7 +43,8 @@ My_entry.parser.prototype.config = {
         return "URf"+","+str.length;
       }},
       // ** -> ^
-      {b: /[*]{2}/, a: "BRp"},
+      {b: /[*]{2}/, a: "BRpp"},  // Ver.2.87.32
+      {b: /[%]{1,2}/, a: "BRdm"},  // Ver.2.87.32
       // bit shift
       {b: /[<]{2}|[>]{2,3}/, a: "BRbs"},
       // relational operator check first
@@ -75,7 +76,6 @@ My_entry.parser.prototype.config = {
       "i": "URi",
       // Binary operatoR: "BR?"
       "^": "BRp",
-      "%": "BRr",
       // omitted multiplication sign: "BRmo"
       "/": "BRdm", "*": "BRdm",
       // Pre-Unary operator minus or plus: "PUmp"
@@ -476,9 +476,6 @@ My_entry.parser.prototype.make_trees = function(sentence, re){
       case "ln":
         tree = DATA.tree_tag("FN", "log");
         break;
-      case "int":
-        tree = DATA.tree_tag("FN", "floor");
-        break;
       // JavaScript defined
       case "ceil":
       case "floor":
@@ -506,6 +503,8 @@ My_entry.parser.prototype.make_trees = function(sentence, re){
       case "acos":
       case "atan":
       case "log10":
+      // Python defined
+      case "int":
       // My defined
       case "sin_deg":
       case "cos_deg":
@@ -557,6 +556,7 @@ My_entry.parser.prototype.make_trees = function(sentence, re){
       case "kdelta":
       case "mod":
       case "fmod":
+      case "quot":
       // "FN3or4"
       // My defined
       case "star":
@@ -564,14 +564,15 @@ My_entry.parser.prototype.make_trees = function(sentence, re){
       case "polygon":
         tree = DATA.tree_tag("FN", token_lower);
         break;
-      // "FNn" n<256 in Excel
-      // Excel defined
+      // "FNn"
+      // Excel defined@n<256
       case "lcm":
       case "gcd":
       // Both defined
       // only real number
       case "min":
       case "max":
+      // Python defined
       // My defined
       // |complex number|
       case "cmin":
