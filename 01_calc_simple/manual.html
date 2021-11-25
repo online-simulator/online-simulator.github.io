@@ -7883,7 +7883,7 @@ Left-Associativity（左結合）
 <br>
 3**2**3 || (3**(2**3)) -> 6560.999999999982
 <br>
-・**演算子は^演算子より優先する
+・<span class="run">Ver.2.87.32</span>以降、**演算子は^演算子より優先
 <br>
 3**2^3 || ((3**2)^3) -> 728.9999999999994
 <br>
@@ -7996,7 +7996,7 @@ precedence
 <br>
 　　・べき乗演算子 **　<span class="run">Ver.2.87.32</span>以降、<a href="#span-out-associativity">右結合</a>に変更
 <br>
-　　・べき乗演算子 ^　
+　　・べき乗演算子 ^　<span class="run">Ver.2.87.32</span>以降、**演算子の下位に分離
 <br>
 　　<del>・剰余演算子 %</del>　<span class="run">Ver.2.87.32</span>以降、除算||乗算演算子に統合
 <br>
@@ -13230,15 +13230,21 @@ int(3.2) -> 3
 <br>
 int(-3.2) -> -3
 <br>
+int(-4) -> -4
+<br>
+int(-3.2i) -> 0
+<br>
+・floor関数
+<br>
 floor(3.2) -> 3
 <br>
 floor(-3.2) -> -4
 <br>
-int(-3.2i) -> 0
+floor(-4) -> -4
 <br>
 floor(-3.2i) -> 0
 <br>
-・<a href="#span-out-prec-ope-arithmetic-mod">剰余・整数商演算子</a>を代替
+・<a href="#span-out-prec-ope-arithmetic-mod">剰余・整数商演算子</a>とmod||fmod||quot関数の関係
 <br>
 clear; a=-3.2; b=2; m=a-int(a/b)*b; m || mod(a,b) || -3.2%2 -> -1.2000000000000002
 <br>
