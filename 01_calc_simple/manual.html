@@ -7753,6 +7753,8 @@ comma
 <br>
 <span class="run">Ver.2.74.29</span>以降、<a href="#span-out-ope-extended">拡張行列演算</a>におけるcomma演算子の使用を選択可
 <br>
+・<span class="run">Ver.2.88.32</span>以降、<span class="condition">定義できない<a href="#span-out-prec-ope">乗算||減算||加算</a></span>を<a href="#span-out-ope-extended">拡張行列演算</a>に追加
+<br>
 <br>
 comma演算子は行vectorの<a href="#span-out-FNm-last">最終要素</a>を取り出す
 <br>
@@ -7761,14 +7763,14 @@ comma演算子未使用既定
 <br>
 (1,2:3,4)i -> (i,2i:3i,4i)
 <br>
-(1,2:3,4)(i) || (1,2:3,4)*i -> [MyErr]Invalid matrix operation
+<span class="condition">(1,2:3,4)(i) || (1,2:3,4)*i -> (i,2i:3i,4i)</span>
 <br>
 <br>
 comma演算子使用選択
 <br>
 (1,2:3,4)i || ((1,2)i:(3,4)i) -> (2i:4i)
 <br>
-(1,2:3,4)(i) || (1,2:3,4)*i -> [MyErr]Invalid matrix operation
+<span class="condition">(1,2:3,4)(i) || (1,2:3,4)*i -> (2i:4i)</span>
 <br>
 <br>
 留意事項を列挙する
@@ -10411,7 +10413,7 @@ clear; add(A,B)=&lt;[A+B]; B=&lt;(3,4); B=(,); add(=&lt;(1,2),=&lt;B=&gt;) -> (4
 <br>
 ・<a href="#span-out-config-strict">strict-mode</a>の場合、<a href="#span-out-vars-symbol">変数名symbol</a>を厳格に判別する
 <br>
-clear; add(A,B)=&lt;[A+B]; B=&lt;(3,4); add(=&lt;(1,2),=&lt;B)=&gt; -> [MyErr]Invalid matrix operation
+clear; add(A,B)=&lt;[A+B]; B=&lt;(3,4); add(=&lt;(1,2),=&lt;B)=&gt; -> [MyErr]Invalid BRsa operation
 <br>
 clear; add(A,B)=&lt;[A]; B=&lt;(3,4); add(=&lt;(1,2),=&lt;B)=&gt; -> (1,2)
 <br>
