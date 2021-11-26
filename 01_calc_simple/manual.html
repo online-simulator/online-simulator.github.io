@@ -7701,7 +7701,7 @@ RA選択
 <br>
 ・<a href="#span-out-type-ope">前置単項演算子</a>の符号は同種の<a href="#span-out-type-ope">中置2項演算子</a>と区別しない
 <br>
-・符号の左側には0||zeros行列が存在すると仮定して結合する
+・符号の左側には0||<a href="#span-out-FNm">zeros行列</a>が存在すると仮定して結合する
 <br>
 <br>
 詳細は<a href="#span-out-special">特殊仕様</a>参照
@@ -14375,7 +14375,7 @@ vc={1,i,-i}; vc(1/norm(vc)) ->
 <br>
 vr=(1,i,-i); normalizec(vr)  <span class="selection">// NG</span> -> (1,i,-i)
 <br>
-・zeros-vectorの場合
+・<a href="#span-out-FNm">zeros-vector</a>の場合
 <br>
 normalize({0,0,0})  <span class="selection">// NG</span> -> [MyErr]FN isNaN
 <br>
@@ -18386,7 +18386,7 @@ Jacobi(=&lt;第1引数,=&lt;第2引数[,=&lt;第3引数[,第4引数]])
 <br>
 option
 <br>
-・第3引数: 未知変数初期値の列vector||<a href="#span-out-vars-symbol">式変数名symbol</a>を<a href="#span-out-call-by-equation">式渡し</a>[0||省略時、zeros-vector]
+・第3引数: 未知変数初期値の列vector||<a href="#span-out-vars-symbol">式変数名symbol</a>を<a href="#span-out-call-by-equation">式渡し</a>[0||省略時、<a href="#span-out-FNm">zeros-vector</a>]
 <br>
 　第3引数は未知変数未定義時のみ有効
 <br>
@@ -18478,7 +18478,7 @@ Newton(=&lt;第1引数,=&lt;第2引数[,=&lt;第3引数[,第4引数[,第5引数[
 <br>
 option
 <br>
-・第3引数: 未知変数初期値の列vector||<a href="#span-out-vars-symbol">式変数名symbol</a>を<a href="#span-out-call-by-equation">式渡し</a>[0||省略時、zeros-vector]
+・第3引数: 未知変数初期値の列vector||<a href="#span-out-vars-symbol">式変数名symbol</a>を<a href="#span-out-call-by-equation">式渡し</a>[0||省略時、<a href="#span-out-FNm">zeros-vector</a>]
 <br>
 　第3引数は未知変数未定義時のみ有効
 <br>
@@ -18531,7 +18531,7 @@ last(mdx=Newton(=&lt;{x0+2*x1=5,3*x0+4*x1=6},=&lt;{x0,x1},=&lt;{0,0}),norm(mdx))
 <br>
 <span class="run">Ver.2.29.15</span>以降
 <br>
-・第3引数0の場合、zeros-vector
+・第3引数0の場合、<a href="#span-out-FNm">zeros-vector</a>
 <br>
 ・第4引数0の場合、偏微分の差分刻みdx=dx既定値
 <br>
@@ -18617,7 +18617,7 @@ cmax(trans(mdx))  <span class="selection">// |both-part|</span> -> 1.46454246416
 <br>
 ・未知変数の初期化が必要
 <br>
-・zeros-vectorで初期化の場合、反復2回以上が確定する
+・<a href="#span-out-FNm">zeros-vector</a>で初期化の場合、反復2回以上が確定する
 <br>
 storage cleared
 <br>
@@ -18745,7 +18745,7 @@ _odummy<a href="#span-out-vars-symbol">変数名symbol</a>(=&lt;第1引数,=&lt;
 <br>
 option
 <br>
-・第3引数: 未知変数初期値の列vector||<a href="#span-out-vars-symbol">式変数名symbol</a>を<a href="#span-out-call-by-equation">式渡し</a>[0||省略時、zeros-vector]
+・第3引数: 未知変数初期値の列vector||<a href="#span-out-vars-symbol">式変数名symbol</a>を<a href="#span-out-call-by-equation">式渡し</a>[0||省略時、<a href="#span-out-FNm">zeros-vector</a>]
 <br>
 　第3引数は未知変数未定義時のみ有効
 <br>
@@ -21379,7 +21379,7 @@ x1 -> infoLost[ri] 4.499999999999999+6.466216308756395e-26i
 <br>
 ・Ax=bの連立線形方程式に一般化されたNewton法が導出される
 <br>
-・ここで、単項の符号は<a href="#span-out-FNm">Scalar倍</a>||zeros行列との差||和で定義される
+・ここで、<a href="#span-out-type-ope">前置単項</a>の符号は<a href="#span-out-FNm">Scalar倍</a>||<a href="#span-out-FNm">zeros行列</a>との差||和で定義される
 <br>
 (df[i]/dx[j]){dx[j]}={-f[i]}
 <br>
@@ -21582,7 +21582,7 @@ backward -> [MyErr]FN isNaN
 <br>
 ・解が不定のため、偶然得られる近似解は初期値によって大きく異なる
 <br>
-・初期値がzeros-vectorの場合
+・初期値が<a href="#span-out-FNm">zeros-vector</a>の場合
 <br>
 storage cleared
 <br>
@@ -22020,7 +22020,7 @@ A=(i,2i,3i:4i,5i,6i:7i,8i,9i);
 <br>
 ・よって多くの場合、逆行列を求める過程で発散する
 <br>
-・初期値がzeros-vectorの場合
+・初期値が<a href="#span-out-FNm">zeros-vector</a>の場合
 <br>
 storage cleared
 <br>
@@ -23802,7 +23802,7 @@ _dy(=&lt;{1/(y*y)})/_dy(=&lt;{1/y})  <span class="selection">// NG</span> -> [My
 <br>
 <a href="#span-out-option1">RA選択</a>時　+3-5+7-9 || (0+(3-(5+(7-9)))) -> 0
 <br>
-・<a href="#span-out-mat">行列</a>も同様に、単項の符号は<a href="#span-out-FNm">Scalar倍</a>||zeros行列との差||和として扱う
+・<a href="#span-out-mat">行列</a>も同様に、単項の符号は<a href="#span-out-FNm">Scalar倍</a>||<a href="#span-out-FNm">zeros行列</a>との差||和として扱う
 <br>
 -(1,2:3,4) || (-1,:,-1)(1,2:3,4) || (,:,)-(1,2:3,4) -> (-1,-2:-3,-4)
 <br>
@@ -23831,7 +23831,7 @@ _dy(=&lt;{1/(y*y)})/_dy(=&lt;{1/y})  <span class="selection">// NG</span> -> [My
 <br>
 (1,2:3,4)=(,) || =(,)-(1,2:3,4) -> [MyErr]Invalid matrix operation
 <br>
-・単項の場合、符号同様に左辺には0||zeros行列が存在すると仮定する
+・単項の場合、符号同様に左辺には0||<a href="#span-out-FNm">zeros行列</a>が存在すると仮定する
 <br>
 =8 || 0=8 || =8-0 -> 8
 <br>
