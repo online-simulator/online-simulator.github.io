@@ -369,7 +369,10 @@ My_entry.math_mat.prototype.BRm = function(options, left, right){
   var rightLens = self.get_lens(right);
   var len_i = leftLens.i;
   var len_j = rightLens.j;
-  if(leftLens.j !== rightLens.i) throw "Invalid matrix operation";
+  /* Ver.2.88.32 -> */
+//  if(leftLens.j !== rightLens.i) throw "Invalid matrix operation";
+  if(leftLens.j !== rightLens.i) return false;
+  /* -> Ver.2.88.32 */
   var newRight = self.transpose(options, right);
   var _arr = self.init2d(len_i, len_j);
   for(var i=0; i<len_i; ++i){
@@ -385,7 +388,10 @@ My_entry.math_mat.prototype.BRsa = function(options, left, right, sw_sa){
   var unit = self.entry.unit;
   var leftLens = self.get_lens(left);
   var rightLens = self.get_lens(right);
-  if(leftLens.i !== rightLens.i || leftLens.j !== rightLens.j) throw "Invalid matrix operation";
+  /* Ver.2.88.32 -> */
+//  if(leftLens.i !== rightLens.i || leftLens.j !== rightLens.j) throw "Invalid matrix operation";
+  if(leftLens.i !== rightLens.i || leftLens.j !== rightLens.j) return false;
+  /* -> Ver.2.88.32 */
   var lens = leftLens;
   var len_i = lens.i;
   var len_j = lens.j;

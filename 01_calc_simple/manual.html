@@ -9482,6 +9482,8 @@ strict-modeで実行する場合、<a href="#span-out-config">裏設定</a>参�
 <br>
 ・<span class="run">Ver.2.74.29</span>以降、<a href="#span-out-type-ope">演算子のoperand</a>を追加で拡張
 <br>
+・<span class="run">Ver.2.88.32</span>以降、<span class="condition">定義できない<a href="#span-out-prec-ope">乗算||減算||加算演算</a></span>を拡張対象に追加
+<br>
 詳細は<a href="#span-out-ope-extended-history">拡張履歴</a>参照
 <br>
 <br>
@@ -9490,8 +9492,6 @@ strict-modeで実行する場合、<a href="#span-out-config">裏設定</a>参�
 ・拡張対象は<a href="#span-out-FN">関数の引数vector</a>||<a href="#span-out-type-ope">演算子のoperand</a>
 <br>
 ・<a href="#span-out-FNh-RX">再帰高階関数</a>の反復処理より高速に演算可
-<br>
-・定義可能な<a href="#span-out-mat">行列</a>演算の<a href="#span-out-prec-ope">乗算||減算||加算演算子</a>は拡張対象外（変更なし）
 <br>
 ・<a href="#span-out-FNh">高階関数</a>||<a href="#span-out-FNmh">高階行列関数</a>は拡張対象外（変更なし）
 <br>
@@ -9515,6 +9515,18 @@ max(1,2:3,4) || (max(1,2):max(3,4)) -> (2:4)
 (1,2,4)/2 || (1,2,4)/(2,2,2) -> (0.5,1,2)
 <br>
 2/(1,2,4) || (2,2,2)/(1,2,4) -> (2,1,0.5)
+<br>
+<span class="condition">
+(1,2,4)2 || (1,2,4)*2 || (1,2,4)*(2,2,2) -> (2,4,8)
+<br>
+(2,3)(1,2,4) || (2,3)*(1,2,4) || (2,3,3)*(1,2,4) -> (2,6,12)
+<br>
+(1,2,4)-2 || (1,2,4)-(2,2,2) -> (-1,0,2)
+<br>
+(2,3)+(1,2,4) || (2,3,3)+(1,2,4) -> (3,5,7)
+<br>
+(2,3)=(1,2,4) || (2,3,3)=(1,2,4) -> (-1,-1,1)
+</span>
 <br>
 (2,4,8)&gt;&gt;(3,1) || (2,4,8)&gt;&gt;(3,1,1) -> (0,2,4)
 <br>
@@ -9607,6 +9619,8 @@ round_f(=&lt;f,,2) -> (1:0.7+0.71i:i:-0.7+0.71i:-1:-0.7-0.71i:-i:0.7-0.71i)
 最終行vector　⇒　<span class="run">Ver.2.73.29</span>以降、各行vectorに拡張（<a href="#span-out-option4">comma演算子</a>を適用）
 <br>
 　　　　　　　⇒　<span class="run">Ver.2.74.29</span>以降、各要素に拡張（<a href="#span-out-option4">comma演算子</a>使用を選択可）
+<br>
+・<span class="run">Ver.2.88.32</span>以降、定義できない<a href="#span-out-prec-ope">乗算||減算||加算演算</a>を拡張対象に追加
     </td>
   </tr>
   <tr>
@@ -9663,6 +9677,8 @@ round_f(=&lt;f,,2) -> (1:0.7+0.71i:i:-0.7+0.71i:-1:-0.7-0.71i:-i:0.7-0.71i)
 　<a href="#span-out-prec-ope-arithmetic-mod">剰余・整数商</a>の<a href="#span-out-prec-ope">演算子のprecedence</a>を<a href="#span-out-prec-ope-arithmetic">除算||加算</a>に統合
 <br>
 　<a href="#span-out-FN-int">int関数</a>を0側に丸める仕様に変更（floor関数は変更なし）
+<br>
+・<span class="run">Ver.2.88.32</span>以降、定義できない<a href="#span-out-prec-ope">乗算||減算||加算演算</a>を<a href="#span-out-ope-extended">拡張行列演算</a>に追加
     </td>
   </tr>
   <tr>
@@ -13809,9 +13825,16 @@ A=(11:21,22:31,32,33,34); htrans(htrans(A)) -> (11,0,0,0:21,22,0,0:31,32,33,34)
 <br>
 (1,2)(1,2) -> [MyErr]Invalid matrix operation
 <br>
+・<span class="run">Ver.2.88.32</span>以降、定義できない<a href="#span-out-prec-ope">乗算||減算||加算演算</a>を<a href="#span-out-ope-extended">拡張行列演算</a>に追加
+<br>
+(1,2)(1,2) -> (1,4)
+<br>
 <br>
 <a href="#span-out-FNm-size">行列size</a>の一致しない差と和の場合、error終了
 <br>
+・<span class="run">Ver.2.88.32</span>以降、定義できない<a href="#span-out-prec-ope">乗算||減算||加算演算</a>を<a href="#span-out-ope-extended">拡張行列演算</a>に追加
+<br>
+<del>
 (1,2:3,4)-(-1) -> [MyErr]Invalid matrix operation
 <br>
 (1,2:3,4)-(-1,2) -> [MyErr]Invalid matrix operation
@@ -13825,6 +13848,7 @@ A=(1,2:); A[0]+A[1] -> [MyErr]Invalid matrix operation
 A=(1,2:); ttA=trans(trans(A)); ttA[0]+ttA[1] -> (1,2)
 <br>
 A=(1,2:,); A[0]+A[1] -> (1,2)
+</del>
 <br>
 <br>
 抜け要素を埋めて<a href="#span-out-FNm-size">行列size</a>が一致する場合、差と和の演算を許容する
@@ -18993,6 +19017,10 @@ R=(1,2);
 LpR -> [MyErr]Invalid matrix operation
 <br>
 L*R -> [MyErr]Invalid matrix operation
+<br>
+・<span class="run">Ver.2.88.32</span>以降、定義できない<a href="#span-out-prec-ope">乗算||減算||加算演算</a>を<a href="#span-out-ope-extended">拡張行列演算</a>に追加
+<br>
+LpR -> (1,4)
 <br>
 ・内積
 <br>

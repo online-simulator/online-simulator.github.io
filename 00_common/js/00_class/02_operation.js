@@ -1908,6 +1908,12 @@ My_entry.operation.prototype.BRmo = function(data, i0, tagName, tagObj){
   var rightArr = self.get_tagVal(trees[ie], "mat", "arr");
   if(leftArr && rightArr){
     var tree = self.switch_unitBR("BRm", options, leftArr, rightArr);
+    /* Ver.2.88.32 -> */
+    var isNotDefined_BRmsa = !(tree.mat.arr);
+    if(isNotDefined_BRmsa){
+      tree = self.callbacks_mat.BRd("BRm", tagObj, leftArr, rightArr);
+    }
+    /* -> Ver.2.88.32 */
     self.feedback2trees(data, is, ie, tree, options.isRightAssociativityBR);
   }
   return self;
@@ -2049,6 +2055,12 @@ My_entry.operation.prototype.BR_original = function(data, i0, tagName, tagObj){
   var isLeftVar = self.get_tag(trees[is], "REv");
   var _tree = (!(isLeftVar))? self.callbacks_mat[tagName](tagName, tagObj, leftArr, rightArr): null;
   if(_tree){
+    /* Ver.2.88.32 -> */
+    var isNotDefined_BRmsa = !(_tree.mat.arr);
+    if(isNotDefined_BRmsa){
+      _tree = self.callbacks_mat.BRd(tagName, tagObj, leftArr, rightArr);
+    }
+    /* -> Ver.2.88.32 */
     var is = (leftArr)? is: i0;
     var isRightAssociativity = options.isRightAssociativityBR;
     self.feedback2trees(data, is, ie, _tree, isRightAssociativity);
