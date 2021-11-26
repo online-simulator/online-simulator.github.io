@@ -305,7 +305,7 @@ stored_eqn(MaclaurinN)
 clear
 local storage cleared
 
-[w={1,2,3,4:5,6,7,8},w=w*scalars(sizec(w),1+i),=<DWT2d_yx(=<w)=>]=>
+[w={1,2,3,4:5,6,7,8}*(1+i),=<DWT2d_yx(=<w)=>]=>
 (
 1+i,5+5i:
 2+2i,6+6i:
@@ -319,7 +319,7 @@ stored_eqn(DWT2d_yx)
 clear
 local storage cleared
 
-[w={1,2,3,4:5,6,7,8},w=w*scalars(sizec(w),1+i),=<DWT2d_xy(=<w)=>]=>
+[w={1,2,3,4:5,6,7,8}*(1+i),=<DWT2d_xy(=<w)=>]=>
 (
 1+i,5+5i:
 2+2i,6+6i:
@@ -333,7 +333,7 @@ stored_eqn(DWT2d_xy)
 clear
 local storage cleared
 
-[w={1,2,3,4},w=w*scalars(sizec(w),1+i),=<DWT1d(=<w)=>]=>
+[w={1,2,3,4}*(1+i),=<DWT1d(=<w)=>]=>
 (
 1+i:
 2+2i:
@@ -347,7 +347,7 @@ stored_eqn(DWT1d)
 clear
 local storage cleared
 
-[f={1,2,3,4:5,6,7,8},f=f*scalars(sizec(f),1+i),=<DFT2d_yx(=<f)=>]=>
+[f={1,2,3,4:5,6,7,8}*(1+i),=<DFT2d_yx(=<f)=>]=>
 (
 infoLost[ri] 1.0000000000000013+0.9999999999999993i,infoLost[ i] 5.000000000000002+4.999999999999999i:
 infoLost[ri] 2.000000000000001+1.9999999999999987i,infoLost[ri] 6+5.999999999999999i:
@@ -361,7 +361,7 @@ stored_eqn(DFT2d_yx)
 clear
 local storage cleared
 
-[f={1,2,3,4:5,6,7,8},f=f*scalars(sizec(f),1+i),=<DFT2d_xy(=<f)=>]=>
+[f={1,2,3,4:5,6,7,8}*(1+i),=<DFT2d_xy(=<f)=>]=>
 (
 infoLost[ri] 1.0000000000000009+i,infoLost[ri] 5.000000000000002+5i:
 infoLost[ri] 2.0000000000000004+1.9999999999999987i,infoLost[ri] 6+5.999999999999999i:
@@ -375,7 +375,7 @@ stored_eqn(DFT2d_xy)
 clear
 local storage cleared
 
-[f={1,2,3,4},f=f*scalars(sizec(f),1+i),=<DFT1d(=<f)=>]=>
+[f={1,2,3,4}*(1+i),=<DFT1d(=<f)=>]=>
 (
 infoLost[ri] 1.0000000000000009+0.9999999999999998i:
 infoLost[r ] 2+1.9999999999999996i:
@@ -662,4 +662,4 @@ drag=false&test-case=false&legend=true&axis-t=false&axis-x=true&log-x=false&imag
 --------------------------------
 --------------------------------
 
-online-simulator.github.io.4.93.30.12.28 @ Fri Nov 26 2021 18:48:34 GMT+0900 (日本標準時) @ Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/96.0.4664.45 Safari/537.36
+online-simulator.github.io.4.93.30.12.28 @ Fri Nov 26 2021 22:31:51 GMT+0900 (日本標準時) @ Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/96.0.4664.45 Safari/537.36

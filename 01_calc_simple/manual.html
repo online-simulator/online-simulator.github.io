@@ -14020,7 +14020,9 @@ A=(1,2,3,4:5,6,7,8); scalars(sizer(A),2)*A || A*scalars(sizec(A),2) ->
 <br>
 )
 <br>
-A={1,2,3,4:5,6,7,8}; scalars(sizer(A),2)*A || A*scalars(sizec(A),2) ->
+・<span class="run">Ver.2.88.32</span>以降、定義できない<a href="#span-out-prec-ope">乗算||減算||加算</a>を<a href="#span-out-ope-extended">拡張行列演算</a>に追加
+<br>
+A={1,2,3,4:5,6,7,8}; scalars(sizer(A),2)*A || A*scalars(sizec(A),2) || A*2 || 2*A ->
 <br>
 (
 <br>
@@ -25711,7 +25713,7 @@ init=&gt;,run=&gt;,return=out=&gt;,
 <br>
 =&lt;return]=&gt;;
 <br>
-[f={1,2,3,4},f=f*scalars(sizec(f),1+i),
+[f={1,2,3,4}*(1+i),
 <br>
 =&lt;DFT1d(=&lt;f)=&gt;]=&gt;;
     </td>
@@ -25753,7 +25755,7 @@ init=&gt;,run=&gt;,return=out=&gt;,
 <br>
 =&lt;return]=&gt;;
 <br>
-[f={1,2,3,4:5,6,7,8},f=f*scalars(sizec(f),1+i),
+[f={1,2,3,4:5,6,7,8}*(1+i),
 <br>
 =&lt;DFT2d_xy(=&lt;f)=&gt;]=&gt;;
     </td>
@@ -25795,7 +25797,7 @@ init=&gt;,run=&gt;,return=out=&gt;,
 <br>
 =&lt;return]=&gt;;
 <br>
-[f={1,2,3,4:5,6,7,8},f=f*scalars(sizec(f),1+i),
+[f={1,2,3,4:5,6,7,8}*(1+i),
 <br>
 =&lt;DFT2d_yx(=&lt;f)=&gt;]=&gt;;
     </td>
@@ -25849,7 +25851,7 @@ init=&gt;,run=&gt;,return=out=&gt;,
 <br>
 =&lt;return]=&gt;;
 <br>
-[w={1,2,3,4},w=w*scalars(sizec(w),1+i),
+[w={1,2,3,4}*(1+i),
 <br>
 =&lt;DWT1d(=&lt;w)=&gt;]=&gt;;
     </td>
@@ -25923,7 +25925,7 @@ init=&gt;,run=&gt;,return=out=&gt;,
 <br>
 =&lt;return]=&gt;;
 <br>
-[w={1,2,3,4:5,6,7,8},w=w*scalars(sizec(w),1+i),
+[w={1,2,3,4:5,6,7,8}*(1+i),
 <br>
 =&lt;DWT2d_xy(=&lt;w)=&gt;]=&gt;;
     </td>
@@ -25997,7 +25999,7 @@ init=&gt;,run=&gt;,return=out=&gt;,
 <br>
 =&lt;return]=&gt;;
 <br>
-[w={1,2,3,4:5,6,7,8},w=w*scalars(sizec(w),1+i),
+[w={1,2,3,4:5,6,7,8}*(1+i),
 <br>
 =&lt;DWT2d_yx(=&lt;w)=&gt;]=&gt;;
     </td>
