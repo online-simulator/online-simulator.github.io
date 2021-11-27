@@ -13124,13 +13124,19 @@ cmin(0,-1+i,2i-2) -> 0
 <br>
 cmax(0,-1+i,2i-2) || abs(2i-2) -> 2.8284271247461903
 <br>
-cmin({0,-1+i,2i-2}) || cmin(2i-2)  <span class="selection">// NG</span> -> -2+2i
+・<span class="run">Ver.2.73.29</span>以降、<span class="condition"><a href="#span-out-ope-extended">拡張行列演算</a></span>を追加
+<br>
+<del>cmin({0,-1+i,2i-2}) || cmin(2i-2)  <span class="selection">// NG</span> -> -2+2i</del>
+<br>
+<span class="condition">cmin({0,-1+i,2i-2})  <span class="selection">// NG</span> -> (0:-1+i:-2+2i)</span>
 <br>
 ・引数不足を含めて一般化する場合、abs関数を使用
 <br>
 abs(cmin(i)) -> 1
 <br>
-abs(cmin({0,-1+i,2i-2})) || abs(cmin(2i-2)) -> 2.8284271247461903
+<del>abs(cmin({0,-1+i,2i-2})) || abs(cmin(2i-2)) -> 2.8284271247461903</del>
+<br>
+<span class="condition">abs(cmin({0,-1+i,2i-2})) -> (0:1.4142135623730951:2.8284271247461903)</span>
 <br>
 ・<a href="#span-out-FNm-trans">転置行列関数</a>を使用
 <br>
