@@ -9527,7 +9527,7 @@ max(1,2:3,4) || (max(1,2):max(3,4)) -> (2:4)
 <br>
 (2,3)+(1,2,4) || (2,3,3)+(1,2,4) -> (3,5,7)
 <br>
-(2,3)=(1,2,4) || (2,3,3)=(1,2,4) -> (-1,-1,1)
+(2,3)=(1,2,4) || (2,3,3)=(1,2,4) || =(1,2,4)-(2,3,3) -> (-1,-1,1)
 <br>
 clear; x=(2,3); x=(1,2,4); x -> (1,2,4)
 <br>
@@ -12682,7 +12682,11 @@ clear; [a=2]*3 || [0]*3 -> [MyErr]Invalid reference
 <br>
 clear; 3*[a=2,a] || 3*[0,2] -> (0,6)
 <br>
-clear; [a=2,a]*3 || [0,2]*3 -> [MyErr]Invalid matrix operation
+・<span class="run">Ver.2.88.32</span>以降、<span class="condition">定義できない<a href="#span-out-prec-ope">乗算||減算||加算</a></span>を<a href="#span-out-ope-extended">拡張行列演算</a>に追加
+<br>
+<del>clear; [a=2,a]*3 || [0,2]*3 -> [MyErr]Invalid matrix operation</del>
+<br>
+<span class="condition">clear; [a=2,a]*3 || [0,2]*3 -> (0,6)</span>
 <br>
 clear; 3*[a=2,a]; a -> [MyErr]Invalid REv(a)
 <br>
@@ -13778,11 +13782,11 @@ k=-3; (k,:,k) -> (-3,0:0,-3)
 <br>
 k=-3; (k,:,k)(1,2:3,4) || (1,2:3,4)(k,:,k) -> (-3,-6:-9,-12)
 <br>
-k=-3; k(1,2:3,4)  <span class="selection">// NG</span> -> [MyErr]Invalid matrix operation
+・<span class="run">Ver.2.88.32</span>以降、<span class="condition">定義できない<a href="#span-out-prec-ope">乗算||減算||加算</a></span>を<a href="#span-out-ope-extended">拡張行列演算</a>に追加
 <br>
-・<span class="run">Ver.2.88.32</span>以降、定義できない<a href="#span-out-prec-ope">乗算||減算||加算</a>を<a href="#span-out-ope-extended">拡張行列演算</a>に追加
+<del>k=-3; k(1,2:3,4)  <span class="selection">// NG</span> -> [MyErr]Invalid matrix operation</del>
 <br>
-k=-3; k(1,2:3,4) -> (-3,-6:-9,-12)
+<span class="condition">k=-3; k(1,2:3,4) || (1,2:3,4)k -> (-3,-6:-9,-12)</span>
 <br>
 ・符号
 <br>
@@ -13833,16 +13837,16 @@ A=(11:21,22:31,32,33,34); htrans(htrans(A)) -> (11,0,0,0:21,22,0,0:31,32,33,34)
 <br>
 定義できない<a href="#span-out-mat-product">行列積</a>の場合、error終了
 <br>
-(1,2)(1,2) -> [MyErr]Invalid matrix operation
+・<span class="run">Ver.2.88.32</span>以降、<span class="condition">定義できない<a href="#span-out-prec-ope">乗算||減算||加算</a></span>を<a href="#span-out-ope-extended">拡張行列演算</a>に追加
 <br>
-・<span class="run">Ver.2.88.32</span>以降、定義できない<a href="#span-out-prec-ope">乗算||減算||加算</a>を<a href="#span-out-ope-extended">拡張行列演算</a>に追加
+<del>(1,2)(1,2) -> [MyErr]Invalid matrix operation</del>
 <br>
-(1,2)(1,2) -> (1,4)
+<span class="condition">(1,2)(1,2) -> (1,4)</span>
 <br>
 <br>
 <a href="#span-out-FNm-size">行列size</a>の一致しない差と和の場合、error終了
 <br>
-・<span class="run">Ver.2.88.32</span>以降、定義できない<a href="#span-out-prec-ope">乗算||減算||加算</a>を<a href="#span-out-ope-extended">拡張行列演算</a>に追加
+・<span class="run">Ver.2.88.32</span>以降、<span class="condition">定義できない<a href="#span-out-prec-ope">乗算||減算||加算</a></span>を<a href="#span-out-ope-extended">拡張行列演算</a>に追加
 <br>
 <del>
 (1,2:3,4)-(-1) -> [MyErr]Invalid matrix operation
@@ -13854,11 +13858,23 @@ A=(11:21,22:31,32,33,34); htrans(htrans(A)) -> (11,0,0,0:21,22,0,0:31,32,33,34)
 (1,2:3,4)+(-1,2:,,) -> [MyErr]Invalid matrix operation
 <br>
 A=(1,2:); A[0]+A[1] -> [MyErr]Invalid matrix operation
+</del>
+<br>
+<span class="condition">
+(1,2:3,4)-(-1) -> (2,3:4,5)
+<br>
+(1,2:3,4)-(-1,2) -> (2,0:4,2)
+<br>
+(1,2:3,4)+(-1:) -> (0,1:3,4)
+<br>
+(1,2:3,4)+(-1,2:,,) -> (0,4:3,4,4)
+<br>
+A=(1,2:); A[0]+A[1] -> (1,2)
+</span>
 <br>
 A=(1,2:); ttA=trans(trans(A)); ttA[0]+ttA[1] -> (1,2)
 <br>
 A=(1,2:,); A[0]+A[1] -> (1,2)
-</del>
 <br>
 <br>
 抜け要素を埋めて<a href="#span-out-FNm-size">行列size</a>が一致する場合、差と和の演算を許容する
@@ -14012,7 +14028,9 @@ Scalars(4,3-5i) -> (3-5i,0,0,0:0,3-5i,0,0:0,0,3-5i,0:0,0,0,3-5i)
 <br>
 ・任意size行列AのScalar倍
 <br>
-A=(1,2,3,4:5,6,7,8); scalars(sizer(A),2)*A || A*scalars(sizec(A),2) ->
+・<span class="run">Ver.2.88.32</span>以降、<span class="condition">定義できない<a href="#span-out-prec-ope">乗算||減算||加算</a></span>を<a href="#span-out-ope-extended">拡張行列演算</a>に追加
+<br>
+A=(1,2,3,4:5,6,7,8); scalars(sizer(A),2)*A || A*scalars(sizec(A),2) || <span class="condition">A*2 || 2*A</span> ->
 <br>
 (
 <br>
@@ -14022,9 +14040,7 @@ A=(1,2,3,4:5,6,7,8); scalars(sizer(A),2)*A || A*scalars(sizec(A),2) ->
 <br>
 )
 <br>
-・<span class="run">Ver.2.88.32</span>以降、定義できない<a href="#span-out-prec-ope">乗算||減算||加算</a>を<a href="#span-out-ope-extended">拡張行列演算</a>に追加
-<br>
-A={1,2,3,4:5,6,7,8}; scalars(sizer(A),2)*A || A*scalars(sizec(A),2) || A*2 || 2*A ->
+A={1,2,3,4:5,6,7,8}; scalars(sizer(A),2)*A || A*scalars(sizec(A),2) || <span class="condition">A*2 || 2*A</span> ->
 <br>
 (
 <br>
@@ -19022,17 +19038,23 @@ L*R -> (7,10,10:3,6,0:19,28,25:6,12,0)
 <br>
 ・定義できない行列積
 <br>
+・<span class="run">Ver.2.88.32</span>以降、<span class="condition">定義できない<a href="#span-out-prec-ope">乗算||減算||加算</a></span>を<a href="#span-out-ope-extended">拡張行列演算</a>に追加
+<br>
 L=(1,2);
 <br>
 R=(1,2);
 <br>
+<del>
 LpR -> [MyErr]Invalid matrix operation
 <br>
 L*R -> [MyErr]Invalid matrix operation
+</del>
 <br>
-・<span class="run">Ver.2.88.32</span>以降、定義できない<a href="#span-out-prec-ope">乗算||減算||加算</a>を<a href="#span-out-ope-extended">拡張行列演算</a>に追加
-<br>
+<span class="condition">
 LpR -> (1,4)
+<br>
+L*R -> (1,4)
+</span>
 <br>
 ・内積
 <br>
@@ -23869,7 +23891,11 @@ _dy(=&lt;{1/(y*y)})/_dy(=&lt;{1/y})  <span class="selection">// NG</span> -> [My
 <br>
 (1,2:3,4)=(,:,) || =(,:,)-(1,2:3,4) -> (-1,-2:-3,-4)
 <br>
-(1,2:3,4)=(,) || =(,)-(1,2:3,4) -> [MyErr]Invalid matrix operation
+・<span class="run">Ver.2.88.32</span>以降、<span class="condition">定義できない<a href="#span-out-prec-ope">乗算||減算||加算</a></span>を<a href="#span-out-ope-extended">拡張行列演算</a>に追加
+<br>
+<del>(1,2:3,4)=(,) || =(,)-(1,2:3,4) -> [MyErr]Invalid matrix operation</del>
+<br>
+<span class="condition">(1,2:3,4)=(,) || =(,)-(1,2:3,4) -> (-1,-2:-3,-4)</span>
 <br>
 ・単項の場合、符号同様に左辺には0||<a href="#span-out-FNm">zeros行列</a>が存在すると仮定する
 <br>
@@ -25715,7 +25741,7 @@ init=&gt;,run=&gt;,return=out=&gt;,
 <br>
 =&lt;return]=&gt;;
 <br>
-[f={1,2,3,4}*(1+i),
+[f={1,2,3,4}<span class="condition">*(1+i)</span>,
 <br>
 =&lt;DFT1d(=&lt;f)=&gt;]=&gt;;
     </td>
@@ -25757,7 +25783,7 @@ init=&gt;,run=&gt;,return=out=&gt;,
 <br>
 =&lt;return]=&gt;;
 <br>
-[f={1,2,3,4:5,6,7,8}*(1+i),
+[f={1,2,3,4:5,6,7,8}<span class="condition">*(1+i)</span>,
 <br>
 =&lt;DFT2d_xy(=&lt;f)=&gt;]=&gt;;
     </td>
@@ -25799,7 +25825,7 @@ init=&gt;,run=&gt;,return=out=&gt;,
 <br>
 =&lt;return]=&gt;;
 <br>
-[f={1,2,3,4:5,6,7,8}*(1+i),
+[f={1,2,3,4:5,6,7,8}<span class="condition">*(1+i)</span>,
 <br>
 =&lt;DFT2d_yx(=&lt;f)=&gt;]=&gt;;
     </td>
@@ -25853,7 +25879,7 @@ init=&gt;,run=&gt;,return=out=&gt;,
 <br>
 =&lt;return]=&gt;;
 <br>
-[w={1,2,3,4}*(1+i),
+[w={1,2,3,4}<span class="condition">*(1+i)</span>,
 <br>
 =&lt;DWT1d(=&lt;w)=&gt;]=&gt;;
     </td>
@@ -25927,7 +25953,7 @@ init=&gt;,run=&gt;,return=out=&gt;,
 <br>
 =&lt;return]=&gt;;
 <br>
-[w={1,2,3,4:5,6,7,8}*(1+i),
+[w={1,2,3,4:5,6,7,8}<span class="condition">*(1+i)</span>,
 <br>
 =&lt;DWT2d_xy(=&lt;w)=&gt;]=&gt;;
     </td>
@@ -26001,7 +26027,7 @@ init=&gt;,run=&gt;,return=out=&gt;,
 <br>
 =&lt;return]=&gt;;
 <br>
-[w={1,2,3,4:5,6,7,8}*(1+i),
+[w={1,2,3,4:5,6,7,8}<span class="condition">*(1+i)</span>,
 <br>
 =&lt;DWT2d_yx(=&lt;w)=&gt;]=&gt;;
     </td>
