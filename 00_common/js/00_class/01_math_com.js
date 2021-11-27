@@ -151,6 +151,10 @@ My_entry.math_com.prototype.log = function(a){
   var self = this;
   return self.entry.DATA.com(Math.log(self.absolute_com(a)), self.argument_com(a));
 };
+My_entry.math_com.prototype.log2 = function(a){
+  var self = this;
+  return self.mul(self.entry.DATA.com(Math.LOG2E, 0), self.ln(a));
+};
 My_entry.math_com.prototype.log10 = function(a){
   var self = this;
   return self.mul(self.entry.DATA.com(Math.LOG10E, 0), self.ln(a));

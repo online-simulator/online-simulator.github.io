@@ -504,6 +504,7 @@ My_entry.parser.prototype.make_trees = function(sentence, re){
       case "atan":
       case "log10":
       // Python defined
+      case "log2":
       case "int":
       // My defined
       case "sin_deg":
