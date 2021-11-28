@@ -574,6 +574,9 @@ My_entry.parser.prototype.make_trees = function(sentence, re){
       case "min":
       case "max":
       // Python defined
+      case "mean":
+      case "sum":
+      case "prod":
       // My defined
       // |complex number|
       case "cmin":

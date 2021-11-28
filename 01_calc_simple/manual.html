@@ -727,6 +727,11 @@ atan2関数
 </a>
 <br>
 　・
+<a href="#span-out-FN-statistic">
+統計関数
+</a>
+<br>
+　・
 <a href="#span-out-FNspecial">
 特殊関数
 </a>
@@ -13274,9 +13279,9 @@ int関数
 int関数の入力仕様と付随する留意事項について記述する
 <br>
 <br>
-test caseを列挙する
+int関数
 <br>
-・<span class="run">Ver.2.87.32</span>以降、int関数は0側に丸める
+・<span class="run">Ver.2.87.32</span>以降、0側に丸める
 <br>
 int(3.2) -> 3
 <br>
@@ -13286,7 +13291,8 @@ int(-4) -> -4
 <br>
 int(-3.2i) -> 0
 <br>
-・floor関数
+<br>
+floor関数
 <br>
 floor(3.2) -> 3
 <br>
@@ -13296,7 +13302,8 @@ floor(-4) -> -4
 <br>
 floor(-3.2i) -> 0
 <br>
-・<a href="#span-out-prec-ope-arithmetic-mod">剰余・整数商演算子</a>とmod||fmod||quot関数の関係
+<br>
+<a href="#span-out-prec-ope-arithmetic-mod">剰余・整数商演算子</a>とmod||fmod||quot関数の関係
 <br>
 clear; a=-3.2; b=2; m=a-int(a/b)*b; m || mod(a,b) || -3.2%2 -> -1.2000000000000002
 <br>
@@ -13379,9 +13386,7 @@ A=0; _rn(=&lt;A=(A,rand),,2); A -> (0,0.12740820474199377,0.7111903938956377)
 ・<span class="condition">operand=0の場合、1を返す</span>
 <br>
 <br>
-test caseを列挙する
-<br>
-・階乗fact(n)
+階乗fact(n)
 <br>
 fact(3.3) || 3.3! || 3! || 3*2*1 -> 6
 <br>
@@ -13423,7 +13428,8 @@ fact(1e3) || 1e3! -> Infinity
 <br>
 <span class="clear">fact(1e6) || 1e6! -> Infinity</span>
 <br>
-・順列permutation(n,k)
+<br>
+順列permutation(n,k)
 <br>
 permut(3.3,1.6) || permut(3,1) || permutation(3,1) -> 3
 <br>
@@ -13477,7 +13483,8 @@ permut(1e3,1e3) || 1e3! -> Infinity
 <br>
 <span class="clear">permut(1e6,1e6) || 1e6! -> Infinity</span>
 <br>
-・組合せcombination(n,r)
+<br>
+組合せcombination(n,r)
 <br>
 combin(3.3,1.6) || combin(3,1) || combination(3,1) -> 3
 <br>
@@ -13654,6 +13661,59 @@ radians(ans) -> 0.5235987755982987
 atan2_ex(0,1)/pi -> 0.5
 <br>
 deg_atan2_ex(0,1) || degrees(atan2_ex(0,1)) -> 90
+    </td>
+  </tr>
+  <tr>
+    <th>
+<a href="#span-index">
+目次
+</a>
+<br>
+統計関数
+<br>
+入力仕様
+    </th>
+    <td>
+<span id="span-out-FN-statistic"></span>
+統計関数の入力仕様と付随する留意事項について記述する
+<br>
+<br>
+統計関数の仕様は<span class="run">Python</span>準拠とする
+<br>
+・<span class="run">Ver.2.90.32</span>以降、mean/sum/prod関数を追加
+<br>
+<br>
+mean関数
+<br>
+mean(1,1e-16) -> infoLost[r ] 0.5
+<br>
+mean(1,i) -> 0.5+0.5i
+<br>
+mean(1,2,3:4,5,6) -> (2:5)
+<br>
+mean(trans(mean(1,2,3:4,5,6))) -> 3.5
+<br>
+<br>
+sum関数
+<br>
+sum(1,1e-16) -> infoLost[r ] 1
+<br>
+sum(1,i) -> 1+i
+<br>
+sum(1,2,3:4,5,6) -> (6:15)
+<br>
+sum(trans(sum(1,2,3:4,5,6))) -> 21
+<br>
+<br>
+prod関数
+<br>
+prod(1,1e-16) -> 1e-16
+<br>
+prod(1,i) -> i
+<br>
+prod(1,2,3:4,5,6) -> (6:120)
+<br>
+prod(trans(prod(1,2,3:4,5,6))) -> 720
     </td>
   </tr>
   <tr>
@@ -24952,6 +25012,9 @@ parser.js抜粋
       case "min":
       case "max":
       // Python defined
+      case "mean":
+      case "sum":
+      case "prod":
       // My defined
       // |complex number|
       case "cmin":

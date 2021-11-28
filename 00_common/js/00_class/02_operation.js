@@ -1742,8 +1742,7 @@ My_entry.operation.prototype.FNh = function(data, i0, tagName, tagObj){
   }
   return self;
 };
-My_entry.operation.prototype.FN =
-My_entry.operation.prototype.FNn = function(data, i0, tagName, tagObj){
+My_entry.operation.prototype.FN = function(data, i0, tagName, tagObj){
   var self = this;
   var trees = data.trees;
   var options = data.options;
@@ -1753,7 +1752,7 @@ My_entry.operation.prototype.FNn = function(data, i0, tagName, tagObj){
   var ie = i0+1;
   /* Ver.2.30.15 -> */
   var prop = tagObj.val;
-  var isFN0 = prop === "random";
+  var isFN0 = (prop === "random");
   var rightArr = self.get_tagVal(trees[ie], "mat", "arr");
   if(isFN0){
     var tree = DATA.tree_num(Math[prop](), 0);
@@ -1766,21 +1765,66 @@ My_entry.operation.prototype.FNn = function(data, i0, tagName, tagObj){
     /* Ver.2.73.29 -> */
     var tree = null;
     var len_i = rightArr.length;
-    if(options.useMatrix && len_i > 1){
-      var arr = [];
-      for(var i=0; i<len_i; ++i){
-        var args = rightArr[i];
-        arr[i] = [unit[tagName].apply(unit, [prop, options].concat(args))];
-      }
-      tree = DATA.tree_mat(arr);
+    var i_sw = (options.useMatrix && len_i > 1)? 0: len_i-1;
+    var arr = [];
+    for(var i=i_sw; i<len_i; ++i){
+      var args = rightArr[i];
+      arr.push([unit[tagName].apply(unit, [prop, options].concat(args))]);  // arguments.length < O(10000)
     }
-    else{
-      var args = self.arr2args(rightArr);
-      tree = DATA.num2tree(unit[tagName].apply(unit, [prop, options].concat(args)));  // arguments.length < O(10000)
-    }
+    tree = DATA.tree_mat(arr);
     /* -> Ver.2.73.29 */
     /* -> Ver.2.74.29 */
     self.feedback2trees(data, is, ie, tree);
+  }
+  return self;
+};
+/* Ver.2.90.32 */
+My_entry.operation.prototype.FNn = function(data, i0, tagName, tagObj){
+  var self = this;
+  var trees = data.trees;
+  var options = data.options;
+  var DATA = self.entry.DATA;
+  var unit = self.entry.unit;
+  var is = i0;
+  var ie = i0+1;
+  var prop = tagObj.val;
+  switch(prop){
+    case "mean":
+    case "sum":
+    case "prod":
+      var rightArr = self.get_tagVal(trees[ie], "mat", "arr");
+      if(rightArr){
+        var tree = null;
+        var len_i = rightArr.length;
+        var i_sw = (options.useMatrix)? 0: len_i-1;
+        var arr = [];
+        for(var i=i_sw; i<len_i; ++i){
+          var args = rightArr[i];
+          var len_j = args.length;
+          if(prop === "mean" || prop === "sum"){
+            var num = DATA.num(0, 0);
+            for(var j=0; j<len_j; ++j){
+              num = unit["BRa"](options, num, args[j]);
+            }
+            if(prop === "mean"){
+              num = unit["BRd"](options, num, DATA.num(len_j, 0));
+            }
+          }
+          else if(prop === "prod"){
+            var num = DATA.num(1, 0);
+            for(var j=0; j<len_j; ++j){
+              num = unit["BRm"](options, num, args[j]);
+            }
+          }
+          arr.push([num]);
+        }
+        tree = DATA.tree_mat(arr);
+        self.feedback2trees(data, is, ie, tree);
+      }
+      break;
+    default:
+      self.FN(data, i0, tagName, tagObj);
+      break;
   }
   return self;
 };
