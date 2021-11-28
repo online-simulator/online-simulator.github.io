@@ -13682,12 +13682,16 @@ deg_atan2_ex(0,1) || degrees(atan2_ex(0,1)) -> 90
 <br>
 ・<span class="run">Ver.2.90.32</span>以降、mean/sum/prod関数を追加
 <br>
+・<span class="run">Ver.2.91.32</span>以降、median/sort/reverse/cmedian/csort/creverse関数を追加
+<br>
 <br>
 mean関数
 <br>
 mean(1,1e-16) -> infoLost[r ] 0.5
 <br>
 mean(1,i) -> 0.5+0.5i
+<br>
+mean(-1,-i) -> -0.5-0.5i
 <br>
 mean(1,2,3:4,5,6) -> (2:5)
 <br>
@@ -13700,6 +13704,8 @@ sum(1,1e-16) -> infoLost[r ] 1
 <br>
 sum(1,i) -> 1+i
 <br>
+sum(-1,-i) -> -1-i
+<br>
 sum(1,2,3:4,5,6) -> (6:15)
 <br>
 sum(trans(sum(1,2,3:4,5,6))) -> 21
@@ -13711,9 +13717,53 @@ prod(1,1e-16) -> 1e-16
 <br>
 prod(1,i) -> i
 <br>
+prod(-1,-i) -> i
+<br>
 prod(1,2,3:4,5,6) -> (6:120)
 <br>
 prod(trans(prod(1,2,3:4,5,6))) -> 720
+<br>
+<br>
+median関数
+<br>
+・sort後中央値の行vector[floor(vectorの長さ/2)]を参照
+<br>
+median(1,-2i,3:4,-5,6i:7) -> (1:6i:7)
+<br>
+<br>
+sort関数
+<br>
+・実数昇順にBubble Sort
+<br>
+sort(1,-2i,3:4,-5,6i:7) -> (-2i,1,3:-5,6i,4:7)
+<br>
+<br>
+reverse関数
+<br>
+・実数降順にBubble Sort
+<br>
+reverse(1,-2i,3:4,-5,6i:7) -> (3,1,-2i:4,6i,-5:7)
+<br>
+<br>
+cmedian関数
+<br>
+・csort後中央値の行vector[floor(vectorの長さ/2)]を参照
+<br>
+cmedian(1,-2i,3:4,-5,6i:7) -> (-2i:-5:7)
+<br>
+<br>
+csort関数
+<br>
+・<a href="#span-out-com">複素数</a>の絶対値昇順にBubble Sort
+<br>
+csort(1,-2i,3:4,-5,6i:7) -> (1,-2i,3:4,-5,6i:7)
+<br>
+<br>
+creverse関数
+<br>
+・<a href="#span-out-com">複素数</a>の絶対値降順にBubble Sort
+<br>
+creverse(1,-2i,3:4,-5,6i:7) -> (3,-2i,1:6i,-5,4:7)
     </td>
   </tr>
   <tr>
@@ -25015,10 +25065,16 @@ parser.js抜粋
       case "mean":
       case "sum":
       case "prod":
+      case "median":
+      case "sort":
+      case "reverse":
       // My defined
       // |complex number|
       case "cmin":
       case "cmax":
+      case "cmedian":
+      case "csort":
+      case "creverse":
         tree = DATA.tree_tag("FNn", token_lower);
         break;
       default:

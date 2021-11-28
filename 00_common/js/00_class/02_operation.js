@@ -1822,6 +1822,53 @@ My_entry.operation.prototype.FNn = function(data, i0, tagName, tagObj){
         self.feedback2trees(data, is, ie, tree);
       }
       break;
+    /* Ver.2.91.32 -> */
+    case "median":
+    case "sort":
+    case "reverse":
+    case "cmedian":
+    case "csort":
+    case "creverse":
+      var isComplex = (prop === "cmedian" || prop === "csort" || prop === "creverse");
+      var rightArr = self.get_tagVal(trees[ie], "mat", "arr");
+      if(rightArr){
+        var tree = null;
+        var len_i = rightArr.length;
+        var i_sw = (options.useMatrix)? 0: len_i-1;
+        var arr = [];
+        for(var i=i_sw; i<len_i; ++i){
+          var args = rightArr[i];
+          var len_j = args.length;
+          // Bubble Sort
+          for(var j=0; j<len_j; ++j){
+            for(var jj=1; jj<len_j-j; ++jj){
+              var left = args[jj-1];
+              var right = args[jj];
+              var lcr = left.com.r;
+              var lci = left.com.i;
+              var rcr = right.com.r;
+              var rci = right.com.i;
+              var isSorted = (isComplex)? (lcr*lcr+lci*lci > rcr*rcr+rci*rci): (lcr > rcr);
+              if(isSorted){
+                var w = left;
+                args[jj-1] = args[jj];
+                args[jj] = w;
+              }
+            }
+          }
+          if(prop === "median" || prop === "cmedian"){
+            args = [args[Math.floor(len_j/2)]];
+          }
+          else if(prop === "reverse" || prop === "creverse"){
+            args = args.reverse();
+          }
+          arr.push(args);
+        }
+        tree = DATA.tree_mat(arr);
+        self.feedback2trees(data, is, ie, tree);
+      }
+      break;
+    /* -> Ver.2.91.32 */
     default:
       self.FN(data, i0, tagName, tagObj);
       break;

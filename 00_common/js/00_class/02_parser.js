@@ -577,10 +577,16 @@ My_entry.parser.prototype.make_trees = function(sentence, re){
       case "mean":
       case "sum":
       case "prod":
+      case "median":
+      case "sort":
+      case "reverse":
       // My defined
       // |complex number|
       case "cmin":
       case "cmax":
+      case "cmedian":
+      case "csort":
+      case "creverse":
         tree = DATA.tree_tag("FNn", token_lower);
         break;
       default:
