@@ -72,7 +72,7 @@
       $._id("pow1").onclick = function(){setVal("-1", "1", "x=t,x;", "x;x^2;x^3;x^4;x^5;", 30);};
       $._id("pow2").onclick = function(){setVal("-2(1+i)", "2(1+i)", "x=t,x;", "x;x^2;x^3;x^4;x^5;", 30);};
       $._id("sin").onclick = function(){setVal("0", "2pi", "x=t,x;", "sin(x);cos(x);sin(2x);cos(2x);", 100);};
-      $._id("MIDI").onclick = function(){setVal("0", "127", "note=t,octave=-1,note;", "frequency(octave,note)=<last{m=(octave+1)*12+note,pow(2,(m-69)/12)*440},frequency(octave,note);", 10);$._id("input-z").value="BGCOLOR{white}GDCOLOR{black}ORIGIN{2,green,17}TITLE{frequency based on scientific pitch notation}XLABEL{MIDI note number}YLABEL{frequency[Hz]}::::::note-number vs. frequency;";};
+      $._id("MIDI").onclick = function(){setVal("0", "127", "note=t,octave=-1,note;", "frequency(octave,note)=<last{m=(octave+1)*12+note,pow(2,(m-69)/12)*440},frequency(octave,note);", 10);$._id("input-z").value="BGCOLOR{white}GDCOLOR{black}PLOTCONFIG{12,10,5}ORIGIN{2,green,17}TITLE{frequency based on scientific pitch notation}XLABEL{MIDI note number}YLABEL{frequency[Hz]}::::::note-number vs. frequency;";};
       $._id("circle").onclick = function(){setVal("0", "2pi", "cos(t);ft=<e^(i(t)),real(ft)1.5;2ft;ft2=<ecomp(t),real(ft2)2.5;rot=<(cos(t),-sin(t):sin(t),cos(t))/*rotation matrix*/,vec0=(3:0),(rot*vec0)[0];", "sin(t);imag(ft)1.5/*only complex*/;2_dt(=<-ft);imag(ft2)2.5;(rot*vec0)[1];", 50);};
       $._id("spiral").onclick = function(){setVal("0", "Nr=1.5,2pi*Nr", "real(e^(i(t)))t;rot=<(cos(t),-sin(t):sin(t),cos(t))/*rotation matrix*/,vec0=(-t:0),vec1=rot*vec0,vec1[0];", "imag(e^(i(t)))t;vec1[1];", 100);};
       $._id("heart").onclick = function(){setVal("0", "2pi", "pow(sin(t),3);pow(sin(t),5);", "y=7cos(t)-4cos(2t)-2cos(3t),y/7;", 50);};

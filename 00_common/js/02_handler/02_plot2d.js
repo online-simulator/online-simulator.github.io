@@ -494,6 +494,17 @@ My_entry.plot2d.prototype.run = function(arr2d_vec, options, toSVG, isFinal){
   inputZ = def.enter_name(inputZ, "bgcolor", false, 0, function(content){backgroundColor = content;});
   inputZ = def.enter_name(inputZ, "gdcolor", false, 0, function(content){gridLineColor = content;});
   /* -> 1.17.7 */
+  /* 1.22.7 -> */
+  var plotconfig = "";
+  inputZ = def.enter_name(inputZ, "plotconfig", false, 0, function(content){plotconfig = content;});
+  var records_plotconfig = $.get_records(plotconfig, ",", 0, ["fontSize", "Ni0", "Nj0", "kxAdjust", "legend_kx", "legend_ky"], true);
+  fontSize = records_plotconfig.fontSize || fontSize;
+  Ni0 = records_plotconfig.Ni0 || Ni0;
+  Nj0 = records_plotconfig.Nj0 || Nj0;
+  kxAdjust = records_plotconfig.kxAdjust || kxAdjust;
+  legend_kx = records_plotconfig.legend_kx || legend_kx;
+  legend_ky = records_plotconfig.legend_ky || legend_ky;
+  /* -> 1.22.7 */
   /* 1.18.7 -> */
   /* 1.8.6 -> */
   var title = "";
