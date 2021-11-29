@@ -13678,7 +13678,7 @@ deg_atan2_ex(0,1) || degrees(atan2_ex(0,1)) -> 90
 統計関数の入力仕様と付随する留意事項について記述する
 <br>
 <br>
-統計関数の仕様は<span class="run">Python</span>準拠とする
+統計関数の仕様は原則<span class="run">Python</span>準拠とする
 <br>
 ・<span class="run">Ver.2.90.32</span>以降、mean/sum/prod関数を追加
 <br>
@@ -13686,6 +13686,8 @@ deg_atan2_ex(0,1) || degrees(atan2_ex(0,1)) -> 90
 <br>
 <br>
 mean関数
+<br>
+・各行vector要素の算術平均値
 <br>
 mean(1,1e-16) -> infoLost[r ] 0.5
 <br>
@@ -13700,6 +13702,8 @@ mean(trans(mean(1,2,3:4,5,6))) -> 3.5
 <br>
 sum関数
 <br>
+・各行vector要素の<a href="#span-out-FNh-SX">総和</a>
+<br>
 sum(1,1e-16) -> infoLost[r ] 1
 <br>
 sum(1,i) -> 1+i
@@ -13712,6 +13716,8 @@ sum(trans(sum(1,2,3:4,5,6))) -> 21
 <br>
 <br>
 prod関数
+<br>
+・各行vector要素の<a href="#span-out-FNh-PX">総乗</a>
 <br>
 prod(1,1e-16) -> 1e-16
 <br>
@@ -13726,9 +13732,11 @@ prod(trans(prod(1,2,3:4,5,6))) -> 720
 <br>
 median関数
 <br>
-・sort後中央値の行vector[floor(vectorの長さ/2)]を参照
+・sort後中央値=各行vector[floor(vectorの長さ/2)]を参照
 <br>
 median(1,-2i,3:4,-5,6i:7) -> (1:6i:7)
+<br>
+(sort(1,-2i,3:4,-5,6i:7))[<span class="condition">e</span>][1] -> (1:6i:0)
 <br>
 <br>
 sort関数
@@ -13737,6 +13745,8 @@ sort関数
 <br>
 sort(1,-2i,3:4,-5,6i:7) -> (-2i,1,3:-5,6i,4:7)
 <br>
+sort(trans(1,-2i,3:4,-5,6i:7)) -> (1,4,7:-5,-2i,0:6i,0,3)
+<br>
 <br>
 reverse関数
 <br>
@@ -13744,12 +13754,18 @@ reverse関数
 <br>
 reverse(1,-2i,3:4,-5,6i:7) -> (3,1,-2i:4,6i,-5:7)
 <br>
+reverse(trans(1,-2i,3:4,-5,6i:7)) -> (7,4,1:0,-2i,-5:3,0,6i)
+<br>
+sort(reverse(1,-2i,3:4,-5,6i:7)) -> (-2i,1,3:-5,6i,4:7)
+<br>
 <br>
 cmedian関数
 <br>
-・csort後中央値の行vector[floor(vectorの長さ/2)]を参照
+・csort後中央値=各行vector[floor(vectorの長さ/2)]を参照
 <br>
 cmedian(1,-2i,3:4,-5,6i:7) -> (-2i:-5:7)
+<br>
+(csort(1,-2i,3:4,-5,6i:7))[<span class="condition">e</span>][1] -> (-2i:-5:0)
 <br>
 <br>
 csort関数
@@ -13758,12 +13774,18 @@ csort関数
 <br>
 csort(1,-2i,3:4,-5,6i:7) -> (1,-2i,3:4,-5,6i:7)
 <br>
+csort(trans(1,-2i,3:4,-5,6i:7)) -> (1,4,7:0,-2i,-5:0,3,6i)
+<br>
 <br>
 creverse関数
 <br>
 ・<a href="#span-out-com">複素数</a>の絶対値降順にBubble Sort
 <br>
 creverse(1,-2i,3:4,-5,6i:7) -> (3,-2i,1:6i,-5,4:7)
+<br>
+creverse(trans(1,-2i,3:4,-5,6i:7)) -> (7,4,1:-5,-2i,0:6i,3,0)
+<br>
+csort(creverse(1,-2i,3:4,-5,6i:7)) -> (1,-2i,3:4,-5,6i:7)
     </td>
   </tr>
   <tr>
