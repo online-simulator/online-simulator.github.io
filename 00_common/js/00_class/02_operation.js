@@ -1840,7 +1840,7 @@ My_entry.operation.prototype.FNn = function(data, i0, tagName, tagObj){
           var args = rightArr[i];
           var len_j = args.length;
           // Bubble Sort
-          for(var j=0; j<len_j; ++j){
+          for(var j=0; j<len_j-1; ++j){
             for(var jj=1; jj<len_j-j; ++jj){
               var left = args[jj-1];
               var right = args[jj];
