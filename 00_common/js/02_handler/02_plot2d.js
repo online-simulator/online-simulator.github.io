@@ -497,13 +497,16 @@ My_entry.plot2d.prototype.run = function(arr2d_vec, options, toSVG, isFinal){
   /* 1.22.7 -> */
   var plotconfig = "";
   inputZ = def.enter_name(inputZ, "plotconfig", false, 0, function(content){plotconfig = content;});
-  var records_plotconfig = $.get_records(plotconfig, ",", 0, ["fontSize", "Ni0", "Nj0", "kxAdjust", "legend_kx", "legend_ky"], true);
+  var records_plotconfig = $.get_records(plotconfig, ",", 0, ["gridLineWidth", "fontSize", "Ni0", "Nj0", "kxAdjust", "legend_kx", "legend_ky"], true);
+  gridLineWidth = records_plotconfig.gridLineWidth || gridLineWidth;
   fontSize = records_plotconfig.fontSize || fontSize;
   Ni0 = records_plotconfig.Ni0 || Ni0;
   Nj0 = records_plotconfig.Nj0 || Nj0;
   kxAdjust = records_plotconfig.kxAdjust || kxAdjust;
   legend_kx = records_plotconfig.legend_kx || legend_kx;
   legend_ky = records_plotconfig.legend_ky || legend_ky;
+  Ni0 = def.limit(Ni0, 1, 2560, 1);
+  Nj0 = def.limit(Nj0, 1, 2560, 1);
   /* -> 1.22.7 */
   /* 1.18.7 -> */
   /* 1.8.6 -> */
