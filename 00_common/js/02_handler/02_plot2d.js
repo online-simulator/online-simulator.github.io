@@ -505,8 +505,8 @@ My_entry.plot2d.prototype.run = function(arr2d_vec, options, toSVG, isFinal){
   kxAdjust = records_plotconfig.kxAdjust || kxAdjust;
   legend_kx = records_plotconfig.legend_kx || legend_kx;
   legend_ky = records_plotconfig.legend_ky || legend_ky;
-  Ni0 = def.limit(Ni0, 1, 2560, 1);
-  Nj0 = def.limit(Nj0, 1, 2560, 1);
+  Ni0 = def.limit(Ni0, 0, 2560, 0);
+  Nj0 = def.limit(Nj0, 0, 2560, 0);
   /* -> 1.22.7 */
   /* 1.18.7 -> */
   /* 1.8.6 -> */
