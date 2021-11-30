@@ -498,7 +498,9 @@ My_entry.plot2d.prototype.run = function(arr2d_vec, options, toSVG, isFinal){
   var plotconfig = "";
   inputZ = def.enter_name(inputZ, "plotconfig", false, 0, function(content){plotconfig = content;});
   var records_plotconfig = $.get_records(plotconfig, ",", 0, ["gridLineWidth", "fontSize", "Ni0", "Nj0", "kxAdjust", "legend_kx", "legend_ky"], true);
-  gridLineWidth = records_plotconfig.gridLineWidth || gridLineWidth;
+  if(isAxis_z){
+    gridLineWidth = records_plotconfig.gridLineWidth || gridLineWidth;
+  }
   fontSize = records_plotconfig.fontSize || fontSize;
   Ni0 = records_plotconfig.Ni0 || Ni0;
   Nj0 = records_plotconfig.Nj0 || Nj0;
