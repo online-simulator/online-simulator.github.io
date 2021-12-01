@@ -1,10 +1,10 @@
 [cond_error=(hasVar(t_total)==0)&&hasVar(oldT),proc=<[sec_1day=60*60*24,=<heat0d_evolution(sec_1day*30,sec_1day,0.98,1)=>]=>,=<switch(cond_error==0,=<proc:1,-999)]=>
 (
 2592000:
-15.646748780971055+O(4e-13)
+0.6467487809710555+O(4e-13)
 )
 
-heat0d_evolution(t,dt,kalpha,kalbedo)=<[out=<{t_total,newT},scope2storage=<last{addVar(oldT),addVar(t_total)},init=<last{Tb=-18,T0=15,T1=-56.5,R0=6378136.6,A0=4*pi*R0^2,H1=11000,A1=4*pi*(R0+H1)^2,albedo0=0.3,W0=174e15,rho=1.29,cp=1007,V=_ir(=<4*pi*r^2,R0,R0+H1),C=rho*cp*V,l=0.0241,alpha0=-W0*(1-albedo0)/(A1*(T1-T0)),alpha=alpha0*kalpha,albedo=albedo0*kalbedo,a=alpha*A1/C,b=(alpha*A1*T1+W0*(1-albedo))/C,switch(hasVar(t_total)==0,=<last{t_total=0,oldT=T0}),newT=oldT},run=<last{step=<last{newT=(oldT+b*dt)/(1+a*dt),oldT=newT},evolution=<_rn(=<step,N=round(t/dt),N),evolution=>,t_total=t_total+N*dt},init=>,run=>,return=out=>,scope2storage=>,=<return]=>
+heat0d_evolution(t,dt,kalpha,kalbedo)=<[out=<{t_total,dT},scope2storage=<last{addVar(oldT),addVar(t_total)},init=<last{Tb=-19,T0=15,T1=-56.5,R0=6378136.6,A0=4*pi*R0^2,H1=11000,A1=4*pi*(R0+H1)^2,albedo0=0.3,W0=174e15,rho=1.29,cp=1007,V=_ir(=<4*pi*r^2,R0,R0+H1),C=rho*cp*V,l=0.0241,alpha0=-W0*(1-albedo0)/(A1*(T1-T0)),alpha=alpha0*kalpha,albedo=albedo0*kalbedo,a=alpha*A1/C,b=(alpha*A1*T1+W0*(1-albedo))/C,switch(hasVar(t_total)==0,=<last{t_total=0,oldT=T0}),newT=oldT},run=<last{step=<last{newT=(oldT+b*dt)/(1+a*dt),oldT=newT},evolution=<_rn(=<step,N=round(t/dt),N),evolution=>,dT=newT-T0,t_total=t_total+N*dt},init=>,run=>,return=out=>,scope2storage=>,=<return]=>
 stored_eqn(heat0d_evolution)
 
 [isImplicit=1,=<plot2d_IV(1e-3,0.5,100,2,isImplicit)=>]=>
@@ -671,4 +671,4 @@ drag=false&test-case=false&legend=true&axis-t=false&axis-x=true&log-x=false&imag
 --------------------------------
 --------------------------------
 
-online-simulator.github.io.4.97.31.12.28 @ Wed Dec 01 2021 23:09:51 GMT+0900 (日本標準時) @ Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/96.0.4664.45 Safari/537.36
+online-simulator.github.io.4.97.31.12.28 @ Thu Dec 02 2021 05:49:03 GMT+0900 (日本標準時) @ Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/96.0.4664.45 Safari/537.36
