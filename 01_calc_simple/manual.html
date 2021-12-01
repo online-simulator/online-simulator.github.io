@@ -1014,13 +1014,13 @@ simplified modellingのtrade-off
 </a>
 <br>
 　　・
-<a href="#span-out-modelling-application1">
-RC並列回路simplified modelling
+<a href="#span-out-modelling-0D-RC">
+0D-RC並列回路simplified modelling
 </a>
 <br>
 　　・
-<a href="#span-out-modelling-application2">
-拡散方程式simplified modelling
+<a href="#span-out-modelling-0D-diffusion">
+0D-diffusion simplified modelling
 </a>
 <br>
 　　・
@@ -1031,6 +1031,11 @@ RC並列回路simplified modelling
 　　・
 <a href="#span-out-modelling-1D-cell">
 1D-cell simplified modelling
+</a>
+<br>
+　　・
+<a href="#span-out-modelling-0D-heat">
+0D-heat simplified modelling
 </a>
 <br>
 　・
@@ -1056,6 +1061,11 @@ EIS simulation
 　　・
 <a href="#span-out-simulation-IV-1D-cell">
 1D-cell IV simulation
+</a>
+<br>
+　　・
+<a href="#span-out-simulation-0D-heat">
+0D-heat simulation
 </a>
 <br>
 　・
@@ -1337,6 +1347,11 @@ plot2d_EIS_DFT
 <a href="#span-eqn-plot2d_IV">
 plot2d_IV
 </a>
+<br>
+・
+<a href="#span-eqn-heat0d_evolution">
+heat0d_evolution
+</a>
     </td>
   </tr>
   <tr>
@@ -1475,6 +1490,32 @@ ja.m.wikipedia.org/wiki/項目を列挙する
 ・ガンマ補正
 <br>
 ・グレースケール
+<br>
+・地球
+<br>
+・地球のエネルギー収支
+<br>
+・パリ協定_(気候変動)
+<br>
+・温室効果
+<br>
+・熱放射
+<br>
+・放射強制力
+<br>
+・地球の大気
+<br>
+・大気循環
+<br>
+・国際標準大気
+<br>
+・窒素
+<br>
+・酸素
+<br>
+・アルゴン
+<br>
+・二酸化炭素
 <br>
 <br>
 domainを列挙する
@@ -19832,11 +19873,13 @@ simplified modellingの応用手順の一例を列挙する
 <br>
 ・<a href="#span-out-modelling-trade-off">simplified modellingのtrade-off</a>
 <br>
-・<a href="#span-out-modelling-application1">RC並列回路simplified modelling</a>
+・<a href="#span-out-modelling-0D-RC">0D-RC並列回路simplified modelling</a>
 <br>
-・<a href="#span-out-modelling-application2">拡散方程式simplified modelling</a>
+・<a href="#span-out-modelling-0D-diffusion">0D-diffusion simplified modelling</a>
 <br>
 ・<a href="#span-out-modelling-0D-cell">0D-cell simplified modelling</a>
+<br>
+・<a href="#span-out-modelling-0D-heat">0D-heat simplified modelling</a>
 <br>
 ・<a href="#span-out-simulation-EIS">EIS simulation</a>
 <br>
@@ -19847,6 +19890,8 @@ simplified modellingの応用手順の一例を列挙する
 ・<a href="#span-out-simulation-EIS-1D-cell">1D-cell EIS simulation</a>
 <br>
 ・<a href="#span-out-simulation-IV-1D-cell">1D-cell IV simulation</a>
+<br>
+・<a href="#span-out-simulation-0D-heat">0D-heat simulation</a>
     </td>
   </tr>
   <tr>
@@ -19959,15 +20004,17 @@ simplified modellingのtrade-offを列挙する
 目次
 </a>
 <br>
-RC並列回路
+0D-RC
+<br>
+並列回路
 <br>
 simplified
 <br>
 modelling
     </th>
     <td>
-<span id="span-out-modelling-application1"></span>
-RC並列回路のsimplified modellingについて記述する
+<span id="span-out-modelling-0D-RC"></span>
+RC並列回路を無次元化する0D-RC並列回路のsimplified modellingについて記述する
 <br>
 <br>
 1次遅れ系のRC並列回路要素（以降、RC-1次遅れ要素と省略する）のmodellingを一例に示す
@@ -20068,7 +20115,7 @@ V*s=-V/(R*C)+I/C -> V*s=-a*V+b*I
 <br>
 　・<a href="#span-out-error">modelling誤差</a>はOrder(dt)
 <br>
-・以上より、離散化した<a href="#span-out-evolution">時間発展</a>方程式は1次の漸化式に帰結する
+・以上より、離散化した<a href="#span-out-evolution">時間発展</a>方程式は無次元の漸化式に帰結する
 <br>
 <br>
 漸化式の数値的安定性の要件（安定条件）を示す
@@ -20098,18 +20145,18 @@ V*s=-V/(R*C)+I/C -> V*s=-a*V+b*I
 目次
 </a>
 <br>
-拡散方程式
+0D-diffusion
 <br>
 simplified
 <br>
 modelling
     </th>
     <td>
-<span id="span-out-modelling-application2"></span>
-拡散方程式のsimplified modellingについて記述する
+<span id="span-out-modelling-0D-diffusion"></span>
+1次元拡散方程式を無次元化する0D-diffusionのsimplified modellingについて記述する
 <br>
 <br>
-<span class="selection">porous電極</span><span class="jF">活物質内</span><span class="condition">ionの</span>1次元拡散方程式のmodellingを一例に示す
+<span class="selection">porous電極</span><span class="jF">活物質内</span><span class="condition">ionの</span>拡散方程式のmodellingを一例に示す
 <br>
 ・物質量||濃度の保存則はFick's laws
 <br>
@@ -20170,7 +20217,7 @@ modelling
 右辺=-<span class="selection">Ds_eff*</span>Δc/dx^2+I/(<span class="condition">n*</span>F*S<span class="jF">*as</span>*dx)
 <br>
 <br>
-1次元拡散方程式の<a href="#span-out-evolution">時間発展</a>方程式を示す
+拡散方程式の<a href="#span-out-evolution">時間発展</a>方程式を示す
 <br>
 ・Fick's second law
 <br>
@@ -20188,13 +20235,13 @@ a=<span class="selection">Ds_eff</span>/(dx^2<span class="selection">*es</span>)
 <br>
 b=1/(<span class="condition">n*</span>F*S<span class="jF">*as</span>*dx*<span class="selection">es*</span>cmax*k)
 <br>
-・<a href="#span-out-modelling-application1">RC並列回路</a>のanalogyから定数aの物理的な定義を示す
+・<a href="#span-out-modelling-0D-RC">RC並列回路</a>のanalogyから定数aの物理的な定義を示す
 <br>
 <span class="selection">有効拡散</span>の時定数1/a=(dx^2<span class="selection">*es</span>)/<span class="selection">Ds_eff</span>
 <br>
 <span class="selection">有効拡散</span>のcut-off角周波数a=<span class="selection">Ds_eff</span>/(dx^2<span class="selection">*es</span>)
 <br>
-・以上より、電圧に変換した1次元拡散方程式の<a href="#span-out-evolution">時間発展</a>方程式が得られる
+・以上より、電圧に変換した拡散方程式の<a href="#span-out-evolution">時間発展</a>方程式が得られる
 <br>
 V'=-<span class="selection">Ds_eff*</span>V/(dx^2<span class="selection">*es</span>)+I/(<span class="condition">n*</span>F*S<span class="jF">*as</span>*dx*<span class="selection">es*</span>cmax*k) -> V'=-a*V+b*I
 <br>
@@ -20213,7 +20260,7 @@ V'=-<span class="selection">Ds_eff*</span>V/(dx^2<span class="selection">*es</sp
 <br>
 　・<a href="#span-out-error">modelling誤差</a>はOrder(dt)
 <br>
-・以上より、離散化した<a href="#span-out-evolution">時間発展</a>方程式は1次の漸化式に帰結する
+・以上より、離散化した<a href="#span-out-evolution">時間発展</a>方程式は無次元の漸化式に帰結する
 <br>
 <br>
 漸化式の数値的安定性の要件（安定条件）を示す
@@ -20229,7 +20276,7 @@ V'=-<span class="selection">Ds_eff*</span>V/(dx^2<span class="selection">*es</sp
 <br>
 各parameterのOrder推定方法を示す
 <br>
-・低周波数側の<a href="#span-out-simulation-EIS">交流impedance</a>実測結果から<a href="#span-out-modelling-application1">RC並列回路</a>同様に推定
+・低周波数側の<a href="#span-out-simulation-EIS">交流impedance</a>実測結果から<a href="#span-out-modelling-0D-RC">RC並列回路</a>同様に推定
 <br>
 ・または、充放電後の緩和過程の電圧変化からaを推定
 <br>
@@ -20275,9 +20322,9 @@ simplifiedの仮定を列挙する
 <br>
 ・導電path上の電子伝導とion伝導を合成する直流抵抗: R0
 <br>
-・<a href="#span-out-modelling-application1">RC並列回路</a>で表すion挿入/脱離||還元/酸化の反応抵抗: R1,C1 -> a1,b1
+・<a href="#span-out-modelling-0D-RC">RC並列回路</a>で表すion挿入/脱離||還元/酸化の反応抵抗: R1,C1 -> a1,b1
 <br>
-・ion濃度分布緩和過程の電位変化に伴う<a href="#span-out-modelling-application2">拡散抵抗</a>（Warburg's Zの代替）: a2,b2
+・ion濃度分布緩和過程の電位変化に伴う<a href="#span-out-modelling-0D-diffusion">拡散抵抗</a>（Warburg's Zの代替）: a2,b2
 <br>
 <br>
 実施例は<a href="#span-out-simulation-EIS-0D-cell">0D-cell EIS simulation</a>参照
@@ -20309,6 +20356,183 @@ modelling
 目次
 </a>
 <br>
+0D-heat
+<br>
+simplified
+<br>
+modelling
+    </th>
+    <td>
+<span id="span-out-modelling-0D-heat"></span>
+熱収支を無次元化する0D-heatのsimplified modellingについて記述する
+<br>
+<br>
+地球の対流圏と成層圏の熱収支のmodellingを一例に示す
+<br>
+・<span class="clear">最も単純化した参考程度（前提から正しいとは限らない）</span>
+<br>
+・energyの保存則はFick's laws
+<br>
+・対流圏と成層圏の擬似的な熱流束はNewton's law of cooling
+<br>
+<br>
+前提を列挙する
+<br>
+・対流圏を系内部、成層圏を系外部と想定する
+<br>
+・系外部の状態は変化しないと仮定する
+<br>
+・系内部の状態分布（温度・密度・圧力・吸収率等）は考慮しない
+<br>
+・系内部を閉じる地球表面は安定な断熱状態を仮定する
+<br>
+・対流圏と成層圏の各温度を一意な代表値で表す
+<br>
+・対流圏の熱収支を太陽放射（発熱項）と放射強制力（放熱項）の一意な代表値で表す
+<br>
+・直接反射を除く太陽放射のすべてが対流圏の発熱量に寄与すると仮定する（最悪想定）
+<br>
+・放射強制力を対流圏と成層圏の代表温度差の比例係数（熱伝達係数）に換算する
+<br>
+<br>
+代表的な状態量||物性値を示す
+<br>
+成層圏---------------系外部を想定
+<br>
+　成層圏代表温度T1=-56.5[℃]
+<br>
+対流圏界面-----------放射強制力の熱流束flux1=alpha*(T1-T)[W/m^2]
+<br>
+　放射強制力から換算する界面熱伝達係数alpha[W/m^2K]
+<br>
+　対流圏平均高度H1=11000[m]
+<br>
+　対流圏界面面積A1=4*pi*(R0+H1)^2=512972650430211.5[m^2]
+<br>
+　放射強制力の放熱電力W1=flux1*A1=alpha*A1*(T1-T)[W]
+<br>
+対流圏---------------系内部を想定
+<br>
+　対流圏代表温度T[℃]
+<br>
+　太陽放射の直接反射率albedo0=0.3
+<br>
+　太陽放射の電力W0=174e15[W]
+<br>
+　対流圏の吸収量に相当する正味発熱電力W0e=W0*(1-albedo)
+<br>
+　大気の熱伝導率l=0.0241[W/mK]
+<br>
+　大気の密度rho=1.29[kg/m^3]
+<br>
+　大気の定圧比熱cp=1007[J/kgK]
+<br>
+　対流圏の体積V=_ir(=&lt;4*pi*r^2,R0,R0+H1)=5632989850743111000+O(1e+8)[m^3]
+<br>
+　対流圏の熱容量C=rho*cp*V=7.317422805810823e+21+O(2e+11)[J/K]
+<br>
+地球表面-------------断熱を仮定の熱流束flux0=0[W/m^2]
+<br>
+　地球表面温度T0=15[℃]
+<br>
+　赤道半径R0=6378136.6[m]
+<br>
+　地球表面積A0=4*pi*R0^2=511207829275786.94[m^2]
+<br>
+　黒体放射温度Tb=-19[℃]
+<br>
+<br>
+対流圏のenergyの保存則
+<br>
+・T'=0の平衡状態における熱収支に熱容量Cは寄与しない
+<br>
+C*T'=W1+W0e=alpha*A1*(T1-T)+W0*(1-albedo)
+<br>
+・energyの<a href="#span-out-evolution">時間発展</a>方程式を得る
+<br>
+T'=-(alpha*A1/C)*T+(alpha*A1*T1+W0*(1-albedo))/C -> T'=-a*T+b
+<br>
+a=alpha*A1/C
+<br>
+b=(alpha*A1*T1+W0*(1-albedo))/C
+<br>
+・<a href="#span-out-evolution">時間発展</a>方程式を陰解法で離散化して無次元の漸化式を得る
+<br>
+(newT-oldT)/dt=-a*newT+b -> newT=(oldT+b*dt)/(1+a*dt)
+<br>
+<br>
+test caseを示す
+<br>
+Tb=-18;
+<br>
+T0=15;
+<br>
+T1=-56.5;
+<br>
+R0=6378136.6;
+<br>
+A0=4*pi*R0^2;
+<br>
+H1=11000;
+<br>
+A1=4*pi*(R0+H1)^2;
+<br>
+albedo0=0.3;
+<br>
+W0=174e15;
+<br>
+rho=1.29;
+<br>
+cp=1007;
+<br>
+V=_ir(=&lt;4*pi*r^2,R0,R0+H1);
+<br>
+C=rho*cp*V;
+<br>
+l=0.0241;
+<br>
+・大気の熱拡散係数D_l=O(1e-6)
+<br>
+D_l=l/(rho*cp); D_l -> 0.000018552304411753384
+<br>
+・大気の熱拡散の時定数Tc_l=O(万年)
+<br>
+Tc_l=H1^2/D_l; Tc_l -> 6522100829875.518
+<br>
+・よって熱拡散は対流圏で支配しない
+<br>
+sec_1year=60*60*24*365; sec_1year -> 31536000
+<br>
+year_l=Tc_l/sec_1year; year_l -> 206814.46061249104
+<br>
+・T'=0の平衡状態における放射強制力を熱伝達係数alpha0に換算する
+<br>
+alpha0=-W0*(1-albedo0)/(A1*(T1-T0)); alpha0 -> 3.3208329958095097
+<br>
+・放射強制力の時定数Tc_a=O(年)
+<br>
+Tc_a=C/(alpha0*A1); Tc_a -> 4295531.45004494+O(1e-4)
+<br>
+・よって対流||放射による熱輸送が対流圏で支配する
+<br>
+year_a=Tc_a/sec_1year; year_a -> 0.13621040874064372+O(4e-12)
+<br>
+・以上より、T'=0の平衡状態における漸化式の各係数を求める
+<br>
+a=alpha0*A1/C; a -> 2.3280006481841447e-7+O(6e-18)
+<br>
+b=(alpha0*A1*T1+W0*(1-albedo0))/C; b -> 0.0000034920009722762135+O(9e-17)
+<br>
+<br>
+実施例は<a href="#span-out-simulation-0D-heat">0D-heat simulation</a>参照
+    </td>
+  </tr>
+  <tr>
+    <th>
+<a href="#span-index">
+目次
+</a>
+<br>
 simulation
     </th>
     <td>
@@ -20322,6 +20546,8 @@ simulation
 ・<a href="#span-out-simulation-EIS-1D-cell">1D-cell EIS simulation</a>
 <br>
 ・<a href="#span-out-simulation-IV-1D-cell">1D-cell IV simulation</a>
+<br>
+・<a href="#span-out-simulation-0D-heat">0D-heat simulation</a>
     </td>
   </tr>
   <tr>
@@ -20362,7 +20588,7 @@ Electrochemical Impedance Spectroscopy（以降、EISと省略する）
 <br>
 ・最後に、得られた各<a href="#span-out-com">複素数</a>の比からZ=zV/zIに変換する（<a href="#span-out-eqns">式変数</a><a href="#span-eqn-plot2d_EIS">calc_Z</a>）
 <br>
-・仮に、<a href="#span-out-modelling-application1">RC並列回路</a>の<span class="condition">cut-off周波数</span>で
+・仮に、<a href="#span-out-modelling-0D-RC">RC並列回路</a>の<span class="condition">cut-off周波数</span>で
 <br>
 　Zが<a href="#span-out-com">複素数</a>平面の<span class="condition">第4象限</span>（半円の頂点で位相が負）に位置しない場合、<span class="clear">基準波形を見直す</span>
 <br>
@@ -20785,6 +21011,128 @@ simulation
 <br>
 <br>
     </td>
+  </tr>
+  <tr>
+    <th>
+<a href="#span-index">
+目次
+</a>
+<br>
+0D-heat
+<br>
+simulation
+    </th>
+    <td>
+<span id="span-out-simulation-0D-heat"></span>
+0D-heat simulationの実施例について記述する
+<br>
+<br>
+<a href="#span-eqn-heat0d_evolution">heat0d_evolution</a>よりParis協定努力目標の温度上昇量＜1.5℃の必要条件を示す
+<br>
+・<span class="clear">最も単純化した参考程度（前提から正しいとは限らない）</span>
+<br>
+・放射強制力の低下量＜現在値に対して約2%
+<br>
+・albedoの低下量＜現在値に対して約5%
+<br>
+heat0d_evolution[1](sec_1day*365,sec_1day,0.98,1)=&gt; -> 16.45800913748113
+<br>
+heat0d_evolution[1](sec_1day*365,sec_1day,0.97,1)=&gt; -> 17.20942734804621+O(4e-15)
+<br>
+heat0d_evolution[1](sec_1day*365,sec_1day,1,0.96)=&gt; -> 16.224859962031367
+<br>
+heat0d_evolution[1](sec_1day*365,sec_1day,1,0.95)=&gt; -> 16.531074952539374+O(4e-15)
+<br>
+・系内部の発熱量と放熱量の平衡状態から偏りが発生すれば温度が変化すると言えるが、
+<br>
+・偏り発生の要因と寄与度の因果関係が問題となる
+<br>
+<br>
+放射強制力の低下量=2%が即座に反映された場合、年間30日毎の温度変化を示す
+<br>
+・初期値
+<br>
+15
+<br>
+・以降、heat0d_evolution[1](sec_1day*30,sec_1day,0.98,1)=&gt;
+<br>
+15.646748780971055+O(4e-13)
+<br>
+16.006841403918468+O(2e-13)
+<br>
+16.207331456495677+O(1e-13)
+<br>
+16.318959017353233+O(7e-14)
+<br>
+16.38111029210642+O(4e-14)
+<br>
+16.41571447877656+O(2e-14)
+<br>
+16.434981175072917+O(1e-14)
+<br>
+16.445708362211118+O(1e-14)
+<br>
+16.451680976411716+O(4e-15)
+<br>
+16.455006370098765+O(4e-15)
+<br>
+16.45685786138926+O(7e-15)
+<br>
+16.457888722791356+O(4e-15)
+<br>
+・有効桁数4桁程度
+<br>
+<br>
+放射強制力の年当たり低下量=0.1%で徐々に変化した場合、20年間1年毎の温度変化を示す
+<br>
+・初期値
+<br>
+15
+<br>
+・以降、heat0d_evolution[1](sec_1day*30*365*year,sec_1day*30,1-0.001*year,1)=&gt;
+<br>
+15.071571571571567
+<br>
+15.143286573146277
+<br>
+15.215145436308909
+<br>
+15.287148594377502
+<br>
+15.359296482412047
+<br>
+15.431589537223322
+<br>
+15.504028197381663
+<br>
+15.576612903225788
+<br>
+15.649344096871827
+<br>
+15.722222222222218
+<br>
+15.79524772497472
+<br>
+15.868421052631556
+<br>
+15.941742654508605
+<br>
+16.015212981744416
+<br>
+16.088832487309634
+<br>
+16.162601626016254
+<br>
+16.23652085452695
+<br>
+16.310590631364544
+<br>
+16.3848114169215
+<br>
+16.459183673469383
+<br>
+・有効桁数4桁程度
+  </td>
   </tr>
   <tr>
     <th>
@@ -26855,6 +27203,96 @@ init=&gt;,run=&gt;,return=out=&gt;,scope2storage=&gt;,
 [isImplicit=1,
 <br>
 =&lt;plot2d_IV(1e-3,0.5,100,2,isImplicit)=&gt;]=&gt;;
+    </td>
+  </tr>
+  <tr>
+    <th>
+<a href="#span-index">
+目次
+</a>
+<br>
+heat0d
+<br>
+_evolution
+    </th>
+    <td>
+<span id="span-eqn-heat0d_evolution"></span>
+<a href="#span-out-simulation-0D-heat">0D-heat simulation</a>参照
+<br>
+heat0d_evolution(t,dt,kalpha,kalbedo)=&lt;[
+<br>
+out=&lt;{t_total,newT},
+<br>
+scope2storage=&lt;last{addVar(oldT),addVar(t_total)},
+<div class="condition">
+init=&lt;last{
+<br>
+Tb=-18,
+<br>
+T0=15,
+<br>
+T1=-56.5,
+<br>
+R0=6378136.6,
+<br>
+A0=4*pi*R0^2,
+<br>
+H1=11000,
+<br>
+A1=4*pi*(R0+H1)^2,
+<br>
+albedo0=0.3,
+<br>
+W0=174e15,
+<br>
+rho=1.29,
+<br>
+cp=1007,
+<br>
+V=_ir(=&lt;4*pi*r^2,R0,R0+H1),
+<br>
+C=rho*cp*V,
+<br>
+l=0.0241,
+<br>
+alpha0=-W0*(1-albedo0)/(A1*(T1-T0)),
+<br>
+alpha=alpha0*kalpha,
+<br>
+albedo=albedo0*kalbedo,
+<br>
+a=alpha*A1/C,
+<br>
+b=(alpha*A1*T1+W0*(1-albedo))/C,
+<br>
+switch(hasVar(t_total)==0,=&lt;last{t_total=0,oldT=T0}),
+<br>
+newT=oldT
+<br>
+},
+</div>
+<div class="run">
+run=&lt;last{
+<br>
+step=&lt;last{newT=(oldT+b*dt)/(1+a*dt),oldT=newT},
+<br>
+evolution=&lt;_rn(=&lt;step,N=round(t/dt),N),
+<br>
+evolution=&gt;,
+<br>
+t_total=t_total+N*dt
+<br>
+},
+</div>
+init=&gt;,run=&gt;,return=out=&gt;,scope2storage=&gt;,
+<br>
+=&lt;return]=&gt;;
+<br>
+[cond_error=(hasVar(t_total)==0)&amp;&amp;hasVar(oldT),
+<br>
+proc=&lt;[sec_1day=60*60*24,=&lt;heat0d_evolution(sec_1day*30,sec_1day,0.98,1)=&gt;]=&gt;,
+<br>
+=&lt;switch(cond_error==0,=&lt;proc:1,-999/*error-code*/)]=&gt;;
     </td>
   </tr>
 </tbody>
