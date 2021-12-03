@@ -20369,7 +20369,7 @@ modelling
 <br>
 地球の対流圏と成層圏の熱収支のmodellingを一例に示す
 <br>
-・<span class="clear">最も単純化した参考程度（前提から正しいとは限らない）</span>
+※<span class="clear">最も単純化した参考程度（前提から正しいとは限らない）</span>
 <br>
 ・energyの保存則はFick's laws
 <br>
@@ -20384,7 +20384,7 @@ modelling
 <br>
 ・系内部の状態分布（温度・密度・圧力・吸収率等）は考慮しない
 <br>
-・系内部を閉じる地球表面は安定な断熱状態を仮定する
+・系内部を閉じる地球表面は安定な断熱状態（影響極少）を仮定する
 <br>
 ・対流圏と成層圏の各温度を一意な代表値で表す
 <br>
@@ -21031,9 +21031,9 @@ simulation
 0D-heat simulationの実施例について記述する
 <br>
 <br>
-<a href="#span-eqn-heat0d_evolution">heat0d_evolution</a>よりParis協定努力目標の温度上昇量＜1.5℃の必要条件を示す
+<a href="#span-eqn-heat0d_evolution">heat0d_evolution</a>よりParis協定努力目標（温度上昇量＜1.5℃）の必要条件を示す
 <br>
-・<span class="clear"><a href="#span-out-modelling-0D-heat">対流圏を最も単純化</a>した参考程度（前提から正しいとは限らない）</span>
+※<span class="clear">系内部の<a href="#span-out-modelling-0D-heat">対流圏を最も単純化</a>した参考程度（前提から正しいとは限らない）</span>
 <br>
 ・放射強制力の低下量＜現在値に対して約2%
 <br>
@@ -21057,6 +21057,8 @@ heat0d_evolution[1](0,sec_1day,1,1)=&gt; -> 0
 <br>
 <br>
 放射強制力の低下量=2%が即座に反映された場合、年間30日毎の温度変化を示す
+<br>
+※<span class="clear">放射強制力のtotal低下量=2%</span>
 <br>
 ・温度変化量の初期値
 <br>
@@ -21091,13 +21093,17 @@ heat0d_evolution[1](0,sec_1day,1,1)=&gt; -> 0
 ・有効桁数4桁程度
 <br>
 <br>
-放射強制力の年当たり低下量=0.1%で徐々に変化した場合、20年間1年毎の温度変化を示す
+放射強制力の年率低下量=0.1%で徐々に変化した場合、20年間1年毎の温度変化を示す
+<br>
+※<span class="clear">放射強制力のtotal低下量=2%</span>
 <br>
 ・温度変化量の初期値
 <br>
 0
 <br>
 ・以降、heat0d_evolution[1](sec_1day*30*365*year,sec_1day*30,1-0.001*year,1)=&gt;
+<br>
+※本来、<a href="#span-out-eqns">式変数</a>内部のalphaに年率低下量を反映するが、<a href="#span-out-eqns-args">式変数のarguments</a>のkalphaに反映
 <br>
 0.07157157157156746
 <br>
@@ -21138,6 +21144,61 @@ heat0d_evolution[1](0,sec_1day,1,1)=&gt; -> 0
 1.384811416921501
 <br>
 1.4591836734693828
+<br>
+・有効桁数4桁程度
+<br>
+<br>
+放射強制力の年率低下量=4%で徐々に変化した場合、20年間1年毎の温度変化を示す
+<br>
+※<span class="clear">放射強制力のtotal低下量=80%（非現実的な仮想実験）</span>
+<br>
+・温度変化量の初期値
+<br>
+0
+<br>
+・以降、heat0d_evolution[1](sec_1day*30*365*year,sec_1day*30,1-0.04*year,1)=&gt;
+<br>
+※本来、<a href="#span-out-eqns">式変数</a>内部のalphaに年率低下量を反映するが、<a href="#span-out-eqns-args">式変数のarguments</a>のkalphaに反映
+<br>
+2.9791666666666607
+<br>
+6.217391304347803
+<br>
+9.749999999999986
+<br>
+13.61904761904761
+<br>
+17.874999999999986
+<br>
+22.578947368421048
+<br>
+27.805555555555543
+<br>
+33.64705882352938
+<br>
+40.21874999999995
+<br>
+47.66666666666662
+<br>
+56.1785714285714
+<br>
+66
+<br>
+77.45833333333329
+<br>
+90.99999999999999
+<br>
+107.24999999999996
+<br>
+127.111111111111
+<br>
+151.9374999999998
+<br>
+183.85714285714263
+<br>
+226.41666666666637
+<br>
+285.99999999999994
 <br>
 ・有効桁数4桁程度
   </td>
