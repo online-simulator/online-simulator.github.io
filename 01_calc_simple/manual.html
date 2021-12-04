@@ -20407,7 +20407,7 @@ modelling
 <br>
 対流圏界面-----------放射強制力の熱流束flux1=alpha*(T1-T)[W/m^2]
 <br>
-　放射強制力から換算する界面熱伝達係数alpha[W/m^2K]
+　放射強制力から換算する熱伝達係数alpha[W/m^2K]
 <br>
 　対流圏平均高度H1=11000[m]
 <br>
@@ -21039,9 +21039,15 @@ simulation
 <br>
 ※<span class="clear">系内部の<a href="#span-out-modelling-0D-heat">対流圏を最も単純化</a>した参考程度（前提から正しいとは限らない）</span>
 <br>
-・放射強制力の低下量＜現在値に対して約2%
+※<span class="clear">熱伝達係数に換算する都合上、放射強制力の符号を反転して定義する</span>
 <br>
-・albedoの低下量＜現在値に対して約5%
+・放射強制力の低下量＜4.749[W/m^2]（現在値の約2%）
+<br>
+　現在値flux1=alpha0*(T1-T0)=3.3208329958095097*(-56.5-15)=-237.4[W/m^2]
+<br>
+・albedoの低下量＜0.015（現在値の約5%）
+<br>
+　現在値albedo0=0.3
 <br>
 heat0d_evolution[1](sec_1day*365,sec_1day,0.98,1)=&gt; -> 1.458009137481131
 <br>
@@ -21057,7 +21063,11 @@ heat0d_evolution[1](0,sec_1day,1,1)=&gt; -> 0
 <br>
 ・系内部の発熱量と放熱量の熱平衡状態から偏りが発生すれば温度が変化すると言えるが、
 <br>
-・偏り発生の要因と寄与度の因果関係が問題となる
+・偏り発生の要因と寄与度の因果関係が本質的に問題となる
+<br>
+・また、簡単には追従しないであろう、副次的な環境変化への影響を考慮する
+<br>
+・例えば、放射強制力の低下が停止しても、雪氷由来のalbedoは低下を続ける可能性がある
 <br>
 <br>
 放射強制力の低下量=2%が即座に反映された場合、年間30日毎の温度変化を示す
@@ -21107,7 +21117,7 @@ heat0d_evolution[1](0,sec_1day,1,1)=&gt; -> 0
 <br>
 ・以降、heat0d_evolution[1](sec_1day*30*365*year,sec_1day*30,1-0.001*year,1)=&gt;
 <br>
-※本来、<a href="#span-out-eqns">式変数</a>内部のalphaに年率低下量を反映するが、<a href="#span-out-eqns-args">式変数のarguments</a>のkalphaに反映
+※本来、<a href="#span-out-eqns">式変数</a>内部のalphaに変化量を反映するが、<a href="#span-out-eqns-args">式変数のarguments</a>のkalphaに反映
 <br>
 0.07157157157156746
 <br>
@@ -21162,7 +21172,7 @@ heat0d_evolution[1](0,sec_1day,1,1)=&gt; -> 0
 <br>
 ・以降、heat0d_evolution[1](sec_1day*30*365*year,sec_1day*30,1-0.04*year,1)=&gt;
 <br>
-※本来、<a href="#span-out-eqns">式変数</a>内部のalphaに年率低下量を反映するが、<a href="#span-out-eqns-args">式変数のarguments</a>のkalphaに反映
+※本来、<a href="#span-out-eqns">式変数</a>内部のalphaに変化量を反映するが、<a href="#span-out-eqns-args">式変数のarguments</a>のkalphaに反映
 <br>
 2.9791666666666607
 <br>
