@@ -122,7 +122,7 @@ e^(-i(1pi(){2/2i}(5-{3-1}){i/(-4)}))
 
 <div>
 <table>
-<caption>[manual]Calculatorの前書き</caption>
+<caption>目次</caption>
 <thead>
   <tr>
     <th>
@@ -143,21 +143,23 @@ e^(-i(1pi(){2/2i}(5-{3-1}){i/(-4)}))
 本manualの目次を列挙する
 <br>
 <br>
-前提
-<br>
-・
-<a href="#span-pre-out">
-外部仕様
-</a>
-<br>
-・
-<a href="#span-pre-in">
-内部仕様
-</a>
-<br>
-・
-<a href="#span-pre-ref">
+<a href="#span-ref">
 参考文献
+</a>
+<br>
+・
+<a href="#span-pre-ref-docs">
+参考Docs
+</a>
+<br>
+・
+<a href="#span-pre-ref-wiki">
+参考Wikipedia
+</a>
+<br>
+・
+<a href="#span-pre-ref-git">
+参考GitHub
 </a>
 <br>
 ・
@@ -173,6 +175,11 @@ e^(-i(1pi(){2/2i}(5-{3-1}){i/(-4)}))
 <br>
 <a href="#span-out">
 外部仕様
+</a>
+<br>
+・
+<a href="#span-out-pre">
+前提
 </a>
 <br>
 ・操作UI
@@ -1159,6 +1166,11 @@ application
 </a>
 <br>
 ・
+<a href="#span-in-pre">
+前提
+</a>
+<br>
+・
 <a href="#span-in-tree">
 単位tree構造
 </a>
@@ -1354,73 +1366,32 @@ heat0d_evolution
 </a>
     </td>
   </tr>
+</tbody>
+</table>
+</div>
+<hr>
+
+<div>
+<table>
+<caption><span id="span-ref">参考文献</span></caption>
+<thead>
   <tr>
     <th>
-外部仕様の前提
+項目
     </th>
-    <td>
-<span id="span-pre-out"></span>
-外部仕様の前提について記述する
-<br>
-<br>
-主として数値計算の基本となるCalculatorの仕様とtest caseを記録
-<br>
-<br>
-説明上の前提を列挙する
-<br>
-・論理記号||は、ORを意味する
-<br>
-・arrow記号->の左側に入力の演算内容、右側に出力の演算結果を示す
-<br>
-　入力演算内容 -> 出力演算結果
-<br>
-　入力演算内容case1 || 入力演算内容case2 -> 出力演算結果
-<br>
-・誤差のOrderをLandauの記号O(指数表記1e-16等)で表記する
-<br>
-・vector||行列の成分を要素と表記する
-<br>
-・方程式||関数式を引数に取る関数を高階関数と表記する
-<br>
-　この場合の引数を通常の値渡しに対して式渡しと表記する
-    </td>
+    <th>
+内容
+    </th>
   </tr>
+</thead>
+<tbody>
   <tr>
     <th>
-内部仕様の前提
+参考Docs
     </th>
     <td>
-<span id="span-pre-in"></span>
-内部仕様の前提について記述する
-<br>
-<br>
-任意scriptを実行可能なeval()不使用
-<br>
-Non-use of JavaScript's eval()
-<br>
-<br>
-Calculator用途に特化した実装項目とfile名の対応関係を列挙する
-<br>
-・構文解析・字句解析・単位tree構造: parser.js/operation.js/DATA.js
-<br>
-・変数・関数・区切り文字・演算子のprecedence: operation.js
-<br>
-・演算unit: operation.js/unit.js
-<br>
-・定義済みの関数・予約語: parser.js/math.js/math_com.js/math_mat.js
-<br>
-　その他、built-inの関数・演算子を使用
-<br>
-・連立方程式の解法: solver.js
-    </td>
-  </tr>
-  <tr>
-    <th>
-参考文献
-    </th>
-    <td>
-<span id="span-pre-ref"></span>
-参考文献について記述する
+<span id="span-pre-ref-docs"></span>
+参考Docsについて記述する
 <br>
 <br>
 developer.mozilla.org/ja/docs/項目を列挙する
@@ -1430,6 +1401,15 @@ developer.mozilla.org/ja/docs/項目を列挙する
 ・Number
 <br>
 ・SVG要素リファレンス
+    </td>
+  </tr>
+  <tr>
+    <th>
+参考Wikipedia
+    </th>
+    <td>
+<span id="span-pre-ref-wiki"></span>
+参考Wikipediaについて記述する
 <br>
 <br>
 en.m.wikipedia.org/wiki/項目を列挙する
@@ -1518,6 +1498,15 @@ ja.m.wikipedia.org/wiki/項目を列挙する
 ・アルゴン
 <br>
 ・二酸化炭素
+    </td>
+  </tr>
+  <tr>
+    <th>
+参考GitHub
+    </th>
+    <td>
+<span id="span-pre-ref-git"></span>
+参考GitHubについて記述する
 <br>
 <br>
 domainを列挙する
@@ -1566,7 +1555,7 @@ title/発行元(発行年)を列挙する
 
 <div>
 <table>
-<caption><span id="span-out">Calculatorの設定項目と入力仕様に関する外部仕様</span></caption>
+<caption><span id="span-out">外部仕様</span></caption>
 <thead>
   <tr>
     <th>
@@ -1578,6 +1567,41 @@ title/発行元(発行年)を列挙する
   </tr>
 </thead>
 <tbody>
+  <tr>
+    <th>
+<a href="#span-index">
+目次
+</a>
+<br>
+前提
+    </th>
+    <td>
+<span id="span-out-pre"></span>
+外部仕様の前提について記述する
+<br>
+<br>
+主として数値計算の基本となるCalculatorの仕様とtest caseを記録
+<br>
+<br>
+説明上の前提を列挙する
+<br>
+・論理記号||は、ORを意味する
+<br>
+・arrow記号->の左側に入力の演算内容、右側に出力の演算結果を示す
+<br>
+　入力演算内容 -> 出力演算結果
+<br>
+　入力演算内容case1 || 入力演算内容case2 -> 出力演算結果
+<br>
+・誤差のOrderをLandauの記号O(指数表記1e-16等)で表記する
+<br>
+・vector||行列の成分を要素と表記する
+<br>
+・方程式||関数式を引数に取る関数を高階関数と表記する
+<br>
+　この場合の引数を通常の値渡しに対して式渡しと表記する
+    </td>
+  </tr>
   <tr>
     <th>
 <a href="#span-index">
@@ -25131,6 +25155,39 @@ source抜粋
   </tr>
 </thead>
 <tbody>
+  <tr>
+    <th>
+<a href="#span-index">
+目次
+</a>
+<br>
+前提
+    </th>
+    <td>
+<span id="span-in-pre"></span>
+内部仕様の前提について記述する
+<br>
+<br>
+任意scriptを実行可能なeval()不使用
+<br>
+Non-use of JavaScript's eval()
+<br>
+<br>
+Calculator用途に特化した実装項目とfile名の対応関係を列挙する
+<br>
+・構文解析・字句解析・単位tree構造: parser.js/operation.js/DATA.js
+<br>
+・変数・関数・区切り文字・演算子のprecedence: operation.js
+<br>
+・演算unit: operation.js/unit.js
+<br>
+・定義済みの関数・予約語: parser.js/math.js/math_com.js/math_mat.js
+<br>
+　その他、built-inの関数・演算子を使用
+<br>
+・連立方程式の解法: solver.js
+    </td>
+  </tr>
   <tr>
     <th>
 <a href="#span-index">
