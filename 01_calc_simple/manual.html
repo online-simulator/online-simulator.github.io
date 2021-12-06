@@ -1434,6 +1434,8 @@ developer.mozilla.org/ja/docs/項目を列挙する
 <br>
 en.m.wikipedia.org/wiki/項目を列挙する
 <br>
+・Paris_Agreement
+<br>
 ・Von_Neumann_stability_analysis
 <br>
 ・Fisher-Yates_shuffle
@@ -21053,7 +21055,7 @@ simulation
 0D-heat simulationの実施例について記述する
 <br>
 <br>
-<a href="#span-eqn-heat0d_evolution">heat0d_evolution</a>よりParis協定努力目標（温度上昇量＜1.5℃）の必要条件を示す
+<a href="#span-eqn-heat0d_evolution">heat0d_evolution</a>よりParis協定努力目標（温度上昇量＜1.5℃）を満たす必要条件を示す
 <br>
 ※<span class="clear">系内部の<a href="#span-out-modelling-0D-heat">対流圏を最も単純化</a>した参考程度（前提から正しいとは限らない）</span>
 <br>
@@ -21237,6 +21239,45 @@ heat0d_evolution[1](sec_1day*30*365*year,sec_1day*30,1-0.04*year,1)=&gt;
 226.41666666666637
 <br>
 285.99999999999994
+<br>
+※有効桁数4桁程度
+<br>
+<br>
+albedoの低下割合=5%が即座に反映された場合、年間30日毎の温度変化を示す
+<br>
+※<span class="clear">albedoのtotal低下割合=5%</span>
+<br>
+・実行文
+<br>
+heat0d_evolution[1](sec_1day*30,sec_1day,1,0.95)=&gt;
+<br>
+・年間30日毎の温度変化量dT[℃]
+<br>
+0
+<br>
+0.6891207264035781+O(4e-13)
+<br>
+1.068291650577482+O(2e-13)
+<br>
+1.2769206820814745+O(1e-13)
+<br>
+1.3917134312384078+O(7e-14)
+<br>
+1.4548751837711649+O(4e-14)
+<br>
+1.4896283107091364+O(2e-14)
+<br>
+1.5087503233755903+O(1e-14)
+<br>
+1.519271718157377+O(7e-15)
+<br>
+1.525060844547216+O(4e-15)
+<br>
+1.528246162183578+O(4e-15)
+<br>
+1.5299988011417263+O(4e-15)
+<br>
+1.5309631455708654+O(4e-15)
 <br>
 ※有効桁数4桁程度
 <br>
