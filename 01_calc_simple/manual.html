@@ -1938,7 +1938,7 @@ XYZ-color空間（CIE 1931表色系）
 <br>
 )*{R,G,B}
 <br>
-・CIE XYZ->CIE RGB線形逆変換（有効桁数5桁）
+・CIE XYZ->CIE RGB線形逆変換
 <br>
 {$R,$G,$B}=(
 <br>
@@ -1949,6 +1949,8 @@ XYZ-color空間（CIE 1931表色系）
 0.0009208986253436638,-0.0025498125468632836,0.1785989139215196
 <br>
 )*{X,Y,Z}
+<br>
+※有効桁数5桁
     </td>
   </tr>
   <tr>
@@ -18613,6 +18615,22 @@ _dx(=&lt;{_ix(=&lt;{x^3},0,x)},1,2)
 <br>
 -> 7.999999999998895+5.517384388870678e-13i+O(4e-5+2e-5i)
 <br>
+・<a href="#span-out-error-numerical">目安の解析誤差</a>が当てにならない場合
+<br>
+_it(=&lt;sqrt(tan(t)),0,pi/4,1) -> <span class="clear">0.4</span>678848567030397+O(2e-2)
+<br>
+_it(=&lt;sqrt(tan(t)),0,pi/4,10) -> <span class="clear">0.48</span>570913091719253+O(4e-5)
+<br>
+_it(=&lt;sqrt(tan(t)),0,pi/4,100) -> <span class="clear">0.4874</span>38986531867+O(4e-9)
+<br>
+_it(=&lt;sqrt(tan(t)),0,pi/4,1000) -> <span class="clear">0.48749</span>37074650109+O(4e-13)
+<br>
+_it(=&lt;sqrt(tan(t)),0,pi/4,10000) -> <span class="clear">0.4874954</span>3789153654+O(4e-17)
+<br>
+_it(=&lt;sqrt(tan(t)),0,pi/4,100000) -> <span class="clear">0.48749549</span>26124276+O(4e-21)
+<br>
+1/sqrt(2)*(log(sqrt(2)-1)+pi/2) -> 0.48749549439936113
+<br>
 <br>
 応用例を示す
 <br>
@@ -20462,7 +20480,7 @@ a=alpha*A1/C
 <br>
 b=(alpha*A1*T1+W0*(1-albedo))/C
 <br>
-・<a href="#span-out-evolution">時間発展</a>方程式を陰解法で離散化して無次元の漸化式を得る
+・<a href="#span-out-evolution">時間発展</a>方程式を陰解法implicit Euler methodで離散化して無次元の漸化式を得る
 <br>
 (newT-oldT)/dt=-a*newT+b -> newT=(oldT+b*dt)/(1+a*dt)
 <br>
@@ -21074,11 +21092,13 @@ heat0d_evolution[1](0,sec_1day,1,1)=&gt; -> 0
 <br>
 ※<span class="clear">放射強制力のtotal増加割合=2%</span>
 <br>
-・温度変化量の初期値
+・実行文
+<br>
+heat0d_evolution[1](sec_1day*30,sec_1day,0.98,1)=&gt;
+<br>
+・年間30日毎の温度変化量
 <br>
 0
-<br>
-・以降、heat0d_evolution[1](sec_1day*30,sec_1day,0.98,1)=&gt;
 <br>
 0.6467487809710555+O(4e-13)
 <br>
@@ -21104,20 +21124,22 @@ heat0d_evolution[1](0,sec_1day,1,1)=&gt; -> 0
 <br>
 1.4578887227913562+O(4e-15)
 <br>
-・有効桁数4桁程度
+※有効桁数4桁程度
 <br>
 <br>
 放射強制力の年率増加割合=0.1%で徐々に変化した場合、20年間1年毎の温度変化を示す
 <br>
 ※<span class="clear">放射強制力のtotal増加割合=2%</span>
 <br>
-・温度変化量の初期値
+・実行文
 <br>
-0
-<br>
-・以降、heat0d_evolution[1](sec_1day*30*365*year,sec_1day*30,1-0.001*year,1)=&gt;
+heat0d_evolution[1](sec_1day*30*365*year,sec_1day*30,1-0.001*year,1)=&gt;
 <br>
 ※本来、<a href="#span-out-eqns">式変数</a>内部のalphaに変化量を反映するが、<a href="#span-out-eqns-args">式変数のarguments</a>のkalphaに反映
+<br>
+・20年間1年毎の温度変化量
+<br>
+0
 <br>
 0.07157157157156746
 <br>
@@ -21159,20 +21181,22 @@ heat0d_evolution[1](0,sec_1day,1,1)=&gt; -> 0
 <br>
 1.4591836734693828
 <br>
-・有効桁数4桁程度
+※有効桁数4桁程度
 <br>
 <br>
 放射強制力の年率増加割合=4%で徐々に変化した場合、20年間1年毎の温度変化を示す
 <br>
 ※<span class="clear">放射強制力のtotal増加割合=80%（非現実的な仮想実験）</span>
 <br>
-・温度変化量の初期値
+・実行文
 <br>
-0
-<br>
-・以降、heat0d_evolution[1](sec_1day*30*365*year,sec_1day*30,1-0.04*year,1)=&gt;
+heat0d_evolution[1](sec_1day*30*365*year,sec_1day*30,1-0.04*year,1)=&gt;
 <br>
 ※本来、<a href="#span-out-eqns">式変数</a>内部のalphaに変化量を反映するが、<a href="#span-out-eqns-args">式変数のarguments</a>のkalphaに反映
+<br>
+・20年間1年毎の温度変化量
+<br>
+0
 <br>
 2.9791666666666607
 <br>
@@ -21214,7 +21238,132 @@ heat0d_evolution[1](0,sec_1day,1,1)=&gt; -> 0
 <br>
 285.99999999999994
 <br>
-・有効桁数4桁程度
+※有効桁数4桁程度
+<br>
+<br>
+放射強制力||代表温度とalbedoの各変化量に有意な相関を想定する一例を以下に示す
+<br>
+<br>
+放射強制力の年率増加割合=0.1%、
+<br>
+albedoの年率低下割合=0.25%で徐々に変化した場合、20年間1年毎の温度変化を示す
+<br>
+※<span class="clear">放射強制力のtotal増加割合=2%</span>
+<br>
+※<span class="clear">albedoのtotal低下割合=5%</span>
+<br>
+・実行文
+<br>
+heat0d_evolution[1](sec_1day*30*365*year,sec_1day*30,1-0.001*year,1-0.0025*year)=&gt;
+<br>
+※本来、<a href="#span-out-eqns">式変数</a>内部に変化量を反映するが、<a href="#span-out-eqns-args">式変数のarguments</a>に反映
+<br>
+・20年間1年毎の温度変化量
+<br>
+0
+<br>
+0.1482553982553938
+<br>
+0.29680790151730463
+<br>
+0.44565840378276356
+<br>
+0.5948078026391315
+<br>
+0.7442569992821113
+<br>
+0.8940068985340393
+<br>
+1.0440584088620106
+<br>
+1.1944124423962919
+<br>
+1.3450699149488123
+<br>
+1.4960317460317434
+<br>
+1.6472988588762192
+<br>
+1.798872180451113
+<br>
+1.9507526414821186
+<br>
+2.10294117647058
+<br>
+2.2554387237128104
+<br>
+2.408246225319381
+<br>
+2.5613646272344006
+<br>
+2.714794879255141
+<br>
+2.8685379350517017
+<br>
+3.022594752186585
+<br>
+※有効桁数4桁程度
+<br>
+<br>
+放射強制力の年率増加割合=0.05%、
+<br>
+albedoの年率低下割合=0.125%で徐々に変化した場合、20年間1年毎の温度変化を示す
+<br>
+※<span class="clear">放射強制力のtotal増加割合=1%</span>
+<br>
+※<span class="clear">albedoのtotal低下割合=2.5%</span>
+<br>
+・実行文
+<br>
+heat0d_evolution[1](sec_1day*30*365*year,sec_1day*30,1-0.0005*year,1-0.00125*year)=&gt;
+<br>
+※本来、<a href="#span-out-eqns">式変数</a>内部に変化量を反映するが、<a href="#span-out-eqns-args">式変数のarguments</a>に反映
+<br>
+・20年間1年毎の温度変化量
+<br>
+0
+<br>
+0.07409061673692818
+<br>
+0.1482553982553938
+<br>
+0.22249445596964534
+<br>
+0.29680790151730463
+<br>
+0.3711958467597416
+<br>
+0.44565840378276356
+<br>
+0.5201956848971303
+<br>
+0.5948078026391315
+<br>
+0.6694948697711052
+<br>
+0.7442569992821113
+<br>
+0.8190943043884076
+<br>
+0.8940068985340393
+<br>
+0.9689948953914715
+<br>
+1.0440584088620106
+<br>
+1.1191975530766172
+<br>
+1.1944124423962919
+<br>
+1.2697031914127024
+<br>
+1.3450699149488123
+<br>
+1.420512728059414
+<br>
+1.4960317460317434
+<br>
+※有効桁数4桁程度
   </td>
   </tr>
   <tr>
