@@ -122,7 +122,7 @@ e^(-i(1pi(){2/2i}(5-{3-1}){i/(-4)}))
 
 <div>
 <table>
-<caption>目次</caption>
+<caption><span id="span-index">目次</span></caption>
 <thead>
   <tr>
     <th>
@@ -139,36 +139,32 @@ e^(-i(1pi(){2/2i}(5-{3-1}){i/(-4)}))
 目次
     </th>
     <td>
-<span id="span-index"></span>
-本manualの目次を列挙する
-<br>
-<br>
 <a href="#span-ref">
 参考文献
 </a>
 <br>
 ・
-<a href="#span-pre-ref-docs">
+<a href="#span-ref-docs">
 参考Docs
 </a>
 <br>
 ・
-<a href="#span-pre-ref-wiki">
+<a href="#span-ref-wiki">
 参考Wikipedia
 </a>
 <br>
 ・
-<a href="#span-pre-ref-git">
+<a href="#span-ref-git">
 参考GitHub
 </a>
 <br>
 ・
-<a href="#span-pre-paper">
+<a href="#span-ref-paper">
 参考論文
 </a>
 <br>
 ・
-<a href="#span-pre-pat">
+<a href="#span-ref-pat">
 参考特許文献
 </a>
 <br>
@@ -1390,7 +1386,7 @@ heat0d_evolution
 参考Docs
     </th>
     <td>
-<span id="span-pre-ref-docs"></span>
+<span id="span-ref-docs"></span>
 参考Docsについて記述する
 <br>
 <br>
@@ -1408,7 +1404,7 @@ developer.mozilla.org/ja/docs/項目を列挙する
 参考Wikipedia
     </th>
     <td>
-<span id="span-pre-ref-wiki"></span>
+<span id="span-ref-wiki"></span>
 参考Wikipediaについて記述する
 <br>
 <br>
@@ -1505,7 +1501,7 @@ ja.m.wikipedia.org/wiki/項目を列挙する
 参考GitHub
     </th>
     <td>
-<span id="span-pre-ref-git"></span>
+<span id="span-ref-git"></span>
 参考GitHubについて記述する
 <br>
 <br>
@@ -1519,13 +1515,13 @@ domainを列挙する
 参考論文
     </th>
     <td>
-<span id="span-pre-paper"></span>
+<span id="span-ref-paper"></span>
 参考論文について記述する
 <br>
 <br>
 title/発行元(発行年)を列挙する
 <br>
-<span id="span-pre-paper1"></span>
+<span id="span-ref-paper1"></span>
 1. THERMAL-ELECTROCHEMICAL COUPLED MODELING OF A LITHIUM-ION CELL
 <br>
 　Proceedings of the ECS(2000)
@@ -1536,13 +1532,13 @@ title/発行元(発行年)を列挙する
 参考特許文献
     </th>
     <td>
-<span id="span-pre-pat"></span>
+<span id="span-ref-pat"></span>
 参考特許文献について記述する
 <br>
 <br>
 公開番号/発明の名称を列挙する
 <br>
-<span id="span-pre-pat1"></span>
+<span id="span-ref-pat1"></span>
 1. WO2013128652
 <br>
 　リチウム二次電池用液保持体およびリチウム二次電池
@@ -20210,7 +20206,7 @@ modelling
 <br>
 ・<span class="selection">活物質の体積分率</span>を追加考慮
 <br>
-・<span class="clear">Ver.2.51.25</span>以降、<span class="jF">活物質の形状因子</span>を追加考慮（<a href="#span-pre-paper1">参考論文[1]</a>）
+・<span class="clear">Ver.2.51.25</span>以降、<span class="jF">活物質の形状因子</span>を追加考慮（<a href="#span-ref-paper1">参考論文[1]</a>）
 <br>
 ・時間を<a href="#span-out-fdm">有限差分法</a>で離散化
 <br>
@@ -21207,8 +21203,6 @@ simulation
 <br>
 1.4591836734693828
 <br>
-※有効桁数4桁程度
-<br>
 <br>
 放射強制力の年率増加割合=4%で徐々に変化した場合、20年間1年毎の温度変化を示す
 <br>
@@ -21264,8 +21258,6 @@ simulation
 <br>
 285.99999999999994
 <br>
-※有効桁数4桁程度
-<br>
 <br>
 albedoの低下割合=5%が即座に反映された場合、年間30日毎の温度変化を示す
 <br>
@@ -21302,8 +21294,6 @@ albedoの低下割合=5%が即座に反映された場合、年間30日毎の温
 1.5299988011417263+O(4e-15)
 <br>
 1.5309631455708654+O(4e-15)
-<br>
-※有効桁数4桁程度
 <br>
 <br>
 albedoの年率低下割合=0.25%で徐々に変化した場合、20年間1年毎の温度変化を示す
@@ -21359,8 +21349,6 @@ albedoの年率低下割合=0.25%で徐々に変化した場合、20年間1年�
 1.4555357142857162
 <br>
 1.5321428571428548
-<br>
-※有効桁数4桁程度
 <br>
 <br>
 放射強制力||代表温度とalbedoの各変化量に有意な相関を想定する一例を以下に示す
@@ -21424,8 +21412,6 @@ albedoの年率低下割合=0.25%で徐々に変化した場合、20年間1年�
 <br>
 3.022594752186585
 <br>
-※有効桁数4桁程度
-<br>
 <br>
 放射強制力の年率増加割合=0.05%、
 <br>
@@ -21484,8 +21470,6 @@ albedoの年率低下割合=0.125%で徐々に変化した場合、20年間1年�
 1.420512728059414
 <br>
 1.4960317460317434
-<br>
-※有効桁数4桁程度
   </td>
   </tr>
   <tr>
@@ -24989,7 +24973,7 @@ Electrochemical cells 2D-simulation with heat and fluid flow
 <br>
 ・その他、電極面積に応じて反応不均一（構造由来||液枯れ等）が生じた場合、
 <br>
-　以上の傾向を増長する懸念があり、これらを対策する<a href="#span-pre-pat1">参考特許文献[1]</a>が考え方の参考になる
+　以上の傾向を増長する懸念があり、これらを対策する<a href="#span-ref-pat1">参考特許文献[1]</a>が考え方の参考になる
 <hr>
 ・固体電解質については、液系由来の問題（副反応を除く）は解消されるが、
 <br>
