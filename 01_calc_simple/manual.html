@@ -1360,6 +1360,11 @@ plot2d_IV
 <a href="#span-eqn-heat0d_evolution">
 heat0d_evolution
 </a>
+<br>
+・
+<a href="#span-eqn-heat1d_evolution">
+heat1d_evolution
+</a>
     </td>
   </tr>
 </tbody>
@@ -27664,6 +27669,128 @@ init=&gt;,run=&gt;,return=out=&gt;,scope2storage=&gt;,
 [cond_error=(hasVar(t_total)==0)&amp;&amp;hasVar(oldT),
 <br>
 proc=&lt;[sec_1day=60*60*24,=&lt;heat0d_evolution(sec_1day*30,sec_1day,0.98,1)=&gt;]=&gt;,
+<br>
+=&lt;switch(cond_error==0,=&lt;proc:1,-999/*error-code*/)]=&gt;;
+    </td>
+  </tr>
+  <tr>
+    <th>
+<a href="#span-index">
+目次
+</a>
+<br>
+heat1d
+<br>
+_evolution
+    </th>
+    <td>
+<span id="span-eqn-heat1d_evolution"></span>
+<a href="#span-out-simulation-1D-heat">1D-heat simulation</a>参照
+<br>
+heat1d_evolution(t,dt,kalpha,kalbedo,N)=&lt;[
+<br>
+out=&lt;{t_total,newT},
+<br>
+scope2storage=&lt;last{addVar(oldT),addVar(t_total)},
+<div class="condition">
+init=&lt;last{
+<br>
+Tb=-19,
+<br>
+T0=15,
+<br>
+T1=-56.5,
+<br>
+R0=6378136.6,
+<br>
+A0=4*pi*R0^2,
+<br>
+H1=11000,
+<br>
+A1=4*pi*(R0+H1)^2,
+<br>
+albedo0=0.3,
+<br>
+W0=174e15,
+<br>
+rho=1.29,
+<br>
+cp=1007,
+<br>
+V=A0*H1,
+<br>
+C=rho*cp*V,
+<br>
+dC=C/N,
+<br>
+l=0.0241,
+<br>
+alpha0=-W0*(1-albedo0)/(A1*(T1-T0)),
+<br>
+alpha=alpha0*kalpha,
+<br>
+albedo=albedo0*kalbedo,
+<br>
+a=alpha*A1/dC,
+<br>
+b=0,
+<br>
+c=W0*(1-albedo)/C,
+<br>
+d=alpha*A1*(T1-T0)/C,
+<br>
+_ex(=&lt;x,N,1),
+<br>
+A=zeros(N,N),
+<br>
+A[-1][0][1]=(-a*dt,1+2*a*dt,-a*dt),
+<br>
+A[0][0]=1+a*dt,
+<br>
+A[-1][-1]=1+a*dt,
+<br>
+switch(hasVar(t_total)==0,=&lt;last{t_total=0,oldT=zeros(N,1)+Tb}),
+<br>
+newT=oldT
+<br>
+},
+</div>
+<div class="run">
+run=&lt;last{
+<br>
+step=&lt;last{
+<br>
+r=oldT+b*dt,
+<br>
+r[0]=r[0]+c*dt,
+<br>
+r[-1]=r[-1]+d*dt,
+<br>
+Newton(=&lt;A*x=&gt;=r,=&lt;x),
+<br>
+oldT=x=&gt;
+<br>
+},
+<br>
+evolution=&lt;_rn(=&lt;step,N=round(t/dt),N),
+<br>
+evolution=&gt;,
+<br>
+newT=oldT,
+<br>
+dT=newT-T0,
+<br>
+t_total=t_total+N*dt
+<br>
+},
+</div>
+init=&gt;,run=&gt;,return=out=&gt;,scope2storage=&gt;,
+<br>
+=&lt;return]=&gt;;
+<br>
+[cond_error=(hasVar(t_total)==0)&amp;&amp;hasVar(oldT),
+<br>
+proc=&lt;[sec_1day=60*60*24,=&lt;heat1d_evolution(sec_1day*30,sec_1day,1,1,20)=&gt;]=&gt;,
 <br>
 =&lt;switch(cond_error==0,=&lt;proc:1,-999/*error-code*/)]=&gt;;
     </td>

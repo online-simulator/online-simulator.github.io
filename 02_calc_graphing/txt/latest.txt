@@ -1,3 +1,31 @@
+[cond_error=(hasVar(t_total)==0)&&hasVar(oldT),proc=<[sec_1day=60*60*24,=<heat1d_evolution(sec_1day*30,sec_1day,1,1,20)=>]=>,=<switch(cond_error==0,=<proc:1,-999)]=>
+(
+5184000:
+infoLost[ i] 27.66390553381778-6.651496927984868e-10i+O(3e+0+3e-4i):
+infoLost[ i] 24.68271727281129-6.407927089794658e-10i+O(2e+0+3e-5i):
+infoLost[ i] 22.268596731935755-6.371898690543975e-10i+O(2e+0+3e-4i):
+infoLost[ i] 20.37163946422115-5.635343335801412e-10i+O(2e+0+2e-4i):
+infoLost[ i] 18.925049797362778-4.790661909114272e-10i+O(2e+0+3e-4i):
+infoLost[ i] 17.852606559282865-3.903729950594138e-10i+O(2e+0+2e-4i):
+infoLost[ i] 17.07571735713353-3.906991144891239e-10i+O(2e+0+3e-4i):
+infoLost[ i] 16.518773806493574-3.6043732137106965e-10i+O(2e+0+2e-4i):
+infoLost[ i] 16.112098765017404-3.4173989462982783e-10i+O(2e+0+3e-4i):
+infoLost[ i] 15.792394845076283-3.108698445744732e-10i+O(2e+0+2e-4i):
+infoLost[ i] 15.501102717464253-2.875590532249249e-10i+O(2e+0+3e-4i):
+infoLost[ i] 15.181398797531527-2.650859387292554e-10i+O(2e+0+2e-4i):
+infoLost[ i] 14.77472375605238-2.434079335120552e-10i+O(2e+0+3e-4i):
+infoLost[ i] 14.217780205425088-2.2581783628208962e-10i+O(2e+0+2e-4i):
+infoLost[ i] 13.440891003246039-1.9642550194262865e-10i+O(2e+0+3e-4i):
+infoLost[ i] 12.368447765247229-1.8883821719497403e-10i+O(2e+0+2e-4i):
+infoLost[ i] 10.921858098473127-1.8864333375782533e-10i+O(2e+0+3e-4i):
+infoLost[ i] 9.024900830799922-1.5638619507216365e-10i+O(2e+0+2e-4i):
+infoLost[ i] 6.610780289904132-1.325273866820165e-10i+O(1e+0+3e-4i):
+infoLost[ i] 3.629592028931736-1.4226093975694405e-10i+O(9e-1+7e-4i)
+)
+
+heat1d_evolution(t,dt,kalpha,kalbedo,N)=<[out=<{t_total,newT},scope2storage=<last{addVar(oldT),addVar(t_total)},init=<last{Tb=-19,T0=15,T1=-56.5,R0=6378136.6,A0=4*pi*R0^2,H1=11000,A1=4*pi*(R0+H1)^2,albedo0=0.3,W0=174e15,rho=1.29,cp=1007,V=A0*H1,C=rho*cp*V,dC=C/N,l=0.0241,alpha0=-W0*(1-albedo0)/(A1*(T1-T0)),alpha=alpha0*kalpha,albedo=albedo0*kalbedo,a=alpha*A1/dC,b=0,c=W0*(1-albedo)/C,d=alpha*A1*(T1-T0)/C,_ex(=<x,N,1),A=zeros(N,N),A[-1][0][1]=(-a*dt,1+2*a*dt,-a*dt),A[0][0]=1+a*dt,A[-1][-1]=1+a*dt,switch(hasVar(t_total)==0,=<last{t_total=0,oldT=zeros(N,1)+Tb}),newT=oldT},run=<last{step=<last{r=oldT+b*dt,r[0]=r[0]+c*dt,r[-1]=r[-1]+d*dt,Newton(=<A*x=>=r,=<x),oldT=x=>},evolution=<_rn(=<step,N=round(t/dt),N),evolution=>,newT=oldT,dT=newT-T0,t_total=t_total+N*dt},init=>,run=>,return=out=>,scope2storage=>,=<return]=>
+stored_eqn(heat1d_evolution)
+
 [cond_error=(hasVar(t_total)==0)&&hasVar(oldT),proc=<[sec_1day=60*60*24,=<heat0d_evolution(sec_1day*30,sec_1day,0.98,1)=>]=>,=<switch(cond_error==0,=<proc:1,-999)]=>
 (
 2592000:
@@ -671,4 +699,4 @@ drag=false&test-case=false&legend=true&axis-t=false&axis-x=true&log-x=false&imag
 --------------------------------
 --------------------------------
 
-online-simulator.github.io.4.97.31.12.28 @ Thu Dec 02 2021 05:49:03 GMT+0900 (日本標準時) @ Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/96.0.4664.45 Safari/537.36
+online-simulator.github.io.4.97.32.12.28 @ Wed Dec 08 2021 03:25:38 GMT+0900 (日本標準時) @ Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/96.0.4664.93 Safari/537.36
