@@ -21147,33 +21147,31 @@ simulation
 <br>
 ※<span class="clear">擬似的な熱伝達係数の変化率kalpha=(100-放射強制力の増加割合)/100</span>
 <br>
-・放射強制力の増加量＜4.784[W/m^2]（基準値の約2%）
+・放射強制力の増加量＜基準値の約2%=4.784[W/m^2]
 <br>
 　基準値flux1=alpha0*(T1-T0)=3.3458041958041953*(-56.5-15)=-239.2[W/m^2]
-<br>
-・albedoの低下量＜0.015（基準値の約5%）
-<br>
-　基準値albedo0=0.3
-<br>
-・<span class="selection">大気の吸収率の増加量＜0.02（基準値の約2%）</span>　<span class="run">Ver.2.95.32</span>以降、追加
-<br>
-　基準値absorb0=1
 <br>
 <a href="#span-eqn-heat0d_evolution">heat0d_evolution</a>[1](sec_1day*365,sec_1day,0.98,1,1)=&gt; -> 1.45806982458949+O(4e-15)
 <br>
 <a href="#span-eqn-heat0d_evolution">heat0d_evolution</a>[1](sec_1day*365,sec_1day,0.97,1,1)=&gt; -> 2.2095252201233+O(4e-15)
 <br>
+・albedoの低下量＜基準値の約5%=0.015
+<br>
+　基準値albedo0=0.3
+<br>
 <a href="#span-eqn-heat0d_evolution">heat0d_evolution</a>[1](sec_1day*365,sec_1day,1,0.96,1)=&gt; -> 1.224904963446054+O(4e-15)
 <br>
 <a href="#span-eqn-heat0d_evolution">heat0d_evolution</a>[1](sec_1day*365,sec_1day,1,0.95,1)=&gt; -> 1.5311312043076661+O(4e-15)
+<br>
+・<span class="selection">大気の吸収率の増加量＜基準値の約2%=0.01</span>　<span class="run">Ver.2.95.32</span>以降、追加
+<br>
+　基準値absorb0=0.5
 <br>
 <a href="#span-eqn-heat0d_evolution">heat0d_evolution</a>[1](sec_1day*365,sec_1day,1,1,1.02)=&gt; -> 1.42905579068713+O(4e-15)
 <br>
 <a href="#span-eqn-heat0d_evolution">heat0d_evolution</a>[1](sec_1day*365,sec_1day,1,1,1.03)=&gt; -> 2.1435836860307056
 <br>
-・温度変化量dT[℃]の初期値
-<br>
-<a href="#span-eqn-heat0d_evolution">heat0d_evolution</a>[1](0,sec_1day,1,1,1)=&gt; -> 0
+※<span class="clear">以上の条件はほぼ等価で基準値に応じて右辺の絶対量は変化する</span>
 <br>
 ・系内部の発熱量と放熱量の熱平衡状態から偏りが発生すれば温度が変化すると言えるが、
 <br>
@@ -21399,6 +21397,108 @@ simulation
 1.4578306389841842
 <br>
 1.4580174515956088+O(4e-15)
+<br>
+・<span class="selection">基準値の違いは熱平衡状態前後の温度変化量に影響しない</span>
+<br>
+<br>
+<span class="selection">大気の吸収率</span>の増加割合=2%が即座に反映された場合、年間30日毎の温度変化を示す
+<br>
+※<span class="clear"><span class="selection">大気の吸収率</span>のtotal増加割合=2%</span>
+<br>
+・実行文
+<br>
+<a href="#span-eqn-heat0d_evolution">heat0d_evolution</a>[1](sec_1day*30,sec_1day,1,1,1.02)=&gt;
+<br>
+・年間30日毎の温度変化量dT[℃]
+<br>
+0
+<br>
+0.6466710687354009+O(4e-13)
+<br>
+1.0009061436670095+O(2e-13)
+<br>
+1.1949499077667447+O(1e-13)
+<br>
+1.3012436800400486+O(7e-14)
+<br>
+1.359469545099433+O(4e-14)
+<br>
+1.391364653245546+O(2e-14)
+<br>
+1.4088362343481045+O(1e-14)
+<br>
+1.4184068601890552+O(7e-15)
+<br>
+1.4236494812460734+O(7e-15)
+<br>
+1.426521297154899+O(4e-15)
+<br>
+1.4280944275651244+O(4e-15)
+<br>
+1.4289561608259724
+<br>
+<br>
+さらに、<span class="selection">大気の吸収率基準値absorb0=0.5</span>の場合、2年間30日毎の温度変化を示す
+<br>
+※<span class="clear"><span class="selection">大気の吸収率</span>のtotal増加割合=2%</span>
+<br>
+・実行文
+<br>
+<a href="#span-eqn-heat0d_evolution">heat0d_evolution</a>[1](sec_1day*30,sec_1day,1,1,1.02)=&gt;
+<br>
+・2年間30日毎の温度変化量dT[℃]
+<br>
+0
+<br>
+0.3732199909517959+O(3e-13)
+<br>
+0.6490321765566822+O(2e-13)
+<br>
+0.8528593122203958+O(1e-13)
+<br>
+1.003488992130137+O(1e-13)
+<br>
+1.114805379890953+O(9e-14)
+<br>
+1.197068969586823+O(6e-14)
+<br>
+1.257862338162436+O(5e-14)
+<br>
+1.30278906305292+O(4e-14)
+<br>
+1.3359902272041566+O(2e-14)
+<br>
+1.3605261198979832+O(2e-14)
+<br>
+1.378658316333631+O(1e-14)
+<br>
+1.3920581364128815+O(1e-14)
+<br>
+・<span class="selection">時定数が2倍</span>
+<br>
+1.401960697241261+O(7e-15)
+<br>
+1.4092787590047742+O(4e-15)
+<br>
+1.414686857869583+O(4e-15)
+<br>
+1.418683480783745+O(4e-15)
+<br>
+1.421637013091022+O(4e-15)
+<br>
+1.4238196941388601
+<br>
+1.4254327107105276+O(7e-15)
+<br>
+1.426624741247032
+<br>
+1.4275056601569354+O(4e-15)
+<br>
+1.4281566653972035
+<br>
+1.4286377628263551+O(4e-15)
+<br>
+1.4289932971938697
 <br>
 ・<span class="selection">基準値の違いは熱平衡状態前後の温度変化量に影響しない</span>
 <br>
