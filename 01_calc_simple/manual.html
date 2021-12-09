@@ -21165,7 +21165,13 @@ simulation
 <br>
 ・<span class="selection">大気の吸収率の増加量＜基準値の約2%=0.01</span>　<span class="run">Ver.2.95.32</span>以降、追加
 <br>
-　基準値absorb0=0.5
+　基準値absorb0=0.5（<span class="clear">温度変化の時定数が黒体相当absorb0=1の2倍</span>）
+<br>
+<a href="#span-eqn-heat0d_evolution">heat0d_evolution</a>[1](sec_1day*365<span class="clear">*2</span>,sec_1day,1,1,1.02)=&gt; -> 1.4290898405909296
+<br>
+<a href="#span-eqn-heat0d_evolution">heat0d_evolution</a>[1](sec_1day*365<span class="clear">*2</span>,sec_1day,1,1,1.03)=&gt; -> 2.1436347608863073
+<br>
+　基準値<span class="clear">absorb0=1</span>
 <br>
 <a href="#span-eqn-heat0d_evolution">heat0d_evolution</a>[1](sec_1day*365,sec_1day,1,1,1.02)=&gt; -> 1.42905579068713+O(4e-15)
 <br>
