@@ -1478,6 +1478,8 @@ ja.m.wikipedia.org/wiki/項目を列挙する
 <br>
 ・太陽定数
 <br>
+・太陽エネルギー
+<br>
 ・地球
 <br>
 ・地球のエネルギー収支
@@ -20426,9 +20428,9 @@ modelling
 <br>
 ・地球表面の黒体放射温度はStefan-Boltzmann's law
 <br>
-・<span class="run">Ver.2.95.32</span>以降、<span class="clear">albedoと独立に定義する</span><span class="selection">大気の吸収率=1-成層圏への透過率</span>を追加考慮
+・<span class="run">Ver.2.95.32</span>以降、<span class="clear">albedoと独立に定義する</span><span class="selection">対流圏の吸収率=1-成層圏への透過率</span>を追加考慮
 <br>
-・<span class="run">Ver.2.96.32</span>以降、<span class="selection">大気の吸収率</span>の定義文を追記
+・<span class="run">Ver.2.96.32</span>以降、<span class="selection">対流圏の吸収率</span>の定義文を追記
 <br>
 ・<span class="run">Ver.2.96.32</span>以降、<span class="clear">擬似的な熱伝達係数</span>の定義文を訂正
 <br>
@@ -20455,7 +20457,7 @@ modelling
 <br>
 ・放射強制力を対流圏と成層圏の代表温度差の比例係数（<span class="clear">擬似的な熱伝達係数</span>）に換算する
 <br>
-※<span class="clear">擬似的な熱伝達係数は<span class="selection">大気の吸収率</span>基準値に従属する透過による放射を含まない</span>
+※<span class="clear">擬似的な熱伝達係数は<span class="selection">対流圏の吸収率</span>基準値に従属する透過による放射を含まない</span>
 <br>
 <br>
 主要なparameterを列挙する
@@ -20464,9 +20466,9 @@ modelling
 <br>
 ・太陽放射の直接反射率albedo
 <br>
-・<span class="clear">albedoと独立に定義する</span><span class="selection">大気の吸収率</span>absorb
+・<span class="clear">albedoと独立に定義する</span><span class="selection">対流圏の吸収率</span>absorb
 <br>
-※<span class="selection">大気の吸収率=1-成層圏への透過率</span>
+※<span class="selection">対流圏の吸収率=1-成層圏への透過率</span>
 <br>
 ※<span class="clear">太陽活動等、その他の全因子は定常状態（系内部のenergy変化に寄与しない）を想定する</span>
 <br>
@@ -20507,7 +20509,7 @@ modelling
 <br>
 　太陽放射の直接反射率<span class="clear">基準値</span>albedo0=0.3
 <br>
-　<span class="selection">大気の吸収率</span><span class="clear">基準値</span>absorb0=1
+　<span class="selection">対流圏の吸収率</span><span class="clear">基準値</span>absorb0=1
 <br>
 ※<span class="clear">各基準値は温度変化の時定数に影響するが、<a href="#span-out-simulation-0D-heat">熱平衡状態前後の温度変化量に影響しない</a></span>
 <br>
@@ -20655,7 +20657,7 @@ a=alpha0*A1/C; a -> 2.3455061866580515e-7+O(6e-18)
 <br>
 b=(alpha0*A1*T1+W0*(1-albedo0)<span class="selection">*absorb0</span>)/C; b -> 0.000003518259279987075+O(9e-17)
 <br>
-・<span class="selection">大気の吸収率<span class="clear">基準値</span>absorb0=0.5</span>の場合、擬似的な熱伝達係数<span class="clear">基準値</span>alpha0は半減する
+・<span class="selection">対流圏の吸収率<span class="clear">基準値</span>absorb0=0.5</span>の場合、擬似的な熱伝達係数<span class="clear">基準値</span>alpha0は半減する
 <br>
 alpha0 -> 1.6729020979020977
 <br>
@@ -21179,11 +21181,11 @@ simulation
 <br>
 ※<span class="clear">擬似的な熱伝達係数の変化率kalpha=(100-放射強制力の増加割合)/100</span>
 <br>
-・<span class="run">Ver.2.95.32</span>以降、<span class="clear">albedoと独立に定義する</span><span class="selection">大気の吸収率=1-成層圏への透過率</span>を追加考慮
+・<span class="run">Ver.2.95.32</span>以降、<span class="clear">albedoと独立に定義する</span><span class="selection">対流圏の吸収率=1-成層圏への透過率</span>を追加考慮
 <br>
-・<span class="run">Ver.2.96.32</span>以降、<span class="selection">大気の吸収率<span class="clear">基準値</span>absorb0=0.5~1</span>の前提で必要条件を範囲に修正
+・<span class="run">Ver.2.96.32</span>以降、<span class="selection">対流圏の吸収率<span class="clear">基準値</span>absorb0=0.5~1</span>の前提で必要条件を範囲に修正
 <br>
-※<span class="selection">大気の吸収率=1-成層圏への透過率</span>
+※<span class="selection">対流圏の吸収率=1-成層圏への透過率</span>
 <hr>
 放射強制力の増加量＜<span class="clear">基準値</span>の約2%=<span class="selection">2.392</span>~4.784[W/m^2]
 <br>
@@ -21221,7 +21223,7 @@ albedoの低下量＜<span class="clear">基準値</span>の約5%=0.015
 <br>
 <a href="#span-eqn-heat0d_evolution">heat0d_evolution</a>[1](sec_1day*365,sec_1day,1,0.95,1)=&gt; -> 1.5311312043076661+O(4e-15)
 <hr>
-<span class="clear">albedoと独立に定義する</span><span class="selection">大気の吸収率の増加量＜<span class="clear">基準値</span>の約2%=0.01~0.02</span>
+<span class="clear">albedoと独立に定義する</span><span class="selection">対流圏の吸収率の増加量＜<span class="clear">基準値</span>の約2%=0.01~0.02</span>
 <br>
 ・<span class="clear">基準値</span><span class="selection">absorb0=0.5</span>（<span class="clear">温度変化の時定数がabsorb0=1の2倍</span>）
 <br>
@@ -21285,7 +21287,7 @@ albedoの低下量＜<span class="clear">基準値</span>の約5%=0.015
 ※有効桁数4桁程度
 <br>
 <br>
-さらに、<span class="selection">大気の吸収率<span class="clear">基準値</span>absorb0=0.5</span>の場合、2年間30日毎の温度変化を示す
+さらに、<span class="selection">対流圏の吸収率<span class="clear">基準値</span>absorb0=0.5</span>の場合、2年間30日毎の温度変化を示す
 <br>
 ※<span class="clear">放射強制力のtotal増加割合=2%</span>
 <br>
@@ -21350,7 +21352,7 @@ albedoの低下量＜<span class="clear">基準値</span>の約5%=0.015
 ・<span class="selection"><span class="clear">基準値</span>の違いは熱平衡状態前後の温度変化量に影響しない</span>
 <br>
 <br>
-さらに、<span class="selection">大気の吸収率<span class="clear">基準値</span>absorb0=0.5</span>、
+さらに、<span class="selection">対流圏の吸収率<span class="clear">基準値</span>absorb0=0.5</span>、
 <br>
 <span class="selection">太陽放射の直接反射率<span class="clear">基準値</span>albedo0=0.65</span>の場合、4年間30日毎の温度変化を示す
 <br>
@@ -21465,9 +21467,9 @@ albedoの低下量＜<span class="clear">基準値</span>の約5%=0.015
 ・<span class="selection"><span class="clear">基準値</span>の違いは熱平衡状態前後の温度変化量に影響しない</span>
 <br>
 <br>
-<span class="selection">大気の吸収率</span>の増加割合=2%が即座に反映された場合、年間30日毎の温度変化を示す
+<span class="selection">対流圏の吸収率</span>の増加割合=2%が即座に反映された場合、年間30日毎の温度変化を示す
 <br>
-※<span class="clear"><span class="selection">大気の吸収率</span>のtotal増加割合=2%</span>
+※<span class="clear"><span class="selection">対流圏の吸収率</span>のtotal増加割合=2%</span>
 <br>
 ・実行文
 <br>
@@ -21502,9 +21504,9 @@ albedoの低下量＜<span class="clear">基準値</span>の約5%=0.015
 1.4289561608259724
 <br>
 <br>
-さらに、<span class="selection">大気の吸収率<span class="clear">基準値</span>absorb0=0.5</span>の場合、2年間30日毎の温度変化を示す
+さらに、<span class="selection">対流圏の吸収率<span class="clear">基準値</span>absorb0=0.5</span>の場合、2年間30日毎の温度変化を示す
 <br>
-※<span class="clear"><span class="selection">大気の吸収率</span>のtotal増加割合=2%</span>
+※<span class="clear"><span class="selection">対流圏の吸収率</span>のtotal増加割合=2%</span>
 <br>
 ・実行文
 <br>
