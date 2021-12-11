@@ -20430,7 +20430,7 @@ modelling
 <br>
 ・<span class="run">Ver.2.95.32</span>以降、<span class="clear">albedoと独立に定義する</span><span class="selection">対流圏の吸収率=1-成層圏への透過率</span>を追加考慮
 <br>
-・<span class="run">Ver.2.96.32</span>以降、<span class="selection">対流圏の吸収率</span>の定義文を追記
+・<span class="run">Ver.2.96.32</span>以降、<del>大気の吸収率</del><span class="selection">対流圏の吸収率</span>の定義文を追記
 <br>
 ・<span class="run">Ver.2.96.32</span>以降、<span class="clear">擬似的な熱伝達係数</span>の定義文を訂正
 <br>
@@ -20699,7 +20699,7 @@ W0e -> 61357941149583660
 <br>
 W1+W0e -> 0
 <br>
-・同時に、放射強制力による<span class="clear">放熱電力</span>W1の半減分、透過による<span class="clear">放射電力</span>Wtが増加する
+・同時に、放射強制力による<span class="clear">放熱電力</span>W1の半減分、透過による<span class="clear">放射電力</span>W0tが増加する
 <br>
 <br>
 実施例は<a href="#span-out-simulation-0D-heat">0D-heat simulation</a>参照
@@ -21255,7 +21255,7 @@ albedoの低下量＜<span class="clear">基準値</span>の約5%=0.015
 <br>
 <a href="#span-eqn-heat0d_evolution">heat0d_evolution</a>[1](sec_1day*365,sec_1day,1,0.95,1)=&gt; -> 1.5311312043076661+O(4e-15)
 <hr>
-<span class="clear">albedoと独立に定義する</span><span class="selection">対流圏の吸収率の増加量＜<span class="clear">基準値</span>の約2%=0.01~0.02</span>
+<span class="selection">対流圏の吸収率の増加量＜<span class="clear">基準値</span>の約2%=0.01~0.02</span>
 <br>
 ・<span class="clear">基準値</span><span class="selection">absorb0=0.5</span>（<span class="clear">温度変化の時定数がabsorb0=1の2倍</span>）
 <br>
