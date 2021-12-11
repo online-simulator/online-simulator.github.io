@@ -20470,6 +20470,8 @@ modelling
 <br>
 ※<span class="selection">対流圏の吸収率=1-成層圏への透過率</span>
 <br>
+※<span class="selection">対流圏の正味吸収率=(1-albedo)*(1-成層圏への透過率)</span>
+<br>
 ※<span class="clear">太陽活動等、その他の全因子は定常状態（系内部のenergy変化に寄与しない）を想定する</span>
 <br>
 <br>
@@ -20511,13 +20513,15 @@ modelling
 <br>
 　<span class="selection">対流圏の吸収率</span><span class="clear">基準値</span>absorb0=1
 <br>
+　<span class="selection">対流圏の正味吸収率</span>absorbe=(1-albedo)*absorb
+<br>
 ※<span class="clear">各基準値は温度変化の時定数に影響するが、<a href="#span-out-simulation-0D-heat">熱平衡状態前後の温度変化量に影響しない</a></span>
 <br>
 　太陽放射の<span class="clear">放射電力</span>W0=S1*I0=175308403284524770[W]
 <br>
-　太陽放射の直接反射による<span class="clear">放射電力</span>Wa=W0*albedo[W]
+　太陽放射の直接反射による<span class="clear">放射電力</span>W0a=W0*albedo[W]
 <br>
-　対流圏から成層圏への透過による<span class="clear">放射電力</span>Wt=W0*(1-albedo)<span class="selection">*(1-absorb)</span>[W]
+　対流圏から成層圏への透過による<span class="clear">放射電力</span>W0t=W0*(1-albedo)<span class="selection">*(1-absorb)</span>[W]
 <br>
 　対流圏の<span class="clear">正味発熱電力</span>W0e=W0*(1-albedo)<span class="selection">*absorb</span>[W]
 <br>
@@ -20546,9 +20550,9 @@ modelling
 <br>
 ・<span class="clear">総電力</span>の保存
 <br>
-W0=Wa+Wt+W0e
+W0=W0a+W0t+W0e
 <br>
-・直接反射Waと透過Wtを除く対流圏の<span class="clear">正味熱収支</span>
+・直接反射W0aと透過W0tを除く対流圏の<span class="clear">正味熱収支</span>
 <br>
 Q'=W1+W0e
 <br>
@@ -20605,7 +20609,15 @@ albedo0=0.3;
 <br>
 <span class="selection">absorb0=1;</span>
 <br>
+<span class="selection">absorbe0=(1-albedo0)*absorb0,</span>
+<br>
 W0=S1*I0;
+<br>
+W0a=W0*albedo0;
+<br>
+W0t=W0*(1-albedo0)<span class="selection">*(1-absorb0)</span>;
+<br>
+W0e=W0*(1-albedo0)<span class="selection">*absorb0</span>;
 <br>
 Te=(I0*(1-albedo0)/(4*sigma))**0.25-TK;
 <br>
@@ -20657,6 +20669,16 @@ a=alpha0*A1/C; a -> 2.3455061866580515e-7+O(6e-18)
 <br>
 b=(alpha0*A1*T1+W0*(1-albedo0)<span class="selection">*absorb0</span>)/C; b -> 0.000003518259279987075+O(9e-17)
 <br>
+・熱平衡状態（<span class="clear">放熱電力</span>W1+<span class="clear">正味発熱電力</span>W0e=0）のdouble-checkを示す
+<br>
+flux1=alpha0*(T1-T0); flux1 -> -239.22499999999997
+<br>
+W1=flux1*A1; W1 -> -122715882299167330
+<br>
+W0e -> 122715882299167330
+<br>
+W1+W0e -> 0
+<br>
 ・<span class="selection">対流圏の吸収率<span class="clear">基準値</span>absorb0=0.5</span>の場合、擬似的な熱伝達係数<span class="clear">基準値</span>alpha0は半減する
 <br>
 alpha0 -> 1.6729020979020977
@@ -20668,6 +20690,14 @@ year_a -> 0.27038762177767395+O(7e-12)
 a -> 1.1727530933290258e-7+O(3e-18)
 <br>
 b -> 0.0000017591296399935375+O(5e-17)
+<br>
+flux1 -> -119.61249999999998
+<br>
+W1 -> -61357941149583660
+<br>
+W0e -> 61357941149583660
+<br>
+W1+W0e -> 0
 <br>
 ・同時に、放射強制力による<span class="clear">放熱電力</span>W1の半減分、透過による<span class="clear">放射電力</span>Wtが増加する
 <br>
@@ -21186,6 +21216,8 @@ simulation
 ・<span class="run">Ver.2.96.32</span>以降、<span class="selection">対流圏の吸収率<span class="clear">基準値</span>absorb0=0.5~1</span>の前提で必要条件を範囲に修正
 <br>
 ※<span class="selection">対流圏の吸収率=1-成層圏への透過率</span>
+<br>
+※<span class="selection">対流圏の正味吸収率=(1-albedo)*(1-成層圏への透過率)</span>
 <hr>
 放射強制力の増加量＜<span class="clear">基準値</span>の約2%=<span class="selection">2.392</span>~4.784[W/m^2]
 <br>
@@ -28068,6 +28100,20 @@ albedo=albedo0*kalbedo,
 <br>
 <span class="selection">absorb=absorb0*kabsorb,</span>
 <br>
+<span class="selection">absorbe=(1-albedo)*absorb,</span>
+<br>
+flux0=0,
+<br>
+flux1=alpha0*(T1-T0),
+<br>
+W1=flux1*A1,
+<br>
+W0a=W0*albedo,
+<br>
+W0t=W0*(1-albedo)<span class="selection">*(1-absorb)</span>,
+<br>
+W0e=W0*(1-albedo)<span class="selection">*absorb</span>,
+<br>
 a=alpha*A1/C,
 <br>
 b=(alpha*A1*T1+W0*(1-albedo)<span class="selection">*absorb</span>)/C,
@@ -28177,6 +28223,20 @@ alpha=alpha0*kalpha,
 albedo=albedo0*kalbedo,
 <br>
 <span class="selection">absorb=absorb0*kabsorb,</span>
+<br>
+<span class="selection">absorbe=(1-albedo)*absorb,</span>
+<br>
+flux0=0,
+<br>
+flux1=alpha0*(T1-T0),
+<br>
+W1=flux1*A1,
+<br>
+W0a=W0*albedo,
+<br>
+W0t=W0*(1-albedo)<span class="selection">*(1-absorb)</span>,
+<br>
+W0e=W0*(1-albedo)<span class="selection">*absorb</span>,
 <br>
 dC=C/N,
 <br>
