@@ -21917,13 +21917,13 @@ albedoの低下量＜<span class="clear">基準値</span>の約5%=0.015
 ・地球内部への放熱による温度の減少分、放射強制力の増加量に余裕が発生する
 <br>
 <br>
-さらに、<span class="condition">alpha0=alpha10</span>を考慮する場合、20年間1年毎の温度変化を示す
+さらに、<span class="condition">alpha0=alpha10*1</span>を考慮する場合、20年間1年毎の温度変化を示す
 <br>
 ※<span class="clear">放射強制力のtotal増加割合=2%</span>
 <br>
 ・実行文
 <br>
-<a href="#span-eqn-heat0d_evolution">heat0d_evolution</a>[1](s_1day*30*365*year,s_1day*30,<span class="condition">0.1,</span>1-0.001*year,1,1)=&gt;
+<a href="#span-eqn-heat0d_evolution">heat0d_evolution</a>[1](s_1day*30*365*year,s_1day*30,<span class="condition">1,</span>1-0.001*year,1,1)=&gt;
 <br>
 ※本来、<a href="#span-out-eqns">式変数</a>内部のalpha1に変化量を反映するが、<a href="#span-out-eqns-args">式変数のarguments</a>のkalpha1に反映
 <br>
@@ -21980,7 +21980,7 @@ albedoの低下量＜<span class="clear">基準値</span>の約5%=0.015
 <br>
 ・実行文
 <br>
-<a href="#span-eqn-heat0d_evolution">heat0d_evolution</a>[1](s_1day*30*365*year,s_1day*30,<span class="condition">0.1,</span>1-0.002*year,1,1)=&gt;
+<a href="#span-eqn-heat0d_evolution">heat0d_evolution</a>[1](s_1day*30*365*year,s_1day*30,<span class="condition">1,</span>1<span class="clear">-0.002*</span>year,1,1)=&gt;
 <br>
 ※本来、<a href="#span-out-eqns">式変数</a>内部のalpha1に変化量を反映するが、<a href="#span-out-eqns-args">式変数のarguments</a>のkalpha1に反映
 <br>
