@@ -13,7 +13,7 @@ My_entry.math_wave.prototype.init = function(){
 My_entry.math_wave.prototype.t_duty = function(t, opt_th){
   var self = this;
   var th = opt_th || 0.5;
-  return ((t < 0.5)? t*(th/0.5): 1+(t-1)*(1-th)/0.5);
+  return ((t < th)? t*0.5/th: 1+(t-1)*0.5/(1-th));
 };
 My_entry.math_wave.prototype.sin = function(freq, t, phi0, duty){
   var self = this;

@@ -296,6 +296,14 @@ Generator
 minor update
     </td>
     <td>
+[math_wave.js]
+<br>
+・self.t_duty corrected
+<br>
+　(t &lt; 0.5)? t*(th/0.5): 1+(t-1)*(1-th)/0.5　⇒
+<br>
+　(t &lt; th)? t*0.5/th: 1+(t-1)*0.5/(1-th)
+<br>
 [音源wave PCM生成]
 <br>
 ・wave-duty added
