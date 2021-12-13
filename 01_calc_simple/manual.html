@@ -20434,7 +20434,7 @@ modelling
 <br>
 ・<span class="run">Ver.2.96.32</span>以降、<span class="clear">擬似的な熱伝達係数</span>の定義文を訂正
 <br>
-・<span class="run">Ver.2.97.32</span>以降、<span class="condition">地球表面の熱伝達係数</span>を追加考慮（<span class="condition">最悪想定の場合、0</span>）
+・<span class="run">Ver.2.97.32</span>以降、<span class="condition">地球表面の熱伝達係数alpha0</span>を追加考慮（<span class="condition">最悪想定の場合、alpha0=0</span>）
 <br>
 ・<span class="run">Ver.2.97.32</span>以降、<span class="condition">対流圏の吸収率<span class="clear">基準値</span></span>を黒体放射温度から一意に決定
 <br>
@@ -21349,7 +21349,7 @@ simulation
 <br>
 ※<span class="selection">対流圏の正味吸収率absorbe=(1-albedo)*absorb</span>
 <br>
-・<span class="run">Ver.2.97.32</span>以降、<span class="condition">地球表面の熱伝達係数</span>を追加考慮（<span class="condition">最悪想定の場合、0</span>）
+・<span class="run">Ver.2.97.32</span>以降、<span class="condition">地球表面の熱伝達係数alpha0</span>を追加考慮（<span class="condition">最悪想定の場合、alpha0=0</span>）
 <br>
 ・<span class="run">Ver.2.97.32</span>以降、<span class="condition">対流圏の吸収率<span class="clear">基準値</span></span>を黒体放射温度から一意に決定して範囲を修正
 <hr>
@@ -21454,6 +21454,48 @@ albedoの低下量＜<span class="clear">基準値</span>の約5%=0.015
 <br>
 0
 <br>
+0.4534194999132346+O(3e-13)
+<br>
+0.7659456725233014+O(2e-13)
+<br>
+0.9813590117929607+O(2e-13)
+<br>
+1.1298358780591116+O(1e-13)
+<br>
+1.2321757790650807+O(7e-14)
+<br>
+1.3027150866440742+O(5e-14)
+<br>
+1.3513353595270061+O(4e-14)
+<br>
+1.3848476098785376+O(2e-14)
+<br>
+1.4079464297129753+O(2e-14)
+<br>
+1.4238676367983416+O(1e-14)
+<br>
+1.434841566932981+O(1e-14)
+<br>
+1.442405512427431+O(7e-15)
+<br>
+・対策効果の感度に相当する<span class="clear">放射強制力の時定数Tc_a=O(年)</span>
+<br>
+<br>
+以降、記述がない限り、<span class="selection">対流圏の吸収率</span><span class="clear">基準値</span><span class="clear">absorb0=1</span>とする
+<br>
+<br>
+放射強制力の増加割合=2%が即座に反映された場合、年間30日毎の温度変化を示す
+<br>
+※<span class="clear">放射強制力のtotal増加割合=2%</span>
+<br>
+・実行文
+<br>
+<a href="#span-eqn-heat0d_evolution">heat0d_evolution</a>[1](s_1day*30,s_1day,<span class="condition">0,</span>0.98,1,1)=&gt;
+<br>
+・年間30日毎の温度変化量dT[℃]
+<br>
+0
+<br>
 0.6502836201909368+O(4e-13)
 <br>
 1.0107690509029403+O(2e-13)
@@ -21478,7 +21520,7 @@ albedoの低下量＜<span class="clear">基準値</span>の約5%=0.015
 <br>
 1.4579547388212255
 <br>
-※有効桁数4桁程度
+・<span class="clear">放射強制力の時定数</span>は<span class="selection">対流圏の吸収率<span class="clear">基準値</span>absorb0</span>に反比例
 <br>
 <br>
 さらに、<span class="selection">対流圏の吸収率<span class="clear">基準値</span>absorb0=0.5</span>の場合、2年間30日毎の温度変化を示す
@@ -21769,7 +21811,7 @@ albedoの低下量＜<span class="clear">基準値</span>の約5%=0.015
 <br>
 ・実行文
 <br>
-<a href="#span-eqn-heat0d_evolution">heat0d_evolution</a>[1](s_1day*30*365*year,s_1day*30,1-0.001*year,1,1)=&gt;
+<a href="#span-eqn-heat0d_evolution">heat0d_evolution</a>[1](s_1day*30*365*year,s_1day*30,<span class="condition">0,</span>1-0.001*year,1,1)=&gt;
 <br>
 ※本来、<a href="#span-out-eqns">式変数</a>内部のalpha1に変化量を反映するが、<a href="#span-out-eqns-args">式変数のarguments</a>のkalpha1に反映
 <br>
@@ -21818,13 +21860,184 @@ albedoの低下量＜<span class="clear">基準値</span>の約5%=0.015
 1.4591836734693757
 <br>
 <br>
+さらに、<span class="condition">alpha0=alpha10*0.1</span>を考慮する場合、20年間1年毎の温度変化を示す
+<br>
+※<span class="clear">放射強制力のtotal増加割合=2%</span>
+<br>
+・実行文
+<br>
+<a href="#span-eqn-heat0d_evolution">heat0d_evolution</a>[1](s_1day*30*365*year,s_1day*30,<span class="condition">0.1,</span>1-0.001*year,1,1)=&gt;
+<br>
+※本来、<a href="#span-out-eqns">式変数</a>内部のalpha1に変化量を反映するが、<a href="#span-out-eqns-args">式変数のarguments</a>のkalpha1に反映
+<br>
+・20年間1年毎の温度変化量dT[℃]
+<br>
+0
+<br>
+0.0650795175895933
+<br>
+0.13027761426015694
+<br>
+0.19559461439532555
+<br>
+0.261030843562958
+<br>
+0.32658662852060516
+<br>
+0.3922622972209435
+<br>
+0.4580581788171827
+<br>
+0.5239746036685791
+<br>
+0.5900119033460562
+<br>
+0.6561704106376478
+<br>
+0.7224504595541656
+<br>
+0.7888523853347547
+<br>
+0.855376524452593
+<br>
+0.9220232146205767
+<br>
+0.9887927947970176
+<br>
+1.0556856051914068
+<br>
+1.1227019872701511
+<br>
+1.1898422837623954
+<br>
+1.2571068386659334
+<br>
+1.3244959972530026
+<br>
+・地球内部への放熱による温度の減少分、放射強制力の増加量に余裕が発生する
+<br>
+<br>
+さらに、<span class="condition">alpha0=alpha10</span>を考慮する場合、20年間1年毎の温度変化を示す
+<br>
+※<span class="clear">放射強制力のtotal増加割合=2%</span>
+<br>
+・実行文
+<br>
+<a href="#span-eqn-heat0d_evolution">heat0d_evolution</a>[1](s_1day*30*365*year,s_1day*30,<span class="condition">0.1,</span>1-0.001*year,1,1)=&gt;
+<br>
+※本来、<a href="#span-out-eqns">式変数</a>内部のalpha1に変化量を反映するが、<a href="#span-out-eqns-args">式変数のarguments</a>のkalpha1に反映
+<br>
+・20年間1年毎の温度変化量dT[℃]
+<br>
+0
+<br>
+0.03582954841582797
+<br>
+0.07169502410910589
+<br>
+0.1075964811448511
+<br>
+0.14353397369660392
+<br>
+0.1795075560467243
+<br>
+0.2155172825866476
+<br>
+0.25156320781717767
+<br>
+0.2876453863487072
+<br>
+0.3237638729015764
+<br>
+0.359918722306265
+<br>
+0.39610998950376697
+<br>
+0.4323377295457771
+<br>
+0.4686019975949911
+<br>
+0.5049028489254237
+<br>
+0.5412403389226643
+<br>
+0.5776145230841614
+<br>
+0.6140254570195136
+<br>
+0.6504731964507151
+<br>
+0.6869577972124947
+<br>
+0.723479315252554
+<br>
+・放射強制力同等の場合、地球内部の温度変化は考慮しないため、温度上昇量は半減する
+<br>
+<br>
+さらに、放射強制力の年率増加割合を2倍に変更の場合、20年間1年毎の温度変化を示す
+<br>
+※<span class="clear">放射強制力のtotal増加割合=4%</span>
+<br>
+・実行文
+<br>
+<a href="#span-eqn-heat0d_evolution">heat0d_evolution</a>[1](s_1day*30*365*year,s_1day*30,<span class="condition">0.1,</span>1-0.002*year,1,1)=&gt;
+<br>
+※本来、<a href="#span-out-eqns">式変数</a>内部のalpha1に変化量を反映するが、<a href="#span-out-eqns-args">式変数のarguments</a>のkalpha1に反映
+<br>
+・20年間1年毎の温度変化量dT[℃]
+<br>
+0
+<br>
+0.07169502410910589
+<br>
+0.14353397369660392
+<br>
+0.2155172825866476
+<br>
+0.2876453863487072
+<br>
+0.359918722306265
+<br>
+0.4323377295457771
+<br>
+0.5049028489254237
+<br>
+0.5776145230841614
+<br>
+0.6504731964507151
+<br>
+0.723479315252554
+<br>
+0.7966333275250914
+<br>
+0.8699356831207989
+<br>
+0.9433868337184332
+<br>
+1.0169872328323528
+<br>
+1.0907373358217747
+<br>
+1.1646375999002494
+<br>
+1.2386884841450758
+<br>
+1.3128904495067601
+<br>
+1.3872439588186403
+<br>
+1.4617494768065278
+<br>
+・必要条件の放射強制力の増加量はalpha0=0のほぼ2倍になるが、定量的な寄与度は不明
+<br>
+<br>
 放射強制力の年率増加割合=4%で徐々に変化した場合、20年間1年毎の温度変化を示す
 <br>
 ※<span class="clear">放射強制力のtotal増加割合=80%（非現実的な仮想実験）</span>
 <br>
 ・実行文
 <br>
-<a href="#span-eqn-heat0d_evolution">heat0d_evolution</a>[1](s_1day*30*365*year,s_1day*30,1-0.04*year,1,1)=&gt;
+<a href="#span-eqn-heat0d_evolution">heat0d_evolution</a>[1](s_1day*30*365*year,s_1day*30,<span class="condition">0,</span>1-0.04*year,1,1)=&gt;
 <br>
 ※本来、<a href="#span-out-eqns">式変数</a>内部のalpha1に変化量を反映するが、<a href="#span-out-eqns-args">式変数のarguments</a>のkalpha1に反映
 <br>
@@ -21916,7 +22129,7 @@ albedoの年率低下割合=0.25%で徐々に変化した場合、20年間1年�
 <br>
 ・実行文
 <br>
-<a href="#span-eqn-heat0d_evolution">heat0d_evolution</a>[1](s_1day*30*365*year,s_1day*30,1,1-0.0025*year,1)=&gt;
+<a href="#span-eqn-heat0d_evolution">heat0d_evolution</a>[1](s_1day*30*365*year,s_1day*30,<span class="condition">0,</span>1,1-0.0025*year,1)=&gt;
 <br>
 ※本来、<a href="#span-out-eqns">式変数</a>内部のalbedoに変化量を反映するが、<a href="#span-out-eqns-args">式変数のarguments</a>のkalbedoに反映
 <br>
@@ -21978,7 +22191,7 @@ albedoの年率低下割合=0.25%で徐々に変化した場合、20年間1年�
 <br>
 ・実行文
 <br>
-<a href="#span-eqn-heat0d_evolution">heat0d_evolution</a>[1](s_1day*30*365*year,s_1day*30,1-0.001*year,1-0.0025*year,1)=&gt;
+<a href="#span-eqn-heat0d_evolution">heat0d_evolution</a>[1](s_1day*30*365*year,s_1day*30,<span class="condition">0,</span>1-0.001*year,1-0.0025*year,1)=&gt;
 <br>
 ※本来、<a href="#span-out-eqns">式変数</a>内部に相関関係を反映するが、<a href="#span-out-eqns-args">式変数のarguments</a>に反映
 <br>
@@ -22037,7 +22250,7 @@ albedoの年率低下割合=0.125%で徐々に変化した場合、20年間1年�
 <br>
 ・実行文
 <br>
-<a href="#span-eqn-heat0d_evolution">heat0d_evolution</a>[1](s_1day*30*365*year,s_1day*30,1-0.0005*year,1-0.00125*year,1)=&gt;
+<a href="#span-eqn-heat0d_evolution">heat0d_evolution</a>[1](s_1day*30*365*year,s_1day*30,<span class="condition">0,</span>1-0.0005*year,1-0.00125*year,1)=&gt;
 <br>
 ※本来、<a href="#span-out-eqns">式変数</a>内部に相関関係を反映するが、<a href="#span-out-eqns-args">式変数のarguments</a>に反映
 <br>
@@ -22084,6 +22297,8 @@ albedoの年率低下割合=0.125%で徐々に変化した場合、20年間1年�
 1.4205127280594212
 <br>
 1.496031746031747
+<br>
+※有効桁数4桁程度
   </td>
   </tr>
   <tr>
