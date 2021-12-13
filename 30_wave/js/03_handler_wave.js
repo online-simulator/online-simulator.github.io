@@ -261,6 +261,7 @@ My_entry.handler_wave.prototype.make_params = function(){
   self.params.samples_perSecond = self.entry.$.selectNum_id("select-samples_perSecond");
   self.params.number_channels = self.entry.$.selectNum_id("select-number_channels");
   self.params.type = self.entry.$.selectVal_id("select-type");
+  self.params.duty = self.entry.$.selectVal_id("select-duty");  // Ver.1.16.4
   var sec = self.entry.$.inputNum_id("input-time")*0.001;
   if(isNaN(sec) || sec < 0){
     sec = 1;

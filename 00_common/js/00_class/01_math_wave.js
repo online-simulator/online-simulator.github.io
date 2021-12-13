@@ -10,30 +10,39 @@ My_entry.math_wave.prototype.init = function(){
   var self = this;
   return self;
 };
-My_entry.math_wave.prototype.sin = function(freq, t, phi0){
+My_entry.math_wave.prototype.t_duty = function(t, opt_th){
+  var self = this;
+  var th = opt_th || 0.5;
+  return ((t < 0.5)? t*(th/0.5): 1+(t-1)*(1-th)/0.5);
+};
+My_entry.math_wave.prototype.sin = function(freq, t, phi0, duty){
   var self = this;
   var pi2 = Math.PI*2;
   var t = (t*freq+phi0/pi2)%1;
+  t = self.t_duty(t, duty);
   return Math.sin(t*pi2);
 };
-My_entry.math_wave.prototype.triangle = function(freq, t, phi0){
+My_entry.math_wave.prototype.triangle = function(freq, t, phi0, duty){
   var self = this;
   var pi2 = Math.PI*2;
   var t = (t*freq+phi0/pi2)%1;
+  t = self.t_duty(t, duty);
   var _val = (t<0.25)? t: (t<0.75)? -t+0.5: t-1;
   return _val*4;
 };
-My_entry.math_wave.prototype.square = function(freq, t, phi0){
+My_entry.math_wave.prototype.square = function(freq, t, phi0, duty){
   var self = this;
   var pi2 = Math.PI*2;
   var t = (t*freq+phi0/pi2)%1;
+  t = self.t_duty(t, duty);
   var _val = (t<0.5)? 1: -1;
   return _val;
 };
-My_entry.math_wave.prototype.sawtooth = function(freq, t, phi0){
+My_entry.math_wave.prototype.sawtooth = function(freq, t, phi0, duty){
   var self = this;
   var pi2 = Math.PI*2;
   var t = (t*freq+phi0/pi2)%1;
+  t = self.t_duty(t, duty);
   var _val = -1+t*2;
   return _val;
 };
@@ -42,7 +51,7 @@ My_entry.math_wave.prototype.get_rms = function(len, fn, freq){
   var _rms = 0;
   for(var i=0; i<len; ++i){
     var t = i/len;
-    var y = fn(freq || 1, t, 0);
+    var y = fn.call(self, freq || 1, t, 0);
     _rms += y*y;
   }
   _rms = Math.sqrt(_rms/len);

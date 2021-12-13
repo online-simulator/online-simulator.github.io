@@ -270,16 +270,21 @@ My_entry.output_wave.prototype.check_arr_params = function(_arr_params){
 My_entry.output_wave.prototype.get_binary_soundData_LE = function(params){
   var self = this;
   var params = self.check_params(params);
-  return self.encode_soundData_LE(params.number_samples, params.number_channels, params.arr_f, params.arr_g_normalized, params.type, params.w0, params.p0);
+  return self.encode_soundData_LE(params.number_samples, params.number_channels, params.arr_f, params.arr_g_normalized, params.type, params.duty, params.w0, params.p0);
 };
-My_entry.output_wave.prototype.encode_soundData_LE = function(number_samples, number_channels, arr_f, arr_g, type, w0, p0){
+My_entry.output_wave.prototype.encode_soundData_LE = function(number_samples, number_channels, arr_f, arr_g, type, duty, w0, p0){
   var self = this;
   var _binary = "";
   var Bytes_perSample = self.Bytes_perSample;
   var amplitude = self.amplitude;
   var offset = self.offset;
   var seconds_perSample = 1/self.samples_perSecond;
-  var func_t = self.entry.math_wave[type || "sin"];
+  /* Ver.1.16.4 -> */
+  var fn = self.entry.math_wave[type || "sin"];
+  var func_t = function(){
+    return fn.apply(self.entry.math_wave, arguments);
+  };
+  /* -> Ver.1.16.4 */
   var phi0 = 0;
   /* Ver.1.13.3 */
   /* Ver.1.4.2 */
@@ -311,7 +316,7 @@ My_entry.output_wave.prototype.encode_soundData_LE = function(number_samples, nu
     // composite waves
     arr_f.forEach(function(f, i){
       var gain_normalized = arr_g[i];
-      val += gain_normalized*func_t(f, t, phi0);  // gain first
+      val += gain_normalized*func_t(f, t, phi0, duty);  // gain first  // Ver.1.16.4
     });
     val *= get_newAmp(ns);
     val += offset;
