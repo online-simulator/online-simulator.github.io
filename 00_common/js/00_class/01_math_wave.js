@@ -12,7 +12,7 @@ My_entry.math_wave.prototype.init = function(){
 };
 My_entry.math_wave.prototype.t_duty = function(t, opt_th){
   var self = this;
-  var th = opt_th || 0.5;
+  var th = opt_th || 0;
   return ((t < th)? t*0.5/th: 1+(t-1)*0.5/(1-th));
 };
 My_entry.math_wave.prototype.sin = function(freq, t, phi0, duty){
@@ -51,7 +51,7 @@ My_entry.math_wave.prototype.get_rms = function(len, fn, freq){
   var _rms = 0;
   for(var i=0; i<len; ++i){
     var t = i/len;
-    var y = fn.call(self, freq || 1, t, 0);
+    var y = fn.call(self, freq || 1, t, 0, 0.5);
     _rms += y*y;
   }
   _rms = Math.sqrt(_rms/len);

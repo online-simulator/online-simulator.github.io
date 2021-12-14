@@ -10,7 +10,7 @@ My_entry.def.mix_in(My_entry.handler_wave, My_entry.original_main);
 
 My_entry.handler_wave.prototype.init = function(){
   var self = this;
-  self.init_main.call(self, ["reference", "$", "math_wave"]);
+  self.init_main.call(self, ["reference", "$", "def", "math_wave"]);
   self.init_worker();
   self.isSingle = (self.entry.$._id("input-freq"))? true: false;
   self.isScriptMode = (self.entry.$._id("textarea-script"))? true: false;
@@ -261,7 +261,10 @@ My_entry.handler_wave.prototype.make_params = function(){
   self.params.samples_perSecond = self.entry.$.selectNum_id("select-samples_perSecond");
   self.params.number_channels = self.entry.$.selectNum_id("select-number_channels");
   self.params.type = self.entry.$.selectVal_id("select-type");
-  self.params.duty = self.entry.$.selectVal_id("select-duty");  // Ver.1.16.4
+  /* Ver.1.16.4 -> */
+  self.params.duty = self.entry.$.inputVal_id("input-duty");
+  self.params.duty = self.entry.def.limit(self.params.duty, 0, 1, 0.5);
+  /* -> Ver.1.16.4 */
   var sec = self.entry.$.inputNum_id("input-time")*0.001;
   if(isNaN(sec) || sec < 0){
     sec = 1;
