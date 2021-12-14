@@ -119,6 +119,10 @@ My_entry.handler_wave.prototype.input2arr = function(input){
   if(!(mcb)) throw new Error(self.waveo.config.ERROR.title+"Invalid dataset");
   var number_channels = self.waveo.number_channels;  // from waveo
   /* Ver.1.4.2 */
+  /* Ver.1.17.4 -> */
+  var ktempo = self.params.tempo || 0;
+  var kpitch = Math.pow(2, self.params.pitch || 0);
+  /* -> Ver.1.17.4 */
   var len_band = Math.max(mcb.length/number_channels, 1);
   var str2freq = function(str){
     var _freq = null;
@@ -177,6 +181,7 @@ My_entry.handler_wave.prototype.input2arr = function(input){
           params[prop] = self.params[prop];
         }
         params.sec = t/1000;
+        params.sec *= ktempo;  // Ver.1.17.4
         var token = arr_token[1];
         var mcl = token.match(self.regex.ml);
         var f_isFound = false;
@@ -191,6 +196,11 @@ My_entry.handler_wave.prototype.input2arr = function(input){
           f_isFound = [str2freq(token)];
         }
         params.arr_f = (f_isFound)? f_isFound: [0];
+        /* Ver.1.17.4 -> */
+        params.arr_f.forEach(function(f, i){
+          params.arr_f[i] *= kpitch;
+        });
+        /* -> Ver.1.17.4 */
         params.gain_band = (f_isFound)? 1/len_band: 0;
         _arr_input[i].push(params);
       }

@@ -240,7 +240,7 @@ My_entry.output_wave.prototype.check_error = function(params){
   var number_samples = params.number_samples;
   var arr_f = params.arr_f;
   var arr_g = params.arr_g;
-  if(isNaN(sec) || sec < 0) throw new Error(title+"time is invalid");
+  if(isNaN(sec) || sec <= 0) throw new Error(title+"time is invalid");  // Ver.1.17.4
   var fileSize = self.get_fileSize(number_samples);
   var fileSizeMax = params.fileSizeMax*Math.pow(2, 10*2);
   if(fileSize > fileSizeMax) throw new Error(title+"fileSize is over limit");
