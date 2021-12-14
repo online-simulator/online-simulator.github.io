@@ -270,13 +270,14 @@ My_entry.output_wave.prototype.check_arr_params = function(_arr_params){
 My_entry.output_wave.prototype.get_binary_soundData_LE = function(params){
   var self = this;
   var params = self.check_params(params);
-  return self.encode_soundData_LE(params.number_samples, params.number_channels, params.arr_f, params.arr_g_normalized, params.type, params.duty, params.w0, params.p0);
+  return self.encode_soundData_LE(params.number_samples, params.number_channels, params.arr_f, params.arr_g_normalized, params.type, params.duty, params.amplitude, params.w0, params.p0, params.w1, params.p1);
 };
-My_entry.output_wave.prototype.encode_soundData_LE = function(number_samples, number_channels, arr_f, arr_g, type, duty, w0, p0){
+My_entry.output_wave.prototype.encode_soundData_LE = function(number_samples, number_channels, arr_f, arr_g, type, duty, kamplitude, w0, p0, w1, p1){
   var self = this;
   var _binary = "";
   var Bytes_perSample = self.Bytes_perSample;
   var amplitude = self.amplitude;
+  amplitude *= kamplitude;  // Ver.1.17.4
   var offset = self.offset;
   var seconds_perSample = 1/self.samples_perSecond;
   /* Ver.1.16.4 -> */
@@ -286,23 +287,27 @@ My_entry.output_wave.prototype.encode_soundData_LE = function(number_samples, nu
   };
   /* -> Ver.1.16.4 */
   var phi0 = 0;
+  /* Ver.1.17.4 */
   /* Ver.1.13.3 */
   /* Ver.1.4.2 */
   // average(cut-off) high frequency input at w0 > 0
   var w0 = w0 || 0;
   var p0 = p0 || 0;
+  var w1 = w1 || 0;
+  var p1 = p1 || 0;
   var oldAmp = 0;
-  var dns = Math.floor(number_samples*p0);
-  var ns_in = dns;
-  var ns_out = number_samples-1-dns;
-  var get_newAmp = (w0 > 0)?
+  var dns0 = Math.floor(number_samples*p0);
+  var dns1 = Math.floor(number_samples*p1);
+  var ns_in = dns0;
+  var ns_out = number_samples-1-dns1;
+  var get_newAmp = (w0 > 0 || w1 > 0)?
     function(ns){
       var _newAmp = amplitude;
       if(ns < ns_in){
         _newAmp = w0*oldAmp+(1-w0)*amplitude;  // w0 first
       }
       else if(ns > ns_out){
-        _newAmp = w0*oldAmp;
+        _newAmp = w1*oldAmp;
       }
       oldAmp = _newAmp;
       return _newAmp;

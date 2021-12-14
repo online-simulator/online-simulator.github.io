@@ -306,6 +306,14 @@ time[msec]：
   </tr>
   <tr class="border">
     <td>
+amplitude：
+    </td>
+    <td>
+amplitude*<input id="input-amplitude" type="number" step="0.1" min="0" max="1" value="1">
+    </td>
+  </tr>
+  <tr class="border">
+    <td>
 volume[%]：
     </td>
     <td>
@@ -390,7 +398,7 @@ checker:
     <td>
 <hr>
 <div>
-  <label>直前値weight:
+  <label>in-weight:
 <select id="select-w0">
   <option>0</option>
   <option>0.1</option>
@@ -415,9 +423,61 @@ checker:
   <option>0.999</option>
 </select>
   </label>
+  <label>out-weight:
+<select id="select-w1">
+  <option>0</option>
+  <option>0.1</option>
+  <option>0.2</option>
+  <option>0.3</option>
+  <option>0.4</option>
+  <option>0.5</option>
+  <option>0.6</option>
+  <option>0.7</option>
+  <option>0.8</option>
+  <option>0.9</option>
+  <option>0.91</option>
+  <option>0.92</option>
+  <option>0.93</option>
+  <option>0.94</option>
+  <option>0.95</option>
+  <option>0.96</option>
+  <option selected="selected">0.97</option>
+  <option>0.98</option>
+  <option>0.99</option>
+  <option>0.995</option>
+  <option>0.999</option>
+</select>
+  </label>
 <br>
-  <label>range割合:
+  <label>in-range:
 <select id="select-p0">
+  <option>0</option>
+  <option>0.0001</option>
+  <option>0.0005</option>
+  <option>0.001</option>
+  <option>0.002</option>
+  <option>0.003</option>
+  <option>0.004</option>
+  <option selected="selected">0.005</option>
+  <option>0.006</option>
+  <option>0.007</option>
+  <option>0.008</option>
+  <option>0.009</option>
+  <option>0.01</option>
+  <option>0.015</option>
+  <option>0.02</option>
+  <option>0.03</option>
+  <option>0.04</option>
+  <option>0.05</option>
+  <option>0.06</option>
+  <option>0.07</option>
+  <option>0.08</option>
+  <option>0.09</option>
+  <option>0.1</option>
+</select>
+  </label>
+  <label>out-range:
+<select id="select-p1">
   <option>0</option>
   <option>0.0001</option>
   <option>0.0005</option>

@@ -281,14 +281,18 @@ My_entry.handler_wave.prototype.make_params = function(){
   self.params.w0 = self.entry.$.selectNum_id("select-w0");
   self.params.p0 = self.entry.$.selectNum_id("select-p0");
   self.params.fileSizeMax = self.entry.$.selectNum_id("select-fileSizeMax");
+  /* Ver.1.17.4 -> */
+  self.params.w1 = self.entry.$.selectNum_id("select-w1");
+  self.params.p1 = self.entry.$.selectNum_id("select-p1");
+  self.params.amplitude = self.entry.$.inputVal_id("input-amplitude");
+  self.params.amplitude = self.entry.def.limit(self.params.amplitude, 0, 1, 1);
   if(self.isScriptMode){
-    /* Ver.1.17.4 -> */
     self.params.tempo = self.entry.$.inputVal_id("input-tempo");
     self.params.pitch = self.entry.$.inputVal_id("input-pitch");
     self.params.tempo = self.entry.def.limit(self.params.tempo, 0, 256, 1);
     self.params.pitch = self.entry.def.limit(self.params.pitch, -16, 16, 0);
-    /* -> Ver.1.17.4 */
   }
+  /* -> Ver.1.17.4 */
   else{
     self.params.arr_f = self.get_freqs();
   }
