@@ -28697,11 +28697,13 @@ W0e=W0*(1-albedo)*absorb,
 <br>
 dC=C/N,
 <br>
-a=alpha1*A1/dC,
+a0=alpha0*A1/dC,
+<br>
+a1=alpha1*A1/dC,
 <br>
 b=0,
 <br>
-c=W0*(1-albedo)<span class="selection">*absorb</span>/C,
+c=W0*(1-albedo)<span class="selection">*absorb</span>/C+a0*T0,
 <br>
 d=alpha1*A1*(T1-T0)/C,
 <br>
@@ -28709,11 +28711,11 @@ _ex(=&lt;x,N,1),
 <br>
 A=zeros(N,N),
 <br>
-A[-1][0][1]=(-a*dt,1+2*a*dt,-a*dt),
+A[-1][0][1]=(-a1*dt,1+2*a1*dt,-a1*dt),
 <br>
-A[0][0]=1+a*dt,
+A[0][0]=1+a1*dt+a0*dt,
 <br>
-A[-1][-1]=1+a*dt,
+A[-1][-1]=1+a1*dt,
 <br>
 switch(hasVar(t_total)==0,=&lt;last{t_total=0,oldT=zeros(N,1)+Te}),
 <br>
