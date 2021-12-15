@@ -183,7 +183,7 @@ My_entry.handler_wave.prototype.input2arr = function(input){
       if(arr_token.length > 1){
         /* Ver.1.19.4 -> */
         var time = arr_token[0];
-        var t = Number(time);
+        var t = (time === "")? self.msec_60BPM: Number(time);
         var mct = time.match(self.regex.qn);
         if(mct && mct.length){
           var nume = Number(mct[1] || 1);

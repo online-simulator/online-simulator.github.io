@@ -563,13 +563,13 @@ checker:
 時系列のscript入力欄　例）左右で3beatずらした1octaveのstereo出力
   <textarea id="textarea-script" rows="10">
 {1000:[C4,C5,C6]; b1:[D4,D5,D6]; 1b:[E4,E5,E6]; 1b1:[F4,F5,F6];
- b:[G4,G5,G6]; b:[A4,A5,A6]; b:[B4,B5,B6]; b:[C5,C6,C7]; b:r;}
-{6b2:r; b:[C4,C5,C6]; b:[D4,D5,D6]; b:[E4,E5,E6]; b:[F4,F5,F6];
- b:[G4,G5,G6]; b:[A4,A5,A6]; b:[B4,B5,B6]; b:[C5,C6,C7]; b:r;}
-{6b1:r; b:[n60,n72,n84]; b:[n62,n74,n86]; b:[n64,n76,n88]; b:[n65,n77,n89];
- b:[n67,n79,n91]; b:[n69,n81,n93]; b:[n71,n83,n95]; b:[n72,n84,n96]; b:r;}
-{9b1:r; b:[o-1c60,f523,1046]; b:[o4c2,o5c2,o6c2]; b:[o4c4,o5c4,o6c4]; b:[o4c5,o5c5,o6c5];
- b:[o4c7,o5c7,o6c7]; b:[o4c9,o5c9,o6c9]; b:[o4c11,o5c11,o6c11]; b:[o5c0,o6c0,o7c0]; b:r;}</textarea>
+ 2b2:[G4,G5,G6]; 4b4:[A4,A5,A6]; 8b8:[B4,B5,B6]; 16b16:[C5,C6,C7]; b:r;}
+{6b2:r; :[C4,C5,C6]; :[D4,D5,D6]; :[E4,E5,E6]; :[F4,F5,F6];
+ :[G4,G5,G6]; :[A4,A5,A6]; :[B4,B5,B6]; :[C5,C6,C7]; :r;}
+{6b1:r; :[n60,n72,n84]; :[n62,n74,n86]; :[n64,n76,n88]; :[n65,n77,n89];
+ :[n67,n79,n91]; :[n69,n81,n93]; :[n71,n83,n95]; :[n72,n84,n96]; :r;}
+{9b1:r; :[o-1c60,f523.25,1046.5]; :[o4c2,o5c2,o6c2]; :[o4c4,o5c4,o6c4]; :[o4c5,o5c5,o6c5];
+ :[o4c7,o5c7,o6c7]; :[o4c9,o5c9,o6c9]; :[o4c11,o5c11,o6c11]; :[o5c0,o6c0,o7c0]; :r;}</textarea>
     </td>
   </tr>
   <tr class="border">
@@ -588,7 +588,9 @@ scriptの入力形式
 <br>
 ・時間の入力形式
 <br>
-　b = b1 = 1b = 1b1 = 2b2 = 4b4 = 1000
+　b = b1 = 1b = 1b1 = 2b2 = 4b4 = 1000（省略可）
+<br>
+　b（beatの略号）は中置の除算演算子で演算後、60BPM基準1beat=1000msecを乗算
 <br>
 　2b = 2b1 = 4b2 = 2000
 <br>
@@ -602,13 +604,17 @@ scriptの入力形式
 <br>
 　"o"+<span class="clear">MIDI-octave数-1~9</span>+"c"+<span class="clear">MIDI-相対note数0~11~</span>
 <br>
-　"n"+<span class="clear">MIDI-絶対note数0~</span>
+　"n"+<span class="clear">MIDI-絶対note数0~</span>（frequency checker参照）
 <br>
 　"f"+周波数 || 周波数
 <br>
 　例）<span class="run">A4</span><span class="clear">(69)</span>＝ラ440Hz
 <br>
 　o4c9 = o3c21 = o2c33 = o1c45 = o0c57 <span class="clear">= o-1c69 = n69</span> <span class="run">= A4</span> = f440 = 440
+<br>
+　例）<span class="run">C5</span><span class="clear">(72)</span><span class="condition">＝ド523.25...Hz</span>
+<br>
+　o5c0 <span class="clear">= o-1c72 = n72</span> <span class="run">= C5</span> <span class="condition">= f523.25 = f5.2325e2</span> = 523.25 = 5.2325e2
 <br>
 　<span class="selection">次の数式で周波数に換算する場合、</span><a title="Graphing Calculator" href="../02_calc_graphing/index.html?useStrict=false&checkError=false">Graphing Calculator-test case-MIDI</a><span class="selection">参照</span>
 <br>
@@ -660,7 +666,9 @@ scriptの入力形式
 <span id="span-history"></span>
 機能の更新履歴
 <br>
-・<span class="run">Ver.1.19.4</span>以降、時間の入力形式を拡張（60BPM基準の定数b=1000msecを定義）
+・<span class="run">Ver.1.19.4</span>以降、<span class="condition">"f"+周波数入力の小数点以下を有効化</span>
+<br>
+・<span class="run">Ver.1.19.4</span>以降、時間の入力形式を拡張（60BPM基準の演算子b=1000msecを定義）
 <br>
 ・<span class="run">Ver.1.18.4</span>以降、binary生値fade-in/out機能raw-value fadeを復帰
 <br>
