@@ -287,6 +287,10 @@ My_entry.handler_wave.prototype.make_params = function(){
   self.params.amplitude = self.entry.$.inputVal_id("input-amplitude");
   self.params.amplitude = self.entry.def.limit(self.params.amplitude, 0, 1, 1);
   if(self.isScriptMode){
+    /* Ver.1.18.4 -> */
+    self.params.wr = self.entry.$.inputVal_id("input-wr");
+    self.params.wr = self.entry.def.limit(self.params.wr, 0, 1, 0);
+    /* -> Ver.1.18.4 */
     self.params.tempo = self.entry.$.inputVal_id("input-tempo");
     self.params.pitch = self.entry.$.inputVal_id("input-pitch");
     self.params.tempo = self.entry.def.limit(self.params.tempo, 0, 256, 1);

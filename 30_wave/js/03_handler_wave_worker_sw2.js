@@ -31,15 +31,21 @@ My_entry.handler_wave.prototype.composite_binary_soundData_LE = function(arr_bin
       return view["get"+Prop].apply(view, arguments);
     };
     var j_offset = i%number_channels;
+    /* Ver.1.18.4 -> */
+    var wr = data.wr;
+    var oldVal = val_offset;
     for(var j=0, len=arr_number_samples[i]; j<len; ++j){
       var j_new = (j*number_channels+j_offset)*Bytes_perSample;
       var j_out = j*Bytes_perSample;
-      var val = newGetter(j_new, isLE)+getter(j_out, isLE)-val_offset;
-      newSetter(j_new, val, isLE);
+      var nowVal = newGetter(j_new, isLE)+getter(j_out, isLE)-val_offset;
+      var newVal = wr*oldVal+(1-wr)*nowVal;  // wr first
+      oldVal = newVal;
+      newSetter(j_new, newVal, isLE);
       if(isNotExist_ch2){
-        newSetter(j_new+Bytes_perSample, val, isLE);
+        newSetter(j_new+Bytes_perSample, newVal, isLE);
       }
     }
+    /* -> Ver.1.18.4 */
   });
   return self.waveo.buffer2binary(newBuffer);
 };
