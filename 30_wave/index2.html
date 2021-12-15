@@ -136,7 +136,7 @@ time[sec]：
 tempo：
     </td>
     <td>
-time*<input id="input-tempo" type="number" step="0.05" min="0" max="256" value="1">
+time*<input id="input-tempo" type="number" step="0.05" min="0" value="0.5">
     </td>
   </tr>
   <tr class="border">
@@ -560,16 +560,16 @@ checker:
 <table class="border"><tbody>
   <tr class="border">
     <td>
-時系列のscript入力欄　例）左右で3拍子ずらした1octaveのstereo出力
+時系列のscript入力欄　例）左右で3beatずらした1octaveのstereo出力
   <textarea id="textarea-script" rows="10">
-{500:[C4,C5,C6]; 500:[D4,D5,D6]; 500:[E4,E5,E6]; 500:[F4,F5,F6];
- 500:[G4,G5,G6]; 500:[A4,A5,A6]; 500:[B4,B5,B6]; 500:[C5,C6,C7]; 500:r;}
-{1500:r; 500:[n60,n72,n84]; 500:[n62,n74,n86]; 500:[n64,n76,n88]; 500:[n65,n77,n89];
- 500:[n67,n79,n91]; 500:[n69,n81,n93]; 500:[n71,n83,n95]; 500:[n72,n84,n96]; 500:r;}
-{3000:r; 500:[o-1c60,f523,1046]; 500:[o4c2,o5c2,o6c2]; 500:[o4c4,o5c4,o6c4]; 500:[o4c5,o5c5,o6c5];
- 500:[o4c7,o5c7,o6c7]; 500:[o4c9,o5c9,o6c9]; 500:[o4c11,o5c11,o6c11]; 500:[o5c0,o6c0,o7c0]; 500:r;}
-{4500:r; 500:[o4c0,o5c0,o6c0]; 500:[o4c2,o5c2,o6c2]; 500:[o4c4,o5c4,o6c4]; 500:[o4c5,o5c5,o6c5];
- 500:[o4c7,o5c7,o6c7]; 500:[o4c9,o5c9,o6c9]; 500:[o4c11,o5c11,o6c11]; 500:[o5c0,o6c0,o7c0]; 500:r;}</textarea>
+{1000:[C4,C5,C6]; b1:[D4,D5,D6]; 1b:[E4,E5,E6]; 1b1:[F4,F5,F6];
+ b:[G4,G5,G6]; b:[A4,A5,A6]; b:[B4,B5,B6]; b:[C5,C6,C7]; b:r;}
+{6b2:r; b:[C4,C5,C6]; b:[D4,D5,D6]; b:[E4,E5,E6]; b:[F4,F5,F6];
+ b:[G4,G5,G6]; b:[A4,A5,A6]; b:[B4,B5,B6]; b:[C5,C6,C7]; b:r;}
+{6b1:r; b:[n60,n72,n84]; b:[n62,n74,n86]; b:[n64,n76,n88]; b:[n65,n77,n89];
+ b:[n67,n79,n91]; b:[n69,n81,n93]; b:[n71,n83,n95]; b:[n72,n84,n96]; b:r;}
+{9b1:r; b:[o-1c60,f523,1046]; b:[o4c2,o5c2,o6c2]; b:[o4c4,o5c4,o6c4]; b:[o4c5,o5c5,o6c5];
+ b:[o4c7,o5c7,o6c7]; b:[o4c9,o5c9,o6c9]; b:[o4c11,o5c11,o6c11]; b:[o5c0,o6c0,o7c0]; b:r;}</textarea>
     </td>
   </tr>
   <tr class="border">
@@ -582,9 +582,21 @@ scriptの入力形式
 <br>
 　偶数番channelはchannel数によってchannel2||1に合成
 <br>
-・1拍子のdataset
+・dataset
 <br>
 　時間:音階; || 時間:[音階0,音階1, ...]; || 時間:休止記号"r";
+<br>
+・時間の入力形式
+<br>
+　b = b1 = 1b = 1b1 = 2b2 = 4b4 = 1000
+<br>
+　2b = 2b1 = 4b2 = 2000
+<br>
+　4b = 4b1 = 8b2 = 4000
+<br>
+　b2 = 1b2 = 2b4 = 500
+<br>
+　b4 = 1b4 = 2b8 = 250
 <br>
 ・音階の入力形式
 <br>
@@ -647,6 +659,8 @@ scriptの入力形式
     <td>
 <span id="span-history"></span>
 機能の更新履歴
+<br>
+・<span class="run">Ver.1.19.4</span>以降、時間の入力形式を拡張（60BPM基準の定数b=1000msecを定義）
 <br>
 ・<span class="run">Ver.1.18.4</span>以降、binary生値fade-in/out機能raw-value fadeを復帰
 <br>

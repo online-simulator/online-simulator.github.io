@@ -181,7 +181,16 @@ My_entry.handler_wave.prototype.input2arr = function(input){
     arr_data.forEach(function(tokens, j){
       var arr_token = tokens.split(":");
       if(arr_token.length > 1){
-        var t = Number(arr_token[0]);
+        /* Ver.1.19.4 -> */
+        var time = arr_token[0];
+        var t = Number(time);
+        var mct = time.match(self.regex.qn);
+        if(mct && mct.length){
+          var nume = Number(mct[1] || 1);
+          var deno = Number(mct[2] || 1);
+          t = (deno)? self.msec_60BPM*nume/deno: 0;
+        }
+        /* -> Ver.1.19.4 */
         var params = {};
         for(var prop in self.params){
           params[prop] = self.params[prop];

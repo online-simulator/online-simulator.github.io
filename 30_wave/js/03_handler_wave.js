@@ -23,11 +23,13 @@ My_entry.handler_wave.prototype.init = function(){
   self.regex.ml = /\[.*?\]/g;
   self.regex.rb = /\{|\}/g;
   self.regex.rl = /\[|\]/g;
+  self.regex.qn = /^(\d+)?b(\d+)?$/;  // Ver.1.19.4
   self.regex.oc = /^o([+-]?\d+)c(\d+)$/;  // Ver.1.13.4
   self.regex.nc = /^n(\d+)$/;  // Ver.1.13.4
   self.regex.sn = /^([A-G]?)([+-]?\d+)([sf]?)$/;  // Ver.1.14.4
   self.regex.freq = /^f(\d+)/;
   self.regex.rest = /^r/;
+  self.msec_60BPM = 1000;  // Ver.1.19.4
   self.notes = {C: 0, D: 2, E: 4, F: 5, G: 7, A: 9, B: 11};
   self.params = {};
   if(self.isScriptMode){
@@ -293,7 +295,7 @@ My_entry.handler_wave.prototype.make_params = function(){
     /* -> Ver.1.18.4 */
     self.params.tempo = self.entry.$.inputVal_id("input-tempo");
     self.params.pitch = self.entry.$.inputVal_id("input-pitch");
-    self.params.tempo = self.entry.def.limit(self.params.tempo, 0, 256, 1);
+    self.params.tempo = self.entry.def.limit(self.params.tempo, 0, Number.MAX_VALUE, 1);  // Ver.1.19.4
     self.params.pitch = self.entry.def.limit(self.params.pitch, -16, 16, 0);
   }
   /* -> Ver.1.17.4 */
