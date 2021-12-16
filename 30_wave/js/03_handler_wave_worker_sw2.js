@@ -177,6 +177,31 @@ My_entry.handler_wave.prototype.input2arr = function(input){
   mcb.forEach(function(str, i){
     // include empty channel {}
     _arr_input[i] = [];
+    /* Ver.1.20.4 -> */
+    var types0 = {
+      0: "sin",
+      1: "triangle",
+      2: "square",
+      3: "sawtooth"
+    };
+    var props0 = [
+      "time",
+      "arr_f",
+      "command",
+      "type",
+      "duty",
+      "amplitude",
+      "w0",
+      "p0",
+      "w1",
+      "p1",
+      "f0",
+      "g0",
+      "f1",
+      "g1"
+    ];
+    var params0 = {};
+    /* -> Ver.1.20.4 */
     var arr_data = str.replace(self.regex.rb, "").split(";");
     arr_data.forEach(function(tokens, j){
       var arr_token = tokens.split(":");
@@ -216,6 +241,38 @@ My_entry.handler_wave.prototype.input2arr = function(input){
           params.arr_f[i] *= kpitch;
         });
         /* -> Ver.1.17.4 */
+        /* Ver.1.20.4 -> */
+        var command = arr_token[2];
+        if(command === "clear"){
+          params0 = {};
+        }
+        for(var n=3, len_n=props0.length; n<len_n; ++n){
+          var prop = props0[n];
+          var param0 = params0[prop];
+          var token = arr_token[n];
+          var num = Number(token);
+          if(token && !(isNaN(num))){
+            var param = null;
+            switch(prop){
+              case "type":
+                param = types0[num] || params[prop];
+                break;
+              case "f0":
+              case "f1":
+                param = num;
+                break;
+              default:
+                param = self.entry.def.limit(num, 0, 1, 0);
+                break;
+            }
+            params[prop] = param;
+            params0[prop] = param;
+          }
+          else if(typeof param0 !== "undefined"){
+            params[prop] = param0;
+          }
+        }
+        /* -> Ver.1.20.4 */
         params.gain_band = (f_isFound)? 1/len_band: 0;
         _arr_input[i].push(params);
       }
