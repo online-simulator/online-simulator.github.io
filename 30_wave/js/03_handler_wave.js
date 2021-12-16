@@ -263,9 +263,11 @@ My_entry.handler_wave.prototype.make_params = function(){
   self.params.samples_perSecond = self.entry.$.selectNum_id("select-samples_perSecond");
   self.params.number_channels = self.entry.$.selectNum_id("select-number_channels");
   self.params.type = self.entry.$.selectVal_id("select-type");
+  /* Ver.1.20.4 -> */
   /* Ver.1.16.4 -> */
-  self.params.duty = self.entry.$.inputVal_id("input-duty");
-  self.params.duty = self.entry.def.limit(self.params.duty, 0, 1, 0.5);
+  self.params.duty0 = self.entry.$.inputVal_id("input-duty");
+  self.params.duty0 = self.entry.def.limit(self.params.duty0, 0, 1, 0.5);
+  self.params.duty1 = self.params.duty0;
   /* -> Ver.1.16.4 */
   var sec = self.entry.$.inputNum_id("input-time")*0.001;
   if(isNaN(sec) || sec < 0){
@@ -286,8 +288,9 @@ My_entry.handler_wave.prototype.make_params = function(){
   /* Ver.1.17.4 -> */
   self.params.w1 = self.entry.$.selectNum_id("select-w1");
   self.params.p1 = self.entry.$.selectNum_id("select-p1");
-  self.params.amplitude = self.entry.$.inputVal_id("input-amplitude");
-  self.params.amplitude = self.entry.def.limit(self.params.amplitude, 0, 1, 1);
+  self.params.amplitude0 = self.entry.$.inputVal_id("input-amplitude");
+  self.params.amplitude0 = self.entry.def.limit(self.params.amplitude0, 0, 1, 1);
+  self.params.amplitude1 = self.params.amplitude0;
   if(self.isScriptMode){
     /* Ver.1.18.4 -> */
     self.params.wr = self.entry.$.inputVal_id("input-wr");
@@ -299,6 +302,7 @@ My_entry.handler_wave.prototype.make_params = function(){
     self.params.pitch = self.entry.def.limit(self.params.pitch, -16, 16, 0);
   }
   /* -> Ver.1.17.4 */
+  /* -> Ver.1.20.4 */
   else{
     self.params.arr_f = self.get_freqs();
   }

@@ -562,19 +562,20 @@ checker:
     <td>
 時系列のscript入力欄　例）左右で3beatずらした1octaveのstereo出力
   <textarea id="textarea-script" rows="10">
-{1000:[C4,C5,C6]::0:0.25:0.5:0.97:0.005:0.97:0.005:800:1:4800:0.3;
+{1000:[C4,C5,C6]::0:0.5:0.5:1:0:0:0:0:0;
  b1:[D4,D5,D6]; 1b:[E4,E5,E6]; 1b1:[F4,F5,F6]; 2b2:[G4,G5,G6];
- 4e-1b4e-1:[A4,A5,A6]:clear; 8.0e+0b0.8e+1:[B4,B5,B6]; 16b16:[C5,C6,C7]; b:r;}
-{6b2:r::1:0.25:0.5:0.97:0.005:0.97:0.005:800:1:4800:0.3;
+ 4e-1b4e-1:[A4,A5,A6]; 8.0e+0b0.8e+1:[B4,B5,B6]; 16b16:[C5,C6,C7]; b:r;}
+{6b2:r::1:0.25:0.25:0.5:0.5:0.97:0.005:0.97:0.005:800:1:4800:0.3;
  :[C4,C5,C6]; :[D4,D5,D6]; :[E4,E5,E6]; :[F4,F5,F6]; :[G4,G5,G6];
- :[A4,A5,A6]:clear; :[B4,B5,B6]; 4b:[C5,C6,C7]:::::::0.9999:0.15; :r;}
-{6b1:r::2:0.25:0.5:0.97:0.005:0.97:0.005:800:1:4800:0.3;
+ :[A4,A5,A6]:clear; :[B4,B5,B6]; 4b:[C5,C6,C7]:::::::::0.9999:0.15; :r;}
+{6b1:r::2:0.25:0.25:0.5:0.5:0.97:0.005:0.97:0.005:800:1:4800:0.3;
  :[n60,n72,n84]; :[n62,n74,n86]; :[n64,n76,n88]; :[n65,n77,n89]; :[n67,n79,n91];
- :[n69,n81,n93]:clear; :[n71,n83,n95]; 4b:[n72,n84,n96]:::::::0.9999:0.15; :r;}
-{9b1:r::3:0.25:0.5:0.97:0.005:0.97:0.005:800:1:4800:0.3;
- :[o-1c60,f523.25,1046.5]; :[o4c2,o5c2,o6c2]; :[o4c4,o5c4,o6c4]; :[o4c5,o5c5,o6c5];
+ :[n69,n81,n93]:clear; :[n71,n83,n95]; 4b:[n72,n84,n96]:::::::::0.9999:0.15; :r;}
+{9b1:r::3:0.25:0.25:0.5:0.5:0.97:0.005:0.97:0.005:800:1:4800:0.3;
+ :[o-1c60,f52325e-2,1.0465e+3]; :[o4c2,o5c2,o6c2]; :[o4c4,o5c4,o6c4]; :[o4c5,o5c5,o6c5];
  :[o4c7,o5c7,o6c7]:clear; :[o4c9,o5c9,o6c9]; :[o4c11,o5c11,o6c11];
- 4b:[o5c0,o6c0,o7c0]:::::::0.9999:0.15; :r;}</textarea>
+ 4b:[o5c0,o6c0,o7c0]:::::::::0.9999:0.15; :r;
+ :[1000]:::0:0.5:0:1:0:0:0:0; :[1000]:::0.5:0.5:1:1; :[1000]:::0.5:1:1:0;}</textarea>
     </td>
   </tr>
   <tr class="border">
@@ -597,7 +598,7 @@ scriptの入力形式
 <br>
 　<span class="condition">:command=""||"clear"</span>
 <br>
-　<span class="condition">:type=0~3:duty=0~1:amplitude=0~1</span>
+　<span class="condition">:type=0~3:duty0=0~1:duty1=0~1:amplitude0=0~1:amplitude1=0~1</span>
 <br>
 　<span class="condition">:w0=0~1:p0=0~1:w1=0~1:p1=0~1:f0:g0=0~1:f1:g1=0~1;</span>
 <br>
@@ -617,6 +618,14 @@ scriptの入力形式
 <br>
 　3: sawtooth
 <br>
+・<span class="condition">duty0/duty1</span>
+<br>
+　N個中n番目sample_duty=duty0+(duty1-duty0)*n/N
+<br>
+・<span class="condition">amplitude0/amplitude1</span>
+<br>
+　N個中n番目sample_amplitude=amplitude0+(amplitude1-amplitude0)*n/N
+<br>
 ・<span class="condition">w0/p0/w1/p1</span>
 <br>
 　w0: in-weight
@@ -626,6 +635,14 @@ scriptの入力形式
 　w1: out-weight
 <br>
 　p1: out-range
+<br>
+・<span class="condition">dataset間の波形を連続化する必要条件</span>
+<br>
+　w0=0
+<br>
+　w1=0
+<br>
+　((時間*1e3*tempo)%(1000*1e3/周波数))%1=0
 <br>
 ・時間の入力形式
 <br>

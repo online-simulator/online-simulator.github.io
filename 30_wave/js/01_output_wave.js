@@ -270,14 +270,13 @@ My_entry.output_wave.prototype.check_arr_params = function(_arr_params){
 My_entry.output_wave.prototype.get_binary_soundData_LE = function(params){
   var self = this;
   var params = self.check_params(params);
-  return self.encode_soundData_LE(params.number_samples, params.number_channels, params.arr_f, params.arr_g_normalized, params.type, params.duty, params.amplitude, params.w0, params.p0, params.w1, params.p1);
+  return self.encode_soundData_LE(params.number_samples, params.number_channels, params.arr_f, params.arr_g_normalized, params.type, params.duty0, params.duty1, params.amplitude0, params.amplitude1, params.w0, params.p0, params.w1, params.p1);
 };
-My_entry.output_wave.prototype.encode_soundData_LE = function(number_samples, number_channels, arr_f, arr_g, type, duty, kamplitude, w0, p0, w1, p1){
+My_entry.output_wave.prototype.encode_soundData_LE = function(number_samples, number_channels, arr_f, arr_g, type, duty0, duty1, amplitude0, amplitude1, w0, p0, w1, p1){
   var self = this;
   var _binary = "";
   var Bytes_perSample = self.Bytes_perSample;
   var amplitude = self.amplitude;
-  amplitude *= kamplitude;  // Ver.1.17.4
   var offset = self.offset;
   var seconds_perSample = 1/self.samples_perSecond;
   /* Ver.1.16.4 -> */
@@ -317,6 +316,11 @@ My_entry.output_wave.prototype.encode_soundData_LE = function(number_samples, nu
     };
   for(var ns=0; ns<number_samples; ++ns){
     var t = ns*seconds_perSample;
+    /* Ver.1.20.4 -> */
+    var dt = ns/number_samples;
+    var kamplitude = amplitude0+(amplitude1-amplitude0)*dt;
+    var duty = duty0+(duty1-duty0)*dt;
+    /* -> Ver.1.20.4 */
     var val = 0;
     // composite waves
     arr_f.forEach(function(f, i){
@@ -324,6 +328,7 @@ My_entry.output_wave.prototype.encode_soundData_LE = function(number_samples, nu
       val += gain_normalized*func_t(f, t, phi0, duty);  // gain first  // Ver.1.16.4
     });
     val *= get_newAmp(ns);
+    val *= kamplitude;  // Ver.1.20.4
     val += offset;
     var binary_perChannel = self.int2binary_LE(Bytes_perSample, val);
     for(var nc=0; nc<number_channels; ++nc){
