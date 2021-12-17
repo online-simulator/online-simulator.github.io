@@ -20422,7 +20422,7 @@ modelling
 <br>
 ※<span class="clear">最も単純化した参考程度（前提から正しいとは限らない）</span>
 <br>
-・energyの保存則はthermodynamics laws
+・energy保存則はthermodynamics laws
 <br>
 ・地球表面と擬似的な対流圏界面における熱流束はNewton's law of cooling
 <br>
@@ -20438,6 +20438,8 @@ modelling
 <br>
 ・<span class="run">Ver.2.97.32</span>以降、<span class="condition">対流圏の吸収率<span class="clear">基準値</span></span>を黒体放射温度から一意に決定
 <br>
+・<span class="clear">Ver.2.99.32</span>以降、<span class="jF">energy保存則の省略項</span>を訂正
+<br>
 <br>
 前提を列挙する
 <br>
@@ -20449,7 +20451,11 @@ modelling
 <br>
 ・系内部の物性値は一定を仮定する（圧力・温度依存性等は考慮しない）
 <br>
+・系内部は準静的な定圧状態を仮定する
+<br>
 ・系内外相互の非状態量の仕事=0（対流圏は十分に発達済み）を仮定する
+<br>
+・系内部の粘性による散逸や相変化による潜熱は考慮しない（定常状態を仮定する）
 <br>
 ・地球内部と対流圏、成層圏の各温度を一意な代表値で表す
 <br>
@@ -20560,7 +20566,7 @@ modelling
 　黒体放射温度Te=(I0*(1-albedo0)/(4*e0*sigma))**0.25-TK=-18.291744141682386[℃]
 <br>
 <br>
-対流圏のenergyの保存則
+対流圏のenergy保存則
 <br>
 ・<span class="clear">総電力</span>の保存
 <br>
@@ -20570,9 +20576,9 @@ W0=W0a+W0t+W0e
 <br>
 Q'=W1+W0e<span class="condition">+W2</span>
 <br>
-・系内部の対流圏が系外部に与える仕事は十分に小さい（p*V'/Q'=0）と仮定する
+・系内部の対流圏が系外部に与える仕事は十分に小さい（<span class="jF">-V*p'</span>/Q'=0）と仮定する
 <br>
-C*T'+p*V'=Q' -> C*T'=W1+W0e<span class="condition">+W2</span>
+C*T'<span class="jF">-V*p'</span>=Q' -> C*T'=W1+W0e<span class="condition">+W2</span>
 <br>
 ・T'=0の熱平衡状態における<span class="clear">正味熱収支</span>に熱容量Cは寄与しない
 <br>
@@ -20797,6 +20803,8 @@ b -> 0.00000286471090205194+O(7e-17)
 <br>
 flux1 -> -194.78679966585426
 <br>
+・同時に、放射強制力による<span class="clear">放熱電力</span>W1の増加分、透過による<span class="clear">放射電力</span>W0tが減少する
+<br>
 W1 -> -99920300893411890
 <br>
 W0e -> 99920300893411890
@@ -20804,8 +20812,6 @@ W0e -> 99920300893411890
 W2 -> 0
 <br>
 W1+W0e<span class="condition">+W2</span> -> 0
-<br>
-・同時に、放射強制力による<span class="clear">放熱電力</span>W1の増加分、透過による<span class="clear">放射電力</span>W0tが減少する
 <br>
 ・<span class="selection">absorb0=0.5</span>の場合、alpha10は減少する
 <br>
@@ -20821,6 +20827,8 @@ b -> 0.0000017591296399935375+O(5e-17)
 <br>
 flux1 -> -119.61249999999998
 <br>
+・同時に、放射強制力による<span class="clear">放熱電力</span>W1の減少分、透過による<span class="clear">放射電力</span>W0tが増加する
+<br>
 W1 -> -61357941149583660
 <br>
 W0e -> 61357941149583660
@@ -20828,8 +20836,6 @@ W0e -> 61357941149583660
 W2 -> 0
 <br>
 W1+W0e<span class="condition">+W2</span> -> 0
-<br>
-・同時に、放射強制力による<span class="clear">放熱電力</span>W1の減少分、透過による<span class="clear">放射電力</span>W0tが増加する
 <br>
 <br>
 実施例は<a href="#span-out-simulation-0D-heat">0D-heat simulation</a>参照
