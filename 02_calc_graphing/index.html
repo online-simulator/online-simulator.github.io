@@ -85,6 +85,7 @@
       $._id("star4").onclick = function(){setVal("0", "2pi", "N2=N/2/*Fibonacci sequence{1,2,3,5,8,13,21,...}*/,kr=0.5,star(t,N2,0,kr);", "star(t,N2,1,kr);", 26);$._id("input-z").value="noneGRADATION{config[0:0:0:1:0:0:false:false:25600:10]#00000000:#000000ff:#ffffffff:#ffffff00};";};
       $._id("summation").onclick = function(){setVal("0", "10", "N=t,N;", "fn=<n(1+2i),_sn(=<fn,0,N);(1+2i)55;", 10);};
       $._id("product").onclick = function(){setVal("1", "10", "N=t,N;", "fn=<n,log10(_pn(=<fn,1,N));log10(10!);log10(_pn(=<fn,1,N,2));log10(9!!);", 10);};
+      $._id("Lorenz").onclick = function(){setVal("0", "10", "x0=1,y0=1,z0=1,dt=1e-2,sigma=10,rho=28,beta=8/3,oldX={x0,y0,z0},x=<{x,y,z},f=<{(x=>-oldX)/dt={sigma*(y-x),x*(rho-z)-y,x*y-beta*z}},run=<last(mdx=Newton(=<f,=<x,=<{oldX}),max(norm(f=>),norm(mdx))),step=<last{_rn(=<run,,3),oldX=x=>},evolution=<_rn(=<step,N=round(t/dt),N),evolution=>,x_o1=switch(N==0,=<{oldX}:1,=<x=>),delVar(x),delVar(y),delVar(z),x1=_otdummy(=<{sigma*(y-x),x*(rho-z)-y,x*y-beta*z},=<{x,y,z},=<{x0,y0,z0},N=round(t/dt),dt,N),x_o4=x1,x_o1[0];x_o4[0];", "x_o1[1];x_o4[1];", 20);$._id("input-z").value="TITLE{Lorenz equations}XLABEL{x}YLABEL{y}::::::implicit Euler method error=Order(dt);::::::explicit Runge-Kutta4 method error=Order(dt^4);";};
       $._id("recurrence1").onclick = function(){setVal("0", "30", "N=t,a=0.9i,b=1,z0=0,fz=<a*z+b/*Call-by-Equation*/,fzN=_rz(=<fz,z0,N)/*Call-by-Value*/,real(fzN);z1=z0,fz1=<last{z=z1,z1=-fz}/*non-dimensionalized arbitrary formula as comma operator||fz1=<(z=z1,z1=-fz)*/,_rn(=<fz1,,N),real(z1);", "imag(fzN);", 30);};
       $._id("recurrence2").onclick = function(){setVal("0", "30", "N=t,z0=0,fz=<e^(i(z))/*Call-by-Equation*/,fzN=_rz(=<fz,z0,N)/*Call-by-Value*/,real(fzN);", "imag(fzN);z1=z0,fz1=<last{z=-z1,z1=fz}/*non-dimensionalized arbitrary formula as comma operator||fz1=<(z=-z1,z1=fz)*/,_rn(=<fz1,,N),imag(z1);", 30);};
       $._id("differential1").onclick = function(){setVal("-2", "2", "a=t,a;/*_dx(=<fx,Ndash||1,a,opt_dx0||max(1,abs(x))1e-3(1+i)) stencil_dx=dx0*2^(Ndash-1) error=Order(dx^4~dx^2)*/", "fx=<x^5,_dx(=<fx,0,a);_dx(=<fx,1,a);_dx(=<fx,2,a);_dx(=<fx,3,a);_dx(=<fx,4,a);_dx(=<fx,5,a);_dx(=<fx,6,a);", 10);};
@@ -247,6 +248,7 @@ plot2d
 <br>
   <button id="summation">summation</button>
   <button id="product">product</button>
+  <button id="Lorenz">Lorenz</button>
 <br>
   <button id="recurrence1">recurrence1</button>
   <button id="recurrence2">recurrence2</button>
