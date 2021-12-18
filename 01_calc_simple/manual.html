@@ -22956,11 +22956,7 @@ x=&lt;{x,y,z};
 <br>
 f=&lt;{(x=&gt;-oldX)/dt={sigma*(y-x),x*(rho-z)-y,x*y-beta*z}};
 <br>
-run=&lt;last(mdx=Newton(=&lt;f,=&lt;x,=&lt;{oldX}),max(norm(f=&gt;),norm(mdx)));
-<br>
-step=&lt;last{_rn(=&lt;run,,3),oldX=x=&gt;};
-<br>
-evolution=&lt;_rn(=&lt;step,N=round(t/dt),N);
+evolution=&lt;_rn(=&lt;last{mdx=Newton(=&lt;f,=&lt;x,=&lt;{oldX},,3),oldX=x=&gt;},N=round(t/dt),N);
 <br>
 t=0.5;
 <br>
