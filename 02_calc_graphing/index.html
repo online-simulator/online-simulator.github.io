@@ -73,12 +73,11 @@
       $._id("pow1").onclick = function(){setVal("-1", "1", "x=t,x;", "x;x^2;x^3;x^4;x^5;", 30);};
       $._id("pow2").onclick = function(){setVal("-2(1+i)", "2(1+i)", "x=t,x;", "x;x^2;x^3;x^4;x^5;", 30);};
       $._id("sin").onclick = function(){setVal("0", "2pi", "x=t,x;", "sin(x);cos(x);sin(2x);cos(2x);", 100);};
-      $._id("MIDI").onclick = function(){setVal("0", "127", "note=t,octave=-1,note;", "frequency(octave,note)=<last{m=(octave+1)*12+note,pow(2,(m-69)/12)*440},frequency(octave,note);", 10);$._id("input-z").value="BGCOLOR{white}GDCOLOR{black}PLOTCONFIG{0.2,12,10,5}ORIGIN{2,green,17}TITLE{frequency based on scientific pitch notation}XLABEL{MIDI note number}YLABEL{frequency[Hz]}::::::note-number vs. frequency;";};
       $._id("circle").onclick = function(){setVal("0", "2pi", "cos(t);ft=<e^(i(t)),real(ft)1.5;2ft;ft2=<ecomp(t),real(ft2)2.5;rot=<(cos(t),-sin(t):sin(t),cos(t)),vec0=(3:0),(rot*vec0)[0];", "sin(t);imag(ft)1.5;2_dt(=<-ft);imag(ft2)2.5;(rot*vec0)[1];", 50);};
       $._id("spiral").onclick = function(){setVal("0", "Nr=1.5,2pi*Nr", "real(e^(i(t)))t;rot=<(cos(t),-sin(t):sin(t),cos(t)),vec0=(-t:0),vec1=rot*vec0,vec1[0];", "imag(e^(i(t)))t;vec1[1];", 100);};
-      $._id("heart").onclick = function(){setVal("0", "2pi", "pow(sin(t),3);pow(sin(t),5);", "y=7cos(t)-4cos(2t)-2cos(3t),y/7;", 50);};
       $._id("Lissajous").onclick = function(){setVal("0", "2pi", "cos(3t);", "sin(2t+pi/3);", 100);};
       $._id("rose").onclick = function(){setVal("0", "2pi", "sin(2t)cos(t);sin(4t)cos(t);sin(6t)cos(t);sin(6t)cos(5t);", "sin(2t)sin(t);sin(4t)sin(t);sin(6t)sin(t);sin(6t)sin(5t);", 100);};
+      $._id("heart").onclick = function(){setVal("0", "2pi", "pow(sin(t),3);pow(sin(t),5);", "y=7cos(t)-4cos(2t)-2cos(3t),y/7;", 50);};
       $._id("polygon").onclick = function(){setVal("0", "2pi", "N=5,poly(t,N,0);poly(t,N,1);", "poly(t,N,1);poly(t,N,0);", 50);};
       $._id("star1").onclick = function(){setVal("0", "2pi", "N=5,star(t,N,0);kr=0.5,star(t,N,0,kr);", "star(t,N,1);star(t,N,1,kr);", 50);};
       $._id("star2").onclick = function(){setVal("0", "2pi", "x=t,N=11,z0=<star(x,N,1)+star(x,N,0)i,z1=<poly(x,N,1)+poly(x,N,0)i,t=-2pi/(3N),real(z0*e^(i(t)));real(z0*e^(i(2t)));real(z0*e^(i(3t)));real(z1);", "imag(z0*e^(i(t)));imag(z0*e^(i(2t)));imag(z0*e^(i(3t)));imag(z1);", 100);};
@@ -89,19 +88,15 @@
       $._id("Fibonacci").onclick = function(){setVal("1", "12", "N=round(t),F0=0,F1=1,_rn(=<F2,F2=<last{F2=F0+F1,F0=F1,F1=F2,F2},N),N;", "F2;", 11);};
       $._id("recurrence1").onclick = function(){setVal("0", "30", "N=t,a=0.9i,b=1,z0=0,fz=<a*z+b,fzN=_rz(=<fz,z0,N),real(fzN);z1=z0,fz1=<last{z=z1,z1=-fz},_rn(=<fz1,,N),real(z1);", "imag(fzN);", 30);};
       $._id("recurrence2").onclick = function(){setVal("0", "30", "N=t,z0=0,fz=<e^(i(z)),fzN=_rz(=<fz,z0,N),real(fzN);", "imag(fzN);z1=z0,fz1=<last{z=-z1,z1=fz},_rn(=<fz1,,N),imag(z1);", 30);};
-      $._id("differential1").onclick = function(){setVal("-2", "2", "a=t,a;", "fx=<x^5,_dx(=<fx,0,a);_dx(=<fx,1,a);_dx(=<fx,2,a);_dx(=<fx,3,a);_dx(=<fx,4,a);_dx(=<fx,5,a);_dx(=<fx,6,a);", 10);$._id("input-z").value+="TITLE{_dx(=<fx,Ndash||1,a,opt_dx0||max(1,abs(x))1e-3(1+i)) stencil_dx=dx0*2^(Ndash-1) error=Order(dx^4~dx^2)};";};
-      $._id("differential2").onclick = function(){setVal("-2", "2", "a=t,a;", "fxy=<x*x*y*y,_Dy(=<{_Dx(=<fxy,1,y)},1,a);24;", 10);$._id("input-z").value+="TITLE{_dx(=<fx,Ndash||1,a,opt_dx0||max(1,abs(x))1e-3(1+i)) stencil_dx=dx0*2^(Ndash-1) error=Order(dx^4~dx^2)};";};
-      $._id("logistic").onclick = function(){setVal("0", "10", "delVar(N),N0=1,dt=1e-2,r=2,K(t)=<1e4,c(t)=<t*0,Nd(N,tdummy)=<r*N*(1-N/K(tdummy)=>)-c(tdummy)=>*N,f=<(N-oldN)/dt=Nd(N,t0)=>,evolution=<_rn(=<last{mdx=Newton(=<f,=<{N},=<{oldN},,3),t0=t0+dt,oldN=N},Nt=round(t/dt),Nt),switch(~~hasVar(t0),=<t0=0),switch(~~hasVar(oldN),=<oldN=N0),N=N0,evolution=>,N_o1=N,Nd_o1=Nd(N_o1,t0)=>,delVar(N),N_o4=_otdummy(=<Nd,=<{N},=<{N0},Nt=round(t/dt),dt,Nt),t0=Nt*dt,Nd_o4=Nd(N_o4,t0)=>,t0;", "N_o1;N_o4;Nd_o1;Nd_o4;", 20);$._id("input-z").value+="TITLE{logistic equation}XLABEL{t}YLABEL{N}::::::N implicit Euler method error=Order(dt);::::::N explicit Runge-Kutta4 method error=Order(dt^4);::::::dN/dt implicit Euler method;::::::dN/dt explicit Runge-Kutta4 method;";};
       $._id("integral1").onclick = function(){setVal("-2", "2", "b=t,b;", "_ix(=<{1},0,b);_ix(=<{x},0,b);_ix(=<{x^2},0,b);_ix(=<{x^3},0,b);2^4/4;", 10);$._id("input-z").value+="TITLE{_ix(=<fx,a,b,opt_NI||100) dx=(b-a)/NI error=Order(dx^4)};";};
       $._id("integral2").onclick = function(){setVal("-2", "2", "b=t,b;", "fxy=<x*y,_iy(=<{_ix(=<fxy,0,y,10)},0,b,10);2^4/8;_iy(=<{_ix(=<{fxy*fxy},0,y,10)},0,b,10);2^6/18;", 10);$._id("input-z").value+="TITLE{_ix(=<fx,a,b,opt_NI||100) dx=(b-a)/NI error=Order(dx^4)};";};
-      $._id("Lorenz").onclick = function(){setVal("0", "10", "x0=1,y0=1,z0=1,dt=1e-2,sigma=10,rho=28,beta=8/3,oldX={x0,y0,z0},x=<{x,y,z},f=<{(x=>-oldX)/dt={sigma*(y-x),x*(rho-z)-y,x*y-beta*z}},evolution=<_rn(=<last{mdx=Newton(=<f,=<x,=<{oldX},,3),oldX=x=>},N=round(t/dt),N),evolution=>,x_o1=switch(N==0,=<{oldX}:1,=<x=>),delVar(x),delVar(y),delVar(z),x1=_otdummy(=<{sigma*(y-x),x*(rho-z)-y,x*y-beta*z},=<{x,y,z},=<{x0,y0,z0},N=round(t/dt),dt,N),x_o4=x1,x_o1[0];x_o4[0];", "x_o1[1];x_o4[1];", 20);$._id("input-z").value+="TITLE{Lorenz equations}XLABEL{x}YLABEL{y}::::::implicit Euler method error=Order(dt);::::::explicit Runge-Kutta4 method error=Order(dt^4);";};
+      $._id("differential1").onclick = function(){setVal("-2", "2", "a=t,a;", "fx=<x^5,_dx(=<fx,0,a);_dx(=<fx,1,a);_dx(=<fx,2,a);_dx(=<fx,3,a);_dx(=<fx,4,a);_dx(=<fx,5,a);_dx(=<fx,6,a);", 10);$._id("input-z").value+="TITLE{_dx(=<fx,Ndash||1,a,opt_dx0||max(1,abs(x))1e-3(1+i)) stencil_dx=dx0*2^(Ndash-1) error=Order(dx^4~dx^2)};";};
+      $._id("differential2").onclick = function(){setVal("-2", "2", "a=t,a;", "fxy=<x*x*y*y,_Dy(=<{_Dx(=<fxy,1,y)},1,a);24;", 10);$._id("input-z").value+="TITLE{_dx(=<fx,Ndash||1,a,opt_dx0||max(1,abs(x))1e-3(1+i)) stencil_dx=dx0*2^(Ndash-1) error=Order(dx^4~dx^2)};";};
       $._id("calculus1").onclick = function(){setVal("-2(1+i)", "2(1+i)", "b=t,b;", "fx=<x^3,_ix(=<_dx(=<fx,1,x),0,b,10);-b^3;", 10);};
       $._id("calculus2").onclick = function(){setVal("-2(1+i)", "2(1+i)", "b=t,b;", "fx=<x^3,_dx(=<_ix(=<fx,0,x,10),1,b);-b^3;", 10);};
-      $._id("heat0d").onclick = function(){setVal("0", "year=30,year", "year=t,kalpha0=0,kalpha1=1-0.001*switch(year<20,year:1,40-year),kalbedo=1,kabsorb=1,heat0d_evolution(t,dt,kalpha0,kalpha1,kalbedo,kabsorb)=<[out=<{t_total,dT},scope2storage=<last{addVar(oldT),addVar(t_total)},init=<last{I0=1367,sigma=5.670374419184429e-8,TK=273.15,T0=15,T1=-56.5,T0K=T0+TK,T1K=T1+TK,H1=11000,R0=6378136.6,R1=R0+H1,S0=pi*R0^2,S1=pi*R1^2,A0=S0*4,A1=S1*4,albedo0=0.3,e0=1,TeK=(I0*(1-albedo0)/(4*e0*sigma))**0.25,Te=TeK-TK,W0=S1*I0,Wee=A0*(e0*sigma*TeK**4),We0=A0*(e0*sigma*T0K**4),absorbh=1-W0*(1-albedo0)/We0,absorbhmax=0.5,absorb0=We0*absorbh/(W0*(1-albedo0)),absorb0max=We0*absorbhmax/(W0*(1-albedo0)),kh0=(absorbhmax-absorbh)/(absorb0max-absorb0),Wea=We0*absorbh,Wet=We0*(1-absorbh),l=0.0241,rho=1.29,cp=1007,V=_ir(=<4*pi*r^2,R0,R0+H1),C=rho*cp*V,alpha10=-W0*(1-albedo0)*absorb0/(A1*(T1-T0)),alpha0=alpha10*kalpha0,alpha1=alpha10*kalpha1,albedo=albedo0*kalbedo,absorb=absorb0*kabsorb,absorbe=(1-albedo)*absorb,T=T0,flux0=alpha0*(T0-T),flux1=alpha1*(T1-T),W2=flux0*A0,W1=flux1*A1,W0a=W0*albedo,W0t=W0*(1-albedo)*(1-absorb),W0e=W0*(1-albedo)*absorb,(Wee-Wet),(Wea-W0e),(W0t+W0e=Wet),(W0a+W0t+W0e=W0),(W1+W0e+W2),a=(alpha1*A1+alpha0*A0)/C,b=(alpha1*A1*T1+W0*(1-albedo)*absorb+alpha0*A0*T0)/C,switch(hasVar(t_total)==0,=<last{t_total=0,oldT=T0}),newT=oldT},run=<last{step=<last{newT=(oldT+b*dt)/(1+a*dt),oldT=newT},evolution=<_rn(=<step,N=round(t/dt),N),evolution=>,dT=newT-T0,t_total=t_total+N*dt},init=>,run=>,return=out=>,scope2storage=>,=<return]=>,year-10;0;", "s_1day=60*60*24,T=heat0d_evolution[1](s_1day*30*365*year,s_1day*30,kalpha0,kalpha1,kalbedo,kabsorb)=>,T;max(T,1.5*t/t1);", 30);$._id("input-z").value+="TITLE{Paris Agreement's temperature goal image}XLABEL{year since 2020}YLABEL{Temperature change[℃]}::3:2:::year vs. Temperature change;::0::5::2020;";};
-      $._id("heat1d").onclick = function(){setVal("0", "month=24,month", "month=t,kalpha0=0,kalpha1=1,kalbedo=1,kabsorb=1,N=20,heat1d_evolution(t,dt,kalpha0,kalpha1,kalbedo,kabsorb,N)=<[out=<{t_total,newT},scope2storage=<last{addVar(oldT),addVar(t_total)},init=<last{I0=1367,sigma=5.670374419184429e-8,TK=273.15,T0=15,T1=-56.5,T0K=T0+TK,T1K=T1+TK,H1=11000,R0=6378136.6,R1=R0+H1,S0=pi*R0^2,S1=pi*R1^2,A0=S0*4,A1=S1*4,albedo0=0.3,e0=1,TeK=(I0*(1-albedo0)/(4*e0*sigma))**0.25,Te=TeK-TK,W0=S1*I0,Wee=A0*(e0*sigma*TeK**4),We0=A0*(e0*sigma*T0K**4),absorbh=1-W0*(1-albedo0)/We0,absorbhmax=0.5,absorb0=We0*absorbh/(W0*(1-albedo0)),absorb0max=We0*absorbhmax/(W0*(1-albedo0)),kh0=(absorbhmax-absorbh)/(absorb0max-absorb0),Wea=We0*absorbh,Wet=We0*(1-absorbh),l=0.0241,rho=1.29,cp=1007,V=A1*H1,C=rho*cp*V,alpha10=-W0*(1-albedo0)*absorb0/(A1*(T1-T0)),alpha0=alpha10*kalpha0,alpha1=alpha10*kalpha1,albedo=albedo0*kalbedo,absorb=absorb0*kabsorb,absorbe=(1-albedo)*absorb,T=T0,flux0=alpha0*(T0-T),flux1=alpha1*(T1-T),W2=flux0*A0,W1=flux1*A1,W0a=W0*albedo,W0t=W0*(1-albedo)*(1-absorb),W0e=W0*(1-albedo)*absorb,(Wee-Wet),(Wea-W0e),(W0t+W0e=Wet),(W0a+W0t+W0e=W0),(W1+W0e+W2),dC=C/N,a0=alpha0*A1/dC,a1=alpha1*A1/dC,b=0,c=W0*(1-albedo)*absorb/C+a0*T0,d=alpha1*A1*(T1-T0)/C,_ex(=<x,N,1),A=zeros(N,N),A[-1][0][1]=(-a1*dt,1+2*a1*dt,-a1*dt),A[0][0]=1+a1*dt+a0*dt,A[-1][-1]=1+a1*dt,switch(hasVar(t_total)==0,=<last{t_total=0,oldT=zeros(N,1)+Te}),newT=oldT},run=<last{step=<last{r=oldT+b*dt,r[0]=r[0]+c*dt,r[-1]=r[-1]+d*dt,Newton(=<A*x=>=r,=<x),oldT=x=>},evolution=<_rn(=<step,N=round(t/dt),N),evolution=>,newT=oldT,dT=newT-T0,t_total=t_total+N*dt},init=>,run=>,return=out=>,scope2storage=>,=<return]=>,month;", "s_1day=60*60*24,T=heat1d_evolution[1][0][N][0](s_1day*30*month,s_1day*30,kalpha0,kalpha1,kalbedo,kabsorb,N)=>,T[0];N2=int((N-1)/2),switch(floor(N)%2==0,(T[N2]+T[N2+1])/2:1,T[N2]);T[-1];mean(trans(T));", 12);$._id("input-z").value+="TITLE{Greenhouse effect in troposphere}XLABEL{month}YLABEL{Temperature[℃]}::::::bottom;::::::middle;::::::top;::3:2:::mean;";};
       $._id("Maclaurin1").onclick = function(){setVal("-pi", "pi", "x=t,x;", "fx=<sin(x),fx;MaclaurinN=<_sn(=<_dx(=<fx,n,0)x^n/n!,0,N),N=1,MaclaurinN;N=3,MaclaurinN;N=5,MaclaurinN;N=7,MaclaurinN;N=9,MaclaurinN;", 10);};
       $._id("Maclaurin2").onclick = function(){setVal("-(1+i)pi/4", "(1+i)pi/4", "x=t,x;", "fx=<sqrt(2-exp(sin(x)^2*x)/cos(x)),fx;MaclaurinN=<_sn(=<_dx(=<fx,n,0)x^n/n!,0,N),N=1,MaclaurinN;N=3,MaclaurinN;N=5,MaclaurinN;N=7,MaclaurinN;N=9,MaclaurinN;", 10);$._id("input-z").value+="TITLE{***** low accuracy *****};";};
-      $._id("Taylor").onclick = function(){setVal("0", "2(1+i)pi/4", "x=t,x;", "fx=<exp(x)/cos(x),fx;TaylorN=<_sn(=<_dx(=<fx,n,a)(x-a)^n/n!,0,N),a=(1+i)pi/4,N=1,TaylorN;N=3,TaylorN;N=5,TaylorN;N=7,TaylorN;N=9,TaylorN;", 10);$._id("input-z").value+="TITLE{***** low accuracy *****};";};
+      $._id("Taylor").onclick = function(){setVal("0", "2(1+i)pi/4", "x=t,x;", "fx=<exp(x)/cos(x),fx;TaylorN=<_sn(=<_dx(=<fx,n,a)(x-a)^n/n!,0,N),a=(t0+t1)/2,N=1,TaylorN;N=3,TaylorN;N=5,TaylorN;N=7,TaylorN;N=9,TaylorN;", 10);$._id("input-z").value+="TITLE{***** low accuracy *****};";};
       $._id("Fourier").onclick = function(){setVal("-pi", "pi", "x=t,x;", "ft=<atan(tan(t)),ft;cn=<_it(=<ft*e^(-i(n)t),-pi,pi)/(2pi),FourierN=<_sn(=<cn*e^(i(n)x),-N,N),N=1,FourierN;N=3,FourierN;N=5,FourierN;N=7,FourierN;" ,10);$._id("input-z").value+="TITLE{triangle: ft=<asin(sin(t)) || square: ft=<sign(sin(t))};";};
       $._id("DFT").onclick = function(){setVal("0", "10", "n=t,n;", "n0=2,n1=4,N=max(n0,n1)*4,fn=<Kdelta(n,n0)+Kdelta(n,n1),fn;ft=<e^((i(n0)t)2pi/N)+e^((i(n1)t)2pi/N),DFT=<_st(=<ft*e^((-i(n)t)2pi/N),0,N-1)/N,DFT;", 30);};
       $._id("IDFT").onclick = function(){setVal("0", "10", "t;", "n0=2,n1=4,N=max(n0,n1)*4,ft=<e^((i(n0)t)2pi/N)+e^((i(n1)t)2pi/N),ft;fn=<Kdelta(n,n0)+Kdelta(n,n1),IDFT=<_sn(=<fn*e^((i(n)t)2pi/N),0,N-1),IDFT;", 30);};
@@ -138,8 +133,13 @@
       $._id("tile").onclick = function(){setVal("0", "2pi", "zt(N,kr,rad)=<(star(t,N,0,kr)+star(t,N,1,kr)i)e^(i(rad)),zt1=zt(5,0.5,0),xb={real(zt1),imag(zt1),1},transform3x3=(1,0,0:0,1,0:0,0,1),xa=transform3x3*xb,xa[0];", "xa[1];-1;1;", 300);$._id("input-z").value="noneCUT{1}TILE{16,16,248,120,0,-120/*dx,dy=1~256||1,x0,y0,x1,y1=-32768~32767||0*/}GRADATION{config[0:0:0:1:0:0:false:false:25600:10]#ee82ee00:#ee82eeaa:#0000ffaa:#00ffffaa:#00ff00aa:#ffff00aa:#ffa500aa:#ff0000aa:#ff000000};";};
       $._id("pDFT").onclick = function(){setVal("0", "2pi", "zt(a,b,rad)=<(sin((a)t)cos((b)t)+sin((a)t)sin((b)t)i)e^(i(rad)),zt1=zt(3,2,0),real(zt1);", "imag(zt1);", 300);$._id("input-z").value="TITLE{DFT memory size<100MB}noneFILTER{encode_rgba[6,3]:area[128,0,64,256/*(w,h<=256)*/]dft_rgba[0.05,0.05/*cutoffU,cutoffV=0~1||0*/]}GRADATION{config[0:0:0:0:0:0:false:false:25600:10]white:gray:white:gray:white:gray:white:gray:white:gray:white:gray};";};
       $._id("pDWT").onclick = function(){setVal("0", "2pi", "zt(a,b,rad)=<(sin((a)t)cos((b)t)+sin((a)t)sin((b)t)i)e^(i(rad)),zt1=zt(3,2,0),real(zt1);", "imag(zt1);", 300);$._id("input-z").value="TITLE{DWT memory size<100MB}noneFILTER{encode_rgba[6,3]:area[128,0,64,256/*(w,h<=256)*/]dwt_rgba[0.05,0.05/*cutoffU,cutoffV=0~1||0*/]}GRADATION{config[0:0:0:0:0:0:false:false:25600:10]white:gray:white:gray:white:gray:white:gray:white:gray:white:gray};";};
+      $._id("MIDI").onclick = function(){setVal("0", "127", "note=t,octave=-1,note;", "frequency(octave,note)=<last{m=(octave+1)*12+note,pow(2,(m-69)/12)*440},frequency(octave,note);", 10);$._id("input-z").value="BGCOLOR{white}GDCOLOR{black}PLOTCONFIG{0.2,12,10,5}ORIGIN{2,green,17}TITLE{frequency based on scientific pitch notation}XLABEL{MIDI note number}YLABEL{frequency[Hz]}::::::note-number vs. frequency;";};
+      $._id("logistic").onclick = function(){setVal("0", "10", "delVar(N),N0=1,dt=1e-2,r=2,K(t)=<1e4,c(t)=<t*0,Nd(N,tdummy)=<r*N*(1-N/K(tdummy)=>)-c(tdummy)=>*N,f=<(N-oldN)/dt=Nd(N,t0)=>,evolution=<_rn(=<last{mdx=Newton(=<f,=<{N},=<{oldN},,3),t0=t0+dt,oldN=N},Nt=round(t/dt),Nt),switch(~~hasVar(t0),=<t0=0),switch(~~hasVar(oldN),=<oldN=N0),N=N0,evolution=>,N_o1=N,Nd_o1=Nd(N_o1,t0)=>,delVar(N),N_o4=_otdummy(=<Nd,=<{N},=<{N0},Nt=round(t/dt),dt,Nt),t0=Nt*dt,Nd_o4=Nd(N_o4,t0)=>,t0;", "N_o1;N_o4;Nd_o1;Nd_o4;", 20);$._id("input-z").value+="TITLE{logistic equation}XLABEL{t}YLABEL{N}::::::N implicit Euler method error=Order(dt);::::::N explicit Runge-Kutta4 method error=Order(dt^4);::::::dN/dt implicit Euler method;::::::dN/dt explicit Runge-Kutta4 method;";};
+      $._id("Lorenz").onclick = function(){setVal("0", "10", "x0=1,y0=1,z0=1,dt=1e-2,sigma=10,rho=28,beta=8/3,oldX={x0,y0,z0},x=<{x,y,z},f=<{(x=>-oldX)/dt={sigma*(y-x),x*(rho-z)-y,x*y-beta*z}},evolution=<_rn(=<last{mdx=Newton(=<f,=<x,=<{oldX},,3),oldX=x=>},N=round(t/dt),N),evolution=>,x_o1=switch(N==0,=<{oldX}:1,=<x=>),delVar(x),delVar(y),delVar(z),x1=_otdummy(=<{sigma*(y-x),x*(rho-z)-y,x*y-beta*z},=<{x,y,z},=<{x0,y0,z0},N=round(t/dt),dt,N),x_o4=x1,x_o1[0];x_o4[0];", "x_o1[1];x_o4[1];", 20);$._id("input-z").value+="TITLE{Lorenz equations}XLABEL{x}YLABEL{y}::::::implicit Euler method error=Order(dt);::::::explicit Runge-Kutta4 method error=Order(dt^4);";};
       $._id("EIS").onclick = function(){setVal("1e3", "0.01", "f=t,dI=1e-3,Nt=100,Nint=1,isImplicit=1,isBode=0,make_IV(dI,f,Nt,Nint,isImplicit)=<last{L=1e-4,R0=1,R1=2,C1=0.1,a1=1/(R1*C1),b1=1/C1,a2=0.01,b2=0.12,omega=2*pi*f,dt=1/(f*Nt),N=Nt*Nint,tI=zeros(N+1,1),tV=zeros(N+1,1),oldV1=0,oldV2=0,_sn(=<last{t=n*dt,It=dI*sin(omega*t),dIt=dI*cos(omega*t)*omega,newV1=switch(isImplicit,(oldV1+b1*dt*It)/(1+a1*dt):1,(1-a1*dt)*oldV1+b1*dt*It),newV2=switch(isImplicit,(oldV2+b2*dt*It)/(1+a2*dt):1,(1-a2*dt)*oldV2+b2*dt*It),oldV1=newV1,oldV2=newV2,Vt=L*dIt+R0*It+newV1+newV2,tI[n]=It,tV[n]=Vt},0,N)},FT_IV(IV,f,dt)=<[out=<zIV,init=<last{N=sizer(IV)},run=<last{omega=2*pi*f,calc_w(n)=<switch((n==0)|(n==N-1),1:n%2==0,2:1,4),calc_v(n,t,val)=<calc_w(n)=>*val*exp(-i*omega*t),zIV=_sn(=<calc_v(n,n*dt,IV[n])=>,0,N-1)*dt/3},init=>,run=>,return=out=>,=<return]=>,calc_Z(zI,zV)=<[out=<Z,init=<last{0},run=<last{Z=zV/zI},init=>,run=>,return=out=>,=<return]=>,make_IV(dI,f,Nt,Nint,isImplicit)==>,Z=calc_Z(FT_IV(=<tI,f,dt)=>,FT_IV(=<tV,f,dt)=>)=>,switch(isBode==0,real(Z):1,log10(f));", "switch(isBode==0,-imag(Z):isBode>0,abs(Z):1,deg_atan2(imag(Z),real(Z)));", 20, true);$._id("input-z").value+="TITLE{EIS-simulation L-R0-R1C1(a1,b1)-W(a2,b2) error=Order(dt)}XLABEL{real(Z)}YLABEL{-imag(Z)}::::::Nyquist plot;";};
       $._id("IV").onclick = function(){setVal("0", "100", "N=t,f=0.5,dI=1e-3,Nt=t1,Nint=2,isImplicit=1,L=1e-4,R0=1,R1=2,C1=0.1,a1=1/(R1*C1),b1=1/C1,a2=0.01,b2=0.12,omega=2*pi*f,dt=1/(f*Nt),oldV1=0,oldV2=0,_sn(=<last{t=n*dt,It=dI*sin(omega*t),dIt=dI*cos(omega*t)*omega,newV1=switch(isImplicit,(oldV1+b1*dt*It)/(1+a1*dt):1,(1-a1*dt)*oldV1+b1*dt*It),newV2=switch(isImplicit,(oldV2+b2*dt*It)/(1+a2*dt):1,(1-a2*dt)*oldV2+b2*dt*It),oldV1=newV1,oldV2=newV2,Vt=L*dIt+R0*It+newV1+newV2},N=round(N*Nint),N),t=N*dt,t;", "It;Vt;", 100);$._id("input-z").value+="TITLE{IV-simulation L-R0-R1C1(a1,b1)-W(a2,b2) error=Order(dt)}XLABEL{t}YLABEL{IV}none::::::I(t);::::::V(t);";};
+      $._id("heat0d").onclick = function(){setVal("0", "year=30,year", "year=t,kalpha0=0,kalpha1=1-0.001*switch(year<20,year:1,40-year),kalbedo=1,kabsorb=1,heat0d_evolution(t,dt,kalpha0,kalpha1,kalbedo,kabsorb)=<[out=<{t_total,dT},scope2storage=<last{addVar(oldT),addVar(t_total)},init=<last{I0=1367,sigma=5.670374419184429e-8,TK=273.15,T0=15,T1=-56.5,T0K=T0+TK,T1K=T1+TK,H1=11000,R0=6378136.6,R1=R0+H1,S0=pi*R0^2,S1=pi*R1^2,A0=S0*4,A1=S1*4,albedo0=0.3,e0=1,TeK=(I0*(1-albedo0)/(4*e0*sigma))**0.25,Te=TeK-TK,W0=S1*I0,Wee=A0*(e0*sigma*TeK**4),We0=A0*(e0*sigma*T0K**4),absorbh=1-W0*(1-albedo0)/We0,absorbhmax=0.5,absorb0=We0*absorbh/(W0*(1-albedo0)),absorb0max=We0*absorbhmax/(W0*(1-albedo0)),kh0=(absorbhmax-absorbh)/(absorb0max-absorb0),Wea=We0*absorbh,Wet=We0*(1-absorbh),l=0.0241,rho=1.29,cp=1007,V=_ir(=<4*pi*r^2,R0,R0+H1),C=rho*cp*V,alpha10=-W0*(1-albedo0)*absorb0/(A1*(T1-T0)),alpha0=alpha10*kalpha0,alpha1=alpha10*kalpha1,albedo=albedo0*kalbedo,absorb=absorb0*kabsorb,absorbe=(1-albedo)*absorb,T=T0,flux0=alpha0*(T0-T),flux1=alpha1*(T1-T),W2=flux0*A0,W1=flux1*A1,W0a=W0*albedo,W0t=W0*(1-albedo)*(1-absorb),W0e=W0*(1-albedo)*absorb,(Wee-Wet),(Wea-W0e),(W0t+W0e=Wet),(W0a+W0t+W0e=W0),(W1+W0e+W2),a=(alpha1*A1+alpha0*A0)/C,b=(alpha1*A1*T1+W0*(1-albedo)*absorb+alpha0*A0*T0)/C,switch(hasVar(t_total)==0,=<last{t_total=0,oldT=T0}),newT=oldT},run=<last{step=<last{newT=(oldT+b*dt)/(1+a*dt),oldT=newT},evolution=<_rn(=<step,N=round(t/dt),N),evolution=>,dT=newT-T0,t_total=t_total+N*dt},init=>,run=>,return=out=>,scope2storage=>,=<return]=>,year-10;0;", "s_1day=60*60*24,T=heat0d_evolution[1](s_1day*30*365*year,s_1day*30,kalpha0,kalpha1,kalbedo,kabsorb)=>,T;max(T,1.5*t/t1);", 30);$._id("input-z").value+="TITLE{Paris Agreement's temperature goal image}XLABEL{year since 2020}YLABEL{Temperature change[℃]}::3:2:::year vs. Temperature change;::0::5::2020;";};
+      $._id("heat1d").onclick = function(){setVal("0", "month=24,month", "month=t,kalpha0=0,kalpha1=1,kalbedo=1,kabsorb=1,N=20,heat1d_evolution(t,dt,kalpha0,kalpha1,kalbedo,kabsorb,N)=<[out=<{t_total,newT},scope2storage=<last{addVar(oldT),addVar(t_total)},init=<last{I0=1367,sigma=5.670374419184429e-8,TK=273.15,T0=15,T1=-56.5,T0K=T0+TK,T1K=T1+TK,H1=11000,R0=6378136.6,R1=R0+H1,S0=pi*R0^2,S1=pi*R1^2,A0=S0*4,A1=S1*4,albedo0=0.3,e0=1,TeK=(I0*(1-albedo0)/(4*e0*sigma))**0.25,Te=TeK-TK,W0=S1*I0,Wee=A0*(e0*sigma*TeK**4),We0=A0*(e0*sigma*T0K**4),absorbh=1-W0*(1-albedo0)/We0,absorbhmax=0.5,absorb0=We0*absorbh/(W0*(1-albedo0)),absorb0max=We0*absorbhmax/(W0*(1-albedo0)),kh0=(absorbhmax-absorbh)/(absorb0max-absorb0),Wea=We0*absorbh,Wet=We0*(1-absorbh),l=0.0241,rho=1.29,cp=1007,V=A1*H1,C=rho*cp*V,alpha10=-W0*(1-albedo0)*absorb0/(A1*(T1-T0)),alpha0=alpha10*kalpha0,alpha1=alpha10*kalpha1,albedo=albedo0*kalbedo,absorb=absorb0*kabsorb,absorbe=(1-albedo)*absorb,T=T0,flux0=alpha0*(T0-T),flux1=alpha1*(T1-T),W2=flux0*A0,W1=flux1*A1,W0a=W0*albedo,W0t=W0*(1-albedo)*(1-absorb),W0e=W0*(1-albedo)*absorb,(Wee-Wet),(Wea-W0e),(W0t+W0e=Wet),(W0a+W0t+W0e=W0),(W1+W0e+W2),dC=C/N,a0=alpha0*A1/dC,a1=alpha1*A1/dC,b=0,c=W0*(1-albedo)*absorb/C+a0*T0,d=alpha1*A1*(T1-T0)/C,_ex(=<x,N,1),A=zeros(N,N),A[-1][0][1]=(-a1*dt,1+2*a1*dt,-a1*dt),A[0][0]=1+a1*dt+a0*dt,A[-1][-1]=1+a1*dt,switch(hasVar(t_total)==0,=<last{t_total=0,oldT=zeros(N,1)+Te}),newT=oldT},run=<last{step=<last{r=oldT+b*dt,r[0]=r[0]+c*dt,r[-1]=r[-1]+d*dt,Newton(=<A*x=>=r,=<x),oldT=x=>},evolution=<_rn(=<step,N=round(t/dt),N),evolution=>,newT=oldT,dT=newT-T0,t_total=t_total+N*dt},init=>,run=>,return=out=>,scope2storage=>,=<return]=>,month;", "s_1day=60*60*24,T=heat1d_evolution[1][0][N][0](s_1day*30*month,s_1day*30,kalpha0,kalpha1,kalbedo,kabsorb,N)=>,T[0];N2=int((N-1)/2),switch(floor(N)%2==0,(T[N2]+T[N2+1])/2:1,T[N2]);T[-1];mean(trans(T));", 12);$._id("input-z").value+="TITLE{Greenhouse effect in troposphere}XLABEL{month}YLABEL{Temperature[℃]}::::::bottom;::::::middle;::::::top;::3:2:::mean;";};
       // strict-mode equation-list
       /* out=text.replace(/\s/g,"\n"); */
 //      $._id("").onclick = function(){io["onclick_default"](elems, "", 0);};
@@ -231,16 +231,14 @@ plot2d
   <button id="pow1">pow1</button>
   <button id="pow2">pow2</button>
   <button id="sin">sin</button>
-  <button id="MIDI">MIDI</button>
-<br>
   <button id="circle">circle</button>
-  <button id="spiral">spiral</button>
-  <button id="heart">heart</button>
 <br>
+  <button id="spiral">spiral</button>
   <button id="Lissajous">Lissajous</button>
   <button id="rose">rose</button>
-  <button id="polygon">polygon</button>
+  <button id="heart">heart</button>
 <br>
+  <button id="polygon">poly</button>
   <button id="star1">star1</button>
   <button id="star2">star2</button>
   <button id="star3">star3</button>
@@ -252,25 +250,19 @@ plot2d
 <br>
   <button id="recurrence1">recurrence1</button>
   <button id="recurrence2">-rec2</button>
+  <button id="integral1">integral1</button>
+  <button id="integral2">-int2</button>
 <br>
   <button id="differential1">differential1</button>
   <button id="differential2">-dif2</button>
-  <button id="logistic">logistic</button>
-<br>
-  <button id="integral1">integral1</button>
-  <button id="integral2">-int2</button>
-  <button id="Lorenz">Lorenz</button>
-<br>
   <button id="calculus1">calculus1</button>
   <button id="calculus2">-cal2</button>
-  <button id="heat0d">heat0d</button>
 <br>
   <button id="Maclaurin1">Maclaurin1</button>
   <button id="Maclaurin2">-Mac2</button>
-  <button id="heat1d">heat1d</button>
-<br>
   <button id="Taylor">Taylor</button>
   <button id="Fourier">Fourier</button>
+<br>
   <button id="DFT">DFT</button>
   <button id="IDFT">IDFT</button>
 <br>
@@ -286,38 +278,44 @@ plot2d
   <button id="legend1">legend1</button>
   <button id="legend2">legend2</button>
   <button id="legend3">legend3</button>
-<br>
   <button id="range">range</button>
-  <button id="title">title&amp;labels&amp;origin</button>
 <br>
+  <button id="title">title&amp;labels&amp;origin</button>
   <button id="color">color</button>
   <button id="string">string</button>
+<br>
   <button id="gradation1">grad1</button>
   <button id="gradation2">grad2</button>
-<br>
   <button id="gradation3">grad3</button>
   <button id="filter1">filter1</button>
+<br>
   <button id="filter2">filter2</button>
   <button id="filter3">filter3</button>
-<br>
   <button id="blur1">blur1</button>
   <button id="blur2">blur2</button>
+<br>
   <button id="blur3">blur3</button>
   <button id="ptrans">p-trans</button>
-<br>
   <button id="filter4">tone-curve</button>
   <button id="post1">post1</button>
-  <button id="post2">post2</button>
 <br>
+  <button id="post2">post2</button>
   <button id="post3">post3</button>
   <button id="post4">post4+trans+cut</button>
-  <button id="post5">post5</button>
 <br>
+  <button id="post5">post5</button>
   <button id="tile">tile</button>
   <button id="pDFT">p-DFT</button>
   <button id="pDWT">p-DWT</button>
+  <button id="MIDI">MIDI</button>
+<br>
+  <button id="logistic">logistic</button>
+  <button id="Lorenz">Lorenz</button>
   <button id="EIS">EIS</button>
   <button id="IV">-IV</button>
+<br>
+  <button id="heat0d">heat0d</button>
+  <button id="heat1d">heat1d</button>
 <hr>
 </div>
 <hr>
