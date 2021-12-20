@@ -17021,6 +17021,15 @@ clear; ($a,(($b,($c)={,4})=(,3)))=(1,2); (a,b,c) -> (1,0,0)
 ($$a)=1 -> [MyErr]Invalid SEv($a)
 <br>
 ($$$a)=1 -> [MyErr]Invalid SEv($$a)
+<br>
+<br>
+<span class="clear">Ver.2.102.33</span>以降、<a href="#span-out-eqns-args">式変数のarguments</a>の<a href="#span-out-vars-symbol">変数名symbol</a>を未知変数にcountする不具合を解消
+<br>
+<del>f(x)=&lt;x,(1=2) -> [MyErr]Invalid matching</del>
+<br>
+f(x)=&lt;x,(1=2) -> (0,1)
+<br>
+f(x)=&lt;x,((a=1)=((b=2)=((c=3)=(d=4)+5))),f(-1)*(a,b,c,d) -> (0,5,-1,-2,-3,-4)
     </td>
   </tr>
   <tr>

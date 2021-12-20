@@ -640,6 +640,8 @@ My_entry.operation.prototype.tree_BT2tree = function(data, tree, opt_ids){
   var _tree = null;
   var tagName = self.isType(tree, "BT");
   if(tagName){
+    /* Ver.2.102.33 -> */
+    var hasUndefVars = self.params.hasUndefVars;
     var newData = self.get_newData(data, DATA.tree2trees(tree), opt_ids);
     if(!(opt_ids)){  // get_names
       newData.scopes = null;
@@ -649,6 +651,8 @@ My_entry.operation.prototype.tree_BT2tree = function(data, tree, opt_ids){
     var obj = DATA.tag(tagName, self.get_tagVal(tree, tagName, "val"));
     self[tagName](newData, 0, tagName, obj[tagName]);
     _tree = DATA.trees2tree(newData.trees);
+    self.params.hasUndefVars = hasUndefVars;
+    /* -> Ver.2.102.33 */
   }
   return _tree;
 };
