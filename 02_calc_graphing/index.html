@@ -100,13 +100,11 @@
       $._id("Fourier").onclick = function(){setVal("-pi", "pi", "x=t,x;", "ft=<atan(tan(t)),ft;cn=<_it(=<ft*e^(-i(n)t),-pi,pi)/(2pi),FourierN=<_sn(=<cn*e^(i(n)x),-N,N),N=1,FourierN;N=3,FourierN;N=5,FourierN;N=7,FourierN;" ,10);$._id("input-z").value+="TITLE{triangle: ft=<asin(sin(t)) || square: ft=<sign(sin(t))};";};
       $._id("DFT").onclick = function(){setVal("0", "10", "n=t,n;", "n0=2,n1=4,N=max(n0,n1)*4,fn=<Kdelta(n,n0)+Kdelta(n,n1),fn;ft=<e^((i(n0)t)2pi/N)+e^((i(n1)t)2pi/N),DFT=<_st(=<ft*e^((-i(n)t)2pi/N),0,N-1)/N,DFT;", 30);};
       $._id("IDFT").onclick = function(){setVal("0", "10", "t;", "n0=2,n1=4,N=max(n0,n1)*4,ft=<e^((i(n0)t)2pi/N)+e^((i(n1)t)2pi/N),ft;fn=<Kdelta(n,n0)+Kdelta(n,n1),IDFT=<_sn(=<fn*e^((i(n)t)2pi/N),0,N-1),IDFT;", 30);};
+      $._id("probability").onclick = function(){setVal("10", "0", "N=t,N;", "Pb=3,Pn=<100combin(10,n)(Pb/100)^n((100-Pb)/100)^(10-n),n=N,Pn;PN=<_sn(=<Pn,N,10),PN;", 10);};
       $._id("SND").onclick = function(){setVal("-5", "5", "t;", "SND=<exp(-t^2/2)/sqrt(2pi),SND;", 50);};
       $._id("Px").onclick = function(){setVal("-5", "5", "x=t,x;", "SND=<exp(-t^2/2)/sqrt(2pi),Px=<_it(=<SND,-x,x),Px;Px_better=<_it(=<SND,0,x)2,Px_better;", 20);};
       $._id("erfx").onclick = function(){setVal("-5", "5", "x=t,x;", "SND=<exp(-t^2/2)/sqrt(2pi),erfx=<_it(=<SND,0,x(sqrt2))2,erfx;erfx=<_it(=<exp(-t^2),0,x)(2/sqrt(pi)),erfx;", 20);};
       $._id("erfcx").onclick = function(){setVal("-5", "5", "x=t,x;", "SND=<exp(-t^2/2)/sqrt(2pi),erfx=<_it(=<exp(-t^2),0,x)(2/sqrt(pi)),erfcx=<1-erfx,erfcx;", 20);};
-      $._id("probability").onclick = function(){setVal("10", "0", "N=t,N;", "Pb=3,Pn=<100combin(10,n)(Pb/100)^n((100-Pb)/100)^(10-n),n=N,Pn;PN=<_sn(=<Pn,N,10),PN;", 10);};
-      $._id("physics1").onclick = function(){setVal("0", "5", "g=-9.8,z_a=0+g*i,z_v0=20+20i,z_x0=0,za=z_x0+z_v0*t+z_a*t^2/2,real(za);zn=z_x0+_it(=<z_v0+_it(=<{z_a},0,t,10),0,t,10),real(zn);dt=0.5,m=1,Cd_sphere=1,x=<{z_x,z_v},x_initial=<{z_x0,z_v0},f=<{(z_x-z_x0)/dt=z_v,m*((z_v-z_v0)/dt)=m*z_a-Cd_sphere*z_v},run=<last(mdx=Newton(=<f,=<x,=<x_initial),max(norm(f),norm(mdx))),step=<last{_rn(=<run,,3),{$z_x0,$z_v0}=x},evolution=<_rn(=<step,N=round(t/dt),N),evolution,zt1=z_x0,real(zt1);", "imag(za);imag(zn);imag(zt1);", 20);$._id("input-z").value+="TITLE{considering Cd_sphere error=Order(dt)};";};
-      $._id("physics2").onclick = function(){setVal("0", "5", "g=-9.8,z_a=0+g*i,z_v0=20+20i,z_x0=0,dt=0.5,m=1,Cd_sphere_t(t)=<1,x=<{z_x,z_v},x_initial=<{z_x0,z_v0},f=<{z_v,z_a-(Cd_sphere_t(tdummy)/m)*z_v},step=<x_next=_otdummy(=<f,=<x,=<x_initial,0,dt),evolution=<_rn(=<step,N=round(t/dt),N),evolution,zt1=switch(N<=0,z_x0:1,z_x),real(zt1);T=1,Cd_sphere_t(t)=<1(1-exp(-t/T)/2),{$z_x,$z_v}=x_initial,tdummy=0,evolution,zt2=z_x,real(zt2);stepN=<last{N=round(t/dt),x_next=_otdummy(=<f,=<x,=<x_initial,0,dt,N)},{$z_x,$z_v}=x_initial,tdummy=0,stepN,zt3=z_x,real(zt3);", "imag(zt1);imag(zt2);imag(zt3);", 20);$._id("input-z").value+="TITLE{considering transition Cd_sphere_t(t/T) error=Order(dt^4)};";};
       $._id("legend1").onclick = function(){setVal("1e-3(1+i)", "1e2(1+i)", "x=t,x;", "x;2x;3x;4x;5x;6x;7x;8x;9x;10x;");$._id("input-z").value="circle:#f555/*#ff555555*/;:rgba(255,255,0,0.333333333333333)/*#ffff0055*/;:#0f05;  // markerType:markerColor:markerSize:markerLineWidth:plotLineWidth:fillPath:str:strFontSize";};
       $._id("legend2").onclick = function(){setVal("1e-3(1+i)", "1e2(1+i)", "x=t,x;", "x;2x;3x;4x;5x;6x;7x;8x;9x;10x;");$._id("input-z").value=":red:10;::5:2;:#ffff0055:10;:#ff05:::10;::::0::arbitrary string:20;";};
       $._id("legend3").onclick = function(){setVal("1e-3", "1", "x=t,x;", "pow(x,1/4);pow(x,1/2);x;x^2;x^4;x^8;", 30);$._id("input-z").value="circle:red::::1;triangle:green;triangle2:blue;square:#00ff00;diamond:#00ff0055;cross:#ff05;";};
@@ -134,6 +132,8 @@
       $._id("pDFT").onclick = function(){setVal("0", "2pi", "zt(a,b,rad)=<(sin((a)t)cos((b)t)+sin((a)t)sin((b)t)i)e^(i(rad)),zt1=zt(3,2,0),real(zt1);", "imag(zt1);", 300);$._id("input-z").value="TITLE{DFT memory size<100MB}noneFILTER{encode_rgba[6,3]:area[128,0,64,256/*(w,h<=256)*/]dft_rgba[0.05,0.05/*cutoffU,cutoffV=0~1||0*/]}GRADATION{config[0:0:0:0:0:0:false:false:25600:10]white:gray:white:gray:white:gray:white:gray:white:gray:white:gray};";};
       $._id("pDWT").onclick = function(){setVal("0", "2pi", "zt(a,b,rad)=<(sin((a)t)cos((b)t)+sin((a)t)sin((b)t)i)e^(i(rad)),zt1=zt(3,2,0),real(zt1);", "imag(zt1);", 300);$._id("input-z").value="TITLE{DWT memory size<100MB}noneFILTER{encode_rgba[6,3]:area[128,0,64,256/*(w,h<=256)*/]dwt_rgba[0.05,0.05/*cutoffU,cutoffV=0~1||0*/]}GRADATION{config[0:0:0:0:0:0:false:false:25600:10]white:gray:white:gray:white:gray:white:gray:white:gray:white:gray};";};
       $._id("MIDI").onclick = function(){setVal("0", "127", "note=t,octave=-1,note;", "frequency(octave,note)=<last{m=(octave+1)*12+note,pow(2,(m-69)/12)*440},frequency(octave,note);", 10);$._id("input-z").value="BGCOLOR{white}GDCOLOR{black}PLOTCONFIG{0.2,12,10,5}ORIGIN{2,green,17}TITLE{frequency based on scientific pitch notation}XLABEL{MIDI note number}YLABEL{frequency[Hz]}::::::note-number vs. frequency;";};
+      $._id("physics1").onclick = function(){setVal("0", "5", "g=-9.8,z_a=0+g*i,z_v0=20+20i,z_x0=0,za=z_x0+z_v0*t+z_a*t^2/2,real(za);zn=z_x0+_it(=<z_v0+_it(=<{z_a},0,t,10),0,t,10),real(zn);dt=0.5,m=1,Cd_sphere=1,x=<{z_x,z_v},x_initial=<{z_x0,z_v0},f=<{(z_x-z_x0)/dt=z_v,m*((z_v-z_v0)/dt)=m*z_a-Cd_sphere*z_v},run=<last(mdx=Newton(=<f,=<x,=<x_initial),max(norm(f),norm(mdx))),step=<last{_rn(=<run,,3),{$z_x0,$z_v0}=x},evolution=<_rn(=<step,N=round(t/dt),N),evolution,zt1=z_x0,real(zt1);", "imag(za);imag(zn);imag(zt1);", 20);$._id("input-z").value+="TITLE{considering Cd_sphere error=Order(dt)};";};
+      $._id("physics2").onclick = function(){setVal("0", "5", "g=-9.8,z_a=0+g*i,z_v0=20+20i,z_x0=0,dt=0.5,m=1,Cd_sphere_t(t)=<1,x=<{z_x,z_v},x_initial=<{z_x0,z_v0},f=<{z_v,z_a-(Cd_sphere_t(tdummy)/m)*z_v},step=<x_next=_otdummy(=<f,=<x,=<x_initial,0,dt),evolution=<_rn(=<step,N=round(t/dt),N),evolution,zt1=switch(N<=0,z_x0:1,z_x),real(zt1);T=1,Cd_sphere_t(t)=<1(1-exp(-t/T)/2),{$z_x,$z_v}=x_initial,tdummy=0,evolution,zt2=z_x,real(zt2);stepN=<last{N=round(t/dt),x_next=_otdummy(=<f,=<x,=<x_initial,0,dt,N)},{$z_x,$z_v}=x_initial,tdummy=0,stepN,zt3=z_x,real(zt3);", "imag(zt1);imag(zt2);imag(zt3);", 20);$._id("input-z").value+="TITLE{considering transition Cd_sphere_t(t/T) error=Order(dt^4)};";};
       $._id("logistic").onclick = function(){setVal("0", "10", "delVar(N),N0=1,dt=1e-2,r=2,K(t)=<1e4,c(t)=<t*0,Nd(N,tdummy)=<r*N*(1-N/K(tdummy)=>)-c(tdummy)=>*N,f=<(N-oldN)/dt=Nd(N,t0)=>,evolution=<_rn(=<last{mdx=Newton(=<f,=<{N},=<{oldN},,3),t0=t0+dt,oldN=N},Nt=round(t/dt),Nt),switch(~~hasVar(t0),=<t0=0),switch(~~hasVar(oldN),=<oldN=N0),N=N0,evolution=>,N_o1=N,Nd_o1=Nd(N_o1,t0)=>,delVar(N),N_o4=_otdummy(=<Nd,=<{N},=<{N0},Nt=round(t/dt),dt,Nt),t0=Nt*dt,Nd_o4=Nd(N_o4,t0)=>,t0;", "N_o1;N_o4;Nd_o1;Nd_o4;", 20);$._id("input-z").value+="TITLE{logistic equation}XLABEL{t}YLABEL{N}::::::N implicit Euler method error=Order(dt);::::::N explicit Runge-Kutta4 method error=Order(dt^4);::::::dN/dt implicit Euler method;::::::dN/dt explicit Runge-Kutta4 method;";};
       $._id("Lorenz").onclick = function(){setVal("0", "10", "x0=1,y0=1,z0=1,dt=1e-2,sigma=10,rho=28,beta=8/3,oldX={x0,y0,z0},x=<{x,y,z},f=<{(x=>-oldX)/dt={sigma*(y-x),x*(rho-z)-y,x*y-beta*z}},evolution=<_rn(=<last{mdx=Newton(=<f,=<x,=<{oldX},,3),oldX=x=>},N=round(t/dt),N),evolution=>,x_o1=switch(N==0,=<{oldX}:1,=<x=>),delVar(x),delVar(y),delVar(z),x1=_otdummy(=<{sigma*(y-x),x*(rho-z)-y,x*y-beta*z},=<{x,y,z},=<{x0,y0,z0},N=round(t/dt),dt,N),x_o4=x1,x_o1[0];x_o4[0];", "x_o1[1];x_o4[1];", 20);$._id("input-z").value+="TITLE{Lorenz equations}XLABEL{x}YLABEL{y}::::::implicit Euler method error=Order(dt);::::::explicit Runge-Kutta4 method error=Order(dt^4);";};
       $._id("EIS").onclick = function(){setVal("1e3", "0.01", "f=t,dI=1e-3,Nt=100,Nint=1,isImplicit=1,isBode=0,make_IV(dI,f,Nt,Nint,isImplicit)=<last{L=1e-4,R0=1,R1=2,C1=0.1,a1=1/(R1*C1),b1=1/C1,a2=0.01,b2=0.12,omega=2*pi*f,dt=1/(f*Nt),N=Nt*Nint,tI=zeros(N+1,1),tV=zeros(N+1,1),oldV1=0,oldV2=0,_sn(=<last{t=n*dt,It=dI*sin(omega*t),dIt=dI*cos(omega*t)*omega,newV1=switch(isImplicit,(oldV1+b1*dt*It)/(1+a1*dt):1,(1-a1*dt)*oldV1+b1*dt*It),newV2=switch(isImplicit,(oldV2+b2*dt*It)/(1+a2*dt):1,(1-a2*dt)*oldV2+b2*dt*It),oldV1=newV1,oldV2=newV2,Vt=L*dIt+R0*It+newV1+newV2,tI[n]=It,tV[n]=Vt},0,N)},FT_IV(IV,f,dt)=<[out=<zIV,init=<last{N=sizer(IV)},run=<last{omega=2*pi*f,calc_w(n)=<switch((n==0)|(n==N-1),1:n%2==0,2:1,4),calc_v(n,t,val)=<calc_w(n)=>*val*exp(-i*omega*t),zIV=_sn(=<calc_v(n,n*dt,IV[n])=>,0,N-1)*dt/3},init=>,run=>,return=out=>,=<return]=>,calc_Z(zI,zV)=<[out=<Z,init=<last{0},run=<last{Z=zV/zI},init=>,run=>,return=out=>,=<return]=>,make_IV(dI,f,Nt,Nint,isImplicit)==>,Z=calc_Z(FT_IV(=<tI,f,dt)=>,FT_IV(=<tV,f,dt)=>)=>,switch(isBode==0,real(Z):1,log10(f));", "switch(isBode==0,-imag(Z):isBode>0,abs(Z):1,deg_atan2(imag(Z),real(Z)));", 20, true);$._id("input-z").value+="TITLE{EIS-simulation L-R0-R1C1(a1,b1)-W(a2,b2) error=Order(dt)}XLABEL{real(Z)}YLABEL{-imag(Z)}::::::Nyquist plot;";};
@@ -265,15 +265,12 @@ plot2d
 <br>
   <button id="DFT">DFT</button>
   <button id="IDFT">IDFT</button>
+  <button id="probability">probability</button>
 <br>
   <button id="SND">SND</button>
   <button id="Px">P(x)</button>
   <button id="erfx">erf(x)</button>
   <button id="erfcx">erfc(x)</button>
-<br>
-  <button id="probability">probability</button>
-  <button id="physics1">physics</button>
-  <button id="physics2">-ODE</button>
 <br>
   <button id="legend1">legend1</button>
   <button id="legend2">legend2</button>
@@ -309,11 +306,13 @@ plot2d
   <button id="pDWT">p-DWT</button>
   <button id="MIDI">MIDI</button>
 <br>
+  <button id="physics1">physics</button>
+  <button id="physics2">-ODE</button>
   <button id="logistic">logistic</button>
   <button id="Lorenz">Lorenz</button>
+<br>
   <button id="EIS">EIS</button>
   <button id="IV">-IV</button>
-<br>
   <button id="heat0d">heat0d</button>
   <button id="heat1d">heat1d</button>
 <hr>
