@@ -20454,7 +20454,7 @@ modelling
 <br>
 ・<span class="run">Ver.2.95.32</span>以降、<span class="clear">albedoと独立に定義する</span><span class="selection">対流圏の吸収率=1-成層圏への透過率</span>を追加考慮
 <br>
-・<span class="run">Ver.2.96.32</span>以降、<del>大気の吸収率</del><span class="selection">対流圏の吸収率</span>の定義文を追記
+・<span class="run">Ver.2.96.32</span>以降、<del><span class="jF">大気の吸収率</span></del><span class="selection">対流圏の吸収率</span>の定義文を追記
 <br>
 ・<span class="run">Ver.2.96.32</span>以降、<span class="clear">擬似的な熱伝達係数</span>の定義文を訂正
 <br>
@@ -20549,7 +20549,7 @@ modelling
 <br>
 　太陽放射の直接反射率<span class="clear">基準値</span>albedo0=0.3
 <br>
-　<span class="condition">大気の吸収率半値幅absorbh=0.3859311811416972</span>
+　<span class="condition"><span class="jF">大気の吸収率</span>半値幅absorbh=0.3859311811416972</span>
 <br>
 　<span class="condition">対流圏の吸収率<span class="clear">基準値</span>absorb0=0.6284819702443666</span>
 <br>
@@ -20753,7 +20753,7 @@ We0=A0*(e0*sigma*T0K**4); We0 -> 199840601786823800
 <br>
 W0=S1*I0; W0 -> 175308403284524770
 <br>
-・<span class="condition">大気の吸収率半値幅</span>
+・<span class="condition"><span class="jF">大気の吸収率</span>半値幅</span>
 <br>
 We0*(1-absorbh)=W0*(1-albedo0) ->
 <br>
@@ -20769,7 +20769,7 @@ We0*absorbh=W0*(1-albedo0)<span class="selection">*absorb0</span> ->
 <br>
 <span class="condition">absorb0max=We0*absorbhmax/(W0*(1-albedo0)); absorb0max -> 0.8142409851221832</span>
 <br>
-・<span class="condition">大気の吸収率半値幅への換算係数</span>
+・<span class="condition"><span class="jF">大気の吸収率</span>半値幅への換算係数</span>
 <br>
 kh0 -> 0.6140688188583029
 <br>
@@ -21386,6 +21386,8 @@ simulation
 ・<span class="run">Ver.2.97.32</span>以降、<span class="condition">地球表面の熱伝達係数alpha0</span>を追加考慮（<span class="condition">最悪想定の場合、alpha0=0</span>）
 <br>
 ・<span class="run">Ver.2.97.32</span>以降、<span class="condition">対流圏の吸収率<span class="clear">基準値</span></span>を黒体放射温度から一意に決定して範囲を修正
+<br>
+・<span class="run">Ver.2.102.32</span>以降、<span class="jF">大気の吸収率</span>について補足を追記
 <hr>
 放射強制力の増加量＜<span class="clear">基準値</span>の約2%=<span class="condition">3.007~3.896</span>[W/m^2]
 <br>
@@ -21465,33 +21467,33 @@ albedoの低下量＜<span class="clear">基準値</span>の約5%=0.015
 <br>
 <a href="#span-eqn-heat0d_evolution">heat0d_evolution</a>[1](s_1day*365,s_1day,<span class="condition">0,</span>1,1,1.03)=&gt; -> 2.1435836860307056
 <hr>
-<span class="run">Ver.2.102.32</span>以降、大気の吸収率について補足を列挙する
+<span class="run">Ver.2.102.32</span>以降、<span class="jF">大気の吸収率</span>について補足を列挙する
 <br>
-・大気の吸収率<span class="clear">基準値</span>a0
+・<span class="jF">大気の吸収率</span><span class="clear">基準値</span>a0
 <br>
 a0=absorbh*2; a0 -> 0.7718623622833944
 <br>
-・大気の吸収率上限値amax
+・<span class="jF">大気の吸収率</span>上限値amax
 <br>
 amax=absorbhmax*2; amax -> 1
 <br>
 ・対流圏の吸収率から次の必要条件が得られる
 <br>
-<span class="selection">大気の吸収率の増加量＜<span class="clear">基準値</span>の約2.5%=0.01896~0.02456</span>
+<span class="selection"><span class="jF">大気の吸収率</span>の増加量＜<span class="clear">基準値</span>の約2.5%=0.01896~0.02456</span>
 <br>
 (kh0*2)*2 -> 2.4562752754332116[%]
 <br>
-・大気の吸収率aを考慮して地球表面の黒体放射温度の理論値を<a href="#span-out-eqns">式変数</a>Te_thで定義する
+・<span class="jF">大気の吸収率</span>aを考慮して地球表面の黒体放射温度の理論値を<a href="#span-out-eqns">式変数</a>Te_thで定義する
 <br>
 Te_th(a)=&lt;(I0*(1-albedo0)/(2*(2-a)*e0*sigma))**0.25-TK;
 <br>
-・大気の吸収率<span class="clear">基準値</span>における黒体放射温度の理論値Te_th0を示す
+・<span class="jF">大気の吸収率</span><span class="clear">基準値</span>における黒体放射温度の理論値Te_th0を示す
 <br>
 Te_th0=Te_th(a0)=&gt;; Te_th0 -> 14.751843195026424[℃]
 <br>
-・理論値から次の必要条件（緩和側）が得られる
+・理論値から次の必要条件（上記の緩和側）が得られる
 <br>
-大気の吸収率の増加量理論値＜<span class="clear">基準値</span>の約3.3%=0.02526
+<span class="jF">大気の吸収率</span>の増加量理論値＜<span class="clear">基準値</span>の約3.3%=0.02526
 <br>
 Te_th(a0+0.01)=&gt;-Te_th0 -> 0.5890544664107438
 <br>
