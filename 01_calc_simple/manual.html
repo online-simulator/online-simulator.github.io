@@ -20670,6 +20670,10 @@ We0=A0*(e0*sigma*T0K**4);
 <br>
 <span class="condition">kh0=(absorbhmax-absorbh)/(absorb0max-absorb0);</span>
 <br>
+Te_th(a)=&lt;(I0*(1-albedo0)/(2*(2-a)*e0*sigma))**0.25-TK;
+<br>
+Te_th0=Te_th(absorbh*2)=&gt;;
+<br>
 Wea=We0*absorbh;
 <br>
 Wet=We0*(1-absorbh);
@@ -20716,9 +20720,9 @@ W0e=W0*(1-albedo)<span class="selection">*absorb</span>;
 <br>
 (Wea-W0e);
 <br>
-(W0t+W0e=Wet);
+(W0t+W0e-Wet);
 <br>
-(W0a+W0t+W0e=W0);
+(W0a+W0t+W0e-W0);
 <br>
 (W1+W0e+W2);
 <br>
@@ -21445,6 +21449,46 @@ albedoの低下量＜<span class="clear">基準値</span>の約5%=0.015
 <a href="#span-eqn-heat0d_evolution">heat0d_evolution</a>[1](s_1day*365,s_1day,<span class="condition">0,</span>1,1,1.02)=&gt; -> 1.42905579068713+O(4e-15)
 <br>
 <a href="#span-eqn-heat0d_evolution">heat0d_evolution</a>[1](s_1day*365,s_1day,<span class="condition">0,</span>1,1,1.03)=&gt; -> 2.1435836860307056
+<hr>
+<span class="run">Ver.2.102.32</span>以降、大気の吸収率について補足を列挙する
+<br>
+・大気の吸収率<span class="clear">基準値</span>a0
+<br>
+a0=absorbh*2; a0 -> 0.7718623622833944
+<br>
+・大気の吸収率上限値amax
+<br>
+amax=absorbhmax*2; amax -> 1
+<br>
+・対流圏の吸収率から次の必要条件が得られる
+<br>
+<span class="selection">大気の吸収率の増加量＜<span class="clear">基準値</span>の約2.5%=0.01896~0.02456</span>
+<br>
+(kh0*2)*2 -> 2.4562752754332116[%]
+<br>
+・大気を考慮して地球表面の黒体放射温度の理論値を<a href="#span-out-eqns">式変数</a>Te_thで定義する
+<br>
+Te_th(a)=&lt;(I0*(1-albedo0)/(2*(2-a)*e0*sigma))**0.25-TK;
+<br>
+・大気の吸収率<span class="clear">基準値</span>における黒体放射温度の理論値Te_th0を示す
+<br>
+Te_th0=Te_th(a0)=&gt;; Te_th0 -> 14.751843195026424[℃]
+<br>
+・理論値から次の必要条件（緩和側）が得られる
+<br>
+大気の吸収率の増加量理論値＜<span class="clear">基準値</span>の約3.3%=0.02526
+<br>
+Te_th(a0+0.01)=&gt;-Te_th0 -> 0.5890544664107438
+<br>
+Te_th(a0+0.02)=&gt;-Te_th0 -> 1.1841847856840104
+<br>
+Te_th(a0+0.03)=&gt;-Te_th0 -> 1.7855047027240971
+<br>
+Te_th(a0+0.025264986)=&gt;-Te_th0 -> 1.500000016245508
+<br>
+・百分率に換算
+<br>
+(0.025264986/a0)*100 -> 3.2732501589090033[%]
 <hr>
 ※<span class="clear">以上の条件はほぼ等価で<span class="clear">基準値</span>に応じて右辺の絶対量は変化する</span>
 <br>
@@ -29415,6 +29459,10 @@ absorb0max=We0*absorbhmax/(W0*(1-albedo0)),
 <br>
 kh0=(absorbhmax-absorbh)/(absorb0max-absorb0),
 <br>
+Te_th(a)=&lt;(I0*(1-albedo0)/(2*(2-a)*e0*sigma))**0.25-TK,
+<br>
+Te_th0=Te_th(absorbh*2)=&gt;,
+<br>
 Wea=We0*absorbh,
 <br>
 Wet=We0*(1-absorbh),
@@ -29461,9 +29509,9 @@ W0e=W0*(1-albedo)*absorb,
 <br>
 (Wea-W0e),
 <br>
-(W0t+W0e=Wet),
+(W0t+W0e-Wet),
 <br>
-(W0a+W0t+W0e=W0),
+(W0a+W0t+W0e-W0),
 <br>
 (W1+W0e+W2),
 <br>
@@ -29579,6 +29627,10 @@ absorb0max=We0*absorbhmax/(W0*(1-albedo0)),
 <br>
 kh0=(absorbhmax-absorbh)/(absorb0max-absorb0),
 <br>
+Te_th(a)=&lt;(I0*(1-albedo0)/(2*(2-a)*e0*sigma))**0.25-TK,
+<br>
+Te_th0=Te_th(absorbh*2)=&gt;,
+<br>
 Wea=We0*absorbh,
 <br>
 Wet=We0*(1-absorbh),
@@ -29625,9 +29677,9 @@ W0e=W0*(1-albedo)*absorb,
 <br>
 (Wea-W0e),
 <br>
-(W0t+W0e=Wet),
+(W0t+W0e-Wet),
 <br>
-(W0a+W0t+W0e=W0),
+(W0a+W0t+W0e-W0),
 <br>
 (W1+W0e+W2),
 <br>
