@@ -1,7 +1,7 @@
 clear
 local storage cleared
 
-f(x)=<x,((a=1)=((b=2)=((c=3)=(d=4)+5))),f(-1)*(a,b,c,d)
+f(x)=<x,((a=<1)=((b=<2)=((c=3)=(d=4)+5))),f(-1)*(a,b,c,d)
 (
 0,5,-1,-2,-3,-4
 )
@@ -447,4 +447,4 @@ drag=false&sw=false&0x=false&useComplex=true&useMatrix=true&isRightAssociativity
 --------------------------------
 --------------------------------
 
-online-simulator.github.io.4.102.40.12.29 @ Mon Dec 20 2021 19:52:45 GMT+0900 (日本標準時) @ Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/96.0.4664.110 Safari/537.36
+online-simulator.github.io.4.102.40.12.29 @ Mon Dec 20 2021 20:17:46 GMT+0900 (日本標準時) @ Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/96.0.4664.110 Safari/537.36
