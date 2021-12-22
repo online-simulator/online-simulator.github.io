@@ -271,6 +271,16 @@ filter特定項目仕様
 </a>
 <br>
 　　　　・
+<a href="#span-out-UI-graphing-filter-weight">
+加重平均
+</a>
+<br>
+　　　　・
+<a href="#span-out-UI-graphing-filter-edge">
+edge抽出
+</a>
+<br>
+　　　　・
 <a href="#span-out-UI-graphing-filter-average">
 averageぼかし
 </a>
@@ -1419,6 +1429,10 @@ developer.mozilla.org/ja/docs/項目を列挙する
 <br>
 <br>
 en.m.wikipedia.org/wiki/項目を列挙する
+<br>
+・Deep_learning
+<br>
+・Lidar
 <br>
 ・Paris_Agreement
 <br>
@@ -3187,6 +3201,96 @@ filterは上下左右対称(2n-1)x(2n-1)sizeの2次元配列を1次元に直列�
 　⇒　HSV->RGB非線形逆変換　⇒　RGBA-<a href="#span-out-UI-graphing-color-space">color空間</a>でfiltering　⇒　処理結果を出力
 <br>
 <br>
+<span class="clear">Ver.2.44.23</span>以降、irregular入力に対応
+<br>
+r || rr || rrr || r[] || []r || [0]r || [string]r -> r[0]
+<br>
+[1]rgb || r[1]gb || rg[1]b -> rgb[1]
+<br>
+r[1]g[2]b || g[1]r[2]b || b[1]g[2]r -> rgb[1]
+<br>
+[]r[1]g[2]b || [0]r[1]g[2]b -> rgb[0]
+<br>
+[0xa]r[1]g[2]b[3] -> rgb[10]
+<br>
+<br>
+<span class="run">Ver.2.46.24</span>以降、HSV-<a href="#span-out-UI-graphing-color-space">color空間</a>に対応
+<br>
+・円柱model
+<br>
+rgba[1]hsv || hsv[1]:rgba[1] -> hsvrgba[1]
+<br>
+・円錐model
+<br>
+hsv_cone[1]:rgba[1] -> hsvrgba_cone[1]
+<br>
+・HSV-<a href="#span-out-UI-graphing-color-space">color空間</a>よりRGBA-<a href="#span-out-UI-graphing-color-space">color空間</a>を優先する場合
+<br>
+rgba[1]:hsv[1]
+<br>
+<br>
+<span class="run">Ver.2.52.25</span>以降、filterを適用する<span class="condition">canvas-area</span>の設定項目を追加
+<br>
+・<span class="condition">canvas-area</span>は始点(x,y)とarea-size(w,h)を直列化してpx数値で指定する
+<br>
+area[x||0,y||0,w||<a href="#span-out-UI-graphing-config">canvas-width</a>,h||<a href="#span-out-UI-graphing-config">canvas-height</a>]
+<br>
+・始点(x,y)=(10,20)・area-size(w,h)=(30,40)　⇒　終点(x,y)=(10+30-1,20+40-1)
+<br>
+area[10,20,30,40]
+<br>
+<br>
+留意事項を列挙する
+<br>
+・svg出力は無効
+<br>
+・putImageData()同期出力のため、<a href="#span-out-UI-graphing-post1">canvas-globalCompositeOperation</a>無効（source-over）
+<br>
+・filter sizeに応じて<a href="#span-out-UI-graphing-post">post処理</a>の負荷がexponentialに増大する（中断不可）
+<br>
+・<a href="#span-out-UI-graphing-filter-weight">加重平均filter</a>は重みを<a href="#span-out-FNm-normalize">正規化</a>するが、<a href="#span-out-UI-graphing-filter-edge">edge抽出filter</a>は<a href="#span-out-FNm-normalize">正規化</a>しない（白黒飛びを許容）
+<br>
+・ImageDataが欠落する描画canvas境界は<a href="#span-out-UI-graphing-filter-weight">加重平均filter</a>として扱う（意図とは異なる可能性）
+<br>
+・<a href="#span-out-UI-graphing-config">canvas-background</a>にtransparent選択の場合、背景色は<a href="#span-out-UI-graphing-color">透明黒色</a>とする
+<br>
+・<span class="clear">Ver.2.44.23</span>以降、filter配列要素に数値以外を指定した場合、該当の重み=0とする
+<br>
+<br>
+<span class="run">Ver.2.103.33</span>以降、応用例を列挙する
+<br>
+・3D-LiDAR等のhard技術を代替||補完する物体検出algorithmの検討
+<br>
+・拡張機能を含むfilterは深層学習の<a href="#span-out-UI-graphing-filter-weight">重み関数</a>||<a href="#span-out-UI-graphing-filter-tone-curve">bias項||活性化関数</a>に相当
+<br>
+・robust性を向上する場合、以下の階層を想定して多段階にfilterを適用（順不同）
+<br>
+　Low-Pass-Filterによるnoise除去（<a href="#span-out-UI-graphing-filter-average">averageぼかし</a>||<a href="#span-out-UI-graphing-post-compressor">DFT||DWT</a>）
+<br>
+　時間帯等による環境光の補正（非線形な<a href="#span-out-UI-graphing-filter-tone-curve">gamma補正||tone-curve調整</a>）
+<br>
+　物体検出空間への変換（線形||非線形な<a href="#span-out-UI-graphing-color-space">color空間</a>の変換）
+<br>
+　sharpness（<a href="#span-out-UI-graphing-filter-weight">加重平均</a>）
+<br>
+　輪郭抽出（<a href="#span-out-UI-graphing-filter-edge">edge抽出</a>）
+<br>
+　3D-特徴点抽出（陰影処理）
+    </td>
+  </tr>
+  <tr>
+    <th>
+<a href="#span-index">
+目次
+</a>
+<br>
+加重平均
+    </th>
+    <td>
+<span id="span-out-UI-graphing-filter-weight"></span>
+加重平均filterについて記述する
+<br>
+<br>
 加重平均filterの一例を示す
 <br>
 ・RGBA値Gaussian3x3（<a href="#span-out-UI-graphing-filter-Gaussian">簡易なGaussぼかし</a>）
@@ -3302,6 +3406,19 @@ rgb[-1,-1,-1,-1,<span class="selection">9</span>,-1,-1,-1,-1]
 -1,-1,-1
 <br>
 ]
+    </td>
+  </tr>
+  <tr>
+    <th>
+<a href="#span-index">
+目次
+</a>
+<br>
+edge抽出
+    </th>
+    <td>
+<span id="span-out-UI-graphing-filter-edge"></span>
+edge抽出filterについて記述する
 <br>
 <br>
 edge抽出filter（重みの総和=0）の一例を示す
@@ -3397,62 +3514,6 @@ b[<span class="selection">0</span>]
 ・S値zero化1x1（monotone化）
 <br>
 s[<span class="selection">0</span>] || s_cone[<span class="selection">0</span>]
-<br>
-<br>
-<span class="clear">Ver.2.44.23</span>以降、irregular入力に対応
-<br>
-r || rr || rrr || r[] || []r || [0]r || [string]r -> r[0]
-<br>
-[1]rgb || r[1]gb || rg[1]b -> rgb[1]
-<br>
-r[1]g[2]b || g[1]r[2]b || b[1]g[2]r -> rgb[1]
-<br>
-[]r[1]g[2]b || [0]r[1]g[2]b -> rgb[0]
-<br>
-[0xa]r[1]g[2]b[3] -> rgb[10]
-<br>
-<br>
-<span class="run">Ver.2.46.24</span>以降、HSV-<a href="#span-out-UI-graphing-color-space">color空間</a>に対応
-<br>
-・円柱model
-<br>
-rgba[1]hsv || hsv[1]:rgba[1] -> hsvrgba[1]
-<br>
-・円錐model
-<br>
-hsv_cone[1]:rgba[1] -> hsvrgba_cone[1]
-<br>
-・HSV-<a href="#span-out-UI-graphing-color-space">color空間</a>よりRGBA-<a href="#span-out-UI-graphing-color-space">color空間</a>を優先する場合
-<br>
-rgba[1]:hsv[1]
-<br>
-<br>
-<span class="run">Ver.2.52.25</span>以降、filterを適用する<span class="condition">canvas-area</span>の設定項目を追加
-<br>
-・<span class="condition">canvas-area</span>は始点(x,y)とarea-size(w,h)を直列化してpx数値で指定する
-<br>
-area[x||0,y||0,w||<a href="#span-out-UI-graphing-config">canvas-width</a>,h||<a href="#span-out-UI-graphing-config">canvas-height</a>]
-<br>
-・始点(x,y)=(10,20)・area-size(w,h)=(30,40)　⇒　終点(x,y)=(10+30-1,20+40-1)
-<br>
-area[10,20,30,40]
-<br>
-<br>
-留意事項を列挙する
-<br>
-・svg出力は無効
-<br>
-・putImageData()同期出力のため、<a href="#span-out-UI-graphing-post1">canvas-globalCompositeOperation</a>無効（source-over）
-<br>
-・filter sizeに応じて<a href="#span-out-UI-graphing-post">post処理</a>の負荷がexponentialに増大する（中断不可）
-<br>
-・加重平均filterは重みを<a href="#span-out-FNm-normalize">正規化</a>するが、edge抽出filterは<a href="#span-out-FNm-normalize">正規化</a>しない（白黒飛びを許容）
-<br>
-・ImageDataが欠落する描画canvas境界は加重平均filterとして扱う（意図とは異なる可能性）
-<br>
-・<a href="#span-out-UI-graphing-config">canvas-background</a>にtransparent選択の場合、背景色は<a href="#span-out-UI-graphing-color">透明黒色</a>とする
-<br>
-・<span class="clear">Ver.2.44.23</span>以降、filter配列要素に数値以外を指定した場合、該当の重み=0とする
     </td>
   </tr>
   <tr>
@@ -7544,6 +7605,10 @@ post最終処理順と付随する留意事項について記述する
 <br>
 <br>
 <a href="#span-out-UI-graphing-filter">filter</a>を代用する項目を列挙する
+<br>
+・<a href="#span-out-UI-graphing-filter-weight">加重平均</a>
+<br>
+・<a href="#span-out-UI-graphing-filter-edge">edge抽出</a>
 <br>
 ・<a href="#span-out-UI-graphing-filter-average">averageぼかし</a>
 <br>
