@@ -426,24 +426,24 @@ stored_eqn(DFT1d)
 clear
 local storage cleared
 
-[cond_error=(hasVar(tdummy)==0)&hasVar(z_x),proc=<[args=(1,0.5,0,20+20i,1,1),=<ODE_RK4(args)=>]=>,=<switch(cond_error==0,=<proc:1,-999)]=>
+[cond_error=(hasVar(tdummy)==0)&hasVar(z_x),proc=<[args=(1,0.5,0,20+20i,0,1,1),=<ODE_RK4(args)=>]=>,=<switch(cond_error==0,=<proc:1,-999)]=>
 (
 1:
 12.636583116319443+9.028508843315972i+O(6e-2):
 7.363416883680557+1.171491156684028i+O(6e-2)
 )
 
-ODE_RK4(t,dt,z_x00,z_v00,m,Cd_sphere)=<[out=<{tdummy,x=>},scope2storage=<last{addVar(z_x),addVar(z_v),addVar(tdummy)},init=<last{switch(hasVar(tdummy)==0,=<last{z_x0=z_x00,z_v0=z_v00}),g=-9.8,z_a=0+g*i,x=<{z_x,z_v},x_initial=<{z_x0,z_v0},f=<{z_v,z_a-(Cd_sphere/m)*z_v}},run=<last{stepN=<last{N=round(t/dt),x_next=_otdummy(=<f,=<x,=<x_initial,0,dt,N)},evolution=<stepN=>,evolution=>},init=>,run=>,return=out=>,scope2storage=>,=<return]=>
+ODE_RK4(t,dt,z_x00,z_v00,z_u,m,Cd_sphere)=<[out=<{tdummy,x=>},scope2storage=<last{addVar(z_x),addVar(z_v),addVar(tdummy)},init=<last{switch(hasVar(tdummy)==0,=<last{z_x0=z_x00,z_v0=z_v00}),g=-9.8,z_a=0+g*i,x=<{z_x,z_v},x_initial=<{z_x0,z_v0},f=<{z_v,z_a+(Cd_sphere/m)*(z_u-z_v)}},run=<last{stepN=<last{N=round(t/dt),x_next=_otdummy(=<f,=<x,=<x_initial,0,dt,N)},evolution=<stepN=>,evolution=>},init=>,run=>,return=out=>,scope2storage=>,=<return]=>
 stored_eqn(ODE_RK4)
 
-[cond_error=(hasVar(t_total)==0)&hasVar(z_x0),proc=<[args=(1,0.5,0,20+20i,1,1),=<Euler_method(args,1)=>]=>,=<switch(cond_error==0,=<proc:1,-999)]=>
+[cond_error=(hasVar(t_total)==0)&hasVar(z_x0),proc=<[args=(1,0.5,0,20+20i,0,1,1),=<Euler_method(args,1)=>]=>,=<switch(cond_error==0,=<proc:1,-999)]=>
 (
 1:
 11.11111111111111+6.755555555555555i+O(2e-4+2e-4i):
 8.88888888888889+3.4444444444444438i+O(5e-5+2e-5i)
 )
 
-Euler_method(t,dt,z_x00,z_v00,m,Cd_sphere,isImplicit)=<[out=<{t_total,x=>},scope2storage=<last{addVar(z_x0),addVar(z_v0),addVar(t_total)},init=<last{switch(hasVar(t_total)==0,=<last{t_total=0,z_x0=z_x00,z_v0=z_v00}),g=-9.8,z_a=0+g*i,x=<{z_x,z_v},x_initial=<{z_x0,z_v0},switch(isImplicit,=<f=<{(z_x-z_x0)/dt=z_v,m*((z_v-z_v0)/dt)=m*z_a-Cd_sphere*z_v}:1,=<f=<{(z_x-z_x0)/dt=z_v0,m*((z_v-z_v0)/dt)=m*z_a-Cd_sphere*z_v0}),orderT=1,epsN=max(eps*1e3,pow(dt,orderT)),isRelative_epsN=1,relative_epsN=(epsN,isRelative_epsN)},run=<last{args_Newton=(=<f,=<x,=<x_initial,Nmax=20,Nmax,relative_epsN),step_iteration=<mdx=Newton(args_Newton),step_post=<{$z_x0,$z_v0}=x=>,step=<last{step_iteration=>,step_post=>},evolution=<_rn(=<step,N=round(t/dt),N),evolution=>,t_total=t_total+N*dt},init=>,run=>,return=out=>,scope2storage=>,=<return]=>
+Euler_method(t,dt,z_x00,z_v00,z_u,m,Cd_sphere,isImplicit)=<[out=<{t_total,x=>},scope2storage=<last{addVar(z_x0),addVar(z_v0),addVar(t_total)},init=<last{switch(hasVar(t_total)==0,=<last{t_total=0,z_x0=z_x00,z_v0=z_v00}),g=-9.8,z_a=0+g*i,x=<{z_x,z_v},x_initial=<{z_x0,z_v0},switch(isImplicit,=<f=<{(z_x-z_x0)/dt=z_v,m*((z_v-z_v0)/dt)=m*z_a+Cd_sphere*(z_u-z_v)}:1,=<f=<{(z_x-z_x0)/dt=z_v0,m*((z_v-z_v0)/dt)=m*z_a+Cd_sphere*(z_u-z_v0)}),orderT=1,epsN=max(eps*1e3,pow(dt,orderT)),isRelative_epsN=1,relative_epsN=(epsN,isRelative_epsN)},run=<last{args_Newton=(=<f,=<x,=<x_initial,Nmax=20,Nmax,relative_epsN),step_iteration=<mdx=Newton(args_Newton),step_post=<{$z_x0,$z_v0}=x=>,step=<last{step_iteration=>,step_post=>},evolution=<_rn(=<step,N=round(t/dt),N),evolution=>,t_total=t_total+N*dt},init=>,run=>,return=out=>,scope2storage=>,=<return]=>
 stored_eqn(Euler_method)
 
 [f=<{x0^i-2*x1=3i,3*x0+exp(x1)=5i},=<solvex_non_linear(=<f,=<{1+i,1-i})=>]=>
@@ -699,4 +699,4 @@ drag=false&test-case=false&legend=true&axis-t=false&axis-x=true&log-x=false&imag
 --------------------------------
 --------------------------------
 
-online-simulator.github.io.4.102.40.12.29 @ Mon Dec 20 2021 19:53:18 GMT+0900 (日本標準時) @ Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/96.0.4664.110 Safari/537.36
+online-simulator.github.io.4.102.42.12.29 @ Wed Dec 22 2021 20:08:25 GMT+0900 (日本標準時) @ Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/96.0.4664.110 Safari/537.36
