@@ -23,3 +23,6 @@ table, td, th{
   max-width: 64px;
   width: 100%;
 }
+.input-box{
+  max-width: 100px;
+}

@@ -208,19 +208,70 @@ My_entry.calc_graphing.prototype.output_msgError_plot = function(e){
   return self;
 };
 /* Ver.2.17.6 -> */
-My_entry.calc_graphing.prototype.plot = function(arr_data, options_plot, isFinal){
+My_entry.calc_graphing.prototype.plot = function(arr_data_, options_plot, isFinal){
   var self = this;
+  var $ = self.entry.$;
+  var DATA = self.entry.DATA;
   var _svg = "";
   var toSVG = (isFinal === "SVG");
+  var arr_data = arr_data_;
   if(arr_data && arr_data.length){
-    arr_data.forEach(function(data){
-      /* Ver.2.25.12 -> */
+    /* Ver.2.105.33 -> */
+    var name_x = $._id("input-vx").value;
+    var name_y = $._id("input-vy").value;
+    var hasName = (name_x && name_y);
+    if(options_plot["axis-v"] && hasName){
+      var _arr_data = [];
+      var len_n = arr_data.length;
+      var data0 = arr_data[0];
+      var x = data0.vars[name_x];
+      var y = data0.vars[name_y];
+      if(x && y){
+        var arr_x = x.mat.arr;
+        var arr_y = y.mat.arr;
+        var len_x = arr_x.length;
+        var len_y = arr_y.length;
+        if(len_x === len_y){
+          for(var j=0; j<len_y; ++j){
+            if(!(_arr_data[j])){
+              _arr_data[j] = {arr_num: [], len_x: 1, len_y: len_n};
+            }
+            var arr_numj = _arr_data[j].arr_num;
+            for(var n=0; n<len_n; ++n){
+              var datan = arr_data[n];
+              var x = datan.vars[name_x];
+              var y = datan.vars[name_y];
+              var arr_x = x.mat.arr;
+              var arr_y = y.mat.arr;
+              var len_x = arr_x.length;
+              var len_y = arr_y.length;
+              if(arr_numj.length === 0){
+                arr_numj.push(DATA.arr2obj_i(arr_x, j));
+              }
+              arr_numj.push(DATA.arr2obj_i(arr_y, j));
+            }
+          }
+          arr_data = _arr_data;
+        }
+        else{
+          throw "Invalid v.length("+len_x+"<>"+len_y+")";
+        }
+      }
+      else{
+        throw "Undef v.name("+((x)? name_y: name_x)+")";
+      }
+    }
+    else{
+      arr_data.forEach(function(data){
+        /* Ver.2.25.12 -> */
 /*
-      data.arr_num = self.entry.parser.make_arr_num(data);
+        data.arr_num = self.entry.parser.make_arr_num(data);
 */
-      data.arr_num = data.arr_num || self.entry.parser.make_arr_num(data);
-      /* -> Ver.2.25.12 */
-    });
+        data.arr_num = data.arr_num || self.entry.parser.make_arr_num(data);
+        /* -> Ver.2.25.12 */
+      });
+    }
+    /* -> Ver.2.105.33 */
     var arr2d_vec = self.arr_data2arr2d_vec(arr_data, options_plot);
     if(self.plot2d.isChanged){
       self.input_axis(arr2d_vec);
@@ -1017,6 +1068,12 @@ My_entry.calc_graphing.prototype.init_handlers = function(){
       case "checkbox-axis-x":
       case "checkbox-axis-y":
       case "checkbox-axis-z":
+      /* Ver.2.105.33 -> */
+      case "checkbox-axis-v":
+      case "input-vx":
+      case "input-vy":
+      case "input-vz":
+      /* -> Ver.2.105.33 */
         self.isCheckedError = false;  // Ver.2.33.17
         self.re_plot(true);
         break;
