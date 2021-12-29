@@ -331,6 +331,11 @@ cut特定項目仕様
 </a>
 <br>
 　　・
+<a href="#span-out-UI-graphing-v">
+v入力仕様
+</a>
+<br>
+　　・
 <a href="#span-out-UI-graphing-layer">
 layer描画順
 </a>
@@ -1866,6 +1871,9 @@ panel上段について記述する
 <br>
 <br>
 <span class="clear">Ver.2.40.20</span>以降、plot2d isNaN||isInfのerror終了時、描画resetから描画lockに変更
+<br>
+<br>
+<span class="run">Ver.2.105.33</span>以降、<a href="#span-out-UI-graphing-v">v入力仕様</a>を追加
 <br>
 <br>
 panel中段について記述する
@@ -7391,6 +7399,38 @@ cut{Nlegend||last,withTransform||false}
 <br>
 　svg出力の場合、<a href="#span-out-UI-graphing-transform">withBackground</a>=1のみ有効
     </td>
+  </tr>
+  <tr>
+    <th>
+<a href="#span-index">
+目次
+</a>
+<br>
+v入力仕様
+    </th>
+    <td>
+<span id="span-out-UI-graphing-v"></span>
+v入力仕様と付随する留意事項について記述する
+<br>
+<br>
+<span class="run">Ver.2.105.33</span>以降、<a href="#span-out-UI-graphing-z">z入力欄</a>の直下に追加
+<br>
+<br>
+v入力仕様について記述する
+<br>
+・v-checkboxはv入力を選択
+<br>
+・vx入力欄に横軸x(t)の<a href="#span-out-vars-symbol">変数名symbol</a>（列vector）を入力
+<br>
+・vy入力欄に縦軸y(t)の<a href="#span-out-vars-symbol">変数名symbol</a>（列vector）を入力
+<br>
+・vz入力欄にplot座標(x,y)におけるz(t)の<a href="#span-out-vars-symbol">変数名symbol</a>（scalar||行vector）を入力
+<br>
+<br>
+留意事項を列挙する
+<br>
+・csv出力未対応
+   </td>
   </tr>
   <tr>
     <th>
