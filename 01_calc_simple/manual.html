@@ -19786,6 +19786,76 @@ ns(10000) -> 97876.06036044357
 ・以上より、自然数n=D-1を定義すると、Fermatの最終定理から次のanalogyが成立する
 <br>
 　4次元以上の場合、任意2段の区間(x,z)に対してy^n=z^n-x^nを満たす階段yは存在しない
+<br>
+・n=1の場合、階段yが常に見つかる
+<br>
+zn(z)=&lt;z**n;
+<br>
+yn(z,dz)=&lt;zn(z)-zn(z-dz);
+<br>
+zn(z) yn(z,dz)
+<br>
+1
+<br>
+2 <span class="selection">1</span>
+<br>
+3 <span class="selection">1 2</span>
+<br>
+4 <span class="selection">1 2 3</span>
+<br>
+5 <span class="selection">1 2 3 4</span>
+<br>
+6 <span class="selection">1 2 3 4 5</span>
+<br>
+7 <span class="selection">1 2 3 4 5 6</span>
+<br>
+8 <span class="selection">1 2 3 4 5 6 7</span>
+<br>
+9 <span class="selection">1 2 3 4 5 6 7 8</span>
+<br>
+・n=2の場合、階段yが稀に見つかる
+<br>
+zn(z) yn(z,dz)
+<br>
+1
+<br>
+4 3
+<br>
+9 5 8
+<br>
+16 7 12 15
+<br>
+25 <span class="selection">9 16</span> 21 24
+<br>
+36 11 20 27 32 35
+<br>
+49 13 24 33 40 45 48
+<br>
+64 15 28 39 48 55 60 63
+<br>
+81 17 32 45 56 65 72 77 80
+<br>
+・n=3の場合、階段yは見つからない
+<br>
+zn(z) yn(z,dz)
+<br>
+1
+<br>
+8 7
+<br>
+27 19 26
+<br>
+64 37 56 63
+<br>
+125 61 98 117 124
+<br>
+216 91 152 189 208 215
+<br>
+343 127 218 279 316 335 342
+<br>
+512 169 296 387 448 485 504 511
+<br>
+729 217 386 513 604 665 702 721 728
     </td>
   </tr>
   <tr>
