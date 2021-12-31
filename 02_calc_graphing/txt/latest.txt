@@ -315,6 +315,21 @@ stored_eqn(make_IV)
 clear
 local storage cleared
 
+Fermat(2,5)=>
+(
+24.999999999999996:
+23.999999999999996:
+20.999999999999996:
+15.999999999999998:
+8.999999999999998
+)
+
+Fermat(n,z)=<[yns=zeros(z,1),zn(z)=<z**n,yn(z,x)=<zn(z)=>-zn(x)=>,_sx(=<yns[x]=yn(z,x)=>,0,z-1),=<yns]=>
+stored_eqn(Fermat)
+
+clear
+local storage cleared
+
 last[ft=<e^(i*(2.5)*t),FourierN(=<ft,2,5)=>]
 infoLost[ri] 0.29934712994045387-1.0833440107828247i+O(2e-6+2e-6i)
 
@@ -695,8 +710,8 @@ clear
 local storage cleared
 
 --------------------------------
-drag=false&test-case=false&legend=true&axis-t=false&axis-x=true&log-x=false&imag-x=false&axis-y=true&log-y=false&imag-y=false&axis-z=true&config-plot=false&relzooming=true&snap=true&useComplex=true&useMatrix=true&sharedStorage=false&equation-list=true&config=false&isRightAssociativityBR=false&isDIVprior2OMUL=false&useComma=false&useWorker=true&decDigit=1&N=10&n_thread=4&canvas-width=512&canvas-height=256&canvas-background=black&grid-line-width=0.5&marker-size=7&marker-line-width=0&plot-line-width=2&font-size=12&grid-x-Ni=0&grid-y-Nj=0&kx-adjust=2.5&legend-kx=0.25&legend-ky=0.1&canvas-globalCompositeOperationLayer=source-over&canvas-globalCompositeOperation=source-over&expDigit=-1&useStrict=true&checkError=true&matSizeMax=1000&makeLog=2
+drag=false&test-case=false&legend=true&axis-t=false&axis-x=true&log-x=false&imag-x=false&axis-y=true&log-y=false&imag-y=false&axis-z=true&axis-v=true&config-plot=false&relzooming=true&snap=true&useComplex=true&useMatrix=true&sharedStorage=false&equation-list=true&config=false&isRightAssociativityBR=false&isDIVprior2OMUL=false&useComma=false&useWorker=true&decDigit=1&N=10&n_thread=4&canvas-width=512&canvas-height=256&canvas-background=black&grid-line-width=0.5&marker-size=7&marker-line-width=0&plot-line-width=2&font-size=12&grid-x-Ni=0&grid-y-Nj=0&kx-adjust=2.5&legend-kx=0.25&legend-ky=0.1&canvas-globalCompositeOperationLayer=source-over&canvas-globalCompositeOperation=source-over&expDigit=-1&useStrict=true&checkError=true&matSizeMax=1000&makeLog=2
 --------------------------------
 --------------------------------
 
-online-simulator.github.io.4.102.42.12.29 @ Wed Dec 22 2021 20:08:25 GMT+0900 (日本標準時) @ Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/96.0.4664.110 Safari/537.36
+online-simulator.github.io.4.103.43.12.29 @ Sat Jan 01 2022 02:43:33 GMT+0900 (日本標準時) @ Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/96.0.4664.110 Safari/537.36
