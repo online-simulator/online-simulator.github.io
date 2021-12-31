@@ -1018,22 +1018,7 @@ analogy
 <br>
 　・
 <a href="#span-out-modelling">
-simplified modelling
-</a>
-<br>
-　　・
-<a href="#span-out-modelling-about">
-simplified modellingの前提
-</a>
-<br>
-　　・
-<a href="#span-out-modelling-usefulness">
-simplified modellingの有用性
-</a>
-<br>
-　　・
-<a href="#span-out-modelling-trade-off">
-simplified modellingのtrade-off
+modelling
 </a>
 <br>
 　　・
@@ -1049,11 +1034,6 @@ simplified modellingのtrade-off
 　　・
 <a href="#span-out-modelling-0D-cell">
 0D-cell simplified modelling
-</a>
-<br>
-　　・
-<a href="#span-out-modelling-1D-cell">
-1D-cell simplified modelling
 </a>
 <br>
 　　・
@@ -1074,16 +1054,6 @@ EIS simulation
 　　・
 <a href="#span-out-simulation-EIS-0D-cell">
 0D-cell EIS simulation
-</a>
-<br>
-　　・
-<a href="#span-out-simulation-EIS-1D-cell">
-1D-cell EIS simulation
-</a>
-<br>
-　　・
-<a href="#span-out-simulation-IV-1D-cell">
-1D-cell IV simulation
 </a>
 <br>
 　　・
@@ -1169,16 +1139,6 @@ Fourier級数
 ・
 <a href="#span-out-application">
 application
-</a>
-<br>
-　・
-<a href="#span-out-application-output">
-最終output
-</a>
-<br>
-・
-<a href="#span-out-remain">
-残課題
 </a>
 <br>
 <br>
@@ -7300,7 +7260,7 @@ encodeの仕様/補足を列挙する
 <br>
 ・理想的なrandom-sortのFisher-Yates shuffle
 <br>
-　<a href="../99_gacha/index.html">確率抽選</a>の反復sortのため、<a href="#span-out-FN-rand">一様乱数</a>の前提で完全random性を数学的に保証する
+　確率抽選の反復sortのため、<a href="#span-out-FN-rand">一様乱数</a>の前提で完全random性を数学的に保証する
 <br>
 ・<a href="#span-out-FN-rand">乱数seed値</a>不定の仕様上、不可逆
 <br>
@@ -11570,7 +11530,7 @@ localhost offline/online-test環境
 ・その他、Chrome DevTools-emulatorで動作確認
 <br>
 <br>
-実機online-test環境　<span class="run">Ver.2.84.32</span>以降、原則test未実施
+実機online-test環境　<span class="run">Ver.2.84.32</span>以降、test未実施
 <br>
 ・latest Amazon Silk
 <br>
@@ -20519,25 +20479,11 @@ S=(f[0]+4Σ&lt;k=0,N/2-1&gt;f[2k+1]+2Σ&lt;k=1,N/2-1&gt;f[2k]+f[N])h/3+O(h^4)
 目次
 </a>
 <br>
-simplified
-<br>
 modelling
     </th>
     <td>
 <span id="span-out-modelling"></span>
-simplified modellingについて記述する
-<br>
-<br>
-modelling対象を各種制約によって簡易化||単純化する場合、simplified modellingと表記する
-<br>
-<br>
-simplified modellingの応用手順の一例を列挙する
-<br>
-・<a href="#span-out-modelling-about">simplified modellingの前提</a>
-<br>
-・<a href="#span-out-modelling-usefulness">simplified modellingの有用性</a>
-<br>
-・<a href="#span-out-modelling-trade-off">simplified modellingのtrade-off</a>
+modellingの実施例を列挙する
 <br>
 ・<a href="#span-out-modelling-0D-RC">0D-RC並列回路simplified modelling</a>
 <br>
@@ -20546,122 +20492,6 @@ simplified modellingの応用手順の一例を列挙する
 ・<a href="#span-out-modelling-0D-cell">0D-cell simplified modelling</a>
 <br>
 ・<a href="#span-out-modelling-0D-heat">0D-heat simplified modelling</a>
-<br>
-・<a href="#span-out-simulation-EIS">EIS simulation</a>
-<br>
-・<a href="#span-out-simulation-EIS-0D-cell">0D-cell EIS simulation</a>
-<br>
-・<a href="#span-out-modelling-1D-cell">1D-cell simplified modelling</a>
-<br>
-・<a href="#span-out-simulation-EIS-1D-cell">1D-cell EIS simulation</a>
-<br>
-・<a href="#span-out-simulation-IV-1D-cell">1D-cell IV simulation</a>
-<br>
-・<a href="#span-out-simulation-0D-heat">0D-heat simulation</a>
-    </td>
-  </tr>
-  <tr>
-    <th>
-<a href="#span-index">
-目次
-</a>
-<br>
-simplified
-<br>
-modelling
-<br>
-の前提
-    </th>
-    <td>
-<span id="span-out-modelling-about"></span>
-simplified modellingの前提について記述する
-<br>
-<br>
-simplified modellingの前提を列挙する
-<br>
-・Euclid実空間を無次元化する場合、0D-model/0D-simulationと表記する
-<br>
-・Euclid実空間を1次元化する場合、1D-model/1D-simulationと表記する
-<br>
-・Euclid実空間を2次元化する場合、2D-model/2D-simulationと表記する
-<br>
-・Euclid実空間を3次元化する場合、3D-model/3D-simulationと表記する
-<br>
-・最も詳細にmodellingする場合、詳細model/詳細simulationと表記する
-    </td>
-  </tr>
-  <tr>
-    <th>
-<a href="#span-index">
-目次
-</a>
-<br>
-simplified
-<br>
-modelling
-<br>
-の有用性
-    </th>
-    <td>
-<span id="span-out-modelling-usefulness"></span>
-simplified modellingの有用性について記述する
-<br>
-<br>
-<a href="#span-out-fdm">有限差分法</a>||<a href="#span-out-fvm">有限体積法</a>に基づくsimplified modellingの有用性を列挙する
-<br>
-・一般的な漸化式に帰結するmodel式を、制御のfeed-forward||backward項に応用する
-<br>
-・定性的に物理定数||物性値と紐付くため、model式のparameter数を最少化する
-<br>
-・各parameterを分離可能な特定条件の実測値から逆算して各物性値のOrderを推定する
-<br>
-・各parameterの最適化||機械学習によって制御量の定量性を改善する（<a href="#span-out-error">modelling誤差</a>を除く）
-<br>
-・環境温度等による状態量の変化傾向を理論的に予測する
-    </td>
-  </tr>
-  <tr>
-    <th>
-<a href="#span-index">
-目次
-</a>
-<br>
-simplified
-<br>
-modelling
-<br>
-のtrade-off
-    </th>
-    <td>
-<span id="span-out-modelling-trade-off"></span>
-simplified modellingのtrade-offについて記述する
-<br>
-<br>
-simplified modellingのtrade-offを列挙する
-<br>
-・一般的に、modelling対象の性能を最大化する実用想定では<a href="#span-out-error">modelling誤差</a>を無視できない
-<br>
-・詳細modellingからsimplifiedの過程で次元||自由度を落とした現象||影響が顕著になる
-<br>
-・この影響をparameterで誤学習||過学習した場合、全体の定量性を悪化させる可能性がある
-<br>
-・制御の場合、tableを含む次元の拡張等、対策が考えられるが、hard/softの制約が存在する
-<br>
-・さらに科学的な対策の根拠と定量的な効果を示すには仮説と実証実験の繰り返しを伴う上、
-<br>
-・耐久性を評価するcycle試験||加速試験の場合、相当の時間を要する
-<br>
-・よって詳細modellingから寄与度に応じてparameter数を削減するapproachもあり得る
-<br>
-・一方、現象の強連成が困難な場合、机上見積もりでsimplifiedと擬似||弱連成を許容する
-<br>
-・他方、未知の現象（劣化mode等）が判明した場合、手戻りが発生する懸念が残るが、
-<br>
-・結局、parameter学習と<a href="#span-out-error">modelling誤差</a>を含めた許容誤差の見極めが重要になると考えられる
-<br>
-・同時に、model入力値の測定誤差の影響を考慮する
-<br>
-・その上で目標値の達成が困難な場合、modelling対象を含む設計に手戻りの可能性が生じる
     </td>
   </tr>
   <tr>
@@ -20994,26 +20824,6 @@ simplifiedの仮定を列挙する
 <br>
 <br>
 実施例は<a href="#span-out-simulation-EIS-0D-cell">0D-cell EIS simulation</a>参照
-    </td>
-  </tr>
-  <tr>
-    <th>
-<a href="#span-index">
-目次
-</a>
-<br>
-1D-cell
-<br>
-simplified
-<br>
-modelling
-    </th>
-    <td>
-<span id="span-out-modelling-1D-cell"></span>
-電気化学cellを1次元化する1D-cellのsimplified modellingについて記述する
-<br>
-<br>
-実施例は<a href="#span-out-simulation-EIS-1D-cell">1D-cell EIS simulation</a>||<a href="#span-out-simulation-IV-1D-cell">1D-cell IV simulation</a>参照
     </td>
   </tr>
   <tr>
@@ -21472,15 +21282,11 @@ simulation
     </th>
     <td>
 <span id="span-out-simulation"></span>
-数値計算を応用するsimulationの実施例を列挙する
+simulationの実施例を列挙する
 <br>
 ・<a href="#span-out-simulation-EIS">EIS simulation</a>
 <br>
 ・<a href="#span-out-simulation-EIS-0D-cell">0D-cell EIS simulation</a>
-<br>
-・<a href="#span-out-simulation-EIS-1D-cell">1D-cell EIS simulation</a>
-<br>
-・<a href="#span-out-simulation-IV-1D-cell">1D-cell IV simulation</a>
 <br>
 ・<a href="#span-out-simulation-0D-heat">0D-heat simulation</a>
     </td>
@@ -21907,44 +21713,6 @@ dt&le;min(0.2,100)<span class="selection">*2</span>
 0.010000000000000012,infoLost[ri] 3.71133683621205-1.8234973547405815i
 <br>
 )
-    </td>
-  </tr>
-  <tr>
-    <th>
-<a href="#span-index">
-目次
-</a>
-<br>
-1D-cell
-<br>
-EIS
-<br>
-simulation
-    </th>
-    <td>
-<span id="span-out-simulation-EIS-1D-cell"></span>
-1D-cell EIS simulationの実施例について記述する
-<br>
-<br>
-    </td>
-  </tr>
-  <tr>
-    <th>
-<a href="#span-index">
-目次
-</a>
-<br>
-1D-cell
-<br>
-IV
-<br>
-simulation
-    </th>
-    <td>
-<span id="span-out-simulation-IV-1D-cell"></span>
-1D-cell IV simulationの実施例について記述する
-<br>
-<br>
     </td>
   </tr>
   <tr>
@@ -27359,203 +27127,6 @@ f=&lt;last{I=1,E=0,k=1,I=exp(k*(V-E))-exp(-k*(V-E))}
 f=&lt;last{V=1,E=0,k=1,I=exp(k*(V-E))-exp(-k*(V-E))}
     </td>
   </tr>
-  <tr>
-    <th>
-<a href="#span-index">
-目次
-</a>
-<br>
-最終output
-    </th>
-    <td>
-<span id="span-out-application-output"></span>
-数値計算を応用する最終outputについて記述する
-<br>
-<br>
-Electrochemical cells 2D-simulation with heat and fluid flow
-<br>
-・Circuit Simulator with impedance spectroscopy
-<br>
-・Heat and Fluid Flow Simulator
-<br>
-・Electrochemical Cell Simulator
-<br>
-・Electrochemical Impedance Spectroscopy(EIS) Simulator
-<br>
-<br>
-電気化学cellの定性的な理解を目的として以上の解析技術を実装予定
-<br>
-・一般的に、外部の火花発生や内部の短絡riskに対してhard/soft両面の対策が必要とされる
-<br>
-・例えば、充電電流||充電電力を上げて急速充電の時間を過度に短縮した場合、過充電同様、
-<br>
-　負極に挿入不能で行き場を失う過剰なionが副反応（金属析出等）に消費されるため、
-<br>
-　経年劣化（活性ion等の不可逆なloss）とともにmicro-scaleの内部短絡riskが生じる
-<br>
-・通常の充放電時も同様に、副反応の平衡電位に応じて起こり得るが、
-<br>
-　性能とのtrade-offで経年劣化に見込むこと（不活性な被膜に変質する成長の範囲内）で、
-<br>
-　ある程度は許容するものと考えられる
-<br>
-・その上で、ionの拡散/反応速度はArrhenius equationに従ってexponentialに変化するため、
-<br>
-　cell間内部温度のばらつきは無視できない可能性が高い
-<br>
-・とくに低温では、被膜を含む反応抵抗の増加によって副反応の平衡電位に到達しやすく、
-<br>
-　実用想定のcycle試験等、許容範囲の見極めが重要になると考えられる
-<br>
-・その他、電極面積に応じて反応不均一（構造由来||液枯れ等）が生じた場合、
-<br>
-　以上の傾向を増長する懸念があり、これらを対策する<a href="#span-ref-pat1">参考特許文献[1]</a>が考え方の参考になる
-<hr>
-・固体電解質については、液系由来の問題（副反応を除く）は解消されるが、
-<br>
-　cycle試験中の電解質||電極の膨張収縮による導電path切れが問題となっている印象を受ける
-<br>
-・ただし、bulk型の減圧密閉/拘束圧縮後の空隙の状態とその変化による影響に加えて、
-<br>
-　電解質||電極の種類によるporous全体の塑性変形（熱可塑性を含む）の影響等、詳細は不明
-<br>
-・仮に、物理的な導電path切れの場合、浮遊分の活性ionと反応界面を同時に失うため、
-<br>
-　満充電容量の低下と見かけの抵抗上昇に繋がる
-<br>
-・一方、電気的な導電path上の固体電解質/活物質界面の接触不良（binderを含む）の場合、
-<br>
-　実質の界面抵抗上昇に繋がり、さらに剥離進行||亀裂進展で物理的な導電path切れに繋がる
-<br>
-・他方、電気的な導電path上の固体電解質/活物質界面における被膜成長の場合、液系同様、
-<br>
-　副反応量に応じた満充電容量の低下と実質の界面抵抗上昇に繋がる
-    </td>
-  </tr>
-  <tr>
-    <th>
-<a href="#span-index">
-目次
-</a>
-<br>
-残課題
-    </th>
-    <td>
-<span id="span-out-remain"></span>
-残課題について優先順に記述する
-<br>
-<br>
-<span class="run">Ver.2.32.17</span>以降、<a href="#span-out-eqns-args">式変数のarguments</a>を追加
-<br>
-[Resolved-status]<del>
-<a href="#span-out-eqns">式変数</a>のargumentsの実装（影響範囲大で未確定）
-<br>
-・<a href="#span-out-scope-vars">変数のscope</a>に加えて<a href="#span-out-eqns">式変数</a>に引数を渡せないと不十分
-<br>
-・future after
-<br>
-add(a,b)=&lt;a+b; add(1,3)=&gt; -> 4
-<br>
-solvex_Gauss(A,b)=&lt;[...,=&lt;x=&gt;]=&gt;; x=solvex_Gauss(A,b)=&gt;;
-<br>
-Newton_simplified(=&lt;f,=&lt;x,Nmax)=&lt;[mdx=Newton(=&lt;f,=&lt;x,,Nmax,1e-16,1),=&lt;x=&gt;]=&gt;;
-<br>
-x=Newton_simplified(=&lt;{x0+x1=2,x0*x1=5},=&lt;{x0,x1},6)=&gt;;
-<br>
-・<a href="#span-out-eqns-call">式読出し</a>記号=&gt;の省略可否を検討
-</del>
-<br>
-<br>
-<span class="run">Ver.2.32.17</span>以降、<a href="#span-out-eqns-re-use">scope付式変数の再利用</a>に対応
-<br>
-<span class="run">Ver.2.31.17</span>以降、変数のscopeを追加
-<br>
-・<a href="#span-out-scope-vars">変数のscope</a>外部仕様参照
-<br>
-・<a href="#span-in-scope-vars">変数のscope</a>内部仕様参照
-<br>
-[Resolved-status]<del>
-<a href="#span-out-scope-vars">変数のscope</a>の実装（影響範囲大で未確定）
-<br>
-・now before
-<br>
-clear; [a=2,[a=1,a],a] -> (0,0,1,1)
-<br>
-clear; [a=2,=&lt;[a=1,=&lt;a]=&gt;+a]=&gt; -> 2
-<br>
-・future after
-<br>
-clear; [a=2,[a=1,a],a] -> (0,0,1,2)
-<br>
-clear; [a=2,=&lt;[a=1,=&lt;a]=&gt;+a]=&gt; -> 3
-<br>
-・過去の後方互換性をほぼ完全に維持する場合、<a href="#span-out-BT-square">角括弧[]</a>のみ<a href="#span-out-scope-vars">変数のscope</a>を追加
-<br>
-　実装前後で演算結果が変わるtest caseはないはず
-<br>
-・後方互換性を完全に維持する場合、URL parameter's useScopeを追加
-<br>
-　useScope=falseの場合、scopeを一切使用しない
-<br>
-　useScope=trueの場合、すべての<a href="#span-out-BT">括弧</a>にscopeを使用する
-<br>
-・store/restore時、<a href="#span-out-bracket">階層</a>毎にscope objectが必要
-<br>
-　<a href="#span-out-bracket">parse</a>段階で実行文j、<a href="#span-out-bracket">階層</a>nのscopes2d arrayを作成
-<br>
-　n=0にlocal <a href="#span-out-storage">storage</a> object元のreferenceを統合・共通化
-<br>
-・restore時、parents-scope objectの再帰的なreference手段が必要
-<br>
-　Circular Reference回避のため、scopes2d arrayの要素id=[j,n]でreferenceを代替
-<br>
-　各<a href="#span-out-bracket">階層</a>のref object同列にids2d arrayを追加
-<br>
-・tree置換時、未知変数存在の場合、child-scope objectのreference継承が必要
-<br>
-・[a=1,=&lt;a]tree置換後、<a href="#span-out-eqns-call">式読出し</a>時、<a href="#span-out-vars">変数</a>aのsearch-precedence（短絡評価）
-<br>
-child-scope object || self-scope object || parents-scope object || local <a href="#span-out-storage">storage</a> object
-<br>
-・search-precedenceに従う<a href="#span-out-FNc">最上位関数</a>hasv/haseを追加
-<br>
-・local <a href="#span-out-storage">storage</a>のみを扱う<a href="#span-out-command">命令文</a>への影響
-<br>
-　local <a href="#span-out-storage">storage</a> objectをscopes2d arrayに統合するため、影響あり
-<br>
-　clear/store/restoreについてlocal <a href="#span-out-storage">storage</a> object元のreferenceを切らないように修正
-</del>
-<br>
-<br>
-<span class="run">Ver.2.19.6</span>以降、
-<a href="#span-out-substitution-equation">関数の参照渡しの仕様を廃止</a>
-して解決
-<br>
-[Resolved-status]<del>
-<a href="#span-out-FN">関数</a>の参照を返値に指定した場合、予期せぬerror終了
-<br>
-(,trans) || (trans)=&gt; -> Unexpected error
-<br>
-・<a href="#span-out-SR">区切り文字</a>の演算時に型checkが必要
-<br>
-・現状、<a href="#span-out-FNh">高階関数</a>で代替可（関数の参照渡しの必要性が少ない）
-<br>
-・関数名を短縮する参照渡しを廃止すれば解決
-</del>
-<br>
-<br>
-<span class="run">Ver.2.25.12</span>以降、
-<a href="#span-out-plot2d-command">plot2d-command入力仕様</a>参照
-<br>
-[Resolved-status]<del>
-plot2d-commandの実装
-<br>
-・予め演算した結果をplotする場合の仕様が必要
-<br>
-・<a href="#span-out-command">命令文</a>より最上位で単独のcommand仕様が必要
-</del>
-    </td>
-  </tr>
 </tbody>
 </table>
 </div>
@@ -30192,8 +29763,6 @@ _evolution
     </th>
     <td>
 <span id="span-eqn-heat1d_evolution"></span>
-<a href="#span-out-simulation-1D-heat">1D-heat simulation</a>参照
-<br>
 heat1d_evolution(t,dt,kalpha0,kalpha1,kalbedo<span class="selection">,kabsorb</span>,N)=&lt;[
 <br>
 out=&lt;{t_total,newT},
