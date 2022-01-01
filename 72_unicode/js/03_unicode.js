@@ -18,7 +18,7 @@ My_entry.test_unicode.prototype.init_elems = function(){
   self.entry.$.setup_elems_readonly$("textarea");
   self.entry.$.setup_elems$_tag("button", self.handlers, "onclick");
   self.elems = self.entry.$.get_elems$("input,textarea");
-  self.arr_sw_out = ["utf16BE", "utf16LE", "utf8", "utf8IE"];
+  self.arr_sw_out = ["utf16BE", "utf16LE", "utf8", "utf8ex"];
   return self;
 };
 My_entry.test_unicode.prototype.init_handlers = function(){
@@ -42,7 +42,7 @@ My_entry.test_unicode.prototype.init_handlers = function(){
       case "postset_utf16BE":
       case "postset_utf16LE":
       case "postset_utf8":
-      case "postset_utf8IE":
+      case "postset_utf8ex":
         self.postset_sw(elem.id.split("_")[1]);
         break;
       default:
@@ -81,7 +81,7 @@ My_entry.test_unicode.prototype.str2code_sw = function(sw){
         output = self.entry.conv["str2code_"+sw](input, n);
         self.elems["input-"+sw].value = title+output.length;
         break;
-      case "utf8IE":
+      case "utf8ex":
         output = self.entry.conv.binary2code_utf8(input, n);
         break;
       default:
@@ -120,7 +120,7 @@ My_entry.test_unicode.prototype.code2str_sw = function(sw){
         output = self.entry.conv["arr_uint"+n_uint+opt+"_2str"](arr_uint_);
         self.elems["input-"+sw].value = title+output.length;
         break;
-      case "utf8IE":
+      case "utf8ex":
         var arr_uint8 = self.entry.conv.arr_num2arr_uint(arr_num_n, n, 8);
         output = self.entry.conv.arr_uint8_2binary(arr_uint8);
         break;
