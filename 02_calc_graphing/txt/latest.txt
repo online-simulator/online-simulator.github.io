@@ -330,6 +330,17 @@ stored_eqn(Fermat)
 clear
 local storage cleared
 
+Pythagoras(2,3)=>
+(
+4.999999999999998,12,12.999999999999998
+)
+
+Pythagoras(l,m)=<[=<(m^2-l^2,2*m*l,m^2+l^2)]=>
+stored_eqn(Pythagoras)
+
+clear
+local storage cleared
+
 last[ft=<e^(i*(2.5)*t),FourierN(=<ft,2,5)=>]
 infoLost[ri] 0.29934712994045387-1.0833440107828247i+O(2e-6+2e-6i)
 
@@ -714,4 +725,4 @@ drag=false&test-case=false&legend=true&axis-t=false&axis-x=true&log-x=false&imag
 --------------------------------
 --------------------------------
 
-online-simulator.github.io.4.103.43.12.29 @ Sat Jan 01 2022 02:43:33 GMT+0900 (日本標準時) @ Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/96.0.4664.110 Safari/537.36
+online-simulator.github.io.4.103.43.12.29 @ Sun Jan 02 2022 21:14:41 GMT+0900 (日本標準時) @ Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/96.0.4664.110 Safari/537.36
