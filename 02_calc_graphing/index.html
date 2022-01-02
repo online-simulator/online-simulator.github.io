@@ -77,7 +77,7 @@
       $._id("pow2").onclick = function(){setVal("-2(1+i)", "2(1+i)", "x=t,x;", "x;x^2;x^3;x^4;x^5;", 30);};
       $._id("sin").onclick = function(){setVal("0", "2pi", "x=t,x;", "sin(x);cos(x);sin(2x);cos(2x);", 100);};
       $._id("circle").onclick = function(){setVal("0", "2pi", "cos(t);ft=<e^(i(t)),real(ft)1.5;2ft;ft2=<ecomp(t),real(ft2)2.5;rot=<(cos(t),-sin(t):sin(t),cos(t)),vec0=(3:0),(rot*vec0)[0];", "sin(t);imag(ft)1.5;2_dt(=<-ft);imag(ft2)2.5;(rot*vec0)[1];", 50);};
-      $._id("pole").onclick = function(){setVal("0", "2pi", "l=1,r(t,l,er)=<l/(1-er*cos(t)),z(t,l,er)=<r(t,l,er)e^(i(t)),z1=z(t,l,0),z2=z(t,l,0.8),z3=z(t,l,1.1),real(z1);real(z2);real(z3);", "imag(z1);imag(z2);imag(z3);", 10);};
+      $._id("pole").onclick = function(){setVal("0", "2pi", "l=1,r(t,l,er)=<l/(1-er*cos(t)),z(t,l,er)=<r(t,l,er)e^(i(t)),z1=z(t,l,0),z2=z(t,l,0.8),z3=z(t,l,1.1),real(z1);real(z2);real(z3);", "imag(z1);imag(z2);imag(z3);", 10);$._id("input-z").value+="TITLE{Polar equation}::4::::er=0;::::::er=0.8;::::::er=1.1;";};
       $._id("spiral").onclick = function(){setVal("0", "Nr=1.5,2pi*Nr", "real(e^(i(t)))t;rot=<(cos(t),-sin(t):sin(t),cos(t)),vec0=(-t:0),vec1=rot*vec0,vec1[0];", "imag(e^(i(t)))t;vec1[1];", 100);};
       $._id("Lissajous").onclick = function(){setVal("0", "2pi", "cos(3t);", "sin(2t+pi/3);", 100);};
       $._id("rose").onclick = function(){setVal("0", "2pi", "sin(2t)cos(t);sin(4t)cos(t);sin(6t)cos(t);sin(6t)cos(5t);", "sin(2t)sin(t);sin(4t)sin(t);sin(6t)sin(t);sin(6t)sin(5t);", 100);};
