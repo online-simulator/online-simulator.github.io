@@ -24,14 +24,6 @@
       ["calc", "wave", "else"].forEach(function(name){
         $._id("Ver-"+name).textContent = My_entry.Ver[name];
       });
-      var elem_s = $._id("select-types");
-      elem_s.onchange = function(e){
-        var type_comp = elem_s.value;
-        $.arr(".types").forEach(function(elem_type){
-          var isHidden = (type_comp === "All" || elem_type.textContent.match(type_comp))? false: true;
-          $.set_elem(elem_type.parentElement, "hidden", isHidden);
-        });
-      };
       $.onbeforeunload(function(e){});
     });
   })();
