@@ -16661,9 +16661,11 @@ roty=&lt;{rt=real(theta),=&lt;(cos(rt),,sin(rt):,1,:-sin(rt),,cos(rt))}=&gt;;
 <br>
 rotz=&lt;{rt=real(psi),=&lt;(cos(rt),-sin(rt),:sin(rt),cos(rt),:,,1)}=&gt;;
 <br>
-・一般化した回転行列rot_は対象行列matの左から演算する
+・一般化した回転行列rot_は対象行列mat||列vectorの左から演算する
 <br>
 mat_after=rot_*mat_before
+<br>
+{$x_after,$y_after,$z_after}=rot_*{x_before,y_before,z_before}
 <br>
 ・よって回転順序は回転行列並び順の逆順となる
 <br>
