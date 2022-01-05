@@ -20051,6 +20051,26 @@ e_z・e_p=0
 <br>
 e_z・e_z=1
 <br>
+・右手系のvector積（外積）
+<br>
+e_r×e_r=e_0
+<br>
+e_r×e_p=e_z
+<br>
+e_r×e_z=-e_p
+<br>
+e_p×e_r=-e_z
+<br>
+e_p×e_p=e_0
+<br>
+e_p×e_z=e_r
+<br>
+e_z×e_r=e_p
+<br>
+e_z×e_p=-e_r
+<br>
+e_z×e_z=e_0
+<br>
 ・運動
 <br>
 位置　　(vec_r) =rotz*{r,0,0}
@@ -20058,6 +20078,8 @@ e_z・e_z=1
 速度　　(vec_r)'=(rotz)'*{r,0,0}+rotz*{r',0,0}=rotz*{r',r*p',0}
 <br>
 加速度　(vec_r)"=(rotz)'*{r',r*p',0}+rotz*{r",r'*p'+r*p",0}=rotz*{r"-r*(p')^2,2*r'*p'+r*p",0}
+<br>
+面積速度vec_vA*2=(vec_r)×(vec_r)'=(e_r*r)×(e_r*r'+e_p*r*p')=e_z*r^2*p'
 <br>
 ・速度成分
 <br>
