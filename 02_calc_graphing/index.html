@@ -100,6 +100,7 @@
       $._id("differential2").onclick = function(){setVal("-2", "2", "a=t,a;", "fxy=<x*x*y*y,_Dy(=<{_Dx(=<fxy,1,y)},1,a);24;", 10);$._id("input-z").value+="TITLE{_dx(=<fx,Ndash||1,a,opt_dx0||max(1,abs(x))1e-3(1+i)) stencil_dx=dx0*2^(Ndash-1) error=Order(dx^4~dx^2)};";};
       $._id("calculus1").onclick = function(){setVal("-2(1+i)", "2(1+i)", "b=t,b;", "fx=<x^3,_ix(=<_dx(=<fx,1,x),0,b,10);-b^3;", 10);};
       $._id("calculus2").onclick = function(){setVal("-2(1+i)", "2(1+i)", "b=t,b;", "fx=<x^3,_dx(=<_ix(=<fx,0,x,10),1,b);-b^3;", 10);};
+      $._id("Compton").onclick = function(){setVal("0", "2pi", "c=299792458,h=6.62607015e-34,me=9.1093837015e-31,dlambda=h*(1-cos(t))/(me*c),z=dlambda*e^(i(t)),real(z);", "imag(z);", 100);$._id("input-z").value+="TITLE{Compton scattering}::0::::t vs. wavelength change[m];";};
       $._id("Maclaurin1").onclick = function(){setVal("-pi", "pi", "x=t,x;", "fx=<sin(x),fx;MaclaurinN=<_sn(=<_dx(=<fx,n,0)x^n/n!,0,N),N=1,MaclaurinN;N=3,MaclaurinN;N=5,MaclaurinN;N=7,MaclaurinN;N=9,MaclaurinN;", 10);};
       $._id("Maclaurin2").onclick = function(){setVal("-(1+i)pi/4", "(1+i)pi/4", "x=t,x;", "fx=<sqrt(2-exp(sin(x)^2*x)/cos(x)),fx;MaclaurinN=<_sn(=<_dx(=<fx,n,0)x^n/n!,0,N),N=1,MaclaurinN;N=3,MaclaurinN;N=5,MaclaurinN;N=7,MaclaurinN;N=9,MaclaurinN;", 10);$._id("input-z").value+="TITLE{***** low accuracy *****};";};
       $._id("Taylor").onclick = function(){setVal("0", "2(1+i)pi/4", "x=t,x;", "fx=<exp(x)/cos(x),fx;TaylorN=<_sn(=<_dx(=<fx,n,a)(x-a)^n/n!,0,N),a=(t0+t1)/2,N=1,TaylorN;N=3,TaylorN;N=5,TaylorN;N=7,TaylorN;N=9,TaylorN;", 10);$._id("input-z").value+="TITLE{***** low accuracy *****};";};
@@ -276,11 +277,12 @@ plot2d
   <button id="calculus1">calculus1</button>
   <button id="calculus2">-cal2</button>
 <br>
+  <button id="Compton">Compton</button>
   <button id="Maclaurin1">Maclaurin1</button>
   <button id="Maclaurin2">-Mac2</button>
   <button id="Taylor">Taylor</button>
-  <button id="Fourier">Fourier</button>
 <br>
+  <button id="Fourier">Fourier</button>
   <button id="DFT">DFT</button>
   <button id="IDFT">IDFT</button>
   <button id="probability">probability</button>
