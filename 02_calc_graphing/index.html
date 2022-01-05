@@ -110,6 +110,8 @@
       $._id("Monte").onclick = function(){setVal("1", "100000", "N=t,sw=<(rand()**2+rand()**2<=1),_rn(=<P=P+sw=>,last{P=0,1},N),log10(N);", "log10(abs(((P/N)*4-pi)/pi));", 100, true);$._id("input-z").value+="TITLE{Monte Carlo method}XLABEL{log10(N)}YLABEL{log10|relative error|}::3:1.5:1.5::convergence to pi/4=pi*r^2/(4*r^2);";};
       $._id("probability").onclick = function(){setVal("10", "0", "N=t,N;", "Pb=3,Pn=<100combin(10,n)(Pb/100)^n((100-Pb)/100)^(10-n),n=N,Pn;PN=<_sn(=<Pn,N,10),PN;", 10);};
       $._id("state").onclick = function(){setVal("0", "20", "N=round(t),x0={0.8,0.2},p=0.2,q=0.3,P(p,q)=<(p,1-q:1-p,q),P=P(p,q)=>,P(N)=<switch(N>0,=<_pn(=<{P},0,N-1):1,1),xn=P(N)=>*x0,N;", "xn[0];xn[1];", 21);$._id("input-z").value+="TITLE{state transition}XLABEL{N}YLABEL{P(N)*x0}::3:1.5:1.5::state A;::::::state B;";};
+      $._id("gamma").onclick = function(){setVal("0", "z=5,z", "z=t,dt0=10,g(dt,N)=<_it(=<t**(z-1)*e^(-t),0,dt,N),t;", "g(dt0,10);g(dt0*2,10);g(dt0*3,10);g(dt0,100);g(dt0*2,100);g(dt0*3,100);g(dt0,1000);g(dt0*2,1000);g(dt0*3,1000);", 20);$._id("input-z").value+="TITLE{gamma function}XLABEL{z}YLABEL{gamma(z)}::3:1.5:1.5::dt=10,N=10;::::::20,10;::::::30,10;::::::10,100;::::::20,100;::::::30,100;::::::10,1000;::::::20,1000;::::::30,1000;";};
+      $._id("GD").onclick = function(){setVal("0", "20", "x=t,dt=30,N=1000,g(z)=<_it(=<t**(z-1)*e^(-t),0,dt,N),f(k,t)=<x**(k-1)*e**(-x/t)/(g(k)*t**k),x;", "f(1,2);f(2,2);f(3,2);f(4,2);f(5,2);f(5,1);f(4,1);f(3,1);f(2,1);", 40);$._id("input-z").value+="TITLE{gamma distribution}XLABEL{x}YLABEL{f(x)}::3:1.5:1.5::k=1,t=2;::::::2,2;::::::3,2;::::::4,2;::::::5,2;::::::5,1;::::::4,1;::::::3,1;::::::2,1;";};
       $._id("SND").onclick = function(){setVal("-5", "5", "t;", "SND=<exp(-t^2/2)/sqrt(2pi),SND;", 50);};
       $._id("Px").onclick = function(){setVal("-5", "5", "x=t,x;", "SND=<exp(-t^2/2)/sqrt(2pi),Px=<_it(=<SND,-x,x),Px;Px_better=<_it(=<SND,0,x)2,Px_better;", 20);};
       $._id("erfx").onclick = function(){setVal("-5", "5", "x=t,x;", "SND=<exp(-t^2/2)/sqrt(2pi),erfx=<_it(=<SND,0,x(sqrt2))2,erfx;erfx=<_it(=<exp(-t^2),0,x)(2/sqrt(pi)),erfx;", 20);};
@@ -250,8 +252,8 @@ plot2d
   <button id="sin">sin</button>
   <button id="circle">circle</button>
   <button id="cone">cone</button>
-<br>
   <button id="spiral">spiral</button>
+<br>
   <button id="clothoid">clothoid</button>
   <button id="cycloid">cycloid</button>
   <button id="Lissajous">Lissajous</button>
@@ -262,8 +264,8 @@ plot2d
   <button id="star1">star1</button>
   <button id="star2">star2</button>
   <button id="star3">star3</button>
-<br>
   <button id="star4">star4</button>
+<br>
   <button id="summation">summation</button>
   <button id="product">product</button>
   <button id="Fibonacci">Fibonacci</button>
@@ -282,14 +284,16 @@ plot2d
   <button id="Maclaurin1">Maclaurin1</button>
   <button id="Maclaurin2">-Mac2</button>
   <button id="Taylor">Taylor</button>
-<br>
   <button id="Fourier">Fourier</button>
+<br>
   <button id="DFT">DFT</button>
   <button id="IDFT">IDFT</button>
   <button id="Monte">Monte</button>
   <button id="probability">prob</button>
   <button id="state">state</button>
+  <button id="gamma">gamma</button>
 <br>
+  <button id="GD">GD</button>
   <button id="SND">SND</button>
   <button id="Px">P(x)</button>
   <button id="erfx">erf(x)</button>
@@ -309,22 +313,21 @@ plot2d
   <button id="gradation2">grad2</button>
   <button id="gradation3">grad3</button>
   <button id="filter1">filter1</button>
-<br>
   <button id="filter2">filter2</button>
   <button id="filter3">filter3</button>
+<br>
   <button id="blur1">blur1</button>
   <button id="blur2">blur2</button>
-<br>
   <button id="blur3">blur3</button>
   <button id="ptrans">p-trans</button>
   <button id="filter4">tone-curve</button>
-  <button id="post1">post1</button>
 <br>
+  <button id="post1">post1</button>
   <button id="post2">post2</button>
   <button id="post3">post3</button>
   <button id="post4">post4+trans+cut</button>
-<br>
   <button id="post5">post5</button>
+<br>
   <button id="tile">tile</button>
   <button id="pDFT">p-DFT</button>
   <button id="pDWT">p-DWT</button>
