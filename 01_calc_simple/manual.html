@@ -20051,46 +20051,6 @@ e_z・e_p=0
 <br>
 e_z・e_z=1
 <br>
-・直積
-<br>
-e_r○e_r={(cos(p))^2,sin(p)*cos(p),0}=rotz*{cos(p),0,0}
-<br>
-e_r○e_p={-cos(p)*sin(p),-(sin(p))^2,0}=rotz*{-sin(p),0,0}
-<br>
-e_r○e_z=e_0
-<br>
-e_p○e_r={-sin(p)*cos(p),(cos(p))^2,0}=rotz*{0,cos(p),0}
-<br>
-e_p○e_p={(sin(p))^2,-cos(p)*sin(p),0}=rotz*{0,-sin(p),0}
-<br>
-e_p○e_z=e_0
-<br>
-e_z○e_r={0,0,cos(p)}
-<br>
-e_z○e_p={0,0,-sin(p)}
-<br>
-e_z○e_z=e_0
-<br>
-・vector積（外積）
-<br>
-e_r×e_r=e_r○e_r-e_r○e_r=e_0
-<br>
-e_r×e_p=e_r○e_p-e_p○e_r=rotz*{-sin(p),-cos(p),0}={0,-1,0}
-<br>
-e_r×e_z=e_r○e_z-e_z○e_r=-e_z○e_r
-<br>
-e_p×e_r=e_p○e_r-e_r○e_p=rotz*{sin(p),cos(p),0}={0,1,0}
-<br>
-e_p×e_p=e_p○e_p-e_p○e_p=e_0
-<br>
-e_p×e_z=e_p○e_z-e_z○e_p=-e_z○e_p
-<br>
-e_z×e_r=e_z○e_r-e_r○e_z=e_z○e_r
-<br>
-e_z×e_p=e_z○e_p-e_p○e_z=e_z○e_p
-<br>
-e_z×e_z=e_z○e_z-e_z○e_z=e_0
-<br>
 ・運動
 <br>
 位置　　(vec_r) =rotz*{r,0,0}
@@ -20098,8 +20058,6 @@ e_z×e_z=e_z○e_z-e_z○e_z=e_0
 速度　　(vec_r)'=(rotz)'*{r,0,0}+rotz*{r',0,0}=rotz*{r',r*p',0}
 <br>
 加速度　(vec_r)"=(rotz)'*{r',r*p',0}+rotz*{r",r'*p'+r*p",0}=rotz*{r"-r*(p')^2,2*r'*p'+r*p",0}
-<br>
-面積速度vec_vA*2=(vec_r)×(vec_r)'=(e_r*r)×(e_r*r'+e_p*r*p')={0,r^2*p',0}
 <br>
 ・速度成分
 <br>
