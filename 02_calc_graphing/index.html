@@ -110,8 +110,9 @@
       $._id("Monte").onclick = function(){setVal("1", "100000", "N=t,sw=<(rand()**2+rand()**2<=1),_rn(=<P=P+sw=>,last{P=0,1},N),log10(N);", "log10(abs(((P/N)*4-pi)/pi));", 100, true);$._id("input-z").value+="TITLE{Monte Carlo method}XLABEL{log10(N)}YLABEL{log10|relative error|}::3:1.5:1.5::convergence to pi/4=pi*r^2/(4*r^2);";};
       $._id("probability").onclick = function(){setVal("10", "0", "N=t,N;", "Pb=3,Pn=<100combin(10,n)(Pb/100)^n((100-Pb)/100)^(10-n),n=N,Pn;PN=<_sn(=<Pn,N,10),PN;", 10);};
       $._id("state").onclick = function(){setVal("0", "20", "N=round(t),x0={0.8,0.2},p=0.2,q=0.3,P(p,q)=<(p,1-q:1-p,q),P=P(p,q)=>,P(N)=<switch(N>0,=<_pn(=<{P},0,N-1):1,1),xn=P(N)=>*x0,N;", "xn[0];xn[1];", 21);$._id("input-z").value+="TITLE{state transition}XLABEL{N}YLABEL{P(N)*x0}::3:1.5:1.5::state A;::::::state B;";};
-      $._id("gamma").onclick = function(){setVal("0", "z=5,z", "z=t,dt0=10,g(dt,N)=<_it(=<t**(z-1)*e^(-t),0,dt,N),t;", "g(dt0,10);g(dt0*2,10);g(dt0*3,10);g(dt0,100);g(dt0*2,100);g(dt0*3,100);g(dt0,1000);g(dt0*2,1000);g(dt0*3,1000);", 20);$._id("input-z").value+="TITLE{gamma function}XLABEL{z}YLABEL{gamma(z)}::3:1.5:1.5::dt=10,N=10;::::::20,10;::::::30,10;::::::10,100;::::::20,100;::::::30,100;::::::10,1000;::::::20,1000;::::::30,1000;";};
-      $._id("GD").onclick = function(){setVal("0", "20", "x=t,dt=30,N=1000,g(z)=<_it(=<t**(z-1)*e^(-t),0,dt,max(N,real(z)*10)),f(k,t)=<x**(k-1)*e^(-x/t)/(g(k)*t**k),x;", "f(1,2);f(2,2);f(3,2);f(4,2);f(5,2);f(5,1);f(4,1);f(3,1);f(2,1);", 40);$._id("input-z").value+="TITLE{gamma distribution}XLABEL{x}YLABEL{f(x)}::3:1.5:1.5::k=1,t=2;::::::2,2;::::::3,2;::::::4,2;::::::5,2;::::::5,1;::::::4,1;::::::3,1;::::::2,1;";};
+      $._id("zeta").onclick = function(){setVal("s0=1+i,s0", "s1=1.5+5i,s1", "s=t,N0=100,zeta(s,N)=<_sn(=<1/n**s,1,N),zt1=zeta(s,N0),zt2=zeta(s,N0*10),zt3=zeta(s,N0*100),real(zt1),real(zt2),real(zt3);", "imag(zt1);imag(zt2);imag(zt3);", 100);$._id("input-z").value+="TITLE{Riemann zeta function}XLABEL{real(z)}YLABEL{imag(z)}::3:1.5:1.5::N=100;::::::N=1000;::::::N=10000;";};
+      $._id("gamma").onclick = function(){setVal("s0=i,s0", "s1=3,s1", "s=t,a=0,b0=10,g(b,N)=<_it(=<t**(s-1)*e^(-t),a,b,N),zt1=g(b0,10),zt2=g(b0*2,10),zt3=g(b0*3,10),zt4=g(b0,100),zt5=g(b0*2,100),zt6=g(b0*3,100),zt7=g(b0,1000),zt8=g(b0*2,1000),zt9=g(b0*3,1000),real(zt1),real(zt2),real(zt3),real(zt4),real(zt5),real(zt6),real(zt7),real(zt8),real(zt9);", "imag(zt1);imag(zt2);imag(zt3);imag(zt4);imag(zt5);imag(zt6);imag(zt7);imag(zt8);imag(zt9);", 20);$._id("input-z").value+="TITLE{gamma function}XLABEL{real(z)}YLABEL{imag(z)}::3:1.5:1.5::b=10,N=10;::::::20,10;::::::30,10;::::::10,100;::::::20,100;::::::30,100;::::::10,1000;::::::20,1000;::::::30,1000;";};
+      $._id("GD").onclick = function(){setVal("0", "20", "x=t,a=0,b=30,N=1000,g(s)=<_it(=<t**(s-1)*e^(-t),a,b,max(N,real(s)*10)),f(k,t)=<x**(k-1)*e^(-x/t)/(g(k)*t**k),x;", "f(1,2);f(2,2);f(3,2);f(4,2);f(5,2);f(5,1);f(4,1);f(3,1);f(2,1);", 40);$._id("input-z").value+="TITLE{gamma distribution}XLABEL{x}YLABEL{f(x)}::3:1.5:1.5::k=1,t=2;::::::2,2;::::::3,2;::::::4,2;::::::5,2;::::::5,1;::::::4,1;::::::3,1;::::::2,1;";};
       $._id("SND").onclick = function(){setVal("-5", "5", "t;", "SND=<exp(-t^2/2)/sqrt(2pi),SND;", 50);};
       $._id("Px").onclick = function(){setVal("-5", "5", "x=t,x;", "SND=<exp(-t^2/2)/sqrt(2pi),Px=<_it(=<SND,-x,x),Px;Px_better=<_it(=<SND,0,x)2,Px_better;", 20);};
       $._id("erfx").onclick = function(){setVal("-5", "5", "x=t,x;", "SND=<exp(-t^2/2)/sqrt(2pi),erfx=<_it(=<SND,0,x(sqrt2))2,erfx;erfx=<_it(=<exp(-t^2),0,x)(2/sqrt(pi)),erfx;", 20);};
@@ -292,6 +293,7 @@ plot2d
   <button id="Monte">Monte</button>
   <button id="probability">prob</button>
   <button id="state">state</button>
+  <button id="zeta">zeta</button>
   <button id="gamma">gamma</button>
 <br>
   <button id="GD">GD</button>
