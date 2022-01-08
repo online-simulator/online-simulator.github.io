@@ -974,16 +974,33 @@ ODE高階行列関数
 symbolic高階行列関数
 </a>
 <br>
-・解法
+・座標系
 <br>
 　・
-<a href="#span-out-analogy">
-analogy
+<a href="#span-out-Euclid">
+Euclid実空間
+</a>
+<br>
+　・
+<a href="#span-out-orthogonal">
+直交座標
 </a>
 <br>
 　・
 <a href="#span-out-polar">
 平面極座標
+</a>
+<br>
+　・
+<a href="#span-out-spherical">
+球面座標
+</a>
+<br>
+・解法
+<br>
+　・
+<a href="#span-out-analogy">
+analogy
 </a>
 <br>
 　・
@@ -1431,6 +1448,8 @@ en.m.wikipedia.org/wiki/項目を列挙する
 <br>
 ・Compton_scattering
 <br>
+・Kepler's equation
+<br>
 ・Kepler's_laws_of_planetary_motion
 <br>
 ・Pythagorean_theorem
@@ -1489,6 +1508,8 @@ ja.m.wikipedia.org/wiki/項目を列挙する
 ・行列
 <br>
 ・行列の乗法
+<br>
+・内積
 <br>
 ・直積_(ベクトル)
 <br>
@@ -1552,7 +1573,19 @@ ja.m.wikipedia.org/wiki/項目を列挙する
 <br>
 ・ケプラーの法則
 <br>
+・ケプラー方程式
+<br>
+・直交座標系
+<br>
+・球面座標系
+<br>
 ・円錐曲線
+<br>
+・真近点角
+<br>
+・平均近点角
+<br>
+・離心近点角
 <br>
 ・軌道離心率
 <br>
@@ -2861,7 +2894,7 @@ transform{<span class="selection">a,b,c,d,e,f</span>,withBackground||0}
 <br>
 ・各引数の定義
 <br>
-2次元Euclid実空間の<a href="#span-out-FNmspecial">回転行列</a>(<span class="selection">a</span>,<span class="clear">c:b</span>,<span class="selection">d</span>)
+<a href="#span-out-Euclid">2次元Euclid実空間</a>の<a href="#span-out-FNmspecial">回転行列</a>(<span class="selection">a</span>,<span class="clear">c:b</span>,<span class="selection">d</span>)
 <br>
 px数値の並進vector{<span class="selection">e,f</span>}
 <br>
@@ -7096,9 +7129,9 @@ area[0]rgba[2,0,0,2,0,0,1]
 <br>
 ・空白部分は<a href="#span-out-UI-graphing-color">透明黒色</a>とする
 <br>
-・別途、<a href="#span-out-UI-graphing-blur">blurring</a>のみを<a href="#span-out-UI-graphing-transform">transform</a>の対象とする場合、plot点に<a href="#span-out-FNmspecial">右手系</a>の座標変換を適用する
+・別途、<a href="#span-out-UI-graphing-blur">blurring</a>のみを<a href="#span-out-UI-graphing-transform">transform</a>の対象とする場合、plot点に<a href="#span-out-Euclid">右手系</a>の座標変換を適用する
 <br>
-　<a href="#span-out-FNmspecial">左手系</a>のcanvas座標変換と等価変換は困難のため、例えば、<a href="#span-out-UI-graphing-transform">transform3x3</a>をplot点に演算
+　<a href="#span-out-Euclid">左手系</a>のcanvas座標変換と等価変換は困難のため、例えば、<a href="#span-out-UI-graphing-transform">transform3x3</a>をplot点に演算
     </td>
   </tr>
   <tr>
@@ -16546,22 +16579,12 @@ A-ttA ->
 <br>
 特殊行列関数は通常の<a href="#span-out-FNspecial">特殊関数</a>と異なり、特殊な演算仕様を意味する
 <br>
-・右手系をRHS(Right Handed System)と省略する
-<br>
-・左手系をLHS(Left Handed System)と省略する
-<br>
 <br>
 回転行列
 <br>
-・3次元Euclid実空間の右手系直交座標系各軸周りの回転行列を演算して返す
+・<a href="#span-out-Euclid">右手系</a>の<a href="#span-out-orthogonal">直交座標系</a>の各軸周りの回転行列を演算して返す
 <br>
-・代数学に準ずる右手系直交座標系
-<br>
-　紙面x-y平面に対して鉛直上向きをz軸の正とする（左手系はその逆）
-<br>
-　x軸を親指、y軸を人差し指、z軸を中指とする
-<br>
-　回転方向は、x⇒y⇒z⇒x軸の正循環で各軸に向ける方向を正とする
+・回転方向は、x⇒y⇒z⇒x軸の正循環で各軸に向ける方向を正とする
 <br>
 ・返値の回転行列は引数の<a href="#span-out-error">誤差情報</a>を継承しない
 <br>
@@ -16807,7 +16830,7 @@ ans_zxy*ans_yxz ->
 (1,0,-5.551115123125783e-17:0,1,0:-5.551115123125783e-17,0,1)
 <br>
 <br>
-3D-graphicsで主流の左手系の場合
+3D-graphicsで主流の<a href="#span-out-Euclid">左手系</a>の場合
 <br>
 rotx_LHS=&lt;{rt=real(phi),=&lt;(1,,:,cos(rt),sin(rt):,-sin(rt),cos(rt))}=&gt;;
 <br>
@@ -16852,7 +16875,7 @@ rotx_LHS ->
 )
 <br>
 <br>
-2DのHTML5描画canvasも同様にCSS/z-index含めて左手系
+2DのHTML5描画canvasも同様にCSS/z-index含めて<a href="#span-out-Euclid">左手系</a>
 <br>
 ・browser左上originのclient座標系に対して手前方向をCSS/z-indexの正とする
     </td>
@@ -19439,6 +19462,318 @@ clear; _ex(=&lt;x,1,4); ($x0,$x1:$x2,$x3)=identity2; x -> (1,0,0,1)
 目次
 </a>
 <br>
+Euclid実空間
+    </th>
+    <td>
+<span id="span-out-Euclid"></span>
+3次元Euclid実空間について記述する
+<br>
+<br>
+前提を列挙する
+<br>
+・右手系をRHS(Right Handed System)と省略する
+<br>
+・左手系をLHS(Left Handed System)と省略する
+<br>
+<br>
+代数学に準ずる右手系
+<br>
+・紙面x-y平面に対して鉛直上向きをz軸の正とする（左手系はその逆）
+<br>
+・x軸を親指、y軸を人差し指、z軸を中指とする
+<br>
+<br>
+右手系の座標系を列挙する
+<br>
+・<a href="#span-out-orthogonal">直交座標</a>
+<br>
+・<a href="#span-out-polar">平面極座標</a>
+<br>
+・<a href="#span-out-spherical">球面座標</a>
+    </td>
+  </tr>
+  <tr>
+    <th>
+<a href="#span-index">
+目次
+</a>
+<br>
+直交座標
+    </th>
+    <td>
+<span id="span-out-orthogonal"></span>
+右手系の直交座標について記述する
+<br>
+<br>
+直交座標(x,y,z)の関係式を示す
+<br>
+・定義
+<br>
+e_0:={0,0,0}
+<br>
+e_x:={1,0,0}
+<br>
+e_y:={0,1,0}
+<br>
+e_z:={0,0,1}
+<br>
+I:=(e_x,e_y,e_z)
+<br>
+・基底vector（不変）
+<br>
+e_x={1,0,0}
+<br>
+e_y={0,1,0}
+<br>
+e_z={0,0,1}
+<br>
+・標準内積
+<br>
+e_x・e_x=1
+<br>
+e_x・e_y=0
+<br>
+e_x・e_z=0
+<br>
+e_y・e_x=0
+<br>
+e_y・e_y=1
+<br>
+e_y・e_z=0
+<br>
+e_z・e_x=0
+<br>
+e_z・e_y=0
+<br>
+e_z・e_z=1
+<br>
+・右手系のvector積（外積）
+<br>
+e_x×e_x=e_0
+<br>
+e_x×e_y=e_z
+<br>
+e_x×e_z=-e_y
+<br>
+e_y×e_x=-e_z
+<br>
+e_y×e_y=e_0
+<br>
+e_y×e_z=e_x
+<br>
+e_z×e_x=e_y
+<br>
+e_z×e_y=-e_x
+<br>
+e_z×e_z=e_0
+<br>
+・運動
+<br>
+位置　　(vec_x):={x,y,z}
+<br>
+速度　　(vec_x)'={x',y',z'}
+<br>
+加速度　(vec_x)"={x",y",z"}
+<br>
+面積速度vec_vA*2=(vec_x)×(vec_x)'={y*z'-z*y',z*x'-x*z',x*y'-y*x'}
+    </td>
+  </tr>
+  <tr>
+    <th>
+<a href="#span-index">
+目次
+</a>
+<br>
+平面極座標
+    </th>
+    <td>
+<span id="span-out-polar"></span>
+右手系の平面極座標について記述する
+<br>
+<br>
+平面極座標(r,p)の関係式を示す
+<br>
+・平面に直交するz軸周りの<a href="#span-out-FNmspecial">回転行列</a>
+<br>
+rotz=(cos(p),-sin(p),0:sin(p),cos(p),0:0,0,1)
+<br>
+・定義
+<br>
+e_0:={0,0,0}
+<br>
+e_x:={1,0,0}
+<br>
+e_y:={0,1,0}
+<br>
+e_z:={0,0,1}
+<br>
+I:=(e_x,e_y,e_z)
+<br>
+rotz:=(e_r,e_p,e_z)=I*rotz
+<br>
+・基底vector（2軸可変）
+<br>
+e_r={cos(p),sin(p),0}
+<br>
+e_p={-sin(p),cos(p),0}
+<br>
+e_z={0,0,1}
+<br>
+・基底vectorの時間微分
+<br>
+(e_r)'=p'*e_p
+<br>
+(e_p)'=-p'*e_r
+<br>
+(e_z)'=e_0
+<br>
+(e_r)"=p"*e_p-(p')^2*e_r
+<br>
+(e_p)"=-p"*e_r-(p')^2*e_p
+<br>
+(e_z)"=e_0
+<br>
+・<a href="#span-out-FNmspecial">回転行列</a>の時間微分
+<br>
+(rotz)':=((e_r)',(e_p)',(e_z)')=p'*(e_p,-e_r,e_0)
+<br>
+(rotz)":=((e_r)",(e_p)",(e_z)")=p"*(e_p,-e_r,e_0)+p'*(-p'*e_r,-p'*e_p,e_0)
+<br>
+・標準内積
+<br>
+e_r・e_r=1
+<br>
+e_r・e_p=0
+<br>
+e_r・e_z=0
+<br>
+e_p・e_r=0
+<br>
+e_p・e_p=1
+<br>
+e_p・e_z=0
+<br>
+e_z・e_r=0
+<br>
+e_z・e_p=0
+<br>
+e_z・e_z=1
+<br>
+・右手系のvector積（外積）
+<br>
+e_r×e_r=e_0
+<br>
+e_r×e_p=e_z
+<br>
+e_r×e_z=-e_p
+<br>
+e_p×e_r=-e_z
+<br>
+e_p×e_p=e_0
+<br>
+e_p×e_z=e_r
+<br>
+e_z×e_r=e_p
+<br>
+e_z×e_p=-e_r
+<br>
+e_z×e_z=e_0
+<br>
+・運動
+<br>
+位置　　(vec_r):=rotz*{r,0,0}
+<br>
+速度　　(vec_r)'=(rotz)'*{r,0,0}+rotz*{r',0,0}=rotz*{r',r*p',0}
+<br>
+加速度　(vec_r)"=(rotz)'*{r',r*p',0}+rotz*{r",r'*p'+r*p",0}=rotz*{r"-r*(p')^2,2*r'*p'+r*p",0}
+<br>
+面積速度vec_vA*2=(vec_r)×(vec_r)'=(e_r*r)×(e_r*r'+e_p*r*p')=rotz*{0,0,r^2*p'}
+<br>
+・速度成分
+<br>
+v_r=r'
+<br>
+v_p=r*p'
+<br>
+v_z=0
+<br>
+・加速度成分
+<br>
+a_r=r"-r*(p')^2
+<br>
+a_p=r*p"+2*r'*p'
+<br>
+a_z=0
+    </td>
+  </tr>
+  <tr>
+    <th>
+<a href="#span-index">
+目次
+</a>
+<br>
+球面座標
+    </th>
+    <td>
+<span id="span-out-spherical"></span>
+右手系の球面座標について記述する
+<br>
+<br>
+球面座標(r,t,p)の関係式を示す
+<br>
+・一般化した<a href="#span-out-FNmspecial">回転行列</a>
+<br>
+rot_=(sin(t)*cos(p),cos(t)*cos(p),-sin(p):sin(t)*sin(p),cos(t)*sin(p),cos(p):cos(t),-sin(t),0)
+<br>
+・定義
+<br>
+e_0:={0,0,0}
+<br>
+e_x:={1,0,0}
+<br>
+e_y:={0,1,0}
+<br>
+e_z:={0,0,1}
+<br>
+I:=(e_x,e_y,e_z)
+<br>
+rot_:=(e_r,e_t,e_p)=I*rot_
+<br>
+・基底vector（3軸可変）
+<br>
+e_r={sin(t)*cos(p),sin(t)*sin(p),cos(t)}
+<br>
+e_t={cos(t)*cos(p),cos(t)*sin(p),-sin(t)}
+<br>
+e_p={-sin(p),cos(p),0}
+<br>
+・標準内積
+<br>
+e_r・e_r=1
+<br>
+e_r・e_t=0
+<br>
+e_r・e_p=0
+<br>
+e_t・e_r=0
+<br>
+e_t・e_t=1
+<br>
+e_t・e_p=0
+<br>
+e_p・e_r=0
+<br>
+e_p・e_t=0
+<br>
+e_p・e_p=1
+    </td>
+  </tr>
+  <tr>
+    <th>
+<a href="#span-index">
+目次
+</a>
+<br>
 analogy
     </th>
     <td>
@@ -20014,126 +20349,6 @@ zn(z) yn(z,x)
 50625,50624,50609,50544,50369,50000,49329,48224,46529,44064,40625,35984,29889,22064,12209
 <br>
 ・n=3以上の場合、自然数の階段yは見つからない（Fermatの最終定理は20世紀に証明済み）
-    </td>
-  </tr>
-  <tr>
-    <th>
-<a href="#span-index">
-目次
-</a>
-<br>
-平面極座標
-    </th>
-    <td>
-<span id="span-out-polar"></span>
-平面極座標について記述する
-<br>
-<br>
-代数学の平面極座標(r,p)の関係式を示す
-<br>
-・平面に直交するz軸周りの<a href="#span-out-FNmspecial">回転行列</a>
-<br>
-rotz=(cos(p),-sin(p),0:sin(p),cos(p),0:0,0,1)
-<br>
-・定義
-<br>
-e_0={0,0,0}
-<br>
-rotz≡(e_r,e_p,e_z)
-<br>
-・基底vector
-<br>
-e_r={cos(p),sin(p),0}
-<br>
-e_p={-sin(p),cos(p),0}
-<br>
-e_z={0,0,1}
-<br>
-・基底vectorの時間微分
-<br>
-(e_r)'=p'*e_p
-<br>
-(e_p)'=-p'*e_r
-<br>
-(e_z)'=e_0
-<br>
-(e_r)"=p"*e_p-(p')^2*e_r
-<br>
-(e_p)"=-p"*e_r-(p')^2*e_p
-<br>
-(e_z)"=e_0
-<br>
-・<a href="#span-out-FNmspecial">回転行列</a>の時間微分
-<br>
-(rotz)'≡((e_r)',(e_p)',(e_z)')=p'*(e_p,-e_r,e_0)
-<br>
-(rotz)"≡((e_r)",(e_p)",(e_z)")=p"*(e_p,-e_r,e_0)+p'*(-p'*e_r,-p'*e_p,e_0)
-<br>
-・内積
-<br>
-e_r・e_r=1
-<br>
-e_r・e_p=0
-<br>
-e_r・e_z=0
-<br>
-e_p・e_r=0
-<br>
-e_p・e_p=1
-<br>
-e_p・e_z=0
-<br>
-e_z・e_r=0
-<br>
-e_z・e_p=0
-<br>
-e_z・e_z=1
-<br>
-・右手系のvector積（外積）
-<br>
-e_r×e_r=e_0
-<br>
-e_r×e_p=e_z
-<br>
-e_r×e_z=-e_p
-<br>
-e_p×e_r=-e_z
-<br>
-e_p×e_p=e_0
-<br>
-e_p×e_z=e_r
-<br>
-e_z×e_r=e_p
-<br>
-e_z×e_p=-e_r
-<br>
-e_z×e_z=e_0
-<br>
-・運動
-<br>
-位置　　(vec_r) =rotz*{r,0,0}
-<br>
-速度　　(vec_r)'=(rotz)'*{r,0,0}+rotz*{r',0,0}=rotz*{r',r*p',0}
-<br>
-加速度　(vec_r)"=(rotz)'*{r',r*p',0}+rotz*{r",r'*p'+r*p",0}=rotz*{r"-r*(p')^2,2*r'*p'+r*p",0}
-<br>
-面積速度vec_vA*2=(vec_r)×(vec_r)'=(e_r*r)×(e_r*r'+e_p*r*p')=e_z*r^2*p'
-<br>
-・速度成分
-<br>
-v_r=r'
-<br>
-v_p=r*p'
-<br>
-v_z=0
-<br>
-・加速度成分
-<br>
-a_r=r"-r*(p')^2
-<br>
-a_p=r*p"+2*r'*p'
-<br>
-a_z=0
     </td>
   </tr>
   <tr>
@@ -24648,7 +24863,7 @@ t,x_o1[0],x_o1[1],x_o4[0],x_o4[1],
 <br>
 前提を列挙する
 <br>
-・太陽を焦点位置の極とする<a href="#span-out-polar">平面極座標</a>(r,θ)の楕円軌道を示す
+・太陽を焦点位置の極とする<a href="#span-out-polar">平面極座標</a>(距離r,真近点角θ)の楕円軌道を示す
 <br>
 r(θ)=p/(1+er*cos(θ))
 <br>
@@ -24706,13 +24921,13 @@ r*(r*θ')/2=vA
 <br>
 位置P=-G*(M*m/r)※無限遠で最大値0に漸近
 <br>
-・<a href="#span-out-polar">平面極座標</a>(r,θ)の運動方程式
+・運動方程式の導出
 <br>
 m*(r"-r*(θ')^2)=-G*M*m/r^2
 <br>
 r*θ"+2*r'*θ'=0
 <br>
-・厳密な運動方程式
+・厳密構成の運動方程式
 <br>
 r'=v
 <br>
@@ -24739,6 +24954,38 @@ r=rmin
 v=0
 <br>
 w=2*vA/rmin^2
+<br>
+・時間tの従属変数
+<br>
+kT=t/T
+<br>
+・平均近点角
+<br>
+Mn=n*t
+<br>
+・Kepler方程式
+<br>
+Mn-(Et-er*sin(Et))=0
+<br>
+・楕円中心の離心近点角Etに対するrの導出
+<br>
+y^2+(x-a*er)^2=r^2
+<br>
+x=a*cos(Et)
+<br>
+y=b*cos(Et)
+<br>
+b^2=a^2*(1-er^2)
+<br>
+r=a*(1-er*cos(Et))
+<br>
+・基準値に対する変化率
+<br>
+θ方向の初速||面積速度kw
+<br>
+r方向の重力kalpha
+<br>
+r方向の遠心力kbeta
 <br>
 <br>
 解法を列挙する
@@ -24811,36 +25058,109 @@ t=T*kT;
 <br>
 x1=_otdummy(=&lt;{v,w,-alpha/r^2+beta/r^3,-2*v*w/r},=&lt;{r,theta,v,w},=&lt;{r0,theta0,v0,w0},N=round(t/dt),dt,N);
 <br>
-r=x1[0];
+r1=x1[0];
 <br>
-t=x1[1];
+t1=x1[1];
 <br>
-・円錐曲線の方程式
-<br>
-zt1=(p/(1+er*cos(t)))*e^(i(t));
-<br>
-zt2=r*e^(i(t));
-<br>
-x_eq=real(zt1);
-<br>
-y_eq=imag(zt1);
-<br>
-x_o4=real(zt2);
-<br>
-y_o4=imag(zt2);
+zt1=r1*e^(i(t1));
 <br>
 ・最小構成の時間発展方程式
 <br>
 x1=_otdummy(=&lt;{v,2*vA/r^2,-alpha/r^2+beta/r^3},=&lt;{r,theta,v},=&lt;{r0,theta0,v0},N=round(t/dt),dt,N);
 <br>
+・円錐曲線の方程式
 <br>
-test caseを示す（厳密な運動方程式）
+zt2=(p/(1+er*cos(t1)))*e^(i(t1));
+<br>
+・Kepler方程式
+<br>
+Mn=n*t;
+<br>
+Newton(=&lt;Mn-(Et-er*sin(Et))=0,=&lt;{Et},,,20,1e-10,1);
+<br>
+r3=a*(1-er*cos(Et));
+<br>
+t3=2*atan(sqrt((1+er)/(1-er))*tan(Et/2));
+<br>
+zt3=r3*e^(i(t3));
+<br>
+・座標系の変換
+<br>
+x_o4=real(zt1);
+<br>
+y_o4=imag(zt1);
+<br>
+x_eq=real(zt2);
+<br>
+y_eq=imag(zt2);
+<br>
+x_Keq=real(zt3);
+<br>
+y_Keq=imag(zt3);
+<br>
+<br>
+test caseを示す（厳密構成の運動方程式）
+<br>
+・index
+<br>
+kT,0,x_Keq,y_Keq,x_o4,y_o4,
+<br>
+・<a href="#span-out-orthogonal">平面直交座標</a>(x,y)が地球の公転軌道を表す
+<br>
+0,0,147098074000,0,147098074000,0,
+<br>
+0.1,0,117645979454.41016,89119571482.18962,117646073297.56575,89119593954.0389,
+<br>
+0.2,0,41450127214.54836,142976295065.944,41450492075.00406,142976518853.716,
+<br>
+0.3,0,-50971439067.87596,141507725745.10355,-50970826324.21445,141508578479.43475,
+<br>
+0.4,0,-124373455351.08264,86742387417.07887,-124373124876.82574,86744300802.14795,
+<br>
+0.5,0,-152097701000,0.000018626596268732117,-152098630190.86963,2847237.163415004,
+<br>
+0.6,0,-124373455351.08261,-86742387417.07892,-124376437732.5601,-86739647462.52522,
+<br>
+0.7,0,-50971439067.87596,-141507725745.10355,-50976274874.828735,-141506712606.37128,
+<br>
+0.8,0,41450127214.548416,-142976295065.94394,41444929811.39818,-142978228089.31668,
+<br>
+0.9,0,117645979454.41013,-89119571482.18967,117642576260.75374,-89124306965.08633,
+<br>
+1,0,147098074000,-0.0000366357988125792,147098073884.09283,-5888056.317206092,
+<br>
+・rmaxのみ変更rmax=252097701000（er=0.26302790153528055）
+<br>
+0,0,147098074000,0,147098074000,0,
+<br>
+0.1,0,83557972868.06354,140897388150.65997,83558183078.02698,140897479453.7757,
+<br>
+0.2,0,-42229087824.4498,192314576944.42972,-42228485945.3599,192315282374.82703,
+<br>
+0.3,0,-155084162929.37552,165189573903.43307,-155083587063.4741,165191479182.0332,
+<br>
+0.4,0,-227490834971.59644,92627001386.56705,-227491097087.5838,92630308738.87328,
+<br>
+0.5,0,-252097701000,0.00003087306426020565,-252099755868.8234,4417821.374398763,
+<br>
+0.6,0,-227490834971.59653,-92627001386.56694,-227495618215.9173,-92622358230.52377,
+<br>
+0.7,0,-155084162929.37567,-165189573903.43295,-155092327715.35623,-165186426537.96497,
+<br>
+0.8,0,-42229087824.4498,-192314576944.42972,-42240196066.38786,-192315864253.44543,
+<br>
+0.9,0,83557972868.06348,-140897388150.66006,83547870672.60117,-140906748102.49075,
+<br>
+1,0,147098074000,-0.00004716597138408846,147098073382.89954,-15142709.324563585,
+<br>
+<br>
+test caseを示す（厳密構成の運動方程式）
 <br>
 ・index
 <br>
 kT,x_eq,y_eq,x_o4,y_o4,
 <br>
-・kTが周期、(x,y)が太陽の中心を原点とする地球の公転軌道平面の座標を表す
+・<a href="#span-out-orthogonal">平面直交座標</a>(x,y)が地球の公転軌道を表す
 <br>
 0,147098073999.99997,0,147098074000,0,
 <br>
@@ -25195,7 +25515,7 @@ test caseを示す（最小構成の時間発展方程式）
 <br>
 kT,x_eq,y_eq,x_o4,y_o4,
 <br>
-・kTが周期、(x,y)が太陽の中心を原点とする地球の公転軌道平面の座標を表す
+・<a href="#span-out-orthogonal">平面直交座標</a>(x,y)が地球の公転軌道を表す
 <br>
 0,147098073999.99997,0,147098074000,0,
 <br>
