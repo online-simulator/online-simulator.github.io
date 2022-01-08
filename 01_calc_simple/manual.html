@@ -16717,7 +16717,7 @@ theta=pi/5; roty-rotationy(theta) -> (0,0,0:0,0,0:0,0,0)
 psi=pi/5; rotz-rotationz(psi) -> (0,0,0:0,0,0:0,0,0)
 <br>
 <br>
-回転行列を一般化する場合
+回転行列の一般化
 <br>
 ・関数を使用する場合
 <br>
@@ -16830,7 +16830,7 @@ ans_zxy*ans_yxz ->
 (1,0,-5.551115123125783e-17:0,1,0:-5.551115123125783e-17,0,1)
 <br>
 <br>
-3D-graphicsで主流の<a href="#span-out-Euclid">左手系</a>の場合
+3D-graphicsで主流の<a href="#span-out-Euclid">左手系</a>
 <br>
 rotx_LHS=&lt;{rt=real(phi),=&lt;(1,,:,cos(rt),sin(rt):,-sin(rt),cos(rt))}=&gt;;
 <br>
@@ -16873,11 +16873,6 @@ rotx_LHS ->
 0,-0.7071067811865475,0.7071067811865476
 <br>
 )
-<br>
-<br>
-2DのHTML5描画canvasも同様にCSS/z-index含めて<a href="#span-out-Euclid">左手系</a>
-<br>
-・browser左上originのclient座標系に対して手前方向をCSS/z-indexの正とする
     </td>
   </tr>
   <tr>
@@ -19481,6 +19476,11 @@ Euclid実空間
 ・紙面x-y平面に対して鉛直上向きをz軸の正とする（左手系はその逆）
 <br>
 ・x軸を親指、y軸を人差し指、z軸を中指とする
+<br>
+<br>
+computer graphicsで主流の左手系
+<br>
+・HTML5描画canvasではbrowser左上originのclient座標系に対して手前方向をCSS/z-indexの正とする
 <br>
 <br>
 右手系の座標系を列挙する
