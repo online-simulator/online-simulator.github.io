@@ -111,6 +111,7 @@
       $._id("binominal").onclick = function(){setVal("0", "n=20,n", "k=floor(t),n=t1,k;", "_pp(=<(n-(k-p))/(p||1),1,k);(n)!/((k)!*(n-k)!);", 20);$._id("input-z").value+="TITLE{binomial coefficients}XLABEL{k}YLABEL{(n k)};";};
       $._id("probability").onclick = function(){setVal("10", "0", "N=t,N;", "Pb=3,Pn=<100combin(10,n)(Pb/100)^n((100-Pb)/100)^(10-n),n=N,Pn;PN=<_sn(=<Pn,N,10),PN;", 10);};
       $._id("state").onclick = function(){setVal("0", "20", "N=round(t),x0={0.8,0.2},p=0.2,q=0.3,P(p,q)=<(p,1-q:1-p,q),P=P(p,q)=>,P(N)=<switch(N>0,=<_pn(=<{P},0,N-1):1,1),xn=P(N)=>*x0,N;", "xn[0];xn[1];", 21);$._id("input-z").value+="TITLE{state transition}XLABEL{N}YLABEL{P(N)*x0}::3:1.5:1.5::state A;::::::state B;";};
+      $._id("Bessel").onclick = function(){setVal("1", "10", "x=t,M0=10,gamma(s)=<switch(real(s)%1==0&&real(s)>0&&imag(s)==0,=<(s-1)!:1,=<_it(=<t**(s-1)*e^(-t),0,20,2000)),Ja(a,M)=<_sm(=<(-1)**m*(x/2)**(2m+a)/((m)!*gamma(m+a+1)),0,M),Ya(a,M)=<(Ja(a,M)*cos(a*pi)-Ja(-a,M))/sin(a*pi),x;", "Ja(1,M0);Ja(1,M0*2);Ya(0.5,M0);Ya(0.5,M0*2);", 9);$._id("input-z").value+="TITLE{real Bessel functions}::3:1.5:1.5::Ja,a=1,M=10;::::::1,20;::::::Ya,a=0.5,M=10;::::::1,20;";};
       $._id("Airyr").onclick = function(){setVal("-5", "1", "x=t,a=0,b0=10,N0=1000,Ai(b,N)=<_it(=<cos(t**3/3+x*t),a,b,N)/pi,Bi(b,N)=<_it(=<exp(-t**3/3+x*t)+sin(t**3/3+x*t),a,b,N)/pi,x;", "Ai(b0,N0);Ai(b0*2,N0*4);Ai(b0*3,N0*9);Bi(b0,N0);Bi(b0*2,N0*4);Bi(b0*3,N0*9);", 20);$._id("input-z").value+="TITLE{real Airy functions}::3:1.5:1.5::Ai,b=10,N=1000;::::::20,4000;::::::30,9000;::::::Bi,b=10,N=1000;::::::20,4000;::::::30,9000;";};
       $._id("Airyc").onclick = function(){setVal("s0=-1,s0", "s1=-i,s1", "s=t,b0=10,N0=1000,AB(a,b,N)=<_it(=<e^(i(t**3/3+s*t)),a,b,N)/(2*pi),Ai(b,N)=<AB(-b,b,N),Bi(b,N)=<-i*AB(-b,b,N)+2i*(AB(-b,0,N)+AB(0,-b*i,N)),zt1=Ai(b0,N0),zt2=Ai(b0*2,N0*4),zt3=Ai(b0*3,N0*9),zt4=Bi(b0,N0),zt5=Bi(b0*2,N0*4),zt6=Bi(b0*3,N0*9),real(zt1);real(zt2);real(zt3);real(zt4);real(zt5);real(zt6);", "imag(zt1);imag(zt2);imag(zt3);imag(zt4);imag(zt5);imag(zt6);", 40);$._id("input-z").value+="TITLE{complex Airy functions ***** low accuracy *****}XLABEL{real(z)}YLABEL{imag(z)}::3:1.5:1.5::Ai,b=10,N=1000;::::::20,4000;::::::30,9000;::::::Bi,b=10,N=1000;::::::20,4000;::::::30,9000;";};
       $._id("zeta").onclick = function(){setVal("s0=1+i,s0", "s1=1.5+5i,s1", "s=t,N0=100,zeta(N)=<_sn(=<1/n**s,1,N),zt1=zeta(N0),zt2=zeta(N0*10),zt3=zeta(N0*100),real(zt1),real(zt2),real(zt3);", "imag(zt1);imag(zt2);imag(zt3);", 100);$._id("input-z").value+="TITLE{Riemann zeta function}XLABEL{real(z)}YLABEL{imag(z)}::3:1.5:1.5::N=100;::::::N=1000;::::::N=10000;";};
@@ -304,6 +305,7 @@ plot2d
   <button id="binominal">bino</button>
   <button id="probability">prob</button>
   <button id="state">state</button>
+  <button id="Bessel">Bessel</button>
   <button id="Airyr">Airyr</button>
   <button id="Airyc">Airyc</button>
   <button id="zeta">zeta</button>
