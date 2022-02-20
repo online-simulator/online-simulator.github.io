@@ -139,1269 +139,520 @@ e^(-i(1pi(){2/2i}(5-{3-1}){i/(-4)}))
 目次
     </th>
     <td>
-<a href="#span-ref">
-参考文献
-</a>
+<a href="#span-ref">参考文献</a>
 <br>
-・
-<a href="#span-ref-docs">
-参考Docs
-</a>
+・<a href="#span-ref-docs">参考Docs</a>
 <br>
-・
-<a href="#span-ref-wiki">
-参考Wikipedia
-</a>
+・<a href="#span-ref-wiki">参考Wikipedia</a>
 <br>
-・
-<a href="#span-ref-git">
-参考GitHub
-</a>
+・<a href="#span-ref-git">参考GitHub</a>
 <br>
-・
-<a href="#span-ref-paper">
-参考論文
-</a>
+・<a href="#span-ref-paper">参考論文</a>
 <br>
 <br>
-<a href="#span-out">
-外部仕様
-</a>
+<a href="#span-out">外部仕様</a>
 <br>
-・
-<a href="#span-out-pre">
-前提
-</a>
+・<a href="#span-out-pre">前提</a>
 <br>
 ・操作UI
 <br>
-　・
-<a href="#span-out-UI-simple">
-Simple Calculator
-</a>
-<br>
-　・
-<a href="#span-out-UI-graphing">
-Graphing Calculator
-</a>
-<br>
-　　・
-<a href="#span-out-UI-graphing-changed-history">
-plot仕様変更履歴
-</a>
-<br>
-　　・
-<a href="#span-out-UI-graphing-color-space">
-color空間
-</a>
-<br>
-　　・
-<a href="#span-out-UI-graphing-color">
-color入力仕様
-</a>
-<br>
-　　・
-<a href="#span-out-UI-graphing-z">
-z入力仕様
-</a>
-<br>
-　　　・
-<a href="#span-out-UI-graphing-legend">
-legend-dataset
-</a>
-<br>
-　　　・
-<a href="#span-out-UI-graphing-bgcolor">
-bgcolor特定項目仕様
-</a>
-<br>
-　　　・
-<a href="#span-out-UI-graphing-gdcolor">
-gdcolor特定項目仕様
-</a>
-<br>
-　　　・
-<a href="#span-out-UI-graphing-plotconfig">
-plotconfig特定項目仕様
-</a>
-<br>
-　　　・
-<a href="#span-out-UI-graphing-title">
-graph-title特定項目仕様
-</a>
-<br>
-　　　・
-<a href="#span-out-UI-graphing-labels">
-axis-labels特定項目仕様
-</a>
-<br>
-　　　・
-<a href="#span-out-UI-graphing-origin">
-origin特定項目仕様
-</a>
-<br>
-　　　・
-<a href="#span-out-UI-graphing-string-path">
-string-path特定項目仕様
-</a>
-<br>
-　　　・
-<a href="#span-out-UI-graphing-gradation">
-gradation特定項目仕様
-</a>
-<br>
-　　　・
-<a href="#span-out-UI-graphing-transform">
-transform特定項目仕様
-</a>
-<br>
-　　　・
-<a href="#span-out-UI-graphing-blur">
-blur特定項目仕様
-</a>
-<br>
-　　　・
-<a href="#span-out-UI-graphing-filter">
-filter特定項目仕様
-</a>
-<br>
-　　　　・
-<a href="#span-out-UI-graphing-filter-weight">
-加重平均
-</a>
-<br>
-　　　　・
-<a href="#span-out-UI-graphing-filter-edge">
-edge抽出
-</a>
-<br>
-　　　　・
-<a href="#span-out-UI-graphing-filter-average">
-averageぼかし
-</a>
-<br>
-　　　　・
-<a href="#span-out-UI-graphing-filter-average-asym">
-非対称averageぼかし
-</a>
-<br>
-　　　　・
-<a href="#span-out-UI-graphing-filter-Gaussian">
-Gaussぼかし
-</a>
-<br>
-　　　　・
-<a href="#span-out-UI-graphing-filter-tone-curve">
-tone-curve特定項目仕様
-</a>
-<br>
-　　　　・
-<a href="#span-out-UI-graphing-post-transformer">
-post-transformer特定項目仕様
-</a>
-<br>
-　　　　・
-<a href="#span-out-UI-graphing-post-compressor">
-post-compressor特定項目仕様
-</a>
-<br>
-　　　　・
-<a href="#span-out-UI-graphing-post-processor">
-post-processor特定項目仕様
-</a>
-<br>
-　　　　　・
-<a href="#span-out-UI-graphing-post-processor-encode">
-encode仕様
-</a>
-<br>
-　　　・
-<a href="#span-out-UI-graphing-tile">
-tile特定項目仕様
-</a>
-<br>
-　　　・
-<a href="#span-out-UI-graphing-cut">
-cut特定項目仕様
-</a>
-<br>
-　　・
-<a href="#span-out-UI-graphing-v">
-v入力仕様
-</a>
-<br>
-　　・
-<a href="#span-out-UI-graphing-layer">
-layer描画順
-</a>
-<br>
-　　　・
-<a href="#span-out-UI-graphing-layer-background">
-背景優先順
-</a>
-<br>
-　　　・
-<a href="#span-out-UI-graphing-layer-grid">
-grid-layer描画順
-</a>
-<br>
-　　　・
-<a href="#span-out-UI-graphing-layer-plot">
-plot-layer描画順
-</a>
-<br>
-　　・
-<a href="#span-out-UI-graphing-post">
-post処理順
-</a>
-<br>
-　　　・
-<a href="#span-out-UI-graphing-post1">
-layer合成順
-</a>
-<br>
-　　　・
-<a href="#span-out-UI-graphing-post2">
-post最終処理順
-</a>
-<br>
-　　・
-<a href="#span-out-UI-graphing-config">
-plot-config
-</a>
-<br>
-　　・
-<a href="#span-out-UI-graphing-list">
-strict-mode equation-list
-</a>
-<br>
-・
-<a href="#span-out-log-stamp">
-log-stamp仕様
-</a>
-<br>
-・
-<a href="#span-out-log">
-log表示仕様
-</a>
-<br>
-・
-<a href="#span-out-options">
-外部option
-</a>
-<br>
-　・
-<a href="#span-out-option1">
-2項演算子のassociativity
-</a>
-<br>
-　・
-<a href="#span-out-option2">
-記号省略乗算
-</a>
-<br>
-　・
-<a href="#span-out-option4">
-comma演算子
-</a>
-<br>
-　・
-<a href="#span-out-option3">
-Multi-thread実行
-</a>
-<br>
-・
-<a href="#span-out-type-ope">
-演算子の大分類
-</a>
-<br>
-・
-<a href="#span-out-associativity">
-2項演算子のassociativity
-</a>
-<br>
-・
-<a href="#span-out-prec">
-演算のprecedence
-</a>
-<br>
-　・
-<a href="#span-out-prec-ope">
-演算子のprecedence
-</a>
-<br>
-　　・
-<a href="#span-out-prec-ope-arithmetic">
-算術演算子
-</a>
-<br>
-　　　・
-<a href="#span-out-prec-ope-arithmetic-mod">
-剰余・整数商演算子
-</a>
-<br>
-　　・
-<a href="#span-out-prec-ope-bit">
-bit演算子
-</a>
-<br>
-　　・
-<a href="#span-out-prec-ope-comparison">
-比較演算子
-</a>
-<br>
-　　・
-<a href="#span-out-prec-ope-relational">
-関係演算子
-</a>
-<br>
-　　・
-<a href="#span-out-prec-ope-logical">
-論理演算子
-</a>
-<br>
-・
-<a href="#span-out-float">
-浮動小数点演算
-</a>
-<br>
-　・
-<a href="#span-out-epsilon">
-Machine epsilon
-</a>
-<br>
-　・
-<a href="#span-out-number">
-Number型定数
-</a>
-<br>
-・
-<a href="#span-out-error">
-誤差の扱い
-</a>
-<br>
-　・
-<a href="#span-out-error-numerical">
-数値解の数値誤差
-</a>
-<br>
-・
-<a href="#span-out-config">
-裏設定
-</a>
-<br>
-　・
-<a href="#span-out-config-strict">
-strict-mode
-</a>
-<br>
-・
-<a href="#span-out-ope">
-演算仕様
-</a>
-<br>
-　・
-<a href="#span-out-ope-extended">
-拡張行列演算
-</a>
-<br>
-　　・
-<a href="#span-out-ope-extended-history">
-拡張履歴
-</a>
-<br>
-　　・
-<a href="#span-out-spec-changed-history">
-演算仕様変更履歴
-</a>
-<br>
-　　・
-<a href="#span-out-spec-Python">
-Pythonとの相違
-</a>
-<br>
-・
-<a href="#span-out-types">
-型の種類
-</a>
-<br>
-・
-<a href="#span-out-types-vars">
-変数の種類
-</a>
-<br>
-・
-<a href="#span-out-scope-vars">
-変数のscope
-</a>
-<br>
-　・
-<a href="#span-out-scope-inherited-call">
-式変数のscope継承call
-</a>
-<br>
-・
-<a href="#span-out-storage">
-storage
-</a>
-<br>
-・
-<a href="#span-out-bracket">
-階層とscopeの関係
-</a>
-<br>
-・
-<a href="#span-out-eqns-args">
-式変数のarguments
-</a>
-<br>
-　・
-<a href="#span-out-eqns-re-use">
-scope付式変数の再利用
-</a>
-<br>
-　・
-<a href="#span-out-scope-inherited-call-memo">
-式変数のscope継承callまとめ
-</a>
-<br>
-・
-<a href="#span-out-flow">
-演算flow
-</a>
-<br>
-・
-<a href="#span-out-development">
-開発環境
-</a>
-<br>
-　・
-<a href="#span-out-development-additional">
-実装の特徴
-</a>
-<br>
-　・
-<a href="#span-out-development-problems">
-仕様上の問題点
-</a>
-<br>
-　　・
-<a href="#span-out-development-problems-type">
-型定義の問題点
-</a>
-<br>
-　　・
-<a href="#span-out-development-problems-complex">
-複素数演算の問題点
-</a>
-<br>
-　　・
-<a href="#span-out-development-problems-matrix">
-行列演算の問題点
-</a>
-<br>
-　　・
-<a href="#span-out-development-problems-CBR">
-未実装の参照渡し
-</a>
-<br>
-　　・
-<a href="#span-out-development-problems-CAS">
-未実装のCAS
-</a>
-<br>
-・
-<a href="#span-out-system">
-動作test環境
-</a>
-<br>
-　・
-<a href="#span-out-system-test">
-実機online-test手順
-</a>
-<br>
-・
-<a href="#span-out-requirements">
-動作要件
-</a>
-<br>
-　・
-<a href="#span-out-browsers">
-browser間の相違
-</a>
-<br>
-　・
-<a href="#span-out-browsers-ie">
-Internet Explorer非対応の機能
-</a>
+　・<a href="#span-out-UI-simple">Simple Calculator</a>
+<br>
+　・<a href="#span-out-UI-graphing">Graphing Calculator</a>
+<br>
+　　・<a href="#span-out-UI-graphing-changed-history">plot仕様変更履歴</a>
+<br>
+　　・<a href="#span-out-UI-graphing-color-space">color空間</a>
+<br>
+　　・<a href="#span-out-UI-graphing-color">color入力仕様</a>
+<br>
+　　・<a href="#span-out-UI-graphing-z">z入力仕様</a>
+<br>
+　　　・<a href="#span-out-UI-graphing-legend">legend-dataset</a>
+<br>
+　　　・<a href="#span-out-UI-graphing-bgcolor">bgcolor特定項目仕様</a>
+<br>
+　　　・<a href="#span-out-UI-graphing-gdcolor">gdcolor特定項目仕様</a>
+<br>
+　　　・<a href="#span-out-UI-graphing-plotconfig">plotconfig特定項目仕様</a>
+<br>
+　　　・<a href="#span-out-UI-graphing-title">graph-title特定項目仕様</a>
+<br>
+　　　・<a href="#span-out-UI-graphing-labels">axis-labels特定項目仕様</a>
+<br>
+　　　・<a href="#span-out-UI-graphing-origin">origin特定項目仕様</a>
+<br>
+　　　・<a href="#span-out-UI-graphing-string-path">string-path特定項目仕様</a>
+<br>
+　　　・<a href="#span-out-UI-graphing-gradation">gradation特定項目仕様</a>
+<br>
+　　　・<a href="#span-out-UI-graphing-transform">transform特定項目仕様</a>
+<br>
+　　　・<a href="#span-out-UI-graphing-blur">blur特定項目仕様</a>
+<br>
+　　　・<a href="#span-out-UI-graphing-filter">filter特定項目仕様</a>
+<br>
+　　　　・<a href="#span-out-UI-graphing-filter-weight">加重平均</a>
+<br>
+　　　　・<a href="#span-out-UI-graphing-filter-edge">edge抽出</a>
+<br>
+　　　　・<a href="#span-out-UI-graphing-filter-average">averageぼかし</a>
+<br>
+　　　　・<a href="#span-out-UI-graphing-filter-average-asym">非対称averageぼかし</a>
+<br>
+　　　　・<a href="#span-out-UI-graphing-filter-Gaussian">Gaussぼかし</a>
+<br>
+　　　　・<a href="#span-out-UI-graphing-filter-tone-curve">tone-curve特定項目仕様</a>
+<br>
+　　　　・<a href="#span-out-UI-graphing-post-transformer">post-transformer特定項目仕様</a>
+<br>
+　　　　・<a href="#span-out-UI-graphing-post-compressor">post-compressor特定項目仕様</a>
+<br>
+　　　　・<a href="#span-out-UI-graphing-post-processor">post-processor特定項目仕様</a>
+<br>
+　　　　　・<a href="#span-out-UI-graphing-post-processor-encode">encode仕様</a>
+<br>
+　　　・<a href="#span-out-UI-graphing-tile">tile特定項目仕様</a>
+<br>
+　　　・<a href="#span-out-UI-graphing-cut">cut特定項目仕様</a>
+<br>
+　　・<a href="#span-out-UI-graphing-v">v入力仕様</a>
+<br>
+　　・<a href="#span-out-UI-graphing-layer">layer描画順</a>
+<br>
+　　　・<a href="#span-out-UI-graphing-layer-background">背景優先順</a>
+<br>
+　　　・<a href="#span-out-UI-graphing-layer-grid">grid-layer描画順</a>
+<br>
+　　　・<a href="#span-out-UI-graphing-layer-plot">plot-layer描画順</a>
+<br>
+　　・<a href="#span-out-UI-graphing-post">post処理順</a>
+<br>
+　　　・<a href="#span-out-UI-graphing-post1">layer合成順</a>
+<br>
+　　　・<a href="#span-out-UI-graphing-post2">post最終処理順</a>
+<br>
+　　・<a href="#span-out-UI-graphing-config">plot-config</a>
+<br>
+　　・<a href="#span-out-UI-graphing-list">strict-mode equation-list</a>
+<br>
+・<a href="#span-out-log-stamp">log-stamp仕様</a>
+<br>
+・<a href="#span-out-log">log表示仕様</a>
+<br>
+・<a href="#span-out-options">外部option</a>
+<br>
+　・<a href="#span-out-option1">2項演算子のassociativity</a>
+<br>
+　・<a href="#span-out-option2">記号省略乗算</a>
+<br>
+　・<a href="#span-out-option4">comma演算子</a>
+<br>
+　・<a href="#span-out-option3">Multi-thread実行</a>
+<br>
+・<a href="#span-out-type-ope">演算子の大分類</a>
+<br>
+・<a href="#span-out-associativity">2項演算子のassociativity</a>
+<br>
+・<a href="#span-out-prec">演算のprecedence</a>
+<br>
+　・<a href="#span-out-prec-ope">演算子のprecedence</a>
+<br>
+　　・<a href="#span-out-prec-ope-arithmetic">算術演算子</a>
+<br>
+　　　・<a href="#span-out-prec-ope-arithmetic-mod">剰余・整数商演算子</a>
+<br>
+　　・<a href="#span-out-prec-ope-bit">bit演算子</a>
+<br>
+　　・<a href="#span-out-prec-ope-comparison">比較演算子</a>
+<br>
+　　・<a href="#span-out-prec-ope-relational">関係演算子</a>
+<br>
+　　・<a href="#span-out-prec-ope-logical">論理演算子</a>
+<br>
+・<a href="#span-out-float">浮動小数点演算</a>
+<br>
+　・<a href="#span-out-epsilon">Machine epsilon</a>
+<br>
+　・<a href="#span-out-number">Number型定数</a>
+<br>
+・<a href="#span-out-error">誤差の扱い</a>
+<br>
+　・<a href="#span-out-error-numerical">数値解の数値誤差</a>
+<br>
+・<a href="#span-out-config">裏設定</a>
+<br>
+　・<a href="#span-out-config-strict">strict-mode</a>
+<br>
+・<a href="#span-out-ope">演算仕様</a>
+<br>
+　・<a href="#span-out-ope-extended">拡張行列演算</a>
+<br>
+　　・<a href="#span-out-ope-extended-history">拡張履歴</a>
+<br>
+　　・<a href="#span-out-spec-changed-history">演算仕様変更履歴</a>
+<br>
+　　・<a href="#span-out-spec-Python">Pythonとの相違</a>
+<br>
+・<a href="#span-out-types">型の種類</a>
+<br>
+・<a href="#span-out-types-vars">変数の種類</a>
+<br>
+・<a href="#span-out-scope-vars">変数のscope</a>
+<br>
+　・<a href="#span-out-scope-inherited-call">式変数のscope継承call</a>
+<br>
+・<a href="#span-out-storage">storage</a>
+<br>
+・<a href="#span-out-bracket">階層とscopeの関係</a>
+<br>
+・<a href="#span-out-eqns-args">式変数のarguments</a>
+<br>
+　・<a href="#span-out-eqns-re-use">scope付式変数の再利用</a>
+<br>
+　・<a href="#span-out-scope-inherited-call-memo">式変数のscope継承callまとめ</a>
+<br>
+・<a href="#span-out-flow">演算flow</a>
+<br>
+・<a href="#span-out-development">開発環境</a>
+<br>
+　・<a href="#span-out-development-additional">実装の特徴</a>
+<br>
+　・<a href="#span-out-development-problems">仕様上の問題点</a>
+<br>
+　　・<a href="#span-out-development-problems-type">型定義の問題点</a>
+<br>
+　　・<a href="#span-out-development-problems-complex">複素数演算の問題点</a>
+<br>
+　　・<a href="#span-out-development-problems-matrix">行列演算の問題点</a>
+<br>
+　　・<a href="#span-out-development-problems-CBR">未実装の参照渡し</a>
+<br>
+　　・<a href="#span-out-development-problems-CAS">未実装のCAS</a>
+<br>
+・<a href="#span-out-system">動作test環境</a>
+<br>
+　・<a href="#span-out-system-test">実機online-test手順</a>
+<br>
+・<a href="#span-out-requirements">動作要件</a>
+<br>
+　・<a href="#span-out-browsers">browser間の相違</a>
+<br>
+　・<a href="#span-out-browsers-ie">Internet Explorer非対応の機能</a>
 <br>
 ・graph出力仕様
 <br>
-　・
-<a href="#span-out-plot2d">
-plot2d
-</a>
+　・<a href="#span-out-plot2d">plot2d</a>
 <br>
 ・入力仕様
 <br>
-　・
-<a href="#span-out-plot2d-command">
-plot2d-command
-</a>
-<br>
-　・
-<a href="#span-out-comment">
-comment文
-</a>
-<br>
-　・
-<a href="#span-out-command">
-命令文
-</a>
-<br>
-　・
-<a href="#span-out-SR">
-区切り文字
-</a>
-<br>
-　・
-<a href="#span-out-FNc">
-最上位関数
-</a>
-<br>
-　・
-<a href="#span-out-BT">
-括弧
-</a>
-<br>
-　　・
-<a href="#span-out-BT-associativity">
-括弧のassociativity
-</a>
-<br>
-　　・
-<a href="#span-out-BT-square">
-角括弧
-</a>
-<br>
-　・
-<a href="#span-out-RW">
-予約語
-</a>
-<br>
-　・
-<a href="#span-out-FN0">
-定数
-</a>
-<br>
-　・
-<a href="#span-out-BRmo">
-記号省略乗算
-</a>
-<br>
-　・
-<a href="#span-out-com">
-複素数
-</a>
-<br>
-　・
-<a href="#span-out-FN">
-関数
-</a>
-<br>
-　　・
-<a href="#span-out-FN-args">
-関数の引数
-</a>
-<br>
-　　・
-<a href="#span-out-FN-ope">
-演算子代替関数
-</a>
-<br>
-　　・
-<a href="#span-out-FN-int">
-int関数
-</a>
-<br>
-　　・
-<a href="#span-out-FN-rand">
-乱数関数
-</a>
-<br>
-　　・
-<a href="#span-out-FN-fact">
-階乗関数
-</a>
-<br>
-　　・
-<a href="#span-out-FN-log">
-log関数
-</a>
-<br>
-　　・
-<a href="#span-out-FN-atan2">
-atan2関数
-</a>
-<br>
-　　・
-<a href="#span-out-FN-statistic">
-統計関数
-</a>
-<br>
-　・
-<a href="#span-out-FNspecial">
-特殊関数
-</a>
-<br>
-　・
-<a href="#span-out-mat">
-行列
-</a>
-<br>
-　・
-<a href="#span-out-FNm0">
-定数扱いの行列
-</a>
-<br>
-　・
-<a href="#span-out-FNm">
-行列関数
-</a>
-<br>
-　　・
-<a href="#span-out-FNm-trans">
-転置行列関数
-</a>
-<br>
-　　・
-<a href="#span-out-FNm-last">
-last行列関数
-</a>
-<br>
-　　・
-<a href="#span-out-FNm-size">
-size行列関数
-</a>
-<br>
-　　・
-<a href="#span-out-FNm-norm">
-norm行列関数
-</a>
-<br>
-　　・
-<a href="#span-out-FNm-normalize">
-正規化行列関数
-</a>
-<br>
-　・
-<a href="#span-out-array">
-行列操作
-</a>
-<br>
-　　・
-<a href="#span-out-reference-mat">
-行列への参照
-</a>
-<br>
-　　　・
-<a href="#span-out-reference-mat-row">
-行参照
-</a>
-<br>
-　　　・
-<a href="#span-out-reference-mat-col">
-列参照
-</a>
-<br>
-　　　・
-<a href="#span-out-reference-mat-elem">
-要素参照
-</a>
-<br>
-　　　・
-<a href="#span-out-reference-mat-area">
-area参照
-</a>
-<br>
-　　　・
-<a href="#span-out-reference-mat-band">
-band参照
-</a>
-<br>
-　　・
-<a href="#span-out-substitution-mat">
-行列への代入
-</a>
-<br>
-　　　・
-<a href="#span-out-substitution-mat-row">
-行代入
-</a>
-<br>
-　　　・
-<a href="#span-out-substitution-mat-col">
-列代入
-</a>
-<br>
-　　　・
-<a href="#span-out-substitution-mat-elem">
-要素代入
-</a>
-<br>
-　　　・
-<a href="#span-out-substitution-mat-area">
-area代入
-</a>
-<br>
-　　　・
-<a href="#span-out-substitution-mat-band">
-band代入
-</a>
-<br>
-　　・
-<a href="#span-out-concatination">
-行列結合
-</a>
-<br>
-　・
-<a href="#span-out-FNmspecial">
-特殊行列関数
-</a>
-<br>
-　・
-<a href="#span-out-vars">
-変数
-</a>
-<br>
-　　・
-<a href="#span-out-vars-symbol">
-変数名symbol
-</a>
-<br>
-　　・
-<a href="#span-out-ans">
-予約変数
-</a>
-<br>
-　　・
-<a href="#span-out-substitution">
-変数への代入
-</a>
-<br>
-　・
-<a href="#span-out-matching">
-行列要素pattern matching
-</a>
-<br>
-　・
-<a href="#span-out-eqns">
-式変数
-</a>
-<br>
-　　・
-<a href="#span-out-eqns-call">
-式読出し
-</a>
-<br>
-　　・
-<a href="#span-out-call-by-equation">
-式渡し
-</a>
-<br>
-　　・
-<a href="#span-out-substitution-equation">
-式変数への式代入
-</a>
-<br>
-　・
-<a href="#span-out-FNh">
-高階関数
-</a>
-<br>
-　　・
-<a href="#span-out-FNh-switch">
-switch高階関数
-</a>
-<br>
-　　・
-<a href="#span-out-FNh-SX">
-総和高階関数
-</a>
-<br>
-　　・
-<a href="#span-out-FNh-PX">
-総乗・総積高階関数
-</a>
-<br>
-　　・
-<a href="#span-out-FNh-RX">
-再帰高階関数
-</a>
-<br>
-　　・
-<a href="#span-out-FNh-DX">
-微分高階関数
-</a>
-<br>
-　　・
-<a href="#span-out-FNh-IX">
-積分高階関数
-</a>
-<br>
-　・
-<a href="#span-out-FNmh">
-高階行列関数
-</a>
-<br>
-　　・
-<a href="#span-out-FNmh-jacobian">
-Jacobi高階行列関数
-</a>
-<br>
-　　・
-<a href="#span-out-FNmh-newtonian">
-Newton高階行列関数
-</a>
-<br>
-　　・
-<a href="#span-out-FNmh-OX">
-ODE高階行列関数
-</a>
-<br>
-　　・
-<a href="#span-out-FNmh-EX">
-symbolic高階行列関数
-</a>
+　・<a href="#span-out-plot2d-command">plot2d-command</a>
+<br>
+　・<a href="#span-out-comment">comment文</a>
+<br>
+　・<a href="#span-out-command">命令文</a>
+<br>
+　・<a href="#span-out-SR">区切り文字</a>
+<br>
+　・<a href="#span-out-FNc">最上位関数</a>
+<br>
+　・<a href="#span-out-BT">括弧</a>
+<br>
+　　・<a href="#span-out-BT-associativity">括弧のassociativity</a>
+<br>
+　　・<a href="#span-out-BT-square">角括弧</a>
+<br>
+　・<a href="#span-out-RW">予約語</a>
+<br>
+　・<a href="#span-out-FN0">定数</a>
+<br>
+　・<a href="#span-out-BRmo">記号省略乗算</a>
+<br>
+　・<a href="#span-out-com">複素数</a>
+<br>
+　・<a href="#span-out-FN">関数</a>
+<br>
+　　・<a href="#span-out-FN-args">関数の引数</a>
+<br>
+　　・<a href="#span-out-FN-ope">演算子代替関数</a>
+<br>
+　　・<a href="#span-out-FN-int">int関数</a>
+<br>
+　　・<a href="#span-out-FN-rand">乱数関数</a>
+<br>
+　　・<a href="#span-out-FN-fact">階乗関数</a>
+<br>
+　　・<a href="#span-out-FN-log">log関数</a>
+<br>
+　　・<a href="#span-out-FN-atan2">atan2関数</a>
+<br>
+　　・<a href="#span-out-FN-statistic">統計関数</a>
+<br>
+　・<a href="#span-out-FNspecial">特殊関数</a>
+<br>
+　・<a href="#span-out-mat">行列</a>
+<br>
+　・<a href="#span-out-FNm0">定数扱いの行列</a>
+<br>
+　・<a href="#span-out-FNm">行列関数</a>
+<br>
+　　・<a href="#span-out-FNm-trans">転置行列関数</a>
+<br>
+　　・<a href="#span-out-FNm-last">last行列関数</a>
+<br>
+　　・<a href="#span-out-FNm-size">size行列関数</a>
+<br>
+　　・<a href="#span-out-FNm-norm">norm行列関数</a>
+<br>
+　　・<a href="#span-out-FNm-normalize">正規化行列関数</a>
+<br>
+　・<a href="#span-out-array">行列操作</a>
+<br>
+　　・<a href="#span-out-reference-mat">行列への参照</a>
+<br>
+　　　・<a href="#span-out-reference-mat-row">行参照</a>
+<br>
+　　　・<a href="#span-out-reference-mat-col">列参照</a>
+<br>
+　　　・<a href="#span-out-reference-mat-elem">要素参照</a>
+<br>
+　　　・<a href="#span-out-reference-mat-area">area参照</a>
+<br>
+　　　・<a href="#span-out-reference-mat-band">band参照</a>
+<br>
+　　・<a href="#span-out-substitution-mat">行列への代入</a>
+<br>
+　　　・<a href="#span-out-substitution-mat-row">行代入</a>
+<br>
+　　　・<a href="#span-out-substitution-mat-col">列代入</a>
+<br>
+　　　・<a href="#span-out-substitution-mat-elem">要素代入</a>
+<br>
+　　　・<a href="#span-out-substitution-mat-area">area代入</a>
+<br>
+　　　・<a href="#span-out-substitution-mat-band">band代入</a>
+<br>
+　　・<a href="#span-out-concatination">行列結合</a>
+<br>
+　・<a href="#span-out-FNmspecial">特殊行列関数</a>
+<br>
+　・<a href="#span-out-vars">変数</a>
+<br>
+　　・<a href="#span-out-vars-symbol">変数名symbol</a>
+<br>
+　　・<a href="#span-out-ans">予約変数</a>
+<br>
+　　・<a href="#span-out-substitution">変数への代入</a>
+<br>
+　・<a href="#span-out-matching">行列要素pattern matching</a>
+<br>
+　・<a href="#span-out-eqns">式変数</a>
+<br>
+　　・<a href="#span-out-eqns-call">式読出し</a>
+<br>
+　　・<a href="#span-out-call-by-equation">式渡し</a>
+<br>
+　　・<a href="#span-out-substitution-equation">式変数への式代入</a>
+<br>
+　・<a href="#span-out-FNh">高階関数</a>
+<br>
+　　・<a href="#span-out-FNh-switch">switch高階関数</a>
+<br>
+　　・<a href="#span-out-FNh-SX">総和高階関数</a>
+<br>
+　　・<a href="#span-out-FNh-PX">総乗・総積高階関数</a>
+<br>
+　　・<a href="#span-out-FNh-RX">再帰高階関数</a>
+<br>
+　　・<a href="#span-out-FNh-DX">微分高階関数</a>
+<br>
+　　・<a href="#span-out-FNh-IX">積分高階関数</a>
+<br>
+　・<a href="#span-out-FNmh">高階行列関数</a>
+<br>
+　　・<a href="#span-out-FNmh-jacobian">Jacobi高階行列関数</a>
+<br>
+　　・<a href="#span-out-FNmh-newtonian">Newton高階行列関数</a>
+<br>
+　　・<a href="#span-out-FNmh-OX">ODE高階行列関数</a>
+<br>
+　　・<a href="#span-out-FNmh-EX">symbolic高階行列関数</a>
 <br>
 ・座標系
 <br>
-　・
-<a href="#span-out-Euclid">
-Euclid実空間
-</a>
+　・<a href="#span-out-Euclid">Euclid実空間</a>
 <br>
-　・
-<a href="#span-out-orthogonal">
-直交座標
-</a>
+　・<a href="#span-out-orthogonal">直交座標</a>
 <br>
-　・
-<a href="#span-out-polar">
-平面極座標
-</a>
+　・<a href="#span-out-polar">平面極座標</a>
 <br>
-　・
-<a href="#span-out-spherical">
-球面座標
-</a>
+　・<a href="#span-out-spherical">球面座標</a>
 <br>
-　・
-<a href="#span-out-spacetime">
-4次元時空の解釈
-</a>
+　・<a href="#span-out-spacetime">4次元時空の解釈</a>
 <br>
 ・解法
 <br>
-　・
-<a href="#span-out-analogy">
-analogy
-</a>
-<br>
-　・
-<a href="#span-out-mat-product">
-行列積
-</a>
-<br>
-　・
-<a href="#span-out-fdm">
-有限差分法
-</a>
-<br>
-　　・
-<a href="#span-out-fdm-differential">
-微分の数値解法
-</a>
-<br>
-　　・
-<a href="#span-out-fdm-integral">
-積分の数値解法
-</a>
-<br>
-　・
-<a href="#span-out-fvm">
-有限体積法
-</a>
-<br>
-　　・
-<a href="#span-out-fvm-about">
-有限体積法の概要
-</a>
-<br>
-　・
-<a href="#span-out-modelling">
-modelling
-</a>
-<br>
-　　・
-<a href="#span-out-modelling-0D-RC">
-0D-RC並列回路simplified modelling
-</a>
-<br>
-　　・
-<a href="#span-out-modelling-0D-diffusion">
-0D-diffusion simplified modelling
-</a>
-<br>
-　　・
-<a href="#span-out-modelling-0D-cell">
-0D-cell simplified modelling
-</a>
-<br>
-　　・
-<a href="#span-out-modelling-0D-heat">
-0D-heat simplified modelling
-</a>
-<br>
-　・
-<a href="#span-out-simulation">
-simulation
-</a>
-<br>
-　　・
-<a href="#span-out-simulation-EIS">
-EIS simulation
-</a>
-<br>
-　　・
-<a href="#span-out-simulation-EIS-0D-cell">
-0D-cell EIS simulation
-</a>
-<br>
-　　・
-<a href="#span-out-simulation-0D-heat">
-0D-heat simulation
-</a>
-<br>
-　・
-<a href="#span-out-evolution">
-時間発展
-</a>
-<br>
-　・
-<a href="#span-out-ODE">
-常微分方程式
-</a>
-<br>
-　　・
-<a href="#span-out-ODE1">
-logistic方程式
-</a>
-<br>
-　　・
-<a href="#span-out-ODE2">
-Lorenz方程式
-</a>
-<br>
-　　・
-<a href="#span-out-ODE3">
-公転軌道
-</a>
-<br>
-　　　・
-<a href="#span-out-ODE4">
-周期
-</a>
-<br>
-　・
-<a href="#span-out-linear">
-連立線形方程式
-</a>
-<br>
-　・
-<a href="#span-out-inverse">
-逆行列
-</a>
-<br>
-　・
-<a href="#span-out-non-linear">
-連立非線形方程式
-</a>
-<br>
-　・
-<a href="#span-out-transform">
-信号変換
-</a>
-<br>
-　　・
-<a href="#span-out-transform-fft">
-高速Fourier変換
-</a>
-<br>
-　　・
-<a href="#span-out-transform-dft">
-離散Fourier変換
-</a>
-<br>
-　　・
-<a href="#span-out-transform-dwt">
-離散Wavelet変換
-</a>
-<br>
-　　・
-<a href="#span-out-transform-dwt-col">
-離散Wavelet変換（列代入）
-</a>
-<br>
-　・
-<a href="#span-out-series">
-級数展開
-</a>
-<br>
-　　・
-<a href="#span-out-series-Taylor">
-Taylor級数・Maclaurin級数
-</a>
-<br>
-　　・
-<a href="#span-out-series-Fourier">
-Fourier級数
-</a>
-<br>
-　・
-<a href="#span-out-limit">
-極限
-</a>
-<br>
-・
-<a href="#span-out-special">
-特殊仕様
-</a>
-<br>
-・
-<a href="#span-out-application">
-application
-</a>
-<br>
-<br>
-<a href="#span-in">
-内部仕様
-</a>
-<br>
-・
-<a href="#span-in-pre">
-前提
-</a>
-<br>
-・
-<a href="#span-in-tree">
-単位tree構造
-</a>
-<br>
-・
-<a href="#span-in-scope-vars">
-変数のscope
-</a>
-<br>
-・
-<a href="#span-in-options">
-内部option
-</a>
-<br>
-・
-<a href="#span-in-myeval">
-独自eval
-</a>
-<br>
-・
-<a href="#span-in-prec">
-変数・関数・区切り文字・演算子のprecedence
-</a>
-<br>
-・
-<a href="#span-in-FN">
-定義済みの関数・予約語
-</a>
-<br>
-<br>
-<a href="#span-eqn">
-strict-mode式変数list
-</a>
-<br>
-・
-<a href="#span-eqn-template">
-template
-</a>
-<br>
-・
-<a href="#span-eqn-average">
-average
-</a>
-<br>
-・
-<a href="#span-eqn-average-asym">
-average_asym
-</a>
-<br>
-・
-<a href="#span-eqn-Gaussian">
-Gaussian
-</a>
-<br>
-・
-<a href="#span-eqn-plot2d_circle">
-plot2d_circle
-</a>
-<br>
-・
-<a href="#span-eqn-plot2d_evolution">
-plot2d_evolution
-</a>
-<br>
-・
-<a href="#span-eqn-SND_Px_erfx_erfcx">
-SND/P(x)/erf(x)/erfc(x)
-</a>
-<br>
-・
-<a href="#span-eqn-matrix_product">
-matrix_product
-</a>
-<br>
-・
-<a href="#span-eqn-rotationxyz">
-rotationx/rotationy/rotationz-Right-Handed-System
-</a>
-<br>
-・
-<a href="#span-eqn-rotationxyz_LHS">
-rotationx/rotationy/rotationz-Left-Handed-System
-</a>
-<br>
-・
-<a href="#span-eqn-solvex_Gauss">
-solvex_Gauss
-</a>
-<br>
-・
-<a href="#span-eqn-solvex_pivotting">
-solvex_pivotting
-</a>
-<br>
-・
-<a href="#span-eqn-solvex_no_pivotting">
-solvex_no_pivotting
-</a>
-<br>
-・
-<a href="#span-eqn-solvex_iteration">
-solvex_iteration
-</a>
-<br>
-・
-<a href="#span-eqn-solveAinv">
-solveAinv
-</a>
-<br>
-・
-<a href="#span-eqn-solvex_non_linear">
-solvex_non_linear
-</a>
-<br>
-・
-<a href="#span-eqn-implicit-Euler_method">
-implicit Euler_method
-</a>
-<br>
-・
-<a href="#span-eqn-explicit-Euler_method">
-explicit Euler_method
-</a>
-<br>
-・
-<a href="#span-eqn-explicit-ODE_RK4">
-explicit ODE_RK4
-</a>
-<br>
-・
-<a href="#span-eqn-DFT1d">
-DFT1d
-</a>
-<br>
-・
-<a href="#span-eqn-DFT2d_xy">
-DFT2d_xy
-</a>
-<br>
-・
-<a href="#span-eqn-DFT2d_yx">
-DFT2d_yx
-</a>
-<br>
-・
-<a href="#span-eqn-DWT1d">
-DWT1d
-</a>
-<br>
-・
-<a href="#span-eqn-DWT2d_xy">
-DWT2d_xy
-</a>
-<br>
-・
-<a href="#span-eqn-DWT2d_yx">
-DWT2d_yx
-</a>
-<br>
-・
-<a href="#span-eqn-MaclaurinN">
-MaclaurinN
-</a>
-<br>
-・
-<a href="#span-eqn-TaylorN">
-TaylorN
-</a>
-<br>
-・
-<a href="#span-eqn-FourierN">
-FourierN
-</a>
-<br>
-・
-<a href="#span-eqn-Pythagoras">
-Pythagoras
-</a>
-<br>
-・
-<a href="#span-eqn-Fermat">
-Fermat
-</a>
-<br>
-・
-<a href="#span-eqn-plot2d_EIS">
-plot2d_EIS
-</a>
-<br>
-・
-<a href="#span-eqn-plot2d_EIS_DFT">
-plot2d_EIS_DFT
-</a>
-<br>
-・
-<a href="#span-eqn-plot2d_IV">
-plot2d_IV
-</a>
-<br>
-・
-<a href="#span-eqn-heat0d_evolution">
-heat0d_evolution
-</a>
-<br>
-・
-<a href="#span-eqn-heat1d_evolution">
-heat1d_evolution
-</a>
+　・<a href="#span-out-analogy">analogy</a>
+<br>
+　・<a href="#span-out-mat-product">行列積</a>
+<br>
+　・<a href="#span-out-fdm">有限差分法</a>
+<br>
+　　・<a href="#span-out-fdm-differential">微分の数値解法</a>
+<br>
+　　・<a href="#span-out-fdm-integral">積分の数値解法</a>
+<br>
+　・<a href="#span-out-fvm">有限体積法</a>
+<br>
+　　・<a href="#span-out-fvm-about">有限体積法の概要</a>
+<br>
+　・<a href="#span-out-modelling">modelling</a>
+<br>
+　　・<a href="#span-out-modelling-0D-RC">0D-RC並列回路simplified modelling</a>
+<br>
+　　・<a href="#span-out-modelling-0D-diffusion">0D-diffusion simplified modelling</a>
+<br>
+　　・<a href="#span-out-modelling-0D-cell">0D-cell simplified modelling</a>
+<br>
+　　・<a href="#span-out-modelling-0D-heat">0D-heat simplified modelling</a>
+<br>
+　・<a href="#span-out-simulation">simulation</a>
+<br>
+　　・<a href="#span-out-simulation-EIS">EIS simulation</a>
+<br>
+　　・<a href="#span-out-simulation-EIS-0D-cell">0D-cell EIS simulation</a>
+<br>
+　　・<a href="#span-out-simulation-0D-heat">0D-heat simulation</a>
+<br>
+　・<a href="#span-out-evolution">時間発展</a>
+<br>
+　・<a href="#span-out-ODE">常微分方程式</a>
+<br>
+　　・<a href="#span-out-ODE1">logistic方程式</a>
+<br>
+　　・<a href="#span-out-ODE2">Lorenz方程式</a>
+<br>
+　　・<a href="#span-out-ODE3">公転軌道</a>
+<br>
+　　　・<a href="#span-out-ODE4">周期</a>
+<br>
+　・<a href="#span-out-linear">連立線形方程式</a>
+<br>
+　・<a href="#span-out-inverse">逆行列</a>
+<br>
+　・<a href="#span-out-non-linear">連立非線形方程式</a>
+<br>
+　・<a href="#span-out-transform">信号変換</a>
+<br>
+　　・<a href="#span-out-transform-fft">高速Fourier変換</a>
+<br>
+　　・<a href="#span-out-transform-dft">離散Fourier変換</a>
+<br>
+　　・<a href="#span-out-transform-dwt">離散Wavelet変換</a>
+<br>
+　　・<a href="#span-out-transform-dwt-col">離散Wavelet変換（列代入）</a>
+<br>
+　・<a href="#span-out-series">級数展開</a>
+<br>
+　　・<a href="#span-out-series-Taylor">Taylor級数・Maclaurin級数</a>
+<br>
+　　・<a href="#span-out-series-Fourier">Fourier級数</a>
+<br>
+　・<a href="#span-out-limit">極限</a>
+<br>
+・<a href="#span-out-special">特殊仕様</a>
+<br>
+・<a href="#span-out-application">application</a>
+<br>
+<br>
+<a href="#span-in">内部仕様</a>
+<br>
+・<a href="#span-in-pre">前提</a>
+<br>
+・<a href="#span-in-tree">単位tree構造</a>
+<br>
+・<a href="#span-in-scope-vars">変数のscope</a>
+<br>
+・<a href="#span-in-options">内部option</a>
+<br>
+・<a href="#span-in-myeval">独自eval</a>
+<br>
+・<a href="#span-in-prec">変数・関数・区切り文字・演算子のprecedence</a>
+<br>
+・<a href="#span-in-FN">定義済みの関数・予約語</a>
+<br>
+<br>
+<a href="#span-eqn">strict-mode式変数list</a>
+<br>
+・<a href="#span-eqn-template">template</a>
+<br>
+・<a href="#span-eqn-average">average</a>
+<br>
+・<a href="#span-eqn-average-asym">average_asym</a>
+<br>
+・<a href="#span-eqn-Gaussian">Gaussian</a>
+<br>
+・<a href="#span-eqn-plot2d_circle">plot2d_circle</a>
+<br>
+・<a href="#span-eqn-plot2d_evolution">plot2d_evolution</a>
+<br>
+・<a href="#span-eqn-SND_Px_erfx_erfcx">SND/P(x)/erf(x)/erfc(x)</a>
+<br>
+・<a href="#span-eqn-matrix_product">matrix_product</a>
+<br>
+・<a href="#span-eqn-rotationxyz">rotationx/rotationy/rotationz-Right-Handed-System</a>
+<br>
+・<a href="#span-eqn-rotationxyz_LHS">rotationx/rotationy/rotationz-Left-Handed-System</a>
+<br>
+・<a href="#span-eqn-solvex_Gauss">solvex_Gauss</a>
+<br>
+・<a href="#span-eqn-solvex_pivotting">solvex_pivotting</a>
+<br>
+・<a href="#span-eqn-solvex_no_pivotting">solvex_no_pivotting</a>
+<br>
+・<a href="#span-eqn-solvex_iteration">solvex_iteration</a>
+<br>
+・<a href="#span-eqn-solveAinv">solveAinv</a>
+<br>
+・<a href="#span-eqn-solvex_non_linear">solvex_non_linear</a>
+<br>
+・<a href="#span-eqn-implicit-Euler_method">implicit Euler_method</a>
+<br>
+・<a href="#span-eqn-explicit-Euler_method">explicit Euler_method</a>
+<br>
+・<a href="#span-eqn-explicit-ODE_RK4">explicit ODE_RK4</a>
+<br>
+・<a href="#span-eqn-DFT1d">DFT1d</a>
+<br>
+・<a href="#span-eqn-DFT2d_xy">DFT2d_xy</a>
+<br>
+・<a href="#span-eqn-DFT2d_yx">DFT2d_yx</a>
+<br>
+・<a href="#span-eqn-DWT1d">DWT1d</a>
+<br>
+・<a href="#span-eqn-DWT2d_xy">DWT2d_xy</a>
+<br>
+・<a href="#span-eqn-DWT2d_yx">DWT2d_yx</a>
+<br>
+・<a href="#span-eqn-MaclaurinN">MaclaurinN</a>
+<br>
+・<a href="#span-eqn-TaylorN">TaylorN</a>
+<br>
+・<a href="#span-eqn-FourierN">FourierN</a>
+<br>
+・<a href="#span-eqn-Pythagoras">Pythagoras</a>
+<br>
+・<a href="#span-eqn-Fermat">Fermat</a>
+<br>
+・<a href="#span-eqn-plot2d_EIS">plot2d_EIS</a>
+<br>
+・<a href="#span-eqn-plot2d_EIS_DFT">plot2d_EIS_DFT</a>
+<br>
+・<a href="#span-eqn-plot2d_IV">plot2d_IV</a>
+<br>
+・<a href="#span-eqn-heat0d_evolution">heat0d_evolution</a>
+<br>
+・<a href="#span-eqn-heat1d_evolution">heat1d_evolution</a>
     </td>
   </tr>
 </tbody>
