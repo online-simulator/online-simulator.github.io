@@ -34,19 +34,25 @@ My_entry.canvas.prototype.init = function(elem){
     onmousemove: "ontouchmove",
     onmouseup: "ontouchend"
   };
+  /* 1.23.7 */
+  self.point = {
+    onmousedown: "onpointerdown",
+    onmousemove: "onpointermove",
+    onmouseup: "onpointerup"
+  };
   return self;
 };
 My_entry.canvas.prototype.attach = function(handlers){
   var self = this;
   self.onevents.forEach(function(onevent){
-    self.elem[self.touch[onevent]] = self.elem[onevent] = handlers[onevent];
+    self.elem[self.point[onevent]] = self.elem[self.touch[onevent]] = self.elem[onevent] = handlers[onevent];
   });
   return self;
 };
 My_entry.canvas.prototype.detach = function(){
   var self = this;
   self.onevents.forEach(function(onevent){
-    self.elem[self.touch[onevent]] = self.elem[onevent] = null;
+    self.elem[self.point[onevent]] = self.elem[self.touch[onevent]] = self.elem[onevent] = null;
   });
   return self;
 };
