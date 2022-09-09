@@ -19,6 +19,12 @@ My_entry.drag.prototype.init = function(id, opt_handlers){
     ondragover: "ontouchmove",
     ondragend: "ontouchend"
   };
+  /* 1.23.7 */
+  self.point = {
+    ondragstart: "onpointerdown",
+    ondragover: "onpointermove",
+    ondragend: "onpointerup"
+  };
   self.handlers = {};
   self.handlers0 = {};
   self.set_handlers0();
@@ -84,6 +90,7 @@ My_entry.drag.prototype.attach = function(opt_handlers){
     var handler = self.get_handler(onevent, opt_handlers);
     self.entry.$.set_elem(self.elem, onevent, handler);
     self.entry.$.set_elem(self.elem, self.touch[onevent], handler);
+//    self.entry.$.set_elem(self.elem, self.point[onevent], handler);  // 1.23.7
     self.handlers[onevent] = handler;
   });
   return self;
@@ -94,6 +101,7 @@ My_entry.drag.prototype.detach = function(){
   self.onevents.forEach(function(onevent){
     self.entry.$.set_elem(self.elem, onevent, null);
     self.entry.$.set_elem(self.elem, self.touch[onevent], null);
+//    self.entry.$.set_elem(self.elem, self.point[onevent], null);  // 1.23.7
     self.handlers[onevent] = null;
   });
   return self;
