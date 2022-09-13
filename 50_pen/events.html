@@ -28,6 +28,9 @@ device||control
 events order
           </th>
           <th class="border">
+drag event
+          </th>
+          <th class="border">
 memo
           </th>
         </tr>
@@ -43,6 +46,11 @@ pointerdown -> touchstart
 pointermove -> touchmove
 <br>
 pointerup -> touchend
+          </td>
+          <td class="border">
+検知不可
+<br>
+・touchで代替可
           </td>
           <td class="border">
 Editor実装
@@ -68,6 +76,13 @@ pointermove -> mousemove
 <br>
 pointerup -> mouseup
           </td>
+          <td class="border">
+dragstart
+<br>
+dragover
+<br>
+dragend
+          </td>
           <td class="border" rowspan="2">
 全実装
 <br>
@@ -84,6 +99,13 @@ pointerdown
 pointermove
 <br>
 pointerup
+          </td>
+          <td class="border">
+検知不可
+<br>
+・OS最優先
+<br>
+・pointerで代替不能
           </td>
         </tr>
       </tbody>
