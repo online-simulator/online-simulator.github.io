@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+
+<html lang="ja">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="description" content="[memo]events">
+  <meta name="author" content="online-simulator.github.io">
+  <noscript>JavaScript is not enabled on browser.</noscript>
+  <link rel="stylesheet" type="text/css" href="../00_common/css/common.css">
+  <link rel="stylesheet" type="text/css" href="../00_common/css/color.css">
+  <link rel="stylesheet" type="text/css" href="../00_common/css/size.css">
+  <link rel="stylesheet" type="text/css" href="css/common.css">
+  <link rel="stylesheet" type="text/css" href="css/color.css">
+  <link rel="stylesheet" type="text/css" href="css/size.css">
+</head>
+
+<body>
+  <div class="absolute">
+    <table class="border">
+      <caption></caption>
+      <thead>
+        <tr class="border">
+          <th class="border">
+device||control
+          </th>
+          <th class="border">
+events order
+          </th>
+          <th class="border">
+memo
+          </th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr class="border">
+          <td class="border">
+mobile||touch
+          </td>
+          <td class="border">
+pointerdown -> touchstart
+<br>
+pointermove -> touchmove
+<br>
+pointerup -> touchend
+          </td>
+          <td class="border">
+Editor実装
+<br>
+・1本指の操作前提
+<br>
+・pointerのみで共通化
+<br>
+<br>
+<a title="[manual]Calculator" href="../01_calc_simple/manual.html#span-out-UI-graphing">[manual]Calculator</a>実装
+<br>
+・2本指のtouch操作に対応
+          </td>
+        </tr>
+        <tr class="border">
+          <td class="border">
+PC||mouse
+          </td>
+          <td class="border">
+pointerdown -> mousedown
+<br>
+pointermove -> mousemove
+<br>
+pointerup -> mouseup
+          </td>
+          <td class="border" rowspan="2">
+全実装
+<br>
+・2本指相当の操作不可
+          </td>
+        </tr>
+        <tr class="border">
+          <td class="border">
+PC||pointer
+          </td>
+          <td class="border">
+pointerdown
+<br>
+pointermove
+<br>
+pointerup
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</body>
+
+</html>

@@ -21,7 +21,7 @@
     var $ = new My_entry.$();
     $.onload(function(e){
       $._id("VERSION").textContent = My_entry.VERSION;
-      ["calc", "wave", "else"].forEach(function(name){
+      ["calc", "wave", "pen", "else"].forEach(function(name){
         $._id("Ver-"+name).textContent = My_entry.Ver[name];
       });
       $.onbeforeunload(function(e){});
@@ -92,6 +92,19 @@ Generator
     </td>
     <td>
 <span id="Ver-wave"></span>
+    </td>
+  </tr>
+  <tr>
+    <th class="selection">
+Editor
+    </th>
+    <td>
+    </td>
+    <td>
+<a title="[memo]events" href="50_pen/events.html">[memo]events</a>
+    </td>
+    <td>
+<span id="Ver-pen"></span>
     </td>
   </tr>
   <tr>
