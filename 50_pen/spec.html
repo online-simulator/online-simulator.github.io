@@ -1,0 +1,291 @@
+<!DOCTYPE html>
+
+<html lang="ja">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="description" content="[spec]筆penの設定">
+  <meta name="author" content="online-simulator.github.io">
+  <noscript>JavaScript is not enabled on browser.</noscript>
+  <link rel="stylesheet" type="text/css" href="../00_common/css/common.css">
+  <link rel="stylesheet" type="text/css" href="../00_common/css/color.css">
+  <link rel="stylesheet" type="text/css" href="../00_common/css/size.css">
+  <link rel="stylesheet" type="text/css" href="css/common.css">
+  <link rel="stylesheet" type="text/css" href="css/color.css">
+  <link rel="stylesheet" type="text/css" href="css/size.css">
+</head>
+
+<body>
+  <div class="absolute">
+    <table class="border">
+      <caption>筆penの設定</caption>
+      <thead>
+        <tr class="border">
+          <th class="border">
+項目
+          </th>
+          <th class="border">
+内容
+          </th>
+          <th class="border">
+実装
+          </th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr class="border">
+          <td class="border">
+w=0~W[px]
+          </td>
+          <td class="border">
+line幅
+          </td>
+          <td class="border">
+w可変の従属parameterを選択可
+<br>
+・w=w(p)
+<br>
+・w=w(len)
+          </td>
+        </tr>
+        <tr class="border">
+          <td class="border">
+p=0~1
+          </td>
+          <td class="border">
+筆圧
+          </td>
+          <td class="border">
+p=p(f)
+          </td>
+        </tr>
+        <tr class="border">
+          <td class="border">
+len=0~[px]
+          </td>
+          <td class="border">
+筆中心の移動量
+          </td>
+          <td class="border">
+len=len(f)
+          </td>
+        </tr>
+        <tr class="border">
+          <td class="border">
+f=0~
+          </td>
+          <td class="border">
+move検知frame回数
+          </td>
+          <td class="border">
+          </td>
+        </tr>
+        <tr class="border selection">
+          <td class="border">
+URLの設定例
+          </td>
+          <td class="border">
+index.html?
+<br>
+pressure=true&amp;
+<br>
+W=20&amp;
+<br>
+RGB=orange&amp;
+<br>
+bg=pink&amp;
+<br>
+canvas-width=200&amp;
+<br>
+dx=-20&amp;
+<br>
+dy=-20
+          </td>
+          <td class="border">
+#を使用するHEX形式の色指定不可
+<br>
+以降のUIよりURLの設定値を優先
+          </td>
+        </tr>
+        <tr class="border">
+          <td class="border">
+pressure=false||true
+          </td>
+          <td class="border">
+筆圧入力の有効化
+          </td>
+          <td class="border">
+w(p)=W*p
+<br>
+・対応環境p=e.pressure
+<br>
+・非対応環境p=0.5
+          </td>
+        </tr>
+        <tr class="border">
+          <td class="border">
+black=false||true
+          </td>
+          <td class="border">
+page背景色の黒色化
+          </td>
+          <td class="border">
+canavas描画に影響なし
+          </td>
+        </tr>
+        <tr class="border">
+          <td class="border">
+W=0~[px]
+          </td>
+          <td class="border">
+line幅の最大値
+          </td>
+          <td class="border">
+w&le;W
+          </td>
+        </tr>
+        <tr class="border">
+          <td class="border">
+RGB=#000000~#ffffff
+          </td>
+          <td class="border">
+lineの基本色RGB
+          </td>
+          <td class="border">
+          </td>
+        </tr>
+        <tr class="border">
+          <td class="border">
+A=0~100[%]
+          </td>
+          <td class="border">
+lineの不透明度A
+          </td>
+          <td class="border">
+          </td>
+        </tr>
+        <tr class="border">
+          <td class="border">
+bg
+          </td>
+          <td class="border">
+canvas背景色
+          </td>
+          <td class="border">
+canavas描画に影響あり
+          </td>
+        </tr>
+        <tr class="border">
+          <td class="border">
+canvas-width=16~1280[px]
+          </td>
+          <td class="border">
+canvas幅
+          </td>
+          <td class="border">
+          </td>
+        </tr>
+        <tr class="border">
+          <td class="border">
+canvas-height=16~1280[px]
+          </td>
+          <td class="border">
+canvas高さ
+          </td>
+          <td class="border">
+          </td>
+        </tr>
+        <tr class="border">
+          <td class="border">
+cap
+          </td>
+          <td class="border">
+line端の形状
+          </td>
+          <td class="border">
+          </td>
+        </tr>
+        <tr class="border">
+          <td class="border">
+composite
+          </td>
+          <td class="border">
+lineのRGBA合成方法
+          </td>
+          <td class="border">
+同期処理（shadow除く）
+          </td>
+        </tr>
+        <tr class="border">
+          <td class="border">
+dx[px]
+          </td>
+          <td class="border">
+筆中心のx方向offset
+          </td>
+          <td class="border">
+          </td>
+        </tr>
+        <tr class="border">
+          <td class="border">
+dy[px]
+          </td>
+          <td class="border">
+筆中心のy方向offset
+          </td>
+          <td class="border">
+          </td>
+        </tr>
+        <tr class="border">
+          <td class="border">
+th=0~[px]
+          </td>
+          <td class="border">
+w可変のlen閾値
+          </td>
+          <td class="border">
+dlen=len-th
+          </td>
+        </tr>
+        <tr class="border">
+          <td class="border">
+in
+          </td>
+          <td class="border">
+fade-in強度
+          </td>
+          <td class="border">
+dlen&lt;0
+<br>
+・w変化量dw=(in&lt;0)? dlen*in: in;
+          </td>
+        </tr>
+        <tr class="border">
+          <td class="border">
+out
+          </td>
+          <td class="border">
+fade-out強度
+          </td>
+          <td class="border">
+dlen&gt;0
+<br>
+・w変化量dw=(out&lt;0)? dlen*out: -out;
+          </td>
+        </tr>
+        <tr class="border">
+          <td class="border">
+sh=0~
+          </td>
+          <td class="border">
+shadowのぼかし強度
+          </td>
+          <td class="border">
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</body>
+
+</html>

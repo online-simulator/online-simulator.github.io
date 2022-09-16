@@ -23,6 +23,13 @@ textarea{
   width: auto;
 }
 
+.input-50{
+  width: 50px;
+}
+.input-100{
+  width: 100px;
+}
+
 .no-border{
   border-collapse: collapse;
   border: none;
