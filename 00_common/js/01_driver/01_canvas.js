@@ -49,6 +49,14 @@ My_entry.canvas.prototype.attach = function(handlers){
   });
   return self;
 };
+/* 1.23.7 */
+My_entry.canvas.prototype.attach_point = function(handlers){
+  var self = this;
+  self.onevents.forEach(function(onevent){
+    self.elem[self.point[onevent]] = handlers[onevent];
+  });
+  return self;
+};
 My_entry.canvas.prototype.detach = function(){
   var self = this;
   self.onevents.forEach(function(onevent){
