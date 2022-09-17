@@ -67,7 +67,18 @@ len=0~[px]
 筆中心の移動量
           </td>
           <td class="border">
-len=len(f)
+len=len(f)=|xy(f)-xy(f-1)|
+          </td>
+        </tr>
+        <tr class="border">
+          <td class="border">
+xy=(x,y)
+          </td>
+          <td class="border">
+筆中心のcanvas座標
+          </td>
+          <td class="border">
+xy=xy(f)
           </td>
         </tr>
         <tr class="border">
@@ -78,6 +89,7 @@ f=0~
 move検知frame回数
           </td>
           <td class="border">
+down検知で初期化f=0
           </td>
         </tr>
         <tr class="border selection">
@@ -115,11 +127,11 @@ pressure=false||true
 筆圧入力の有効化
           </td>
           <td class="border">
-w(p)=W*p
+w(p)=W*p(f)
 <br>
-・対応環境p=e.pressure
+・対応環境p(f)=e.pressure
 <br>
-・非対応環境p=0.5
+・非対応環境p(f)=0.5
           </td>
         </tr>
         <tr class="border">
@@ -197,7 +209,7 @@ canvas高さ
         </tr>
         <tr class="border">
           <td class="border">
-cap
+cap=butt||round||square
           </td>
           <td class="border">
 line端の形状
@@ -244,7 +256,9 @@ th=0~[px]
 w可変のlen閾値
           </td>
           <td class="border">
-dlen=len-th
+dlen(f)=len(f)-th
+<br>
+w(f)=w(f-1)+dw(dlen)
           </td>
         </tr>
         <tr class="border">
@@ -257,7 +271,7 @@ fade-in強度
           <td class="border">
 dlen&lt;0
 <br>
-・w変化量dw=(in&lt;0)? dlen*in: in;
+dw(dlen) = (in&lt;0)? dlen*in: in;
           </td>
         </tr>
         <tr class="border">
@@ -270,7 +284,7 @@ fade-out強度
           <td class="border">
 dlen&gt;0
 <br>
-・w変化量dw=(out&lt;0)? dlen*out: -out;
+dw(dlen) = (out&lt;0)? dlen*out: -out;
           </td>
         </tr>
         <tr class="border">
