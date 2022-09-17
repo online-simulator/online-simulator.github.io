@@ -54,7 +54,16 @@ My_entry.pen.prototype.reset_canvas = function(){
     ctx.clearRect(0, 0, px_w, px_h);
   }
   ctx.restore();
+  self.handler_history.save(self.make_data());
   return self;
+};
+My_entry.pen.prototype.make_data = function(){
+  var self = this;
+  var def = self.entry.def;
+  var options = self.options;
+  var fg = self.objs.fg;
+  var _data = {options: def.newClone(options), ID: fg.getID()};
+  return _data;
 };
 My_entry.pen.prototype.make_handlers = function(){
   var self = this;
@@ -120,6 +129,7 @@ My_entry.pen.prototype.make_handlers = function(){
     onmouseup: function(e){
       e.preventDefault();
       e.stopPropagation();
+      self.handler_history.save(self.make_data());
       self.isDragging = false;
     }
   };
@@ -134,6 +144,7 @@ My_entry.pen.prototype.init_handlers = function(){
     var json = {p: {id: "wrapper-link-png"}, a: {id: "a-png", it: "download-png"}, name: "download", ext: "png"};
     self.handler_link_png = new self.constructors.handler_link(json);
     self.handler_link_png.setter.callback(function(){return self.entry.conv.base2buffer(self.objs.fg.get_base64());});
+    self.handler_history = new self.constructors.handler_history();
     self.drag = new self.constructors.handler_drag("div-drag", "checkbox-drag", {});
     self.objs.fg = new self.constructors.canvas($._id("canvas"));
     self.objs.fg.attach_point(self.make_handlers());
@@ -150,6 +161,18 @@ My_entry.pen.prototype.init_handlers = function(){
     var self = this;
     self.update_options();
     switch(elem.id){
+      case "<<":
+        var data = self.handler_history.reverse();
+        if(data){
+          self.objs.fg.putID(data.ID);
+        }
+        break;
+      case ">>":
+        var data = self.handler_history.forward();
+        if(data){
+          self.objs.fg.putID(data.ID);
+        }
+        break;
       case "clear":
         self.reset_canvas();
         break;
