@@ -12,7 +12,7 @@ My_entry.pen.prototype.init = function(){
   var self = this;
   self.objs = {};
   self.options = {};
-  self.init_main.call(self, ["$", "conv", "def"]);
+  self.init_main.call(self, ["$", "conv"]);
   return self;
 };
 My_entry.pen.prototype.init_elems = function(){
@@ -54,16 +54,8 @@ My_entry.pen.prototype.reset_canvas = function(){
     ctx.clearRect(0, 0, px_w, px_h);
   }
   ctx.restore();
-  self.handler_history.save(self.make_data());
+  self.handler_history_ID.save(fg.getID());
   return self;
-};
-My_entry.pen.prototype.make_data = function(){
-  var self = this;
-  var def = self.entry.def;
-  var options = self.options;
-  var fg = self.objs.fg;
-  var _data = {options: def.newClone(options), ID: fg.getID()};
-  return _data;
 };
 My_entry.pen.prototype.make_handlers = function(){
   var self = this;
@@ -129,7 +121,7 @@ My_entry.pen.prototype.make_handlers = function(){
     onmouseup: function(e){
       e.preventDefault();
       e.stopPropagation();
-      self.handler_history.save(self.make_data());
+      self.handler_history_ID.save(fg.getID());
       self.isDragging = false;
     }
   };
@@ -144,7 +136,7 @@ My_entry.pen.prototype.init_handlers = function(){
     var json = {p: {id: "wrapper-link-png"}, a: {id: "a-png", it: "download-png"}, name: "download", ext: "png"};
     self.handler_link_png = new self.constructors.handler_link(json);
     self.handler_link_png.setter.callback(function(){return self.entry.conv.base2buffer(self.objs.fg.get_base64());});
-    self.handler_history = new self.constructors.handler_history();
+    self.handler_history_ID = new self.constructors.handler_history();
     self.drag = new self.constructors.handler_drag("div-drag", "checkbox-drag", {});
     self.objs.fg = new self.constructors.canvas($._id("canvas"));
     self.objs.fg.attach_point(self.make_handlers());
@@ -162,15 +154,15 @@ My_entry.pen.prototype.init_handlers = function(){
     self.update_options();
     switch(elem.id){
       case "<<":
-        var data = self.handler_history.reverse();
-        if(data){
-          self.objs.fg.putID(data.ID);
+        var ID = self.handler_history_ID.reverse();
+        if(ID){
+          self.objs.fg.putID(ID);
         }
         break;
       case ">>":
-        var data = self.handler_history.forward();
-        if(data){
-          self.objs.fg.putID(data.ID);
+        var ID = self.handler_history_ID.forward();
+        if(ID){
+          self.objs.fg.putID(ID);
         }
         break;
       case "clear":
