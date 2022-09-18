@@ -88,6 +88,40 @@ My_entry.draw_svg.prototype.line = function(vec0, vec1, opt_lineWidth, opt_style
   }
   return _svg;
 };
+/* 1.25.7 */
+My_entry.draw_svg.prototype.lines_pen = function(idName, arr_data, options){
+  var self = this;
+  var _svg = "";
+  var config = "";
+  config += " fill="+self.quote("none");
+  config += " stroke="+self.quote(options.RGB);
+  config += " stroke-linecap="+self.quote(options.cap);
+  _svg += self.header_group(idName, config);
+  for(var n=0, len_n=arr_data.length; n<len_n; ++n){
+    var data = arr_data[n];
+    var alpha = self.floor(options.A)/100;
+    var vec0 = data.xy0;
+    var vec1 = data.xy1;
+    var dx = options.dx;
+    var dy = options.dy;
+    var x0 = self.floor(vec0.x+dx);
+    var y0 = self.floor(vec0.y+dy);
+    var x1 = self.floor(vec1.x+dx);
+    var y1 = self.floor(vec1.y+dy);
+    var w = self.floor(data.w);
+    _svg += "<line";
+    _svg += " opacity="+self.quote(alpha);
+    _svg += " stroke-width="+self.quote(w);
+    _svg += " x1="+self.quote(x0);
+    _svg += " y1="+self.quote(y0);
+    _svg += " x2="+self.quote(x1);
+    _svg += " y2="+self.quote(y1);
+    _svg += "/>";
+    _svg += self.rn;
+  }
+  _svg += self.footer_group();
+  return _svg;
+};
 My_entry.draw_svg.prototype.lines = function(arr_vec, opt_lineWidth, opt_styleRGBA, opt_globalCompositeOperation, opt_fillPath){
   var self = this;
   var _svg = "";

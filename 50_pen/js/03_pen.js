@@ -7,6 +7,7 @@ My_entry.pen = function(){
 };
 
 My_entry.def.mix_in(My_entry.pen, My_entry.original_main);
+My_entry.def.mix_in(My_entry.draw, My_entry.draw_svg);  // 1.2.0
 
 My_entry.pen.prototype.init = function(){
   var self = this;
@@ -34,6 +35,47 @@ My_entry.pen.prototype.update_options = function(){
   $.get_urlParams(self.options);
   return self;
 };
+/* 1.2.0 -> */
+My_entry.pen.prototype.make_svg = function(){
+  var self = this;
+  var _svg = "";
+  var fg = self.objs.fg;
+  var rev = self.handler_history_svg.rev;
+  var len = rev.length;
+  var i_header = -1;
+  for(var i=len-1; i>=0; --i){
+    if(rev[i].substring(0, 5) === "<?xml"){
+      i_header = i;
+      break;
+    }
+  }
+  if(i_header >= 0){
+    for(var i=i_header; i<len; ++i){
+      _svg += rev[i];
+    }
+    _svg += fg.draw.footer();
+  }
+  return _svg;
+};
+My_entry.pen.prototype.make_svg_header = function(){
+  var self = this;
+  var _svg = "";
+  var options = self.options;
+  var fg = self.objs.fg;
+  _svg += fg.draw.header(fg.px_w, fg.px_h);
+  _svg += fg.draw.comment(My_entry.VERSION);
+  _svg += fg.fill(options.bg);
+  return _svg;
+};
+My_entry.pen.prototype.make_svg_lines = function(){
+  var self = this;
+  var _svg = "";
+  var options = self.options;
+  var fg = self.objs.fg;
+  _svg += fg.draw.lines_pen(null, self.arr_data, options);
+  return _svg;
+};
+/* -> 1.2.0 */
 My_entry.pen.prototype.reset_canvas = function(){
   var self = this;
   var $ = self.entry.$;
@@ -54,7 +96,8 @@ My_entry.pen.prototype.reset_canvas = function(){
     ctx.clearRect(0, 0, px_w, px_h);
   }
   ctx.restore();
-  self.handler_history_ID.save(fg.getID());
+  self.handler_history_ID.save(fg.getID());  // 1.1.0
+  self.handler_history_svg.save(self.make_svg_header());  // 1.2.0
   return self;
 };
 My_entry.pen.prototype.make_handlers = function(){
@@ -70,6 +113,7 @@ My_entry.pen.prototype.make_handlers = function(){
       self.isDragging = true;
       self.xy0 = fg.get_offset(e);
       self.w0 = 0;
+      self.arr_data = [];  // 1.2.0
     },
     onmousemove: function(e){
       var w_p = function(p){
@@ -100,6 +144,7 @@ My_entry.pen.prototype.make_handlers = function(){
         var w = (options.pressure)? w_p(e.pressure): w_len(len);
         self.w0 = w;
         if(w){
+          self.arr_data.push({xy0: xy0, xy1: xy1, w: w});  // 1.2.0
           var dx = options.dx;
           var dy = options.dy;
           ctx.shadowBlur = options.sh;
@@ -121,7 +166,8 @@ My_entry.pen.prototype.make_handlers = function(){
     onmouseup: function(e){
       e.preventDefault();
       e.stopPropagation();
-      self.handler_history_ID.save(fg.getID());
+      self.handler_history_ID.save(fg.getID());  // 1.1.0
+      self.handler_history_svg.save(self.make_svg_lines());  // 1.2.0
       self.isDragging = false;
     }
   };
@@ -136,10 +182,17 @@ My_entry.pen.prototype.init_handlers = function(){
     var json = {p: {id: "wrapper-link-png"}, a: {id: "a-png", it: "download-png"}, name: "download", ext: "png"};
     self.handler_link_png = new self.constructors.handler_link(json);
     self.handler_link_png.setter.callback(function(){return self.entry.conv.base2buffer(self.objs.fg.get_base64());});
-    self.handler_history_ID = new self.constructors.handler_history();
+    /* 1.2.0 -> */
+    var json = {p: {id: "wrapper-link-svg"}, a: {id: "a-svg", it: "-svg(src-over)"}, name: "download", ext: "svg"};
+    self.handler_link_svg = new self.constructors.handler_link(json);
+    self.handler_link_svg.setter.callback(function(){return self.make_svg();});
+    self.handler_history_ID = new self.constructors.handler_history();  // 1.1.0
+    self.handler_history_svg = new self.constructors.handler_history(10000);  // about 10000 lines
+    /* -> 1.2.0 */
     self.drag = new self.constructors.handler_drag("div-drag", "checkbox-drag", {});
     self.objs.fg = new self.constructors.canvas($._id("canvas"));
     self.objs.fg.attach_point(self.make_handlers());
+    self.objs.fg.draw.setter.decDigit(1);  // 1.2.0
     $.change_elems$("input[type='checkbox']");
     self.update_options();
     self.reset_canvas();
@@ -153,18 +206,22 @@ My_entry.pen.prototype.init_handlers = function(){
     var self = this;
     self.update_options();
     switch(elem.id){
+      /* 1.1.0 -> */
       case "<<":
+        self.handler_history_svg.reverse();  // 1.2.0
         var ID = self.handler_history_ID.reverse();
         if(ID){
           self.objs.fg.putID(ID);
         }
         break;
       case ">>":
+        self.handler_history_svg.forward();  // 1.2.0
         var ID = self.handler_history_ID.forward();
         if(ID){
           self.objs.fg.putID(ID);
         }
         break;
+      /* -> 1.1.0 */
       case "clear":
         self.reset_canvas();
         break;
