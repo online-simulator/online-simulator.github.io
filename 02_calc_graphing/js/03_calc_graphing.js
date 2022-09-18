@@ -58,7 +58,7 @@ My_entry.calc_graphing.prototype.output_logh = function(log, logo){
     }
     logh += self.logh;
     self.logh = logh;
-    self.io.write_text(self.elems.h, self.logh.substr(0, self.config.LOG.sizeMax));
+    self.io.write_text(self.elems.h, self.logh.substring(0, self.config.LOG.sizeMax));
   }
   return self;
 };
@@ -69,7 +69,7 @@ My_entry.calc_graphing.prototype.output_log = function(data){
 /*
     self.io.write_text(self.elems.o, data.log.split(";").join(";\n"));
 */
-    self.io.write_text(self.elems.o, data.log.split(";").join(";\n").substr(0, self.config.LOG.sizeMax));
+    self.io.write_text(self.elems.o, data.log.split(";").join(";\n").substring(0, self.config.LOG.sizeMax));
     /* -> Ver.2.22.11 */
     self.output_logh(data.logh, data.logo);
   }

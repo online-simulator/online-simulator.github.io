@@ -592,7 +592,7 @@ My_entry.parser.prototype.make_trees = function(sentence, re){
       default:
         /* Ver.2.24.12 -> */
         if(self.entry.operation.config.isEscaped(token)){
-          self.check_varName(token.substr(1), re);
+          self.check_varName(token.substring(1), re);
         }
         /* -> Ver.2.24.12 */
         tree = DATA.tree_tag("REv", token);

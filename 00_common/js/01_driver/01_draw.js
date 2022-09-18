@@ -85,38 +85,38 @@ My_entry.draw.prototype.color2rgba = function(color){
       var hex = color_.replace(re_hex, "");
       var len = hex.length;
       if(len === 3){
-        r = hex.substr(0, 1);
-        g = hex.substr(1, 1);
-        b = hex.substr(2, 1);
+        r = hex.substring(0, 1);
+        g = hex.substring(1, 2);
+        b = hex.substring(2, 3);
         r = self.hex2dec(r+r);
         g = self.hex2dec(g+g);
         b = self.hex2dec(b+b);
         a = 255;
       }
       else if(len === 4){
-        r = hex.substr(0, 1);
-        g = hex.substr(1, 1);
-        b = hex.substr(2, 1);
-        a = hex.substr(3, 1);
+        r = hex.substring(0, 1);
+        g = hex.substring(1, 2);
+        b = hex.substring(2, 3);
+        a = hex.substring(3, 4);
         r = self.hex2dec(r+r);
         g = self.hex2dec(g+g);
         b = self.hex2dec(b+b);
         a = self.hex2dec(a+a);
       }
       else if(len === 6){
-        r = hex.substr(0, 2);
-        g = hex.substr(2, 2);
-        b = hex.substr(4, 2);
+        r = hex.substring(0, 2);
+        g = hex.substring(2, 4);
+        b = hex.substring(4, 6);
         r = self.hex2dec(r);
         g = self.hex2dec(g);
         b = self.hex2dec(b);
         a = 255;
       }
       else if(len === 8){
-        r = hex.substr(0, 2);
-        g = hex.substr(2, 2);
-        b = hex.substr(4, 2);
-        a = hex.substr(6, 2);
+        r = hex.substring(0, 2);
+        g = hex.substring(2, 4);
+        b = hex.substring(4, 6);
+        a = hex.substring(6, 8);
         r = self.hex2dec(r);
         g = self.hex2dec(g);
         b = self.hex2dec(b);

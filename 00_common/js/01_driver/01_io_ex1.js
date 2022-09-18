@@ -57,7 +57,7 @@ My_entry.io_ex1.prototype.insert_sw = function(elem, _text_, opt_isDEL, opt_ip_o
     if(sw_isDEL){
       ips = self.get_selection_deleted(text, ips, opt_isDEL);
     }
-    var newText = text.substr(0, ips.l)+_text_+text.substr(ips.r);
+    var newText = text.substring(0, ips.l)+_text_+text.substring(ips.r);
     self.write_text(elem, newText);
     var ip = ips.l+_text_.length;
     if(opt_ip_offset){

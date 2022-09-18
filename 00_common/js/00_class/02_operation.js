@@ -95,7 +95,7 @@ My_entry.operation.prototype.config = {
       var _sw = false;
       /* Ver.2.32.17 */
       var get_sw = function(notBT){
-        return (tagName.substr(0, 2) === "BT" && tagName !== "BTe"  && tagName !== notBT);
+        return (tagName.substring(0, 2) === "BT" && tagName !== "BTe"  && tagName !== notBT);
       };
       switch(useScope){
         case false:
@@ -106,7 +106,7 @@ My_entry.operation.prototype.config = {
         case "notBT2":
         case "notBT1":
         case "notBT0":
-          _sw = get_sw(useScope.substr(3));
+          _sw = get_sw(useScope.substring(3));
           break;
         case "BT2":
         case "BT1":
@@ -174,7 +174,7 @@ My_entry.operation.prototype.init_callbacks = function(options){
 };
 My_entry.operation.prototype.init_callback = function(options, tagName){
   var self = this;
-  var type = tagName.substr(0, 2);
+  var type = tagName.substring(0, 2);
   var tagName_comp = tagName;
   var sw_tagName = tagName;
   var isRAandBR = (options.isRightAssociativityBR && (type === "BR"));
@@ -630,7 +630,7 @@ My_entry.operation.prototype.SRt = function(data, i0, tagName, tagObj){
 My_entry.operation.prototype.isType = function(tree, type_comp){
   var self = this;
   var tagName = Object.keys(tree)[0];
-  var type = tagName.substr(0, 2);
+  var type = tagName.substring(0, 2);
   return ((type === type_comp)? tagName: null);
 };
 /* Ver.2.32.17 -> */
@@ -713,7 +713,7 @@ My_entry.operation.prototype.get_name_escaped = function(tree){
   var name_checked = "";
   var name = self.get_tagVal(tree, "REv", "val");
   if(name && self.config.isEscaped(name)){
-    _name = name.substr(1);
+    _name = name.substring(1);
     name_checked = _name;
   }
   if(self.config.isEscaped(name_checked)) throw "Invalid SEv("+name_checked+")";  // Ver.2.30.16  // Ver.2.32.17
@@ -2996,7 +2996,7 @@ My_entry.operation.prototype.REe = function(data, i0, tagName, tagObj){
         var argi = args[i];
         var tree = null;  // Ver.2.71.29
         if(self.config.isEscaped(argi_eqn)){
-          var name = argi_eqn.substr(1);
+          var name = argi_eqn.substring(1);
           buffer_eqns[name] = self.restore_eqn(name, scopes, ids_buffer);
           var isSEe = argi[BT.SEe];
           if(isSEe){
