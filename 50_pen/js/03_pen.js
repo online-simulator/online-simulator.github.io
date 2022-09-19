@@ -212,17 +212,17 @@ My_entry.pen.prototype.init_handlers = function(){
     switch(elem.id){
       /* 1.1.0 -> */
       case "<<":
-        self.handler_history_svg.reverse();  // 1.2.0
         var ID = self.handler_history_ID.reverse();
         if(ID){
           self.objs.fg.putID(ID);
+          self.handler_history_svg.reverse();  // 1.2.0  // 1.3.1
         }
         break;
       case ">>":
-        self.handler_history_svg.forward();  // 1.2.0
         var ID = self.handler_history_ID.forward();
         if(ID){
           self.objs.fg.putID(ID);
+          self.handler_history_svg.forward();  // 1.2.0  // 1.3.1
         }
         break;
       /* -> 1.1.0 */
