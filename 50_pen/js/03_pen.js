@@ -72,7 +72,11 @@ My_entry.pen.prototype.make_svg_lines = function(){
   var _svg = "";
   var options = self.options;
   var fg = self.objs.fg;
-  _svg += fg.draw.lines_pen(null, self.arr_data, options);
+  /* 1.3.0 -> */
+  var rev = self.handler_history_svg.rev;
+  var len = rev.length;
+  _svg += fg.draw.lines_pen("id"+(len-1), self.arr_data, options);
+  /* -> 1.3.0 */
   return _svg;
 };
 /* -> 1.2.0 */

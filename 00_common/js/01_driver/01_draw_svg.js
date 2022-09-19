@@ -93,6 +93,13 @@ My_entry.draw_svg.prototype.lines_pen = function(idName, arr_data, options){
   var self = this;
   var _svg = "";
   var config = "";
+  /* 1.26.7 -> */
+  if(options.sh){
+    var idName_sh = idName+"_sh";
+    _svg += self.def_dropShadow(idName_sh, options.RGB, 0, 0, options.sh);
+    config += self.use_filter(idName_sh);
+  }
+  /* -> 1.26.7 */
   config += " fill="+self.quote("none");
   config += " stroke="+self.quote(options.RGB);
   config += " stroke-linecap="+self.quote(options.cap);
@@ -193,6 +200,11 @@ My_entry.draw_svg.prototype.none = function(){
 My_entry.draw_svg.prototype.def_dropShadow = function(idName, style, offsetX, offsetY, blur){
   var self = this;
   var _svg = "";
+  /* 1.26.7 -> */
+  var ctx = self.ctx;
+  var px_w = ctx.canvas.width;
+  var px_h = ctx.canvas.height;
+  /* -> 1.26.7 */
   if(blur){  // blur
     var offsetX0 = self.floor(offsetX);
     var offsetY0 = self.floor(offsetY);
@@ -200,6 +212,12 @@ My_entry.draw_svg.prototype.def_dropShadow = function(idName, style, offsetX, of
     _svg += "<defs>";
     _svg += "<filter";
     _svg += " id="+self.quote(idName);
+    /* 1.26.7 -> */
+    _svg += " x="+self.quote(-px_w);
+    _svg += " y="+self.quote(-px_h);
+    _svg += " width="+self.quote(px_w*2);
+    _svg += " height="+self.quote(px_h*2);
+    /* -> 1.26.7 */
     _svg += ">";
     _svg += "<feDropShadow";
     _svg += " flood-color="+self.quote(style);
