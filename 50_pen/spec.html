@@ -43,9 +43,9 @@ line幅
           <td class="border">
 w可変の従属parameterを選択可
 <br>
-・w=w(p)
+・w=w(f)=w(p)
 <br>
-・w=w(len)
+・w=w(f)=w(len)
           </td>
         </tr>
         <tr class="border">
@@ -67,18 +67,74 @@ len=0~[px]
 筆中心の移動量
           </td>
           <td class="border">
-len=len(f)=|xy(f)-xy(f-1)|
+len=len(f)=|dxy(f)|
           </td>
         </tr>
         <tr class="border">
           <td class="border">
-xy=(x,y)
+xy={x,y}
           </td>
           <td class="border">
 筆中心のcanvas座標
           </td>
           <td class="border">
-xy=xy(f)
+列vector
+<br>
+xy=xy(f)={x(f),y(f)}
+<br>
+dxy(f)=xy(f)-xy(f-1)={dx(f),dy(f)}
+          </td>
+        </tr>
+        <tr class="border">
+          <td class="border">
+line(f)
+          </td>
+          <td class="border">
+frame間の筆中心line
+          </td>
+          <td class="border">
+line上線分の2点
+<br>
+xy(f-1)
+<br>
+xy(f)
+          </td>
+        </tr>
+        <tr class="border">
+          <td class="border">
+vline(f)
+          </td>
+          <td class="border">
+筆中心lineの垂線
+          </td>
+          <td class="border">
+vline上線分の2点
+<br>
+xym(f)=xy(f)-rdxyk(f)
+<br>
+xyp(f)=xy(f)+rdxyk(f)
+<br>
+<br>
+rot=(0,1:-1,0)
+<br>
+k=(w(f)/2)/len
+<br>
+rdxyk(f)=rot*dxy(f)*k={dy(f),-dx(f)}*k
+          </td>
+        </tr>
+        <tr class="border">
+          <td class="border">
+tetragon(f)
+          </td>
+          <td class="border">
+2vlineの四辺形
+          </td>
+          <td class="border">
+四辺形の2辺
+<br>
+vline(f-1)
+<br>
+vline(f)
           </td>
         </tr>
         <tr class="border">
@@ -153,7 +209,7 @@ W=0~[px]
 line幅の最大値
           </td>
           <td class="border">
-w&le;W
+0&le;w(f)&le;W
           </td>
         </tr>
         <tr class="border">
@@ -225,7 +281,7 @@ composite
 lineのRGBA合成方法
           </td>
           <td class="border">
-同期処理（shadow除く）
+同期処理（shadow描画を除く）
           </td>
         </tr>
         <tr class="border">
@@ -250,13 +306,36 @@ dy[px]
         </tr>
         <tr class="border">
           <td class="border">
-th=0~[px]
+w_th=0~[px]
+<br>
+<span class="run">Ver.1.4.1追加</span>
           </td>
           <td class="border">
+1frame内
+<br>
+w可変のw閾値
+          </td>
+          <td class="border">
+w(f-1)+w(f)&gt;0
+<br>
+(min(w(f-1),w(f))&lt;w_th)?
+<br>
+fill(tetragon):
+<br>
+stroke(line)
+          </td>
+        </tr>
+        <tr class="border">
+          <td class="border">
+len_th=0~[px]
+          </td>
+          <td class="border">
+frame間
+<br>
 w可変のlen閾値
           </td>
           <td class="border">
-dlen(f)=len(f)-th
+dlen(f)=len(f)-len_th
 <br>
 w(f)=w(f-1)+dw(dlen)
           </td>

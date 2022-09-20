@@ -100,7 +100,7 @@ My_entry.draw_svg.prototype.lines_pen = function(idName, arr_data, options){
     config += self.use_filter(idName_sh);
   }
   /* -> 1.26.7 */
-  config += " fill="+self.quote("none");
+  config += " fill="+self.quote(options.RGB);  // 1.27.7
   config += " stroke="+self.quote(options.RGB);
   config += " stroke-linecap="+self.quote(options.cap);
   _svg += self.header_group(idName, config);
@@ -115,15 +115,39 @@ My_entry.draw_svg.prototype.lines_pen = function(idName, arr_data, options){
     var y0 = self.floor(vec0.y+dy);
     var x1 = self.floor(vec1.x+dx);
     var y1 = self.floor(vec1.y+dy);
-    var w = self.floor(data.w);
+  /* 1.27.7 -> */
+    var w0 = self.floor(data.w0);
+    var w1 = self.floor(data.w1);
+  if(Math.min(w0, w1) < options.w_th){
+    var xym0 = data.xym0;
+    var xyp0 = data.xyp0;
+    var xym1 = data.xym1;
+    var xyp1 = data.xyp1;
+    var points = "";
+    points += self.floor(xym0.x+dx)+" "+self.floor(xym0.y+dy);
+    points += " ";
+    points += self.floor(xyp0.x+dx)+" "+self.floor(xyp0.y+dy);
+    points += " ";
+    points += self.floor(xyp1.x+dx)+" "+self.floor(xyp1.y+dy);
+    points += " ";
+    points += self.floor(xym1.x+dx)+" "+self.floor(xym1.y+dy);
+    _svg += "<polyline";
+    _svg += " opacity="+self.quote(alpha);
+    _svg += " stroke-width="+self.quote(0);
+    _svg += " points="+self.quote(points);
+    _svg += "/>";
+  }
+  else{
     _svg += "<line";
     _svg += " opacity="+self.quote(alpha);
-    _svg += " stroke-width="+self.quote(w);
+    _svg += " stroke-width="+self.quote(w1);
     _svg += " x1="+self.quote(x0);
     _svg += " y1="+self.quote(y0);
     _svg += " x2="+self.quote(x1);
     _svg += " y2="+self.quote(y1);
     _svg += "/>";
+  }
+  /* -> 1.27.7 */
     _svg += self.rn;
   }
   _svg += self.footer_group();

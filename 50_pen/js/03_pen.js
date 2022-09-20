@@ -115,7 +115,12 @@ My_entry.pen.prototype.make_handlers = function(){
       e.preventDefault();
       e.stopPropagation();
       self.isDragging = true;
-      self.xy0 = fg.get_offset(e);
+      /* 1.4.1 -> */
+      var xy1 = fg.get_offset(e);
+      self.xy0 = xy1;
+      self.xym0 = xy1;
+      self.xyp0 = xy1;
+      /* -> 1.4.1 */
       self.w0 = 0;
       self.arr_data = [];  // 1.2.0
     },
@@ -125,7 +130,7 @@ My_entry.pen.prototype.make_handlers = function(){
       };
       var w_len = function(len){
         var _w = self.w0;
-        var dlen = len-options.th;
+        var dlen = len-options.len_th;  // 1.4.1
         if(dlen > 0){
           _w += (options.out < 0)? dlen*options.out: -options.out;
         }
@@ -144,11 +149,29 @@ My_entry.pen.prototype.make_handlers = function(){
         var x0 = xy0.x;
         var y0 = xy0.y;
         self.xy0 = xy1;
-        var len = Math.sqrt((x1-x0)*(x1-x0)+(y1-y0)*(y1-y0));
-        var w = (options.pressure)? w_p(e.pressure): w_len(len);
-        self.w0 = w;
-        if(w){
-          self.arr_data.push({xy0: xy0, xy1: xy1, w: w});  // 1.2.0
+        /* 1.4.1 -> */
+        var dx = x1-x0;
+        var dy = y1-y0;
+        var len = Math.sqrt(dx*dx+dy*dy);
+        var w0 = self.w0 || 0;  // || 0
+        var w1 = (options.pressure)? w_p(e.pressure): w_len(len);
+        self.w0 = w1;
+        var k = (w1/2)/len;
+        var dxk = dx*k;
+        var dyk = dy*k;
+        var xym1x = x1-dyk;
+        var xym1y = y1+dxk;
+        var xyp1x = x1+dyk;
+        var xyp1y = y1-dxk;
+        var xym1 = {x: xym1x, y: xym1y};
+        var xyp1 = {x: xyp1x, y: xyp1y};
+        var xym0 = self.xym0 || xym1;
+        var xyp0 = self.xyp0 || xyp1;
+        self.xym0 = xym1;
+        self.xyp0 = xyp1;
+        if(w0+w1){
+          self.arr_data.push({xy0: xy0, xy1: xy1, w0: w0, w1: w1, xym0: xym0, xyp0: xyp0, xym1: xym1, xyp1: xyp1});  // 1.2.0
+        /* -> 1.4.1 */
           var dx = options.dx;
           var dy = options.dy;
           ctx.shadowBlur = options.sh;
@@ -159,11 +182,22 @@ My_entry.pen.prototype.make_handlers = function(){
           ctx.globalAlpha = options.A/100;
           ctx.globalCompositeOperation = options.composite;
           ctx.lineCap = options.cap;
-          ctx.lineWidth = w;
+          ctx.lineWidth = w1;  // 1.4.1
           ctx.beginPath();
-          ctx.moveTo(x0+dx, y0+dy);
-          ctx.lineTo(x1+dx, y1+dy);
-          ctx.stroke();
+          /* 1.4.1 -> */
+          if(Math.min(w0, w1) < options.w_th){
+            ctx.moveTo(xym0.x+dx, xym0.y+dy);
+            ctx.lineTo(xyp0.x+dx, xyp0.y+dy);
+            ctx.lineTo(xyp1.x+dx, xyp1.y+dy);
+            ctx.lineTo(xym1.x+dx, xym1.y+dy);
+            ctx.fill();
+          }
+          else{
+            ctx.moveTo(x0+dx, y0+dy);
+            ctx.lineTo(x1+dx, y1+dy);
+            ctx.stroke();
+          }
+          /* -> 1.4.1 */
         }
       }
     },
