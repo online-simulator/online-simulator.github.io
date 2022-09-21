@@ -109,12 +109,14 @@ My_entry.draw_svg.prototype.lines_pen = function(idName, arr_data, options){
     var alpha = self.floor(options.A)/100;
     var vec0 = data.xy0;
     var vec1 = data.xy1;
-    var dx = options.dx;
-    var dy = options.dy;
-    var x0 = self.floor(vec0.x+dx);
-    var y0 = self.floor(vec0.y+dy);
-    var x1 = self.floor(vec1.x+dx);
-    var y1 = self.floor(vec1.y+dy);
+    /* 1.28.7 -> */
+    var ox = options.ox;
+    var oy = options.oy;
+    /* -> 1.28.7 */
+    var x0 = self.floor(vec0.x+ox);
+    var y0 = self.floor(vec0.y+oy);
+    var x1 = self.floor(vec1.x+ox);
+    var y1 = self.floor(vec1.y+oy);
   /* 1.27.7 -> */
     var w0 = self.floor(data.w0);
     var w1 = self.floor(data.w1);
@@ -124,13 +126,13 @@ My_entry.draw_svg.prototype.lines_pen = function(idName, arr_data, options){
     var xym1 = data.xym1;
     var xyp1 = data.xyp1;
     var points = "";
-    points += self.floor(xym0.x+dx)+" "+self.floor(xym0.y+dy);
+    points += self.floor(xym0.x+ox)+" "+self.floor(xym0.y+oy);
     points += " ";
-    points += self.floor(xyp0.x+dx)+" "+self.floor(xyp0.y+dy);
+    points += self.floor(xyp0.x+ox)+" "+self.floor(xyp0.y+oy);
     points += " ";
-    points += self.floor(xyp1.x+dx)+" "+self.floor(xyp1.y+dy);
+    points += self.floor(xyp1.x+ox)+" "+self.floor(xyp1.y+oy);
     points += " ";
-    points += self.floor(xym1.x+dx)+" "+self.floor(xym1.y+dy);
+    points += self.floor(xym1.x+ox)+" "+self.floor(xym1.y+oy);
     _svg += "<polyline";
     _svg += " opacity="+self.quote(alpha);
     _svg += " stroke-width="+self.quote(0);

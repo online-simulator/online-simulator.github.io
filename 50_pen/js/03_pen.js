@@ -172,8 +172,10 @@ My_entry.pen.prototype.make_handlers = function(){
         if(w0+w1){
           self.arr_data.push({xy0: xy0, xy1: xy1, w0: w0, w1: w1, xym0: xym0, xyp0: xyp0, xym1: xym1, xyp1: xyp1});  // 1.2.0
         /* -> 1.4.1 */
-          var dx = options.dx;
-          var dy = options.dy;
+          /* 1.5.1 -> */
+          var ox = options.ox;
+          var oy = options.oy;
+          /* -> 1.5.1 */
           ctx.shadowBlur = options.sh;
           ctx.shadowOffsetX = 0;
           ctx.shadowOffsetY = 0;
@@ -186,15 +188,15 @@ My_entry.pen.prototype.make_handlers = function(){
           ctx.beginPath();
           /* 1.4.1 -> */
           if(Math.min(w0, w1) < options.w_th){
-            ctx.moveTo(xym0.x+dx, xym0.y+dy);
-            ctx.lineTo(xyp0.x+dx, xyp0.y+dy);
-            ctx.lineTo(xyp1.x+dx, xyp1.y+dy);
-            ctx.lineTo(xym1.x+dx, xym1.y+dy);
+            ctx.moveTo(xym0.x+ox, xym0.y+oy);
+            ctx.lineTo(xyp0.x+ox, xyp0.y+oy);
+            ctx.lineTo(xyp1.x+ox, xyp1.y+oy);
+            ctx.lineTo(xym1.x+ox, xym1.y+oy);
             ctx.fill();
           }
           else{
-            ctx.moveTo(x0+dx, y0+dy);
-            ctx.lineTo(x1+dx, y1+dy);
+            ctx.moveTo(x0+ox, y0+oy);
+            ctx.lineTo(x1+ox, y1+oy);
             ctx.stroke();
           }
           /* -> 1.4.1 */
