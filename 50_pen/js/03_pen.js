@@ -181,12 +181,13 @@ My_entry.pen.prototype.make_handlers = function(){
           var ox = options.ox;
           var oy = options.oy;
           /* -> 1.5.1 */
+          var alpha = Math.abs(options.A)/100;  // 1.6.1
           ctx.shadowBlur = options.sh;
           ctx.shadowOffsetX = 0;
           ctx.shadowOffsetY = 0;
           ctx.shadowColor = options.RGB;
           ctx.fillStyle = ctx.strokeStyle = options.RGB;
-          ctx.globalAlpha = options.A/100;
+          ctx.globalAlpha = alpha;
           ctx.globalCompositeOperation = options.composite;
           ctx.lineCap = options.cap;
           ctx.lineWidth = w1;  // 1.4.1
@@ -211,7 +212,18 @@ My_entry.pen.prototype.make_handlers = function(){
     onmouseup: function(e){
       e.preventDefault();
       e.stopPropagation();
-      self.handler_history_ID.save(fg.getID());  // 1.1.0
+      /* 1.6.1 -> */
+      var ID = null;
+      if(options.A < 0){
+        var alpha = Math.abs(options.A)/100;
+        ID = fg.getID_alpha(alpha);
+        fg.putID(ID);
+      }
+      else{
+        ID = fg.getID();
+      }
+      self.handler_history_ID.save(ID);  // 1.1.0
+      /* -> 1.6.1 */
       self.handler_history_svg.save(self.make_svg_lines());  // 1.2.0
       self.isDragging = false;
     }

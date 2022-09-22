@@ -367,6 +367,27 @@ My_entry.canvas.prototype.getID = function(){
   var self = this;
   return self.ctx.getImageData(0, 0, self.px_w, self.px_h);
 };
+/* 1.29.7 */
+My_entry.canvas.prototype.getID_alpha = function(opt_alpha){
+  var self = this;
+  var _ID = self.getID();
+  var alpha = opt_alpha || 0;
+  var px_w = self.px_w;
+  var px_h = self.px_h;
+  for(var j=0; j<px_h; ++j){
+    for(var i=0; i<px_w; ++i){
+      var ired = 4*(px_w*j+i);
+      var r = _ID.data[ired+0];
+      var g = _ID.data[ired+1];
+      var b = _ID.data[ired+2];
+      var a = _ID.data[ired+3];
+      if(r+g+b+a){
+        _ID.data[ired+3] = Math.min(a, 255*alpha);
+      }
+    }
+  }
+  return _ID;
+};
 My_entry.canvas.prototype.putID_xy = function(ID, x, y){
   var self = this;
   self.ctx.putImageData(ID, x, y);

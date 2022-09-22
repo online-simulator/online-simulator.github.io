@@ -148,6 +148,16 @@ move検知frame回数
 down検知で初期化f=0
           </td>
         </tr>
+        <tr class="border">
+          <td class="border">
+rgba
+          </td>
+          <td class="border">
+pixelのRGBA
+          </td>
+          <td class="border">
+          </td>
+        </tr>
         <tr class="border selection">
           <td class="border">
 URLの設定例
@@ -224,12 +234,25 @@ lineの基本色RGB
         </tr>
         <tr class="border">
           <td class="border">
-A=0~100[%]
+A=<span class="run">-100</span>~100[%]
+<br>
+<span class="run">Ver.1.6.1追加</span>
           </td>
           <td class="border">
 lineの不透明度A
           </td>
           <td class="border">
+<span class="run">
+A&lt;0
+<br>
+r+g+b+a&gt;0
+<br>
+a=min(a, |A|)
+<br>
+a&le;|A|
+<br>
+png/svgの整合性なし（履歴を含む）
+</span>
           </td>
         </tr>
         <tr class="border">
