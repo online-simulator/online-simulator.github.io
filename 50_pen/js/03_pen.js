@@ -128,16 +128,21 @@ My_entry.pen.prototype.make_handlers = function(){
       var w_p = function(p){
         return options.W*p;
       };
+      /* 1.5.1 */
       var w_len = function(len){
-        var _w = self.w0;
+        var dw = 0;
         var dlen = len-options.len_th;  // 1.4.1
         if(dlen > 0){
-          _w += (options.out < 0)? dlen*options.out: -options.out;
+          var s = options.out;
+          dw = (s < 0)? dlen: -1;
+          dw *= s;
         }
         else{
-          _w += (options.in < 0)? dlen*options.in: options.in;
+          var s = options.in;
+          dw = (s < 0)? dlen: 1;
+          dw *= s;
         }
-        return Math.min(options.W, Math.max(0, _w));
+        return Math.min(options.W, Math.max(0, self.w0+dw));
       };
       if(self.isDragging){
         e.preventDefault();
