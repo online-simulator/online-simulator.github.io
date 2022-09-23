@@ -7,13 +7,12 @@ My_entry.pen = function(){
 };
 
 My_entry.def.mix_in(My_entry.pen, My_entry.original_main);
-My_entry.def.mix_in(My_entry.draw, My_entry.draw_svg);  // 1.2.0
 
 My_entry.pen.prototype.init = function(){
   var self = this;
   self.objs = {};
   self.options = {};
-  self.init_main.call(self, ["$", "conv"]);
+  self.init_main.call(self, ["$", "conv", "def"]);
   return self;
 };
 My_entry.pen.prototype.init_elems = function(){
@@ -38,6 +37,7 @@ My_entry.pen.prototype.update_options = function(){
 /* 1.2.0 -> */
 My_entry.pen.prototype.make_svg = function(){
   var self = this;
+  self.entry.def.mix_over(self.constructors.draw, self.constructors.draw_svg);  // 1.7.1
   var _svg = "";
   var fg = self.objs.fg;
   var rev = self.handler_history_svg.rev;
@@ -59,16 +59,18 @@ My_entry.pen.prototype.make_svg = function(){
 };
 My_entry.pen.prototype.make_svg_header = function(){
   var self = this;
+  self.entry.def.mix_over(self.constructors.draw, self.constructors.draw_svg);  // 1.7.1
   var _svg = "";
   var options = self.options;
   var fg = self.objs.fg;
   _svg += fg.draw.header(fg.px_w, fg.px_h);
   _svg += fg.draw.comment(My_entry.VERSION);
-  _svg += fg.fill(options.bg);
+  _svg += fg.fill(options.bgcolor);
   return _svg;
 };
 My_entry.pen.prototype.make_svg_lines = function(){
   var self = this;
+  self.entry.def.mix_over(self.constructors.draw, self.constructors.draw_svg);  // 1.7.1
   var _svg = "";
   var options = self.options;
   var fg = self.objs.fg;
@@ -82,25 +84,28 @@ My_entry.pen.prototype.make_svg_lines = function(){
 /* -> 1.2.0 */
 My_entry.pen.prototype.reset_canvas = function(){
   var self = this;
+  self.entry.def.mix_over(self.constructors.draw, self.constructors.draw_canvas);  // 1.7.1
   var $ = self.entry.$;
   var options = self.options;
+  /* 1.7.1 -> */
   var fg = self.objs.fg;
-  var ctx = fg.draw.ctx;
+  var bg = self.objs.bg;
   var px_w = options["canvas-width"];
   var px_h = options["canvas-height"];
-  var bg = options.bg;
+  var bgcolor = options.bgcolor;
+  $.set_id("div-canvas", "width", "100%");
+  $.set_id("div-canvas", "height", (1+px_h+1)+"px");
   fg.change_size(px_w, px_h);
-  ctx.save();
-  if(bg){
-    ctx.fillStyle = bg;
-    ctx.fillRect(0, 0, px_w, px_h);
-    ctx.fill();
+  bg.change_size(px_w, px_h);
+  if(bgcolor){
+    bg.fill(bgcolor);
   }
   else{
-    ctx.clearRect(0, 0, px_w, px_h);
+    bg.clear();
   }
-  ctx.restore();
-  self.handler_history_ID.save(fg.getID());  // 1.1.0
+  self.handler_history_ID.save(bg.getID());  // 1.1.0
+  fg.clear();
+  /* -> 1.7.1 */
   self.handler_history_svg.save(self.make_svg_header());  // 1.2.0
   return self;
 };
@@ -109,9 +114,11 @@ My_entry.pen.prototype.make_handlers = function(){
   var $ = self.entry.$;
   var options = self.options;
   var fg = self.objs.fg;
+  var bg = self.objs.bg;  // 1.7.1
   var ctx = fg.draw.ctx;
   var _handlers = {
     onmousedown: function(e){
+      self.entry.def.mix_over(self.constructors.draw, self.constructors.draw_canvas);  // 1.7.1
       e.preventDefault();
       e.stopPropagation();
       self.isDragging = true;
@@ -212,18 +219,20 @@ My_entry.pen.prototype.make_handlers = function(){
     onmouseup: function(e){
       e.preventDefault();
       e.stopPropagation();
+      /* 1.7.1 -> */
       /* 1.6.1 -> */
-      var ID = null;
       if(options.A < 0){
         var alpha = Math.abs(options.A)/100;
-        ID = fg.getID_alpha(alpha);
-        fg.putID(ID);
+        fg.putID(fg.getID_alpha(alpha));
       }
-      else{
-        ID = fg.getID();
+      var base64_fg = fg.get_base64();
+      var callback = function(){
+        self.handler_history_ID.save(bg.getID());  // 1.1.0
+        fg.clear();
       }
-      self.handler_history_ID.save(ID);  // 1.1.0
+      bg.draw_base64(base64_fg, callback, options.composite);
       /* -> 1.6.1 */
+      /* -> 1.7.1 */
       self.handler_history_svg.save(self.make_svg_lines());  // 1.2.0
       self.isDragging = false;
     }
@@ -238,7 +247,7 @@ My_entry.pen.prototype.init_handlers = function(){
     var self = this;
     var json = {p: {id: "wrapper-link-png"}, a: {id: "a-png", it: "download-png"}, name: "download", ext: "png"};
     self.handler_link_png = new self.constructors.handler_link(json);
-    self.handler_link_png.setter.callback(function(){return self.entry.conv.base2buffer(self.objs.fg.get_base64());});
+    self.handler_link_png.setter.callback(function(){return self.entry.conv.base2buffer(self.objs.bg.get_base64());});  // 1.7.1
     /* 1.2.0 -> */
     var json = {p: {id: "wrapper-link-svg"}, a: {id: "a-svg", it: "-svg(src-over)"}, name: "download", ext: "svg"};
     self.handler_link_svg = new self.constructors.handler_link(json);
@@ -247,7 +256,10 @@ My_entry.pen.prototype.init_handlers = function(){
     self.handler_history_svg = new self.constructors.handler_history(10000);  // about 10000 lines
     /* -> 1.2.0 */
     self.drag = new self.constructors.handler_drag("div-drag", "checkbox-drag", {});
-    self.objs.fg = new self.constructors.canvas($._id("canvas"));
+    /* 1.7.1 -> */
+    self.objs.fg = new self.constructors.canvas($._id("canvas-fg"));
+    self.objs.bg = new self.constructors.canvas($._id("canvas-bg"));
+    /* -> 1.7.1 */
     self.objs.fg.attach_point(self.make_handlers());
     self.objs.fg.draw.setter.decDigit(1);  // 1.2.0
     $.change_elems$("input[type='checkbox']");
@@ -267,14 +279,14 @@ My_entry.pen.prototype.init_handlers = function(){
       case "<<":
         var ID = self.handler_history_ID.reverse();
         if(ID){
-          self.objs.fg.putID(ID);
+          self.objs.bg.putID(ID);  // 1.7.1
           self.handler_history_svg.reverse();  // 1.2.0  // 1.3.1
         }
         break;
       case ">>":
         var ID = self.handler_history_ID.forward();
         if(ID){
-          self.objs.fg.putID(ID);
+          self.objs.bg.putID(ID);  // 1.7.1
           self.handler_history_svg.forward();  // 1.2.0  // 1.3.1
         }
         break;
@@ -301,7 +313,7 @@ My_entry.pen.prototype.init_handlers = function(){
         break;
       case "select-canvas-width":
       case "select-canvas-height":
-      case "select-bg":
+      case "select-bgcolor":  // 1.7.1
         self.reset_canvas();
         break;
       default:

@@ -251,7 +251,9 @@ a=min(a, |A|)
 <br>
 a&le;|A|
 <br>
-png/svgの整合性なし（履歴を含む）
+<del>png/svgの整合性なし（履歴を含む）</del>
+<br>
+Ver.1.7.1以降、整合性を確保
 </span>
           </td>
         </tr>
@@ -305,6 +307,18 @@ lineのRGBA合成方法
           </td>
           <td class="border">
 同期処理（shadow描画を除く）
+<br>
+・canvas前面にlineを逐次合成
+<br>
+<br>
+<span class="run">
+Ver.1.7.1以降、非同期処理を追加
+<br>
+・up検知で1筆のlinesを
+<br>
+　canvas前面から背面に合成
+<br>
+</span>
           </td>
         </tr>
         <tr class="border">

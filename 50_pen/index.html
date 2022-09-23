@@ -20,6 +20,7 @@
   <script type="text/javascript" src="../00_common/js/01_driver/01_browser.js"></script>
   <script type="text/javascript" src="../00_common/js/01_driver/01_canvas.js"></script>
   <script type="text/javascript" src="../00_common/js/01_driver/01_draw.js"></script>
+  <script type="text/javascript" src="../00_common/js/01_driver/01_draw_canvas.js"></script>
   <script type="text/javascript" src="../00_common/js/01_driver/01_draw_svg.js"></script>
   <script type="text/javascript" src="../00_common/js/01_driver/01_drag.js"></script>
   <script type="text/javascript" src="../00_common/js/01_driver/01_io.js"></script>
@@ -68,7 +69,7 @@ config<input id="checkbox-config" type="checkbox">
 <input id="input-A" type="number" class="width-auto" min="-100" max="100" value="10">
   </label>
   <label>bg:
-<select id="select-bg">
+<select id="select-bgcolor">
   <option value="">transparent</option>
   <option value="black">black</option>
   <option value="white">white</option>
@@ -225,7 +226,8 @@ config<input id="checkbox-config" type="checkbox">
   </div>
 <hr>
   <div id="div-canvas" class="relative">
-    <canvas id="canvas"></canvas>
+    <canvas id="canvas-bg" class="absolute"></canvas>
+    <canvas id="canvas-fg" class="absolute"></canvas>
   </div>
 <hr>
 </td></tr>
