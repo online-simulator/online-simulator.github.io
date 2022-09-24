@@ -388,6 +388,51 @@ My_entry.canvas.prototype.getID_alpha = function(opt_alpha){
   }
   return _ID;
 };
+/* 1.30.7 */
+My_entry.canvas.prototype.getID_RGBA = function(opt_R255, opt_G255, opt_B255, opt_A100, type){
+  var self = this;
+  var _ID = self.getID();
+  var R255 = opt_R255 || 0;
+  var G255 = opt_G255 || 0;
+  var B255 = opt_B255 || 0;
+  var A255 = 255*(opt_A100 || 0)/100;
+  var filter_rgba = null;
+  if(type === "flat_low"){
+    filter_rgba = function(rgba, RGBA255){
+      return ((RGBA255 < 0)? rgba: Math.max(rgba, RGBA255));
+    };
+  }
+  else if(type === "flat_all"){
+    filter_rgba = function(rgba, RGBA255){
+      return ((RGBA255 < 0)? rgba: RGBA255);
+    };
+  }
+  else if(type === "flat_upp"){
+    filter_rgba = function(rgba, RGBA255){
+      return ((RGBA255 < 0)? rgba: Math.min(rgba, RGBA255));
+    };
+  }
+  if(filter_rgba){
+    var px_w = self.px_w;
+    var px_h = self.px_h;
+    for(var j=0; j<px_h; ++j){
+      for(var i=0; i<px_w; ++i){
+        var ired = 4*(px_w*j+i);
+        var r = _ID.data[ired+0];
+        var g = _ID.data[ired+1];
+        var b = _ID.data[ired+2];
+        var a = _ID.data[ired+3];
+        if(r+g+b+a){
+          _ID.data[ired+0] = filter_rgba(r, R255);
+          _ID.data[ired+1] = filter_rgba(g, G255);
+          _ID.data[ired+2] = filter_rgba(b, B255);
+          _ID.data[ired+3] = filter_rgba(a, A255);
+        }
+      }
+    }
+  }
+  return _ID;
+};
 My_entry.canvas.prototype.putID_xy = function(ID, x, y){
   var self = this;
   self.ctx.putImageData(ID, x, y);

@@ -273,20 +273,38 @@ My_entry.pen.prototype.init_handlers = function(){
   };
   self.handlers.onclick = function(e, elem){
     var self = this;
+    var fg = self.objs.fg;
+    var bg = self.objs.bg;
     self.update_options();
     switch(elem.id){
+      /* 1.7.1 -> */
+      case "flat_low":
+      case "flat_all":
+      case "flat_upp":
+        var R255 = Math.min(255, Math.max(-1, options["png-R255"]));
+        var G255 = Math.min(255, Math.max(-1, options["png-G255"]));
+        var B255 = Math.min(255, Math.max(-1, options["png-B255"]));
+        var A100 = Math.min(100, Math.max(-1, options["png-A100"]));
+        if(R255 >= 0 || G255 >= 0 || B255 >= 0 || A100 >= 0){
+          var ID = bg.getID_RGBA(R255, G255, B255, A100, elem.id);
+          bg.putID(ID);
+          self.handler_history_ID.save(ID);
+          self.handler_history_svg.save("");
+        }
+        break;
+      /* -> 1.7.1 */
       /* 1.1.0 -> */
       case "<<":
         var ID = self.handler_history_ID.reverse();
         if(ID){
-          self.objs.bg.putID(ID);  // 1.7.1
+          bg.putID(ID);  // 1.7.1
           self.handler_history_svg.reverse();  // 1.2.0  // 1.3.1
         }
         break;
       case ">>":
         var ID = self.handler_history_ID.forward();
         if(ID){
-          self.objs.bg.putID(ID);  // 1.7.1
+          bg.putID(ID);  // 1.7.1
           self.handler_history_svg.forward();  // 1.2.0  // 1.3.1
         }
         break;
