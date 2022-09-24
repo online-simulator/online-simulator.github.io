@@ -107,6 +107,7 @@ My_entry.pen.prototype.reset_canvas = function(){
   fg.clear();
   /* -> 1.7.1 */
   self.handler_history_svg.save(self.make_svg_header());  // 1.2.0
+  $._id("input-file-bg").value = null;  // 1.8.1
   return self;
 };
 My_entry.pen.prototype.make_handlers = function(){
@@ -317,6 +318,8 @@ My_entry.pen.prototype.init_handlers = function(){
   };
   self.handlers.onchange = function(e, elem){
     var self = this;
+    var fg = self.objs.fg;
+    var bg = self.objs.bg;
     self.update_options();
     switch(elem.id){
       case "checkbox-drag":
@@ -334,6 +337,21 @@ My_entry.pen.prototype.init_handlers = function(){
       case "select-bgcolor":  // 1.7.1
         self.reset_canvas();
         break;
+      /* 1.8.1 -> */
+      case "input-file-bg":
+        var file = $.readFile_elem(elem, /^image/, function(e){
+          var base64 = e.target.result;
+          var callback = function(){
+            self.handler_history_ID.save(bg.getID());
+          };
+          bg.draw_base64(base64, callback, options.composite);
+          self.handler_history_svg.save("");
+        });
+        if(!(file)){
+          elem.value = null;
+        }
+        break;
+      /* -> 1.8.1 */
       default:
         break;
     }
