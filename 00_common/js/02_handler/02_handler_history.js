@@ -26,7 +26,7 @@ My_entry.handler_history.prototype.save = function(data){
 My_entry.handler_history.prototype.forward = function(){
   var self = this;
   var _data = self.fwd.pop();
-  if(_data){
+  if(_data || _data === ""){
     self.rev.push(_data);
   }
   return _data;
@@ -36,7 +36,7 @@ My_entry.handler_history.prototype.reverse = function(){
   var _data = null;
   if(self.rev.length-1 > 0){
     var data = self.rev.pop();
-    if(data){
+    if(data || data === ""){
       self.fwd.push(data);
     }
     _data = self.rev[self.rev.length-1];
