@@ -15,30 +15,28 @@ My_entry.handler_history.prototype.init = function(opt_len_max){
 };
 My_entry.handler_history.prototype.save = function(data){
   var self = this;
-  self.fwd = [];
-  self.rev.push(data);
-  if(self.rev.length-1 > self.len_max){
+  self.fwd.length = 0;
+  if(self.rev.length > self.len_max){
     self.rev[0] = null;
     self.rev.shift();
   }
+  self.rev.push(data);
   return self;
 };
 My_entry.handler_history.prototype.forward = function(){
   var self = this;
-  var _data = self.fwd.pop();
-  if(_data || _data === ""){
-    self.rev.push(_data);
+  var _data = null;
+  if(self.fwd.length > 0){  // > 0
+    self.rev.push(self.fwd.pop());
+    _data = self.rev[self.rev.length-1];
   }
   return _data;
 };
 My_entry.handler_history.prototype.reverse = function(){
   var self = this;
   var _data = null;
-  if(self.rev.length-1 > 0){
-    var data = self.rev.pop();
-    if(data || data === ""){
-      self.fwd.push(data);
-    }
+  if(self.rev.length > 1){  // > 1
+    self.fwd.push(self.rev.pop());
     _data = self.rev[self.rev.length-1];
   }
   return _data;
