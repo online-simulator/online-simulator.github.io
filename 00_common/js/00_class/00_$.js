@@ -41,11 +41,8 @@ My_entry.$.prototype.onbeforeunload = function(opt_callback){
   document.body.onbeforeunload = function(e){
     if(opt_callback){
       opt_callback(e);
-      self.arr("input,textarea").forEach(function(elem, i){
+      self.arr("input,textarea,select").forEach(function(elem, i){
         elem.value = elem.defaultValue;
-      });
-      self.arr("select").forEach(function(elem, i){
-        elem.value = elem.defaultValue || elem.value;  // || for Firefox
       });
       self.arr("input[type='checkbox']").forEach(function(elem, i){
         elem.checked = elem.defaultChecked;
