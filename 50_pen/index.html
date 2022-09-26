@@ -213,6 +213,13 @@ config<input id="checkbox-config" type="checkbox">
 pre/post processing for png
   </div>
 <hr>
+  <label>grid-width:
+<input id="input-grid-width" type="number" class="input-50" min="0" step="4" value="0">
+  </label>
+  <label>grid-height:
+<input id="input-grid-height" type="number" class="input-50" min="0" step="4" value="0">
+  </label>
+<hr>
   <label>R:
 <input id="input-png-R255" type="number" class="width-auto" min="-1" max="255" value="-1">
   </label>
@@ -251,6 +258,7 @@ pre/post processing for png
 <hr>
   <div id="div-canvas" class="relative">
     <canvas id="canvas-bg" class="absolute"></canvas>
+    <canvas id="canvas-mg" class="absolute"></canvas>
     <canvas id="canvas-fg" class="absolute"></canvas>
   </div>
 <hr>

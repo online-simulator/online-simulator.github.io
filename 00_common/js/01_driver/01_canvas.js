@@ -345,10 +345,11 @@ My_entry.canvas.prototype.fill = function(opt_styleRGBA, opt_globalCompositeOper
 My_entry.canvas.prototype.getRGBA_xy = function(x, y){
   var self = this;
   var ID = self.getID_xy(x, y);
-  var r = ID.data[0];
-  var g = ID.data[1];
-  var b = ID.data[2];
-  var a = ID.data[3];
+  var data = ID.data;  // 1.31.7
+  var r = data[0];
+  var g = data[1];
+  var b = data[2];
+  var a = data[3];
   return {r:r, g:g, b:b, a:a};
 };
 My_entry.canvas.prototype.getID_xy = function(x, y){
@@ -371,18 +372,19 @@ My_entry.canvas.prototype.getID = function(){
 My_entry.canvas.prototype.getID_alpha = function(opt_alpha){
   var self = this;
   var _ID = self.getID();
+  var data = _ID.data;  // 1.31.7
   var alpha = opt_alpha || 0;
   var px_w = self.px_w;
   var px_h = self.px_h;
   for(var j=0; j<px_h; ++j){
     for(var i=0; i<px_w; ++i){
       var ired = 4*(px_w*j+i);
-      var r = _ID.data[ired+0];
-      var g = _ID.data[ired+1];
-      var b = _ID.data[ired+2];
-      var a = _ID.data[ired+3];
+      var r = data[ired+0];
+      var g = data[ired+1];
+      var b = data[ired+2];
+      var a = data[ired+3];
       if(r+g+b+a){
-        _ID.data[ired+3] = Math.min(a, 255*alpha);
+        data[ired+3] = Math.min(a, 255*alpha);
       }
     }
   }
@@ -392,6 +394,7 @@ My_entry.canvas.prototype.getID_alpha = function(opt_alpha){
 My_entry.canvas.prototype.getID_RGBA = function(opt_R255, opt_G255, opt_B255, opt_A100, type){
   var self = this;
   var _ID = self.getID();
+  var data = _ID.data;  // 1.31.7
   var R255 = opt_R255 || 0;
   var G255 = opt_G255 || 0;
   var B255 = opt_B255 || 0;
@@ -418,20 +421,51 @@ My_entry.canvas.prototype.getID_RGBA = function(opt_R255, opt_G255, opt_B255, op
     for(var j=0; j<px_h; ++j){
       for(var i=0; i<px_w; ++i){
         var ired = 4*(px_w*j+i);
-        var r = _ID.data[ired+0];
-        var g = _ID.data[ired+1];
-        var b = _ID.data[ired+2];
-        var a = _ID.data[ired+3];
+        var r = data[ired+0];
+        var g = data[ired+1];
+        var b = data[ired+2];
+        var a = data[ired+3];
         if(r+g+b+a){
-          _ID.data[ired+0] = filter_rgba(r, R255);
-          _ID.data[ired+1] = filter_rgba(g, G255);
-          _ID.data[ired+2] = filter_rgba(b, B255);
-          _ID.data[ired+3] = filter_rgba(a, A255);
+          data[ired+0] = filter_rgba(r, R255);
+          data[ired+1] = filter_rgba(g, G255);
+          data[ired+2] = filter_rgba(b, B255);
+          data[ired+3] = filter_rgba(a, A255);
         }
       }
     }
   }
   return _ID;
+};
+/* 1.31.7 */
+My_entry.canvas.prototype.draw_grid = function(dx, dy, opt_lineWidth, opt_styleRGBA){
+  var self = this;
+  var ctx = self.ctx;
+  var px_w = self.px_w;
+  var px_h = self.px_h;
+  ctx.lineWidth = opt_lineWidth || 0;
+  ctx.fillStyle = ctx.strokeStyle = self.draw.color2style(opt_styleRGBA);
+  var hasGrid = (dx > 0 && dy > 0);
+  if(hasGrid){
+    var Ni = Math.floor(px_w/dx);
+    var Nj = Math.floor(px_h/dy);
+    ctx.save();
+    for(var i=0; i<=Ni; ++i){
+      var xi = dx*i;
+      ctx.beginPath();
+      ctx.moveTo(xi, 0);
+      ctx.lineTo(xi, px_h);
+      ctx.stroke();
+    }
+    for(var j=0; j<=Nj; ++j){
+      var yj = dy*j;
+      ctx.beginPath();
+      ctx.moveTo(0, yj);
+      ctx.lineTo(px_w, yj);
+      ctx.stroke();
+    }
+    ctx.restore();
+  }
+  return self;
 };
 My_entry.canvas.prototype.putID_xy = function(ID, x, y){
   var self = this;

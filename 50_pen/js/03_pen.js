@@ -89,13 +89,15 @@ My_entry.pen.prototype.reset_canvas = function(){
   var options = self.options;
   /* 1.7.1 -> */
   var fg = self.objs.fg;
-  var bg = self.objs.bg;
+  var mg = self.objs.mg;  // 1.10.2
+  var bg = self.objs.bg;  // 1.7.1
   var px_w = options["canvas-width"];
   var px_h = options["canvas-height"];
   var bgcolor = options.bgcolor;
   $.set_id("div-canvas", "width", "100%");
   $.set_id("div-canvas", "height", (1+px_h+1)+"px");
   fg.change_size(px_w, px_h);
+  mg.change_size(px_w, px_h);  // 1.10.2
   bg.change_size(px_w, px_h);
   if(bgcolor){
     bg.fill(bgcolor);
@@ -108,13 +110,25 @@ My_entry.pen.prototype.reset_canvas = function(){
   /* -> 1.7.1 */
   self.handler_history_svg.save(self.make_svg_header());  // 1.2.0
   $._id("input-file-bg").value = null;  // 1.8.1
+  self.reset_canvas_grid();  // 1.10.2
   return self;
 };
+/* 1.10.2 -> */
+My_entry.pen.prototype.reset_canvas_grid = function(){
+  var self = this;
+  var options = self.options;
+  var mg = self.objs.mg;
+  mg.clear();
+  mg.draw_grid(options["grid-width"], options["grid-height"], 0.5, "#00000033");
+  return self;
+};
+/* -> 1.10.2 */
 My_entry.pen.prototype.make_handlers = function(){
   var self = this;
   var $ = self.entry.$;
   var options = self.options;
   var fg = self.objs.fg;
+  var mg = self.objs.mg;  // 1.10.2
   var bg = self.objs.bg;  // 1.7.1
   var ctx = fg.draw.ctx;
   var _handlers = {
@@ -259,6 +273,7 @@ My_entry.pen.prototype.init_handlers = function(){
     self.drag = new self.constructors.handler_drag("div-drag", "checkbox-drag", {});
     /* 1.7.1 -> */
     self.objs.fg = new self.constructors.canvas($._id("canvas-fg"));
+    self.objs.mg = new self.constructors.canvas($._id("canvas-mg"));  // 1.10.2
     self.objs.bg = new self.constructors.canvas($._id("canvas-bg"));
     /* -> 1.7.1 */
     self.objs.fg.attach_point(self.make_handlers());
@@ -275,7 +290,8 @@ My_entry.pen.prototype.init_handlers = function(){
   self.handlers.onclick = function(e, elem){
     var self = this;
     var fg = self.objs.fg;
-    var bg = self.objs.bg;
+    var mg = self.objs.mg;  // 1.10.2
+    var bg = self.objs.bg;  // 1.7.1
     self.update_options();
     switch(elem.id){
       /* 1.7.1 -> */
@@ -319,7 +335,8 @@ My_entry.pen.prototype.init_handlers = function(){
   self.handlers.onchange = function(e, elem){
     var self = this;
     var fg = self.objs.fg;
-    var bg = self.objs.bg;
+    var mg = self.objs.mg;  // 1.10.2
+    var bg = self.objs.bg;  // 1.7.1
     self.update_options();
     switch(elem.id){
       case "checkbox-drag":
@@ -337,6 +354,12 @@ My_entry.pen.prototype.init_handlers = function(){
       case "select-bgcolor":  // 1.7.1
         self.reset_canvas();
         break;
+      /* 1.10.2 -> */
+      case "input-grid-width":
+      case "input-grid-height":
+        self.reset_canvas_grid();
+        break;
+      /* -> 1.10.2 */
       /* 1.8.1 -> */
       case "input-file-bg":
         var file = $.readFile_elem(elem, /^image/, function(e){
