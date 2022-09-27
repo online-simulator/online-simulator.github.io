@@ -1018,7 +1018,7 @@ My_entry.plot2d.prototype.final = function(arr2d_vec, options, toSVG){
         temp.ctx.setTransform(params.a, params.b, params.c, params.d, params.e, params.f);
       }
       temp.lines(arr2d_tvec[Nlegend-1] || arr2d_tvec[len_j-1], 0, "#ffffff", null, true);
-//      all.draw_base64(temp.get_base64(), null, "destination-atop");
+//      all.draw_base64(temp.get_base64(), null, null, "destination-atop");  // 1.32.8
       var params = {};
       params.arr_w = ["dummy"];
       params.ID_mask = temp.getID();
@@ -1135,7 +1135,7 @@ My_entry.plot2d.prototype.final = function(arr2d_vec, options, toSVG){
       /* 1.17.7 -> */
 //      background.clear();  // not implemented for flickering-proof
       /* -> 1.17.7 */
-      all.draw_base64(base64_bg, callback1);  // bg(source-over) <- grid <- plot
+      all.draw_base64(base64_bg, null, callback1);  // bg(source-over) <- grid <- plot  // 1.32.8
     };
     temp.clear();  // 1.15.7
     all.clear();

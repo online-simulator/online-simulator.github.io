@@ -101,11 +101,15 @@ My_entry.canvas.prototype.get_base64 = function(){
   var self = this;
   return self.ctx.canvas.toDataURL();
 };
-My_entry.canvas.prototype.draw_base64 = function(base64, opt_callback, opt_globalCompositeOperation){
+/* 1.32.8 -> */
+My_entry.canvas.prototype.draw_base64 = function(base64, opt_callback_first, opt_callback_last, opt_globalCompositeOperation){
   var self = this;
   var ctx = self.ctx;
   var img = new Image();
   img.onload = function(e){
+    if(opt_callback_first){
+      opt_callback_first(e);
+    }
     ctx.save();
     ctx.globalCompositeOperation = opt_globalCompositeOperation || ctx.globalCompositeOperation;
     /* 0.3.0 -> */
@@ -115,8 +119,8 @@ My_entry.canvas.prototype.draw_base64 = function(base64, opt_callback, opt_globa
     /* -> 0.3.0  */
     self.ctx.drawImage(img, 0, 0);
     ctx.restore();
-    if(opt_callback){
-      opt_callback(e);
+    if(opt_callback_last){
+      opt_callback_last(e);
     }
   };
   img.src = base64;
@@ -126,7 +130,7 @@ My_entry.canvas.prototype.draw_base64s = function(arr_base64, opt_callback, opt_
   var self = this;
   var ctx = self.ctx;
   if(arr_base64.length){
-    self.draw_base64(arr_base64.pop(), function(e){
+    self.draw_base64(arr_base64.pop(), null, function(e){
       self.draw_base64s(arr_base64, opt_callback, opt_globalCompositeOperation);
     }, opt_globalCompositeOperation);  // 0.3.0 simplified
   }
@@ -137,6 +141,7 @@ My_entry.canvas.prototype.draw_base64s = function(arr_base64, opt_callback, opt_
   }
   return self;
 };
+/* -> 1.32.8 */
 // 1.19.7
 // 1.17.7
 My_entry.canvas.prototype.draw_grid = function(opt_dx, opt_dy, opt_ID0, opt_ID1){

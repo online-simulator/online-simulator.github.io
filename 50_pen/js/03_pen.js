@@ -109,11 +109,12 @@ My_entry.pen.prototype.reset_canvas = function(){
   fg.clear();
   /* -> 1.7.1 */
   self.handler_history_svg.save(self.make_svg_header());  // 1.2.0
+  $._id("input-file-fg").value = null;  // 1.11.4
   $._id("input-file-bg").value = null;  // 1.8.1
   self.reset_canvas_grid();  // 1.10.2
   return self;
 };
-/* 1.10.2 -> */
+/* 1.10.2 */
 My_entry.pen.prototype.reset_canvas_grid = function(){
   var self = this;
   var options = self.options;
@@ -122,7 +123,6 @@ My_entry.pen.prototype.reset_canvas_grid = function(){
   mg.draw_lines_grid(options["grid-width"], options["grid-height"], 0.5, "#00000033");  // 1.10.4
   return self;
 };
-/* -> 1.10.2 */
 My_entry.pen.prototype.make_handlers = function(){
   var self = this;
   var $ = self.entry.$;
@@ -245,7 +245,7 @@ My_entry.pen.prototype.make_handlers = function(){
         self.handler_history_ID.save(bg.getID());  // 1.1.0
         fg.clear();
       }
-      bg.draw_base64(base64_fg, callback, options.composite);
+      bg.draw_base64(base64_fg, null, callback, options.composite);  // 1.11.4
       /* -> 1.6.1 */
       /* -> 1.7.1 */
       self.handler_history_svg.save(self.make_svg_lines());  // 1.2.0
@@ -354,27 +354,44 @@ My_entry.pen.prototype.init_handlers = function(){
       case "select-bgcolor":  // 1.7.1
         self.reset_canvas();
         break;
-      /* 1.10.2 -> */
+      /* 1.10.2 */
       case "input-grid-width":
       case "input-grid-height":
         self.reset_canvas_grid();
         break;
-      /* -> 1.10.2 */
-      /* 1.8.1 -> */
+      /* 1.11.4 -> */
+      case "input-file-fg":
+        var file = $.readFile_elem(elem, /^image/, function(e){
+          var base64 = e.target.result;
+          fg.draw_base64(base64, null, null, options.composite);
+        });
+        if(!(file)){
+          elem.value = null;
+        }
+        break;
+      /* 1.8.1 */
       case "input-file-bg":
         var file = $.readFile_elem(elem, /^image/, function(e){
           var base64 = e.target.result;
-          var callback = function(){
+          // self.entry.conv.base2img
+          var callback_first = function(e){
+            var px_w = e.target.width;
+            var px_h = e.target.height;
+            fg.change_size(px_w, px_h);
+            mg.change_size(px_w, px_h);
+            bg.change_size(px_w, px_h);
+          };
+          var callback_last = function(){
             self.handler_history_ID.save(bg.getID());
           };
-          bg.draw_base64(base64, callback, options.composite);
+          bg.draw_base64(base64, callback_first, callback_last, options.composite);
           self.handler_history_svg.save("");
         });
         if(!(file)){
           elem.value = null;
         }
         break;
-      /* -> 1.8.1 */
+      /* -> 1.11.4 */
       default:
         break;
     }

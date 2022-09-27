@@ -240,9 +240,13 @@ A=<span class="run">-100</span>~100[%]
           </td>
           <td class="border">
 lineの不透明度A
+<br>
+<span class="run">filter機能</span><span class="clear">（flat_upp互換）</span>
           </td>
           <td class="border">
 <span class="run">
+canvas前面（1筆のlines）に適用
+<br>
 A&lt;0
 <br>
 r+g+b+a&gt;0
@@ -457,6 +461,8 @@ Ver.1.6.1互換機能
 </span>
           </td>
           <td class="border">
+canvas背面（全lines）に適用
+<br>
 flat_low: 指定値の下側
 <br>
 flat_all: 指定値の両側（2値化）
@@ -468,15 +474,80 @@ flat_upp: 指定値の上側
           <td class="border">
 png前処理
 <br>
+fg-image-file
+<br>
+<span class="run">Ver.1.11.4追加</span>
+          </td>
+          <td class="border">
+local fileのread機能
+          </td>
+          <td class="border">
+read完了後、canvas前面に合成
+<br>
+・履歴保存なし（filter適用可）
+<br>
+・canvasのre-sizeなし
+          </td>
+        </tr>
+        <tr class="border">
+          <td class="border">
+png前処理
+<br>
 bg-image-file
 <br>
 <span class="run">Ver.1.8.1追加</span>
+<br>
+<span class="run">Ver.1.11.4更新</span>
           </td>
           <td class="border">
 local fileのread機能
           </td>
           <td class="border">
 read完了後、canvas背面に合成
+<br>
+・履歴保存あり
+<br>
+<span class="run">・canvasのre-sizeあり</span>
+          </td>
+        </tr>
+        <tr class="border">
+          <td class="border">
+download-png
+<br>
+<span class="run">download-svg</span>
+<br>
+<span class="run">Ver.1.2.0追加</span>
+          </td>
+          <td class="border">
+download機能
+          </td>
+          <td class="border">
+double-clickで実行
+          </td>
+        </tr>
+        <tr class="border">
+          <td class="border">
+clear
+<br>
+<span class="run">
+&lt;&lt;
+<br>
+&gt;&gt;
+</span>
+<br>
+<span class="run">Ver.1.1.0追加</span>
+          </td>
+          <td class="border">
+履歴機能
+          </td>
+          <td class="border">
+canvas背面に適用
+<br>
+clear: 全消去
+<br>
+&lt;&lt;: 描画を戻る
+<br>
+&gt;&gt;: 描画を進む
           </td>
         </tr>
       </tbody>
