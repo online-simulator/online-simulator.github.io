@@ -119,7 +119,7 @@ My_entry.pen.prototype.reset_canvas_grid = function(){
   var options = self.options;
   var mg = self.objs.mg;
   mg.clear();
-  mg.draw_grid(options["grid-width"], options["grid-height"], 0.5, "#00000033");
+  mg.draw_lines_grid(options["grid-width"], options["grid-height"], 0.5, "#00000033");  // 1.10.4
   return self;
 };
 /* -> 1.10.2 */
