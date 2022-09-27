@@ -436,8 +436,9 @@ My_entry.canvas.prototype.getID_RGBA = function(opt_R255, opt_G255, opt_B255, op
   }
   return _ID;
 };
+/* 1.31.8 */
 /* 1.31.7 */
-My_entry.canvas.prototype.draw_grid = function(dx, dy, opt_lineWidth, opt_styleRGBA){
+My_entry.canvas.prototype.draw_lines_grid = function(dx, dy, opt_lineWidth, opt_styleRGBA){
   var self = this;
   var ctx = self.ctx;
   var px_w = self.px_w;
