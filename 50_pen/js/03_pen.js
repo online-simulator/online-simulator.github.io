@@ -82,6 +82,20 @@ My_entry.pen.prototype.make_svg_lines = function(){
   return _svg;
 };
 /* -> 1.2.0 */
+/* 1.11.4 */
+My_entry.pen.prototype.change_size = function(px_w, px_h){
+  var self = this;
+  var $ = self.entry.$;
+  var fg = self.objs.fg;
+  var mg = self.objs.mg;  // 1.10.2
+  var bg = self.objs.bg;  // 1.7.1
+  $.set_id("div-canvas", "width", (1+px_w+1)+"px");  // 1.10.3
+  $.set_id("div-canvas", "height", (1+px_h+1)+"px");
+  fg.change_size(px_w, px_h);
+  mg.change_size(px_w, px_h);  // 1.10.2
+  bg.change_size(px_w, px_h);
+  return self;
+};
 My_entry.pen.prototype.reset_canvas = function(){
   var self = this;
   self.entry.def.mix_over(self.constructors.draw, self.constructors.draw_canvas);  // 1.7.1
@@ -94,11 +108,7 @@ My_entry.pen.prototype.reset_canvas = function(){
   var px_w = options["canvas-width"];
   var px_h = options["canvas-height"];
   var bgcolor = options.bgcolor;
-  $.set_id("div-canvas", "width", (1+px_w+1)+"px");  // 1.10.3
-  $.set_id("div-canvas", "height", (1+px_h+1)+"px");
-  fg.change_size(px_w, px_h);
-  mg.change_size(px_w, px_h);  // 1.10.2
-  bg.change_size(px_w, px_h);
+  self.change_size(px_w, px_h);  // 1.11.4
   if(bgcolor){
     bg.fill(bgcolor);
   }
@@ -377,9 +387,7 @@ My_entry.pen.prototype.init_handlers = function(){
           var callback_first = function(e){
             var px_w = e.target.width;
             var px_h = e.target.height;
-            fg.change_size(px_w, px_h);
-            mg.change_size(px_w, px_h);
-            bg.change_size(px_w, px_h);
+            self.change_size(px_w, px_h);  // 1.11.4
           };
           var callback_last = function(){
             self.handler_history_ID.save(bg.getID());
