@@ -58,7 +58,13 @@ stabi=0~100
 手ぶれ補正強度
           </td>
           <td class="border">
-stabi+1点の単純移動平均
+<del>pointer位置の単純移動平均</del>
+<br>
+(stabi+1)点の算術平均
+<br>
+stabi: 確定line上の直近点数
+<br>
+1点: pointerの最新位置
 <br>
 ・総和の無駄処理あり
           </td>
