@@ -94,7 +94,7 @@ My_entry.pen.prototype.reset_canvas = function(){
   var px_w = options["canvas-width"];
   var px_h = options["canvas-height"];
   var bgcolor = options.bgcolor;
-  $.set_id("div-canvas", "width", (($._id("div-canvas").parentElement.clientWidth > px_w)? "100%": (1+px_w+1)+"px"));  // 1.10.3
+  $.set_id("div-canvas", "width", (1+px_w+1)+"px");  // 1.10.3
   $.set_id("div-canvas", "height", (1+px_h+1)+"px");
   fg.change_size(px_w, px_h);
   mg.change_size(px_w, px_h);  // 1.10.2
