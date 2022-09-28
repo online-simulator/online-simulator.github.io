@@ -261,7 +261,9 @@ My_entry.pen.prototype.make_handlers = function(){
         if(hasGrid){
           var rgba = fg.draw.color2rgba(options.RGB);
           ID = fg.draw.filter_mosaic(ID, options["grid-width"], options["grid-height"], options.mosaic, [rgba.r, rgba.g, rgba.b, 255*alpha]);
-          self.arr_data = ID;
+          if(options["with-svg"]){
+            self.arr_data = ID;
+          }
         }
       }
       if(ID){
