@@ -67,6 +67,96 @@ My_entry.draw_canvas.prototype.lines = function(arr_vec, opt_lineWidth, opt_styl
 };
 /* -> 0.4.0 */
 /* -> 0.7.0 */
+/* 1.33.8 */
+My_entry.draw_canvas.prototype.filter_mosaic = function(opt_ID, dx, dy, type, arr_RGBA){
+  var self = this;
+  var ctx = self.ctx;
+  var px_w = ctx.canvas.width;
+  var px_h = ctx.canvas.height;
+  var _ID = opt_ID;
+  if(_ID){
+    px_w = _ID.width;
+    px_h = _ID.height;
+  }
+  else{
+    _ID = ctx.getImageData(0, 0, px_w, px_h);
+  }
+  var data = _ID.data;
+  var rdx = Math.round(dx);
+  var rdy = Math.round(dy);
+  var filter_arr = null;
+  switch(type){
+    case "RGBA":
+      filter_arr = function(arr, i){return arr_RGBA[i];};
+      break;
+    case "min":
+      filter_arr = function(arr){return arr[0];};
+      break;
+    case "mean":
+      filter_arr = function(arr){return arr[1];};
+      break;
+    case "max":
+      filter_arr = function(arr){return arr[2];};
+      break;
+    default:
+      break;
+  }
+  var set_arr = function(arr, value){
+    arr[0] = Math.min(arr[0], value);
+    arr[1] += value;
+    arr[2] = Math.max(arr[2], value);
+  };
+  var hasArea = (rdx > 0 && rdy > 0);
+  if(filter_arr && hasArea){
+    var Ni = Math.floor(px_w/rdx);
+    var Nj = Math.floor(px_h/rdy);
+    for(var j=0; j<=Nj; ++j){
+      for(var i=0; i<=Ni; ++i){
+        var xs = rdx*i;
+        var ys = rdy*j;
+        var xe = Math.min(px_w, xs+rdx)-1;
+        var ye = Math.min(px_h, ys+rdy)-1;
+        var arr_r = [255, 0, 0];  // min, mean, max
+        var arr_g = [255, 0, 0];
+        var arr_b = [255, 0, 0];
+        var arr_a = [255, 0, 0];
+        var sum_w = 0;
+        for(var yp=ys; yp<=ye; ++yp){
+          for(var xp=xs; xp<=xe; ++xp){
+            var ired = 4*(px_w*yp+xp);
+            var r = data[ired+0];
+            var g = data[ired+1];
+            var b = data[ired+2];
+            var a = data[ired+3];
+            if(r+g+b+a){
+              set_arr(arr_r, r);
+              set_arr(arr_g, g);
+              set_arr(arr_b, b);
+              set_arr(arr_a, a);
+              ++sum_w;
+            }
+          }
+        }
+        if(sum_w){
+          arr_r[1] /= sum_w;
+          arr_g[1] /= sum_w;
+          arr_b[1] /= sum_w;
+          arr_a[1] /= sum_w;
+          for(var yp=ys; yp<=ye; ++yp){
+            for(var xp=xs; xp<=xe; ++xp){
+              var ired = 4*(px_w*yp+xp);
+              data[ired+0] = filter_arr(arr_r, 0);
+              data[ired+1] = filter_arr(arr_g, 1);
+              data[ired+2] = filter_arr(arr_b, 2);
+              data[ired+3] = filter_arr(arr_a, 3);
+            }
+          }
+        }
+      }
+    }
+  }
+  return _ID;
+};
 /* 1.0.0 -> */
 My_entry.draw_canvas.prototype.mask = function(x, y, w, h){
   var self = this;

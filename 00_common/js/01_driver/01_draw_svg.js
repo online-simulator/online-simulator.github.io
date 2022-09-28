@@ -162,6 +162,48 @@ My_entry.draw_svg.prototype.lines_pen = function(idName, arr_data, options){
   _svg += self.footer_group();
   return _svg;
 };
+/* 1.33.8 */
+My_entry.draw_svg.prototype.lines_pen_mosaic = function(idName, ID, options){
+  var self = this;
+  var _svg = "";
+  var config = "";
+  var data = ID.data;
+  var px_w = ID.width;
+  var px_h = ID.height;
+  var dx = options["grid-width"];
+  var dy = options["grid-height"];
+  var rdx = Math.round(dx);
+  var rdy = Math.round(dy);
+  var hasArea = (rdx > 0 && rdy > 0);
+  _svg += self.header_group(idName, config);
+  if(hasArea){
+    var Ni = Math.floor(px_w/rdx);
+    var Nj = Math.floor(px_h/rdy);
+    for(var j=0; j<=Nj; ++j){
+      for(var i=0; i<=Ni; ++i){
+        var xs = rdx*i;
+        var ys = rdy*j;
+        var ired = 4*(px_w*ys+xs);
+        var r = data[ired+0];
+        var g = data[ired+1];
+        var b = data[ired+2];
+        var a = data[ired+3];
+        if(r+g+b+a){
+          _svg += "<rect";
+          _svg += " x="+self.quote(xs);
+          _svg += " y="+self.quote(ys);
+          _svg += " width="+self.quote(rdx);
+          _svg += " height="+self.quote(rdy);
+          _svg += " fill="+self.quote(self.rgba2style({r: r, g: g, b: b, a: a}));
+          _svg += "/>";
+          _svg += self.rn;
+        }
+      }
+    }
+  }
+  _svg += self.footer_group();
+  return _svg;
+};
 My_entry.draw_svg.prototype.lines = function(arr_vec, opt_lineWidth, opt_styleRGBA, opt_globalCompositeOperation, opt_fillPath){
   var self = this;
   var _svg = "";

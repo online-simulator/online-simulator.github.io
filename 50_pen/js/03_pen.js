@@ -77,7 +77,11 @@ My_entry.pen.prototype.make_svg_lines = function(){
   /* 1.3.0 -> */
   var rev = self.handler_history_svg.rev;
   var len = rev.length;
-  _svg += fg.draw.lines_pen("id"+(len-1), self.arr_data, options);
+  /* 1.12.4 -> */
+  var hasFilter = self.arr_data.data;
+  var sw_method = "lines_pen"+((hasFilter)? "_mosaic": "");
+  _svg += fg.draw[sw_method]("id"+(len-1), self.arr_data, options);
+  /* -> 1.12.4 */
   /* -> 1.3.0 */
   return _svg;
 };
@@ -246,10 +250,24 @@ My_entry.pen.prototype.make_handlers = function(){
       e.stopPropagation();
       /* 1.7.1 -> */
       /* 1.6.1 -> */
+      /* 1.12.4 -> */
+      var ID = null;
+      var alpha = Math.abs(options.A)/100;
       if(options.A < 0){
-        var alpha = Math.abs(options.A)/100;
-        fg.putID(fg.getID_alpha(alpha));
+        ID = fg.getID_alpha(alpha);
       }
+      if(options.mosaic){
+        var hasGrid = (options["grid-width"] > 0 && options["grid-height"] > 0);
+        if(hasGrid){
+          var rgba = fg.draw.color2rgba(options.RGB);
+          ID = fg.draw.filter_mosaic(ID, options["grid-width"], options["grid-height"], options.mosaic, [rgba.r, rgba.g, rgba.b, 255*alpha]);
+          self.arr_data = ID;
+        }
+      }
+      if(ID){
+        fg.putID(ID);
+      }
+      /* -> 1.12.4 */
       var base64_fg = fg.get_base64();
       var callback = function(){
         self.handler_history_ID.save(bg.getID());  // 1.1.0
