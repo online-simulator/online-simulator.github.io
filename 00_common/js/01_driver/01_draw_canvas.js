@@ -142,13 +142,17 @@ My_entry.draw_canvas.prototype.filter_mosaic = function(opt_ID, dx, dy, type, ar
           arr_g[1] /= sum_w;
           arr_b[1] /= sum_w;
           arr_a[1] /= sum_w;
+          var r = filter_arr(arr_r, 0);
+          var g = filter_arr(arr_g, 1);
+          var b = filter_arr(arr_b, 2);
+          var a = filter_arr(arr_a, 3);
           for(var yp=ys; yp<=ye; ++yp){
             for(var xp=xs; xp<=xe; ++xp){
               var ired = 4*(px_w*yp+xp);
-              data[ired+0] = filter_arr(arr_r, 0);
-              data[ired+1] = filter_arr(arr_g, 1);
-              data[ired+2] = filter_arr(arr_b, 2);
-              data[ired+3] = filter_arr(arr_a, 3);
+              data[ired+0] = r;
+              data[ired+1] = g;
+              data[ired+2] = b;
+              data[ired+3] = a;
             }
           }
         }
