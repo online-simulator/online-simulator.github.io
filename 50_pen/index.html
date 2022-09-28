@@ -46,6 +46,9 @@
 
 <hr>
 <div class="text-center">
+  <label class="left">config
+    <input id="checkbox-config" type="checkbox">
+  </label>
   <label>draggable
     <input id="checkbox-drag" type="checkbox">
   </label>
@@ -56,17 +59,17 @@
 <table><tbody>
 <tr><td>
 <div>
-  <label>
-config<input id="checkbox-config" type="checkbox">
-  </label>
   <label>W:
 <input id="input-W" type="number" class="input-50" min="0" value="16">
+  </label>
+  <label>stabi:
+<input id="input-stabi" type="number" class="input-50" min="0" max="100" value="2">
   </label>
   <label>RGB:
 <input id="input-RGB" type="color" class="input-100">
   </label>
   <label>A:
-<input id="input-A" type="number" class="width-auto" min="-100" max="100" value="10">
+<input id="input-A" type="number" class="input-50" min="-100" max="100" value="10">
   </label>
   <label>bg:
 <select id="select-bgcolor">
@@ -233,16 +236,16 @@ pre/post processing for png
   </label>
 <hr>
   <label>R:
-<input id="input-png-R255" type="number" class="width-auto" min="-1" max="255" value="-1">
+<input id="input-png-R255" type="number" class="input-50" min="-1" max="255" value="-1">
   </label>
   <label>G:
-<input id="input-png-G255" type="number" class="width-auto" min="-1" max="255" value="-1">
+<input id="input-png-G255" type="number" class="input-50" min="-1" max="255" value="-1">
   </label>
   <label>B:
-<input id="input-png-B255" type="number" class="width-auto" min="-1" max="255" value="-1">
+<input id="input-png-B255" type="number" class="input-50" min="-1" max="255" value="-1">
   </label>
   <label>A:
-<input id="input-png-A100" type="number" class="width-auto" min="-1" max="100" value="-1">
+<input id="input-png-A100" type="number" class="input-50" min="-1" max="100" value="-1">
   </label>
   <button id="flat_low" class="jF">flat_low</button>
   <button id="flat_all" class="jF">flat_all</button>

@@ -186,6 +186,27 @@ My_entry.pen.prototype.make_handlers = function(){
         var xy1 = fg.get_offset(e);
         var x1 = xy1.x;
         var y1 = xy1.y;
+        /* 1.13.4 -> */
+        var stabi = Math.ceil(options.stabi);
+        if(stabi > 0){
+          var arr = self.arr_data;
+          var len = arr.length;
+          if(len){
+            var is = Math.max(0, len-stabi);
+            var ie = len-1;
+            var Npast = ie-is+1;
+            for(var i=is; i<=ie; ++i){
+              var xy1i = arr[i].xy1;
+              x1 += xy1i.x;
+              y1 += xy1i.y;
+            }
+            x1 /= Npast+1;
+            y1 /= Npast+1;
+            xy1.x = x1;
+            xy1.y = y1;
+          }
+        }
+        /* -> 1.13.4 */
         var xy0 = self.xy0 || xy1;
         var x0 = xy0.x;
         var y0 = xy0.y;
