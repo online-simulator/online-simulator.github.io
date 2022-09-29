@@ -87,6 +87,17 @@ dxy(f)=xy(f)-xy(f-1)={dx(f),dy(f)}
         </tr>
         <tr class="border">
           <td class="border">
+xy_pointer
+          </td>
+          <td class="border">
+pointerのcanvas座標
+          </td>
+          <td class="border">
+xy(0)=xy_pointer(0)
+          </td>
+        </tr>
+        <tr class="border">
+          <td class="border">
 line(f)
           </td>
           <td class="border">
@@ -234,13 +245,13 @@ stabi=0~100
 len&lt;stabiを手振れ判定
           </td>
           <td class="border">
-<del>pointer位置≠xyの単純移動平均</del>
+<del>xy_pointerの単純移動平均</del>
 <br>
 (stabi+1)点の算術平均
 <br>
 stabi: 確定line上xyの直近点数
 <br>
-1点: pointerの最新位置
+1点: xy_pointerの最新点
 <br>
 ・総和の無駄処理あり
           </td>
