@@ -227,7 +227,7 @@ W=20&amp;
 <br>
 RGB=orange&amp;
 <br>
-bg=pink&amp;
+<span class="run">bgcolor=rgba(255,192,203,1.0)</span>&amp;
 <br>
 canvas-width=200&amp;
 <br>
@@ -242,9 +242,14 @@ decDigit=3
 </span>
           </td>
           <td class="border">
-#を使用するHEX形式の色指定不可
+色指定の方法
 <br>
-<span class="run">・塗りつぶし機能で代替可</span>
+・color名（white等）
+<br>
+<span class="run">・rgba(R,G,B=0~255,A=0~1)</span>
+<br>
+・HEX形式は使用不可（#000等）
+<br>
 <br>
 以降のUIよりURLの設定値を優先
           </td>
@@ -296,9 +301,9 @@ W=0
 塗りつぶし機能
           </td>
           <td class="border">
-down検知のxy_pointerを始点に
+canvas背面に適用
 <br>
-canvas背面に塗りつぶしを実行
+始点はdown検知のxy_pointer
 <br>
 <span class="run">・KeyB+1tapで代用可</span>
 <br>
@@ -381,7 +386,9 @@ Ver.1.6.1互換機能を追加
         </tr>
         <tr class="border">
           <td class="border">
-bg
+bg<span class="run">color</span>
+<br>
+<span class="run">Ver.1.15.4修正</span>
           </td>
           <td class="border">
 canvas背景色
