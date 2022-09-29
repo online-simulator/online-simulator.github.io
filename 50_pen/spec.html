@@ -50,27 +50,6 @@ w可変の従属parameterを選択可
         </tr>
         <tr class="border">
           <td class="border">
-stabi=0~100
-<br>
-<span class="run">Ver.1.13.4追加</span>
-          </td>
-          <td class="border">
-手ぶれ補正強度
-          </td>
-          <td class="border">
-<del>pointer位置の単純移動平均</del>
-<br>
-(stabi+1)点の算術平均
-<br>
-stabi: 確定line上の直近点数
-<br>
-1点: pointerの最新位置
-<br>
-・総和の無駄処理あり
-          </td>
-        </tr>
-        <tr class="border">
-          <td class="border">
 p=0~1
           </td>
           <td class="border">
@@ -241,6 +220,29 @@ line幅の最大値
           </td>
           <td class="border">
 0&le;w(f)&le;W
+          </td>
+        </tr>
+        <tr class="border">
+          <td class="border">
+stabi=0~100
+<br>
+<span class="run">Ver.1.13.4追加</span>
+          </td>
+          <td class="border">
+手ぶれ補正強度
+<br>
+len&lt;stabiを手振れ判定
+          </td>
+          <td class="border">
+<del>pointer位置の単純移動平均</del>
+<br>
+(stabi+1)点の算術平均
+<br>
+stabi: 確定line上の直近点数
+<br>
+1点: pointerの最新位置
+<br>
+・総和の無駄処理あり
           </td>
         </tr>
         <tr class="border">
