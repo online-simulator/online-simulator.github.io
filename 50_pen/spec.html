@@ -199,6 +199,21 @@ URL-parameter
 default=1
           </td>
         </tr>
+        <tr class="border">
+          <td class="border">
+Nwrap=1~256
+<br>
+<span class="run">Ver.1.15.4追加</span>
+          </td>
+          <td class="border">
+塗りつぶしの周回数
+<br>
+URL-parameter
+          </td>
+          <td class="border">
+default=16
+          </td>
+        </tr>
         <tr class="border selection">
           <td class="border">
 URLの設定例
@@ -228,6 +243,8 @@ decDigit=3
           </td>
           <td class="border">
 #を使用するHEX形式の色指定不可
+<br>
+<span class="run">・塗りつぶし機能で代替可</span>
 <br>
 以降のUIよりURLの設定値を優先
           </td>
@@ -271,6 +288,25 @@ line幅の最大値
         </tr>
         <tr class="border">
           <td class="border">
+W=0
+<br>
+<span class="run">Ver.1.15.4追加</span>
+          </td>
+          <td class="border">
+塗りつぶし機能
+          </td>
+          <td class="border">
+down検知のxy_pointerを始点に
+<br>
+canvas背面に塗りつぶしを実行
+<br>
+<span class="run">・KeyB+1tapで代用可</span>
+<br>
+・svg出力は無効
+          </td>
+        </tr>
+        <tr class="border">
+          <td class="border">
 stabi=0~100
 <br>
 <span class="run">Ver.1.13.4追加</span>
@@ -304,20 +340,28 @@ lineの基本色RGB
         </tr>
         <tr class="border">
           <td class="border">
-A=<span class="run">-100</span>~100[%]
+A=0~100[%]
+          </td>
+          <td class="border">
+lineの不透明度A
+          </td>
+          <td class="border">
+          </td>
+        </tr>
+        <tr class="border">
+          <td class="border">
+A=-100~0[%]
 <br>
 <span class="run">Ver.1.6.1追加</span>
           </td>
           <td class="border">
-lineの不透明度A
+lineの不透明度|A|
 <br>
 <span class="run">filter機能</span><span class="clear">（flat_upp互換）</span>
           </td>
           <td class="border">
 <span class="run">
 canvas前面（1筆のlines）に適用
-<br>
-A&lt;0
 <br>
 r+g+b+a&gt;0
 <br>

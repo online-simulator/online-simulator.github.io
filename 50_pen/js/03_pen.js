@@ -12,7 +12,24 @@ My_entry.pen.prototype.init = function(){
   var self = this;
   self.objs = {};
   self.options = {};
+  self.keys = {};  // 1.15.4
   self.init_main.call(self, ["$", "conv", "def"]);
+  /* 1.15.4 -> */
+  document.onkeydown = function(e){
+    var keys = self.keys;
+    keys.code = e.code;
+    keys.keyCode = e.keyCode;
+    keys.ctrlKey = e.ctrlKey;
+    keys.shiftKey = e.shiftKey;
+  };
+  document.onkeyup = function(e){
+    var keys = self.keys;
+    keys.code = "";
+    keys.keyCode = false;
+    keys.ctrlKey = e.ctrlKey;
+    keys.shiftKey = e.shiftKey;
+  };
+  /* -> 1.15.4 */
   return self;
 };
 My_entry.pen.prototype.init_elems = function(){
@@ -159,6 +176,19 @@ My_entry.pen.prototype.make_handlers = function(){
       /* -> 1.4.1 */
       self.w0 = 0;
       self.arr_data = [];  // 1.2.0
+      /* 1.15.4 -> */
+      if(self.keys.code === "KeyB" || options.W === 0){
+        var filter = new self.constructors.filter();
+        var rgba = fg.draw.color2rgba(options.RGB);
+        var alpha = Math.abs(options.A)/100;
+        rgba.a = 255*alpha;
+        var color_hex = fg.draw.rgba2color_hex(rgba);
+        var params = {rgba: "fiin", arr_w: [xy1.x, xy1.y, color_hex, options.Nwrap || 16], content: ",,"+color_hex+","};
+        var ID = filter.run(bg.ctx, params);
+        bg.putID(ID);
+        self.isDragging = false;
+      }
+      /* -> 1.15.4 */
     },
     onmousemove: function(e){
       var w_p = function(p){

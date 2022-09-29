@@ -53,6 +53,28 @@ My_entry.draw.prototype.lerp_rgba = function(rgba0, rgba1, k){
   };
   return {r: lerp(r0, r1, k), g: lerp(g0, g1, k), b: lerp(b0, b1, k), a: lerp(a0, a1, k)};  // 0~255
 };
+/* 1.34.8 */
+My_entry.draw.prototype.rgba2color_hex = function(rgba){
+  var self = this;
+  var conv = new My_entry.conv();
+  var r_hex = conv.dec2n(rgba.r, 16);
+  var g_hex = conv.dec2n(rgba.g, 16);
+  var b_hex = conv.dec2n(rgba.b, 16);
+  var a_hex = conv.dec2n(rgba.a, 16);
+  if(r_hex.length === 1){
+    r_hex = "0"+r_hex;
+  }
+  if(g_hex.length === 1){
+    g_hex = "0"+g_hex;
+  }
+  if(b_hex.length === 1){
+    b_hex = "0"+b_hex;
+  }
+  if(a_hex.length === 1){
+    a_hex = "0"+a_hex;
+  }
+  return "#"+r_hex+g_hex+b_hex+a_hex;
+};
 My_entry.draw.prototype.color2rgba = function(color){
   var self = this;
   var ctx = self.ctx;
