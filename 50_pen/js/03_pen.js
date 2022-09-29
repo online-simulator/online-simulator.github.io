@@ -309,8 +309,10 @@ My_entry.pen.prototype.init_handlers = function(){
   var self = this;
   var $ = self.entry.$;
   var options = self.options;
+  /* 1.14.4 */
   self.handlers.onload = function(e){
     var self = this;
+    self.update_options();
     var json = {p: {id: "wrapper-link-png"}, a: {id: "a-png", it: "download-png"}, name: "download", ext: "png"};
     self.handler_link_png = new self.constructors.handler_link(json);
     self.handler_link_png.setter.callback(function(){return self.entry.conv.base2buffer(self.objs.bg.get_base64());});  // 1.7.1
@@ -318,7 +320,7 @@ My_entry.pen.prototype.init_handlers = function(){
     var json = {p: {id: "wrapper-link-svg"}, a: {id: "a-svg", it: "-svg(src-over)"}, name: "download", ext: "svg"};
     self.handler_link_svg = new self.constructors.handler_link(json);
     self.handler_link_svg.setter.callback(function(){return self.make_svg();});
-    self.handler_history_ID = new self.constructors.handler_history();  // 1.1.0
+    self.handler_history_ID = new self.constructors.handler_history(options.history_len_max);  // 1.1.0
     self.handler_history_svg = new self.constructors.handler_history(10000);  // about 10000 lines
     /* -> 1.2.0 */
     self.drag = new self.constructors.handler_drag("div-drag", "checkbox-drag", {});
@@ -328,9 +330,8 @@ My_entry.pen.prototype.init_handlers = function(){
     self.objs.bg = new self.constructors.canvas($._id("canvas-bg"));
     /* -> 1.7.1 */
     self.objs.fg.attach_point(self.make_handlers());
-    self.objs.fg.draw.setter.decDigit(1);  // 1.2.0
+    self.objs.fg.draw.setter.decDigit((isNaN(options.decDigit)? 1: options.decDigit));  // 1.2.0
     $.change_elems$("input[type='checkbox']");
-    self.update_options();
     self.reset_canvas();
     return self;
   };

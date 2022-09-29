@@ -169,6 +169,36 @@ pixelのRGBA
           <td class="border">
           </td>
         </tr>
+        <tr class="border">
+          <td class="border">
+history_len_max=1~10000
+<br>
+<span class="run">Ver.1.14.4追加</span>
+          </td>
+          <td class="border">
+履歴の保存回数
+<br>
+URL-parameter
+          </td>
+          <td class="border">
+default=10
+          </td>
+        </tr>
+        <tr class="border">
+          <td class="border">
+decDigit=0~17
+<br>
+<span class="run">Ver.1.14.4追加</span>
+          </td>
+          <td class="border">
+svg出力の小数点以下桁数
+<br>
+URL-parameter
+          </td>
+          <td class="border">
+default=1
+          </td>
+        </tr>
         <tr class="border selection">
           <td class="border">
 URLの設定例
@@ -188,7 +218,13 @@ canvas-width=200&amp;
 <br>
 ox=-20&amp;
 <br>
-oy=-20
+oy=-20&amp;
+<br>
+<span class="run">
+history_len_max=20&amp;
+<br>
+decDigit=3
+</span>
           </td>
           <td class="border">
 #を使用するHEX形式の色指定不可
