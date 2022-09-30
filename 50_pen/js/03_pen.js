@@ -12,22 +12,41 @@ My_entry.pen.prototype.init = function(){
   var self = this;
   self.objs = {};
   self.options = {};
-  self.keys = {};  // 1.15.4
+  self.keys = {buttons: {}};  // 1.15.4  // 1.16.4
   self.init_main.call(self, ["$", "conv", "def"]);
+  return self;
+};
+/* 1.16.4 */
+My_entry.pen.prototype.init_keys = function(){
+  var self = this;
+  var $ = self.entry.$;
+  var options = self.options;
+  var keys = self.keys;
+  var buttons = keys.buttons;
+  keys.bucket = options.bucket || "KeyB";
+  ["<<", ">>", "clear"].forEach(function(id, i){
+    buttons[id] = options[id] || ["KeyD", "KeyF", "KeyC"][i];
+  });
   /* 1.15.4 -> */
   document.onkeydown = function(e){
-    var keys = self.keys;
     keys.code = e.code;
     keys.keyCode = e.keyCode;
     keys.ctrlKey = e.ctrlKey;
     keys.shiftKey = e.shiftKey;
   };
   document.onkeyup = function(e){
-    var keys = self.keys;
     keys.code = "";
     keys.keyCode = false;
     keys.ctrlKey = e.ctrlKey;
     keys.shiftKey = e.shiftKey;
+    Object.keys(buttons).forEach(function(id){
+      if(buttons[id] === e.code){
+        var elem = $._id(id);
+        if(elem){
+          elem.onclick(e);
+        }
+      }
+    });
   };
   /* -> 1.15.4 */
   return self;
@@ -177,7 +196,7 @@ My_entry.pen.prototype.make_handlers = function(){
       self.w0 = 0;
       self.arr_data = [];  // 1.2.0
       /* 1.15.4 -> */
-      if(self.keys.code === "KeyB" || options.W === 0){
+      if(self.keys.code === self.keys.bucket || options.W === 0){  // 1.16.4
         var filter = new self.constructors.filter();
         var rgba = fg.draw.color2rgba(options.RGB);
         var alpha = Math.abs(options.A)/100;
@@ -343,6 +362,7 @@ My_entry.pen.prototype.init_handlers = function(){
   self.handlers.onload = function(e){
     var self = this;
     self.update_options();
+    self.init_keys();  // 1.16.4
     var json = {p: {id: "wrapper-link-png"}, a: {id: "a-png", it: "download-png"}, name: "download", ext: "png"};
     self.handler_link_png = new self.constructors.handler_link(json);
     self.handler_link_png.setter.callback(function(){return self.entry.conv.base2buffer(self.objs.bg.get_base64());});  // 1.7.1
