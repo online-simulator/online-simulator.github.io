@@ -14,6 +14,7 @@ My_entry.pen.prototype.init = function(){
   self.options = {};
   self.keys = {buttons: {}};  // 1.15.4  // 1.16.4
   self.init_main.call(self, ["$", "conv", "def"]);
+  self.filter = new self.constructors.filter();  // 1.17.4
   return self;
 };
 /* 1.16.4 */
@@ -24,8 +25,8 @@ My_entry.pen.prototype.init_keys = function(){
   var keys = self.keys;
   var buttons = keys.buttons;
   keys.bucket = options.bucket || "KeyB";
-  ["<<", ">>", "clear"].forEach(function(id, i){
-    buttons[id] = options[id] || ["KeyS", "KeyD", "KeyA"][i];
+  ["<<", ">>", "clear", "run"].forEach(function(id, i){
+    buttons[id] = options[id] || ["KeyS", "KeyD", "KeyA", "KeyW"][i];  // 1.17.4
   });
   /* 1.15.4 -> */
   document.onkeydown = function(e){
@@ -40,7 +41,7 @@ My_entry.pen.prototype.init_keys = function(){
     keys.ctrlKey = e.ctrlKey;
     keys.shiftKey = e.shiftKey;
     Object.keys(buttons).forEach(function(id){
-      if(buttons[id] === e.code){
+      if(!(e.ctrlKey) && buttons[id] === e.code){  // 1.17.4
         var elem = $._id(id);
         if(elem){
           elem.onclick(e);
@@ -173,6 +174,34 @@ My_entry.pen.prototype.reset_canvas_grid = function(){
   mg.draw_lines_grid(options["grid-width"], options["grid-height"], 0.5, "#00000033");  // 1.10.4
   return self;
 };
+/* 1.17.4 */
+My_entry.pen.prototype.run_filter = function(obj_canvas, text_filter){
+  var self = this;
+  var $ = self.entry.$;
+  var conv = self.entry.conv;
+  var def = self.entry.def;
+  if(text_filter){
+    var callback_filter = function(){
+      var filters = text_filter.split(":");
+      filters.forEach(function(filter){
+        var re = /\[.*?\]/g;
+        var text = filter;
+        var area = "";
+        text = def.enter_name(text, "area", false, 2, function(content){area = content;});
+        var content = def.get_title(text, "", false, 2);
+        var arr_w = (content || "").split(",");  // rgba || rgba[] -> [""]
+        arr_w = conv.arr_str2arr_num(arr_w, 0);  // [""] || [string] -> [0]
+        var params = $.get_records(area, ",", 0, ["is", "js", "px_w", "px_h"], true);
+        params.rgba = text.replace(re, "");
+        params.arr_w = arr_w;
+        params.content = content;  // 1.13.7
+        obj_canvas.putID_xy(self.filter.run(obj_canvas.ctx, params), params.is, params.js);
+      });
+    };
+    callback_filter();
+  }
+  return self;
+};
 My_entry.pen.prototype.make_handlers = function(){
   var self = this;
   var $ = self.entry.$;
@@ -197,14 +226,11 @@ My_entry.pen.prototype.make_handlers = function(){
       self.arr_data = [];  // 1.2.0
       /* 1.15.4 -> */
       if(self.keys.code === self.keys.bucket || options.W === 0){  // 1.16.4
-        var filter = new self.constructors.filter();
         var rgba = fg.draw.color2rgba(options.RGB);
         var alpha = Math.abs(options.A)/100;
         rgba.a = 255*alpha;
         var color_hex = fg.draw.rgba2color_hex(rgba);
-        var params = {rgba: "fiin", arr_w: [xy1.x, xy1.y, color_hex, options.Nwrap || 16], content: ",,"+color_hex+","};
-        var ID = filter.run(bg.ctx, params);
-        bg.putID(ID);
+        self.run_filter(bg, "fiin["+xy1.x+","+xy1.y+","+color_hex+","+(options.Nwrap || 16)+"]");  // 1.17.4
         self.isDragging = false;
       }
       /* -> 1.15.4 */
@@ -412,6 +438,12 @@ My_entry.pen.prototype.init_handlers = function(){
         }
         break;
       /* -> 1.7.1 */
+      /* 1.17.4 */
+      case "run":
+        self.run_filter(bg, $.inputVal_id("input-text-filter"));
+        self.handler_history_ID.save(bg.getID());
+        self.handler_history_svg.save("");
+        break;
       /* 1.1.0 -> */
       case "<<":
         var ID = self.handler_history_ID.reverse();
@@ -430,6 +462,9 @@ My_entry.pen.prototype.init_handlers = function(){
       /* -> 1.1.0 */
       case "clear":
         self.reset_canvas();
+        break;
+      /* 1.17.4 */
+      default:
         break;
     }
     return self;

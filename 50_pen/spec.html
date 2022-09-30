@@ -233,6 +233,19 @@ default=KeyB
         </tr>
         <tr class="border selection">
           <td class="border">
+run
+<br>
+<span class="run">Ver.1.17.4追加</span>
+          </td>
+          <td class="border">
+filter実行shortcut-Key
+          </td>
+          <td class="border">
+default=KeyW
+          </td>
+        </tr>
+        <tr class="border selection">
+          <td class="border">
 &lt;&lt;
 <br>
 <span class="run">Ver.1.16.4追加</span>
@@ -697,6 +710,40 @@ flat_low: 指定値の下側
 flat_all: 指定値の両側（2値化）
 <br>
 flat_upp: 指定値の上側
+          </td>
+        </tr>
+        <tr class="border">
+          <td class="border">
+png後処理
+<br>
+text-filter
+<br>
+run
+<br>
+<span class="run">Ver.1.17.4追加</span>
+          </td>
+          <td class="border">
+filter機能（任意）
+<br>
+<a href="../01_calc_simple/manual.html#span-out-UI-graphing-filter">[manual]Calculator</a>参照
+<br>
+<br>
+適用例）
+<br>
+・area塗りつぶし⇒sepia-tone化
+<br>
+fiin[area[0,0,256,256],,red,16]:
+<br>
+r[0.9]:g[0.7]:b[0.4]
+<br>
+・edge抽出
+<br>
+rgb[-1,-1,-1,-1,8,-1,-1,-1,-1]
+          </td>
+          <td class="border">
+run実行でcanvas背面に適用
+<br>
+・履歴保存あり
           </td>
         </tr>
         <tr class="border">
