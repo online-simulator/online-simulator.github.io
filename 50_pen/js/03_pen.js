@@ -25,7 +25,7 @@ My_entry.pen.prototype.init_keys = function(){
   var buttons = keys.buttons;
   keys.bucket = options.bucket || "KeyB";
   ["<<", ">>", "clear"].forEach(function(id, i){
-    buttons[id] = options[id] || ["KeyD", "KeyF", "KeyC"][i];
+    buttons[id] = options[id] || ["KeyS", "KeyD", "KeyA"][i];
   });
   /* 1.15.4 -> */
   document.onkeydown = function(e){
