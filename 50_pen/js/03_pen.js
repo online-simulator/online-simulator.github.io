@@ -35,19 +35,23 @@ My_entry.pen.prototype.init_keys = function(){
     keys.ctrlKey = e.ctrlKey;
     keys.shiftKey = e.shiftKey;
   };
+  /* 1.17.4 */
   document.onkeyup = function(e){
     keys.code = "";
     keys.keyCode = false;
     keys.ctrlKey = e.ctrlKey;
     keys.shiftKey = e.shiftKey;
-    Object.keys(buttons).forEach(function(id){
-      if(!(e.ctrlKey) && buttons[id] === e.code){  // 1.17.4
-        var elem = $._id(id);
-        if(elem){
-          elem.onclick(e);
+    var isNG_fire = e.ctrlKey || e.shiftKey ||  (document.activeElement.tagName.toUpperCase() === "INPUT");
+    if(!(isNG_fire)){
+      Object.keys(buttons).forEach(function(id){
+        if(buttons[id] === e.code){
+          var elem = $._id(id);
+          if(elem){
+            elem.onclick(e);
+          }
         }
-      }
-    });
+      });
+    }
   };
   /* -> 1.15.4 */
   return self;
