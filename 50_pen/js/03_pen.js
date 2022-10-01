@@ -39,8 +39,8 @@ My_entry.pen.prototype.init_keys = function(){
     keys.keyCode = e.keyCode;
     keys.ctrlKey = e.ctrlKey;
     keys.shiftKey = e.shiftKey;
-    var tagName = document.activeElement.tagName.toUpperCase();
-    var isNG_fire = (self.mode || self.isDragging || e.ctrlKey || e.shiftKey || tagName === "INPUT" || tagName === "SELECT");
+    var TAG = document.activeElement.tagName.toUpperCase();
+    var isNG_fire = (self.mode || self.isDragging || e.ctrlKey || e.shiftKey || TAG === "INPUT" || TAG === "SELECT");
     if(!(isNG_fire)){
       var mode = 0;
       Object.keys(modes).forEach(function(id, i){
