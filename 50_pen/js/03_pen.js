@@ -265,27 +265,41 @@ My_entry.pen.prototype.make_handlers = function(){
         var xy1 = fg.get_offset(e);
         var x1 = xy1.x;
         var y1 = xy1.y;
+        /* 1.18.4 -> */
         /* 1.13.4 -> */
-        var stabi = Math.ceil(options.stabi);
-        if(stabi > 0){
+        var stabi = options.stabi;
+        var istabi = Math.floor(stabi);
+        if(istabi > 0){
+          var w = stabi-istabi;
           var arr = self.arr_data;
           var len = arr.length;
           if(len){
-            var is = Math.max(0, len-stabi);
+            var is = Math.max(0, len-istabi);
             var ie = len-1;
-            var Npast = ie-is+1;
+            var N_old = ie-is+1;
+            var x_old = 0;
+            var y_old = 0;
             for(var i=is; i<=ie; ++i){
               var xy1i = arr[i].xy1;
-              x1 += xy1i.x;
-              y1 += xy1i.y;
+              x_old += xy1i.x;
+              y_old += xy1i.y;
             }
-            x1 /= Npast+1;
-            y1 /= Npast+1;
+            if(w){
+              x_old /= N_old;
+              y_old /= N_old;
+              x1 = w*x_old+(1-w)*x1;
+              y1 = w*y_old+(1-w)*y1;
+            }
+            else{
+              x1 = (x_old+x1)/(N_old+1);
+              y1 = (y_old+y1)/(N_old+1);
+            }
             xy1.x = x1;
             xy1.y = y1;
           }
         }
         /* -> 1.13.4 */
+        /* -> 1.18.4 */
         var xy0 = self.xy0 || xy1;
         var x0 = xy0.x;
         var y0 = xy0.y;

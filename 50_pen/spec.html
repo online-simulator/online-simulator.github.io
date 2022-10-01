@@ -225,9 +225,7 @@ shortcut-Key
           <td class="border">
 無効条件
 <br>
-・ctrl-Key押下中
-<br>
-・shift-Key押下中
+・ctrl/shift-Key押下中
 <br>
 ・input要素active中（checkbox含む）
           </td>
@@ -407,22 +405,52 @@ canvas背面に適用
 stabi=0~100
 <br>
 <span class="run">Ver.1.13.4追加</span>
+<br>
+<span class="run">Ver.1.18.4更新</span>
           </td>
           <td class="border">
 手ぶれ補正強度
-<br>
-len&lt;stabiを手ぶれ判定
           </td>
           <td class="border">
 <del>xy_pointerの単純移動平均</del>
 <br>
 (stabi+1)点の算術平均
 <br>
-stabi: 確定line上xyの直近点数
+stabi: 確定line上の直近点xy_old総数
 <br>
 1点: xy_pointerの最新点
 <br>
+xy=(xy_old総和+xy_pointer)/(stabi+1)
+<br>
 ・総和の無駄処理あり
+<br>
+<br>
+<span class="run">float設定時に重みwを追加</span>
+<br>
+istabi=floor(stabi)
+<br>
+w=stabi-istabi
+<br>
+xy_old_ave=xy_old総和/istabi
+<br>
+xy=w*xy_old_ave+(1-w)*xy_pointer
+<br>
+<br>
+互換性（ほぼ等価）
+<br>
+・stabi=1　⇔　stabi=1+1/2=1.5
+<br>
+・stabi=2　⇔　stabi=2+2/3=2.666...
+<br>
+・stabi=3　⇔　stabi=3+3/4=3.75
+<br>
+・stabi=4　⇔　stabi=4+4/5=4.8
+<br>
+・stabi=5　⇔　stabi=5+5/6=5.833...
+<br>
+・stabi=99　⇔　stabi=99.990...
+<br>
+・stabi=n　⇔　stabi=n+n/(n+1)
           </td>
         </tr>
         <tr class="border">
@@ -711,19 +739,19 @@ A=-1~100[%]
 <span class="clear">
 Ver.1.6.1互換機能
 <br>
-・RGBA各指定値に平滑化
+・RGBA各設定値に平滑化
 <br>
-・指定値&lt;0の要素は無効
+・設定値&lt;0の要素は無効
 </span>
           </td>
           <td class="border">
 canvas背面（全lines）に適用
 <br>
-flat_low: 指定値の下側
+flat_low: 設定値の下側
 <br>
-flat_all: 指定値の両側（2値化）
+flat_all: 設定値の両側（2値化）
 <br>
-flat_upp: 指定値の上側
+flat_upp: 設定値の上側
           </td>
         </tr>
         <tr class="border">
