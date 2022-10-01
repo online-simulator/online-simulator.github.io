@@ -177,10 +177,30 @@ vline(f)
 f=0~
           </td>
           <td class="border">
-move検知frame回数
+pointer-move検知frame回数
           </td>
           <td class="border">
-down検知で初期化f=0
+          </td>
+        </tr>
+        <tr class="border">
+          <td class="border">
+f=down
+          </td>
+          <td class="border">
+pointer-down検知frame
+          </td>
+          <td class="border">
+f=0
+          </td>
+        </tr>
+        <tr class="border">
+          <td class="border">
+f=up
+          </td>
+          <td class="border">
+pointer-up検知frame
+          </td>
+          <td class="border">
           </td>
         </tr>
         <tr class="border">
@@ -412,7 +432,7 @@ W=0
           <td class="border">
 canvas背面に適用
 <br>
-始点はdown検知のxy_pointer
+始点=xy_pointer(down)
 <br>
 <span class="run">・KeyB+1tapで代用可</span>
 <br>
@@ -497,14 +517,15 @@ lineの不透明度A
 A=-100~0[%]
 <br>
 <span class="run">Ver.1.6.1追加</span>
+<br>
+<span class="run">Ver.1.7.1更新</span>
           </td>
           <td class="border">
 lineの不透明度|A|
 <br>
-<span class="run">filter機能</span><span class="clear">（flat_upp互換）</span>
+filter機能<span class="clear">（flat_upp互換）</span>
           </td>
           <td class="border">
-<span class="run">
 canvas前面（1筆のlines）に適用
 <br>
 r+g+b+a&gt;0
@@ -515,7 +536,8 @@ a&le;|A|
 <br>
 <del>png/svgの整合性なし（履歴を含む）</del>
 <br>
-Ver.1.7.1以降、整合性を確保
+<span class="run">
+png/svgの整合性を確保
 </span>
 <br>
 <span class="clear">
@@ -569,6 +591,8 @@ line端の形状
         <tr class="border">
           <td class="border">
 composite
+<br>
+<span class="run">Ver.1.15.4更新</span>
           </td>
           <td class="border">
 lineのRGBA合成方法
@@ -579,14 +603,12 @@ lineのRGBA合成方法
 ・canvas前面にlineを逐次合成
 <br>
 <br>
-<span class="run">
-Ver.1.7.1以降、非同期処理を追加
+<span class="run">非同期処理を追加</span>
 <br>
 ・up検知で1筆のlinesを
 <br>
 　canvas前面から背面に合成
 <br>
-</span>
           </td>
         </tr>
         <tr class="border">
