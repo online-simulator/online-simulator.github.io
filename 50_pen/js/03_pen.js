@@ -184,7 +184,6 @@ My_entry.pen.prototype.run_filter = function(obj_canvas, text_filter){
   var $ = self.entry.$;
   var conv = self.entry.conv;
   var def = self.entry.def;
-  var button = $._id("run");
   if(text_filter){
     var callback_filter = function(){
       var filters = text_filter.split(":");
@@ -203,12 +202,7 @@ My_entry.pen.prototype.run_filter = function(obj_canvas, text_filter){
         obj_canvas.putID_xy(self.filter.run(obj_canvas.ctx, params), params.is, params.js);
       });
     };
-    var label0 = button.innerText;
-    button.innerText = label0+"...";
-    setTimeout(function(){
-      callback_filter();
-      $._id("run").innerText = label0;
-    }, 50);
+    callback_filter();
   }
   return self;
 };
@@ -450,9 +444,14 @@ My_entry.pen.prototype.init_handlers = function(){
       /* -> 1.7.1 */
       /* 1.17.4 */
       case "run":
-        self.run_filter(bg, $.inputVal_id("input-text-filter"));
-        self.handler_history_ID.save(bg.getID());
-        self.handler_history_svg.save("");
+        var label0 = elem.innerText;
+        elem.innerText = label0+"...";
+        setTimeout(function(){
+          self.run_filter(bg, $.inputVal_id("input-text-filter"));
+          self.handler_history_ID.save(bg.getID());
+          self.handler_history_svg.save("");
+          $._id("run").innerText = label0;
+        }, 50);
         break;
       /* 1.1.0 -> */
       case "<<":
