@@ -12,7 +12,7 @@ My_entry.pen.prototype.init = function(){
   var self = this;
   self.objs = {};
   self.options = {};
-  self.keys = {buttons: {}};  // 1.15.4  // 1.16.4
+  self.keys = {modes: {}, buttons: {}};  // 1.15.4  // 1.16.4  // 1.19.4
   self.init_main.call(self, ["$", "conv", "def"]);
   self.filter = new self.constructors.filter();  // 1.17.4
   return self;
@@ -23,8 +23,13 @@ My_entry.pen.prototype.init_keys = function(){
   var $ = self.entry.$;
   var options = self.options;
   var keys = self.keys;
+  var modes = keys.modes;
   var buttons = keys.buttons;
-  keys.bucket = options.bucket || "KeyB";
+  /* 1.19.4 -> */
+  self.mode = 0;
+  ["bucket", "circle", "rectangle"].forEach(function(id, i){
+    modes[id] = options[id] || ["KeyB", "KeyG", "KeyT"][i];
+  });
   ["<<", ">>", "clear", "run"].forEach(function(id, i){
     buttons[id] = options[id] || ["KeyS", "KeyD", "KeyA", "KeyW"][i];  // 1.17.4
   });
@@ -34,15 +39,15 @@ My_entry.pen.prototype.init_keys = function(){
     keys.keyCode = e.keyCode;
     keys.ctrlKey = e.ctrlKey;
     keys.shiftKey = e.shiftKey;
-  };
-  /* 1.17.4 */
-  document.onkeyup = function(e){
-    keys.code = "";
-    keys.keyCode = false;
-    keys.ctrlKey = e.ctrlKey;
-    keys.shiftKey = e.shiftKey;
-    var isNG_fire = e.ctrlKey || e.shiftKey ||  (document.activeElement.tagName.toUpperCase() === "INPUT");
+    var tagName = document.activeElement.tagName.toUpperCase();
+    var isNG_fire = (self.mode || self.isDragging || e.ctrlKey || e.shiftKey || tagName === "INPUT" || tagName === "SELECT");
     if(!(isNG_fire)){
+      var mode = 0;
+      Object.keys(modes).forEach(function(id, i){
+        if(modes[id] === e.code){
+          mode = i+1;
+        }
+      });
       Object.keys(buttons).forEach(function(id){
         if(buttons[id] === e.code){
           var elem = $._id(id);
@@ -51,9 +56,19 @@ My_entry.pen.prototype.init_keys = function(){
           }
         }
       });
+      self.mode = mode;
     }
   };
+  /* 1.17.4 */
+  document.onkeyup = function(e){
+    keys.code = e.code;
+    keys.keyCode = e.keyCode;
+    keys.ctrlKey = e.ctrlKey;
+    keys.shiftKey = e.shiftKey;
+    self.mode = 0;
+  };
   /* -> 1.15.4 */
+  /* -> 1.19.4 */
   return self;
 };
 My_entry.pen.prototype.init_elems = function(){
@@ -228,16 +243,31 @@ My_entry.pen.prototype.make_handlers = function(){
       /* -> 1.4.1 */
       self.w0 = 0;
       self.arr_data = [];  // 1.2.0
-      /* 1.15.4 -> */
-      if(self.keys.code === self.keys.bucket || options.W === 0){  // 1.16.4
-        var rgba = fg.draw.color2rgba(options.RGB);
-        var alpha = Math.abs(options.A)/100;
-        rgba.a = 255*alpha;
-        var color_hex = fg.draw.rgba2color_hex(rgba);
-        self.run_filter(bg, "fiin["+xy1.x+","+xy1.y+","+color_hex+","+(options.Nwrap || 16)+"]");  // 1.17.4
+      /* 1.19.4 -> */
+      if(options.W <= 0){
+        var iW = Math.floor(options.W);
+        self.mode = self.mode || Math.abs(iW)+1;  // Key first
+      }
+      if(self.mode){
+        switch(self.mode){
+          /* 1.15.4 */
+          case 1:
+            var rgba = fg.draw.color2rgba(options.RGB);
+            var alpha = Math.abs(options.A)/100;
+            rgba.a = 255*alpha;
+            var color_hex = fg.draw.rgba2color_hex(rgba);
+            self.run_filter(bg, "fiin["+xy1.x+","+xy1.y+","+color_hex+","+(options.Nwrap || 16)+"]");  // 1.17.4
+            break;
+          case 2:
+            break;
+          case 3:
+            break;
+          default:
+            break;
+        }
         self.isDragging = false;
       }
-      /* -> 1.15.4 */
+      /* -> 1.19.4 */
     },
     onmousemove: function(e){
       var w_p = function(p){
@@ -393,6 +423,7 @@ My_entry.pen.prototype.make_handlers = function(){
       /* -> 1.6.1 */
       /* -> 1.7.1 */
       self.handler_history_svg.save(self.make_svg_lines());  // 1.2.0
+      self.mode = 0;  // 1.19.4
       self.isDragging = false;
     }
   };

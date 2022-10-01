@@ -260,13 +260,24 @@ default=16
         <tr class="border jF">
           <td class="border text-center" colspan="2">
 shortcut-Key
+<br>
+<span class="run">Ver.1.19.4更新</span>
           </td>
           <td class="border">
-無効条件
+<span class="run">key-down検知でevent発火</span>
+<br>
+<br>
+排他制御/無効条件
+<br>
+<span class="run">・複数の同時押し</span>
+<br>
+<span class="run">・line描画中</span>
 <br>
 ・ctrl/shift-Key押下中
 <br>
 ・input要素active中（checkbox含む）
+<br>
+<span class="run">・select要素active中</span>
           </td>
         </tr>
         <tr class="border jF">
@@ -280,6 +291,32 @@ bucket
           </td>
           <td class="border">
 default=KeyB
+          </td>
+        </tr>
+        <tr class="border jF">
+          <td class="border">
+circle
+<br>
+<span class="run">Ver.1.19.4追加</span>
+          </td>
+          <td class="border">
+円
+          </td>
+          <td class="border">
+default=KeyG
+          </td>
+        </tr>
+        <tr class="border jF">
+          <td class="border">
+rectangle
+<br>
+<span class="run">Ver.1.19.4追加</span>
+          </td>
+          <td class="border">
+長方形
+          </td>
+          <td class="border">
+default=KeyT
           </td>
         </tr>
         <tr class="border jF">
@@ -437,6 +474,48 @@ canvas背面に適用
 <span class="run">・KeyB+1tapで代用可</span>
 <br>
 ・svg出力は無効
+          </td>
+        </tr>
+        <tr class="border">
+          <td class="border">
+W=-1
+<br>
+<span class="run">Ver.1.19.4追加</span>
+          </td>
+          <td class="border">
+circle(fill)描画機能
+          </td>
+          <td class="border">
+canvas前面に描画
+<br>
+半径=|xy_pointer(up)-xy_pointer(down)|
+<br>
+<span class="run">・KeyG+1dragで代用可</span>
+<br>
+・grid表示中は自動snap
+          </td>
+        </tr>
+        <tr class="border">
+          <td class="border">
+W=-2
+<br>
+<span class="run">Ver.1.19.4追加</span>
+          </td>
+          <td class="border">
+rectangle(fill)描画機能
+          </td>
+          <td class="border">
+canvas前面に描画
+<br>
+対角線分の2点
+<br>
+xy_pointer(down)
+<br>
+xy_pointer(up)
+<br>
+<span class="run">・KeyT+1dragで代用可</span>
+<br>
+・grid表示中は自動snap
           </td>
         </tr>
         <tr class="border">
