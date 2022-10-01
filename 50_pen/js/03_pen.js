@@ -184,6 +184,7 @@ My_entry.pen.prototype.run_filter = function(obj_canvas, text_filter){
   var $ = self.entry.$;
   var conv = self.entry.conv;
   var def = self.entry.def;
+  var button = $._id("run");
   if(text_filter){
     var callback_filter = function(){
       var filters = text_filter.split(":");
@@ -202,7 +203,12 @@ My_entry.pen.prototype.run_filter = function(obj_canvas, text_filter){
         obj_canvas.putID_xy(self.filter.run(obj_canvas.ctx, params), params.is, params.js);
       });
     };
-    callback_filter();
+    var label0 = button.innerText;
+    button.innerText = label0+"...";
+    setTimeout(function(){
+      callback_filter();
+      $._id("run").innerText = label0;
+    }, 50);
   }
   return self;
 };
