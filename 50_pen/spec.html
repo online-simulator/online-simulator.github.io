@@ -92,6 +92,25 @@ dxy(f)=xy(f)-xy(f-1)={dx(f),dy(f)}
         </tr>
         <tr class="border">
           <td class="border">
+xy_old
+          </td>
+          <td class="border">
+確定line上のold点の総称
+          </td>
+          <td class="border">
+直近から列挙
+<br>
+xy(f-1)
+<br>
+xy(f-2)
+<br>
+xy(f-3)
+<br>
+...
+          </td>
+        </tr>
+        <tr class="border">
+          <td class="border">
 xy_pointer
           </td>
           <td class="border">
@@ -416,7 +435,7 @@ stabi=0~100
 <br>
 (stabi+1)点の算術平均
 <br>
-stabi: 確定line上の直近点xy_old総数
+stabi: xy_oldの直近点数
 <br>
 1点: xy_pointerの最新点
 <br>
