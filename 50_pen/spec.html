@@ -753,22 +753,28 @@ lineのRGBA合成方法
         <tr class="border">
           <td class="border">
 ox[px]
+<br>
+<span class="run">Ver.1.5.1更新</span>
           </td>
           <td class="border">
 筆中心のx方向offset
           </td>
           <td class="border">
+筆中心offset後のx座標=x+ox
           </td>
         </tr>
         <tr class="border">
           <td class="border">
 oy[px]
+<br>
+<span class="run">Ver.1.5.1更新</span>
           </td>
           <td class="border">
 筆中心のy方向offset
           </td>
           <td class="border">
-          </td>
+筆中心offset後のy座標=y+oy
+           </td>
         </tr>
         <tr class="border">
           <td class="border">
@@ -793,7 +799,9 @@ stroke(line)
         </tr>
         <tr class="border">
           <td class="border">
-len_th=0~[px]
+<span class="run">len_th</span>=0~[px]
+<br>
+<span class="run">Ver.1.4.1更新</span>
           </td>
           <td class="border">
 frame間
@@ -917,13 +925,9 @@ A=-1~100[%]
           </td>
           <td class="border">
 <span class="clear">
-Ver.1.6.1互換
-<br>
 bg-filter機能（flat）
 <br>
-・RGBA各設定値に平滑化
-<br>
-・設定値&lt;0の要素は無効
+Ver.1.6.1互換
 </span>
           </td>
           <td class="border">
@@ -934,6 +938,12 @@ flat_low: 設定値の下側
 flat_all: 設定値の両側（2値化）
 <br>
 flat_upp: 設定値の上側
+<br>
+<span class="clear">
+・RGBA各設定値に平滑化
+<br>
+・設定値&lt;0の要素は無効
+</span>
 <br>
 ・履歴保存あり
           </td>
@@ -952,6 +962,11 @@ run
 bg-filter機能（任意）
 <br>
 <a href="../01_calc_simple/manual.html#span-out-UI-graphing-filter">[manual]Calculator</a>参照
+          </td>
+          <td class="border">
+run実行後、canvas背面に適用
+<br>
+・履歴保存あり
 <br>
 <br>
 適用例）
@@ -965,11 +980,6 @@ r[0.9]:g[0.7]:b[0.4]
 ・edge抽出
 <br>
 rgb[-1,-1,-1,-1,8,-1,-1,-1,-1]
-          </td>
-          <td class="border">
-run実行後、canvas背面に適用
-<br>
-・履歴保存あり
           </td>
         </tr>
         <tr class="border">
