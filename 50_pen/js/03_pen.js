@@ -245,8 +245,7 @@ My_entry.pen.prototype.make_handlers = function(){
       self.arr_data = [];  // 1.2.0
       /* 1.19.4 -> */
       if(options.W <= 0){
-        var iW = Math.floor(options.W);
-        self.mode = self.mode || Math.abs(iW)+1;  // Key first
+        self.mode = self.mode || 1+Math.ceil(-options.W);  // Key first
       }
       if(self.mode){
         switch(self.mode){
