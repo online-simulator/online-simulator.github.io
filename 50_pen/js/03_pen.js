@@ -229,6 +229,18 @@ My_entry.pen.prototype.make_handlers = function(){
   var mg = self.objs.mg;  // 1.10.2
   var bg = self.objs.bg;  // 1.7.1
   var ctx = fg.draw.ctx;
+  /* 1.20.4 */
+  var set_ctx = function(){
+    var alpha = Math.abs(options.A)/100;  // 1.6.1
+    ctx.shadowBlur = options.sh;
+    ctx.shadowOffsetX = 0;
+    ctx.shadowOffsetY = 0;
+    ctx.shadowColor = options.RGB;
+    ctx.fillStyle = ctx.strokeStyle = options.RGB;
+    ctx.globalAlpha = alpha;
+    ctx.globalCompositeOperation = options.composite;
+    ctx.lineCap = options.cap;
+  };
   var _handlers = {
     onmousedown: function(e){
       self.entry.def.mix_over(self.constructors.draw, self.constructors.draw_canvas);  // 1.7.1
@@ -256,10 +268,6 @@ My_entry.pen.prototype.make_handlers = function(){
             rgba.a = 255*alpha;
             var color_hex = fg.draw.rgba2color_hex(rgba);
             self.run_filter(bg, "fiin["+xy1.x+","+xy1.y+","+color_hex+","+(options.Nwrap || 16)+"]");  // 1.17.4
-            break;
-          case 2:
-            break;
-          case 3:
             break;
           default:
             break;
@@ -360,15 +368,7 @@ My_entry.pen.prototype.make_handlers = function(){
           var ox = options.ox;
           var oy = options.oy;
           /* -> 1.5.1 */
-          var alpha = Math.abs(options.A)/100;  // 1.6.1
-          ctx.shadowBlur = options.sh;
-          ctx.shadowOffsetX = 0;
-          ctx.shadowOffsetY = 0;
-          ctx.shadowColor = options.RGB;
-          ctx.fillStyle = ctx.strokeStyle = options.RGB;
-          ctx.globalAlpha = alpha;
-          ctx.globalCompositeOperation = options.composite;
-          ctx.lineCap = options.cap;
+          set_ctx();  // 1.20.4
           ctx.lineWidth = w1;  // 1.4.1
           ctx.beginPath();
           /* 1.4.1 -> */
@@ -395,12 +395,59 @@ My_entry.pen.prototype.make_handlers = function(){
       /* 1.6.1 -> */
       /* 1.12.4 -> */
       var ID = null;
+      /* 1.20.4 -> */
+      var dxg = options["grid-width"];
+      var dyg = options["grid-height"];
+      var hasGrid = (dxg > 0 && dyg > 0);
+      if(self.mode){
+        var ox = options.ox;
+        var oy = options.oy;
+        var xy1 = fg.get_offset(e);
+        var xy0 = self.xy0 || xy1;
+        if(hasGrid){
+          var xy2xy_snapped = function(xy){
+            return {x: Math.round(xy.x/dxg)*dxg, y: Math.round(xy.y/dyg)*dyg};
+          };
+          xy0 = xy2xy_snapped(xy0);
+          xy1 = xy2xy_snapped(xy1);
+        }
+        var x0 = xy0.x;
+        var y0 = xy0.y;
+        var x1 = xy1.x;
+        var y1 = xy1.y;
+        var dx = x1-x0;
+        var dy = y1-y0;
+        var len = Math.sqrt(dx*dx+dy*dy);
+        switch(self.mode){
+          case 2:
+            var cx = x0;
+            var cy = y0;
+            var r = len;
+            set_ctx();
+            ctx.beginPath();
+            ctx.arc(x0+ox, y0+oy, len, 0, Math.PI*2);
+            ctx.fill();
+            self.arr_data = {cx: cx, cy: cy, r: r};
+            break;
+          case 3:
+            var x = Math.min(x0, x1);
+            var y = Math.min(y0, y1);
+            var width = Math.max(x0, x1)-x;
+            var height = Math.max(y0, y1)-y;
+            set_ctx();
+            ctx.fillRect(x+ox, y+oy, width, height);
+            self.arr_data = {x: x, y: y, width: width, height: height};
+            break;
+          default:
+            break;
+        }
+      }
+      /* -> 1.20.4 */
       var alpha = Math.abs(options.A)/100;
       if(options.A < 0){
         ID = fg.getID_alpha(alpha);
       }
       if(options.mosaic){
-        var hasGrid = (options["grid-width"] > 0 && options["grid-height"] > 0);
         if(hasGrid){
           var rgba = fg.draw.color2rgba(options.RGB);
           ID = fg.draw.filter_mosaic(ID, options["grid-width"], options["grid-height"], options.mosaic, [rgba.r, rgba.g, rgba.b, 255*alpha]);

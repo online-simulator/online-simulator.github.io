@@ -83,11 +83,13 @@ xy={x,y}
 筆中心のcanvas座標
           </td>
           <td class="border">
-列vector
-<br>
 xy=xy(f)={x(f),y(f)}
 <br>
 dxy(f)=xy(f)-xy(f-1)={dx(f),dy(f)}
+<br>
+・列vector
+<br>
+・offset前
           </td>
         </tr>
         <tr class="border">
@@ -118,6 +120,8 @@ pointerのcanvas座標
           </td>
           <td class="border">
 xy(0)=xy_pointer(0)
+<br>
+・grid-snap対象
           </td>
         </tr>
         <tr class="border">
@@ -360,7 +364,7 @@ default=KeyB
           <td class="border">
 circle
 <br>
-<span class="run">Ver.1.19.4追加</span>
+<span class="run">Ver.1.20.4追加</span>
           </td>
           <td class="border">
 円
@@ -373,7 +377,7 @@ default=KeyG
           <td class="border">
 rectangle
 <br>
-<span class="run">Ver.1.19.4追加</span>
+<span class="run">Ver.1.20.4追加</span>
           </td>
           <td class="border">
 長方形
@@ -543,13 +547,15 @@ canvas背面に適用
           <td class="border">
 W=-1
 <br>
-<span class="run">Ver.1.19.4追加</span>
+<span class="run">Ver.1.20.4追加</span>
           </td>
           <td class="border">
 circle(fill)描画機能
           </td>
           <td class="border">
 canvas前面に描画
+<br>
+中心=xy_pointer(down)
 <br>
 半径=|xy_pointer(up)-xy_pointer(down)|
 <br>
@@ -562,7 +568,7 @@ canvas前面に描画
           <td class="border">
 W=-2
 <br>
-<span class="run">Ver.1.19.4追加</span>
+<span class="run">Ver.1.20.4追加</span>
           </td>
           <td class="border">
 rectangle(fill)描画機能

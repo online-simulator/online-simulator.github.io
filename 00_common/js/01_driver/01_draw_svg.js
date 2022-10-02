@@ -112,14 +112,42 @@ My_entry.draw_svg.prototype.lines_pen = function(idName, arr_data, options){
   /* -> 1.29.7 */
   config += " stroke-linecap="+self.quote(options.cap);
   _svg += self.header_group(idName, config);
-  for(var n=0, len_n=arr_data.length; n<len_n; ++n){
+  /* 1.35.8 -> */
+  /* 1.28.7 -> */
+  var ox = options.ox;
+  var oy = options.oy;
+  /* -> 1.28.7 */
+  if(arr_data.cx){
+    var cx = self.floor(arr_data.cx+ox);
+    var cy = self.floor(arr_data.cy+oy);
+    var r = self.floor(arr_data.r);
+    _svg += "<circle";
+    _svg += svg_alpha;
+    _svg += " cx="+self.quote(cx);
+    _svg += " cy="+self.quote(cy);
+    _svg += " r="+self.quote(r);
+    _svg += "/>";
+    _svg += self.rn;
+  }
+  else if(arr_data.x){
+    var x = self.floor(arr_data.x+ox);
+    var y = self.floor(arr_data.y+oy);
+    var width = self.floor(arr_data.width);
+    var height = self.floor(arr_data.height);
+    _svg += "<rect";
+    _svg += svg_alpha;
+    _svg += " x="+self.quote(x);
+    _svg += " y="+self.quote(y);
+    _svg += " width="+self.quote(width);
+    _svg += " height="+self.quote(height);
+    _svg += "/>";
+    _svg += self.rn;
+  }
+  for(var n=0, len_n=arr_data.length || 0; n<len_n; ++n){
+  /* -> 1.35.8 */
     var data = arr_data[n];
     var vec0 = data.xy0;
     var vec1 = data.xy1;
-    /* 1.28.7 -> */
-    var ox = options.ox;
-    var oy = options.oy;
-    /* -> 1.28.7 */
     var x0 = self.floor(vec0.x+ox);
     var y0 = self.floor(vec0.y+oy);
     var x1 = self.floor(vec1.x+ox);
