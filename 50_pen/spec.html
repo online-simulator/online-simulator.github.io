@@ -205,6 +205,66 @@ pointer-up検知frame
         </tr>
         <tr class="border">
           <td class="border">
+layer
+<br>
+<span class="run">Ver.1.19.4追加</span>
+          </td>
+          <td class="border">
+canvasの階層
+          </td>
+          <td class="border">
+前面fg: 1筆lines毎に背面に合成
+<br>
+中面mg: 表示用
+<br>
+背面bg: 全linesのdownload対象
+          </td>
+        </tr>
+        <tr class="border">
+          <td class="border">
+fg
+          </td>
+          <td class="border">
+fore-ground
+          </td>
+          <td class="border">
+fg-filter
+<br>
+fg-image-file
+          </td>
+        </tr>
+        <tr class="border">
+          <td class="border">
+mg
+<br>
+<span class="run">Ver.1.10.2追加</span>
+          </td>
+          <td class="border">
+middle-ground
+          </td>
+          <td class="border">
+grid
+          </td>
+        </tr>
+        <tr class="border">
+          <td class="border">
+bg
+<br>
+<span class="run">Ver.1.8.1追加</span>
+          </td>
+          <td class="border">
+back-ground
+          </td>
+          <td class="border">
+bgcolor
+<br>
+bg-filter
+<br>
+bg-image-file
+          </td>
+        </tr>
+        <tr class="border">
+          <td class="border">
 rgba
           </td>
           <td class="border">
@@ -267,9 +327,12 @@ shortcut-Key
 <span class="run">key-down検知でevent発火</span>
 <br>
 <br>
-eventの排他制御/発火の無効条件
+eventの排他制御
 <br>
-<span class="run">・複数の同時押し</span>
+<span class="run">・複数Keyの同時押し</span>
+<br>
+<br>
+発火の無効条件
 <br>
 <span class="run">・line描画中</span>
 <br>
@@ -326,7 +389,7 @@ run
 <span class="run">Ver.1.17.4追加</span>
           </td>
           <td class="border">
-filter実行
+text-filter実行
           </td>
           <td class="border">
 default=KeyW
@@ -602,10 +665,10 @@ A=-100~0[%]
           <td class="border">
 lineの不透明度|A|
 <br>
-filter機能<span class="clear">（flat_upp互換）</span>
+fg-filter機能<span class="clear">（flat_upp互換）</span>
           </td>
           <td class="border">
-canvas前面（1筆のlines）に適用
+canvas前面に適用
 <br>
 r+g+b+a&gt;0
 <br>
@@ -634,7 +697,7 @@ bg<span class="run">color</span>
 canvas背景色
           </td>
           <td class="border">
-canvas描画に影響あり
+canvas背面に描画
           </td>
         </tr>
         <tr class="border">
@@ -671,7 +734,7 @@ line端の形状
           <td class="border">
 composite
 <br>
-<span class="run">Ver.1.15.4更新</span>
+<span class="run">Ver.1.8.1更新</span>
           </td>
           <td class="border">
 lineのRGBA合成方法
@@ -684,10 +747,7 @@ lineのRGBA合成方法
 <br>
 <span class="run">非同期処理を追加</span>
 <br>
-・up検知で1筆のlinesを
-<br>
-　canvas前面から背面に合成
-<br>
+・up検知でcanvas前面から背面に合成
           </td>
         </tr>
         <tr class="border">
@@ -804,7 +864,7 @@ grid-height=0~[px]
 grid表示機能
           </td>
           <td class="border">
-canvas描画に影響なし
+canvas中面に描画
           </td>
         </tr>
         <tr class="border">
@@ -818,12 +878,12 @@ with-svg=false||true
 <span class="run">Ver.1.12.4追加</span>
           </td>
           <td class="border">
-filter機能（mosaic）
+fg-filter機能（mosaic）
 <br>
 svg反映の有効化
           </td>
           <td class="border">
-canvas前面（1筆のlines）に適用
+canvas前面に適用
 <br>
 off: 無効
 <br>
@@ -836,7 +896,7 @@ mean: grid内の算術平均値
 max: grid内の最大値
 <br>
 <br>
-dot絵に変換の目安
+dot絵に変換後、svg-file-sizeの目安
 <br>
 with-svg-checked ->
 <br>
@@ -857,7 +917,9 @@ A=-1~100[%]
           </td>
           <td class="border">
 <span class="clear">
-Ver.1.6.1互換機能
+Ver.1.6.1互換
+<br>
+bg-filter機能（flat）
 <br>
 ・RGBA各設定値に平滑化
 <br>
@@ -865,13 +927,15 @@ Ver.1.6.1互換機能
 </span>
           </td>
           <td class="border">
-canvas背面（全lines）に適用
+canvas背面に適用
 <br>
 flat_low: 設定値の下側
 <br>
 flat_all: 設定値の両側（2値化）
 <br>
 flat_upp: 設定値の上側
+<br>
+・履歴保存あり
           </td>
         </tr>
         <tr class="border">
@@ -885,7 +949,7 @@ run
 <span class="run">Ver.1.17.4追加</span>
           </td>
           <td class="border">
-filter機能（任意）
+bg-filter機能（任意）
 <br>
 <a href="../01_calc_simple/manual.html#span-out-UI-graphing-filter">[manual]Calculator</a>参照
 <br>
@@ -903,7 +967,7 @@ r[0.9]:g[0.7]:b[0.4]
 rgb[-1,-1,-1,-1,8,-1,-1,-1,-1]
           </td>
           <td class="border">
-run実行でcanvas背面に適用
+run実行後、canvas背面に適用
 <br>
 ・履歴保存あり
           </td>
@@ -922,9 +986,11 @@ local fileのread機能
           <td class="border">
 read完了後、canvas前面に合成
 <br>
-・履歴保存なし（filter適用可）
+・履歴保存なし
 <br>
 ・canvasのre-sizeなし
+<br>
+・fg-filter適用可
           </td>
         </tr>
         <tr class="border">
@@ -946,6 +1012,8 @@ read完了後、canvas背面に合成
 ・履歴保存あり
 <br>
 <span class="run">・canvasのre-sizeあり</span>
+<br>
+・bg-filter適用可
           </td>
         </tr>
         <tr class="border">
@@ -960,7 +1028,7 @@ download-png
 download機能
           </td>
           <td class="border">
-double-clickで実行
+double-click後、canvas背面を保存
           </td>
         </tr>
         <tr class="border">
