@@ -122,6 +122,7 @@ My_entry.draw_svg.prototype.lines_pen = function(idName, arr_data, options){
     var cy = self.floor(arr_data.cy+oy);
     var r = self.floor(arr_data.r);
     _svg += "<circle";
+    _svg += " stroke="+self.quote("none");
     _svg += svg_alpha;
     _svg += " cx="+self.quote(cx);
     _svg += " cy="+self.quote(cy);
@@ -135,6 +136,7 @@ My_entry.draw_svg.prototype.lines_pen = function(idName, arr_data, options){
     var width = self.floor(arr_data.width);
     var height = self.floor(arr_data.height);
     _svg += "<rect";
+    _svg += " stroke="+self.quote("none");
     _svg += svg_alpha;
     _svg += " x="+self.quote(x);
     _svg += " y="+self.quote(y);
