@@ -43,7 +43,7 @@ My_entry.pen.prototype.init_keys = function(){
     var aElem = document.activeElement;
     var TAG = (aElem)? aElem.tagName.toUpperCase(): "";
     /* -> 1.22.6 */
-    var isNG_fire = (self.mode || self.isDragging || e.ctrlKey || e.shiftKey || TAG === "INPUT" || TAG === "SELECT");
+    var isNG_fire = (self.mode || self.isLocked || e.ctrlKey || e.shiftKey || TAG === "INPUT" || TAG === "SELECT");  // 1.21.5
     if(!(isNG_fire)){
       var mode = 0;
       Object.keys(modes).forEach(function(id, i){
@@ -271,6 +271,7 @@ My_entry.pen.prototype.make_handlers = function(){
         aElem.blur();
       }
       /* -> 1.22.6 */
+      self.isLocked = true;  // 1.21.5
       self.isDragging = true;
       /* 1.4.1 -> */
       var xy1 = fg.get_offset(e);
@@ -493,7 +494,7 @@ My_entry.pen.prototype.make_handlers = function(){
         self.handler_history_svg.save(self.make_svg_lines());  // 1.2.0
         self.show_fileSize_svg();  // 1.21.4
         self.mode = 0;  // 1.19.4
-        self.isDragging = false;
+        self.isLocked = false;  // async
       }
       /* 1.21.4 -> */
       if(options.sh < 0){
@@ -510,6 +511,7 @@ My_entry.pen.prototype.make_handlers = function(){
       /* -> 1.21.4 */
       /* -> 1.6.1 */
       /* -> 1.7.1 */
+      self.isDragging = false;  // sync
       /* -> 1.21.5 */
     }
   };
