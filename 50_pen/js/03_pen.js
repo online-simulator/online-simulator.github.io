@@ -90,6 +90,25 @@ My_entry.pen.prototype.update_options = function(){
   $.get_urlParams(self.options);
   return self;
 };
+/* 1.21.4 */
+My_entry.pen.prototype.show_fileSize_svg = function(){
+  var self = this;
+  var _i_header = -1;
+  var $ = self.entry.$;
+  var rev = self.handler_history_svg.rev;
+  var len = rev.length;
+  var fileSize = 0;
+  for(var i=len-1; i>=0; --i){
+    var revi = rev[i];
+    fileSize += revi.length;
+    if(revi.substring(0, 5) === "<?xml"){
+      _i_header = i;
+      break;
+    }
+  }
+  $._id("span-fileSize-svg").innerText = "<"+Math.ceil(fileSize/1e6)+"MB";
+  return _i_header;
+};
 /* 1.2.0 -> */
 My_entry.pen.prototype.make_svg = function(){
   var self = this;
@@ -98,16 +117,11 @@ My_entry.pen.prototype.make_svg = function(){
   var fg = self.objs.fg;
   var rev = self.handler_history_svg.rev;
   var len = rev.length;
-  var i_header = -1;
-  for(var i=len-1; i>=0; --i){
-    if(rev[i].substring(0, 5) === "<?xml"){
-      i_header = i;
-      break;
-    }
-  }
+  var i_header = self.show_fileSize_svg();  // 1.21.4
   if(i_header >= 0){
     for(var i=i_header; i<len; ++i){
-      _svg += rev[i];
+      var revi = rev[i];  // 1.21.4
+      _svg += revi;
     }
     _svg += fg.draw.footer();
   }
@@ -482,6 +496,7 @@ My_entry.pen.prototype.make_handlers = function(){
       /* -> 1.6.1 */
       /* -> 1.7.1 */
       self.handler_history_svg.save(self.make_svg_lines());  // 1.2.0
+      self.show_fileSize_svg();  // 1.21.4
       self.mode = 0;  // 1.19.4
       self.isDragging = false;
     }
