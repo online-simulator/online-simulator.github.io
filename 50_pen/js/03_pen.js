@@ -477,9 +477,14 @@ My_entry.pen.prototype.make_handlers = function(){
       }
       /* -> 1.12.4 */
       var base64_fg = fg.get_base64();
+      /* 1.21.5 -> */
       var callback = function(){
         self.handler_history_ID.save(bg.getID());  // 1.1.0
         fg.clear();
+        self.handler_history_svg.save(self.make_svg_lines());  // 1.2.0
+        self.show_fileSize_svg();  // 1.21.4
+        self.mode = 0;  // 1.19.4
+        self.isDragging = false;
       }
       /* 1.21.4 -> */
       if(options.sh < 0){
@@ -496,10 +501,7 @@ My_entry.pen.prototype.make_handlers = function(){
       /* -> 1.21.4 */
       /* -> 1.6.1 */
       /* -> 1.7.1 */
-      self.handler_history_svg.save(self.make_svg_lines());  // 1.2.0
-      self.show_fileSize_svg();  // 1.21.4
-      self.mode = 0;  // 1.19.4
-      self.isDragging = false;
+      /* -> 1.21.5 */
     }
   };
   return _handlers;
