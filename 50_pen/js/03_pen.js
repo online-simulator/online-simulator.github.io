@@ -649,9 +649,9 @@ My_entry.pen.prototype.init_handlers = function(){
           };
           var callback_last = function(){
             self.handler_history_ID.save(bg.getID());
+            self.handler_history_svg.save(self.make_svg_header());  // 1.21.6
           };
           bg.draw_base64(base64, callback_first, callback_last, options.composite);
-          self.handler_history_svg.save("");
         });
         if(!(file)){
           elem.value = null;
