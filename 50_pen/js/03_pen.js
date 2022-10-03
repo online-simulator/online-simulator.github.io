@@ -168,7 +168,6 @@ My_entry.pen.prototype.change_size = function(px_w, px_h){
   fg.change_size(px_w, px_h);
   mg.change_size(px_w, px_h);  // 1.10.2
   bg.change_size(px_w, px_h);
-  self.show_fileSize_svg();  // 1.21.4
   return self;
 };
 My_entry.pen.prototype.reset_canvas = function(){
@@ -194,6 +193,7 @@ My_entry.pen.prototype.reset_canvas = function(){
   fg.clear();
   /* -> 1.7.1 */
   self.handler_history_svg.save(self.make_svg_header());  // 1.2.0
+  self.show_fileSize_svg();  // 1.21.4
   $._id("input-file-fg").value = null;  // 1.11.4
   $._id("input-file-bg").value = null;  // 1.8.1
   self.reset_canvas_grid();  // 1.10.2
@@ -650,6 +650,7 @@ My_entry.pen.prototype.init_handlers = function(){
           var callback_last = function(){
             self.handler_history_ID.save(bg.getID());
             self.handler_history_svg.save(self.make_svg_header());  // 1.21.6
+            self.show_fileSize_svg();  // 1.21.4
           };
           bg.draw_base64(base64, callback_first, callback_last, options.composite);
         });
