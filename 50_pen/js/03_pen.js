@@ -168,6 +168,7 @@ My_entry.pen.prototype.change_size = function(px_w, px_h){
   fg.change_size(px_w, px_h);
   mg.change_size(px_w, px_h);  // 1.10.2
   bg.change_size(px_w, px_h);
+  self.show_fileSize_svg();  // 1.21.4
   return self;
 };
 My_entry.pen.prototype.reset_canvas = function(){
