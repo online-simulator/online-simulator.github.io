@@ -652,10 +652,12 @@ lineの基本色RGB
         </tr>
         <tr class="border">
           <td class="border">
-A=0~100[%]
+A=<span class="run">-100</span>~100[%]
+<br>
+<span class="run">Ver.1.6.1追加</span>
           </td>
           <td class="border">
-lineの不透明度A
+lineの不透明度|A|
           </td>
           <td class="border">
           </td>
@@ -669,7 +671,6 @@ A=-100~0[%]
 <span class="run">Ver.1.7.1更新</span>
           </td>
           <td class="border">
-lineの不透明度|A|
 <br>
 fg-filter機能<span class="clear">（flat_upp互換）</span>
           </td>
@@ -682,14 +683,17 @@ a=min(a, |A|)
 <br>
 a&le;|A|
 <br>
-<del>png/svgの整合性なし（履歴を含む）</del>
+<br>
+svg出力
+<br>
+<del>・png/svgの整合性なし（履歴を含む）</del>
 <br>
 <span class="run">
-png/svgの整合性を確保
+・png/svgの整合性を確保
 </span>
 <br>
 <span class="clear">
-Ver.1.6.1互換機能を追加
+・Ver.1.6.1互換機能を追加
 </span>
           </td>
         </tr>
@@ -848,15 +852,37 @@ dw(dlen) = (out&lt;0)? dlen*out: -out;
         </tr>
         <tr class="border">
           <td class="border">
-sh=0~
+sh=<span class="run">-100</span>~
+<br>
+<span class="run">Ver.1.21.4追加</span>
           </td>
           <td class="border">
-shadowのぼかし強度
+shadowのぼかし強度|sh|
           </td>
           <td class="border">
 svg出力
 <br>
 ・filter効果範囲のclip対策
+          </td>
+        </tr>
+        <tr class="border">
+          <td class="border">
+sh=-100~0
+<br>
+<span class="run">Ver.1.21.4追加</span>
+          </td>
+          <td class="border">
+inkのにじみ強度|sh|
+          </td>
+          <td class="border">
+fg-filter後、canvas前面に適用
+<br>
+・canvas背面への合成回数=|sh|+1
+<br>
+<br>
+svg出力
+<br>
+・svg-file-size=|sh|+1倍
           </td>
         </tr>
         <tr class="border">
@@ -910,13 +936,17 @@ mean: grid内の算術平均値
 max: grid内の最大値
 <br>
 <br>
-dot絵に変換後、svg-file-sizeの目安
+svg出力
+<br>
+・dot絵変換の目安
 <br>
 with-svg-checked ->
 <br>
 fg-image-file -> filter1x1 ->
 <br>
-1tap -> download-svg=O(10MB)
+1tap -> download-svg ->
+<br>
+svg-file-size=O(10MB)
           </td>
         </tr>
         <tr class="border">

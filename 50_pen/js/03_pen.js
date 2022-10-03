@@ -232,7 +232,8 @@ My_entry.pen.prototype.make_handlers = function(){
   /* 1.20.4 */
   var set_ctx = function(){
     var alpha = Math.abs(options.A)/100;  // 1.6.1
-    ctx.shadowBlur = options.sh;
+    var sh = Math.abs(options.sh);  // 1.21.4
+    ctx.shadowBlur = sh;
     ctx.shadowOffsetX = 0;
     ctx.shadowOffsetY = 0;
     ctx.shadowColor = options.RGB;
@@ -465,7 +466,19 @@ My_entry.pen.prototype.make_handlers = function(){
         self.handler_history_ID.save(bg.getID());  // 1.1.0
         fg.clear();
       }
-      bg.draw_base64(base64_fg, null, callback, options.composite);  // 1.11.4
+      /* 1.21.4 -> */
+      if(options.sh < 0){
+        var len_sh = Math.min(100, -options.sh);
+        var arr_base64 = [];
+        for(var nsh=0; nsh<len_sh+1; ++nsh){
+          arr_base64.push(base64_fg);
+        }
+        bg.draw_base64s(arr_base64, callback, options.composite);
+      }
+      else{
+        bg.draw_base64(base64_fg, null, callback, options.composite);  // 1.11.4
+      }
+      /* -> 1.21.4 */
       /* -> 1.6.1 */
       /* -> 1.7.1 */
       self.handler_history_svg.save(self.make_svg_lines());  // 1.2.0

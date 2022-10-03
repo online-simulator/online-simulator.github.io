@@ -96,7 +96,7 @@ My_entry.draw_svg.prototype.lines_pen = function(idName, arr_data, options){
   /* 1.26.7 -> */
   if(options.sh){
     var idName_sh = idName+"_sh";
-    _svg += self.def_dropShadow(idName_sh, options.RGB, 0, 0, options.sh);
+    _svg += self.def_dropShadow(idName_sh, options.RGB, 0, 0, Math.abs(options.sh));  // 1.36.8
     config += self.use_filter(idName_sh);
   }
   /* -> 1.26.7 */
@@ -111,6 +111,9 @@ My_entry.draw_svg.prototype.lines_pen = function(idName, arr_data, options){
   }
   /* -> 1.29.7 */
   config += " stroke-linecap="+self.quote(options.cap);
+/* 1.36.8 -> */
+  var len_sh = (options.sh < 0)? Math.min(100, -options.sh): 0;
+for(var nsh=0; nsh<len_sh+1; ++nsh){
   _svg += self.header_group(idName, config);
   /* 1.35.8 -> */
   /* 1.28.7 -> */
@@ -190,6 +193,8 @@ My_entry.draw_svg.prototype.lines_pen = function(idName, arr_data, options){
     _svg += self.rn;
   }
   _svg += self.footer_group();
+}
+/* -> 1.36.8 */
   return _svg;
 };
 /* 1.33.8 */
