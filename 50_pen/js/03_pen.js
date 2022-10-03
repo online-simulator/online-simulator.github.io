@@ -262,6 +262,7 @@ My_entry.pen.prototype.make_handlers = function(){
       self.entry.def.mix_over(self.constructors.draw, self.constructors.draw_canvas);  // 1.7.1
       e.preventDefault();
       e.stopPropagation();
+      $._id(">>").focus();  // 1.22.6
       self.isDragging = true;
       /* 1.4.1 -> */
       var xy1 = fg.get_offset(e);
