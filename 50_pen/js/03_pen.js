@@ -593,6 +593,13 @@ My_entry.pen.prototype.init_handlers = function(){
       case "<<":
         var ID = self.handler_history_ID.reverse();
         if(ID){
+          /* 1.23.6 -> */
+          var px_w = ID.width;
+          var px_h = ID.height;
+          if(!(px_w === fg.px_w && px_h === fg.px_h)){
+            self.change_size(px_w, px_h);
+          }
+          /* -> 1.23.6 */
           bg.putID(ID);  // 1.7.1
           self.handler_history_svg.reverse();  // 1.2.0  // 1.3.1
         }
@@ -600,6 +607,13 @@ My_entry.pen.prototype.init_handlers = function(){
       case ">>":
         var ID = self.handler_history_ID.forward();
         if(ID){
+          /* 1.23.6 -> */
+          var px_w = ID.width;
+          var px_h = ID.height;
+          if(!(px_w === fg.px_w && px_h === fg.px_h)){
+            self.change_size(px_w, px_h);
+          }
+          /* -> 1.23.6 */
           bg.putID(ID);  // 1.7.1
           self.handler_history_svg.forward();  // 1.2.0  // 1.3.1
         }
