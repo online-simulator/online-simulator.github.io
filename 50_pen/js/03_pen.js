@@ -643,7 +643,21 @@ My_entry.pen.prototype.init_handlers = function(){
         $.show("#div-config", isChecked, true);
         break;
       case "checkbox-black":
-        $.set_elem($._id("div-canvas"), "background", ((options.black)? "black": "white"));  // options.black
+        $.set_id("div-canvas", "background", ((options.black)? "black": "white"));  // options including URL-parameter
+        break;
+      /* 1.24.6 */
+      case "input-W":
+        var W = options.W;  // options
+        var isChecked = options["auto-config"];  // options
+        if(isChecked && W > 0){
+          var A = options.A;  // options
+          $._id("input-A").value = (W < 5)? ((A < 0)? A: -30): ((A > 0)? A: 10);
+          $._id("input-w_th").value = (1-Math.pow(Math.E, -0.04332169878499659*W))*8;
+          $._id("input-len_th").value = 5+Math.max(0, 5*(W-16)/(128-16));
+          $._id("input-in").value = 0.4*W/16;
+          $._id("input-out").value = (W < 32)? Math.max(0.8, W/8): -W/32;
+          self.update_options();  // including URL-parameter
+        }
         break;
       case "select-canvas-width":
       case "select-canvas-height":
