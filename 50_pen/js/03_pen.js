@@ -196,7 +196,6 @@ My_entry.pen.prototype.reset_canvas = function(){
   fg.clear();
   /* -> 1.7.1 */
   self.handler_history_svg.save(self.make_svg_header());  // 1.2.0
-  self.show_fileSize_svg();  // 1.21.4
   $._id("input-file-fg").value = null;  // 1.11.4
   $._id("input-file-bg").value = null;  // 1.8.1
   self.reset_canvas_grid();  // 1.10.2
@@ -492,7 +491,6 @@ My_entry.pen.prototype.make_handlers = function(){
         self.handler_history_ID.save(bg.getID());  // 1.1.0
         fg.clear();
         self.handler_history_svg.save(self.make_svg_lines());  // 1.2.0
-        self.show_fileSize_svg();  // 1.21.4
         self.mode = 0;  // 1.19.4
         self.isLocked = false;  // async
       }
@@ -534,7 +532,12 @@ My_entry.pen.prototype.init_handlers = function(){
     self.handler_link_svg = new self.constructors.handler_link(json);
     self.handler_link_svg.setter.callback(function(){return self.make_svg();});
     self.handler_history_ID = new self.constructors.handler_history(options.history_len_max);  // 1.1.0
-    self.handler_history_svg = new self.constructors.handler_history(10000);  // about 10000 lines
+    /* 1.21.4 -> */
+    var callback_svg = function(){
+      self.show_fileSize_svg();
+    };
+    self.handler_history_svg = new self.constructors.handler_history(10000, callback_svg);  // about 10000 lines
+    /* -> 1.21.4 */
     /* -> 1.2.0 */
     self.drag = new self.constructors.handler_drag("div-drag", "checkbox-drag", {});
     /* 1.7.1 -> */
@@ -661,7 +664,6 @@ My_entry.pen.prototype.init_handlers = function(){
           var callback_last = function(){
             self.handler_history_ID.save(bg.getID());
             self.handler_history_svg.save(self.make_svg_header());  // 1.21.6
-            self.show_fileSize_svg();  // 1.21.4
           };
           bg.draw_base64(base64, callback_first, callback_last, options.composite);
         });

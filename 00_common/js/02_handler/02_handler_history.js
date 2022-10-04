@@ -1,14 +1,15 @@
 // online-simulator.github.io
 
-My_entry.handler_history = function(opt_len_max){
+My_entry.handler_history = function(opt_len_max, opt_callback){
   var self = this;
   self.init.apply(self, arguments);
   return self;
 };
 
-My_entry.handler_history.prototype.init = function(opt_len_max){
+My_entry.handler_history.prototype.init = function(opt_len_max, opt_callback){
   var self = this;
   self.len_max = opt_len_max || 10;
+  self.callback = opt_callback || null;
   self.fwd = [];
   self.rev = [];
   return self;
@@ -23,6 +24,9 @@ My_entry.handler_history.prototype.save = function(data){
     rev.shift();
   }
   rev.push(data);
+  if(self.callback){
+    self.callback();
+  }
   return self;
 };
 My_entry.handler_history.prototype.forward = function(){
@@ -34,6 +38,9 @@ My_entry.handler_history.prototype.forward = function(){
     rev.push(fwd.pop());
     _data = rev[rev.length-1];
   }
+  if(self.callback){
+    self.callback();
+  }
   return _data;
 };
 My_entry.handler_history.prototype.reverse = function(){
@@ -44,6 +51,9 @@ My_entry.handler_history.prototype.reverse = function(){
   if(rev.length > 1){  // > 1
     fwd.push(rev.pop());
     _data = rev[rev.length-1];
+  }
+  if(self.callback){
+    self.callback();
   }
   return _data;
 };
