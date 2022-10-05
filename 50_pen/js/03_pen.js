@@ -270,6 +270,12 @@ My_entry.pen.prototype.make_handlers = function(){
         aElem.blur();
       }
       /* -> 1.22.6 */
+      /* 1.24.7 -> */
+      if(!(self.isSaved)){
+        ctx.save();
+        self.isSaved = true;
+      }
+      /* -> 1.24.7 */
       self.isLocked = true;  // 1.21.5
       self.isDragging = true;
       /* 1.4.1 -> */
@@ -491,6 +497,14 @@ My_entry.pen.prototype.make_handlers = function(){
         self.handler_history_ID.save(bg.getID());  // 1.1.0
         fg.clear();
         self.handler_history_svg.save(self.make_svg_lines());  // 1.2.0
+        /* 1.24.7 -> */
+        $._id("input-file-fg").value = null;  // 1.11.4
+        $._id("input-file-bg").value = null;  // 1.8.1
+        if(self.isSaved){
+          ctx.restore();
+          self.isSaved = false;
+        }
+        /* -> 1.24.7 */
         self.mode = 0;  // 1.19.4
         self.isLocked = false;  // async
       }

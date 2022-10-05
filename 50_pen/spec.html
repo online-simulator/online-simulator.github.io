@@ -199,12 +199,35 @@ f=0
         </tr>
         <tr class="border">
           <td class="border">
+f=move=1~
+          </td>
+          <td class="border">
+pointer-move検知frame
+          </td>
+          <td class="border">
+          </td>
+        </tr>
+        <tr class="border">
+          <td class="border">
 f=up
           </td>
           <td class="border">
 pointer-up検知frame
           </td>
           <td class="border">
+          </td>
+        </tr>
+        <tr class="border">
+          <td class="border">
+1tap
+          </td>
+          <td class="border">
+canvasを1tapする行為
+          </td>
+          <td class="border">
+down -> upが理想
+<br>
+・move検知なしでline描画なし
           </td>
         </tr>
         <tr class="border">
@@ -568,6 +591,8 @@ canvas背面に適用
 <span class="run">・KeyB+1tapで代用可</span>
 <br>
 ・svg出力は無効
+<br>
+　全履歴の上書き処理は不能
           </td>
         </tr>
         <tr class="border">
@@ -971,11 +996,17 @@ svg出力
 <br>
 ・dot絵変換の目安
 <br>
+fg-image-file ->
+<br>
+grid1x1 ->
+<br>
+mosaic-min ->
+<br>
 with-svg-checked ->
 <br>
-fg-image-file -> filter1x1 ->
+1tap ->
 <br>
-1tap -> download-svg ->
+download-svg ->
 <br>
 svg-file-size=O(10MB)
           </td>
@@ -1056,6 +1087,8 @@ png前処理
 fg-image-file
 <br>
 <span class="run">Ver.1.11.4追加</span>
+<br>
+<span class="clear">Ver.1.24.7修正</span>
           </td>
           <td class="border">
 local fileのread機能
@@ -1068,6 +1101,10 @@ read完了後、canvas前面に合成
 ・canvasのre-sizeなし
 <br>
 ・fg-filter適用可
+<br>
+<span class="clear">・Aを反映しないように修正</span>
+<br>
+<span class="clear">・1tapで入力欄のfile名を消去</span>
           </td>
         </tr>
         <tr class="border">
@@ -1079,6 +1116,8 @@ bg-image-file
 <span class="run">Ver.1.8.1追加</span>
 <br>
 <span class="run">Ver.1.11.4更新</span>
+<br>
+<span class="clear">Ver.1.24.7修正</span>
           </td>
           <td class="border">
 local fileのread機能
@@ -1091,6 +1130,10 @@ read完了後、canvas背面に合成
 <span class="run">・canvasのre-sizeあり</span>
 <br>
 ・bg-filter適用可
+<br>
+<span class="clear">・Aを反映しないように修正</span>
+<br>
+<span class="clear">・1tapで入力欄のfile名を消去</span>
           </td>
         </tr>
         <tr class="border">
