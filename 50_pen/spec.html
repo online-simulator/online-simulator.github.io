@@ -712,7 +712,7 @@ A=<span class="run">-100</span>~100[%]
 <span class="run">Ver.1.6.1追加</span>
           </td>
           <td class="border">
-lineの不透明度|A|
+lineの不透明度alpha=|A|
           </td>
           <td class="border">
           </td>
@@ -1103,9 +1103,9 @@ read完了後、canvas前面に合成
 <br>
 ・canvasのre-sizeなし
 <br>
-・fg-filter適用可
+・fg-filter適用可（A&lt;0を含む）
 <br>
-<span class="clear">・Aを反映しないように修正</span>
+<span class="clear">・A&ge;0のalpha値を無効に修正</span>
 <br>
 <span class="clear">・1tapで入力欄のfile名を消去</span>
           </td>
@@ -1134,7 +1134,7 @@ read完了後、canvas背面に合成
 <br>
 ・bg-filter適用可
 <br>
-<span class="clear">・Aを反映しないように修正</span>
+<span class="clear">・A&ge;0のalpha値を無効に修正</span>
 <br>
 <span class="clear">・1tapで入力欄のfile名を消去</span>
           </td>
