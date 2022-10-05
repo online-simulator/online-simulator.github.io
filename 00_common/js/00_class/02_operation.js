@@ -2915,7 +2915,10 @@ My_entry.operation.prototype.tree_no_name2restore_eqn = function(tree){
   var self = this;
   var _tree = null;
   /* Ver.2.27.15 -> */
-  var tree_ = self.arr2num(self.get_tagVal(tree, "mat", "arr"));
+  /* Ver.2.119.34 -> */
+  var arr = self.get_tagVal(tree, "mat", "arr");
+  var tree_ = (arr)? self.arr2num(arr): null;
+  /* -> Ver.2.119.34 */
   if(tree_){
     var BT = self.config.BT;
     var isSEe = tree_[BT.SEe];
