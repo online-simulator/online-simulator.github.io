@@ -16828,8 +16828,6 @@ y=&lt;a*x+b; y=&gt;y0 -> [MyErr]Invalid binary operation
 <br>
 <span class="run">Ver.2.31.17</span>以降、<a href="#span-out-scope-inherited-call">式変数のscope継承call</a>の式読出し記号==&gt;を追加
 <br>
-・<span class="clear">Ver.2.119.34</span>以降、left-operand不正の場合、error終了
-<br>
 clear; a=&lt;1; a=&gt; -> 1
 <br>
 clear; a=&lt;1; a==&gt; -> 1
@@ -16837,6 +16835,8 @@ clear; a=&lt;1; a==&gt; -> 1
 clear; a=&lt;1; a==&gt;b; b -> 1
 <br>
 clear; a=&lt;1; a==&gt;2 || 1(2) -> 2
+<br>
+・<span class="clear">Ver.2.119.34</span>以降、left-operand不正の場合、error終了
 <br>
 clear; a=&lt;1; a===&gt; -> [MyErr]Invalid BRrl(==)
 <br>
