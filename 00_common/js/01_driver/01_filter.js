@@ -445,16 +445,12 @@ My_entry.filter.prototype.run = function(ctx, params){
                     var ired = 4*(px_w*j0+i0);
                     var isOver = data1[ired+0];
                     if(isOver){
-                      var i1 = i0;
-                      var j1 = j0;
                       /* Ver.2.120.34 -> */
                       if(isBoundX){
-                        i1 = (i === 0)? i0-1: i0+1;
-                        set_color(i1, j1);
+                        set_color(((i === 0)? i0-1: i0+1), j0);
                       }
                       if(isBoundY){
-                        j1 = (j === 0)? j0-1: j0+1;
-                        set_color(i1, j1);
+                        set_color(i0, ((j === 0)? j0-1: j0+1));
                       }
                       /* -> Ver.2.120.34 */
                     }
