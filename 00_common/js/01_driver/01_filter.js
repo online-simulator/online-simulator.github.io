@@ -447,13 +447,16 @@ My_entry.filter.prototype.run = function(ctx, params){
                     if(isOver){
                       var i1 = i0;
                       var j1 = j0;
+                      /* Ver.2.120.34 -> */
                       if(isBoundX){
                         i1 = (i === 0)? i0-1: i0+1;
+                        set_color(i1, j1);
                       }
-                      else{
+                      if(isBoundY){
                         j1 = (j === 0)? j0-1: j0+1;
+                        set_color(i1, j1);
                       }
-                      set_color(i1, j1);
+                      /* -> Ver.2.120.34 */
                     }
                   }
                 }
