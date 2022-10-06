@@ -12,12 +12,12 @@ My_entry.pen.prototype.init = function(){
   var self = this;
   self.objs = {};
   self.options = {};
-  self.keys = {modes: {}, buttons: {}};  // 1.15.4  // 1.16.4  // 1.19.4
+  self.keys = {modes: {}, buttons: {}};  // Ver.1.15.4  // Ver.1.16.4  // Ver.1.19.4
   self.init_main.call(self, ["$", "conv", "def"]);
-  self.filter = new self.constructors.filter();  // 1.17.4
+  self.filter = new self.constructors.filter();  // Ver.1.17.4
   return self;
 };
-/* 1.16.4 */
+/* Ver.1.16.4 */
 My_entry.pen.prototype.init_keys = function(){
   var self = this;
   var $ = self.entry.$;
@@ -25,25 +25,25 @@ My_entry.pen.prototype.init_keys = function(){
   var keys = self.keys;
   var modes = keys.modes;
   var buttons = keys.buttons;
-  /* 1.19.4 -> */
+  /* Ver.1.19.4 -> */
   self.mode = 0;
   ["bucket", "circle", "rectangle"].forEach(function(id, i){
     modes[id] = options[id] || ["KeyB", "KeyG", "KeyT"][i];
   });
   ["<<", ">>", "clear", "run"].forEach(function(id, i){
-    buttons[id] = options[id] || ["KeyS", "KeyD", "KeyA", "KeyW"][i];  // 1.17.4
+    buttons[id] = options[id] || ["KeyS", "KeyD", "KeyA", "KeyW"][i];  // Ver.1.17.4
   });
-  /* 1.15.4 -> */
+  /* Ver.1.15.4 -> */
   document.onkeydown = function(e){
     keys.code = e.code;
     keys.keyCode = e.keyCode;
     keys.ctrlKey = e.ctrlKey;
     keys.shiftKey = e.shiftKey;
-    /* 1.22.6 -> */
+    /* Ver.1.22.6 -> */
     var aElem = document.activeElement;
     var TAG = (aElem)? aElem.tagName.toUpperCase(): "";
-    /* -> 1.22.6 */
-    var isNG_fire = (self.mode || self.isLocked || e.ctrlKey || e.shiftKey || TAG === "INPUT" || TAG === "SELECT");  // 1.21.5
+    /* -> Ver.1.22.6 */
+    var isNG_fire = (self.mode || self.isLocked || e.ctrlKey || e.shiftKey || TAG === "INPUT" || TAG === "SELECT");  // Ver.1.21.5
     if(!(isNG_fire)){
       var mode = 0;
       Object.keys(modes).forEach(function(id, i){
@@ -62,7 +62,7 @@ My_entry.pen.prototype.init_keys = function(){
       self.mode = mode;
     }
   };
-  /* 1.17.4 */
+  /* Ver.1.17.4 */
   document.onkeyup = function(e){
     keys.code = e.code;
     keys.keyCode = e.keyCode;
@@ -70,8 +70,8 @@ My_entry.pen.prototype.init_keys = function(){
     keys.shiftKey = e.shiftKey;
     self.mode = 0;
   };
-  /* -> 1.15.4 */
-  /* -> 1.19.4 */
+  /* -> Ver.1.15.4 */
+  /* -> Ver.1.19.4 */
   return self;
 };
 My_entry.pen.prototype.init_elems = function(){
@@ -93,7 +93,7 @@ My_entry.pen.prototype.update_options = function(){
   $.get_urlParams(self.options);
   return self;
 };
-/* 1.21.4 */
+/* Ver.1.21.4 */
 My_entry.pen.prototype.show_fileSize_svg = function(){
   var self = this;
   var _i_header = -1;
@@ -112,18 +112,18 @@ My_entry.pen.prototype.show_fileSize_svg = function(){
   $._id("span-fileSize-svg").innerText = "<"+Math.ceil(fileSize/1e6)+"MB";
   return _i_header;
 };
-/* 1.2.0 -> */
+/* Ver.1.2.0 -> */
 My_entry.pen.prototype.make_svg = function(){
   var self = this;
-  self.entry.def.mix_over(self.constructors.draw, self.constructors.draw_svg);  // 1.7.1
+  self.entry.def.mix_over(self.constructors.draw, self.constructors.draw_svg);  // Ver.1.7.1
   var _svg = "";
   var fg = self.objs.fg;
   var rev = self.handler_history_svg.rev;
   var len = rev.length;
-  var i_header = self.show_fileSize_svg();  // 1.21.4
+  var i_header = self.show_fileSize_svg();  // Ver.1.21.4
   if(i_header >= 0){
     for(var i=i_header; i<len; ++i){
-      var revi = rev[i];  // 1.21.4
+      var revi = rev[i];  // Ver.1.21.4
       _svg += revi;
     }
     _svg += fg.draw.footer();
@@ -132,7 +132,7 @@ My_entry.pen.prototype.make_svg = function(){
 };
 My_entry.pen.prototype.make_svg_header = function(){
   var self = this;
-  self.entry.def.mix_over(self.constructors.draw, self.constructors.draw_svg);  // 1.7.1
+  self.entry.def.mix_over(self.constructors.draw, self.constructors.draw_svg);  // Ver.1.7.1
   var _svg = "";
   var options = self.options;
   var fg = self.objs.fg;
@@ -143,74 +143,74 @@ My_entry.pen.prototype.make_svg_header = function(){
 };
 My_entry.pen.prototype.make_svg_lines = function(){
   var self = this;
-  self.entry.def.mix_over(self.constructors.draw, self.constructors.draw_svg);  // 1.7.1
+  self.entry.def.mix_over(self.constructors.draw, self.constructors.draw_svg);  // Ver.1.7.1
   var _svg = "";
   var options = self.options;
   var fg = self.objs.fg;
-  /* 1.3.0 -> */
+  /* Ver.1.3.0 -> */
   var rev = self.handler_history_svg.rev;
   var len = rev.length;
-  /* 1.12.4 -> */
+  /* Ver.1.12.4 -> */
   var hasFilter = self.arr_data.data;
   var sw_method = "lines_pen"+((hasFilter)? "_mosaic": "");
   _svg += fg.draw[sw_method]("id"+(len-1), self.arr_data, options);
-  /* -> 1.12.4 */
-  /* -> 1.3.0 */
+  /* -> Ver.1.12.4 */
+  /* -> Ver.1.3.0 */
   return _svg;
 };
-/* -> 1.2.0 */
-/* 1.11.4 */
+/* -> Ver.1.2.0 */
+/* Ver.1.11.4 */
 My_entry.pen.prototype.change_size = function(px_w, px_h){
   var self = this;
   var $ = self.entry.$;
   var fg = self.objs.fg;
-  var mg = self.objs.mg;  // 1.10.2
-  var bg = self.objs.bg;  // 1.7.1
-  $.set_id("div-canvas", "width", (1+px_w+1)+"px");  // 1.10.3
+  var mg = self.objs.mg;  // Ver.1.10.2
+  var bg = self.objs.bg;  // Ver.1.7.1
+  $.set_id("div-canvas", "width", (1+px_w+1)+"px");  // Ver.1.10.3
   $.set_id("div-canvas", "height", (1+px_h+1)+"px");
   fg.change_size(px_w, px_h);
-  mg.change_size(px_w, px_h);  // 1.10.2
+  mg.change_size(px_w, px_h);  // Ver.1.10.2
   bg.change_size(px_w, px_h);
   return self;
 };
 My_entry.pen.prototype.reset_canvas = function(){
   var self = this;
-  self.entry.def.mix_over(self.constructors.draw, self.constructors.draw_canvas);  // 1.7.1
+  self.entry.def.mix_over(self.constructors.draw, self.constructors.draw_canvas);  // Ver.1.7.1
   var $ = self.entry.$;
   var options = self.options;
-  /* 1.7.1 -> */
+  /* Ver.1.7.1 -> */
   var fg = self.objs.fg;
-  var mg = self.objs.mg;  // 1.10.2
-  var bg = self.objs.bg;  // 1.7.1
+  var mg = self.objs.mg;  // Ver.1.10.2
+  var bg = self.objs.bg;  // Ver.1.7.1
   var px_w = options["canvas-width"];
   var px_h = options["canvas-height"];
   var bgcolor = options.bgcolor;
-  self.change_size(px_w, px_h);  // 1.11.4
+  self.change_size(px_w, px_h);  // Ver.1.11.4
   if(bgcolor){
     bg.fill(bgcolor);
   }
   else{
     bg.clear();
   }
-  self.handler_history_ID.save(bg.getID());  // 1.1.0
+  self.handler_history_ID.save(bg.getID());  // Ver.1.1.0
   fg.clear();
-  /* -> 1.7.1 */
-  self.handler_history_svg.save(self.make_svg_header());  // 1.2.0
-  $._id("input-file-fg").value = null;  // 1.11.4
-  $._id("input-file-bg").value = null;  // 1.8.1
-  self.reset_canvas_grid();  // 1.10.2
+  /* -> Ver.1.7.1 */
+  self.handler_history_svg.save(self.make_svg_header());  // Ver.1.2.0
+  $._id("input-file-fg").value = null;  // Ver.1.11.4
+  $._id("input-file-bg").value = null;  // Ver.1.8.1
+  self.reset_canvas_grid();  // Ver.1.10.2
   return self;
 };
-/* 1.10.2 */
+/* Ver.1.10.2 */
 My_entry.pen.prototype.reset_canvas_grid = function(){
   var self = this;
   var options = self.options;
   var mg = self.objs.mg;
   mg.clear();
-  mg.draw_lines_grid(options["grid-width"], options["grid-height"], 0.5, "#00000033");  // 1.10.4
+  mg.draw_lines_grid(options["grid-width"], options["grid-height"], 0.5, "#00000033");  // Ver.1.10.4
   return self;
 };
-/* 1.17.4 */
+/* Ver.1.17.4 */
 My_entry.pen.prototype.run_filter = function(obj_canvas, text_filter){
   var self = this;
   var $ = self.entry.$;
@@ -230,7 +230,7 @@ My_entry.pen.prototype.run_filter = function(obj_canvas, text_filter){
         var params = $.get_records(area, ",", 0, ["is", "js", "px_w", "px_h"], true);
         params.rgba = text.replace(re, "");
         params.arr_w = arr_w;
-        params.content = content;  // 1.13.7
+        params.content = content;  // Ver.1.13.7
         obj_canvas.putID_xy(self.filter.run(obj_canvas.ctx, params), params.is, params.js);
       });
     };
@@ -243,13 +243,13 @@ My_entry.pen.prototype.make_handlers = function(){
   var $ = self.entry.$;
   var options = self.options;
   var fg = self.objs.fg;
-  var mg = self.objs.mg;  // 1.10.2
-  var bg = self.objs.bg;  // 1.7.1
+  var mg = self.objs.mg;  // Ver.1.10.2
+  var bg = self.objs.bg;  // Ver.1.7.1
   var ctx = fg.draw.ctx;
-  /* 1.20.4 */
+  /* Ver.1.20.4 */
   var set_ctx = function(){
-    var alpha = Math.abs(options.A)/100;  // 1.6.1
-    var sh = Math.abs(options.sh);  // 1.21.4
+    var alpha = Math.abs(options.A)/100;  // Ver.1.6.1
+    var sh = Math.abs(options.sh);  // Ver.1.21.4
     ctx.shadowBlur = sh;
     ctx.shadowOffsetX = 0;
     ctx.shadowOffsetY = 0;
@@ -261,60 +261,60 @@ My_entry.pen.prototype.make_handlers = function(){
   };
   var _handlers = {
     onmousedown: function(e){
-      self.entry.def.mix_over(self.constructors.draw, self.constructors.draw_canvas);  // 1.7.1
+      self.entry.def.mix_over(self.constructors.draw, self.constructors.draw_canvas);  // Ver.1.7.1
       e.preventDefault();
       e.stopPropagation();
-      /* 1.22.6 -> */
+      /* Ver.1.22.6 -> */
       var aElem = document.activeElement;
       if(aElem && aElem.blur){
         aElem.blur();
       }
-      /* -> 1.22.6 */
-      /* 1.24.7 -> */
+      /* -> Ver.1.22.6 */
+      /* Ver.1.24.7 -> */
       if(!(self.isSaved)){
         ctx.save();
         self.isSaved = true;
       }
-      /* -> 1.24.7 */
-      self.isLocked = true;  // 1.21.5
+      /* -> Ver.1.24.7 */
+      self.isLocked = true;  // Ver.1.21.5
       self.isDragging = true;
-      /* 1.4.1 -> */
+      /* Ver.1.4.1 -> */
       var xy1 = fg.get_offset(e);
       self.xy0 = xy1;
       self.xym0 = xy1;
       self.xyp0 = xy1;
-      /* -> 1.4.1 */
+      /* -> Ver.1.4.1 */
       self.w0 = 0;
-      self.arr_data = [];  // 1.2.0
-      /* 1.19.4 -> */
+      self.arr_data = [];  // Ver.1.2.0
+      /* Ver.1.19.4 -> */
       if(options.W <= 0){
         self.mode = self.mode || 1+Math.ceil(-options.W);  // Key first
       }
       if(self.mode){
         switch(self.mode){
-          /* 1.15.4 */
+          /* Ver.1.15.4 */
           case 1:
             var rgba = fg.draw.color2rgba(options.RGB);
             var alpha = Math.abs(options.A)/100;
             rgba.a = 255*alpha;
             var color_hex = fg.draw.rgba2color_hex(rgba);
-            self.run_filter(bg, "fiin["+xy1.x+","+xy1.y+","+color_hex+","+(options.Nwrap || 16)+"]");  // 1.17.4
+            self.run_filter(bg, "fiin["+xy1.x+","+xy1.y+","+color_hex+","+(options.Nwrap || 16)+"]");  // Ver.1.17.4
             break;
           default:
             break;
         }
         self.isDragging = false;
       }
-      /* -> 1.19.4 */
+      /* -> Ver.1.19.4 */
     },
     onmousemove: function(e){
       var w_p = function(p){
         return options.W*p;
       };
-      /* 1.5.1 */
+      /* Ver.1.5.1 */
       var w_len = function(len){
         var dw = 0;
-        var dlen = len-options.len_th;  // 1.4.1
+        var dlen = len-options.len_th;  // Ver.1.4.1
         if(dlen > 0){
           var s = options.out;
           dw = (s < 0)? dlen: -1;
@@ -333,8 +333,8 @@ My_entry.pen.prototype.make_handlers = function(){
         var xy1 = fg.get_offset(e);
         var x1 = xy1.x;
         var y1 = xy1.y;
-        /* 1.18.4 -> */
-        /* 1.13.4 -> */
+        /* Ver.1.18.4 -> */
+        /* Ver.1.13.4 -> */
         var stabi = options.stabi;
         var istabi = Math.floor(stabi);
         if(istabi > 0){
@@ -366,13 +366,13 @@ My_entry.pen.prototype.make_handlers = function(){
             xy1.y = y1;
           }
         }
-        /* -> 1.13.4 */
-        /* -> 1.18.4 */
+        /* -> Ver.1.13.4 */
+        /* -> Ver.1.18.4 */
         var xy0 = self.xy0 || xy1;
         var x0 = xy0.x;
         var y0 = xy0.y;
         self.xy0 = xy1;
-        /* 1.4.1 -> */
+        /* Ver.1.4.1 -> */
         var dx = x1-x0;
         var dy = y1-y0;
         var len = Math.sqrt(dx*dx+dy*dy);
@@ -393,16 +393,16 @@ My_entry.pen.prototype.make_handlers = function(){
         self.xym0 = xym1;
         self.xyp0 = xyp1;
         if(w0+w1){
-          self.arr_data.push({xy0: xy0, xy1: xy1, w0: w0, w1: w1, xym0: xym0, xyp0: xyp0, xym1: xym1, xyp1: xyp1});  // 1.2.0
-        /* -> 1.4.1 */
-          /* 1.5.1 -> */
+          self.arr_data.push({xy0: xy0, xy1: xy1, w0: w0, w1: w1, xym0: xym0, xyp0: xyp0, xym1: xym1, xyp1: xyp1});  // Ver.1.2.0
+        /* -> Ver.1.4.1 */
+          /* Ver.1.5.1 -> */
           var ox = options.ox;
           var oy = options.oy;
-          /* -> 1.5.1 */
-          set_ctx();  // 1.20.4
-          ctx.lineWidth = w1;  // 1.4.1
+          /* -> Ver.1.5.1 */
+          set_ctx();  // Ver.1.20.4
+          ctx.lineWidth = w1;  // Ver.1.4.1
           ctx.beginPath();
-          /* 1.4.1 -> */
+          /* Ver.1.4.1 -> */
           if(Math.min(w0, w1) < options.w_th){
             ctx.moveTo(xym0.x+ox, xym0.y+oy);
             ctx.lineTo(xyp0.x+ox, xyp0.y+oy);
@@ -415,18 +415,18 @@ My_entry.pen.prototype.make_handlers = function(){
             ctx.lineTo(x1+ox, y1+oy);
             ctx.stroke();
           }
-          /* -> 1.4.1 */
+          /* -> Ver.1.4.1 */
         }
       }
     },
     onmouseup: function(e){
       e.preventDefault();
       e.stopPropagation();
-      /* 1.7.1 -> */
-      /* 1.6.1 -> */
-      /* 1.12.4 -> */
+      /* Ver.1.7.1 -> */
+      /* Ver.1.6.1 -> */
+      /* Ver.1.12.4 -> */
       var ID = null;
-      /* 1.20.4 -> */
+      /* Ver.1.20.4 -> */
       var dxg = options["grid-width"];
       var dyg = options["grid-height"];
       var hasGrid = (dxg > 0 && dyg > 0);
@@ -473,7 +473,7 @@ My_entry.pen.prototype.make_handlers = function(){
             break;
         }
       }
-      /* -> 1.20.4 */
+      /* -> Ver.1.20.4 */
       var alpha = Math.abs(options.A)/100;
       if(options.A < 0){
         ID = fg.getID_alpha(alpha);
@@ -490,25 +490,25 @@ My_entry.pen.prototype.make_handlers = function(){
       if(ID){
         fg.putID(ID);
       }
-      /* -> 1.12.4 */
+      /* -> Ver.1.12.4 */
       var base64_fg = fg.get_base64();
-      /* 1.21.5 -> */
+      /* Ver.1.21.5 -> */
       var callback = function(){
-        self.handler_history_ID.save(bg.getID());  // 1.1.0
+        self.handler_history_ID.save(bg.getID());  // Ver.1.1.0
         fg.clear();
-        self.handler_history_svg.save(self.make_svg_lines());  // 1.2.0
-        /* 1.24.7 -> */
-        $._id("input-file-fg").value = null;  // 1.11.4
-        $._id("input-file-bg").value = null;  // 1.8.1
+        self.handler_history_svg.save(self.make_svg_lines());  // Ver.1.2.0
+        /* Ver.1.24.7 -> */
+        $._id("input-file-fg").value = null;  // Ver.1.11.4
+        $._id("input-file-bg").value = null;  // Ver.1.8.1
         if(self.isSaved){
           ctx.restore();
           self.isSaved = false;
         }
-        /* -> 1.24.7 */
-        self.mode = 0;  // 1.19.4
+        /* -> Ver.1.24.7 */
+        self.mode = 0;  // Ver.1.19.4
         self.isLocked = false;  // async
       }
-      /* 1.21.4 -> */
+      /* Ver.1.21.4 -> */
       if(options.sh < 0){
         var len_sh = Math.min(100, -options.sh);
         var arr_base64 = [];
@@ -518,13 +518,13 @@ My_entry.pen.prototype.make_handlers = function(){
         bg.draw_base64s(arr_base64, callback, options.composite);
       }
       else{
-        bg.draw_base64(base64_fg, null, callback, options.composite);  // 1.11.4
+        bg.draw_base64(base64_fg, null, callback, options.composite);  // Ver.1.11.4
       }
-      /* -> 1.21.4 */
-      /* -> 1.6.1 */
-      /* -> 1.7.1 */
+      /* -> Ver.1.21.4 */
+      /* -> Ver.1.6.1 */
+      /* -> Ver.1.7.1 */
       self.isDragging = false;  // sync
-      /* -> 1.21.5 */
+      /* -> Ver.1.21.5 */
     }
   };
   return _handlers;
@@ -533,34 +533,34 @@ My_entry.pen.prototype.init_handlers = function(){
   var self = this;
   var $ = self.entry.$;
   var options = self.options;
-  /* 1.14.4 */
+  /* Ver.1.14.4 */
   self.handlers.onload = function(e){
     var self = this;
     self.update_options();
-    self.init_keys();  // 1.16.4
+    self.init_keys();  // Ver.1.16.4
     var json = {p: {id: "wrapper-link-png"}, a: {id: "a-png", it: "download-png"}, name: "download", ext: "png"};
     self.handler_link_png = new self.constructors.handler_link(json);
-    self.handler_link_png.setter.callback(function(){return self.entry.conv.base2buffer(self.objs.bg.get_base64());});  // 1.7.1
-    /* 1.2.0 -> */
+    self.handler_link_png.setter.callback(function(){return self.entry.conv.base2buffer(self.objs.bg.get_base64());});  // Ver.1.7.1
+    /* Ver.1.2.0 -> */
     var json = {p: {id: "wrapper-link-svg"}, a: {id: "a-svg", it: "-svg(src-over)"}, name: "download", ext: "svg"};
     self.handler_link_svg = new self.constructors.handler_link(json);
     self.handler_link_svg.setter.callback(function(){return self.make_svg();});
-    self.handler_history_ID = new self.constructors.handler_history(options.history_len_max);  // 1.1.0
-    /* 1.21.4 -> */
+    self.handler_history_ID = new self.constructors.handler_history(options.history_len_max);  // Ver.1.1.0
+    /* Ver.1.21.4 -> */
     var callback_svg = function(){
       self.show_fileSize_svg();
     };
     self.handler_history_svg = new self.constructors.handler_history(10000, callback_svg);  // about 10000 lines
-    /* -> 1.21.4 */
-    /* -> 1.2.0 */
+    /* -> Ver.1.21.4 */
+    /* -> Ver.1.2.0 */
     self.drag = new self.constructors.handler_drag("div-drag", "checkbox-drag", {});
-    /* 1.7.1 -> */
+    /* Ver.1.7.1 -> */
     self.objs.fg = new self.constructors.canvas($._id("canvas-fg"));
-    self.objs.mg = new self.constructors.canvas($._id("canvas-mg"));  // 1.10.2
+    self.objs.mg = new self.constructors.canvas($._id("canvas-mg"));  // Ver.1.10.2
     self.objs.bg = new self.constructors.canvas($._id("canvas-bg"));
-    /* -> 1.7.1 */
+    /* -> Ver.1.7.1 */
     self.objs.fg.attach_point(self.make_handlers());
-    self.objs.fg.draw.setter.decDigit((isNaN(options.decDigit)? 1: options.decDigit));  // 1.2.0
+    self.objs.fg.draw.setter.decDigit((isNaN(options.decDigit)? 1: options.decDigit));  // Ver.1.2.0
     $.change_elems$("input[type='checkbox']");
     self.reset_canvas();
     return self;
@@ -572,11 +572,11 @@ My_entry.pen.prototype.init_handlers = function(){
   self.handlers.onclick = function(e, elem){
     var self = this;
     var fg = self.objs.fg;
-    var mg = self.objs.mg;  // 1.10.2
-    var bg = self.objs.bg;  // 1.7.1
+    var mg = self.objs.mg;  // Ver.1.10.2
+    var bg = self.objs.bg;  // Ver.1.7.1
     self.update_options();
     switch(elem.id){
-      /* 1.7.1 -> */
+      /* Ver.1.7.1 -> */
       case "flat_low":
       case "flat_all":
       case "flat_upp":
@@ -591,8 +591,8 @@ My_entry.pen.prototype.init_handlers = function(){
           self.handler_history_svg.save("");
         }
         break;
-      /* -> 1.7.1 */
-      /* 1.17.4 */
+      /* -> Ver.1.7.1 */
+      /* Ver.1.17.4 */
       case "run":
         var label0 = elem.innerText;
         elem.innerText = label0+"...";
@@ -603,40 +603,40 @@ My_entry.pen.prototype.init_handlers = function(){
           $._id("run").innerText = label0;
         }, 50);
         break;
-      /* 1.1.0 -> */
+      /* Ver.1.1.0 -> */
       case "<<":
         var ID = self.handler_history_ID.reverse();
         if(ID){
-          /* 1.23.6 -> */
+          /* Ver.1.23.6 -> */
           var px_w = ID.width;
           var px_h = ID.height;
           if(!(px_w === fg.px_w && px_h === fg.px_h)){
             self.change_size(px_w, px_h);
           }
-          /* -> 1.23.6 */
-          bg.putID(ID);  // 1.7.1
-          self.handler_history_svg.reverse();  // 1.2.0  // 1.3.1
+          /* -> Ver.1.23.6 */
+          bg.putID(ID);  // Ver.1.7.1
+          self.handler_history_svg.reverse();  // Ver.1.2.0  // Ver.1.3.1
         }
         break;
       case ">>":
         var ID = self.handler_history_ID.forward();
         if(ID){
-          /* 1.23.6 -> */
+          /* Ver.1.23.6 -> */
           var px_w = ID.width;
           var px_h = ID.height;
           if(!(px_w === fg.px_w && px_h === fg.px_h)){
             self.change_size(px_w, px_h);
           }
-          /* -> 1.23.6 */
-          bg.putID(ID);  // 1.7.1
-          self.handler_history_svg.forward();  // 1.2.0  // 1.3.1
+          /* -> Ver.1.23.6 */
+          bg.putID(ID);  // Ver.1.7.1
+          self.handler_history_svg.forward();  // Ver.1.2.0  // Ver.1.3.1
         }
         break;
-      /* -> 1.1.0 */
+      /* -> Ver.1.1.0 */
       case "clear":
         self.reset_canvas();
         break;
-      /* 1.17.4 */
+      /* Ver.1.17.4 */
       default:
         break;
     }
@@ -645,8 +645,8 @@ My_entry.pen.prototype.init_handlers = function(){
   self.handlers.onchange = function(e, elem){
     var self = this;
     var fg = self.objs.fg;
-    var mg = self.objs.mg;  // 1.10.2
-    var bg = self.objs.bg;  // 1.7.1
+    var mg = self.objs.mg;  // Ver.1.10.2
+    var bg = self.objs.bg;  // Ver.1.7.1
     self.update_options();
     switch(elem.id){
       case "checkbox-drag":
@@ -659,7 +659,7 @@ My_entry.pen.prototype.init_handlers = function(){
       case "checkbox-black":
         $.set_id("div-canvas", "background", ((options.black)? "black": "white"));  // options including URL-parameter
         break;
-      /* 1.24.6 */
+      /* Ver.1.24.6 */
       case "input-W":
         var W = options.W;  // options
         var isChecked = options["auto-config"];  // options
@@ -675,15 +675,15 @@ My_entry.pen.prototype.init_handlers = function(){
         break;
       case "select-canvas-width":
       case "select-canvas-height":
-      case "select-bgcolor":  // 1.7.1
+      case "select-bgcolor":  // Ver.1.7.1
         self.reset_canvas();
         break;
-      /* 1.10.2 */
+      /* Ver.1.10.2 */
       case "input-grid-width":
       case "input-grid-height":
         self.reset_canvas_grid();
         break;
-      /* 1.11.4 -> */
+      /* Ver.1.11.4 -> */
       case "input-file-fg":
         var file = $.readFile_elem(elem, /^image/, function(e){
           var base64 = e.target.result;
@@ -693,7 +693,7 @@ My_entry.pen.prototype.init_handlers = function(){
           elem.value = null;
         }
         break;
-      /* 1.8.1 */
+      /* Ver.1.8.1 */
       case "input-file-bg":
         var file = $.readFile_elem(elem, /^image/, function(e){
           var base64 = e.target.result;
@@ -701,11 +701,11 @@ My_entry.pen.prototype.init_handlers = function(){
           var callback_first = function(e){
             var px_w = e.target.width;
             var px_h = e.target.height;
-            self.change_size(px_w, px_h);  // 1.11.4
+            self.change_size(px_w, px_h);  // Ver.1.11.4
           };
           var callback_last = function(){
             self.handler_history_ID.save(bg.getID());
-            self.handler_history_svg.save(self.make_svg_header());  // 1.21.6
+            self.handler_history_svg.save(self.make_svg_header());  // Ver.1.21.6
           };
           bg.draw_base64(base64, callback_first, callback_last, options.composite);
         });
@@ -713,7 +713,7 @@ My_entry.pen.prototype.init_handlers = function(){
           elem.value = null;
         }
         break;
-      /* -> 1.11.4 */
+      /* -> Ver.1.11.4 */
       default:
         break;
     }
