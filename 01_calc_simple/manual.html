@@ -1714,6 +1714,11 @@ violet:blue:cyan:green:yellow:orange:red
 ・主虹を裸眼で目視する場合、長波長で屈折率の低いredを外周とする（反射回数1回）
 <br>
 ・主虹の外側に薄く映る副虹はその逆でredを内周とする（反射回数2回）
+<br>
+<br>
+留意事項を列挙する
+<br>
+・rgba()入力のRGBA指定値≒picker値で数%以内の誤差が存在する可能性あり（詳細は未検証）
     </td>
   </tr>
   <tr>
@@ -2121,6 +2126,11 @@ origin||ORIGIN{args}
 ・argsは設定値をcomma,区切りで入力（省略時、<a href="#span-out-UI-graphing-legend">legend-dataset</a>の設定値）
 <br>
 lineWidth,<a href="#span-out-UI-graphing-color">color</a>,labelSize
+<br>
+<br>
+留意事項を列挙する
+<br>
+・comma,区切りの場合、rgba()入力の<a href="#span-out-UI-graphing-color">color</a>指定不可
     </td>
   </tr>
   <tr>
@@ -6796,6 +6806,10 @@ fiin[targetX||0,targetY||0,<a href="#span-out-UI-graphing-color">color</a>,<span
 <br>
 fiin[targetX||0,targetY||0,pickedX||0,pickedY||0,<span class="condition">Nwrap</span>=1~256||1]
 <br>
+・<span class="run">Ver.2.120.34</span>以降、RGBA値の指定方法を追加（<a href="#span-out-UI-graphing-color">color入力仕様の留意事項</a>参照）
+<br>
+fiin[targetX||0,targetY||0,R=0~255||0,G=0~255||0,B=0~255||0,A=0~255||0,<span class="condition">Nwrap</span>=1~256||1]
+<br>
 ・2値化（各RGBA値）
 <br>
 to2_rgba[threshold=0~255||0]
@@ -6873,6 +6887,11 @@ mono[-1,0.29891,0.58661,0.11448]
 ・monotone化（Y値）
 <br>
 mono[-1,0.2126,0.7152,0.0722]
+<br>
+<br>
+留意事項を列挙する
+<br>
+・comma,区切りの場合、rgba()入力の<a href="#span-out-UI-graphing-color">color</a>指定不可
     </td>
   </tr>
   <tr>

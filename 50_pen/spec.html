@@ -582,9 +582,11 @@ line幅の最大値
 W=0
 <br>
 <span class="run">Ver.1.15.4追加</span>
+<br>
+<span class="clear">Ver.1.26.7更新</span>
           </td>
           <td class="border">
-塗りつぶし機能
+ink色の塗りつぶし機能
           </td>
           <td class="border">
 canvas背面に適用
@@ -593,9 +595,9 @@ canvas背面に適用
 <br>
 <span class="run">・KeyB+1tapで代用可</span>
 <br>
-・svg出力は無効
+<span class="clear">・svg出力に対応（source-over前提）</span>
 <br>
-　全履歴の上書き処理は不能
+　|A|=100のみpng互換性あり
           </td>
         </tr>
         <tr class="border">
@@ -700,7 +702,7 @@ xy=w*xy_old_ave+(1-w)*xy_pointer
 RGB=#000000~#ffffff
           </td>
           <td class="border">
-lineの基本色RGB
+lineのink色RGB
           </td>
           <td class="border">
           </td>
@@ -712,7 +714,7 @@ A=<span class="run">-100</span>~100[%]
 <span class="run">Ver.1.6.1追加</span>
           </td>
           <td class="border">
-lineの不透明度alpha=|A|
+lineのink不透明度alpha=|A|
           </td>
           <td class="border">
           </td>

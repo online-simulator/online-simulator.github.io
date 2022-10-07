@@ -88,6 +88,18 @@ My_entry.draw_svg.prototype.line = function(vec0, vec1, opt_lineWidth, opt_style
   }
   return _svg;
 };
+/* 1.37.8 */
+My_entry.draw_svg.prototype.pen = function(idName, arr_data, options){
+  var self = this;
+  var sw_method = "";
+  if(arr_data.ID){
+    sw_method = "_mosaic";
+  }
+  else if(arr_data.ID_map){
+    sw_method = "_bucket";
+  }
+  return self["lines_pen"+sw_method].apply(self, arguments);
+};
 /* 1.25.7 */
 My_entry.draw_svg.prototype.lines_pen = function(idName, arr_data, options){
   var self = this;
@@ -198,10 +210,11 @@ for(var nsh=0; nsh<len_sh+1; ++nsh){
   return _svg;
 };
 /* 1.33.8 */
-My_entry.draw_svg.prototype.lines_pen_mosaic = function(idName, ID, options){
+My_entry.draw_svg.prototype.lines_pen_mosaic = function(idName, arr_data, options){  // 1.37.8
   var self = this;
   var _svg = "";
   var config = "";
+  var ID = arr_data.ID;  // 1.37.8
   var data = ID.data;
   var px_w = ID.width;
   var px_h = ID.height;
@@ -233,6 +246,47 @@ My_entry.draw_svg.prototype.lines_pen_mosaic = function(idName, ID, options){
           _svg += "/>";
           _svg += self.rn;
         }
+      }
+    }
+  }
+  _svg += self.footer_group();
+  return _svg;
+};
+/* 1.37.8 */
+My_entry.draw_svg.prototype.lines_pen_bucket = function(idName, arr_data, options){
+  var self = this;
+  var _svg = "";
+  var config = "";
+  var ID = arr_data.ID_map;
+  var data = ID.data;
+  var px_w = ID.width;
+  var px_h = ID.height;
+  config += " fill="+self.quote(options.RGB);
+  config += " stroke="+self.quote("none");
+  var alpha = self.floor(Math.abs(options.A))/100;
+  config += " opacity="+self.quote(alpha);
+  _svg += self.header_group(idName, config);
+  for(var j=0; j<px_h; ++j){
+    for(var i=0; i<px_w; ++i){
+      var ired = 4*(px_w*j+i);
+      var sw_on = data[ired+0];
+      if(sw_on){
+        for(var ii=i+1; ii<px_w; ++ii){
+          var iired = 4*(px_w*j+ii);
+          var sw_off = !(data[iired+0]);
+          if(sw_off){
+            break;
+          }
+        }
+        var w = ii-i;
+        _svg += "<rect";
+        _svg += " x="+self.quote(i);
+        _svg += " y="+self.quote(j);
+        _svg += " width="+self.quote(w);
+        _svg += " height="+self.quote(1);
+        _svg += "/>";
+        _svg += self.rn;
+        i += w;
       }
     }
   }

@@ -473,6 +473,43 @@ My_entry.canvas.prototype.draw_lines_grid = function(dx, dy, opt_lineWidth, opt_
   }
   return self;
 };
+/* 1.37.8 not used */
+My_entry.canvas.prototype.make_ID_map = function(rgba, opt_sw_round, opt_ID0, opt_ID1){
+  var self = this;
+  var ctx = self.ctx;
+  var px_w = self.px_w;
+  var px_h = self.px_h;
+  var _ID = ctx.createImageData(px_w, px_h);
+  var ID0 = opt_ID0 || _ID;
+  var ID1 = opt_ID1 || self.getID();
+  var _data = _ID.data;
+  var data0 = ID0.data;
+  var data1 = ID1.data;
+  var sw_round = opt_sw_round || "floor";
+  var r_ = Math[sw_round](Math.max(0, Math.min(255, rgba.r)));
+  var g_ = Math[sw_round](Math.max(0, Math.min(255, rgba.g)));
+  var b_ = Math[sw_round](Math.max(0, Math.min(255, rgba.b)));
+  var a_ = Math[sw_round](Math.max(0, Math.min(255, rgba.a)));
+  for(var j=0; j<px_h; ++j){
+    for(var i=0; i<px_w; ++i){
+      var ired = 4*(px_w*j+i);
+      var r0 = data0[ired+0];
+      var g0 = data0[ired+1];
+      var b0 = data0[ired+2];
+      var a0 = data0[ired+3];
+      var r1 = data1[ired+0];
+      var g1 = data1[ired+1];
+      var b1 = data1[ired+2];
+      var a1 = data1[ired+3];
+      var isColor = (r1 === r_ && g1 === g_ && b1 === b_ && a1 === a_);
+      var isChanged = !(r1 === r0 && g1 === g0 && b1 === b0 && a1 === a0);
+      if(isColor && isChanged){
+        _data[ired+0] = 1;
+      }
+    }
+  }
+  return _ID;
+};
 My_entry.canvas.prototype.putID_xy = function(ID, x, y){
   var self = this;
   self.ctx.putImageData(ID, x, y);

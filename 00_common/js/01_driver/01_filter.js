@@ -342,11 +342,21 @@ My_entry.filter.prototype.run = function(ctx, params){
       else if(isFiin){
         var i0 = w0;
         var j0 = w1;
-        var i1 = Math.floor(arr_w[2] || 0);
-        var j1 = Math.floor(arr_w[3] || 0);
-        var color = (params.content || "").split(",")[2];
-        var isColor = (color && isNaN(color));
-        var Nwrap = ((isColor)? arr_w[3]: arr_w[4]) || 0;
+        /* 1.37.8 -> */
+        var forPen = (arr_w.length > 6);
+        var rgba2 = null;
+        if(forPen){
+          var isColor = true;
+          rgba2 = {r: arr_w[2], g: arr_w[3], b: arr_w[4], a: arr_w[5]};
+          var Nwrap = arr_w[6];
+        }
+        else{
+          var i1 = Math.floor(arr_w[2] || 0);
+          var j1 = Math.floor(arr_w[3] || 0);
+          var color = (params.content || "").split(",")[2];
+          var isColor = (color && isNaN(color));
+          var Nwrap = ((isColor)? arr_w[3]: arr_w[4]) || 0;
+        }
         Nwrap = Math.min(Math.max(Nwrap, 1), 256);
         var dw = 16;
         var dh = 16;
@@ -364,8 +374,12 @@ My_entry.filter.prototype.run = function(ctx, params){
           var g1 = 0;
           var b1 = 0;
           var a1 = 0;
+          if(forPen && arr_w[7]){
+            _ID = ID1;
+          }
           if(isColor){
-            var rgba1 = new My_entry.draw(ctx).color2rgba(color);
+            var rgba1 = rgba2 || new My_entry.draw(ctx).color2rgba(color);
+        /* -> 1.37.8 */
             r1 = rgba1.r;
             g1 = rgba1.g;
             b1 = rgba1.b;

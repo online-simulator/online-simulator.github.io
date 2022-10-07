@@ -150,11 +150,7 @@ My_entry.pen.prototype.make_svg_lines = function(){
   /* Ver.1.3.0 -> */
   var rev = self.handler_history_svg.rev;
   var len = rev.length;
-  /* Ver.1.12.4 -> */
-  var hasFilter = self.arr_data.data;
-  var sw_method = "lines_pen"+((hasFilter)? "_mosaic": "");
-  _svg += fg.draw[sw_method]("id"+(len-1), self.arr_data, options);
-  /* -> Ver.1.12.4 */
+  _svg += fg.draw.pen("id"+(len-1), self.arr_data, options);  // Ver.1.12.4  // Ver.1.26.7
   /* -> Ver.1.3.0 */
   return _svg;
 };
@@ -210,9 +206,11 @@ My_entry.pen.prototype.reset_canvas_grid = function(){
   mg.draw_lines_grid(options["grid-width"], options["grid-height"], 0.5, "#00000033");  // Ver.1.10.4
   return self;
 };
+/* Ver.1.26.7 */
 /* Ver.1.17.4 */
-My_entry.pen.prototype.run_filter = function(obj_canvas, text_filter){
+My_entry.pen.prototype.run_filter = function(obj_canvas, text_filter, sw_put){
   var self = this;
+  var _ID = null;
   var $ = self.entry.$;
   var conv = self.entry.conv;
   var def = self.entry.def;
@@ -231,12 +229,16 @@ My_entry.pen.prototype.run_filter = function(obj_canvas, text_filter){
         params.rgba = text.replace(re, "");
         params.arr_w = arr_w;
         params.content = content;  // Ver.1.13.7
-        obj_canvas.putID_xy(self.filter.run(obj_canvas.ctx, params), params.is, params.js);
+        _ID = self.filter.run(obj_canvas.ctx, params);
+        if(sw_put){
+          obj_canvas.putID_xy(_ID, params.is, params.js);
+//          var ID_check = obj_canvas.getID();  // _ID <> ID_check irreversible?
+        }
       });
     };
     callback_filter();
   }
-  return self;
+  return _ID;
 };
 My_entry.pen.prototype.make_handlers = function(){
   var self = this;
@@ -296,9 +298,15 @@ My_entry.pen.prototype.make_handlers = function(){
           case 1:
             var rgba = fg.draw.color2rgba(options.RGB);
             var alpha = Math.abs(options.A)/100;
-            rgba.a = 255*alpha;
-            var color_hex = fg.draw.rgba2color_hex(rgba);
-            self.run_filter(bg, "fiin["+xy1.x+","+xy1.y+","+color_hex+","+(options.Nwrap || 16)+"]");  // Ver.1.17.4
+            /* Ver.1.26.7 -> */
+            rgba.a = Math.round(255*alpha);  // round(float)@ID -> 0~255
+//            var color_hex = fg.draw.rgba2color_hex(rgba);
+//            var color_rgba = "rgba("+rgba.r+","+rgba.g+","+rgba.b+","+alpha+")";
+            var text_filter = "fiin["+xy1.x+","+xy1.y+","+rgba.r+","+rgba.g+","+rgba.b+","+rgba.a+","+(options.Nwrap || 16);
+            self.run_filter(bg, text_filter+"]", true);  // Ver.1.17.4
+            var ID_map = self.run_filter(bg, text_filter+",1]");
+            self.arr_data = {ID_map: ID_map};
+            /* -> Ver.1.26.7 */
             break;
           default:
             break;
@@ -483,7 +491,7 @@ My_entry.pen.prototype.make_handlers = function(){
           var rgba = fg.draw.color2rgba(options.RGB);
           ID = fg.draw.filter_mosaic(ID, options["grid-width"], options["grid-height"], options.mosaic, [rgba.r, rgba.g, rgba.b, 255*alpha]);
           if(options["with-svg"]){
-            self.arr_data = ID;
+            self.arr_data = {ID: ID};  // Ver.1.26.7
           }
         }
       }
