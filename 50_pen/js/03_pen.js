@@ -583,6 +583,7 @@ My_entry.pen.prototype.init_handlers = function(){
   };
   self.handlers.onclick = function(e, elem){
     var self = this;
+    if(self.isLocked) return false;  // 1.28.7 all-buttons
     var fg = self.objs.fg;
     var mg = self.objs.mg;  // Ver.1.10.2
     var bg = self.objs.bg;  // Ver.1.7.1
@@ -606,6 +607,7 @@ My_entry.pen.prototype.init_handlers = function(){
       /* -> Ver.1.7.1 */
       /* Ver.1.17.4 */
       case "run":
+        self.isLocked = true;  // 1.28.7
         var label0 = elem.innerText;
         elem.innerText = label0+"...";
         setTimeout(function(){
@@ -613,6 +615,7 @@ My_entry.pen.prototype.init_handlers = function(){
           self.handler_history_ID.save(bg.getID());
           self.handler_history_svg.save("");
           $._id("run").innerText = label0;
+          self.isLocked = false;  // 1.28.7
         }, 50);
         break;
       /* Ver.1.1.0 -> */
