@@ -482,6 +482,8 @@ My_entry.pen.prototype.make_handlers = function(){
         }
       }
       /* -> Ver.1.20.4 */
+    /* Ver.1.26.7 -> */
+    if(self.mode !== 1){
       var alpha = Math.abs(options.A)/100;
       if(options.A < 0){
         ID = fg.getID_alpha(alpha);
@@ -491,10 +493,12 @@ My_entry.pen.prototype.make_handlers = function(){
           var rgba = fg.draw.color2rgba(options.RGB);
           ID = fg.draw.filter_mosaic(ID, options["grid-width"], options["grid-height"], options.mosaic, [rgba.r, rgba.g, rgba.b, 255*alpha]);
           if(options["with-svg"]){
-            self.arr_data = {ID: ID};  // Ver.1.26.7
+            self.arr_data = {ID: ID};
           }
         }
       }
+    }
+    /* -> Ver.1.26.7 */
       if(ID){
         fg.putID(ID);
       }
