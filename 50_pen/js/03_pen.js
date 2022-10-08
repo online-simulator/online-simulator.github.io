@@ -301,24 +301,6 @@ My_entry.pen.prototype.make_handlers = function(){
         self.mode = self.mode || 1+Math.ceil(-options.W);  // Key first
       }
       if(self.mode){
-        switch(self.mode){
-          /* Ver.1.15.4 */
-          case 1:
-            var rgba = fg.draw.color2rgba(options.RGB);
-            var alpha = Math.abs(options.A)/100;
-            /* Ver.1.26.7 -> */
-            rgba.a = Math.round(255*alpha);  // round(float)@ID -> 0~255
-//            var color_hex = fg.draw.rgba2color_hex(rgba);
-//            var color_rgba = "rgba("+rgba.r+","+rgba.g+","+rgba.b+","+alpha+")";
-            var text_filter = "fiin["+xy1.x+","+xy1.y+","+rgba.r+","+rgba.g+","+rgba.b+","+rgba.a+","+(options.Nwrap || 16);
-            self.run_filter(bg, text_filter+"]", true);  // Ver.1.17.4
-            var ID_map = self.run_filter(bg, text_filter+",1]");
-            self.arr_data = {ID_map: ID_map};
-            /* -> Ver.1.26.7 */
-            break;
-          default:
-            break;
-        }
         self.isDragging = false;
       }
       /* -> Ver.1.19.4 */
@@ -443,6 +425,7 @@ My_entry.pen.prototype.make_handlers = function(){
       /* Ver.1.6.1 -> */
       /* Ver.1.12.4 -> */
       var ID = null;
+      var alpha = Math.abs(options.A)/100;  // 1.30.7
       /* Ver.1.20.4 -> */
       var dxg = options["grid-width"];
       var dyg = options["grid-height"];
@@ -467,6 +450,19 @@ My_entry.pen.prototype.make_handlers = function(){
         var dy = y1-y0;
         var len = Math.sqrt(dx*dx+dy*dy);
         switch(self.mode){
+          /* Ver.1.30.7 */
+          case 1:
+            var rgba = fg.draw.color2rgba(options.RGB);
+            /* Ver.1.26.7 -> */
+            rgba.a = Math.round(255*alpha);  // round(float)@ID -> 0~255
+//            var color_hex = fg.draw.rgba2color_hex(rgba);
+//            var color_rgba = "rgba("+rgba.r+","+rgba.g+","+rgba.b+","+alpha+")";
+            var text_filter = "fiin["+(x1+ox)+","+(y1+oy)+","+rgba.r+","+rgba.g+","+rgba.b+","+rgba.a+","+(options.Nwrap || 16);  // text=""+(x+ox)+""
+            self.run_filter(bg, text_filter+"]", true);  // Ver.1.17.4
+            var ID_map = self.run_filter(bg, text_filter+",1]");
+            self.arr_data = {ID_map: ID_map};
+            /* -> Ver.1.26.7 */
+            break;
           case 2:
             var cx = x0;
             var cy = y0;
@@ -493,7 +489,6 @@ My_entry.pen.prototype.make_handlers = function(){
       /* -> Ver.1.20.4 */
     /* Ver.1.26.7 -> */
     if(self.mode !== 1){
-      var alpha = Math.abs(options.A)/100;
       if(options.A < 0){
         ID = fg.getID_alpha(alpha);
       }

@@ -121,7 +121,72 @@ pointerのcanvas座標
           <td class="border">
 xy(0)=xy_pointer(0)
 <br>
-・grid-snap対象
+・offset前
+          </td>
+        </tr>
+        <tr class="border">
+          <td class="border">
+xy_offset
+          </td>
+          <td class="border">
+筆中心のoffset座標
+          </td>
+          <td class="border">
+xy_offset={ox,oy}
+          </td>
+        </tr>
+        <tr class="border">
+          <td class="border">
+xy_fixed
+<br>
+<span class="run">Ver.1.30.7追加</span>
+          </td>
+          <td class="border">
+offset後xyのcanvas座標
+          </td>
+          <td class="border">
+xy_fixed(f)=xy(f)+xy_offset
+<br>
+・offsetを含む出力座標
+          </td>
+        </tr>
+        <tr class="border">
+          <td class="border">
+grid-snap
+          </td>
+          <td class="border">
+直近のgrid点にxy_fixedをsnap
+          </td>
+          <td class="border">
+W&le;0の特殊mode
+<br>
+grid表示状態
+          </td>
+        </tr>
+        <tr class="border">
+          <td class="border">
+xy_fixed
+<br>
+<span class="run">Ver.1.30.7追加</span>
+          </td>
+          <td class="border">
+offset後xyのcanvas座標
+          </td>
+          <td class="border">
+xy_fixed(f)=xy(f)+xy_offset
+<br>
+・offsetを含む出力座標
+          </td>
+        </tr>
+        <tr class="border">
+          <td class="border">
+特殊mode
+          </td>
+          <td class="border">
+Key操作で代用可能なmode
+          </td>
+          <td class="border">
+W&le;0　⇔　Key+pointer
           </td>
         </tr>
         <tr class="border">
@@ -368,7 +433,11 @@ shortcut-Key
 <span class="clear">Ver.1.22.6更新</span>
           </td>
           <td class="border">
-<span class="run">key-down検知でevent発火</span>
+event発火のtiming
+<br>
+<span class="run">・buttonの代用: key-down</span>
+<br>
+<span class="condition">・特殊modeの代用: Key@pointer-down -> pointer-up</span>
 <br>
 <br>
 eventの排他制御
@@ -596,6 +665,8 @@ W=0
 <span class="run">Ver.1.15.4追加</span>
 <br>
 <span class="clear">Ver.1.26.7更新</span>
+<br>
+<span class="condition">Ver.1.30.7更新</span>
           </td>
           <td class="border">
 ink色の塗りつぶし機能
@@ -603,13 +674,15 @@ ink色の塗りつぶし機能
           <td class="border">
 canvas背面に適用
 <br>
-始点=xy_pointer(down)
+始点=xy_pointer(<span class="condition">up</span>)
 <br>
-<span class="run">・KeyB+1tapで代用可</span>
+<span class="condition">・grid-snapあり</span>
 <br>
 <span class="clear">・svg出力に対応（source-over前提）</span>
 <br>
 　|A|=100のみpng互換性あり
+<br>
+<span class="run">・KeyB+1tapで代用可</span>
           </td>
         </tr>
         <tr class="border">
@@ -628,9 +701,9 @@ canvas前面に描画
 <br>
 半径=|xy_pointer(up)-xy_pointer(down)|
 <br>
-<span class="run">・KeyG+1dragで代用可</span>
+・grid-snapあり
 <br>
-・grid表示中は自動snap
+<span class="run">・KeyG+1dragで代用可</span>
           </td>
         </tr>
         <tr class="border">
@@ -651,9 +724,9 @@ xy_pointer(down)
 <br>
 xy_pointer(up)
 <br>
-<span class="run">・KeyT+1dragで代用可</span>
+・grid-snapあり
 <br>
-・grid表示中は自動snap
+<span class="run">・KeyT+1dragで代用可</span>
           </td>
         </tr>
         <tr class="border">
@@ -839,7 +912,6 @@ ox[px]
 筆中心のx方向offset
           </td>
           <td class="border">
-筆中心offset後のx座標=x+ox
           </td>
         </tr>
         <tr class="border">
@@ -852,7 +924,6 @@ oy[px]
 筆中心のy方向offset
           </td>
           <td class="border">
-筆中心offset後のy座標=y+oy
            </td>
         </tr>
         <tr class="border">
