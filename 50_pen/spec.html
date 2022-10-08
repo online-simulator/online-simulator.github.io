@@ -502,6 +502,19 @@ default=KeyT
         </tr>
         <tr class="border jF">
           <td class="border">
+picker
+<br>
+<span class="run">Ver.1.31.7追加</span>
+          </td>
+          <td class="border">
+color picker
+          </td>
+          <td class="border">
+default=KeyY
+          </td>
+        </tr>
+        <tr class="border jF">
+          <td class="border">
 run
 <br>
 <span class="run">Ver.1.17.4追加</span>
@@ -645,6 +658,13 @@ W入力欄左側のcheckbox
 W&gt;0のchange検知で
 <br>
 A/w_th/len_th/in/outを自動入力
+<br>
+<br>
+A初期化の条件
+<br>
+0&lt;W&lt;5 &amp;&amp; A&ge;0: A=-30
+<br>
+W&ge;5 &amp;&amp; A&lt;0: A=10
           </td>
         </tr>
         <tr class="border">
@@ -727,6 +747,27 @@ xy_pointer(up)
 ・grid-snapあり
 <br>
 <span class="run">・KeyT+1dragで代用可</span>
+          </td>
+        </tr>
+        <tr class="border">
+          <td class="border">
+W=-3
+<br>
+<span class="run">Ver.1.31.7追加</span>
+          </td>
+          <td class="border">
+color picker機能
+          </td>
+          <td class="border">
+canvas背面から取得
+<br>
+始点=xy_pointer(up)
+<br>
+・grid-snapあり
+<br>
+<span class="run">・KeyY+1tapで代用可</span>
+<br>
+・auto-configのA初期化を対策予定
           </td>
         </tr>
         <tr class="border">

@@ -32,8 +32,8 @@ My_entry.pen.prototype.init_keys = function(){
   var buttons = keys.buttons;
   /* Ver.1.19.4 -> */
   self.mode = 0;
-  ["bucket", "circle", "rectangle"].forEach(function(id, i){
-    modes[id] = options[id] || ["KeyB", "KeyG", "KeyT"][i];
+  ["bucket", "circle", "rectangle", "picker"].forEach(function(id, i){
+    modes[id] = options[id] || ["KeyB", "KeyG", "KeyT", "KeyY"][i];  // Ver.1.31.7
   });
   ["<<", ">>", "clear", "run"].forEach(function(id, i){
     buttons[id] = options[id] || ["KeyS", "KeyD", "KeyA", "KeyW"][i];  // Ver.1.17.4
@@ -481,6 +481,21 @@ My_entry.pen.prototype.make_handlers = function(){
             set_ctx();
             ctx.fillRect(x+ox, y+oy, width, height);
             self.arr_data = {x: x, y: y, width: width, height: height};
+            break;
+          case 4:
+            var ID_picked = bg.getID_xy(x1+ox, y1+oy);
+            if(ID_picked){
+              var data_picked = ID_picked.data;
+              var r_picked = data_picked[0] || 0;
+              var g_picked = data_picked[1] || 0;
+              var b_picked = data_picked[2] || 0;
+              var a_picked = data_picked[3] || 0;
+              var color_hex = bg.draw.rgba2color_hex({r: r_picked, g: g_picked, b: b_picked, a: a_picked});
+              var elem_RGB = $.set_id("input-RGB");
+              elem_RGB.value = color_hex.substring(0, 7);  // including #
+              $._id("input-A").value = a_picked*100/255;
+              elem_RGB.onchange();
+            }
             break;
           default:
             break;
