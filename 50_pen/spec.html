@@ -437,7 +437,7 @@ default=16
         </tr>
         <tr class="border jF">
           <td class="border text-center" colspan="2">
-shortcut-Key
+shortcut-Key=KeyA~Z||Digit0~9
 <br>
 <span class="run">Ver.1.19.4更新</span>
 <br>
@@ -470,6 +470,32 @@ eventの排他制御
 <span class="clear">操作性の対策を追加</span>
 <br>
 ・pointer-down検知でactive要素の解除
+          </td>
+        </tr>
+        <tr class="border jF">
+          <td class="border">
+eraser
+<br>
+<span class="run">Ver.1.34.7追加</span>
+          </td>
+          <td class="border">
+A有効の消しgom
+          </td>
+          <td class="border">
+default=KeyR
+          </td>
+        </tr>
+        <tr class="border jF">
+          <td class="border">
+eraser_A100
+<br>
+<span class="run">Ver.1.34.7追加</span>
+          </td>
+          <td class="border">
+A=100の消しgom
+          </td>
+          <td class="border">
+default=KeyF
           </td>
         </tr>
         <tr class="border jF">
@@ -606,7 +632,7 @@ decDigit=3&amp;
 <br>
 &lt;&lt;=KeyU&amp;
 <br>
-clear=KeyQ
+clear=Digit1
 </span>
           </td>
           <td class="border">
@@ -699,6 +725,51 @@ line幅の最大値
           </td>
           <td class="border">
 0&le;w(f)&le;W
+          </td>
+        </tr>
+        <tr class="border">
+          <td class="border">
+mode=eraser
+<br>
+<span class="run">Ver.1.34.7追加</span>
+          </td>
+          <td class="border">
+A有効の消しgom機能
+          </td>
+          <td class="border">
+canvas前面に描画後、背面に合成（destination-out）
+<br>
+・svg出力はA有効のwhiteで代替（source-over）
+<br>
+<span class="run">・KeyR+1dragで代用可</span>
+          </td>
+        </tr>
+        <tr class="border">
+          <td class="border">
+mode=eraser_A100
+<br>
+<span class="run">Ver.1.34.7追加</span>
+          </td>
+          <td class="border">
+A=100の消しgom機能
+          </td>
+          <td class="border">
+canvas前面に描画後、背面に合成（destination-out）
+<br>
+・svg出力はA=100のwhiteで代替（source-over）
+<br>
+<span class="run">・KeyF+1dragで代用可</span>
+          </td>
+        </tr>
+        <tr class="border">
+          <td class="border">
+mode=pen
+          </td>
+          <td class="border">
+defaultの筆pen機能
+          </td>
+          <td class="border">
+通常mode=0
           </td>
         </tr>
         <tr class="border">

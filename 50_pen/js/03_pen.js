@@ -17,7 +17,7 @@ My_entry.pen.prototype.init = function(){
   self.isDragging = false;
   self.objs = {};
   self.options = {};
-  self.keys = {modes: {}, buttons: {}};  // Ver.1.15.4  // Ver.1.16.4  // Ver.1.19.4
+  self.keys = {modes_pen: {}, modes: {}, buttons: {}};  // Ver.1.15.4  // Ver.1.16.4  // Ver.1.19.4  // Ver.1.34.7
   self.init_main.call(self, ["$", "conv", "def"]);
   self.filter = new self.constructors.filter();  // Ver.1.17.4
   return self;
@@ -28,10 +28,14 @@ My_entry.pen.prototype.init_keys = function(){
   var $ = self.entry.$;
   var options = self.options;
   var keys = self.keys;
+  var modes_pen = keys.modes_pen;  // Ver.1.34.7
   var modes = keys.modes;
   var buttons = keys.buttons;
   /* Ver.1.19.4 -> */
   self.mode = 0;
+  ["eraser_A100", "eraser"].forEach(function(id, i){
+    modes_pen[id] = options[id] || ["KeyF", "KeyR"][i];  // Ver.1.34.7
+  });
   ["bucket", "circle", "rectangle", "picker"].forEach(function(id, i){
     modes[id] = options[id] || ["KeyB", "KeyG", "KeyT", "KeyY"][i];  // Ver.1.31.7
   });
@@ -52,13 +56,19 @@ My_entry.pen.prototype.init_keys = function(){
     var isNG_fire = (self.mode || e.ctrlKey || e.shiftKey || TAG === "INPUT" || TAG === "SELECT");  // Ver.1.21.5  // Ver.1.29.7
     if(!(isNG_fire)){
       var mode = 0;
+      /* Ver.1.34.7 */
+      Object.keys(modes_pen).forEach(function(id, i){
+        if(modes_pen[id] == e.code){  // Ver.1.34.7 ==
+          mode = -(i+1);
+        }
+      });
       Object.keys(modes).forEach(function(id, i){
-        if(modes[id] === e.code){
+        if(modes[id] == e.code){  // Ver.1.34.7 ==
           mode = i+1;
         }
       });
       Object.keys(buttons).forEach(function(id){
-        if(buttons[id] === e.code){
+        if(buttons[id] == e.code){  // Ver.1.34.7 ==
           var elem = $._id(id);
           if(elem){
             elem.onclick(e);
@@ -264,7 +274,7 @@ My_entry.pen.prototype.make_handlers = function(){
     ctx.shadowOffsetY = 0;
     ctx.shadowColor = options.RGB;
     ctx.fillStyle = ctx.strokeStyle = options.RGB;
-    ctx.globalAlpha = alpha;
+    ctx.globalAlpha = (self.mode === -1)? 1: alpha;  // Ver.1.34.7
     ctx.globalCompositeOperation = options.composite;
     ctx.lineCap = options.cap;
   };
@@ -322,7 +332,7 @@ My_entry.pen.prototype.make_handlers = function(){
         e.preventDefault();
         e.stopPropagation();
       /* Ver.1.32.7 -> */
-      if(self.mode === 0){
+      if(self.mode <= 0){  // Ver.1.34.7
         var xy1 = fg.get_offset(e);
         var x1 = xy1.x;
         var y1 = xy1.y;
@@ -417,7 +427,7 @@ My_entry.pen.prototype.make_handlers = function(){
         var dyg = options["grid-height"];
         var dxyg = {x: dxg, y: dyg};
         var hasGrid = (dxg > 0 && dyg > 0);
-        if(self.mode){
+        if(self.mode > 0){  // Ver.1.34.7
           fg.clear();
           var ox = options.ox;
           var oy = options.oy;
@@ -462,7 +472,7 @@ My_entry.pen.prototype.make_handlers = function(){
       var dyg = options["grid-height"];
       var dxyg = {x: dxg, y: dyg};
       var hasGrid = (dxg > 0 && dyg > 0);
-      if(self.mode){
+      if(self.mode > 0){  // Ver.1.34.7
         fg.clear();  // Ver.1.32.7
         var ox = options.ox;
         var oy = options.oy;
@@ -534,7 +544,7 @@ My_entry.pen.prototype.make_handlers = function(){
       /* -> Ver.1.20.4 */
       /* -> Ver.1.32.7 */
     /* Ver.1.26.7 -> */
-    if(self.mode !== 1){
+    if(Math.abs(self.mode) !== 1){  // Ver.1.34.7
       if(options.A < 0){
         ID = fg.getID_alpha(alpha);
       }
@@ -555,10 +565,20 @@ My_entry.pen.prototype.make_handlers = function(){
       /* -> Ver.1.12.4 */
       var base64_fg = fg.get_base64();
       /* Ver.1.21.5 -> */
+      /* Ver.1.34.7 -> */
       var callback = function(){
         self.handler_history_ID.save(bg.getID());  // Ver.1.1.0
         fg.clear();
+        if(self.mode < 0){
+          options.RGB = "#ffffff";
+          if(self.mode === -1){
+            options.A = 100;
+          }
+        }
         self.handler_history_svg.save(self.make_svg_lines());  // Ver.1.2.0
+        if(self.mode < 0){
+          self.update_options();
+        }
         /* Ver.1.24.7 -> */
         $._id("input-file-fg").value = null;  // Ver.1.11.4
         $._id("input-file-bg").value = null;  // Ver.1.8.1
@@ -570,6 +590,7 @@ My_entry.pen.prototype.make_handlers = function(){
         self.mode = 0;  // Ver.1.19.4
         self.isLocked = false;  // async
       }
+      var composite = (self.mode < 0)? "destination-out": options.composite;
       /* Ver.1.21.4 -> */
       if(options.sh < 0){
         var len_sh = Math.min(100, -options.sh);
@@ -577,12 +598,13 @@ My_entry.pen.prototype.make_handlers = function(){
         for(var nsh=0; nsh<len_sh+1; ++nsh){
           arr_base64.push(base64_fg);
         }
-        bg.draw_base64s(arr_base64, callback, options.composite);
+        bg.draw_base64s(arr_base64, callback, composite);
       }
       else{
-        bg.draw_base64(base64_fg, null, callback, options.composite);  // Ver.1.11.4
+        bg.draw_base64(base64_fg, null, callback, composite);  // Ver.1.11.4
       }
       /* -> Ver.1.21.4 */
+      /* -> Ver.1.34.7 */
       /* -> Ver.1.6.1 */
       /* -> Ver.1.7.1 */
       self.isDragging = false;  // sync
