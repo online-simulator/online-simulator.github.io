@@ -117,6 +117,8 @@ xy_pointer
           </td>
           <td class="border">
 pointerのcanvas座標
+<br>
+cursor位置
           </td>
           <td class="border">
 xy(0)=xy_pointer(0)
@@ -140,6 +142,8 @@ xy_offset={ox,oy}
 xy_fixed
 <br>
 <span class="run">Ver.1.30.7追加</span>
+<br>
+<span class="clear">Ver.1.32.7更新</span>
           </td>
           <td class="border">
 offset後xyのcanvas座標
@@ -148,34 +152,25 @@ offset後xyのcanvas座標
 xy_fixed(f)=xy(f)+xy_offset
 <br>
 ・offsetを含む出力座標
+<br>
+<span class="clear">・特殊modeでmarkerを表示</span>
           </td>
         </tr>
         <tr class="border">
           <td class="border">
 grid-snap
+<br>
+<span class="clear">Ver.1.32.7訂正</span>
           </td>
           <td class="border">
-直近のgrid点にxy_fixedをsnap
+直近のgrid点に<span class="clear"><del>xy_fixed</del>
+<br>
+xy_pointer</span>をsnap
           </td>
           <td class="border">
 W&le;0の特殊mode
 <br>
 grid表示状態
-          </td>
-        </tr>
-        <tr class="border">
-          <td class="border">
-xy_fixed
-<br>
-<span class="run">Ver.1.30.7追加</span>
-          </td>
-          <td class="border">
-offset後xyのcanvas座標
-          </td>
-          <td class="border">
-xy_fixed(f)=xy(f)+xy_offset
-<br>
-・offsetを含む出力座標
           </td>
         </tr>
         <tr class="border">
@@ -330,6 +325,8 @@ canvasの階層
         <tr class="border">
           <td class="border">
 fg
+<br>
+<span class="clear">Ver.1.32.7更新</span>
           </td>
           <td class="border">
 fore-ground
@@ -338,6 +335,8 @@ fore-ground
 fg-filter
 <br>
 fg-image-file
+<br>
+<span class="clear">marker@特殊mode</span>
           </td>
         </tr>
         <tr class="border">
@@ -662,9 +661,9 @@ A/w_th/len_th/in/outを自動入力
 <br>
 A初期化の条件
 <br>
-0&lt;W&lt;5 &amp;&amp; A&ge;0: A=-30
+0&lt;W&lt;5 &amp;&amp; A&ge;0 -> A=-30
 <br>
-W&ge;5 &amp;&amp; A&lt;0: A=10
+W&ge;5 &amp;&amp; A&lt;0 -> A=10
           </td>
         </tr>
         <tr class="border">

@@ -256,6 +256,33 @@ My_entry.draw.prototype.rotate2d_vec = function(vec, t){
   return {x: vec.x*(cos_t)-vec.y*(sin_t), y: vec.x*(sin_t)+vec.y*(cos_t)};
 //  return {x: vec.x*(cos_t)+vec.y*(sin_t), y: vec.x*(-sin_t)+vec.y*(cos_t)};
 };
+/* 1.38.8 -> */
+My_entry.draw.prototype.xy2xy_snapped = function(xy, dxy, opt_sw_round){
+  var x = xy.x;
+  var y = xy.y;
+  var dx = dxy.x;
+  var dy = dxy.y;
+  var sw_round = opt_sw_round || "round";
+  return {x: Math[sw_round](x/dx)*dx, y: Math[sw_round](y/dy)*dy};
+};
+My_entry.draw.prototype.marker_circle = function(vec, lineWidth, r, strokeStyle, fillStyle){
+  var self = this;
+  var ctx = self.ctx;
+  ctx.save();
+  ctx.lineWidth = lineWidth;
+  ctx.strokeStyle  = self.color2style(strokeStyle);
+  ctx.fillStyle  = self.color2style(fillStyle);
+  ctx.globalAlpha = 0.5;
+  var x = self.floor(vec.x);
+  var y = self.floor(vec.y);
+  ctx.beginPath();
+  ctx.arc(x, y, r, 0, Math.PI*2);
+  ctx.fill();
+  ctx.stroke();
+  ctx.restore();
+  return self;
+};
+/* -> 1.38.8 */
 My_entry.draw.prototype.rectangle = function(vec0, vec1, opt_lineWidth, opt_styleRGBA, opt_globalCompositeOperation, opt_fill){
   var self = this;
   var ctx = self.ctx;

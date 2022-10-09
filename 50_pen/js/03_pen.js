@@ -300,9 +300,6 @@ My_entry.pen.prototype.make_handlers = function(){
       if(options.W <= 0){
         self.mode = self.mode || 1+Math.ceil(-options.W);  // Key first
       }
-      if(self.mode){
-        self.isDragging = false;
-      }
       /* -> Ver.1.19.4 */
     },
     onmousemove: function(e){
@@ -328,6 +325,8 @@ My_entry.pen.prototype.make_handlers = function(){
       if(self.isDragging){
         e.preventDefault();
         e.stopPropagation();
+      /* Ver.1.32.7 -> */
+      if(self.mode === 0){
         var xy1 = fg.get_offset(e);
         var x1 = xy1.x;
         var y1 = xy1.y;
@@ -416,6 +415,41 @@ My_entry.pen.prototype.make_handlers = function(){
           /* -> Ver.1.4.1 */
         }
       }
+      else{
+        /* pasted -> */
+        var dxg = options["grid-width"];
+        var dyg = options["grid-height"];
+        var dxyg = {x: dxg, y: dyg};
+        var hasGrid = (dxg > 0 && dyg > 0);
+        if(self.mode){
+          fg.clear();
+          var ox = options.ox;
+          var oy = options.oy;
+          var xy1 = fg.get_offset(e);
+          var xy0 = self.xy0 || xy1;
+          if(hasGrid){
+            xy0 = fg.draw.xy2xy_snapped(xy0, dxyg);
+            xy1 = fg.draw.xy2xy_snapped(xy1, dxyg);
+          }
+          var x0 = xy0.x;
+          var y0 = xy0.y;
+          var x1 = xy1.x;
+          var y1 = xy1.y;
+        /* -> pasted */
+          var r = (hasGrid)? Math.min(6, Math.min(dxg, dyg)/2): 6;
+          switch(self.mode){
+            case 2:
+            case 3:
+              fg.draw.marker_circle({x: x0+ox, y: y0+oy}, r/2, r, "#000000", "#ffffff");
+              break;
+            default:
+              break;
+          }
+          fg.draw.marker_circle({x: x1+ox, y: y1+oy}, r/2, r, "#000000", "#ffffff");
+        }
+      }
+      /* -> Ver.1.32.7 */
+      }
     },
     onmouseup: function(e){
       e.preventDefault();
@@ -426,21 +460,21 @@ My_entry.pen.prototype.make_handlers = function(){
       /* Ver.1.12.4 -> */
       var ID = null;
       var alpha = Math.abs(options.A)/100;  // Ver.1.30.7
+      /* Ver.1.32.7 -> */
       /* Ver.1.20.4 -> */
       var dxg = options["grid-width"];
       var dyg = options["grid-height"];
+      var dxyg = {x: dxg, y: dyg};
       var hasGrid = (dxg > 0 && dyg > 0);
       if(self.mode){
+        fg.clear();  // Ver.1.32.7
         var ox = options.ox;
         var oy = options.oy;
         var xy1 = fg.get_offset(e);
         var xy0 = self.xy0 || xy1;
         if(hasGrid){
-          var xy2xy_snapped = function(xy){
-            return {x: Math.round(xy.x/dxg)*dxg, y: Math.round(xy.y/dyg)*dyg};
-          };
-          xy0 = xy2xy_snapped(xy0);
-          xy1 = xy2xy_snapped(xy1);
+          xy0 = fg.draw.xy2xy_snapped(xy0, dxyg);
+          xy1 = fg.draw.xy2xy_snapped(xy1, dxyg);
         }
         var x0 = xy0.x;
         var y0 = xy0.y;
@@ -502,6 +536,7 @@ My_entry.pen.prototype.make_handlers = function(){
         }
       }
       /* -> Ver.1.20.4 */
+      /* -> Ver.1.32.7 */
     /* Ver.1.26.7 -> */
     if(self.mode !== 1){
       if(options.A < 0){
