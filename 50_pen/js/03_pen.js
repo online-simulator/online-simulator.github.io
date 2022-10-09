@@ -275,7 +275,7 @@ My_entry.pen.prototype.make_handlers = function(){
     ctx.shadowColor = options.RGB;
     ctx.fillStyle = ctx.strokeStyle = options.RGB;
     ctx.globalAlpha = (self.mode === -1)? 1: alpha;  // Ver.1.34.7
-    ctx.globalCompositeOperation = options.composite;
+    ctx.globalCompositeOperation = (self.mode < 0)? "source-over": options.composite;
     ctx.lineCap = options.cap;
   };
   var _handlers = {
