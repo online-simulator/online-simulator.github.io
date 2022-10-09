@@ -168,9 +168,19 @@ grid-snap
 xy_pointer</span>をsnap
           </td>
           <td class="border">
-W&le;0の特殊mode
+特殊mode選択状態
 <br>
 grid表示状態
+          </td>
+        </tr>
+        <tr class="border">
+          <td class="border">
+通常mode
+          </td>
+          <td class="border">
+mode=pen
+          </td>
+          <td class="border">
           </td>
         </tr>
         <tr class="border">
@@ -178,10 +188,12 @@ grid表示状態
 特殊mode
           </td>
           <td class="border">
+通常mode以外
+<br>
 Key操作で代用可能なmode
           </td>
           <td class="border">
-W&le;0　⇔　Key+pointer
+<span class="clear"><del>W&le;0</del>Ver.1.33.7廃止</span>
           </td>
         </tr>
         <tr class="border">
@@ -617,6 +629,18 @@ UI
         </tr>
         <tr class="border">
           <td class="border">
+mode=pen||bucket||...
+<br>
+<span class="run">Ver.1.33.7追加</span>
+          </td>
+          <td class="border">
+描画mode
+          </td>
+          <td class="border">
+          </td>
+        </tr>
+        <tr class="border">
+          <td class="border">
 pressure=false||true
           </td>
           <td class="border">
@@ -679,7 +703,9 @@ line幅の最大値
         </tr>
         <tr class="border">
           <td class="border">
-W=0
+mode=bucket
+<br>
+<span class="clear"><del>W=0</del>Ver.1.33.7廃止</span>
 <br>
 <span class="run">Ver.1.15.4追加</span>
 <br>
@@ -706,7 +732,9 @@ canvas背面に適用
         </tr>
         <tr class="border">
           <td class="border">
-W=-1
+mode=circle
+<br>
+<span class="clear"><del>W=-1</del>Ver.1.33.7廃止</span>
 <br>
 <span class="run">Ver.1.20.4追加</span>
           </td>
@@ -727,7 +755,9 @@ canvas前面に描画
         </tr>
         <tr class="border">
           <td class="border">
-W=-2
+mode=rectangle
+<br>
+<span class="clear"><del>W=-2</del>Ver.1.33.7廃止</span>
 <br>
 <span class="run">Ver.1.20.4追加</span>
           </td>
@@ -750,7 +780,9 @@ xy_pointer(up)
         </tr>
         <tr class="border">
           <td class="border">
-W=-3
+mode=picker
+<br>
+<span class="clear"><del>W=-3</del>Ver.1.33.7廃止</span>
 <br>
 <span class="run">Ver.1.31.7追加</span>
           </td>
@@ -766,7 +798,7 @@ canvas背面から取得
 <br>
 <span class="run">・KeyY+1tapで代用可</span>
 <br>
-・auto-configのA初期化を対策予定
+<span class="clear"><del>・auto-configのA初期化を対策予定</del>Ver.1.33.7済み</span>
           </td>
         </tr>
         <tr class="border">

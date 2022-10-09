@@ -51,7 +51,16 @@
   <label class="left">config
     <input id="checkbox-config" type="checkbox">
   </label>
-  <label>draggable
+  <label>mode:
+    <select id="select-mode">
+      <option value="0" selected="selected">pen</option>
+      <option value="1">bucket</option>
+      <option value="2">circle</option>
+      <option value="3">rectangle</option>
+      <option value="4">picker</option>
+    </select>
+  </label>
+  <label class="right">draggable
     <input id="checkbox-drag" type="checkbox">
   </label>
 </div>
@@ -63,7 +72,7 @@
 <div>
   <input id="checkbox-auto-config" type="checkbox" checked="checked">
   <label>W:
-<input id="input-W" type="number" class="input-50" min="-3" value="16">
+<input id="input-W" type="number" class="input-50" min="0" value="16">
   </label>
   <label>stabi:
 <input id="input-stabi" type="number" class="input-50" min="0" max="100" step="0.1" value="2.7">

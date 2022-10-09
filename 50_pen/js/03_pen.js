@@ -296,11 +296,7 @@ My_entry.pen.prototype.make_handlers = function(){
       /* -> Ver.1.4.1 */
       self.w0 = 0;
       self.arr_data = [];  // Ver.1.2.0
-      /* Ver.1.19.4 -> */
-      if(options.W <= 0){
-        self.mode = self.mode || 1+Math.ceil(-options.W);  // Key first
-      }
-      /* -> Ver.1.19.4 */
+      self.mode = self.mode || Number($.selectVal_id("select-mode"));  // Ver.1.19.4 Key first  // Ver.1.33.7
     },
     onmousemove: function(e){
       var w_p = function(p){
