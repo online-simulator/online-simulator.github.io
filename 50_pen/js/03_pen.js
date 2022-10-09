@@ -553,7 +553,10 @@ My_entry.pen.prototype.make_handlers = function(){
           var rgba = fg.draw.color2rgba(options.RGB);
           ID = fg.draw.filter_mosaic(ID, options["grid-width"], options["grid-height"], options.mosaic, [rgba.r, rgba.g, rgba.b, 255*alpha]);
           if(options["with-svg"]){
-            self.arr_data = {ID: ID};
+            /* Ver.1.34.7 -> */
+            var ID_svg = (self.mode === -2)? fg.convID_rgba({r: 255, g: 255, b: 255, a: -1}, ID): ID;
+            self.arr_data = {ID: ID_svg};
+            /* -> Ver.1.34.7 */
           }
         }
       }

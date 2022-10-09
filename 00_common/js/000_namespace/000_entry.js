@@ -9,7 +9,7 @@ const My_entry = {
   // major update. minor update/change. fatal/minor bug-fix
   Ver: {
     // inner
-    plot: "1.38.8",
+    plot: "1.39.8",
     // outer
     calc: "2.121.34",
     wave: "1.21.4",

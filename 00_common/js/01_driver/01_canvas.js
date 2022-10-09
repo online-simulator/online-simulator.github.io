@@ -441,6 +441,41 @@ My_entry.canvas.prototype.getID_RGBA = function(opt_R255, opt_G255, opt_B255, op
   }
   return _ID;
 };
+/* 1.39.8 */
+My_entry.canvas.prototype.convID_rgba = function(rgba, opt_ID){
+  var self = this;
+  var ctx = self.ctx;
+  var px_w = self.px_w;
+  var px_h = self.px_h;
+  var _ID = ctx.createImageData(px_w, px_h);
+  var ID = opt_ID || self.getID();
+  var data = ID.data;
+  var _data = _ID.data;
+  var r_ = rgba.r;
+  var g_ = rgba.g;
+  var b_ = rgba.b;
+  var a_ = rgba.a;
+  var hasR = (r_ >= 0) && (r_ <= 255);
+  var hasG = (g_ >= 0) && (g_ <= 255);
+  var hasB = (b_ >= 0) && (b_ <= 255);
+  var hasA = (a_ >= 0) && (a_ <= 255);
+  for(var j=0; j<px_h; ++j){
+    for(var i=0; i<px_w; ++i){
+      var ired = 4*(px_w*j+i);
+      var r = data[ired+0];
+      var g = data[ired+1];
+      var b = data[ired+2];
+      var a = data[ired+3];
+      if(r+g+b+a){
+        _data[ired+0] = (hasR)? r_: r;
+        _data[ired+1] = (hasG)? g_: g;
+        _data[ired+2] = (hasB)? b_: b;
+        _data[ired+3] = (hasA)? a_: a;
+      }
+    }
+  }
+  return _ID;
+};
 /* 1.31.8 */
 /* 1.31.7 */
 My_entry.canvas.prototype.draw_lines_grid = function(dx, dy, opt_lineWidth, opt_styleRGBA){
