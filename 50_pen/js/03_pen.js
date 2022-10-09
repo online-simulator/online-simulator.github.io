@@ -40,7 +40,7 @@ My_entry.pen.prototype.init_keys = function(){
   });
   /* Ver.1.15.4 -> */
   document.onkeydown = function(e){
-    if(self.isLocked) return false;  // 1.29.7
+    if(self.isLocked) return false;  // Ver.1.29.7
     keys.code = e.code;
     keys.keyCode = e.keyCode;
     keys.ctrlKey = e.ctrlKey;
@@ -49,7 +49,7 @@ My_entry.pen.prototype.init_keys = function(){
     var aElem = document.activeElement;
     var TAG = (aElem)? aElem.tagName.toUpperCase(): "";
     /* -> Ver.1.22.6 */
-    var isNG_fire = (self.mode || e.ctrlKey || e.shiftKey || TAG === "INPUT" || TAG === "SELECT");  // Ver.1.21.5  // 1.29.7
+    var isNG_fire = (self.mode || e.ctrlKey || e.shiftKey || TAG === "INPUT" || TAG === "SELECT");  // Ver.1.21.5  // Ver.1.29.7
     if(!(isNG_fire)){
       var mode = 0;
       Object.keys(modes).forEach(function(id, i){
@@ -70,7 +70,7 @@ My_entry.pen.prototype.init_keys = function(){
   };
   /* Ver.1.17.4 */
   document.onkeyup = function(e){
-    if(self.isLocked) return false;  // 1.29.7
+    if(self.isLocked) return false;  // Ver.1.29.7
     keys.code = e.code;
     keys.keyCode = e.keyCode;
     keys.ctrlKey = e.ctrlKey;
@@ -279,7 +279,7 @@ My_entry.pen.prototype.make_handlers = function(){
         aElem.blur();
       }
       /* -> Ver.1.22.6 */
-      if(self.isLocked) return false;  // 1.29.7
+      if(self.isLocked) return false;  // Ver.1.29.7
       /* Ver.1.24.7 -> */
       if(!(self.isSaved)){
         ctx.save();
@@ -420,12 +420,12 @@ My_entry.pen.prototype.make_handlers = function(){
     onmouseup: function(e){
       e.preventDefault();
       e.stopPropagation();
-      if(self.isRunning) return false;  // 1.29.7 down failed
+      if(self.isRunning) return false;  // Ver.1.29.7 down failed
       /* Ver.1.7.1 -> */
       /* Ver.1.6.1 -> */
       /* Ver.1.12.4 -> */
       var ID = null;
-      var alpha = Math.abs(options.A)/100;  // 1.30.7
+      var alpha = Math.abs(options.A)/100;  // Ver.1.30.7
       /* Ver.1.20.4 -> */
       var dxg = options["grid-width"];
       var dyg = options["grid-height"];
@@ -602,7 +602,7 @@ My_entry.pen.prototype.init_handlers = function(){
   };
   self.handlers.onclick = function(e, elem){
     var self = this;
-    if(self.isLocked) return false;  // 1.28.7 all-buttons
+    if(self.isLocked) return false;  // Ver.1.28.7 all-buttons
     var fg = self.objs.fg;
     var mg = self.objs.mg;  // Ver.1.10.2
     var bg = self.objs.bg;  // Ver.1.7.1
@@ -626,8 +626,8 @@ My_entry.pen.prototype.init_handlers = function(){
       /* -> Ver.1.7.1 */
       /* Ver.1.17.4 */
       case "run":
-        self.isLocked = true;  // 1.28.7
-        self.isRunning = true;  // 1.29.7
+        self.isLocked = true;  // Ver.1.28.7
+        self.isRunning = true;  // Ver.1.29.7
         var label0 = elem.innerText;
         elem.innerText = label0+"...";
         setTimeout(function(){
@@ -635,8 +635,8 @@ My_entry.pen.prototype.init_handlers = function(){
           self.handler_history_ID.save(bg.getID());
           self.handler_history_svg.save("");
           $._id("run").innerText = label0;
-          self.isRunning = false;  // 1.29.7
-          self.isLocked = false;  // 1.28.7
+          self.isRunning = false;  // Ver.1.29.7
+          self.isLocked = false;  // Ver.1.28.7
         }, 50);
         break;
       /* Ver.1.1.0 -> */
