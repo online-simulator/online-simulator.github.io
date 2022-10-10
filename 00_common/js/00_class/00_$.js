@@ -355,14 +355,15 @@ My_entry.$.prototype.val2literal = function(val){
   }
   return _val;
 };
-My_entry.$.prototype.get_urlParam = function(key_comp){
+My_entry.$.prototype.get_urlParam = function(key_comp, opt_search){
   var self = this;
   var _val = "";
   var callback = (window.decodeURIComponent)?
     function(str){return decodeURIComponent(str);}:
     function(str){return str;};
-  if(window.location && location.search){
-    var params = callback(location.search).split("?")[1].split("&");
+  var text = opt_search || ((window.location)? location.search: "");
+  if(text){
+    var params = callback(text).split("?")[1].split("&");
     for(var i=0, len=params.length; i<len; ++i){
       var arr = params[i].split("=");
       var key = arr[0];
@@ -377,14 +378,15 @@ My_entry.$.prototype.get_urlParam = function(key_comp){
   }
   return _val;
 };
-My_entry.$.prototype.get_urlParams = function(opt_obj){
+My_entry.$.prototype.get_urlParams = function(opt_obj, opt_search){
   var self = this;
   var _obj = opt_obj || {};
   var callback = (window.decodeURIComponent)?
     function(str){return decodeURIComponent(str);}:
     function(str){return str;};
-  if(window.location && location.search){
-    var params = callback(location.search).split("?")[1].split("&");
+  var text = opt_search || ((window.location)? location.search: "");
+  if(text){
+    var params = callback(text).split("?")[1].split("&");
     for(var i=0, len=params.length; i<len; ++i){
       var arr = params[i].split("=");
       var key = arr[0];

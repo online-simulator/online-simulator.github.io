@@ -17,6 +17,7 @@ My_entry.pen.prototype.init = function(){
   self.isDragging = false;
   self.objs = {};
   self.options = {};
+  self.arr_vec = [];  // Ver.1.35.7
   self.keys = {modes_pen: {}, modes: {}, buttons: {}};  // Ver.1.15.4  // Ver.1.16.4  // Ver.1.19.4  // Ver.1.34.7
   self.init_main.call(self, ["$", "conv", "def"]);
   self.filter = new self.constructors.filter();  // Ver.1.17.4
@@ -39,8 +40,8 @@ My_entry.pen.prototype.init_keys = function(){
   ["bucket", "circle", "rectangle", "picker"].forEach(function(id, i){
     modes[id] = options[id] || ["KeyB", "KeyG", "KeyT", "KeyY"][i];  // Ver.1.31.7
   });
-  ["<<", ">>", "clear", "run"].forEach(function(id, i){
-    buttons[id] = options[id] || ["KeyS", "KeyD", "KeyA", "KeyW"][i];  // Ver.1.17.4
+  ["<<", ">>", "clear", "run", "draw"].forEach(function(id, i){
+    buttons[id] = options[id] || ["KeyS", "KeyD", "KeyA", "KeyW", "KeyE"][i];  // Ver.1.17.4  // Ver.1.35.7
   });
   /* Ver.1.15.4 -> */
   document.onkeydown = function(e){
@@ -100,14 +101,28 @@ My_entry.pen.prototype.init_elems = function(){
   $.setup_elems$_tag("select", self.handlers, "onchange");
   return self;
 };
+/* Ver.1.35.7 */
 My_entry.pen.prototype.update_options = function(){
   var self = this;
   var $ = self.entry.$;
+  var options = self.options;
+  var fg = self.objs.fg;
   $.get_elemProps("input[type='checkbox']", "checkbox-", "checked", self.options);
   $.get_elemProps("input[type='color']", "input-", "value", self.options);
   $.get_elemProps("input[type='number']", "input-", "value", self.options);
   $.get_elemProps("select", "select-", "value", self.options);
   $.get_urlParams(self.options);
+  if(fg){
+    var rgba = fg.draw.color2rgba(options.RGB);
+    var alpha = Math.abs(options.A)/100;  // Ver.1.30.7
+    rgba.a = Math.round(255*alpha);  // round(float)@ID -> 0~255
+    var sh = Math.abs(options.sh);  // Ver.1.21.4
+    options._rgba = rgba;
+    options._alpha = alpha;
+    options._sh = sh;
+    options._color_hex = fg.draw.rgba2color_hex(rgba);
+    options._color_rgba = "rgba("+rgba.r+","+rgba.g+","+rgba.b+","+alpha+")";
+  }
   return self;
 };
 /* Ver.1.21.4 */
@@ -267,8 +282,8 @@ My_entry.pen.prototype.make_handlers = function(){
   var ctx = fg.draw.ctx;
   /* Ver.1.20.4 */
   var set_ctx = function(){
-    var alpha = Math.abs(options.A)/100;  // Ver.1.6.1
-    var sh = Math.abs(options.sh);  // Ver.1.21.4
+    var alpha = options._alpha;  // Ver.1.35.7
+    var sh = options._sh;  // Ver.1.35.7
     ctx.shadowBlur = sh;
     ctx.shadowOffsetX = 0;
     ctx.shadowOffsetY = 0;
@@ -307,6 +322,10 @@ My_entry.pen.prototype.make_handlers = function(){
       self.w0 = 0;
       self.arr_data = [];  // Ver.1.2.0
       self.mode = self.mode || Number($.selectVal_id("select-mode"));  // Ver.1.19.4 Key first  // Ver.1.33.7
+      /* Ver.1.35.7 */
+      if(self.mode === 0){
+        self.arr_vec = [];
+      }
     },
     onmousemove: function(e){
       var w_p = function(p){
@@ -419,6 +438,10 @@ My_entry.pen.prototype.make_handlers = function(){
             ctx.stroke();
           }
           /* -> Ver.1.4.1 */
+          /* Ver.1.35.7 */
+          if(self.mode === 0){
+            self.arr_vec.push({x: x1+ox, y: y1+oy});
+          }
         }
       }
       else{
@@ -465,7 +488,10 @@ My_entry.pen.prototype.make_handlers = function(){
       /* Ver.1.6.1 -> */
       /* Ver.1.12.4 -> */
       var ID = null;
-      var alpha = Math.abs(options.A)/100;  // Ver.1.30.7
+      /* Ver.1.35.7 -> */
+      var rgba = options._rgba;
+      var alpha = options._alpha;
+      /* -> Ver.1.35.7 */
       /* Ver.1.32.7 -> */
       /* Ver.1.20.4 -> */
       var dxg = options["grid-width"];
@@ -492,11 +518,7 @@ My_entry.pen.prototype.make_handlers = function(){
         switch(self.mode){
           /* Ver.1.30.7 */
           case 1:
-            var rgba = fg.draw.color2rgba(options.RGB);
             /* Ver.1.26.7 -> */
-            rgba.a = Math.round(255*alpha);  // round(float)@ID -> 0~255
-//            var color_hex = fg.draw.rgba2color_hex(rgba);
-//            var color_rgba = "rgba("+rgba.r+","+rgba.g+","+rgba.b+","+alpha+")";
             var text_filter = "fiin["+(x1+ox)+","+(y1+oy)+","+rgba.r+","+rgba.g+","+rgba.b+","+rgba.a+","+(options.Nwrap || 16);  // text=""+(x+ox)+""
             self.run_filter(bg, text_filter+"]", true);  // Ver.1.17.4
             var ID_map = self.run_filter(bg, text_filter+",1]");
@@ -550,8 +572,7 @@ My_entry.pen.prototype.make_handlers = function(){
       }
       if(options.mosaic){
         if(hasGrid){
-          var rgba = fg.draw.color2rgba(options.RGB);
-          ID = fg.draw.filter_mosaic(ID, options["grid-width"], options["grid-height"], options.mosaic, [rgba.r, rgba.g, rgba.b, 255*alpha]);
+          ID = fg.draw.filter_mosaic(ID, options["grid-width"], options["grid-height"], options.mosaic, [rgba.r, rgba.g, rgba.b, rgba.a]);  // Ver.1.35.7
           if(options["with-svg"]){
             /* Ver.1.34.7 -> */
             var ID_svg = (self.mode === -2)? fg.convID_rgba({r: 255, g: 255, b: 255, a: -1}, ID): ID;
@@ -650,6 +671,7 @@ My_entry.pen.prototype.init_handlers = function(){
     self.objs.fg.draw.setter.decDigit((isNaN(options.decDigit)? 1: options.decDigit));  // Ver.1.2.0
     $.change_elems$("input[type='checkbox']");
     self.reset_canvas();
+    self.update_options();  // Ver.1.35.7 re-update
     return self;
   };
   self.handlers.onbeforeunload = function(e){
@@ -690,10 +712,25 @@ My_entry.pen.prototype.init_handlers = function(){
           self.run_filter(bg, $.inputVal_id("input-text-filter"), true);  // Ver.1.26.7
           self.handler_history_ID.save(bg.getID());
           self.handler_history_svg.save("");
-          $._id("run").innerText = label0;
+          elem.innerText = label0;
           self.isRunning = false;  // Ver.1.29.7
           self.isLocked = false;  // Ver.1.28.7
         }, 50);
+        break;
+      /* 1.35.7 */
+      case "draw":
+        var arr_vec = self.arr_vec;
+        var len = arr_vec.length;
+        var text_url = "?"+$._id("input-text-draw-url").value;  // "?" first
+        var text = $._id("input-text-draw").value;
+        if(text && len > 0){
+          $.get_urlParams(self.options, text_url);
+          self.update_options();  // url first
+          bg.draw.textpath_sw(text, arr_vec, options.composite, len-1, options.fontFamily, options.fontSize || options.W, options.isBold, options.isItalic, options.isReverse, options.fillStyle || options.bgcolor, options.strokeStyle || options._color_rgba, options.fillStr, options.spacingX || 0, options.spacingY || 0, options.offsetX || 0, options.offsetY || 0, options.blur || options._sh, options.deg0 || 0);
+          var svg = bg.draw.textpath_sw(text, arr_vec, options.composite, len-1, options.fontFamily, options.fontSize || options.W, options.isBold, options.isItalic, options.isReverse, options.fillStyle || options.bgcolor, options.strokeStyle || options._color_rgba, options.fillStr, options.spacingX || 0, options.spacingY || 0, options.offsetX || 0, options.offsetY || 0, options.blur || options._sh, options.deg0 || 0, true);
+          self.handler_history_ID.save(bg.getID());
+          self.handler_history_svg.save(svg);
+        }
         break;
       /* Ver.1.1.0 -> */
       case "<<":
