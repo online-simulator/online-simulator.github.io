@@ -668,7 +668,12 @@ My_entry.pen.prototype.init_handlers = function(){
     self.objs.bg = new self.constructors.canvas($._id("canvas-bg"));
     /* -> Ver.1.7.1 */
     self.objs.fg.attach_point(self.make_handlers());
-    self.objs.fg.draw.setter.decDigit((isNaN(options.decDigit)? 1: options.decDigit));  // Ver.1.2.0
+    /* Ver.1.35.7 -> */
+    var decDigit = (isNaN(options.decDigit)? 1: options.decDigit);
+    self.objs.fg.draw.setter.decDigit(decDigit);  // Ver.1.2.0
+    self.objs.mg.draw.setter.decDigit(decDigit);
+    self.objs.bg.draw.setter.decDigit(decDigit);
+    /* -> Ver.1.35.7 */
     $.change_elems$("input[type='checkbox']");
     self.reset_canvas();
     self.update_options();  // Ver.1.35.7 re-update
