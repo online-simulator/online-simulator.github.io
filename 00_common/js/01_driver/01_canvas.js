@@ -12,7 +12,7 @@ My_entry.canvas.prototype.init = function(elem){
   new My_entry.original_main().make_instances.call(self, ["$", "def"]);
   self.elem = elem;
   self.elem_p = self.elem.parentElement;
-  self.ctx = elem.getContext("2d");
+  self.ctx = elem.getContext("2d", {willReadFrequently: true});  // 1.42.8
   self.draw = new My_entry.draw(self.ctx);
   self.px_w = 0;
   self.px_h = 0;
