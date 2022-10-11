@@ -18,7 +18,7 @@ My_entry.pen.prototype.init = function(){
   self.objs = {};
   self.options = {};
   self.arr_vec = [];  // Ver.1.35.7
-  self.keys = {modes_pen: {}, modes: {}, buttons: {}};  // Ver.1.15.4  // Ver.1.16.4  // Ver.1.19.4  // Ver.1.34.7
+  self.keys = {modes_pen: {}, modes: {}, buttons: {}, inputs: {}};  // Ver.1.15.4  // Ver.1.16.4  // Ver.1.19.4  // Ver.1.34.7  // Ver.1.38.7
   self.init_main.call(self, ["$", "conv", "def"]);
   self.filter = new self.constructors.filter();  // Ver.1.17.4
   return self;
@@ -32,6 +32,7 @@ My_entry.pen.prototype.init_keys = function(){
   var modes_pen = keys.modes_pen;  // Ver.1.34.7
   var modes = keys.modes;
   var buttons = keys.buttons;
+  var inputs = keys.inputs;
   /* Ver.1.19.4 -> */
   self.mode = 0;
   ["eraser_A100", "eraser"].forEach(function(id, i){
@@ -42,6 +43,9 @@ My_entry.pen.prototype.init_keys = function(){
   });
   ["<<", ">>", "clear", "run", "draw"].forEach(function(id, i){
     buttons[id] = options[id] || ["KeyS", "KeyD", "KeyA", "KeyW", "KeyE"][i];  // Ver.1.17.4  // Ver.1.35.7
+  });
+  ["checkbox-config", "checkbox-snap"].forEach(function(id, i){
+    inputs[id] = options[id] || ["KeyP", "KeyO"][i];  // Ver.1.38.7
   });
   /* Ver.1.15.4 -> */
   document.onkeydown = function(e){
@@ -73,6 +77,19 @@ My_entry.pen.prototype.init_keys = function(){
           var elem = $._id(id);
           if(elem){
             elem.onclick(e);
+          }
+        }
+      });
+      /* Ver.1.38.7 */
+      Object.keys(inputs).forEach(function(id){
+        if(inputs[id] == e.code){
+          var elem = $._id(id);
+          if(elem){
+            var TYPE = elem.type.toUpperCase();
+            if(TYPE === "CHECKBOX"){
+              elem.checked = !(elem.checked);
+            }
+            elem.onchange(e);
           }
         }
       });
