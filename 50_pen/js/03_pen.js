@@ -128,6 +128,7 @@ My_entry.pen.prototype.update_options = function(){
   $.get_elemProps("input[type='color']", "input-", "value", self.options);
   $.get_elemProps("input[type='number']", "input-", "value", self.options);
   $.get_elemProps("select", "select-", "value", self.options);
+  $.get_urlParams(self.options, "?"+$._id("input-second-url-parameters").value);  // "?" first  // Ver.1.39.7
   $.get_urlParams(self.options);
   if(fg){
     var rgba = fg.draw.color2rgba(options.RGB);
@@ -532,6 +533,17 @@ My_entry.pen.prototype.make_handlers = function(){
         var dx = x1-x0;
         var dy = y1-y0;
         var len = Math.sqrt(dx*dx+dy*dy);
+        /* Ver.1.39.7 -> */
+        set_ctx();
+        self.update_options();
+        var hasStyle = (options.strokeStyle && options.fillStyle);
+        if(hasStyle){
+          ctx.globalAlpha = 1;
+          ctx.fillStyle = options.fillStyle;
+          ctx.shadowColor = ctx.strokeStyle = options.strokeStyle;
+          ctx.lineWidth = options.lineWidth || 1;
+          ctx.shadowBlur = options.blur || ctx.shadowBlur;
+        }
         switch(self.mode){
           /* Ver.1.30.7 */
           case 1:
@@ -546,10 +558,12 @@ My_entry.pen.prototype.make_handlers = function(){
             var cx = x0;
             var cy = y0;
             var r = len;
-            set_ctx();
             ctx.beginPath();
             ctx.arc(x0+ox, y0+oy, len, 0, Math.PI*2);
             ctx.fill();
+            if(hasStyle){
+              ctx.stroke();
+            }
             self.arr_data = {cx: cx, cy: cy, r: r};
             break;
           case 3:
@@ -557,8 +571,10 @@ My_entry.pen.prototype.make_handlers = function(){
             var y = Math.min(y0, y1);
             var width = Math.max(x0, x1)-x;
             var height = Math.max(y0, y1)-y;
-            set_ctx();
             ctx.fillRect(x+ox, y+oy, width, height);
+            if(hasStyle){
+              ctx.strokeRect(x+ox, y+oy, width, height);
+            }
             self.arr_data = {x: x, y: y, width: width, height: height};
             break;
           case 4:
@@ -579,6 +595,7 @@ My_entry.pen.prototype.make_handlers = function(){
           default:
             break;
         }
+        /* -> Ver.1.39.7 */
       }
       /* -> Ver.1.20.4 */
       /* -> Ver.1.32.7 */
@@ -743,11 +760,8 @@ My_entry.pen.prototype.init_handlers = function(){
       case "draw":
         var arr_vec = self.arr_vec;
         var len = arr_vec.length;
-        var text_url = "?"+$._id("input-text-draw-url").value;  // "?" first
         var text = $._id("input-text-draw").value;
         if(text && len > 0){
-          $.get_urlParams(self.options, text_url);
-          self.update_options();  // url first
           bg.draw.textpath_sw(text, arr_vec, options.composite, len-1, options.fontFamily, options.fontSize || options.W, options.isBold, options.isItalic, options.isReverse, options.fillStyle || options.bgcolor, options.strokeStyle || options._color_rgba, options.fillStr, options.spacingX || 0, options.spacingY || 0, options.offsetX || 0, options.offsetY || 0, options.blur || options._sh, options.deg0 || 0);
           var svg = bg.draw.textpath_sw(text, arr_vec, options.composite, len-1, options.fontFamily, options.fontSize || options.W, options.isBold, options.isItalic, options.isReverse, options.fillStyle || options.bgcolor, options.strokeStyle || options._color_rgba, options.fillStr, options.spacingX || 0, options.spacingY || 0, options.offsetX || 0, options.offsetY || 0, options.blur || options._sh, options.deg0 || 0, true);
           self.handler_history_ID.save(bg.getID());

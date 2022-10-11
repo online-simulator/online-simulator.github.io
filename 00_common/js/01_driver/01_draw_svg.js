@@ -105,13 +105,17 @@ My_entry.draw_svg.prototype.lines_pen = function(idName, arr_data, options){
   var self = this;
   var _svg = "";
   var config = "";
+  /* 1.41.8 -> */
+  var hasStyle = (options.strokeStyle && options.fillStyle);
   /* 1.26.7 -> */
   if(options.sh){
     var idName_sh = idName+"_sh";
-    _svg += self.def_dropShadow(idName_sh, options.RGB, 0, 0, Math.abs(options.sh));  // 1.36.8
+    var shadowColor = (hasStyle)? options.strokeStyle: options.RGB;
+    _svg += self.def_dropShadow(idName_sh, shadowColor, 0, 0, options.blur || Math.abs(options.sh));  // 1.36.8
     config += self.use_filter(idName_sh);
   }
   /* -> 1.26.7 */
+  /* -> 1.41.8 */
   config += " fill="+self.quote(options.RGB);  // 1.27.7
   config += " stroke="+self.quote(options.RGB);
   /* 1.29.7 -> */
@@ -132,13 +136,18 @@ for(var nsh=0; nsh<len_sh+1; ++nsh){
   var ox = options.ox;
   var oy = options.oy;
   /* -> 1.28.7 */
+  /* 1.41.8 -> */
   if(arr_data.cx){
     var cx = self.floor(arr_data.cx+ox);
     var cy = self.floor(arr_data.cy+oy);
     var r = self.floor(arr_data.r);
     _svg += "<circle";
-    _svg += " stroke="+self.quote("none");
-    _svg += svg_alpha;
+    if(hasStyle){
+      _svg += " fill="+self.quote(options.fillStyle);
+      _svg += (options.lineWidth)? " stroke-width="+self.quote(options.lineWidth || 1): "";
+    }
+    _svg += " stroke="+self.quote((hasStyle)? options.strokeStyle: "none");
+    _svg += (hasStyle)? "": svg_alpha;
     _svg += " cx="+self.quote(cx);
     _svg += " cy="+self.quote(cy);
     _svg += " r="+self.quote(r);
@@ -151,8 +160,12 @@ for(var nsh=0; nsh<len_sh+1; ++nsh){
     var width = self.floor(arr_data.width);
     var height = self.floor(arr_data.height);
     _svg += "<rect";
-    _svg += " stroke="+self.quote("none");
-    _svg += svg_alpha;
+    if(hasStyle){
+      _svg += " fill="+self.quote(options.fillStyle);
+      _svg += (options.lineWidth)? " stroke-width="+self.quote(options.lineWidth || 1): "";
+    }
+    _svg += " stroke="+self.quote((hasStyle)? options.strokeStyle: "none");
+    _svg += (hasStyle)? "": svg_alpha;
     _svg += " x="+self.quote(x);
     _svg += " y="+self.quote(y);
     _svg += " width="+self.quote(width);
@@ -160,6 +173,7 @@ for(var nsh=0; nsh<len_sh+1; ++nsh){
     _svg += "/>";
     _svg += self.rn;
   }
+  /* -> 1.41.8 */
   for(var n=0, len_n=arr_data.length || 0; n<len_n; ++n){
   /* -> 1.35.8 */
     var data = arr_data[n];

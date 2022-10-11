@@ -885,6 +885,8 @@ mode=circle
 <span class="clear"><del>W=-1</del>Ver.1.33.7廃止</span>
 <br>
 <span class="run">Ver.1.20.4追加</span>
+<br>
+<span class="clear">Ver.1.39.7更新</span>
           </td>
           <td class="border">
 circle(fill)描画機能
@@ -898,6 +900,8 @@ canvas前面に描画
 <br>
 ・grid-snapあり
 <br>
+<span class="clear">・second-url-parameters有効</span>
+<br>
 <span class="run">・KeyG+1dragで代用可</span>
           </td>
         </tr>
@@ -908,6 +912,8 @@ mode=rectangle
 <span class="clear"><del>W=-2</del>Ver.1.33.7廃止</span>
 <br>
 <span class="run">Ver.1.20.4追加</span>
+<br>
+<span class="clear">Ver.1.39.7更新</span>
           </td>
           <td class="border">
 rectangle(fill)描画機能
@@ -922,6 +928,8 @@ xy_pointer(down)
 xy_pointer(up)
 <br>
 ・grid-snapあり
+<br>
+<span class="clear">・second-url-parameters有効</span>
 <br>
 <span class="run">・KeyT+1dragで代用可</span>
           </td>
@@ -1379,7 +1387,35 @@ flat_upp: 設定値の上側
           <td class="border">
 png/svg後処理
 <br>
-text-draw（上段/下段）
+second-url-parameters
+<br>
+<span class="run">Ver.1.39.7追加</span>
+          </td>
+          <td class="border">
+URL-parameter互換のformat
+          </td>
+          <td class="border">
+circle/rectangle有効
+<br>
+fillStyle（svg互換のため、strokeとsetで有効）
+<br>
+strokeStyle（svg互換のため、fillとsetで有効）
+<br>
+blur
+<br>
+lineWidth
+<br>
+<br>
+text-draw無効
+<br>
+lineWidth
+          </td>
+        </tr>
+        <tr class="border">
+          <td class="border">
+png/svg後処理
+<br>
+text-draw
 <br>
 draw
 <br>
@@ -1393,7 +1429,7 @@ text-draw機能
           <td class="border">
 draw実行後、canvas背面にtextを描画
 <br>
-・URL-parameter互換のformatを入力（上段）
+・second-url-parameters有効
 <br>
 ・parameter未指定時
 <br>
@@ -1405,7 +1441,7 @@ strokeStyle=rgba(R,G,B,|A|/100)
 <br>
 blur=|sh|
 <br>
-・描画するtextを入力（下段）
+・描画するtextを入力
 <br>
 ・path=pen最終の1筆lines
 <br>

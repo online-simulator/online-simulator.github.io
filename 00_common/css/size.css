@@ -29,6 +29,18 @@ textarea{
 .input-100{
   width: 100px;
 }
+.input-200{
+  width: 200px;
+}
+.input-300{
+  width: 300px;
+}
+.input-400{
+  width: 400px;
+}
+.input-500{
+  width: 500px;
+}
 
 .no-border{
   border-collapse: collapse;
