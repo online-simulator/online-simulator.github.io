@@ -110,8 +110,10 @@ My_entry.draw_svg.prototype.lines_pen = function(idName, arr_data, options){
   /* 1.26.7 -> */
   if(options.sh){
     var idName_sh = idName+"_sh";
+    var sh = Math.abs(options.sh);
     var shadowColor = (hasStyle)? options.strokeStyle: options.RGB;
-    _svg += self.def_dropShadow(idName_sh, shadowColor, 0, 0, options.blur || Math.abs(options.sh));  // 1.36.8
+    var shadowBlur = (hasStyle)? (options.blur || sh): sh;
+    _svg += self.def_dropShadow(idName_sh, shadowColor, 0, 0, shadowBlur);  // 1.36.8
     config += self.use_filter(idName_sh);
   }
   /* -> 1.26.7 */
