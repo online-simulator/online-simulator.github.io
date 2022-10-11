@@ -235,7 +235,14 @@ My_entry.pen.prototype.reset_canvas_grid = function(){
   var options = self.options;
   var mg = self.objs.mg;
   mg.clear();
-  mg.draw_lines_grid(options["grid-width"], options["grid-height"], 0.5, "#00000033");  // Ver.1.10.4
+  /* Ver.1.37.7 -> */
+  var gcolor = "#00000033";
+  var rgba = mg.draw.color2rgba(options.bgcolor);
+  if(rgba.a > 255/2 && rgba.r+rgba.g+rgba.b < 255*3/2){
+    gcolor = "#ffffff55";
+  }
+  mg.draw_lines_grid(options["grid-width"], options["grid-height"], 0.5, gcolor);  // Ver.1.10.4
+  /* -> Ver.1.37.7 */
   return self;
 };
 /* Ver.1.26.7 */

@@ -249,6 +249,13 @@ My_entry.draw.prototype.color2style = function(color){
 };
 /* -> 0.6.0 */
 /* -> 1.0.0 */
+/* 1.40.8 */
+My_entry.draw.prototype.flip_rgb2style = function(color, opt_a){
+  var self = this;
+  var rgba = self.color2rgba(color);
+  var rgb_flip = {r: 255-rgba.r, g: 255-rgba.g, b: 255-rgba.b, a: opt_a || rgba.a};
+  return self.rgba2style(rgb_flip);
+};
 My_entry.draw.prototype.rotate2d_vec = function(vec, t){
   var self = this;
   var cos_t = Math.cos(t);
