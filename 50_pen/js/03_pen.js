@@ -128,7 +128,7 @@ My_entry.pen.prototype.update_options = function(){
   $.get_elemProps("input[type='color']", "input-", "value", self.options);
   $.get_elemProps("input[type='number']", "input-", "value", self.options);
   $.get_elemProps("select", "select-", "value", self.options);
-  $.get_urlParams(self.options, "?"+$._id("input-second-url-parameters").value);  // "?" first  // Ver.1.39.7
+  $.get_urlParams(self.options, true, "?"+$._id("input-second-url-parameters").value);  // "?" first  // Ver.1.39.7
   $.get_urlParams(self.options);
   if(fg){
     var rgba = fg.draw.color2rgba(options.RGB);
@@ -847,6 +847,10 @@ My_entry.pen.prototype.init_handlers = function(){
       case "input-grid-width":
       case "input-grid-height":
         self.reset_canvas_grid();
+        break;
+      /* Ver.1.39.7 */
+      case "input-second-url-parameters":
+        self.update_options();
         break;
       /* Ver.1.11.4 -> */
       case "input-file-fg":

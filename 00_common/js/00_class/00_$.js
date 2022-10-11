@@ -355,7 +355,7 @@ My_entry.$.prototype.val2literal = function(val){
   }
   return _val;
 };
-My_entry.$.prototype.get_urlParam = function(key_comp, opt_search){
+My_entry.$.prototype.get_urlParam = function(key_comp, opt_isForced, opt_search){
   var self = this;
   var _val = "";
   var callback = (window.decodeURIComponent)?
@@ -368,7 +368,7 @@ My_entry.$.prototype.get_urlParam = function(key_comp, opt_search){
       var arr = params[i].split("=");
       var key = arr[0];
       var val = arr[1];
-      if(key && val){
+      if(key && (val || opt_isForced)){
         if(key.toUpperCase() === key_comp.toUpperCase()){
           _val = (isNaN(Number(val)))? self.val2literal(val): Number(val);
           break;
@@ -378,7 +378,7 @@ My_entry.$.prototype.get_urlParam = function(key_comp, opt_search){
   }
   return _val;
 };
-My_entry.$.prototype.get_urlParams = function(opt_obj, opt_search){
+My_entry.$.prototype.get_urlParams = function(opt_obj, opt_isForced, opt_search){
   var self = this;
   var _obj = opt_obj || {};
   var callback = (window.decodeURIComponent)?
@@ -391,7 +391,7 @@ My_entry.$.prototype.get_urlParams = function(opt_obj, opt_search){
       var arr = params[i].split("=");
       var key = arr[0];
       var val = arr[1];
-      if(key && val){
+      if(key && (val || opt_isForced)){
         _obj[key] = (isNaN(Number(val)))? self.val2literal(val): Number(val);
       }
     }
