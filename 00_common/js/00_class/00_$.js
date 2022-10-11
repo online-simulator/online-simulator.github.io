@@ -333,8 +333,8 @@ My_entry.$.prototype.hide = function(selector, isChecked, isDisplay){
 };
 My_entry.$.prototype.val2literal = function(val){
   var self = this;
-  var _val = val;
-  switch(val.toUpperCase()){
+  var _val = (typeof val === "undefined")? "undefined": val;
+  switch(_val.toUpperCase()){
     case "UNDEFINED":
       _val = undefined;
       break;
