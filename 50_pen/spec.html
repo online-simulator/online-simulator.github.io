@@ -161,6 +161,8 @@ xy_fixed(f)=xy(f)+xy_offset
 grid-snap
 <br>
 <span class="clear">Ver.1.32.7訂正</span>
+<br>
+<span class="run">Ver.1.36.7更新</span>
           </td>
           <td class="border">
 直近のgrid点に<span class="clear"><del>xy_fixed</del>
@@ -168,7 +170,9 @@ grid-snap
 xy_pointer</span>をsnap
           </td>
           <td class="border">
-特殊mode選択状態
+<span class="run"><del>特殊mode選択状態</del>Ver.1.36.7廃止</span>
+<br>
+<span class="run">grid-snap有効状態</span>
 <br>
 grid表示状態
           </td>
@@ -1192,6 +1196,21 @@ svg出力
         <tr class="border">
           <td class="border text-center run" colspan="3">
 png前後処理
+          </td>
+        </tr>
+        <tr class="border">
+          <td class="border">
+snap=false||true
+<br>
+<span class="run">Ver.1.36.7追加</span>
+          </td>
+          <td class="border">
+grid-snapの有効化
+          </td>
+          <td class="border">
+<span class="run"><del>特殊modeの自動snap</del>Ver.1.36.7廃止</span>
+<br>
+・grid-snap時、stabi無効
           </td>
         </tr>
         <tr class="border">
