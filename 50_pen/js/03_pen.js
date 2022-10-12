@@ -118,10 +118,12 @@ My_entry.pen.prototype.init_elems = function(){
   $.setup_elems$_tag("select", self.handlers, "onchange");
   return self;
 };
+/* Ver.1.43.8 */
 /* Ver.1.35.7 */
 My_entry.pen.prototype.update_options = function(){
   var self = this;
   var $ = self.entry.$;
+  var def = self.entry.def;
   var options = self.options;
   var fg = self.objs.fg;
   $.get_elemProps("input[type='checkbox']", "checkbox-", "checked", self.options);
@@ -141,6 +143,16 @@ My_entry.pen.prototype.update_options = function(){
     options._sh = sh;
     options._color_hex = fg.draw.rgba2color_hex(rgba);
     options._color_rgba = "rgba("+rgba.r+","+rgba.g+","+rgba.b+","+alpha+")";
+    options.x0 = def.limit(options.x0, 0, fg.px_w, fg.px_w/2);
+    options.y0 = def.limit(options.y0, 0, fg.px_h, fg.px_h/2);
+    options.offsetR = def.limit(options.offsetR, 0, 1, 0);
+    options.orderR = def.limit(options.orderR, 0, 10, 1);
+    options.NrandR = def.limit(Math.floor(options.NrandR), 0, 255, 0);
+    options.NrandT = def.limit(Math.floor(options.NrandT), 0, 255, 0);
+    options.isMin = def.limit(options.isMin, -10, 10, true);
+    options.isRound = def.limit(options.isRound, -10, 10, true);
+    options.Nrender = def.limit(Math.floor(options.Nrender), 1, 32767, 2560);
+    options.Ncycle = def.limit(Math.floor(options.Ncycle), 0, 127, 1);
   }
   return self;
 };
@@ -350,7 +362,7 @@ My_entry.pen.prototype.make_handlers = function(){
       self.arr_data = [];  // Ver.1.2.0
       self.mode = self.mode || Number($.selectVal_id("select-mode"));  // Ver.1.19.4 Key first  // Ver.1.33.7
       /* Ver.1.35.7 */
-      if(self.mode === 0){
+      if(self.mode === 0 && !(e.mysvg)){  // Ver.1.43.8
         self.arr_vec = [];
       }
     },
@@ -634,7 +646,8 @@ My_entry.pen.prototype.make_handlers = function(){
             options.A = 100;
           }
         }
-        self.handler_history_svg.save(self.make_svg_lines());  // Ver.1.2.0
+        var svg = (e.mysvg)? e.mysvg: self.make_svg_lines();  // Ver.1.43.8
+        self.handler_history_svg.save(svg);  // Ver.1.2.0
         if(self.mode < 0){
           self.update_options();
         }
@@ -721,7 +734,6 @@ My_entry.pen.prototype.init_handlers = function(){
   self.handlers.onclick = function(e, elem){
     var self = this;
     if(self.isLocked) return false;  // Ver.1.28.7 all-buttons
-    var def = self.entry.def;
     var fg = self.objs.fg;
     var mg = self.objs.mg;  // Ver.1.10.2
     var bg = self.objs.bg;  // Ver.1.7.1
@@ -770,31 +782,21 @@ My_entry.pen.prototype.init_handlers = function(){
           self.handler_history_svg.save(svg);
         }
         break;
+      /* Ver.1.43.8 */
       /* Ver.1.42.8 */
       case "put":
         var arr_vec = self.arr_vec;
         var len = arr_vec.length;
         var text = $._id("input-colors-gradation").value;
         if(text && len > 0){
-          options.x0 = def.limit(options.x0, 0, bg.px_w, bg.px_w/2);
-          options.y0 = def.limit(options.y0, 0, bg.px_h, bg.px_h/2);
-          options.offsetR = def.limit(options.offsetR, 0, 1, 0);
-          options.orderR = def.limit(options.orderR, 0, 10, 1);
-          options.NrandR = def.limit(Math.floor(options.NrandR), 0, 255, 0);
-          options.NrandT = def.limit(Math.floor(options.NrandT), 0, 255, 0);
-          options.isMin = def.limit(options.isMin, -10, 10, true);
-          options.isRound = def.limit(options.isRound, -10, 10, true);
-          options.Nrender = def.limit(Math.floor(options.Nrender), 1, 32767, 2560);
-          options.Ncycle = def.limit(Math.floor(options.Ncycle), 0, 127, 1);
           var vec0 = {x: options.x0, y: options.y0};
           var colors = (text).split(":");
           self.entry.def.mix_over(self.constructors.draw, self.constructors.draw_canvas);
-          var ID = bg.draw.gradation(colors, arr_vec, options.composite, vec0, options.offsetR, options.orderR, options.NrandR, options.NrandT, options.isMin, options.isRound, options.Nrender, options.Ncycle);
+          var ID = fg.draw.gradation(colors, arr_vec, options.composite, vec0, options.offsetR, options.orderR, options.NrandR, options.NrandT, options.isMin, options.isRound, options.Nrender, options.Ncycle);
           self.entry.def.mix_over(self.constructors.draw, self.constructors.draw_svg);
-          var svg = bg.draw.gradation(colors, arr_vec, options.composite, vec0, options.offsetR, options.orderR, options.NrandR, options.NrandT, options.isMin, options.isRound, options.Nrender, options.Ncycle);
-          bg.putID(ID);
-          self.handler_history_ID.save(bg.getID());
-          self.handler_history_svg.save(svg);
+          var svg = fg.draw.gradation(colors, arr_vec, options.composite, vec0, options.offsetR, options.orderR, options.NrandR, options.NrandT, options.isMin, options.isRound, options.Nrender, options.Ncycle);
+          fg.putID(ID);
+          fg.tap_point({mysvg: svg});
         }
         break;
       /* Ver.1.1.0 -> */
@@ -879,11 +881,15 @@ My_entry.pen.prototype.init_handlers = function(){
       case "input-grid-height":
         self.reset_canvas_grid();
         break;
+      /* Ver.1.43.8 */
       /* Ver.1.11.4 -> */
       case "input-file-fg":
         var file = $.readFile_elem(elem, /^image/, function(e){
           var base64 = e.target.result;
-          fg.draw_base64(base64, null, null, options.composite);
+          var callback_last = function(){
+            fg.tap_point({mysvg: ""});
+          };
+          fg.draw_base64(base64, null, callback_last, options.composite);
         });
         if(!(file)){
           elem.value = null;

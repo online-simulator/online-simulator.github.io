@@ -299,6 +299,8 @@ pointer-up検知frame
         <tr class="border">
           <td class="border">
 1tap
+<br>
+<span class="condition">Ver.1.43.8更新</span>
           </td>
           <td class="border">
 canvasを1tapする行為
@@ -307,6 +309,13 @@ canvasを1tapする行為
 down -> upが理想
 <br>
 ・move検知なしでline描画なし
+<br>
+<br>
+<span class="condition">canvas前面にput後、自動1tapで背面に合成</span>
+<br>
+put
+<br>
+fg-image-file
           </td>
         </tr>
         <tr class="border">
@@ -1350,15 +1359,13 @@ svg出力
 <br>
 ・dot絵変換の目安
 <br>
-fg-image-file ->
-<br>
 grid1x1 ->
 <br>
 mosaic-min ->
 <br>
 with-svg-checked ->
 <br>
-1tap ->
+fg-image-file ->
 <br>
 download-svg ->
 <br>
@@ -1396,8 +1403,6 @@ flat_upp: 設定値の上側
 <br>
 ・設定値&lt;0の要素は無効
 </span>
-<br>
-・履歴保存あり
           </td>
         </tr>
         <tr class="border">
@@ -1483,8 +1488,6 @@ blur=|sh|
 ・描画するtextを入力
 <br>
 ・path=pen最終の1筆lines
-<br>
-・履歴保存あり
           </td>
         </tr>
         <tr class="border">
@@ -1511,6 +1514,8 @@ colors-gradation
 put
 <br>
 <span class="run">Ver.1.42.8追加</span>
+<br>
+<span class="clear">Ver.1.43.8更新</span>
           </td>
           <td class="border">
 gradation機能
@@ -1518,15 +1523,13 @@ gradation機能
 <a href="../01_calc_simple/manual.html#span-out-UI-graphing-gradation">[manual]Calculator</a>参照
           </td>
           <td class="border">
-put実行後、canvas背面にgradationをput
+<span class="clear">canvas前面にgradationをput後、背面に合成</span>
 <br>
 ・third-url-parameters有効
 <br>
 ・colorをcolon:区切りで入力
 <br>
 ・path=pen最終の1筆lines
-<br>
-・履歴保存あり
           </td>
         </tr>
         <tr class="border">
@@ -1546,8 +1549,6 @@ bg-filter機能（任意）
           </td>
           <td class="border">
 run実行後、canvas背面に適用
-<br>
-・履歴保存あり
 <br>
 <br>
 適用例）
@@ -1572,14 +1573,14 @@ fg-image-file
 <span class="run">Ver.1.11.4追加</span>
 <br>
 <span class="clear">Ver.1.24.7修正</span>
+<br>
+<span class="condition">Ver.1.43.8更新</span>
           </td>
           <td class="border">
 local fileのread機能
           </td>
           <td class="border">
-read完了後、canvas前面に合成
-<br>
-・履歴保存なし
+<span class="condition">read完了後、canvas前面にput後、背面に合成</span>
 <br>
 ・canvasのre-sizeなし
 <br>
@@ -1587,7 +1588,7 @@ read完了後、canvas前面に合成
 <br>
 <span class="clear">・A&ge;0のalpha値を無効に修正</span>
 <br>
-<span class="clear">・1tapで入力欄のfile名を消去</span>
+<span class="clear"><del>・1tapで入力欄のfile名を消去</del></span><span class="condition">自動1tap</span>
           </td>
         </tr>
         <tr class="border">
@@ -1607,8 +1608,6 @@ local fileのread機能
           </td>
           <td class="border">
 read完了後、canvas背面に合成
-<br>
-・履歴保存あり
 <br>
 <span class="run">・canvasのre-sizeあり</span>
 <br>

@@ -57,6 +57,22 @@ My_entry.canvas.prototype.attach_point = function(handlers){
   });
   return self;
 };
+/* 1.43.8 */
+My_entry.canvas.prototype.tap_point = function(opt_e){
+  var self = this;
+  var e = opt_e || {};
+  if(isNaN(e.offsetX)){
+    e.offsetX = self.px_w/2;
+  }
+  if(isNaN(e.offsetY)){
+    e.offsetY = self.px_h/2;
+  }
+  e.preventDefault = function(){};
+  e.stopPropagation = function(){};
+  self.elem[self.point["onmousedown"]](e);
+  self.elem[self.point["onmouseup"]](e);
+  return self;
+};
 My_entry.canvas.prototype.detach = function(){
   var self = this;
   self.onevents.forEach(function(onevent){
