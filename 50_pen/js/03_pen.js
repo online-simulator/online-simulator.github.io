@@ -841,16 +841,13 @@ My_entry.pen.prototype.init_handlers = function(){
       case "select-canvas-width":
       case "select-canvas-height":
       case "select-bgcolor":  // Ver.1.7.1
+      case "input-second-url-parameters":  // Ver.1.39.7  // Ver.1.41.8
         self.reset_canvas();
         break;
       /* Ver.1.10.2 */
       case "input-grid-width":
       case "input-grid-height":
         self.reset_canvas_grid();
-        break;
-      /* Ver.1.39.7 */
-      case "input-second-url-parameters":
-        self.update_options();
         break;
       /* Ver.1.11.4 -> */
       case "input-file-fg":
