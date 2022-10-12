@@ -748,7 +748,7 @@ My_entry.pen.prototype.init_handlers = function(){
         var label0 = elem.innerText;
         elem.innerText = label0+"...";
         setTimeout(function(){
-          self.run_filter(bg, $.inputVal_id("input-text-filter"), true);  // Ver.1.26.7
+          self.run_filter(bg, $._id("input-text-filter").value, true);  // Ver.1.26.7
           self.handler_history_ID.save(bg.getID());
           self.handler_history_svg.save("");
           elem.innerText = label0;
