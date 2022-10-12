@@ -41,8 +41,8 @@ My_entry.pen.prototype.init_keys = function(){
   ["bucket", "circle", "rectangle", "picker"].forEach(function(id, i){
     modes[id] = options[id] || ["KeyB", "KeyG", "KeyT", "KeyY"][i];  // Ver.1.31.7
   });
-  ["<<", ">>", "clear", "run", "draw"].forEach(function(id, i){
-    buttons[id] = options[id] || ["KeyS", "KeyD", "KeyA", "KeyW", "KeyE"][i];  // Ver.1.17.4  // Ver.1.35.7
+  ["<<", ">>", "clear", "run", "draw", "put"].forEach(function(id, i){
+    buttons[id] = options[id] || ["KeyS", "KeyD", "KeyA", "KeyW", "KeyE", "Digit3"][i];  // Ver.1.17.4  // Ver.1.35.7  // Ver.1.42.8
   });
   ["checkbox-config", "checkbox-snap"].forEach(function(id, i){
     inputs[id] = options[id] || ["KeyP", "KeyO"][i];  // Ver.1.38.7
@@ -128,6 +128,7 @@ My_entry.pen.prototype.update_options = function(){
   $.get_elemProps("input[type='color']", "input-", "value", self.options);
   $.get_elemProps("input[type='number']", "input-", "value", self.options);
   $.get_elemProps("select", "select-", "value", self.options);
+  $.get_urlParams(self.options, true, "?"+$._id("input-third-url-parameters").value);  // Ver.1.42.8
   $.get_urlParams(self.options, true, "?"+$._id("input-second-url-parameters").value);  // "?" first  // Ver.1.39.7
   $.get_urlParams(self.options);
   if(fg){
@@ -720,6 +721,7 @@ My_entry.pen.prototype.init_handlers = function(){
   self.handlers.onclick = function(e, elem){
     var self = this;
     if(self.isLocked) return false;  // Ver.1.28.7 all-buttons
+    var def = self.entry.def;
     var fg = self.objs.fg;
     var mg = self.objs.mg;  // Ver.1.10.2
     var bg = self.objs.bg;  // Ver.1.7.1
@@ -764,6 +766,33 @@ My_entry.pen.prototype.init_handlers = function(){
         if(text && len > 0){
           bg.draw.textpath_sw(text, arr_vec, options.composite, len-1, options.fontFamily, options.fontSize || options.W, options.isBold, options.isItalic, options.isReverse, options.fillStyle || options.bgcolor, options.strokeStyle || options._color_rgba, options.fillStr, options.spacingX || 0, options.spacingY || 0, options.offsetX || 0, options.offsetY || 0, options.blur || options._sh, options.deg0 || 0);
           var svg = bg.draw.textpath_sw(text, arr_vec, options.composite, len-1, options.fontFamily, options.fontSize || options.W, options.isBold, options.isItalic, options.isReverse, options.fillStyle || options.bgcolor, options.strokeStyle || options._color_rgba, options.fillStr, options.spacingX || 0, options.spacingY || 0, options.offsetX || 0, options.offsetY || 0, options.blur || options._sh, options.deg0 || 0, true);
+          self.handler_history_ID.save(bg.getID());
+          self.handler_history_svg.save(svg);
+        }
+        break;
+      /* Ver.1.42.8 */
+      case "put":
+        var arr_vec = self.arr_vec;
+        var len = arr_vec.length;
+        var text = $._id("input-colors-gradation").value;
+        if(text && len > 0){
+          options.x0 = def.limit(options.x0, 0, bg.px_w, bg.px_w/2);
+          options.y0 = def.limit(options.y0, 0, bg.px_h, bg.px_h/2);
+          options.offsetR = def.limit(options.offsetR, 0, 1, 0);
+          options.orderR = def.limit(options.orderR, 0, 10, 1);
+          options.NrandR = def.limit(Math.floor(options.NrandR), 0, 255, 0);
+          options.NrandT = def.limit(Math.floor(options.NrandT), 0, 255, 0);
+          options.isMin = def.limit(options.isMin, -10, 10, true);
+          options.isRound = def.limit(options.isRound, -10, 10, true);
+          options.Nrender = def.limit(Math.floor(options.Nrender), 1, 32767, 2560);
+          options.Ncycle = def.limit(Math.floor(options.Ncycle), 0, 127, 1);
+          var vec0 = {x: options.x0, y: options.y0};
+          var colors = (text).split(":");
+          self.entry.def.mix_over(self.constructors.draw, self.constructors.draw_canvas);
+          var ID = bg.draw.gradation(colors, arr_vec, options.composite, vec0, options.offsetR, options.orderR, options.NrandR, options.NrandT, options.isMin, options.isRound, options.Nrender, options.Ncycle);
+          self.entry.def.mix_over(self.constructors.draw, self.constructors.draw_svg);
+          var svg = bg.draw.gradation(colors, arr_vec, options.composite, vec0, options.offsetR, options.orderR, options.NrandR, options.NrandT, options.isMin, options.isRound, options.Nrender, options.Ncycle);
+          bg.putID(ID);
           self.handler_history_ID.save(bg.getID());
           self.handler_history_svg.save(svg);
         }
@@ -842,6 +871,7 @@ My_entry.pen.prototype.init_handlers = function(){
       case "select-canvas-height":
       case "select-bgcolor":  // Ver.1.7.1
       case "input-second-url-parameters":  // Ver.1.39.7  // Ver.1.41.8
+      case "input-third-url-parameters":  // Ver.1.42.8
         self.reset_canvas();
         break;
       /* Ver.1.10.2 */
