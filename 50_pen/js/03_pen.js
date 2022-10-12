@@ -756,7 +756,7 @@ My_entry.pen.prototype.init_handlers = function(){
           self.isLocked = false;  // Ver.1.28.7
         }, 50);
         break;
-      /* 1.35.7 */
+      /* Ver.1.35.7 */
       case "draw":
         var arr_vec = self.arr_vec;
         var len = arr_vec.length;
