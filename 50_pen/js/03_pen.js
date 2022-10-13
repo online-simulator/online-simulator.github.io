@@ -360,10 +360,13 @@ My_entry.pen.prototype.make_handlers = function(){
       /* -> Ver.1.4.1 */
       self.w0 = 0;
       self.arr_data = [];  // Ver.1.2.0
-      self.mode = self.mode || Number($.selectVal_id("select-mode"));  // Ver.1.19.4 Key first  // Ver.1.33.7
-      /* Ver.1.35.7 */
-      if(self.mode === 0 && !(e.isMyCalled)){  // Ver.1.43.8
-        self.arr_vec = [];
+      /* Ver.1.43.8 */
+      if(!(e.isMyCalled)){
+        self.mode = self.mode || Number($.selectVal_id("select-mode"));  // Ver.1.19.4 Key first  // Ver.1.33.7
+        /* Ver.1.35.7 */
+        if(self.mode === 0){
+          self.arr_vec = [];
+        }
       }
     },
     onmousemove: function(e){
@@ -796,7 +799,7 @@ My_entry.pen.prototype.init_handlers = function(){
           self.entry.def.mix_over(self.constructors.draw, self.constructors.draw_svg);
           var svg = fg.draw.gradation(colors, arr_vec, options.composite, vec0, options.offsetR, options.orderR, options.NrandR, options.NrandT, options.isMin, options.isRound, options.Nrender, options.Ncycle);
           fg.putID(ID);
-          fg.tap_point({isMyCalled: true, mysvg: svg});
+          fg.tap_point({mysvg: svg});
         }
         break;
       /* Ver.1.1.0 -> */
@@ -887,7 +890,7 @@ My_entry.pen.prototype.init_handlers = function(){
         var file = $.readFile_elem(elem, /^image/, function(e){
           var base64 = e.target.result;
           var callback_last = function(){
-            fg.tap_point({isMyCalled: true, mysvg: ""});
+            fg.tap_point({mysvg: ""});
           };
           fg.draw_base64(base64, null, callback_last, options.composite);
         });

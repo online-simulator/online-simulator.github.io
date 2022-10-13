@@ -67,6 +67,7 @@ My_entry.canvas.prototype.tap_point = function(opt_e){
   if(isNaN(e.offsetY)){
     e.offsetY = self.px_h/2;
   }
+  e.isMyCalled = true;
   e.preventDefault = function(){};
   e.stopPropagation = function(){};
   self.elem[self.point["onmousedown"]](e);
