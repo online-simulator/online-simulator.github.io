@@ -41,8 +41,8 @@ My_entry.pen.prototype.init_keys = function(){
   ["bucket", "circle", "rectangle", "picker"].forEach(function(id, i){
     modes[id] = options[id] || ["KeyB", "KeyG", "KeyT", "KeyY"][i];  // Ver.1.31.7
   });
-  ["<<", ">>", "clear", "run", "draw", "put"].forEach(function(id, i){
-    buttons[id] = options[id] || ["KeyS", "KeyD", "KeyA", "KeyW", "KeyE", "Digit3"][i];  // Ver.1.17.4  // Ver.1.35.7  // Ver.1.42.8
+  ["<<", ">>", "clear", "run", "draw", "put", "blur"].forEach(function(id, i){
+    buttons[id] = options[id] || ["KeyS", "KeyD", "KeyA", "KeyW", "KeyE", "Digit3", "Digit2"][i];  // Ver.1.17.4  // Ver.1.35.7  // Ver.1.42.8  // Ver.1.44.8
   });
   ["checkbox-config", "checkbox-snap"].forEach(function(id, i){
     inputs[id] = options[id] || ["KeyP", "KeyO"][i];  // Ver.1.38.7
@@ -118,6 +118,7 @@ My_entry.pen.prototype.init_elems = function(){
   $.setup_elems$_tag("select", self.handlers, "onchange");
   return self;
 };
+/* Ver.1.44.8 */
 /* Ver.1.43.8 */
 /* Ver.1.35.7 */
 My_entry.pen.prototype.update_options = function(){
@@ -153,6 +154,12 @@ My_entry.pen.prototype.update_options = function(){
     options.isRound = def.limit(options.isRound, -10, 10, true);
     options.Nrender = def.limit(Math.floor(options.Nrender), 1, 32767, 2560);
     options.Ncycle = def.limit(Math.floor(options.Ncycle), 0, 127, 1);
+    options.isCyclic = def.limit(options.isCyclic, -10, 10, true);
+    options.isSquare = def.limit(options.isSquare, -10, 10, true);
+    options.x_asym = (isNaN(options.x_asym))? 0: Number(options.x_asym);
+    options.y_asym = (isNaN(options.y_asym))? 0: Number(options.y_asym);
+    options.k_asym = (isNaN(options.k_asym))? 0: Number(options.k_asym);
+    options.Nrad_asym = (isNaN(options.Nrad_asym))? 0: Number(options.Nrad_asym);
   }
   return self;
 };
@@ -807,6 +814,21 @@ My_entry.pen.prototype.init_handlers = function(){
           var svg = fg.draw.gradation(colors, arr_vec, options.composite, vec0, options.offsetR, options.orderR, options.NrandR, options.NrandT, options.isMin, options.isRound, options.Nrender, options.Ncycle);
           fg.putID(ID);
           fg.tap_point({mysvg: svg});
+        }
+        break;
+      /* Ver.1.44.8 */
+      case "blur":
+        var arr_vec = self.arr_vec;
+        var len = arr_vec.length;
+        var text = $._id("input-strengths-blur").value;
+        if(text && len > 0){
+          var vec0 = {x: options.x0, y: options.y0};
+          var arr_s = self.entry.conv.arr_str2arr_num((text || "0:10").split(":"), 0, 0, 20);
+          self.entry.def.mix_over(self.constructors.draw, self.constructors.draw_canvas);
+          var ID = bg.draw.blur(arr_s, arr_vec, options.composite, vec0, options.offsetR, options.orderR, options.NrandR, options.NrandT, options.isMin, options.isRound, options.Nrender, options.Ncycle, options.isCyclic, options.isSquare, options.x_asym, options.y_asym, options.k_asym, options.Nrad_asym);
+          bg.putID(ID);
+          self.handler_history_ID.save(ID);
+          self.handler_history_svg.save("");
         }
         break;
       /* Ver.1.1.0 -> */
