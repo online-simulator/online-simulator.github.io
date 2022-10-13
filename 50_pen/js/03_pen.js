@@ -544,6 +544,11 @@ My_entry.pen.prototype.make_handlers = function(){
       var x1 = xy1.x;
       var y1 = xy1.y;
       /* -> Ver.1.36.7 */
+    /* Ver.1.43.8 -> */
+    if(e.isMyCalled){
+      self.mode = 0;
+    }
+    else{
       if(self.mode > 0){  // Ver.1.34.7
         fg.clear();  // Ver.1.32.7
         var dx = x1-x0;
@@ -615,6 +620,8 @@ My_entry.pen.prototype.make_handlers = function(){
       }
       /* -> Ver.1.20.4 */
       /* -> Ver.1.32.7 */
+    }
+    /* -> Ver.1.43.8 */
     /* Ver.1.26.7 -> */
     if(Math.abs(self.mode) !== 1){  // Ver.1.34.7
       if(options.A < 0){
