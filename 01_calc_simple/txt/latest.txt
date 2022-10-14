@@ -1,6 +1,21 @@
 clear
 local storage cleared
 
+A=coo2mat(aA:iA:jA)
+A=(
+1,0,0,0:
+0,0,0,1+i:
+0,0,1-i,0
+)
+
+aA=(1,1+i,1-i),iA=(1,2,3),jA=(1,4,3)
+(
+0,0,0
+)
+
+clear
+local storage cleared
+
 f(x)=<x,((a=<1)=((b=<2)=((c=3)=((d=4)+5)))),f(-1)*(a,b,c,d)
 (
 0,5,-1,-2,-3,-4
@@ -447,4 +462,4 @@ drag=false&sw=false&0x=false&useComplex=true&useMatrix=true&isRightAssociativity
 --------------------------------
 --------------------------------
 
-online-simulator.github.io.5.126.59.12.37 @ Thu Oct 06 2022 04:06:36 GMT+0900 (日本標準時) @ Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/105.0.0.0 Safari/537.36
+online-simulator.github.io.5.144.65.12.38 @ Fri Oct 14 2022 22:24:04 GMT+0900 (日本標準時) @ Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/106.0.0.0 Safari/537.36

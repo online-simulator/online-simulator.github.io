@@ -406,6 +406,8 @@ e^(-i(1pi(){2/2i}(5-{3-1}){i/(-4)}))
 <br>
 　　・<a href="#span-out-FNm-normalize">正規化行列関数</a>
 <br>
+　　・<a href="#span-out-FNm-coo">座標形式行列関数</a>
+<br>
 　・<a href="#span-out-array">行列操作</a>
 <br>
 　　・<a href="#span-out-reference-mat">行列への参照</a>
@@ -771,6 +773,8 @@ ja.m.wikipedia.org/wiki/項目を列挙する
 ・誤差
 <br>
 ・行列
+<br>
+・疎行列
 <br>
 ・行列の乗法
 <br>
@@ -14368,6 +14372,13 @@ size
 size行列関数の入力仕様と付随する留意事項について記述する
 <br>
 <br>
+m行n列の<a href="#span-out-mat">行列</a>のsizeを定義する
+<br>
+行size:=m=1~<a href="#span-out-FNm">matSizeMax</a>
+<br>
+列size:=n=1~<a href="#span-out-FNm">matSizeMax</a>
+<br>
+<br>
 行列size（抜け要素を自動で埋める）
 <br>
 ・行size
@@ -14576,6 +14587,93 @@ trans((1/norm(trans(A[1])))A[1])
 trans((1/norm(trans(A[2])))A[2])
 <br>
 -> (0.5773502691896258:0.5773502691896258i:-0.5773502691896258i)
+    </td>
+  </tr>
+  <tr>
+    <th>
+<a href="#span-index">
+目次
+</a>
+<br>
+座標形式
+<br>
+行列関数
+<br>
+入力仕様
+    </th>
+    <td>
+<span id="span-out-FNm-coo"></span>
+座標形式行列関数の入力仕様と付随する留意事項について記述する
+<br>
+<br>
+<span class="run">Ver.2.123.34</span>以降、疎行列を扱う座標形式（以降、COO形式と呼ぶ）の<a href="#span-out-FNm">行列関数</a>を追加
+<br>
+<br>
+COO形式から<a href="#span-out-mat">行列</a>を復元
+<br>
+clear; aA=(1); iA=(1); jA=(2); A=coo2mat(aA:iA:jA); A -> (0,1)
+<br>
+clear; aA=(1,1+i,1-i); iA=(1,2,3); jA=(1,2,3); A=coo2mat(aA:iA:jA); A -> 
+<br>
+(
+<br>
+1,0,0:
+<br>
+0,1+i,0:
+<br>
+0,0,1-i
+<br>
+)
+<br>
+clear; aA=(1,1+i,1-i); iA=(1,2,3); jA=(1,4,3); A=coo2mat(aA:iA:jA); A ->
+<br>
+(
+<br>
+1,0,0,0:
+<br>
+0,0,0,1+i:
+<br>
+0,0,1-i,0
+<br>
+)
+<br>
+clear; aA=(1,1+i,1-i); iA=(1,2,3); jA=(1,2,3); A=coo2mat(aA:iA:2*jA); A -> 
+<br>
+(
+<br>
+0,1,0,0,0,0:
+<br>
+0,0,0,1+i,0,0:
+<br>
+0,0,0,0,0,1-i
+<br>
+)
+<br>
+・重複定義の場合、配列の後要素で上書き
+<br>
+clear; aA=(1,1+i,1-i); iA=(1,2,1); jA=(1,4,1); A=coo2mat(aA:iA:jA); A ->
+<br>
+(
+<br>
+1-i,0,0,0:
+<br>
+0,0,0,1+i
+<br>
+)
+<br>
+・引数不正の場合、error終了
+<br>
+clear; aA=(1,1+i,1-i); iA=(1,2,3); jA=(1,2,3); A=coo2mat(aA:iA); A -> [MyErr]Invalid coo2matSize
+<br>
+clear; aA=(1,1+i); iA=(1,2,3); jA=(1,2,3); A=coo2mat(aA:iA:jA); A -> [MyErr]Invalid coo2matSize
+<br>
+clear; aA=(1,1+i:1-i); iA=(1,2,3); jA=(1,2,3); A=coo2mat(aA:iA:jA); A -> [MyErr]Invalid coo2matSize
+<br>
+・<a href="#span-out-FNm-size">行列size</a>の制限に従うerror終了
+<br>
+clear; aA=(1,1+i,1-i); iA=(0,2,3); jA=(1,2,3); A=coo2mat(aA:iA:jA); A -> [MyErr]Invalid matrix size
+<br>
+clear; aA=(1,1+i,1-i); iA=(1001,2,3); jA=(1,2,3); A=coo2mat(aA:iA:jA); A -> [MyErr]Invalid matSizeMax over
     </td>
   </tr>
   <tr>
@@ -29356,6 +29454,7 @@ parser.js抜粋
       case "scalars":
       case "zeros":
       case "ones":
+      case "coo2mat":
         tree = DATA.tree_tag("FNm", token_lower);
         break;
       case "gauss":

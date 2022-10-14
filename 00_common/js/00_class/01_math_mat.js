@@ -308,6 +308,34 @@ My_entry.math_mat.prototype.gaussian = function(options, arr){
   var _arr = obj_Axb.x;
   return _arr;
 };
+/* Ver.2.123.34 */
+My_entry.math_mat.prototype.coo2mat = function(options, arr){  // arr=(aA:iA:jA) -> A
+  var self = this;
+  var DATA = self.entry.DATA;
+  if(arr.length !== 3) throw "Invalid coo2matSize";
+  var arr0 = arr[0];
+  var arr1 = arr[1];
+  var arr2 = arr[2];
+  var len_arr0 = arr0.length;
+  var len_arr1 = arr1.length;
+  var len_arr2 = arr2.length;
+  if(!(len_arr0 === len_arr1 && len_arr0 === len_arr2)) throw "Invalid coo2matSize";
+  var iA = [];
+  var jA = [];
+  for(var j=0; j<len_arr1; ++j){
+    iA[j] = self.num2size(options, arr1[j]);
+  }
+  for(var j=0; j<len_arr2; ++j){
+    jA[j] = self.num2size(options, arr2[j]);
+  }
+  var len_i = Math.max.apply(Math, iA);
+  var len_j = Math.max.apply(Math, jA);
+  var _arr = self.zeros2d(len_i, len_j);
+  for(var j=0; j<len_arr0; ++j){
+    _arr[iA[j]-1][jA[j]-1] = arr0[j];
+  }
+  return _arr;
+};
 My_entry.math_mat.prototype.Imat = function(len){
   var self = this;
   return self.Imat_num(len);
