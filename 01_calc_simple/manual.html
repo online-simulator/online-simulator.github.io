@@ -14609,11 +14609,11 @@ trans((1/norm(trans(A[2])))A[2])
 <span class="run">Ver.2.123.34</span>以降、疎行列を扱う座標形式（以降、COO形式と呼ぶ）の<a href="#span-out-FNm">行列関数</a>を追加
 <br>
 <br>
-COO形式から<a href="#span-out-mat">行列</a>を復元
+COO形式から<a href="#span-out-FNm-size">m行n列</a>の<a href="#span-out-mat">行列</a>を復元
 <br>
-clear; aA=(1); iA=(1); jA=(2); A=coo2mat(aA:iA:jA); A -> (0,1)
+clear; aA=(1); mA=(1); nA=(2); A=coo2mat(aA:mA:nA); A -> (0,1)
 <br>
-clear; aA=(1,1+i,1-i); iA=(1,2,3); jA=(1,2,3); A=coo2mat(aA:iA:jA); A -> 
+clear; aA=(1,1+i,1-i); mA=(1,2,3); nA=(1,2,3); A=coo2mat(aA:mA:nA); A ->
 <br>
 (
 <br>
@@ -14625,7 +14625,7 @@ clear; aA=(1,1+i,1-i); iA=(1,2,3); jA=(1,2,3); A=coo2mat(aA:iA:jA); A ->
 <br>
 )
 <br>
-clear; aA=(1,1+i,1-i); iA=(1,2,3); jA=(1,4,3); A=coo2mat(aA:iA:jA); A ->
+clear; aA=(1,1+i,1-i); mA=(1,2,3); nA=(1,4,3); A=coo2mat(aA:mA:nA); A ->
 <br>
 (
 <br>
@@ -14637,7 +14637,7 @@ clear; aA=(1,1+i,1-i); iA=(1,2,3); jA=(1,4,3); A=coo2mat(aA:iA:jA); A ->
 <br>
 )
 <br>
-clear; aA=(1,1+i,1-i); iA=(1,2,3); jA=(1,2,3); A=coo2mat(aA:iA:2*jA); A -> 
+clear; aA=(1,1+i,1-i); mA=(1,2,3); nA=(1,2,3); A=coo2mat(aA:mA:2*nA); A ->
 <br>
 (
 <br>
@@ -14651,7 +14651,7 @@ clear; aA=(1,1+i,1-i); iA=(1,2,3); jA=(1,2,3); A=coo2mat(aA:iA:2*jA); A ->
 <br>
 ・重複定義の場合、配列の後要素で上書き
 <br>
-clear; aA=(1,1+i,1-i); iA=(1,2,1); jA=(1,4,1); A=coo2mat(aA:iA:jA); A ->
+clear; aA=(1,1+i,1-i); mA=(1,2,1); nA=(1,4,1); A=coo2mat(aA:mA:nA); A ->
 <br>
 (
 <br>
@@ -14663,17 +14663,17 @@ clear; aA=(1,1+i,1-i); iA=(1,2,1); jA=(1,4,1); A=coo2mat(aA:iA:jA); A ->
 <br>
 ・引数不正の場合、error終了
 <br>
-clear; aA=(1,1+i,1-i); iA=(1,2,3); jA=(1,2,3); A=coo2mat(aA:iA); A -> [MyErr]Invalid coo2matSize
+clear; aA=(1,1+i,1-i); mA=(1,2,3); nA=(1,2,3); A=coo2mat(aA:mA); A -> [MyErr]Invalid coo2matSize
 <br>
-clear; aA=(1,1+i); iA=(1,2,3); jA=(1,2,3); A=coo2mat(aA:iA:jA); A -> [MyErr]Invalid coo2matSize
+clear; aA=(1,1+i); mA=(1,2,3); nA=(1,2,3); A=coo2mat(aA:mA:nA); A -> [MyErr]Invalid coo2matSize
 <br>
-clear; aA=(1,1+i:1-i); iA=(1,2,3); jA=(1,2,3); A=coo2mat(aA:iA:jA); A -> [MyErr]Invalid coo2matSize
+clear; aA=(1,1+i:1-i); mA=(1,2,3); nA=(1,2,3); A=coo2mat(aA:mA:nA); A -> [MyErr]Invalid coo2matSize
 <br>
 ・<a href="#span-out-FNm-size">行列size</a>の制限に従うerror終了
 <br>
-clear; aA=(1,1+i,1-i); iA=(0,2,3); jA=(1,2,3); A=coo2mat(aA:iA:jA); A -> [MyErr]Invalid matrix size
+clear; aA=(1,1+i,1-i); mA=(0,2,3); nA=(1,2,3); A=coo2mat(aA:mA:nA); A -> [MyErr]Invalid matrix size
 <br>
-clear; aA=(1,1+i,1-i); iA=(1001,2,3); jA=(1,2,3); A=coo2mat(aA:iA:jA); A -> [MyErr]Invalid matSizeMax over
+clear; aA=(1,1+i,1-i); mA=(1001,2,3); nA=(1,2,3); A=coo2mat(aA:mA:nA); A -> [MyErr]Invalid matSizeMax over
     </td>
   </tr>
   <tr>
@@ -19059,7 +19059,7 @@ symbolic
 <span id="span-out-FNmh-EX"></span>
 symbolic高階行列関数
 <br>
-・未知<a href="#span-out-vars-symbol">変数名symbol</a>連番0~のm行n列の<a href="#span-out-mat">行列</a>を<a href="#span-out-eqns">式変数</a>に<a href="#span-out-substitution-equation">式代入</a>して0を返す
+・未知<a href="#span-out-vars-symbol">変数名symbol</a>連番0~の<a href="#span-out-FNm-size">m行n列</a>の<a href="#span-out-mat">行列</a>を<a href="#span-out-eqns">式変数</a>に<a href="#span-out-substitution-equation">式代入</a>して0を返す
 <br>
 ・_e式<a href="#span-out-vars-symbol">変数名symbol</a>(=&lt;{未知<a href="#span-out-vars-symbol">変数名symbol</a>},m,n)でcallする
 <br>

@@ -309,7 +309,7 @@ My_entry.math_mat.prototype.gaussian = function(options, arr){
   return _arr;
 };
 /* Ver.2.123.34 */
-My_entry.math_mat.prototype.coo2mat = function(options, arr){  // arr=(aA:iA:jA) -> A
+My_entry.math_mat.prototype.coo2mat = function(options, arr){  // arr=(aA:mA:nA) -> A
   var self = this;
   var DATA = self.entry.DATA;
   if(arr.length !== 3) throw "Invalid coo2matSize";
@@ -320,19 +320,19 @@ My_entry.math_mat.prototype.coo2mat = function(options, arr){  // arr=(aA:iA:jA)
   var len_arr1 = arr1.length;
   var len_arr2 = arr2.length;
   if(!(len_arr0 === len_arr1 && len_arr0 === len_arr2)) throw "Invalid coo2matSize";
-  var iA = [];
-  var jA = [];
+  var mA = [];
+  var nA = [];
   for(var j=0; j<len_arr1; ++j){
-    iA[j] = self.num2size(options, arr1[j]);
+    mA[j] = self.num2size(options, arr1[j]);
   }
   for(var j=0; j<len_arr2; ++j){
-    jA[j] = self.num2size(options, arr2[j]);
+    nA[j] = self.num2size(options, arr2[j]);
   }
-  var len_i = Math.max.apply(Math, iA);
-  var len_j = Math.max.apply(Math, jA);
+  var len_i = Math.max.apply(Math, mA);
+  var len_j = Math.max.apply(Math, nA);
   var _arr = self.zeros2d(len_i, len_j);
   for(var j=0; j<len_arr0; ++j){
-    _arr[iA[j]-1][jA[j]-1] = arr0[j];
+    _arr[mA[j]-1][nA[j]-1] = arr0[j];
   }
   return _arr;
 };
