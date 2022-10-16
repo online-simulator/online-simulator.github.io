@@ -144,6 +144,10 @@ My_entry.pen.prototype.update_options = function(){
     options._sh = sh;
     options._color_hex = fg.draw.rgba2color_hex(rgba);
     options._color_rgba = "rgba("+rgba.r+","+rgba.g+","+rgba.b+","+alpha+")";
+    /* 1.45.8 -> */
+    options["canvas-width"] = def.limit(options["canvas-width"], 16, 2560, 512);
+    options["canvas-height"] = def.limit(options["canvas-height"], 16, 2560, 512);
+    /* -> 1.45.8 */
     options.x0 = def.limit(options.x0, 0, fg.px_w, fg.px_w/2);
     options.y0 = def.limit(options.y0, 0, fg.px_h, fg.px_h/2);
     options.offsetR = def.limit(options.offsetR, 0, 1, 0);
