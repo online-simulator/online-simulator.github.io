@@ -10427,7 +10427,7 @@ clear; a(b_,c,d)=&lt;last{b=b_,b_+c+d}; d=3; [c=2,=&lt;[=&lt;[a(1,c,d),b_]]=&gt;
 -> [MyErr]Invalid REv(b_)
 <br>
 <br>
-以上のtestcaseを列挙する
+test caseを列挙する
 <br>
 clear; add(a,b)=&lt;last{a=-1,a+b}; add(last{a=1,a},2)=&gt;,a -> (1,1)
 <br>
@@ -11551,7 +11551,7 @@ plot2d(xt,yt)
 <br>
 ・<a href="#span-out-eqns">式変数</a>の<a href="#span-out-eqns-call">式読出し</a>記号=&gt;を省略する場合、変数名の重複に留意する
 <br>
-storage cleared
+clear;
 <br>
 t0=0;
 <br>
@@ -11573,7 +11573,7 @@ init; evolutionN; xt,yt ->
 <br>
 ・<a href="#span-out-config-strict">strict-mode</a>の場合
 <br>
-storage cleared
+clear;
 <br>
 t0=0;
 <br>
@@ -11692,7 +11692,7 @@ yt4=yt*(0,1,2,3); yt4 ->
 <br>
 ・<a href="#span-out-config-strict">strict-mode</a>の場合
 <br>
-storage cleared
+clear;
 <br>
 t0=0;
 <br>
@@ -11781,7 +11781,7 @@ dtn=&lt;switch(n&lt;=0,0:1,dt);
 <br>
 ・<a href="#span-out-config-strict">strict-mode</a>の場合
 <br>
-storage cleared
+clear;
 <br>
 g=-9.8;
 <br>
@@ -14675,7 +14675,7 @@ clear; aA=(1,1+i); mA=(1,2,3); nA=(1,2,3); A=coo2mat(aA:mA:nA); A -> [MyErr]Inva
 <br>
 clear; aA=(1,1+i:1-i); mA=(1,2,3); nA=(1,2,3); A=coo2mat(aA:mA:nA); A -> [MyErr]Invalid coo2matSize
 <br>
-・<a href="#span-out-FNm-size">行列size</a>の制限に従うerror終了
+・<a href="#span-out-FNm-size">行列size</a>の制限によるerror終了
 <br>
 clear; aA=(1,1+i,1-i); mA=(0,2,3); nA=(1,2,3); A=coo2mat(aA:mA:nA); A -> [MyErr]Invalid matrix size
 <br>
@@ -14683,6 +14683,42 @@ clear; aA=(1,1+i,1-i); mA=(1001,2,3); nA=(1,2,3); A=coo2mat(aA:mA:nA); A -> [MyE
 <br>
 <br>
 COO形式の<a href="#span-out-linear">Gaussの消去法</a>
+<br>
+aA=(1,2,3);
+<br>
+mA=(1,2,3);
+<br>
+nA=(1,2,3);
+<br>
+b={4,5,6};
+<br>
+x=Gauss_coo(aA:mA:nA:trans(b)); x -> (4:2.5:2)
+<br>
+・要素の順序を任意に交換可
+<br>
+aA=(3,1,2);
+<br>
+mA=(3,1,2);
+<br>
+nA=(3,1,2);
+<br>
+b={4,5,6};
+<br>
+x=Gauss_coo(aA:mA:nA:trans(b)); x -> (4:2.5:2)
+<br>
+・Aとbの<a href="#span-out-FNm-size">行列size</a>不一致の場合、error終了
+<br>
+clear; aA=(1,2,3); mA=(1,2,3); nA=(1,2,3); b={4,5};
+<br>
+x=Gauss_coo(aA:mA:nA:trans(b)); x -> [MyErr]Invalid coo2matSize
+<br>
+・定義不正の場合、error終了
+<br>
+clear; aA=(1,2,3); mA=(2,2,3); nA=(1,2,3); b={4,5,6};
+<br>
+x=Gauss_coo(aA:mA:nA:trans(b)); x -> [MyErr]Invalid gauss_coo2mat
+<br>
+・test caseを示す
 <br>
 aA=(1,1,-2,1+i,3i,1,1-i,-1,-i);
 <br>
@@ -14692,9 +14728,37 @@ nA=(1,2,1,2,3,1,3,3,4);
 <br>
 b={4,5,6,7i};
 <br>
-A=coo2mat(aA:mA:nA);
+x=Gauss_coo(aA:mA:nA:trans(b)); x ->
 <br>
-gauss_coo(aA:mA:nA:trans(b))-gauss(A,b) -> (0,0,0,0)
+(
+<br>
+2.0588235294117645+5.235294117647058i:
+<br>
+1.9411764705882355-5.235294117647059i:
+<br>
+4.588235294117647-0.6470588235294115i:
+<br>
+-6.352941176470589+4.588235294117647i
+<br>
+)
+<br>
+・double-check
+<br>
+A=coo2mat(aA:mA:nA); x-Gauss(A,b) -> (0,0,0,0)
+<br>
+A*x ->
+<br>
+(
+<br>
+4-8.881784197001252e-16i:
+<br>
+5+1.7763568394002505e-15i:
+<br>
+6:
+<br>
+7i
+<br>
+)
     </td>
   </tr>
   <tr>
@@ -17737,7 +17801,7 @@ _s$$n(=&lt;{0},1,2) -> [MyErr]Invalid dummy($$n)
 <br>
 ・10回試行中、n回当たりの確率Pn[%]を<a href="#span-out-eqns">式変数</a>で定義する
 <br>
-storage cleared
+clear;
 <br>
 Pb=3; Pn=&lt;{100combin(10,n)(Pb/100)^n((100-Pb)/100)^(10-n)};
 <br>
@@ -18339,7 +18403,7 @@ _dx(=&lt;{x^2},1,1,0) || _dx(=&lt;{x^2},1,1)
 <br>
 ・微分方程式(x^3)"+x-7(1+i)=0の解析解x=1+iの求解
 <br>
-storage cleared
+clear;
 <br>
 f=&lt;{_dx(=&lt;{x^3},2)+x-7(1+i)=0};
 <br>
@@ -18353,7 +18417,7 @@ x -> infoLost[ri] 0.9999999999877383+1.0000000000273828i+O(1e-5+9e-6i)
 <br>
 ・次に<a href="#span-out-error-numerical">数値解</a>の一例を示す
 <br>
-storage cleared
+clear;
 <br>
 f=&lt;{2x*_dx(=&lt;{x*exp(3x)})=i};
 <br>
@@ -18365,7 +18429,7 @@ x -> -0.17989326929739397-0.5079280004968542i+O(2e-1+5e-1i)
 <br>
 ・続けて厳密解同等の<a href="#span-out-error-numerical">数値解</a>を示す
 <br>
-storage cleared
+clear;
 <br>
 f=&lt;{2x*(1*exp(3x)+x*exp(3x)3)=i};
 <br>
@@ -18377,7 +18441,7 @@ x -> infoLost[r ] -0.17989326929046887-0.5079280004963925i
 <br>
 ・連立方程式の解析解{x0,x1}={1,1}の求解
 <br>
-storage cleared
+clear;
 <br>
 f0=&lt;{1*x0^2+x1};
 <br>
@@ -18403,7 +18467,7 @@ infoLost[ri] 0.9999999999968879-3.106688703682063e-12i+O(1e-5+2e-5i)
 <br>
 ・同じく<a href="#span-out-ope">実数演算</a>の場合
 <br>
-storage cleared
+clear;
 <br>
 f0=&lt;{1*x0^2+x1};
 <br>
@@ -18569,7 +18633,7 @@ _it(=&lt;sqrt(tan(t)),0,pi/4,100000) -> <span class="clear">0.48749549</span>261
 <br>
 ・f(x)=x^2のx=[0,b]の定積分=3^3/3となる積分方程式の解析解b=3の求解
 <br>
-storage cleared
+clear;
 <br>
 f=&lt;{_ix(=&lt;{x^2},0,b)=3^3/3};
 <br>
@@ -18591,7 +18655,7 @@ _ix(=&lt;{x^2},0,3,1000) -> 8.999999999999998+O(8e-11)
 <br>
 ・f(x)=x^4のx=[0,b]の定積分=3^5/5となる積分方程式の解析解b=3の求解
 <br>
-storage cleared
+clear;
 <br>
 f=&lt;{_ix(=&lt;{x^4},0,b)=3^5/5};
 <br>
@@ -18724,7 +18788,7 @@ clear; a=1e10; h=max(1,abs(a))1e-5(1+i); Jacobi(=&lt;{2x^2},=&lt;{x},=&lt;{a},h)
 <br>
 未知変数のlocal変数を参照するが、上書きしない
 <br>
-storage cleared
+clear;
 <br>
 x=1;
 <br>
@@ -18792,7 +18856,7 @@ test caseを列挙する
 <br>
 ・<a href="#span-out-config-strict">strict-mode</a>で<a href="#span-out-vars-symbol">式変数名symbol</a>を<a href="#span-out-call-by-equation">式渡し</a>する場合
 <br>
-storage cleared
+clear;
 <br>
 x=&lt;{x0,x1}; x_initial=&lt;{0,0};
 <br>
@@ -18804,7 +18868,7 @@ _rn(=&lt;run,,3) -> infoLost[ri] 2.2204460494935903e-15
 <br>
 ・<a href="#span-out-config-strict">strict-mode</a>で直接<a href="#span-out-call-by-equation">式渡し</a>する場合
 <br>
-storage cleared
+clear;
 <br>
 run=&lt;last(mdx=Newton(=&lt;{x0+2*x1=5,3*x0+4*x1=6},=&lt;{x0,x1},=&lt;{0,0}),norm(mdx));
 <br>
@@ -18812,7 +18876,7 @@ _rn(=&lt;run,,3) -> infoLost[ri] 2.2204460494935903e-15
 <br>
 ・<a href="#span-out-config-strict">strict-mode</a>の最短表記
 <br>
-storage cleared
+clear;
 <br>
 _rn(=&lt;{
 <br>
@@ -18835,7 +18899,7 @@ last(mdx=Newton(=&lt;{x0+2*x1=5,3*x0+4*x1=6},=&lt;{x0,x1},=&lt;{0,0}),norm(mdx))
 <br>
 ・反復0回の場合、初期値を返す
 <br>
-storage cleared
+clear;
 <br>
 mdx=Newton(=&lt;{x0+2*x1=5,3*x0+4*x1=6},=&lt;{x0,x1},,,0);
 <br>
@@ -18857,7 +18921,7 @@ cmax(trans(mdx))  <span class="selection">// |both-part|</span> -> 0
 <br>
 ・反復最後の残差を<a href="#span-out-error-numerical">目安の解析誤差</a>として表示する
 <br>
-storage cleared
+clear;
 <br>
 mdx=Newton(=&lt;{x0+2*x1=5,3*x0+4*x1=6},=&lt;{x0,x1},,,3);
 <br>
@@ -18883,7 +18947,7 @@ infoLost[ri] 4.499999999999999+6.466216308756395e-26i+O(1e-15+2e-20i)
 <br>
 ・収束判定成立時の残差を<a href="#span-out-error-numerical">目安の解析誤差</a>として表示する
 <br>
-storage cleared
+clear;
 <br>
 mdx=Newton(=&lt;{x0+2*x1=5,3*x0+4*x1=6},=&lt;{x0,x1},,,10,1e-8);
 <br>
@@ -18911,7 +18975,7 @@ cmax(trans(mdx))  <span class="selection">// |both-part|</span> -> 1.46454246416
 <br>
 ・<a href="#span-out-FNm">zeros-vector</a>で初期化の場合、反復2回以上が確定する
 <br>
-storage cleared
+clear;
 <br>
 {$x0,$x1}={,};
 <br>
@@ -18943,7 +19007,7 @@ infoLost[ri] 4.500000000000001-1.4354751880569493e-25i+O(1e-15+2e-25i)
 <br>
 ・第7引数で相対誤差のflag-ONを指定する場合、未知変数の初期化不要
 <br>
-storage cleared
+clear;
 <br>
 mdx=Newton(=&lt;{x0+2*x1=5,3*x0+4*x1=6},=&lt;{x0,x1},,,10,1e-8,1);
 <br>
@@ -18971,7 +19035,7 @@ cmax(trans(mdx))  <span class="selection">// |both-part|</span> -> 1.46454246416
 <br>
 ・反復1回目の最大残差が<a href="#span-out-error-numerical">目安の解析誤差</a>として残る
 <br>
-storage cleared
+clear;
 <br>
 _rn(=&lt;{
 <br>
@@ -23206,7 +23270,7 @@ z_v_terminal=<span class="selection">z_u</span>+(m/Cd_sphere)*z_a
 <br>
 ・implicit Euler methodによる1次精度の<a href="#span-out-error-numerical">数値誤差</a>O(dt)を含む近似解を以下に示す
 <br>
-storage cleared
+clear;
 <br>
 g=-9.8;
 <br>
@@ -23360,7 +23424,7 @@ infoLost[ i] 0.0000018087545367633257-9.79999730495574i
 <br>
 <span class="run">Ver.2.29.15</span>以降、<a href="#span-out-FNmh-newtonian">Newton高階行列関数</a>で収束判定条件を設定する場合
 <br>
-storage cleared
+clear;
 <br>
 g=-9.8;
 <br>
@@ -23487,7 +23551,7 @@ t=10; evolution; x ->
 <br>
 ・次のstepを許容するが、別々に記述した方が間違いが少ない
 <br>
-storage cleared
+clear;
 <br>
 step=&lt;last{mdx=Newton(=&lt;f,=&lt;x,=&lt;x_initial,,Nmax,epsN),{$z_x0,$z_v0}=x};
 <br>
@@ -23550,7 +23614,7 @@ infoLost[ i] 0.0000018087545367633257-9.79999730495574i+O(5e+0+6e+0i)
 <br>
 ・実軸の時間積分の場合、<a href="#span-out-error-numerical">目安の解析誤差</a>は実数のみ表示される（仕様）
 <br>
-storage cleared
+clear;
 <br>
 g=-9.8;
 <br>
@@ -23705,7 +23769,7 @@ t=10; evolution; x ->
 <br>
 <span class="run">Ver.2.29.15</span>以降、<a href="#span-out-FNmh-OX">ODE高階行列関数</a>第6引数で反復回数を指定する場合
 <br>
-storage cleared
+clear;
 <br>
 g=-9.8;
 <br>
@@ -26115,7 +26179,7 @@ x[0]=(b[0]-A[0]x)/A[0][0]; x -> (-3.9999999999999982:4.499999999999999)
 <br>
 ・<a href="#span-out-eqns">式変数</a>を使用して上記algorithmを一般化する
 <br>
-storage cleared
+clear;
 <br>
 A=(1,2:3,4);
 <br>
@@ -26167,7 +26231,7 @@ backward -> [MyErr]Invalid reference of array
 <br>
 ・dummy変数を使用するだけで総和は無次元の0を返す
 <br>
-storage cleared
+clear;
 <br>
 A=(1,2:3,4);
 <br>
@@ -26203,7 +26267,7 @@ x -> (-3.9999999999999982:4.499999999999999)
 <br>
 ・pivot選択ありの場合
 <br>
-storage cleared
+clear;
 <br>
 solvex_pivotting=&lt;{
 <br>
@@ -26231,7 +26295,7 @@ _sir(=&lt;backward,sizeA-1,0),
 <br>
 ・pivot選択なしの場合
 <br>
-storage cleared
+clear;
 <br>
 solvex_no_pivotting=&lt;{
 <br>
@@ -26273,7 +26337,7 @@ solvex_no_pivotting -> (-4:4.5)
 <br>
 ・連立方程式と未知変数初期値（以降、初期値と省略する）を定義する
 <br>
-storage cleared
+clear;
 <br>
 A=(1,2:3,4);
 <br>
@@ -26374,7 +26438,7 @@ x=x-mdx
 <br>
 以上より、反復1回の処理を簡潔にまとめる
 <br>
-storage cleared
+clear;
 <br>
 x=&lt;{x0,x1}; x_initial=&lt;{0,0};
 <br>
@@ -26408,7 +26472,7 @@ infoLost[ri] 4.499999999999999+6.466216308756395e-26i
 <br>
 <a href="#span-out-FNh-RX">再帰高階関数</a>を使用して反復を実行
 <br>
-storage cleared
+clear;
 <br>
 x=&lt;{x0,x1}; x_initial=&lt;{0,0};
 <br>
@@ -26460,7 +26524,7 @@ A(x) -> (10i:10.999999999999986i:12i)
 <br>
 ・pivot選択は<a href="#span-out-array">行列操作</a>で示す
 <br>
-storage cleared
+clear;
 <br>
 A=(i,2i,3i:4i,5i,6i:7i,8i,9i); A=(A[2]:A[1]:A[0]);
 <br>
@@ -26545,7 +26609,7 @@ backward -> [MyErr]FN isNaN
 <br>
 ・初期値が<a href="#span-out-FNm">zeros-vector</a>の場合
 <br>
-storage cleared
+clear;
 <br>
 A=(i,2i,3i:4i,5i,6i:7i,8i,9i);
 <br>
@@ -26575,7 +26639,7 @@ A(x) -> (-2.3283064365386963e-10+10.000000000116415i:11i:12i)
 <br>
 ・初期値が<a href="#span-out-com">虚数単位</a>vectorの場合
 <br>
-storage cleared
+clear;
 <br>
 A=(i,2i,3i:4i,5i,6i:7i,8i,9i);
 <br>
@@ -26609,7 +26673,7 @@ A(x) -> (10.000000000000002i:11.000000000000005i:12.000000000000007i)
 <br>
 ・Jacobi行列の<a href="#span-out-error-numerical">数値誤差</a>が初期値の厳密解に上乗せして残る
 <br>
-storage cleared
+clear;
 <br>
 A=(i,2i,3i:4i,5i,6i:7i,8i,9i);
 <br>
@@ -26686,7 +26750,7 @@ A(x) -> (infoLost[r ] -32+32i:infoLost[r ] 64i:infoLost[r ] -64)
 <br>
 ・初期値に依らず、解が発散する
 <br>
-storage cleared
+clear;
 <br>
 A=(i,2i,3i:4i,5i,6i:7i,8i,9i);
 <br>
@@ -26727,7 +26791,7 @@ Ainv*A=単位行列identity(size(A))
 <br>
 full-rank2階の場合
 <br>
-storage cleared
+clear;
 <br>
 A=(1,2:3,4);
 <br>
@@ -26807,7 +26871,7 @@ _rn(=&lt;run,,3),
 <br>
 full-rank3階の場合
 <br>
-storage cleared
+clear;
 <br>
 A=(i,2,3i:4,5i,6:7i,8,9i);
 <br>
@@ -26876,7 +26940,7 @@ infoLost[ri] 1+6.192008328452557e-38i
 <br>
 full-rank4階の場合
 <br>
-storage cleared
+clear;
 <br>
 A=(i+1,2-i,3i,4:5i,6-i,7,8i:9-5i,10i,-11+3i,12-5i:-13,14i,-15,16i);
 <br>
@@ -26983,7 +27047,7 @@ A=(i,2i,3i:4i,5i,6i:7i,8i,9i);
 <br>
 ・初期値が<a href="#span-out-FNm">zeros-vector</a>の場合
 <br>
-storage cleared
+clear;
 <br>
 A=(i,2i,3i:4i,5i,6i:7i,8i,9i);
 <br>
@@ -27011,7 +27075,7 @@ run -> [MyErr]FN isNaN
 <br>
 ・初期値を変えてもnormが収束することはない
 <br>
-storage cleared
+clear;
 <br>
 A=(i,2i,3i:4i,5i,6i:7i,8i,9i);
 <br>
@@ -27087,7 +27151,7 @@ x0=-i; x0^2+1=0 -> 1.2246467991473532e-16i
 <br>
 ・非線形方程式を定義する
 <br>
-storage cleared
+clear;
 <br>
 x=&lt;{x0};
 <br>
@@ -27120,7 +27184,7 @@ x -> -5.067058578678027e-17-1.0000000000000002i
 <br>
 ・2次の方程式の場合、右辺に移項した関数の極値周辺を右往左往する
 <br>
-storage cleared
+clear;
 <br>
 x=&lt;{x0};
 <br>
@@ -27164,7 +27228,7 @@ run -> 38147.63324071567
 <br>
 ・反復6回目の近似解を示す
 <br>
-storage cleared
+clear;
 <br>
 x=&lt;{x0,x1}; x_initial=&lt;{1+i,1-i};
 <br>
@@ -27191,7 +27255,7 @@ infoLost[ i] -0.04901921620544653+2.023423045158351i:
 <br>
 ・反復6回目の近似解を示す
 <br>
-storage cleared
+clear;
 <br>
 x=&lt;(x0:x1); x_initial=&lt;(1+i:1-i);
 <br>
@@ -27216,7 +27280,7 @@ infoLost[ i] -0.04901921620544653+2.023423045158351i:
 <br>
 ・mdxのnormを返す<a href="#span-out-eqns">式変数</a>runを定義して反復6回目の近似解を示す
 <br>
-storage cleared
+clear;
 <br>
 run=&lt;last(
 <br>

@@ -1,7 +1,7 @@
 clear
 local storage cleared
 
-gauss_coo(aA:mA:nA:trans(b))-gauss(A,b)
+Gauss_coo(aA:mA:nA:trans(b))-Gauss(A,b)
 (
 0:
 0:
@@ -479,4 +479,4 @@ drag=false&sw=false&0x=false&useComplex=true&useMatrix=true&isRightAssociativity
 --------------------------------
 --------------------------------
 
-online-simulator.github.io.5.145.65.12.38 @ Sun Oct 16 2022 09:50:36 GMT+0900 (日本標準時) @ Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/106.0.0.0 Safari/537.36
+online-simulator.github.io.5.146.65.12.38 @ Sun Oct 16 2022 19:26:18 GMT+0900 (日本標準時) @ Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/106.0.0.0 Safari/537.36
