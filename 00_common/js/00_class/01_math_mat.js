@@ -308,10 +308,48 @@ My_entry.math_mat.prototype.gaussian = function(options, arr){
   var _arr = obj_Axb.x;
   return _arr;
 };
-/* Ver.2.123.34 */
-My_entry.math_mat.prototype.coo2mat = function(options, arr){  // arr=(aA:mA:nA) -> A
+/* Ver.2.124.34 -> */
+My_entry.math_mat.prototype.gaussian_coo = function(options, arr){  // arr=(aA:mA:nA:tb) -> x
   var self = this;
+  var solver = self.entry.solver;
   var DATA = self.entry.DATA;
+  if(arr.length !== 4) throw "Invalid coo2matSize";
+  var arr0 = arr[0];
+  var arr1 = arr[1];
+  var arr2 = arr[2];
+  var arr3 = arr[3];
+  var len_arr0 = arr0.length;
+  var len_arr1 = arr1.length;
+  var len_arr2 = arr2.length;
+  var len_arr3 = arr3.length;
+  var mnA = self.make_mnA(options, [arr0, arr1, arr2]);
+  var mA = mnA.m;
+  var nA = mnA.n;
+  var len_m = Math.max.apply(Math, mA);
+  var len_n = Math.max.apply(Math, nA);
+  if(len_m > len_arr3 || len_n > len_arr3) throw "Invalid coo2matSize";
+  var obj_Axb = {};
+  var m2arr_n = [];
+  var m2A = [];
+  for(var j=0; j<len_arr0; ++j){
+    var m = mA[j];
+    var n = nA[j];
+    m2arr_n[m] = m2arr_n[m] || [];
+    m2arr_n[m].push(n);
+    var arr0j = arr0[j];
+    m2A[m] = m2A[m] || [];
+    m2A[m].push(arr0j);
+  }
+  obj_Axb.m2arr_n = m2arr_n;
+  obj_Axb.m2A = m2A;
+  obj_Axb.x = self.init2d(len_arr3, 1);
+  obj_Axb.b = arr3;
+  solver.gaussian_coo(options, obj_Axb);
+  var _arr = obj_Axb.x;
+  return _arr;
+};
+My_entry.math_mat.prototype.make_mnA = function(options, arr){
+  var self = this;
   if(arr.length !== 3) throw "Invalid coo2matSize";
   var arr0 = arr[0];
   var arr1 = arr[1];
@@ -328,6 +366,28 @@ My_entry.math_mat.prototype.coo2mat = function(options, arr){  // arr=(aA:mA:nA)
   for(var j=0; j<len_arr2; ++j){
     nA[j] = self.num2size(options, arr2[j]);
   }
+  var dict = {};
+  for(var j=0; j<len_arr0; ++j){
+    var id = "m"+mA[j]+"n"+nA[j];
+    if(dict[id]){
+      throw "Invalid duplication of coo";
+    }
+    else{
+      dict[id] = true;
+    }
+  }
+  dict = null;
+  return {m: mA, n: nA};
+};
+/* Ver.2.123.34 */
+My_entry.math_mat.prototype.coo2mat = function(options, arr){  // arr=(aA:mA:nA) -> A
+  var self = this;
+  var DATA = self.entry.DATA;
+  var arr0 = arr[0];
+  var len_arr0 = arr0.length;
+  var mnA = self.make_mnA.apply(self, arguments);
+  var mA = mnA.m;
+  var nA = mnA.n;
   var len_i = Math.max.apply(Math, mA);
   var len_j = Math.max.apply(Math, nA);
   var _arr = self.zeros2d(len_i, len_j);
@@ -336,6 +396,7 @@ My_entry.math_mat.prototype.coo2mat = function(options, arr){  // arr=(aA:mA:nA)
   }
   return _arr;
 };
+/* -> Ver.2.124.34 */
 My_entry.math_mat.prototype.Imat = function(len){
   var self = this;
   return self.Imat_num(len);

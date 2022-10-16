@@ -618,6 +618,8 @@ e^(-i(1pi(){2/2i}(5-{3-1}){i/(-4)}))
 <br>
 ・<a href="#span-eqn-solvex_non_linear">solvex_non_linear</a>
 <br>
+・<a href="#span-eqn-solvex_Gauss_coo">solvex_Gauss_coo</a>
+<br>
 ・<a href="#span-eqn-implicit-Euler_method">implicit Euler_method</a>
 <br>
 ・<a href="#span-eqn-explicit-Euler_method">explicit Euler_method</a>
@@ -14608,6 +14610,8 @@ trans((1/norm(trans(A[2])))A[2])
 <br>
 <span class="run">Ver.2.123.34</span>以降、疎行列を扱う座標形式（以降、COO形式と呼ぶ）の<a href="#span-out-FNm">行列関数</a>を追加
 <br>
+<span class="run">Ver.2.124.34</span>以降、memory使用量の削減のため、COO形式の<a href="#span-out-linear">Gaussの消去法</a>を追加
+<br>
 <br>
 COO形式から<a href="#span-out-FNm-size">m行n列</a>の<a href="#span-out-mat">行列</a>を復元
 <br>
@@ -14649,17 +14653,19 @@ clear; aA=(1,1+i,1-i); mA=(1,2,3); nA=(1,2,3); A=coo2mat(aA:mA:2*nA); A ->
 <br>
 )
 <br>
-・重複定義の場合、配列の後要素で上書き
+・重複定義の場合、error終了<del>配列の後要素で上書き</del><span class="run">Ver.2.124.34</span>以降、変更
 <br>
 clear; aA=(1,1+i,1-i); mA=(1,2,1); nA=(1,4,1); A=coo2mat(aA:mA:nA); A ->
 <br>
-(
+[MyErr]Invalid duplication of coo
+<br>
+<del>(
 <br>
 1-i,0,0,0:
 <br>
 0,0,0,1+i
 <br>
-)
+)</del>
 <br>
 ・引数不正の場合、error終了
 <br>
@@ -14674,6 +14680,21 @@ clear; aA=(1,1+i:1-i); mA=(1,2,3); nA=(1,2,3); A=coo2mat(aA:mA:nA); A -> [MyErr]
 clear; aA=(1,1+i,1-i); mA=(0,2,3); nA=(1,2,3); A=coo2mat(aA:mA:nA); A -> [MyErr]Invalid matrix size
 <br>
 clear; aA=(1,1+i,1-i); mA=(1001,2,3); nA=(1,2,3); A=coo2mat(aA:mA:nA); A -> [MyErr]Invalid matSizeMax over
+<br>
+<br>
+COO形式の<a href="#span-out-linear">Gaussの消去法</a>
+<br>
+aA=(1,1,-2,1+i,3i,1,1-i,-1,-i);
+<br>
+mA=(1,1,2,2,2,3,3,4,4);
+<br>
+nA=(1,2,1,2,3,1,3,3,4);
+<br>
+b={4,5,6,7i};
+<br>
+A=coo2mat(aA:mA:nA);
+<br>
+gauss_coo(aA:mA:nA:trans(b))-gauss(A,b) -> (0,0,0,0)
     </td>
   </tr>
   <tr>
@@ -29457,6 +29478,10 @@ parser.js抜粋
       case "coo2mat":
         tree = DATA.tree_tag("FNm", token_lower);
         break;
+      case "gauss_coo":
+      case "gaussian_coo":
+        tree = DATA.tree_tag("FNm", "gaussian_coo");
+        break;
       case "gauss":
       case "gaussian":
         tree = DATA.tree_tag("FNm", "gaussian");
@@ -30267,6 +30292,29 @@ init=&gt;,run=&gt;,return=out=&gt;,
 =&lt;return]=&gt;;
 <br>
 [f=&lt;{x0^i-2*x1=3i,3*x0+exp(x1)=5i},=&lt;solvex_non_linear(=&lt;f,=&lt;{1+i,1-i})=&gt;]=&gt;;
+    </td>
+  </tr>
+  <tr>
+    <th>
+<a href="#span-index">
+目次
+</a>
+<br>
+solvex
+<br>
+_Gauss_coo
+    </th>
+    <td>
+<span id="span-eqn-solvex_Gauss_coo"></span>
+<a href="#span-out-FNm-coo">座標形式行列関数入力仕様</a>参照
+<br>
+clear;
+<br>
+[aA=(1,1,-2,1+i,3i,1,1-i,-1,-i),mA=(1,1,2,2,2,3,3,4,4),nA=(1,2,1,2,3,1,3,3,4),
+<br>
+b={4,5,6,7i},A=coo2mat(aA:mA:nA),
+<br>
+=&lt;Gauss(A,b)-Gauss_coo(aA:mA:nA:trans(b))]=&gt;;
     </td>
   </tr>
   <tr>

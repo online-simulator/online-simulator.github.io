@@ -413,6 +413,10 @@ My_entry.parser.prototype.make_trees = function(sentence, re){
       case "coo2mat":
         tree = DATA.tree_tag("FNm", token_lower);
         break;
+      case "gauss_coo":
+      case "gaussian_coo":
+        tree = DATA.tree_tag("FNm", "gaussian_coo");
+        break;
       case "gauss":
       case "gaussian":
         tree = DATA.tree_tag("FNm", "gaussian");
