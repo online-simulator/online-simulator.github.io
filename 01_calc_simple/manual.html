@@ -14681,6 +14681,42 @@ clear; aA=(1,1+i,1-i); mA=(0,2,3); nA=(1,2,3); A=coo2mat(aA:mA:nA); A -> [MyErr]
 <br>
 clear; aA=(1,1+i,1-i); mA=(1001,2,3); nA=(1,2,3); A=coo2mat(aA:mA:nA); A -> [MyErr]Invalid matSizeMax over
 <br>
+・<span class="run">Ver.2.126.34</span>以降、逆変換を追加
+<br>
+clear; A=(1,2,:3,4,:,,,); mat2coo(A) -> 
+<br>
+(
+<br>
+1,2,3,4:
+<br>
+1,1,2,2:
+<br>
+1,2,1,2
+<br>
+)
+<br>
+clear; A=(1,2,:3,4,:,,,); cA=mat2coo(A); aA=cA[0]; mA=cA[1]; nA=cA[2];
+<br>
+aA -> (1,2,3,4)
+<br>
+mA -> (1,1,2,2)
+<br>
+nA -> (1,2,1,2)
+<br>
+・<a href="#span-out-error-numerical">数値誤差</a>のみの要素を保持する
+<br>
+clear; num0=_dx(=<{1},1,); mcA=coo2mat(mat2coo(1,2,num0:3,4:5,,)); mcA ->
+<br>
+(
+<br>
+1,2,0+O(1e-12+1e-12i):
+<br>
+3,4,0
+<br>
+5,0,0
+<br>
+)
+<br>
 <br>
 COO形式の<a href="#span-out-linear">Gaussの消去法</a>
 <br>
@@ -14693,6 +14729,8 @@ nA=(1,2,3);
 b={4,5,6};
 <br>
 x=Gauss_coo(aA:mA:nA:trans(b)); x -> (4:2.5:2)
+<br>
+x=Gauss_coo(1,2,3:1,2,3:1,2,3:4,5,6); x -> (4:2.5:2)
 <br>
 ・要素の順序を任意に交換可
 <br>
@@ -29540,6 +29578,7 @@ parser.js抜粋
       case "zeros":
       case "ones":
       case "coo2mat":
+      case "mat2coo":
         tree = DATA.tree_tag("FNm", token_lower);
         break;
       case "gauss_coo":

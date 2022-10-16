@@ -397,6 +397,37 @@ My_entry.math_mat.prototype.coo2mat = function(options, arr){  // arr=(aA:mA:nA)
   return _arr;
 };
 /* -> Ver.2.124.34 */
+/* Ver.2.126.34 */
+My_entry.math_mat.prototype.mat2coo = function(options, arr){
+  var self = this;
+  var DATA = self.entry.DATA;
+  var _arr = self.init2d(3, 0);  // new Array(0) -> []
+  var _arr0 = _arr[0];
+  var _arr1 = _arr[1];
+  var _arr2 = _arr[2];
+  var lens = self.get_lens(arr);
+  var len_i = lens.i;
+  var len_j = lens.j;
+  for(var i=0; i<len_i; ++i){  // i -> j
+    for(var j=0; j<len_j; ++j){
+      var num = arr[i][j];
+      if(num && num.com){
+        var cr = num.com.r;
+        var ci = num.com.i;
+        var er = num.err.r;
+        var ei = num.err.i;
+        if(cr || ci || er || ei){
+          var m = i+1;
+          var n = j+1;
+          _arr0.push(num);
+          _arr1.push(DATA.num(m, 0));
+          _arr2.push(DATA.num(n, 0));
+        }
+      }
+    }
+  }
+  return _arr;
+};
 My_entry.math_mat.prototype.Imat = function(len){
   var self = this;
   return self.Imat_num(len);
