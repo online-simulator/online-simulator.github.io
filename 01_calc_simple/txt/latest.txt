@@ -1,6 +1,23 @@
 clear
 local storage cleared
 
+creverse(csort(1,-2i,3:4,-5,6i:7))
+(
+3,-2i,1:
+6i,-5,4:
+7
+)
+
+prod(sum(1,1e-16,-i),1+i,-2:i,3:-4)
+(
+infoLost[r ] -4:
+3i:
+-4
+)
+
+clear
+local storage cleared
+
 Gauss_coo(aA:mA:nA:trans(b))-Gauss(A,b)
 (
 0:
@@ -479,4 +496,4 @@ drag=false&sw=false&0x=false&useComplex=true&useMatrix=true&isRightAssociativity
 --------------------------------
 --------------------------------
 
-online-simulator.github.io.5.146.65.12.38 @ Sun Oct 16 2022 19:26:18 GMT+0900 (日本標準時) @ Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/106.0.0.0 Safari/537.36
+online-simulator.github.io.5.146.66.12.38 @ Sun Oct 16 2022 21:17:52 GMT+0900 (日本標準時) @ Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/106.0.0.0 Safari/537.36

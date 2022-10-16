@@ -1782,8 +1782,8 @@ My_entry.operation.prototype.FN = function(data, i0, tagName, tagObj){
   }
   return self;
 };
-/* Ver.2.90.32 */
-My_entry.operation.prototype.FNn = function(data, i0, tagName, tagObj){
+/* Ver.2.125.34 -> */
+My_entry.operation.prototype.FN_statistics0 = function(data, i0, tagName, tagObj){
   var self = this;
   var trees = data.trees;
   var options = data.options;
@@ -1792,93 +1792,112 @@ My_entry.operation.prototype.FNn = function(data, i0, tagName, tagObj){
   var is = i0;
   var ie = i0+1;
   var prop = tagObj.val;
+  var rightArr = self.get_tagVal(trees[ie], "mat", "arr");
+  if(rightArr){
+    var tree = null;
+    var len_i = rightArr.length;
+    var i_sw = (options.useMatrix)? 0: len_i-1;
+    var arr = [];
+    for(var i=i_sw; i<len_i; ++i){
+      var args = rightArr[i];
+      var len_j = args.length;
+      if(prop === "mean" || prop === "sum"){
+        var num = DATA.num(0, 0);
+        for(var j=0; j<len_j; ++j){
+          num = unit["BRa"](options, num, args[j]);
+        }
+        if(prop === "mean"){
+          num = unit["BRd"](options, num, DATA.num(len_j, 0));
+        }
+      }
+      else if(prop === "prod"){
+        var num = DATA.num(1, 0);
+        for(var j=0; j<len_j; ++j){
+          num = unit["BRm"](options, num, args[j]);
+        }
+      }
+      arr.push([num]);
+    }
+    tree = DATA.tree_mat(arr);
+    self.feedback2trees(data, is, ie, tree);
+  }
+  return self;
+};
+My_entry.operation.prototype.FN_statistics1 = function(data, i0, tagName, tagObj){
+  var self = this;
+  var trees = data.trees;
+  var options = data.options;
+  var DATA = self.entry.DATA;
+  var unit = self.entry.unit;
+  var is = i0;
+  var ie = i0+1;
+  var prop = tagObj.val;
+  var rightArr = self.get_tagVal(trees[ie], "mat", "arr");
+  if(rightArr){
+    var isComplex = (prop === "cmedian" || prop === "csort" || prop === "creverse");
+    var tree = null;
+    var len_i = rightArr.length;
+    var i_sw = (options.useMatrix)? 0: len_i-1;
+    var arr = [];
+    for(var i=i_sw; i<len_i; ++i){
+      var args = rightArr[i];
+      var len_j = args.length;
+      // Bubble Sort
+      for(var j=0; j<len_j-1; ++j){
+        for(var jj=1; jj<len_j-j; ++jj){
+          var left = args[jj-1];
+          var right = args[jj];
+          var lcr = left.com.r;
+          var lci = left.com.i;
+          var rcr = right.com.r;
+          var rci = right.com.i;
+          var isSorted = (isComplex)? (lcr*lcr+lci*lci > rcr*rcr+rci*rci): (lcr > rcr);
+          if(isSorted){
+            var w = left;
+            args[jj-1] = args[jj];
+            args[jj] = w;
+          }
+        }
+      }
+      if(prop === "median" || prop === "cmedian"){
+        args = [args[Math.floor(len_j/2)]];
+      }
+      else if(prop === "reverse" || prop === "creverse"){
+        args = args.reverse();
+      }
+      arr.push(args);
+    }
+    tree = DATA.tree_mat(arr);
+    self.feedback2trees(data, is, ie, tree);
+  }
+  return self;
+};
+/* Ver.2.90.32 */
+My_entry.operation.prototype.FNn = function(data, i0, tagName, tagObj){
+  var self = this;
+  var prop = tagObj.val;
   switch(prop){
     case "mean":
     case "sum":
     case "prod":
-      var rightArr = self.get_tagVal(trees[ie], "mat", "arr");
-      if(rightArr){
-        var tree = null;
-        var len_i = rightArr.length;
-        var i_sw = (options.useMatrix)? 0: len_i-1;
-        var arr = [];
-        for(var i=i_sw; i<len_i; ++i){
-          var args = rightArr[i];
-          var len_j = args.length;
-          if(prop === "mean" || prop === "sum"){
-            var num = DATA.num(0, 0);
-            for(var j=0; j<len_j; ++j){
-              num = unit["BRa"](options, num, args[j]);
-            }
-            if(prop === "mean"){
-              num = unit["BRd"](options, num, DATA.num(len_j, 0));
-            }
-          }
-          else if(prop === "prod"){
-            var num = DATA.num(1, 0);
-            for(var j=0; j<len_j; ++j){
-              num = unit["BRm"](options, num, args[j]);
-            }
-          }
-          arr.push([num]);
-        }
-        tree = DATA.tree_mat(arr);
-        self.feedback2trees(data, is, ie, tree);
-      }
+      self.FN_statistics0(data, i0, tagName, tagObj);
       break;
-    /* Ver.2.91.32 -> */
+    /* Ver.2.91.32 */
     case "median":
     case "sort":
     case "reverse":
     case "cmedian":
     case "csort":
     case "creverse":
-      var isComplex = (prop === "cmedian" || prop === "csort" || prop === "creverse");
-      var rightArr = self.get_tagVal(trees[ie], "mat", "arr");
-      if(rightArr){
-        var tree = null;
-        var len_i = rightArr.length;
-        var i_sw = (options.useMatrix)? 0: len_i-1;
-        var arr = [];
-        for(var i=i_sw; i<len_i; ++i){
-          var args = rightArr[i];
-          var len_j = args.length;
-          // Bubble Sort
-          for(var j=0; j<len_j-1; ++j){
-            for(var jj=1; jj<len_j-j; ++jj){
-              var left = args[jj-1];
-              var right = args[jj];
-              var lcr = left.com.r;
-              var lci = left.com.i;
-              var rcr = right.com.r;
-              var rci = right.com.i;
-              var isSorted = (isComplex)? (lcr*lcr+lci*lci > rcr*rcr+rci*rci): (lcr > rcr);
-              if(isSorted){
-                var w = left;
-                args[jj-1] = args[jj];
-                args[jj] = w;
-              }
-            }
-          }
-          if(prop === "median" || prop === "cmedian"){
-            args = [args[Math.floor(len_j/2)]];
-          }
-          else if(prop === "reverse" || prop === "creverse"){
-            args = args.reverse();
-          }
-          arr.push(args);
-        }
-        tree = DATA.tree_mat(arr);
-        self.feedback2trees(data, is, ie, tree);
-      }
+      self.FN_statistics1(data, i0, tagName, tagObj);
       break;
-    /* -> Ver.2.91.32 */
     default:
       self.FN(data, i0, tagName, tagObj);
       break;
   }
   return self;
 };
+/* -> Ver.2.125.34 */
 /* Ver.2.74.29 -> */
 My_entry.operation.prototype.URi =
 My_entry.operation.prototype.URf = function(data, i0, tagName, tagObj){
