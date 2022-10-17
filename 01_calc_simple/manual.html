@@ -9014,20 +9014,20 @@ Computer Algebra Systemで解析的に真値||厳密解||解析解が得られ�
 詳細は<a href="#span-out-development-problems-CAS">未実装のCAS</a>参照
 <br>
 <br>
-数値誤差は無限を有限で数学的に近似する際の、
+無限を有限で数学的に近似する際、数値誤差の定義を列挙する
 <br>
-近似値の真値に対する絶対誤差||相対誤差、あるいは、
+・近似値の真値に対する絶対誤差||相対誤差
 <br>
-近似解の厳密解に対する絶対誤差||相対誤差、あるいは、
+・近似解の厳密解に対する絶対誤差||相対誤差
 <br>
-数値解の解析解に対する絶対誤差||相対誤差と定義する
+・数値解の解析解に対する絶対誤差||相対誤差（以降、解析誤差と呼ぶ）
 <br>
 <br>
 数値誤差は目安の解析誤差（絶対誤差）のOrderを表示する
 <br>
 ・Order表示は後置の+O(実部+虚部i)とする
 <br>
-・目安の解析誤差は当てにならないため、解のdouble-checkが必要
+・ただし、目安の解析誤差は当てにならないため、解のdouble-checkが必要
 <br>
 <br>
 f(x)=x^2のx=1+iにおける1階微分の数値解
@@ -9603,6 +9603,8 @@ round_f(=&lt;f,,2) -> (1:0.7+0.71i:i:-0.7+0.71i:-1:-0.7-0.71i:-i:0.7-0.71i)
 　<a href="#span-out-FN-int">int関数</a>を0側に丸める仕様に変更（floor関数は変更なし）
 <br>
 ・<span class="run">Ver.2.88.32</span>以降、定義できない<a href="#span-out-prec-ope">乗算||減算||加算</a>を<a href="#span-out-ope-extended">拡張行列演算</a>に追加
+<br>
+・<span class="run">Ver.2.127.34</span>以降、<a href="#span-out-FNm-size">行列size</a>の丸め方を変更floor　⇒　round
     </td>
   </tr>
   <tr>
@@ -11062,9 +11064,14 @@ ans+1 -> <span class="clear">infoLost[r ]</span> 1+i
 <br>
 round(2^3) -> 8
 <br>
-vectorr(2^3) || vectorr(7)  <span class="selection">// NG</span> -> (0,0,0,0,0,0,0)
+・<span class="run">Ver.2.127.34</span>以降、<a href="#span-out-FNm-size">行列size</a>の丸め方をfloor　⇒　roundに<span class="run"><a href="#span-out-spec-changed-history">演算仕様変更</a></span>
+<br>
+<del>vectorr(2^3) || vectorr(7)  <span class="selection">// NG</span> -> (0,0,0,0,0,0,0)</del>
+<br>
+vectorr(2^3) || vectorr(8)  <span class="selection">// OK</span> -> (0,0,0,0,0,0,0,0)
 <br>
 vectorr(round(2^3)) || vectorr(8)  <span class="selection">// OK</span> -> (0,0,0,0,0,0,0,0)
+<br>
 <br>
 ・整数演算の場合、<a href="#span-out-prec-ope">四則演算子</a>||<a href="#span-out-prec-ope-bit">bit shift演算子</a>を活用する
 <br>
@@ -14092,7 +14099,11 @@ identity(3) -> (1,0,0:0,1,0:0,0,1)
 <br>
 identity(5) -> (1,0,0,0,0:0,1,0,0,0:0,0,1,0,0:0,0,0,1,0:0,0,0,0,1)
 <br>
-・<a href="#span-out-FNm-size">行列size</a>は正の整数にfloor
+・<a href="#span-out-FNm-size">行列size</a>は正の整数に<del>floor</del><span class="run">Ver.2.127.34</span>以降、roundに<span class="run"><a href="#span-out-spec-changed-history">演算仕様変更</a></span>
+<br>
+<del>identity(2.5) || identity(2) -> (1,0:0,1)</del>
+<br>
+identity(2.5) || identity(3) -> (1,0,0:0,1,0:0,0,1)
 <br>
 identity(3.3) || identity(3) -> (1,0,0:0,1,0:0,0,1)
 <br>
