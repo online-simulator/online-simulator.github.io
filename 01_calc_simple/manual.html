@@ -412,6 +412,10 @@ e^(-i(1pi(){2/2i}(5-{3-1}){i/(-4)}))
 <br>
 　　・<a href="#span-out-reference-mat">行列への参照</a>
 <br>
+　　　・<a href="#span-out-reference-mat-size">行列size</a>
+<br>
+　　　・<a href="#span-out-reference-mat-index">行列index</a>
+<br>
 　　　・<a href="#span-out-reference-mat-row">行参照</a>
 <br>
 　　　・<a href="#span-out-reference-mat-col">列参照</a>
@@ -9604,7 +9608,7 @@ round_f(=&lt;f,,2) -> (1:0.7+0.71i:i:-0.7+0.71i:-1:-0.7-0.71i:-i:0.7-0.71i)
 <br>
 ・<span class="run">Ver.2.88.32</span>以降、定義できない<a href="#span-out-prec-ope">乗算||減算||加算</a>を<a href="#span-out-ope-extended">拡張行列演算</a>に追加
 <br>
-・<span class="run">Ver.2.127.34</span>以降、<a href="#span-out-FNm-size">行列size</a>の丸め方を変更floor　⇒　round
+・<span class="run">Ver.2.127.34</span>以降、<a href="#span-out-reference-mat-size">行列size</a>の丸め方を変更floor　⇒　round
     </td>
   </tr>
   <tr>
@@ -11064,7 +11068,7 @@ ans+1 -> <span class="clear">infoLost[r ]</span> 1+i
 <br>
 round(2^3) -> 8
 <br>
-・<span class="run">Ver.2.127.34</span>以降、<a href="#span-out-FNm-size">行列size</a>の丸め方をfloor　⇒　roundに<span class="run"><a href="#span-out-spec-changed-history">演算仕様変更</a></span>
+・<span class="run">Ver.2.127.34</span>以降、<a href="#span-out-reference-mat-size">行列size</a>の丸め方をfloor　⇒　roundに<span class="run"><a href="#span-out-spec-changed-history">演算仕様変更</a></span>
 <br>
 <del>vectorr(2^3) || vectorr(7)  <span class="selection">// NG</span> -> (0,0,0,0,0,0,0)</del>
 <br>
@@ -13946,7 +13950,7 @@ A=(11:21,22:31,32,33,34); htrans(htrans(A)) -> (11,0,0,0:21,22,0,0:31,32,33,34)
 <span class="condition">(1,2)(1,2) -> (1,4)</span>
 <br>
 <br>
-<a href="#span-out-FNm-size">行列size</a>の一致しない差と和の場合、error終了
+<a href="#span-out-reference-mat-size">行列size</a>の一致しない差と和の場合、error終了
 <br>
 ・<span class="run">Ver.2.88.32</span>以降、<span class="condition">定義できない<a href="#span-out-prec-ope">乗算||減算||加算</a></span>を<a href="#span-out-ope-extended">拡張行列演算</a>に追加
 <br>
@@ -13979,7 +13983,7 @@ A=(1,2:); ttA=trans(trans(A)); ttA[0]+ttA[1] -> (1,2)
 A=(1,2:,); A[0]+A[1] -> (1,2)
 <br>
 <br>
-抜け要素を埋めて<a href="#span-out-FNm-size">行列size</a>が一致する場合、差と和の演算を許容する
+抜け要素を埋めて<a href="#span-out-reference-mat-size">行列size</a>が一致する場合、差と和の演算を許容する
 <br>
 (1,2:3,4)-(-1,:) || (1,2:3,4)-(-1,:,) || (1,2:3,4)-(-1,0:0,0) -> (2,2:3,4)
 <br>
@@ -14099,7 +14103,7 @@ identity(3) -> (1,0,0:0,1,0:0,0,1)
 <br>
 identity(5) -> (1,0,0,0,0:0,1,0,0,0:0,0,1,0,0:0,0,0,1,0:0,0,0,0,1)
 <br>
-・<a href="#span-out-FNm-size">行列size</a>は正の整数に<del>floor</del><span class="run">Ver.2.127.34</span>以降、roundに<span class="run"><a href="#span-out-spec-changed-history">演算仕様変更</a></span>
+・<a href="#span-out-reference-mat-size">行列size</a>は正の整数に<del>floor</del><span class="run">Ver.2.127.34</span>以降、roundに<span class="run"><a href="#span-out-spec-changed-history">演算仕様変更</a></span>
 <br>
 <del>identity(2.5) || identity(2) -> (1,0:0,1)</del>
 <br>
@@ -14107,7 +14111,7 @@ identity(2.5) || identity(3) -> (1,0,0:0,1,0:0,0,1)
 <br>
 identity(3.3) || identity(3) -> (1,0,0:0,1,0:0,0,1)
 <br>
-・<a href="#span-out-FNm-size">行列size</a>が0以下の場合、error終了
+・<a href="#span-out-reference-mat-size">行列size</a>が0以下の場合、error終了
 <br>
 identity(0) || identity(-1)  -> [MyErr]Invalid matrix size
 <br>
@@ -14385,16 +14389,9 @@ size
 size行列関数の入力仕様と付随する留意事項について記述する
 <br>
 <br>
-m行n列の<a href="#span-out-mat">行列</a>のsizeを定義する
+<a href="#span-out-reference-mat-size">m行n列の行列size</a>（抜け要素を自動で埋める）
 <br>
-行size:=m=1~<a href="#span-out-FNm">matSizeMax</a>
-<br>
-列size:=n=1~<a href="#span-out-FNm">matSizeMax</a>
-<br>
-<br>
-行列size（抜け要素を自動で埋める）
-<br>
-・行size
+・行size:=m
 <br>
 sizer(1,2:3,4) -> 2
 <br>
@@ -14404,7 +14401,7 @@ sizer(1:3,4) -> 2
 <br>
 sizer(1:3,4:) -> 3
 <br>
-・列size
+・列size:=n
 <br>
 size(1,2:3,4) || sizec(1,2:3,4) -> 2
 <br>
@@ -14624,7 +14621,7 @@ trans((1/norm(trans(A[2])))A[2])
 <span class="run">Ver.2.124.34</span>以降、memory使用量の削減のため、COO形式の<a href="#span-out-linear">Gaussの消去法</a>を追加
 <br>
 <br>
-COO形式から<a href="#span-out-FNm-size">m行n列</a>の<a href="#span-out-mat">行列</a>を復元
+COO形式から<a href="#span-out-reference-mat-size">m行n列</a>の<a href="#span-out-mat">行列</a>を復元
 <br>
 clear; aA=(1); mA=(1); nA=(2); A=coo2mat(aA:mA:nA); A -> (0,1)
 <br>
@@ -14686,7 +14683,7 @@ clear; aA=(1,1+i); mA=(1,2,3); nA=(1,2,3); A=coo2mat(aA:mA:nA); A -> [MyErr]Inva
 <br>
 clear; aA=(1,1+i:1-i); mA=(1,2,3); nA=(1,2,3); A=coo2mat(aA:mA:nA); A -> [MyErr]Invalid coo2matSize
 <br>
-・<a href="#span-out-FNm-size">行列size</a>の制限によるerror終了
+・<a href="#span-out-reference-mat-size">行列size</a>の制限によるerror終了
 <br>
 clear; aA=(1,1+i,1-i); mA=(0,2,3); nA=(1,2,3); A=coo2mat(aA:mA:nA); A -> [MyErr]Invalid matrix size
 <br>
@@ -14755,7 +14752,7 @@ b={4,5,6};
 <br>
 x=Gauss_coo(aA:mA:nA:trans(b)); x -> (4:2.5:2)
 <br>
-・Aとbの<a href="#span-out-FNm-size">行列size</a>不一致の場合、error終了
+・Aとbの<a href="#span-out-reference-mat-size">行列size</a>不一致の場合、error終了
 <br>
 clear; aA=(1,2,3); mA=(1,2,3); nA=(1,2,3); b={4,5};
 <br>
@@ -14808,6 +14805,11 @@ A*x ->
 7i
 <br>
 )
+<br>
+<br>
+留意事項を列挙する
+<br>
+・COO形式のみ<a href="#span-out-reference-mat-size">行列size</a>の連番を使用（<a href="#span-out-reference-mat">行列への参照</a>は<a href="#span-out-reference-mat-index">行列index</a>の連番を使用）
     </td>
   </tr>
   <tr>
@@ -14826,6 +14828,10 @@ A*x ->
 <br>
 <br>
 <a href="#span-out-reference-mat">行列への参照</a>方法を列挙する
+<br>
+・<a href="#span-out-reference-mat-size">行列size</a>
+<br>
+・<a href="#span-out-reference-mat-index">行列index</a>
 <br>
 ・<a href="#span-out-reference-mat-row">行参照</a>
 <br>
@@ -14880,6 +14886,50 @@ A*x ->
 ・<a href="#span-out-reference-mat-area">area参照</a>
 <br>
 ・<a href="#span-out-reference-mat-band">band参照</a>
+    </td>
+  </tr>
+  <tr>
+    <th>
+<a href="#span-index">
+目次
+</a>
+<br>
+行列size
+<br>
+入力仕様
+    </th>
+    <td>
+<span id="span-out-reference-mat-size"></span>
+行列sizeの入力仕様と付随する留意事項について記述する
+<br>
+<br>
+m行n列の行列の<a href="#span-out-FNm-size">行列size</a>を定義する
+<br>
+行size:=m=1~<a href="#span-out-FNm">matSizeMax</a>
+<br>
+列size:=n=1~<a href="#span-out-FNm">matSizeMax</a>
+    </td>
+  </tr>
+  <tr>
+    <th>
+<a href="#span-index">
+目次
+</a>
+<br>
+行列index
+<br>
+入力仕様
+    </th>
+    <td>
+<span id="span-out-reference-mat-index"></span>
+行列indexの入力仕様と付随する留意事項について記述する
+<br>
+<br>
+m行n列の行列の行列indexを定義する（以降、ij参照の行列と呼ぶ）
+<br>
+行index:=i=0~m-1
+<br>
+列index:=j=0~n-1
     </td>
   </tr>
   <tr>
@@ -19193,7 +19243,7 @@ symbolic
 <span id="span-out-FNmh-EX"></span>
 symbolic高階行列関数
 <br>
-・未知<a href="#span-out-vars-symbol">変数名symbol</a>連番0~の<a href="#span-out-FNm-size">m行n列</a>の<a href="#span-out-mat">行列</a>を<a href="#span-out-eqns">式変数</a>に<a href="#span-out-substitution-equation">式代入</a>して0を返す
+・未知<a href="#span-out-vars-symbol">変数名symbol</a>連番0~の<a href="#span-out-reference-mat-index">ij参照の行列</a>を<a href="#span-out-eqns">式変数</a>に<a href="#span-out-substitution-equation">式代入</a>して0を返す
 <br>
 ・_e式<a href="#span-out-vars-symbol">変数名symbol</a>(=&lt;{未知<a href="#span-out-vars-symbol">変数名symbol</a>},m,n)でcallする
 <br>
@@ -20365,7 +20415,7 @@ zn(z) yn(z,x)
 (3,4:0,0)(3,4:0,0) -> (9,12:0,0)
 <br>
 <br>
-<a href="#span-out-FNm-size">行列size</a>の異なる次のLとRを一例に示す
+<a href="#span-out-reference-mat-size">行列size</a>の異なる次のLとRを一例に示す
 <br>
 L=(1,2:3:4,5:6);
 <br>
@@ -29269,7 +29319,7 @@ data.logo -> "makeLog=true"
 ・<a href="#span-out-config">precedence</a>: comma,区切りで演算子の<a href="#span-in-prec">tag名</a>を列挙した文字列
 <br>
 <br>
-・<a href="#span-out-FNm">matSizeMax</a>: <a href="#span-out-FNm">行列size</a>指定の行||列のlengthの上限値
+・<a href="#span-out-FNm">matSizeMax</a>: <a href="#span-out-reference-mat-size">行列size</a>指定の行||列のlengthの上限値
 <br>
 <br>
 ・<a href="#span-out-FNmh-newtonian">isRelative_epsN</a>: epsNを相対誤差に変換するflag
