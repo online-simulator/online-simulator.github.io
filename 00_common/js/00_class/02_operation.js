@@ -1823,6 +1823,7 @@ My_entry.operation.prototype.FN_statistics0 = function(data, i0, tagName, tagObj
   }
   return self;
 };
+/* Ver.2.128.34 */
 My_entry.operation.prototype.FN_statistics1 = function(data, i0, tagName, tagObj){
   var self = this;
   var trees = data.trees;
@@ -1832,17 +1833,15 @@ My_entry.operation.prototype.FN_statistics1 = function(data, i0, tagName, tagObj
   var is = i0;
   var ie = i0+1;
   var prop = tagObj.val;
+  var i_key = tagObj.i;
   var rightArr = self.get_tagVal(trees[ie], "mat", "arr");
   if(rightArr){
-    var isComplex = (prop === "cmedian" || prop === "csort" || prop === "creverse");
-    var tree = null;
-    var len_i = rightArr.length;
-    var i_sw = (options.useMatrix)? 0: len_i-1;
-    var arr = [];
-    for(var i=i_sw; i<len_i; ++i){
-      var args = rightArr[i];
+    var sort_bubble = function(args){
+      var _arr_key = [];
       var len_j = args.length;
-      // Bubble Sort
+      for(var j=0; j<len_j; ++j){
+        _arr_key.push(j);
+      }
       for(var j=0; j<len_j-1; ++j){
         for(var jj=1; jj<len_j-j; ++jj){
           var left = args[jj-1];
@@ -1856,16 +1855,60 @@ My_entry.operation.prototype.FN_statistics1 = function(data, i0, tagName, tagObj
             var w = left;
             args[jj-1] = args[jj];
             args[jj] = w;
+            var w = _arr_key[jj-1];
+            _arr_key[jj-1] = _arr_key[jj];
+            _arr_key[jj] = w;
           }
         }
       }
-      if(prop === "median" || prop === "cmedian"){
-        args = [args[Math.floor(len_j/2)]];
+      return _arr_key;
+    };
+    var isComplex = (prop === "cmedian" || prop === "csort" || prop === "creverse");
+    var hasKey = (typeof i_key !== "undefined");
+    var tree = null;
+    var len_i = rightArr.length;
+    var i_sw = (options.useMatrix)? 0: len_i-1;
+    var arr = [];
+    if(hasKey){
+      var args_key = rightArr[i_key];
+      var len_j_key = (args_key)? args_key.length: 0;
+      for(var i=0; i<len_i; ++i){  // i=0
+        var args = rightArr[i];
+        var len_j = args.length;
+        if(len_j !== len_j_key) throw "Invalid table size";
       }
-      else if(prop === "reverse" || prop === "creverse"){
-        args = args.reverse();
+      var arr_key = sort_bubble(args_key);
+      for(var i=i_sw; i<len_i; ++i){
+        var args = [];
+        var args0 = rightArr[i];
+        var len_j = args0.length;
+        if(i === i_key){
+          args = args_key;
+        }
+        else{
+          for(var j=0; j<len_j; ++j){
+            args[j] = args0[arr_key[j]];
+          }
+        }
+        if(prop === "reverse" || prop === "creverse"){
+          args = args.reverse();
+        }
+        arr.push(args);
       }
-      arr.push(args);
+    }
+    else{
+      for(var i=i_sw; i<len_i; ++i){
+        var args = rightArr[i];
+        var len_j = args.length;
+        sort_bubble(args);
+        if(prop === "median" || prop === "cmedian"){
+          args = [args[Math.floor(len_j/2)]];
+        }
+        else if(prop === "reverse" || prop === "creverse"){
+          args = args.reverse();
+        }
+        arr.push(args);
+      }
     }
     tree = DATA.tree_mat(arr);
     self.feedback2trees(data, is, ie, tree);

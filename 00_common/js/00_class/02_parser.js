@@ -30,8 +30,15 @@ My_entry.parser.prototype.config = {
         DX: /^_d(.*)$/i,
         PX: /^_p(.*)$/i,
         SX: /^_s(.*)$/i
-      }
+      },
       /* -> Ver.2.20.9 */
+      /* Ver.2.128.34 */
+      FNn: {
+        sort: /^sort(\d+)$/i,
+        reverse: /^reverse(\d+)$/i,
+        csort: /^csort(\d+)$/i,
+        creverse: /^creverse(\d+)$/i
+      }
     },
     bas: [
       // StorE equation
@@ -211,8 +218,8 @@ My_entry.parser.prototype.compare2bs = function(token, re){
       var b = bstagName[key];
       var mc = token.match(b);
       if(mc && mc.length > 1){
+        var mc1 = mc[1];
         if(tagName === "FNmh" || tagName === "FNh"){  // Ver.2.21.10
-          var mc1 = mc[1];
           if(mc1){
             /* Ver.2.29.15 -> */
             if(self.entry.operation.config.isEscaped(mc1)){
@@ -221,6 +228,11 @@ My_entry.parser.prototype.compare2bs = function(token, re){
             /* -> Ver.2.29.15 */
             _tree = DATA.tree_tag(tagName, {key: key, name: self.check_varName(mc1, re)});  // Ver.2.24.12
           }
+        }
+        /* Ver.2.128.34 */
+        else if(tagName === "FNn"){
+          _tree = DATA.tree_tag(tagName, key);
+          _tree[tagName].i = Number(mc1);
         }
         if(!(_tree)){
           throw "Invalid "+tagName+" called";

@@ -9182,7 +9182,7 @@ checkError=false
 <br>
 checkError=0
 <br>
-・抜け要素を含む<a href="#span-out-array">行列操作</a>の予期せぬerror終了を許容する
+・<a href="#span-out-mat">抜け要素</a>を含む<a href="#span-out-array">行列操作</a>の予期せぬerror終了を許容する
 <br>
 (1,2:3)[0][0][0][0] -> Cannot read properties of undefined
 <br>
@@ -10608,9 +10608,9 @@ add(1,add(1,add(1,add(1,i))add(1,i))add(1,i))add(1,i) -> -5+5i
 <br>
 <a href="#span-out-FNm-last">last行列関数</a>を代替する<a href="#span-out-eqns">式変数</a>last_ttを以下に示す
 <br>
-・<a href="#span-out-FNm-last">last行列関数</a>は<a href="#span-in-tree">単位tree構造</a>の仕様上、行vectorの抜け要素を自動で埋めない
+・<a href="#span-out-FNm-last">last行列関数</a>は<a href="#span-in-tree">単位tree構造</a>の仕様上、行vectorの<a href="#span-out-mat">抜け要素</a>を自動で埋めない
 <br>
-・行vectorの抜け要素を自動で埋める<a href="#span-out-eqns">式変数</a>last_ttを次に定義する
+・行vectorの<a href="#span-out-mat">抜け要素</a>を自動で埋める<a href="#span-out-eqns">式変数</a>last_ttを次に定義する
 <br>
 clear; last_tt(A)=&lt;(trans(trans(A)))[sizer(A)-1][sizec(A)-1]; A=(1,2:3,4); last_tt(=&lt;A) -> 4
 <br>
@@ -11106,7 +11106,7 @@ vectorr(round(2^3)) || vectorr(8)  <span class="selection">// OK</span> -> (0,0,
 <br>
 ・<span class="run">Ver.2.76.29</span>以降、<a href="#span-out-array">行列操作</a>の<a href="#span-out-ope">演算速度</a>を犠牲にする弊害の方が圧倒的に大きい
 <br>
-・よって抜け要素がある場合、error終了の方が実装効率||演算効率が高い
+・よって<a href="#span-out-mat">抜け要素</a>がある場合、error終了の方が実装効率||演算効率が高い
 <br>
 後者の演算効率を選択して<a href="#span-out-array">行列操作</a>を最適化する場合、<a href="#span-out-config">裏設定</a>参照
     </td>
@@ -12542,7 +12542,7 @@ x=&lt;(1,2); y=&lt;{3,4}; z=&lt;{x,y}; z -> (1,2:3:4)
 <br>
 x=&lt;(1,2); y=&lt;{3,4}; z=&lt;{x:y}; z -> (1,2,3:0,0,4)
 <br>
-・抜け要素は0として演算する
+・<a href="#span-out-mat">抜け要素</a>は0として演算する
 <br>
 ・<a href="#span-out-FNm-trans">転置行列関数</a>を使用
 <br>
@@ -13588,6 +13588,8 @@ deg_atan2_ex(0,1) || degrees(atan2_ex(0,1)) -> 90
 <br>
 ・<span class="run">Ver.2.91.32</span>以降、median/sort/reverse/cmedian/csort/creverse関数を追加
 <br>
+・<span class="run">Ver.2.128.34</span>以降、sort/reverse/csort/creverse関数名直後の連番sort-key-i=0~を追加
+<br>
 <br>
 mean関数
 <br>
@@ -13656,6 +13658,42 @@ sort(1,-2,3,-1:4,-5,6,-3:7) -> (-2,-1,1,3:-5,-3,4,6:7)
 sort(1,-2i,3:4,-5,6i:7) -> (-2i,1,3:-5,6i,4:7)
 <br>
 sort(trans(1,-2i,3:4,-5,6i:7)) -> (1,4,7:-5,-2i,0:6i,0,3)
+<br>
+・<span class="run">Ver.2.128.34</span>以降、<a href="#span-out-mat">抜け要素なしの行列</a>table用に関数名直後の連番sort-key-i=0~を追加
+<br>
+table=(2,3,1:6,4,5);
+<br>
+sort(table) -> (1,2,3:4,5,6)
+<br>
+・i=0（0行目）をkeyにsort
+<br>
+sort0(table) -> (1,2,3:5,6,4)
+<br>
+・i=1（1行目）をkeyにsort
+<br>
+sort1(table) -> (3,1,2:4,5,6)
+<br>
+・<a href="#span-out-mat">抜け要素</a>が存在する場合、error終了
+<br>
+table=(2,3,1:6,4,5,7);
+<br>
+sort0(table) -> [MyErr]Invalid table size
+<br>
+sort0(trans(trans(table))) -> (0,1,2,3:7,5,6,4)
+<br>
+・key行が存在しない場合、error終了
+<br>
+sort2(table) -> [MyErr]Invalid table size
+<br>
+・matrix uncheckedの場合も同様に、key有効の仕様とする
+<br>
+table=(2,3,1:6,4,5);
+<br>
+sort(table) -> (4,5,6)
+<br>
+sort0(table) -> (5,6,4)
+<br>
+sort1(table) -> (4,5,6)
 <br>
 <br>
 reverse関数
