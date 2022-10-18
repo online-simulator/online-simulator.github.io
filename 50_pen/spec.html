@@ -810,6 +810,8 @@ canvas描画に影響なし
 auto-config=false||true
 <br>
 <span class="run">Ver.1.24.6追加</span>
+<br>
+<span class="clear">Ver.1.46.8更新</span>
           </td>
           <td class="border">
 config自動入力の有効化
@@ -821,6 +823,8 @@ W入力欄左側のcheckbox
 W&gt;0のchange検知で
 <br>
 A/w_th/len_th/in/outを自動入力
+<br>
+<span class="clear">・w_thを微調整</span>
 <br>
 <br>
 A初期化の条件
@@ -1220,6 +1224,22 @@ w(f-1)+w(f)&gt;0
 fill(tetragon):
 <br>
 stroke(line)
+          </td>
+        </tr>
+        <tr class="border">
+          <td class="border">
+dlen=1~[px]
+<br>
+<span class="run">Ver.1.46.8追加</span>
+          </td>
+          <td class="border">
+lenの補間間隔
+          </td>
+          <td class="border">
+frame間のw/xy線形補間による増点smoothing
+<br>
+<br>
+<span class="run">後方互換性を維持する場合、dlen&gt;&gt;1</span>
           </td>
         </tr>
         <tr class="border">

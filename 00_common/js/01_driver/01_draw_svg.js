@@ -177,18 +177,22 @@ for(var nsh=0; nsh<len_sh+1; ++nsh){
     _svg += self.rn;
   }
   /* -> 1.41.8 */
+  /* 1.44.8 -> */
   for(var n=0, len_n=arr_data.length || 0; n<len_n; ++n){
   /* -> 1.35.8 */
     var data = arr_data[n];
     var vec0 = data.xy0;
     var vec1 = data.xy1;
-    var x0 = self.floor(vec0.x+ox);
-    var y0 = self.floor(vec0.y+oy);
-    var x1 = self.floor(vec1.x+ox);
-    var y1 = self.floor(vec1.y+oy);
+    var x0 = vec0.x;
+    var y0 = vec0.y;
+    var x1 = vec1.x;
+    var y1 = vec1.y;
+    var dx = x1-x0;
+    var dy = y1-y0;
+    var len = Math.sqrt(dx*dx+dy*dy);
   /* 1.27.7 -> */
-    var w0 = self.floor(data.w0);
-    var w1 = self.floor(data.w1);
+    var w0 = data.w0;
+    var w1 = data.w1;
   if(Math.min(w0, w1) < options.w_th){
     var xym0 = data.xym0;
     var xyp0 = data.xyp0;
@@ -209,18 +213,32 @@ for(var nsh=0; nsh<len_sh+1; ++nsh){
     _svg += "/>";
   }
   else{
-    _svg += "<line";
-    _svg += svg_alpha;  // 1.29.7
-    _svg += " stroke-width="+self.quote(w1);
-    _svg += " x1="+self.quote(x0);
-    _svg += " y1="+self.quote(y0);
-    _svg += " x2="+self.quote(x1);
-    _svg += " y2="+self.quote(y1);
-    _svg += "/>";
+    var len_p = Math.ceil(len/options.dlen);
+    var dw01 = (w1-w0)/len_p;
+    var dx01 = (x1-x0)/len_p;
+    var dy01 = (y1-y0)/len_p;
+    var wp = w0;
+    var xp = x0;
+    var yp = y0;
+    for(var p=0; p<len_p; ++p){
+//      if(p > 0) _svg += self.rn;
+      _svg += "<line";
+      _svg += svg_alpha;  // 1.29.7
+      wp = w0+dw01*(p+1);
+      _svg += " stroke-width="+self.quote(self.floor(wp));
+      _svg += " x1="+self.quote(self.floor(xp+ox));
+      _svg += " y1="+self.quote(self.floor(yp+oy));
+      xp = x0+dx01*(p+1);
+      yp = y0+dy01*(p+1);
+      _svg += " x2="+self.quote(self.floor(xp+ox));
+      _svg += " y2="+self.quote(self.floor(yp+oy));
+      _svg += "/>";
+    }
   }
   /* -> 1.27.7 */
     _svg += self.rn;
   }
+  /* -> 1.44.8 */
   _svg += self.footer_group();
 }
 /* -> 1.36.8 */

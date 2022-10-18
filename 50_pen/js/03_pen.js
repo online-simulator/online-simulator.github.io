@@ -484,10 +484,10 @@ My_entry.pen.prototype.make_handlers = function(){
           self.arr_data.push({xy0: xy0, xy1: xy1, w0: w0, w1: w1, xym0: xym0, xyp0: xyp0, xym1: xym1, xyp1: xyp1});  // Ver.1.2.0
         /* -> Ver.1.4.1 */
           set_ctx();  // Ver.1.20.4
-          ctx.lineWidth = w1;  // Ver.1.4.1
-          ctx.beginPath();
+          /* Ver.1.46.8 -> */
           /* Ver.1.4.1 -> */
           if(Math.min(w0, w1) < options.w_th){
+            ctx.beginPath();
             ctx.moveTo(xym0.x+ox, xym0.y+oy);
             ctx.lineTo(xyp0.x+ox, xyp0.y+oy);
             ctx.lineTo(xyp1.x+ox, xyp1.y+oy);
@@ -495,11 +495,26 @@ My_entry.pen.prototype.make_handlers = function(){
             ctx.fill();
           }
           else{
-            ctx.moveTo(x0+ox, y0+oy);
-            ctx.lineTo(x1+ox, y1+oy);
-            ctx.stroke();
+            var len_p = Math.ceil(len/options.dlen);
+            var dw01 = (w1-w0)/len_p;
+            var dx01 = (x1-x0)/len_p;
+            var dy01 = (y1-y0)/len_p;
+            var wp = w0;
+            var xp = x0;
+            var yp = y0;
+            for(var p=0; p<len_p; ++p){
+              ctx.beginPath();
+              ctx.moveTo(xp+ox, yp+oy);
+              wp = w0+dw01*(p+1);
+              xp = x0+dx01*(p+1);
+              yp = y0+dy01*(p+1);
+              ctx.lineWidth = wp;
+              ctx.lineTo(xp+ox, yp+oy);
+              ctx.stroke();
+            }
           }
           /* -> Ver.1.4.1 */
+          /* -> Ver.1.46.8 */
           /* Ver.1.35.7 */
           if(self.mode === 0){
             self.arr_vec.push({x: x1+ox, y: y1+oy});
@@ -898,7 +913,10 @@ My_entry.pen.prototype.init_handlers = function(){
         if(isChecked && W > 0){
           var A = options.A;  // options
           $._id("input-A").value = (W < 5)? ((A < 0)? A: -30): ((A > 0)? A: 10);
-          $._id("input-w_th").value = (1-Math.pow(Math.E, -0.04332169878499659*W))*8;
+          /* Ver.1.46.8 -> */
+          $._id("input-w_th").value = (1-Math.pow(Math.E, -0.029375226827858474*W))*8;
+          $._id("input-dlen").value = (1-Math.pow(Math.E, -0.11198496682675355*W))*6;
+          /* -> Ver.1.46.8 */
           $._id("input-len_th").value = 5+Math.max(0, 5*(W-16)/(128-16));
           $._id("input-in").value = 0.4*W/16;
           $._id("input-out").value = (W < 32)? Math.max(0.8, W/8): -W/32;
