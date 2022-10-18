@@ -148,6 +148,7 @@ My_entry.pen.prototype.update_options = function(){
     options["canvas-width"] = def.limit(options["canvas-width"], 16, 2560, 512);
     options["canvas-height"] = def.limit(options["canvas-height"], 16, 2560, 512);
     /* -> 1.45.8 */
+    options.dlen = def.limit(options.dlen, 1, 2560, 5);  // Ver.1.46.8 for direct-input
     options.x0 = def.limit(options.x0, 0, fg.px_w, fg.px_w/2);
     options.y0 = def.limit(options.y0, 0, fg.px_h, fg.px_h/2);
     options.offsetR = def.limit(options.offsetR, 0, 1, 0);
@@ -467,7 +468,7 @@ My_entry.pen.prototype.make_handlers = function(){
         var w0 = self.w0 || 0;  // || 0
         var w1 = (options.pressure)? w_p(e.pressure): w_len(len);
         self.w0 = w1;
-        var k = (w1/2)/len;
+        var k = (w1/2)/(len || 1);  // || not0
         var dxk = dx*k;
         var dyk = dy*k;
         var xym1x = x1-dyk;
@@ -495,7 +496,7 @@ My_entry.pen.prototype.make_handlers = function(){
             ctx.fill();
           }
           else{
-            var len_p = Math.ceil(len/options.dlen);
+            var len_p = Math.ceil(len/(options.dlen || 1));  // || not0
             var dw01 = (w1-w0)/len_p;
             var dx01 = (x1-x0)/len_p;
             var dy01 = (y1-y0)/len_p;
