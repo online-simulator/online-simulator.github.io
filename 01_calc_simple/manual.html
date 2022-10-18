@@ -14659,11 +14659,13 @@ trans((1/norm(trans(A[2])))A[2])
 <span class="run">Ver.2.124.34</span>以降、memory使用量の削減のため、COO形式の<a href="#span-out-linear">Gaussの消去法</a>を追加
 <br>
 <br>
-COO形式から<a href="#span-out-reference-mat-size">m行n列</a>の<a href="#span-out-mat">行列</a>を復元
+COO形式の<a href="#span-out-mat">行列</a>から<a href="#span-out-reference-mat-size">m行n列の行列</a>を復元
 <br>
-clear; aA=(1); mA=(1); nA=(2); A=coo2mat(aA:mA:nA); A -> (0,1)
+・COO行列:=(aA:mA:nA)
 <br>
-clear; aA=(1,1+i,1-i); mA=(1,2,3); nA=(1,2,3); A=coo2mat(aA:mA:nA); A ->
+clear; aA=(1); mA=(1); nA=(2); coo=(aA:mA:nA); A=coo2mat(coo); A -> (0,1)
+<br>
+clear; aA=(1,1+i,1-i); mA=(1,2,3); nA=(1,2,3); coo=(aA:mA:nA); A=coo2mat(coo); A ->
 <br>
 (
 <br>
@@ -14675,7 +14677,7 @@ clear; aA=(1,1+i,1-i); mA=(1,2,3); nA=(1,2,3); A=coo2mat(aA:mA:nA); A ->
 <br>
 )
 <br>
-clear; aA=(1,1+i,1-i); mA=(1,2,3); nA=(1,4,3); A=coo2mat(aA:mA:nA); A ->
+clear; aA=(1,1+i,1-i); mA=(1,2,3); nA=(1,4,3); coo=(aA:mA:nA); A=coo2mat(coo); A ->
 <br>
 (
 <br>
@@ -14687,7 +14689,7 @@ clear; aA=(1,1+i,1-i); mA=(1,2,3); nA=(1,4,3); A=coo2mat(aA:mA:nA); A ->
 <br>
 )
 <br>
-clear; aA=(1,1+i,1-i); mA=(1,2,3); nA=(1,2,3); A=coo2mat(aA:mA:2*nA); A ->
+clear; aA=(1,1+i,1-i); mA=(1,2,3); nA=(1,2,3); coo=(aA:mA:2*nA); A=coo2mat(coo); A ->
 <br>
 (
 <br>
@@ -14701,7 +14703,7 @@ clear; aA=(1,1+i,1-i); mA=(1,2,3); nA=(1,2,3); A=coo2mat(aA:mA:2*nA); A ->
 <br>
 ・重複定義の場合、error終了<del>配列の後要素で上書き</del><span class="run">Ver.2.124.34</span>以降、変更
 <br>
-clear; aA=(1,1+i,1-i); mA=(1,2,1); nA=(1,4,1); A=coo2mat(aA:mA:nA); A ->
+clear; aA=(1,1+i,1-i); mA=(1,2,1); nA=(1,4,1); coo=(aA:mA:nA); A=coo2mat(coo); A ->
 <br>
 [MyErr]Invalid duplication of coo
 <br>
@@ -14715,17 +14717,27 @@ clear; aA=(1,1+i,1-i); mA=(1,2,1); nA=(1,4,1); A=coo2mat(aA:mA:nA); A ->
 <br>
 ・引数不正の場合、error終了
 <br>
-clear; aA=(1,1+i,1-i); mA=(1,2,3); nA=(1,2,3); A=coo2mat(aA:mA); A -> [MyErr]Invalid coo2matSize
+clear; aA=(1,1+i,1-i); mA=(1,2,3); nA=(1,2,3);
 <br>
-clear; aA=(1,1+i); mA=(1,2,3); nA=(1,2,3); A=coo2mat(aA:mA:nA); A -> [MyErr]Invalid coo2matSize
+coo=(aA:mA); A=coo2mat(coo); A -> [MyErr]Invalid coo2matSize
 <br>
-clear; aA=(1,1+i:1-i); mA=(1,2,3); nA=(1,2,3); A=coo2mat(aA:mA:nA); A -> [MyErr]Invalid coo2matSize
+clear; aA=(1,1+i); mA=(1,2,3); nA=(1,2,3);
+<br>
+coo=(aA:mA:nA); A=coo2mat(coo); A -> [MyErr]Invalid coo2matSize
+<br>
+clear; aA=(1,1+i:1-i); mA=(1,2,3); nA=(1,2,3);
+<br>
+coo=(aA:mA:nA); A=coo2mat(coo); A -> [MyErr]Invalid coo2matSize
 <br>
 ・<a href="#span-out-reference-mat-size">行列size</a>の制限によるerror終了
 <br>
-clear; aA=(1,1+i,1-i); mA=(0,2,3); nA=(1,2,3); A=coo2mat(aA:mA:nA); A -> [MyErr]Invalid matrix size
+clear; aA=(1,1+i,1-i); mA=(0,2,3); nA=(1,2,3);
 <br>
-clear; aA=(1,1+i,1-i); mA=(1001,2,3); nA=(1,2,3); A=coo2mat(aA:mA:nA); A -> [MyErr]Invalid matSizeMax over
+coo=(aA:mA:nA); A=coo2mat(coo); A -> [MyErr]Invalid matrix size
+<br>
+clear; aA=(1,1+i,1-i); mA=(1001,2,3); nA=(1,2,3);
+<br>
+coo=(aA:mA:nA); A=coo2mat(coo); A -> [MyErr]Invalid matSizeMax over
 <br>
 ・<span class="run">Ver.2.126.34</span>以降、逆変換を追加
 <br>
@@ -14774,6 +14786,8 @@ nA=(1,2,3);
 <br>
 b={4,5,6};
 <br>
+coo=(aA:mA:nA);
+<br>
 x=Gauss_coo(aA:mA:nA:trans(b)); x -> (4:2.5:2)
 <br>
 x=Gauss_coo(1,2,3:1,2,3:1,2,3:4,5,6); x -> (4:2.5:2)
@@ -14786,21 +14800,29 @@ mA=(3,1,2);
 <br>
 nA=(3,1,2);
 <br>
+coo=(aA:mA:nA);
+<br>
 b={4,5,6};
 <br>
-x=Gauss_coo(aA:mA:nA:trans(b)); x -> (4:2.5:2)
+x=Gauss_coo(coo:trans(b)); x -> (4:2.5:2)
+<br>
+・<span class="run">Ver.2.128.34</span>以降、COO行列のi=1（2行目のmA）をkeyにsort
+<br>
+clear; aA=(3,1,2); mA=(3,1,2); nA=(3,1,2); coo=(aA:mA:nA);
+<br>
+coo_sorted=sort1(coo); coo_sorted -> (1,2,3:1,2,3:1,2,3)
 <br>
 ・Aとbの<a href="#span-out-reference-mat-size">行列size</a>不一致の場合、error終了
 <br>
-clear; aA=(1,2,3); mA=(1,2,3); nA=(1,2,3); b={4,5};
+clear; aA=(1,2,3); mA=(1,2,3); nA=(1,2,3); b={4,5}; coo=(aA:mA:nA);
 <br>
-x=Gauss_coo(aA:mA:nA:trans(b)); x -> [MyErr]Invalid coo2matSize
+x=Gauss_coo(coo:trans(b)); x -> [MyErr]Invalid coo2matSize
 <br>
 ・定義不正の場合、error終了
 <br>
-clear; aA=(1,2,3); mA=(2,2,3); nA=(1,2,3); b={4,5,6};
+clear; aA=(1,2,3); mA=(2,2,3); nA=(1,2,3); b={4,5,6}; coo=(aA:mA:nA);
 <br>
-x=Gauss_coo(aA:mA:nA:trans(b)); x -> [MyErr]Invalid gauss_coo2mat
+x=Gauss_coo(coo:trans(b)); x -> [MyErr]Invalid gauss_coo2mat
 <br>
 ・test caseを示す
 <br>
@@ -14810,9 +14832,11 @@ mA=(1,1,2,2,2,3,3,4,4);
 <br>
 nA=(1,2,1,2,3,1,3,3,4);
 <br>
+coo=(aA:mA:nA);
+<br>
 b={4,5,6,7i};
 <br>
-x=Gauss_coo(aA:mA:nA:trans(b)); x ->
+x=Gauss_coo(coo:trans(b)); x ->
 <br>
 (
 <br>
@@ -14828,7 +14852,7 @@ x=Gauss_coo(aA:mA:nA:trans(b)); x ->
 <br>
 ・double-check
 <br>
-A=coo2mat(aA:mA:nA); x-Gauss(A,b) -> (0,0,0,0)
+A=coo2mat(coo); x-Gauss(A,b) -> (0,0,0,0)
 <br>
 A*x ->
 <br>
@@ -30514,9 +30538,9 @@ clear;
 <br>
 [aA=(1,1,-2,1+i,3i,1,1-i,-1,-i),mA=(1,1,2,2,2,3,3,4,4),nA=(1,2,1,2,3,1,3,3,4),
 <br>
-b={4,5,6,7i},A=coo2mat(aA:mA:nA),
+b={4,5,6,7i},coo=(aA:mA:nA),A=coo2mat(coo),
 <br>
-=&lt;Gauss(A,b)-Gauss_coo(aA:mA:nA:trans(b))]=&gt;;
+=&lt;Gauss(A,b)-Gauss_coo(coo:trans(b))]=&gt;;
     </td>
   </tr>
   <tr>

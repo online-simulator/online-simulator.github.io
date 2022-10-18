@@ -472,7 +472,7 @@ stored_eqn(ODE_RK4)
 Euler_method(t,dt,z_x00,z_v00,z_u,m,Cd_sphere,isImplicit)=<[out=<{t_total,x=>},scope2storage=<last{addVar(z_x0),addVar(z_v0),addVar(t_total)},init=<last{switch(hasVar(t_total)==0,=<last{t_total=0,z_x0=z_x00,z_v0=z_v00}),g=-9.8,z_a=0+g*i,x=<{z_x,z_v},x_initial=<{z_x0,z_v0},switch(isImplicit,=<f=<{(z_x-z_x0)/dt=z_v,m*((z_v-z_v0)/dt)=m*z_a+Cd_sphere*(z_u-z_v)}:1,=<f=<{(z_x-z_x0)/dt=z_v0,m*((z_v-z_v0)/dt)=m*z_a+Cd_sphere*(z_u-z_v0)}),orderT=1,epsN=max(eps*1e3,pow(dt,orderT)),isRelative_epsN=1,relative_epsN=(epsN,isRelative_epsN)},run=<last{args_Newton=(=<f,=<x,=<x_initial,Nmax=20,Nmax,relative_epsN),step_iteration=<mdx=Newton(args_Newton),step_post=<{$z_x0,$z_v0}=x=>,step=<last{step_iteration=>,step_post=>},evolution=<_rn(=<step,N=round(t/dt),N),evolution=>,t_total=t_total+N*dt},init=>,run=>,return=out=>,scope2storage=>,=<return]=>
 stored_eqn(Euler_method)
 
-[aA=(1,1,-2,1+i,3i,1,1-i,-1,-i),mA=(1,1,2,2,2,3,3,4,4),nA=(1,2,1,2,3,1,3,3,4),b={4,5,6,7i},A=coo2mat(aA:mA:nA),=<Gauss(A,b)-Gauss_coo(aA:mA:nA:trans(b))]=>
+[aA=(1,1,-2,1+i,3i,1,1-i,-1,-i),mA=(1,1,2,2,2,3,3,4,4),nA=(1,2,1,2,3,1,3,3,4),b={4,5,6,7i},coo=(aA:mA:nA),A=coo2mat(coo),=<Gauss(A,b)-Gauss_coo(coo:trans(b))]=>
 (
 0:
 0:
@@ -736,4 +736,4 @@ drag=false&test-case=false&legend=true&axis-t=false&axis-x=true&log-x=false&imag
 --------------------------------
 --------------------------------
 
-online-simulator.github.io.5.149.66.12.38 @ Tue Oct 18 2022 08:51:42 GMT+0900 (日本標準時) @ Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/106.0.0.0 Safari/537.36
+online-simulator.github.io.5.149.66.12.38 @ Tue Oct 18 2022 10:10:02 GMT+0900 (日本標準時) @ Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/106.0.0.0 Safari/537.36
