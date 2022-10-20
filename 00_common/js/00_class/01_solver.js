@@ -124,6 +124,7 @@ My_entry.solver.prototype.gaussian_coo_pre = function(options, obj_Axb){
   var self = this;
   var math = self.entry.math;
   var math_com = self.entry.math_com;
+  var DATA = self.entry.DATA;
   var N = obj_Axb.N;
   var m2arr_n = obj_Axb.m2arr_n;
   var m2A = obj_Axb.m2A;
@@ -136,7 +137,10 @@ My_entry.solver.prototype.gaussian_coo_pre = function(options, obj_Axb){
     var n0 = i+1;
     i_switch = i;
     var aA0 = m2A[m0];
-    var num_pivot = aA0[self.get_jn(m2arr_n[m0], n0, true)];
+    /* Ver.2.128.35 -> */
+    var jn0 = self.get_jn(m2arr_n[m0], n0);
+    var num_pivot = (jn0 === -1)? DATA.num(0, 0): aA0[jn0];  // pivot=0 allowed
+    /* -> Ver.2.128.35 */
     abs_pivot = math_com.absolute_com(num_pivot.com);
     for(var ii=i+1; ii<N; ++ii){
       var m = ii+1;

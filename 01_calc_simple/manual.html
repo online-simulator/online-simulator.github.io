@@ -14678,6 +14678,8 @@ trans((1/norm(trans(A[2])))A[2])
 <br>
 <span class="run">Ver.2.124.34</span>以降、memory使用量の削減のため、COO形式の<a href="#span-out-linear">Gaussの消去法</a>を追加
 <br>
+・<span class="run">Ver.2.128.35</span>以降、<a href="#span-out-linear">pivot選択</a>でのerror終了を修正（pivot=0でも通るように）
+<br>
 <br>
 COO形式の<a href="#span-out-mat">行列</a>から<a href="#span-out-reference-mat-size">m行n列の行列</a>を復元
 <br>
@@ -20897,6 +20899,40 @@ nA=(nA0,nA1,nA2,nA3)
 aA=(aA0,aA1,aA2,aA3)
 <br>
 r={r0,r1,r2,r3}
+<br>
+・test caseを示す
+<br>
+xi=(0,1,2);
+<br>
+yi=(1,3,2);
+<br>
+mA=(1,1,1,2,2,2,3,3,3,3,4,4,4,5,6,6);
+<br>
+nA=(1,3,5,2,4,6,1,2,3,5,3,4,5,3,4,6);
+<br>
+aA=(1,1,1,1,1,1,1,-1,2,3,1,-1,3,1,1,3);
+<br>
+r={2,-1,0,0,0,0};
+<br>
+coo=(aA:mA:nA);
+<br>
+u=Gauss_coo(coo:trans(r)); u ->
+<br>
+(
+<br>
+infoLost[r ] 2.75:
+<br>
+0.4999999999999999:
+<br>
+-1.1102230246251565e-16:
+<br>
+-2.25:
+<br>
+-0.75:
+<br>
+0.7500000000000001
+<br>
+)
     </td>
   </tr>
   <tr>
@@ -30738,11 +30774,23 @@ _Gauss_coo
 <span id="span-eqn-solvex_Gauss_coo"></span>
 <a href="#span-out-FNm-coo">座標形式行列関数入力仕様</a>参照
 <br>
+<a href="#span-out-interpolation-spline">spline補間</a>参照
+<br>
 clear;
 <br>
 [aA=(1,1,-2,1+i,3i,1,1-i,-1,-i),mA=(1,1,2,2,2,3,3,4,4),nA=(1,2,1,2,3,1,3,3,4),
 <br>
 b={4,5,6,7i},coo=(aA:mA:nA),A=coo2mat(coo),
+<br>
+=&lt;Gauss(A,b)-Gauss_coo(coo:trans(b))]=&gt;;
+<br>
+[aA=(1,1,1,1,1,1,1,-1,2,3,1,-1,3,1,1,3),
+<br>
+mA=(1,1,1,2,2,2,3,3,3,3,4,4,4,5,6,6),
+<br>
+nA=(1,3,5,2,4,6,1,2,3,5,3,4,5,3,4,6),
+<br>
+b={2,-1,0,0,0,0},coo=(aA:mA:nA),A=coo2mat(coo),
 <br>
 =&lt;Gauss(A,b)-Gauss_coo(coo:trans(b))]=&gt;;
     </td>

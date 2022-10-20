@@ -45,6 +45,61 @@ local storage cleared
 
 Gauss_coo(coo:trans(b))-Gauss(A,b)
 (
+infoLost[r ] 0:
+0:
+0:
+0:
+0:
+0
+)
+
+A=coo2mat(mat2coo(coo2mat(coo)))
+A=(
+1,0,1,0,1,0:
+0,1,0,1,0,1:
+1,-1,2,0,3,0:
+0,0,1,-1,3,0:
+0,0,1,0,0,0:
+0,0,0,1,0,3
+)
+
+coo=(aA:mA:nA)
+coo=(
+1,1,1,1,1,1,1,-1,2,3,1,-1,3,1,1,3:
+1,1,1,2,2,2,3,3,3,3,4,4,4,5,6,6:
+1,3,5,2,4,6,1,2,3,5,3,4,5,3,4,6
+)
+
+b={2,-1,0,0,0,0}
+b=(
+2:
+-1:
+0:
+0:
+0:
+0
+)
+
+nA=(1,3,5,2,4,6,1,2,3,5,3,4,5,3,4,6)
+nA=(
+1,3,5,2,4,6,1,2,3,5,3,4,5,3,4,6
+)
+
+mA=(1,1,1,2,2,2,3,3,3,3,4,4,4,5,6,6)
+mA=(
+1,1,1,2,2,2,3,3,3,3,4,4,4,5,6,6
+)
+
+aA=(1,1,1,1,1,1,1,-1,2,3,1,-1,3,1,1,3)
+aA=(
+1,1,1,1,1,1,1,-1,2,3,1,-1,3,1,1,3
+)
+
+clear
+local storage cleared
+
+Gauss_coo(coo:trans(b))-Gauss(A,b)
+(
 0:
 0:
 0:
@@ -528,4 +583,4 @@ drag=false&sw=false&0x=false&useComplex=true&useMatrix=true&isRightAssociativity
 --------------------------------
 --------------------------------
 
-online-simulator.github.io.5.149.66.12.38 @ Tue Oct 18 2022 10:10:43 GMT+0900 (日本標準時) @ Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/106.0.0.0 Safari/537.36
+online-simulator.github.io.5.150.66.12.39 @ Thu Oct 20 2022 20:37:35 GMT+0900 (日本標準時) @ Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/106.0.0.0 Safari/537.36
