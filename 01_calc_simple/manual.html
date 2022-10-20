@@ -502,6 +502,12 @@ e^(-i(1pi(){2/2i}(5-{3-1}){i/(-4)}))
 <br>
 　・<a href="#span-out-mat-product">行列積</a>
 <br>
+　・<a href="#span-out-interpolation">補間法</a>
+<br>
+　　・<a href="#span-out-interpolation-Lagrange">Lagrange補間</a>
+<br>
+　　・<a href="#span-out-interpolation-spline">spline補間</a>
+<br>
 　・<a href="#span-out-fdm">有限差分法</a>
 <br>
 　　・<a href="#span-out-fdm-differential">微分の数値解法</a>
@@ -772,6 +778,8 @@ ja.m.wikipedia.org/wiki/項目を列挙する
 <br>
 ・演算子の優先順位
 <br>
+・結合法則
+<br>
 ・剰余演算
 <br>
 ・IEEE_754
@@ -796,7 +804,13 @@ ja.m.wikipedia.org/wiki/項目を列挙する
 <br>
 ・ルンゲ＝クッタ法
 <br>
+・ルンゲ現象
+<br>
 ・ラグランジュ補間
+<br>
+・スプライン曲線
+<br>
+・B-スプライン曲線
 <br>
 ・シンプソンの公式
 <br>
@@ -1256,6 +1270,12 @@ title/発行元(発行年)を列挙する
 　この場合の引数を通常の値渡しに対して式渡しと表記する
 <br>
 ・SI単位系を使用する
+<br>
+・2項演算子の結合性は<a href="#span-out-option1">左結合</a>で記述する
+<br>
+・除算より<a href="#span-out-BRmo">記号省略乗算</a>の演算優先で記述する
+<br>
+・<a href="#span-out-FNm">行列</a>は本仕様書の構文で記述する
     </td>
   </tr>
   <tr>
@@ -20623,6 +20643,268 @@ L*R -> (2,1-i:1+i,1)
 目次
 </a>
 <br>
+補間法
+    </th>
+    <td>
+<span id="span-out-interpolation"></span>
+補間法を列挙する
+<br>
+・<a href="#span-out-interpolation-Lagrange">Lagrange補間</a>
+<br>
+・<a href="#span-out-interpolation-spline">spline補間</a>
+    </td>
+  </tr>
+  <tr>
+    <th>
+<a href="#span-index">
+目次
+</a>
+<br>
+Lagrange
+<br>
+補間
+    </th>
+    <td>
+<span id="span-out-interpolation-Lagrange"></span>
+Lagrange補間について記述する
+<br>
+<br>
+主な用途
+<br>
+・計算||実験で得られる標本点の補間（制御点の取り方でRunge現象の<a href="#span-out-error">数値誤差</a>が発生しやすい）
+<br>
+<br>
+1次のLagrange補間（線形補間）
+<br>
+・1次の補間多項式P1(x)を定義する
+<br>
+P1(x)=(1,x)(l:m)
+<br>
+・独立する2点の制御点(xi,f[i])から
+<br>
+P1(x0)=(1,x0)(l:m)=f[0]
+<br>
+P1(x1)=(1,x1)(l:m)=f[1]
+<br>
+・次の連立線形方程式V1*y1=r1を解くことで
+<br>
+V1=(1,x0:1,x1)
+<br>
+y1=(l:m)
+<br>
+r1=(f[0]:f[1])
+<br>
+・P1(x)の係数vector y1が求まる
+<br>
+・VはVandermonde行列
+<br>
+・制御点がすべて独立であればVの逆行列が一意に存在する
+<br>
+・予め逆行列を解いた方が<a href="#span-out-error">丸め誤差</a>の影響を受けにくい
+<br>
+・その形式に変形したLagrange基底の補間多項式を導出する
+<br>
+m=(f[0]-f[1])/(x0-x1)
+<br>
+l=f[0]-(f[0]-f[1])/(x0-x1)*x0
+<br>
+(l:m)=(-x1/(x0-x1),x0/(x0-x1):1/(x0-x1),-1/(x0-x1))(f[0]:f[1])
+<br>
+・y1=inverse(V1)*r1から
+<br>
+・V1の逆行列inverse(V1)
+<br>
+inverse(V1)=(-x1/(x0-x1),x0/(x0-x1):1/(x0-x1),-1/(x0-x1))
+<br>
+・P1(x)=(1,x)(l:m)=(1,x)*inverse(V1)*(f[0]:f[1])から
+<br>
+・1次のLagrange基底多項式のvector L1=(1,x)*inverse(V1)
+<br>
+L1=(1,x)(-x1/(x0-x1),x0/(x0-x1):1/(x0-x1),-1/(x0-x1))
+<br>
+=((x-x1)/(x0-x1),(x-x0)/(x1-x0))
+<br>
+・1次のLagrange型の補間多項式
+<br>
+P1(x)=L1*(f[0]:f[1])
+<br>
+L1=((x-x1)/(x0-x1),(x-x0)/(x1-x0))
+<br>
+<br>
+2次のLagrange補間
+<br>
+・2次の補間多項式P2(x)を定義する
+<br>
+P2(x)=(1,x,x^2)(l:m:n)
+<br>
+・独立する3点の制御点(xi,f[i])から
+<br>
+P2(x0)=(1,x0,x0^2)(l:m:n)=f[0]
+<br>
+P2(x1)=(1,x1,x1^2)(l:m:n)=f[1]
+<br>
+P2(x2)=(1,x2,x2^2)(l:m:n)=f[2]
+<br>
+・次の連立線形方程式V2*y2=r2を解くことで
+<br>
+V2=(1,x0,x0^2:1,x1,x1^2:1,x2,x2^2)
+<br>
+y2=(l:m:n)
+<br>
+r2=(f[0]:f[1]:f[2])
+<br>
+・P2(x)の係数vector y2が求まる
+<br>
+・以下、1次の場合同様に導出
+<br>
+・2次のLagrange型の補間多項式
+<br>
+P2(x)=L2*(f[0]:f[1]:f[2])
+<br>
+L2=(
+<br>
+(x-x1)(x-x2)/(x0-x1)(x0-x2),
+<br>
+(x-x0)(x-x2)/(x1-x0)(x1-x2),
+<br>
+(x-x0)(x-x1)/(x2-x0)(x2-x1))
+    </td>
+  </tr>
+  <tr>
+    <th>
+<a href="#span-index">
+目次
+</a>
+<br>
+spline
+<br>
+補間
+    </th>
+    <td>
+<span id="span-out-interpolation-spline"></span>
+spline補間について記述する
+<br>
+<br>
+主な用途
+<br>
+・roboticsの場合、3次の自然spline補間（制御点での加速度の連続性を重視）
+<br>
+・数値計算の場合、3次の自然spline補間（<a href="#span-out-ope">演算量</a>=Order(N)で低cost）
+<br>
+・computer graphicsの場合、B-spline補間（必ずしも制御点を通らない）
+<br>
+<br>
+3次の自然spline補間
+<br>
+・N+1個の制御点(xi,yi)
+<br>
+(xi,yi):=(x[i],y[i]), i=0~N
+<br>
+dxi:=dx[i]=(x[i+1]-x[i]), i=0~N-1
+<br>
+dyi:=dy[i]=(y[i+1]-y[i]), i=0~N-1
+<br>
+・区間iの3次多項式と導関数（次数の昇順に列挙）
+<br>
+f(x)=y[i]+b[i](x-x[i])+c[i](x-x[i])^2+d[i](x-x[i])^3,
+<br>
+f'(x)=b[i]+2c[i](x-x[i])+3d[i](x-x[i])^2,
+<br>
+f"(x)=2c[i]+6d[i](x-x[i]), i=0~N-1
+<br>
+<br>
+3N個の未知変数に対する連立方程式（full-rank）
+<br>
+・3次多項式（N個）
+<br>
+b[i]dx[i]+c[i](dx[i])^2+d[i](dx[i])^3=dy[i], i=0~N-1
+<br>
+・第1次導関数の連続条件（N-1個）
+<br>
+b[i]-b[i+1]+2c[i]dx[i]+3d[i](dx[i])^2=0, i=0~N-2
+<br>
+・第2次導関数の連続条件（N-1個）
+<br>
+c[i]-c[i+1]+3d[i]dx[i]=0, i=0~N-2
+<br>
+・全区間の境界条件（2個）
+<br>
+f"(x[0])=0 -> c0=0
+<br>
+f"(x[N])=0 -> c[N-1]+3d[N-1]dx[N-1]=0
+<br>
+・以上の解析より、b[i]を未知変数とするN元1次の連立方程式Au=rに帰結する
+<br>
+3重帯行列:=A
+<br>
+未知変数vector:=u={b0,b1,... ,b[N-1]}
+<br>
+右辺vector:=r
+<br>
+<br>
+解析前の連立方程式を<a href="#span-out-FNm-coo">座標形式</a>で示す（test case用）
+<br>
+・3N個の未知変数
+<br>
+u={b0,...,b[N-1],c0,...,c[N-1],d0,...,d[N-1]}
+<br>
+・3次多項式（N個）
+<br>
+mA0=(1,1,1,...,N,N,N)
+<br>
+nA0=(1,N+1,2N+1,...,N,2N,3N)
+<br>
+aA0=(dx0,dx0^2,dx0^3,...,dx[N-1],(dx[N-1])^2,(dx[N-1])^3)
+<br>
+r0={dy0,...,dy[N-1]}
+<br>
+・第1次導関数の連続条件（N-1個）
+<br>
+mA1=(N+1,N+1,N+1,N+1,...,2N-1,2N-1,2N-1,2N-1)
+<br>
+nA1=(1,2,N+1,2N+1,...,N-1,N,2N-1,3N-1)
+<br>
+aA1=(1,-1,2dx0,3dx0^2,...,1,-1,2dx[N-2],3(dx[N-2])^2)
+<br>
+r1={0,...,0}
+<br>
+・第2次導関数の連続条件（N-1個）
+<br>
+mA2=(2N,2N,2N,...,3N-2,3N-2,3N-2)
+<br>
+nA2=(N+1,N+2,2N+1,...,2N-1,2N,3N-1)
+<br>
+aA2=(1,-1,3dx0,...,1,-1,3dx[N-2])
+<br>
+r2={0,...,0}
+<br>
+・全区間の境界条件（2個）
+<br>
+mA3=(3N-1,3N,3N)
+<br>
+nA3=(N+1,2N,3N)
+<br>
+aA3=(1,1,3dx[N-1])
+<br>
+r3={0,0}
+<br>
+・以上をまとめる
+<br>
+mA=(mA0,mA1,mA2,mA3)
+<br>
+nA=(nA0,nA1,nA2,nA3)
+<br>
+aA=(aA0,aA1,aA2,aA3)
+<br>
+r={r0,r1,r2,r3}
+    </td>
+  </tr>
+  <tr>
+    <th>
+<a href="#span-index">
+目次
+</a>
+<br>
 有限差分法
     </th>
     <td>
@@ -20828,12 +21110,6 @@ f""(x)=(f"'(x+4h)-f"'(x-8h))/(16h)+O((8h)^2)
 <br>
 前提を列挙する
 <br>
-・<a href="#span-out-associativity">2項演算子のassociativity</a>は<a href="#span-out-option1">LA既定</a>を前提に記述する
-<br>
-・除算より<a href="#span-out-BRmo">記号省略乗算</a>優先を前提に記述する
-<br>
-・<a href="#span-out-FNm">行列</a>は本manualの構文を前提に記述する
-<br>
 ・総和をΣ&lt;変数=開始値,終了値&gt;で記述する
 <br>
 ・線形結合をvectorの内積で記述する
@@ -20883,55 +21159,7 @@ S=(f[0]+2Σ&lt;i=1,N-1&gt;f[i]+f[N])h/2+O(h^2)
 <br>
 微小区間の関数fを1次多項式で補間する場合も同様
 <br>
-・1次の補間多項式P1(x)を定義する
-<br>
-P1(x)=(1,x)(l:m)
-<br>
-・独立する2点の離散点xiに対する離散点f[i]から
-<br>
-P1(x0)=(1,x0)(l:m)=f[0]
-<br>
-P1(x1)=(1,x1)(l:m)=f[1]
-<br>
-・次の連立線形方程式V1*y1=r1を解くことで
-<br>
-V1=(1,x0:1,x1)
-<br>
-y1=(l:m)
-<br>
-r1=(f[0]:f[1])
-<br>
-・P1(x)の係数vector y1が求まる
-<br>
-・VはVandermonde行列
-<br>
-・離散点がすべて独立であればVの逆行列が一意に存在する
-<br>
-・予め逆行列を解いた方が<a href="#span-out-error">丸め誤差</a>の影響を受けにくい
-<br>
-・その形式に変形したLagrange基底の補間多項式を導出する
-<br>
-m=(f[0]-f[1])/(x0-x1)
-<br>
-l=f[0]-(f[0]-f[1])/(x0-x1)*x0
-<br>
-(l:m)=(-x1/(x0-x1),x0/(x0-x1):1/(x0-x1),-1/(x0-x1))(f[0]:f[1])
-<br>
-・y1=inverse(V1)*r1から
-<br>
-・V1の逆行列inverse(V1)
-<br>
-inverse(V1)=(-x1/(x0-x1),x0/(x0-x1):1/(x0-x1),-1/(x0-x1))
-<br>
-・P1(x)=(1,x)(l:m)=(1,x)*inverse(V1)*(f[0]:f[1])から
-<br>
-・1次のLagrange基底多項式のvector L1=(1,x)*inverse(V1)
-<br>
-L1=(1,x)(-x1/(x0-x1),x0/(x0-x1):1/(x0-x1),-1/(x0-x1))
-<br>
-=((x-x1)/(x0-x1),(x-x0)/(x1-x0))
-<br>
-・1次のLagrange型の補間多項式
+・1次の<a href="#span-out-interpolation-Lagrange">Lagrange型の補間多項式</a>
 <br>
 P1(x)=L1*(f[0]:f[1])
 <br>
@@ -20958,31 +21186,7 @@ S=(f[0]+2Σ&lt;i=1,N-1&gt;f[i]+f[N])h/2+O(h^2)
 <br>
 微小区間の関数fを2次多項式で補間する場合、4次精度の合成Simpson公式
 <br>
-・2次の補間多項式P2(x)を定義する
-<br>
-P2(x)=(1,x,x^2)(l:m:n)
-<br>
-・独立する3点の離散点xiに対する離散点f[i]から
-<br>
-P2(x0)=(1,x0,x0^2)(l:m:n)=f[0]
-<br>
-P2(x1)=(1,x1,x1^2)(l:m:n)=f[1]
-<br>
-P2(x2)=(1,x2,x2^2)(l:m:n)=f[2]
-<br>
-・次の連立線形方程式V2*y2=r2を解くことで
-<br>
-V2=(1,x0,x0^2:1,x1,x1^2:1,x2,x2^2)
-<br>
-y2=(l:m:n)
-<br>
-r2=(f[0]:f[1]:f[2])
-<br>
-・P2(x)の係数vector y2が求まる
-<br>
-・以下、1次の場合同様に導出
-<br>
-・2次のLagrange型の補間多項式
+・2次の<a href="#span-out-interpolation-Lagrange">Lagrange型の補間多項式</a>
 <br>
 P2(x)=L2*(f[0]:f[1]:f[2])
 <br>
