@@ -608,6 +608,8 @@ e^(-i(1pi(){2/2i}(5-{3-1}){i/(-4)}))
 <br>
 ・<a href="#span-eqn-plot2d_evolution">plot2d_evolution</a>
 <br>
+・<a href="#span-eqn-plot2d_spline">plot2d_spline</a>
+<br>
 ・<a href="#span-eqn-SND_Px_erfx_erfcx">SND/P(x)/erf(x)/erfc(x)</a>
 <br>
 ・<a href="#span-eqn-matrix_product">matrix_product</a>
@@ -11562,6 +11564,12 @@ plot2d(
 <br>
 時系列dataからplot2d-commandを実行する場合
 <br>
+・<span class="run">Ver.2.129.35</span>以降、各(x,y)の<a href="#span-out-FNm-size">行size</a>を独立化
+<br>
+　csv出力時、<a href="#span-out-mat">抜け要素</a>=undefined
+<br>
+　svg出力時、<a href="#span-out-mat">抜け要素</a>=NaN
+<br>
 ・plot2d-from-arrのformatを次に示す
 <br>
 plot2d
@@ -20974,7 +20982,7 @@ coo[0][j0][1][3]=(dxi,dxi**2,dxi**3),
 <br>
 coo[1][j0][1][3]=(n,n,n),
 <br>
-coo[2][j0][1][3]=(n,n+N,n+2N),
+coo[2][j0][1][3]=(n,n+N,n+2*N),
 <br>
 r[j]=dyi},
 <br>
@@ -20986,7 +20994,7 @@ coo[0][j0][1][4]=(1,-1,2*dxi,3*dxi**2),
 <br>
 coo[1][j0][1][4]=(N+n,N+n,N+n,N+n),
 <br>
-coo[2][j0][1][4]=(n,n+1,N+n,2N+n)},
+coo[2][j0][1][4]=(n,n+1,N+n,2*N+n)},
 <br>
 0,N-2);
 <br>
@@ -30480,6 +30488,140 @@ init=&gt;,run=&gt;,return=out=&gt;,scope2storage=&gt;,
 =&lt;return]=&gt;;
 <br>
 plot2d_evolution(0,5,0.5,0,20+20i,1,1)=&gt;;
+    </td>
+  </tr>
+  <tr>
+    <th>
+<a href="#span-index">
+目次
+</a>
+<br>
+plot2d
+<br>
+_spline
+    </th>
+    <td>
+<span id="span-eqn-plot2d_spline"></span>
+<a href="#span-out-interpolation-spline">spline補間</a>参照
+<br>
+clear;
+<br>
+nspline3d(x,y)=&lt;[
+<br>
+out=&lt;(u),
+<br>
+<div class="condition">
+init=&lt;last{
+<br>
+N=min(sizer(x),sizer(y))-1,
+<br>
+dx=x[1][0][N][1]-x,
+<br>
+dy=y[1][0][N][1]-y,
+<br>
+r=vectorc(3*N),
+<br>
+coo=zeros(3,10*N-4)
+<br>
+},
+</div>
+<div class="run">
+run=&lt;last{
+<br>
+_sj(=&lt;last{n=j+1,j0=3*j,dxi=dx[j],dyi=dy[j],
+<br>
+coo[0][j0][1][3]=(dxi,dxi**2,dxi**3),
+<br>
+coo[1][j0][1][3]=(n,n,n),
+<br>
+coo[2][j0][1][3]=(n,n+N,n+2*N),
+<br>
+r[j]=dyi},
+<br>
+0,N-1),
+<br>
+_sj(=&lt;last{n=j+1,j0=3*N+4*j,dxi=dx[j],
+<br>
+coo[0][j0][1][4]=(1,-1,2*dxi,3*dxi**2),
+<br>
+coo[1][j0][1][4]=(N+n,N+n,N+n,N+n),
+<br>
+coo[2][j0][1][4]=(n,n+1,N+n,2*N+n)},
+<br>
+0,N-2),
+<br>
+_sj(=&lt;last{n=j+1,j0=7*N+3*j-4,dxi=dx[j],
+<br>
+coo[0][j0][1][3]=(1,-1,3*dxi),
+<br>
+coo[1][j0][1][3]=(2*N+n-1,2*N+n-1,2*N+n-1),
+<br>
+coo[2][j0][1][3]=(N+n,N+n+1,2*N+n)},
+<br>
+0,N-2),
+<br>
+j0=10*N-4-3,
+<br>
+coo[0][j0][1][3]=(1,1,3*dx[N-1]),
+<br>
+coo[1][j0][1][3]=(3*N-1,3*N,3*N),
+<br>
+coo[2][j0][1][3]=(N+1,2*N,3*N),
+<br>
+u=Gauss_coo(coo:trans(r))
+<br>
+},
+</div>
+init=&gt;,run=&gt;,return=out=&gt;,
+<br>
+=&lt;return]=&gt;;
+<br>
+plot2d_spline(x,y)=&lt;[
+<br>
+out=&lt;(xt,yt),
+<br>
+scope2storage=&lt;last{addVar(xt),addVar(yt)},
+<div class="condition">
+init=&lt;last{
+<br>
+N=min(sizer(x),sizer(y))-1,
+<br>
+dx=x[1][0][N][1]-x,
+<br>
+xt=(x+dx/2)[0][0][N][1],
+<br>
+yt=zeros(N,1)
+<br>
+},
+</div>
+<div class="run">
+run=&lt;last{
+<br>
+u=nspline3d(=&lt;x,=&lt;y)=&gt;,
+<br>
+b=u[0][0][N][1],
+<br>
+c=u[N][0][N][1],
+<br>
+d=u[2*N][0][N][1],
+<br>
+_si_(=&lt;last{dxi=xt[i_]-x[i_],
+<br>
+yt[i_]=y[i_]+b[i_]*dxi+c[i_]*dxi**2+d[i_]*dxi**3},
+<br>
+0,N-1),
+<br>
+xt=(x,xt),
+<br>
+yt=(y,yt)
+<br>
+},
+</div>
+init=&gt;,run=&gt;,return=out=&gt;,scope2storage=&gt;,
+<br>
+=&lt;return]=&gt;;
+<br>
+plot2d_spline(=&lt;{0,1,2,3,4,5,6,7,8,9},=&lt;{1,3,2,5,0,-3,-2,-5,-1,-1})=&gt;;
     </td>
   </tr>
   <tr>

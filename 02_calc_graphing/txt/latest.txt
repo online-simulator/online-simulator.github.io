@@ -644,6 +644,29 @@ stored_eqn(SND)
 clear
 local storage cleared
 
+plot2d_spline(=<{0,1,2,3,4,5,6,7,8,9},=<{1,3,2,5,0,-3,-2,-5,-1,-1})=>
+(
+0,0.5,1,2.4677950425460384:
+1,1.5,3,2.2216148723638467:
+2,2.5,2,3.770745467998572:
+3,3.5,5,3.195403255641865:
+4,4.5,0,-2.302358490566034:
+5,5.5,-3,-2.23596929337773:
+6,6.5,-2,-3.7537643359230484:
+7,7.5,-5,-3.3739733629300774:
+8,8.5,-1,-0.37534221235664084:
+9,-1
+)
+
+plot2d_spline(x,y)=<[out=<(xt,yt),scope2storage=<last{addVar(xt),addVar(yt)},init=<last{N=min(sizer(x),sizer(y))-1,dx=x[1][0][N][1]-x,xt=(x+dx/2)[0][0][N][1],yt=zeros(N,1)},run=<last{u=nspline3d(=<x,=<y)=>,b=u[0][0][N][1],c=u[N][0][N][1],d=u[2*N][0][N][1],_si_(=<last{dxi=xt[i_]-x[i_],yt[i_]=y[i_]+b[i_]*dxi+c[i_]*dxi**2+d[i_]*dxi**3},0,N-1),xt=(x,xt),yt=(y,yt)},init=>,run=>,return=out=>,scope2storage=>,=<return]=>
+stored_eqn(plot2d_spline)
+
+nspline3d(x,y)=<[out=<(u),init=<last{N=min(sizer(x),sizer(y))-1,dx=x[1][0][N][1]-x,dy=y[1][0][N][1]-y,r=vectorc(3*N),coo=zeros(3,10*N-4)},run=<last{_sj(=<last{n=j+1,j0=3*j,dxi=dx[j],dyi=dy[j],coo[0][j0][1][3]=(dxi,dxi**2,dxi**3),coo[1][j0][1][3]=(n,n,n),coo[2][j0][1][3]=(n,n+N,n+2*N),r[j]=dyi},0,N-1),_sj(=<last{n=j+1,j0=3*N+4*j,dxi=dx[j],coo[0][j0][1][4]=(1,-1,2*dxi,3*dxi**2),coo[1][j0][1][4]=(N+n,N+n,N+n,N+n),coo[2][j0][1][4]=(n,n+1,N+n,2*N+n)},0,N-2),_sj(=<last{n=j+1,j0=7*N+3*j-4,dxi=dx[j],coo[0][j0][1][3]=(1,-1,3*dxi),coo[1][j0][1][3]=(2*N+n-1,2*N+n-1,2*N+n-1),coo[2][j0][1][3]=(N+n,N+n+1,2*N+n)},0,N-2),j0=10*N-4-3,coo[0][j0][1][3]=(1,1,3*dx[N-1]),coo[1][j0][1][3]=(3*N-1,3*N,3*N),coo[2][j0][1][3]=(N+1,2*N,3*N),u=Gauss_coo(coo:trans(r))},init=>,run=>,return=out=>,=<return]=>
+stored_eqn(nspline3d)
+
+clear
+local storage cleared
+
 plot2d_evolution(0,5,0.5,0,20+20i,1,1)=>
 (
 0,0:
@@ -746,4 +769,4 @@ drag=false&test-case=false&legend=true&axis-t=false&axis-x=true&log-x=false&imag
 --------------------------------
 --------------------------------
 
-online-simulator.github.io.5.150.66.12.39 @ Thu Oct 20 2022 20:57:42 GMT+0900 (日本標準時) @ Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/106.0.0.0 Safari/537.36
+online-simulator.github.io.5.151.66.12.39 @ Sat Oct 22 2022 02:59:22 GMT+0900 (日本標準時) @ Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/106.0.0.0 Safari/537.36

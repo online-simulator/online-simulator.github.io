@@ -397,12 +397,8 @@ My_entry.calc_graphing.prototype.arr_data2arr2d_vec = function(arr_data, options
             }
           }
           else{
-            /* Ver.2.25.14 -> */
-/*
-            throw "Invalid (x(t),y(t))";
-*/
-            throw "Invalid x(t) || y(t)";
-            /* -> Ver.2.25.14 */
+//            throw "Invalid (x(t),y(t))";  // Ver.2.25.14
+//            throw "Invalid x(t) || y(t)";  // Ver.2.129.35
           }
         }
       }
