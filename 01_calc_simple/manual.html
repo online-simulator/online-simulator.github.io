@@ -326,6 +326,8 @@ e^(-i(1pi(){2/2i}(5-{3-1}){i/(-4)}))
 <br>
 　　・<a href="#span-out-development-problems-matrix">行列演算の問題点</a>
 <br>
+　　・<a href="#span-out-development-problems-logical">論理演算の問題点</a>
+<br>
 　　・<a href="#span-out-development-problems-CBR">未実装の参照渡し</a>
 <br>
 　　・<a href="#span-out-development-problems-CAS">未実装のCAS</a>
@@ -387,6 +389,8 @@ e^(-i(1pi(){2/2i}(5-{3-1}){i/(-4)}))
 　　・<a href="#span-out-FN-atan2">atan2関数</a>
 <br>
 　　・<a href="#span-out-FN-statistic">統計関数</a>
+<br>
+　　・<a href="#span-out-FN-else">その他の関数</a>
 <br>
 　・<a href="#span-out-FNspecial">特殊関数</a>
 <br>
@@ -608,6 +612,8 @@ e^(-i(1pi(){2/2i}(5-{3-1}){i/(-4)}))
 <br>
 ・<a href="#span-eqn-plot2d_evolution">plot2d_evolution</a>
 <br>
+・<a href="#span-eqn-plot2d_Lagrange">plot2d_Lagrange</a>
+<br>
 ・<a href="#span-eqn-plot2d_spline">plot2d_spline</a>
 <br>
 ・<a href="#span-eqn-SND_Px_erfx_erfcx">SND/P(x)/erf(x)/erfc(x)</a>
@@ -807,6 +813,8 @@ ja.m.wikipedia.org/wiki/項目を列挙する
 ・ルンゲ＝クッタ法
 <br>
 ・ルンゲ現象
+<br>
+・クロネッカーのデルタ
 <br>
 ・ラグランジュ補間
 <br>
@@ -11026,6 +11034,8 @@ commit E-mail addressを変更する場合（参考）
 <br>
 ・<a href="#span-out-development-problems-matrix">行列演算の問題点</a>
 <br>
+・<a href="#span-out-development-problems-logical">論理演算の問題点</a>
+<br>
 ・<a href="#span-out-development-problems-CBR">未実装の参照渡し</a>
 <br>
 ・<a href="#span-out-development-problems-CAS">未実装のCAS</a>
@@ -11131,6 +11141,35 @@ vectorr(round(2^3)) || vectorr(8)  <span class="selection">// OK</span> -> (0,0,
 ・よって<a href="#span-out-mat">抜け要素</a>がある場合、error終了の方が実装効率||演算効率が高い
 <br>
 後者の演算効率を選択して<a href="#span-out-array">行列操作</a>を最適化する場合、<a href="#span-out-config">裏設定</a>参照
+    </td>
+  </tr>
+  <tr>
+    <th>
+<a href="#span-index">
+目次
+</a>
+<br>
+論理演算の
+<br>
+問題点
+    </th>
+    <td>
+<span id="span-out-development-problems-logical"></span>
+論理演算の問題点を列挙する
+<br>
+・<a href="#span-out-prec-ope-logical">論理演算子</a>は短絡評価を再現するが、厳密には<a href="#span-out-FNh-switch">switch高階関数</a>を使用する
+<br>
+x=1; x||(-1) -> 1
+<br>
+x=1; x||(1/0)  <span class="selection">// NG</span> -> [MyErr]FN isNaN
+<br>
+x=0; switch(x,x:1,<span class="condition">=&lt;</span>(1/0)) -> [MyErr]FN isNaN
+<br>
+x=1; switch(x,x:1,<span class="condition">=&lt;</span>(1/0)) -> 1
+<br>
+・<a href="#span-out-prec-ope-logical">論理演算子</a>の短絡評価を厳密に再現する場合、<a href="#span-out-SR">区切り文字</a>の<a href="#span-out-prec">演算のprecedence</a>の直後が妥当で
+<br>
+・設計初期段階の大幅な仕様変更のため、未対応
     </td>
   </tr>
   <tr>
@@ -13780,6 +13819,32 @@ csort(creverse(1,-2i,3:4,-5,6i:7)) -> (1,-2i,3:4,-5,6i:7)
 ・<a href="#span-out-reference-mat-area">area参照</a>の<span class="selection">反転参照</span>を使用
 <br>
 (csort(1,-2i,3:4,-5,6i:7))[0][<span class="selection">-1</span>][0][0] -> (3,-2i,1:6i,-5,4:0,0,7)
+    </td>
+  </tr>
+  <tr>
+    <th>
+<a href="#span-index">
+目次
+</a>
+<br>
+その他の関数
+<br>
+入力仕様
+    </th>
+    <td>
+<span id="span-out-FN-else"></span>
+その他の関数の入力仕様と付随する留意事項について記述する
+<br>
+<br>
+Kroneckerのdelta関数
+<br>
+Kdelta(0,0) -> 1
+<br>
+Kdelta(0,1) -> 0
+<br>
+Kdelta(1,0) -> 0
+<br>
+Kdelta(1,1) -> 1
     </td>
   </tr>
   <tr>
@@ -17985,6 +18050,12 @@ _s$n(=&lt;{0},1,2) -> [MyErr]Invalid dummy($n)
 <br>
 _s$$n(=&lt;{0},1,2) -> [MyErr]Invalid dummy($$n)
 <br>
+・配列を使用
+<br>
+x={0,1,2,3,4,5,6,7,8,9}; _sn(=&lt;x[n],0,9) -> 45
+<br>
+x={0,1,2,3,4,5,6,7,8,9:0,-1,-2}; _sn(=&lt;x[n],0,9) -> (45,39)
+<br>
 <br>
 応用例を示す
 <br>
@@ -18140,6 +18211,12 @@ A=(1,2:3,4); N=5; _pn(=&lt;{trans(A)},1,N) -> (1069,2337:1558,3406)
 cA=(e^{i(pi/4)},:,e^{i(-pi/4)}); N=4; _pn(=&lt;{cA},1,N)
 <br>
 -> (-1+2.7755575615628914e-16i,0:0,-1-2.7755575615628914e-16i)
+<br>
+・配列を使用
+<br>
+x={0,1,2,3,4,5,6,7,8,9}; _pn(=&lt;x[n],0,9) -> 0
+<br>
+x={0,1,2,3,4,5,6,7,8,9}; _pn(=&lt;x[n],1,9) -> 362880
     </td>
   </tr>
   <tr>
@@ -20740,6 +20817,10 @@ P1(x)=L1*(f[0]:f[1])
 <br>
 L1=((x-x1)/(x0-x1),(x-x0)/(x1-x0))
 <br>
+・以上より、制御点の基底vectorが得られる
+<br>
+Lj(xi)=(Kdelta(i,0),Kdelta(i,1),...,Kdelta(i,j))
+<br>
 <br>
 2次のLagrange補間
 <br>
@@ -20765,7 +20846,7 @@ r2=(f[0]:f[1]:f[2])
 <br>
 ・P2(x)の係数vector y2が求まる
 <br>
-・以下、1次の場合同様に導出
+・以下、1次のcaseを拡張して
 <br>
 ・2次のLagrange型の補間多項式
 <br>
@@ -20778,6 +20859,65 @@ L2=(
 (x-x0)(x-x2)/(x1-x0)(x1-x2),
 <br>
 (x-x0)(x-x1)/(x2-x0)(x2-x1))
+<br>
+<br>
+test caseを示す
+<br>
+・<a href="#span-out-FNh-switch">switch高階関数</a>を使用して厳密に短絡評価
+<br>
+xi={0,1,2};
+<br>
+fi={3,5,2};
+<br>
+k=min(sizer(xi),sizer(fi))-1;
+<br>
+lji(j,i_)=&lt;_pm(=&lt;{switch(m==j,1:1,=&lt;(xi[i_]-xi[m])/(xi[j]-xi[m]))},0,k);
+<br>
+ljx(j,x)=&lt;_pm(=&lt;{switch(m==j,1:1,=&lt;(x-xi[m])/(xi[j]-xi[m]))},0,k);
+<br>
+Lkx(x)=&lt;_sj(=&lt;fi[j]*ljx(j,x),0,k);
+<br>
+・Lagrange基底の<a href="#span-out-mat">単位行列</a>
+<br>
+(lji(0,0),lji(0,1),lji(0,2):lji(1,0),lji(1,1),lji(1,2):lji(2,0),lji(2,1),lji(2,2)) ->
+<br>
+(
+<br>
+1,0,0:
+<br>
+0,1,0:
+<br>
+0,0,1
+<br>
+)
+<br>
+・Lagrange基底多項式
+<br>
+ljx(0,0) -> 1
+<br>
+ljx(0,0.5) -> 0.375
+<br>
+ljx(0,1) -> 0
+<br>
+ljx(0,1.5) -> -0.125
+<br>
+ljx(0,2) -> 0
+<br>
+ljx(0,10) -> 36
+<br>
+・Lagrange型の補間多項式（fiと基底多項式ljxの線形結合）
+<br>
+Lkx(0) -> 3
+<br>
+Lkx(0.5) -> 4.625
+<br>
+Lkx(1) -> 5
+<br>
+Lkx(1.5) -> 4.125
+<br>
+Lkx(2) -> 2
+<br>
+Lkx(10) -> -202
     </td>
   </tr>
   <tr>
@@ -30488,6 +30628,62 @@ init=&gt;,run=&gt;,return=out=&gt;,scope2storage=&gt;,
 =&lt;return]=&gt;;
 <br>
 plot2d_evolution(0,5,0.5,0,20+20i,1,1)=&gt;;
+    </td>
+  </tr>
+  <tr>
+    <th>
+<a href="#span-index">
+目次
+</a>
+<br>
+plot2d
+<br>
+_Lagrange
+    </th>
+    <td>
+<span id="span-eqn-plot2d_Lagrange"></span>
+<a href="#span-out-interpolation-Lagrange">Lagrange補間</a>参照
+<br>
+clear;
+<br>
+plot2d_Lagrange(x,y)=&lt;[
+<br>
+out=&lt;(xt,yt),
+<br>
+scope2storage=&lt;last{addVar(xt),addVar(yt)},
+<div class="condition">
+init=&lt;last{
+<br>
+N=min(sizer(x),sizer(y))-1,
+<br>
+dx=x[1][0][N][1]-x,
+<br>
+xt=(x+dx/2)[0][0][N][1],
+<br>
+yt=zeros(N,1)
+<br>
+},
+</div>
+<div class="run">
+run=&lt;last{
+<br>
+ljx(j,x_)=&lt;_pm(=&lt;{switch(m==j,1:1,=&lt;(x_-x[m])/(x[j]-x[m]))},0,N),
+<br>
+Lkx(x_)=&lt;_sj(=&lt;y[j]*ljx(j,x_)=&gt;,0,N),
+<br>
+_si_(=&lt;yt[i_]=Lkx(xt[i_])=&gt;,0,N-1),
+<br>
+xt=(x,xt),
+<br>
+yt=(y,yt)
+<br>
+},
+</div>
+init=&gt;,run=&gt;,return=out=&gt;,scope2storage=&gt;,
+<br>
+=&lt;return]=&gt;;
+<br>
+plot2d_Lagrange(=&lt;{0,1,2,3,4,5,6,7,8,9},=&lt;{1,3,2,5,0,-3,-2,-5,-1,-1})=&gt;;
     </td>
   </tr>
   <tr>
