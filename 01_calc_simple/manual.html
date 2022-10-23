@@ -13846,6 +13846,10 @@ a=111*12345; b=111*6789; c=111*111213; gcd(a,b,c) -> 333
 <br>
 gcd(gcd(a,b),c) || gcd(a,gcd(b,c)) -> 333
 <br>
+・同義
+<br>
+a_=a; b_=b; _rn(=&lt;last{ia=int(a_),ib=int(b_),a_=ib,b_=ia%ib},,1e6,=&lt;{b_==0}); a_ -> 333
+<br>
 <br>
 最小公倍数を求める関数（gcdを使用）
 <br>
@@ -18276,7 +18280,7 @@ option
 <br>
 <span class="run">Ver.2.30.15</span>以降、第4引数追加
 <br>
-・第4引数: 再帰処理をbreakする条件（not0でbreak）を<a href="#span-out-call-by-equation">式渡し</a>[省略時、break判定なし]
+・第4引数: 再帰処理の反復後break条件（not0でbreak）を<a href="#span-out-call-by-equation">式渡し</a>[省略時、break判定なし]
 <br>
 <br>
 test caseを列挙する
@@ -18340,11 +18344,11 @@ _Ry(=&lt;{_Rx(=&lt;{x+y+1},1,2)},1,2) -> 13
 <br>
 <span class="run">Ver.2.30.15</span>以降、第4引数追加
 <br>
-・第4引数で再帰処理のbreak条件を指定可
+・第4引数で再帰処理の反復後break条件を指定可
 <br>
 ・本来、Maximum call stack sizeの制限O(10000~1000000)を受けるが、
 <br>
-・単なるfor-loopのため、再帰回数とbreak条件以外の制限はない
+・単なるfor-loopのため、再帰回数と反復後break条件以外の制限はない
 <br>
 ・test caseを列挙する
 <br>
@@ -18375,13 +18379,13 @@ _ry(=&lt;{_rx(=&lt;{x+y},1,2,=&lt;{y==1})},1,2) || (1+(2))+2<span class="selecti
 <br>
 ・一般的な再帰回数上限値1e6を設定
 <br>
-・break条件にn==1を設定
+・反復後break条件にn==1を設定
 <br>
 _rn(=&lt;{last{Pn=Pn*n,n-1}},last(Pn=1,10),1e6,=&lt;{n==1}),Pn -> (0,3628800)
 <br>
 ・Pn=Pn*1の演算後、n-1して0が返る
 <br>
-・自明の演算Pn=Pn*1を除く場合、break条件にn==2を設定
+・自明の演算Pn=Pn*1を除く場合、反復後break条件にn==2を設定
 <br>
 _rn(=&lt;{last{Pn=Pn*n,n-1}},last(Pn=1,10),1e6,=&lt;{n==2}),Pn -> (1,3628800)
 <br>
@@ -19132,7 +19136,7 @@ option
 <br>
 ・第5引数: 反復回数（正の整数）を値渡し[省略時、1]
 <br>
-・第6引数: 絶対誤差の残差norm収束判定実数値epsNを値渡し[省略時、epsN既定値]
+・第6引数: 反復後判定の絶対誤差の残差norm収束判定実数値epsNを値渡し[省略時、epsN既定値]
 <br>
 ・第7引数: 第6引数epsNを相対誤差に変換する0||not0のflag[省略時、0]
 <br>
