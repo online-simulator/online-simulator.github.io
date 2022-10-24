@@ -11169,9 +11169,15 @@ x=0; switch(x,x:1,<span class="condition">=&lt;</span>(1/0)) -> [MyErr]FN isNaN
 <br>
 x=1; switch(x,x:1,<span class="condition">=&lt;</span>(1/0)) -> 1
 <br>
-・<a href="#span-out-prec-ope-logical">論理演算子</a>の短絡評価を厳密に再現する場合、<a href="#span-out-BT">括弧</a>の<a href="#span-out-prec">演算のprecedence</a>の直後が妥当で
+・<a href="#span-out-prec-ope-logical">論理演算子</a>の短絡評価を厳密に再現する場合、<a href="#span-out-SR">区切り文字</a>の<a href="#span-out-prec">演算のprecedence</a>の直後が妥当で
 <br>
-・設計初期段階の大幅な仕様変更のため、未対応
+・設計初期段階の仕様変更のため、未対応
+<br>
+before: x=1,y=&lt;(1/0)||2,x||y=&gt; -> [MyErr]FN isNaN
+<br>
+<a href="#span-out-option1">LA既定</a>時　after: x=1,y=&lt;(1/0)||2,x||y=&gt; -> (0,0,1)
+<br>
+<a href="#span-out-option1">RA選択</a>時　after: x=1,y=&lt;(1/0)||2,x||y=&gt; -> (0,0,2)
     </td>
   </tr>
   <tr>
