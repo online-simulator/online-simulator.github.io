@@ -11169,7 +11169,7 @@ x=0; switch(x,x:1,<span class="condition">=&lt;</span>(1/0)) -> [MyErr]FN isNaN
 <br>
 x=1; switch(x,x:1,<span class="condition">=&lt;</span>(1/0)) -> 1
 <br>
-・<a href="#span-out-prec-ope-logical">論理演算子</a>の短絡評価を厳密に再現する場合、<a href="#span-out-SR">区切り文字</a>の<a href="#span-out-prec">演算のprecedence</a>の直後が妥当で
+・<a href="#span-out-prec-ope-logical">論理演算子</a>の短絡評価を厳密に再現する場合、<a href="#span-out-BT">括弧</a>の<a href="#span-out-prec">演算のprecedence</a>の直後が妥当で
 <br>
 ・設計初期段階の大幅な仕様変更のため、未対応
     </td>
@@ -12455,6 +12455,13 @@ clear; a=&lt;2; hasE(b) -> 0
 clear; a=&lt;2; hasE(a),[b=&lt;3,hasE(a),hasE(b)],hasE(b) -> (1,0,1,1,0)
 <br>
 clear; a=&lt;2; hasE(a),[b=&lt;3,[hasE(a),hasE(b)]],hasE(b) -> (1,0,1,1,0)
+<br>
+<br>
+留意事項を列挙する
+<br>
+・引数に下位の<a href="#span-out-prec-ope">演算子</a>は使用不可
+<br>
+hasVar(a||b) -> [MyErr]Invalid binary operation
     </td>
   </tr>
   <tr>
@@ -20888,8 +20895,6 @@ L2=(
 <br>
 <br>
 test caseを示す
-<br>
-・<a href="#span-out-FNh-switch">switch高階関数</a>を使用して厳密に短絡評価
 <br>
 xi={0,1,2};
 <br>
