@@ -11,6 +11,7 @@ My_entry.def.mix_in(My_entry.test_solver, My_entry.original_main);
 My_entry.test_solver.prototype.init = function(){
   var self = this;
   self.init_main.call(self, ["$"]);
+  self.solver = new My_entry.solver_real();
   return self;
 };
 My_entry.test_solver.prototype.init_elems = function(){
@@ -48,62 +49,63 @@ My_entry.test_solver.prototype.init_handlers = function(){
     };
     switch(elem.id){
       case "Gauss":
-        try{
-          self.elem_o.value = "";
-          var solver = new My_entry.solver_real();
-          var text_A = $._id("input-A").value;
-          var text_b = $._id("input-b").value;
-          var A = text_A.split(":");
-          var b = text_b.split(",");
-          check_num(b);
-          var len_i = A.length;
-          var len_b = b.length;
-          if(len_i !== len_b) throw "Invalid Ab size";
-          for(var i=0; i<len_i; ++i){
-            A[i] = A[i].split(",");
-            var len_j = A[i].length;
-            if(len_i !== len_j) throw "Invalid A size";
-            check_num(A[i]);
+        self.elem_o.value = "Now calculating...";
+        setTimeout(function(){
+          try{
+            var text_b = $._id("input-b").value;
+            var text_A = $._id("input-A").value;
+            var b = text_b.split(",");
+            var A = text_A.split(":");
+            check_num(b);
+            var len_b = b.length;
+            var len_i = A.length;
+            if(len_i !== len_b) throw "Invalid size-Ab";
+            for(var i=0; i<len_i; ++i){
+              A[i] = A[i].split(",");
+              var len_j = A[i].length;
+              if(len_i !== len_j) throw "Invalid size-A";
+              check_num(A[i]);
+            }
+            var obj = {A: A, b: b, x: []};
+            self.solver.gaussian({}, obj);
+            self.elem_o.value = obj.x;
           }
-          var obj = {A: A, b: b, x: []};
-          self.elem_o.value = "Now calculating...";
-          setTimeout(function(){
-            try{
-              solver.gaussian({}, obj);
-              self.elem_o.value = obj.x;
-            }
-            catch(e){
-              self.elem_o.value = e;
-            }
-          }, 50);
-        }
-        catch(e){
-          self.elem_o.value = e;
-        }
+          catch(e){
+            self.elem_o.value = e;
+          }
+        }, 50);
         break;
       case "Gauss_coo":
-        try{
-          self.elem_o.value = "";
-          var solver = new My_entry.solver_real();
-          var obj = {x: []};
-          ["b", "aA", "mA", "nA"].forEach(function(id){
-            obj[id] = ($._id("input-"+id).value).split(",");
-            check_num(obj[id]);
-          });
-          self.elem_o.value = "Now calculating...";
-          setTimeout(function(){
-            try{
-              solver.gaussian_coo({}, obj);
-              self.elem_o.value = obj.x;
+        self.elem_o.value = "Now calculating...";
+        setTimeout(function(){
+          try{
+            var obj = {x: []};
+            ["b", "aA", "mA", "nA"].forEach(function(id){
+              obj[id] = ($._id("input-"+id).value).split(",");
+              check_num(obj[id]);
+            });
+            var len_j = obj.aA.length;
+            ["mA", "nA"].forEach(function(id){
+              if(obj[id].length !== len_j) throw "Invalid size-"+id;
+            });
+            var dict = {};
+            for(var j=0; j<len_j; ++j){
+              var id = "m"+obj.mA[j]+"n"+obj.nA[j];
+              if(dict[id]){
+                throw "Invalid duplication of coo";
+              }
+              else{
+                dict[id] = true;
+              }
             }
-            catch(e){
-              self.elem_o.value = e;
-            }
-          }, 50);
-        }
-        catch(e){
-          self.elem_o.value = e;
-        }
+            dict = null;
+            self.solver.gaussian_coo({}, obj);
+            self.elem_o.value = obj.x;
+          }
+          catch(e){
+            self.elem_o.value = e;
+          }
+        }, 50);
         break;
       default:
         break;
