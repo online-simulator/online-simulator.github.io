@@ -17,7 +17,9 @@ My_entry.test_solver.prototype.init = function(){
 My_entry.test_solver.prototype.init_elems = function(){
   var self = this;
   var $ = self.entry.$;
-  self.elem_o = $._id("textarea-output");
+  self.elem_o0 = $._id("textarea-output0");
+  self.elem_o1 = $._id("textarea-output1");
+  $.setup_elems_readonly$("textarea");
   $.setup_elems$_tag("button", self.handlers, "onclick");
   $.setup_elems$_tag("select", self.handlers, "onchange");
   return self;
@@ -91,7 +93,7 @@ My_entry.test_solver.prototype.init_handlers = function(){
     };
     switch(elem.id){
       case "mat2coo":
-        self.elem_o.value = "Now calculating...";
+        self.elem_o0.value = "Now calculating...";
         setTimeout(function(){
           try{
             var obj = mat2obj();
@@ -116,15 +118,15 @@ My_entry.test_solver.prototype.init_handlers = function(){
             $._id("input-aA").value = aA;
             $._id("input-mA").value = mA;
             $._id("input-nA").value = nA;
-            self.elem_o.value = "";
+            self.elem_o0.value = "";
           }
           catch(e){
-            self.elem_o.value = e;
+            self.elem_o0.value = e;
           }
         }, 50);
         break;
       case "coo2mat":
-        self.elem_o.value = "Now calculating...";
+        self.elem_o1.value = "Now calculating...";
         setTimeout(function(){
           try{
             var obj = coo2obj();
@@ -147,28 +149,28 @@ My_entry.test_solver.prototype.init_handlers = function(){
               text_A += arr[i];
             }
             $._id("input-A").value = text_A;
-            self.elem_o.value = "";
+            self.elem_o1.value = "";
           }
           catch(e){
-            self.elem_o.value = e;
+            self.elem_o1.value = e;
           }
         }, 50);
         break;
       case "Gauss":
-        self.elem_o.value = "Now calculating...";
+        self.elem_o0.value = "Now calculating...";
         setTimeout(function(){
           try{
             var obj = mat2obj();
             self.solver.gaussian({}, obj);
-            self.elem_o.value = obj.x;
+            self.elem_o0.value = (String(obj.x).split(",")).join(",\n");
           }
           catch(e){
-            self.elem_o.value = e;
+            self.elem_o0.value = e;
           }
         }, 50);
         break;
       case "Gauss_coo":
-        self.elem_o.value = "Now calculating...";
+        self.elem_o1.value = "Now calculating...";
         setTimeout(function(){
           try{
             var obj = coo2obj();
@@ -177,12 +179,53 @@ My_entry.test_solver.prototype.init_handlers = function(){
             var len_n = Math.max.apply(Math, obj.nA);
             if(len_m > len_b || len_n > len_b) throw "Invalid size-m,n,b="+len_m+","+len_n+","+len_b;
             self.solver.gaussian_coo({}, obj);
-            self.elem_o.value = obj.x;
+            self.elem_o1.value = (String(obj.x).split(",")).join(",\n");
           }
           catch(e){
-            self.elem_o.value = e;
+            self.elem_o1.value = e;
           }
         }, 50);
+        break;
+      case "random":
+        var rand_dec = function(decDigit){
+          var dec = Math.pow(10, decDigit);
+          return (Math.round(Math.random()*dec));
+        };
+        var rand_len = function(min, max){
+          return min+Math.round(Math.random()*(max-min));
+        };
+        var len_j = rand_len(1, 50);
+        var b = [];
+        var aA = [];
+        var mA = [];
+        var nA = [];
+        var dict = {};
+        var arr_j = [];
+        for(var j=0; j<len_j; ++j){
+          arr_j[j] = j;
+        }
+        arr_j.sort();
+        arr_j.forEach(function(j){
+          b.push(rand_dec(2));
+          for(var k=0; k<5; ++k){
+            var m = j+1;
+            var n = rand_len(1, len_j);
+            var id = "m"+m+"n"+n;
+            if(!(dict[id])){
+              aA.push(rand_dec(2));
+              mA.push(m);
+              nA.push(n);
+              dict[id] = true;
+            }
+          }
+        });
+        dict = null;
+        $._id("input-b").value = b;
+        $._id("input-aA").value = aA;
+        $._id("input-mA").value = mA;
+        $._id("input-nA").value = nA;
+        $._id("coo2mat").onclick(e);
+        self.elem_o0.value = "";  // here
         break;
       default:
         break;
