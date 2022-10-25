@@ -65,8 +65,11 @@ My_entry.test_solver.prototype.init_handlers = function(){
             check_num(A[i]);
           }
           var obj = {A: A, b: b, x: []};
-          solver.gaussian({}, obj);
-          self.elem_o.value = obj.x;
+          self.elem_o.value = "Now calculating...";
+          setTimeout(function(){
+            solver.gaussian({}, obj);
+            self.elem_o.value = obj.x;
+          }, 50);
         }
         catch(e){
           self.elem_o.value = e;
@@ -75,21 +78,16 @@ My_entry.test_solver.prototype.init_handlers = function(){
       case "Gauss_coo":
         try{
           var solver = new My_entry.solver_real();
-          var text_b = $._id("input-b").value;
-          var text_aA = $._id("input-aA").value;
-          var text_mA = $._id("input-mA").value;
-          var text_nA = $._id("input-nA").value;
-          var b = text_b.split(",");
-          var aA = text_aA.split(",");
-          var mA = text_mA.split(",");
-          var nA = text_nA.split(",");
-          check_num(b);
-          check_num(aA);
-          check_num(mA);
-          check_num(nA);
-          var obj = {aA: aA, mA: mA, nA: nA, b: b, x: []};
-          solver.gaussian_coo({}, obj);
-          self.elem_o.value = obj.x;
+          var obj = {x: []};
+          ["b", "aA", "mA", "nA"].forEach(function(id){
+            obj[id] = ($._id("input-"+id).value).split(",");
+            check_num(obj[id]);
+          });
+          self.elem_o.value = "Now calculating...";
+          setTimeout(function(){
+            solver.gaussian_coo({}, obj);
+            self.elem_o.value = obj.x;
+          }, 50);
         }
         catch(e){
           self.elem_o.value = e;
