@@ -614,7 +614,9 @@ e^(-i(1pi(){2/2i}(5-{3-1}){i/(-4)}))
 <br>
 ・<a href="#span-eqn-plot2d_Lagrange">plot2d_Lagrange</a>
 <br>
-・<a href="#span-eqn-plot2d_spline">plot2d_spline</a>
+・<a href="#span-eqn-plot2d_nspline">plot2d_nspline</a>
+<br>
+・<a href="#span-eqn-plot2d_bspline">plot2d_bspline</a>
 <br>
 ・<a href="#span-eqn-SND_Px_erfx_erfcx">SND/P(x)/erf(x)/erfc(x)</a>
 <br>
@@ -21218,11 +21220,13 @@ B-spline曲線
 <br>
 Si(i_,t)=&lt;0.5*(t^2,t,1)*(1,-2,1:-2,2,0:1,1,0)*{(x[i_-1],y[i_-1]),(x[i_],y[i_]),(x[i_+1],y[i_+1])};
 <br>
-・曲線が両端を通る場合、重複を含むN+1個の制御点
+・N+1個の制御点
 <br>
 x={0,0,1,2,2};
 <br>
 y={1,1,3,2,2};
+<br>
+N=min(sizer(x),sizer(y))-1; N -> 4
 <br>
 ・各区間の媒介変数t=0~1
 <br>
@@ -21243,6 +21247,8 @@ Si(3,0) -> (1.5,2.5)
 Si(3,0.5) -> (1.875,2.125)
 <br>
 Si(3,1) -> (2,2)
+<br>
+・重複する制御点の区間i=1||N-1は線形
     </td>
   </tr>
   <tr>
@@ -30768,10 +30774,10 @@ plot2d_Lagrange(=&lt;{0,1,2,3,4,5,6,7,8,9},=&lt;{1,3,2,5,0,-3,-2,-5,-1,-1})=&gt;
 <br>
 plot2d
 <br>
-_spline
+_nspline
     </th>
     <td>
-<span id="span-eqn-plot2d_spline"></span>
+<span id="span-eqn-plot2d_nspline"></span>
 <a href="#span-out-interpolation-spline">spline補間</a>参照
 <br>
 clear;
@@ -30846,7 +30852,7 @@ init=&gt;,run=&gt;,return=out=&gt;,
 <br>
 =&lt;return]=&gt;;
 <br>
-plot2d_spline(x,y)=&lt;[
+plot2d_nspline(x,y)=&lt;[
 <br>
 out=&lt;(xt,yt),
 <br>
@@ -30891,7 +30897,89 @@ init=&gt;,run=&gt;,return=out=&gt;,scope2storage=&gt;,
 <br>
 =&lt;return]=&gt;;
 <br>
-plot2d_spline(=&lt;{0,1,2,3,4,5,6,7,8,9},=&lt;{1,3,2,5,0,-3,-2,-5,-1,-1})=&gt;;
+plot2d_nspline(=&lt;{0,1,2,3,4,5,6,7,8,9},=&lt;{1,3,2,5,0,-3,-2,-5,-1,-1})=&gt;;
+    </td>
+  </tr>
+  <tr>
+    <th>
+<a href="#span-index">
+目次
+</a>
+<br>
+plot2d
+<br>
+_bspline
+    </th>
+    <td>
+<span id="span-eqn-plot2d_bspline"></span>
+<a href="#span-out-interpolation-spline">spline補間</a>参照
+<br>
+clear;
+<br>
+bspline2d(x,y,i_,t)=&lt;[
+<br>
+out=&lt;(xy),
+<br>
+<div class="condition">
+init=&lt;last{
+<br>
+Si(i_,t)=&lt;0.5*(t^2,t,1)*(1,-2,1:-2,2,0:1,1,0)*{(x[i_-1],y[i_-1]),(x[i_],y[i_]),(x[i_+1],y[i_+1])}
+<br>
+},
+</div>
+<div class="run">
+run=&lt;last{
+<br>
+xy=Si(i_,t)=&gt;
+<br>
+},
+</div>
+init=&gt;,run=&gt;,return=out=&gt;,
+<br>
+=&lt;return]=&gt;;
+<br>
+plot2d_bspline(x,y)=&lt;[
+<br>
+out=&lt;(xt,yt),
+<br>
+scope2storage=&lt;last{addVar(xt),addVar(yt)},
+<div class="condition">
+init=&lt;last{
+<br>
+N=min(sizer(x),sizer(y))-1,
+<br>
+M=N-1,
+<br>
+xt=zeros(N+1,M),
+<br>
+yt=zeros(N+1,M)
+<br>
+},
+</div>
+<div class="run">
+run=&lt;last{
+<br>
+_sm(=&lt;_sn(=&lt;last{
+<br>
+($xnm,$ynm)=bspline2d(=&lt;x,=&lt;y,m,n/N)=&gt;,
+<br>
+xt[n][m-1]=xnm,
+<br>
+yt[n][m-1]=ynm},
+<br>
+0,N),1,M),
+<br>
+xt=(x,xt),
+<br>
+yt=(y,yt)
+<br>
+},
+</div>
+init=&gt;,run=&gt;,return=out=&gt;,scope2storage=&gt;,
+<br>
+=&lt;return]=&gt;;
+<br>
+plot2d_bspline(=&lt;{0,1,2,3,2},=&lt;{1,4,2,4,4})=&gt;;
     </td>
   </tr>
   <tr>

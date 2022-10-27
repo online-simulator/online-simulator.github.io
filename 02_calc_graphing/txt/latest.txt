@@ -644,7 +644,25 @@ stored_eqn(SND)
 clear
 local storage cleared
 
-plot2d_spline(=<{0,1,2,3,4,5,6,7,8,9},=<{1,3,2,5,0,-3,-2,-5,-1,-1})=>
+plot2d_bspline(=<{0,1,2,3,2},=<{1,4,2,4,4})=>
+(
+0,0.5,1.5,2.5,1,2.5,3,3:
+1,0.75,1.75,2.6875,4,3.09375,2.625,3.4375:
+2,1,2,2.75,2,3.375,2.5,3.75:
+3,1.25,2.25,2.6875,4,3.34375,2.625,3.9375:
+2,1.5,2.5,2.5,4,3,3,4
+)
+
+plot2d_bspline(x,y)=<[out=<(xt,yt),scope2storage=<last{addVar(xt),addVar(yt)},init=<last{N=min(sizer(x),sizer(y))-1,M=N-1,xt=zeros(N+1,M),yt=zeros(N+1,M)},run=<last{_sm(=<_sn(=<last{($xnm,$ynm)=bspline2d(=<x,=<y,m,n/N)=>,xt[n][m-1]=xnm,yt[n][m-1]=ynm},0,N),1,M),xt=(x,xt),yt=(y,yt)},init=>,run=>,return=out=>,scope2storage=>,=<return]=>
+stored_eqn(plot2d_bspline)
+
+bspline2d(x,y,i_,t)=<[out=<(xy),init=<last{Si(i_,t)=<0.5*(t^2,t,1)*(1,-2,1:-2,2,0:1,1,0)*{(x[i_-1],y[i_-1]),(x[i_],y[i_]),(x[i_+1],y[i_+1])}},run=<last{xy=Si(i_,t)=>},init=>,run=>,return=out=>,=<return]=>
+stored_eqn(bspline2d)
+
+clear
+local storage cleared
+
+plot2d_nspline(=<{0,1,2,3,4,5,6,7,8,9},=<{1,3,2,5,0,-3,-2,-5,-1,-1})=>
 (
 0,0.5,1,2.4677950425460384:
 1,1.5,3,2.2216148723638467:
@@ -658,8 +676,8 @@ plot2d_spline(=<{0,1,2,3,4,5,6,7,8,9},=<{1,3,2,5,0,-3,-2,-5,-1,-1})=>
 9,-1
 )
 
-plot2d_spline(x,y)=<[out=<(xt,yt),scope2storage=<last{addVar(xt),addVar(yt)},init=<last{N=min(sizer(x),sizer(y))-1,dx=x[1][0][N][1]-x,xt=(x+dx/2)[0][0][N][1],yt=zeros(N,1)},run=<last{u=nspline3d(=<x,=<y)=>,b=u[0][0][N][1],c=u[N][0][N][1],d=u[2*N][0][N][1],_si_(=<last{dxi=xt[i_]-x[i_],yt[i_]=y[i_]+b[i_]*dxi+c[i_]*dxi**2+d[i_]*dxi**3},0,N-1),xt=(x,xt),yt=(y,yt)},init=>,run=>,return=out=>,scope2storage=>,=<return]=>
-stored_eqn(plot2d_spline)
+plot2d_nspline(x,y)=<[out=<(xt,yt),scope2storage=<last{addVar(xt),addVar(yt)},init=<last{N=min(sizer(x),sizer(y))-1,dx=x[1][0][N][1]-x,xt=(x+dx/2)[0][0][N][1],yt=zeros(N,1)},run=<last{u=nspline3d(=<x,=<y)=>,b=u[0][0][N][1],c=u[N][0][N][1],d=u[2*N][0][N][1],_si_(=<last{dxi=xt[i_]-x[i_],yt[i_]=y[i_]+b[i_]*dxi+c[i_]*dxi**2+d[i_]*dxi**3},0,N-1),xt=(x,xt),yt=(y,yt)},init=>,run=>,return=out=>,scope2storage=>,=<return]=>
+stored_eqn(plot2d_nspline)
 
 nspline3d(x,y)=<[out=<(u),init=<last{N=min(sizer(x),sizer(y))-1,dx=x[1][0][N][1]-x,dy=y[1][0][N][1]-y,r=vectorc(3*N),coo=zeros(3,10*N-4)},run=<last{_sj(=<last{n=j+1,j0=3*j,dxi=dx[j],dyi=dy[j],coo[0][j0][1][3]=(dxi,dxi**2,dxi**3),coo[1][j0][1][3]=(n,n,n),coo[2][j0][1][3]=(n,n+N,n+2*N),r[j]=dyi},0,N-1),_sj(=<last{n=j+1,j0=3*N+4*j,dxi=dx[j],coo[0][j0][1][4]=(1,-1,2*dxi,3*dxi**2),coo[1][j0][1][4]=(N+n,N+n,N+n,N+n),coo[2][j0][1][4]=(n,n+1,N+n,2*N+n)},0,N-2),_sj(=<last{n=j+1,j0=7*N+3*j-4,dxi=dx[j],coo[0][j0][1][3]=(1,-1,3*dxi),coo[1][j0][1][3]=(2*N+n-1,2*N+n-1,2*N+n-1),coo[2][j0][1][3]=(N+n,N+n+1,2*N+n)},0,N-2),j0=10*N-4-3,coo[0][j0][1][3]=(1,1,3*dx[N-1]),coo[1][j0][1][3]=(3*N-1,3*N,3*N),coo[2][j0][1][3]=(N+1,2*N,3*N),u=Gauss_coo(coo:trans(r))},init=>,run=>,return=out=>,=<return]=>
 stored_eqn(nspline3d)
@@ -789,4 +807,4 @@ drag=false&test-case=false&legend=true&axis-t=false&axis-x=true&log-x=false&imag
 --------------------------------
 --------------------------------
 
-online-simulator.github.io.5.151.66.12.39 @ Sun Oct 23 2022 07:59:43 GMT+0900 (日本標準時) @ Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/106.0.0.0 Safari/537.36
+online-simulator.github.io.5.152.67.12.39 @ Thu Oct 27 2022 09:42:00 GMT+0900 (日本標準時) @ Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/107.0.0.0 Safari/537.36
