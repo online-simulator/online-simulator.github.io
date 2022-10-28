@@ -24581,7 +24581,9 @@ x=&lt;{z_x,z_v};
 <br>
 x_initial=&lt;{z_x0,z_v0};
 <br>
-f=&lt;{z_v,z_a+(Cd_sphere/m)*(<span class="selection">z_u</span>-z_v)};
+/*f=&lt;{z_v,z_a+(<span class="clear">Cd_sphere</span>/m)*(<span class="clear">z_u</span>-z_v)};*/
+<br>
+f=&lt;{z_v,z_a};
 <br>
 stepN=&lt;last{N=round(t/dt),x_next=_otdummy(=&lt;f,=&lt;x,=&lt;x_initial,0,dt,N)};
 <br>
