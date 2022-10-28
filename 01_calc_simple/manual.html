@@ -727,6 +727,10 @@ developer.mozilla.org/ja/docs/項目を列挙する
 <br>
 en.m.wikipedia.org/wiki/項目を列挙する
 <br>
+・Gaussian_elimination
+<br>
+・Tridiagonal_matrix_algorithm
+<br>
 ・Bessel_function
 <br>
 ・Airy_function
@@ -14794,7 +14798,7 @@ trans((1/norm(trans(A[2])))A[2])
 <br>
 <span class="run">Ver.2.123.34</span>以降、疎行列を扱う座標形式（以降、COO形式と呼ぶ）の<a href="#span-out-FNm">行列関数</a>を追加
 <br>
-<span class="run">Ver.2.124.34</span>以降、memory使用量の削減のため、COO形式の<a href="#span-out-linear">Gaussの消去法</a>を追加
+<span class="run">Ver.2.124.34</span>以降、memory使用量と<a href="#span-out-ope">演算量</a>=Order(N^3)の削減のため、COO形式の<a href="#span-out-linear">Gaussの消去法</a>を追加
 <br>
 ・<span class="clear">Ver.2.128.35</span>以降、<a href="#span-out-linear">pivot選択</a>でのerror終了を修正（pivot=0でも通るように）
 <br>
@@ -24549,6 +24553,87 @@ t=5; evolution; x ->
 0.0009152166846619435-9.798636327139855i+O(6e-2)
 <br>
 )
+<br>
+<br>
+球体周りが真空の場合、<span class="clear">空気の相互作用なし</span>
+<br>
+clear;
+<br>
+g=-9.8;
+<br>
+z_a=0+g*i;
+<br>
+z_v0=20+20i;
+<br>
+z_x0=0;
+<br>
+<span class="clear">z_u=0;</span>
+<br>
+dt=0.5;
+<br>
+m=1;
+<br>
+<span class="clear">Cd_sphere=0;</span>
+<br>
+x=&lt;{z_x,z_v};
+<br>
+x_initial=&lt;{z_x0,z_v0};
+<br>
+f=&lt;{z_v,z_a+(Cd_sphere/m)*(<span class="selection">z_u</span>-z_v)};
+<br>
+stepN=&lt;last{N=round(t/dt),x_next=_otdummy(=&lt;f,=&lt;x,=&lt;x_initial,0,dt,N)};
+<br>
+evolution=&lt;stepN;
+<br>
+・t=0
+<br>
+t=0; evolution; x ->
+<br>
+(
+<br>
+0:
+<br>
+20+20i
+<br>
+)
+<br>
+・t=1
+<br>
+t=1; evolution; x ->
+<br>
+(
+<br>
+19.999999999999996+15.1i+O(6e-2):
+<br>
+20+10.2i+O(6e-2)
+<br>
+)
+<br>
+・t=2
+<br>
+t=1; evolution; x ->
+<br>
+(
+<br>
+39.99999999999999+20.4i+O(6e-2):
+<br>
+20+0.3999999999999986i+O(6e-2)
+<br>
+)
+<br>
+・解析解
+<br>
+clear;
+<br>
+g=-9.8;
+<br>
+z_x(t)=&lt;(comp(20*t,20*t+g*t^2/2));
+<br>
+z_v(t)=&lt;(comp(20,20+g*t));
+<br>
+t=1; (z_x(t):z_v(t)) -> (20+15.1i:20+10.2i)
+<br>
+t=2; (z_x(t):z_v(t)) -> (40+20.4i:20+0.3999999999999986i)
     </td>
   </tr>
   <tr>
