@@ -2939,7 +2939,7 @@ area[10,20,30,40]
 <br>
 ・<a href="#span-out-UI-graphing-filter-weight">加重平均filter</a>は重みを<a href="#span-out-FNm-normalize">正規化</a>するが、<a href="#span-out-UI-graphing-filter-edge">edge抽出filter</a>は<a href="#span-out-FNm-normalize">正規化</a>しない（白黒飛びを許容）
 <br>
-・ImageDataが欠落する描画canvas境界は<a href="#span-out-UI-graphing-filter-weight">加重平均filter</a>として扱う（意図とは異なる可能性）
+・ImageDataが欠落する描画canvas境界は<a href="#span-out-UI-graphing-filter-weight">加重平均filter</a>として扱う（意図とは異なる可能性あり）
 <br>
 ・<a href="#span-out-UI-graphing-config">canvas-background</a>にtransparent選択の場合、背景色は<a href="#span-out-UI-graphing-color">透明黒色</a>とする
 <br>
@@ -14490,7 +14490,7 @@ last((1,2):(3,4)) -> 4
 <br>
 last{{1,2}:{3,4}} -> 4
 <br>
-・colon:を含めて括る場合、意図とは異なる可能性
+・colon:を含めて括る場合、意図とは異なる可能性あり
 <br>
 ・最終列挙の要素が最終要素とは限らない
 <br>
@@ -14506,7 +14506,7 @@ last{{1,2}:{3,4}} -> 4
 <br>
 last(1,(2:3),4) -> 3
 <br>
-・<a href="#span-out-BT">括弧</a>を統一しない場合、意図とは異なる可能性
+・<a href="#span-out-BT">括弧</a>を統一しない場合、意図とは異なる可能性あり
 <br>
 ({1,2},3,4) ->
 <br>
@@ -16251,7 +16251,7 @@ A=A0; A[-1][0][1]=(1,2,3); A[-1][0][1]=A[-1][0][1]; A ->
 <br>
 )
 <br>
-・<a href="#span-out-reference-mat-band">band参照</a>で相対indexを交換する場合、意図とは異なる可能性
+・<a href="#span-out-reference-mat-band">band参照</a>で相対indexを交換する場合、意図とは異なる可能性あり
 <br>
 A=A0; A[-1][0][1]=(1,2,3); A[-1][0][1]=A[1][0][-1]; A ||
 <br>
@@ -16542,7 +16542,7 @@ mat -> (1,2,3,4:5,6,7,8:-1,-2,-3,-4:-5,-6,-7,-8)
 <br>
 )
 <br>
-・複雑なnestingは意図とは異なる可能性
+・複雑なnestingは意図とは異なる可能性あり
 <br>
 A=(1,{2,3,4,5},(6,7,{8,9}):({10,11}),12,{13,14,(15,16,{17,18})}); A ->
 <br>

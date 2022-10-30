@@ -68,7 +68,7 @@ My_entry.draw_canvas.prototype.lines = function(arr_vec, opt_lineWidth, opt_styl
 /* -> 0.4.0 */
 /* -> 0.7.0 */
 /* 1.33.8 */
-My_entry.draw_canvas.prototype.filter_mosaic = function(opt_ID, dx, dy, type, arr_RGBA){
+My_entry.draw_canvas.prototype.filter_mosaic = function(opt_ID, dx, dy, type, rgba){  // 1.45.8
   var self = this;
   var ctx = self.ctx;
   var px_w = ctx.canvas.width;
@@ -84,6 +84,7 @@ My_entry.draw_canvas.prototype.filter_mosaic = function(opt_ID, dx, dy, type, ar
   var data = _ID.data;
   var rdx = Math.round(dx);
   var rdy = Math.round(dy);
+  var arr_RGBA = [rgba.r, rgba.g, rgba.b, rgba.a];  // 1.45.8
   var filter_arr = null;
   switch(type){
     case "RGBA":
