@@ -275,18 +275,27 @@ My_entry.pen.prototype.reset_canvas = function(){
 /* Ver.1.10.2 */
 My_entry.pen.prototype.reset_canvas_grid = function(){
   var self = this;
+  self.entry.def.mix_over(self.constructors.draw, self.constructors.draw_canvas);
   var options = self.options;
   var mg = self.objs.mg;
   mg.clear();
+  /* Ver.1.48.8 -> */
   /* Ver.1.37.7 -> */
-  var gridWidth = 0.5;
-  var gridColor = "#00000033";
+  var px_w = options["canvas-width"];
+  var px_h = options["canvas-height"];
+  var dxg = options["grid-width"];
+  var dyg = options["grid-height"];
+  var hasGrid = (dxg > 0 && dyg > 0);
   var rgba = mg.draw.color2rgba(options.bgcolor);
-  if(rgba.a > 255/2 && rgba.r+rgba.g+rgba.b < 255*3/2){
-    gridColor = "#ffffff55";
+  var gridWidth = options.gridWidth || 0.5;
+  var gridColor = options.gridColor || ((rgba.a > 255/2 && rgba.r+rgba.g+rgba.b < 255*3/2)? "#ffffff55": "#00000033");
+  if(hasGrid){
+    mg.draw_lines_grid(dxg, dyg, gridWidth, gridColor);  // Ver.1.10.4
+    mg.draw.line({x: 0, y: px_h/2}, {x: px_w, y: px_h/2}, gridWidth, gridColor);
+    mg.draw.line({x: px_w/2, y: 0}, {x: px_w/2, y: px_h}, gridWidth, gridColor);
   }
-  mg.draw_lines_grid(options["grid-width"], options["grid-height"], options.gridWidth || gridWidth, options.gridColor || gridColor);  // Ver.1.10.4
   /* -> Ver.1.37.7 */
+  /* -> Ver.1.48.8 */
   return self;
 };
 /* Ver.1.26.7 */
