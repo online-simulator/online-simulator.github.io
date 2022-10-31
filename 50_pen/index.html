@@ -39,6 +39,26 @@
 <script type="text/javascript">
   (function(){
     new My_entry.$().onload(function(e){
+      var $ = new My_entry.$();
+      var options = $.get_urlParams();
+      if(options.dot){
+        $.set_id("checkbox-auto-config", "checked", null);
+        $._id("input-W").value = 4;
+        $._id("input-A").value = 100;
+        $._id("input-w_th").value = 0;
+        $._id("input-len_th").value = 99;
+        $._id("input-dlen").value = 99;
+        $._id("input-in").value = 99;
+        $._id("input-out").value = 99;
+        $._id("input-sh").value = 0;
+        $._id("input-grid-width").value = 16;
+        $._id("input-grid-height").value = 16;
+        $.set_selectVal_id("select-mosaic", "RGBA");
+        $.set_id("checkbox-with-svg", "checked", "checked");
+        $._id("input-second-url-parameters").value = "";
+        $._id("input-third-url-parameters").value = "";
+        $.hide("#div-dot", true, true);
+      }
       new My_entry.pen().onload(e);
     });
   })();
@@ -256,6 +276,7 @@ pre/post processing for png
     <input id="checkbox-with-svg" type="checkbox">
   </label>
 <hr>
+<div id="div-dot">
   <label>R:
 <input id="input-png-R255" type="number" class="input-50" min="-1" max="255" value="-1">
   </label>
@@ -299,6 +320,7 @@ pre/post processing for png
     <button id="blur" class="input-100 run">blur-heavy</button>
   </div>
 <hr>
+</div>
   <label>text-filter:
 <input id="input-text-filter" type="text" value="rgb[-1]:rgb[-1,-1,-1,-1,8,-1,-1,-1,-1]:mono[0]:to2_rgba[30]">
   </label>
