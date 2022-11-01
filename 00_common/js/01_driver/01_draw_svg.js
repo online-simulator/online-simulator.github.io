@@ -260,10 +260,12 @@ My_entry.draw_svg.prototype.lines_pen_mosaic = function(idName, arr_data, option
   var hasArea = (rdx > 0 && rdy > 0);
   _svg += self.header_group(idName, config);
   if(hasArea){
-    var Ni = Math.floor(px_w/rdx);
-    var Nj = Math.floor(px_h/rdy);
-    for(var j=0; j<=Nj; ++j){
-      for(var i=0; i<=Ni; ++i){
+    /* 1.46.8 -> */
+    var Ni = Math.ceil(px_w/rdx);
+    var Nj = Math.ceil(px_h/rdy);
+    for(var j=0; j<Nj; ++j){
+      for(var i=0; i<Ni; ++i){
+    /* -> 1.46.8 */
         var xs = rdx*i;
         var ys = rdy*j;
         var ired = 4*(px_w*ys+xs);

@@ -109,10 +109,12 @@ My_entry.draw_canvas.prototype.filter_mosaic = function(opt_ID, dx, dy, type, rg
   };
   var hasArea = (rdx > 0 && rdy > 0);
   if(filter_arr && hasArea){
-    var Ni = Math.floor(px_w/rdx);
-    var Nj = Math.floor(px_h/rdy);
-    for(var j=0; j<=Nj; ++j){
-      for(var i=0; i<=Ni; ++i){
+    /* 1.46.8 -> */
+    var Ni = Math.ceil(px_w/rdx);
+    var Nj = Math.ceil(px_h/rdy);
+    for(var j=0; j<Nj; ++j){
+      for(var i=0; i<Ni; ++i){
+    /* -> 1.46.8 */
         var xs = rdx*i;
         var ys = rdy*j;
         var xe = Math.min(px_w, xs+rdx)-1;

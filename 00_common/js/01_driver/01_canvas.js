@@ -504,17 +504,19 @@ My_entry.canvas.prototype.draw_lines_grid = function(dx, dy, opt_lineWidth, opt_
   ctx.fillStyle = ctx.strokeStyle = self.draw.color2style(opt_styleRGBA);
   var hasGrid = (dx > 0 && dy > 0);
   if(hasGrid){
-    var Ni = Math.floor(px_w/dx);
-    var Nj = Math.floor(px_h/dy);
+    /* 1.46.8 -> */
+    var Ni = Math.ceil(px_w/dx);
+    var Nj = Math.ceil(px_h/dy);
     ctx.save();
-    for(var i=0; i<=Ni; ++i){
+    for(var i=0; i<Ni; ++i){
       var xi = dx*i;
       ctx.beginPath();
       ctx.moveTo(xi, 0);
       ctx.lineTo(xi, px_h);
       ctx.stroke();
     }
-    for(var j=0; j<=Nj; ++j){
+    for(var j=0; j<Nj; ++j){
+    /* -> 1.46.8 */
       var yj = dy*j;
       ctx.beginPath();
       ctx.moveTo(0, yj);
