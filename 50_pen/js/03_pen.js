@@ -698,7 +698,7 @@ My_entry.pen.prototype.make_handlers = function(){
         self.handler_history_ID.save(bg.getID());  // Ver.1.1.0
         fg.clear();
       /* -> Ver.1.47.8 */
-        var svg = e.mysvg || self.make_svg_lines();  // Ver.1.43.8
+        var svg = (options.mosaic && hasGrid && options["with-svg"])? self.make_svg_lines(): (e.mysvg || self.make_svg_lines());  // Ver.1.43.8  // Ver.1.49.9
         self.handler_history_svg.save(svg);  // Ver.1.2.0
         if(self.mode < 0){
           self.update_options();
