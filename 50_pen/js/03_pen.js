@@ -148,6 +148,12 @@ My_entry.pen.prototype.update_options = function(){
     options["canvas-width"] = def.limit(options["canvas-width"], 16, 2560, 512);
     options["canvas-height"] = def.limit(options["canvas-height"], 16, 2560, 512);
     /* -> 1.45.8 */
+    /* Ver.1.49.9 -> */
+    options["canvas-width"] = Math.floor(options["canvas-width"]);
+    options["canvas-height"] = Math.floor(options["canvas-height"]);
+    options["grid-width"] = Math.floor(options["grid-width"]);
+    options["grid-height"] = Math.floor(options["grid-height"]);
+    /* -> Ver.1.49.9 */
     options.dlen = def.limit(options.dlen, 1, 2560, 5);  // Ver.1.46.8 for direct-input
     options.x0 = def.limit(options.x0, 0, fg.px_w, fg.px_w/2);
     options.y0 = def.limit(options.y0, 0, fg.px_h, fg.px_h/2);
