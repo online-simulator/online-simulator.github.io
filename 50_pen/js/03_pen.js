@@ -551,6 +551,13 @@ My_entry.pen.prototype.make_handlers = function(){
       e.preventDefault();
       e.stopPropagation();
       if(self.isRunning) return false;  // Ver.1.29.7 down failed
+      /* Ver.1.49.9 -> */
+      if(e.isMyCalled){
+        self.mode = 0;
+      }
+      var isBucket = (self.mode === 1);
+      var isEraser = (self.mode < 0);
+      /* -> Ver.1.49.9 */
       /* Ver.1.7.1 -> */
       /* Ver.1.6.1 -> */
       /* Ver.1.12.4 -> */
@@ -560,7 +567,7 @@ My_entry.pen.prototype.make_handlers = function(){
       var alpha = options._alpha;
       /* -> Ver.1.35.7 */
       /* Ver.1.47.8 -> */
-      if(self.mode < 0){
+      if(isEraser){  // Ver.1.49.9
         options.RGB = "#ffffff";  // for svg
         if(self.mode === -1){
           options.A = 100;  // for svg
@@ -577,8 +584,10 @@ My_entry.pen.prototype.make_handlers = function(){
       var dxg = options["grid-width"];
       var dyg = options["grid-height"];
       var dxyg = {x: dxg, y: dyg};
+      var hasLimit_A = (options.A < 0);  // Ver.1.49.9
       var hasGrid = (dxg > 0 && dyg > 0);
       var hasSnap = (options.snap && hasGrid);
+      var hasMosaic = (options.mosaic && hasGrid);  // Ver.1.49.9
       var xy1 = fg.get_offset(e);
       var xy0 = self.xy0 || xy1;
       if(hasSnap){
@@ -591,10 +600,7 @@ My_entry.pen.prototype.make_handlers = function(){
       var y1 = xy1.y;
       /* -> Ver.1.36.7 */
       /* Ver.1.43.8 -> */
-      if(e.isMyCalled){
-        self.mode = 0;
-      }
-      else if(self.mode > 0){  // Ver.1.34.7
+      if(self.mode > 0){  // Ver.1.34.7  // Ver.1.49.9
         fg.clear();  // Ver.1.32.7
         var dx = x1-x0;
         var dy = y1-y0;
@@ -668,16 +674,16 @@ My_entry.pen.prototype.make_handlers = function(){
       /* -> Ver.1.43.8 */
       /* Ver.1.47.8 -> */
       /* Ver.1.26.7 -> */
-      if(self.mode !== 1){  // Ver.1.34.7
-        if(options.A < 0){
+      if(!(isBucket)){  // Ver.1.34.7  // Ver.1.49.9
+        if(hasLimit_A){  // Ver.1.49.9
           ID = fg.getID_alpha(alpha);
         }
-        if(options.mosaic && hasGrid){
+        if(hasMosaic){  // Ver.1.49.9
           ID = fg.draw.filter_mosaic(ID, options["grid-width"], options["grid-height"], options.mosaic, rgba);  // Ver.1.35.7
           if(options["with-svg"]){
             /* Ver.1.34.7 -> */
             var ID_svg = ID;
-            if(self.mode < 0){
+            if(isEraser){  // Ver.1.49.9
               var rgba_white = {r: 255, g: 255, b: 255, a: -1};
               ID_svg = fg.convID_rgba(rgba_white, ID);
             }
@@ -698,9 +704,9 @@ My_entry.pen.prototype.make_handlers = function(){
         self.handler_history_ID.save(bg.getID());  // Ver.1.1.0
         fg.clear();
       /* -> Ver.1.47.8 */
-        var svg = (options.mosaic && hasGrid && options["with-svg"])? self.make_svg_lines(): (e.mysvg || self.make_svg_lines());  // Ver.1.43.8  // Ver.1.49.9
+        var svg = (hasMosaic && options["with-svg"])? self.make_svg_lines(): (e.mysvg || self.make_svg_lines());  // Ver.1.43.8  // Ver.1.49.9
         self.handler_history_svg.save(svg);  // Ver.1.2.0
-        if(self.mode < 0){
+        if(isEraser){  // Ver.1.49.9
           self.update_options();
         }
         /* Ver.1.24.7 -> */
@@ -714,7 +720,7 @@ My_entry.pen.prototype.make_handlers = function(){
         self.mode = 0;  // Ver.1.19.4
         self.isLocked = false;  // async
       }
-      var composite = (self.mode < 0)? "destination-out": options.composite;
+      var composite = (isEraser)? "destination-out": options.composite;  // Ver.1.49.9
       /* Ver.1.21.4 -> */
       if(options.sh < 0){
         var len_sh = Math.min(100, -options.sh);
