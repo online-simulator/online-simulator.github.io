@@ -679,7 +679,7 @@ My_entry.pen.prototype.make_handlers = function(){
           ID = fg.getID_alpha(alpha);
         }
         if(hasMosaic){  // Ver.1.49.9
-          ID = fg.draw.filter_mosaic(ID, options["grid-width"], options["grid-height"], options.mosaic, rgba);  // Ver.1.35.7
+          ID = fg.draw.filter_mosaic(ID, dxg, dyg, options.mosaic, rgba);  // Ver.1.35.7  // Ver.1.49.9
           if(options["with-svg"]){
             /* Ver.1.34.7 -> */
             var ID_svg = ID;
