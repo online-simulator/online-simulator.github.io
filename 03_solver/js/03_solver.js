@@ -49,6 +49,16 @@ My_entry.test_solver.prototype.init_handlers = function(){
         }
       }
     };
+    /* Ver.2.133.35 */
+    var check_size = function(arr){
+      var len_j = arr.length;
+      for(var j=0; j<len_j; ++j){
+        var num = Math.round(arr[j]);
+        if(num <= 0) throw "Invalid matrix size";
+        if(num > 1000) throw "Invalid matSizeMax over";
+        arr[j] = num;
+      }
+    };
     var mat2obj = function(){
       var text_b = $._id("input-b").value;
       var text_A = $._id("input-A").value;
@@ -73,6 +83,8 @@ My_entry.test_solver.prototype.init_handlers = function(){
         _obj[id] = ($._id("input-"+id).value).split(",");
         check_num(_obj[id]);
       });
+      check_size(_obj.mA);  // Ver.2.133.35
+      check_size(_obj.nA);  // Ver.2.133.35
       var len_b = _obj.b.length;
       var len_j = _obj.aA.length;
       ["mA", "nA"].forEach(function(id){
