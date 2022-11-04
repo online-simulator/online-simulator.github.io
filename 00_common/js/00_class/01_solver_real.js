@@ -56,9 +56,9 @@ My_entry.solver_real.prototype.gaussian_forward = function(options, obj_Axb){
       var w = A[ii][i]/A[i][i];
       A[ii][i] = 0;
       for(j=i+1; j<N; ++j){
-        A[ii][j] -= A[i][j]*w;
+        A[ii][j] -= w*A[i][j];  // 1.47.8
       }
-      b[ii] -= b[i]*w;
+      b[ii] -= w*b[i];  // 1.47.8
     }
   }
   return self;
@@ -198,7 +198,7 @@ My_entry.solver_real.prototype.gaussian_coo_forward = function(options, obj_Axb)
         var aA = m2A[m];
         var w = aA[jn]/num_pivot;
         for(var j0=0; j0<len_j0; ++j0){
-          var aA0j0 = aA0[j0]*w;
+          var aA0j0 = w*aA0[j0];  // 1.47.8
           var nn0 = arr_n0[j0];
           var jnn = self.get_jn(m2arr_n[m], nn0);
           if(jnn === -1){
@@ -209,7 +209,7 @@ My_entry.solver_real.prototype.gaussian_coo_forward = function(options, obj_Axb)
             aA[jnn] -= aA0j0;
           }
         }
-        b[ii] -= b[i]*w;
+        b[ii] -= w*b[i];  // 1.47.8
       }
     }
   }

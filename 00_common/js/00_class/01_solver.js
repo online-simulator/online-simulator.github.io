@@ -59,9 +59,9 @@ My_entry.solver.prototype.gaussian_forward = function(options, obj_Axb){
       var w = unit["BRd"](options, A[ii][i], A[i][i]);
       A[ii][i] = DATA.num(0, 0);
       for(j=i+1; j<N; ++j){
-        A[ii][j] = unit["BRs"](options, A[ii][j], unit["BRm"](options, A[i][j], w));
+        A[ii][j] = unit["BRs"](options, A[ii][j], unit["BRm"](options, w, A[i][j]));  // 1.47.8
       }
-      b[ii][0] = unit["BRs"](options, b[ii][0], unit["BRm"](options, b[i][0], w));
+      b[ii][0] = unit["BRs"](options, b[ii][0], unit["BRm"](options, w, b[i][0]));  // 1.47.8
     }
   }
   return self;
@@ -188,7 +188,7 @@ My_entry.solver.prototype.gaussian_coo_forward = function(options, obj_Axb){
         var aA = m2A[m];
         var w = unit["BRd"](options, aA[jn], num_pivot);
         for(var j0=0; j0<len_j0; ++j0){
-          var aA0j0 = unit["BRm"](options, aA0[j0], w);
+          var aA0j0 = unit["BRm"](options, w, aA0[j0]);  // 1.47.8
           var nn0 = arr_n0[j0];
           var jnn = self.get_jn(m2arr_n[m], nn0);
           if(jnn === -1){
@@ -199,7 +199,7 @@ My_entry.solver.prototype.gaussian_coo_forward = function(options, obj_Axb){
             aA[jnn] = unit["BRs"](options, aA[jnn], aA0j0);
           }
         }
-        b[ii] = unit["BRs"](options, b[ii], unit["BRm"](options, b[i], w));
+        b[ii] = unit["BRs"](options, b[ii], unit["BRm"](options, w, b[i]));  // 1.47.8
       }
     }
   }
