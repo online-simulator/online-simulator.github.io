@@ -608,7 +608,7 @@ My_entry.plot2d.prototype.run = function(arr2d_vec, options, toSVG, isFinal){
       b255 = Math.floor(g255<<1)%(256-1);
     }
     else{
-      var pn = (j+1)/len_j;
+      var pn = (len_j-j)/len_j;
       if(pn < 1/3){
         g255 = 255*pn*3;
         b255 = 255;
