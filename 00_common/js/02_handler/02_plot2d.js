@@ -598,11 +598,31 @@ My_entry.plot2d.prototype.run = function(arr2d_vec, options, toSVG, isFinal){
     /* 0.6.0 -> */
     strFontSize = def.get_number(strSize, strFontSize, fontSize);
     /* -> 0.6.0 */
-    var G = (len_j>1)? Math.floor(j*255/(len_j-1)): 0;
-    var R = Math.floor(255-G)%256;
-    var B = Math.floor(G<<1)%(256-1);
+    /* 1.48.8 -> */
+    var pn = (j+1)/len_j;
+    var r255 = 0;
+    var g255 = 0;
+    var b255 = 0;
+    if(pn < 1/3){
+      g255 = 255*pn*3;
+      b255 = 255;
+    }
+    else if(pn < 2/3){
+      r255 = 255*(pn-1/3)*3;
+      g255 = 255;
+    }
+    else{
+      r255 = 255;
+      g255 = 255*(1-pn)*3;
+    }
+    if(options.oldPlot2d || options.oldPlot2d_marker){
+      g255 = (len_j > 1)? Math.floor(j*255/(len_j-1)): 0;
+      r255 = Math.floor(255-g255)%256;
+      b255 = Math.floor(g255<<1)%(256-1);
+    }
     arr_markerType[j] = markerType || markers[j%markers.length];
-    arr_styleRGBA[j] = styleRGBA || "rgb("+R+","+G+","+B+")";
+    arr_styleRGBA[j] = styleRGBA || "rgb("+r255+","+g255+","+b255+")";
+    /* -> 1.48.8 */
     arr_markerSize[j] = markerSize;
     arr_markerLineWidth[j] = markerLineWidth;
     arr_plotLineWidth[j] = plotLineWidth;
