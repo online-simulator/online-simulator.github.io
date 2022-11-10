@@ -602,12 +602,34 @@ My_entry.plot2d.prototype.run = function(arr2d_vec, options, toSVG, isFinal){
     var r255 = 0;
     var g255 = 0;
     var b255 = 0;
-    if(options["marker-colors"] === "old"){
-      g255 = (len_j > 1)? Math.floor(j*255/(len_j-1)): 0;
-      r255 = Math.floor(255-g255)%256;
-      b255 = Math.floor(g255<<1)%(256-1);
+    if(options["marker-colors"] === "rainbow"){
+      var pn = (len_j-j)/len_j;
+      if(pn < 1/6){
+        b255 = 255*pn*6;
+        r255 = 255;
+      }
+      else if(pn < 1/3){
+        b255 = 255;
+        r255 = 255*(1/3-pn)*6;
+      }
+      else if(pn < 1/2){
+        g255 = 255*(pn-1/3)*6;
+        b255 = 255;
+      }
+      else if(pn < 2/3){
+        g255 = 255;
+        b255 = 255*(2/3-pn)*6;
+      }
+      else if(pn < 5/6){
+        r255 = 255*(pn-2/3)*6;
+        g255 = 255;
+      }
+      else{
+        r255 = 255;
+        g255 = 255*(1-pn)*6;
+      }
     }
-    else{
+    else if(options["marker-colors"] === "red-blue"){
       var pn = (len_j-j)/len_j;
       if(pn < 1/3){
         g255 = 255*pn*3;
@@ -621,6 +643,11 @@ My_entry.plot2d.prototype.run = function(arr2d_vec, options, toSVG, isFinal){
         r255 = 255;
         g255 = 255*(1-pn)*3;
       }
+    }
+    else{  // old
+      g255 = (len_j > 1)? Math.floor(j*255/(len_j-1)): 0;
+      r255 = Math.floor(255-g255)%256;
+      b255 = Math.floor(g255<<1)%(256-1);
     }
     arr_markerType[j] = markerType || markers[j%markers.length];
     arr_styleRGBA[j] = styleRGBA || "rgb("+r255+","+g255+","+b255+")";
