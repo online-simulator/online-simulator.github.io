@@ -101,7 +101,7 @@ My_entry.solver_NS.prototype.FS2d = function(options, uvp){
   var avjm = 0;
   var avij = 0;
   var avjp = 0;
-  var update_uv = (options.order_upstream === 1)?
+  var calc_duv = (options.order_upstream === 1)?
     function(i, j){
       var uij = u0[i][j];
       var vij = v0[i][j];
@@ -142,21 +142,16 @@ My_entry.solver_NS.prototype.FS2d = function(options, uvp){
       var dudx = (-uim+uip)*rdx2;
       var dvdy = (-vjm+vjp)*rdy2;
       var cont = dudx+dvdy;
-      var convx = uij*dudx+vij*(-ujm+ujp)*rdy2;
-      var convy = uij*(-vim+vip)*rdx2+vij*dvdy;
+      var convx = uij*dudx+vij*(-ujm+ujp)*rdy2;  // Order2
+      var convy = uij*(-vim+vip)*rdx2+vij*dvdy;  // Order2
       convx -= auij*(uim-2*uij+uip)*rdx2+avij*(ujm-2*uij+ujp)*rdy2;  // Order1
       convy -= auij*(vim-2*vij+vip)*rdx2+avij*(vjm-2*vij+vjp)*rdy2;  // Order1
       var diffx = (uim-2*uij+uip)*rdxp2+(ujm-2*uij+ujp)*rdyp2;  // Order2
       var diffy = (vim-2*vij+vip)*rdxp2+(vjm-2*vij+vjp)*rdyp2;  // Order2
-      var dudt1 = -convx+diffx/Re;
-      var dvdt1 = -convy+diffy/Re;
-      var dudt0 = ud[i][j];
-      var dvdt0 = vd[i][j];
-      u[i][j] = uij+(3*dudt1-dudt0)*dth;  // Order2
-      v[i][j] = vij+(3*dvdt1-dvdt0)*dth;  // Order2
-      ud[i][j] = dudt1;
-      vd[i][j] = dvdt1;
+      var dudt = -convx+diffx/Re;
+      var dvdt = -convy+diffy/Re;
       c.push(Math.abs(cont));
+      return [dudt, dvdt];
     }:
     function(i, j){
       var uij = u0[i][j];
@@ -222,22 +217,27 @@ My_entry.solver_NS.prototype.FS2d = function(options, uvp){
       var dudx = (-uim+uip)*rdx2;
       var dvdy = (-vjm+vjp)*rdy2;
       var cont = dudx+dvdy;
-      var convx = uij*(uimm-8*(uim-uip)-uipp)*rdx12+vij*(ujmm-8*(ujm-ujp)-ujpp)*rdy12;
-      var convy = uij*(vimm-8*(vim-vip)-vipp)*rdx12+vij*(vjmm-8*(vjm-vjp)-vjpp)*rdy12;
+      var convx = uij*(uimm-8*(uim-uip)-uipp)*rdx12+vij*(ujmm-8*(ujm-ujp)-ujpp)*rdy12;  // Order4
+      var convy = uij*(vimm-8*(vim-vip)-vipp)*rdx12+vij*(vjmm-8*(vjm-vjp)-vjpp)*rdy12;  // Order4
       convx += auij*(uimm-4*(uim+uip)+6*uij+uipp)*rdx12+avij*(ujmm-4*(ujm+ujp)+6*uij+ujpp)*rdy12;  // Order3
       convy += auij*(vimm-4*(vim+vip)+6*vij+vipp)*rdx12+avij*(vjmm-4*(vjm+vjp)+6*vij+vjpp)*rdy12;  // Order3
       var diffx = (-(uimm+uipp)+16*(uim+uip)-30*uij)*r12dxp2+(-(ujmm+ujpp)+16*(ujm+ujp)-30*uij)*r12dyp2;  // Order4
       var diffy = (-(vimm+vipp)+16*(vim+vip)-30*vij)*r12dxp2+(-(vjmm+vjpp)+16*(vjm+vjp)-30*vij)*r12dyp2;  // Order4
-      var dudt1 = -convx+diffx/Re;
-      var dvdt1 = -convy+diffy/Re;
-      var dudt0 = ud[i][j];
-      var dvdt0 = vd[i][j];
-      u[i][j] = uij+(3*dudt1-dudt0)*dth;  // Order2
-      v[i][j] = vij+(3*dvdt1-dvdt0)*dth;  // Order2
-      ud[i][j] = dudt1;
-      vd[i][j] = dvdt1;
+      var dudt = -convx+diffx/Re;
+      var dvdt = -convy+diffy/Re;
       c.push(Math.abs(cont));
+      return [dudt, dvdt];
     };
+  var int_uv = function(i, j, duv){
+    var dudt1 = duv[0];
+    var dvdt1 = duv[1];
+    var dudt0 = ud[i][j];
+    var dvdt0 = vd[i][j];
+    ud[i][j] = dudt1;
+    vd[i][j] = dvdt1;
+    u[i][j] += (3*dudt1-dudt0)*dth;  // Order2
+    v[i][j] += (3*dvdt1-dvdt0)*dth;  // Order2
+  };
   var fix_p0 = (hasP0)?
     function(i, j){
       return p0[i][j];
@@ -376,7 +376,7 @@ My_entry.solver_NS.prototype.FS2d = function(options, uvp){
     for(var nu=0; nu<len0; ++nu){
       var i = i_unknowns[nu];
       var j = j_unknowns[nu];
-      update_uv(i, j);
+      int_uv(i, j, calc_duv(i, j));
     }
     b.length = aA.length = mA.length = nA.length = 0;
     for(var nu=0; nu<len0; ++nu){
