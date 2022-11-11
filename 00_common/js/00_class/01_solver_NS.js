@@ -395,7 +395,7 @@ My_entry.solver_NS.prototype.FS2d = function(options, uvp){
       p[i][j] = x[iu+len1];
     }
     uvp.t += dt;
-    uvp.cmax = Math.max.apply(Math, c);
+    uvp.cmax = (Math.max.apply(Math, c)).toExponential(0);
     if(isNaN(uvp.cmax)) break;
   }
   return self;
