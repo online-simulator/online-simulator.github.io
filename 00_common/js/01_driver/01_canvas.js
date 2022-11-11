@@ -493,6 +493,81 @@ My_entry.canvas.prototype.convID_rgba = function(rgba, opt_ID){
   }
   return _ID;
 };
+/* 1.49.8 */
+My_entry.canvas.prototype.make_uvp = function(dx, dy, opt_ID){
+  var self = this;
+  var _obj = null;
+  var ctx = self.ctx;
+  var px_w = self.px_w;
+  var px_h = self.px_h;
+  var ID = opt_ID || self.getID();
+  var data = ID.data;
+  var rdx = Math.round(dx);
+  var rdy = Math.round(dy);
+  var hasArea = (rdx > 0 && rdy > 0);
+  if(hasArea){
+    var Ni = Math.ceil(px_w/rdx);
+    var Nj = Math.ceil(px_h/rdy);
+    var u = new Array(Ni);
+    var v = new Array(Ni);
+    var ud = new Array(Ni);
+    var vd = new Array(Ni);
+    var p = new Array(Ni);
+    var p0 = new Array(Ni);
+    var id = new Array(Ni);
+    var hasP0 = false;
+    for(var i=0; i<Ni; ++i){
+      u[i] = new Array(Nj);
+      v[i] = new Array(Nj);
+      ud[i] = new Array(Nj);
+      vd[i] = new Array(Nj);
+      p[i] = new Array(Nj);
+      p0[i] = new Array(Nj);
+      id[i] = new Array(Nj);
+      for(var j=0; j<Nj; ++j){
+        var xs = rdx*i;
+        var ys = rdy*j;
+        var ired = 4*(px_w*ys+xs);
+        var r = data[ired+0];
+        var g = data[ired+1];
+        var b = data[ired+2];
+        var a = data[ired+3];
+        var isP0 = (b === 255);
+        hasP0 = hasP0 || isP0;
+        if(isP0){
+          r = g = b = a = 0;  // only defined var
+        }
+        u[i][j] = r/255;
+        v[i][j] = g/255;
+        ud[i][j] = 0;
+        vd[i][j] = 0;
+        p[i][j] = 0;
+        p0[i][j] = isP0;
+        id[i][j] = a/255;
+      }
+    }
+    var i_unknowns = [];
+    var j_unknowns = [];
+    for(var i=0; i<Ni; ++i){
+      for(var j=0; j<Nj; ++j){
+        if(id[i][j] === 0){
+          i_unknowns.push(i);
+          j_unknowns.push(j);
+          id[i][j] = i_unknowns.length;
+        }
+        else{
+          id[i][j] = 0;
+        }
+      }
+    }
+    var dxi = 1/Ni;
+    var dyi= (rdy/rdx)*dxi;
+    var uC = 1;
+    var dtmax = Math.min(dxi, dyi)/uC;
+    _obj = {u: u, v: v, ud: ud, vd: vd, p: p, p0: p0, id: id, hasP0: hasP0, i_unknowns: i_unknowns, j_unknowns: j_unknowns, Ni: Ni, Nj: Nj, len0: i_unknowns.length, dx: dxi, dy: dyi, dtmax: dtmax, t: 0, cmax: 0};
+  }
+  return _obj;
+};
 /* 1.31.8 */
 /* 1.31.7 */
 My_entry.canvas.prototype.draw_lines_grid = function(dx, dy, opt_lineWidth, opt_styleRGBA){

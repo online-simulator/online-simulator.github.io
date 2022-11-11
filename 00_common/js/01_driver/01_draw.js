@@ -491,3 +491,124 @@ My_entry.draw.prototype.textpath_sw = function(text, arr_vec, opt_globalComposit
   return _svg;
 };
 /* -> 1.0.0 */
+/* 1.49.8 */
+My_entry.draw.prototype.uvp = function(uvp){
+  var self = this;
+  var _svg = "";
+  var ctx = self.ctx;
+  var px_w = ctx.canvas.width;
+  var px_h = ctx.canvas.height;
+  if(uvp){
+    var u = uvp.u;
+    var v = uvp.v;
+    var p = uvp.p;
+    var id = uvp.id;
+    var Ni = uvp.Ni;
+    var Nj = uvp.Nj;
+    var dx = px_w/Ni;
+    var dy = px_h/Nj;
+    var dh = Math.min(dx, dy);
+    var umin = 1e10;
+    var vmin = 1e10;
+    var pmin = 1e10;
+    var umax = -1e10;
+    var vmax = -1e10;
+    var pmax = -1e10;
+    var avmax = 0;
+    for(var j=0; j<Nj; ++j){
+      for(var i=0; i<Ni; ++i){
+        var uij = u[i][j];
+        var vij = v[i][j];
+        var pij = p[i][j];
+        var nij = id[i][j];
+        if(nij){
+          var av = Math.sqrt(uij*uij+vij*vij);
+          if(uij < umin) umin = uij;
+          if(vij < vmin) vmin = vij;
+          if(pij < pmin) pmin = pij;
+          if(uij > umax) umax = uij;
+          if(vij > vmax) vmax = vij;
+          if(pij > pmax) pmax = pij;
+          if(av > avmax) avmax = av;
+        }
+      }
+    }
+    var pi2 = Math.PI*2;
+    var rad15 = 15*Math.PI/180;
+    var draw_arrow = function(xs, ys, xe, ye, p){
+      var dx = xe-xs;
+      var dy = ye-ys;
+      var k = 0.5;
+      var dlen = Math.sqrt(dx*dx+dy*dy)*k;
+      var t = Math.atan2(dy, dx);
+      var pn = (p-pmin)/(pmax-pmin);
+      var r255 = 0;
+      var g255 = 0;
+      var b255 = 0;
+      if(pn < 1/3){
+        g255 = 255*pn*3;
+        b255 = 255;
+      }
+      else if(pn < 2/3){
+        r255 = 255*(pn-1/3)*3;
+        g255 = 255;
+      }
+      else{
+        r255 = 255;
+        g255 = 255*(1-pn)*3;
+      }
+      var strokeStyle = "rgb("+r255+","+g255+","+b255+")";
+      var xem = xe-Math.cos(t-rad15)*dlen;
+      var yem = ye-Math.sin(t-rad15)*dlen;
+      var xep = xe-Math.cos(t+rad15)*dlen;
+      var yep = ye-Math.sin(t+rad15)*dlen;
+      ctx.strokeStyle = strokeStyle;
+      ctx.beginPath();
+      ctx.moveTo(xs, ys);
+      ctx.lineTo(xe, ye);
+      ctx.lineTo(xem, yem);
+      ctx.moveTo(xe, ye);
+      ctx.lineTo(xep, yep);
+      ctx.moveTo(xem, yem);
+      ctx.lineTo(xep, yep);
+      ctx.stroke();
+      var draw_line = function(xs, ys, xe, ye){
+        var _svg = "";
+        _svg += "<line";
+        _svg += " x1="+self.quote(self.floor(xs));
+        _svg += " y1="+self.quote(self.floor(ys));
+        _svg += " x2="+self.quote(self.floor(xe));
+        _svg += " y2="+self.quote(self.floor(ye));
+        _svg += "/>";
+        return _svg;
+      };
+      var svg_config = "";
+      svg_config += " stroke="+self.quote(strokeStyle);
+      svg_config += " stroke-width="+self.quote(1);
+      _svg += self.header_group(null, svg_config);
+      _svg += draw_line(xs, ys, xe, ye);
+      _svg += draw_line(xe, ye, xem, yem);
+      _svg += draw_line(xe, ye, xep, yep);
+      _svg += draw_line(xem, yem, xep, yep);
+      _svg += self.rn;
+      _svg += self.footer_group();
+    };
+    ctx.save();
+    for(var i=0; i<Ni; ++i){
+      var xo = (0.5+i)*dx;
+      for(var j=0; j<Nj; ++j){
+        var yo = (0.5+j)*dy;
+        var uij = u[i][j];
+        var vij = v[i][j];
+        var pij = p[i][j];
+        if(uij || vij){
+          var dxij = dh*uij/(avmax || 1);  // || not0
+          var dyij = dh*vij/(avmax || 1);  // || not0
+          draw_arrow(xo, yo, xo+dxij, yo+dyij, pij);
+        }
+      }
+    }
+    ctx.restore();
+  }
+  return _svg;
+};

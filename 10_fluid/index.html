@@ -1,0 +1,397 @@
+<!DOCTYPE html>
+
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="description" content="Incompressible flow">
+  <meta name="author" content="online-simulator.github.io">
+  <noscript>JavaScript is not enabled on browser.</noscript>
+  <link rel="stylesheet" type="text/css" href="../00_common/css/common.css">
+  <link rel="stylesheet" type="text/css" href="../00_common/css/color.css">
+  <link rel="stylesheet" type="text/css" href="../00_common/css/size.css">
+  <link rel="stylesheet" type="text/css" href="css/common.css">
+  <link rel="stylesheet" type="text/css" href="css/color.css">
+  <link rel="stylesheet" type="text/css" href="css/size.css">
+  <script type="text/javascript" src="../00_common/js/000_namespace/000_entry.js"></script>
+  <script type="text/javascript" src="../00_common/js/00_class/000_reference.js"></script>
+  <script type="text/javascript" src="../00_common/js/00_class/00_$.js"></script>
+  <script type="text/javascript" src="../00_common/js/00_class/00_conv.js"></script>
+  <script type="text/javascript" src="../00_common/js/00_class/00_def.js"></script>
+  <script type="text/javascript" src="../00_common/js/00_class/01_math.js"></script>
+  <script type="text/javascript" src="../00_common/js/00_class/01_solver_NS.js"></script>
+  <script type="text/javascript" src="../00_common/js/00_class/01_solver_real.js"></script>
+  <script type="text/javascript" src="../00_common/js/01_driver/01_browser.js"></script>
+  <script type="text/javascript" src="../00_common/js/01_driver/01_canvas.js"></script>
+  <script type="text/javascript" src="../00_common/js/01_driver/01_draw.js"></script>
+  <script type="text/javascript" src="../00_common/js/01_driver/01_draw_canvas.js"></script>
+  <script type="text/javascript" src="../00_common/js/01_driver/01_draw_svg.js"></script>
+  <script type="text/javascript" src="../00_common/js/01_driver/01_drag.js"></script>
+  <script type="text/javascript" src="../00_common/js/01_driver/01_filter.js"></script>
+  <script type="text/javascript" src="../00_common/js/01_driver/01_io.js"></script>
+  <script type="text/javascript" src="../00_common/js/01_driver/01_link.js"></script>
+  <script type="text/javascript" src="../00_common/js/02_handler/02_handler_drag.js"></script>
+  <script type="text/javascript" src="../00_common/js/02_handler/02_handler_history.js"></script>
+  <script type="text/javascript" src="../00_common/js/02_handler/02_handler_link.js"></script>
+  <script type="text/javascript" src="../00_common/js/03_original/03_original_main.js"></script>
+  <script type="text/javascript" src="js/03_pen.js"></script>
+</head>
+
+<body>
+
+<script type="text/javascript">
+  (function(){
+    new My_entry.$().onload(function(e){
+      var $ = new My_entry.$();
+      var options = $.get_urlParams();
+      if(options.sim === "fluid"){
+        $.set_id("checkbox-auto-config", "checked", null);
+        $._id("input-W").value = 4;
+        $._id("input-A").value = 100;
+        $._id("input-w_th").value = 0;
+        $._id("input-len_th").value = 99;
+        $._id("input-dlen").value = 99;
+        $._id("input-in").value = 99;
+        $._id("input-out").value = 99;
+        $._id("input-sh").value = 0;
+        $._id("input-grid-width").value = 20;
+        $._id("input-grid-height").value = 20;
+        $.set_selectVal_id("select-canvas-width", "240px");
+        $.set_selectVal_id("select-canvas-height", "240px");
+        $.set_selectVal_id("select-mosaic", "RGBA");
+        $.set_id("checkbox-with-svg", "checked", "checked");
+        $._id("input-second-url-parameters").value = "";
+        $._id("input-third-url-parameters").value = "";
+        $.hide("#div-dot", true, true);
+      }
+      new My_entry.pen().onload(e);
+    });
+  })();
+</script>
+
+  <div id="div-drag" class="absolute">
+
+<hr>
+<div class="text-center">
+  <label class="left">config
+    <input id="checkbox-config" type="checkbox">
+  </label>
+  <label>mode:
+    <select id="select-mode">
+      <option value="-2">eraser</option>
+      <option value="-1">eraser_A100</option>
+      <option value="0" selected="selected">pen</option>
+      <option value="1">bucket</option>
+      <option value="2">circle</option>
+      <option value="3">rectangle</option>
+      <option value="4">picker</option>
+    </select>
+  </label>
+  <label class="right">draggable
+    <input id="checkbox-drag" type="checkbox">
+  </label>
+</div>
+<hr>
+
+<div>
+<table><tbody>
+<tr><td>
+<div>
+  <input id="checkbox-auto-config" type="checkbox" checked="checked">
+  <label>W:
+<input id="input-W" type="number" class="input-50" min="0" value="16">
+  </label>
+  <label>stabi:
+<input id="input-stabi" type="number" class="input-50" min="0" max="100" step="0.1" value="2.7">
+  </label>
+  <label>RGB:
+<input id="input-RGB" type="color" class="input-100">
+  </label>
+  <label>A:
+<input id="input-A" type="number" class="input-50" min="-100" max="100" value="10">
+  </label>
+  <label>bgcolor:
+<select id="select-bgcolor">
+  <option value="">transparent</option>
+  <option value="black">black</option>
+  <option value="white">white</option>
+</select>
+  </label>
+</div>
+<hr>
+<div id="div-config" class="condition">
+<hr>
+  <label>canvas-width:
+<select id="select-canvas-width">
+  <option value="16">16px</option>
+  <option value="24">24px</option>
+  <option value="32">32px</option>
+  <option value="36">36px</option>
+  <option value="40">40px</option>
+  <option value="48">48px</option>
+  <option value="56">56px</option>
+  <option value="64">64px</option>
+  <option value="72">72px</option>
+  <option value="80">80px</option>
+  <option value="128">128px</option>
+  <option value="160">160px</option>
+  <option value="240">240px</option>
+  <option value="256">256px</option>
+  <option value="320">320px</option>
+  <option value="400">400px</option>
+  <option value="480">480px</option>
+  <option value="512" selected="selected">512px</option>
+  <option value="560">560px</option>
+  <option value="640">640px</option>
+  <option value="720">720px</option>
+  <option value="768">768px</option>
+  <option value="800">800px</option>
+  <option value="880">880px</option>
+  <option value="960">960px</option>
+  <option value="1024">1024px</option>
+  <option value="1040">1040px</option>
+  <option value="1120">1120px</option>
+  <option value="1200">1200px</option>
+  <option value="1280">1280px</option>
+</select>
+  </label>
+  <label>canvas-height:
+<select id="select-canvas-height">
+  <option value="16">16px</option>
+  <option value="24">24px</option>
+  <option value="32">32px</option>
+  <option value="36">36px</option>
+  <option value="40">40px</option>
+  <option value="48">48px</option>
+  <option value="56">56px</option>
+  <option value="64">64px</option>
+  <option value="72">72px</option>
+  <option value="80">80px</option>
+  <option value="128">128px</option>
+  <option value="160">160px</option>
+  <option value="240">240px</option>
+  <option value="256">256px</option>
+  <option value="320">320px</option>
+  <option value="400">400px</option>
+  <option value="480">480px</option>
+  <option value="512" selected="selected">512px</option>
+  <option value="560">560px</option>
+  <option value="640">640px</option>
+  <option value="720">720px</option>
+  <option value="768">768px</option>
+  <option value="800">800px</option>
+  <option value="880">880px</option>
+  <option value="960">960px</option>
+  <option value="1024">1024px</option>
+  <option value="1040">1040px</option>
+  <option value="1120">1120px</option>
+  <option value="1200">1200px</option>
+  <option value="1280">1280px</option>
+</select>
+  </label>
+<hr>
+  <label>cap:
+<select id="select-cap">
+  <option>butt</option>
+  <option selected="selected">round</option>
+  <option>square</option>
+</select>
+  </label>
+  <label>composite:
+<select id="select-composite">
+  <option selected="selected">source-over</option>
+  <option>source-in</option>
+  <option>source-out</option>
+  <option>source-atop</option>
+  <option>destination-over</option>
+  <option>destination-in</option>
+  <option>destination-out</option>
+  <option>destination-atop</option>
+  <option>xor</option>
+  <option>darker</option>
+  <option>lighter</option>
+  <option>copy</option>
+  <option>multiply</option>
+  <option>screen</option>
+  <option>overlay</option>
+  <option>soft-light</option>
+  <option>hard-light</option>
+  <option>color-dodge</option>
+  <option>color-burn</option>
+  <option>darken</option>
+  <option>lighten</option>
+  <option>difference</option>
+  <option>exclusion</option>
+  <option>hue</option>
+  <option>saturation</option>
+  <option>color</option>
+  <option>luminosity</option>
+</select>
+  </label>
+  <label>ox:
+<input id="input-ox" type="number" class="input-50" value="0">
+  </label>
+  <label>oy:
+<input id="input-oy" type="number" class="input-50" value="0">
+  </label>
+<hr>
+  <label>w_th:
+<input id="input-w_th" type="number" class="input-50" min="0" value="3">
+  </label>
+  <label>len_th:
+<input id="input-len_th" type="number" class="input-50" min="0" value="5">
+  </label>
+  <label>dlen:
+<input id="input-dlen" type="number" class="input-50" min="1" value="5">
+  </label>
+  <label>in:
+<input id="input-in" type="number" class="input-50" step="0.1" value="0.4">
+  </label>
+  <label>out:
+<input id="input-out" type="number" class="input-50" step="0.1" value="2">
+  </label>
+  <label>sh:
+<input id="input-sh" type="number" class="input-50" min="-100" value="4">
+&ge;-20(svg)
+  </label>
+<hr>
+  <div class="text-center jF">
+pre/post processing for png
+  </div>
+<hr>
+  <label>snap:
+    <input id="checkbox-snap" type="checkbox">
+  </label>
+  <label>grid-width:
+<input id="input-grid-width" type="number" class="input-50" min="0" step="4" value="0">
+  </label>
+  <label>grid-height:
+<input id="input-grid-height" type="number" class="input-50" min="0" step="4" value="0">
+  </label>
+  <label>mosaic-in-grid:
+<select id="select-mosaic">
+  <option value="0">off</option>
+  <option>RGBA</option>
+  <option>min</option>
+  <option>mean</option>
+  <option>max</option>
+</select>
+  </label>
+  <label>with-svg:
+    <input id="checkbox-with-svg" type="checkbox">
+  </label>
+<hr>
+<div id="div-dot">
+  <label>R:
+<input id="input-png-R255" type="number" class="input-50" min="-1" max="255" value="-1">
+  </label>
+  <label>G:
+<input id="input-png-G255" type="number" class="input-50" min="-1" max="255" value="-1">
+  </label>
+  <label>B:
+<input id="input-png-B255" type="number" class="input-50" min="-1" max="255" value="-1">
+  </label>
+  <label>A:
+<input id="input-png-A100" type="number" class="input-50" min="-1" max="100" value="-1">
+  </label>
+  <button id="flat_low" class="jF">flat_low</button>
+  <button id="flat_all" class="jF">flat_all</button>
+  <button id="flat_upp" class="jF">flat_upp</button>
+<hr>
+  <label>second-url-parameters:
+<input id="input-second-url-parameters" type="text" value="fontFamily=Times New Roman&fontSize=32&isBold=true&isItalic=true&fillStyle=#00ff0077&strokeStyle=rgba(255,255,0,0.5)&fillStr=&spacingX=&spacingY=&offsetX=&offsetY=&blur=&deg0=&isReverse=&lineWidth=3&bgcolor_=&gridColor=&gridWidth=">
+  </label>
+  <label>text-draw:<a href="../01_calc_simple/manual.html#span-out-UI-graphing-string-path" target="_blank" rel="noopener noreferrer">[manual]Calculator</a>
+<input id="input-text-draw" type="text" value="abcdefghijklmnopqrstuvwxyz0123456789">
+  </label>
+  <div class="right">
+    <button id="draw" class="input-50 run">draw</button>
+  </div>
+<hr>
+  <label>third-url-parameters:
+<input id="input-third-url-parameters" type="text" value="x0=c&y0=c&offsetR=0.2&orderR=1&NrandR=0&NrandT=10&isMin=true&isRound=true&Nrender=2560&Ncycle=3&isCyclic=true&isSquare=false&x_asym=&y_asym=&k_asym=&Nrad_asym=">
+  </label>
+  <label>colors-gradation:<a href="../01_calc_simple/manual.html#span-out-UI-graphing-gradation" target="_blank" rel="noopener noreferrer">[manual]Calculator</a>
+<input id="input-colors-gradation" type="text" value="#ee82ee00:#ee82eeaa:#0000ffaa:#00ffffaa:#00ff00aa:#ffff00aa:#ffa500aa:#ff0000aa:#ff000000">
+  </label>
+  <div class="right">
+    <button id="put" class="input-50 run">put</button>
+  </div>
+<br>
+  <label>strengths-blur:<a href="../01_calc_simple/manual.html#span-out-UI-graphing-blur" target="_blank" rel="noopener noreferrer">[manual]Calculator</a>
+<input id="input-strengths-blur" type="text" value="10:0:10:0:10:0:10:0:10:0:10:0">
+  </label>
+  <div class="right">
+    <button id="blur" class="input-100 run">blur-heavy</button>
+  </div>
+<hr>
+  <label>text-filter:<a href="../01_calc_simple/manual.html#span-out-UI-graphing-filter-list" target="_blank" rel="noopener noreferrer">[manual]Calculator</a>
+<input id="input-text-filter" type="text" value="rgb[-1]:rgb[-1,-1,-1,-1,8,-1,-1,-1,-1]:mono[0]:to2_rgba[30]">
+  </label>
+  <div class="right">
+    <button id="run" class="input-50 run">run</button>
+  </div>
+<hr>
+</div>
+  <label>fg-image-file:
+    <input id="input-file-fg" type="file" class="jF">
+  </label>
+<br>
+  <label>bg-image-file:
+    <input id="input-file-bg" type="file" class="jF">
+  </label>
+<hr>
+</div>
+<hr>
+  <label>pressure:
+    <input id="checkbox-pressure" type="checkbox">
+  </label>
+  <label>black:
+    <input id="checkbox-black" type="checkbox">
+  </label>
+  <span id="wrapper-link-png"></span>
+  <span id="wrapper-link-svg"></span>
+  <span id="span-fileSize-svg"></span>
+  <div class="right">
+    <button id="<<" class="input-50 selection">&lt;&lt;</button>
+    <button id=">>" class="input-50 selection">&gt;&gt;</button>
+    <button id="clear" class="input-50 clear">clear</button>
+  </div>
+<hr>
+  <label>Re:
+<input id="input-Re" type="number" class="input-50" step="50" value="500">
+  </label>
+  <label>Ndt:
+<input id="input-Ndt" type="number" class="input-50" value="5">
+  </label>
+  <label>t:
+<input id="input-time" class="input-50" readonly="readonly">
+  </label>
+  <label>c:
+<input id="input-cont" class="input-50" readonly="readonly">
+  </label>
+  <label>scheme:
+<select id="select-order_upstream">
+  <option value="3">Order3</option>
+  <option value="1">Order1</option>
+</select>
+  </label>
+  <button id="start" class="input-50 run">start</button>
+  <button id="stop" class="input-50 clear">stop</button>
+<hr>
+  <div id="div-canvas" class="relative">
+    <canvas id="canvas-bg" class="absolute"></canvas>
+    <canvas id="canvas-mg" class="absolute"></canvas>
+    <canvas id="canvas-fg" class="absolute"></canvas>
+  </div>
+<hr>
+</td></tr>
+</tbody></table>
+</div>
+<hr>
+
+  </div>
+
+</body>
+
+</html>

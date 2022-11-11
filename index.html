@@ -21,7 +21,7 @@
     var $ = new My_entry.$();
     $.onload(function(e){
       $._id("VERSION").textContent = My_entry.VERSION;
-      ["calc", "wave", "pen", "else"].forEach(function(name){
+      ["calc", "fluid", "wave", "pen", "else"].forEach(function(name){
         $._id("Ver-"+name).textContent = My_entry.Ver[name];
       });
       $.onbeforeunload(function(e){});
@@ -74,6 +74,20 @@ Calculator
     </td>
     <td>
 <span id="Ver-calc"></span>
+    </td>
+  </tr>
+  <tr>
+    <th class="jF">
+Visualiser
+    </th>
+    <td>
+<a title="Incompressible flow" href="10_fluid/index.html?sim=fluid">Incompressible flow</a>
+    </td>
+    <td>
+Now testing...
+    </td>
+    <td>
+<span id="Ver-fluid"></span>
     </td>
   </tr>
   <tr>
@@ -196,6 +210,28 @@ Y/M/D
   </tr>
 </thead>
 <tbody>
+  <tr>
+    <th>
+6.155.71.12.40
+    </th>
+    <td class="types">
+Visualiser
+    </td>
+    <td>
+1.0.0
+    </td>
+    <td>
+major update
+    </td>
+    <td>
+[Incompressible flow]
+<br>
+・first release
+    </td>
+    <td>
+2022/11/11
+    </td>
+  </tr>
   <tr>
     <th>
 5.155.71.12.40
