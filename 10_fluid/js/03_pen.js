@@ -958,6 +958,7 @@ My_entry.pen.prototype.init_handlers = function(){
           var n = 0;
           var callback = function(){
             var hasError = false;
+            var nmax = options.nmax || 1000;
             var dn = 10;
             try{
               solver.FS2d({Re: options.Re, dt: uvp.dtmax/options.Ndt, Nnt: dn, order_upstream: options.order_upstream}, uvp);
@@ -970,10 +971,12 @@ My_entry.pen.prototype.init_handlers = function(){
               var cont_isNaN = isNaN(cont);
               $._id("input-time").value = uvp.t;
               $._id("input-cont").value = cont;
-              var isFinal = hasError || cont_isNaN || (++n >= 1000);
-              if(isFinal){
+              if(hasError || cont_isNaN){
                 self.reset_canvas_grid();
                 self.uvp = null;
+                self.isLocked = false;
+              }
+              else if(++n >= nmax){
                 self.isLocked = false;
               }
               else{
