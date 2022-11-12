@@ -294,12 +294,14 @@ My_entry.pen.prototype.reset_canvas_grid = function(){
   var hasGrid = (dxg > 0 && dyg > 0);
   if(hasGrid){
     var rgba = mg.draw.color2rgba(options.bgcolor);
-    var gridWidth = options.gridWidth || 0.5;
-    var gridColor = options.gridColor || ((rgba.a > 255/2 && rgba.r+rgba.g+rgba.b < 255*3/2)? "#ffffff55": "#00000033");
+    /* Ver.1.50.9 -> */
+    var gridLineWidth = options.gridLineWidth || 0.5;
+    var gridLineColor = options.gridLineColor || ((rgba.a > 255/2 && rgba.r+rgba.g+rgba.b < 255*3/2)? "#ffffff55": "#00000033");
     mg.ctx.save();
-    mg.draw_lines_grid(dxg, dyg, gridWidth, gridColor);  // Ver.1.10.4
-    mg.draw.line({x: 0, y: px_h/2}, {x: px_w, y: px_h/2}, gridWidth, gridColor);
-    mg.draw.line({x: px_w/2, y: 0}, {x: px_w/2, y: px_h}, gridWidth, gridColor);
+    mg.draw_lines_grid(dxg, dyg, gridLineWidth, gridLineColor);  // Ver.1.10.4
+    mg.draw.line({x: 0, y: px_h/2}, {x: px_w, y: px_h/2}, gridLineWidth, gridLineColor);
+    mg.draw.line({x: px_w/2, y: 0}, {x: px_w/2, y: px_h}, gridLineWidth, gridLineColor);
+    /* -> Ver.1.50.9 */
     mg.ctx.restore();
   }
   /* -> Ver.1.37.7 */
