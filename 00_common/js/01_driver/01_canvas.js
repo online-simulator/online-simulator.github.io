@@ -587,14 +587,14 @@ My_entry.canvas.prototype.draw_lines_grid = function(dx, dy, opt_lineWidth, opt_
     var Ni = Math.ceil(px_w/dx);
     var Nj = Math.ceil(px_h/dy);
     ctx.save();
-    for(var i=0; i<Ni; ++i){
+    for(var i=0; i<Ni+1; ++i){  // 1.51.8
       var xi = dx*i;
       ctx.beginPath();
       ctx.moveTo(xi, 0);
       ctx.lineTo(xi, px_h);
       ctx.stroke();
     }
-    for(var j=0; j<Nj; ++j){
+    for(var j=0; j<Nj+1; ++j){  // 1.51.8
     /* -> 1.46.8 */
       var yj = dy*j;
       ctx.beginPath();
