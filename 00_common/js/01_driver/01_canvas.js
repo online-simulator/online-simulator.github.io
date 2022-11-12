@@ -560,8 +560,12 @@ My_entry.canvas.prototype.make_uvp = function(dx, dy, opt_ID){
         }
       }
     }
-    var dxi = 1/Ni;
-    var dyi= (rdy/rdx)*dxi;
+    /* 1.50.8 -> */
+//    var dxi = 1/Ni;
+//    var dyi= (rdy/rdx)*dxi;
+    var dyi= 1/Nj;
+    var dxi = (rdx/rdy)*dyi;
+    /* -> 1.50.8 */
     var uC = 1;
     var dtmax = Math.min(dxi, dyi)/uC;
     _obj = {u: u, v: v, ud: ud, vd: vd, p: p, p0: p0, id: id, hasP0: hasP0, i_unknowns: i_unknowns, j_unknowns: j_unknowns, Ni: Ni, Nj: Nj, len0: i_unknowns.length, dx: dxi, dy: dyi, dtmax: dtmax, t: 0, cmax: 0};
