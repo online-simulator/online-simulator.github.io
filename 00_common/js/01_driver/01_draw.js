@@ -538,6 +538,10 @@ My_entry.draw.prototype.uvp = function(uvp){
     var draw_arrow = function(xs, ys, xe, ye, p){
       var dx = xe-xs;
       var dy = ye-ys;
+      /* 1.52.8 -> */
+      dx *= uvp._k_arrow;
+      dy *= uvp._k_arrow;
+      /* -> 1.52.8 */
       var k = 0.5;
       var dlen = Math.sqrt(dx*dx+dy*dy)*k;
       var t = Math.atan2(dy, dx);

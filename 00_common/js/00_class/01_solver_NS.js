@@ -363,6 +363,19 @@ My_entry.solver_NS.prototype.FS2d = function(options, uvp){
     mA.push.apply(mA, mAij);
     nA.push.apply(nA, nAij);
   };
+  // fluid-Ver.1.3.0
+  var eval_qtotal = function(){
+    var qtotal_x = -(u[0][0]+u[0][Nj-1])+(u[Ni-1][0]+u[Ni-1][Nj-1]);
+    for(var j=1; j<Nj-1; ++j){
+      qtotal_x += (-u[0][j]+u[Ni-1][j])*2;
+    }
+    var qtotal_y = -(v[0][0]+v[Ni-1][0])+(v[0][Nj-1]+v[Ni-1][Nj-1]);
+    for(var i=1; i<Ni-1; ++i){
+      qtotal_y += (-v[i][0]+v[i][Nj-1])*2;
+    }
+    var _qtotal = qtotal_x*dy/2+qtotal_y*dx/2;  // Order2
+    return _qtotal;
+  };
   var c = [];
   var b = [];
   var aA = [];
@@ -395,7 +408,8 @@ My_entry.solver_NS.prototype.FS2d = function(options, uvp){
       p[i][j] = x[iu+len1];
     }
     uvp.t += dt;
-    uvp.cmax = (Math.max.apply(Math, c)).toExponential(0);
+    uvp.qtotal = eval_qtotal();  // fluid-Ver.1.3.0
+    uvp.cmax = Math.max.apply(Math, c);
     if(isNaN(uvp.cmax)) break;
   }
   return self;
