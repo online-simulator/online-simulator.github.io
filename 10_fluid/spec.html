@@ -1,0 +1,487 @@
+<!DOCTYPE html>
+
+<html lang="ja">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="description" content="[spec]Incompressible flow">
+  <meta name="author" content="online-simulator.github.io">
+  <noscript>JavaScript is not enabled on browser.</noscript>
+  <link rel="stylesheet" type="text/css" href="../00_common/css/common.css">
+  <link rel="stylesheet" type="text/css" href="../00_common/css/color.css">
+  <link rel="stylesheet" type="text/css" href="../00_common/css/size.css">
+  <link rel="stylesheet" type="text/css" href="css/common.css">
+  <link rel="stylesheet" type="text/css" href="css/color.css">
+  <link rel="stylesheet" type="text/css" href="css/size.css">
+</head>
+
+<body>
+  <div class="absolute">
+    <table class="border">
+      <caption>[test]solverの応用例（解法のstep1）</caption>
+      <thead>
+        <tr class="border">
+          <th class="border">
+項目
+          </th>
+          <th class="border">
+内容
+          </th>
+          <th class="border">
+実装
+          </th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr class="border">
+          <td class="border">
+対象
+          </td>
+          <td class="border">
+流体流れの数値simulation
+          </td>
+          <td class="border">
+          </td>
+        </tr>
+        <tr class="border">
+          <td class="border">
+流体の種類
+          </td>
+          <td class="border">
+非圧縮性のNewton流体
+          </td>
+          <td class="border">
+動粘度=粘性係数/密度=const.
+          </td>
+        </tr>
+        <tr class="border">
+          <td class="border">
+保存則
+          </td>
+          <td class="border">
+無次元のNavier-Stokes方程式
+<br>
+無次元の連続の式（質量保存の式）
+          </td>
+          <td class="border">
+          </td>
+        </tr>
+        <tr class="border">
+          <td class="border">
+解法
+          </td>
+          <td class="border">
+Fractional Step法（FS法）
+          </td>
+          <td class="border">
+step0.5: 圧力項なしの非線形方程式から中間速度を陽的に算出
+<br>
+step1: 線形な連立方程式から次の時間stepの未知変数を陰的に求解
+          </td>
+        </tr>
+        <tr class="border">
+          <td class="border">
+格子
+          </td>
+          <td class="border">
+2次元等間隔直交格子
+          </td>
+          <td class="border">
+client座標(x,y)を規格化
+          </td>
+        </tr>
+        <tr class="border">
+          <td class="border">
+要素
+          </td>
+          <td class="border">
+1個のgridの計算領域
+          </td>
+          <td class="border">
+          </td>
+        </tr>
+        <tr class="border">
+          <td class="border">
+既知要素
+          </td>
+          <td class="border">
+rgbaで条件を指定する要素
+          </td>
+          <td class="border">
+a&gt;0
+          </td>
+        </tr>
+        <tr class="border">
+          <td class="border">
+未知要素
+          </td>
+          <td class="border">
+未知変数を定義する要素
+          </td>
+          <td class="border">
+a=0
+          </td>
+        </tr>
+        <tr class="border">
+          <td class="border">
+未知変数
+          </td>
+          <td class="border">
+速度(u,v)
+<br>
+圧力p
+          </td>
+          <td class="border">
+          </td>
+        </tr>
+        <tr class="border">
+          <td class="border">
+未知変数の定義点
+          </td>
+          <td class="border">
+集中格子（要素中心）
+          </td>
+          <td class="border" rowspan="2">
+一般的な有限体積法によるFS法と比較して、
+<br>
+境界条件や保存量の評価手法が異なる
+          </td>
+        </tr>
+        <tr class="border">
+          <td class="border">
+離散化手法
+          </td>
+          <td class="border">
+<a title="Graphing Calculator" href="../01_calc_simple/manual.html#span-out-fdm">有限差分法</a>
+          </td>
+        </tr>
+        <tr class="border">
+          <td class="border">
+領域外の境界条件
+          </td>
+          <td class="border">
+(u,v,p)のNeumann条件
+          </td>
+          <td class="border">
+境界の法線方向n
+<br>
+du/dn=dv/dn=dp/dn=0
+          </td>
+        </tr>
+        <tr class="border">
+          <td class="border">
+既知要素の境界条件
+          </td>
+          <td class="border">
+(u,v)のDirichlet条件
+<br>
+pのNeumann条件
+          </td>
+          <td class="border">
+(u,v)=(r/255,g/255)
+<br>
+dp/dn=0
+          </td>
+        </tr>
+        <tr class="border">
+          <td class="border">
+対流項scheme@step0.5
+          </td>
+          <td class="border">
+1||3次精度の上流差分
+          </td>
+          <td class="border" rowspan="2">
+scheme=Order1||Order3
+          </td>
+        </tr>
+        <tr class="border">
+          <td class="border">
+粘性項@step0.5
+          </td>
+          <td class="border">
+2||4次精度の中心差分
+          </td>
+        </tr>
+        <tr class="border">
+          <td class="border">
+時間積分@step0.5
+          </td>
+          <td class="border">
+2次精度のAdams-Bashforth法
+          </td>
+          <td class="border">
+          </td>
+        </tr>
+        <tr class="border">
+          <td class="border">
+連続の式||圧力項@step1
+          </td>
+          <td class="border">
+2次精度の中心差分
+          </td>
+          <td class="border">
+4次精度は未実装
+          </td>
+        </tr>
+      </tbody>
+    </table>
+<br>
+    <table class="border">
+      <caption>設定</caption>
+      <thead>
+        <tr class="border">
+          <th class="border">
+項目
+          </th>
+          <th class="border">
+内容
+          </th>
+          <th class="border">
+実装
+          </th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr class="border">
+          <td class="border">
+i=0~Ni-1
+          </td>
+          <td class="border">
+x方向の要素index
+          </td>
+          <td class="border">
+          </td>
+        </tr>
+        <tr class="border">
+          <td class="border">
+j=0~Nj-1
+          </td>
+          <td class="border">
+y方向の要素index
+          </td>
+          <td class="border">
+          </td>
+        </tr>
+        <tr class="border">
+          <td class="border">
+Ni=1~
+          </td>
+          <td class="border">
+x方向の要素数
+          </td>
+          <td class="border">
+Ni=ceil(canvasWidth/round(gridWidth))
+          </td>
+        </tr>
+        <tr class="border">
+          <td class="border">
+Nj=1~
+          </td>
+          <td class="border">
+y方向の要素数
+          </td>
+          <td class="border">
+Nj=ceil(canvasHeight/round(gridHeight))
+<br>
+割り切れない場合、pre/post表示の座標に乖離あり
+          </td>
+        </tr>
+        <tr class="border">
+          <td class="border">
+dx<span class="clear"><del>=1/Ni</del></span>
+<br>
+<span class="clear">Ver.1.1.0変更</span>
+          </td>
+          <td class="border">
+x方向の無次元grid刻み幅
+          </td>
+          <td class="border">
+<span class="clear"><del>x方向の全長=1</del></span>
+<br>
+<span class="clear">dx=dy*round(gridWidth)/round(gridHeight)</span>
+          </td>
+        </tr>
+        <tr class="border">
+          <td class="border">
+dy<span class="clear">=1/Nj</span>
+<br>
+<span class="clear">Ver.1.1.0変更</span>
+          </td>
+          <td class="border">
+y方向の無次元grid刻み幅
+          </td>
+          <td class="border">
+<span class="clear">y方向の全長=1</span>
+<br>
+<span class="clear"><del>dy=dx*round(gridHeight)/round(gridWidth)</del></span>
+          </td>
+        </tr>
+        <tr class="border">
+          <td class="border">
+rgba=0~255
+          </td>
+          <td class="border">
+pixelのRGBA
+          </td>
+          <td class="border">
+要素左上のpixelを判定
+<br>
+a=0 -> 未知要素
+<br>
+a&gt;0 -> 既知要素
+          </td>
+        </tr>
+        <tr class="border">
+          <td class="border">
+(u,v)=(r/255,g/255)
+          </td>
+          <td class="border">
+無次元速度vector
+          </td>
+          <td class="border">
+blackを含むr=g=0で壁指定
+          </td>
+        </tr>
+        <tr class="border">
+          <td class="border">
+p
+          </td>
+          <td class="border">
+無次元圧力
+          </td>
+          <td class="border">
+p=0@b=255（b=255未定義時、右下の未知要素p=0）
+          </td>
+        </tr>
+        <tr class="border">
+          <td class="border">
+t
+          </td>
+          <td class="border">
+無次元時間
+          </td>
+          <td class="border">
+          </td>
+        </tr>
+        <tr class="border">
+          <td class="border">
+Re
+          </td>
+          <td class="border">
+Reynolds数
+          </td>
+          <td class="border">
+y方向の全長=1と(u,v)から実際の問題に換算が必要
+<br>
+完全流体に近い場合、時間刻みの最小化が必要
+<br>
+Re≒1 -> Ndt&gt;&gt;100
+          </td>
+        </tr>
+        <tr class="border">
+          <td class="border">
+Ndt
+          </td>
+          <td class="border">
+dtmaxの分割数
+          </td>
+          <td class="border">
+          </td>
+        </tr>
+        <tr class="border">
+          <td class="border">
+dt
+          </td>
+          <td class="border">
+時間発展の時間刻み
+          </td>
+          <td class="border">
+dt=dtmax/Ndt
+          </td>
+        </tr>
+        <tr class="border">
+          <td class="border">
+dtmax
+          </td>
+          <td class="border">
+CFL条件を満たす時間刻み最大値
+          </td>
+          <td class="border">
+dtmax=min(dx,dy)/1
+          </td>
+        </tr>
+        <tr class="border">
+          <td class="border">
+c
+<br>
+<span class="clear">Ver.1.3.0削除</span>
+          </td>
+          <td class="border">
+全要素の保存量（連続の式）最大値
+          </td>
+          <td class="border">
+<span class="clear">厳密な評価困難で流量qの指標を採用</span>
+          </td>
+        </tr>
+        <tr class="border">
+          <td class="border">
+q
+<br>
+<span class="run">Ver.1.3.0追加</span>
+          </td>
+          <td class="border">
+領域外境界の流量保存量
+<br>
+=流出量-流入量
+          </td>
+          <td class="border">
+2次精度の<a title="Graphing Calculator" href="../01_calc_simple/manual.html#span-out-fdm-integral">数値積分</a>
+          </td>
+        </tr>
+        <tr class="border">
+          <td class="border">
+scheme
+          </td>
+          <td class="border">
+差分精度次数の選択
+          </td>
+          <td class="border">
+          </td>
+        </tr>
+        <tr class="border">
+          <td class="border">
+start
+          </td>
+          <td class="border">
+計算開始/再開button
+          </td>
+          <td class="border">
+          </td>
+        </tr>
+        <tr class="border">
+          <td class="border">
+stop
+          </td>
+          <td class="border">
+計算一時停止button
+          </td>
+          <td class="border">
+          </td>
+        </tr>
+        <tr class="border">
+          <td class="border">
+k_arrow
+          </td>
+          <td class="border">
+(u,v)のpost表示用の係数
+          </td>
+          <td class="border">
+矢印部分のsize倍率（終点基準）
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</body>
+
+</html>
