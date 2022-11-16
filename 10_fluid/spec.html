@@ -18,7 +18,7 @@
 <body>
   <div class="absolute">
     <table class="border">
-      <caption>[test]solverの応用例（解法のstep1）</caption>
+      <caption><span class="selection">[test]solverの応用例（解法のstep1）</span></caption>
       <thead>
         <tr class="border">
           <th class="border">
@@ -67,16 +67,18 @@
           </td>
         </tr>
         <tr class="border">
-          <td class="border">
+          <td class="border selection">
 解法
           </td>
           <td class="border">
 Fractional Step法（FS法）
           </td>
           <td class="border">
+step0: 現在の未知変数を更新
+<br>
 step0.5: 圧力項なしの非線形方程式から中間速度を陽的に算出
 <br>
-step1: 線形な連立方程式から次の時間stepの未知変数を陰的に求解
+<span class="selection">step1: 線形な連立方程式から次の時間stepの未知変数を陰的に求解</span>
           </td>
         </tr>
         <tr class="border">
@@ -144,7 +146,7 @@ a=0
           <td class="border" rowspan="2">
 一般的な有限体積法によるFS法と比較して、
 <br>
-境界条件や保存量の評価手法が異なる
+境界条件や保存量の評価手法が異なる（厳密さより簡潔さを優先）
           </td>
         </tr>
         <tr class="border">
@@ -372,10 +374,6 @@ Reynolds数
           </td>
           <td class="border">
 y方向の全長=1と(u,v)から実際の問題に換算が必要
-<br>
-完全流体に近い場合、時間刻みの最小化が必要
-<br>
-Re≒1 -> Ndt&gt;&gt;100
           </td>
         </tr>
         <tr class="border">
@@ -386,6 +384,9 @@ Ndt
 dtmaxの分割数
           </td>
           <td class="border">
+完全流体に近い場合、時間刻みの最小化が必要
+<br>
+Re≒1 -> Ndt&gt;&gt;100
           </td>
         </tr>
         <tr class="border">
