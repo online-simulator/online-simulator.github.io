@@ -18,7 +18,7 @@
 <body>
   <div class="absolute">
     <table class="border">
-      <caption>筆penの設定</caption>
+      <caption>定義</caption>
       <thead>
         <tr class="border">
           <th class="border">
@@ -33,11 +33,6 @@
         </tr>
       </thead>
       <tbody>
-        <tr class="border">
-          <td class="border text-center condition" colspan="3">
-定義
-          </td>
-        </tr>
         <tr class="border">
           <td class="border">
 w=0~W[px]
@@ -412,11 +407,25 @@ pixelのRGBA
           <td class="border">
           </td>
         </tr>
+      </tbody>
+    </table>
+<br>
+    <table class="border">
+      <caption>URL-parameter</caption>
+      <thead>
         <tr class="border">
-          <td class="border text-center selection" colspan="3">
-URL-parameter
-          </td>
+          <th class="border">
+項目
+          </th>
+          <th class="border">
+内容
+          </th>
+          <th class="border">
+実装
+          </th>
         </tr>
+      </thead>
+      <tbody>
         <tr class="border selection">
           <td class="border">
 history_len_max=1~10000
@@ -763,16 +772,30 @@ clear=Digit1
 ・HEX形式は使用不可（#000等）
 <br>
 <br>
-以降のUIよりURL-parameterを優先
+以降のUI設定値よりURL-parameterを優先
 <br>
 <span class="clear">・second-url-parametersはHEX形式の色指定可</span>
           </td>
         </tr>
+      </tbody>
+    </table>
+<br>
+    <table class="border">
+      <caption>UI設定</caption>
+      <thead>
         <tr class="border">
-          <td class="border text-center run" colspan="3">
-UI
-          </td>
+          <th class="border">
+項目
+          </th>
+          <th class="border">
+内容
+          </th>
+          <th class="border">
+実装
+          </th>
         </tr>
+      </thead>
+      <tbody>
         <tr class="border">
           <td class="border">
 mode=pen||bucket||...
@@ -1366,7 +1389,7 @@ grid-height=0~[px]
 <br>
 <span class="selection">Ver.1.51.9更新</span>
 <br>
-<span class="jF">Ver.1.52.10更新</span>
+<span class="jF">Ver.1.52.10修正</span>
           </td>
           <td class="border">
 grid表示機能
