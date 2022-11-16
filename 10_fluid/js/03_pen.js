@@ -236,6 +236,7 @@ My_entry.pen.prototype.make_svg_lines = function(){
   return _svg;
 };
 /* -> Ver.1.2.0 */
+/* Ver.1.52.10 */
 /* Ver.1.11.4 */
 My_entry.pen.prototype.change_size = function(px_w, px_h){
   var self = this;
@@ -243,11 +244,15 @@ My_entry.pen.prototype.change_size = function(px_w, px_h){
   var fg = self.objs.fg;
   var mg = self.objs.mg;  // Ver.1.10.2
   var bg = self.objs.bg;  // Ver.1.7.1
+  $._id("input-canvas-width").value = px_w;
+  $._id("input-canvas-height").value = px_h;
+  self.update_options();
   $.set_id("div-canvas", "width", (1+px_w+1)+"px");  // Ver.1.10.3
   $.set_id("div-canvas", "height", (1+px_h+1)+"px");
   fg.change_size(px_w, px_h);
   mg.change_size(px_w, px_h);  // Ver.1.10.2
   bg.change_size(px_w, px_h);
+  self.reset_canvas_grid();
   return self;
 };
 My_entry.pen.prototype.reset_canvas = function(){
@@ -275,7 +280,6 @@ My_entry.pen.prototype.reset_canvas = function(){
   self.handler_history_svg.save(self.make_svg_header());  // Ver.1.2.0
   $._id("input-file-fg").value = null;  // Ver.1.11.4
   $._id("input-file-bg").value = null;  // Ver.1.8.1
-  self.reset_canvas_grid();  // Ver.1.10.2
   return self;
 };
 /* Ver.1.10.2 */
@@ -1053,8 +1057,8 @@ My_entry.pen.prototype.init_handlers = function(){
           self.update_options();  // including URL-parameter
         }
         break;
-      case "select-canvas-width":
-      case "select-canvas-height":
+      case "input-canvas-width":  // Ver.1.52.10
+      case "input-canvas-height":  // Ver.1.52.10
       case "select-bgcolor":  // Ver.1.7.1
       case "input-second-url-parameters":  // Ver.1.39.7  // Ver.1.41.8
       case "input-third-url-parameters":  // Ver.1.42.8
