@@ -40,7 +40,9 @@
 <tr><td>
 更新履歴：
 <br>
-・<span class="run">Ver.2.133.35</span>以降、coo形式sizeの丸め処理と制限を追加（1&le;round(size)&le;1000）
+・<span class="run">Ver.2.133.35</span>以降、COO形式sizeの丸め処理と制限を追加（1&le;round(size)&le;1000）
+<br>
+・<span class="selection">fluid-Ver.1.4.0</span>以降、COO形式⇒LIL形式に変換して解くcheckboxを追加
 </td></tr>
 <tr><td>
 入力A：係数行列（1000文字以内）
@@ -82,6 +84,7 @@ x=<button id="Gauss" class="run">Gauss(A,b)</button>
     </td>
     <td class="input-300">
 x=<button id="Gauss_coo" class="run">Gauss_coo(aA:mA:nA:trans(b))</button>
+<label class="selection"><input id="checkbox-lil" type="checkbox">:LIL</label>
 <textarea id="textarea-output1" readonly="readonly" rows="10"></textarea>
     </td>
   </tr>

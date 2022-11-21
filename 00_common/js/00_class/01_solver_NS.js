@@ -398,7 +398,7 @@ My_entry.solver_NS.prototype.FS2d = function(options, uvp){
       set_coo(i, j);
     }
     x.length = 0;
-    solver.gaussian_coo(options, {b: b, aA: aA, mA: mA, nA: nA, x: x});
+    solver.gaussian_lil(options, {b: b, aA: aA, mA: mA, nA: nA, x: x});  // fluid-Ver.1.4.0
     for(var nu=0; nu<len0; ++nu){
       var i = i_unknowns[nu];
       var j = j_unknowns[nu];

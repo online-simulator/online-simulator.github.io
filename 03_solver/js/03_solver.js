@@ -190,7 +190,7 @@ My_entry.test_solver.prototype.init_handlers = function(){
             var len_m = Math.max.apply(Math, obj.mA);
             var len_n = Math.max.apply(Math, obj.nA);
             if(len_m > len_b || len_n > len_b) throw "Invalid size-m,n,b="+len_m+","+len_n+","+len_b;
-            self.solver.gaussian_coo({}, obj);
+            self.solver[($._id("checkbox-lil").checked)? "gaussian_lil": "gaussian_coo"]({}, obj);
             self.elem_o1.value = (String(obj.x).split(",")).join(",\n");
           }
           catch(e){
