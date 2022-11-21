@@ -146,7 +146,7 @@ a=0
           <td class="border" rowspan="2">
 一般的な有限体積法によるFS法と比較して、
 <br>
-境界条件や保存量の評価手法が異なる（厳密さより簡潔さを優先）
+境界条件や保存量の評価手法が異なる（解の厳密さよりcodeの簡潔さを優先）
           </td>
         </tr>
         <tr class="border">
@@ -190,10 +190,12 @@ dp/dn=0
 対流項scheme@step0.5
           </td>
           <td class="border">
-1||3次精度の上流差分
+1||3次精度の上流差分（非保存型）
           </td>
           <td class="border" rowspan="2">
 scheme=Order1||Order3
+<br>
+制御処理を多少低減するため、scheme関数を切替
           </td>
         </tr>
         <tr class="border">
