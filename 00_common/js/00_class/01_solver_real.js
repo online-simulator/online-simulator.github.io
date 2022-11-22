@@ -260,7 +260,7 @@ My_entry.solver_real.prototype.gaussian_lil = function(options, obj_Axb){
     self.gaussian_lil_backward(options, obj_Axb);
   }
   catch(e){
-    throw "Invalid gauss_coo2mat";
+    throw "Invalid gauss_lil2mat";
   }
   return self;
 };

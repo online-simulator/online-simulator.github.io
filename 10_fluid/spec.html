@@ -41,6 +41,7 @@
 流体流れの数値simulation
           </td>
           <td class="border">
+解の厳密さよりcodeの簡潔さを優先
           </td>
         </tr>
         <tr class="border">
@@ -64,6 +65,9 @@
 無次元の連続の式（質量保存の式）
           </td>
           <td class="border">
+直接、連立方程式のJacobi行列を構成して反復法で解くのは困難であり、
+<br>
+圧力の楕円型方程式を構成する等、安定な解法が工夫される
           </td>
         </tr>
         <tr class="border">
@@ -84,14 +88,11 @@ step0.5: 圧力項なしの非線形方程式から中間速度を陽的に算�
         <tr class="border">
           <td class="border selection">
 solver@step1
-<br>
-<span class="run">Ver.1.4.0追加</span>
           </td>
           <td class="border">
 <a href="../01_calc_simple/manual.html#span-out-linear">Gaussの消去法</a>
           </td>
           <td class="border">
-COO形式<span class="run">⇒LIL形式（制御処理を低減）</span>
           </td>
         </tr>
         <tr class="border">
@@ -160,7 +161,7 @@ a=0
           <td class="border" rowspan="2">
 一般的な有限体積法によるFS法と比較して、
 <br>
-境界条件や保存量の評価手法が異なる（解の厳密さよりcodeの簡潔さを優先）
+境界条件や保存量の評価手法が異なる
           </td>
         </tr>
         <tr class="border">
@@ -208,8 +209,6 @@ dp/dn=0
           </td>
           <td class="border" rowspan="2">
 scheme=Order1||Order3
-<br>
-制御処理を多少低減するため、scheme関数を切替
           </td>
         </tr>
         <tr class="border">
@@ -238,7 +237,37 @@ scheme=Order1||Order3
 2次精度の中心差分
           </td>
           <td class="border">
-4次精度は未実装
+<span class="clear">4次精度は未実装</span>
+          </td>
+        </tr>
+        <tr class="border">
+          <td class="border">
+最適化
+<br>
+<span class="run">Ver.1.4.0追加</span>
+          </td>
+          <td class="border" rowspan="2">
+演算量||制御処理の低減
+          </td>
+          <td class="border">
+差分式の演算
+<br>
+・除算を含む係数をまとめて乗算に変換
+<br>
+<br>
+schemeの切替
+<br>
+・if文を削除（関数で切替）
+<br>
+<br>
+境界条件の切替
+<br>
+・if文で切替（<span class="clear">関数で切替は未実装</span>）
+<br>
+<br>
+solver
+<br>
+・COO形式<span class="run">⇒LIL形式</span>
           </td>
         </tr>
       </tbody>
