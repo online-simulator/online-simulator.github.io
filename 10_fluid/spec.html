@@ -78,7 +78,7 @@
 Fractional Step法（FS法）
           </td>
           <td class="border">
-step0: 現在の未知変数を更新
+step0: 現在の時間stepの未知変数を更新
 <br>
 step0.5: 圧力項なしの非線形方程式から中間速度を陽的に算出
 <br>
@@ -208,8 +208,8 @@ dp/dn=0
           <td class="border">
 1||3次精度の上流差分（非保存型）
           </td>
-          <td class="border" rowspan="2">
-scheme=Order1||Order3
+          <td class="border">
+数値不安定な中心差分に数値粘性を付加
           </td>
         </tr>
         <tr class="border">
@@ -218,6 +218,9 @@ scheme=Order1||Order3
           </td>
           <td class="border">
 2||4次精度の中心差分
+          </td>
+          <td class="border">
+scheme=Order1||Order3
           </td>
         </tr>
         <tr class="border">
@@ -470,7 +473,7 @@ Ndt
 dtmaxの分割数
           </td>
           <td class="border">
-完全流体に近い場合、時間刻みの最小化が必要
+高Re||完全流体に近い場合、時間刻みの最小化が必要
 <br>
 Re≒1 -> Ndt&gt;&gt;100
           </td>
