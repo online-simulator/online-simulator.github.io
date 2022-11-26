@@ -308,8 +308,38 @@ My_entry.math_mat.prototype.gaussian = function(options, arr){
   var _arr = obj_Axb.x;
   return _arr;
 };
-/* Ver.2.124.34 -> */
+/* Ver.2.135.35 -> */
 My_entry.math_mat.prototype.gaussian_coo = function(options, arr){  // arr=(aA:mA:nA:tb) -> x
+  var self = this;
+  var solver = self.entry.solver;
+  var DATA = self.entry.DATA;
+  if(arr.length !== 4) throw "Invalid coo2matSize";
+  var arr0 = arr[0];
+  var arr1 = arr[1];
+  var arr2 = arr[2];
+  var arr3 = arr[3];
+  var len_arr0 = arr0.length;
+  var len_arr1 = arr1.length;
+  var len_arr2 = arr2.length;
+  var len_arr3 = arr3.length;
+  var mnA = self.make_mnA(options, [arr0, arr1, arr2]);
+  var mA = mnA.m;
+  var nA = mnA.n;
+  var len_m = Math.max.apply(Math, mA);
+  var len_n = Math.max.apply(Math, nA);
+  if(len_m > len_arr3 || len_n > len_arr3) throw "Invalid coo2matSize";
+  var obj_Axb = {};
+  obj_Axb.aA = arr0;
+  obj_Axb.mA = mA;
+  obj_Axb.nA = nA;
+  obj_Axb.x = self.init2d(len_arr3, 1);
+  obj_Axb.b = arr3;
+  solver.gaussian_lil(options, obj_Axb);  // coo2lil
+  var _arr = obj_Axb.x;
+  return _arr;
+};
+/* Ver.2.124.34 -> */
+My_entry.math_mat.prototype.gaussian_coo_original = function(options, arr){  // arr=(aA:mA:nA:tb) -> x
   var self = this;
   var solver = self.entry.solver;
   var DATA = self.entry.DATA;
@@ -348,6 +378,7 @@ My_entry.math_mat.prototype.gaussian_coo = function(options, arr){  // arr=(aA:m
   var _arr = obj_Axb.x;
   return _arr;
 };
+/* -> Ver.2.135.35 */
 My_entry.math_mat.prototype.make_mnA = function(options, arr){
   var self = this;
   if(arr.length !== 3) throw "Invalid coo2matSize";

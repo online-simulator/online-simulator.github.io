@@ -243,3 +243,134 @@ My_entry.solver.prototype.gaussian_coo_backward = function(options, obj_Axb){
   return self;
 };
 /* -> Ver.2.123.34 */
+/* Ver.2.135.35 -> */
+My_entry.solver.prototype.gaussian_lil = function(options, obj_Axb){
+  var self = this;
+  obj_Axb.N = obj_Axb.b.length;
+  try{
+    self.gaussian_lil_init(options, obj_Axb);
+    self.gaussian_lil_pre(options, obj_Axb);
+    self.gaussian_lil_forward(options, obj_Axb);
+    self.gaussian_lil_backward(options, obj_Axb);
+  }
+  catch(e){
+    throw "Invalid gauss_lil2mat";
+  }
+  return self;
+};
+My_entry.solver.prototype.gaussian_lil_init = function(options, obj_Axb){
+  var self = this;
+  var DATA = self.entry.DATA;
+  self.NUM0 = DATA.num(0, 0);
+  var aA = obj_Axb.aA;
+  var mA = obj_Axb.mA;
+  var nA = obj_Axb.nA;
+  var mnA = [];
+  var len_j = aA.length;
+  for(var j=0; j<len_j; ++j){
+    var m = mA[j];
+    var n = nA[j];
+    mnA[m] = mnA[m] || {};  // list
+    mnA[m][n] = aA[j];
+  }
+  obj_Axb.mnA = mnA;
+  return self;
+};
+My_entry.solver.prototype.gaussian_lil_pre = function(options, obj_Axb){
+  var self = this;
+  var math = self.entry.math;
+  var math_com = self.entry.math_com;
+  var DATA = self.entry.DATA;
+  var N = obj_Axb.N;
+  var mnA = obj_Axb.mnA;
+  var b = obj_Axb.b;
+  var abs_pivot = 0;
+  var abs_non_pivot = 0;
+  var i_switch = 0;
+  for(var i=0; i<N-1; ++i){
+    var m0 = i+1;
+    var n0 = i+1;
+    var aA0 = mnA[m0];
+    i_switch = i;
+    var num_pivot = aA0[n0] || self.NUM0;  // pivot=0 allowed
+    abs_pivot = math_com.absolute_com(num_pivot.com);
+    for(var ii=i+1; ii<N; ++ii){
+      var m = ii+1;
+      var aA = mnA[m];
+      var num_non_pivot = aA[n0] || self.NUM0;
+      abs_non_pivot = math_com.absolute_com(num_non_pivot.com);
+      if(abs_pivot < abs_non_pivot){
+        abs_pivot = abs_non_pivot;
+        i_switch = ii;
+      }
+    }
+    if(i !== i_switch){
+      var m_switch = i_switch+1;
+      math.switch_arr(mnA, m0, m_switch);
+      math.switch_arr(b, i, i_switch);
+    }
+  }
+  return self;
+};
+My_entry.solver.prototype.gaussian_lil_forward = function(options, obj_Axb){
+  var self = this;
+  var DATA = self.entry.DATA;
+  var unit = self.entry.unit;
+  var N = obj_Axb.N;
+  var mnA = obj_Axb.mnA;
+  var b = obj_Axb.b;
+  for(var i=0; i<N-1; ++i){
+    var m0 = i+1;
+    var n0 = i+1;
+    var aA0 = mnA[m0];
+    var num_pivot = aA0[n0] || self.NUM0;
+    for(var ii=i+1; ii<N; ++ii){
+      var m = ii+1;
+      var aA = mnA[m];
+      var num = aA[n0] || self.NUM0;
+      if(num.com.r || num.com.i){  // not0
+        var w = unit["BRd"](options, num, num_pivot);
+        for(var n in aA0){
+          aA[n] = unit["BRs"](options, aA[n] || self.NUM0, unit["BRm"](options, w, aA0[n] || self.NUM0));
+        }
+        b[ii] = unit["BRs"](options, b[ii], unit["BRm"](options, w, b[i]));
+      }
+    }
+  }
+  return self;
+};
+My_entry.solver.prototype.gaussian_lil_backward = function(options, obj_Axb){
+  var self = this;
+  var DATA = self.entry.DATA;
+  var unit = self.entry.unit;
+  var N = obj_Axb.N;
+  var mnA = obj_Axb.mnA;
+  var b = obj_Axb.b;
+  var x = obj_Axb.x;
+  if(N > 0){
+    var i = N-1;
+    var m0 = i+1;
+    var n0 = i+1;
+    var nume = b[i];
+    var deno = mnA[m0][n0] || self.NUM0;
+    x[i][0] = unit["BRd"](options, nume, deno);
+  }
+  if(N > 1){
+    for(var i=N-2; i>=0; --i){
+      var m0 = i+1;
+      var n0 = i+1;
+      var aA0 = mnA[m0];
+      var nume = b[i];
+      for(var n in aA0){
+        var nn = Number(n);
+        if(nn > n0){
+          nume = unit["BRs"](options, nume, unit["BRm"](options, aA0[nn] || self.NUM0, x[nn-1][0]));
+        }
+      }
+      var deno = aA0[n0] || self.NUM0;
+      x[i][0] = unit["BRd"](options, nume, deno);
+    }
+  }
+  return self;
+};
+/* -> Ver.2.135.35 */
