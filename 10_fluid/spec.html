@@ -109,6 +109,17 @@ client座標(x,y)を規格化
         </tr>
         <tr class="border">
           <td class="border">
+解像度
+          </td>
+          <td class="border">
+格子size
+          </td>
+          <td class="border">
+直接計算（DNS）の場合、最小単位の渦を解像可能な大きさ
+          </td>
+        </tr>
+        <tr class="border">
+          <td class="border">
 要素
           </td>
           <td class="border">
@@ -344,9 +355,9 @@ test case
 <br>
 2: Karman渦列
 <br>
-3: cavity流れ
+3: cavity流れ（模擬の条件を設定）
 <br>
-4: cavity+backstep流れ
+4: cavity+backstep流れ（解像度不足）
 <br>
 <span class="run">5: Hagen-Poiseuille流れ</span>
           </td>
@@ -481,6 +492,8 @@ p
 p=0@b=255
 <br>
 b=255未定義時、右下の未知要素p=0
+<br>
+(u,v)の同時指定不可
           </td>
         </tr>
         <tr class="border">
@@ -502,6 +515,8 @@ Reynolds数
           </td>
           <td class="border">
 y方向の全長=1と(u,v)から実際の問題に換算が必要
+<br>
+例）代表長さが全長の半分の場合、実際のReは指定値の半分
           </td>
         </tr>
         <tr class="border">
