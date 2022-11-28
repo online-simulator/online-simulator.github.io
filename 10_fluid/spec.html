@@ -341,9 +341,11 @@ solver
       <tbody>
         <tr class="border">
           <td class="border">
-testcase=0~5
+testcase=0~8
 <br>
 <span class="run">Ver.1.5.0追加</span>
+<br>
+<span class="condition">Ver.1.6.0追加</span>
           </td>
           <td class="border">
 test case
@@ -353,13 +355,19 @@ test case
 <br>
 1: 上下の一様流
 <br>
-2: Karman渦列
+<span class="condition">2: 斜めの一様流</span>
 <br>
-3: cavity流れ（模擬の条件を設定）
+3: 左右のKarman渦列
 <br>
-4: cavity+backstep流れ（解像度不足）
+<span class="condition">4: 上下のKarman渦列</span>
 <br>
 <span class="run">5: Hagen-Poiseuille流れ</span>
+<br>
+6: cavity流れ（模擬の条件を設定）
+<br>
+<span class="condition">7: backstep流れ（領域不足、実際のReは指定値の半分弱、t&gt;&gt;100で十分に発達）</span>
+<br>
+8: cavity+backstep流れ（解像度不足）
           </td>
         </tr>
       </tbody>
