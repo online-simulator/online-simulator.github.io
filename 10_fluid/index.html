@@ -321,6 +321,12 @@ pre/post processing for png
   <label>k_arrow:
 <input id="input-k_arrow" type="number" class="input-50" min="0" max="100" step="0.5" value="1">
   </label>
+  <label>bound:
+<select id="select-type_bound">
+  <option value="1">(u,v)=lerp(r/255,g/255)</option>
+  <option value="0">(u,v)=(r/255,g/255)</option>
+</select>
+  </label>
 <hr>
   <div id="div-canvas" class="relative">
     <canvas id="canvas-bg" class="absolute"></canvas>

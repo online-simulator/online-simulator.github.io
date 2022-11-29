@@ -186,13 +186,23 @@ a=0
         </tr>
         <tr class="border">
           <td class="border">
+保存特性
+          </td>
+          <td class="border">
+解の厳密さ（保存則の満足度）
+          </td>
+          <td class="border">
+          </td>
+        </tr>
+        <tr class="border">
+          <td class="border">
 1要素の保存量
           </td>
           <td class="border">
 連続の式
           </td>
           <td class="border">
-c=0
+c=0（有限体積法の場合、要素毎に成立）
           </td>
         </tr>
         <tr class="border">
@@ -234,7 +244,7 @@ du/dn=dv/dn=dp/dn=0
         </tr>
         <tr class="border">
           <td class="border">
-既知要素の境界条件
+既知要素の境界条件0
           </td>
           <td class="border">
 (u,v)のDirichlet条件
@@ -245,6 +255,33 @@ pのNeumann条件
 (u,v)=(r/255,g/255)
 <br>
 dp/dn=0
+<br>
+境界位置が不正確
+<br>
+有限差分法の場合、粘性項のfluxが不正確
+          </td>
+        </tr>
+        <tr class="border">
+          <td class="border">
+既知要素の境界条件1
+<br>
+<span class="run">Ver.1.7.0追加</span>
+          </td>
+          <td class="border">
+(u,v)のNeumann条件
+<br>
+pのNeumann条件
+          </td>
+          <td class="border">
+境界面の(u,v)を指定値として仮想点に線形外挿
+<br>
+<span class="run">(u,v)=lerp(r/255,g/255)</span>
+<br>
+dp/dn=0
+<br>
+境界条件0より境界位置が厳密で保存特性が改善
+<br>
+有限差分法の場合、粘性項のfluxが不正確
           </td>
         </tr>
         <tr class="border">
@@ -315,6 +352,11 @@ schemeの切替
 ・if文で切替（<span class="clear">関数で切替は未実装</span>）
 <br>
 <br>
+境界位置の切替
+<br>
+・if文で切替（<span class="clear">関数で切替は未実装</span>）
+<br>
+<br>
 solver
 <br>
 ・COO形式<span class="run">⇒LIL形式</span>
@@ -341,11 +383,13 @@ solver
       <tbody>
         <tr class="border">
           <td class="border">
-testcase=0~8
+testcase=0~12
 <br>
 <span class="run">Ver.1.5.0追加</span>
 <br>
 <span class="condition">Ver.1.6.0追加</span>
+<br>
+<span class="selection">Ver.1.7.0追加</span>
           </td>
           <td class="border">
 test case
@@ -357,17 +401,25 @@ test case
 <br>
 <span class="condition">2: 斜めの一様流</span>
 <br>
-3: 左右のKarman渦列
+3: 左右のKarman渦列（scheme=Order1の場合、Ndtの要変更）
 <br>
-<span class="condition">4: 上下のKarman渦列</span>
+<span class="condition">4: 上下のKarman渦列（同上）</span>
 <br>
-<span class="run">5: Hagen-Poiseuille流れ</span>
+<span class="selection">5: 左右のKarman渦列</span>
 <br>
-6: cavity流れ（模擬の条件を設定）
+<span class="selection">6: 上下のKarman渦列</span>
 <br>
-<span class="condition">7: backstep流れ（領域不足、実際のReは指定値の半分弱、t&gt;&gt;100で十分に発達）</span>
+<span class="run">7: Hagen-Poiseuille流れ</span>
 <br>
-8: cavity+backstep流れ（解像度不足）
+<span class="selection">8: cavity流れ（速度指定）</span>
+<br>
+<span class="selection">9: cavity流れ（圧力指定）</span>
+<br>
+10: cavity流れ（模擬条件）
+<br>
+<span class="condition">11: backstep流れ（領域不足、助走区間不足、実際のReは指定値の半分弱、t&gt;&gt;100で十分に発達）</span>
+<br>
+12: cavity+backstep流れ（解像度不足）
           </td>
         </tr>
       </tbody>
@@ -590,7 +642,7 @@ q
         </tr>
         <tr class="border">
           <td class="border">
-scheme
+scheme=Order1||Order3
           </td>
           <td class="border">
 差分精度次数の選択
@@ -633,6 +685,18 @@ post表示用
 矢印の色（青～緑～黄～橙～赤）:=p（最低値～最高値）
 <br>
 ・既知要素p=0（境界条件を未代入）
+          </td>
+        </tr>
+        <tr class="border">
+          <td class="border">
+bound=境界条件0||1
+<br>
+<span class="run">Ver.1.7.0追加</span>
+          </td>
+          <td class="border">
+既知要素の境界条件の種類
+          </td>
+          <td class="border">
           </td>
         </tr>
       </tbody>

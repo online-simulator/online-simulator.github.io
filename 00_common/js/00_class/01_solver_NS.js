@@ -105,6 +105,8 @@ My_entry.solver_NS.prototype.FS2d = function(options, uvp){
     function(i, j){
       var uij = u0[i][j];
       var vij = v0[i][j];
+    /* fluid-Ver.1.7.0 -> */
+    if(options.type_bound === 0){
       if(i === 0){
         uim = uij;
         vim = vij;
@@ -137,6 +139,58 @@ My_entry.solver_NS.prototype.FS2d = function(options, uvp){
         ujp = u0[i][j+1];
         vjp = v0[i][j+1];
       }
+    }
+    else{
+      if(i === 0){
+        uim = uij;
+        vim = vij;
+      }
+      else if(id[i-1][j] === 0){
+        uim = u0[i-1][j]*2-uij;
+        vim = v0[i-1][j]*2-vij;
+      }
+      else{
+        uim = u0[i-1][j];
+        vim = v0[i-1][j];
+      }
+      if(i === Ni-1){
+        uip = uij;
+        vip = vij;
+      }
+      else if(id[i+1][j] === 0){
+        uip = u0[i+1][j]*2-uij;
+        vip = v0[i+1][j]*2-vij;
+      }
+      else{
+        uip = u0[i+1][j];
+        vip = v0[i+1][j];
+      }
+      if(j === 0){
+        ujm = uij;
+        vjm = vij;
+      }
+      else if(id[i][j-1] === 0){
+        ujm = u0[i][j-1]*2-uij;
+        vjm = v0[i][j-1]*2-vij;
+      }
+      else{
+        ujm = u0[i][j-1];
+        vjm = v0[i][j-1];
+      }
+      if(j === Nj-1){
+        ujp = uij;
+        vjp = vij;
+      }
+      else if(id[i][j+1] === 0){
+        ujp = u0[i][j+1]*2-uij;
+        vjp = v0[i][j+1]*2-vij;
+      }
+      else{
+        ujp = u0[i][j+1];
+        vjp = v0[i][j+1];
+      }
+    }
+    /* -> fluid-Ver.1.7.0 */
       var auij = Math.abs(uij);
       var avij = Math.abs(vij);
       var dudx = (-uim+uip)*rdx2;
@@ -156,62 +210,148 @@ My_entry.solver_NS.prototype.FS2d = function(options, uvp){
     function(i, j){
       var uij = u0[i][j];
       var vij = v0[i][j];
+    /* fluid-Ver.1.7.0 -> */
+    if(options.type_bound === 0){
       if(i === 0){
         uimm = uim = uij;
         vimm = vim = vij;
       }
-      else if(i === 1 || id[i-1][j] === 0){
+      else if(id[i-1][j] === 0 || i === 1){
         uimm = uim = u0[i-1][j];
         vimm = vim = v0[i-1][j];
       }
       else{
-        uimm = u0[i-2][j];
-        vimm = v0[i-2][j];
         uim = u0[i-1][j];
         vim = v0[i-1][j];
+        uimm = u0[i-2][j];
+        vimm = v0[i-2][j];
       }
       if(i === Ni-1){
         uipp = uip = uij;
         vipp = vip = vij;
       }
-      else if(i === Ni-2 || id[i+1][j] === 0){
+      else if(id[i+1][j] === 0 || i === Ni-2){
         uipp = uip = u0[i+1][j];
         vipp = vip = v0[i+1][j];
       }
       else{
-        uipp = u0[i+2][j];
-        vipp = v0[i+2][j];
         uip = u0[i+1][j];
         vip = v0[i+1][j];
+        uipp = u0[i+2][j];
+        vipp = v0[i+2][j];
       }
       if(j === 0){
         ujmm = ujm = uij;
         vjmm = vjm = vij;
       }
-      else if(j === 1 || id[i][j-1] === 0){
+      else if(id[i][j-1] === 0 || j === 1){
         ujmm = ujm = u0[i][j-1];
         vjmm = vjm = v0[i][j-1];
       }
       else{
-        ujmm = u0[i][j-2];
-        vjmm = v0[i][j-2];
         ujm = u0[i][j-1];
         vjm = v0[i][j-1];
+        ujmm = u0[i][j-2];
+        vjmm = v0[i][j-2];
       }
       if(j === Nj-1){
         ujpp = ujp = uij;
         vjpp = vjp = vij;
       }
-      else if(j === Nj-2 || id[i][j+1] === 0){
+      else if(id[i][j+1] === 0 || j === Nj-2){
         ujpp = ujp = u0[i][j+1];
         vjpp = vjp = v0[i][j+1];
       }
       else{
-        ujpp = u0[i][j+2];
-        vjpp = v0[i][j+2];
         ujp = u0[i][j+1];
         vjp = v0[i][j+1];
+        ujpp = u0[i][j+2];
+        vjpp = v0[i][j+2];
       }
+    }
+    else{
+      if(i === 0){
+        uimm = uim = uij;
+        vimm = vim = vij;
+      }
+      else if(id[i-1][j] === 0){
+        uim = u0[i-1][j]*2-uij;
+        vim = v0[i-1][j]*2-vij;
+        uimm = uim*2-uij;
+        vimm = vim*2-vij;
+      }
+      else if(i === 1){
+        uimm = uim = u0[i-1][j];
+        vimm = vim = v0[i-1][j];
+      }
+      else{
+        uim = u0[i-1][j];
+        vim = v0[i-1][j];
+        uimm = u0[i-2][j];
+        vimm = v0[i-2][j];
+      }
+      if(i === Ni-1){
+        uipp = uip = uij;
+        vipp = vip = vij;
+      }
+      else if(id[i+1][j] === 0){
+        uip = u0[i+1][j]*2-uij;
+        vip = v0[i+1][j]*2-vij;
+        uipp = uip*2-uij;
+        vipp = vip*2-vij;
+      }
+      else if(i === Ni-2){
+        uipp = uip = u0[i+1][j];
+        vipp = vip = v0[i+1][j];
+      }
+      else{
+        uip = u0[i+1][j];
+        vip = v0[i+1][j];
+        uipp = u0[i+2][j];
+        vipp = v0[i+2][j];
+      }
+      if(j === 0){
+        ujmm = ujm = uij;
+        vjmm = vjm = vij;
+      }
+      else if(id[i][j-1] === 0){
+        ujm = u0[i][j-1]*2-uij;
+        vjm = v0[i][j-1]*2-vij;
+        ujmm = ujm*2-uij;
+        vjmm = vjm*2-vij;
+      }
+      else if(j === 1){
+        ujmm = ujm = u0[i][j-1];
+        vjmm = vjm = v0[i][j-1];
+      }
+      else{
+        ujm = u0[i][j-1];
+        vjm = v0[i][j-1];
+        ujmm = u0[i][j-2];
+        vjmm = v0[i][j-2];
+      }
+      if(j === Nj-1){
+        ujpp = ujp = uij;
+        vjpp = vjp = vij;
+      }
+      else if(id[i][j+1] === 0){
+        ujp = u0[i][j+1]*2-uij;
+        vjp = v0[i][j+1]*2-vij;
+        ujpp = ujp*2-uij;
+        vjpp = vjp*2-vij;
+      }
+      else if(j === Nj-2){
+        ujpp = ujp = u0[i][j+1];
+        vjpp = vjp = v0[i][j+1];
+      }
+      else{
+        ujp = u0[i][j+1];
+        vjp = v0[i][j+1];
+        ujpp = u0[i][j+2];
+        vjpp = v0[i][j+2];
+      }
+    }
+    /* -> fluid-Ver.1.7.0 */
       var auij = Math.abs(uij);
       var avij = Math.abs(vij);
       var dudx = (-uim+uip)*rdx2;
@@ -272,6 +412,8 @@ My_entry.solver_NS.prototype.FS2d = function(options, uvp){
     var aAij = [rdt, rdt];
     var mAij = [m, m+1];
     var nAij = [nij, nij+len0];
+  /* fluid-Ver.1.7.0 -> */
+  if(options.type_bound === 0){
     if(i === 0){
       uim = uij;
       vim = vij;
@@ -352,6 +494,90 @@ My_entry.solver_NS.prototype.FS2d = function(options, uvp){
       mAij.push(m+1, m+2);
       nAij.push(njp+len1, njp+len1);
     }
+  }
+  else{
+    if(i === 0){
+      uim = uij;
+      vim = vij;
+      auij += auim;
+      apij += apim;
+    }
+    else if(id[i-1][j] === 0){
+      uim = u[i-1][j]*2-uij;
+      vim = v[i-1][j]*2-vij;
+      auij += auim;
+      apij += apim;
+    }
+    else{
+      uim = u[i-1][j];
+      vim = v[i-1][j];
+      nim = id[i-1][j];
+      aAij.push(auim, apim);
+      mAij.push(m, m+2);
+      nAij.push(nim+len1, nim+len1);
+    }
+    if(i === Ni-1){
+      uip = uij;
+      vip = vij;
+      auij += auip;
+      apij += apip;
+    }
+    else if(id[i+1][j] === 0){
+      uip = u[i+1][j]*2-uij;
+      vip = v[i+1][j]*2-vij;
+      auij += auip;
+      apij += apip;
+    }
+    else{
+      uip = u[i+1][j];
+      vip = v[i+1][j];
+      nip = id[i+1][j];
+      aAij.push(auip, apip);
+      mAij.push(m, m+2);
+      nAij.push(nip+len1, nip+len1);
+    }
+    if(j === 0){
+      ujm = uij;
+      vjm = vij;
+      avij += avjm;
+      apij += apjm;
+    }
+    else if(id[i][j-1] === 0){
+      ujm = u[i][j-1]*2-uij;
+      vjm = v[i][j-1]*2-vij;
+      avij += avjm;
+      apij += apjm;
+    }
+    else{
+      ujm = u[i][j-1];
+      vjm = v[i][j-1];
+      njm = id[i][j-1];
+      aAij.push(avjm, apjm);
+      mAij.push(m+1, m+2);
+      nAij.push(njm+len1, njm+len1);
+    }
+    if(j === Nj-1){
+      ujp = uij;
+      vjp = vij;
+      avij += avjp;
+      apij += apjp;
+    }
+    else if(id[i][j+1] === 0){
+      ujp = u[i][j+1]*2-uij;
+      vjp = v[i][j+1]*2-vij;
+      avij += avjp;
+      apij += apjp;
+    }
+    else{
+      ujp = u[i][j+1];
+      vjp = v[i][j+1];
+      njp = id[i][j+1];
+      aAij.push(avjp, apjp);
+      mAij.push(m+1, m+2);
+      nAij.push(njp+len1, njp+len1);
+    }
+  }
+  /* -> fluid-Ver.1.7.0 */
     var dudx = (-uim+uip)*rdx2;
     var dvdy = (-vjm+vjp)*rdy2;
     var cont = (isP0)? 0: dudx+dvdy;
