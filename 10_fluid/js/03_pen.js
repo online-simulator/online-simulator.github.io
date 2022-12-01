@@ -198,7 +198,9 @@ My_entry.pen.prototype.make_svg = function(){
   var self = this;
   self.entry.def.mix_over(self.constructors.draw, self.constructors.draw_svg);  // Ver.1.7.1
   var _svg = "";
+  var options = self.options;  // fluid-Ver.1.8.0
   var fg = self.objs.fg;
+  var mg = self.objs.mg;  // fluid-Ver.1.8.0
   var rev = self.handler_history_svg.rev;
   var len = rev.length;
   var i_header = self.show_fileSize_svg();  // Ver.1.21.4
@@ -207,6 +209,7 @@ My_entry.pen.prototype.make_svg = function(){
       var revi = rev[i];  // Ver.1.21.4
       _svg += revi;
     }
+    _svg += (options.arrows && self.uvp)? mg.draw.uvp(self.uvp): "";  // fluid-Ver.1.8.0
     _svg += fg.draw.footer();
   }
   return _svg;
@@ -772,7 +775,7 @@ My_entry.pen.prototype.init_handlers = function(){
     self.init_keys();  // Ver.1.16.4
     var json = {p: {id: "wrapper-link-png"}, a: {id: "a-png", it: "download-png"}, name: "download", ext: "png"};
     self.handler_link_png = new self.constructors.handler_link(json);
-    self.handler_link_png.setter.callback(function(){return self.entry.conv.base2buffer(self.objs.bg.get_base64());});  // Ver.1.7.1
+    self.handler_link_png.setter.callback(function(){return self.entry.conv.base2buffer(self.objs[(options.arrows)? "mg": "bg"].get_base64());});  // Ver.1.7.1  // fluid-Ver.1.8.0
     /* Ver.1.2.0 -> */
     var json = {p: {id: "wrapper-link-svg"}, a: {id: "a-svg", it: "-svg(src-over)"}, name: "download", ext: "svg"};
     self.handler_link_svg = new self.constructors.handler_link(json);
