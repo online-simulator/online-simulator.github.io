@@ -161,6 +161,8 @@ a=0
           </td>
           <td class="border">
 強連成@step1
+<br>
+一般的な弱連成の場合、SOR法等で緩和後の擬圧力分布から速度を更新
           </td>
         </tr>
         <tr class="border">
@@ -171,7 +173,7 @@ a=0
 集中格子（要素中心）
           </td>
           <td class="border" rowspan="2">
-一般的な有限体積法によるFS法と比較して、
+一般的な有限体積法によるflux考慮のFS法と比較して、
 <br>
 境界条件や保存量の評価手法が異なる
           </td>
@@ -192,6 +194,7 @@ a=0
 解の厳密さ（保存則の満足度）
           </td>
           <td class="border">
+保存量を指標として表示
           </td>
         </tr>
         <tr class="border">
@@ -213,7 +216,7 @@ c=0（有限体積法の場合、要素毎に成立）
 領域外境界の体積流出入量
           </td>
           <td class="border">
-q=0
+q=0（|q|&gt;1e-1で解が発散傾向）
           </td>
         </tr>
         <tr class="border">
@@ -273,7 +276,7 @@ dp/dn=0
 pのNeumann条件
           </td>
           <td class="border">
-境界面の(u,v)を指定値として仮想点に線形外挿
+境界面の(u,v)を指定値として内側1点から仮想点に線形外挿
 <br>
 <span class="run">(u,v)=lerp(r/255,g/255)</span>
 <br>
