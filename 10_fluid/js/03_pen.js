@@ -1030,7 +1030,8 @@ My_entry.pen.prototype.init_handlers = function(){
               var cont = uvp.cmax;
               var cont_isNaN = isNaN(cont);
               $._id("input-time").value = uvp.t;
-              $._id("input-cont").value = hasError || ((cont_isNaN)? cont: (uvp.qtotal).toExponential(1));  // fluid-Ver.1.3.0
+              $._id("input-cmax").value = hasError || ((cont_isNaN)? cont: (uvp.cmax).toExponential(1));  // fluid-Ver.1.9.0
+              $._id("input-qtotal").value = hasError || ((cont_isNaN)? cont: (uvp.qtotal).toExponential(1));  // fluid-Ver.1.3.0
               if(hasError || cont_isNaN){
                 self.reset_canvas_grid();
                 self.uvp = null;
