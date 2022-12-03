@@ -271,6 +271,7 @@ My_entry.pen.prototype.reset_canvas = function(){
   var px_h = options["canvas-height"];
   var bgcolor = options.bgcolor;
   self.change_size(px_w, px_h);  // Ver.1.11.4
+  self.init_config();  // fluid-Ver.1.10.0
   if(bgcolor){
     bg.fill(bgcolor);
   }
@@ -1013,7 +1014,6 @@ My_entry.pen.prototype.init_handlers = function(){
       /* -> Ver.1.1.0 */
       case "clear":
         self.reset_canvas();
-        self.init_config();  // fluid-Ver.1.10.0
         break;
       /* fluid-Ver.1.0.0 */
       case "start":
