@@ -1033,7 +1033,7 @@ My_entry.pen.prototype.init_handlers = function(){
             var nmax = options.nmax || 1000;
             var dn = 10;
             try{
-              solver.FS2d({Re: options.Re, dt: uvp.dtmax/options.Ndt, Nnt: dn, order_upstream: options.order_upstream, type_bound: options.type_bound}, uvp);  // fluid-Ver.1.7.0
+              solver.FS2d({Re: options.Re, Ndt: options.Ndt, Nnt: dn, order_upstream: options.order_upstream, type_bound: options.type_bound}, uvp);  // fluid-Ver.1.7.0  // fluid-Ver.1.11.0
             }
             catch(e){
               hasError = "No solution";  // fluid-Ver.1.3.0

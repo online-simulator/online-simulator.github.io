@@ -336,7 +336,7 @@ scheme=Order1||Order3
 <br>
 <span class="run">Ver.1.4.0追加</span>
           </td>
-          <td class="border" rowspan="2">
+          <td class="border">
 処理時間の低減
           </td>
           <td class="border">
@@ -363,6 +363,24 @@ schemeの切替
 solver
 <br>
 ・COO形式<span class="run">⇒LIL形式</span>
+          </td>
+        </tr>
+        <tr class="border">
+          <td class="border">
+安定化
+          </td>
+          <td class="border">
+解が発散時の対策
+          </td>
+          <td class="border">
+時間刻みを小さくする
+<br>
+・流出境界で逆流が存在する場合、|Ndt|&gt;&gt;1
+<br>
+・完全流体に近い場合（Re≒0）、|Ndt|&gt;&gt;100
+<br>
+<br>
+閉じた領域が残存する場合、塗りつぶす
           </td>
         </tr>
       </tbody>
@@ -404,11 +422,11 @@ test case
 <br>
 <span class="condition">2: 斜めの一様流</span>
 <br>
-3: 左右のKarman渦列（scheme=Order1の場合、Ndtの要変更）
+3: 左右のKarman渦列（Ly=3相当のRe）
 <br>
 <span class="condition">4: 上下のKarman渦列（同上）</span>
 <br>
-<span class="selection">5: 左右のKarman渦列（Ly=3相当のRe）</span>
+<span class="selection">5: 左右のKarman渦列（同上）</span>
 <br>
 <span class="selection">6: 上下のKarman渦列（同上）</span>
 <br>
@@ -589,14 +607,14 @@ Reynolds数
         <tr class="border">
           <td class="border">
 Ndt
+<br>
+<span class="selection">Ver.1.11.0追加</span>
           </td>
           <td class="border">
 dtmaxの分割数
           </td>
           <td class="border">
-高Re||完全流体に近い場合、時間刻みの最小化が必要
-<br>
-Re≒1 -> Ndt&gt;&gt;100
+<span class="selection">Ndt&lt;0の場合、適応時間刻みの時間発展</span>
           </td>
         </tr>
         <tr class="border">
@@ -607,7 +625,7 @@ dt
 時間発展の時間刻み
           </td>
           <td class="border">
-dt=dtmax/Ndt
+dt=dtmax/<span class="selection">|Ndt|</span>
           </td>
         </tr>
         <tr class="border">
@@ -618,7 +636,9 @@ dtmax
 CFL条件を満たす時間刻み最大値
           </td>
           <td class="border">
-dtmax=min(dx,dy)/1
+Ndt&ge;0の場合、固定dtmax=min(dx,dy)/1
+<br>
+<span class="selection">Ndt&lt;0の場合、可変dtmax=min(dx,dy)/max(u,v)</span>
           </td>
         </tr>
         <tr class="border">

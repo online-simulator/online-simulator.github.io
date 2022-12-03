@@ -15,11 +15,9 @@ My_entry.solver_NS.prototype.init = function(){
 My_entry.solver_NS.prototype.FS2d = function(options, uvp){
   var self = this;
   var solver = self.entry.solver_real;
-  var dt = options.dt || 1;
-  var Re = options.Re || 1;
+  var Re = options.Re || 0;
+  var Ndt = options.Ndt || 0;  // fluid-Ver.1.11.0
   var Nnt = options.Nnt || 1;
-  var dth = dt/2;
-  var rdt = 1/dt;
   var u = uvp.u;
   var v = uvp.v;
   var ud = uvp.ud;
@@ -602,6 +600,28 @@ My_entry.solver_NS.prototype.FS2d = function(options, uvp){
     var _qtotal = qtotal_x*dy/2+qtotal_y*dx/2;  // Order2
     return _qtotal;
   };
+  /* fluid-Ver.1.11.0 -> */
+  var dt = 0;
+  var dth = 0;
+  var rdt = 0;
+  var adapt_dt = function(uC, factor_safety){
+    var dtmax = Math.min(dx, dy)/uC;
+    dt = dtmax/factor_safety;
+    dth = dt/2;
+    rdt = 1/dt;
+  };
+  var get_uCmax = function(){
+    var _uCmax = 0;
+    for(var i=0; i<Ni; ++i){
+      for(var j=0; j<Nj; ++j){
+        var uC = Math.max(Math.abs(u[i][j]), Math.abs(v[i][j]));
+        if(uC > _uCmax){
+          _uCmax = uC;
+        }
+      }
+    }
+    return _uCmax;
+  };
   var c = [];
   var b = [];
   var aA = [];
@@ -609,6 +629,9 @@ My_entry.solver_NS.prototype.FS2d = function(options, uvp){
   var nA = [];
   var x = [];
   for(var nt=0; nt<Nnt; ++nt){
+    var uCmax = (Ndt < 0)? get_uCmax(): 1;
+    adapt_dt(uCmax, Math.abs(Ndt));
+  /* -> fluid-Ver.1.11.0 */
     var u0 = self.entry.def.newClone(u);
     var v0 = self.entry.def.newClone(v);
     c.length = 0;
