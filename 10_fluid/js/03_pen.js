@@ -755,14 +755,25 @@ My_entry.pen.prototype.make_handlers = function(){
       /* -> Ver.1.6.1 */
       /* -> Ver.1.7.1 */
       /* fluid-Ver.1.0.0 -> */
-      self.reset_canvas_grid();
-      self.uvp = null;
+      self.init_config();  // fluid-Ver.1.10.0
       /* -> fluid-Ver.1.0.0 */
       self.isDragging = false;  // sync
       /* -> Ver.1.21.5 */
     }
   };
   return _handlers;
+};
+/* fluid-Ver.1.10.0 */
+My_entry.pen.prototype.init_config = function(opt_isFinal){
+  var self = this;
+  var $ = self.entry.$;
+  $._id("input-Lx").value = null;
+  self.reset_canvas_grid();
+  self.uvp = null;
+  if(opt_isFinal){
+    self.isLocked = false;
+  }
+  return self;
 };
 My_entry.pen.prototype.init_handlers = function(){
   var self = this;
@@ -1002,7 +1013,7 @@ My_entry.pen.prototype.init_handlers = function(){
       /* -> Ver.1.1.0 */
       case "clear":
         self.reset_canvas();
-        self.uvp = null;  // fluid-Ver.1.0.0
+        self.init_config();  // fluid-Ver.1.10.0
         break;
       /* fluid-Ver.1.0.0 */
       case "start":
@@ -1012,7 +1023,8 @@ My_entry.pen.prototype.init_handlers = function(){
         var hasGrid = (dxg > 0 && dyg > 0);
         if(hasGrid){
           var solver = self.solver || new My_entry.solver_NS();
-          var uvp = self.uvp || self.objs.bg.make_uvp(options["grid-width"], options["grid-height"]);
+          var uvp = self.uvp || self.objs.bg.make_uvp(options);  // fluid-Ver.1.10.0
+          $._id("input-Lx").value = uvp.Lx;  // fluid-Ver.1.10.0
           self.solver = solver;
           self.uvp = uvp;
           var n = 0;
@@ -1033,9 +1045,7 @@ My_entry.pen.prototype.init_handlers = function(){
               $._id("input-cmax").value = hasError || ((cont_isNaN)? cont: (uvp.cmax).toExponential(1));  // fluid-Ver.1.9.0
               $._id("input-qtotal").value = hasError || ((cont_isNaN)? cont: (uvp.qtotal).toExponential(1));  // fluid-Ver.1.3.0
               if(hasError || cont_isNaN){
-                self.reset_canvas_grid();
-                self.uvp = null;
-                self.isLocked = false;
+                self.init_config(true);  // fluid-Ver.1.10.0
               }
               else if(++n >= nmax){
                 self.isLocked = false;
@@ -1061,6 +1071,16 @@ My_entry.pen.prototype.init_handlers = function(){
   };
   self.handlers.onchange = function(e, elem){
     var self = this;
+    /* fluid-Ver.1.10.0 */
+    if(self.isLocked){
+      switch(elem.id){
+        case "input-Ly":
+          self.init_config(true);
+          break;
+        default:
+          break;
+      }
+    }
     var fg = self.objs.fg;
     var mg = self.objs.mg;  // Ver.1.10.2
     var bg = self.objs.bg;  // Ver.1.7.1

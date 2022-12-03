@@ -408,7 +408,7 @@ test case
 <br>
 <span class="condition">4: 上下のKarman渦列（同上）</span>
 <br>
-<span class="selection">5: 左右のKarman渦列（実際のReは指定値の1/3）</span>
+<span class="selection">5: 左右のKarman渦列（Ly=3相当のRe）</span>
 <br>
 <span class="selection">6: 上下のKarman渦列（同上）</span>
 <br>
@@ -420,7 +420,7 @@ test case
 <br>
 10: cavity流れ（模擬条件）
 <br>
-<span class="condition">11: backstep流れ（領域不足、助走区間不足、実際のReは指定値の半分弱、t&gt;&gt;100で十分に発達）</span>
+<span class="condition">11: backstep流れ（領域不足、助走区間不足、Ly=2相当のRe、t&gt;&gt;100で十分に発達）</span>
 <br>
 12: cavity+backstep流れ（解像度不足）
           </td>
@@ -498,22 +498,24 @@ dx<span class="clear"><del>=1/Ni</del></span>
 x方向の無次元grid刻み幅
           </td>
           <td class="border">
-<span class="clear"><del>x方向の全長=1</del></span>
+<span class="clear"><del>x方向の無次元全長=1</del></span>
 <br>
 <span class="clear">dx=dy*round(gridWidth)/round(gridHeight)</span>
           </td>
         </tr>
         <tr class="border">
           <td class="border">
-dy<span class="clear">=1/Nj</span>
+dy<span class="clear">=<span class="run">Ly</span>/Nj</span>
 <br>
 <span class="clear">Ver.1.1.0変更</span>
+<br>
+<span class="run">Ver.1.10.0変更</span>
           </td>
           <td class="border">
 y方向の無次元grid刻み幅
           </td>
           <td class="border">
-<span class="clear">y方向の全長=1</span>
+<span class="clear">y方向の無次元全長=<span class="run">Ly</span></span>
 <br>
 <span class="clear"><del>dy=dx*round(gridHeight)/round(gridWidth)</del></span>
           </td>
@@ -577,9 +579,11 @@ Re
 Reynolds数
           </td>
           <td class="border">
-y方向の全長=1と(u,v)から実際の問題に換算が必要
+<del>y方向の全長=1と(u,v)から実際の問題に換算が必要
 <br>
-例）代表長さが全長の半分の場合、実際のReは指定値の半分
+例）代表長さが全長の半分の場合、実際のReは指定値の半分</del>
+<br>
+<span class="run">Ver.1.10.0</span>以降、Lyと(u,v)から実際の問題に換算が必要
           </td>
         </tr>
         <tr class="border">
@@ -717,6 +721,32 @@ arrows=false||true
           </td>
           <td class="border">
 png出力はcanvas中面を出力（grid||矢印のみ）
+          </td>
+        </tr>
+        <tr class="border">
+          <td class="border">
+Lx
+<br>
+<span class="run">Ver.1.10.0追加</span>
+          </td>
+          <td class="border">
+x方向の無次元全長
+          </td>
+          <td class="border">
+Lx=dx*Ni
+          </td>
+        </tr>
+        <tr class="border">
+          <td class="border">
+Ly
+<br>
+<span class="run">Ver.1.10.0追加</span>
+          </td>
+          <td class="border">
+y方向の無次元全長
+          </td>
+          <td class="border">
+代表長さ=1から換算
           </td>
         </tr>
       </tbody>

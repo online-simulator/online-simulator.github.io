@@ -494,7 +494,7 @@ My_entry.canvas.prototype.convID_rgba = function(rgba, opt_ID){
   return _ID;
 };
 /* 1.49.8 */
-My_entry.canvas.prototype.make_uvp = function(dx, dy, opt_ID){
+My_entry.canvas.prototype.make_uvp = function(options, opt_ID){  // fluid-Ver.1.10.0
   var self = this;
   var _obj = null;
   var ctx = self.ctx;
@@ -502,6 +502,11 @@ My_entry.canvas.prototype.make_uvp = function(dx, dy, opt_ID){
   var px_h = self.px_h;
   var ID = opt_ID || self.getID();
   var data = ID.data;
+  /* fluid-Ver.1.10.0 -> */
+  var dx = options["grid-width"];
+  var dy = options["grid-height"];
+  var Ly = options.Ly || 1;
+  /* -> fluid-Ver.1.10.0 */
   var rdx = Math.round(dx);
   var rdy = Math.round(dy);
   var hasArea = (rdx > 0 && rdy > 0);
@@ -563,12 +568,14 @@ My_entry.canvas.prototype.make_uvp = function(dx, dy, opt_ID){
     /* 1.50.8 -> */
 //    var dxi = 1/Ni;
 //    var dyi= (rdy/rdx)*dxi;
-    var dyi= 1/Nj;
+//    var dyi= 1/Nj;
+    var dyi= Ly/Nj;  // fluid-Ver.1.10.0
     var dxi = (rdx/rdy)*dyi;
+    var Lx = dxi*Ni;  // fluid-Ver.1.10.0
     /* -> 1.50.8 */
     var uC = 1;
     var dtmax = Math.min(dxi, dyi)/uC;
-    _obj = {u: u, v: v, ud: ud, vd: vd, p: p, p0: p0, id: id, hasP0: hasP0, i_unknowns: i_unknowns, j_unknowns: j_unknowns, Ni: Ni, Nj: Nj, len0: i_unknowns.length, dx: dxi, dy: dyi, dtmax: dtmax, t: 0, cmax: 0};
+    _obj = {u: u, v: v, ud: ud, vd: vd, p: p, p0: p0, id: id, hasP0: hasP0, i_unknowns: i_unknowns, j_unknowns: j_unknowns, Ni: Ni, Nj: Nj, len0: i_unknowns.length, dx: dxi, dy: dyi, dtmax: dtmax, t: 0, cmax: 0, Lx: Lx, Ly: Ly};  // fluid-Ver.1.10.0
   }
   return _obj;
 };
