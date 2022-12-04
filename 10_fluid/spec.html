@@ -366,7 +366,7 @@ solver
           </td>
         </tr>
         <tr class="border">
-          <td class="border">
+          <td class="border" rowspan="2">
 安定化
           </td>
           <td class="border">
@@ -378,8 +378,13 @@ solver
 ・流出境界で逆流が存在する場合、|Ndt|&gt;&gt;1
 <br>
 ・完全流体に近い場合（Re≒0）、|Ndt|&gt;&gt;100
-<br>
-<br>
+          </td>
+        </tr>
+        <tr class="border">
+          <td class="border">
+解がNaN時の対策
+          </td>
+          <td class="border">
 閉じた領域が残存する場合、塗りつぶす
           </td>
         </tr>
@@ -662,9 +667,9 @@ dtmax
 CFL条件を満たす時間刻み最大値
           </td>
           <td class="border">
-Ndt&ge;0の場合、固定dtmax=min(dx,dy)/1
+Ndt&ge;0 -> 固定dtmax=min(dx,dy)/1
 <br>
-<span class="selection">Ndt&lt;0の場合、可変dtmax=min(dx/(max(|u|)||1),dy/(max(|v|)||1))</span>
+<span class="selection">Ndt&lt;0 -> 可変dtmax=min(dx/(max(|u|)||1),dy/(max(|v|)||1))</span>
           </td>
         </tr>
         <tr class="border">
