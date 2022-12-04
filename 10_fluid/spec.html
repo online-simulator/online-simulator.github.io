@@ -422,7 +422,7 @@ test case
 <br>
 <span class="condition">2: 斜めの一様流</span>
 <br>
-3: 左右のKarman渦列（Ly=3相当のRe）
+3: 左右のKarman渦列（領域不足、Ly=3相当のRe）
 <br>
 <span class="condition">4: 上下のKarman渦列（同上）</span>
 <br>
@@ -508,7 +508,7 @@ Nj=ceil(canvasHeight/round(gridHeight))
         </tr>
         <tr class="border">
           <td class="border">
-dx<span class="clear"><del>=1/Ni</del></span>
+dx
 <br>
 <span class="clear">Ver.1.1.0変更</span>
           </td>
@@ -516,14 +516,14 @@ dx<span class="clear"><del>=1/Ni</del></span>
 x方向の無次元grid刻み幅
           </td>
           <td class="border">
-<span class="clear"><del>x方向の無次元全長=1</del></span>
+<span class="clear"><del>dx=1/Ni</del></span>
 <br>
 <span class="clear">dx=dy*round(gridWidth)/round(gridHeight)</span>
           </td>
         </tr>
         <tr class="border">
           <td class="border">
-dy<span class="clear">=<span class="run">Ly</span>/Nj</span>
+dy
 <br>
 <span class="clear">Ver.1.1.0変更</span>
 <br>
@@ -533,9 +533,35 @@ dy<span class="clear">=<span class="run">Ly</span>/Nj</span>
 y方向の無次元grid刻み幅
           </td>
           <td class="border">
-<span class="clear">y方向の無次元全長=<span class="run">Ly</span></span>
-<br>
 <span class="clear"><del>dy=dx*round(gridHeight)/round(gridWidth)</del></span>
+<br>
+<span class="clear">dy=<span class="run">Ly</span>/Nj</span>
+          </td>
+        </tr>
+        <tr class="border">
+          <td class="border">
+Lx
+<br>
+<span class="run">Ver.1.10.0追加</span>
+          </td>
+          <td class="border">
+x方向の無次元全長
+          </td>
+          <td class="border">
+Lx=dx*Ni
+          </td>
+        </tr>
+        <tr class="border">
+          <td class="border">
+Ly
+<br>
+<span class="run">Ver.1.10.0追加</span>
+          </td>
+          <td class="border">
+y方向の無次元全長
+          </td>
+          <td class="border">
+代表長さ=1から換算
           </td>
         </tr>
         <tr class="border">
@@ -548,9 +574,9 @@ pixelのRGBA
           <td class="border">
 要素左上のpixelを判定
 <br>
-a=0 -> 未知要素
-<br>
 a&gt;0 -> 既知要素
+<br>
+a=0 -> 未知要素
           </td>
         </tr>
         <tr class="border">
@@ -614,7 +640,7 @@ Ndt
 dtmaxの分割数
           </td>
           <td class="border">
-<span class="selection">Ndt&lt;0の場合、適応時間刻みの時間発展</span>
+<span class="selection">Ndt&lt;0の場合、CFL条件適応の時間刻みの時間発展</span>
           </td>
         </tr>
         <tr class="border">
@@ -638,7 +664,7 @@ CFL条件を満たす時間刻み最大値
           <td class="border">
 Ndt&ge;0の場合、固定dtmax=min(dx,dy)/1
 <br>
-<span class="selection">Ndt&lt;0の場合、可変dtmax=min(dx,dy)/max(u,v)</span>
+<span class="selection">Ndt&lt;0の場合、可変dtmax=min(dx/(max(|u|)||1),dy/(max(|v|)||1))</span>
           </td>
         </tr>
         <tr class="border">
@@ -741,32 +767,6 @@ arrows=false||true
           </td>
           <td class="border">
 png出力はcanvas中面を出力（grid||矢印のみ）
-          </td>
-        </tr>
-        <tr class="border">
-          <td class="border">
-Lx
-<br>
-<span class="run">Ver.1.10.0追加</span>
-          </td>
-          <td class="border">
-x方向の無次元全長
-          </td>
-          <td class="border">
-Lx=dx*Ni
-          </td>
-        </tr>
-        <tr class="border">
-          <td class="border">
-Ly
-<br>
-<span class="run">Ver.1.10.0追加</span>
-          </td>
-          <td class="border">
-y方向の無次元全長
-          </td>
-          <td class="border">
-代表長さ=1から換算
           </td>
         </tr>
       </tbody>

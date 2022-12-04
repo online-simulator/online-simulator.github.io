@@ -605,18 +605,22 @@ My_entry.solver_NS.prototype.FS2d = function(options, uvp){
   var dth = 0;
   var rdt = 0;
   var adapt_dt = function(uC, factor_safety){
-    var dtmax = Math.min(dx, dy)/uC;
+    var au = uC[0] || 1;
+    var av = uC[1] || 1;
+    var dtmax = Math.min(dx/au, dy/av);
     dt = dtmax/factor_safety;
     dth = dt/2;
     rdt = 1/dt;
   };
   var get_uCmax = function(){
-    var _uCmax = 0;
+    var _uCmax = [0, 0];
     for(var i=0; i<Ni; ++i){
       for(var j=0; j<Nj; ++j){
-        var uC = Math.max(Math.abs(u[i][j]), Math.abs(v[i][j]));
-        if(uC > _uCmax){
-          _uCmax = uC;
+        var uC = [Math.abs(u[i][j]), Math.abs(v[i][j])];
+        for(var n=0; n<_uCmax.length; ++n){
+          if(uC[n] > _uCmax[n]){
+            _uCmax[n] = uC[n];
+          }
         }
       }
     }
@@ -629,7 +633,7 @@ My_entry.solver_NS.prototype.FS2d = function(options, uvp){
   var nA = [];
   var x = [];
   for(var nt=0; nt<Nnt; ++nt){
-    var uCmax = (Ndt < 0)? get_uCmax(): 1;
+    var uCmax = (Ndt < 0)? get_uCmax(): [1, 1];
     adapt_dt(uCmax, Math.abs(Ndt));
   /* -> fluid-Ver.1.11.0 */
     var u0 = self.entry.def.newClone(u);
