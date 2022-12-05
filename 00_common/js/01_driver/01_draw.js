@@ -549,7 +549,9 @@ My_entry.draw.prototype.uvp = function(uvp){
       var r255 = 0;
       var g255 = 0;
       var b255 = 0;
-      if(pn < 1/3){
+      if(pmax-pmin === 0){  // fluid-Ver.1.12.0
+      }
+      else if(pn < 1/3){
         g255 = 255*pn*3;
         b255 = 255;
       }

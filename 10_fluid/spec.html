@@ -112,7 +112,7 @@ client座標(x,y)を規格化
 解像度
           </td>
           <td class="border">
-格子size
+格子sizeに反比例
           </td>
           <td class="border">
 直接計算（DNS）の場合、最小単位の渦を解像可能な大きさ
@@ -366,7 +366,7 @@ solver
           </td>
         </tr>
         <tr class="border">
-          <td class="border" rowspan="2">
+          <td class="border" rowspan="3">
 安定化
           </td>
           <td class="border">
@@ -386,6 +386,18 @@ solver
           </td>
           <td class="border">
 閉じた領域が残存する場合、塗りつぶす
+          </td>
+        </tr>
+        <tr class="border">
+          <td class="border">
+page未応答時の対策
+          </td>
+          <td class="border">
+描画頻度を上げる
+<br>
+・格子sizeを大きくする
+<br>
+・Nntを小さくする
           </td>
         </tr>
       </tbody>
@@ -409,13 +421,30 @@ solver
       <tbody>
         <tr class="border">
           <td class="border">
-testcase=0~12
+nmax
+<br>
+<span class="run">Ver.1.12.0追加</span>
+          </td>
+          <td class="border">
+描画更新の最大回数
+          </td>
+          <td class="border">
+start~自動停止の間
+          </td>
+        </tr>
+        <tr class="border">
+          <td class="border">
+testcase=0~15
 <br>
 <span class="run">Ver.1.5.0追加</span>
 <br>
 <span class="condition">Ver.1.6.0追加</span>
 <br>
 <span class="selection">Ver.1.7.0追加</span>
+<br>
+<span class="jF">Ver.1.12.0追加
+<br>
+全data軽量化svg⇒png</span>
           </td>
           <td class="border">
 test case
@@ -446,6 +475,12 @@ test case
 <span class="condition">11: backstep流れ（領域不足、助走区間不足、Ly=2相当のRe、t&gt;&gt;100で十分に発達）</span>
 <br>
 12: cavity+backstep流れ（解像度不足）
+<br>
+<span class="jF">13: 合流の一様流</span>
+<br>
+<span class="jF">14: 対称な合流（圧力分布なし）</span>
+<br>
+<span class="jF">15: 非対称な合流（同上）</span>
           </td>
         </tr>
       </tbody>
@@ -746,6 +781,8 @@ post表示用
 <br>
 矢印の色（青～緑～黄～橙～赤）:=p（最低値～最高値）
 <br>
+・圧力分布なしの場合、黒色
+<br>
 ・既知要素p=0（境界条件を未代入）
           </td>
         </tr>
@@ -772,6 +809,19 @@ arrows=false||true
           </td>
           <td class="border">
 png出力はcanvas中面を出力（grid||矢印のみ）
+          </td>
+        </tr>
+        <tr class="border">
+          <td class="border">
+Nnt=1~1000
+<br>
+<span class="run">Ver.1.12.0追加</span>
+          </td>
+          <td class="border">
+描画更新の間隔
+          </td>
+          <td class="border">
+dt基準
           </td>
         </tr>
       </tbody>
