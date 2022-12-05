@@ -377,7 +377,9 @@ solver
 <br>
 ・流出境界で逆流が存在する場合、|Ndt|&gt;&gt;1
 <br>
-・完全流体に近い場合（Re≒0）、|Ndt|&gt;&gt;100
+・非粘性の完全流体に近い場合（Re無限大）、|Ndt|&gt;&gt;1
+<br>
+・粘性が支配的な場合（Re≒0）、|Ndt|&gt;&gt;100（<span class="clear">粘性項の陰解法は未実装</span>）
           </td>
         </tr>
         <tr class="border">
@@ -661,6 +663,10 @@ Re
           </td>
           <td class="border">
 Reynolds数
+<br>
+=慣性力/粘性力
+<br>
+=代表速さ*代表長さ/動粘度
           </td>
           <td class="border">
 <del>y方向の全長=1と(u,v)から実際の問題に換算が必要
