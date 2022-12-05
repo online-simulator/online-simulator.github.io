@@ -607,7 +607,11 @@ My_entry.solver_NS.prototype.FS2d = function(options, uvp){
   var adapt_dt = function(uC, factor_safety){
     var au = uC[0] || 1;
     var av = uC[1] || 1;
-    var dtmax = Math.min(dx/au, dy/av);
+    /* fluid-Ver.1.13.0 -> */
+    var dtmax_CFL = Math.min(dx/au, dy/av);
+    var dtmax_VNSA = 0.5*Re*Math.min(dx*dx, dy*dy);  // Order2
+    var dtmax = Math.min(dtmax_CFL, dtmax_VNSA);
+    /* -> fluid-Ver.1.13.0 */
     dt = dtmax/factor_safety;
     dth = dt/2;
     rdt = 1/dt;

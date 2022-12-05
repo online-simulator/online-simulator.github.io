@@ -368,6 +368,8 @@ solver
         <tr class="border">
           <td class="border" rowspan="3">
 安定化
+<br>
+<span class="condition">Ver.1.13.0更新</span>
           </td>
           <td class="border">
 解が発散時の対策
@@ -377,9 +379,9 @@ solver
 <br>
 ・流出境界で逆流が存在する場合、|Ndt|&gt;&gt;1
 <br>
-・非粘性の完全流体に近い場合（Re無限大）、|Ndt|&gt;&gt;1
+・非粘性に近い場合（Re無限大）、|Ndt|&gt;&gt;1
 <br>
-・粘性が支配的な場合（Re≒0）、|Ndt|&gt;&gt;100（<span class="clear">粘性項の陰解法は未実装</span>）
+・粘性が支配的な場合（Re≒0）、|Ndt|&gt;&gt;<span class="condition">10</span>（<span class="clear">粘性項の陰解法は未実装</span>）
           </td>
         </tr>
         <tr class="border">
@@ -400,6 +402,75 @@ page未応答時の対策
 ・格子sizeを大きくする
 <br>
 ・Nntを小さくする
+          </td>
+        </tr>
+      </tbody>
+    </table>
+<br>
+    <table class="border">
+      <caption>流れ場を記述する方程式</caption>
+      <thead>
+        <tr class="border">
+          <th class="border">
+項目
+          </th>
+          <th class="border">
+内容
+          </th>
+          <th class="border">
+実装
+          </th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr class="border">
+          <td class="border">
+Navier-Stokes方程式
+          </td>
+          <td class="border">
+運動量保存の式
+          </td>
+          <td class="border">
+対流項
+<br>
+圧力項（圧力勾配項）
+<br>
+粘性項
+<br>
+生成項（重力等）
+          </td>
+        </tr>
+        <tr class="border">
+          <td class="border">
+Euler方程式
+          </td>
+          <td class="border">
+粘性項なし（慣性が支配的）
+          </td>
+          <td class="border">
+Re無限大（非粘性の完全流体）
+          </td>
+        </tr>
+        <tr class="border">
+          <td class="border">
+Stokes方程式
+          </td>
+          <td class="border">
+対流項なし（粘性が支配的）
+          </td>
+          <td class="border">
+Re≒0
+          </td>
+        </tr>
+        <tr class="border">
+          <td class="border">
+Burgers方程式
+          </td>
+          <td class="border">
+圧力項なし（仮想的）
+          </td>
+          <td class="border">
+圧力分布なしの中間速度（連続の式を無視）
           </td>
         </tr>
       </tbody>
@@ -480,7 +551,7 @@ test case
 <br>
 <span class="jF">13: 合流の一様流</span>
 <br>
-<span class="jF">14: 対称な合流（圧力分布なし）</span>
+<span class="jF">14: 対称な合流（圧力分布なしの中間速度を表示）</span>
 <br>
 <span class="jF">15: 非対称な合流（同上）</span>
           </td>
@@ -703,14 +774,42 @@ dt=dtmax/<span class="selection">|Ndt|</span>
         <tr class="border">
           <td class="border">
 dtmax
+<br>
+<span class="condition">Ver.1.13.0更新</span>
+          </td>
+          <td class="border">
+時間刻み最大値
+          </td>
+          <td class="border">
+<span class="condition">dtmax=min(dtmax_CFL,dtmax_VNSA)</span>
+          </td>
+        </tr>
+        <tr class="border">
+          <td class="border">
+dtmax_CFL
+<br>
+<span class="selection">Ver.1.11.0追加</span>
           </td>
           <td class="border">
 CFL条件を満たす時間刻み最大値
           </td>
           <td class="border">
-Ndt&ge;0 -> 固定dtmax=min(dx,dy)/1
+Ndt&ge;0 -> 固定dtmax_CFL=min(dx,dy)/1
 <br>
-<span class="selection">Ndt&lt;0 -> 可変dtmax=min(dx/(max(|u|)||1),dy/(max(|v|)||1))</span>
+<span class="selection">Ndt&lt;0 -> 可変dtmax_CFL=min(dx/(max(|u|)||1),dy/(max(|v|)||1))</span>
+          </td>
+        </tr>
+        <tr class="border">
+          <td class="border">
+dtmax_VNSA
+<br>
+<span class="condition">Ver.1.13.0追加</span>
+          </td>
+          <td class="border">
+拡散の安定条件を満たす時間刻み最大値
+          </td>
+          <td class="border">
+<span class="condition">dtmax_VNSA=0.5*Re*min(dx*dx,dy*dy)</span>
           </td>
         </tr>
         <tr class="border">
