@@ -995,6 +995,11 @@ My_entry.calc_graphing.prototype.init_handlers = function(){
       case "checkbox-drag":
         self.handler_drag.switch();
         break;
+      /* Ver.2.136.35 */
+      case "checkbox-center":
+        var isChecked = $.checkbox_elem(elem);
+        $._id("div-drag").classList[(isChecked)? "add": "remove"]("text-center");
+        break;
       case "checkbox-config":
         var isChecked = $.checkbox_elem(elem);
         $.show("#div-config", isChecked, true);
@@ -1020,10 +1025,13 @@ My_entry.calc_graphing.prototype.init_handlers = function(){
       case "select-n_thread":
         self.worker_plot.set_n_thread($.selectNum_id(id));
         break;
-      case "select-canvas-width":
-      case "select-canvas-height":
-        var px_w = $.selectNum_id("select-canvas-width");
-        var px_h = $.selectNum_id("select-canvas-height");
+      /* Ver.2.136.35 */
+      case "input-canvas-width":
+      case "input-canvas-height":
+        var px_w = $.inputNum_id("input-canvas-width");
+        var px_h = $.inputNum_id("input-canvas-height");
+        px_w = self.entry.def.limit(px_w, 16, 2560, 512);
+        px_h = self.entry.def.limit(px_h, 16, 2560, 256);
         clear_imageBg();
         self.plot2d.update(px_w, px_h);
         self.isCheckedError = false;  // Ver.2.33.17

@@ -1327,7 +1327,7 @@ Simple Calculatorの操作panelについて記述する
 <br>
 panel上段について記述する
 <br>
-・draggable checked時、drag移動有効化
+・draggable checked時、panelのdrag移動有効化
 <br>
 ・log出力欄に入力欄の演算結果のlogを表示
 <br>
@@ -1414,6 +1414,10 @@ Graphing Calculatorの操作panelについて記述する
 <br>
 <br>
 panel上段について記述する
+<br>
+・<span class="run">Ver.2.136.35</span>以降、centering checked時、panelのcentering有効化
+<br>
+・draggable checked時、panelのdrag移動有効化
 <br>
 ・canvas上部のlinkから描画結果のpng||svg||csvを保存可
 <br>
@@ -7468,7 +7472,9 @@ plot-configの設定項目を列挙する
 <br>
 　通常、memory sizeが問題にならない場合、最適なNthread=CPU-core数*(1~2)
 <br>
-・描画canvasのcanvas-size(canvas-width,canvas-height)を選択可
+<del>・描画canvasのcanvas-size(canvas-width,canvas-height)を選択可</del>
+<br>
+・<span class="run">Ver.2.136.35</span>以降、描画canvasのcanvas-size(canvas-width,canvas-height=16~2560)をpx数値で入力可
 <br>
 ・bg-image-fileは任意size背景画像fileをread可（<span class="clear">Internet Explorer非対応</span>）
 <br>

@@ -803,8 +803,8 @@ clear
 local storage cleared
 
 --------------------------------
-drag=false&test-case=false&legend=true&axis-t=false&axis-x=true&log-x=false&imag-x=false&axis-y=true&log-y=false&imag-y=false&axis-z=true&axis-v=true&config-plot=false&relzooming=true&snap=true&useComplex=true&useMatrix=true&sharedStorage=false&equation-list=true&config=false&isRightAssociativityBR=false&isDIVprior2OMUL=false&useComma=false&useWorker=true&decDigit=1&N=10&n_thread=4&canvas-width=512&canvas-height=256&canvas-background=black&grid-line-width=0.5&marker-size=5&marker-line-width=0&plot-line-width=2&font-size=12&grid-x-Ni=0&grid-y-Nj=0&kx-adjust=2.5&marker-colors=red-blue&legend-kx=0.25&legend-ky=0.1&canvas-globalCompositeOperationLayer=source-over&canvas-globalCompositeOperation=source-over&expDigit=-1&useStrict=true&checkError=true&matSizeMax=1000&makeLog=2
+center=true&drag=false&test-case=false&legend=true&axis-t=false&axis-x=true&log-x=false&imag-x=false&axis-y=true&log-y=false&imag-y=false&axis-z=true&axis-v=true&config-plot=false&relzooming=true&snap=true&useComplex=true&useMatrix=true&sharedStorage=false&equation-list=true&config=false&isRightAssociativityBR=false&isDIVprior2OMUL=false&useComma=false&useWorker=true&decDigit=1&N=10&n_thread=4&canvas-background=black&grid-line-width=0.5&marker-size=5&marker-line-width=0&plot-line-width=2&font-size=12&grid-x-Ni=0&grid-y-Nj=0&kx-adjust=2.5&marker-colors=red-blue&legend-kx=0.25&legend-ky=0.1&canvas-globalCompositeOperationLayer=source-over&canvas-globalCompositeOperation=source-over&expDigit=-1&useStrict=true&checkError=true&matSizeMax=1000&makeLog=2
 --------------------------------
 --------------------------------
 
-online-simulator.github.io.6.161.74.12.41 @ Sat Nov 26 2022 13:35:58 GMT+0900 (日本標準時) @ Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/107.0.0.0 Safari/537.36
+online-simulator.github.io.6.168.75.12.41 @ Tue Dec 06 2022 01:30:43 GMT+0900 (日本標準時) @ Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/108.0.0.0 Safari/537.36
