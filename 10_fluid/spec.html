@@ -45,14 +45,32 @@
           </td>
         </tr>
         <tr class="border">
-          <td class="border">
+          <td class="border" rowspan="3">
 流体の種類
           </td>
           <td class="border">
-非圧縮性のNewton流体
+実在の粘性流体
           </td>
           <td class="border">
-動粘度=粘性係数/密度=const.
+非圧縮性のNewton流体を想定
+<br>
+・動粘度=粘性係数/密度=const.
+          </td>
+        </tr>
+        <tr class="border">
+          <td class="border">
+完全流体（非粘性の流体）
+          </td>
+          <td class="border">
+Re無限大を想定
+          </td>
+        </tr>
+        <tr class="border">
+          <td class="border">
+理想流体（非圧縮性の完全流体）
+          </td>
+          <td class="border">
+通常、完全流体と同義
           </td>
         </tr>
         <tr class="border">
@@ -80,7 +98,7 @@ Fractional Step法（FS法）
           <td class="border">
 step0: 現在の時間stepの未知変数を更新
 <br>
-step0.5: 圧力項なしの非線形方程式から中間速度を陽的に算出
+step0.5: 非線形な移流拡散方程式から中間速度を陽的に算出
 <br>
 <span class="selection">step1: 線形な連立方程式から次の時間stepの未知変数を陰的に求解</span>
           </td>
@@ -282,14 +300,25 @@ pのNeumann条件
 <br>
 dp/dn=0
 <br>
-境界条件0より境界位置が厳密で保存特性が改善
+境界条件0より境界位置が厳密で全要素の保存量が改善
 <br>
 有限差分法の場合、粘性項のfluxが不正確
           </td>
         </tr>
         <tr class="border">
           <td class="border">
-対流項scheme@step0.5
+中間速度@step0.5
+          </td>
+          <td class="border">
+圧力分布なしの速度場
+          </td>
+          <td class="border">
+不連続が大きい場合、有限の領域境界で解が破綻しやすい
+          </td>
+        </tr>
+        <tr class="border">
+          <td class="border">
+移流項scheme@step0.5
           </td>
           <td class="border">
 1||3次精度の上流差分（非保存型）
@@ -431,13 +460,13 @@ Navier-Stokes方程式
 運動量保存の式
           </td>
           <td class="border">
-対流項
+移流項
 <br>
 圧力項（圧力勾配項）
 <br>
 粘性項
 <br>
-生成項（重力等）
+生成項（重力等の外力項）
           </td>
         </tr>
         <tr class="border">
@@ -445,10 +474,10 @@ Navier-Stokes方程式
 Euler方程式
           </td>
           <td class="border">
-粘性項なし（慣性が支配的）
+粘性項なし（慣性が支配的⇒粘性を無視）
           </td>
           <td class="border">
-Re無限大（非粘性の完全流体）
+Re無限大
           </td>
         </tr>
         <tr class="border">
@@ -456,7 +485,7 @@ Re無限大（非粘性の完全流体）
 Stokes方程式
           </td>
           <td class="border">
-対流項なし（粘性が支配的）
+移流項なし（粘性が支配的⇒慣性を無視）
           </td>
           <td class="border">
 Re≒0
@@ -465,12 +494,40 @@ Re≒0
         <tr class="border">
           <td class="border">
 Burgers方程式
+<br>
+移流拡散方程式
           </td>
           <td class="border">
-圧力項なし（仮想的）
+圧力項なし（連続の式を無視）
           </td>
           <td class="border">
-圧力分布なしの中間速度（連続の式を無視）
+圧力分布なしの中間速度
+          </td>
+        </tr>
+        <tr class="border">
+          <td class="border">
+移流方程式
+          </td>
+          <td class="border">
+粘性項なし
+<br>
+圧力項なし
+          </td>
+          <td class="border">
+Re無限大の中間速度
+          </td>
+        </tr>
+        <tr class="border">
+          <td class="border">
+拡散方程式
+          </td>
+          <td class="border">
+移流項なし
+<br>
+圧力項なし
+          </td>
+          <td class="border">
+Re≒0の中間速度
           </td>
         </tr>
       </tbody>
@@ -518,6 +575,8 @@ testcase=0~15
 <span class="jF">Ver.1.12.0追加
 <br>
 全data軽量化svg⇒png</span>
+<br>
+<span class="clear">Ver.1.14.0追加</span>
           </td>
           <td class="border">
 test case
@@ -554,6 +613,10 @@ test case
 <span class="jF">14: 対称な合流（圧力分布なしの中間速度を表示）</span>
 <br>
 <span class="jF">15: 非対称な合流（同上）</span>
+<br>
+<span class="clear">16: 左右の不連続流（同上）</span>
+<br>
+<span class="clear">17: 上下の不連続流（同上）</span>
           </td>
         </tr>
       </tbody>
