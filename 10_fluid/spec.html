@@ -140,6 +140,21 @@ client座標(x,y)を規格化
         </tr>
         <tr class="border">
           <td class="border">
+格子size
+          </td>
+          <td class="border">
+grid-width
+<br>
+grid-height
+          </td>
+          <td class="border">
+gridWidth=1~canvasWidth
+<br>
+gridhHeight=1~canvasHeight
+          </td>
+        </tr>
+        <tr class="border">
+          <td class="border">
 要素
           </td>
           <td class="border">
@@ -566,7 +581,7 @@ start~自動停止の間
         </tr>
         <tr class="border">
           <td class="border">
-testcase=0~17
+testcase=-1~17
 <br>
 <span class="run">Ver.1.5.0追加</span>
 <br>
@@ -579,11 +594,15 @@ testcase=0~17
 全data軽量化svg⇒png</span>
 <br>
 <span class="clear">Ver.1.14.0追加</span>
+<br>
+<span class="wF">Ver.1.15.0追加</span>
           </td>
           <td class="border">
 test case
           </td>
           <td class="border">
+<span class="wF">-1: backstep流れの再付着点位置の検証（ReS=200,400,600で約5,7,10、以降、乱流遷移）</span>
+<br>
 0: 左右の一様流
 <br>
 1: 上下の一様流
@@ -606,7 +625,7 @@ test case
 <br>
 10: cavity流れ（模擬条件）
 <br>
-<span class="condition">11: backstep流れ（領域不足、助走区間不足、Ly=2相当のRe、t&gt;&gt;100で十分に発達）</span>
+<span class="condition">11: backstep流れ（領域不足、助走区間不足、Ly=2相当のReS、t&gt;&gt;100で十分に発達）</span>
 <br>
 12: cavity+backstep流れ（解像度不足）
 <br>
@@ -937,14 +956,21 @@ stop
         </tr>
         <tr class="border">
           <td class="border">
-k_arrow
+k_arrow=<span class="run">-100~</span>100
+<br>
+<span class="run">Ver.1.15.0追加</span>
           </td>
           <td class="border">
 post表示用
 <br>
-矢印部分のsize倍率（終点基準）
+矢印のsize倍率
           </td>
           <td class="border">
+<span class="run">k_arrow&gt;0の場合、矢印全体をre-size</span>
+<br>
+k_arrow&le;0の場合、矢印部分をre-size（終点基準）
+<br>
+<br>
 矢印はcanvas中面に描画
 <br>
 矢印vector:=(u,v)

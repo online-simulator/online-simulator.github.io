@@ -538,10 +538,18 @@ My_entry.draw.prototype.uvp = function(uvp){
     var draw_arrow = function(xs, ys, xe, ye, p){
       var dx = xe-xs;
       var dy = ye-ys;
+      /* fluid-Ver.1.15.0 -> */
       /* 1.52.8 -> */
-      dx *= uvp._k_arrow;
-      dy *= uvp._k_arrow;
+      var k_arrow = uvp._k_arrow;
+      var ak_arrow = Math.abs(k_arrow);
+      dx *= ak_arrow;
+      dy *= ak_arrow;
+      if(k_arrow > 0){
+        xe = xs+dx;
+        ye = ys+dy;
+      }
       /* -> 1.52.8 */
+      /* -> fluid-Ver.1.15.0 */
       var k = 0.5;
       var dlen = Math.sqrt(dx*dx+dy*dy)*k;
       var t = Math.atan2(dy, dx);

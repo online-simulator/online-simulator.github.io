@@ -58,6 +58,16 @@
         $._id("input-grid-height").value = 20;
         $._id("input-canvas-width").value = 240;
         $._id("input-canvas-height").value = 240;
+        if(options.testcase === -1){
+          $._id("input-grid-width").value = 10;
+          $._id("input-grid-height").value = 10;
+          $._id("input-canvas-width").value = 800;
+          $._id("input-canvas-height").value = 100;
+          $._id("input-Re").value = 600;
+          $._id("input-Ndt").value = -2;
+          $._id("input-k_arrow").value = 3;
+          $._id("input-Ly").value = 2.5;
+        }
         $.set_selectVal_id("select-mosaic", "RGBA");
         $.set_id("checkbox-with-svg", "checked", "checked");
         $._id("input-second-url-parameters").value = "";
@@ -325,7 +335,7 @@ pre/post processing for png
   <button id="stop" class="input-50 clear">stop</button>
 <hr>
   <label>k_arrow:
-<input id="input-k_arrow" type="number" class="input-50" min="0" max="100" step="0.5" value="1">
+<input id="input-k_arrow" type="number" class="input-50" min="-100" max="100" step="0.5" value="1">
   </label>
   <label>Nnt:
 <input id="input-Nnt" type="number" class="input-50" min="1" max="1000" value="10">
