@@ -601,7 +601,19 @@ testcase=-1~17
 test case
           </td>
           <td class="border">
-<span class="wF">-1: backstep流れの再付着点位置の検証（ReS=200,400,600で約5,7,10、以降、乱流遷移）</span>
+<span class="wF">-1: backstep流れの再付着点距離の検証
+<br>
+・代表速さ=inlet平均速さ（redを指定）
+<br>
+・代表長さ=step高さ（Lyを設定）
+<br>
+・ReS=inlet平均速さ*step高さ/動粘度
+<br>
+・ReS=200,400,600に対して
+<br>
+・無次元の再付着点距離=約5,7,10
+<br>
+・以降、乱流遷移で再付着点距離が減少傾向</span>
 <br>
 0: 左右の一様流
 <br>
