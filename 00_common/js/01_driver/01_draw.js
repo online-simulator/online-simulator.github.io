@@ -614,7 +614,7 @@ My_entry.draw.prototype.uvp = function(uvp){
       pmin = 0;
       pmax = 0;
     }
-    else if(sw_color === 2){
+    else if(sw_color === 1){
       pmin = 0;
       pmax = avmax;
     }
@@ -628,7 +628,7 @@ My_entry.draw.prototype.uvp = function(uvp){
         if(uij || vij){
           var dxij = dh*uij/(avmax || 1);  // || not0
           var dyij = dh*vij/(avmax || 1);  // || not0
-          if(sw_color === 2){
+          if(sw_color === 1){
             var av = Math.sqrt(uij*uij+vij*vij);
             pij = av;
           }

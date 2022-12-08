@@ -1076,8 +1076,8 @@ My_entry.pen.prototype.init_handlers = function(){
               }
               else{
                 mg.clear();
-                uvp._color = options["color-arrow"];  // fluid-Ver.1.16.0
                 uvp._k_arrow = options.k_arrow;  // fluid-Ver.1.3.0
+                uvp._color = options["color-arrow"];  // fluid-Ver.1.16.0
                 var svg = mg.draw.uvp(uvp);
                 setTimeout(function(){
                   if(self.isLocked) callback();
