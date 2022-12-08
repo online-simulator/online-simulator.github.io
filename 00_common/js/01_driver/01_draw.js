@@ -608,6 +608,16 @@ My_entry.draw.prototype.uvp = function(uvp){
       _svg += self.footer_group();
     };
     ctx.save();
+    /* fluid-Ver.1.16.0 -> */
+    var sw_color = uvp._color;
+    if(sw_color === 0){
+      pmin = 0;
+      pmax = 0;
+    }
+    else if(sw_color === 2){
+      pmin = 0;
+      pmax = avmax;
+    }
     for(var i=0; i<Ni; ++i){
       var xo = (0.5+i)*dx;
       for(var j=0; j<Nj; ++j){
@@ -618,10 +628,15 @@ My_entry.draw.prototype.uvp = function(uvp){
         if(uij || vij){
           var dxij = dh*uij/(avmax || 1);  // || not0
           var dyij = dh*vij/(avmax || 1);  // || not0
+          if(sw_color === 2){
+            var av = Math.sqrt(uij*uij+vij*vij);
+            pij = av;
+          }
           draw_arrow(xo, yo, xo+dxij, yo+dyij, pij);
         }
       }
     }
+    /* -> fluid-Ver.1.16.0 */
     ctx.restore();
   }
   return _svg;
