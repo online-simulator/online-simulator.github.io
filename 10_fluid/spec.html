@@ -950,6 +950,24 @@ scheme=Order1||Order3
 差分精度次数の選択
           </td>
           <td class="border">
+order=1||3
+          </td>
+        </tr>
+        <tr class="border">
+          <td class="border">
+scheme-a
+<br>
+<span class="run">Ver.1.17.0追加</span>
+          </td>
+          <td class="border">
+数値粘性の適用率
+          </td>
+          <td class="border">
+a=0 -> (order+1)次精度の中心差分
+<br>
+a=1 -> (order+0)次精度の上流差分
+<br>
+a=3 -> Kawamura-Kuwahara scheme@order=3
           </td>
         </tr>
         <tr class="border">
@@ -996,7 +1014,7 @@ k_arrow&le;0の場合、矢印部分をre-size（終点基準）
         </tr>
         <tr class="border">
           <td class="border">
-color
+arrow-color
 <br>
 <span class="run">Ver.1.16.0追加</span>
           </td>

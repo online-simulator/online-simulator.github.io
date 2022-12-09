@@ -18,6 +18,7 @@ My_entry.solver_NS.prototype.FS2d = function(options, uvp){
   var Re = options.Re || 0;
   var Ndt = options.Ndt || 0;  // fluid-Ver.1.11.0
   var Nnt = options.Nnt || 1;
+  var alpha_upstream = options.alpha_upstream || 0;  // fluid-Ver.1.17.0
   var u = uvp.u;
   var v = uvp.v;
   var ud = uvp.ud;
@@ -191,6 +192,10 @@ My_entry.solver_NS.prototype.FS2d = function(options, uvp){
     /* -> fluid-Ver.1.7.0 */
       var auij = Math.abs(uij);
       var avij = Math.abs(vij);
+      /* fluid-Ver.1.17.0 -> */
+      auij *= alpha_upstream;
+      avij *= alpha_upstream;
+      /* -> fluid-Ver.1.17.0 */
       var dudx = (-uim+uip)*rdx2;
       var dvdy = (-vjm+vjp)*rdy2;
       var cont = dudx+dvdy;
@@ -352,6 +357,10 @@ My_entry.solver_NS.prototype.FS2d = function(options, uvp){
     /* -> fluid-Ver.1.7.0 */
       var auij = Math.abs(uij);
       var avij = Math.abs(vij);
+      /* fluid-Ver.1.17.0 -> */
+      auij *= alpha_upstream;
+      avij *= alpha_upstream;
+      /* -> fluid-Ver.1.17.0 */
       var dudx = (-uim+uip)*rdx2;
       var dvdy = (-vjm+vjp)*rdy2;
       var cont = dudx+dvdy;
