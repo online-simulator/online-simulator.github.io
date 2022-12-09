@@ -87,7 +87,7 @@ Re無限大を想定
           <td class="border">
 直接、連立方程式のJacobi行列を構成して反復法で解くのは困難であり、
 <br>
-圧力の楕円型方程式を構成する等、安定な解法が工夫される
+圧力の楕円型方程式を構成して優対角化する等、安定な解法が工夫される
           </td>
         </tr>
         <tr class="border">
@@ -135,7 +135,7 @@ client座標(x,y)を規格化
 格子sizeに反比例
           </td>
           <td class="border">
-直接計算（DNS）の場合、最小単位の渦を解像可能な大きさ
+DNS（乱流modelなし）の場合、最小単位の渦を解像可能な大きさ
           </td>
         </tr>
         <tr class="border">
@@ -336,12 +336,16 @@ dp/dn=0
         <tr class="border">
           <td class="border">
 移流項scheme@step0.5
+<br>
+<span class="run">Ver.1.17.0追加</span>
           </td>
           <td class="border">
 1||3次精度の上流差分（非保存型）
           </td>
           <td class="border">
 数値不安定な中心差分に数値粘性を付加
+<br>
+<span class="run">・数値粘性の適用率を調整可</span>
           </td>
         </tr>
         <tr class="border">
@@ -416,6 +420,8 @@ solver
 安定化
 <br>
 <span class="condition">Ver.1.13.0更新</span>
+<br>
+<span class="run">Ver.1.17.0更新</span>
           </td>
           <td class="border">
 解が発散時の対策
@@ -428,6 +434,8 @@ solver
 ・非粘性に近い場合（Re無限大）、|Ndt|&gt;&gt;1
 <br>
 ・粘性が支配的な場合（Re≒0）、|Ndt|&gt;&gt;<span class="condition">10</span>（<span class="clear">粘性項の陰解法は未実装</span>）
+<br>
+<span class="run">・scheme-a依存の数値粘性が粘性項より支配的な場合、|Ndt|&gt;&gt;1</span>
           </td>
         </tr>
         <tr class="border">
@@ -906,12 +914,16 @@ Ndt&ge;0 -> 固定dtmax_CFL=min(dx,dy)/1
 dtmax_VNSA
 <br>
 <span class="condition">Ver.1.13.0追加</span>
+<br>
+<span class="clear">Ver.1.17.0更新</span>
           </td>
           <td class="border">
 拡散の安定条件を満たす時間刻み最大値
           </td>
           <td class="border">
 <span class="condition">dtmax_VNSA=0.5*Re*min(dx*dx,dy*dy)</span>
+<br>
+<span class="clear">・数値粘性は未考慮</span>
           </td>
         </tr>
         <tr class="border">
