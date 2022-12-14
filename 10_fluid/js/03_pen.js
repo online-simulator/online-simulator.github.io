@@ -255,6 +255,11 @@ My_entry.pen.prototype.make_csv = function(){
     _csv += My_entry.Ver.fluid;
     _csv += rn;
     _csv += rn;
+    _csv += "t";
+    _csv += ca;
+    _csv += uvp.t;
+    _csv += rn;
+    _csv += rn;
     ["u", "v", "p"].forEach(function(sw_uvp){
       var out = uvp[sw_uvp];
       _csv += sw_uvp;
