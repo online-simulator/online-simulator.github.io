@@ -239,6 +239,42 @@ My_entry.pen.prototype.make_svg_lines = function(){
   return _svg;
 };
 /* -> Ver.1.2.0 */
+/* Ver.1.18.0 */
+My_entry.pen.prototype.make_csv = function(){
+  var self = this;
+  var $ = self.entry.$;
+  var ds = My_entry.$.config.DELIMITER;
+  var dq = ds.dq;
+  var ca = ds.ca;
+  var rn = ds.rn;
+  var _csv = "";
+  var uvp = self.uvp;
+  if(uvp){
+    _csv += My_entry.VERSION;
+    _csv += ca;
+    _csv += My_entry.Ver.fluid;
+    _csv += rn;
+    _csv += rn;
+    ["u", "v", "p"].forEach(function(sw_uvp){
+      var out = uvp[sw_uvp];
+      _csv += sw_uvp;
+      _csv += ca;
+      for(var j=0; j<uvp.Nj; ++j){
+        _csv += uvp.dy*(j+0.5);
+        _csv += ca;
+      }
+      _csv += rn;
+      for(var i=0; i<uvp.Ni; ++i){
+        _csv += uvp.dx*(i+0.5);
+        _csv += ca;
+        _csv += out[i];
+        _csv += rn;
+      }
+      _csv += rn;
+    });
+  }
+  return _csv;
+};
 /* Ver.1.52.10 */
 /* Ver.1.11.4 */
 My_entry.pen.prototype.change_size = function(px_w, px_h){
@@ -792,6 +828,11 @@ My_entry.pen.prototype.init_handlers = function(){
     var json = {p: {id: "wrapper-link-svg"}, a: {id: "a-svg", it: "-svg(src-over)"}, name: "download", ext: "svg"};
     self.handler_link_svg = new self.constructors.handler_link(json);
     self.handler_link_svg.setter.callback(function(){return self.make_svg();});
+    /* Ver.1.18.0 -> */
+    var json = {p: {id: "wrapper-link-csv"}, a: {id: "a-csv", it: "download-csv"}, name: "download", ext: "csv"};
+    self.handler_link_csv = new self.constructors.handler_link(json);
+    self.handler_link_csv.setter.callback(function(){return self.make_csv();});
+    /* -> Ver.1.18.0 */
     self.handler_history_ID = new self.constructors.handler_history(options.history_len_max);  // Ver.1.1.0
     /* Ver.1.21.4 -> */
     var callback_svg = function(){
