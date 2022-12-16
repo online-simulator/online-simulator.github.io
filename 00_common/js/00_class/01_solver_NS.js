@@ -38,6 +38,8 @@ My_entry.solver_NS.prototype.FS2d = function(options, uvp){
   var len2 = len0*3;
   var dx = uvp.dx;
   var dy = uvp.dy;
+  var Lx = uvp.Lx;  // fluid-Ver.1.19.0
+  var Ly = uvp.Ly;  // fluid-Ver.1.19.0
   var dx2 = dx*2;
   var dy2 = dy*2;
   var dx12 = dx*12;
@@ -606,7 +608,7 @@ My_entry.solver_NS.prototype.FS2d = function(options, uvp){
     for(var i=1; i<Ni-1; ++i){
       qtotal_y += (-v[i][0]+v[i][Nj-1])*2;
     }
-    var _qtotal = qtotal_x*dy/2+qtotal_y*dx/2;  // Order2
+    var _qtotal = qtotal_x*dy/(2*Ly)+qtotal_y*dx/(2*Lx);  // Order2  // fluid-Ver.1.19.0
     return _qtotal;
   };
   /* fluid-Ver.1.11.0 -> */
