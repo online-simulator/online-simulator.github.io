@@ -608,7 +608,8 @@ My_entry.solver_NS.prototype.FS2d = function(options, uvp){
     for(var i=1; i<Ni-1; ++i){
       qtotal_y += (-v[i][0]+v[i][Nj-1])*2;
     }
-    var _qtotal = qtotal_x*dy/(2*Ly)+qtotal_y*dx/(2*Lx);  // Order2  // fluid-Ver.1.19.0
+//    var _qtotal = qtotal_x*dy/2+qtotal_y*dx/2;  // Order2
+    var _qtotal = qtotal_x/(2*Nj*Lx)+qtotal_y/(2*Ni*Ly);  // Order2  // fluid-Ver.1.19.0
     return _qtotal;
   };
   /* fluid-Ver.1.11.0 -> */
