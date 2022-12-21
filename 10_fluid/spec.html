@@ -87,7 +87,11 @@ Re無限大を想定
           <td class="border">
 直接、連立方程式のJacobi行列を構成して反復法で解くのは困難であり、
 <br>
-圧力の楕円型方程式を構成して優対角化する等、安定な解法が工夫される
+離散化した係数行列を優対角化する等、安定な解法が工夫される
+<br>
+・圧力の楕円型方程式を構成
+<br>
+・奇数階微分の移流項に数値粘性を導入
           </td>
         </tr>
         <tr class="border">
@@ -1045,7 +1049,7 @@ post表示用
 矢印のsize倍率=|k_arrow|
           </td>
           <td class="border">
-<span class="run">k_arrow&gt;0の場合、矢印全体をre-size</span>
+<span class="run">k_arrow&gt;0の場合、矢印全体をre-size（始点基準）</span>
 <br>
 k_arrow&le;0の場合、矢印部分をre-size（終点基準）
 <br>
