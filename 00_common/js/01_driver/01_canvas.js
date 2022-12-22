@@ -567,9 +567,9 @@ My_entry.canvas.prototype.make_uvp = function(options, opt_ID){  // fluid-Ver.1.
     }
     /* 1.50.8 -> */
 //    var dxi = 1/Ni;
-//    var dyi= (rdy/rdx)*dxi;
-//    var dyi= 1/Nj;
-    var dyi= Ly/Nj;  // fluid-Ver.1.10.0
+//    var dyi = (rdy/rdx)*dxi;
+//    var dyi = 1/Nj;
+    var dyi = Ly/Nj;  // fluid-Ver.1.10.0
     var dxi = (rdx/rdy)*dyi;
     var Lx = dxi*Ni;  // fluid-Ver.1.10.0
     /* -> 1.50.8 */
