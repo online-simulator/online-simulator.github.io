@@ -597,7 +597,7 @@ start~自動停止の間
         </tr>
         <tr class="border">
           <td class="border">
-testcase=-1~17
+testcase=-1~20
 <br>
 <span class="run">Ver.1.5.0追加</span>
 <br>
@@ -612,6 +612,8 @@ testcase=-1~17
 <span class="clear">Ver.1.14.0追加</span>
 <br>
 <span class="wF">Ver.1.15.0追加</span>
+<br>
+<span class="wF">Ver.1.20.0追加</span>
           </td>
           <td class="border">
 test case
@@ -672,6 +674,12 @@ test case
 <span class="clear">16: 左右の不連続流（同上）</span>
 <br>
 <span class="clear">17: 上下の不連続流（同上）</span>
+<br>
+<span class="wF">18: 左右の合流</span>
+<br>
+<span class="wF">19: 上下の合流</span>
+<br>
+<span class="wF">20: 斜めの合流</span>
           </td>
         </tr>
       </tbody>
@@ -813,12 +821,20 @@ a=0 -> 未知要素
         <tr class="border">
           <td class="border">
 (u,v)=(r/255,g/255)
+<br>
+<span class="wF">Ver.1.20.0追加</span>
           </td>
           <td class="border">
 無次元速度vector
           </td>
           <td class="border">
 blackを含むr=g=0で壁指定
+<br>
+<span class="wF">b=1 -> uの符号反転</span>
+<br>
+<span class="wF">b=2 -> vの符号反転</span>
+<br>
+<span class="wF">b=3 -> uvの符号反転</span>
           </td>
         </tr>
         <tr class="border">

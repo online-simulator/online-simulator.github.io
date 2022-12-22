@@ -542,6 +542,18 @@ My_entry.canvas.prototype.make_uvp = function(options, opt_ID){  // fluid-Ver.1.
         if(isP0){
           r = g = b = a = 0;  // only defined var
         }
+        /* fluid-Ver.1.20.0 -> */
+        else if(b === 1){
+          r = -r;
+        }
+        else if(b === 2){
+          g = -g;
+        }
+        else if(b === 3){
+          r = -r;
+          g = -g;
+        }
+        /* -> fluid-Ver.1.20.0 */
         u[i][j] = r/255;
         v[i][j] = g/255;
         ud[i][j] = 0;
