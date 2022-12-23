@@ -191,6 +191,19 @@ a=0
         </tr>
         <tr class="border">
           <td class="border">
+p=0指定の未知要素
+          </td>
+          <td class="border">
+圧力が既知でp=0の要素
+          </td>
+          <td class="border">
+a&gt;0
+<br>
+b=255
+          </td>
+        </tr>
+        <tr class="border">
+          <td class="border">
 未知変数
           </td>
           <td class="border">
@@ -451,7 +464,13 @@ solver
 解がNaN時の対策
           </td>
           <td class="border">
-閉じた領域が残存する場合、塗りつぶす
+領域を見直す
+<br>
+・閉じた領域が残存する場合、塗りつぶす
+<br>
+・助走区間不足の場合、領域を広げる
+<br>
+・p=0指定の未知要素が複数存在する場合、領域を広げて結合する
           </td>
         </tr>
         <tr class="border">
@@ -849,11 +868,13 @@ p
 無次元圧力
           </td>
           <td class="border">
-p=0@b=255
+p=0指定の未知要素@b=255
 <br>
-b=255未定義時、右下の未知要素p=0
+・境界条件の都合上、流出側の指定が妥当
 <br>
-(u,v)の同時指定不可
+・b=255未定義時、右下の未知要素p=0
+<br>
+・(u,v)の同時指定不可
           </td>
         </tr>
         <tr class="border">
