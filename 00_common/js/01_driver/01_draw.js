@@ -533,6 +533,14 @@ My_entry.draw.prototype.uvp = function(uvp){
         }
       }
     }
+    /* fluid-Ver.1.21.0 -> */
+    uvp._umin = umin;
+    uvp._vmin = vmin;
+    uvp._pmin = pmin;
+    uvp._umax = umax;
+    uvp._vmax = vmax;
+    uvp._pmax = pmax;
+    /* -> fluid-Ver.1.21.0 */
     var pi2 = Math.PI*2;
     var rad15 = 15*Math.PI/180;
     var draw_arrow = function(xs, ys, xe, ye, p){

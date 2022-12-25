@@ -817,6 +817,71 @@ My_entry.pen.prototype.init_config = function(opt_isFinal){
   }
   return self;
 };
+/* fluid-Ver.1.21.0 -> */
+My_entry.pen.prototype.init_plot2d = function(){
+  var self = this;
+  var options = self.options;
+  options["plot-canvas-width"] = self.entry.def.limit(options["plot-canvas-width"], 16, 2560, 512);
+  options["plot-canvas-height"] = self.entry.def.limit(options["plot-canvas-height"], 16, 2560, 256);
+  self.plot2d = new self.constructors.plot2d("div-plot2d", options["plot-canvas-width"], options["plot-canvas-height"]);
+  return self;
+};
+My_entry.pen.prototype.update_plot2d = function(toSVG){
+  var self = this;
+  var _svg = "";
+  var options = self.options;
+  var uvp = self.uvp;
+  if(uvp){
+    self.entry.def.mix_over(self.constructors.draw, self.constructors["draw_"+((toSVG)? "svg": "canvas")]);
+    var t = uvp.t;
+    var q = uvp.qtotal;
+    uvp._arr_t = uvp._arr_t || [0];
+    uvp._arr_q = uvp._arr_q || [0];
+    uvp._arr_t.push([t]);
+    uvp._arr_q.push([q]);
+    var arr2d_vec = {x: uvp._arr_t, y: uvp._arr_q, len_n: uvp._arr_t.length, len_j: 1, gxmin: Math.min.apply(Math, uvp._arr_t), gxmax: Math.max.apply(Math, uvp._arr_t), gymin: Math.min.apply(Math, uvp._arr_q), gymax: Math.max.apply(Math, uvp._arr_q)};
+    var options_plot = {
+      decDigit: 1,
+      expDigit: -1,
+      "marker-size": 0,
+      "marker-line-width": 0,
+      "plot-line-width": 2,
+      "grid-line-width": 0.5,
+      "grid-line-color": "gray",
+      "bg-color": "black",
+      globalCompositeOperationAll: null,
+      "canvas-globalCompositeOperationLayer": null,
+      "log-x": false,
+      "log-y": false,
+      "imag-x": false,
+      "imag-y": false,
+      legend: false,
+      "axis-x": true,
+      "axis-y": true,
+      "axis-z": true,
+      "font-size": 12,
+      "grid-x-Ni": 0,
+      "grid-y-Nj": 0,
+      "kx-adjust": 2.5,
+      "legend-kx": 0.25,
+      "legend-ky": 0.1,
+      "marker-colors": "red-blue",
+      "input-z": "ORIGIN{2,yellow,17}XLABEL{t}YLABEL{q}"
+    };
+    for(var prop in options_plot){
+      var option = options[prop];
+      if(typeof option !== "undefined"){
+        options_plot[prop] = option;
+      }
+    }
+    options_plot.arr_x = [];
+    options_plot.arr_y = [];
+    _svg = self.plot2d.run(arr2d_vec, options_plot);
+    self.plot2d.objs.temp.detach();
+  }
+  return _svg;
+};
+/* -> fluid-Ver.1.21.0 */
 My_entry.pen.prototype.init_handlers = function(){
   var self = this;
   var $ = self.entry.$;
@@ -973,6 +1038,7 @@ My_entry.pen.prototype.init_handlers = function(){
       fg.draw_base64(base64, null, callback_last);
       /* -> fluid-Ver.1.3.0 */
     }
+    self.init_plot2d();  // fluid-Ver.1.21.0
     /* -> fluid-Ver.1.0.0 */
     return self;
   };
@@ -1145,6 +1211,7 @@ My_entry.pen.prototype.init_handlers = function(){
                 uvp._k_arrow = options.k_arrow;  // fluid-Ver.1.3.0
                 uvp._color = options["color-arrow"];  // fluid-Ver.1.16.0
                 var svg = mg.draw.uvp(uvp);
+                self.update_plot2d();  // fluid-Ver.1.21.0
                 setTimeout(function(){
                   if(self.isLocked) callback();
                 }, 50);
