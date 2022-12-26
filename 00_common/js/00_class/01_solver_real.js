@@ -54,11 +54,13 @@ My_entry.solver_real.prototype.gaussian_forward = function(options, obj_Axb){
   for(var i=0; i<N-1; ++i){
     for(var ii=i+1; ii<N; ++ii){
       var w = A[ii][i]/A[i][i];
+//    if(w){  // for sparse matrix
       A[ii][i] = 0;
       for(j=i+1; j<N; ++j){
         A[ii][j] -= w*A[i][j];  // 1.47.8
       }
       b[ii] -= w*b[i];  // 1.47.8
+//    }
     }
   }
   return self;
