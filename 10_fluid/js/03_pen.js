@@ -829,17 +829,29 @@ My_entry.pen.prototype.init_plot2d = function(){
 My_entry.pen.prototype.update_plot2d = function(toSVG){
   var self = this;
   var _svg = "";
+  /* fluid-Ver.1.22.0 -> */
+  var $ = self.entry.$;
   var options = self.options;
   var uvp = self.uvp;
   if(uvp){
     self.entry.def.mix_over(self.constructors.draw, self.constructors["draw_"+((toSVG)? "svg": "canvas")]);
     var t = uvp.t;
+    var c = uvp.cmax;
     var q = uvp.qtotal;
     uvp._arr_t = uvp._arr_t || [0];
+    uvp._arr_c = uvp._arr_c || [0];
     uvp._arr_q = uvp._arr_q || [0];
     uvp._arr_t.push([t]);
+    uvp._arr_c.push([c]);
     uvp._arr_q.push([q]);
-    var arr2d_vec = {x: uvp._arr_t, y: uvp._arr_q, len_n: uvp._arr_t.length, len_j: 1, gxmin: Math.min.apply(Math, uvp._arr_t), gxmax: Math.max.apply(Math, uvp._arr_t), gymin: Math.min.apply(Math, uvp._arr_q), gymax: Math.max.apply(Math, uvp._arr_q)};
+    ["umin", "umax", "vmin", "vmax", "pmin", "pmax"].forEach(function(sw_plot){
+      var prop = "_arr_"+sw_plot;
+      uvp[prop] = uvp[prop] || [0];
+      uvp[prop].push([uvp["_"+sw_plot]]);
+    });
+    var sw_plot = $._id("select-plot").value;
+    var arr_plot = uvp["_arr_"+sw_plot];
+    var arr2d_vec = {x: uvp._arr_t, y: arr_plot, len_n: uvp._arr_t.length, len_j: 1, gxmin: Math.min.apply(Math, uvp._arr_t), gxmax: Math.max.apply(Math, uvp._arr_t), gymin: Math.min.apply(Math, arr_plot), gymax: Math.max.apply(Math, arr_plot)};
     var options_plot = {
       decDigit: 1,
       expDigit: -1,
@@ -866,8 +878,9 @@ My_entry.pen.prototype.update_plot2d = function(toSVG){
       "legend-kx": 0.25,
       "legend-ky": 0.1,
       "marker-colors": "red-blue",
-      "input-z": "ORIGIN{2,yellow,17}XLABEL{t}YLABEL{q}"
+      "input-z": "ORIGIN{2,yellow,17}XLABEL{t}YLABEL{"+sw_plot+"}"
     };
+  /* -> fluid-Ver.1.22.0 */
     for(var prop in options_plot){
       var option = options[prop];
       if(typeof option !== "undefined"){
