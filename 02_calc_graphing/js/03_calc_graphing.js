@@ -116,21 +116,6 @@ My_entry.calc_graphing.prototype.output_log_plot = function(isFinal){
   /* -> Ver.2.16.6 */
   return self;
 };
-/* Ver.2.40.19 */
-My_entry.calc_graphing.prototype.gaxis2axis = function(gaxis, options_plot){
-  var self = this;
-  var isLog_x = options_plot["log-x"];
-  var isLog_y = options_plot["log-y"];
-  var gxmin = gaxis.gxmin;
-  var gymin = gaxis.gymin;
-  var gxmax = gaxis.gxmax;
-  var gymax = gaxis.gymax;
-  var xmin = self.trans(gxmin, isLog_x);
-  var ymin = self.trans(gymin, isLog_y);
-  var xmax = self.trans(gxmax, isLog_x);
-  var ymax = self.trans(gymax, isLog_y);
-  return {xmin: xmin, ymin: ymin, xmax: xmax, ymax: ymax};
-};
 /* Ver.2.39.18 -> */
 My_entry.calc_graphing.prototype.get_axis_zooming = function(rate, options_plot){
   var self = this;
@@ -734,18 +719,17 @@ My_entry.calc_graphing.prototype.init_handlers = function(){
     /* -> Ver.2.25.14 */
     // canvas
     self.plot2d = new self.constructors.plot2d("div-plot2d", 512, 256);
+    /* Ver.2.137.35 -> */
     /* Ver.2.37.18 -> */
-    self.trans = function(x, isLog){
-      return ((isLog)? Math.pow(10, x): x);
-    };
     self.plot2d.setter.callbacks({
       onmouseup: function(e, gaxis){
         var options_plot = self.get_options(true);
-        self.output_axis(self.gaxis2axis(gaxis, options_plot), options_plot);
+        self.output_axis(self.plot2d.gaxis2axis(gaxis, options_plot), options_plot);
         self.re_plot(true);
       }
     });
     /* -> Ver.2.37.18 */
+    /* -> Ver.2.137.35 */
     // workers
     self.set_callbacks_worker();
     /* Ver.2.43.20 -> */

@@ -50,6 +50,10 @@ My_entry.plot2d.prototype.init = function(id, opt_px_w, opt_px_h, opt_px_b){
   self.trans = function(x, isLog){
     return ((isLog)? self.log10(x): x);
   };
+  /* 1.53.8 */
+  self.trans_rev = function(x, isLog){
+    return ((isLog)? Math.pow(10, x): x);
+  };
   self.filter = new self.constructors.filter();  // 1.1.2
   self.isLocked = false;
   self.isDragging = false;
@@ -134,6 +138,21 @@ My_entry.plot2d.prototype.vec2gaxis_centering = function(vec){
     _gaxis = grid.screen2plot(x0+dx, y0+dy, x1+dx, y1+dy);
   }
   return _gaxis;
+};
+/* 1.53.8 */
+My_entry.plot2d.prototype.gaxis2axis = function(gaxis, options){
+  var self = this;
+  var isLog_x = options["log-x"];
+  var isLog_y = options["log-y"];
+  var gxmin = gaxis.gxmin;
+  var gymin = gaxis.gymin;
+  var gxmax = gaxis.gxmax;
+  var gymax = gaxis.gymax;
+  var xmin = self.trans_rev(gxmin, isLog_x);
+  var ymin = self.trans_rev(gymin, isLog_y);
+  var xmax = self.trans_rev(gxmax, isLog_x);
+  var ymax = self.trans_rev(gymax, isLog_y);
+  return {xmin: xmin, ymin: ymin, xmax: xmax, ymax: ymax};
 };
 My_entry.plot2d.prototype.init_handlers = function(){
   var self = this;
