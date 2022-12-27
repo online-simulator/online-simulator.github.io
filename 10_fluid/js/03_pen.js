@@ -826,27 +826,31 @@ My_entry.pen.prototype.init_plot2d = function(){
   self.plot2d = new self.constructors.plot2d("div-plot2d", options["plot-canvas-width"], options["plot-canvas-height"]);
   return self;
 };
-My_entry.pen.prototype.update_plot2d = function(toSVG){
+My_entry.pen.prototype.update_plot2d = function(isFinal){  // fluid-Ver.1.23.0
   var self = this;
-  var _svg = "";
+  var _svg = null;  // fluid-Ver.1.23.0
   /* fluid-Ver.1.22.0 -> */
   var $ = self.entry.$;
   var options = self.options;
   var uvp = self.uvp;
+  var temp = self.plot2d.objs.temp;  // fluid-Ver.1.23.0
   if(uvp){
+    var toSVG = (isFinal === "SVG");  // fluid-Ver.1.23.0
     self.entry.def.mix_over(self.constructors.draw, self.constructors["draw_"+((toSVG)? "svg": "canvas")]);
     var t = uvp.t;
     var c = uvp.cmax;
     var q = uvp.qtotal;
-    uvp._arr_t = uvp._arr_t || [0];
-    uvp._arr_c = uvp._arr_c || [0];
-    uvp._arr_q = uvp._arr_q || [0];
+    /* fluid-Ver.1.23.0 -> */
+    uvp._arr_t = uvp._arr_t || [[0]];
+    uvp._arr_c = uvp._arr_c || [[0]];
+    uvp._arr_q = uvp._arr_q || [[0]];
     uvp._arr_t.push([t]);
     uvp._arr_c.push([c]);
     uvp._arr_q.push([q]);
     ["umin", "umax", "vmin", "vmax", "pmin", "pmax"].forEach(function(sw_plot){
       var prop = "_arr_"+sw_plot;
-      uvp[prop] = uvp[prop] || [0];
+      uvp[prop] = uvp[prop] || [[0]];
+    /* -> fluid-Ver.1.23.0 */
       uvp[prop].push([uvp["_"+sw_plot]]);
     });
     var sw_plot = $._id("select-plot").value;
@@ -889,8 +893,19 @@ My_entry.pen.prototype.update_plot2d = function(toSVG){
     }
     options_plot.arr_x = [];
     options_plot.arr_y = [];
-    _svg = self.plot2d.run(arr2d_vec, options_plot);
-    self.plot2d.objs.temp.detach();
+    /* fluid-Ver.1.23.0 -> */
+    if(toSVG){
+      _svg = "";
+      _svg += temp.draw.header(options["plot-canvas-width"], options["plot-canvas-height"]);
+      _svg += temp.draw.comment(My_entry.VERSION);
+      _svg += self.plot2d.final(arr2d_vec, options_plot, toSVG);
+      _svg += temp.draw.footer();
+    }
+    else{
+      _svg = self.plot2d[(isFinal)? "final": "run"](arr2d_vec, options_plot, toSVG);
+    }
+    temp.detach();
+    /* -> fluid-Ver.1.23.0 */
   }
   return _svg;
 };
@@ -916,6 +931,14 @@ My_entry.pen.prototype.init_handlers = function(){
     self.handler_link_csv = new self.constructors.handler_link(json);
     self.handler_link_csv.setter.callback(function(){return self.make_csv();});
     /* -> Ver.1.18.0 */
+    /* Ver.1.23.0 -> */
+    var json = {p: {id: "wrapper-link-png1"}, a: {id: "a-png1", it: "download-png"}, name: "download", ext: "png"};
+    self.handler_link_png = new self.constructors.handler_link(json);
+    self.handler_link_png.setter.callback(function(){return self.entry.conv.base2buffer(self.plot2d.objs.all.get_base64());});
+    var json = {p: {id: "wrapper-link-svg1"}, a: {id: "a-svg1", it: "-svg(src-over)"}, name: "download", ext: "svg"};
+    self.handler_link_svg = new self.constructors.handler_link(json);
+    self.handler_link_svg.setter.callback(function(){return self.update_plot2d("SVG");});
+    /* -> Ver.1.23.0 */
     self.handler_history_ID = new self.constructors.handler_history(options.history_len_max);  // Ver.1.1.0
     /* Ver.1.21.4 -> */
     var callback_svg = function(){
@@ -1226,7 +1249,14 @@ My_entry.pen.prototype.init_handlers = function(){
                 var svg = mg.draw.uvp(uvp);
                 self.update_plot2d();  // fluid-Ver.1.21.0
                 setTimeout(function(){
-                  if(self.isLocked) callback();
+                  /* fluid-Ver.1.23.0 -> */
+                  if(self.isLocked){
+                    callback();
+                  }
+                  else{
+                    self.update_plot2d(true);
+                  }
+                  /* -> fluid-Ver.1.23.0 */
                 }, 50);
               }
             }
