@@ -817,6 +817,63 @@ My_entry.pen.prototype.init_config = function(opt_isFinal){
   }
   return self;
 };
+/* fluid-Ver.1.24.0 -> */
+My_entry.pen.prototype.update_arr2d_vec = function(){
+  var self = this;
+  var uvp = self.uvp;
+  if(uvp){
+    var t = uvp.t;
+    var c = uvp.cmax;
+    var q = uvp.qtotal;
+    /* fluid-Ver.1.23.0 -> */
+    uvp._arr_t = uvp._arr_t || [];
+    uvp._arr_c = uvp._arr_c || [];
+    uvp._arr_q = uvp._arr_q || [];
+    uvp._arr_t.push([t]);
+    uvp._arr_c.push([c]);
+    uvp._arr_q.push([q]);
+    ["umin", "umax", "vmin", "vmax", "pmin", "pmax"].forEach(function(sw_plot){
+      var prop = "_arr_"+sw_plot;
+      uvp[prop] = uvp[prop] || [];
+    /* -> fluid-Ver.1.23.0 */
+      uvp[prop].push([uvp["_"+sw_plot]]);
+    });
+  }
+  return self;
+};
+My_entry.pen.prototype.make_csv1 = function(){
+  var self = this;
+  var $ = self.entry.$;
+  var ds = My_entry.$.config.DELIMITER;
+  var dq = ds.dq;
+  var ca = ds.ca;
+  var rn = ds.rn;
+  var _csv = "";
+  var uvp = self.uvp;
+  if(uvp){
+    var props = ["t", "c", "q", "umin", "umax", "vmin", "vmax", "pmin", "pmax"];
+    props.forEach(function(sw_plot){
+      _csv += sw_plot;
+      _csv += ca;
+    });
+    _csv += My_entry.VERSION;
+    _csv += ca;
+    _csv += My_entry.Ver.fluid;
+    _csv += rn;
+    var len_n = uvp._arr_t.length;
+    for(var n=0; n<len_n; ++n){
+      props.forEach(function(sw_plot, i){
+        if(i > 0){
+          _csv += ca;
+        }
+        _csv += uvp["_arr_"+sw_plot][n];
+      });
+      _csv += rn;
+    }
+  }
+  return _csv;
+};
+/* -> fluid-Ver.1.24.0 */
 /* fluid-Ver.1.21.0 -> */
 My_entry.pen.prototype.init_plot2d = function(){
   var self = this;
@@ -837,22 +894,11 @@ My_entry.pen.prototype.update_plot2d = function(isFinal){  // fluid-Ver.1.23.0
   if(uvp){
     var toSVG = (isFinal === "SVG");  // fluid-Ver.1.23.0
     self.entry.def.mix_over(self.constructors.draw, self.constructors["draw_"+((toSVG)? "svg": "canvas")]);
-    var t = uvp.t;
-    var c = uvp.cmax;
-    var q = uvp.qtotal;
-    /* fluid-Ver.1.23.0 -> */
-    uvp._arr_t = uvp._arr_t || [[0]];
-    uvp._arr_c = uvp._arr_c || [[0]];
-    uvp._arr_q = uvp._arr_q || [[0]];
-    uvp._arr_t.push([t]);
-    uvp._arr_c.push([c]);
-    uvp._arr_q.push([q]);
-    ["umin", "umax", "vmin", "vmax", "pmin", "pmax"].forEach(function(sw_plot){
-      var prop = "_arr_"+sw_plot;
-      uvp[prop] = uvp[prop] || [[0]];
-    /* -> fluid-Ver.1.23.0 */
-      uvp[prop].push([uvp["_"+sw_plot]]);
-    });
+    /* fluid-Ver.1.24.0 -> */
+    if(!(isFinal)){
+      self.update_arr2d_vec();
+    }
+    /* -> fluid-Ver.1.24.0 */
     var sw_plot = $._id("select-plot").value;
     var arr_plot = uvp["_arr_"+sw_plot];
     var arr2d_vec = {x: uvp._arr_t, y: arr_plot, len_n: uvp._arr_t.length, len_j: 1, gxmin: Math.min.apply(Math, uvp._arr_t), gxmax: Math.max.apply(Math, uvp._arr_t), gymin: Math.min.apply(Math, arr_plot), gymax: Math.max.apply(Math, arr_plot)};
@@ -926,19 +972,24 @@ My_entry.pen.prototype.init_handlers = function(){
     var json = {p: {id: "wrapper-link-svg"}, a: {id: "a-svg", it: "-svg(src-over)"}, name: "download", ext: "svg"};
     self.handler_link_svg = new self.constructors.handler_link(json);
     self.handler_link_svg.setter.callback(function(){return self.make_svg();});
-    /* Ver.1.18.0 -> */
+    /* fluid-Ver.1.18.0 -> */
     var json = {p: {id: "wrapper-link-csv"}, a: {id: "a-csv", it: "download-csv"}, name: "download", ext: "csv"};
     self.handler_link_csv = new self.constructors.handler_link(json);
     self.handler_link_csv.setter.callback(function(){return self.make_csv();});
-    /* -> Ver.1.18.0 */
-    /* Ver.1.23.0 -> */
+    /* -> fluid-Ver.1.18.0 */
+    /* fluid-Ver.1.23.0 -> */
     var json = {p: {id: "wrapper-link-png1"}, a: {id: "a-png1", it: "download-png"}, name: "download", ext: "png"};
     self.handler_link_png = new self.constructors.handler_link(json);
     self.handler_link_png.setter.callback(function(){return self.entry.conv.base2buffer(self.plot2d.objs.all.get_base64());});
     var json = {p: {id: "wrapper-link-svg1"}, a: {id: "a-svg1", it: "-svg(src-over)"}, name: "download", ext: "svg"};
     self.handler_link_svg = new self.constructors.handler_link(json);
     self.handler_link_svg.setter.callback(function(){return self.update_plot2d("SVG");});
-    /* -> Ver.1.23.0 */
+    /* -> fluid-Ver.1.23.0 */
+    /* fluid-Ver.1.24.0 -> */
+    var json = {p: {id: "wrapper-link-csv1"}, a: {id: "a-csv1", it: "download-csv"}, name: "download", ext: "csv"};
+    self.handler_link_csv = new self.constructors.handler_link(json);
+    self.handler_link_csv.setter.callback(function(){return self.make_csv1();});
+    /* -> fluid-Ver.1.24.0 */
     self.handler_history_ID = new self.constructors.handler_history(options.history_len_max);  // Ver.1.1.0
     /* Ver.1.21.4 -> */
     var callback_svg = function(){
@@ -1221,6 +1272,12 @@ My_entry.pen.prototype.init_handlers = function(){
           self.solver = solver;
           self.uvp = uvp;
           var n = 0;
+          /* fluid-Ver.1.24.0 -> */
+          if(uvp.t === 0){
+            var svg = mg.draw.uvp(uvp);
+            self.update_plot2d();
+          }
+          /* -> fluid-Ver.1.24.0 */
           var callback = function(){
             var hasError = false;
             var nmax = options.nmax || 1000;
