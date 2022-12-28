@@ -911,8 +911,8 @@ My_entry.pen.prototype.update_plot2d = function(isFinal){  // fluid-Ver.1.23.0
       "grid-line-width": 0.5,
       "grid-line-color": "gray",
       "bg-color": "black",
-      globalCompositeOperationAll: null,
-      "canvas-globalCompositeOperationLayer": null,
+      globalCompositeOperationAll: "source-over",  // fluid-Ver.1.24.0
+      "canvas-globalCompositeOperationLayer": "source-over",  // fluid-Ver.1.24.0
       "log-x": false,
       "log-y": false,
       "imag-x": false,
