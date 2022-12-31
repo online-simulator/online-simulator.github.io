@@ -35,7 +35,8 @@
   <script type="text/javascript" src="../00_common/js/02_handler/02_handler_link.js"></script>
   <script type="text/javascript" src="../00_common/js/02_handler/02_plot2d.js"></script>
   <script type="text/javascript" src="../00_common/js/03_original/03_original_main.js"></script>
-  <script type="text/javascript" src="js/03_pen.js"></script>
+  <script type="text/javascript" src="../50_pen/js/03_pen.js"></script>
+  <script type="text/javascript" src="js/03_pen_fluid.js"></script>
 </head>
 
 <body>
@@ -75,7 +76,10 @@
         $._id("input-third-url-parameters").value = "";
         $.hide("#div-dot", true, true);
       }
-      new My_entry.pen().onload(e);
+      var pen = new My_entry.pen().onload(e);
+      pen.objs.fg.elem.addEventListener("pointerup", function(e){
+        pen.init_config();
+      });
       $._id("input-W").onchange(e);
     });
   })();
