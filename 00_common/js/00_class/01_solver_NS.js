@@ -9,12 +9,12 @@ My_entry.solver_NS = function(){
 My_entry.solver_NS.prototype.init = function(){
   var self = this;
   new My_entry.original_main().setup_constructors.call(self);
-  new My_entry.original_main().make_instances.call(self, ["def", "solver_real"]);
+  new My_entry.original_main().make_instances.call(self, ["def", "solver"]);
   return self;
 };
 My_entry.solver_NS.prototype.FS2d = function(options, uvp){
   var self = this;
-  var solver = self.entry.solver_real;
+  var solver = self.entry.solver;
   var Re = options.Re || 0;
   var Ndt = options.Ndt || 0;  // fluid-Ver.1.11.0
   var Nnt = options.Nnt || 1;

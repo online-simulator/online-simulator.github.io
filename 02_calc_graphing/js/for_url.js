@@ -13,7 +13,7 @@ var url = "../../00_common/js/000_namespace/";
 var files = ["000_entry.js"];
 Array.prototype.push.apply(files_all, combine_url(url, files));
 var url = "../../00_common/js/00_class/";
-var files = ["000_reference.js", "00_def.js", "01_math.js", "01_math_com.js", "01_math_mat.js", "01_solver.js", "02_DATA.js", "02_operation.js", "02_parser.js", "02_unit.js"];
+var files = ["000_reference.js", "00_def.js", "01_math.js", "01_math_com.js", "01_math_mat.js", "01_solver_com.js", "02_DATA.js", "02_operation.js", "02_parser.js", "02_unit.js"];
 Array.prototype.push.apply(files_all, combine_url(url, files));
 var url = "../../00_common/js/03_original/";
 var files = ["03_original_main.js"];

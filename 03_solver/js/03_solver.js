@@ -11,7 +11,7 @@ My_entry.def.mix_in(My_entry.test_solver, My_entry.original_main);
 My_entry.test_solver.prototype.init = function(){
   var self = this;
   self.init_main.call(self, ["$"]);
-  self.solver = new My_entry.solver_real();
+  self.solver = new My_entry.solver();
   return self;
 };
 My_entry.test_solver.prototype.init_elems = function(){
