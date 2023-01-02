@@ -24,6 +24,14 @@
       ["calc", "fluid", "wave", "pen", "else"].forEach(function(name){
         $._id("Ver-"+name).textContent = My_entry.Ver[name];
       });
+      var elem_s = $._id("select-types");
+      elem_s.onchange = function(e){
+        var type_comp = elem_s.value;
+        $.arr(".types").forEach(function(elem_type){
+          var isHidden = (type_comp === "All" || elem_type.textContent.match(type_comp))? false: true;
+          $.set_elem(elem_type.parentElement, "hidden", isHidden);
+        });
+      };
       $.onbeforeunload(function(e){});
     });
   })();
@@ -186,7 +194,20 @@ Checker
 <div id="div-history">
 <h2>Update history</h2>
 <table>
-<caption></caption>
+<caption>
+<h3 class="selection">
+  <label>Type shown:
+<select id="select-types">
+  <option>All</option>
+  <option>Calculator</option>
+  <option>Visualiser</option>
+  <option>Generator</option>
+  <option>Editor</option>
+  <option>Checker</option>
+</select>
+  </label>
+</h3>
+</caption>
 <thead>
   <tr>
     <th>
@@ -224,6 +245,8 @@ regular update
     </td>
     <td>
 Simulators/Documents/Files/Texts arranged
+<br>
+・update history@2021 restored
     </td>
     <td>
 2022/12/31
@@ -3116,6 +3139,6765 @@ Simulators/Documents/Files/Texts arranged
     </td>
     <td>
 2022/1/1
+    </td>
+  </tr>
+  <tr>
+    <th>
+4.103.42.12.29
+    </th>
+    <td class="types">
+Calculator
+    </td>
+    <td>
+2.105.33
+    </td>
+    <td>
+minor update
+    </td>
+    <td>
+[Graphing Calculator]
+<br>
+・checkbox-v added
+<br>
+　<a href="01_calc_simple/manual.html#span-out-UI-graphing-v">[manual]Calculator-v入力仕様</a>
+<br>
+・input-vx/vy/vz added for various plotting
+<br>
+　labels updated
+<br>
+・test case--(ny,T)-button added
+<br>
+・test case-physics/-ODE-buttons modified
+<br>
+・test case-stress-button added
+<br>
+・test case--(step,ns)-button added
+<br>
+[Calculator]
+<br>
+・manual更新
+<br>
+　追加校正1箇所
+<br>
+　追加校正3箇所
+<br>
+・manual項目追加
+<br>
+　追加校正3箇所・追加校正1箇所
+<br>
+　追加校正2箇所
+<br>
+　追加校正1箇所・追加校正1箇所
+<br>
+　追加校正約100箇所
+<br>
+　追加校正2箇所・追加校正1箇所
+<br>
+　追加校正約100箇所・追加校正1箇所・追加校正4箇所・追加校正1箇所
+<br>
+　<a href="01_calc_simple/manual.html#span-out-analogy">[manual]Calculator-analogy</a>
+    </td>
+    <td>
+2021/12/24
+    </td>
+  </tr>
+  <tr>
+    <th>
+4.102.42.12.29
+    </th>
+    <td class="types">
+Calculator
+    </td>
+    <td>
+2.104.33
+    </td>
+    <td>
+minor change
+    </td>
+    <td>
+[Graphing Calculator]
+<br>
+・strict-mode equation-list-Euler_method/ODE_RK4 updated with wind(z_u)
+<br>
+　<a href="01_calc_simple/manual.html#span-eqn-implicit-Euler_method">[manual]Calculator-strict-mode式変数list</a>
+<br>
+・test case-physics/-ODE-buttons updated with wind(z_u)
+<br>
+　<a href="01_calc_simple/manual.html#span-out-evolution">[manual]Calculator-時間発展の解法</a>
+<br>
+[Calculator]
+<br>
+・manual更新
+<br>
+　追加校正27箇所
+<br>
+　追加校正1箇所
+    </td>
+    <td>
+2021/12/22
+    </td>
+  </tr>
+  <tr>
+    <th>
+4.102.41.12.29
+    </th>
+    <td class="types">
+Calculator
+    </td>
+    <td>
+2.103.33
+    </td>
+    <td>
+minor change
+    </td>
+    <td>
+[Calculator]
+<br>
+・manual項目整理
+<br>
+　追加校正6箇所・追加校正1箇所・追加校正1箇所
+<br>
+　<a href="01_calc_simple/manual.html#span-out-UI-graphing-filter">[manual]Calculator-filter特定項目仕様</a>
+    </td>
+    <td>
+2021/12/22
+    </td>
+  </tr>
+  <tr>
+    <th>
+4.102.40.12.29
+    </th>
+    <td class="types">
+Calculator
+    </td>
+    <td>
+2.102.33
+    </td>
+    <td class="clear">
+minor bug-fix
+    </td>
+    <td>
+[Calculator]
+<br>
+・following syntax bug-fixed
+<br>
+　f(<span class="clear">x</span>)=&lt;0,(1<span class="clear">=</span>2) -> [MyErr]Invalid matching　⇒　(0,1)
+<br>
+・test case re-updated
+<br>
+・manual更新
+<br>
+　追加校正1箇所・追加校正1箇所・追加校正1箇所・追加校正6箇所・追加校正1箇所
+<br>
+　追加校正1箇所・追加校正4箇所
+<br>
+　<a href="01_calc_simple/manual.html#span-out-matching">[manual]Calculator-行列要素pattern matching</a>
+<br>
+　追加校正13箇所・追加校正1箇所
+<br>
+　<a href="01_calc_simple/manual.html#span-out-simulation-0D-heat">[manual]Calculator-0D-heat simulation</a>
+<br>
+　追加校正2箇所
+<br>
+　<a href="01_calc_simple/manual.html#span-out-modelling-0D-heat">[manual]Calculator-0D-heat simplified modelling</a>
+    </td>
+    <td>
+2021/12/20
+    </td>
+  </tr>
+  <tr>
+    <th>
+4.102.40.12.28
+    </th>
+    <td class="types">
+Calculator
+    </td>
+    <td>
+2.102.32
+    </td>
+    <td>
+minor change
+    </td>
+    <td>
+[Calculator]
+<br>
+・manual更新
+<br>
+　補足追記1箇所・追加校正9箇所
+<br>
+　<a href="01_calc_simple/manual.html#span-out-simulation-0D-heat">[manual]Calculator-0D-heat simulation</a>
+    </td>
+    <td>
+2021/12/20
+    </td>
+  </tr>
+  <tr>
+    <th>
+4.102.39.12.28
+    </th>
+    <td class="types">
+Calculator
+    </td>
+    <td>
+2.101.32
+    </td>
+    <td>
+minor change
+    </td>
+    <td>
+[Graphing Calculator]
+<br>
+・test case-buttons location/insert-x/y/z arranged
+<br>
+　test case-buttons re-updated
+<br>
+・test case-logistic-button updated with implicit Euler method
+<br>
+[Calculator]
+<br>
+・manual更新
+<br>
+　追加校正27箇所
+    </td>
+    <td>
+2021/12/19
+    </td>
+  </tr>
+  <tr>
+    <th>
+4.102.38.12.28
+    </th>
+    <td class="types">
+Calculator
+    </td>
+    <td>
+2.100.32
+    </td>
+    <td>
+minor change
+    </td>
+    <td>
+[Graphing Calculator]
+<br>
+・test case-Lorenz-button added
+<br>
+・test case-logistic-button added
+<br>
+[Calculator]
+<br>
+・manual項目追加
+<br>
+　<a href="01_calc_simple/manual.html#span-out-ODE">[manual]Calculator-常微分方程式</a>
+<br>
+　追加校正1箇所・追加校正1箇所
+<br>
+　追加校正約200箇所・追加校正1箇所
+<br>
+　追加校正4箇所
+<br>
+　追加校正6箇所
+    </td>
+    <td>
+2021/12/18
+    </td>
+  </tr>
+  <tr>
+    <th>
+4.102.37.12.28
+    </th>
+    <td class="types">
+Calculator
+    </td>
+    <td>
+2.99.32
+    </td>
+    <td class="clear">
+minor change
+    </td>
+    <td>
+[Calculator]
+<br>
+・manual更新
+<br>
+　数式訂正1箇所・追加校正10箇所
+<br>
+　 rho*cv*V*T'+p*V'=Q'（定容比熱cv）　⇒　rho*cp*V*T'-V*p'=Q'（定圧比熱cp）
+<br>
+　<a href="01_calc_simple/manual.html#span-out-modelling-0D-heat">[manual]Calculator-0D-heat simplified modelling</a>
+    </td>
+    <td>
+2021/12/17
+    </td>
+  </tr>
+  <tr>
+    <th>
+4.102.36.12.28
+    </th>
+    <td class="types">
+Generator
+    </td>
+    <td>
+1.20.4
+    </td>
+    <td>
+minor update
+    </td>
+    <td>
+[音源wave PCM生成（演奏）]
+<br>
+・dataset extended
+<br>
+・dataset updated
+<br>
+　<a href="30_wave/index2.html#span-history">音源wave PCM生成（演奏）</a>
+    </td>
+    <td>
+2021/12/16
+    </td>
+  </tr>
+  <tr>
+    <th>
+4.101.36.12.28
+    </th>
+    <td class="types">
+Generator
+    </td>
+    <td>
+1.19.4
+    </td>
+    <td>
+minor update
+    </td>
+    <td>
+[音源wave PCM生成（演奏）]
+<br>
+・b=1000msec@60BPM defined
+<br>
+・C5 = f523.25 = f5.2325e2 enabled
+<br>
+・1.5b = 1.5b1 = 15e-1b1.0e+0 = 3b2 = 1500 enabled
+<br>
+　<a href="30_wave/index2.html#span-history">音源wave PCM生成（演奏）</a>
+    </td>
+    <td>
+2021/12/15
+    </td>
+  </tr>
+  <tr>
+    <th>
+4.100.36.12.28
+    </th>
+    <td class="types">
+Generator
+    </td>
+    <td>
+1.18.4
+    </td>
+    <td>
+minor update
+    </td>
+    <td>
+[音源wave PCM生成（演奏）]
+<br>
+・raw-value fade restored
+<br>
+　<a href="30_wave/index2.html#span-history">音源wave PCM生成（演奏）</a>
+    </td>
+    <td>
+2021/12/15
+    </td>
+  </tr>
+  <tr>
+    <th>
+4.99.36.12.28
+    </th>
+    <td class="types">
+Calculator
+    </td>
+    <td>
+2.98.32
+    </td>
+    <td>
+minor change
+    </td>
+    <td>
+[Calculator]
+<br>
+・strict-mode equation-list-heat1d_evolution updated with alpha0
+<br>
+　<a href="01_calc_simple/manual.html#span-eqn-heat1d_evolution">[manual]Calculator-strict-mode式変数list</a>
+<br>
+・test case-heat1d-button updated
+    </td>
+    <td>
+2021/12/15
+    </td>
+  </tr>
+  <tr>
+    <th>
+4.99.35.12.28
+    </th>
+    <td class="types">
+Generator
+    </td>
+    <td>
+1.17.4
+    </td>
+    <td>
+minor update
+    </td>
+    <td>
+[音源wave PCM生成]
+<br>
+・time=0 -> [MyErr]time is invalid
+<br>
+・fade-in/out algorithm extended
+<br>
+[音源wave PCM生成（演奏）]
+<br>
+・tempo/pitch/amplitude added
+<br>
+　<a href="30_wave/index2.html#span-history">音源wave PCM生成（演奏）</a>
+    </td>
+    <td>
+2021/12/14
+    </td>
+  </tr>
+  <tr>
+    <th>
+4.98.35.12.28
+    </th>
+    <td class="types">
+Generator
+    </td>
+    <td>
+1.16.4
+    </td>
+    <td>
+minor update
+    </td>
+    <td>
+[math_wave.js]
+<br>
+・self.t_duty corrected
+<br>
+　(t &lt; 0.5)? t*(th/0.5): 1+(t-1)*(1-th)/0.5　⇒
+<br>
+　(t &lt; th)? t*0.5/th: 1+(t-1)*0.5/(1-th)
+<br>
+[音源wave PCM生成]
+<br>
+・wave-duty added
+<br>
+・select-duty　⇒　input-duty
+<br>
+　<a href="30_wave/index2.html#span-history">音源wave PCM生成（演奏）</a>
+    </td>
+    <td>
+2021/12/14
+    </td>
+  </tr>
+  <tr>
+    <th>
+4.97.35.12.28
+    </th>
+    <td class="types">
+Calculator
+    </td>
+    <td>
+2.97.32
+    </td>
+    <td>
+minor change
+    </td>
+    <td>
+[Calculator]
+<br>
+・absorb0's range fixed
+<br>
+　<a href="01_calc_simple/manual.html#span-out-modelling-0D-heat">[manual]Calculator-0D-heat simplified modelling</a>
+<br>
+　<a href="01_calc_simple/manual.html#span-out-simulation-0D-heat">[manual]Calculator-0D-heat simulation</a>
+<br>
+・manual更新
+<br>
+　追加校正115箇所
+<br>
+　追加校正11箇所・追加校正3箇所・追加校正1箇所
+<br>
+　追加校正1箇所
+    </td>
+    <td>
+2021/12/13
+    </td>
+  </tr>
+  <tr>
+    <th>
+4.97.34.12.28
+    </th>
+    <td class="types">
+Calculator
+    </td>
+    <td>
+2.96.32
+    </td>
+    <td>
+minor change
+    </td>
+    <td>
+[Calculator]
+<br>
+・definition of absorb0 added
+<br>
+・definition of pseudo-alpha corrected
+<br>
+　<a href="01_calc_simple/manual.html#span-out-modelling-0D-heat">[manual]Calculator-0D-heat simplified modelling</a>
+<br>
+・output's uncertain condition modified fixed value　⇒　range value
+<br>
+　<a href="01_calc_simple/manual.html#span-out-simulation-0D-heat">[manual]Calculator-0D-heat simulation</a>
+<br>
+・manual更新
+<br>
+　追加校正36箇所・追加校正3箇所・追加校正4箇所
+<br>
+　追加校正7箇所・追加校正1箇所
+<br>
+　追加校正18箇所・追加校正3箇所・追加校正1箇所
+<br>
+　追加校正13箇所
+<br>
+　追加校正3箇所
+    </td>
+    <td>
+2021/12/10
+    </td>
+  </tr>
+  <tr>
+    <th>
+4.97.33.12.28
+    </th>
+    <td class="types">
+Calculator
+    </td>
+    <td>
+2.95.32
+    </td>
+    <td>
+minor change
+    </td>
+    <td>
+[Graphing Calculator]
+<br>
+・test case-heat1d-button added
+<br>
+・strict-mode equation-list-heat1d_evolution added
+<br>
+　<a href="01_calc_simple/manual.html#span-eqn-heat1d_evolution">[manual]Calculator-strict-mode式変数list</a>
+<br>
+・test case-heat0d-button changed
+<br>
+・parameters changed slightly
+<br>
+　W0=174PW　⇒　175PW
+<br>
+　Tb=-19℃　⇒　Te=-18℃
+<br>
+[Calculator]
+<br>
+・manual更新2箇所
+<br>
+　追加校正約150箇所・追加校正2箇所
+<br>
+　追加校正7箇所・追加校正1箇所
+<br>
+　追加校正1箇所・追加校正1箇所・追加校正1箇所
+<br>
+　追加校正6箇所・追加校正4箇所・追加校正1箇所
+<br>
+　追加校正6箇所・追加校正1箇所
+<br>
+　追加校正4箇所
+    </td>
+    <td>
+2021/12/8
+    </td>
+  </tr>
+  <tr>
+    <th>
+4.97.32.12.28
+    </th>
+    <td class="types">
+Calculator
+    </td>
+    <td>
+2.94.32
+    </td>
+    <td>
+minor change
+    </td>
+    <td>
+[Calculator]
+<br>
+・manual目次整理
+<br>
+　<a href="01_calc_simple/manual.html#span-index">[manual]Calculator-目次</a>
+<br>
+・manual更新
+<br>
+　追加校正22箇所
+    </td>
+    <td>
+2021/12/7
+    </td>
+  </tr>
+  <tr>
+    <th>
+4.97.31.12.28
+    </th>
+    <td class="types">
+Calculator
+    </td>
+    <td>
+2.93.32
+    </td>
+    <td>
+minor change
+    </td>
+    <td>
+[Calculator]
+<br>
+・test case-heat0d-button added
+<br>
+　output changed Temperature　⇒　Temperature change
+<br>
+・strict-mode equation-list-heat0d_evolution added
+<br>
+　output changed Temperature　⇒　Temperature change
+<br>
+　<a href="01_calc_simple/manual.html#span-eqn-heat0d_evolution">[manual]Calculator-strict-mode式変数list</a>
+<br>
+・manual更新
+<br>
+　追加校正28箇所・追加校正1箇所
+<br>
+　追加校正48箇所
+<br>
+　追加校正8箇所
+<br>
+　追加校正8箇所・追加校正1箇所
+<br>
+　追加校正6箇所
+<br>
+　追加校正4箇所
+<br>
+　定義訂正9箇所　放射強制力の低下量　⇒　増加量
+<br>
+　追加校正16箇所・追加校正2箇所・追加校正6箇所・追加校正5箇所
+<br>
+　追加校正1箇所・追加校正3箇所・追加校正12箇所
+<br>
+・manual項目追加
+<br>
+　<a href="01_calc_simple/manual.html#span-out-modelling-0D-heat">[manual]Calculator-0D-heat simplified modelling</a>
+<br>
+　<a href="01_calc_simple/manual.html#span-out-simulation-0D-heat">[manual]Calculator-0D-heat simulation</a>
+    </td>
+    <td>
+2021/12/1
+    </td>
+  </tr>
+  <tr>
+    <th>
+4.97.30.12.28
+    </th>
+    <td class="types">
+Calculator
+    </td>
+    <td>
+2.92.32
+    </td>
+    <td>
+minor update
+    </td>
+    <td>
+[plot2d.js]
+<br>
+・grid-x-Ni/grid-y-Nj=<del>1~2560</del>0~2560 limiter added
+<br>
+・grid-line-width@z-checked added in following args
+<br>
+[Graphing Calculator]
+<br>
+・PLOTCONFIG{args} added
+<br>
+　<a href="01_calc_simple/manual.html#span-out-UI-graphing-plotconfig">[manual]Calculator-plotconfig特定項目仕様</a>
+<br>
+・test case-MIDI-button insert-z updated
+<br>
+　insert-z changed with grid-line-width
+<br>
+・manual更新
+<br>
+　追加校正3箇所
+<br>
+　追加校正2箇所・追加校正2箇所
+    </td>
+    <td>
+2021/11/29
+    </td>
+  </tr>
+  <tr>
+    <th>
+4.96.30.12.28
+    </th>
+    <td class="types">
+Calculator
+    </td>
+    <td>
+2.91.32
+    </td>
+    <td>
+minor update
+    </td>
+    <td>
+[operation.js]
+<br>
+・unnecessary loop-counter reduced in Bubble Sort
+<br>
+　for(var j=0; j&lt;len_j; ++j)　⇒　for(var j=0; j&lt;len_j-1; ++j)
+<br>
+[Graphing Calculator]
+<br>
+・median/sort/reverse/cmedian/csort/creverse() added
+<br>
+　<a href="01_calc_simple/manual.html#span-out-FN-statistic">[manual]Calculator-統計関数入力仕様</a>
+<br>
+・manual更新
+<br>
+　追加校正7箇所
+<br>
+　追加校正12箇所
+<br>
+　追加校正10箇所
+    </td>
+    <td>
+2021/11/29
+    </td>
+  </tr>
+  <tr>
+    <th>
+4.95.30.12.28
+    </th>
+    <td class="types">
+Calculator
+    </td>
+    <td>
+2.90.32
+    </td>
+    <td>
+minor update
+    </td>
+    <td>
+[Graphing Calculator]
+<br>
+・mean/sum/prod() added
+<br>
+　<a href="01_calc_simple/manual.html#span-out-FN-statistic">[manual]Calculator-統計関数入力仕様</a>
+<br>
+・manual更新
+<br>
+　追加校正10箇所・追加校正1箇所
+    </td>
+    <td>
+2021/11/28
+    </td>
+  </tr>
+  <tr>
+    <th>
+4.94.30.12.28
+    </th>
+    <td class="types">
+Calculator
+    </td>
+    <td>
+2.89.32
+    </td>
+    <td>
+minor update
+    </td>
+    <td>
+[Graphing Calculator]
+<br>
+・log2() added
+<br>
+　<a href="01_calc_simple/manual.html#span-out-FN-log">[manual]Calculator-log関数入力仕様</a>
+<br>
+・manual更新
+<br>
+　追加校正11箇所・追加校正1箇所・追加校正6箇所
+<br>
+　追加校正2箇所
+    </td>
+    <td>
+2021/11/27
+    </td>
+  </tr>
+  <tr>
+    <th>
+4.93.30.12.28
+    </th>
+    <td class="types">
+Calculator
+    </td>
+    <td>
+2.88.32
+    </td>
+    <td>
+minor update
+    </td>
+    <td>
+[Graphing Calculator]
+<br>
+・operators *-+ extended
+<br>
+　<a href="01_calc_simple/manual.html#span-out-ope-extended">[manual]Calculator-拡張行列演算</a>
+<br>
+　<a href="01_calc_simple/manual.html#span-out-ope-extended-history">[manual]Calculator-拡張履歴</a>
+<br>
+・strict-mode equation-list
+<br>
+　-DFT1d/DFT2d_xy/DFT2d_yx/DWT1d/DWT2d_xy/DWT2d_yx updated
+<br>
+　<a href="01_calc_simple/manual.html#span-eqn-DFT1d">[manual]Calculator-strict-mode式変数list</a>
+<br>
+・manual更新
+<br>
+　追加校正9箇所・追加校正6箇所・追加校正2箇所
+<br>
+　追加校正7箇所・追加校正4箇所
+<br>
+　追加校正25箇所・追加校正1箇所
+    </td>
+    <td>
+2021/11/26
+    </td>
+  </tr>
+  <tr>
+    <th>
+4.92.30.12.28
+    </th>
+    <td class="types">
+Checker
+    </td>
+    <td>
+0.20.4
+    </td>
+    <td>
+minor change
+    </td>
+    <td>
+[Unicode変換Checker※IE一部非対応]
+<br>
+[encodeURI変換Checker]
+<br>
+[Base64変換Checker]
+<br>
+・base64　⇒　Base64
+<br>
+・insert-text changed to normal Multi-Byte-character
+    </td>
+    <td>
+2021/11/26
+    </td>
+  </tr>
+  <tr>
+    <th>
+4.92.29.12.28
+    </th>
+    <td class="types">
+Calculator
+    </td>
+    <td>
+2.87.32
+    </td>
+    <td>
+minor update
+    </td>
+    <td>
+[Graphing Calculator]
+<br>
+・operators associativity&amp;precedence reviewed with Python
+<br>
+　<a href="01_calc_simple/manual.html#span-out-spec-changed-history">[manual]Calculator-演算仕様変更履歴</a>
+<br>
+・manual更新
+<br>
+　追加校正39箇所・構文error@IE修正2箇所
+<br>
+　追加校正16箇所・追加校正2箇所
+<br>
+　追加校正5箇所
+<br>
+　追加校正12箇所
+    </td>
+    <td>
+2021/11/24
+    </td>
+  </tr>
+  <tr>
+    <th>
+4.91.29.12.28
+    </th>
+    <td class="types">
+Calculator
+    </td>
+    <td>
+2.86.32
+    </td>
+    <td>
+minor update
+    </td>
+    <td>
+[Graphing Calculator]
+<br>
+・plot-area in canvas arranged slightly
+<br>
+　<a href="01_calc_simple/manual.html#span-out-UI-graphing-changed-history">[manual]Calculator-plot仕様変更履歴</a>
+<br>
+・manual更新
+<br>
+　追加校正9箇所
+    </td>
+    <td>
+2021/11/22
+    </td>
+  </tr>
+  <tr>
+    <th>
+4.90.29.12.28
+    </th>
+    <td class="types">
+Calculator
+    </td>
+    <td>
+2.85.32
+    </td>
+    <td>
+minor update
+    </td>
+    <td>
+[Graphing Calculator]
+<br>
+・N/t0/t1 in local storage added
+<br>
+　<a href="01_calc_simple/manual.html#span-out-UI-graphing">[manual]Calculator-Graphing Calculator UI</a>
+<br>
+・test case-star4-button added
+<br>
+・test case-Fibonacci-button added
+<br>
+・test case-IV-button insert-t/x changed
+<br>
+・manual更新
+<br>
+　追加校正2箇所
+    </td>
+    <td>
+2021/11/22
+    </td>
+  </tr>
+  <tr>
+    <th>
+4.89.29.12.28
+    </th>
+    <td class="types">
+Calculator
+    </td>
+    <td>
+2.84.32
+    </td>
+    <td>
+minor update
+    </td>
+    <td>
+[Calculator]
+<br>
+・URL parameter's checkError extended
+<br>
+　<a href="01_calc_simple/manual.html#span-out-config">[manual]Calculator-裏設定</a>
+<br>
+　<a href="01_calc_simple/manual.html#span-out-development-problems-matrix">[manual]Calculator-行列演算の問題点</a>
+<br>
+・manual更新
+<br>
+　追加校正5箇所
+    </td>
+    <td>
+2021/11/21
+    </td>
+  </tr>
+  <tr>
+    <th>
+4.88.29.12.28
+    </th>
+    <td class="types">
+Generator
+    </td>
+    <td>
+1.15.4
+    </td>
+    <td>
+minor update
+    </td>
+    <td>
+[音源wave PCM生成]
+<br>
+・scientific pitch notation supported with bug-fix@Ver.1.13.4
+<br>
+　<a href="30_wave/index2.html#span-history">音源wave PCM生成（演奏）</a>
+<br>
+　o4c9 = o-1c69 = n69 <span class="run">= A4</span> = f440 = 440
+    </td>
+    <td>
+2021/11/21
+    </td>
+  </tr>
+  <tr>
+    <th>
+4.87.29.12.28
+    </th>
+    <td class="types">
+Generator
+<br>
+Calculator
+    </td>
+    <td>
+1.14.4
+<br>
+2.83.32
+    </td>
+    <td>
+minor change
+    </td>
+    <td>
+[音源wave PCM生成]
+<br>
+・frequency checker added
+<br>
+　<a href="30_wave/index2.html#span-history">音源wave PCM生成（演奏）</a>
+<br>
+[Graphing Calculator]
+<br>
+・test case-MIDI-button added
+    </td>
+    <td>
+2021/11/21
+    </td>
+  </tr>
+  <tr>
+    <th>
+4.87.27.12.28
+    </th>
+    <td class="types">
+Calculator
+    </td>
+    <td>
+2.82.32
+    </td>
+    <td>
+minor change
+    </td>
+    <td>
+[Calculator]
+<br>
+・manual更新
+<br>
+　追加校正34箇所
+<br>
+・manual項目整理
+<br>
+　<a href="01_calc_simple/manual.html#span-out-modelling">[manual]Calculator-simplified modelling</a>
+    </td>
+    <td>
+2021/11/20
+    </td>
+  </tr>
+  <tr>
+    <th>
+4.87.26.12.28
+    </th>
+    <td class="types">
+Calculator
+    </td>
+    <td>
+2.81.32
+    </td>
+    <td>
+minor update
+    </td>
+    <td>
+[Calculator]
+<br>
+・logical NOT operator implemented
+<br>
+　<a href="01_calc_simple/manual.html#span-out-prec-ope-logical">[manual]Calculator-論理演算子</a>
+<br>
+~~0 -> 1
+<br>
+~~1 -> 0
+<br>
+・logical NOT operator test case added
+<br>
+・manual更新
+<br>
+　追加校正6箇所・追加校正1箇所
+    </td>
+    <td>
+2021/11/19
+    </td>
+  </tr>
+  <tr>
+    <th>
+4.86.26.12.28
+    </th>
+    <td class="types">
+Calculator
+    </td>
+    <td>
+2.80.32
+    </td>
+    <td>
+minor update
+    </td>
+    <td>
+[Calculator]
+<br>
+・following extended reference/substitution test case updated
+<br>
+・variable's reference/substitution extended
+<br>
+　<a href="01_calc_simple/manual.html#span-out-reference-mat-band">[manual]Calculator-band参照</a>
+<br>
+　<a href="01_calc_simple/manual.html#span-out-substitution-mat-band">[manual]Calculator-band代入</a>
+<br>
+・manual更新
+<br>
+　追加校正4箇所・追加校正2箇所
+<br>
+　追加校正10箇所
+<br>
+・manual項目追加
+<br>
+　<a href="01_calc_simple/manual.html#span-out-development-problems-matrix">[manual]Calculator-行列演算の問題点</a>
+    </td>
+    <td>
+2021/11/19
+    </td>
+  </tr>
+  <tr>
+    <th>
+4.85.26.12.28
+    </th>
+    <td class="types">
+Generator
+    </td>
+    <td>
+1.13.4
+    </td>
+    <td class="clear">
+fatal bug-fix
+    </td>
+    <td>
+[音源wave PCM生成]
+<br>
+・scientific pitch notation supported partially
+<br>
+　<a href="30_wave/index2.html#span-history">音源wave PCM生成（演奏）</a>
+<br>
+　MIDI-octave: <span class="clear">-2~8</span>　⇒　-1~9
+<br>
+　例）<span class="clear">A4(69)</span>＝ラ440Hz
+<br>
+　before:
+<br>
+　　o<span class="clear">-2</span>c69 -> [MyErr]frequency is not a number
+<br>
+　after:
+<br>
+　　o4c9 = o3c21 = o2c33 = o1c45 = o0c57 = <span class="clear">o-1c69 = n69</span> = f440 = 440
+    </td>
+    <td>
+2021/11/18
+    </td>
+  </tr>
+  <tr>
+    <th>
+4.85.26.11.28
+    </th>
+    <td class="types">
+Calculator
+    </td>
+    <td>
+2.79.32
+    </td>
+    <td class="clear">
+minor bug-fix
+    </td>
+    <td>
+[Calculator]
+<br>
+・Unexpected error@Ver.2.77.30 bug-fixed
+<br>
+　<a href="01_calc_simple/manual.html#span-out-reference-mat-area">[manual]Calculator-area参照</a>
+<br>
+　<a href="01_calc_simple/manual.html#span-out-substitution-mat-area">[manual]Calculator-area代入</a>
+<br>
+　before:
+<br>
+　　A=(1,2:3,4:); A[0][0][<span class="clear">-1</span>][0] -> Cannot read properties of undefined
+<br>
+　　A=(1,2:3,4:); A[0][0][<span class="clear">-1</span>][0]=A -> [MyErr]Invalid store array(area)
+<br>
+　after:
+<br>
+　　A=(1,2:3,4:); A[0][0][<span class="clear">-1</span>][0] -> [MyErr]Invalid reference of array(area)
+<br>
+　　A=(1,2:3,4:); A[0][0][<span class="clear">-1</span>][0]=A -> [MyErr]Invalid reference of array(area)
+<br>
+・manual更新
+<br>
+　追加校正4箇所・追加校正2箇所・追加校正1箇所
+<br>
+　追加校正27箇所
+    </td>
+    <td>
+2021/11/17
+    </td>
+  </tr>
+  <tr>
+    <th>
+4.85.26.11.27
+    </th>
+    <td class="types">
+Calculator
+    </td>
+    <td>
+2.79.31
+    </td>
+    <td class="run">
+minor update
+    </td>
+    <td>
+[Graphing Calculator]
+<br>
+・strict-mode equation-list-DWT2d_xy/DWT2d_yx updated
+<br>
+　<a href="01_calc_simple/manual.html#span-eqn-DWT2d_xy">[manual]Calculator-strict-mode式変数list</a>
+<br>
+[Calculator]
+<br>
+・following extended reference/substitution test case updated
+<br>
+・variable's reference/substitution <span class="run">specification changed</span>
+<br>
+　<a href="01_calc_simple/manual.html#span-out-spec-changed-history">[manual]Calculator-演算仕様変更履歴</a>
+<br>
+　<a href="01_calc_simple/manual.html#span-out-reference-mat-col">[manual]Calculator-列参照</a>
+<br>
+　<a href="01_calc_simple/manual.html#span-out-substitution-mat-col">[manual]Calculator-列代入</a>
+<br>
+A=(,:,); A[<span class="run">e</span>][0]={1,2}; A -> (1,0:2,0)
+<br>
+A=(1,2:3,4); A[<span class="run">-1</span>][<span class="selection">-1</span>]=-1; A -> (1,2:3,-1)
+<br>
+・manual更新
+<br>
+　追加校正60箇所・追加校正1箇所・追加校正8箇所
+<br>
+　追加校正7箇所・追加校正1箇所・追加校正1箇所・追加校正1箇所
+<br>
+・manual項目追加
+<br>
+　<a href="01_calc_simple/manual.html#span-out-spec-changed-history">[manual]Calculator-演算仕様変更履歴</a>
+    </td>
+    <td>
+2021/11/17
+    </td>
+  </tr>
+  <tr>
+    <th>
+4.84.26.11.27
+    </th>
+    <td class="types">
+Calculator
+    </td>
+    <td>
+2.78.31
+    </td>
+    <td>
+minor update
+    </td>
+    <td>
+[Calculator]
+<br>
+・following extended reference/substitution test case added
+<br>
+・variable's reference/substitution extended
+<br>
+　<a href="01_calc_simple/manual.html#span-out-reference-mat-row">[manual]Calculator-行参照</a>
+<br>
+　<a href="01_calc_simple/manual.html#span-out-reference-mat-col">[manual]Calculator-列参照</a>
+<br>
+　<a href="01_calc_simple/manual.html#span-out-reference-mat-elem">[manual]Calculator-要素参照</a>
+<br>
+　<a href="01_calc_simple/manual.html#span-out-reference-mat-area">[manual]Calculator-area参照</a>
+<br>
+　<a href="01_calc_simple/manual.html#span-out-substitution-mat-row">[manual]Calculator-行代入</a>
+<br>
+　<a href="01_calc_simple/manual.html#span-out-substitution-mat-col">[manual]Calculator-列代入</a>
+<br>
+　<a href="01_calc_simple/manual.html#span-out-substitution-mat-elem">[manual]Calculator-要素代入</a>
+<br>
+　<a href="01_calc_simple/manual.html#span-out-substitution-mat-area">[manual]Calculator-area代入</a>
+<br>
+・manual更新
+<br>
+　追加校正35箇所
+<br>
+　追加校正11箇所
+<br>
+　追加校正約300箇所
+<br>
+・manual項目追加
+<br>
+　<a href="01_calc_simple/manual.html#span-out-reference-mat-elem">[manual]Calculator-要素参照</a>
+<br>
+　<a href="01_calc_simple/manual.html#span-out-substitution-mat-elem">[manual]Calculator-要素代入</a>
+    </td>
+    <td>
+2021/11/15
+    </td>
+  </tr>
+  <tr>
+    <th>
+4.83.26.11.27
+    </th>
+    <td class="types">
+Calculator
+    </td>
+    <td>
+2.77.31
+    </td>
+    <td class="clear">
+minor bug-fix
+    </td>
+    <td>
+[Calculator]
+<br>
+・Unexpected error@Ver.2.77.30 bug-fixed
+<br>
+　<a href="01_calc_simple/manual.html#span-out-reference-mat-area">[manual]Calculator-area参照</a>
+<br>
+　<a href="01_calc_simple/manual.html#span-out-substitution-mat-area">[manual]Calculator-area代入</a>
+<br>
+　before:
+<br>
+　　A=(1,2:3,4:); A[<span class="clear">0.1</span>][0][0][0] -> Cannot set properties of undefined
+<br>
+　　A=(1,2:3,4:); A[0][<span class="clear">0.1</span>][0][0]=A -> Cannot set properties of undefined
+<br>
+　after:
+<br>
+　　A=(1,2:3,4:); A[<span class="clear">0.1</span>][0][0][0] -> [MyErr]Invalid reference of array(area)
+<br>
+　　A=(1,2:3,4:); A[0][<span class="clear">0.1</span>][0][0]=A -> [MyErr]Invalid reference of array(area)
+<br>
+・manual更新
+<br>
+　追加校正20箇所
+    </td>
+    <td>
+2021/11/15
+    </td>
+  </tr>
+  <tr>
+    <th>
+4.83.26.11.26
+    </th>
+    <td class="types">
+Calculator
+    </td>
+    <td>
+2.77.30
+    </td>
+    <td>
+minor update
+    </td>
+    <td>
+[Calculator]
+<br>
+・variable's reference/substitution extended
+<br>
+・manual更新
+<br>
+　追加校正5箇所・追加校正2箇所
+<br>
+・manual項目追加
+<br>
+　<a href="01_calc_simple/manual.html#span-out-reference-mat-area">[manual]Calculator-area参照</a>
+<br>
+　<a href="01_calc_simple/manual.html#span-out-substitution-mat-area">[manual]Calculator-area代入</a>
+    </td>
+    <td>
+2021/11/15
+    </td>
+  </tr>
+  <tr>
+    <th>
+4.82.26.11.26
+    </th>
+    <td class="types">
+Calculator
+    </td>
+    <td>
+2.76.30
+    </td>
+    <td class="clear">
+minor bug-fix
+    </td>
+    <td>
+[Calculator]
+<br>
+・inner options makeLog@Ver.1.7.3 bug-fixed
+<br>
+　<a href="01_calc_simple/manual.html#span-in-options">[manual]Calculator-内部option</a>
+<br>
+・manual更新
+<br>
+　追加校正3箇所・仕様追記2箇所
+    </td>
+    <td>
+2021/11/14
+    </td>
+  </tr>
+  <tr>
+    <th>
+4.82.26.11.25
+    </th>
+    <td class="types">
+Calculator
+    </td>
+    <td>
+2.76.29
+    </td>
+    <td>
+minor update
+    </td>
+    <td>
+[Graphing Calculator]
+<br>
+・strict-mode equation-list-DWT2d_xy/DWT2d_yx changed
+<br>
+　<a href="01_calc_simple/manual.html#span-eqn-DWT2d_xy">[manual]Calculator-strict-mode式変数list</a>
+<br>
+[Calculator]
+<br>
+・variable's reference/substitution extended
+<br>
+・manual更新
+<br>
+　追加校正38箇所・追加校正2箇所
+<br>
+　追加校正14箇所
+<br>
+・manual項目追加
+<br>
+　<a href="01_calc_simple/manual.html#span-out-reference-mat-col">[manual]Calculator-列参照</a>
+<br>
+　<a href="01_calc_simple/manual.html#span-out-substitution-mat-col">[manual]Calculator-列代入</a>
+<br>
+　<a href="01_calc_simple/manual.html#span-out-transform-dwt-col">[manual]Calculator-離散Wavelet変換の解法（列代入）</a>
+<br>
+　<a href="01_calc_simple/manual.html#span-out-development-problems">[manual]Calculator-仕様上の問題点</a>
+    </td>
+    <td>
+2021/11/14
+    </td>
+  </tr>
+  <tr>
+    <th>
+4.81.26.11.25
+    </th>
+    <td class="types">
+Calculator
+    </td>
+    <td>
+2.75.29
+    </td>
+    <td>
+minor change
+    </td>
+    <td>
+[Calculator]
+<br>
+・manual更新
+<br>
+　追加校正61箇所
+<br>
+　追加校正7箇所・追加校正1箇所
+<br>
+　<a href="01_calc_simple/manual.html#span-out-FN">[manual]Calculator-関数入力仕様</a>
+<br>
+　<a href="01_calc_simple/manual.html#span-in-tree">[manual]Calculator-単位tree構造</a>
+<br>
+・manual項目追加
+<br>
+　<a href="01_calc_simple/manual.html#span-out-option4">[manual]Calculator-comma演算子</a>
+<br>
+　<a href="01_calc_simple/manual.html#span-out-ope-extended">[manual]Calculator-拡張行列演算</a>
+<br>
+　<a href="01_calc_simple/manual.html#span-out-ope-extended-history">[manual]Calculator-拡張履歴</a>
+    </td>
+    <td>
+2021/11/12
+    </td>
+  </tr>
+  <tr>
+    <th>
+4.81.25.11.25
+    </th>
+    <td class="types">
+Calculator
+    </td>
+    <td>
+2.74.29
+    </td>
+    <td>
+minor update
+    </td>
+    <td>
+[Calculator]
+<br>
+・following extended operations test case updated
+<br>
+・all operations extended further
+<br>
+　than Ver.2.73.29 excluding FunctioN(FN)
+<br>
+・extended operations@single-row modified
+<br>
+(1,2,4)/2 -> 2　⇒　(0.5,1,2)
+<br>
+2/(1,2,4) -> 0.5　⇒　(2,1,0.5)
+<br>
+・extended operations algorithm optimized
+<br>
+(2,3)**{1,2}  <span class="selection">// complex-unchecked</span> -> (2,3:4,9)
+<br>
+(1,2:3,4:5)**{1,2}  <span class="selection">// complex-unchecked</span> -> (1,2:9,16:25)
+<br>
+・checkbox-comma in calc-config added for consistency of comma-operator
+<br>
+x={0,1,2,3,4,5,6,7};
+<br>
+y=(x*1,x*2,x*3)/(i,-2,3);
+<br>
+y  <span class="run">// comma-unchecked</span> ->
+<br>
+(
+<br>
+0,0,0:
+<br>
+-i,-1,1:
+<br>
+-2i,-2,2:
+<br>
+-3i,-3,3:
+<br>
+-4i,-4,4:
+<br>
+-5i,-5,5:
+<br>
+-6i,-6,6:
+<br>
+-7i,-7,7
+<br>
+)
+<br>
+min(y),max(y) -> (0,0:-1,1:-2,2:-3,3:-4,4:-5,5:-6,6:-7,7)
+<br>
+y  <span class="selection">// comma-checked</span> ->
+<br>
+(
+<br>
+0:
+<br>
+1:
+<br>
+2:
+<br>
+3:
+<br>
+4:
+<br>
+5:
+<br>
+6:
+<br>
+7
+<br>
+)
+<br>
+min(y),max(y)  <span class="selection">// Ver.2.73.29</span> -> (0,0:1,1:2,2:3,3:4,4:5,5:6,6:7,7)
+<br>
+・manual未更新（全page検証中）
+    </td>
+    <td>
+2021/11/11
+    </td>
+  </tr>
+  <tr>
+    <th>
+4.80.25.11.25
+    </th>
+    <td class="types">
+Calculator
+    </td>
+    <td>
+2.73.29
+    </td>
+    <td>
+minor update
+    </td>
+    <td>
+[Calculator]
+<br>
+・following extended operations test case added
+<br>
+　<span class="run">past results including test cases are no change</span>
+<br>
+　過去の結果に影響しない機能拡張のため、minorとする
+<br>
+・all operations extended
+<br>
+x={0,1,2,3,4,5,6,7};
+<br>
+N=sizer(x);
+<br>
+f=e^((x*2*pi/N)i); f ->
+<br>
+(
+<br>
+1:
+<br>
+0.7071067811865476+0.7071067811865475i:
+<br>
+6.123233995736766e-17+i:
+<br>
+-0.7071067811865475+0.7071067811865476i:
+<br>
+-1+1.2246467991473532e-16i:
+<br>
+-0.7071067811865477-0.7071067811865475i:
+<br>
+-1.8369701987210297e-16-i:
+<br>
+0.7071067811865474-0.7071067811865477i
+<br>
+)
+<br>
+round_real(f,n)=&lt;round(real(f)*round(10**(n||1)))/round(10**(n||1));
+<br>
+round_imag(f,n)=&lt;round(imag(f)*round(10**(n||1)))/round(10**(n||1));
+<br>
+round_f(f,nr,ni)=&lt;round_real(=&lt;f,nr)+(round_imag(=&lt;f,ni))i;
+<br>
+round_f(=&lt;f,,2) -> (1:0.7+0.71i:i:-0.7+0.71i:-1:-0.7-0.71i:-i:0.7-0.71i)
+<br>
+0||~(x&lt;&lt;1)%3 -> (-1:-3:-2:-1:-3:-2:-1:-3)
+<br>
+・manual未更新（全page検証中）
+    </td>
+    <td>
+2021/11/10
+    </td>
+  </tr>
+  <tr>
+    <th>
+4.79.25.11.25
+    </th>
+    <td class="types">
+Calculator
+    </td>
+    <td>
+2.72.29
+    </td>
+    <td>
+minor update
+    </td>
+    <td>
+[Graphing Calculator]
+<br>
+・test case-p-DWT-button added
+<br>
+　insert-z changed
+<br>
+　<a href="01_calc_simple/manual.html#span-out-UI-graphing-post-compressor">[manual]Calculator-post-compressor特定項目仕様</a>
+<br>
+・strict-mode equation-list-DWT1d/DWT2d_xy/DWT2d_yx changed
+<br>
+　N2+t　⇒　t+N2
+<br>
+　<a href="01_calc_simple/manual.html#span-eqn-DWT1d">[manual]Calculator-strict-mode式変数list</a>
+<br>
+[Calculator]
+<br>
+・manual更新
+<br>
+　追加校正11箇所
+<br>
+　追加校正1箇所
+<br>
+　追加校正13箇所・追加校正6箇所・追加校正2箇所
+<br>
+　追加校正4箇所
+<br>
+・manual項目追加
+<br>
+　<a href="01_calc_simple/manual.html#span-out-UI-graphing-post-processor-encode">[manual]Calculator-encode仕様</a>
+    </td>
+    <td>
+2021/11/8
+    </td>
+  </tr>
+  <tr>
+    <th>
+4.78.25.11.25
+    </th>
+    <td class="types">
+Calculator
+    </td>
+    <td>
+2.71.29
+    </td>
+    <td class="clear">
+minor bug-fix
+    </td>
+    <td>
+[Calculator]
+<br>
+・bugs found@Ver.2.70.28 fixed
+<br>
+　test cases results are no change
+<br>
+　<a href="01_calc_simple/manual.html#span-out-scope-inherited-call-memo">[manual]Calculator-式変数のscope継承callまとめ</a>
+<br>
+・manual更新
+<br>
+　追加校正2箇所
+    </td>
+    <td>
+2021/11/7
+    </td>
+  </tr>
+  <tr>
+    <th>
+4.78.25.11.24
+    </th>
+    <td class="types">
+Calculator
+    </td>
+    <td>
+2.71.28
+    </td>
+    <td>
+minor update
+    </td>
+    <td>
+[Calculator]
+<br>
+・bit not operator implemented
+<br>
+　<a href="01_calc_simple/manual.html#span-out-prec-ope-bit">[manual]Calculator-bit演算子</a>
+<br>
+・bit operator test case added
+<br>
+・manual更新
+<br>
+　追加校正8箇所・追加校正1箇所
+    </td>
+    <td>
+2021/11/7
+    </td>
+  </tr>
+  <tr>
+    <th>
+4.77.25.11.24
+    </th>
+    <td class="types">
+Calculator
+    </td>
+    <td>
+2.70.28
+    </td>
+    <td>
+minor change
+    </td>
+    <td>
+[Graphing Calculator]
+<br>
+・strict-mode equation-list-DWT1d/DWT2d_xy/DWT2d_yx-buttons added
+<br>
+　<a href="01_calc_simple/manual.html#span-eqn-DWT1d">[manual]Calculator-strict-mode式変数list</a>
+<br>
+[Calculator]
+<br>
+・preparations for implementation of DWT
+<br>
+　<a href="01_calc_simple/manual.html#span-out-transform-dwt">[manual]Calculator-離散Wavelet変換の解法</a>
+<br>
+・manual更新1箇所
+<br>
+　追加校正3箇所
+<br>
+　追加校正20箇所・追加校正3箇所・追加校正1箇所・追加校正1箇所・追加校正2箇所
+<br>
+　追加校正4箇所・追加校正1箇所
+<br>
+　追加校正14箇所
+<br>
+　追加校正9箇所・追加校正1箇所
+<br>
+　仕様追記1箇所
+<br>
+　<a href="01_calc_simple/manual.html#span-out-scope-inherited-call-memo">[manual]Calculator-式変数のscope継承callまとめ</a>
+<br>
+・manual項目追加1箇所
+<br>
+　<a href="01_calc_simple/manual.html#span-out-development-problems-complex">[manual]Calculator-複素数演算の問題点</a>
+    </td>
+    <td>
+2021/11/4
+    </td>
+  </tr>
+  <tr>
+    <th>
+4.77.24.11.24
+    </th>
+    <td class="types">
+Calculator
+    </td>
+    <td>
+2.69.28
+    </td>
+    <td class="clear">
+fatal bug-fix
+    </td>
+    <td>
+[math.js]
+<br>
+・fact/permutation/combination specifications reviewed
+<br>
+　<a href="01_calc_simple/manual.html#span-out-prec-ope-arithmetic">[manual]Calculator-算術演算子</a>
+<br>
+　<a href="01_calc_simple/manual.html#span-out-FN-fact">[manual]Calculator-階乗関数</a>
+<br>
+・fact/permutation/combination bug-fixed reccursive call　⇒　for-loop
+<br>
+fact(<span class="clear">1e6</span>) || <span class="clear">1e6</span>! || <span class="clear">1e6</span>!! -> Maximum call stack size exceeded　⇒　Infinity
+<br>
+permutation(1<span class="clear">)</span> -> Maximum call stack size exceeded　⇒　0
+<br>
+combination(1<span class="clear">)</span> -> Maximum call stack size exceeded　⇒　0
+<br>
+[Graphing Calculator]
+<br>
+・test case-post3-button insert-z changed
+<br>
+[Calculator]
+<br>
+・fact/permutation/combination test case added
+<br>
+　fact/permutation/combination test case updated
+<br>
+・manual更新
+<br>
+　追加校正約130箇所・追加校正6箇所・追加校正26箇所
+<br>
+　<a href="01_calc_simple/manual.html#span-out-FN">[manual]Calculator-関数入力仕様</a>
+<br>
+　<a href="01_calc_simple/manual.html#span-out-FN-args">[manual]Calculator-関数の引数</a>
+<br>
+　<a href="01_calc_simple/manual.html#span-out-FN-ope">[manual]Calculator-演算子代替関数</a>
+<br>
+　<a href="01_calc_simple/manual.html#span-out-FN-rand">[manual]Calculator-乱数関数</a>
+<br>
+　<a href="01_calc_simple/manual.html#span-out-FN-fact">[manual]Calculator-階乗関数</a>
+<br>
+　<a href="01_calc_simple/manual.html#span-out-FN-log">[manual]Calculator-log関数</a>
+<br>
+　<a href="01_calc_simple/manual.html#span-out-FN-atan2">[manual]Calculator-atan2関数</a>
+<br>
+　配色変更13箇所・追加校正12箇所
+<br>
+　追加校正3箇所
+<br>
+　<a href="01_calc_simple/manual.html#span-out-FN-fact">[manual]Calculator-階乗関数</a>
+    </td>
+    <td>
+2021/11/4
+    </td>
+  </tr>
+  <tr>
+    <th>
+4.77.24.10.24
+    </th>
+    <td class="types">
+Calculator
+    </td>
+    <td>
+2.69.27
+    </td>
+    <td class="clear">
+minor change
+    </td>
+    <td>
+[Graphing Calculator]
+<br>
+・strict-mode equation-list-DFT1d/DFT2d_xy/DFT2d_yx-buttons added
+<br>
+　<a href="01_calc_simple/manual.html#span-eqn-DFT1d">[manual]Calculator-strict-mode式変数list</a>
+<br>
+・test case-tile-button insert-z changed
+<br>
+[Calculator]
+<br>
+・test case追記から<span class="clear">2D-IDFTの数式</span>を一部訂正
+<br>
+　results are no change
+<br>
+　<a href="01_calc_simple/manual.html#span-out-transform-dft">[manual]Calculator-離散Fourier変換の解法</a>
+<br>
+・manual更新
+<br>
+　追加校正9箇所・追加校正2箇所・追加校正2箇所
+<br>
+　追加校正2箇所・追加校正2箇所・追加校正2箇所
+<br>
+　追加校正8箇所
+<br>
+　追加校正1箇所
+<br>
+・manual項目追加
+<br>
+　<a href="01_calc_simple/manual.html#span-out-development-problems">[manual]Calculator-仕様上の問題点</a>
+    </td>
+    <td>
+2021/11/2
+    </td>
+  </tr>
+  <tr>
+    <th>
+4.77.23.10.24
+    </th>
+    <td class="types">
+Calculator
+    </td>
+    <td>
+2.68.27
+    </td>
+    <td>
+minor update
+    </td>
+    <td>
+[Graphing Calculator]
+<br>
+・TILE{dx,dy,x0,y0,x1,y1} added
+<br>
+　<a href="01_calc_simple/manual.html#span-out-UI-graphing-tile">[manual]Calculator-tile特定項目仕様</a>
+<br>
+・test case-tile-button added
+<br>
+　insert-x/y/z changed
+<br>
+[Calculator]
+<br>
+・manual更新4箇所
+<br>
+　追加校正4箇所
+    </td>
+    <td>
+2021/11/1
+    </td>
+  </tr>
+  <tr>
+    <th>
+4.76.23.10.24
+    </th>
+    <td class="types">
+Calculator
+    </td>
+    <td>
+2.67.27
+    </td>
+    <td>
+minor update
+    </td>
+    <td>
+[def.js]
+<br>
+・if(content)　⇒　if(content || content === "")
+<br>
+[plot2d.js]
+<br>
+・origin-label drawn condition modified
+<br>
+　if(options._labelSize0)　⇒　if(origin || origin === "")
+<br>
+[Graphing Calculator]
+<br>
+・ORIGIN{lineWidth,color,labelSize} added
+<br>
+　<a href="01_calc_simple/manual.html#span-out-UI-graphing-origin">[manual]Calculator-origin特定項目仕様</a>
+<br>
+・test case-title-button insert-z changed
+<br>
+・test case-buttons name changed
+<br>
+　z-legend　⇒　legend
+<br>
+　bgcolor&amp;axis-range　⇒　range/color separated
+<br>
+　string-path　⇒　string
+<br>
+[Calculator]
+<br>
+・manual更新6箇所
+    </td>
+    <td>
+2021/10/31
+    </td>
+  </tr>
+  <tr>
+    <th>
+4.75.23.10.24
+    </th>
+    <td class="types">
+Calculator
+    </td>
+    <td>
+2.66.27
+    </td>
+    <td>
+minor update
+    </td>
+    <td>
+[canvas.js]
+<br>
+・inner limiter added
+<br>
+[Graphing Calculator]
+<br>
+・backmost-layer added
+<br>
+　<a href="01_calc_simple/manual.html#span-out-UI-graphing-layer">[manual]Calculator-layer描画順</a>
+<br>
+・BGCOLOR/GDCOLOR{color} added
+<br>
+　<a href="01_calc_simple/manual.html#span-out-UI-graphing-bgcolor">[manual]Calculator-bgcolor特定項目仕様</a>
+<br>
+　<a href="01_calc_simple/manual.html#span-out-UI-graphing-gdcolor">[manual]Calculator-gdcolor特定項目仕様</a>
+<br>
+・test case-axis-range/post1-buttons insert-z changed with bgcolor/gdcolor
+<br>
+[Calculator]
+<br>
+・manual更新4箇所
+<br>
+　追加校正19箇所・追加校正2箇所
+<br>
+・manual項目追加
+<br>
+　<a href="01_calc_simple/manual.html#span-out-modelling-trade-off">[manual]Calculator-simplified modellingのtrade-off</a>
+    </td>
+    <td>
+2021/10/29
+    </td>
+  </tr>
+  <tr>
+    <th>
+4.74.23.10.24
+    </th>
+    <td class="types">
+Calculator
+    </td>
+    <td>
+2.65.27
+    </td>
+    <td>
+minor update
+    </td>
+    <td>
+[draw_canvas.js]
+<br>
+・comment about limiter added
+<br>
+[filter.js]
+<br>
+・source-code arranged
+<br>
+・comment about limiter added
+<br>
+・preparations for implementation of DWT
+<br>
+[Graphing Calculator]
+<br>
+・post-compressor added
+<br>
+　<a href="01_calc_simple/manual.html#span-out-UI-graphing-post-compressor">[manual]Calculator-post-compressor特定項目仕様</a>
+<br>
+・test case-p-DFT-button added
+<br>
+　insert-z changed with encode
+<br>
+・test case-blur1/blur3-buttons insert-z changed
+<br>
+[Calculator]
+<br>
+・manual更新
+<br>
+　追加校正10箇所
+<br>
+　追加校正1箇所
+<br>
+　追加校正1箇所
+    </td>
+    <td>
+2021/10/28
+    </td>
+  </tr>
+  <tr>
+    <th>
+4.73.23.10.24
+    </th>
+    <td class="types">
+Calculator
+    </td>
+    <td>
+2.64.27
+    </td>
+    <td>
+minor change
+    </td>
+    <td>
+[Graphing Calculator]
+<br>
+・strict-mode equation-list-plot2d_EIS_DFT-button added
+<br>
+　<a href="01_calc_simple/manual.html#span-eqn-plot2d_EIS_DFT">[manual]Calculator-strict-mode式変数list</a>
+<br>
+・strict-mode equation-list-plot2d_EIS changed int_IV　⇒　FT_IV
+<br>
+・strict-mode equation-list-plot2d_EIS/EIS_DFT changed N　⇒　N-1
+<br>
+　results are no change
+<br>
+　<a href="01_calc_simple/manual.html#span-eqn-plot2d_EIS">[manual]Calculator-strict-mode式変数list</a>
+<br>
+[Calculator]
+<br>
+・manual更新
+<br>
+　補足追記1箇所
+<br>
+　補足追記1箇所
+<br>
+　<a href="01_calc_simple/manual.html#span-out-simulation-EIS">[manual]Calculator-EIS simulation</a>
+<br>
+　追加校正12箇所
+<br>
+　追加校正11箇所・追加校正3箇所
+<br>
+　追加校正2箇所
+    </td>
+    <td>
+2021/10/25
+    </td>
+  </tr>
+  <tr>
+    <th>
+4.73.22.10.24
+    </th>
+    <td class="types">
+Calculator
+    </td>
+    <td>
+2.63.27
+    </td>
+    <td>
+minor update
+    </td>
+    <td>
+[Graphing Calculator]
+<br>
+・CUT{Nlegend,withTransform} added with svg-supported
+<br>
+　<a href="01_calc_simple/manual.html#span-out-UI-graphing-cut">[manual]Calculator-cut特定項目仕様</a>
+<br>
+・test case-post4-button insert-z changed with cut
+<br>
+・FILTER{mask[Nlegend,isInverse,isClear]} added
+<br>
+　<a href="01_calc_simple/manual.html#span-out-UI-graphing-filter">[manual]Calculator-filter特定項目仕様</a>
+<br>
+・test case-post5-button added
+<br>
+[Calculator]
+<br>
+・manual更新
+<br>
+　追加校正約20箇所
+<br>
+　追加校正2箇所・追加校正1箇所
+<br>
+　追加校正8箇所・追加校正1箇所
+    </td>
+    <td>
+2021/10/24
+    </td>
+  </tr>
+  <tr>
+    <th>
+4.72.22.10.24
+    </th>
+    <td class="types">
+Calculator
+    </td>
+    <td>
+2.62.27
+    </td>
+    <td>
+minor update
+    </td>
+    <td>
+[Graphing Calculator]
+<br>
+・FILTER{encode_rgba[dx,dy]} added
+<br>
+　<a href="01_calc_simple/manual.html#span-out-UI-graphing-post-processor">[manual]Calculator-post-processor特定項目仕様</a>
+<br>
+・test case-post2-button insert-z changed with encode
+<br>
+[Calculator]
+<br>
+・manual更新
+<br>
+　追加校正10箇所
+<br>
+　追加校正4箇所
+<br>
+　追加校正5箇所
+<br>
+　追加校正1箇所
+<br>
+　追加校正2箇所
+<br>
+　追加校正3箇所
+    </td>
+    <td>
+2021/10/20
+    </td>
+  </tr>
+  <tr>
+    <th>
+4.71.22.10.24
+    </th>
+    <td class="types">
+Calculator
+    </td>
+    <td>
+2.61.27
+    </td>
+    <td>
+minor update
+    </td>
+    <td>
+[math_wave.js]
+<br>
+[filter.js]
+<br>
+[plot2d.js]
+<br>
+・white spaces arranged
+<br>
+[Graphing Calculator]
+<br>
+・FILTER{/*fill-in*/fiin[x,y,color,Nwrap]} added
+<br>
+　<a href="01_calc_simple/manual.html#span-out-UI-graphing-post-processor">[manual]Calculator-post-processor特定項目仕様</a>
+<br>
+・test case-post3-button insert-z changed with fill-in
+<br>
+[Calculator]
+<br>
+・manual更新
+    </td>
+    <td>
+2021/10/20
+    </td>
+  </tr>
+  <tr>
+    <th>
+4.70.22.<del>9.25</del>
+<br>
+4.70.22.10.24
+    </th>
+    <td class="types">
+Calculator
+    </td>
+    <td>
+2.60.27
+    </td>
+    <td class="clear">
+<del>minor bug-fix</del>
+<br>
+fatal bug-fix
+    </td>
+    <td>
+[filter.js]
+<br>
+・FILTER{area[limiter of canvas-size(w,h)]} added as a fatal bug-fix
+<br>
+area[0,0,<span class="clear">1e13</span>] -> Value is outside the 'long' value range.　⇒　area[0,0,w,h]
+<br>
+area[<span class="clear">-1e9,,1e9</span>] -> Out of memory at ImageData creation　⇒　area[0,0,w,h]
+<br>
+　<a href="01_calc_simple/manual.html#span-out-UI-graphing-filter">[manual]Calculator-filter特定項目仕様</a>
+<br>
+[Calculator]
+<br>
+・manual更新
+<br>
+　追加校正2箇所
+<br>
+　追加校正4箇所・追加校正2箇所
+<br>
+　追加校正3箇所
+    </td>
+    <td>
+2021/10/19
+    </td>
+  </tr>
+  <tr>
+    <th>
+4.70.22.9.24
+    </th>
+    <td class="types">
+Calculator
+    </td>
+    <td>
+2.60.26
+    </td>
+    <td>
+minor update
+    </td>
+    <td>
+[draw_canvas.js]
+<br>
+・GRADATION/BLUR{isMin=false||true@circle-mode} added
+<br>
+　<a href="01_calc_simple/manual.html#span-out-UI-graphing-gradation">[manual]Calculator-gradation特定項目仕様</a>
+<br>
+・BLUR{Ncycle=0(circle-mode)} optimized
+<br>
+[Graphing Calculator]
+<br>
+・GRADATION{Ncycle=0(circle-mode)} added
+<br>
+　svg@circle-mode supported
+<br>
+　<a href="01_calc_simple/manual.html#span-out-UI-graphing-gradation">[manual]Calculator-gradation特定項目仕様</a>
+<br>
+・test case-grad3-button added
+<br>
+・BLUR{Ncycle=0(circle-mode)} added
+<br>
+　<a href="01_calc_simple/manual.html#span-out-UI-graphing-blur">[manual]Calculator-blur特定項目仕様</a>
+<br>
+・test case-blur3-button added<del> with average_asym</del>
+<br>
+[Calculator]
+<br>
+・manual更新
+<br>
+　追加校正5箇所
+<br>
+　追加校正2箇所
+<br>
+　追加校正2箇所
+<br>
+　追加校正6箇所
+<br>
+　追加校正1箇所
+<br>
+　追加校正2箇所
+<br>
+　追加校正2箇所
+<br>
+　追加校正2箇所
+<br>
+　追加校正1箇所
+    </td>
+    <td>
+2021/10/15
+    </td>
+  </tr>
+  <tr>
+    <th>
+4.69.22.9.24
+    </th>
+    <td class="types">
+Calculator
+    </td>
+    <td>
+2.59.26
+    </td>
+    <td>
+minor update
+    </td>
+    <td>
+[Calculator]
+<br>
+・logical operator implemented
+<br>
+　<a href="01_calc_simple/manual.html#span-out-prec-ope-logical">[manual]Calculator-論理演算子</a>
+<br>
+・logical operator test case added
+<br>
+・manual更新
+<br>
+　追加校正17箇所
+<br>
+　追加校正12箇所
+<br>
+　追加校正4箇所
+<br>
+　追加校正6箇所・追加校正1箇所・追加校正1箇所
+<br>
+[Graphing Calculator]
+<br>
+・test case-tone-curve-button insert-y changed with logical operator
+    </td>
+    <td>
+2021/10/11
+    </td>
+  </tr>
+  <tr>
+    <th>
+4.68.22.9.24
+    </th>
+    <td class="types">
+Calculator
+    </td>
+    <td>
+2.58.26
+    </td>
+    <td>
+minor change
+    </td>
+    <td>
+[Calculator]
+<br>
+・manual更新
+<br>
+　preparations for implementation of logical operator
+<br>
+　<a href="01_calc_simple/manual.html#span-out-prec-ope-logical">[manual]Calculator-論理演算子</a>
+<br>
+　追加校正109箇所
+    </td>
+    <td>
+2021/10/11
+    </td>
+  </tr>
+  <tr>
+    <th>
+4.68.21.9.24
+    </th>
+    <td class="types">
+Calculator
+    </td>
+    <td>
+2.57.26
+    </td>
+    <td>
+minor update
+    </td>
+    <td>
+[draw_canvas.js]
+<br>
+・Nrender's limiter moved from plot2d.js
+<br>
+[Graphing Calculator]
+<br>
+・asymmetric blurring supported with limiter(memory size&lt;200MB)
+<br>
+　<a href="01_calc_simple/manual.html#span-out-UI-graphing-blur">[manual]Calculator-blur特定項目仕様</a>
+<br>
+・strict-mode equation-list-average_asym-button added
+<br>
+　<a href="01_calc_simple/manual.html#span-eqn-average-asym">[manual]Calculator-strict-mode式変数list</a>
+<br>
+・test case-blur1-button insert-z changed with average_asym
+<br>
+　<a href="01_calc_simple/manual.html#span-out-UI-graphing-filter-average-asym">[manual]Calculator-非対称averageぼかし</a>
+<br>
+・all test cases insert-x/y/z including comments arranged
+<br>
+　results are no change excluding test case-blur1/blur2-buttons
+<br>
+[Calculator]
+<br>
+・manual更新
+<br>
+　追加校正4箇所
+<br>
+　追加校正1箇所
+<br>
+　追加校正3箇所・追加校正7箇所・追加校正1箇所
+<br>
+　誤字修正2箇所・追加校正2箇所
+    </td>
+    <td>
+2021/10/8
+    </td>
+  </tr>
+  <tr>
+    <th>
+4.67.21.9.24
+    </th>
+    <td class="types">
+Calculator
+    </td>
+    <td>
+2.56.26
+    </td>
+    <td>
+minor update
+    </td>
+    <td>
+[Graphing Calculator]
+<br>
+・TRANSFORM{withBackground} added
+<br>
+・svg's TRANSFORM supported
+<br>
+　at checkbox-axis-z unchecked supported
+<br>
+　masking STRING{string-path} supported
+<br>
+　<a href="01_calc_simple/manual.html#span-out-UI-graphing-transform">[manual]Calculator-transform特定項目仕様</a>
+<br>
+・test case-post4-button insert-z updated
+<br>
+・test case-p-trans-button insert-z changed
+<br>
+[Calculator]
+<br>
+・manual更新
+<br>
+　追加校正約30箇所
+<br>
+　追加校正32箇所・追加校正2箇所
+<br>
+　追加校正1箇所
+<br>
+　追加校正10箇所・追加校正4箇所
+    </td>
+    <td>
+2021/10/5
+    </td>
+  </tr>
+  <tr>
+    <th>
+4.66.21.9.24
+    </th>
+    <td class="types">
+Calculator
+    </td>
+    <td>
+2.55.26
+    </td>
+    <td>
+minor change
+    </td>
+    <td>
+[Graphing Calculator]
+<br>
+・BLUR{config[item-name]} changed isAverage　⇒　isSquare
+<br>
+　<a href="01_calc_simple/manual.html#span-out-UI-graphing-blur">[manual]Calculator-blur特定項目仕様</a>
+<br>
+・strict-mode equation-list-average changed isCircle　⇒　isSquare
+<br>
+　<a href="01_calc_simple/manual.html#span-eqn-average">[manual]Calculator-strict-mode式変数list</a>
+<br>
+・test case-filter1-button insert-z changed
+<br>
+[Calculator]
+<br>
+・manual更新
+<br>
+　追加校正8箇所
+    </td>
+    <td>
+2021/10/4
+    </td>
+  </tr>
+  <tr>
+    <th>
+4.66.20.9.24
+    </th>
+    <td class="types">
+Calculator
+    </td>
+    <td>
+2.54.26
+    </td>
+    <td>
+minor update
+    </td>
+    <td>
+[Graphing Calculator]
+<br>
+・post-transformer added
+<br>
+　<a href="01_calc_simple/manual.html#span-out-UI-graphing-post-transformer">[manual]Calculator-post-transformer特定項目仕様</a>
+<br>
+・test case-p-trans-button added
+<br>
+・test case-blur1/blur2-buttons insert-x/y changed with transform3x3
+<br>
+・strict-mode equation-list-average/Gaussian-buttons added
+<br>
+　<a href="01_calc_simple/manual.html#span-eqn">[manual]Calculator-strict-mode式変数list</a>
+<br>
+[Calculator]
+<br>
+・manual更新
+<br>
+　追加校正17箇所
+<br>
+　追加校正7箇所
+<br>
+　追加校正約30箇所・追加校正3箇所
+<br>
+　追加校正2箇所
+<br>
+・manual項目追加
+<br>
+　<a href="01_calc_simple/manual.html#span-out-UI-graphing-filter-average">[manual]Calculator-averageぼかし</a>・N=1,17~39追記
+<br>
+　<a href="01_calc_simple/manual.html#span-out-UI-graphing-filter-Gaussian">[manual]Calculator-Gaussぼかし</a>・N=1追記
+    </td>
+    <td>
+2021/10/3
+    </td>
+  </tr>
+  <tr>
+    <th>
+4.65.20.9.24
+    </th>
+    <td class="types">
+Calculator
+    </td>
+    <td>
+2.53.26
+    </td>
+    <td class="clear">
+minor bug-fix
+    </td>
+    <td>
+[Graphing Calculator]
+<br>
+・remaining input-z-LABEL's text at checkbox-axis-x||y unchecked bug-fixed
+<br>
+　<a href="01_calc_simple/manual.html#span-out-UI-graphing">[manual]Calculator-Graphing Calculator UI</a>
+<br>
+[Calculator]
+<br>
+・manual更新
+<br>
+　追加校正6箇所
+    </td>
+    <td>
+2021/10/1
+    </td>
+  </tr>
+  <tr>
+    <th>
+4.65.20.9.23
+    </th>
+    <td class="types">
+Calculator
+    </td>
+    <td>
+2.53.25
+    </td>
+    <td class="clear">
+minor change
+    </td>
+    <td>
+[Calculator]
+<br>
+・せん断変形の結果から座標変換行列の一部記述を見直して訂正
+<br>
+　transform3x3=(a,<span class="clear">b</span>,e:<span class="clear">c</span>,d,f:0,0,1)　⇒　(a,c,e:b,d,f:0,0,1)
+<br>
+　<a href="01_calc_simple/manual.html#span-out-UI-graphing-transform">[manual]Calculator-transform特定項目仕様</a>
+<br>
+・manual更新
+<br>
+　追加校正27箇所・追加校正3箇所
+<br>
+　filters-area[]仕様追記2箇所・追加校正12箇所
+<br>
+　<a href="01_calc_simple/manual.html#span-out-UI-graphing-filter">[manual]Calculator-filter特定項目仕様</a>
+    </td>
+    <td>
+2021/9/30
+    </td>
+  </tr>
+  <tr>
+    <th>
+4.65.19.9.23
+    </th>
+    <td class="types">
+Calculator
+    </td>
+    <td>
+2.52.25
+    </td>
+    <td>
+minor update
+    </td>
+    <td>
+[Graphing Calculator]
+<br>
+・canvas-area in filtering with canvas-transform supported
+<br>
+　<a href="01_calc_simple/manual.html#span-out-UI-graphing-transform">[manual]Calculator-transform特定項目仕様</a>
+<br>
+　<a href="01_calc_simple/manual.html#span-out-UI-graphing-filter">[manual]Calculator-filter特定項目仕様</a>
+<br>
+・test case-tone-curve-button insert-z changed
+<br>
+・test case-post4-button insert-z changed
+<br>
+[Calculator]
+<br>
+・manual更新
+    </td>
+    <td>
+2021/9/30
+    </td>
+  </tr>
+  <tr>
+    <th>
+4.64.19.9.23
+    </th>
+    <td class="types">
+Calculator
+    </td>
+    <td>
+2.51.25
+    </td>
+    <td class="clear">
+minor change
+    </td>
+    <td>
+[Calculator]
+<br>
+・陽解法のEIS-simulation結果からVon Neumannの安定性解析結果を見直して訂正
+<br>
+　0&lt;時間刻み&lt;時定数　⇒　0&le;時間刻み&le;時定数<span class="clear">*2</span>
+<br>
+　<a href="01_calc_simple/manual.html#span-out-modelling-0D-RC">[manual]Calculator-0D-RC並列回路simplified modelling</a>
+<br>
+　<a href="01_calc_simple/manual.html#span-out-modelling-0D-diffusion">[manual]Calculator-0D-diffusion simplified modelling</a>
+<br>
+・manual更新
+<br>
+　陽解法のEIS-simulation結果を追加
+<br>
+　<a href="01_calc_simple/manual.html#span-out-simulation-EIS">[manual]Calculator-EIS simulation</a>
+<br>
+　追加校正26箇所
+<br>
+　配色変更21箇所・追加校正2箇所
+<br>
+　<a href="01_calc_simple/manual.html#span-out-modelling-0D-diffusion">[manual]Calculator-0D-diffusion simplified modelling</a>
+    </td>
+    <td>
+2021/9/26
+    </td>
+  </tr>
+  <tr>
+    <th>
+4.64.18.9.23
+    </th>
+    <td class="types">
+Calculator
+    </td>
+    <td>
+2.50.25
+    </td>
+    <td>
+minor update
+    </td>
+    <td>
+[plot2d.js]
+<br>
+[calc_graphing.js]
+<br>
+・detach timing commonalized
+<br>
+[Graphing Calculator]
+<br>
+・input-t0||t1 at checkbox-axis-t checked deregulated for EIS-simulation
+<br>
+　<a href="01_calc_simple/manual.html#span-out-UI-graphing">[manual]Calculator-Graphing Calculator UI</a>
+<br>
+・test case-EIS-button added
+<br>
+　test case-EIS-button insert-z changed
+<br>
+　<a href="01_calc_simple/manual.html#span-out-simulation-EIS">[manual]Calculator-EIS simulation</a>
+<br>
+・test case--IV-button added
+<br>
+・strict-mode equation-list-plot2d_EIS-button added
+<br>
+　<a href="01_calc_simple/manual.html#span-eqn-plot2d_EIS">[manual]Calculator-plot2d_EIS</a>
+<br>
+・strict-mode equation-list-plot2d_EIS changed
+<br>
+　intIV　⇒　zIV
+<br>
+　exp(i*omega*t)　⇒　exp(-i*omega*t)
+<br>
+　isBode added for Bode-plot
+<br>
+・strict-mode equation-list-plot2d_IV-button added
+<br>
+　<a href="01_calc_simple/manual.html#span-eqn-plot2d_IV">[manual]Calculator-plot2d_IV</a>
+<br>
+[Calculator]
+<br>
+・manual更新
+<br>
+　追加校正約30箇所
+<br>
+　追加校正4箇所
+<br>
+　追加校正9箇所
+<br>
+　追加校正4箇所
+<br>
+　追加校正6箇所
+<br>
+　追加校正11箇所・追加校正21箇所・追加校正6箇所
+<br>
+　<a href="01_calc_simple/manual.html#span-out-modelling-0D-diffusion">[manual]Calculator-0D-diffusion simplified modelling</a>
+<br>
+　追加校正12箇所
+<br>
+　結果の符号反映11箇所・追加校正6箇所・追加校正5箇所
+<br>
+　<a href="01_calc_simple/manual.html#span-out-simulation-EIS">[manual]Calculator-EIS simulation</a>
+    </td>
+    <td>
+2021/9/21
+    </td>
+  </tr>
+  <tr>
+    <th>
+4.63.18.9.23
+    </th>
+    <td class="types">
+Calculator
+    </td>
+    <td>
+2.49.25
+    </td>
+    <td>
+minor update
+    </td>
+    <td>
+[Graphing Calculator]
+<br>
+・binarization||monotone sw=-1(average(wr,wg,wb)) added
+<br>
+　<a href="01_calc_simple/manual.html#span-out-UI-graphing-post-processor">[manual]Calculator-post-processor特定項目仕様</a>
+<br>
+・test case-post4-button insert-z changed
+<br>
+[Calculator]
+<br>
+・manual更新
+<br>
+　追加校正11箇所・追加校正2箇所
+    </td>
+    <td>
+2021/9/15
+    </td>
+  </tr>
+  <tr>
+    <th>
+4.62.18.9.23
+    </th>
+    <td class="types">
+Calculator
+    </td>
+    <td>
+2.48.25
+    </td>
+    <td class="clear">
+minor bug-fix
+    </td>
+    <td>
+[filter.js]
+<br>
+・if(!(isNaN(data0i)))　⇒　if(i &gt;= is &amp;&amp; i &lt;= ie &amp;&amp; j &gt;= js &amp;&amp; j &lt;= je)
+<br>
+　厳密に範囲判定してもthroughput||resultは大差ない
+<br>
+[Graphing Calculator]
+<br>
+・filtering||mosaic at the boundary of canvas modified strictly
+<br>
+　<a href="01_calc_simple/manual.html#span-out-UI-graphing-filter">[manual]Calculator-filter特定項目仕様</a>
+<br>
+　<a href="01_calc_simple/manual.html#span-out-UI-graphing-post-processor">[manual]Calculator-post-processor特定項目仕様</a>
+<br>
+[Calculator]
+<br>
+・manual更新
+<br>
+　追加校正2箇所
+    </td>
+    <td>
+2021/9/12
+    </td>
+  </tr>
+  <tr>
+    <th>
+4.62.18.9.22
+    </th>
+    <td class="types">
+Calculator
+    </td>
+    <td>
+2.48.24
+    </td>
+    <td>
+minor update
+    </td>
+    <td>
+[Graphing Calculator]
+<br>
+・post-processor added
+<br>
+　<a href="01_calc_simple/manual.html#span-out-UI-graphing-post-processor">[manual]Calculator-post-processor特定項目仕様</a>
+<br>
+　binarization||monotone sw=6(median) added
+<br>
+・test case-post1/post2/post3/post4-buttons added
+<br>
+[Calculator]
+<br>
+・manual更新
+<br>
+　追加校正13箇所
+<br>
+　追加校正3箇所
+    </td>
+    <td>
+2021/9/12
+    </td>
+  </tr>
+  <tr>
+    <th>
+4.61.18.9.22
+    </th>
+    <td class="types">
+Calculator
+    </td>
+    <td>
+2.47.24
+    </td>
+    <td>
+minor update
+    </td>
+    <td>
+[Graphing Calculator]
+<br>
+・filter to adjust tone-curve with gamma correction added
+<br>
+　<a href="01_calc_simple/manual.html#span-out-UI-graphing-filter-tone-curve">[manual]Calculator-tone-curve特定項目仕様</a>
+<br>
+・test case-tone-curve-button added
+<br>
+・test case-blur2-button insert-z changed
+<br>
+[Calculator]
+<br>
+・manual更新
+<br>
+　追加校正7箇所
+    </td>
+    <td>
+2021/9/8
+    </td>
+  </tr>
+  <tr>
+    <th>
+4.60.18.9.22
+    </th>
+    <td class="types">
+Calculator
+    </td>
+    <td>
+2.46.24
+    </td>
+    <td>
+minor update
+    </td>
+    <td>
+[filter.js]
+<br>
+・if(data0i &gt;= 0)　⇒　if(!(isNaN(data0i)))
+<br>
+[Graphing Calculator]
+<br>
+・filtering in HSV-color-space supported
+<br>
+　<a href="01_calc_simple/manual.html#span-out-UI-graphing-filter">[manual]Calculator-filter特定項目仕様</a>
+<br>
+・test case-filter3-button added
+<br>
+[Calculator]
+<br>
+・manual更新
+<br>
+　追加校正3箇所
+<br>
+　仕様追記1箇所
+<br>
+　<a href="01_calc_simple/manual.html#span-out-FN">[manual]Calculator-関数入力仕様</a>
+    </td>
+    <td>
+2021/9/6
+    </td>
+  </tr>
+  <tr>
+    <th>
+4.59.18.9.22
+    </th>
+    <td class="types">
+Checklist
+    </td>
+    <td>
+1.0.0
+    </td>
+    <td class="run">
+major update
+    </td>
+    <td>
+<span id="span-release-checklist"></span>
+[Checklist]
+<br>
+・<a href="00_common/checklist.html">[memo]checklist</a> made to avoid missing bugs
+    </td>
+    <td>
+2021/9/4
+    </td>
+  </tr>
+  <tr>
+    <th>
+3.59.18.9.22
+    </th>
+    <td class="types">
+Calculator
+    </td>
+    <td>
+2.45.24
+    </td>
+    <td class="clear">
+fatal bug-fix
+    </td>
+    <td>
+[canvas.js]
+<br>
+・instance method's name changed
+<br>
+　getBase64()　⇒　get_base64()
+<br>
+　putBase64()　⇒　draw_base64()
+<br>
+　putBase64s()　⇒　draw_base64s()
+<br>
+[Graphing Calculator]
+<br>
+・blurring algorithm<span class="clear">@strength=0</span> bug-fixed
+<br>
+　<a href="01_calc_simple/manual.html#span-out-UI-graphing-blur">[manual]Calculator-blur特定項目仕様</a>
+<br>
+・test case-blur2-button insert-z changed
+<br>
+[Calculator]
+<br>
+・manual更新
+<br>
+　追加校正2箇所
+    </td>
+    <td>
+2021/9/2
+    </td>
+  </tr>
+  <tr>
+    <th>
+3.59.18.8.22
+    </th>
+    <td class="types">
+Calculator
+    </td>
+    <td>
+2.45.23
+    </td>
+    <td>
+minor update
+    </td>
+    <td>
+[Graphing Calculator]
+<br>
+・test case-blur1/blur2-buttons added
+<br>
+　<a href="01_calc_simple/manual.html#span-out-UI-graphing-blur">[manual]Calculator-blur特定項目仕様</a>
+<br>
+[Calculator]
+<br>
+・manual更新
+<br>
+　追加校正3箇所
+    </td>
+    <td>
+2021/9/2
+    </td>
+  </tr>
+  <tr>
+    <th>
+3.58.18.8.22
+    </th>
+    <td class="types">
+Generator
+    </td>
+    <td>
+1.13.3
+    </td>
+    <td class="clear">
+fatal bug-fix
+    </td>
+    <td>
+[音源wave PCM生成]
+<br>
+・fade-in/out algorithm modified to maintain the pitch of sounds
+<br>
+　<a href="30_wave/index2.html#span-history">音源wave PCM生成（演奏）</a>
+<br>
+　raw-value's fade-in/out as Low-Pass-Filter　⇒　physical amplitude's fade-in/out
+    </td>
+    <td>
+2021/8/30
+    </td>
+  </tr>
+  <tr>
+    <th>
+3.58.18.7.22
+    </th>
+    <td class="types">
+Calculator
+    </td>
+    <td>
+2.44.23
+    </td>
+    <td class="clear">
+fatal bug-fix
+    </td>
+    <td>
+[filter.js]
+<br>
+・a simple-mistake@Ver.2.44.22 in filtering bug-fixed
+<br>
+　<a href="01_calc_simple/manual.html#span-out-UI-graphing-filter">[manual]Calculator-filter特定項目仕様</a>
+<br>
+　if(<span class="clear">data0i</span> &amp;&amp; wi)　⇒　if(data0i &gt;= 0<del> &amp;&amp; wi</del>)
+<br>
+・composite　⇒　self.composite instantiated in advance for blurring
+<br>
+[Graphing Calculator]
+<br>
+・limiter in filter[] added
+<br>
+・filter's irregular input supported
+<br>
+　<a href="01_calc_simple/manual.html#span-out-UI-graphing-filter">[manual]Calculator-filter特定項目仕様</a>
+<br>
+・test case-filter1/filter2-buttons insert-z modified
+<br>
+　test case-filter2-button insert-z changed
+<br>
+[Calculator]
+<br>
+・manual更新
+<br>
+　追加校正1箇所
+<br>
+　追加校正4箇所
+<br>
+　追加校正4箇所
+<br>
+　追加校正9箇所
+<br>
+　追加校正5箇所・追加校正2箇所・追加校正1箇所
+<br>
+　追加校正9箇所
+<br>
+　追加校正2箇所
+<br>
+　追加校正16箇所
+<br>
+　仕様追記3箇所
+<br>
+　<a href="01_calc_simple/manual.html#span-out-UI-graphing-gradation">[manual]Calculator-gradation特定項目仕様</a>
+<br>
+・manual項目追加
+<br>
+　追加校正1箇所
+<br>
+　<a href="01_calc_simple/manual.html#span-out-application-output">[manual]Calculator-最終output</a>
+    </td>
+    <td>
+2021/8/25
+    </td>
+  </tr>
+  <tr>
+    <th>
+3.58.18.6.22
+    </th>
+    <td class="types">
+Calculator
+    </td>
+    <td>
+2.44.22
+    </td>
+    <td>
+minor update
+    </td>
+    <td>
+[filter.js]
+<br>
+・comment/* not optimized */ added
+<br>
+・post-processing normalized
+<br>
+[Graphing Calculator]
+<br>
+・test case-filter1/filter2-buttons added
+<br>
+　<a href="01_calc_simple/manual.html#span-out-UI-graphing-filter">[manual]Calculator-filter特定項目仕様</a>
+<br>
+・test case-gradation1-button insert-z changed
+<br>
+　<a href="01_calc_simple/manual.html#span-out-UI-graphing-color">[manual]Calculator-color入力仕様</a>
+<br>
+[Calculator]
+<br>
+・manual更新
+<br>
+　追加校正4箇所・追加校正1箇所・追加校正3箇所・追加校正1箇所
+<br>
+　追加校正11箇所・追加校正1箇所
+    </td>
+    <td>
+2021/8/24
+    </td>
+  </tr>
+  <tr>
+    <th>
+3.57.18.6.22
+    </th>
+    <td class="types">
+Calculator
+    </td>
+    <td>
+2.43.22
+    </td>
+    <td class="clear">
+minor bug-fix
+    </td>
+    <td>
+[Calculator]
+<br>
+・Unexpected error at equation's null-arguments bug-fixed
+<br>
+　before:
+<br>
+　　clear; x(t)=&lt;-t; <span class="clear">x+1</span> -> Cannot read property 'length' of null
+<br>
+　　clear; x(t)=&lt;-t; x=&gt;+1 -> [MyErr]Invalid binary operation
+<br>
+　after:
+<br>
+　　clear; x(t)=&lt;-t; x+1 -> [MyErr]Invalid null args(x)
+<br>
+　　clear; x(t)=&lt;-t; x=&gt;+1 -> [MyErr]Invalid binary operation
+<br>
+・manual更新
+<br>
+　仕様追記2箇所・追加校正9箇所
+<br>
+　<a href="01_calc_simple/manual.html#span-out-eqns-args">[manual]Calculator-式変数のarguments</a>
+<br>
+　<a href="01_calc_simple/manual.html#span-out-BRmo">[manual]Calculator-記号省略乗算</a>
+<br>
+　追加校正2箇所・追加校正2箇所
+<br>
+　追加校正19箇所
+    </td>
+    <td>
+2021/8/21
+    </td>
+  </tr>
+  <tr>
+    <th>
+3.57.18.6.21
+    </th>
+    <td class="types">
+Calculator
+    </td>
+    <td>
+2.43.21
+    </td>
+    <td class="clear">
+minor bug-fix
+    </td>
+    <td>
+[operation.js]
+<br>
+・trees.filter(self.entry.def.isNotNull)　⇒　trees.filter(Boolean)
+<br>
+[original_worker.js]
+<br>
+[original_workers.js]
+<br>
+・arr_data.filter(self.entry.def.isNotNull)　⇒　arr_data.filter(Boolean)
+<br>
+[Graphing Calculator]
+<br>
+・arr_data2csv@Ver.2.43.20 in calculating bug-fixed
+    </td>
+    <td>
+2021/8/20
+    </td>
+  </tr>
+  <tr>
+    <th>
+3.57.18.6.20
+    </th>
+    <td class="types">
+Calculator
+<br>
+Generator
+    </td>
+    <td>
+2.43.20
+<br>
+1.13.2
+    </td>
+    <td>
+minor update
+    </td>
+    <td>
+[Graphing Calculator]
+<br>
+・select-Nthread in plot-config added for parallel Multi-threading
+<br>
+　<a href="01_calc_simple/manual.html#span-out-UI-graphing-config">[manual]Calculator-plot-config</a>
+<br>
+[音源wave PCM生成（演奏）]
+<br>
+・select-N added for parallel Multi-threading
+<br>
+　<a href="48_worker/spec.html">[spec]WebWorkers有無の共通化</a>
+    </td>
+    <td>
+2021/8/19
+    </td>
+  </tr>
+  <tr>
+    <th>
+3.55.18.6.20
+    </th>
+    <td class="types">
+Calculator
+    </td>
+    <td>
+2.42.20
+    </td>
+    <td>
+minor change
+    </td>
+    <td>
+[Graphing Calculator]
+<br>
+・default gradation-colors-rainbow changed Newton's colors　⇒　modern colors
+<br>
+　<a href="01_calc_simple/manual.html#span-out-UI-graphing-color">[manual]Calculator-color入力仕様</a>
+<br>
+[Calculator]
+<br>
+・manual更新
+<br>
+　追加校正13箇所・追加校正4箇所
+<br>
+　追加校正2箇所・追加校正1箇所
+<br>
+　<del>追加校正</del>誤字修正2箇所
+<br>
+　追加校正14箇所
+<br>
+　追加校正5箇所
+<br>
+　追加校正6箇所
+<br>
+　<a href="01_calc_simple/manual.html#span-out-browsers-ie">[manual]Calculator-Ineternet Explorer非対応の機能</a>
+    </td>
+    <td>
+2021/7/30
+    </td>
+  </tr>
+  <tr>
+    <th>
+3.55.17.6.20
+    </th>
+    <td class="types">
+Generator
+    </td>
+    <td>
+1.12.2
+    </td>
+    <td>
+minor update
+    </td>
+    <td>
+[音源wave PCM生成]
+<br>
+・time's upper-limit removed
+<br>
+・time's lower-limiter normalized
+    </td>
+    <td>
+2021/7/20
+    </td>
+  </tr>
+  <tr>
+    <th>
+3.54.17.6.20
+    </th>
+    <td class="types">
+Calculator
+<br>
+Generator
+<br>
+Checker
+    </td>
+    <td>
+2.41.20
+<br>
+1.11.2
+<br>
+0.19.4
+    </td>
+    <td>
+minor update
+    </td>
+    <td>
+[drag.js]
+<br>
+・opacity=0.5 ondragover
+<br>
+[全page共通]
+<br>
+・VERSION.3.23.8.3.8追加変更
+<pre><code>
+  before:
+  (function(document){
+    new My_entry.$().onload(document, function(e){
+      new My_entry.main().onload(document, e);
+    });
+  })(document);
+
+  after:
+  (function(){
+    new My_entry.$().onload(function(e){
+      new My_entry.main().onload(e);
+    });
+  })();
+</code></pre>
+<br>
+[全page html]
+<br>
+・&lt;script&gt; moved outside of &lt;div&gt;
+    </td>
+    <td>
+2021/7/20
+    </td>
+  </tr>
+  <tr>
+    <th>
+3.51.17.6.20
+    </th>
+    <td class="types">
+Calculator
+    </td>
+    <td>
+2.40.20
+    </td>
+    <td class="clear">
+minor
+<br>
++fatal bug-fix
+    </td>
+    <td>
+[plot2d.js]
+<br>
+[calc_graphing.js]
+<br>
+・onmouseup-handler optimized
+<br>
+・unnecessary flag's isDrawn removed
+<br>
+[Graphing Calculator]
+<br>
+・<span class="clear">mutual exclusion in plot2d's entries</span> on multi-click||tap bug-fixed
+<br>
+　<span class="clear">additional deadlock at [MyErr]Invalid plot2d isInf</span> bug-fixed
+<br>
+　<span class="clear">mutual exclusion onmouseup</span> added for png/svg consistency
+<br>
+　selection range with 2-fingers supported
+<br>
+　minor fix時の見落としでfatal deadlockが追加発生したため、minor+fatalとする
+<br>
+[Calculator]
+<br>
+・manual更新
+<br>
+　追加校正3箇所
+<br>
+　追加校正2箇所
+<br>
+　追加校正1箇所
+<br>
+　追加校正4箇所
+<br>
+　追加校正5箇所
+<br>
+　追加校正2箇所・追加校正2箇所
+<br>
+　追加校正19箇所
+    </td>
+    <td>
+2021/7/5
+    </td>
+  </tr>
+  <tr>
+    <th>
+3.51.17.5.19
+    </th>
+    <td class="types">
+Calculator
+    </td>
+    <td>
+2.40.18
+    </td>
+    <td>
+minor update
+    </td>
+    <td>
+[Graphing Calculator]
+<br>
+・gradation's globalCompositeOperationLayer supported
+<br>
+[Calculator]
+<br>
+・manual更新
+<br>
+　追加校正15箇所
+    </td>
+    <td>
+2021/7/4
+    </td>
+  </tr>
+  <tr>
+    <th>
+3.50.17.5.19
+    </th>
+    <td class="types">
+Calculator
+    </td>
+    <td>
+2.39.18
+    </td>
+    <td>
+minor update
+    </td>
+    <td>
+[Graphing Calculator]
+<br>
+・scaling||centering with grid snapping supported
+<br>
+　grid snapped after 300msec on long-tap||click
+<br>
+　checkbox-snap added for touch-device
+<br>
+・x0.1/x0.5/x1(reset)/x2/x10-buttons added for linear-scale's zooming
+<br>
+　checkbox-rel. added for relative-zooming
+<br>
+[Calculator]
+<br>
+・manual更新
+<br>
+　追加校正2箇所
+<br>
+　追加校正6箇所
+<br>
+　追加校正7箇所
+    </td>
+    <td>
+2021/7/2
+    </td>
+  </tr>
+  <tr>
+    <th>
+3.49.17.5.19
+    </th>
+    <td class="types">
+Calculator
+<br>
+Generator
+<br>
+Checker
+    </td>
+    <td>
+2.38.18
+<br>
+1.10.2
+<br>
+0.18.4
+    </td>
+    <td>
+minor update
+    </td>
+    <td>
+[io.js]
+<br>
+・default log-stamp changed for various agents
+<br>
+　<a href="01_calc_simple/manual.html#span-out-log-stamp">[manual]Calculator-log-stamp仕様</a>
+<br>
+　before:
+<br>
+　　My_entry.VERSION+" @ "+new Date();
+<br>
+　after:
+<br>
+　　My_entry.VERSION+" @ "+new Date()<span class="run">+" @ "+window.navigator.userAgent</span>;
+<br>
+[$.js]
+<br>
+[drag.js]
+<br>
+[全page html]
+<br>
+・Mozilla Firefox supported excluding png/svg compatibility
+<br>
+　<a href="01_calc_simple/manual.html#span-out-system">[manual]Calculator-動作test環境</a>
+<br>
+　<a href="01_calc_simple/manual.html#span-out-browsers">[manual]Calculator-browser間の相違</a>
+<br>
+　dragging and re-loading bug-fixed
+<br>
+[Calculator]
+<br>
+・manual更新
+<br>
+　追加校正4箇所
+    </td>
+    <td>
+2021/7/1
+    </td>
+  </tr>
+  <tr>
+    <th>
+3.46.17.5.19
+    </th>
+    <td class="types">
+Checker
+    </td>
+    <td>
+0.17.4
+    </td>
+    <td>
+minor change
+    </td>
+    <td>
+[Gacha Simulator]
+<br>
+・shuffle-BOX/reset-BOX-buttons moved
+<br>
+　継続してpanel設定値の微調整不可（table.length発散防止）
+<br>
+・spec校正5箇所
+<br>
+　追加校正3箇所
+<br>
+　追加校正2箇所
+<br>
+　<del>追加校正2箇所@2021/7/7</del>
+<br>
+　最終校正<del>2箇所@2021/7/11</del>・論外箇所を具体例に変更3+1+1+2箇所@2021/11/24
+    </td>
+    <td>
+2021/6/29
+    </td>
+  </tr>
+  <tr>
+    <th>
+3.46.16.5.19
+    </th>
+    <td class="types">
+Calculator
+    </td>
+    <td>
+2.37.18
+    </td>
+    <td>
+minor update
+    </td>
+    <td>
+[parser.js]
+<br>
+・comment corrected FIFO-stack　⇒　FIFO-queue
+<br>
+[draw_svg.js]
+<br>
+・unnecessary comments&amp;isOutOfScreen() removed
+<br>
+[Graphing Calculator]
+<br>
+・grid scaling supported
+<br>
+・svg-&lt;textPath&gt; supported in case of omitted spacingX/Y for string-path
+<br>
+　svg's spacing and white-spaces in the string-path are not the same as png
+<br>
+　character's rotation angle changed for compatibility bottom-left　⇒　bottom
+<br>
+・STRING{config[deg0]} added
+<br>
+・test case-graph title&amp;labels-button added
+<br>
+　title's drawn layer changed plot-layer　⇒　grid-layer
+<br>
+[Calculator]
+<br>
+・manual更新
+<br>
+　追加校正26箇所
+<br>
+　追加校正6箇所
+<br>
+　追加校正23箇所
+<br>
+　追加校正16箇所
+<br>
+　追加校正16箇所・追加校正1箇所
+    </td>
+    <td>
+2021/6/27
+    </td>
+  </tr>
+  <tr>
+    <th>
+3.45.16.5.19
+    </th>
+    <td class="types">
+Calculator
+    </td>
+    <td>
+2.36.18
+    </td>
+    <td>
+minor update
+    </td>
+    <td>
+[Graphing Calculator]
+<br>
+・checkbox-axis-z added for string-path/gradation
+<br>
+・test case-gradation1/gradation2-buttons added
+<br>
+　gradation's png/svg compatibility disabled
+<br>
+[Calculator]
+<br>
+・manual更新
+<br>
+　追加校正約70箇所・追加校正1箇所
+
+    </td>
+    <td>
+2021/6/25
+    </td>
+  </tr>
+  <tr>
+    <th>
+3.44.16.5.19
+    </th>
+    <td class="types">
+Calculator
+    </td>
+    <td>
+2.35.18
+    </td>
+    <td>
+minor update
+    </td>
+    <td>
+[draw.js]
+<br>
+・source-code arranged
+<br>
+・linear-interpolation of RGBA implemented in advance for gradation
+<br>
+　<del>var shadowColor = (fillStr &lt; 0)? fillStyle: strokeStyle;</del>
+<br>
+　k = Math.min(1, Math.abs(fillStr)/255)
+<br>
+　shadowColor.r = strokeStyle.r+(fillStyle.r-strokeStyle.r)*k
+<br>
+・png/svg compatibility(default: 1digit) restored excluding drop-shadow
+<br>
+　rad2digit_png　⇒　rad_png = deg1digit_svg*Math.PI/180
+<br>
+[Graphing Calculator]
+<br>
+・white space in graph-title/legend-string/string-path disabled　⇒　enabled
+<br>
+　no effect on test case
+<br>
+・list-buttons Newtonian method's Nmax/epsN changed
+<br>
+　Nmax: 3||6||10　⇒　20
+<br>
+　epsN: 1e-16　⇒　1e-10
+<br>
+・preparations for implementation of gradation
+<br>
+[Calculator]
+<br>
+・test case Newtonian method's Nmax/epsN/isRelative_epsN changed
+<br>
+　Nmax: 12||8　⇒　20
+<br>
+　epsN: null||1e-2　⇒　1e-10
+<br>
+　isRelative_epsN: null||1　⇒　1
+<br>
+・manual更新
+<br>
+　追加校正14箇所
+<br>
+　追加校正3箇所
+<br>
+　追加校正1箇所
+<br>
+　追加校正9箇所
+<br>
+　追加校正8箇所
+    </td>
+    <td>
+2021/6/18
+    </td>
+  </tr>
+  <tr>
+    <th>
+3.43.16.5.19
+    </th>
+    <td class="types">
+Calculator
+    </td>
+    <td>
+2.34.18
+    </td>
+    <td>
+minor update
+    </td>
+    <td>
+[operation.js]
+<br>
+・comments arranged
+<br>
+[Graphing Calculator]
+<br>
+・checkbox-axis-t added for logarithmic scale's uniform intervals of input-t
+<br>
+　only test case-a*x-button enabled
+<br>
+・input-title in plot-config removed
+<br>
+　test case-graph-title-button added
+<br>
+・test case-string-path-button added
+<br>
+[Calculator]
+<br>
+・manual更新
+<br>
+　追加校正2箇所
+<br>
+　仕様追記2箇所・仕様追記1箇所
+<br>
+　追加校正4箇所・追加校正11箇所
+<br>
+　追加校正6箇所・参考文献追記1箇所
+    </td>
+    <td>
+2021/6/14
+    </td>
+  </tr>
+  <tr>
+    <th>
+3.42.16.5.19
+    </th>
+    <td class="types">
+Calculator
+    </td>
+    <td>
+2.33.18
+    </td>
+    <td class="clear">
+minor bug-fix
+    </td>
+    <td>
+[operation.js]
+<br>
+・<span class="clear">initialization</span> to inherit scope ids with equation's arguments <span class="clear">bug-fixed</span>&amp;<span class="condition">modified</span>
+<br>
+　results are no change in manual and test case because below <span class="clear">[[0, 0]]</span> unreached
+<br>
+　<a href="01_calc_simple/manual.html#span-out-scope-inherited-call-memo">[manual]Calculator-式変数のscope継承callまとめ</a>
+<br>
+　before:
+<br>
+　　var id0 = isREe.ids[0] || <span class="clear">[[0, 0]]</span>;
+<br>
+　　var ids_args_eqn = null;
+<br>
+　after:
+<br>
+　　var ids_args_eqn = <span class="condition">isREe.ids</span> || [[0, 0]];
+<br>
+　　var id0 = ids_args_eqn[0];
+<br>
+[Calculator]
+<br>
+・manual更新
+<br>
+　仕様訂正1箇所・追加校正14箇所
+<br>
+　追加校正8箇所
+<br>
+　追加校正1箇所
+    </td>
+    <td>
+2021/6/13
+    </td>
+  </tr>
+  <tr>
+    <th>
+3.42.16.5.18
+    </th>
+    <td class="types">
+Calculator
+    </td>
+    <td>
+2.33.17
+    </td>
+    <td>
+minor update
+    </td>
+    <td>
+[Graphing Calculator]
+<br>
+・default logarithmic scale's grid intervals changed Non-uniform　⇒　uniform
+<br>
+・default logic to determine axis range added
+<br>
+・URL parameter's oldPlot2d added for compatibility with plot2d 0.series
+<br>
+・Ver.2.30.15仕様変更の追加対応
+<br>
+　isCheckedError=false initialized elem.onchange
+<br>
+[Calculator]
+<br>
+・manual更新
+<br>
+　追加校正3箇所
+<br>
+　追加校正8箇所
+    </td>
+    <td>
+2021/6/13
+    </td>
+  </tr>
+  <tr>
+    <th>
+3.41.16.5.18
+    </th>
+    <td class="types">
+Calculator
+    </td>
+    <td>
+2.32.17
+    </td>
+    <td>
+minor update
+    </td>
+    <td>
+[Calculator]
+<br>
+・equation's arguments added
+<br>
+　equation's Call-by-Symbol supported
+<br>
+　<a href="01_calc_simple/manual.html#span-out-eqns-args">[manual]Calculator-式変数のarguments</a>
+<br>
+　clear; a=&lt;b+c+d; d=3; [c=2,=&lt;[b=1,=&lt;a==&gt;]=&gt;]=&gt; -> 6
+<br>
+　clear; a(b,c,d)=&lt;b+c+d; d=3; [c=2,=&lt;[b=1,=&lt;a(b,c,d)]=&gt;]=&gt;  <span class="selection">// better</span> -> 6
+<br>
+　[add(A_,=&lt;B_)=&lt;(A_+B_=&gt;),[add(=&lt;(1,2),=&lt;(3,4))]] -> (0,4,6)
+<br>
+　[add(A_,=&lt;B_)=&lt;(a=-9,A_+B_=&gt;),[B=&lt;(-1:-1),add[1](=&lt;(2:4),=&lt;B),a]]
+<br>
+　-> (0,0,0,3,-9)
+<br>
+　[add(A_,=&lt;B_)=&lt;[a=-9,A_+B_=&gt;],[B=&lt;(-1:-1),add[1](=&lt;(2:4),=&lt;B),a]]
+<br>
+　-> [MyErr]Invalid REv(a)
+<br>
+　[add(A_,=&lt;B_)=&lt;(a=-9,A_+B_=&gt;),[B=&lt;(-1:-a),add[1](=&lt;(2:4),=&lt;B),a]]
+<br>
+　-> (0,0,0,13,-9)
+<br>
+・re-use of stored equations with static scope supported
+<br>
+　clear; add(a,b)=&lt;last[,a+b]; add(1,3) -> 4
+<br>
+　add(1,-3),add(1,i) -> (-2,1+i)
+<br>
+　add(1,add(1,add(1,add(1,i)))) -> 4+i
+<br>
+　add(1,add(1,add(1,add(1,i))add(1,i))add(1,i))add(1,i) -> -5+5i
+<br>
+　add(last[,1+i],last[,1-i]) -> 2
+<br>
+・equation's arguments test case added
+<br>
+　value's nesting-return added
+<br>
+　comments modified
+<br>
+・omitted EX 1st-arg's bracket disabled　⇒　enabled
+<br>
+　<a href="01_calc_simple/manual.html#span-out-FNmh-EX">[manual]Calculator-symbolic高階行列関数</a>
+<br>
+　clear; _ex(=&lt;x,1,4); ($x0,$x1:$x2,$x3)=identity2; x -> (1,0,0,1)
+<br>
+・manual更新
+<br>
+　追加校正約70箇所
+<br>
+　追加校正10箇所
+<br>
+　追加校正30箇所
+<br>
+　追加校正8箇所
+<br>
+　追加校正33箇所
+<br>
+　追加校正8箇所
+<br>
+　追加校正2箇所
+<br>
+　追加校正35箇所・再校正2箇所・再校正箇所削除
+<br>
+[Graphing Calculator]
+<br>
+・strict-mode equation-list updated
+<br>
+　<a href="01_calc_simple/manual.html#span-eqn">[manual]Calculator-strict-mode式変数list</a>
+<br>
+　strict-mode equation-list-template updated
+<br>
+　strict-mode equation-list-solvex_non_linear updated
+<br>
+　strict-mode equation-list-list-solvex_iteration/non_linear/solveAinv updated
+<br>
+　strict-mode equation-list-MaclaurinN/TaylorN updated using Call-by-Symbol
+<br>
+　strict-mode equation-list-FourierN updated using f(x)=&lt;last[scope-inherited];
+    </td>
+    <td>
+2021/6/8
+    </td>
+  </tr>
+  <tr>
+    <th>
+3.40.16.5.18
+    </th>
+    <td class="types">
+Calculator
+    </td>
+    <td>
+2.31.17
+    </td>
+    <td>
+minor update
+    </td>
+    <td>
+[operation.js]
+<br>
+・outmoded comments deleted
+<br>
+[Calculator]
+<br>
+・<a href="01_calc_simple/manual.html#span-out-FNc">[manual]Calculator-最上位関数</a>addVar/addEqn/hasV/hasE added
+<br>
+・default scope in square-brackets[] added
+<br>
+　<a href="01_calc_simple/manual.html#span-out-scope-vars">[manual]Calculator-変数のscope</a>
+<br>
+　clear; [a=2,[a=1,a],a] -> (0,0,1,2)
+<br>
+　clear; [a=2,=&lt;[a=1,=&lt;a]=&gt;+a]=&gt; -> 3
+<br>
+　clear; A=(1,2); B=A; [B=-B,[C=A+B,C]] -> (0,0,0,0)
+<br>
+　clear; [a=1,(a=2,[a,a=3,a],a=4),a,[a,a=5,a],a] -> (0,0,2,0,3,0,4,4,0,5,4)
+<br>
+　clear; b=-1; [a=&lt;(b,[b=2,[b,]]),b=1,=&lt;a=&gt;]=&gt; -> (1,0,2,0)
+<br>
+　let b=-1; (function(){let a=()=&gt;b; let b=1; let c=a(); return c;})();  <span class="selection">// ES6</span> -> 1
+<br>
+　let b=-1; (function(){let a=()=&gt;b; let c=a(); return c;})();  <span class="selection">// ES6</span> -> -1
+<br>
+　let a=()=&gt;b; (function(){let b=1; return a();})();  <span class="selection">// ES6</span> -> b is not defined
+<br>
+　clear; b=-1; [a=&lt;b,b=1,c=a=&gt;,=&lt;c]=&gt; -> 1
+<br>
+　clear; b=-1; [a=&lt;b,c=a=&gt;,=&lt;c]=&gt; -> -1
+<br>
+　clear; a=&lt;b; [b=1,=&lt;a=&gt;]=&gt; -> [MyErr]Invalid REv(b)
+<br>
+・equation's call sign(==&gt;) added to inherit references of self-parents-scopes
+<br>
+　clear; a=&lt;b; [b=1,=&lt;a=&gt;]=&gt; -> [MyErr]Invalid REv(b)
+<br>
+　clear; a=&lt;b; [b=1,=&lt;a==&gt;]=&gt; -> 1
+<br>
+　clear; a=&lt;b; [b=3,=&lt;[b=2,=&lt;[b=1,=&lt;a==&gt;]=&gt;+a==&gt;]=&gt;+a==&gt;]=&gt; -> 6
+<br>
+　clear; a=&lt;b+c+d; d=3; [c=2,=&lt;[b=1,=&lt;a==&gt;]=&gt;]=&gt; -> 6
+<br>
+　clear; a=&lt;b; b=0; last[b=1,c=&lt;a==&gt;,[b=2,c==&gt;]] -> 2
+<br>
+・default [scope] nesting test case added
+<br>
+・URL parameter's useScope added
+<br>
+　<a href="01_calc_simple/manual.html#span-out-config">[manual]Calculator-裏設定</a>
+<br>
+・manual更新
+<br>
+　不備訂正2箇所Ver.1.7.3以降、<a href="01_calc_simple/manual.html#span-out-call-by-equation">[manual]Calculator-式渡し</a>の記号　&lt;=　⇒　=&lt;
+<br>
+　仕様追記3箇所
+<br>
+　追加校正約50箇所
+<br>
+　追加校正5箇所
+<br>
+　不備訂正1箇所・追加校正10箇所
+<br>
+・manual残課題[TBD-status]equation's argumentsの実装を追加
+<br>
+　<a href="01_calc_simple/manual.html#span-out-remain">[manual]Calculator-残課題</a>
+<br>
+　future after:
+<br>
+　　add(a,b)=&lt;a+b; add(1,3)=&gt; -> 4
+<br>
+　　solvex_Gauss(A,b)=&lt;[...,=&lt;x=&gt;]=&gt;; x=solvex_Gauss(A,b)=&gt;;
+<br>
+　　Newton_simplified(=&lt;f,=&lt;x,Nmax)
+<br>
+　　=&lt;[mdx=Newton(=&lt;f,=&lt;x,,Nmax,1e-16,1),=&lt;x=&gt;]=&gt;;
+<br>
+　　x=Newton_simplified(=&lt;{x0+x1=2,x0*x1=5},=&lt;{x0,x1},6)=&gt;;
+<br>
+　変数のscopeに加えて式変数に引数を渡せないと次の4 casesで不十分
+<br>
+　list-solvex_Gauss/pivotting/no_pivotting/non_linear-buttons
+<br>
+[Graphing Calculator]
+<br>
+・strict-mode equation-list updated excluding above 4 cases
+<br>
+　<a href="01_calc_simple/manual.html#span-eqn">[manual]Calculator-strict-mode式変数list</a>
+<br>
+　strict-mode equation-list-plot2d_circle/plot2d_evolution modified
+    </td>
+    <td>
+2021/6/5
+    </td>
+  </tr>
+  <tr>
+    <th>
+3.39.16.5.18
+    </th>
+    <td class="types">
+Calculator
+    </td>
+    <td>
+2.30.17
+    </td>
+    <td class="clear">
+minor bug-fix
+    </td>
+    <td>
+[Calculator]
+<br>
+・restore-command's series action bug-fixed
+<br>
+　<a href="01_calc_simple/manual.html#span-out-command">[manual]Calculator-命令文</a>
+<br>
+　before:
+<br>
+　　clear; a=2; store; a=3; <span class="clear">restore</span>; a; a=3; <span class="clear">restore</span>; a -> a=2;a=3;2;a=3;<span class="clear">3</span>
+<br>
+　after:
+<br>
+　　clear; a=2; store; a=3; restore; a; a=3; restore; a -> a=2;a=3;2;a=3;2
+<br>
+　　stack方式とは異なり、最新のstore時点のobjectのみ再利用可
+<br>
+　　clear; a=2; store; a=3; store; restore; a; restore; a  <span class="selection">// not stacked</span> -> 3
+<br>
+・manual更新
+<br>
+　追加校正6箇所
+    </td>
+    <td>
+2021/6/3
+    </td>
+  </tr>
+  <tr>
+    <th>
+3.39.16.5.17
+    </th>
+    <td class="types">
+Calculator
+    </td>
+    <td>
+2.30.16
+    </td>
+    <td class="clear">
+minor bug-fix
+    </td>
+    <td>
+[operation.js]
+<br>
+・一部変数<span class="clear">tree_var's global namespace pollution</span> bug-fixed
+<br>
+　results are no change excluding list-solvex_Gauss-button using rand()
+<br>
+[parser.js]
+<br>
+・a typing-mistake@Ver.2.30.15 in My_entry.eval() modified
+<br>
+　new DATA.data();　⇒　DATA.data();
+<br>
+・Ver.2.27.15変数の命名規則の追加による修正漏れに対応（Ver.2.29.15の別件）
+<br>
+　<a href="01_calc_simple/manual.html#span-out-vars">[manual]Calculator-変数の命名規則</a>
+<br>
+　($a)=1; a -> 1
+<br>
+　($$a)=1 -> [MyErr]Invalid SEv($a)
+<br>
+　($$$a)=1 -> [MyErr]Invalid SEv($$a)
+<br>
+・manual更新
+<br>
+　追加校正10箇所
+<br>
+　追加校正1箇所
+<br>
+　追加校正1箇所
+<br>
+　追加校正7箇所・残課題整理7箇所
+    </td>
+    <td>
+2021/6/1
+    </td>
+  </tr>
+  <tr>
+    <th>
+3.39.16.5.16
+    </th>
+    <td class="types">
+Calculator
+    </td>
+    <td>
+2.30.15
+    </td>
+    <td>
+minor update
+    </td>
+    <td>
+[parser.js]
+<br>
+・random||rand upgraded constant(tagName:CT)　⇒　function(tagName:FN)
+<br>
+　<a href="01_calc_simple/manual.html#span-out-FN">[manual]Calculator-関数</a>
+<br>
+　A=0; _rn(=&lt;A=(A,rand),,2);
+<br>
+　A -> (0,0.5,0.5)　⇒　(0,0.12740820474199377,0.7111903938956377)
+<br>
+[math_com.js]
+<br>
+・cmin/cmax function(tagName:FNn) added
+<br>
+　<a href="01_calc_simple/manual.html#span-out-FN">[manual]Calculator-関数</a>
+<br>
+　cmin(i)  // NG -> i
+<br>
+　cmin(0,-1+i,2i-2) -> 0
+<br>
+　cmax(0,-1+i,2i-2) || abs(2i-2) -> 2.8284271247461903
+<br>
+　cmin({0,-1+i,2i-2}) || cmin(2i-2)  // NG -> -2+2i
+<br>
+　cmin(trans({0,-1+i,2i-2})) || cmin(0,-1+i,2i-2) -> 0
+<br>
+[Calculator]
+<br>
+・static-method's default eval() for console-CLI added
+<br>
+　<a href="01_calc_simple/manual.html#span-in-myeval">[manual]Calculator-独自eval</a>
+<br>
+　My_entry.eval("clear; x=i; x*x;"); -> "local storage cleared;x=i;-1"
+<br>
+　My_entry.eval("(1,2:3,4)(1,2:3,4)"); -> "(7,10:15,22)"
+<br>
+　My_entry.eval("_sn(=&lt;{n+1},0,2)"); -> "6"
+<br>
+　My_entry.eval("1-"); -> "[MyErr]Invalid binary operation"
+<br>
+・omitted Call-by-Equation's bracket disabled　⇒　enabled
+<br>
+　<a href="01_calc_simple/manual.html#span-out-call-by-equation">[manual]Calculator-式渡し</a>
+<br>
+　clear; _sn(=&lt;n,0,2) -> [MyErr]Invalid =&lt;Call-by-Equation
+<br>
+　clear; n=&lt;n; _sn(=&lt;n,0,2) || _sn(=&lt;n=&gt;,0,2) || 0+1+2 -> 3
+<br>
+　clear; _sn(=&lt;n+1,0,2) || _sn(=&lt;{n+1},0,2) || 1+2+3 -> 6
+<br>
+・再帰高階関数に4th-arg Call-by-Equation's condition-break added
+<br>
+　<a href="01_calc_simple/manual.html#span-out-FNh-RX">[manual]Calculator-再帰高階関数</a>
+<br>
+　_rn(=&lt;{n+1},,100,=&lt;{n&gt;=50}) -> 51
+<br>
+　_rn(=&lt;n+1,,100,=&lt;n&gt;=50) -> 51
+<br>
+　_rn(=&lt;{Pn=Pn*2},Pn=1,10,=&lt;{Pn>100}); Pn -> 128
+<br>
+　_rn(=&lt;Pn=Pn*2,Pn=1,10,=&lt;Pn>100); Pn -> 128
+<br>
+・reccursive function's break test case added
+<br>
+・manual更新
+<br>
+　追加校正2箇所
+<br>
+　追加校正1箇所
+<br>
+　追加校正14箇所
+<br>
+　追加校正1箇所・再校正1箇所
+<br>
+　追加校正8箇所
+<br>
+　追加校正56箇所
+<br>
+　追加校正7箇所
+<br>
+　追加校正29箇所
+<br>
+　追加校正20箇所
+<br>
+　追加校正15箇所
+<br>
+　追加校正7箇所
+<br>
+　追加校正49箇所
+<br>
+　追加校正2箇所・残課題整理5箇所
+<br>
+・manual残課題[TBD-status]変数のscopeの実装を追加
+<br>
+　<a href="01_calc_simple/manual.html#span-out-remain">[manual]Calculator-残課題</a>
+<br>
+　now before:
+<br>
+　　clear; [a=2,[a=1,a],a] -> (0,0,1,1)
+<br>
+　　clear; [a=2,=&lt;[a=1,=&lt;a]=&gt;+a]=&gt; -> 2
+<br>
+　future after:
+<br>
+　　clear; [a=2,[a=1,a],a] -> (0,0,1,2)
+<br>
+　　clear; [a=2,=&lt;[a=1,=&lt;a]=&gt;+a]=&gt; -> 3
+<br>
+・scope test case added in advance
+<br>
+[Graphing Calculator]
+<br>
+・plot-logよりerror-logを優先的に残すように仕様変更
+<br>
+　test case-recurrence2@useStrict=true
+<br>
+　finished 0/0　⇒　[MyErr]Invalid operation
+<br>
+・strict-mode equation-list changed
+<br>
+　list-solvex_Gauss-button using rand() added
+<br>
+　<a href="01_calc_simple/manual.html#span-eqn">[manual]Calculator-strict-mode式変数list</a>
+    </td>
+    <td>
+2021/5/27
+    </td>
+  </tr>
+  <tr>
+    <th>
+3.38.16.5.16
+    </th>
+    <td class="types">
+Calculator
+    </td>
+    <td>
+2.29.15
+    </td>
+    <td>
+minor update
+    </td>
+    <td>
+[Calculator]
+<br>
+・Newton高階行列関数に5th-arg iteration count added
+<br>
+　6th-arg convergence tolerance of absolute error added
+<br>
+　7th-arg relative error's flag added
+<br>
+　<a href="01_calc_simple/manual.html#span-out-FNmh-newtonian">[manual]Calculator-Newton高階行列関数</a>
+<br>
+　URL parameter's epsN added
+<br>
+　URL parameter's isRelative_epsN added
+<br>
+・ODE高階行列関数に6th-arg iteration count added
+<br>
+　<a href="01_calc_simple/manual.html#span-out-FNmh-OX">[manual]Calculator-ODE高階行列関数</a>
+<br>
+・行列要素pattern matchingのnesting disabled　⇒　enabled
+<br>
+　<a href="01_calc_simple/manual.html#span-out-matching">[manual]Calculator-行列要素pattern matching</a>
+<br>
+　clear; ($a,(($b)=3))=(1,2); (a,b) -> (1,3)
+<br>
+　clear; ($a,(($b,($c)=4)=3))=(1,2); (a,b,c) -> (1,3,4)
+<br>
+・Ver.2.27.15変数の命名規則の追加による修正漏れに対応
+<br>
+　<a href="01_calc_simple/manual.html#span-out-vars">[manual]Calculator-変数の命名規則</a>
+<br>
+　_ex(=&lt;{$x},2,2) -> [MyErr]Invalid REv($x)
+<br>
+　_e$x(=&lt;{x},2,2) -> [MyErr]Invalid dummy($x)
+<br>
+・manual更新
+<br>
+　追加校正21箇所
+<br>
+　追加校正1箇所
+<br>
+　仕様追記1箇所
+<br>
+[Graphing Calculator]
+<br>
+・test case-physics-ODE's input-x text bug-fixed
+<br>
+　every step initialized tdummy=0
+<br>
+　result is changed in case of time-transition Cd(t/T)
+<br>
+　before: 
+<br>
+　　step=&lt;{x_next=_otdummy(=&lt;f,=&lt;x,=&lt;x_initial,<span class="clear">tdummy=0</span>,dt)},
+<br>
+　after: 
+<br>
+　　step=&lt;{x_next=_otdummy(=&lt;f,=&lt;x,=&lt;x_initial,0,dt)},
+<br>
+・strict-mode equation-list changed
+<br>
+　insert-text modified(results are no change)
+<br>
+　list-Euler_method/ODE_RK4-buttons added
+<br>
+　<a href="01_calc_simple/manual.html#span-eqn">[manual]Calculator-strict-mode式変数list</a>
+    </td>
+    <td>
+2021/5/24
+    </td>
+  </tr>
+  <tr>
+    <th>
+3.37.16.5.16
+    </th>
+    <td class="types">
+Calculator
+    </td>
+    <td>
+2.28.15
+    </td>
+    <td>
+minor update
+    </td>
+    <td>
+[Calculator]
+<br>
+・<a href="01_calc_simple/manual.html#span-out-FNc">[manual]Calculator-最上位関数</a>を追加
+<br>
+・function prior to bracket test case added
+<br>
+　(a=2,hasVar(a),delVar(a),delVar(a),hasVar(a)) -> (0,1,1,0,0)
+<br>
+・explanation text about strict-mode modified(results are no change)
+<br>
+　<a href="01_calc_simple/manual.html#span-out-config">[manual]Calculator-裏設定</a>
+<br>
+　useStrict=true
+<br>
+　　omitted multiplication sign(*) disabled
+<br>
+　　omitted equation's call sign(=&gt;) disabled
+<br>
+　　<del>omitted Call-by-Equation's bracket({}) disabled</del>
+<br>
+・manual更新
+<br>
+　追加校正9箇所
+<br>
+　追加校正83箇所
+<br>
+　追加校正7箇所
+<br>
+　link-title修正1箇所
+<br>
+　追加校正7箇所
+<br>
+　仕様追記15箇所
+<br>
+　追加校正4箇所
+<br>
+　error-log表記修正1箇所
+<br>
+　追加校正7箇所
+<br>
+　仕様追記3箇所
+<br>
+　追加校正13箇所
+<br>
+・manual項目追加
+<br>
+　<a href="01_calc_simple/manual.html#span-eqn">[manual]Calculator-strict-mode式変数list</a>
+<br>
+[Graphing Calculator]
+<br>
+・strict-mode equation-list-checkbox&amp;buttons added
+<br>
+　不要な処理を削除4箇所(results are no change)
+<br>
+　list-solvex_non_linear-button added
+    </td>
+    <td>
+2021/5/21
+    </td>
+  </tr>
+  <tr>
+    <th>
+3.36.16.5.16
+    </th>
+    <td class="types">
+Calculator
+    </td>
+    <td>
+2.27.15
+    </td>
+    <td class="clear">
+minor bug-fix
+    </td>
+    <td>
+[Calculator]
+<br>
+・Unexpected error at null-equation called bug-fixed
+<br>
+　<span class="clear">=&gt;</span> -> Cannot read property 'length' of null　⇒　[MyErr]Invalid null=>
+<br>
+・Ver.1.7.3仕様変更に伴うerror-log表示を修正
+<br>
+　=&lt; -> [MyErr]Invalid eqn<span class="clear">&lt;=</span>　⇒　[MyErr]Invalid =&lt;null
+<br>
+・式変数へのnull代入をerror終了に修正
+<br>
+　x=&lt;; x -> <span class="clear">0</span>　⇒　[MyErr]Invalid =&lt;null
+<br>
+・変数の命名規則を追加
+<br>
+　<a href="01_calc_simple/manual.html#span-out-vars">[manual]Calculator-変数の命名規則</a>
+<br>
+　$a=1 -> [MyErr]Invalid SEv($a)
+<br>
+　$a=&lt;1 -> [MyErr]Invalid SEe($a)
+<br>
+・null-nameのCircular Referenceを修正
+<br>
+　式渡しの直接式読出しのnestingに対応（Native無名関数の最短表記を許容）
+<br>
+　a=&lt;(1,2); (1,=&lt;(1,=&lt;(1,=&lt;{a=&gt;})=&gt;)=&gt;)=&gt; ->
+<br>
+　[MyErr]Invalid <span class="clear">circular(null)</span>　⇒　(1,2)
+<br>
+・(=&lt;(=&lt;(=&lt;3)=&gt;+1)=&gt;+2)=&gt; test case added
+<br>
+・manual更新
+    </td>
+    <td>
+2021/5/21
+    </td>
+  </tr>
+  <tr>
+    <th>
+3.36.16.5.15
+    </th>
+    <td class="types">
+Calculator
+    </td>
+    <td>
+2.27.14
+    </td>
+    <td>
+minor update
+    </td>
+    <td>
+[Graphing Calculator]
+<br>
+・Ver.2.11.4仕様変更を取消しplot2d-command-log's 6th-arg z added
+<br>
+　plot2d('t0','t1','xt','yt','N')　⇒　plot2d('t0','t1','xt','yt','N','z')
+<br>
+　legend-string等の追加により、zを含めた方が再現しやすい
+<br>
+　重複するoptions-input-z出力は維持（comment削除後のzを残す）
+<br>
+・plot2d-commandの6th-arg z&amp;commnet入力に対応
+<br>
+　<a href="01_calc_simple/manual.html#span-out-plot2d-command">[manual]Calculator-plot2d-command</a>
+<br>
+・svg-fileの4th-line-commentにplot2d-command-log added
+<br>
+・svg-fileの5th-line-commentにplot2d-options-log added
+<br>
+[Calculator]
+<br>
+・manual整備
+<br>
+・manual誤字修正1箇所
+<br>
+・manual仕様追記
+<br>
+・manual最終校正release~Ver.2.27.14
+<br>
+　追加校正24箇所
+<br>
+　追加校正32箇所
+<br>
+　追加校正54箇所
+<br>
+　追加校正1箇所
+<br>
+　追加校正15箇所
+<br>
+　追加校正1箇所
+<br>
+　追加校正2箇所
+<br>
+　追加校正67箇所
+<br>
+・manual項目追加
+<br>
+　<a href="01_calc_simple/manual.html#span-out-application">[manual]Calculator-application</a>
+    </td>
+    <td>
+2021/5/16
+    </td>
+  </tr>
+  <tr>
+    <th>
+3.35.16.5.15
+    </th>
+    <td class="types">
+Calculator
+    </td>
+    <td>
+2.26.14
+    </td>
+    <td>
+minor change
+    </td>
+    <td>
+[math_mat.js]
+<br>
+[solver.js]
+<br>
+・if文判定の無駄な減算を修正
+<br>
+　if(left-right)　⇒　if(left !== right)
+<br>
+・不要なcomment削除
+<br>
+[Graphing Calculator]
+<br>
+・plot2d(,)-button追加
+<br>
+・C-input-button追加
+<br>
+・online-testにてbutton配置を変更
+<br>
+・{}-button追加
+<br>
+・ans-buttonをC-inputなしのinsert-textに変更
+<br>
+・time evolutionの時系列data作成の一例を追加
+<br>
+　<a href="01_calc_simple/manual.html#span-out-plot2d-command">[manual]Calculator-plot2d-command</a>
+<br>
+[Calculator]
+<br>
+・manual整備
+    </td>
+    <td>
+2021/5/16
+    </td>
+  </tr>
+  <tr>
+    <th>
+3.35.15.5.15
+    </th>
+    <td class="types">
+Calculator
+    </td>
+    <td>
+2.25.14
+    </td>
+    <td class="clear">
+fatal bug-fix
+    </td>
+    <td>
+[Graphing Calculator]
+<br>
+・WebWorkers-post-processing in background bug-fixed
+<br>
+　before:
+<br>
+　　plot2d('-5','5','t;',<span class="clear">'""','1000') -> throw false; 1000 times</span>
+<br>
+　after:
+<br>
+　　plot2d('-5','5','t;','""','1000') -> throw false; 1 time only
+<br>
+・plot2d-command in plot-button running <span class="clear">enabled</span>　⇒　disabled
+<br>
+・t0||t1のerror処理を追加
+<br>
+　plot2d('','','t;'t;') -> [MyErr]Invalid t0 || t1
+<br>
+・plot2d-from-arrのerror処理を追加
+<br>
+　plot2d(test,test) -> [MyErr]plot2d-command data not found
+<br>
+・t0||t1のerror-log表示を変更
+<br>
+　Invalid t　⇒　Invalid t0 || t1
+<br>
+・x(t)||y(t)のerror-log表示を変更
+<br>
+　Invalid (x(t),y(t))　⇒　Invalid x(t) || y(t)
+<br>
+[Calculator]
+<br>
+・manual整備
+    </td>
+    <td>
+2021/5/15
+    </td>
+  </tr>
+  <tr>
+    <th>
+3.35.15.4.15
+    </th>
+    <td class="types">
+Generator
+    </td>
+    <td>
+1.9.2
+    </td>
+    <td>
+minor change
+    </td>
+    <td>
+[音源wave PCM生成]
+<br>
+・WebWorkers-post-processing optimized
+    </td>
+    <td>
+2021/5/15
+    </td>
+  </tr>
+  <tr>
+    <th>
+3.35.14.4.15
+    </th>
+    <td class="types">
+Calculator
+    </td>
+    <td>
+2.25.13
+    </td>
+    <td class="clear">
+minor bug-fix
+    </td>
+    <td>
+[parser.js]
+<br>
+・comment追記
+<br>
+[Calculator]
+<br>
+・null string入力時の予期せぬerror終了を修正
+<br>
+　before:
+<br>
+　　' || " || '' || "" -> Unexpected error
+<br>
+　after:
+<br>
+　　' || " || '' || "" -> [MyErr]Invalid null string
+<br>
+・manual整備
+    </td>
+    <td>
+2021/5/14
+    </td>
+  </tr>
+  <tr>
+    <th>
+3.35.14.4.14
+    </th>
+    <td class="types">
+Calculator
+    </td>
+    <td>
+2.25.12
+    </td>
+    <td>
+minor update
+    </td>
+    <td>
+[Calculator]
+<br>
+・<a href="01_calc_simple/manual.html#span-out-FNm">[manual]Calculator-行列関数</a>を追加
+<br>
+　vectorr(3) -> (0,0,0)
+<br>
+　vectorc(3) -> (0:0:0)
+<br>
+・plot2d-command&amp;strict-mode test case added
+<br>
+・manual整備
+<br>
+[Graphing Calculator]
+<br>
+・plot2d-commandを追加
+<br>
+　<a href="01_calc_simple/manual.html#span-out-plot2d-command">[manual]Calculator-plot2d-command</a>
+<br>
+　plot2d('t0','t1','xt','yt') || plot2d(xt,yt)
+    </td>
+    <td>
+2021/5/13
+    </td>
+  </tr>
+  <tr>
+    <th>
+3.34.14.4.14
+    </th>
+    <td class="types">
+Calculator
+    </td>
+    <td>
+2.24.12
+    </td>
+    <td class="clear">
+minor bug-fix
+    </td>
+    <td>
+[Calculator]
+<br>
+・行列要素pattern matchingによる予約語への代入をparserでerror終了に修正
+<br>
+　<a href="01_calc_simple/manual.html#span-out-matching">[manual]Calculator-行列要素pattern matching</a>
+<br>
+　before:
+<br>
+　　clear; <span class="clear">($max)=(2)</span>; max -> [MyErr]Invalid FNn(max)
+<br>
+　　clear; $max ->  [MyErr]Invalid REv($max)
+<br>
+　after:
+<br>
+　　clear; ($max)=(2) -> [MyErr]Invalid max called
+<br>
+　　clear; $max || $$max || $$$max ->  [MyErr]Invalid max called
+<br>
+・manual整備
+    </td>
+    <td>
+2021/5/13
+    </td>
+  </tr>
+  <tr>
+    <th>
+3.34.14.4.13
+    </th>
+    <td class="types">
+Calculator
+    </td>
+    <td>
+2.24.11
+    </td>
+    <td>
+minor update
+    </td>
+    <td>
+[Calculator]
+<br>
+・厳格modeで実行するURL parameter's useStrict（default: false）を追加
+<br>
+　<a href="01_calc_simple/manual.html#span-out-config">[manual]Calculator-裏設定</a>
+<br>
+　useStrict=true
+<br>
+　　omitted multiplication sign(*) disabled
+<br>
+　　omitted equation's call sign(=&gt;) disabled
+<br>
+　　<del>omitted Call-by-Equation's bracket({}) disabled</del>
+<br>
+[Graphing Calculator]
+<br>
+・plot2d-commandの実装準備
+<br>
+　<a href="01_calc_simple/manual.html#span-out-plot2d-command">[manual]Calculator-plot2d-command</a>
+    </td>
+    <td>
+2021/5/12
+    </td>
+  </tr>
+  <tr>
+    <th>
+3.33.14.4.13
+    </th>
+    <td class="types">
+Calculator
+    </td>
+    <td>
+2.23.11
+    </td>
+    <td>
+minor update
+    </td>
+    <td>
+[Calculator]
+<br>
+・symbolic高階行列関数を追加
+<br>
+　<a href="01_calc_simple/manual.html#span-out-FNmh">[manual]Calculator-高階行列関数</a>
+<br>
+・初期表示のtest caseに逆行列を解く式変数solveAinvを追加
+<br>
+　A=(1+i,2:3i,4-i); solveAinv*A ->
+<br>
+　(
+<br>
+　infoLost[ i] 1+1.1102230246251565e-16i,infoLost[ i] 0:
+<br>
+　infoLost[r ] 1.1102230246251565e-16,infoLost[r ] 1
+<br>
+　)
+<br>
+・manual整備
+    </td>
+    <td>
+2021/5/11
+    </td>
+  </tr>
+  <tr>
+    <th>
+3.32.14.4.13
+    </th>
+    <td class="types">
+Calculator
+    </td>
+    <td>
+2.22.11
+    </td>
+    <td class="clear">
+minor bug-fix
+    </td>
+    <td>
+[Calculator]
+<br>
+・行列sizeを指定する行列関数のsize不正値による予期せぬerror終了を修正
+<br>
+・行列sizeの上限値URL parameter's matSizeMax（default: 1000）を追加
+<br>
+・history欄同様にlog出力欄に表示制限5000字以内を設定log.length&lt;5000
+<br>
+　<a href="01_calc_simple/manual.html#span-out-FNm">[manual]Calculator-行列関数</a>
+<br>
+　before:
+<br>
+　　<span class="clear">identity(0) || zeros(-1,1) -> Unexpected error</span>
+<br>
+　after:
+<br>
+　　identity(0) || zeros(-1,1) -> [MyErr]Invalid matrix size
+<br>
+　　identity(1001) || zeros(1001,1) -> [MyErr]Invalid matSizeMax over
+<br>
+　　identity(100) -> (1,0,0,...,0,0,0,...
+    </td>
+    <td>
+2021/5/10
+    </td>
+  </tr>
+  <tr>
+    <th>
+3.32.14.4.12
+    </th>
+    <td class="types">
+Calculator
+    </td>
+    <td>
+2.22.10
+    </td>
+    <td>
+minor update
+    </td>
+    <td>
+[Calculator]
+<br>
+・ODE高階行列関数の演算による数値誤差の評価方法を変更
+<br>
+　目安の解析誤差の評価方法に変更なし
+<br>
+　演算結果に変化なし
+<br>
+　<del>微分高階関数の評価方法に変更なし</del>
+<br>
+・微分高階関数の演算による数値誤差の評価方法をODE高階行列関数同様に変更
+<br>
+　目安の解析誤差の評価方法に変更なし
+<br>
+　演算結果に変化なし
+<br>
+　初期表示のtest caseの数値誤差表示に影響（4箇所）
+<br>
+　manual該当部分を全修正（微分階数を上げた際の数値誤差の過小評価を修正）
+<br>
+　<a href="01_calc_simple/manual.html#span-out-FNh">[manual]Calculator-微分高階関数</a>
+<br>
+　<a href="01_calc_simple/manual.html#span-out-fdm">[manual]Calculator-有限差分法</a>
+<br>
+　<a href="01_calc_simple/manual.html#span-out-series">[manual]Calculator-級数展開の解法</a>
+<br>
+　<a href="01_calc_simple/manual.html#span-out-limit">[manual]Calculator-極限の解法</a>
+<br>
+・manual整備
+<br>
+[Graphing Calculator]
+<br>
+・Maclaurin2/Taylor-buttonのtest caseにcomment追記
+<br>
+　/*low accuracy*/
+<br>
+・differential1-buttonのtest caseにcomment追記
+<br>
+　/*stencil_dx=dx0*2^(Ndash-1)*/
+    </td>
+    <td>
+2021/5/9
+    </td>
+  </tr>
+  <tr>
+    <th>
+3.31.14.4.12
+    </th>
+    <td class="types">
+Generator
+<br>
+Checker
+    </td>
+    <td>
+1.8.2
+<br>
+0.16.4
+    </td>
+    <td>
+minor change
+    </td>
+    <td>
+[全page html]
+<br>
+・body要素直下のdiv要素にposition: absolute;のCSS適用
+<br>
+　VERSION.3.31.12.4.12online-testによる全修正（responsive改善）
+    </td>
+    <td>
+2021/5/8
+    </td>
+  </tr>
+  <tr>
+    <th>
+3.31.12.4.12
+    </th>
+    <td class="types">
+Calculator
+    </td>
+    <td>
+2.21.10
+    </td>
+    <td>
+minor update
+    </td>
+    <td>
+[全page html]
+<br>
+<del>・checkbox要素にfont-size: 12px;のCSS適用</del>（labelに適用しないと無意味）
+<br>
+[draggable要素を含むpage共通]
+<br>
+・draggable要素にposition: absolute;のCSS適用
+<br>
+[Calculator]
+<br>
+・ODE高階行列関数（explicit ODE solver）を追加
+<br>
+　<a href="01_calc_simple/manual.html#span-out-FNmh">[manual]Calculator-高階行列関数</a>
+<br>
+　default: classical Runge-Kutta method
+<br>
+　URL parameter's orderT=2: improved Euler method
+<br>
+[Graphing Calculator]
+<br>
+・shared storage-checkboxを追加（意図しない変数の重複回避）
+<br>
+　checked時のみglobal storageをshare
+<br>
+　plot-buttonによる演算はglobal storage readonly
+<br>
+　checkboxの位置を再々修正
+<br>
+・physics-ODE-buttonのtest caseを追加
+    </td>
+    <td>
+2021/5/8
+    </td>
+  </tr>
+  <tr>
+    <th>
+3.30.12.4.12
+    </th>
+    <td class="types">
+Calculator
+    </td>
+    <td>
+2.20.10
+    </td>
+    <td class="clear">
+minor bug-fix
+    </td>
+    <td>
+[Calculator]
+<br>
+・URL parameter's checkError=false時の数値誤差評価をmanual通りに修正
+<br>
+　<a href="01_calc_simple/manual.html#span-out-config">[manual]Calculator-裏設定</a>
+<br>
+　before:
+<br>
+　　<span class="clear">_dX(=&lt;{X},1,0) -> 1+O(1e-12+1e-12i)</span>
+<br>
+　　_dx(=&lt;{x},1,0)*1 -> 1
+<br>
+　　1+1e-16 -> 1
+<br>
+　after:
+<br>
+　　_dX(=&lt;{X},1,0) -> 1
+<br>
+　　_dx(=&lt;{x},1,0)*1 -> 1
+<br>
+　　1+1e-16 -> 1
+    </td>
+    <td>
+2021/5/7
+    </td>
+  </tr>
+  <tr>
+    <th>
+3.30.12.4.11
+    </th>
+    <td class="types">
+Calculator
+    </td>
+    <td>
+2.20.9
+    </td>
+    <td class="clear">
+minor bug-fix
+    </td>
+    <td>
+[Calculator]
+<br>
+・高階関数dummy変数名のupper case入力に正規表現で対応（including IE）
+<br>
+　<a href="01_calc_simple/manual.html#span-out-vars">[manual]Calculator-変数の命名規則</a>に準拠
+<br>
+　before:
+<br>
+　　<span class="clear">_dX(=&lt;{X},1,0) -> [MyErr]Invalid BRsa operation</span>
+<br>
+　　_dx(=&lt;{X},1,0) -> [MyErr]Invalid BRsa operation
+<br>
+　after:
+<br>
+　　_dX(=&lt;{X},1,0) -> 1+O(1e-12+1e-12i)
+<br>
+　　_dx(=&lt;{X},1,0) -> [MyErr]Invalid BRsa operation
+    </td>
+    <td>
+2021/5/6
+    </td>
+  </tr>
+  <tr>
+    <th>
+3.30.12.4.10
+    </th>
+    <td class="types">
+Calculator
+    </td>
+    <td>
+2.20.8
+    </td>
+    <td class="clear">
+fatal bug-fix
+    </td>
+    <td>
+[Calculator]
+<br>
+・Circular Reference発生時の予期せぬerror終了を修正
+<br>
+　再帰高階関数で代替のreccursive call非対応
+<br>
+　before:
+<br>
+　　clear; a=&lt;a; a -> [MyErr]Invalid circular(a)
+<br>
+　　<span class="clear">clear; a=&lt;a=&gt;; a -> Maximum call stack size exceeded</span>
+<br>
+　after:
+<br>
+　　clear; a=&lt;a; a -> [MyErr]Invalid circular(a)
+<br>
+　　clear; a=&lt;a=&gt;; a -> [MyErr]Invalid circular(a)
+<br>
+・Summariesの書式を変更
+<br>
+・ODE高階行列関数の実装準備・一部記述不備を訂正
+<br>
+　<a href="01_calc_simple/manual.html#span-out-FNmh">[manual]Calculator-高階行列関数</a>
+    </td>
+    <td>
+2021/5/6
+    </td>
+  </tr>
+  <tr>
+    <th>
+3.30.12.3.10
+    </th>
+    <td class="types">
+Calculator
+    </td>
+    <td>
+2.20.7
+    </td>
+    <td class="clear">
+minor bug-fix
+    </td>
+    <td>
+[Calculator]
+<br>
+・Ver.2.10.3以降、post処理でcatchしたerror-log表示が消える不具合を修正
+<br>
+　不具合発生期間: 2021/4/10~2021/5/5
+<br>
+　before:
+<br>
+　　<span class="clear">(trans) || (e=&lt;2) -> ""</span>
+<br>
+　　trans -> [MyErr]Invalid FNm(transpose)
+<br>
+　　e=&lt;2 -> [MyErr]Invalid BTe([object Object])
+<br>
+　after:
+<br>
+　　(trans) || trans -> [MyErr]Invalid FNm(transpose)
+<br>
+　　(e=&lt;2) || e=&lt;2 -> [MyErr]Invalid BTe([object Object])
+<br>
+・ODE高階行列関数の実装準備
+<br>
+　<a href="01_calc_simple/manual.html#span-out-FNmh">[manual]Calculator-高階行列関数</a>
+    </td>
+    <td>
+2021/5/5
+    </td>
+  </tr>
+  <tr>
+    <th>
+3.30.12.3.9
+    </th>
+    <td class="types">
+Calculator
+    </td>
+    <td>
+2.20.6
+    </td>
+    <td>
+minor update
+    </td>
+    <td>
+[Calculator]
+<br>
+・行列要素pattern matchingによる無次元変数への代入・再代入機能を追加
+<br>
+　<a href="01_calc_simple/manual.html#span-out-matching">[manual]Calculator-行列要素pattern matching</a>
+<br>
+　abc代入: clear; ($a,{$b,3})=(1,{2,$c}); (a,{b,c}) -> (1,2:0,3)
+<br>
+　ab再代入: ($a,(a,c))=(b,{$b,c},4); (a,{b,c}) -> (2,1:0,3)
+<br>
+[Graphing Calculator]
+<br>
+・panel中段に
+<br>
+　global変数の変数名listをlog出力欄に表示するlist-vars-buttonを追加
+<br>
+　global式変数の変数名listをlog出力欄に表示するlist-eqns-buttonを追加
+<br>
+　出力listの改行文字をwhite-spaceに変更
+<br>
+・描画canvasのattach処理onmousemoveを修正
+<br>
+　drag中の処理の中にe.preventDefault()/e.stopPropagation()を移動
+<br>
+　drag中以外は何もしない
+    </td>
+    <td>
+2021/5/4
+    </td>
+  </tr>
+  <tr>
+    <th>
+3.29.12.3.9
+    </th>
+    <td class="types">
+Calculator
+    </td>
+    <td>
+2.19.6
+    </td>
+    <td>
+minor update
+    </td>
+    <td>
+[Calculator]
+<br>
+・関数の参照渡しの仕様を廃止（以降は関数名の短縮不可）
+<br>
+　初期表示のtest case/manualを修正
+<br>
+　<a href="01_calc_simple/manual.html#span-out-substitution-equation">[manual]Calculator-式変数への代入</a>
+    </td>
+    <td>
+2021/5/3
+    </td>
+  </tr>
+  <tr>
+    <th>
+3.28.12.3.9
+    </th>
+    <td class="types">
+Calculator
+<br>
+Generator
+<br>
+Checker
+    </td>
+    <td>
+2.18.6
+<br>
+1.7.2
+<br>
+0.15.4
+    </td>
+    <td>
+minor change
+    </td>
+    <td>
+[全page html]
+<br>
+・カタカナを英訳
+<br>
+<del>・a/button要素にtouch-action: none;のCSS適用</del>
+<br>
+　<del>操作中のpan/zoom抑止</del>
+<br>
+・html要素にtouch-action: manipulation;のCSS適用
+<br>
+　double-tapによるzoom抑止
+<br>
+　online-testにて全修正（操作性に難あり）
+<br>
+[Simple Calculator]
+<br>
+<del>・操作panel全体にtouch-action: none;のCSS適用</del>
+<br>
+[Graphing Calculator]
+<br>
+<del>・操作panel一部にtouch-action: none;のCSS適用</del>
+<br>
+[Calculator]
+<br>
+・ODE solverの仕様検討
+<br>
+　<a href="01_calc_simple/manual.html#span-out-evolution">[manual]Calculator-時間発展の解法</a>
+    </td>
+    <td>
+2021/5/1
+    </td>
+  </tr>
+  <tr>
+    <th>
+3.28.9.3.9
+    </th>
+    <td class="types">
+Calculator
+    </td>
+    <td>
+2.17.6
+    </td>
+    <td>
+minor update
+    </td>
+    <td>
+[Graphing Calculator]
+<br>
+・svg出力機能を追加
+<br>
+　layer合成無効（only source-over）
+<br>
+　mix-in継承compatibility優先でgroup化等の最適化なし
+<br>
+　csv/txt出力同様にVERSION/time-stampをsvg-fileの3rd-line-commentに記録
+<br>
+　download-linkのonclickでlog出力欄focusしないように修正
+<br>
+　小数点以下の出力桁数0~9digitの選択肢を追加（png出力共通）
+<br>
+　各軸のgrid最小値~最大値の変更を出力に反映（拡大以外のtest漏れ）
+<br>
+　<del>fillPath時にlineを描画しないように修正</del>
+<br>
+　fillPath時のfill/strokeを分離してpng/svgのcompatibilityを確保
+<br>
+・Ver.2.15.5以降png||svg出力のbrowser間の相違について追記
+<br>
+　<a href="01_calc_simple/manual.html#span-out-plot2d">[manual]Calculator-plot2d仕様</a>
+    </td>
+    <td>
+2021/4/29
+    </td>
+  </tr>
+  <tr>
+    <th>
+3.27.9.3.9
+    </th>
+    <td class="types">
+Calculator
+    </td>
+    <td>
+2.16.6
+    </td>
+    <td>
+minor update
+    </td>
+    <td>
+[Graphing Calculator]
+<br>
+・IEのAlpha入力・一部Alpha合成に対応
+<br>
+　hex入力値からrgba変換時のa=0~1の範囲に修正して適用
+<br>
+・legend文字列strを表示するcheckboxを追加
+<br>
+・z入力欄のlegend設定項目を追加
+<br>
+　markerType:markerColor:
+<br>
+　markerSize:markerLineWidth:plotLineWidth:
+<br>
+　fillPath:
+<br>
+　str:strFontSize
+<br>
+・plot-configにlegend-kx/legend-kyの選択肢を追加
+<br>
+・plot-configにtitleの入力欄を追加
+<br>
+・test case-checkboxを追加（誤操作防止）
+<br>
+・各軸のgrid最小値~最大値のwritableに対応
+<br>
+・canvas-background変更時にbg-colorをresetする処理を追加
+<br>
+・csv出力処理を最適化
+<br>
+・svg出力の実装準備
+<br>
+　mix-inでdraw対象canvas||svgをswitch
+<br>
+・plot終了時のlog出力欄focus条件を変更
+<br>
+・grid-line-color未定義時のgray初期化処理を移動
+<br>
+　未定義時のlegend-textbox表示を正常化
+<br>
+・legend-textboxのdraw処理を修正
+<br>
+　globalCompositeOperationLayerに対応
+    </td>
+    <td>
+2021/4/25
+    </td>
+  </tr>
+  <tr>
+    <th>
+3.26.9.3.9
+    </th>
+    <td class="types">
+Calculator
+    </td>
+    <td>
+2.15.6
+    </td>
+    <td class="clear">
+minor bug-fix
+    </td>
+    <td>
+[Graphing Calculator]
+<br>
+・Ver.2.11.5log表示不具合の追加修正（入力dataなしのcaseに対応）
+<br>
+　Unexpected error　⇒　finished 0/0
+<br>
+　plot -> stopの実行間隔が約0.2sec以内のcaseに発生
+<br>
+　時間と発生頻度はtの演算内容に依存（重ければ頻度上昇）
+<br>
+　<del>Ver.2.10.3log表示の待機時間50msec以内で確定</del>
+    </td>
+    <td>
+2021/4/24
+    </td>
+  </tr>
+  <tr>
+    <th>
+3.26.9.3.8
+    </th>
+    <td class="types">
+Calculator
+    </td>
+    <td>
+2.15.5
+    </td>
+    <td>
+minor update
+    </td>
+    <td>
+[Graphing Calculator]
+<br>
+・各軸のlabelとvalueを表示するcheckboxを追加
+<br>
+　check時、linear-scaleの原点を通るgrid線を追加
+<br>
+　valueの小数||指数表記を設定値に応じて変更
+<br>
+・plot-configにfont-size/grid-x-Ni/grid-y-Nj/kx-adjの選択肢を追加
+<br>
+　余白の調整係数を見直してkx-adjに集約
+<br>
+・axis range-buttonのtest caseを追加
+<br>
+・bg-image-fileのread-cancel時に背景resetの処理を追加（excluding IE）
+<br>
+　image-file以外を選択時も同様（including IE）
+<br>
+[Calculator]
+<br>
+・Ver.1.6.3仕様変更に伴うmanualの修正漏れに対応
+<br>
+　<a href="01_calc_simple/manual.html#span-out-special">[manual]Calculator-特殊仕様</a>
+<br>
+　不備掲載期間: 2021/3/23~2021/4/23
+<br>
+　before:
+<br>
+　　(-1,)((-1,)(1,i)) -> (1,i)
+<br>
+　　(-1,)((-1,)((-1,)(1,i))) -> (-1,-i)
+<br>
+　after:
+<br>
+　　(-1)((-1)(1,i)) -> (1,i)
+<br>
+　　(-1)((-1)((-1)(1,i))) -> (-1,-i)
+    </td>
+    <td>
+2021/4/22
+    </td>
+  </tr>
+  <tr>
+    <th>
+3.25.9.3.8
+    </th>
+    <td class="types">
+Calculator
+    </td>
+    <td>
+2.14.5
+    </td>
+    <td>
+minor update
+    </td>
+    <td>
+[Graphing Calculator]
+<br>
+・event handlerのattach/detachのflowを見直し
+<br>
+　描画canvas更新毎にattach
+<br>
+　Now Calculating...にstopまたは描画canvas click||touchでdetach
+<br>
+・z入力欄のlegend設定項目を追加
+<br>
+　markerType:markerColor:
+<br>
+　markerSize:markerLineWidth:plotLineWidth:
+<br>
+　fillPath
+<br>
+・z入力欄のsize||lineWidthの0入力を有効化
+<br>
+・任意sizeのbg-image-fileのread機能を追加
+    </td>
+    <td>
+2021/4/21
+    </td>
+  </tr>
+  <tr>
+    <th>
+3.24.9.3.8
+    </th>
+    <td class="types">
+Checker
+    </td>
+    <td>
+0.14.4
+    </td>
+    <td>
+minor change
+    </td>
+    <td>
+[conv.js]
+<br>
+・const宣言をvar宣言に変更
+<br>
+　const uint_MAX　⇒　var uint_max
+<br>
+　当面IE supportedのECMAScript5に準拠（namespaceのconst宣言を除く）
+    </td>
+    <td>
+2021/4/19
+    </td>
+  </tr>
+  <tr>
+    <th>
+3.24.8.3.8
+    </th>
+    <td class="types">
+Calculator
+    </td>
+    <td>
+2.13.5
+    </td>
+    <td>
+minor update
+    </td>
+    <td>
+[Graphing Calculator]
+<br>
+・各軸のcheckbox（log||i）切替え時にscaleをresetする処理を追加
+<br>
+・plot-configにcanvas-globalCompositeOperationLayerの選択肢を追加
+<br>
+　重複するURL parameterのglobalCompositeOperationAllを廃止
+<br>
+　fillを含めて合成に変更（既定の描画は変更なし）
+<br>
+・背景へのlayer合成順の同期保証処理（shadowなしでdraw）を追加
+    </td>
+    <td>
+2021/4/18
+    </td>
+  </tr>
+  <tr>
+    <th>
+3.23.8.3.8
+    </th>
+    <td class="types">
+Calculator
+<br>
+Generator
+<br>
+Checker
+    </td>
+    <td>
+2.12.5
+<br>
+1.6.2
+<br>
+0.13.4
+    </td>
+    <td>
+minor update
+    </td>
+    <td>
+[全page共通]
+<br>
+・onload/onbeforeunloadのevent handler呼び出し部分を$.jsの中に統合
+<br>
+　main().onloadの引数変更のため、updateとする
+<pre><code>
+  before:
+  (function(document){
+    document.body.onload = function(e){
+      new My_entry.main().onload(e);
+    };
+  })(document);
+
+  after:
+  (function(document){
+    new My_entry.$().onload(document, function(e){
+      new My_entry.main().onload(document, e);
+    });
+  })(document);
+</code></pre>
+    </td>
+    <td>
+2021/4/17
+    </td>
+  </tr>
+  <tr>
+    <th>
+3.20.8.3.8
+    </th>
+    <td class="types">
+Calculator
+    </td>
+    <td>
+2.11.5
+    </td>
+    <td class="clear">
+minor bug-fix
+    </td>
+    <td>
+[parser.js]
+<br>
+・一部変数cre/cieのglobal namespace pollutionを修正
+<br>
+　問題なし
+<br>
+[Graphing Calculator]
+<br>
+・plot実行直後Now Calculating...にstop中断時の予期せぬerror終了を修正
+<br>
+　Unexpected error　⇒　finished 0/(N+1)
+    </td>
+    <td>
+2021/4/14
+    </td>
+  </tr>
+  <tr>
+    <th>
+3.20.8.3.7
+    </th>
+    <td class="types">
+Calculator
+    </td>
+    <td>
+2.11.4
+    </td>
+    <td>
+minor update
+    </td>
+    <td>
+[Graphing Calculator]
+<br>
+・z入力欄のlegend設定項目を追加
+<br>
+　markerType:markerColor:
+<br>
+　markerSize:markerLineWidth:plotLineWidth
+<br>
+・z入力欄のcomment文入力に対応
+<br>
+・csv/history-txtのlog出力項目の見直し
+<br>
+　zは出力しない　⇒　zはoptionsに含めて出力する
+<br>
+・命令文や代入文のみを各軸に入力した場合のplot仕様を変更
+<br>
+　error終了　⇒　零を返して描画
+<br>
+・plot-configにcanvas-globalCompositeOperationの選択肢を追加
+<br>
+　background &lt;- grid &lt;- plotの順に背景に合成（IEはAlpha合成未対応）
+<br>
+　既定で各layerには適用しない（既定値source-over）
+<br>
+　各layerに適用するURL parameterを追加globalCompositeOperationAll
+    </td>
+    <td>
+2021/4/12
+    </td>
+  </tr>
+  <tr>
+    <th>
+3.19.8.3.7
+    </th>
+    <td class="types">
+Calculator
+    </td>
+    <td>
+2.10.4
+    </td>
+    <td class="clear">
+minor bug-fix
+    </td>
+    <td>
+[Graphing Calculator]
+<br>
+・main側のWorker isLocked判定が機能していなかった不具合を修正
+<br>
+　worker側で正常にlockされていたため、問題なし
+<br>
+・csv/history-txtに表示する設定値のlogを修正
+<br>
+　現在の設定値を表示　⇒　演算時の設定値を表示
+    </td>
+    <td>
+2021/4/11
+    </td>
+  </tr>
+  <tr>
+    <th>
+3.19.8.3.6
+    </th>
+    <td class="types">
+Calculator
+    </td>
+    <td>
+2.10.3
+    </td>
+    <td>
+minor update
+    </td>
+    <td>
+[Graphing Calculator]
+<br>
+・任意legendを指定するz入力欄を実装
+<br>
+[Calculator]
+<br>
+・演算実行中のlog表示Now calculating...を追加
+<br>
+　setTimeout非同期関数でlog表示50msec待機後、演算を実行
+    </td>
+    <td>
+2021/4/10
+    </td>
+  </tr>
+  <tr>
+    <th>
+3.18.8.3.6
+    </th>
+    <td class="types">
+Calculator
+    </td>
+    <td>
+2.9.3
+    </td>
+    <td class="run">
+major update
+    </td>
+    <td>
+[Graphing Calculator]
+<br>
+・初期release
+    </td>
+    <td>
+2021/4/9
+    </td>
+  </tr>
+  <tr>
+    <th>
+2.18.8.3.6
+    </th>
+    <td class="types">
+Calculator
+    </td>
+    <td>
+1.9.3
+    </td>
+    <td>
+minor update
+    </td>
+    <td>
+[Simple Calculator]
+<br>
+・Ver.1.7.3以降のpost処理error発生時にstorage復帰処理を追加
+    </td>
+    <td>
+2021/4/8
+    </td>
+  </tr>
+  <tr>
+    <th>
+2.17.8.3.6
+    </th>
+    <td class="types">
+Calculator
+<br>
+Generator
+    </td>
+    <td>
+1.8.3
+<br>
+1.5.2
+    </td>
+    <td>
+minor change
+    </td>
+    <td>
+[Workerを使用するpage共通]
+<br>
+・Graphing Calculatorの初期release準備
+<br>
+　複数のWorkerに対応
+<br>
+[Simple Calculator]
+<br>
+・多角形・星を描画する関数を最適化
+    </td>
+    <td>
+2021/4/7
+    </td>
+  </tr>
+  <tr>
+    <th>
+2.17.6.3.6
+    </th>
+    <td class="types">
+Generator
+    </td>
+    <td>
+1.4.2
+    </td>
+    <td class="clear">
+fatal bug-fix
+<br>
+minor update
+    </td>
+    <td>
+[音源wave PCM生成（演奏）]
+<br>
+・1channelのみの時系列data再生時のoutput's sound volume不具合を修正
+<br>
+　不具合発生期間: 2021/1/11~2021/4/3
+<br>
+　1/11変化点からband-widthのlimit-overによるsound volumeに問題あり
+<br>
+[音源wave PCM生成]
+<br>
+・ぶつ切り音を抑制するfade-in/outの機能を追加
+    </td>
+    <td>
+2021/4/3
+    </td>
+  </tr>
+  <tr>
+    <th>
+2.16.6.2.6
+    </th>
+    <td class="types">
+Calculator
+    </td>
+    <td>
+1.7.3
+    </td>
+    <td>
+minor update
+    </td>
+    <td>
+[Simple Calculator]
+<br>
+・比較演算子・関係演算子を追加
+<br>
+・式代入記号を変更
+<br>
+　&lt;=　⇒　=&lt;
+<br>
+・実数演算に合わせて複素数演算における0の0乗の定義を変更
+<br>
+　before:
+<br>
+　　0^0 || 0**0 || pow(0,0) || x=0; Maclaurin7 -> 0
+<br>
+　after:
+<br>
+　　0^0 || 0**0 || pow(0,0) || x=0; Maclaurin7 -> 1
+<br>
+　7次打切りMaclaurin級数Maclaurin7
+<br>
+　　Maclaurin7=&lt;_sn(=&lt;{_dx(=&lt;f,n,0)x^n/n!},0,7);
+<br>
+　　f=&lt;exp(x);
+<br>
+・Graphing Calculatorの実装準備
+<br>
+　演算結果の表記選択変更時のlog表示を再演算なしで自動更新
+<br>
+　post処理を最適化
+    </td>
+    <td>
+2021/3/29
+    </td>
+  </tr>
+  <tr>
+    <th>
+2.15.6.2.6
+    </th>
+    <td class="types">
+Generator
+    </td>
+    <td>
+1.3.1
+    </td>
+    <td>
+minor change
+    </td>
+    <td>
+[Workerを使用するpage共通]
+<br>
+・data.iの初期化処理を移動各main　⇒　original_worker内
+    </td>
+    <td>
+2021/3/28
+    </td>
+  </tr>
+  <tr>
+    <th>
+2.15.5.2.6
+    </th>
+    <td class="types">
+Calculator
+    </td>
+    <td>
+1.6.3
+    </td>
+    <td>
+minor update
+    </td>
+    <td>
+[Simple Calculator]
+<br>
+・定義できない行列積はerror終了に仕様を変更
+<br>
+　before:
+<br>
+　　(1,2)(1,2) || (1,2)(1,2:) -> (1,2)
+<br>
+　after:
+<br>
+　　(1,2)(1,2)  // NG -> [MyErr]Invalid matrix operation
+<br>
+　　(1,2)(1,2:) -> (1,2)
+<br>
+・比較演算子・関係演算子を代替する関数を追加
+<br>
+・条件分岐を代替するswitch関数を追加
+<br>
+・高階関数の式渡しの仕様を緩和
+<br>
+・命令文を追加
+    </td>
+    <td>
+2021/3/23
+    </td>
+  </tr>
+  <tr>
+    <th>
+2.14.5.2.6
+    </th>
+    <td class="types">
+Calculator
+    </td>
+    <td>
+1.5.3
+    </td>
+    <td>
+minor update
+    </td>
+    <td>
+[Simple Calculator]
+<br>
+・行列表記の連立方程式の入力形式f=&lt;{A(x)=b}に対応
+<br>
+・storageに関する仕様をmanual通りに変更
+<br>
+　global/localで共通　⇒　global/localで独立
+<br>
+・総和高階関数の範囲反転に関する仕様を変更
+<br>
+　before:
+<br>
+　　符号反転して演算_Sn(=&lt;{n},10,1) -> -55
+<br>
+　after:
+<br>
+　　単なる逆順の演算_Sn(=&lt;{n},10,1) -> 55
+<br>
+・Ver.1.2.0仕様変更に伴う修正漏れに対応
+<br>
+　総乗・総積高階関数の呼び出しerror終了　⇒　正常化
+<br>
+・行列を整形表示する機能を追加
+<br>
+・括弧に関する内部optionを削除
+<br>
+・行列関数を追加
+<br>
+・行列要素参照の予期せぬerror終了を予期するerror終了に修正
+<br>
+・回転行列の第1引数が最終要素参照になっていた不具合を修正
+    </td>
+    <td>
+2021/3/19
+    </td>
+  </tr>
+  <tr>
+    <th>
+2.13.5.2.6
+    </th>
+    <td class="types">
+Calculator
+    </td>
+    <td>
+1.4.3
+    </td>
+    <td class="clear">
+fatal bug-fix
+    </td>
+    <td>
+[Simple Calculator]
+<br>
+・行列参照用の括弧[]を行列使用時に自身を参照できない不具合を修正
+<br>
+　[1,2:3,4][0] -> error　⇒　[1,2:3,4][0] -> (1,2)
+<br>
+・Ver.1.4.2機能不具合の再修正
+<br>
+　before:
+<br>
+　　{1:2:3,4} -> (1,2,3:0,4)
+<br>
+　after:
+<br>
+　　{1:2:3,4} -> (1,2,3:0,0,4)
+<br>
+　　(1,2),{3,4:5:6,7:8} -> (1,2,3,5,6,8:0,0,4,0,7)
+<br>
+・情報落ちの警告文を実部と虚部の区別がつくように変更
+<br>
+　infoLost!!　⇒　infoLost[ri] || infoLost[r ] || infoLost[ i]
+    </td>
+    <td>
+2021/3/17
+    </td>
+  </tr>
+  <tr>
+    <th>
+2.13.5.1.6
+    </th>
+    <td class="types">
+Calculator
+    </td>
+    <td>
+1.4.2
+    </td>
+    <td class="clear">
+minor bug-fix
+<br>
+minor update
+    </td>
+    <td>
+[Simple Calculator]
+<br>
+・列指定の行列で抜け要素を結合できない機能不具合を修正
+<br>
+　{:1,2} || {0:1,2} -> (0,1)　⇒　{:1,2} || {0:1,2} -> (0,1:0,2)
+<br>
+・入力dataの全角⇒半角変換処理を移動parser外部　⇒　内部
+<br>
+・定数扱いの行列を追加
+<br>
+・行列関数を追加
+<br>
+・特殊行列関数を追加
+    </td>
+    <td>
+2021/3/16
+    </td>
+  </tr>
+  <tr>
+    <th>
+2.12.5.1.5
+    </th>
+    <td class="types">
+Calculator
+    </td>
+    <td>
+1.3.1
+    </td>
+    <td>
+minor update
+    </td>
+    <td>
+[Simple Calculator]
+<br>
+・微分高階関数の微分位置と微分階数の引数順序を入替え
+<br>
+・微分高階関数の差分刻みに情報落ちの対策を追加
+<br>
+・Jacobi高階関数に第4引数（1階偏微分の差分刻み）を追加
+<br>
+・情報落ち発生の評価方法を変更about評価　⇒　厳密評価
+    </td>
+    <td>
+2021/3/12
+    </td>
+  </tr>
+  <tr>
+    <th>
+2.11.5.1.5
+    </th>
+    <td class="types">
+Calculator
+    </td>
+    <td>
+1.2.1
+    </td>
+    <td class="clear">
+minor bug-fix
+    </td>
+    <td>
+[Simple Calculator]
+<br>
+・実数演算で複素数演算用の関数を呼ぶとerror終了を修正
+<br>
+　conjugate(3) -> Unexpected error　⇒　conjugate(3) -> 3
+    </td>
+    <td>
+2021/3/10
+    </td>
+  </tr>
+  <tr>
+    <th>
+2.11.5.1.4
+    </th>
+    <td class="types">
+Calculator
+    </td>
+    <td>
+1.2.0
+    </td>
+    <td>
+minor update
+    </td>
+    <td>
+[Simple Calculator]
+<br>
+・除算と乗算の演算子の優先順位を統合（以降は設定変更不可）
+    </td>
+    <td>
+2021/3/9
+    </td>
+  </tr>
+  <tr>
+    <th>
+2.10.5.1.4
+    </th>
+    <td class="types">
+Calculator
+    </td>
+    <td>
+1.1.0
+    </td>
+    <td>
+minor update
+    </td>
+    <td>
+[Simple Calculator]
+<br>
+・高階関数追加
+    </td>
+    <td>
+2021/3/2
+    </td>
+  </tr>
+  <tr>
+    <th>
+2.9.5.1.4
+    </th>
+    <td class="types">
+Calculator
+    </td>
+    <td>
+1.0.0
+    </td>
+    <td class="run">
+major update
+    </td>
+    <td>
+[Simple Calculator]
+<br>
+・初期release
+    </td>
+    <td>
+2021/2/18
+    </td>
+  </tr>
+  <tr>
+    <th>
+1.9.5.1.4
+    </th>
+    <td class="types">
+Checker
+    </td>
+    <td>
+0.12.4
+    </td>
+    <td class="clear">
+minor bug-fix
+    </td>
+    <td>
+[Base64変換Checker]
+<br>
+・文字数が1字の時にbufferの範囲外参照errorを修正
+    </td>
+    <td>
+2021/2/14
+    </td>
+  </tr>
+  <tr>
+    <th>
+1.9.5.1.3
+    </th>
+    <td class="types">
+Generator
+    </td>
+    <td>
+1.2.1
+    </td>
+    <td>
+minor change
+    </td>
+    <td>
+[音源wave PCM生成page html]
+<br>
+・td-tagのcolspan=値をcolspan="値"に修正
+<br>
+　いずれも問題なかったため、changeとする
+    </td>
+    <td>
+2021/2/7
+    </td>
+  </tr>
+  <tr>
+    <th>
+1.9.4.1.3
+    </th>
+    <td class="types">
+Checker
+    </td>
+    <td>
+0.12.3
+    </td>
+    <td class="clear">
+minor bug-fix
+    </td>
+    <td>
+[math.js]
+<br>
+・一部変数のglobal namespace pollutionを修正
+<br>
+　Calculator Workerから呼び出し時にthis参照errorで発見
+    </td>
+    <td>
+2021/2/6
+    </td>
+  </tr>
+  <tr>
+    <th>
+1.9.4.1.2
+    </th>
+    <td class="types">
+Checker
+    </td>
+    <td>
+0.12.2
+    </td>
+    <td>
+minor change
+    </td>
+    <td>
+[全page html]
+<br>
+・table-tagにstripeで色を付けるCSSを適用
+    </td>
+    <td>
+2021/2/5
+    </td>
+  </tr>
+  <tr>
+    <th>
+1.9.3.1.2
+    </th>
+    <td class="types">
+Checker
+    </td>
+    <td>
+0.11.2
+    </td>
+    <td>
+minor change
+    </td>
+    <td>
+[全page html]
+<br>
+・meta/link/input-tagの閉じる表記/>を廃止
+    </td>
+    <td>
+2021/1/31
+    </td>
+  </tr>
+  <tr>
+    <th>
+1.9.2.1.2
+    </th>
+    <td class="types">
+Checker
+    </td>
+    <td>
+0.10.2
+    </td>
+    <td>
+minor change
+    </td>
+    <td>
+[全page共通]
+<br>
+・page遷移時にhtml要素のvalueをdefault値に戻す処理を追加
+<br>
+　戻る・進む操作でcacheが無効化されるpage復帰時の対策
+<br>
+[全page html]
+<br>
+・noscript文言を一斉更新
+<br>
+・meta http-equivを廃止してmeta charset="utf-8"に一斉変更
+    </td>
+    <td>
+2021/1/26
+    </td>
+  </tr>
+  <tr>
+    <th>
+1.9.1.1.2
+    </th>
+    <td class="types">
+Generator
+    </td>
+    <td>
+1.1.1
+    </td>
+    <td>
+minor change
+    </td>
+    <td>
+[Workerを使用するpage共通]
+<br>
+・Worker実行のforEach文内でterminate判定処理を追加
+<br>
+　terminateしたWorkerにmessageを送っても無意味
+    </td>
+    <td>
+2021/1/23
+    </td>
+  </tr>
+  <tr>
+    <th>
+記録開始
+<br>
+1.9.0.1.2
+    </th>
+    <td class="types">
+Checker
+    </td>
+    <td>
+0.9.2
+    </td>
+    <td class="clear">
+minor bug-fix
+    </td>
+    <td>
+[$.js]
+<br>
+・html要素の操作関数の一部記述mistakeを修正
+<br>
+　未使用部分だったため、影響なし
+    </td>
+    <td>
+2021/1/21
+    </td>
+  </tr>
+  <tr>
+    <th>
+運用開始
+<br>
+1.9.0.1.1
+    </th>
+    <td class="types">
+    </td>
+    <td>
+    </td>
+    <td>
+    </td>
+    <td>
+[全page共通]
+<br>
+・namespaceにconstructor関数含む全objectを隠蔽
+<br>
+　global namespace pollution対策
+    </td>
+    <td>
+2021/1/20
+    </td>
+  </tr>
+  <tr>
+    <th>
+1.9.beta.1.1
+    </th>
+    <td class="types">
+Checker
+    </td>
+    <td>
+0.9.1
+    </td>
+    <td class="clear">
+minor bug-fix
+    </td>
+    <td>
+[Workerを使用するpage共通]
+<br>
+・Worker未使用時のerrorをcatchできていなかった不具合を修正
+<br>
+　error後のterminate処理が不要のため、minorとする
+    </td>
+    <td>
+2021/1/16
+    </td>
+  </tr>
+  <tr>
+    <th>
+1.9.beta.1.0
+    </th>
+    <td class="types">
+Generator
+    </td>
+    <td>
+1.0.1
+    </td>
+    <td class="clear">
+fatal bug-fix
+    </td>
+    <td>
+[音源wave PCM生成]
+<br>
+・header部分の4Bytesの型を修正signed　⇒　unsigned
+<br>
+　file-size大のwave生成時に問題あり
+<br>
+・低音質dataの型を修正signed　⇒　unsigned
+<br>
+　単音と和音は問題なかったが、演奏のbinary合成時に問題あり
+    </td>
+    <td>
+2021/1/8
+    </td>
+  </tr>
+  <tr>
+    <th>
+初期
+<br>
+1.9.beta.0.0
+    </th>
+    <td class="types">
+Generator
+<br>
+Checker
+    </td>
+    <td>
+1.0.0
+<br>
+0.9.0
+    </td>
+    <td class="run">
+major update
+<br>
+minor update
+    </td>
+    <td>
+    </td>
+    <td>
+2021/1/8
+    </td>
+  </tr>
+  <tr>
+    <th>
+移設開始
+    </th>
+    <td class="types">
+    </td>
+    <td>
+    </td>
+    <td>
+    </td>
+    <td>
+[全page共通]
+<br>
+・既存のframework||plug-in使用不可で実装
+    </td>
+    <td>
+2020/12/15
     </td>
   </tr>
 </tbody>
