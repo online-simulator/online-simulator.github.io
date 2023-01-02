@@ -76,10 +76,7 @@
         $._id("input-third-url-parameters").value = "";
         $.hide("#div-dot", true, true);
       }
-      var pen = new My_entry.pen().onload(e);
-      pen.objs.fg.elem.addEventListener("pointerup", function(e){
-        pen.init_config();
-      });
+      new My_entry.pen().onload(e);
       $._id("input-W").onchange(e);
     });
   })();

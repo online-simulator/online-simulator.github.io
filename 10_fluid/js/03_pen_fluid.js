@@ -299,6 +299,7 @@ My_entry.pen.prototype.init_handlers = function(){
     self.reset_canvas();
     self.update_options();  // Ver.1.35.7 re-update
     /* fluid-Ver.1.0.0 -> */
+    var fg = self.objs.fg;  // fluid-Ver.1.25.0
     var base64 = "";
     /* fluid-Ver.1.12.0 svg -> png */
     /* fluid-Ver.1.3.0 */
@@ -399,7 +400,6 @@ My_entry.pen.prototype.init_handlers = function(){
     }
     if(base64){
       /* fluid-Ver.1.3.0 -> */
-      var fg = self.objs.fg;
       var callback_last = function(){
         var w = options.mosaic;
         options.mosaic = "min";
@@ -410,6 +410,11 @@ My_entry.pen.prototype.init_handlers = function(){
       /* -> fluid-Ver.1.3.0 */
     }
     self.init_plot2d();  // fluid-Ver.1.21.0
+    /* fluid-Ver.1.25.0 -> */
+    fg.elem.addEventListener("pointerup", function(e){
+      self.init_config();
+    });
+    /* -> fluid-Ver.1.25.0 */
     /* -> fluid-Ver.1.0.0 */
     return self;
   };
