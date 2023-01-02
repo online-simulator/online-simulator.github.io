@@ -296,6 +296,7 @@ My_entry.pen.prototype.init_handlers = function(){
     self.objs.bg.draw.setter.decDigit(decDigit);
     /* -> Ver.1.35.7 */
     $.change_elems$("input[type='checkbox']");
+    $._id("input-W").onchange(e);  // Ver.1.53.10
     self.reset_canvas();
     self.update_options();  // Ver.1.35.7 re-update
     /* fluid-Ver.1.0.0 -> */
