@@ -16,6 +16,10 @@ My_entry.solver_NS.prototype.FS2d = function(options, uvp){
   var self = this;
   var solver = self.entry.solver;
   var Re = options.Re || 0;
+  /* fluid-Ver.1.27.0 -> */
+  var sx = options.sx;
+  var sy = options.sy;
+  /* -> fluid-Ver.1.27.0 */
   var Ndt = options.Ndt || 0;  // fluid-Ver.1.11.0
   var Nnt = options.Nnt || 1;
   var alpha_upstream = options.alpha_upstream || 0;  // fluid-Ver.1.17.0
@@ -209,6 +213,10 @@ My_entry.solver_NS.prototype.FS2d = function(options, uvp){
       var diffy = (vim-2*vij+vip)*rdxp2+(vjm-2*vij+vjp)*rdyp2;  // Order2
       var dudt = -convx+diffx/Re;
       var dvdt = -convy+diffy/Re;
+      /* fluid-Ver.1.27.0 -> */
+      dudt += sx;
+      dvdt += sy;
+      /* -> fluid-Ver.1.27.0 */
       c.push(Math.abs(cont));
       return [dudt, dvdt];
     }:
@@ -374,6 +382,10 @@ My_entry.solver_NS.prototype.FS2d = function(options, uvp){
       var diffy = (-(vimm+vipp)+16*(vim+vip)-30*vij)*r12dxp2+(-(vjmm+vjpp)+16*(vjm+vjp)-30*vij)*r12dyp2;  // Order4
       var dudt = -convx+diffx/Re;
       var dvdt = -convy+diffy/Re;
+      /* fluid-Ver.1.27.0 -> */
+      dudt += sx;
+      dvdt += sy;
+      /* -> fluid-Ver.1.27.0 */
       c.push(Math.abs(cont));
       return [dudt, dvdt];
     };

@@ -580,7 +580,7 @@ My_entry.pen.prototype.init_handlers = function(){
             var hasError = false;
             var nmax = options.nmax || 1000;
             try{
-              solver.FS2d({Re: options.Re, Ndt: options.Ndt, Nnt: options.Nnt, order_upstream: options.order_upstream, alpha_upstream: options.alpha_upstream, type_bound: options.type_bound}, uvp);  // fluid-Ver.1.7.0  // fluid-Ver.1.11.0  // fluid-Ver.1.12.0  // fluid-Ver.1.17.0
+              solver.FS2d({Re: options.Re, sx: options.sx, sy: options.sy, Ndt: options.Ndt, Nnt: options.Nnt, order_upstream: options.order_upstream, alpha_upstream: options.alpha_upstream, type_bound: options.type_bound}, uvp);  // fluid-Ver.1.7.0  // fluid-Ver.1.11.0  // fluid-Ver.1.12.0  // fluid-Ver.1.17.0  // fluid-Ver.1.27.0
             }
             catch(e){
               hasError = "No solution";  // fluid-Ver.1.3.0
