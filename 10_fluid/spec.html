@@ -56,7 +56,7 @@
 <br>
 ・Mach数&lt;0.3
 <br>
-・動粘度=粘性係数/密度=const.
+・動粘度ν=粘性係数/密度=const.
           </td>
         </tr>
         <tr class="border">
@@ -95,6 +95,19 @@ Re無限大を想定
           </td>
         </tr>
         <tr class="border">
+          <td class="border">
+保存則の無次元化
+          </td>
+          <td class="border">
+系内の代表||特性値から規格化
+          </td>
+          <td class="border">
+代表||特性速さ:=U
+<br>
+代表||特性長さ:=L
+          </td>
+        </tr>
+        <tr class="border">
           <td class="border selection">
 解法
           </td>
@@ -130,7 +143,11 @@ memory使用量と処理時間の大半を占有するが、Multi-thread化し�
 2次元等間隔直交格子
           </td>
           <td class="border">
-client座標(x,y)を規格化
+描画canvasのclient座標(x,y)を規格化
+<br>
+・左右がx方向（右向きが正）
+<br>
+・上下がy方向（下向きが正）
           </td>
         </tr>
         <tr class="border">
@@ -452,7 +469,7 @@ solver
           <td class="border">
 時間刻みを小さくする
 <br>
-・流出境界で逆流が存在する場合、|Ndt|&gt;&gt;1
+・流出境界で逆流が存在する場合、|Ndt|&gt;&gt;1（逆流支配で解がNaN）
 <br>
 ・非粘性に近い場合（Re無限大）、|Ndt|&gt;&gt;1
 <br>
@@ -664,11 +681,11 @@ test case
           <td class="border">
 <span class="wF">-1: backstep流れの再付着点距離の検証
 <br>
-・代表速さ=inlet平均速さ（redを指定）
+・U=inlet平均速さUi（redを指定）
 <br>
-・代表長さ=step高さ（Lyを設定）
+・L=step高さS（Lyを設定）
 <br>
-・ReS=inlet平均速さ*step高さ/動粘度
+・ReS:=Ui*S/ν
 <br>
 ・ReS=200,400,600に対して
 <br>
@@ -851,7 +868,7 @@ Ly
 y方向の無次元全長
           </td>
           <td class="border">
-代表長さ=1から換算
+L=1から換算
           </td>
         </tr>
         <tr class="border">
@@ -920,9 +937,7 @@ t
 Re
           </td>
           <td class="border">
-Reynolds数=慣性力/粘性力
-<br>
-=代表速さ*代表長さ/動粘度
+Reynolds数=慣性力/粘性力=U*L/ν
           </td>
           <td class="border">
 <del>y方向の全長=1と(u,v)から実際の問題に換算が必要
@@ -944,7 +959,7 @@ Reynolds数=慣性力/粘性力
           <td class="border">
 s=1/(Froude数^2)
 <br>
-・Froude数=慣性力/外力
+・Froude数=慣性力/外力=U/(L*加速度の大きさ)^0.5
           </td>
         </tr>
         <tr class="border">
