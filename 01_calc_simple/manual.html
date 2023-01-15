@@ -10144,11 +10144,13 @@ clear; [a=&lt;b+c+d, d=3, c=2,=&lt;[b=1,=&lt;a==&gt;]=&gt;]=&gt; -> 6
 <br>
 clear; [d=3, c=2,=&lt;[a=&lt;b+c+d, b=1,=&lt;a==&gt;]=&gt;]=&gt; -> 6
 <br>
-・<span class="run">Ver.2.90.32</span>以降、sum関数を追加
+・<span class="run">Ver.2.90.32</span>以降、<a href="#span-out-FN-statistic">sum関数</a>を追加
 <br>
 clear; a=&lt;<span class="run">sum</span>(b,c,d); d=3; [c=2,=&lt;[b=1,=&lt;a=&gt;]=&gt;]=&gt; -> [MyErr]Invalid BRsa operation
 <br>
 clear; a=&lt;<span class="run">sum</span>(b,c,d); d=3; [c=2,=&lt;[b=1,=&lt;a==&gt;]=&gt;]=&gt; -> 6
+<br>
+・<span class="run">Ver.2.32.17</span>以降、<a href="#span-out-eqns-args">式変数のarguments</a>を追加
 <br>
 clear; a(b,c,d)=&lt;<span class="run">sum</span>(b,c,d); d=3; [c=2,=&lt;[b=1,=&lt;a(b,c,d)=&gt;]=&gt;]=&gt; -> 6
 <br>
