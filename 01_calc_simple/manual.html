@@ -10144,33 +10144,47 @@ clear; [a=&lt;b+c+d, d=3, c=2,=&lt;[b=1,=&lt;a==&gt;]=&gt;]=&gt; -> 6
 <br>
 clear; [d=3, c=2,=&lt;[a=&lt;b+c+d, b=1,=&lt;a==&gt;]=&gt;]=&gt; -> 6
 <br>
-clear; a=&lt;last[sum=b+c+d,sum]; d=3; [c=2,=&lt;[b=1,=&lt;a==&gt;]=&gt;]=&gt; -> 6
+・<span class="run">Ver.2.90.32</span>以降、sum関数を追加
 <br>
-clear; a=&lt;last[sum=b+c+d,last[,-sum]]; d=3; [c=2,=&lt;[b=1,=&lt;a==&gt;]=&gt;]=&gt; -> -6
+clear; a=&lt;<span class="run">sum</span>(b,c,d); d=3; [c=2,=&lt;[b=1,=&lt;a=&gt;]=&gt;]=&gt; -> [MyErr]Invalid BRsa operation
 <br>
-clear; a=&lt;last[sum=b+c+d,last[,-sum]]; d=3; [c=2,=&lt;[b=1,=&lt;a==&gt;]=&gt;]=&gt; -> -6
+clear; a=&lt;<span class="run">sum</span>(b,c,d); d=3; [c=2,=&lt;[b=1,=&lt;a==&gt;]=&gt;]=&gt; -> 6
 <br>
-clear; a=&lt;last[sum=b+c+d,last[,-sum]]; d=3; [c=2,=&lt;[c=-c,b=1,=&lt;a==&gt;]=&gt;]=&gt; -> -2
+clear; a(b,c,d)=&lt;<span class="run">sum</span>(b,c,d); d=3; [c=2,=&lt;[b=1,=&lt;a(b,c,d)=&gt;]=&gt;]=&gt; -> 6
 <br>
-clear; a=&lt;last[sum=b+c+d,last[,-sum]]; d=3; [c=-d,=&lt;[b=1,=&lt;a==&gt;]=&gt;]=&gt; -> -1
+clear; a(b,c,d)=&lt;b+c+d; d=3; [c=2,=&lt;[b=1,=&lt;a=&gt;]=&gt;]=&gt; -> [MyErr]Invalid binary operation
 <br>
-clear; a=&lt;last{sum=b+c+d,last[,-sum]}; d=3; [c=2,=&lt;[b=1,=&lt;a==&gt;]=&gt;]=&gt; -> -6
+clear; a(b,c,d)=&lt;b+c+d; d=3; [c=2,=&lt;[b=1,=&lt;a==&gt;]=&gt;]=&gt; -> 6
 <br>
-clear; a=&lt;last{d=-100,sum=b+c+d,last[,-sum]}; d=3; [c=2,=&lt;[b=1,=&lt;a==&gt;]=&gt;]=&gt; -> 97
+clear; a(b,c,d)=&lt;b+c+d; d=3; [c=2,=&lt;[b=1,=&lt;a(b,c,d)=&gt;]=&gt;]=&gt; -> 6
+<br>
+clear; a=&lt;last[<span class="run">s</span>=b+c+d,<span class="run">s</span>]; d=3; [c=2,=&lt;[b=1,=&lt;a==&gt;]=&gt;]=&gt; -> 6
+<br>
+clear; a=&lt;last[<span class="run">s</span>=b+c+d,last[,-<span class="run">s</span>]]; d=3; [c=2,=&lt;[b=1,=&lt;a==&gt;]=&gt;]=&gt; -> -6
+<br>
+clear; a=&lt;last[<span class="run">s</span>=b+c+d,last[,-<span class="run">s</span>]]; d=3; [c=2,=&lt;[b=1,=&lt;a==&gt;]=&gt;]=&gt; -> -6
+<br>
+clear; a=&lt;last[<span class="run">s</span>=b+c+d,last[,-<span class="run">s</span>]]; d=3; [c=2,=&lt;[c=-c,b=1,=&lt;a==&gt;]=&gt;]=&gt; -> -2
+<br>
+clear; a=&lt;last[<span class="run">s</span>=b+c+d,last[,-<span class="run">s</span>]]; d=3; [c=-d,=&lt;[b=1,=&lt;a==&gt;]=&gt;]=&gt; -> -1
+<br>
+clear; a=&lt;last{<span class="run">s</span>=b+c+d,last[,-<span class="run">s</span>]}; d=3; [c=2,=&lt;[b=1,=&lt;a==&gt;]=&gt;]=&gt; -> -6
+<br>
+clear; a=&lt;last{d=-100,<span class="run">s</span>=b+c+d,last[,-<span class="run">s</span>]}; d=3; [c=2,=&lt;[b=1,=&lt;a==&gt;]=&gt;]=&gt; -> 97
 <br>
 ・callする<a href="#span-out-eqns">式変数</a>の0<a href="#span-out-bracket">階層</a>に宣言される<a href="#span-out-vars">変数</a>はcall先<a href="#span-out-bracket">scope</a>に定義する
 <br>
-clear; a=&lt;last{d=-100,sum=b+c+d,last[,-sum]}; d=3; [c=2,=&lt;[b=1,a==&gt;,=&lt;d]=&gt;]=&gt; -> -100
+clear; a=&lt;last{d=-100,<span class="run">s</span>=b+c+d,last[,-<span class="run">s</span>]}; d=3; [c=2,=&lt;[b=1,a==&gt;,=&lt;d]=&gt;]=&gt; -> -100
 <br>
-clear; a=&lt;last{d=-100,sum=b+c+d,last[,-sum]}; [c=2,=&lt;[d=3,b=1,a==&gt;,=&lt;d]=&gt;]=&gt; -> -100
+clear; a=&lt;last{d=-100,<span class="run">s</span>=b+c+d,last[,-<span class="run">s</span>]}; [c=2,=&lt;[d=3,b=1,a==&gt;,=&lt;d]=&gt;]=&gt; -> -100
 <br>
-clear; [a=&lt;last{d=-100,sum=b+c+d,last[,-sum]},c=2,=&lt;[d=3,b=1,a==&gt;,=&lt;d]=&gt;]=&gt; -> -100
+clear; [a=&lt;last{d=-100,<span class="run">s</span>=b+c+d,last[,-<span class="run">s</span>]},c=2,=&lt;[d=3,b=1,a==&gt;,=&lt;d]=&gt;]=&gt; -> -100
 <br>
 ・callする<a href="#span-out-eqns">式変数</a>の1<a href="#span-out-bracket">階層</a>に宣言される場合、call先から参照不可
 <br>
-clear; a=&lt;last[d=-100,sum=b+c+d,last[,-sum]]; [c=2,=&lt;[d=3,b=1,a==&gt;,=&lt;d]=&gt;]=&gt; -> 3
+clear; a=&lt;last[d=-100,<span class="run">s</span>=b+c+d,last[,-<span class="run">s</span>]]; [c=2,=&lt;[d=3,b=1,a==&gt;,=&lt;d]=&gt;]=&gt; -> 3
 <br>
-clear; [a=&lt;last[d=-100,sum=b+c+d,last[,-sum]],c=2,=&lt;[d=3,b=1,a==&gt;,=&lt;d]=&gt;]=&gt; -> 3
+clear; [a=&lt;last[d=-100,<span class="run">s</span>=b+c+d,last[,-<span class="run">s</span>]],c=2,=&lt;[d=3,b=1,a==&gt;,=&lt;d]=&gt;]=&gt; -> 3
 <br>
 ・scope継承callのnesting
 <br>
