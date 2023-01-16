@@ -10154,11 +10154,11 @@ clear; a=&lt;<span class="run">sum</span>(b,c,d); d=3; [c=2,=&lt;[b=1,=&lt;a==&g
 <br>
 clear; a(b,c,d)=&lt;<span class="run">sum</span>(b,c,d); d=3; [c=2,=&lt;[b=1,=&lt;a(b,c,d)=&gt;]=&gt;]=&gt; -> 6
 <br>
+clear; a(b,c,d)=&lt;b+c+d; d=3; [c=2,=&lt;[b=1,=&lt;a(b,c,d)=&gt;]=&gt;]=&gt; -> 6
+<br>
 clear; a(b,c,d)=&lt;b+c+d; d=3; [c=2,=&lt;[b=1,=&lt;a=&gt;]=&gt;]=&gt; -> [MyErr]Invalid binary operation
 <br>
 clear; a(b,c,d)=&lt;b+c+d; d=3; [c=2,=&lt;[b=1,=&lt;a==&gt;]=&gt;]=&gt; -> 6
-<br>
-clear; a(b,c,d)=&lt;b+c+d; d=3; [c=2,=&lt;[b=1,=&lt;a(b,c,d)=&gt;]=&gt;]=&gt; -> 6
 <br>
 clear; a=&lt;last[<span class="run">s</span>=b+c+d,<span class="run">s</span>]; d=3; [c=2,=&lt;[b=1,=&lt;a==&gt;]=&gt;]=&gt; -> 6
 <br>
