@@ -213,12 +213,16 @@ a=0
 p=0指定の未知要素
           </td>
           <td class="border">
-圧力が既知でp=0の要素
+全時間のgauge圧力が既知で
+<br>
+p(t)=0の要素
           </td>
           <td class="border">
 a&gt;0
 <br>
 b=255
+<br>
+・求解上、系毎に1要素以上の指定が必須（testcase=12参照）
           </td>
         </tr>
         <tr class="border">
@@ -962,7 +966,7 @@ blackを含むr=g=0で壁指定
 p
           </td>
           <td class="border">
-無次元圧力
+無次元gauge圧力
           </td>
           <td class="border">
 p=0指定の未知要素@b=255
