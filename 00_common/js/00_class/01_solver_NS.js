@@ -27,6 +27,12 @@ My_entry.solver_NS.prototype.FS2d = function(options, uvp){
   var v = uvp.v;
   var ud = uvp.ud;
   var vd = uvp.vd;
+  /* fluid-Ver.1.28.0 -> */
+  var u0 = u;
+  var v0 = v;
+  var ud0 = self.entry.def.newClone(ud);
+  var vd0 = self.entry.def.newClone(vd);
+  /* -> fluid-Ver.1.28.0 */
   var p = uvp.p;
   var p0 = uvp.p0;
   var id = uvp.id;
@@ -211,14 +217,21 @@ My_entry.solver_NS.prototype.FS2d = function(options, uvp){
       convy -= auij*(vim-2*vij+vip)*rdx2+avij*(vjm-2*vij+vjp)*rdy2;  // Order1
       var diffx = (uim-2*uij+uip)*rdxp2+(ujm-2*uij+ujp)*rdyp2;  // Order2
       var diffy = (vim-2*vij+vip)*rdxp2+(vjm-2*vij+vjp)*rdyp2;  // Order2
-      var dudt = -convx+diffx/Re;
-      var dvdt = -convy+diffy/Re;
+      /* fluid-Ver.1.28.0 -> */
+      diffx /= Re;
+      diffy /= Re;
+      var dudt = -convx+diffx;
+      var dvdt = -convy+diffy;
+      /* -> fluid-Ver.1.28.0 */
       /* fluid-Ver.1.27.0 -> */
       dudt += sx;
       dvdt += sy;
       /* -> fluid-Ver.1.27.0 */
+      /* fluid-Ver.1.28.0 -> */
+      ud[i][j] = dudt;
+      vd[i][j] = dvdt;
+      /* -> fluid-Ver.1.28.0 */
       c.push(Math.abs(cont));
-      return [dudt, dvdt];
     }:
     function(i, j){
       var uij = u0[i][j];
@@ -380,22 +393,30 @@ My_entry.solver_NS.prototype.FS2d = function(options, uvp){
       convy += auij*(vimm-4*(vim+vip)+6*vij+vipp)*rdx12+avij*(vjmm-4*(vjm+vjp)+6*vij+vjpp)*rdy12;  // Order3
       var diffx = (-(uimm+uipp)+16*(uim+uip)-30*uij)*r12dxp2+(-(ujmm+ujpp)+16*(ujm+ujp)-30*uij)*r12dyp2;  // Order4
       var diffy = (-(vimm+vipp)+16*(vim+vip)-30*vij)*r12dxp2+(-(vjmm+vjpp)+16*(vjm+vjp)-30*vij)*r12dyp2;  // Order4
-      var dudt = -convx+diffx/Re;
-      var dvdt = -convy+diffy/Re;
+      /* fluid-Ver.1.28.0 -> */
+      diffx /= Re;
+      diffy /= Re;
+      var dudt = -convx+diffx;
+      var dvdt = -convy+diffy;
+      /* -> fluid-Ver.1.28.0 */
       /* fluid-Ver.1.27.0 -> */
       dudt += sx;
       dvdt += sy;
       /* -> fluid-Ver.1.27.0 */
+      /* fluid-Ver.1.28.0 -> */
+      ud[i][j] = dudt;
+      vd[i][j] = dvdt;
+      /* -> fluid-Ver.1.28.0 */
       c.push(Math.abs(cont));
-      return [dudt, dvdt];
     };
-  var int_uv = function(i, j, duv){
-    var dudt1 = duv[0];
-    var dvdt1 = duv[1];
-    var dudt0 = ud[i][j];
-    var dvdt0 = vd[i][j];
-    ud[i][j] = dudt1;
-    vd[i][j] = dvdt1;
+  /* fluid-Ver.1.28.0 */
+  var int_uv = function(i, j){
+    var dudt0 = ud0[i][j];
+    var dvdt0 = vd0[i][j];
+    var dudt1 = ud[i][j];
+    var dvdt1 = vd[i][j];
+    ud0[i][j] = dudt1;
+    vd0[i][j] = dvdt1;
     u[i][j] += (3*dudt1-dudt0)*dth;  // Order2
     v[i][j] += (3*dvdt1-dvdt0)*dth;  // Order2
   };
@@ -664,14 +685,19 @@ My_entry.solver_NS.prototype.FS2d = function(options, uvp){
     var uCmax = (Ndt < 0)? get_uCmax(): [1, 1];
     adapt_dt(uCmax, Math.abs(Ndt));
   /* -> fluid-Ver.1.11.0 */
-    var u0 = self.entry.def.newClone(u);
-    var v0 = self.entry.def.newClone(v);
+    /* fluid-Ver.1.28.0 -> */
     c.length = 0;
     for(var nu=0; nu<len0; ++nu){
       var i = i_unknowns[nu];
       var j = j_unknowns[nu];
-      int_uv(i, j, calc_duv(i, j));
+      calc_duv(i, j);
     }
+    for(var nu=0; nu<len0; ++nu){
+      var i = i_unknowns[nu];
+      var j = j_unknowns[nu];
+      int_uv(i, j);
+    }
+    /* -> fluid-Ver.1.28.0 */
     b.length = aA.length = mA.length = nA.length = 0;
     for(var nu=0; nu<len0; ++nu){
       var i = i_unknowns[nu];
