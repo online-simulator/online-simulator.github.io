@@ -104,6 +104,7 @@ My_entry.pen.prototype.init_config = function(opt_isFinal){
 /* fluid-Ver.1.24.0 -> */
 My_entry.pen.prototype.update_arr2d_vec = function(){
   var self = this;
+  var options = self.options;  // fluid-Ver.1.30.0
   var uvp = self.uvp;
   if(uvp){
     var t = uvp.t;
@@ -122,6 +123,15 @@ My_entry.pen.prototype.update_arr2d_vec = function(){
     /* -> fluid-Ver.1.23.0 */
       uvp[prop].push([uvp["_"+sw_plot]]);
     });
+    /* fluid-Ver.1.30.0 -> */
+    ["uij", "vij", "pij"].forEach(function(sw_plot){
+      var prop = "_arr_"+sw_plot;
+      uvp[prop] = uvp[prop] || [];
+      var i_plot = self.entry.def.limit(options.i_plot, 0, uvp.Ni-1, uvp.Ni-1);
+      var j_plot = self.entry.def.limit(options.j_plot, 0, uvp.Nj-1, uvp.Nj-1);
+      uvp[prop].push([uvp[sw_plot.charAt(0)][i_plot][j_plot]]);
+    });
+    /* -> fluid-Ver.1.30.0 */
   }
   return self;
 };
@@ -135,7 +145,7 @@ My_entry.pen.prototype.make_csv1 = function(){
   var _csv = "";
   var uvp = self.uvp;
   if(uvp){
-    var props = ["t", "c", "q", "umin", "umax", "vmin", "vmax", "pmin", "pmax"];
+    var props = ["t", "c", "q", "umin", "umax", "vmin", "vmax", "pmin", "pmax", "uij", "vij", "pij"];  // fluid-Ver.1.30.0
     props.forEach(function(sw_plot){
       _csv += sw_plot;
       _csv += ca;
