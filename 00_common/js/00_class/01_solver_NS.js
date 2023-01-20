@@ -52,12 +52,16 @@ My_entry.solver_NS.prototype.FS2d = function(options, uvp){
   var Ly = uvp.Ly;  // fluid-Ver.1.19.0
   var dx2 = dx*2;
   var dy2 = dy*2;
+  var dx4 = dx*4;  // fluid-Ver.1.31.0
+  var dy4 = dy*4;  // fluid-Ver.1.31.0
   var dx12 = dx*12;
   var dy12 = dy*12;
   var dxp2 = dx*dx;
   var dyp2 = dy*dy;
   var rdx2 = 1/dx2;
   var rdy2 = 1/dy2;
+  var rdx4 = 1/dx4;  // fluid-Ver.1.31.0
+  var rdy4 = 1/dy4;  // fluid-Ver.1.31.0
   var rdx12 = 1/dx12;
   var rdy12 = 1/dy12;
   var rdxp2 = 1/dxp2;
@@ -112,130 +116,10 @@ My_entry.solver_NS.prototype.FS2d = function(options, uvp){
   var avjm = 0;
   var avij = 0;
   var avjp = 0;
-  var calc_duv = (options.order_upstream === 1)?
-    function(i, j){
-      var uij = u0[i][j];
-      var vij = v0[i][j];
-    /* fluid-Ver.1.7.0 -> */
-    if(options.type_bound === 0){
-      if(i === 0){
-        uim = uij;
-        vim = vij;
-      }
-      else{
-        uim = u0[i-1][j];
-        vim = v0[i-1][j];
-      }
-      if(i === Ni-1){
-        uip = uij;
-        vip = vij;
-      }
-      else{
-        uip = u0[i+1][j];
-        vip = v0[i+1][j];
-      }
-      if(j === 0){
-        ujm = uij;
-        vjm = vij;
-      }
-      else{
-        ujm = u0[i][j-1];
-        vjm = v0[i][j-1];
-      }
-      if(j === Nj-1){
-        ujp = uij;
-        vjp = vij;
-      }
-      else{
-        ujp = u0[i][j+1];
-        vjp = v0[i][j+1];
-      }
-    }
-    else{
-      if(i === 0){
-        uim = uij;
-        vim = vij;
-      }
-      else if(id[i-1][j] === 0){
-        uim = u0[i-1][j]*2-uij;
-        vim = v0[i-1][j]*2-vij;
-      }
-      else{
-        uim = u0[i-1][j];
-        vim = v0[i-1][j];
-      }
-      if(i === Ni-1){
-        uip = uij;
-        vip = vij;
-      }
-      else if(id[i+1][j] === 0){
-        uip = u0[i+1][j]*2-uij;
-        vip = v0[i+1][j]*2-vij;
-      }
-      else{
-        uip = u0[i+1][j];
-        vip = v0[i+1][j];
-      }
-      if(j === 0){
-        ujm = uij;
-        vjm = vij;
-      }
-      else if(id[i][j-1] === 0){
-        ujm = u0[i][j-1]*2-uij;
-        vjm = v0[i][j-1]*2-vij;
-      }
-      else{
-        ujm = u0[i][j-1];
-        vjm = v0[i][j-1];
-      }
-      if(j === Nj-1){
-        ujp = uij;
-        vjp = vij;
-      }
-      else if(id[i][j+1] === 0){
-        ujp = u0[i][j+1]*2-uij;
-        vjp = v0[i][j+1]*2-vij;
-      }
-      else{
-        ujp = u0[i][j+1];
-        vjp = v0[i][j+1];
-      }
-    }
-    /* -> fluid-Ver.1.7.0 */
-      var auij = Math.abs(uij);
-      var avij = Math.abs(vij);
-      /* fluid-Ver.1.17.0 -> */
-      auij *= alpha_upstream;
-      avij *= alpha_upstream;
-      /* -> fluid-Ver.1.17.0 */
-      var dudx = (-uim+uip)*rdx2;
-      var dvdy = (-vjm+vjp)*rdy2;
-      var cont = dudx+dvdy;
-      var convx = uij*dudx+vij*(-ujm+ujp)*rdy2;  // Order2
-      var convy = uij*(-vim+vip)*rdx2+vij*dvdy;  // Order2
-      convx -= auij*(uim-2*uij+uip)*rdx2+avij*(ujm-2*uij+ujp)*rdy2;  // Order1
-      convy -= auij*(vim-2*vij+vip)*rdx2+avij*(vjm-2*vij+vjp)*rdy2;  // Order1
-      var diffx = (uim-2*uij+uip)*rdxp2+(ujm-2*uij+ujp)*rdyp2;  // Order2
-      var diffy = (vim-2*vij+vip)*rdxp2+(vjm-2*vij+vjp)*rdyp2;  // Order2
-      /* fluid-Ver.1.28.0 -> */
-      diffx /= Re;
-      diffy /= Re;
-      var dudt = -convx+diffx;
-      var dvdt = -convy+diffy;
-      /* -> fluid-Ver.1.28.0 */
-      /* fluid-Ver.1.27.0 -> */
-      dudt += sx;
-      dvdt += sy;
-      /* -> fluid-Ver.1.27.0 */
-      /* fluid-Ver.1.28.0 -> */
-      ud[i][j] = dudt;
-      vd[i][j] = dvdt;
-      /* -> fluid-Ver.1.28.0 */
-      c.push(Math.abs(cont));
-    }:
-    function(i, j){
-      var uij = u0[i][j];
-      var vij = v0[i][j];
+  /* fluid-Ver.1.31.0 -> */
+  var calc_duv = function(i, j){
+    var uij = u0[i][j];
+    var vij = v0[i][j];
     /* fluid-Ver.1.7.0 -> */
     if(options.type_bound === 0){
       if(i === 0){
@@ -378,37 +262,60 @@ My_entry.solver_NS.prototype.FS2d = function(options, uvp){
       }
     }
     /* -> fluid-Ver.1.7.0 */
-      var auij = Math.abs(uij);
-      var avij = Math.abs(vij);
-      /* fluid-Ver.1.17.0 -> */
-      auij *= alpha_upstream;
-      avij *= alpha_upstream;
-      /* -> fluid-Ver.1.17.0 */
-      var dudx = (-uim+uip)*rdx2;
-      var dvdy = (-vjm+vjp)*rdy2;
-      var cont = dudx+dvdy;
-      var convx = uij*(uimm-8*(uim-uip)-uipp)*rdx12+vij*(ujmm-8*(ujm-ujp)-ujpp)*rdy12;  // Order4
-      var convy = uij*(vimm-8*(vim-vip)-vipp)*rdx12+vij*(vjmm-8*(vjm-vjp)-vjpp)*rdy12;  // Order4
+    var auij = Math.abs(uij);
+    var avij = Math.abs(vij);
+    /* fluid-Ver.1.17.0 -> */
+    auij *= alpha_upstream;
+    avij *= alpha_upstream;
+    /* -> fluid-Ver.1.17.0 */
+    var dudx = (-uim+uip)*rdx2;
+    var dvdy = (-vjm+vjp)*rdy2;
+    var cont = dudx+dvdy;
+    var convx = 0;
+    var convy = 0;
+    var diffx = 0;
+    var diffy = 0;
+    if(options.order_upstream === 3){  // first
+      convx = uij*(uimm-8*(uim-uip)-uipp)*rdx12+vij*(ujmm-8*(ujm-ujp)-ujpp)*rdy12;  // Order4
+      convy = uij*(vimm-8*(vim-vip)-vipp)*rdx12+vij*(vjmm-8*(vjm-vjp)-vjpp)*rdy12;  // Order4
       convx += auij*(uimm-4*(uim+uip)+6*uij+uipp)*rdx12+avij*(ujmm-4*(ujm+ujp)+6*uij+ujpp)*rdy12;  // Order3
       convy += auij*(vimm-4*(vim+vip)+6*vij+vipp)*rdx12+avij*(vjmm-4*(vjm+vjp)+6*vij+vjpp)*rdy12;  // Order3
-      var diffx = (-(uimm+uipp)+16*(uim+uip)-30*uij)*r12dxp2+(-(ujmm+ujpp)+16*(ujm+ujp)-30*uij)*r12dyp2;  // Order4
-      var diffy = (-(vimm+vipp)+16*(vim+vip)-30*vij)*r12dxp2+(-(vjmm+vjpp)+16*(vjm+vjp)-30*vij)*r12dyp2;  // Order4
-      /* fluid-Ver.1.28.0 -> */
-      diffx /= Re;
-      diffy /= Re;
-      var dudt = -convx+diffx;
-      var dvdt = -convy+diffy;
-      /* -> fluid-Ver.1.28.0 */
-      /* fluid-Ver.1.27.0 -> */
-      dudt += sx;
-      dvdt += sy;
-      /* -> fluid-Ver.1.27.0 */
-      /* fluid-Ver.1.28.0 -> */
-      ud[i][j] = dudt;
-      vd[i][j] = dvdt;
-      /* -> fluid-Ver.1.28.0 */
-      c.push(Math.abs(cont));
-    };
+      diffx = (-(uimm+uipp)+16*(uim+uip)-30*uij)*r12dxp2+(-(ujmm+ujpp)+16*(ujm+ujp)-30*uij)*r12dyp2;  // Order4
+      diffy = (-(vimm+vipp)+16*(vim+vip)-30*vij)*r12dxp2+(-(vjmm+vjpp)+16*(vjm+vjp)-30*vij)*r12dyp2;  // Order4
+    }
+    else if(options.order_upstream === 2){  // fluid-Ver.1.31.0
+      convx = uij*(uimm-4*(uim-uip)-uipp)*rdx4+vij*(ujmm-4*(ujm-ujp)-ujpp)*rdy4;  // Order2
+      convy = uij*(vimm-4*(vim-vip)-vipp)*rdx4+vij*(vjmm-4*(vjm-vjp)-vjpp)*rdy4;  // Order2
+      convx += auij*(uimm-4*(uim+uip)+6*uij+uipp)*rdx4+avij*(ujmm-4*(ujm+ujp)+6*uij+ujpp)*rdy4;  // Order3
+      convy += auij*(vimm-4*(vim+vip)+6*vij+vipp)*rdx4+avij*(vjmm-4*(vjm+vjp)+6*vij+vjpp)*rdy4;  // Order3
+      diffx = (uim-2*uij+uip)*rdxp2+(ujm-2*uij+ujp)*rdyp2;  // Order2
+      diffy = (vim-2*vij+vip)*rdxp2+(vjm-2*vij+vjp)*rdyp2;  // Order2
+    }
+    else if(options.order_upstream === 1){
+      convx = uij*dudx+vij*(-ujm+ujp)*rdy2;  // Order2
+      convy = uij*(-vim+vip)*rdx2+vij*dvdy;  // Order2
+      convx -= auij*(uim-2*uij+uip)*rdx2+avij*(ujm-2*uij+ujp)*rdy2;  // Order1
+      convy -= auij*(vim-2*vij+vip)*rdx2+avij*(vjm-2*vij+vjp)*rdy2;  // Order1
+      diffx = (uim-2*uij+uip)*rdxp2+(ujm-2*uij+ujp)*rdyp2;  // Order2
+      diffy = (vim-2*vij+vip)*rdxp2+(vjm-2*vij+vjp)*rdyp2;  // Order2
+    }
+    /* fluid-Ver.1.28.0 -> */
+    diffx /= Re;
+    diffy /= Re;
+    var dudt = -convx+diffx;
+    var dvdt = -convy+diffy;
+    /* -> fluid-Ver.1.28.0 */
+    /* fluid-Ver.1.27.0 -> */
+    dudt += sx;
+    dvdt += sy;
+    /* -> fluid-Ver.1.27.0 */
+    /* fluid-Ver.1.28.0 -> */
+    ud[i][j] = dudt;
+    vd[i][j] = dvdt;
+    /* -> fluid-Ver.1.28.0 */
+    c.push(Math.abs(cont));
+  };
+  /* -> fluid-Ver.1.31.0 */
   /* fluid-Ver.1.28.0 */
   var int_uv = function(i, j){
     var dudt0 = ud0[i][j];
