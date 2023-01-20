@@ -324,7 +324,20 @@ q=0（|q|&gt;1e-1で解が発散傾向）
           <td class="border">
 1要素でp=0の不変を仮定できる十分な領域を取ることが望ましい
 <br>
-Re依存で領域不足の場合、保存量が拡大し、dt依存で解が発散する
+・Re依存で領域不足の場合、保存量が拡大し、dt依存で解が発散
+          </td>
+        </tr>
+        <tr class="border">
+          <td class="border">
+境界条件の仮想点
+          </td>
+          <td class="border">
+境界条件で仮定する境界外の補間点
+          </td>
+          <td class="border">
+便宜上、仮想点を使用
+<br>
+・1分割の0~1次元計算が可能
           </td>
         </tr>
         <tr class="border">
@@ -439,7 +452,7 @@ scheme=Order1||Order3
           <td class="border">
 有限体積法の場合、2次精度（<span class="clear">4次精度は未実装</span>）
 <br>
-・本来、中間速度の境界条件は不要
+・本来、中間速度の仮想点は不要
 <br>
 ・有限差分法との整合性から境界条件1が望ましい
           </td>
@@ -799,6 +812,14 @@ test case
 <span class="condition">2: 斜めの一様流</span>
 <br>
 3: 左右のKarman渦列（領域不足、Ly=3相当のRe）
+<br>
+・Ly=3
+<br>
+・後流の速度をplot
+<br>
+・plot-data=u||v[i][j]
+<br>
+・plot-(i,j)=(4,4)
 <br>
 ・Re&gt;20でSt≒0.2
 <br>
