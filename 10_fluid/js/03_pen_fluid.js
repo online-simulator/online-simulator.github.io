@@ -598,7 +598,18 @@ My_entry.pen.prototype.init_handlers = function(){
             var hasError = false;
             var nmax = options.nmax || 1000;
             try{
-              solver.FS2d({Re: options.Re, sx: options.sx, sy: options.sy, Ndt: options.Ndt, Nnt: options.Nnt, order_upstream: options.order_upstream, alpha_upstream: options.alpha_upstream, type_bound: options.type_bound}, uvp);  // fluid-Ver.1.7.0  // fluid-Ver.1.11.0  // fluid-Ver.1.12.0  // fluid-Ver.1.17.0  // fluid-Ver.1.27.0
+              solver.FS2d({
+                Re: options.Re,
+                sx: options.sx,  // fluid-Ver.1.27.0
+                sy: options.sy,  // fluid-Ver.1.27.0
+                Ndt: options.Ndt,  // fluid-Ver.1.11.0
+                Nnt: options.Nnt,  // fluid-Ver.1.12.0
+                order_conv: options.order_conv,  // fluid-Ver.1.32.0
+                alpha_upstream: options.alpha_upstream,  // fluid-Ver.1.17.0
+                order_diff: options.order_diff,  // fluid-Ver.1.32.0
+                order_time: options.order_time,  // fluid-Ver.1.32.0
+                type_bound: options.type_bound  // fluid-Ver.1.7.0
+              }, uvp);
             }
             catch(e){
               hasError = "No solution";  // fluid-Ver.1.3.0

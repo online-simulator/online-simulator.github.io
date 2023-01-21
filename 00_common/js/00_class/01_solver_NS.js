@@ -32,6 +32,8 @@ My_entry.solver_NS.prototype.FS2d = function(options, uvp){
   var v0 = v;
   var ud0 = self.entry.def.newClone(ud);
   var vd0 = self.entry.def.newClone(vd);
+  var ud1 = self.entry.def.newClone(ud);  // fluid-Ver.1.32.0
+  var vd1 = self.entry.def.newClone(vd);  // fluid-Ver.1.32.0
   /* -> fluid-Ver.1.28.0 */
   var p = uvp.p;
   var p0 = uvp.p0;
@@ -275,30 +277,34 @@ My_entry.solver_NS.prototype.FS2d = function(options, uvp){
     var convy = 0;
     var diffx = 0;
     var diffy = 0;
-    if(options.order_upstream === 3){  // first
+    /* fluid-Ver.1.32.0 -> */
+    if(options.order_conv === 3){  // first
       convx = uij*(uimm-8*(uim-uip)-uipp)*rdx12+vij*(ujmm-8*(ujm-ujp)-ujpp)*rdy12;  // Order4
       convy = uij*(vimm-8*(vim-vip)-vipp)*rdx12+vij*(vjmm-8*(vjm-vjp)-vjpp)*rdy12;  // Order4
       convx += auij*(uimm-4*(uim+uip)+6*uij+uipp)*rdx12+avij*(ujmm-4*(ujm+ujp)+6*uij+ujpp)*rdy12;  // Order3
       convy += auij*(vimm-4*(vim+vip)+6*vij+vipp)*rdx12+avij*(vjmm-4*(vjm+vjp)+6*vij+vjpp)*rdy12;  // Order3
-      diffx = (-(uimm+uipp)+16*(uim+uip)-30*uij)*r12dxp2+(-(ujmm+ujpp)+16*(ujm+ujp)-30*uij)*r12dyp2;  // Order4
-      diffy = (-(vimm+vipp)+16*(vim+vip)-30*vij)*r12dxp2+(-(vjmm+vjpp)+16*(vjm+vjp)-30*vij)*r12dyp2;  // Order4
     }
-    else if(options.order_upstream === 2){  // fluid-Ver.1.31.0
+    else if(options.order_conv === 2){  // fluid-Ver.1.31.0
       convx = uij*(uimm-4*(uim-uip)-uipp)*rdx4+vij*(ujmm-4*(ujm-ujp)-ujpp)*rdy4;  // Order2
       convy = uij*(vimm-4*(vim-vip)-vipp)*rdx4+vij*(vjmm-4*(vjm-vjp)-vjpp)*rdy4;  // Order2
       convx += auij*(uimm-4*(uim+uip)+6*uij+uipp)*rdx4+avij*(ujmm-4*(ujm+ujp)+6*uij+ujpp)*rdy4;  // Order3
       convy += auij*(vimm-4*(vim+vip)+6*vij+vipp)*rdx4+avij*(vjmm-4*(vjm+vjp)+6*vij+vjpp)*rdy4;  // Order3
-      diffx = (uim-2*uij+uip)*rdxp2+(ujm-2*uij+ujp)*rdyp2;  // Order2
-      diffy = (vim-2*vij+vip)*rdxp2+(vjm-2*vij+vjp)*rdyp2;  // Order2
     }
-    else if(options.order_upstream === 1){
+    else if(options.order_conv === 1){
       convx = uij*dudx+vij*(-ujm+ujp)*rdy2;  // Order2
       convy = uij*(-vim+vip)*rdx2+vij*dvdy;  // Order2
       convx -= auij*(uim-2*uij+uip)*rdx2+avij*(ujm-2*uij+ujp)*rdy2;  // Order1
       convy -= auij*(vim-2*vij+vip)*rdx2+avij*(vjm-2*vij+vjp)*rdy2;  // Order1
-      diffx = (uim-2*uij+uip)*rdxp2+(ujm-2*uij+ujp)*rdyp2;  // Order2
-      diffy = (vim-2*vij+vip)*rdxp2+(vjm-2*vij+vjp)*rdyp2;  // Order2
     }
+    if(options.order_diff === 4){  // first
+      diffx = (-(uimm+uipp)+16*(uim+uip)-30*uij)*r12dxp2+(-(ujmm+ujpp)+16*(ujm+ujp)-30*uij)*r12dyp2;
+      diffy = (-(vimm+vipp)+16*(vim+vip)-30*vij)*r12dxp2+(-(vjmm+vjpp)+16*(vjm+vjp)-30*vij)*r12dyp2;
+    }
+    else if(options.order_diff === 2){
+      diffx = (uim-2*uij+uip)*rdxp2+(ujm-2*uij+ujp)*rdyp2;
+      diffy = (vim-2*vij+vip)*rdxp2+(vjm-2*vij+vjp)*rdyp2;
+    }
+    /* -> fluid-Ver.1.32.0 */
     /* fluid-Ver.1.28.0 -> */
     diffx /= Re;
     diffy /= Re;
@@ -316,16 +322,31 @@ My_entry.solver_NS.prototype.FS2d = function(options, uvp){
     c.push(Math.abs(cont));
   };
   /* -> fluid-Ver.1.31.0 */
+  /* fluid-Ver.1.32.0 */
   /* fluid-Ver.1.28.0 */
   var int_uv = function(i, j){
-    var dudt0 = ud0[i][j];
-    var dvdt0 = vd0[i][j];
-    var dudt1 = ud[i][j];
-    var dvdt1 = vd[i][j];
-    ud0[i][j] = dudt1;
-    vd0[i][j] = dvdt1;
-    u[i][j] += (3*dudt1-dudt0)*dth;  // Order2
-    v[i][j] += (3*dvdt1-dvdt0)*dth;  // Order2
+    var dudt0 = ud[i][j];
+    var dvdt0 = vd[i][j];
+    var dudt1 = ud0[i][j];
+    var dvdt1 = vd0[i][j];
+    var dudt2 = ud1[i][j];
+    var dvdt2 = vd1[i][j];
+    ud0[i][j] = dudt0;
+    vd0[i][j] = dvdt0;
+    ud1[i][j] = dudt1;
+    vd1[i][j] = dvdt1;
+    if(options.order_time === 3){
+      u[i][j] += (23*dudt0-16*dudt1+5*dudt2)*dt/12;
+      v[i][j] += (23*dvdt0-16*dvdt1+5*dvdt2)*dt/12;
+    }
+    else if(options.order_time === 2){
+      u[i][j] += (3*dudt0-dudt1)*dth;
+      v[i][j] += (3*dvdt0-dvdt1)*dth;
+    }
+    else if(options.order_time === 1){
+      u[i][j] += dudt0*dt;
+      v[i][j] += dvdt0*dt;
+    }
   };
   var fix_p0 = (hasP0)?
     function(i, j){

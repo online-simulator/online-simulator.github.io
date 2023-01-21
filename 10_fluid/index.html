@@ -314,6 +314,12 @@ pre/post processing for png
   <label>Re:
 <input id="input-Re" type="number" class="input-100" step="50" value="500">
   </label>
+  <label>sx:
+<input id="input-sx" type="number" class="input-50" step="0.1" value="0">
+  </label>
+  <label>sy:
+<input id="input-sy" type="number" class="input-50" step="0.1" value="0">
+  </label>
   <label>Ndt:
 <input id="input-Ndt" type="number" class="input-50" step="0.5" value="-5">
   </label>
@@ -332,21 +338,28 @@ pre/post processing for png
   <button id="start" class="input-50 run">start</button>
   <button id="stop" class="input-50 clear">stop</button>
 <hr>
-  <label>sx:
-<input id="input-sx" type="number" class="input-50" step="0.1" value="0">
-  </label>
-  <label>sy:
-<input id="input-sy" type="number" class="input-50" step="0.1" value="0">
-  </label>
   <label>scheme:
-<select id="select-order_upstream">
-  <option value="3">Order3</option>
-  <option value="2">Order2</option>
-  <option value="1">Order1</option>
+<select id="select-order_conv">
+  <option value="3">o3</option>
+  <option value="2">o2</option>
+  <option value="1">o1</option>
 </select>
   </label>
   <label>-a:
 <input id="input-alpha_upstream" type="number" class="input-50" step="0.5" value="1">
+  </label>
+  <label>diffusion:
+<select id="select-order_diff">
+  <option value="4">o4</option>
+  <option value="2">o2</option>
+</select>
+  </label>
+  <label>time:
+<select id="select-order_time">
+  <option value="3">o3</option>
+  <option value="2" selected="selected">o2</option>
+  <option value="1">o1</option>
+</select>
   </label>
   <label>bound:
 <select id="select-type_bound">
