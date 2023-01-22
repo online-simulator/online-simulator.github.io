@@ -423,6 +423,9 @@ dp/dn=0
 ・1次精度の場合、2階偏微分の誤差からReを過小評価（解像度が必要）
 <br>
 <span class="run">・数値粘性の適用率を調整可</span>
+<br>
+<br>
+scheme=o1<span class="selection">||o2</span>||o3
           </td>
         </tr>
         <tr class="border">
@@ -471,7 +474,7 @@ time=<span class="jF">o1</span>||o2<span class="jF">||o3</span>
           </td>
         </tr>
         <tr class="border">
-          <td class="border">
+          <td class="border" rowspan="2">
 最適化
 <br>
 <span class="run">Ver.1.4.0追加</span>
@@ -513,6 +516,16 @@ solver
 ・COO形式<span class="run">⇒LIL形式</span>
 <br>
 <span class="condition">・不要な複製処理を削除して速度の配列を共通化（順次更新）</span>
+          </td>
+        </tr>
+        <tr class="border">
+          <td class="border">
+演算costの低減
+          </td>
+          <td class="border">
+<span class="jF">時間積分用の配列
+<br>
+・time選択値から追加で複製</span>
           </td>
         </tr>
         <tr class="border">
@@ -1283,7 +1296,7 @@ time=o3||o2||o1
 <span class="jF">Ver.1.32.0追加</span>
           </td>
           <td class="border">
-時間微分項の差分精度次数の選択
+時間積分の精度次数の選択
           </td>
           <td class="border">
           </td>

@@ -30,10 +30,20 @@ My_entry.solver_NS.prototype.FS2d = function(options, uvp){
   /* fluid-Ver.1.28.0 -> */
   var u0 = u;
   var v0 = v;
-  var ud0 = self.entry.def.newClone(ud);
-  var vd0 = self.entry.def.newClone(vd);
-  var ud1 = self.entry.def.newClone(ud);  // fluid-Ver.1.32.0
-  var vd1 = self.entry.def.newClone(vd);  // fluid-Ver.1.32.0
+  /* fluid-Ver.1.32.0 -> */
+  var ud0 = ud;
+  var vd0 = vd;
+  var ud1 = ud;
+  var vd1 = vd;
+  if(options.order_time > 1){
+    ud0 = self.entry.def.newClone(ud);
+    vd0 = self.entry.def.newClone(vd);
+  }
+  if(options.order_time > 2){
+    ud1 = self.entry.def.newClone(ud);
+    vd1 = self.entry.def.newClone(vd);
+  }
+  /* -> fluid-Ver.1.32.0 */
   /* -> fluid-Ver.1.28.0 */
   var p = uvp.p;
   var p0 = uvp.p0;
