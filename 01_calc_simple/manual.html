@@ -11299,6 +11299,36 @@ before: x=1,y=&lt;(1/0)||2,x||y=&gt; -> [MyErr]FN isNaN
 <span id="span-out-development-problems-CBR"></span>
 未実装の参照渡しについて留意事項を列挙する
 <br>
+・<span class="run">Ver.2.19.6</span>以降、<a href="#span-out-FN">関数</a>の参照渡し不可
+<br>
+clear; tr=trans -> [MyErr]Invalid FNm(transpose)
+<br>
+clear; tr=&lt;trans; tr(1,2:3,4) || (tr=&gt;)(1,2:3,4) -> [MyErr]Invalid FN operation
+<br>
+・<span class="run">Ver.2.19.6</span>以降、<a href="#span-out-FNh">高階関数</a>の参照渡し不可
+<br>
+clear; dx=_dx -> [MyErr]Invalid FNh([object Object])
+<br>
+clear; dx=&lt;_dx; dx(=&lt;{x^2},1,2) -> [MyErr]Invalid FN operation
+<br>
+・<a href="#span-out-eqns">式変数</a>の参照渡し不可
+<br>
+clear; a=&lt;b+c+d; s=a -> [MyErr]Invalid binary operation
+<br>
+clear; a(b,c,d)=&lt;b+c+d; s=a -> [MyErr]Invalid null=&gt;
+<br>
+clear; a(b,c,d)=&lt;b+c+d; s=&lt;a; s -> [MyErr]Invalid null=&gt;
+<br>
+clear; a(b,c,d)=&lt;b+c+d; s=&lt;a(1,2,3); s -> 6
+<br>
+clear; a(b,c,d)=&lt;b+c+d; s(b,c,d)=&lt;a(b,c,d); s -> [MyErr]Invalid null=&gt;
+<br>
+clear; a(b,c,d)=&lt;b+c+d; s(b,c,d)=&lt;a(b,c,d); s(1,2,3) -> 6
+<br>
+clear; a(b,c,d)=&lt;b+c+d; s(b,c,d)=&lt;a(-b,-c,-d); s(1,2,3) -> -6
+<br>
+clear; a(b,c,d)=&lt;b+c+d; s(f,g,h)=&lt;a(-f,-g,-h); s(1,2,3) -> -6
+<br>
 ・<a href="#span-out-eqns-args">定義元arguments</a>の<a href="#span-out-vars-symbol">変数名symbol</a>は独立する
 <br>
 clear; a(B)=&lt;{B[0]=B[1],=&lt;B}=&gt;; B=(1,2:3,4); (B,a(=&lt;B)=&gt;,B) ->
