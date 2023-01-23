@@ -11299,21 +11299,27 @@ before: x=1,y=&lt;(1/0)||2,x||y=&gt; -> [MyErr]FN isNaN
 <span id="span-out-development-problems-CBR"></span>
 未実装の参照渡しについて留意事項を列挙する
 <br>
-・<span class="run">Ver.2.19.6</span>以降、<a href="#span-out-FN">関数</a>の参照渡し不可
+・<span class="run">Ver.2.19.6</span>以降、<a href="#span-out-FN">関数</a>のre-name不可
 <br>
 clear; tr=trans -> [MyErr]Invalid FNm(transpose)
 <br>
 clear; tr=&lt;trans; tr(1,2:3,4) || (tr=&gt;)(1,2:3,4) -> [MyErr]Invalid FN operation
 <br>
-・<span class="run">Ver.2.19.6</span>以降、<a href="#span-out-FNh">高階関数</a>の参照渡し不可
+・<span class="run">Ver.2.19.6</span>以降、<a href="#span-out-FNh">高階関数</a>のre-name不可
 <br>
 clear; dx=_dx -> [MyErr]Invalid FNh([object Object])
 <br>
 clear; dx=&lt;_dx; dx(=&lt;{x^2},1,2) -> [MyErr]Invalid FN operation
 <br>
-・<a href="#span-out-eqns">式変数</a>の参照渡し不可
+・<a href="#span-out-eqns">式変数</a>の参照共有不可
 <br>
 clear; a=&lt;b+c+d; s=a -> [MyErr]Invalid binary operation
+<br>
+clear; a=&lt;b+c+d; s=&lt;a; s -> [MyErr]Invalid binary operation
+<br>
+clear; a=&lt;1; a=-1; s=&lt;a; s -> -1
+<br>
+clear; a=&lt;1; a=-1; s=&lt;a=&gt;; s -> 1
 <br>
 clear; a(b,c,d)=&lt;b+c+d; s=a -> [MyErr]Invalid null=&gt;
 <br>
@@ -11351,13 +11357,13 @@ clear; a(B)=&lt;[B[0]=B[1],=&lt;B]=&gt;; B=(1,2:3,4); (B,a(=&lt;B)=&gt;,B) ->
 <br>
 )
 <br>
-・値渡し（参考）
+・値渡し
 <br>
 clear; a(b)=&lt;last(b=-1,b); (b=1,a(b)=&gt;,b) -> (0,-1,1)
 <br>
 clear; a(b)=&lt;last[b=-1,b]; (b=1,a(b)=&gt;,b) -> (0,-1,1)
 <br>
-・<a href="#span-out-call-by-equation">式渡し</a>（参考）
+・<a href="#span-out-call-by-equation">式渡し</a>（参照渡しの代替）
 <br>
 clear; a(=&lt;b_)=&lt;last(b=-1,b_=&gt;); (b=1,a(=&lt;b)=&gt;,b) -> [MyErr]Undef eqn(b)
 <br>
@@ -17767,10 +17773,10 @@ clear; a=&lt;a=&gt;; a=&gt; -> [MyErr]Invalid circular(a)
 clear; a=&lt;{a=&gt;}; a=&gt; -> [MyErr]Invalid circular(a)
 <br>
 <br>
-<span class="run">Ver.2.19.6</span>以降、<a href="#span-out-FN">関数</a>の参照渡しの仕様を廃止（無駄仕様と判断）
+<span class="run">Ver.2.19.6</span>以降、<a href="#span-out-FN">関数</a>のre-nameの仕様を廃止（無駄仕様と判断）
 <br>
 <del>
-式変数名=&lt;関数名として<a href="#span-out-FN">関数</a>名を任意に変更可（参照渡しを模擬）
+式変数名=&lt;関数名として<a href="#span-out-FN">関数</a>名を任意に変更可
 <br>
 clear; tr=&lt;trans; tr(1,2:3,4) || (tr=&gt;)(1,2:3,4) -> (1,3:2,4)
 <br>
