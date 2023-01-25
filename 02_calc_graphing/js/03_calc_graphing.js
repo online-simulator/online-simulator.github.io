@@ -746,10 +746,10 @@ My_entry.calc_graphing.prototype.init_handlers = function(){
     self.handler_link_svg = new self.constructors.handler_link(json);
     self.handler_link_svg.setter.callback(function(){return self.re_plot("SVG");});
     /* -> Ver.2.17.6 */
-    var json = {p: {id: "wrapper-link-csv"}, a: {id: "a-csv", it: "-csv by dbl-click"}, name: "download", ext: "csv"};
+    var json = {p: {id: "wrapper-link-csv"}, a: {id: "a-csv", it: "-csv@double-click"}, name: "download", ext: "csv"};  // Ver.2.138.35
     self.handler_link_csv = new self.constructors.handler_link(json);
     self.handler_link_csv.setter.callback(function(){return self.arr_data2csv(self.worker_plot.get_arr_data(), self.get_options(true));});  // Ver.2.43.20  // Ver.2.43.21
-    var json = {p: {id: "wrapper-link"}, a: {id: "a", it: "download-txt by double-click"}, name: "download", ext: "txt"};
+    var json = {p: {id: "wrapper-link"}, a: {id: "a", it: "download-txt@double-click"}, name: "download", ext: "txt"};  // Ver.2.138.35
     self.handler_link = new self.constructors.handler_link(json);
     self.handler_link.setter.callback(function(){return self.logh;});
     self.handler_drag = new self.constructors.handler_drag("div-drag", "checkbox-drag", {});

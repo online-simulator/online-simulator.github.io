@@ -156,7 +156,7 @@ My_entry.calc_simple.prototype.init_handlers = function(){
   self.handlers.onload = function(e){
     var self = this;
     self.io = new self.constructors.io();
-    var json = {p: {id: "wrapper-link"}, a: {id: "a", it: "download-txt by double-click"}, name: "download", ext: "txt"};
+    var json = {p: {id: "wrapper-link"}, a: {id: "a", it: "download-txt@double-click"}, name: "download", ext: "txt"};  // Ver.2.138.35
     self.handler_link = new self.constructors.handler_link(json);
     self.handler_link.setter.callback(function(){return self.logh;});
     self.handler_drag = new self.constructors.handler_drag("div-drag", "checkbox-drag", {});
