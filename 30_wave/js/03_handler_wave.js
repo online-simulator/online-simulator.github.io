@@ -263,6 +263,12 @@ My_entry.handler_wave.prototype.make_params = function(){
   self.params.samples_perSecond = self.entry.$.selectNum_id("select-samples_perSecond");
   self.params.number_channels = self.entry.$.selectNum_id("select-number_channels");
   self.params.type = self.entry.$.selectVal_id("select-type");
+  /* Ver.1.24.4 -> */
+  var base0 = 2;
+  var expo0 = self.entry.$.inputVal_id("input-rate");
+  var rate0 = Math.pow(base0, expo0);
+  self.params.rate = self.entry.def.limit(rate0, 0, Number.MAX_VALUE, 1);
+  /* -> Ver.1.24.4 */
   /* Ver.1.20.4 -> */
   /* Ver.1.16.4 -> */
   self.params.duty0 = self.entry.$.inputVal_id("input-duty");

@@ -270,9 +270,9 @@ My_entry.output_wave.prototype.check_arr_params = function(_arr_params){
 My_entry.output_wave.prototype.get_binary_soundData_LE = function(params){
   var self = this;
   var params = self.check_params(params);
-  return self.encode_soundData_LE(params.number_samples, params.number_channels, params.arr_f, params.arr_g_normalized, params.type, params.duty0, params.duty1, params.amplitude0, params.amplitude1, params.w0, params.p0, params.w1, params.p1);
+  return self.encode_soundData_LE(params.number_samples, params.number_channels, params.arr_f, params.arr_g_normalized, params.type, params.duty0, params.duty1, params.amplitude0, params.amplitude1, params.w0, params.p0, params.w1, params.p1, params.rate);
 };
-My_entry.output_wave.prototype.encode_soundData_LE = function(number_samples, number_channels, arr_f, arr_g, type, duty0, duty1, amplitude0, amplitude1, w0, p0, w1, p1){
+My_entry.output_wave.prototype.encode_soundData_LE = function(number_samples, number_channels, arr_f, arr_g, type, duty0, duty1, amplitude0, amplitude1, w0, p0, w1, p1, rate){
   var self = this;
   var _binary = "";
   var Bytes_perSample = self.Bytes_perSample;
@@ -321,9 +321,15 @@ My_entry.output_wave.prototype.encode_soundData_LE = function(number_samples, nu
     var kamplitude = amplitude0+(amplitude1-amplitude0)*dt;
     var duty = duty0+(duty1-duty0)*dt;
     /* -> Ver.1.20.4 */
+    /* Ver.1.24.4 -> */
+    var kf0 = 1;
+    var kf1 = rate;
+    var kf = kf0+(kf1-kf0)*dt;
+    /* -> Ver.1.24.4 */
     var val = 0;
     // composite waves
     arr_f.forEach(function(f, i){
+      f *= kf;  // Ver.1.24.4
       var gain_normalized = arr_g[i];
       val += gain_normalized*func_t(f, t, phi0, duty);  // gain first  // Ver.1.16.4
     });

@@ -200,7 +200,8 @@ My_entry.handler_wave.prototype.input2arr = function(input){
       "f0",
       "g0",
       "f1",
-      "g1"
+      "g1",
+      "rate"  // Ver.1.24.4
     ];
     var params0 = {};
     /* -> Ver.1.20.4 */
@@ -262,6 +263,10 @@ My_entry.handler_wave.prototype.input2arr = function(input){
               case "f0":
               case "f1":
                 param = num;
+                break;
+              // Ver.1.24.4
+              case "rate":
+                param = self.entry.def.limit(num, 0, Number.MAX_VALUE, 1);
                 break;
               default:
                 param = self.entry.def.limit(num, 0, 1, 0);

@@ -123,6 +123,14 @@ wave-duty：
   </tr>
   <tr class="border">
     <td>
+sweep-rate：
+    </td>
+    <td>
+2^<input id="input-rate" type="number" step="0.1" min="-16" max="16" value="0">
+    </td>
+  </tr>
+  <tr class="border">
+    <td>
 time[sec]：
     </td>
     <td>
@@ -558,7 +566,7 @@ checker:
     <td>
 時系列のscript入力欄　例）左右で3beatずらした1octaveのstereo出力
   <textarea id="textarea-script" rows="10">
-{1000:[C4,C5,C6]::0:0.5:0.5:1:0:0:0:0:0;
+{1000:[C4,C5,C6]::0:0.5:0.5:1:0:0:0:0:0:::::1.05;
  b1:[D4,D5,D6]; 1b:[E4,E5,E6]; 1b1:[F4,F5,F6]; 2b2:[G4,G5,G6];
  4e-1b4e-1:[A4,A5,A6]; 8.0e+0b0.8e+1:[B4,B5,B6]; 16b16:[C5,C6,C7]; b:r;}
 {6b2:r::1:0.25:0.25:0.5:0.5:0.97:0.005:0.97:0.005:800:1:4800:0.3;
@@ -595,7 +603,9 @@ scriptの入力形式
 <br>
 　<span class="condition">:type=0~3:duty0=0~1:duty1=0~1:amplitude0=0~1:amplitude1=0~1</span>
 <br>
-　<span class="condition">:w0=0~1:p0=0~1:w1=0~1:p1=0~1:f0:g0=0~1:f1:g1=0~1;</span>
+　<span class="condition">:w0=0~1:p0=0~1:w1=0~1:p1=0~1:f0:g0=0~1:f1:g1=0~1</span>
+<br>
+　<span class="jF">:rate=0~;</span>
 <br>
 ・<span class="condition">command</span>
 <br>
@@ -728,6 +738,8 @@ scriptの入力形式
     <td>
 <span id="span-history"></span>
 機能の更新履歴
+<br>
+・<span class="run">Ver.1.24.4</span>以降、<span class="jF">sweep-rateを追加（指定時間で周波数を線形に掃引する機能）</span>
 <br>
 ・<span class="run">Ver.1.20.4</span>以降、<span class="condition">datasetを拡張</span>
 <br>
