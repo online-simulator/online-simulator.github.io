@@ -18,9 +18,9 @@ Native method used:
   new Audio()
 
 ex. of use:
-  <button onclick="new My_entry.output_wave().output_sound({sec: 1, arr_f: [523, 660, 784, 3000], arr_g: null, amplitude0: 1, amplitude1: 1, duty0: 0.5, duty1: 0.5, rate: 1});">play</button>
-  <button onclick="new My_entry.output_wave().output_sound({sec: 1, arr_f: [523, 660, 784, 3000], arr_g: [], amplitude0: 1, amplitude1: 1, duty0: 0.5, duty1: 0.5, rate: 1  });">play</button>
-  <button onclick="new My_entry.output_wave().output_sound({sec: 1, arr_f: [523, 660, 784, 3000], arr_g: [,1], amplitude0: 1, amplitude1: 1, duty0: 0.5, duty1: 0.5, rate: 1});">play</button>
+  <button onclick="new My_entry.output_wave().output_sound({sec: 1, arr_f: [523, 660, 784, 3000], arr_g: null});">play</button>
+  <button onclick="new My_entry.output_wave().output_sound({sec: 1, arr_f: [523, 660, 784, 3000], arr_g: []});">play</button>
+  <button onclick="new My_entry.output_wave().output_sound({sec: 1, arr_f: [523, 660, 784, 3000], arr_g: [,1]});">play</button>
 
 instance method:
   new My_entry.output_wave().output_sound(params, opt_volume);
@@ -187,15 +187,23 @@ My_entry.output_wave.prototype.normalize_gains = function(arr_g, gain_type, gain
   });
   return _arr_g;
 };
+/* Ver.1.25.4 -> */
+My_entry.output_wave.prototype.get_gain_loglog = function(f, f0, f1, g0, g1){
+  var self = this;
+  var _gain = 1;
+  _gain = self.entry.math_wave.getY_linear_baseE(f, f0, f1, g0, g1, true, true);
+  _gain = self.entry.math_wave.get_limit(_gain, g0, g1);
+  return _gain;
+};
 My_entry.output_wave.prototype.get_gains_loglog = function(arr_f, f0, f1, g0, g1){
   var self = this;
   var _arr_g = new Array(arr_f.length);
   arr_f.forEach(function(f, i){
-    var gain = self.entry.math_wave.getY_linear_baseE(f, f0, f1, g0, g1, true, true);
-    _arr_g[i] = self.entry.math_wave.get_limit(gain, g0, g1);
+    _arr_g[i] = self.get_gain_loglog(f, f0, f1, g0, g1);
   });
   return _arr_g;
 };
+/* -> Ver.1.25.4 */
 My_entry.output_wave.prototype.check_gains = function(params){
   var self = this;
   var arr_f = params.arr_f;
@@ -270,9 +278,9 @@ My_entry.output_wave.prototype.check_arr_params = function(_arr_params){
 My_entry.output_wave.prototype.get_binary_soundData_LE = function(params){
   var self = this;
   var params = self.check_params(params);
-  return self.encode_soundData_LE(params.number_samples, params.number_channels, params.arr_f, params.arr_g_normalized, params.type, params.duty0, params.duty1, params.amplitude0, params.amplitude1, params.w0, params.p0, params.w1, params.p1, params.rate);
+  return self.encode_soundData_LE(params);  // Ver.1.25.4
 };
-My_entry.output_wave.prototype.encode_soundData_LE = function(number_samples, number_channels, arr_f, arr_g, type, duty0, duty1, amplitude0, amplitude1, w0, p0, w1, p1, rate){
+My_entry.output_wave.prototype.encode_soundData_LE = function(params){  // Ver.1.25.4
   var self = this;
   var _binary = "";
   var Bytes_perSample = self.Bytes_perSample;
@@ -280,25 +288,26 @@ My_entry.output_wave.prototype.encode_soundData_LE = function(number_samples, nu
   var offset = self.offset;
   var seconds_perSample = 1/self.samples_perSecond;
   /* Ver.1.16.4 -> */
-  var fn = self.entry.math_wave[type || "sin"];
+  var fn = self.entry.math_wave[params.type || "sin"];  // Ver.1.25.4
   var func_t = function(){
     return fn.apply(self.entry.math_wave, arguments);
   };
   /* -> Ver.1.16.4 */
   var phi0 = 0;
+  /* Ver.1.25.4 -> */
   /* Ver.1.17.4 */
   /* Ver.1.13.3 */
   /* Ver.1.4.2 */
   // average(cut-off) high frequency input at w0 > 0
-  var w0 = w0 || 0;
-  var p0 = p0 || 0;
-  var w1 = w1 || 0;
-  var p1 = p1 || 0;
+  var w0 = params.w0 || 0;
+  var p0 = params.p0 || 0;
+  var w1 = params.w1 || 0;
+  var p1 = params.p1 || 0;
   var oldAmp = 0;
-  var dns0 = Math.floor(number_samples*p0);
-  var dns1 = Math.floor(number_samples*p1);
+  var dns0 = Math.floor(params.number_samples*p0);
+  var dns1 = Math.floor(params.number_samples*p1);
   var ns_in = dns0;
-  var ns_out = number_samples-1-dns1;
+  var ns_out = params.number_samples-1-dns1;
   var get_newAmp = (w0 > 0 || w1 > 0)?
     function(ns){
       var _newAmp = amplitude;
@@ -314,33 +323,41 @@ My_entry.output_wave.prototype.encode_soundData_LE = function(number_samples, nu
     function(ns){
       return amplitude;
     };
-  for(var ns=0; ns<number_samples; ++ns){
+  for(var ns=0; ns<params.number_samples; ++ns){
     var t = ns*seconds_perSample;
     /* Ver.1.20.4 -> */
-    var dt = ns/number_samples;
-    var kamplitude = amplitude0+(amplitude1-amplitude0)*dt;
-    var duty = duty0+(duty1-duty0)*dt;
+    var dt = ns/params.number_samples;
+    var kamplitude = params.amplitude0+(params.amplitude1-params.amplitude0)*dt;
+    var duty = params.duty0+(params.duty1-params.duty0)*dt;
     /* -> Ver.1.20.4 */
     /* Ver.1.24.4 -> */
     var kf0 = 1;
-    var kf1 = rate;
+    var kf1 = params.rate;
     var kf = kf0+(kf1-kf0)*dt;
     /* -> Ver.1.24.4 */
     var val = 0;
     // composite waves
-    arr_f.forEach(function(f, i){
-      f *= kf;  // Ver.1.24.4
-      var gain_normalized = arr_g[i];
-      val += gain_normalized*func_t(f, t, phi0, duty);  // gain first  // Ver.1.16.4
+    params.arr_f.forEach(function(f, i){
+      var f0 = f;
+      var ft = f*kf;
+      var gain_normalized = params.arr_g_normalized[i];
+      var gaint = gain_normalized;
+      var gain_f0 = self.get_gain_loglog(f0, params.f0, params.f1, params.g0, params.g1);
+      if(gain_f0){
+        var gain_ft = self.get_gain_loglog(ft, params.f0, params.f1, params.g0, params.g1);
+        gaint *= gain_ft/gain_f0;
+      }
+      val += gaint*func_t(ft, t, phi0, duty);  // gain first  // Ver.1.16.4  // Ver.1.25.4
     });
     val *= get_newAmp(ns);
     val *= kamplitude;  // Ver.1.20.4
     val += offset;
     var binary_perChannel = self.int2binary_LE(Bytes_perSample, val);
-    for(var nc=0; nc<number_channels; ++nc){
+    for(var nc=0; nc<params.number_channels; ++nc){
       _binary += binary_perChannel;
     }
   }
+  /* -> Ver.1.25.4 */
   return _binary;
 };
 My_entry.output_wave.prototype.get_binary_wave = function(params){
@@ -372,6 +389,23 @@ My_entry.output_wave.prototype.add_params = function(params){
     params.g0 = 1;
     params.g1 = 0.3;
   }
+  /* Ver.1.25.4 -> */
+  if(typeof params.amplitude0 === "undefined"){
+    params.amplitude0 = 1;
+  }
+  if(typeof params.amplitude1 === "undefined"){
+    params.amplitude1 = 1;
+  }
+  if(typeof params.duty0 === "undefined"){
+    params.duty0 = 0.5;
+  }
+  if(typeof params.duty1 === "undefined"){
+    params.duty1 = 0.5;
+  }
+  if(typeof params.rate === "undefined"){
+    params.rate = 1;
+  }
+  /* -> Ver.1.25.4 */
   return self;
 };
 My_entry.output_wave.prototype.get_number_samples = function(sec){
