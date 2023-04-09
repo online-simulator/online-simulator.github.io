@@ -631,7 +631,7 @@ scriptの入力形式
 <br>
 　N個中n番目sample_amplitude=amplitude0+(amplitude1-amplitude0)*n/N
 <br>
-・<span class="condition">w0/p0/w1/p1</span>
+・<span class="condition">w0/p0/w1/p1</span>（click noise対策のfade-in/outの特性値）
 <br>
 　w0: in-weight
 <br>
@@ -650,6 +650,26 @@ scriptの入力形式
 　((時間*1e3*tempo)%(1000*1e3/周波数))%1=0
 <br>
 　:[1000]:::0:0.5:0:1:0:0:0:0;:[1000]:::0.5:0.5:1:1;:[1000]:::0.5:1:1:0;
+<br>
+・<span class="condition">f0/g0/f1/g1</span>（出力調整用gainのfilter特性値）
+<br>
+　f0: low側の周波数
+<br>
+　g0: low側のgain
+<br>
+　f1: high側の周波数
+<br>
+　g1: high側のgain
+<br>
+・<span class="jF">rate</span>（周波数sweepの指定周波数基準rate）
+<br>
+　rate=1の場合、周波数のsweepなし（周波数を固定）
+<br>
+　rate=0.5の場合、指定時間で周波数を半減
+<br>
+　rate=2の場合、指定時間で周波数を倍増
+<br>
+　rate&gt;&gt;1の場合、sample数/sec&gt;&gt;10000（不連続なnoise回避に要分解能）
 <br>
 ・時間の入力形式
 <br>
@@ -739,11 +759,9 @@ scriptの入力形式
 <span id="span-history"></span>
 機能の更新履歴
 <br>
-・<span class="run">Ver.1.25.4</span>以降、<span class="jF">sweep-rateで周波数を掃引中にfilter gainを適用</span>
+・<span class="run">Ver.1.25.4</span>以降、<span class="jF">sweep-rateを更新（filter gain適用）</span>
 <br>
-・<span class="run">Ver.1.24.4</span>以降、<span class="jF">sweep-rateを追加</span>
-<br>
-　指定時間で周波数を線形に掃引中のfilter gain一定
+・<span class="run">Ver.1.24.4</span>以降、<span class="jF">sweep-rateを追加（filter gain固定）</span>
 <br>
 ・<span class="run">Ver.1.20.4</span>以降、<span class="condition">datasetを拡張</span>
 <br>
