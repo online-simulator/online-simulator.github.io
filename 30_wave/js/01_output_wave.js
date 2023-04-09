@@ -18,9 +18,9 @@ Native method used:
   new Audio()
 
 ex. of use:
-  <button onclick="new My_entry.output_wave().output_sound({sec: 1, arr_f: [523, 660, 784, 3000], arr_g: null});">play</button>
-  <button onclick="new My_entry.output_wave().output_sound({sec: 1, arr_f: [523, 660, 784, 3000], arr_g: []  });">play</button>
-  <button onclick="new My_entry.output_wave().output_sound({sec: 1, arr_f: [523, 660, 784, 3000], arr_g: [,1]});">play</button>
+  <button onclick="new My_entry.output_wave().output_sound({sec: 1, arr_f: [523, 660, 784, 3000], arr_g: null, amplitude0: 1, amplitude1: 1, duty0: 0.5, duty1: 0.5, rate: 1});">play</button>
+  <button onclick="new My_entry.output_wave().output_sound({sec: 1, arr_f: [523, 660, 784, 3000], arr_g: [], amplitude0: 1, amplitude1: 1, duty0: 0.5, duty1: 0.5, rate: 1  });">play</button>
+  <button onclick="new My_entry.output_wave().output_sound({sec: 1, arr_f: [523, 660, 784, 3000], arr_g: [,1], amplitude0: 1, amplitude1: 1, duty0: 0.5, duty1: 0.5, rate: 1});">play</button>
 
 instance method:
   new My_entry.output_wave().output_sound(params, opt_volume);
