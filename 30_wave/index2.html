@@ -613,7 +613,7 @@ scriptの入力形式
 <br>
 　clear: 直前datasetの拡張設定値をclear
 <br>
-・<span class="condition">type</span>
+・<span class="condition">type</span>（波形の種類）
 <br>
 　0: sin
 <br>
@@ -623,15 +623,15 @@ scriptの入力形式
 <br>
 　3: sawtooth
 <br>
-・<span class="condition">duty0/duty1</span>
+・<span class="condition">duty0/duty1</span>（波形のduty比）
 <br>
 　N個中n番目sample_duty=duty0+(duty1-duty0)*n/N
 <br>
-・<span class="condition">amplitude0/amplitude1</span>
+・<span class="condition">amplitude0/amplitude1</span>（波形の振幅）
 <br>
 　N個中n番目sample_amplitude=amplitude0+(amplitude1-amplitude0)*n/N
 <br>
-・<span class="condition">w0/p0/w1/p1</span>（click noise対策のfade-in/outの特性値）
+・<span class="condition">w0/p0/w1/p1</span>（click noise対策用fade-in/outのfilter特性値）
 <br>
 　w0: in-weight
 <br>
