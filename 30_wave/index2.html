@@ -677,17 +677,17 @@ scriptの入力形式
 <br>
 　rate=2の場合、指定時間で周波数を倍増
 <br>
-　rate&gt;&gt;1の場合、sample数/sec&gt;&gt;10000（不連続なnoise回避に要分解能）
+　傾き大rate&gt;&gt;1の場合、sample数/sec&gt;&gt;10000（不連続なnoise回避に要分解能）
 <br>
 ・<span class="jF">order</span>（周波数sweepの次数）
 <br>
 　order=1の場合、線形に変化
 <br>
-　order&lt;1の場合、加速的に変化
+　order&lt;1の場合、減速的に変化
 <br>
-　order&gt;1の場合、減速的に変化
+　order&gt;1の場合、加速的に変化
 <br>
-　|log2(order)|&gt;&gt;1の場合、変化の連続性に難あり（意図とは異なる可能性あり）
+　変化率大|log2(order)|&gt;&gt;1の場合、連続性に難あり（意図とは異なる可能性あり）
 <br>
 ・時間の入力形式
 <br>
