@@ -333,7 +333,11 @@ My_entry.output_wave.prototype.encode_soundData_LE = function(params){  // Ver.1
     /* Ver.1.24.4 -> */
     var kf0 = 1;
     var kf1 = params.rate;
-    var kf = kf0+(kf1-kf0)*dt;
+    /* Ver.1.26.4 -> */
+    var order = params.order;
+    var prop_dkf = Math.pow(dt, order);
+    var kf = kf0+(kf1-kf0)*prop_dkf;
+    /* -> Ver.1.26.4 */
     /* -> Ver.1.24.4 */
     var val = 0;
     // composite waves
@@ -406,6 +410,11 @@ My_entry.output_wave.prototype.add_params = function(params){
     params.rate = 1;
   }
   /* -> Ver.1.25.4 */
+  /* Ver.1.26.4 -> */
+  if(typeof params.order === "undefined"){
+    params.order = 1;
+  }
+  /* -> Ver.1.26.4 */
   return self;
 };
 My_entry.output_wave.prototype.get_number_samples = function(sec){
