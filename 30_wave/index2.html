@@ -39,6 +39,18 @@
   (function(){
     var $ = new My_entry.$();
     $.onload(function(e){
+      var options = $.get_urlParams();
+      var script = "";
+      if(options.testcase === 0){
+        script = "{\n:r;:C4;:D4;:E4;:F4;:G4;:A4;:B4;:C5;\n}\n{\n:r;:C4;:D4;:E4;:F4;:G4;:A4;:B4;:C5;\n}";
+      }
+      else if(options.testcase === 1){
+        script = "{\n1000:[C4,C5,C6]::0:0.5:0.5:1:0:0:0:0:0:::::2:1e-3;\nb1:[D4,D5,D6];\n1b:[E4,E5,E6];\n1b1:[F4,F5,F6];\n2b2:[G4,G5,G6];\n4e-1b4e-1:[A4,A5,A6];\n8.0e+0b0.8e+1:[B4,B5,B6];\n16b16:[C5,C6,C7];\nb:r;\n}\n{\n6b2:r::1:0.25:0.25:0.5:0.5:0.97:0.005:0.97:0.005:800:1:4800:0.3;\n:[C4,C5,C6];\n:[D4,D5,D6];\n:[E4,E5,E6];\n:[F4,F5,F6];\n:[G4,G5,G6];\n:[A4,A5,A6]:clear;\n:[B4,B5,B6];\n4b:[C5,C6,C7]:::::::::0.9999:0.15;\n:r;\n}\n{\n6b1:r::2:0.25:0.25:0.5:0.5:0.97:0.005:0.97:0.005:800:1:4800:0.3;\n:[n60,n72,n84];\n:[n62,n74,n86];\n:[n64,n76,n88];\n:[n65,n77,n89];\n:[n67,n79,n91];\n:[n69,n81,n93]:clear;\n:[n71,n83,n95];\n4b:[n72,n84,n96]:::::::::0.9999:0.15;\n:r;\n}\n{\n9b1:r::3:0.25:0.25:0.5:0.5:0.97:0.005:0.97:0.005:800:1:4800:0.3;\n:[o-1c60,f52325e-2,1.0465e+3];\n:[o4c2,o5c2,o6c2];\n:[o4c4,o5c4,o6c4];\n:[o4c5,o5c5,o6c5];\n:[o4c7,o5c7,o6c7]:clear;\n:[o4c9,o5c9,o6c9];\n:[o4c11,o5c11,o6c11];\n4b:[o5c0,o6c0,o7c0]:::::::::0.9999:0.15;\n:r;\n}";
+      }
+      else if(options.testcase === "Froschgesang"){
+        script = "{\n1b:r::0:0.5:0.5:1:0:0:0:0:0:::::2:1e-3;\n:[C4,C5,C6];:[D4,D5,D6];:[E4,E5,E6];:[F4,F5,F6];:[E4,E5,E6];:[D4,D5,D6];:[C4,C5,C6];:r;\n:[E4,E5,E6];:[F4,F5,F6];:[G4,G5,G6];:[A4,A5,A6];:[G4,G5,G6];:[F4,F5,F6];:[E4,E5,E6];:r;\n:[C4,C5,C6];:r;:[C4,C5,C6];:r;:[C4,C5,C6];:r;:[C4,C5,C6];\n:r::0:0.25:0.5;\nb2:[C4,C5,C6];b2:[C4,C5,C6];b2:[D4,D5,D6];b2:[D4,D5,D6];\nb2:[E4,E5,E6];b2:[E4,E5,E6];b2:[F4,F5,F6];b2:[F4,F5,F6];\nb2:[E4,E5,E6];b2:r;3b4:[D4,D5,D6];1b4:r;b:[C4,C5,C6];\n}\n{\n7b:r::0:0.5:0.5:1:0:0:0:0:0:::::2:1e-3;\n:[C4,C5,C6];:[D4,D5,D6];:[E4,E5,E6];:[F4,F5,F6];:[E4,E5,E6];:[D4,D5,D6];:[C4,C5,C6];:r;\n:[E4,E5,E6];:[F4,F5,F6];:[G4,G5,G6];:[A4,A5,A6];:[G4,G5,G6];:[F4,F5,F6];:[E4,E5,E6];:r;\n:[C4,C5,C6];:r;:[C4,C5,C6];:r;:[C4,C5,C6];:r;:[C4,C5,C6];\n:r::0:0.25:0.5;\nb2:[C4,C5,C6];b2:[C4,C5,C6];b2:[D4,D5,D6];b2:[D4,D5,D6];\nb2:[E4,E5,E6];b2:[E4,E5,E6];b2:[F4,F5,F6];b2:[F4,F5,F6];\nb2:[E4,E5,E6];b2:r;3b4:[D4,D5,D6];1b4:r;b:[C4,C5,C6];\n}\n{\n13b:r::0:0.5:0.5:1:0:0:0:0:0:::::2:1e-3;\n:[C4,C5,C6];:[D4,D5,D6];:[E4,E5,E6];:[F4,F5,F6];:[E4,E5,E6];:[D4,D5,D6];:[C4,C5,C6];:r;\n:[E4,E5,E6];:[F4,F5,F6];:[G4,G5,G6];:[A4,A5,A6];:[G4,G5,G6];:[F4,F5,F6];:[E4,E5,E6];:r;\n:[C4,C5,C6];:r;:[C4,C5,C6];:r;:[C4,C5,C6];:r;:[C4,C5,C6];\n:r::0:0.25:0.5;\nb2:[C4,C5,C6];b2:[C4,C5,C6];b2:[D4,D5,D6];b2:[D4,D5,D6];\nb2:[E4,E5,E6];b2:[E4,E5,E6];b2:[F4,F5,F6];b2:[F4,F5,F6];\nb2:[E4,E5,E6];b2:r;3b4:[D4,D5,D6];1b4:r;b:[C4,C5,C6];\n}\n{\n19b:r::0:0.5:0.5:1:0:0:0:0:0:::::2:1e-3;\n:[C4,C5,C6];:[D4,D5,D6];:[E4,E5,E6];:[F4,F5,F6];:[E4,E5,E6];:[D4,D5,D6];:[C4,C5,C6];:r;\n:[E4,E5,E6];:[F4,F5,F6];:[G4,G5,G6];:[A4,A5,A6];:[G4,G5,G6];:[F4,F5,F6];:[E4,E5,E6];:r;\n:[C4,C5,C6];:r;:[C4,C5,C6];:r;:[C4,C5,C6];:r;:[C4,C5,C6];\n:r::0:0.25:0.5;\nb2:[C4,C5,C6];b2:[C4,C5,C6];b2:[D4,D5,D6];b2:[D4,D5,D6];\nb2:[E4,E5,E6];b2:[E4,E5,E6];b2:[F4,F5,F6];b2:[F4,F5,F6];\nb2:[E4,E5,E6];b2:r;3b4:[D4,D5,D6];1b4:r;b:[C4,C5,C6];\n}";
+      }
+      $._id("textarea-script").value = script;
       new My_entry.handler_wave().onload(e);
       $._id("select-MIDI-octave").onchange =
       $._id("input-MIDI-note").onchange = function(){
@@ -572,21 +584,8 @@ checker:
 <table class="border"><tbody>
   <tr class="border">
     <td>
-時系列のscript入力欄　例）左右で3beatずらした1octaveのstereo出力
-  <textarea id="textarea-script" rows="10">
-{1000:[C4,C5,C6]::0:0.5:0.5:1:0:0:0:0:0:::::2:1e-3;
- b1:[D4,D5,D6]; 1b:[E4,E5,E6]; 1b1:[F4,F5,F6]; 2b2:[G4,G5,G6];
- 4e-1b4e-1:[A4,A5,A6]; 8.0e+0b0.8e+1:[B4,B5,B6]; 16b16:[C5,C6,C7]; b:r;}
-{6b2:r::1:0.25:0.25:0.5:0.5:0.97:0.005:0.97:0.005:800:1:4800:0.3;
- :[C4,C5,C6]; :[D4,D5,D6]; :[E4,E5,E6]; :[F4,F5,F6]; :[G4,G5,G6];
- :[A4,A5,A6]:clear; :[B4,B5,B6]; 4b:[C5,C6,C7]:::::::::0.9999:0.15; :r;}
-{6b1:r::2:0.25:0.25:0.5:0.5:0.97:0.005:0.97:0.005:800:1:4800:0.3;
- :[n60,n72,n84]; :[n62,n74,n86]; :[n64,n76,n88]; :[n65,n77,n89]; :[n67,n79,n91];
- :[n69,n81,n93]:clear; :[n71,n83,n95]; 4b:[n72,n84,n96]:::::::::0.9999:0.15; :r;}
-{9b1:r::3:0.25:0.25:0.5:0.5:0.97:0.005:0.97:0.005:800:1:4800:0.3;
- :[o-1c60,f52325e-2,1.0465e+3]; :[o4c2,o5c2,o6c2]; :[o4c4,o5c4,o6c4]; :[o4c5,o5c5,o6c5];
- :[o4c7,o5c7,o6c7]:clear; :[o4c9,o5c9,o6c9]; :[o4c11,o5c11,o6c11];
- 4b:[o5c0,o6c0,o7c0]:::::::::0.9999:0.15; :r;}</textarea>
+時系列のscript入力欄
+  <textarea id="textarea-script" rows="10"></textarea>
     </td>
   </tr>
   <tr class="border">
@@ -759,6 +758,14 @@ scriptの入力形式
 <br>
 ・周波数の単位: Hz
 <br>
+・<span class="wF">testcase</span>（browser上部URL入力欄のURL-parameter）
+<br>
+　testcase=0: 1octaveのstereo出力（左右の差なし）
+<br>
+　testcase=1: 1octaveのstereo出力（左右の差あり）
+<br>
+　testcase=Froschgesang: かえるの合唱
+<br>
 ・予期せぬerror終了の発生条件
 <br>
 　total time &lt;&lt; 1000msec &amp;&amp; parallel N &gt; 1
@@ -776,6 +783,8 @@ scriptの入力形式
     <td>
 <span id="span-history"></span>
 機能の更新履歴
+<br>
+・<span class="run">Ver.1.27.4</span>以降、<span class="wF">testcase@URL-parameterを追加</span>
 <br>
 ・<span class="run">Ver.1.26.4</span>以降、<span class="jF">sweep-orderを追加</span>
 <br>
