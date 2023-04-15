@@ -123,6 +123,7 @@ wave-type：
   <option>square</option>
   <option>sawtooth</option>
 </select>
+<span class="clear right">dataset優先</span>
     </td>
   </tr>
   <tr class="border">
@@ -131,6 +132,7 @@ wave-duty：
     </td>
     <td>
 <input id="input-duty" type="number" step="0.05" min="0" max="1" value="0.5">
+<span class="clear right">dataset優先</span>
     </td>
   </tr>
   <tr class="border">
@@ -139,6 +141,7 @@ sweep-rate：
     </td>
     <td>
 2^<input id="input-rate" type="number" step="0.1" min="-16" max="16" value="0">
+<span class="clear right">dataset優先</span>
     </td>
   </tr>
   <tr>
@@ -147,6 +150,7 @@ sweep-order：
     </td>
     <td>
 2^<input id="input-order" type="number" step="1" min="-16" max="16" value="0">
+<span class="clear right">dataset優先</span>
     </td>
   </tr>
   <tr class="border">
@@ -765,12 +769,16 @@ scriptの入力形式
 　testcase=1: 1octaveのstereo出力（左右の差あり）
 <br>
 　testcase=Froschgesang: かえるの合唱
-<br>
-・予期せぬerror終了の発生条件
+<hr>
+・play実行時にerror終了の発生条件
 <br>
 　total time &lt;&lt; 1000msec &amp;&amp; parallel N &gt; 1
 <br>
-{1:A4} -> Uncaught NetworkError: ...（再現性なし・機能上の問題なし）
+{1:A4} -> Uncaught NetworkError: ...（再現性なし・download機能に問題なし）
+<br>
+・play実行中に再生が途中停止する問題の発生条件
+<br>
+　不明（再現性なし・download機能に問題なし）
     </td>
   </tr>
 </tbody></table>
