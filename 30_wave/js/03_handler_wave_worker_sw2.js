@@ -128,6 +128,7 @@ My_entry.handler_wave.prototype.input2arr = function(input){
   /* Ver.1.17.4 -> */
   var ktempo = self.params.tempo || 0;
   var kpitch = Math.pow(2, self.params.pitch || 0);
+  var kampli = self.params.ampli || 0;  // Ver.1.28.4
   /* -> Ver.1.17.4 */
   var len_band = Math.max(mcb.length/number_channels, 1);
   var str2freq = function(str){
@@ -260,6 +261,12 @@ My_entry.handler_wave.prototype.input2arr = function(input){
             switch(prop){
               case "type":
                 param = types0[num] || params[prop];
+                break;
+              // Ver.1.28.4
+              case "amplitude0":
+              case "amplitude1":
+                num *= kampli;
+                param = num;
                 break;
               case "f0":
               case "f1":
