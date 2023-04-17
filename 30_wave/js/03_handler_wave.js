@@ -313,6 +313,10 @@ My_entry.handler_wave.prototype.make_params = function(){
     self.params.tempo = self.entry.def.limit(self.params.tempo, 0, Number.MAX_VALUE, 1);  // Ver.1.19.4
     self.params.pitch = self.entry.def.limit(self.params.pitch, -16, 16, 0);
     self.params.ampli = self.params.amplitude0;  // Ver.1.28.4
+    /* Ver.1.29.4 -> */
+    self.params.dfreq = self.entry.$.inputVal_id("input-dfreq");
+    self.params.dfreq = self.entry.def.limit(self.params.dfreq, -Number.MAX_VALUE, Number.MAX_VALUE, 0);
+    /* -> Ver.1.29.4 */
   }
   /* -> Ver.1.17.4 */
   /* -> Ver.1.20.4 */

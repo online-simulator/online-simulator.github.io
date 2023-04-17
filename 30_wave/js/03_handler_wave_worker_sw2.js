@@ -5,6 +5,7 @@ My_entry.def.mix_in(My_entry.handler_wave, My_entry.original_worker);
 My_entry.handler_wave.prototype.composite_binary_soundData_LE = function(arr_binary, arr_number_samples, data){
   var self = this;
   var isLE = true;
+  var samples_perSecond = data.samples_perSecond;  // Ver.1.29.4
   var number_samples_perChannel_max = data.number_samples_perChannel_max;
   var number_channels = self.waveo.number_channels;  // from waveo
   var Bytes_perSample = data.Bytes_perSample;
@@ -22,8 +23,10 @@ My_entry.handler_wave.prototype.composite_binary_soundData_LE = function(arr_bin
   for(var i=0, len=number_samples_perChannel_max*number_channels; i<len; ++i){
     newSetter(i*Bytes_perSample, val_offset, isLE);
   }
+  /* Ver.1.29.4 -> */
   var hasCh2 = (arr_binary.length > 1)? true: false;
-  var isNotExist_ch2 = !(hasCh2) && (number_channels === 2);
+  var isStereo = (number_channels === 2);
+  var isNotExist_ch2 = !(hasCh2) && isStereo;
   arr_binary.forEach(function(binary, i){
     var buffer = self.waveo.binary2buffer(binary);
     var view = new DataView(buffer, 0);
@@ -47,6 +50,23 @@ My_entry.handler_wave.prototype.composite_binary_soundData_LE = function(arr_bin
     }
     /* -> Ver.1.18.4 */
   });
+  var dfreq = data.dfreq;
+  if(isStereo && dfreq){
+    var domega = Math.PI*2*dfreq;
+    for(var i=0, len=number_samples_perChannel_max; i<len; ++i){
+      var t = i/samples_perSecond;
+      var s = (1+Math.sin(domega*t))/2;
+      var i0 = (i*number_channels+0)*Bytes_perSample;
+      var i1 = (i*number_channels+1)*Bytes_perSample;
+      var val0 = newGetter(i0, isLE);
+      var val1 = newGetter(i1, isLE);
+      var newVal0 = (1-s)*val0+s*val1;
+      var newVal1 = (1-s)*val1+s*val0;
+      newSetter(i0, newVal0, isLE);
+      newSetter(i1, newVal1, isLE);
+    }
+  }
+  /* -> Ver.1.29.4 */
   return self.waveo.buffer2binary(newBuffer);
 };
 My_entry.handler_wave.prototype.set_callbacks_worker = function(){
