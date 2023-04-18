@@ -606,7 +606,7 @@ checker:
   <tr class="border">
     <td>
 時系列のscript入力欄
-  <textarea id="textarea-script" rows="10"></textarea>
+  <textarea id="textarea-script" rows="50"></textarea>
     </td>
   </tr>
   <tr class="border">
@@ -779,15 +779,23 @@ scriptの入力形式
 <br>
 ・周波数の単位: Hz
 <br>
+・Δf（stereo効果のゆらぎ周波数）
+<br>
+　Δf=0: channel間の合成なし（左右を完全分離）
+<br>
+　|Δf|&gt;0: channel間の合成あり（左右をゆらぎ周波数で合成）
+<br>
+　|Δf|&lt;&lt;1: channel間を平均化（左右を同一化）
+<hr>
 ・<span class="wF">testcase</span>（browser上部URL入力欄のURL-parameter）
 <br>
-　testcase=0: 1octaveのstereo出力（左右の差なし）
+　testcase=0: 1octaveのstereo出力（左右の差なし・Δf=0）
 <br>
-　testcase=1: 1octaveのstereo出力（左右の差あり）
+　testcase=1: 1octaveのstereo出力（左右の差あり・Δf=0）
 <br>
-　testcase=Froschgesang: かえるの合唱（25秒）
+　testcase=Froschgesang: かえるの合唱（25秒・Δf=10）
 <br>
-　testcase=Froschgesang100: かえるの合唱（100秒）
+　testcase=Froschgesang100: かえるの合唱（100秒・Δf=10）
 <hr>
 ・play実行時にerror終了の発生条件
 <br>
