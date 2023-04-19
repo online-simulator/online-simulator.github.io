@@ -1,0 +1,388 @@
+<!DOCTYPE html>
+
+<html lang="ja">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="description" content="[spec]演奏の設定">
+  <meta name="author" content="online-simulator.github.io">
+  <noscript>JavaScript is not enabled on browser.</noscript>
+  <link rel="stylesheet" type="text/css" href="../00_common/css/common.css">
+  <link rel="stylesheet" type="text/css" href="../00_common/css/color.css">
+  <link rel="stylesheet" type="text/css" href="../00_common/css/size.css">
+  <link rel="stylesheet" type="text/css" href="css/common.css">
+  <link rel="stylesheet" type="text/css" href="css/color.css">
+  <link rel="stylesheet" type="text/css" href="css/size.css">
+</head>
+
+<body>
+  <div class="absolute">
+    <table class="border">
+      <caption>演奏機能の更新履歴</caption>
+      <tbody>
+        <tr class="border">
+          <td class="border">
+<span id="span-history"></span>
+・<span class="run">Ver.1.30.4</span>以降、本pageを分離して独立化
+<br>
+・<span class="run">Ver.1.29.4</span>以降、stereo効果のゆらぎ周波数Δfを追加
+<br>
+・<span class="run">Ver.1.28.4</span>以降、amplitudeの仕様変更（tempo||pitchに準拠）
+<br>
+　<span class="clear">dataset優先</span>　⇒　<span class="clear">乗算</span>
+<br>
+・<span class="run">Ver.1.27.4</span>以降、<span class="wF">testcase@URL-parameterを追加</span>
+<br>
+・<span class="run">Ver.1.26.4</span>以降、<span class="jF">sweep-orderを追加</span>
+<br>
+・<span class="run">Ver.1.25.4</span>以降、<span class="jF">sweep-rateを更新（filter gain適用）</span>
+<br>
+・<span class="run">Ver.1.24.4</span>以降、<span class="jF">sweep-rateを追加（filter gain固定）</span>
+<br>
+・<span class="run">Ver.1.20.4</span>以降、<span class="condition">datasetを拡張</span>
+<br>
+・<span class="run">Ver.1.19.4</span>以降、<span class="condition">"f"+周波数入力の小数点以下を有効化</span>
+<br>
+・<span class="run">Ver.1.19.4</span>以降、時間の入力形式を拡張（60BPM基準の演算子b=1000msecを定義）
+<br>
+・<span class="run">Ver.1.18.4</span>以降、binary生値fade-in/out機能raw-value fadeを復帰
+<br>
+・<span class="run">Ver.1.17.4</span>以降、tempo/pitch/amplitudeの設定項目を追加
+<br>
+・<span class="run">Ver.1.17.4</span>以降、fade-in/outの設定項目を拡張
+<br>
+・<span class="clear">Ver.1.17.4</span>以降、time=0の場合、error終了に変更
+<br>
+・<span class="run">Ver.1.16.4</span>以降、wave-dutyの設定項目を追加
+<br>
+　duty比=0.5以外で音波の不連続化を許容する（duty比を閾値に比例係数を2値化のため）
+<br>
+・<span class="run">Ver.1.15.4</span>以降、<span class="run">scientific pitch記法</span>に対応
+<br>
+・<span class="run">Ver.1.14.4</span>以降、frequency checkerを追加
+<br>
+・<span class="clear">Ver.1.13.4</span>以降、88鍵盤標準の<span class="clear">scientific pitch記法</span>に準拠
+<br>
+・<span class="clear">Ver.1.13.4</span>以降、MIDI-octave数に負数を指定できない致命的な不具合を修正
+<br>
+　MIDI-octave数<span class="clear">-2</span>~8　⇒　<span class="clear">-1~9</span>
+<br>
+　過去の入力形式から変更する場合、octave数の降順に1加算して<a href="../71_regexp/index.html">正規表現text置換</a>の要修正
+<br>
+　out=text.replace(/o8/gim,"o9");　⇒　out=text.replace(/o7/gim,"o8");　⇒　...
+<br>
+・<span class="clear">Ver.1.13.3</span>以降、pitchに影響する生値fade-in/out　⇒　物理的な振幅fade-in/outに修正
+<br>
+・<span class="run">Ver.1.13.2</span>以降、parallel Multi-threadingに対応
+<br>
+・<span class="run">Ver.1.4.2</span>以降、生値fade-in/outを追加
+          </td>
+        </tr>
+      </tbody>
+    </table>
+<br>
+    <table class="border">
+      <caption>scriptの入力形式</caption>
+      <tbody>
+        <tr class="border">
+          <td class="border">
+・channel1~を区切る波括弧{}
+<br>
+　奇数番channelはchannel1に合成
+<br>
+　偶数番channelはchannel数によってchannel2||1に合成
+<br>
+・dataset
+<br>
+　時間:音階; || 時間:[音階0,音階1, ...]; || 時間:休止記号"r";
+<br>
+・<span class="condition">拡張dataset</span>
+<br>
+　<span class="condition">時間:音階 || 時間:[音階0,音階1, ...] || 時間:休止記号"r"</span>
+<br>
+　<span class="condition">:command=""||"clear"</span>
+<br>
+　<span class="condition">:type=0~3:duty0=0~1:duty1=0~1:amplitude0=0~1:amplitude1=0~1</span>
+<br>
+　<span class="condition">:w0=0~1:p0=0~1:w1=0~1:p1=0~1:f0:g0=0~1:f1:g1=0~1</span>
+<br>
+　<span class="jF">:rate=0~:order=0~;</span>
+<br>
+・<span class="condition">command</span>
+<br>
+　省略時: 直前datasetの拡張設定値を優先
+<br>
+　clear: 直前datasetの拡張設定値をclear
+<br>
+・<span class="condition">type</span>（波形の種類）
+<br>
+　0: sin
+<br>
+　1: triangle
+<br>
+　2: square
+<br>
+　3: sawtooth
+<br>
+・<span class="condition">duty0/duty1</span>（波形のduty比）
+<br>
+　N個中n番目sample_duty=duty0+(duty1-duty0)*n/N
+<br>
+・<span class="condition">amplitude0/amplitude1</span>（波形の振幅）
+<br>
+　N個中n番目sample_amplitude=amplitude0+(amplitude1-amplitude0)*n/N
+<br>
+・<span class="condition">w0/p0/w1/p1</span>（click noise対策用fade-in/outのfilter特性値）
+<br>
+　w0: in-weight
+<br>
+　p0: in-range
+<br>
+　w1: out-weight
+<br>
+　p1: out-range
+<br>
+・<span class="condition">dataset間の波形を連続化する必要条件</span>
+<br>
+　w0=0
+<br>
+　w1=0
+<br>
+　((時間*1e3*tempo)%(1000*1e3/周波数))%1=0
+<br>
+　:[1000]:::0:0.5:0:1:0:0:0:0;:[1000]:::0.5:0.5:1:1;:[1000]:::0.5:1:1:0;
+<br>
+・<span class="condition">f0/g0/f1/g1</span>（出力調整用gainのfilter特性値）
+<br>
+　f0: low側の周波数
+<br>
+　g0: low側のgain
+<br>
+　f1: high側の周波数
+<br>
+　g1: high側のgain
+<br>
+・<span class="jF">rate</span>（周波数sweepの指定周波数基準rate）
+<br>
+　rate=1の場合、周波数のsweepなし（周波数を固定）
+<br>
+　rate=0.5の場合、指定時間で周波数を半減
+<br>
+　rate=2の場合、指定時間で周波数を倍増
+<br>
+　傾き大rate&gt;&gt;1の場合、sample数/sec&gt;&gt;10000（不連続なnoise回避に要分解能）
+<br>
+・<span class="jF">order</span>（周波数sweepの次数）
+<br>
+　order=1の場合、線形に変化
+<br>
+　order&lt;1の場合、減速的に変化
+<br>
+　order&gt;1の場合、加速的に変化
+<br>
+　変化率大|log2(order)|&gt;&gt;1の場合、連続性に難あり（意図とは異なる可能性あり）
+<br>
+・時間の入力形式
+<br>
+　b = b1 = 1b = 1b1 = 2b2 = 4b4 = 1000（省略可）
+<br>
+　b（beatの略号）は中置の除算演算子で演算後、60BPM基準1beat=1000msecを乗算
+<br>
+　2b = 2b1 = 4b2 = 2000
+<br>
+　4b = 4b1 = 8b2 = 4000
+<br>
+　b2 = 1b2 = 2b4 = 500
+<br>
+　b4 = 1b4 = 2b8 = 250
+<br>
+　1.5b = 1.5b1 = 15e-1b1.0e+0 = 3b2 = 1500
+<br>
+・音階の入力形式（frequency checker参照）
+<br>
+　"o"+<span class="clear">MIDI-octave数-1~9</span>+"c"+<span class="clear">MIDI-相対note数0~11~</span>
+<br>
+　"n"+<span class="clear">MIDI-絶対note数0~</span>
+<br>
+　"f"+周波数 || 周波数
+<br>
+　例）<span class="run">A4</span><span class="clear">(69)</span>＝ラ440Hz
+<br>
+　o4c9 = o3c21 = o2c33 = o1c45 = o0c57 <span class="clear">= o-1c69 = n69</span> <span class="run">= A4</span> = f440 = 440
+<br>
+　例）<span class="run">C5</span><span class="clear">(72)</span><span class="condition">＝ド523.25...Hz</span>
+<br>
+　o5c0 <span class="clear">= o-1c72 = n72</span> <span class="run">= C5</span> <span class="condition">= f523.25 = f5.2325e2</span> = 523.25 = 5.2325e2
+<br>
+　<span class="selection">次の数式で周波数に換算する場合、</span><a title="Graphing Calculator" href="../02_calc_graphing/index.html?useStrict=false&checkError=false">Graphing Calculator-test case-MIDI</a><span class="selection">参照</span>
+<br>
+　<span class="selection">frequency(octave,note)=&lt;last{m=(octave+1)*12+note,pow(2,(m-<span class="clear">69</span>)/12)*440};</span>
+<br>
+　<span class="selection">frequency(4,9) -> 440</span>
+<br>
+　<span class="selection">frequency(-1,<span class="clear">69</span>) -> 440</span>
+<br>
+・<span class="clear">MIDI-相対note数0~11</span>と音階/<span class="run">pitch記法</span>@octave=4の対応表
+<br>
+　<span class="clear">00</span> C（ド）　　C4
+<br>
+　<span class="clear">01</span> C＃/D♭　　C4s || D4f
+<br>
+　<span class="clear">02</span> D（レ）　　D4
+<br>
+　<span class="clear">03</span> D＃/E♭　　D4s || E4f
+<br>
+　<span class="clear">04</span> E（ミ）　　E4
+<br>
+　<span class="clear">05</span> F（ファ）　F4
+<br>
+　<span class="clear">06</span> F＃/G♭　　F4s || G4f
+<br>
+　<span class="clear">07</span> G（ソ）　　G4
+<br>
+　<span class="clear">08</span> G＃/A♭　　G4s || A4f
+<br>
+　<span class="clear">09</span> A（ラ）　　A4
+<br>
+　<span class="clear">10</span> A＃/B♭　　A4s || B4f
+<br>
+　<span class="clear">11</span> B（シ）　　B4
+<br>
+・時間の単位: msec
+<br>
+・周波数の単位: Hz
+          </td>
+        </tr>
+      </tbody>
+    </table>
+<br>
+    <table class="border">
+      <caption>URL-parameter@browser上部URL入力欄</caption>
+      <thead>
+        <tr class="border">
+          <th class="border">
+項目
+          </th>
+          <th class="border">
+内容
+          </th>
+          <th class="border">
+実装
+          </th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr class="border">
+          <td class="border">
+testcase
+<br>
+<span class="run">Ver.1.27.4追加</span>
+          </td>
+          <td class="border">
+test case
+          </td>
+          <td class="border">
+0: 1octaveのstereo出力（左右の差なし・Δf=0）
+<br>
+1: 1octaveのstereo出力（左右の差あり・Δf=0）
+<br>
+Froschgesang: かえるの合唱（25秒・Δf=10）
+<br>
+Froschgesang100: かえるの合唱（100秒・Δf=10）
+          </td>
+        </tr>
+      </tbody>
+    </table>
+<br>
+    <table class="border">
+      <caption>UI設定</caption>
+      <thead>
+        <tr class="border">
+          <th class="border">
+項目
+          </th>
+          <th class="border">
+内容
+          </th>
+          <th class="border">
+実装
+          </th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr class="border">
+          <td class="border">
+Δf
+<br>
+<span class="run">Ver.1.29.4追加</span>
+          </td>
+          <td class="border">
+stereo効果のゆらぎ周波数
+          </td>
+          <td class="border">
+Δf=0: channel間の合成なし（左右を完全分離）
+<br>
+|Δf|&gt;0: channel間の合成あり（左右をゆらぎ周波数で合成）
+<br>
+|Δf|&lt;&lt;1: channel間を平均化（左右を同一化）
+          </td>
+        </tr>
+      </tbody>
+    </table>
+<br>
+    <table class="border">
+      <caption>error終了の発生条件</caption>
+      <thead>
+        <tr class="border">
+          <th class="border">
+事象
+          </th>
+          <th class="border">
+発生条件
+          </th>
+          <th class="border">
+対策
+          </th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr class="border">
+          <td class="border">
+演奏のplay実行時
+<br>
+{1:A4} -> Uncaught NetworkError: ...
+          </td>
+          <td class="border">
+time極短のMulti-thread encode
+<br>
+・total time &lt;&lt; 1000msec
+<br>
+・parallel N &gt; 1
+          </td>
+          <td class="border">
+・再現性なし
+<br>
+・download機能に問題なし
+          </td>
+        </tr>
+        <tr class="border">
+          <td class="border">
+演奏のplay実行中
+<br>
+再生中断
+          </td>
+          <td class="border">
+不明
+          </td>
+          <td class="border">
+・再現性なし
+<br>
+・download機能に問題なし
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</body>
+
+</html>

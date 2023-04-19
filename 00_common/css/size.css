@@ -41,6 +41,21 @@ textarea{
 .input-500{
   width: 500px;
 }
+.input-600{
+  width: 600px;
+}
+.input-700{
+  width: 700px;
+}
+.input-800{
+  width: 800px;
+}
+.input-900{
+  width: 900px;
+}
+.input-1000{
+  width: 1000px;
+}
 
 .no-border{
   border-collapse: collapse;
