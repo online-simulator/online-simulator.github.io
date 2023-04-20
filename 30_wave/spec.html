@@ -83,174 +83,559 @@
 <br>
     <table class="border">
       <caption>scriptの入力形式</caption>
+      <thead>
+        <tr class="border">
+          <th class="border">
+項目
+          </th>
+          <th class="border">
+内容
+          </th>
+          <th class="border">
+実装
+          </th>
+        </tr>
+      </thead>
       <tbody>
         <tr class="border">
           <td class="border">
-・channel1~を区切る波括弧{}
+channelの区別
+          </td>
+          <td class="border">
+波括弧{}を使用
+          </td>
+          <td class="border">
+channel番号=1~
+          </td>
+        </tr>
+        <tr class="border">
+          <td class="border">
+波括弧{}
+          </td>
+          <td class="border">
+channelの区切り文字
+          </td>
+          <td class="border">
+奇数番channelはchannel1に合成
+<br>
+偶数番channelはchannel数によってchannel2||1に合成
+          </td>
+        </tr>
+        <tr class="border">
+          <td class="border">
+dataset
+          </td>
+          <td class="border">
+音dataの単位
+          </td>
+          <td class="border">
+時間:音階;
+<br>
+時間:[音階0,音階1, ...];
+<br>
+時間:休止記号"r";
+          </td>
+        </tr>
+        <tr class="border">
+          <td class="border">
+<span class="condition">拡張dataset</span>
+          </td>
+          <td class="border">
+datasetの拡張
+          </td>
+          <td class="border">
+<span class="condition">
+時間:音階
+<br>
+時間:[音階0,音階1, ...]
+<br>
+時間:休止記号"r"
+</span>
+<br>
+<span class="condition">:command=""||"clear"</span>
+<br>
+<span class="condition">:type=0~3:duty0=0~1:duty1=0~1:amplitude0=0~1:amplitude1=0~1</span>
+<br>
+<span class="condition">:w0=0~1:p0=0~1:w1=0~1:p1=0~1:f0:g0=0~1:f1:g1=0~1</span>
+<br>
+<span class="jF">:rate=0~:order=0~;</span>
+          </td>
+        </tr>
+        <tr class="border">
+          <td class="border" rowspan="5">
+          </td>
+          <td class="border">
+<span class="condition">command</span>
+          </td>
+          <td class="border">
+省略時: 直前datasetの拡張設定値を継承||clear状態でUI設定値を参照
+<br>
+clear: 直前datasetの拡張設定値をclear
+          </td>
+        </tr>
+        <tr class="border">
+          <td class="border">
+<span class="condition">type</span>
+          </td>
+          <td class="border">
+波形の種類
+<br>
+<br>
+0: sin
+<br>
+1: triangle
+<br>
+2: square
+<br>
+3: sawtooth
+          </td>
+        </tr>
+        <tr class="border">
+          <td class="border">
+<span class="condition">
+duty0
+<br>
+duty1
+</span>
+          </td>
+          <td class="border">
+N個中n番目sampleのduty比
 <br>
-　奇数番channelはchannel1に合成
+=duty0+(duty1-duty0)*n/N
+          </td>
+        </tr>
+        <tr class="border">
+          <td class="border">
+<span class="condition">
+amplitude0
 <br>
-　偶数番channelはchannel数によってchannel2||1に合成
+amplitude1
+</span>
+          </td>
+          <td class="border">
+N個中n番目sampleの振幅
 <br>
-・dataset
+=amplitude0+(amplitude1-amplitude0)*n/N
+          </td>
+        </tr>
+        <tr class="border">
+          <td class="border" rowspan="2">
+<span class="condition">
+w0
 <br>
-　時間:音階; || 時間:[音階0,音階1, ...]; || 時間:休止記号"r";
+p0
 <br>
-・<span class="condition">拡張dataset</span>
+w1
 <br>
-　<span class="condition">時間:音階 || 時間:[音階0,音階1, ...] || 時間:休止記号"r"</span>
+p1
+</span>
+          </td>
+          <td class="border">
+click noise対策用fade-in/outのfilter特性値
 <br>
-　<span class="condition">:command=""||"clear"</span>
 <br>
-　<span class="condition">:type=0~3:duty0=0~1:duty1=0~1:amplitude0=0~1:amplitude1=0~1</span>
+w0: in-weight
 <br>
-　<span class="condition">:w0=0~1:p0=0~1:w1=0~1:p1=0~1:f0:g0=0~1:f1:g1=0~1</span>
+p0: in-range
 <br>
-　<span class="jF">:rate=0~:order=0~;</span>
+w1: out-weight
 <br>
-・<span class="condition">command</span>
+p1: out-range
+          </td>
+        </tr>
+        <tr class="border">
+          <td class="border">
+<span class="condition">dataset間の連続条件</span>
+          </td>
+          <td class="border">
+w0=0
 <br>
-　省略時: 直前datasetの拡張設定値を優先
+w1=0
 <br>
-　clear: 直前datasetの拡張設定値をclear
+((時間*1e3*tempo)%(1000*1e3/周波数))%1=0
 <br>
-・<span class="condition">type</span>（波形の種類）
+:[1000]:::0:0.5:0:1:0:0:0:0;:[1000]:::0.5:0.5:1:1;:[1000]:::0.5:1:1:0;
+          </td>
+        </tr>
+        <tr class="border">
+          <td class="border">
+          </td>
+          <td class="border">
+<span class="condition">
+f0
 <br>
-　0: sin
+g0
 <br>
-　1: triangle
+f1
 <br>
-　2: square
+g1
+</span>
+          </td>
+          <td class="border">
+出力調整用gainのfilter特性値
 <br>
-　3: sawtooth
 <br>
-・<span class="condition">duty0/duty1</span>（波形のduty比）
+f0: low側の周波数
 <br>
-　N個中n番目sample_duty=duty0+(duty1-duty0)*n/N
+g0: low側のgain
 <br>
-・<span class="condition">amplitude0/amplitude1</span>（波形の振幅）
+f1: high側の周波数
 <br>
-　N個中n番目sample_amplitude=amplitude0+(amplitude1-amplitude0)*n/N
-<br>
-・<span class="condition">w0/p0/w1/p1</span>（click noise対策用fade-in/outのfilter特性値）
-<br>
-　w0: in-weight
-<br>
-　p0: in-range
-<br>
-　w1: out-weight
-<br>
-　p1: out-range
-<br>
-・<span class="condition">dataset間の波形を連続化する必要条件</span>
-<br>
-　w0=0
-<br>
-　w1=0
-<br>
-　((時間*1e3*tempo)%(1000*1e3/周波数))%1=0
-<br>
-　:[1000]:::0:0.5:0:1:0:0:0:0;:[1000]:::0.5:0.5:1:1;:[1000]:::0.5:1:1:0;
-<br>
-・<span class="condition">f0/g0/f1/g1</span>（出力調整用gainのfilter特性値）
-<br>
-　f0: low側の周波数
-<br>
-　g0: low側のgain
-<br>
-　f1: high側の周波数
-<br>
-　g1: high側のgain
-<br>
-・<span class="jF">rate</span>（周波数sweepの指定周波数基準rate）
-<br>
-　rate=1の場合、周波数のsweepなし（周波数を固定）
-<br>
-　rate=0.5の場合、指定時間で周波数を半減
-<br>
-　rate=2の場合、指定時間で周波数を倍増
-<br>
-　傾き大rate&gt;&gt;1の場合、sample数/sec&gt;&gt;10000（不連続なnoise回避に要分解能）
-<br>
-・<span class="jF">order</span>（周波数sweepの次数）
-<br>
-　order=1の場合、線形に変化
-<br>
-　order&lt;1の場合、減速的に変化
-<br>
-　order&gt;1の場合、加速的に変化
-<br>
-　変化率大|log2(order)|&gt;&gt;1の場合、連続性に難あり（意図とは異なる可能性あり）
-<br>
-・時間の入力形式
-<br>
-　b = b1 = 1b = 1b1 = 2b2 = 4b4 = 1000（省略可）
-<br>
-　b（beatの略号）は中置の除算演算子で演算後、60BPM基準1beat=1000msecを乗算
-<br>
-　2b = 2b1 = 4b2 = 2000
-<br>
-　4b = 4b1 = 8b2 = 4000
-<br>
-　b2 = 1b2 = 2b4 = 500
-<br>
-　b4 = 1b4 = 2b8 = 250
-<br>
-　1.5b = 1.5b1 = 15e-1b1.0e+0 = 3b2 = 1500
-<br>
-・音階の入力形式（frequency checker参照）
-<br>
-　"o"+<span class="clear">MIDI-octave数-1~9</span>+"c"+<span class="clear">MIDI-相対note数0~11~</span>
-<br>
-　"n"+<span class="clear">MIDI-絶対note数0~</span>
-<br>
-　"f"+周波数 || 周波数
-<br>
-　例）<span class="run">A4</span><span class="clear">(69)</span>＝ラ440Hz
-<br>
-　o4c9 = o3c21 = o2c33 = o1c45 = o0c57 <span class="clear">= o-1c69 = n69</span> <span class="run">= A4</span> = f440 = 440
-<br>
-　例）<span class="run">C5</span><span class="clear">(72)</span><span class="condition">＝ド523.25...Hz</span>
-<br>
-　o5c0 <span class="clear">= o-1c72 = n72</span> <span class="run">= C5</span> <span class="condition">= f523.25 = f5.2325e2</span> = 523.25 = 5.2325e2
-<br>
-　<span class="selection">次の数式で周波数に換算する場合、</span><a title="Graphing Calculator" href="../02_calc_graphing/index.html?useStrict=false&checkError=false">Graphing Calculator-test case-MIDI</a><span class="selection">参照</span>
-<br>
-　<span class="selection">frequency(octave,note)=&lt;last{m=(octave+1)*12+note,pow(2,(m-<span class="clear">69</span>)/12)*440};</span>
-<br>
-　<span class="selection">frequency(4,9) -> 440</span>
-<br>
-　<span class="selection">frequency(-1,<span class="clear">69</span>) -> 440</span>
-<br>
-・<span class="clear">MIDI-相対note数0~11</span>と音階/<span class="run">pitch記法</span>@octave=4の対応表
-<br>
-　<span class="clear">00</span> C（ド）　　C4
-<br>
-　<span class="clear">01</span> C＃/D♭　　C4s || D4f
-<br>
-　<span class="clear">02</span> D（レ）　　D4
-<br>
-　<span class="clear">03</span> D＃/E♭　　D4s || E4f
-<br>
-　<span class="clear">04</span> E（ミ）　　E4
-<br>
-　<span class="clear">05</span> F（ファ）　F4
-<br>
-　<span class="clear">06</span> F＃/G♭　　F4s || G4f
-<br>
-　<span class="clear">07</span> G（ソ）　　G4
-<br>
-　<span class="clear">08</span> G＃/A♭　　G4s || A4f
-<br>
-　<span class="clear">09</span> A（ラ）　　A4
-<br>
-　<span class="clear">10</span> A＃/B♭　　A4s || B4f
-<br>
-　<span class="clear">11</span> B（シ）　　B4
-<br>
-・時間の単位: msec
-<br>
-・周波数の単位: Hz
+g1: high側のgain
+          </td>
+        </tr>
+        <tr class="border">
+          <td class="border">
+時間[msec]
+          </td>
+          <td class="border">
+b
+          </td>
+          <td class="border">
+bは中置の除算演算子（beatの略号）
+<br>
+演算後、60BPM基準1beat=1000msecを乗算
+<br>
+<br>
+b = b1 = 1b = 1b1 = 2b2 = 4b4 = 1000
+<br>
+2b = 2b1 = 4b2 = 2000
+<br>
+4b = 4b1 = 8b2 = 4000
+<br>
+b2 = 1b2 = 2b4 = 500
+<br>
+b4 = 1b4 = 2b8 = 250
+<br>
+1.5b = 1.5b1 = 15e-1b1.0e+0 = 3b2 = 1500
+          </td>
+        </tr>
+        <tr class="border">
+          <td class="border">
+周波数[Hz]
+          </td>
+          <td class="border">
+f
+          </td>
+          <td class="border">
+frequency checker参照
+<br>
+<br>
+<a title="Graphing Calculator" href="../02_calc_graphing/index.html?useStrict=false&checkError=false">Graphing Calculator-test case-MIDI</a>参照
+<br>
+<span class="selection">frequency(octave,note)=&lt;last{m=(octave+1)*12+note,pow(2,(m-<span class="clear">69</span>)/12)*440};</span>
+<br>
+<span class="selection">frequency(4,9) -> 440</span>
+<br>
+<span class="selection">frequency(-1,<span class="clear">69</span>) -> 440</span>
+          </td>
+        </tr>
+        <tr class="border">
+          <td class="border">
+音階
+          </td>
+          <td class="border">
+o
+<br>
+c
+<br>
+n
+<br>
+f
+          </td>
+          <td class="border">
+音階の記法参照
+<br>
+"o"+<span class="clear">MIDI-octave数-1~9</span>+"c"+<span class="clear">MIDI-相対note数0~11~</span>
+<br>
+"n"+<span class="clear">MIDI-絶対note数0~</span>
+<br>
+"f"+周波数
+<br>
+周波数
+<br>
+<br>
+o4c9 = o3c21 = o2c33 = o1c45 = o0c57 <span class="clear">= o-1c69 = n69</span> <span class="run">= A4</span> = f440 = 440
+<br>
+o5c0 <span class="clear">= o-1c72 = n72</span> <span class="run">= C5</span> <span class="condition">= f523.25 = f5.2325e2</span> = 523.25 = 5.2325e2
+          </td>
+        </tr>
+      </tbody>
+    </table>
+<br>
+    <table class="border">
+      <caption>音階の記法@octave=4</caption>
+      <thead>
+        <tr class="border">
+          <th class="border">
+<span class="clear">MIDI-相対note数</span>
+          </th>
+          <th class="border">
+音階
+          </th>
+          <th class="border">
+<span class="run">pitch記法</span>
+          </th>
+          <th class="border">
+oc記法
+          </th>
+          <th class="border">
+n記法
+          </th>
+          <th class="border">
+f記法（f省略可）
+          </th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr class="border">
+          <td class="border">
+<span class="clear">00</span>
+          </td>
+          <td class="border">
+C（ド）
+          </td>
+          <td class="border">
+C4
+          </td>
+          <td class="border">
+o4c0
+          </td>
+          <td class="border">
+n60
+          </td>
+          <td class="border">
+f261.6255653005986
+          </td>
+        </tr>
+        <tr class="border">
+          <td class="border">
+<span class="clear">01</span>
+          </td>
+          <td class="border">
+C＃/D♭
+          </td>
+          <td class="border">
+C4s
+<br>
+D4f
+          </td>
+          <td class="border">
+o4c1
+          </td>
+          <td class="border">
+n61
+          </td>
+          <td class="border">
+f277.1826309768721
+          </td>
+        </tr>
+        <tr class="border">
+          <td class="border">
+<span class="clear">02</span>
+          </td>
+          <td class="border">
+D（レ）
+          </td>
+          <td class="border">
+D4
+          </td>
+          <td class="border">
+o4c2
+          </td>
+          <td class="border">
+n62
+          </td>
+          <td class="border">
+f293.6647679174076
+          </td>
+        </tr>
+        <tr class="border">
+          <td class="border">
+<span class="clear">03</span>
+          </td>
+          <td class="border">
+D＃/E♭
+          </td>
+          <td class="border">
+D4s
+<br>
+E4f
+          </td>
+          <td class="border">
+o4c3
+          </td>
+          <td class="border">
+n63
+          </td>
+          <td class="border">
+f311.12698372208087
+          </td>
+        </tr>
+        <tr class="border">
+          <td class="border">
+<span class="clear">04</span>
+          </td>
+          <td class="border">
+E（ミ）
+          </td>
+          <td class="border">
+E4
+          </td>
+          <td class="border">
+o4c4
+          </td>
+          <td class="border">
+n64
+          </td>
+          <td class="border">
+f329.6275569128699
+          </td>
+        </tr>
+        <tr class="border">
+          <td class="border">
+<span class="clear">05</span>
+          </td>
+          <td class="border">
+F（ファ）
+          </td>
+          <td class="border">
+F4
+          </td>
+          <td class="border">
+o4c5
+          </td>
+          <td class="border">
+n65
+          </td>
+          <td class="border">
+f349.2282314330039
+          </td>
+        </tr>
+        <tr class="border">
+          <td class="border">
+<span class="clear">06</span>
+          </td>
+          <td class="border">
+F＃/G♭
+          </td>
+          <td class="border">
+F4s
+<br>
+G4f
+          </td>
+          <td class="border">
+o4c6
+          </td>
+          <td class="border">
+n66
+          </td>
+          <td class="border">
+f369.99442271163446
+          </td>
+        </tr>
+        <tr class="border">
+          <td class="border">
+<span class="clear">07</span>
+          </td>
+          <td class="border">
+G（ソ）
+          </td>
+          <td class="border">
+G4
+          </td>
+          <td class="border">
+o4c7
+          </td>
+          <td class="border">
+n67
+          </td>
+          <td class="border">
+f391.99543598174927
+          </td>
+        </tr>
+        <tr class="border">
+          <td class="border">
+<span class="clear">08</span>
+          </td>
+          <td class="border">
+G＃/A♭
+          </td>
+          <td class="border">
+G4s
+<br>
+A4f
+          </td>
+          <td class="border">
+o4c8
+          </td>
+          <td class="border">
+n68
+          </td>
+          <td class="border">
+f415.3046975799451
+          </td>
+        </tr>
+        <tr class="border">
+          <td class="border">
+<span class="clear">09</span>
+          </td>
+          <td class="border">
+A（ラ）
+          </td>
+          <td class="border">
+A4
+          </td>
+          <td class="border">
+o4c9
+          </td>
+          <td class="border">
+n69
+          </td>
+          <td class="border">
+f440
+          </td>
+        </tr>
+        <tr class="border">
+          <td class="border">
+<span class="clear">10</span>
+          </td>
+          <td class="border">
+A＃/B♭
+          </td>
+          <td class="border">
+A4s
+<br>
+B4f
+          </td>
+          <td class="border">
+o4c10
+          </td>
+          <td class="border">
+n70
+          </td>
+          <td class="border">
+f466.1637615180899
+          </td>
+        </tr>
+        <tr class="border">
+          <td class="border">
+<span class="clear">11</span>
+          </td>
+          <td class="border">
+B（シ）
+          </td>
+          <td class="border">
+B4
+          </td>
+          <td class="border">
+o4c11
+          </td>
+          <td class="border">
+n71
+          </td>
+          <td class="border">
+f493.8833012561241
           </td>
         </tr>
       </tbody>
@@ -312,12 +697,86 @@ Froschgesang100: かえるの合唱（100秒・Δf=10）
       <tbody>
         <tr class="border">
           <td class="border">
+wave-type
+          </td>
+          <td class="border">
+波形の種類
+          </td>
+          <td class="border">
+sin: 正弦波
+<br>
+triangle: 三角波
+<br>
+square: 矩形波
+<br>
+sawtooth: のこぎり波
+          </td>
+        </tr>
+        <tr class="border">
+          <td class="border">
+wave-duty
+<br>
+<span class="run">Ver.1.16.4追加</span>
+          </td>
+          <td class="border">
+波形のduty比
+          </td>
+          <td class="border">
+上ON/下ON時間の非対称性を定義
+<br>
+duty=0.5: 上下対称
+<br>
+duty≠0.5: 上下非対称・上下不連続
+          </td>
+        </tr>
+        <tr class="border">
+          <td class="border">
+sweep-rate
+<br>
+<span class="run">Ver.1.24.4追加</span>
+          </td>
+          <td class="border">
+周波数sweepの指定周波数基準rate
+          </td>
+          <td class="border">
+rate=1: 周波数のsweepなし（周波数を固定）
+<br>
+rate=0.5: 指定時間で周波数を半減
+<br>
+rate=2: 指定時間で周波数を倍増
+<br>
+傾き大rate&gt;&gt;1の場合、要分解能sample数/sec&gt;&gt;10000（不連続なnoise回避）
+          </td>
+        </tr>
+        <tr class="border">
+          <td class="border">
+sweep-order
+<br>
+<span class="run">Ver.1.25.4追加</span>
+          </td>
+          <td class="border">
+周波数sweepの次数
+          </td>
+          <td class="border">
+order=1: 線形に変化
+<br>
+order&lt;1: 減速的に変化
+<br>
+order&gt;1: 加速的に変化
+<br>
+変化率大|log2(order)|&gt;&gt;1の場合、連続性に難あり（意図とは異なる可能性あり）
+          </td>
+        </tr>
+        <tr class="border">
+          <td class="border">
 Δf
 <br>
 <span class="run">Ver.1.29.4追加</span>
           </td>
           <td class="border">
-stereo効果のゆらぎ周波数
+stereo効果のゆらぎ周波数[Hz]
+<br>
+spectrum強度のpeak周波数[Hz]
           </td>
           <td class="border">
 Δf=0: channel間の合成なし（左右を完全分離）
