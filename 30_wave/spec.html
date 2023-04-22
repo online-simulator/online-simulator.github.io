@@ -29,8 +29,6 @@
 <br>
 ・<span class="run">Ver.1.28.4</span>以降、amplitudeの仕様変更（tempo||pitchに準拠）
 <br>
-　<span class="clear">dataset優先</span>　⇒　<span class="clear">乗算</span>
-<br>
 ・<span class="run">Ver.1.27.4</span>以降、<span class="wF">testcase@URL-parameterを追加</span>
 <br>
 ・<span class="run">Ver.1.26.4</span>以降、<span class="jF">sweep-orderを追加</span>
@@ -55,8 +53,6 @@
 <br>
 ・<span class="run">Ver.1.16.4</span>以降、wave-dutyの設定項目を追加
 <br>
-　duty比=0.5以外で音波の不連続化を許容する（duty比を閾値に比例係数を2値化のため）
-<br>
 ・<span class="run">Ver.1.15.4</span>以降、<span class="run">scientific pitch記法</span>に対応
 <br>
 ・<span class="run">Ver.1.14.4</span>以降、frequency checkerを追加
@@ -64,12 +60,6 @@
 ・<span class="clear">Ver.1.13.4</span>以降、88鍵盤標準の<span class="clear">scientific pitch記法</span>に準拠
 <br>
 ・<span class="clear">Ver.1.13.4</span>以降、MIDI-octave数に負数を指定できない致命的な不具合を修正
-<br>
-　MIDI-octave数<span class="clear">-2</span>~8　⇒　<span class="clear">-1~9</span>
-<br>
-　過去の入力形式から変更する場合、octave数の降順に1加算して<a href="../71_regexp/index.html">正規表現text置換</a>の要修正
-<br>
-　out=text.replace(/o8/gim,"o9");　⇒　out=text.replace(/o7/gim,"o8");　⇒　...
 <br>
 ・<span class="clear">Ver.1.13.3</span>以降、pitchに影響する生値fade-in/out　⇒　物理的な振幅fade-in/outに修正
 <br>
@@ -182,7 +172,6 @@ clear: 直前datasetの拡張設定値をclear
           <td class="border">
 波形の種類
 <br>
-<br>
 0: sin
 <br>
 1: triangle
@@ -233,16 +222,7 @@ p1
 </span>
           </td>
           <td class="border">
-click noise対策用fade-in/outのfilter特性値
-<br>
-<br>
-w0: in-weight
-<br>
-p0: in-range
-<br>
-w1: out-weight
-<br>
-p1: out-range
+振幅fade-in/outのfilter特性値
           </td>
         </tr>
         <tr class="border">
@@ -274,16 +254,7 @@ g1
 </span>
           </td>
           <td class="border">
-出力調整用gainのfilter特性値
-<br>
-<br>
-f0: low側の周波数
-<br>
-g0: low側のgain
-<br>
-f1: high側の周波数
-<br>
-g1: high側のgain
+振幅gainのfilter特性値
           </td>
         </tr>
         <tr class="border">
@@ -292,6 +263,8 @@ g1: high側のgain
           </td>
           <td class="border">
 b
+<br>
+<span class="run">Ver.1.19.4追加</span>
           </td>
           <td class="border">
 bは中置の除算演算子（beatの略号）
@@ -315,26 +288,24 @@ b4 = 1b4 = 2b8 = 250
         <tr class="border">
           <td class="border">
 周波数[Hz]
+<br>
+<span class="run">Ver.1.19.4更新</span>
           </td>
           <td class="border">
 f
           </td>
           <td class="border">
+<span class="run">小数点以下を有効化</span>
+<br>
+<br>
 frequency checker参照
-<br>
-<br>
-<a title="Graphing Calculator" href="../02_calc_graphing/index.html?useStrict=false&checkError=false">Graphing Calculator-test case-MIDI</a>参照
-<br>
-<span class="selection">frequency(octave,note)=&lt;last{m=(octave+1)*12+note,pow(2,(m-<span class="clear">69</span>)/12)*440};</span>
-<br>
-<span class="selection">frequency(4,9) -> 440</span>
-<br>
-<span class="selection">frequency(-1,<span class="clear">69</span>) -> 440</span>
           </td>
         </tr>
         <tr class="border">
           <td class="border">
 音階
+<br>
+<span class="clear">Ver.1.13.4修正</span>
           </td>
           <td class="border">
 o
@@ -355,6 +326,13 @@ f
 "f"+周波数
 <br>
 周波数
+<br>
+<br>
+<span class="clear">MIDI-octave数の負数を有効化・範囲修正-2~8　⇒　-1~9</span>
+<br>
+過去の入力形式から変更する場合、octave数の降順に1加算して<a href="../71_regexp/index.html">正規表現text置換</a>の要修正
+<br>
+out=text.replace(/o8/gim,"o9");　⇒　out=text.replace(/o7/gim,"o8");　⇒　...
 <br>
 <br>
 o4c9 = o3c21 = o2c33 = o1c45 = o0c57 <span class="clear">= o-1c69 = n69</span> <span class="run">= A4</span> = f440 = 440
@@ -382,6 +360,8 @@ o5c0 <span class="clear">= o-1c72 = n72</span> <span class="run">= C5</span> <sp
           </th>
           <th class="border">
 oc記法
+<br>
+<span class="clear">Ver.1.13.4修正</span>
           </th>
           <th class="border">
 n記法
@@ -403,7 +383,7 @@ C（ド）
 C4
           </td>
           <td class="border">
-o4c0
+<span class="clear">o4</span>c0
           </td>
           <td class="border">
 n60
@@ -425,7 +405,7 @@ C4s
 D4f
           </td>
           <td class="border">
-o4c1
+<span class="clear">o4</span>c1
           </td>
           <td class="border">
 n61
@@ -445,7 +425,7 @@ D（レ）
 D4
           </td>
           <td class="border">
-o4c2
+<span class="clear">o4</span>c2
           </td>
           <td class="border">
 n62
@@ -467,7 +447,7 @@ D4s
 E4f
           </td>
           <td class="border">
-o4c3
+<span class="clear">o4</span>c3
           </td>
           <td class="border">
 n63
@@ -487,7 +467,7 @@ E（ミ）
 E4
           </td>
           <td class="border">
-o4c4
+<span class="clear">o4</span>c4
           </td>
           <td class="border">
 n64
@@ -507,7 +487,7 @@ F（ファ）
 F4
           </td>
           <td class="border">
-o4c5
+<span class="clear">o4</span>c5
           </td>
           <td class="border">
 n65
@@ -529,7 +509,7 @@ F4s
 G4f
           </td>
           <td class="border">
-o4c6
+<span class="clear">o4</span>c6
           </td>
           <td class="border">
 n66
@@ -549,7 +529,7 @@ G（ソ）
 G4
           </td>
           <td class="border">
-o4c7
+<span class="clear">o4</span>c7
           </td>
           <td class="border">
 n67
@@ -571,7 +551,7 @@ G4s
 A4f
           </td>
           <td class="border">
-o4c8
+<span class="clear">o4</span>c8
           </td>
           <td class="border">
 n68
@@ -591,7 +571,7 @@ A（ラ）
 A4
           </td>
           <td class="border">
-o4c9
+<span class="clear">o4</span>c9
           </td>
           <td class="border">
 n69
@@ -613,7 +593,7 @@ A4s
 B4f
           </td>
           <td class="border">
-o4c10
+<span class="clear">o4</span>c10
           </td>
           <td class="border">
 n70
@@ -633,7 +613,7 @@ B（シ）
 B4
           </td>
           <td class="border">
-o4c11
+<span class="clear">o4</span>c11
           </td>
           <td class="border">
 n71
@@ -701,12 +681,54 @@ Froschgesang100: かえるの合唱（100秒・Δf=10）
       <tbody>
         <tr class="border">
           <td class="border">
+Byte数/sample
+          </td>
+          <td class="border">
+1sampleのByte数
+          </td>
+          <td class="border">
+1: 低音質
+<br>
+2: 高音質
+          </td>
+        </tr>
+        <tr class="border">
+          <td class="border">
+sample数/sec
+          </td>
+          <td class="border">
+1秒当たりのsample数
+          </td>
+          <td class="border">
+44100: 音楽
+<br>
+48000: 映像
+          </td>
+        </tr>
+        <tr class="border">
+          <td class="border">
+channel数
+          </td>
+          <td class="border">
+出力のchannel数
+          </td>
+          <td class="border">
+1: monaural
+<br>
+2: stereo
+          </td>
+        </tr>
+        <tr class="border">
+          <td class="border">
 wave-type
           </td>
           <td class="border">
 波形の種類
           </td>
           <td class="border">
+<span class="clear">dataset優先</span>
+<br>
+<br>
 sin: 正弦波
 <br>
 triangle: 三角波
@@ -726,11 +748,14 @@ wave-duty
 波形のduty比
           </td>
           <td class="border">
+<span class="clear">dataset優先</span>
+<br>
+<br>
 上ON/下ON時間の非対称性を定義
 <br>
 duty=0.5: 上下対称
 <br>
-duty≠0.5: 上下非対称・上下不連続
+duty≠0.5: 上下非対称・上下不連続（duty比を閾値に比例係数を2値化）
           </td>
         </tr>
         <tr class="border">
@@ -743,6 +768,9 @@ sweep-rate
 周波数sweepの指定周波数基準rate
           </td>
           <td class="border">
+<span class="clear">dataset優先</span>
+<br>
+<br>
 rate=1: 周波数のsweepなし（周波数を固定）
 <br>
 rate=0.5: 指定時間で周波数を半減
@@ -762,6 +790,9 @@ sweep-order
 周波数sweepの次数
           </td>
           <td class="border">
+<span class="clear">dataset優先</span>
+<br>
+<br>
 order=1: 線形に変化
 <br>
 order&lt;1: 減速的に変化
@@ -769,6 +800,59 @@ order&lt;1: 減速的に変化
 order&gt;1: 加速的に変化
 <br>
 変化率大|log2(order)|&gt;&gt;1の場合、連続性に難あり（意図とは異なる可能性あり）
+          </td>
+        </tr>
+        <tr class="border">
+          <td class="border">
+time[sec]
+          </td>
+          <td class="border">
+出力時間の全長
+          </td>
+          <td class="border">
+          </td>
+        </tr>
+        <tr class="border">
+          <td class="border">
+tempo
+<br>
+<span class="run">Ver.1.17.4追加</span>
+          </td>
+          <td class="border">
+時間の長さ
+          </td>
+          <td class="border">
+datasetの時間に乗算
+          </td>
+        </tr>
+        <tr class="border">
+          <td class="border">
+pitch
+<br>
+<span class="run">Ver.1.17.4追加</span>
+          </td>
+          <td class="border">
+音の高さ
+          </td>
+          <td class="border">
+datasetの周波数に乗算
+          </td>
+        </tr>
+        <tr class="border">
+          <td class="border">
+amplitude
+<br>
+<span class="run">Ver.1.17.4追加</span>
+<br>
+<span class="selection">Ver.1.28.4更新</span>
+          </td>
+          <td class="border">
+音の大きさ
+          </td>
+          <td class="border">
+<del><span class="clear">dataset優先</span></del>
+<br>
+<span class="selection">datasetの振幅に乗算</span>
           </td>
         </tr>
         <tr class="border">
@@ -783,11 +867,218 @@ stereo効果のゆらぎ周波数[Hz]
 spectrum強度のpeak周波数[Hz]
           </td>
           <td class="border">
+post最終処理
+<br>
+<br>
 Δf=0: channel間の合成なし（左右を完全分離）
 <br>
 |Δf|&gt;0: channel間の合成あり（左右をゆらぎ周波数で合成）
 <br>
 |Δf|&lt;&lt;1: channel間を平均化（左右を同一化）
+          </td>
+        </tr>
+        <tr class="border">
+          <td class="border">
+volume[%]
+          </td>
+          <td class="border">
+play時の音量
+          </td>
+          <td class="border">
+play機能のみ有効
+          </td>
+        </tr>
+        <tr class="border">
+          <td class="border">
+play
+          </td>
+          <td class="border">
+encodeの実行button
+          </td>
+          <td class="border">
+正常終了時
+<br>
+・soundを再生
+<br>
+・downloadの準備完了
+          </td>
+        </tr>
+        <tr class="border">
+          <td class="border">
+stop
+          </td>
+          <td class="border">
+playの中断button
+          </td>
+          <td class="border">
+Multi-threadのみ中断可
+          </td>
+        </tr>
+        <tr class="border">
+          <td class="border">
+log
+          </td>
+          <td class="border">
+実行結果のlog
+          </td>
+          <td class="border">
+          </td>
+        </tr>
+        <tr class="border">
+          <td class="border">
+file size[kB]
+          </td>
+          <td class="border">
+保存file size
+          </td>
+          <td class="border">
+<span class="clear">合成前channel毎のsize制限あり</span>（limiter機能）
+          </td>
+        </tr>
+        <tr class="border">
+          <td class="border">
+link
+          </td>
+          <td class="border">
+download link
+          </td>
+          <td class="border">
+browserでencodeされたbinaryをlocalに保存（通信なし）
+          </td>
+        </tr>
+        <tr class="border">
+          <td class="border">
+file name
+          </td>
+          <td class="border">
+保存file name
+          </td>
+          <td class="border">
+          </td>
+        </tr>
+        <tr class="border">
+          <td class="border">
+option
+<br>
+<span class="run">Ver.1.13.2更新</span>
+          </td>
+          <td class="border">
+encodeのoption
+          </td>
+          <td class="border">
+Multi-threadの選択可<span class="run">（並列化に対応）
+<br>
+N: 並列化のthread数</span>
+          </td>
+        </tr>
+        <tr class="border">
+          <td class="border">
+amplitude
+<br>
+fade-in/out
+<br>
+<span class="clear">Ver.1.13.3追加</span>
+          </td>
+          <td class="border">
+dataset内click noise対策用
+<br>
+1次遅れ系
+<br>
+振幅fade-in/outのfilter特性値
+          </td>
+          <td class="border">
+on処理（channel内の合成）
+<br>
+<br>
+w0: in-weight
+<br>
+p0: in-range
+<br>
+w1: out-weight
+<br>
+p1: out-range
+          </td>
+        </tr>
+        <tr class="border">
+          <td class="border">
+raw-value fade
+<br>
+<span class="run">Ver.1.4.2追加</span>
+<br>
+<span class="clear">Ver.1.13.3削除</span>
+<br>
+<span class="run">Ver.1.18.4復帰</span>
+          </td>
+          <td class="border">
+dataset間click noise対策用
+<br>
+1次遅れ系
+<br>
+生値fade-in/outのfilter特性値
+          </td>
+          <td class="border">
+post処理（channel間の合成）
+<br>
+<br>
+old-weight: 前回値の重み
+          </td>
+        </tr>
+        <tr class="border">
+          <td class="border">
+log-log filter gain
+          </td>
+          <td class="border">
+出力調整用
+<br>
+振幅gainのfilter特性値
+          </td>
+          <td class="border">
+on処理（channel内の合成）
+<br>
+<br>
+f0: low側の周波数
+<br>
+g0: low側のgain
+<br>
+f1: high側の周波数
+<br>
+g1: high側のgain
+          </td>
+        </tr>
+        <tr class="border">
+          <td class="border">
+frequency checker
+<br>
+<span class="run">Ver.1.14.4追加</span>
+          </td>
+          <td class="border">
+周波数checker
+          </td>
+          <td class="border">
+MIDI-octave: octave数
+<br>
+MIDI-note: note数
+<br>
+frequency[Hz]: frequency(octave,note)
+<br>
+<br>
+<a title="Graphing Calculator" href="../02_calc_graphing/index.html?useStrict=false&checkError=false">Graphing Calculator-test case-MIDI</a>参照
+<br>
+<span class="selection">frequency(octave,note)=&lt;last{m=(octave+1)*12+note,pow(2,(m-<span class="clear">69</span>)/12)*440};</span>
+<br>
+<span class="selection">frequency(4,9) -> 440</span>
+<br>
+<span class="selection">frequency(-1,<span class="clear">69</span>) -> 440</span>
+          </td>
+        </tr>
+        <tr class="border">
+          <td class="border">
+script
+          </td>
+          <td class="border">
+script入力欄
+          </td>
+          <td class="border">
           </td>
         </tr>
       </tbody>
