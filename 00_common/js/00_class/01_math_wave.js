@@ -8,6 +8,7 @@ My_entry.math_wave = function(){
 
 My_entry.math_wave.prototype.init = function(){
   var self = this;
+  self.pi2 = Math.PI*2;  // Ver.1.30.6
   return self;
 };
 My_entry.math_wave.prototype.t_duty = function(t, opt_th){
@@ -15,37 +16,51 @@ My_entry.math_wave.prototype.t_duty = function(t, opt_th){
   var th = opt_th || 0;
   return ((t < th)? t*0.5/th: 1+(t-1)*0.5/(1-th));
 };
+/* Ver.1.30.6 -> */
+My_entry.math_wave.prototype.normalize_t = function(freq, t, phi0, duty){
+  var self = this;
+  var _t = (t*freq+phi0/self.pi2)%1;
+  _t = self.t_duty(_t, duty);
+  return _t;
+};
 My_entry.math_wave.prototype.sin = function(freq, t, phi0, duty){
   var self = this;
-  var pi2 = Math.PI*2;
-  var t = (t*freq+phi0/pi2)%1;
-  t = self.t_duty(t, duty);
-  return Math.sin(t*pi2);
+  var _val = 0;
+  if(freq){
+    var t = self.normalize_t.apply(self, arguments);
+    _val = Math.sin(t*self.pi2);
+  }
+  return _val;
 };
 My_entry.math_wave.prototype.triangle = function(freq, t, phi0, duty){
   var self = this;
-  var pi2 = Math.PI*2;
-  var t = (t*freq+phi0/pi2)%1;
-  t = self.t_duty(t, duty);
-  var _val = (t<0.25)? t: (t<0.75)? -t+0.5: t-1;
-  return _val*4;
+  var _val = 0;
+  if(freq){
+    var t = self.normalize_t.apply(self, arguments);
+    _val = (t<0.25)? t: (t<0.75)? -t+0.5: t-1;
+    _val *= 4;
+  }
+  return _val;
 };
 My_entry.math_wave.prototype.square = function(freq, t, phi0, duty){
   var self = this;
-  var pi2 = Math.PI*2;
-  var t = (t*freq+phi0/pi2)%1;
-  t = self.t_duty(t, duty);
-  var _val = (t<0.5)? 1: -1;
+  var _val = 0;
+  if(freq){
+    var t = self.normalize_t.apply(self, arguments);
+    _val = (t<0.5)? 1: -1;
+  }
   return _val;
 };
 My_entry.math_wave.prototype.sawtooth = function(freq, t, phi0, duty){
   var self = this;
-  var pi2 = Math.PI*2;
-  var t = (t*freq+phi0/pi2)%1;
-  t = self.t_duty(t, duty);
-  var _val = -1+t*2;
+  var _val = 0;
+  if(freq){
+    var t = self.normalize_t.apply(self, arguments);
+    _val = -1+t*2;
+  }
   return _val;
 };
+/* -> Ver.1.30.6 */
 My_entry.math_wave.prototype.get_rms = function(len, fn, freq){
   var self = this;
   var _rms = 0;
