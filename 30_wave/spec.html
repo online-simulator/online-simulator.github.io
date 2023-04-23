@@ -23,6 +23,8 @@
         <tr class="border">
           <td class="border">
 <span id="span-history"></span>
+・<span class="clear">Ver.1.30.5</span>以降、file size制限の不具合を修正・上限解放
+<br>
 ・<span class="run">Ver.1.30.4</span>以降、本pageを分離して独立化
 <br>
 ・<span class="run">Ver.1.29.4</span>以降、stereo効果のゆらぎ周波数Δfを追加
@@ -926,13 +928,22 @@ log
         </tr>
         <tr class="border">
           <td class="border">
-file size[kB]
+file size[<span class="clear">M</span>B]
+<br>
+<span class="clear">Ver.1.30.5修正</span>
           </td>
           <td class="border">
 保存file size
           </td>
           <td class="border">
-<span class="clear">合成前channel毎のsize制限あり</span>（limiter機能）
+<span class="clear">file sizeの制限を追加（limiter機能を正常化）</span>
+<br>
+・dataset毎の制限
+<br>
+<span class="clear">・全datasetの制限（演奏用）</span>
+<br>
+<br>
+limit: <span class="clear">1GB</span>=1024MB=1048576KB=1073741824B
           </td>
         </tr>
         <tr class="border">

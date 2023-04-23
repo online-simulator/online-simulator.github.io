@@ -205,7 +205,7 @@ My_entry.handler_wave.prototype.output_fileSize = function(sec){
   var self = this;
   var number_samples = self.waveo.get_number_samples(sec || self.params.sec);
   var fileSize = self.waveo.get_fileSize(number_samples);
-  self.entry.$._id("input-fileSize").value = fileSize/1000;
+  self.entry.$._id("input-fileSize").value = fileSize/Math.pow(2, 10*2);  // Ver.1.30.5 1MB=1024KB=1024*1024B
   return self;
 };
 My_entry.handler_wave.prototype.get_fileName = function(){

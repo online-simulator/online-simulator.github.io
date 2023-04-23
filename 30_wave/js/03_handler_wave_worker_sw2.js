@@ -344,14 +344,20 @@ My_entry.handler_wave.prototype.check_script = function(input){
       _arr_params[counter_j0].number_samples_perChannel = number_samples_perChannel;
     }
   });
+  /* Ver.1.30.5 -> */
+  var fileSizeMax = 0;
   var sec = null;
   var params_all = {};
-  if(_arr_params[0]){
-    _arr_params[0].number_samples_perChannel_max = number_samples_perChannel_max;
-    sec = number_samples_perChannel_max/_arr_params[0].samples_perSecond;
+  var param0 = _arr_params[0];
+  if(param0){
+    param0.number_samples_perChannel_max = number_samples_perChannel_max;
+    fileSizeMax = param0.fileSizeMax;
+    sec = number_samples_perChannel_max/param0.samples_perSecond;
     self.output_time(sec);
     self.output_fileSize(sec);
   }
+  params_all.fileSizeMax = fileSizeMax;
+  /* -> Ver.1.30.5 */
   params_all.sec = sec;
   params_all.number_samples = number_samples_perChannel_max;
   params_all.arr_f = [];
