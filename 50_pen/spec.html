@@ -18,6 +18,22 @@
 <body>
   <div class="absolute">
     <table class="border">
+      <caption>筆pen機能の更新履歴</caption>
+      <tbody>
+        <tr class="border">
+          <td class="border run">
+Ver.1.54.10
+          </td>
+          <td class="border">
+・ox/oyのoffset指定時、grid-snapの仕様変更
+<br>
+　offset前の座標をsnap　⇒　offset後の出力座標をsnap
+          </td>
+        </tr>
+      </tbody>
+    </table>
+<br>
+    <table class="border">
       <caption>定義</caption>
       <thead>
         <tr class="border">
@@ -155,14 +171,16 @@ xy_fixed(f)=xy(f)+xy_offset
           <td class="border">
 grid-snap
 <br>
-<span class="clear">Ver.1.32.7訂正</span>
+<del><span class="clear">Ver.1.32.7訂正</span></del>
 <br>
 <span class="run">Ver.1.36.7更新</span>
+<br>
+<span class="condition">Ver.1.54.10更新</span>
           </td>
           <td class="border">
-直近のgrid点に<span class="clear"><del>xy_fixed</del>
+直近のgrid点に<span class="condition">xy_fixed
 <br>
-xy_pointer</span>をsnap
+<del>xy_pointer</del></span>をsnap
           </td>
           <td class="border">
 <span class="run"><del>特殊mode選択状態</del>Ver.1.36.7廃止</span>

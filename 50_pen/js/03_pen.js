@@ -354,6 +354,13 @@ My_entry.pen.prototype.make_handlers = function(){
   var mg = self.objs.mg;  // Ver.1.10.2
   var bg = self.objs.bg;  // Ver.1.7.1
   var ctx = fg.draw.ctx;
+  /* Ver.1.54.10 -> */
+  var get_offset = function(e){
+    var _xy = fg.get_offset(e);
+    _xy.x += options.ox;
+    _xy.y += options.oy;
+    return  _xy;
+  };
   /* Ver.1.20.4 */
   var set_ctx = function(){
     var alpha = options._alpha;  // Ver.1.35.7
@@ -388,7 +395,7 @@ My_entry.pen.prototype.make_handlers = function(){
       self.isLocked = true;  // Ver.1.21.5
       self.isDragging = true;
       /* Ver.1.4.1 -> */
-      var xy1 = fg.get_offset(e);
+      var xy1 = get_offset(e);  // Ver.1.54.10
       self.xy0 = xy1;
       self.xym0 = xy1;
       self.xyp0 = xy1;
@@ -428,14 +435,12 @@ My_entry.pen.prototype.make_handlers = function(){
         e.preventDefault();
         e.stopPropagation();
         /* Ver.1.36.7 -> */
-        var ox = options.ox;
-        var oy = options.oy;
         var dxg = options["grid-width"];
         var dyg = options["grid-height"];
         var dxyg = {x: dxg, y: dyg};
         var hasGrid = (dxg > 0 && dyg > 0);
         var hasSnap = (options.snap && hasGrid);
-        var xy1 = fg.get_offset(e);
+        var xy1 = get_offset(e);  // Ver.1.54.10
         var xy0 = self.xy0 || xy1;
         if(hasSnap){
           xy0 = fg.draw.xy2xy_snapped(xy0, dxyg);
@@ -512,10 +517,10 @@ My_entry.pen.prototype.make_handlers = function(){
           /* Ver.1.4.1 -> */
           if(Math.min(w0, w1) < options.w_th){
             ctx.beginPath();
-            ctx.moveTo(xym0.x+ox, xym0.y+oy);
-            ctx.lineTo(xyp0.x+ox, xyp0.y+oy);
-            ctx.lineTo(xyp1.x+ox, xyp1.y+oy);
-            ctx.lineTo(xym1.x+ox, xym1.y+oy);
+            ctx.moveTo(xym0.x, xym0.y);
+            ctx.lineTo(xyp0.x, xyp0.y);
+            ctx.lineTo(xyp1.x, xyp1.y);
+            ctx.lineTo(xym1.x, xym1.y);
             ctx.fill();
           }
           else{
@@ -528,12 +533,12 @@ My_entry.pen.prototype.make_handlers = function(){
             var yp = y0;
             for(var p=0; p<len_p; ++p){
               ctx.beginPath();
-              ctx.moveTo(xp+ox, yp+oy);
+              ctx.moveTo(xp, yp);
               wp = w0+dw01*(p+1);
               xp = x0+dx01*(p+1);
               yp = y0+dy01*(p+1);
               ctx.lineWidth = wp;
-              ctx.lineTo(xp+ox, yp+oy);
+              ctx.lineTo(xp, yp);
               ctx.stroke();
             }
           }
@@ -541,7 +546,7 @@ My_entry.pen.prototype.make_handlers = function(){
           /* -> Ver.1.46.8 */
           /* Ver.1.35.7 */
           if(self.mode === 0){
-            self.arr_vec.push({x: x1+ox, y: y1+oy});
+            self.arr_vec.push({x: x1, y: y1});
           }
         }
       }
@@ -551,12 +556,12 @@ My_entry.pen.prototype.make_handlers = function(){
         switch(self.mode){
           case 2:
           case 3:
-            fg.draw.marker_circle({x: x0+ox, y: y0+oy}, r/2, r, "#000000", "#ffffff");
+            fg.draw.marker_circle({x: x0, y: y0}, r/2, r, "#000000", "#ffffff");
             break;
           default:
             break;
         }
-        fg.draw.marker_circle({x: x1+ox, y: y1+oy}, r/2, r, "#000000", "#ffffff");
+        fg.draw.marker_circle({x: x1, y: y1}, r/2, r, "#000000", "#ffffff");
       }
       /* -> Ver.1.32.7 */
       }
@@ -593,8 +598,6 @@ My_entry.pen.prototype.make_handlers = function(){
       /* Ver.1.32.7 -> */
       /* Ver.1.20.4 -> */
       /* Ver.1.36.7 -> */
-      var ox = options.ox;
-      var oy = options.oy;
       var dxg = options["grid-width"];
       var dyg = options["grid-height"];
       var dxyg = {x: dxg, y: dyg};
@@ -602,7 +605,7 @@ My_entry.pen.prototype.make_handlers = function(){
       var hasGrid = (dxg > 0 && dyg > 0);
       var hasSnap = (options.snap && hasGrid);
       var hasMosaic = (options.mosaic && hasGrid);  // Ver.1.49.9
-      var xy1 = fg.get_offset(e);
+      var xy1 = get_offset(e);  // Ver.1.54.10
       var xy0 = self.xy0 || xy1;
       if(hasSnap){
         xy0 = fg.draw.xy2xy_snapped(xy0, dxyg);
@@ -634,7 +637,7 @@ My_entry.pen.prototype.make_handlers = function(){
           /* Ver.1.30.7 */
           case 1:
             /* Ver.1.26.7 -> */
-            var text_filter = "fiin["+(x1+ox)+","+(y1+oy)+","+rgba.r+","+rgba.g+","+rgba.b+","+rgba.a+","+(options.Nwrap || 16);  // text=""+(x+ox)+""
+            var text_filter = "fiin["+(x1)+","+(y1)+","+rgba.r+","+rgba.g+","+rgba.b+","+rgba.a+","+(options.Nwrap || 16);  // text=""+(x)+""
             self.run_filter(bg, text_filter+"]", true);  // Ver.1.17.4
             var ID_map = self.run_filter(bg, text_filter+",1]");
             self.arr_data = {ID_map: ID_map};
@@ -645,7 +648,7 @@ My_entry.pen.prototype.make_handlers = function(){
             var cy = y0;
             var r = len;
             ctx.beginPath();
-            ctx.arc(x0+ox, y0+oy, len, 0, Math.PI*2);
+            ctx.arc(x0, y0, len, 0, Math.PI*2);
             ctx.fill();
             if(hasStyle){
               ctx.stroke();
@@ -657,14 +660,14 @@ My_entry.pen.prototype.make_handlers = function(){
             var y = Math.min(y0, y1);
             var width = Math.max(x0, x1)-x;
             var height = Math.max(y0, y1)-y;
-            ctx.fillRect(x+ox, y+oy, width, height);
+            ctx.fillRect(x, y, width, height);
             if(hasStyle){
-              ctx.strokeRect(x+ox, y+oy, width, height);
+              ctx.strokeRect(x, y, width, height);
             }
             self.arr_data = {x: x, y: y, width: width, height: height};
             break;
           case 4:
-            var ID_picked = bg.getID_xy(x1+ox, y1+oy);
+            var ID_picked = bg.getID_xy(x1, y1);
             if(ID_picked){
               var data_picked = ID_picked.data;
               var r_picked = data_picked[0] || 0;
@@ -755,6 +758,7 @@ My_entry.pen.prototype.make_handlers = function(){
       /* -> Ver.1.21.5 */
     }
   };
+  /* -> Ver.1.54.10 */
   return _handlers;
 };
 My_entry.pen.prototype.init_handlers = function(){

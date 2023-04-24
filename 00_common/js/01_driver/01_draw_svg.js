@@ -135,10 +135,14 @@ My_entry.draw_svg.prototype.lines_pen = function(idName, arr_data, options){
 for(var nsh=0; nsh<len_sh+1; ++nsh){
   _svg += self.header_group(idName, config);
   /* 1.35.8 -> */
+  /* Ver.1.54.10 -> */
   /* 1.28.7 -> */
-  var ox = options.ox;
-  var oy = options.oy;
+//  var ox = options.ox;
+//  var oy = options.oy;
+  var ox = 0;
+  var oy = 0;
   /* -> 1.28.7 */
+  /* -> Ver.1.54.10 */
   /* 1.41.8 -> */
   if(arr_data.cx){
     var cx = self.floor(arr_data.cx+ox);
