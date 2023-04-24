@@ -18,58 +18,186 @@
 <body>
   <div class="absolute">
     <table class="border">
-      <caption>演奏機能の更新履歴</caption>
+      <caption><span id="span-history">演奏機能の更新履歴</span></caption>
       <tbody>
         <tr class="border">
+          <td class="border clear">
+Ver.1.30.6
+          </td>
           <td class="border">
-<span id="span-history"></span>
-・<span class="clear">Ver.1.30.6</span>以降、square||sawtoothの波形を選択時、休止中にnoise発生の不具合を修正
+・square||sawtoothの波形を選択時、休止中にnoise発生の不具合を修正
+          </td>
+        </tr>
+        <tr class="border">
+          <td class="border clear">
+Ver.1.30.5
+          </td>
+          <td class="border">
+・file size制限の不具合を修正
 <br>
-・<span class="clear">Ver.1.30.5</span>以降、file size制限の不具合を修正・上限解放
+・file sizeの上限up
+          </td>
+        </tr>
+        <tr class="border">
+          <td class="border run">
+Ver.1.30.4
+          </td>
+          <td class="border">
+・本pageを分離して独立化
+          </td>
+        </tr>
+        <tr class="border">
+          <td class="border run">
+Ver.1.29.4
+          </td>
+          <td class="border">
+・stereo効果のゆらぎ周波数Δfを追加
+          </td>
+        </tr>
+        <tr class="border">
+          <td class="border run">
+Ver.1.28.4
+          </td>
+          <td class="border">
+・amplitudeの仕様変更（tempo||pitchに準拠）
+          </td>
+        </tr>
+        <tr class="border">
+          <td class="border run">
+Ver.1.27.4
+          </td>
+          <td class="border">
+・<span class="wF">testcase@URL-parameterを追加</span>
+          </td>
+        </tr>
+        <tr class="border">
+          <td class="border run">
+Ver.1.26.4
+          </td>
+          <td class="border">
+・<span class="jF">sweep-orderを追加</span>
+          </td>
+        </tr>
+        <tr class="border">
+          <td class="border run">
+Ver.1.25.4
+          </td>
+          <td class="border">
+・<span class="jF">sweep-rateを更新（filter gain適用）</span>
+          </td>
+        </tr>
+        <tr class="border">
+          <td class="border run">
+Ver.1.24.4
+          </td>
+          <td class="border">
+・<span class="jF">sweep-rateを追加（filter gain固定）</span>
+          </td>
+        </tr>
+        <tr class="border">
+          <td class="border run">
+Ver.1.20.4
+          </td>
+          <td class="border">
+・<span class="condition">datasetを拡張</span>
+          </td>
+        </tr>
+        <tr class="border">
+          <td class="border run">
+Ver.1.19.4
+          </td>
+          <td class="border">
+・<span class="condition">"f"+周波数入力の小数点以下を有効化</span>
 <br>
-・<span class="run">Ver.1.30.4</span>以降、本pageを分離して独立化
+・時間の入力形式を拡張（60BPM基準の演算子b=1000msecを定義）
+          </td>
+        </tr>
+        <tr class="border">
+          <td class="border run">
+Ver.1.18.4
+          </td>
+          <td class="border">
+・binary生値fade-in/out機能raw-value fadeを復帰
+          </td>
+        </tr>
+        <tr class="border">
+          <td class="border run">
+Ver.1.17.4
+          </td>
+          <td class="border">
+・tempo/pitch/amplitudeの設定項目を追加
 <br>
-・<span class="run">Ver.1.29.4</span>以降、stereo効果のゆらぎ周波数Δfを追加
+・fade-in/outの設定項目を拡張
+          </td>
+        </tr>
+        <tr class="border">
+          <td class="border run">
+Ver.1.17.4
+          </td>
+          <td class="border">
+・tempo/pitch/amplitudeの設定項目を追加
 <br>
-・<span class="run">Ver.1.28.4</span>以降、amplitudeの仕様変更（tempo||pitchに準拠）
+・fade-in/outの設定項目を拡張
 <br>
-・<span class="run">Ver.1.27.4</span>以降、<span class="wF">testcase@URL-parameterを追加</span>
+・<span class="clear">time=0の場合、error終了に変更</span>
+          </td>
+        </tr>
+        <tr class="border">
+          <td class="border run">
+Ver.1.16.4
+          </td>
+          <td class="border">
+・wave-dutyの設定項目を追加
+          </td>
+        </tr>
+        <tr class="border">
+          <td class="border run">
+Ver.1.15.4
+          </td>
+          <td class="border">
+・<span class="run">scientific pitch記法</span>に対応
+          </td>
+        </tr>
+        <tr class="border">
+          <td class="border run">
+Ver.1.14.4
+          </td>
+          <td class="border">
+・frequency checkerを追加
+          </td>
+        </tr>
+        <tr class="border">
+          <td class="border clear">
+Ver.1.13.4
+          </td>
+          <td class="border">
+・88鍵盤標準の<span class="clear">scientific pitch記法</span>に準拠
 <br>
-・<span class="run">Ver.1.26.4</span>以降、<span class="jF">sweep-orderを追加</span>
-<br>
-・<span class="run">Ver.1.25.4</span>以降、<span class="jF">sweep-rateを更新（filter gain適用）</span>
-<br>
-・<span class="run">Ver.1.24.4</span>以降、<span class="jF">sweep-rateを追加（filter gain固定）</span>
-<br>
-・<span class="run">Ver.1.20.4</span>以降、<span class="condition">datasetを拡張</span>
-<br>
-・<span class="run">Ver.1.19.4</span>以降、<span class="condition">"f"+周波数入力の小数点以下を有効化</span>
-<br>
-・<span class="run">Ver.1.19.4</span>以降、時間の入力形式を拡張（60BPM基準の演算子b=1000msecを定義）
-<br>
-・<span class="run">Ver.1.18.4</span>以降、binary生値fade-in/out機能raw-value fadeを復帰
-<br>
-・<span class="run">Ver.1.17.4</span>以降、tempo/pitch/amplitudeの設定項目を追加
-<br>
-・<span class="run">Ver.1.17.4</span>以降、fade-in/outの設定項目を拡張
-<br>
-・<span class="clear">Ver.1.17.4</span>以降、time=0の場合、error終了に変更
-<br>
-・<span class="run">Ver.1.16.4</span>以降、wave-dutyの設定項目を追加
-<br>
-・<span class="run">Ver.1.15.4</span>以降、<span class="run">scientific pitch記法</span>に対応
-<br>
-・<span class="run">Ver.1.14.4</span>以降、frequency checkerを追加
-<br>
-・<span class="clear">Ver.1.13.4</span>以降、88鍵盤標準の<span class="clear">scientific pitch記法</span>に準拠
-<br>
-・<span class="clear">Ver.1.13.4</span>以降、MIDI-octave数に負数を指定できない致命的な不具合を修正
-<br>
-・<span class="clear">Ver.1.13.3</span>以降、pitchに影響する生値fade-in/out　⇒　物理的な振幅fade-in/outに修正
-<br>
-・<span class="run">Ver.1.13.2</span>以降、parallel Multi-threadingに対応
-<br>
-・<span class="run">Ver.1.4.2</span>以降、生値fade-in/outを追加
+・MIDI-octave数に負数を指定できない致命的な不具合を修正
+          </td>
+        </tr>
+        <tr class="border">
+          <td class="border clear">
+Ver.1.13.3
+          </td>
+          <td class="border">
+・pitchに影響する生値fade-in/out　⇒　物理的な振幅fade-in/outに修正
+          </td>
+        </tr>
+        <tr class="border">
+          <td class="border run">
+Ver.1.13.2
+          </td>
+          <td class="border">
+・parallel Multi-threadingに対応
+          </td>
+        </tr>
+        <tr class="border">
+          <td class="border run">
+Ver.1.4.2
+          </td>
+          <td class="border">
+・生値fade-in/outを追加
           </td>
         </tr>
       </tbody>
