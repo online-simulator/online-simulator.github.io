@@ -273,6 +273,10 @@ My_entry.handler_wave.prototype.make_params = function(){
   var expo1 = self.entry.$.inputVal_id("input-order");
   var rate1 = Math.pow(base1, expo1);
   self.params.order = self.entry.def.limit(rate1, 0, Number.MAX_VALUE, 1);
+  /* Ver.1.31.6 -> */
+  self.params.order_d = 1;  // script only
+  self.params.order_a = 1;  // script only
+  /* -> Ver.1.31.6 */
   /* -> Ver.1.26.4 */
   /* -> Ver.1.24.4 */
   /* Ver.1.20.4 -> */

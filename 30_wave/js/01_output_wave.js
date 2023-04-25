@@ -327,8 +327,14 @@ My_entry.output_wave.prototype.encode_soundData_LE = function(params){  // Ver.1
     var t = ns*seconds_perSample;
     /* Ver.1.20.4 -> */
     var dt = ns/params.number_samples;
-    var kamplitude = params.amplitude0+(params.amplitude1-params.amplitude0)*dt;
-    var duty = params.duty0+(params.duty1-params.duty0)*dt;
+    /* Ver.1.31.6 -> */
+    var order_a = params.order_a;
+    var prop_da = Math.pow(dt, order_a);
+    var kamplitude = params.amplitude0+(params.amplitude1-params.amplitude0)*prop_da;
+    var order_d = params.order_d;
+    var prop_dd = Math.pow(dt, order_d);
+    var duty = params.duty0+(params.duty1-params.duty0)*prop_dd;
+    /* -> Ver.1.31.6 */
     /* -> Ver.1.20.4 */
     /* Ver.1.24.4 -> */
     var kf0 = 1;
@@ -414,6 +420,14 @@ My_entry.output_wave.prototype.add_params = function(params){
   if(typeof params.order === "undefined"){
     params.order = 1;
   }
+  /* Ver.1.31.6 -> */
+  if(typeof params.order_d === "undefined"){
+    params.order_d = 1;
+  }
+  if(typeof params.order_a === "undefined"){
+    params.order_a = 1;
+  }
+  /* -> Ver.1.31.6 */
   /* -> Ver.1.26.4 */
   return self;
 };

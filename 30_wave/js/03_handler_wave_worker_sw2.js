@@ -223,7 +223,9 @@ My_entry.handler_wave.prototype.input2arr = function(input){
       "f1",
       "g1",
       "rate",  // Ver.1.24.4
-      "order"  // Ver.1.26.4
+      "order",  // Ver.1.26.4
+      "order_d",  // Ver.1.31.6
+      "order_a"  // Ver.1.31.6
     ];
     var params0 = {};
     /* -> Ver.1.20.4 */
@@ -292,6 +294,9 @@ My_entry.handler_wave.prototype.input2arr = function(input){
               case "f1":
                 param = num;
                 break;
+              // Ver.1.31.6
+              case "order_d":
+              case "order_a":
               // Ver.1.26.4
               case "order":
               // Ver.1.24.4

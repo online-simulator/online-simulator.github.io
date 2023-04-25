@@ -21,6 +21,14 @@
       <caption><span id="span-history">演奏機能の更新履歴</span></caption>
       <tbody>
         <tr class="border">
+          <td class="border run">
+Ver.1.31.6
+          </td>
+          <td class="border">
+・duty||amplitudeの変化率のorderを追加（script限定）
+          </td>
+        </tr>
+        <tr class="border">
           <td class="border clear">
 Ver.1.30.6
           </td>
@@ -250,21 +258,25 @@ dataset
         </tr>
         <tr class="border">
           <td class="border">
-<span class="condition">拡張dataset</span>
+拡張dataset
 <br>
-<span class="run">Ver.1.20.4追加</span>
+<span class="condition">Ver.1.20.4追加</span>
+<br>
+<span class="jF">Ver.1.24.4追加</span>
+<br>
+<span class="jF">Ver.1.26.4追加</span>
+<br>
+<span class="selection">Ver.1.31.6追加</span>
           </td>
           <td class="border">
 datasetの拡張
           </td>
           <td class="border">
-<span class="condition">
 時間:音階
 <br>
 時間:[音階0,音階1,...]
 <br>
 時間:休止記号"r"
-</span>
 <br>
 <span class="condition">:command=""||"clear"</span>
 <br>
@@ -272,7 +284,7 @@ datasetの拡張
 <br>
 <span class="condition">:w0=0~1:p0=0~1:w1=0~1:p1=0~1:f0:g0=0~1:f1:g1=0~1</span>
 <br>
-<span class="jF">:rate=0~:order=0~;</span>
+<span class="jF">:rate=0~:order=0~</span><span class="selection">:order_d=0~:order_a=0~</span>;
           </td>
         </tr>
         <tr class="border">
@@ -310,11 +322,13 @@ duty0
 <br>
 duty1
 </span>
+<br>
+<span class="selection">order_d</span>=1@default
           </td>
           <td class="border">
 N個中n番目sampleのduty比
 <br>
-=duty0+(duty1-duty0)*n/N
+=duty0+(duty1-duty0)*pow(n/N,<span class="selection">order_d</span>)
           </td>
         </tr>
         <tr class="border">
@@ -324,11 +338,13 @@ amplitude0
 <br>
 amplitude1
 </span>
+<br>
+<span class="selection">order_a</span>=1@default
           </td>
           <td class="border">
 N個中n番目sampleの振幅
 <br>
-=amplitude0+(amplitude1-amplitude0)*n/N
+=amplitude0+(amplitude1-amplitude0)*pow(n/N,<span class="selection">order_a</span>)
           </td>
         </tr>
         <tr class="border">
