@@ -33,7 +33,7 @@ Ver.1.31.6
 Ver.1.30.6
           </td>
           <td class="border">
-・square||sawtoothの波形を選択時、休止中にnoise発生の不具合を修正
+・square||sawtoothの波形を選択時、休止||f=0の間にnoise発生の不具合を修正
           </td>
         </tr>
         <tr class="border">
@@ -244,6 +244,8 @@ channelの区切り文字
         <tr class="border">
           <td class="border">
 dataset
+<br>
+<span class="clear">Ver.1.30.6対応</span>
           </td>
           <td class="border">
 音dataの単位
@@ -254,6 +256,8 @@ dataset
 時間:[音階0,音階1,...];
 <br>
 時間:休止記号"r";
+<br>
+<span class="clear">休止時間:0;</span>
           </td>
         </tr>
         <tr class="border">
@@ -276,7 +280,9 @@ datasetの拡張
 <br>
 時間:[音階0,音階1,...]
 <br>
-時間:休止記号"r"
+時間:r
+<br>
+<span class="clear">休止時間:0</span>
 <br>
 <span class="condition">:command=""||"clear"</span>
 <br>
