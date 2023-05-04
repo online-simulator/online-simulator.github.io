@@ -219,6 +219,16 @@ Ver.1.4.2
       <tbody>
         <tr class="border">
           <td class="border">
+channel
+          </td>
+          <td class="border">
+時系列の音dataを出力
+          </td>
+          <td class="border">
+          </td>
+        </tr>
+        <tr class="border">
+          <td class="border">
 channelの区別
           </td>
           <td class="border">
@@ -226,6 +236,8 @@ channelの区別
           </td>
           <td class="border">
 channel番号=1~
+<br>
+・入力textの前方から昇順に番号を付与
           </td>
         </tr>
         <tr class="border">
@@ -236,9 +248,14 @@ channel番号=1~
 channelの区切り文字
           </td>
           <td class="border">
-奇数番channelはchannel1に合成
+奇数番channel：channel1に合成
 <br>
-偶数番channelはchannel数によってchannel2||1に合成
+偶数番channel：channel2||1に合成（channel数に依存）
+<br>
+<br>
+{} || {}{} || {}{}{} -> error終了（時間指定なし）
+<br>
+{:}{} || {:} || {b:0} -> 保存可能（1beatの無音）
           </td>
         </tr>
         <tr class="border">
@@ -258,6 +275,9 @@ dataset
 時間:休止記号"r";
 <br>
 <span class="clear">休止時間:0;</span>
+<br>
+<br>
+省略時：1beatの休止（b:0に同義）
           </td>
         </tr>
         <tr class="border">
@@ -300,9 +320,9 @@ datasetの拡張
 <span class="condition">command</span>
           </td>
           <td class="border">
-省略時: 直前datasetの拡張設定値を継承||clear状態でUI設定値を参照
+省略時：直前datasetの拡張設定値を継承||clear状態でUI設定値を参照
 <br>
-clear: 直前datasetの拡張設定値をclear
+clear：直前datasetの拡張設定値をclear
           </td>
         </tr>
         <tr class="border">
@@ -312,13 +332,13 @@ clear: 直前datasetの拡張設定値をclear
           <td class="border">
 波形の種類
 <br>
-0: sin
+0：sin
 <br>
-1: triangle
+1：triangle
 <br>
-2: square
+2：square
 <br>
-3: sawtooth
+3：sawtooth
           </td>
         </tr>
         <tr class="border">
@@ -795,13 +815,13 @@ testcase
 test case
           </td>
           <td class="border">
-0: 1octaveのstereo出力（左右の差なし・Δf=0）
+0：1octaveのstereo出力（左右の差なし・Δf=0）
 <br>
-1: 1octaveのstereo出力（左右の差あり・Δf=0）
+1：1octaveのstereo出力（左右の差あり・Δf=0）
 <br>
-Froschgesang: かえるの合唱（25秒・Δf=10）
+Froschgesang：かえるの合唱（25秒・Δf=10）
 <br>
-Froschgesang100: かえるの合唱（100秒・Δf=10）
+Froschgesang100：かえるの合唱（100秒・Δf=10）
           </td>
         </tr>
       </tbody>
@@ -831,9 +851,9 @@ Byte数/sample
 1sampleのByte数
           </td>
           <td class="border">
-1: 低音質
+1：低音質
 <br>
-2: 高音質
+2：高音質
           </td>
         </tr>
         <tr class="border">
@@ -844,9 +864,9 @@ sample数/sec
 1秒当たりのsample数
           </td>
           <td class="border">
-44100: 音楽
+44100：音楽
 <br>
-48000: 映像
+48000：映像
           </td>
         </tr>
         <tr class="border">
@@ -857,9 +877,9 @@ channel数
 出力のchannel数
           </td>
           <td class="border">
-1: monaural
+1：monaural
 <br>
-2: stereo
+2：stereo
           </td>
         </tr>
         <tr class="border">
@@ -875,13 +895,13 @@ wave-type
 <span class="clear">dataset優先</span>
 <br>
 <br>
-sin: 正弦波
+sin：正弦波
 <br>
-triangle: 三角波
+triangle：三角波
 <br>
-square: 矩形波<span class="condition">（波形@f=0を修正）</span>
+square：矩形波<span class="condition">（波形@f=0を修正）</span>
 <br>
-sawtooth: のこぎり波<span class="condition">（波形@f=0を修正）</span>
+sawtooth：のこぎり波<span class="condition">（波形@f=0を修正）</span>
           </td>
         </tr>
         <tr class="border">
@@ -899,9 +919,9 @@ wave-duty
 <br>
 上ON/下ON時間の非対称性を定義
 <br>
-duty=0.5: 上下対称
+duty=0.5：上下対称
 <br>
-duty≠0.5: 上下非対称・上下不連続（duty比を閾値に比例係数を2値化）
+duty≠0.5：上下非対称・上下不連続（duty比を閾値に比例係数を2値化）
           </td>
         </tr>
         <tr class="border">
@@ -917,11 +937,11 @@ sweep-rate
 <span class="clear">dataset優先</span>
 <br>
 <br>
-rate=1: 周波数のsweepなし（周波数を固定）
+rate=1：周波数のsweepなし（周波数を固定）
 <br>
-rate=0.5: 指定時間で周波数を半減
+rate=0.5：指定時間で周波数を半減
 <br>
-rate=2: 指定時間で周波数を倍増
+rate=2：指定時間で周波数を倍増
 <br>
 傾き大rate&gt;&gt;1の場合、要分解能sample数/sec&gt;&gt;10000（不連続なnoise回避）
           </td>
@@ -939,11 +959,11 @@ sweep-order
 <span class="clear">dataset優先</span>
 <br>
 <br>
-order=1: 線形に変化
+order=1：線形に変化
 <br>
-order&lt;1: 減速的に変化
+order&lt;1：減速的に変化
 <br>
-order&gt;1: 加速的に変化
+order&gt;1：加速的に変化
 <br>
 変化率大|log2(order)|&gt;&gt;1の場合、連続性に難あり（意図とは異なる可能性あり）
           </td>
@@ -1016,11 +1036,11 @@ spectrum強度のpeak周波数[Hz]
 <span class="clear">stereo出力限定</span>のpost最終処理（channel間の合成）
 <br>
 <br>
-Δf=0: channel間の合成なし（左右を完全分離）
+Δf=0：channel間の合成なし（左右を完全分離）
 <br>
-|Δf|&gt;0: channel間の合成あり（左右をゆらぎ周波数で合成）
+|Δf|&gt;0：channel間の合成あり（左右をゆらぎ周波数で合成）
 <br>
-|Δf|&lt;&lt;1: channel間を平均化（左右を同一化）
+|Δf|&lt;&lt;1：channel間を平均化（左右を同一化）
           </td>
         </tr>
         <tr class="border">
@@ -1087,7 +1107,7 @@ file size[<span class="clear">M</span>B]
 <span class="clear">・全datasetの制限（演奏用）</span>
 <br>
 <br>
-limit: <span class="clear">1GB</span>=1024MB=1024^2KB=1024^3B=1073741824B
+limit：<span class="clear">1GB</span>=1024MB=1024^2KB=1024^3B=1073741824B
           </td>
         </tr>
         <tr class="border">
@@ -1123,7 +1143,7 @@ encodeのoption
           <td class="border">
 Multi-threadの選択可<span class="run">（並列化に対応）
 <br>
-N: 並列化のthread数</span>
+N：並列化のthread数</span>
           </td>
         </tr>
         <tr class="border">
@@ -1145,13 +1165,13 @@ dataset内click noise対策用
 on処理（channel内の合成）
 <br>
 <br>
-w0: in-weight
+w0：in-weight
 <br>
-p0: in-range
+p0：in-range
 <br>
-w1: out-weight
+w1：out-weight
 <br>
-p1: out-range
+p1：out-range
           </td>
         </tr>
         <tr class="border">
@@ -1175,7 +1195,7 @@ dataset間click noise対策用
 post処理（channel間の合成）
 <br>
 <br>
-old-weight: 前回値の重み
+old-weight：前回値の重み
           </td>
         </tr>
         <tr class="border">
@@ -1191,16 +1211,16 @@ log-log filter gain
 on処理（channel内の合成）
 <br>
 <br>
-f0: low側の周波数
+f0：low側の周波数
 <br>
-g0: low側のgain
+g0：low側のgain
 <br>
-f1: high側の周波数
+f1：high側の周波数
 <br>
-g1: high側のgain
+g1：high側のgain
 <br>
 <br>
-既定値: 聴き取りやすい高周波数の出力を意図的に低下
+既定値：聴き取りやすい高周波数の出力を意図的に低下
           </td>
         </tr>
         <tr class="border">
@@ -1213,11 +1233,11 @@ frequency checker
 周波数checker
           </td>
           <td class="border">
-MIDI-octave: octave数
+MIDI-octave：octave数
 <br>
-MIDI-note: note数
+MIDI-note：note数
 <br>
-frequency[Hz]: frequency(octave,note)
+frequency[Hz]：frequency(octave,note)
 <br>
 <br>
 <a title="Graphing Calculator" href="../02_calc_graphing/index.html?useStrict=false&checkError=false">Graphing Calculator-test case-MIDI</a>参照
