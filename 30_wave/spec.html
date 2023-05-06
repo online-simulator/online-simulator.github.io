@@ -235,27 +235,37 @@ post処理：channel間の合成（binary入出力）
 channelの区別
           </td>
           <td class="border">
-波括弧{}を使用
+{}
+          </td>
+          <td class="border">
+channelの区切り文字（半角の波括弧）
+          </td>
+        </tr>
+        <tr class="border">
+          <td class="border" rowspan="3">
           </td>
           <td class="border">
 channel番号=1~
-<br>
-・入力textの前方から昇順に番号を付与
+          </td>
+          <td class="border">
+入力textの前方から昇順に番号を付与
           </td>
         </tr>
         <tr class="border">
           <td class="border">
-波括弧{}
-          </td>
-          <td class="border">
-channelの区切り文字
+channel間の合成
           </td>
           <td class="border">
 奇数番channel：channel1に合成
 <br>
 偶数番channel：channel2||1に合成（channel数に依存）
-<br>
-<br>
+          </td>
+        </tr>
+        <tr class="border">
+          <td class="border">
+入力例
+          </td>
+          <td class="border">
 {} || {}{} || {}{}{} -> error終了（時間指定なし）
 <br>
 {:}{} || {:} || {b:0} -> 保存可能（1beatの無音）
@@ -280,7 +290,25 @@ dataset
 <span class="clear">休止時間:0;</span>
 <br>
 <br>
-省略時：1beatの休止（b:0に同義）
+要素省略時：1beatの休止（b:0に同義）
+          </td>
+        </tr>
+        <tr class="border">
+          <td class="border" rowspan="2">
+          </td>
+          <td class="border">
+:
+          </td>
+          <td class="border">
+dataset要素の区切り文字（半角のcolon）
+          </td>
+        </tr>
+        <tr class="border">
+          <td class="border">
+;
+          </td>
+          <td class="border">
+datasetの区切り文字（半角のsemi-colon）
           </td>
         </tr>
         <tr class="border">
@@ -1260,6 +1288,7 @@ script
 script入力欄
           </td>
           <td class="border">
+入力textは半角のみ有効
           </td>
         </tr>
       </tbody>
