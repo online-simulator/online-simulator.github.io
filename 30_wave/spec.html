@@ -225,6 +225,9 @@ channel
 時系列の音dataを出力
           </td>
           <td class="border">
+on処理：channel内の合成（binary出力）
+<br>
+post処理：channel間の合成（binary入出力）
           </td>
         </tr>
         <tr class="border">
@@ -1033,7 +1036,7 @@ stereo効果のゆらぎ周波数[Hz]
 spectrum強度のpeak周波数[Hz]
           </td>
           <td class="border">
-<span class="clear">stereo出力限定</span>のpost最終処理（channel間の合成）
+<span class="clear">stereo出力限定</span>のpost最終処理
 <br>
 <br>
 Δf=0：channel間の合成なし（左右を完全分離）
@@ -1162,7 +1165,7 @@ dataset内click noise対策用
 振幅fade-in/outのfilter特性値
           </td>
           <td class="border">
-on処理（channel内の合成）
+on処理
 <br>
 <br>
 w0：in-weight
@@ -1192,7 +1195,7 @@ dataset間click noise対策用
 生値fade-in/outのfilter特性値
           </td>
           <td class="border">
-post処理（channel間の合成）
+post処理
 <br>
 <br>
 old-weight：前回値の重み
@@ -1208,7 +1211,7 @@ log-log filter gain
 振幅gainのfilter特性値
           </td>
           <td class="border">
-on処理（channel内の合成）
+on処理
 <br>
 <br>
 f0：low側の周波数
@@ -1220,7 +1223,7 @@ f1：high側の周波数
 g1：high側のgain
 <br>
 <br>
-既定値：聴き取りやすい高周波数の出力を意図的に低下
+既定値：聴き取りやすい高周波数の出力を意図的に低下（LPF想定）
           </td>
         </tr>
         <tr class="border">
