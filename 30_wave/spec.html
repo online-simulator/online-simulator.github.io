@@ -285,7 +285,7 @@ dataset
 <br>
 時間:[音階0,音階1,...];
 <br>
-時間:休止記号"r";
+時間:r;
 <br>
 <span class="clear">休止時間:0;</span>
 <br>
@@ -294,7 +294,7 @@ dataset
           </td>
         </tr>
         <tr class="border">
-          <td class="border" rowspan="2">
+          <td class="border" rowspan="4">
           </td>
           <td class="border">
 :
@@ -309,6 +309,24 @@ dataset要素の区切り文字（半角のcolon）
           </td>
           <td class="border">
 datasetの区切り文字（半角のsemi-colon）
+          </td>
+        </tr>
+        <tr class="border">
+          <td class="border">
+[,]
+          </td>
+          <td class="border">
+音階列挙の区切り文字（半角の角括弧）
+<br>
+音階の区切り文字（半角のcomma）
+          </td>
+        </tr>
+        <tr class="border">
+          <td class="border">
+r
+          </td>
+          <td class="border">
+休止記号（半角のr）
           </td>
         </tr>
         <tr class="border">
@@ -462,9 +480,9 @@ b
 <span class="run">Ver.1.19.4追加</span>
           </td>
           <td class="border">
-bは中置の除算演算子（beatの略号）
+1beatの単位を表す中置の除算演算子
 <br>
-演算後、60BPM基準1beat=1000msecを乗算
+・演算後、60BPM基準1beat=1000msecを乗算
 <br>
 <br>
 b = b1 = 1b = 1b1 = 2b2 = 4b4 = 1000
