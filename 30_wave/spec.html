@@ -22,6 +22,16 @@
       <tbody>
         <tr class="border">
           <td class="border run">
+Ver.1.32.6
+          </td>
+          <td class="border">
+・ゆらぎ周波数Δfのばらつき強度s_randomを追加
+<br>
+・Δfのmonaural出力に対応
+          </td>
+        </tr>
+        <tr class="border">
+          <td class="border run">
 Ver.1.31.6
           </td>
           <td class="border">
@@ -259,6 +269,8 @@ channel間の合成
 奇数番channel：channel1に合成
 <br>
 偶数番channel：channel2||1に合成（channel数に依存）
+<br>
+Δf≠0：channel1とchannel2を合成
           </td>
         </tr>
         <tr class="border">
@@ -1075,6 +1087,8 @@ amplitude
 Δf
 <br>
 <span class="run">Ver.1.29.4追加</span>
+<br>
+<span class="selection">Ver.1.32.6更新</span>
           </td>
           <td class="border">
 stereo効果のゆらぎ周波数[Hz]
@@ -1082,7 +1096,7 @@ stereo効果のゆらぎ周波数[Hz]
 spectrum強度のpeak周波数[Hz]
           </td>
           <td class="border">
-<span class="clear">stereo出力限定</span>のpost最終処理
+post最終処理<del class="selection">（<span class="clear">stereo出力限定</span>）</del>
 <br>
 <br>
 Δf=0：channel間の合成なし（左右を完全分離）
@@ -1090,6 +1104,24 @@ spectrum強度のpeak周波数[Hz]
 |Δf|&gt;0：channel間の合成あり（左右をゆらぎ周波数で合成）
 <br>
 |Δf|&lt;&lt;1：channel間を平均化（左右を同一化）
+          </td>
+        </tr>
+        <tr class="border">
+          <td class="border">
+s_random
+<br>
+<span class="run">Ver.1.32.6追加</span>
+          </td>
+          <td class="border">
+Δfのばらつき強度
+          </td>
+          <td class="border">
+Δfのばらつき範囲：Δf*pow(2,s_random*[-1,1))
+<br>
+<br>
+s_random=0：ばらつきなし（ゆらぎが一様）
+<br>
+s_random≠0：ばらつきあり（play実行毎に異なる乱数を生成）
           </td>
         </tr>
         <tr class="border">

@@ -51,21 +51,41 @@ My_entry.handler_wave.prototype.composite_binary_soundData_LE = function(arr_bin
     /* -> Ver.1.18.4 */
   });
   var dfreq = data.dfreq;
-  if(isStereo && dfreq){
-    var domega = Math.PI*2*dfreq;
-    for(var i=0, len=number_samples_perChannel_max; i<len; ++i){
-      var t = i/samples_perSecond;
-      var s = (1+Math.sin(domega*t))/2;
+  /* Ver.1.32.6 -> */
+  if(dfreq){
+    var pi2 = Math.PI*2;
+    var freq0 = dfreq;
+    var omega = pi2*freq0;
+    var is0 = 0;
+    var is = is0;
+    var di = 0;
+    var s_random = data.s_random || 0;
+    for(var i=is0, len=number_samples_perChannel_max; i<len; ++i){
+      if(s_random && i-is >= di){
+        var base = 2;
+        var expo = 2*(Math.random()-0.5);  // -1 <= expo < 1
+        expo *= s_random;
+        var freq1 = freq0;
+        freq1 *= Math.pow(base, expo);
+        omega = pi2*freq1;
+        di = samples_perSecond/freq1;  // /not0
+        is = i;
+      }
+      var dt = (i-is)/samples_perSecond;
+      var s = (1+Math.sin(omega*dt))/2;
       var i0 = (i*number_channels+0)*Bytes_perSample;
       var i1 = (i*number_channels+1)*Bytes_perSample;
       var val0 = newGetter(i0, isLE);
-      var val1 = newGetter(i1, isLE);
+      var val1 = (isStereo)? newGetter(i1, isLE): 0;
       var newVal0 = (1-s)*val0+s*val1;
-      var newVal1 = (1-s)*val1+s*val0;
       newSetter(i0, newVal0, isLE);
-      newSetter(i1, newVal1, isLE);
+      if(isStereo){
+        var newVal1 = (1-s)*val1+s*val0;
+        newSetter(i1, newVal1, isLE);
+      }
     }
   }
+  /* -> Ver.1.32.6 */
   /* -> Ver.1.29.4 */
   return self.waveo.buffer2binary(newBuffer);
 };

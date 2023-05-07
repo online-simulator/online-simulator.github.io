@@ -320,6 +320,10 @@ My_entry.handler_wave.prototype.make_params = function(){
     /* Ver.1.29.4 -> */
     self.params.dfreq = self.entry.$.inputVal_id("input-dfreq");
     self.params.dfreq = self.entry.def.limit(self.params.dfreq, -Number.MAX_VALUE, Number.MAX_VALUE, 0);
+    /* Ver.1.32.6 -> */
+    self.params.s_random = self.entry.$.inputVal_id("input-s_random");
+    self.params.s_random = self.entry.def.limit(self.params.s_random, -16, 16, 0);
+    /* -> Ver.1.32.6 */
     /* -> Ver.1.29.4 */
   }
   /* -> Ver.1.17.4 */
