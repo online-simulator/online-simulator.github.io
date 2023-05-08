@@ -22,6 +22,14 @@
       <tbody>
         <tr class="border">
           <td class="border run">
+Ver.1.33.6
+          </td>
+          <td class="border">
+・ゆらぎ周波数Δfの他channel合成率s_stereoを追加
+          </td>
+        </tr>
+        <tr class="border">
+          <td class="border run">
 Ver.1.32.6
           </td>
           <td class="border">
@@ -1089,6 +1097,8 @@ amplitude
 <span class="run">Ver.1.29.4追加</span>
 <br>
 <span class="selection">Ver.1.32.6更新</span>
+<br>
+<span class="condition">Ver.1.33.6更新</span>
           </td>
           <td class="border">
 stereo効果のゆらぎ周波数[Hz]
@@ -1105,7 +1115,7 @@ post最終処理<del class="selection">（<span class="clear">stereo出力限定
 <br>
 |Δf|&gt;0：channel間の合成あり（左右をゆらぎ周波数で合成）
 <br>
-|Δf|&lt;&lt;1：channel間を平均化（左右を同一化）
+<span class="condition">|Δf|&lt;&lt;0.001：channel間を平滑化（s_stereo=100の場合、左右を同一化）</span>
           </td>
         </tr>
         <tr class="border">
@@ -1124,6 +1134,26 @@ s_random
 s_random=0：ばらつきなし（ゆらぎが一様）
 <br>
 s_random≠0：ばらつきあり（play実行毎に異なる乱数を生成）
+          </td>
+        </tr>
+        <tr class="border">
+          <td class="border">
+s_stereo
+<br>
+<span class="run">Ver.1.33.6追加</span>
+          </td>
+          <td class="border">
+Δfの他channel合成率[%]
+          </td>
+          <td class="border">
+<span class="clear">stereo出力限定</span>
+<br>
+<br>
+s_stereo&gt;0：他channelの合成あり
+<br>
+s_stereo=0：他channelの合成なし（左右を完全分離）
+<br>
+s_stereo=100：左右均等の合成（monaural出力同等）
           </td>
         </tr>
         <tr class="border">

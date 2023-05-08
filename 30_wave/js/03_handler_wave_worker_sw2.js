@@ -53,6 +53,10 @@ My_entry.handler_wave.prototype.composite_binary_soundData_LE = function(arr_bin
   var dfreq = data.dfreq;
   /* Ver.1.32.6 -> */
   if(dfreq){
+    /* Ver.1.33.6 -> */
+    var s_stereo = (isStereo)? data.s_stereo/100: 1;
+    var amp_sin = s_stereo/2;
+    /* -> Ver.1.33.6 */
     var pi2 = Math.PI*2;
     var freq0 = dfreq;
     var omega = pi2*freq0;
@@ -63,7 +67,7 @@ My_entry.handler_wave.prototype.composite_binary_soundData_LE = function(arr_bin
     for(var i=is0, len=number_samples_perChannel_max; i<len; ++i){
       if(s_random && i-is >= di){
         var base = 2;
-        var expo = 2*(Math.random()-0.5);  // -1 <= expo < 1
+        var expo = 2*(Math.random()-0.5);  // [-1,1)
         expo *= s_random;
         var freq1 = freq0;
         freq1 *= Math.pow(base, expo);
@@ -72,7 +76,10 @@ My_entry.handler_wave.prototype.composite_binary_soundData_LE = function(arr_bin
         is = i;
       }
       var dt = (i-is)/samples_perSecond;
-      var s = (1+Math.sin(omega*dt))/2;
+      /* Ver.1.33.6 -> */
+      var sint = Math.sin(omega*dt);
+      var s = 1+amp_sin*(sint-1);  // [0,1]
+      /* -> Ver.1.33.6 */
       var i0 = (i*number_channels+0)*Bytes_perSample;
       var i1 = (i*number_channels+1)*Bytes_perSample;
       var val0 = newGetter(i0, isLE);
