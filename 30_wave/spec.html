@@ -1110,9 +1110,11 @@ stereo効果のゆらぎ周波数[Hz]
 spectrum強度のpeak周波数[Hz]
           </td>
           <td class="border">
-post最終処理<del class="selection">（<span class="clear">stereo出力限定</span>）</del>
+<del><span class="clear">stereo出力限定</span></del>
 <br>
-<span class="selection">・monaural出力の場合、stereo出力の片方を出力</span>
+post最終処理
+<br>
+<span class="selection">・monaural出力の場合、stereo出力<span class="condition">@s_stereo=100</span>のchannel1のみを出力</span>
 <br>
 <br>
 Δf=0：channel間の合成なし（左右を完全分離）
@@ -1124,7 +1126,7 @@ post最終処理<del class="selection">（<span class="clear">stereo出力限定
         </tr>
         <tr class="border">
           <td class="border">
-s_random
+↑s_random
 <br>
 <span class="run">Ver.1.32.6追加</span>
           </td>
@@ -1142,17 +1144,19 @@ s_random≠0：ばらつきあり（play実行毎に異なる乱数を生成）
         </tr>
         <tr class="border">
           <td class="border">
-s_stereo
+↑s_stereo
 <br>
 <span class="run">Ver.1.33.6追加</span>
           </td>
           <td class="border">
+左右で振動する音量の調整用
+<br>
 Δfの他channel合成率[%]
 <br>
 Δfの振幅強度[%]
           </td>
           <td class="border">
-<span class="clear">stereo出力限定</span>（左右で振動する音量の調整用）
+<span class="clear">stereo出力限定</span>
 <br>
 ・monaural出力の場合、左右の振動なし
 <br>
