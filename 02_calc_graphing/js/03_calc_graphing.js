@@ -713,6 +713,33 @@ My_entry.calc_graphing.prototype.init_handlers = function(){
     /* -> Ver.2.25.14 */
   };
   /* -> Ver.2.25.12 */
+  /* Ver.2.140.36 -> */
+  var run_command = function(command){
+          /* Ver.2.34.18 -> */
+          /* Ver.2.25.14 -> */
+          if(self.worker_plot && self.worker_plot.handler.isLocked) return false;
+          if(self.plot2d.isLocked) return false;
+          /* -> Ver.2.25.14 */
+          try{
+            var tokens_quotation = command.match(/\'.*?\'/g);
+            var tokens_comma = command.split(",");
+          /* -> Ver.2.34.18 */
+            if(tokens_quotation && tokens_quotation.length > 3){
+              plot2d_from_log(tokens_quotation);
+            }
+            else if(tokens_comma && tokens_comma.length === 2){
+              plot2d_from_arr(tokens_comma);
+              self.io.write_text(self.elems.o, "plot2d-from-arr finished");  // Ver.2.25.14
+            }
+            else{
+              throw false;
+            }
+          }
+          catch(e){
+            self.io.write_text(self.elems.o, self.entry.def.get_msgError(e, "plot2d-command data not found"));
+          }
+  };
+  /* -> Ver.2.140.36 */
   self.handlers.onload = function(e){
     var self = this;
     /* Ver.2.25.14 -> */
@@ -863,33 +890,11 @@ My_entry.calc_graphing.prototype.init_handlers = function(){
         var input = self.io.read_text(self.elems.i);
         var options = self.get_options();
         /* Ver.2.25.12 -> */
-        /* Ver.2.34.18 -> */
         /* Ver.2.27.14 -> comment allowed */
         var command = self.entry.def.get_command(input, "plot2d", true);
         /* -> Ver.2.27.14 */
         if(command){
-          /* Ver.2.25.14 -> */
-          if(self.worker_plot && self.worker_plot.handler.isLocked) return false;
-          if(self.plot2d.isLocked) return false;
-          /* -> Ver.2.25.14 */
-          try{
-            var tokens_quotation = command.match(/\'.*?\'/g);
-            var tokens_comma = command.split(",");
-        /* -> Ver.2.34.18 */
-            if(tokens_quotation && tokens_quotation.length > 3){
-              plot2d_from_log(tokens_quotation);
-            }
-            else if(tokens_comma && tokens_comma.length === 2){
-              plot2d_from_arr(tokens_comma);
-              self.io.write_text(self.elems.o, "plot2d-from-arr finished");  // Ver.2.25.14
-            }
-            else{
-              throw false;
-            }
-          }
-          catch(e){
-            self.io.write_text(self.elems.o, self.entry.def.get_msgError(e, "plot2d-command data not found"));
-          }
+          run_command(command);  // Ver.2.140.36
         }
         else{
           var arr_data_in = [];
@@ -925,10 +930,21 @@ My_entry.calc_graphing.prototype.init_handlers = function(){
       case "C-input":
         self.io.write_text(self.elems.i, "");
         break;
-      /* Ver.2.50.25 */
-      case "plot2d(,)":
-        self.io["onclick_default"](self.elems, "plot2d(xt,yt)", -1);
+      /* Ver.2.140.36 -> */
+      case "cancel":
+        if(self.worker_calc && self.worker_calc.handler.isLocked){
+          self.worker_calc.stop();
+          self.io.write_text(self.elems.o, "canceled");
+          self.storage.restore();
+        }
         break;
+      /* Ver.2.50.25 */
+      case "plot2d":
+        var symbol_x = $._id("input-plot2d-x").value;
+        var symbol_y = $._id("input-plot2d-y").value;
+        run_command(symbol_x+","+symbol_y);
+        break;
+      /* -> Ver.2.140.36 */
       case "BS":
       case "DEL":
       /* Ver.2.26.14 -> */
