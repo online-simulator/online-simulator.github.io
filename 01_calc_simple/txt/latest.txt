@@ -270,7 +270,7 @@ local storage cleared
 
 N=3,FourierN
 (
-0,infoLost[ri] 0.3468103654284403-0.7325756973228494i+O(2e-6+2e-6i)
+0,infoLost[ri] 0.3468103654284402-0.7325756973228494i+O(2e-6+2e-6i)
 )
 
 fx
@@ -391,10 +391,10 @@ clear
 local storage cleared
 
 x
--0.17989326929739002-0.507928000496848i+O(2e-1+5e-1i)
+-0.17989326929739793-0.5079280004968625i+O(2e-1+5e-1i)
 
 mdx=Newton(=<f,=<{x},,,20,1e-10,1)
-mdx=-3.5438128489505396e-14-4.1982177606157256e-14i+O(1e-5+7e-6i)
+mdx=-2.5375876640447435e-14-2.4451184565250488e-14i+O(1e-5+7e-6i)
 
 f=<{2x*_dx(=<x*exp(3x))=i}/*differential equation*/
 stored_eqn(f)
@@ -564,10 +564,10 @@ e^(-i(1pi(){2/2i}({5-3}-1){i/(-4)}))
 0.7071067811865476+0.7071067811865475i
 
 =e^(i{-4pi/3})
--0.5000000000000004+0.8660254037844385i
+-0.5000000000000004+0.8660254037844384i
 
 e^(-i({1pi()2}/{{2i(5-{3-1})i}/(-4)}))
--0.5000000000000004+0.8660254037844385i
+-0.5000000000000004+0.8660254037844384i
 
 =e^(i{-pi/4})/*default answer*/
 0.7071067811865476-0.7071067811865475i
@@ -583,4 +583,4 @@ drag=false&sw=false&0x=false&useComplex=true&useMatrix=true&isRightAssociativity
 --------------------------------
 --------------------------------
 
-online-simulator.github.io.6.179.77.12.41 @ Sat Dec 31 2022 12:52:54 GMT+0900 (日本標準時) @ Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/108.0.0.0 Safari/537.36
+online-simulator.github.io.6.193.87.12.43 @ Wed May 10 2023 11:09:05 GMT+0900 (日本標準時) @ Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/112.0.0.0 Safari/537.36
