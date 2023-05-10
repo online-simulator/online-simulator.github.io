@@ -543,8 +543,10 @@ My_entry.calc_graphing.prototype.init_storage = function(){
   var self = this;
   self.storage = {};
   self.storage.clear = function(){
-    self.vars0 = null;
-    self.eqns0 = null;
+    /* Ver.2.139.36 -> storage.clear()@C -> storage.restore()@onerror */
+    self.vars0 = {};
+    self.eqns0 = {};
+    /* -> Ver.2.139.36 */
     self.vars = {};
     self.eqns = {};
   };
