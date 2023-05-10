@@ -8758,6 +8758,8 @@ clear; set_a0=&lt;a=0; set_a1=&lt;a=1; switch(0,<span class="condition">=&lt;</s
 <span id="span-out-float"></span>
 JavaScriptによる実数の浮動小数点演算について記述する
 <br>
+・<span class="run">Ver.2.139.35</span>以降、最新の演算結果と本manual一部の記述内容に<a href="#span-out-epsilon">Machine epsilon</a>程度の相違がある
+<br>
 <br>
 <span class="run">JavaScript</span>の<a href="#span-out-number">Number</a>型はIEEE754規格の倍精度64bit2進形式の浮動小数点数を使用する
 <br>
@@ -8783,7 +8785,7 @@ pow(2,10) || 2^10 || 1024 -> 1.024e3
 <br>
 ・仮数部が小数点以下の有効桁（10進換算で約16桁）を保持する
 <br>
-・最上位bitから最下位bitまでの10進換算した有効数字の演算結果を示す
+・10進換算で有効数字の<a href="#span-out-ope">実数演算</a>結果を示す（最上位bitから最下位bitまで）
 <br>
 pow(2,-1) || 2^(-1) -> 0.5
 <br>
