@@ -154,6 +154,18 @@ e^(-i(1pi(){2/2i}(5-{3-1}){i/(-4)}))
 <br>
 ・<a href="#span-out-pre">前提</a>
 <br>
+・<a href="#span-out-development">開発環境</a>
+<br>
+・<a href="#span-out-system">動作test環境</a>
+<br>
+　・<a href="#span-out-system-test">実機online-test手順</a>
+<br>
+・<a href="#span-out-requirements">動作要件</a>
+<br>
+　・<a href="#span-out-browsers">browser間の相違</a>
+<br>
+　・<a href="#span-out-browsers-ie">Internet Explorer非対応の機能</a>
+<br>
 ・操作UI
 <br>
 　・<a href="#span-out-UI-simple">Simple Calculator</a>
@@ -286,6 +298,8 @@ e^(-i(1pi(){2/2i}(5-{3-1}){i/(-4)}))
 <br>
 　・<a href="#span-out-config-strict">strict-mode</a>
 <br>
+・<a href="#span-out-flow">演算flow</a>
+<br>
 ・<a href="#span-out-ope">演算仕様</a>
 <br>
 　・<a href="#span-out-ope-extended">拡張行列演算</a>
@@ -313,36 +327,6 @@ e^(-i(1pi(){2/2i}(5-{3-1}){i/(-4)}))
 　・<a href="#span-out-eqns-re-use">scope付式変数の再利用</a>
 <br>
 　・<a href="#span-out-scope-inherited-call-memo">式変数のscope継承callまとめ</a>
-<br>
-・<a href="#span-out-flow">演算flow</a>
-<br>
-・<a href="#span-out-development">開発環境</a>
-<br>
-　・<a href="#span-out-development-additional">実装の特徴</a>
-<br>
-　・<a href="#span-out-development-problems">仕様上の問題点</a>
-<br>
-　　・<a href="#span-out-development-problems-type">型定義の問題点</a>
-<br>
-　　・<a href="#span-out-development-problems-complex">複素数演算の問題点</a>
-<br>
-　　・<a href="#span-out-development-problems-matrix">行列演算の問題点</a>
-<br>
-　　・<a href="#span-out-development-problems-logical">論理演算の問題点</a>
-<br>
-　　・<a href="#span-out-development-problems-CBR">未実装の参照渡し</a>
-<br>
-　　・<a href="#span-out-development-problems-CAS">未実装のCAS</a>
-<br>
-・<a href="#span-out-system">動作test環境</a>
-<br>
-　・<a href="#span-out-system-test">実機online-test手順</a>
-<br>
-・<a href="#span-out-requirements">動作要件</a>
-<br>
-　・<a href="#span-out-browsers">browser間の相違</a>
-<br>
-　・<a href="#span-out-browsers-ie">Internet Explorer非対応の機能</a>
 <br>
 ・graph出力仕様
 <br>
@@ -578,9 +562,33 @@ e^(-i(1pi(){2/2i}(5-{3-1}){i/(-4)}))
 <br>
 　・<a href="#span-out-limit">極限</a>
 <br>
-・<a href="#span-out-special">特殊仕様</a>
-<br>
 ・<a href="#span-out-application">application</a>
+<br>
+・<a href="#span-out-development-additional">実装の特徴</a>
+<br>
+　・<a href="#span-out-development-problems">仕様上の問題点</a>
+<br>
+　　・<a href="#span-out-development-problems-type">型定義の問題点</a>
+<br>
+　　・<a href="#span-out-development-problems-complex">複素数演算の問題点</a>
+<br>
+　　・<a href="#span-out-development-problems-matrix">行列演算の問題点</a>
+<br>
+　　・<a href="#span-out-development-problems-logical">論理演算の問題点</a>
+<br>
+　　・<a href="#span-out-development-problems-CBR">未実装の参照渡し</a>
+<br>
+　　・<a href="#span-out-development-problems-CAS">未実装のCAS</a>
+<br>
+　・<a href="#span-out-special">特殊仕様</a>
+<br>
+　　・<a href="#span-out-special-eqns">式変数</a>
+<br>
+　　・<a href="#span-out-special-sign">単項の符号</a>
+<br>
+　　・<a href="#span-out-special-equal">equal記号</a>
+<br>
+　　・<a href="#span-out-special-substitution">代入処理</a>
 <br>
 <br>
 <a href="#span-in">内部仕様</a>
@@ -1306,6 +1314,258 @@ title/発行元(発行年)を列挙する
 ・<a href="#span-out-FNm">行列</a>は本仕様書の構文で記述する
 <br>
 ・微分はLagrangeの記法で記述する
+    </td>
+  </tr>
+  <tr>
+    <th>
+<a href="#span-index">
+目次
+</a>
+<br>
+開発環境
+    </th>
+    <td>
+<span id="span-out-development"></span>
+<span class="run">JavaScript</span>のinterpreterを介してbrowser上で演算を実行する
+<br>
+・よってNativeに近い言語で直接記述するよりthroughputは圧倒的に低いが、
+<br>
+・以下のcross-platform開発とonline-test管理の容易さを選択
+<br>
+<br>
+開発環境を列挙する
+<br>
+・Microsoft windows 10
+<br>
+・Google Chrome Developer Tools（以降、Chrome DevToolsと省略する）
+<br>
+・Apache HTTP Server
+<br>
+・GitHub Desktop
+<br>
+・GitHub Pages
+<br>
+commit E-mail addressを変更する場合（参考）
+<br>
+・Git Bash（first-commit前にgit config user.emailで設定を変更する）
+    </td>
+  </tr>
+  <tr>
+    <th>
+<a href="#span-index">
+目次
+</a>
+<br>
+動作test環境
+    </th>
+    <td>
+<span id="span-out-system"></span>
+browserの動作test環境について記述する
+<br>
+<br>
+localhost offline/online-test環境
+<br>
+・latest Chrome
+<br>
+・latest Edge
+<br>
+・Internet Explorer 11（以降、IEと省略する）
+<br>
+・<span class="run">Ver.2.38.18</span>以降、latest Firefox
+<br>
+・その他、Chrome DevTools-emulatorで動作確認
+<br>
+<br>
+実機online-test環境　<span class="run">Ver.2.84.32</span>以降、test未実施
+<br>
+・latest Amazon Silk
+<br>
+・<span class="run">Ver.2.37.18</span>以降、latest Chrome
+<br>
+・<span class="run">Ver.2.38.18</span>以降、latest Firefox
+    </td>
+  </tr>
+  <tr>
+    <th>
+<a href="#span-index">
+目次
+</a>
+<br>
+実機
+<br>
+online-test
+<br>
+手順
+    </th>
+    <td>
+<span id="span-out-system-test"></span>
+実機mobile端末のonline-test手順について記述する
+<br>
+<br>
+<span class="run">Ver.2.37.18</span>以降、実機online-testのcommit前実施に対応
+<br>
+・GitHub Pages上で実施していた実機testの大半を以下の手順でcommit前に実施する
+<br>
+・さらに、今後の<a href="#span-out-application">application</a>開発で必要な実機online-testのdebug環境を整備する
+<br>
+<br>
+実機online-testのcommit前実施準備を以下に示す
+<br>
+・localhost Apache HTTP ServerのDocumentRootのaccess制限を設定する
+<br>
+　Require all denied
+<br>
+　Require ip 192.168.
+<br>
+・localhost Apache HTTP Serverを再起動して設定変更を反映する
+<br>
+<br>
+実機online-testのcommit前実施手順を以下に示す
+<br>
+・localhostのWi-Fi接続先propertyのnetwork profileを確認する
+<br>
+・localhost Firewallの設定でApache HTTP Serverのprivate||publicを許可する
+<br>
+・localhostと実機を同一のWi-Fiに接続する
+<br>
+・localhost IPv4 addressを確認する
+<br>
+・実機browserのURLにlocalhost IPv4 addressを入力して更新する
+<br>
+・localhost Apache HTTP ServerのDocumentRootからの相対pathでtestするpageを開く
+<br>
+・以上より、Wi-Fiを介して実機online-testを実施する
+<br>
+・test終了後、必要に応じてlocalhost Firewallの設定を元に戻す
+<br>
+<br>
+さらに、localhost Chrome DevToolsでAndroid端末を操作してdebugする手順を以下に示す
+<br>
+・Android端末のBuild numberを7回tapしてDeveloper optionsを表示する
+<br>
+・System-Advanced-Developer optionsを開く
+<br>
+・USB debuggingを有効化する
+<br>
+・Android端末をlocalhostにUSB接続してUSB debugging connectedを確認する
+<br>
+・localhost ChromeのURLにchrome://inspect/#devicesを入力して更新する
+<br>
+・Android端末に表示されるcomputer's RSA keyによる接続を許可する
+<br>
+・先述の実施手順に従ってAndroid端末Chromeでlocalhostのdebugするpageを開く
+<br>
+・localhost Chromeに戻ってAndroid端末情報を確認する
+<br>
+・debugするpage URLのinspectを実行して新しいwindowを開く
+<br>
+・Chromeの同一page上でlocalhostとAndroid端末の操作が連動することを確認する
+<br>
+・以上より、Wi-Fiを介して実機online-testとともにdebugを実施する
+<br>
+・test終了後、必要に応じてAndroid端末の設定を元に戻す
+    </td>
+  </tr>
+  <tr>
+    <th>
+<a href="#span-index">
+目次
+</a>
+<br>
+動作要件
+    </th>
+    <td>
+<span id="span-out-requirements"></span>
+browserの動作要件を列挙する
+<br>
+・ECMAScript5対応
+<br>
+・HTML5対応
+    </td>
+  </tr>
+  <tr>
+    <th>
+<a href="#span-index">
+目次
+</a>
+<br>
+browser間
+<br>
+の相違
+    </th>
+    <td>
+<span id="span-out-browsers"></span>
+browser間の相違について記述する
+<br>
+<br>
+png||svg出力の相違について記述する
+<br>
+・browserによってtext幅のNative測定値が異なる
+<br>
+　var text = "x=t,x;x";
+<br>
+　ctx.font = "10px sans-serif";
+<br>
+　var w = ctx.measureText(text).width;
+<br>
+IE: w -> 29
+<br>
+Edge/Chrome: w -> 36.2841796875
+<br>
+Firefox: w -> 30
+<br>
+　ctx.font = "12px sans-serif";
+<br>
+　var w = ctx.measureText(text).width;
+<br>
+IE: w -> 35
+<br>
+Edge/Chrome: w -> 43.541015625
+<br>
+Firefox: w -> 31
+<br>
+・Edge/Chromeはpngとsvgの出力表示が一致するが、IE/Firefoxは一致しない
+<br>
+　JavaScript engineの系統による違いと推察されるが、規則性が不明で対応未定
+<br>
+・textを除けばbrowser間の出力表示に大差なし
+<br>
+<br>
+演算結果の相違について記述する
+<br>
+・browser間で<a href="#span-out-epsilon">Machine epsilon</a>程度の相違がある
+<br>
+IE: sin(5) -> -0.9589242746631384
+<br>
+Edge/Chrome/Firefox: sin(5) -> -0.9589242746631385
+<br>
+IE/Edge/Chrome: exp(i) -> 0.5403023058681398+0.8414709848078965i
+<br>
+Firefox: exp(i) -> 0.5403023058681397+0.8414709848078965i
+    </td>
+  </tr>
+  <tr>
+    <th>
+<a href="#span-index">
+目次
+</a>
+<br>
+Internet
+<br>
+Explorer
+<br>
+非対応の機能
+    </th>
+    <td>
+<span id="span-out-browsers-ie"></span>
+IE非対応の機能について記述する
+<br>
+<br>
+IE非対応の機能/原因を列挙する
+<br>
+・<a href="#span-out-UI-graphing-config">bg-image-file</a>
+<br>
+　描画更新時、SCRIPT5022: SecurityError
     </td>
   </tr>
   <tr>
@@ -9453,6 +9713,61 @@ strict-modeで実行する場合、<a href="#span-out-config">裏設定</a>参�
 目次
 </a>
 <br>
+演算flow
+    </th>
+    <td>
+<span id="span-out-flow"></span>
+演算実行確定1回の演算flowについて記述する
+<br>
+<br>
+次の3関数による演算flowを示す
+<br>
+main関数　⇔　parse関数　⇔　operation関数
+<br>
+・main関数
+<br>
+　・入力dataを作ってparse関数に渡す
+<br>
+　・出力dataから演算結果を外部に表示する
+<br>
+・parse関数
+<br>
+　・入力dataから実行文を作ってoperation関数に渡す
+<br>
+　・演算結果から出力dataを作ってmain関数に返す
+<br>
+・operation関数
+<br>
+　・実行文から演算結果を作ってparse関数に返す
+<br>
+<br>
+parse関数とoperation関数の役割分担を示す
+<br>
+<br>
+parse関数の役割はcompiler
+<br>
+・<a href="#span-out-BT">括弧</a>のnestingによる構文を解析し、深さ方向に<a href="#span-in-tree">tree構造</a>を階層化する
+<br>
+・入力dataの字句を解析してtagを付ける
+<br>
+・逐次、入力dataを実行文のtreeに置換する
+<br>
+<br>
+operation関数の役割はinterpreter
+<br>
+・<a href="#span-out-prec">演算のprecedence</a>に従って実行文を実行する
+<br>
+・逐次、実行文のtreeを演算結果のtreeに置換する
+<br>
+・再帰的に<a href="#span-in-tree">単位tree構造</a>に帰結する
+    </td>
+  </tr>
+  <tr>
+    <th>
+<a href="#span-index">
+目次
+</a>
+<br>
 演算仕様
     </th>
     <td>
@@ -10992,637 +11307,6 @@ clear; conv(=&lt;a_)=&lt;[a=-1,=&lt;a+a_=&gt;]=&gt;; a=&lt;a; a=1; conv(=&lt;(a=
 clear; conv(=&lt;a_)=&lt;[a=-1,=&lt;a+a_==&gt;]=&gt;; a=&lt;a; a=1; conv(=&lt;(a=&gt;))=&gt;,a -> (0,1)
 <br>
 clear; conv(=&lt;a_)=&lt;[a=-1,=&lt;a+a_=&gt;]=&gt;; a=&lt;a; a=1; conv(=&lt;(a=&gt;))=&gt;,a -> (0,1)
-    </td>
-  </tr>
-  <tr>
-    <th>
-<a href="#span-index">
-目次
-</a>
-<br>
-演算flow
-    </th>
-    <td>
-<span id="span-out-flow"></span>
-演算実行確定1回の演算flowについて記述する
-<br>
-<br>
-次の3関数による演算flowを示す
-<br>
-main関数　⇔　parse関数　⇔　operation関数
-<br>
-・main関数
-<br>
-　・入力dataを作ってparse関数に渡す
-<br>
-　・出力dataから演算結果を外部に表示する
-<br>
-・parse関数
-<br>
-　・入力dataから実行文を作ってoperation関数に渡す
-<br>
-　・演算結果から出力dataを作ってmain関数に返す
-<br>
-・operation関数
-<br>
-　・実行文から演算結果を作ってparse関数に返す
-<br>
-<br>
-parse関数とoperation関数の役割分担を示す
-<br>
-<br>
-parse関数の役割はcompiler
-<br>
-・<a href="#span-out-BT">括弧</a>のnestingによる構文を解析し、深さ方向に<a href="#span-in-tree">tree構造</a>を階層化する
-<br>
-・入力dataの字句を解析してtagを付ける
-<br>
-・逐次、入力dataを実行文のtreeに置換する
-<br>
-<br>
-operation関数の役割はinterpreter
-<br>
-・<a href="#span-out-prec">演算のprecedence</a>に従って実行文を実行する
-<br>
-・逐次、実行文のtreeを演算結果のtreeに置換する
-<br>
-・再帰的に<a href="#span-in-tree">単位tree構造</a>に帰結する
-    </td>
-  </tr>
-  <tr>
-    <th>
-<a href="#span-index">
-目次
-</a>
-<br>
-開発環境
-    </th>
-    <td>
-<span id="span-out-development"></span>
-さらに、<span class="run">JavaScript</span>のinterpreterを介してbrowser上で演算を実行する
-<br>
-・よってNativeに近い言語で直接記述するよりthroughputは圧倒的に低いが、
-<br>
-・以下のcross-platform開発とonline-test管理の容易さを選択
-<br>
-<br>
-開発環境を列挙する
-<br>
-・Microsoft windows 10
-<br>
-・Google Chrome Developer Tools（以降、Chrome DevToolsと省略する）
-<br>
-・Apache HTTP Server
-<br>
-・GitHub Desktop
-<br>
-・GitHub Pages
-<br>
-commit E-mail addressを変更する場合（参考）
-<br>
-・Git Bash（first-commit前にgit config user.emailで設定を変更する）
-    </td>
-  </tr>
-  <tr>
-    <th>
-<a href="#span-index">
-目次
-</a>
-<br>
-実装の特徴
-    </th>
-    <td>
-<span id="span-out-development-additional"></span>
-基本構文のみで最短かつ確実な実装を選択したため、platform以前に最適化の余地がある
-<br>
-また、すべての結果の確からしさは自己判断のため、致命的な見落としを残す可能性がある
-<br>
-<br>
-実装の特徴を列挙する
-<br>
-・<a href="#span-out-vars">変数</a>のread-writeは<a href="#span-in-tree">tree構造</a>を複製して参照上の副作用を単純に回避する
-<br>
-・<a href="#span-out-eqns">式変数</a>のread-write||call時も同様
-<br>
-・<a href="#span-out-mat">行列</a>演算を含む<a href="#span-out-associativity">2項演算子のassociativity</a>は単なるfor-loopで結合順||演算順を保証する
-<br>
-・reccursive callを代替する<a href="#span-out-FNh-RX">再帰高階関数</a>も同様に、独自のcall stackを実装しない
-<br>
-・よって<a href="#span-out-FNh">高階関数</a>をnestingする場合、致命的にthroughputが低下する（<a href="#span-out-FNh-DX">微分の多重化</a>||<a href="#span-out-interpolation-Lagrange">Lagrange補間</a>）
-<br>
-・<a href="#span-out-flow">parser</a>は複数種類の<a href="#span-out-BT">括弧</a>のnestingに対応し、再帰的に<a href="#span-in-tree">tree構造</a>を階層化する
-<br>
-・よって<a href="#span-out-bracket">階層</a>に紐付く<a href="#span-out-scope-vars">変数のscope</a>はstaticで再利用可能としたが、最善を追及していない
-<br>
-・<a href="#span-out-eqns-args">式変数のarguments</a>も同様に、最善の仕様を追及していない
-<br>
-・<a href="#span-out-FN">関数</a>を含む実装関数は最善のalgorithmとは限らない（<a href="#span-out-linear">Gaussの消去法</a>）
-<br>
-・debug機能が存在しないため、<a href="#span-out-vars">変数</a>・<a href="#span-out-eqns">式変数</a>はpollution disabledの厳格な制約条件を課す
-<br>
-・よって<a href="#span-out-bracket">scope</a>本来の利便性を大きく損なうが、緩和の見通しはない
-<br>
-<br>
-<span class="run">JavaScript</span>特有の実装を列挙する
-<br>
-・namespaceの中に全objectを宣言してglobal searchを省略する（定量的な効果は不明）
-<br>
-・よって関数式のconstructorはhoistingなしの前提で実装する
-<br>
-・同制約の下、既存のframework||plug-inを一切使用しない
-    </td>
-  </tr>
-  <tr>
-    <th>
-<a href="#span-index">
-目次
-</a>
-<br>
-仕様上の
-<br>
-問題点
-    </th>
-    <td>
-<span id="span-out-development-problems"></span>
-仕様上の問題点を列挙する
-<br>
-・<a href="#span-out-development-problems-type">型定義の問題点</a>
-<br>
-・<a href="#span-out-development-problems-complex">複素数演算の問題点</a>
-<br>
-・<a href="#span-out-development-problems-matrix">行列演算の問題点</a>
-<br>
-・<a href="#span-out-development-problems-logical">論理演算の問題点</a>
-<br>
-・<a href="#span-out-development-problems-CBR">未実装の参照渡し</a>
-<br>
-・<a href="#span-out-development-problems-CAS">未実装のCAS</a>
-    </td>
-  </tr>
-  <tr>
-    <th>
-<a href="#span-index">
-目次
-</a>
-<br>
-型定義の
-<br>
-問題点
-    </th>
-    <td>
-<span id="span-out-development-problems-type"></span>
-型定義の問題点を列挙する
-<br>
-・2次元の<a href="#span-out-types">行列の型</a>||<a href="#span-in-tree">tree構造</a>を前提とする設計のため、<span class="clear">3次元以上の配列は定義不能</span>
-<br>
-・3次元以上の配列に相当する自由度は<a href="#span-out-vars-symbol">変数名symbol</a>で区別する
-<br>
-・3次元以上の配列に相当するfor-loopは展開して記述する
-    </td>
-  </tr>
-  <tr>
-    <th>
-<a href="#span-index">
-目次
-</a>
-<br>
-複素数演算の
-<br>
-問題点
-    </th>
-    <td>
-<span id="span-out-development-problems-complex"></span>
-<a href="#span-out-com">複素数</a>演算の問題点を列挙する
-<br>
-・演算後に<a href="#span-out-epsilon">Machine epsilon</a>が残りやすく、整数を意識する負担がある
-<br>
-(-1)^0.5 || (-1)**0.5 || pow(-1,0.5) -> <span class="clear">6.123233995736766e-17</span>+i
-<br>
-2^3 || 2**3 || pow(2,3) -> <span class="clear">7.999999999999998</span>
-<br>
-・同時に、減算||加算で<a href="#span-out-error">情報落ち</a>が発生しやすく、警告文の判断が難しい
-<br>
-(-1)^0.5 || (-1)**0.5 || pow(-1,0.5) -> <span class="clear">6.123233995736766e-17</span>+i
-<br>
-ans+1 -> <span class="clear">infoLost[r ]</span> 1+i
-<br>
-・<a href="#span-out-ope">実数演算</a>の場合（参考）
-<br>
-(-1)^0.5 || (-1)**0.5 || pow(-1,0.5) -> [MyErr]FN isNaN
-<br>
-2^3 || 2**3 || pow(2,3) -> 8
-<br>
-・<a href="#span-out-UI-simple">UI設定</a>||<a href="#span-out-config">裏設定</a>以外で<a href="#span-out-ope">実数演算</a>に切替え不可（自動判別しない）
-<br>
-2^3 || 2**3 || pow(2,3) -> <span class="clear">7.999999999999998</span>
-<br>
-round(2^3) -> 8
-<br>
-・<span class="run">Ver.2.127.34</span>以降、<a href="#span-out-reference-mat-size">行列size</a>の丸め方をfloor　⇒　roundに<span class="run"><a href="#span-out-spec-changed-history">演算仕様変更</a></span>
-<br>
-<del>vectorr(2^3) || vectorr(7)  <span class="selection">// NG</span> -> (0,0,0,0,0,0,0)</del>
-<br>
-vectorr(2^3) || vectorr(8)  <span class="selection">// OK</span> -> (0,0,0,0,0,0,0,0)
-<br>
-vectorr(round(2^3)) || vectorr(8)  <span class="selection">// OK</span> -> (0,0,0,0,0,0,0,0)
-<br>
-・整数演算の場合、<a href="#span-out-prec-ope">四則演算子</a>||<a href="#span-out-prec-ope-bit">bit shift演算子</a>を活用する
-<br>
-2*2*2 -> 8
-<br>
-2&lt;&lt;2 || 2*2*2 -> 8
-<br>
-1&lt;&lt;3 || 1*2*2*2 -> 8
-<br>
-8&gt;&gt;&gt;3 || 8&gt;&gt;3 || (((8/2)/2)/2) || 8/(2*2*2) -> 1
-    </td>
-  </tr>
-  <tr>
-    <th>
-<a href="#span-index">
-目次
-</a>
-<br>
-行列演算の
-<br>
-問題点
-    </th>
-    <td>
-<span id="span-out-development-problems-matrix"></span>
-行列演算の問題点を列挙する
-<br>
-・当初、<a href="#span-out-mat-product">行列積</a>の<a href="#span-out-ope">演算量</a>を多少減らすため、抜け要素を許容したが、
-<br>
-・<span class="run">Ver.2.76.29</span>以降、<a href="#span-out-array">行列操作</a>の<a href="#span-out-ope">演算速度</a>を犠牲にする弊害の方が圧倒的に大きい
-<br>
-・よって<a href="#span-out-mat">抜け要素</a>がある場合、error終了の方が実装効率||演算効率が高い
-<br>
-後者の演算効率を選択して<a href="#span-out-array">行列操作</a>を最適化する場合、<a href="#span-out-config">裏設定</a>参照
-    </td>
-  </tr>
-  <tr>
-    <th>
-<a href="#span-index">
-目次
-</a>
-<br>
-論理演算の
-<br>
-問題点
-    </th>
-    <td>
-<span id="span-out-development-problems-logical"></span>
-論理演算の問題点を列挙する
-<br>
-・<a href="#span-out-prec-ope-logical">論理演算子</a>は短絡評価を再現するが、厳密には<a href="#span-out-FNh-switch">switch高階関数</a>を使用する
-<br>
-x=1; x||(-1) -> 1
-<br>
-x=1; x||(1/0)  <span class="selection">// NG</span> -> [MyErr]FN isNaN
-<br>
-x=0; switch(x,x:1,<span class="condition">=&lt;</span>(1/0)) -> [MyErr]FN isNaN
-<br>
-x=1; switch(x,x:1,<span class="condition">=&lt;</span>(1/0)) -> 1
-<br>
-・<a href="#span-out-prec-ope-logical">論理演算子</a>の短絡評価を厳密に再現する場合、<a href="#span-out-SR">区切り文字</a>の<a href="#span-out-prec">演算のprecedence</a>の直後が妥当で
-<br>
-・設計初期段階の仕様変更のため、未対応
-<br>
-before: x=1,y=&lt;(1/0)||2,x||y=&gt; -> [MyErr]FN isNaN
-<br>
-<a href="#span-out-option1">LA既定</a>時　after: x=1,y=&lt;(1/0)||2,x||y=&gt; -> (0,0,1)
-<br>
-<a href="#span-out-option1">RA選択</a>時　after: x=1,y=&lt;(1/0)||2,x||y=&gt; -> (0,0,2)
-    </td>
-  </tr>
-  <tr>
-    <th>
-<a href="#span-index">
-目次
-</a>
-<br>
-未実装の
-<br>
-参照渡し
-    </th>
-    <td>
-<span id="span-out-development-problems-CBR"></span>
-未実装の参照渡しについて留意事項を列挙する
-<br>
-・<span class="run">Ver.2.19.6</span>以降、<a href="#span-out-FN">関数</a>のre-name不可
-<br>
-clear; tr=trans -> [MyErr]Invalid FNm(transpose)
-<br>
-clear; tr=&lt;trans; tr(1,2:3,4) || (tr=&gt;)(1,2:3,4) -> [MyErr]Invalid FN operation
-<br>
-・<span class="run">Ver.2.19.6</span>以降、<a href="#span-out-FNh">高階関数</a>のre-name不可
-<br>
-clear; dx=_dx -> [MyErr]Invalid FNh([object Object])
-<br>
-clear; dx=&lt;_dx; dx(=&lt;{x^2},1,2) -> [MyErr]Invalid FN operation
-<br>
-・<a href="#span-out-eqns">式変数</a>の参照共有不可
-<br>
-clear; a=&lt;b+c+d; s=a -> [MyErr]Invalid binary operation
-<br>
-clear; a=&lt;b+c+d; s=&lt;a; s -> [MyErr]Invalid binary operation
-<br>
-clear; a=&lt;1; a=-1; s=&lt;a; s -> -1
-<br>
-clear; a=&lt;1; a=-1; s=&lt;a=&gt;; s -> 1
-<br>
-clear; a(b,c,d)=&lt;b+c+d; s=a -> [MyErr]Invalid null=&gt;
-<br>
-clear; a(b,c,d)=&lt;b+c+d; s=&lt;a; s -> [MyErr]Invalid null=&gt;
-<br>
-clear; a(b,c,d)=&lt;b+c+d; s=&lt;a(1,2,3); s -> 6
-<br>
-clear; a(b,c,d)=&lt;b+c+d; s(b,c,d)=&lt;a(b,c,d); s -> [MyErr]Invalid null=&gt;
-<br>
-clear; a(b,c,d)=&lt;b+c+d; s(b,c,d)=&lt;a(b,c,d); s(1,2,3) -> 6
-<br>
-clear; a(b,c,d)=&lt;b+c+d; s(b,c,d)=&lt;a(-b,-c,-d); s(1,2,3) -> -6
-<br>
-clear; a(b,c,d)=&lt;b+c+d; s(f,g,h)=&lt;a(-f,-g,-h); s(1,2,3) -> -6
-<br>
-・<a href="#span-out-eqns-args">定義元arguments</a>の<a href="#span-out-vars-symbol">変数名symbol</a>は独立する
-<br>
-clear; a(B)=&lt;{B[0]=B[1],=&lt;B}=&gt;; B=(1,2:3,4); (B,a(=&lt;B)=&gt;,B) ->
-<br>
-(
-<br>
-1,2,3,4,1,2:
-<br>
-3,4,3,4,3,4
-<br>
-)
-<br>
-clear; a(B)=&lt;[B[0]=B[1],=&lt;B]=&gt;; B=(1,2:3,4); (B,a(=&lt;B)=&gt;,B) ->
-<br>
-(
-<br>
-1,2,3,4,1,2:
-<br>
-3,4,3,4,3,4
-<br>
-)
-<br>
-・値渡し
-<br>
-clear; a(b)=&lt;last(b=-1,b); (b=1,a(b)=&gt;,b) -> (0,-1,1)
-<br>
-clear; a(b)=&lt;last[b=-1,b]; (b=1,a(b)=&gt;,b) -> (0,-1,1)
-<br>
-・<a href="#span-out-call-by-equation">式渡し</a>（参照渡しの代替）
-<br>
-clear; a(=&lt;b_)=&lt;last(b=-1,b_=&gt;); (b=1,a(=&lt;b)=&gt;,b) -> [MyErr]Undef eqn(b)
-<br>
-clear; a(=&lt;b_)=&lt;last(b=-1,b_=&gt;); (b=1,a(=&lt;{b})=&gt;,b) -> (0,-1,-1)
-<br>
-clear; a(=&lt;b_)=&lt;last(b=-1,b_=&gt;); (b=&lt;1,a(=&lt;b)=&gt;,b) -> (0,1,-1)
-<br>
-clear; a(=&lt;b_)=&lt;last(b=&lt;-1,b_=&gt;); (b=&lt;1,a(=&lt;b)=&gt;,b) -> (0,1,-1)
-<br>
-clear; a(=&lt;b_)=&lt;last[b=&lt;-1,b_=&gt;]; (b=&lt;1,a(=&lt;b)=&gt;,b) -> (0,1,1)
-    </td>
-  </tr>
-  <tr>
-    <th>
-<a href="#span-index">
-目次
-</a>
-<br>
-未実装の
-<br>
-CAS
-    </th>
-    <td>
-<span id="span-out-development-problems-CAS"></span>
-未実装のCAS(Computer Algebra System)について留意事項を列挙する
-<br>
-・<a href="#span-out-application">application</a>のthroughputを優先するため、
-<br>
-・<a href="#span-out-FNh-DX">微分</a>・<a href="#span-out-FNh-IX">積分</a>の解析解が得られるcaseも<a href="#span-out-error-numerical">数値誤差</a>を許容する
-<br>
-・よって非線形性が強い<a href="#span-out-FN">関数</a>・<a href="#span-out-series">級数</a>・<a href="#span-out-limit">極限</a>の演算結果は当てにならない
-    </td>
-  </tr>
-  <tr>
-    <th>
-<a href="#span-index">
-目次
-</a>
-<br>
-動作test環境
-    </th>
-    <td>
-<span id="span-out-system"></span>
-browserの動作test環境について記述する
-<br>
-<br>
-localhost offline/online-test環境
-<br>
-・latest Chrome
-<br>
-・latest Edge
-<br>
-・Internet Explorer 11（以降、IEと省略する）
-<br>
-・<span class="run">Ver.2.38.18</span>以降、latest Firefox
-<br>
-・その他、Chrome DevTools-emulatorで動作確認
-<br>
-<br>
-実機online-test環境　<span class="run">Ver.2.84.32</span>以降、test未実施
-<br>
-・latest Amazon Silk
-<br>
-・<span class="run">Ver.2.37.18</span>以降、latest Chrome
-<br>
-・<span class="run">Ver.2.38.18</span>以降、latest Firefox
-    </td>
-  </tr>
-  <tr>
-    <th>
-<a href="#span-index">
-目次
-</a>
-<br>
-実機
-<br>
-online-test
-<br>
-手順
-    </th>
-    <td>
-<span id="span-out-system-test"></span>
-実機mobile端末のonline-test手順について記述する
-<br>
-<br>
-<span class="run">Ver.2.37.18</span>以降、実機online-testのcommit前実施に対応
-<br>
-・GitHub Pages上で実施していた実機testの大半を以下の手順でcommit前に実施する
-<br>
-・さらに、今後の<a href="#span-out-application">application</a>開発で必要な実機online-testのdebug環境を整備する
-<br>
-<br>
-実機online-testのcommit前実施準備を以下に示す
-<br>
-・localhost Apache HTTP ServerのDocumentRootのaccess制限を設定する
-<br>
-　Require all denied
-<br>
-　Require ip 192.168.
-<br>
-・localhost Apache HTTP Serverを再起動して設定変更を反映する
-<br>
-<br>
-実機online-testのcommit前実施手順を以下に示す
-<br>
-・localhostのWi-Fi接続先propertyのnetwork profileを確認する
-<br>
-・localhost Firewallの設定でApache HTTP Serverのprivate||publicを許可する
-<br>
-・localhostと実機を同一のWi-Fiに接続する
-<br>
-・localhost IPv4 addressを確認する
-<br>
-・実機browserのURLにlocalhost IPv4 addressを入力して更新する
-<br>
-・localhost Apache HTTP ServerのDocumentRootからの相対pathでtestするpageを開く
-<br>
-・以上より、Wi-Fiを介して実機online-testを実施する
-<br>
-・test終了後、必要に応じてlocalhost Firewallの設定を元に戻す
-<br>
-<br>
-さらに、localhost Chrome DevToolsでAndroid端末を操作してdebugする手順を以下に示す
-<br>
-・Android端末のBuild numberを7回tapしてDeveloper optionsを表示する
-<br>
-・System-Advanced-Developer optionsを開く
-<br>
-・USB debuggingを有効化する
-<br>
-・Android端末をlocalhostにUSB接続してUSB debugging connectedを確認する
-<br>
-・localhost ChromeのURLにchrome://inspect/#devicesを入力して更新する
-<br>
-・Android端末に表示されるcomputer's RSA keyによる接続を許可する
-<br>
-・先述の実施手順に従ってAndroid端末Chromeでlocalhostのdebugするpageを開く
-<br>
-・localhost Chromeに戻ってAndroid端末情報を確認する
-<br>
-・debugするpage URLのinspectを実行して新しいwindowを開く
-<br>
-・Chromeの同一page上でlocalhostとAndroid端末の操作が連動することを確認する
-<br>
-・以上より、Wi-Fiを介して実機online-testとともにdebugを実施する
-<br>
-・test終了後、必要に応じてAndroid端末の設定を元に戻す
-    </td>
-  </tr>
-  <tr>
-    <th>
-<a href="#span-index">
-目次
-</a>
-<br>
-動作要件
-    </th>
-    <td>
-<span id="span-out-requirements"></span>
-browserの動作要件を列挙する
-<br>
-・ECMAScript5対応
-<br>
-・HTML5対応
-    </td>
-  </tr>
-  <tr>
-    <th>
-<a href="#span-index">
-目次
-</a>
-<br>
-browser間
-<br>
-の相違
-    </th>
-    <td>
-<span id="span-out-browsers"></span>
-browser間の相違について記述する
-<br>
-<br>
-png||svg出力の相違について記述する
-<br>
-・browserによってtext幅のNative測定値が異なる
-<br>
-　var text = "x=t,x;x";
-<br>
-　ctx.font = "10px sans-serif";
-<br>
-　var w = ctx.measureText(text).width;
-<br>
-IE: w -> 29
-<br>
-Edge/Chrome: w -> 36.2841796875
-<br>
-Firefox: w -> 30
-<br>
-　ctx.font = "12px sans-serif";
-<br>
-　var w = ctx.measureText(text).width;
-<br>
-IE: w -> 35
-<br>
-Edge/Chrome: w -> 43.541015625
-<br>
-Firefox: w -> 31
-<br>
-・Edge/Chromeはpngとsvgの出力表示が一致するが、IE/Firefoxは一致しない
-<br>
-　JavaScript engineの系統による違いと推察されるが、規則性が不明で対応未定
-<br>
-・textを除けばbrowser間の出力表示に大差なし
-<br>
-<br>
-演算結果の相違について記述する
-<br>
-・browser間で<a href="#span-out-epsilon">Machine epsilon</a>程度の相違がある
-<br>
-IE: sin(5) -> -0.9589242746631384
-<br>
-Edge/Chrome/Firefox: sin(5) -> -0.9589242746631385
-<br>
-IE/Edge/Chrome: exp(i) -> 0.5403023058681398+0.8414709848078965i
-<br>
-Firefox: exp(i) -> 0.5403023058681397+0.8414709848078965i
-    </td>
-  </tr>
-  <tr>
-    <th>
-<a href="#span-index">
-目次
-</a>
-<br>
-Internet
-<br>
-Explorer
-<br>
-非対応の機能
-    </th>
-    <td>
-<span id="span-out-browsers-ie"></span>
-IE非対応の機能について記述する
-<br>
-<br>
-IE非対応の機能/原因を列挙する
-<br>
-・<a href="#span-out-UI-graphing-config">bg-image-file</a>
-<br>
-　描画更新時、SCRIPT5022: SecurityError
     </td>
   </tr>
   <tr>
@@ -29867,14 +29551,402 @@ _dy(=&lt;{1/(y*y)})/_dy(=&lt;{1/y})  <span class="selection">// NG</span> -> [My
 目次
 </a>
 <br>
+application
+    </th>
+    <td>
+<span id="span-out-application"></span>
+applicationについて記述する
+<br>
+<br>
+Painter's pattern||SVG-path||gradation||filter
+<br>
+<br>
+Circuit Simulator's arbitrary non-linear||impedance element
+<br>
+・Arrhenius equationのnon-dimensionalized<a href="#span-out-eqns">式変数</a>fの一例
+<br>
+　回路要素電流Iに対する未知電圧Vを解く場合
+<br>
+f=&lt;last{I=1,E=0,k=1,I=exp(k*(V-E))-exp(-k*(V-E))}
+<br>
+　回路要素電圧Vに対する未知電流Iを解く場合
+<br>
+f=&lt;last{V=1,E=0,k=1,I=exp(k*(V-E))-exp(-k*(V-E))}
+    </td>
+  </tr>
+  <tr>
+    <th>
+<a href="#span-index">
+目次
+</a>
+<br>
+実装の特徴
+    </th>
+    <td>
+<span id="span-out-development-additional"></span>
+基本構文のみで最短かつ確実な実装を選択したため、platform以前に最適化の余地がある
+<br>
+また、すべての結果の確からしさは自己判断のため、致命的な見落としを残す可能性がある
+<br>
+<br>
+実装の特徴を列挙する
+<br>
+・<a href="#span-out-vars">変数</a>のread-writeは<a href="#span-in-tree">tree構造</a>を複製して参照上の副作用を単純に回避する
+<br>
+・<a href="#span-out-eqns">式変数</a>のread-write||call時も同様
+<br>
+・<a href="#span-out-mat">行列</a>演算を含む<a href="#span-out-associativity">2項演算子のassociativity</a>は単なるfor-loopで結合順||演算順を保証する
+<br>
+・reccursive callを代替する<a href="#span-out-FNh-RX">再帰高階関数</a>も同様に、独自のcall stackを実装しない
+<br>
+・よって<a href="#span-out-FNh">高階関数</a>をnestingする場合、致命的にthroughputが低下する（<a href="#span-out-FNh-DX">微分の多重化</a>||<a href="#span-out-interpolation-Lagrange">Lagrange補間</a>）
+<br>
+・<a href="#span-out-flow">parser</a>は複数種類の<a href="#span-out-BT">括弧</a>のnestingに対応し、再帰的に<a href="#span-in-tree">tree構造</a>を階層化する
+<br>
+・よって<a href="#span-out-bracket">階層</a>に紐付く<a href="#span-out-scope-vars">変数のscope</a>はstaticで再利用可能としたが、最善を追及していない
+<br>
+・<a href="#span-out-eqns-args">式変数のarguments</a>も同様に、最善の仕様を追及していない
+<br>
+・<a href="#span-out-FN">関数</a>を含む実装関数は最善のalgorithmとは限らない（<a href="#span-out-linear">Gaussの消去法</a>）
+<br>
+・debug機能が存在しないため、<a href="#span-out-vars">変数</a>・<a href="#span-out-eqns">式変数</a>はpollution disabledの厳格な制約条件を課す
+<br>
+・よって<a href="#span-out-bracket">scope</a>本来の利便性を大きく損なうが、緩和の見通しはない
+<br>
+<br>
+<span class="run">JavaScript</span>特有の実装を列挙する
+<br>
+・namespaceの中に全objectを宣言してglobal searchを省略する（定量的な効果は不明）
+<br>
+・よって関数式のconstructorはhoistingなしの前提で実装する
+<br>
+・同制約の下、既存のframework||plug-inを一切使用しない
+    </td>
+  </tr>
+  <tr>
+    <th>
+<a href="#span-index">
+目次
+</a>
+<br>
+仕様上の
+<br>
+問題点
+    </th>
+    <td>
+<span id="span-out-development-problems"></span>
+仕様上の問題点を列挙する
+<br>
+・<a href="#span-out-development-problems-type">型定義の問題点</a>
+<br>
+・<a href="#span-out-development-problems-complex">複素数演算の問題点</a>
+<br>
+・<a href="#span-out-development-problems-matrix">行列演算の問題点</a>
+<br>
+・<a href="#span-out-development-problems-logical">論理演算の問題点</a>
+<br>
+・<a href="#span-out-development-problems-CBR">未実装の参照渡し</a>
+<br>
+・<a href="#span-out-development-problems-CAS">未実装のCAS</a>
+    </td>
+  </tr>
+  <tr>
+    <th>
+<a href="#span-index">
+目次
+</a>
+<br>
+型定義の
+<br>
+問題点
+    </th>
+    <td>
+<span id="span-out-development-problems-type"></span>
+型定義の問題点を列挙する
+<br>
+・2次元の<a href="#span-out-types">行列の型</a>||<a href="#span-in-tree">tree構造</a>を前提とする設計のため、<span class="clear">3次元以上の配列は定義不能</span>
+<br>
+・3次元以上の配列に相当する自由度は<a href="#span-out-vars-symbol">変数名symbol</a>で区別する
+<br>
+・3次元以上の配列に相当するfor-loopは展開して記述する
+    </td>
+  </tr>
+  <tr>
+    <th>
+<a href="#span-index">
+目次
+</a>
+<br>
+複素数演算の
+<br>
+問題点
+    </th>
+    <td>
+<span id="span-out-development-problems-complex"></span>
+<a href="#span-out-com">複素数</a>演算の問題点を列挙する
+<br>
+・演算後に<a href="#span-out-epsilon">Machine epsilon</a>が残りやすく、整数を意識する負担がある
+<br>
+(-1)^0.5 || (-1)**0.5 || pow(-1,0.5) -> <span class="clear">6.123233995736766e-17</span>+i
+<br>
+2^3 || 2**3 || pow(2,3) -> <span class="clear">7.999999999999998</span>
+<br>
+・同時に、減算||加算で<a href="#span-out-error">情報落ち</a>が発生しやすく、警告文の判断が難しい
+<br>
+(-1)^0.5 || (-1)**0.5 || pow(-1,0.5) -> <span class="clear">6.123233995736766e-17</span>+i
+<br>
+ans+1 -> <span class="clear">infoLost[r ]</span> 1+i
+<br>
+・<a href="#span-out-ope">実数演算</a>の場合（参考）
+<br>
+(-1)^0.5 || (-1)**0.5 || pow(-1,0.5) -> [MyErr]FN isNaN
+<br>
+2^3 || 2**3 || pow(2,3) -> 8
+<br>
+・<a href="#span-out-UI-simple">UI設定</a>||<a href="#span-out-config">裏設定</a>以外で<a href="#span-out-ope">実数演算</a>に切替え不可（自動判別しない）
+<br>
+2^3 || 2**3 || pow(2,3) -> <span class="clear">7.999999999999998</span>
+<br>
+round(2^3) -> 8
+<br>
+・<span class="run">Ver.2.127.34</span>以降、<a href="#span-out-reference-mat-size">行列size</a>の丸め方をfloor　⇒　roundに<span class="run"><a href="#span-out-spec-changed-history">演算仕様変更</a></span>
+<br>
+<del>vectorr(2^3) || vectorr(7)  <span class="selection">// NG</span> -> (0,0,0,0,0,0,0)</del>
+<br>
+vectorr(2^3) || vectorr(8)  <span class="selection">// OK</span> -> (0,0,0,0,0,0,0,0)
+<br>
+vectorr(round(2^3)) || vectorr(8)  <span class="selection">// OK</span> -> (0,0,0,0,0,0,0,0)
+<br>
+・整数演算の場合、<a href="#span-out-prec-ope">四則演算子</a>||<a href="#span-out-prec-ope-bit">bit shift演算子</a>を活用する
+<br>
+2*2*2 -> 8
+<br>
+2&lt;&lt;2 || 2*2*2 -> 8
+<br>
+1&lt;&lt;3 || 1*2*2*2 -> 8
+<br>
+8&gt;&gt;&gt;3 || 8&gt;&gt;3 || (((8/2)/2)/2) || 8/(2*2*2) -> 1
+    </td>
+  </tr>
+  <tr>
+    <th>
+<a href="#span-index">
+目次
+</a>
+<br>
+行列演算の
+<br>
+問題点
+    </th>
+    <td>
+<span id="span-out-development-problems-matrix"></span>
+行列演算の問題点を列挙する
+<br>
+・当初、<a href="#span-out-mat-product">行列積</a>の<a href="#span-out-ope">演算量</a>を多少減らすため、抜け要素を許容したが、
+<br>
+・<span class="run">Ver.2.76.29</span>以降、<a href="#span-out-array">行列操作</a>の<a href="#span-out-ope">演算速度</a>を犠牲にする弊害の方が圧倒的に大きい
+<br>
+・よって<a href="#span-out-mat">抜け要素</a>がある場合、error終了の方が実装効率||演算効率が高い
+<br>
+演算効率を優先して<a href="#span-out-array">行列操作</a>を最適化する場合、<a href="#span-out-config">裏設定</a>参照
+    </td>
+  </tr>
+  <tr>
+    <th>
+<a href="#span-index">
+目次
+</a>
+<br>
+論理演算の
+<br>
+問題点
+    </th>
+    <td>
+<span id="span-out-development-problems-logical"></span>
+論理演算の問題点を列挙する
+<br>
+・<a href="#span-out-prec-ope-logical">論理演算子</a>は短絡評価を再現するが、厳密には<a href="#span-out-FNh-switch">switch高階関数</a>を使用する
+<br>
+x=1; x||(-1) -> 1
+<br>
+x=1; x||(1/0)  <span class="selection">// NG</span> -> [MyErr]FN isNaN
+<br>
+x=0; switch(x,x:1,<span class="condition">=&lt;</span>(1/0)) -> [MyErr]FN isNaN
+<br>
+x=1; switch(x,x:1,<span class="condition">=&lt;</span>(1/0)) -> 1
+<br>
+・<a href="#span-out-prec-ope-logical">論理演算子</a>の短絡評価を厳密に再現する場合、<a href="#span-out-SR">区切り文字</a>の<a href="#span-out-prec">演算のprecedence</a>の直後が妥当で
+<br>
+・設計初期段階の仕様変更のため、未対応
+<br>
+before: x=1,y=&lt;(1/0)||2,x||y=&gt; -> [MyErr]FN isNaN
+<br>
+<a href="#span-out-option1">LA既定</a>時　after: x=1,y=&lt;(1/0)||2,x||y=&gt; -> (0,0,1)
+<br>
+<a href="#span-out-option1">RA選択</a>時　after: x=1,y=&lt;(1/0)||2,x||y=&gt; -> (0,0,2)
+    </td>
+  </tr>
+  <tr>
+    <th>
+<a href="#span-index">
+目次
+</a>
+<br>
+未実装の
+<br>
+参照渡し
+    </th>
+    <td>
+<span id="span-out-development-problems-CBR"></span>
+未実装の参照渡しについて留意事項を列挙する
+<br>
+・<span class="run">Ver.2.19.6</span>以降、<a href="#span-out-FN">関数</a>のre-name不可
+<br>
+clear; tr=trans -> [MyErr]Invalid FNm(transpose)
+<br>
+clear; tr=&lt;trans; tr(1,2:3,4) || (tr=&gt;)(1,2:3,4) -> [MyErr]Invalid FN operation
+<br>
+・<span class="run">Ver.2.19.6</span>以降、<a href="#span-out-FNh">高階関数</a>のre-name不可
+<br>
+clear; dx=_dx -> [MyErr]Invalid FNh([object Object])
+<br>
+clear; dx=&lt;_dx; dx(=&lt;{x^2},1,2) -> [MyErr]Invalid FN operation
+<br>
+・<a href="#span-out-eqns">式変数</a>の参照共有不可
+<br>
+clear; a=&lt;b+c+d; s=a -> [MyErr]Invalid binary operation
+<br>
+clear; a=&lt;b+c+d; s=&lt;a; s -> [MyErr]Invalid binary operation
+<br>
+clear; a=&lt;1; a=-1; s=&lt;a; s -> -1
+<br>
+clear; a=&lt;1; a=-1; s=&lt;a=&gt;; s -> 1
+<br>
+clear; a(b,c,d)=&lt;b+c+d; s=a -> [MyErr]Invalid null=&gt;
+<br>
+clear; a(b,c,d)=&lt;b+c+d; s=&lt;a; s -> [MyErr]Invalid null=&gt;
+<br>
+clear; a(b,c,d)=&lt;b+c+d; s=&lt;a(1,2,3); s -> 6
+<br>
+clear; a(b,c,d)=&lt;b+c+d; s(b,c,d)=&lt;a(b,c,d); s -> [MyErr]Invalid null=&gt;
+<br>
+clear; a(b,c,d)=&lt;b+c+d; s(b,c,d)=&lt;a(b,c,d); s(1,2,3) -> 6
+<br>
+clear; a(b,c,d)=&lt;b+c+d; s(b,c,d)=&lt;a(-b,-c,-d); s(1,2,3) -> -6
+<br>
+clear; a(b,c,d)=&lt;b+c+d; s(f,g,h)=&lt;a(-f,-g,-h); s(1,2,3) -> -6
+<br>
+・<a href="#span-out-eqns-args">定義元arguments</a>の<a href="#span-out-vars-symbol">変数名symbol</a>は独立する
+<br>
+clear; a(B)=&lt;{B[0]=B[1],=&lt;B}=&gt;; B=(1,2:3,4); (B,a(=&lt;B)=&gt;,B) ->
+<br>
+(
+<br>
+1,2,3,4,1,2:
+<br>
+3,4,3,4,3,4
+<br>
+)
+<br>
+clear; a(B)=&lt;[B[0]=B[1],=&lt;B]=&gt;; B=(1,2:3,4); (B,a(=&lt;B)=&gt;,B) ->
+<br>
+(
+<br>
+1,2,3,4,1,2:
+<br>
+3,4,3,4,3,4
+<br>
+)
+<br>
+・値渡し
+<br>
+clear; a(b)=&lt;last(b=-1,b); (b=1,a(b)=&gt;,b) -> (0,-1,1)
+<br>
+clear; a(b)=&lt;last[b=-1,b]; (b=1,a(b)=&gt;,b) -> (0,-1,1)
+<br>
+・<a href="#span-out-call-by-equation">式渡し</a>（参照渡しの代替）
+<br>
+clear; a(=&lt;b_)=&lt;last(b=-1,b_=&gt;); (b=1,a(=&lt;b)=&gt;,b) -> [MyErr]Undef eqn(b)
+<br>
+clear; a(=&lt;b_)=&lt;last(b=-1,b_=&gt;); (b=1,a(=&lt;{b})=&gt;,b) -> (0,-1,-1)
+<br>
+clear; a(=&lt;b_)=&lt;last(b=-1,b_=&gt;); (b=&lt;1,a(=&lt;b)=&gt;,b) -> (0,1,-1)
+<br>
+clear; a(=&lt;b_)=&lt;last(b=&lt;-1,b_=&gt;); (b=&lt;1,a(=&lt;b)=&gt;,b) -> (0,1,-1)
+<br>
+clear; a(=&lt;b_)=&lt;last[b=&lt;-1,b_=&gt;]; (b=&lt;1,a(=&lt;b)=&gt;,b) -> (0,1,1)
+    </td>
+  </tr>
+  <tr>
+    <th>
+<a href="#span-index">
+目次
+</a>
+<br>
+未実装の
+<br>
+CAS
+    </th>
+    <td>
+<span id="span-out-development-problems-CAS"></span>
+未実装のCAS(Computer Algebra System)について留意事項を列挙する
+<br>
+・<a href="#span-out-application">application</a>のthroughputを優先するため、
+<br>
+・<a href="#span-out-FNh-DX">微分</a>・<a href="#span-out-FNh-IX">積分</a>の解析解が得られるcaseも<a href="#span-out-error-numerical">数値誤差</a>を許容する
+<br>
+・よって非線形性が強い<a href="#span-out-FN">関数</a>・<a href="#span-out-series">級数</a>・<a href="#span-out-limit">極限</a>の演算結果は当てにならない
+    </td>
+  </tr>
+  <tr>
+    <th>
+<a href="#span-index">
+目次
+</a>
+<br>
 特殊仕様
     </th>
     <td>
 <span id="span-out-special"></span>
-最後に一般的でない可能性のある仕様について記述する
+一般的でない可能性のある仕様を列挙する
 <br>
+・<a href="#span-out-special-eqns">式変数</a>
 <br>
-<a href="#span-out-type-ope">前置単項演算子</a>の符号の扱いについて記述する
+・<a href="#span-out-special-sign">単項の符号</a>
+<br>
+・<a href="#span-out-special-equal">equal記号</a>
+<br>
+・<a href="#span-out-special-substitution">代入処理</a>
+    </td>
+  </tr>
+  <tr>
+    <th>
+<a href="#span-index">
+目次
+</a>
+<br>
+式変数
+    </th>
+    <td>
+<span id="span-out-special-eqns"></span>
+<a href="#span-out-eqns">式変数</a>について記述する
+<br>
+・<a href="#span-out-eqns">式変数</a>、<a href="#span-out-eqns-call">式読出し</a>、<a href="#span-out-call-by-equation">式渡し</a>、<a href="#span-out-substitution-equation">式代入</a>、<a href="#span-out-scope-inherited-call">scope継承call</a>の仕様は呼び名含めて一般的でない
+<br>
+・連立方程式をscript入力から解くため、独自に定義している
+    </td>
+  </tr>
+  <tr>
+    <th>
+<a href="#span-index">
+目次
+</a>
+<br>
+単項の符号
+    </th>
+    <td>
+<span id="span-out-special-sign"></span>
+<a href="#span-out-type-ope">前置単項演算子</a>の符号の仕様を列挙する
 <br>
 ・単項の符号は同種の<a href="#span-out-type-ope">中置2項演算子</a>と区別せず、<a href="#span-out-associativity">2項演算子のassociativity</a>に従って演算する
 <br>
@@ -29899,9 +29971,19 @@ _dy(=&lt;{1/(y*y)})/_dy(=&lt;{1/y})  <span class="selection">// NG</span> -> [My
 <a href="#span-out-option1">LA既定</a>時　---(1,i) || ((-)-)-(1,i) -> [MyErr]Invalid binary operation
 <br>
 <a href="#span-out-option1">RA選択</a>時　---(1,i) || (,)-((,)-((,)-(1,i))) || (-1)((-1)((-1)(1,i))) -> (-1,-i)
+    </td>
+  </tr>
+  <tr>
+    <th>
+<a href="#span-index">
+目次
+</a>
 <br>
-<br>
-次にequal記号=の扱いについて記述する
+equal記号
+    </th>
+    <td>
+<span id="span-out-special-equal"></span>
+equal記号=の仕様を列挙する
 <br>
 ・代入と判別されないequal記号=は、右辺移項の<a href="#span-out-type-ope">中置2項演算子</a>として扱う
 <br>
@@ -29930,9 +30012,19 @@ f=&lt;{x0^2+1=0} || f=&lt;{=-(x0^2+1)} || f=&lt;{-(x0^2+1)}
 f=&lt;{A(x)=b} || f=&lt;{=b-A(x)} || f=&lt;{b-A(x)}
 <br>
 f=&lt;{Ainv*A=identity2} || f=&lt;{=identity2-Ainv*A} || f=&lt;{identity2-Ainv*A}
+    </td>
+  </tr>
+  <tr>
+    <th>
+<a href="#span-index">
+目次
+</a>
 <br>
-<br>
-<a href="#span-out-mat">行列</a>を扱う上での演算都合上の仕様について記述する
+代入処理
+    </th>
+    <td>
+<span id="span-out-special-substitution"></span>
+<a href="#span-out-mat">行列</a>の代入を伴う演算都合上の仕様を列挙する
 <br>
 ・代入を<a href="#span-out-BT">括弧</a>で括った場合、0を返す
 <br>
@@ -29970,41 +30062,27 @@ vector={1,2,3}:trans(vector)vector -> (0:14)
 <br>
 clear; y=&lt;3x-1,x=3,y=&gt;,y=&gt;y0,y0 -> (0,0,8,8,8)
 <br>
+・ただし、<a href="#span-out-substitution">変数への代入</a>とは別の冗長な手段のため、<a href="#span-out-vars">変数</a>への<a href="#span-out-eqns-call">式読出し</a>は廃止の可能性がある
 <br>
-<a href="#span-out-eqns">式変数</a>について記述する
+・現状、<a href="#span-out-call-by-equation">式渡しの直接式読出し</a>で使用する場合、読出し値の次元が残らないように留意する
 <br>
-・<a href="#span-out-eqns">式変数</a>、<a href="#span-out-eqns-call">式読出し</a>、<a href="#span-out-call-by-equation">式渡し</a>、<a href="#span-out-substitution-equation">式代入</a>、<a href="#span-out-scope-inherited-call">scope継承call</a>の仕様は呼び名含めて一般的でない
+clear; [v=&lt;(1,2),v=v=&gt;,=&lt;v]=&gt;  <span class="selection">// OK</span> -> (1,2)
 <br>
-・連立方程式をscript入力から解くため、独自に定義している
-    </td>
-  </tr>
-  <tr>
-    <th>
-<a href="#span-index">
-目次
-</a>
+clear; [v=&lt;{1,2},v=v=&gt;,=&lt;v]=&gt;  <span class="selection">// OK</span> -> (1:2)
 <br>
-application
-    </th>
-    <td>
-<span id="span-out-application"></span>
-applicationについて記述する
+clear; [v=&lt;(1,2),v=&gt;v,=&lt;v]=&gt;  <span class="selection">// NG</span> -> (1,2)
 <br>
+clear; [v=&lt;{1,2},v=&gt;v,=&lt;v]=&gt;  <span class="selection">// NG</span> -> [MyErr]Invalid mat([object Object])
 <br>
-Painter's pattern||SVG-path||gradation||filter
+clear; [v=&lt;{1,2},v=v=&gt;v,=&lt;v]=&gt; -> (1:2)
 <br>
+clear; [a=1,b=2,last{v=&lt;{a,b},v=&gt;v},a=-1,b=-2,=&lt;v]=&gt; -> (1:2)
 <br>
-Circuit Simulator's arbitrary non-linear||impedance element
+clear; [a=1,b=2,last{v=&lt;{a,b},v=&gt;v},a=-1,b=-2,=&lt;v=&gt;]=&gt; -> (-1:-2)
 <br>
-・Arrhenius equationのnon-dimensionalized<a href="#span-out-eqns">式変数</a>fの一例
+clear; [a=1,b=2,v=&lt;{a,b},v=v=&gt;v,a=-1,b=-2,=&lt;v]=&gt; -> (1:2)
 <br>
-　回路要素電流Iに対する未知電圧Vを解く場合
-<br>
-f=&lt;last{I=1,E=0,k=1,I=exp(k*(V-E))-exp(-k*(V-E))}
-<br>
-　回路要素電圧Vに対する未知電流Iを解く場合
-<br>
-f=&lt;last{V=1,E=0,k=1,I=exp(k*(V-E))-exp(-k*(V-E))}
+clear; [a=1,b=2,v=&lt;{a,b},v=v=&gt;v,a=-1,b=-2,=&lt;v=&gt;]=&gt; -> (-1:-2)
     </td>
   </tr>
 </tbody>
