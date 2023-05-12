@@ -314,19 +314,11 @@ e^(-i(1pi(){2/2i}(5-{3-1}){i/(-4)}))
 <br>
 ・<a href="#span-out-types-vars">変数の種類</a>
 <br>
-・<a href="#span-out-scope-vars">変数のscope</a>
-<br>
-　・<a href="#span-out-scope-inherited-call">式変数のscope継承call</a>
+・<a href="#span-out-scope">変数のscope</a>
 <br>
 ・<a href="#span-out-storage">storage</a>
 <br>
 ・<a href="#span-out-bracket">階層とscopeの関係</a>
-<br>
-・<a href="#span-out-eqns-args">式変数のarguments</a>
-<br>
-　・<a href="#span-out-eqns-re-use">scope付式変数の再利用</a>
-<br>
-　・<a href="#span-out-scope-inherited-call-memo">式変数のscope継承callまとめ</a>
 <br>
 ・graph出力仕様
 <br>
@@ -440,6 +432,8 @@ e^(-i(1pi(){2/2i}(5-{3-1}){i/(-4)}))
 <br>
 　　・<a href="#span-out-substitution">変数への代入</a>
 <br>
+　　・<a href="#span-out-scope-vars">変数のscope</a>
+<br>
 　・<a href="#span-out-matching">行列要素pattern matching</a>
 <br>
 　・<a href="#span-out-eqns">式変数</a>
@@ -451,6 +445,14 @@ e^(-i(1pi(){2/2i}(5-{3-1}){i/(-4)}))
 　　・<a href="#span-out-call-by-equation">式渡し</a>
 <br>
 　　・<a href="#span-out-substitution-equation">式変数への式代入</a>
+<br>
+　　・<a href="#span-out-scope-inherited-call">scope継承call</a>
+<br>
+　　　・<a href="#span-out-scope-inherited-call-memo">scope継承callの補足</a>
+<br>
+　　・<a href="#span-out-eqns-args">arguments</a>
+<br>
+　　　・<a href="#span-out-eqns-re-use">scope付式変数の再利用</a>
 <br>
 　・<a href="#span-out-FNh">高階関数</a>
 <br>
@@ -10141,11 +10143,11 @@ Pythonとの相違について記述する
 変数のscope
     </th>
     <td>
-<span id="span-out-scope-vars"></span>
+<span id="span-out-scope"></span>
 変数のscopeについて記述する
 <br>
 <br>
-<del>各変数にscopeの概念はない</del><span class="run">Ver.2.31.17</span>以降、変数のscopeを追加
+<del>各変数にscopeの概念はない</del><span class="run">Ver.2.31.17</span>以降、<a href="#span-out-scope-vars">変数のscope</a>を追加
 <br>
 ・変数毎に<a href="#span-out-storage">storage</a>を共有する
 <br>
@@ -10162,388 +10164,6 @@ x=2; store; clear; x=3<span class="selection">/*independent local scope*/</span>
 <span class="run">Ver.2.31.17</span>以降、<a href="#span-out-BT-square">角括弧[]</a>に変数のscopeを追加
 <br>
 過去の後方互換性を完全に維持する場合、<a href="#span-out-config">裏設定</a>参照
-<br>
-<br>
-scope内での<a href="#span-out-vars">変数</a>||<a href="#span-out-eqns">式変数</a>の宣言はECMAScript6（以降、ES6と省略する）のlet宣言を想定
-<br>
-<a href="#span-out-bracket">直列scope内</a>の変数はreadonly（pollution disabled）
-<br>
-scopeから直接、local <a href="#span-out-storage">storage</a>にwriteする場合、<a href="#span-out-FNc">最上位関数</a>参照
-<br>
-・test caseを列挙する
-<br>
-clear; [a=2,[a=1,a],a] -> (0,0,1,2)
-<br>
-clear; [a=2,=&lt;[a=1,=&lt;a]=&gt;+a]=&gt; -> 3
-<br>
-・<a href="#span-out-vars">変数</a>・<a href="#span-out-eqns">式変数</a>はES6のlet変数同様に宣言時の<a href="#span-out-bracket">階層</a>に依存する
-<br>
-・よって同一scope内の変数のみ、<a href="#span-out-substitution">変数への代入</a>可
-<br>
-clear; a=3,[a=1,a,a=2,a],a -> (0,0,1,0,2,3)
-<br>
-clear; a=3; [a=1,a,a=2,a]; a -> 3
-<br>
-clear; [a=1,a],a -> [MyErr]Invalid REv(a)
-<br>
-clear; [a=1,a]; a -> [MyErr]Invalid REv(a)
-<br>
-・<a href="#span-out-matching">行列要素pattern matching</a>による変数への代入も同様
-<br>
-clear; a=3,[($a)=1,a,($a)=2,a],a -> (0,0,1,0,2,3)
-<br>
-clear; a=3; [($a)=1,a,($a)=2,a]; a -> 3
-<br>
-clear; [($a)=1,a],a -> [MyErr]Invalid REv(a)
-<br>
-clear; [($a)=1,a]; a -> [MyErr]Invalid REv(a)
-<br>
-・<a href="#span-out-substitution-mat">行列への代入</a>も同様
-<br>
-clear; [A=(1,2),A[0][0]=-1,A] -> (0,0,-1,2)
-<br>
-clear; A=(1,2); [A[0][0]=-1,A] -> [MyErr]Invalid SEv-scope(A)
-<br>
-・<a href="#span-out-bracket">並列scope</a>の変数を参照不可
-<br>
-clear; [A=(1,2),],[A] -> [MyErr]Invalid REv(A)
-<br>
-clear; ([A=(1,2),],[A]) -> [MyErr]Invalid REv(A)
-<br>
-clear; [A=(1,2),],[B=-A,] -> [MyErr]Invalid binary operation
-<br>
-clear; ([A=(1,2),],[B=-A,]) -> [MyErr]Invalid binary operation
-<br>
-・<a href="#span-out-bracket">直列scope内</a>の変数を参照可
-<br>
-clear; A=(1,2); [A] -> (1,2)
-<br>
-clear; A=(1,2); [-A] -> (-1,-2)
-<br>
-clear; A=(1,2); [B=-A,B] -> (0,-1,-2)
-<br>
-clear; A=(1,2); [B=-A,[C=A+B,C]] -> (0,0,0,0)
-<br>
-clear; A=(1,2); [B=-A,[C=A+B,C],C] -> [MyErr]Invalid REv(C)
-<br>
-clear; a=3; [($a,{($b)=a})=2,a+b] -> (0,5)
-<br>
-・<a href="#span-out-bracket">直列scope内</a>の変数の<a href="#span-out-bracket">search-precedence</a>
-<br>
-clear; A=(1,2); B=A; [B=-B,[C=A+B,C]] -> (0,0,0,0)
-<br>
-clear; A=(1,2); B=A; [B=-B,[C=A+B,C]]; B -> (1,2)
-<br>
-clear; A=(1,2); B=A; (B=-B,[C=A+B,C]) -> (0,0,0,0)
-<br>
-clear; A=(1,2); B=A; (B=-B,[C=A+B,C]); B -> (-1,-2)
-<br>
-・<a href="#span-out-eqns">式変数</a>も同様
-<br>
-clear; A=&lt;(1,2); B=&lt;A; [B=&lt;-B,[C=&lt;A+B,C]] -> [MyErr]Invalid circular(B)
-<br>
-clear; A=&lt;(1,2); B=&lt;A; [D=-B,B=&lt;D,[C=&lt;A+B,C]] -> (0,0,0,0,0)
-<br>
-clear; A=&lt;(1,2); B=&lt;A; [D=-B,B=&lt;D,[C=&lt;A+B,C]]; B -> (1,2)
-<br>
-clear; A=&lt;(1,2); B=&lt;A; (D=-B,B=&lt;D,[C=&lt;A+B,C]) -> (0,0,0,0,0)
-<br>
-clear; A=&lt;(1,2); B=&lt;A; (D=-B,B=&lt;D,[C=&lt;A+B,C]); B -> (-1,-2)
-<br>
-clear; a=&lt;[3+4,]; ([a=&gt;]+[a=&gt;])*trans([a=&gt;]) -> 98
-<br>
-・宣言時の<a href="#span-out-bracket">階層</a>に依存するため、次の場合、error終了
-<br>
-let a=()=&gt;b; (function(){let b=1; return a();})();  <span class="selection">// ES6</span> -> b is not defined
-<br>
-clear; a=&lt;b; [b=1,=&lt;a=&gt;]=&gt; -> [MyErr]Invalid REv(b)
-<br>
-・<a href="#span-out-call-by-equation">式読出し</a>時の<a href="#span-out-bracket">階層</a>を継承する場合、<a href="#span-out-scope-inherited-call">式変数のscope継承call</a>を使用
-<br>
-・式読出し記号==&gt;
-<br>
-clear; a=&lt;b; [b=1,=&lt;a=&gt;]=&gt; -> [MyErr]Invalid REv(b)
-<br>
-clear; a=&lt;b; [b=1,=&lt;a==&gt;]=&gt; -> 1
-<br>
-clear; a=&lt;b; [b=1,=&lt;a==&gt;]==&gt; -> 1
-<br>
-・同義
-<br>
-(function(){let a=()=&gt;b; let b=1; return a();})();  <span class="selection">// ES6</span> -> 1
-<br>
-clear; [a=&lt;b,b=1,=&lt;a=&gt;]=&gt; -> 1
-<br>
-・let宣言の挙動を以下に比較して示す
-<br>
-(function(){let a=()=&gt;b; let c=a(); let b=3; return c;})();  <span class="selection">// ES6</span> ||
-<br>
-let b=-1; (function(){let a=()=&gt;b; let c=a(); let b=3; return c;})();  <span class="selection">// ES6</span>
-<br>
--> Cannot access 'b' before initialization
-<br>
-clear; [a=&lt;b,c=a=&gt;,b=1,=&lt;c]=&gt; -> [MyErr]Invalid REv(b)
-<br>
-clear; b=-1; [a=&lt;b,c=a=&gt;,b=1,=&lt;c]=&gt;  <span class="selection">// not hoisted</span> -> -1
-<br>
-let b=-1; (function(){let a=()=&gt;b; let c=a(); return c;})();  <span class="selection">// ES6</span> -> -1
-<br>
-clear; b=-1; [a=&lt;b,c=a=&gt;,=&lt;c]=&gt; -> -1
-<br>
-let b=-1; (function(){let a=()=&gt;b; let b=1; let c=a(); return c;})();  <span class="selection">// ES6</span> -> 1
-<br>
-clear; b=-1; [a=&lt;b,b=1,c=a=&gt;,=&lt;c]=&gt; -> 1
-<br>
-・<a href="#span-out-FNc">最上位関数</a>を使用
-<br>
-clear; b=-1; a=&lt;[b,b]; a=&gt; -> (-1,-1)
-<br>
-clear; b=-1; a=&lt;[b,b]; b=1,a=&gt; -> (0,1,1)
-<br>
-clear; b=-1; a=&lt;[b,b]; [b=1,a=&gt;] -> (0,-1,-1)
-<br>
-clear; a=&lt;b; [b=1,a=&gt;] -> [MyErr]Invalid REv(b)
-<br>
-clear; a=&lt;b+1; [b=1,a=&gt;] -> [MyErr]Invalid binary operation
-<br>
-clear; a=&lt;[b,b]; [b=1,a=&gt;] -> [MyErr]Invalid REv(b)
-<br>
-clear; a=&lt;[b,b]; [b=2,addVar(b),a=&gt;] -> (0,1,2,2)
-<br>
-clear; [a=&lt;[b,b],b=1,a=&gt;,b=2,a=&gt;] -> (0,0,1,1,0,2,2)
-<br>
-clear; [a=&lt;[b,b],[b=1,],a=&gt;] -> [MyErr]Invalid REv(b)
-<br>
-clear; [a=&lt;[b,b],[b=2,addVar(b)],a=&gt;] -> (0,0,1,2,2)
-<br>
-clear; b=-1; a=&lt;[b,b]; [[b=1,],a=&gt;] -> (0,0,-1,-1)
-<br>
-clear; b=-1; a=&lt;[b,[b,]]; [b=1,a=&gt;] -> (0,-1,-1,0)
-<br>
-clear; b=-1; [a=&lt;[b,[b,]],b=1,a=&gt;] -> (0,0,1,1,0)
-<br>
-clear; b=-1; [a=&lt;[b,[b,]],[b=1,b],[a=&gt;,b]] -> (0,0,1,-1,-1,0,-1)
-<br>
-clear; b=-1; [a=&lt;[b,[b,]],[b=1,b],b=2,[a=&gt;,b]] -> (0,0,1,0,2,2,0,2)
-<br>
-clear; b=-1; [a=&lt;(b,[b,[b,]]),b=1,a=&gt;] -> (0,0,1,1,1,0)
-<br>
-clear; b=-1; [a=&lt;(b,[b=2,[b,]]),b=1,a=&gt;] -> (0,0,1,0,2,0)
-<br>
-clear; b=-1; [a=&lt;(b,[b=2,[b,]]),b=1,=&lt;a=&gt;]=&gt; -> (1,0,2,0)
-<br>
-clear; b=-1; a=&lt;(b,[b=2,[b,]]); ([b=1,a=&gt;]) -> (0,-1,0,2,0)
-<br>
-・scopeのnesting
-<br>
-clear; a=-1; [a=1,=&lt;a+1]=&gt; -> 2
-<br>
-clear; a=-1; [a=&lt;1,=&lt;a]=&gt; -> -1
-<br>
-clear; a=-1; [a=&lt;1,=&lt;a=&gt;]=&gt; -> 1
-<br>
-clear; a=-1; [[a=&lt;1],=&lt;a=&gt;]=&gt; -> [MyErr]Invalid reference
-<br>
-clear; a=-1; [[a=&lt;1,a],=&lt;a=&gt;]=&gt; -> [MyErr]Invalid REv(a)
-<br>
-clear; a=&lt;-1; [[a=&lt;1,a],=&lt;a=&gt;]=&gt; -> -1
-<br>
-clear; [a=&lt;1,=&lt;a=&gt;+1]=&gt; -> 2
-<br>
-clear; a=1; [a=2,=&lt;(a,[[a=3,a],a])]=&gt;,a -> (2,0,3,2,1)
-<br>
-clear; a=1; [a=2,=&lt;{a,[[a=3,a],a]}]=&gt;,a -> (2,1:0,3,2)
-<br>
-clear; a=1; {[a=2,=&lt;{a,[[a=3,a],a]}]}=&gt;,a -> (2,1:0,3,2)
-<br>
-clear; a=1; {a=2,=&lt;{a,[[a=3,a],a]}}=&gt;,a -> (2,2:0,3,2)
-<br>
-clear; [a=1,(a=2,[a,a=3,a],a=4),a,[a,a=5,a],a] -> (0,0,2,0,3,0,4,4,0,5,4)
-<br>
-clear; [a=1,a[0][0]=2,(a,3)] -> (0,0,2,3)
-<br>
-clear; a=1,[a=2,[a=3,=&lt;a]=&gt;,a,[a,a],[($a)=4,a]],a -> (0,0,3,2,2,2,0,4,1)
-<br>
-clear; a=1,(a=2,[a=3,=&lt;a]=&gt;,a,[a,a],[($a)=4,a]),a -> (0,0,3,2,2,2,0,4,2)
-<br>
-clear; a=-1; [a=1,(a=2,[a=3,=&lt;a]=&gt;,a,[a,a],[($a)=4,a]),a],a -> (0,0,3,2,2,2,0,4,2,-1)
-<br>
-clear; a=-1; [a=1,(a=2,[a=&lt;3,=&lt;a]=&gt;,a,[a,a],[($a)=4,a]),a],a -> (0,0,2,2,2,2,0,4,2,-1)
-<br>
-clear; a=-1; [a=1,(a=2,[a=&lt;3,=&lt;a=&gt;]=&gt;,a,[a,a],[($a)=4,a]),a],a -> (0,0,3,2,2,2,0,4,2,-1)
-<br>
-clear; a=-1; [a=1,(a=2,[a=&lt;3,=&lt;a=&gt;]=&gt;,a,[a,a],[($a)=4,a]),=&lt;a]=&gt;,a -> (2,-1)
-<br>
-・<a href="#span-out-call-by-equation">式渡しの直接式読出し</a>
-<br>
-・(function(){return (function(){return (function(){var a=1; return 3;})()+a;})()*2;})();
-<br>
-clear; [=&lt;[=&lt;[a=1,=&lt;3]=&gt;+a]=&gt;*2]=&gt; -> [MyErr]Invalid binary operation
-<br>
-・(function(){return (function(){var a=1; return (function(){return 3;})()+a;})()*2;})();
-<br>
-clear; [=&lt;[a=1,=&lt;[=&lt;3]=&gt;+a]=&gt;*2]=&gt; -> 8
-<br>
-・(function(){var a=1; return (function(){return (function(){return 3;})()+a;})()*2;})();
-<br>
-clear; [a=1,=&lt;[=&lt;[=&lt;3]=&gt;+a]=&gt;*2]=&gt; -> 8
-<br>
-・var a=1; (function(){return (function(){return (function(){return 3;})()+a;})()*2;})();
-<br>
-clear; a=1; [=&lt;[=&lt;[=&lt;3]=&gt;+a]=&gt;*2]=&gt; -> 8
-<br>
-・(function(){return (function(){return (function(){var a=1; return 3;})()+1;})()*a;})();
-<br>
-clear; [=&lt;[=&lt;[a=1,=&lt;3]=&gt;+1]=&gt;*a]=&gt; -> [MyErr]Invalid binary operation
-<br>
-・(function(){return (function(){var a=1; return (function(){return 3;})()+1;})()*a;})();
-<br>
-clear; [=&lt;[a=1,=&lt;[=&lt;3]=&gt;+1]=&gt;*a]=&gt; -> [MyErr]Invalid binary operation
-<br>
-・(function(){var a=1; return (function(){return (function(){return 3;})()+1;})()*a;})();
-<br>
-clear; [a=1,=&lt;[=&lt;[=&lt;3]=&gt;+1]=&gt;*a]=&gt; -> 4
-<br>
-・var a=1; (function(){return (function(){return (function(){return 3;})()+1;})()*a;})();
-<br>
-clear; a=1; [=&lt;[=&lt;[=&lt;3]=&gt;+1]=&gt;*a]=&gt; -> 4
-    </td>
-  </tr>
-  <tr>
-    <th>
-<a href="#span-index">
-目次
-</a>
-<br>
-式変数の
-<br>
-scope
-<br>
-継承call
-    </th>
-    <td>
-<span id="span-out-scope-inherited-call"></span>
-式変数のscope継承callについて記述する
-<br>
-<br>
-<a href="#span-out-bracket">直列scope内</a>の<a href="#span-out-eqns">式変数</a>をcallする際、<a href="#span-out-call-by-equation">式読出し</a>時の<a href="#span-out-bracket">階層</a>を継承する場合
-<br>
-・<a href="#span-out-eqns">式変数</a>のscope継承callと定義する
-<br>
-・Nativeの.call(this)を想定するが、
-<br>
-・thisの<a href="#span-out-bracket">直列scope内</a>の<a href="#span-in-scope-vars">parents-scope</a>を含めて継承後、callする点で異なる
-<br>
-<br>
-<span class="run">Ver.2.31.17</span>以降、追加の<a href="#span-out-eqns-call">式読出し</a>記号==&gt;を使用
-<br>
-・test caseを列挙する
-<br>
-clear; a=&lt;b; [b=1,=&lt;a=&gt;]=&gt; -> [MyErr]Invalid REv(b)
-<br>
-clear; a=&lt;b; [b=1,=&lt;a==&gt;]=&gt; -> 1
-<br>
-clear; a=&lt;b; [b=1,=&lt;a==&gt;]==&gt; -> 1
-<br>
-clear; a=&lt;b; [b=1,=&lt;[=&lt;a==&gt;]=&gt;]=&gt; -> 1
-<br>
-clear; a=&lt;b; [=&lt;[b=1,=&lt;a==&gt;]=&gt;]=&gt; -> 1
-<br>
-clear; a=&lt;b; [b=2,=&lt;[b=1,=&lt;a==&gt;]=&gt;+a=&gt;]=&gt; -> [MyErr]Invalid BRsa operation
-<br>
-clear; a=&lt;b; [b=2,=&lt;[b=1,=&lt;a==&gt;]=&gt;+a==&gt;]=&gt; -> 3
-<br>
-clear; a=&lt;b; [b=3,=&lt;[b=2,=&lt;[b=1,=&lt;a==&gt;]=&gt;+a==&gt;]=&gt;+a==&gt;]=&gt; -> 6
-<br>
-clear; a=&lt;b+c; [c=2,=&lt;[b=1,=&lt;a==&gt;]=&gt;]=&gt; -> 3
-<br>
-clear; a=&lt;b+c+d; d=3; [c=2,=&lt;[b=1,=&lt;a==&gt;]=&gt;]=&gt; -> 6
-<br>
-clear; a=&lt;b+c+d; [d=3, c=2,=&lt;[b=1,=&lt;a==&gt;]=&gt;]=&gt; -> 6
-<br>
-clear; [a=&lt;b+c+d, d=3, c=2,=&lt;[b=1,=&lt;a==&gt;]=&gt;]=&gt; -> 6
-<br>
-clear; [d=3, c=2,=&lt;[a=&lt;b+c+d, b=1,=&lt;a==&gt;]=&gt;]=&gt; -> 6
-<br>
-・<span class="run">Ver.2.90.32</span>以降、<a href="#span-out-FN-statistic">sum関数</a>を追加
-<br>
-clear; a=&lt;<span class="run">sum</span>(b,c,d); d=3; [c=2,=&lt;[b=1,=&lt;a=&gt;]=&gt;]=&gt; -> [MyErr]Invalid BRsa operation
-<br>
-clear; a=&lt;<span class="run">sum</span>(b,c,d); d=3; [c=2,=&lt;[b=1,=&lt;a==&gt;]=&gt;]=&gt; -> 6
-<br>
-・<span class="run">Ver.2.32.17</span>以降、<a href="#span-out-eqns-args">式変数のarguments</a>を追加
-<br>
-clear; a(b,c,d)=&lt;<span class="run">sum</span>(b,c,d); d=3; [c=2,=&lt;[b=1,=&lt;a(b,c,d)=&gt;]=&gt;]=&gt; -> 6
-<br>
-clear; a(b,c,d)=&lt;b+c+d; d=3; [c=2,=&lt;[b=1,=&lt;a(b,c,d)=&gt;]=&gt;]=&gt; -> 6
-<br>
-clear; a(b,c,d)=&lt;b+c+d; d=3; [c=2,=&lt;[b=1,=&lt;a=&gt;]=&gt;]=&gt; -> [MyErr]Invalid binary operation
-<br>
-clear; a(b,c,d)=&lt;b+c+d; d=3; [c=2,=&lt;[b=1,=&lt;a==&gt;]=&gt;]=&gt; -> 6
-<br>
-clear; a=&lt;last[<span class="run">s</span>=b+c+d,<span class="run">s</span>]; d=3; [c=2,=&lt;[b=1,=&lt;a==&gt;]=&gt;]=&gt; -> 6
-<br>
-clear; a=&lt;last[<span class="run">s</span>=b+c+d,last[,-<span class="run">s</span>]]; d=3; [c=2,=&lt;[b=1,=&lt;a==&gt;]=&gt;]=&gt; -> -6
-<br>
-clear; a=&lt;last[<span class="run">s</span>=b+c+d,last[,-<span class="run">s</span>]]; d=3; [c=2,=&lt;[b=1,=&lt;a==&gt;]=&gt;]=&gt; -> -6
-<br>
-clear; a=&lt;last[<span class="run">s</span>=b+c+d,last[,-<span class="run">s</span>]]; d=3; [c=2,=&lt;[c=-c,b=1,=&lt;a==&gt;]=&gt;]=&gt; -> -2
-<br>
-clear; a=&lt;last[<span class="run">s</span>=b+c+d,last[,-<span class="run">s</span>]]; d=3; [c=-d,=&lt;[b=1,=&lt;a==&gt;]=&gt;]=&gt; -> -1
-<br>
-clear; a=&lt;last{<span class="run">s</span>=b+c+d,last[,-<span class="run">s</span>]}; d=3; [c=2,=&lt;[b=1,=&lt;a==&gt;]=&gt;]=&gt; -> -6
-<br>
-clear; a=&lt;last{d=-100,<span class="run">s</span>=b+c+d,last[,-<span class="run">s</span>]}; d=3; [c=2,=&lt;[b=1,=&lt;a==&gt;]=&gt;]=&gt; -> 97
-<br>
-・callする<a href="#span-out-eqns">式変数</a>の0<a href="#span-out-bracket">階層</a>に宣言される<a href="#span-out-vars">変数</a>はcall先<a href="#span-out-bracket">scope</a>に定義する
-<br>
-clear; a=&lt;last{d=-100,<span class="run">s</span>=b+c+d,last[,-<span class="run">s</span>]}; d=3; [c=2,=&lt;[b=1,a==&gt;,=&lt;d]=&gt;]=&gt; -> -100
-<br>
-clear; a=&lt;last{d=-100,<span class="run">s</span>=b+c+d,last[,-<span class="run">s</span>]}; [c=2,=&lt;[d=3,b=1,a==&gt;,=&lt;d]=&gt;]=&gt; -> -100
-<br>
-clear; [a=&lt;last{d=-100,<span class="run">s</span>=b+c+d,last[,-<span class="run">s</span>]},c=2,=&lt;[d=3,b=1,a==&gt;,=&lt;d]=&gt;]=&gt; -> -100
-<br>
-・callする<a href="#span-out-eqns">式変数</a>の1<a href="#span-out-bracket">階層</a>に宣言される場合、call先から参照不可
-<br>
-clear; a=&lt;last[d=-100,<span class="run">s</span>=b+c+d,last[,-<span class="run">s</span>]]; [c=2,=&lt;[d=3,b=1,a==&gt;,=&lt;d]=&gt;]=&gt; -> 3
-<br>
-clear; [a=&lt;last[d=-100,<span class="run">s</span>=b+c+d,last[,-<span class="run">s</span>]],c=2,=&lt;[d=3,b=1,a==&gt;,=&lt;d]=&gt;]=&gt; -> 3
-<br>
-・scope継承callのnesting
-<br>
-clear; a=&lt;b; b=0; last[b=1,c=&lt;a=&gt;,[b=2,c=&gt;]] -> 0
-<br>
-clear; a=&lt;b; b=0; last[b=1,c=&lt;a=&gt;,[b=2,c==&gt;]] -> 0
-<br>
-clear; a=&lt;b; b=0; last[b=1,c=&lt;a==&gt;,[b=2,c=&gt;]] -> 1
-<br>
-clear; a=&lt;b; b=0; last[b=1,c=&lt;a==&gt;,[b=2,c==&gt;]] -> 2
-<br>
-clear; a=&lt;b==&gt;; b=&lt;0; last[b=&lt;1,c=&lt;a==&gt;,[b=&lt;2,c==&gt;]] -> 2
-<br>
-<br>
-実装logicのtest caseを以下に示す
-<br>
-・<a href="#span-out-eqns">式変数</a>s0のcall後、<a href="#span-in-scope-vars">scopes2d array</a>の各<a href="#span-out-bracket">scope</a>に各<a href="#span-out-vars">変数</a>が定義されることを確認する
-<br>
-clear; s0=&lt;[s1=1,[s1,s2=2,[s2,s3=3,[s3,s4=4,[s4,s5=5]]]]]; s0=&gt; -> (0,1,0,2,0,3,0,4,0)
-<br>
-clear; s0=&lt;[s1=1,[s1,s2=2,[s2,s3=3,[s3,s4=4,[s4,s5=5]]]]]; [s0=&gt;,] -> (0,1,0,2,0,3,0,4,0,0)
-<br>
-・<a href="#span-out-eqns">式変数</a>s2のcall後、<a href="#span-in-scope-vars">scopes2d array</a>の各<a href="#span-out-bracket">scope</a>に各<a href="#span-out-vars">変数</a>が定義されることを確認する
-<br>
-clear; s0=0,[s1=1,[s2=&lt;[s3=s1+2,[s4=s3+1,s4]],[s5=last[s2==&gt;],s5]]] -> (0,0,0,0,4)
-<br>
-・<a href="#span-out-eqns">式変数</a>s0の通常call=&gt;の場合、<a href="#span-out-vars">変数</a>s0はlocal storageに定義される
-<br>
-clear; s0=&lt;s0=[s1=1,[s1,s2=2,[s2,s3=3]]]; [s0=&gt;,s0,hasVar(s0),hasV(s0)] -> (0,0,1,0,2,0,1,1)
-<br>
-・<a href="#span-out-eqns">式変数</a>s0のscope継承call==&gt;の場合、<a href="#span-out-vars">変数</a>s0はscope内に定義される
-<br>
-clear; s0=&lt;s0=[s1=1,[s1,s2=2,[s2,s3=3]]]; [s0==&gt;,s0,hasVar(s0),hasV(s0)] -> (0,0,1,0,2,0,0,1)
-<br>
-<br>
-詳細は<a href="#span-in-scope-vars">変数のscope</a>内部仕様参照
     </td>
   </tr>
   <tr>
@@ -10681,634 +10301,6 @@ B-3階層直列 || B-2階層並列3 || B-1階層 || 0階層
 B-4階層直列 || B-3階層直列 || B-2階層並列3 || B-1階層 || 0階層
 <br>
 ・よって直列scope内の<a href="#span-out-bracket">階層</a>の深さの降順で0階層のlocal <a href="#span-out-storage">storage</a>が最下位のprecedence
-    </td>
-  </tr>
-  <tr>
-    <th>
-<a href="#span-index">
-目次
-</a>
-<br>
-式変数の
-<br>
-arguments
-    </th>
-    <td>
-<span id="span-out-eqns-args"></span>
-式変数のargumentsについて記述する
-<br>
-<br>
-<a href="#span-out-eqns">式変数</a>のargumentsは次の関数定義と関数callを代替する
-<br>
-let add=(a,b)=&gt;a+b; add(1,2)  <span class="selection">// ES6</span> -> 3
-<br>
-clear; add(a,b)=&lt;a+b; add(1,2)=&gt; || add(1,2) -> 3
-<br>
-・以降、<a href="#span-out-eqns">式変数</a>の定義元に対してcall先と区別する
-<br>
-<br>
-<a href="#span-out-mat">行列</a>の値渡しの場合、<a href="#span-out-call-by-equation">式渡し</a>を使用
-<br>
-clear; add(A,B)=&lt;A+B; add((1,2:3,4),(5,6:7,8)) -> [MyErr]Invalid args.length=2(add)
-<br>
-clear; add(A,B)=&lt;A+B; add(=&lt;(1,2:3,4),=&lt;(5,6:7,8))=&gt; -> (6,8:10,12)
-<br>
-clear; add(A,B)=&lt;A+B; add(=&lt;(1,2:3,4),=&lt;(5,6:7,8)) -> (6,8:10,12)
-<br>
-<br>
-call先argumentsに<a href="#span-out-vars-symbol">変数名symbol</a>を<a href="#span-out-call-by-equation">式渡し</a>する場合（以降、symbol渡しと呼ぶ）
-<br>
-・<a href="#span-out-vars">変数</a>を使用
-<br>
-clear; add(A,B)=&lt;A+B;
-<br>
-A=(1,2:3,4); B=(5,6:7,8); add(A,B)=&gt; -> [MyErr]Invalid args.length=2(add)
-<br>
-clear; add(A,B)=&lt;A+B;
-<br>
-A=(1,2:3,4); B=(5,6:7,8); add(=&lt;A,=&lt;B)=&gt; || add(=&lt;A,=&lt;B) -> (6,8:10,12)
-<br>
-・<a href="#span-out-eqns">式変数</a>を使用
-<br>
-clear; add(A,B)=&lt;A+B;
-<br>
-A=&lt;(1,2:3,4); B=&lt;(5,6:7,8); add(=&lt;A,=&lt;B)=&gt; -> (6,8:10,12)
-<br>
-clear; add(=&lt;A_,=&lt;B_)=&lt;A_=&gt;+B_=&gt;;
-<br>
-A=&lt;(1,2:3,4); B=&lt;(5,6:7,8); add(=&lt;A,=&lt;B)=&gt; -> (6,8:10,12)
-<br>
-clear; add(=&lt;A_,=&lt;B_)=&lt;A_+B_;
-<br>
-A=&lt;(1,2:3,4); B=&lt;(5,6:7,8); add(=&lt;A,=&lt;B)=&gt; -> (6,8:10,12)
-<br>
-<br>
-<a href="#span-out-vars">変数</a>・<a href="#span-out-eqns">式変数</a>の<a href="#span-out-call-by-equation">式渡し</a>の場合
-<br>
-clear; add(=&lt;A_,=&lt;B_)=&lt;A_+B_;
-<br>
-A=&lt;(1,2:3,4); B=&lt;(5,6:7,8); add(=&lt;A=&gt;,=&lt;B=&gt;)=&gt; -> (6,8:10,12)
-<br>
-clear; add(=&lt;A_,=&lt;B_)=&lt;A_+B_;
-<br>
-A=&lt;(1,2:3,4); B=&lt;(5,6:7,8); add(=&lt;A=&gt;+A=&gt;,=&lt;B=&gt;+B=&gt;)=&gt; -> (12,16:20,24)
-<br>
-clear; add(=&lt;A_,=&lt;B_)=&lt;A_+B_;
-<br>
-A=&lt;(1,2:3,4); B=&lt;(5,6:7,8); add(=&lt;{A=&gt;+A=&gt;},=&lt;(B=&gt;+B=&gt;))=&gt; -> (12,16:20,24)
-<br>
-clear; add(=&lt;A_,=&lt;B_)=&lt;A_+B_;
-<br>
-A=&lt;(1,2:3,4); B=&lt;(5,6:7,8); add(=&lt;[A=&gt;+A=&gt;],=&lt;[B=&gt;+B=&gt;])=&gt; -> (12,16:20,24)
-<br>
-<br>
-定義元argumentsの<a href="#span-out-vars-symbol">式変数名symbol</a>をunderscoreでescapeする理由を列挙する
-<br>
-・symbol渡しで<a href="#span-out-eqns">式変数</a>Bの中身をcallする場合、問題なし
-<br>
-clear; add(A,=&lt;B)=&lt;A+B=&gt;; B=&lt;(3,4); add(=&lt;(1,2),=&lt;B) -> (4,6)
-<br>
-・定義元から<a href="#span-out-eqns">式変数</a>Bをcallする場合、<a href="#span-out-vars-symbol">式変数名symbol</a>の循環参照（B=&gt;B=&gt;）と判別される
-<br>
-clear; add(A,=&lt;B)=&lt;A+B=&gt;; B=&lt;(3,4); add(=&lt;(1,2),=&lt;B=&gt;) -> [MyErr]Invalid circular(B)
-<br>
-・参照上の問題はないため、定義元argumentsの<a href="#span-out-vars-symbol">式変数名symbol</a>をescapeする
-<br>
-clear; add(A,=&lt;B_)=&lt;A+B_=&gt;; B=&lt;(3,4); add(=&lt;(1,2),=&lt;B=&gt;) -> (4,6)
-<br>
-clear; add(A,=&lt;B_)=&lt;A+B_=&gt;; B=&lt;(3,4); add(=&lt;(1,2),=&lt;B) -> (4,6)
-<br>
-・以降、escape文字は後置のunderscoreで統一する
-<br>
-clear; add(A,=&lt;B_)=&lt;(A+B_=&gt;); B=&lt;(3,4); add(=&lt;(1,2),=&lt;B=&gt;) -> (4,6)
-<br>
-clear; add(A,=&lt;B_)=&lt;(A+B_=&gt;); B=&lt;(3,4); add(=&lt;(1,2),=&lt;B) -> (4,6)
-<br>
-clear; add(A,=&lt;B_)=&lt;[A+B_=&gt;]; B=&lt;(3,4); add(=&lt;(1,2),=&lt;B=&gt;) -> (4,6)
-<br>
-clear; add(A,=&lt;B_)=&lt;[A+B_=&gt;]; B=&lt;(3,4); add(=&lt;(1,2),=&lt;B) -> (4,6)
-<br>
-・定義元argumentsが<a href="#span-out-call-by-equation">式渡し</a>の場合、<a href="#span-out-vars-symbol">式変数名symbol</a>のみ判別する
-<br>
-clear; add(A,=&lt;B_)=&lt;[A+B_=&gt;]; B=&lt;(3,4); B=(,); add(=&lt;(1,2),=&lt;B) -> (4,6)
-<br>
-・定義元argumentsが値渡しの場合、<a href="#span-out-vars-symbol">変数名symbol</a>を優先する
-<br>
-clear; add(A,B)=&lt;[A+B]; B=&lt;(3,4); add(=&lt;(1,2),=&lt;B) -> (4,6)
-<br>
-clear; add(A,B)=&lt;[A+B]; B=&lt;(3,4); B=(,); add(=&lt;(1,2),=&lt;B) -> (1,2)
-<br>
-clear; add(A,B)=&lt;[A+B]; B=&lt;(3,4); B=(,); add(=&lt;(1,2),=&lt;B=&gt;) -> (4,6)
-<br>
-・<a href="#span-out-config-strict">strict-mode</a>の場合、<a href="#span-out-vars-symbol">変数名symbol</a>を厳格に判別する
-<br>
-clear; add(A,B)=&lt;[A+B]; B=&lt;(3,4); add(=&lt;(1,2),=&lt;B)=&gt; -> [MyErr]Invalid BRsa operation
-<br>
-clear; add(A,B)=&lt;[A]; B=&lt;(3,4); add(=&lt;(1,2),=&lt;B)=&gt; -> (1,2)
-<br>
-clear; add(A,B)=&lt;[B]; B=&lt;(3,4); add(=&lt;(1,2),=&lt;B)=&gt; -> [MyErr]Invalid REv(B)
-<br>
-clear; add(A,B)=&lt;[A+B]; B=&lt;(3,4); B=(,); add(=&lt;(1,2),=&lt;B)=&gt; -> (1,2)
-<br>
-clear; add(A,B)=&lt;[A+B]; B=&lt;(3,4); B=(,); add(=&lt;(1,2),=&lt;B=&gt;)=&gt; -> (4,6)
-<br>
-clear; add(A,=&lt;B_)=&lt;(A+B_=&gt;); B=&lt;(3,4); add(=&lt;(1,2),=&lt;B=&gt;)=&gt; -> (4,6)
-<br>
-clear; add(A,=&lt;B_)=&lt;(A+B_=&gt;); B=&lt;(3,4); add(=&lt;(1,2),=&lt;B)=&gt; -> (4,6)
-<br>
-clear; add(A,=&lt;B_)=&lt;[A+B_=&gt;]; B=&lt;(3,4); add(=&lt;(1,2),=&lt;B=&gt;)=&gt; -> (4,6)
-<br>
-clear; add(A,=&lt;B_)=&lt;[A+B_=&gt;]; B=&lt;(3,4); add(=&lt;(1,2),=&lt;B)=&gt; -> (4,6)
-<br>
-<br>
-symbol渡しの場合、定義元<a href="#span-out-bracket">scope</a>に留意が不要（別<a href="#span-out-bracket">scope</a>を参照するcaseを除く）
-<br>
-・次の場合、<a href="#span-out-eqns">式変数</a>Bの中身(a,4)を定義元の<a href="#span-out-eqns">式変数</a>B_に継承する
-<br>
-clear; add(A,=&lt;B_)=&lt;(a=-1,=&lt;A+B_=&gt;)=&gt;; B=&lt;(a,4); a=1; add(=&lt;(1,2),=&lt;B)=&gt; -> (0,6)
-<br>
-clear; add(A,=&lt;B_)=&lt;(a=-1,=&lt;A+B_=&gt;)=&gt;; a=1; add(=&lt;(1,2),=&lt;(a,4))=&gt; -> (0,6)
-<br>
-clear; add(A,=&lt;B_)=&lt;[a=-1,=&lt;A+B_=&gt;]=&gt;; B=&lt;(a,4); a=1; add(=&lt;(1,2),=&lt;B)=&gt; -> (0,6)
-<br>
-clear; add(A,=&lt;B_)=&lt;[a=-1,=&lt;A+B_=&gt;]=&gt;; a=1; add(=&lt;(1,2),=&lt;(a,4))=&gt; -> (0,6)
-<br>
-clear; add(A,=&lt;B_)=&lt;[a=-1,=&lt;A+B_=&gt;]=&gt;; a=1; add(=&lt;(1,2),=&lt;{=&lt;(a,4)}=&gt;)=&gt; -> (0,6)
-<br>
-clear; add(A,=&lt;B_)=&lt;[a=-1,=&lt;A+B_=&gt;]=&gt;; a=1; add(=&lt;(1,2),=&lt;{=&lt;(a,4)}=&gt;)=&gt; -> (0,6)
-<br>
-・<a href="#span-out-vars-symbol">変数名symbol</a>を<a href="#span-out-BT">括弧</a>で括った場合、<a href="#span-out-call-by-equation">式渡し</a>と判別される
-<br>
-clear; add(A,=&lt;B_)=&lt;[a=-1,=&lt;A+B_=&gt;]=&gt;; B=&lt;(a,4); a=1; add(=&lt;(1,2),=&lt;(B))=&gt; -> (2,6)
-<br>
-・<a href="#span-out-FNh">高階関数</a>のsymbolのみを渡す引数と異なる
-<br>
-<br>
-<a href="#span-out-call-by-equation">式渡し</a>の場合、定義元<a href="#span-out-bracket">scope</a>に留意が必要
-<br>
-・次の場合、B=&gt;を定義元の<a href="#span-out-eqns">式変数</a>B_に継承する
-<br>
-clear; add(A,=&lt;B_)=&lt;(a=-1,=&lt;A+B_=&gt;)=&gt;; B=&lt;(a,4); a=1; add(=&lt;(1,2),=&lt;B=&gt;)=&gt; -> (0,6)
-<br>
-clear; add(A,=&lt;B_)=&lt;(a=-1,=&lt;A+B_=&gt;)=&gt;; B=&lt;(a,4); a=1; add(=&lt;(1,2),=&lt;[B=&gt;])=&gt; -> (0,6)
-<br>
-・以上の場合、定義元<a href="#span-out-bracket">scope</a>とlocal <a href="#span-out-storage">storage</a>が共通で<a href="#span-out-eqns">式変数</a>Bをcallする
-<br>
-clear; add(A,=&lt;B_)=&lt;[a=-1,=&lt;A+B_=&gt;]=&gt;; B=&lt;(a,4); a=1; add(=&lt;(1,2),=&lt;B=&gt;)=&gt; -> (2,6)
-<br>
-clear; add(A,=&lt;B_)=&lt;[a=-1,=&lt;A+B_=&gt;]=&gt;; B=&lt;(a,4); a=1; add(=&lt;(1,2),=&lt;[B=&gt;])=&gt; -> (2,6)
-<br>
-・以上の場合、定義元<a href="#span-out-bracket">scope</a>から参照可能なlocal <a href="#span-out-storage">storage</a>に定義された<a href="#span-out-eqns">式変数</a>Bをcallする
-<br>
-・よって定義元<a href="#span-out-bracket">scope</a>を<a href="#span-out-eqns">式変数</a>Bに継承する場合、<a href="#span-out-scope-inherited-call">式変数のscope継承call</a>をnestingする
-<br>
-clear; add(A,=&lt;B_)=&lt;[a=-1,=&lt;A+B_==&gt;]=&gt;; B=&lt;(a,4); a=1; add(=&lt;(1,2),=&lt;(B==&gt;))=&gt; -> (0,6)
-<br>
-・独立scopeに<a href="#span-out-eqns">式変数</a>Bが定義された場合、定義元<a href="#span-out-bracket">scope</a>から参照不可
-<br>
-clear; add(A,=&lt;B_)=&lt;[a=-1,=&lt;A+B_=&gt;]=&gt;;
-<br>
-[B=&lt;(a,4),a=1,add(=&lt;(1,2),=&lt;B=&gt;)=&gt;] -> [MyErr]Invalid REv(B)
-<br>
-<br>
-<a href="#span-out-scope-inherited-call">式変数のscope継承call</a>を代替する一例を次に示す
-<br>
-clear; a=&lt;b+c+d; d=3; [c=2,=&lt;[b=1,=&lt;a==&gt;]=&gt;]=&gt; -> 6
-<br>
-clear; a()=&lt;b+c+d; d=3; [c=2,=&lt;[b=1,=&lt;a()==&gt;]=&gt;]=&gt; -> 6
-<br>
-clear; a(b,c,d)=&lt;b+c+d; d=3; [c=2,=&lt;[b=1,=&lt;a(b,c,d)]=&gt;]=&gt;  <span class="selection">// better</span> -> 6
-<br>
-clear; a(b,c,d)=&lt;b+c+d; d=3; [c=2,=&lt;[b=1,=&lt;a(b,c,d)=&gt;]=&gt;]=&gt;  <span class="selection">// better</span> -> 6
-<br>
-・定義元argumentsの<a href="#span-out-vars-symbol">変数名symbol</a>は独立として<a href="#span-in-scope-vars">static scopes2d array</a>を共有する
-<br>
-clear; a(b,c,d)=&lt;last{b=-1,b+c+d}; d=3; [c=2,=&lt;[b=1,=&lt;[a(b,c,d),b]]=&gt;]=&gt; -> (4,1)
-<br>
-clear; a(b,c,d)=&lt;last{b=-1,b+c+d}; d=3; [c=2,=&lt;[=&lt;[a(b,c,d),b]]=&gt;]=&gt; -> [MyErr]Invalid REv(b)
-<br>
-・通常callの場合、定義元で宣言される<a href="#span-out-vars">変数</a>・<a href="#span-out-eqns">式変数</a>は定義元<a href="#span-out-bracket">scope</a>に定義する
-<br>
-clear; a(b_,c,d)=&lt;last{b=b_,b_+c+d}; d=3; [c=2,=&lt;[=&lt;[a(1,c,d),b]]=&gt;]=&gt;,b -> (6,1,1)
-<br>
-clear; a(b_,c,d)=&lt;last{b=&lt;1,b_+c+d}; d=3; [c=2,=&lt;[=&lt;[a(1,c,d),b=&gt;]]=&gt;]=&gt;,b=&gt; -> (6,1,1)
-<br>
-clear; a(b_,c,d)=&lt;last{b=b_,b_+c+d}; d=3; [c=2,=&lt;[=&lt;[a(1,c,d),b_]]=&gt;]=&gt;
-<br>
--> [MyErr]Invalid REv(b_)
-<br>
-<br>
-test caseを列挙する
-<br>
-clear; add(a,b)=&lt;last{a=-1,a+b}; add(last{a=1,a},2)=&gt;,a -> (1,1)
-<br>
-clear; add(a_,b)=&lt;last{a=-1,a_+b}; add(last{a=1,a},2)=&gt;,a -> (3,-1)
-<br>
-clear; add(a_,b)=&lt;last{a=-1,a_+b}; add(last{a=1,a},2)=&gt;,a_ -> [MyErr]Invalid REv(a_)
-<br>
-<span class="run">Ver.2.32.17</span>以降、<a href="#span-out-eqns-re-use">scope付式変数の再利用</a>に対応
-<br>
-clear; add(a_,b)=&lt;last[a=-1,a_+b]; add(last{a=1,a},2)=&gt;,a -> (3,1)
-<br>
-clear; add(a_,b)=&lt;last[a=-1,a_+b]; add(last[a=1,a],2)=&gt;,a -> [MyErr]Invalid REv(a)
-<br>
-clear; add(a_,b)=&lt;last(a=-1,a_+b); add(last[a=1,a],2)=&gt;,a -> (3,-1)
-<br>
-clear; conv(=&lt;a)=&lt;last{a=&lt;-1,a=&gt;}; conv(=&lt;last{a=&lt;1,a=&gt;})=&gt; -> -1
-<br>
-clear; conv(=&lt;a)=&lt;last{a=&lt;-1,a=&gt;}; conv(=&lt;last{a=&lt;1,a=&gt;})=&gt;; a=&gt; -> [MyErr]Invalid REv(a)
-<br>
-clear; conv(=&lt;a_)=&lt;last{a=&lt;-1,a_=&gt;}; conv(=&lt;last{a=&lt;1,a=&gt;})=&gt;,a=&gt; -> (1,1)
-<br>
-clear; conv(=&lt;a_)=&lt;last{a=&lt;-1,a_=&gt;}; conv(=&lt;last{a=&gt;})=&gt;,a=&gt; -> (-1,-1)
-<br>
-clear; conv(=&lt;a_)=&lt;last[a=&lt;-1,a_=&gt;]; conv(=&lt;last{a=&gt;})=&gt; -> -1
-<br>
-clear; conv(=&lt;a_)=&lt;last[a=&lt;-1,a_==&gt;]; conv(=&lt;last{a=&gt;})=&gt; -> -1
-<br>
-clear; conv(=&lt;a_)=&lt;last[a=&lt;-1,a_=&gt;]*2; conv(=&lt;last{a=&gt;})=&gt; -> [MyErr]Invalid REv(a)
-<br>
-clear; conv(=&lt;a_)=&lt;last[a=&lt;-1,a_==&gt;]*2; conv(=&lt;last{a=&gt;})=&gt; -> -2
-<br>
-clear; conv(=&lt;a_)=&lt;last[a=&lt;-1,a_==&gt;]; conv(=&lt;last[a=&gt;])=&gt; -> [MyErr]Invalid FNm(last)
-<br>
-clear; conv(=&lt;a_)=&lt;last[a=&lt;-1,a_==&gt;]; conv(=&lt;last[,a=&gt;])=&gt; -> -1
-<br>
-clear; conv(=&lt;a_)=&lt;last[a=&lt;-1,a_=&gt;]; conv(=&lt;last[,a=&gt;])=&gt; -> -1
-<br>
-clear; conv(=&lt;a_)=&lt;last[a=&lt;-1,a_=&gt;]; conv(=&lt;last[a=&lt;1,a=&gt;])=&gt; -> 1
-<br>
-clear; conv(=&lt;a_)=&lt;last[a=&lt;-1,a_=&gt;]*2; conv(=&lt;last[,a=&gt;])=&gt; -> [MyErr]Invalid REv(a)
-<br>
-clear; conv(=&lt;a_)=&lt;last[a=&lt;-1,a_==&gt;]*2; conv(=&lt;last[,a=&gt;])=&gt; -> -2
-<br>
-clear; conv(=&lt;a_)=&lt;last[a=&lt;-1,a_=&gt;]*2; conv(=&lt;last[a=&lt;1,a=&gt;])=&gt; -> 2
-<br>
-<br>
-<span class="run">Ver.2.32.17</span>以降、<a href="#span-out-eqns-call">式読出し</a>記号=&gt;省略時同様に
-<br>
-clear; add(A,B)=&lt;A+B; add[0](=&lt;(1,2:3,4),=&lt;(5,6:7,8)) || (6,8:10,12)[0] -> (6,8)
-<br>
-・<a href="#span-out-BT-square">角括弧[]</a>で<a href="#span-out-eqns">式変数</a>の返値の<a href="#span-out-mat">行列</a>要素を参照可
-<br>
-clear; add(A,B)=&lt;A+B; add[0](=&lt;(1,2:3,4),=&lt;(5,6:7,8))=&gt; -> (6,8)
-<br>
-clear; add(A,B)=&lt;A+B; add[1](=&lt;(1,2:3,4),=&lt;(5,6:7,8))=&gt; -> (10,12)
-<br>
-clear; add(A,B)=&lt;A+B; add[0][0](=&lt;(1,2:3,4),=&lt;(5,6:7,8))=&gt; -> 6
-<br>
-clear; add(A,B)=&lt;A+B; add[1][1](=&lt;(1,2:3,4),=&lt;(5,6:7,8))=&gt; -> 12
-<br>
-<br>
-call先arguments省略の場合、定義元argumentsを無視してcall可（<span class="clear">Ver.2.43.22</span>追記）
-<br>
-clear; x(t)=&lt;-t; f=&lt;x+1; f -> [MyErr]Invalid null args(x)
-<br>
-clear; x(t)=&lt;-t; f=&lt;x=&gt;+1; f -> [MyErr]Invalid binary operation
-<br>
-clear; x(t)=&lt;-t; t=-999; f=&lt;x=&gt;+1; f -> 1000
-<br>
-clear; x(t)=&lt;-t; t=-999; [t=1,f=&lt;x=&gt;+1,f] -> (0,0,1000)
-<br>
-clear; x(t)=&lt;-t; t=-999; [t=1,f=&lt;x==&gt;+1,f] -> (0,0,0)
-<br>
-clear; x(t)=&lt;-t; t=-999; [t=1,f=&lt;x(t)==&gt;+1,f] -> (0,0,0)
-<br>
-clear; x(t)=&lt;-t; t=-999; [t=1,f=&lt;x(t)=&gt;+1,f] -> (0,0,0)
-<br>
-clear; x(t)=&lt;-t; t=-999; [t=1,f=&lt;x(t)+1,f] -> (0,0,0)
-<br>
-clear; x=&lt;-t; t=-999; [t=1,f=&lt;x+1,f] -> (0,0,1000)
-<br>
-clear; x=&lt;-t; t=-999; [t=1,f=&lt;x=&gt;+1,f] -> (0,0,1000)
-<br>
-clear; x=&lt;-t; t=-999; [t=1,f=&lt;x==&gt;+1,f] -> (0,0,0)
-<br>
-<br>
-arguments不正の場合、error終了
-<br>
-・定義元argumentsに<a href="#span-out-FN">関数</a>を指定した場合、<a href="#span-out-vars-symbol">変数名symbol</a>とは判別されない
-<br>
-clear; a(max)=&lt;max*2; a(2)=&gt; -> [MyErr]Invalid args.length=0(a)
-<br>
-clear; a(max)=&lt;max*2; a()=&gt; || max*2 -> [MyErr]Invalid binary operation
-<br>
-clear; a(max)=&lt;2; a()=&gt; || a()=&lt;2; a()=&gt; || a=&lt;2; a=&gt; -> 2
-<br>
-・argumentsの<a href="#span-out-vars-symbol">変数名symbol</a>は<a href="#span-out-vars">変数の命名規則</a>に準拠
-<br>
-clear; a($b)=&lt;$b*2 -> [MyErr]Invalid REv($b)
-    </td>
-  </tr>
-  <tr>
-    <th>
-<a href="#span-index">
-目次
-</a>
-<br>
-scope付
-<br>
-式変数の
-<br>
-再利用
-    </th>
-    <td>
-<span id="span-out-eqns-re-use"></span>
-scope付式変数の再利用について記述する
-<br>
-<br>
-<a href="#span-out-scope-vars">変数のscope</a>付の<a href="#span-out-eqns">式変数</a>の一例を列挙する
-<br>
-・単独<a href="#span-out-bracket">scope</a>と判別されるcaseのみ、<a href="#span-out-eqns-args">定義元arguments</a>は<a href="#span-out-BT-square">角括弧[]</a>の<a href="#span-out-bracket">scope</a>内に定義する
-<br>
-clear; com2vec(a)=&lt;[{real(a),imag(a)}]; com2vec(2-3i) -> (2:-3)
-<br>
-clear; minus(a)=&lt;[,=&lt;-a]=&gt;; minus(2) -> -2
-<br>
-clear; add(a,b)=&lt;last[,a+b]; add(1,3) -> 4
-<br>
-・以下のような場合、<a href="#span-out-eqns-args">定義元arguments</a>は<a href="#span-out-BT-square">角括弧[]</a>の<a href="#span-out-bracket">scope</a>外に定義する
-<br>
-clear; com2vec_k(a,k)=&lt;[{real(a),imag(a)}]*k; com2vec_k(2-3i,i) -> (2i:-3i)
-<br>
-clear; minus_k(a,k)=&lt;[,=&lt;-a]=&gt;*k; minus_k(2,2) -> -4
-<br>
-clear; add_k(a,b,k)=&lt;last[,a+b]*k; add_k(1,3,2) -> 8
-<br>
-clear; iproduct(L,R)=&lt;[L]*[trans(R)]; iproduct(=&lt;(1,2),=&lt;(3,4)) -> 11
-<br>
-・<a href="#span-out-config-strict">Non-strict-mode</a>の場合
-<br>
-clear; iproduct(L,R)=&lt;[(L)][trans(R)]; iproduct(=&lt;(1,2),=&lt;(3,4)) -> 11
-<br>
-clear; iproduct(L,R)=&lt;[(L)](trans(R)); iproduct(=&lt;(1,2),=&lt;(3,4)) -> 11
-<br>
-clear; iproduct(L,R)=&lt;(L)[trans(R)]; iproduct(=&lt;(1,2),=&lt;(3,4)) -> 11
-<br>
-clear; iproduct(L,R)=&lt;(L)(trans(R)); iproduct(=&lt;(1,2),=&lt;(3,4)) -> 11
-<br>
-<br>
-これらを再利用する一例を以下に示す
-<br>
-clear; add(a,b)=&lt;last[,a+b]; add(1,3) -> 4
-<br>
-add(1,-3),add(1,i) -> (-2,1+i)
-<br>
-・値を返す場合、nesting可
-<br>
-add(1,add(1,add(1,add(1,i)))) -> 4+i
-<br>
-add(1,add(2,add(3,add(4,i)))) -> 10+i
-<br>
-add(1,add(1,add(1,add(1,i))add(1,i))add(1,i))add(1,i) -> -5+5i
-<br>
-・同義
-<br>
-(1+(1+(1+(1+i)))) -> 4+i
-<br>
-(1+(2+(3+(4+i)))) -> 10+i
-<br>
-(1+(1+(1+(1+i))(1+i))(1+i))(1+i) -> -5+5i
-<br>
-<br>
-<a href="#span-out-FNm-last">last行列関数</a>を代替する<a href="#span-out-eqns">式変数</a>last_ttを以下に示す
-<br>
-・<a href="#span-out-FNm-last">last行列関数</a>は<a href="#span-in-tree">単位tree構造</a>の仕様上、行vectorの<a href="#span-out-mat">抜け要素</a>を自動で埋めない
-<br>
-・行vectorの<a href="#span-out-mat">抜け要素</a>を自動で埋める<a href="#span-out-eqns">式変数</a>last_ttを次に定義する
-<br>
-clear; last_tt(A)=&lt;(trans(trans(A)))[sizer(A)-1][sizec(A)-1]; A=(1,2:3,4); last_tt(=&lt;A) -> 4
-<br>
-・<a href="#span-out-BT-square">行列要素参照の角括弧[]</a>も同様に、<a href="#span-out-bracket">scope</a>を持つ
-<br>
-A=(1,2:3,(,:,4),5); last(A) -> 4
-<br>
-A=(1,2:3,(,:,4),5); last(trans(trans(A))) -> 0
-<br>
-A=(1,2:3,last(,:,4),5); last(A) -> 5
-<br>
-A=(1,2:3,(,:,4),5); last_tt(=&lt;A) -> 0
-<br>
-A=(1,2:3,last_tt(=&lt;(,:,4)),5); last_tt(=&lt;A) -> 5
-<br>
-A4=(,:,4); A=(1,2:3,last_tt(=&lt;A4),5); last_tt(=&lt;A) -> 5
-<br>
-A4=(,:,4); A=(1,2:3,A4,5) ->
-<br>
-(
-<br>
-1,2:
-<br>
-3,0,0,5:
-<br>
-0,0,4
-<br>
-)
-<br>
-ttA=trans(trans(A)) ->
-<br>
-(
-<br>
-1,2,0,0:
-<br>
-3,0,0,5:
-<br>
-0,0,4,0
-<br>
-)
-<br>
-sizer(A)-sizer(ttA),sizer(A) -> (0,3)
-<br>
-sizec(A)-sizec(ttA),sizec(A),size(A) -> (0,4,4)
-    </td>
-  </tr>
-  <tr>
-    <th>
-<a href="#span-index">
-目次
-</a>
-<br>
-式変数の
-<br>
-scope
-<br>
-継承call
-<br>
-まとめ
-    </th>
-    <td>
-<span id="span-out-scope-inherited-call-memo"></span>
-式変数のscope継承callについてまとめる
-<br>
-<br>
-<a href="#span-out-scope-inherited-call">式変数のscope継承call</a>の仕様を列挙する
-<br>
-・<a href="#span-out-vars">変数</a>・<a href="#span-out-eqns">式変数</a>は宣言時の<a href="#span-out-bracket">階層</a>に依存するため、次の場合、error終了
-<br>
-let a=()=&gt;b; (function(){let b=1; return a();})();  <span class="selection">// ES6</span> -> b is not defined
-<br>
-clear; a=&lt;b; [b=1,=&lt;a=&gt;]=&gt; -> [MyErr]Invalid REv(b)
-<br>
-・<a href="#span-out-scope-inherited-call">式変数のscope継承call</a>を使用して<a href="#span-out-call-by-equation">式読出し</a>時の<a href="#span-out-bracket">階層</a>を継承する
-<br>
-clear; a=&lt;b; [b=1,=&lt;a==&gt;]=&gt; -> 1
-<br>
-・<a href="#span-out-eqns-args">式変数のarguments</a>を使用して<a href="#span-out-scope-inherited-call">式変数のscope継承call</a>を代替する
-<br>
-clear; a(b)=&lt;b; [b=1,=&lt;a(b)=&gt;]=&gt;  <span class="selection">// better</span> -> 1
-<br>
-・<a href="#span-out-eqns">式変数</a>の定義元に対してcall先と区別する
-<br>
-・<a href="#span-out-eqns-args">定義元arguments</a>の<a href="#span-out-vars-symbol">変数名symbol</a>は独立する
-<br>
-詳細は<a href="#span-out-development-problems-CBR">未実装の参照渡し</a>参照
-<br>
-clear; a(b)=&lt;last(b=-1,b); (b=1,a(b)=&gt;,b) -> (0,-1,1)
-<br>
-clear; a(B)=&lt;{B[0]=B[1],=&lt;B}=&gt;; B=(1,2:3,4); (B,a(=&lt;B)=&gt;,B) ->
-<br>
-(
-<br>
-1,2,3,4,1,2:
-<br>
-3,4,3,4,3,4
-<br>
-)
-<br>
-<br>
-<span class="run">Ver.2.33.18</span>以降、<a href="#span-out-eqns-args">定義元arguments</a>の<a href="#span-out-vars">変数</a>は宣言時の<a href="#span-out-bracket">階層</a>に依存する（<span class="run">Ver.2.70.28</span>追記）
-<br>
-・定義元とcall先の<a href="#span-out-bracket">scope</a>が同一の場合
-<br>
-　・<a href="#span-out-eqns-args">symbol渡し</a>の場合、定義元とcall先のAは同一
-<br>
-clear; add(A,B)=&lt;A+B; A=(1,2:3,4); add(=&lt;A,=&lt;A) -> (2,4:6,8)
-<br>
-　
-<del>
-・<a href="#span-out-call-by-equation">式渡し</a>の場合、A[1]のcall時、A=A[0]更新後のA=(1,2)を参照するため、error終了
-<br>
-clear; add(A,B)=&lt;A+B; A=(1,2:3,4); add(=&lt;A[0],=&lt;A[1]) -> [MyErr]Invalid reference of array
-<br>
-clear; add(A,B)=&lt;A+B; A=&lt;(1,2:3,4); add(=&lt;A[0],=&lt;A[1]) -> [MyErr]Invalid reference of array
-</del>
-<br>
-　・<span class="clear">Ver.2.71.29</span>以降、<a href="#span-out-eqns-args">定義元arguments</a>の<a href="#span-out-vars">変数</a>・<a href="#span-out-eqns">式変数</a>の初期化algorithmを修正
-<br>
-clear; add(A,B)=&lt;A+B; A=(1,2:3,4); add(=&lt;A[0],=&lt;A[1]) -> (4,6)
-<br>
-clear; add(A,B)=&lt;A+B; A=&lt;(1,2:3,4); add(=&lt;A[0],=&lt;A[1]) -> (4,6)
-<br>
-・<a href="#span-out-eqns-args">定義元arguments</a>の<a href="#span-out-vars-symbol">変数名symbol</a>を区別する場合
-<br>
-clear; add(A_,B_)=&lt;A_+B_; A=(1,2:3,4); add(=&lt;A[0],=&lt;A[1]) -> (4,6)
-<br>
-clear; add(A_,B_)=&lt;A_+B_; A=&lt;(1,2:3,4); add(=&lt;A[0],=&lt;A[1]) -> (4,6)
-<br>
-・<a href="#span-out-vars">変数</a>と<a href="#span-out-eqns">式変数</a>の<a href="#span-out-vars-symbol">変数名symbol</a>を区別する場合
-<br>
-clear; add(A,B)=&lt;A+B; A=&lt;(1,2:3,4); add(=&lt;A[0]=&gt;,=&lt;A[1]=&gt;) -> (4,6)
-<br>
-clear; add(=&lt;A,=&lt;B)=&lt;A=&gt;+B=&gt;; A=(1,2:3,4); add(=&lt;A[0],=&lt;A[1]) -> (4,6)
-<br>
-・定義元とcall先の<a href="#span-out-bracket">scope</a>を区別する場合
-<br>
-clear; add(A,B)=&lt;[A+B]; A=(1,2:3,4); add(=&lt;A[0],=&lt;A[1]) -> (4,6)
-<br>
-clear; add(A,B)=&lt;[A+B]; A=&lt;(1,2:3,4); add(=&lt;A[0],=&lt;A[1]) -> (4,6)
-<br>
-clear; add(=&lt;A,=&lt;B)=&lt;[A=&gt;+B=&gt;]; A=(1,2:3,4); add(=&lt;A[0],=&lt;A[1]) -> (4,6)
-<br>
-clear; add(=&lt;A_,=&lt;B_)=&lt;[A_=&gt;+B_=&gt;]; A=&lt;(1,2:3,4); add(=&lt;A[0],=&lt;A[1]) -> (4,6)
-<br>
-<br>
-<span class="run">Ver.2.33.18</span>以降、<a href="#span-out-eqns-args">定義元arguments</a>の<a href="#span-out-eqns">式変数</a>は宣言時の<a href="#span-out-bracket">階層</a>に依存する
-<br>
-・通常callの場合
-<br>
-clear; conv(=&lt;a_)=&lt;last(a_=&gt;),[a=3,conv(=&lt;a)=&gt;] -> [MyErr]Undef eqn(a)
-<br>
-clear; conv(=&lt;a_)=&lt;last(a_=&gt;),[a=3,a=&lt;a,conv(=&lt;a)=&gt;] -> [MyErr]Invalid REv(a)
-<br>
-clear; conv(=&lt;a_)=&lt;last(a_=&gt;),[a=3,conv(=&lt;(a))=&gt;] -> [MyErr]Invalid REv(a)
-<br>
-clear; [conv(=&lt;a_)=&lt;last(a_=&gt;),[a=3,conv(=&lt;(a))=&gt;]] -> [MyErr]Invalid REv(a)
-<br>
-・定義元で宣言される<a href="#span-out-vars">変数</a>・<a href="#span-out-eqns">式変数</a>は定義元<a href="#span-out-bracket">scope</a>に定義する
-<br>
-clear; conv(=&lt;a_)=&lt;last(a=-3,a_=&gt;),[a=3,a=&lt;a,conv(=&lt;a)=&gt;,a],a -> (0,0,0,-3,3,-3)
-<br>
-clear; conv(=&lt;a_)=&lt;last(a=-3,a_=&gt;),[a=3,conv(=&lt;(a))=&gt;,a],a -> (0,0,-3,3,-3)
-<br>
-clear; [conv(=&lt;a_)=&lt;last(a=-3,a_=&gt;),[a=3,conv(=&lt;(a))=&gt;,a],a] -> (0,0,-3,3,-3)
-<br>
-clear; [conv(=&lt;a_)=&lt;last(a=-3,a_=&gt;),[a=3,conv(=&lt;(a))=&gt;,a],a],a -> [MyErr]Invalid REv(a)
-<br>
-・<a href="#span-out-scope-inherited-call">式変数のscope継承call</a>の場合
-<br>
-clear; conv(=&lt;a_)=&lt;last(a_=&gt;),[a=3,a=&lt;a,conv(=&lt;a)==&gt;,a] -> (0,0,0,3,3)
-<br>
-clear; conv(=&lt;a_)=&lt;last(a_=&gt;),[a=3,conv(=&lt;(a))==&gt;,a] -> (0,0,3,3)
-<br>
-clear; [conv(=&lt;a_)=&lt;last(a_=&gt;),[a=3,conv(=&lt;(a))==&gt;,a]] -> (0,0,3,3)
-<br>
-・定義元で宣言される<a href="#span-out-vars">変数</a>・<a href="#span-out-eqns">式変数</a>はcall先<a href="#span-out-bracket">scope</a>に定義する
-<br>
-clear; conv(=&lt;a_)=&lt;last(a=-3,a_=&gt;),[a=3,a=&lt;a,conv(=&lt;a)==&gt;,a] -> (0,0,0,-3,-3)
-<br>
-clear; conv(=&lt;a_)=&lt;last(a=-3,a_=&gt;),[a=3,conv(=&lt;(a))==&gt;,a] -> (0,0,-3,-3)
-<br>
-clear; [conv(=&lt;a_)=&lt;last(a=-3,a_=&gt;),[a=3,conv(=&lt;(a))==&gt;,a]] -> (0,0,-3,-3)
-<br>
-clear; [conv(=&lt;a_)=&lt;last(a=-3,a_=&gt;),[a=3,conv(=&lt;(a))==&gt;,a],a] -> [MyErr]Invalid REv(a)
-<br>
-clear; [conv(=&lt;a_)=&lt;last(b=4,a_=&gt;),[a=3,conv(=&lt;(a))==&gt;,b],b] -> [MyErr]Invalid REv(b)
-<br>
-clear; [conv(=&lt;a_)=&lt;last(b=4,a_=&gt;),[a=3,conv(=&lt;(a))==&gt;,a,b]] -> (0,0,3,3,4)
-<br>
-・定義元とcall先の<a href="#span-out-bracket">scope</a>を区別する場合
-<br>
-・定義元で宣言される<a href="#span-out-vars">変数</a>・<a href="#span-out-eqns">式変数</a>はcall先から参照不可
-<br>
-clear; [conv(=&lt;a_)=&lt;last[b=4,a_=&gt;],[a=3,conv(=&lt;(a))==&gt;,b]] -> [MyErr]Invalid REv(b)
-<br>
-clear; [conv(=&lt;a_)=&lt;last[b=&lt;4,a_=&gt;],[a=3,conv(=&lt;(a))==&gt;,b=&gt;]] -> [MyErr]Invalid REv(b)
-<br>
-clear; [conv(=&lt;a_)=&lt;last[b=4,a_=&gt;+b],[a=3,conv(=&lt;(a))==&gt;]] -> (0,0,7)
-<br>
-clear; [conv(=&lt;a_)=&lt;last[b=&lt;4,a_=&gt;+b=&gt;],[a=3,conv(=&lt;(a))==&gt;]] -> (0,0,7)
-<br>
-・symbol渡しで定義元<a href="#span-out-bracket">scope</a>を継承する場合
-<br>
-clear; conv(=&lt;a_)=&lt;(a=-1,=&lt;a+a_=&gt;)=&gt;*2; a=&lt;a; a=1; conv(=&lt;a)=&gt;,a -> (-4,-1)
-<br>
-clear; conv(=&lt;a_)=&lt;[a=-1,=&lt;a+a_=&gt;]=&gt;*2; a=&lt;a; a=1; conv(=&lt;a)=&gt;,a -> (0,1)
-<br>
-clear; conv(=&lt;a_)=&lt;[a=-1,=&lt;a+a_==&gt;]=&gt;*2; a=&lt;a; a=1; conv(=&lt;a)=&gt;,a -> (-4,1)
-<br>
-・symbol渡しを<a href="#span-out-scope-inherited-call">式変数のscope継承call</a>で代替する場合、nestingが必要
-<br>
-clear; conv(=&lt;a_)=&lt;[=&lt;a+a_=&gt;]=&gt;*2; a=&lt;-a; a=1; conv(=&lt;a)=&gt;,a -> (0,1)
-<br>
-clear; conv(=&lt;a_)=&lt;[=&lt;a+a_=&gt;]=&gt;*2; a=&lt;a; a=1; conv(=&lt;(a=&gt;))=&gt;,a -> (4,1)
-<br>
-clear; conv(=&lt;a_)=&lt;[a=-1,=&lt;a+a_=&gt;]=&gt;*2; a=&lt;a; a=1; conv(=&lt;(a=&gt;))=&gt;,a -> (0,1)
-<br>
-clear; conv(=&lt;a_)=&lt;[a=-1,=&lt;a+a_=&gt;]=&gt;*2; a=&lt;a; a=1; conv(=&lt;(a==&gt;))=&gt;,a -> (0,1)
-<br>
-clear; conv(=&lt;a_)=&lt;[a=-1,=&lt;a+a_==&gt;]=&gt;*2; a=&lt;a; a=1; conv(=&lt;(a=&gt;))=&gt;,a -> (0,1)
-<br>
-clear; conv(=&lt;a_)=&lt;[a=-1,=&lt;a+a_==&gt;]=&gt;*2; a=&lt;a; a=1; conv(=&lt;(a==&gt;))=&gt;,a -> (-4,1)
-<br>
-・単独<a href="#span-out-bracket">scope</a>と判別される場合、定義元のみ通常callに短縮可
-<br>
-clear; conv(=&lt;a_)=&lt;[a=-1,=&lt;a+a_==&gt;]=&gt;; a=&lt;a; a=1; conv(=&lt;(a==&gt;))=&gt;,a -> (-2,1)
-<br>
-clear; conv(=&lt;a_)=&lt;[a=-1,=&lt;a+a_=&gt;]=&gt;; a=&lt;a; a=1; conv(=&lt;(a==&gt;))=&gt;,a -> (-2,1)
-<br>
-clear; conv(=&lt;a_)=&lt;[a=-1,=&lt;a+a_==&gt;]=&gt;; a=&lt;a; a=1; conv(=&lt;(a=&gt;))=&gt;,a -> (0,1)
-<br>
-clear; conv(=&lt;a_)=&lt;[a=-1,=&lt;a+a_=&gt;]=&gt;; a=&lt;a; a=1; conv(=&lt;(a=&gt;))=&gt;,a -> (0,1)
     </td>
   </tr>
   <tr>
@@ -16968,6 +15960,266 @@ a,b,c,d -> (0,1,2,0:0)
 目次
 </a>
 <br>
+変数のscope
+<br>
+入力仕様
+    </th>
+    <td>
+<span id="span-out-scope-vars"></span>
+変数のscopeの入力仕様と付随する留意事項について記述する
+<br>
+<br>
+scope内での<a href="#span-out-vars">変数</a>||<a href="#span-out-eqns">式変数</a>の宣言はECMAScript6（以降、ES6と省略する）のlet宣言を想定
+<br>
+<a href="#span-out-bracket">直列scope内</a>の変数はreadonly（pollution disabled）
+<br>
+scopeから直接、local <a href="#span-out-storage">storage</a>にwriteする場合、<a href="#span-out-FNc">最上位関数</a>参照
+<br>
+・test caseを列挙する
+<br>
+clear; [a=2,[a=1,a],a] -> (0,0,1,2)
+<br>
+clear; [a=2,=&lt;[a=1,=&lt;a]=&gt;+a]=&gt; -> 3
+<br>
+・<a href="#span-out-vars">変数</a>・<a href="#span-out-eqns">式変数</a>はES6のlet変数同様に宣言時の<a href="#span-out-bracket">階層</a>に依存する
+<br>
+・よって同一scope内の変数のみ、<a href="#span-out-substitution">変数への代入</a>可
+<br>
+clear; a=3,[a=1,a,a=2,a],a -> (0,0,1,0,2,3)
+<br>
+clear; a=3; [a=1,a,a=2,a]; a -> 3
+<br>
+clear; [a=1,a],a -> [MyErr]Invalid REv(a)
+<br>
+clear; [a=1,a]; a -> [MyErr]Invalid REv(a)
+<br>
+・<a href="#span-out-matching">行列要素pattern matching</a>による変数への代入も同様
+<br>
+clear; a=3,[($a)=1,a,($a)=2,a],a -> (0,0,1,0,2,3)
+<br>
+clear; a=3; [($a)=1,a,($a)=2,a]; a -> 3
+<br>
+clear; [($a)=1,a],a -> [MyErr]Invalid REv(a)
+<br>
+clear; [($a)=1,a]; a -> [MyErr]Invalid REv(a)
+<br>
+・<a href="#span-out-substitution-mat">行列への代入</a>も同様
+<br>
+clear; [A=(1,2),A[0][0]=-1,A] -> (0,0,-1,2)
+<br>
+clear; A=(1,2); [A[0][0]=-1,A] -> [MyErr]Invalid SEv-scope(A)
+<br>
+・<a href="#span-out-bracket">並列scope</a>の変数を参照不可
+<br>
+clear; [A=(1,2),],[A] -> [MyErr]Invalid REv(A)
+<br>
+clear; ([A=(1,2),],[A]) -> [MyErr]Invalid REv(A)
+<br>
+clear; [A=(1,2),],[B=-A,] -> [MyErr]Invalid binary operation
+<br>
+clear; ([A=(1,2),],[B=-A,]) -> [MyErr]Invalid binary operation
+<br>
+・<a href="#span-out-bracket">直列scope内</a>の変数を参照可
+<br>
+clear; A=(1,2); [A] -> (1,2)
+<br>
+clear; A=(1,2); [-A] -> (-1,-2)
+<br>
+clear; A=(1,2); [B=-A,B] -> (0,-1,-2)
+<br>
+clear; A=(1,2); [B=-A,[C=A+B,C]] -> (0,0,0,0)
+<br>
+clear; A=(1,2); [B=-A,[C=A+B,C],C] -> [MyErr]Invalid REv(C)
+<br>
+clear; a=3; [($a,{($b)=a})=2,a+b] -> (0,5)
+<br>
+・<a href="#span-out-bracket">直列scope内</a>の変数の<a href="#span-out-bracket">search-precedence</a>
+<br>
+clear; A=(1,2); B=A; [B=-B,[C=A+B,C]] -> (0,0,0,0)
+<br>
+clear; A=(1,2); B=A; [B=-B,[C=A+B,C]]; B -> (1,2)
+<br>
+clear; A=(1,2); B=A; (B=-B,[C=A+B,C]) -> (0,0,0,0)
+<br>
+clear; A=(1,2); B=A; (B=-B,[C=A+B,C]); B -> (-1,-2)
+<br>
+・<a href="#span-out-eqns">式変数</a>も同様
+<br>
+clear; A=&lt;(1,2); B=&lt;A; [B=&lt;-B,[C=&lt;A+B,C]] -> [MyErr]Invalid circular(B)
+<br>
+clear; A=&lt;(1,2); B=&lt;A; [D=-B,B=&lt;D,[C=&lt;A+B,C]] -> (0,0,0,0,0)
+<br>
+clear; A=&lt;(1,2); B=&lt;A; [D=-B,B=&lt;D,[C=&lt;A+B,C]]; B -> (1,2)
+<br>
+clear; A=&lt;(1,2); B=&lt;A; (D=-B,B=&lt;D,[C=&lt;A+B,C]) -> (0,0,0,0,0)
+<br>
+clear; A=&lt;(1,2); B=&lt;A; (D=-B,B=&lt;D,[C=&lt;A+B,C]); B -> (-1,-2)
+<br>
+clear; a=&lt;[3+4,]; ([a=&gt;]+[a=&gt;])*trans([a=&gt;]) -> 98
+<br>
+・宣言時の<a href="#span-out-bracket">階層</a>に依存するため、次の場合、error終了
+<br>
+let a=()=&gt;b; (function(){let b=1; return a();})();  <span class="selection">// ES6</span> -> b is not defined
+<br>
+clear; a=&lt;b; [b=1,=&lt;a=&gt;]=&gt; -> [MyErr]Invalid REv(b)
+<br>
+・<a href="#span-out-call-by-equation">式読出し</a>時の<a href="#span-out-bracket">階層</a>を継承する場合、<a href="#span-out-scope-inherited-call">式変数のscope継承call</a>を使用
+<br>
+・式読出し記号==&gt;
+<br>
+clear; a=&lt;b; [b=1,=&lt;a=&gt;]=&gt; -> [MyErr]Invalid REv(b)
+<br>
+clear; a=&lt;b; [b=1,=&lt;a==&gt;]=&gt; -> 1
+<br>
+clear; a=&lt;b; [b=1,=&lt;a==&gt;]==&gt; -> 1
+<br>
+・同義
+<br>
+(function(){let a=()=&gt;b; let b=1; return a();})();  <span class="selection">// ES6</span> -> 1
+<br>
+clear; [a=&lt;b,b=1,=&lt;a=&gt;]=&gt; -> 1
+<br>
+・let宣言の挙動を以下に比較して示す
+<br>
+(function(){let a=()=&gt;b; let c=a(); let b=3; return c;})();  <span class="selection">// ES6</span> ||
+<br>
+let b=-1; (function(){let a=()=&gt;b; let c=a(); let b=3; return c;})();  <span class="selection">// ES6</span>
+<br>
+-> Cannot access 'b' before initialization
+<br>
+clear; [a=&lt;b,c=a=&gt;,b=1,=&lt;c]=&gt; -> [MyErr]Invalid REv(b)
+<br>
+clear; b=-1; [a=&lt;b,c=a=&gt;,b=1,=&lt;c]=&gt;  <span class="selection">// not hoisted</span> -> -1
+<br>
+let b=-1; (function(){let a=()=&gt;b; let c=a(); return c;})();  <span class="selection">// ES6</span> -> -1
+<br>
+clear; b=-1; [a=&lt;b,c=a=&gt;,=&lt;c]=&gt; -> -1
+<br>
+let b=-1; (function(){let a=()=&gt;b; let b=1; let c=a(); return c;})();  <span class="selection">// ES6</span> -> 1
+<br>
+clear; b=-1; [a=&lt;b,b=1,c=a=&gt;,=&lt;c]=&gt; -> 1
+<br>
+・<a href="#span-out-FNc">最上位関数</a>を使用
+<br>
+clear; b=-1; a=&lt;[b,b]; a=&gt; -> (-1,-1)
+<br>
+clear; b=-1; a=&lt;[b,b]; b=1,a=&gt; -> (0,1,1)
+<br>
+clear; b=-1; a=&lt;[b,b]; [b=1,a=&gt;] -> (0,-1,-1)
+<br>
+clear; a=&lt;b; [b=1,a=&gt;] -> [MyErr]Invalid REv(b)
+<br>
+clear; a=&lt;b+1; [b=1,a=&gt;] -> [MyErr]Invalid binary operation
+<br>
+clear; a=&lt;[b,b]; [b=1,a=&gt;] -> [MyErr]Invalid REv(b)
+<br>
+clear; a=&lt;[b,b]; [b=2,addVar(b),a=&gt;] -> (0,1,2,2)
+<br>
+clear; [a=&lt;[b,b],b=1,a=&gt;,b=2,a=&gt;] -> (0,0,1,1,0,2,2)
+<br>
+clear; [a=&lt;[b,b],[b=1,],a=&gt;] -> [MyErr]Invalid REv(b)
+<br>
+clear; [a=&lt;[b,b],[b=2,addVar(b)],a=&gt;] -> (0,0,1,2,2)
+<br>
+clear; b=-1; a=&lt;[b,b]; [[b=1,],a=&gt;] -> (0,0,-1,-1)
+<br>
+clear; b=-1; a=&lt;[b,[b,]]; [b=1,a=&gt;] -> (0,-1,-1,0)
+<br>
+clear; b=-1; [a=&lt;[b,[b,]],b=1,a=&gt;] -> (0,0,1,1,0)
+<br>
+clear; b=-1; [a=&lt;[b,[b,]],[b=1,b],[a=&gt;,b]] -> (0,0,1,-1,-1,0,-1)
+<br>
+clear; b=-1; [a=&lt;[b,[b,]],[b=1,b],b=2,[a=&gt;,b]] -> (0,0,1,0,2,2,0,2)
+<br>
+clear; b=-1; [a=&lt;(b,[b,[b,]]),b=1,a=&gt;] -> (0,0,1,1,1,0)
+<br>
+clear; b=-1; [a=&lt;(b,[b=2,[b,]]),b=1,a=&gt;] -> (0,0,1,0,2,0)
+<br>
+clear; b=-1; [a=&lt;(b,[b=2,[b,]]),b=1,=&lt;a=&gt;]=&gt; -> (1,0,2,0)
+<br>
+clear; b=-1; a=&lt;(b,[b=2,[b,]]); ([b=1,a=&gt;]) -> (0,-1,0,2,0)
+<br>
+・scopeのnesting
+<br>
+clear; a=-1; [a=1,=&lt;a+1]=&gt; -> 2
+<br>
+clear; a=-1; [a=&lt;1,=&lt;a]=&gt; -> -1
+<br>
+clear; a=-1; [a=&lt;1,=&lt;a=&gt;]=&gt; -> 1
+<br>
+clear; a=-1; [[a=&lt;1],=&lt;a=&gt;]=&gt; -> [MyErr]Invalid reference
+<br>
+clear; a=-1; [[a=&lt;1,a],=&lt;a=&gt;]=&gt; -> [MyErr]Invalid REv(a)
+<br>
+clear; a=&lt;-1; [[a=&lt;1,a],=&lt;a=&gt;]=&gt; -> -1
+<br>
+clear; [a=&lt;1,=&lt;a=&gt;+1]=&gt; -> 2
+<br>
+clear; a=1; [a=2,=&lt;(a,[[a=3,a],a])]=&gt;,a -> (2,0,3,2,1)
+<br>
+clear; a=1; [a=2,=&lt;{a,[[a=3,a],a]}]=&gt;,a -> (2,1:0,3,2)
+<br>
+clear; a=1; {[a=2,=&lt;{a,[[a=3,a],a]}]}=&gt;,a -> (2,1:0,3,2)
+<br>
+clear; a=1; {a=2,=&lt;{a,[[a=3,a],a]}}=&gt;,a -> (2,2:0,3,2)
+<br>
+clear; [a=1,(a=2,[a,a=3,a],a=4),a,[a,a=5,a],a] -> (0,0,2,0,3,0,4,4,0,5,4)
+<br>
+clear; [a=1,a[0][0]=2,(a,3)] -> (0,0,2,3)
+<br>
+clear; a=1,[a=2,[a=3,=&lt;a]=&gt;,a,[a,a],[($a)=4,a]],a -> (0,0,3,2,2,2,0,4,1)
+<br>
+clear; a=1,(a=2,[a=3,=&lt;a]=&gt;,a,[a,a],[($a)=4,a]),a -> (0,0,3,2,2,2,0,4,2)
+<br>
+clear; a=-1; [a=1,(a=2,[a=3,=&lt;a]=&gt;,a,[a,a],[($a)=4,a]),a],a -> (0,0,3,2,2,2,0,4,2,-1)
+<br>
+clear; a=-1; [a=1,(a=2,[a=&lt;3,=&lt;a]=&gt;,a,[a,a],[($a)=4,a]),a],a -> (0,0,2,2,2,2,0,4,2,-1)
+<br>
+clear; a=-1; [a=1,(a=2,[a=&lt;3,=&lt;a=&gt;]=&gt;,a,[a,a],[($a)=4,a]),a],a -> (0,0,3,2,2,2,0,4,2,-1)
+<br>
+clear; a=-1; [a=1,(a=2,[a=&lt;3,=&lt;a=&gt;]=&gt;,a,[a,a],[($a)=4,a]),=&lt;a]=&gt;,a -> (2,-1)
+<br>
+・<a href="#span-out-call-by-equation">式渡しの直接式読出し</a>
+<br>
+・(function(){return (function(){return (function(){var a=1; return 3;})()+a;})()*2;})();
+<br>
+clear; [=&lt;[=&lt;[a=1,=&lt;3]=&gt;+a]=&gt;*2]=&gt; -> [MyErr]Invalid binary operation
+<br>
+・(function(){return (function(){var a=1; return (function(){return 3;})()+a;})()*2;})();
+<br>
+clear; [=&lt;[a=1,=&lt;[=&lt;3]=&gt;+a]=&gt;*2]=&gt; -> 8
+<br>
+・(function(){var a=1; return (function(){return (function(){return 3;})()+a;})()*2;})();
+<br>
+clear; [a=1,=&lt;[=&lt;[=&lt;3]=&gt;+a]=&gt;*2]=&gt; -> 8
+<br>
+・var a=1; (function(){return (function(){return (function(){return 3;})()+a;})()*2;})();
+<br>
+clear; a=1; [=&lt;[=&lt;[=&lt;3]=&gt;+a]=&gt;*2]=&gt; -> 8
+<br>
+・(function(){return (function(){return (function(){var a=1; return 3;})()+1;})()*a;})();
+<br>
+clear; [=&lt;[=&lt;[a=1,=&lt;3]=&gt;+1]=&gt;*a]=&gt; -> [MyErr]Invalid binary operation
+<br>
+・(function(){return (function(){var a=1; return (function(){return 3;})()+1;})()*a;})();
+<br>
+clear; [=&lt;[a=1,=&lt;[=&lt;3]=&gt;+1]=&gt;*a]=&gt; -> [MyErr]Invalid binary operation
+<br>
+・(function(){var a=1; return (function(){return (function(){return 3;})()+1;})()*a;})();
+<br>
+clear; [a=1,=&lt;[=&lt;[=&lt;3]=&gt;+1]=&gt;*a]=&gt; -> 4
+<br>
+・var a=1; (function(){return (function(){return (function(){return 3;})()+1;})()*a;})();
+<br>
+clear; a=1; [=&lt;[=&lt;[=&lt;3]=&gt;+1]=&gt;*a]=&gt; -> 4
+    </td>
+  </tr>
+  <tr>
+    <th>
+<a href="#span-index">
+目次
+</a>
+<br>
 行列要素
 <br>
 pattern
@@ -17618,6 +16870,771 @@ clear; d=&lt;{a=&lt;{(b=&lt;1),{c=&lt;2}}}; d,a,b,c -> (0,0,1,2:0,0)
 <br>
 <br>
 応用例は<a href="#span-out-plot2d-command">plot2d-command入力仕様</a>参照
+    </td>
+  </tr>
+  <tr>
+    <th>
+<a href="#span-index">
+目次
+</a>
+<br>
+scope
+<br>
+継承call
+<br>
+入力仕様
+    </th>
+    <td>
+<span id="span-out-scope-inherited-call"></span>
+式変数のscope継承callの入力仕様と付随する留意事項について記述する
+<br>
+<br>
+<a href="#span-out-bracket">直列scope内</a>の<a href="#span-out-eqns">式変数</a>をcallする際、<a href="#span-out-call-by-equation">式読出し</a>時の<a href="#span-out-bracket">階層</a>を継承する場合
+<br>
+・<a href="#span-out-eqns">式変数</a>のscope継承callと定義する
+<br>
+・Nativeの.call(this)を想定するが、
+<br>
+・thisの<a href="#span-out-bracket">直列scope内</a>の<a href="#span-in-scope-vars">parents-scope</a>を含めて継承後、callする点で異なる
+<br>
+<br>
+<span class="run">Ver.2.31.17</span>以降、追加の<a href="#span-out-eqns-call">式読出し</a>記号==&gt;を使用
+<br>
+・test caseを列挙する
+<br>
+clear; a=&lt;b; [b=1,=&lt;a=&gt;]=&gt; -> [MyErr]Invalid REv(b)
+<br>
+clear; a=&lt;b; [b=1,=&lt;a==&gt;]=&gt; -> 1
+<br>
+clear; a=&lt;b; [b=1,=&lt;a==&gt;]==&gt; -> 1
+<br>
+clear; a=&lt;b; [b=1,=&lt;[=&lt;a==&gt;]=&gt;]=&gt; -> 1
+<br>
+clear; a=&lt;b; [=&lt;[b=1,=&lt;a==&gt;]=&gt;]=&gt; -> 1
+<br>
+clear; a=&lt;b; [b=2,=&lt;[b=1,=&lt;a==&gt;]=&gt;+a=&gt;]=&gt; -> [MyErr]Invalid BRsa operation
+<br>
+clear; a=&lt;b; [b=2,=&lt;[b=1,=&lt;a==&gt;]=&gt;+a==&gt;]=&gt; -> 3
+<br>
+clear; a=&lt;b; [b=3,=&lt;[b=2,=&lt;[b=1,=&lt;a==&gt;]=&gt;+a==&gt;]=&gt;+a==&gt;]=&gt; -> 6
+<br>
+clear; a=&lt;b+c; [c=2,=&lt;[b=1,=&lt;a==&gt;]=&gt;]=&gt; -> 3
+<br>
+clear; a=&lt;b+c+d; d=3; [c=2,=&lt;[b=1,=&lt;a==&gt;]=&gt;]=&gt; -> 6
+<br>
+clear; a=&lt;b+c+d; [d=3, c=2,=&lt;[b=1,=&lt;a==&gt;]=&gt;]=&gt; -> 6
+<br>
+clear; [a=&lt;b+c+d, d=3, c=2,=&lt;[b=1,=&lt;a==&gt;]=&gt;]=&gt; -> 6
+<br>
+clear; [d=3, c=2,=&lt;[a=&lt;b+c+d, b=1,=&lt;a==&gt;]=&gt;]=&gt; -> 6
+<br>
+・<span class="run">Ver.2.90.32</span>以降、<a href="#span-out-FN-statistic">sum関数</a>を追加
+<br>
+clear; a=&lt;<span class="run">sum</span>(b,c,d); d=3; [c=2,=&lt;[b=1,=&lt;a=&gt;]=&gt;]=&gt; -> [MyErr]Invalid BRsa operation
+<br>
+clear; a=&lt;<span class="run">sum</span>(b,c,d); d=3; [c=2,=&lt;[b=1,=&lt;a==&gt;]=&gt;]=&gt; -> 6
+<br>
+・<span class="run">Ver.2.32.17</span>以降、<a href="#span-out-eqns-args">式変数のarguments</a>を追加
+<br>
+clear; a(b,c,d)=&lt;<span class="run">sum</span>(b,c,d); d=3; [c=2,=&lt;[b=1,=&lt;a(b,c,d)=&gt;]=&gt;]=&gt; -> 6
+<br>
+clear; a(b,c,d)=&lt;b+c+d; d=3; [c=2,=&lt;[b=1,=&lt;a(b,c,d)=&gt;]=&gt;]=&gt; -> 6
+<br>
+clear; a(b,c,d)=&lt;b+c+d; d=3; [c=2,=&lt;[b=1,=&lt;a=&gt;]=&gt;]=&gt; -> [MyErr]Invalid binary operation
+<br>
+clear; a(b,c,d)=&lt;b+c+d; d=3; [c=2,=&lt;[b=1,=&lt;a==&gt;]=&gt;]=&gt; -> 6
+<br>
+clear; a=&lt;last[<span class="run">s</span>=b+c+d,<span class="run">s</span>]; d=3; [c=2,=&lt;[b=1,=&lt;a==&gt;]=&gt;]=&gt; -> 6
+<br>
+clear; a=&lt;last[<span class="run">s</span>=b+c+d,last[,-<span class="run">s</span>]]; d=3; [c=2,=&lt;[b=1,=&lt;a==&gt;]=&gt;]=&gt; -> -6
+<br>
+clear; a=&lt;last[<span class="run">s</span>=b+c+d,last[,-<span class="run">s</span>]]; d=3; [c=2,=&lt;[b=1,=&lt;a==&gt;]=&gt;]=&gt; -> -6
+<br>
+clear; a=&lt;last[<span class="run">s</span>=b+c+d,last[,-<span class="run">s</span>]]; d=3; [c=2,=&lt;[c=-c,b=1,=&lt;a==&gt;]=&gt;]=&gt; -> -2
+<br>
+clear; a=&lt;last[<span class="run">s</span>=b+c+d,last[,-<span class="run">s</span>]]; d=3; [c=-d,=&lt;[b=1,=&lt;a==&gt;]=&gt;]=&gt; -> -1
+<br>
+clear; a=&lt;last{<span class="run">s</span>=b+c+d,last[,-<span class="run">s</span>]}; d=3; [c=2,=&lt;[b=1,=&lt;a==&gt;]=&gt;]=&gt; -> -6
+<br>
+clear; a=&lt;last{d=-100,<span class="run">s</span>=b+c+d,last[,-<span class="run">s</span>]}; d=3; [c=2,=&lt;[b=1,=&lt;a==&gt;]=&gt;]=&gt; -> 97
+<br>
+・callする<a href="#span-out-eqns">式変数</a>の0<a href="#span-out-bracket">階層</a>に宣言される<a href="#span-out-vars">変数</a>はcall先<a href="#span-out-bracket">scope</a>に定義する
+<br>
+clear; a=&lt;last{d=-100,<span class="run">s</span>=b+c+d,last[,-<span class="run">s</span>]}; d=3; [c=2,=&lt;[b=1,a==&gt;,=&lt;d]=&gt;]=&gt; -> -100
+<br>
+clear; a=&lt;last{d=-100,<span class="run">s</span>=b+c+d,last[,-<span class="run">s</span>]}; [c=2,=&lt;[d=3,b=1,a==&gt;,=&lt;d]=&gt;]=&gt; -> -100
+<br>
+clear; [a=&lt;last{d=-100,<span class="run">s</span>=b+c+d,last[,-<span class="run">s</span>]},c=2,=&lt;[d=3,b=1,a==&gt;,=&lt;d]=&gt;]=&gt; -> -100
+<br>
+・callする<a href="#span-out-eqns">式変数</a>の1<a href="#span-out-bracket">階層</a>に宣言される場合、call先から参照不可
+<br>
+clear; a=&lt;last[d=-100,<span class="run">s</span>=b+c+d,last[,-<span class="run">s</span>]]; [c=2,=&lt;[d=3,b=1,a==&gt;,=&lt;d]=&gt;]=&gt; -> 3
+<br>
+clear; [a=&lt;last[d=-100,<span class="run">s</span>=b+c+d,last[,-<span class="run">s</span>]],c=2,=&lt;[d=3,b=1,a==&gt;,=&lt;d]=&gt;]=&gt; -> 3
+<br>
+・scope継承callのnesting
+<br>
+clear; a=&lt;b; b=0; last[b=1,c=&lt;a=&gt;,[b=2,c=&gt;]] -> 0
+<br>
+clear; a=&lt;b; b=0; last[b=1,c=&lt;a=&gt;,[b=2,c==&gt;]] -> 0
+<br>
+clear; a=&lt;b; b=0; last[b=1,c=&lt;a==&gt;,[b=2,c=&gt;]] -> 1
+<br>
+clear; a=&lt;b; b=0; last[b=1,c=&lt;a==&gt;,[b=2,c==&gt;]] -> 2
+<br>
+clear; a=&lt;b==&gt;; b=&lt;0; last[b=&lt;1,c=&lt;a==&gt;,[b=&lt;2,c==&gt;]] -> 2
+<br>
+<br>
+実装logicのtest caseを以下に示す
+<br>
+・<a href="#span-out-eqns">式変数</a>s0のcall後、<a href="#span-in-scope-vars">scopes2d array</a>の各<a href="#span-out-bracket">scope</a>に各<a href="#span-out-vars">変数</a>が定義されることを確認する
+<br>
+clear; s0=&lt;[s1=1,[s1,s2=2,[s2,s3=3,[s3,s4=4,[s4,s5=5]]]]]; s0=&gt; -> (0,1,0,2,0,3,0,4,0)
+<br>
+clear; s0=&lt;[s1=1,[s1,s2=2,[s2,s3=3,[s3,s4=4,[s4,s5=5]]]]]; [s0=&gt;,] -> (0,1,0,2,0,3,0,4,0,0)
+<br>
+・<a href="#span-out-eqns">式変数</a>s2のcall後、<a href="#span-in-scope-vars">scopes2d array</a>の各<a href="#span-out-bracket">scope</a>に各<a href="#span-out-vars">変数</a>が定義されることを確認する
+<br>
+clear; s0=0,[s1=1,[s2=&lt;[s3=s1+2,[s4=s3+1,s4]],[s5=last[s2==&gt;],s5]]] -> (0,0,0,0,4)
+<br>
+・<a href="#span-out-eqns">式変数</a>s0の通常call=&gt;の場合、<a href="#span-out-vars">変数</a>s0はlocal storageに定義される
+<br>
+clear; s0=&lt;s0=[s1=1,[s1,s2=2,[s2,s3=3]]]; [s0=&gt;,s0,hasVar(s0),hasV(s0)] -> (0,0,1,0,2,0,1,1)
+<br>
+・<a href="#span-out-eqns">式変数</a>s0のscope継承call==&gt;の場合、<a href="#span-out-vars">変数</a>s0はscope内に定義される
+<br>
+clear; s0=&lt;s0=[s1=1,[s1,s2=2,[s2,s3=3]]]; [s0==&gt;,s0,hasVar(s0),hasV(s0)] -> (0,0,1,0,2,0,0,1)
+<br>
+<br>
+詳細は<a href="#span-in-scope-vars">変数のscope</a>内部仕様参照
+    </td>
+  </tr>
+  <tr>
+    <th>
+<a href="#span-index">
+目次
+</a>
+<br>
+scope
+<br>
+継承call
+<br>
+の補足
+    </th>
+    <td>
+<span id="span-out-scope-inherited-call-memo"></span>
+式変数のscope継承callの補足について記述する
+<br>
+<br>
+<a href="#span-out-scope-inherited-call">式変数のscope継承call</a>の仕様を列挙する
+<br>
+・<a href="#span-out-vars">変数</a>・<a href="#span-out-eqns">式変数</a>は宣言時の<a href="#span-out-bracket">階層</a>に依存するため、次の場合、error終了
+<br>
+let a=()=&gt;b; (function(){let b=1; return a();})();  <span class="selection">// ES6</span> -> b is not defined
+<br>
+clear; a=&lt;b; [b=1,=&lt;a=&gt;]=&gt; -> [MyErr]Invalid REv(b)
+<br>
+・<a href="#span-out-scope-inherited-call">式変数のscope継承call</a>を使用して<a href="#span-out-call-by-equation">式読出し</a>時の<a href="#span-out-bracket">階層</a>を継承する
+<br>
+clear; a=&lt;b; [b=1,=&lt;a==&gt;]=&gt; -> 1
+<br>
+・<a href="#span-out-eqns-args">式変数のarguments</a>を使用して<a href="#span-out-scope-inherited-call">式変数のscope継承call</a>を代替する
+<br>
+clear; a(b)=&lt;b; [b=1,=&lt;a(b)=&gt;]=&gt;  <span class="selection">// better</span> -> 1
+<br>
+・<a href="#span-out-eqns">式変数</a>の定義元に対してcall先と区別する
+<br>
+・<a href="#span-out-eqns-args">定義元arguments</a>の<a href="#span-out-vars-symbol">変数名symbol</a>は独立する
+<br>
+詳細は<a href="#span-out-development-problems-CBR">未実装の参照渡し</a>参照
+<br>
+clear; a(b)=&lt;last(b=-1,b); (b=1,a(b)=&gt;,b) -> (0,-1,1)
+<br>
+clear; a(B)=&lt;{B[0]=B[1],=&lt;B}=&gt;; B=(1,2:3,4); (B,a(=&lt;B)=&gt;,B) ->
+<br>
+(
+<br>
+1,2,3,4,1,2:
+<br>
+3,4,3,4,3,4
+<br>
+)
+<br>
+<br>
+<span class="run">Ver.2.33.18</span>以降、<a href="#span-out-eqns-args">定義元arguments</a>の<a href="#span-out-vars">変数</a>は宣言時の<a href="#span-out-bracket">階層</a>に依存する（<span class="run">Ver.2.70.28</span>追記）
+<br>
+・定義元とcall先の<a href="#span-out-bracket">scope</a>が同一の場合
+<br>
+　・<a href="#span-out-eqns-args">symbol渡し</a>の場合、定義元とcall先のAは同一
+<br>
+clear; add(A,B)=&lt;A+B; A=(1,2:3,4); add(=&lt;A,=&lt;A) -> (2,4:6,8)
+<br>
+　
+<del>
+・<a href="#span-out-call-by-equation">式渡し</a>の場合、A[1]のcall時、A=A[0]更新後のA=(1,2)を参照するため、error終了
+<br>
+clear; add(A,B)=&lt;A+B; A=(1,2:3,4); add(=&lt;A[0],=&lt;A[1]) -> [MyErr]Invalid reference of array
+<br>
+clear; add(A,B)=&lt;A+B; A=&lt;(1,2:3,4); add(=&lt;A[0],=&lt;A[1]) -> [MyErr]Invalid reference of array
+</del>
+<br>
+　・<span class="clear">Ver.2.71.29</span>以降、<a href="#span-out-eqns-args">定義元arguments</a>の<a href="#span-out-vars">変数</a>・<a href="#span-out-eqns">式変数</a>の初期化algorithmを修正
+<br>
+clear; add(A,B)=&lt;A+B; A=(1,2:3,4); add(=&lt;A[0],=&lt;A[1]) -> (4,6)
+<br>
+clear; add(A,B)=&lt;A+B; A=&lt;(1,2:3,4); add(=&lt;A[0],=&lt;A[1]) -> (4,6)
+<br>
+・<a href="#span-out-eqns-args">定義元arguments</a>の<a href="#span-out-vars-symbol">変数名symbol</a>を区別する場合
+<br>
+clear; add(A_,B_)=&lt;A_+B_; A=(1,2:3,4); add(=&lt;A[0],=&lt;A[1]) -> (4,6)
+<br>
+clear; add(A_,B_)=&lt;A_+B_; A=&lt;(1,2:3,4); add(=&lt;A[0],=&lt;A[1]) -> (4,6)
+<br>
+・<a href="#span-out-vars">変数</a>と<a href="#span-out-eqns">式変数</a>の<a href="#span-out-vars-symbol">変数名symbol</a>を区別する場合
+<br>
+clear; add(A,B)=&lt;A+B; A=&lt;(1,2:3,4); add(=&lt;A[0]=&gt;,=&lt;A[1]=&gt;) -> (4,6)
+<br>
+clear; add(=&lt;A,=&lt;B)=&lt;A=&gt;+B=&gt;; A=(1,2:3,4); add(=&lt;A[0],=&lt;A[1]) -> (4,6)
+<br>
+・定義元とcall先の<a href="#span-out-bracket">scope</a>を区別する場合
+<br>
+clear; add(A,B)=&lt;[A+B]; A=(1,2:3,4); add(=&lt;A[0],=&lt;A[1]) -> (4,6)
+<br>
+clear; add(A,B)=&lt;[A+B]; A=&lt;(1,2:3,4); add(=&lt;A[0],=&lt;A[1]) -> (4,6)
+<br>
+clear; add(=&lt;A,=&lt;B)=&lt;[A=&gt;+B=&gt;]; A=(1,2:3,4); add(=&lt;A[0],=&lt;A[1]) -> (4,6)
+<br>
+clear; add(=&lt;A_,=&lt;B_)=&lt;[A_=&gt;+B_=&gt;]; A=&lt;(1,2:3,4); add(=&lt;A[0],=&lt;A[1]) -> (4,6)
+<br>
+<br>
+<span class="run">Ver.2.33.18</span>以降、<a href="#span-out-eqns-args">定義元arguments</a>の<a href="#span-out-eqns">式変数</a>は宣言時の<a href="#span-out-bracket">階層</a>に依存する
+<br>
+・通常callの場合
+<br>
+clear; conv(=&lt;a_)=&lt;last(a_=&gt;),[a=3,conv(=&lt;a)=&gt;] -> [MyErr]Undef eqn(a)
+<br>
+clear; conv(=&lt;a_)=&lt;last(a_=&gt;),[a=3,a=&lt;a,conv(=&lt;a)=&gt;] -> [MyErr]Invalid REv(a)
+<br>
+clear; conv(=&lt;a_)=&lt;last(a_=&gt;),[a=3,conv(=&lt;(a))=&gt;] -> [MyErr]Invalid REv(a)
+<br>
+clear; [conv(=&lt;a_)=&lt;last(a_=&gt;),[a=3,conv(=&lt;(a))=&gt;]] -> [MyErr]Invalid REv(a)
+<br>
+・定義元で宣言される<a href="#span-out-vars">変数</a>・<a href="#span-out-eqns">式変数</a>は定義元<a href="#span-out-bracket">scope</a>に定義する
+<br>
+clear; conv(=&lt;a_)=&lt;last(a=-3,a_=&gt;),[a=3,a=&lt;a,conv(=&lt;a)=&gt;,a],a -> (0,0,0,-3,3,-3)
+<br>
+clear; conv(=&lt;a_)=&lt;last(a=-3,a_=&gt;),[a=3,conv(=&lt;(a))=&gt;,a],a -> (0,0,-3,3,-3)
+<br>
+clear; [conv(=&lt;a_)=&lt;last(a=-3,a_=&gt;),[a=3,conv(=&lt;(a))=&gt;,a],a] -> (0,0,-3,3,-3)
+<br>
+clear; [conv(=&lt;a_)=&lt;last(a=-3,a_=&gt;),[a=3,conv(=&lt;(a))=&gt;,a],a],a -> [MyErr]Invalid REv(a)
+<br>
+・<a href="#span-out-scope-inherited-call">式変数のscope継承call</a>の場合
+<br>
+clear; conv(=&lt;a_)=&lt;last(a_=&gt;),[a=3,a=&lt;a,conv(=&lt;a)==&gt;,a] -> (0,0,0,3,3)
+<br>
+clear; conv(=&lt;a_)=&lt;last(a_=&gt;),[a=3,conv(=&lt;(a))==&gt;,a] -> (0,0,3,3)
+<br>
+clear; [conv(=&lt;a_)=&lt;last(a_=&gt;),[a=3,conv(=&lt;(a))==&gt;,a]] -> (0,0,3,3)
+<br>
+・定義元で宣言される<a href="#span-out-vars">変数</a>・<a href="#span-out-eqns">式変数</a>はcall先<a href="#span-out-bracket">scope</a>に定義する
+<br>
+clear; conv(=&lt;a_)=&lt;last(a=-3,a_=&gt;),[a=3,a=&lt;a,conv(=&lt;a)==&gt;,a] -> (0,0,0,-3,-3)
+<br>
+clear; conv(=&lt;a_)=&lt;last(a=-3,a_=&gt;),[a=3,conv(=&lt;(a))==&gt;,a] -> (0,0,-3,-3)
+<br>
+clear; [conv(=&lt;a_)=&lt;last(a=-3,a_=&gt;),[a=3,conv(=&lt;(a))==&gt;,a]] -> (0,0,-3,-3)
+<br>
+clear; [conv(=&lt;a_)=&lt;last(a=-3,a_=&gt;),[a=3,conv(=&lt;(a))==&gt;,a],a] -> [MyErr]Invalid REv(a)
+<br>
+clear; [conv(=&lt;a_)=&lt;last(b=4,a_=&gt;),[a=3,conv(=&lt;(a))==&gt;,b],b] -> [MyErr]Invalid REv(b)
+<br>
+clear; [conv(=&lt;a_)=&lt;last(b=4,a_=&gt;),[a=3,conv(=&lt;(a))==&gt;,a,b]] -> (0,0,3,3,4)
+<br>
+・定義元とcall先の<a href="#span-out-bracket">scope</a>を区別する場合
+<br>
+・定義元で宣言される<a href="#span-out-vars">変数</a>・<a href="#span-out-eqns">式変数</a>はcall先から参照不可
+<br>
+clear; [conv(=&lt;a_)=&lt;last[b=4,a_=&gt;],[a=3,conv(=&lt;(a))==&gt;,b]] -> [MyErr]Invalid REv(b)
+<br>
+clear; [conv(=&lt;a_)=&lt;last[b=&lt;4,a_=&gt;],[a=3,conv(=&lt;(a))==&gt;,b=&gt;]] -> [MyErr]Invalid REv(b)
+<br>
+clear; [conv(=&lt;a_)=&lt;last[b=4,a_=&gt;+b],[a=3,conv(=&lt;(a))==&gt;]] -> (0,0,7)
+<br>
+clear; [conv(=&lt;a_)=&lt;last[b=&lt;4,a_=&gt;+b=&gt;],[a=3,conv(=&lt;(a))==&gt;]] -> (0,0,7)
+<br>
+・symbol渡しで定義元<a href="#span-out-bracket">scope</a>を継承する場合
+<br>
+clear; conv(=&lt;a_)=&lt;(a=-1,=&lt;a+a_=&gt;)=&gt;*2; a=&lt;a; a=1; conv(=&lt;a)=&gt;,a -> (-4,-1)
+<br>
+clear; conv(=&lt;a_)=&lt;[a=-1,=&lt;a+a_=&gt;]=&gt;*2; a=&lt;a; a=1; conv(=&lt;a)=&gt;,a -> (0,1)
+<br>
+clear; conv(=&lt;a_)=&lt;[a=-1,=&lt;a+a_==&gt;]=&gt;*2; a=&lt;a; a=1; conv(=&lt;a)=&gt;,a -> (-4,1)
+<br>
+・symbol渡しを<a href="#span-out-scope-inherited-call">式変数のscope継承call</a>で代替する場合、nestingが必要
+<br>
+clear; conv(=&lt;a_)=&lt;[=&lt;a+a_=&gt;]=&gt;*2; a=&lt;-a; a=1; conv(=&lt;a)=&gt;,a -> (0,1)
+<br>
+clear; conv(=&lt;a_)=&lt;[=&lt;a+a_=&gt;]=&gt;*2; a=&lt;a; a=1; conv(=&lt;(a=&gt;))=&gt;,a -> (4,1)
+<br>
+clear; conv(=&lt;a_)=&lt;[a=-1,=&lt;a+a_=&gt;]=&gt;*2; a=&lt;a; a=1; conv(=&lt;(a=&gt;))=&gt;,a -> (0,1)
+<br>
+clear; conv(=&lt;a_)=&lt;[a=-1,=&lt;a+a_=&gt;]=&gt;*2; a=&lt;a; a=1; conv(=&lt;(a==&gt;))=&gt;,a -> (0,1)
+<br>
+clear; conv(=&lt;a_)=&lt;[a=-1,=&lt;a+a_==&gt;]=&gt;*2; a=&lt;a; a=1; conv(=&lt;(a=&gt;))=&gt;,a -> (0,1)
+<br>
+clear; conv(=&lt;a_)=&lt;[a=-1,=&lt;a+a_==&gt;]=&gt;*2; a=&lt;a; a=1; conv(=&lt;(a==&gt;))=&gt;,a -> (-4,1)
+<br>
+・単独<a href="#span-out-bracket">scope</a>と判別される場合、定義元のみ通常callに短縮可
+<br>
+clear; conv(=&lt;a_)=&lt;[a=-1,=&lt;a+a_==&gt;]=&gt;; a=&lt;a; a=1; conv(=&lt;(a==&gt;))=&gt;,a -> (-2,1)
+<br>
+clear; conv(=&lt;a_)=&lt;[a=-1,=&lt;a+a_=&gt;]=&gt;; a=&lt;a; a=1; conv(=&lt;(a==&gt;))=&gt;,a -> (-2,1)
+<br>
+clear; conv(=&lt;a_)=&lt;[a=-1,=&lt;a+a_==&gt;]=&gt;; a=&lt;a; a=1; conv(=&lt;(a=&gt;))=&gt;,a -> (0,1)
+<br>
+clear; conv(=&lt;a_)=&lt;[a=-1,=&lt;a+a_=&gt;]=&gt;; a=&lt;a; a=1; conv(=&lt;(a=&gt;))=&gt;,a -> (0,1)
+    </td>
+  </tr>
+  <tr>
+    <th>
+<a href="#span-index">
+目次
+</a>
+<br>
+arguments
+<br>
+入力仕様
+    </th>
+    <td>
+<span id="span-out-eqns-args"></span>
+式変数のargumentsの入力仕様と付随する留意事項について記述する
+<br>
+<br>
+<a href="#span-out-eqns">式変数</a>のargumentsは次の関数定義と関数callを代替する
+<br>
+let add=(a,b)=&gt;a+b; add(1,2)  <span class="selection">// ES6</span> -> 3
+<br>
+clear; add(a,b)=&lt;a+b; add(1,2)=&gt; || add(1,2) -> 3
+<br>
+・以降、<a href="#span-out-eqns">式変数</a>の定義元に対してcall先と区別する
+<br>
+<br>
+<a href="#span-out-mat">行列</a>の値渡しの場合、<a href="#span-out-call-by-equation">式渡し</a>を使用
+<br>
+clear; add(A,B)=&lt;A+B; add((1,2:3,4),(5,6:7,8)) -> [MyErr]Invalid args.length=2(add)
+<br>
+clear; add(A,B)=&lt;A+B; add(=&lt;(1,2:3,4),=&lt;(5,6:7,8))=&gt; -> (6,8:10,12)
+<br>
+clear; add(A,B)=&lt;A+B; add(=&lt;(1,2:3,4),=&lt;(5,6:7,8)) -> (6,8:10,12)
+<br>
+<br>
+call先argumentsに<a href="#span-out-vars-symbol">変数名symbol</a>を<a href="#span-out-call-by-equation">式渡し</a>する場合（以降、symbol渡しと呼ぶ）
+<br>
+・<a href="#span-out-vars">変数</a>を使用
+<br>
+clear; add(A,B)=&lt;A+B;
+<br>
+A=(1,2:3,4); B=(5,6:7,8); add(A,B)=&gt; -> [MyErr]Invalid args.length=2(add)
+<br>
+clear; add(A,B)=&lt;A+B;
+<br>
+A=(1,2:3,4); B=(5,6:7,8); add(=&lt;A,=&lt;B)=&gt; || add(=&lt;A,=&lt;B) -> (6,8:10,12)
+<br>
+・<a href="#span-out-eqns">式変数</a>を使用
+<br>
+clear; add(A,B)=&lt;A+B;
+<br>
+A=&lt;(1,2:3,4); B=&lt;(5,6:7,8); add(=&lt;A,=&lt;B)=&gt; -> (6,8:10,12)
+<br>
+clear; add(=&lt;A_,=&lt;B_)=&lt;A_=&gt;+B_=&gt;;
+<br>
+A=&lt;(1,2:3,4); B=&lt;(5,6:7,8); add(=&lt;A,=&lt;B)=&gt; -> (6,8:10,12)
+<br>
+clear; add(=&lt;A_,=&lt;B_)=&lt;A_+B_;
+<br>
+A=&lt;(1,2:3,4); B=&lt;(5,6:7,8); add(=&lt;A,=&lt;B)=&gt; -> (6,8:10,12)
+<br>
+<br>
+<a href="#span-out-vars">変数</a>・<a href="#span-out-eqns">式変数</a>の<a href="#span-out-call-by-equation">式渡し</a>の場合
+<br>
+clear; add(=&lt;A_,=&lt;B_)=&lt;A_+B_;
+<br>
+A=&lt;(1,2:3,4); B=&lt;(5,6:7,8); add(=&lt;A=&gt;,=&lt;B=&gt;)=&gt; -> (6,8:10,12)
+<br>
+clear; add(=&lt;A_,=&lt;B_)=&lt;A_+B_;
+<br>
+A=&lt;(1,2:3,4); B=&lt;(5,6:7,8); add(=&lt;A=&gt;+A=&gt;,=&lt;B=&gt;+B=&gt;)=&gt; -> (12,16:20,24)
+<br>
+clear; add(=&lt;A_,=&lt;B_)=&lt;A_+B_;
+<br>
+A=&lt;(1,2:3,4); B=&lt;(5,6:7,8); add(=&lt;{A=&gt;+A=&gt;},=&lt;(B=&gt;+B=&gt;))=&gt; -> (12,16:20,24)
+<br>
+clear; add(=&lt;A_,=&lt;B_)=&lt;A_+B_;
+<br>
+A=&lt;(1,2:3,4); B=&lt;(5,6:7,8); add(=&lt;[A=&gt;+A=&gt;],=&lt;[B=&gt;+B=&gt;])=&gt; -> (12,16:20,24)
+<br>
+<br>
+定義元argumentsの<a href="#span-out-vars-symbol">式変数名symbol</a>をunderscoreでescapeする理由を列挙する
+<br>
+・symbol渡しで<a href="#span-out-eqns">式変数</a>Bの中身をcallする場合、問題なし
+<br>
+clear; add(A,=&lt;B)=&lt;A+B=&gt;; B=&lt;(3,4); add(=&lt;(1,2),=&lt;B) -> (4,6)
+<br>
+・定義元から<a href="#span-out-eqns">式変数</a>Bをcallする場合、<a href="#span-out-vars-symbol">式変数名symbol</a>の循環参照（B=&gt;B=&gt;）と判別される
+<br>
+clear; add(A,=&lt;B)=&lt;A+B=&gt;; B=&lt;(3,4); add(=&lt;(1,2),=&lt;B=&gt;) -> [MyErr]Invalid circular(B)
+<br>
+・参照上の問題はないため、定義元argumentsの<a href="#span-out-vars-symbol">式変数名symbol</a>をescapeする
+<br>
+clear; add(A,=&lt;B_)=&lt;A+B_=&gt;; B=&lt;(3,4); add(=&lt;(1,2),=&lt;B=&gt;) -> (4,6)
+<br>
+clear; add(A,=&lt;B_)=&lt;A+B_=&gt;; B=&lt;(3,4); add(=&lt;(1,2),=&lt;B) -> (4,6)
+<br>
+・以降、escape文字は後置のunderscoreで統一する
+<br>
+clear; add(A,=&lt;B_)=&lt;(A+B_=&gt;); B=&lt;(3,4); add(=&lt;(1,2),=&lt;B=&gt;) -> (4,6)
+<br>
+clear; add(A,=&lt;B_)=&lt;(A+B_=&gt;); B=&lt;(3,4); add(=&lt;(1,2),=&lt;B) -> (4,6)
+<br>
+clear; add(A,=&lt;B_)=&lt;[A+B_=&gt;]; B=&lt;(3,4); add(=&lt;(1,2),=&lt;B=&gt;) -> (4,6)
+<br>
+clear; add(A,=&lt;B_)=&lt;[A+B_=&gt;]; B=&lt;(3,4); add(=&lt;(1,2),=&lt;B) -> (4,6)
+<br>
+・定義元argumentsが<a href="#span-out-call-by-equation">式渡し</a>の場合、<a href="#span-out-vars-symbol">式変数名symbol</a>のみ判別する
+<br>
+clear; add(A,=&lt;B_)=&lt;[A+B_=&gt;]; B=&lt;(3,4); B=(,); add(=&lt;(1,2),=&lt;B) -> (4,6)
+<br>
+・定義元argumentsが値渡しの場合、<a href="#span-out-vars-symbol">変数名symbol</a>を優先する
+<br>
+clear; add(A,B)=&lt;[A+B]; B=&lt;(3,4); add(=&lt;(1,2),=&lt;B) -> (4,6)
+<br>
+clear; add(A,B)=&lt;[A+B]; B=&lt;(3,4); B=(,); add(=&lt;(1,2),=&lt;B) -> (1,2)
+<br>
+clear; add(A,B)=&lt;[A+B]; B=&lt;(3,4); B=(,); add(=&lt;(1,2),=&lt;B=&gt;) -> (4,6)
+<br>
+・<a href="#span-out-config-strict">strict-mode</a>の場合、<a href="#span-out-vars-symbol">変数名symbol</a>を厳格に判別する
+<br>
+clear; add(A,B)=&lt;[A+B]; B=&lt;(3,4); add(=&lt;(1,2),=&lt;B)=&gt; -> [MyErr]Invalid BRsa operation
+<br>
+clear; add(A,B)=&lt;[A]; B=&lt;(3,4); add(=&lt;(1,2),=&lt;B)=&gt; -> (1,2)
+<br>
+clear; add(A,B)=&lt;[B]; B=&lt;(3,4); add(=&lt;(1,2),=&lt;B)=&gt; -> [MyErr]Invalid REv(B)
+<br>
+clear; add(A,B)=&lt;[A+B]; B=&lt;(3,4); B=(,); add(=&lt;(1,2),=&lt;B)=&gt; -> (1,2)
+<br>
+clear; add(A,B)=&lt;[A+B]; B=&lt;(3,4); B=(,); add(=&lt;(1,2),=&lt;B=&gt;)=&gt; -> (4,6)
+<br>
+clear; add(A,=&lt;B_)=&lt;(A+B_=&gt;); B=&lt;(3,4); add(=&lt;(1,2),=&lt;B=&gt;)=&gt; -> (4,6)
+<br>
+clear; add(A,=&lt;B_)=&lt;(A+B_=&gt;); B=&lt;(3,4); add(=&lt;(1,2),=&lt;B)=&gt; -> (4,6)
+<br>
+clear; add(A,=&lt;B_)=&lt;[A+B_=&gt;]; B=&lt;(3,4); add(=&lt;(1,2),=&lt;B=&gt;)=&gt; -> (4,6)
+<br>
+clear; add(A,=&lt;B_)=&lt;[A+B_=&gt;]; B=&lt;(3,4); add(=&lt;(1,2),=&lt;B)=&gt; -> (4,6)
+<br>
+<br>
+symbol渡しの場合、定義元<a href="#span-out-bracket">scope</a>に留意が不要（別<a href="#span-out-bracket">scope</a>を参照するcaseを除く）
+<br>
+・次の場合、<a href="#span-out-eqns">式変数</a>Bの中身(a,4)を定義元の<a href="#span-out-eqns">式変数</a>B_に継承する
+<br>
+clear; add(A,=&lt;B_)=&lt;(a=-1,=&lt;A+B_=&gt;)=&gt;; B=&lt;(a,4); a=1; add(=&lt;(1,2),=&lt;B)=&gt; -> (0,6)
+<br>
+clear; add(A,=&lt;B_)=&lt;(a=-1,=&lt;A+B_=&gt;)=&gt;; a=1; add(=&lt;(1,2),=&lt;(a,4))=&gt; -> (0,6)
+<br>
+clear; add(A,=&lt;B_)=&lt;[a=-1,=&lt;A+B_=&gt;]=&gt;; B=&lt;(a,4); a=1; add(=&lt;(1,2),=&lt;B)=&gt; -> (0,6)
+<br>
+clear; add(A,=&lt;B_)=&lt;[a=-1,=&lt;A+B_=&gt;]=&gt;; a=1; add(=&lt;(1,2),=&lt;(a,4))=&gt; -> (0,6)
+<br>
+clear; add(A,=&lt;B_)=&lt;[a=-1,=&lt;A+B_=&gt;]=&gt;; a=1; add(=&lt;(1,2),=&lt;{=&lt;(a,4)}=&gt;)=&gt; -> (0,6)
+<br>
+clear; add(A,=&lt;B_)=&lt;[a=-1,=&lt;A+B_=&gt;]=&gt;; a=1; add(=&lt;(1,2),=&lt;{=&lt;(a,4)}=&gt;)=&gt; -> (0,6)
+<br>
+・<a href="#span-out-vars-symbol">変数名symbol</a>を<a href="#span-out-BT">括弧</a>で括った場合、<a href="#span-out-call-by-equation">式渡し</a>と判別される
+<br>
+clear; add(A,=&lt;B_)=&lt;[a=-1,=&lt;A+B_=&gt;]=&gt;; B=&lt;(a,4); a=1; add(=&lt;(1,2),=&lt;(B))=&gt; -> (2,6)
+<br>
+・<a href="#span-out-FNh">高階関数</a>のsymbolのみを渡す引数と異なる
+<br>
+<br>
+<a href="#span-out-call-by-equation">式渡し</a>の場合、定義元<a href="#span-out-bracket">scope</a>に留意が必要
+<br>
+・次の場合、B=&gt;を定義元の<a href="#span-out-eqns">式変数</a>B_に継承する
+<br>
+clear; add(A,=&lt;B_)=&lt;(a=-1,=&lt;A+B_=&gt;)=&gt;; B=&lt;(a,4); a=1; add(=&lt;(1,2),=&lt;B=&gt;)=&gt; -> (0,6)
+<br>
+clear; add(A,=&lt;B_)=&lt;(a=-1,=&lt;A+B_=&gt;)=&gt;; B=&lt;(a,4); a=1; add(=&lt;(1,2),=&lt;[B=&gt;])=&gt; -> (0,6)
+<br>
+・以上の場合、定義元<a href="#span-out-bracket">scope</a>とlocal <a href="#span-out-storage">storage</a>が共通で<a href="#span-out-eqns">式変数</a>Bをcallする
+<br>
+clear; add(A,=&lt;B_)=&lt;[a=-1,=&lt;A+B_=&gt;]=&gt;; B=&lt;(a,4); a=1; add(=&lt;(1,2),=&lt;B=&gt;)=&gt; -> (2,6)
+<br>
+clear; add(A,=&lt;B_)=&lt;[a=-1,=&lt;A+B_=&gt;]=&gt;; B=&lt;(a,4); a=1; add(=&lt;(1,2),=&lt;[B=&gt;])=&gt; -> (2,6)
+<br>
+・以上の場合、定義元<a href="#span-out-bracket">scope</a>から参照可能なlocal <a href="#span-out-storage">storage</a>に定義された<a href="#span-out-eqns">式変数</a>Bをcallする
+<br>
+・よって定義元<a href="#span-out-bracket">scope</a>を<a href="#span-out-eqns">式変数</a>Bに継承する場合、<a href="#span-out-scope-inherited-call">式変数のscope継承call</a>をnestingする
+<br>
+clear; add(A,=&lt;B_)=&lt;[a=-1,=&lt;A+B_==&gt;]=&gt;; B=&lt;(a,4); a=1; add(=&lt;(1,2),=&lt;(B==&gt;))=&gt; -> (0,6)
+<br>
+・独立scopeに<a href="#span-out-eqns">式変数</a>Bが定義された場合、定義元<a href="#span-out-bracket">scope</a>から参照不可
+<br>
+clear; add(A,=&lt;B_)=&lt;[a=-1,=&lt;A+B_=&gt;]=&gt;;
+<br>
+[B=&lt;(a,4),a=1,add(=&lt;(1,2),=&lt;B=&gt;)=&gt;] -> [MyErr]Invalid REv(B)
+<br>
+<br>
+<a href="#span-out-scope-inherited-call">式変数のscope継承call</a>を代替する一例を次に示す
+<br>
+clear; a=&lt;b+c+d; d=3; [c=2,=&lt;[b=1,=&lt;a==&gt;]=&gt;]=&gt; -> 6
+<br>
+clear; a()=&lt;b+c+d; d=3; [c=2,=&lt;[b=1,=&lt;a()==&gt;]=&gt;]=&gt; -> 6
+<br>
+clear; a(b,c,d)=&lt;b+c+d; d=3; [c=2,=&lt;[b=1,=&lt;a(b,c,d)]=&gt;]=&gt;  <span class="selection">// better</span> -> 6
+<br>
+clear; a(b,c,d)=&lt;b+c+d; d=3; [c=2,=&lt;[b=1,=&lt;a(b,c,d)=&gt;]=&gt;]=&gt;  <span class="selection">// better</span> -> 6
+<br>
+・定義元argumentsの<a href="#span-out-vars-symbol">変数名symbol</a>は独立として<a href="#span-in-scope-vars">static scopes2d array</a>を共有する
+<br>
+clear; a(b,c,d)=&lt;last{b=-1,b+c+d}; d=3; [c=2,=&lt;[b=1,=&lt;[a(b,c,d),b]]=&gt;]=&gt; -> (4,1)
+<br>
+clear; a(b,c,d)=&lt;last{b=-1,b+c+d}; d=3; [c=2,=&lt;[=&lt;[a(b,c,d),b]]=&gt;]=&gt; -> [MyErr]Invalid REv(b)
+<br>
+・通常callの場合、定義元で宣言される<a href="#span-out-vars">変数</a>・<a href="#span-out-eqns">式変数</a>は定義元<a href="#span-out-bracket">scope</a>に定義する
+<br>
+clear; a(b_,c,d)=&lt;last{b=b_,b_+c+d}; d=3; [c=2,=&lt;[=&lt;[a(1,c,d),b]]=&gt;]=&gt;,b -> (6,1,1)
+<br>
+clear; a(b_,c,d)=&lt;last{b=&lt;1,b_+c+d}; d=3; [c=2,=&lt;[=&lt;[a(1,c,d),b=&gt;]]=&gt;]=&gt;,b=&gt; -> (6,1,1)
+<br>
+clear; a(b_,c,d)=&lt;last{b=b_,b_+c+d}; d=3; [c=2,=&lt;[=&lt;[a(1,c,d),b_]]=&gt;]=&gt;
+<br>
+-> [MyErr]Invalid REv(b_)
+<br>
+<br>
+test caseを列挙する
+<br>
+clear; add(a,b)=&lt;last{a=-1,a+b}; add(last{a=1,a},2)=&gt;,a -> (1,1)
+<br>
+clear; add(a_,b)=&lt;last{a=-1,a_+b}; add(last{a=1,a},2)=&gt;,a -> (3,-1)
+<br>
+clear; add(a_,b)=&lt;last{a=-1,a_+b}; add(last{a=1,a},2)=&gt;,a_ -> [MyErr]Invalid REv(a_)
+<br>
+<span class="run">Ver.2.32.17</span>以降、<a href="#span-out-eqns-re-use">scope付式変数の再利用</a>に対応
+<br>
+clear; add(a_,b)=&lt;last[a=-1,a_+b]; add(last{a=1,a},2)=&gt;,a -> (3,1)
+<br>
+clear; add(a_,b)=&lt;last[a=-1,a_+b]; add(last[a=1,a],2)=&gt;,a -> [MyErr]Invalid REv(a)
+<br>
+clear; add(a_,b)=&lt;last(a=-1,a_+b); add(last[a=1,a],2)=&gt;,a -> (3,-1)
+<br>
+clear; conv(=&lt;a)=&lt;last{a=&lt;-1,a=&gt;}; conv(=&lt;last{a=&lt;1,a=&gt;})=&gt; -> -1
+<br>
+clear; conv(=&lt;a)=&lt;last{a=&lt;-1,a=&gt;}; conv(=&lt;last{a=&lt;1,a=&gt;})=&gt;; a=&gt; -> [MyErr]Invalid REv(a)
+<br>
+clear; conv(=&lt;a_)=&lt;last{a=&lt;-1,a_=&gt;}; conv(=&lt;last{a=&lt;1,a=&gt;})=&gt;,a=&gt; -> (1,1)
+<br>
+clear; conv(=&lt;a_)=&lt;last{a=&lt;-1,a_=&gt;}; conv(=&lt;last{a=&gt;})=&gt;,a=&gt; -> (-1,-1)
+<br>
+clear; conv(=&lt;a_)=&lt;last[a=&lt;-1,a_=&gt;]; conv(=&lt;last{a=&gt;})=&gt; -> -1
+<br>
+clear; conv(=&lt;a_)=&lt;last[a=&lt;-1,a_==&gt;]; conv(=&lt;last{a=&gt;})=&gt; -> -1
+<br>
+clear; conv(=&lt;a_)=&lt;last[a=&lt;-1,a_=&gt;]*2; conv(=&lt;last{a=&gt;})=&gt; -> [MyErr]Invalid REv(a)
+<br>
+clear; conv(=&lt;a_)=&lt;last[a=&lt;-1,a_==&gt;]*2; conv(=&lt;last{a=&gt;})=&gt; -> -2
+<br>
+clear; conv(=&lt;a_)=&lt;last[a=&lt;-1,a_==&gt;]; conv(=&lt;last[a=&gt;])=&gt; -> [MyErr]Invalid FNm(last)
+<br>
+clear; conv(=&lt;a_)=&lt;last[a=&lt;-1,a_==&gt;]; conv(=&lt;last[,a=&gt;])=&gt; -> -1
+<br>
+clear; conv(=&lt;a_)=&lt;last[a=&lt;-1,a_=&gt;]; conv(=&lt;last[,a=&gt;])=&gt; -> -1
+<br>
+clear; conv(=&lt;a_)=&lt;last[a=&lt;-1,a_=&gt;]; conv(=&lt;last[a=&lt;1,a=&gt;])=&gt; -> 1
+<br>
+clear; conv(=&lt;a_)=&lt;last[a=&lt;-1,a_=&gt;]*2; conv(=&lt;last[,a=&gt;])=&gt; -> [MyErr]Invalid REv(a)
+<br>
+clear; conv(=&lt;a_)=&lt;last[a=&lt;-1,a_==&gt;]*2; conv(=&lt;last[,a=&gt;])=&gt; -> -2
+<br>
+clear; conv(=&lt;a_)=&lt;last[a=&lt;-1,a_=&gt;]*2; conv(=&lt;last[a=&lt;1,a=&gt;])=&gt; -> 2
+<br>
+<br>
+<span class="run">Ver.2.32.17</span>以降、<a href="#span-out-eqns-call">式読出し</a>記号=&gt;省略時同様に
+<br>
+clear; add(A,B)=&lt;A+B; add[0](=&lt;(1,2:3,4),=&lt;(5,6:7,8)) || (6,8:10,12)[0] -> (6,8)
+<br>
+・<a href="#span-out-BT-square">角括弧[]</a>で<a href="#span-out-eqns">式変数</a>の返値の<a href="#span-out-mat">行列</a>要素を参照可
+<br>
+clear; add(A,B)=&lt;A+B; add[0](=&lt;(1,2:3,4),=&lt;(5,6:7,8))=&gt; -> (6,8)
+<br>
+clear; add(A,B)=&lt;A+B; add[1](=&lt;(1,2:3,4),=&lt;(5,6:7,8))=&gt; -> (10,12)
+<br>
+clear; add(A,B)=&lt;A+B; add[0][0](=&lt;(1,2:3,4),=&lt;(5,6:7,8))=&gt; -> 6
+<br>
+clear; add(A,B)=&lt;A+B; add[1][1](=&lt;(1,2:3,4),=&lt;(5,6:7,8))=&gt; -> 12
+<br>
+<br>
+call先arguments省略の場合、定義元argumentsを無視してcall可（<span class="clear">Ver.2.43.22</span>追記）
+<br>
+clear; x(t)=&lt;-t; f=&lt;x+1; f -> [MyErr]Invalid null args(x)
+<br>
+clear; x(t)=&lt;-t; f=&lt;x=&gt;+1; f -> [MyErr]Invalid binary operation
+<br>
+clear; x(t)=&lt;-t; t=-999; f=&lt;x=&gt;+1; f -> 1000
+<br>
+clear; x(t)=&lt;-t; t=-999; [t=1,f=&lt;x=&gt;+1,f] -> (0,0,1000)
+<br>
+clear; x(t)=&lt;-t; t=-999; [t=1,f=&lt;x==&gt;+1,f] -> (0,0,0)
+<br>
+clear; x(t)=&lt;-t; t=-999; [t=1,f=&lt;x(t)==&gt;+1,f] -> (0,0,0)
+<br>
+clear; x(t)=&lt;-t; t=-999; [t=1,f=&lt;x(t)=&gt;+1,f] -> (0,0,0)
+<br>
+clear; x(t)=&lt;-t; t=-999; [t=1,f=&lt;x(t)+1,f] -> (0,0,0)
+<br>
+clear; x=&lt;-t; t=-999; [t=1,f=&lt;x+1,f] -> (0,0,1000)
+<br>
+clear; x=&lt;-t; t=-999; [t=1,f=&lt;x=&gt;+1,f] -> (0,0,1000)
+<br>
+clear; x=&lt;-t; t=-999; [t=1,f=&lt;x==&gt;+1,f] -> (0,0,0)
+<br>
+<br>
+arguments不正の場合、error終了
+<br>
+・定義元argumentsに<a href="#span-out-FN">関数</a>を指定した場合、<a href="#span-out-vars-symbol">変数名symbol</a>とは判別されない
+<br>
+clear; a(max)=&lt;max*2; a(2)=&gt; -> [MyErr]Invalid args.length=0(a)
+<br>
+clear; a(max)=&lt;max*2; a()=&gt; || max*2 -> [MyErr]Invalid binary operation
+<br>
+clear; a(max)=&lt;2; a()=&gt; || a()=&lt;2; a()=&gt; || a=&lt;2; a=&gt; -> 2
+<br>
+・argumentsの<a href="#span-out-vars-symbol">変数名symbol</a>は<a href="#span-out-vars">変数の命名規則</a>に準拠
+<br>
+clear; a($b)=&lt;$b*2 -> [MyErr]Invalid REv($b)
+    </td>
+  </tr>
+  <tr>
+    <th>
+<a href="#span-index">
+目次
+</a>
+<br>
+scope付
+<br>
+式変数の
+<br>
+再利用
+<br>
+入力仕様
+    </th>
+    <td>
+<span id="span-out-eqns-re-use"></span>
+scope付式変数の再利用の入力仕様と付随する留意事項について記述する
+<br>
+<br>
+<a href="#span-out-scope-vars">変数のscope</a>付の<a href="#span-out-eqns">式変数</a>の一例を列挙する
+<br>
+・単独<a href="#span-out-bracket">scope</a>と判別されるcaseのみ、<a href="#span-out-eqns-args">定義元arguments</a>は<a href="#span-out-BT-square">角括弧[]</a>の<a href="#span-out-bracket">scope</a>内に定義する
+<br>
+clear; com2vec(a)=&lt;[{real(a),imag(a)}]; com2vec(2-3i) -> (2:-3)
+<br>
+clear; minus(a)=&lt;[,=&lt;-a]=&gt;; minus(2) -> -2
+<br>
+clear; add(a,b)=&lt;last[,a+b]; add(1,3) -> 4
+<br>
+・以下のような場合、<a href="#span-out-eqns-args">定義元arguments</a>は<a href="#span-out-BT-square">角括弧[]</a>の<a href="#span-out-bracket">scope</a>外に定義する
+<br>
+clear; com2vec_k(a,k)=&lt;[{real(a),imag(a)}]*k; com2vec_k(2-3i,i) -> (2i:-3i)
+<br>
+clear; minus_k(a,k)=&lt;[,=&lt;-a]=&gt;*k; minus_k(2,2) -> -4
+<br>
+clear; add_k(a,b,k)=&lt;last[,a+b]*k; add_k(1,3,2) -> 8
+<br>
+clear; iproduct(L,R)=&lt;[L]*[trans(R)]; iproduct(=&lt;(1,2),=&lt;(3,4)) -> 11
+<br>
+・<a href="#span-out-config-strict">Non-strict-mode</a>の場合
+<br>
+clear; iproduct(L,R)=&lt;[(L)][trans(R)]; iproduct(=&lt;(1,2),=&lt;(3,4)) -> 11
+<br>
+clear; iproduct(L,R)=&lt;[(L)](trans(R)); iproduct(=&lt;(1,2),=&lt;(3,4)) -> 11
+<br>
+clear; iproduct(L,R)=&lt;(L)[trans(R)]; iproduct(=&lt;(1,2),=&lt;(3,4)) -> 11
+<br>
+clear; iproduct(L,R)=&lt;(L)(trans(R)); iproduct(=&lt;(1,2),=&lt;(3,4)) -> 11
+<br>
+<br>
+これらを再利用する一例を以下に示す
+<br>
+clear; add(a,b)=&lt;last[,a+b]; add(1,3) -> 4
+<br>
+add(1,-3),add(1,i) -> (-2,1+i)
+<br>
+・値を返す場合、nesting可
+<br>
+add(1,add(1,add(1,add(1,i)))) -> 4+i
+<br>
+add(1,add(2,add(3,add(4,i)))) -> 10+i
+<br>
+add(1,add(1,add(1,add(1,i))add(1,i))add(1,i))add(1,i) -> -5+5i
+<br>
+・同義
+<br>
+(1+(1+(1+(1+i)))) -> 4+i
+<br>
+(1+(2+(3+(4+i)))) -> 10+i
+<br>
+(1+(1+(1+(1+i))(1+i))(1+i))(1+i) -> -5+5i
+<br>
+<br>
+<a href="#span-out-FNm-last">last行列関数</a>を代替する<a href="#span-out-eqns">式変数</a>last_ttを以下に示す
+<br>
+・<a href="#span-out-FNm-last">last行列関数</a>は<a href="#span-in-tree">単位tree構造</a>の仕様上、行vectorの<a href="#span-out-mat">抜け要素</a>を自動で埋めない
+<br>
+・行vectorの<a href="#span-out-mat">抜け要素</a>を自動で埋める<a href="#span-out-eqns">式変数</a>last_ttを次に定義する
+<br>
+clear; last_tt(A)=&lt;(trans(trans(A)))[sizer(A)-1][sizec(A)-1]; A=(1,2:3,4); last_tt(=&lt;A) -> 4
+<br>
+・<a href="#span-out-BT-square">行列要素参照の角括弧[]</a>も同様に、<a href="#span-out-bracket">scope</a>を持つ
+<br>
+A=(1,2:3,(,:,4),5); last(A) -> 4
+<br>
+A=(1,2:3,(,:,4),5); last(trans(trans(A))) -> 0
+<br>
+A=(1,2:3,last(,:,4),5); last(A) -> 5
+<br>
+A=(1,2:3,(,:,4),5); last_tt(=&lt;A) -> 0
+<br>
+A=(1,2:3,last_tt(=&lt;(,:,4)),5); last_tt(=&lt;A) -> 5
+<br>
+A4=(,:,4); A=(1,2:3,last_tt(=&lt;A4),5); last_tt(=&lt;A) -> 5
+<br>
+A4=(,:,4); A=(1,2:3,A4,5) ->
+<br>
+(
+<br>
+1,2:
+<br>
+3,0,0,5:
+<br>
+0,0,4
+<br>
+)
+<br>
+ttA=trans(trans(A)) ->
+<br>
+(
+<br>
+1,2,0,0:
+<br>
+3,0,0,5:
+<br>
+0,0,4,0
+<br>
+)
+<br>
+sizer(A)-sizer(ttA),sizer(A) -> (0,3)
+<br>
+sizec(A)-sizec(ttA),sizec(A),size(A) -> (0,4,4)
     </td>
   </tr>
   <tr>
