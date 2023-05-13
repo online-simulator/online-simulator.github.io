@@ -26953,9 +26953,9 @@ b={-f[i]}
 <br>
 ・求解して得られたdx（解の修正vector）から近似解を修正する
 <br>
-・f||dxが<a href="#span-out-FNm">zeros-vector</a>に収束すれば反復を終了する
+・f||dxが<a href="#span-out-FNm">zeros-vector</a>に収束するまで近似解の修正を反復する
 <br>
-・fが線形な場合、本来、反復1回で厳密解に収束するため、収束が速い
+・fが線形な場合、即座に解付近に飛ぶため、収束が速い（本来、反復1回で厳密解に収束）
 <br>
 <br>
 上記の反復1回の処理をまとめた<a href="#span-out-FNmh-newtonian">Newton高階行列関数</a>について記述する
