@@ -13165,7 +13165,7 @@ A={1,2,3,4:5,6,7,8}; scalars(sizer(A),2)*A || A*scalars(sizec(A),2) || <span cla
 <br>
 ・<a href="#span-out-FNm-trans">転置行列関数</a>を使用
 <br>
-N=10; z=1+i; A=htrans(scalars(N,z))identity(N)scalars(N,z); A ||
+N=10; z=1+i; A=htrans(scalars(N,z))identity(N)scalars(N,z); A ->
 <br>
 N=10; z=1+i; A=scalars(N,z)identity(N)htrans(scalars(N,z)); A ->
 <br>
@@ -14530,9 +14530,9 @@ A=A0; A[3][3][3] ->
 <br>
 ・対角要素の列vectorを<a href="#span-out-reference-mat-col">列参照</a>
 <br>
-A=A0; (A[-1][0][1])[<span class="condition">e</span>][1] ||
+A=A0; (A[-1][0][1])[<span class="condition">e</span>][1] ->
 <br>
-A=A0; (A[0][0][0])[<span class="condition">e</span>][0] ||
+A=A0; (A[0][0][0])[<span class="condition">e</span>][0] ->
 <br>
 A=A0; A000=A[0][0][0]; A000[<span class="condition">e</span>][0] ->
 <br>
@@ -15072,7 +15072,7 @@ A=A0; A[-1][0][1]=(1,2,3); A[-1][0][1]=A[-1][0][1]; A ->
 <br>
 ・<a href="#span-out-reference-mat-band">band参照</a>で相対indexを交換する場合、意図とは異なる可能性あり
 <br>
-A=A0; A[-1][0][1]=(1,2,3); A[-1][0][1]=A[1][0][-1]; A ||
+A=A0; A[-1][0][1]=(1,2,3); A[-1][0][1]=A[1][0][-1]; A ->
 <br>
 A=A0; A[-1][0][1]=(1,2,3); A[1][0][-1]=A[-1][0][1]; A ->
 <br>
@@ -16217,7 +16217,9 @@ clear; [a=&lt;b,b=1,=&lt;a=&gt;]=&gt; -> 1
 <br>
 ・let宣言の挙動を以下に比較して示す
 <br>
-(function(){let a=()=&gt;b; let c=a(); let b=3; return c;})();  <span class="selection">// ES6</span> ||
+(function(){let a=()=&gt;b; let c=a(); let b=3; return c;})();  <span class="selection">// ES6</span>
+<br>
+-> Cannot access 'b' before initialization
 <br>
 let b=-1; (function(){let a=()=&gt;b; let c=a(); let b=3; return c;})();  <span class="selection">// ES6</span>
 <br>
