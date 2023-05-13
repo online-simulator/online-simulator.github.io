@@ -542,6 +542,8 @@ e^(-i(1pi(){2/2i}(5-{3-1}){i/(-4)}))
 <br>
 　　　・<a href="#span-out-ODE4">周期</a>
 <br>
+　・<a href="#span-out-method-Newton">Newton法</a>
+<br>
 　・<a href="#span-out-linear">連立線形方程式</a>
 <br>
 　・<a href="#span-out-inverse">逆行列</a>
@@ -818,8 +820,6 @@ ja.m.wikipedia.org/wiki/項目を列挙する
 <br>
 ・疎行列
 <br>
-・ヤコビ行列
-<br>
 ・行列の乗法
 <br>
 ・内積
@@ -827,6 +827,10 @@ ja.m.wikipedia.org/wiki/項目を列挙する
 ・直積_(ベクトル)
 <br>
 ・クロス積
+<br>
+・ヤコビ行列
+<br>
+・ニュートン法
 <br>
 ・ガウスの消去法
 <br>
@@ -18370,7 +18374,7 @@ norm(mdx)/norm({x0,x1}) -> infoLost[ri] 3.6879601533907295e-16
 <span id="span-out-FNh-DX"></span>
 微分高階関数
 <br>
-・連続関数のdummy変数微分位置における微分係数を数値的に演算して返す
+・連続関数のdummy変数微分位置における微分係数を<a href="#span-out-fdm">有限差分法</a>で数値的に演算して返す
 <br>
 ・精度優先で微分位置に応じた<a href="#span-out-error">情報落ち</a>を対策する
 <br>
@@ -18709,7 +18713,7 @@ x -> (1.000000000000009+O(3e-5):0.9999999999999909+O(3e-5))
 <span id="span-out-FNh-IX"></span>
 積分高階関数
 <br>
-・連続関数のdummy変数積分範囲[a,b]における定積分を数値的に演算して返す
+・連続関数のdummy変数積分範囲[a,b]における定積分を<a href="#span-out-fdm">有限差分法</a>で数値的に演算して返す
 <br>
 ・<a href="#span-out-error-numerical">数値誤差</a>O(dxI^4以上)を含み、演算結果に<a href="#span-out-error-numerical">目安の解析誤差</a>を表示する
 <br>
@@ -18926,7 +18930,7 @@ Jacobi
 <span id="span-out-FNmh-jacobian"></span>
 Jacobi高階行列関数
 <br>
-・Jacobi行列を数値的に演算して返す
+・Jacobi行列を<a href="#span-out-fdm">有限差分法</a>で数値的に演算して返す
 <br>
 ・数値的安定性・収束性を最優先
 <br>
@@ -19287,7 +19291,7 @@ ODE
 <span id="span-out-FNmh-OX"></span>
 ODE高階行列関数
 <br>
-・dummy変数を媒介する常微分方程式の1step定積分を数値的に演算して返す
+・dummy変数を媒介する常微分方程式の1step定積分を<a href="#span-out-fdm">有限差分法</a>で数値的に演算して返す
 <br>
 ・<a href="#span-out-error-numerical">数値誤差</a>O(dt^4以上)を含み、演算結果に<a href="#span-out-error-numerical">目安の解析誤差</a>を表示する
 <br>
@@ -26912,6 +26916,71 @@ T=360; round(T/{1,2,4,5,7,8,9,11,12,13,16,20,22,25,28,32,33,42,60,72,99,108,360}
 目次
 </a>
 <br>
+Newton法
+    </th>
+    <td>
+<span id="span-out-method-Newton"></span>
+Newton法について記述する
+<br>
+<br>
+連立方程式{f[i]}=0の解法を一般化する
+<br>
+・近似解の列vector{x}の各要素を表す添字をjとする
+<br>
+・方程式の列vector{f}の各要素を表す添字をiとする
+<br>
+・方程式の全微分dfを次のtensorで表記する
+<br>
+{df[i]}=(df[i]/dx[j]){dx[j]}
+<br>
+・左辺の全微分を単純に仮定すると（<a href="#span-out-FNmh-jacobian">Jacobi高階行列関数</a>に高精度を求めない理由）
+<br>
+{df[i]}={0-f[i]}
+<br>
+・Ax=bの連立線形方程式に一般化されたNewton法が導出される
+<br>
+・ここで、<a href="#span-out-type-ope">前置単項</a>の符号は<a href="#span-out-FNm">Scalar倍</a>||<a href="#span-out-FNm">zeros行列</a>との差||和で定義される
+<br>
+(df[i]/dx[j]){dx[j]}={-f[i]}
+<br>
+A=(df[i]/dx[j])
+<br>
+x={dx[j]}
+<br>
+b={-f[i]}
+<br>
+・Jacobi行列Aがfull-rankであれば求解の必要十分条件を満たす
+<br>
+・求解して得られたdx（解の修正vector）から近似解を修正する
+<br>
+・f||dxが<a href="#span-out-FNm">zeros-vector</a>に収束すれば反復を終了する
+<br>
+・fが線形な場合、本来、反復1回で厳密解に収束するため、収束が速い
+<br>
+<br>
+上記の反復1回の処理をまとめた<a href="#span-out-FNmh-newtonian">Newton高階行列関数</a>について記述する
+<br>
+・<a href="#span-out-FNm">Scalar倍</a>の符号位置を変えて次の連立線形方程式を<a href="#span-out-linear">Gaussの消去法</a>で解く
+<br>
+A=(df[i]/dx[j])
+<br>
+x={-dx[j]}
+<br>
+b={f[i]}
+<br>
+・ここで、Jacobi行列Aは解析的に陰の前提で<a href="#span-out-FNmh-jacobian">Jacobi高階行列関数</a>から得る
+<br>
+・最後に、符号付の解の修正vectorをmdxとして近似解のvectorを一度に修正する
+<br>
+x=x-mdx
+    </td>
+  </tr>
+  <tr>
+    <th>
+<a href="#span-index">
+目次
+</a>
+<br>
 連立
 <br>
 線形方程式
@@ -27189,58 +27258,8 @@ x1 -> infoLost[ri] 4.499999999999999+6.466216308756395e-26i
 <br>
 ・その場合、近似解は厳密解にほぼ一致する
 <br>
-・線形方程式の場合、即座に解付近に飛ぶため、収束が速い
 <br>
-<br>
-上記の線形・非線形の連立方程式を一般化する解法について記述する
-<br>
-・近似解の列vector{x}の各要素を表す添字をjとする
-<br>
-・方程式の列vector{f}の各要素を表す添字をiとする
-<br>
-・これより方程式の全微分dfを次のtensorで表記する
-<br>
-{df[i]}=(df[i]/dx[j]){dx[j]}
-<br>
-・左辺の全微分を単純に仮定すると（Jacobi行列に高精度を求めない理由）
-<br>
-{df[i]}={0-f[i]}
-<br>
-・Ax=bの連立線形方程式に一般化されたNewton法が導出される
-<br>
-・ここで、<a href="#span-out-type-ope">前置単項</a>の符号は<a href="#span-out-FNm">Scalar倍</a>||<a href="#span-out-FNm">zeros行列</a>との差||和で定義される
-<br>
-(df[i]/dx[j]){dx[j]}={-f[i]}
-<br>
-A=(df[i]/dx[j])
-<br>
-x={dx[j]}
-<br>
-b={-f[i]}
-<br>
-・Jacobi行列Aがfull-rankであれば求解の必要十分条件を満たす
-<br>
-・求解して得られたdx（解の修正vector）を用いて近似解を修正する
-<br>
-<br>
-上記の反復1回の処理をまとめた<a href="#span-out-FNmh-newtonian">Newton高階行列関数</a>について記述する
-<br>
-・<a href="#span-out-FNm">Scalar倍</a>の符号位置を変えて次の連立線形方程式を直接法で解く
-<br>
-A=(df[i]/dx[j])
-<br>
-x={-dx[j]}
-<br>
-b={f[i]}
-<br>
-・さらに、得られた符号付の解の修正vectorをmdxとして
-<br>
-・近似解のvectorを一度に修正する（local変数を上書きする）
-<br>
-x=x-mdx
-<br>
-<br>
-以上より、反復1回の処理を簡潔にまとめる
+<a href="#span-out-FNmh-newtonian">Newton高階行列関数</a>を使用して反復1回の処理を簡潔にまとめる
 <br>
 clear;
 <br>
