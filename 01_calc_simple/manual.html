@@ -10862,6 +10862,8 @@ csv-formatの入力仕様と付随する留意事項について記述する
 <br>
 ・<span class="run">Ver.2.142.36</span>以降、実数値の大規模csv入力に対応
 <br>
+・<span class="jF">Ver.2.143.36</span>以降、<a href="#span-out-BT">括弧</a>なしのformatに対応
+<br>
 <br>
 次の不具合を回避するため、<a href="#span-out-flow">parse</a>段階で<a href="#span-in-tree">単位tree構造</a>のarrに変換する
 <br>
@@ -10872,45 +10874,63 @@ Out of Memory
 <br>
 csv-formatを次に示す
 <br>
-{実数値,実数値,...}
+<span class="jF">実数値,実数値,...,実数値</span>
 <br>
-(実数値,実数値,...)
+{<span class="condition">実数値,実数値,...,実数値</span>}
 <br>
-[実数値,実数値,...]
+(<span class="condition">実数値,実数値,...,実数値</span>)
+<br>
+[<span class="condition">実数値,実数値,...,実数値</span>]
+<br>
+・<span class="condition">formatの適用範囲</span>
 <br>
 <br>
 test caseを示す
 <br>
-xt={0,1,2,3,4,5,6,7,8,9}; xt -> (0:1:2:3:4:5:6:7:8:9)
+<span class="jF">0,1,2,3,4,5,6,7,8,9</span> -> (0,1,2,3,4,5,6,7,8,9)
 <br>
-xt=(0,1,2,3,4,5,6,7,8,9); xt -> (0,1,2,3,4,5,6,7,8,9)
+xt={<span class="condition">0,1,2,3,4,5,6,7,8,9</span>}; xt -> (0:1:2:3:4:5:6:7:8:9)
 <br>
-xt=[0,1,2,3,4,5,6,7,8,9]; xt -> (0,1,2,3,4,5,6,7,8,9)
+xt=(<span class="condition">0,1,2,3,4,5,6,7,8,9</span>); xt -> (0,1,2,3,4,5,6,7,8,9)
 <br>
-xt=trans(0,1,2,3,4,5,6,7,8,9); xt -> (0:1:2:3:4:5:6:7:8:9)
+xt=[<span class="condition">0,1,2,3,4,5,6,7,8,9</span>]; xt -> (0,1,2,3,4,5,6,7,8,9)
 <br>
-xt={1e-1,2.2e+2,0xff}; xt -> (0.1:220:255)
+xt=trans(<span class="condition">0,1,2,3,4,5,6,7,8,9</span>); xt -> (0:1:2:3:4:5:6:7:8:9)
 <br>
-・<a href="#span-out-mat">抜け要素</a>は0
-<br>
-(,,,) -> (0,0,0,0)
+xt={<span class="condition">1e-1,2.2e+2,0xff</span>}; xt -> (0.1:220:255)
 <br>
 ・<a href="#span-out-com">複素数</a>vectorに変換する場合
 <br>
-zr={0,1,2,3}; zi={0,1,2,3}; z=zr+(zi)i; z -> (0:1+i:2+2i:3+3i)
+zr={<span class="condition">0,1,2,3</span>}; zi={<span class="condition">0,1,2,3</span>}; z=zr+(zi)i; z -> (0:1+i:2+2i:3+3i)
+<br>
+・<a href="#span-out-mat">抜け要素</a>は0
+<br>
+<span class="jF">,1,</span> -> (0,1,0)
+<br>
+(<span class="condition">,,,</span>) -> (0,0,0,0)
+<br>
+・多重列挙の場合
+<br>
+(,,(<span class="condition">1,2,3</span>),,(,,(<span class="condition">4,5,6</span>),,),,) -> (0,0,<span class="condition">1,2,3</span>,0,0,0,<span class="condition">4,5,6</span>,0,0,0,0)
+<br>
+・実数値以外を含む場合
+<br>
+(,,(<span class="condition">1,2,3</span>),,(,,(4i,5,6),,),,) -> (0,0,<span class="condition">1,2,3</span>,0,0,0,4i,5,6,0,0,0,0)
+<br>
+(,,(<span class="condition">1,2,3</span>),,(,,(z=i,5z,6),,),,) -> (0,0,<span class="condition">1,2,3</span>,0,0,0,0,5i,6,0,0,0,0)
 <br>
 <br>
 留意事項を列挙する
 <br>
-・1重列挙の<a href="#span-out-BT">括弧</a>が必須（formatの範囲指定用）
+<del>・1重列挙の<a href="#span-out-BT">括弧</a>が必須（<span class="condition">formatの適用範囲</span>の判別用）</del><span class="jF">Ver.2.143.36</span>以降、不要
 <br>
 ・csv要素は実数値のみ対応
 <br>
-・任意の要素数を入力可（<a href="#span-out-FNm">行列関数</a>のmatSizeMax制限とは無関係）
+・任意の要素数の時系列dataを入力可（<a href="#span-out-FNm">行列関数</a>のmatSizeMax制限とは無関係）
 <br>
-・全要素が実数値の場合、要素数上限のOrder(10000)
+・全要素が実数値の場合、<a href="#span-out-BT">括弧</a>内の要素数上限=Order(10000)
 <br>
-・要素が実数値以外を含む場合、要素数上限のOrder(100)
+・要素が実数値以外を含む場合、<a href="#span-out-BT">括弧</a>内の要素数上限=Order(100)
     </td>
   </tr>
   <tr>
@@ -16339,11 +16359,11 @@ clear; [a=&lt;b,b=1,=&lt;a=&gt;]=&gt; -> 1
 <br>
 -> Cannot access 'b' before initialization
 <br>
+clear; [a=&lt;b,c=a=&gt;,b=1,=&lt;c]=&gt; -> [MyErr]Invalid REv(b)
+<br>
 let b=-1; (function(){let a=()=&gt;b; let c=a(); let b=3; return c;})();  <span class="selection">// ES6</span>
 <br>
 -> Cannot access 'b' before initialization
-<br>
-clear; [a=&lt;b,c=a=&gt;,b=1,=&lt;c]=&gt; -> [MyErr]Invalid REv(b)
 <br>
 clear; b=-1; [a=&lt;b,c=a=&gt;,b=1,=&lt;c]=&gt;  <span class="selection">// not hoisted</span> -> -1
 <br>

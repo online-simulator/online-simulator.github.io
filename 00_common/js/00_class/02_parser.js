@@ -317,6 +317,13 @@ My_entry.parser.prototype.make_trees = function(sentence, re){
   var DATA = self.entry.DATA;
   var tokens = sentence.match(re);
   if(!(tokens)) throw "Invalid null string";  // Ver.2.25.13
+  /* Ver.2.143.36 -> */
+  var tree_csv = self.check_csv(sentence, "");
+  if(tree_csv){
+    _trees.push(tree_csv);
+    tokens.length = 0;
+  }
+  /* -> Ver.2.143.36 */
   for(var i=0, len_i=tokens.length; i<len_i; ++i){
     var i_next = i;
     var tree = undefined;
