@@ -10887,7 +10887,9 @@ csv-formatを次に示す
 <br>
 test caseを示す
 <br>
-<span class="jF">0,1,2,3,4,5,6,7,8,9</span> -> (0,1,2,3,4,5,6,7,8,9)
+<span class="jF">0,1,2,3,4,5,6,7,8,9</span>; xt=ans; xt -> (0,1,2,3,4,5,6,7,8,9)
+<br>
+<span class="jF">0,1,2,3,4,5,6,7,8,9</span>; xt=trans(ans); xt -> (0:1:2:3:4:5:6:7:8:9)
 <br>
 xt={<span class="condition">0,1,2,3,4,5,6,7,8,9</span>}; xt -> (0:1:2:3:4:5:6:7:8:9)
 <br>
@@ -10908,6 +10910,18 @@ zr={<span class="condition">0,1,2,3</span>}; zi={<span class="condition">0,1,2,3
 <span class="jF">,1,</span> -> (0,1,0)
 <br>
 (<span class="condition">,,,</span>) -> (0,0,0,0)
+<br>
+[(<span class="condition">,,,</span>)] -> (0,0,0,0)
+<br>
+((<span class="condition">,,,</span>)) -> (0,0,0,0)
+<br>
+{(<span class="condition">,,,</span>)} -> (0,0,0,0)
+<br>
+xt={<span class="condition">,,,</span>}; {xt} -> (0:0:0:0)
+<br>
+xt={<span class="condition">,,,</span>}; (xt) -> (0:0:0:0)
+<br>
+xt={<span class="condition">,,,</span>}; [xt] -> (0:0:0:0)
 <br>
 ・多重列挙の場合
 <br>
