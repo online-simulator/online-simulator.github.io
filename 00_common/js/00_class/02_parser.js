@@ -204,6 +204,42 @@ My_entry.parser.prototype.check_varName = function(token, re){
   }
   return _tree;
 };
+/* Ver.2.142.36 */
+My_entry.parser.prototype.check_csv = function(str_tokens, tagName){
+  var self = this;
+  var _tree = null;
+  var SYNTAX = self.config.SYNTAX;
+  var DATA = self.entry.DATA;
+  var sc = str_tokens.split(",");
+  var len_n = sc.length;
+  var isCsv = (len_n > 1);  // not index
+  var hasEmpty = false;
+  for(var n=0; n<len_n; ++n){
+    var scn = sc[n];
+    hasEmpty = hasEmpty || (scn === "");
+    var num = Number(scn || 0);
+    sc[n] = num;
+    isCsv = isCsv && !(isNaN(num));
+  }
+  if(isCsv){
+    var isVectorc = (tagName === SYNTAX.tagNames["{"]);
+    var arr = [];
+    for(var n=0; n<len_n; ++n){
+      var i = 0;
+      var j = 0;
+      if(isVectorc){
+        i = n;
+      }
+      else{
+        j = n;
+      }
+      arr[i] = arr[i] || [];
+      arr[i][j] = DATA.num(sc[n], 0);
+    }
+    _tree = DATA.tree_mat(arr);
+  }
+  return _tree;
+};
 My_entry.parser.prototype.compare2bs = function(token, re){
   var self = this;
   var _tree = null;
@@ -294,7 +330,7 @@ My_entry.parser.prototype.make_trees = function(sentence, re){
       var ip_s = i;
       if(ip_e-(ip_s+1)){  // () removed
         var str_tokens = tokens.slice(ip_s+1, ip_e).join("");
-        tree = DATA.tree_tag(tagName, self.make_trees(str_tokens, re));
+        tree = self.check_csv(str_tokens, tagName) || DATA.tree_tag(tagName, self.make_trees(str_tokens, re));  // Ver.2.142.36
       }
     }
     else if(tagName){
