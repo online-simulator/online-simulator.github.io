@@ -328,6 +328,10 @@ e^(-i(1pi(){2/2i}(5-{3-1}){i/(-4)}))
 <br>
 　・<a href="#span-out-plot2d-command">plot2d-command</a>
 <br>
+　　・<a href="#span-out-plot2d-command-from-log">plot2d-from-log</a>
+<br>
+　　・<a href="#span-out-plot2d-command-from-arr">plot2d-from-arr</a>
+<br>
 　　・<a href="#span-out-csv-format">csv-format</a>
 <br>
 　・<a href="#span-out-comment">comment文</a>
@@ -1822,7 +1826,7 @@ panel中段について記述する
 <br>
 　<span class="run">Ver.2.50.25</span>以降、plot2d(xt,yt)のtextを挿入する</del>
 <br>
-・<span class="run">Ver.2.140.36</span>以降、plot2d(xt,yt)-buttonは任意の<a href="#span-out-vars-symbol">変数名symbol</a>を入力して<a href="#span-out-plot2d-command">plot2d-from-arr</a>を実行する
+・<span class="run">Ver.2.140.36</span>以降、plot2d(xt,yt)-buttonは任意の<a href="#span-out-vars-symbol">変数名symbol</a>を入力して<a href="#span-out-plot2d-command-from-arr">plot2d-from-arr</a>を実行する
 <br>
 ・&lt;&lt;-buttonは入力欄の選択位置を最初に移動する
 <br>
@@ -10396,18 +10400,36 @@ Graphing Calculator's plot2d-commandの入力仕様について記述する
 <br>
 以下2種類のplot2d-commandは操作panel中段のtext入力欄から実行する
 <br>
-plot2d('t0','t1','xt','yt')
+<a href="#span-out-plot2d-command-from-log">plot2d('t0','t1','xt','yt')</a>
 <br>
-plot2d(xt,yt)
+<a href="#span-out-plot2d-command-from-arr">plot2d(xt,yt)</a>
 <br>
 ・plot2d-command最優先で他の実行文は破棄other sentences ignored
 <br>
 ・plot-button実行中の割込み不可
+    </td>
+  </tr>
+  <tr>
+    <th>
+<a href="#span-index">
+目次
+</a>
+<br>
+plot2d
+<br>
+-from-log
+<br>
+入力仕様
+    </th>
+    <td>
+<span id="span-out-plot2d-command-from-log"></span>
+plot2d-from-logの入力仕様について記述する
 <br>
 <br>
-csv/history-txtに記録されるlogからplot2d-commandを実行する場合
+csv/history-txtに記録されるlogからplot2d-commandを実行する
 <br>
-・plot2d-from-logのformatを次に示す
+<br>
+plot2d-from-logのformatを次に示す
 <br>
 plot2d('t0','t1','xt','yt')
 <br>
@@ -10444,9 +10466,26 @@ plot2d(
 'circle<span class="selection">/*marker*/</span>;'
 <br>
 )
+    </td>
+  </tr>
+  <tr>
+    <th>
+<a href="#span-index">
+目次
+</a>
+<br>
+plot2d
+<br>
+-from-arr
+<br>
+入力仕様
+    </th>
+    <td>
+<span id="span-out-plot2d-command-from-arr"></span>
+plot2d-from-arrの入力仕様について記述する
 <br>
 <br>
-時系列dataからplot2d-commandを実行する場合
+時系列dataからplot2d-commandを実行する
 <br>
 ・<span class="run">Ver.2.129.35</span>以降、各(x,y)の<a href="#span-out-FNm-size">行size</a>を独立化
 <br>
@@ -10454,7 +10493,8 @@ plot2d(
 <br>
 　svg出力時、<a href="#span-out-mat">抜け要素</a>=NaN
 <br>
-・plot2d-from-arrのformatを次に示す
+<br>
+plot2d-from-arrのformatを次に示す
 <br>
 plot2d
 <br>
