@@ -10827,6 +10827,8 @@ csv-formatの入力仕様と付随する留意事項について記述する
 <br>
 Maximum call stack size exceeded
 <br>
+Out of Memory
+<br>
 <br>
 csv-formatを次に示す
 <br>
@@ -10858,9 +10860,13 @@ xt={1e-1,2.2e+2,0xff}; xt -> (0.1:220:255)
 <br>
 ・1重列挙の<a href="#span-out-BT">括弧</a>が必須（formatの範囲指定用）
 <br>
-・csv要素は実数のみ対応
+・csv要素は実数値のみ対応
 <br>
 ・任意の要素数を入力可（<a href="#span-out-FNm">行列関数</a>のmatSizeMax制限とは無関係）
+<br>
+・全要素が実数値の場合、要素数上限のOrder(10000)
+<br>
+・要素が実数値以外を含む場合、要素数上限のOrder(100)
     </td>
   </tr>
   <tr>
