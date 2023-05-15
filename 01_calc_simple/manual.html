@@ -350,6 +350,8 @@ e^(-i(1pi(){2/2i}(5-{3-1}){i/(-4)}))
 <br>
 　・<a href="#span-out-RW">予約語</a>
 <br>
+　・<a href="#span-out-num">実数値</a>
+<br>
 　・<a href="#span-out-FN0">定数</a>
 <br>
 　・<a href="#span-out-BRmo">記号省略乗算</a>
@@ -1311,7 +1313,7 @@ title/発行元(発行年)を列挙する
 <br>
 　入力演算内容case1 || 入力演算内容case2 -> 出力演算結果
 <br>
-・誤差のOrderをLandauの記号O(指数表記1e-16等)で表記する
+・誤差のOrderをLandauの記号O(<a href="#span-out-num">指数表記</a>1e-16等)で表記する
 <br>
 ・vector||行列の成分を要素と表記する
 <br>
@@ -1649,7 +1651,7 @@ panel中段について記述する
 <br>
 　小数表記: 0.1
 <br>
-　指数表記: 1e-1 -> 0.1
+　<a href="#span-out-num">指数表記</a>: 1e-1 -> 0.1
 <br>
 <br>
 panel下段について記述する
@@ -7933,7 +7935,7 @@ max(x=3,-1,-2) || max(0,-1,-2) -> 0
 (x=(1,2:3,4)) -> 0
 <br>
 <br>
-詳細は<a href="#span-out-special">特殊仕様</a>参照
+詳細は<a href="#span-out-special-substitution">特殊仕様</a>参照
     </td>
   </tr>
   <tr>
@@ -8008,7 +8010,7 @@ RA選択
 ・符号の左側には0||<a href="#span-out-FNm">zeros行列</a>が存在すると仮定して結合する
 <br>
 <br>
-詳細は<a href="#span-out-special">特殊仕様</a>参照
+詳細は<a href="#span-out-special-sign">特殊仕様</a>参照
     </td>
   </tr>
   <tr>
@@ -10860,7 +10862,7 @@ csv-format
 <span id="span-out-csv-format"></span>
 csv-formatの入力仕様と付随する留意事項について記述する
 <br>
-・<span class="run">Ver.2.142.36</span>以降、実数値の大規模csv入力に対応
+・<span class="run">Ver.2.142.36</span>以降、<a href="#span-out-num">実数値</a>の大規模csv入力に対応
 <br>
 ・<span class="jF">Ver.2.143.36</span>以降、<a href="#span-out-BT">括弧</a>なしのformatに対応
 <br>
@@ -10899,11 +10901,19 @@ xt=[<span class="condition">0,1,2,3,4,5,6,7,8,9</span>]; xt -> (0,1,2,3,4,5,6,7,
 <br>
 xt=trans(<span class="condition">0,1,2,3,4,5,6,7,8,9</span>); xt -> (0:1:2:3:4:5:6:7:8:9)
 <br>
-xt={<span class="condition">1e-1,2.2e+2,0xff</span>}; xt -> (0.1:220:255)
-<br>
 ・<a href="#span-out-com">複素数</a>vectorに変換する場合
 <br>
 zr={<span class="condition">0,1,2,3</span>}; zi={<span class="condition">0,1,2,3</span>}; z=zr+(zi)i; z -> (0:1+i:2+2i:3+3i)
+<br>
+・<a href="#span-out-type-ope">前置単項</a>の符号を含む場合
+<br>
+zr={<span class="condition">0,1,2,3</span>}; zi={<span class="condition">-0,-1,-2,-3</span>}; z=zr+(zi)i; z -> (0:1-i:2-2i:3-3i)
+<br>
+・<a href="#span-out-RW">operand記号</a>を含む場合
+<br>
+xt={<span class="condition">+0.0,-1e-1,+2.2e+2,-012.345e+6,0xff,0x00</span>}; xt -> (0:-0.1:220:-12345000:255:0)
+<br>
+xt={+0.0,-1e-1,+2.2e+2,-012.345e+6,+0xff,-0x00}; xt -> (0:-0.1:220:-12345000:255:0)
 <br>
 ・<a href="#span-out-mat">抜け要素</a>は0
 <br>
@@ -10927,7 +10937,7 @@ xt={<span class="condition">,,,</span>}; [xt] -> (0:0:0:0)
 <br>
 (,,(<span class="condition">1,2,3</span>),,(,,(<span class="condition">4,5,6</span>),,),,) -> (0,0,<span class="condition">1,2,3</span>,0,0,0,<span class="condition">4,5,6</span>,0,0,0,0)
 <br>
-・実数値以外を含む場合
+・<a href="#span-out-num">実数値</a>以外を含む場合
 <br>
 (,,(<span class="condition">1,2,3</span>),,(,,(4i,5,6),,),,) -> (0,0,<span class="condition">1,2,3</span>,0,0,0,4i,5,6,0,0,0,0)
 <br>
@@ -10938,13 +10948,13 @@ xt={<span class="condition">,,,</span>}; [xt] -> (0:0:0:0)
 <br>
 <del>・1重列挙の<a href="#span-out-BT">括弧</a>が必須（<span class="condition">formatの適用範囲</span>の判別用）</del><span class="jF">Ver.2.143.36</span>以降、不要
 <br>
-・csv要素は実数値のみ対応
+・csv要素は<a href="#span-out-num">実数値</a>のみ対応
 <br>
 ・任意の要素数の時系列dataを入力可（<a href="#span-out-FNm">行列関数</a>のmatSizeMax制限とは無関係）
 <br>
-・全要素が実数値の場合、<a href="#span-out-BT">括弧</a>内の要素数上限=Order(10000)
+・全要素が<a href="#span-out-num">実数値</a>の場合、<a href="#span-out-BT">括弧</a>内の要素数上限=Order(10000)
 <br>
-・要素が実数値以外を含む場合、<a href="#span-out-BT">括弧</a>内の要素数上限=Order(100)
+・要素が<a href="#span-out-num">実数値</a>以外を含む場合、<a href="#span-out-BT">括弧</a>内の要素数上限=Order(100)
     </td>
   </tr>
   <tr>
@@ -11719,11 +11729,11 @@ clear; 3*[a=2,a]; a -> [MyErr]Invalid REv(a)
 <br>
 　・<a href="#span-out-ans">予約変数</a>
 <br>
-　・10進数値小数
+　・<a href="#span-out-num">実数値</a>の10進数値小数点.
 <br>
-　・10進数値指数
+　・<a href="#span-out-num">実数値</a>の10進数値指数e
 <br>
-　・16進数値0x
+　・<a href="#span-out-num">実数値</a>の16進数値0x
 <br>
 <br>
 予約語の規則を列挙する
@@ -11743,6 +11753,81 @@ max=&lt;3 -> [MyErr]Invalid BTe([object Object])
 <br>
 予約語の一覧は<a href="#span-in-FN">内部仕様</a>参照
    </td>
+  </tr>
+  <tr>
+    <th>
+<a href="#span-index">
+目次
+</a>
+<br>
+実数値
+<br>
+入力仕様
+    </th>
+    <td>
+<span id="span-out-num"></span>
+実数値の入力仕様と付随する留意事項について記述する
+<br>
+<br>
+実数値を定義する
+<br>
+・built-inの<a href="#span-out-number">Number</a>関数が数値と認識する文字列
+<br>
+<br>
+test caseを列挙する
+<br>
+123 -> 123
+<br>
+-123 -> -123
+<br>
+・0開始の場合
+<br>
+0123 -> 123
+<br>
+-0123 -> -123
+<br>
+・10進数値小数
+<br>
+0.123 -> 0.123
+<br>
+-0.123 -> -0.123
+<br>
+・10進数値指数
+<br>
+0123e0 -> 123
+<br>
+0123e+1 -> 1230
+<br>
+-0123e-2 -> -1.23
+<br>
+0.123e+1 -> 1.23
+<br>
+-0.123e-2 -> -0.00123
+<br>
+-0123.4e+5 -> -12340000
+<br>
+・16進数値（符号なし）
+<br>
+0x0 -> 0
+<br>
+0x000 -> 0
+<br>
+0xf -> 15
+<br>
+0xfff -> 4095
+<br>
+・認識不可
+<br>
+-0x00 || -(0x00) -> 0
+<br>
+-0xff || -(0xff) -> -255
+<br>
+0x0e+1 || (0x0e)+1 -> 15
+<br>
+0x0.0 -> [MyErr]Invalid ans isFound
+<br>
+00x0 -> [MyErr]Invalid ans isFound
+    </td>
   </tr>
   <tr>
     <th>
@@ -11775,7 +11860,7 @@ PI() || pi || 2acos(0) || 2asin(1) || 4atan(1) -> 3.141592653589793
 E() || e || e^1 || exp(1) ||  -> 2.718281828459045
 <br>
 <br>
-eは指数と区別するため、空括弧()を付ける方が間違いが少ない
+eは<a href="#span-out-num">指数表記</a>と区別するため、空括弧()を付ける方が間違いが少ない
 <br>
 2e-1 || 2E-1 -> 0.2
 <br>
@@ -11814,7 +11899,7 @@ pi=3 || pi()=3 || =3-pi -> -0.14159265358979312
 3.141592653589793=3 || =3-3.141592653589793 -> -0.14159265358979312
 <br>
 <br>
-詳細は<a href="#span-out-special">特殊仕様</a>参照
+詳細は<a href="#span-out-special-equal">特殊仕様</a>参照
     </td>
   </tr>
   <tr>
@@ -16084,7 +16169,7 @@ clear; x=2,3x -> (0,6)
 clear; x=2:3x -> (0:6)
 <br>
 <br>
-詳細は<a href="#span-out-special">特殊仕様</a>参照
+詳細は<a href="#span-out-special-substitution">特殊仕様</a>参照
 <br>
 <br>
 代入のnestingを許容する
@@ -16952,7 +17037,7 @@ clear; x=&lt;2,3x -> (0,6)
 clear; x=&lt;2:3x -> (0:6)
 <br>
 <br>
-詳細は<a href="#span-out-special">特殊仕様</a>参照
+詳細は<a href="#span-out-special-substitution">特殊仕様</a>参照
 <br>
 <br>
 式変数を式代入可
@@ -30554,7 +30639,7 @@ data.logo -> "makeLog=true"
 ・isDIVprior2OMUL: <a href="#span-out-BRmo">記号省略乗算</a>より除算を優先するflag
 <br>
 <br>
-・expDigit: 演算結果を表示する指数表記の桁数（<span class="clear"><a href="#span-out-config">裏設定</a>は無効</span>）
+・expDigit: 演算結果を表示する<a href="#span-out-num">指数表記</a>の桁数（<span class="clear"><a href="#span-out-config">裏設定</a>は無効</span>）
 <br>
 <br>
 ・<a href="#span-out-config">checkError</a>: <a href="#span-out-error">情報落ち</a>の発生や微分・積分の<a href="#span-out-error-numerical">数値誤差</a>を評価するflag

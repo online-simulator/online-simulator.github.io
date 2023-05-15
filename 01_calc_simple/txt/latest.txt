@@ -1,6 +1,74 @@
 clear
 local storage cleared
 
+xt-xt_csv/*csv-format test case*/
+(
+0:
+0:
+0:
+0:
+0:
+0:
+0:
+0:
+0:
+0:
+0:
+0:
+0:
+0:
+0:
+0
+)
+
+(xt[0]=123,xt[1]=-123,xt[2]=0123,xt[3]=-0123,xt[4]=0.123,xt[5]=-0.123,xt[6]=0123e0,xt[7]=0123e+1,xt[8]=-0123e-2,xt[9]=0.123e+1,xt[10]=-0.123e-2,xt[11]=-0123.4e+5,xt[12]=0x0,xt[13]=0x000,xt[14]=0xf,xt[15]=0xfff)
+(
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+)
+
+xt=vectorc(sizer(xt_csv))
+xt=(
+0:
+0:
+0:
+0:
+0:
+0:
+0:
+0:
+0:
+0:
+0:
+0:
+0:
+0:
+0:
+0
+)
+
+xt_csv={123,-123,0123,-0123,0.123,-0.123,0123e0,0123e+1,-0123e-2,0.123e+1,-0.123e-2,-0123.4e+5,0x0,0x000,0xf,0xfff}
+xt_csv=(
+123:
+-123:
+123:
+-123:
+0.123:
+-0.123:
+123:
+1230:
+-1.23:
+1.23:
+-0.00123:
+-12340000:
+0:
+0:
+15:
+4095
+)
+
+clear
+local storage cleared
+
 size(identity(2.3)),size(identity(2.5)),size(identity(2^3))
 (
 2,3,8
@@ -583,4 +651,4 @@ drag=false&sw=false&0x=false&useComplex=true&useMatrix=true&isRightAssociativity
 --------------------------------
 --------------------------------
 
-online-simulator.github.io.6.196.88.12.44 @ Sun May 14 2023 23:02:58 GMT+0900 (日本標準時) @ Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/113.0.0.0 Safari/537.36
+online-simulator.github.io.6.196.88.12.44 @ Mon May 15 2023 13:55:15 GMT+0900 (日本標準時) @ Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/113.0.0.0 Safari/537.36
