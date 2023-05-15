@@ -112,7 +112,7 @@ e^(-i(1pi(){2/2i}(5-{3-1}){i/(-4)}))
   </tr>
   <tr>
     <td colspan="4">
-<a href="#span-out-ope">実数演算</a>不可（0*Infinity->NaN発生）
+<a href="#span-out-ope">実数演算</a>不可（0*Infinity-><a href="#span-out-num">NaN</a>発生）
     </td>
   </tr>
 </tbody>
@@ -10493,7 +10493,7 @@ plot2d-from-arrの入力仕様について記述する
 <br>
 　csv出力時、<a href="#span-out-mat">抜け要素</a>=undefined
 <br>
-　svg出力時、<a href="#span-out-mat">抜け要素</a>=NaN
+　svg出力時、<a href="#span-out-mat">抜け要素</a>=<a href="#span-out-num">NaN</a>
 <br>
 <br>
 plot2d-from-arrのformatを次に示す
@@ -10877,7 +10877,7 @@ Out of Memory
 <br>
 ・<span class="clear">Ver.2.144.36</span>以降、<a href="#span-out-flow">operation</a>段階の<a href="#span-in-options">depthMax</a>制限を追加（browser crashの2重対策）
 <br>
-実数値以外を含む大規模csv -> [MyErr]Nesting depthMax over
+<a href="#span-out-num">実数値</a>以外を含む大規模csv -> [MyErr]Nesting depthMax over
 <br>
 <br>
 csv-formatを次に示す
@@ -11739,7 +11739,7 @@ clear; 3*[a=2,a]; a -> [MyErr]Invalid REv(a)
 <br>
 　・<a href="#span-out-num">実数値</a>の10進数値指数e
 <br>
-　・<a href="#span-out-num">実数値</a>の16進数値0x
+　・<a href="#span-out-num">実数値</a>の16進数値接頭辞0x
 <br>
 <br>
 予約語の規則を列挙する
@@ -11775,9 +11775,9 @@ max=&lt;3 -> [MyErr]Invalid BTe([object Object])
 実数値の入力仕様と付随する留意事項について記述する
 <br>
 <br>
-実数値を定義する
+実数値の定義：<a href="#span-out-number">built-inのNumber関数</a>が数値と認識する文字列
 <br>
-・built-inの<a href="#span-out-number">Number</a>関数が数値と認識する文字列
+非数NaNの定義：同上の関数が数値と認識しない文字列
 <br>
 <br>
 test caseを列挙する
@@ -11822,13 +11822,17 @@ test caseを列挙する
 <br>
 0xfff -> 4095
 <br>
-・認識不可
+・非数NaN（演算を伴うため、実数値以外の判定）
 <br>
 -0x00 || -(0x00) -> 0
 <br>
 -0xff || -(0xff) -> -255
 <br>
 0x0e+1 || (0x0e)+1 -> 15
+<br>
+0x1e-2 || (0x1e)-2 -> 28
+<br>
+-0x1e2 || -(0x1e2) -> -482
 <br>
 0x0.0 -> [MyErr]Invalid ans isFound
 <br>
