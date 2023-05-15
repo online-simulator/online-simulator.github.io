@@ -15,6 +15,10 @@ My_entry.calc_simple.prototype.config = {
   /* Ver.2.22.11 */
   MAT: {
     sizeMax: 1000
+  },
+  /* Ver.2.144.36 */
+  LIMIT: {
+    depthMax: 300
   }
 };
 My_entry.calc_simple.prototype.init = function(){
@@ -106,6 +110,7 @@ My_entry.calc_simple.prototype.get_options = function(){
   if(_options.checkError !== false) _options.checkError = true;
   /* Ver.2.22.11 -> */
   _options.matSizeMax = (isNaN(_options.matSizeMax)? null: _options.matSizeMax) || self.config.MAT.sizeMax;
+  _options.depthMax = (isNaN(_options.depthMax)? null: _options.depthMax) || self.config.LIMIT.depthMax;  // Ver.2.144.36
   /* -> Ver.2.22.11 */
   return _options;
 };

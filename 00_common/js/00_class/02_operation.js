@@ -423,6 +423,11 @@ My_entry.operation.prototype.remake_trees = function(data){
 My_entry.operation.prototype.data2trees = function(data){
   var self = this;
   var depth = self.params.depth++;
+  /* Ver.2.144.36 -> */
+  if(depth > data.options.depthMax){
+    throw "Nesting depthMax over";
+  }
+  /* -> Ver.2.144.36 */
   data.trees = self.entry.def.newClone(data.trees);  // tree_eqn is re-used
   self.arr_precedence.forEach(function(tagName){
     self.callbacks[tagName](data);

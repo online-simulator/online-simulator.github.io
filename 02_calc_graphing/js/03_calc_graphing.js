@@ -15,6 +15,10 @@ My_entry.calc_graphing.prototype.config = {
   /* Ver.2.22.11 */
   MAT: {
     sizeMax: 1000
+  },
+  /* Ver.2.144.36 */
+  LIMIT: {
+    depthMax: 300
   }
 };
 My_entry.calc_graphing.prototype.init = function(){
@@ -504,6 +508,7 @@ My_entry.calc_graphing.prototype.get_options = function(isPlot){
   $.get_urlParams(_options);
   /* Ver.2.22.11 -> */
   _options.matSizeMax = (isNaN(_options.matSizeMax)? null: _options.matSizeMax) || self.config.MAT.sizeMax;
+  _options.depthMax = (isNaN(_options.depthMax)? null: _options.depthMax) || self.config.LIMIT.depthMax;  // Ver.2.144.36
   /* -> Ver.2.22.11 */
   /* Ver.2.11.4 */
   /* Ver.2.10.4 */
