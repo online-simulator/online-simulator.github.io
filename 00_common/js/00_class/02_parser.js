@@ -98,6 +98,9 @@ My_entry.parser.prototype.config = {
       // logical AND: "BRlA"
       // logical  OR: "BRlO"
       "=": "BRe"  // x+3=1 -> x=1-3 prior to substitution
+    },
+    word: {
+      prifix: ((Number("0b0") === 0 && Number("0o0") === 0)? /^0[xXbBoO]/: /^0[xX]/)  // Ver.2.146.37
     }
   }
 };
@@ -201,6 +204,16 @@ My_entry.parser.prototype.check_varName = function(token, re){
     else{
       throw "Invalid "+token+" called";
     }
+  }
+  return _tree;
+};
+/* Ver.2.146.37 */
+My_entry.parser.prototype.check_varName_prifix = function(token, re){
+  var self = this;
+  var _tree = null;
+  var SYNTAX = self.config.SYNTAX;
+  if(token.match(SYNTAX.word.prifix)){
+    throw "Invalid varName("+token+")";
   }
   return _tree;
 };
@@ -659,6 +672,9 @@ My_entry.parser.prototype.make_trees = function(sentence, re){
         /* Ver.2.24.12 -> */
         if(self.entry.operation.config.isEscaped(token)){
           self.check_varName(token.substring(1), re);
+        }
+        else{
+          self.check_varName_prifix(token, re);  // Ver.2.146.37
         }
         /* -> Ver.2.24.12 */
         tree = DATA.tree_tag("REv", token);

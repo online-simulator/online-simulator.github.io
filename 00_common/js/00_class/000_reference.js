@@ -26,7 +26,12 @@ My_entry.reference.prototype.fn2url = function(fn){
 // to 01_calc_simple 02_calc_graphing
 My_entry.reference.prototype.get_pattern_token = function(){
   var self = this;
-  return /0(?:[xX][0-9a-fA-F]+)|\d+(?:\.\d+)?(?:[eE][+-]?\d+)?|[-+\/%*=&|^~<>!?:,;@()\\[\].{}]|[^\s+\/%*=&|^~<>!?:,;@()\\[\].{}'"-]+/;
+  var useES6 = (Number("0b0") === 0 && Number("0o0") === 0);
+  var re = (useES6)?
+//   0(?:[xX][0-9a-fA-F]+)|0(?:[bB][0-1]+)|0(?:[oO][0-7]+)
+    /0(?:[xXbBoO][0-9a-zA-Z]+)|\d+(?:\.\d+)?(?:[eE][+-]?\d+)?|[-+\/%*=&|^~<>!?:,;@()\\[\].{}]|[^\s+\/%*=&|^~<>!?:,;@()\\[\].{}'"-]+/:
+    /0(?:[xX][0-9a-zA-Z]+)|\d+(?:\.\d+)?(?:[eE][+-]?\d+)?|[-+\/%*=&|^~<>!?:,;@()\\[\].{}]|[^\s+\/%*=&|^~<>!?:,;@()\\[\].{}'"-]+/;
+  return re;
 };
 
 // rewish.hatenadiary.org/entry/20100427/1272296260

@@ -1423,6 +1423,10 @@ title/発行元(発行年)を列挙する
 ・<span class="run">Ver.2.88.32</span>以降、定義できない<a href="#span-out-prec-ope">乗算||減算||加算</a>を<a href="#span-out-ope-extended">拡張行列演算</a>に追加
 <br>
 ・<span class="run">Ver.2.127.34</span>以降、<a href="#span-out-reference-mat-size">行列size</a>の丸め方を変更floor　⇒　round
+<br>
+・<span class="clear">Ver.2.146.37</span>以降、<a href="#span-out-RW">接頭辞</a>判定の正規表現を修正
+<br>
+　ECMAScript6対応環境の場合、2進数と8進数の<a href="#span-out-RW">接頭辞</a>を追加
     </td>
   </tr>
   <tr>
@@ -1806,7 +1810,9 @@ panel上段について記述する
 <br>
 ・sw checked時、push/pop入力と直接入力を切替え可
 <br>
-・0x checked時、16進数のa-f-buttonを追加表示
+・<span class="clear">Ver.2.146.37</span>以降、ECMAScript6対応環境の場合、2進数の0b-buttonと8進数の0o-buttonを追加表示
+<br>
+・0x checked時、16進数の0x-buttonとa-f-buttonを追加表示
 <br>
 ・complex checked時、<a href="#span-out-com">虚数単位</a>i-buttonを追加表示
 <br>
@@ -11801,6 +11807,35 @@ clear; 3*[a=2,a]; a -> [MyErr]Invalid REv(a)
 <br>
 　・<a href="#span-out-num">実数値</a>の16進数値接頭辞0x
 <br>
+　・<a href="#span-out-num">実数値</a>の2進数値接頭辞<span class="run">0b</span>　<span class="clear">Ver.2.146.37</span>以降、ECMAScript6対応環境の場合
+<br>
+　・<a href="#span-out-num">実数値</a>の8進数値接頭辞<span class="run">0o</span>　<span class="clear">Ver.2.146.37</span>以降、ECMAScript6対応環境の場合
+<br>
+<br>
+<span class="clear">Ver.2.146.37</span>以降、接頭辞を判定する正規表現を修正して次に示す
+<br>
+0(?:[xX<span class="run">bBoO</span>][0-9a-<span class="clear">z</span>A-<span class="clear">Z</span>]+)
+<br>
+・<a href="#span-out-BRmo">記号省略乗算</a>を許容した弊害への対策
+<br>
+<del>0(?:[xX][0-9a-fA-F]+)|0(?:[bB][0-1]+)|0(?:[oO][0-7]+)</del>
+<br>
+・test caseを列挙する
+<br>
+<span class="clear">clear; ($0x0g)=1 -> [MyErr]Invalid varName(0x0g)</span>
+<br>
+<del>0b013 || </del>(0b01)3 -> 3
+<br>
+0b011 -> 3
+<br>
+0o17 -> 15
+<br>
+clear; 0b02 -> [MyErr]Invalid varName(0b02)
+<br>
+clear; 0b0f -> [MyErr]Invalid varName(0b0f)
+<br>
+clear; ($0o18)=3; -> [MyErr]Invalid varName(0o18)
+<br>
 <br>
 予約語の規則を列挙する
 <br>
@@ -16411,6 +16446,20 @@ clear; ($max)=(2) -> [MyErr]Invalid max called
 clear; ($$max)=(2) -> [MyErr]Invalid max called
 <br>
 clear; ($$$max)=(2) -> [MyErr]Invalid max called
+<br>
+clear; $0xf -> [MyErr]Invalid 0xf called
+<br>
+clear; ($0xf)=1 -> [MyErr]Invalid 0xf called
+<br>
+・<span class="clear">Ver.2.146.37</span>以降、<a href="#span-out-RW">接頭辞</a>を含む変数への代入不可
+<br>
+<del>clear; ($0xg)=1 -> stored_var(0xg)</del>
+<br>
+<del>clear; ($0x0g)=1 -> stored_var(0x0g)</del>
+<br>
+clear; ($0xg)=1 -> [MyErr]Invalid varName(0xg)
+<br>
+clear; ($0x0g)=1 -> [MyErr]Invalid varName(0x0g)
 <br>
 <br>
 <span class="run">Ver.2.29.15</span>以降、代入のnestingを許容する
@@ -31278,6 +31327,9 @@ parser.js抜粋
         /* Ver.2.24.12 -> */
         if(self.entry.operation.config.isEscaped(token)){
           self.check_varName(token.substring(1), re);
+        }
+        else{
+          self.check_varName_prifix(token, re);  // Ver.2.146.37
         }
         /* -> Ver.2.24.12 */
         tree = DATA.tree_tag("REv", token);
