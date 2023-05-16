@@ -440,6 +440,10 @@ e^(-i(1pi(){2/2i}(5-{3-1}){i/(-4)}))
 <br>
 　・<a href="#span-out-vars">変数</a>
 <br>
+　　・<a href="#span-out-vars-rule1">変数への代入規則</a>
+<br>
+　　・<a href="#span-out-vars-rule2">変数の命名規則</a>
+<br>
 　　・<a href="#span-out-vars-symbol">変数名symbol</a>
 <br>
 　　・<a href="#span-out-ans">予約変数</a>
@@ -16072,6 +16076,61 @@ x=2; x -> 2
 x=2; x=4; x -> 4
 <br>
 x=2; x=2x; x -> 4
+    </td>
+  </tr>
+  <tr>
+    <th>
+<a href="#span-index">
+目次
+</a>
+<br>
+変数への
+<br>
+代入規則
+    </th>
+    <td>
+<span id="span-out-vars-rule1"></span>
+変数への代入規則と付随する留意事項について記述する
+<br>
+<br>
+変数への代入規則を列挙する
+<br>
+・代入する変数の左側に数値や演算子を置けない
+<br>
+clear; 2x=3 -> [MyErr]Invalid ans isFound
+<br>
+clear; 3+x=4 -> [MyErr]Invalid binary operation
+<br>
+・値のみ代入可
+<br>
+clear; x=1; x -> 1
+<br>
+clear; x=(1,2); x -> (1,2)
+<br>
+clear; a=1; b=2; c=a+b; c -> 3
+<br>
+・未定義変数の代入不可
+<br>
+clear; a=1; c=a+b; c -> [MyErr]Invalid binary operation
+<br>
+clear; x=y(z) -> [MyErr]Invalid ans isFound
+<br>
+・未定義変数を含む場合、<a href="#span-out-eqns">式変数</a>を使用
+    </td>
+  </tr>
+  <tr>
+    <th>
+<a href="#span-index">
+目次
+</a>
+<br>
+変数の
+<br>
+命名規則
+    </th>
+    <td>
+<span id="span-out-vars-rule2"></span>
+変数の命名規則と付随する留意事項について記述する
 <br>
 <br>
 変数の命名規則を列挙する
@@ -16150,7 +16209,7 @@ symbol
 ・<a href="#span-out-BT">括弧</a>より関数優先の場合
 <br>
 <br>
-<span class="run">Ver.2.32.17</span>以降、すべての変数名symbolは<a href="#span-out-vars">変数の命名規則</a>に準拠
+<span class="run">Ver.2.32.17</span>以降、すべての変数名symbolは<a href="#span-out-vars-rule2">変数の命名規則</a>に準拠
 <br>
 delVar($x) -> [MyErr]Invalid REv($x)
 <br>
@@ -16208,21 +16267,6 @@ Jacobi(=&lt;{2x^2},=&lt;{$x},=&lt;{1}) -> [MyErr]Invalid REv($x)
     <td>
 <span id="span-out-substitution"></span>
 変数への代入の入力仕様と付随する留意事項について記述する
-<br>
-<br>
-変数への値の代入規則を列挙する
-<br>
-・代入する変数の左側に数値や演算子を置けない
-<br>
-clear; 2x=3 -> [MyErr]Invalid ans isFound
-<br>
-clear; 3+x=4 -> [MyErr]Invalid binary operation
-<br>
-・未定義変数の代入不可
-<br>
-clear; x=y(z) -> [MyErr]Invalid ans isFound
-<br>
-・このような場合、<a href="#span-out-eqns">式変数</a>を使用する
 <br>
 <br>
 代入を<a href="#span-out-BT">括弧</a>で括った場合、0を返す
@@ -16304,7 +16348,7 @@ clear; ($a,{$b,3})=(1,{2,$c}); (a,{b,c}) -> (1,2:0,3)
 clear; $a=-1; ($a)=1 || (-1)=1 || =1-(-1) -> 2
 <br>
 clear; ($a)=1; a -> 1
-</del><span class="clear">Ver.2.27.15</span>以降、<a href="#span-out-vars">変数の命名規則</a>で対策済み
+</del><span class="clear">Ver.2.27.15</span>以降、<a href="#span-out-vars-rule2">変数の命名規則</a>で対策済み
 <br>
 ・$でescapeしない場合、error終了
 <br>
@@ -16373,7 +16417,7 @@ clear; ($a,(($b,($c)=4)=(,3)))=(1,2); (a,b,c) -> (1,0,4)
 clear; ($a,(($b,($c)={,4})=(,3)))=(1,2); (a,b,c) -> (1,0,0)
 <br>
 <br>
-<span class="clear">Ver.2.30.16</span>以降、<a href="#span-out-vars">変数の命名規則</a>に準拠
+<span class="clear">Ver.2.30.16</span>以降、<a href="#span-out-vars-rule2">変数の命名規則</a>に準拠
 <br>
 ($$a)=1 -> [MyErr]Invalid SEv($a)
 <br>
@@ -16692,7 +16736,7 @@ y=&lt;a*x+b; -> stored_eqn(y)
 <br>
 x=&lt;; x -> [MyErr]Invalid =&lt;null
 <br>
-・式変数は<a href="#span-out-vars">変数の命名規則</a>に準拠
+・式変数は<a href="#span-out-vars-rule2">変数の命名規則</a>に準拠
 <br>
 $a=&lt;1 -> [MyErr]Invalid SEe($a)
 <br>
@@ -17815,7 +17859,7 @@ clear; a(max)=&lt;max*2; a()=&gt; || max*2 -> [MyErr]Invalid binary operation
 <br>
 clear; a(max)=&lt;2; a()=&gt; || a()=&lt;2; a()=&gt; || a=&lt;2; a=&gt; -> 2
 <br>
-・argumentsの<a href="#span-out-vars-symbol">変数名symbol</a>は<a href="#span-out-vars">変数の命名規則</a>に準拠
+・argumentsの<a href="#span-out-vars-symbol">変数名symbol</a>は<a href="#span-out-vars-rule2">変数の命名規則</a>に準拠
 <br>
 clear; a($b)=&lt;$b*2 -> [MyErr]Invalid REv($b)
     </td>
@@ -18280,7 +18324,7 @@ x=-1; y=-2; _sy(=&lt;{_sx(=&lt;{x+y},0,y)},0,2); x+y -> -3
 <br>
 _sn(,is=0,:,ie=10,:=&lt;{n},is,ie) -> 55
 <br>
-・dummy変数は<a href="#span-out-vars">変数の命名規則</a>に準拠
+・dummy変数は<a href="#span-out-vars-rule2">変数の命名規則</a>に準拠
 <br>
 _smax(=&lt;{0},1,2) -> [MyErr]Invalid max called
 <br>
@@ -19702,7 +19746,7 @@ clear; _ex(=&lt;{x},2,0) -> [MyErr]Invalid matrix size
 clear; _ex(=&lt;{x},2) -> [MyErr]Invalid EX arguments
 <br>
 <br>
-<span class="run">Ver.2.29.15</span>以降、<a href="#span-out-vars">変数の命名規則</a>に準拠
+<span class="run">Ver.2.29.15</span>以降、<a href="#span-out-vars-rule2">変数の命名規則</a>に準拠
 <br>
 _ex(=&lt;{$x},2,2) -> [MyErr]Invalid REv($x)
 <br>
