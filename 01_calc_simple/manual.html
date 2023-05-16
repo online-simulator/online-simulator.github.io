@@ -154,6 +154,18 @@ e^(-i(1pi(){2/2i}(5-{3-1}){i/(-4)}))
 <br>
 ・<a href="#span-out-pre">前提</a>
 <br>
+・<a href="#span-out-spec-history">変更履歴</a>
+<br>
+　・<a href="#span-out-spec-changed-history">演算仕様変更履歴</a>
+<br>
+　・<a href="#span-out-ope-extended-history">拡張履歴</a>
+<br>
+　・<a href="#span-out-spec-limited-history">制限追加履歴</a>
+<br>
+　・<a href="#span-out-spec-optimized-history">最適化履歴</a>
+<br>
+　・<a href="#span-out-UI-graphing-changed-history">plot仕様変更履歴</a>
+<br>
 ・<a href="#span-out-development">開発環境</a>
 <br>
 ・<a href="#span-out-system">動作test環境</a>
@@ -166,13 +178,13 @@ e^(-i(1pi(){2/2i}(5-{3-1}){i/(-4)}))
 <br>
 　・<a href="#span-out-browsers-ie">Internet Explorer非対応の機能</a>
 <br>
+　・<a href="#span-out-spec-Python">Pythonとの相違</a>
+<br>
 ・操作UI
 <br>
 　・<a href="#span-out-UI-simple">Simple Calculator</a>
 <br>
 　・<a href="#span-out-UI-graphing">Graphing Calculator</a>
-<br>
-　　・<a href="#span-out-UI-graphing-changed-history">plot仕様変更履歴</a>
 <br>
 　　・<a href="#span-out-UI-graphing-color-space">color空間</a>
 <br>
@@ -303,12 +315,6 @@ e^(-i(1pi(){2/2i}(5-{3-1}){i/(-4)}))
 ・<a href="#span-out-ope">演算仕様</a>
 <br>
 　・<a href="#span-out-ope-extended">拡張行列演算</a>
-<br>
-　　・<a href="#span-out-ope-extended-history">拡張履歴</a>
-<br>
-　　・<a href="#span-out-spec-changed-history">演算仕様変更履歴</a>
-<br>
-　　・<a href="#span-out-spec-Python">Pythonとの相違</a>
 <br>
 ・<a href="#span-out-types">型の種類</a>
 <br>
@@ -1338,6 +1344,165 @@ title/発行元(発行年)を列挙する
 目次
 </a>
 <br>
+変更履歴
+    </th>
+    <td>
+<span id="span-out-spec-history"></span>
+変更履歴の項目を列挙する
+<br>
+・<a href="#span-out-spec-changed-history">演算仕様変更履歴</a>
+<br>
+・<a href="#span-out-ope-extended-history">拡張履歴</a>
+<br>
+・<a href="#span-out-spec-limited-history">制限追加履歴</a>
+<br>
+・<a href="#span-out-spec-optimized-history">最適化履歴</a>
+<br>
+・<a href="#span-out-UI-graphing-changed-history">plot仕様変更履歴</a>
+    </td>
+  </tr>
+  <tr>
+    <th>
+<a href="#span-index">
+目次
+</a>
+<br>
+演算仕様
+<br>
+変更履歴
+    </th>
+    <td>
+<span id="span-out-spec-changed-history"></span>
+演算仕様変更履歴について記述する
+<br>
+<br>
+演算結果の後方互換性を失う仕様変更/影響項目を列挙する
+<br>
+・<span class="run">Ver.2.31.17</span>以降、<a href="#span-out-scope-vars">変数のscope</a>を追加
+<br>
+　<a href="#span-out-BT-square">角括弧[]</a>
+<br>
+　<a href="#span-out-config">裏設定</a>
+<br>
+・<span class="run">Ver.2.32.17</span>以降、<a href="#span-out-eqns-args">式変数のarguments</a>を追加
+<br>
+　<a href="#span-out-BRmo">記号省略乗算</a>
+<br>
+・<span class="run">Ver.2.73.29</span>以降、<a href="#span-out-ope-extended">拡張行列演算</a>を追加
+<br>
+　<span class="clear">本来、定義できない<a href="#span-out-mat">行列</a>演算</span>
+<br>
+・<span class="run">Ver.2.79.31</span>以降、<a href="#span-out-reference-mat-col">列参照</a>と<a href="#span-out-substitution-mat-col">列代入</a>の行index=-1　⇒　<span class="condition"><a href="#span-out-FN0">Napier数e</a></span>
+<br>
+　<span class="run">Ver.2.76.29</span>以降、<a href="#span-out-reference-mat-col">列参照</a>
+<br>
+　<span class="run">Ver.2.76.29</span>以降、<a href="#span-out-substitution-mat-col">列代入</a>
+<br>
+　<span class="run">Ver.2.78.31</span>以降、<a href="#span-out-reference-mat-elem">要素参照</a>の<span class="selection">反転機能</span>
+<br>
+　<span class="run">Ver.2.78.31</span>以降、<a href="#span-out-substitution-mat-elem">要素代入</a>の<span class="selection">反転機能</span>
+<br>
+　<a href="#span-out-transform-dwt-col">離散Wavelet変換の解法（列代入）</a>
+<br>
+　<a href="#span-eqn-DWT2d_xy">strict-mode式変数list</a>
+<br>
+・<span class="run">Ver.2.87.32</span>以降、一部の<a href="#span-out-prec-ope">演算子</a>||<a href="#span-out-FN">関数</a>を<span class="run">Python</span>に準拠
+<br>
+　<a href="#span-out-prec-ope">べき乗演算子**</a>を<a href="#span-out-associativity">右結合</a>に変更（^演算子は変更なし）
+<br>
+　<a href="#span-out-prec-ope">整数商演算子%%</a>を追加（//演算子の代替）
+<br>
+　<a href="#span-out-prec-ope-arithmetic-mod">剰余・整数商</a>の<a href="#span-out-prec-ope">演算子のprecedence</a>を<a href="#span-out-prec-ope-arithmetic">除算||乗算</a>に統合
+<br>
+　<a href="#span-out-FN-int">int関数</a>を0側に丸める仕様に変更（floor関数は変更なし）
+<br>
+・<span class="run">Ver.2.88.32</span>以降、定義できない<a href="#span-out-prec-ope">乗算||減算||加算</a>を<a href="#span-out-ope-extended">拡張行列演算</a>に追加
+<br>
+・<span class="run">Ver.2.127.34</span>以降、<a href="#span-out-reference-mat-size">行列size</a>の丸め方を変更floor　⇒　round
+    </td>
+  </tr>
+  <tr>
+    <th>
+<a href="#span-index">
+目次
+</a>
+<br>
+拡張履歴
+    </th>
+    <td>
+<span id="span-out-ope-extended-history"></span>
+<a href="#span-out-ope-extended">拡張行列演算</a>の拡張履歴を列挙する
+<br>
+・<a href="#span-out-FN">関数の引数vector</a>の場合
+<br>
+最終行vector　⇒　<span class="run">Ver.2.73.29</span>以降、各行vectorに拡張
+<br>
+・<a href="#span-out-type-ope">演算子のoperand</a>の場合
+<br>
+最終行vector　⇒　<span class="run">Ver.2.73.29</span>以降、各行vectorに拡張（<a href="#span-out-option4">comma演算子</a>を適用）
+<br>
+　　　　　　　⇒　<span class="run">Ver.2.74.29</span>以降、各要素に拡張（<a href="#span-out-option4">comma演算子</a>使用を選択可）
+<br>
+・<span class="run">Ver.2.88.32</span>以降、定義できない<a href="#span-out-prec-ope">乗算||減算||加算</a>を拡張対象に追加
+    </td>
+  </tr>
+  <tr>
+    <th>
+<a href="#span-index">
+目次
+</a>
+<br>
+制限追加履歴
+    </th>
+    <td>
+<span id="span-out-spec-limited-history"></span>
+制限追加履歴を列挙する
+<br>
+・<span class="clear">Ver.2.144.36</span>以降、<a href="#span-out-flow">operation</a>段階の<a href="#span-in-options">depthMax</a>制限を追加（browser crashの2重対策）
+    </td>
+  </tr>
+  <tr>
+    <th>
+<a href="#span-index">
+目次
+</a>
+<br>
+最適化履歴
+    </th>
+    <td>
+<span id="span-out-spec-optimized-history"></span>
+最適化履歴を列挙する
+<br>
+・<span class="run">Ver.2.142.36</span>以降、<a href="#span-out-num">実数値</a>の大規模csv入力に対応
+    </td>
+  </tr>
+  <tr>
+    <th>
+<a href="#span-index">
+目次
+</a>
+<br>
+plot仕様
+<br>
+変更履歴
+    </th>
+    <td>
+<span id="span-out-UI-graphing-changed-history"></span>
+<a href="#span-out-UI-graphing">Graphing Calculator</a>のplot仕様変更履歴を列挙する
+<br>
+・<span class="run">Ver.2.33.17</span>以降、正式release
+<br>
+　後方互換性のため、<a href="#span-in-options">内部option</a>を追加
+<br>
+・<span class="run">Ver.2.86.32</span>以降、plot範囲を微調整
+    </td>
+  </tr>
+  <tr>
+    <th>
+<a href="#span-index">
+目次
+</a>
+<br>
 開発環境
     </th>
     <td>
@@ -1582,6 +1747,30 @@ IE非対応の機能/原因を列挙する
 ・<a href="#span-out-UI-graphing-config">bg-image-file</a>
 <br>
 　描画更新時、SCRIPT5022: SecurityError
+    </td>
+  </tr>
+  <tr>
+    <th>
+<a href="#span-index">
+目次
+</a>
+<br>
+Python
+<br>
+との相違
+    </th>
+    <td>
+<span id="span-out-spec-Python"></span>
+Pythonとの相違について記述する
+<br>
+<br>
+相違点を列挙する
+<br>
+・<a href="#span-out-type-ope">前置単項演算子</a>の<a href="#span-out-prec-ope">符号のprecedence</a>
+<br>
+3+-3 -> [MyErr]Invalid binary operation
+<br>
+3**-3 -> [MyErr]Invalid binary operation
     </td>
   </tr>
   <tr>
@@ -1867,27 +2056,6 @@ panel中段について記述する
 <br>
 <br>
 panel下段は<a href="#span-out-UI-simple">Simple Calculator UI</a>参照
-    </td>
-  </tr>
-  <tr>
-    <th>
-<a href="#span-index">
-目次
-</a>
-<br>
-plot仕様
-<br>
-変更履歴
-    </th>
-    <td>
-<span id="span-out-UI-graphing-changed-history"></span>
-plot仕様変更履歴を列挙する
-<br>
-・<span class="run">Ver.2.33.17</span>以降、正式release
-<br>
-　後方互換性のため、<a href="#span-in-options">内部option</a>を追加
-<br>
-・<span class="run">Ver.2.86.32</span>以降、plot範囲を微調整
     </td>
   </tr>
   <tr>
@@ -9990,118 +10158,6 @@ round_f(=&lt;f,,2) -> (1:0.7+0.71i:i:-0.7+0.71i:-1:-0.7-0.71i:-i:0.7-0.71i)
 目次
 </a>
 <br>
-拡張履歴
-    </th>
-    <td>
-<span id="span-out-ope-extended-history"></span>
-拡張行列演算の拡張履歴について記述する
-<br>
-<br>
-<a href="#span-out-ope-extended">拡張行列演算</a>の拡張履歴を示す
-<br>
-・<a href="#span-out-FN">関数の引数vector</a>の場合
-<br>
-最終行vector　⇒　<span class="run">Ver.2.73.29</span>以降、各行vectorに拡張
-<br>
-・<a href="#span-out-type-ope">演算子のoperand</a>の場合
-<br>
-最終行vector　⇒　<span class="run">Ver.2.73.29</span>以降、各行vectorに拡張（<a href="#span-out-option4">comma演算子</a>を適用）
-<br>
-　　　　　　　⇒　<span class="run">Ver.2.74.29</span>以降、各要素に拡張（<a href="#span-out-option4">comma演算子</a>使用を選択可）
-<br>
-・<span class="run">Ver.2.88.32</span>以降、定義できない<a href="#span-out-prec-ope">乗算||減算||加算</a>を拡張対象に追加
-    </td>
-  </tr>
-  <tr>
-    <th>
-<a href="#span-index">
-目次
-</a>
-<br>
-演算仕様
-<br>
-変更履歴
-    </th>
-    <td>
-<span id="span-out-spec-changed-history"></span>
-演算仕様変更履歴について記述する
-<br>
-<br>
-演算結果の後方互換性を失う仕様変更/影響項目を列挙する
-<br>
-・<span class="run">Ver.2.31.17</span>以降、<a href="#span-out-scope-vars">変数のscope</a>を追加
-<br>
-　<a href="#span-out-BT-square">角括弧[]</a>
-<br>
-　<a href="#span-out-config">裏設定</a>
-<br>
-・<span class="run">Ver.2.32.17</span>以降、<a href="#span-out-eqns-args">式変数のarguments</a>を追加
-<br>
-　<a href="#span-out-BRmo">記号省略乗算</a>
-<br>
-・<span class="run">Ver.2.73.29</span>以降、<a href="#span-out-ope-extended">拡張行列演算</a>を追加
-<br>
-　<span class="clear">本来、定義できない<a href="#span-out-mat">行列</a>演算</span>
-<br>
-・<span class="run">Ver.2.79.31</span>以降、<a href="#span-out-reference-mat-col">列参照</a>と<a href="#span-out-substitution-mat-col">列代入</a>の行index=-1　⇒　<span class="condition"><a href="#span-out-FN0">Napier数e</a></span>
-<br>
-　<span class="run">Ver.2.76.29</span>以降、<a href="#span-out-reference-mat-col">列参照</a>
-<br>
-　<span class="run">Ver.2.76.29</span>以降、<a href="#span-out-substitution-mat-col">列代入</a>
-<br>
-　<span class="run">Ver.2.78.31</span>以降、<a href="#span-out-reference-mat-elem">要素参照</a>の<span class="selection">反転機能</span>
-<br>
-　<span class="run">Ver.2.78.31</span>以降、<a href="#span-out-substitution-mat-elem">要素代入</a>の<span class="selection">反転機能</span>
-<br>
-　<a href="#span-out-transform-dwt-col">離散Wavelet変換の解法（列代入）</a>
-<br>
-　<a href="#span-eqn-DWT2d_xy">strict-mode式変数list</a>
-<br>
-・<span class="run">Ver.2.87.32</span>以降、一部の<a href="#span-out-prec-ope">演算子</a>||<a href="#span-out-FN">関数</a>を<span class="run">Python</span>に準拠
-<br>
-　<a href="#span-out-prec-ope">べき乗演算子**</a>を<a href="#span-out-associativity">右結合</a>に変更（^演算子は変更なし）
-<br>
-　<a href="#span-out-prec-ope">整数商演算子%%</a>を追加（//演算子の代替）
-<br>
-　<a href="#span-out-prec-ope-arithmetic-mod">剰余・整数商</a>の<a href="#span-out-prec-ope">演算子のprecedence</a>を<a href="#span-out-prec-ope-arithmetic">除算||乗算</a>に統合
-<br>
-　<a href="#span-out-FN-int">int関数</a>を0側に丸める仕様に変更（floor関数は変更なし）
-<br>
-・<span class="run">Ver.2.88.32</span>以降、定義できない<a href="#span-out-prec-ope">乗算||減算||加算</a>を<a href="#span-out-ope-extended">拡張行列演算</a>に追加
-<br>
-・<span class="run">Ver.2.127.34</span>以降、<a href="#span-out-reference-mat-size">行列size</a>の丸め方を変更floor　⇒　round
-    </td>
-  </tr>
-  <tr>
-    <th>
-<a href="#span-index">
-目次
-</a>
-<br>
-Python
-<br>
-との相違
-    </th>
-    <td>
-<span id="span-out-spec-Python"></span>
-Pythonとの相違について記述する
-<br>
-<br>
-相違点を列挙する
-<br>
-・<a href="#span-out-type-ope">前置単項演算子</a>の<a href="#span-out-prec-ope">符号のprecedence</a>
-<br>
-3+-3 -> [MyErr]Invalid binary operation
-<br>
-3**-3 -> [MyErr]Invalid binary operation
-    </td>
-  </tr>
-  <tr>
-    <th>
-<a href="#span-index">
-目次
-</a>
-<br>
 型の種類
     </th>
     <td>
@@ -11777,7 +11833,7 @@ max=&lt;3 -> [MyErr]Invalid BTe([object Object])
 <br>
 実数値の定義：<a href="#span-out-number">built-inのNumber関数</a>が数値と認識する文字列
 <br>
-非数NaNの定義：同上の関数が数値と認識しない文字列
+非数NaNの定義：<a href="#span-out-number">built-inのNumber関数</a>が数値と認識しない文字列
 <br>
 <br>
 test caseを列挙する
@@ -11823,6 +11879,8 @@ test caseを列挙する
 0xfff -> 4095
 <br>
 ・非数NaN（演算を伴うため、実数値以外の判定）
+<br>
++0x00 || +(0x00) -> 0
 <br>
 -0x00 || -(0x00) -> 0
 <br>

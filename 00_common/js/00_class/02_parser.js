@@ -213,13 +213,16 @@ My_entry.parser.prototype.check_csv = function(str_tokens, tagName){
   var sc = str_tokens.split(",");
   var len_n = sc.length;
   var isCsv = (len_n > 1);  // not index
-  var hasEmpty = false;
+/* Ver.2.145.36 -> */
+if(isCsv){
+//  var hasNullStr = false;
   for(var n=0; n<len_n; ++n){
     var scn = sc[n];
-    hasEmpty = hasEmpty || (scn === "");
+//    hasNullStr = hasNullStr || (scn === "");
     var num = Number(scn || 0);
     sc[n] = num;
     isCsv = isCsv && !(isNaN(num));
+    if(!(isCsv)) break;  // Ver.2.145.36
   }
   if(isCsv){
     var isVectorc = (tagName === SYNTAX.tagNames["{"]);
@@ -238,6 +241,8 @@ My_entry.parser.prototype.check_csv = function(str_tokens, tagName){
     }
     _tree = DATA.tree_mat(arr);
   }
+}
+/* -> Ver.2.145.36 */
   return _tree;
 };
 My_entry.parser.prototype.compare2bs = function(token, re){
