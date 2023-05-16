@@ -10,7 +10,7 @@ My_entry.def.mix_in(My_entry.test_regexp, My_entry.original_main);
 
 My_entry.test_regexp.prototype.init = function(){
   var self = this;
-  self.init_main.call(self, ["$", ]);
+  self.init_main.call(self, ["$"]);
   return self;
 };
 My_entry.test_regexp.prototype.init_elems = function(){
