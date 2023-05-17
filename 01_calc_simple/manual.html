@@ -631,6 +631,8 @@ e^(-i(1pi(){2/2i}(5-{3-1}){i/(-4)}))
 <br>
 ・<a href="#span-in-FN">定義済みの関数・予約語</a>
 <br>
+・<a href="#span-in-re-prifix">接頭辞の正規表現</a>
+<br>
 <br>
 <a href="#span-eqn">strict-mode式変数list</a>
 <br>
@@ -1424,7 +1426,7 @@ title/発行元(発行年)を列挙する
 <br>
 ・<span class="run">Ver.2.127.34</span>以降、<a href="#span-out-reference-mat-size">行列size</a>の丸め方を変更floor　⇒　round
 <br>
-・<span class="clear">Ver.2.146.37</span>以降、<a href="#span-out-RW">接頭辞</a>判定の正規表現を修正
+・<span class="clear">Ver.2.146.37</span>以降、<a href="#span-out-RW">接頭辞</a>判定の<a href="#span-in-re-prifix">正規表現</a>を修正
 <br>
 　ECMAScript6対応環境の場合、2進数と8進数の<a href="#span-out-RW">接頭辞</a>を追加
     </td>
@@ -11812,31 +11814,6 @@ clear; 3*[a=2,a]; a -> [MyErr]Invalid REv(a)
 　・<a href="#span-out-num">実数値</a>の8進数値接頭辞<span class="run">0o</span>　<span class="clear">Ver.2.146.37</span>以降、ECMAScript6対応環境の場合
 <br>
 <br>
-<span class="clear">Ver.2.146.37</span>以降、接頭辞を判定する正規表現を修正して次に示す
-<br>
-0(?:[xX<span class="run">bBoO</span>][0-9a-<span class="clear">z</span>A-<span class="clear">Z</span>]+)
-<br>
-・<a href="#span-out-BRmo">記号省略乗算</a>を許容した弊害への対策
-<br>
-<del>0(?:[xX][0-9a-fA-F]+)|0(?:[bB][0-1]+)|0(?:[oO][0-7]+)</del>
-<br>
-・test caseを列挙する
-<br>
-<span class="clear">clear; ($0x0g)=1 -> [MyErr]Invalid varName(0x0g)</span>
-<br>
-<del>0b013 || </del>(0b01)3 -> 3
-<br>
-0b011 -> 3
-<br>
-0o17 -> 15
-<br>
-clear; 0b02 -> [MyErr]Invalid varName(0b02)
-<br>
-clear; 0b0f -> [MyErr]Invalid varName(0b0f)
-<br>
-clear; ($0o18)=3; -> [MyErr]Invalid varName(0o18)
-<br>
-<br>
 予約語の規則を列挙する
 <br>
 ・大文字・小文字・全角・半角を区別しない
@@ -11938,6 +11915,22 @@ test caseを列挙する
 0x0.0 -> [MyErr]Invalid ans isFound
 <br>
 00x0 -> [MyErr]Invalid ans isFound
+<br>
+・<span class="clear">Ver.2.146.37</span>以降、<a href="#span-out-RW">接頭辞</a>判定の<a href="#span-in-re-prifix">正規表現</a>を修正
+<br>
+0x0g -> [MyErr]Invalid varName(0x0g)
+<br>
+・<span class="clear">Ver.2.146.37</span>以降、2進数値（符号なし）
+<br>
+0b011 -> 3
+<br>
+0b02 -> [MyErr]Invalid varName(0b02)
+<br>
+・<span class="clear">Ver.2.146.37</span>以降、8進数値（符号なし）
+<br>
+0o17 -> 15
+<br>
+0b0f -> [MyErr]Invalid varName(0b0f)
 <br>
 <br>
 <a href="#span-out-number">built-inのNumber関数</a>の挙動を確認する場合、<a href="../69_number/index.html">Number変換</a>参照
@@ -16460,6 +16453,10 @@ clear; ($0xf)=1 -> [MyErr]Invalid 0xf called
 clear; ($0xg)=1 -> [MyErr]Invalid varName(0xg)
 <br>
 clear; ($0x0g)=1 -> [MyErr]Invalid varName(0x0g)
+<br>
+clear; ($0b18)=2 -> [MyErr]Invalid varName(0b18)
+<br>
+clear; ($0of)=3 -> [MyErr]Invalid varName(0of)
 <br>
 <br>
 <span class="run">Ver.2.29.15</span>以降、代入のnestingを許容する
@@ -31335,6 +31332,36 @@ parser.js抜粋
         tree = DATA.tree_tag("REv", token);
         break;
 </code></pre>
+    </td>
+  </tr>
+  <tr>
+    <th>
+<a href="#span-index">
+目次
+</a>
+<br>
+接頭辞の
+<br>
+正規表現
+    </th>
+    <td>
+<span id="span-in-re-prifix"></span>
+<a href="#span-out-RW">接頭辞</a>を判定する正規表現について記述する
+<br>
+<br>
+<span class="clear">Ver.2.146.37</span>以降、正規表現を修正
+<br>
+<del>0(?:[xX][0-9a-fA-F]+)</del>
+<br>
+0(?:[xX<span class="run">bBoO</span>][0-9a-<span class="clear">z</span>A-<span class="clear">Z</span>]+)
+<br>
+・厳密な正規表現は使用しない
+<br>
+<del>0(?:[xX][0-9a-fA-F]+)|0(?:[bB][0-1]+)|0(?:[oO][0-7]+)</del>
+<br>
+・<a href="#span-out-BRmo">記号省略乗算</a>を許容した弊害への対策
+<br>
+<del>0b013 || </del>(0b01)3 -> 3
     </td>
   </tr>
 </tbody>
