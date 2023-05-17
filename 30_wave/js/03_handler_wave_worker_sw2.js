@@ -230,7 +230,10 @@ My_entry.handler_wave.prototype.input2arr = function(input){
       0: "sin",
       1: "triangle",
       2: "square",
-      3: "sawtooth"
+      3: "sawtooth",
+      4: "sawtooth_rev",  // Ver.1.34.6
+      5: "sawtooth0",  // Ver.1.34.6
+      6: "sawtooth0_rev"  // Ver.1.34.6
     };
     var props0 = [
       "time",

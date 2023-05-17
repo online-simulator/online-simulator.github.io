@@ -51,15 +51,39 @@ My_entry.math_wave.prototype.square = function(freq, t, phi0, duty){
   }
   return _val;
 };
+/* Ver.1.34.6 -> */
 My_entry.math_wave.prototype.sawtooth = function(freq, t, phi0, duty){
   var self = this;
   var _val = 0;
   if(freq){
     var t = self.normalize_t.apply(self, arguments);
-    _val = -1+t*2;
+    _val = -1+t*2;  // -1~
   }
   return _val;
 };
+My_entry.math_wave.prototype.sawtooth_rev = function(freq, t, phi0, duty){
+  var self = this;
+  var _val = self.sawtooth.apply(self, arguments);
+  _val *= -1;
+  return _val;
+};
+My_entry.math_wave.prototype.sawtooth0 = function(freq, t, phi0, duty){
+  var self = this;
+  var _val = 0;
+  if(freq){
+    var t = self.normalize_t.apply(self, arguments);
+    _val = t-Math.floor(t+0.5);  // 0~
+    _val *= 2;
+  }
+  return _val;
+};
+My_entry.math_wave.prototype.sawtooth0_rev = function(freq, t, phi0, duty){
+  var self = this;
+  var _val = self.sawtooth0.apply(self, arguments);
+  _val *= -1;
+  return _val;
+};
+/* -> Ver.1.34.6 */
 /* -> Ver.1.30.6 */
 My_entry.math_wave.prototype.get_rms = function(len, fn, freq){
   var self = this;

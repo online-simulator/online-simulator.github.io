@@ -22,6 +22,14 @@
       <tbody>
         <tr class="border">
           <td class="border run">
+Ver.1.34.6
+          </td>
+          <td class="border">
+・wave-typeにsawtooth_rev/sawtooth0/sawtooth0_revを追加
+          </td>
+        </tr>
+        <tr class="border">
+          <td class="border run">
 Ver.1.33.6
           </td>
           <td class="border">
@@ -399,6 +407,8 @@ clear：直前datasetの拡張設定値をclear
         <tr class="border">
           <td class="border">
 <span class="condition">type</span>
+<br>
+<span class="run">Ver.1.34.6追加</span>
           </td>
           <td class="border">
 波形の種類
@@ -410,6 +420,12 @@ clear：直前datasetの拡張設定値をclear
 2：square
 <br>
 3：sawtooth
+<br>
+<span class="run">4：sawtooth_rev</span>
+<br>
+<span class="run">5：sawtooth0</span>
+<br>
+<span class="run">6：sawtooth0_rev</span>
           </td>
         </tr>
         <tr class="border">
@@ -960,6 +976,8 @@ channel数
 wave-type
 <br>
 <span class="condition">Ver.1.30.6修正</span>
+<br>
+<span class="run">Ver.1.34.6追加</span>
           </td>
           <td class="border">
 波形の種類
@@ -974,7 +992,13 @@ triangle：三角波
 <br>
 square：矩形波<span class="condition">（波形@f=0を修正）</span>
 <br>
-sawtooth：のこぎり波<span class="condition">（波形@f=0を修正）</span>
+sawtooth：のこぎり波<span class="run">=-1~|／|</span><span class="condition">（波形@f=0を修正）</span>
+<br>
+<span class="run">sawtooth_rev：逆のこぎり波=1~|＼|</span>
+<br>
+<span class="run">sawtooth0：のこぎり波=0~／|／</span>
+<br>
+<span class="run">sawtooth0_rev：逆のこぎり波=0~＼|＼</span>
           </td>
         </tr>
         <tr class="border">
@@ -1004,7 +1028,9 @@ sweep-rate
 <span class="run">Ver.1.24.4追加</span>
           </td>
           <td class="border">
-周波数sweepの指定周波数基準rate
+出だし音の周波数sweep用
+<br>
+指定周波数基準rate
           </td>
           <td class="border">
 <span class="clear">dataset優先</span>
@@ -1038,7 +1064,7 @@ order&lt;1：減速的に変化
 <br>
 order&gt;1：加速的に変化
 <br>
-変化率大|log2(order)|&gt;&gt;1の場合、連続性に難あり（意図とは異なる可能性あり）
+変化率大order&gt;&gt;1の場合、連続性に難あり（意図とは異なる可能性あり）
           </td>
         </tr>
         <tr class="border">
