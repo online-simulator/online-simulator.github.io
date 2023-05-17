@@ -171,10 +171,6 @@ My_entry.calc_simple.prototype.init_handlers = function(){
     self.logo = "";
     self.init_storage();
     self.storage.clear();
-    /* Ver.2.146.37 -> */
-    var useES6 = (Number("0b0") === 0 && Number("0o0") === 0);
-    $.show(".ex-0b0o", useES6, true);
-    /* -> Ver.2.146.37 */
     return self;
   };
   self.handlers.onbeforeunload = function(e){
@@ -249,6 +245,10 @@ My_entry.calc_simple.prototype.init_handlers = function(){
       case "checkbox-0x":
         var isChecked = $.checkbox_elem(elem);
         $.show(".ex-0x", isChecked, true);
+        /* Ver.2.146.37 -> */
+        var useES6 = (Number("0b0") === 0 && Number("0o0") === 0);
+        $.show(".ex-0b0o", (isChecked && useES6), true);
+        /* -> Ver.2.146.37 */
         break;
       case "checkbox-useComplex":
         var isChecked = $.checkbox_elem(elem);
