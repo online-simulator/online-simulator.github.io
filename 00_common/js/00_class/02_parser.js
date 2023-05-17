@@ -100,7 +100,7 @@ My_entry.parser.prototype.config = {
       "=": "BRe"  // x+3=1 -> x=1-3 prior to substitution
     },
     word: {
-      prifix: ((Number("0b0") === 0 && Number("0o0") === 0)? /^0[xXbBoO]/: /^0[xX]/)  // Ver.2.146.37
+      prifix: ((My_entry.flag.useES6)? /^0[xXbBoO]/: /^0[xX]/)  // Ver.2.146.37
     }
   }
 };
