@@ -82,6 +82,7 @@ My_entry.output_wave.prototype.init = function(Bytes_perSample, samples_perSecon
   self.number_channels   = number_channels || 2 || 1;
   self.Bytes_perBlock    = self.Bytes_perSample*self.number_channels;
   self.Bytes_perSecond   = self.Bytes_perBlock*self.samples_perSecond;
+  self.ba_type = {b: /_rand$/, a: ""};  // Ver.1.34.6
   return self;
 };
 My_entry.output_wave.prototype.binary2buffer = function(binary){
@@ -237,7 +238,7 @@ My_entry.output_wave.prototype.check_gains = function(params){
 };
 My_entry.output_wave.prototype.get_gain_type = function(type){
   var self = this;
-  var fn = self.entry.math_wave[type || "sin"];
+  var fn = self.entry.math_wave[type.replace(self.ba_type.b, self.ba_type.a) || "sin"];  // Ver.1.34.6
   var rms = self.entry.math_wave.get_rms(1000, fn);
   return Math.min(1, 0.5/rms);  // gain["square"] = 0.5(at rms=1)
 };
@@ -288,12 +289,12 @@ My_entry.output_wave.prototype.encode_soundData_LE = function(params){  // Ver.1
   var offset = self.offset;
   var seconds_perSample = 1/self.samples_perSecond;
   /* Ver.1.16.4 -> */
-  var fn = self.entry.math_wave[params.type || "sin"];  // Ver.1.25.4
+  var fn = self.entry.math_wave[params.type.replace(self.ba_type.b, self.ba_type.a) || "sin"];  // Ver.1.25.4  // Ver.1.34.6
   var func_t = function(){
     return fn.apply(self.entry.math_wave, arguments);
   };
   /* -> Ver.1.16.4 */
-  var phi0 = 0;
+  var phi0 = (params.type.match(self.ba_type.b))? Math.random()*Math.PI*2: 0;  // Ver.1.34.6
   /* Ver.1.25.4 -> */
   /* Ver.1.17.4 */
   /* Ver.1.13.3 */

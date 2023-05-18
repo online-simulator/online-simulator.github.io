@@ -25,7 +25,11 @@
 Ver.1.34.6
           </td>
           <td class="border">
-・wave-typeにsawtooth_rev/sawtooth0/sawtooth0_revを追加
+・wave-typeを更新
+<br>
+　sawtooth_rev/sawtooth0/sawtooth0_revを追加
+<br>
+　各type_randを追加（位相初期値に乱数を付与）
           </td>
         </tr>
         <tr class="border">
@@ -426,6 +430,16 @@ clear：直前datasetの拡張設定値をclear
 <span class="run">5：sawtooth0</span>
 <br>
 <span class="run">6：sawtooth0_rev</span>
+<br>
+<span class="run">7：sin_rand</span>
+<br>
+<span class="run">8：triangle_rand</span>
+<br>
+<span class="run">9：square_rand</span>
+<br>
+<span class="run">10：sawtooth_rand</span>
+<br>
+<span class="run">11：sawtooth_rev_rand</span>
           </td>
         </tr>
         <tr class="border">
@@ -999,6 +1013,11 @@ sawtooth：のこぎり波<span class="run">=-1~|／|</span><span class="conditi
 <span class="run">sawtooth0：のこぎり波=0~／|／</span>
 <br>
 <span class="run">sawtooth0_rev：逆のこぎり波=0~＼|＼</span>
+<br>
+<br>
+各type：datasetの位相初期値=0
+<br>
+<span class="run">各type_rand：datasetの位相初期値=[0,2π)の乱数</span>
           </td>
         </tr>
         <tr class="border">

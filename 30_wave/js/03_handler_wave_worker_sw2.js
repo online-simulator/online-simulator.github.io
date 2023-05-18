@@ -231,9 +231,16 @@ My_entry.handler_wave.prototype.input2arr = function(input){
       1: "triangle",
       2: "square",
       3: "sawtooth",
-      4: "sawtooth_rev",  // Ver.1.34.6
-      5: "sawtooth0",  // Ver.1.34.6
-      6: "sawtooth0_rev"  // Ver.1.34.6
+      /* Ver.1.34.6 -> */
+      4: "sawtooth_rev",
+      5: "sawtooth0",
+      6: "sawtooth0_rev",
+      7: "sin_rand",
+      8: "triangle_rand",
+      9: "square_rand",
+      10: "sawtooth_rand",
+      11: "sawtooth_rev_rand"
+      /* -> Ver.1.34.6 */
     };
     var props0 = [
       "time",
