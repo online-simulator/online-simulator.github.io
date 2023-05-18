@@ -232,14 +232,14 @@ My_entry.handler_wave.prototype.input2arr = function(input){
       2: "square",
       3: "sawtooth",
       /* Ver.1.34.6 -> */
-      4: "sawtooth_rev",
+      4: "sawtoothrev",
       5: "sawtooth0",
-      6: "sawtooth0_rev",
+      6: "sawtooth0rev",
       7: "sin_rand",
       8: "triangle_rand",
       9: "square_rand",
       10: "sawtooth_rand",
-      11: "sawtooth_rev_rand"
+      11: "sawtoothrev_rand"
       /* -> Ver.1.34.6 */
     };
     var props0 = [

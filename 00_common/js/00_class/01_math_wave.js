@@ -61,7 +61,7 @@ My_entry.math_wave.prototype.sawtooth = function(freq, t, phi0, duty){
   }
   return _val;
 };
-My_entry.math_wave.prototype.sawtooth_rev = function(freq, t, phi0, duty){
+My_entry.math_wave.prototype.sawtoothrev = function(freq, t, phi0, duty){
   var self = this;
   var _val = self.sawtooth.apply(self, arguments);
   _val *= -1;
@@ -77,7 +77,7 @@ My_entry.math_wave.prototype.sawtooth0 = function(freq, t, phi0, duty){
   }
   return _val;
 };
-My_entry.math_wave.prototype.sawtooth0_rev = function(freq, t, phi0, duty){
+My_entry.math_wave.prototype.sawtooth0rev = function(freq, t, phi0, duty){
   var self = this;
   var _val = self.sawtooth0.apply(self, arguments);
   _val *= -1;

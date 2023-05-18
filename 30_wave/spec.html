@@ -27,7 +27,7 @@ Ver.1.34.6
           <td class="border">
 ・wave-typeを更新
 <br>
-　sawtooth_rev/sawtooth0/sawtooth0_revを追加
+　sawtoothrev/sawtooth0/sawtooth0revを追加
 <br>
 　各type_randを追加（位相初期値に乱数を付与）
           </td>
@@ -293,6 +293,9 @@ channel間の合成
 偶数番channel：channel2||1に合成（channel数に依存）
 <br>
 Δf≠0：channel1とchannel2を合成
+<br>
+<br>
+binaryの格納順：channel1 -> channel2
           </td>
         </tr>
         <tr class="border">
@@ -425,11 +428,11 @@ clear：直前datasetの拡張設定値をclear
 <br>
 3：sawtooth
 <br>
-<span class="run">4：sawtooth_rev</span>
+<span class="run">4：sawtoothrev</span>
 <br>
 <span class="run">5：sawtooth0</span>
 <br>
-<span class="run">6：sawtooth0_rev</span>
+<span class="run">6：sawtooth0rev</span>
 <br>
 <span class="run">7：sin_rand</span>
 <br>
@@ -439,7 +442,7 @@ clear：直前datasetの拡張設定値をclear
 <br>
 <span class="run">10：sawtooth_rand</span>
 <br>
-<span class="run">11：sawtooth_rev_rand</span>
+<span class="run">11：sawtoothrev_rand</span>
           </td>
         </tr>
         <tr class="border">
@@ -1008,11 +1011,11 @@ square：矩形波<span class="condition">（波形@f=0を修正）</span>
 <br>
 sawtooth：のこぎり波<span class="run">=-1~|／|</span><span class="condition">（波形@f=0を修正）</span>
 <br>
-<span class="run">sawtooth_rev：逆のこぎり波=1~|＼|</span>
+<span class="run">sawtoothrev：逆のこぎり波=1~|＼|</span>
 <br>
 <span class="run">sawtooth0：のこぎり波=0~／|／</span>
 <br>
-<span class="run">sawtooth0_rev：逆のこぎり波=0~＼|＼</span>
+<span class="run">sawtooth0rev：逆のこぎり波=0~＼|＼</span>
 <br>
 <br>
 各type：datasetの位相初期値=0
