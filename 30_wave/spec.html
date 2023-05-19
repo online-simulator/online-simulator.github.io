@@ -25,7 +25,9 @@
 Ver.1.35.6
           </td>
           <td class="border">
-・amplitudeの上限解放（int値over-flowの場合、pulse波のnoise発生）
+・script入力のみ、amplitudeの上限解放（int値over-flowの場合、pulse波のnoise発生）
+<br>
+　play実行後、amplitude上限値の目安を表示
           </td>
         </tr>
         <tr class="border">
@@ -1052,7 +1054,8 @@ duty=0.5：上下対称
 <br>
 duty≠0.5：上下非対称・上下不連続（duty比を閾値に比例係数を2値化）
 <br>
-<span class="run">・wave-type=square：duty可変のpulse波に対応</span>
+<br>
+<span class="run">wave-type=square：duty可変のpulse波に対応</span>
           </td>
         </tr>
         <tr class="border">
@@ -1076,7 +1079,7 @@ rate=0.5：指定時間で周波数を半減
 <br>
 rate=2：指定時間で周波数を倍増
 <br>
-傾き大rate&gt;&gt;1の場合、要分解能sample数/sec&gt;&gt;10000（不連続なnoise回避）
+rate&gt;&gt;1：sample数/sec&gt;&gt;10000（要分解能）
           </td>
         </tr>
         <tr class="border">
@@ -1098,7 +1101,7 @@ order&lt;1：減速的に変化
 <br>
 order&gt;1：加速的に変化
 <br>
-変化率大order&gt;&gt;1の場合、連続性に難あり（意図とは異なる可能性あり）
+order&gt;&gt;1：sample数/sec&gt;&gt;10000（要分解能）
           </td>
         </tr>
         <tr class="border">
@@ -1163,7 +1166,14 @@ amplitude
 <br>
 <span class="selection">datasetの振幅に乗算</span>
 <br>
-<span class="condition">・振幅の上限解放（int値over-flowの場合、pulse波のnoise発生）</span>
+<br>
+<span class="condition">script入力のみ、振幅の上限解放（int値over-flowの場合、pulse波のnoise発生）</span>
+<br>
+<span class="condition">play実行後、amplitude上限値の目安を表示</span>
+<br>
+・scriptの振幅不変の前提でint値の余裕から推定
+<br>
+・乱数で多少の変動あり
           </td>
         </tr>
         <tr class="border">

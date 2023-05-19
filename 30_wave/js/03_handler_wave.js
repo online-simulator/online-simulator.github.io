@@ -153,6 +153,7 @@ My_entry.handler_wave.prototype.init_handlers = function(){
     self.waveo = new self.constructors.output_wave();
     self.make_params();
     self.waveo.init(self.params.Bytes_perSample, self.params.samples_perSecond, self.params.number_channels);
+    self.output_amplitude_max(self.params._amplitude_max);  // Ver.1.35.6
     if(self.isScriptMode){
       self.output_time("");
     }
@@ -199,6 +200,12 @@ My_entry.handler_wave.prototype.output_freq = function(){
   var self = this;
   var freq = self.calc_freq();
   self.entry.$._id("input-freq").value = freq.toFixed(2);
+  return self;
+};
+/* Ver.1.35.6 */
+My_entry.handler_wave.prototype.output_amplitude_max = function(amplitude){
+  var self = this;
+  self.entry.$._id("input-amplitude_max").value = amplitude;
   return self;
 };
 My_entry.handler_wave.prototype.output_fileSize = function(sec){
@@ -304,9 +311,13 @@ My_entry.handler_wave.prototype.make_params = function(){
   /* Ver.1.17.4 -> */
   self.params.w1 = self.entry.$.selectNum_id("select-w1");
   self.params.p1 = self.entry.$.selectNum_id("select-p1");
+  /* Ver.1.35.6 -> */
+  var amplitude_max = (self.waveo)? 1/self.waveo.get_gain_type(self.params.type): 1;
+  self.params._amplitude_max = (self.isScriptMode)? null: amplitude_max;
   self.params.amplitude0 = self.entry.$.inputVal_id("input-amplitude");
-  self.params.amplitude0 = self.entry.def.limit(self.params.amplitude0, 0, Number.MAX_VALUE, 1);  // Ver.1.35.6
+  self.params.amplitude0 = self.entry.def.limit(self.params.amplitude0, 0, self.params._amplitude_max || Number.MAX_VALUE, 1);
   self.params.amplitude1 = self.params.amplitude0;
+  /* -> Ver.1.35.6 */
   if(self.isScriptMode){
     /* Ver.1.18.4 -> */
     self.params.wr = self.entry.$.inputVal_id("input-wr");

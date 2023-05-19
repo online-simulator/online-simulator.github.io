@@ -27,6 +27,8 @@ My_entry.handler_wave.prototype.composite_binary_soundData_LE = function(arr_bin
   var hasCh2 = (arr_binary.length > 1)? true: false;
   var isStereo = (number_channels === 2);
   var isNotExist_ch2 = !(hasCh2) && isStereo;
+  /* Ver.1.35.6 -> */
+  var aval_max = 0;
   arr_binary.forEach(function(binary, i){
     var buffer = self.waveo.binary2buffer(binary);
     var view = new DataView(buffer, 0);
@@ -44,12 +46,16 @@ My_entry.handler_wave.prototype.composite_binary_soundData_LE = function(arr_bin
       var newVal = wr*oldVal+(1-wr)*nowVal;  // wr first
       oldVal = newVal;
       newSetter(j_new, newVal, isLE);
+      aval_max = Math.max(Math.abs(newVal-val_offset), aval_max);
       if(isNotExist_ch2){
         newSetter(j_new+Bytes_perSample, newVal, isLE);
       }
     }
     /* -> Ver.1.18.4 */
   });
+  var int_max = (data.Bytes_perSample === 1)? (255-val_offset): (32767-val_offset);  // uint8=0~255 int16=-32768~32767
+  data._amplitude_max = data.ampli*(int_max-1)/Math.ceil(aval_max);
+  /* -> Ver.1.35.6 */
   var dfreq = data.dfreq;
   /* Ver.1.32.6 -> */
   if(dfreq){
@@ -146,6 +152,7 @@ My_entry.handler_wave.prototype.set_callbacks_worker = function(){
         self.waveo.play_base64(base64, data.volume);
       }
       self.stop_worker();
+      self.output_amplitude_max(data0._amplitude_max);  // Ver.1.35.6
       self.output_log();
       self.output_fileName(fileName);
     }
