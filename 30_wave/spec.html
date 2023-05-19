@@ -22,6 +22,14 @@
       <tbody>
         <tr class="border">
           <td class="border run">
+Ver.1.35.6
+          </td>
+          <td class="border">
+・amplitudeの上限解放（int値over-flowの場合、pulse波のnoise発生）
+          </td>
+        </tr>
+        <tr class="border">
+          <td class="border run">
 Ver.1.34.6
           </td>
           <td class="border">
@@ -295,7 +303,7 @@ channel間の合成
 Δf≠0：channel1とchannel2を合成
 <br>
 <br>
-binaryの格納順：channel1 -> channel2
+binary出力順：channel1 -> channel2
           </td>
         </tr>
         <tr class="border">
@@ -377,6 +385,8 @@ r
 <span class="jF">Ver.1.26.4追加</span>
 <br>
 <span class="selection">Ver.1.31.6追加</span>
+<br>
+<span class="run">Ver.1.35.6更新</span>
           </td>
           <td class="border">
 datasetの拡張
@@ -392,7 +402,7 @@ datasetの拡張
 <br>
 <span class="condition">:command=""||"clear"</span>
 <br>
-<span class="condition">:type=0~3:duty0=0~1:duty1=0~1:amplitude0=0~1:amplitude1=0~1</span>
+<span class="condition">:type=0~3:duty0=0~1:duty1=0~1:amplitude0=<span class="run">0~<del>1</del></span>:amplitude1=<span class="run">0~<del>1</del></span>
 <br>
 <span class="condition">:w0=0~1:p0=0~1:w1=0~1:p1=0~1:f0:g0=0~1:f1:g1=0~1</span>
 <br>
@@ -1041,6 +1051,8 @@ wave-duty
 duty=0.5：上下対称
 <br>
 duty≠0.5：上下非対称・上下不連続（duty比を閾値に比例係数を2値化）
+<br>
+<span class="run">・wave-type=square：duty可変のpulse波に対応</span>
           </td>
         </tr>
         <tr class="border">
@@ -1110,6 +1122,11 @@ tempo
           </td>
           <td class="border">
 datasetの時間に乗算
+<br>
+<br>
+BPM=60/tempo
+<br>
+・60BPM基準1beat=1000msec
           </td>
         </tr>
         <tr class="border">
@@ -1132,6 +1149,8 @@ amplitude
 <span class="run">Ver.1.17.4追加</span>
 <br>
 <span class="selection">Ver.1.28.4更新</span>
+<br>
+<span class="clear">Ver.1.35.6更新</span>
           </td>
           <td class="border">
 音の大きさ
@@ -1140,6 +1159,8 @@ amplitude
 <del><span class="clear">dataset優先</span></del>
 <br>
 <span class="selection">datasetの振幅に乗算</span>
+<br>
+<span class="clear">・振幅の上限解放（int値over-flowの場合、pulse波のnoise発生）</span>
           </td>
         </tr>
         <tr class="border">

@@ -325,7 +325,7 @@ My_entry.handler_wave.prototype.input2arr = function(input){
               case "amplitude0":
               case "amplitude1":
                 num *= kampli;
-                param = num;
+                param = self.entry.def.limit(num, 0, Number.MAX_VALUE, 1);  // Ver.1.35.6
                 break;
               case "f0":
               case "f1":

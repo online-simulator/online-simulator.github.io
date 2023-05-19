@@ -305,7 +305,7 @@ My_entry.handler_wave.prototype.make_params = function(){
   self.params.w1 = self.entry.$.selectNum_id("select-w1");
   self.params.p1 = self.entry.$.selectNum_id("select-p1");
   self.params.amplitude0 = self.entry.$.inputVal_id("input-amplitude");
-  self.params.amplitude0 = self.entry.def.limit(self.params.amplitude0, 0, 1, 1);
+  self.params.amplitude0 = self.entry.def.limit(self.params.amplitude0, 0, Number.MAX_VALUE, 1);  // Ver.1.35.6
   self.params.amplitude1 = self.params.amplitude0;
   if(self.isScriptMode){
     /* Ver.1.18.4 -> */
