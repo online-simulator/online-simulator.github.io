@@ -19,6 +19,8 @@ My_entry.test_solver.prototype.init_elems = function(){
   var $ = self.entry.$;
   self.elem_o0 = $._id("textarea-output0");
   self.elem_o1 = $._id("textarea-output1");
+  self.elem_o2 = $._id("textarea-output2");  // Ver.2.148.37
+  self.elem_o3 = $._id("textarea-output3");  // Ver.2.148.37
   $.setup_elems_readonly$("textarea");
   $.setup_elems$_tag("button", self.handlers, "onclick");
   $.setup_elems$_tag("select", self.handlers, "onchange");
@@ -173,6 +175,7 @@ My_entry.test_solver.prototype.init_handlers = function(){
         setTimeout(function(){
           try{
             var obj = mat2obj();
+            self.output4calculator_gaussian(obj.b, obj.A);  // here  // Ver.2.148.37
             self.solver.gaussian({}, obj);
             self.elem_o0.value = (String(obj.x).split(",")).join(",\n");
           }
@@ -190,6 +193,7 @@ My_entry.test_solver.prototype.init_handlers = function(){
             var len_m = Math.max.apply(Math, obj.mA);
             var len_n = Math.max.apply(Math, obj.nA);
             if(len_m > len_b || len_n > len_b) throw "Invalid size-m,n,b="+len_m+","+len_n+","+len_b;
+            self.output4calculator_gaussian_coo(obj.b, obj.aA, obj.mA, obj.nA);  // here  // Ver.2.148.37
             self.solver[($._id("checkbox-lil").checked)? "gaussian_lil": "gaussian_coo"]({}, obj);
             self.elem_o1.value = (String(obj.x).split(",")).join(",\n");
           }
@@ -238,6 +242,8 @@ My_entry.test_solver.prototype.init_handlers = function(){
         $._id("input-nA").value = nA;
         $._id("coo2mat").onclick(e);
         self.elem_o0.value = "";  // here
+        self.elem_o2.value = "";  // Ver.2.148.37
+        self.elem_o3.value = "";  // Ver.2.148.37
         break;
       default:
         break;
@@ -255,3 +261,32 @@ My_entry.test_solver.prototype.init_handlers = function(){
   };
   return self;
 };
+/* Ver.2.148.37 -> */
+My_entry.test_solver.prototype.output4calculator_gaussian = function(b, A){
+  var self = this;
+  var text = "";
+  text += "clear;\n";
+  text += "b={"+b+"};\n";
+  text += "A=(";
+  for(var i=0, len=A.length; i<len; ++i){
+    if(i > 0) text += ":";
+    text += A[i];
+  }
+  text += ");\n";
+  text += "x=Gauss(A,b);\n";
+  self.elem_o2.value = text;
+  return self;
+};
+My_entry.test_solver.prototype.output4calculator_gaussian_coo = function(b, aA, mA, nA){
+  var self = this;
+  var text = "";
+  text += "clear;\n";
+  text += "b={"+b+"};\n";
+  text += "aA=("+aA+");\n";
+  text += "mA=("+mA+");\n";
+  text += "nA=("+nA+");\n";
+  text += "x=Gauss_coo(aA:mA:nA:trans(b));\n";
+  self.elem_o3.value = text;
+  return self;
+};
+/* -> Ver.2.148.37 */

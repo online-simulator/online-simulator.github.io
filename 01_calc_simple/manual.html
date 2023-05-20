@@ -11029,6 +11029,14 @@ xt={<span class="condition">,,,</span>}; (xt) -> (0:0:0:0)
 <br>
 xt={<span class="condition">,,,</span>}; [xt] -> (0:0:0:0)
 <br>
+・comma以外で列挙の場合、判別不可
+<br>
+(1,2,3:) -> (1,2,3:0,0,0)
+<br>
+(1,2,3:,,) -> (1,2,3:0,0,0)
+<br>
+x0=(<span class="condition">1,2,3</span>); x1=(<span class="condition">,,</span>); (x0:x1) -> (<span class="condition">1,2,3</span>:<span class="condition">0,0,0</span>)
+<br>
 ・多重列挙の場合
 <br>
 (,,(<span class="condition">1,2,3</span>),,(,,(<span class="condition">4,5,6</span>),,),,) -> (0,0,<span class="condition">1,2,3</span>,0,0,0,<span class="condition">4,5,6</span>,0,0,0,0)
@@ -12532,6 +12540,8 @@ clear; a=-3.2; b=2; q=floor(a/b); q  <span class="selection">// NG</span> -> -2
 test caseを列挙する
 <br>
 random() || random || rand -> 0.7479324154774045
+<br>
+rand,rand -> (0.31204941180294865,0.4245907180242292)
 <br>
 A=0; _rn(=&lt;A=(A,rand),,2); A -> (0,0.12740820474199377,0.7111903938956377)
     </td>
@@ -14207,6 +14217,9 @@ A*x ->
 留意事項を列挙する
 <br>
 ・COO形式のみ<a href="#span-out-reference-mat-size">行列size</a>の連番を使用（<a href="#span-out-reference-mat">行列への参照</a>は<a href="#span-out-reference-mat-index">行列index</a>の連番を使用）
+<br>
+<br>
+<span class="run">Ver.2.130.35</span>以降、COO形式の挙動を確認する場合、<a title="[test]solver" href="../03_solver/index.html">[test]solver</a>参照
     </td>
   </tr>
   <tr>
