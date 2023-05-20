@@ -9,6 +9,7 @@ My_entry.handler_wave.prototype.composite_binary_soundData_LE = function(arr_bin
   var number_samples_perChannel_max = data.number_samples_perChannel_max;
   var number_channels = self.waveo.number_channels;  // from waveo
   var Bytes_perSample = data.Bytes_perSample;
+  var val_amplitude = self.waveo.arr_amplitude[Bytes_perSample];  // Ver.1.36.6
   var val_offset = self.waveo.arr_offset[Bytes_perSample];
   var Prop = self.waveo.arr_prop_baseview[Bytes_perSample]+String(Bytes_perSample*8);
   var newBuffer = new ArrayBuffer(Bytes_perSample*number_samples_perChannel_max*number_channels);
@@ -53,11 +54,7 @@ My_entry.handler_wave.prototype.composite_binary_soundData_LE = function(arr_bin
     }
     /* -> Ver.1.18.4 */
   });
-  var isSigned = (self.waveo.arr_prop_baseview[Bytes_perSample] === "Int");
-  var base_int = 2;
-  var expo_int = (isSigned)? data.Bytes_perSample*8-1: data.Bytes_perSample*8;
-  var int_max = Math.pow(base_int, expo_int)-1-val_offset;  // uint8=0~255 int16=-32768~32767
-  data._amplitude_max = data.ampli*(int_max-1)/Math.ceil(aval_max);
+  data._amplitude_max = data.ampli*(val_amplitude-1)/Math.ceil(aval_max);  // Ver.1.36.6
   /* -> Ver.1.35.6 */
   var dfreq = data.dfreq;
   /* Ver.1.32.6 -> */
