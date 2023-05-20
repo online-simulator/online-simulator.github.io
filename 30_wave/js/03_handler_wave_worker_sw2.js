@@ -53,7 +53,10 @@ My_entry.handler_wave.prototype.composite_binary_soundData_LE = function(arr_bin
     }
     /* -> Ver.1.18.4 */
   });
-  var int_max = (data.Bytes_perSample === 1)? (255-val_offset): (32767-val_offset);  // uint8=0~255 int16=-32768~32767
+  var isSigned = (self.waveo.arr_prop_baseview[Bytes_perSample] === "Int");
+  var base_int = 2;
+  var expo_int = (isSigned)? data.Bytes_perSample*8-1: data.Bytes_perSample*8;
+  var int_max = Math.pow(base_int, expo_int)-1-val_offset;  // uint8=0~255 int16=-32768~32767
   data._amplitude_max = data.ampli*(int_max-1)/Math.ceil(aval_max);
   /* -> Ver.1.35.6 */
   var dfreq = data.dfreq;
