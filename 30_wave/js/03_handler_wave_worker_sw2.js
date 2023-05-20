@@ -89,7 +89,7 @@ My_entry.handler_wave.prototype.composite_binary_soundData_LE = function(arr_bin
       var i0 = (i*number_channels+0)*Bytes_perSample;
       var i1 = (i*number_channels+1)*Bytes_perSample;
       var val0 = newGetter(i0, isLE);
-      var val1 = (isStereo)? newGetter(i1, isLE): 0;
+      var val1 = (isStereo)? newGetter(i1, isLE): val_offset;  // Ver.1.36.7
       var newVal0 = (1-s)*val0+s*val1;
       newSetter(i0, newVal0, isLE);
       if(isStereo){
