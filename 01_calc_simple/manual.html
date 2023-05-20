@@ -11950,7 +11950,9 @@ test caseを列挙する
 <br>
 ・<span class="clear">Ver.2.146.37</span>以降、<a href="#span-out-RW">接頭辞</a>判定の<a href="#span-in-re-prifix">正規表現</a>を修正
 <br>
-0x0g -> [MyErr]Invalid varName(0x0g)
+<del>0x3i -> 3i</del>
+<br>
+0x3i -> [MyErr]Invalid varName(0x3i)
 <br>
 ・<span class="clear">Ver.2.146.37</span>以降、2進数値（符号なし）
 <br>
@@ -31395,6 +31397,8 @@ parser.js抜粋
 <del>0(?:[xX][0-9a-fA-F]+)|0(?:[bB][0-1]+)|0(?:[oO][0-7]+)</del>
 <br>
 ・<a href="#span-out-BRmo">記号省略乗算</a>を許容した弊害への対策
+<br>
+<del>0x3i || </del>(0x3)i -> 3i
 <br>
 <del>0b013 || </del>(0b01)3 -> 3
     </td>
