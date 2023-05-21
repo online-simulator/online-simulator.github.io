@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+
+<html lang="ja">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="description" content="[test]wave plot">
+  <meta name="author" content="online-simulator.github.io">
+  <noscript>JavaScript is not enabled on browser.</noscript>
+  <link rel="stylesheet" type="text/css" href="../00_common/css/common.css">
+  <link rel="stylesheet" type="text/css" href="../00_common/css/color.css">
+  <link rel="stylesheet" type="text/css" href="../00_common/css/size.css">
+  <link rel="stylesheet" type="text/css" href="css/common.css">
+  <link rel="stylesheet" type="text/css" href="css/color.css">
+  <link rel="stylesheet" type="text/css" href="css/size.css">
+  <script type="text/javascript" src="../00_common/js/000_namespace/000_entry.js"></script>
+  <script type="text/javascript" src="../00_common/js/00_class/00_$.js"></script>
+  <script type="text/javascript" src="../00_common/js/00_class/00_conv.js"></script>
+  <script type="text/javascript" src="../00_common/js/00_class/00_def.js"></script>
+  <script type="text/javascript" src="../00_common/js/03_original/03_original_main.js"></script>
+  <script type="text/javascript" src="js/03_waveplot.js"></script>
+</head>
+
+<body>
+
+<script type="text/javascript">
+  (function(){
+    new My_entry.$().onload(function(e){
+      new My_entry.test_waveplot().onload(e);
+    });
+  })();
+</script>
+
+  <div class="absolute">
+
+<hr>
+<div>
+<table><tbody><caption><span class="selection">input-file.wav</span>　⇒　<span class="run">make data for plot2d</span>　⇒　<a title="Graphing Calculator" href="../02_calc_graphing/index.html?useStrict=false&checkError=false&marker-size=0">plot2d(xt,yt)</a></caption>
+<tr>
+  <td>
+header-Byte数
+  </td>
+  <td>
+<input id="input-Bytes_header" type="number" min="0" value="44">
+  </td>
+</tr>
+<tr>
+  <td>
+Byte数/sample
+  </td>
+  <td>
+<select id="select-Bytes_perSample">
+  <option value="1">1: uint8=0~255</option>
+  <option value="2" selected="selected">2: int16=-32768~32767</option>
+</select>
+  </td>
+</tr>
+<tr>
+  <td>
+channel数
+  </td>
+  <td>
+<select id="select-number_channels">
+  <option value="1">1: monaural</option>
+  <option value="2" selected="selected">2: stereo</option>
+</select>
+  </td>
+</tr>
+<tr>
+  <td>
+  </td>
+  <td>
+↑input結果（変更可）
+  </td>
+</tr>
+<tr class="selection">
+  <td>
+input-file.wav
+  </td>
+  <td>
+<input id="input-file-wav" type="file">
+  </td>
+</tr>
+<tr>
+  <td>
+  </td>
+  <td>
+↓output設定
+  </td>
+</tr>
+<tr>
+  <td>
+開始sample番号
+  </td>
+  <td>
+<input id="input-is" type="number" min="0" value="0">
+  </td>
+</tr>
+<tr>
+  <td>
+抽出sample間隔
+  </td>
+  <td>
+<input id="input-di" type="number" min="1" value="5">
+  </td>
+</tr>
+<tr>
+  <td>
+出力sample数
+  </td>
+  <td>
+<input id="input-Ns" type="number" min="1" max="500000" value="50000">&lt;min(<input id="input-Nsmax" readonly="readonly">,500000)
+  </td>
+</tr>
+<tr>
+  <td class="run">
+  </td>
+  <td>
+<button id="make" class="run right">make data for plot2d</button>
+  </td>
+</tr>
+<tr>
+  <td>
+<a title="Graphing Calculator" href="../02_calc_graphing/index.html?useStrict=false&checkError=false&marker-size=0">plot2d(xt,yt)</a>
+<br>
+xt: 時間[sec]
+<br>
+yt: int値
+  </td>
+  <td>
+<textarea id="textarea-plot2d" class="input-500" rows="10" readonly="readonly"></textarea>
+  </td>
+</tr>
+</tbody></table>
+</div>
+<hr>
+
+  </div>
+
+</body>
+
+</html>

@@ -159,7 +159,8 @@ My_entry.$.prototype.set_selectVal_elem = function(elem, val){
   if(options){
     for(var i=0, len=options.length; i<len; ++i){
       var option = options[i];
-      if(option.innerText == String(val)){  // ==
+      var str_comp = String(val);
+      if(option.value == str_comp || option.innerText == str_comp){  // ==
         selectedIndex = option.index;
         break;
       }

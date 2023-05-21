@@ -1,0 +1,8 @@
+@charset "UTF-8";
+
+body{
+  max-width: 1024px;
+}
+input{
+  width: auto;
+}
