@@ -295,7 +295,7 @@ channel
 時系列の音dataを出力
           </td>
           <td class="border">
-on処理：channel内の合成（binary出力）
+stream処理：channel内の合成（binary出力）
 <br>
 post処理：channel間の合成（binary入出力）
           </td>
@@ -514,7 +514,7 @@ amplitude1
 <span class="selection">order_a</span>=1@default
           </td>
           <td class="border">
-N個中n番目sampleの振幅
+N個中n番目sampleの振幅の<span class="clear">比例係数</span>
 <br>
 =amplitude0+(amplitude1-amplitude0)*pow(n/N,<span class="selection">order_a</span>)
           </td>
@@ -1408,7 +1408,7 @@ dataset内click noise対策用
 振幅fade-in/outのfilter特性値
           </td>
           <td class="border">
-on処理
+stream処理
 <br>
 <br>
 w0：in-weight
@@ -1422,9 +1422,13 @@ p1：out-range
 <br>
 1次遅れ系のstep応答：S字の変曲点なし
 <br>
-・fade-in：振幅=指定値まで上凸の変化
+・fade-in：振幅=上限値まで上凸の変化
 <br>
-・fade-out：振幅=0まで下凸の変化（現状、script入力のamplitudeと独立）
+・fade-out：振幅=0まで下凸の変化
+<br>
+・fade処理後、script入力のamplitudeの比例係数を演算
+<br>
+・高負荷のS字曲線近似の検討は保留
           </td>
         </tr>
         <tr class="border">
@@ -1461,7 +1465,7 @@ log-log filter gain
 振幅gainのfilter特性値
           </td>
           <td class="border">
-on処理
+stream処理
 <br>
 <br>
 f0：low側の周波数
