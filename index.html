@@ -259,6 +259,8 @@ minor bug-fix
 [音源wave PCM生成（演奏）]
 <br>
 ・Δf≠0@s_stereo&lt;100 encoding bug-fixed
+<br>
+　newVal0 = (1-s)*val0+s*val1　⇒　newVal0 = s*val0+(1-s)*val1
     </td>
     <td>
 2023/5/21
@@ -301,6 +303,8 @@ minor bug-fix
 [音源wave PCM生成（演奏）]
 <br>
 ・Δf≠0@monaural encoding@Byte数/sample=1 bug-fixed
+<br>
+　val1 = 0　⇒　val1 = val_offset
     </td>
     <td>
 2023/5/20

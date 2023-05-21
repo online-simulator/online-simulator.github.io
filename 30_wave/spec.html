@@ -45,7 +45,7 @@ Ver.1.36.7
           <td class="border">
 ・ゆらぎありΔf≠0でmonaural低音質出力の不具合（int値のoffset未考慮）を修正
 <br>
-　val1=0　⇒　val1=val_offset
+　val1 = 0　⇒　val1 = val_offset
           </td>
         </tr>
         <tr class="border">
@@ -1282,7 +1282,7 @@ s_stereo=0：他channelの合成なし（左右を完全分離）
 s_stereo=100：左右均等の重みで合成
 <br>
 <br>
-<span class="condition">合成処理：<del>newVal0 = (1-s)*val0+s*val1</del>　⇒　newVal0 = s*val0+(1-s)*val1</span>
+<span class="condition">重み平均：<del>newVal0 = (1-s)*val0+s*val1</del>　⇒　newVal0 = s*val0+(1-s)*val1</span>
 <br>
 ・s=0.5@s_stereo=100
 <br>
@@ -1418,6 +1418,13 @@ p0：in-range
 w1：out-weight
 <br>
 p1：out-range
+<br>
+<br>
+1次遅れ系のstep応答：S字の変曲点なし
+<br>
+・fade-in：振幅=指定値まで上凸の変化
+<br>
+・fade-out：振幅=0まで下凸の変化（現状、script入力のamplitudeと独立）
           </td>
         </tr>
         <tr class="border">
