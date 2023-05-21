@@ -21,6 +21,16 @@
       <caption><span id="span-history">演奏機能の更新履歴</span></caption>
       <tbody>
         <tr class="border">
+          <td class="border clear">
+Ver.1.37.8
+          </td>
+          <td class="border">
+・ゆらぎありΔf≠0@s_stereo&lt;100でchannel間の合成の不具合（stereo出力が左右反転）を修正
+<br>
+　newVal0 = (1-s)*val0+s*val1　⇒　newVal0 = s*val0+(1-s)*val1
+          </td>
+        </tr>
+        <tr class="border">
           <td class="border run">
 Ver.1.37.7
           </td>
@@ -314,13 +324,15 @@ channel番号=1~
         <tr class="border">
           <td class="border">
 channel間の合成
+<br>
+<span class="clear">Ver.1.37.8修正</span>
           </td>
           <td class="border">
 奇数番channel：channel1に合成
 <br>
 偶数番channel：channel2||1に合成（channel数に依存）
 <br>
-Δf≠0：channel1とchannel2を合成
+Δf≠0：channel1とchannel2を合成<span class="clear">（stereo出力が左右反転する不具合を修正）</span>
 <br>
 <br>
 binary出力順：channel1 -> channel2
@@ -1247,6 +1259,8 @@ s_random≠0：ばらつきあり（play実行毎に異なる乱数を生成）
 ↑s_stereo
 <br>
 <span class="run">Ver.1.33.6追加</span>
+<br>
+<span class="condition">Ver.1.37.8修正</span>
           </td>
           <td class="border">
 左右で振動する音量の調整用
@@ -1266,6 +1280,13 @@ s_stereo&gt;0：他channelの合成あり
 s_stereo=0：他channelの合成なし（左右を完全分離）
 <br>
 s_stereo=100：左右均等の重みで合成
+<br>
+<br>
+<span class="condition">合成処理：<del>newVal0 = (1-s)*val0+s*val1</del>　⇒　newVal0 = s*val0+(1-s)*val1</span>
+<br>
+・s=0.5@s_stereo=100
+<br>
+・s=1@s_stereo=0
           </td>
         </tr>
         <tr class="border">

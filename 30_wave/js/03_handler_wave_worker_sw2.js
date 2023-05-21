@@ -90,10 +90,10 @@ My_entry.handler_wave.prototype.composite_binary_soundData_LE = function(arr_bin
       var i1 = (i*number_channels+1)*Bytes_perSample;
       var val0 = newGetter(i0, isLE);
       var val1 = (isStereo)? newGetter(i1, isLE): val_offset;  // Ver.1.36.7
-      var newVal0 = (1-s)*val0+s*val1;
+      var newVal0 = s*val0+(1-s)*val1;  // Ver.1.37.8 s=1@s_stereo=0
       newSetter(i0, newVal0, isLE);
       if(isStereo){
-        var newVal1 = (1-s)*val1+s*val0;
+        var newVal1 = s*val1+(1-s)*val0;  // Ver.1.37.8 s=1@s_stereo=0
         newSetter(i1, newVal1, isLE);
       }
     }
