@@ -87,7 +87,7 @@
       $._id("atanh").onclick = function(){setVal("-0.99", "0.99", "x=t,x;", "tanh(atanh(x));atanh(tanh(x));", 10);};
       $._id("acsch").onclick = function(){setVal("0.01", "1", "x=t,x;", "csch(acsch(x));sech(asech(x));acsch(csch(x));asech(sech(x));", 11);};  // 11 for not0
       $._id("acoth").onclick = function(){setVal("1.01", "10", "x=t,x;", "coth(acoth(x));acoth(coth(x));", 11);};  // 11 for not0
-      $._id("sigmoid").onclick = function(){setVal("-2", "2", "x=t,x;", "Gudermannian_fn(x)=<asin(tanh(x)),Gudermannian_fn(x);zeta(x,a,y0)=<y0+1/(1+exp(-a*x)),zeta(x,3,-0.5);sin(atan(x));atan(x);tanh(x);", 10);};
+      $._id("sigmoid").onclick = function(){setVal("-2", "2", "x=t,x;", "Gudermannian_fn(x)=<asin(tanh(x)),Gudermannian_fn(x);zeta(x,a,b)=<(1+exp(-a*x))**(-1)+b,zeta(x,3,-0.5);sin(atan(x));atan(x);tanh(x);", 10);};
       $._id("clothoid").onclick = function(){setVal("0", "2pi", "_it(=<cos(t**2/2),0,t);", "_it(=<sin(t**2/2),0,t);", 50);$._id("input-z").value+="::3:1.5:1.5;";};
       $._id("cycloid").onclick = function(){setVal("0", "2pi", "rm=1,rc=3,x1=rm*(t-sin(t)),x2=(rc+rm)cos(t)-rm*cos((rc+rm)t/rm),x3=(rc-rm)cos(t)+rm*cos((rc-rm)t/rm),x1;x2;x3;", "y1=rm*(1-cos(t)),y2=(rc+rm)sin(t)-rm*sin((rc+rm)t/rm),y3=(rc-rm)sin(t)-rm*sin((rc-rm)t/rm),y1;y2;y3;", 100);$._id("input-z").value+="::0::::cycloid;::::::epicycloid;::::::hypocycloid;";};
       $._id("Lissajous").onclick = function(){setVal("0", "2pi", "cos(3t);", "sin(2t+pi/3);", 100);};
