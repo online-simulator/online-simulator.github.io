@@ -28,8 +28,8 @@ My_entry.math_com.prototype.absolute_com = function(a){
 };
 My_entry.math_com.prototype.argument_com = function(a){
   var self = this;
-  if(a.r === 0 && a.i === 0) return 0;
-  return Math.atan2(a.i, a.r);
+//  if(a.r === 0 && a.i === 0) return 0;  // Math.atan2(0, 0) -> 0
+  return Math.atan2(a.i || 0, a.r || 0);  // Ver.2.149.38 || 0
 };
 //
 My_entry.math_com.prototype.ceq = function(a, b){
@@ -259,13 +259,22 @@ My_entry.math_com.prototype.asinh = function(z){
   var sqrt_zp2pr1 = self.sqrt(self.add(zp2, r1));
   return self.ln(self.add(z, sqrt_zp2pr1));
 };
-My_entry.math_com.prototype.acosh = function(z){
+/* Ver.2.149.38 -> */
+My_entry.math_com.prototype.acosh_old = function(z){
   var self = this;
   var r1 = self.entry.DATA.com(1, 0);
   var sqrt_zpr1 = self.sqrt(self.add(z, r1));
   var sqrt_zmr1 = self.sqrt(self.sub(z, r1));
   return self.ln(self.add(z, self.mul(sqrt_zpr1, sqrt_zmr1)));
 };
+My_entry.math_com.prototype.acosh = function(z){
+  var self = this;
+  var r1 = self.entry.DATA.com(1, 0);
+  var zp2 = self.mul(z, z);
+  var sqrt_zp2mr1 = self.sqrt(self.sub(zp2, r1));
+  return self.ln(self.add(z, sqrt_zp2mr1));
+};
+/* -> Ver.2.149.38 */
 My_entry.math_com.prototype.atanh = function(z){
   var self = this;
   var DATA = self.entry.DATA;

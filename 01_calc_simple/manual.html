@@ -639,6 +639,8 @@ e^(-i(1pi(){2/2i}(5-{3-1}){i/(-4)}))
 <br>
 ・<a href="#span-in-re-prifix">接頭辞の正規表現</a>
 <br>
+・<a href="#span-in-FN-log">log関数</a>
+<br>
 <br>
 <a href="#span-eqn">strict-mode式変数list</a>
 <br>
@@ -842,6 +844,10 @@ ja.m.wikipedia.org/wiki/項目を列挙する
 <br>
 ・誤差
 <br>
+・複素数の偏角
+<br>
+・複素対数函数
+<br>
 ・行列
 <br>
 ・疎行列
@@ -883,6 +889,8 @@ ja.m.wikipedia.org/wiki/項目を列挙する
 ・B-スプライン曲線
 <br>
 ・シグモイド
+<br>
+・シグモイド関数
 <br>
 ・双曲線関数
 <br>
@@ -12798,6 +12806,14 @@ ln(2) || ln2() -> 0.6931471805599453
 <br>
 ln(i) -> 1.5707963267948966i
 <br>
+・<span class="run">Ver.2.149.38</span>以降、<a href="#span-in-FN-log">log関数の内部仕様</a>を修正
+<br>
+<del>ln(1/(-1)) || ln(1/(1-2)) -> -3.141592653589793i<span class="clear">+O(6e+0i)</span></del>
+<br>
+ln(1/(-1)) || ln(1/(1-2)) -> 3.141592653589793i
+<br>
+ln(-1) -> 3.141592653589793i
+<br>
 <br>
 常用対数
 <br>
@@ -12940,6 +12956,20 @@ sech(z)
 <br>
 coth(z)
 <br>
+・<a href="#span-out-eqns">式変数</a>の定義
+<br>
+sinh_(z)=&lt;(exp(z)-exp(-z))/2;
+<br>
+cosh_(z)=&lt;(exp(z)+exp(-z))/2;
+<br>
+tanh_(z)=&lt;(exp(z)-exp(-z))/(exp(z)+exp(-z));
+<br>
+csch_(z)=&lt;2/(exp(z)-exp(-z));
+<br>
+sech_(z)=&lt;2/(exp(z)+exp(-z));
+<br>
+coth_(z)=&lt;(exp(z)+exp(-z))/(exp(z)-exp(-z));
+<br>
 <br>
 逆双曲線関数
 <br>
@@ -12956,6 +12986,20 @@ acsch(z)
 asech(z)
 <br>
 acoth(z)
+<br>
+・<a href="#span-out-eqns">式変数</a>の定義
+<br>
+asinh_(z)=&lt;ln(sqrt(z*z+1)+z);
+<br>
+acosh_(z)=&lt;ln(sqrt(z*z-1)+z);
+<br>
+atanh_(z)=&lt;ln((1+z)/(1-z))/2;
+<br>
+acsch_(z)=&lt;asinh_(1/z);
+<br>
+asech_(z)=&lt;acosh_(1/z);
+<br>
+acoth_(z)=&lt;atanh_(1/z);
     </td>
   </tr>
   <tr>
@@ -31507,6 +31551,60 @@ parser.js抜粋
 <del>0x3i || </del>(0x3)i -> 3i
 <br>
 <del>0b013 || </del>(0b01)3 -> 3
+    </td>
+  </tr>
+  <tr>
+    <th>
+<a href="#span-index">
+目次
+</a>
+<br>
+log関数
+    </th>
+    <td>
+<span id="span-in-FN-log"></span>
+<a href="#span-out-com">複素数</a>演算の<a href="#span-out-FN-log">log関数||ln関数</a>について記述する
+<br>
+<br>
+<span class="run">Ver.2.149.38</span>以降、複素対数関数の性質を見直して内部仕様を修正
+<br>
+・引数の実部が負の場合、<span class="clear">(2*pi)i</span>の<a href="#span-out-error-numerical">数値誤差</a>が生じやすい不具合を対策
+<br>
+<del>ln(1/(-1)) || ln(1/(1-2)) -> -3.141592653589793i<span class="clear">+O(6e+0i)</span></del>
+<br>
+<del>ln(1/(-2)) -> -0.6931471805599453-3.141592653589793i<span class="clear">+O(6e+0i)</span></del>
+<br>
+・誤解を招く<a href="#span-out-error-numerical">数値誤差</a>を解消
+<br>
+ln(1/(-1)) || ln(1/(1-2)) -> 3.141592653589793i
+<br>
+ln(1/(-2)) -> -0.6931471805599453+3.141592653589793i
+<br>
+ln(-1) -> 3.141592653589793i
+<br>
+ln(-0.5) -> -0.6931471805599453+3.141592653589793i
+<br>
+・<a href="#span-out-FN-log">ln関数</a>からcallする偏角算出の関数を修正
+<br>
+<del>Math.atan2(y, x)</del>
+<br>
+Math.atan2(y || 0, x || 0)
+<br>
+・built-inの<a href="#span-out-FN-atan2">atan2関数</a>の挙動
+<br>
+Math.atan2(0, -1) -> 3.141592653589793
+<br>
+Math.atan2(-0, -1) -> -3.141592653589793
+<br>
+Math.atan2(0, -0) -> 3.141592653589793
+<br>
+Math.atan2(-0, -0) -> -3.141592653589793
+<br>
+Math.atan2(0, 0) -> 0
+<br>
+Math.atan2(-0, 0) -> -0
+<br>
+Math.atan2(-0, 1) -> 0
     </td>
   </tr>
 </tbody>

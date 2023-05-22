@@ -1,6 +1,42 @@
 clear
 local storage cleared
 
+log(-1)-log(1/(-1)):log(-1)-log(1/(1-2)):log(-1/2)-log(1/(-2))/*not (2*pi)i*/
+(
+0:
+0:
+0
+)
+
+clear
+local storage cleared
+
+asin_sin-asin_sin_
+(
+0:
+0:
+0:
+0:
+0:
+0:
+0:
+0:
+0
+)
+
+sin_asin-sin_asin_
+(
+0:
+0:
+0:
+0:
+0:
+0:
+0:
+infoLost[r ] 0:
+0
+)
+
 sin_asin-asin_sin
 (
 -2.220446049250313e-16-2.8060183283390646e-17i:
@@ -8,11 +44,73 @@ sin_asin-asin_sin
 5.551115123125783e-17i:
 0:
 0:
--2.220446049250313e-16-1.2858791391047223e-17i:
+-2.220446049250313e-16+1.2858791391047223e-17i:
 0:
 0:
 -2.220446049250313e-16
 )
+
+asin_sin_={asin(sin(x)),acos(cos(x)),atan(tan(x)),asinh_(sinh_(x)),acosh_(cosh_(x)),atanh_(tanh_(x)),acsch_(csch_(x)),asech_(sech_(x)),acoth_(coth_(x))}
+asin_sin_=(
+1.1000000000000003:
+1.1:
+1.1-5.551115123125783e-17i:
+1.1:
+1.1:
+1.1000000000000003:
+1.1:
+1.1:
+1.1000000000000003
+)
+
+sin_asin_={sin(asin(x)),cos(acos(x)),tan(atan(x)),sinh_(asinh_(x)),cosh_(acosh_(x)),tanh_(atanh_(x)),csch_(acsch_(x)),sech_(asech_(x)),coth_(acoth_(x))}
+sin_asin_=(
+1.1-2.8060183283390646e-17i:
+1.1:
+1.1:
+1.1:
+1.1:
+1.1+1.2858791391047223e-17i:
+1.1:
+infoLost[r ] 1.1:
+1.1
+)
+
+acoth_(z)=<atanh_(1/z)
+stored_eqn(acoth_)
+
+asech_(z)=<acosh_(1/z)
+stored_eqn(asech_)
+
+acsch_(z)=<asinh_(1/z)
+stored_eqn(acsch_)
+
+atanh_(z)=<ln((1+z)/(1-z))/2
+stored_eqn(atanh_)
+
+acosh_(z)=<ln(sqrt(z*z-1)+z)
+stored_eqn(acosh_)
+
+asinh_(z)=<ln(sqrt(z*z+1)+z)
+stored_eqn(asinh_)
+
+coth_(z)=<(exp(z)+exp(-z))/(exp(z)-exp(-z))
+stored_eqn(coth_)
+
+sech_(z)=<2/(exp(z)+exp(-z))
+stored_eqn(sech_)
+
+csch_(z)=<2/(exp(z)-exp(-z))
+stored_eqn(csch_)
+
+tanh_(z)=<(exp(z)-exp(-z))/(exp(z)+exp(-z))
+stored_eqn(tanh_)
+
+cosh_(z)=<(exp(z)+exp(-z))/2
+stored_eqn(cosh_)
+
+sinh_(z)=<(exp(z)-exp(-z))/2
+stored_eqn(sinh_)
 
 asin_sin={asin(sin(x)),acos(cos(x)),atan(tan(x)),asinh(sinh(x)),acosh(cosh(x)),atanh(tanh(x)),acsch(csch(x)),asech(sech(x)),acoth(coth(x))}
 asin_sin=(
@@ -34,7 +132,7 @@ sin_asin=(
 1.1:
 1.1:
 1.1:
-1.1-1.2858791391047223e-17i:
+1.1+1.2858791391047223e-17i:
 1.1:
 1.1:
 1.1
@@ -696,4 +794,4 @@ drag=false&sw=false&0x=false&useComplex=true&useMatrix=true&isRightAssociativity
 --------------------------------
 --------------------------------
 
-online-simulator.github.io.6.203.92.12.47 @ Mon May 22 2023 17:48:31 GMT+0900 (日本標準時) @ Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/113.0.0.0 Safari/537.36
+online-simulator.github.io.6.203.92.12.48 @ Tue May 23 2023 00:10:33 GMT+0900 (日本標準時) @ Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/113.0.0.0 Safari/537.36
