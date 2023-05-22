@@ -1,6 +1,51 @@
 clear
 local storage cleared
 
+sin_asin-asin_sin
+(
+-2.220446049250313e-16-2.8060183283390646e-17i:
+0:
+5.551115123125783e-17i:
+0:
+0:
+-2.220446049250313e-16-1.2858791391047223e-17i:
+0:
+0:
+-2.220446049250313e-16
+)
+
+asin_sin={asin(sin(x)),acos(cos(x)),atan(tan(x)),asinh(sinh(x)),acosh(cosh(x)),atanh(tanh(x)),acsch(csch(x)),asech(sech(x)),acoth(coth(x))}
+asin_sin=(
+1.1000000000000003:
+1.1:
+1.1-5.551115123125783e-17i:
+1.1:
+1.1:
+1.1000000000000003:
+1.1:
+1.1:
+1.1000000000000003
+)
+
+sin_asin={sin(asin(x)),cos(acos(x)),tan(atan(x)),sinh(asinh(x)),cosh(acosh(x)),tanh(atanh(x)),csch(acsch(x)),sech(asech(x)),coth(acoth(x))}
+sin_asin=(
+1.1-2.8060183283390646e-17i:
+1.1:
+1.1:
+1.1:
+1.1:
+1.1-1.2858791391047223e-17i:
+1.1:
+1.1:
+1.1
+)
+
+x=1.1
+x=1.1
+
+clear
+local storage cleared
+
 xt-xt_csv/*csv-format test case*/
 (
 0:
@@ -651,4 +696,4 @@ drag=false&sw=false&0x=false&useComplex=true&useMatrix=true&isRightAssociativity
 --------------------------------
 --------------------------------
 
-online-simulator.github.io.6.199.90.12.45 @ Wed May 17 2023 16:54:40 GMT+0900 (日本標準時) @ Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/113.0.0.0 Safari/537.36
+online-simulator.github.io.6.203.92.12.47 @ Mon May 22 2023 17:48:31 GMT+0900 (日本標準時) @ Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/113.0.0.0 Safari/537.36

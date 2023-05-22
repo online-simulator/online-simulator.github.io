@@ -567,6 +567,12 @@ My_entry.parser.prototype.make_trees = function(sentence, re){
       case "asinh":
       case "acosh":
       case "atanh":
+      case "csch":
+      case "sech":
+      case "coth":
+      case "acsch":
+      case "asech":
+      case "acoth":
       case "sign":
       case "fact":
       case "degrees":

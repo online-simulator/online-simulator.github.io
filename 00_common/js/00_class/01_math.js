@@ -93,6 +93,32 @@ My_entry.math.prototype.atanh = function(x){
   var self = this;
   return 0.5*Math.log((1+x)/(1-x));
 };
+/* Ver.2.149.37 -> */
+My_entry.math.prototype.csch = function(x){
+  var self = this;
+  return (1/self.sinh(x));
+};
+My_entry.math.prototype.sech = function(x){
+  var self = this;
+  return (1/self.cosh(x));
+};
+My_entry.math.prototype.coth = function(x){
+  var self = this;
+  return (1/self.tanh(x));
+};
+My_entry.math.prototype.acsch = function(x){
+  var self = this;
+  return self.asinh(1/x);
+};
+My_entry.math.prototype.asech = function(x){
+  var self = this;
+  return self.acosh(1/x);
+};
+My_entry.math.prototype.acoth = function(x){
+  var self = this;
+  return self.atanh(1/x);
+};
+/* -> Ver.2.149.37 */
 My_entry.math.prototype.log_ex = function(x, base){
   var self = this;
   return Math.log(x)/Math.log(base || 10);

@@ -275,6 +275,41 @@ My_entry.math_com.prototype.atanh = function(z){
   var r1mz = self.sub(r1, z);
   return self.mul(r0p5, self.ln(self.div(r1pz, r1mz)));
 };
+/* Ver.2.149.37 -> */
+My_entry.math_com.prototype.csch = function(z){
+  var self = this;
+  var epz = self.exp(z);
+  var emz = self.exp(self.flip(z));
+  return self.div(self.entry.DATA.com(2, 0), self.sub(epz, emz));
+};
+My_entry.math_com.prototype.sech = function(z){
+  var self = this;
+  var epz = self.exp(z);
+  var emz = self.exp(self.flip(z));
+  return self.div(self.entry.DATA.com(2, 0), self.add(epz, emz));
+};
+My_entry.math_com.prototype.coth = function(z){
+  var self = this;
+  var epz = self.exp(z);
+  var emz = self.exp(self.flip(z));
+  return self.div(self.add(epz, emz), self.sub(epz, emz));
+};
+My_entry.math_com.prototype.acsch = function(z){
+  var self = this;
+  var rz = self.div(self.entry.DATA.com(1, 0), z);
+  return self.asinh(rz);
+};
+My_entry.math_com.prototype.asech = function(z){
+  var self = this;
+  var rz = self.div(self.entry.DATA.com(1, 0), z);
+  return self.acosh(rz);
+};
+My_entry.math_com.prototype.acoth = function(z){
+  var self = this;
+  var rz = self.div(self.entry.DATA.com(1, 0), z);
+  return self.atanh(rz);
+};
+/* -> Ver.2.149.37 */
 My_entry.math_com.prototype.lerp_sw = function(t0, t1, k, isLog){
   var self = this;
   var math = self.entry.math;

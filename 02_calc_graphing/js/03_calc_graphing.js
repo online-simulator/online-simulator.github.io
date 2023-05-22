@@ -431,8 +431,9 @@ My_entry.calc_graphing.prototype.make_log_plot2d = function(){
   /* Ver.2.25.12 -> */
 /*
   _log += $.selectVal_id("select-N");
-*/
   _log += sq+$.selectVal_id("select-N")+sq;
+*/
+  _log += sq+$.inputNum_id("input-N")+sq;  // Ver.2.149.37
   /* -> Ver.2.25.12 */
   /* Ver.2.27.14 -> */
   var inputZ = $.inputVal_id("input-z");
@@ -505,6 +506,7 @@ My_entry.calc_graphing.prototype.get_options = function(isPlot){
   var _options = {};
   $.get_elemProps("input[type='checkbox']", "checkbox-", "checked", _options);
   $.get_elemProps("select", "select-", "value", _options);
+  _options.N = self.entry.def.limit(Math.round($.inputNum_id("input-N")), 1, self.config.MAT.sizeMax, 10);  // Ver.2.149.37 round
   $.get_urlParams(_options);
   /* Ver.2.22.11 -> */
   _options.matSizeMax = (isNaN(_options.matSizeMax)? null: _options.matSizeMax) || self.config.MAT.sizeMax;
@@ -654,7 +656,13 @@ My_entry.calc_graphing.prototype.init_handlers = function(){
     $._id("input-x").value = tokens[2].replace(re, "");
     $._id("input-y").value = tokens[3].replace(re, "");
     if(tokens[4]){
-      $.set_selectVal_id("select-N", tokens[4].replace(re, ""));
+      /* Ver.2.149.37 -> */
+//      $.set_selectVal_id("select-N", tokens[4].replace(re, ""));
+      var num = tokens[4].replace(re, "");
+      if(!(isNaN(num))){
+        $._id("input-N").value = num;
+      }
+      /* -> Ver.2.149.37 */
     }
     /* Ver.2.27.14 -> */
     if(tokens[5]){

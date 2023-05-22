@@ -382,6 +382,10 @@ e^(-i(1pi(){2/2i}(5-{3-1}){i/(-4)}))
 <br>
 　　・<a href="#span-out-FN-atan2">atan2関数</a>
 <br>
+　　・<a href="#span-out-FN-sin">三角関数</a>
+<br>
+　　・<a href="#span-out-FN-sinh">双曲線関数</a>
+<br>
 　　・<a href="#span-out-FN-statistic">統計関数</a>
 <br>
 　　・<a href="#span-out-FN-else">その他の関数</a>
@@ -877,6 +881,16 @@ ja.m.wikipedia.org/wiki/項目を列挙する
 ・スプライン曲線
 <br>
 ・B-スプライン曲線
+<br>
+・シグモイド
+<br>
+・双曲線関数
+<br>
+・逆双曲線関数
+<br>
+・三角関数
+<br>
+・逆三角関数
 <br>
 ・シンプソンの公式
 <br>
@@ -1954,7 +1968,7 @@ panel上段について記述する
 <br>
 　<span class="run">Ver.2.50.25</span>以降、副次的にcomplex unchecked時、logarithmic-scale選択不能の不具合を解消
 <br>
-・媒介変数tの範囲等分割数Nを選択
+・媒介変数tの範囲等分割数Nを<del>選択</del><span class="run">Ver.2.149.37</span>以降、round入力
 <br>
 ・x(t)入力欄に横軸xの演算内容をsemi-colon;区切りで入力
 <br>
@@ -11960,9 +11974,13 @@ test caseを列挙する
 <br>
 0b02 -> [MyErr]Invalid varName(0b02)
 <br>
+0b0f -> [MyErr]Invalid varName(0b0f)
+<br>
 ・<span class="clear">Ver.2.146.37</span>以降、8進数値（符号なし）
 <br>
 0o17 -> 15
+<br>
+0b08 -> [MyErr]Invalid varName(0b08)
 <br>
 0b0f -> [MyErr]Invalid varName(0b0f)
 <br>
@@ -12856,6 +12874,88 @@ radians(ans) -> 0.5235987755982987
 atan2_ex(0,1)/pi -> 0.5
 <br>
 deg_atan2_ex(0,1) || degrees(atan2_ex(0,1)) -> 90
+    </td>
+  </tr>
+  <tr>
+    <th>
+<a href="#span-index">
+目次
+</a>
+<br>
+三角関数
+<br>
+入力仕様
+    </th>
+    <td>
+<span id="span-out-FN-sin"></span>
+三角関数の入力仕様と付随する留意事項について記述する
+<br>
+<br>
+三角関数
+<br>
+sin(z)
+<br>
+cos(z)
+<br>
+tan(z)
+<br>
+<br>
+逆三角関数
+<br>
+asin(z)
+<br>
+acos(z)
+<br>
+atan(z)
+    </td>
+  </tr>
+  <tr>
+    <th>
+<a href="#span-index">
+目次
+</a>
+<br>
+双曲線関数
+<br>
+入力仕様
+    </th>
+    <td>
+<span id="span-out-FN-sinh"></span>
+双曲線関数の入力仕様と付随する留意事項について記述する
+<br>
+<br>
+双曲線関数
+<br>
+sinh(z)
+<br>
+cosh(z)
+<br>
+tanh(z)
+<br>
+・<span class="run">Ver.2.149.37</span>以降、追加
+<br>
+csch(z)
+<br>
+sech(z)
+<br>
+coth(z)
+<br>
+<br>
+逆双曲線関数
+<br>
+asinh(z)
+<br>
+acosh(z)
+<br>
+atanh(z)
+<br>
+・<span class="run">Ver.2.149.37</span>以降、追加
+<br>
+acsch(z)
+<br>
+asech(z)
+<br>
+acoth(z)
     </td>
   </tr>
   <tr>
@@ -27390,7 +27490,7 @@ b={-f[i]}
 <br>
 ・f||dxが<a href="#span-out-FNm">zeros-vector</a>に収束するまで近似解の修正を反復する
 <br>
-・fが線形な場合、即座に解付近に飛ぶため、収束が速い（本来、反復1回で厳密解に収束）
+・fが線形の場合、即座に解付近に飛ぶため、収束が速い（本来、反復1回で厳密解に収束）
 <br>
 <br>
 上記の反復1回の処理をまとめた<a href="#span-out-FNmh-newtonian">Newton高階行列関数</a>について記述する
@@ -31256,6 +31356,12 @@ parser.js抜粋
       case "asinh":
       case "acosh":
       case "atanh":
+      case "csch":
+      case "sech":
+      case "coth":
+      case "acsch":
+      case "asech":
+      case "acoth":
       case "sign":
       case "fact":
       case "degrees":
