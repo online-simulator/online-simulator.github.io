@@ -80,13 +80,13 @@
       $._id("cone").onclick = function(){setVal("0", "2pi", "p=1,r(t,p,er)=<p/(1+er*cos(t)),z(t,p,er)=<r(t,p,er)e^(i(t)),z1=z(t,p,0),z2=z(t,p,0.8),z3=z(t,p,1.1),real(z1);real(z2);real(z3);", "imag(z1);imag(z2);imag(z3);", 20);$._id("input-z").value+="TITLE{Polar equation of conic curve}::3:1.5:1.5::circle(er=0);::::::ellipse(er=0.8<1);::::::hyperbola(er=1.1>1);";};
       $._id("spiral").onclick = function(){setVal("0", "Nr=1.5,2pi*Nr", "real(e^(i(t)))t;rot=<(cos(t),-sin(t):sin(t),cos(t)),vec0=(-t:0),vec1=rot*vec0,vec1[0];", "imag(e^(i(t)))t;vec1[1];", 100);};
       $._id("tan").onclick = function(){setVal("-2pi", "2pi", "x=t,x;", "tan(x);", 100);};
-      $._id("sinh").onclick = function(){setVal("-2", "2", "x=t,x;", "sinh(x);cosh(x);tanh(x);", 7);};
-      $._id("csch").onclick = function(){setVal("-2", "2", "x=t,x;", "csch(x);sech(x);coth(x);", 7);};
-      $._id("asin").onclick = function(){setVal("-1", "1", "x=t,x;", "sin(asin(x));cos(acos(x));tan(atan(x));asin(sin(x));acos(cos(x));atan(tan(x));", 10);};
-      $._id("asinh").onclick = function(){setVal("1", "10", "x=t,x;", "sinh(asinh(x));cosh(acosh(x));asinh(sinh(x));acosh(cosh(x));", 10);};
-      $._id("atanh").onclick = function(){setVal("-0.99", "0.99", "x=t,x;", "tanh(atanh(x));atanh(tanh(x));", 10);};
-      $._id("acsch").onclick = function(){setVal("0.01", "1", "x=t,x;", "csch(acsch(x));sech(asech(x));acsch(csch(x));asech(sech(x));", 11);};  // 11 for not0
-      $._id("acoth").onclick = function(){setVal("1.01", "10", "x=t,x;", "coth(acoth(x));acoth(coth(x));", 11);};  // 11 for not0
+      $._id("sinh").onclick = function(){setVal("-2", "2", "x=t,x;", "sinh(x);sinh_(z)=<(exp(z)-exp(-z))/2,sinh_(x);cosh(x);cosh_(z)=<(exp(z)+exp(-z))/2,cosh_(x);tanh(x);tanh_(z)=<(exp(z)-exp(-z))/(exp(z)+exp(-z)),tanh_(x);", 7);};
+      $._id("csch").onclick = function(){setVal("-2", "2", "x=t,x;", "csch(x);csch_(z)=<2/(exp(z)-exp(-z)),csch_(x);sech(x);sech_(z)=<2/(exp(z)+exp(-z)),sech_(x);coth(x);coth_(z)=<(exp(z)+exp(-z))/(exp(z)-exp(-z)),coth_(x);", 7);};
+      $._id("asin").onclick = function(){setVal("-1", "1", "x=t,x;", "asin(x);acos(x);atan(x);sin(asin(x));cos(acos(x));tan(atan(x));asin(sin(x));acos(cos(x));atan(tan(x));", 10);};
+      $._id("asinh").onclick = function(){setVal("1", "10", "x=t,x;", "asinh(x);asinh_(z)=<ln(sqrt(z*z+1)+z),asinh_(x);acsch(x);acsch_(z)=<asinh_(1/z),acsch_(x);sinh(asinh(x));cosh(acosh(x));asinh(sinh(x));acosh(cosh(x));", 10);};
+      $._id("atanh").onclick = function(){setVal("-0.99", "3", "x=t,x;", "atanh(x);atanh_(z)=<ln((1+z)/(1-z))/2,atanh_(x);tanh(atanh(x));atanh(tanh(x));", 101);};
+      $._id("acsch").onclick = function(){setVal("0.01", "2", "x=t,x;", "acosh(x);acosh_(z)=<ln(sqrt(z*z-1)+z),acosh_(x);asech(x);asech_(z)=<acosh_(1/z),asech_(x);csch(acsch(x));sech(asech(x));acsch(csch(x));asech(sech(x));", 10);};
+      $._id("acoth").onclick = function(){setVal("-0.99", "3", "x=t,x;", "acoth(x);atanh_(z)=<ln((1+z)/(1-z))/2,acoth_(z)=<atanh_(1/z),acoth_(x);coth(acoth(x));acoth(coth(x));", 101);};
       $._id("sigmoid").onclick = function(){setVal("-2", "2", "x=t,x;", "Gudermannian_fn(x)=<asin(tanh(x)),Gudermannian_fn(x);zeta(x,a,b)=<(1+exp(-a*x))**(-1)+b,zeta(x,3,-0.5);sin(atan(x));atan(x);tanh(x);", 10);};
       $._id("clothoid").onclick = function(){setVal("0", "2pi", "_it(=<cos(t**2/2),0,t);", "_it(=<sin(t**2/2),0,t);", 50);$._id("input-z").value+="::3:1.5:1.5;";};
       $._id("cycloid").onclick = function(){setVal("0", "2pi", "rm=1,rc=3,x1=rm*(t-sin(t)),x2=(rc+rm)cos(t)-rm*cos((rc+rm)t/rm),x3=(rc-rm)cos(t)+rm*cos((rc-rm)t/rm),x1;x2;x3;", "y1=rm*(1-cos(t)),y2=(rc+rm)sin(t)-rm*sin((rc+rm)t/rm),y3=(rc-rm)sin(t)-rm*sin((rc-rm)t/rm),y1;y2;y3;", 100);$._id("input-z").value+="::0::::cycloid;::::::epicycloid;::::::hypocycloid;";};
