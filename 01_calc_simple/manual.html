@@ -641,6 +641,8 @@ e^(-i(1pi(){2/2i}(5-{3-1}){i/(-4)}))
 <br>
 ・<a href="#span-in-FN-log">log関数</a>
 <br>
+・<a href="#span-in-FN-atan2">atan2関数</a>
+<br>
 <br>
 <a href="#span-eqn">strict-mode式変数list</a>
 <br>
@@ -12903,6 +12905,10 @@ deg_atan2_ex(0,1) || degrees(atan2_ex(0,1)) -> 90
 -0 || 0-0 -> 0
 <br>
 x=-0,x -> (0,0)
+<br>
+・ただし、<a href="#span-out-csv-format">csv-format</a>の場合、-0が有効
+<br>
+(-0,-0) -> (0,0)
 <br>
 ・次の場合、pi||2*piの特殊な<a href="#span-out-error-numerical">数値誤差</a>が残る
 <br>
@@ -31621,13 +31627,27 @@ x = real(z);
 <br>
 y = imag(z);
 <br>
-・<a href="#span-out-FN-log">log関数</a>からcallする偏角算出の関数を修正
+・<a href="#span-out-FN-log">log関数</a>からcallする偏角算出の<a href="#span-in-FN-atan2">atan2関数</a>を修正
 <br>
 <del>Math.atan2(y, x)</del>
 <br>
 Math.atan2(y || 0, x || 0)
+    </td>
+  </tr>
+  <tr>
+    <th>
+<a href="#span-index">
+目次
+</a>
 <br>
-・built-inの<a href="#span-out-FN-atan2">atan2関数</a>の挙動
+atan2関数
+    </th>
+    <td>
+<span id="span-in-FN-atan2"></span>
+<a href="#span-out-ope">実数演算</a>の<a href="#span-out-FN-atan2">atan2関数</a>について記述する
+<br>
+<br>
+built-inの<a href="#span-out-FN-atan2">atan2関数</a>の挙動
 <br>
 Math.atan2(-0, -1) -> -3.141592653589793
 <br>
@@ -31645,7 +31665,8 @@ Math.atan2(-0, 0) -> -0
 <br>
 Math.atan2(-0, 1) -> 0
 <br>
-・<a href="#span-out-FN-atan2">atan2関数</a>の挙動
+<br>
+<a href="#span-out-FN-atan2">atan2関数</a>の挙動
 <br>
 atan2(-0,-1) -> -3.141592653589793<span class="clear">+O(6e+0)</span>
 <br>
@@ -31662,6 +31683,10 @@ atan2(0,0) -> 0
 atan2(-0,0) -> <span class="clear">0</span>
 <br>
 atan2(-0,1) -> 0
+<br>
+・<a href="#span-out-csv-format">csv-format</a>から未実装の-0を除外する場合、<a href="#span-out-flow">parse</a>段階で0に変換する（未実施）
+<br>
+num = num || 0;
     </td>
   </tr>
 </tbody>
