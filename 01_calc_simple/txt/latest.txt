@@ -1,6 +1,20 @@
 clear
 local storage cleared
 
+{atan2(0,-0),atan2(-0,-0),atan2(-0,-1),atan2(-0||0,-1),atan2(-eps,-1),atan2(eps,-1),atan2(last{y=-0,x=-1,y},x)}/*O(pi||2*pi)*/
+(
+3.141592653589793+O(3e+0):
+-3.141592653589793+O(3e+0):
+-3.141592653589793+O(6e+0):
+3.141592653589793:
+-3.141592653589793:
+3.141592653589793:
+3.141592653589793
+)
+
+clear
+local storage cleared
+
 log(-1)-log(1/(-1)):log(-1)-log(1/(1-2)):log(-1/2)-log(1/(-2))/*not (2*pi)i*/
 (
 0:
@@ -794,4 +808,4 @@ drag=false&sw=false&0x=false&useComplex=true&useMatrix=true&isRightAssociativity
 --------------------------------
 --------------------------------
 
-online-simulator.github.io.6.203.92.12.48 @ Tue May 23 2023 00:10:33 GMT+0900 (日本標準時) @ Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/113.0.0.0 Safari/537.36
+online-simulator.github.io.6.204.93.12.48 @ Tue May 23 2023 21:01:33 GMT+0900 (日本標準時) @ Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/113.0.0.0 Safari/537.36
