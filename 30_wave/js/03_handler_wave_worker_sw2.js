@@ -269,7 +269,8 @@ My_entry.handler_wave.prototype.input2arr = function(input){
       "rate",  // Ver.1.24.4
       "order",  // Ver.1.26.4
       "order_d",  // Ver.1.31.6
-      "order_a"  // Ver.1.31.6
+      "order_a",  // Ver.1.31.6
+      "order_fade"  // Ver.1.38.8
     ];
     var params0 = {};
     /* -> Ver.1.20.4 */
@@ -346,6 +347,10 @@ My_entry.handler_wave.prototype.input2arr = function(input){
               // Ver.1.24.4
               case "rate":
                 param = self.entry.def.limit(num, 0, Number.MAX_VALUE, 1);
+                break;
+              // Ver.1.38.8
+              case "order_fade":
+                param = self.entry.def.limit(num, 1, 2, 2);
                 break;
               default:
                 param = self.entry.def.limit(num, 0, 1, 0);

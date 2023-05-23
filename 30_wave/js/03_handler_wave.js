@@ -305,6 +305,9 @@ My_entry.handler_wave.prototype.make_params = function(){
     self.entry.$._id("range-volume").value = volume*100;
   }
   self.params.volume = volume;
+  /* Ver.1.38.8 -> */
+  self.params.order_fade = self.entry.$.selectNum_id("select-order-fade");
+  /* -> Ver.1.38.8 */
   self.params.w0 = self.entry.$.selectNum_id("select-w0");
   self.params.p0 = self.entry.$.selectNum_id("select-p0");
   self.params.fileSizeMax = self.entry.$.selectNum_id("select-fileSizeMax");

@@ -21,6 +21,18 @@
       <caption><span id="span-history">演奏機能の更新履歴</span></caption>
       <tbody>
         <tr class="border">
+          <td class="border run">
+Ver.1.38.8
+          </td>
+          <td class="border">
+・fade-orderを追加
+<br>
+・fade-order=2でp0/p1既定値を調整
+<br>
+・testcaseを更新
+          </td>
+        </tr>
+        <tr class="border">
           <td class="border clear">
 Ver.1.37.8
           </td>
@@ -419,6 +431,8 @@ r
 <span class="selection">Ver.1.31.6追加</span>
 <br>
 <span class="run">Ver.1.35.6更新</span>
+<br>
+<span class="wF">Ver.1.38.8追加</span>
           </td>
           <td class="border">
 datasetの拡張
@@ -438,7 +452,7 @@ datasetの拡張
 <br>
 <span class="condition">:w0=0~1:p0=0~1:w1=0~1:p1=0~1:f0:g0=0~1:f1:g1=0~1</span>
 <br>
-<span class="jF">:rate=0~:order=0~</span><span class="selection">:order_d=0~:order_a=0~</span>;
+<span class="jF">:rate=0~:order=0~</span><span class="selection">:order_d=0~:order_a=0~</span><span class="wF">:order_fade=1~2</span>;
           </td>
         </tr>
         <tr class="border">
@@ -958,6 +972,8 @@ testcase
 <span class="run">Ver.1.27.4追加</span>
 <br>
 <span class="condition">Ver.1.33.6更新</span>
+<br>
+<span class="selection">Ver.1.38.8更新</span>
           </td>
           <td class="border">
 test case
@@ -967,9 +983,9 @@ test case
 <br>
 1：1octaveのstereo出力（左右の差あり・Δf=0）
 <br>
-Froschgesang：かえるの合唱（25秒・Δf=10<span class="condition">・fade-inを有効化・fade-outを無効化</span>）
+Froschgesang：かえるの合唱（25秒・Δf=10<span class="condition">・fade-inを有効化</span><span class="selection">・fade-outを有効化</span>）
 <br>
-Froschgesang100：かえるの合唱（100秒・Δf=10<span class="condition">・fade-inを有効化・fade-outを無効化</span>）
+Froschgesang100：かえるの合唱（100秒・Δf=10<span class="condition">・fade-inを有効化</span><span class="selection">・fade-outを有効化</span>）
           </td>
         </tr>
       </tbody>
@@ -1394,16 +1410,14 @@ N：並列化のthread数</span>
         </tr>
         <tr class="border">
           <td class="border">
-amplitude
-<br>
-fade-in/out
+amplitude-fade
 <br>
 <span class="clear">Ver.1.13.3追加</span>
+<br>
+<span class="run">Ver.1.38.8更新</span>
           </td>
           <td class="border">
 dataset内click noise対策用
-<br>
-1次遅れ系
 <br>
 振幅fade-in/outのfilter特性値
           </td>
@@ -1419,6 +1433,16 @@ w1：out-weight
 <br>
 p1：out-range
 <br>
+・in：datasetの最初sampleから
+<br>
+・out：datasetの最後sampleまで
+<br>
+・range：datasetの全sample数に対する割合
+<br>
+・rangeの重複箇所：in優先
+<br>
+　<span class="run">残りをout-rangeに更新（2次遅れ系の対策）</span>
+<br>
 <br>
 1次遅れ系のstep応答：S字の変曲点なし
 <br>
@@ -1428,7 +1452,32 @@ p1：out-range
 <br>
 ・fade処理後、script入力のamplitudeの比例係数を乗算
 <br>
-・高負荷のS字（sigmoid）曲線近似の検討は保留
+<del>・高負荷のS字（sigmoid）曲線近似の検討は保留</del>
+<br>
+<br>
+<span class="run">2次遅れ系の曲線近似に対応</span>
+<br>
+・w0/w1：変曲点位置を可変
+          </td>
+        </tr>
+        <tr class="border">
+          <td class="border">
+fade-order
+<br>
+<span class="run">Ver.1.38.8追加</span>
+          </td>
+          <td class="border">
+filter遅れの次数
+          </td>
+          <td class="border">
+order=1：1次遅れ系（重み平均の逐次処理）
+<br>
+order=2：2次遅れ系（時間に対する曲線近似処理）
+<br>
+・逐次処理の場合、model parameterがsampling rateに依存
+<br>
+<br>
+<a title="Graphing Calculator" href="../02_calc_graphing/index.html?useStrict=false&checkError=false">Graphing Calculator-test case-fade_o1||o2</a>参照
           </td>
         </tr>
         <tr class="border">
@@ -1453,6 +1502,9 @@ post処理
 <br>
 <br>
 old-weight：前回値の重み
+<br>
+<br>
+重み平均：newVal = w*oldVal+(1-w)*nowVal
           </td>
         </tr>
         <tr class="border">

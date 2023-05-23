@@ -307,23 +307,58 @@ My_entry.output_wave.prototype.encode_soundData_LE = function(params){  // Ver.1
   var oldAmp = 0;
   var dns0 = Math.floor(params.number_samples*p0);
   var dns1 = Math.floor(params.number_samples*p1);
+  /* Ver.1.38.8 -> */
+  dns1 = Math.min(dns1, params.number_samples-1-dns0);
   var ns_in = dns0;
   var ns_out = params.number_samples-1-dns1;
-  var get_newAmp = (w0 > 0 || w1 > 0)?
-    function(ns){
+  var useFade = (params.p0 || params.p1);
+  var get_newAmp = function(ns){
+    return amplitude;
+  };
+  if(useFade && params.order_fade === 1){
+    get_newAmp = function(ns){
       var _newAmp = amplitude;
-      if(ns < ns_in){
+      var isIn = (ns < ns_in);
+      var isOut = (ns > ns_out);
+      if(isIn){
         _newAmp = w0*oldAmp+(1-w0)*amplitude;  // w0 first
       }
-      else if(ns > ns_out){
+      else if(isOut){
         _newAmp = w1*oldAmp;
       }
       oldAmp = _newAmp;
       return _newAmp;
-    }:
-    function(ns){
-      return amplitude;
     };
+  }
+  else if(useFade && params.order_fade === 2){
+    var fade_o2 = function(x, a, b){
+      return Math.pow(1+Math.exp(-a*(x-0.5)), b);
+    };
+    var a_fade = 10;
+    var b0 = -1+(w0-0.5);
+    var b1 = -1+(w1-0.5);
+    var fade00 = fade_o2(0, a_fade, b0);
+    var fade10 = fade_o2(1, a_fade, b0);
+    var fade01 = fade_o2(0, a_fade, b1);
+    var fade11 = fade_o2(1, a_fade, b1);
+    get_newAmp = function(ns){
+      var _newAmp = amplitude;
+      var isIn = (ns < ns_in);
+      var isOut = (ns > ns_out);
+      if(isIn){
+        var x = ns/dns0;  // /not0
+        var fade = fade_o2(x, a_fade, b0);
+        _newAmp *= (fade-fade00)/(fade10-fade00);  // /not0
+      }
+      else if(isOut){
+        var x = 1-(ns-ns_out)/dns1;  // /not0
+        var fade = fade_o2(x, a_fade, b1);
+        _newAmp *= (fade-fade01)/(fade11-fade01);  // /not0
+      }
+      return _newAmp;
+    };
+  }
+  /* -> Ver.1.38.8 */
   for(var ns=0; ns<params.number_samples; ++ns){
     var t = ns*seconds_perSample;
     /* Ver.1.20.4 -> */
@@ -430,6 +465,11 @@ My_entry.output_wave.prototype.add_params = function(params){
   }
   /* -> Ver.1.31.6 */
   /* -> Ver.1.26.4 */
+  /* Ver.1.38.8 -> */
+  if(typeof params.order_fade === "undefined"){
+    params.order_fade = 2;
+  }
+  /* -> Ver.1.38.8 */
   return self;
 };
 My_entry.output_wave.prototype.get_number_samples = function(sec){
