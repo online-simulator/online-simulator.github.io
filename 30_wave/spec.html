@@ -1461,7 +1461,7 @@ p1：out-range
 <br>
 ・rangeの重複箇所：in優先
 <br>
-　<span class="run">残りをout-rangeに更新（2次遅れ系の対策）</span>
+　<span class="run">残りをout-rangeに更新（曲線近似の正規化対策）</span>
 <br>
 <span class="run">・fade有効化の条件：p0 &gt; 0 || p1 &gt; 0</span>
 <br>
@@ -1488,7 +1488,7 @@ p1：out-range
 ・w=1：時間の2乗（下凸の変化）
 <br>
 <br>
-<span class="run">2次遅れ系の曲線近似（sigmoid）に対応</span>
+<span class="run">2次遅れ系の曲線近似（sigmoid）を追加</span>
 <br>
 ・w0/w1：変曲点位置を可変
 <br>
@@ -1517,10 +1517,12 @@ filter遅れの次数
 <br>
 <span class="run">order_fade=2：2次遅れ系（時間に対する曲線近似処理）</span>
 <br>
-・逐次処理の場合、model parameterがsampling rateに依存
+・逐次処理の場合、model parameterがsampling rateに依存（調整困難）
+<br>
+・低負荷の直線近似で十分の可能性あり
 <br>
 <br>
-<a title="Graphing Calculator" href="../02_calc_graphing/index.html?useStrict=false&checkError=false">Graphing Calculator-test case-fade</a>参照
+詳細は<a title="Graphing Calculator" href="../02_calc_graphing/index.html?useStrict=false&checkError=false">Graphing Calculator-test case-fade</a>参照
           </td>
         </tr>
         <tr class="border">
