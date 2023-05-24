@@ -1,8 +1,24 @@
 clear
 local storage cleared
 
-{atan2(0,-0),atan2(-0,-0),atan2(-0,-1),atan2(-0||0,-1),atan2(-eps,-1),atan2(eps,-1),atan2(last{y=-0,x=-1,y},x)}/*O(pi||2*pi)*/
+{(-0),(-0,-0),(-0,-0)i,i(-0,-0),(-0)*0,(-0)*1,(-0)*(-1),(-0)+0}/*csv-format -0*/
 (
+-0:
+-0,-0:
+-0,-0:
+0,0:
+0:
+0:
+0:
+0
+)
+
+clear
+local storage cleared
+
+{atan2(-0,0),atan2(0,-0),atan2(-0,-0),atan2(-0,-1),atan2(-0||0,-1),atan2(-eps,-1),atan2(eps,-1),atan2(last{y=-0,x=-1,y},x)}/*O(pi||2*pi)*/
+(
+-0:
 3.141592653589793+O(3e+0):
 -3.141592653589793+O(3e+0):
 -3.141592653589793+O(6e+0):
@@ -808,4 +824,4 @@ drag=false&sw=false&0x=false&useComplex=true&useMatrix=true&isRightAssociativity
 --------------------------------
 --------------------------------
 
-online-simulator.github.io.6.204.93.12.48 @ Tue May 23 2023 21:01:33 GMT+0900 (日本標準時) @ Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/113.0.0.0 Safari/537.36
+online-simulator.github.io.6.206.93.12.48 @ Wed May 24 2023 20:46:27 GMT+0900 (日本標準時) @ Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/113.0.0.0 Safari/537.36

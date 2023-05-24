@@ -260,6 +260,7 @@ My_entry.math_com.prototype.asinh = function(z){
   return self.ln(self.add(z, sqrt_zp2pr1));
 };
 /* Ver.2.149.38 -> */
+/*
 My_entry.math_com.prototype.acosh_old = function(z){
   var self = this;
   var r1 = self.entry.DATA.com(1, 0);
@@ -267,6 +268,7 @@ My_entry.math_com.prototype.acosh_old = function(z){
   var sqrt_zmr1 = self.sqrt(self.sub(z, r1));
   return self.ln(self.add(z, self.mul(sqrt_zpr1, sqrt_zmr1)));
 };
+*/
 My_entry.math_com.prototype.acosh = function(z){
   var self = this;
   var r1 = self.entry.DATA.com(1, 0);

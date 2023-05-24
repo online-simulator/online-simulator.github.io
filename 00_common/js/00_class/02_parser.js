@@ -225,9 +225,10 @@ My_entry.parser.prototype.check_csv = function(str_tokens, tagName){
   var DATA = self.entry.DATA;
   var sc = str_tokens.split(",");
   var len_n = sc.length;
-  var isCsv = (len_n > 1);  // not index
-/* Ver.2.145.36 -> */
-if(isCsv){
+  /* Ver.2.151.38 -> */
+  var isIndex = (len_n === 1 && tagName);
+  var isCsv = true;
+  /* Ver.2.145.36 -> */
 //  var hasNullStr = false;
   for(var n=0; n<len_n; ++n){
     var scn = sc[n];
@@ -252,10 +253,10 @@ if(isCsv){
       arr[i] = arr[i] || [];
       arr[i][j] = DATA.num(sc[n], 0);
     }
-    _tree = DATA.tree_mat(arr);
+    var tree = DATA.tree_mat(arr);
+    _tree = (isIndex)? DATA.tree_tag(tagName, [tree]): tree;
   }
-}
-/* -> Ver.2.145.36 */
+  /* -> Ver.2.145.36 */
   return _tree;
 };
 My_entry.parser.prototype.compare2bs = function(token, re){
@@ -909,12 +910,20 @@ My_entry.parser.prototype.make_log_num = function(num, options){
     else if(li){
       _log += "infoLost[ i] ";
     }
-    var cre = (ed>=0)? cr.toExponential(ed): cr;
+    /* Ver.2.151.38 -> */
+    var hasToLocaleString = (typeof("".toLocaleString) === "function");
+    var is0_cr = (hasToLocaleString && !(cr));
+    var str_cr = (is0_cr)? cr.toLocaleString(): String(cr);
+    var cre = (ed>=0)? cr.toExponential(ed): str_cr;
     if(useComplex){
-      var cie = (ed>=0)? ci.toExponential(ed): ci;
-      _log += (cr)? cre: ((ci)? "": cre);
+      var is0_ci = (hasToLocaleString && !(ci));
+      var str_ci = (is0_ci)? ci.toLocaleString(): String(ci);
+      var cie = (ed>=0)? ci.toExponential(ed): str_ci;
+      var isM0_ci = (options.checkComplex && str_ci === "-0");
+      var hasI = (ci || isM0_ci);
+      _log += (cr)? cre: ((hasI)? "": cre);
       _log += (cr&&ci)? ((ci>0)? "+": ""): "";
-      _log += (ci)?
+      _log += (hasI)?
          (ci=== 1)?  "i":
          (ci===-1)? "-i":
                  cie+"i":
@@ -923,6 +932,7 @@ My_entry.parser.prototype.make_log_num = function(num, options){
     else{
       _log += cre;
     }
+    /* -> Ver.2.151.38 */
     if(num.err.r || num.err.i){
       _log += "+O(";
       var ed = options.expDigit;

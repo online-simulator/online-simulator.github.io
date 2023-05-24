@@ -643,6 +643,8 @@ e^(-i(1pi(){2/2i}(5-{3-1}){i/(-4)}))
 <br>
 ・<a href="#span-in-FN-atan2">atan2関数</a>
 <br>
+・<a href="#span-in-log-m0">-0表示対応</a>
+<br>
 <br>
 <a href="#span-eqn">strict-mode式変数list</a>
 <br>
@@ -8140,6 +8142,13 @@ x=2; ($a,$b)=(1,2); eqn_x=&lt;(a*x+b=0) -> stored_eqn(eqn_x)
 ans -> 6
 <br>
 <br>
+<span class="run">Ver.2.151.38</span>以降、<a href="#span-in-log-m0">実部の-0表示に対応</a>
+<br>
+-0 -> -0
+<br>
+(-0) -> -0
+<br>
+<br>
 表示仕様ではないが、以下の演算都合上の仕様について記述する
 <br>
 ・代入を<a href="#span-out-BT">括弧</a>で括った場合、0を返す
@@ -10998,13 +11007,21 @@ csv-formatを次に示す
 <br>
 <span class="jF">実数値,実数値,...,実数値</span>
 <br>
+・<span class="condition">formatの適用範囲</span>
+<br>
 {<span class="condition">実数値,実数値,...,実数値</span>}
 <br>
 (<span class="condition">実数値,実数値,...,実数値</span>)
 <br>
 [<span class="condition">実数値,実数値,...,実数値</span>]
 <br>
-・<span class="condition">formatの適用範囲</span>
+・<span class="run">Ver.2.151.38</span>以降、-0入力に対応
+<br>
+<span class="jF">実数値</span>
+<br>
+<del>-0 -> 0</del>
+<br>
+-0 -> -0
 <br>
 <br>
 test caseを示す
@@ -12902,13 +12919,17 @@ deg_atan2_ex(0,1) || degrees(atan2_ex(0,1)) -> 90
 <br>
 ・負から0に漸近を表す-0は未定義
 <br>
--0 || 0-0 -> 0
-<br>
 x=-0,x -> (0,0)
 <br>
 ・ただし、<a href="#span-out-csv-format">csv-format</a>の場合、-0が有効
 <br>
-(-0,-0) -> (0,0)
+<del>(-0,-0) -> (0,0)</del>
+<br>
+・<span class="run">Ver.2.151.38</span>以降、<a href="#span-in-log-m0">実部の-0表示に対応</a>
+<br>
+(-0,-0) -> (-0,-0)
+<br>
+x=(-0),x -> (0,-0)
 <br>
 ・次の場合、pi||2*piの特殊な<a href="#span-out-error-numerical">数値誤差</a>が残る
 <br>
@@ -31028,13 +31049,16 @@ data.logo -> "makeLog=true"
 ・<a href="#span-out-config">checkError</a>: <a href="#span-out-error">情報落ち</a>の発生や微分・積分の<a href="#span-out-error-numerical">数値誤差</a>を評価するflag
 <br>
 <br>
+・<a href="#span-in-log-m0">checkComplex</a>: <span class="run">Ver.2.151.38</span>以降、虚部の-0を<a href="#span-out-log">log表示</a>するflag
+<br>
+<br>
 ・<a href="#span-out-config">precedence</a>: comma,区切りで演算子の<a href="#span-in-prec">tag名</a>を列挙した文字列
 <br>
 <br>
 ・<a href="#span-out-FNm">matSizeMax</a>: <a href="#span-out-reference-mat-size">行列size</a>指定の行||列のlengthの上限値=1000
 <br>
 <br>
-・<a href="#span-out-csv-format">depthMax</a>: <a href="#span-out-flow">operation</a>段階のnesting深さの上限値=300
+・<a href="#span-out-csv-format">depthMax</a>: <span class="clear">Ver.2.144.36</span>以降、<a href="#span-out-flow">operation</a>段階のnesting深さの上限値=300
 <br>
 <br>
 ・<a href="#span-out-FNmh-newtonian">isRelative_epsN</a>: epsNを相対誤差に変換するflag
@@ -31680,13 +31704,86 @@ atan2(-0,-0) -> -3.141592653589793<span class="clear">+O(3e+0)</span>
 <br>
 atan2(0,0) -> 0
 <br>
-atan2(-0,0) -> <span class="clear">0</span>
+・<span class="run">Ver.2.151.38</span>以降、<a href="#span-in-log-m0">実部の-0表示に対応</a>
+<br>
+<del>atan2(-0,0) -> <span class="clear">0</span></del>
+<br>
+atan2(-0,0) -> -0
 <br>
 atan2(-0,1) -> 0
+    </td>
+  </tr>
+  <tr>
+    <th>
+<a href="#span-index">
+目次
+</a>
 <br>
-・<a href="#span-out-csv-format">csv-format</a>から未実装の-0を除外する場合、<a href="#span-out-flow">parse</a>段階で0に変換する（未実施）
+-0表示対応
+    </th>
+    <td>
+<span id="span-in-log-m0"></span>
+<a href="#span-out-log">log表示</a>の-0表示対応について記述する
 <br>
-num = num || 0;
+<br>
+<span class="run">Ver.2.151.38</span>以降、実部の-0表示に対応
+<br>
+-0 -> -0
+<br>
+(-0) -> -0
+<br>
+(-0,-0) -> (-0,-0)
+<br>
+x=(-0),x -> (0,-0)
+<br>
+<br>
+-0のNative仕様
+<br>
+-0 -> -0
+<br>
+(-0) -> -0
+<br>
+-0 * 0 -> -0
+<br>
+-0 * 1 -> -0
+<br>
+-0 * (-1) -> 0
+<br>
+-0 + 0 || 0 + (-0) -> 0
+<br>
+<br>
+演算結果の<a href="#span-out-log">log表示</a>
+<br>
+・<a href="#span-out-csv-format">csv-format</a>で-0を入力
+<br>
+-0 -> -0
+<br>
+(-0) -> -0
+<br>
+・<a href="#span-out-ope">無次元</a>の演算の場合、互換性あり
+<br>
+(-0)*0 -> -0
+<br>
+(-0)*1 -> -0
+<br>
+(-0)*(-1) -> 0
+<br>
+(-0)+0 || 0+(-0) -> 0
+<br>
+・<a href="#span-out-ope">有次元</a>の演算の場合、互換性なし
+<br>
+(-0)*0 -> 0
+<br>
+(-0)*1 -> 0
+<br>
+(-0)*(-1) -> 0
+<br>
+(-0)+0 || 0+(-0) -> 0
+<br>
+<br>
+虚部の-0を<a href="#span-out-log">log表示</a>する場合、<a href="#span-in-options">内部option</a>参照
+<br>
+cos(pi/4) -> 0.7071067811865476-0i
     </td>
   </tr>
 </tbody>
