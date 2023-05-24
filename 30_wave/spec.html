@@ -22,6 +22,22 @@
       <tbody>
         <tr class="border">
           <td class="border run">
+Ver.1.39.8
+          </td>
+          <td class="border">
+・fade-orderを更新
+<br>
+　order_fade=1の曲線近似を追加
+<br>
+・従来の重み平均処理の設定値を変更
+<br>
+　script入力値：order_fade=0
+<br>
+　UI選択値：1.
+          </td>
+        </tr>
+        <tr class="border">
+          <td class="border run">
 Ver.1.38.8
           </td>
           <td class="border">
@@ -433,6 +449,8 @@ r
 <span class="run">Ver.1.35.6更新</span>
 <br>
 <span class="wF">Ver.1.38.8追加</span>
+<br>
+<span class="wF">Ver.1.39.8更新</span>
           </td>
           <td class="border">
 datasetの拡張
@@ -452,7 +470,7 @@ datasetの拡張
 <br>
 <span class="condition">:w0=0~1:p0=0~1:w1=0~1:p1=0~1:f0:g0=0~1:f1:g1=0~1</span>
 <br>
-<span class="jF">:rate=0~:order=0~</span><span class="selection">:order_d=0~:order_a=0~</span><span class="wF">:order_fade=1~2</span>;
+<span class="jF">:rate=0~:order=0~</span><span class="selection">:order_d=0~:order_a=0~</span><span class="wF">:order_fade=floor(0~2)</span>;
           </td>
         </tr>
         <tr class="border">
@@ -1415,6 +1433,8 @@ amplitude-fade
 <span class="clear">Ver.1.13.3追加</span>
 <br>
 <span class="run">Ver.1.38.8更新</span>
+<br>
+<span class="condition">Ver.1.39.8更新</span>
           </td>
           <td class="border">
 dataset内click noise対策用
@@ -1443,6 +1463,8 @@ p1：out-range
 <br>
 　<span class="run">残りをout-rangeに更新（2次遅れ系の対策）</span>
 <br>
+<span class="run">・fade有効化の条件：p0 &gt; 0 || p1 &gt; 0</span>
+<br>
 <br>
 1次遅れ系のstep応答：S字の変曲点なし
 <br>
@@ -1455,9 +1477,26 @@ p1：out-range
 <del>・高負荷のS字（sigmoid）曲線近似の検討は保留</del>
 <br>
 <br>
-<span class="run">2次遅れ系の曲線近似に対応</span>
+<span class="condition">1次遅れ系の曲線近似（べき乗）を追加</span>
+<br>
+・w0/w1：時定数を可変
+<br>
+・w=0：時間の0.5乗（上凸の変化）
+<br>
+・w=0.5：時間の1乗（線形変化）
+<br>
+・w=1：時間の2乗（下凸の変化）
+<br>
+<br>
+<span class="run">2次遅れ系の曲線近似（sigmoid）に対応</span>
 <br>
 ・w0/w1：変曲点位置を可変
+<br>
+・w=0.5：上下対称
+<br>
+・w&lt;0.5：下に移動
+<br>
+・w&gt;0.5：上に移動
           </td>
         </tr>
         <tr class="border">
@@ -1465,19 +1504,23 @@ p1：out-range
 fade-order
 <br>
 <span class="run">Ver.1.38.8追加</span>
+<br>
+<span class="condition">Ver.1.39.8更新</span>
           </td>
           <td class="border">
 filter遅れの次数
           </td>
           <td class="border">
-order=1：1次遅れ系（重み平均の逐次処理）
+<span class="condition">order_fade=0||1.</span>：1次遅れ系（重み平均の逐次処理）
 <br>
-order=2：2次遅れ系（時間に対する曲線近似処理）
+<span class="condition">order_fade=1：1次遅れ系（時間に対する曲線近似処理）</span>
+<br>
+<span class="run">order_fade=2：2次遅れ系（時間に対する曲線近似処理）</span>
 <br>
 ・逐次処理の場合、model parameterがsampling rateに依存
 <br>
 <br>
-<a title="Graphing Calculator" href="../02_calc_graphing/index.html?useStrict=false&checkError=false">Graphing Calculator-test case-fade_o1||o2</a>参照
+<a title="Graphing Calculator" href="../02_calc_graphing/index.html?useStrict=false&checkError=false">Graphing Calculator-test case-fade</a>参照
           </td>
         </tr>
         <tr class="border">
