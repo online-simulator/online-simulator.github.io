@@ -476,6 +476,8 @@ e^(-i(1pi(){2/2i}(5-{3-1}){i/(-4)}))
 <br>
 　　・<a href="#span-out-eqns-args">arguments</a>
 <br>
+　　　・<a href="#span-out-call-by-symbol">symbol渡し</a>
+<br>
 　　　・<a href="#span-out-eqns-re-use">scope付式変数の再利用</a>
 <br>
 　・<a href="#span-out-FNh">高階関数</a>
@@ -17708,7 +17710,7 @@ clear; a(B)=&lt;{B[0]=B[1],=&lt;B}=&gt;; B=(1,2:3,4); (B,a(=&lt;B)=&gt;,B) ->
 <br>
 ・定義元とcall先の<a href="#span-out-bracket">scope</a>が同一の場合
 <br>
-　・<a href="#span-out-eqns-args">symbol渡し</a>の場合、定義元とcall先のAは同一
+　・<a href="#span-out-call-by-symbol">symbol渡し</a>の場合、定義元とcall先のAは同一
 <br>
 clear; add(A,B)=&lt;A+B; A=(1,2:3,4); add(=&lt;A,=&lt;A) -> (2,4:6,8)
 <br>
@@ -17806,7 +17808,7 @@ clear; [conv(=&lt;a_)=&lt;last[b=4,a_=&gt;+b],[a=3,conv(=&lt;(a))==&gt;]] -> (0,
 <br>
 clear; [conv(=&lt;a_)=&lt;last[b=&lt;4,a_=&gt;+b=&gt;],[a=3,conv(=&lt;(a))==&gt;]] -> (0,0,7)
 <br>
-・symbol渡しで定義元<a href="#span-out-bracket">scope</a>を継承する場合
+・<a href="#span-out-call-by-symbol">symbol渡し</a>で定義元<a href="#span-out-bracket">scope</a>を継承する場合
 <br>
 clear; conv(=&lt;a_)=&lt;(a=-1,=&lt;a+a_=&gt;)=&gt;*2; a=&lt;a; a=1; conv(=&lt;a)=&gt;,a -> (-4,-1)
 <br>
@@ -17814,7 +17816,7 @@ clear; conv(=&lt;a_)=&lt;[a=-1,=&lt;a+a_=&gt;]=&gt;*2; a=&lt;a; a=1; conv(=&lt;a
 <br>
 clear; conv(=&lt;a_)=&lt;[a=-1,=&lt;a+a_==&gt;]=&gt;*2; a=&lt;a; a=1; conv(=&lt;a)=&gt;,a -> (-4,1)
 <br>
-・symbol渡しを<a href="#span-out-scope-inherited-call">式変数のscope継承call</a>で代替する場合、nestingが必要
+・<a href="#span-out-call-by-symbol">symbol渡し</a>を<a href="#span-out-scope-inherited-call">式変数のscope継承call</a>で代替する場合、nestingが必要
 <br>
 clear; conv(=&lt;a_)=&lt;[=&lt;a+a_=&gt;]=&gt;*2; a=&lt;-a; a=1; conv(=&lt;a)=&gt;,a -> (0,1)
 <br>
@@ -17872,33 +17874,6 @@ clear; add(A,B)=&lt;A+B; add(=&lt;(1,2:3,4),=&lt;(5,6:7,8))=&gt; -> (6,8:10,12)
 clear; add(A,B)=&lt;A+B; add(=&lt;(1,2:3,4),=&lt;(5,6:7,8)) -> (6,8:10,12)
 <br>
 <br>
-call先argumentsに<a href="#span-out-vars-symbol">変数名symbol</a>を<a href="#span-out-call-by-equation">式渡し</a>する場合（以降、symbol渡しと呼ぶ）
-<br>
-・<a href="#span-out-vars">変数</a>を使用
-<br>
-clear; add(A,B)=&lt;A+B;
-<br>
-A=(1,2:3,4); B=(5,6:7,8); add(A,B)=&gt; -> [MyErr]Invalid args.length=2(add)
-<br>
-clear; add(A,B)=&lt;A+B;
-<br>
-A=(1,2:3,4); B=(5,6:7,8); add(=&lt;A,=&lt;B)=&gt; || add(=&lt;A,=&lt;B) -> (6,8:10,12)
-<br>
-・<a href="#span-out-eqns">式変数</a>を使用
-<br>
-clear; add(A,B)=&lt;A+B;
-<br>
-A=&lt;(1,2:3,4); B=&lt;(5,6:7,8); add(=&lt;A,=&lt;B)=&gt; -> (6,8:10,12)
-<br>
-clear; add(=&lt;A_,=&lt;B_)=&lt;A_=&gt;+B_=&gt;;
-<br>
-A=&lt;(1,2:3,4); B=&lt;(5,6:7,8); add(=&lt;A,=&lt;B)=&gt; -> (6,8:10,12)
-<br>
-clear; add(=&lt;A_,=&lt;B_)=&lt;A_+B_;
-<br>
-A=&lt;(1,2:3,4); B=&lt;(5,6:7,8); add(=&lt;A,=&lt;B)=&gt; -> (6,8:10,12)
-<br>
-<br>
 <a href="#span-out-vars">変数</a>・<a href="#span-out-eqns">式変数</a>の<a href="#span-out-call-by-equation">式渡し</a>の場合
 <br>
 clear; add(=&lt;A_,=&lt;B_)=&lt;A_+B_;
@@ -17920,7 +17895,7 @@ A=&lt;(1,2:3,4); B=&lt;(5,6:7,8); add(=&lt;[A=&gt;+A=&gt;],=&lt;[B=&gt;+B=&gt;])
 <br>
 定義元argumentsの<a href="#span-out-vars-symbol">式変数名symbol</a>をunderscoreでescapeする理由を列挙する
 <br>
-・symbol渡しで<a href="#span-out-eqns">式変数</a>Bの中身をcallする場合、問題なし
+・<a href="#span-out-call-by-symbol">symbol渡し</a>で<a href="#span-out-eqns">式変数</a>Bの中身をcallする場合、問題なし
 <br>
 clear; add(A,=&lt;B)=&lt;A+B=&gt;; B=&lt;(3,4); add(=&lt;(1,2),=&lt;B) -> (4,6)
 <br>
@@ -17977,30 +17952,7 @@ clear; add(A,=&lt;B_)=&lt;[A+B_=&gt;]; B=&lt;(3,4); add(=&lt;(1,2),=&lt;B=&gt;)=
 clear; add(A,=&lt;B_)=&lt;[A+B_=&gt;]; B=&lt;(3,4); add(=&lt;(1,2),=&lt;B)=&gt; -> (4,6)
 <br>
 <br>
-symbol渡しの場合、定義元<a href="#span-out-bracket">scope</a>に留意が不要（別<a href="#span-out-bracket">scope</a>を参照するcaseを除く）
-<br>
-・次の場合、<a href="#span-out-eqns">式変数</a>Bの中身(a,4)を定義元の<a href="#span-out-eqns">式変数</a>B_に継承する
-<br>
-clear; add(A,=&lt;B_)=&lt;(a=-1,=&lt;A+B_=&gt;)=&gt;; B=&lt;(a,4); a=1; add(=&lt;(1,2),=&lt;B)=&gt; -> (0,6)
-<br>
-clear; add(A,=&lt;B_)=&lt;(a=-1,=&lt;A+B_=&gt;)=&gt;; a=1; add(=&lt;(1,2),=&lt;(a,4))=&gt; -> (0,6)
-<br>
-clear; add(A,=&lt;B_)=&lt;[a=-1,=&lt;A+B_=&gt;]=&gt;; B=&lt;(a,4); a=1; add(=&lt;(1,2),=&lt;B)=&gt; -> (0,6)
-<br>
-clear; add(A,=&lt;B_)=&lt;[a=-1,=&lt;A+B_=&gt;]=&gt;; a=1; add(=&lt;(1,2),=&lt;(a,4))=&gt; -> (0,6)
-<br>
-clear; add(A,=&lt;B_)=&lt;[a=-1,=&lt;A+B_=&gt;]=&gt;; a=1; add(=&lt;(1,2),=&lt;{=&lt;(a,4)}=&gt;)=&gt; -> (0,6)
-<br>
-clear; add(A,=&lt;B_)=&lt;[a=-1,=&lt;A+B_=&gt;]=&gt;; a=1; add(=&lt;(1,2),=&lt;{=&lt;(a,4)}=&gt;)=&gt; -> (0,6)
-<br>
-・<a href="#span-out-vars-symbol">変数名symbol</a>を<a href="#span-out-BT">括弧</a>で括った場合、<a href="#span-out-call-by-equation">式渡し</a>と判別される
-<br>
-clear; add(A,=&lt;B_)=&lt;[a=-1,=&lt;A+B_=&gt;]=&gt;; B=&lt;(a,4); a=1; add(=&lt;(1,2),=&lt;(B))=&gt; -> (2,6)
-<br>
-・<a href="#span-out-FNh">高階関数</a>のsymbolのみを渡す引数と異なる
-<br>
-<br>
-<a href="#span-out-call-by-equation">式渡し</a>の場合、定義元<a href="#span-out-bracket">scope</a>に留意が必要
+<a href="#span-out-call-by-equation">式渡し</a>の場合、<a href="#span-out-call-by-symbol">symbol渡し</a>と異なり、定義元<a href="#span-out-bracket">scope</a>に留意が必要
 <br>
 ・次の場合、B=&gt;を定義元の<a href="#span-out-eqns">式変数</a>B_に継承する
 <br>
@@ -18154,6 +18106,101 @@ clear; a(max)=&lt;2; a()=&gt; || a()=&lt;2; a()=&gt; || a=&lt;2; a=&gt; -> 2
 ・argumentsの<a href="#span-out-vars-symbol">変数名symbol</a>は<a href="#span-out-vars-rule2">変数の命名規則</a>に準拠
 <br>
 clear; a($b)=&lt;$b*2 -> [MyErr]Invalid REv($b)
+    </td>
+  </tr>
+  <tr>
+    <th>
+<a href="#span-index">
+目次
+</a>
+<br>
+symbol渡し
+<br>
+入力仕様
+    </th>
+    <td>
+<span id="span-out-call-by-symbol"></span>
+式変数のsymbol渡しの入力仕様と付随する留意事項について記述する
+<br>
+<br>
+call先argumentsに<a href="#span-out-vars-symbol">変数名symbol</a>を<a href="#span-out-call-by-equation">式渡し</a>する場合
+<br>
+・symbol渡しと定義する
+<br>
+・<a href="#span-out-vars">変数</a>を使用
+<br>
+clear; add(A,B)=&lt;A+B;
+<br>
+A=(1,2:3,4); B=(5,6:7,8); add(A,B)=&gt; -> [MyErr]Invalid args.length=2(add)
+<br>
+clear; add(A,B)=&lt;A+B;
+<br>
+A=(1,2:3,4); B=(5,6:7,8); add(=&lt;A,=&lt;B)=&gt; || add(=&lt;A,=&lt;B) -> (6,8:10,12)
+<br>
+・<a href="#span-out-eqns">式変数</a>を使用
+<br>
+clear; add(A,B)=&lt;A+B;
+<br>
+A=&lt;(1,2:3,4); B=&lt;(5,6:7,8); add(=&lt;A,=&lt;B)=&gt; -> (6,8:10,12)
+<br>
+clear; add(=&lt;A_,=&lt;B_)=&lt;A_=&gt;+B_=&gt;;
+<br>
+A=&lt;(1,2:3,4); B=&lt;(5,6:7,8); add(=&lt;A,=&lt;B)=&gt; -> (6,8:10,12)
+<br>
+clear; add(=&lt;A_,=&lt;B_)=&lt;A_+B_;
+<br>
+A=&lt;(1,2:3,4); B=&lt;(5,6:7,8); add(=&lt;A,=&lt;B)=&gt; -> (6,8:10,12)
+<br>
+・引数は最終行vectorの左から順に参照（<a href="#span-out-FNh">高階関数</a>の<a href="#span-out-ope-extended">拡張機能</a>なし）
+<br>
+add(1,2:3,4) || add(3,4) -> 7
+<br>
+add(=&lt;A,=&lt;A:=&lt;B,=&lt;B)=&gt; || add(=&lt;B,=&lt;B) -> (10,12:14,16)
+<br>
+・引数の要素を指定する場合、引数の右側に<a href="#span-out-reference-mat-index">行列index</a>を追加する
+<br>
+add(1,2:3,4)[0] || add((1,2:3,4)[0]) || add(1,2) -> 3
+<br>
+add(=&lt;A,=&lt;A:=&lt;B,=&lt;B)[0]=&gt; || add((=&lt;A,=&lt;A:=&lt;B,=&lt;B)[0])=&gt; || add(=&lt;A,=&lt;A)=&gt; -> (2,4:6,8)
+<br>
+・引数の要素数が異なる場合、error終了（<a href="#span-out-FN-args">関数の引数</a>と異なり、厳格に判別する）
+<br>
+add(1,2:3,4)[0][0] -> [MyErr]Invalid args.length=2(add)
+<br>
+add(=&lt;A,=&lt;A:=&lt;B,=&lt;B)[0][0]=&gt; -> [MyErr]Invalid args.length=2(add)
+<br>
+add(=&lt;A,=&lt;A,=&lt;A)=&gt; -> [MyErr]Invalid args.length=2(add)
+<br>
+・返値の要素を指定する場合、式変数名の右側に<a href="#span-out-reference-mat-index">行列index</a>を追加する
+<br>
+add[0](1,2:3,4)[0] -> 3
+<br>
+add[1](=&lt;A,=&lt;A:=&lt;B,=&lt;B)[0]=&gt; -> (6,8)
+<br>
+add[1][1](=&lt;A,=&lt;A:=&lt;B,=&lt;B)[0]=&gt; -> 8
+<br>
+<br>
+symbol渡しの場合、定義元<a href="#span-out-bracket">scope</a>に留意が不要（別<a href="#span-out-bracket">scope</a>を参照するcaseを除く）
+<br>
+・次の場合、<a href="#span-out-eqns">式変数</a>Bの中身(a,4)を定義元の<a href="#span-out-eqns">式変数</a>B_に継承する
+<br>
+clear; add(A,=&lt;B_)=&lt;(a=-1,=&lt;A+B_=&gt;)=&gt;; B=&lt;(a,4); a=1; add(=&lt;(1,2),=&lt;B)=&gt; -> (0,6)
+<br>
+clear; add(A,=&lt;B_)=&lt;(a=-1,=&lt;A+B_=&gt;)=&gt;; a=1; add(=&lt;(1,2),=&lt;(a,4))=&gt; -> (0,6)
+<br>
+clear; add(A,=&lt;B_)=&lt;[a=-1,=&lt;A+B_=&gt;]=&gt;; B=&lt;(a,4); a=1; add(=&lt;(1,2),=&lt;B)=&gt; -> (0,6)
+<br>
+clear; add(A,=&lt;B_)=&lt;[a=-1,=&lt;A+B_=&gt;]=&gt;; a=1; add(=&lt;(1,2),=&lt;(a,4))=&gt; -> (0,6)
+<br>
+clear; add(A,=&lt;B_)=&lt;[a=-1,=&lt;A+B_=&gt;]=&gt;; a=1; add(=&lt;(1,2),=&lt;{=&lt;(a,4)}=&gt;)=&gt; -> (0,6)
+<br>
+clear; add(A,=&lt;B_)=&lt;[a=-1,=&lt;A+B_=&gt;]=&gt;; a=1; add(=&lt;(1,2),=&lt;{=&lt;(a,4)}=&gt;)=&gt; -> (0,6)
+<br>
+・<a href="#span-out-vars-symbol">変数名symbol</a>を<a href="#span-out-BT">括弧</a>で括った場合、<a href="#span-out-call-by-equation">式渡し</a>と判別される
+<br>
+clear; add(A,=&lt;B_)=&lt;[a=-1,=&lt;A+B_=&gt;]=&gt;; B=&lt;(a,4); a=1; add(=&lt;(1,2),=&lt;(B))=&gt; -> (2,6)
+<br>
+・<a href="#span-out-FNh">高階関数</a>のsymbolのみを渡す引数と異なる
     </td>
   </tr>
   <tr>
@@ -18612,7 +18659,7 @@ _Sy(=&lt;{_sx(=&lt;{x+y},0,y)},2,0) || 0+2+3+4+1+2 -> 12
 <br>
 x=-1; y=-2; _sy(=&lt;{_sx(=&lt;{x+y},0,y)},0,2); x+y -> -3
 <br>
-・<a href="#span-out-FNh">高階関数</a>の引数も<a href="#span-out-FN">関数</a>同様に最終行vectorの左から順に参照
+・<a href="#span-out-FNh">高階関数</a>の引数は最終行vectorの左から順に参照
 <br>
 _sn(,is=0,:,ie=10,:=&lt;{n},is,ie) -> 55
 <br>

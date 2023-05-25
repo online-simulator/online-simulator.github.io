@@ -436,7 +436,7 @@ local storage cleared
 clear
 local storage cleared
 
-add(a,=<b)=<a+b=>/*equation's arguments test case*/,add(-1,=<-1)/*Call-by-Value,Call-by-Equation*/,add(add(add(add(-1,=<-1),=<-1),=<-1),=<-1)/*value's nesting-return enabled*/,A=(1,2:3,4),B=<(1,2:3,4),add(A_,=<B_)=<[A_+B_=>]/*default [scope] enabled in case of matrix*/,A=<(,:,),add[0](=<A,=<B)=>/*Call-by-Symbol variable first, equation second in Non-strict-mode (2,4:6,8)[0]*/,add[0](=<A=>/*obvious equation call=>*/,=<B)=>,add[1](=<(1,2:3,4),=<(1,2:3,4)){1,-1}/*omitted =>* (6,8){1,-1} -> -2*/,last[add(A_,=<B_)=<(a=-0xf,A_+B_=>)/*with underscore avoiding circular(B)*/,[B=<(-100,-100:-100,-100),add[1](=<(1,2:3,4),=<B),a/*static scope shared*/]]
+add(a,=<b)=<a+b=>/*equation's arguments test case*/,add(-1,=<-1)/*Call-by-Value,Call-by-Equation*/,add(add(add(add(-1,=<-1),=<-1),=<-1),=<-1)/*value's nesting-return enabled*/,A=(1,2:3,4),B=<(1,2:3,4),add(A_,=<B_)=<[A_+B_=>]/*default [scope] enabled in case of matrix*/,A=<(,:,),add[0](=<A,=<B)=>/*Call-by-Symbol variable first, equation second in Non-strict-mode (2,4:6,8)[0]*/,add[0](=<A=>/*obvious equation call=>*/,=<B)=>,add[1](=<(1,2:3,4),=<(1,2:3,4)){1,-1}/*omitted =>* (6,8){1,-1} -> -2*/,last[add(A_,=<B_)=<(a=-0xf,A_+B_=>)/*with underscore avoiding circular(B)*/,[B=<(-100,-100:-100,-100),add[1]((=<A=>,=<B:=<A,=<B)[1]),a/*static scope shared*/]]
 (
 0,-2,-5,0,0,0,0,2,4,1,2,-2,-15
 )
@@ -824,4 +824,4 @@ drag=false&sw=false&0x=false&useComplex=true&useMatrix=true&isRightAssociativity
 --------------------------------
 --------------------------------
 
-online-simulator.github.io.6.206.93.12.48 @ Wed May 24 2023 20:46:27 GMT+0900 (日本標準時) @ Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/113.0.0.0 Safari/537.36
+online-simulator.github.io.6.207.94.12.48 @ Thu May 25 2023 15:20:56 GMT+0900 (日本標準時) @ Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/113.0.0.0 Safari/537.36
