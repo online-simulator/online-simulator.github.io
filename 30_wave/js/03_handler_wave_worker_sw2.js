@@ -350,7 +350,7 @@ My_entry.handler_wave.prototype.input2arr = function(input){
                 break;
               // Ver.1.38.8
               case "order_fade":
-                param = self.entry.def.limit(Math.floor(num), 0, 2, 2);  // Ver.1.39.8
+                param = self.entry.def.limit(Math.floor(num), -2, 2, 2);  // Ver.1.39.8  // Ver.1.40.8
                 break;
               default:
                 param = self.entry.def.limit(num, 0, 1, 0);

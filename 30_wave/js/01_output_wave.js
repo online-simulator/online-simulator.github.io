@@ -305,8 +305,12 @@ My_entry.output_wave.prototype.encode_soundData_LE = function(params){  // Ver.1
   var w1 = params.w1 || 0;
   var p1 = params.p1 || 0;
   var oldAmp = 0;
-  var dns0 = Math.floor(params.number_samples*p0);
-  var dns1 = Math.floor(params.number_samples*p1);
+  /* Ver.1.40.8 -> */
+  var isFade_time = (params.order_fade >= 0);
+  var sw_fade = (isFade_time)? self.samples_perSecond: params.number_samples;
+  var dns0 = Math.floor(sw_fade*p0);
+  var dns1 = Math.floor(sw_fade*p1);
+  /* -> Ver.1.40.8 */
   /* Ver.1.38.8 -> */
   dns1 = Math.min(dns1, params.number_samples-1-dns0);
   var ns_in = dns0;
@@ -330,7 +334,7 @@ My_entry.output_wave.prototype.encode_soundData_LE = function(params){  // Ver.1
       return _newAmp;
     };
   }
-  else if(useFade && params.order_fade === 2){
+  else if(useFade && Math.abs(params.order_fade) === 2){  // Ver.1.40.8
     var fade_o2 = function(x, a, b){
       return Math.pow(1+Math.exp(-a*(x-0.5)), b);
     };
@@ -359,7 +363,7 @@ My_entry.output_wave.prototype.encode_soundData_LE = function(params){  // Ver.1
     };
   }
   /* Ver.1.39.8 -> */
-  else if(useFade && params.order_fade === 1){
+  else if(useFade && Math.abs(params.order_fade) === 1){  // Ver.1.40.8
     var fade_o1 = function(x, a){
       return Math.pow(x, a);
     };
