@@ -21,6 +21,14 @@
       <caption><span id="span-history">演奏機能の更新履歴</span></caption>
       <tbody>
         <tr class="border">
+          <td class="border clear">
+Ver.1.40.9
+          </td>
+          <td class="border">
+・amplitudeのint値over-flowの場合、error終了に修正
+          </td>
+        </tr>
+        <tr class="border">
           <td class="border run">
 Ver.1.40.8
           </td>
@@ -1241,6 +1249,8 @@ amplitude
 <span class="selection">Ver.1.28.4更新</span>
 <br>
 <span class="condition">Ver.1.35.6更新</span>
+<br>
+<span class="clear">Ver.1.40.9修正</span>
           </td>
           <td class="border">
 音の大きさ
@@ -1251,13 +1261,18 @@ amplitude
 <span class="selection">datasetの振幅に乗算</span>
 <br>
 <br>
-<span class="condition">script入力のみ、振幅の上限解放（int値over-flowの場合、pulse波のnoise発生）</span>
+<span class="condition">script入力のみ、振幅の上限解放
+<br>
+・int値over-flowの場合、<del>pulse波のnoise発生</del></span><span class="clear">error終了に修正</span>
+<br>
 <br>
 <span class="condition">play実行後、amplitude上限値の目安を表示</span>
 <br>
 ・datasetの振幅不変の前提でint値の余裕から推定
 <br>
 ・乱数で多少の変動あり
+<br>
+<span class="clear">・上限値overの場合、overflowを表示</span>
           </td>
         </tr>
         <tr class="border">

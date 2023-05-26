@@ -18,6 +18,12 @@ My_entry.link.prototype.init = function(id, name, ext){
   self.url;
   return self;
 };
+My_entry.link.prototype.clear_url = function(){
+  var self = this;
+  self.blob = null;
+  self.url = undefined;
+  return self;
+};
 My_entry.link.prototype.set_url = function(content){
   var self = this;
   var type = "";

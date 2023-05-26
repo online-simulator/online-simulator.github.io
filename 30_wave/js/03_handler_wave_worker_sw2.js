@@ -47,7 +47,14 @@ My_entry.handler_wave.prototype.composite_binary_soundData_LE = function(arr_bin
       var newVal = wr*oldVal+(1-wr)*nowVal;  // wr first
       oldVal = newVal;
       newSetter(j_new, newVal, isLE);
-      aval_max = Math.max(Math.abs(newVal-val_offset), aval_max);
+      /* Ver.1.40.9 -> */
+      var aval = Math.abs(newVal-val_offset);
+      if(aval > val_amplitude){
+        data._amplitude_max = "overflow";
+        throw new Error(self.waveo.config.ERROR.title+"stopped by over-flow");
+      }
+      aval_max = Math.max(aval_max, aval);
+      /* -> Ver.1.40.9 */
       if(isNotExist_ch2){
         newSetter(j_new+Bytes_perSample, newVal, isLE);
       }
@@ -137,6 +144,9 @@ My_entry.handler_wave.prototype.set_callbacks_worker = function(){
         arr_number_samples[i] = number_samples_perChannel;
         arr_binary[i] = binary;
       });
+    /* Ver.1.40.9 -> */
+      var log = "";
+    try{
       var data0 = self.arr_data_out[i0][j0];
       var number_samples = data0.number_samples_perChannel_max;
       var binary_header = self.waveo.get_binary_header(number_samples);
@@ -151,9 +161,17 @@ My_entry.handler_wave.prototype.set_callbacks_worker = function(){
       if(!(isIE)){
         self.waveo.play_base64(base64, data.volume);
       }
+    }
+    catch(e){
+      log = e.message;
+      var fileName = self.fileName_default;
+      self.handler_link.link.name = fileName;
+      self.handler_link.link.clear_url();
+    }
       self.stop_worker();
       self.output_amplitude_max(data0._amplitude_max);  // Ver.1.35.6
-      self.output_log();
+      self.output_log(log);
+    /* -> Ver.1.40.9 */
       self.output_fileName(fileName);
     }
     return self;
