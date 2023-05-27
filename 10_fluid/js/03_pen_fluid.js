@@ -615,6 +615,7 @@ My_entry.pen.prototype.init_handlers = function(){
               hasError = "No solution";  // fluid-Ver.1.3.0
             }
             if(uvp){
+//              if(n === 0) console.log(uvp.Ni*uvp.Nj+","+uvp.msec_int+","+uvp.msec_sol);  // fluid-Ver.1.33.0
               var cont = uvp.cmax;
               var cont_isNaN = isNaN(cont);
               $._id("input-time").value = uvp.t;

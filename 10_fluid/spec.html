@@ -139,9 +139,32 @@ solver@step1
 <br>
 反復解法と比較
 <br>
-・大規模行列の並列化は不向き
+・大規模行列の実用は不向き
+<br>
+　密行列の演算量=O(N**3)
+<br>
+　memory使用量=O(N**2)
+<br>
+・並列化は不向き（順次処理）
 <br>
 ・収束判定不要
+<br>
+<br>
+詳細は<a title="Graphing Calculator" href="../02_calc_graphing/index.html?useStrict=false&checkError=false">Graphing Calculator-test case-methods</a>参照
+<br>
+・要素数Nに対する処理時間tの関係を仮定
+<br>
+　直接解法：t∝N**2.5
+<br>
+　反復解法：t∝N**2（不定）
+<br>
+・各step（step0.5||step1）の計測結果
+<br>
+　N=100: t=0||13[msec/step]
+<br>
+　N=400: t=0||318[msec/step]
+<br>
+　N=900: t=1||2213[msec/step]
           </td>
         </tr>
         <tr class="border">
