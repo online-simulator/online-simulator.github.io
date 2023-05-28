@@ -28864,6 +28864,48 @@ infoLost[ i] -0.04901921620544653+2.023423045158351i:
 0.07726186556052178-1.434248862158042i
 <br>
 )
+<br>
+<br>
+test caseを示す
+<br>
+・<a href="#span-out-config-strict">strict-mode</a>の<a href="#span-eqn-solvex_non_linear">solvex_non_linear</a>を使用
+<br>
+clear;
+<br>
+solvex_non_linear(=&lt;f_,=&lt;x_initial_)=&lt;[
+<br>
+out=&lt;x=&gt;,
+<div class="condition">
+init=&lt;last{_ex(=&lt;x,sizer(x_initial_=&gt;),1)},
+</div>
+<div class="run">
+run=&lt;last{
+<br>
+mdx=Newton(=&lt;f_,=&lt;x,=&lt;x_initial_,Nmax=20,Nmax,1e-10,1)
+<br>
+},
+</div>
+init=&gt;,run=&gt;,return=out=&gt;,
+<br>
+=&lt;return]=&gt;;
+<br>
+[f=&lt;{exp(<span class="condition">x0</span>)=i},=&lt;solvex_non_linear(=&lt;f,=&lt;{1+i})=&gt;]=&gt;;
+<br>
+-> 3.813245622601571e-17+1.5707963267948966i+O(9e-16+1e-15i)
+<br>
+exp(ans) -> 6.123233995736766e-17+i+O(1e-15+9e-16i)
+<br>
+・無次元の場合、<span class="condition">x=&lt;x0</span>から<a href="#span-out-reference-mat-index">行列index</a>を省略可
+<br>
+[f=&lt;{exp(<span class="condition">x</span><span class="selection">=&gt;</span>)=i},=&lt;solvex_non_linear(=&lt;f,=&lt;{1+i})=&gt;]=&gt;;
+<br>
+-> 3.813245622601571e-17+1.5707963267948966i+O(9e-16+1e-15i)
+<br>
+・<a href="#span-out-config-strict">Non-strict-mode</a>の場合、<a href="#span-out-eqns-call">式読出し</a>記号=&gt;を省略可
+<br>
+[f=&lt;{exp(<span class="condition">x</span>)=i},=&lt;solvex_non_linear(=&lt;f,=&lt;{1+i})=&gt;]=&gt;;
+<br>
+-> 3.813245622601571e-17+1.5707963267948966i+O(9e-16+1e-15i)
     </td>
   </tr>
   <tr>
