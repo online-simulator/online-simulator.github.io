@@ -161,14 +161,18 @@ My_entry.math.prototype.sign = function(XYZ){
   }
   return false;
 };
+/* Ver.2.154.38 -> */
+My_entry.math.prototype.rad2deg =
 My_entry.math.prototype.degrees = function(rad){
   var self = this;
   return (rad*180/Math.PI);
 };
+My_entry.math.prototype.deg2rad =
 My_entry.math.prototype.radians = function(deg){
   var self = this;
   return (deg*Math.PI/180);
 };
+/* -> Ver.2.154.38 */
 My_entry.math.prototype.sin_deg = function(deg){
   var self = this;
   return Math.sin(self.radians(deg));

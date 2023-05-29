@@ -508,6 +508,8 @@ e^(-i(1pi(){2/2i}(5-{3-1}){i/(-4)}))
 <br>
 　・<a href="#span-out-Euclid">Euclid実空間</a>
 <br>
+　・<a href="#span-out-complex">複素数平面</a>
+<br>
 　・<a href="#span-out-orthogonal">直交座標</a>
 <br>
 　・<a href="#span-out-polar">平面極座標</a>
@@ -12230,7 +12232,7 @@ epsilon || eps -> 2.220446049250313e-16
 1/(-i) -> i
 <br>
 <br>
-<a href="#span-out-FN0">Napier数e</a>の空括弧()を省略してEulerの公式から極形式の複素数を示す
+<a href="#span-out-FN0">Napier数e</a>の空括弧()を省略してEulerの公式から<a href="#span-out-complex">極形式</a>の複素数を示す
 <br>
 (sqrt2)e^(i{pi/4}) || sqrt2()ecomp(pi/4) -> 1.0000000000000002+i
 <br>
@@ -12269,11 +12271,11 @@ a={5-3}-1; b=2/{2i(a)i}; e^(-i(1pi()b/(-4)))
 ・<a href="#span-out-type-ope">中置2項演算子</a>が連続する場合、<a href="#span-out-BT">括弧</a>を明示する
 <br>
 <br>
-<a href="#span-out-ope">実数演算</a>の場合、虚数は0のため、次の極形式は使用不可
+<a href="#span-out-ope">実数演算</a>の場合、虚数は0のため、次の<a href="#span-out-complex">極形式</a>は使用不可
 <br>
 t=pi/4; e^(i{t}) || e^(real(i)t) || e^(0)  <span class="selection">// NG</span> -> 1
 <br>
-・極形式の<a href="#span-out-FN">関数</a>を使用
+・<a href="#span-out-complex">極形式</a>の<a href="#span-out-FN">関数</a>を使用
 <br>
 pcomp(1,t) || ecomp(t) || cos(t)+real(i)sin(t) || cos(t) -> 0.7071067811865476
     </td>
@@ -12895,7 +12897,7 @@ atan2(0,0) -> 0
 <br>
 <a href="#span-out-vars">変数</a>を使用
 <br>
-・実軸と虚軸の<a href="#span-out-com">複素数</a>平面から弧度数radに変換する場合
+・実軸と虚軸の<a href="#span-out-complex">複素数平面</a>から弧度数radに変換する場合
 <br>
 z=e^(i{pi/6}); atan2(imag(z),real(z)) -> 0.5235987755982987
 <br>
@@ -20196,11 +20198,72 @@ computer graphicsで主流の左手系
 <br>
 右手系の座標系を列挙する
 <br>
+・<a href="#span-out-complex">複素数平面</a>
+<br>
 ・<a href="#span-out-orthogonal">直交座標</a>
 <br>
 ・<a href="#span-out-polar">平面極座標</a>
 <br>
 ・<a href="#span-out-spherical">球面座標</a>
+    </td>
+  </tr>
+  <tr>
+    <th>
+<a href="#span-index">
+目次
+</a>
+<br>
+複素数平面
+    </th>
+    <td>
+<span id="span-out-complex"></span>
+2次元の複素数平面について記述する
+<br>
+<br>
+<a href="#span-out-orthogonal">直交座標</a>表示
+<br>
+・vectorの成分(x,y)を<a href="#span-out-com">複素数</a>の成分z=x+y*iで表示
+<br>
+($x,$y)=(1,-1);
+<br>
+vec=(x,y); vec -> (1,-1)
+<br>
+z=complex(vec); z -> 1-i
+<br>
+x=real(z); x -> 1
+<br>
+y=imag(z); y -> -1
+<br>
+・標準内積
+<br>
+vec0=(1,1); vec1=(1,-1);
+<br>
+dot_(vec0,vec1)=&lt;vec0*trans(vec1); dot_(=&lt;vec0,=&lt;vec1) || (1,1){1,-1} -> 0
+<br>
+z0=complex(vec0); z0 -> 1+i
+<br>
+z1=complex(vec1); z1 -> 1-i
+<br>
+cdot_(z0,z1)=&lt;(real(z0),imag(z0))*{real(z1),imag(z1)}; cdot_(z0,z1) || cdot(z0,z1) -> 0
+<br>
+<br>
+<a href="#span-out-polar">極座標</a>表示
+<br>
+・vectorの長さrと偏角tの成分(r,t)を<a href="#span-out-com">複素数</a>の極形式r*e^(i(t))で表示
+<br>
+($x,$y)=(1,-1);
+<br>
+vec=(x,y); vec -> (1,-1)
+<br>
+r=norm(trans(vec)); r -> 1.4142135623730951
+<br>
+t=atan2(y,x); t -> -0.7853981633974483
+<br>
+z=pcomplex(r,t); z -> 1.0000000000000002-i
+<br>
+r=abs(z); r -> 1.4142135623730951
+<br>
+t=arg(z); t -> -0.7853981633974482
     </td>
   </tr>
   <tr>
@@ -23160,7 +23223,7 @@ Electrochemical Impedance Spectroscopy（以降、EISと省略する）
 <br>
 ・仮に、<a href="#span-out-modelling-0D-RC">RC並列回路</a>の<span class="condition">cut-off周波数</span>で
 <br>
-　Zが<a href="#span-out-com">複素数</a>平面の<span class="condition">第4象限</span>（半円の頂点で位相が負）に位置しない場合、<span class="clear">基準波形を見直す</span>
+　Zが<a href="#span-out-complex">複素数平面</a>の<span class="condition">第4象限</span>（半円の頂点で位相が負）に位置しない場合、<span class="clear">基準波形を見直す</span>
 <br>
 <br>
 <span class="run">Ver.2.64.27</span>以降、想定algorithmの補足を列挙する
@@ -24605,7 +24668,7 @@ albedoの年率低下割合=0.125%で徐々に変化した場合、20年間1年�
 <br>
 ・進行方向に対して垂直方向の揚力||揚力係数Clは考慮しない
 <br>
-・vector演算を<a href="#span-out-com">複素数</a>演算で代替する
+・vector演算を<a href="#span-out-complex">直交座標表示</a>の<a href="#span-out-com">複素数</a>演算で代替する
 <br>
 ・t=0の複素数zの初期値
 <br>
@@ -31407,6 +31470,8 @@ operation.js抜粋
 <span id="span-in-FN"></span>
 定義済みの<a href="#span-out-FN">関数</a>・<a href="#span-out-RW">予約語</a>について記述する
 <br>
+・<span class="clear">Ver.2.154.38</span>以降、rad2deg/deg2rad/cdot関数を追加
+<br>
 <br>
 予約語は大文字・小文字・全角・半角を区別しない
 <br>
@@ -31639,8 +31704,9 @@ parser.js抜粋
       case "deg_asin":
       case "deg_acos":
       case "deg_atan":
-      case "deg2rad":
       case "rad2deg":
+      case "deg2rad":
+      case "cdot":
       case "ecomp":
       case "ecomplex":
       case "real":
@@ -31791,12 +31857,6 @@ ln(1/(-2)) -> -0.6931471805599453+3.141592653589793i
 ln(-1) -> 3.141592653589793i
 <br>
 ln(-0.5) -> -0.6931471805599453+3.141592653589793i
-<br>
-・<a href="#span-out-com">複素数</a>zの実部xと虚部yを定義
-<br>
-x = real(z);
-<br>
-y = imag(z);
 <br>
 ・<a href="#span-out-FN-log">log関数</a>からcallする偏角算出の<a href="#span-in-FN-atan2">atan2関数</a>を修正
 <br>

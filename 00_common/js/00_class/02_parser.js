@@ -599,8 +599,9 @@ My_entry.parser.prototype.make_trees = function(sentence, re){
       case "deg_asin":
       case "deg_acos":
       case "deg_atan":
-      case "deg2rad":
       case "rad2deg":
+      case "deg2rad":
+      case "cdot":
       case "ecomp":
       case "ecomplex":
       case "real":

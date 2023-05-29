@@ -50,6 +50,11 @@ My_entry.math_com.prototype.cmax = function(a, b){
   var self = this;
   return self.entry.DATA.com(Math.max(self.absolute_com(a),self.absolute_com(b)), 0);
 };
+/* Ver.2.154.38 */
+My_entry.math_com.prototype.cdot = function(a, b){
+  var self = this;
+  return self.entry.DATA.com(a.r*b.r+a.i*b.i, 0);
+};
 My_entry.math_com.prototype.comp =
 My_entry.math_com.prototype.complex = function(a, b){
   var self = this;
