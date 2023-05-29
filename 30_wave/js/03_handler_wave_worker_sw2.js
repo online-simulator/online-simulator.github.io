@@ -51,7 +51,7 @@ My_entry.handler_wave.prototype.composite_binary_soundData_LE = function(arr_bin
       var aval = Math.abs(newVal-val_offset);
       if(aval > val_amplitude){
         data._amplitude_max = "overflow";
-        throw new Error(self.waveo.config.ERROR.title+"stopped by over-flow");
+        throw new Error(self.waveo.config.ERROR.title+"stopped by over-flow@post");  // Ver.1.41.10
       }
       aval_max = Math.max(aval_max, aval);
       /* -> Ver.1.40.9 */

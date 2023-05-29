@@ -21,6 +21,14 @@
       <caption><span id="span-history">演奏機能の更新履歴</span></caption>
       <tbody>
         <tr class="border">
+          <td class="border clear">
+Ver.1.41.10
+          </td>
+          <td class="border">
+・amplitudeのint値over-flow@stream処理の場合、error終了に修正（Ver.1.40.9の追加修正）
+          </td>
+        </tr>
+        <tr class="border">
           <td class="border run">
 Ver.1.41.9
           </td>
@@ -35,7 +43,7 @@ Ver.1.41.9
 Ver.1.40.9
           </td>
           <td class="border">
-・amplitudeのint値over-flowの場合、error終了に修正
+・amplitudeのint値over-flow@post処理の場合、error終了に修正
           </td>
         </tr>
         <tr class="border">
@@ -1292,7 +1300,9 @@ amplitude
 <br>
 <span class="condition">script入力のみ、振幅の上限解放
 <br>
-・int値over-flowの場合、<del>pulse波のnoise発生</del></span><span class="clear">error終了に修正</span>
+・int値over-flowの場合、<del>pulse波のnoise発生</del></span><span class="clear">post処理でerror終了に修正</span>
+<br>
+　<span class="clear">Ver.1.41.10</span>以降、stream処理も同様に、error終了に修正
 <br>
 <br>
 <span class="condition">play実行後、amplitude上限値の目安を表示</span>
@@ -1697,10 +1707,12 @@ original script
 <span class="run">Ver.1.41.9追加</span>
           </td>
           <td class="border">
+text置換結果の確認用
+<br>
 original script出力欄
           </td>
           <td class="border">
-macro機能のtext置換後のscriptを出力（text置換結果の確認用）
+macro機能のtext置換後のscriptを出力
           </td>
         </tr>
       </tbody>

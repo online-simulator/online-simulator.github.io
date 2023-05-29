@@ -426,6 +426,7 @@ My_entry.output_wave.prototype.encode_soundData_LE = function(params){  // Ver.1
     });
     val *= get_newAmp(ns);
     val *= kamplitude;  // Ver.1.20.4
+    if(val > amplitude) throw new Error(self.title_error+"stopped by over-flow@stream");  // Ver.1.41.10
     val += offset;
     var binary_perChannel = self.int2binary_LE(Bytes_perSample, val);
     for(var nc=0; nc<params.number_channels; ++nc){
