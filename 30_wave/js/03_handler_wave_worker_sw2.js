@@ -192,7 +192,32 @@ My_entry.handler_wave.prototype.set_callbacks_worker = function(){
 My_entry.handler_wave.prototype.input2arr = function(input){
   var self = this;
   var _arr_input = [];
-  var mcb = input.replace(self.regex.s, "").match(self.regex.mb);
+  /* Ver.1.41.9 -> */
+  var input_ = input.replace(self.regex.s, "");
+  var macros = input_.replace(self.regex.mb, "");
+  if(macros){
+    var mc_macros = macros.match(self.regex.macros);
+    if(mc_macros && mc_macros.length){
+      for(var i=0, len=mc_macros.length; i<len; ++i){
+        var macro = mc_macros[i];
+        var mc_macro = macro.match(self.regex.macro);
+        if(mc_macro && mc_macro[1]){
+          var macro_escaped = "\\"+mc_macro[1];
+          var re = new RegExp(macro_escaped, "gm");
+          input_ = input_.replace(re, mc_macro[2]);
+        }
+      }
+    }
+  }
+  var mcb = input_.match(self.regex.mb);
+  var script_original = "";
+  if(mcb && mcb.length){
+    mcb.forEach(function(str, i){
+      script_original += str+"\n";
+    });
+    self.output_script(script_original);
+  }
+  /* -> Ver.1.41.9 */
   /* Ver.1.4.2 */
   if(!(mcb)) throw new Error(self.waveo.config.ERROR.title+"Invalid dataset");
   var number_channels = self.waveo.number_channels;  // from waveo

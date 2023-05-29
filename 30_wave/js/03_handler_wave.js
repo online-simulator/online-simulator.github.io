@@ -19,6 +19,8 @@ My_entry.handler_wave.prototype.init = function(){
   self.fileName_default = "download.wav";
   self.regex = {};
   self.regex.s = /\s/g;
+  self.regex.macros = /\$[0-9a-zA-Z]+\([0-9a-zA-Z.,:;\[\]\$]+?\)/g;  // Ver.1.41.9
+  self.regex.macro = /^(\$[0-9a-zA-Z]+)\((.*)?\)$/;  // Ver.1.41.9
   self.regex.mb = /\{.*?\}/g;
   self.regex.ml = /\[.*?\]/g;
   self.regex.rb = /\{|\}/g;
@@ -44,6 +46,7 @@ My_entry.handler_wave.prototype.init_elems = function(){
   self.elem_name = $._id("span-name");
   self.elem_time = $._id("input-time");
   self.elem_top = $._id("select-Bytes_perSample");
+  $.setup_elems_readonly$("input,textarea");  // Ver.1.41.9
   $.setup_elems$_tag("button", self.handlers, "onclick");
   $.setup_elems$_tag("input", self.handlers, "onchange");
   $.setup_elems$_tag("select", self.handlers, "onchange");
@@ -213,6 +216,12 @@ My_entry.handler_wave.prototype.output_fileSize = function(sec){
   var number_samples = self.waveo.get_number_samples(sec || self.params.sec);
   var fileSize = self.waveo.get_fileSize(number_samples);
   self.entry.$._id("input-fileSize").value = fileSize/Math.pow(2, 10*2);  // Ver.1.30.5 1MB=1024KB=1024*1024B
+  return self;
+};
+/* Ver.1.41.9 */
+My_entry.handler_wave.prototype.output_script = function(script){
+  var self = this;
+  self.entry.$._id("textarea-script_original").value = script;
   return self;
 };
 My_entry.handler_wave.prototype.get_fileName = function(){
