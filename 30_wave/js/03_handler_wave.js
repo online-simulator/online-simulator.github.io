@@ -176,7 +176,7 @@ My_entry.handler_wave.prototype.init_handlers = function(){
 };
 My_entry.handler_wave.prototype.output_log = function(log){
   var self = this;
-  self.elem_log.textContent = log || self.text_log;
+  self.elem_log.textContent = (log || self.text_log).replace("Uncaught Error: ", "");  // Ver.1.41.10
   return self;
 };
 My_entry.handler_wave.prototype.output_fileName = function(fileName){

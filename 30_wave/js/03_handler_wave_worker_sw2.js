@@ -210,10 +210,10 @@ My_entry.handler_wave.prototype.input2arr = function(input){
     }
   }
   var mcb = input_.match(self.regex.mb);
-  var script_original = "";
   if(mcb && mcb.length){
+    var script_original = "";
     mcb.forEach(function(str, i){
-      script_original += str+"\n";
+      script_original += str+"\n\n";
     });
     self.output_script(script_original);
   }
