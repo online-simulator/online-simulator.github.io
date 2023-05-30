@@ -216,6 +216,7 @@ My_entry.handler_wave.prototype.input2arr = function(input){
       script_original += str+"\n\n";
     });
     self.output_script(script_original);
+    if(script_original.match(self.regex.macro_prifix)) throw new Error(self.waveo.config.ERROR.title+"Invalid macro remained");  // Ver.1.42.10
   }
   /* -> Ver.1.41.9 */
   /* Ver.1.4.2 */
