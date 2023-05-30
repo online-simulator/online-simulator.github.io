@@ -21,13 +21,21 @@
       <caption><span id="span-history">演奏機能の更新履歴</span></caption>
       <tbody>
         <tr class="border">
+          <td class="border clear">
+Ver.1.42.11
+          </td>
+          <td class="border">
+・macro定義のdatasetの正規表現にplus+とminus-を追加（時間||oc記法の符号入力に対応）
+          </td>
+        </tr>
+        <tr class="border">
           <td class="border run">
 Ver.1.42.10
           </td>
           <td class="border">
 ・original scriptのmacro残存の場合、error終了に変更
 <br>
-・macroのtag名の正規表現にhyphen-とunderscore_を追加
+・macro定義のtagの正規表現にhyphen-とunderscore_を追加
           </td>
         </tr>
         <tr class="border">
@@ -376,6 +384,8 @@ macro機能
 <span class="run">Ver.1.41.9追加</span>
 <br>
 <span class="jF">Ver.1.42.10追加</span>
+<br>
+<span class="clear">Ver.1.42.11追加</span>
           </td>
           <td class="border">
 {}外に定義
@@ -383,7 +393,7 @@ macro機能
           <td class="border">
 入力textの前方からmacro定義順に{}内のtext置換
 <br>
-・macro定義のformat：$<span class="condition">[0-9a-zA-Z<span class="jF">-_</span>]+</span>(<span class="selection">[0-9a-zA-Z<span class="jF">-_</span>.,:;[]$]+</span>)
+・macro定義のformat：$<span class="condition">[0-9a-zA-Z<span class="jF">-_</span>]+</span>(<span class="selection">[0-9a-zA-Z<span class="jF"><span class="clear">+</span>-_</span>.,:;[]$]+</span>)
 <br>
 ・置換内容：{<span class="condition">$tag</span>; -> <span class="selection">dataset||codeset</span>;}
 <br>
