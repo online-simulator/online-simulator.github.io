@@ -30,6 +30,17 @@
 <script type="text/javascript">
   (function(){
     new My_entry.$().onload(function(e){
+      var $ = new My_entry.$();
+      var options = $.get_urlParams();
+      if(options.testcase === "wave"){
+        var macro = "$1(:::0.5:0.5:1:0.5:::::::::::0.1:2)\n$2(::::::0)\n$3(:::0.25:0.5)\n\n$codeset4($code4-1;$code4-2;$code4-3)\n\n$code1(:$C;:$D;:$E;:$F;:$E;:$D;:$C)\n$code2(:$E;:$F;:$G;:$A;:$G;:$F;:$E)\n$code3(:$C;:r;:$C;:r;:$C;:r;:$C)\n$code4-1(b2:$C;b2:$C;b2:$D;b2:$D)\n$code4-2(b2:$E;b2:$E;b2:$F;b2:$F)\n$code4-3(b2:$E;b2:r;3b4:$D;1b4:r;b:$C)\n\n$A([A4,A5,A6])$C([C4,C5,C6])$D([D4,D5,D6])$E([E4,E5,E6])$F([F4,F5,F6])$G([G4,G5,G6])\n\n";
+        var script = "$tag(dataset|codeset)\n$tag(dataset,codeset)\n$tag(1/2)\n$tag(+1b2:0xff;-1e-2b-1e-2:f0)\n\n";
+        script += "{01b:r$1;$code1;:r$2;$code2;:r$3;$code3;:r;$codeset4;}\n{07b:r$1;$code1;:r$2;$code2;:r$3;$code3;:r;$codeset4;}\n{13b:r$1;$code1;:r$2;$code2;:r$3;$code3;:r;$codeset4;}\n{19b:r$1;$code1;:r$2;$code2;:r$3;$code3;:r;$codeset4;}\n";
+        $._id("input-pattern").value = "\\$[0-9a-zA-Z_\\-]+\\([0-9a-zA-Z_\\-\\+.,:;\\[\\]\\$]+?\\)";
+        $._id("input-string").value = "$macro_defined";
+        $._id("textarea-input").value = script;
+        $._id("textarea-macro").value = macro;
+      }
       new My_entry.test_regexp().onload(e);
     });
   })();
@@ -44,10 +55,10 @@
   <label for="input-pattern">置換pattern</label>
   <select id="select-flag">
     <option value="" title="flagなし">flagなし</option>
-    <option value="g" title="global search">g:global search</option>
-    <option value="i" title="大・小文字区別なし">i:大・小文字区別なし</option>
-    <option value="m" title="複数行">m:複数行</option>
-    <option value="s" title=".に改行文字を含める">s:.に改行文字を含める</option>
+    <option value="g" title="global search（複数matching）" selected="selected">g: global search（複数matching）</option>
+    <option value="i" title="大・小文字区別なし">i: 大・小文字区別なし</option>
+    <option value="m" title="複数行">m: 複数行</option>
+    <option value="s" title=".に改行文字を含める">s: .に改行文字を含める</option>
     <option value="u">u</option>
     <option value="y">y</option>
     <option value="gi">gi</option>
@@ -79,23 +90,30 @@
 <tr><td>
   <button id="clear" class="clear">Clear text</button>
 　
-  <label>置換対象text
+  <label for="textarea-input">置換対象text</label>
+　
+  <button id="replace" class="run" title="JavaScript書式の置換実行">replace置換実行</button>
+　
+  <button id="macro" class="run" title="macroの置換実行">macro置換実行</button>
 <br>
-    <textarea id="textarea-input" rows="5"></textarea>
-  </label>
+    <textarea id="textarea-input" rows="10"></textarea>
 </td></tr>
 <tr><td>
   <button id="postset" class="selection" title="置換結果を置換対象に再set">out ⇒ text</button>
 　
   <label for="textarea-output">置換結果out</label>
-　
-  <button id="replace" class="run" title="JavaScript書式の置換実行">置換実行</button>
 <br>
-  <textarea id="textarea-output" readonly="readonly" rows="5"></textarea>
-</td></tr>
-<tr><td>
+  <textarea id="textarea-output" readonly="readonly" rows="10"></textarea>
+<br>
   <div id="wrapper-link"></div>
   <span class="clear">再downloadのbrowser-blockあり（保存file更新の許可が必要）</span>
+</td></tr>
+<tr><td>
+  <a title="[spec]演奏の設定" href="../30_wave/spec.html#span-macro">macro</a>
+　
+  <label for="textarea-macro">$<span class="condition">[0-9a-zA-Z_-]+</span>(<span class="selection">.*</span>)</label>
+<br>
+    <textarea id="textarea-macro" rows="10"></textarea>
 </td></tr>
 </tbody></table>
 </div>

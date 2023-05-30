@@ -11,12 +11,19 @@ My_entry.def.mix_in(My_entry.test_regexp, My_entry.original_main);
 My_entry.test_regexp.prototype.init = function(){
   var self = this;
   self.init_main.call(self, ["$"]);
+  /* Ver.0.24.4 -> */
+  self.regex = {};
+  self.regex.s = /\s/g;
+  self.regex.macros = /\$[0-9a-zA-Z_\-]+\(.*?\)/g;
+  self.regex.macro = /^(\$[0-9a-zA-Z\-_]+)\((.*)?\)$/;
+  /* -> Ver.0.24.4 */
   return self;
 };
 My_entry.test_regexp.prototype.init_elems = function(){
   var self = this;
   self.elem_input = self.entry.$._id("textarea-input");
   self.elem_output = self.entry.$._id("textarea-output");
+  self.elem_macro = self.entry.$._id("textarea-macro");  // Ver.0.24.4
   self.entry.$.setup_elems_readonly$("input,textarea");
   self.entry.$.setup_elems$_tag("button", self.handlers, "onclick");
   self.entry.$.setup_elems$_tag("input", self.handlers, "onchange");
@@ -42,6 +49,7 @@ My_entry.test_regexp.prototype.init_handlers = function(){
       case "clear":
       case "postset":
       case "replace":
+      case "macro":  // Ver.0.24.4
         self[elem.id]();
         break;
       default:
@@ -83,6 +91,41 @@ My_entry.test_regexp.prototype.replace = function(){
     var str = self.entry.$._id("input-string").value;
     var text = self.elem_input.value;
     output = text.replace(re, str);
+  }
+  catch(e){
+    output = e.message;
+  }
+  self.elem_output.value = output;
+  return self;
+};
+/* Ver.0.24.4 */
+My_entry.test_regexp.prototype.macro = function(){
+  var self = this;
+  var output = "";
+  try{
+    var input = self.elem_input.value;
+    var macros = self.elem_macro.value;
+    if(input && macros){
+      var input_ = input;
+      macros = macros.replace(self.regex.s, "");
+      var mc_macros = macros.match(self.regex.macros);
+      if(mc_macros && mc_macros.length){
+        for(var i=0, len=mc_macros.length; i<len; ++i){
+          var macro = mc_macros[i];
+          var mc_macro = macro.match(self.regex.macro);
+          if(mc_macro && mc_macro[1]){
+            var dtag = "\\"+mc_macro[1];
+            var dataset = mc_macro[2] || "";
+            var re = new RegExp(dtag, "gm");
+            input_ = input_.replace(re, dataset);
+          }
+        }
+      }
+      output = input_;
+    }
+    else{
+      output = input;
+    }
   }
   catch(e){
     output = e.message;
