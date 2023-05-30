@@ -395,6 +395,7 @@ macro機能
 {}外に定義
           </td>
           <td class="border">
+<span id="span-macro"></span>
 入力textの前方からmacro定義順に{}内のtext置換
 <br>
 ・macro定義のformat：$<span class="condition">[0-9a-zA-Z<span class="jF">_-</span>]+</span>(<span class="selection">[0-9a-zA-Z<span class="jF">_-<span class="clear">+</span></span>.,:;[]$]+</span>)
@@ -407,7 +408,9 @@ macro機能
 <br>
 $codesets($codeset;$codeset)
 <br>
-$codeset(:$C;:$D;:$E)
+$codeset($code;$code)
+<br>
+$code(:$C;:$D;:$E)
 <br>
 $C([C4,C5,C6])$D([D4,D5,D6])$E([E4,E5,E6])
           </td>

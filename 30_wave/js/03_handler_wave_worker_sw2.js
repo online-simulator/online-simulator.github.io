@@ -202,9 +202,10 @@ My_entry.handler_wave.prototype.input2arr = function(input){
         var macro = mc_macros[i];
         var mc_macro = macro.match(self.regex.macro);
         if(mc_macro && mc_macro[1]){
-          var macro_escaped = "\\"+mc_macro[1];
-          var re = new RegExp(macro_escaped, "gm");
-          input_ = input_.replace(re, mc_macro[2]);
+          var dtag = "\\"+mc_macro[1];
+          var dataset = mc_macro[2] || "";
+          var re = new RegExp(dtag, "gm");
+          input_ = input_.replace(re, dataset);
         }
       }
     }
