@@ -373,9 +373,17 @@ macro機能
 <br>
 ・macro定義のformat：$<span class="condition">[0-9a-zA-Z]+</span>(<span class="selection">[0-9a-zA-Z.,:;[]$]+</span>)
 <br>
-・置換内容：{<span class="condition">$tag</span>; -> <span class="selection">dataset||codes</span>;}
+・置換内容：{<span class="condition">$tag</span>; -> <span class="selection">dataset||codeset</span>;}
 <br>
 　区切り文字;を残す方が間違いが少ない
+<br>
+・macroをnestingする場合、codesetの単位codeを入力textの後方に定義
+<br>
+$codesets($codeset;$codeset)
+<br>
+$codeset(:$C;:$D;:$E)
+<br>
+$C([C4,C5,C6])$D([D4,D5,D6])$E([E4,E5,E6])
           </td>
         </tr>
         <tr class="border">
@@ -1311,7 +1319,7 @@ amplitude
 <br>
 ・乱数で多少の変動あり
 <br>
-<span class="clear">・上限値overの場合、overflowを表示</span>
+<span class="clear">・post処理でint値over-flowの場合、overflowを表示</span>
           </td>
         </tr>
         <tr class="border">
