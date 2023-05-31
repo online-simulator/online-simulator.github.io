@@ -14,8 +14,14 @@ My_entry.test_regexp.prototype.init = function(){
   /* Ver.0.24.4 -> */
   self.regex = {};
   self.regex.s = /\s/g;
-  self.regex.macros = /\$[0-9a-zA-Z_\-]+\(.*?\)/g;
-  self.regex.macro = /^(\$[0-9a-zA-Z\-_]+)\((.*)?\)$/;
+  /* Ver.0.25.4 -> */
+  self.regex.make_tag = function(tag){
+    return (new RegExp("\\"+tag, "gm"));
+  };
+  var sw_flag = (My_entry.flag.hasFlagS)? "s": "";
+  self.regex.macros = new RegExp("\\$[0-9a-zA-Z_\\-]+\\(.*?\\)", "g"+sw_flag);
+  self.regex.macro = new RegExp("^(\\$[0-9a-zA-Z\\-_]+)\\((.*)?\\)$", sw_flag);
+  /* -> Ver.0.25.4 */
   /* -> Ver.0.24.4 */
   return self;
 };
@@ -105,18 +111,18 @@ My_entry.test_regexp.prototype.macro = function(){
   try{
     var input = self.elem_input.value;
     var macros = self.elem_macro.value;
+    macros = (My_entry.flag.hasFlagS)? macros: macros.replace(self.regex.s, "");  // Ver.0.25.4
     if(input && macros){
       var input_ = input;
-      macros = macros.replace(self.regex.s, "");
       var mc_macros = macros.match(self.regex.macros);
       if(mc_macros && mc_macros.length){
         for(var i=0, len=mc_macros.length; i<len; ++i){
           var macro = mc_macros[i];
           var mc_macro = macro.match(self.regex.macro);
           if(mc_macro && mc_macro[1]){
-            var dtag = "\\"+mc_macro[1];
+            var tag = mc_macro[1];  // Ver.0.25.4
             var dataset = mc_macro[2] || "";
-            var re = new RegExp(dtag, "gm");
+            var re = self.regex.make_tag(tag);  // Ver.0.25.4
             input_ = input_.replace(re, dataset);
           }
         }

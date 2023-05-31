@@ -193,7 +193,7 @@ My_entry.handler_wave.prototype.input2arr = function(input){
   var self = this;
   var _arr_input = [];
   /* Ver.1.41.9 -> */
-  var input_ = input.replace(self.regex.s, "");
+  var input_ = (My_entry.flag.hasFlagS)? input: input.replace(self.regex.s, "");  // Ver.1.43.11
   var macros = input_.replace(self.regex.mb, "");
   if(macros){
     var mc_macros = macros.match(self.regex.macros);
@@ -202,23 +202,26 @@ My_entry.handler_wave.prototype.input2arr = function(input){
         var macro = mc_macros[i];
         var mc_macro = macro.match(self.regex.macro);
         if(mc_macro && mc_macro[1]){
-          var dtag = "\\"+mc_macro[1];
+          var tag = mc_macro[1];  // Ver.1.43.11
           var dataset = mc_macro[2] || "";
-          var re = new RegExp(dtag, "gm");
+          var re = self.regex.make_tag(tag);  // Ver.1.43.11
           input_ = input_.replace(re, dataset);
         }
       }
     }
   }
-  var mcb = input_.match(self.regex.mb);
-  if(mcb && mcb.length){
+  /* Ver.1.43.11 -> */
+  var mcb_ = input_.match(self.regex.mb);
+  if(mcb_ && mcb_.length){
     var script_original = "";
-    mcb.forEach(function(str, i){
+    mcb_.forEach(function(str, i){
       script_original += str+"\n\n";
     });
     self.output_script(script_original);
     if(script_original.match(self.regex.macro_prifix)) throw new Error(self.waveo.config.ERROR.title+"Invalid macro remained");  // Ver.1.42.10
   }
+  var mcb = input_.replace(self.regex.s, "").match(self.regex.mb);
+  /* -> Ver.1.43.11 */
   /* -> Ver.1.41.9 */
   /* Ver.1.4.2 */
   if(!(mcb)) throw new Error(self.waveo.config.ERROR.title+"Invalid dataset");
