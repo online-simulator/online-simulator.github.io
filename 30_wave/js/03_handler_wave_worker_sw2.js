@@ -330,7 +330,7 @@ My_entry.handler_wave.prototype.input2arr = function(input){
       var has1elem = (arr_token.length === 1 && token0 !== "");
       if(has1elem){
         arr_token[0] = String(self.msec_60BPM);
-        arr_token[1] = token0;
+        arr_token[1] = (token0.match(self.regex.rest))? String(0): token0;
       }
       /* -> Ver.1.44.11 */
       if(arr_token.length > 1){

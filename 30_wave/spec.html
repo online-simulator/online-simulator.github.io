@@ -27,7 +27,7 @@ Ver.1.44.11
           <td class="border">
 ・scriptのdatasetの最小単位を更新（時間を省略時、1beatの指定周波数に変換）
 <br>
-　{0; 440; [440,880];} -> {b:0; b:440; b:[440,880];}
+　{r; 0; 440; [440,880];} -> {b:r; b:0; b:440; b:[440,880];}
 <br>
 ・testcaseを更新
 <br>
@@ -516,11 +516,11 @@ binary出力順：channel1 -> channel2
 <span class="run">Ver.1.44.11更新</span>
           </td>
           <td class="border">
-<del>{0} || </del>{} || {}{} || {}{}{} -> error終了（時間指定なし）
+<del>{r} || {0} || </del>{} || {}{} || {}{}{} -> error終了（時間指定なし）
 <br>
-<span class="run">{0}</span> || {:}{} || {:} || {b:0} -> 保存可能（1beatの無音）
+<span class="run">{r}</span> || <span class="run">{0}</span> || {:}{} || {:} || {b:0} -> 保存可能（1beatの無音）
 <br>
-<span class="run">{0; 440; [440,880];} -> {b:0; b:440; b:[440,880];}</span>
+<span class="run">{r; 0; 440; [440,880];} -> {b:r; b:0; b:440; b:[440,880];}</span>
           </td>
         </tr>
         <tr class="border">
@@ -550,7 +550,7 @@ dataset
 <br>
 <span class="run">・時間省略時：1beat</span>
 <br>
-<span class="run">・音階省略時：0</span>
+<span class="run">・音階省略時：r||0</span>
           </td>
         </tr>
         <tr class="border">
