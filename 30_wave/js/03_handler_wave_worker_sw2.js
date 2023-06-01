@@ -242,8 +242,8 @@ My_entry.handler_wave.prototype.input2arr = function(input){
     var mc_r = str.match(self.regex.rest);
     if(mc_oc){
       var octave = Number(mc_oc[1]);
-      var code = Number(mc_oc[2]);
-      _freq = self.calc_freq(octave, code);
+      var note = Number(mc_oc[2]);  // Ver.1.44.11
+      _freq = self.calc_freq(octave, note);  // Ver.1.44.11
     }
     /* Ver.1.13.4 -> */
     else if(mc_nc){

@@ -196,15 +196,16 @@ My_entry.handler_wave.prototype.output_time = function(sec){
   self.elem_time.value = sec;
   return self;
 };
-My_entry.handler_wave.prototype.calc_freq = function(octave, code){
+/* Ver.1.44.11 */
+My_entry.handler_wave.prototype.calc_freq = function(octave, note){
   var self = this;
   var octave = octave;
-  var code = code;
+  var note = note;
   if(self.isSingle){
     octave = self.entry.$.selectNum_id("select-octave");
-    code = self.entry.$.selectNum_id("select-code");
+    note = self.entry.$.selectNum_id("select-note");
   }
-  return self.entry.reference.calc_freq(octave, code);
+  return self.entry.reference.calc_freq(octave, note);
 };
 My_entry.handler_wave.prototype.output_freq = function(){
   var self = this;
@@ -262,8 +263,8 @@ My_entry.handler_wave.prototype.get_freqs = function(){
       var mc = elem.id.match(self.regex.oc);
       if(mc && elem.checked){
         var doctave = Number(mc[1]);
-        var code = Number(mc[2]);
-        _arr_f.push(self.calc_freq(octave0+doctave, code));
+        var note = Number(mc[2]);  // Ver.1.44.11
+        _arr_f.push(self.calc_freq(octave0+doctave, note));  // Ver.1.44.11
       }
     });
   }
