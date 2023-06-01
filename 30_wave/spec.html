@@ -512,7 +512,9 @@ binary出力順：channel1 -> channel2
           <td class="border">
 <del>{0} || </del>{} || {}{} || {}{}{} -> error終了（時間指定なし）
 <br>
-<span class="run">{0} || </span>{:}{} || {:} || {b:0} -> 保存可能（1beatの無音）
+<span class="run">{0}</span> || {:}{} || {:} || {b:0} -> 保存可能（1beatの無音）
+<br>
+<span class="run">{0; 440; [440,880];} -> {b:0; b:440; b:[440,880];}</span>
           </td>
         </tr>
         <tr class="border">
@@ -539,6 +541,10 @@ dataset
 <br>
 <br>
 要素省略時：1beatの休止（b:0に同義）
+<br>
+<span class="run">・時間省略時：1beat</span>
+<br>
+<span class="run">・音階省略時：0</span>
           </td>
         </tr>
         <tr class="border">
