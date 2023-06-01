@@ -41,7 +41,7 @@
       else if(options.testcase === "wave"){
         var macro = "$1(:::0.5:0.5:1:0.5:::::::::::0.1:2)\n$2(::::::0)\n$3(:::0.25:0.5)\n\n$chordset4(\n$chord4-1;\n$chord4-2;\n$chord4-3)\n\n$chord1($C; $D; $E; $F; $E; $D; $C)\n$chord2($E; $F; $G; $A; $G; $F; $E)\n$chord3($C; :r; $C; :r; $C; :r; $C)\n$chord4-1(b2:$C; b2:$C; b2:$D; b2:$D)\n$chord4-2(b2:$E; b2:$E; b2:$F; b2:$F)\n$chord4-3(b2:$E; b2:r; 3b4:$D; 1b4:r; b:$C)\n\n$A([A4,A5,A6])$C([C4,C5,C6])$D([D4,D5,D6])$E([E4,E5,E6])$F([F4,F5,F6])$G([G4,G5,G6])\n\n";
         var script = "$tag1(dataset||chordset)$tag2(dataset;\ndataset)\n$tag3(:[chord,chord]:dataset; dataset)\n$tag4(1/2)\n$tag5(+1b2:0xff; -1e-2b-1e-2:f0)\n\n";
-        script += "{01b:r$1; $chord1; :r$2; $chord2; :r$3; $chord3; :r; $chordset4;}\n{07b:r$1; $chord1; :r$2; $chord2; :r$3; $chord3; :r; $chordset4;}\n{13b:r$1; $chord1; :r$2; $chord2; :r$3; $chord3; :r; $chordset4;}\n{19b:r$1; $chord1; :r$2; $chord2; :r$3; $chord3; :r; $chordset4;}\n";
+        script += "{01b:r$1; $chord1; :r$2; $chord2; :r$3; $chord3; 0; $chordset4;}\n{07b:r$1; $chord1; :r$2; $chord2; :r$3; $chord3; 0; $chordset4;}\n{13b:r$1; $chord1; :r$2; $chord2; :r$3; $chord3; 0; $chordset4;}\n{19b:r$1; $chord1; :r$2; $chord2; :r$3; $chord3; 0; $chordset4;}\n";
         $._id("input-pattern").value = "(\\$[0-9a-zA-Z_\\-]+)\\(([\\w\\-\\+.,:;\\[\\]\\$\\s]+)?\\)";
         $._id("input-string").value = "$1($2)_defined_with_spacing@ES6-compatible-browsers test-$3,$,$$,$$$,$$$$,$$$$$";
         $._id("textarea-input").value = script;
