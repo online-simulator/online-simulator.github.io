@@ -325,6 +325,14 @@ My_entry.handler_wave.prototype.input2arr = function(input){
     var arr_data = str.replace(self.regex.rb, "").split(";");
     arr_data.forEach(function(tokens, j){
       var arr_token = tokens.split(":");
+      /* Ver.1.44.11 -> */
+      var token0 = arr_token[0];
+      var has1elem = (arr_token.length === 1 && token0 !== "");
+      if(has1elem){
+        arr_token[0] = String(self.msec_60BPM);
+        arr_token[1] = token0;
+      }
+      /* -> Ver.1.44.11 */
       if(arr_token.length > 1){
         /* Ver.1.19.4 -> */
         var time = arr_token[0];

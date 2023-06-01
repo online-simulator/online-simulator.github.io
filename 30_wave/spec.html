@@ -22,6 +22,20 @@
       <tbody>
         <tr class="border">
           <td class="border run">
+Ver.1.44.11
+          </td>
+          <td class="border">
+・scriptのdatasetの最小単位を更新（時間を省略時、1beatの指定周波数に変換）
+<br>
+　{0; 440; [440,880];} -> {b:0; b:440; b:[440,880];}
+<br>
+・testcaseのmacro定義のspellを訂正
+<br>
+　code　⇒　chord
+          </td>
+        </tr>
+        <tr class="border">
+          <td class="border run">
 Ver.1.43.11
           </td>
           <td class="border">
@@ -414,19 +428,19 @@ macro機能
 <br>
 　0-9a-zA-Z<span class="jF">_</span>部分は\wで短縮可
 <br>
-・置換内容：{<span class="condition">$tag</span>; -> <span class="selection">dataset||codeset</span>;}
+・置換内容：{<span class="condition">$tag</span>; -> <span class="selection">dataset||chordset</span>;}
 <br>
 　区切り文字;を残す方が間違いが少ない
 <br>
 　<span class="wF">ES6対応環境のみ、spacingを保持してtext置換可</span>
 <br>
-・macroをnestingする場合、codesetの単位code（chord）を入力textの後方に定義
+・macroをnestingする場合、chordsetの単位chordを入力textの後方に定義
 <br>
-$codesets($codeset;$codeset)
+$chordsets($chordset;$chordset)
 <br>
-$codeset($code;$code)
+$chordset($chord;$chord)
 <br>
-$code(:$C;:$D;:$E)
+$chord(:$C;:$D;:$E)
 <br>
 $C([C4,C5,C6])$D([D4,D5,D6])$E([E4,E5,E6])
 <br>
@@ -492,11 +506,13 @@ binary出力順：channel1 -> channel2
         <tr class="border">
           <td class="border">
 入力例
+<br>
+<span class="run">Ver.1.44.11更新</span>
           </td>
           <td class="border">
-{} || {}{} || {}{}{} -> error終了（時間指定なし）
+<del>{0} || </del>{} || {}{} || {}{}{} -> error終了（時間指定なし）
 <br>
-{:}{} || {:} || {b:0} -> 保存可能（1beatの無音）
+<span class="run">{0} || </span>{:}{} || {:} || {b:0} -> 保存可能（1beatの無音）
           </td>
         </tr>
         <tr class="border">
@@ -504,11 +520,15 @@ binary出力順：channel1 -> channel2
 dataset
 <br>
 <span class="clear">Ver.1.30.6対応</span>
+<br>
+<span class="run">Ver.1.44.11更新</span>
           </td>
           <td class="border">
 音dataの単位
           </td>
           <td class="border">
+<span class="run">音階;</span>
+<br>
 時間:音階;
 <br>
 時間:[音階0,音階1,...];
@@ -569,7 +589,7 @@ r
 <br>
 <span class="selection">Ver.1.31.6追加</span>
 <br>
-<span class="run">Ver.1.35.6更新</span>
+<span class="selection">Ver.1.35.6更新</span>
 <br>
 <span class="wF">Ver.1.38.8追加</span>
 <br>
@@ -581,6 +601,8 @@ r
 datasetの拡張
           </td>
           <td class="border">
+<span class="run">音階;</span>
+<br>
 時間:音階
 <br>
 時間:[音階0,音階1,...]
@@ -591,7 +613,7 @@ datasetの拡張
 <br>
 <span class="condition">:command=""||"clear"</span>
 <br>
-<span class="condition">:type=0~3:duty0=0~1:duty1=0~1:amplitude0=<span class="run">0~<del>1</del></span>:amplitude1=<span class="run">0~<del>1</del></span>
+<span class="condition">:type=0~3:duty0=0~1:duty1=0~1:amplitude0=<span class="selection">0~<del>1</del></span>:amplitude1=<span class="selection">0~<del>1</del></span>
 <br>
 <span class="condition">:w0=0~1:p0=0~1:w1=0~1:p1=0~1:f0:g0=0~1:f1:g1=0~1</span>
 <br>
@@ -1117,6 +1139,8 @@ testcase
 <span class="condition">Ver.1.33.6更新</span>
 <br>
 <span class="selection">Ver.1.38.8更新</span>
+<br>
+<span class="clear">Ver.1.44.11更新</span>
           </td>
           <td class="border">
 test case
@@ -1129,6 +1153,8 @@ test case
 Froschgesang：かえるの合唱（25秒・Δf=10<span class="condition">・fade-inを有効化</span><span class="selection">・fade-outを有効化</span>）
 <br>
 Froschgesang100：かえるの合唱（100秒・Δf=10<span class="condition">・fade-inを有効化</span><span class="selection">・fade-outを有効化</span>）
+<br>
+<span class="clear">・macro定義のspellを訂正：code　⇒　chord</span>
           </td>
         </tr>
       </tbody>
