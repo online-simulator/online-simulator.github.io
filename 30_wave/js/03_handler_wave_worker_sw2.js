@@ -61,14 +61,20 @@ My_entry.handler_wave.prototype.composite_binary_soundData_LE = function(arr_bin
     }
     /* -> Ver.1.18.4 */
   });
-  data._amplitude_max = data.ampli*(val_amplitude-1)/Math.ceil(aval_max);  // Ver.1.36.6
+  /* Ver.1.45.11 -> */
+  var maxAmp = data.maxAmp;
+  var kampli_post0 = (val_amplitude-1)/Math.ceil(aval_max);  // /0
+  var kampli_post = (maxAmp && aval_max)? kampli_post0: 1;
+  var kampli_max = (aval_max)? data.ampli*kampli_post0: null;
+  data._amplitude_max = (maxAmp && kampli_max)? self.post_maxAmp+String(Math.floor(kampli_max*100)/100): kampli_max;  // Ver.1.36.6
   /* -> Ver.1.35.6 */
   var dfreq = data.dfreq;
   /* Ver.1.32.6 -> */
-  if(dfreq){
+  if(dfreq || maxAmp){
     /* Ver.1.33.6 -> */
     var s_stereo = (isStereo)? data.s_stereo/100: 1;
-    var amp_sin = s_stereo/2;
+    var amp_sin = (dfreq)? s_stereo/2: 0;
+  /* -> Ver.1.45.11 */
     /* -> Ver.1.33.6 */
     var pi2 = Math.PI*2;
     var freq0 = dfreq;
@@ -97,6 +103,10 @@ My_entry.handler_wave.prototype.composite_binary_soundData_LE = function(arr_bin
       var i1 = (i*number_channels+1)*Bytes_perSample;
       var val0 = newGetter(i0, isLE);
       var val1 = (isStereo)? newGetter(i1, isLE): val_offset;  // Ver.1.36.7
+      /* Ver.1.45.11 -> */
+      val0 = val_offset+(val0-val_offset)*kampli_post;
+      val1 = val_offset+(val1-val_offset)*kampli_post;
+      /* -> Ver.1.45.11 */
       var newVal0 = s*val0+(1-s)*val1;  // Ver.1.37.8 s=1@s_stereo=0
       newSetter(i0, newVal0, isLE);
       if(isStereo){

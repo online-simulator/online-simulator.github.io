@@ -22,6 +22,16 @@
       <tbody>
         <tr class="border">
           <td class="border run">
+Ver.1.45.11
+          </td>
+          <td class="border">
+・script入力のみ、amplitudeにauto-maxのcheckboxを追加
+<br>
+　post処理で振幅を最大化する自動scaling（scale比大で波形の劣化あり）
+          </td>
+        </tr>
+        <tr class="border">
+          <td class="border run">
 Ver.1.44.11
           </td>
           <td class="border">
@@ -1386,6 +1396,8 @@ amplitude
 <span class="condition">Ver.1.35.6更新</span>
 <br>
 <span class="clear">Ver.1.40.9修正</span>
+<br>
+<span class="jF">Ver.1.45.11追加</span>
           </td>
           <td class="border">
 音の大きさ
@@ -1400,7 +1412,9 @@ amplitude
 <br>
 ・int値over-flowの場合、<del>pulse波のnoise発生</del></span><span class="clear">post処理でerror終了に修正</span>
 <br>
-　<span class="clear">Ver.1.41.10</span>以降、stream処理も同様に、error終了に修正
+・<span class="clear">Ver.1.41.10</span>以降、stream処理も同様に、error終了に修正
+<br>
+・WebWorkers準備中にerror終了の場合、Uncaught NetworkErrorが発生
 <br>
 <br>
 <span class="condition">play実行後、amplitude上限値の目安を表示</span>
@@ -1410,6 +1424,15 @@ amplitude
 ・乱数で多少の変動あり
 <br>
 <span class="clear">・post処理でint値over-flowの場合、overflowを表示</span>
+<br>
+<br>
+<span class="jF">auto-maxのcheckboxを追加</span>
+<br>
+・post処理で振幅を最大化する自動scaling（scale比大で波形の劣化あり）
+<br>
+・正常終了時、≒floor(max係数の小数点2桁以上)の目安を表示
+<br>
+・全波形の合成後、max係数が決まるため、feedback入力の方が確実
           </td>
         </tr>
         <tr class="border">
@@ -1581,6 +1604,7 @@ file name
 保存file name
           </td>
           <td class="border">
+任意名の入力機能の実装は保留
           </td>
         </tr>
         <tr class="border">

@@ -16,6 +16,8 @@ My_entry.handler_wave.prototype.init = function(){
   self.isScriptMode = (self.entry.$._id("textarea-script"))? true: false;
   self.text_log = "finished SAVE-OK 保存可能";
   self.text_link = "download-wav@double-click";  // Ver.1.23.4
+  self.pre_maxAmp = "auto-";  // Ver.1.45.11
+  self.post_maxAmp = "≒";  // Ver.1.45.11
   self.fileName_default = "download.wav";
   self.regex = {};
   self.regex.s = /\s/g;
@@ -163,7 +165,7 @@ My_entry.handler_wave.prototype.init_handlers = function(){
     self.waveo = new self.constructors.output_wave();
     self.make_params();
     self.waveo.init(self.params.Bytes_perSample, self.params.samples_perSecond, self.params.number_channels);
-    self.output_amplitude_max(self.params._amplitude_max);  // Ver.1.35.6
+    self.output_amplitude_max(self.params._amplitude_max || ((self.params.maxAmp)? self.pre_maxAmp: ""));  // Ver.1.35.6  // Ver.1.45.11
     if(self.isScriptMode){
       self.output_time("");
     }
@@ -348,6 +350,7 @@ My_entry.handler_wave.prototype.make_params = function(){
     self.params.tempo = self.entry.def.limit(self.params.tempo, 0, Number.MAX_VALUE, 1);  // Ver.1.19.4
     self.params.pitch = self.entry.def.limit(self.params.pitch, -16, 16, 0);
     self.params.ampli = self.params.amplitude0;  // Ver.1.28.4
+    self.params.maxAmp = self.entry.$.checkbox_id("checkbox-maxAmp");  // Ver.1.45.11
     /* Ver.1.29.4 -> */
     self.params.dfreq = self.entry.$.inputVal_id("input-dfreq");
     self.params.dfreq = self.entry.def.limit(self.params.dfreq, -Number.MAX_VALUE, Number.MAX_VALUE, 0);

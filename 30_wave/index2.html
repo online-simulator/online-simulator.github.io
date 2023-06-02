@@ -56,6 +56,7 @@
         }
         $._id("input-rate").value = 1;
         $._id("input-order").value = -9;
+        $.set_id("checkbox-maxAmp", "checked", "checked");
         $._id("input-dfreq").value = 10;
       }
       $._id("textarea-script").value = script;
@@ -203,6 +204,10 @@ amplitude：
 amplitude*<input id="input-amplitude" class="input-50" type="number" step="0.1" min="0" value="1">
 &lt;
 <input id="input-amplitude_max" class="input-50" readonly="readonly">
+  <label>max:
+    <input id="checkbox-maxAmp" type="checkbox">
+  </label>
+　
 <span class="clear right">乗算</span>
     </td>
   </tr>
