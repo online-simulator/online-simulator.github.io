@@ -1417,13 +1417,15 @@ amplitude
 ・WebWorkers準備中にerror終了の場合、Uncaught NetworkErrorが発生
 <br>
 <br>
-<span class="condition">play実行後、amplitude上限値の目安を表示</span>
+<span class="condition">play実行後、amplitude上限値（max係数）の目安を表示</span>
 <br>
 ・datasetの振幅不変の前提でint値の余裕から推定
 <br>
 ・乱数で多少の変動あり
 <br>
 <span class="clear">・post処理でint値over-flowの場合、overflowを表示</span>
+<br>
+・単音||和音の場合、max係数のfeedforward入力値で内部制限あり
 <br>
 <br>
 <span class="jF">auto-maxのcheckboxを追加</span>
@@ -1436,7 +1438,7 @@ amplitude
 <br>
 　int値の余裕割合=5/(256||65536)
 <br>
-・全波形の合成後、max係数が決まるため、feedback入力の方が確実
+・演奏の場合、全波形の合成後、max係数が決まるため、feedback入力の方が確実
           </td>
         </tr>
         <tr class="border">
