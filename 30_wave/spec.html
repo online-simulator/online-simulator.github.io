@@ -1436,7 +1436,9 @@ amplitude
 <br>
 ・scale比はint値範囲内の安全側に丸める（scale比=1を除く）
 <br>
-・正常終了時、≒floor(max係数の小数点2桁以上)の目安を表示
+・scale比=1の場合、＝max係数を表示
+<br>
+・scale比&gt;1の場合、≒floor(max係数の小数点2桁以上)の目安を表示
 <br>
 ・演奏の場合、全波形の合成後、max係数が決まるため、feedback入力の方が確実
           </td>
