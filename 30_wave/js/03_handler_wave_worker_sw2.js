@@ -63,9 +63,11 @@ My_entry.handler_wave.prototype.composite_binary_soundData_LE = function(arr_bin
   });
   /* Ver.1.45.11 -> */
   var maxAmp = data.maxAmp;
-  var kampli_post0 = (val_amplitude-1)/Math.ceil(aval_max);  // /0
-  var kampli_post = (maxAmp && aval_max)? kampli_post0: 1;
-  var kampli_max = (aval_max)? data.ampli*kampli_post0: null;
+  var iaval_max = Math.ceil(aval_max);
+  var isMax_amp = (iaval_max === val_amplitude);
+  var kampli_post0 = (isMax_amp)? 1: (val_amplitude-1)/iaval_max;  // /0
+  var kampli_post = (maxAmp && iaval_max)? kampli_post0: 1;
+  var kampli_max = (iaval_max)? data.ampli*kampli_post0: null;
   data._amplitude_max = (maxAmp && kampli_max)? self.post_maxAmp+String(Math.floor(kampli_max*100)/100): kampli_max;  // Ver.1.36.6
   /* -> Ver.1.35.6 */
   var dfreq = data.dfreq;
