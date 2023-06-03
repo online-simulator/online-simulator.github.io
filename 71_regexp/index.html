@@ -33,7 +33,7 @@
       var $ = new My_entry.$();
       var options = $.get_urlParams();
       if(options.testcase === "calc"){
-        var script = "xff\n0ff\nff0 <- $3@flag=g||$4@flag=gm\nf*3 <- $4@flag=gm\n\n0xFf\n0xfg\n0xGf\n\n0o77\n0o78\n0o87\n\n0b11\n0b12\n0b21\n\n";
+        var script = "xff\n0ff\nff0 <- $4@flag=gm||$3@flag=g\nf*3 <- $4@flag=gm\n\n0xFf\n0xfg\n0xGf\n\n0o77\n0o78\n0o87\n\n0b11\n0b12\n0b21\n\n";
         $._id("input-pattern").value = "(0(?:[xX][0-9a-fA-F]+)|0(?:[bB][0-1]+)|0(?:[oO][0-7]+))|(0(?:[xXbBoO][0-9a-zA-Z]+))|(0(?=[^xXbBoO]).*)|(^(?!0)\\w+)";
         $._id("input-string").value = "_$1_|_$2_|_$3_|_$4_matched test-$5,$,$$,$$$,$$$$,$$$$$";
         $._id("textarea-input").value = script;

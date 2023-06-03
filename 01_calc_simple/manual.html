@@ -1500,7 +1500,7 @@ title/発行元(発行年)を列挙する
 <span id="span-out-spec-limited-history"></span>
 制限追加履歴を列挙する
 <br>
-・<span class="clear">Ver.2.144.36</span>以降、<a href="#span-out-flow">operation</a>段階の<a href="#span-in-options">depthMax</a>制限を追加（browser crashの2重対策）
+・<span class="clear">Ver.2.144.36</span>以降、<a href="#span-out-flow">operation</a>段階の<a href="#span-out-concatination">行列結合</a>を含む<a href="#span-in-options">depthMax</a>制限を追加（browser crashの2重対策）
     </td>
   </tr>
   <tr>
@@ -1515,7 +1515,7 @@ title/発行元(発行年)を列挙する
 <span id="span-out-spec-optimized-history"></span>
 最適化履歴を列挙する
 <br>
-・<span class="run">Ver.2.142.36</span>以降、<a href="#span-out-num">実数値</a>の大規模<a href="#span-out-csv-format">csv-format</a>入力に対応
+・<span class="run">Ver.2.142.36</span>以降、<a href="#span-out-flow">parse</a>段階で<a href="#span-out-num">実数値</a>の大規模<a href="#span-out-csv-format">csv-format</a>入力に対応
     </td>
   </tr>
   <tr>
@@ -7602,7 +7602,7 @@ encodeの仕様/補足を列挙する
 <br>
 ・特定文字列の<a href="../70_decimal/index.html">n進数⇒m進数変換</a>
 <br>
-・特定文字列の<a href="../71_regexp/index.html">正規表現text置換</a>
+・特定文字列の<a href="../71_regexp/index.html?testcase=calc">正規表現text置換</a>
 <br>
 ・<a href="../72_unicode/index.html">Unicode変換Checker</a>
 <br>
@@ -11002,7 +11002,7 @@ Out of Memory
 <br>
 ・<span class="run">Ver.2.140.36</span>以降、演算実行の<a href="#span-out-UI-graphing">cancel-button</a>を追加
 <br>
-・<span class="clear">Ver.2.144.36</span>以降、<a href="#span-out-flow">operation</a>段階の<a href="#span-in-options">depthMax</a>制限を追加（browser crashの2重対策）
+・<span class="clear">Ver.2.144.36</span>以降、<a href="#span-out-flow">operation</a>段階の<a href="#span-out-concatination">行列結合</a>を含む<a href="#span-in-options">depthMax</a>制限を追加（browser crashの2重対策）
 <br>
 <a href="#span-out-num">実数値</a>以外を含む大規模csv -> [MyErr]Nesting depthMax over
 <br>
@@ -14080,11 +14080,17 @@ norm(-i:2i:-3i) || norm{-i,2i,-3i} || norm({-i,2i,-3i}) -> 3.7416573867739413
 <br>
 norm((1-i)/sqrt2:2i:-3i) || norm({(1-i)/sqrt2,2i,-3i}) -> 3.7416573867739413
 <br>
+x=((1-i)/sqrt2,2i,-3i); norm(trans(x)) -> 3.7416573867739413
+<br>
 ・<a href="#span-out-ope">有次元</a>の場合、同義
+<br>
+x=((1-i)/sqrt2,2i,-3i); sqrt(x*htrans(x)) -> 3.7416573867739413
 <br>
 x={(1-i)/sqrt2,2i,-3i}; sqrt(htrans(x)x) -> 3.7416573867739413
 <br>
 ・Hermit内積
+<br>
+x=((1-i)/sqrt2,2i,-3i); x*htrans(x) -> 14
 <br>
 x={(1-i)/sqrt2,2i,-3i}; htrans(x)x -> 14
 <br>
@@ -20234,7 +20240,7 @@ x=real(z); x -> 1
 <br>
 y=imag(z); y -> -1
 <br>
-・標準内積
+・vector空間の標準内積
 <br>
 vec0=(1,1); vec1=(1,-1);
 <br>
@@ -24664,7 +24670,7 @@ albedoの年率低下割合=0.125%で徐々に変化した場合、20年間1年�
 <br>
 前提を列挙する
 <br>
-・進行方向に対する物体の姿勢は不変を仮定して抗力を考慮する（厳密には球体を想定）
+・進行方向に対する物体の姿勢は不変を仮定して抗力を考慮する（変形なしの剛体球を想定）
 <br>
 ・進行方向に対して垂直方向の揚力||揚力係数Clは考慮しない
 <br>
@@ -31825,6 +31831,9 @@ parser.js抜粋
 <del>0x3i || </del>(0x3)i -> 3i
 <br>
 <del>0b013 || </del>(0b01)3 -> 3
+<br>
+<br>
+詳細は<a href="../71_regexp/index.html?testcase=calc">正規表現text置換</a>参照
     </td>
   </tr>
   <tr>
