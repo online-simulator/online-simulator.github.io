@@ -126,7 +126,7 @@ My_entry.test_waveplot.prototype.output = function(elem){
   var params = self.params;
   var buffer = self.buffer;
   if(params && buffer && params.Nsmax){
-    var Prop = (params.Bytes_perSample === 1)? "Uint8": "Int16";
+    var Prop = (params.Bytes_perSample === 1)? "Uint8": "Int"+String(params.Bytes_perSample*8);  // Ver.1.46.11
     text_xt += "xt=(1/samples_perSecond)*{";
     text_yt0 += "yt0={";
     text_yt1 += "yt1={";
@@ -140,6 +140,12 @@ My_entry.test_waveplot.prototype.output = function(elem){
     var Ns = params.Ns;
     var Nsmax = params.Nsmax;
     var view = new DataView(buffer, Bytes_header);
+  /* Ver.1.46.11 -> */
+    var hasProp = (view["get"+Prop]);
+  if(!(hasProp)){
+    self.output_log(Prop+" is not supported");
+  }
+  else{
     var ns = 0;
     for(var i=is; i<Nsmax; i+=di){
       if(++ns > Ns) break;  // first
@@ -170,6 +176,8 @@ My_entry.test_waveplot.prototype.output = function(elem){
       text += "yt=(yt0);\n";
     }
     self.output_log(text);
+  }
+  /* -> Ver.1.46.11 */
   }
   return self;
 };

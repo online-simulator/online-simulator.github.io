@@ -7,7 +7,7 @@
 /*
 
 dependency files:
-  <script type="text/javascript" src="../00_common/js/000_entry/000_entry.js"></script>
+  <script type="text/javascript" src="../00_common/js/000_namespace/000_entry.js"></script>
   <script type="text/javascript" src="../00_common/js/00_class/01_math_wave.js"></script>
   <script type="text/javascript" src="../00_common/js/02_handler/02_handler_baseview.js"></script>
   <script type="text/javascript" src="../00_common/js/03_original/03_original_main.js"></script>
@@ -58,9 +58,15 @@ My_entry.output_wave.prototype.init = function(Bytes_perSample, samples_perSecon
   var self = this;
   new My_entry.original_main().setup_constructors.call(self);
   new My_entry.original_main().make_instances.call(self, ["math_wave"]);
-  self.arr_prop_baseview = [, "Uint", "Int", , "Uint"];
-  self.arr_amplitude = [, 128-1, 32768-1];
-  self.arr_offset    = [, 128,   0];
+  /* Ver.1.46.11 -> */
+  self.arr_prop_baseview4header = [, "Uint",   "Int", ,       "Uint"];
+  self.arr_prop_baseview        = [, "Uint",   "Int", ,        "Int"];
+  self.arr_amplitude            = [,  128-1, 32768-1, , 2147483648-1];
+  self.arr_offset               = [,    128,       0, ,            0];
+  self.handler_baseview4header = new self.constructors.handler_baseview(self.arr_prop_baseview4header);
+  self.arr_buffer4header = self.handler_baseview4header.arr_buffer;
+  self.arr_viewset4header = self.handler_baseview4header.set;
+  /* -> Ver.1.46.11 */
   self.handler_baseview = new self.constructors.handler_baseview(self.arr_prop_baseview);
   self.arr_buffer = self.handler_baseview.arr_buffer;
   self.arr_viewset = self.handler_baseview.set;
@@ -103,6 +109,19 @@ My_entry.output_wave.prototype.buffer2binary = function(buffer){
   });
   return _binary;
 };
+/* Ver.1.46.11 -> */
+My_entry.output_wave.prototype.int2binary4header_BE = function(n, dec){
+  var self = this;
+  var isLE_default = false;
+  var isLE = arguments[2] || isLE_default;
+  var idec = Math.floor(dec);
+  self.arr_viewset4header[n](0, idec, isLE);
+  return self.buffer2binary(self.arr_buffer4header[n]);
+};
+My_entry.output_wave.prototype.int2binary4header_LE = function(n, dec){
+  var self = this;
+  return self.int2binary4header_BE.call(self, n, dec, true);
+};
 My_entry.output_wave.prototype.int2binary_BE = function(n, dec){
   var self = this;
   var isLE_default = false;
@@ -115,20 +134,21 @@ My_entry.output_wave.prototype.int2binary_LE = function(n, dec){
   var self = this;
   return self.int2binary_BE.call(self, n, dec, true);
 };
-My_entry.output_wave.prototype.str2binary_BE = function(n, bstr){
+My_entry.output_wave.prototype.str2binary4header_BE = function(n, bstr){
   var self = this;
   var isLE_default = false;
   var isLE = arguments[2] || isLE_default;
   for(var i=0; i<n; ++i){
     var offset = (isLE)? n-1-i: i;
-    self.handler_baseview.arr_view[n].setUint8(offset, bstr.charCodeAt(i));
+    self.handler_baseview4header.arr_view[n].setUint8(offset, bstr.charCodeAt(i));
   }
-  return self.buffer2binary(self.arr_buffer[n]);
+  return self.buffer2binary(self.arr_buffer4header[n]);
 };
-My_entry.output_wave.prototype.str2binary_LE = function(n, bstr){
+My_entry.output_wave.prototype.str2binary4header_LE = function(n, bstr){
   var self = this;
-  return self.str2binary_BE.call(self, n, bstr, true);
+  return self.str2binary4header_BE.call(self, n, bstr, true);
 };
+/* -> Ver.1.46.11 */
 My_entry.output_wave.prototype.get_fileSize = function(number_samples){
   var self = this;
   var Bytes_subChunk1 = self.Bytes_subChunk1;
@@ -141,32 +161,34 @@ My_entry.output_wave.prototype.get_binary_header = function(number_samples){
   self.Bytes_chunks = self.get_fileSize(number_samples)-(4+4);  // Format~
   // header
   var _binary = "";
+  /* Ver.1.46.11 -> */
   // ChunkID
-  _binary += self.str2binary_BE(4, "RIFF");  // _binary += "RIFF";
+  _binary += self.str2binary4header_BE(4, "RIFF");  // _binary += "RIFF";
   // ChunkSize
-  _binary += self.int2binary_LE(4, self.Bytes_chunks);
+  _binary += self.int2binary4header_LE(4, self.Bytes_chunks);
   // Format
-  _binary += self.str2binary_BE(4, "WAVE");  // _binary += "WAVE";
+  _binary += self.str2binary4header_BE(4, "WAVE");  // _binary += "WAVE";
   // Subchunk1ID
-  _binary += self.str2binary_BE(4, "fmt ");  // _binary += "fmt ";
+  _binary += self.str2binary4header_BE(4, "fmt ");  // _binary += "fmt ";
   // Subchunk1Size
-  _binary += self.int2binary_LE(4, self.Bytes_subChunk1);
+  _binary += self.int2binary4header_LE(4, self.Bytes_subChunk1);
   // AudioFormat
-  _binary += self.int2binary_LE(2, self.id_format);
+  _binary += self.int2binary4header_LE(2, self.id_format);
   // NumChannels
-  _binary += self.int2binary_LE(2, self.number_channels);
+  _binary += self.int2binary4header_LE(2, self.number_channels);
   // SampleRate
-  _binary += self.int2binary_LE(4, self.samples_perSecond);
+  _binary += self.int2binary4header_LE(4, self.samples_perSecond);
   // ByteRate
-  _binary += self.int2binary_LE(4, self.Bytes_perSecond);
+  _binary += self.int2binary4header_LE(4, self.Bytes_perSecond);
   // BlockAlign
-  _binary += self.int2binary_LE(2, self.Bytes_perBlock);
+  _binary += self.int2binary4header_LE(2, self.Bytes_perBlock);
   // BitsPerSample
-  _binary += self.int2binary_LE(2, self.bits_perSample);
+  _binary += self.int2binary4header_LE(2, self.bits_perSample);
   // Subchunk2ID
-  _binary += self.str2binary_BE(4, "data");  // _binary += "data";
+  _binary += self.str2binary4header_BE(4, "data");  // _binary += "data";
   // Subchunk2Size
-  _binary += self.int2binary_LE(4, self.Bytes_subChunk2);
+  _binary += self.int2binary4header_LE(4, self.Bytes_subChunk2);
+  /* -> Ver.1.46.11 */
   return _binary;
 };
 My_entry.output_wave.prototype.normalize_gains = function(arr_g, gain_type, gain_band){
@@ -238,7 +260,7 @@ My_entry.output_wave.prototype.check_gains = function(params){
 };
 My_entry.output_wave.prototype.get_gain_type = function(type){
   var self = this;
-  var fn = self.entry.math_wave[type.replace(self.ba_type.b, self.ba_type.a) || "sin"];  // Ver.1.34.6
+  var fn = self.entry.math_wave[type.replace(self.ba_type.b, self.ba_type.a)];  // Ver.1.34.6  // Ver.1.46.11
   var rms = self.entry.math_wave.get_rms(1000, fn);
   return Math.min(1, 0.5/rms);  // gain["square"] = 0.5(at rms=1)
 };
@@ -289,7 +311,7 @@ My_entry.output_wave.prototype.encode_soundData_LE = function(params){  // Ver.1
   var offset = self.offset;
   var seconds_perSample = 1/self.samples_perSecond;
   /* Ver.1.16.4 -> */
-  var fn = self.entry.math_wave[params.type.replace(self.ba_type.b, self.ba_type.a) || "sin"];  // Ver.1.25.4  // Ver.1.34.6
+  var fn = self.entry.math_wave[params.type.replace(self.ba_type.b, self.ba_type.a)];  // Ver.1.25.4  // Ver.1.34.6  // Ver.1.46.11
   var func_t = function(){
     return fn.apply(self.entry.math_wave, arguments);
   };
@@ -459,6 +481,11 @@ My_entry.output_wave.prototype.make_base64 = function(params){
 };
 My_entry.output_wave.prototype.add_params = function(params){
   var self = this;
+  /* Ver.1.46.11 -> */
+  if(typeof params.type === "undefined" || !(self.entry.math_wave[params.type])){
+    params.type = "sin";
+  }
+  /* -> Ver.1.46.11 */
   if(typeof params.f0 === "undefined"){
     params.f0 = 800;
     params.f1 = 4800;

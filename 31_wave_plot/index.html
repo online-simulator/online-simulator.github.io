@@ -38,6 +38,14 @@
 <table><tbody><caption><span class="selection">input-file.wav</span>　⇒　<span class="run">make data for plot2d</span>　⇒　<a title="Graphing Calculator" href="../02_calc_graphing/index.html?useStrict=false&checkError=false&marker-size=0">plot2d(xt,yt)</a></caption>
 <tr>
   <td>
+更新履歴
+  </td>
+  <td>
+・<span class="run">Ver.1.46.11</span>以降、int32に対応（4Byte数/sampleを追加）
+  </td>
+</tr>
+<tr>
+  <td>
 header-Byte数
   </td>
   <td>
@@ -52,6 +60,7 @@ Byte数/sample
 <select id="select-Bytes_perSample">
   <option value="1">1: uint8=0~255（無音=128）</option>
   <option value="2" selected="selected">2: int16=-32768~32767（無音=0）</option>
+  <option value="4">4: int32=-2147483648~2147483647（無音=0）</option>
 </select>
   </td>
 </tr>

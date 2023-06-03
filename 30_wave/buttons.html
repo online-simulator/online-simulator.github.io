@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="description" content="[test]play-buttons">
+  <meta name="author" content="online-simulator.github.io">
+  <noscript>JavaScript is not enabled on browser.</noscript>
+  <link rel="stylesheet" type="text/css" href="../00_common/css/common.css">
+  <link rel="stylesheet" type="text/css" href="../00_common/css/color.css">
+  <link rel="stylesheet" type="text/css" href="../00_common/css/size.css">
+  <link rel="stylesheet" type="text/css" href="css/common.css">
+  <link rel="stylesheet" type="text/css" href="css/color.css">
+  <link rel="stylesheet" type="text/css" href="css/size.css">
+  <script type="text/javascript" src="../00_common/js/000_namespace/000_entry.js"></script>
+  <script type="text/javascript" src="../00_common/js/00_class/01_math_wave.js"></script>
+  <script type="text/javascript" src="../00_common/js/02_handler/02_handler_baseview.js"></script>
+  <script type="text/javascript" src="../00_common/js/03_original/03_original_main.js"></script>
+  <script type="text/javascript" src="js/01_output_wave.js"></script>
+</head>
+
+<body>
+
+<hr>
+<div>
+<table class="border"><tbody><caption>play-buttons examples</caption>
+  <tr class="border selection">
+    <td class="text-center">
+instance with correct JSON
+    </td>
+    <td class="border">
+button
+    </td>
+  </tr>
+  <tr class="border">
+    <td>
+new My_entry.output_wave().output_sound(
+<br>
+{type: 'sin', sec: 1, arr_f: [523, 660, 784, 3000], arr_g: null}
+<br>
+);
+    </td>
+    <td class="border">
+  <button class="run" onclick="new My_entry.output_wave().output_sound({type: 'sin', sec: 1, arr_f: [523, 660, 784, 3000], arr_g: null});">play</button>
+    </td>
+  </tr>
+  <tr class="border">
+    <td>
+new My_entry.output_wave().output_sound(
+<br>
+{sec: 1, arr_f: [523, 660, 784, 3000], arr_g: []}
+<br>
+);
+    </td>
+    <td class="border">
+  <button class="run" onclick="new My_entry.output_wave().output_sound({sec: 1, arr_f: [523, 660, 784, 3000], arr_g: []});">play</button>
+    </td>
+  </tr>
+  <tr class="border">
+    <td>
+new My_entry.output_wave().output_sound(
+<br>
+{sec: 1, arr_f: [523, 660, 784, 3000], arr_g: [,1]}
+<br>
+);
+    </td>
+    <td class="border">
+  <button class="run" onclick="new My_entry.output_wave().output_sound({sec: 1, arr_f: [523, 660, 784, 3000], arr_g: [,1]});">play</button>
+    </td>
+  </tr>
+  <tr class="border">
+    <td>
+new My_entry.output_wave().output_sound(
+<br>
+{sec: 1, arr_f: [523, 660, 784, 3000], arr_g: [,1]
+<br>
+, w0: 0.97, p0: 0.02, w1: 0.97, p1: 0.02}
+<br>
+);
+    </td>
+    <td class="border">
+  <button class="run" onclick="new My_entry.output_wave().output_sound({sec: 1, arr_f: [523, 660, 784, 3000], arr_g: [,1], w0: 0.97, p0: 0.02, w1: 0.97, p1: 0.02});">play with fade</button>
+    </td>
+  </tr>
+</tbody></table>
+</div>
+<hr>
+
+</body>
+
+</html>
