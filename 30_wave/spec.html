@@ -843,7 +843,7 @@ f
 <br>
 過去の入力形式から変更する場合、octave数の降順に1加算して<a href="../71_regexp/index.html">正規表現text置換</a>の要修正
 <br>
-out=text.replace(/o8/gim,"o9");　⇒　out=text.replace(/o7/gim,"o8");　⇒　...
+out=text.replace(/o8/gm,"o9");　⇒　out=text.replace(/o7/gm,"o8");　⇒　...
 <br>
 <br>
 o4c9 = o3c21 = o2c33 = o1c45 = o0c57 <span class="clear">= o-1c69 = n69</span> <span class="run">= A4</span> = f440 = 440
@@ -865,12 +865,12 @@ o5c0 <span class="clear">= o-1c72 = n72</span> <span class="run">= C5</span> <sp
 音階
           </th>
           <th class="border">
-<span class="run">pitch記法</span>
+<span class="run">pitch記法（正順）</span>
 <br>
 <span class="run">Ver.1.15.4追加</span>
           </th>
           <th class="border">
-oc記法
+oc記法（逆順）
 <br>
 <span class="clear">Ver.1.13.4修正</span>
           </th>
@@ -895,6 +895,8 @@ C4
           </td>
           <td class="border">
 <span class="clear">o4</span>c0
+<br>
+<span class="clear">o4</span>c00
           </td>
           <td class="border">
 n60
@@ -916,7 +918,7 @@ C4s
 D4f
           </td>
           <td class="border">
-<span class="clear">o4</span>c1
+<span class="clear">o4</span>c01
           </td>
           <td class="border">
 n61
@@ -936,7 +938,7 @@ D（レ）
 D4
           </td>
           <td class="border">
-<span class="clear">o4</span>c2
+<span class="clear">o4</span>c02
           </td>
           <td class="border">
 n62
@@ -958,7 +960,7 @@ D4s
 E4f
           </td>
           <td class="border">
-<span class="clear">o4</span>c3
+<span class="clear">o4</span>c03
           </td>
           <td class="border">
 n63
@@ -978,7 +980,7 @@ E（ミ）
 E4
           </td>
           <td class="border">
-<span class="clear">o4</span>c4
+<span class="clear">o4</span>c04
           </td>
           <td class="border">
 n64
@@ -998,7 +1000,7 @@ F（ファ）
 F4
           </td>
           <td class="border">
-<span class="clear">o4</span>c5
+<span class="clear">o4</span>c05
           </td>
           <td class="border">
 n65
@@ -1020,7 +1022,7 @@ F4s
 G4f
           </td>
           <td class="border">
-<span class="clear">o4</span>c6
+<span class="clear">o4</span>c06
           </td>
           <td class="border">
 n66
@@ -1040,7 +1042,7 @@ G（ソ）
 G4
           </td>
           <td class="border">
-<span class="clear">o4</span>c7
+<span class="clear">o4</span>c07
           </td>
           <td class="border">
 n67
@@ -1062,7 +1064,7 @@ G4s
 A4f
           </td>
           <td class="border">
-<span class="clear">o4</span>c8
+<span class="clear">o4</span>c08
           </td>
           <td class="border">
 n68
@@ -1082,7 +1084,7 @@ A（ラ）
 A4
           </td>
           <td class="border">
-<span class="clear">o4</span>c9
+<span class="clear">o4</span>c09
           </td>
           <td class="border">
 n69
