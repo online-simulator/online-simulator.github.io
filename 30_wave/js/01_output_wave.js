@@ -60,10 +60,12 @@ My_entry.output_wave.prototype.init = function(Bytes_perSample, samples_perSecon
   new My_entry.original_main().setup_constructors.call(self);
   new My_entry.original_main().make_instances.call(self, ["def", "math_wave"]);  // Ver.1.47.11
   /* Ver.1.46.11 -> */
-  self.arr_prop_baseview4header = [, "Uint",   "Int", ,       "Uint"];
-  self.arr_prop_baseview        = [, "Uint",   "Int", ,        "Int"];
-  self.arr_amplitude            = [,  128-1, 32768-1, , 2147483648-1];
-  self.arr_offset               = [,    128,       0, ,            0];
+  /* Ver.1.48.11 -> */
+  self.arr_prop_baseview4header = [, "Uint",   "Int",          ,       "Uint"];
+  self.arr_prop_baseview        = [, "Uint",   "Int",     "Int",        "Int"];
+  self.arr_amplitude            = [,  128-1, 32768-1, 8388608-1, 2147483648-1];
+  self.arr_offset               = [,    128,       0,         0,            0];
+  /* -> Ver.1.48.11 */
   self.handler_baseview4header = new self.constructors.handler_baseview(self.arr_prop_baseview4header);
   self.arr_buffer4header = self.handler_baseview4header.arr_buffer;
   self.arr_viewset4header = self.handler_baseview4header.set;

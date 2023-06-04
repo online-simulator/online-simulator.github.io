@@ -14,12 +14,23 @@ My_entry.handler_wave.prototype.composite_binary_soundData_LE = function(arr_bin
   var Prop = self.waveo.arr_prop_baseview[Bytes_perSample]+String(Bytes_perSample*8);
   var newBuffer = new ArrayBuffer(Bytes_perSample*number_samples_perChannel_max*number_channels);
   var newView = new DataView(newBuffer, 0);
-  var newSetter = function(){
-    return newView["set"+Prop].apply(newView, arguments);
-  };
-  var newGetter = function(){
-    return newView["get"+Prop].apply(newView, arguments);
-  };
+  /* Ver.1.48.11 -> */
+  var handler_view = self.handler_view;
+  var newSetter = (newView["set"+Prop])?
+    function(){
+      return newView["set"+Prop].apply(newView, arguments);
+    }:
+    function(){
+      return handler_view.setInt8n(newView, Bytes_perSample, arguments[0], arguments[1], arguments[2]);
+    };
+  var newGetter = (newView["get"+Prop])?
+    function(){
+      return newView["get"+Prop].apply(newView, arguments);
+    }:
+    function(){
+      return handler_view.getInt8n(newView, Bytes_perSample, arguments[0], arguments[1]);
+    };
+  /* -> Ver.1.48.11 */
   // substitute val_offset
   for(var i=0, len=number_samples_perChannel_max*number_channels; i<len; ++i){
     newSetter(i*Bytes_perSample, val_offset, isLE);
@@ -33,9 +44,15 @@ My_entry.handler_wave.prototype.composite_binary_soundData_LE = function(arr_bin
   arr_binary.forEach(function(binary, i){
     var buffer = self.waveo.binary2buffer(binary);
     var view = new DataView(buffer, 0);
-    var getter = function(){
-      return view["get"+Prop].apply(view, arguments);
-    };
+    /* Ver.1.48.11 -> */
+    var getter = (view["get"+Prop])?
+      function(){
+        return view["get"+Prop].apply(view, arguments);
+      }:
+      function(){
+        return handler_view.getInt8n(view, Bytes_perSample, arguments[0], arguments[1]);
+      };
+    /* -> Ver.1.48.11 */
     var j_offset = i%number_channels;
     /* Ver.1.18.4 -> */
     var wr = data.wr;

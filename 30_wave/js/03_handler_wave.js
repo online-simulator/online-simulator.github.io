@@ -46,6 +46,7 @@ My_entry.handler_wave.prototype.init = function(){
   if(self.isScriptMode){
     self.set_n_thread_worker(self.entry.$.selectNum_id("select-n_thread"));
   }
+  self.handler_view = new self.constructors.handler_baseview([,,,"Int",]);  // Ver.1.48.11
   return self;
 };
 My_entry.handler_wave.prototype.init_elems = function(){

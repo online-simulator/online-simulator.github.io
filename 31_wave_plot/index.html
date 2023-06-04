@@ -17,6 +17,7 @@
   <script type="text/javascript" src="../00_common/js/00_class/00_$.js"></script>
   <script type="text/javascript" src="../00_common/js/00_class/00_conv.js"></script>
   <script type="text/javascript" src="../00_common/js/00_class/00_def.js"></script>
+  <script type="text/javascript" src="../00_common/js/02_handler/02_handler_baseview.js"></script>
   <script type="text/javascript" src="../00_common/js/03_original/03_original_main.js"></script>
   <script type="text/javascript" src="js/03_waveplot.js"></script>
 </head>
@@ -41,6 +42,8 @@
 更新履歴
   </td>
   <td>
+・<span class="run">Ver.1.48.11</span>以降、int24に対応（3Byte数/sampleを追加）
+<br>
 ・<span class="run">Ver.1.46.11</span>以降、int32に対応（4Byte数/sampleを追加）
   </td>
 </tr>
@@ -58,8 +61,9 @@ Byte数/sample
   </td>
   <td>
 <select id="select-Bytes_perSample">
-  <option value="1">1: uint8=0~255（無音=128）</option>
+  <option value="1">1: uint8=0~255（無音=128=0x80）</option>
   <option value="2" selected="selected">2: int16=-32768~32767（無音=0）</option>
+  <option value="3">3: int24=-8388608~8388607（無音=0）</option>
   <option value="4">4: int32=-2147483648~2147483647（無音=0）</option>
 </select>
   </td>

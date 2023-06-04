@@ -13,6 +13,7 @@ My_entry.test_waveplot.prototype.init = function(){
   self.init_main.call(self, ["$", "conv", "def"]);
   self.samples_perSecond = 44100;
   self.Nsmax = 500000;
+  self.handler_view = new self.constructors.handler_baseview([,,,"Int",]);  // Ver.1.48.11
   return self;
 };
 My_entry.test_waveplot.prototype.init_elems = function(){
@@ -141,11 +142,20 @@ My_entry.test_waveplot.prototype.output = function(elem){
     var Nsmax = params.Nsmax;
     var view = new DataView(buffer, Bytes_header);
   /* Ver.1.46.11 -> */
-    var hasProp = (view["get"+Prop]);
+    var hasProp = (view["get"+Prop] || self.handler_view.get[Bytes_perSample]);  // Ver.1.48.11
   if(!(hasProp)){
     self.output_log(Prop+" is not supported");
   }
   else{
+    /* Ver.1.48.11 -> */
+    var getter = (view["get"+Prop])?
+      function(){
+        return view["get"+Prop].apply(view, arguments);
+      }:
+      function(){
+        return self.handler_view.getInt8n(view, Bytes_perSample, arguments[0], arguments[1]);
+      };
+    /* -> Ver.1.48.11 */
     var ns = 0;
     for(var i=is; i<Nsmax; i+=di){
       if(++ns > Ns) break;  // first
@@ -156,8 +166,8 @@ My_entry.test_waveplot.prototype.output = function(elem){
       }
       var i0 = (i*number_channels+0)*Bytes_perSample;
       var i1 = (i*number_channels+1)*Bytes_perSample;
-      var val0 = view["get"+Prop](i0, true);
-      var val1 = (isStereo)? view["get"+Prop](i1, true): "";
+      var val0 = getter(i0, true);  // Ver.1.48.11
+      var val1 = (isStereo)? getter(i1, true): "";  // Ver.1.48.11
       text_xt += String(i);
       text_yt0 += String(val0);
       text_yt1 += String(val1);
