@@ -93,7 +93,49 @@ new My_entry.output_wave().output_sound(
 );
     </td>
     <td class="border">
-  <button class="run" onclick="new My_entry.output_wave().output_sound({sec: 1, arr_f: [523, 660, 784, 3000], arr_g: [,1], w0: 0.97, p0: 0.02, w1: 0.97, p1: 0.02});">play with fade</button>
+  <button class="run" onclick="new My_entry.output_wave().output_sound({sec: 1, arr_f: [523, 660, 784, 3000], arr_g: [,1], w0: 0.97, p0: 0.02, w1: 0.97, p1: 0.02});">play with fade</button><br>-in=20msec<br>-out=20msec
+    </td>
+  </tr>
+  <tr class="border">
+    <td>
+new My_entry.output_wave().output_sound(
+<br>
+{sec: 1, arr_f: [523, 660, 784, 3000], arr_g: [,1]
+<br>
+, w0: 0.97, p0: 0.2, w1: 0.97, p1: 0.02}
+<br>
+);
+    </td>
+    <td class="border">
+  <button class="run" onclick="new My_entry.output_wave().output_sound({sec: 1, arr_f: [523, 660, 784, 3000], arr_g: [,1], w0: 0.97, p0: 0.2, w1: 0.97, p1: 0.02});">play with fade</button><br>-in=200msec<br>-out=20msec
+    </td>
+  </tr>
+  <tr class="border">
+    <td>
+new My_entry.output_wave().output_sound(
+<br>
+{sec: 1, arr_f: [523, 660, 784, 3000], arr_g: [,1]
+<br>
+, w0: 0.97, p0: 0.02, w1: 0.97, p1: 0.2}
+<br>
+);
+    </td>
+    <td class="border">
+  <button class="run" onclick="new My_entry.output_wave().output_sound({sec: 1, arr_f: [523, 660, 784, 3000], arr_g: [,1], w0: 0.97, p0: 0.02, w1: 0.97, p1: 0.2});">play with fade</button><br>-in=20msec<br>-out=200msec
+    </td>
+  </tr>
+  <tr class="border">
+    <td>
+new My_entry.output_wave().output_sound(
+<br>
+{sec: 1, arr_f: [523, 660, 784, 3000], arr_g: [,1]
+<br>
+, w0: 0.97, p0: 0.2, w1: 0.97, p1: 0.2}
+<br>
+);
+    </td>
+    <td class="border">
+  <button class="run" onclick="new My_entry.output_wave().output_sound({sec: 1, arr_f: [523, 660, 784, 3000], arr_g: [,1], w0: 0.97, p0: 0.2, w1: 0.97, p1: 0.2});">play with fade</button><br>-in=200msec<br>-out=200msec
     </td>
   </tr>
 </tbody></table>
