@@ -401,28 +401,10 @@ My_entry.handler_wave.prototype.input2arr = function(input){
               // Ver.1.28.4
               case "amplitude0":
               case "amplitude1":
-                num *= kampli;
-                param = self.entry.def.limit(num, 0, Number.MAX_VALUE, 1);  // Ver.1.35.6
-                break;
-              case "f0":
-              case "f1":
-                param = num;
-                break;
-              // Ver.1.31.6
-              case "order_d":
-              case "order_a":
-              // Ver.1.26.4
-              case "order":
-              // Ver.1.24.4
-              case "rate":
-                param = self.entry.def.limit(num, 0, Number.MAX_VALUE, 1);
-                break;
-              // Ver.1.38.8
-              case "order_fade":
-                param = self.entry.def.limit(Math.floor(num), -2, 2, 2);  // Ver.1.39.8  // Ver.1.40.8
+                param = num*kampli;  // Ver.1.47.11
                 break;
               default:
-                param = self.entry.def.limit(num, 0, 1, 0);
+                param = num;  // Ver.1.47.11
                 break;
             }
             params[prop] = param;

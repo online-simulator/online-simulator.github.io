@@ -8,6 +8,7 @@
 
 dependency files:
   <script type="text/javascript" src="../00_common/js/000_namespace/000_entry.js"></script>
+  <script type="text/javascript" src="../00_common/js/00_class/00_def.js"></script>
   <script type="text/javascript" src="../00_common/js/00_class/01_math_wave.js"></script>
   <script type="text/javascript" src="../00_common/js/02_handler/02_handler_baseview.js"></script>
   <script type="text/javascript" src="../00_common/js/03_original/03_original_main.js"></script>
@@ -57,7 +58,7 @@ My_entry.output_wave.prototype.config = {
 My_entry.output_wave.prototype.init = function(Bytes_perSample, samples_perSecond, number_channels){
   var self = this;
   new My_entry.original_main().setup_constructors.call(self);
-  new My_entry.original_main().make_instances.call(self, ["math_wave"]);
+  new My_entry.original_main().make_instances.call(self, ["def", "math_wave"]);  // Ver.1.47.11
   /* Ver.1.46.11 -> */
   self.arr_prop_baseview4header = [, "Uint",   "Int", ,       "Uint"];
   self.arr_prop_baseview        = [, "Uint",   "Int", ,        "Int"];
@@ -281,9 +282,48 @@ My_entry.output_wave.prototype.check_error = function(params){
   });
   return self;
 };
+/* Ver.1.47.11 */
+My_entry.output_wave.prototype.check_limit = function(_params){
+  var self = this;
+  var def = self.entry.def;
+  var type = (_params.type || "").replace(self.ba_type.b, self.ba_type.a);
+  if(!(self.entry.math_wave[type])){
+    _params.type = "sin";
+  }
+  ["duty0", "duty1"].forEach(function(prop){
+    _params[prop] = def.limit(_params[prop], 0, 1, 0.5);
+  });
+  ["amplitude0", "amplitude1"].forEach(function(prop){
+    var sw_max = _params._amplitude_max || Number.MAX_VALUE;
+    _params[prop] = def.limit(_params[prop], 0, sw_max, 1);
+  });
+  ["w0", "p0", "w1", "p1"].forEach(function(prop){
+    _params[prop] = def.limit(_params[prop], 0, 1, 0);
+  });
+  if(typeof _params.f0 === "undefined"){
+    _params.f0 = 800;
+    _params.f1 = 4800;
+    _params.g0 = 1;
+    _params.g1 = 0.3;
+  }
+  ["f0", "f1"].forEach(function(prop){
+    _params[prop] = def.limit(_params[prop], 0, Number.MAX_VALUE, 800);
+  });
+  ["g0", "g1"].forEach(function(prop){
+    _params[prop] = def.limit(_params[prop], 0, 1, 1);
+  });
+  ["rate", "order", "order_d", "order_a"].forEach(function(prop){
+    _params[prop] = def.limit(_params[prop], 0, Number.MAX_VALUE, 1);
+  });
+  ["order_fade"].forEach(function(prop){
+    _params[prop] = def.limit(Math.floor(_params[prop]), -2, 2, 2);
+  });
+  return _params;
+};
 My_entry.output_wave.prototype.check_params = function(_params){
   var self = this;
   self.check_error(_params);
+  self.check_limit(_params);  // Ver.1.47.11
   var arr_f = _params.arr_f;
   var arr_g = _params.arr_g;
   var arr_g = self.check_gains(_params);
@@ -316,7 +356,10 @@ My_entry.output_wave.prototype.encode_soundData_LE = function(params){  // Ver.1
     return fn.apply(self.entry.math_wave, arguments);
   };
   /* -> Ver.1.16.4 */
-  var phi0 = (params.type.match(self.ba_type.b))? Math.random()*Math.PI*2: 0;  // Ver.1.34.6
+  /* Ver.1.47.11 -> */
+  var hasRand_phi0 = (params.type.match(self.ba_type.b));
+  var phi0 = (hasRand_phi0)? Math.random()*Math.PI*2: 0;  // Ver.1.34.6
+  /* -> Ver.1.47.11 */
   /* Ver.1.25.4 -> */
   /* Ver.1.17.4 */
   /* Ver.1.13.3 */
@@ -479,56 +522,6 @@ My_entry.output_wave.prototype.make_base64 = function(params){
   }
   return self;
 };
-My_entry.output_wave.prototype.add_params = function(params){
-  var self = this;
-  /* Ver.1.46.11 -> */
-  if(typeof params.type === "undefined" || !(self.entry.math_wave[params.type])){
-    params.type = "sin";
-  }
-  /* -> Ver.1.46.11 */
-  if(typeof params.f0 === "undefined"){
-    params.f0 = 800;
-    params.f1 = 4800;
-    params.g0 = 1;
-    params.g1 = 0.3;
-  }
-  /* Ver.1.25.4 -> */
-  if(typeof params.amplitude0 === "undefined"){
-    params.amplitude0 = 1;
-  }
-  if(typeof params.amplitude1 === "undefined"){
-    params.amplitude1 = 1;
-  }
-  if(typeof params.duty0 === "undefined"){
-    params.duty0 = 0.5;
-  }
-  if(typeof params.duty1 === "undefined"){
-    params.duty1 = 0.5;
-  }
-  if(typeof params.rate === "undefined"){
-    params.rate = 1;
-  }
-  /* -> Ver.1.25.4 */
-  /* Ver.1.26.4 -> */
-  if(typeof params.order === "undefined"){
-    params.order = 1;
-  }
-  /* Ver.1.31.6 -> */
-  if(typeof params.order_d === "undefined"){
-    params.order_d = 1;
-  }
-  if(typeof params.order_a === "undefined"){
-    params.order_a = 1;
-  }
-  /* -> Ver.1.31.6 */
-  /* -> Ver.1.26.4 */
-  /* Ver.1.38.8 -> */
-  if(typeof params.order_fade === "undefined"){
-    params.order_fade = 2;
-  }
-  /* -> Ver.1.38.8 */
-  return self;
-};
 My_entry.output_wave.prototype.get_number_samples = function(sec){
   var self = this;
   return Math.floor(self.samples_perSecond*sec);
@@ -540,7 +533,6 @@ My_entry.output_wave.prototype.output_sound = function(params, volume){
   params.number_samples = self.number_samples;
   params.number_channels = self.number_channels;
   params.volume = volume;
-  self.add_params(params);
   self.make_base64(params);
   self.play_base64(self.base64, volume);
   return self;
