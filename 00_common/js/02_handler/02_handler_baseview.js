@@ -101,13 +101,13 @@ My_entry.handler_baseview.prototype.init = function(arr_prop_baseview){
     self.arr_view[n] = new DataView(self.arr_buffer[n], 0);
     self.offset[n] = Math.pow(2, n*8-1);
     var view = self.arr_view[n];
+    var isUnsigned = (Prop === "Uint");
     var Prop = (Prop || "Int")+String(n*8);
     self.set[n] = (view["set"+Prop])?
       function(){
         return view["set"+Prop].apply(view, arguments);
       }:
       function(){
-        var isUnsigned = arguments[3];
         return self[(isUnsigned)? "setUint8n": "setInt8n"](view, n, arguments[0], arguments[1], arguments[2]);
       };
     self.get[n] = (view["get"+Prop])?
@@ -115,7 +115,6 @@ My_entry.handler_baseview.prototype.init = function(arr_prop_baseview){
         return view["get"+Prop].apply(view, arguments);
       }:
       function(){
-        var isUnsigned = arguments[2];
         return self[(isUnsigned)? "getUint8n": "getInt8n"](view, n, arguments[0], arguments[1]);
       };
   });
