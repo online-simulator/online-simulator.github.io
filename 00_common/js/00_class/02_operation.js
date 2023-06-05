@@ -138,6 +138,11 @@ My_entry.operation.prototype.config = {
   /* Ver.2.27.15 */
   isEscaped: function(name){
     return (name.charAt(0) === "$");
+  },
+  /* Ver.2.156.38 filter for csv-format */
+  isNested: function(tagName){
+    var type = tagName.substring(0, 2);
+    return (type === "BT");
   }
 };
 My_entry.operation.prototype.init = function(){
@@ -572,8 +577,26 @@ My_entry.operation.prototype.SRr_or_SRt = function(data, i0, tagName, tagObj, is
   var ids = data.ids;
   var DATA = self.entry.DATA;
   var len = trees.length;
+  /* Ver.2.156.38 -> */
+  var get_i1 = function(){
+    var _i1 = len;
+    for(var i=i0+1; i<len; ++i){
+      var prop = Object.keys(trees[i])[0];
+      if(self.config.isNested(prop)){
+        break;
+      }
+      else if(prop === tagName){
+        _i1 = i;
+        break;
+      }
+    }
+    return _i1;
+  };
+  var i1 = get_i1();
   var leftTrees = trees.slice(0, i0);
-  var rightTrees = trees.slice(i0+1, len);
+  var rightTrees = trees.slice(i0+1, i1);
+  var isEmpty = (rightTrees.length === 0);
+  /* -> Ver.2.156.38 */
   var leftTree = null;
   var rightTree = null;
   var BT = self.params.BT;  // store BT
@@ -582,7 +605,7 @@ My_entry.operation.prototype.SRr_or_SRt = function(data, i0, tagName, tagObj, is
   leftTrees = self.data2trees(self.get_newData(data, leftTrees, ids));  // Ver.2.31.17
   leftTree = DATA.trees2tree(leftTrees);
   self.params.BT = BT;      // restore BT
-  rightTrees = self.data2trees(self.get_newData(data, rightTrees, ids));  // Ver.2.31.17
+  rightTrees = (isEmpty)? []: self.data2trees(self.get_newData(data, rightTrees, ids));  // Ver.2.31.17  // Ver.2.156.38
   rightTree = DATA.trees2tree(rightTrees);
   leftTree = self.tree2tree_mat(leftTree);
   rightTree = self.tree2tree_mat(rightTree);
@@ -593,22 +616,13 @@ My_entry.operation.prototype.SRr_or_SRt = function(data, i0, tagName, tagObj, is
     var len_i = Math.max(leftArr.length, rightArr.length);
     var len_j = 0;
     for(var i=0; i<len_i; ++i){
-      var leftArri = leftArr[i];
+      /* Ver.2.156.38 -> */
+      var leftArri = leftArr[i] || [];
       var rightArri = rightArr[i];
-      /* Ver.1.4.3 (1,2),{3,4:5:6,7:8,9,10} -> (1,2,3,5,6,8:0,0,4,0,7,9:0,0,0,0,0,10) */
-      /* Ver.1.4.2 {:1,2} || {0:1,2} -> (0,1:0,2) */
-      if(leftArri){
-        len_j = leftArri.length;
-      }
-      else{
-        leftArri = [];
-        for(var j=0; j<len_j; ++j){
-          leftArri[j] = DATA.num(0, 0);
-        }
-      }
       if(rightArri){
         leftArr[i] = leftArri.concat(rightArri);  // col: mat.arr[i]
       }
+      /* -> Ver.2.156.38 */
     }
   }
   else{
@@ -618,7 +632,7 @@ My_entry.operation.prototype.SRr_or_SRt = function(data, i0, tagName, tagObj, is
   }
   var tree = leftTree;
   var is = 0;
-  var ie = len-1;
+  var ie = i1-1;  // Ver.2.156.38
   self.feedback2trees(data, is, ie, tree);
   return self;
 };

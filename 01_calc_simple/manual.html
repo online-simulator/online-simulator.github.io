@@ -442,6 +442,8 @@ e^(-i(1pi(){2/2i}(5-{3-1}){i/(-4)}))
 <br>
 　　・<a href="#span-out-concatination">行列結合</a>
 <br>
+　　　・<a href="#span-out-concatination-irregular">irregular行列</a>
+<br>
 　・<a href="#span-out-FNmspecial">特殊行列関数</a>
 <br>
 　・<a href="#span-out-vars">変数</a>
@@ -1461,6 +1463,12 @@ title/発行元(発行年)を列挙する
 ・<span class="clear">Ver.2.146.37</span>以降、<a href="#span-out-RW">接頭辞</a>判定の<a href="#span-in-re-prifix">正規表現</a>を修正
 <br>
 　ECMAScript6対応環境の場合、2進数と8進数の<a href="#span-out-RW">接頭辞</a>を追加
+<br>
+・<span class="run">Ver.2.156.38</span>以降、<a href="#span-out-concatination-irregular">irregular行列</a>の<a href="#span-out-concatination">行列結合</a>の<span class="clear">仕様変更</span>
+<br>
+　列方向の<a href="#span-out-mat">抜け要素</a>を自動で埋める　⇒　<a href="#span-out-mat">抜け要素</a>を埋めない（<span class="clear">挙動を明確化</span>）
+<br>
+　<a href="#span-eqn">strict-mode式変数list</a>等、実用への影響なし
     </td>
   </tr>
   <tr>
@@ -1516,6 +1524,12 @@ title/発行元(発行年)を列挙する
 最適化履歴を列挙する
 <br>
 ・<span class="run">Ver.2.142.36</span>以降、<a href="#span-out-flow">parse</a>段階で<a href="#span-out-num">実数値</a>の大規模<a href="#span-out-csv-format">csv-format</a>入力に対応
+<br>
+・<span class="run">Ver.2.156.38</span>以降、<a href="#span-out-flow">operation</a>段階で<a href="#span-out-concatination">行列結合</a>のnestingを削減する最適化を実施
+<br>
+　⇒　動的memory使用量の低減
+<br>
+　⇒　<a href="#span-in-options">depthMax</a>制限の余裕確保
     </td>
   </tr>
   <tr>
@@ -11006,6 +11020,8 @@ Out of Memory
 <br>
 <a href="#span-out-num">実数値</a>以外を含む大規模csv -> [MyErr]Nesting depthMax over
 <br>
+・<span class="run">Ver.2.156.38</span>以降、<a href="#span-out-concatination">行列結合</a>の最適化を実施
+<br>
 <br>
 csv-formatを次に示す
 <br>
@@ -11103,7 +11119,9 @@ x0=(<span class="condition">1,2,3</span>); x1=(<span class="condition">,,</span>
 <br>
 ・全要素が<a href="#span-out-num">実数値</a>の場合、<a href="#span-out-BT">括弧</a>内の要素数上限=Order(10000)
 <br>
-・要素が<a href="#span-out-num">実数値</a>以外を含む場合、<a href="#span-out-BT">括弧</a>内の要素数上限=Order(100)
+・要素が<a href="#span-out-num">実数値</a>以外を含む場合、<a href="#span-out-BT">括弧</a>内の要素数上限=Order(<del>100</del><span class="run">1000</span>)
+<br>
+　<span class="run">Ver.2.156.38</span>以降、<a href="#span-out-flow">operation</a>段階で<a href="#span-out-concatination">行列結合</a>のnestingを削減する最適化を実施
     </td>
   </tr>
   <tr>
@@ -11975,6 +11993,8 @@ test caseを列挙する
 <br>
 0xfff -> 4095
 <br>
+0x0b -> 11
+<br>
 ・非数NaN（演算を伴うため、実数値以外の判定）
 <br>
 +0x00 || +(0x00) -> 0
@@ -11998,6 +12018,8 @@ test caseを列挙する
 <del>0x3i -> 3i</del>
 <br>
 0x3i -> [MyErr]Invalid varName(0x3i)
+<br>
+0x0o -> [MyErr]Invalid varName(0x0o)
 <br>
 ・<span class="clear">Ver.2.146.37</span>以降、2進数値（符号なし）
 <br>
@@ -13410,18 +13432,6 @@ transpose({1,2:3,4}) || trans({1,2:3,4}) || trans{1,2:3,4} -> (1,2:3,4)
 <br>
 ({1,2}:{3:4}) || (trans(1,2):trans(3:4)) -> (1:2:3,4)
 <br>
-{(1,2):(3:4)} -> (1,2,3:0,0,4)
-<br>
-(1,{2,(3,{4,5})}) -> (1,2:0,3,4:0,0,5)
-<br>
-(1,(2:3),4) -> (1,2,4:0,3)
-<br>
-(1,{2:3},4) -> (1,2,3,4)
-<br>
-{1,{2:3},4} -> (1:2,3:4)
-<br>
-{1,(2:3),4} -> (1:2:3:4)
-<br>
 <br>
 定義可能な行列演算
 <br>
@@ -13496,74 +13506,6 @@ k=-3; (k,:,k)(1,2:3,4) || (1,2:3,4)(k,:,k) -> (-3,-6:-9,-12)
 x=1; y=(x,2x:3x,4x); y*y-y || (7,10:15,22)-(1,2:3,4) -> (6,8:12,18)
 <br>
 t=pi/4; (cos(t),sin(t):,){i(sin(t)),i(cos(t)):,} -> (i,0:0,0)
-<br>
-<br>
-列指定のirregular行列
-<br>
-{1:2:3,4} -> (1,2,3:0,0,4)
-<br>
-{1:2,3} -> (1,2:0,3)
-<br>
-{1:2,,3} -> (1,2:0,0:0,3)
-<br>
-{1,2:3,,,4} -> (1,3:2,0:0,0:0,4)
-<br>
-{1,,,2:3,4:5,,,,,6} -> (1,3,5:0,4,0:0,0,0:2,0,0:0,0,0:0,0,6)
-<br>
-<br>
-行指定のirregular行列
-<br>
-A=(11:21,22:31,32,33,34); A -> (11:21,22:31,32,33,34)
-<br>
-tA={11:21,22:31,32,33,34}; tA -> (11,21,31:0,22,32:0,0,33:0,0,34)
-<br>
-・行指定の行列で抜け要素がある場合、<a href="#span-out-FNm-trans">転置行列関数</a>を使用
-<br>
-A=(11:21,22:31,32,33,34); trans(trans(A)) -> (11,0,0,0:21,22,0,0:31,32,33,34)
-<br>
-A=(11:21,22:31,32,33,34); htrans(htrans(A)) -> (11,0,0,0:21,22,0,0:31,32,33,34)
-<br>
-・<a href="#span-in-tree">単位tree構造</a>の仕様上、行vectorの抜け要素を自動で埋めない
-<br>
-(1,2:3),(1,2:3) ->
-<br>
-(
-<br>
-1,2,1,2:
-<br>
-3,3
-<br>
-)
-<br>
-(1:3,4),(1:3,4) ->
-<br>
-(
-<br>
-1,1:
-<br>
-3,4,3,4
-<br>
-)
-<br>
-{1,2:3},{1,2:3} ->
-<br>
-(
-<br>
-1,3,1,3:
-<br>
-2,2
-<br>
-)
-<br>
-{1:3,4},{1:3,4} ->
-<br>
-(
-<br>
-1,3,1,3:
-<br>
-0,4,0,4
-<br>
-)
 <br>
 <br>
 定義できない<a href="#span-out-mat-product">行列積</a>の場合、error終了
@@ -13912,9 +13854,11 @@ A=(1,2:3,(,:,4),5); A ->
 <br>
 3,0,0,5:
 <br>
-0,0,4
+<del class="clear">0,</del>0,4
 <br>
 )
+<br>
+・<span class="run">Ver.2.156.38</span>以降、<a href="#span-out-concatination-irregular">irregular行列</a>の<a href="#span-out-concatination">行列結合</a>の<span class="clear">仕様変更</span>
 <br>
 last(A) -> 4
 <br>
@@ -13939,9 +13883,11 @@ last{{1,2}:{3,4}} -> 4
 <br>
 1,2,4:
 <br>
-0,3
+<del class="clear">0,</del>3
 <br>
 )
+<br>
+・<span class="run">Ver.2.156.38</span>以降、<a href="#span-out-concatination-irregular">irregular行列</a>の<a href="#span-out-concatination">行列結合</a>の<span class="clear">仕様変更</span>
 <br>
 last(1,(2:3),4) -> 3
 <br>
@@ -15971,14 +15917,125 @@ mat11={-3,-7:-4,-8};
 mat=(mat00,mat01:mat10,mat11);
 <br>
 mat -> (1,2,3,4:5,6,7,8:-1,-2,-3,-4:-5,-6,-7,-8)
+    </td>
+  </tr>
+  <tr>
+    <th>
+<a href="#span-index">
+目次
+</a>
 <br>
-・irregular行列
+irregular
 <br>
-(1,2),{3,4:5:6,7:8} -> (1,2,3,5,6,8:0,0,4,0,7)
+行列
 <br>
-(1,2),{3,4:5:6,7:8,9,10} -> (1,2,3,5,6,8:0,0,4,0,7,9:0,0,0,0,0,10)
+入力仕様
+    </th>
+    <td>
+<span id="span-out-concatination-irregular"></span>
+irregular行列の入力仕様と付随する留意事項について記述する
 <br>
-(1,2),{3,4:5:6,7:8,(9,10)} -> (1,2,3,5,6,8:0,0,4,0,7,9,10)
+・<span class="run">Ver.2.156.38</span>以降、<a href="#span-out-concatination">行列結合</a>で<a href="#span-out-mat">抜け要素</a>を埋めない（<span class="clear">挙動を明確化</span>）
+<br>
+<br>
+列指定のirregular行列
+<br>
+{1:2:3,4} -> (1,2,3:<del class="clear">0,0,</del>4)
+<br>
+{1:2,3} -> (1,2:<del class="clear">0,</del>3)
+<br>
+{1:2,,3} -> (1,2:<del class="clear">0,</del>0:<del class="clear">0,</del>3)
+<br>
+{1,2:3,,,4} -> (1,3:2,0:<del class="clear">0,</del>0:<del class="clear">0,</del>4)
+<br>
+{1,,,2:3,4:5,,,,,6} -> (1,3,5:0,4,0:0,<del class="clear">0,</del>0:2,<del class="clear">0,</del>0:<del class="clear">0,0,</del>0:<del class="clear">0,0,</del>6)
+<br>
+<br>
+行指定のirregular行列
+<br>
+A=(11:21,22:31,32,33,34); A -> (11:21,22:31,32,33,34)
+<br>
+tA={11:21,22:31,32,33,34}; tA -> (11,21,31:<del class="clear">0,</del>22,32:<del class="clear">0,0,</del>33:<del class="clear">0,0,</del>34)
+<br>
+・行指定の行列で抜け要素がある場合、<a href="#span-out-FNm-trans">転置行列関数</a>を使用
+<br>
+A=(11:21,22:31,32,33,34); trans(trans(A)) -> (11,0,0,0:21,22,0,0:31,32,33,34)
+<br>
+A=(11:21,22:31,32,33,34); htrans(htrans(A)) -> (11,0,0,0:21,22,0,0:31,32,33,34)
+<br>
+・<a href="#span-in-tree">単位tree構造</a>の仕様上、行vectorの抜け要素を自動で埋めない
+<br>
+(1,2:3),(1,2:3) ->
+<br>
+(
+<br>
+1,2,1,2:
+<br>
+3,3
+<br>
+)
+<br>
+(1:3,4),(1:3,4) ->
+<br>
+(
+<br>
+1,1:
+<br>
+3,4,3,4
+<br>
+)
+<br>
+{1,2:3},{1,2:3} ->
+<br>
+(
+<br>
+1,3,1,3:
+<br>
+2,2
+<br>
+)
+<br>
+{1:3,4},{1:3,4} ->
+<br>
+(
+<br>
+1,3,1,3:
+<br>
+<del class="clear">0,</del>4,<del class="clear">0,</del>4
+<br>
+)
+<br>
+<br>
+多重列挙の結合
+<br>
+{(1,2),(3:4)} -> (1,2:3:4)
+<br>
+{(1,2):(3:4)} -> (1,2,3:<del class="clear">0,0,</del>4)
+<br>
+(1,{2,3}) -> (1,2:<del class="clear">0,</del>3)
+<br>
+(1,(2:3),4) -> (1,2,4:<del class="clear">0,</del>3)
+<br>
+(1,{2,(3,{4,5})}) -> (1,2:<del class="clear">0,</del>3,4:<del class="clear">0,0,</del>5)
+<br>
+(1,{2:3},4) -> (1,2,3,4)
+<br>
+{1,{2:3},4} -> (1:2,3:4)
+<br>
+{1,(2:3),4} -> (1:2:3:4)
+<br>
+<br>
+irregular行列の結合
+<br>
+{1,2:3},{1,2:3} -> (1,3,1,3:2,2)
+<br>
+(1,2),{3,4:5:6,7:8} -> (1,2,3,5,6,8:<del class="clear">0,0,</del>4,<del class="clear">0,</del>7)
+<br>
+(1,2),{3,4:5:6,7:8,9,10} -> (1,2,3,5,6,8:<del class="clear">0,0,</del>4,<del class="clear">0,</del>7,9:<del class="clear">0,0,0,0,0,</del>10)
+<br>
+(1,2),{3,4:5:6,7:8,(9,10)} -> (1,2,3,5,6,8:<del class="clear">0,0,</del>4,<del class="clear">0,</del>7,9,10)
+
+
 <br>
 (1,(2,3):({4,5}),6,{7,8,(9,10)}) ->
 <br>
@@ -15994,23 +16051,23 @@ mat -> (1,2,3,4:5,6,7,8:-1,-2,-3,-4:-5,-6,-7,-8)
 <br>
 )
 <br>
-・複雑なnestingは意図とは異なる可能性あり
+<del class="clear">・複雑なnestingは意図とは異なる可能性あり</del>
 <br>
-{1,(<span class="clear">2,3,4</span>),2:{<span class="condition">3,4,5</span>}:{6,,,,,7}} ->
+{1,(<span class="selection">2,3,4</span>),2:{<span class="condition">3,4,5</span>}:{6,,,,,7}} ->
 <br>
 (
 <br>
 1,<span class="condition">3</span>,6:
 <br>
-<span class="clear">2,3,4</span>,<span class="condition">4</span>,0:
+<span class="selection">2,3,4</span>,<span class="condition">4</span>,0:
 <br>
 2,<span class="condition">5</span>,0:
 <br>
-0,0,0:
+<del class="clear">0,0,</del>0:
 <br>
-0,0,0:
+<del class="clear">0,0,</del>0:
 <br>
-0,0,7
+<del class="clear">0,0,</del>7
 <br>
 )
 <br>
@@ -16020,19 +16077,19 @@ A=(1,{2,3,4,5},(6,7,{8,9}):({10,11}),12,{13,14,(15,16,{17,18})}); A ->
 <br>
 1,2,6,7,8:
 <br>
-0,3,0,0,9:
+<del class="clear">0,</del>3,<del class="clear">0,0,</del>9:
 <br>
-0,4:
+<del class="clear">0,</del>4:
 <br>
-0,5:
+<del class="clear">0,</del>5:
 <br>
 10,12,13:
 <br>
-11,0,14:
+11,<del class="clear">0,</del>14:
 <br>
-0,0,15,16,17:
+<del class="clear">0,0,</del>15,16,17:
 <br>
-0,0,0,0,18
+<del class="clear">0,0,0,0,</del>18
 <br>
 )
 <br>
@@ -16042,19 +16099,19 @@ ttA=trans(trans(A)); ttA ->
 <br>
 1,2,6,7,8:
 <br>
-0,3,0,0,9:
+<del class="clear">0,</del>3,<del class="clear">0,0,</del>9<span class="clear">,0,0,0</span>:
 <br>
-0,4,0,0,0:
+<del class="clear">0,</del>4<span class="clear">,0,0,0,0</span>:
 <br>
-0,5,0,0,0:
+<del class="clear">0,</del>5<span class="clear">,0,0,0,0</span>:
 <br>
-10,12,13,0,0:
+10,12,13<span class="clear">,0,0</span>:
 <br>
-11,0,14,0,0:
+11,<del class="clear">0,</del>14<span class="clear">,0,0,0</span>:
 <br>
-0,0,15,16,17:
+<del class="clear">0,0,</del>15,16,17<span class="clear">,0,0</span>:
 <br>
-0,0,0,0,18
+<del class="clear">0,0,0,0,</del>18<span class="clear">,0,0,0,0</span>
 <br>
 )
 <br>
@@ -18364,6 +18421,8 @@ A=(1,2:3,last_tt(=&lt;(,:,4)),5); last_tt(=&lt;A) -> 5
 <br>
 A4=(,:,4); A=(1,2:3,last_tt(=&lt;A4),5); last_tt(=&lt;A) -> 5
 <br>
+・<span class="run">Ver.2.156.38</span>以降、<a href="#span-out-concatination-irregular">irregular行列</a>の<a href="#span-out-concatination">行列結合</a>の<span class="clear">仕様変更</span>
+<br>
 A4=(,:,4); A=(1,2:3,A4,5) ->
 <br>
 (
@@ -18372,7 +18431,7 @@ A4=(,:,4); A=(1,2:3,A4,5) ->
 <br>
 3,0,0,5:
 <br>
-0,0,4
+<del class="clear">0,</del>0,4
 <br>
 )
 <br>
@@ -18384,7 +18443,7 @@ ttA=trans(trans(A)) ->
 <br>
 3,0,0,5:
 <br>
-0,0,4,0
+<del class="clear">0,</del>0,4,0<span class="clear">,0</span>
 <br>
 )
 <br>
