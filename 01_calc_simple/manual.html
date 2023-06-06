@@ -16606,6 +16606,13 @@ symbol
 ・<a href="#span-out-BT">括弧</a>より関数優先の場合
 <br>
 <br>
+変数名symbolの<a href="#span-out-call-by-equation">式渡し</a>（<a href="#span-out-FNh">高階関数</a>の引数）について
+<br>
+・単体で渡す場合、<a href="#span-out-FNm-last">最終要素</a>のsymbol名を参照
+<br>
+・列vectorで渡す場合、各行vectorの<a href="#span-out-FNm-last">最終要素</a>のsymbol名を参照
+<br>
+<br>
 <span class="run">Ver.2.32.17</span>以降、すべての変数名symbolは<a href="#span-out-vars-rule2">変数の命名規則</a>に準拠
 <br>
 delVar($x) -> [MyErr]Invalid REv($x)
@@ -16615,13 +16622,6 @@ f(=&lt;$x)=&lt;x; f(=&lt;x) -> [MyErr]Invalid REv($x)
 f(=&lt;x)=&lt;x; f(=&lt;$x) -> [MyErr]Invalid symbol($x)
 <br>
 Jacobi(=&lt;{2x^2},=&lt;{$x},=&lt;{1}) -> [MyErr]Invalid REv($x)
-<br>
-<br>
-変数名symbolの<a href="#span-out-call-by-equation">式渡し</a>（<a href="#span-out-FNh">高階関数</a>の引数）について
-<br>
-・単体で渡す場合、<a href="#span-out-FNm-last">最終要素</a>のsymbol名を参照
-<br>
-・列vectorで渡す場合、各行vectorの<a href="#span-out-FNm-last">最終要素</a>のsymbol名を参照
     </td>
   </tr>
   <tr>
@@ -19826,7 +19826,7 @@ Jacobi(=&lt;{2x^2},=&lt;{x})
 x -> 1
 <br>
 <br>
-test caseを示す
+test caseを列挙する
 <br>
 clear; Jacobi(=&lt;{y},=&lt;{x},=&lt;{1}) -> [MyErr]Invalid BRsa operation
 <br>
