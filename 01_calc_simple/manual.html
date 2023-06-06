@@ -16615,6 +16615,13 @@ f(=&lt;$x)=&lt;x; f(=&lt;x) -> [MyErr]Invalid REv($x)
 f(=&lt;x)=&lt;x; f(=&lt;$x) -> [MyErr]Invalid symbol($x)
 <br>
 Jacobi(=&lt;{2x^2},=&lt;{$x},=&lt;{1}) -> [MyErr]Invalid REv($x)
+<br>
+<br>
+変数名symbolの<a href="#span-out-call-by-equation">式渡し</a>（<a href="#span-out-FNh">高階関数</a>の引数）について
+<br>
+・単体で渡す場合、<a href="#span-out-FNm-last">最終要素</a>のsymbol名を参照
+<br>
+・列vectorで渡す場合、各行vectorの<a href="#span-out-FNm-last">最終要素</a>のsymbol名を参照
     </td>
   </tr>
   <tr>
@@ -19817,6 +19824,63 @@ Jacobi(=&lt;{2x^2},=&lt;{x})
 -> 4.0000200000131025+0.000019999986898147652i
 <br>
 x -> 1
+<br>
+<br>
+test caseを示す
+<br>
+clear; Jacobi(=&lt;{y},=&lt;{x},=&lt;{1}) -> [MyErr]Invalid BRsa operation
+<br>
+clear; Jacobi(=&lt;{x},=&lt;{x},=&lt;{1}) -> 1.0000000000032756-3.2755706022246335e-12i
+<br>
+clear; Jacobi(=&lt;{x},=&lt;{x*x},=&lt;{1}) -> [MyErr]Invalid binary operation
+<br>
+clear; Jacobi(=&lt;{x},=&lt;x,=&lt;{1}) -> [MyErr]Invalid =&lt;Call-by-Equation
+<br>
+clear; Jacobi(=&lt;x,=&lt;{x},=&lt;{1}) -> [MyErr]Invalid =&lt;Call-by-Equation
+<br>
+clear; Jacobi(=&lt;{x},=&lt;{x},=&lt;{1,2}) -> [MyErr]Invalid J arguments
+<br>
+clear; Jacobi(=&lt;{x**2},=&lt;{x},=&lt;(1,2)) -> 4.000010000057512+0.000009999942489061227i
+<br>
+clear; Jacobi(=&lt;{x**2:x},=&lt;{x},=&lt;{1}) -> 1.0000000000032756-3.2755706022246335e-12i
+<br>
+clear; Jacobi(=&lt;{x},=&lt;{(0,x)},=&lt;{1}) -> 1.0000000000032756-3.2755706022246335e-12i
+<br>
+clear; Jacobi(=&lt;{x},=&lt;{(x,0)},=&lt;{1}) -> [MyErr]Invalid J arguments
+<br>
+clear; Jacobi(=&lt;{(x+i)**2},=&lt;{x},=&lt;{0}) -> 0.000009999976914767357+2.000009999990017i
+<br>
+clear; Jacobi(=&lt;{(x+i)**2},=&lt;{x},1000) -> 0.000009999976914767357+2.000009999990017i
+<br>
+clear; Jacobi(=&lt;{(x+i)**2},1000,1000) -> [MyErr]Invalid =&lt;Call-by-Equation
+<br>
+clear; x=&lt;x; y=&lt;x*x; Jacobi(=&lt;{y},=&lt;x,=&lt;{1}) -> 2.0000100000065513+0.000009999993448815332i
+<br>
+clear; x=&lt;x*x; y=&lt;x*x; Jacobi(=&lt;{y},=&lt;x,=&lt;{1}) -> [MyErr]Invalid binary operation
+<br>
+clear; x=&lt;x*x; y=&lt;x*x; Jacobi(=&lt;{y},=&lt;{x},=&lt;{1}) -> 2.0000100000065513+0.000009999993448815332i
+<br>
+clear; Jacobi(=&lt;{x0**2+x1,x0+x1**2},=&lt;{x0,x1},=&lt;{1,2}) ->
+<br>
+(
+<br>
+2.0000100000065513+0.000009999993449073826i,1.0000000000032756-3.2755706022246335e-12i:
+<br>
+0.999999999981071+1.8928929719024988e-11i,4.000010000057512+0.000009999942489061227i
+<br>
+)
+<br>
+・<a href="#span-out-ope">実数演算</a>の場合
+<br>
+clear; Jacobi(=&lt;{x0**2+x1,x0+x1**2},=&lt;{x0,x1},=&lt;{1,2}) ->
+<br>
+(
+<br>
+2.00001000001393,1.0000000000065512:
+<br>
+0.9999999999621422,4.000010000027032
+<br>
+)
     </td>
   </tr>
   <tr>
@@ -30771,11 +30835,17 @@ x=1; switch(x,x:1,<span class="condition">=&lt;</span>(1/0)) -> 1
 <br>
 ・設計初期段階の仕様変更のため、未対応
 <br>
-before: x=1,y=&lt;(1/0)||2,x||y=&gt; -> [MyErr]FN isNaN
+before: x=1,y=&lt;((1/0)||2),x||y=&gt; -> [MyErr]FN isNaN
 <br>
-<a href="#span-out-option1">LA既定</a>時　after: x=1,y=&lt;(1/0)||2,x||y=&gt; -> (0,0,1)
+before: x=1,(y=&lt;(1/0))||2,x||y=&gt; -> [MyErr]FN isNaN
 <br>
-<a href="#span-out-option1">RA選択</a>時　after: x=1,y=&lt;(1/0)||2,x||y=&gt; -> (0,0,2)
+<a href="#span-out-option1">LA既定</a>時　after: x=1,y=&lt;((1/0)||2),x||y=&gt; -> (0,0,1)
+<br>
+<a href="#span-out-option1">RA選択</a>時　after: x=1,y=&lt;((1/0)||2),x||y=&gt; -> (0,0,2)
+<br>
+<a href="#span-out-option1">LA既定</a>時　after: x=1,(y=&lt;(1/0))||2,x||y=&gt; -> (0,2,1)
+<br>
+<a href="#span-out-option1">RA選択</a>時　after: x=1,(y=&lt;(1/0))||2,x||y=&gt; -> [MyErr]Invalid REv(y)
     </td>
   </tr>
   <tr>
