@@ -1,6 +1,14 @@
 clear
 local storage cleared
 
+(x=(1,2),y=<{0|||x&&&Infinity&&&-x|||1},y)/*short-circuit test case*/
+(
+0,0,-1,-2
+)
+
+clear
+local storage cleared
+
 0xffffff-0xff*(1+256+256*256)
 0
 
@@ -989,4 +997,4 @@ drag=false&sw=false&0x=false&useComplex=true&useMatrix=true&isRightAssociativity
 --------------------------------
 --------------------------------
 
-online-simulator.github.io.6.220.97.12.51 @ Mon Jun 05 2023 20:40:04 GMT+0900 (日本標準時) @ Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/114.0.0.0 Safari/537.36
+online-simulator.github.io.6.221.97.12.51 @ Wed Jun 07 2023 16:50:15 GMT+0900 (日本標準時) @ Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/114.0.0.0 Safari/537.36

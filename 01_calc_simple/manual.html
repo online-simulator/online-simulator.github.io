@@ -298,6 +298,8 @@ e^(-i(1pi(){2/2i}(5-{3-1}){i/(-4)}))
 <br>
 　　・<a href="#span-out-prec-ope-logical">論理演算子</a>
 <br>
+　　・<a href="#span-out-prec-ope-logical-short-circuit">論理演算子（短絡評価）</a>
+<br>
 ・<a href="#span-out-float">浮動小数点演算</a>
 <br>
 　・<a href="#span-out-epsilon">Machine epsilon</a>
@@ -650,6 +652,8 @@ e^(-i(1pi(){2/2i}(5-{3-1}){i/(-4)}))
 ・<a href="#span-in-FN-atan2">atan2関数</a>
 <br>
 ・<a href="#span-in-log-m0">-0表示対応</a>
+<br>
+・<a href="#span-in-short-circuit">短絡評価</a>
 <br>
 <br>
 <a href="#span-eqn">strict-mode式変数list</a>
@@ -8502,6 +8506,8 @@ precedence
 <br>
 ・<a href="#span-out-substitution-equation">式変数への式代入</a>
 <br>
+・<a href="#span-out-prec-ope-logical-short-circuit">論理演算子（短絡評価）</a>　<span class="run">Ver.2.157.38</span>以降、追加
+<br>
 ・<a href="#span-out-FNc">最上位関数</a>
 <br>
 ・<a href="#span-out-BT">括弧</a>
@@ -8544,6 +8550,12 @@ precedence
 <br>
 <br>
 演算子のprecedenceを優先順に列挙する
+<br>
+・<a href="#span-out-prec-ope-logical-short-circuit">論理演算子（短絡評価）</a>　<span class="run">Ver.2.157.38</span>以降、追加
+<br>
+　・<a href="#span-out-type-ope">中置2項演算子</a>
+<br>
+　　・論理AND||OR演算子 &amp;&amp;&amp; || |||
 <br>
 ・<a href="#span-out-prec-ope-arithmetic">算術演算子</a>
 <br>
@@ -8620,6 +8632,8 @@ precedence
 <br>
 <br>
 演算子のprecedenceを変更する場合、<a href="#span-out-config">裏設定</a>参照
+<br>
+・<span class="run">Ver.2.157.38</span>以降、追加の<a href="#span-out-prec-ope-logical-short-circuit">論理演算子（短絡評価）</a>を除く
     </td>
   </tr>
   <tr>
@@ -9275,6 +9289,305 @@ clear; set_a0=&lt;a=0; set_a1=&lt;a=1; switch(1,set_a0=&gt;:1,set_a1=&gt;); a  <
 clear; set_a0=&lt;a=0; set_a1=&lt;a=1; switch(1,<span class="condition">=&lt;</span>set_a0=&gt;:1,<span class="condition">=&lt;</span>set_a1=&gt;); a  <span class="selection">// OK</span> -> 0
 <br>
 clear; set_a0=&lt;a=0; set_a1=&lt;a=1; switch(0,<span class="condition">=&lt;</span>set_a0=&gt;:1,<span class="condition">=&lt;</span>set_a1=&gt;); a  <span class="selection">// OK</span> -> 1
+<br>
+・<span class="run">Ver.2.157.38</span>以降、<a href="#span-out-FNh-switch">switch高階関数</a>代替の<a href="#span-out-prec-ope-logical-short-circuit">論理演算子（短絡評価）</a>を追加
+<br>
+clear; set_a0=&lt;a=0; set_a1=&lt;a=1; set_a0=&gt;|||set_a1=&gt;; a -> 1
+<br>
+clear; set_a0=&lt;a=0; set_a1=&lt;a=1; ~~(set_a0=&gt;)|||set_a1=&gt;; a -> 0
+<br>
+clear; set_a0=&lt;a=0; set_a1=&lt;a=1; set_a0=&gt;&amp;&amp;&amp;set_a1=&gt;; a -> 0
+<br>
+clear; set_a0=&lt;a=0; set_a1=&lt;a=1; ~~(set_a0=&gt;)&amp;&amp;&amp;set_a1=&gt;; a -> 1
+    </td>
+  </tr>
+  <tr>
+    <th>
+<a href="#span-index">
+目次
+</a>
+<br>
+論理演算子
+<br>
+（短絡評価）
+    </th>
+    <td>
+<span id="span-out-prec-ope-logical-short-circuit"></span>
+論理演算子（短絡評価）と付随する留意事項について記述する
+<br>
+<br>
+論理演算子（短絡評価）は<a href="#span-out-substitution-equation">式変数への式代入</a>直後の<a href="#span-out-prec">演算のprecedence</a>で<a href="#span-out-FNc">最上位関数</a>より優先する
+<br>
+・別途、<a href="#span-out-substitution">変数への代入</a>を最下位から同等に調整して短絡評価
+<br>
+実装の詳細は<a href="#span-in-short-circuit">内部仕様</a>参照
+<br>
+<br>
+論理OR
+<br>
+・<a href="#span-out-option1">LA既定</a>
+<br>
+0|||1 -> 1
+<br>
+0|||1|||2 -> 1
+<br>
+2|||1|||0 -> 2
+<br>
+2i|||1i|||0i -> 2i
+<br>
+0i|||1i|||2i -> i
+<br>
+0(1-i)|||1(1-i)|||2(1-i) -> 1-i
+<br>
+0(1-i)|||1(1-i)|||2(1-i)|||3(1-i) -> 1-i
+<br>
+real(0(1-i)|||1(1-i)|||2(1-i)|||3(1-i)) -> 1
+<br>
+imag(0(1-i)|||1(1-i)|||2(1-i)|||3(1-i)) -> -1
+<br>
+clear; (a=0)|||hasVar(a) -> 1
+<br>
+clear; x=1; y=&lt;x|||1/0|||-x; y -> 1
+<br>
+clear; x=(1,2); y=&lt;x|||1/0|||-x; y -> (1,2)
+<br>
+clear; x=1; y=x|||1/0|||-x; y -> 1
+<br>
+clear; x=1; y=&lt;x|||1/0|||-x; y -> 1
+<br>
+clear; x=1; y=(x|||1/0)|||-x; y -> 1
+<br>
+clear; x=1; y=x|||(1/0|||-x); y -> 1
+<br>
+clear; x=1; y=~~x|||1/0|||~~-x; y -> [MyErr]FN isNaN
+<br>
+clear; x=1; y=~~(x|||1/0)|||~~-x; y -> 0
+<br>
+clear; x=1; y=~~x|||(1/0|||~~-x); y -> [MyErr]FN isNaN
+<br>
+clear; x=1; y=~~x|||y|||~~-x; y -> [MyErr]Undef var|||
+<br>
+clear; x=1; y=~~x|||x=&gt;|||~~-x; y -> [MyErr]Invalid REv(x)
+<br>
+clear; x=&lt;0|||y=3; x,y -> [MyErr]Invalid REv(y)
+<br>
+clear; x=&lt;0|||(y=3); x,y -> (0,3)
+<br>
+clear; (x=2)|||1|||x; x -> 2
+<br>
+clear; x=(1,2); y=&lt;1&amp;&amp;&amp;x|||1/0|||-x&amp;&amp;&amp;0; y -> (1,2)
+<br>
+clear; x=(1,2); y=&lt;{0&amp;&amp;&amp;x|||Infinity|||-x&amp;&amp;&amp;1}; y -> Infinity
+<br>
+・<a href="#span-out-option1">RA選択</a>
+<br>
+0|||1 -> 1
+<br>
+0|||1|||2 -> 2
+<br>
+2|||1|||0 -> 1
+<br>
+2i|||1i|||0i -> i
+<br>
+0i|||1i|||2i -> 2i
+<br>
+0(1-i)|||1(1-i)|||2(1-i) -> 2-2i
+<br>
+0(1-i)|||1(1-i)|||2(1-i)|||3(1-i) -> 3-3i
+<br>
+real(0(1-i)|||1(1-i)|||2(1-i)|||3(1-i)) -> 3
+<br>
+imag(0(1-i)|||1(1-i)|||2(1-i)|||3(1-i)) -> -3
+<br>
+clear; (a=0)|||hasVar(a) -> 0
+<br>
+clear; x=1; y=&lt;x|||1/0|||-x; y -> -1
+<br>
+clear; x=(1,2); y=&lt;x|||1/0|||-x; y -> (-1,-2)
+<br>
+clear; x=1; y=x|||1/0|||-x; y -> -1
+<br>
+clear; x=1; y=&lt;x|||1/0|||-x; y -> -1
+<br>
+clear; x=1; y=(x|||1/0)|||-x; y -> -1
+<br>
+clear; x=1; y=x|||(1/0|||-x); y -> -1
+<br>
+clear; x=1; y=~~x|||1/0|||~~-x; y -> [MyErr]FN isNaN
+<br>
+clear; x=1; y=~~(x|||1/0)|||~~-x; y -> [MyErr]FN isNaN
+<br>
+clear; x=1; y=~~x|||(1/0|||~~-x); y -> [MyErr]FN isNaN
+<br>
+clear; x=1; y=~~x|||y|||~~-x; y -> [MyErr]Undef |||var
+<br>
+clear; x=1; y=~~x|||x=&gt;|||~~-x; y -> [MyErr]Undef |||var
+<br>
+clear; x=&lt;0|||y=3; x,y -> [MyErr]Invalid REv
+<br>
+clear; x=&lt;0|||(y=3); x,y -> (0,3)
+<br>
+clear; (x=2)|||1|||x; x -> [MyErr]Undef |||var
+<br>
+clear; x=(1,2); y=&lt;1&amp;&amp;&amp;x|||1/0|||-x&amp;&amp;&amp;0; y -> [MyErr]FN isNaN
+<br>
+clear; x=(1,2); y=&lt;{0&amp;&amp;&amp;x|||Infinity|||-x&amp;&amp;&amp;1}; y -> (-1,-2)
+<br>
+<br>
+論理AND
+<br>
+・<a href="#span-out-option1">LA既定</a>
+<br>
+0&amp;&amp;&amp;1&amp;&amp;&amp;2 -> 0
+<br>
+2&amp;&amp;&amp;1&amp;&amp;&amp;0 -> 0
+<br>
+1&amp;&amp;&amp;0&amp;&amp;&amp;2 -> 0
+<br>
+1i&amp;&amp;&amp;0i&amp;&amp;&amp;2i -> 0
+<br>
+1&amp;&amp;&amp;2&amp;&amp;&amp;3 -> 3
+<br>
+1i&amp;&amp;&amp;2i&amp;&amp;&amp;3i -> 3i
+<br>
+1(1-i)&amp;&amp;&amp;2(1-i)&amp;&amp;&amp;3(1-i) -> 3-3i
+<br>
+1(1-i)&amp;&amp;&amp;2(1-i)&amp;&amp;&amp;3(1-i)&amp;&amp;&amp;4(1-i) -> 4-4i
+<br>
+real(1(1-i)&amp;&amp;&amp;2(1-i)&amp;&amp;&amp;3(1-i)&amp;&amp;&amp;4(1-i)) -> 4
+<br>
+imag(1(1-i)&amp;&amp;&amp;2(1-i)&amp;&amp;&amp;3(1-i)&amp;&amp;&amp;4(1-i)) -> -4
+<br>
+1(1-i)|||2(1-i)&amp;&amp;&amp;3(1-i)&amp;&amp;&amp;4(1-i) -> 1-i
+<br>
+1(1-i)&amp;&amp;&amp;2(1-i)|||3(1-i)&amp;&amp;&amp;4(1-i) -> 2-2i
+<br>
+1(1-i)&amp;&amp;&amp;2(1-i)&amp;&amp;&amp;3(1-i)|||4(1-i) -> 3-3i
+<br>
+clear; (a=0)&amp;&amp;&amp;hasVar(a) -> 0
+<br>
+clear; x=1; y=&lt;x&amp;&amp;&amp;1/0&amp;&amp;&amp;-x; y -> [MyErr]FN isNaN
+<br>
+clear; x=(1,2); y=&lt;x&amp;&amp;&amp;-i&amp;&amp;&amp;-x; y -> (-1,-2)
+<br>
+clear; x=1; y=x&amp;&amp;&amp;-i&amp;&amp;&amp;-x; y -> -1
+<br>
+clear; x=1; y=&lt;x&amp;&amp;&amp;-i&amp;&amp;&amp;-x; y -> -1
+<br>
+clear; x=1; y=(x&amp;&amp;&amp;-i)&amp;&amp;&amp;-x; y -> -1
+<br>
+clear; x=1; y=x&amp;&amp;&amp;(-i&amp;&amp;&amp;-x); y -> -1
+<br>
+clear; x=1; y=~~x&amp;&amp;&amp;-i&amp;&amp;&amp;~~-x; y -> 0
+<br>
+clear; x=1; y=~~(x&amp;&amp;&amp;-i)&amp;&amp;&amp;~~-x; y -> 0
+<br>
+clear; x=1; y=~~x&amp;&amp;&amp;(-i&amp;&amp;&amp;~~-x); y -> 0
+<br>
+clear; x=1; y=~~x&amp;&amp;&amp;y&amp;&amp;&amp;~~-x; y -> 0
+<br>
+clear; x=1; y=~~x&amp;&amp;&amp;x=&gt;&amp;&amp;&amp;~~-x; y -> 0
+<br>
+clear; x=&lt;0&amp;&amp;&amp;y=3; x,y -> [MyErr]Invalid REv(y)
+<br>
+clear; x=&lt;0&amp;&amp;&amp;(y=3); x,y -> [MyErr]Invalid REv(y)
+<br>
+clear; (x=2)&amp;&amp;&amp;1&amp;&amp;&amp;x; x -> 2
+<br>
+clear; x=(1,2); y=&lt;1|||x&amp;&amp;&amp;1/0&amp;&amp;&amp;-x|||0; y -> 1
+<br>
+clear; x=(1,2); y=&lt;{0|||x&amp;&amp;&amp;Infinity&amp;&amp;&amp;-x|||1}; y -> (-1,-2)
+<br>
+・<a href="#span-out-option1">RA選択</a>
+<br>
+0&amp;&amp;&amp;1&amp;&amp;&amp;2 -> 0
+<br>
+2&amp;&amp;&amp;1&amp;&amp;&amp;0 -> 0
+<br>
+1&amp;&amp;&amp;0&amp;&amp;&amp;2 -> 0
+<br>
+1i&amp;&amp;&amp;0i&amp;&amp;&amp;2i -> 0
+<br>
+1&amp;&amp;&amp;2&amp;&amp;&amp;3 -> 1
+<br>
+1i&amp;&amp;&amp;2i&amp;&amp;&amp;3i -> i
+<br>
+1(1-i)&amp;&amp;&amp;2(1-i)&amp;&amp;&amp;3(1-i) -> 1-i
+<br>
+1(1-i)&amp;&amp;&amp;2(1-i)&amp;&amp;&amp;3(1-i)&amp;&amp;&amp;4(1-i) -> 1-i
+<br>
+real(1(1-i)&amp;&amp;&amp;2(1-i)&amp;&amp;&amp;3(1-i)&amp;&amp;&amp;4(1-i)) -> 1
+<br>
+imag(1(1-i)&amp;&amp;&amp;2(1-i)&amp;&amp;&amp;3(1-i)&amp;&amp;&amp;4(1-i)) -> -1
+<br>
+1(1-i)|||2(1-i)&amp;&amp;&amp;3(1-i)&amp;&amp;&amp;4(1-i) -> 2-2i
+<br>
+1(1-i)&amp;&amp;&amp;2(1-i)|||3(1-i)&amp;&amp;&amp;4(1-i) -> 3-3i
+<br>
+1(1-i)&amp;&amp;&amp;2(1-i)&amp;&amp;&amp;3(1-i)|||4(1-i) -> 4-4i
+<br>
+clear; (a=0)&amp;&amp;&amp;hasVar(a) -> 0
+<br>
+clear; x=1; y=&lt;x&amp;&amp;&amp;1/0&amp;&amp;&amp;-x; y -> [MyErr]FN isNaN
+<br>
+clear; x=(1,2); y=&lt;x&amp;&amp;&amp;-i&amp;&amp;&amp;-x; y -> (1,2)
+<br>
+clear; x=1; y=x&amp;&amp;&amp;-i&amp;&amp;&amp;-x; y -> 1
+<br>
+clear; x=1; y=&lt;x&amp;&amp;&amp;-i&amp;&amp;&amp;-x; y -> 1
+<br>
+clear; x=1; y=(x&amp;&amp;&amp;-i)&amp;&amp;&amp;-x; y -> 1
+<br>
+clear; x=1; y=x&amp;&amp;&amp;(-i&amp;&amp;&amp;-x); y -> 1
+<br>
+clear; x=1; y=~~x&amp;&amp;&amp;-i&amp;&amp;&amp;~~-x; y -> 0
+<br>
+clear; x=1; y=~~(x&amp;&amp;&amp;-i)&amp;&amp;&amp;~~-x; y -> 0
+<br>
+clear; x=1; y=~~x&amp;&amp;&amp;(-i&amp;&amp;&amp;~~-x); y -> 0
+<br>
+clear; x=1; y=~~x&amp;&amp;&amp;y&amp;&amp;&amp;~~-x; y -> 0
+<br>
+clear; x=1; y=~~x&amp;&amp;&amp;x=&gt;&amp;&amp;&amp;~~-x; y -> 0
+<br>
+clear; x=&lt;0&amp;&amp;&amp;y=3; x,y -> [MyErr]Undef &amp;&amp;&amp;var
+<br>
+clear; x=&lt;0&amp;&amp;&amp;(y=3); x,y -> (0,3)
+<br>
+clear; (x=2)&amp;&amp;&amp;1&amp;&amp;&amp;x; x -> [MyErr]Undef &amp;&amp;&amp;var
+<br>
+clear; x=(1,2); y=&lt;1|||x&amp;&amp;&amp;1/0&amp;&amp;&amp;-x|||0; y -> [MyErr]FN isNaN
+<br>
+clear; x=(1,2); y=&lt;{0|||x&amp;&amp;&amp;Infinity&amp;&amp;&amp;-x|||1}; y -> 1
+<br>
+<br>
+論理AND||OR演算子（短絡評価）の留意事項を列挙する
+<br>
+・operandのfalse判定値は無次元の0（<a href="#span-out-error-numerical">数値誤差</a>は無視）
+<br>
+・通常の<a href="#span-out-prec-ope-logical">論理演算子</a>と異なる点を列挙する
+<br>
+　・有次元の<a href="#span-out-ope-extended">拡張行列演算</a>は対象外
+<br>
+　・<a href="#span-out-FNh-switch">switch高階関数</a>を代替可
+<br>
+　・論理AND演算子は厳密に0を短絡評価する（operand=0で以降の評価を省略）
+<br>
+　・論理OR演算子は厳密にnot0を短絡評価する（operand=not0で以降の評価を省略）
+<br>
+・operand省略時、error終了
+<br>
+0&amp;&amp; -> [MyErr]Invalid binary operation
+<br>
+||0 -> [MyErr]Invalid binary operation
+<br>
+0&amp;&amp;&amp; -> [MyErr]Invalid binary operation
+<br>
+|||0 -> [MyErr]Invalid binary operation
+<br>
+&amp;&amp;&amp; -> [MyErr]Invalid binary operation
+<br>
+||| -> [MyErr]Invalid binary operation
     </td>
   </tr>
   <tr>
@@ -11625,9 +11938,17 @@ clear; a=&lt;2; hasE(a),[b=&lt;3,[hasE(a),hasE(b)]],hasE(b) -> (1,0,1,1,0)
 <br>
 留意事項を列挙する
 <br>
-・引数に下位の<a href="#span-out-prec-ope">演算子</a>は使用不可
+・引数に<a href="#span-out-prec-ope">演算子</a>（上位を含む）は使用不可
 <br>
 hasVar(a||b) -> [MyErr]Invalid binary operation
+<br>
+・<span class="run">Ver.2.157.38</span>以降、最上位関数より上位の<a href="#span-out-prec-ope-logical-short-circuit">論理演算子（短絡評価）</a>を追加
+<br>
+hasVar(a|||b) -> [MyErr]Undef var|||
+<br>
+clear; a=1; b=1; hasVar(a) &amp;&amp; hasVar(b) -> 1
+<br>
+clear; a=1; b=1; hasVar(a) &amp;&amp;&amp; hasVar(b) -> 1
     </td>
   </tr>
   <tr>
@@ -18693,6 +19014,14 @@ clear; b=1; a=&lt;b=2; b=&lt;b; switch(1,=&lt;b:0,a) -> 2
 clear; b=1; a=&lt;b=2; b=&lt;b; switch(1,=&lt;b:0,=&lt;a) -> 1
 <br>
 clear; b=1; a=&lt;b=2; b=&lt;b; switch(0,=&lt;a:1,=&lt;b) -> 1
+<br>
+・<span class="run">Ver.2.157.38</span>以降、<a href="#span-out-FNh-switch">switch高階関数</a>代替の<a href="#span-out-prec-ope-logical-short-circuit">論理演算子（短絡評価）</a>を追加
+<br>
+clear; b=0; a=&lt;b=1; 0|||a,b -> (0,1)
+<br>
+clear; b=0; a=&lt;b=1; 1|||a,b -> (1,0)
+<br>
+clear; b=0; a=&lt;b=1; c=&lt;b=-1; a|||c,b -> (0,-1)
     </td>
   </tr>
   <tr>
@@ -30821,7 +31150,7 @@ vectorr(round(2^3)) || vectorr(8)  <span class="selection">// OK</span> -> (0,0,
 <span id="span-out-development-problems-logical"></span>
 論理演算の問題点を列挙する
 <br>
-・<a href="#span-out-prec-ope-logical">論理演算子</a>は短絡評価を再現するが、厳密には<a href="#span-out-FNh-switch">switch高階関数</a>を使用する
+<del>・<a href="#span-out-prec-ope-logical">論理演算子</a>は短絡評価を再現するが、厳密には<a href="#span-out-FNh-switch">switch高階関数</a>を使用する
 <br>
 x=1; x||(-1) -> 1
 <br>
@@ -30845,7 +31174,20 @@ before: x=1,(y=&lt;(1/0))||2,x||y=&gt; -> [MyErr]FN isNaN
 <br>
 <a href="#span-out-option1">LA既定</a>時　after: x=1,(y=&lt;(1/0))||2,x||y=&gt; -> (0,2,1)
 <br>
-<a href="#span-out-option1">RA選択</a>時　after: x=1,(y=&lt;(1/0))||2,x||y=&gt; -> [MyErr]Invalid REv(y)
+<a href="#span-out-option1">RA選択</a>時　after: x=1,(y=&lt;(1/0))||2,x||y=&gt; -> [MyErr]Invalid REv(y)</del>
+<br>
+・<span class="run">Ver.2.157.38</span>以降、<a href="#span-out-FNh-switch">switch高階関数</a>代替の<a href="#span-out-prec-ope-logical-short-circuit">論理演算子（短絡評価）</a>を追加（代入優先で実装）
+<br>
+<a href="#span-out-option1">LA既定</a>時　clear; x=1,y=&lt;(1/0)|||2,x|||y=&gt; -> (0,0,1)
+<br>
+<a href="#span-out-option1">RA選択</a>時　clear; x=1,y=&lt;(1/0)|||2,x|||y=&gt; -> (0,0,2)
+<br>
+<a href="#span-out-option1">LA既定</a>時　clear; x=1,(y=&lt;(1/0))|||2,x|||y=&gt; -> (0,2,1)
+<br>
+<a href="#span-out-option1">RA選択</a>時　clear; x=1,(y=&lt;(1/0))|||2,x|||y=&gt; -> [MyErr]Invalid REv(y)
+<br>
+<br>
+実装の詳細は<a href="#span-in-short-circuit">内部仕様</a>参照
     </td>
   </tr>
   <tr>
@@ -31519,6 +31861,9 @@ operation.js抜粋
         "SEe"    // StorE obvious equation including bracket =&lt;
       ],
       [
+        "BRlAO" // Binary operatoR logical AND || OR(short-circuit) &amp;&amp;&amp; || |||
+      ],
+      [
         /* following function */
         "FNc"    // FunctioN for command prior to bracket
       ],
@@ -32127,6 +32472,35 @@ x=(-0),x -> (0,-0)
 虚部の-0を<a href="#span-out-log">log表示</a>する場合、<a href="#span-in-options">内部option</a>参照
 <br>
 cos(pi/4) -> 0.7071067811865476-0i
+    </td>
+  </tr>
+  <tr>
+    <th>
+<a href="#span-index">
+目次
+</a>
+<br>
+短絡評価
+    </th>
+    <td>
+<span id="span-in-short-circuit"></span>
+短絡評価の実装について記述する
+<br>
+<br>
+<span class="run">Ver.2.157.38</span>以降、<a href="#span-out-FNh-switch">switch高階関数</a>代替の<a href="#span-out-prec-ope-logical-short-circuit">論理演算子（短絡評価）</a>を追加
+<br>
+<br>
+operand判定時の調整項目（operandを全走査する仕様の対策）を列挙する
+<br>
+・代入記号=||=&lt;を<a href="#span-out-SR">区切り文字</a>として追加で判定（代入優先）
+<br>
+　<a href="#span-out-substitution-equation">式変数への式代入</a>直後の<a href="#span-out-prec">演算のprecedence</a>
+<br>
+　別途、最下位の<a href="#span-out-substitution">変数への代入</a>を<a href="#span-out-substitution-equation">式変数への式代入</a>同等に調整
+<br>
+・論理ANDと論理ORの優先順位は次の判定で区別（論理AND優先の挙動）
+<br>
+　論理ANDの判定時、別の論理AND||論理ORを<a href="#span-out-SR">区切り文字</a>として追加で判定
     </td>
   </tr>
 </tbody>

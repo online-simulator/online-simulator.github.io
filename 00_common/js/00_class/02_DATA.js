@@ -95,6 +95,21 @@ My_entry.DATA.prototype.arr2num = function(arr){
   var arri = arr[arr.length-1];
   return arri[arri.length-1];
 };
+My_entry.DATA.prototype.isFalse_arr = function(arr){
+  var self = this;
+  return (arr.length === 1 && arr[0].length === 1 && arr[0][0].com && arr[0][0].com.r === 0 && arr[0][0].com.i === 0);
+};
+My_entry.DATA.prototype.hasVar_arr = function(arr){
+  var self = this;
+  var _hasVar = false;
+  for(var i=0, len_i=arr.length; i<len_i; ++i){
+    for(var j=0, len_j=arr[i].length; j<len_j; ++j){
+      _hasVar = _hasVar || !(arr[i][j].com);
+    }
+    if(_hasVar) break;
+  }
+  return _hasVar;
+};
 My_entry.DATA.prototype.tree2num = function(tree){
   var self = this;
   var mat = (tree)? tree.mat: null;
