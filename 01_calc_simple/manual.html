@@ -9292,13 +9292,13 @@ clear; set_a0=&lt;a=0; set_a1=&lt;a=1; switch(0,<span class="condition">=&lt;</s
 <br>
 ・<span class="run">Ver.2.157.38</span>以降、<a href="#span-out-FNh-switch">switch高階関数</a>代替の<a href="#span-out-prec-ope-logical-short-circuit">論理演算子（短絡評価）</a>を追加
 <br>
-clear; set_a0=&lt;a=0; set_a1=&lt;a=1; set_a0=&gt;|||set_a1=&gt;; a -> 1
+clear; set_a0=&lt;a=0; set_a1=&lt;a=1; set_a2=&lt;a=2; set_a0=&gt;|||set_a1=&gt;|||set_a2=&gt;; a -> 2
 <br>
-clear; set_a0=&lt;a=0; set_a1=&lt;a=1; ~~(set_a0=&gt;)|||set_a1=&gt;; a -> 0
+clear; set_a0=&lt;a=0; set_a1=&lt;a=1; set_a2=&lt;a=2; ~~(set_a0=&gt;)|||set_a1=&gt;|||set_a2=&gt;; a -> 0
 <br>
-clear; set_a0=&lt;a=0; set_a1=&lt;a=1; set_a0=&gt;&amp;&amp;&amp;set_a1=&gt;; a -> 0
+clear; set_a0=&lt;a=0; set_a1=&lt;a=1; set_a2=&lt;a=2; set_a0=&gt;&amp;&amp;&amp;set_a1=&gt;&amp;&amp;&amp;set_a2=&gt;; a -> 0
 <br>
-clear; set_a0=&lt;a=0; set_a1=&lt;a=1; ~~(set_a0=&gt;)&amp;&amp;&amp;set_a1=&gt;; a -> 1
+clear; set_a0=&lt;a=0; set_a1=&lt;a=1; set_a2=&lt;a=2; ~~(set_a0=&gt;)&amp;&amp;&amp;set_a1=&gt;&amp;&amp;&amp;set_a2=&gt;; a -> 1
     </td>
   </tr>
   <tr>
@@ -9567,7 +9567,9 @@ clear; x=(1,2); y=&lt;{0|||x&amp;&amp;&amp;Infinity&amp;&amp;&amp;-x|||1}; y -> 
 <br>
 ・通常の<a href="#span-out-prec-ope-logical">論理演算子</a>と異なる点を列挙する
 <br>
-　・有次元の<a href="#span-out-ope-extended">拡張行列演算</a>は対象外
+　・有次元の<a href="#span-out-ope-extended">拡張行列演算</a>の対象外
+<br>
+　・<a href="#span-out-prec-ope">演算子のprecedence</a>を変更不可（<a href="#span-out-config">裏設定</a>の対象外）
 <br>
 　・<a href="#span-out-FNh-switch">switch高階関数</a>を代替可
 <br>

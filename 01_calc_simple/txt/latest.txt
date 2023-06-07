@@ -1,7 +1,17 @@
 clear
 local storage cleared
 
+(set_a0=<a=0,set_a1=<a=1,set_a2=<a=2,~~(set_a0=>)&&&set_a1=>&&&set_a2=>,a)
+(
+0,0,0,0,1
+)
+
 (x=(1,2),y=<{0|||x&&&Infinity&&&-x|||1},y)/*short-circuit test case*/
+(
+0,0,-1,-2
+)
+
+(x=(1,2),y=<{0||x&&Infinity&&-x||1},y)/*normal logical operator*/
 (
 0,0,-1,-2
 )
@@ -997,4 +1007,4 @@ drag=false&sw=false&0x=false&useComplex=true&useMatrix=true&isRightAssociativity
 --------------------------------
 --------------------------------
 
-online-simulator.github.io.6.221.97.12.51 @ Wed Jun 07 2023 16:50:15 GMT+0900 (日本標準時) @ Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/114.0.0.0 Safari/537.36
+online-simulator.github.io.6.221.97.12.51 @ Wed Jun 07 2023 18:50:22 GMT+0900 (日本標準時) @ Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/114.0.0.0 Safari/537.36
