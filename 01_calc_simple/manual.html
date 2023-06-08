@@ -8555,7 +8555,7 @@ precedence
 <br>
 　・<a href="#span-out-type-ope">中置2項演算子</a>
 <br>
-　　・論理AND||OR演算子 &amp;&amp;&amp; || |||
+　　・論理ANDs||ORs演算子 &amp;&amp;&amp; || |||
 <br>
 ・<a href="#span-out-prec-ope-arithmetic">算術演算子</a>
 <br>
@@ -9313,13 +9313,15 @@ clear; set_a0=&lt;a=0; set_a1=&lt;a=1; set_a2=&lt;a=2; ~~(set_a0=&gt;)&amp;&amp;
 <span id="span-out-prec-ope-logical-short-circuit"></span>
 論理演算子（短絡評価）と付随する留意事項について記述する
 <br>
+・通常の<a href="#span-out-prec-ope-logical">論理演算子</a>と区別してANDs||ORsと表記する
+<br>
 <br>
 論理演算子（短絡評価）は<a href="#span-out-substitution-equation">式変数への式代入</a>直後の<a href="#span-out-prec">演算のprecedence</a>で<a href="#span-out-FNc">最上位関数</a>より優先する
 <br>
 実装の詳細は<a href="#span-in-short-circuit">内部仕様</a>参照
 <br>
 <br>
-論理OR
+論理ORs
 <br>
 ・<a href="#span-out-option1">LA既定</a>
 <br>
@@ -9430,7 +9432,7 @@ clear; x=(1,2); y=&lt;1&amp;&amp;&amp;x|||1/0|||-x&amp;&amp;&amp;0; y -> [MyErr]
 clear; x=(1,2); y=&lt;{0&amp;&amp;&amp;x|||Infinity|||-x&amp;&amp;&amp;1}; y -> (-1,-2)
 <br>
 <br>
-論理AND
+論理ANDs
 <br>
 ・<a href="#span-out-option1">LA既定</a>
 <br>
@@ -9572,7 +9574,7 @@ clear; x=(1,2); y=&lt;{0|||x&amp;&amp;&amp;Infinity&amp;&amp;&amp;-x|||1}; y -> 
 <a href="#span-out-option1">RA選択</a>　0|||(1,0:0,1)|||(2,3) -> (2,3)
 <br>
 <br>
-論理AND||OR演算子（短絡評価）の留意事項を列挙する
+論理ANDs||ORs演算子の留意事項を列挙する
 <br>
 ・operandのfalse判定値は無次元の0（<a href="#span-out-error-numerical">数値誤差</a>は無視）
 <br>
@@ -9584,9 +9586,9 @@ clear; x=(1,2); y=&lt;{0|||x&amp;&amp;&amp;Infinity&amp;&amp;&amp;-x|||1}; y -> 
 <br>
 　・<a href="#span-out-FNh-switch">switch高階関数</a>を代替可
 <br>
-　・論理AND演算子は厳密に0を短絡評価する（operand=0以降、評価を省略）
+　・論理ANDs演算子は厳密に0を短絡評価する（operand=0以降、評価を省略）
 <br>
-　・論理OR演算子は厳密にnot0を短絡評価する（operand=not0以降、評価を省略）
+　・論理ORs演算子は厳密にnot0を短絡評価する（operand=not0以降、評価を省略）
 <br>
 ・operand省略時、error終了
 <br>
@@ -31874,7 +31876,8 @@ operation.js抜粋
         "SEe"    // StorE obvious equation including bracket =&lt;
       ],
       [
-        "BRlAO" // Binary operatoR logical AND || OR(short-circuit) &amp;&amp;&amp; || |||
+        /* following short-circuit */
+        "BRlAOs" // Binary operatoR logical ANDs || ORs &&& || |||
       ],
       [
         /* following function */
@@ -32507,11 +32510,11 @@ operand判定時の調整項目（operandを全走査する仕様の対策）を
 <br>
 ・代入記号=||=&lt;を<a href="#span-out-SR">区切り文字</a>として追加で判定
 <br>
-　<a href="#span-out-substitution-equation">式変数への式代入</a>直後の<a href="#span-out-prec">演算のprecedence</a>
+　<a href="#span-out-substitution-equation">式変数への式代入</a>直後の<a href="#span-out-prec">演算のprecedence</a>で<a href="#span-out-substitution">変数への代入</a>より優先する
 <br>
-・論理ANDと論理ORの優先順位は次の判定で区別（論理AND優先の挙動）
+・論理ANDsと論理ORsの優先順位は次の判定で区別（論理ANDs優先の挙動）
 <br>
-　論理ANDの判定時、別の論理AND||論理ORを<a href="#span-out-SR">区切り文字</a>として追加で判定
+　論理ANDsの判定時、別の論理ANDs||論理ORsを<a href="#span-out-SR">区切り文字</a>として追加で判定
     </td>
   </tr>
 </tbody>

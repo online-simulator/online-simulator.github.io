@@ -22,7 +22,8 @@ My_entry.operation.prototype.config = {
         "SEe"    // StorE obvious equation including bracket =<
       ],
       [
-        "BRlAO" // Binary operatoR logical AND || OR(short-circuit) &&& || |||
+        /* following short-circuit */
+        "BRlAOs" // Binary operatoR logical ANDs || ORs &&& || |||
       ],
       [
         /* following function */
@@ -686,7 +687,7 @@ My_entry.operation.prototype.get_ir = function(trees, i0, tagName){
   }
   return _ir;
 };
-My_entry.operation.prototype.BRlAO = function(data, i0, tagName, tagObj){
+My_entry.operation.prototype.BRlAOs = function(data, i0, tagName, tagObj){
   var self = this;
   var trees = data.trees;
   var options = data.options;
