@@ -9267,13 +9267,11 @@ clear; 0||i=3  <span class="selection">// (0||i)=3</span> -> 3-i
 <br>
 論理AND||OR演算子の留意事項を列挙する
 <br>
-・operandは<a href="#span-out-com">複素数</a>に対応
+・operandのfalse判定値は無次元の0（<a href="#span-out-error-numerical">数値誤差</a>は無視）で要素毎に判定
 <br>
-・実装の都合上、すべてのoperandを評価して短絡評価を模擬する
+・論理AND演算子は全operandを評価して0の短絡評価を再現する
 <br>
-・論理AND演算子は<a href="#span-out-error-numerical">数値誤差</a>を無視して0の短絡評価を再現する
-<br>
-・論理OR演算子は<a href="#span-out-error-numerical">数値誤差</a>を無視してnot0の短絡評価を再現する
+・論理OR演算子は全operandを評価してnot0の短絡評価を再現する
 <br>
 ・<a href="#span-out-option1">LA既定</a>の場合、<a href="#span-out-type-ope">中置2項演算子</a>のright-operandよりleft-operandを優先して左から評価する
 <br>
@@ -9317,8 +9315,6 @@ clear; set_a0=&lt;a=0; set_a1=&lt;a=1; set_a2=&lt;a=2; ~~(set_a0=&gt;)&amp;&amp;
 <br>
 <br>
 論理演算子（短絡評価）は<a href="#span-out-substitution-equation">式変数への式代入</a>直後の<a href="#span-out-prec">演算のprecedence</a>で<a href="#span-out-FNc">最上位関数</a>より優先する
-<br>
-・別途、<a href="#span-out-substitution">変数への代入</a>を最下位から同等に調整して短絡評価
 <br>
 実装の詳細は<a href="#span-in-short-circuit">内部仕様</a>参照
 <br>
@@ -9561,6 +9557,21 @@ clear; x=(1,2); y=&lt;1|||x&amp;&amp;&amp;1/0&amp;&amp;&amp;-x|||0; y -> [MyErr]
 clear; x=(1,2); y=&lt;{0|||x&amp;&amp;&amp;Infinity&amp;&amp;&amp;-x|||1}; y -> 1
 <br>
 <br>
+通常の<a href="#span-out-prec-ope-logical">論理演算子</a>と異なり、<a href="#span-out-ope-extended">拡張行列演算</a>の対象外
+<br>
+0&amp;&amp;(1,1) || (0&amp;&amp;1,0&amp;&amp;1) -> (0,0)
+<br>
+<a href="#span-out-option1">LA既定</a>　0||(1,0:0,1)||(1,2) || ((0||1,0||0)||(1,2):(0||0,0||1)||(1,2)) -> (1,2:1,1)
+<br>
+<a href="#span-out-option1">RA選択</a>　0||(1,0:0,1)||(1,2) || ((0||1,0||0)||(1,2):(0||0,0||1)||(1,2)) -> (1,2:1,2)
+<br>
+0&amp;&amp;&amp;(1,1) -> 0
+<br>
+<a href="#span-out-option1">LA既定</a>　0|||(1,0:0,1)|||(1,2) -> (1,0:0,1)
+<br>
+<a href="#span-out-option1">RA選択</a>　0|||(1,0:0,1)|||(1,2) -> (1,2)
+<br>
+<br>
 論理AND||OR演算子（短絡評価）の留意事項を列挙する
 <br>
 ・operandのfalse判定値は無次元の0（<a href="#span-out-error-numerical">数値誤差</a>は無視）
@@ -9573,9 +9584,9 @@ clear; x=(1,2); y=&lt;{0|||x&amp;&amp;&amp;Infinity&amp;&amp;&amp;-x|||1}; y -> 
 <br>
 　・<a href="#span-out-FNh-switch">switch高階関数</a>を代替可
 <br>
-　・論理AND演算子は厳密に0を短絡評価する（operand=0で以降の評価を省略）
+　・論理AND演算子は厳密に0を短絡評価する（operand=0以降、評価を省略）
 <br>
-　・論理OR演算子は厳密にnot0を短絡評価する（operand=not0で以降の評価を省略）
+　・論理OR演算子は厳密にnot0を短絡評価する（operand=not0以降、評価を省略）
 <br>
 ・operand省略時、error終了
 <br>
@@ -31178,7 +31189,7 @@ before: x=1,(y=&lt;(1/0))||2,x||y=&gt; -> [MyErr]FN isNaN
 <br>
 <a href="#span-out-option1">RA選択</a>時　after: x=1,(y=&lt;(1/0))||2,x||y=&gt; -> [MyErr]Invalid REv(y)</del>
 <br>
-・<span class="run">Ver.2.157.38</span>以降、<a href="#span-out-FNh-switch">switch高階関数</a>代替の<a href="#span-out-prec-ope-logical-short-circuit">論理演算子（短絡評価）</a>を追加（代入優先で実装）
+・<span class="run">Ver.2.157.38</span>以降、<a href="#span-out-FNh-switch">switch高階関数</a>代替の<a href="#span-out-prec-ope-logical-short-circuit">論理演算子（短絡評価）</a>を追加
 <br>
 <a href="#span-out-option1">LA既定</a>時　clear; x=1,y=&lt;(1/0)|||2,x|||y=&gt; -> (0,0,1)
 <br>
@@ -32494,11 +32505,9 @@ cos(pi/4) -> 0.7071067811865476-0i
 <br>
 operand判定時の調整項目（operandを全走査する仕様の対策）を列挙する
 <br>
-・代入記号=||=&lt;を<a href="#span-out-SR">区切り文字</a>として追加で判定（代入優先）
+・代入記号=||=&lt;を<a href="#span-out-SR">区切り文字</a>として追加で判定
 <br>
 　<a href="#span-out-substitution-equation">式変数への式代入</a>直後の<a href="#span-out-prec">演算のprecedence</a>
-<br>
-　別途、最下位の<a href="#span-out-substitution">変数への代入</a>を<a href="#span-out-substitution-equation">式変数への式代入</a>同等に調整
 <br>
 ・論理ANDと論理ORの優先順位は次の判定で区別（論理AND優先の挙動）
 <br>
