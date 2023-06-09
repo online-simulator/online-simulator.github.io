@@ -262,7 +262,11 @@ e^(-i(1pi(){2/2i}(5-{3-1}){i/(-4)}))
 <br>
 　　・<a href="#span-out-UI-graphing-config">plot-config</a>
 <br>
+　　　・<a href="#span-out-UI-graphing-config-csv">csv-read</a>
+<br>
 　　・<a href="#span-out-UI-graphing-list">strict-mode equation-list</a>
+<br>
+　　・<a href="#span-out-UI-calc-config">calc-config</a>
 <br>
 ・<a href="#span-out-log-stamp">log-stamp仕様</a>
 <br>
@@ -305,6 +309,8 @@ e^(-i(1pi(){2/2i}(5-{3-1}){i/(-4)}))
 　・<a href="#span-out-epsilon">Machine epsilon</a>
 <br>
 　・<a href="#span-out-number">Number型定数</a>
+<br>
+　・<a href="#span-out-literal">literal</a>
 <br>
 ・<a href="#span-out-error">誤差の扱い</a>
 <br>
@@ -395,6 +401,8 @@ e^(-i(1pi(){2/2i}(5-{3-1}){i/(-4)}))
 　・<a href="#span-out-FNspecial">特殊関数</a>
 <br>
 　・<a href="#span-out-mat">行列</a>
+<br>
+　　・<a href="#span-out-mat-empty">空行列</a>
 <br>
 　・<a href="#span-out-FNm0">定数扱いの行列</a>
 <br>
@@ -1473,6 +1481,16 @@ title/発行元(発行年)を列挙する
 　列方向の<a href="#span-out-mat">抜け要素</a>を自動で埋める　⇒　<a href="#span-out-mat">抜け要素</a>を埋めない（<span class="clear">挙動を明確化</span>）
 <br>
 　<a href="#span-eqn">strict-mode式変数list</a>等、実用への影響なし
+<br>
+・<span class="run">Ver.2.158.38</span>以降、<a href="#span-out-literal">NaN||論理値literal</a>を追加
+<br>
+　<a href="#span-out-prec-ope-logical-short-circuit">論理演算子（短絡評価）</a>のfalse判定値を更新：0　⇒　0||<a href="#span-out-literal">NaN</a>
+<br>
+　本manualの演算結果を更新：[MyErr] isNaN　⇒　<a href="#span-out-literal">NaN</a>を含む行列
+<br>
+　引数不正でfalseを返す<a href="#span-out-FN-args">一部の実装関数</a>を正常化
+<br>
+　plot仕様の変更なし（現状、<a href="#span-out-literal">NaN</a>を含む演算結果はplot不可）
     </td>
   </tr>
   <tr>
@@ -1943,6 +1961,9 @@ panel下段について記述する
 ・遅延しないSingle-threadの<a href="#span-out-ope">実数演算</a>
 <br>
 ・応答時間=log表示待機時間50msec+<a href="#span-out-ope">演算量</a>に応じた演算時間
+<br>
+<br>
+各checkboxの詳細は<a href="#span-out-options">外部option</a>参照
     </td>
   </tr>
   <tr>
@@ -8055,6 +8076,72 @@ plot-configの設定項目を列挙する
 目次
 </a>
 <br>
+csv-read
+    </th>
+    <td>
+<span id="span-out-UI-graphing-config-csv"></span>
+csv-read機能について記述する
+<br>
+<br>
+<span class="run">Ver.2.158.38</span>以降、<a href="#span-out-num">実数値</a>のcsv-fileのread機能を追加
+<br>
+<br>
+仕様を列挙する
+<br>
+・csv-fileの行と列を<a href="#span-out-FNm-trans">転置</a>して<a href="#span-out-ans">予約変数</a>csv連番に代入
+<br>
+・<span class="selection">read範囲</span>の対象外：1行目（header行の前提）
+<br>
+・<span class="selection">read範囲</span>の列数：2行目の列数
+<br>
+・<span class="selection">read範囲</span>の行数：2行目~最終行
+<br>
+・要素が空の場合、<span class="clear">0に変換</span>
+<br>
+・要素が<a href="#span-out-num">実数値</a>以外の場合、<a href="#span-out-literal">NaN</a>に変換
+<br>
+<br>
+test caseを示す
+<br>
+・csv-file
+<br>
+xt, yt, log
+<br>
+<span class="selection">0, 0</span>
+<br>
+<span class="selection">1, 2</span>, 3
+<br>
+<span class="selection"><a href="#span-out-literal">s</a>, 4</span>
+<br>
+<span class="selection">5, 6</span>
+<br>
+<span class="selection">7, 8</span>
+<br>
+<span class="selection">9</span><span class="clear">　</span>
+<br>
+・read実行確定
+<br>
+csv0 -> (0,1,<a href="#span-out-literal">NaN</a>,5,7,9:0,2,4,6,8<span class="clear">,0</span>)
+<br>
+・1列目
+<br>
+csv0[0] -> (0,1,<a href="#span-out-literal">NaN</a>,5,7,9)
+<br>
+・2列目
+<br>
+csv0[1] -> (0,2,4,6,8<span class="clear">,0</span>)
+<br>
+・input-file.csv以外の場合
+<br>
+-> input-file.csv not found
+    </td>
+  </tr>
+  <tr>
+    <th>
+<a href="#span-index">
+目次
+</a>
+<br>
 strict-mode
 <br>
 equation-list
@@ -8068,6 +8155,22 @@ strict-mode equation-listについて記述する
 <br>
 <br>
 詳細は<a href="#span-eqn">strict-mode式変数list</a>参照
+    </td>
+  </tr>
+  <tr>
+    <th>
+<a href="#span-index">
+目次
+</a>
+<br>
+calc-config
+    </th>
+    <td>
+<span id="span-out-UI-calc-config"></span>
+calc-configについて記述する
+<br>
+<br>
+各checkboxの詳細は<a href="#span-out-options">外部option</a>参照
     </td>
   </tr>
   <tr>
@@ -8763,7 +8866,7 @@ precedence
 <br>
 2.2i%1 -> 0
 <br>
-2.2%i -> [MyErr]FN isNaN
+2.2%i -> NaN
 <br>
 <br>
 整数商
@@ -9267,11 +9370,11 @@ clear; 0||i=3  <span class="selection">// (0||i)=3</span> -> 3-i
 <br>
 論理AND||OR演算子の留意事項を列挙する
 <br>
-・operandのfalse判定値は無次元の0（<a href="#span-out-error-numerical">数値誤差</a>は無視）で要素毎に判定
+・operandのfalse判定値は無次元の0||<a href="#span-out-literal">NaN</a>（<a href="#span-out-error-numerical">数値誤差</a>は無視）で要素毎に判定
 <br>
-・論理AND演算子は全operandを評価して0の短絡評価を再現する
+・論理AND演算子は全operandを評価して0||<a href="#span-out-literal">NaN</a>の短絡評価を再現する
 <br>
-・論理OR演算子は全operandを評価してnot0の短絡評価を再現する
+・論理OR演算子は全operandを評価してnot(0||<a href="#span-out-literal">NaN</a>)の短絡評価を再現する
 <br>
 ・<a href="#span-out-option1">LA既定</a>の場合、<a href="#span-out-type-ope">中置2項演算子</a>のright-operandよりleft-operandを優先して左から評価する
 <br>
@@ -9357,11 +9460,11 @@ clear; x=1; y=(x|||1/0)|||-x; y -> 1
 <br>
 clear; x=1; y=x|||(1/0|||-x); y -> 1
 <br>
-clear; x=1; y=~~x|||1/0|||~~-x; y -> [MyErr]FN isNaN
+clear; x=1; y=~~x|||1/0|||~~-x; y -> 0
 <br>
 clear; x=1; y=~~(x|||1/0)|||~~-x; y -> 0
 <br>
-clear; x=1; y=~~x|||(1/0|||~~-x); y -> [MyErr]FN isNaN
+clear; x=1; y=~~x|||(1/0|||~~-x); y -> 0
 <br>
 clear; x=1; y=~~x|||y|||~~-x; y -> [MyErr]Undef var|||
 <br>
@@ -9411,11 +9514,11 @@ clear; x=1; y=(x|||1/0)|||-x; y -> -1
 <br>
 clear; x=1; y=x|||(1/0|||-x); y -> -1
 <br>
-clear; x=1; y=~~x|||1/0|||~~-x; y -> [MyErr]FN isNaN
+clear; x=1; y=~~x|||1/0|||~~-x; y -> 0
 <br>
-clear; x=1; y=~~(x|||1/0)|||~~-x; y -> [MyErr]FN isNaN
+clear; x=1; y=~~(x|||1/0)|||~~-x; y -> 0
 <br>
-clear; x=1; y=~~x|||(1/0|||~~-x); y -> [MyErr]FN isNaN
+clear; x=1; y=~~x|||(1/0|||~~-x); y -> 0
 <br>
 clear; x=1; y=~~x|||y|||~~-x; y -> [MyErr]Undef |||var
 <br>
@@ -9427,7 +9530,7 @@ clear; x=&lt;0|||(y=3); x,y -> (0,3)
 <br>
 clear; (x=2)|||1|||x; x -> [MyErr]Undef |||var
 <br>
-clear; x=(1,2); y=&lt;1&amp;&amp;&amp;x|||1/0|||-x&amp;&amp;&amp;0; y -> [MyErr]FN isNaN
+clear; x=(1,2); y=&lt;1&amp;&amp;&amp;x|||1/0|||-x&amp;&amp;&amp;0; y -> 1
 <br>
 clear; x=(1,2); y=&lt;{0&amp;&amp;&amp;x|||Infinity|||-x&amp;&amp;&amp;1}; y -> (-1,-2)
 <br>
@@ -9464,7 +9567,7 @@ imag(1(1-i)&amp;&amp;&amp;2(1-i)&amp;&amp;&amp;3(1-i)&amp;&amp;&amp;4(1-i)) -> -
 <br>
 clear; (a=0)&amp;&amp;&amp;hasVar(a) -> 0
 <br>
-clear; x=1; y=&lt;x&amp;&amp;&amp;1/0&amp;&amp;&amp;-x; y -> [MyErr]FN isNaN
+clear; x=1; y=&lt;x&amp;&amp;&amp;1/0&amp;&amp;&amp;-x; y -> NaN
 <br>
 clear; x=(1,2); y=&lt;x&amp;&amp;&amp;-i&amp;&amp;&amp;-x; y -> (-1,-2)
 <br>
@@ -9526,7 +9629,7 @@ imag(1(1-i)&amp;&amp;&amp;2(1-i)&amp;&amp;&amp;3(1-i)&amp;&amp;&amp;4(1-i)) -> -
 <br>
 clear; (a=0)&amp;&amp;&amp;hasVar(a) -> 0
 <br>
-clear; x=1; y=&lt;x&amp;&amp;&amp;1/0&amp;&amp;&amp;-x; y -> [MyErr]FN isNaN
+clear; x=1; y=&lt;x&amp;&amp;&amp;1/0&amp;&amp;&amp;-x; y -> NaN
 <br>
 clear; x=(1,2); y=&lt;x&amp;&amp;&amp;-i&amp;&amp;&amp;-x; y -> (1,2)
 <br>
@@ -9554,7 +9657,7 @@ clear; x=&lt;0&amp;&amp;&amp;(y=3); x,y -> (0,3)
 <br>
 clear; (x=2)&amp;&amp;&amp;1&amp;&amp;&amp;x; x -> [MyErr]Undef &amp;&amp;&amp;var
 <br>
-clear; x=(1,2); y=&lt;1|||x&amp;&amp;&amp;1/0&amp;&amp;&amp;-x|||0; y -> [MyErr]FN isNaN
+clear; x=(1,2); y=&lt;1|||x&amp;&amp;&amp;1/0&amp;&amp;&amp;-x|||0; y -> 1
 <br>
 clear; x=(1,2); y=&lt;{0|||x&amp;&amp;&amp;Infinity&amp;&amp;&amp;-x|||1}; y -> 1
 <br>
@@ -9574,9 +9677,26 @@ clear; x=(1,2); y=&lt;{0|||x&amp;&amp;&amp;Infinity&amp;&amp;&amp;-x|||1}; y -> 
 <a href="#span-out-option1">RA選択</a>　0|||(1,0:0,1)|||(2,3) -> (2,3)
 <br>
 <br>
+<span class="run">Ver.2.158.38</span>以降、<a href="#span-out-literal">NaN</a>に対応
+<br>
+・<a href="#span-out-option1">LA既定</a>
+<br>
+NaN||1 || NaN|||1 -> 1
+<br>
+NaN&amp;&amp;1 || NaN&amp;&amp;&amp;1 -> NaN
+<br>
+NaN|1 -> 1
+<br>
+NaN&amp;1 -> 0
+<br>
+~NaN || ~0 -> -1
+<br>
+~~NaN || ~~(~~true) -> 1
+<br>
+<br>
 論理ANDs||ORs演算子の留意事項を列挙する
 <br>
-・operandのfalse判定値は無次元の0（<a href="#span-out-error-numerical">数値誤差</a>は無視）
+・operandのfalse判定値は無次元の0||<a href="#span-out-literal">NaN</a>（<a href="#span-out-error-numerical">数値誤差</a>は無視）
 <br>
 ・通常の<a href="#span-out-prec-ope-logical">論理演算子</a>と異なる点を列挙する
 <br>
@@ -9586,9 +9706,9 @@ clear; x=(1,2); y=&lt;{0|||x&amp;&amp;&amp;Infinity&amp;&amp;&amp;-x|||1}; y -> 
 <br>
 　・<a href="#span-out-FNh-switch">switch高階関数</a>を代替可
 <br>
-　・論理ANDs演算子は厳密に0を短絡評価する（operand=0以降、評価を省略）
+　・論理ANDs演算子は厳密に0||<a href="#span-out-literal">NaN</a>を短絡評価する（operand=0||<a href="#span-out-literal">NaN</a>以降、評価を省略）
 <br>
-　・論理ORs演算子は厳密にnot0を短絡評価する（operand=not0以降、評価を省略）
+　・論理ORs演算子は厳密にnot(0||<a href="#span-out-literal">NaN</a>)を短絡評価する（operand=not(0||<a href="#span-out-literal">NaN</a>)以降、評価を省略）
 <br>
 ・operand省略時、error終了
 <br>
@@ -9798,10 +9918,10 @@ Number型
     </th>
     <td>
 <span id="span-out-number"></span>
-JavaScriptのNumber型の定数について記述する
+Number型の定数について記述する
 <br>
 <br>
-<span class="run">JavaScript</span>のNumber型の<a href="#span-out-FN0">定数</a>を列挙する
+<span class="run">JavaScript</span>のNumber型の<a href="#span-out-FN0">定数</a>を定義して列挙する
 <br>
 EPSILON -> 2.220446049250313e-16
 <br>
@@ -9859,6 +9979,51 @@ pow(2,pow(2,10)) || 2**(2**10) || 2^(2^10) -> 1.7976931348622732e+308
 (1+106epsilon)2^(2^10) -> 1.7976931348623155e+308
 <br>
 (1+107epsilon)2^(2^10) -> Infinity
+    </td>
+  </tr>
+  <tr>
+    <th>
+<a href="#span-index">
+目次
+</a>
+<br>
+literal
+    </th>
+    <td>
+<span id="span-out-literal"></span>
+literalについて記述する
+<br>
+<br>
+<span class="run">JavaScript</span>のliteralの一部を定義して列挙する
+<br>
+・非数NaN（Not a Number）
+<br>
+NaN || nan || NAN -> NaN
+<br>
+・論理値
+<br>
+false || FALSE -> false
+<br>
+true || TRUE -> true
+<br>
+<br>
+test caseを列挙する
+<br>
+false==false || FALSE==0 -> 1
+<br>
+true==true || TRUE==1 -> 1
+<br>
+NaN==NaN -> 0
+<br>
+NaN*0 || NaN*i -> NaN
+<br>
+0/0 -> NaN
+<br>
+1/0 -> NaN
+<br>
+・<a href="#span-out-ope">実数演算</a>
+<br>
+1/0 -> Infinity
     </td>
   </tr>
   <tr>
@@ -10815,7 +10980,7 @@ csv/history-txt出力のplot2d-command-logとplot2d-options-logについて記�
 <br>
 semi-colon;区切りで行列の<a href="#span-out-FNm-last">最終要素</a>の数値をgraphに描画する
 <br>
-・命令文や代入文のみを各軸に入力した場合、0を返して描画する
+・命令文||代入文||<a href="#span-out-mat-empty">空行列</a>のみを各軸に入力した場合、0を返して描画する
 <br>
 ・処理を列挙する場合、最終列挙の要素が<a href="#span-out-FNm-last">最終要素</a>とは限らない点、留意が必要
 <br>
@@ -12168,7 +12333,11 @@ x=(1,2); y={3,4}; trans(trans((x:y))) -> (1,2:3,0:4,0)
 <br>
 ・Right-Associativity（右から左を参照）
 <br>
-・複数の要素を持つcaseのみ、<a href="#span-out-mat">行列</a>として使用可
+・<span class="clear">Ver.2.158.38</span>以降、<a href="#span-out-concatination">行列結合</a>用の<a href="#span-out-mat-empty">空行列</a>に流用
+<br>
+[] -> []
+<br>
+・複数の要素を持つ場合、<a href="#span-out-mat">行列</a>として代用可
 <br>
 A=(1,2:3,4); A[1,2:3,4] -> (7,10:15,22)
 <br>
@@ -12232,17 +12401,19 @@ clear; 3*[a=2,a]; a -> [MyErr]Invalid REv(a)
 <br>
 ・operand記号
 <br>
+　・<a href="#span-out-literal">NaN||論理値literal</a>　<span class="run">Ver.2.158.38</span>以降、追加
+<br>
 　・<a href="#span-out-ans">予約変数</a>
 <br>
 　・<a href="#span-out-num">実数値</a>の10進数値小数点.
 <br>
-　・<a href="#span-out-num">実数値</a>の10進数値指数e
+　・<a href="#span-out-num">実数値</a>の10進数値指数e||E
 <br>
-　・<a href="#span-out-num">実数値</a>の16進数値接頭辞0x
+　・<a href="#span-out-num">実数値</a>の16進数値接頭辞0x||0X
 <br>
-　・<a href="#span-out-num">実数値</a>の2進数値接頭辞<span class="run">0b</span>　<span class="clear">Ver.2.146.37</span>以降、ECMAScript6対応環境の場合
+　・<a href="#span-out-num">実数値</a>の2進数値接頭辞<span class="run">0b||0B</span>　<span class="clear">Ver.2.146.37</span>以降、ECMAScript6対応環境の場合
 <br>
-　・<a href="#span-out-num">実数値</a>の8進数値接頭辞<span class="run">0o</span>　<span class="clear">Ver.2.146.37</span>以降、ECMAScript6対応環境の場合
+　・<a href="#span-out-num">実数値</a>の8進数値接頭辞<span class="run">0o||0O</span>　<span class="clear">Ver.2.146.37</span>以降、ECMAScript6対応環境の場合
 <br>
 <br>
 予約語の規則を列挙する
@@ -12319,7 +12490,7 @@ test caseを列挙する
 <br>
 -0123.4e+5 -> -12340000
 <br>
-・16進数値（符号なし）
+・16進数literal（符号なし）
 <br>
 0x0 -> 0
 <br>
@@ -12357,7 +12528,7 @@ test caseを列挙する
 <br>
 0x0o -> [MyErr]Invalid varName(0x0o)
 <br>
-・<span class="clear">Ver.2.146.37</span>以降、2進数値（符号なし）
+・<span class="clear">Ver.2.146.37</span>以降、2進数literal（符号なし）
 <br>
 0b011 -> 3
 <br>
@@ -12365,7 +12536,7 @@ test caseを列挙する
 <br>
 0b0f -> [MyErr]Invalid varName(0b0f)
 <br>
-・<span class="clear">Ver.2.146.37</span>以降、8進数値（符号なし）
+・<span class="clear">Ver.2.146.37</span>以降、8進数literal（符号なし）
 <br>
 0o17 -> 15
 <br>
@@ -12398,7 +12569,7 @@ test caseを列挙する
 <br>
 ・<span class="run">Excel</span>準拠で空括弧()付を許容する
 <br>
-・空括弧()は<a href="#span-out-flow">parse</a>段階で除去する
+・空括弧()は<a href="#span-out-flow">parse</a>段階で除去する（<span class="clear">Ver.2.158.38</span>以降、<a href="#span-out-mat-empty">空行列</a>を除く）
 <br>
 <br>
 <a href="#span-out-FN">関数</a>を使用して円周率piとNapier数eを一例に示す
@@ -12417,7 +12588,7 @@ eは<a href="#span-out-num">指数表記</a>と区別するため、空括弧()�
 ・<a href="#span-out-BRmo">記号省略乗算</a>を許容した弊害への対策
 <br>
 <br>
-定数に限らず、空括弧()は<a href="#span-out-flow">parse</a>段階ですべて除去する
+定数に限らず、空括弧()は<a href="#span-out-flow">parse</a>段階ですべて除去する（<span class="clear">Ver.2.158.38</span>以降、<a href="#span-out-mat-empty">空行列</a>を除く）
 <br>
 ()3()3() || 3*3 -> 9
 <br>
@@ -12680,7 +12851,7 @@ clear; x=(1,2,3:4,5,6); atan2(x) || (atan2(1,2):atan2(4,5)) ->
 <br>
 (0.4636476090008061:0.6747409422235527)
 <br>
-clear; x=(1,2,3:4); atan2(x) || (atan2(1,2):atan2(4)) -> [MyErr]FN isNaN
+clear; x=(1,2,3:4); atan2(x) || (atan2(1,2):atan2(4)) -> (0.4636476090008061:NaN)
 <br>
 ・引数不定の関数の場合
 <br>
@@ -12714,7 +12885,7 @@ clear; x=(1,2,3:4*(1,2,3)); gcd(x) || (gcd(1,2,3):gcd(4*(1,2,3))) -> (1:4)
 <br>
 ・<a href="#span-out-ope">実数演算</a>の場合、Nativeに同義
 <br>
-pow(2)  <span class="selection">// NG</span> -> [MyErr]FN isNaN
+pow(2)  <span class="selection">// NG</span> -> NaN
 <br>
 ・<a href="#span-out-com">複素数</a>演算の場合、逐次引数不足を判定しないため、予期せぬerror終了
 <br>
@@ -12770,9 +12941,11 @@ gcd(0,2,4,6,0) || gcd(2,4,6) -> 2
 <br>
 lcm(-1,2,-3) || gcd(-1,2,-3) -> false
 <br>
-clear; false -> [MyErr]Invalid REv(false)
+・<span class="run">Ver.2.158.38</span>以降、<a href="#span-out-literal">論理値literal</a>に対応
 <br>
-・falseは0として扱う
+<del>clear; false -> [MyErr]Invalid REv(false)
+<br>
+・falseは0として扱う</del>
 <br>
 clear; x=gcd(-1,2,-3); x -> false
 <br>
@@ -12953,6 +13126,10 @@ random() || random || rand -> 0.7479324154774045
 rand,rand -> (0.31204941180294865,0.4245907180242292)
 <br>
 A=0; _rn(=&lt;A=(A,rand),,2); A -> (0,0.12740820474199377,0.7111903938956377)
+<br>
+・<span class="clear">Ver.2.158.38</span>以降、<a href="#span-out-concatination">行列結合</a>用の<a href="#span-out-mat-empty">空行列</a>を追加
+<br>
+A=[]; _rn(=&lt;A=(A,rand),,2); A -> (0.3371037693804637,0.6437029689436904)
     </td>
   </tr>
   <tr>
@@ -13128,7 +13305,7 @@ combin(5,0) || permut(5,0)/fact(0) || (1)/(1) -> 1
 <br>
 <span class="jF">combin(5,-1) -> 0</span>
 <br>
-permut(5,-1)/fact(-1) || (0)/(0) -> [MyErr]FN isNaN
+permut(5,-1)/fact(-1) || (0)/(0) -> NaN
 <br>
 <span class="clear">combin(5) -> 0</span>
 <br>
@@ -13136,9 +13313,9 @@ combin(1e2,1e2) -> 1
 <br>
 ・<a href="#span-out-com">複素数</a>演算の場合
 <br>
-permut(1e2,1e2)/fact(1e2)  <span class="selection">// NG</span> -> [MyErr]FN isNaN
+permut(1e2,1e2)/fact(1e2)  <span class="selection">// NG</span> -> NaN
 <br>
-9.332621544394418e+157/9.332621544394418e+157  <span class="selection">// NG</span> -> [MyErr]FN isNaN
+9.332621544394418e+157/9.332621544394418e+157  <span class="selection">// NG</span> -> NaN
 <br>
 ・<a href="#span-out-ope">実数演算</a>の場合
 <br>
@@ -13146,13 +13323,13 @@ permut(1e2,1e2)/fact(1e2)  <span class="selection">// OK</span> -> 1
 <br>
 9.332621544394418e+157/9.332621544394418e+157  <span class="selection">// OK</span> -> 1
 <br>
-combin(1e3,1e3) || Infinity/Infinity -> [MyErr]FN isNaN
+combin(1e3,1e3) || Infinity/Infinity -> NaN
 <br>
-<span class="clear">combin(1e4,1e4) || Infinity/Infinity -> [MyErr]FN isNaN</span>
+<span class="clear">combin(1e4,1e4) || Infinity/Infinity -> NaN</span>
 <br>
-<span class="clear">combin(1e5,1e5) || Infinity/Infinity -> [MyErr]FN isNaN</span>
+<span class="clear">combin(1e5,1e5) || Infinity/Infinity -> NaN</span>
 <br>
-<span class="clear">combin(1e6,1e6) || Infinity/Infinity -> [MyErr]FN isNaN</span>
+<span class="clear">combin(1e6,1e6) || Infinity/Infinity -> NaN</span>
     </td>
   </tr>
   <tr>
@@ -13917,6 +14094,47 @@ A=(1,2:,); A[0]+A[1] -> (1,2)
 目次
 </a>
 <br>
+空行列
+<br>
+入力仕様
+    </th>
+    <td>
+<span id="span-out-mat-empty"></span>
+空行列の入力仕様と付随する留意事項について記述する
+<br>
+<br>
+<span class="clear">Ver.2.158.38</span>以降、<a href="#span-out-concatination">行列結合</a>用の空行列を追加
+<br>
+・<a href="#span-out-BT-square">角括弧[]</a>を使用
+<br>
+[] -> []
+<br>
+x=[]; x -> []
+<br>
+<br>
+留意事項を列挙する
+<br>
+・現状、空行列との演算を逐次判定しないため、<a href="#span-out-concatination">行列結合</a>を前提とする
+<br>
+[],[] -> []
+<br>
+[],1 -> 1
+<br>
+x=[]; {x,2} -> 2
+<br>
+((),1) -> (0,1)
+<br>
+・任意要素への代入不可
+<br>
+clear; x=[]; x[0]=1 -> [MyErr]Invalid reference of array
+    </td>
+  </tr>
+  <tr>
+    <th>
+<a href="#span-index">
+目次
+</a>
+<br>
 定数扱いの
 <br>
 行列
@@ -14450,7 +14668,7 @@ vr=(1,i,-i); normalizec(vr)  <span class="selection">// NG</span> -> (1,i,-i)
 <br>
 ・<a href="#span-out-FNm">zeros-vector</a>の場合
 <br>
-normalize({0,0,0})  <span class="selection">// NG</span> -> [MyErr]FN isNaN
+normalize({0,0,0})  <span class="selection">// NG</span> -> (NaN:NaN:NaN)
 <br>
 <br>
 行列の正規化（抜け要素を自動で埋める）
@@ -16990,6 +17208,30 @@ Jacobi(=&lt;{2x^2},=&lt;{$x},=&lt;{1}) -> [MyErr]Invalid REv($x)
 2; x=&lt;3; ans -> 2
 <br>
 ・error終了の場合、ansは更新されない
+<br>
+<br>
+<span class="run">Ver.2.158.38</span>以降、<a href="#span-out-num">実数値</a>の<a href="#span-out-UI-graphing-config-csv">csv-fileのread機能</a>を追加
+<br>
+予約変数csv連番
+<br>
+・連番=0~read1回毎に1増加
+<br>
+・Clear実行確定でreset
+<br>
+<br>
+予約変数への代入可
+<br>
+clear; ans=1; ans=&lt;ans; ans -> 1
+<br>
+ans=&gt; -> 1
+<br>
+・ただし、実行確定の都度、上書きされる
+<br>
+-1 -> -1
+<br>
+ans -> -1
+<br>
+ans=&gt; -> -1
     </td>
   </tr>
   <tr>
@@ -28675,7 +28917,7 @@ A=(i,2i,3i:4i,5i,6i:7i,8i,9i);
 <br>
 b={10i,11i,12i};
 <br>
-solvex_no_pivotting -> [MyErr]FN isNaN
+solvex_no_pivotting -> (NaN:NaN:NaN)
 <br>
 ・前進消去後、rank落ちの対角要素が0になる
 <br>
@@ -28699,7 +28941,7 @@ backward=&lt;{x[ir]=(b[ir]-A[ir]x)/A[ir][ir]};
 <br>
 ir=sizeA-1; A[ir][ir] -> 0
 <br>
-backward -> [MyErr]FN isNaN
+backward; x[ir] -> NaN
 <br>
 <br>
 反復法
@@ -28863,9 +29105,7 @@ run=&lt;last(mdx=Newton(=&lt;f,=&lt;x),max(norm(f),norm(mdx)));
 <br>
 run -> 234013055737.99323
 <br>
-run -> 44.17305431734149
-<br>
-run -> [MyErr]FN isNaN
+run -> NaN
     </td>
   </tr>
   <tr>
@@ -29170,7 +29410,7 @@ run=&lt;last(mdx=Newton(=&lt;f,=&lt;x),max(norm(f),norm(mdx)));
 <br>
 run -> infoLost[ i] 2787964185176708
 <br>
-run -> [MyErr]FN isNaN
+run -> infoLost[ i] NaN
 <br>
 ・初期値を変えてもnormは収束しない
 <br>
@@ -29484,9 +29724,15 @@ Fourier変換
 <br>
 前提を列挙する
 <br>
-・信号変換前の領域を実空間（時間領域を含む）と記述する
+・信号変換前の領域を実空間と記述する
 <br>
 ・信号変換後の領域を波数領域と記述する
+<br>
+　実空間　⇔　波数領域
+<br>
+　・長さ　⇔　波数
+<br>
+　・時間　⇔　周波数
 <br>
 ・信号変換前後のsampling離散点を標本点と記述する
 <br>
@@ -30868,11 +31114,11 @@ ft=&lt;atan(tan(t));
 <br>
 <a href="#span-out-com">複素数</a>演算の場合、次の極限演算不可
 <br>
-1/0 -> [MyErr]FN isNaN
+1/0 -> NaN
 <br>
 ・0割の演算未定義のため、次の反則が発生
 <br>
-0*Infinity -> [MyErr]FN isNaN
+0*Infinity -> NaN
 <br>
 <br>
 complex unchecked時、<a href="#span-out-ope">実数演算</a>の場合
@@ -30889,7 +31135,7 @@ MIN_VALUE -> 5e-324
 <br>
 -Infinity+1 || nInf+1 -> infoLost[r ] -Infinity
 <br>
-Infinity-Infinity -> [MyErr]BRsa isNaN
+Infinity-Infinity -> infoLost[r ] NaN
 <br>
 <br>
 極限値演算のtest caseを列挙する
@@ -30914,7 +31160,7 @@ _dx(=&lt;{ln(1-x)})/_dx(=&lt;{-x})  <span class="selection">// OK</span>
 <br>
 -> 1.0000000000031541+4.602212346748365e-14i+O(2e-16+3e-24i)
 <br>
-_dx(=&lt;{ln(1-x)},2)/_dx(=&lt;{-x},2)  <span class="selection">// NG</span> -> [MyErr]FN isNaN
+_dx(=&lt;{ln(1-x)},2)/_dx(=&lt;{-x},2)  <span class="selection">// NG</span> -> NaN
 <br>
 _dx(=&lt;{ln(1-x)},2)/_dx(=&lt;{(-x)^2},2)  <span class="selection">// OK</span>
 <br>
@@ -30938,11 +31184,11 @@ y=pInf -> y=Infinity
 <br>
 y*y  <span class="selection">// OK</span> -> Infinity
 <br>
-y/(y*y)  <span class="selection">// NG</span> -> [MyErr]FN isNaN
+y/(y*y)  <span class="selection">// NG</span> -> NaN
 <br>
-_dy(=&lt;{y})/_dy(=&lt;{y*y})  <span class="selection">// NG</span> -> [MyErr]BRsa isNaN
+_dy(=&lt;{y})/_dy(=&lt;{y*y})  <span class="selection">// NG</span> -> NaN
 <br>
-_dy(=&lt;{1/(y*y)})/_dy(=&lt;{1/y})  <span class="selection">// NG</span> -> [MyErr]FN isNaN
+_dy(=&lt;{1/(y*y)})/_dy(=&lt;{1/y})  <span class="selection">// NG</span> -> NaN
     </td>
   </tr>
   <tr>
@@ -31099,7 +31345,7 @@ ans+1 -> <span class="clear">infoLost[r ]</span> 1+i
 <br>
 ・<a href="#span-out-ope">実数演算</a>の場合（参考）
 <br>
-(-1)^0.5 || (-1)**0.5 || pow(-1,0.5) -> [MyErr]FN isNaN
+(-1)^0.5 || (-1)**0.5 || pow(-1,0.5) -> NaN
 <br>
 2^3 || 2**3 || pow(2,3) -> 8
 <br>
@@ -31169,9 +31415,9 @@ vectorr(round(2^3)) || vectorr(8)  <span class="selection">// OK</span> -> (0,0,
 <br>
 x=1; x||(-1) -> 1
 <br>
-x=1; x||(1/0)  <span class="selection">// NG</span> -> [MyErr]FN isNaN
+x=1; x||(1/0) -> 1
 <br>
-x=0; switch(x,x:1,<span class="condition">=&lt;</span>(1/0)) -> [MyErr]FN isNaN
+x=0; switch(x,x:1,<span class="condition">=&lt;</span>(1/0)) -> NaN
 <br>
 x=1; switch(x,x:1,<span class="condition">=&lt;</span>(1/0)) -> 1
 <br>
@@ -31179,9 +31425,9 @@ x=1; switch(x,x:1,<span class="condition">=&lt;</span>(1/0)) -> 1
 <br>
 ・設計初期段階の仕様変更のため、未対応
 <br>
-before: x=1,y=&lt;((1/0)||2),x||y=&gt; -> [MyErr]FN isNaN
+before: x=1,y=&lt;((1/0)||2),x||y=&gt; -> (0,0,1)
 <br>
-before: x=1,(y=&lt;(1/0))||2,x||y=&gt; -> [MyErr]FN isNaN
+before: x=1,(y=&lt;(1/0))||2,x||y=&gt; -> (0,2,1)
 <br>
 <a href="#span-out-option1">LA既定</a>時　after: x=1,y=&lt;((1/0)||2),x||y=&gt; -> (0,0,1)
 <br>
@@ -31966,6 +32212,8 @@ operation.js抜粋
 <br>
 ・<span class="clear">Ver.2.154.38</span>以降、rad2deg/deg2rad/cdot関数を追加
 <br>
+・<span class="run">Ver.2.158.38</span>以降、<a href="#span-out-literal">NaN||論理値literal</a>を追加
+<br>
 <br>
 予約語は大文字・小文字・全角・半角を区別しない
 <br>
@@ -31973,6 +32221,16 @@ operation.js抜粋
 parser.js抜粋
 <pre><code>
       // reserved word
+      // literal
+      case "nan":
+        tree = DATA.tree_num(NaN, 0);
+        break;
+      case "false":
+        tree = DATA.tree_num(false, 0);
+        break;
+      case "true":
+        tree = DATA.tree_num(true, 0);
+        break;
       // variable
       case "ans":
         tree = DATA.tree_tag("REv", token_lower);

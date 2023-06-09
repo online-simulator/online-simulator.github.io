@@ -97,7 +97,8 @@ My_entry.DATA.prototype.arr2num = function(arr){
 };
 My_entry.DATA.prototype.isFalse_arr = function(arr){
   var self = this;
-  return (arr.length === 1 && arr[0].length === 1 && arr[0][0].com && arr[0][0].com.r === 0 && arr[0][0].com.i === 0);
+  var has1Com = (arr.length === 1 && arr[0].length === 1 && arr[0][0].com);
+  return (has1Com && ((arr[0][0].com.r === 0 && arr[0][0].com.i === 0) || isNaN(arr[0][0].com.r && arr[0][0].com.i)));
 };
 My_entry.DATA.prototype.hasVar_arr = function(arr){
   var self = this;

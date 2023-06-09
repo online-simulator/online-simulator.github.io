@@ -329,12 +329,13 @@ My_entry.parser.prototype.compare2bas = function(token){
                [1] [0] {com: {r: 3, i: 0}}
                [1] [1] {com: {r: 4, i: 0}}
 */
-My_entry.parser.prototype.make_trees = function(sentence, re){
+My_entry.parser.prototype.make_trees = function(sentence, opt_re){  // Ver.2.158.38
   var self = this;
   var _trees = [];  // [i]
   var SYNTAX = self.config.SYNTAX;
   var math_mat = self.entry.math_mat;
   var DATA = self.entry.DATA;
+  var re = opt_re || new RegExp(self.get_pattern(), "g");  // Ver.2.158.38
   var tokens = sentence.match(re);
   if(!(tokens)) throw "Invalid null string";  // Ver.2.25.13
   /* Ver.2.143.36 -> */
@@ -352,17 +353,23 @@ My_entry.parser.prototype.make_trees = function(sentence, re){
     var token_upper = token.toUpperCase();
     var tagName = SYNTAX.tagNames[token_lower];
     var ip_e = self.compare2pairs(tokens, i);
-    if(ip_e){  // difficult to make matrix here "(()(1,2:3(),4))"
+    /* Ver.2.158.38 -> */
+    if(ip_e){
       i_next = ip_e;
       var ip_s = i;
-      if(ip_e-(ip_s+1)){  // () removed
+      var hasElem = ip_e-(ip_s+1);
+      if(hasElem){
         var str_tokens = tokens.slice(ip_s+1, ip_e).join("");
         tree = self.check_csv(str_tokens, tagName) || DATA.tree_tag(tagName, self.make_trees(str_tokens, re));  // Ver.2.142.36
+      }
+      else if(token === "["){  // () || {} -> removed
+        tree = DATA.tree_mat([]);  // [] -> empty array
       }
     }
     else if(tagName){
       tree = DATA.tree_tag(tagName, token_lower);
     }
+    /* -> Ver.2.158.38 */
     else if(self.entry.def.isNumber(token)){
       tree = DATA.tree_num(self.entry.def.Number(token), 0);
     }
@@ -375,6 +382,16 @@ My_entry.parser.prototype.make_trees = function(sentence, re){
     }
     else switch(token_lower){
       // reserved word
+      // literal
+      case "nan":
+        tree = DATA.tree_num(NaN, 0);
+        break;
+      case "false":
+        tree = DATA.tree_num(false, 0);
+        break;
+      case "true":
+        tree = DATA.tree_num(true, 0);
+        break;
       // variable
       case "ans":
         tree = DATA.tree_tag("REv", token_lower);
@@ -779,8 +796,7 @@ My_entry.parser.prototype.script2objs2d = function(data){
             trees = command;
           }
           else{
-            var re = new RegExp(self.get_pattern(), "g");
-            trees = self.make_trees(sentence, re);
+            trees = self.make_trees(sentence);  // Ver.2.158.38
             var ids2d = [[j, 0]];
             self.make_scopes(data.options.useScope, trees, scopes, ids2d, j);
           }
@@ -881,7 +897,10 @@ My_entry.parser.prototype.make_arr_num = function(data){
       var mat = tree.mat;
       var out = tree.out;
       if(mat){
-        num = DATA.arr2num(mat.arr);
+        /* Ver.2.158.38 -> */
+        var isEmpty = (mat.arr.length === 0);
+        num = (isEmpty)? DATA.num(0, 0): DATA.arr2num(mat.arr);
+        /* -> Ver.2.158.38 */
       }
       else if(out){
         num = DATA.num(0, 0);
@@ -978,6 +997,10 @@ My_entry.parser.prototype.make_log_mat = function(arr, options){
     }
     _log += ")";
   }
+  /* Ver.2.158.38 -> */
+  var isEmpty = (arr.length === 0);
+  _log = (isEmpty)? "[]": _log;
+  /* -> Ver.2.158.38 */
   return _log;
 };
 My_entry.parser.prototype.make_log = function(data){

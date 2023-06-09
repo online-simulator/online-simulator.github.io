@@ -19,6 +19,10 @@ My_entry.calc_graphing.prototype.config = {
   /* Ver.2.144.36 */
   LIMIT: {
     depthMax: 300
+  },
+  /* Ver.2.158.38 */
+  REv: {
+    csv: "csv"
   }
 };
 My_entry.calc_graphing.prototype.init = function(){
@@ -556,6 +560,10 @@ My_entry.calc_graphing.prototype.init_storage = function(){
     /* -> Ver.2.139.36 */
     self.vars = {};
     self.eqns = {};
+    /* Ver.2.158.38 -> */
+    self.no_csv = 0;
+    self.entry.$._id("input-file-csv").value = null;
+    /* -> Ver.2.158.38 */
   };
   self.storage.store = function(){
     self.vars0 = self.entry.def.newClone(self.vars);
@@ -593,6 +601,7 @@ My_entry.calc_graphing.prototype.init_storage = function(){
 My_entry.calc_graphing.prototype.init_handlers = function(){
   var self = this;
   var $ = self.entry.$;
+  var conv = self.entry.conv;  // Ver.2.158.38
   var math_com = self.entry.math_com;
   var DATA = self.entry.DATA;
   var parser = self.entry.parser;
@@ -627,7 +636,7 @@ My_entry.calc_graphing.prototype.init_handlers = function(){
   var get_num = function(input, options){
     var _num = null;
     var data = self.get_data(input, options, options.sharedStorage);
-    new self.constructors.parser().run(data);
+    parser.run(data);  // Ver.2.158.38
     if(data.out){
       _num = DATA.out2num(data.out);
     }
@@ -782,7 +791,7 @@ My_entry.calc_graphing.prototype.init_handlers = function(){
     self.io = new self.constructors.io();
     var json = {p: {id: "wrapper-link-png"}, a: {id: "a-png", it: "download-png"}, name: "download", ext: "png"};
     self.handler_link_png = new self.constructors.handler_link(json);
-    self.handler_link_png.setter.callback(function(){return self.entry.conv.base2buffer(self.plot2d.objs.all.get_base64());});
+    self.handler_link_png.setter.callback(function(){return conv.base2buffer(self.plot2d.objs.all.get_base64());});  // Ver.2.158.38
     /* Ver.2.17.6 -> */
     var json = {p: {id: "wrapper-link-svg"}, a: {id: "a-svg", it: "-svg(src-over)"}, name: "download", ext: "svg"};
     self.handler_link_svg = new self.constructors.handler_link(json);
@@ -1115,7 +1124,7 @@ My_entry.calc_graphing.prototype.init_handlers = function(){
         var file = $.readFile_elem(elem, /^image/, function(e){
           var base64 = e.target.result;
           self.plot2d.setter.base64_bg(base64);
-          self.entry.conv.base2img(base64, function(e, img){
+          conv.base2img(base64, function(e, img){  // Ver.2.158.38
             self.plot2d.setter.img_bg(img);
             self.isCheckedError = false;  // Ver.2.33.17
             self.re_plot(true);
@@ -1125,6 +1134,23 @@ My_entry.calc_graphing.prototype.init_handlers = function(){
           clear_imageBg();
           self.isCheckedError = false;  // Ver.2.33.17
           self.re_plot(true);
+        }
+        break;
+      /* Ver.2.158.38 */
+      case "input-file-csv":
+        if(self.worker_calc && self.worker_calc.handler.isLocked) return false;
+        var file = $.readFile_elem(elem, /^text\/csv/, function(e){
+          var base64 = e.target.result;
+          var text = conv.base2binary(base64);
+          var arr = conv.csv2arr(text, function(r){return DATA.num(r, 0);}, 1);
+          if(arr.length && arr[0].length){
+            self.no_csv = self.no_csv || 0;
+            self.vars[self.config.REv.csv+(self.no_csv++)] = DATA.tree_mat(arr);
+          }
+        });
+        if(!(file)){
+          elem.value = null;
+          self.io.write_text(self.elems.o, "input-file.csv not found");
         }
         break;
       default:

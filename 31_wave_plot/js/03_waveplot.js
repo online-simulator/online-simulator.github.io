@@ -234,7 +234,7 @@ My_entry.test_waveplot.prototype.read_file = function(elem){
     self.isLocked = false;
   });
   if(!(file)){
-    elem.value = "";
+    elem.value = null;
     self.output_log("input-file.wav not found");
     self.isLocked = false;
   }

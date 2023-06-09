@@ -279,3 +279,40 @@ My_entry.conv.prototype.buffer2binary = function(buffer){
   });
   return _binary;
 };
+My_entry.conv.prototype.base2binary = function(base64){
+  var self = this;
+  return self.buffer2binary(self.base2buffer(base64));
+};
+My_entry.conv.prototype.csv2arr = function(text, opt_callback, opt_i0){
+  var self = this;
+  var _arr = [];  // [index_col][index_row]
+  var sc_line = text.replace(/[,]+$/gm, "").split("\n");
+  var i0 = opt_i0 || 0;
+  var callback = (opt_callback)?
+    function(num){
+      return opt_callback(num);
+    }:
+    function(num){
+      return num;
+    };
+  if(sc_line && sc_line.length){
+    var len_j = 0;
+    var len_i = sc_line.length;
+    for(var i=i0, ii=0; i<len_i; ++i){
+      var linei = sc_line[i];
+      var hasLine = (linei !== "");
+      if(hasLine){
+        var sc_linei = linei.split(",");
+        len_j = (ii === 0)? sc_linei.length: len_j;
+        for(var j=0; j<len_j; ++j){
+          var csv_ij = sc_linei[j] || 0;  // "" -> 0
+          var num_ij = Number(csv_ij);  // NaN enabled
+          _arr[j] = _arr[j] || [];
+          _arr[j][ii] = callback(num_ij);
+        }
+        ii++;
+      }
+    }
+  }
+  return _arr;
+};

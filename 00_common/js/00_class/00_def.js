@@ -120,6 +120,10 @@ My_entry.def.prototype.isNumber = function(val){
   var self = this;
   return !(self.isNaN(val));
 };
+My_entry.def.prototype.isLiteral = function(str){
+  var self = this;
+  return (str === "undefined" || str === "null" || str === "NaN" || str === "false" || str === "true");
+};
 My_entry.def.prototype.Number = function(val){
   var self = this;
   /* Number( ) -> 0 */

@@ -25,7 +25,7 @@ My_entry.unit.prototype.FN_call = function(callback, options){
     args_com[i-2] = argCom;
   }
   var com = callback.apply(self, args_com);
-  if(cmath.isNaN(com)) throw "FN isNaN";
+//  if(cmath.isNaN(com)) throw "FN isNaN";  // Ver.2.158.38
   if(options.checkError){
     var args_err = [];
     for(var i=2; i<len; ++i){
@@ -166,7 +166,7 @@ My_entry.unit.prototype.BRsa_call = function(callback, options, left, right){
   var rightCom = right.com;
   if(!(leftCom) || !(rightCom)) throw "Invalid BRsa operation";
   var com = callback(leftCom, rightCom);
-  if(cmath.isNaN(com)) throw "BRsa isNaN";
+//  if(cmath.isNaN(com)) throw "BRsa isNaN";  // Ver.2.158.38
   if(options.checkError){
     var err = cmath.max_ab(left.err, right.err);
     var isL = {};
