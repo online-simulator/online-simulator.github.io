@@ -1139,7 +1139,7 @@ My_entry.calc_graphing.prototype.init_handlers = function(){
       /* Ver.2.158.38 */
       case "input-file-csv":
         if(self.worker_calc && self.worker_calc.handler.isLocked) return false;
-        var file = $.readFile_elem(elem, /^text\/csv/, function(e){
+        var file = $.readFile_elem(elem, /^text\/csv|^text\/comma-separated-values/, function(e){
           var base64 = e.target.result;
           var text = conv.base2binary(base64);
           var arr = conv.csv2arr(text, function(r){return DATA.num(r, 0);}, 1);

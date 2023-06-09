@@ -59,7 +59,7 @@ My_entry.link.prototype.set_url = function(content){
       type = "audio/wav";
       break;
     case "csv":
-      type = "text/csv";
+      type = "text/csv";  // text/comma-separated-values
       break;
     case "htm":
     case "html":
