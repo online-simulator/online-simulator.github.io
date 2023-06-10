@@ -8027,6 +8027,8 @@ plot-configの設定項目を列挙する
 <br>
 ・bg-image-fileは任意size背景画像fileをread可（<span class="clear">Internet Explorer非対応</span>）
 <br>
+　MIME-type：image
+<br>
 　read-cancel||image-file以外を選択||canvas-size変更で背景reset
 <br>
 　svg出力は背景image-file無効
@@ -8085,6 +8087,8 @@ csv-read機能について記述する
 <br>
 <span class="run">Ver.2.158.38</span>以降、<a href="#span-out-num">実数値</a>のcsv-fileのread機能を追加
 <br>
+・MIME-type：text/csv || text/comma-separated-values
+<br>
 <br>
 仕様を列挙する
 <br>
@@ -8131,7 +8135,7 @@ csv0[0] -> (0,1,<a href="#span-out-literal">NaN</a>,5,7,9)
 <br>
 csv0[1] -> (0,2,4,6,8<span class="clear">,0</span>)
 <br>
-・input-file.csv以外の場合
+・MIME-type不一致の場合、error終了
 <br>
 -> input-file.csv not found
     </td>
@@ -9676,6 +9680,12 @@ clear; x=(1,2); y=&lt;{0|||x&amp;&amp;&amp;Infinity&amp;&amp;&amp;-x|||1}; y -> 
 <br>
 <a href="#span-out-option1">RA選択</a>　0|||(1,0:0,1)|||(2,3) -> (2,3)
 <br>
+・<span class="run">Ver.2.158.38</span>以降、<a href="#span-out-ope">無次元の演算</a>に対応
+<br>
+<a href="#span-out-option1">LA既定</a>　0|||(1,0:0,1)|||(2,3) -> 1
+<br>
+<a href="#span-out-option1">RA選択</a>　0|||(1,0:0,1)|||(2,3) -> 3
+<br>
 <br>
 <span class="run">Ver.2.158.38</span>以降、<a href="#span-out-literal">NaN</a>に対応
 <br>
@@ -10024,6 +10034,23 @@ NaN*0 || NaN*i -> NaN
 ・<a href="#span-out-ope">実数演算</a>
 <br>
 1/0 -> Infinity
+<br>
+<br>
+留意事項を列挙する
+<br>
+・isNaN判定の方法を示す
+<br>
+NaN==NaN -> 0
+<br>
+x=NaN; x&lt;&gt;x || ~~(x==x) -> 1
+<br>
+isNaN_(x)=&lt;(x&lt;&gt;x); isNaN_(NaN),isNaN_(Infinity) -> (1,0)
+<br>
+a=0; b=a/a; c=1/a; isNaN_(a),isNaN_(b),isNaN_(c) -> (0,1,1)
+<br>
+・<a href="#span-out-ope">実数演算</a>
+<br>
+a=0; b=a/a; c=1/a; isNaN_(a),isNaN_(b),isNaN_(c) -> (0,1,0+O(1e+0))
     </td>
   </tr>
   <tr>
@@ -10574,9 +10601,9 @@ operation関数の役割はinterpreter
 {x=1,x=2x:x=2x,x} -> (0,0:0,4)
 <br>
 <br>
-その上で、無次元の演算の場合、行列の<a href="#span-out-FNm-last">最終要素</a>を取り出して演算する
+その上で、無次元の演算の場合、operandの<a href="#span-out-FNm-last">最終要素</a>を取り出して演算する
 <br>
-(x=1,x=2x:x=2x,x)1 || {x=1,x=2x:x=2x,x}1 || (0,0:0,4)1 || (4)*1 -> 4
+(x=1,x=2x:x=2x,x)*1 || {x=1,x=2x:x=2x,x}*1 || (0,0:0,4)*1 || (4)*1 -> 4
 <br>
 ・よって行列の積は次の乗算に変換される
 <br>

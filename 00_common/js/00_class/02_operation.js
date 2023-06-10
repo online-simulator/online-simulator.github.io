@@ -702,10 +702,16 @@ My_entry.operation.prototype.BRlAOs = function(data, i0, tagName, tagObj){
   if(leftTrees.length === 0 || rightTrees.length === 0){
     throw "Invalid binary operation";
   }
+  var is0D = !(options.useMatrix);  // Ver.2.158.38
   var tree = null;
   if(options.isRightAssociativityBR){
     var rightTree = self.trees2tree_mat(data, rightTrees, ids);
     var rightArr = rightTree.mat.arr;
+    /* Ver.2.158.38 -> */
+    if(is0D){
+      rightArr = DATA.arr2arr00(rightArr);
+    }
+    /* -> Ver.2.158.38 */
     if(DATA.hasVar_arr(rightArr)){  // first
       throw "Undef "+tagObj.val+"var";  // hasVar(a|||b) disabled
     }
@@ -719,6 +725,11 @@ My_entry.operation.prototype.BRlAOs = function(data, i0, tagName, tagObj){
   else{
     var leftTree = self.trees2tree_mat(data, leftTrees, ids);
     var leftArr = leftTree.mat.arr;
+    /* Ver.2.158.38 -> */
+    if(is0D){
+      leftArr = DATA.arr2arr00(leftArr);
+    }
+    /* -> Ver.2.158.38 */
     if(DATA.hasVar_arr(leftArr)){  // first
       throw "Undef var"+tagObj.val;  // hasVar(a|||b) disabled
     }
@@ -729,6 +740,13 @@ My_entry.operation.prototype.BRlAOs = function(data, i0, tagName, tagObj){
       tree = self.trees2tree_mat(data, rightTrees, ids);
     }
   }
+  /* Ver.2.158.38 -> */
+  if(is0D){
+    var arr = tree.mat.arr;  // leftTree || rightTree
+    var arr00 = DATA.arr2arr00(arr);
+    tree = DATA.tree_mat(arr00);
+  }
+  /* -> Ver.2.158.38 */
   var is = il;
   var ie = ir-1;
   self.feedback2trees(data, is, ie, tree, options.isRightAssociativityBR);

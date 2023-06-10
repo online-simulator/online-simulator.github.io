@@ -95,6 +95,10 @@ My_entry.DATA.prototype.arr2num = function(arr){
   var arri = arr[arr.length-1];
   return arri[arri.length-1];
 };
+My_entry.DATA.prototype.arr2arr00 = function(arr){
+  var self = this;
+  return self.obj2arr(self.arr2num(arr));
+};
 My_entry.DATA.prototype.isFalse_arr = function(arr){
   var self = this;
   var has1Com = (arr.length === 1 && arr[0].length === 1 && arr[0][0].com);
