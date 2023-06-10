@@ -22,6 +22,18 @@
       <tbody>
         <tr class="border">
           <td class="border run">
+Ver.1.49.11
+          </td>
+          <td class="border">
+・fade-orderを更新（cosを追加）
+<br>
+　script入力値：order_fade=3
+<br>
+　UI選択値：cos
+          </td>
+        </tr>
+        <tr class="border">
+          <td class="border run">
 Ver.1.48.11
           </td>
           <td class="border">
@@ -652,6 +664,8 @@ r
 <span class="wF">Ver.1.39.8更新</span>
 <br>
 <span class="wF">Ver.1.40.8更新</span>
+<br>
+<span class="wF">Ver.1.49.11更新</span>
           </td>
           <td class="border">
 datasetの拡張
@@ -673,7 +687,7 @@ datasetの拡張
 <br>
 <span class="condition">:w0=0~1:p0=0~1:w1=0~1:p1=0~1:f0:g0=0~1:f1:g1=0~1</span>
 <br>
-<span class="jF">:rate=0~:order=0~</span><span class="selection">:order_d=0~:order_a=0~</span><span class="wF">:order_fade=floor(-2~2)</span>;
+<span class="jF">:rate=0~:order=0~</span><span class="selection">:order_d=0~:order_a=0~</span><span class="wF">:order_fade=floor(-2~3)</span>;
           </td>
         </tr>
         <tr class="border">
@@ -1685,6 +1699,8 @@ amplitude-fade
 <span class="condition">Ver.1.39.8更新</span>
 <br>
 <span class="selection">Ver.1.40.8変更</span>
+<br>
+<span class="wF">Ver.1.49.11追加</span>
           </td>
           <td class="border">
 dataset内click noise対策用
@@ -1737,7 +1753,7 @@ p1：out-range
 <br>
 ・w=0：時間の0.5乗（上凸の変化）
 <br>
-・w=0.5：時間の1乗（線形変化）
+・w=0.5：時間の1乗（線形変化の直線近似）
 <br>
 ・w=1：時間の2乗（下凸の変化）
 <br>
@@ -1751,6 +1767,11 @@ p1：out-range
 ・w&lt;0.5：下に移動
 <br>
 ・w&gt;0.5：上に移動
+<br>
+<br>
+<span class="wF">2次遅れ系の曲線近似（cos）を追加</span>
+<br>
+・w0/w1：無効
           </td>
         </tr>
         <tr class="border">
@@ -1762,6 +1783,8 @@ fade-order
 <span class="condition">Ver.1.39.8更新</span>
 <br>
 <span class="selection">Ver.1.40.8変更</span>
+<br>
+<span class="wF">Ver.1.49.11追加</span>
           </td>
           <td class="border">
 filter遅れの次数
@@ -1773,13 +1796,15 @@ filter遅れの次数
 <br>
 <span class="run">order_fade=2：2次遅れ系（<span class="selection">p0/p1指定</span>時間に対する曲線近似処理）</span>
 <br>
+<span class="wF">order_fade=3：2次遅れ系（<span class="selection">p0/p1指定</span>時間に対する曲線近似処理）</span>
+<br>
 <span class="selection">order_fade=-1||old1：1次遅れ系（p0/p1割合sampleの時間に対する曲線近似処理）</span>
 <br>
 <span class="selection">order_fade=-2||old2：2次遅れ系（p0/p1割合sampleの時間に対する曲線近似処理）</span>
 <br>
 ・逐次処理の場合、model parameterがsampling rateに依存（調整困難）
 <br>
-・低負荷の直線||cos近似で十分の可能性あり
+・低負荷の直線||<span class="wF">cos</span>近似で十分の可能性あり
 <br>
 <br>
 詳細は<a title="Graphing Calculator" href="../02_calc_graphing/index.html?useStrict=false&checkError=false">Graphing Calculator-test case-fade</a>参照

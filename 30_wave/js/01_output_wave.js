@@ -318,7 +318,7 @@ My_entry.output_wave.prototype.check_limit = function(_params){
     _params[prop] = def.limit(_params[prop], 0, Number.MAX_VALUE, 1);
   });
   ["order_fade"].forEach(function(prop){
-    _params[prop] = def.limit(Math.floor(_params[prop]), -2, 2, 2);
+    _params[prop] = def.limit(Math.floor(_params[prop]), -2, 3, 2);  // Ver.1.49.11
   });
   return _params;
 };
@@ -454,6 +454,30 @@ My_entry.output_wave.prototype.encode_soundData_LE = function(params){  // Ver.1
     };
   }
   /* -> Ver.1.39.8 */
+  /* Ver.1.49.11 -> */
+  else if(useFade && params.order_fade === 3){
+    var pi = Math.PI;
+    var fade_o2 = function(x){
+      return (Math.cos(pi*x)+1)/2;
+    };
+    get_newAmp = function(ns){
+      var _newAmp = amplitude;
+      var isIn = (ns < ns_in);
+      var isOut = (ns > ns_out);
+      if(isIn){
+        var x = 1-ns/dns0;  // /not0
+        var fade = fade_o2(x);
+        _newAmp *= fade;
+      }
+      else if(isOut){
+        var x = (ns-ns_out)/dns1;  // /not0
+        var fade = fade_o2(x);
+        _newAmp *= fade;
+      }
+      return _newAmp;
+    };
+  }
+  /* -> Ver.1.49.11 */
   /* -> Ver.1.38.8 */
   for(var ns=0; ns<params.number_samples; ++ns){
     var t = ns*seconds_perSample;
