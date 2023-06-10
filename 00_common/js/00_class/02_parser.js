@@ -611,6 +611,7 @@ My_entry.parser.prototype.make_trees = function(sentence, opt_re){  // Ver.2.158
       case "log2":
       case "int":
       // My defined
+      case "isnan":
       case "sin_deg":
       case "cos_deg":
       case "tan_deg":

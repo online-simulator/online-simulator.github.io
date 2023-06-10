@@ -8135,6 +8135,26 @@ csv0[0] -> (0,1,<a href="#span-out-literal">NaN</a>,5,7,9)
 <br>
 csv0[1] -> (0,2,4,6,8<span class="clear">,0</span>)
 <br>
+・<span class="run">Ver.2.159.38</span>以降、<a href="#span-out-literal">isNaN関数</a>を追加
+<br>
+(isNaN(trans(csv0[0])),isNaN(trans(csv0[1])))==true ->
+<br>
+(
+<br>
+0,0:
+<br>
+0,0:
+<br>
+1,0:
+<br>
+0,0:
+<br>
+0,0:
+<br>
+0,0
+<br>
+)
+<br>
 ・MIME-type不一致の場合、error終了
 <br>
 -> input-file.csv not found
@@ -9708,6 +9728,8 @@ NaN&amp;1 -> 0
 <br>
 ・operandのfalse判定値は無次元の0||<a href="#span-out-literal">NaN</a>（<a href="#span-out-error-numerical">数値誤差</a>は無視）
 <br>
+　<span class="run">Ver.2.159.38</span>以降、虚部のisNaN判定を統一：isNaN(実部&amp;&amp;虚部)　⇒　isNaN(実部)||isNaN(虚部)
+<br>
 ・通常の<a href="#span-out-prec-ope-logical">論理演算子</a>と異なる点を列挙する
 <br>
 　・有次元の<a href="#span-out-ope-extended">拡張行列演算</a>の対象外
@@ -10048,9 +10070,17 @@ isNaN_(x)=&lt;(x&lt;&gt;x); isNaN_(NaN),isNaN_(Infinity) -> (1,0)
 <br>
 a=0; b=a/a; c=1/a; isNaN_(a),isNaN_(b),isNaN_(c) -> (0,1,1)
 <br>
+・<span class="run">Ver.2.159.38</span>以降、isNaN関数を追加
+<br>
+isNaN(NaN),isNaN(Infinity) -> (true,false)
+<br>
+a=0; b=a/a; c=1/a; isNaN(a),isNaN(b),isNaN(c) -> (false,true,true)
+<br>
 ・<a href="#span-out-ope">実数演算</a>
 <br>
 a=0; b=a/a; c=1/a; isNaN_(a),isNaN_(b),isNaN_(c) -> (0,1,0+O(1e+0))
+<br>
+a=0; b=a/a; c=1/a; isNaN(a),isNaN(b),isNaN(c) -> (false,true,false+O(1e+0))
     </td>
   </tr>
   <tr>
@@ -32241,6 +32271,8 @@ operation.js抜粋
 <br>
 ・<span class="run">Ver.2.158.38</span>以降、<a href="#span-out-literal">NaN||論理値literal</a>を追加
 <br>
+・<span class="run">Ver.2.159.38</span>以降、<a href="#span-out-literal">isNaN関数</a>を追加
+<br>
 <br>
 予約語は大文字・小文字・全角・半角を区別しない
 <br>
@@ -32477,6 +32509,7 @@ parser.js抜粋
       case "log2":
       case "int":
       // My defined
+      case "isnan":
       case "sin_deg":
       case "cos_deg":
       case "tan_deg":

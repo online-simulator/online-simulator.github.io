@@ -14,14 +14,18 @@ My_entry.math_com.prototype.init = function(){
 };
 My_entry.math_com.prototype.isNaN = function(com){
   var self = this;
-//  return (isNaN(com.r) || isNaN(com.i));
-  return isNaN(com.r+com.i);
+  return (isNaN(com.r) || isNaN(com.i));  // Ver.2.159.38 from DATA.isFalse_arr()
 };
 My_entry.math_com.prototype.isNumber = function(com){
   var self = this;
   return !(self.isNaN(com));
 };
 //
+/* Ver.2.159.38 */
+My_entry.math_com.prototype.isnan = function(com){
+  var self = this;
+  return self.entry.DATA.com(self.isNaN(com), 0);
+};
 My_entry.math_com.prototype.absolute_com = function(a){
   var self = this;
   return Math.sqrt(a.r*a.r+a.i*a.i);
