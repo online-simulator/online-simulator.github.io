@@ -1,11 +1,49 @@
 // online-simulator.github.io
 
-My_entry.handler_baseview = function(arr_prop_baseview){
+My_entry.handler_baseview = function(arr_prop){
   var self = this;
   self.init.apply(self, arguments);
   return self;
 };
 
+My_entry.handler_baseview.prototype.init = function(arr_prop){
+  var self = this;
+  self.arr_buffer = [];
+  self.arr_view = [];
+  self.offset = [];
+  self.set = [];
+  self.get = [];
+  if(arr_prop && arr_prop.length){
+    arr_prop.forEach(function(Prop, n){
+      self.make_view(Prop, n);
+    });
+  }
+  return self;
+};
+My_entry.handler_baseview.prototype.make_view = function(Prop, n){
+  var self = this;
+  self.arr_buffer[n] = new ArrayBuffer(n);
+  self.arr_view[n] = new DataView(self.arr_buffer[n], 0);
+  self.offset[n] = Math.pow(2, n*8-1);
+  var view = self.arr_view[n];
+  var isUnsigned = (Prop === "Uint");
+  var Prop = (Prop || "Int")+String(n*8);
+  self.set[n] = (view["set"+Prop])?
+    function(){
+      return view["set"+Prop].apply(view, arguments);
+    }:
+    function(){
+      return self[(isUnsigned)? "setUint8n": "setInt8n"](view, n, arguments[0], arguments[1], arguments[2]);
+    };
+  self.get[n] = (view["get"+Prop])?
+    function(){
+      return view["get"+Prop].apply(view, arguments);
+    }:
+    function(){
+      return self[(isUnsigned)? "getUint8n": "getInt8n"](view, n, arguments[0], arguments[1]);
+    };
+  return self;
+};
 /*
                   int8       uint8
 0x00~7f:         0~127
@@ -88,35 +126,4 @@ My_entry.handler_baseview.prototype.getUint8n = function(view, nByte, iByteOffse
   var val10 = Number("0x"+val16);
   var _val10 = val10;
   return _val10;
-};
-My_entry.handler_baseview.prototype.init = function(arr_prop_baseview){
-  var self = this;
-  self.arr_buffer = [];
-  self.arr_view = [];
-  self.offset = [];
-  self.set = [];
-  self.get = [];
-  arr_prop_baseview.forEach(function(Prop, n){
-    self.arr_buffer[n] = new ArrayBuffer(n);
-    self.arr_view[n] = new DataView(self.arr_buffer[n], 0);
-    self.offset[n] = Math.pow(2, n*8-1);
-    var view = self.arr_view[n];
-    var isUnsigned = (Prop === "Uint");
-    var Prop = (Prop || "Int")+String(n*8);
-    self.set[n] = (view["set"+Prop])?
-      function(){
-        return view["set"+Prop].apply(view, arguments);
-      }:
-      function(){
-        return self[(isUnsigned)? "setUint8n": "setInt8n"](view, n, arguments[0], arguments[1], arguments[2]);
-      };
-    self.get[n] = (view["get"+Prop])?
-      function(){
-        return view["get"+Prop].apply(view, arguments);
-      }:
-      function(){
-        return self[(isUnsigned)? "getUint8n": "getInt8n"](view, n, arguments[0], arguments[1]);
-      };
-  });
-  return self;
 };
