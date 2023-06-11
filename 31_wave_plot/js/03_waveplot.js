@@ -235,5 +235,8 @@ My_entry.test_waveplot.prototype.read_file = function(elem){
     self.output_log("input-file.wav not found");
     self.isLocked = false;
   }
+  else{
+    $._id("span-MIME-type").innerText = file.type;  // Ver.1.49.11
+  }
   return self;
 };
