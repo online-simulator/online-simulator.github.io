@@ -127,9 +127,6 @@ My_entry.test_waveplot.prototype.output = function(elem){
   var buffer = self.buffer;
   if(params && buffer && params.Nsmax){
     var Prop = (params.Bytes_perSample === 1)? "Uint8": "Int"+String(params.Bytes_perSample*8);  // Ver.1.46.11
-    text_xt += "xt=(1/samples_perSecond)*{";
-    text_yt0 += "yt0={";
-    text_yt1 += "yt1={";
     var Bytes_header = params.Bytes_header;
     var Bytes_perSample = params.Bytes_perSample;
     var number_channels = params.number_channels;
@@ -151,6 +148,9 @@ My_entry.test_waveplot.prototype.output = function(elem){
       function(){
         return handler_baseview.getInt8n(view, Bytes_perSample, arguments[0], arguments[1]);
       };
+    text_xt += "xt=(1/samples_perSecond)*{";
+    text_yt0 += "yt0={";
+    text_yt1 += "yt1={";
     /* -> Ver.1.48.11 */
     /* -> Ver.1.49.11 */
     var ns = 0;
