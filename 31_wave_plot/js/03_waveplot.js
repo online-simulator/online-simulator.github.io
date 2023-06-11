@@ -84,7 +84,7 @@ My_entry.test_waveplot.prototype.update = function(){
   var $ = self.entry.$;
   var params = self.params;
   if(params){
-    params.Bytes_header = self.entry.def.limit($.inputNum_id("input-Bytes_header"), 0, params.Bytes_file, 0);
+    params.Bytes_header = self.entry.def.limit(Math.floor($.inputNum_id("input-Bytes_header")), 0, params.Bytes_file, 0);  // Ver.1.49.11
     params.Bytes_perSample = $.selectNum_id("select-Bytes_perSample");
     params.number_channels = $.selectNum_id("select-number_channels");
     params.Bytes_data = params.Bytes_file-params.Bytes_header;
@@ -95,9 +95,11 @@ My_entry.test_waveplot.prototype.update = function(){
     var Nsmax = params.Bytes_data/(params.Bytes_perSample*params.number_channels);
     var isOK = (Nsmax && Nsmax%1 === 0);
     if(isOK){
-      params.is = self.entry.def.limit($.inputNum_id("input-is"), 0, Nsmax-1, 0);
-      params.di = self.entry.def.limit($.inputNum_id("input-di"), 1, Nsmax, 1);
-      params.Ns = self.entry.def.limit($.inputNum_id("input-Ns"), 1, self.Nsmax, 1);
+      /* Ver.1.49.11 -> */
+      params.is = self.entry.def.limit(Math.floor($.inputNum_id("input-is")), 0, Nsmax-1, 0);
+      params.di = self.entry.def.limit(Math.floor($.inputNum_id("input-di")), 1, Nsmax, 1);
+      params.Ns = self.entry.def.limit(Math.floor($.inputNum_id("input-Ns")), 1, self.Nsmax, 1);
+      /* -> Ver.1.49.11 */
       params.Nsmax = Nsmax;
     }
     $._id("input-Nsmax").value = params.Nsmax;
