@@ -417,7 +417,7 @@ My_entry.operation.prototype.init_params = function(){
   self.params.hasUndefVars = 0;
   return self;
 };
-My_entry.operation.prototype.remake_trees = function(data){
+My_entry.operation.prototype.remake_trees = function(data, isReUsed){  // Ver.2.160.38
   var self = this;
   // store params
   var BT = self.params.BT;
@@ -426,6 +426,7 @@ My_entry.operation.prototype.remake_trees = function(data){
   // init params
   self.init_params();  // here for mdx=Newton(=<f,=<x)
   // remake
+  data.trees = (isReUsed)? self.entry.def.newClone(data.trees): data.trees;  // tree_eqn is re-used  // Ver.2.160.38
   self.data2trees(data);
   // restore params
   self.params.BT = BT;
@@ -442,7 +443,6 @@ My_entry.operation.prototype.data2trees = function(data){
     throw "Nesting depthMax over";
   }
   /* -> Ver.2.144.36 */
-  data.trees = self.entry.def.newClone(data.trees);  // tree_eqn is re-used
   self.arr_precedence.forEach(function(tagName){
     self.callbacks[tagName](data);
     data.trees = data.trees.filter(Boolean);  // Ver.2.43.21
@@ -2777,7 +2777,7 @@ My_entry.operation.prototype.tree_eqn2tree = function(data, tree){
   var ids = data.ids;
   var DATA = self.entry.DATA;
   var newData = self.get_newData(data, DATA.tree2trees(tree), ids);  // Ver.2.31.17
-  var trees = self.remake_trees(newData);
+  var trees = self.remake_trees(newData, true);  // Ver.2.160.38
   var _tree = DATA.trees2tree(trees);
   return _tree;
 };
