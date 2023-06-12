@@ -194,6 +194,15 @@ My_entry.$.prototype.inputNum_id = function(id){
   var elem = self._id(id);
   return self.inputNum_elem(elem);
 };
+My_entry.$.prototype.inputInt_elem = function(elem){
+  var self = this;
+  return Math.floor(self.inputNum_elem(elem));
+};
+My_entry.$.prototype.inputInt_id = function(id){
+  var self = this;
+  var elem = self._id(id);
+  return self.inputInt_elem(elem);
+};
 My_entry.$.prototype.checkbox_elem = function(elem){
   var self = this;
   return elem.checked;

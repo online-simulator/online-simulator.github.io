@@ -106,8 +106,8 @@ My_entry.test_file.prototype.update = function(){
   var $ = self.entry.$;
   var params = self.params;
   if(params){
-    params.Bytes_header = self.entry.def.limit(Math.floor($.inputNum_id("input-Bytes_header")), 0, params.Bytes_file, 0);  // Ver.1.49.11
-    params.Bytes_perSample = self.entry.def.limit(Math.floor($.inputNum_id("input-Bytes_perSample")), 1, self.ByteMax, 1);  // else-Ver.0.27.4
+    params.Bytes_header = self.entry.def.limit($.inputInt_id("input-Bytes_header"), 0, params.Bytes_file, 0);  // Ver.1.49.11
+    params.Bytes_perSample = self.entry.def.limit($.inputInt_id("input-Bytes_perSample"), 1, self.ByteMax, 1);  // else-Ver.0.27.4
     params.number_channels = 1;  // else-Ver.0.27.4
     params.Bytes_data = params.Bytes_file-params.Bytes_header;
     params.is = null;
@@ -118,9 +118,9 @@ My_entry.test_file.prototype.update = function(){
     var isOK = (Nsmax && Nsmax%1 === 0);
     if(isOK){
       /* Ver.1.49.11 -> */
-      params.is = self.entry.def.limit(Math.floor($.inputNum_id("input-is")), 0, Nsmax-1, 0);
-      params.di = self.entry.def.limit(Math.floor($.inputNum_id("input-di")), 1, Nsmax, 1);
-      params.Ns = self.entry.def.limit(Math.floor($.inputNum_id("input-Ns")), 1, self.Nsmax, 1);
+      params.is = self.entry.def.limit($.inputInt_id("input-is"), 0, Nsmax-1, 0);
+      params.di = self.entry.def.limit($.inputInt_id("input-di"), 1, Nsmax, 1);
+      params.Ns = self.entry.def.limit($.inputInt_id("input-Ns"), 1, self.Nsmax, 1);
       /* -> Ver.1.49.11 */
       params.Nsmax = Nsmax;
     }
