@@ -1549,7 +1549,7 @@ title/発行元(発行年)を列挙する
 <br>
 ・<span class="run">Ver.2.156.38</span>以降、<a href="#span-out-flow">operation</a>段階で<a href="#span-out-concatination">行列結合</a>のnestingを削減する最適化を実施
 <br>
-　<a href="#span-out-SR">区切り文字</a>間に<a href="#span-out-BT">括弧</a>が存在しない場合、nestingの多重化を事前に回避
+　<a href="#span-out-SR">区切り文字</a>間に<a href="#span-out-BT">括弧</a>が存在しない場合、部分的にsliceして結合（nestingの多重化を事前に回避）
 <br>
 　⇒　動的memory使用量の低減
 <br>
@@ -1557,7 +1557,7 @@ title/発行元(発行年)を列挙する
 <br>
 ・<span class="run">Ver.2.160.38</span>以降、<a href="#span-out-flow">operation</a>段階の<a href="#span-in-tree">tree構造</a>複製処理（演算外のbottleneck）の最適化を実施
 <br>
-　全nestingで複製を実施　⇒　<a href="#span-out-FNh">高階関数</a>||<a href="#span-out-FNmh">高階行列関数</a>のnesting（反復演算）のみ、複製を実施
+　複製対象：<a href="#span-out-concatination">行列結合</a>由来を含む全nesting　⇒　<a href="#span-out-FNh">高階関数</a>||<a href="#span-out-FNmh">高階行列関数</a>の反復処理由来のnesting
 <br>
 　⇒　動的memory使用量の低減
 <br>
