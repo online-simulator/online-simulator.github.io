@@ -306,9 +306,7 @@ My_entry.test_file.prototype.read_file = function(elem){
     self.output_log("input-file.* not found");  // else-Ver.0.27.4
     self.isLocked = false;
   }
-  else{
-    $._id("span-MIME-type").innerText = file.type;  // Ver.1.49.11
-  }
+  $._id("span-MIME-type").innerText = (file)? file.type: ".*";  // Ver.1.49.11  // else-Ver.0.28.4
   return self;
 };
 /* -> else-Ver.0.27.4 */
