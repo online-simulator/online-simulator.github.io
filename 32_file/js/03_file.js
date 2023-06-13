@@ -14,8 +14,7 @@ My_entry.test_file.prototype.init = function(){
   self.samples_perSecond = 1;
   self.Nsmax = 5000;
   /* else-Ver.0.27.4 -> */
-  self.ByteMax = 128;
-  self.digitMax = 17;
+  self.ByteMax = 256;  // else-Ver.0.28.4
   self.Nhex = self.ByteMax*2;
   self.hex0 = [];
   self.dec0 = [];
@@ -27,13 +26,22 @@ My_entry.test_file.prototype.init = function(){
     }
     return _zeros;
   };
+  /* else-Ver.0.28.4 -> */
   for(var n=0; n<=self.Nhex; ++n){
     self.hex0[n] = set0(n, "0");
+    self.dec0[n] = set0(n, " ");
   }
   for(var n=0; n<=self.ByteMax; ++n){
-    self.dec0[n] = set0(n, " ");
-    self.len0[n] = Math.min(String(Math.pow(2, n*8)).length, self.digitMax)+1;
+    var hex = "0x0";
+    for(var i=0; i<n; ++i){
+      hex += "ff";
+    }
+    self.len0[n] = String((My_entry.flag.hasBigInt)? BigInt(hex): Number(hex)).length+1;
   }
+  self.useBigInt = function(Bytes_perSample){
+    return (Bytes_perSample >= 7);
+  };
+  /* -> else-Ver.0.28.4 */
   /* -> else-Ver.0.27.4 */
   return self;
 };
@@ -115,7 +123,15 @@ My_entry.test_file.prototype.update = function(){
     params.Ns = null;
     params.Nsmax = null;
     var Nsmax = params.Bytes_data/(params.Bytes_perSample*params.number_channels);
+    /* else-Ver.0.28.4 -> */
+    var msg = "make disabled";
+    Nsmax = Math.floor(Nsmax);
     var isOK = (Nsmax && Nsmax%1 === 0);
+    if(!(My_entry.flag.hasBigInt) && self.useBigInt(params.Bytes_perSample)){
+      isOK = false;
+      msg = "BigInt not supported";
+    }
+    /* -> else-Ver.0.28.4 */
     if(isOK){
       /* Ver.1.49.11 -> */
       params.is = self.entry.def.limit($.inputInt_id("input-is"), 0, Nsmax-1, 0);
@@ -125,7 +141,7 @@ My_entry.test_file.prototype.update = function(){
       params.Nsmax = Nsmax;
     }
     $._id("input-Nsmax").value = params.Nsmax;
-    self.output_log((isOK)? self.make_log(params.samples_perSecond): "make disabled");
+    self.output_log((isOK)? self.make_log(params.samples_perSecond): msg);  // else-Ver.0.28.4
   }
   return self;
 };
@@ -137,14 +153,18 @@ My_entry.test_file.prototype.make_log = function(samples_perSecond){
 My_entry.test_file.prototype.output_log = function(log){
   var self = this;
   var $ = self.entry.$;
+  $._id("textarea-plot2d-hex").value = log;  // else-Ver.0.28.4
   $._id("textarea-plot2d").value = log;
   return self;
 };
 /* else-Ver.0.27.4 -> */
 My_entry.test_file.prototype.val2hex = function(val, Bytes_perSample){
   var self = this;
-  var sign = (val < 0)? "-": " ";
-  var aval = Math.abs(val);
+  /* else-Ver.0.28.4 -> */
+  var hasMinus = (val < 0);
+  var sign = (hasMinus)? "-": " ";
+  var aval = (hasMinus)? -val: val;  // for BigInt
+  /* -> else-Ver.0.28.4 */
   var hex = aval.toString(16);
   var zeros = self.hex0[Math.min(Bytes_perSample*2-hex.length, self.Nhex)] || "";
   return (sign+"0x"+zeros+hex);
@@ -152,8 +172,16 @@ My_entry.test_file.prototype.val2hex = function(val, Bytes_perSample){
 My_entry.test_file.prototype.val2dec = function(val, Bytes_perSample){
   var self = this;
   var dec = String(val);
-  var zeros = self.dec0[Math.min(self.len0[Bytes_perSample]-dec.length, self.ByteMax)] || "";
+  var zeros = self.dec0[Math.min(self.len0[Bytes_perSample]-dec.length, self.Nhex)] || "";  // else-Ver.0.28.4
   return (zeros+dec);
+};
+/* else-Ver.0.28.4 */
+My_entry.test_file.prototype.val2val = function(val0, val1){
+  var self = this;
+  var dec0 = String(val0);
+  var dec1 = String(val1);
+  var zeros = self.dec0[dec1.length-dec0.length] || "";
+  return (zeros+dec0);
 };
 My_entry.test_file.prototype.output = function(elem){
   var self = this;
@@ -173,7 +201,10 @@ My_entry.test_file.prototype.output = function(elem){
     var view = new DataView(buffer, Bytes_header);
     /* Ver.1.49.11 -> */
     /* Ver.1.48.11 -> */
-    var handler_baseview = new self.constructors.handler_baseview().make_view(null, Bytes_perSample);
+    /* else-Ver.0.28.4 -> */
+    var useBigInt = self.useBigInt(Bytes_perSample);
+    var handler_baseview = new self.constructors.handler_baseview(null, useBigInt).make_view(null, Bytes_perSample);
+    /* -> else-Ver.0.28.4 */
     var getter_uint = function(){
       return handler_baseview.getUint8n(view, Bytes_perSample, arguments[0], arguments[1]);
     };
@@ -185,6 +216,8 @@ My_entry.test_file.prototype.output = function(elem){
     var isMulti = (Bytes_perSample > 1);
     var text = self.make_log(samples_perSecond);
     text += "{\n";
+    /* else-Ver.0.28.4 -> */
+    var text_hex = text;
     var ns = 0;
     for(var i=is; i<Nsmax; i+=di){
       if(++ns > Ns) break;  // first
@@ -193,29 +226,46 @@ My_entry.test_file.prototype.output = function(elem){
       var intBE = getter_int(i0, false);
       var uintLE = getter_uint(i0, true);
       var intLE = getter_int(i0, true);
-      var noByte = self.val2hex(Bytes_header+i0, 2);
+      var hexBE = self.val2hex(uintBE, Bytes_perSample);
+      var hexLE = self.val2hex(uintLE, Bytes_perSample);
+      var No_dec = Bytes_header+i0;
+      var No_hex = self.val2hex(No_dec, 2);
+      No_hex = self.val2val(No_hex, No_dec);
+      No_dec = self.val2val(No_dec, No_hex);
+      uintBE = self.val2dec(uintBE, Bytes_perSample);
+      intBE = self.val2dec(intBE, Bytes_perSample);
+      uintLE = self.val2dec(uintLE, Bytes_perSample);
+      intLE = self.val2dec(intLE, Bytes_perSample);
       if(i > is){
         text += ":\n";
+        text_hex += ":\n";
       }
       text += "{\n";
-      text += String(noByte);
+      text += No_hex;
       text += ", ";
-      text += self.val2hex(uintBE, Bytes_perSample);
+      text += hexBE;
       text += ", ";
-      text += self.val2dec(uintBE, Bytes_perSample);
+      text += uintBE;
       text += ", ";
-      text += self.val2dec(intBE, Bytes_perSample);
+      text += intBE;
+      text += ",\n";
+      text += No_dec;
+      text_hex += "{\n";
+      text_hex += No_hex;
+      text_hex += ", ";
+      text_hex += hexBE;
+      text_hex += ",\n";
+      text_hex += No_dec;
       if(isMulti){
-        text += ",\n";
-        text += String(noByte);
         text += ", ";
-        text += self.val2hex(uintLE, Bytes_perSample);
+        text += hexLE;
         text += ", ";
-        text += self.val2dec(uintLE, Bytes_perSample);
+        text += uintLE;
         text += ", ";
-        text += self.val2dec(intLE, Bytes_perSample);
+        text += intLE;
       }
       text += "\n}";
+      text_hex += "\n}";
     }
     text += "\n};\n\n";
     text += "xt=trans(data[0]);\n";
@@ -224,7 +274,12 @@ My_entry.test_file.prototype.output = function(elem){
     var int8n = "int"+bits;
     var sw_index = (isMulti)? "7/*1:hexBE, 2:"+uint8n+"BE, 3:"+int8n+"BE, 5:hexLE, 6:"+uint8n+"LE, 7:"+int8n+"LE*/": "1/*1:hex, 2:"+uint8n+", 3:"+int8n+"*/";
     text += "yt=trans(data["+sw_index+"]);\n";
-    self.output_log(text);
+    text_hex += "\n};\n\n";
+    text_hex += "xt=trans(data[0]);\n";
+    text_hex += "yt=trans(data[1]);\n";
+    $._id("textarea-plot2d-hex").value = text_hex;
+    $._id("textarea-plot2d").value = text;
+    /* -> else-Ver.0.28.4 */
   }
   return self;
 };

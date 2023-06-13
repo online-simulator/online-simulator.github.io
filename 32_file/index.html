@@ -42,6 +42,8 @@
 更新履歴
   </td>
   <td>
+・<span class="run">Ver.0.28.4</span>以降、・make可能条件の緩和・BigInt表示に対応・出力欄を追加
+<br>
 ・<span class="run">Ver.0.27.4</span>以降、MIME-type||binary-fileの確認用
   </td>
 </tr>
@@ -81,7 +83,7 @@ offset-Byte数
 Byte数/sample
   </td>
   <td>
-<input id="input-Bytes_perSample" type="number" min="1" max="128" value="1">
+<input id="input-Bytes_perSample" type="number" min="1" max="256" value="1"><span class="clear">&ge;7：BigInt使用条件</span>
   </td>
 </tr>
 <tr>
@@ -123,6 +125,28 @@ xt: No（先頭~Byte数）
 <br>
 yt: int値
 <br>
+<br>
+{
+<br>
+No_hex, hex_<a title="[memo]BOM(Byte Order Mark)" href="../72_unicode/BOM.html">BE</a>,
+<br>
+No_dec
+<br>
+}
+  </td>
+  <td>
+<textarea id="textarea-plot2d-hex" class="input-600" rows="20" readonly="readonly"></textarea>
+  </td>
+</tr>
+<tr>
+  <td>
+<a title="Graphing Calculator" href="../02_calc_graphing/index.html?useStrict=false&checkError=false&marker-size=0">plot2d(xt,yt)</a>
+<br>
+xt: No（先頭~Byte数）
+<br>
+yt: int値
+<br>
+<br>
 {
 <br>
 No, hex, uint, int_<a title="[memo]BOM(Byte Order Mark)" href="../72_unicode/BOM.html">BE</a>,
@@ -132,7 +156,7 @@ No, hex, uint, int_<a title="[memo]BOM(Byte Order Mark)" href="../72_unicode/BOM
 }
   </td>
   <td>
-<textarea id="textarea-plot2d" class="input-500" rows="20" readonly="readonly"></textarea>
+<textarea id="textarea-plot2d" class="input-600" rows="20" readonly="readonly"></textarea>
   </td>
 </tr>
 </tbody></table>
