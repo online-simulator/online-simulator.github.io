@@ -78,18 +78,26 @@ sample数/sec：
     <td>
 <select id="select-samples_perSecond">
   <option>8000</option>
+  <option>11025</option>
+  <option>12000</option>
   <option>16000</option>
+  <option>22050</option>
   <option>24000</option>
+  <option>32000</option>
   <option>36000</option>
   <option selected="selected">44100</option>
   <option>48000</option>
   <option>60000</option>
   <option>72000</option>
   <option>84000</option>
+  <option>88200</option>
   <option>96000</option>
+  <option>132300</option>
+  <option>144000</option>
+  <option>176400</option>
   <option>192000</option>
 </select>
-最大O(10kHz)の分解能
+<span class="clear">/2&gt;frequency[Hz]</span>
     </td>
   </tr>
   <tr class="border">
@@ -138,7 +146,6 @@ frequency[Hz]：
     </td>
     <td>
 <input id="input-freq" type="number" step="10" min="0" max="48000" value="440">
-&lt;48,000Hz
     </td>
   </tr>
   <tr>
