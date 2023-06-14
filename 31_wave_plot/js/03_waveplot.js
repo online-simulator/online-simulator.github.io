@@ -11,6 +11,7 @@ My_entry.def.mix_in(My_entry.test_waveplot, My_entry.original_main);
 My_entry.test_waveplot.prototype.init = function(){
   var self = this;
   self.init_main.call(self, ["$", "conv", "def"]);
+  self.type0 = "audio\/wav";  // else-Ver.0.28.4
   self.samples_perSecond = 44100;
   self.Nsmax = 500000;
   return self;
@@ -195,7 +196,7 @@ My_entry.test_waveplot.prototype.read_file = function(elem){
   self.isLocked = true;
   self.clear();
   self.output_log("Now reading...");
-  var file = $.readFile_elem(elem, /^audio\/wav/, function(e){
+  var file = $.readFile_elem(elem, new RegExp("^"+self.type0), function(e){  // else-Ver.0.28.4
     var base64 = e.target.result;
     var buffer = conv.base2buffer(base64);
     var view = new DataView(buffer, 0);
@@ -235,6 +236,6 @@ My_entry.test_waveplot.prototype.read_file = function(elem){
     self.output_log("input-file.wav not found");
     self.isLocked = false;
   }
-  $._id("span-MIME-type").innerText = (file)? file.type: "audio/wav";  // Ver.1.49.11  // else-Ver.0.28.4
+  $._id("span-MIME-type").innerText = (file)? file.type: self.type0;  // Ver.1.49.11  // else-Ver.0.28.4
   return self;
 };

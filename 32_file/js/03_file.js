@@ -11,6 +11,7 @@ My_entry.def.mix_in(My_entry.test_file, My_entry.original_main);
 My_entry.test_file.prototype.init = function(){
   var self = this;
   self.init_main.call(self, ["$", "conv", "def"]);
+  self.type0 = ".*";  // else-Ver.0.28.4
   self.samples_perSecond = 1;
   self.Nsmax = 5000;
   /* else-Ver.0.27.4 -> */
@@ -290,7 +291,7 @@ My_entry.test_file.prototype.read_file = function(elem){
   self.isLocked = true;
   self.clear();
   self.output_log("Now reading...");
-  var file = $.readFile_elem(elem, /.*/, function(e){  // else-Ver.0.27.4
+  var file = $.readFile_elem(elem, new RegExp(self.type0), function(e){  // else-Ver.0.27.4  // else-Ver.0.28.4
     var base64 = e.target.result;
     var buffer = conv.base2buffer(base64);
     var view = new DataView(buffer, 0);
@@ -306,7 +307,7 @@ My_entry.test_file.prototype.read_file = function(elem){
     self.output_log("input-file.* not found");  // else-Ver.0.27.4
     self.isLocked = false;
   }
-  $._id("span-MIME-type").innerText = (file)? file.type: ".*";  // Ver.1.49.11  // else-Ver.0.28.4
+  $._id("span-MIME-type").innerText = (file)? file.type: self.type0;  // Ver.1.49.11  // else-Ver.0.28.4
   return self;
 };
 /* -> else-Ver.0.27.4 */
