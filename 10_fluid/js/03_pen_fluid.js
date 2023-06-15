@@ -117,6 +117,13 @@ My_entry.pen.prototype.update_arr2d_vec = function(){
     uvp._arr_t.push([t]);
     uvp._arr_c.push([c]);
     uvp._arr_q.push([q]);
+    /* fluid-Ver.1.34.0 -> */
+    ["Re", "sx", "sy"].forEach(function(sw_plot){
+      var prop = "_arr_"+sw_plot;
+      uvp[prop] = uvp[prop] || [];
+      uvp[prop].push([uvp[sw_plot]]);
+    });
+    /* -> fluid-Ver.1.34.0 */
     ["umin", "umax", "vmin", "vmax", "pmin", "pmax"].forEach(function(sw_plot){
       var prop = "_arr_"+sw_plot;
       uvp[prop] = uvp[prop] || [];
@@ -145,7 +152,7 @@ My_entry.pen.prototype.make_csv1 = function(){
   var _csv = "";
   var uvp = self.uvp;
   if(uvp){
-    var props = ["t", "c", "q", "umin", "umax", "vmin", "vmax", "pmin", "pmax", "uij", "vij", "pij"];  // fluid-Ver.1.30.0
+    var props = ["t", "c", "q", "Re", "sx", "sy", "umin", "umax", "vmin", "vmax", "pmin", "pmax", "uij", "vij", "pij"];  // fluid-Ver.1.30.0  // fluid-Ver.1.34.0
     props.forEach(function(sw_plot){
       _csv += sw_plot;
       _csv += ca;
@@ -336,6 +343,8 @@ My_entry.pen.prototype.init_handlers = function(){
       case 4:
         base64 = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAPAAAADwCAYAAAA+VemSAAAAAXNSR0IArs4c6QAABzFJREFUeF7t3DFuI1EMBcGZ+x9aAmzfoIMHwrU5TaH4G5Pt+3yez+MfAQInBV4Bn7ybH03gR0DAHgKBwwICPnw8P52AgL0BAocFBHz4eH46AQF7AwQOCwj48PH8dAIC9gYIHBYQ8OHj+ekEBOwNEDgsIODDx/PTCQjYGyBwWEDAh4/npxMQsDdA4LCAgA8fz08nIGBvgMBhAQEfPp6fTkDA3gCBwwICPnw8P53Ai4AAgbsCAr57O7+cwCNgj4DAYQEBHz6en05AwN4AgcMCAj58PD+dgIC9AQKHBQR8+Hh+OgEBewMEDgsI+PDx/HQCAvYGCBwWEPDh4/npBATsDRA4LCDgw8fz0wkI2BsgcFhAwIeP56cTELA3QOCwgIAPH89PJyBgb4DAYQEBHz6en05AwP0NfPqf+Nd/wRsM54cX8P5GBdwMvcHgBy/gCbjjPY//l60oCrjo/c76AjdDbzD4wQt4vsAdzxe4GQq4+fkCdz9vMBjCC3i+wB3PF7gZCrj5+QJ3P28wGMILeL7AHc8XuBkKuPn5Anc/bzAYwgt4vsAdzxe4GQq4+fkCdz9vMBjCC3i+wB3PF7gZCrj5+QJ3P28wGMILeL7AHc8XuBkKuPn5Anc/bzAYwgt4vsAdzxe4GQq4+fkCdz9vMBjCC3i+wB3PF7gZCrj5+QJ3P28wGMILeEYJrAUEvL6A/QSCgIADnlECawEBry9gP4EgIOCAZ5TAWkDA6wvYTyAICDjgGSWwFhDw+gL2EwgCAg54RgmsBQS8voD9BIKAgAOeUQJrAQGvL2A/gSAg4IBnlMBaQMDrC9hPIAgIOOAZJbAWEPD6AvYTCAICDnhGCawFBLy+gP0EgoCAA55RAmsBAa8vYD+BICDggGeUwFpAwOsL2E8gCAg44BklsBYQ8PoC9hMIAgIOeEYJrAUEvL6A/QSCgIADnlECawEBry9gP4EgIOCAZ5TAWkDA6wvYTyAICDjgGSWwFhDw+gL2EwgCAg54RgmsBQS8voD9BIKAgAOeUQJrAQGvL2A/gSAg4IBnlMBaQMDrC9hPIAgIOOAZJbAWEPD6AvYTCAICDnhGCawFBLy+gP0EgoCAA55RAmsBAa8vYD+BICDggGeUwFpAwOsL2E8gCAg44BklsBYQ8PoC9hMIAgIOeEYJrAUEvL6A/QSCgIADnlECawEBry9gP4EgIOCAZ5TAWkDA6wvYTyAICDjgGSWwFhDw+gL2EwgCAg54RgmsBQS8voD9BIKAgAOeUQJrAQGvL2A/gSAg4IBnlMBaQMDrC9hPIAgIOOAZJbAWEPD6AvYTCAICDnhGCawFBLy+gP0EgoCAA55RAmsBAa8vYD+BICDggGeUwFpAwOsL2E8gCAg44BklsBYQ8PoC9hMIAgIOeEYJrAUEvL6A/QSCgIADnlECawEBry9gP4EgIOCAZ5TAWkDA6wvYTyAICDjgGSWwFhDw+gL2EwgCAg54RgmsBQS8voD9BIKAgAOeUQJrAQGvL2A/gSAg4IBnlMBaQMDrC9hPIAgIOOAZJbAWEPD6AvYTCAICDnhGCawFBLy+gP0EgoCAA55RAmsBAa8vYD+BICDggGeUwFpAwOsL2E8gCAg44BklsBYQ8PoC9hMIAgIOeEYJrAUEvL6A/QSCgIADnlECawEBry9gP4EgIOCAZ5TAWkDA6wvYTyAICDjgGSWwFhDw+gL2EwgCAg54RgmsBQS8voD9BIKAgAOeUQJrAQGvL2A/gSAg4IBnlMBaQMDrC9hPIAgIOOAZJbAWEPD6AvYTCAICDnhGCawFBLy+gP0EgoCAA55RAmsBAa8vYD+BICDggGeUwFpAwOsL2E8gCAg44BklsBYQ8PoC9hMIAgIOeEYJrAUEvL6A/QSCgIADnlECawEBry9gP4EgIOCAZ5TAWkDA6wvYTyAICDjgGSWwFhDw+gL2EwgCAg54RgmsBQS8voD9BIKAgAOeUQJrAQGvL2A/gSAg4IBnlMBaQMDrC9hPIAgIOOAZJbAWEPD6AvYTCAICDnhGCawFBLy+gP0EgoCAA55RAmsBAa8vYD+BICDggGeUwFpAwOsL2E8gCAg44BklsBYQ8PoC9hMIAgIOeEYJrAUEvL6A/QSCgIADnlECawEBry9gP4EgIOCAZ5TAWkDA6wvYTyAICDjgGSWwFhDw+gL2EwgCAg54RgmsBQS8voD9BIKAgAOeUQJrAQGvL2A/gSAg4IBnlMBaQMDrC9hPIAgIOOAZJbAWEPD6AvYTCAICDnhGCawFBLy+gP0EgoCAA55RAmsBAa8vYD+BICDggGeUwFpAwOsL2E8gCAg44BklsBYQ8PoC9hMIAgIOeEYJrAUEvL6A/QSCgIADnlECawEBry9gP4EgIOCAZ5TAWkDA6wvYTyAICDjgGSWwFhDw+gL2EwgCAg54RgmsBQS8voD9BIKAgAOeUQJrAQGvL2A/gSDwBSylPMmOAUHrAAAAAElFTkSuQmCC";
         break;
+      /* fluid-Ver.1.34.0 */
+      case -5:
       /* fluid-Ver.1.7.0 */
       case 5:
         base64 = "data:image/png;base64,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";
@@ -582,9 +591,11 @@ My_entry.pen.prototype.init_handlers = function(){
         var dyg = options["grid-height"];
         var hasGrid = (dxg > 0 && dyg > 0);
         if(hasGrid){
+          var handler_calc = self.handler_calc || new My_entry.handler_calc();  // fluid-Ver.1.34.0
           var solver = self.solver || new My_entry.solver_NS();
           var uvp = self.uvp || self.objs.bg.make_uvp(options);  // fluid-Ver.1.10.0
           $._id("input-Lx").value = uvp.Lx;  // fluid-Ver.1.10.0
+          self.handler_calc = handler_calc;  // fluid-Ver.1.34.0
           self.solver = solver;
           self.uvp = uvp;
           var n = 0;
@@ -597,11 +608,19 @@ My_entry.pen.prototype.init_handlers = function(){
           var callback = function(){
             var hasError = false;
             var nmax = options.nmax || 1000;
+            /* fluid-Ver.1.34.0 -> */
+            var obj_t = {t: uvp.t};
+            var obj_f = {};
+            ["Re", "sx", "sy"].forEach(function(prop){
+              obj_f[prop] = $._id("input-"+prop).value;
+            });
+            handler_calc.update(obj_t, obj_f, uvp);
+            /* -> fluid-Ver.1.34.0 */
             try{
               solver.FS2d({
-                Re: options.Re,
-                sx: options.sx,  // fluid-Ver.1.27.0
-                sy: options.sy,  // fluid-Ver.1.27.0
+                Re: uvp.Re,  // fluid-Ver.1.34.0
+                sx: uvp.sx,  // fluid-Ver.1.27.0  // fluid-Ver.1.34.0
+                sy: uvp.sy,  // fluid-Ver.1.27.0  // fluid-Ver.1.34.0
                 Ndt: options.Ndt,  // fluid-Ver.1.11.0
                 Nnt: options.Nnt,  // fluid-Ver.1.12.0
                 order_conv: options.order_conv,  // fluid-Ver.1.32.0

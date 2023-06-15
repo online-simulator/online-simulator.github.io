@@ -18,6 +18,26 @@
 <body>
   <div class="absolute">
     <table class="border">
+      <caption>更新履歴</caption>
+      <tbody>
+        <tr class="border">
+          <td class="border run">
+Ver.1.34.0
+          </td>
+          <td class="border">
+・Re/sx/syを時間tの関数化
+<br>
+・plot-dataにRe/sx/syを追加
+<br>
+・handler_calc.jsを新規作成
+<br>
+・testcaseを更新
+          </td>
+        </tr>
+      </tbody>
+    </table>
+<br>
+    <table class="border">
       <caption>流体流れの数値simulation（CFD解析）</caption>
       <thead>
         <tr class="border">
@@ -198,6 +218,8 @@ solver@step1
           </td>
           <td class="border">
 DNS（乱流modelなし）の場合、最小単位の渦を解像可能な大きさ
+<br>
+・渦scale||scale間の輸送無視の非定常計算から乱流を含む定量評価は困難
           </td>
         </tr>
         <tr class="border">
@@ -839,12 +861,14 @@ testcase
 <span class="wF">Ver.1.26.0追加</span>
 <br>
 <span class="wF">Ver.1.29.0追加</span>
+<br>
+<span class="clear">Ver.1.34.0更新</span>
           </td>
           <td class="border">
 test case
           </td>
           <td class="border">
-<span class="wF">-1: backstep流れの再付着点距離の検証
+<span class="wF"><span class="clear">-1</span>: backstep流れの再付着点距離の検証
 <br>
 ・U=inlet平均速さUi（redを指定）
 <br>
@@ -886,7 +910,7 @@ test case
 <br>
 <span class="condition">4: 上下のKarman渦列（同上）</span>
 <br>
-<span class="selection">5: 左右のKarman渦列（同上）</span>
+<span class="selection"><span class="clear">|5|</span>: 左右のKarman渦列（同上）</span>
 <br>
 <span class="selection">6: 上下のKarman渦列（同上）</span>
 <br>
@@ -1117,7 +1141,9 @@ t
         </tr>
         <tr class="border">
           <td class="border">
-Re
+Re<span class="condition">=Re(t)</span>
+<br>
+<span class="condition">Ver.1.34.0更新</span>
           </td>
           <td class="border">
 Reynolds数
@@ -1132,9 +1158,11 @@ Reynolds数
         </tr>
         <tr class="border">
           <td class="border">
-(sx,sy)
+(sx,sy)<span class="condition">=(sx(t),sy(t))</span>
 <br>
 <span class="run">Ver.1.27.0追加</span>
+<br>
+<span class="condition">Ver.1.34.0更新</span>
           </td>
           <td class="border">
 無次元の生成項vector

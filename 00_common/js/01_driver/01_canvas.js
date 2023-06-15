@@ -585,7 +585,7 @@ My_entry.canvas.prototype.make_uvp = function(options, opt_ID){  // fluid-Ver.1.
     var dxi = (rdx/rdy)*dyi;
     var Lx = dxi*Ni;  // fluid-Ver.1.10.0
     /* -> 1.50.8 */
-    _obj = {u: u, v: v, ud: ud, vd: vd, p: p, p0: p0, id: id, hasP0: hasP0, i_unknowns: i_unknowns, j_unknowns: j_unknowns, Ni: Ni, Nj: Nj, len0: i_unknowns.length, dx: dxi, dy: dyi, t: 0, cmax: 0, qtotal: 0, Lx: Lx, Ly: Ly};  // fluid-Ver.1.10.0  // fluid-Ver.1.11.0  // fluid-Ver.1.24.0
+    _obj = {u: u, v: v, ud: ud, vd: vd, p: p, p0: p0, id: id, hasP0: hasP0, i_unknowns: i_unknowns, j_unknowns: j_unknowns, Ni: Ni, Nj: Nj, len0: i_unknowns.length, dx: dxi, dy: dyi, t: 0, cmax: 0, qtotal: 0, Re: 0, sx: 0, sy: 0, Lx: Lx, Ly: Ly};  // fluid-Ver.1.10.0  // fluid-Ver.1.11.0  // fluid-Ver.1.24.0  // fluid-Ver.1.34.0
   }
   return _obj;
 };
