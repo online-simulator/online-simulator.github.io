@@ -98,10 +98,25 @@ My_entry.conv.prototype.binary2buffer = function(binary){
   var _buffer = self.binary2arrb_uint8(binary).buffer;
   return _buffer;
 };
-My_entry.conv.prototype.base2buffer = function(base64){
+My_entry.conv.prototype.buffer2binary = function(buffer){
+  var self = this;
+  var _binary = "";
+  var arrb_uint8 = new Uint8Array(buffer);
+  Array.prototype.forEach.call(arrb_uint8, function(uint8, i){
+    _binary += String.fromCharCode(uint8);
+  });
+  return _binary;
+};
+My_entry.conv.prototype.base2binary = function(base64){
   var self = this;
   var arr_data = base64.split(",");
-  var binary = (window.atob)? atob(arr_data[1]): "";
+  var _binary = (window.atob)? atob(arr_data[1]): "";
+//  var _binary = self.buffer2binary(self.base2buffer(base64));  // calc-Ver.2.161.38
+  return _binary;
+};
+My_entry.conv.prototype.base2buffer = function(base64){
+  var self = this;
+  var binary = self.base2binary(base64);
   var _buffer = self.binary2buffer(binary);
   return _buffer;
 };
@@ -269,19 +284,6 @@ My_entry.conv.prototype.binary2str = function(binary, isLE){
     _str += String.fromCharCode(uint16);
   });
   return _str;
-};
-My_entry.conv.prototype.buffer2binary = function(buffer){
-  var self = this;
-  var _binary = "";
-  var arrb_uint8 = new Uint8Array(buffer);
-  Array.prototype.forEach.call(arrb_uint8, function(uint8, i){
-    _binary += String.fromCharCode(uint8);
-  });
-  return _binary;
-};
-My_entry.conv.prototype.base2binary = function(base64){
-  var self = this;
-  return self.buffer2binary(self.base2buffer(base64));
 };
 My_entry.conv.prototype.csv2arr = function(text, opt_callback, opt_i0){
   var self = this;
