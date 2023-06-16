@@ -65,13 +65,14 @@ My_entry.test_number.prototype.clear = function(){
   $._id("input-parseFloat").value = "";
   $._id("input-Number").value = "";
   $._id("input-string").value = "";
+  $._id("input-radix").value = "";  // Ver.0.29.4
   return self;
 };
 My_entry.test_number.prototype.convert = function(){
   var self = this;
   var $ = self.entry.$;
   var str = $._id("input-string").value;
-  var radix = $.inputNum_id("input-radix");
+  var radix = $._id("input-radix").value;  // Ver.0.29.4
   $._id("input-parseInt").value = parseInt(str, radix);
   $._id("input-parseFloat").value = parseFloat(str);
   $._id("input-Number").value = Number(str);
