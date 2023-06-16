@@ -1143,10 +1143,17 @@ My_entry.calc_graphing.prototype.init_handlers = function(){
           var base64 = e.target.result;
           var text = conv.base2binary(base64);
           var arr = conv.csv2arr(text, function(r){return DATA.num(r, 0);}, 1);
-          if(arr.length && arr[0].length){
-            self.no_csv = self.no_csv || 0;
-            self.vars[self.config.REv.csv+(self.no_csv++)] = DATA.tree_mat(arr);
+          /* Ver.2.161.38 -> */
+          var no_csv = self.no_csv || 0;
+          var varName = self.config.REv.csv+no_csv;
+          var hasData = (arr.length && arr[0].length);
+          if(hasData){
+            self.vars[varName] = DATA.tree_mat(arr);
+            self.no_csv = no_csv+1;
           }
+          var msg = (hasData)? "finished reading "+varName: "csv-data not found";
+          self.io.write_text(self.elems.o, msg);
+          /* -> Ver.2.161.38 */
         });
         if(!(file)){
           elem.value = null;
