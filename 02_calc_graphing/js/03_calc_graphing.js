@@ -942,7 +942,7 @@ My_entry.calc_graphing.prototype.init_handlers = function(){
         break;
       /* -> Ver.2.20.6 */
       case "C":
-        self.worker_calc.stop();
+        self.worker_calc.stop(true);  // Ver.2.161.39
         var sw = text_half;
         self.io["onclick_"+sw](self.elems, text_half);
         self.storage.clear();

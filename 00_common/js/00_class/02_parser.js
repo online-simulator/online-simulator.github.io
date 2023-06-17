@@ -918,6 +918,7 @@ My_entry.parser.prototype.make_log_num = function(num, options){
   var useComplex = options.useComplex;
   var ed = options.expDigit;
   var checkError = options.checkError;
+  var hasEd = (ed >= 0);  // Ver.2.161.39
   if(num.com){
     var cr = num.com.r;
     var ci = num.com.i;
@@ -936,11 +937,11 @@ My_entry.parser.prototype.make_log_num = function(num, options){
     var hasToLocaleString = (typeof("".toLocaleString) === "function");
     var is0_cr = (hasToLocaleString && !(cr));
     var str_cr = (is0_cr)? cr.toLocaleString(): String(cr);
-    var cre = (ed>=0)? cr.toExponential(ed): str_cr;
+    var cre = (hasEd && self.entry.def.isNumber(cr))? cr.toExponential(ed): str_cr;  // Ver.2.161.39
     if(useComplex){
       var is0_ci = (hasToLocaleString && !(ci));
       var str_ci = (is0_ci)? ci.toLocaleString(): String(ci);
-      var cie = (ed>=0)? ci.toExponential(ed): str_ci;
+      var cie = (hasEd && self.entry.def.isNumber(ci))? ci.toExponential(ed): str_ci;  // Ver.2.161.39
       var isM0_ci = (options.checkComplex && str_ci === "-0");
       var hasI = (ci || isM0_ci);
       _log += (cr)? cre: ((hasI)? "": cre);

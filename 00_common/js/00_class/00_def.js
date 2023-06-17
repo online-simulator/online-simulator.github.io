@@ -114,7 +114,7 @@ My_entry.def.prototype.isNaN = function(val){
   /* isNaN(null || "" || false || true) -> false */
   /* Number(null || "" || false || true) -> 0 or 1 */
   /* parseFloat(null || "" || false || true) -> NaN */
-  return (isNaN(val) || val === null || val === "" || val === false || val === true);
+  return (isNaN(val) || val === null || val === "" || val === false || val === true);  // val.toExponential() disabled
 };
 My_entry.def.prototype.isNumber = function(val){
   var self = this;
