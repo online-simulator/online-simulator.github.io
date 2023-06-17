@@ -1490,7 +1490,9 @@ title/発行元(発行年)を列挙する
 <br>
 　引数不正でfalseを返す<a href="#span-out-FN-args">一部の実装関数</a>を正常化
 <br>
-　plot仕様の変更なし（現状、<a href="#span-out-literal">NaN</a>を含む演算結果はplot不可）
+　<del>plot仕様の変更なし（現状、<a href="#span-out-literal">NaN</a>を含む演算結果はplot不可）</del>
+<br>
+　<span class="run">Ver.2.162.39</span>以降、<a href="#span-out-literal">NaN</a>を含む演算結果の<a href="#span-out-plot2d">plot2d</a>出力に対応
     </td>
   </tr>
   <tr>
@@ -8110,7 +8112,7 @@ csv-read機能について記述する
 <br>
 ・<span class="selection">read範囲</span>の行数：2行目~最終行
 <br>
-・要素が空の場合、<span class="clear">0に変換</span>
+・<span class="clear">要素が空</span>の場合、<del>0に変換</del><span class="run">Ver.2.162.39</span>以降、<a href="#span-out-literal">NaN</a>に変換
 <br>
 ・要素が<a href="#span-out-num">実数値</a>以外の場合、<a href="#span-out-literal">NaN</a>に変換
 <br>
@@ -8135,7 +8137,7 @@ xt, yt, log
 <br>
 ・read実行確定
 <br>
-csv0 -> (0,1,<a href="#span-out-literal">NaN</a>,5,7,9:0,2,4,6,8<span class="clear">,0</span>)
+csv0 -> (0,1,<a href="#span-out-literal">NaN</a>,5,7,9:0,2,4,6,8<span class="clear"><del>,0</del><a href="#span-out-literal">,NaN</a></span>)
 <br>
 ・1列目
 <br>
@@ -8143,7 +8145,7 @@ csv0[0] -> (0,1,<a href="#span-out-literal">NaN</a>,5,7,9)
 <br>
 ・2列目
 <br>
-csv0[1] -> (0,2,4,6,8<span class="clear">,0</span>)
+csv0[1] -> (0,2,4,6,8<span class="clear"><del>,0</del><a href="#span-out-literal">,NaN</a></span>)
 <br>
 ・<span class="run">Ver.2.159.38</span>以降、<a href="#span-out-literal">isNaN関数</a>を追加
 <br>
@@ -8161,7 +8163,7 @@ csv0[1] -> (0,2,4,6,8<span class="clear">,0</span>)
 <br>
 0,0:
 <br>
-0,0
+0<span class="clear"><del>,0</del>,1</span>
 <br>
 )
 <br>
@@ -11078,6 +11080,23 @@ t0/t1の演算を実行後、x/yの演算を実行
 ・t0/t1の演算はSingle-thread実行で中断不可
 <br>
 ・x/yの演算は<a href="#span-out-option3">Multi-thread実行</a>を選択可
+<br>
+<br>
+<span class="run">Ver.2.162.39</span>以降、<a href="#span-out-literal">NaN</a>を含む演算結果の描画に対応
+<br>
+・<a href="#span-out-literal">NaN</a>要素のmarker出力を省略
+<br>
+・<a href="#span-out-literal">NaN</a>要素へのline出力を省略
+<br>
+・全要素が<a href="#span-out-literal">NaN</a>の場合、error終了（plot範囲の初期化失敗）
+<br>
+[MyErr]Invalid plot2d isInf
+<br>
+・非対応の機能を列挙する
+<br>
+　・<a href="#span-out-UI-graphing-string-path">string-path</a>
+<br>
+　・svg出力（marker||line出力の標準機能を除く）
 <br>
 <br>
 svg出力機能について記述する

@@ -377,17 +377,28 @@ My_entry.calc_graphing.prototype.arr_data2arr2d_vec = function(arr_data, options
           var num_x = arr_num[Math.min(j, len_x-1)];
           var num_y = arr_num[Math.min(j+len_x, len_y+len_x-1)];
           if(num_x && num_x.com && num_y && num_y.com){
-            var x = arr2d_x[n][j] = num_x.com[sw_ri_x];
-            var y =arr2d_y[n][j] = num_y.com[sw_ri_y];
-            if(isNaN(self.plot2d.trans(x, isLog_x)) || isNaN(self.plot2d.trans(y, isLog_y))){
-              throw "Invalid plot2d isNaN";
+            /* Ver.2.162.39 -> */
+            var x = num_x.com[sw_ri_x];
+            var y = num_y.com[sw_ri_y];
+            var tx = self.plot2d.trans(x, isLog_x);
+            var ty = self.plot2d.trans(y, isLog_y);
+            if(isNaN(tx)){
+              arr2d_x[n][j] = NaN;
             }
             else{
+              arr2d_x[n][j] = x;
               xmin = Math.min(xmin, x);
-              ymin = Math.min(ymin, y);
               xmax = Math.max(xmax, x);
+            }
+            if(isNaN(ty)){
+              arr2d_y[n][j] = NaN;
+            }
+            else{
+              arr2d_y[n][j] = y;
+              ymin = Math.min(ymin, y);
               ymax = Math.max(ymax, y);
             }
+            /* -> Ver.2.162.39 */
           }
           else{
 //            throw "Invalid (x(t),y(t))";  // Ver.2.25.14

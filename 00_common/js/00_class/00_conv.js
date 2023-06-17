@@ -307,8 +307,8 @@ My_entry.conv.prototype.csv2arr = function(text, opt_callback, opt_i0){
         var sc_linei = linei.split(",");
         len_j = (ii === 0)? sc_linei.length: len_j;
         for(var j=0; j<len_j; ++j){
-          var csv_ij = sc_linei[j] || 0;  // "" -> 0
-          var num_ij = Number(csv_ij);  // NaN enabled
+          var csv_ij = sc_linei[j];
+          var num_ij = (csv_ij === "")? NaN: Number(csv_ij);  // calc-Ver.2.162.39
           _arr[j] = _arr[j] || [];
           _arr[j][ii] = callback(num_ij);
         }

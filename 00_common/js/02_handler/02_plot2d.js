@@ -690,17 +690,22 @@ My_entry.plot2d.prototype.run = function(arr2d_vec, options, toSVG, isFinal){
       arr2d_ty[n][j] = self.trans(arr2d_y[n][j], isLog_y);
     }
   }
+  /* calc-Ver.2.162.39 -> */
   // make arr2d_tvec
+  var hasNaN = false;
   var arr2d_tvec = new Array(len_j);
   for(var j=0; j<len_j; ++j){
     arr2d_tvec[j] = new Array(len_n);
     for(var n=0; n<len_n; ++n){
       var x = arr2d_tx[n][j];
       var y = arr2d_ty[n][j];
+      hasNaN = hasNaN || (isNaN(x) || isNaN(y));
       arr2d_tvec[j][n] = {x: x, y: y};
     }
   }
+  options._hasNaN = hasNaN;
   options._arr2d_tvec = arr2d_tvec;  // 1.2.3
+  /* -> calc-Ver.2.162.39 */
   var callback_cut_toSVG = function(withTransform){
     var text = options._cut;
     var records = $.get_records(text, ",", 0, ["Nlegend", "withTransform"]);
@@ -862,11 +867,34 @@ if(isAxis_z){
       _svg += plot.draw.header_group(null, plot.draw.use_mask(idName_mask));
     }
   }
+  /* calc-Ver.2.162.39 -> */
+  var exclude_NaN = function(j, callback){
+    var arr_vec = [];
+    for(var n=0; n<len_n; ++n){
+      var vec = arr2d_tvec[j][n];
+      var x = vec.x;
+      var y = vec.y;
+      var hasNaN = (isNaN(x) || isNaN(y));
+      if(!(hasNaN)){
+        arr_vec.push(vec);
+      }
+      if((hasNaN || n === len_n-1) && arr_vec.length){
+        callback(arr_vec);
+        arr_vec = [];
+      }
+    }
+  };
+  /* -> calc-Ver.2.162.39 */
   for(var j=0; j<len_j; ++j){
     var styleRGBA = arr_styleRGBA[j];
     var plotLineWidth = arr_plotLineWidth[j];
     var fillPath = arr_fillPath[j];
-    _svg += plot.lines(arr2d_tvec[j], plotLineWidth, styleRGBA, globalCompositeOperation, fillPath);
+    /* calc-Ver.2.162.39 -> */
+    var callback = function(arr_vec){
+      _svg += plot.lines(arr_vec, plotLineWidth, styleRGBA, globalCompositeOperation, fillPath);
+    };
+    exclude_NaN(j, callback);
+    /* -> calc-Ver.2.162.39 */
   }
   // mask
   if(!(options.oldPlot2d)){
@@ -885,13 +913,19 @@ if(isAxis_z){
     var markerSize = arr_markerSize[j];
     var markerLineWidth = arr_markerLineWidth[j];
     if(markerSize){
-      for(var n=0; n<len_n; ++n){
-        var x = arr2d_tx[n][j];
-        var y = arr2d_ty[n][j];
-        if(options.oldPlot2d || !(x < tgxmin_mask || x > tgxmax_mask || y < tgymin_mask || y > tgymax_mask)){
-          _svg += plot[markerType](x, y, markerSize, markerLineWidth, styleRGBA, globalCompositeOperation);
+      /* calc-Ver.2.162.39 -> */
+      var callback = function(arr_vec){
+        for(var i=0, len=arr_vec.length; i<len; ++i){
+          var vec = arr_vec[i];
+          var x = vec.x;
+          var y = vec.y;
+          if(options.oldPlot2d || !(x < tgxmin_mask || x > tgxmax_mask || y < tgymin_mask || y > tgymax_mask)){
+            _svg += plot[markerType](x, y, markerSize, markerLineWidth, styleRGBA, globalCompositeOperation);
+          }
         }
-      }
+      };
+      exclude_NaN(j, callback);
+      /* -> calc-Ver.2.162.39 */
     }
   }
 }
@@ -968,7 +1002,7 @@ else{
     var styleRGBA = arr_styleRGBA[j];
     var strFontSize = arr_strFontSize[j];
     var strPath = arr_strPath[j];
-    if(strPath){
+    if(strPath && !(options._hasNaN)){  // calc-Ver.2.162.39
       var text = strPath;
       var config = "";
       text = def.enter_name(text, "config", false, 2, function(content){config = content;});

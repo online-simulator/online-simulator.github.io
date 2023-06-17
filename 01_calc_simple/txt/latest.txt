@@ -8,13 +8,13 @@ local storage cleared
 1,0:
 0,0:
 0,0:
-0,0
+0,1
 )
 
-csv0=(0,1,NaN,5,7,9:0,2,4,6,8,0)
+csv0=(0,1,NaN,5,7,9:0,2,4,6,8,NaN)
 csv0=(
 0,1,NaN,5,7,9:
-0,2,4,6,8,0
+0,2,4,6,8,NaN
 )
 
 (a=0,b=a/a,c=1/a,isNaN_(x)=<(x<>x),isNaN_(a),isNaN_(b),isNaN_(c),isNaN(a),isNaN(b),isNaN(c))
@@ -1058,4 +1058,4 @@ drag=false&sw=false&0x=false&useComplex=true&useMatrix=true&isRightAssociativity
 --------------------------------
 --------------------------------
 
-online-simulator.github.io.6.230.99.12.52 @ Sat Jun 17 2023 18:38:22 GMT+0900 (日本標準時) @ Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/114.0.0.0 Safari/537.36
+online-simulator.github.io.6.231.99.12.52 @ Sun Jun 18 2023 03:48:48 GMT+0900 (日本標準時) @ Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/114.0.0.0 Safari/537.36
