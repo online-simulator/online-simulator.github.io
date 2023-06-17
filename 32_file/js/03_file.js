@@ -140,6 +140,7 @@ My_entry.test_file.prototype.update = function(){
       params.Ns = self.entry.def.limit($.inputInt_id("input-Ns"), 1, self.Nsmax, 1);
       /* -> Ver.1.49.11 */
       params.Nsmax = Nsmax;
+      params.showCharacter = ($.checkbox_id("checkbox-showCharacter") && params.Bytes_perSample === 1);  // else-Ver.0.30.4
     }
     $._id("input-Nsmax").value = params.Nsmax;
     self.output_log((isOK)? self.make_log(params.samples_perSecond): msg);  // else-Ver.0.28.4
@@ -199,6 +200,7 @@ My_entry.test_file.prototype.output = function(elem){
     var di = params.di;
     var Ns = params.Ns;
     var Nsmax = params.Nsmax;
+    var showCharacter = params.showCharacter;  // else-Ver.0.30.4
     var view = new DataView(buffer, Bytes_header);
     /* Ver.1.49.11 -> */
     /* Ver.1.48.11 -> */
@@ -229,6 +231,7 @@ My_entry.test_file.prototype.output = function(elem){
       var intLE = getter_int(i0, true);
       var hexBE = self.val2hex(uintBE, Bytes_perSample);
       var hexLE = self.val2hex(uintLE, Bytes_perSample);
+      var char = (showCharacter)? String.fromCharCode(uintBE): "";  // else-Ver.0.30.4
       var No_dec = Bytes_header+i0;
       var No_hex = self.val2hex(No_dec, 2);
       No_hex = self.val2val(No_hex, No_dec);
@@ -255,7 +258,13 @@ My_entry.test_file.prototype.output = function(elem){
       text_hex += No_hex;
       text_hex += ", ";
       text_hex += hexBE;
-      text_hex += ",\n";
+      /* else-Ver.0.30.4 -> */
+      text_hex += ",";
+      if(char){
+        text_hex += "  //   "+char;
+      }
+      text_hex += "\n";
+      /* -> else-Ver.0.30.4 */
       text_hex += No_dec;
       if(isMulti){
         text += ", ";
@@ -271,9 +280,10 @@ My_entry.test_file.prototype.output = function(elem){
     text += "\n};\n\n";
     text += "xt=trans(data[0]);\n";
     var bits = Bytes_perSample*8;
+    var hex8n = "hex"+bits;  // else-Ver.0.30.4
     var uint8n = "uint"+bits;
     var int8n = "int"+bits;
-    var sw_index = (isMulti)? "7/*1:hexBE, 2:"+uint8n+"BE, 3:"+int8n+"BE, 5:hexLE, 6:"+uint8n+"LE, 7:"+int8n+"LE*/": "1/*1:hex, 2:"+uint8n+", 3:"+int8n+"*/";
+    var sw_index = (isMulti)? "7/*1:"+hex8n+"BE, 2:"+uint8n+"BE, 3:"+int8n+"BE, 5:"+hex8n+"LE, 6:"+uint8n+"LE, 7:"+int8n+"LE*/": "1/*1:"+hex8n+", 2:"+uint8n+", 3:"+int8n+"*/";  // else-Ver.0.30.4
     text += "yt=trans(data["+sw_index+"]);\n";
     text_hex += "\n};\n\n";
     text_hex += "xt=trans(data[0]);\n";

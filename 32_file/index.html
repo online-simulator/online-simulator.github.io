@@ -42,6 +42,8 @@
 更新履歴
   </td>
   <td>
+・<span class="run">Ver.0.30.4</span>以降、character表示（code-point&lt;256）のcheckboxを追加
+<br>
 ・<span class="run">Ver.0.28.4</span>以降、・make可能条件の緩和・BigInt表示に対応・出力欄を追加
 <br>
 　・handler_baseview.jsを更新・waveplot.jsを調整
@@ -130,13 +132,18 @@ yt: int値
 <br>
 {
 <br>
-No_hex, hex_<a title="[memo]BOM(Byte Order Mark)" href="../72_unicode/BOM.html">BE</a>,
+No_hex, hex_<a title="[memo]BOM(Byte Order Mark)" href="../72_unicode/BOM.html">BE</a>, // 'c'
 <br>
 No_dec
 <br>
 }
   </td>
   <td>
+<label>
+  <input id="checkbox-showCharacter" type="checkbox" checked="checked">
+:character表示@Byte数/sample=1
+</label>
+<br>
 <textarea id="textarea-plot2d-hex" class="input-600" rows="20" readonly="readonly"></textarea>
   </td>
 </tr>
