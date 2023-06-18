@@ -10102,6 +10102,10 @@ a=0; b=a/a; c=1/a; isNaN(a),isNaN(b),isNaN(c) -> (false,true,true)
 a=0; b=a/a; c=1/a; isNaN_(a),isNaN_(b),isNaN_(c) -> (0,1,0+O(1e+0))
 <br>
 a=0; b=a/a; c=1/a; isNaN(a),isNaN(b),isNaN(c) -> (false,true,false+O(1e+0))
+<br>
+・<span class="run">Ver.2.163.39</span>以降、虚部のNaNを<a href="#span-out-log">log表示</a>する場合、<a href="#span-in-options">内部option</a>参照
+<br>
+nan*i -> NaN+(NaN)i
     </td>
   </tr>
   <tr>
@@ -17661,13 +17665,13 @@ clear; [a=&lt;b,b=1,=&lt;a=&gt;]=&gt; -> 1
 <br>
 ・let宣言の挙動を以下に比較して示す
 <br>
-(function(){let a=()=&gt;b; let c=a(); let b=3; return c;})();  <span class="selection">// ES6</span>
+(function(){let a=()=&gt;b; let c=a(); let b=1; return c;})();  <span class="selection">// ES6</span>
 <br>
 -> Cannot access 'b' before initialization
 <br>
 clear; [a=&lt;b,c=a=&gt;,b=1,=&lt;c]=&gt; -> [MyErr]Invalid REv(b)
 <br>
-let b=-1; (function(){let a=()=&gt;b; let c=a(); let b=3; return c;})();  <span class="selection">// ES6</span>
+let b=-1; (function(){let a=()=&gt;b; let c=a(); let b=1; return c;})();  <span class="selection">// ES6</span>
 <br>
 -> Cannot access 'b' before initialization
 <br>
@@ -32090,7 +32094,7 @@ data.logo -> "makeLog=true"
 ・<a href="#span-out-config">checkError</a>: <a href="#span-out-error">情報落ち</a>の発生や微分・積分の<a href="#span-out-error-numerical">数値誤差</a>を評価するflag
 <br>
 <br>
-・<a href="#span-in-log-m0">checkComplex</a>: <span class="run">Ver.2.151.38</span>以降、虚部の-0を<a href="#span-out-log">log表示</a>するflag
+・<a href="#span-in-log-m0">checkComplex</a>: <span class="run">Ver.2.151.38||2.163.39</span>以降、虚部の-0||<a href="#span-out-literal">NaN</a>を<a href="#span-out-log">log表示</a>するflag
 <br>
 <br>
 ・<a href="#span-out-config">precedence</a>: comma,区切りで演算子の<a href="#span-in-prec">tag名</a>を列挙した文字列
@@ -32788,6 +32792,8 @@ atan2(-0,1) -> 0
 <br>
 <span class="run">Ver.2.151.38</span>以降、実部の-0表示に対応
 <br>
+・toLocaleString()を使用
+<br>
 -0 -> -0
 <br>
 (-0) -> -0
@@ -32795,6 +32801,10 @@ atan2(-0,1) -> 0
 (-0,-0) -> (-0,-0)
 <br>
 x=(-0),x -> (0,-0)
+<br>
+・<a href="#span-out-num">指数表記</a>選択の場合
+<br>
+-0 -> 0e+0
 <br>
 <br>
 -0のNative仕様

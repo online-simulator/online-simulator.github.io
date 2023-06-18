@@ -935,22 +935,34 @@ My_entry.parser.prototype.make_log_num = function(num, options){
     }
     /* Ver.2.151.38 -> */
     var hasToLocaleString = (typeof("".toLocaleString) === "function");
-    var is0_cr = (hasToLocaleString && !(cr));
+    /* Ver.2.163.39 -> */
+    var isNaN_cr = isNaN(cr);
+    var isNaN_ci = isNaN(ci);
+    var is0_cr = (hasToLocaleString && !(cr) && !(isNaN_cr));
+    /* -> Ver.2.163.39 */
     var str_cr = (is0_cr)? cr.toLocaleString(): String(cr);
     var cre = (hasEd && self.entry.def.isNumber(cr))? cr.toExponential(ed): str_cr;  // Ver.2.161.39
     if(useComplex){
-      var is0_ci = (hasToLocaleString && !(ci));
+      var is0_ci = (hasToLocaleString && !(ci) && !(isNaN_ci));  // Ver.2.163.39
       var str_ci = (is0_ci)? ci.toLocaleString(): String(ci);
       var cie = (hasEd && self.entry.def.isNumber(ci))? ci.toExponential(ed): str_ci;  // Ver.2.161.39
-      var isM0_ci = (options.checkComplex && str_ci === "-0");
-      var hasI = (ci || isM0_ci);
-      _log += (cr)? cre: ((hasI)? "": cre);
+      /* Ver.2.163.39 -> */
+      _log += (cr)? cre: ((ci)? "": cre);
       _log += (cr&&ci)? ((ci>0)? "+": ""): "";
-      _log += (hasI)?
+      _log += (ci)?
          (ci=== 1)?  "i":
          (ci===-1)? "-i":
                  cie+"i":
                       "";
+      if(options.checkComplex){
+        if(str_ci === "-0"){
+          _log += "-0i";  // Ver.2.151.38
+        }
+        else if(isNaN_ci){
+          _log += "+(NaN)i";
+        }
+      }
+      /* -> Ver.2.163.39 */
     }
     else{
       _log += cre;
