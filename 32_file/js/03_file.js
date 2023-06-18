@@ -140,7 +140,7 @@ My_entry.test_file.prototype.update = function(){
       params.Ns = self.entry.def.limit($.inputInt_id("input-Ns"), 1, self.Nsmax, 1);
       /* -> Ver.1.49.11 */
       params.Nsmax = Nsmax;
-      params.showCharacter = ($.checkbox_id("checkbox-showCharacter") && params.Bytes_perSample === 1);  // else-Ver.0.30.4
+      params.showCharacter = $.checkbox_id("checkbox-showCharacter");  // else-Ver.0.30.4  // else-Ver.0.31.4
     }
     $._id("input-Nsmax").value = params.Nsmax;
     self.output_log((isOK)? self.make_log(params.samples_perSecond): msg);  // else-Ver.0.28.4
@@ -160,6 +160,22 @@ My_entry.test_file.prototype.output_log = function(log){
   return self;
 };
 /* else-Ver.0.27.4 -> */
+/* else-Ver.0.31.4 */
+My_entry.test_file.prototype.uintBE2str = function(uintBE, Bytes_perSample){
+  var self = this;
+  var _str = "";
+  var hex = uintBE.toString(16);
+  for(var i=hex.length; i>0; i-=2){
+    var is = i;
+    var ie = is-2;
+    var uint8 = parseInt(hex.substring(is, ie), 16);
+    var char = String.fromCharCode(uint8);
+//    var char = self.entry.conv.arr_uint8_2binary([uint8]);
+//    var char = self.entry.conv.arr_uint8_2str([uint8]);
+    _str = char+_str;
+  }
+  return _str;
+};
 My_entry.test_file.prototype.val2hex = function(val, Bytes_perSample){
   var self = this;
   /* else-Ver.0.28.4 -> */
@@ -231,7 +247,7 @@ My_entry.test_file.prototype.output = function(elem){
       var intLE = getter_int(i0, true);
       var hexBE = self.val2hex(uintBE, Bytes_perSample);
       var hexLE = self.val2hex(uintLE, Bytes_perSample);
-      var char = (showCharacter)? String.fromCharCode(uintBE): "";  // else-Ver.0.30.4
+      var str = (showCharacter)? self.uintBE2str(uintBE, Bytes_perSample): "";  // else-Ver.0.30.4  // else-Ver.0.31.4
       var No_dec = Bytes_header+i0;
       var No_hex = self.val2hex(No_dec, 2);
       No_hex = self.val2val(No_hex, No_dec);
@@ -260,9 +276,11 @@ My_entry.test_file.prototype.output = function(elem){
       text_hex += hexBE;
       /* else-Ver.0.30.4 -> */
       text_hex += ",";
-      if(char){
-        text_hex += "  //   "+char;
+      /* else-Ver.0.31.4 -> */
+      if(str){
+        text_hex += (str.length > 1)? ("  /*   "+str+"   */"): ("  //   "+str);
       }
+      /* -> else-Ver.0.31.4 */
       text_hex += "\n";
       /* -> else-Ver.0.30.4 */
       text_hex += No_dec;
