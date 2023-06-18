@@ -11736,7 +11736,7 @@ comment文の入力仕様と付随する留意事項について記述する
 <br>
 test caseを示す
 <br>
-x=-0xff; <span class="selection">/*x:16進数値*/</span> x&gt;&gt;3 <span class="selection">// 右shift3回</span>
+x=-0xff; <span class="selection">/*16進数<a href="#span-out-num">literal</a>*/</span> x&gt;&gt;3 <span class="selection">// 右<a href="#span-out-prec-ope-bit">shift</a>3回</span>
 <br>
 -> -32
 <br>
@@ -11746,11 +11746,11 @@ x=-0xff; x&gt;&gt;3 -> -32
 <br>
 ・同義
 <br>
-x=-255; floor(x/(2^3)) -> -32
+x=-255; floor(x*0.5*0.5*0.5) -> -32
 <br>
 ・<span class="run">Ver.2.87.32</span>以降、<a href="#span-out-FN-int">int関数</a>は0側に丸める
 <br>
-x=-255; int(x/(2^3)) -> -31
+x=-255; int(x*0.5*0.5*0.5) -> -31
     </td>
   </tr>
   <tr>
