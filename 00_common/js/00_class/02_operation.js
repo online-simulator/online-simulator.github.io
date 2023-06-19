@@ -435,7 +435,7 @@ My_entry.operation.prototype.remake_trees = function(data, isReUsed){  // Ver.2.
   // return
   return data.trees;
 };
-My_entry.operation.prototype.data2trees = function(data){
+My_entry.operation.prototype.data2trees = function(data, tagName_BT){  // Ver.2.164.39
   var self = this;
   var depth = self.params.depth++;
   /* Ver.2.144.36 -> */
@@ -443,6 +443,7 @@ My_entry.operation.prototype.data2trees = function(data){
     throw "Nesting depthMax over";
   }
   /* -> Ver.2.144.36 */
+  self.params.BT = tagName_BT || self.params.BT;  // Ver.2.164.39
   self.arr_precedence.forEach(function(tagName){
     self.callbacks[tagName](data);
     data.trees = data.trees.filter(Boolean);  // Ver.2.43.21
@@ -503,10 +504,9 @@ My_entry.operation.prototype.BT0 = function(data, i0, tagName, tagObj){
   var is = i0;
   var ie = i0;
   /* Ver.2.31.17 -> */
-  self.params.BT = tagName;
   var tree_BT = trees[is];
   var ids = tree_BT[tagName].ids;  // inherit_ids_AtSEe
-  var newTrees = self.data2trees(self.get_newData(data, tagObj.val, ids));
+  var newTrees = self.data2trees(self.get_newData(data, tagObj.val, ids), tagName);  // Ver.2.164.39
   /* -> Ver.2.31.17 */
   var tree = self.tree2tree_mat(DATA.trees2tree(newTrees));
   self.feedback2trees(data, is, ie, tree);
@@ -519,10 +519,9 @@ My_entry.operation.prototype.BTref = function(data, i0, tagName, tagObj){
   var is = i0;
   var ie = i0;
   /* Ver.2.31.17 -> */
-  self.params.BT = tagName;
   var tree_BT = trees[is];
   var ids = tree_BT[tagName].ids;  // inherit_ids_AtSEe
-  var newTrees = self.data2trees(self.get_newData(data, tagObj.val, ids));
+  var newTrees = self.data2trees(self.get_newData(data, tagObj.val, ids), tagName);  // Ver.2.164.39
   /* -> Ver.2.31.17 */
   var tree = self.tree2tree_mat(DATA.trees2tree(newTrees));
   var arr = tree.mat.arr;
