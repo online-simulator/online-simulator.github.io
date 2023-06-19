@@ -10047,7 +10047,7 @@ literalについて記述する
 <br>
 <span class="run">JavaScript</span>のliteralの一部を定義して列挙する
 <br>
-・非数NaN（Not a Number）
+・<a href="#span-out-num">実数値</a>以外の非数NaN（Not a Number）
 <br>
 NaN || nan || NAN -> NaN
 <br>
@@ -10057,7 +10057,7 @@ false || FALSE -> false
 <br>
 true || TRUE -> true
 <br>
-・<span class="clear">Ver.2.161.39</span>以降、<a href="#span-out-num">指数表記</a>選択の場合、error終了を修正
+・<span class="clear">Ver.2.161.39</span>以降、<a href="#span-out-UI-simple">指数表記</a>選択の場合、error終了を修正
 <br>
 <br>
 test caseを列挙する
@@ -12504,15 +12504,15 @@ clear; 3*[a=2,a]; a -> [MyErr]Invalid REv(a)
 <br>
 　・<a href="#span-out-ans">予約変数</a>
 <br>
-　・<a href="#span-out-num">実数値</a>の10進数値小数点.
+　・<a href="#span-out-num">実数値</a>の10進数literal小数点.
 <br>
-　・<a href="#span-out-num">実数値</a>の10進数値指数e||E
+　・<a href="#span-out-num">実数値</a>の10進数literal指数e||E
 <br>
-　・<a href="#span-out-num">実数値</a>の16進数値接頭辞0x||0X
+　・<a href="#span-out-num">実数値</a>の16進数literal接頭辞0x||0X
 <br>
-　・<a href="#span-out-num">実数値</a>の2進数値接頭辞<span class="run">0b||0B</span>　<span class="clear">Ver.2.146.37</span>以降、ECMAScript6対応環境の場合
+　・<a href="#span-out-num">実数値</a>の2進数literal接頭辞<span class="run">0b||0B</span>　<span class="clear">Ver.2.146.37</span>以降、ECMAScript6対応環境の場合
 <br>
-　・<a href="#span-out-num">実数値</a>の8進数値接頭辞<span class="run">0o||0O</span>　<span class="clear">Ver.2.146.37</span>以降、ECMAScript6対応環境の場合
+　・<a href="#span-out-num">実数値</a>の8進数literal接頭辞<span class="run">0o||0O</span>　<span class="clear">Ver.2.146.37</span>以降、ECMAScript6対応環境の場合
 <br>
 <br>
 予約語の規則を列挙する
@@ -12569,13 +12569,13 @@ test caseを列挙する
 <br>
 -00123 -> -123
 <br>
-・10進数値小数
+・10進数literal小数（小数表記）
 <br>
 0.123 -> 0.123
 <br>
 -0.123 -> -0.123
 <br>
-・10進数値指数
+・10進数literal指数（指数表記）
 <br>
 0123e0 -> 123
 <br>
@@ -12601,7 +12601,7 @@ test caseを列挙する
 <br>
 0x0b -> 11
 <br>
-・非数NaN（演算を伴うため、実数値以外の判定）
+・非数<a href="#span-out-literal">NaN</a>（演算を伴うため、実数値以外の判定）
 <br>
 +0x00 || +(0x00) -> 0
 <br>
@@ -13211,7 +13211,7 @@ clear; a=-3.2; b=2; q=floor(a/b); q  <span class="selection">// NG</span> -> -2
 <span class="run">Ver.2.30.15</span>以降、乱数の即時callに対応
 <br>
 <br>
-乱数の仕様はNativeのMath.random()に同義
+乱数の仕様はbuilt-inのMath.random()に同義
 <br>
 ・返値は区間[0,1)の一様乱数（0以上~1未満の擬似乱数）
 <br>
