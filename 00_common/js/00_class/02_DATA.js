@@ -102,7 +102,7 @@ My_entry.DATA.prototype.arr2arr00 = function(arr){
 My_entry.DATA.prototype.isFalse_arr = function(arr){
   var self = this;
   var has1Com = (arr.length === 1 && arr[0].length === 1 && arr[0][0].com);
-  return (has1Com && ((arr[0][0].com.r === 0 && arr[0][0].com.i === 0) || (isNaN(arr[0][0].com.r) || isNaN(arr[0][0].com.i))));
+  return (has1Com && ((Number(arr[0][0].com.r) === 0 && Number(arr[0][0].com.i) === 0) || (isNaN(arr[0][0].com.r) || isNaN(arr[0][0].com.i))));  // calc-Ver.2.165.40
 };
 My_entry.DATA.prototype.hasVar_arr = function(arr){
   var self = this;

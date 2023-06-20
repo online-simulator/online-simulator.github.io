@@ -1,9 +1,17 @@
 clear
 local storage cleared
 
+sw_equation(false,=<0,=<1),sw_equation(0,=<0,=<1),sw_equation(true,=<0,=<1),sw_equation(1,=<0,=<1)
+(
+1,1,0,0
+)
+
+sw_equation(flag,=<f,=<g)=<(flag&&&{f=>,}|||{g=>,})[0]
+stored_eqn(sw_equation)
+
 (false|1,false||1,false|||1,false&1,false&&1,false&&&1:0|1,0||1,0|||1,0&1,0&&1,0&&&1)
 (
-1,1,false,0,false,1:
+1,1,1,0,false,false:
 1,1,1,0,0,0
 )
 
@@ -1067,4 +1075,4 @@ drag=false&sw=false&0x=false&useComplex=true&useMatrix=true&isRightAssociativity
 --------------------------------
 --------------------------------
 
-online-simulator.github.io.6.234.100.12.52 @ Tue Jun 20 2023 23:46:40 GMT+0900 (日本標準時) @ Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/114.0.0.0 Safari/537.36
+online-simulator.github.io.6.234.100.12.53 @ Wed Jun 21 2023 00:07:09 GMT+0900 (日本標準時) @ Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/114.0.0.0 Safari/537.36

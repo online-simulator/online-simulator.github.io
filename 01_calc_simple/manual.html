@@ -858,6 +858,10 @@ ja.m.wikipedia.org/wiki/項目を列挙する
 <br>
 ・演算子の優先順位
 <br>
+・三項演算子
+<br>
+・条件演算子
+<br>
 ・結合法則
 <br>
 ・剰余演算
@@ -1493,6 +1497,10 @@ title/発行元(発行年)を列挙する
 　<del>plot仕様の変更なし（現状、<a href="#span-out-literal">NaN</a>を含む演算結果はplot不可）</del>
 <br>
 　<span class="run">Ver.2.162.39</span>以降、<a href="#span-out-literal">NaN</a>を含む演算結果の<a href="#span-out-plot2d">plot2d</a>出力に対応
+<br>
+・<span class="clear">Ver.2.165.40</span>以降、<a href="#span-out-prec-ope-logical-short-circuit">論理演算子（短絡評価）</a>のfalse判定値を追加更新：0||<a href="#span-out-literal">NaN</a>　⇒　0||<a href="#span-out-literal">false</a>||<a href="#span-out-literal">NaN</a>
+<br>
+　通常の<a href="#span-out-prec-ope-logical">論理演算子</a>の挙動は問題なし（追記のみ）
     </td>
   </tr>
   <tr>
@@ -8550,14 +8558,14 @@ Multi-thread実行を選択可
 <br>
 　left-operand operator right-operand
 <br>
-・中置3項演算子
+・中置3項演算子の一例（条件演算子）
 <br>
 　left-operand-boolean operator1 right-operand1 operator2 right-operand2
 <br>
 <br>
 留意事項を列挙する
 <br>
-・未実装の3項演算子は<a href="#span-out-FNh-switch">switch高階関数</a>で代替する
+・未実装の条件演算子は<a href="#span-out-FNh-switch">switch高階関数</a>で代替する
 <br>
 <br>
 小分類は<a href="#span-out-prec-ope">演算子のprecedence</a>参照
@@ -9413,11 +9421,15 @@ clear; 0||i=3  <span class="selection">// (0||i)=3</span> -> 3-i
 <br>
 論理AND||OR演算子の留意事項を列挙する
 <br>
-・operandのfalse判定値は無次元の0||<a href="#span-out-literal">NaN</a>（<a href="#span-out-error-numerical">数値誤差</a>は無視）で要素毎に判定
+・operandのfalse判定値は無次元の0||<a href="#span-out-literal">false</a>||<a href="#span-out-literal">NaN</a>（<a href="#span-out-error-numerical">数値誤差</a>は無視）
 <br>
-・論理AND演算子は全operandを評価して0||<a href="#span-out-literal">NaN</a>の短絡評価を再現する
+　<span class="run">Ver.2.158.38</span>以降、<a href="#span-out-literal">NaN</a>を追記
 <br>
-・論理OR演算子は全operandを評価してnot(0||<a href="#span-out-literal">NaN</a>)の短絡評価を再現する
+　<span class="clear">Ver.2.165.40</span>以降、<a href="#span-out-literal">false</a>を追記
+<br>
+・論理AND演算子は全operandを評価してfalse判定値の短絡評価を再現する
+<br>
+・論理OR演算子は全operandを評価してnot(false判定値)の短絡評価を再現する
 <br>
 ・<a href="#span-out-option1">LA既定</a>の場合、<a href="#span-out-type-ope">中置2項演算子</a>のright-operandよりleft-operandを優先して左から評価する
 <br>
@@ -9743,11 +9755,28 @@ NaN&amp;1 -> 0
 ~~NaN || ~~(~~true) -> 1
 <br>
 <br>
+<span class="clear">Ver.2.165.40</span>以降、<a href="#span-out-literal">false</a>に対応
+<br>
+・<a href="#span-out-option1">LA既定</a>
+<br>
+<del>false|||1 -> false</del>
+<br>
+<del>false&amp;&amp;&amp;1 -> 1</del>
+<br>
+false|||1 -> 1
+<br>
+false&amp;&amp;&amp;1 -> false
+<br>
+<br>
 論理ANDs||ORs演算子の留意事項を列挙する
 <br>
-・operandのfalse判定値は無次元の0||<a href="#span-out-literal">NaN</a>（<a href="#span-out-error-numerical">数値誤差</a>は無視）
+・operandのfalse判定値は無次元の0||<a href="#span-out-literal">false</a>||<a href="#span-out-literal">NaN</a>（<a href="#span-out-error-numerical">数値誤差</a>は無視）
+<br>
+　<span class="run">Ver.2.158.38</span>以降、<a href="#span-out-literal">NaN</a>を追加
 <br>
 　<span class="run">Ver.2.159.38</span>以降、虚部のisNaN判定を統一：isNaN(実部&amp;&amp;虚部)　⇒　isNaN(実部)||isNaN(虚部)
+<br>
+　<span class="clear">Ver.2.165.40</span>以降、<a href="#span-out-literal">false</a>を追加
 <br>
 ・通常の<a href="#span-out-prec-ope-logical">論理演算子</a>と異なる点を列挙する
 <br>
@@ -9757,9 +9786,9 @@ NaN&amp;1 -> 0
 <br>
 　・<a href="#span-out-FNh-switch">switch高階関数</a>を代替可
 <br>
-　・論理ANDs演算子は厳密に0||<a href="#span-out-literal">NaN</a>を短絡評価する（operand=0||<a href="#span-out-literal">NaN</a>以降、評価を省略）
+　・論理ANDs演算子は厳密にfalse判定値を短絡評価する（operand=false判定値以降、評価を省略）
 <br>
-　・論理ORs演算子は厳密にnot(0||<a href="#span-out-literal">NaN</a>)を短絡評価する（operand=not(0||<a href="#span-out-literal">NaN</a>)以降、評価を省略）
+　・論理ORs演算子は厳密にnot(false判定値)を短絡評価する（operand=not(false判定値)以降、評価を省略）
 <br>
 ・operand省略時、error終了
 <br>
@@ -19267,7 +19296,7 @@ x=2; switch(x&gt;=4,=&lt;4:x&gt;3,=&lt;3:x&gt;2,=&lt;2:1,=&lt;{-x}) -> -2
 x=2; switch(ge(x,4),=&lt;4:gt(x,3),=&lt;3:gt(x,2),=&lt;2:1,=&lt;{-x}) -> -2
 <br>
 <br>
-Nativeの<a href="#span-out-type-ope">中置3項演算子</a>を一例に示す
+Nativeの<a href="#span-out-type-ope">条件演算子</a>を一例に示す
 <br>
 var y = ((x &lt; 0)? -x: x);
 <br>
