@@ -1,6 +1,15 @@
 clear
 local storage cleared
 
+(false|1,false||1,false|||1,false&1,false&&1,false&&&1:0|1,0||1,0|||1,0&1,0&&1,0&&&1)
+(
+1,1,false,0,false,1:
+1,1,1,0,0,0
+)
+
+clear
+local storage cleared
+
 (isNaN(trans(csv0[0])),isNaN(trans(csv0[1])))==true
 (
 0,0:
@@ -1058,4 +1067,4 @@ drag=false&sw=false&0x=false&useComplex=true&useMatrix=true&isRightAssociativity
 --------------------------------
 --------------------------------
 
-online-simulator.github.io.6.234.100.12.52 @ Tue Jun 20 2023 16:33:24 GMT+0900 (日本標準時) @ Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/114.0.0.0 Safari/537.36
+online-simulator.github.io.6.234.100.12.52 @ Tue Jun 20 2023 23:46:40 GMT+0900 (日本標準時) @ Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/114.0.0.0 Safari/537.36
