@@ -12500,6 +12500,8 @@ clear; 3*[a=2,a]; a -> [MyErr]Invalid REv(a)
 <br>
 ・<a href="#span-out-prec-ope">演算子</a>記号
 <br>
+・reserved token記号\||?||#||.||'||"||`　<span class="run">Ver.2.165.39</span>以降、追加
+<br>
 ・operand記号
 <br>
 　・<a href="#span-out-literal">NaN||論理値literal</a>　<span class="run">Ver.2.158.38</span>以降、追加
@@ -17209,6 +17211,8 @@ max=3 -> [MyErr]Invalid ans isFound
 <br>
 ・<span class="clear">Ver.2.27.15</span>以降、$から開始不可
 <br>
+$ -> [MyErr]Invalid null string
+<br>
 $a=1 -> [MyErr]Invalid SEv($a)
 <br>
 $$a=1 -> [MyErr]Invalid SEv($$a)
@@ -17219,11 +17223,21 @@ clear; 2x=4 -> [MyErr]Invalid ans isFound
 <br>
 ・single||double quotation mark使用不可
 <br>
-' || " || '' || "" -> [MyErr]Invalid null string
+<del>' || " || '' || "" -> [MyErr]Invalid null string
 <br>
 "x"=2; "x" || x -> 2
 <br>
-""=2 || =2 -> 2
+""=2 || =2 -> 2</del>
+<br>
+・<span class="run">Ver.2.165.39</span>以降、<a href="#span-out-RW">reserved token</a>記号の単体使用不可
+<br>
+. -> [MyErr]reserved token(.)
+<br>
+' -> [MyErr]reserved token(')
+<br>
+" -> [MyErr]reserved token(")
+<br>
+"x" -> [MyErr]reserved token(")
     </td>
   </tr>
   <tr>
@@ -32317,6 +32331,8 @@ operation.js抜粋
 <br>
 ・<span class="run">Ver.2.159.38</span>以降、<a href="#span-out-literal">isNaN関数</a>を追加
 <br>
+・<span class="run">Ver.2.165.39</span>以降、<a href="#span-out-RW">reserved token</a>を追加
+<br>
 <br>
 予約語は大文字・小文字・全角・半角を区別しない
 <br>
@@ -32324,6 +32340,16 @@ operation.js抜粋
 parser.js抜粋
 <pre><code>
       // reserved word
+      // token
+      case "\\":
+      case "?":
+      case "#":
+      case ".":
+      case "\'":
+      case "\"":
+      case "`":
+        throw "reserved token("+token+")";
+        break;
       // literal
       case "nan":
         tree = DATA.tree_num(NaN, 0);

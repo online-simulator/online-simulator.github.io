@@ -382,6 +382,16 @@ My_entry.parser.prototype.make_trees = function(sentence, opt_re){  // Ver.2.158
     }
     else switch(token_lower){
       // reserved word
+      // token
+      case "\\":
+      case "?":
+      case "#":
+      case ".":
+      case "\'":
+      case "\"":
+      case "`":
+        throw "reserved token("+token+")";
+        break;
       // literal
       case "nan":
         tree = DATA.tree_num(NaN, 0);
