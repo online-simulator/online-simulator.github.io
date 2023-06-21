@@ -304,6 +304,8 @@ e^(-i(1pi(){2/2i}(5-{3-1}){i/(-4)}))
 <br>
 　　・<a href="#span-out-prec-ope-logical-short-circuit">論理演算子（短絡評価）</a>
 <br>
+　　・<a href="#span-out-prec-ope-conditional">条件演算子</a>
+<br>
 ・<a href="#span-out-float">浮動小数点演算</a>
 <br>
 　・<a href="#span-out-epsilon">Machine epsilon</a>
@@ -8558,14 +8560,9 @@ Multi-thread実行を選択可
 <br>
 　left-operand operator right-operand
 <br>
-・中置3項演算子の一例（条件演算子）
+・中置3項演算子の一例（<a href="#span-out-prec-ope-conditional">条件演算子</a>）
 <br>
 　left-operand-boolean operator1 right-operand1 operator2 right-operand2
-<br>
-<br>
-留意事項を列挙する
-<br>
-・未実装の条件演算子は<a href="#span-out-FNh-switch">switch高階関数</a>で代替する
 <br>
 <br>
 小分類は<a href="#span-out-prec-ope">演算子のprecedence</a>参照
@@ -9501,6 +9498,8 @@ real(0(1-i)|||1(1-i)|||2(1-i)|||3(1-i)) -> 1
 <br>
 imag(0(1-i)|||1(1-i)|||2(1-i)|||3(1-i)) -> -1
 <br>
+(0,0)|||1 -> (0,0)
+<br>
 clear; (a=0)|||hasVar(a) -> 1
 <br>
 clear; x=1; y=&lt;x|||1/0|||-x; y -> 1
@@ -9554,6 +9553,8 @@ clear; x=(1,2); y=&lt;{0&amp;&amp;&amp;x|||Infinity|||-x&amp;&amp;&amp;1}; y -> 
 real(0(1-i)|||1(1-i)|||2(1-i)|||3(1-i)) -> 3
 <br>
 imag(0(1-i)|||1(1-i)|||2(1-i)|||3(1-i)) -> -3
+<br>
+(0,0)|||1 -> 1
 <br>
 clear; (a=0)|||hasVar(a) -> 0
 <br>
@@ -9620,6 +9621,8 @@ imag(1(1-i)&amp;&amp;&amp;2(1-i)&amp;&amp;&amp;3(1-i)&amp;&amp;&amp;4(1-i)) -> -
 <br>
 1(1-i)&amp;&amp;&amp;2(1-i)&amp;&amp;&amp;3(1-i)|||4(1-i) -> 3-3i
 <br>
+(0,0)&amp;&amp;&amp;1 -> 1
+<br>
 clear; (a=0)&amp;&amp;&amp;hasVar(a) -> 0
 <br>
 clear; x=1; y=&lt;x&amp;&amp;&amp;1/0&amp;&amp;&amp;-x; y -> NaN
@@ -9681,6 +9684,8 @@ imag(1(1-i)&amp;&amp;&amp;2(1-i)&amp;&amp;&amp;3(1-i)&amp;&amp;&amp;4(1-i)) -> -
 1(1-i)&amp;&amp;&amp;2(1-i)|||3(1-i)&amp;&amp;&amp;4(1-i) -> 3-3i
 <br>
 1(1-i)&amp;&amp;&amp;2(1-i)&amp;&amp;&amp;3(1-i)|||4(1-i) -> 4-4i
+<br>
+(0,0)&amp;&amp;&amp;1 -> (0,0)
 <br>
 clear; (a=0)&amp;&amp;&amp;hasVar(a) -> 0
 <br>
@@ -9786,9 +9791,13 @@ false&amp;&amp;&amp;1 -> false
 <br>
 　・<a href="#span-out-FNh-switch">switch高階関数</a>を代替可
 <br>
-　・論理ANDs演算子は厳密にfalse判定値を短絡評価する（operand=false判定値以降、評価を省略）
+　・論理ANDs演算子は厳密にfalse判定値を短絡評価する
 <br>
-　・論理ORs演算子は厳密にnot(false判定値)を短絡評価する（operand=not(false判定値)以降、評価を省略）
+　　operand=false判定値以降、評価を省略
+<br>
+　・論理ORs演算子は厳密にnot(false判定値)を短絡評価する
+<br>
+　　operand=not(false判定値)以降、評価を省略
 <br>
 ・operand省略時、error終了
 <br>
@@ -9803,6 +9812,116 @@ false&amp;&amp;&amp;1 -> false
 &amp;&amp;&amp; -> [MyErr]Invalid binary operation
 <br>
 ||| -> [MyErr]Invalid binary operation
+    </td>
+  </tr>
+  <tr>
+    <th>
+<a href="#span-index">
+目次
+</a>
+<br>
+条件演算子
+    </th>
+    <td>
+<span id="span-out-prec-ope-conditional"></span>
+条件演算子と付随する留意事項について記述する
+<br>
+<br>
+条件演算子は未実装で代替案を示す
+<br>
+<br>
+<a href="#span-out-FNh-switch">switch高階関数</a>
+<br>
+・Nativeの一例
+<br>
+var y = ((x &lt; 0)? -x: x);
+<br>
+・値渡し
+<br>
+y=&lt;switch(x&lt;0,-x:1,x);
+<br>
+y=&lt;switch(lt(real(x),0),-real(x):1,real(x));
+<br>
+x=2; y -> 2
+<br>
+x=-2; y -> 2
+<br>
+・<a href="#span-out-call-by-equation">式渡し</a>
+<br>
+y=&lt;switch(x&lt;0,=&lt;-x:1,=&lt;{x});
+<br>
+y=&lt;switch(lt(real(x),0),=&lt;-real(x):1,=&lt;real(x));
+<br>
+x=2; y -> 2
+<br>
+x=-2; y -> 2
+<br>
+・<a href="#span-out-eqns">式変数</a>を使用
+<br>
+cond_m=&lt;lt(real(x),0); proc_m=&lt;-real(x); cond_p=&lt;1; proc_p=&lt;real(x);
+<br>
+x=-2; (cond_m,proc_m:cond_p,proc_p) -> (1,2:1,-2)
+<br>
+x=-2; switch(cond_m,proc_m:cond_p,proc_p) -> 2
+<br>
+x=-2; (cond_m,=&lt;proc_m:cond_p,=&lt;proc_p) -> [MyErr]Invalid BTe([object Object])
+<br>
+x=-2; switch(cond_m,=&lt;proc_m:cond_p,=&lt;proc_p) -> 2
+<br>
+・値渡し
+<br>
+cp_m=&lt;(cond_m,proc_m); cp_p=&lt;(cond_p,proc_p);
+<br>
+cp_mp=&lt;(cp_m:cp_p);
+<br>
+x=-2; (cp_mp) -> (1,2:1,-2)
+<br>
+x=-2; switch(cp_mp) -> 2
+<br>
+・<a href="#span-out-call-by-equation">式渡し</a>
+<br>
+cp_m=&lt;(cond_m,=&lt;proc_m); cp_p=&lt;(cond_p,=&lt;proc_p);
+<br>
+cp_mp=&lt;(cp_m:cp_p);
+<br>
+x=-2; (cp_mp) -> [MyErr]Invalid BTe([object Object])
+<br>
+x=-2; switch(cp_mp) -> 2
+<br>
+<br>
+<a href="#span-out-prec-ope-logical-short-circuit">論理演算子（短絡評価）</a>
+<br>
+・left||rightのexpressionを分岐する<span class="run">Python</span>記法の一例（<a href="#span-out-option1">LA既定</a>）
+<br>
+sw_equation(isLeft,=&lt;left,=&lt;right)=&lt;(isLeft&amp;&amp;&amp;{left=&gt;,}|||{right=&gt;,})[0];
+<br>
+sw_equation(false,=&lt;0,=&lt;1) || sw_equation(0,=&lt;0,=&lt;1) -> 1
+<br>
+sw_equation(true,=&lt;0,=&lt;1) || sw_equation(1,=&lt;0,=&lt;1) -> 0
+<br>
+・<a href="#span-out-ope">無次元</a>の場合、left=0を返却不能の対策が必要
+<br>
+sw_NG(isLeft)=&lt;isLeft&amp;&amp;&amp;{=&lt;0}=&gt;|||{=&lt;1}=&gt;;
+<br>
+sw_NG(false),sw_NG(true) -> (1,1)
+<br>
+・<a href="#span-out-ope">有次元</a>の場合、対策不要
+<br>
+sw_mat(isLeft,=&lt;left,=&lt;right)=&lt;(isLeft&amp;&amp;&amp;left=&gt;|||right=&gt;);
+<br>
+l=&lt;[a=1,a:2a,3a];
+<br>
+r=&lt;[a=-1,a:2a,3a];
+<br>
+sw_mat(false,=&lt;l,=&lt;r),sw_mat(true,=&lt;l,=&lt;r),sw_mat(0,=&lt;l,=&lt;r)+sw_mat(1,=&lt;l,=&lt;r) ->
+<br>
+(
+<br>
+0,-1,0,1,0,0:
+<br>
+-2,-3,2,3,0,0
+<br>
+)
     </td>
   </tr>
   <tr>
@@ -13991,9 +14110,13 @@ SND=&lt;exp(-t^2/2)/sqrt(2pi);
 <br>
 Px=&lt;_it(=&lt;SND,0,x)2;
 <br>
+P(x)=&lt;_it(=&lt;SND,0,x)*2;
+<br>
 ・誤差関数erf(x)
 <br>
 erfx=&lt;_it(=&lt;SND,0,x(sqrt2))2;
+<br>
+erf(x)=&lt;P(x*sqrt2);
 <br>
 ・同義
 <br>
@@ -14002,6 +14125,8 @@ erfx=&lt;_it(=&lt;{exp(-t^2)},0,x)(2/sqrt(pi));
 ・相補誤差関数erfc(x)
 <br>
 erfcx=&lt;1-erfx;
+<br>
+erfc(x)=&lt;1-erf(x);
     </td>
   </tr>
   <tr>
@@ -17410,7 +17535,7 @@ clear; x=2:3x -> (0:6)
 詳細は<a href="#span-out-special-substitution">特殊仕様</a>参照
 <br>
 <br>
-代入のnestingを許容する
+代入のnestingを許容する（<a href="#span-out-BT">括弧</a>より優先の<a href="#span-out-FNc">最上位関数</a>を除く）
 <br>
 clear; (a=(b=1),{c=2}) -> (0,0)
 <br>
@@ -19296,65 +19421,6 @@ x=2; switch(x&gt;=4,=&lt;4:x&gt;3,=&lt;3:x&gt;2,=&lt;2:1,=&lt;{-x}) -> -2
 x=2; switch(ge(x,4),=&lt;4:gt(x,3),=&lt;3:gt(x,2),=&lt;2:1,=&lt;{-x}) -> -2
 <br>
 <br>
-Nativeの<a href="#span-out-type-ope">条件演算子</a>を一例に示す
-<br>
-var y = ((x &lt; 0)? -x: x);
-<br>
-・対の処理を値渡しで記述する場合
-<br>
-y=&lt;switch(x&lt;0,-x:1,x);
-<br>
-y=&lt;switch(lt(real(x),0),-real(x):1,real(x));
-<br>
-x=2; y -> 2
-<br>
-x=-2; y -> 2
-<br>
-・対の処理を<a href="#span-out-call-by-equation">式渡し</a>で記述する場合
-<br>
-y=&lt;switch(x&lt;0,=&lt;-x:1,=&lt;{x});
-<br>
-y=&lt;switch(lt(real(x),0),=&lt;-real(x):1,=&lt;real(x));
-<br>
-x=2; y -> 2
-<br>
-x=-2; y -> 2
-<br>
-・<a href="#span-out-eqns">式変数</a>を使用
-<br>
-cond_m=&lt;lt(real(x),0); proc_m=&lt;-real(x); cond_p=&lt;1; proc_p=&lt;real(x);
-<br>
-x=-2; (cond_m,proc_m:cond_p,proc_p) -> (1,2:1,-2)
-<br>
-x=-2; switch(cond_m,proc_m:cond_p,proc_p) -> 2
-<br>
-x=-2; (cond_m,=&lt;proc_m:cond_p,=&lt;proc_p) -> [MyErr]Invalid BTe([object Object])
-<br>
-x=-2; switch(cond_m,=&lt;proc_m:cond_p,=&lt;proc_p) -> 2
-<br>
-・<a href="#span-out-BT">丸括弧()</a>で<a href="#span-out-substitution">代入</a>・<a href="#span-out-substitution-equation">式代入</a>のnesting可（<a href="#span-out-BT">括弧</a>より優先の<a href="#span-out-FNc">最上位関数</a>を除く）
-<br>
-・対の処理を値渡しで記述する場合
-<br>
-cp_m=&lt;(cond_m,proc_m); cp_p=&lt;(cond_p,proc_p);
-<br>
-cp_mp=&lt;(cp_m:cp_p);
-<br>
-x=-2; (cp_mp) -> (1,2:1,-2)
-<br>
-x=-2; switch(cp_mp) -> 2
-<br>
-・対の処理を<a href="#span-out-call-by-equation">式渡し</a>で記述する場合
-<br>
-cp_m=&lt;(cond_m,=&lt;proc_m); cp_p=&lt;(cond_p,=&lt;proc_p);
-<br>
-cp_mp=&lt;(cp_m:cp_p);
-<br>
-x=-2; (cp_mp) -> [MyErr]Invalid BTe([object Object])
-<br>
-x=-2; switch(cp_mp) -> 2
-<br>
-<br>
 <a href="#span-out-prec-ope-logical">論理演算子</a>を<a href="#span-out-prec-ope-bit">bit演算子</a>で代替する場合、<a href="#span-out-BT">括弧</a>を明示するか<a href="#span-out-FN-ope">関数</a>を使用する
 <br>
 ・if(1==1 || 1==-1) return 1;
@@ -19416,7 +19482,7 @@ clear; b=1; a=&lt;b=2; b=&lt;b; switch(1,=&lt;b:0,=&lt;a) -> 1
 <br>
 clear; b=1; a=&lt;b=2; b=&lt;b; switch(0,=&lt;a:1,=&lt;b) -> 1
 <br>
-・<span class="run">Ver.2.157.38</span>以降、<a href="#span-out-FNh-switch">switch高階関数</a>代替の<a href="#span-out-prec-ope-logical-short-circuit">論理演算子（短絡評価）</a>を追加
+・<span class="run">Ver.2.157.38</span>以降、<a href="#span-out-prec-ope-logical-short-circuit">論理演算子（短絡評価）</a>を追加
 <br>
 clear; b=0; a=&lt;b=1; 0|||a,b -> (0,1)
 <br>
@@ -32050,6 +32116,10 @@ clear; [a=2,=&lt;[b=1,a=&lt;first[[b,],b,],=&lt;a=&gt;]=&gt;+a]=&gt; -> 3
 <br>
 　<a href="#span-out-FNh">高階関数</a>のdummy変数同様（参考）
 <br>
+・argument判別の条件分岐が複雑化し、非常に重い（Nativeの参照渡しと異なる）
+<br>
+　restore -> REe2SEeの変換前後で2重cloneの無駄あり
+<br>
 <br>
 <a href="#span-out-scope-inherited-call">式変数のscope継承call</a>について記述する
 <br>
@@ -32267,7 +32337,7 @@ operation.js抜粋
       ],
       [
         /* following short-circuit */
-        "BRlAOs" // Binary operatoR logical ANDs || ORs &&& || |||
+        "BRlAOs" // Binary operatoR logical ANDs || ORs &amp;&amp;&amp; || |||
       ],
       [
         /* following function */

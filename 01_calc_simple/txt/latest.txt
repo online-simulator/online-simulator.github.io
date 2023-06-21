@@ -1,6 +1,35 @@
 clear
 local storage cleared
 
+run(false),run(true),run(0)+run(1)
+(
+0,-4,0,4,0,0:
+-8,-12,8,12,0,0
+)
+
+run(isLeft)=<[_rn(=<mat=mat+sw_mat(isLeft,=<l,=<r),mat=zeros(2,2),100,=<abs(mat[1][1])>10),=<mat]=>
+stored_eqn(run)
+
+sw_mat(false,=<l,=<r),sw_mat(true,=<l,=<r),sw_mat(0,=<l,=<r)+sw_mat(1,=<l,=<r)
+(
+0,-1,0,1,0,0:
+-2,-3,2,3,0,0
+)
+
+r=<[a=-1,a:2a,3a]
+stored_eqn(r)
+
+l=<[a=1,a:2a,3a]
+stored_eqn(l)
+
+sw_mat(isLeft,=<left,=<right)=<(isLeft&&&left=>|||right=>)
+stored_eqn(sw_mat)
+
+[sw_NG(isLeft)=<isLeft&&&{=<0}=>|||{=<1}=>,=<(sw_NG(false),sw_NG(true))]=>
+(
+1,1
+)
+
 sw_equation(false,=<0,=<1),sw_equation(0,=<0,=<1),sw_equation(true,=<0,=<1),sw_equation(1,=<0,=<1)
 (
 1,1,0,0
@@ -42,6 +71,14 @@ csv0=(
 (0/0,1/0,~NaN,~~NaN,NaN|1,NaN||1,NaN|||1,NaN&1,NaN&&1,NaN&&&1)
 (
 NaN,NaN,-1,1,1,1,1,0,NaN,NaN
+)
+
+(0,0)&&&1
+1
+
+(0,0)|||1
+(
+0,0
 )
 
 (NaN==NaN,nan==NAN,false==false,FALSE==0,true==true,TRUE==1)
@@ -1075,4 +1112,4 @@ drag=false&sw=false&0x=false&useComplex=true&useMatrix=true&isRightAssociativity
 --------------------------------
 --------------------------------
 
-online-simulator.github.io.6.234.100.12.53 @ Wed Jun 21 2023 01:09:39 GMT+0900 (日本標準時) @ Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/114.0.0.0 Safari/537.36
+online-simulator.github.io.6.234.100.12.53 @ Wed Jun 21 2023 17:06:26 GMT+0900 (日本標準時) @ Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/114.0.0.0 Safari/537.36
