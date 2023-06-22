@@ -274,6 +274,8 @@ e^(-i(1pi(){2/2i}(5-{3-1}){i/(-4)}))
 <br>
 ・<a href="#span-out-options">外部option</a>
 <br>
+　・<a href="#span-out-option5">O(error)</a>
+<br>
 　・<a href="#span-out-option1">2項演算子のassociativity</a>
 <br>
 　・<a href="#span-out-option2">記号省略乗算</a>
@@ -1956,7 +1958,9 @@ panel中段について記述する
 <br>
 ・matrix checked時、<a href="#span-out-mat">行列</a>演算を有効化
 <br>
-　定義可能な2項演算のみ
+　<del>定義可能な2項演算のみ</del><span class="run">Ver.2.73.29</span>以降、<a href="#span-out-ope-extended">拡張行列演算</a>を追加
+<br>
+・<span class="run">Ver.2.166.40</span>以降、strict checked時、<a href="#span-out-config-strict">strict-mode</a>を有効化
 <br>
 ・演算結果の小数表記と指数表記を選択可
 <br>
@@ -8363,6 +8367,8 @@ max(x=3,-1,-2) || max(0,-1,-2) -> 0
 <span id="span-out-options"></span>
 外部optionの設定項目を列挙する
 <br>
+・<a href="#span-out-option5">O(error)</a>　<span class="run">Ver.2.166.40</span>以降、追加
+<br>
 ・<a href="#span-out-option1">2項演算子のassociativity</a>
 <br>
 ・<a href="#span-out-option2">記号省略乗算</a>
@@ -8370,6 +8376,24 @@ max(x=3,-1,-2) || max(0,-1,-2) -> 0
 ・<a href="#span-out-option4">comma演算子</a>
 <br>
 ・<a href="#span-out-option3">Multi-thread実行</a>
+    </td>
+  </tr>
+  <tr>
+    <th>
+<a href="#span-index">
+目次
+</a>
+<br>
+O(error)
+    </th>
+    <td>
+<span id="span-out-option5"></span>
+外部optionのO(error)と付随する留意事項について記述する
+<br>
+<br>
+<span class="run">Ver.2.166.40</span>以降、<a href="#span-out-error">情報落ち</a>と<a href="#span-out-error-numerical">数値誤差</a>の<a href="#span-out-log">log表示</a>||非表示を選択可
+<br>
+・<a href="#span-in-options">内部option</a>の<a href="#span-out-config">checkError</a>=true||false
     </td>
   </tr>
   <tr>
@@ -10536,7 +10560,7 @@ ans*0 -> 0
 UIには表示しない裏設定について記述する
 <br>
 <br>
-browser上部のURL入力欄のGET入力で<a href="#span-in-options">内部option</a>を変更可
+browser上部のURL入力欄のGET入力で<a href="#span-in-options">内部option</a>を変更可（UI設定値||既定値を上書き可）
 <br>
 ・html直後の?に続けて&amp;区切りでparameterを渡す
 <br>
@@ -10548,10 +10572,6 @@ index.html?param0=value0&amp;param1=value1&amp;param2=value2&amp;...
 useStrict=true
 <br>
 useStrict=1
-<br>
-・乗算記号*省略不可
-<br>
-・<a href="#span-out-eqns-call">式読出し</a>記号=&gt;省略不可
 <br>
 <br>
 <a href="#span-out-error">情報落ち</a>の発生や<a href="#span-out-FNh-DX">微分</a>・<a href="#span-out-FNh-IX">積分</a>の<a href="#span-out-error-numerical">数値誤差</a>を評価しない場合、falseを設定
@@ -10694,9 +10714,6 @@ clear; times(a,b)=&lt;a<span class="condition">*</span>b; times=2; times(-2,3) -
 clear; times(a,b)=&lt;a<span class="condition">*</span>b; times=2; times(-2,3)<span class="clear">=&gt;</span>times; times -> -6
 <br>
 clear; times(a,b)=&lt;a<span class="condition">*</span>b; times=2; times(-2,3)<span class="clear">=&gt;</span>(times) -> [MyErr]Invalid ans isFound
-<br>
-<br>
-strict-modeで実行する場合、<a href="#span-out-config">裏設定</a>参照
     </td>
   </tr>
   <tr>
@@ -17615,6 +17632,10 @@ clear; ($a,$b)=(1) -> [MyErr]Invalid matching(vars)
 <br>
 clear; ($a,(($b)=3))=(1,2) -> [MyErr]Invalid matching(vars)
 </del><span class="run">Ver.2.29.15</span>以降、対応
+<br>
+・左右未解決のmatching不可
+<br>
+($a,$b)=($c,2) -> [MyErr]Invalid matching(LR)
 <br>
 ・変数を含む演算不可
 <br>
@@ -32257,7 +32278,7 @@ data.logo -> "makeLog=true"
 ・oldPlot2d: <span class="run">Ver.2.33.17</span>以前のplot2d 0.seriesを使用するflag
 <br>
 <br>
-browser-GUI実行の場合、URLのGET入力で既定値を上書き可
+browser-GUI実行の場合、URLのGET入力でUI設定値||既定値を上書き可
     </td>
   </tr>
   <tr>

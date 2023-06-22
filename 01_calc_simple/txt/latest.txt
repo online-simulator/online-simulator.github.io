@@ -1108,8 +1108,8 @@ e^(-i(1pi()2/2i(5-3-1)i/(-4)))/*associativity&precedence test case*/
 0.7071067811865476-0.7071067811865475i
 
 --------------------------------
-drag=false&sw=false&0x=false&useComplex=true&useMatrix=true&isRightAssociativityBR=false&isDIVprior2OMUL=false&useComma=false&useWorker=true&expDigit=-1&useStrict=false&checkError=true&matSizeMax=1000&depthMax=300&makeLog=2
+drag=false&sw=false&0x=false&useComplex=true&useMatrix=true&useStrict=false&checkError=true&isRightAssociativityBR=false&isDIVprior2OMUL=false&useComma=false&useWorker=true&expDigit=-1&matSizeMax=1000&depthMax=300&makeLog=2
 --------------------------------
 --------------------------------
 
-online-simulator.github.io.6.234.100.12.53 @ Wed Jun 21 2023 18:30:58 GMT+0900 (日本標準時) @ Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/114.0.0.0 Safari/537.36
+online-simulator.github.io.6.235.100.12.53 @ Thu Jun 22 2023 15:42:33 GMT+0900 (日本標準時) @ Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/114.0.0.0 Safari/537.36
