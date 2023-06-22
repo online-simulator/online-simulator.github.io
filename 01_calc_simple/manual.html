@@ -8786,7 +8786,7 @@ precedence
 <br>
 　・<a href="#span-out-type-ope">中置2項演算子</a>
 <br>
-　　・ <span class="selection">厳密一致</span>||一致||不一致関係演算子 <span class="selection">===</span> || == || &lt;&gt;　<span class="selection">Ver.2.167.40</span>以降、追加
+　　・<span class="selection">厳密等価</span>||等価||不等価演算子 <span class="selection">===</span> || == || &lt;&gt;　<span class="selection">Ver.2.167.40</span>以降、追加
 <br>
 ・<a href="#span-out-prec-ope-logical">論理演算子</a>　<span class="run">Ver.2.59.26</span>以降、追加
 <br>
@@ -9217,6 +9217,12 @@ i===0 -> 1
 2i===0 -> 1
 <br>
 i===false -> 0+O(1e+0)
+<br>
+・厳密不等価の判定は<a href="#span-out-prec-ope-logical">論理NOT</a>||<a href="#span-out-FN-ope">関数</a>を使用
+<br>
+~~false===0 || ~~(false===0) -> 1+O(1e+0)
+<br>
+sne(false,0) -> 1+O(1e+0)
 <br>
 <br>
 論理ORをbit orで代替する場合、<a href="#span-out-BT">括弧</a>を明示するか<a href="#span-out-FN-ope">関数</a>を使用する
@@ -13274,7 +13280,9 @@ operandが<a href="#span-out-com">複素数</a>の場合
 <br>
 operandが実数の場合、<a href="#span-out-type-ope">中置2項演算子</a>を代替可
 <br>
-・<span class="run">Ver.2.167.40</span>以降、left===rightを代替するstrict equal判定関数: se(left, right)
+・<span class="run">Ver.2.167.40</span>以降、left===rightを代替するstrict equal判定関数: seq(left, right)
+<br>
+・<span class="run">Ver.2.167.40</span>以降、left!==rightを代替するstrict not equal判定関数: sne(left, right)
 <br>
 ・left==rightを代替するequal判定関数: eq(left, right)
 <br>
@@ -32366,7 +32374,7 @@ precedence
 <span id="span-in-prec"></span>
 <a href="#span-out-vars">変数</a>・<a href="#span-out-FN">関数</a>・<a href="#span-out-SR">区切り文字</a>・<a href="#span-out-prec-ope">演算子のprecedence</a>について記述する
 <br>
-・<span class="run">Ver.2.167.40</span>以降、<a href="#span-out-prec-ope-relational">===演算子</a>を追加
+・<span class="run">Ver.2.167.40</span>以降、<a href="#span-out-prec-ope-relational">厳密等価演算子</a>を追加
 <br>
 <br>
 配列要素の定義順で<a href="#span-out-prec">演算のprecedence</a>を動的に変更可能とする
@@ -32484,7 +32492,7 @@ operation.js抜粋
 <br>
 ・<span class="run">Ver.2.165.39</span>以降、<a href="#span-out-RW">reserved token</a>を追加
 <br>
-・<span class="run">Ver.2.167.40</span>以降、<a href="#span-out-FN-ope">se関数</a>を追加
+・<span class="run">Ver.2.167.40</span>以降、<a href="#span-out-FN-ope">seq||sne関数</a>を追加
 <br>
 <br>
 予約語は大文字・小文字・全角・半角を区別しない
@@ -32544,7 +32552,8 @@ parser.js抜粋
       // "FN2"
       // only real number
       // relational
-      case "se":
+      case "seq":
+      case "sne":
       case "eq":
       case "ne":
       // comparison

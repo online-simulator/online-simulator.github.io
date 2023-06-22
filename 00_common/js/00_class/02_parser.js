@@ -433,7 +433,8 @@ My_entry.parser.prototype.make_trees = function(sentence, opt_re){  // Ver.2.158
       // "FN2"
       // only real number
       // relational
-      case "se":
+      case "seq":
+      case "sne":
       case "eq":
       case "ne":
       // comparison
