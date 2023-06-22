@@ -8786,7 +8786,7 @@ precedence
 <br>
 　・<a href="#span-out-type-ope">中置2項演算子</a>
 <br>
-　　・一致||不一致関係演算子 == || &lt;&gt;
+　　・ <span class="selection">厳密一致</span>||一致||不一致関係演算子 <span class="selection">===</span> || == || &lt;&gt;　<span class="selection">Ver.2.167.40</span>以降、追加
 <br>
 ・<a href="#span-out-prec-ope-logical">論理演算子</a>　<span class="run">Ver.2.59.26</span>以降、追加
 <br>
@@ -9194,6 +9194,29 @@ i&lt;&lt;2 || real(i)&lt;&lt;2 || 0&lt;&lt;2 -> 0
     <td>
 <span id="span-out-prec-ope-relational"></span>
 関係演算子と付随する留意事項について記述する
+<br>
+<br>
+<span class="run">Ver.2.167.40</span>以降、厳密等価演算子を追加
+<br>
+false==0 -> 1
+<br>
+false===0 -> 0+O(1e+0)
+<br>
+false===FALSE -> 1
+<br>
+true==1 -> 1
+<br>
+true===1 -> 0+O(1e+0)
+<br>
+true===TRUE -> 1
+<br>
+・虚数=0扱い
+<br>
+i===0 -> 1
+<br>
+2i===0 -> 1
+<br>
+i===false -> 0+O(1e+0)
 <br>
 <br>
 論理ORをbit orで代替する場合、<a href="#span-out-BT">括弧</a>を明示するか<a href="#span-out-FN-ope">関数</a>を使用する
@@ -13239,7 +13262,7 @@ clear; x=gcd(-1,2,-3); x*1 || 0*1 -> 0
 演算子代替関数の入力仕様と付随する留意事項について記述する
 <br>
 <br>
-leftとrightの数値の関係||大小を比較する関数について記述する
+leftとrightの数値の関係||大小を比較（<a href="#span-out-error-numerical">数値誤差</a>は無視）する関数について記述する
 <br>
 <br>
 operandが<a href="#span-out-com">複素数</a>の場合
@@ -13250,6 +13273,8 @@ operandが<a href="#span-out-com">複素数</a>の場合
 <br>
 <br>
 operandが実数の場合、<a href="#span-out-type-ope">中置2項演算子</a>を代替可
+<br>
+・<span class="run">Ver.2.167.40</span>以降、left===rightを代替するstrict equal判定関数: se(left, right)
 <br>
 ・left==rightを代替するequal判定関数: eq(left, right)
 <br>
@@ -19395,7 +19420,7 @@ switch({第1引数:=&lt;第2引数}:{第3引数:=&lt;第4引数}:...)
 <br>
 　条件文成立時: 対の処理の演算結果を返す
 <br>
-　全条件文不成立時: 0を返す
+　全条件文不成立時: <del>0を返す</del><span class="run">Ver.2.167.40</span>以降、<span class="clear"><a href="#span-out-literal">false</a></span>を返す
 <br>
 <br>
 値を返す場合
@@ -19412,7 +19437,7 @@ switch(第1引数,第2引数:第3引数,第4引数:...)
 <br>
 　条件文成立時: 対の返却値を返す
 <br>
-　全条件文不成立時: 0を返す
+　全条件文不成立時: <del>0を返す</del><span class="run">Ver.2.167.40</span>以降、<span class="clear"><a href="#span-out-literal">false</a></span>を返す
 <br>
 <br>
 Nativeのif文を一例に示す
@@ -19450,26 +19475,30 @@ switch((1==1)|(1==-1),1) || switch(eq(1,1)|eq(1,-1),1) || switch(1|0,1) -> 1
 <br>
 ・if(1==1 &amp;&amp; 1==-1) return 1;
 <br>
-switch((1==1)&amp;(1==-1),1) || switch(eq(1,1)&amp;eq(1,-1),1) || switch(1&amp;0,1) -> 0
+switch((1==1)&amp;(1==-1),1) || switch(eq(1,1)&amp;eq(1,-1),1) || switch(1&amp;0,1) -> <del>0</del><span class="clear">false</span>
 <br>
 ・<span class="run">Ver.2.59.26</span>以降、<a href="#span-out-prec-ope-logical">論理演算子</a>を追加
 <br>
 switch(1==1||1==-1,1) || switch((1==1)||(1==-1),1) || switch(1||0,1) -> 1
 <br>
-switch(1==1&amp;&amp;1==-1,1) || switch((1==1)&amp;&amp;(1==-1),1) || switch(1&amp;&amp;0,1) -> 0
+switch(1==1&amp;&amp;1==-1,1) || switch((1==1)&amp;&amp;(1==-1),1) || switch(1&amp;&amp;0,1) -> <del>0</del><span class="clear">false</span>
 <br>
 <br>
 test caseを列挙する
 <br>
-switch(0) -> 0
+switch(0) -> <del>0</del><span class="clear">false</span>
 <br>
-switch(1) -> 0
+switch(1) -> <del>0</del><span class="clear">false</span>
 <br>
-switch(i) -> 0
+switch(i) -> <del>0</del><span class="clear">false</span>
+<br>
+switch(1,0) -> 0
 <br>
 switch(1,1) -> 1
 <br>
-switch(i,1) -> 0
+switch(1,i) -> i
+<br>
+switch(i,1) -> <del>0</del><span class="clear">false</span>
 <br>
 switch(0,0:1,2:3,4) -> 2
 <br>
@@ -19491,7 +19520,7 @@ switch(0:1,=&lt;{1}) -> 1
 <br>
 switch(0,0:1,=&lt;{1}) || switch((0,0):(1,=&lt;{1})) || switch({0:0}:{1:=&lt;{1}}) -> 1
 <br>
-switch(0,0,1,=&lt;{1})  <span class="selection">// NG</span> -> 0
+switch(0,0,1,=&lt;{1})  <span class="selection">// NG</span> -> <del>0</del><span class="clear">false</span>
 <br>
 switch(0,0:0,0:0,0:1,=&lt;{1}:1,=&lt;{2}) -> 1
 <br>
@@ -32337,6 +32366,8 @@ precedence
 <span id="span-in-prec"></span>
 <a href="#span-out-vars">変数</a>・<a href="#span-out-FN">関数</a>・<a href="#span-out-SR">区切り文字</a>・<a href="#span-out-prec-ope">演算子のprecedence</a>について記述する
 <br>
+・<span class="run">Ver.2.167.40</span>以降、<a href="#span-out-prec-ope-relational">===演算子</a>を追加
+<br>
 <br>
 配列要素の定義順で<a href="#span-out-prec">演算のprecedence</a>を動的に変更可能とする
 <br>
@@ -32412,7 +32443,7 @@ operation.js抜粋
       ],
       [
         "BRcn",  // Binary operatoR comparison &lt; || &lt;= || &gt;= || &gt;
-        "BRrl",  // Binary operatoR relational == || &lt;&gt;
+        "BRrl",  // Binary operatoR relational === || == || &lt;&gt;
         "PUlN",  // Pre-Unary operator logical NOT ~~
         "BRlA",  // Binary operatoR logical    AND &amp;&amp;
         "BRlO"   // Binary operatoR logical     OR ||
@@ -32452,6 +32483,8 @@ operation.js抜粋
 ・<span class="run">Ver.2.159.38</span>以降、<a href="#span-out-literal">isNaN関数</a>を追加
 <br>
 ・<span class="run">Ver.2.165.39</span>以降、<a href="#span-out-RW">reserved token</a>を追加
+<br>
+・<span class="run">Ver.2.167.40</span>以降、<a href="#span-out-FN-ope">se関数</a>を追加
 <br>
 <br>
 予約語は大文字・小文字・全角・半角を区別しない
@@ -32511,6 +32544,7 @@ parser.js抜粋
       // "FN2"
       // only real number
       // relational
+      case "se":
       case "eq":
       case "ne":
       // comparison

@@ -55,7 +55,7 @@ My_entry.parser.prototype.config = {
       // bit shift
       {b: /[<]{2}|[>]{2,3}/, a: "BRbs"},
       // relational operator check first
-      {b: /==/, a: "BRrl"},
+      {b: /[=]{2,3}/, a: "BRrl"},  // Ver.2.167.40
       {b: /<>/, a: "BRrl"},
       // comparison operator check second
       {b: /<[=]{0,1}/, a: "BRcn"},
@@ -433,6 +433,7 @@ My_entry.parser.prototype.make_trees = function(sentence, opt_re){  // Ver.2.158
       // "FN2"
       // only real number
       // relational
+      case "se":
       case "eq":
       case "ne":
       // comparison

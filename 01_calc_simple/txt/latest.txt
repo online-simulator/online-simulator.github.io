@@ -1,6 +1,34 @@
 clear
 local storage cleared
 
+i=0,=0-i,i==0,i===0,i===false
+(
+-i,-i,1,1,0+O(1e+0)
+)
+
+false=true,=true-false,false==true,false===true
+(
+1,1,0,0
+)
+
+false==0,false===0,false===FALSE,true==1,true===1,true===TRUE
+(
+1,0+O(1e+0),1,1,0+O(1e+0),1
+)
+
+NaN===NaN,se(NaN,NaN),se(false,NaN),se(false,0),se(last{isMatched(x)=<switch(x>=0,true),isMatched(-1)},false)
+(
+0,0,0,0+O(1e+0),1
+)
+
+switch(0),switch(0,0),switch(1,0),switch(1,1),switch(1,i)
+(
+false,false,0,1,i
+)
+
+clear
+local storage cleared
+
 run(false),run(true),run(0)+run(1)
 (
 0,-4,0,4,0,0:
@@ -1112,4 +1140,4 @@ drag=false&sw=false&0x=false&useComplex=true&useMatrix=true&useStrict=false&chec
 --------------------------------
 --------------------------------
 
-online-simulator.github.io.6.235.100.12.53 @ Thu Jun 22 2023 15:42:33 GMT+0900 (日本標準時) @ Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/114.0.0.0 Safari/537.36
+online-simulator.github.io.6.236.100.12.53 @ Thu Jun 22 2023 19:40:44 GMT+0900 (日本標準時) @ Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/114.0.0.0 Safari/537.36

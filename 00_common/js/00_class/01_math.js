@@ -45,6 +45,11 @@ My_entry.math.prototype.int = function(x){
   return Math.floor((x >= 0 || x%1 === 0)? x: x+1);
 };
 /* -> 2.87.32 */
+/* Ver.2.167.40 */
+My_entry.math.prototype.se = function(a, b){
+  var self = this;
+  return ((a === b)? 1: 0);
+};
 My_entry.math.prototype.eq = function(a, b){
   var self = this;
   return ((a == b)? 1: 0);
@@ -354,6 +359,11 @@ My_entry.math.prototype[">"] = function(x, y){
 My_entry.math.prototype["=="] = function(x, y){
   var self = this;
   return ((x==y)? 1: 0);
+};
+/* Ver.2.167.40 */
+My_entry.math.prototype["==="] = function(x, y){
+  var self = this;
+  return ((x===y)? 1: 0);
 };
 My_entry.math.prototype["<>"] = function(x, y){
   var self = this;

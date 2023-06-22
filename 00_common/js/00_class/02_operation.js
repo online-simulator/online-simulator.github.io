@@ -77,7 +77,7 @@ My_entry.operation.prototype.config = {
       ],
       [
         "BRcn",  // Binary operatoR comparison < || <= || >= || >
-        "BRrl",  // Binary operatoR relational == || <>
+        "BRrl",  // Binary operatoR relational === || == || <>
         "PUlN",  // Pre-Unary operator logical NOT ~~
         "BRlA",  // Binary operatoR logical    AND &&
         "BRlO"   // Binary operatoR logical     OR ||
@@ -1824,7 +1824,7 @@ My_entry.operation.prototype.SX = function(data, rightArr, tagObj){
 My_entry.operation.prototype.switch = function(data, rightArr, tagObj){
   var self = this;
   var DATA = self.entry.DATA;
-  var _tree = DATA.tree_num(0, 0);
+  var _tree = DATA.tree_num(false, 0);  // Ver.2.167.40
   var len_i = rightArr.length;
   for(var i=0; i<len_i; ++i){
     var args = rightArr[i];
