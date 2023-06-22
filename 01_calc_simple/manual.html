@@ -8126,7 +8126,7 @@ csv-read機能について記述する
 <br>
 ・<span class="selection">read範囲</span>の行数：2行目~最終行
 <br>
-・<span class="clear">要素が空</span>の場合、<del>0に変換</del><span class="run">Ver.2.162.39</span>以降、<a href="#span-out-literal">NaN</a>に変換
+・<span class="clear">要素が空</span>の場合、<del>0に変換</del><span class="run">Ver.2.162.39</span>以降、欠損値として<a href="#span-out-literal">NaN</a>に変換
 <br>
 ・要素が<a href="#span-out-num">実数値</a>以外の場合、<a href="#span-out-literal">NaN</a>に変換
 <br>
@@ -9217,6 +9217,10 @@ i===0 -> 1
 2i===0 -> 1
 <br>
 i===false -> 0+O(1e+0)
+<br>
+・厳密不等価演算子は未実装
+<br>
+false&lt;&gt;0 -> 0
 <br>
 ・厳密不等価の判定は<a href="#span-out-prec-ope-logical">論理NOT</a>||<a href="#span-out-FN-ope">関数</a>を使用
 <br>
@@ -31512,6 +31516,8 @@ f=&lt;last{V=1,E=0,k=1,I=exp(k*(V-E))-exp(-k*(V-E))}
 ・<a href="#span-out-mat">行列</a>演算を含む<a href="#span-out-associativity">2項演算子のassociativity</a>は単なるfor-loopで結合順||演算順を保証する
 <br>
 ・reccursive callを代替する<a href="#span-out-FNh-RX">再帰高階関数</a>も同様に、独自のcall stackを実装しない
+<br>
+・<a href="#span-out-FNh">高階関数</a>の反復処理毎に対象の<a href="#span-in-tree">tree構造</a>全体（scope-idsを含む）をdeep-copyで複製する
 <br>
 ・よって<a href="#span-out-FNh">高階関数</a>をnestingする場合、致命的にthroughputが低下する（<a href="#span-out-FNh-DX">微分の多重化</a>||<a href="#span-out-interpolation-Lagrange">Lagrange補間</a>）
 <br>
