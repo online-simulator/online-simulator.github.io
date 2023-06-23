@@ -1,6 +1,14 @@
 clear
 local storage cleared
 
+NaN+0,NaN+i,(NaN)i,NaN+(NaN)i,NaN*0,NaN*false,NaN*true,NaN*NaN
+(
+NaN,i,NaN,NaN,NaN,NaN,NaN,NaN
+)
+
+clear
+local storage cleared
+
 bitnot(0),bitnot(false),bitnot(1),bitnot(true),bitnot(i),bitnot(NaN),bitand(1,2),bitxor(1,2),bitor(2,3):not(0),not(false),not(1),not(true),not(i),not(NaN),and(1,2),xor(1,2),or(2,3)/*real number only*/
 (
 -1,-1,-2,-2,-1,-1,0,3,3:
@@ -1151,4 +1159,4 @@ drag=false&sw=false&0x=false&useComplex=true&useMatrix=true&useStrict=false&chec
 --------------------------------
 --------------------------------
 
-online-simulator.github.io.6.236.100.12.53 @ Fri Jun 23 2023 12:35:25 GMT+0900 (日本標準時) @ Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/114.0.0.0 Safari/537.36
+online-simulator.github.io.6.236.100.12.53 @ Fri Jun 23 2023 17:41:05 GMT+0900 (日本標準時) @ Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/114.0.0.0 Safari/537.36
