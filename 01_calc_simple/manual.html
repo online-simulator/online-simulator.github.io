@@ -13282,7 +13282,7 @@ operandが<a href="#span-out-com">複素数</a>の場合
 ・not equal判定関数: cne(left, right)
 <br>
 <br>
-operandが実数の場合、<a href="#span-out-type-ope">中置2項演算子</a>を代替可
+<span class="clear">operandが実数</span>の場合、<a href="#span-out-type-ope">中置2項演算子</a>を代替可
 <br>
 ・<span class="run">Ver.2.167.40</span>以降、left===rightを代替するstrict equal判定関数: seq(left, right)
 <br>
@@ -13299,6 +13299,24 @@ operandが実数の場合、<a href="#span-out-type-ope">中置2項演算子</a>
 ・left&gt;rightを代替するgreater than判定関数: gt(left, right)
 <br>
 ・left&gt;=rightを代替するgreater or equal判定関数: ge(left, right)
+<br>
+・<span class="run">Ver.2.167.40</span>以降、以下の代替関数を追加
+<br>
+・~right: bitnot(right)
+<br>
+・left&amp;right: bitand(left, right)
+<br>
+・left^right: bitxor(left, right)
+<br>
+・left|right: bitor(left, right)
+<br>
+・(right?0:1): not(right)
+<br>
+・left&amp;&amp;right: and(left, right)
+<br>
+・(left?1:0)^(right?1:0): xor(left, right)
+<br>
+・left||right: or(left, right)
 <br>
 <br>
 引数
@@ -32500,6 +32518,8 @@ operation.js抜粋
 <br>
 ・<span class="run">Ver.2.167.40</span>以降、<a href="#span-out-FN-ope">seq||sne関数</a>を追加
 <br>
+・<span class="run">Ver.2.167.40</span>以降、<a href="#span-out-prec-ope-bit">bit演算子</a>と<a href="#span-out-prec-ope-logical">論理演算子</a>の<a href="#span-out-FN-ope">演算子代替関数</a>を追加
+<br>
 <br>
 予約語は大文字・小文字・全角・半角を区別しない
 <br>
@@ -32556,7 +32576,7 @@ parser.js抜粋
         tree = DATA.tree_tag("FNh", {key: token_lower});
         break;
       // "FN2"
-      // only real number
+      // real number
       // relational
       case "seq":
       case "sne":
@@ -32567,6 +32587,15 @@ parser.js抜粋
       case "le":
       case "gt":
       case "ge":
+      // logical
+      case "bitnot":
+      case "bitand":
+      case "bitxor":
+      case "bitor":
+      case "not":
+      case "and":
+      case "xor":
+      case "or":
       // complex number
       // relational
       case "ceq":
@@ -32813,7 +32842,7 @@ parser.js抜粋
       case "lcm":
       case "gcd":
       // Both defined
-      // only real number
+      // real number
       case "min":
       case "max":
       // Python defined

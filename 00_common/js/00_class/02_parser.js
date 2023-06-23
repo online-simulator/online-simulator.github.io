@@ -431,7 +431,7 @@ My_entry.parser.prototype.make_trees = function(sentence, opt_re){  // Ver.2.158
         tree = DATA.tree_tag("FNh", {key: token_lower});
         break;
       // "FN2"
-      // only real number
+      // real number
       // relational
       case "seq":
       case "sne":
@@ -442,6 +442,15 @@ My_entry.parser.prototype.make_trees = function(sentence, opt_re){  // Ver.2.158
       case "le":
       case "gt":
       case "ge":
+      // logical
+      case "bitnot":
+      case "bitand":
+      case "bitxor":
+      case "bitor":
+      case "not":
+      case "and":
+      case "xor":
+      case "or":
       // complex number
       // relational
       case "ceq":
@@ -688,7 +697,7 @@ My_entry.parser.prototype.make_trees = function(sentence, opt_re){  // Ver.2.158
       case "lcm":
       case "gcd":
       // Both defined
-      // only real number
+      // real number
       case "min":
       case "max":
       // Python defined

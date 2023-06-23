@@ -1,6 +1,12 @@
 clear
 local storage cleared
 
+bitnot(0),bitnot(false),bitnot(1),bitnot(true),bitnot(i),bitnot(NaN),bitand(1,2),bitxor(1,2),bitor(2,3):not(0),not(false),not(1),not(true),not(i),not(NaN),and(1,2),xor(1,2),or(2,3)/*real number only*/
+(
+-1,-1,-2,-2,-1,-1,0,3,3:
+1,1,0,0,1,1,2,0,2
+)
+
 sne(false,0),sne(true,1),~false,~false===0,~(false===0),~~false===0,~~(false===0)
 (
 1+O(1e+0),1+O(1e+0),-1,0,-1+O(1e+0),1+O(1e+0),1+O(1e+0)
@@ -1145,4 +1151,4 @@ drag=false&sw=false&0x=false&useComplex=true&useMatrix=true&useStrict=false&chec
 --------------------------------
 --------------------------------
 
-online-simulator.github.io.6.236.100.12.53 @ Thu Jun 22 2023 22:45:39 GMT+0900 (日本標準時) @ Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/114.0.0.0 Safari/537.36
+online-simulator.github.io.6.236.100.12.53 @ Fri Jun 23 2023 12:35:25 GMT+0900 (日本標準時) @ Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/114.0.0.0 Safari/537.36

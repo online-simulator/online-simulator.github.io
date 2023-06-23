@@ -45,40 +45,6 @@ My_entry.math.prototype.int = function(x){
   return Math.floor((x >= 0 || x%1 === 0)? x: x+1);
 };
 /* -> 2.87.32 */
-/* Ver.2.167.40 -> */
-My_entry.math.prototype.seq = function(a, b){
-  var self = this;
-  return ((a === b)? 1: 0);
-};
-My_entry.math.prototype.sne = function(a, b){
-  var self = this;
-  return ((a !== b)? 1: 0);
-};
-/* -> Ver.2.167.40 */
-My_entry.math.prototype.eq = function(a, b){
-  var self = this;
-  return ((a == b)? 1: 0);
-};
-My_entry.math.prototype.ne = function(a, b){
-  var self = this;
-  return ((a != b)? 1: 0);
-};
-My_entry.math.prototype.lt = function(a, b){
-  var self = this;
-  return ((a < b)? 1: 0);
-};
-My_entry.math.prototype.le = function(a, b){
-  var self = this;
-  return ((a <= b)? 1: 0);
-};
-My_entry.math.prototype.gt = function(a, b){
-  var self = this;
-  return ((a > b)? 1: 0);
-};
-My_entry.math.prototype.ge = function(a, b){
-  var self = this;
-  return ((a >= b)? 1: 0);
-};
 My_entry.math.prototype.sinh = function(x){
   var self = this;
   return 0.5*(Math.exp(x)-Math.exp(-x));
@@ -317,6 +283,8 @@ My_entry.math.prototype.quot = function(x, y){
   return self.int(x/y);
 };
 /* -> Ver.2.87.32 */
+/* Ver.2.167.40 -> */
+My_entry.math.prototype.bitnot =
 My_entry.math.prototype["~"] = function(y){
   var self = this;
   return (~y);
@@ -333,51 +301,80 @@ My_entry.math.prototype[">>>"] = function(x, y){
   var self = this;
   return (x>>>y);
 };
+My_entry.math.prototype.bitand =
 My_entry.math.prototype["&"] = function(x, y){
   var self = this;
   return (x&y);
 };
+My_entry.math.prototype.bitxor =
 My_entry.math.prototype["@"] = function(x, y){
   var self = this;
   return (x^y);
 };
+My_entry.math.prototype.bitor =
 My_entry.math.prototype["|"] = function(x, y){
   var self = this;
   return (x|y);
 };
+My_entry.math.prototype.lt =
 My_entry.math.prototype["<"] = function(x, y){
   var self = this;
   return ((x<y)? 1: 0);
 };
+My_entry.math.prototype.le =
 My_entry.math.prototype["<="] = function(x, y){
   var self = this;
   return ((x<=y)? 1: 0);
 };
+My_entry.math.prototype.ge =
 My_entry.math.prototype[">="] = function(x, y){
   var self = this;
   return ((x>=y)? 1: 0);
 };
+My_entry.math.prototype.gt =
 My_entry.math.prototype[">"] = function(x, y){
   var self = this;
   return ((x>y)? 1: 0);
 };
-/* Ver.2.167.40 */
+My_entry.math.prototype.seq =
 My_entry.math.prototype["==="] = function(x, y){
   var self = this;
   return ((x===y)? 1: 0);
 };
+My_entry.math.prototype.sne = function(x, y){
+  var self = this;
+  return ((x!==y)? 1: 0);
+};
+My_entry.math.prototype.eq =
 My_entry.math.prototype["=="] = function(x, y){
   var self = this;
   return ((x==y)? 1: 0);
 };
+My_entry.math.prototype.ne =
 My_entry.math.prototype["<>"] = function(x, y){
   var self = this;
   return ((x!=y)? 1: 0);
 };
+My_entry.math.prototype.not =
 My_entry.math.prototype["~~"] = function(y){
   var self = this;
   return ((y)? 0: 1);
 };
+My_entry.math.prototype.and =
+My_entry.math.prototype["&&"] = function(x, y){  // && not used
+  var self = this;
+  return (x&&y);
+};
+My_entry.math.prototype.xor =
+My_entry.math.prototype["@@"] = function(x, y){  // @@ not used
+  return (((x)? 1: 0)^((y)? 1: 0));
+};
+My_entry.math.prototype.or =
+My_entry.math.prototype["||"] = function(x, y){  // || not used
+  var self = this;
+  return (x||y);
+};
+/* -> Ver.2.167.40 */
 My_entry.math.prototype.lcm = function(x, y){
   var self = this;
   if(x < 0 || y < 0) return false;
