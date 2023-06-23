@@ -372,6 +372,8 @@ e^(-i(1pi(){2/2i}(5-{3-1}){i/(-4)}))
 <br>
 　・<a href="#span-out-num">実数値</a>
 <br>
+　　・<a href="#span-out-num-false">false判定値</a>
+<br>
 　・<a href="#span-out-FN0">定数</a>
 <br>
 　・<a href="#span-out-BRmo">記号省略乗算</a>
@@ -1492,7 +1494,7 @@ title/発行元(発行年)を列挙する
 <br>
 ・<span class="run">Ver.2.158.38</span>以降、<a href="#span-out-literal">NaN||論理値literal</a>を追加
 <br>
-　<a href="#span-out-prec-ope-logical-short-circuit">論理演算子（短絡評価）</a>のfalse判定値を更新：0　⇒　0||<a href="#span-out-literal">NaN</a>
+　<a href="#span-out-prec-ope-logical-short-circuit">論理演算子（短絡評価）</a>の<a href="#span-out-num-false">false判定値</a>を更新：0　⇒　0||<a href="#span-out-literal">NaN</a>
 <br>
 　本manualの演算結果を更新：[MyErr] isNaN　⇒　<a href="#span-out-literal">NaN</a>を含む行列
 <br>
@@ -1502,7 +1504,7 @@ title/発行元(発行年)を列挙する
 <br>
 　<span class="run">Ver.2.162.39</span>以降、<a href="#span-out-literal">NaN</a>を含む演算結果の<a href="#span-out-plot2d">plot2d</a>出力に対応
 <br>
-・<span class="clear">Ver.2.165.40</span>以降、<a href="#span-out-prec-ope-logical-short-circuit">論理演算子（短絡評価）</a>のfalse判定値を追加更新：0||<a href="#span-out-literal">NaN</a>　⇒　0||<a href="#span-out-literal">false</a>||<a href="#span-out-literal">NaN</a>
+・<span class="clear">Ver.2.165.40</span>以降、<a href="#span-out-prec-ope-logical-short-circuit">論理演算子（短絡評価）</a>の<a href="#span-out-num-false">false判定値</a>を追加更新：0||<a href="#span-out-literal">NaN</a>　⇒　0||<a href="#span-out-literal">false</a>||<a href="#span-out-literal">NaN</a>
 <br>
 　通常の<a href="#span-out-prec-ope-logical">論理演算子</a>の挙動は問題なし（追記のみ）
     </td>
@@ -9475,15 +9477,9 @@ clear; 0||i=3  <span class="selection">// (0||i)=3</span> -> 3-i
 <br>
 論理AND||OR演算子の留意事項を列挙する
 <br>
-・operandのfalse判定値は無次元の0||<a href="#span-out-literal">false</a>||<a href="#span-out-literal">NaN</a>（<a href="#span-out-error-numerical">数値誤差</a>は無視）
+・論理AND演算子は全operandを評価して<a href="#span-out-num-false">false判定値</a>の短絡評価を再現する
 <br>
-　<span class="run">Ver.2.158.38</span>以降、<a href="#span-out-literal">NaN</a>を追記
-<br>
-　<span class="clear">Ver.2.165.40</span>以降、<a href="#span-out-literal">false</a>を追記
-<br>
-・論理AND演算子は全operandを評価してfalse判定値の短絡評価を再現する
-<br>
-・論理OR演算子は全operandを評価してnot(false判定値)の短絡評価を再現する
+・論理OR演算子は全operandを評価してnot(<a href="#span-out-num-false">false判定値</a>)の短絡評価を再現する
 <br>
 ・<a href="#span-out-option1">LA既定</a>の場合、<a href="#span-out-type-ope">中置2項演算子</a>のright-operandよりleft-operandを優先して左から評価する
 <br>
@@ -9832,14 +9828,6 @@ false&amp;&amp;&amp;1 -> false
 <br>
 論理ANDs||ORs演算子の留意事項を列挙する
 <br>
-・operandのfalse判定値は無次元の0||<a href="#span-out-literal">false</a>||<a href="#span-out-literal">NaN</a>（<a href="#span-out-error-numerical">数値誤差</a>は無視）
-<br>
-　<span class="run">Ver.2.158.38</span>以降、<a href="#span-out-literal">NaN</a>を追加
-<br>
-　<span class="run">Ver.2.159.38</span>以降、虚部のisNaN判定を統一：isNaN(実部&amp;&amp;虚部)　⇒　isNaN(実部)||isNaN(虚部)
-<br>
-　<span class="clear">Ver.2.165.40</span>以降、<a href="#span-out-literal">false</a>を追加
-<br>
 ・通常の<a href="#span-out-prec-ope-logical">論理演算子</a>と異なる点を列挙する
 <br>
 　・有次元の<a href="#span-out-ope-extended">拡張行列演算</a>の対象外
@@ -9848,13 +9836,13 @@ false&amp;&amp;&amp;1 -> false
 <br>
 　・<a href="#span-out-FNh-switch">switch高階関数</a>を代替可
 <br>
-　・論理ANDs演算子は厳密にfalse判定値を短絡評価する
+　・論理ANDs演算子は厳密に<a href="#span-out-num-false">false判定値</a>を短絡評価する
 <br>
-　　operand=false判定値以降、評価を省略
+　　operand=<a href="#span-out-num-false">false判定値</a>以降、評価を省略
 <br>
-　・論理ORs演算子は厳密にnot(false判定値)を短絡評価する
+　・論理ORs演算子は厳密にnot(<a href="#span-out-num-false">false判定値</a>)を短絡評価する
 <br>
-　　operand=not(false判定値)以降、評価を省略
+　　operand=not(<a href="#span-out-num-false">false判定値</a>)以降、評価を省略
 <br>
 ・operand省略時、error終了
 <br>
@@ -10312,7 +10300,7 @@ a=0; b=a/a; c=1/a; isNaN(a),isNaN(b),isNaN(c) -> (false,true,false+O(1e+0))
 <br>
 nan*i -> NaN+(NaN)i
 <br>
-・<span class="clear">Ver.2.167.41</span>以降、実部NaN+虚部の演算結果の<a href="#span-out-log">log表示</a>不具合を修正
+・<span class="clear">Ver.2.167.41</span>以降、実部NaN+虚部iの演算結果の<a href="#span-out-log">log表示</a>不具合を修正
 <br>
 <del>NaN+i -> i</del>
 <br>
@@ -12861,6 +12849,30 @@ test caseを列挙する
 目次
 </a>
 <br>
+false判定値
+<br>
+入力仕様
+    </th>
+    <td>
+<span id="span-out-num-false"></span>
+false判定値の入力仕様と付随する留意事項について記述する
+<br>
+<br>
+false判定値の定義：無次元の0||<a href="#span-out-literal">false</a>||<a href="#span-out-literal">NaN</a>（<a href="#span-out-error-numerical">数値誤差</a>は無視）
+<br>
+・<span class="run">Ver.2.158.38</span>以降、<a href="#span-out-literal">NaN</a>を追加
+<br>
+・<span class="run">Ver.2.159.38</span>以降、虚部のisNaN判定を統一：isNaN(実部&amp;&amp;虚部)　⇒　isNaN(実部)||isNaN(虚部)
+<br>
+・<span class="clear">Ver.2.165.40</span>以降、<a href="#span-out-literal">false</a>を追加
+    </td>
+  </tr>
+  <tr>
+    <th>
+<a href="#span-index">
+目次
+</a>
+<br>
 定数
 <br>
 入力仕様
@@ -13278,7 +13290,7 @@ clear; x=gcd(-1,2,-3); x*1 || 0*1 -> 0
 演算子代替関数の入力仕様と付随する留意事項について記述する
 <br>
 <br>
-leftとrightの数値の関係||大小を比較する関数について記述する
+演算子代替関数の仕様を列挙する
 <br>
 ・<a href="#span-out-option1">LA既定</a>
 <br>
