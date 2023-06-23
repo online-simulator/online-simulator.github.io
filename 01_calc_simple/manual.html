@@ -10311,6 +10311,12 @@ a=0; b=a/a; c=1/a; isNaN(a),isNaN(b),isNaN(c) -> (false,true,false+O(1e+0))
 ・<span class="run">Ver.2.163.39</span>以降、虚部のNaNを<a href="#span-out-log">log表示</a>する場合、<a href="#span-in-options">内部option</a>参照
 <br>
 nan*i -> NaN+(NaN)i
+<br>
+・<span class="clear">Ver.2.167.41</span>以降、実部NaN+虚部の演算結果の<a href="#span-out-log">log表示</a>不具合を修正
+<br>
+<del>NaN+i -> i</del>
+<br>
+NaN+i -> NaN
     </td>
   </tr>
   <tr>

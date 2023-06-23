@@ -968,6 +968,11 @@ My_entry.parser.prototype.make_log_num = function(num, options){
       var str_ci = (is0_ci)? ci.toLocaleString(): String(ci);
       var cie = (hasEd && self.entry.def.isNumber(ci))? ci.toExponential(ed): str_ci;  // Ver.2.161.39
       /* Ver.2.163.39 -> */
+    /* Ver.2.167.41 -> */
+    if(isNaN_cr){
+      _log += cre;
+    }
+    else{
       _log += (cr)? cre: ((ci)? "": cre);
       _log += (cr&&ci)? ((ci>0)? "+": ""): "";
       _log += (ci)?
@@ -975,6 +980,8 @@ My_entry.parser.prototype.make_log_num = function(num, options){
          (ci===-1)? "-i":
                  cie+"i":
                       "";
+    }
+    /* -> Ver.2.167.41 */
       if(options.checkComplex){
         if(str_ci === "-0"){
           _log += "-0i";  // Ver.2.151.38
