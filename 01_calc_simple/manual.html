@@ -1507,6 +1507,10 @@ title/発行元(発行年)を列挙する
 ・<span class="clear">Ver.2.165.40</span>以降、<a href="#span-out-prec-ope-logical-short-circuit">論理演算子（短絡評価）</a>の<a href="#span-out-num-false">false判定値</a>を追加更新：0||<a href="#span-out-literal">NaN</a>　⇒　0||<a href="#span-out-literal">false</a>||<a href="#span-out-literal">NaN</a>
 <br>
 　通常の<a href="#span-out-prec-ope-logical">論理演算子</a>の挙動は問題なし（追記のみ）
+<br>
+・<span class="run">Ver.2.168.41</span>以降、<a href="#span-out-prec-ope-logical">論理NOT演算子</a>の仕様変更
+<br>
+　operandは実数のみ　⇒　AND||OR同様に、<a href="#span-out-com">複素数</a>に拡張
     </td>
   </tr>
   <tr>
@@ -9349,6 +9353,25 @@ real(0(1-i)||1(1-i)||2(1-i)||3(1-i)) -> 3
 imag(0(1-i)||1(1-i)||2(1-i)||3(1-i)) -> -3
 <br>
 <br>
+<span class="run">Ver.2.168.41</span>以降、論理XOR
+<br>
+・定義：<a href="#span-out-com">複素数</a>の<a href="#span-out-num-false">false||true判定値</a>=0||1
+<br>
+0@@false -> 0
+<br>
+0@@true -> 1
+<br>
+0@@NaN -> 0
+<br>
+0@@1 -> 1
+<br>
+0@@i -> 1
+<br>
+1@@i -> 0
+<br>
+i@@1 -> 0
+<br>
+<br>
 論理AND
 <br>
 ・<a href="#span-out-option1">LA既定</a>
@@ -9424,9 +9447,13 @@ imag(1(1-i)&amp;&amp;2(1-i)&amp;&amp;3(1-i)&amp;&amp;4(1-i)) -> -1
 <br>
 ~~epsilon -> 0
 <br>
-~~i || ~~0 -> 1
+・<span class="run">Ver.2.168.41</span>以降、<a href="#span-out-com">複素数</a>に拡張
 <br>
-~~1+i || ~~1 -> 0
+<del>~~i || ~~0 -> 1</del>
+<br>
+~~i || ~~1 -> 0
+<br>
+~~1+i<del> || ~~1</del> -> 0
 <br>
 ~~~0 || ~~(~0) || ~~(-1) -> 0
 <br>
@@ -9472,7 +9499,7 @@ clear; 0||i=3  <span class="selection">// (0||i)=3</span> -> 3-i
 <br>
 論理NOT演算子の留意事項を列挙する
 <br>
-・operandは実数のみ対応
+・<del>operandは実数のみ対応</del><span class="run">Ver.2.168.41</span>以降、<a href="#span-out-com">複素数</a>に拡張
 <br>
 <br>
 論理AND||OR演算子の留意事項を列挙する
@@ -10655,11 +10682,13 @@ useScope=defaultの場合（上記以外の場合）、<a href="#span-out-BT-squ
 <br>
 ・<span class="run">Ver.2.87.32</span>以降、一部の<a href="#span-out-prec-ope">演算子</a>を<span class="run">Python</span>に準拠
 <br>
+・<span class="run">Ver.2.168.41</span>以降、<a href="#span-out-prec-ope-logical">論理XOR演算子</a>を追加
+<br>
 precedence=
 <br>
 URi,URf,<span class="run">BRpp</span>,BRp,BRmo,BRdm,BRsa,
 <br>
-<span class="run">PUbn</span>,BRbs,BRba,BRbx,BRbo,BRcn,BRrl,<span class="run">PUlN</span>,<span class="run">BRlA,BRlO</span>
+<span class="run">PUbn</span>,BRbs,BRba,BRbx,BRbo,BRcn,BRrl,<span class="run">PUlN</span>,<span class="run">BRlA,BRlX,BRlO</span>
 <br>
 ・別途、乗算記号*の省略を許容しない場合、tag名BRmoを削除する
 <br>
@@ -12865,6 +12894,21 @@ false判定値の定義：無次元の0||<a href="#span-out-literal">false</a>||
 ・<span class="run">Ver.2.159.38</span>以降、虚部のisNaN判定を統一：isNaN(実部&amp;&amp;虚部)　⇒　isNaN(実部)||isNaN(虚部)
 <br>
 ・<span class="clear">Ver.2.165.40</span>以降、<a href="#span-out-literal">false</a>を追加
+<br>
+<br>
+無次元のtrue判定値の定義
+<br>
+・<a href="#span-out-ope">実数演算</a>：false判定値以外の<a href="#span-out-num">実数値</a>
+<br>
+・<a href="#span-out-com">複素数</a>演算：false判定値以外の<a href="#span-out-com">複素数</a>
+<br>
+<br>
+<a href="#span-out-ope">有次元</a>のtrue判定の定義：要素数が2以上（値は無視）
+<br>
+<br>
+<a href="#span-out-ope">有次元</a>のtrue判定を使用する項目を列挙する
+<br>
+・<a href="#span-out-prec-ope-logical-short-circuit">論理演算子（短絡評価）</a>
     </td>
   </tr>
   <tr>
@@ -13299,9 +13343,23 @@ clear; x=gcd(-1,2,-3); x*1 || 0*1 -> 0
 <br>
 operandが<a href="#span-out-com">複素数</a>の場合
 <br>
+・<span class="run">Ver.2.168.41</span>以降、strict equal判定関数: cseq(left, right)
+<br>
+・<span class="run">Ver.2.168.41</span>以降、strict not equal判定関数: csne(left, right)
+<br>
 ・equal判定関数: ceq(left, right)
 <br>
 ・not equal判定関数: cne(left, right)
+<br>
+・<span class="run">Ver.2.168.41</span>以降、以下の代替関数を追加
+<br>
+・~~(right): cnot(right)
+<br>
+・left&amp;&amp;right: cand(left, right)
+<br>
+・left@@right: cxor(left, right)
+<br>
+・left||right: cor(left, right)
 <br>
 <br>
 <span class="clear">operandが実数</span>の場合、<a href="#span-out-type-ope">中置2項演算子</a>を代替可
@@ -32422,6 +32480,8 @@ precedence
 <br>
 ・<span class="run">Ver.2.167.40</span>以降、<a href="#span-out-prec-ope-relational">厳密等価演算子</a>を追加
 <br>
+・<span class="run">Ver.2.168.41</span>以降、<a href="#span-out-prec-ope-logical">論理XOR演算子</a>を追加
+<br>
 <br>
 配列要素の定義順で<a href="#span-out-prec">演算のprecedence</a>を動的に変更可能とする
 <br>
@@ -32500,6 +32560,7 @@ operation.js抜粋
         "BRrl",  // Binary operatoR relational === || == || &lt;&gt;
         "PUlN",  // Pre-Unary operator logical NOT ~~
         "BRlA",  // Binary operatoR logical    AND &amp;&amp;
+        "BRlX",  // Binary operatoR logical    XOR @@
         "BRlO"   // Binary operatoR logical     OR ||
       ]
     ],
@@ -32541,6 +32602,8 @@ operation.js抜粋
 ・<span class="run">Ver.2.167.40</span>以降、<a href="#span-out-FN-ope">seq||sne関数</a>を追加
 <br>
 ・<span class="run">Ver.2.167.40</span>以降、<a href="#span-out-prec-ope-bit">bit演算子</a>と<a href="#span-out-prec-ope-logical">論理演算子</a>の<a href="#span-out-FN-ope">演算子代替関数</a>を追加
+<br>
+・<span class="run">Ver.2.168.41</span>以降、<a href="#span-out-com">複素数</a>の<a href="#span-out-FN-ope">演算子代替関数</a>を追加
 <br>
 <br>
 予約語は大文字・小文字・全角・半角を区別しない
@@ -32620,8 +32683,15 @@ parser.js抜粋
       case "or":
       // complex number
       // relational
+      case "cseq":
+      case "csne":
       case "ceq":
       case "cne":
+      // logical
+      case "cnot":
+      case "cand":
+      case "cxor":
+      case "cor":
         tree = DATA.tree_tag("FN", token_lower);
         break;
       // "FNmh"

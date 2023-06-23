@@ -80,6 +80,7 @@ My_entry.operation.prototype.config = {
         "BRrl",  // Binary operatoR relational === || == || <>
         "PUlN",  // Pre-Unary operator logical NOT ~~
         "BRlA",  // Binary operatoR logical    AND &&
+        "BRlX",  // Binary operatoR logical    XOR @@
         "BRlO"   // Binary operatoR logical     OR ||
       ]
     ],
@@ -2294,6 +2295,7 @@ My_entry.operation.prototype.init_callbacks_mat = function(options){
     }
     return _tree;
   };
+  self.callbacks_mat.BRlX =  // Ver.2.168.41
   self.callbacks_mat.BRbs =
   self.callbacks_mat.BRba =
   self.callbacks_mat.BRbx =
@@ -2384,6 +2386,7 @@ My_entry.operation.prototype.BRcn =
 My_entry.operation.prototype.BRrl =
 /* Ver.2.59.26 -> */
 My_entry.operation.prototype.BRlA =
+My_entry.operation.prototype.BRlX =  // Ver.2.168.41
 My_entry.operation.prototype.BRlO = function(data, i0, tagName, tagObj){
 /* -> Ver.2.59.26 */
   var self = this;

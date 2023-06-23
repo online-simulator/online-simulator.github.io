@@ -366,7 +366,8 @@ My_entry.math.prototype["&&"] = function(x, y){  // && not used
   return (x&&y);
 };
 My_entry.math.prototype.xor =
-My_entry.math.prototype["@@"] = function(x, y){  // @@ not used
+My_entry.math.prototype["@@"] = function(x, y){  // Ver.2.168.41
+  var self = this;
   return (((x)? 1: 0)^((y)? 1: 0));
 };
 My_entry.math.prototype.or =

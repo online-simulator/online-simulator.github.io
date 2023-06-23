@@ -65,6 +65,7 @@ My_entry.parser.prototype.config = {
       {b: /[&]{3}|[|]{3}/, a: "BRlAOs"},  // Ver.2.157.38 short-circuit
       {b: /[~]{2}/, a: "PUlN"},  // Ver.2.81.32
       {b: /[&]{2}/, a: "BRlA"},
+      {b: /[@]{2}/, a: "BRlX"},  // Ver.2.168.41
       {b: /[|]{2}/, a: "BRlO"}
       /* -> Ver.2.59.26 */
     ],
@@ -453,8 +454,15 @@ My_entry.parser.prototype.make_trees = function(sentence, opt_re){  // Ver.2.158
       case "or":
       // complex number
       // relational
+      case "cseq":
+      case "csne":
       case "ceq":
       case "cne":
+      // logical
+      case "cnot":
+      case "cand":
+      case "cxor":
+      case "cor":
         tree = DATA.tree_tag("FN", token_lower);
         break;
       // "FNmh"

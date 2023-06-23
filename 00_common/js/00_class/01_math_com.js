@@ -12,6 +12,16 @@ My_entry.math_com.prototype.init = function(){
   new My_entry.original_main().make_instances.call(self, ["math", "DATA"]);
   return self;
 };
+/* Ver.2.168.41 -> */
+My_entry.math_com.prototype.isStrictEqual = function(a, b){
+  var self = this;
+  return ((a.r === b.r) && (a.i === b.i));
+};
+My_entry.math_com.prototype.isFalse = function(com){
+  var self = this;
+  return ((Number(com.r) === 0 && Number(com.i) === 0) || self.isNaN(com));
+};
+/* -> Ver.2.168.41 */
 My_entry.math_com.prototype.isNaN = function(com){
   var self = this;
   return (isNaN(com.r) || isNaN(com.i));  // Ver.2.159.38 from DATA.isFalse_arr()
@@ -36,6 +46,39 @@ My_entry.math_com.prototype.argument_com = function(a){
   return Math.atan2(a.i || 0, a.r || 0);  // Ver.2.149.38 || 0
 };
 //
+/* Ver.2.168.41 -> */
+My_entry.math_com.prototype["~~"] =
+My_entry.math_com.prototype.cnot = function(b){
+  var self = this;
+  var sw = self.isFalse(b);
+  return self.entry.DATA.com(((sw)? 1: 0), 0);
+};
+My_entry.math_com.prototype.cand = function(a, b){
+  var self = this;
+  return ((self.isFalse(a))? a: b);
+};
+My_entry.math_com.prototype["@@"] =
+My_entry.math_com.prototype.cxor = function(a, b){
+  var self = this;
+  var hasA = (self.isFalse(a))? 0: 1;
+  var hasB = (self.isFalse(b))? 0: 1;
+  return self.entry.DATA.com(hasA^hasB, 0);
+};
+My_entry.math_com.prototype.cor = function(a, b){
+  var self = this;
+  return ((self.isFalse(a))? b: a);
+};
+My_entry.math_com.prototype.cseq = function(a, b){
+  var self = this;
+  var sw = self.isStrictEqual(a, b);
+  return self.entry.DATA.com(((sw)? 1: 0), 0);
+};
+My_entry.math_com.prototype.csne = function(a, b){
+  var self = this;
+  var sw = !(self.isStrictEqual(a, b));
+  return self.entry.DATA.com(((sw)? 1: 0), 0);
+};
+/* -> Ver.2.168.41 */
 My_entry.math_com.prototype.ceq = function(a, b){
   var self = this;
   var sw = ((a.r == b.r) && (a.i == b.i));
