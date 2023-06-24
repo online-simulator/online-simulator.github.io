@@ -44,6 +44,15 @@ My_entry.unit.prototype.FN_call = function(callback, options){
   }
   return _num;
 };
+/* Ver.2.168.41 */
+My_entry.unit.prototype.args_com2args_ri = function(sw_ri, args_com){
+  var self = this;
+  var _args_r = [];
+  for(var i=0, len=args_com.length; i<len; ++i){
+    _args_r[i] = args_com[i][sw_ri];
+  }
+  return _args_r;
+};
 My_entry.unit.prototype.FN = function(prop, options){
   var self = this;
   var math = self.entry.math;
@@ -56,17 +65,14 @@ My_entry.unit.prototype.FN = function(prop, options){
       _com = cmath[prop].apply(cmath, arguments);
     }
     else{
-      var args_r = [];
-      for(var i=0, len=arguments.length; i<len; ++i){
-        args_r[i] = arguments[i].r;
-      }
-      var math_bin = Math[prop];
-      if(math_bin){
-        _com = DATA.com(math_bin.apply(Math, args_r), 0);
+      /* Ver.2.168.41 -> */
+      if(Math[prop]){
+        _com = DATA.com(Math[prop].apply(Math, self.args_com2args_ri("r", arguments)), 0);
       }
       else if(math[prop]){
-        _com = DATA.com(math[prop].apply(math, args_r), 0);
+        _com = DATA.com(math[prop].apply(math, self.args_com2args_ri("r", arguments)), 0);
       }
+      /* -> Ver.2.168.41 */
       else if(cmath[prop]){  // imag(3-3i) -> 0 @useComplex=false
         _com = cmath[prop].apply(cmath, arguments);
       }

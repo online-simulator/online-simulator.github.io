@@ -9353,23 +9353,21 @@ real(0(1-i)||1(1-i)||2(1-i)||3(1-i)) -> 3
 imag(0(1-i)||1(1-i)||2(1-i)||3(1-i)) -> -3
 <br>
 <br>
-<span class="run">Ver.2.168.41</span>以降、論理XOR
+<span class="run">Ver.2.168.41</span>以降、論理XOR：<a href="#span-out-com">複素数</a>の<a href="#span-out-num-false">false||true判定値</a>=0||1
 <br>
-・定義：<a href="#span-out-com">複素数</a>の<a href="#span-out-num-false">false||true判定値</a>=0||1
+0@@false || 0@0 -> 0
 <br>
-0@@false -> 0
+0@@true || 0@1 -> 1
 <br>
-0@@true -> 1
+0@@NaN || 0@0 -> 0
 <br>
-0@@NaN -> 0
+0@@1 || 0@1 -> 1
 <br>
-0@@1 -> 1
+0@@i || 0@1 -> 1
 <br>
-0@@i -> 1
+1@@i || 1@1 -> 0
 <br>
-1@@i -> 0
-<br>
-i@@1 -> 0
+i@@1 || 1@1 -> 0
 <br>
 <br>
 論理AND
@@ -13336,7 +13334,7 @@ clear; x=gcd(-1,2,-3); x*1 || 0*1 -> 0
 <br>
 演算子代替関数の仕様を列挙する
 <br>
-・<a href="#span-out-option1">LA既定</a>
+・<span class="clear"><a href="#span-out-option1">LA既定</a></span>
 <br>
 ・<a href="#span-out-error-numerical">数値誤差</a>は無視
 <br>
@@ -13355,14 +13353,14 @@ operandが<a href="#span-out-com">複素数</a>の場合
 <br>
 ・~~(right): cnot(right)
 <br>
-・left&amp;&amp;right: cand(left, right)
+・<span class="clear">left&amp;&amp;right: cand(left, right)</span>
 <br>
 ・left@@right: cxor(left, right)
 <br>
-・left||right: cor(left, right)
+・<span class="clear">left||right: cor(left, right)</span>
 <br>
 <br>
-<span class="clear">operandが実数</span>の場合、<a href="#span-out-type-ope">中置2項演算子</a>を代替可
+operandが実数の場合
 <br>
 ・<span class="run">Ver.2.167.40</span>以降、left===rightを代替するstrict equal判定関数: seq(left, right)
 <br>
@@ -13392,11 +13390,11 @@ operandが<a href="#span-out-com">複素数</a>の場合
 <br>
 ・(right?0:1): not(right)
 <br>
-・left&amp;&amp;right: and(left, right)
+・<span class="clear">left&amp;&amp;right: and(left, right)</span>
 <br>
 ・(left?1:0)^(right?1:0): xor(left, right)
 <br>
-・left||right: or(left, right)
+・<span class="clear">left||right: or(left, right)</span>
 <br>
 <br>
 引数
@@ -13438,6 +13436,11 @@ lt(1,2)|gt(3,4) || 1|0  <span class="selection">// OR</span> -> 1
 le(1,1)*ge(1,1) || 1*1 -> 1
 <br>
 le(1,1)*ge(1,2) || 1*0 -> 0
+<br>
+<br>
+留意事項を列挙する
+<br>
+・<a href="#span-out-associativity">2項演算子のassociativity</a>で<a href="#span-out-option1">RA選択</a>の場合、<span class="clear">and||or()</span>は未対応（代替不可）
     </td>
   </tr>
   <tr>
