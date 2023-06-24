@@ -13338,6 +13338,8 @@ clear; x=gcd(-1,2,-3); x*1 || 0*1 -> 0
 <br>
 ・<a href="#span-out-error-numerical">数値誤差</a>は無視
 <br>
+・false||true返値値=0||1
+<br>
 <br>
 operandが<a href="#span-out-com">複素数</a>の場合
 <br>
@@ -13397,20 +13399,6 @@ operandが実数の場合
 ・<span class="clear">left||right: or(left, right)</span>
 <br>
 <br>
-引数
-<br>
-・第1引数: leftの数値を値渡し
-<br>
-・第2引数: rightの数値を値渡し
-<br>
-<br>
-返値
-<br>
-・成立時: 1を返す
-<br>
-・不成立時: 0を返す
-<br>
-<br>
 test caseを列挙する
 <br>
 ceq(2+3i,3*i-(-2)) -> 1
@@ -13440,7 +13428,7 @@ le(1,1)*ge(1,2) || 1*0 -> 0
 <br>
 留意事項を列挙する
 <br>
-・<a href="#span-out-associativity">2項演算子のassociativity</a>で<a href="#span-out-option1">RA選択</a>の場合、<span class="clear">and||or()</span>は未対応（代替不可）
+・<a href="#span-out-option1">RA選択</a>の場合、<a href="#span-out-associativity">2項演算子のassociativity</a>に依存する代替関数<span class="clear">and||or()</span>は未対応（代替不可）
     </td>
   </tr>
   <tr>
