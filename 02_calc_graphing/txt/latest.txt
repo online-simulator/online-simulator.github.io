@@ -624,19 +624,33 @@ stored_eqn(LpR)
 clear
 local storage cleared
 
-[x=3,SND(x)=>,Px(x)=>,erfx(x)=>,erfcx(x)=>]
+[z=3*(1+i)/sqrt2,cSND(z)=>,cP(z)=>]
+(
+0,0.00003928256069279494,0.9946076953403749+O(4e-7)
+)
+
+cP(z)=<_izi(=<_izr(=<cSND(zr+(zi)i)=>,0,real(z))*2,0,imag(z))*2
+stored_eqn(cP)
+
+cSND(z)=<exp(-abs(z)^2)/pi
+stored_eqn(cSND)
+
+clear
+local storage cleared
+
+[x=3,SND(x)=>,P(x)=>,erf(x)=>,erfc(x)=>]
 (
 0,0.004431848411938011,0.9973002032188572+O(2e-6),0.9999779093904622+O(6e-6),0.000022090609537839256+O(6e-6)
 )
 
-erfcx(x)=<1-erfx(x)=>
-stored_eqn(erfcx)
+erfc(x)=<1-erf(x)=>
+stored_eqn(erfc)
 
-erfx(x)=<_it(=<SND(t)=>,0,x*sqrt2)*2
-stored_eqn(erfx)
+erf(x)=<_it(=<SND(t)=>,0,x*sqrt2)*2
+stored_eqn(erf)
 
-Px(x)=<_it(=<SND(t)=>,0,x)*2
-stored_eqn(Px)
+P(x)=<_it(=<SND(t)=>,0,x)*2
+stored_eqn(P)
 
 SND(t)=<exp(-t^2/2)/sqrt(2*pi)
 stored_eqn(SND)
@@ -807,4 +821,4 @@ center=true&drag=false&test-case=false&legend=true&axis-t=false&axis-x=true&log-
 --------------------------------
 --------------------------------
 
-online-simulator.github.io.6.237.100.12.54 @ Sat Jun 24 2023 13:39:50 GMT+0900 (日本標準時) @ Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/114.0.0.0 Safari/537.36
+online-simulator.github.io.6.237.100.12.54 @ Sun Jun 25 2023 03:31:01 GMT+0900 (日本標準時) @ Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/114.0.0.0 Safari/537.36

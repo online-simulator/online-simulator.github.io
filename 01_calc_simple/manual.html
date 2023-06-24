@@ -390,6 +390,8 @@ e^(-i(1pi(){2/2i}(5-{3-1}){i/(-4)}))
 <br>
 　　・<a href="#span-out-FN-rand">乱数関数</a>
 <br>
+　　　・<a href="#span-out-FN-rand-else">その他の乱数</a>
+<br>
 　　・<a href="#span-out-FN-fact">階乗関数</a>
 <br>
 　　・<a href="#span-out-FN-log">log関数</a>
@@ -691,6 +693,8 @@ e^(-i(1pi(){2/2i}(5-{3-1}){i/(-4)}))
 ・<a href="#span-eqn-plot2d_bspline">plot2d_bspline</a>
 <br>
 ・<a href="#span-eqn-SND_Px_erfx_erfcx">SND/P(x)/erf(x)/erfc(x)</a>
+<br>
+・<a href="#span-eqn-cSND_cPz">cSND/cP(z)</a>
 <br>
 ・<a href="#span-eqn-matrix_product">matrix_product</a>
 <br>
@@ -13532,6 +13536,60 @@ A=[]; _rn(=&lt;A=(A,rand),,2); A -> (0.3371037693804637,0.6437029689436904)
 目次
 </a>
 <br>
+その他の乱数
+<br>
+入力仕様
+    </th>
+    <td>
+<span id="span-out-FN-rand-else"></span>
+確率分布に従う乱数の入力仕様と付随する留意事項について記述する
+<br>
+<br>
+確率密度関数の確率分布に従う乱数の生成方法
+<br>
+・乱数の返値xを定義
+<br>
+・確率密度関数の累積分布関数y=P(x)
+<br>
+　確率分布が一様の場合、yは線形
+<br>
+　確率分布が非一様の場合、yは非線形
+<br>
+・累積分布関数の許容誤差範囲内で
+<br>
+・xの区間=[x0,x1)を定義
+<br>
+・yの区間=[P(x0),P(x1))を満たす
+<br>
+・一様乱数生成器rand=[0,1)の関数y=y(rand)を定義
+<br>
+・以上より、y=P(x)の逆変換x=Pinv(y(rand))を返す
+<br>
+・<a href="#span-out-FNspecial">標準正規分布</a>の許容誤差=5σの一例
+<br>
+　xの区間=[-5,5)
+<br>
+　yの区間=(rand-0.5)*2*0.999999426697
+<br>
+SND(t)=&lt;exp(-t^2/2)/sqrt(2*pi);
+<br>
+Px(x)=&lt;_it(=&lt;SND(t)=&gt;,0,x,10000)*2;
+<br>
+Px(5) -> 0.9999994266968594+O(1e-13)
+<br>
+・逆変換x=Pinv(y)の方法
+<br>
+　厳密には逆変換の解析関数を使用
+<br>
+　簡単には逆変換のlookup-tableを使用
+    </td>
+  </tr>
+  <tr>
+    <th>
+<a href="#span-index">
+目次
+</a>
+<br>
 階乗関数
 <br>
 入力仕様
@@ -14247,13 +14305,17 @@ Kdelta(1,1) -> 1
 <br>
 特殊関数（非初等関数）は<a href="#span-out-eqns">式変数</a>と<a href="#span-out-FNh">高階関数</a>を使用して定義する
 <br>
-・標準正規分布SNDの区間確率P(x)
+・標準正規分布SNDの確率密度関数
 <br>
 SND=&lt;exp(-t^2/2)/sqrt(2pi);
 <br>
+SND(t)=&lt;exp(-t^2/2)/sqrt(2*pi);
+<br>
+・SNDの累積分布関数P(x)
+<br>
 Px=&lt;_it(=&lt;SND,0,x)2;
 <br>
-P(x)=&lt;_it(=&lt;SND,0,x)*2;
+P(x)=&lt;_it(=&lt;SND(t),0,x)*2;
 <br>
 ・誤差関数erf(x)
 <br>
@@ -14270,6 +14332,14 @@ erfx=&lt;_it(=&lt;{exp(-t^2)},0,x)(2/sqrt(pi));
 erfcx=&lt;1-erfx;
 <br>
 erfc(x)=&lt;1-erf(x);
+<br>
+・複素標準正規分布cSNDの確率密度関数
+<br>
+cSND(z)=&lt;exp(-abs(z)^2)/pi;
+<br>
+・cSNDの累積分布関数cP(z)
+<br>
+cP(z)=&lt;_izi(=<_izr(=&lt;cSND(zr+(zi)i)=&gt;,0,real(z))*2,0,imag(z))*2;
     </td>
   </tr>
   <tr>
@@ -33751,13 +33821,34 @@ clear;
 <br>
 SND(t)=&lt;exp(-t^2/2)/sqrt(2*pi);
 <br>
-Px(x)=&lt;_it(=&lt;SND(t)=&gt;,0,x)*2;
+P(x)=&lt;_it(=&lt;SND(t)=&gt;,0,x)*2;
 <br>
-erfx(x)=&lt;_it(=&lt;SND(t)=&gt;,0,x*sqrt2)*2;
+erf(x)=&lt;_it(=&lt;SND(t)=&gt;,0,x*sqrt2)*2;
 <br>
-erfcx(x)=&lt;1-erfx(x)=&gt;;
+erfc(x)=&lt;1-erf(x)=&gt;;
 <br>
-[x=3,SND(x)=&gt;,Px(x)=&gt;,erfx(x)=&gt;,erfcx(x)=&gt;];
+[x=3,SND(x)=&gt;,P(x)=&gt;,erf(x)=&gt;,erfc(x)=&gt;];
+    </td>
+  </tr>
+  <tr>
+    <th>
+<a href="#span-index">
+目次
+</a>
+<br>
+cSND/cP(z)
+    </th>
+    <td>
+<span id="span-eqn-cSND_cPz"></span>
+<a href="#span-out-FNspecial">特殊関数入力仕様</a>参照
+<br>
+clear;
+<br>
+cSND(z)=&lt;exp(-abs(z)^2)/pi;
+<br>
+cP(z)=&lt;_izi(=<_izr(=&lt;cSND(zr+(zi)i)=&gt;,0,real(z))*2,0,imag(z))*2;
+<br>
+[z=3*(1+i)/sqrt2,cSND(z)=&gt;,cP(z)=&gt;];
     </td>
   </tr>
   <tr>
