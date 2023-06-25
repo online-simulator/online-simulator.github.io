@@ -525,14 +525,20 @@ My_entry.operation.prototype.BTref = function(data, i0, tagName, tagObj){
   var newTrees = self.data2trees(self.get_newData(data, tagObj.val, ids), tagName);  // Ver.2.164.39
   /* -> Ver.2.31.17 */
   var tree = self.tree2tree_mat(DATA.trees2tree(newTrees));
-  var arr = tree.mat.arr;
-  var arr0 = arr[0];
-  var len_i = arr.length;
-  var len_j = arr0.length;
-  var isVal = (len_i === 1 && len_j === 1 && !(arr0[0][self.config.BT.SEe]));  // Ver.2.31.17
+  /* Ver.2.170.41 -> */
   var leftTree = trees[i0-1];
   var thisTree = trees[i0];
   var ref0 = thisTree[tagName].ref;
+  var isEmpty4ref = (tree.mat.arr.length === 0 && ref0);
+  if(isEmpty4ref){
+    tree = DATA.tree_num(Math.E, 0);
+  }
+  /* -> Ver.2.170.41 */
+  var arr = tree.mat.arr;
+  var arr0 = arr[0];
+  var len_i = arr.length;
+  var len_j = (arr0)? arr0.length: 0;  // Ver.2.170.41
+  var isVal = (len_i === 1 && len_j === 1 && !(arr0[0][self.config.BT.SEe]));  // Ver.2.31.17
   /* Ver.1.4.3 */
   if(isVal){  // [1,2:3,4][0][1,2:3,4][0] -> (1,2)
     var ref = [];

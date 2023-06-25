@@ -416,6 +416,8 @@ e^(-i(1pi(){2/2i}(5-{3-1}){i/(-4)}))
 <br>
 　・<a href="#span-out-FNm">行列関数</a>
 <br>
+　　・<a href="#span-out-FNm-init">初期化行列関数</a>
+<br>
 　　・<a href="#span-out-FNm-trans">転置行列関数</a>
 <br>
 　　・<a href="#span-out-FNm-last">last行列関数</a>
@@ -11930,7 +11932,7 @@ x0=(<span class="condition">1,2,3</span>); x1=(<span class="condition">,,</span>
 <br>
 ・csv要素は<a href="#span-out-num">実数値</a>のみ対応
 <br>
-・任意の要素数の時系列dataを入力可（<a href="#span-out-FNm">行列関数</a>の<a href="#span-in-options">matSizeMax</a>制限とは無関係）
+・任意の要素数の時系列dataを入力可（<a href="#span-out-FNm-init">初期化行列関数</a>の<a href="#span-in-options">matSizeMax</a>制限とは無関係）
 <br>
 ・全要素が<a href="#span-out-num">実数値</a>の場合、<a href="#span-out-BT">括弧</a>内の要素数上限=Order(10000)
 <br>
@@ -12670,6 +12672,12 @@ A=(1,2:3,4); A[1,2:3,4] -> (7,10:15,22)
 [1,2:3,4][0] -> (1,2)
 <br>
 [1,2:3,4][1] -> (3,4)
+<br>
+・<span class="run">Ver.2.170.41</span>以降、<a href="#span-out-reference-mat-col">列参照</a>と<a href="#span-out-substitution-mat-col">列代入</a>の[e]を<a href="#span-out-mat-empty">空行列</a>で代替可
+<br>
+[1,2:3,4][][1] -> (2:4)
+<br>
+A=[1,2:3,4]; A[][1]={-2,-4}; A -> (1,-2:3,-4)
 <br>
 <br>
 <span class="run">Ver.2.31.17</span>以降、<a href="#span-out-scope-vars">変数のscope</a>を追加（上記仕様の冗長性を活用）
@@ -14579,6 +14587,8 @@ A=(1,2:,); A[0]+A[1] -> (1,2)
 <br>
 <span class="clear">Ver.2.158.38</span>以降、<a href="#span-out-concatination">行列結合</a>用の空行列を追加
 <br>
+・<span class="run">Ver.2.170.41</span>以降、<a href="#span-out-reference-mat-col">列参照</a>と<a href="#span-out-substitution-mat-col">列代入</a>の[e]を空行列で代替可
+<br>
 ・<a href="#span-out-BT-square">角括弧[]</a>を使用
 <br>
 [] -> []
@@ -14666,6 +14676,32 @@ identity4 -> (1,0,0,0:0,1,0,0:0,0,1,0:0,0,0,1)
     <td>
 <span id="span-out-FNm"></span>
 行列関数の入力仕様と付随する留意事項について記述する
+<br>
+<br>
+<a href="#span-out-FNmh">高階化</a>しない行列関数の条件を列挙する
+<br>
+・引数は関数call前に解決済みの前提
+<br>
+　・引数が<a href="#span-out-mat">行列</a>単体の場合
+<br>
+　・<a href="#span-out-mat">抜け要素</a>なしの前提で複数の引数を<a href="#span-out-concatination">行列結合</a>する場合
+    </td>
+  </tr>
+  <tr>
+    <th>
+<a href="#span-index">
+目次
+</a>
+<br>
+初期化
+<br>
+行列関数
+<br>
+入力仕様
+    </th>
+    <td>
+<span id="span-out-FNm-init"></span>
+行列を初期化する関数の入力仕様と付随する留意事項について記述する
 <br>
 <br>
 行vector
@@ -14797,6 +14833,20 @@ zeros(3,5) -> (0,0,0,0,0:0,0,0,0,0:0,0,0,0,0)
 zeros(0,1) || zeros(-1,1)  -> [MyErr]Invalid matrix size
 <br>
 zeros(1001,1) -> [MyErr]Invalid matSizeMax over
+<br>
+・<a href="#span-out-substitution-mat-band">band代入</a>を使用
+<br>
+mat3x3=zeros(3,3); pivot=1; mat3x3[0][0][0]=(pivot,pivot,pivot); mat3x3 ->
+<br>
+(
+<br>
+1,0,0:
+<br>
+0,1,0:
+<br>
+0,0,1
+<br>
+)
 <br>
 <br>
 ones行列
@@ -15272,7 +15322,7 @@ clear; aA=(1,1+i,1-i); mA=(1,2,3); nA=(1,2,3); coo=(aA:mA:2*nA); A=coo2mat(coo);
 <br>
 )
 <br>
-・重複定義の場合、error終了<del>配列の後要素で上書き</del><span class="run">Ver.2.124.34</span>以降、変更
+・重複定義の場合、<del>配列の後要素で上書き</del><span class="run">Ver.2.124.34</span>以降、error終了
 <br>
 clear; aA=(1,1+i,1-i); mA=(1,2,1); nA=(1,4,1); coo=(aA:mA:nA); A=coo2mat(coo); A ->
 <br>
@@ -15663,6 +15713,8 @@ A=&lt;(1:3,4:); A[0.3]=&gt; -> [MyErr]Invalid reference of array
 ・<span class="run">Ver.2.78.31</span>以降、行列の列参照と<a href="#span-out-substitution-mat-col">列代入</a>の<span class="selection">反転機能</span>を追加
 <br>
 ・<span class="run">Ver.2.79.31</span>以降、行index=-1　⇒　<span class="condition"><a href="#span-out-FN0">Napier数e</a></span>に<span class="run"><a href="#span-out-spec-changed-history">演算仕様変更</a></span>
+<br>
+・<span class="run">Ver.2.170.41</span>以降、列参照の[e]を<a href="#span-out-mat-empty">空行列</a>で代替可
 <br>
 <br>
 列参照
@@ -16339,6 +16391,8 @@ A=(1,2:3,4); A[0]=(A:A(2,:,2)); A -> (6,8:3,4)
 <br>
 ・<span class="run">Ver.2.79.31</span>以降、行index=-1　⇒　<span class="condition"><a href="#span-out-FN0">Napier数e</a></span>に<span class="run"><a href="#span-out-spec-changed-history">演算仕様変更</a></span>
 <br>
+・<span class="run">Ver.2.170.41</span>以降、列代入の[e]を<a href="#span-out-mat-empty">空行列</a>で代替可
+<br>
 <br>
 列代入
 <br>
@@ -16674,6 +16728,22 @@ A=A0; A[-1][0][1]=(1,2,3); A[-1][0][1]=A[-1][0][1]; A ->
 0,1,2,3,0:
 <br>
 0,0,1,2,3
+<br>
+)
+<br>
+・相対index固定の場合、後要素で上書き
+<br>
+A=A0; A[0][0][0]=(1,2,3); A ->
+<br>
+(
+<br>
+3,0,0,0,0:
+<br>
+0,3,0,0,0:
+<br>
+0,0,3,0,0:
+<br>
+0,0,0,3,0
 <br>
 )
 <br>
@@ -31151,6 +31221,8 @@ Wavelet変換
 <br>
 ・<span class="run">Ver.2.79.31</span>以降、<a href="#span-out-reference-mat-col">列参照</a>と<a href="#span-out-substitution-mat-col">列代入</a>の行index=-1　⇒　<span class="condition"><a href="#span-out-FN0">Napier数e</a></span>に<span class="run"><a href="#span-out-spec-changed-history">演算仕様変更</a></span>
 <br>
+・<span class="run">Ver.2.170.41</span>以降、<a href="#span-out-reference-mat-col">列参照</a>と<a href="#span-out-substitution-mat-col">列代入</a>の[e]を<a href="#span-out-mat-empty">空行列</a>で代替可
+<br>
 ・2次元の標本点
 <br>
 w={
@@ -34603,7 +34675,7 @@ a=w[2*t],b=w[2*t+1],W[t]=a+b,W[t+N2]=a-b
 <br>
 W_col(w,N)=&lt;_st(=&lt;last{
 <br>
-a=w[<span class="condition">e</span>][2*t],b=w[<span class="condition">e</span>][2*t+1],W[<span class="condition">e</span>][t]=a+b,W[<span class="condition">e</span>][t+N2]=a-b
+a=w[][2*t],b=w[][2*t+1],W[][t]=a+b,W[][t+N2]=a-b
 <br>
 },N2=N&gt;&gt;1,N2-1),
 <br>
@@ -34621,7 +34693,7 @@ a=W[t],b=W[t+N2],w[2*t]=<span class="selection">0.5*</span>(a+b),w[2*t+1]=<span 
 <br>
 w_col(W,N2)=&lt;_st(=&lt;last{
 <br>
-a=W[<span class="condition">e</span>][t],b=W[<span class="condition">e</span>][t+N2],w[<span class="condition">e</span>][2*t]=(a+b)<span class="selection">*0.5</span>,w[<span class="condition">e</span>][2*t+1]=(a-b)<span class="selection">*0.5</span>
+a=W[][t],b=W[][t+N2],w[][2*t]=(a+b)<span class="selection">*0.5</span>,w[][2*t+1]=(a-b)<span class="selection">*0.5</span>
 <br>
 },0,N2-1),
 <br>
@@ -34677,7 +34749,7 @@ a=w[2*t],b=w[2*t+1],W[t]=a+b,W[t+N2]=a-b
 <br>
 W_col(w,N)=&lt;_st(=&lt;last{
 <br>
-a=w[<span class="condition">e</span>][2*t],b=w[<span class="condition">e</span>][2*t+1],W[<span class="condition">e</span>][t]=a+b,W[<span class="condition">e</span>][t+N2]=a-b
+a=w[][2*t],b=w[][2*t+1],W[][t]=a+b,W[][t+N2]=a-b
 <br>
 },N2=N&gt;&gt;1,N2-1),
 <br>
@@ -34695,7 +34767,7 @@ a=W[t],b=W[t+N2],w[2*t]=<span class="selection">0.5*</span>(a+b),w[2*t+1]=<span 
 <br>
 w_col(W,N2)=&lt;_st(=&lt;last{
 <br>
-a=W[<span class="condition">e</span>][t],b=W[<span class="condition">e</span>][t+N2],w[<span class="condition">e</span>][2*t]=(a+b)<span class="selection">*0.5</span>,w[<span class="condition">e</span>][2*t+1]=(a-b)<span class="selection">*0.5</span>
+a=W[][t],b=W[][t+N2],w[][2*t]=(a+b)<span class="selection">*0.5</span>,w[][2*t+1]=(a-b)<span class="selection">*0.5</span>
 <br>
 },0,N2-1),
 <br>

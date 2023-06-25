@@ -1,6 +1,66 @@
 clear
 local storage cleared
 
+(,[],1:[],[]:2)
+(
+0,1:
+2
+)
+
+mat4x3[][-1]=mat4x3[][-3]
+mat4x3=(
+1,0,1:
+i,-1,i:
+0,-i,0:
+0,0,0
+)
+
+mat4x3[][1]=-mat4x3[][1]
+mat4x3=(
+1,0,0:
+i,-1,0:
+0,-i,1:
+0,0,i
+)
+
+mat4x3[][-3],mat4x3[][-2],mat4x3[][-1]
+(
+1,0,0:
+i,1,0:
+0,i,1:
+0,0,i
+)
+
+mat4x3[][2],mat4x3[][1],mat4x3[][0]
+(
+0,0,1:
+0,1,i:
+1,i,0:
+i,0,0
+)
+
+mat4x3[0][0][-1]=(pivot,pivot,i)
+mat4x3=(
+1,0,0:
+i,1,0:
+0,i,1:
+0,0,i
+)
+
+pivot=1
+pivot=1
+
+mat4x3=zeros(4,3)
+mat4x3=(
+0,0,0:
+0,0,0:
+0,0,0:
+0,0,0
+)
+
+clear
+local storage cleared
+
 left||left,left||0,left||1,left||i
 (
 false,true,NaN,0,true,0,1,true,1,i,true,i:
@@ -1239,4 +1299,4 @@ drag=false&sw=false&0x=false&useComplex=true&useMatrix=true&useStrict=false&chec
 --------------------------------
 --------------------------------
 
-online-simulator.github.io.6.237.101.12.54 @ Sun Jun 25 2023 11:46:55 GMT+0900 (日本標準時) @ Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/114.0.0.0 Safari/537.36
+online-simulator.github.io.6.238.101.12.54 @ Mon Jun 26 2023 00:39:28 GMT+0900 (日本標準時) @ Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/114.0.0.0 Safari/537.36

@@ -364,7 +364,7 @@ My_entry.parser.prototype.make_trees = function(sentence, opt_re){  // Ver.2.158
         tree = self.check_csv(str_tokens, tagName) || DATA.tree_tag(tagName, self.make_trees(str_tokens, re));  // Ver.2.142.36
       }
       else if(token === "["){  // () || {} -> removed
-        tree = DATA.tree_mat([]);  // [] -> empty array
+        tree = DATA.tree_tag(tagName, [DATA.tree_mat([])]);  // [] -> empty array  // Ver.2.170.41
       }
     }
     else if(tagName){
