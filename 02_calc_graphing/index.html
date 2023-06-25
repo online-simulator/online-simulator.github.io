@@ -118,8 +118,9 @@
       $._id("differential2").onclick = function(){setVal("-2", "2", "a=t,a;", "fxy=<x*x*y*y,_Dy(=<{_Dx(=<fxy,1,y)},1,a);24;", 10);$._id("input-z").value+="TITLE{_dx(=<fx,Ndash||1,a,opt_dx0||max(1,abs(x))1e-3(1+i)) stencil_dx=dx0*2^(Ndash-1) error=Order(dx^4~dx^2)};";};
       $._id("calculus1").onclick = function(){setVal("-2(1+i)", "2(1+i)", "b=t,b;", "fx=<x^3,_ix(=<_dx(=<fx,1,x),0,b,10);-b^3;", 10);};
       $._id("calculus2").onclick = function(){setVal("-2(1+i)", "2(1+i)", "b=t,b;", "fx=<x^3,_dx(=<_ix(=<fx,0,x,10),1,b);-b^3;", 10);};
-      $._id("cSND").onclick = function(){setVal("-5(1+i)/sqrt2", "5(1+i)/sqrt2", "z=t,z;", "cSND(z)=<exp(-abs(z)^2)/pi,cSND(z);", 50);};
-      $._id("cPz").onclick = function(){setVal("-5(1-i)/sqrt2", "5(1+i)/sqrt2", "z=t,z;", "cSND(z)=<exp(-abs(z)^2)/pi,cP(z)=<_izi(=<_izr(=<cSND(zr+(zi)i)=>,0,real(z))*2,0,imag(z))*2,cP(z);", 20);};
+      $._id("cSND").onclick = function(){setVal("-5(1+i)", "5(1+i)", "z=t,z;", "cSND(z)=<exp(-abs(z)^2)/pi,cSND(z);", 50);};
+      $._id("cPz").onclick = function(){setVal("-5(1-i)", "5(1+i)", "z=t,z;", "cSND(z)=<exp(-abs(z)^2)/pi,cP_z(z)=<_iy(=<_ix(=<cSND(x+(y)i)=>,0,real(z))*2,0,imag(z))*2,cP_z(z);", 20);};
+      $._id("cPr").onclick = function(){setVal("0", "5", "r=t,r;", "cSND(z)=<exp(-abs(z)^2)/pi,cP_r(r)=<_it(=<_ir(=<cSND(r*e^(i*t))=>,0,r),0,2*pi)/sqrt(pi),cP_r(r);", 10);};
       $._id("Napier").onclick = function(){setVal("0", "20", "x=t,x;", "e;(1+1/(x||1))**x;_sn(=<1/(n)!,0,x);pi;_sn(=<(-1)**n/(2n+1),0,x)*4;_it(=<e^(-t**2),-x,x,max(100,real(x)*10))**2;", 100);$._id("input-z").value+="::0::::e;::::::limit;::::::series;::::::pi;::::::Leibniz formula;::::::Gaussian integral;";};
       $._id("Maclaurin1").onclick = function(){setVal("-pi", "pi", "x=t,x;", "fx=<sin(x),fx;MaclaurinN=<_sn(=<_dx(=<fx,n,0)x^n/n!,0,N),N=1,MaclaurinN;N=3,MaclaurinN;N=5,MaclaurinN;N=7,MaclaurinN;N=9,MaclaurinN;", 10);};
       $._id("Maclaurin2").onclick = function(){setVal("-(1+i)pi/4", "(1+i)pi/4", "x=t,x;", "fx=<sqrt(2-exp(sin(x)^2*x)/cos(x)),fx;MaclaurinN=<_sn(=<_dx(=<fx,n,0)x^n/n!,0,N),N=1,MaclaurinN;N=3,MaclaurinN;N=5,MaclaurinN;N=7,MaclaurinN;N=9,MaclaurinN;", 10);$._id("input-z").value+="TITLE{***** low accuracy *****};";};
@@ -212,7 +213,7 @@
       $._id("plot2d_nspline").onclick = function(){io["onclick_default"](elems, "clear;\nnspline3d(x,y)=<[\nout=<(u),\ninit=<last{\nN=min(sizer(x),sizer(y))-1,\ndx=x[1][0][N][1]-x,\ndy=y[1][0][N][1]-y,\nr=vectorc(3*N),\ncoo=zeros(3,10*N-4)\n},\nrun=<last{\n_sj(=<last{\nn=j+1,j0=3*j,dxi=dx[j],dyi=dy[j],\ncoo[0][j0][1][3]=(dxi,dxi**2,dxi**3),\ncoo[1][j0][1][3]=(n,n,n),\ncoo[2][j0][1][3]=(n,n+N,n+2*N),\nr[j]=dyi\n},0,N-1),\n_sj(=<last{\nn=j+1,j0=3*N+4*j,dxi=dx[j],\ncoo[0][j0][1][4]=(1,-1,2*dxi,3*dxi**2),\ncoo[1][j0][1][4]=(N+n,N+n,N+n,N+n),\ncoo[2][j0][1][4]=(n,n+1,N+n,2*N+n)\n},0,N-2),\n_sj(=<last{\nn=j+1,j0=7*N+3*j-4,dxi=dx[j],\ncoo[0][j0][1][3]=(1,-1,3*dxi),\ncoo[1][j0][1][3]=(2*N+n-1,2*N+n-1,2*N+n-1),\ncoo[2][j0][1][3]=(N+n,N+n+1,2*N+n)\n},0,N-2),\nj0=10*N-4-3,\ncoo[0][j0][1][3]=(1,1,3*dx[N-1]),\ncoo[1][j0][1][3]=(3*N-1,3*N,3*N),\ncoo[2][j0][1][3]=(N+1,2*N,3*N),\nu=Gauss_coo(coo:trans(r))\n},\ninit=>,run=>,return=out=>,\n=<return]=>;\nplot2d_nspline(x,y)=<[\nout=<(xt,yt),\nscope2storage=<last{addVar(xt),addVar(yt)},\ninit=<last{\nN=min(sizer(x),sizer(y))-1,\ndx=x[1][0][N][1]-x,\nxt=(x+dx/2)[0][0][N][1],\nyt=zeros(N,1)\n},\nrun=<last{\nu=nspline3d(=<x,=<y)=>,\nb=u[0][0][N][1],\nc=u[N][0][N][1],\nd=u[2*N][0][N][1],\n_si_(=<last{\ndxi=xt[i_]-x[i_],\nyt[i_]=y[i_]+b[i_]*dxi+c[i_]*dxi**2+d[i_]*dxi**3\n},0,N-1),\nxt=(x,xt),\nyt=(y,yt)\n},\ninit=>,run=>,return=out=>,scope2storage=>,\n=<return]=>;\nplot2d_nspline(=<{0,1,2,3,4,5,6,7,8,9},=<{1,3,2,5,0,-3,-2,-5,-1,-1})=>;\n", 0);};
       $._id("plot2d_bspline").onclick = function(){io["onclick_default"](elems, "clear;\nbspline2d(x,y,i_,t)=<[\nout=<(xy),\ninit=<last{\nSi(i_,t)=<0.5*(t^2,t,1)*(1,-2,1:-2,2,0:1,1,0)*{(x[i_-1],y[i_-1]),(x[i_],y[i_]),(x[i_+1],y[i_+1])}\n},\nrun=<last{\nxy=Si(i_,t)=>\n},\ninit=>,run=>,return=out=>,\n=<return]=>;\nplot2d_bspline(x,y)=<[\nout=<(xt,yt),\nscope2storage=<last{addVar(xt),addVar(yt)},\ninit=<last{\nN=min(sizer(x),sizer(y))-1,\nM=N-1,\nxt=zeros(N+1,M),\nyt=zeros(N+1,M)\n},\nrun=<last{\n_sm(=<_sn(=<last{\n($xnm,$ynm)=bspline2d(=<x,=<y,m,n/N)=>,\nxt[n][m-1]=xnm,\nyt[n][m-1]=ynm\n},0,N),1,M),\nxt=(x,xt),\nyt=(y,yt)\n},\ninit=>,run=>,return=out=>,scope2storage=>,\n=<return]=>;\nplot2d_bspline(=<{0,1,2,3,2},=<{1,4,2,4,4})=>;\n", 0);};
       $._id("SND_Px_erfx").onclick = function(){io["onclick_default"](elems, "clear;\nSND(t)=<exp(-t^2/2)/sqrt(2*pi);\nP(x)=<_it(=<SND(t)=>,0,x)*2;\nerf(x)=<_it(=<SND(t)=>,0,x*sqrt2)*2;\nerfc(x)=<1-erf(x)=>;\n[x=3,SND(x)=>,P(x)=>,erf(x)=>,erfc(x)=>];\n", 0);};
-      $._id("cSND_cPz").onclick = function(){io["onclick_default"](elems, "clear;\ncSND(z)=<exp(-abs(z)^2)/pi;\ncP(z)=<_izi(=<_izr(=<cSND(zr+(zi)i)=>,0,real(z))*2,0,imag(z))*2;\n[z=3*(1+i)/sqrt2,cSND(z)=>,cP(z)=>];\n", 0);};
+      $._id("cSND_cP").onclick = function(){io["onclick_default"](elems, "clear;\ncSND(z)=<exp(-abs(z)^2)/pi;\ncP_z(z)=<_iy(=<_ix(=<cSND(x+(y)i)=>,0,real(z))*2,0,imag(z))*2;\ncP_r(r)=<_it(=<_ir(=<cSND(r*e^(i*t))=>,0,r),0,2*pi)/sqrt(pi);\n[z=3*(1+i)/sqrt2,cSND(z)=>,cP_z(z)=>,cP_r(abs(z))=>];\n", 0);};
       $._id("matrix_product").onclick = function(){io["onclick_default"](elems, "clear;\nLpR(L,R)=<[product=<last{LR[ir][ic]=ttL[ir]*trans((trans(ttR))[ic])},\nttL=trans(trans(L)),\nttR=trans(trans(R)),\nLR=zeros(sizer(ttL),sizec(ttR)),\n_sir(=<_sic(=<product,0,sizec(ttR)-1),0,sizer(ttL)-1),\n=<LR]=>;\n[L=(1,2:3:4,5:6),R=(1,2:3,4,5),=<LpR(=<L,=<R)=>]=>;\n", 0);};
       $._id("rotationxyz").onclick = function(){io["onclick_default"](elems, "clear;\nrotx(phi)=<[rt=real(phi),=<(1,,:,cos(rt),-sin(rt):,sin(rt),cos(rt))]=>;\nroty(theta)=<[rt=real(theta),=<(cos(rt),,sin(rt):,1,:-sin(rt),,cos(rt))]=>;\nrotz(psi)=<[rt=real(psi),=<(cos(rt),-sin(rt),:sin(rt),cos(rt),:,,1)]=>;\n[t=pi/4,=<[rotx(t)=>,roty(t)=>,rotz(t)=>]]=>;\n", 0);};
       $._id("rotationxyz_LHS").onclick = function(){io["onclick_default"](elems, "clear;\nrotx_LHS(phi)=<[rt=real(phi),=<(1,,:,cos(rt),sin(rt):,-sin(rt),cos(rt))]=>;\nroty_LHS(theta)=<[rt=real(theta),=<(cos(rt),,-sin(rt):,1,:sin(rt),,cos(rt))]=>;\nrotz_LHS(psi)=<[rt=real(psi),=<(cos(rt),sin(rt),:-sin(rt),cos(rt),:,,1)]=>;\n[t=pi/4,=<[rotx_LHS(t)=>,roty_LHS(t)=>,rotz_LHS(t)=>]]=>;\n", 0);};
@@ -340,6 +341,7 @@ plot2d
   <button id="calculus2">-cal2</button>
   <button id="cSND">cSND</button>
   <button id="cPz">cP(z)</button>
+  <button id="cPr">cP(r)</button>
 <br>
   <button id="Napier">Napier</button>
   <button id="Maclaurin1">Maclaurin1</button>
@@ -1107,7 +1109,7 @@ plot2d
   <button id="plot2d_bspline">plot2d_bspline</button>
 <br>
   <button id="SND_Px_erfx">SND/P(x)/erf(x)</button>
-  <button id="cSND_cPz">cSND/cP(z)</button>
+  <button id="cSND_cP">cSND/cP</button>
   <button id="matrix_product">matrix_product</button>
 <br>
   <button id="rotationxyz">rotationx/y/z-RHS</button>

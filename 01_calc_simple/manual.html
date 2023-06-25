@@ -694,7 +694,7 @@ e^(-i(1pi(){2/2i}(5-{3-1}){i/(-4)}))
 <br>
 ・<a href="#span-eqn-SND_Px_erfx_erfcx">SND/P(x)/erf(x)/erfc(x)</a>
 <br>
-・<a href="#span-eqn-cSND_cPz">cSND/cP(z)</a>
+・<a href="#span-eqn-cSND_cP">cSND/cP</a>
 <br>
 ・<a href="#span-eqn-matrix_product">matrix_product</a>
 <br>
@@ -14337,9 +14337,11 @@ erfc(x)=&lt;1-erf(x);
 <br>
 cSND(z)=&lt;exp(-abs(z)^2)/pi;
 <br>
-・cSNDの累積分布関数cP(z)
+・cSNDの累積分布関数cP
 <br>
-cP(z)=&lt;_izi(=<_izr(=&lt;cSND(zr+(zi)i)=&gt;,0,real(z))*2,0,imag(z))*2;
+cP_z(z)=&lt;_iy(=&lt;_ix(=&lt;cSND(x+(y)i)=&gt;,0,real(z))*2,0,imag(z))*2;
+<br>
+cP_r(r)=&lt;_it(=&lt;_ir(=&lt;cSND(r*e^(i*t))=&gt;,0,r),0,2*pi)/sqrt(pi);
     </td>
   </tr>
   <tr>
@@ -33836,19 +33838,21 @@ erfc(x)=&lt;1-erf(x)=&gt;;
 目次
 </a>
 <br>
-cSND/cP(z)
+cSND/cP
     </th>
     <td>
-<span id="span-eqn-cSND_cPz"></span>
+<span id="span-eqn-cSND_cP"></span>
 <a href="#span-out-FNspecial">特殊関数入力仕様</a>参照
 <br>
 clear;
 <br>
 cSND(z)=&lt;exp(-abs(z)^2)/pi;
 <br>
-cP(z)=&lt;_izi(=<_izr(=&lt;cSND(zr+(zi)i)=&gt;,0,real(z))*2,0,imag(z))*2;
+cP_z(z)=&lt;_iy(=&lt;_ix(=&lt;cSND(x+(y)i)=&gt;,0,real(z))*2,0,imag(z))*2;
 <br>
-[z=3*(1+i)/sqrt2,cSND(z)=&gt;,cP(z)=&gt;];
+cP_r(r)=&lt;_it(=&lt;_ir(=&lt;cSND(r*e^(i*t))=&gt;,0,r),0,2*pi)/sqrt(pi);
+<br>
+[z=3*(1+i)/sqrt2,cSND(z)=&gt;,cP_z(z)=&gt;,cP_r(abs(z))=&gt;];
     </td>
   </tr>
   <tr>

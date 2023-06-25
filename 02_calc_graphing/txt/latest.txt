@@ -624,13 +624,16 @@ stored_eqn(LpR)
 clear
 local storage cleared
 
-[z=3*(1+i)/sqrt2,cSND(z)=>,cP(z)=>]
+[z=3*(1+i)/sqrt2,cSND(z)=>,cP_z(z)=>,cP_r(abs(z))=>]
 (
-0,0.00003928256069279494,0.9946076953403749+O(4e-7)
+0,0.00003928256069279494,0.9946076953403749+O(4e-7),0.9999779093904636+O(9e-6)
 )
 
-cP(z)=<_izi(=<_izr(=<cSND(zr+(zi)i)=>,0,real(z))*2,0,imag(z))*2
-stored_eqn(cP)
+cP_r(r)=<_it(=<_ir(=<cSND(r*e^(i*t))=>,0,r),0,2*pi)/sqrt(pi)
+stored_eqn(cP_r)
+
+cP_z(z)=<_iy(=<_ix(=<cSND(x+(y)i)=>,0,real(z))*2,0,imag(z))*2
+stored_eqn(cP_z)
 
 cSND(z)=<exp(-abs(z)^2)/pi
 stored_eqn(cSND)
@@ -821,4 +824,4 @@ center=true&drag=false&test-case=false&legend=true&axis-t=false&axis-x=true&log-
 --------------------------------
 --------------------------------
 
-online-simulator.github.io.6.237.100.12.54 @ Sun Jun 25 2023 03:31:01 GMT+0900 (日本標準時) @ Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/114.0.0.0 Safari/537.36
+online-simulator.github.io.6.237.101.12.54 @ Sun Jun 25 2023 11:47:15 GMT+0900 (日本標準時) @ Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/114.0.0.0 Safari/537.36
