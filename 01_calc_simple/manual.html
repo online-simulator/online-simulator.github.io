@@ -655,6 +655,8 @@ e^(-i(1pi(){2/2i}(5-{3-1}){i/(-4)}))
 <br>
 ・<a href="#span-in-scope-vars">変数のscope</a>
 <br>
+・<a href="#span-in-call-by-equation">式渡し</a>
+<br>
 ・<a href="#span-in-options">内部option</a>
 <br>
 ・<a href="#span-in-myeval">独自eval</a>
@@ -14678,13 +14680,16 @@ identity4 -> (1,0,0,0:0,1,0,0:0,0,1,0:0,0,0,1)
 行列関数の入力仕様と付随する留意事項について記述する
 <br>
 <br>
+<a href="#span-out-FNmh">高階化</a>しない行列関数の前提を列挙する
+<br>
+・引数は関数call前に解決済み
+<br>
+<br>
 <a href="#span-out-FNmh">高階化</a>しない行列関数の条件を列挙する
 <br>
-・引数は関数call前に解決済みの前提
+・引数が<a href="#span-out-mat">行列</a>単体の場合
 <br>
-　・引数が<a href="#span-out-mat">行列</a>単体の場合
-<br>
-　・<a href="#span-out-mat">抜け要素</a>なしの前提で複数の引数を<a href="#span-out-concatination">行列結合</a>する場合
+・<a href="#span-out-mat">抜け要素</a>なしの前提で複数の引数を<a href="#span-out-concatination">行列結合</a>する場合
     </td>
   </tr>
   <tr>
@@ -15727,7 +15732,9 @@ A=&lt;(1:3,4:); A[0.3]=&gt; -> [MyErr]Invalid reference of array
 <br>
 <a href="#span-out-eqns">式変数</a>[<span class="condition">e</span>][列index](<a href="#span-out-eqns-args">arguments</a>)=&gt;
 <br>
-・列vectorを参照する場合、<span class="clear">2個の<a href="#span-out-BT-square">角括弧[]</a></span>で行indexに<span class="condition"><a href="#span-out-FN0">Napier数e</a></span>を指定する
+・列vectorを参照する場合、<span class="clear">2個の<a href="#span-out-BT-square">角括弧[]</a></span>で行indexに<span class="condition"><a href="#span-out-FN0">Napier数e</a></span>||<a href="#span-out-mat-empty">空行列</a>を指定する
+<br>
+A=(1,2:3,4); A[][0] || (1,2:3,4)[][0] -> (1:3)
 <br>
 A=(1,2:3,4); A[<span class="condition">e</span>][0] || (1,2:3,4)[<span class="condition">e</span>][0] -> (1:3)
 <br>
@@ -16396,7 +16403,9 @@ A=(1,2:3,4); A[0]=(A:A(2,:,2)); A -> (6,8:3,4)
 <br>
 列代入
 <br>
-・列vectorを代入する場合、<span class="clear">2個の<a href="#span-out-BT-square">角括弧[]</a></span>で<a href="#span-out-reference-mat-col">行index</a>に<span class="condition"><a href="#span-out-FN0">Napier数e</a></span>を指定する
+・列vectorを代入する場合、<span class="clear">2個の<a href="#span-out-BT-square">角括弧[]</a></span>で<a href="#span-out-reference-mat-col">行index</a>に<span class="condition"><a href="#span-out-FN0">Napier数e</a></span>||<a href="#span-out-mat-empty">空行列</a>を指定する
+<br>
+A=(,:,); A[][0]={1,2}; A -> (1,0:2,0)
 <br>
 A=(,:,); A[<span class="condition">e</span>][0]={1,2}; A -> (1,0:2,0)
 <br>
@@ -18622,20 +18631,7 @@ clear; n=&lt;n; _sn(=&lt;n=&gt;,0,2) || _sn(=&lt;{n=&gt;},0,2) || 0+1+2 -> 3
 clear; _sn(=&lt;1,0,2) || _sn(=&lt;{1},0,2) || 1+1+1 -> 3
 <br>
 <br>
-本仕様は<a href="#span-out-BT">括弧</a>優先の<a href="#span-out-FNh">高階関数</a>の実装において必須
-<br>
-・引数が値渡しの場合、関数呼出し前に引数の演算を実行するが、
-<br>
-・引数が式渡しの場合、関数呼出しまで引数の演算を実行しない
-<br>
-<br>
-実装の経緯
-<br>
-・当初、括弧より関数優先で式渡しの仕様はなかったが、
-<br>
-・式渡しの記号を明示した方が間違いが少ないと判断し、括弧優先で実装し直した
-<br>
-・さらに、Native無名関数の代替手段として流用した
+実装の詳細は<a href="#span-in-call-by-equation">内部仕様</a>参照
     </td>
   </tr>
   <tr>
@@ -32316,6 +32312,8 @@ Calculator用途に特化した実装項目とfile名の対応関係を列挙す
 <br>
 ・<a href="#span-out-type-ope">演算子のoperand</a>の場合、2次元配列の各要素arr[i][j]を参照する
 <br>
+・<a href="#span-out-BT-square">行列要素参照</a>用に<span class="selection">tag.val同列</span>のobjectを一層追加
+<br>
 <pre><code>
             j-th sentence
   trees2d: [j][i]{tag || num}
@@ -32323,7 +32321,8 @@ Calculator用途に特化した実装項目とfile名の対応関係を列挙す
     trees: [i]{}
   trees0d,
      tree: {}
-      tag: {"name": {val: val}}
+      tag: {"name": <span class="selection">{val: val}</span>}
+         : {"BT?":  <span class="selection">{val: [], ref: [], ids: []}</span>}
       num: {mat:    {arr: arr}}
       1+i: arr [0] [0] {com: {r: 1, i: 1}}
    matrix:     row col {complex number   }
@@ -32357,9 +32356,7 @@ scopes2d arrayのstructureを以下に示す
 <br>
 ・<a href="#span-out-flow">parse</a>段階で<a href="#span-out-bracket">階層とscopeの関係</a>に基づくstatic scopes2d arrayを作成
 <br>
-・同時に対応するidsを<a href="#span-in-tree">単位tree構造</a>のtag.val同列に保存
-<br>
-・tag.val同列は当初なかったが、<a href="#span-out-BT-square">行列要素参照の角括弧[]</a>用にmat.arrとともに追加
+・同時に対応するidsを<a href="#span-in-tree">単位tree構造</a>の<span class="selection">tag.val同列</span>に保存
 <br>
 <pre><code>
              j-th sentence
@@ -32429,6 +32426,32 @@ clear; [a=2,=&lt;[b=1,a=&lt;first[[b,],b,],=&lt;a=&gt;]=&gt;+a]=&gt; -> 3
 ・callする<a href="#span-out-eqns">式変数</a>のself-children-idsからpopで取り出した後、継承する
 <br>
 ・よってidsはn=0の0階層から取り出すFIFO-queueとする
+    </td>
+  </tr>
+  <tr>
+    <th>
+<a href="#span-index">
+目次
+</a>
+<br>
+式渡し
+    </th>
+    <td>
+<span id="span-in-call-by-equation"></span>
+<a href="#span-out-call-by-equation">式渡し</a>の仕様は<a href="#span-out-BT">括弧</a>優先の<a href="#span-out-FNh">高階関数</a>の実装において必須
+<br>
+・引数が値渡しの場合、関数call前に引数の演算を実行するが、
+<br>
+・引数が式渡しの場合、関数callまで引数の演算を実行しない
+<br>
+<br>
+実装の経緯
+<br>
+・当初、括弧より関数優先で式渡しの仕様はなかったが、
+<br>
+・式渡しの記号を明示した方が間違いが少ないと判断し、括弧優先で実装し直した
+<br>
+・さらに、Native無名関数の代替手段として流用した
     </td>
   </tr>
   <tr>

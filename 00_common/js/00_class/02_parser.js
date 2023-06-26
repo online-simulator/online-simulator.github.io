@@ -322,6 +322,7 @@ My_entry.parser.prototype.compare2bas = function(token){
   trees0d,
      tree: {}
       tag: {"name": {val: val}}
+         : {"BT?":  {val: [], ref: [], ids: []}}
       num: {mat:    {arr: arr}}
       1+i: arr [0] [0] {com: {r: 1, i: 1}}
    matrix:     row col {complex number   }
