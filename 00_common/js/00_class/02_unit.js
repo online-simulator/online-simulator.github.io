@@ -89,9 +89,17 @@ My_entry.unit.prototype.FNn = function(prop, options){
   var self = this;
   var cmath = self.entry.math_com;
   var DATA = self.entry.DATA;
-  var args = Array.prototype.slice.call(arguments, 0, 3);
-  var _num = args[2];  // max(1) -> 1
-  for(var i=3, len=arguments.length; i<len; ++i){
+  /* Ver.2.170.42 -> */
+  var len_min = 3;
+  var len = arguments.length;
+  if(len === len_min){  // max(1) -> max(1,1)
+    arguments[3] = arguments[2];  // the same reference
+    len += 1;
+  }
+  var args = Array.prototype.slice.call(arguments, 0, len_min);
+  var _num = args[2];
+  for(var i=len_min; i<len; ++i){
+  /* -> Ver.2.170.42 */
     args[2] = _num;
     args[3] = arguments[i];
     _num = self.FN.apply(self, args);

@@ -36,7 +36,7 @@ My_entry.math_mat.prototype.init2d_num = function(len_i, len_j, num){
 My_entry.math_mat.prototype.num2size = function(options, num){
   var self = this;
   var _n = (num && num.com)? Math.round(num.com.r): 0;  // Ver.2.127.34 floor -> round
-  if(_n <= 0) throw "Invalid matrix size";
+  if(_n <= 0 || isNaN(_n)) throw "Invalid matrix size";  // Ver.2.170.42
   if(_n > options.matSizeMax) throw "Invalid matSizeMax over";
   return _n;
 };
@@ -457,6 +457,13 @@ My_entry.math_mat.prototype.mat2coo = function(options, arr){
       }
     }
   }
+  /* Ver.2.170.42 -> */
+  if(_arr0.length === 0){
+    _arr0[0] = DATA.num(false, 0);
+    _arr1[0] = DATA.num(false, 0);
+    _arr2[0] = DATA.num(false, 0);
+  }
+  /* -> Ver.2.170.42 */
   return _arr;
 };
 My_entry.math_mat.prototype.Imat = function(len){

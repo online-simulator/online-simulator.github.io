@@ -200,10 +200,11 @@ My_entry.math.prototype.fact_m = function(left, right){
 */
 My_entry.math.prototype.fact = function(left){
   var self = this;
+  if(isNaN(left)) return NaN;  // Ver.2.170.42
   var _fact = 1;
   var n = Math.floor(left);
   if(n < 0){
-    _fact = 0;
+    _fact = false;  // Ver.2.170.42
   }
   else{
     for(var i=n; i>0; --i){
@@ -214,12 +215,12 @@ My_entry.math.prototype.fact = function(left){
 };
 My_entry.math.prototype.fact_k = function(left, right){
   var self = this;
-  if(isNaN(right)) return 0;
+  if(isNaN(left) || isNaN(right)) return NaN;  // Ver.2.170.42
   var _fact = 1;
   var n = Math.floor(left);
   var k = Math.floor(right);
   if(n < 0 || k < 0 || n < k){
-    _fact = 0;
+    _fact = false;  // Ver.2.170.42
   }
   else{
     for(var i=n; i>n-k; --i){
@@ -230,12 +231,12 @@ My_entry.math.prototype.fact_k = function(left, right){
 };
 My_entry.math.prototype.fact_m = function(left, right){
   var self = this;
-  if(isNaN(right)) return 0;
+  if(isNaN(left) || isNaN(right)) return NaN;  // Ver.2.170.42
   var _fact = 1;
   var n = Math.floor(left);
   var m = Math.floor(right);
   if(n < 0 || m <= 0){
-    _fact = 0;
+    _fact = false;  // Ver.2.170.42
   }
   else{
     for(var i=n; i>0; i-=m){
@@ -249,10 +250,13 @@ My_entry.math.prototype.permutation = function(n, k){
   var self = this;
   return self.fact_k(n, k);
 };
+/* Ver.2.170.42 */
 My_entry.math.prototype.combin =
 My_entry.math.prototype.combination = function(n, r){
   var self = this;
-  return self.permut(n, r)/(self.fact(r) || 1);  // || not0
+  var permut = self.permut(n, r);
+  if(permut === false) return false;
+  return permut/(self.fact(r) || 1);  // || not0
 };
 /* -> Ver.2.69.28 */
 My_entry.math.prototype.deg_atan2 = function(y, x){
@@ -269,17 +273,20 @@ My_entry.math.prototype.atan2_ex = function(x, y){
 };
 My_entry.math.prototype.kdelta = function(i, j){
   var self = this;
+  if(isNaN(i) || isNaN(j)) return NaN;  // Ver.2.170.42
   return ((i === j)? 1: 0);
 };
 /* Ver.2.87.32 -> */
 My_entry.math.prototype.mod =
 My_entry.math.prototype.fmod = function(x, y){
   var self = this;
+  if(isNaN(x) || isNaN(y)) return NaN;  // Ver.2.170.42
   return (x%y);
 //  return (x-self.int(x/y)*y);
 };
 My_entry.math.prototype.quot = function(x, y){
   var self = this;
+  if(isNaN(x) || isNaN(y)) return NaN;  // Ver.2.170.42
   return self.int(x/y);
 };
 /* -> Ver.2.87.32 */
@@ -291,68 +298,82 @@ My_entry.math.prototype["~"] = function(y){
 };
 My_entry.math.prototype["<<"] = function(x, y){
   var self = this;
+  if(typeof y === "undefined") return NaN;  // Ver.2.170.42
   return (x<<y);
 };
 My_entry.math.prototype[">>"] = function(x, y){
   var self = this;
+  if(typeof y === "undefined") return NaN;  // Ver.2.170.42
   return (x>>y);
 };
 My_entry.math.prototype[">>>"] = function(x, y){
   var self = this;
+  if(typeof y === "undefined") return NaN;  // Ver.2.170.42
   return (x>>>y);
 };
 My_entry.math.prototype.bitand =
 My_entry.math.prototype["&"] = function(x, y){
   var self = this;
+  if(typeof y === "undefined") return NaN;  // Ver.2.170.42
   return (x&y);
 };
 My_entry.math.prototype.bitxor =
 My_entry.math.prototype["@"] = function(x, y){
   var self = this;
+  if(typeof y === "undefined") return NaN;  // Ver.2.170.42
   return (x^y);
 };
 My_entry.math.prototype.bitor =
 My_entry.math.prototype["|"] = function(x, y){
   var self = this;
+  if(typeof y === "undefined") return NaN;  // Ver.2.170.42
   return (x|y);
 };
 My_entry.math.prototype.lt =
 My_entry.math.prototype["<"] = function(x, y){
   var self = this;
+  if(typeof y === "undefined") return NaN;  // Ver.2.170.42
   return ((x<y)? 1: 0);
 };
 My_entry.math.prototype.le =
 My_entry.math.prototype["<="] = function(x, y){
   var self = this;
+  if(typeof y === "undefined") return NaN;  // Ver.2.170.42
   return ((x<=y)? 1: 0);
 };
 My_entry.math.prototype.ge =
 My_entry.math.prototype[">="] = function(x, y){
   var self = this;
+  if(typeof y === "undefined") return NaN;  // Ver.2.170.42
   return ((x>=y)? 1: 0);
 };
 My_entry.math.prototype.gt =
 My_entry.math.prototype[">"] = function(x, y){
   var self = this;
+  if(typeof y === "undefined") return NaN;  // Ver.2.170.42
   return ((x>y)? 1: 0);
 };
 My_entry.math.prototype.seq =
 My_entry.math.prototype["==="] = function(x, y){
   var self = this;
+  if(typeof y === "undefined") return NaN;  // Ver.2.170.42
   return ((x===y)? 1: 0);
 };
 My_entry.math.prototype.sne = function(x, y){
   var self = this;
+  if(typeof y === "undefined") return NaN;  // Ver.2.170.42
   return ((x!==y)? 1: 0);
 };
 My_entry.math.prototype.eq =
 My_entry.math.prototype["=="] = function(x, y){
   var self = this;
+  if(typeof y === "undefined") return NaN;  // Ver.2.170.42
   return ((x==y)? 1: 0);
 };
 My_entry.math.prototype.ne =
 My_entry.math.prototype["<>"] = function(x, y){
   var self = this;
+  if(typeof y === "undefined") return NaN;  // Ver.2.170.42
   return ((x!=y)? 1: 0);
 };
 My_entry.math.prototype.not =
@@ -363,21 +384,25 @@ My_entry.math.prototype["~~"] = function(y){
 My_entry.math.prototype.and =
 My_entry.math.prototype["&&"] = function(x, y){  // && not used
   var self = this;
+  if(typeof y === "undefined") return NaN;  // Ver.2.170.42
   return (x&&y);
 };
 My_entry.math.prototype.xor =
 My_entry.math.prototype["@@"] = function(x, y){  // Ver.2.168.41
   var self = this;
+  if(typeof y === "undefined") return NaN;  // Ver.2.170.42
   return (((x)? 1: 0)^((y)? 1: 0));
 };
 My_entry.math.prototype.or =
 My_entry.math.prototype["||"] = function(x, y){  // || not used
   var self = this;
+  if(typeof y === "undefined") return NaN;  // Ver.2.170.42
   return (x||y);
 };
 /* -> Ver.2.167.40 */
 My_entry.math.prototype.lcm = function(x, y){
   var self = this;
+  if(isNaN(x) || isNaN(y)) return NaN;  // Ver.2.170.42
   if(x < 0 || y < 0) return false;
   var x = Math.floor(x);
   var y = Math.floor(y);
@@ -387,6 +412,7 @@ My_entry.math.prototype.lcm = function(x, y){
 };
 My_entry.math.prototype.gcd = function(x, y){
   var self = this;
+  if(isNaN(x) || isNaN(y)) return NaN;  // Ver.2.170.42
   if(x < 0 || y < 0) return false;
   var x = Math.floor(x);
   var y = Math.floor(y);

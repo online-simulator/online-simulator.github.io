@@ -394,6 +394,8 @@ e^(-i(1pi(){2/2i}(5-{3-1}){i/(-4)}))
 <br>
 　　・<a href="#span-out-FN-fact">階乗関数</a>
 <br>
+　　・<a href="#span-out-FN-gcd">gcd/lcm関数</a>
+<br>
 　　・<a href="#span-out-FN-log">log関数</a>
 <br>
 　　・<a href="#span-out-FN-atan2">atan2関数</a>
@@ -670,6 +672,8 @@ e^(-i(1pi(){2/2i}(5-{3-1}){i/(-4)}))
 ・<a href="#span-in-FN-log">log関数</a>
 <br>
 ・<a href="#span-in-FN-atan2">atan2関数</a>
+<br>
+・<a href="#span-in-FN-NaN">NaN対応</a>
 <br>
 ・<a href="#span-in-log-m0">-0表示対応</a>
 <br>
@@ -1506,7 +1510,7 @@ title/発行元(発行年)を列挙する
 <br>
 　本manualの演算結果を更新：[MyErr] isNaN　⇒　<a href="#span-out-literal">NaN</a>を含む行列
 <br>
-　引数不正でfalseを返す<a href="#span-out-FN-args">一部の実装関数</a>を正常化
+　引数不正で<a href="#span-out-literal">false</a>を返す<a href="#span-out-FN-args">一部の実装関数</a>を正常化
 <br>
 　<del>plot仕様の変更なし（現状、<a href="#span-out-literal">NaN</a>を含む演算結果はplot不可）</del>
 <br>
@@ -13254,79 +13258,26 @@ clear; x=(1,2,3:4*(1,2,3)); gcd(x) || (gcd(1,2,3):gcd(4*(1,2,3))) -> (1:4)
 関数の引数の入力仕様と付随する留意事項について記述する
 <br>
 <br>
-一部の実装関数において引数不足の場合、予期せぬerror終了が発生する
+<span class="clear">Ver.2.170.42</span>以降、実装関数の引数が<a href="#span-out-literal">NaN</a>の場合、発生する不具合を一括修正
 <br>
-・pow関数を一例に示す
+<del>pow(nan,2) -> 0</del>
 <br>
-・<a href="#span-out-ope">実数演算</a>の場合、Nativeに同義
+pow(NaN,2) -> NaN
 <br>
-pow(2)  <span class="selection">// NG</span> -> NaN
+pow(2,NaN) -> NaN
 <br>
-・<a href="#span-out-com">複素数</a>演算の場合、逐次引数不足を判定しないため、予期せぬerror終了
+・引数不足の場合、<a href="#span-out-literal">NaN</a>を返す
 <br>
-pow(2)  <span class="selection">// NG</span> -> Unexpected error
+pow(2) -> NaN
 <br>
+・引数不定の関数の場合、同じ引数を追加して正常化
 <br>
-一部の実装関数において引数不足の場合、不正な結果を返す
+cmin(NaN) || cmin(NaN,NaN) -> NaN
 <br>
-cmin(i)  <span class="selection">// NG</span> -> i
-<br>
-cmin(0,-1+i,2i-2) -> 0
-<br>
-cmax(0,-1+i,2i-2) || abs(2i-2) -> 2.8284271247461903
-<br>
-・<span class="run">Ver.2.73.29</span>以降、<span class="condition"><a href="#span-out-ope-extended">拡張行列演算</a></span>を追加
-<br>
-<del>cmin({0,-1+i,2i-2}) || cmin(2i-2)  <span class="selection">// NG</span> -> -2+2i</del>
-<br>
-<span class="condition">cmin({0,-1+i,2i-2})  <span class="selection">// NG</span> -> (0:-1+i:-2+2i)</span>
-<br>
-・引数不足を含めて一般化する場合、abs関数を使用
-<br>
-abs(cmin(i)) -> 1
-<br>
-<del>abs(cmin({0,-1+i,2i-2})) || abs(cmin(2i-2)) -> 2.8284271247461903</del>
-<br>
-<span class="condition">abs(cmin({0,-1+i,2i-2})) -> (0:1.4142135623730951:2.8284271247461903)</span>
-<br>
-・<a href="#span-out-FNm-trans">転置行列関数</a>を使用
-<br>
-cmin(trans({0,-1+i,2i-2})) || cmin(trans{0,-1+i,2i-2}) || cmin(0,-1+i,2i-2) -> 0
-<br>
-・<a href="#span-out-vars">変数</a>を使用
-<br>
-clear; x=(0,-1+i,2i-2); cmin(x) || cmin{x} || cmin({x}) || cmin{{x}} -> 0
-<br>
-・1重列挙の場合、外側に<a href="#span-out-BT-associativity">括弧のassociativity</a>は存在しない
+cmin(i) || cmin(i,i) -> 1
 <br>
 <br>
-一部の実装関数において引数不正の場合、未定義のfalseを返す（<span class="run">Ver.2.46.24</span>追記）
-<br>
-・最小公倍数を求めるlcm関数の引数は0を含む自然数のみ有効
-<br>
-lcm(0,2,4,6,0) -> 0
-<br>
-lcm(2,4,6) -> 12
-<br>
-・最大公約数を求めるgcd関数の引数は正の整数のみ有効
-<br>
-gcd(0,2,4,6,0) || gcd(2,4,6) -> 2
-<br>
-・引数不正の場合
-<br>
-lcm(-1,2,-3) || gcd(-1,2,-3) -> false
-<br>
-・<span class="run">Ver.2.158.38</span>以降、<a href="#span-out-literal">論理値literal</a>に対応
-<br>
-<del>clear; false -> [MyErr]Invalid REv(false)
-<br>
-・falseは0として扱う</del>
-<br>
-clear; x=gcd(-1,2,-3); x -> false
-<br>
-clear; x=gcd(-1,2,-3); x==0 || 0==x -> 1
-<br>
-clear; x=gcd(-1,2,-3); x*1 || 0*1 -> 0
+詳細は<a href="#span-in-FN-NaN">NaN対応</a>参照
     </td>
   </tr>
   <tr>
@@ -13353,6 +13304,12 @@ clear; x=gcd(-1,2,-3); x*1 || 0*1 -> 0
 ・<a href="#span-out-error-numerical">数値誤差</a>は無視
 <br>
 ・false||true返値=0||1
+<br>
+・<span class="clear">Ver.2.170.42</span>以降、引数不足の場合、<a href="#span-out-literal">NaN</a>を返す
+<br>
+<del>or(NaN) || or(0)  <span class="selection">// NaN||undefined</span> -> undefined</del>
+<br>
+or(NaN) || or(0) -> NaN
 <br>
 <br>
 operandが<a href="#span-out-com">複素数</a>の場合
@@ -13622,7 +13579,7 @@ Px(5) -> 0.9999994266968594+O(1e-13)
 <br>
 ・operandは0を含む自然数のみ対応
 <br>
-・<span class="jF">operandが負の場合、未定義で0を返す</span>
+・<span class="jF">operandが負の場合、<del>未定義で0を返す</del></span><span class="clear">Ver.2.170.42</span>以降、<a href="#span-out-literal">false</a>を返す
 <br>
 ・<span class="condition">operand=0の場合、1を返す</span>
 <br>
@@ -13635,7 +13592,7 @@ fact(3i) || (3i)! || 0! -> 1
 <br>
 fact(3+3i) || (3+3i)! || 3! || 3*2*1 -> 6
 <br>
-<span class="jF">fact(-3) || (-3)! -> 0</span>
+<span class="jF">fact(-3) || (-3)! -> <del>0</del></span>false
 <br>
 <span class="condition">fact(0) || 0! -> 1</span>
 <br>
@@ -13669,6 +13626,12 @@ fact(1e3) || 1e3! -> Infinity
 <br>
 <span class="clear">fact(1e6) || 1e6! -> Infinity</span>
 <br>
+・<span class="clear">Ver.2.170.42</span>以降、<a href="#span-out-literal">NaN</a>の引数に対応
+<br>
+<del>NaN! || fact(NaN) -> 1</del>
+<br>
+NaN! || fact(NaN) -> NaN
+<br>
 <br>
 順列permutation(n,k)
 <br>
@@ -13680,13 +13643,13 @@ permut(3+3i,1) || permut(3,1) -> 3
 <br>
 permut(0,3) -> 0
 <br>
-<span class="jF">permut(-1,3) -> 0</span>
+<span class="jF">permut(-1,3) -> <del>0</del></span>false
 <br>
-<span class="jF">permut(-1,0) -> 0</span>
+<span class="jF">permut(-1,0) -> <del>0</del></span>false
 <br>
-<span class="jF">permut(0,-1) -> 0</span>
+<span class="jF">permut(0,-1) -> <del>0</del></span>false
 <br>
-<span class="jF">permut(3,-1) -> 0</span>
+<span class="jF">permut(3,-1) -> <del>0</del></span>false
 <br>
 <span class="condition">permut(0,0) -> 1</span>
 <br>
@@ -13710,9 +13673,11 @@ permut(5,1) || 5 -> 5
 <br>
 permut(5,0) || 1 -> 1
 <br>
-<span class="jF">permut(5,-1) -> 0</span>
+<span class="jF">permut(5,-1) -> <del>0</del></span>false
 <br>
-<span class="clear">permut(5) -> 0</span>
+・<span class="clear">Ver.2.170.42</span>以降、引数不足の場合、<a href="#span-out-literal">NaN</a>を返す
+<br>
+<span class="clear">permut(5) -> <del>0</del></span>NaN
 <br>
 permut(1e2,1e2) || 1e2! -> 9.332621544394418e+157
 <br>
@@ -13723,6 +13688,12 @@ permut(1e3,1e3) || 1e3! -> Infinity
 <span class="clear">permut(1e5,1e5) || 1e5! -> Infinity</span>
 <br>
 <span class="clear">permut(1e6,1e6) || 1e6! -> Infinity</span>
+<br>
+・<span class="clear">Ver.2.170.42</span>以降、<a href="#span-out-literal">NaN</a>の引数に対応
+<br>
+<del>permut(NaN,1) -> 1</del>
+<br>
+permut(NaN,1) -> NaN
 <br>
 <br>
 組合せcombination(n,r)
@@ -13735,13 +13706,13 @@ combin(3+3i,1) || combin(3,1) -> 3
 <br>
 combin(0,3) -> 0
 <br>
-<span class="jF">combin(-1,3) -> 0</span>
+<span class="jF">combin(-1,3) -> <del>0</del></span>false
 <br>
-<span class="jF">combin(-1,0) -> 0</span>
+<span class="jF">combin(-1,0) -> <del>0</del></span>false
 <br>
-<span class="jF">combin(0,-1) -> 0</span>
+<span class="jF">combin(0,-1) -> <del>0</del></span>false
 <br>
-<span class="jF">combin(3,-1) -> 0</span>
+<span class="jF">combin(3,-1) -> <del>0</del></span>false
 <br>
 <span class="condition">combin(0,0) -> 1</span>
 <br>
@@ -13765,11 +13736,13 @@ combin(5,1) || permut(5,1)/fact(1) || (5)/(1) -> 5
 <br>
 combin(5,0) || permut(5,0)/fact(0) || (1)/(1) -> 1
 <br>
-<span class="jF">combin(5,-1) -> 0</span>
+<span class="jF">combin(5,-1) -> <del>0</del></span>false
 <br>
 permut(5,-1)/fact(-1) || (0)/(0) -> NaN
 <br>
-<span class="clear">combin(5) -> 0</span>
+・<span class="clear">Ver.2.170.42</span>以降、引数不足の場合、<a href="#span-out-literal">NaN</a>を返す
+<br>
+<span class="clear">combin(5) -> <del>0</del></span>NaN
 <br>
 combin(1e2,1e2) -> 1
 <br>
@@ -13792,6 +13765,90 @@ combin(1e3,1e3) || Infinity/Infinity -> NaN
 <span class="clear">combin(1e5,1e5) || Infinity/Infinity -> NaN</span>
 <br>
 <span class="clear">combin(1e6,1e6) || Infinity/Infinity -> NaN</span>
+<br>
+・<span class="clear">Ver.2.170.42</span>以降、<a href="#span-out-literal">NaN</a>の引数に対応
+<br>
+<del>combin(NaN,1) -> 1</del>
+<br>
+combin(NaN,1) -> NaN
+    </td>
+  </tr>
+  <tr>
+    <th>
+<a href="#span-index">
+目次
+</a>
+<br>
+gcd/lcm関数
+<br>
+入力仕様
+    </th>
+    <td>
+<span id="span-out-FN-gcd"></span>
+gcd/lcm関数の入力仕様と付随する留意事項について記述する
+<br>
+<br>
+<span class="clear">Ver.2.170.42</span>以降、<a href="#span-out-literal">NaN</a>の引数に対応
+<br>
+<del>gcd(1,NaN) -> <span class="clear">Maximum call stack size exceeded</span></del>
+<br>
+gcd(1,NaN) -> NaN
+<br>
+<br>
+最大公約数を求めるgcd関数（Euclidの互除法）
+<br>
+・引数は正の整数のみ有効
+<br>
+a=111*12345; b=111*6789; c=111*111213; gcd(a,b,c) -> 333
+<br>
+・結合的演算
+<br>
+gcd(gcd(a,b),c) || gcd(a,gcd(b,c)) -> 333
+<br>
+・同義
+<br>
+gcd_(a,b)=&lt;last[_rn(=&lt;last{ia=int(a),ib=int(b),a=ib,b=ia%ib},,1e6,=&lt;{b==0}),a];
+<br>
+gcd_(gcd_(a,b),c) || gcd_(a,gcd_(b,c)) -> 333
+<br>
+・0を含む場合
+<br>
+gcd(0,2) -> 2
+<br>
+gcd(2,0) -> 2
+<br>
+・引数不正の場合
+<br>
+gcd(1) -> 1
+<br>
+gcd(-1) -> false
+<br>
+gcd(-1,2,-3) -> false
+<br>
+<br>
+最小公倍数を求めるlcm関数（gcdを使用）
+<br>
+・引数は0を含む自然数のみ有効
+<br>
+a=111*12345; b=111*6789; c=111*111213; lcm(a,b,c) -> 114956340053534.98
+<br>
+・同義
+<br>
+ab=a*b/gcd(a,b); ab*c/gcd(ab,c) -> 114956340053535
+<br>
+・0を含む場合
+<br>
+lcm(0,2) -> 0
+<br>
+lcm(2,0) -> 0
+<br>
+・引数不正の場合
+<br>
+lcm(1) -> 1
+<br>
+lcm(-1) -> false
+<br>
+lcm(-1,2,-3) -> false
     </td>
   </tr>
   <tr>
@@ -13899,6 +13956,12 @@ atan2(0,0) -> 0
 z=e^(i{pi/6}); atan2(imag(z),real(z)) -> 0.5235987755982987
 <br>
 z=e^(i{pi/6}); arg(z) -> 0.5235987755982987
+<br>
+・<span class="clear">Ver.2.170.42</span>以降、<a href="#span-out-literal">NaN</a>の引数に対応
+<br>
+<del>arg(NaN) -> 0</del>
+<br>
+arg(NaN) -> NaN
 <br>
 ・さらに、度数degに変換する場合
 <br>
@@ -14263,30 +14326,6 @@ csort(creverse(1,-2i,3:4,-5,6i:7)) -> (1,-2i,3:4,-5,6i:7)
 その他の関数の入力仕様と付随する留意事項について記述する
 <br>
 <br>
-最大公約数を求める関数（Euclidの互除法）
-<br>
-a=111*12345; b=111*6789; c=111*111213; gcd(a,b,c) -> 333
-<br>
-・結合的演算
-<br>
-gcd(gcd(a,b),c) || gcd(a,gcd(b,c)) -> 333
-<br>
-・同義
-<br>
-gcd_(a,b)=&lt;last[_rn(=&lt;last{ia=int(a),ib=int(b),a=ib,b=ia%ib},,1e6,=&lt;{b==0}),a];
-<br>
-gcd_(gcd_(a,b),c) || gcd_(a,gcd_(b,c)) -> 333
-<br>
-<br>
-最小公倍数を求める関数（gcdを使用）
-<br>
-a=111*12345; b=111*6789; c=111*111213; lcm(a,b,c) -> 114956340053534.98
-<br>
-・同義
-<br>
-ab=a*b/gcd(a,b); ab*c/gcd(ab,c) -> 114956340053535
-<br>
-<br>
 Kroneckerのdelta関数
 <br>
 Kdelta(0,0) -> 1
@@ -14296,6 +14335,16 @@ Kdelta(0,1) -> 0
 Kdelta(1,0) -> 0
 <br>
 Kdelta(1,1) -> 1
+<br>
+・<span class="clear">Ver.2.170.42</span>以降、<a href="#span-out-literal">NaN</a>の引数に対応
+<br>
+<del>Kdelta(NaN) -> 0</del>
+<br>
+Kdelta(NaN) -> NaN
+<br>
+Kdelta(NaN,1) -> NaN
+<br>
+Kdelta(1,NaN) -> NaN
     </td>
   </tr>
   <tr>
@@ -14707,6 +14756,12 @@ identity4 -> (1,0,0,0:0,1,0,0:0,0,1,0:0,0,0,1)
     <td>
 <span id="span-out-FNm-init"></span>
 行列を初期化する関数の入力仕様と付随する留意事項について記述する
+<br>
+・<span class="clear">Ver.2.170.42</span>以降、<a href="#span-out-literal">NaN</a>の引数に対応
+<br>
+<del>identity(NaN) -> Invalid array length</del>
+<br>
+identity(NaN) -> [MyErr]Invalid matrix size
 <br>
 <br>
 行vector
@@ -15400,6 +15455,12 @@ clear; num0=_dx(=&lt;{1},1,); mcA=coo2mat(mat2coo(1,2,num0:3,4:5,,)); mcA ->
 5,0,0
 <br>
 )
+<br>
+・<span class="clear">Ver.2.170.42</span>以降、<a href="#span-out-literal">NaN</a>の引数に対応
+<br>
+<del>mat2coo(NaN) || mat2coo(0) -> (:: )</del>
+<br>
+mat2coo(NaN) || mat2coo(0) -> (false:false:false)
 <br>
 <br>
 COO形式の<a href="#span-out-linear">Gaussの消去法</a>
@@ -33256,6 +33317,86 @@ atan2(0,0) -> 0
 atan2(-0,0) -> -0
 <br>
 atan2(-0,1) -> 0
+    </td>
+  </tr>
+  <tr>
+    <th>
+<a href="#span-index">
+目次
+</a>
+<br>
+NaN対応
+    </th>
+    <td>
+<span id="span-in-FN-NaN"></span>
+<a href="#span-out-literal">NaN</a>対応について記述する
+<br>
+<br>
+<span class="clear">Ver.2.170.42</span>以降、実装関数の引数が<a href="#span-out-literal">NaN</a>の場合、発生する不具合を一括修正
+<br>
+・未定義の返値を返す関数を修正
+<br>
+・引数不足の場合、予期せぬerror終了が発生する一部の関数を修正
+<br>
+<br>
+修正前の不具合を列挙する
+<br>
+identity(NaN) -> Invalid array length
+<br>
+gcd(1,NaN) -> <span class="clear">Maximum call stack size exceeded</span>
+<br>
+argument(NaN) -> 0
+<br>
+Kdelta(NaN) -> 0
+<br>
+combin(NaN,1) || permut(NaN,1) -> 1
+<br>
+combin(1,NaN) || permut(1,NaN) -> 0
+<br>
+NaN! || fact(NaN) -> 1
+<br>
+mat2coo(NaN) || mat2coo(0) -> (:: )
+<br>
+or(NaN) || or(0)  <span class="selection">// NaN||undefined</span> -> undefined
+<br>
+・別途、引数不定の関数の不具合
+<br>
+cmin(NaN) -> NaN
+<br>
+cmin(i) -> i
+<br>
+<br>
+修正後の対策を列挙する
+<br>
+・isNaN判定を追加
+<br>
+identity(NaN) -> [MyErr]Invalid matrix size
+<br>
+gcd(1,NaN) -> NaN
+<br>
+argument(NaN) -> NaN
+<br>
+Kdelta(NaN) -> NaN
+<br>
+combin(NaN,1) || permut(NaN,1) -> NaN
+<br>
+combin(1,NaN) || permut(1,NaN) -> NaN
+<br>
+NaN! || fact(NaN) -> NaN
+<br>
+・未定義の場合、<a href="#span-out-literal">false</a>を返す
+<br>
+mat2coo(NaN) || mat2coo(0) -> (false:false:false)
+<br>
+・引数不足の場合、<a href="#span-out-literal">NaN</a>を返す
+<br>
+or(NaN) || or(0) -> NaN
+<br>
+・引数不定の関数の場合、同じ引数を追加して正常化
+<br>
+cmin(NaN) || cmin(NaN,NaN) -> NaN
+<br>
+cmin(i) || cmin(i,i) -> 1
     </td>
   </tr>
   <tr>

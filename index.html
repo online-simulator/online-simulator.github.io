@@ -256,6 +256,52 @@ Y/M/D
 <tbody>
   <tr>
     <th>
+6.238.101.13.54
+    </th>
+    <td class="types">
+Calculator
+    </td>
+    <td>
+2.170.42
+    </td>
+    <td class="clear">
+fatal bug-fix
+<br>
+2.158.38~
+    </td>
+    <td>
+[Calculator]
+<br>
+・functions with NaN-argument bug-fixed
+<br>
+identity(NaN) -> Invalid array length　⇒　[MyErr]Invalid matrix size
+<br>
+gcd(1,NaN) -> <span class="clear">Maximum call stack size exceeded</span>　⇒　NaN
+<br>
+argument(NaN) -> 0　⇒　NaN
+<br>
+Kdelta(NaN) -> 0　⇒　NaN
+<br>
+combin(NaN,1) || permut(NaN,1) -> 1　⇒　NaN
+<br>
+combin(1,NaN) || permut(1,NaN) -> 0　⇒　NaN
+<br>
+NaN! || fact(NaN) -> 1　⇒　NaN
+<br>
+mat2coo(NaN) || mat2coo(0) -> (:: )　⇒　(false:false:false)
+<br>
+or(NaN) || or(0)  <span class="selection">// NaN||undefined</span> -> undefined　⇒　NaN
+<br>
+cmin(i) -> i　⇒　1
+<br>
+・test case updated
+    </td>
+    <td>
+2023/6/27
+    </td>
+  </tr>
+  <tr>
+    <th>
 6.238.101.12.54
     </th>
     <td class="types">

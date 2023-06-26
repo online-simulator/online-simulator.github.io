@@ -42,7 +42,7 @@ My_entry.math_com.prototype.absolute_com = function(a){
 };
 My_entry.math_com.prototype.argument_com = function(a){
   var self = this;
-//  if(a.r === 0 && a.i === 0) return 0;  // Math.atan2(0, 0) -> 0
+  if(self.isNaN(a)) return NaN;  // Ver.2.170.42
   return Math.atan2(a.i || 0, a.r || 0);  // Ver.2.149.38 || 0
 };
 //
@@ -55,37 +55,44 @@ My_entry.math_com.prototype.cnot = function(b){
 };
 My_entry.math_com.prototype.cand = function(a, b){
   var self = this;
+  if(!(b)) return self.entry.DATA.com(NaN, NaN);  // Ver.2.170.42
   return ((self.isFalse(a))? a: b);
 };
 My_entry.math_com.prototype["@@"] =
 My_entry.math_com.prototype.cxor = function(a, b){
   var self = this;
+  if(!(b)) return self.entry.DATA.com(NaN, NaN);  // Ver.2.170.42
   var hasA = (self.isFalse(a))? 0: 1;
   var hasB = (self.isFalse(b))? 0: 1;
   return self.entry.DATA.com(hasA^hasB, 0);
 };
 My_entry.math_com.prototype.cor = function(a, b){
   var self = this;
+  if(!(b)) return self.entry.DATA.com(NaN, NaN);  // Ver.2.170.42
   return ((self.isFalse(a))? b: a);
 };
 My_entry.math_com.prototype.cseq = function(a, b){
   var self = this;
+  if(!(b)) return self.entry.DATA.com(NaN, NaN);  // Ver.2.170.42
   var sw = self.isStrictEqual(a, b);
   return self.entry.DATA.com(((sw)? 1: 0), 0);
 };
 My_entry.math_com.prototype.csne = function(a, b){
   var self = this;
+  if(!(b)) return self.entry.DATA.com(NaN, NaN);  // Ver.2.170.42
   var sw = !(self.isStrictEqual(a, b));
   return self.entry.DATA.com(((sw)? 1: 0), 0);
 };
 /* -> Ver.2.168.41 */
 My_entry.math_com.prototype.ceq = function(a, b){
   var self = this;
+  if(!(b)) return self.entry.DATA.com(NaN, NaN);  // Ver.2.170.42
   var sw = ((a.r == b.r) && (a.i == b.i));
   return self.entry.DATA.com(((sw)? 1: 0), 0);
 };
 My_entry.math_com.prototype.cne = function(a, b){
   var self = this;
+  if(!(b)) return self.entry.DATA.com(NaN, NaN);  // Ver.2.170.42
   var sw = !((a.r == b.r) && (a.i == b.i));
   return self.entry.DATA.com(((sw)? 1: 0), 0);
 };
@@ -100,16 +107,19 @@ My_entry.math_com.prototype.cmax = function(a, b){
 /* Ver.2.154.38 */
 My_entry.math_com.prototype.cdot = function(a, b){
   var self = this;
+  if(!(b)) return self.entry.DATA.com(NaN, NaN);  // Ver.2.170.42
   return self.entry.DATA.com(a.r*b.r+a.i*b.i, 0);
 };
 My_entry.math_com.prototype.comp =
 My_entry.math_com.prototype.complex = function(a, b){
   var self = this;
+  if(!(b)) return self.entry.DATA.com(NaN, NaN);  // Ver.2.170.42
   return self.entry.DATA.com(a.r, b.r);
 };
 My_entry.math_com.prototype.pcomp =
 My_entry.math_com.prototype.pcomplex = function(r, t){
   var self = this;
+  if(!(t)) return self.entry.DATA.com(NaN, NaN);  // Ver.2.170.42
   var r = r.r;
   var t = t.r;
   return self.entry.DATA.com(Math.cos(t)*r, Math.sin(t)*r);
@@ -222,6 +232,8 @@ My_entry.math_com.prototype.exp = function(a){
 };
 My_entry.math_com.prototype.pow = function(a, b){
   var self = this;
+  if(!(b)) return self.entry.DATA.com(NaN, NaN);  // Ver.2.170.42
+  if(self.isNaN(a) || self.isNaN(b)) return self.entry.DATA.com(NaN, NaN);  // Ver.2.170.42
   if(!(self.absolute_com(a))){
     var cr = (self.absolute_com(b))? 0: 1;
     return self.entry.DATA.com(cr, 0);
