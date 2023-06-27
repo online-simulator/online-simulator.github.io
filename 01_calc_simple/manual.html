@@ -384,6 +384,8 @@ e^(-i(1pi(){2/2i}(5-{3-1}){i/(-4)}))
 <br>
 　　・<a href="#span-out-FN-args">関数の引数</a>
 <br>
+　　・<a href="#span-out-FN-isNaN">isNaN関数</a>
+<br>
 　　・<a href="#span-out-FN-ope">演算子代替関数</a>
 <br>
 　　・<a href="#span-out-FN-int">int関数</a>
@@ -395,6 +397,8 @@ e^(-i(1pi(){2/2i}(5-{3-1}){i/(-4)}))
 　　・<a href="#span-out-FN-fact">階乗関数</a>
 <br>
 　　・<a href="#span-out-FN-gcd">gcd/lcm関数</a>
+<br>
+　　・<a href="#span-out-FN-min">min/max関数</a>
 <br>
 　　・<a href="#span-out-FN-log">log関数</a>
 <br>
@@ -8179,7 +8183,7 @@ csv0[0] -> (0,1,<a href="#span-out-literal">NaN</a>,5,7,9)
 <br>
 csv0[1] -> (0,2,4,6,8<span class="clear"><del>,0</del><a href="#span-out-literal">,NaN</a></span>)
 <br>
-・<span class="run">Ver.2.159.38</span>以降、<a href="#span-out-literal">isNaN関数</a>を追加
+・<span class="run">Ver.2.159.38</span>以降、<a href="#span-out-FN-isNaN">isNaN関数</a>を追加
 <br>
 (isNaN(trans(csv0[0])),isNaN(trans(csv0[1])))==true ->
 <br>
@@ -10290,6 +10294,11 @@ true || TRUE -> true
 ・<span class="clear">Ver.2.161.39</span>以降、<a href="#span-out-UI-simple">指数表記</a>選択の場合、error終了を修正
 <br>
 <br>
+論理値literalのみを返す関数を列挙する
+<br>
+・<a href="#span-out-FN-isNaN">isNaN関数</a>
+<br>
+<br>
 test caseを列挙する
 <br>
 false==false || FALSE==0 -> 1
@@ -10321,9 +10330,7 @@ isNaN_(x)=&lt;(x&lt;&gt;x); isNaN_(NaN),isNaN_(Infinity) -> (1,0)
 <br>
 a=0; b=a/a; c=1/a; isNaN_(a),isNaN_(b),isNaN_(c) -> (0,1,1)
 <br>
-・<span class="run">Ver.2.159.38</span>以降、isNaN関数を追加
-<br>
-isNaN(NaN),isNaN(Infinity) -> (true,false)
+・<span class="run">Ver.2.159.38</span>以降、<a href="#span-out-FN-isNaN">isNaN関数</a>を追加
 <br>
 a=0; b=a/a; c=1/a; isNaN(a),isNaN(b),isNaN(c) -> (false,true,true)
 <br>
@@ -10332,16 +10339,6 @@ a=0; b=a/a; c=1/a; isNaN(a),isNaN(b),isNaN(c) -> (false,true,true)
 a=0; b=a/a; c=1/a; isNaN_(a),isNaN_(b),isNaN_(c) -> (0,1,0+O(1e+0))
 <br>
 a=0; b=a/a; c=1/a; isNaN(a),isNaN(b),isNaN(c) -> (false,true,false+O(1e+0))
-<br>
-・<span class="run">Ver.2.163.39</span>以降、虚部のNaNを<a href="#span-out-log">log表示</a>する場合、<a href="#span-in-options">内部option</a>参照
-<br>
-nan*i -> NaN+(NaN)i
-<br>
-・<span class="clear">Ver.2.167.41</span>以降、実部NaN+虚部iの演算結果の<a href="#span-out-log">log表示</a>不具合を修正
-<br>
-<del>NaN+i -> i</del>
-<br>
-NaN+i -> NaN
     </td>
   </tr>
   <tr>
@@ -12925,6 +12922,21 @@ false判定値の定義：無次元の0||<a href="#span-out-literal">false</a>||
 <a href="#span-out-ope">有次元</a>のtrue判定を使用する項目を列挙する
 <br>
 ・<a href="#span-out-prec-ope-logical-short-circuit">論理演算子（短絡評価）</a>
+<br>
+<br>
+test caseを列挙する
+<br>
+・isFalse関数は未実装
+<br>
+val=0; val==0,val==false,val===0,val===false -> (1,1,1,0+O(1e+0))
+<br>
+val=false; val==0,val==false,val===0,val===false -> (1,1,0+O(1e+0),1)
+<br>
+・isTrue関数は未実装
+<br>
+val=1; val==1,val==true,val===1,val===true -> (1,1,1,0+O(1e+0))
+<br>
+val=true; val==1,val==true,val===1,val===true -> (1,1,0+O(1e+0),1)
     </td>
   </tr>
   <tr>
@@ -13278,6 +13290,57 @@ cmin(i) || cmin(i,i) -> 1
 <br>
 <br>
 詳細は<a href="#span-in-FN-NaN">NaN対応</a>参照
+    </td>
+  </tr>
+  <tr>
+    <th>
+<a href="#span-index">
+目次
+</a>
+<br>
+isNaN関数
+<br>
+入力仕様
+    </th>
+    <td>
+<span id="span-out-FN-isNaN"></span>
+isNaN関数の入力仕様と付随する留意事項について記述する
+<br>
+<br>
+<span class="run">Ver.2.159.38</span>以降、isNaN関数を追加
+<br>
+<br>
+test caseを列挙する
+<br>
+isNaN(NaN) -> true
+<br>
+isNaN(Infinity) -> false
+<br>
+isNaN(0) -> false
+<br>
+isNaN(false) -> false
+<br>
+isNaN(true) -> false
+<br>
+val=NaN; isNaN(val) -> true
+<br>
+mat=(NaN,2:3,NaN); isNaN(mat) || isNaN(NaN:3) -> (true:false)
+<br>
+a=0; b=a/a; c=1/a; isNaN(a),isNaN(b),isNaN(c) -> (false,true,true)
+<br>
+・<a href="#span-out-ope">実数演算</a>
+<br>
+a=0; b=a/a; c=1/a; isNaN(a),isNaN(b),isNaN(c) -> (false,true,false+O(1e+0))
+<br>
+・<span class="run">Ver.2.163.39</span>以降、虚部のNaNを<a href="#span-out-log">log表示</a>する場合、<a href="#span-in-options">内部option</a>参照
+<br>
+nan*i -> NaN+(NaN)i
+<br>
+・<span class="clear">Ver.2.167.41</span>以降、実部NaN+虚部iの演算結果の<a href="#span-out-log">log表示</a>不具合を修正
+<br>
+<del>NaN+i -> i</del>
+<br>
+NaN+i -> NaN
     </td>
   </tr>
   <tr>
@@ -13811,11 +13874,25 @@ gcd_(a,b)=&lt;last[_rn(=&lt;last{ia=int(a),ib=int(b),a=ib,b=ia%ib},,1e6,=&lt;{b=
 <br>
 gcd_(gcd_(a,b),c) || gcd_(a,gcd_(b,c)) -> 333
 <br>
+・<span class="clear">Ver.2.170.42</span>以降、厳密な記述
+<br>
+gcd_(a,b)=&lt;last[_rn(=&lt;last{ia=int(a),ib=int(b),a=((ia<0||ib===0)&&&ia)|||ib,b=ia%(ib||1)},
+<br>
+isBreak_a=&lt;isNaN(a)|||(a<0&&&~~(a=false)),1e6,=&lt;{isBreak_a|||b==0}),a];
+<br>
 ・0を含む場合
+<br>
+gcd(,) -> 0
 <br>
 gcd(0,2) -> 2
 <br>
 gcd(2,0) -> 2
+<br>
+gcd_(,) -> 0
+<br>
+gcd_(0,2) -> 2
+<br>
+gcd_(2,0) -> 2
 <br>
 ・引数不正の場合
 <br>
@@ -13824,6 +13901,14 @@ gcd(1) -> 1
 gcd(-1) -> false
 <br>
 gcd(-1,2,-3) -> false
+<br>
+gcd_(-1,2) -> false
+<br>
+・<span class="clear">Ver.2.170.42</span>以降、<a href="#span-out-literal">NaN</a>の引数に対応
+<br>
+gcd(NaN) || gcd(NaN,1) || gcd(1,NaN) -> NaN
+<br>
+gcd_(NaN,1) || gcd_(1,NaN) -> NaN
 <br>
 <br>
 最小公倍数を求めるlcm関数（gcdを使用）
@@ -13849,6 +13934,110 @@ lcm(1) -> 1
 lcm(-1) -> false
 <br>
 lcm(-1,2,-3) -> false
+<br>
+・<span class="clear">Ver.2.170.42</span>以降、<a href="#span-out-literal">NaN</a>の引数に対応
+<br>
+lcm(NaN) || lcm(NaN,1) || lcm(1,NaN) -> NaN
+    </td>
+  </tr>
+  <tr>
+    <th>
+<a href="#span-index">
+目次
+</a>
+<br>
+min/max関数
+<br>
+入力仕様
+    </th>
+    <td>
+<span id="span-out-FN-min"></span>
+min/max関数の入力仕様と付随する留意事項について記述する
+<br>
+<br>
+<a href="#span-out-num">実数値</a>の最小値を返すmin関数
+<br>
+x=(1,-2,3,-4,5,-6);
+<br>
+min(x) -> -6
+<br>
+min(x:x*2) -> (-6:-12)
+<br>
+<br>
+<a href="#span-out-num">実数値</a>の最大値を返すmax関数
+<br>
+x=(1,-2,3,-4,5,-6);
+<br>
+max(x) -> 5
+<br>
+max(x:x*2) -> (5:10)
+<br>
+<br>
+<a href="#span-out-com">複素数</a><span class="clear">絶対値</span>の最小値を返すcmin関数
+<br>
+z=(1,-2,3,-4,5,-6)i;
+<br>
+cmin(z) -> 1
+<br>
+cmin(z:z*(1+i)) -> (1:1.4142135623730951)
+<br>
+・同義
+<br>
+min(trans(abs(trans(z)))) -> 1
+<br>
+min(trans(abs(trans(z)),abs(trans(z*(1+i))))) -> (1:1.4142135623730951)
+<br>
+・<span class="clear">Ver.2.170.42</span>以降、引数1個の場合、同じ引数を2個目に追加して正常化
+<br>
+<del>cmin(i) -> i</del>
+<br>
+cmin(i) || cmin(i,i) -> 1
+<br>
+・<span class="clear">Ver.2.170.42</span>以降、<a href="#span-out-literal">NaN</a>の引数に対応
+<br>
+cmin(NaN) || cmin(NaN,NaN) -> NaN
+<br>
+<br>
+<a href="#span-out-com">複素数</a><span class="clear">絶対値</span>の最大値を返すcmax関数
+<br>
+z=(1,-2,3,-4,5,-6)i;
+<br>
+cmax(z) -> 6
+<br>
+cmax(z:z*(1+i)) -> (6:8.48528137423857)
+<br>
+・同義
+<br>
+max(trans(abs(trans(z)))) -> 6
+<br>
+max(trans(abs(trans(z)),abs(trans(z*(1+i))))) -> (6:8.48528137423857)
+<br>
+・<span class="clear">Ver.2.170.42</span>以降、引数1個の場合、同じ引数を2個目に追加して正常化
+<br>
+<del>cmax(i) -> i</del>
+<br>
+cmax(i) || cmax(i,i) -> 1
+<br>
+・<span class="clear">Ver.2.170.42</span>以降、<a href="#span-out-literal">NaN</a>の引数に対応
+<br>
+cmax(NaN) || cmax(NaN,NaN) -> NaN
+<br>
+<br>
+偏角不問で<a href="#span-out-com">複素数</a>を返す場合、<a href="#span-out-FN-statistic">統計関数</a>を使用
+<br>
+z=(-6,6,-6i,6i,1,-2,3,-4,5);
+<br>
+z_sorted=csort(z); z_sorted -> (1,-2,3,-4,5,-6,6,-6i,6i)
+<br>
+z_reversed=creverse(z); z_reversed -> (6i,-6i,6,-6,5,-4,3,-2,1)
+<br>
+first(z_sorted) -> 1
+<br>
+last(z_sorted) -> 6i
+<br>
+first(z_reversed) -> 6i
+<br>
+last(z_reversed) -> 1
     </td>
   </tr>
   <tr>
@@ -15137,6 +15326,17 @@ clear; A=(,:,); sizec(A,b:c,A) || sizec(A,:,A) -> 3
 clear; A=(,:,); sizer(A,A:A,A) -> 4
 <br>
 clear; A=(,:,); sizec(A,A:A,A) -> 4
+<br>
+<br>
+test caseを示す
+<br>
+size_mn(mat)=&lt;{sizer(mat),sizec(mat)};
+<br>
+mat=(1,2:3,4:5,6);
+<br>
+{$m,$n}=size_mn(=&lt;mat);
+<br>
+(m,n) -> (3,2)
     </td>
   </tr>
   <tr>
@@ -15158,6 +15358,8 @@ norm行列関数の入力仕様と付随する留意事項について記述す�
 <br>
 列vectorのEuclidian norm（vectorの長さ）
 <br>
+・<a href="#span-out-linear">連立方程式</a>A*x=bのnorm(x)想定
+<br>
 norm(1:2:3) || norm{1,2,3} || norm({1,2,3}) -> 3.7416573867739413
 <br>
 norm(-i:2i:-3i) || norm{-i,2i,-3i} || norm({-i,2i,-3i}) -> 3.7416573867739413
@@ -15165,6 +15367,10 @@ norm(-i:2i:-3i) || norm{-i,2i,-3i} || norm({-i,2i,-3i}) -> 3.7416573867739413
 norm((1-i)/sqrt2:2i:-3i) || norm({(1-i)/sqrt2,2i,-3i}) -> 3.7416573867739413
 <br>
 x=((1-i)/sqrt2,2i,-3i); norm(trans(x)) -> 3.7416573867739413
+<br>
+・<a href="#span-out-mat">行列</a>を指定した場合、最終列を参照
+<br>
+mat={1,2:3,4}; norm(mat),norm(mat[][1]),norm(3:4),norm{3,4},norm({3,4}),norm{{3,4}} -> (5,5,5,5,5,5)
 <br>
 ・<a href="#span-out-ope">有次元</a>の場合、同義
 <br>
@@ -29017,7 +29223,7 @@ Newton法について記述する
 <br>
 {df[i]}={0-f[i]}
 <br>
-・Ax=bの連立線形方程式に一般化されたNewton法が導出される
+・A*x=bの連立線形方程式に一般化されたNewton法が導出される
 <br>
 ・ここで、<a href="#span-out-type-ope">前置単項</a>の符号は<a href="#span-out-FNm">Scalar倍</a>||<a href="#span-out-FNm">zeros行列</a>との差||和で定義される
 <br>
@@ -29079,7 +29285,7 @@ x=x-mdx
 ・反復法は解の修正を繰り返して近似的に解くため、非線形方程式に拡張可
 <br>
 <br>
-full-rank2元1次の連立線形方程式Ax=bを一例に示す
+full-rank2元1次の連立線形方程式A*x=bを一例に示す
 <br>
 A=(1,2:3,4);
 <br>
@@ -29102,7 +29308,7 @@ x=Gauss((1,2:3,4),{5,6}); x -> (-3.9999999999999982:4.499999999999999)
 <br>
 ・解のdouble-check
 <br>
-A(x) -> (5:6.000000000000002)
+A*x -> (5:6.000000000000002)
 <br>
 ・<a href="#span-out-array">行列操作</a>を駆使して演算内容を以下に示す
 <br>
@@ -29304,7 +29510,7 @@ x=&lt;{x0,x1}; x_initial=&lt;{x0,x1};
 <br>
 ・連立方程式を展開しない場合
 <br>
-f=&lt;{A(x)=b}; || f=&lt;{=b-A(x)}; || f=&lt;{b-A(x)};
+f=&lt;{A*x=b}; || f=&lt;{=b-A*x}; || f=&lt;{b-A*x};
 <br>
 ・連立方程式を展開する場合
 <br>
@@ -29396,7 +29602,7 @@ infoLost[ri] 4.499999999999999+6.466216308756395e-26i
 )
 <br>
 <br>
-rank落ち3元⇒実質2元1次の連立線形方程式Ax=bを一例に示す
+rank落ち3元⇒実質2元1次の連立線形方程式A*x=bを一例に示す
 <br>
 A=(i,2i,3i:4i,5i,6i:7i,8i,9i);
 <br>
@@ -29421,7 +29627,7 @@ b={10i,11i,12i};
 <br>
 x=Gauss(A,b); x -> (-25.333333333333332:41.666666666666664:-16)
 <br>
-A(x) -> (10i:10.999999999999986i:12i)
+A*x -> (10i:10.999999999999986i:12i)
 <br>
 ・algorithmを以下に示す
 <br>
@@ -29520,7 +29726,7 @@ b={10i,11i,12i};
 <br>
 x=&lt;{x0,x1,x2}; x_initial=&lt;{0,0,0};
 <br>
-f=&lt;{A(x)=b};
+f=&lt;{A*x=b};
 <br>
 run=&lt;last(mdx=Newton(=&lt;f,=&lt;x,=&lt;x_initial),max(norm(f),norm(mdx)));
 <br>
@@ -29538,7 +29744,7 @@ x ->
 <br>
 )
 <br>
-A(x) -> (-2.3283064365386963e-10+10.000000000116415i:11i:12i)
+A*x -> (-2.3283064365386963e-10+10.000000000116415i:11i:12i)
 <br>
 ・初期値が<a href="#span-out-com">虚数単位</a>vectorの場合
 <br>
@@ -29550,7 +29756,7 @@ b={10i,11i,12i};
 <br>
 x=&lt;{x0,x1,x2}; x_initial=&lt;{i,i,i};
 <br>
-f=&lt;{A(x)=b};
+f=&lt;{A*x=b};
 <br>
 run=&lt;last(mdx=Newton(=&lt;f,=&lt;x,=&lt;x_initial),max(norm(f),norm(mdx)));
 <br>
@@ -29568,7 +29774,7 @@ x ->
 <br>
 )
 <br>
-A(x) -> (10.000000000000002i:11.000000000000005i:12.000000000000007i)
+A*x -> (10.000000000000002i:11.000000000000005i:12.000000000000007i)
 <br>
 ・初期値が直接法による厳密解の場合
 <br>
@@ -29584,7 +29790,7 @@ b={10i,11i,12i};
 <br>
 x=&lt;{x0,x1,x2}; x_initial=&lt;(-25.333333333333332:41.666666666666664:-16);
 <br>
-f=&lt;{A(x)=b};
+f=&lt;{A*x=b};
 <br>
 run=&lt;last(mdx=Newton(=&lt;f,=&lt;x,=&lt;x_initial),max(norm(f),norm(mdx)));
 <br>
@@ -29602,7 +29808,7 @@ x ->
 <br>
 )
 <br>
-A(x) ->
+A*x ->
 <br>
 (
 <br>
@@ -29615,7 +29821,7 @@ A(x) ->
 )
 <br>
 <br>
-rank落ち3元⇒実質2元1次の連立線形方程式Ax=bを一例に示す
+rank落ち3元⇒実質2元1次の連立線形方程式A*x=bを一例に示す
 <br>
 A=(i,2i,3i:4i,5i,6i:7i,8i,9i);
 <br>
@@ -29646,7 +29852,7 @@ infoLost[r ] 54043195528445890+54043195528445910i:
 <br>
 )
 <br>
-A(x) -> (infoLost[r ] -32+32i:infoLost[r ] 64i:infoLost[r ] -64)
+A*x -> (infoLost[r ] -32+32i:infoLost[r ] 64i:infoLost[r ] -64)
 <br>
 <br>
 反復法
@@ -29661,7 +29867,7 @@ b={10i,11i,12};
 <br>
 x=&lt;{x0,x1,x2};
 <br>
-f=&lt;{A(x)=b};
+f=&lt;{A*x=b};
 <br>
 run=&lt;last(mdx=Newton(=&lt;f,=&lt;x),max(norm(f),norm(mdx)));
 <br>
@@ -32240,7 +32446,7 @@ equal記号=の仕様を列挙する
 <br>
 f=&lt;{x0^2+1=0} || f=&lt;{=-(x0^2+1)} || f=&lt;{-(x0^2+1)}
 <br>
-f=&lt;{A(x)=b} || f=&lt;{=b-A(x)} || f=&lt;{b-A(x)}
+f=&lt;{A*x=b} || f=&lt;{=b-A*x} || f=&lt;{b-A*x}
 <br>
 f=&lt;{Ainv*A=identity2} || f=&lt;{=identity2-Ainv*A} || f=&lt;{identity2-Ainv*A}
     </td>
@@ -32816,7 +33022,7 @@ operation.js抜粋
 <br>
 ・<span class="run">Ver.2.158.38</span>以降、<a href="#span-out-literal">NaN||論理値literal</a>を追加
 <br>
-・<span class="run">Ver.2.159.38</span>以降、<a href="#span-out-literal">isNaN関数</a>を追加
+・<span class="run">Ver.2.159.38</span>以降、<a href="#span-out-FN-isNaN">isNaN関数</a>を追加
 <br>
 ・<span class="run">Ver.2.165.39</span>以降、<a href="#span-out-RW">reserved token</a>を追加
 <br>
