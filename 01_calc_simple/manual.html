@@ -15387,10 +15387,6 @@ norm((1-i)/sqrt2:2i:-3i) || norm({(1-i)/sqrt2,2i,-3i}) -> 3.7416573867739413
 <br>
 x=((1-i)/sqrt2,2i,-3i); norm(trans(x)) -> 3.7416573867739413
 <br>
-・<a href="#span-out-mat">行列</a>を指定した場合、最終列を参照
-<br>
-mat={1,2:3,4}; norm(mat),norm(mat[][1]),norm(3:4),norm{3,4},norm({3,4}),norm{{3,4}} -> (5,5,5,5,5,5)
-<br>
 ・<a href="#span-out-ope">有次元</a>の場合、同義
 <br>
 x=((1-i)/sqrt2,2i,-3i); sqrt(x*htrans(x)) -> 3.7416573867739413
@@ -15414,6 +15410,10 @@ x={(1-i)/sqrt2,2i,-3i}; abs(sqrt(trans(x)x))  <span class="selection">// NG</spa
 ・行vectorを誤入力した場合
 <br>
 norm((1-i)/sqrt2,2i,-3i) || norm(-3i)  <span class="selection">// NG</span> -> 3
+<br>
+・<a href="#span-out-mat">行列</a>を指定した場合、最終列を参照
+<br>
+mat={1,2:3,4}; norm(mat),norm(mat[][1]),norm(3:4),norm{3,4},norm({3,4}),norm{{3,4}} -> (5,5,5,5,5,5)
     </td>
   </tr>
   <tr>
