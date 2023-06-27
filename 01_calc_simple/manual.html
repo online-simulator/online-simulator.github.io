@@ -13343,6 +13343,11 @@ nan*i -> NaN+(NaN)i
 <del>NaN+i -> i</del>
 <br>
 NaN+i -> NaN
+<br>
+<br>
+留意事項を列挙する
+<br>
+・例外的に、<a href="#span-out-literal">論理値literal</a>を返す
     </td>
   </tr>
   <tr>
@@ -13878,9 +13883,9 @@ gcd_(gcd_(a,b),c) || gcd_(a,gcd_(b,c)) -> 333
 <br>
 ・<span class="clear">Ver.2.170.42</span>以降、厳密な記述
 <br>
-gcd_(a,b)=&lt;last[_rn(=&lt;last{ia=floor(a),ib=floor(b),a=((ia<0||ib===0)&&&ia)|||ib,b=ia%(ib||1)},
+gcd_(a,b)=&lt;last[_rn(=&lt;last{ia=floor(a),ib=floor(b),a=ia<0||ib===0&&&ia|||ib,b=ia%(ib||1)},
 <br>
-isBreak_a=&lt;isNaN(a)|||(a<0&&&~~(a=false)),1e6,=&lt;{isBreak_a|||b==0}),a];
+isBreak_a=&lt;isNaN(a)|||a<0&&&~~(a=false),1e6,=&lt;{isBreak_a|||b==0}),a];
 <br>
 ・0を含む場合
 <br>
@@ -13909,6 +13914,8 @@ gcd(-1,2) -> false
 gcd(-0.1,2) -> false
 <br>
 gcd(1,-0.2) -> false
+<br>
+gcd_(-1) -> [MyErr]Invalid args.length=2(gcd_)
 <br>
 gcd_(-1,2) -> false
 <br>

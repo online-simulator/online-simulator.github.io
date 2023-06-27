@@ -17,12 +17,12 @@ z=(1,-2,3,-4,5,-6)i,last(csort(z)),first(creverse(z))
 0,0,1.4142135623730951,0,8.48528137423857,1.4142135623730951,8.48528137423857
 )
 
-mat={1,2:3,4},norm(mat),norm(mat[][1]),norm(3:4),norm{3,4},norm({3,4}),norm{{3,4}}
+mat={1,2:3,4},norm(mat),norm(mat[][1]),norm(3:4),norm{3,4},norm({3,4}),norm{{3,4}},norm{{3,4}*(1+i)}
 (
-0,5,5,5,5,5,5
+0,5,5,5,5,5,5,7.0710678118654755
 )
 
-gcd_(a,b)=<last[_rn(=<last{ia=floor(a),ib=floor(b),a=((ia<0||ib===0)&&&ia)|||ib,b=ia%(ib||1)},isBreak_a=<isNaN(a)|||(a<0&&&~~(a=false)),1e6,=<{isBreak_a|||b==0}),a],gcd_(2,0),gcd_(0,2),gcd_(111,gcd_(222,gcd_(333,gcd_(444,555)))),gcd_(NaN,1),gcd_(1,NaN),gcd_(-1,1),gcd_(1,-1),gcd_(-0.1,2),gcd_(1,-0.2)
+gcd_(a,b)=<last[_rn(=<last{ia=floor(a),ib=floor(b),a=ia<0||ib===0&&&ia|||ib,b=ia%(ib||1)},isBreak_a=<isNaN(a)|||a<0&&&~~(a=false),1e6,=<{isBreak_a|||b==0}),a],gcd_(2,0),gcd_(0,2),gcd_(111,gcd_(222,gcd_(333,gcd_(444,555)))),gcd_(NaN,1),gcd_(1,NaN),gcd_(-1,1),gcd_(1,-1),gcd_(-0.1,2),gcd_(1,-0.2)
 (
 0,2,2,111,NaN,NaN,false,false,false,false
 )
@@ -1404,4 +1404,4 @@ drag=false&sw=false&0x=false&useComplex=true&useMatrix=true&useStrict=false&chec
 --------------------------------
 --------------------------------
 
-online-simulator.github.io.6.239.101.13.54 @ Tue Jun 27 2023 19:46:04 GMT+0900 (日本標準時) @ Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/114.0.0.0 Safari/537.36
+online-simulator.github.io.6.238.102.13.54 @ Wed Jun 28 2023 03:09:03 GMT+0900 (日本標準時) @ Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/114.0.0.0 Safari/537.36
