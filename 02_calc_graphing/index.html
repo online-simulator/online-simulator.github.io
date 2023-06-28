@@ -75,6 +75,8 @@
       script += "\nclear;\n";
       script += "i**i,i^i,pow(i,i),power(i,i);\nleft={5.2,5.2,5.2+i,5.2+i};\nright={3,3+i,2,2+i,1,1+i};\nleft,right;\nleft%right,left%(-right),-left%(-right),left%%right,left%%(-right),-left%%(-right),mod(left,right),fmod(left,right),quot(left,right),quot(left,-right),quot(-left,-right);\nright,left;\nright%left,right%(-left),-right%(-left),right%%left,right%%(-left),-right%%(-left),mod(right,left),fmod(right,left),quot(right,left),quot(right,-left),quot(-right,-left);\nright=(false:true:NaN:0:1:i);\ncnot(right),not(right);"
       script += "\nclear;\n";
+      script += "isFalse(false),isFalse(true),isFalse(NaN),isFalse(0),isFalse(1),isFalse(i),isFalse(false,false),isFalse(NaN,NaN),isFalse(,):isTrue(false),isTrue(true),isTrue(NaN),isTrue(0),isTrue(1),isTrue(i),isTrue(false,false),isTrue(NaN,NaN),isTrue(,);\n~~(~~ans);";
+      script += "\nclear;\n";
       $._id("input").value = script;
       // test case
       var setVal = function(){

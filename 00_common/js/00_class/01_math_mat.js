@@ -138,6 +138,20 @@ My_entry.math_mat.prototype.get_len = function(arr){
   var len_j = lens.j;
   return Math.max(len_i, len_j);
 };
+/* Ver.2.172.42 -> */
+My_entry.math_mat.prototype.isfalse = function(options, arr){
+  var self = this;
+  var DATA = self.entry.DATA;
+  var isFalse = DATA.isFalse_arr(arr);
+  return [[DATA.num(isFalse, 0)]];
+};
+My_entry.math_mat.prototype.istrue = function(options, arr){
+  var self = this;
+  var DATA = self.entry.DATA;
+  var isFalse = DATA.isFalse_arr(arr);
+  return [[DATA.num(!(isFalse), 0)]];
+};
+/* -> Ver.2.172.42 */
 My_entry.math_mat.prototype.first = function(options, arr){
   var self = this;
   return [[arr[0][0]]];

@@ -498,6 +498,8 @@ My_entry.parser.prototype.make_trees = function(sentence, opt_re){  // Ver.2.158
       case "vectorr":
       case "vectorc":
       case "identity":
+      case "isfalse":
+      case "istrue":
       case "first":
       case "last":
       case "rotationx":

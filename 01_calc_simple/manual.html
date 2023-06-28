@@ -424,6 +424,8 @@ e^(-i(1pi(){2/2i}(5-{3-1}){i/(-4)}))
 <br>
 　　・<a href="#span-out-FNm-init">初期化行列関数</a>
 <br>
+　　・<a href="#span-out-FNm-isFalse">isFalse/isTrue行列関数</a>
+<br>
 　　・<a href="#span-out-FNm-trans">転置行列関数</a>
 <br>
 　　・<a href="#span-out-FNm-last">last行列関数</a>
@@ -10296,9 +10298,11 @@ true || TRUE -> true
 ・<span class="clear">Ver.2.161.39</span>以降、<a href="#span-out-UI-simple">指数表記</a>選択の場合、error終了を修正
 <br>
 <br>
-論理値literalのみを返す関数を列挙する
+例外的に、論理値literalを返す関数を列挙する
 <br>
-・<a href="#span-out-FN-isNaN">isNaN関数</a>
+・<span class="run">Ver.2.159.38</span>以降、<a href="#span-out-FN-isNaN">isNaN関数</a>
+<br>
+・<span class="run">Ver.2.172.42</span>以降、<a href="#span-out-FNm-isFalse">isFalse/isTrue行列関数</a>
 <br>
 <br>
 test caseを列挙する
@@ -12928,17 +12932,15 @@ false判定値の定義：無次元の0||<a href="#span-out-literal">false</a>||
 <br>
 test caseを列挙する
 <br>
-・isFalse関数は未実装
-<br>
 val=0; val==0,val==false,val===0,val===false -> (1,1,1,0+O(1e+0))
 <br>
 val=false; val==0,val==false,val===0,val===false -> (1,1,0+O(1e+0),1)
 <br>
-・isTrue関数は未実装
-<br>
 val=1; val==1,val==true,val===1,val===true -> (1,1,1,0+O(1e+0))
 <br>
 val=true; val==1,val==true,val===1,val===true -> (1,1,0+O(1e+0),1)
+<br>
+・<span class="run">Ver.2.172.42</span>以降、<a href="#span-out-FNm-isFalse">isFalse/isTrue行列関数</a>を追加
     </td>
   </tr>
   <tr>
@@ -13540,7 +13542,7 @@ cnot(right),not(right) ->
 <br>
 ・<a href="#span-out-option1">RA選択</a>の場合、<a href="#span-out-associativity">2項演算子のassociativity</a>に依存する代替関数<span class="clear">and||or()</span>は未対応（代替不可）
 <br>
-　関数call前に引数のleftとrightを交換する特殊な条件分岐が増えるため、実装見送り
+　関数call前に引数のleftとrightを交換する特殊な条件分岐が増えるため、対応見送り
     </td>
   </tr>
   <tr>
@@ -13718,7 +13720,7 @@ Px(5) -> 0.9999994266968594+O(1e-13)
 <br>
 ・operandは0を含む自然数のみ対応
 <br>
-・<span class="jF">operandが負の場合、<del>未定義で0を返す</del></span><span class="clear">Ver.2.170.42</span>以降、<a href="#span-out-literal">false</a>を返す
+・<span class="jF">operandが負の場合、<del>未定義で0を返す</del></span><span class="clear">Ver.2.170.42</span>以降、<span class="clear"><a href="#span-out-literal">false</a></span>を返す
 <br>
 ・<span class="condition">operand=0の場合、1を返す</span>
 <br>
@@ -13731,7 +13733,7 @@ fact(3i) || (3i)! || 0! -> 1
 <br>
 fact(3+3i) || (3+3i)! || 3! || 3*2*1 -> 6
 <br>
-<span class="jF">fact(-3) || (-3)! -> <del>0</del></span>false
+<span class="jF">fact(-3) || (-3)! -> <del>0</del></span><span class="clear">false</span>
 <br>
 <span class="condition">fact(0) || 0! -> 1</span>
 <br>
@@ -13782,13 +13784,13 @@ permut(3+3i,1) || permut(3,1) -> 3
 <br>
 permut(0,3) -> 0
 <br>
-<span class="jF">permut(-1,3) -> <del>0</del></span>false
+<span class="jF">permut(-1,3) -> <del>0</del></span><span class="clear">false</span>
 <br>
-<span class="jF">permut(-1,0) -> <del>0</del></span>false
+<span class="jF">permut(-1,0) -> <del>0</del></span><span class="clear">false</span>
 <br>
-<span class="jF">permut(0,-1) -> <del>0</del></span>false
+<span class="jF">permut(0,-1) -> <del>0</del></span><span class="clear">false</span>
 <br>
-<span class="jF">permut(3,-1) -> <del>0</del></span>false
+<span class="jF">permut(3,-1) -> <del>0</del></span><span class="clear">false</span>
 <br>
 <span class="condition">permut(0,0) -> 1</span>
 <br>
@@ -13812,7 +13814,7 @@ permut(5,1) || 5 -> 5
 <br>
 permut(5,0) || 1 -> 1
 <br>
-<span class="jF">permut(5,-1) -> <del>0</del></span>false
+<span class="jF">permut(5,-1) -> <del>0</del></span><span class="clear">false</span>
 <br>
 ・<span class="clear">Ver.2.170.42</span>以降、引数不足の場合、<a href="#span-out-literal">NaN</a>を返す
 <br>
@@ -13845,13 +13847,13 @@ combin(3+3i,1) || combin(3,1) -> 3
 <br>
 combin(0,3) -> 0
 <br>
-<span class="jF">combin(-1,3) -> <del>0</del></span>false
+<span class="jF">combin(-1,3) -> <del>0</del></span><span class="clear">false</span>
 <br>
-<span class="jF">combin(-1,0) -> <del>0</del></span>false
+<span class="jF">combin(-1,0) -> <del>0</del></span><span class="clear">false</span>
 <br>
-<span class="jF">combin(0,-1) -> <del>0</del></span>false
+<span class="jF">combin(0,-1) -> <del>0</del></span><span class="clear">false</span>
 <br>
-<span class="jF">combin(3,-1) -> <del>0</del></span>false
+<span class="jF">combin(3,-1) -> <del>0</del></span><span class="clear">false</span>
 <br>
 <span class="condition">combin(0,0) -> 1</span>
 <br>
@@ -13875,7 +13877,7 @@ combin(5,1) || permut(5,1)/fact(1) || (5)/(1) -> 5
 <br>
 combin(5,0) || permut(5,0)/fact(0) || (1)/(1) -> 1
 <br>
-<span class="jF">combin(5,-1) -> <del>0</del></span>false
+<span class="jF">combin(5,-1) -> <del>0</del></span><span class="clear">false</span>
 <br>
 permut(5,-1)/fact(-1) || (0)/(0) -> NaN
 <br>
@@ -15203,6 +15205,71 @@ ones(5,3) -> (1,1,1:1,1,1:1,1,1:1,1,1:1,1,1)
 目次
 </a>
 <br>
+isFalse
+<br>
+/isTrue
+<br>
+行列関数
+<br>
+入力仕様
+    </th>
+    <td>
+<span id="span-out-FNm-isFalse"></span>
+isFalse/isTrue行列関数の入力仕様と付随する留意事項について記述する
+<br>
+<br>
+<span class="run">Ver.2.172.42</span>以降、isFalse/isTrue行列関数を追加
+<br>
+<br>
+isFalse行列関数
+<br>
+・引数が<a href="#span-out-num-false">false判定値</a>を判定
+<br>
+isFalse(false),isFalse(true),isFalse(NaN) -> (true,false,true)
+<br>
+isFalse(0),isFalse(1),isFalse(i) -> (true,false,false)
+<br>
+isFalse(false,false),isFalse(NaN,NaN),isFalse(,) -> (false,false,false)
+<br>
+・<a href="#span-out-ope">実数演算</a>
+<br>
+isFalse(false),isFalse(true),isFalse(NaN) -> (true,false,true)
+<br>
+isFalse(0),isFalse(1),isFalse(i) -> (true,false,<span class="clear">true</span>)
+<br>
+isFalse(false,false),isFalse(NaN,NaN),isFalse(,) -> (false,false,false)
+<br>
+<br>
+isTrue行列関数
+<br>
+・引数が<a href="#span-out-num-false">true判定値</a>を判定
+<br>
+isTrue(false),isTrue(true),isTrue(NaN) -> (false,true,false)
+<br>
+isTrue(0),isTrue(1),isTrue(i) -> (false,true,true)
+<br>
+isTrue(false,false),isTrue(NaN,NaN),isTrue(,) -> (true,true,true)
+<br>
+・<a href="#span-out-ope">実数演算</a>
+<br>
+isTrue(false),isTrue(true),isTrue(NaN) -> (false,true,false)
+<br>
+isTrue(0),isTrue(1),isTrue(i) -> (false,true,<span class="clear">false</span>)
+<br>
+isTrue(false,false),isTrue(NaN,NaN),isTrue(,) -> (true,true,true)
+<br>
+<br>
+留意事項を列挙する
+<br>
+・例外的に、<a href="#span-out-literal">論理値literal</a>を返す
+    </td>
+  </tr>
+  <tr>
+    <th>
+<a href="#span-index">
+目次
+</a>
+<br>
 転置
 <br>
 行列関数
@@ -15429,6 +15496,8 @@ mat=(1,2:3,4:5,6);
 {$m,$n}=size_mn(=&lt;mat);
 <br>
 (m,n) -> (3,2)
+<br>
+=((size_mn(=&lt;mat))[0],(size_mn(=&lt;mat))[1]) -> (3,2)
     </td>
   </tr>
   <tr>
@@ -33124,6 +33193,8 @@ operation.js抜粋
 <br>
 ・<span class="run">Ver.2.168.41</span>以降、<a href="#span-out-com">複素数</a>の<a href="#span-out-FN-ope">演算子代替関数</a>を追加
 <br>
+・<span class="run">Ver.2.172.42</span>以降、<a href="#span-out-FNm-isFalse">isFalse/isTrue行列関数</a>を追加
+<br>
 <br>
 予約語は大文字・小文字・全角・半角を区別しない
 <br>
@@ -33245,6 +33316,8 @@ parser.js抜粋
       case "vectorr":
       case "vectorc":
       case "identity":
+      case "isfalse":
+      case "istrue":
       case "first":
       case "last":
       case "rotationx":
@@ -33503,6 +33576,8 @@ NaN対応結果
 <br>
 ・<a href="#span-out-comment">comment文</a>：// 対応後の演算結果
 <br>
+・<span class="clear">Ver.2.170.42</span>以降、<span class="jF">追加項目</span>
+<br>
 <br>
 <pre><code>
 // error
@@ -33573,6 +33648,8 @@ vectorc(NaN);
 identity(NaN);
 
 // NaN
+<span class="jF">isfalse(NaN);  // true</span>
+<span class="jF">istrue(NaN);  // false</span>
 first(NaN);
 last(NaN);
 rotationx(NaN);

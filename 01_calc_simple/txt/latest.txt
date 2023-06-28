@@ -1,6 +1,21 @@
 clear
 local storage cleared
 
+~~(~~ans)
+(
+1,0,1,1,0,0,0,0,0:
+0,1,0,0,1,1,1,1,1
+)
+
+isFalse(false),isFalse(true),isFalse(NaN),isFalse(0),isFalse(1),isFalse(i),isFalse(false,false),isFalse(NaN,NaN),isFalse(,):isTrue(false),isTrue(true),isTrue(NaN),isTrue(0),isTrue(1),isTrue(i),isTrue(false,false),isTrue(NaN,NaN),isTrue(,)
+(
+true,false,true,true,false,false,false,false,false:
+false,true,false,false,true,true,true,true,true
+)
+
+clear
+local storage cleared
+
 cnot(right),not(right)
 (
 1,1:
@@ -1501,4 +1516,4 @@ drag=false&sw=false&0x=false&useComplex=true&useMatrix=true&useStrict=false&chec
 --------------------------------
 --------------------------------
 
-online-simulator.github.io.6.238.102.13.54 @ Wed Jun 28 2023 14:21:17 GMT+0900 (日本標準時) @ Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/114.0.0.0 Safari/537.36
+online-simulator.github.io.6.239.102.13.54 @ Wed Jun 28 2023 15:58:35 GMT+0900 (日本標準時) @ Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/114.0.0.0 Safari/537.36
