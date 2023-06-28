@@ -1,14 +1,100 @@
 clear
 local storage cleared
 
-size_mn(mat)=<{sizer(mat),sizec(mat)},mat=(1,2:3,4:5,6),{$m,$n}=size_mn(=<mat),(m,n)
+cnot(right),not(right)
 (
-0,0,0,3,2
+1,1:
+0,0:
+1,1:
+1,1:
+0,0:
+0,1
 )
 
-z=(1,-2,3,-4,5,-6)i,last(csort(z)),first(creverse(z))
+right=(false:true:NaN:0:1:i)
+right=(
+false:
+true:
+NaN:
+0:
+1:
+i
+)
+
+right%left,mod(right,left),fmod(right,left),quot(right,left)
 (
-0,-6i,-6i
+3,3,3,0:
+3,3,3,0:
+2,2,2,0:
+2,2,2,0:
+1,NaN,NaN,NaN:
+1,NaN,NaN,NaN
+)
+
+right,left
+(
+3,5.2:
+3+i,5.2:
+2,5.2+i:
+2+i,5.2+i:
+1:
+1+i
+)
+
+left%right,mod(left,right),fmod(left,right),quot(left,right)
+(
+2.2,2.2,2.2,1:
+2.2,2.2,2.2,1:
+1.2000000000000002,1.2000000000000002,1.2000000000000002,2:
+1.2000000000000002,1.2000000000000002,1.2000000000000002,2:
+0.20000000000000018,NaN,NaN,NaN:
+0.20000000000000018,NaN,NaN,NaN
+)
+
+left,right
+(
+5.2,3:
+5.2,3+i:
+5.2+i,2:
+5.2+i,2+i:
+1:
+1+i
+)
+
+right={3,3+i,2,2+i,1,1+i}
+right=(
+3:
+3+i:
+2:
+2+i:
+1:
+1+i
+)
+
+left={5.2,5.2,5.2+i,5.2+i}
+left=(
+5.2:
+5.2:
+5.2+i:
+5.2+i
+)
+
+i**i,i^i,pow(i,i),power(i,i)
+(
+0.20787957635076193,0.20787957635076193,0.20787957635076193,0.20787957635076193
+)
+
+clear
+local storage cleared
+
+size_mn(mat)=<{sizer(mat),sizec(mat)},mat=(1,2:3,4:5,6),{$m,$n}=size_mn(=<mat),(m,n),=((size_mn(=<mat))[0],(size_mn(=<mat))[1])
+(
+0,0,0,3,2,3,2
+)
+
+z=((1,-2,3,-4,5,-6)i:-6,6,-6i,6i,1,-2),last(csort(z[0])),first(creverse(z[0])),last(csort(z[1])),first(creverse(z[1])),last(csort(z)),first(creverse(z))
+(
+0,-6i,-6i,6i,6i,6i,-6i
 )
 
 (z=(1,-2,3,-4,5,-6)i:),(cmin(z):),cmin(z:z*(1+i)),(cmax(z):),cmax(z:z*(1+i)),min(trans(abs(trans(z)),abs(trans(z*(1+i))))),max(trans(abs(trans(z)),abs(trans(z*(1+i)))))
@@ -17,9 +103,20 @@ z=(1,-2,3,-4,5,-6)i,last(csort(z)),first(creverse(z))
 0,0,1.4142135623730951,0,8.48528137423857,1.4142135623730951,8.48528137423857
 )
 
-mat={1,2:3,4},norm(mat),norm(mat[][1]),norm(3:4),norm{3,4},norm({3,4}),norm{{3,4}},norm{{3,4}*(1+i)}
+{1,2}*2,({1,2}*2),{({1,2}*2)},({({1,2}*2)})
 (
-0,5,5,5,5,5,5,7.0710678118654755
+2,2,2,2:
+4,4,4,4
+)
+
+2*(1,2),{2*(1,2)},({2*(1,2)}),{({2*(1,2)})}
+(
+2,4,2,4,2,4,2,4
+)
+
+mat={1,2:3,4},norm(mat),norm(mat[][1]),norm(3:4),norm{3,4},norm({3,4}),norm{{3,4}},norm({3,4}*(1+i)),norm{{3,4}*(1+i)}
+(
+0,5,5,5,5,5,5,7.0710678118654755,7.0710678118654755
 )
 
 gcd_(a,b)=<last[_rn(=<last{ia=floor(a),ib=floor(b),a=ia<0||ib===0&&&ia|||ib,b=ia%(ib||1)},isBreak_a=<isNaN(a)|||a<0&&&~~(a=false),1e6,=<{isBreak_a|||b==0}),a],gcd_(2,0),gcd_(0,2),gcd_(111,gcd_(222,gcd_(333,gcd_(444,555)))),gcd_(NaN,1),gcd_(1,NaN),gcd_(-1,1),gcd_(1,-1),gcd_(-0.1,2),gcd_(1,-0.2)
@@ -1404,4 +1501,4 @@ drag=false&sw=false&0x=false&useComplex=true&useMatrix=true&useStrict=false&chec
 --------------------------------
 --------------------------------
 
-online-simulator.github.io.6.238.102.13.54 @ Wed Jun 28 2023 03:09:03 GMT+0900 (日本標準時) @ Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/114.0.0.0 Safari/537.36
+online-simulator.github.io.6.238.102.13.54 @ Wed Jun 28 2023 13:59:00 GMT+0900 (日本標準時) @ Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/114.0.0.0 Safari/537.36
