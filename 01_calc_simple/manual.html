@@ -13954,9 +13954,9 @@ gcd_(gcd_(a,b),c) || gcd_(a,gcd_(b,c)) -> 333
 <br>
 ・<span class="clear">Ver.2.170.42</span>以降、厳密な記述
 <br>
-gcd_(a,b)=&lt;last[_rn(=&lt;last{ia=floor(a),ib=floor(b),a=ia<0||ib===0&&&ia|||ib,b=ia%(ib||1)},
+gcd_(a,b)=&lt;last[_rn(=&lt;last{ia=floor(a),ib=floor(b),a=ia&lt;0||ib===0&amp;&amp;&amp;ia|||ib,b=ia%(ib||1)},
 <br>
-isBreak_a=&lt;isNaN(a)|||a<0&&&~~(a=false),1e6,=&lt;{isBreak_a|||b==0}),a];
+isBreak_a=&lt;isNaN(a)|||a&lt;0&amp;&amp;&amp;~~(a=false),1e6,=&lt;{isBreak_a|||b==0}),a];
 <br>
 ・0を含む場合
 <br>
