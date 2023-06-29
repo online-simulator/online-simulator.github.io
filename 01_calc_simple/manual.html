@@ -1535,6 +1535,10 @@ title/発行元(発行年)を列挙する
 ・<span class="run">Ver.2.168.41</span>以降、<a href="#span-out-prec-ope-logical">論理NOT演算子</a>の仕様変更
 <br>
 　operandは実数のみ　⇒　AND||OR同様に、<a href="#span-out-com">複素数</a>に拡張
+<br>
+・<span class="run">Ver.2.174.42</span>以降、<a href="#span-out-config-strict">strict-mode</a>の制約条件を1点追加
+<br>
+　<a href="#span-eqn">strict-mode式変数list</a>等、実用への影響なし
     </td>
   </tr>
   <tr>
@@ -1774,7 +1778,7 @@ online-test
 <br>
 ・Chromeの同一page上でlocalhostとAndroid端末の操作が連動することを確認する
 <br>
-・以上より、Wi-Fiを介して実機online-testとともにdebugを実施する
+・以上より、Wi-Fiを介して実機online-testとともにdebug（Single-threadが基本）を実施する
 <br>
 ・test終了後、必要に応じてAndroid端末の設定を元に戻す
     </td>
@@ -10725,7 +10729,7 @@ strict-mode
 strict-modeについて記述する
 <br>
 <br>
-strict-modeは演算内容の入力規則に以下2点の制約条件を追加する
+strict-modeは演算内容の入力規則に以下3点の制約条件を追加する
 <br>
 ・<span class="condition">乗算記号*省略不可</span>
 <br>
@@ -10734,6 +10738,10 @@ strict-modeは演算内容の入力規則に以下2点の制約条件を追加�
 ・<span class="clear"><a href="#span-out-eqns-call">式読出し</a>記号=&gt;省略不可</span>
 <br>
 　omitted equation's call sign(=&gt;) disabled
+<br>
+・<span class="run">Ver.2.174.42</span>以降、<span class="selection"><a href="#span-out-eqns-args">式変数のarguments</a>省略不可</span>
+<br>
+　omitted equation's arguments disabled
 <br>
 <del>・<a href="#span-out-call-by-equation">式渡し</a>の括弧{}省略不可
 <br>
@@ -10745,6 +10753,10 @@ strict-modeは演算内容の入力規則に以下2点の制約条件を追加�
 ・<a href="#span-out-eqns-args">式変数のarguments</a>を使用して一例を示す
 <br>
 ・Non-strict-modeの場合
+<br>
+clear; times(a,b)=&lt;a(b); times(-2) -> [MyErr]Invalid args.length=2(times)
+<br>
+clear; times(a,b)=&lt;a(b); times(-2)<span class="clear">=&gt;</span> -> [MyErr]Invalid args.length=2(times)
 <br>
 clear; times(a,b)=&lt;a(b); times(-2,3) -> -6
 <br>
@@ -10766,7 +10778,16 @@ clear; times(a,b)=&lt;a<span class="condition">*</span>b; times=2; times(-2,3)<s
 <br>
 clear; times(a,b)=&lt;a<span class="condition">*</span>b; times=2; times(-2,3)<span class="clear">=&gt;</span>(times) -> -12
 <br>
+clear; times(a,b)=&lt;a<span class="condition">*</span>b; <span class="selection">a=2; b=3; times</span> -> [MyErr]Invalid REv(times)
+<br>
+clear; times(a,b)=&lt;a<span class="condition">*</span>b; <span class="selection">a=2; b=3; times<span class="clear">=&gt;</span></span> -> 6
+<br>
+<br>
 ・strict-modeの場合
+<br>
+clear; times(a,b)=&lt;a(b); times(-2) -> [MyErr]Invalid ans isFound
+<br>
+clear; times(a,b)=&lt;a(b); times(-2)<span class="clear">=&gt;</span> -> [MyErr]Invalid args.length=2(times)
 <br>
 clear; times(a,b)=&lt;a(b); times(-2,3) -> [MyErr]Invalid ans isFound
 <br>
@@ -10787,6 +10808,10 @@ clear; times(a,b)=&lt;a<span class="condition">*</span>b; times=2; times(-2,3) -
 clear; times(a,b)=&lt;a<span class="condition">*</span>b; times=2; times(-2,3)<span class="clear">=&gt;</span>times; times -> -6
 <br>
 clear; times(a,b)=&lt;a<span class="condition">*</span>b; times=2; times(-2,3)<span class="clear">=&gt;</span>(times) -> [MyErr]Invalid ans isFound
+<br>
+clear; times(a,b)=&lt;a<span class="condition">*</span>b; <span class="selection">a=2; b=3; times</span> -> [MyErr]Invalid REv(times)
+<br>
+clear; times(a,b)=&lt;a<span class="condition">*</span>b; <span class="selection">a=2; b=3; times<span class="clear">=&gt;</span></span> -> [MyErr]Invalid args.length=2(times)
     </td>
   </tr>
   <tr>
@@ -13685,9 +13710,9 @@ A=[]; _rn(=&lt;A=(A,rand),,2); A -> (0.3371037693804637,0.6437029689436904)
 <br>
 SND(t)=&lt;exp(-t^2/2)/sqrt(2*pi);
 <br>
-Px(x)=&lt;_it(=&lt;SND(t)=&gt;,0,x,10000)*2;
+P(x,N)=&lt;_it(=&lt;SND(t)=&gt;,0,x,N)*2;
 <br>
-Px(5) -> 0.9999994266968594+O(1e-13)
+P(5,10000) -> 0.9999994266968594+O(1e-13)
 <br>
 ・逆変換x=Pinv(y)の方法
 <br>
@@ -19762,7 +19787,7 @@ clear; add(A,B)=&lt;A+B; add[0][0](=&lt;(1,2:3,4),=&lt;(5,6:7,8))=&gt; -> 6
 clear; add(A,B)=&lt;A+B; add[1][1](=&lt;(1,2:3,4),=&lt;(5,6:7,8))=&gt; -> 12
 <br>
 <br>
-call先arguments省略の場合、定義元argumentsを無視してcall可（<span class="clear">Ver.2.43.22</span>追記）
+<span class="run">Ver.2.174.42</span>以降、<a href="#span-out-config-strict">Non-strict-mode</a>のみ、call先argumentsを省略可
 <br>
 clear; x(t)=&lt;-t; f=&lt;x+1; f -> [MyErr]Invalid null args(x)
 <br>
@@ -32265,7 +32290,7 @@ f=&lt;last{V=1,E=0,k=1,I=exp(k*(V-E))-exp(-k*(V-E))}
 <br>
 ・昇順に並ぶ場合、列方向の<a href="#span-out-mat">抜け要素</a>を<a href="#span-out-literal">NaN</a>で埋める手順を要する（<a href="#span-eqn-plot2d_multi">plot2d_multi</a>参照）
 <br>
-・以上の余分な手順を省略するため、行vector用のplot2d_csv{xt,yt}の追加を検討する
+・以上の余分な手順を省略するため、行vector用のplot2d{xt,yt}の追加を検討する
     </td>
   </tr>
   <tr>

@@ -67,6 +67,8 @@
       script += "\nclear;\n";
       script += "isFalse(false),isFalse(true),isFalse(NaN),isFalse(0),isFalse(1),isFalse(i),isFalse(false,false),isFalse(NaN,NaN),isFalse(,):isTrue(false),isTrue(true),isTrue(NaN),isTrue(0),isTrue(1),isTrue(i),isTrue(false,false),isTrue(NaN,NaN),isTrue(,);\n~~(~~ans);";
       script += "\nclear;\n";
+      script += "f(x)=<2*x+1,x=1,f(x),f=>/*Non-strict-mode only*/;";
+      script += "\nclear;\n";
       $._id("input").value = script;
     });
   })();

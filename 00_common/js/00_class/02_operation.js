@@ -3298,6 +3298,11 @@ My_entry.operation.prototype.REe = function(data, i0, tagName, tagObj){
         }
       }
     }
+    /* Ver.2.174.42 -> */
+    else if(self.useStrict && isREe.arg){
+      throw "Invalid args.length="+isREe.arg.length+"("+name_eqn+")";
+    }
+    /* -> Ver.2.174.42 */
   }
   else{
     self.throw_tree(leftTree);

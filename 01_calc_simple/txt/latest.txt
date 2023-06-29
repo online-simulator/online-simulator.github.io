@@ -1,6 +1,14 @@
 clear
 local storage cleared
 
+f(x)=<2*x+1,x=1,f(x),f=>/*Non-strict-mode only*/
+(
+0,0,3,3
+)
+
+clear
+local storage cleared
+
 ~~(~~ans)
 (
 1,0,1,1,0,0,0,0,0:
@@ -1516,4 +1524,4 @@ drag=false&sw=false&0x=false&useComplex=true&useMatrix=true&useStrict=false&chec
 --------------------------------
 --------------------------------
 
-online-simulator.github.io.6.239.103.13.54 @ Thu Jun 29 2023 17:55:03 GMT+0900 (日本標準時) @ Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/114.0.0.0 Safari/537.36
+online-simulator.github.io.6.240.103.13.54 @ Fri Jun 30 2023 01:16:32 GMT+0900 (日本標準時) @ Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/114.0.0.0 Safari/537.36
