@@ -700,7 +700,9 @@ e^(-i(1pi(){2/2i}(5-{3-1}){i/(-4)}))
 <br>
 ・<a href="#span-eqn-Gaussian">Gaussian</a>
 <br>
-・<a href="#span-eqn-plot2d_multi">plot2d_multi</a>
+・<a href="#span-eqn-plot2d{}_multi">plot2d{}_multi</a>
+<br>
+・<a href="#span-eqn-plot2d()_multi">plot2d()_multi</a>
 <br>
 ・<a href="#span-eqn-plot2d_circle">plot2d_circle</a>
 <br>
@@ -11494,19 +11496,25 @@ plot2d-from-arrの入力仕様について記述する
 <br>
 plot2d-from-arrのformatを次に示す
 <br>
-plot2d
+・引数が列vectorの場合
 <br>
-(
+plot2d(<span class="condition">x(t)<a href="#span-out-vars-symbol">変数名symbol</a>,y(t)<a href="#span-out-vars-symbol">変数名symbol</a></span>)
 <br>
-x(t)<a href="#span-out-vars-symbol">変数名symbol</a>,
+・<span class="run">Ver.2.175.42</span>以降、引数が行vectorの場合
 <br>
-y(t)<a href="#span-out-vars-symbol">変数名symbol</a>
+plot2d{<span class="condition">x(t)<a href="#span-out-vars-symbol">変数名symbol</a>,y(t)<a href="#span-out-vars-symbol">変数名symbol</a></span>}
 <br>
-)
+・<span class="condition">xt,yt</span>の場合
 <br>
-・xt,ytの場合
+plot2d(<span class="condition">xt,yt</span>)
 <br>
-plot2d(xt,yt)
+plot2d{<span class="condition">xt,yt</span>}
+<br>
+・<span class="run">Ver.2.175.42</span>以降、<a href="#span-out-BT">括弧</a>内のwhite spacesを無効化
+<br>
+plot2d(<span class="condition">xt, yt</span>)
+<br>
+plot2d{<span class="condition">xt, yt</span>}
 <br>
 ・circleを描く時系列data作成の一例を示す
 <br>
@@ -32300,9 +32308,11 @@ f=&lt;last{V=1,E=0,k=1,I=exp(k*(V-E))-exp(-k*(V-E))}
 <br>
 ・legend要素数が降順に並ぶ場合、問題ないが、（<a href="#span-eqn-plot2d_nspline">plot2d_nspline</a>参照）
 <br>
-・昇順に並ぶ場合、列方向の<a href="#span-out-mat">抜け要素</a>を<a href="#span-out-literal">NaN</a>で埋める手順を要する（<a href="#span-eqn-plot2d_multi">plot2d_multi</a>参照）
+・昇順に並ぶ場合、列方向の<a href="#span-out-mat">抜け要素</a>を<a href="#span-out-literal">NaN</a>で埋める手順を要する（<a href="#span-eqn-plot2d()_multi">plot2d()_multi</a>参照）
 <br>
-・以上の余分な手順を省略するため、行vector用のplot2d{xt,yt}の追加を検討する
+・以上の余分な手順を省略するため、<del>行vector用のplot2d{xt,yt}の追加を検討する</del>
+<br>
+・<span class="run">Ver.2.175.42</span>以降、行vector用の<a href="#span-out-plot2d-command-from-arr">plot2d{xt,yt}</a>を追加する（<a href="#span-eqn-plot2d{}_multi">plot2d{}_multi</a>参照）
     </td>
   </tr>
   <tr>
@@ -34357,12 +34367,49 @@ _sir(=&lt;{_sic(=&lt;filter[(ir+N2)*N+(ic+N2)]=calc_w(ir**2+ic**2)=&gt;,-N2,N2)}
 目次
 </a>
 <br>
-plot2d
+plot2d{}
 <br>
 _multi
     </th>
     <td>
-<span id="span-eqn-plot2d_multi"></span>
+<span id="span-eqn-plot2d{}_multi"></span>
+<a href="#span-out-development-problems-algebra">代数学準拠の問題点</a>参照
+<br>
+clear;
+<br>
+x_long=(1+2i)*(1,2,3,4,5,6,7,8,9,10);
+<br>
+y_long=2*x_long;
+<br>
+x_short=(1+2i)*(1,2,3,4,5);
+<br>
+y_short=4*x_short;
+<br>
+xt_OK={x_long,x_short};
+<br>
+yt_OK={y_long,y_short};
+<br>
+xt_OK={x_short,x_long};
+<br>
+yt_OK={y_short,y_long};
+<br>
+xt={x_short,x_long,x_long,2*x_short};
+<br>
+yt={y_short,y_long,2*y_short,y_long};
+    </td>
+  </tr>
+  <tr>
+    <th>
+<a href="#span-index">
+目次
+</a>
+<br>
+plot2d()
+<br>
+_multi
+    </th>
+    <td>
+<span id="span-eqn-plot2d()_multi"></span>
 <a href="#span-out-development-problems-algebra">代数学準拠の問題点</a>参照
 <br>
 clear;

@@ -691,7 +691,7 @@ My_entry.calc_graphing.prototype.init_handlers = function(){
     /* -> Ver.2.27.14 */
     $._id("button-plot").onclick();
   };
-  var plot2d_from_arr = function(tokens){
+  var plot2d_from_arr = function(tokens, isRowVector){  // Ver.2.175.42
     var name_x = tokens[0];
     var name_y = tokens[1];
     var var_x = self.vars[name_x];
@@ -700,9 +700,61 @@ My_entry.calc_graphing.prototype.init_handlers = function(){
       var arr2d_x = (var_x.mat)? var_x.mat.arr: null;
       var arr2d_y = (var_y.mat)? var_y.mat.arr: null;
       if(arr2d_x && arr2d_y){
-        var len_x = arr2d_x[0].length;
-        var len_y = arr2d_y[0].length;
-        var len_n = Math.min(arr2d_x.length, arr2d_y.length);
+        /* Ver.2.175.42 -> */
+        var num_NaN = DATA.num(NaN, NaN);  // the same reference
+        var len_x = 0;
+        var len_y = 0;
+        var len_n = 0;
+        // arr_data
+        var arr_data = [];
+        if(isRowVector){
+          len_x = arr2d_x.length;
+          len_y = arr2d_y.length;
+          for(var j=0; j<len_x; ++j){
+            len_n = Math.max(len_n, arr2d_x[j].length);
+          }
+          for(var j=0; j<len_y; ++j){
+            len_n = Math.max(len_n, arr2d_y[j].length);
+          }
+          for(var n=0; n<len_n; ++n){
+            var data = self.get_data();  // self
+            var arr_num = [];
+            for(var j=0; j<len_x; ++j){
+              var hasXj = arr2d_x[j];
+              arr_num.push((hasXj)? arr2d_x[j][n] || num_NaN: num_NaN);
+            }
+            for(var j=0; j<len_y; ++j){
+              var hasYj = arr2d_y[j];
+              arr_num.push((hasYj)? arr2d_y[j][n] || num_NaN: num_NaN);
+            }
+            data.arr_num = arr_num;
+            data.len_x = len_x;
+            data.len_y = len_y;
+            arr_data.push(data);
+          }
+        }
+        else{
+          len_n = Math.max(arr2d_x.length, arr2d_y.length);
+          for(var n=0; n<len_n; ++n){
+            var hasXn = arr2d_x[n];
+            var hasYn = arr2d_y[n];
+            len_x = (hasXn)? arr2d_x[n].length: len_x;
+            len_y = (hasYn)? arr2d_y[n].length: len_y;
+            var data = self.get_data();  // self
+            var arr_num = [];
+            for(var j=0; j<len_x; ++j){
+              arr_num.push((hasXn)? arr2d_x[n][j] || num_NaN: num_NaN);
+            }
+            for(var j=0; j<len_y; ++j){
+              arr_num.push((hasYn)? arr2d_y[n][j] || num_NaN: num_NaN);
+            }
+            data.arr_num = arr_num;
+            data.len_x = len_x;
+            data.len_y = len_y;
+            arr_data.push(data);
+          }
+        }
+        /* -> Ver.2.175.42 */
         // str
         var arr_x = [];
         var arr_y = [];
@@ -714,22 +766,6 @@ My_entry.calc_graphing.prototype.init_handlers = function(){
         }
         self.arr_x = arr_x;
         self.arr_y = arr_y;
-        // arr_data
-        var arr_data = [];
-        for(var n=0; n<len_n; ++n){
-          var data = self.get_data();  // self
-          var arr_num = [];
-          for(var j=0; j<len_x; ++j){
-            arr_num.push(arr2d_x[n][j]);
-          }
-          for(var j=0; j<len_y; ++j){
-            arr_num.push(arr2d_y[n][j]);
-          }
-          data.arr_num = arr_num;
-          data.len_x = len_x;
-          data.len_y = len_y;
-          arr_data.push(data);
-        }
         self.worker_plot.arr_data_in = new Array(len_n);
         self.worker_plot.arr_data_out = arr_data;
         self.isCheckedError = false;  // Ver.2.33.17
@@ -747,7 +783,7 @@ My_entry.calc_graphing.prototype.init_handlers = function(){
   };
   /* -> Ver.2.25.12 */
   /* Ver.2.140.36 -> */
-  var run_command = function(command){
+  var run_command = function(command, isRowVector){  // Ver.2.175.42
           /* Ver.2.34.18 -> */
           /* Ver.2.25.14 -> */
           if(self.worker_plot && self.worker_plot.handler.isLocked) return false;
@@ -761,7 +797,7 @@ My_entry.calc_graphing.prototype.init_handlers = function(){
               plot2d_from_log(tokens_quotation);
             }
             else if(tokens_comma && tokens_comma.length === 2){
-              plot2d_from_arr(tokens_comma);
+              plot2d_from_arr(tokens_comma, isRowVector);  // Ver.2.175.42
               self.io.write_text(self.elems.o, "plot2d-from-arr finished");  // Ver.2.25.14
             }
             else{
@@ -923,12 +959,18 @@ My_entry.calc_graphing.prototype.init_handlers = function(){
         var input = self.io.read_text(self.elems.i);
         var options = self.get_options();
         /* Ver.2.25.12 -> */
+        /* Ver.2.175.42 -> white spaces removed */
         /* Ver.2.27.14 -> comment allowed */
-        var command = self.entry.def.get_command(input, "plot2d", true);
+        var command_col = self.entry.def.get_command(input.replace(/\s/g, ""), "plot2d", true);
+        var command_row = self.entry.def.get_title(input.replace(/\s/g, ""), "plot2d", true);
         /* -> Ver.2.27.14 */
-        if(command){
-          run_command(command);  // Ver.2.140.36
+        if(command_col){
+          run_command(command_col);  // Ver.2.140.36
         }
+        else if(command_row){
+          run_command(command_row, true);
+        }
+        /* -> Ver.2.175.42 */
         else{
           var arr_data_in = [];
           var len_n = 1;
@@ -971,11 +1013,14 @@ My_entry.calc_graphing.prototype.init_handlers = function(){
           self.storage.restore();
         }
         break;
+      /* Ver.2.175.42 */
       /* Ver.2.50.25 */
-      case "plot2d":
+      case "plot2d()":
+      case "plot2d{}":
         var symbol_x = $._id("input-plot2d-x").value;
         var symbol_y = $._id("input-plot2d-y").value;
-        run_command(symbol_x+","+symbol_y);
+        var isRowVector = (text_half === "plot2d{}");
+        run_command(symbol_x+","+symbol_y, isRowVector);
         break;
       /* -> Ver.2.140.36 */
       case "BS":

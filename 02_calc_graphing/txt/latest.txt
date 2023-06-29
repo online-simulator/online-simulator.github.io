@@ -953,6 +953,69 @@ x_long=(
 clear
 local storage cleared
 
+yt={y_short,y_long,2*y_short,y_long}
+yt=(
+4+8i,8+16i,12+24i,16+32i,20+40i:
+2+4i,4+8i,6+12i,8+16i,10+20i,12+24i,14+28i,16+32i,18+36i,20+40i:
+8+16i,16+32i,24+48i,32+64i,40+80i:
+2+4i,4+8i,6+12i,8+16i,10+20i,12+24i,14+28i,16+32i,18+36i,20+40i
+)
+
+xt={x_short,x_long,x_long,2*x_short}
+xt=(
+1+2i,2+4i,3+6i,4+8i,5+10i:
+1+2i,2+4i,3+6i,4+8i,5+10i,6+12i,7+14i,8+16i,9+18i,10+20i:
+1+2i,2+4i,3+6i,4+8i,5+10i,6+12i,7+14i,8+16i,9+18i,10+20i:
+2+4i,4+8i,6+12i,8+16i,10+20i
+)
+
+yt_OK={y_short,y_long}
+yt_OK=(
+4+8i,8+16i,12+24i,16+32i,20+40i:
+2+4i,4+8i,6+12i,8+16i,10+20i,12+24i,14+28i,16+32i,18+36i,20+40i
+)
+
+xt_OK={x_short,x_long}
+xt_OK=(
+1+2i,2+4i,3+6i,4+8i,5+10i:
+1+2i,2+4i,3+6i,4+8i,5+10i,6+12i,7+14i,8+16i,9+18i,10+20i
+)
+
+yt_OK={y_long,y_short}
+yt_OK=(
+2+4i,4+8i,6+12i,8+16i,10+20i,12+24i,14+28i,16+32i,18+36i,20+40i:
+4+8i,8+16i,12+24i,16+32i,20+40i
+)
+
+xt_OK={x_long,x_short}
+xt_OK=(
+1+2i,2+4i,3+6i,4+8i,5+10i,6+12i,7+14i,8+16i,9+18i,10+20i:
+1+2i,2+4i,3+6i,4+8i,5+10i
+)
+
+y_short=4*x_short
+y_short=(
+4+8i,8+16i,12+24i,16+32i,20+40i
+)
+
+x_short=(1+2i)*(1,2,3,4,5)
+x_short=(
+1+2i,2+4i,3+6i,4+8i,5+10i
+)
+
+y_long=2*x_long
+y_long=(
+2+4i,4+8i,6+12i,8+16i,10+20i,12+24i,14+28i,16+32i,18+36i,20+40i
+)
+
+x_long=(1+2i)*(1,2,3,4,5,6,7,8,9,10)
+x_long=(
+1+2i,2+4i,3+6i,4+8i,5+10i,6+12i,7+14i,8+16i,9+18i,10+20i
+)
+
+clear
+local storage cleared
+
 [isStrict=0,N=3,N2=int(N/2),filter=vectorc(N*N),Nbit=N-1,wmax=2**Nbit,calc_w(s2)=<switch(isStrict==0,round(wmax*exp(-0.5*s2)):1,exp(-0.5*s2)),_sir(=<{_sic(=<filter[(ir+N2)*N+(ic+N2)]=calc_w(ir**2+ic**2)=>,-N2,N2)},-N2,N2),=<trans(filter)]=>
 (
 1,2,1,2,4,2,1,2,1
@@ -1013,4 +1076,4 @@ center=true&drag=false&test-case=false&legend=true&axis-t=false&axis-x=true&log-
 --------------------------------
 --------------------------------
 
-online-simulator.github.io.6.240.103.13.54 @ Fri Jun 30 2023 01:16:56 GMT+0900 (日本標準時) @ Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/114.0.0.0 Safari/537.36
+online-simulator.github.io.6.241.103.13.54 @ Fri Jun 30 2023 06:15:05 GMT+0900 (日本標準時) @ Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/114.0.0.0 Safari/537.36
