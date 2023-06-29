@@ -1015,8 +1015,8 @@ My_entry.calc_graphing.prototype.init_handlers = function(){
         break;
       /* Ver.2.175.42 */
       /* Ver.2.50.25 */
-      case "plot2d()":
       case "plot2d{}":
+      case "plot2d()":
         var symbol_x = $._id("input-plot2d-x").value;
         var symbol_y = $._id("input-plot2d-y").value;
         var isRowVector = (text_half === "plot2d{}");
