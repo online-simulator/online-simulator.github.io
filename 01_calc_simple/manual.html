@@ -632,6 +632,8 @@ e^(-i(1pi(){2/2i}(5-{3-1}){i/(-4)}))
 <br>
 　・<a href="#span-out-development-problems">仕様上の問題点</a>
 <br>
+　　・<a href="#span-out-development-problems-algebra">代数学準拠の問題点</a>
+<br>
 　　・<a href="#span-out-development-problems-type">型定義の問題点</a>
 <br>
 　　・<a href="#span-out-development-problems-complex">複素数演算の問題点</a>
@@ -697,6 +699,8 @@ e^(-i(1pi(){2/2i}(5-{3-1}){i/(-4)}))
 ・<a href="#span-eqn-average-asym">average_asym</a>
 <br>
 ・<a href="#span-eqn-Gaussian">Gaussian</a>
+<br>
+・<a href="#span-eqn-plot2d_multi">plot2d_multi</a>
 <br>
 ・<a href="#span-eqn-plot2d_circle">plot2d_circle</a>
 <br>
@@ -32216,6 +32220,8 @@ f=&lt;last{V=1,E=0,k=1,I=exp(k*(V-E))-exp(-k*(V-E))}
 <span id="span-out-development-problems"></span>
 仕様上の問題点を列挙する
 <br>
+・<a href="#span-out-development-problems-algebra">代数学準拠の問題点</a>
+<br>
 ・<a href="#span-out-development-problems-type">型定義の問題点</a>
 <br>
 ・<a href="#span-out-development-problems-complex">複素数演算の問題点</a>
@@ -32227,6 +32233,39 @@ f=&lt;last{V=1,E=0,k=1,I=exp(k*(V-E))-exp(-k*(V-E))}
 ・<a href="#span-out-development-problems-CBR">未実装の参照渡し</a>
 <br>
 ・<a href="#span-out-development-problems-CAS">未実装のCAS</a>
+    </td>
+  </tr>
+  <tr>
+    <th>
+<a href="#span-index">
+目次
+</a>
+<br>
+代数学準拠の
+<br>
+問題点
+    </th>
+    <td>
+<span id="span-out-development-problems-algebra"></span>
+代数学準拠の問題点を列挙する
+<br>
+・一般的な<a href="#span-out-linear">連立方程式</a>A*x=bの列vectorで<a href="#span-out-FNm">行列関数</a>||<a href="#span-out-FNmh">高階行列関数</a>を実装したが、
+<br>
+・<a href="#span-out-reference-mat-index">ij参照の行列</a>要素が<a href="#span-in-tree">単位tree構造</a>のarr[i][j]参照の場合、
+<br>
+・x*A=bの行vectorで実装の方が列方向の<a href="#span-out-mat">抜け要素</a>||<a href="#span-out-FNm-trans">転置</a>を意識する負担が少ない
+<br>
+・また、関数の引数は常に行vectorとして内部で入出力の整合性を担保する方が拡張しやすい
+<br>
+・<span class="run">Ver.2.156.38</span>以降、列方向の<a href="#span-out-mat">抜け要素</a>を自動で埋めないため、
+<br>
+・列vectorのlegend要素数が異なるplotに支障がある
+<br>
+・legend要素数が降順に並ぶ場合、問題ないが、（<a href="#span-eqn-plot2d_nspline">plot2d_nspline</a>参照）
+<br>
+・昇順に並ぶ場合、列方向の<a href="#span-out-mat">抜け要素</a>を<a href="#span-out-literal">NaN</a>で埋める手順を要する（<a href="#span-eqn-plot2d_multi">plot2d_multi</a>参照）
+<br>
+・以上の余分な手順を省略するため、行vector用のplot2d_csv{xt,yt}の追加を検討する
     </td>
   </tr>
   <tr>
@@ -34273,6 +34312,51 @@ calc_w(s2)=&lt;switch(isStrict==0,round(wmax*exp(-0.5*s2)):1,exp(-0.5*s2)),
 _sir(=&lt;{_sic(=&lt;filter[(ir+N2)*N+(ic+N2)]=calc_w(ir**2+ic**2)=&gt;,-N2,N2)},-N2,N2),
 <br>
 =&lt;trans(filter)]=&gt;;
+    </td>
+  </tr>
+  <tr>
+    <th>
+<a href="#span-index">
+目次
+</a>
+<br>
+plot2d
+<br>
+_multi
+    </th>
+    <td>
+<span id="span-eqn-plot2d_multi"></span>
+<a href="#span-out-development-problems-algebra">代数学準拠の問題点</a>参照
+<br>
+clear;
+<br>
+x_long={1,2,3,4,5,6,7,8,9,10}*(1+2i);
+<br>
+y_long=x_long*2;
+<br>
+x_short={1,2,3,4,5}*(1+2i);
+<br>
+y_short=x_short*4;
+<br>
+xt_OK=(x_long,x_short);
+<br>
+yt_OK=(y_long,y_short);
+<br>
+xt_NG=(x_short,x_long);
+<br>
+yt_NG=(y_short,y_long);
+<br>
+x_short_mod={1,2,3,4,5,NaN,NaN,NaN,NaN,NaN}*(1+2i);
+<br>
+y_short_mod=x_short_mod*4;
+<br>
+xt_OK=(x_short_mod,x_long);
+<br>
+yt_OK=(y_short_mod,y_long);
+<br>
+xt=(x_short_mod,x_long,x_long,x_short_mod*2);
+<br>
+yt=(y_short_mod,y_long,y_short_mod*2,y_long);
     </td>
   </tr>
   <tr>

@@ -218,6 +218,7 @@
       $._id("average").onclick = function(){io["onclick_default"](elems, "clear;\n[isSquare=0,N=3,N2=int(N/2),filter=vectorc(N*N),\ncalc_w(s2)=<switch(isSquare==0,switch(s2>N2**2,0:1,1):1,1),\n_sir(=<{_sic(=<filter[(ir+N2)*N+(ic+N2)]=calc_w(ir**2+ic**2)=>,-N2,N2)},-N2,N2),\n=<trans(filter)]=>;\n", 0);};
       $._id("average_asym").onclick = function(){io["onclick_default"](elems, "clear;\n[isSquare=0,N=13,N2=int(N/2),filter=vectorc(N*N),\nx=1,y=2,k=3,rad=pi/4,\nrotz_LHS(psi)=<{rt=real(psi),=<(cos(rt),sin(rt),:-sin(rt),cos(rt),:,,1)}=>,\nRz=rotz_LHS(rad)=>,\nisOutOfArea(x)=<switch(\nisSquare==0,x[0]**2+(x[1]*k)**2>N2**2:\n1,(x[0]**2>N2**2)|((x[1]*k)**2>N2**2)\n),\ncalc_w(ir,ic)=<switch(isOutOfArea(=<Rz*{ic-x,ir-y,1})=>,0:1,1),\n_sir(=<{_sic(=<filter[(ir+N2)*N+(ic+N2)]=calc_w(ir,ic)=>,-N2,N2)},-N2,N2),\n=<trans(filter)]=>;\n", 0);};
       $._id("Gaussian").onclick = function(){io["onclick_default"](elems, "clear;\n[isStrict=0,N=3,N2=int(N/2),filter=vectorc(N*N),Nbit=N-1,wmax=2**Nbit,\ncalc_w(s2)=<switch(isStrict==0,round(wmax*exp(-0.5*s2)):1,exp(-0.5*s2)),\n_sir(=<{_sic(=<filter[(ir+N2)*N+(ic+N2)]=calc_w(ir**2+ic**2)=>,-N2,N2)},-N2,N2),\n=<trans(filter)]=>;\n", 0);};
+      $._id("plot2d_multi").onclick = function(){io["onclick_default"](elems, "clear;\nx_long={1,2,3,4,5,6,7,8,9,10}*(1+2i);\ny_long=x_long*2;\nx_short={1,2,3,4,5}*(1+2i);\ny_short=x_short*4;\nxt_OK=(x_long,x_short);\nyt_OK=(y_long,y_short);\nxt_NG=(x_short,x_long);\nyt_NG=(y_short,y_long);\nx_short_mod={1,2,3,4,5,NaN,NaN,NaN,NaN,NaN}*(1+2i);\ny_short_mod=x_short_mod*4;\nxt_OK=(x_short_mod,x_long);\nyt_OK=(y_short_mod,y_long);\nxt=(x_short_mod,x_long,x_long,x_short_mod*2);\nyt=(y_short_mod,y_long,y_short_mod*2,y_long);\n", 0);};
       $._id("plot2d_circle").onclick = function(){io["onclick_default"](elems, "clear;\nplot2d_circle(t0,t1,N,M)=<[\nout=<(xt,yt),\nscope2storage=<last{addVar(xt),addVar(yt)},\ninit=<last{\ntn=<t0+(t1-t0)*n/N,\nxt=zeros(N+1,M+1),yt=zeros(N+1,M+1)\n},\nrun=<last{\nstepnm=<last{xt[n][m]=cos(tn=>tn)*m,yt[n][m]=sin(tn)*m},\ncasesM=<_sm(=<stepnm,0,M),\nevolutionN=<_sn(=<casesM,0,N),\nevolutionN=>\n},\ninit=>,run=>,return=out=>,scope2storage=>,\n=<return]=>;\nplot2d_circle(0,2*pi,10,3)=>;\n", 0);};
       $._id("plot2d_evolution").onclick = function(){io["onclick_default"](elems, "clear;\nplot2d_evolution(t0,t1,dt,z_x0,z_v0,m,Cd_sphere)=<[\nout=<(xt,yt),\nscope2storage=<last{addVar(xt),addVar(yt)},\ninit=<last{\ng=-9.8,z_a=0+g*i,\nx=<{z_x,z_v},\nx_initial=<{z_x0,z_v0},\nf=<{z_v,z_a-(Cd_sphere/m)*z_v},\nN=round((t1-t0)/dt),M=0,\nxt=zeros(N+1,M+1),yt=zeros(N+1,M+1)\n},\nrun=<last{\ndtn=<switch(n<=0,0:1,dt),\nstep=<x_next=_otdummy(=<f,=<x,=<x_initial,0,dtn=>),\nstepnm=<last{step=>,xt[n][mdummy]=real(z_x),yt[n][mdummy]=imag(z_x)},\ncasesM=<_smdummy(=<stepnm,0,M)/*m-reserved*/,\nevolutionN=<_sn(=<casesM,0,N),\nevolutionN=>\n},\ninit=>,run=>,return=out=>,scope2storage=>,\n=<return]=>;\nplot2d_evolution(0,5,0.5,0,20+20i,1,1)=>;\n", 0);};
       $._id("plot2d_Lagrange").onclick = function(){io["onclick_default"](elems, "clear;\nplot2d_Lagrange(x,y)=<[\nout=<(xt,yt),\nscope2storage=<last{addVar(xt),addVar(yt)},\ninit=<last{\nN=min(sizer(x),sizer(y))-1,\ndx=x[1][0][N][1]-x,\nxt=(x+dx/2)[0][0][N][1],\nyt=zeros(N,1)\n},\nrun=<last{\nljx(j,x_)=<_pm(=<{switch(m==j,1:1,=<(x_-x[m])/(x[j]-x[m]))},0,N),\nLkx(x_)=<_sj(=<y[j]*ljx(j,x_)=>,0,N),\n_si_(=<yt[i_]=Lkx(xt[i_])=>,0,N-1),\nxt=(x,xt),\nyt=(y,yt)\n},\ninit=>,run=>,return=out=>,scope2storage=>,\n=<return]=>;\nplot2d_Lagrange(=<{0,1,2,3,4,5,6,7,8,9},=<{1,3,2,5,0,-3,-2,-5,-1,-1})=>;\n", 0);};
@@ -1113,12 +1114,13 @@ plot2d
   <button id="average">average</button>
   <button id="average_asym">average_asym</button>
   <button id="Gaussian">Gaussian</button>
-  <button id="plot2d_circle">plot2d_circle</button>
 <br>
-  <button id="plot2d_evolution">plot2d_evolution</button>
-  <button id="plot2d_Lagrange">plot2d_Lagrange</button>
-  <button id="plot2d_nspline">plot2d_nspline</button>
-  <button id="plot2d_bspline">plot2d_bspline</button>
+  <button id="plot2d_multi">plot2d_multi</button>
+  <button id="plot2d_circle">_circle</button>
+  <button id="plot2d_evolution">_evolution</button>
+  <button id="plot2d_Lagrange">_Lagrange</button>
+  <button id="plot2d_nspline">_nspline</button>
+  <button id="plot2d_bspline">_bspline</button>
 <br>
   <button id="SND_Px_erfx">SND/P(x)/erf(x)</button>
   <button id="cSND_cP">cSND/cP</button>
