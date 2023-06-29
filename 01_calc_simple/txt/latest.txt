@@ -1,9 +1,11 @@
 clear
 local storage cleared
 
-f(x)=<2*x+1,x=1,f(x),f=>/*Non-strict-mode only*/
+f(x)=<2*x+1,x=0,f(x),f=>,f==>:[,x=1,f(x),f=>,f==>:[,x=2,f(x),f=>,f==>]]/*Non-strict-mode only*/
 (
-0,0,3,3
+0,0,1,1,1:
+0,0,3,1,3:
+0,0,5,1,5
 )
 
 clear
@@ -1524,4 +1526,4 @@ drag=false&sw=false&0x=false&useComplex=true&useMatrix=true&useStrict=false&chec
 --------------------------------
 --------------------------------
 
-online-simulator.github.io.6.240.103.13.54 @ Fri Jun 30 2023 01:16:32 GMT+0900 (日本標準時) @ Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/114.0.0.0 Safari/537.36
+online-simulator.github.io.6.241.103.13.54 @ Fri Jun 30 2023 03:07:58 GMT+0900 (日本標準時) @ Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/114.0.0.0 Safari/537.36
