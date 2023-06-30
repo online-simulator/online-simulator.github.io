@@ -2182,7 +2182,9 @@ panel中段について記述する
 <br>
 　<span class="run">Ver.2.50.25</span>以降、plot2d(xt,yt)のtextを挿入する</del>
 <br>
-・<span class="run">Ver.2.140.36</span>以降、plot2d(xt,yt)-buttonは任意の<a href="#span-out-vars-symbol">変数名symbol</a>を入力して<a href="#span-out-plot2d-command-from-arr">plot2d-from-arr</a>を実行する
+・<span class="run">Ver.2.140.36</span>以降、plot2d()-buttonは任意の<a href="#span-out-vars-symbol">変数名symbol</a>を入力して<a href="#span-out-plot2d-command-from-arr">plot2d(xt,yt)</a>を実行する
+<br>
+・<span class="run">Ver.2.175.42</span>以降、plot2d{}-buttonは任意の<a href="#span-out-vars-symbol">変数名symbol</a>を入力して<a href="#span-out-plot2d-command-from-arr">plot2d{xt,yt}</a>を実行する
 <br>
 ・&lt;&lt;-buttonは入力欄の選択位置を最初に移動する
 <br>
@@ -11404,6 +11406,8 @@ Graphing Calculator's plot2d-commandの入力仕様について記述する
 <br>
 <a href="#span-out-plot2d-command-from-arr">plot2d(xt,yt)</a>
 <br>
+<a href="#span-out-plot2d-command-from-arr">plot2d{xt,yt}</a>　<span class="run">Ver.2.175.42</span>以降、追加
+<br>
 ・plot2d-command最優先で他の実行文は破棄other sentences ignored
 <br>
 ・plot-button実行中の割込み不可
@@ -11493,14 +11497,14 @@ plot2d-from-arrの入力仕様について記述する
 <br>
 　svg出力時、<a href="#span-out-mat">抜け要素</a>=<a href="#span-out-num">NaN</a>
 <br>
+・<span class="run">Ver.2.175.42</span>~<span class="clear">Ver.2.175.43</span>以降、<a href="#span-out-mat">抜け要素</a>の<a href="#span-out-literal">NaN</a>変換不具合（一部legendが消失）を修正
+<br>
 <br>
 plot2d-from-arrのformatを次に示す
 <br>
 ・引数が列vectorの場合
 <br>
 plot2d(<span class="condition">x(t)<a href="#span-out-vars-symbol">変数名symbol</a>,y(t)<a href="#span-out-vars-symbol">変数名symbol</a></span>)
-<br>
-・<span class="run">Ver.2.175.42</span>~<span class="clear">Ver.2.175.43</span>以降、<a href="#span-out-mat">抜け要素</a>の<a href="#span-out-literal">NaN</a>変換不具合（一部legendが消失）を修正
 <br>
 ・<span class="run">Ver.2.175.42</span>以降、引数が行vectorの場合
 <br>
