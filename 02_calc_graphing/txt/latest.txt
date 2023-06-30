@@ -764,6 +764,32 @@ stored_eqn(plot2d_circle)
 clear
 local storage cleared
 
+trans(ans)
+(
+1+2i,2+4i,3+6i,4+8i,5+10i,NaN,NaN,NaN,NaN,NaN:
+1+2i,2+4i,3+6i,4+8i,5+10i,6+12i,7+14i,8+16i,9+18i,10+20i:
+1+2i,2+4i,3+6i,4+8i,5+10i,6+12i,7+14i,8+16i,9+18i,10+20i:
+2+4i,4+8i,6+12i,8+16i,10+20i,NaN,NaN,NaN,NaN,NaN:
+4+8i,8+16i,12+24i,16+32i,20+40i,NaN,NaN,NaN,NaN,NaN:
+2+4i,4+8i,6+12i,8+16i,10+20i,12+24i,14+28i,16+32i,18+36i,20+40i:
+8+16i,16+32i,24+48i,32+64i,40+80i,NaN,NaN,NaN,NaN,NaN:
+2+4i,4+8i,6+12i,8+16i,10+20i,12+24i,14+28i,16+32i,18+36i,20+40i
+)
+
+(xt,yt)
+(
+1+2i,1+2i,1+2i,2+4i,4+8i,2+4i,8+16i,2+4i:
+2+4i,2+4i,2+4i,4+8i,8+16i,4+8i,16+32i,4+8i:
+3+6i,3+6i,3+6i,6+12i,12+24i,6+12i,24+48i,6+12i:
+4+8i,4+8i,4+8i,8+16i,16+32i,8+16i,32+64i,8+16i:
+5+10i,5+10i,5+10i,10+20i,20+40i,10+20i,40+80i,10+20i:
+NaN,6+12i,6+12i,NaN,NaN,12+24i,NaN,12+24i:
+NaN,7+14i,7+14i,NaN,NaN,14+28i,NaN,14+28i:
+NaN,8+16i,8+16i,NaN,NaN,16+32i,NaN,16+32i:
+NaN,9+18i,9+18i,NaN,NaN,18+36i,NaN,18+36i:
+NaN,10+20i,10+20i,NaN,NaN,20+40i,NaN,20+40i
+)
+
 yt=(y_short_mod,y_long,y_short_mod*2,y_long)
 yt=(
 4+8i,2+4i,8+16i,2+4i:
@@ -953,6 +979,32 @@ x_long=(
 clear
 local storage cleared
 
+trans(ans)
+(
+1+2i,1+2i,1+2i,2+4i,4+8i,2+4i,8+16i,2+4i:
+2+4i,2+4i,2+4i,4+8i,8+16i,4+8i,16+32i,4+8i:
+3+6i,3+6i,3+6i,6+12i,12+24i,6+12i,24+48i,6+12i:
+4+8i,4+8i,4+8i,8+16i,16+32i,8+16i,32+64i,8+16i:
+5+10i,5+10i,5+10i,10+20i,20+40i,10+20i,40+80i,10+20i:
+0,6+12i,6+12i,0,0,12+24i,0,12+24i:
+0,7+14i,7+14i,0,0,14+28i,0,14+28i:
+0,8+16i,8+16i,0,0,16+32i,0,16+32i:
+0,9+18i,9+18i,0,0,18+36i,0,18+36i:
+0,10+20i,10+20i,0,0,20+40i,0,20+40i
+)
+
+{xt,yt}
+(
+1+2i,2+4i,3+6i,4+8i,5+10i:
+1+2i,2+4i,3+6i,4+8i,5+10i,6+12i,7+14i,8+16i,9+18i,10+20i:
+1+2i,2+4i,3+6i,4+8i,5+10i,6+12i,7+14i,8+16i,9+18i,10+20i:
+2+4i,4+8i,6+12i,8+16i,10+20i:
+4+8i,8+16i,12+24i,16+32i,20+40i:
+2+4i,4+8i,6+12i,8+16i,10+20i,12+24i,14+28i,16+32i,18+36i,20+40i:
+8+16i,16+32i,24+48i,32+64i,40+80i:
+2+4i,4+8i,6+12i,8+16i,10+20i,12+24i,14+28i,16+32i,18+36i,20+40i
+)
+
 yt={y_short,y_long,2*y_short,y_long}
 yt=(
 4+8i,8+16i,12+24i,16+32i,20+40i:
@@ -1076,4 +1128,4 @@ center=true&drag=false&test-case=false&legend=true&axis-t=false&axis-x=true&log-
 --------------------------------
 --------------------------------
 
-online-simulator.github.io.6.241.103.13.55 @ Fri Jun 30 2023 07:27:46 GMT+0900 (日本標準時) @ Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/114.0.0.0 Safari/537.36
+online-simulator.github.io.6.241.103.13.55 @ Fri Jun 30 2023 23:01:23 GMT+0900 (日本標準時) @ Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/114.0.0.0 Safari/537.36

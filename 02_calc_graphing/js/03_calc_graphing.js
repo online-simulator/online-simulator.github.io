@@ -701,7 +701,7 @@ My_entry.calc_graphing.prototype.init_handlers = function(){
       var arr2d_y = (var_y.mat)? var_y.mat.arr: null;
       if(arr2d_x && arr2d_y){
         /* Ver.2.175.42 -> */
-        var num_NaN = DATA.num(NaN, NaN);  // the same reference
+        var num_NaN = DATA.num(NaN, NaN);  // common reference
         var len_x = 0;
         var len_y = 0;
         var len_n = 0;
@@ -735,11 +735,15 @@ My_entry.calc_graphing.prototype.init_handlers = function(){
         }
         else{
           len_n = Math.max(arr2d_x.length, arr2d_y.length);
+          /* Ver.2.175.43 -> */
+          for(var n=0; n<len_n; ++n){
+            len_x = Math.max(len_x, (arr2d_x[n] || []).length);
+            len_y = Math.max(len_y, (arr2d_y[n] || []).length);
+          }
+          /* -> Ver.2.175.43 */
           for(var n=0; n<len_n; ++n){
             var hasXn = arr2d_x[n];
             var hasYn = arr2d_y[n];
-            len_x = (hasXn)? Math.max(len_x, arr2d_x[n].length): len_x;  // Ver.2.175.43
-            len_y = (hasYn)? Math.max(len_y, arr2d_y[n].length): len_y;  // Ver.2.175.43
             var data = self.get_data();  // self
             var arr_num = [];
             for(var j=0; j<len_x; ++j){

@@ -354,6 +354,8 @@ e^(-i(1pi(){2/2i}(5-{3-1}){i/(-4)}))
 <br>
 　　・<a href="#span-out-csv-format">csv-format</a>
 <br>
+　・<a href="#span-out-spaces">white spaces</a>
+<br>
 　・<a href="#span-out-comment">comment文</a>
 <br>
 　・<a href="#span-out-command">命令文</a>
@@ -368,11 +370,15 @@ e^(-i(1pi(){2/2i}(5-{3-1}){i/(-4)}))
 <br>
 　　・<a href="#span-out-BT-square">角括弧</a>
 <br>
+　　・<a href="#span-out-BT-empty">空括弧</a>
+<br>
 　・<a href="#span-out-RW">予約語</a>
 <br>
 　・<a href="#span-out-num">実数値</a>
 <br>
 　　・<a href="#span-out-num-false">false判定値</a>
+<br>
+　　・<a href="#span-out-num-NaN">欠損値</a>
 <br>
 　・<a href="#span-out-FN0">定数</a>
 <br>
@@ -415,6 +421,8 @@ e^(-i(1pi(){2/2i}(5-{3-1}){i/(-4)}))
 　・<a href="#span-out-FNspecial">特殊関数</a>
 <br>
 　・<a href="#span-out-mat">行列</a>
+<br>
+　　・<a href="#span-out-mat-blank">欠損要素</a>
 <br>
 　　・<a href="#span-out-mat-empty">空行列</a>
 <br>
@@ -1514,7 +1522,7 @@ title/発行元(発行年)を列挙する
 <br>
 ・<span class="run">Ver.2.156.38</span>以降、<a href="#span-out-concatination-irregular">irregular行列</a>の<a href="#span-out-concatination">行列結合</a>の<span class="clear">仕様変更</span>
 <br>
-　列方向の<a href="#span-out-mat">抜け要素</a>を自動で埋める　⇒　<a href="#span-out-mat">抜け要素</a>を埋めない（<span class="clear">挙動を明確化</span>）
+　列方向の<a href="#span-out-mat-blank">欠損要素</a>を自動で埋める　⇒　<a href="#span-out-mat-blank">欠損要素</a>を埋めない（<span class="clear">挙動を明確化</span>）
 <br>
 　<a href="#span-eqn">strict-mode式変数list</a>等、実用への影響なし
 <br>
@@ -2966,7 +2974,7 @@ shadowColor.r = strokeStyle.r+(fillStyle.r-strokeStyle.r)*Math.min(1, Math.abs(f
 <br>
 ・svg出力は縮小表示でtextPathが非表示になるが、png出力は非表示にならない
 <br>
-・string-pathにwhite spacesを含む場合、spellの扱いが異なる（1字に変換すれば統一可）
+・string-pathに<a href="#span-out-spaces">white spaces</a>を含む場合、spellの扱いが異なる（1字に変換すれば統一可）
 <br>
 ・&lt;textPath&gt;以外への流用等、利便性に配慮し、既定で&lt;path&gt;を出力する
     </td>
@@ -8164,7 +8172,7 @@ csv-read機能について記述する
 <br>
 ・<span class="selection">read範囲</span>の行数：2行目~最終行
 <br>
-・<span class="clear">要素が空</span>の場合、<del>0に変換</del><span class="run">Ver.2.162.39</span>以降、欠損値として<a href="#span-out-literal">NaN</a>に変換
+・<span class="clear">要素が空</span>の場合、<del>0に変換</del><span class="run">Ver.2.162.39</span>以降、<a href="#span-out-num-NaN">欠損値</a>として<a href="#span-out-literal">NaN</a>に変換
 <br>
 ・要素が<a href="#span-out-num">実数値</a>以外の場合、<a href="#span-out-literal">NaN</a>に変換
 <br>
@@ -10663,7 +10671,7 @@ checkError=false
 <br>
 checkError=0
 <br>
-・<a href="#span-out-mat">抜け要素</a>を含む<a href="#span-out-array">行列操作</a>の予期せぬerror終了を許容する
+・<a href="#span-out-mat-blank">欠損要素</a>を含む<a href="#span-out-array">行列操作</a>の予期せぬerror終了を許容する
 <br>
 (1,2:3)[0][0][0][0] -> Cannot read properties of undefined
 <br>
@@ -11493,11 +11501,11 @@ plot2d-from-arrの入力仕様について記述する
 <br>
 ・<span class="run">Ver.2.129.35</span>以降、各(x,y)の<a href="#span-out-FNm-size">行size</a>を独立化
 <br>
-　csv出力時、<a href="#span-out-mat">抜け要素</a>=undefined
+　csv出力時、<a href="#span-out-mat-blank">欠損要素</a>=undefined
 <br>
-　svg出力時、<a href="#span-out-mat">抜け要素</a>=<a href="#span-out-num">NaN</a>
+　svg出力時、<a href="#span-out-mat-blank">欠損要素</a>=<a href="#span-out-num">NaN</a>
 <br>
-・<span class="run">Ver.2.175.42</span>~<span class="clear">Ver.2.175.43</span>以降、<a href="#span-out-mat">抜け要素</a>の<a href="#span-out-literal">NaN</a>変換不具合（一部legendが消失）を修正
+・<span class="run">Ver.2.175.42</span>~<span class="clear">Ver.2.175.43</span>以降、<a href="#span-out-mat-blank">欠損要素</a>の<a href="#span-out-literal">NaN</a>変換不具合（一部legendが消失）を修正
 <br>
 <br>
 plot2d-from-arrのformatを次に示す
@@ -11516,7 +11524,7 @@ plot2d(<span class="condition">xt,yt</span>)
 <br>
 plot2d{<span class="condition">xt,yt</span>}
 <br>
-・<span class="run">Ver.2.175.42</span>以降、<a href="#span-out-BT">括弧</a>内のwhite spacesを無効化
+・<span class="run">Ver.2.175.42</span>以降、<a href="#span-out-BT">括弧</a>内の<a href="#span-out-spaces">white spaces</a>を無効化
 <br>
 plot2d(<span class="condition">xt, yt</span>)
 <br>
@@ -11941,7 +11949,7 @@ xt={<span class="condition">+0.0,-1e-1,+2.2e+2,-012.345e+6,0xff,0x00</span>}; xt
 <br>
 xt={+0.0,-1e-1,+2.2e+2,-012.345e+6,+0xff,-0x00}; xt -> (0:-0.1:220:-12345000:255:0)
 <br>
-・<a href="#span-out-mat">抜け要素</a>は0
+・<a href="#span-out-mat-blank">欠損要素</a>は0
 <br>
 <span class="jF">,1,</span> -> (0,1,0)
 <br>
@@ -11991,6 +11999,30 @@ x0=(<span class="condition">1,2,3</span>); x1=(<span class="condition">,,</span>
 ・要素が<a href="#span-out-num">実数値</a>以外を含む場合、<a href="#span-out-BT">括弧</a>内の要素数上限=Order(<del>100</del><span class="run">1000</span>)
 <br>
 　<span class="run">Ver.2.156.38</span>以降、<a href="#span-out-flow">operation</a>段階で<a href="#span-out-concatination">行列結合</a>のnestingを削減する最適化を実施
+    </td>
+  </tr>
+  <tr>
+    <th>
+<a href="#span-index">
+目次
+</a>
+<br>
+white
+<br>
+spaces
+<br>
+入力仕様
+    </th>
+    <td>
+<span id="span-out-spaces"></span>
+white spacesの入力仕様と付随する留意事項について記述する
+<br>
+<br>
+以下のwhite spacesは<a href="#span-out-flow">parse</a>段階で除去する
+<br>
+・空白文字
+<br>
+・改行文字
     </td>
   </tr>
   <tr>
@@ -12663,7 +12695,7 @@ x=&lt;(1,2); y=&lt;{3,4}; z=&lt;{x,y}; z -> (1,2:3:4)
 <br>
 x=&lt;(1,2); y=&lt;{3,4}; z=&lt;{x:y}; z -> (1,2,3:0,0,4)
 <br>
-・<a href="#span-out-mat">抜け要素</a>は0として演算する
+・<a href="#span-out-mat-blank">欠損要素</a>は0として演算する
 <br>
 ・<a href="#span-out-FNm-trans">転置行列関数</a>を使用
 <br>
@@ -12760,6 +12792,55 @@ clear; 3*[a=2,a]; a -> [MyErr]Invalid REv(a)
 目次
 </a>
 <br>
+空括弧
+<br>
+入力仕様
+    </th>
+    <td>
+<span id="span-out-BT-empty"></span>
+空括弧の入力仕様と付随する留意事項について記述する
+<br>
+<br>
+以下の空括弧は<a href="#span-out-flow">parse</a>段階で除去する
+<br>
+() ->
+<br>
+{} ->
+<br>
+・<span class="clear">Ver.2.158.38</span>以降、<a href="#span-out-mat-empty">空行列</a>を除く
+<br>
+<del>[] -></del>
+<br>
+[] -> []
+<br>
+<br>
+test caseを列挙する
+<br>
+()3()3() || 3*3 -> 9
+<br>
+()3()/()3() || 3/3 -> 1
+<br>
+(()) -> 0
+<br>
+((())) -> 0
+<br>
+{{}} -> 0
+<br>
+{{{}}} -> 0
+<br>
+・<a href="#span-out-FN0">定数</a>
+<br>
+pi() -> 3.141592653589793
+<br>
+e() -> 2.718281828459045
+    </td>
+  </tr>
+  <tr>
+    <th>
+<a href="#span-index">
+目次
+</a>
+<br>
 予約語
 <br>
 入力仕様
@@ -12772,6 +12853,8 @@ clear; 3*[a=2,a]; a -> [MyErr]Invalid REv(a)
 予約語の種類を列挙する
 <br>
 ・<a href="#span-out-UI-graphing">Graphing Calculator</a>'s <a href="#span-out-plot2d-command">plot2d-command</a>
+<br>
+・<a href="#span-out-spaces">white spaces</a>
 <br>
 ・<a href="#span-out-comment">comment文</a>
 <br>
@@ -12992,6 +13075,28 @@ val=true; val==1,val==true,val===1,val===true -> (1,1,0+O(1e+0),1)
 目次
 </a>
 <br>
+欠損値
+<br>
+入力仕様
+    </th>
+    <td>
+<span id="span-out-num-NaN"></span>
+欠損値の入力仕様と付随する留意事項について記述する
+<br>
+<br>
+各機能から入力の欠損値の定義を列挙する
+<br>
+・<a href="#span-out-UI-graphing-config-csv">csv-read</a>機能の欠損値=NaN
+<br>
+・<a href="#span-out-plot2d-command">plot2d-command</a>の欠損値=NaN+(NaN)i
+    </td>
+  </tr>
+  <tr>
+    <th>
+<a href="#span-index">
+目次
+</a>
+<br>
 定数
 <br>
 入力仕様
@@ -13005,19 +13110,19 @@ val=true; val==1,val==true,val===1,val===true -> (1,1,0+O(1e+0),1)
 <br>
 ・実行文を作る<a href="#span-out-flow">parse</a>段階で数値に変換する
 <br>
-・<span class="run">Excel</span>準拠で空括弧()付を許容する
+・<span class="run">Excel</span>準拠で<a href="#span-out-BT-empty">空括弧</a>()付を許容する
 <br>
-・空括弧()は<a href="#span-out-flow">parse</a>段階で除去する（<span class="clear">Ver.2.158.38</span>以降、<a href="#span-out-mat-empty">空行列</a>を除く）
+・<a href="#span-out-BT-empty">空括弧</a>()は<a href="#span-out-flow">parse</a>段階で除去する（<span class="clear">Ver.2.158.38</span>以降、<a href="#span-out-mat-empty">空行列</a>を除く）
 <br>
 <br>
 <a href="#span-out-FN">関数</a>を使用して円周率piとNapier数eを一例に示す
 <br>
 PI() || pi || 2acos(0) || 2asin(1) || 4atan(1) -> 3.141592653589793
 <br>
-E() || e || e^1 || exp(1) ||  -> 2.718281828459045
+E() || e || e^1 || exp(1) -> 2.718281828459045
 <br>
 <br>
-eは<a href="#span-out-num">指数表記</a>と区別するため、空括弧()を付ける方が間違いが少ない
+eは<a href="#span-out-num">指数表記</a>と区別するため、<a href="#span-out-BT-empty">空括弧</a>()を付ける方が間違いが少ない
 <br>
 2e-1 || 2E-1 -> 0.2
 <br>
@@ -13026,23 +13131,11 @@ eは<a href="#span-out-num">指数表記</a>と区別するため、空括弧()�
 ・<a href="#span-out-BRmo">記号省略乗算</a>を許容した弊害への対策
 <br>
 <br>
-定数に限らず、空括弧()は<a href="#span-out-flow">parse</a>段階ですべて除去する（<span class="clear">Ver.2.158.38</span>以降、<a href="#span-out-mat-empty">空行列</a>を除く）
-<br>
-()3()3() || 3*3 -> 9
-<br>
-()3()/()3() || 3/3 -> 1
-<br>
-() ->
-<br>
-(()) -> 0
-<br>
-(({})) -> 0
-<br>
-<del>・乱数</del><span class="run">Ver.2.30.15</span>以降、乱数は引数0個の<a href="#span-out-FN-rand">関数</a>に昇格
+<span class="run">Ver.2.30.15</span>以降、乱数は引数0個の<a href="#span-out-FN-rand">関数</a>に昇格
 <br>
 <del>random() || random || rand -> 0.7479324154774045</del>
 <br>
-・本来、<a href="#span-out-FN">関数</a>の呼出し時に空括弧を含めて判別するが、
+・本来、<a href="#span-out-FN">関数</a>の呼出し時に<a href="#span-out-BT-empty">空括弧</a>を含めて判別するが、
 <br>
 ・定数の引数<a href="#span-out-BT">括弧</a>の有無と<a href="#span-out-BRmo">記号省略乗算</a>を同時に許容した弊害への対策
 <br>
@@ -13199,7 +13292,7 @@ epsilon || eps -> 2.220446049250313e-16
 1/(-i) -> i
 <br>
 <br>
-<a href="#span-out-FN0">Napier数e</a>の空括弧()を省略してEulerの公式から<a href="#span-out-complex">極形式</a>の複素数を示す
+<a href="#span-out-FN0">Napier数e</a>の<a href="#span-out-BT-empty">空括弧</a>()を省略してEulerの公式から<a href="#span-out-complex">極形式</a>の複素数を示す
 <br>
 (sqrt2)e^(i{pi/4}) || sqrt2()ecomp(pi/4) -> 1.0000000000000002+i
 <br>
@@ -14538,7 +14631,7 @@ sort(1,-2i,3:4,-5,6i:7) -> (-2i,1,3:-5,6i,4:7)
 <br>
 sort(trans(1,-2i,3:4,-5,6i:7)) -> (1,4,7:-5,-2i,0:6i,0,3)
 <br>
-・<span class="run">Ver.2.128.34</span>以降、<a href="#span-out-mat">抜け要素なしの行列</a>table用に関数名直後の連番sort-key-i=0~を追加
+・<span class="run">Ver.2.128.34</span>以降、<a href="#span-out-mat">欠損要素なしの行列</a>table用に関数名直後の連番sort-key-i=0~を追加
 <br>
 table=(2,3,1:6,4,5);
 <br>
@@ -14552,7 +14645,7 @@ sort0(table) -> (1,2,3:5,6,4)
 <br>
 sort1(table) -> (3,1,2:4,5,6)
 <br>
-・<a href="#span-out-mat">抜け要素</a>が存在する場合、error終了
+・<a href="#span-out-mat-blank">欠損要素</a>が存在する場合、error終了
 <br>
 table=(2,3,1:6,4,5,7);
 <br>
@@ -14829,20 +14922,6 @@ transpose({1,2:3,4}) || trans({1,2:3,4}) || trans{1,2:3,4} -> (1,2:3,4)
 <br>
 {1-i,1}(1+i,1) -> (2,1-i:1+i,1)
 <br>
-・空要素は0
-<br>
-(()) -> 0
-<br>
-(,) -> (0,0)
-<br>
-(2,:)(1,2:3,4) || (2,:,)(1,2:3,4) -> (2,4:0,0)
-<br>
-(1,2:3,4)(2,:) || (1,2:3,4)(2,:,) -> (2,0:6,0)
-<br>
-・抜け要素は0
-<br>
-(1,2,3:){1,2,3:} || (1,2,3:,,){1,2,3:,,} -> (14,0:0,0)
-<br>
 ・単位行列
 <br>
 k=1; (k,:,k) -> (1,0:0,1)
@@ -14922,17 +15001,6 @@ A=(1,2:); ttA=trans(trans(A)); ttA[0]+ttA[1] -> (1,2)
 A=(1,2:,); A[0]+A[1] -> (1,2)
 <br>
 <br>
-抜け要素を埋めて<a href="#span-out-reference-mat-size">行列size</a>が一致する場合、差と和の演算を許容する
-<br>
-(1,2:3,4)-(-1,:) || (1,2:3,4)-(-1,:,) || (1,2:3,4)-(-1,0:0,0) -> (2,2:3,4)
-<br>
-(1,2:3,4)-(-1,2:) || (1,2:3,4)-(-1,2:,) || (1,2:3,4)-(-1,2:0,0) -> (2,0:3,4)
-<br>
-(1,2:3,4)+(-1,:) || (1,2:3,4)+(-1,:,) || (1,2:3,4)+(-1,0:0,0) -> (0,2:3,4)
-<br>
-(1,2:3,4)+(-1,2:) || (1,2:3,4)+(-1,2:,) || (1,2:3,4)+(-1,2:0,0) -> (0,4:3,4)
-<br>
-<br>
 <a href="#span-out-ope">無次元</a>の演算の場合、行列の演算規則とは無関係に<a href="#span-out-FNm-last">最終要素</a>を演算する
 <br>
 (1,2:3)1 || (3)*1 -> 3
@@ -14945,6 +15013,60 @@ A=(1,2:,); A[0]+A[1] -> (1,2)
 <br>
 <br>
 <span class="run">Ver.2.73.29</span>以降、定義できない行列演算の場合、<a href="#span-out-ope-extended">拡張行列演算</a>参照
+    </td>
+  </tr>
+  <tr>
+    <th>
+<a href="#span-index">
+目次
+</a>
+<br>
+欠損要素
+<br>
+入力仕様
+    </th>
+    <td>
+<span id="span-out-mat-blank"></span>
+欠損要素の入力仕様と付随する留意事項について記述する
+<br>
+・空要素と欠損要素を混同するため、本仕様は見直しの可能性がある
+<br>
+<br>
+<a href="#span-out-mat">行列</a>演算の欠損要素の扱い：欠損要素=空要素=0
+<br>
+・test caseを列挙する
+<br>
+(()) -> 0
+<br>
+(,) -> (0,0)
+<br>
+(2,:)(1,2:3,4) || (2,:,)(1,2:3,4) -> (2,4:0,0)
+<br>
+(1,2:3,4)(2,:) || (1,2:3,4)(2,:,) -> (2,0:6,0)
+<br>
+(1,2,3:){1,2,3:} || (1,2,3:,,){1,2,3:,,} -> (14,0:0,0)
+<br>
+・<a href="#span-out-FNm-trans">転置行列関数</a>を使用
+<br>
+trans(1,2,3:) -> (1,0:2,0:3,0)
+<br>
+trans({1,2,3:}) -> (1,2,3:0,0,0)
+<br>
+<br>
+欠損要素を埋めて<a href="#span-out-reference-mat-size">行列size</a>が一致する場合、差と和の演算を許容する
+<br>
+(1,2:3,4)-(-1,:) || (1,2:3,4)-(-1,:,) || (1,2:3,4)-(-1,0:0,0) -> (2,2:3,4)
+<br>
+(1,2:3,4)-(-1,2:) || (1,2:3,4)-(-1,2:,) || (1,2:3,4)-(-1,2:0,0) -> (2,0:3,4)
+<br>
+(1,2:3,4)+(-1,:) || (1,2:3,4)+(-1,:,) || (1,2:3,4)+(-1,0:0,0) -> (0,2:3,4)
+<br>
+(1,2:3,4)+(-1,2:) || (1,2:3,4)+(-1,2:,) || (1,2:3,4)+(-1,2:0,0) -> (0,4:3,4)
+<br>
+<br>
+留意事項を列挙する
+<br>
+・<a href="#span-out-num-NaN">欠損値</a>の定義とは異なる
     </td>
   </tr>
   <tr>
@@ -14970,6 +15092,10 @@ A=(1,2:,); A[0]+A[1] -> (1,2)
 <br>
 [] -> []
 <br>
+[[]] -> []
+<br>
+[[[]]] -> []
+<br>
 x=[]; x -> []
 <br>
 <br>
@@ -14979,11 +15105,23 @@ x=[]; x -> []
 <br>
 [],[] -> []
 <br>
-[],1 -> 1
+[]:[] -> []
 <br>
-x=[]; {x,2} -> 2
+[],1,[]:1:[] -> (1:1)
 <br>
-((),1) -> (0,1)
+x=[]; (x,2),(2,x),{x,2},{2,x} -> (2,2,2,2)
+<br>
+・<a href="#span-out-mat-blank">欠損要素</a>
+<br>
+(,) -> (0,0)
+<br>
+(:) -> (0:0)
+<br>
+・<a href="#span-out-BT-empty">空括弧</a>
+<br>
+((),2) -> (0,2)
+<br>
+x=(); (x,2) -> [MyErr]Invalid ans isFound
 <br>
 ・任意要素への代入不可
 <br>
@@ -15064,7 +15202,7 @@ identity4 -> (1,0,0,0:0,1,0,0:0,0,1,0:0,0,0,1)
 <br>
 ・引数が<a href="#span-out-mat">行列</a>単体の場合
 <br>
-・<a href="#span-out-mat">抜け要素</a>なしの前提で複数の引数を<a href="#span-out-concatination">行列結合</a>する場合
+・<a href="#span-out-mat-blank">欠損要素</a>なしの前提で複数の引数を<a href="#span-out-concatination">行列結合</a>する場合
     </td>
   </tr>
   <tr>
@@ -15373,7 +15511,7 @@ last(1,2:3,4) -> 4
 <br>
 last{1,2:3,4} -> 4
 <br>
-・<a href="#span-in-tree">単位tree構造</a>の仕様上、行vectorの抜け要素を自動で埋めない
+・<a href="#span-in-tree">単位tree構造</a>の仕様上、行vectorの欠損要素を自動で埋めない
 <br>
 A=(1,2:3,(,:,4),5); A ->
 <br>
@@ -15487,7 +15625,7 @@ size
 size行列関数の入力仕様と付随する留意事項について記述する
 <br>
 <br>
-<a href="#span-out-reference-mat-size">m行n列の行列size</a>（抜け要素を自動で埋める）
+<a href="#span-out-reference-mat-size">m行n列の行列size</a>（欠損要素を自動で埋める）
 <br>
 ・行size:=m
 <br>
@@ -15665,7 +15803,7 @@ vr=(1,i,-i); normalizec(vr)  <span class="selection">// NG</span> -> (1,i,-i)
 normalize({0,0,0})  <span class="selection">// NG</span> -> (NaN:NaN:NaN)
 <br>
 <br>
-行列の正規化（抜け要素を自動で埋める）
+行列の正規化（欠損要素を自動で埋める）
 <br>
 ・すべての行vectorを正規化する場合
 <br>
@@ -16146,7 +16284,7 @@ A(t)=&lt;(t,2t:3t,4t); A(-1)=&gt;[1] -> [MyErr]Invalid REe(=&gt;)
 <br>
 A(t)=&lt;(t,2t:3t,4t); A(-1)[1]=&gt; -> [MyErr]Invalid reference of array
 <br>
-・抜け要素を自動で埋めない
+・欠損要素を自動で埋めない
 <br>
 A=&lt;(1:3,4); A[0]=&gt; -> 1
 <br>
@@ -16211,7 +16349,7 @@ A=(1,2:3,4); A[<span class="condition">e</span>][0] || (1,2:3,4)[<span class="co
 <br>
 A=(1,2:3,4); A[<span class="condition">e</span>][1] || (1,2:3,4)[<span class="condition">e</span>][1] -> (2:4)
 <br>
-・抜け要素を自動で埋める
+・欠損要素を自動で埋める
 <br>
 A=(1:3,4); A[<span class="condition">e</span>][1] || (1:3,4)[<span class="condition">e</span>][1] -> (0:4)
 <br>
@@ -16426,7 +16564,7 @@ A=(1,2:3,4:); A[0][0][0][1] || A[0][0][sizer(A)][1] -> (1:3:0)
 <br>
 A=(1,2:3,4:); A[0][0][1][0] || A[0][0][1][sizec(A)] -> (1,2)
 <br>
-・抜け要素を自動で埋める
+・欠損要素を自動で埋める
 <br>
 A=(1,2:3,4:); A -> (1,2:3,4:0)
 <br>
@@ -16563,7 +16701,7 @@ A=A0; A[0][0][0][0]=A; A ->
 <br>
 )
 <br>
-・抜け要素を自動で埋める
+・欠損要素を自動で埋める
 <br>
 A=A0; A[-1][0][1] ->
 <br>
@@ -16768,7 +16906,7 @@ A=(1,2:3,4); A[0]=A[1]; A -> (3,4:3,4)
 <br>
 A=(1,2:3,4); A[1]=A[0]; A -> (1,2:1,2)
 <br>
-・抜け要素を自動で埋めない
+・欠損要素を自動で埋めない
 <br>
 A=(,:); A[0]=(1,2); A -> (1,2:0)
 <br>
@@ -16890,7 +17028,7 @@ A=(1,2:3,4); A[<span class="condition">e</span>][1]=A[e][1]; A -> (1,2:3,4)
 <br>
 A=(1,2:3,4); A[<span class="condition">e</span>][0]=A[e][1]; A -> (2,2:4,4)
 <br>
-・抜け要素を自動で埋める
+・欠損要素を自動で埋める
 <br>
 A=(:,); A[<span class="condition">e</span>][1]={1,2}; A -> (0,1:0,2)
 <br>
@@ -16966,7 +17104,7 @@ A=(1,2:3,4); tA=trans(A); tA[0]=-tA[0]; A=trans(tA); A -> (-1,2:-3,4)
 <br>
 A=(,:); A[0][0]=1; A -> (1,0:0)
 <br>
-・抜け要素を自動で埋めない
+・欠損要素を自動で埋めない
 <br>
 A=(,:); A[0][1]=1; A -> (0,1:0)
 <br>
@@ -17074,7 +17212,7 @@ A=(1,2:3,4:); A[0][0][0][0]=A; A -> (1,2:3,4:0,0)
 <br>
 A=(1,2:3,4:); A[0][0][sizer(A)][sizec(A)]=A; A -> (1,2:3,4:0,0)
 <br>
-・抜け要素を自動で埋める
+・欠損要素を自動で埋める
 <br>
 A=(1,2:3,4:); A=A; A -> (1,2:3,4:0)
 <br>
@@ -17181,7 +17319,7 @@ A0=zeros(4,4); A0=(A0,0); A0 ->
 <br>
 )
 <br>
-・抜け要素を自動で埋める
+・欠損要素を自動で埋める
 <br>
 A=A0; A[-1][0][1]=(1,2,3); A ->
 <br>
@@ -17513,7 +17651,7 @@ irregular
 <span id="span-out-concatination-irregular"></span>
 irregular行列の入力仕様と付随する留意事項について記述する
 <br>
-・<span class="run">Ver.2.156.38</span>以降、<a href="#span-out-concatination">行列結合</a>で<a href="#span-out-mat">抜け要素</a>を埋めない（<span class="clear">挙動を明確化</span>）
+・<span class="run">Ver.2.156.38</span>以降、<a href="#span-out-concatination">行列結合</a>で<a href="#span-out-mat-blank">欠損要素</a>を埋めない（<span class="clear">挙動を明確化</span>）
 <br>
 <br>
 列指定のirregular行列
@@ -17535,13 +17673,13 @@ A=(11:21,22:31,32,33,34); A -> (11:21,22:31,32,33,34)
 <br>
 tA={11:21,22:31,32,33,34}; tA -> (11,21,31:<del class="clear">0,</del>22,32:<del class="clear">0,0,</del>33:<del class="clear">0,0,</del>34)
 <br>
-・行指定の行列で抜け要素がある場合、<a href="#span-out-FNm-trans">転置行列関数</a>を使用
+・行指定の行列で欠損要素がある場合、<a href="#span-out-FNm-trans">転置行列関数</a>を使用
 <br>
 A=(11:21,22:31,32,33,34); trans(trans(A)) -> (11,0,0,0:21,22,0,0:31,32,33,34)
 <br>
 A=(11:21,22:31,32,33,34); htrans(htrans(A)) -> (11,0,0,0:21,22,0,0:31,32,33,34)
 <br>
-・<a href="#span-in-tree">単位tree構造</a>の仕様上、行vectorの抜け要素を自動で埋めない
+・<a href="#span-in-tree">単位tree構造</a>の仕様上、行vectorの欠損要素を自動で埋めない
 <br>
 (1,2:3),(1,2:3) ->
 <br>
@@ -20023,9 +20161,9 @@ add(1,add(1,add(1,add(1,i))add(1,i))add(1,i))add(1,i) -> -5+5i
 <br>
 <a href="#span-out-FNm-last">last行列関数</a>を代替する<a href="#span-out-eqns">式変数</a>last_ttを以下に示す
 <br>
-・<a href="#span-out-FNm-last">last行列関数</a>は<a href="#span-in-tree">単位tree構造</a>の仕様上、行vectorの<a href="#span-out-mat">抜け要素</a>を自動で埋めない
+・<a href="#span-out-FNm-last">last行列関数</a>は<a href="#span-in-tree">単位tree構造</a>の仕様上、行vectorの<a href="#span-out-mat-blank">欠損要素</a>を自動で埋めない
 <br>
-・行vectorの<a href="#span-out-mat">抜け要素</a>を自動で埋める<a href="#span-out-eqns">式変数</a>last_ttを次に定義する
+・行vectorの<a href="#span-out-mat-blank">欠損要素</a>を自動で埋める<a href="#span-out-eqns">式変数</a>last_ttを次に定義する
 <br>
 clear; last_tt(A)=&lt;(trans(trans(A)))[sizer(A)-1][sizec(A)-1]; A=(1,2:3,4); last_tt(=&lt;A) -> 4
 <br>
@@ -23082,26 +23220,26 @@ _sir(=&lt;{_sic(=&lt;product,0,sizec(ttR)-1)},0,sizer(ttL)-1),
 <br>
 ・演算子による行列積L*Rでは1回の転置trans(R)に最適化される
 <br>
-・また、この転置時にRの抜け要素を埋める
+・また、この転置時にRの欠損要素を埋める
 <br>
 trans(R) -> (1,3:2,4:0,5)
 <br>
-・さらに、Lの抜け要素の部分はRと内積を取らない（自明の演算は行わない）
+・さらに、Lの欠損要素の部分はRと内積を取らない（自明の演算は行わない）
 <br>
 <br>
-行列積L*Rの<a href="#span-out-ope">演算量</a>を多少減らすため、抜け要素を許容する
+行列積L*Rの<a href="#span-out-ope">演算量</a>を多少減らすため、欠損要素を許容する
 <br>
 ・N次下三角行列Lの場合、最高効率で<a href="#span-out-ope">演算量</a>が半減する
 <br>
 ・行列積の乗算回数を以下に比較して示す
 <br>
-・抜け要素を許容しない場合
+・欠損要素を許容しない場合
 <br>
 N=4; N*N*N -> 64
 <br>
 N=10; N*N*N -> 1000
 <br>
-・抜け要素を許容する場合
+・欠損要素を許容する場合
 <br>
 N=4; _sn(=&lt;{n*n},1,N) -> 30
 <br>
@@ -32304,17 +32442,17 @@ f=&lt;last{V=1,E=0,k=1,I=exp(k*(V-E))-exp(-k*(V-E))}
 <br>
 ・<a href="#span-out-reference-mat-index">ij参照の行列</a>要素が<a href="#span-in-tree">単位tree構造</a>のarr[i][j]参照の場合、
 <br>
-・x*A=bの行vector形式で実装の方が列方向の<a href="#span-out-mat">抜け要素</a>||<a href="#span-out-FNm-trans">転置</a>を意識する負担が少ない
+・x*A=bの行vector形式で実装の方が列方向の<a href="#span-out-mat-blank">欠損要素</a>||<a href="#span-out-FNm-trans">転置</a>を意識する負担が少ない
 <br>
 ・また、関数の引数は常に行vectorとして内部で入出力の整合性を担保する方が拡張しやすい
 <br>
-・<span class="run">Ver.2.156.38</span>以降、列方向の<a href="#span-out-mat">抜け要素</a>を自動で埋めないため、
+・<span class="run">Ver.2.156.38</span>以降、列方向の<a href="#span-out-mat-blank">欠損要素</a>を自動で埋めないため、
 <br>
 ・列vectorの要素数が異なる複数legendのplotに支障がある
 <br>
 ・要素数が降順に並ぶ場合、問題ないが、（<a href="#span-eqn-plot2d_nspline">plot2d_nspline</a>参照）
 <br>
-・昇順に並ぶ場合、列方向の<a href="#span-out-mat">抜け要素</a>を<a href="#span-out-literal">NaN</a>で埋める手順を要する（<a href="#span-eqn-plot2d()_multi">plot2d()_multi</a>参照）
+・昇順に並ぶ場合、列方向の<a href="#span-out-mat-blank">欠損要素</a>を<a href="#span-out-literal">NaN</a>で埋める手順を要する（<a href="#span-eqn-plot2d()_multi">plot2d()_multi</a>参照）
 <br>
 ・以上の余分な手順を省略するため、<del>行vector用のplot2d{xt,yt}の追加を検討する</del>
 <br>
@@ -32413,11 +32551,11 @@ vectorr(round(2^3)) || vectorr(8)  <span class="selection">// OK</span> -> (0,0,
 <span id="span-out-development-problems-matrix"></span>
 行列演算の問題点を列挙する
 <br>
-・当初、<a href="#span-out-mat-product">行列積</a>の<a href="#span-out-ope">演算量</a>を多少減らすため、抜け要素を許容したが、
+・当初、<a href="#span-out-mat-product">行列積</a>の<a href="#span-out-ope">演算量</a>を多少減らすため、欠損要素を許容したが、
 <br>
 ・<span class="run">Ver.2.76.29</span>以降、<a href="#span-out-array">行列操作</a>の<a href="#span-out-ope">演算速度</a>を犠牲にする弊害の方が圧倒的に大きい
 <br>
-・よって<a href="#span-out-mat">抜け要素</a>がある場合、error終了の方が実装効率||演算効率が高い
+・よって<a href="#span-out-mat-blank">欠損要素</a>がある場合、error終了の方が実装効率||演算効率が高い
 <br>
 演算効率を優先して<a href="#span-out-array">行列操作</a>を最適化する場合、<a href="#span-out-config">裏設定</a>参照
     </td>
@@ -34402,6 +34540,10 @@ yt_OK={y_short,y_long};
 xt={x_short,x_long,x_long,2*x_short};
 <br>
 yt={y_short,y_long,2*y_short,y_long};
+<br>
+{xt,yt};
+<br>
+trans(ans);
     </td>
   </tr>
   <tr>
@@ -34447,6 +34589,10 @@ yt_OK=(y_short_mod,y_long);
 xt=(x_short_mod,x_long,x_long,x_short_mod*2);
 <br>
 yt=(y_short_mod,y_long,y_short_mod*2,y_long);
+<br>
+(xt,yt);
+<br>
+trans(ans);
     </td>
   </tr>
   <tr>
