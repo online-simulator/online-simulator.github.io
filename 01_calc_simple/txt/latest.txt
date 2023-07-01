@@ -1,6 +1,47 @@
 clear
 local storage cleared
 
+interp(trans(real(trans(x))):csv0_sorted_key0)
+(
+NaN,-1.5,-3.5,-4.5,-3.5,-1.5,-3.5,-4.5,-3.5,NaN
+)
+
+interp(x:csv0_sorted_key0)
+(
+NaN,NaN,NaN,NaN,NaN,NaN,NaN,NaN,NaN,NaN
+)
+
+interp(x:table)
+(
+NaN,-1.5-1.5i,-3.5-3.5i,-4.5-4.5i,-3.5-3.5i,-1.5-1.5i,-3.5-3.5i,-4.5-4.5i,-3.5-3.5i,NaN
+)
+
+x=(table[0]-(1+i)/2,table[0]+(1+i)/2)
+x=(
+0.5+0.5i,1.5+1.5i,2.5+2.5i,3.5+3.5i,4.5+4.5i,1.5+1.5i,2.5+2.5i,3.5+3.5i,4.5+4.5i,5.5+5.5i
+)
+
+table=csv0_sorted_key0*(1+i)
+table=(
+1+i,2+2i,3+3i,4+4i,5+5i:
+-1-i,-2-2i,-5-5i,-4-4i,-3-3i
+)
+
+csv0_sorted_key0=sort0(csv0)
+csv0_sorted_key0=(
+1,2,3,4,5:
+-1,-2,-5,-4,-3
+)
+
+csv0=(1,2,5,4,3:-1,-2,-3,-4,-5)
+csv0=(
+1,2,5,4,3:
+-1,-2,-3,-4,-5
+)
+
+clear
+local storage cleared
+
 f(x)=<2*x+1,x=0,f(x),f=>,f==>:[,x=1,f(x),f=>,f==>:[,x=2,f(x),f=>,f==>]]/*Non-strict-mode only*/
 (
 0,0,1,1,1:
@@ -1526,4 +1567,4 @@ drag=false&sw=false&0x=false&useComplex=true&useMatrix=true&useStrict=false&chec
 --------------------------------
 --------------------------------
 
-online-simulator.github.io.6.241.103.13.55 @ Fri Jun 30 2023 23:02:28 GMT+0900 (日本標準時) @ Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/114.0.0.0 Safari/537.36
+online-simulator.github.io.6.242.103.13.55 @ Sat Jul 01 2023 18:02:58 GMT+0900 (日本標準時) @ Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/114.0.0.0 Safari/537.36

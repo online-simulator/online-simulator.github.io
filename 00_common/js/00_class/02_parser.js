@@ -32,6 +32,10 @@ My_entry.parser.prototype.config = {
         SX: /^_s(.*)$/i
       },
       /* -> Ver.2.20.9 */
+      /* Ver.2.176.43 */
+      FNm: {
+        interp: /^interp(\d+)$/i
+      },
       /* Ver.2.128.34 */
       FNn: {
         sort: /^sort(\d+)$/i,
@@ -287,7 +291,7 @@ My_entry.parser.prototype.compare2bs = function(token, re){
           }
         }
         /* Ver.2.128.34 */
-        else if(tagName === "FNn"){
+        else if(tagName === "FNm" || tagName === "FNn"){  // Ver.2.176.43
           _tree = DATA.tree_tag(tagName, key);
           _tree[tagName].i = Number(mc1);
         }
@@ -536,6 +540,7 @@ My_entry.parser.prototype.make_trees = function(sentence, opt_re){  // Ver.2.158
       case "ones":
       case "coo2mat":
       case "mat2coo":
+      case "interp":
         tree = DATA.tree_tag("FNm", token_lower);
         break;
       case "gauss_coo":

@@ -152,6 +152,54 @@ My_entry.math_mat.prototype.istrue = function(options, arr){
   return [[DATA.num(!(isFalse), 0)]];
 };
 /* -> Ver.2.172.42 */
+/* Ver.2.176.43 -> */
+My_entry.math_mat.prototype.interp_base = function(options, arr, callback){
+  var self = this;
+  var DATA = self.entry.DATA;
+  if(!(arr.length === 3 && arr[1].length === arr[2].length)) throw "Invalid table(interp)";
+  var lens = self.get_lens(arr.slice(1,3));
+  var len_i = lens.i;
+  var len_j = lens.j;
+  var len_n = arr[0].length;
+  var _arr = [];
+  for(var n=0; n<len_n; ++n){
+    var com_x = arr[0][n].com;
+    var num = DATA.num(NaN, NaN);
+    for(var j=0; j<len_j-1; ++j){
+      var com_x0 = arr[1][j].com;
+      var com_x1 = arr[1][j+1].com;
+      var hasXr = (com_x.r >= com_x0.r && com_x.r <= com_x1.r);  // >= && <=
+      var hasXi = (com_x.i >= com_x0.i && com_x.i <= com_x1.i);  // >= && <=
+      if(hasXr && hasXi){
+        var com_y0 = arr[2][j].com;
+        var com_y1 = arr[2][j+1].com;
+        num = callback(com_x, com_x0, com_x1, com_y0, com_y1);
+        break;
+      }
+    }
+    _arr.push(num);
+  }
+  return [_arr];
+};
+My_entry.math_mat.prototype.interp = function(options, arr){
+  var self = this;
+  var DATA = self.entry.DATA;
+  var callback = function(com_x, com_x0, com_x1, com_y0, com_y1){
+    var dxr = com_x.r-com_x0.r;
+    var hxr = com_x1.r-com_x0.r;
+    var hyr = com_y1.r-com_y0.r;
+    var dxi = com_x.i-com_x0.i;
+    var hxi = com_x1.i-com_x0.i;
+    var hyi = com_y1.i-com_y0.i;
+    var cr = com_y0.r;
+    cr += (hxr)? dxr*hyr/hxr: 0;
+    var ci = com_y0.i;
+    ci += (hxi)? dxi*hyi/hxi: 0;
+    return DATA.num(cr, ci);
+  };
+  return self.interp_base(options, arr, callback);
+};
+/* -> Ver.2.176.43 */
 My_entry.math_mat.prototype.first = function(options, arr){
   var self = this;
   return [[arr[0][0]]];

@@ -69,6 +69,8 @@
       script += "\nclear;\n";
       script += "f(x)=<2*x+1,x=0,f(x),f=>,f==>:[,x=1,f(x),f=>,f==>:[,x=2,f(x),f=>,f==>]]/*Non-strict-mode only*/;";
       script += "\nclear;\n";
+      script += "csv0=(1,2,5,4,3:-1,-2,-3,-4,-5);\ncsv0_sorted_key0=sort0(csv0);\ntable=csv0_sorted_key0*(1+i);\nx=(table[0]-(1+i)/2,table[0]+(1+i)/2);\ninterp(x:table);\ninterp(x:csv0_sorted_key0);\ninterp(trans(real(trans(x))):csv0_sorted_key0);";
+      script += "\nclear;\n";
       $._id("input").value = script;
     });
   })();
