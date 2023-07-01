@@ -222,6 +222,7 @@
 //      $._id("").onclick = function(){io["onclick_default"](elems, "", 0);};
       var elems = {i: $._id("input")};
       $._id("template").onclick = function(){io["onclick_default"](elems, "clear;\ntemplate(x,y,=<symbol_eqn_,=<eqn_)=<[\nout=<[=<(symbol_eqn_=>,eqn_=>)]=>,\nscope2storage=<last{0},\ninit=<last{0},\nrun=<last{0},\ninit=>,run=>,return=out=>,scope2storage=>,\n=<return]=>;\n[x=1,y=2,f=3,f=<[last(x=-2*x,x),y],=<template(x,=<last(f)/*var||eqn*/,=<f,=<[x,y])=>]=>;\n/*following eqn(f) without scope called twice*/\n[x=1,y=2,f=3,f=<(last(x=-2*x,x),y),=<template(x,=<last(f=>),=<f,=<(x,y))=>]=>;\n[x=1,y=2,f=3,f=<(last(x=-2*x,x),y),=<template(x,=<last(f=>),=<f,=<[x,y])=>]=>;\n/*following eqn(f) with static scope called twice*/\n[x=1,y=2,f=3,f=<[last(x=-2*x,x),y],=<template(x,=<last(f=>),=<f,=<(x,y))=>]=>;\n[x=1,y=2,f=3,f=<[last(x=-2*x,x),y],=<template(x,=<last(f=>),=<f,=<[x,y])=>]=>;\n", 0);};
+      $._id("scope_NG").onclick = function(){io["onclick_default"](elems, "clear;\nscope_NG1(x)=<[x=x/*OK*/,last[x=x/*NG*/,x],x];\nscope_NG2(x)=<2*[x=x/*NG*/,last[x=x/*NG*/,x],x];\nscope_NG1(1)=>:scope_NG1(-1)=>;\nscope_NG2(1)=>:scope_NG2(-1)=>;\n", 0);};
       $._id("average").onclick = function(){io["onclick_default"](elems, "clear;\n[isSquare=0,N=3,N2=int(N/2),filter=vectorc(N*N),\ncalc_w(s2)=<switch(isSquare==0,switch(s2>N2**2,0:1,1):1,1),\n_sir(=<{_sic(=<filter[(ir+N2)*N+(ic+N2)]=calc_w(ir**2+ic**2)=>,-N2,N2)},-N2,N2),\n=<trans(filter)]=>;\n", 0);};
       $._id("average_asym").onclick = function(){io["onclick_default"](elems, "clear;\n[isSquare=0,N=13,N2=int(N/2),filter=vectorc(N*N),\nx=1,y=2,k=3,rad=pi/4,\nrotz_LHS(psi)=<{rt=real(psi),=<(cos(rt),sin(rt),:-sin(rt),cos(rt),:,,1)}=>,\nRz=rotz_LHS(rad)=>,\nisOutOfArea(x)=<switch(\nisSquare==0,x[0]**2+(x[1]*k)**2>N2**2:\n1,(x[0]**2>N2**2)|((x[1]*k)**2>N2**2)\n),\ncalc_w(ir,ic)=<switch(isOutOfArea(=<Rz*{ic-x,ir-y,1})=>,0:1,1),\n_sir(=<{_sic(=<filter[(ir+N2)*N+(ic+N2)]=calc_w(ir,ic)=>,-N2,N2)},-N2,N2),\n=<trans(filter)]=>;\n", 0);};
       $._id("Gaussian").onclick = function(){io["onclick_default"](elems, "clear;\n[isStrict=0,N=3,N2=int(N/2),filter=vectorc(N*N),Nbit=N-1,wmax=2**Nbit,\ncalc_w(s2)=<switch(isStrict==0,round(wmax*exp(-0.5*s2)):1,exp(-0.5*s2)),\n_sir(=<{_sic(=<filter[(ir+N2)*N+(ic+N2)]=calc_w(ir**2+ic**2)=>,-N2,N2)},-N2,N2),\n=<trans(filter)]=>;\n", 0);};
@@ -244,6 +245,7 @@
       $._id("solvex_iteration").onclick = function(){io["onclick_default"](elems, "clear;\nsolvex_iteration(A,b)=<[\nout=<x=>,\ninit=<last{sizeA=size(A),_ex(=<x,sizeA,1)},\nrun=<last{\nf=<A*(x=>)=b,\nmdx=Newton(=<f,=<x,,Nmax=20,Nmax,1e-10,1)\n},\ninit=>,run=>,return=out=>,\n=<return]=>;\n[A=(i,2,3i:4,5i,6:7i,8,9i),b={1,2i,4},=<solvex_iteration(=<A,=<b)=>]=>;\n", 0);};
       $._id("solveAinv").onclick = function(){io["onclick_default"](elems, "clear;\nsolveAinv(A)=<[\nout=<Ainv=>,\ninit=<last{sizeA=size(A),_eAinv(=<x,sizeA,sizeA),_ex(=<x,sizeA*sizeA,1)},\nrun=<last{\nf=<(Ainv=>)*A=identity(sizeA),\nmdx=Newton(=<f,=<x,,Nmax=20,Nmax,1e-10,1)\n},\ninit=>,run=>,return=out=>,\n=<return]=>;\n[A=(i,2,3i:4,5i,6:7i,8,9i),=<solveAinv(=<A)=>]=>;\n", 0);};
       $._id("solvex_non_linear").onclick = function(){io["onclick_default"](elems, "clear;\nsolvex_non_linear(=<f_,=<x_initial_)=<[\nout=<x=>,\ninit=<last{_ex(=<x,sizer(x_initial_=>),1)},\nrun=<last{\nmdx=Newton(=<f_,=<x,=<x_initial_,Nmax=20,Nmax,1e-10,1)\n},\ninit=>,run=>,return=out=>,\n=<return]=>;\n[f=<{x0^i-2*x1=3i,3*x0+exp(x1)=5i},=<solvex_non_linear(=<f,=<{1+i,1-i})=>]=>;\n", 0);};
+      $._id("solvex_bisection").onclick = function(){io["onclick_default"](elems, "clear;\nsolvex_non_linear(=<f_,=<x_initial_)=<[\nout=<x=>,\ninit=<last{_ex(=<x,sizer(x_initial_=>),1)},\nrun=<last{\nmdx=Newton(=<f_,=<x,=<x_initial_,Nmax=20,Nmax,1e-10,1)\n},\ninit=>,run=>,return=out=>,\n=<return]=>;\nsolvex_bisection(=<f_,x0,x1)=<[\nout=<x0,\ninit=<last{epsf=1e-7,isBreak=<isNaN(x0)|||norm(y0)<epsf},\nrun=<_rn(=<last{\nx=(x0+x1)/2,\ny=f_(x)=>,\ny0=f_(x0)=>,\ny1=f_(x1)=>,\nswitch(\ny0>0&&y1<0,=<(y<0&&&{x1=x,}|||{x0=x})[0]:\ny0<0&&y1>0,=<(y<0&&&{x0=x,}|||{x1=x})[0]:\ny0*y1>0,=<x0=NaN\n),x0},,1e6,=<isBreak),\ninit=>,run=>,return=out=>,\n=<return]=>;\n[f(x0)=<{last(base=0.9,left=pow(base,x0),right=1e-2,=right-left)},\n=<{solvex_non_linear(=<f,=<{0})=>,\nsolvex_bisection(=<f,0,100)=>,\nsolvex_bisection(=<f,100,0)=>,\nsolvex_bisection(=<f,0,0)=>}]=>;\n", 0);};
       $._id("Euler_method").onclick = function(){io["onclick_default"](elems, "Euler_method(t,dt,z_x00,z_v00,z_u,m,Cd_sphere,isImplicit)=<[\nout=<{t_total,x=>},\nscope2storage=<last{addVar(z_x0),addVar(z_v0),addVar(t_total)},\ninit=<last{\nswitch(hasVar(t_total)==0,=<last{t_total=0,z_x0=z_x00,z_v0=z_v00}),\ng=-9.8,z_a=0+g*i,\nx=<{z_x,z_v},\nx_initial=<{z_x0,z_v0},\nswitch(\nisImplicit,\n=<f=<{(z_x-z_x0)/dt=z_v,m*((z_v-z_v0)/dt)=m*z_a+Cd_sphere*(z_u-z_v)}:\n1/*else-explicit*/,\n=<f=<{(z_x-z_x0)/dt=z_v0,m*((z_v-z_v0)/dt)=m*z_a+Cd_sphere*(z_u-z_v0)}\n),\norderT=1,\nepsN=max(eps*1e3,pow(dt,orderT)),\nisRelative_epsN=1,\nrelative_epsN=(epsN,isRelative_epsN)/*(epsN,flag)*/\n},\nrun=<last{\nargs_Newton=(=<f,=<x,=<x_initial,Nmax=20,Nmax,relative_epsN)/*(args)*/,\nstep_iteration=<mdx=Newton(args_Newton),\nstep_post=<{$z_x0,$z_v0}=x=>,\nstep=<last{step_iteration=>,step_post=>},\nevolution=<_rn(=<step,N=round(t/dt),N),\nevolution=>,\nt_total=t_total+N*dt\n},\ninit=>,run=>,return=out=>,scope2storage=>,\n=<return]=>;\n[cond_error=(hasVar(t_total)==0)&hasVar(z_x0),\nproc=<[args=(1,0.5,0,20+20i,0,1,1),=<Euler_method(args,1)=>]=>/*nesting-return*/,\n=<switch(cond_error==0,=<proc:1,-999/*error-code*/)]=>;\n", 0);};
       $._id("ODE_RK4").onclick = function(){io["onclick_default"](elems, "ODE_RK4(t,dt,z_x00,z_v00,z_u,m,Cd_sphere)=<[\nout=<{tdummy,x=>},\nscope2storage=<last{addVar(z_x),addVar(z_v),addVar(tdummy)},\ninit=<last{\nswitch(hasVar(tdummy)==0,=<last{z_x0=z_x00,z_v0=z_v00}),\ng=-9.8,z_a=0+g*i,\nx=<{z_x,z_v},\nx_initial=<{z_x0,z_v0},\nf=<{z_v,z_a+(Cd_sphere/m)*(z_u-z_v)}\n},\nrun=<last{\nstepN=<last{N=round(t/dt),x_next=_otdummy(=<f,=<x,=<x_initial,0,dt,N)},\nevolution=<stepN=>,\nevolution=>\n},\ninit=>,run=>,return=out=>,scope2storage=>,\n=<return]=>;\n[cond_error=(hasVar(tdummy)==0)&hasVar(z_x),\nproc=<[args=(1,0.5,0,20+20i,0,1,1),=<ODE_RK4(args)=>]=>/*nesting-return*/,\n=<switch(cond_error==0,=<proc:1,-999/*error-code*/)]=>;\n", 0);};
       $._id("DFT1d").onclick = function(){io["onclick_default"](elems, "clear;\nDFT1d(f)=<[\nout=<f,\ninit=<last{N=sizer(f),Nf=1,Ni=1/N,F=zeros(N,1)},\nrun=<last{\nF(u)=<{_sx(=<f[x]*e^(-i*u*x*2*pi/N),0,N-1)*Nf},\n_su(=<F[u]=F(u)=>,0,N-1),\nf(x)=<{_su(=<F[u]*e^(i*x*u*2*pi/N),0,N-1)*Ni},\n_sx(=<f[x]=f(x)=>,0,N-1)\n},\ninit=>,run=>,return=out=>,\n=<return]=>;\n[f={1,2,3,4}*(1+i),\n=<DFT1d(=<f)=>]=>;\n", 0);};
@@ -1121,6 +1123,8 @@ plot2d
 <div id="div-equation-list" class="condition">
 <hr>
   <button id="template">template</button>
+  <button id="scope_NG">scope_NG</button>
+<br>
   <button id="average">average</button>
   <button id="average_asym">average_asym</button>
   <button id="Gaussian">Gaussian</button>
@@ -1141,13 +1145,14 @@ plot2d
   <button id="rotationxyz_LHS">rotationx/y/z-LHS</button>
 <br>
   <button id="solvex_Gauss">solvex_Gauss</button>
+  <button id="solvex_Gauss_coo">-Gauss_coo</button>
   <button id="solvex_pivotting">solvex_pivotting</button>
   <button id="solvex_no_pivotting">solvex_no_pivotting</button>
 <br>
   <button id="solvex_iteration">solvex_iteration</button>
   <button id="solveAinv">solveAinv</button>
   <button id="solvex_non_linear">solvex_non_linear</button>
-  <button id="solvex_Gauss_coo">solvex_Gauss_coo</button>
+  <button id="solvex_bisection">solvex_bisection</button>
 <br>
   <button id="Euler_method">implicit||explicit Euler_method</button>
   <button id="ODE_RK4">explicit ODE_RK4</button>

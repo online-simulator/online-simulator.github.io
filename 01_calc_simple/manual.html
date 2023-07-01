@@ -702,6 +702,8 @@ e^(-i(1pi(){2/2i}(5-{3-1}){i/(-4)}))
 <br>
 ・<a href="#span-eqn-template">template</a>
 <br>
+・<a href="#span-eqn-scope_NG">scope_NG</a>
+<br>
 ・<a href="#span-eqn-average">average</a>
 <br>
 ・<a href="#span-eqn-average-asym">average_asym</a>
@@ -734,6 +736,8 @@ e^(-i(1pi(){2/2i}(5-{3-1}){i/(-4)}))
 <br>
 ・<a href="#span-eqn-solvex_Gauss">solvex_Gauss</a>
 <br>
+・<a href="#span-eqn-solvex_Gauss_coo">solvex_Gauss_coo</a>
+<br>
 ・<a href="#span-eqn-solvex_pivotting">solvex_pivotting</a>
 <br>
 ・<a href="#span-eqn-solvex_no_pivotting">solvex_no_pivotting</a>
@@ -744,7 +748,7 @@ e^(-i(1pi(){2/2i}(5-{3-1}){i/(-4)}))
 <br>
 ・<a href="#span-eqn-solvex_non_linear">solvex_non_linear</a>
 <br>
-・<a href="#span-eqn-solvex_Gauss_coo">solvex_Gauss_coo</a>
+・<a href="#span-eqn-solvex_bisection">solvex_bisection</a>
 <br>
 ・<a href="#span-eqn-implicit-Euler_method">implicit Euler_method</a>
 <br>
@@ -20224,6 +20228,19 @@ ttA=trans(trans(A)) ->
 sizer(A)-sizer(ttA),sizer(A) -> (0,3)
 <br>
 sizec(A)-sizec(ttA),sizec(A),size(A) -> (0,4,4)
+<br>
+<br>
+留意事項を列挙する
+<br>
+・<a href="#span-in-scope-vars">static scopes2d array</a>を共有するため、同じ<a href="#span-out-vars-symbol">変数名symbol</a>の代入不可（前回callのdataが残存）
+<br>
+scope_NG1(x)=&lt;[x=x/*OK*/,last[x=x/*NG*/,x],x];
+<br>
+scope_NG2(x)=&lt;2*[x=x/*NG*/,last[x=x/*NG*/,x],x];
+<br>
+scope_NG1(1)=&gt;:scope_NG1(-1)=&gt; -> (0,1,1:0,1,-1)
+<br>
+scope_NG2(1)=&gt;:scope_NG2(-1)=&gt; -> (0,2,2:0,2,2)
     </td>
   </tr>
   <tr>
@@ -34442,6 +34459,29 @@ init=&gt;,run=&gt;,return=out=&gt;,scope2storage=&gt;,
 目次
 </a>
 <br>
+scope_NG
+    </th>
+    <td>
+<span id="span-eqn-scope_NG"></span>
+<a href="#span-out-eqns-re-use">scope付式変数の再利用</a>参照
+<br>
+clear;
+<br>
+scope_NG1(x)=&lt;[x=x/*OK*/,last[x=x/*NG*/,x],x];
+<br>
+scope_NG2(x)=&lt;2*[x=x/*NG*/,last[x=x/*NG*/,x],x];
+<br>
+scope_NG1(1)=&gt;:scope_NG1(-1)=&gt;;
+<br>
+scope_NG2(1)=&gt;:scope_NG2(-1)=&gt;;
+    </td>
+  </tr>
+  <tr>
+    <th>
+<a href="#span-index">
+目次
+</a>
+<br>
 average
     </th>
     <td>
@@ -35198,6 +35238,41 @@ rand_Ab=&gt;,=&lt;/*optimized*/Gauss(A,b)-solvex_Gauss(=&lt;A,=&lt;b)=&gt;]=&gt;
 <br>
 solvex
 <br>
+_Gauss_coo
+    </th>
+    <td>
+<span id="span-eqn-solvex_Gauss_coo"></span>
+<a href="#span-out-FNm-coo">座標形式行列関数入力仕様</a>参照
+<br>
+<a href="#span-out-interpolation-spline">spline補間</a>参照
+<br>
+clear;
+<br>
+[aA=(1,1,-2,1+i,3i,1,1-i,-1,-i),mA=(1,1,2,2,2,3,3,4,4),nA=(1,2,1,2,3,1,3,3,4),
+<br>
+b={4,5,6,7i},coo=(aA:mA:nA),A=coo2mat(coo),
+<br>
+=&lt;Gauss(A,b)-Gauss_coo(coo:trans(b))]=&gt;;
+<br>
+[aA=(1,1,1,1,1,1,1,-1,2,3,1,-1,3,1,1,3),
+<br>
+mA=(1,1,1,2,2,2,3,3,3,3,4,4,4,5,6,6),
+<br>
+nA=(1,3,5,2,4,6,1,2,3,5,3,4,5,3,4,6),
+<br>
+b={2,-1,0,0,0,0},coo=(aA:mA:nA),A=coo2mat(coo),
+<br>
+=&lt;Gauss(A,b)-Gauss_coo(coo:trans(b))]=&gt;;
+    </td>
+  </tr>
+  <tr>
+    <th>
+<a href="#span-index">
+目次
+</a>
+<br>
+solvex
+<br>
 _pivotting
     </th>
     <td>
@@ -35400,31 +35475,71 @@ init=&gt;,run=&gt;,return=out=&gt;,
 <br>
 solvex
 <br>
-_Gauss_coo
+_bisection
     </th>
     <td>
-<span id="span-eqn-solvex_Gauss_coo"></span>
-<a href="#span-out-FNm-coo">座標形式行列関数入力仕様</a>参照
-<br>
-<a href="#span-out-interpolation-spline">spline補間</a>参照
+<span id="span-eqn-solvex_bisection"></span>
+<a href="#span-out-non-linear">連立非線形方程式の解法</a>参照
 <br>
 clear;
 <br>
-[aA=(1,1,-2,1+i,3i,1,1-i,-1,-i),mA=(1,1,2,2,2,3,3,4,4),nA=(1,2,1,2,3,1,3,3,4),
+solvex_non_linear(=&lt;f_,=&lt;x_initial_)=&lt;[
 <br>
-b={4,5,6,7i},coo=(aA:mA:nA),A=coo2mat(coo),
+out=&lt;x=&gt;,
+<div class="condition">
+init=&lt;last{_ex(=&lt;x,sizer(x_initial_=&gt;),1)},
+</div>
+<div class="run">
+run=&lt;last{
 <br>
-=&lt;Gauss(A,b)-Gauss_coo(coo:trans(b))]=&gt;;
+mdx=Newton(=&lt;f_,=&lt;x,=&lt;x_initial_,Nmax=20,Nmax,1e-10,1)
 <br>
-[aA=(1,1,1,1,1,1,1,-1,2,3,1,-1,3,1,1,3),
+},
+</div>
+init=&gt;,run=&gt;,return=out=&gt;,
 <br>
-mA=(1,1,1,2,2,2,3,3,3,3,4,4,4,5,6,6),
+=&lt;return]=&gt;;
 <br>
-nA=(1,3,5,2,4,6,1,2,3,5,3,4,5,3,4,6),
+solvex_bisection(=&lt;f_,x0,x1)=&lt;[
 <br>
-b={2,-1,0,0,0,0},coo=(aA:mA:nA),A=coo2mat(coo),
+out=&lt;x0,
+<div class="condition">
+init=&lt;last{epsf=1e-7,isBreak=&lt;isNaN(x0)|||norm(y0)&lt;epsf},
+</div>
+<div class="run">
+run=&lt;_rn(=&lt;last{
 <br>
-=&lt;Gauss(A,b)-Gauss_coo(coo:trans(b))]=&gt;;
+x=(x0+x1)/2,
+<br>
+y=f_(x)=&gt;,
+<br>
+y0=f_(x0)=&gt;,
+<br>
+y1=f_(x1)=&gt;,
+<br>
+switch(
+<br>
+y0&gt;0&&y1&lt;0,=&lt;(y&lt;0&&&{x1=x,}|||{x0=x})[0]:
+<br>
+y0&lt;0&&y1&gt;0,=&lt;(y&lt;0&&&{x0=x,}|||{x1=x})[0]:
+<br>
+y0*y1&gt;0,=&lt;x0=NaN
+<br>
+),x0},,1e6,=&lt;isBreak),
+</div>
+init=&gt;,run=&gt;,return=out=&gt;,
+<br>
+=&lt;return]=&gt;;
+<br>
+[f(x0)=&lt;{last(base=0.9,left=pow(base,x0),right=1e-2,=right-left)},
+<br>
+=&lt;{solvex_non_linear(=&lt;f,=&lt;{0})=&gt;,
+<br>
+solvex_bisection(=&lt;f,0,100)=&gt;,
+<br>
+solvex_bisection(=&lt;f,100,0)=&gt;,
+<br>
+solvex_bisection(=&lt;f,0,0)=&gt;}]=&gt;;
     </td>
   </tr>
   <tr>
