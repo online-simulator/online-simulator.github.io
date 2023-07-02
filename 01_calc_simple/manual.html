@@ -414,9 +414,13 @@ e^(-i(1pi(){2/2i}(5-{3-1}){i/(-4)}))
 <br>
 　　・<a href="#span-out-FN-sinh">双曲線関数</a>
 <br>
+　　・<a href="#span-out-FN-else">その他の関数</a>
+<br>
+　・<a href="#span-out-FNspecial-spec">特殊仕様関数</a>
+<br>
 　　・<a href="#span-out-FN-statistic">統計関数</a>
 <br>
-　　・<a href="#span-out-FN-else">その他の関数</a>
+　　・<a href="#span-out-FN-interp">補間関数</a>
 <br>
 　・<a href="#span-out-FNspecial">特殊関数</a>
 <br>
@@ -480,7 +484,7 @@ e^(-i(1pi(){2/2i}(5-{3-1}){i/(-4)}))
 <br>
 　　　・<a href="#span-out-concatination-irregular">irregular行列</a>
 <br>
-　・<a href="#span-out-FNmspecial">特殊行列関数</a>
+　・<a href="#span-out-FNmspecial-spec">特殊仕様行列関数</a>
 <br>
 　・<a href="#span-out-vars">変数</a>
 <br>
@@ -3188,7 +3192,7 @@ transform{<span class="selection">a,b,c,d,e,f</span>,withBackground||0}
 <br>
 ・各引数の定義
 <br>
-<a href="#span-out-Euclid">2次元Euclid実空間</a>の<a href="#span-out-FNmspecial">回転行列</a>(<span class="selection">a</span>,<span class="clear">c:b</span>,<span class="selection">d</span>)
+<a href="#span-out-Euclid">2次元Euclid実空間</a>の<a href="#span-out-FNmspecial-spec">回転行列</a>(<span class="selection">a</span>,<span class="clear">c:b</span>,<span class="selection">d</span>)
 <br>
 px数値の並進vector{<span class="selection">e,f</span>}
 <br>
@@ -3423,7 +3427,7 @@ asym[x||0,y||0,k||0,Nrad||0]
 <br>
 ・各設定値の詳細は<a href="#span-out-UI-graphing-filter-average-asym">非対称averageぼかし</a>参照
 <br>
-・Nradは<a href="#span-out-FNmspecial">回転行列</a>の弧度数rad=pi/Nradに換算するpiの分割数（Nrad=0の場合、rad=0）
+・Nradは<a href="#span-out-FNmspecial-spec">回転行列</a>の弧度数rad=pi/Nradに換算するpiの分割数（Nrad=0の場合、rad=0）
 <br>
 ・radはplot-lineの接線方向（1次近似）を基準とする独立変数
 <br>
@@ -5905,7 +5909,7 @@ _sir(=&lt;{_sic(=&lt;filter[(ir+N2)*N+(ic+N2)]=calc_w(ir,ic)=&gt;,-N2,N2)},-N2,N
 <br>
 ・kは非対称性を作るy方向の比例係数の実数値
 <br>
-・radは分布を回転する<a href="#span-out-FNmspecial">回転行列</a>の弧度数値
+・radは分布を回転する<a href="#span-out-FNmspecial-spec">回転行列</a>の弧度数値
 <br>
 <br>
 average_asym_square13x13の<a href="#span-out-UI-graphing-filter">filter配列</a>を列挙する
@@ -9038,6 +9042,14 @@ bit or
 <br>
 ・<a href="#span-out-float">単精度32bit</a>の符号あり整数
 <br>
+0|0 -> 0
+<br>
+0|1 -> 1
+<br>
+1|0 -> 1
+<br>
+1|1 -> 1
+<br>
 1|1  <span class="selection">// 00000001|00000001->00000001</span> -> 1
 <br>
 1|2  <span class="selection">// 00000001|00000010->00000011</span> -> 3
@@ -9059,9 +9071,34 @@ bit or
 0|0.1  <span class="selection">// 00000000|00000000->00000000</span> -> 0
 <br>
 <br>
+bit xor
+<br>
+・<a href="#span-out-float">単精度32bit</a>の符号あり整数
+<br>
+0@0 -> 0
+<br>
+0@1 -> 1
+<br>
+1@0 -> 1
+<br>
+1@1 -> 0
+<br>
+1@2  <span class="selection">// 00000001^00000010->00000011</span> -> 3
+<br>
+2@-2  <span class="selection">// 00000010^11111110->11111100</span> -> -4
+<br>
+<br>
 bit and
 <br>
 ・<a href="#span-out-float">単精度32bit</a>の符号あり整数
+<br>
+0&amp;0 -> 0
+<br>
+0&amp;1 -> 0
+<br>
+1&amp;0 -> 0
+<br>
+1&amp;1 -> 1
 <br>
 1&amp;1  <span class="selection">// 00000001&amp;00000001->00000001</span> -> 1
 <br>
@@ -9234,7 +9271,7 @@ i&lt;&lt;2 || real(i)&lt;&lt;2 || 0&lt;&lt;2 -> 0
 2i>i || real(2i)>real(i) || 0>0 -> 0
 <br>
 <br>
-比較演算子を代替する関数は<a href="#span-out-FN-ope">演算子代替関数入力仕様</a>参照
+比較演算子を代替する関数は<a href="#span-out-FN-ope">演算子代替関数</a>参照
     </td>
   </tr>
   <tr>
@@ -9342,7 +9379,7 @@ i==0 || real(i)==0 -> 1
 2&lt;=2 -> 1
 <br>
 <br>
-関係演算子を代替する関数は<a href="#span-out-FN-ope">演算子代替関数入力仕様</a>参照
+関係演算子を代替する関数は<a href="#span-out-FN-ope">演算子代替関数</a>参照
     </td>
   </tr>
   <tr>
@@ -12742,7 +12779,7 @@ x=(1,2); y={3,4}; trans(trans((x:y))) -> (1,2:3,0:4,0)
 <a href="#span-out-eqns">式変数</a>[行index][列index](<a href="#span-out-eqns-args">arguments</a>)=&gt; || (<a href="#span-out-eqns">式変数</a>(<a href="#span-out-eqns-args">arguments</a>)=&gt;)[行index][列index]
 <br>
 <br>
-詳細は<a href="#span-out-array">行列操作入力仕様</a>参照
+詳細は<a href="#span-out-array">行列操作</a>参照
 <br>
 <br>
 仕様を列挙する
@@ -12897,7 +12934,7 @@ e() -> 2.718281828459045
 <br>
 ・大文字・小文字・全角・半角を区別しない
 <br>
-・<a href="#span-out-vars">変数</a>名・<a href="#span-out-eqns">式変数</a>名に使用不可
+・<a href="#span-out-vars">変数</a>名・<a href="#span-out-eqns">式変数</a>名に使用不可（<a href="#span-out-vars-rule2">変数の命名規則</a>参照）
 <br>
 stop=3 -> [MyErr]Invalid stop called
 <br>
@@ -13109,6 +13146,8 @@ val=true; val==1,val==true,val===1,val===true -> (1,1,0+O(1e+0),1)
 ・<a href="#span-out-UI-graphing-config-csv">csv-read</a>の欠損値=NaN
 <br>
 ・<a href="#span-out-plot2d-command">plot2d-command</a>の欠損値=NaN+(NaN)i
+<br>
+・<a href="#span-out-FN-interp">補間関数</a>範囲外の欠損値=NaN+(NaN)i
     </td>
   </tr>
   <tr>
@@ -13846,6 +13885,39 @@ P(5,10000) -> 0.9999994266968594+O(1e-13)
 　厳密には逆変換の解析関数を使用
 <br>
 　簡単には逆変換のlookup-tableを使用
+<br>
+<br>
+乱数生成の一例を示す
+<br>
+・<a href="#span-out-FNspecial">標準正規分布</a>の非常に粗い逆変換table: x=Pinv(y)
+<br>
+csv0=(
+<br>
+-0.999999427,-0.999936657,-0.997300203,-0.954499736,-0.682689492,0,
+<br>
+0.682689492,0.954499736,0.997300203,0.999936657,0.999999427:
+<br>
+-5,-4,-3,-2,-1,0,1,2,3,4,5
+<br>
+);
+<br>
+・<a href="#span-out-FN-statistic">統計関数</a>を使用して昇順sort
+<br>
+table=sort0(csv0);
+<br>
+・yの範囲を取得
+<br>
+ymin=min(table)[0];
+<br>
+ymax=max(table)[0];
+<br>
+・一様乱数を生成してyに変換
+<br>
+y=ymin+(ymax-ymin)*rand;
+<br>
+・<a href="#span-out-FN-interp">補間関数</a>を使用してxに逆変換
+<br>
+x=interp(y:table); x -> 0.2128604699061138
     </td>
   </tr>
   <tr>
@@ -14565,6 +14637,89 @@ acoth_(z)=&lt;atanh_(1/z);
 目次
 </a>
 <br>
+その他の関数
+<br>
+入力仕様
+    </th>
+    <td>
+<span id="span-out-FN-else"></span>
+その他の関数の入力仕様と付随する留意事項について記述する
+<br>
+<br>
+Kroneckerのdelta関数
+<br>
+Kdelta(0,0) -> 1
+<br>
+Kdelta(0,1) -> 0
+<br>
+Kdelta(1,0) -> 0
+<br>
+Kdelta(1,1) -> 1
+<br>
+Kdelta(2,2) -> 1
+<br>
+・<a href="#span-out-FN-ope">演算子代替関数</a>を使用
+<br>
+Kdelta_(left,right)=&lt;not(bitxor(left,right));
+<br>
+Kdelta_(left,right)=&lt;eq(left,right);
+<br>
+Kdelta_(0,0) -> 1
+<br>
+Kdelta_(0,1) -> 0
+<br>
+Kdelta_(1,0) -> 0
+<br>
+Kdelta_(1,1) -> 1
+<br>
+Kdelta_(2,2) -> 1
+<br>
+・<span class="clear">Ver.2.170.42</span>以降、<a href="#span-out-literal">NaN</a>の引数に対応
+<br>
+<del>Kdelta(NaN) -> 0</del>
+<br>
+Kdelta(NaN) -> NaN
+<br>
+Kdelta(NaN,1) -> NaN
+<br>
+Kdelta(1,NaN) -> NaN
+    </td>
+  </tr>
+  <tr>
+    <th>
+<a href="#span-index">
+目次
+</a>
+<br>
+特殊仕様関数
+<br>
+入力仕様
+    </th>
+    <td>
+<span id="span-out-FNspecial-spec"></span>
+特殊仕様関数の入力仕様と付随する留意事項について記述する
+<br>
+<br>
+特殊仕様関数の定義を列挙する
+<br>
+・関数名の後に続く数字を引数に含む
+<br>
+・引数は関数call前に解決済み（未解決の<a href="#span-out-vars-symbol">変数名symbol</a>を含む場合、予期せぬerror終了）
+<br>
+<br>
+特殊仕様関数を列挙する
+<br>
+・<a href="#span-out-FN-statistic">統計関数</a>のsort/reverse/csort/creverse関数
+<br>
+・<a href="#span-out-FN-interp">補間関数</a>のinterp関数
+    </td>
+  </tr>
+  <tr>
+    <th>
+<a href="#span-index">
+目次
+</a>
+<br>
 統計関数
 <br>
 入力仕様
@@ -14752,34 +14907,13 @@ csort(creverse(1,-2i,3:4,-5,6i:7)) -> (1,-2i,3:4,-5,6i:7)
 目次
 </a>
 <br>
-その他の関数
+補間関数
 <br>
 入力仕様
     </th>
     <td>
-<span id="span-out-FN-else"></span>
-その他の関数の入力仕様と付随する留意事項について記述する
-<br>
-<br>
-Kroneckerのdelta関数
-<br>
-Kdelta(0,0) -> 1
-<br>
-Kdelta(0,1) -> 0
-<br>
-Kdelta(1,0) -> 0
-<br>
-Kdelta(1,1) -> 1
-<br>
-・<span class="clear">Ver.2.170.42</span>以降、<a href="#span-out-literal">NaN</a>の引数に対応
-<br>
-<del>Kdelta(NaN) -> 0</del>
-<br>
-Kdelta(NaN) -> NaN
-<br>
-Kdelta(NaN,1) -> NaN
-<br>
-Kdelta(1,NaN) -> NaN
+<span id="span-out-FN-interp"></span>
+補間関数の入力仕様と付随する留意事項について記述する
     </td>
   </tr>
   <tr>
@@ -17878,18 +18012,15 @@ A-ttA ->
 目次
 </a>
 <br>
-特殊
+特殊仕様
 <br>
 行列関数
 <br>
 入力仕様
     </th>
     <td>
-<span id="span-out-FNmspecial"></span>
-特殊行列関数の入力仕様と付随する留意事項について記述する
-<hr>
-<br>
-特殊行列関数は通常の<a href="#span-out-FNspecial">特殊関数</a>と異なり、特殊な演算仕様を意味する
+<span id="span-out-FNmspecial-spec"></span>
+特殊仕様行列関数の入力仕様と付随する留意事項について記述する
 <br>
 <br>
 回転行列
@@ -18276,7 +18407,15 @@ x=1; X=2; x+X -> 3
 <br>
 x0=1; x1=2; x0+x1 -> 3
 <br>
-・binary文字の全角は半角に変換される
+・<a href="#span-out-FNspecial-spec">特殊仕様関数</a>は関数名の後に続く数字が引数に含まれる
+<br>
+sort000(1) -> 1
+<br>
+sort000=1 -> [MyErr]Invalid ans isFound
+<br>
+sort0x33=1; sort0x33 -> 1
+<br>
+・binary文字の全角は半角（code-point&lt;256）に変換される
 <br>
 Ｘ＝３；X -> 3
 <br>
@@ -19405,7 +19544,7 @@ clear; d=&lt;{a=&lt;{(b=&lt;1),{c=&lt;2}}}; d,c -> [MyErr]Invalid REv(c)
 clear; d=&lt;{a=&lt;{(b=&lt;1),{c=&lt;2}}}; d,a,b,c -> (0,0,1,2:0,0)
 <br>
 <br>
-応用例は<a href="#span-out-plot2d-command">plot2d-command入力仕様</a>参照
+応用例は<a href="#span-out-plot2d-command">plot2d-command</a>参照
     </td>
   </tr>
   <tr>
@@ -22235,7 +22374,7 @@ e_z×e_z=e_0
 <br>
 平面極座標(r,p)の関係式を示す
 <br>
-・平面に直交するz軸周りの<a href="#span-out-FNmspecial">回転行列</a>
+・平面に直交するz軸周りの<a href="#span-out-FNmspecial-spec">回転行列</a>
 <br>
 rotz=(cos(p),-sin(p),0:sin(p),cos(p),0:0,0,1)
 <br>
@@ -22275,7 +22414,7 @@ e_z={0,0,1}
 <br>
 (e_z)"=e_0
 <br>
-・<a href="#span-out-FNmspecial">回転行列</a>の時間微分
+・<a href="#span-out-FNmspecial-spec">回転行列</a>の時間微分
 <br>
 (rotz)':=((e_r)',(e_p)',(e_z)')=p'*(e_p,-e_r,e_0)
 <br>
@@ -22363,7 +22502,7 @@ a_z=0
 <br>
 球面座標(r,t,p)の関係式を示す
 <br>
-・一般化した<a href="#span-out-FNmspecial">回転行列</a>
+・一般化した<a href="#span-out-FNmspecial-spec">回転行列</a>
 <br>
 rot_=(sin(t)*cos(p),cos(t)*cos(p),-sin(p):sin(t)*sin(p),cos(t)*sin(p),cos(p):cos(t),-sin(t),0)
 <br>
@@ -33458,8 +33597,12 @@ operation.js抜粋
 <br>
 ・<span class="run">Ver.2.172.42</span>以降、<a href="#span-out-FNm-isFalse">isFalse/isTrue行列関数</a>を追加
 <br>
+・<span class="run">Ver.2.176.43</span>以降、<a href="#span-out-FN-interp">補間関数</a>を追加
+<br>
 <br>
 予約語は大文字・小文字・全角・半角を区別しない
+<br>
+・<span class="clear">Ver.2.170.42</span>以降、<span class="jF">追加項目</span>
 <br>
 <br>
 parser.js抜粋
@@ -33579,8 +33722,8 @@ parser.js抜粋
       case "vectorr":
       case "vectorc":
       case "identity":
-      case "isfalse":
-      case "istrue":
+      <span class="jF">case "isfalse":</span>
+      <span class="jF">case "istrue":</span>
       case "first":
       case "last":
       case "rotationx":
@@ -33617,7 +33760,7 @@ parser.js抜粋
       case "ones":
       case "coo2mat":
       case "mat2coo":
-      case "interp":
+      <span class="jF">case "interp":</span>
         tree = DATA.tree_tag("FNm", token_lower);
         break;
       case "gauss_coo":
@@ -34665,7 +34808,7 @@ _circle
     </th>
     <td>
 <span id="span-eqn-plot2d_circle"></span>
-<a href="#span-out-plot2d-command">plot2d-command入力仕様</a>参照
+<a href="#span-out-plot2d-command">plot2d-command</a>参照
 <br>
 clear;
 <br>
@@ -34715,7 +34858,7 @@ _evolution
     </th>
     <td>
 <span id="span-eqn-plot2d_evolution"></span>
-<a href="#span-out-plot2d-command">plot2d-command入力仕様</a>参照
+<a href="#span-out-plot2d-command">plot2d-command</a>参照
 <br>
 clear;
 <br>
@@ -35057,7 +35200,7 @@ erf(x)/erfc(x)
     </th>
     <td>
 <span id="span-eqn-SND_Px_erfx_erfcx"></span>
-<a href="#span-out-FNspecial">特殊関数入力仕様</a>参照
+<a href="#span-out-FNspecial">特殊関数</a>参照
 <br>
 clear;
 <br>
@@ -35082,7 +35225,7 @@ cSND/cP
     </th>
     <td>
 <span id="span-eqn-cSND_cP"></span>
-<a href="#span-out-FNspecial">特殊関数入力仕様</a>参照
+<a href="#span-out-FNspecial">特殊関数</a>参照
 <br>
 clear;
 <br>
@@ -35136,7 +35279,7 @@ rotationx/y/z
     </th>
     <td>
 <span id="span-eqn-rotationxyz"></span>
-<a href="#span-out-FNmspecial">特殊行列関数入力仕様</a>参照
+<a href="#span-out-FNmspecial-spec">特殊仕様行列関数</a>参照
 <br>
 clear;
 <br>
@@ -35161,7 +35304,7 @@ _LHS
     </th>
     <td>
 <span id="span-eqn-rotationxyz_LHS"></span>
-<a href="#span-out-FNmspecial">特殊行列関数入力仕様</a>参照
+<a href="#span-out-FNmspecial-spec">特殊仕様行列関数</a>参照
 <br>
 clear;
 <br>
@@ -35244,7 +35387,7 @@ _Gauss_coo
     </th>
     <td>
 <span id="span-eqn-solvex_Gauss_coo"></span>
-<a href="#span-out-FNm-coo">座標形式行列関数入力仕様</a>参照
+<a href="#span-out-FNm-coo">座標形式行列関数</a>参照
 <br>
 <a href="#span-out-interpolation-spline">spline補間</a>参照
 <br>
