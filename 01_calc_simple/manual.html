@@ -861,6 +861,8 @@ en.m.wikipedia.org/wiki/項目を列挙する
 <br>
 ・Collatz conjecture
 <br>
+・Bisection_method
+<br>
 ・Great_Pyramid_of_Giza
 <br>
 ・Maxwell's_equations
@@ -13021,15 +13023,15 @@ test caseを列挙する
 <br>
 ・nを任意の自然数の奇数として3*n+1の下位3桁のbitの並びを2進数literalで示す
 <br>
-0b011+0b001=0b0100
+0b011+0b001=0b01<span class="clear">00</span>
 <br>
-0b111+0b011=0b1010
+0b111+0b011=0b101<span class="clear">0</span>
 <br>
-0b011+0b101=0b1000
+0b011+0b101=0b1<span class="clear">000</span>
 <br>
-0b111+0b111=0b1110
+0b111+0b111=0b111<span class="clear">0</span>
 <br>
-・右shift可能回数の期待値&ge;7/4&gt;log_ex(3,2)=1.58...（右shift優勢の場合、n -> 1に帰着がCollatz予想）
+・右shift可能回数の<span class="clear">単純期待値&ge;7/4</span>&gt;log_ex(3,2)=1.58...（右shift優勢でn -> 1に再帰的帰着がCollatz予想）
 <br>
 <br>
 <a href="#span-out-number">built-inのNumber関数</a>の挙動を確認する場合、<a href="../69_number/index.html">Number変換</a>参照
@@ -35500,7 +35502,7 @@ init=&gt;,run=&gt;,return=out=&gt;,
 <br>
 =&lt;return]=&gt;;
 <br>
-solvex_bisection(=&lt;f_,x0,x1)=&lt;[
+solvex_bisection(=&lt;f_,x0,x1,N)=&lt;[
 <br>
 out=&lt;x0,
 <div class="condition">
@@ -35519,27 +35521,29 @@ y1=f_(x1)=&gt;,
 <br>
 switch(
 <br>
-y0&gt;0&&y1&lt;0,=&lt;(y&lt;0&&&{x1=x,}|||{x0=x})[0]:
+sign(y)==sign(y0),=&lt;x0=x:
 <br>
-y0&lt;0&&y1&gt;0,=&lt;(y&lt;0&&&{x0=x,}|||{x1=x})[0]:
+sign(y)==sign(y1),=&lt;x1=x
 <br>
-y0*y1&gt;0,=&lt;x0=NaN
-<br>
-),x0},,1e6,=&lt;isBreak),
+),x0},,N,=&lt;isBreak),
 </div>
 init=&gt;,run=&gt;,return=out=&gt;,
 <br>
 =&lt;return]=&gt;;
 <br>
-[f(x0)=&lt;{last(base=0.9,left=pow(base,x0),right=1e-2,=right-left)},
+global_n=1e3;
+<br>
+global_base=2**(log_ex(3,2)-7/4);
+<br>
+[N=1e2,f(x0)=&lt;{last(left=global_n*pow(global_base,x0),right=1,=right-left)},
 <br>
 =&lt;{solvex_non_linear(=&lt;f,=&lt;{0})=&gt;,
 <br>
-solvex_bisection(=&lt;f,0,100)=&gt;,
+solvex_bisection(=&lt;f,0,100,N)=&gt;,
 <br>
-solvex_bisection(=&lt;f,100,0)=&gt;,
+solvex_bisection(=&lt;f,100,0,N)=&gt;,
 <br>
-solvex_bisection(=&lt;f,0,0)=&gt;}]=&gt;;
+solvex_bisection(=&lt;f,0,0,N)=&gt;}]=&gt;;
     </td>
   </tr>
   <tr>
