@@ -708,6 +708,10 @@ e^(-i(1pi(){2/2i}(5-{3-1}){i/(-4)}))
 <br>
 ・<a href="#span-eqn-scope_NG">scope_NG</a>
 <br>
+・<a href="#span-eqn-gcd">gcd/lcm</a>
+<br>
+・<a href="#span-eqn-rand_table">rand_table</a>
+<br>
 ・<a href="#span-eqn-average">average</a>
 <br>
 ・<a href="#span-eqn-average-asym">average_asym</a>
@@ -13060,15 +13064,69 @@ test caseを列挙する
 <br>
 ・nを任意の自然数の奇数として3*n+1の下位3桁のbitの並びを2進数literalで示す
 <br>
-0b011+0b001=0b01<span class="clear">00</span>
+0b011+0b001=0b01<span class="clear">00</span> -> 0
 <br>
-0b111+0b011=0b101<span class="clear">0</span>
+0b111+0b011=0b101<span class="clear">0</span> -> 0
 <br>
-0b011+0b101=0b1<span class="clear">000</span>
+0b011+0b101=0b1<span class="clear">000</span> -> 0
 <br>
-0b111+0b111=0b111<span class="clear">0</span>
+0b111+0b111=0b111<span class="clear">0</span> -> 0
 <br>
 ・右shift可能回数の<span class="clear">単純期待値&ge;7/4</span>&gt;log_ex(3,2)=1.58...（右shift優勢でn -> 1に再帰的帰着がCollatz予想）
+<br>
+0b0011+0b0001=0b001<span class="clear">00</span> -> 0
+<br>
+0b0111+0b0011=0b0101<span class="clear">0</span> -> 0
+<br>
+0b1011+0b0101=0b1<span class="clear">0000</span> -> 0
+<br>
+0b0011+0b1001=0b011<span class="clear">00</span> -> 0
+<br>
+0b1111+0b0111=0b1011<span class="clear">0</span> -> 0
+<br>
+0b1011+0b1101=0b11<span class="clear">000</span> -> 0
+<br>
+0b0111+0b1011=0b1001<span class="clear">0</span> -> 0
+<br>
+0b1111+0b1111=0b1111<span class="clear">0</span> -> 0
+<br>
+・下位4桁の場合、<span class="clear">単純期待値&ge;15/8</span>
+<br>
+0b00011+0b00001=0b0001<span class="clear">00</span> -> 0
+<br>
+0b00111+0b00011=0b00101<span class="clear">0</span> -> 0
+<br>
+0b01011+0b00101=0b01<span class="clear">0000</span> -> 0
+<br>
+0b10011+0b01001=0b0111<span class="clear">00</span> -> 0
+<br>
+0b00011+0b10001=0b0101<span class="clear">00</span> -> 0
+<br>
+0b01111+0b00111=0b01011<span class="clear">0</span> -> 0
+<br>
+0b11011+0b01101=0b101<span class="clear">000</span> -> 0
+<br>
+0b10011+0b11001=0b1011<span class="clear">00</span> -> 0
+<br>
+0b00111+0b10011=0b01101<span class="clear">0</span> -> 0
+<br>
+0b10111+0b01011=0b10001<span class="clear">0</span> -> 0
+<br>
+0b01011+0b10101=0b1<span class="clear">00000</span> -> 0
+<br>
+0b11111+0b01111=0b10111<span class="clear">0</span> -> 0
+<br>
+0b01111+0b10111=0b10011<span class="clear">0</span> -> 0
+<br>
+0b10111+0b11011=0b11001<span class="clear">0</span> -> 0
+<br>
+0b11011+0b11101=0b111<span class="clear">000</span> -> 0
+<br>
+0b11111+0b11111=0b11111<span class="clear">0</span> -> 0
+<br>
+・下位5桁の場合、<span class="clear">単純期待値&ge;31/16</span>
+<br>
+・下位m桁の場合、<span class="clear">単純期待値&ge;(2**m-1)/2**(m-1)</span> -> 2に漸近
 <br>
 <br>
 <a href="#span-out-number">built-inのNumber関数</a>の挙動を確認する場合、<a href="../69_number/index.html">Number変換</a>参照
@@ -13889,7 +13947,7 @@ P(5,10000) -> 0.9999994266968594+O(1e-13)
 <br>
 乱数生成の一例を示す
 <br>
-・<a href="#span-out-FNspecial">標準正規分布</a>の非常に粗い逆変換table: x=Pinv(y)
+・<a href="#span-out-FNspecial">標準正規分布</a>の非常に粗い逆変換table：x=Pinv(y)
 <br>
 csv0=(
 <br>
@@ -14914,6 +14972,96 @@ csort(creverse(1,-2i,3:4,-5,6i:7)) -> (1,-2i,3:4,-5,6i:7)
     <td>
 <span id="span-out-FN-interp"></span>
 補間関数の入力仕様と付随する留意事項について記述する
+<br>
+<br>
+<span class="run">Ver.2.176.43</span>以降、interp関数を追加
+<br>
+<br>
+interp(x:table)関数：<a href="#span-out-com">複素数</a>lookup-tableの線形内挿
+<br>
+・任意要素数の内挿位置xの行vector
+<br>
+x=(x0,...)
+<br>
+・table標本点{昇順のxi,yi}の行vector
+<br>
+table=(xi,...:yi,...)
+<br>
+・標本点の元data
+<br>
+csv0=(1,2,5,4,3:-1,-2,-3,-4,-5) csv0 ->
+<br>
+(
+<br>
+1,2,5,4,3:
+<br>
+-1,-2,-3,-4,-5
+<br>
+)
+<br>
+・<a href="#span-out-FN-statistic">統計関数</a>を使用して昇順sort
+<br>
+csv0_sorted_key0=sort0(csv0); csv0_sorted_key0 ->
+<br>
+(
+<br>
+1,2,3,4,5:
+<br>
+-1,-2,-5,-4,-3
+<br>
+)
+<br>
+・lookup-tableを定義
+<br>
+table=csv0_sorted_key0*(1+i); table ->
+<br>
+(
+<br>
+1+i,2+2i,3+3i,4+4i,5+5i:
+<br>
+-1-i,-2-2i,-5-5i,-4-4i,-3-3i
+<br>
+)
+<br>
+・内挿位置を定義
+<br>
+x=(table[0]-(1+i)/2,table[0]+(1+i)/2); x ->
+<br>
+(
+<br>
+0.5+0.5i,1.5+1.5i,2.5+2.5i,3.5+3.5i,4.5+4.5i,1.5+1.5i,2.5+2.5i,3.5+3.5i,4.5+4.5i,5.5+5.5i
+<br>
+)
+<br>
+・補間を実行
+<br>
+interp(x:table) ->
+<br>
+(
+<br>
+NaN,-1.5-1.5i,-3.5-3.5i,-4.5-4.5i,-3.5-3.5i,-1.5-1.5i,-3.5-3.5i,-4.5-4.5i,-3.5-3.5i,NaN
+<br>
+)
+<br>
+・範囲外の場合、<a href="#span-out-num-NaN">欠損値</a>=NaN+(NaN)iを返す
+<br>
+interp(x:csv0_sorted_key0) ->
+<br>
+(
+<br>
+NaN,NaN,NaN,NaN,NaN,NaN,NaN,NaN,NaN,NaN
+<br>
+)
+<br>
+・tableが<a href="#span-out-num">実数値</a>の場合、<a href="#span-out-FNm-trans">転置行列関数</a>を使用して内挿位置を実数に変換
+<br>
+interp(trans(real(trans(x))):csv0_sorted_key0) ->
+<br>
+(
+<br>
+NaN,-1.5,-3.5,-4.5,-3.5,-1.5,-3.5,-4.5,-3.5,NaN
+<br>
+)
     </td>
   </tr>
   <tr>
@@ -34619,6 +34767,68 @@ scope_NG2(x)=&lt;2*[x=x/*NG*/,last[x=x/*NG*/,x],x];
 scope_NG1(1)=&gt;:scope_NG1(-1)=&gt;;
 <br>
 scope_NG2(1)=&gt;:scope_NG2(-1)=&gt;;
+    </td>
+  </tr>
+  <tr>
+    <th>
+<a href="#span-index">
+目次
+</a>
+<br>
+gcd/lcm
+    </th>
+    <td>
+<span id="span-eqn-gcd"></span>
+<a href="#span-out-FN-gcd">gcd/lcm関数</a>参照
+<br>
+clear;
+<br>
+gcd_(a,b)=&lt;last[_rn(=&lt;last{ia=floor(a),ib=floor(b),a=ia&lt;0||ib===0&amp;&amp;&amp;ia|||ib,b=ia%(ib||1)},
+<br>
+isBreak_a=&lt;isNaN(a)|||a&lt;0&amp;&amp;&amp;~~(a=false),1e6,=&lt;{isBreak_a=&gt;|||b==0}),a];
+<br>
+lcm_(a,b)=&lt;a*b/gcd_(a,b)=&gt;;
+<br>
+[gcd(111,222,333,444,555),gcd_(111,gcd_(222,gcd_(333,gcd_(444,555)=&gt;)=&gt;)=&gt;)=&gt;:
+<br>
+lcm(111,222,333,444,555),lcm_(111,lcm_(222,lcm_(333,lcm_(444,555)=&gt;)=&gt;)=&gt;)=&gt;];
+    </td>
+  </tr>
+  <tr>
+    <th>
+<a href="#span-index">
+目次
+</a>
+<br>
+rand_table
+    </th>
+    <td>
+<span id="span-eqn-rand_table"></span>
+<a href="#span-out-FN-rand-else">その他の乱数</a>参照
+<br>
+clear;
+<br>
+rand_table(csv)=&lt;last[
+<br>
+table=sort0(csv),
+<br>
+ymin=min(table)[0],ymax=max(table)[0],
+<br>
+y=ymin+(ymax-ymin)*rand,
+<br>
+x=interp(y:table),x];
+<br>
+[Pinv_y=(
+<br>
+-0.999999427,-0.999936657,-0.997300203,-0.954499736,-0.682689492,0,
+<br>
+0.682689492,0.954499736,0.997300203,0.999936657,0.999999427:
+<br>
+-5,-4,-3,-2,-1,0,1,2,3,4,5
+<br>
+),
+<br>
+N=1,arr=[],_rn(=&lt;arr=(arr:rand_table(=&lt;Pinv_y)=&gt;),,N),=&lt;arr]=&gt;;
     </td>
   </tr>
   <tr>

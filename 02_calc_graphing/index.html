@@ -98,6 +98,7 @@
       $._id("ax").onclick = function(){setVal("1e-3(1+i)", "1e2(1+i)", "x=t,x;", "x;2x;3x;4x;5x;6x;7x;8x;9x;10x;");};
       $._id("pow1").onclick = function(){setVal("-1", "1", "x=t,x;", "x;x^2;x^3;x^4;x^5;", 30);};
       $._id("pow2").onclick = function(){setVal("-2(1+i)", "2(1+i)", "x=t,x;", "x;x^2;x^3;x^4;x^5;", 30);};
+      $._id("pow3").onclick = function(){setVal("1", "11", "m=t,m;", "(2**m-1)/2**(m-1);", 10);};
       $._id("sin").onclick = function(){setVal("0", "2pi", "x=t,x;", "sin(x);cos(x);sin(2x);cos(2x);", 100);};
       $._id("circle").onclick = function(){setVal("0", "2pi", "cos(t);ft=<e^(i(t)),real(ft)1.5;2ft;ft2=<ecomp(t),real(ft2)2.5;rot=<(cos(t),-sin(t):sin(t),cos(t)),vec0=(3:0),(rot*vec0)[0];", "sin(t);imag(ft)1.5;2_dt(=<-ft);imag(ft2)2.5;(rot*vec0)[1];", 50);};
       $._id("cone").onclick = function(){setVal("0", "2pi", "p=1,r(t,p,er)=<p/(1+er*cos(t)),z(t,p,er)=<r(t,p,er)e^(i(t)),z1=z(t,p,0),z2=z(t,p,0.8),z3=z(t,p,1.1),real(z1);real(z2);real(z3);", "imag(z1);imag(z2);imag(z3);", 20);$._id("input-z").value+="TITLE{Polar equation of conic curve}::3:1.5:1.5::circle(er=0);::::::ellipse(er=0.8<1);::::::hyperbola(er=1.1>1);";};
@@ -223,6 +224,8 @@
       var elems = {i: $._id("input")};
       $._id("template").onclick = function(){io["onclick_default"](elems, "clear;\ntemplate(x,y,=<symbol_eqn_,=<eqn_)=<[\nout=<[=<(symbol_eqn_=>,eqn_=>)]=>,\nscope2storage=<last{0},\ninit=<last{0},\nrun=<last{0},\ninit=>,run=>,return=out=>,scope2storage=>,\n=<return]=>;\n[x=1,y=2,f=3,f=<[last(x=-2*x,x),y],=<template(x,=<last(f)/*var||eqn*/,=<f,=<[x,y])=>]=>;\n/*following eqn(f) without scope called twice*/\n[x=1,y=2,f=3,f=<(last(x=-2*x,x),y),=<template(x,=<last(f=>),=<f,=<(x,y))=>]=>;\n[x=1,y=2,f=3,f=<(last(x=-2*x,x),y),=<template(x,=<last(f=>),=<f,=<[x,y])=>]=>;\n/*following eqn(f) with static scope called twice*/\n[x=1,y=2,f=3,f=<[last(x=-2*x,x),y],=<template(x,=<last(f=>),=<f,=<(x,y))=>]=>;\n[x=1,y=2,f=3,f=<[last(x=-2*x,x),y],=<template(x,=<last(f=>),=<f,=<[x,y])=>]=>;\n", 0);};
       $._id("scope_NG").onclick = function(){io["onclick_default"](elems, "clear;\nscope_NG1(x)=<[x=x/*OK*/,last[x=x/*NG*/,x],x];\nscope_NG2(x)=<2*[x=x/*NG*/,last[x=x/*NG*/,x],x];\nscope_NG1(1)=>:scope_NG1(-1)=>;\nscope_NG2(1)=>:scope_NG2(-1)=>;\n", 0);};
+      $._id("gcd").onclick = function(){io["onclick_default"](elems, "clear;\ngcd_(a,b)=<last[_rn(=<last{ia=floor(a),ib=floor(b),a=ia<0||ib===0&&&ia|||ib,b=ia%(ib||1)},\nisBreak_a=<isNaN(a)|||a<0&&&~~(a=false),1e6,=<{isBreak_a=>|||b==0}),a];\nlcm_(a,b)=<a*b/gcd_(a,b)=>;\n[gcd(111,222,333,444,555),gcd_(111,gcd_(222,gcd_(333,gcd_(444,555)=>)=>)=>)=>:\nlcm(111,222,333,444,555),lcm_(111,lcm_(222,lcm_(333,lcm_(444,555)=>)=>)=>)=>];\n", 0);};
+      $._id("rand_table").onclick = function(){io["onclick_default"](elems, "clear;\nrand_table(csv)=<last[\ntable=sort0(csv),\nymin=min(table)[0],ymax=max(table)[0],\ny=ymin+(ymax-ymin)*rand,\nx=interp(y:table),x];\n[Pinv_y=(\n-0.999999427,-0.999936657,-0.997300203,-0.954499736,-0.682689492,0,\n0.682689492,0.954499736,0.997300203,0.999936657,0.999999427:\n-5,-4,-3,-2,-1,0,1,2,3,4,5\n),\nN=1,arr=[],_rn(=<arr=(arr:rand_table(=<Pinv_y)=>),,N),=<arr]=>;\n", 0);};
       $._id("average").onclick = function(){io["onclick_default"](elems, "clear;\n[isSquare=0,N=3,N2=int(N/2),filter=vectorc(N*N),\ncalc_w(s2)=<switch(isSquare==0,switch(s2>N2**2,0:1,1):1,1),\n_sir(=<{_sic(=<filter[(ir+N2)*N+(ic+N2)]=calc_w(ir**2+ic**2)=>,-N2,N2)},-N2,N2),\n=<trans(filter)]=>;\n", 0);};
       $._id("average_asym").onclick = function(){io["onclick_default"](elems, "clear;\n[isSquare=0,N=13,N2=int(N/2),filter=vectorc(N*N),\nx=1,y=2,k=3,rad=pi/4,\nrotz_LHS(psi)=<{rt=real(psi),=<(cos(rt),sin(rt),:-sin(rt),cos(rt),:,,1)}=>,\nRz=rotz_LHS(rad)=>,\nisOutOfArea(x)=<switch(\nisSquare==0,x[0]**2+(x[1]*k)**2>N2**2:\n1,(x[0]**2>N2**2)|((x[1]*k)**2>N2**2)\n),\ncalc_w(ir,ic)=<switch(isOutOfArea(=<Rz*{ic-x,ir-y,1})=>,0:1,1),\n_sir(=<{_sic(=<filter[(ir+N2)*N+(ic+N2)]=calc_w(ir,ic)=>,-N2,N2)},-N2,N2),\n=<trans(filter)]=>;\n", 0);};
       $._id("Gaussian").onclick = function(){io["onclick_default"](elems, "clear;\n[isStrict=0,N=3,N2=int(N/2),filter=vectorc(N*N),Nbit=N-1,wmax=2**Nbit,\ncalc_w(s2)=<switch(isStrict==0,round(wmax*exp(-0.5*s2)):1,exp(-0.5*s2)),\n_sir(=<{_sic(=<filter[(ir+N2)*N+(ic+N2)]=calc_w(ir**2+ic**2)=>,-N2,N2)},-N2,N2),\n=<trans(filter)]=>;\n", 0);};
@@ -322,6 +325,7 @@ plot2d
   <button id="ax">a*x</button>
   <button id="pow1">pow1</button>
   <button id="pow2">pow2</button>
+  <button id="pow3">pow3</button>
   <button id="sin">sin</button>
   <button id="circle">circle</button>
   <button id="cone">cone</button>
@@ -1124,6 +1128,8 @@ plot2d
 <hr>
   <button id="template">template</button>
   <button id="scope_NG">scope_NG</button>
+  <button id="gcd">gcd/lcm</button>
+  <button id="rand_table">rand_table</button>
 <br>
   <button id="average">average</button>
   <button id="average_asym">average_asym</button>
