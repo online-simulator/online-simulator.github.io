@@ -795,7 +795,7 @@ My_entry.calc_graphing.prototype.init_handlers = function(){
           /* -> Ver.2.25.14 */
           try{
             var tokens_quotation = command.match(/\'.*?\'/g);
-            var tokens_comma = command.split(",");
+            var tokens_comma = command.replace(/\s/g, "").split(",");  // Ver.2.176.44 white spaces removed
           /* -> Ver.2.34.18 */
             if(tokens_quotation && tokens_quotation.length > 3){
               plot2d_from_log(tokens_quotation);
@@ -963,10 +963,10 @@ My_entry.calc_graphing.prototype.init_handlers = function(){
         var input = self.io.read_text(self.elems.i);
         var options = self.get_options();
         /* Ver.2.25.12 -> */
-        /* Ver.2.175.42 -> white spaces removed */
+        /* Ver.2.175.42 -> */
         /* Ver.2.27.14 -> comment allowed */
-        var command_col = self.entry.def.get_command(input.replace(/\s/g, ""), "plot2d", true);
-        var command_row = self.entry.def.get_title(input.replace(/\s/g, ""), "plot2d", true);
+        var command_col = self.entry.def.get_command(input, "plot2d", true);
+        var command_row = self.entry.def.get_title(input, "plot2d", true);
         /* -> Ver.2.27.14 */
         if(command_col){
           run_command(command_col);  // Ver.2.140.36
