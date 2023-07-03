@@ -71,7 +71,7 @@
       script += "\nclear;\n";
       script += "csv0=(1,2,5,4,3:-1,-2,-3,-4,-5);\ncsv0_sorted_key0=sort0(csv0);\ntable=csv0_sorted_key0*(1+i);\nx=(table[0]-(1+i)/2,table[0]+(1+i)/2);\ninterp(x:table);\ninterp(x:csv0_sorted_key0);\ninterp(trans(real(trans(x))):csv0_sorted_key0);";
       script += "\nclear;\n";
-      script += "ln2,ln10,log2e,log10e:log_ex(2,e),log_ex(10,e),log_ex(e,2),log_ex(e,10):log(2),log(10),log2(e),log10(e);\nn=9663,_rN(=<last{nr=nr%2==0&&&nr>>1|||(nr<<1)+1+nr,nmax=max(nmax,nr),N+1},last{nmax=n,nr=n},1e6,=<{nr==1}),nmax,nmax/n;";
+      script += "ln2,ln10,log2e,log10e:log_ex(2,e),log_ex(10,e),log_ex(e,2),log_ex(e,10):log(2),log(10),log2(e),log10(e);\nn=9663,_rN(=<last{nr=nr%2==0&&&nr/2|||nr*2+1+nr/*nr>>1|||(nr<<1)+1+nr*/,nmax=max(nmax,nr),N+1},last{nmax=n,nr=n},1e6,=<{nr>MAX_SAFE_INTEGER&&&~~(nmax=NaN)|||nr==1}),nmax,nmax/n;";
       script += "\nclear;\n";
       $._id("input").value = script;
     });
