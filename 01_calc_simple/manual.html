@@ -9942,6 +9942,22 @@ false&amp;&amp;&amp;1 -> false
 <br>
 論理ANDs||ORs演算子の留意事項を列挙する
 <br>
+・<a href="#span-out-substitution">変数への代入</a>は<a href="#span-out-BT">括弧</a>を明示する方が間違いが少ない
+<br>
+clear; a=&lt;b=1&amp;&amp;&amp;c=2; a=&gt; -> [MyErr]Invalid operation
+<br>
+clear; a=&lt;b=1&amp;&amp;&amp;(c=2); a=&gt;; b,c -> (0,2)
+<br>
+clear; a=&lt;(b=1)&amp;&amp;&amp;(c=2); a=&gt;; b,c -> [MyErr]Invalid REv(c)
+<br>
+clear; a=&lt;(b=1)|||(c=2); a=&gt;; b,c -> (1,2)
+<br>
+clear; a=0|||b=1&amp;&amp;&amp;c=2 -> [MyErr]Invalid ans isFound
+<br>
+clear; a=0|||~~(b=1)&amp;&amp;&amp;(c=2)|||3; a,b,c -> (3,1,2)
+<br>
+clear; (a=0)|||~~(b=1)&amp;&amp;&amp;(c=2)|||3; a,b,c -> (0,1,2)
+<br>
 ・通常の<a href="#span-out-prec-ope-logical">論理演算子</a>と異なる点を列挙する
 <br>
 　・有次元の<a href="#span-out-ope-extended">拡張行列演算</a>の対象外
