@@ -946,6 +946,10 @@ ja.m.wikipedia.org/wiki/項目を列挙する
 <br>
 ・ニュートン法
 <br>
+・二分法
+<br>
+・コラッツの問題
+<br>
 ・ガウスの消去法
 <br>
 ・総和
@@ -10533,7 +10537,7 @@ ans*0 -> infoLost[r ] 0
 <br>
 ・丸め誤差を含む2つの整数を作る
 <br>
-・<a href="#span-out-comment">comment文</a>に有効桁のbitの並びを示す
+・<a href="#span-out-comment">comment文</a>に有効桁のbit列を示す
 <br>
 255  <span class="selection">// 11111111</span> -> 255
 <br>
@@ -13078,7 +13082,9 @@ test caseを列挙する
 <br>
 0b0f -> [MyErr]Invalid varName(0b0f)
 <br>
-・nを任意の自然数の奇数として3*n+1の下位3桁のbitの並びを2進数literalで示す
+・nを任意の自然数の奇数として3*n+1の下位3桁のbit列を2進数literalで示す
+<br>
+・(nのbit列&lt;&lt;1+1)+(nのbit列)=(3*n+1のbit列)
 <br>
 0b011+0b001=0b01<span class="clear">00</span> -> 0
 <br>
@@ -13088,7 +13094,7 @@ test caseを列挙する
 <br>
 0b111+0b111=0b111<span class="clear">0</span> -> 0
 <br>
-・右shift可能回数の<span class="clear">単純期待値&ge;7/4</span>&gt;log_ex(3,2)=1.58...（右shift優勢でn -> 1に再帰的帰着がCollatz予想）
+・右shift可能回数の<span class="clear">単純期待値&ge;7/4</span>&gt;log2(3)=1.58...（右shift優勢でn -> 1に再帰的帰着がCollatz予想）
 <br>
 0b0011+0b0001=0b001<span class="clear">00</span> -> 0
 <br>
@@ -13143,6 +13149,8 @@ test caseを列挙する
 ・下位5桁の場合、<span class="clear">単純期待値&ge;31/16</span>
 <br>
 ・下位m桁の場合、<span class="clear">単純期待値&ge;(2**m-1)/2**(m-1)</span> -> 2に漸近
+<br>
+・全桁の場合、全bit=1とそれ以外の場合分け
 <br>
 <br>
 <a href="#span-out-number">built-inのNumber関数</a>の挙動を確認する場合、<a href="../69_number/index.html">Number変換</a>参照
@@ -31908,7 +31916,7 @@ w={1,2,3,4,5,6,7,8};
 <br>
 W=zeros(N,1);
 <br>
-<span class="clear">p=round(log_ex(N,2));</span>
+<span class="clear">p=round(log2(N));</span>
 <br>
 W(w,N)=&lt;_st(=&lt;last{
 <br>
@@ -32020,9 +32028,9 @@ M=sizec(w);
 <br>
 W=zeros(N,M);
 <br>
-<span class="clear">p=round(log_ex(N,2));</span>
+<span class="clear">p=round(log2(N));</span>
 <br>
-q=round(log_ex(M,2));
+q=round(log2(M));
 <br>
 W(w,N)=&lt;_st(=&lt;last{
 <br>
@@ -32224,9 +32232,9 @@ M=sizec(w);
 <br>
 W=zeros(N,M);
 <br>
-<span class="clear">p=round(log_ex(N,2));</span>
+<span class="clear">p=round(log2(N));</span>
 <br>
-q=round(log_ex(M,2));
+q=round(log2(M));
 <br>
 W_row(w,N)=&lt;_st(=&lt;last{
 <br>
@@ -35908,9 +35916,9 @@ init=&gt;,run=&gt;,return=out=&gt;,
 <br>
 =&lt;return]=&gt;;
 <br>
-global_n=1e3;
+global_n=1e3+1;
 <br>
-global_base=2**(log_ex(3,2)-7/4);
+global_base=2**(log2(3)-7/4);
 <br>
 [N=1e2,f(x0)=&lt;{last(left=global_n*pow(global_base,x0),right=1,=right-left)},
 <br>
@@ -36226,7 +36234,7 @@ DWT1d(w)=&lt;[
 <br>
 out=&lt;w,
 <div class="condition">
-init=&lt;last{N=sizer(w),W=zeros(N,1),p=round(log_ex(N,2))},
+init=&lt;last{N=sizer(w),W=zeros(N,1),p=round(log2(N))},
 </div>
 <div class="run">
 run=&lt;last{
@@ -36282,7 +36290,7 @@ out=&lt;w,
 <div class="condition">
 init=&lt;last{N=sizer(w)/*N&gt;1*/,M=sizec(w),W=zeros(N,M),
 <br>
-p=round(log_ex(N,2)),q=round(log_ex(M,2))},
+p=round(log2(N)),q=round(log2(M))},
 </div>
 <div class="run">
 run=&lt;last{
@@ -36356,7 +36364,7 @@ out=&lt;w,
 <div class="condition">
 init=&lt;last{N=sizer(w),M=sizec(w)/*M&gt;1*/,W=zeros(N,M),
 <br>
-p=round(log_ex(N,2)),q=round(log_ex(M,2))},
+p=round(log2(N)),q=round(log2(M))},
 </div>
 <div class="run">
 run=&lt;last{

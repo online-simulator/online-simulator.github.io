@@ -1,6 +1,21 @@
 clear
 local storage cleared
 
+n=9663,_rN(=<last{nr=nr%2==0&&&nr>>1|||(nr<<1)+1+nr,nmax=max(nmax,nr),N+1},last{nmax=n,nr=n},1e6,=<{nr==1}),nmax,nmax/n
+(
+0,184,27114424,2806.0047604263686
+)
+
+ln2,ln10,log2e,log10e:log_ex(2,e),log_ex(10,e),log_ex(e,2),log_ex(e,10):log(2),log(10),log2(e),log10(e)
+(
+0.6931471805599453,2.302585092994046,1.4426950408889634,0.4342944819032518:
+0.6931471805599453,2.302585092994046,1.4426950408889634,0.43429448190325176:
+0.6931471805599453,2.302585092994046,1.4426950408889634,0.4342944819032518
+)
+
+clear
+local storage cleared
+
 interp(trans(real(trans(x))):csv0_sorted_key0)
 (
 NaN,-1.5,-3.5,-4.5,-3.5,-1.5,-3.5,-4.5,-3.5,NaN
@@ -1567,4 +1582,4 @@ drag=false&sw=false&0x=false&useComplex=true&useMatrix=true&useStrict=false&chec
 --------------------------------
 --------------------------------
 
-online-simulator.github.io.6.242.103.13.55 @ Mon Jul 03 2023 02:07:23 GMT+0900 (日本標準時) @ Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/114.0.0.0 Safari/537.36
+online-simulator.github.io.6.242.103.13.55 @ Mon Jul 03 2023 21:36:22 GMT+0900 (日本標準時) @ Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/114.0.0.0 Safari/537.36
