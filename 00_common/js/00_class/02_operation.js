@@ -1437,7 +1437,14 @@ My_entry.operation.prototype.FNm = function(data, i0, tagName, tagObj){
   var rightArr = self.get_tagVal(trees[ie], "mat", "arr");
   if(rightArr){
     /* Ver.2.176.43 -> */
-    var prop = tagObj.val+(tagObj.i || "");  // undefined||0 -> ""
+    /* Ver.2.179.44 -> */
+    var prop = tagObj.val;
+    var i_key = tagObj.i;
+    var hasKey = (typeof i_key !== "undefined");
+    if(hasKey){
+      prop += i_key;
+    }
+    /* -> Ver.2.179.44 */
     if(math_mat[prop]){
       var tree = DATA.tree_mat(math_mat[prop](options, rightArr));
     }

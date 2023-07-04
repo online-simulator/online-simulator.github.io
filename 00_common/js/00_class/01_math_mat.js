@@ -182,6 +182,19 @@ My_entry.math_mat.prototype.interp_base = function(options, arr, callback){
   }
   return [_arr];
 };
+/* Ver.2.179.44 */
+My_entry.math_mat.prototype.interp0 = function(options, arr){
+  var self = this;
+  var DATA = self.entry.DATA;
+  var callback = function(com_x, com_x0, com_x1, com_y0, com_y1){
+    var dxr0 = com_x.r-com_x0.r;
+    var dxr1 = com_x1.r-com_x.r;
+    var com = (dxr0 < dxr1)? com_y0: com_y1;  // round(0.5) -> 1
+    return DATA.num(com.r, com.i);
+  };
+  return self.interp_base(options, arr, callback);
+};
+My_entry.math_mat.prototype.interp1 =  // Ver.2.179.44
 My_entry.math_mat.prototype.interp = function(options, arr){
   var self = this;
   var DATA = self.entry.DATA;

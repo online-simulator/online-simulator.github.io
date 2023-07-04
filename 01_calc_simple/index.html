@@ -75,6 +75,8 @@
       script += "\nclear;\n";
       script += "interp(0,0.5,1,1.5,2,2.25,2.5,2.75,3,3.5,4:1,2,3:1+i,2+i,3+3i);";
       script += "\nclear;\n";
+      script += "x=(-1,0,0.25,0.5,0.75,1,2);\ntable=(0,1:1+i,2+3i);\ninterp0(x:table):interp1(x:table);";
+      script += "\nclear;\n";
       $._id("input").value = script;
     });
   })();

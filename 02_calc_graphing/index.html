@@ -85,6 +85,8 @@
       script += "\nclear;\n";
       script += "interp(0,0.5,1,1.5,2,2.25,2.5,2.75,3,3.5,4:1,2,3:1+i,2+i,3+3i);";
       script += "\nclear;\n";
+      script += "x=(-1,0,0.25,0.5,0.75,1,2);\ntable=(0,1:1+i,2+3i);\ninterp0(x:table):interp1(x:table);";
+      script += "\nclear;\n";
       $._id("input").value = script;
       // test case
       var setVal = function(){
@@ -234,6 +236,7 @@
       $._id("average_asym").onclick = function(){io["onclick_default"](elems, "clear;\n[isSquare=0,N=13,N2=int(N/2),filter=vectorc(N*N),\nx=1,y=2,k=3,rad=pi/4,\nrotz_LHS(psi)=<{rt=real(psi),=<(cos(rt),sin(rt),:-sin(rt),cos(rt),:,,1)}=>,\nRz=rotz_LHS(rad)=>,\nisOutOfArea(x)=<switch(\nisSquare==0,x[0]**2+(x[1]*k)**2>N2**2:\n1,(x[0]**2>N2**2)|((x[1]*k)**2>N2**2)\n),\ncalc_w(ir,ic)=<switch(isOutOfArea(=<Rz*{ic-x,ir-y,1})=>,0:1,1),\n_sir(=<{_sic(=<filter[(ir+N2)*N+(ic+N2)]=calc_w(ir,ic)=>,-N2,N2)},-N2,N2),\n=<trans(filter)]=>;\n", 0);};
       $._id("Gaussian").onclick = function(){io["onclick_default"](elems, "clear;\n[isStrict=0,N=3,N2=int(N/2),filter=vectorc(N*N),Nbit=N-1,wmax=2**Nbit,\ncalc_w(s2)=<switch(isStrict==0,round(wmax*exp(-0.5*s2)):1,exp(-0.5*s2)),\n_sir(=<{_sic(=<filter[(ir+N2)*N+(ic+N2)]=calc_w(ir**2+ic**2)=>,-N2,N2)},-N2,N2),\n=<trans(filter)]=>;\n", 0);};
       $._id("plot2d{}_multi").onclick = function(){io["onclick_default"](elems, "clear;\nx_long=(1+2i)*(1,2,3,4,5,6,7,8,9,10);\ny_long=2*x_long;\nx_short=(1+2i)*(1,2,3,4,5);\ny_short=4*x_short;\nxt_OK={x_long,x_short};\nyt_OK={y_long,y_short};\nxt_OK={x_short,x_long};\nyt_OK={y_short,y_long};\nxt={x_short,x_long,x_long,2*x_short};\nyt={y_short,y_long,2*y_short,y_long};\n{xt,yt};\ntrans(ans);\n", 0);};
+      $._id("plot2d_interp").onclick = function(){io["onclick_default"](elems, "clear;\nplot2d_interp(Nx,Nt)=<[\nout=<{xt,yt},\nscope2storage=<last{addVar(xt),addVar(yt)},\ninit=<last{\n_sn(=<last{xn=2*pi*n/Nx,x=(x,xn)},x=[],Nx),\n_sn(=<last{xn=2*pi*n/Nt,yn=sin(xn),table=(table,{xn,yn})},table=[],Nt)\n},\nrun=<last{\ntable[1]=(1+2i)*table[1],\ntable_sorted_key0=sort0(table),\nxt=(table[0]:x),\nyt=(table[1]:interp0(x:table_sorted_key0):interp1(x:table_sorted_key0))\n},\ninit=>,run=>,return=out=>,scope2storage=>,\n=<return]=>;\nplot2d_interp(last{Nx=21,Nx},Nx>>1)=>;\n", 0);};
       $._id("plot2d()_multi").onclick = function(){io["onclick_default"](elems, "clear;\nx_long={1,2,3,4,5,6,7,8,9,10}*(1+2i);\ny_long=x_long*2;\nx_short={1,2,3,4,5}*(1+2i);\ny_short=x_short*4;\nxt_OK=(x_long,x_short);\nyt_OK=(y_long,y_short);\nxt_NG=(x_short,x_long);\nyt_NG=(y_short,y_long);\nx_short_mod={1,2,3,4,5,NaN,NaN,NaN,NaN,NaN}*(1+2i);\ny_short_mod=x_short_mod*4;\nxt_OK=(x_short_mod,x_long);\nyt_OK=(y_short_mod,y_long);\nxt=(x_short_mod,x_long,x_long,x_short_mod*2);\nyt=(y_short_mod,y_long,y_short_mod*2,y_long);\n(xt,yt);\ntrans(ans);\n", 0);};
       $._id("plot2d_circle").onclick = function(){io["onclick_default"](elems, "clear;\nplot2d_circle(t0,t1,N,M)=<[\nout=<(xt,yt),\nscope2storage=<last{addVar(xt),addVar(yt)},\ninit=<last{\ntn=<t0+(t1-t0)*n/N,\nxt=zeros(N+1,M+1),yt=zeros(N+1,M+1)\n},\nrun=<last{\nstepnm=<last{xt[n][m]=cos(tn=>tn)*m,yt[n][m]=sin(tn)*m},\ncasesM=<_sm(=<stepnm,0,M),\nevolutionN=<_sn(=<casesM,0,N),\nevolutionN=>\n},\ninit=>,run=>,return=out=>,scope2storage=>,\n=<return]=>;\nplot2d_circle(0,2*pi,10,3)=>;\n", 0);};
       $._id("plot2d_evolution").onclick = function(){io["onclick_default"](elems, "clear;\nplot2d_evolution(t0,t1,dt,z_x0,z_v0,m,Cd_sphere)=<[\nout=<(xt,yt),\nscope2storage=<last{addVar(xt),addVar(yt)},\ninit=<last{\ng=-9.8,z_a=0+g*i,\nx=<{z_x,z_v},\nx_initial=<{z_x0,z_v0},\nf=<{z_v,z_a-(Cd_sphere/m)*z_v},\nN=round((t1-t0)/dt),M=0,\nxt=zeros(N+1,M+1),yt=zeros(N+1,M+1)\n},\nrun=<last{\ndtn=<switch(n<=0,0:1,dt),\nstep=<x_next=_otdummy(=<f,=<x,=<x_initial,0,dtn=>),\nstepnm=<last{step=>,xt[n][mdummy]=real(z_x),yt[n][mdummy]=imag(z_x)},\ncasesM=<_smdummy(=<stepnm,0,M)/*m-reserved*/,\nevolutionN=<_sn(=<casesM,0,N),\nevolutionN=>\n},\ninit=>,run=>,return=out=>,scope2storage=>,\n=<return]=>;\nplot2d_evolution(0,5,0.5,0,20+20i,1,1)=>;\n", 0);};
@@ -1139,6 +1142,7 @@ plot2d
   <button id="average_asym">average_asym</button>
   <button id="Gaussian">Gaussian</button>
   <button id="plot2d{}_multi">plot2d{}_multi</button>
+  <button id="plot2d_interp">_interp</button>
 <br>
   <button id="plot2d()_multi">plot2d()_multi</button>
   <button id="plot2d_circle">_circle</button>
