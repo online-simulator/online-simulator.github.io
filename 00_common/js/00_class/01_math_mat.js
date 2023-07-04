@@ -152,6 +152,7 @@ My_entry.math_mat.prototype.istrue = function(options, arr){
   return [[DATA.num(!(isFalse), 0)]];
 };
 /* -> Ver.2.172.42 */
+/* Ver.2.178.44 -> */
 /* Ver.2.176.43 -> */
 My_entry.math_mat.prototype.interp_base = function(options, arr, callback){
   var self = this;
@@ -168,9 +169,9 @@ My_entry.math_mat.prototype.interp_base = function(options, arr, callback){
     for(var j=0; j<len_j-1; ++j){
       var com_x0 = arr[1][j].com;
       var com_x1 = arr[1][j+1].com;
-      var hasXr = (com_x.r >= com_x0.r && com_x.r <= com_x1.r);  // >= && <=
-      var hasXi = (com_x.i >= com_x0.i && com_x.i <= com_x1.i);  // >= && <=
-      if(hasXr && hasXi){
+      var xr = com_x.r;
+      var hasXr = (xr >= com_x0.r && xr <= com_x1.r);  // >= min && <= max
+      if(hasXr){
         var com_y0 = arr[2][j].com;
         var com_y1 = arr[2][j+1].com;
         num = callback(com_x, com_x0, com_x1, com_y0, com_y1);
@@ -188,18 +189,17 @@ My_entry.math_mat.prototype.interp = function(options, arr){
     var dxr = com_x.r-com_x0.r;
     var hxr = com_x1.r-com_x0.r;
     var hyr = com_y1.r-com_y0.r;
-    var dxi = com_x.i-com_x0.i;
     var hxi = com_x1.i-com_x0.i;
     var hyi = com_y1.i-com_y0.i;
-    var cr = com_y0.r;
-    cr += (hxr)? dxr*hyr/hxr: 0;
-    var ci = com_y0.i;
-    ci += (hxi)? dxi*hyi/hxi: 0;
+    var r = dxr/hxr;  // /0
+    var cr = com_y0.r+hyr*r;
+    var ci = com_y0.i+hyi*r;
     return DATA.num(cr, ci);
   };
   return self.interp_base(options, arr, callback);
 };
 /* -> Ver.2.176.43 */
+/* -> Ver.2.178.44 */
 My_entry.math_mat.prototype.first = function(options, arr){
   var self = this;
   return [[arr[0][0]]];
