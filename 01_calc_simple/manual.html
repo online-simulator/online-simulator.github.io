@@ -8683,6 +8683,8 @@ Left-Associativity（左結合）
 <br>
 (1,2){3,4}(5,6) || (((1,2){3,4})(5,6)) || 11(5,6) -> (55,66)
 <br>
+・<span class="run">Excel</span>準拠の^演算子は左結合
+<br>
 3^2^3 || ((3^2)^3) -> 728.9999999999994
 <br>
 ・<span class="run">Ver.2.87.32</span>以降、**演算子は右結合に変更
@@ -15003,7 +15005,7 @@ csort(creverse(1,-2i,3:4,-5,6i:7)) -> (1,-2i,3:4,-5,6i:7)
 <span class="run">Ver.2.176.43</span>以降、interp関数を追加
 <br>
 <br>
-interp(x:table)関数：<a href="#span-out-com">複素数</a>lookup-tableの線形内挿
+interp(x:table)関数：<a href="#span-out-com">複素数</a>lookup-table実部と虚部の各線形内挿（見直し予定）
 <br>
 ・任意要素数の内挿位置xの行vector
 <br>
