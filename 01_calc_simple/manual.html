@@ -13168,8 +13168,24 @@ test caseを列挙する
 <br>
 ・全桁の場合、全bit=1とそれ以外の場合分け
 <br>
+・他方、3*n-1の場合、右shift優勢でn -> 1||以下の循環に帰着
 <br>
-<a href="#span-out-number">built-inのNumber関数</a>の挙動を確認する場合、<a href="../69_number/index.html">Number変換</a>参照
+5->14->7->20->10->5
+<br>
+17->50->25->74->37->110->55->164->82->41->122->61->182->91->272->136->68->34->17
+<br>
+・(nのbit列&lt;&lt;1)+(nのbit列-1)=(3*n-1のbit列)
+<br>
+0b010+0b000=0b001<span class="clear">0</span> -> 0
+<br>
+0b110+0b010=0b1<span class="clear">000</span> -> 0
+<br>
+0b010+0b100=0b011<span class="clear">0</span> -> 0
+<br>
+0b110+0b110=0b11<span class="clear">00</span> -> 0
+<br>
+<br>
+<a href="#span-out-number">built-inのNumber関数</a>||上記bit列の挙動を確認する場合、<a href="../69_number/index.html">Number変換</a>参照
     </td>
   </tr>
   <tr>
