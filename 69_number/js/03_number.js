@@ -189,7 +189,7 @@ My_entry.test_number.prototype.solve = function(isMinus){
     };
   var run = function(num, N){
     var _html = "";
-    _html += output("", "No.", "dec", "hex", "oct", "bin", "frequency ls3bit=001,011,101,111", "Nrshift");
+    _html += output("", "No.", "dec", "hex", "oct", "bin", "frequency ls3bit=001,011,101,111", "<a title='Graphing Calculator' href='../02_calc_graphing/index.html'>Nrshift</a>");
     for(var i=0; i<N; ++i){
       if(num%2n === 0n){
         _html += output("", i, num, num.toString(16), num.toString(8), num.toString(2));

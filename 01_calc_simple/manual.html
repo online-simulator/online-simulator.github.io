@@ -13098,7 +13098,7 @@ test caseを列挙する
 <br>
 0b0f -> [MyErr]Invalid varName(0b0f)
 <br>
-・nを任意の自然数の奇数として3*n+1の下位3桁のbit列を2進数literalで示す
+・nを任意の自然数の奇数として3*n+1の下位3桁のbit列を2進数literalで昇順に列挙する
 <br>
 ・((nのbit列&lt;&lt;1)+1)+(nのbit列)=(3*n+1のbit列)
 <br>
@@ -13118,13 +13118,13 @@ test caseを列挙する
 <br>
 0b1011+0b0101=0b1<span class="clear">0000</span> -> 0
 <br>
-0b0011+0b1001=0b011<span class="clear">00</span> -> 0
-<br>
 0b1111+0b0111=0b1011<span class="clear">0</span> -> 0
 <br>
-0b1011+0b1101=0b11<span class="clear">000</span> -> 0
+0b0011+0b1001=0b011<span class="clear">00</span> -> 0
 <br>
 0b0111+0b1011=0b1001<span class="clear">0</span> -> 0
+<br>
+0b1011+0b1101=0b11<span class="clear">000</span> -> 0
 <br>
 0b1111+0b1111=0b1111<span class="clear">0</span> -> 0
 <br>
@@ -13136,25 +13136,25 @@ test caseを列挙する
 <br>
 0b01011+0b00101=0b01<span class="clear">0000</span> -> 0
 <br>
-0b10011+0b01001=0b0111<span class="clear">00</span> -> 0
-<br>
-0b00011+0b10001=0b0101<span class="clear">00</span> -> 0
-<br>
 0b01111+0b00111=0b01011<span class="clear">0</span> -> 0
 <br>
-0b11011+0b01101=0b101<span class="clear">000</span> -> 0
-<br>
-0b10011+0b11001=0b1011<span class="clear">00</span> -> 0
-<br>
-0b00111+0b10011=0b01101<span class="clear">0</span> -> 0
+0b10011+0b01001=0b0111<span class="clear">00</span> -> 0
 <br>
 0b10111+0b01011=0b10001<span class="clear">0</span> -> 0
 <br>
-0b01011+0b10101=0b1<span class="clear">00000</span> -> 0
+0b11011+0b01101=0b101<span class="clear">000</span> -> 0
 <br>
 0b11111+0b01111=0b10111<span class="clear">0</span> -> 0
 <br>
+0b00011+0b10001=0b0101<span class="clear">00</span> -> 0
+<br>
+0b00111+0b10011=0b01101<span class="clear">0</span> -> 0
+<br>
+0b01011+0b10101=0b1<span class="clear">00000</span> -> 0
+<br>
 0b01111+0b10111=0b10011<span class="clear">0</span> -> 0
+<br>
+0b10011+0b11001=0b1011<span class="clear">00</span> -> 0
 <br>
 0b10111+0b11011=0b11001<span class="clear">0</span> -> 0
 <br>
@@ -13183,6 +13183,54 @@ test caseを列挙する
 0b010+0b100=0b011<span class="clear">0</span> -> 0
 <br>
 0b110+0b110=0b11<span class="clear">00</span> -> 0
+<br>
+0b0010+0b0000=0b0001<span class="clear">0</span> -> 0
+<br>
+0b0110+0b0010=0b01<span class="clear">000</span> -> 0
+<br>
+0b1010+0b0100=0b0111<span class="clear">0</span> -> 0
+<br>
+0b1110+0b0110=0b101<span class="clear">00</span> -> 0
+<br>
+0b0010+0b1000=0b0101<span class="clear">0</span> -> 0
+<br>
+0b0110+0b1010=0b1<span class="clear">0000</span> -> 0
+<br>
+0b1010+0b1100=0b1011<span class="clear">0</span> -> 0
+<br>
+0b1110+0b1110=0b111<span class="clear">00</span> -> 0
+<br>
+0b00010+0b00000=0b00001<span class="clear">0</span> -> 0
+<br>
+0b00110+0b00010=0b001<span class="clear">000</span> -> 0
+<br>
+0b01010+0b00100=0b00111<span class="clear">0</span> -> 0
+<br>
+0b01110+0b00110=0b0101<span class="clear">00</span> -> 0
+<br>
+0b10010+0b01000=0b01101<span class="clear">0</span> -> 0
+<br>
+0b10110+0b01010=0b1<span class="clear">00000</span> -> 0
+<br>
+0b11010+0b01100=0b10011<span class="clear">0</span> -> 0
+<br>
+0b11110+0b01110=0b1011<span class="clear">00</span> -> 0
+<br>
+0b00010+0b10000=0b01001<span class="clear">0</span> -> 0
+<br>
+0b00110+0b10010=0b011<span class="clear">000</span> -> 0
+<br>
+0b01010+0b10100=0b01111<span class="clear">0</span> -> 0
+<br>
+0b01110+0b10110=0b1001<span class="clear">00</span> -> 0
+<br>
+0b10010+0b11000=0b10101<span class="clear">0</span> -> 0
+<br>
+0b10110+0b11010=0b11<span class="clear">0000</span> -> 0
+<br>
+0b11010+0b11100=0b11011<span class="clear">0</span> -> 0
+<br>
+0b11110+0b11110=0b1111<span class="clear">00</span> -> 0
 <br>
 <br>
 <a href="#span-out-number">built-inのNumber関数</a>||上記bit列の挙動を確認する場合、<a href="../69_number/index.html">Number変換</a>参照
