@@ -1,9 +1,11 @@
 clear
 local storage cleared
 
-interp0(x:table):interp1(x:table)
+interp0(x:table):interp1(x:table):interp2(x:table):interp3(x:table)
 (
 NaN,1+i,1+i,2+3i,2+3i,2+3i,NaN:
+NaN,1+i,1.25+1.5i,1.5+2i,1.75+2.5i,2+3i,NaN:
+-i,1+i,1.25+1.5i,1.5+2i,1.75+2.5i,2+3i,3+5i:
 NaN,1+i,1.25+1.5i,1.5+2i,1.75+2.5i,2+3i,NaN
 )
 
@@ -1611,4 +1613,4 @@ drag=false&sw=false&0x=false&useComplex=true&useMatrix=true&useStrict=false&chec
 --------------------------------
 --------------------------------
 
-online-simulator.github.io.6.244.104.13.56 @ Wed Jul 05 2023 04:00:28 GMT+0900 (日本標準時) @ Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/114.0.0.0 Safari/537.36
+online-simulator.github.io.6.247.105.13.56 @ Fri Jul 07 2023 05:55:01 GMT+0900 (日本標準時) @ Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/114.0.0.0 Safari/537.36

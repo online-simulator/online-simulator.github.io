@@ -158,23 +158,23 @@ My_entry.math_mat.prototype.interp_base = function(options, arr, callback){
   var self = this;
   var DATA = self.entry.DATA;
   if(!(arr.length === 3 && arr[1].length === arr[2].length)) throw "Invalid table(interp)";
-  var lens = self.get_lens(arr.slice(1,3));
+  var lens = self.get_lens(arr.slice(1, 3));
   var len_i = lens.i;
   var len_j = lens.j;
   var len_n = arr[0].length;
   var _arr = [];
   for(var n=0; n<len_n; ++n){
     var com_x = arr[0][n].com;
+    var xr = com_x.r;
     var num = DATA.num(NaN, NaN);
     for(var j=0; j<len_j-1; ++j){
       var com_x0 = arr[1][j].com;
       var com_x1 = arr[1][j+1].com;
-      var xr = com_x.r;
       var hasXr = (xr >= com_x0.r && xr <= com_x1.r);  // >= min && <= max
       if(hasXr){
         var com_y0 = arr[2][j].com;
         var com_y1 = arr[2][j+1].com;
-        num = callback(com_x, com_x0, com_x1, com_y0, com_y1);
+        num = callback(com_x, com_x0, com_x1, com_y0, com_y1, j);  // Ver.2.181.44
         break;
       }
     }
@@ -211,6 +211,140 @@ My_entry.math_mat.prototype.interp = function(options, arr){
   };
   return self.interp_base(options, arr, callback);
 };
+/* Ver.2.181.44 -> */
+My_entry.math_mat.prototype.interp2 = function(options, arr, callback){
+  var self = this;
+  var DATA = self.entry.DATA;
+  if(!(arr.length === 3 && arr[1].length === arr[2].length)) throw "Invalid table(interp)";
+  var lens = self.get_lens(arr.slice(1, 3));
+  var len_i = lens.i;
+  var len_j = lens.j;
+  var len_n = arr[0].length;
+  var ljx = function(xr, j){
+    var _ljx = 1;
+    var xjr = arr[1][j].com.r;
+    for(var m=0; m<len_j; ++m){
+      var xmr = arr[1][m].com.r;
+      _ljx *= (m === j)? 1: (xr-xmr)/(xjr-xmr);
+    }
+    return _ljx;
+  };
+  var _arr = [];
+  for(var n=0; n<len_n; ++n){
+    var com_x = arr[0][n].com;
+    var xr = com_x.r;
+    var Lkxr = 0;
+    var Lkxi = 0;
+    for(var j=0; j<len_j; ++j){
+      var yj = arr[2][j].com;
+      var ljxj = ljx(xr, j);
+      Lkxr += ljxj*yj.r;
+      Lkxi += ljxj*yj.i;
+    }
+    var num = DATA.num(Lkxr, Lkxi);
+    _arr.push(num);
+  }
+  return [_arr];
+};
+My_entry.math_mat.prototype.interp3 = function(options, arr, callback){
+  var self = this;
+  var solver_com = self.entry.solver_com;
+  var DATA = self.entry.DATA;
+  var unit = self.entry.unit;
+  if(!(arr.length === 3 && arr[1].length === arr[2].length)) throw "Invalid table(interp)";
+  var lens = self.get_lens(arr.slice(1, 3));
+  var len_i = lens.i;
+  var len_j = lens.j;
+  var len_n = arr[0].length;
+  var N = len_j-1;
+  var arr_coo = self.init2d(4, 0);
+  var dx = [];
+  for(var j=0; j<N; ++j){
+    var com_x0 = arr[1][j].com;
+    var com_x1 = arr[1][j+1].com;
+    var com_y0 = arr[2][j].com;
+    var com_y1 = arr[2][j+1].com;
+    dx[j] = com_x1.r-com_x0.r;
+    arr_coo[3][j] = DATA.num(com_y1.r-com_y0.r, com_y1.i-com_y0.i);
+    arr_coo[3][N+j] = DATA.num(0, 0);
+    arr_coo[3][2*N+j] = DATA.num(0, 0);
+  }
+  for(var j=0; j<N; ++j){
+    var n = j+1;
+    var j0 = 3*j;
+    var dxi = dx[j];
+    arr_coo[0][j0+0] = DATA.num(dxi, 0);
+    arr_coo[0][j0+1] = DATA.num(dxi*dxi, 0);
+    arr_coo[0][j0+2] = DATA.num(dxi*dxi*dxi, 0);
+    arr_coo[1][j0+0] = DATA.num(n, 0);
+    arr_coo[1][j0+1] = DATA.num(n, 0);
+    arr_coo[1][j0+2] = DATA.num(n, 0);
+    arr_coo[2][j0+0] = DATA.num(n, 0);
+    arr_coo[2][j0+1] = DATA.num(N+n, 0);
+    arr_coo[2][j0+2] = DATA.num(2*N+n, 0);
+  }
+  for(var j=0; j<N-1; ++j){
+    var n = j+1;
+    var j0 = 3*N+4*j;
+    var dxi = dx[j];
+    arr_coo[0][j0+0] = DATA.num(1, 0);
+    arr_coo[0][j0+1] = DATA.num(-1, 0);
+    arr_coo[0][j0+2] = DATA.num(2*dxi, 0);
+    arr_coo[0][j0+3] = DATA.num(3*dxi*dxi, 0);
+    arr_coo[1][j0+0] = DATA.num(N+n, 0);
+    arr_coo[1][j0+1] = DATA.num(N+n, 0);
+    arr_coo[1][j0+2] = DATA.num(N+n, 0);
+    arr_coo[1][j0+3] = DATA.num(N+n, 0);
+    arr_coo[2][j0+0] = DATA.num(n, 0);
+    arr_coo[2][j0+1] = DATA.num(n+1, 0);
+    arr_coo[2][j0+2] = DATA.num(N+n, 0);
+    arr_coo[2][j0+3] = DATA.num(2*N+n, 0);
+  }
+  for(var j=0; j<N-1; ++j){
+    var n = j+1;
+    var j0 = 7*N+3*j-4;
+    var dxi = dx[j];
+    arr_coo[0][j0+0] = DATA.num(1, 0);
+    arr_coo[0][j0+1] = DATA.num(-1, 0);
+    arr_coo[0][j0+2] = DATA.num(3*dxi, 0);
+    arr_coo[1][j0+0] = DATA.num(2*N+n-1, 0);
+    arr_coo[1][j0+1] = DATA.num(2*N+n-1, 0);
+    arr_coo[1][j0+2] = DATA.num(2*N+n-1, 0);
+    arr_coo[2][j0+0] = DATA.num(N+n, 0);
+    arr_coo[2][j0+1] = DATA.num(N+n+1, 0);
+    arr_coo[2][j0+2] = DATA.num(2*N+n, 0);
+  }
+  var j0 = 10*N-4-3;
+  arr_coo[0][j0+0] = DATA.num(1, 0);
+  arr_coo[0][j0+1] = DATA.num(1, 0);
+  arr_coo[0][j0+2] = DATA.num(3*dx[N-1], 0);
+  arr_coo[1][j0+0] = DATA.num(3*N-1, 0);
+  arr_coo[1][j0+1] = DATA.num(3*N, 0);
+  arr_coo[1][j0+2] = DATA.num(3*N, 0);
+  arr_coo[2][j0+0] = DATA.num(N+1, 0);
+  arr_coo[2][j0+1] = DATA.num(2*N, 0);
+  arr_coo[2][j0+2] = DATA.num(3*N, 0);
+  var arr_bcd = self.gaussian_coo(options, arr_coo);
+  var callback = function(com_x, com_x0, com_x1, com_y0, com_y1, j){
+    var dxr0p1 = com_x.r-com_x0.r;
+    var dxr0p2 = dxr0p1*dxr0p1;
+    var dxr0p3 = dxr0p1*dxr0p2;
+    var b = arr_bcd[j][0];
+    var c = arr_bcd[N+j][0];
+    var d = arr_bcd[2*N+j][0];
+    var r1 = DATA.num(com_y0.r, com_y0.i);
+    var r2 = unit["BRm"](options, b, DATA.num(dxr0p1, 0));
+    var r3 = unit["BRm"](options, c, DATA.num(dxr0p2, 0));
+    var r4 = unit["BRm"](options, d, DATA.num(dxr0p3, 0));
+    var r1_r2 = unit["BRa"](options, r1, r2);
+    var r1_r2_r3 = unit["BRa"](options, r1_r2, r3);
+    var r1_r2_r3_r4 = unit["BRa"](options, r1_r2_r3, r4);
+    var _num = r1_r2_r3_r4;
+    return _num;
+  };
+  return self.interp_base(options, arr, callback);
+};
+/* -> Ver.2.181.44 */
 /* -> Ver.2.176.43 */
 /* -> Ver.2.178.44 */
 My_entry.math_mat.prototype.first = function(options, arr){

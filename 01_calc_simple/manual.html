@@ -426,6 +426,10 @@ e^(-i(1pi(){2/2i}(5-{3-1}){i/(-4)}))
 <br>
 　　　・<a href="#span-out-FN-interp1">1次補間関数</a>
 <br>
+　　　・<a href="#span-out-FN-interp2">n次補間関数</a>
+<br>
+　　　・<a href="#span-out-FN-interp3">3次補間関数</a>
+<br>
 　・<a href="#span-out-FNspecial">特殊関数</a>
 <br>
 　・<a href="#span-out-mat">行列</a>
@@ -14866,7 +14870,7 @@ Kdelta(1,NaN) -> NaN
 <br>
 特殊仕様関数の定義を列挙する
 <br>
-・関数名の後に続く数字を引数に含む
+・関数名の後に続く数字が引数に含まれる
 <br>
 ・引数は関数call前に解決済み（未解決の<a href="#span-out-vars-symbol">変数名symbol</a>を含む場合、予期せぬerror終了）
 <br>
@@ -15097,6 +15101,10 @@ csort(creverse(1,-2i,3:4,-5,6i:7)) -> (1,-2i,3:4,-5,6i:7)
 <br>
 ・<a href="#span-out-FN-interp1">interp||interp1関数</a>：線形補間
 <br>
+・<a href="#span-out-FN-interp2">interp2関数</a>：<a href="#span-out-interpolation-Lagrange">Lagrange補間</a>
+<br>
+・<a href="#span-out-FN-interp3">interp3関数</a>：<a href="#span-out-interpolation-spline">3次の自然spline補間</a>
+<br>
 <br>
 interp(x:table)の仕様を列挙する
 <br>
@@ -15117,7 +15125,7 @@ interp(x:table)の仕様を列挙する
 <br>
 interp(1.5:2,1:2,1) -> NaN
 <br>
-・table-key範囲外の場合、<a href="#span-out-num-NaN">欠損値</a>を返す
+・table-key範囲外の場合、<a href="#span-out-num-NaN">欠損値</a>を返す（<a href="#span-out-FN-interp2">interp2関数</a>を除く）
 <br>
 interp(0:1,2:1,2) -> NaN
 <br>
@@ -15262,6 +15270,44 @@ interp(x:csv0_sorted_key0) ->
 NaN,-1.5,-3.5,-4.5,-3.5,-1.5,-3.5,-4.5,-3.5,NaN
 <br>
 )
+    </td>
+  </tr>
+  <tr>
+    <th>
+<a href="#span-index">
+目次
+</a>
+<br>
+n次補間関数
+<br>
+入力仕様
+    </th>
+    <td>
+<span id="span-out-FN-interp2"></span>
+n次補間関数の入力仕様と付随する留意事項について記述する
+<br>
+<br>
+interp2(x:table)関数：<a href="#span-out-num">実数値</a>keyに対する<a href="#span-out-com">複素数</a>valueの<a href="#span-out-interpolation-Lagrange">Lagrange補間</a>
+<br>
+・補間多項式の性質上、table-key範囲外の外挿を許容する
+    </td>
+  </tr>
+  <tr>
+    <th>
+<a href="#span-index">
+目次
+</a>
+<br>
+3次補間関数
+<br>
+入力仕様
+    </th>
+    <td>
+<span id="span-out-FN-interp3"></span>
+3次補間関数の入力仕様と付随する留意事項について記述する
+<br>
+<br>
+interp3(x:table)関数：<a href="#span-out-num">実数値</a>keyに対する<a href="#span-out-com">複素数</a>valueの<a href="#span-out-interpolation-spline">3次の自然spline補間</a>
     </td>
   </tr>
   <tr>
@@ -24233,7 +24279,7 @@ coo[0][j0][1][3]=(dxi,dxi**2,dxi**3),
 <br>
 coo[1][j0][1][3]=(n,n,n),
 <br>
-coo[2][j0][1][3]=(n,n+N,n+2*N),
+coo[2][j0][1][3]=(n,N+n,2*N+n),
 <br>
 r[j]=dyi
 <br>
@@ -32905,7 +32951,7 @@ f=&lt;last{V=1,E=0,k=1,I=exp(k*(V-E))-exp(-k*(V-E))}
 <br>
 ・<a href="#span-out-eqns-args">式変数のarguments</a>も同様に、最善の仕様を追及していない
 <br>
-・<a href="#span-out-FN">関数</a>を含む実装関数は最善のalgorithmとは限らない（<a href="#span-out-linear">Gaussの消去法</a>）
+・<a href="#span-out-FN">関数</a>を含む実装関数は最善のalgorithmとは限らない（<a href="#span-out-interpolation-spline">spline補間</a>||<a href="#span-out-linear">Gaussの消去法</a>）
 <br>
 ・debug機能が存在しないため、<a href="#span-out-vars">変数</a>・<a href="#span-out-eqns">式変数</a>はpollution disabledの厳格な制約条件を課す
 <br>
@@ -35202,7 +35248,9 @@ table_sorted_key0=sort0(table),
 <br>
 xt=(table[0]:x),
 <br>
-yt=(table[1]:interp0(x:table_sorted_key0):interp1(x:table_sorted_key0))
+yt=(table[1]:interp0(x:table_sorted_key0):interp1(x:table_sorted_key0):
+<br>
+interp2(x:table_sorted_key0):interp3(x:table_sorted_key0))
 <br>
 },
 </div>
@@ -35417,9 +35465,11 @@ Lkx(x_)=&lt;_sj(=&lt;y[j]*ljx(j,x_)=&gt;,0,N),
 <br>
 _si_(=&lt;yt[i_]=Lkx(xt[i_])=&gt;,0,N-1),
 <br>
+yinterp=interp2(trans(xt):trans(x,y)),
+<br>
 xt=(x,xt),
 <br>
-yt=(y,yt)
+yt=(y,yt,trans(yinterp))
 <br>
 },
 </div>
@@ -35427,7 +35477,7 @@ init=&gt;,run=&gt;,return=out=&gt;,scope2storage=&gt;,
 <br>
 =&lt;return]=&gt;;
 <br>
-plot2d_Lagrange(=&lt;{0,1,2,3,4,5,6,7,8,9},=&lt;{1,3,2,5,0,-3,-2,-5,-1,-1})=&gt;;
+plot2d_Lagrange(=&lt;{0,1,2,3,4,5,6,7,8,9},=&lt;{1,3,2,5,0,-3,-2,-5,-1,-1}*(1+2i))=&gt;;
     </td>
   </tr>
   <tr>
@@ -35476,7 +35526,7 @@ coo[0][j0][1][3]=(dxi,dxi**2,dxi**3),
 <br>
 coo[1][j0][1][3]=(n,n,n),
 <br>
-coo[2][j0][1][3]=(n,n+N,n+2*N),
+coo[2][j0][1][3]=(n,N+n,2*N+n),
 <br>
 r[j]=dyi
 <br>
@@ -35559,9 +35609,11 @@ yt[i_]=y[i_]+b[i_]*dxi+c[i_]*dxi**2+d[i_]*dxi**3
 <br>
 },0,N-1),
 <br>
+yinterp=interp3(trans(xt):trans(x,y)),
+<br>
 xt=(x,xt),
 <br>
-yt=(y,yt)
+yt=(y,yt,trans(yinterp))
 <br>
 },
 </div>
@@ -35569,7 +35621,7 @@ init=&gt;,run=&gt;,return=out=&gt;,scope2storage=&gt;,
 <br>
 =&lt;return]=&gt;;
 <br>
-plot2d_nspline(=&lt;{0,1,2,3,4,5,6,7,8,9},=&lt;{1,3,2,5,0,-3,-2,-5,-1,-1})=&gt;;
+plot2d_nspline(=&lt;{0,1,2,3,4,5,6,7,8,9},=&lt;{1,3,2,5,0,-3,-2,-5,-1,-1}*(1+2i))=&gt;;
     </td>
   </tr>
   <tr>
@@ -35651,7 +35703,7 @@ init=&gt;,run=&gt;,return=out=&gt;,scope2storage=&gt;,
 <br>
 =&lt;return]=&gt;;
 <br>
-plot2d_bspline(=&lt;{0,1,2,3,2},=&lt;{1,4,2,4,4})=&gt;;
+plot2d_bspline(=&lt;{0,1,2,3,2},=&lt;{1,4,2,4,4}*(1+2i))=&gt;;
     </td>
   </tr>
   <tr>
