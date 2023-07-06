@@ -125,6 +125,7 @@ My_entry.test_number.prototype.solve = function(isMinus){
   var str = $._id("input-string").value;
   var num = self.val2dec(str);
   if(isNaN(Number(num))) return false;
+  var isCircular = false;  // Ver.0.33.4
   var len_m = 4;
   var freq2d = new Array(len_m);
   for(var m=1; m<len_m; ++m){
@@ -167,7 +168,15 @@ My_entry.test_number.prototype.solve = function(isMinus){
     function(num, i){
       var _msg = "";
       if(num === 17n || num === 5n){
-        _msg = "n -> "+num+"-circular";
+        /* Ver.0.33.4 -> */
+        if(isCircular){
+          _msg = "n -> "+num+"-circular";
+          i = isCircular-1;
+        }
+        else{
+          isCircular = i+1;
+        }
+        /* -> Ver.0.33.4 */
       }
       else if(num === 1n){
         _msg = "n -> 1";
@@ -200,7 +209,7 @@ My_entry.test_number.prototype.solve = function(isMinus){
     _html += self.output_line("wF", "No.<br>&lt;1e6", "dec", "hex", "oct", "bin", "frequency distribution<br>ls3bit=001,011,101,111", "Nrshift(3)", "-1+(No.+1)/sum(frequency)");  // Ver.0.33.4
     for(var i=0; i<N; ++i){
       if(num%2n === 0n){
-        _html += self.output_line("", i, num, num.toString(16), num.toString(8), num.toString(2));  // Ver.0.33.4
+        _html += self.output_line(((isCircular)? "wF": ""), i, num, num.toString(16), num.toString(8), num.toString(2));  // Ver.0.33.4
         if(isBreak(num, i)){
           break;
         }
