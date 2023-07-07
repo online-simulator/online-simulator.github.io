@@ -31,7 +31,7 @@ NaN,NaN,1+i,1.5+i,2+i,2.25+1.5i,2.5+2i,2.75+2.5i,3+3i,NaN,NaN
 clear
 local storage cleared
 
-n=9663,_rN(=<last{nr=nr%2==0&&&nr/2|||nr*2+1+nr/*nr>>1|||(nr<<1)+1+nr*/,nmax=max(nmax,nr),N+1},last{nmax=n,nr=n},1e6,=<{nr>MAX_SAFE_INTEGER&&&~~(nmax=NaN)|||nr==1}),nmax,nmax/n
+n=9663,_rN(=<last{nr=nr%2==0&&&nr/2|||nr*2+1+nr/*nr>>1|||(nr<<1)+1+nr*/,nmax=max(nmax,nr),N+1},last{nmax=n,nr=n},1e6,=<{nr==1|||nr<=0||nr>MAX_SAFE_INTEGER&&&~~(nmax=NaN)}),nmax,nmax/n
 (
 0,184,27114424,2806.0047604263686
 )
@@ -1613,4 +1613,4 @@ drag=false&sw=false&0x=false&useComplex=true&useMatrix=true&useStrict=false&chec
 --------------------------------
 --------------------------------
 
-online-simulator.github.io.6.247.105.13.56 @ Fri Jul 07 2023 05:55:01 GMT+0900 (日本標準時) @ Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/114.0.0.0 Safari/537.36
+online-simulator.github.io.6.247.106.13.56 @ Sat Jul 08 2023 02:47:02 GMT+0900 (日本標準時) @ Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/114.0.0.0 Safari/537.36
