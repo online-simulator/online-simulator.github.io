@@ -15290,6 +15290,8 @@ n次補間関数の入力仕様と付随する留意事項について記述す�
 interp2(x:table)関数：<a href="#span-out-num">実数値</a>keyに対する<a href="#span-out-com">複素数</a>valueの<a href="#span-out-interpolation-Lagrange">Lagrange補間</a>
 <br>
 ・補間多項式の性質上、table-key範囲外の外挿を許容する
+<br>
+・<a href="#span-out-com">複素数</a>演算の場合、<a href="#span-eqn-plot2d_Lagrange">plot2d_Lagrange</a>の演算結果と<a href="#span-out-epsilon">Machine epsilon</a>程度の相違がある
     </td>
   </tr>
   <tr>
@@ -15308,6 +15310,8 @@ interp2(x:table)関数：<a href="#span-out-num">実数値</a>keyに対する<a 
 <br>
 <br>
 interp3(x:table)関数：<a href="#span-out-num">実数値</a>keyに対する<a href="#span-out-com">複素数</a>valueの<a href="#span-out-interpolation-spline">3次の自然spline補間</a>
+<br>
+・<a href="#span-out-com">複素数</a>演算の場合、<a href="#span-eqn-plot2d_nspline">plot2d_nspline</a>の演算結果と<a href="#span-out-epsilon">Machine epsilon</a>程度の相違がある
     </td>
   </tr>
   <tr>
