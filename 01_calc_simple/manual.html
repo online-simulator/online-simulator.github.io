@@ -1580,7 +1580,7 @@ title/発行元(発行年)を列挙する
 <br>
 　<a href="#span-eqn">strict-mode式変数list</a>等、実用への影響なし
 <br>
-・<span class="run">Ver.2.178.44</span>以降、<a href="#span-out-FN-interp">interp関数</a>のlookup-table標本点の仕様変更
+・<span class="run">Ver.2.178.44</span>以降、<a href="#span-out-FN-interp">補間関数</a>のlookup-table標本点の仕様変更
 <br>
 　実部と虚部の各keyに対する各value（query困難）　⇒　<a href="#span-out-num">実数値</a>keyに対する<a href="#span-out-com">複素数</a>value
 <br>
@@ -14083,7 +14083,7 @@ ymax=max(table)[0];
 <br>
 y=ymin+(ymax-ymin)*rand;
 <br>
-・<a href="#span-out-FN-interp1">補間関数</a>を使用してxに逆変換
+・<a href="#span-out-FN-interp1">線形補間</a>を使用してxに逆変換（その他の<a href="#span-out-FN-interp">補間関数</a>は次数が不適切で近似困難）
 <br>
 x=interp(y:table); x -> 0.2128604699061138
     </td>
