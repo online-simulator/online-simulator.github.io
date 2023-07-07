@@ -3195,7 +3195,7 @@ transform特定項目仕様と付随する留意事項について記述する
 <br>
 <span class="run">Ver.2.52.25</span>以降、<a href="#span-out-UI-graphing-post1">layer合成</a>時の座標変換機能を追加する
 <br>
-・<span class="clear">Ver.2.53.25</span>以降、<span class="run">せん断変形の結果</span>から<span class="condition">座標変換行列</span>の一部(<span class="clear">b:c</span>)の位置関係を交換して訂正
+・<span class="clear">Ver.2.53.25</span>以降、<span class="run">せん断変換の結果</span>から<span class="condition">座標変換行列</span>の一部(<span class="clear">b:c</span>)の位置関係を交換して訂正
 <br>
 ・<span class="run">Ver.2.56.26</span>以降、設定項目withBackgroundを追加
 <br>
@@ -3353,13 +3353,13 @@ Rz=rotz_LHS(pi/4); Rz[0][0],Rz[0][1],Rz[1][0],Rz[1][1]
 <br>
 {x_after,y_after,1} -> (0.3:0.7:1)
 <br>
-・<span class="run">x方向せん断変形</span>(b,c)=(0,0.5)
+・<span class="run">x方向せん断変換</span>(b,c)=(0,0.5)
 <br>
 {1,0,0.5,1,0,0}
 <br>
 {x_after,y_after,1} -> (<span class="run">1.5</span>:1:1)
 <br>
-・<span class="run">y方向せん断変形</span>(b,c)=(0.5,0)
+・<span class="run">y方向せん断変換</span>(b,c)=(0.5,0)
 <br>
 {1,0.5,0,1,0,0}
 <br>
@@ -9076,6 +9076,8 @@ bit or
 <br>
 1|1 -> 1
 <br>
+・<a href="#span-out-comment">comment文</a>に下位8桁のbit列を示す
+<br>
 1|1  <span class="selection">// 00000001|00000001->00000001</span> -> 1
 <br>
 1|2  <span class="selection">// 00000001|00000010->00000011</span> -> 3
@@ -9109,6 +9111,8 @@ bit xor
 <br>
 1@1 -> 0
 <br>
+・<a href="#span-out-comment">comment文</a>に下位8桁のbit列を示す
+<br>
 1@2  <span class="selection">// 00000001^00000010->00000011</span> -> 3
 <br>
 2@-2  <span class="selection">// 00000010^11111110->11111100</span> -> -4
@@ -9125,6 +9129,8 @@ bit and
 1&amp;0 -> 0
 <br>
 1&amp;1 -> 1
+<br>
+・<a href="#span-out-comment">comment文</a>に下位8桁のbit列を示す
 <br>
 1&amp;1  <span class="selection">// 00000001&amp;00000001->00000001</span> -> 1
 <br>
@@ -9152,6 +9158,8 @@ bit shift
 ・<a href="#span-out-float">単精度32bit</a>の符号あり整数
 <br>
 -round(pow(2,31)) -> -2147483648
+<br>
+・<a href="#span-out-comment">comment文</a>に32桁のbit列を示す
 <br>
 -1&lt;&lt;31 || -1&lt;&lt;63  <span class="selection">// 10000000000000000000000000000000</span> -> -2147483648
 <br>
@@ -9191,6 +9199,8 @@ bit shift
 <br>
 round(pow(2,32)-1) -> 4294967295
 <br>
+・<a href="#span-out-comment">comment文</a>に32桁のbit列を示す
+<br>
 -1&gt;&gt;&gt;0 || -1&gt;&gt;&gt;32  <span class="selection">// 11111111111111111111111111111111</span> -> 4294967295
 <br>
 -8&gt;&gt;&gt;0 || -8&gt;&gt;&gt;32  <span class="selection">// 11111111111111111111111111111000</span> -> 4294967288
@@ -9215,6 +9225,8 @@ round(pow(2,32)-1) -> 4294967295
 bit not
 <br>
 ・<a href="#span-out-float">単精度32bit</a>の符号あり整数
+<br>
+・<a href="#span-out-comment">comment文</a>に32桁のbit列を示す
 <br>
 ~0  <span class="selection">// 11111111111111111111111111111111</span> -> -1
 <br>
