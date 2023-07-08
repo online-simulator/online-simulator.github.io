@@ -77,6 +77,8 @@
       script += "\nclear;\n";
       script += "x=(-1,0,0.25,0.5,0.75,1,2);\ntable=(0,1:1+i,2+3i);\ninterp0(x:table):interp1(x:table):interp2(x:table):interp3(x:table);";
       script += "\nclear;\n";
+      script += "x=(linspace(1+2i,10+10i,9):linspace(10+10i,1+2i,9));\nx<<1:x<<2:x<<3:x>>1:x>>2:x>>>3;\ntx=trans(x):floor(tx),round(tx),ceil(tx)::min(tx),max(tx)::cmin(tx),cmax(tx);\nargs=(trans(linspace(2,2,4)),trans(linspace(1,4,4))):pow(args);";
+      script += "\nclear;\n";
       $._id("input").value = script;
     });
   })();

@@ -147,6 +147,8 @@ e^(-i(1pi(){2/2i}(5-{3-1}){i/(-4)}))
 <br>
 ・<a href="#span-ref-git">参考GitHub</a>
 <br>
+・<a href="#span-ref-url">参考URL</a>
+<br>
 ・<a href="#span-ref-paper">参考論文</a>
 <br>
 <br>
@@ -443,6 +445,8 @@ e^(-i(1pi(){2/2i}(5-{3-1}){i/(-4)}))
 　・<a href="#span-out-FNm">行列関数</a>
 <br>
 　　・<a href="#span-out-FNm-init">初期化行列関数</a>
+<br>
+　　　・<a href="#span-out-FNm-init-space">space初期化行列関数</a>
 <br>
 　　・<a href="#span-out-FNm-isFalse">isFalse/isTrue行列関数</a>
 <br>
@@ -1380,7 +1384,27 @@ ja.m.wikipedia.org/wiki/項目を列挙する
 <br>
 domainを列挙する
 <br>
+・github.com/numpy
+<br>
 ・utokyo-ipp.github.io
+    </td>
+  </tr>
+  <tr>
+    <th>
+参考URL
+    </th>
+    <td>
+<span id="span-ref-url"></span>
+参考URLについて記述する
+<br>
+<br>
+domainを列挙する
+<br>
+・developer.mozilla.org
+<br>
+・mathworks.com
+<br>
+・numpy.org
     </td>
   </tr>
   <tr>
@@ -15118,7 +15142,7 @@ csort(creverse(1,-2i,3:4,-5,6i:7)) -> (1,-2i,3:4,-5,6i:7)
 ・<a href="#span-out-FN-interp3">interp3関数</a>：<a href="#span-out-interpolation-spline">3次の自然spline補間</a>
 <br>
 <br>
-interp(x:table)の仕様を列挙する
+引数(x:table)の仕様を列挙する
 <br>
 ・x：query点<a href="#span-out-num">実数値</a>の行vector（任意要素数のquery行）
 <br>
@@ -15783,7 +15807,7 @@ identity4 -> (1,0,0,0:0,1,0,0:0,0,1,0:0,0,0,1)
     </th>
     <td>
 <span id="span-out-FNm-init"></span>
-行列を初期化する関数の入力仕様と付随する留意事項について記述する
+行列を初期化する行列関数の入力仕様と付随する留意事項について記述する
 <br>
 ・<span class="clear">Ver.2.170.42</span>以降、<a href="#span-out-literal">NaN</a>の引数に対応
 <br>
@@ -15942,6 +15966,68 @@ ones行列
 ones(2,2) -> (1,1:1,1)
 <br>
 ones(5,3) -> (1,1,1:1,1,1:1,1,1:1,1,1:1,1,1)
+    </td>
+  </tr>
+  <tr>
+    <th>
+<a href="#span-index">
+目次
+</a>
+<br>
+space
+<br>
+初期化
+<br>
+行列関数
+<br>
+入力仕様
+    </th>
+    <td>
+<span id="span-out-FNm-init-space"></span>
+spaceを初期化する行列関数の入力仕様と付随する留意事項について記述する
+<br>
+<br>
+<span class="run">Ver.2.183.44</span>以降、linspace関数を追加
+<br>
+<br>
+引数(a,b,Np1)の仕様を列挙する
+<br>
+・[a,b]：<a href="#span-out-com">複素数</a>valueの範囲
+<br>
+・Np1：範囲分割数N+1の離散点数[省略時、50]
+<br>
+<br>
+linspace(a,b,Np1)関数：linear-scaleの初期化
+<br>
+・test caseを列挙する
+<br>
+linspace(1+2i,10+10i,9) -> (1+2i,2.125+3i,3.25+4i,4.375+5i,5.5+6i,6.625+7i,7.75+8i,8.875+9i,10+10i)
+<br>
+linspace(10+10i,1+2i,9) -> (10+10i,8.875+9i,7.75+8i,6.625+7i,5.5+6i,4.375+5i,3.25+4i,2.125+3i,1+2i)
+<br>
+linspace(1,2,1) -> 1
+<br>
+linspace(1,2,0) || linspace(1,2,NaN) -> [MyErr]Invalid matrix size
+<br>
+linspace(1,2,1001) -> [MyErr]Invalid matSizeMax over
+<br>
+linspace(1) -> [MyErr]Invalid args.length=2||3(linspace)
+<br>
+linspace(1,NaN,2) -> (NaN,NaN)
+<br>
+args=(trans(linspace(2,2,4)),trans(linspace(1,4,4))); pow(args) ->
+<br>
+(
+<br>
+2:
+<br>
+4:
+<br>
+7.999999999999998:
+<br>
+15.999999999999998
+<br>
+)
     </td>
   </tr>
   <tr>
@@ -20783,7 +20869,7 @@ sizec(A)-sizec(ttA),sizec(A),size(A) -> (0,4,4)
 <br>
 留意事項を列挙する
 <br>
-・<a href="#span-in-scope-vars">static scopes2d array</a>を共有するため、同じ<a href="#span-out-vars-symbol">変数名symbol</a>の代入不可（前回callのdataが残存）
+・<a href="#span-in-scope-vars">static scopes2d array</a>を共有するため、同じ<a href="#span-out-vars-symbol">変数名symbol</a>の代入不可（前回callの未初期化dataが残存）
 <br>
 scope_NG1(x)=&lt;[x=x/*OK*/,last[x=x/*NG*/,x],x];
 <br>
@@ -34015,6 +34101,8 @@ operation.js抜粋
 <br>
 ・<span class="run">Ver.2.176.43</span>以降、<a href="#span-out-FN-interp">補間関数</a>を追加
 <br>
+・<span class="run">Ver.2.183.44</span>以降、<a href="#span-out-FNm-init-space">space初期化行列関数</a>を追加
+<br>
 <br>
 予約語は大文字・小文字・全角・半角を区別しない
 <br>
@@ -34186,6 +34274,12 @@ parser.js抜粋
       case "gauss":
       case "gaussian":
         tree = DATA.tree_tag("FNm", "gaussian");
+        break;
+      // "FNm2or3"
+      // Matlab defined
+      // Python defined
+      <span class="jF">case "linspace":</span>
+        tree = DATA.tree_tag("FNm", token_lower);
         break;
       // "CT"
       // JavaScript defined
@@ -34507,6 +34601,7 @@ gauss_coo(NaN);
 gaussian_coo(NaN);
 gauss(NaN);
 gaussian(NaN);
+<span class="jF">linspace(NaN);</span>
 
 //
 epsilon;
@@ -35249,9 +35344,11 @@ scope2storage=&lt;last{addVar(xt),addVar(yt)},
 <div class="condition">
 init=&lt;last{
 <br>
-_sn(=&lt;last{xn=2*pi*n/Nx,x=(x,xn)},x=[],Nx),
+x=linspace(0,2*pi,Nx+1),
 <br>
-_sn(=&lt;last{xn=2*pi*n/Nt,yn=sin(xn),table=(table,{xn,yn})},table=[],Nt)
+xn=linspace(0,2*pi,Nt+1),
+<br>
+table=(xn:trans(sin(trans(xn))))
 <br>
 },
 </div>

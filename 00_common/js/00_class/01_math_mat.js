@@ -10,6 +10,7 @@ My_entry.math_mat.prototype.init = function(){
   var self = this;
   new My_entry.original_main().setup_constructors.call(self);
   new My_entry.original_main().make_instances.call(self, ["solver_com", "DATA", "unit"]);
+  My_entry.def.mix_in_props(My_entry.math_mat, My_entry.math_com, ["interp_com"]);  // Ver.2.183.44
   My_entry.def.mix_in_props(My_entry.math_mat, My_entry.DATA, ["arr2num", "arr2args"]);
   return self;
 };
@@ -33,9 +34,9 @@ My_entry.math_mat.prototype.init2d_num = function(len_i, len_j, num){
   return _arr;
 };
 /* Ver.2.22.11 */
-My_entry.math_mat.prototype.num2size = function(options, num){
+My_entry.math_mat.prototype.num2size = function(options, num, opt_n0){  // Ver.2.183.44
   var self = this;
-  var _n = (num && num.com)? Math.round(num.com.r): 0;  // Ver.2.127.34 floor -> round
+  var _n = (num && num.com)? Math.round(num.com.r): (opt_n0 || 0);  // Ver.2.127.34 floor -> round  // Ver.2.183.44
   if(_n <= 0 || isNaN(_n)) throw "Invalid matrix size";  // Ver.2.170.42
   if(_n > options.matSizeMax) throw "Invalid matSizeMax over";
   return _n;
@@ -154,6 +155,29 @@ My_entry.math_mat.prototype.istrue = function(options, arr){
 /* -> Ver.2.172.42 */
 /* Ver.2.178.44 -> */
 /* Ver.2.176.43 -> */
+/* Ver.2.183.44 */
+My_entry.math_mat.prototype.linspace = function(options, arr){
+  var self = this;
+  var _arr = [];
+  var len_i = arr.length;
+  for(var i=0; i<len_i; ++i){
+    var arri = arr[i];
+    var len_j = arri.length;
+    if(!(len_j === 2 || len_j === 3)) throw "Invalid args.length=2||3(linspace)";
+    var com_y0 = arri[0].com;
+    var com_y1 = arri[1].com;
+    var Np1 = self.num2size(options, arri[2], 50);
+    var arr_interp = [];
+    for(var j=0; j<Np1; ++j){
+      var r = j/(Np1-1 || 1);  // /not0
+      arr_interp[j] = self.interp_com(com_y0, com_y1, r);
+    }
+    if(arr_interp.length){
+      _arr.push(arr_interp);
+    }
+  }
+  return _arr;
+};
 My_entry.math_mat.prototype.interp_base = function(options, arr, callback){
   var self = this;
   var DATA = self.entry.DATA;
@@ -199,15 +223,12 @@ My_entry.math_mat.prototype.interp = function(options, arr){
   var self = this;
   var DATA = self.entry.DATA;
   var callback = function(com_x, com_x0, com_x1, com_y0, com_y1){
+    /* Ver.2.183.44 -> */
     var dxr = com_x.r-com_x0.r;
     var hxr = com_x1.r-com_x0.r;
-    var hyr = com_y1.r-com_y0.r;
-    var hxi = com_x1.i-com_x0.i;
-    var hyi = com_y1.i-com_y0.i;
     var r = dxr/hxr;  // /0
-    var cr = com_y0.r+hyr*r;
-    var ci = com_y0.i+hyi*r;
-    return DATA.num(cr, ci);
+    return self.interp_com(com_y0, com_y1, r);
+    /* -> Ver.2.183.44 */
   };
   return self.interp_base(options, arr, callback);
 };
