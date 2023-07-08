@@ -263,7 +263,7 @@ My_entry.test_number.prototype.solve2 = function(){
   };
   var run = function(){
     var header0 = self.output_line("wF", "m", "3*n-1", "3*n+1");
-    var header1 = self.output_line("wF", "m", "n", "n&lt;&lt;1", "3*n=n+(n&lt;&lt;1)", "3*n-1=(3*n+1)-2", "3*n+1");  // Ver.0.34.4
+    var header1 = self.output_line("wF", "m", "n", "n&lt;&lt;1", "3*n<br>=n+(n&lt;&lt;1)", "3*n-1<br>=(3*n+1)-2", "3*n+1");  // Ver.0.34.4
     var html0 = "";
     var html1 = "";
     var len_m = self.len_m;
