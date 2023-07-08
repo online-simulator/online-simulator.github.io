@@ -10,7 +10,6 @@ My_entry.math_mat.prototype.init = function(){
   var self = this;
   new My_entry.original_main().setup_constructors.call(self);
   new My_entry.original_main().make_instances.call(self, ["solver_com", "DATA", "unit"]);
-  My_entry.def.mix_in_props(My_entry.math_mat, My_entry.math_com, ["interp_com"]);  // Ver.2.183.44
   My_entry.def.mix_in_props(My_entry.math_mat, My_entry.DATA, ["arr2num", "arr2args"]);
   return self;
 };
@@ -155,7 +154,11 @@ My_entry.math_mat.prototype.istrue = function(options, arr){
 /* -> Ver.2.172.42 */
 /* Ver.2.178.44 -> */
 /* Ver.2.176.43 -> */
-/* Ver.2.183.44 */
+/* Ver.2.183.44 -> */
+My_entry.math_mat.prototype.getNum_linspace = function(a, b, k){
+  var self = this;
+  return self.entry.DATA.num(a.r+(b.r-a.r)*k, a.i+(b.i-a.i)*k);
+};
 My_entry.math_mat.prototype.linspace = function(options, arr){
   var self = this;
   var _arr = [];
@@ -169,8 +172,8 @@ My_entry.math_mat.prototype.linspace = function(options, arr){
     var Np1 = self.num2size(options, arri[2], 50);
     var arr_interp = [];
     for(var j=0; j<Np1; ++j){
-      var r = j/(Np1-1 || 1);  // /not0
-      arr_interp[j] = self.interp_com(com_y0, com_y1, r);
+      var k = j/(Np1-1 || 1);  // /not0
+      arr_interp[j] = self.getNum_linspace(com_y0, com_y1, k);
     }
     if(arr_interp.length){
       _arr.push(arr_interp);
@@ -226,8 +229,8 @@ My_entry.math_mat.prototype.interp = function(options, arr){
     /* Ver.2.183.44 -> */
     var dxr = com_x.r-com_x0.r;
     var hxr = com_x1.r-com_x0.r;
-    var r = dxr/hxr;  // /0
-    return self.interp_com(com_y0, com_y1, r);
+    var k = dxr/hxr;  // /0
+    return self.getNum_linspace(com_y0, com_y1, k);
     /* -> Ver.2.183.44 */
   };
   return self.interp_base(options, arr, callback);

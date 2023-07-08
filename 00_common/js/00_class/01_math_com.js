@@ -45,11 +45,6 @@ My_entry.math_com.prototype.argument_com = function(a){
   if(self.isNaN(a)) return NaN;  // Ver.2.170.42
   return Math.atan2(a.i || 0, a.r || 0);  // Ver.2.149.38 || 0
 };
-/* Ver.2.183.44 */
-My_entry.math_com.prototype.interp_com = function(a, b, r){
-  var self = this;
-  return self.entry.DATA.num(a.r+(b.r-a.r)*r, a.i+(b.i-a.i)*r);
-};
 //
 /* Ver.2.168.41 -> */
 My_entry.math_com.prototype["~~"] =
