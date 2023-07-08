@@ -263,7 +263,7 @@ My_entry.test_number.prototype.solve2 = function(){
   };
   var run = function(){
     var header0 = self.output_line("wF", "m", "3*n-1", "3*n+1");
-    var header1 = self.output_line("wF", "m", "n", "3*n-1", "3*n+1");
+    var header1 = self.output_line("wF", "m", "n", "n&lt;&lt;1", "3*n=n+(n&lt;&lt;1)", "3*n-1=(3*n+1)-2", "3*n+1");  // Ver.0.34.4
     var html0 = "";
     var html1 = "";
     var len_m = self.len_m;
@@ -277,7 +277,7 @@ My_entry.test_number.prototype.solve2 = function(){
         var binp = (3*n+1).toString(2);
         N0m += count_N0(binm, m);
         N0p += count_N0(binp, m);
-        html1 += self.output_line((m%2 === 1)? "condition": "wF", m, n.toString(2), get_lsmbit(binm, m), get_lsmbit(binp, m));
+        html1 += self.output_line((m%2 === 1)? "condition": "wF", m, n.toString(2), (n<<1).toString(2), (n+(n<<1)).toString(2), get_lsmbit(binm, m), get_lsmbit(binp, m));  // Ver.0.34.4 32bit
       }
       html0 += self.output_line("", m, N0m+"/"+len_n2, N0p+"/"+len_n2);
     }
