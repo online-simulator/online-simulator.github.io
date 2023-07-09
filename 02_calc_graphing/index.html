@@ -89,6 +89,8 @@
       script += "\nclear;\n";
       script += "x=(linspace(1+2i,10+10i,9):linspace(10+10i,1+2i,9));\nx<<1:x<<2:x<<3:x>>1:x>>2:x>>>3;\ntx=trans(x):floor(tx),round(tx),ceil(tx)::min(tx),max(tx)::cmin(tx),cmax(tx);\nargs=(trans(linspace(2,2,4)),trans(linspace(1,4,4))):pow(args);";
       script += "\nclear;\n";
+      script += "(eps,MIN_VALUE:1/0,2**3,2^3,(-1)**0.5,(-1)^0.5:sqrt(-1),sqrt(2),sqrt(4),sqrt(i):pow(-1,0.5),pow(2,2),pow(2,4),pow(i,4),pow(2,i):log(-1),log(2),log(4),log(i):sqrt(-1+eps*i),sqrt(-1+MIN_VALUE*i):pow(-1+(eps)i,0.5),pow(-1+(MIN_VALUE)i,0.5):log(-1+i*eps),log(-1-i*eps):pow(2+MIN_VALUE*i,3):complex(2,false)**3:imag(NaN*(1+2i)),2.2%2,NaN&NaN);";
+      script += "\nclear;\n";
       $._id("input").value = script;
       // test case
       var setVal = function(){
@@ -1047,7 +1049,11 @@ plot2d
       <tr>
         <td colspan="3">
 <div>
-  <label><input id="checkbox-useComplex" type="checkbox" checked="checked">:complex</label>
+<select id="select-useComplex">
+  <option value="-1">auto-real</option>
+  <option value="0">real</option>
+  <option value="1">complex</option>
+</select>
   <label><input id="checkbox-useMatrix" type="checkbox" checked="checked">:matrix</label>
   <label class="clear"><input id="checkbox-useStrict" type="checkbox">:strict</label>
   <label>

@@ -44,6 +44,15 @@ My_entry.unit.prototype.FN_call = function(callback, options){
   }
   return _num;
 };
+/* Ver.2.184.44 */
+My_entry.unit.prototype.get_hasImag = function(){
+  var self = this;
+  var _hasCom = false;
+  for(var i=0, len=arguments.length; i<len; ++i){
+    _hasCom = _hasCom || (arguments[i].i !== 0);  // short-circuit
+  }
+  return _hasCom;
+};
 /* Ver.2.168.41 */
 My_entry.unit.prototype.args_com2args_ri = function(sw_ri, args_com){
   var self = this;
@@ -61,7 +70,7 @@ My_entry.unit.prototype.FN = function(prop, options){
   var useComplex = options.useComplex;
   var callback = function(){
     var _com = null;
-    if(useComplex && cmath[prop]){
+    if(cmath[prop] && ((useComplex === -1)? self.get_hasImag.apply(self, arguments): useComplex)){  // Ver.2.184.44
       _com = cmath[prop].apply(cmath, arguments);
     }
     else{
@@ -129,6 +138,7 @@ My_entry.unit.prototype.BRd = function(options, left, right){
   var DATA = self.entry.DATA;
   var useComplex = options.useComplex;
   var callback = function(leftCom, rightCom){
+    useComplex = (useComplex === -1)? self.get_hasImag(leftCom, rightCom): useComplex;  // Ver.2.184.44
     return ((useComplex)?
       cmath.div(leftCom, rightCom):
       DATA.com(leftCom.r/rightCom.r, 0));
@@ -141,6 +151,7 @@ My_entry.unit.prototype.BRm = function(options, left, right){
   var DATA = self.entry.DATA;
   var useComplex = options.useComplex;
   var callback = function(leftCom, rightCom){
+    useComplex = (useComplex === -1)? self.get_hasImag(leftCom, rightCom): useComplex;  // Ver.2.184.44
     return ((useComplex)?
       cmath.mul(leftCom, rightCom):
       DATA.com(leftCom.r*rightCom.r, 0));
@@ -199,6 +210,7 @@ My_entry.unit.prototype.BRs = function(options, left, right){
   var DATA = self.entry.DATA;
   var useComplex = options.useComplex;
   var callback = function(leftCom, rightCom){
+    useComplex = (useComplex === -1)? self.get_hasImag(leftCom, rightCom): useComplex;  // Ver.2.184.44
     return ((useComplex)?
       cmath.sub(leftCom, rightCom):
       DATA.com(leftCom.r-rightCom.r, 0));
@@ -211,6 +223,7 @@ My_entry.unit.prototype.BRa = function(options, left, right){
   var DATA = self.entry.DATA;
   var useComplex = options.useComplex;
   var callback = function(leftCom, rightCom){
+    useComplex = (useComplex === -1)? self.get_hasImag(leftCom, rightCom): useComplex;  // Ver.2.184.44
     return ((useComplex)?
       cmath.add(leftCom, rightCom):
       DATA.com(leftCom.r+rightCom.r, 0));

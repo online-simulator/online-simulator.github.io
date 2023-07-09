@@ -4,15 +4,15 @@ local storage cleared
 (eps,MIN_VALUE:1/0,2**3,2^3,(-1)**0.5,(-1)^0.5:sqrt(-1),sqrt(2),sqrt(4),sqrt(i):pow(-1,0.5),pow(2,2),pow(2,4),pow(i,4),pow(2,i):log(-1),log(2),log(4),log(i):sqrt(-1+eps*i),sqrt(-1+MIN_VALUE*i):pow(-1+(eps)i,0.5),pow(-1+(MIN_VALUE)i,0.5):log(-1+i*eps),log(-1-i*eps):pow(2+MIN_VALUE*i,3):complex(2,false)**3:imag(NaN*(1+2i)),2.2%2,NaN&NaN)
 (
 2.220446049250313e-16,5e-324:
-Infinity,8,8,NaN,NaN:
-NaN,1.4142135623730951,2,0.7071067811865476+0.7071067811865475i:
-NaN,4,16,1-2.4492935982947064e-16i,0.7692389013639721+0.6389612763136348i:
-NaN,0.6931471805599453,1.3862943611198906,1.5707963267948966i:
+NaN,7.999999999999998,7.999999999999998,6.123233995736766e-17+i,6.123233995736766e-17+i:
+6.123233995736766e-17+i,1.4142135623730951,2,0.7071067811865476+0.7071067811865475i:
+6.123233995736766e-17+i,4,15.999999999999998,1-2.4492935982947064e-16i,0.7692389013639721+0.6389612763136348i:
+3.141592653589793i,0.6931471805599453,1.3862943611198906,1.5707963267948966i:
 6.123233995736766e-17+i,6.123233995736766e-17+i:
 6.123233995736766e-17+i,6.123233995736766e-17+i:
 3.141592653589793i,-3.141592653589793i:
 7.999999999999998:
-7.999999999999998+O(2e-15):
+7.999999999999998:
 NaN,0.20000000000000018,0
 )
 
@@ -24,8 +24,8 @@ args=(trans(linspace(2,2,4)),trans(linspace(1,4,4))):pow(args)
 0:
 2:
 4:
-8:
-16
+7.999999999999998:
+15.999999999999998
 )
 
 tx=trans(x):floor(tx),round(tx),ceil(tx)::min(tx),max(tx)::cmin(tx),cmax(tx)
@@ -660,12 +660,12 @@ csv0=(
 
 (a=0,b=a/a,c=1/a,isNaN_(x)=<(x<>x),isNaN_(a),isNaN_(b),isNaN_(c),isNaN(a),isNaN(b),isNaN(c))
 (
-0,0,0,0,0,1,0+O(1e+0),false,true,false+O(1e+0)
+0,0,0,0,0,1,1,false,true,true
 )
 
 (0/0,1/0,~NaN,~~NaN,NaN|1,NaN||1,NaN|||1,NaN&1,NaN&&1,NaN&&&1)
 (
-NaN,Infinity,-1,1,1,1,1,0,NaN,NaN
+NaN,NaN,-1,1,1,1,1,0,NaN,NaN
 )
 
 (NaN==NaN,nan==NAN,false==false,FALSE==0,true==true,TRUE==1)
@@ -908,9 +908,9 @@ local storage cleared
 
 log(-1)-log(1/(-1)):log(-1)-log(1/(1-2)):log(-1/2)-log(1/(-2))/*not (2*pi)i*/
 (
-NaN:
-NaN:
-NaN
+0:
+0:
+0
 )
 
 clear
@@ -931,53 +931,53 @@ asin_sin-asin_sin_
 
 sin_asin-sin_asin_
 (
-NaN:
-NaN:
 0:
 0:
 0:
-NaN:
 0:
-NaN:
+0:
+0:
+0:
+infoLost[r ] 0:
 0
 )
 
 sin_asin-asin_sin
 (
-NaN:
-NaN:
+-2.220446049250313e-16-2.8060183283390646e-17i:
+0:
+5.551115123125783e-17i:
 0:
 0:
+-2.220446049250313e-16+1.2858791391047223e-17i:
 0:
-NaN:
 0:
-NaN:
-2.220446049250313e-16
+-2.220446049250313e-16
 )
 
 asin_sin_={asin(sin(x)),acos(cos(x)),atan(tan(x)),asinh_(sinh_(x)),acosh_(cosh_(x)),atanh_(tanh_(x)),acsch_(csch_(x)),asech_(sech_(x)),acoth_(coth_(x))}
 asin_sin_=(
+1.1000000000000003:
+1.1:
+1.1-5.551115123125783e-17i:
 1.1:
 1.1:
+1.1000000000000003:
 1.1:
 1.1:
-1.1:
-1.0999999999999999:
-1.1:
-1.1:
-1.0999999999999999
+1.1000000000000003
 )
 
 sin_asin_={sin(asin(x)),cos(acos(x)),tan(atan(x)),sinh_(asinh_(x)),cosh_(acosh_(x)),tanh_(atanh_(x)),csch_(acsch_(x)),sech_(asech_(x)),coth_(acoth_(x))}
 sin_asin_=(
-NaN:
-NaN:
+1.1-2.8060183283390646e-17i:
 1.1:
 1.1:
 1.1:
-NaN:
 1.1:
-NaN:
+1.1+1.2858791391047223e-17i:
+1.1:
+infoLost[r ] 1.1:
 1.1
 )
 
@@ -1019,27 +1019,27 @@ stored_eqn(sinh_)
 
 asin_sin={asin(sin(x)),acos(cos(x)),atan(tan(x)),asinh(sinh(x)),acosh(cosh(x)),atanh(tanh(x)),acsch(csch(x)),asech(sech(x)),acoth(coth(x))}
 asin_sin=(
+1.1000000000000003:
+1.1:
+1.1-5.551115123125783e-17i:
 1.1:
 1.1:
+1.1000000000000003:
 1.1:
 1.1:
-1.1:
-1.0999999999999999:
-1.1:
-1.1:
-1.0999999999999999
+1.1000000000000003
 )
 
 sin_asin={sin(asin(x)),cos(acos(x)),tan(atan(x)),sinh(asinh(x)),cosh(acosh(x)),tanh(atanh(x)),csch(acsch(x)),sech(asech(x)),coth(acoth(x))}
 sin_asin=(
-NaN:
-NaN:
+1.1-2.8060183283390646e-17i:
 1.1:
 1.1:
 1.1:
-NaN:
 1.1:
-NaN:
+1.1+1.2858791391047223e-17i:
+1.1:
+1.1:
 1.1
 )
 
@@ -1161,7 +1161,7 @@ local storage cleared
 
 Gauss_coo(coo:trans(b))-Gauss(A,b)
 (
-0:
+infoLost[r ] 0:
 0:
 0:
 0:
@@ -1305,7 +1305,7 @@ local storage cleared
 
 [add(a,b)=<a+b,c=sqrt(-1)+1,d=add(c,-c)=>||add(1*c,2*c)=>&&add(3*c,4*c)=>,0||d|d||d&d&&0/*logical operator test case*/]
 (
-0,0,0,0
+0,0,0,infoLost[r ] 7
 )
 
 clear
@@ -1358,7 +1358,7 @@ local storage cleared
 0,1,2,0,0,0:
 0,0.30901699437494745,0.6180339887498949,0,0.9510565162951535,1.902113032590307:
 0,-0.8090169943749473,-1.6180339887498947,0,0.5877852522924732,1.1755705045849465:
-0,-0.8090169943749476,-1.6180339887498951,0,-0.587785252292473,-1.175570504584946:
+0,-0.8090169943749478,-1.6180339887498956,0,-0.5877852522924727,-1.1755705045849454:
 0,0.30901699437494723,0.6180339887498945,0,-0.9510565162951536,-1.9021130325903073:
 0,1,2,0,-2.4492935982947064e-16,-4.898587196589413e-16
 )
@@ -1414,7 +1414,7 @@ f
 1.253380767493447
 
 TaylorN
-1.256941769982288-0.000387948738993895i+O(3e-1+5e-3i)
+1.256941769982288-0.000387948738993895i+O(3e-1+2e-1i)
 
 f=<exp(sin(x)x)cos(x)
 stored_eqn(f)
@@ -1426,7 +1426,7 @@ f
 7.38905609893065
 
 TaylorN
-7.3809575286769205+0.0001497324852318865i+O(2e+1+2e+1i)
+7.38095752867692+0.00014973248523188646i+O(2e+1+2e+1i)
 
 N=7
 N=7
@@ -1495,10 +1495,10 @@ clear
 local storage cleared
 
 b
-3+1.2456874309439032e-17i+O(1e+1+1e+0i)
+2.9999999999999996+1.2456271157447575e-17i+O(1e+1+1e+0i)
 
 mdx=Newton(=<f,=<{b},=<{1},,20,1e-10,1)
-mdx=1.9028726919626664e-12+1.83418497011244e-12i+O(1e-5+1e-5i)
+mdx=1.90267531976558e-12+1.8342009910087198e-12i+O(1e-5+1e-5i)
 
 f=<{_ix(=<x^2,0,b,10)=3^3/3}/*integral equation*/
 stored_eqn(f)
@@ -1577,7 +1577,7 @@ local storage restored
 
 solvex_pivotting
 (
--3.9999999999999987:
+-3.9999999999999982:
 4.499999999999999
 )
 
@@ -1589,7 +1589,7 @@ local storage stored
 
 Gauss(A,b)/*Gaussian elimination with pivotting*/
 (
--3.9999999999999987:
+-3.9999999999999982:
 4.499999999999999
 )
 
@@ -1695,8 +1695,8 @@ e^(-i(1pi()2/2i(5-3-1)i/(-4)))/*associativity&precedence test case*/
 0.7071067811865476-0.7071067811865475i
 
 --------------------------------
-drag=false&sw=false&0x=false&useMatrix=true&useStrict=false&checkError=true&isRightAssociativityBR=false&isDIVprior2OMUL=false&useComma=false&useWorker=true&expDigit=-1&useComplex=-1&matSizeMax=1000&depthMax=300&makeLog=2
+drag=false&sw=false&0x=false&useMatrix=true&useStrict=false&checkError=true&isRightAssociativityBR=false&isDIVprior2OMUL=false&useComma=false&useWorker=true&expDigit=-1&useComplex=1&matSizeMax=1000&depthMax=300&makeLog=2
 --------------------------------
 --------------------------------
 
-online-simulator.github.io.6.250.106.13.56 @ Mon Jul 10 2023 02:03:20 GMT+0900 (日本標準時) @ Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/114.0.0.0 Safari/537.36
+online-simulator.github.io.6.250.106.13.56 @ Mon Jul 10 2023 02:03:33 GMT+0900 (日本標準時) @ Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/114.0.0.0 Safari/537.36

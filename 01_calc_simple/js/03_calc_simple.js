@@ -247,8 +247,9 @@ My_entry.calc_simple.prototype.init_handlers = function(){
         $.show(".ex-0x", isChecked, true);
         $.show(".ex-0b0o", (isChecked && My_entry.flag.useES6), true);  // Ver.2.146.37
         break;
-      case "checkbox-useComplex":
-        var isChecked = $.checkbox_elem(elem);
+      /* Ver.2.184.44 */
+      case "select-useComplex":
+        var isChecked = $.selectNum_elem(elem);
         $.show(".ex-com", isChecked);
         break;
       case "select-expDigit":

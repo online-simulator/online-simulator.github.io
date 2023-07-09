@@ -871,7 +871,7 @@ My_entry.parser.prototype.eval = function(script){
   var _msg = "";
   var data = DATA.data();  // Ver.2.30.16
   data.in = script;
-  data.options.useComplex = true;
+  data.options.useComplex = -1;  // Ver.2.184.44
   data.options.useMatrix = true;
   data.options.makeLog = true;
   try{
