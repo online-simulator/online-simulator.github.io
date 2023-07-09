@@ -125,6 +125,8 @@ My_entry.test_number.prototype.solve = function(isMinus){
   var str = $._id("input-string").value;
   var num = self.val2dec(str);
   if(isNaN(Number(num))) return false;
+  var num0 = num;  // Ver.0.34.4
+  var nmax = num;  // Ver.0.34.4
   var isCircular = false;  // Ver.0.33.4
   var len_m = 4;
   var freq2d = new Array(len_m);
@@ -164,6 +166,11 @@ My_entry.test_number.prototype.solve = function(isMinus){
     function(num){
       return ((num*2n+1n)+num);
     };
+  /* Ver.0.34.4 */
+  var output_log = function(msg){
+    msg += "<br>floor(nmax/n)="+nmax/num0;
+    $._id("output-log").innerHTML = "<caption class="+((isMinus)? "selection": "run")+">"+msg+"</caption>";
+  };
   var isBreak = (isMinus)?
     function(num, i){
       var _msg = "";
@@ -185,8 +192,10 @@ My_entry.test_number.prototype.solve = function(isMinus){
         _msg = "n <= 0";
       }
       if(_msg){
-        _msg += "<br>with No.="+i;
-        $._id("output-log").innerHTML = "<caption class='selection'>"+_msg+"</caption>";
+        /* Ver.0.34.4 -> */
+        _msg += " @No.="+i;
+        output_log(_msg);
+        /* -> Ver.0.34.4 */
       }
       return _msg;
     }:
@@ -199,8 +208,10 @@ My_entry.test_number.prototype.solve = function(isMinus){
         _msg = "n <= 0";
       }
       if(_msg){
-        _msg += "<br>with No.="+i;
-        $._id("output-log").innerHTML = "<caption class='run'>"+_msg+"</caption>";
+        /* Ver.0.34.4 -> */
+        _msg += " @No.="+i;
+        output_log(_msg);
+        /* -> Ver.0.34.4 */
       }
       return _msg;
     };
@@ -208,6 +219,11 @@ My_entry.test_number.prototype.solve = function(isMinus){
     var _html = "";
     _html += self.output_line("wF", "No.<br>&lt;1e6", "dec", "hex", "oct", "bin", "frequency distribution<br>ls3bit=001,011,101,111", "Nrshift(3)", "-1+(No.+1)/sum(frequency)");  // Ver.0.33.4
     for(var i=0; i<N; ++i){
+      /* Ver.0.34.4 -> */
+      if(num > nmax){
+        nmax = num;
+      }
+      /* -> Ver.0.34.4 */
       if(num%2n === 0n){
         _html += self.output_line(((isCircular)? "wF": ""), i, num, num.toString(16), num.toString(8), num.toString(2));  // Ver.0.33.4
         if(isBreak(num, i)){
@@ -263,7 +279,7 @@ My_entry.test_number.prototype.solve2 = function(){
   };
   var run = function(){
     var header0 = self.output_line("wF", "m", "3*n-1", "3*n+1");
-    var header1 = self.output_line("wF", "m", "n", "n&lt;&lt;1", "3*n<br>=n+(n&lt;&lt;1)", "3*n-1<br>=(3*n+1)-2", "3*n+1");  // Ver.0.34.4
+    var header1 = self.output_line("wF", "m", "n", "n&lt;&lt;1", "3*n<br>=n+(n&lt;&lt;1)", "3*n-1<br>=(3*n+1)-2", "3*n+1<br>=(3*n-1)+2");  // Ver.0.34.4
     var html0 = "";
     var html1 = "";
     var len_m = self.len_m;
