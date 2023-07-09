@@ -16221,7 +16221,7 @@ spaceを初期化する行列関数の入力仕様と付随する留意事項に
 ・opt_Np1||50：範囲分割数N+1の離散点数
 <br>
 <br>
-linspace(a,b,Np1)関数：linear-scaleの初期化
+linspace(a,b,opt_Np1)関数：linear-scaleの初期化
 <br>
 ・test caseを列挙する
 <br>
@@ -16250,6 +16250,22 @@ args=(trans(linspace(2,2,4)),trans(linspace(1,4,4))); pow(args) ->
 7.999999999999998:
 <br>
 15.999999999999998
+<br>
+)
+<br>
+・<span class="run">Ver.2.184.44</span>以降、auto-real selected時
+<br>
+args=(trans(linspace(2,2,4)),trans(linspace(1,4,4))); pow(args) ->
+<br>
+(
+<br>
+2:
+<br>
+4:
+<br>
+8:
+<br>
+16
 <br>
 )
     </td>
