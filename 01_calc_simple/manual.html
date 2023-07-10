@@ -11144,6 +11144,8 @@ MIN_VALUE -> 5e-324
 <br>
 2^3 -> 8
 <br>
+(2**3)i -> 8i
+<br>
 (-1)**0.5 -> NaN
 <br>
 (-1)^0.5 -> NaN
@@ -11173,6 +11175,8 @@ log(2) -> 0.6931471805599453
 log(4) -> 1.3862943611198906
 <br>
 log(i) -> 1.5707963267948966i
+<br>
+sqrt(-1+false*i) -> NaN
 <br>
 sqrt(-1+eps*i) -> 6.123233995736766e-17+i
 <br>
@@ -13635,9 +13639,19 @@ clear; x(t)=&lt;-t; x=-999; f=&lt;x(1)=&gt;x+1; f; x -> -1
 <br>
 (-1)i || -(1)i || -1(i) || -(i) -> -i
 <br>
+(i)i || i(i) || i*i -> -1
+<br>
 3i/2 -> 1.5i
 <br>
 1/2i || 1/(2i) -> -0.5i
+<br>
+・<span class="run">Ver.2.158.38</span>以降、<a href="#span-out-literal">literal</a>を追加
+<br>
+0i || (0)i || (false)i || 0*i -> 0
+<br>
+1i || (1)i || (true)i || 1*i -> i
+<br>
+(NaN)i || NaN*i -> NaN
 <br>
 <br>
 複素数を宣言する<a href="#span-out-FN">関数</a>を示す
@@ -13653,6 +13667,8 @@ imag(3+i) -> 1
 <br>
 <br>
 iの2乗の演算結果を示す
+<br>
+i*i || (-i)*(-i) -> -1
 <br>
 ・<a href="#span-out-type-ope">中置2項演算子</a>||<a href="#span-out-FN-pow">pow関数</a>を使用
 <br>

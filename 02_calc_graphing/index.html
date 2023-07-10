@@ -121,6 +121,7 @@
       $._id("atanh").onclick = function(){setVal("-0.99", "3", "x=t,x;", "atanh(x);atanh_(z)=<ln((1+z)/(1-z))/2,atanh_(x);tanh(atanh(x));atanh(tanh(x));", 101);};
       $._id("acsch").onclick = function(){setVal("0.01", "2", "x=t,x;", "acosh(x);acosh_(z)=<ln(sqrt(z*z-1)+z),acosh_(x);asech(x);asech_(z)=<acosh_(1/z),asech_(x);csch(acsch(x));sech(asech(x));acsch(csch(x));asech(sech(x));", 10);};
       $._id("acoth").onclick = function(){setVal("-0.99", "3", "x=t,x;", "acoth(x);atanh_(z)=<ln((1+z)/(1-z))/2,acoth_(z)=<atanh_(1/z),acoth_(x);coth(acoth(x));acoth(coth(x));", 101);};
+      $._id("acoth_com").onclick = function(){setVal("-0.99+(eps)i", "3+(eps)i", "x=t,x;", "acoth(x);atanh_(z)=<ln((1+z)/(1-z))/2,acoth_(z)=<atanh_(1/z),acoth_(x);coth(acoth(x));acoth(coth(x));", 101);};
       $._id("sigmoid").onclick = function(){setVal("-2", "2", "x=t,x;", "Gudermannian_fn(x)=<asin(tanh(x)),Gudermannian_fn(x);zeta(x,a,b)=<(1+exp(-a*x))**(-1)+b,zeta(x,3,-0.5);sin(atan(x));atan(x);tanh(x);", 10);};
       $._id("clothoid").onclick = function(){setVal("0", "2pi", "_it(=<cos(t**2/2),0,t);", "_it(=<sin(t**2/2),0,t);", 50);$._id("input-z").value+="::3:1.5:1.5;";};
       $._id("cycloid").onclick = function(){setVal("0", "2pi", "rm=1,rc=3,x1=rm*(t-sin(t)),x2=(rc+rm)cos(t)-rm*cos((rc+rm)t/rm),x3=(rc-rm)cos(t)+rm*cos((rc-rm)t/rm),x1;x2;x3;", "y1=rm*(1-cos(t)),y2=(rc+rm)sin(t)-rm*sin((rc+rm)t/rm),y3=(rc-rm)sin(t)-rm*sin((rc-rm)t/rm),y1;y2;y3;", 100);$._id("input-z").value+="::0::::cycloid;::::::epicycloid;::::::hypocycloid;";};
@@ -352,6 +353,7 @@ plot2d
   <button id="atanh">atanh</button>
   <button id="acsch">acsch</button>
   <button id="acoth">acoth</button>
+  <button id="acoth_com">-c</button>
 <br>
   <button id="sigmoid">sigmoid</button>
   <button id="clothoid">clothoid</button>
