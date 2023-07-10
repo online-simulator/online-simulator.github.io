@@ -36,29 +36,37 @@ My_entry.math_mat.prototype.init2d_num = function(len_i, len_j, num){
 My_entry.math_mat.prototype.num2size = function(options, num, opt_n0){  // Ver.2.183.44
   var self = this;
   var _n = (num && num.com)? Math.round(num.com.r): (opt_n0 || 0);  // Ver.2.127.34 floor -> round  // Ver.2.183.44
-  if(_n <= 0 || isNaN(_n)) throw "Invalid matrix size";  // Ver.2.170.42
+  if(isNaN(_n)) throw "Invalid matrix size";  // Ver.2.170.42  // Ver.2.185.44
+  if((opt_n0 === 0)? _n < 0: _n <= 0) throw "Invalid matrix size";  // Ver.2.185.44
   if(_n > options.matSizeMax) throw "Invalid matSizeMax over";
   return _n;
+};
+/* Ver.2.185.44 */
+My_entry.math_mat.prototype.make_arr = function(options, num0, num1, callback){
+  var self = this;
+  var m = (num0)? self.num2size(options, num0, 0): 1;
+  var n = (num1)? self.num2size(options, num1, 0): 1;
+  return ((n === 0 || m === 0)? []: callback(m, n));
 };
 /* Ver.2.25.12 -> */
 My_entry.math_mat.prototype.vectorr = function(options, arr){
   var self = this;
   var args = self.arr2args(arr);
   var num = args[0];
-  return self.zeros2d(1, self.num2size(options, num));
+  return self.make_arr(options, null, num, function(m, n){return self.zeros2d(m, n);});  // Ver.2.185.44
 };
 My_entry.math_mat.prototype.vectorc = function(options, arr){
   var self = this;
   var args = self.arr2args(arr);
   var num = args[0];
-  return self.zeros2d(self.num2size(options, num), 1);
+  return self.make_arr(options, num, null, function(m, n){return self.zeros2d(m, n);});  // Ver.2.185.44
 };
 /* -> Ver.2.25.12 */
 My_entry.math_mat.prototype.identity = function(options, arr){
   var self = this;
   var args = self.arr2args(arr);
   var num = args[0];
-  return self.Imat(self.num2size(options, num));  // Ver.2.22.11
+  return self.make_arr(options, num, null, function(m, n){return self.Imat(m);});  // Ver.2.185.44
 };
 My_entry.math_mat.prototype.scalars = function(options, arr){
   var self = this;
@@ -66,21 +74,21 @@ My_entry.math_mat.prototype.scalars = function(options, arr){
   var num0 = args[0];
   var num1 = args[1];
   if(!(num1 && num1.com)) throw "Invalid Scalar";
-  return self.Imat_num(self.num2size(options, num0), num1);  // Ver.2.22.11
+  return self.make_arr(options, num0, null, function(m, n){return self.Imat_num(m, num1);});  // Ver.2.185.44
 };
 My_entry.math_mat.prototype.zeros = function(options, arr){
   var self = this;
   var args = self.arr2args(arr);
   var num0 = args[0];
   var num1 = args[1] || num0;  // Ver.2.185.44
-  return self.zeros2d(self.num2size(options, num0), self.num2size(options, num1));  // Ver.2.22.11
+  return self.make_arr(options, num0, num1, function(m, n){return self.zeros2d(m, n);});  // Ver.2.185.44
 };
 My_entry.math_mat.prototype.ones = function(options, arr){
   var self = this;
   var args = self.arr2args(arr);
   var num0 = args[0];
   var num1 = args[1] || num0;  // Ver.2.185.44
-  return self.ones2d(self.num2size(options, num0), self.num2size(options, num1));  // Ver.2.22.11
+  return self.make_arr(options, num0, num1, function(m, n){return self.ones2d(m, n);});  // Ver.2.185.44
 };
 My_entry.math_mat.prototype.zeros2d = function(len_i, len_j){
   var self = this;

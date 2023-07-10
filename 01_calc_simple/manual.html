@@ -15931,6 +15931,11 @@ trans({1,2,3:}) -> (1,2,3:0,0,0)
 x=[]; x -> []
 <br>
 <br>
+空行列を返す行列関数を列挙する
+<br>
+・<a href="#span-out-FNm-init">初期化行列関数</a>
+<br>
+<br>
 留意事項を列挙する
 <br>
 ・現状、空行列との演算を逐次判定しないため、<a href="#span-out-concatination">行列結合</a>を前提とする
@@ -16068,9 +16073,13 @@ vectorr(6) -> (0,0,0,0,0,0)
 <br>
 vectorr(9) -> (0,0,0,0,0,0,0,0,0)
 <br>
-vectorr(0) || vectorr(-1) -> [MyErr]Invalid matrix size
+vectorr(-1) -> [MyErr]Invalid matrix size
 <br>
 vectorr(1001) -> [MyErr]Invalid matSizeMax over
+<br>
+・<span class="run">Ver.2.185.44</span>以降、<a href="#span-out-reference-mat-size">行列size</a>=0の場合、<a href="#span-out-mat-empty">空行列</a>を返す
+<br>
+vectorr(0) -> []
 <br>
 <br>
 列vector
@@ -16080,6 +16089,10 @@ vectorc(3) || vector3c -> (0:0:0)
 vectorc(6) -> (0:0:0:0:0:0)
 <br>
 vectorc(9) -> (0:0:0:0:0:0:0:0:0)
+<br>
+・<span class="run">Ver.2.185.44</span>以降、<a href="#span-out-reference-mat-size">行列size</a>=0の場合、<a href="#span-out-mat-empty">空行列</a>を返す
+<br>
+vectorc(0) -> []
 <br>
 <br>
 単位行列
@@ -16096,9 +16109,13 @@ identity(2.5) || identity(3) -> (1,0,0:0,1,0:0,0,1)
 <br>
 identity(3.3) || identity(3) -> (1,0,0:0,1,0:0,0,1)
 <br>
-・<a href="#span-out-reference-mat-size">行列size</a>が0以下の場合、error終了
+・<a href="#span-out-reference-mat-size">行列size</a>が負の場合、error終了
 <br>
-identity(0) || identity(-1)  -> [MyErr]Invalid matrix size
+identity(-1)  -> [MyErr]Invalid matrix size
+<br>
+・<span class="run">Ver.2.185.44</span>以降、<a href="#span-out-reference-mat-size">行列size</a>=0の場合、<a href="#span-out-mat-empty">空行列</a>を返す
+<br>
+identity(0) -> []
 <br>
 ・<a href="#span-in-options">matSizeMax</a>を超過の場合、error終了
 <br>
@@ -16120,6 +16137,10 @@ scalars(2,-3) -> (-3,0:0,-3)
 scalars(3,i) -> (i,0,0:0,i,0:0,0,i)
 <br>
 Scalars(4,3-5i) -> (3-5i,0,0,0:0,3-5i,0,0:0,0,3-5i,0:0,0,0,3-5i)
+<br>
+・<span class="run">Ver.2.185.44</span>以降、<a href="#span-out-reference-mat-size">行列size</a>=0の場合、<a href="#span-out-mat-empty">空行列</a>を返す
+<br>
+scalars(0,1) -> []
 <br>
 ・任意size行列AのScalar倍
 <br>
@@ -16186,7 +16207,7 @@ zeros(2,2) -> (0,0:0,0)
 <br>
 zeros(3,5) -> (0,0,0,0,0:0,0,0,0,0:0,0,0,0,0)
 <br>
-zeros(0,1) || zeros(-1,1)  -> [MyErr]Invalid matrix size
+zeros(-1,1)  -> [MyErr]Invalid matrix size
 <br>
 zeros(1001,1) -> [MyErr]Invalid matSizeMax over
 <br>
@@ -16206,11 +16227,17 @@ mat3x3=zeros(3,3); pivot=1; mat3x3[0][0][0]=(pivot,pivot,pivot); mat3x3 ->
 <br>
 ・<span class="run">Ver.2.185.44</span>以降、正方行列の場合、第2引数を省略可
 <br>
+zeros(NaN) -> [MyErr]Invalid matrix size
+<br>
 zeros(1) -> 0
 <br>
 zeros(2) -> (0,0:0,0)
 <br>
 zeros(3) -> (0,0,0:0,0,0:0,0,0)
+<br>
+・<span class="run">Ver.2.185.44</span>以降、<a href="#span-out-reference-mat-size">行列size</a>=0の場合、<a href="#span-out-mat-empty">空行列</a>を返す
+<br>
+zeros(0) || zeros(0,1) || zeros(1,0) -> []
 <br>
 <br>
 ones行列
@@ -16221,11 +16248,17 @@ ones(5,3) -> (1,1,1:1,1,1:1,1,1:1,1,1:1,1,1)
 <br>
 ・<span class="run">Ver.2.185.44</span>以降、正方行列の場合、第2引数を省略可
 <br>
+ones(NaN) -> [MyErr]Invalid matrix size
+<br>
 ones(1) -> 1
 <br>
 ones(2) -> (1,1:1,1)
 <br>
 ones(3) -> (1,1,1:1,1,1:1,1,1)
+<br>
+・<span class="run">Ver.2.185.44</span>以降、<a href="#span-out-reference-mat-size">行列size</a>=0の場合、<a href="#span-out-mat-empty">空行列</a>を返す
+<br>
+ones(0) || ones(0,1) || ones(1,0) -> []
     </td>
   </tr>
   <tr>
@@ -16265,9 +16298,15 @@ linspace(1+2i,10+10i,9) -> (1+2i,2.125+3i,3.25+4i,4.375+5i,5.5+6i,6.625+7i,7.75+
 <br>
 linspace(10+10i,1+2i,9) -> (10+10i,8.875+9i,7.75+8i,6.625+7i,5.5+6i,4.375+5i,3.25+4i,2.125+3i,1+2i)
 <br>
-linspace(1,2,1) -> 1
+・<a href="#span-out-reference-mat-size">行列size</a>=1の場合、範囲のleftを返す
 <br>
-linspace(1,2,0) || linspace(1,2,NaN) -> [MyErr]Invalid matrix size
+linspace([2,3],1) || linspace(2,3,1) -> 2
+<br>
+・<a href="#span-out-reference-mat-size">行列size</a>=0の場合、error終了
+<br>
+linspace(1,2,0) -> [MyErr]Invalid matrix size
+<br>
+linspace(1,2,NaN) -> [MyErr]Invalid matrix size
 <br>
 linspace(1,2,1001) -> [MyErr]Invalid matSizeMax over
 <br>

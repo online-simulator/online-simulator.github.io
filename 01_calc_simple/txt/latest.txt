@@ -1,6 +1,78 @@
 clear
 local storage cleared
 
+htrans(linspace(1,i,3):linspace(i,1,5))
+(
+1,-i:
+0.5-0.5i,0.25-0.75i:
+-i,0.5-0.5i:
+0,0.75-0.25i:
+0,1
+)
+
+ones(3,2)
+(
+1,1:
+1,1:
+1,1
+)
+
+zeros(2,3)
+(
+0,0,0:
+0,0,0
+)
+
+scalars(3,-1+i)
+(
+-1+i,0,0:
+0,-1+i,0:
+0,0,-1+i
+)
+
+identity(3)
+(
+1,0,0:
+0,1,0:
+0,0,1
+)
+
+vectorc(3)
+(
+0:
+0:
+0
+)
+
+vectorr(3)
+(
+0,0,0
+)
+
+ones(1,0)
+[]
+
+ones(0,1)
+[]
+
+zeros(1,0)
+[]
+
+zeros(0,1)
+[]
+
+scalars(0,1)
+[]
+
+identity(0)
+[]
+
+vectorc(0)
+[]
+
+vectorr(0)
+[]
+
 norm(trans(A[0])),norm(trans(A[1])),norm(trans(A[2])),norm(trans(A))
 (
 1,1,1,1
@@ -37,9 +109,9 @@ mat2x3=(
 0,0,0
 )
 
-size(NaN),size(zeros(2,2)),size(zeros(3)),size(ones(4)),size(identity(5)),size(scalars(6,1))
+sizer([]),sizec([]),size([]),size(NaN),size(zeros(2,2)),size(zeros(3)),size(ones(4)),size(identity(5)),size(scalars(6,1))
 (
-1,2,3,4,5,6
+0,0,0,1,2,3,4,5,6
 )
 
 clear
@@ -1743,4 +1815,4 @@ drag=false&sw=false&0x=false&useMatrix=true&useStrict=false&checkError=true&isRi
 --------------------------------
 --------------------------------
 
-online-simulator.github.io.6.251.107.13.56 @ Mon Jul 10 2023 18:33:09 GMT+0900 (日本標準時) @ Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/114.0.0.0 Safari/537.36
+online-simulator.github.io.6.251.107.13.56 @ Mon Jul 10 2023 21:48:31 GMT+0900 (日本標準時) @ Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/114.0.0.0 Safari/537.36
