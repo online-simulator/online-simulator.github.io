@@ -1,6 +1,50 @@
 clear
 local storage cleared
 
+norm(trans(A[0])),norm(trans(A[1])),norm(trans(A[2])),norm(trans(A))
+(
+1,1,1,1
+)
+
+A={normalizer(vecr*1),trans(normalize(vecc*2)),trans(normalizec(vecc*(-3)))}
+A=(
+0.5,0.5i,0.5-0.5i:
+0.5,0.5i,0.5-0.5i:
+-0.5,-0.5i,-0.5+0.5i
+)
+
+vecc=trans(vecr)
+vecc=(
+1:
+i:
+1-i
+)
+
+vecr=(1,i,1-i)
+vecr=(
+1,i,1-i
+)
+
+size(mat2x3),={sizer(mat2x3),sizec(mat2x3)},size({(1,2,3),4})
+(
+2,2,2:
+3,3,3
+)
+
+mat2x3=zeros(2,3)
+mat2x3=(
+0,0,0:
+0,0,0
+)
+
+size(NaN),size(zeros(2,2)),size(zeros(3)),size(ones(4)),size(identity(5)),size(scalars(6,1))
+(
+1,2,3,4,5,6
+)
+
+clear
+local storage cleared
+
 (eps,MIN_VALUE:1/0,2**3,2^3,(-1)**0.5,(-1)^0.5:sqrt(-1),sqrt(2),sqrt(4),sqrt(i):pow(-1,0.5),pow(2,2),pow(2,4),pow(i,4),pow(2,i):log(-1),log(2),log(4),log(i):sqrt(-1+eps*i),sqrt(-1+MIN_VALUE*i):pow(-1+(eps)i,0.5),pow(-1+(MIN_VALUE)i,0.5):log(-1+i*eps),log(-1-i*eps):pow(2+MIN_VALUE*i,3):complex(2,false)**3:imag(NaN*(1+2i)),2.2%2,NaN&NaN)
 (
 2.220446049250313e-16,5e-324:
@@ -1699,4 +1743,4 @@ drag=false&sw=false&0x=false&useMatrix=true&useStrict=false&checkError=true&isRi
 --------------------------------
 --------------------------------
 
-online-simulator.github.io.6.250.106.13.56 @ Mon Jul 10 2023 02:03:20 GMT+0900 (日本標準時) @ Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/114.0.0.0 Safari/537.36
+online-simulator.github.io.6.251.107.13.56 @ Mon Jul 10 2023 18:33:09 GMT+0900 (日本標準時) @ Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/114.0.0.0 Safari/537.36

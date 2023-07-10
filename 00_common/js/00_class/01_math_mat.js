@@ -72,14 +72,14 @@ My_entry.math_mat.prototype.zeros = function(options, arr){
   var self = this;
   var args = self.arr2args(arr);
   var num0 = args[0];
-  var num1 = args[1];
+  var num1 = args[1] || num0;  // Ver.2.185.44
   return self.zeros2d(self.num2size(options, num0), self.num2size(options, num1));  // Ver.2.22.11
 };
 My_entry.math_mat.prototype.ones = function(options, arr){
   var self = this;
   var args = self.arr2args(arr);
   var num0 = args[0];
-  var num1 = args[1];
+  var num1 = args[1] || num0;  // Ver.2.185.44
   return self.ones2d(self.num2size(options, num0), self.num2size(options, num1));  // Ver.2.22.11
 };
 My_entry.math_mat.prototype.zeros2d = function(len_i, len_j){
@@ -385,6 +385,18 @@ My_entry.math_mat.prototype.sizer = function(options, arr){
   var lens = self.get_lens(arr);
   return [[DATA.num(lens.i, 0)]];
 };
+/* Ver.2.185.44 */
+My_entry.math_mat.prototype.size = function(options, arr){
+  var self = this;
+  var DATA = self.entry.DATA;
+  var lens = self.get_lens(arr);
+  var _arr = [[DATA.num(lens.i, 0)]];
+  var isSquare = (lens.i === lens.j);
+  if(!(isSquare)){
+    _arr.push([DATA.num(lens.j, 0)]);
+  }
+  return _arr;
+};
 My_entry.math_mat.prototype.sizec = function(options, arr){
   var self = this;
   var DATA = self.entry.DATA;
@@ -421,6 +433,7 @@ My_entry.math_mat.prototype.normalizer = function(options, arr){
   }
   return _arr;
 };
+My_entry.math_mat.prototype.normalize =  // Ver.2.185.44
 My_entry.math_mat.prototype.normalizec = function(options, arr){
   var self = this;
   var DATA = self.entry.DATA;

@@ -510,16 +510,12 @@ My_entry.parser.prototype.make_trees = function(sentence, opt_re){  // Ver.2.158
       case "rotationy":
       case "rotationz":
       case "sizer":
-      case "normalizer":
-        tree = DATA.tree_tag("FNm", token_lower);
-        break;
       case "size":
       case "sizec":
-        tree = DATA.tree_tag("FNm", "sizec");
-        break;
+      case "normalizer":
       case "normalize":
       case "normalizec":
-        tree = DATA.tree_tag("FNm", "normalizec");
+        tree = DATA.tree_tag("FNm", token_lower);
         break;
       case "trans":
       case "transpose":

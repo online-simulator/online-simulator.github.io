@@ -1627,6 +1627,10 @@ title/発行元(発行年)を列挙する
 　影響項目：<a href="#span-out-FN-sqrt">sqrt関数</a>||<a href="#span-out-FN-pow">pow関数</a>||<a href="#span-out-FN-log">log関数</a>||<a href="#span-out-FN-sin">三角関数</a>||<a href="#span-out-FN-sinh">双曲線関数</a>
 <br>
 　<a href="#span-in-myeval">独自eval</a>の既定値を更新
+<br>
+・<span class="run">Ver.2.185.44</span>以降、<a href="#span-out-FNm-size">size行列関数</a>の非正方行列の返値の仕様変更
+<br>
+　列数n　⇒　{行数m,列数n}
     </td>
   </tr>
   <tr>
@@ -16200,12 +16204,28 @@ mat3x3=zeros(3,3); pivot=1; mat3x3[0][0][0]=(pivot,pivot,pivot); mat3x3 ->
 <br>
 )
 <br>
+・<span class="run">Ver.2.185.44</span>以降、第2引数を省略可
+<br>
+zeros(1) -> 0
+<br>
+zeros(2) -> (0,0:0,0)
+<br>
+zeros(3) -> (0,0,0:0,0,0:0,0,0)
+<br>
 <br>
 ones行列
 <br>
 ones(2,2) -> (1,1:1,1)
 <br>
 ones(5,3) -> (1,1,1:1,1,1:1,1,1:1,1,1:1,1,1)
+<br>
+・<span class="run">Ver.2.185.44</span>以降、第2引数を省略可
+<br>
+ones(1) -> 1
+<br>
+ones(2) -> (1,1:1,1)
+<br>
+ones(3) -> (1,1,1:1,1,1:1,1,1)
     </td>
   </tr>
   <tr>
@@ -16533,6 +16553,14 @@ size行列関数の入力仕様と付随する留意事項について記述す�
 <br>
 <a href="#span-out-reference-mat-size">m行n列の行列size</a>（欠損要素を自動で埋める）
 <br>
+・<span class="run">Ver.2.185.44</span>以降、size行列関数の非正方行列の返値の仕様変更（n　⇒　{m,n}）
+<br>
+size(1,2:3,4) -> 2
+<br>
+<del>size(1,2:3,4:) -> 2</del>
+<br>
+size(1,2:3,4:) -> (3:2)
+<br>
 ・行size:=m
 <br>
 sizer(1,2:3,4) -> 2
@@ -16545,7 +16573,7 @@ sizer(1:3,4:) -> 3
 <br>
 ・列size:=n
 <br>
-size(1,2:3,4) || sizec(1,2:3,4) -> 2
+sizec(1,2:3,4) -> 2
 <br>
 sizec(1,2:3,4)[0] || sizec(1,2) -> 2
 <br>
@@ -16576,9 +16604,19 @@ clear; A=(,:,); sizec(A,A:A,A) -> 4
 <br>
 test caseを示す
 <br>
+size(1) -> 1
+<br>
+size(identity(2)) -> 2
+<br>
+size(zeros(2,3)) -> (2:3)
+<br>
 size_mn(mat)=&lt;{sizer(mat),sizec(mat)};
 <br>
 mat=(1,2:3,4:5,6);
+<br>
+size(mat) -> (3:2)
+<br>
+size_mn(=&lt;mat) -> (3:2)
 <br>
 {$m,$n}=size_mn(=&lt;mat);
 <br>
@@ -21120,7 +21158,13 @@ ttA=trans(trans(A)) ->
 <br>
 sizer(A)-sizer(ttA),sizer(A) -> (0,3)
 <br>
-sizec(A)-sizec(ttA),sizec(A),size(A) -> (0,4,4)
+sizec(A)-sizec(ttA),sizec(A) -> (0,4)
+<br>
+・<span class="run">Ver.2.185.44</span>以降、<a href="#span-out-FNm-size">size行列関数</a>の非正方行列の返値の仕様変更
+<br>
+<del>size(A) -> 4</del>
+<br>
+size(A) -> (3:4)
 <br>
 <br>
 留意事項を列挙する
@@ -34497,16 +34541,12 @@ parser.js抜粋
       case "rotationy":
       case "rotationz":
       case "sizer":
-      case "normalizer":
-        tree = DATA.tree_tag("FNm", token_lower);
-        break;
       case "size":
       case "sizec":
-        tree = DATA.tree_tag("FNm", "sizec");
-        break;
+      case "normalizer":
       case "normalize":
       case "normalizec":
-        tree = DATA.tree_tag("FNm", "normalizec");
+        tree = DATA.tree_tag("FNm", token_lower);
         break;
       case "trans":
       case "transpose":
@@ -34836,9 +34876,9 @@ rotationx(NaN);
 rotationy(NaN);
 rotationz(NaN);
 sizer(NaN);  // 1
-normalizer(NaN);
 size(NaN);  // 1
 sizec(NaN);  // 1
+normalizer(NaN);
 normalize(NaN);
 normalizec(NaN);
 trans(NaN);
