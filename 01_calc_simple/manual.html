@@ -802,6 +802,8 @@ e^(-i(1pi(){2/2i}(5-{3-1}){i/(-4)}))
 <br>
 ・<a href="#span-eqn-FourierN">FourierN</a>
 <br>
+・<a href="#span-eqn-primes">primes</a>
+<br>
 ・<a href="#span-eqn-Pythagoras">Pythagoras</a>
 <br>
 ・<a href="#span-eqn-Fermat">Fermat</a>
@@ -15934,6 +15936,17 @@ x=[]; x -> []
 空行列を返す行列関数を列挙する
 <br>
 ・<a href="#span-out-FNm-init">初期化行列関数</a>
+<br>
+<br>
+test caseを示す
+<br>
+test_concat(k0,N)=&lt;[arr=[],_rk(=&lt;last{arr=(arr,k),k+1},k0,N),=&lt;arr]=&gt;;
+<br>
+vecr=test_concat(N=5,N)=&gt;; vecr -> (0,1,2,3,4)
+<br>
+sizer(vecr) -> 1
+<br>
+sizec(vecr) -> 5
 <br>
 <br>
 留意事項を列挙する
@@ -37224,6 +37237,53 @@ _sn(=&lt;(cn(n)=&gt;)*e^(i*(n)*x),-N,N)
 ];
 <br>
 last[ft=&lt;e^(i*(2.5)*t),FourierN(=&lt;ft,2,5)=&gt;];
+    </td>
+  </tr>
+  <tr>
+    <th>
+<a href="#span-index">
+目次
+</a>
+<br>
+primes
+    </th>
+    <td>
+<span id="span-eqn-primes"></span>
+<a href="#span-out-analogy">analogy</a>参照
+<br>
+clear;
+<br>
+isPrime(n)=&lt;[isPrime=n&gt;1,kmax=sqrt(n),
+<br>
+_rk(=&lt;k+1,2,isPrime&amp;&amp;1e6,=&lt;{k&gt;kmax|||n%k==0&amp;&amp;&amp;(isPrime=0)}),
+<br>
+=&lt;isPrime]=&gt;;
+<br>
+listup_primes(n0,n1)=&lt;[arr=[],
+<br>
+_sn(=&lt;last{isPrime(n)=&gt;&amp;&amp;&amp;(arr=(arr,n))},n0,n1),
+<br>
+=&lt;arr]=&gt;;
+<br>
+pickup_prime(n,primes)=&lt;[
+<br>
+_rk(=&lt;last{prime=primes[k],k+1},N=sizer(primes),N,=&lt;{n%prime==0}),
+<br>
+=&lt;prime]=&gt;;
+<br>
+factorize(n,primes)=&lt;[arr=[],
+<br>
+_rk(=&lt;last{prime=pickup_prime(n,=&lt;primes)=&gt;,
+<br>
+arr=(arr,prime),n=n/prime},isPrime=n&gt;1,isPrime&amp;&amp;1e6,=&lt;{n&lt;=1}),
+<br>
+=&lt;arr]=&gt;;
+<br>
+[n=100,primes=listup_primes(0,n)=&gt;,
+<br>
+primes_factorized=factorize(n,=&lt;trans(primes))=&gt;,
+<br>
+=&lt;(n,=prod(primes_factorized):primes_factorized:primes)]=&gt;;
     </td>
   </tr>
   <tr>
