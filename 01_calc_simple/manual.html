@@ -33399,13 +33399,15 @@ f=&lt;last{V=1,E=0,k=1,I=exp(k*(V-E))-exp(-k*(V-E))}
 <br>
 ・よって<a href="#span-out-FNh">高階関数</a>をnestingする場合、致命的にthroughputが低下する（<a href="#span-out-FNh-DX">微分の多重化</a>||<a href="#span-out-interpolation-Lagrange">Lagrange補間</a>）
 <br>
+・その他、<a href="#span-out-FNh">高階関数</a>は引数順序に改善の余地がある（長引く<a href="#span-out-call-by-equation">式渡し</a>の引数は後方に配置する等）
+<br>
 ・<a href="#span-out-flow">parser</a>は複数種類の<a href="#span-out-BT">括弧</a>のnestingに対応し、再帰的に<a href="#span-in-tree">tree構造</a>を階層化する
 <br>
 ・よって<a href="#span-out-bracket">階層</a>に紐付く<a href="#span-out-scope-vars">変数のscope</a>はstaticで再利用可能としたが、最善を追及していない
 <br>
 ・<a href="#span-out-eqns-args">式変数のarguments</a>も同様に、最善の仕様を追及していない
 <br>
-・<a href="#span-out-FN">関数</a>を含む実装関数は最善のalgorithmとは限らない（<a href="#span-out-interpolation-spline">spline補間</a>||<a href="#span-out-linear">Gaussの消去法</a>）
+・<a href="#span-out-FN">関数</a>を含む実装関数は最善のalgorithmとは限らない（<a href="#span-out-FN-statistic">sort関数</a>||<a href="#span-out-interpolation-spline">spline補間</a>||<a href="#span-out-linear">Gaussの消去法</a>）
 <br>
 ・debug機能が存在しないため、<a href="#span-out-vars">変数</a>・<a href="#span-out-eqns">式変数</a>はpollution disabledの厳格な制約条件を課す
 <br>
@@ -33581,7 +33583,7 @@ vectorr(round(2^3)) || vectorr(8)  <span class="selection">// OK</span> -> (0,0,
 <span id="span-out-development-problems-matrix"></span>
 行列演算の問題点を列挙する
 <br>
-・当初、<a href="#span-out-mat-product">行列積</a>の<a href="#span-out-ope">演算量</a>を多少減らすため、欠損要素を許容したが、
+・当初、<a href="#span-out-mat-product">行列積</a>の<a href="#span-out-ope">演算量</a>を多少減らすため、<a href="#span-out-mat-blank">欠損要素</a>を許容したが、
 <br>
 ・<span class="run">Ver.2.76.29</span>以降、<a href="#span-out-array">行列操作</a>の<a href="#span-out-ope">演算速度</a>を犠牲にする弊害の方が圧倒的に大きい
 <br>
@@ -37261,7 +37263,7 @@ _rk(=&lt;k+1,2,isPrime&amp;&amp;1e6,=&lt;{k&gt;kmax|||n%k==0&amp;&amp;&amp;(isPr
 <br>
 listup_primes(n0,n1)=&lt;[arr=[],
 <br>
-_sn(=&lt;last{isPrime(n)=&gt;&amp;&amp;&amp;(arr=(arr,n))},n0,n1),
+_sn(=&lt;isPrime(n)=&gt;&amp;&amp;&amp;(arr=(arr,n)),n0,n1),
 <br>
 =&lt;arr]=&gt;;
 <br>
