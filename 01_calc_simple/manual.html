@@ -21465,6 +21465,8 @@ test caseを列挙する
 <br>
 _sn(=&lt;{n},1,10) || 1+2+3+4+5+6+7+8+9+10 || (10+1)10/2 -> 55
 <br>
+eqn=&lt;n; _sn(=&lt;eqn,1,10) || _sn(=&lt;eqn=&gt;,1,10) -> 55
+<br>
 ・範囲反転を単なる逆順の演算で定義する
 <br>
 _Sn(=&lt;{n},10,1) || 10+9+8+7+6+5+4+3+2+1 -> 55
@@ -21643,6 +21645,8 @@ test caseを列挙する
 <br>
 _pn(=&lt;{n},1,10) || 1*2*3*4*5*6*7*8*9*10 -> 3628800
 <br>
+eqn=&lt;n; _pn(=&lt;eqn,1,10) || _pn(=&lt;eqn=&gt;,1,10) -> 3628800
+<br>
 ・範囲反転を単なる逆順の演算で定義する
 <br>
 _Pn(=&lt;{n},10,1) || 10*9*8*7*6*5*4*3*2*1 -> 3628800
@@ -21759,6 +21763,10 @@ _rn(=&lt;{n+1},,1) -> 1
 _rn(=&lt;{n+1},,2) -> 2
 <br>
 ・同義
+<br>
+eqn=&lt;n+1; _rn(=&lt;eqn,,2) -> 2
+<br>
+_rn(=&lt;eqn=&gt;,eqn=&lt;n+1,2) -> 2
 <br>
 Pn=0; _rn(=&lt;{Pn=Pn+1},0,2); Pn -> 2
 <br>
@@ -33400,6 +33408,10 @@ f=&lt;last{V=1,E=0,k=1,I=exp(k*(V-E))-exp(-k*(V-E))}
 ・よって<a href="#span-out-FNh">高階関数</a>をnestingする場合、致命的にthroughputが低下する（<a href="#span-out-FNh-DX">微分の多重化</a>||<a href="#span-out-interpolation-Lagrange">Lagrange補間</a>）
 <br>
 ・その他、<a href="#span-out-FNh">高階関数</a>は引数順序に改善の余地がある（長引く<a href="#span-out-call-by-equation">式渡し</a>の引数は後方に配置する等）
+<br>
+n=4,primes={2,3,5},eqn<span class="clear">=&lt;last{prime=primes[k],k+1}</span>;
+<br>
+_rk(<span class="clear">=&lt;eqn</span>,N=sizer(primes),N,=&lt;{n%prime==0}); prime -> 2
 <br>
 ・<a href="#span-out-flow">parser</a>は複数種類の<a href="#span-out-BT">括弧</a>のnestingに対応し、再帰的に<a href="#span-in-tree">tree構造</a>を階層化する
 <br>
