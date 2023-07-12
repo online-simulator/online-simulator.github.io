@@ -21483,7 +21483,7 @@ test caseを列挙する
 <br>
 _sn(=&lt;{n},1,10) || 1+2+3+4+5+6+7+8+9+10 || (10+1)10/2 -> 55
 <br>
-eqn=&lt;n; _sn(=&lt;eqn,1,10) || _sn(=&lt;eqn=&gt;,1,10) -> 55
+eqn_n=&lt;n; _sn(=&lt;eqn_n,1,10) || _sn(=&lt;eqn_n=&gt;,1,10) -> 55
 <br>
 ・範囲反転を単なる逆順の演算で定義する
 <br>
@@ -21663,7 +21663,7 @@ test caseを列挙する
 <br>
 _pn(=&lt;{n},1,10) || 1*2*3*4*5*6*7*8*9*10 -> 3628800
 <br>
-eqn=&lt;n; _pn(=&lt;eqn,1,10) || _pn(=&lt;eqn=&gt;,1,10) -> 3628800
+eqn_n=&lt;n; _pn(=&lt;eqn_n,1,10) || _pn(=&lt;eqn_n=&gt;,1,10) -> 3628800
 <br>
 ・範囲反転を単なる逆順の演算で定義する
 <br>
@@ -21782,9 +21782,9 @@ _rn(=&lt;{n+1},,2) -> 2
 <br>
 ・同義
 <br>
-eqn=&lt;n+1; _rn(=&lt;eqn,,2) -> 2
+eqn_n=&lt;n+1; _rn(=&lt;eqn_n,,2) -> 2
 <br>
-_rn(=&lt;eqn=&gt;,eqn=&lt;n+1,2) -> 2
+_rn(=&lt;eqn_n=&gt;,eqn_n=&lt;n+1,2) -> 2
 <br>
 Pn=0; _rn(=&lt;{Pn=Pn+1},0,2); Pn -> 2
 <br>
@@ -33474,15 +33474,15 @@ f=&lt;last{V=1,E=0,k=1,I=exp(k*(V-E))-exp(-k*(V-E))}
 <span id="span-out-development-problems-FNh"></span>
 <a href="#span-out-FNh">高階関数</a>の問題点を列挙する
 <br>
-・反復処理毎に下記<span class="clear">eqn</span>の<a href="#span-in-tree">tree構造</a>全体（scope-idsを含む）をdeep-copyで複製するため、
+・反復処理毎に下記<span class="clear">eqn_k</span>の<a href="#span-in-tree">tree構造</a>全体（scope-idsを含む）をdeep-copyで複製するため、
 <br>
 ・<a href="#span-out-FNh">高階関数</a>をnestingする場合、致命的にthroughputが低下する（<a href="#span-out-FNh-DX">微分の多重化</a>||<a href="#span-out-interpolation-Lagrange">Lagrange補間</a>）
 <br>
 ・その他、引数順序に問題がある（for文準拠に修正する等、改善の余地あり）
 <br>
-n=4,primes={2,3,5},eqn=&lt;<span class="clear">last{prime=primes[k],k+1}</span>;
+n=4,primes={2,3,5},eqn_k=&lt;<span class="clear">last{prime=primes[k],k+1}</span>;
 <br>
-_rk(=&lt;<span class="clear">eqn</span>,N=sizer(primes),N,=&lt;{n%prime==0}); prime -> 2
+_rk(=&lt;<span class="clear">eqn_k</span>,N=sizer(primes),N,=&lt;{n%prime==0}); prime -> 2
     </td>
   </tr>
   <tr>
