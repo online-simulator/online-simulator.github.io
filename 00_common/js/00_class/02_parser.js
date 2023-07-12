@@ -326,7 +326,7 @@ My_entry.parser.prototype.compare2bas = function(token){
   trees0d,
      tree: {}
       tag: {"name": {val: val}}
-         : {"BT?":  {val: [], ref: [], ids: []}}
+         : {"BT?":  {val: [], ref: [], ids: [], arg: []}}
       num: {mat:    {arr: arr}}
       1+i: arr [0] [0] {com: {r: 1, i: 1}}
    matrix:     row col {complex number   }
@@ -729,6 +729,8 @@ My_entry.parser.prototype.make_trees = function(sentence, opt_re){  // Ver.2.158
       // |complex number|
       case "cmin":
       case "cmax":
+      case "camin":
+      case "camax":
       case "cmedian":
       case "csort":
       case "creverse":

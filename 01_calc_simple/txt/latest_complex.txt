@@ -1,6 +1,14 @@
 clear
 local storage cleared
 
+z=(-i,-2,3,-4,5+i,-6),min(z),max(z),cmin(z),cmax(z),camin(z),camax(z)
+(
+0,-6,5,-i,-6,1,6
+)
+
+clear
+local storage cleared
+
 htrans(linspace(1,i,3):linspace(i,1,5))
 (
 1,-i:
@@ -144,7 +152,7 @@ args=(trans(linspace(2,2,4)),trans(linspace(1,4,4))):pow(args)
 15.999999999999998
 )
 
-tx=trans(x):floor(tx),round(tx),ceil(tx)::min(tx),max(tx)::cmin(tx),cmax(tx)
+tx=trans(x):floor(tx),round(tx),ceil(tx)::min(tx),max(tx)::camin(tx),camax(tx)
 (
 0:
 1,1,1:
@@ -411,7 +419,7 @@ z=((1,-2,3,-4,5,-6)i:-6,6,-6i,6i,1,-2),last(csort(z[0])),first(creverse(z[0])),l
 0,-6i,-6i,6i,6i,6i,-6i
 )
 
-(z=(1,-2,3,-4,5,-6)i:),(cmin(z):),cmin(z:z*(1+i)),(cmax(z):),cmax(z:z*(1+i)),min(trans(abs(trans(z)),abs(trans(z*(1+i))))),max(trans(abs(trans(z)),abs(trans(z*(1+i)))))
+(z=(1,-2,3,-4,5,-6)i:),(camin(z):),camin(z:z*(1+i)),(camax(z):),camax(z:z*(1+i)),min(trans(abs(trans(z)),abs(trans(z*(1+i))))),max(trans(abs(trans(z)),abs(trans(z*(1+i)))))
 (
 0,1,1,6,6,1,6:
 0,0,1.4142135623730951,0,8.48528137423857,1.4142135623730951,8.48528137423857
@@ -482,7 +490,7 @@ false,1,1,false,1
 false,false,3628800,3840,280,120,50
 )
 
-cmin(i)
+camin(i)
 1
 
 or(NaN),or(0)
@@ -1388,7 +1396,7 @@ local storage cleared
 clear
 local storage cleared
 
-[x={0,1,2,3,4,5,6,7},N=sizer(x),f=e^((x*2*pi/N)i),round_real(f,n)=<round(real(f)*round(10**(n||1)))/round(10**(n||1)),round_imag(f,n)=<round(imag(f)*round(10**(n||1)))/round(10**(n||1)),round_f(f,nr,ni)=<round_real(=<f,nr)+(round_imag(=<f,ni))i,=<(round_f(=<f,,2),0||~(x<<1)%3,y=(x*1,x*2,x*3)/(1+i,-2,3),cmin(y),cmax(y),trans(trans((x)!i)/2),trans(2/trans(~x|1)))]=>/*extended operations test case*/
+[x={0,1,2,3,4,5,6,7},N=sizer(x),f=e^((x*2*pi/N)i),round_real(f,n)=<round(real(f)*round(10**(n||1)))/round(10**(n||1)),round_imag(f,n)=<round(imag(f)*round(10**(n||1)))/round(10**(n||1)),round_f(f,nr,ni)=<round_real(=<f,nr)+(round_imag(=<f,ni))i,=<(round_f(=<f,,2),0||~(x<<1)%3,y=(x*1,x*2,x*3)/(1+i,-2,3),camin(y),camax(y),trans(trans((x)!i)/2),trans(2/trans(~x|1)))]=>/*extended operations test case*/
 (
 1,-1,0,0,0,0.5i,-2:
 0.7+0.71i,-3,0.7071067811865476,1,0.5i,-2:
@@ -1815,4 +1823,4 @@ drag=false&sw=false&0x=false&useMatrix=true&useStrict=false&checkError=true&isRi
 --------------------------------
 --------------------------------
 
-online-simulator.github.io.6.251.107.13.56 @ Mon Jul 10 2023 21:48:50 GMT+0900 (日本標準時) @ Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/114.0.0.0 Safari/537.36
+online-simulator.github.io.6.251.108.13.56 @ Thu Jul 13 2023 01:58:26 GMT+0900 (日本標準時) @ Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/114.0.0.0 Safari/537.36

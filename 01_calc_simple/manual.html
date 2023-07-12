@@ -182,6 +182,8 @@ e^(-i(1pi(){2/2i}(5-{3-1}){i/(-4)}))
 <br>
 　・<a href="#span-out-browsers-ie">Internet Explorer非対応の機能</a>
 <br>
+　・<a href="#span-out-spec-Excel">Excelとの相違</a>
+<br>
 　・<a href="#span-out-spec-Python">Pythonとの相違</a>
 <br>
 ・操作UI
@@ -409,6 +411,8 @@ e^(-i(1pi(){2/2i}(5-{3-1}){i/(-4)}))
 　　・<a href="#span-out-FN-gcd">gcd/lcm関数</a>
 <br>
 　　・<a href="#span-out-FN-min">min/max関数</a>
+<br>
+　　・<a href="#span-out-FN-camin">camin/camax関数</a>
 <br>
 　　・<a href="#span-out-FN-sqrt">sqrt関数</a>
 <br>
@@ -698,6 +702,8 @@ e^(-i(1pi(){2/2i}(5-{3-1}){i/(-4)}))
 ・<a href="#span-in-tree">単位tree構造</a>
 <br>
 ・<a href="#span-in-scope-vars">変数のscope</a>
+<br>
+・<a href="#span-in-eqns-args">式変数のarguments</a>
 <br>
 ・<a href="#span-in-call-by-equation">式渡し</a>
 <br>
@@ -1412,7 +1418,11 @@ domainを列挙する
 <br>
 domainを列挙する
 <br>
+・wikipedia.org
+<br>
 ・developer.mozilla.org
+<br>
+・support.microsoft.com
 <br>
 ・mathworks.com
 <br>
@@ -1637,6 +1647,16 @@ title/発行元(発行年)を列挙する
 ・<span class="run">Ver.2.185.44</span>以降、<a href="#span-out-FNm-size">size行列関数</a>の非正方行列の返値の仕様変更
 <br>
 　列数n　⇒　{行数m,列数n}
+<br>
+・<span class="run">Ver.2.186.44</span>以降、<a href="#span-out-FN-min">cmin/cmax関数</a>の関数名を変更
+<br>
+　<a href="#span-out-FN-min">cmin/cmax関数</a>　⇒　<a href="#span-out-FN-camin">camin/camax関数</a>（manual一括変更）
+<br>
+・<span class="run">Ver.2.186.44</span>以降、<a href="#span-out-FN-min">cmin/cmax関数</a>の返値の仕様変更
+<br>
+　絶対値　⇒　要素（<a href="#span-out-FN-statistic">統計関数</a>に準拠）
+<br>
+　<a href="#span-eqn">strict-mode式変数list</a>への影響なし
     </td>
   </tr>
   <tr>
@@ -2009,6 +2029,42 @@ IE非対応の機能/原因を列挙する
 目次
 </a>
 <br>
+Excel
+<br>
+との相違
+    </th>
+    <td>
+<span id="span-out-spec-Excel"></span>
+Excelとの相違について記述する
+<br>
+<br>
+明確な相違点を列挙する
+<br>
+・<a href="#span-out-type-ope">前置単項演算子</a>の<a href="#span-out-prec-ope">符号のprecedence</a>
+<br>
+3+-3 -> [MyErr]Invalid binary operation
+<br>
+3^-3 -> [MyErr]Invalid binary operation
+<br>
+・<a href="#span-out-FN-log">log関数</a>の底
+<br>
+log(10) -> 2.302585092994046
+<br>
+log_ex(10) -> 1
+<br>
+・<a href="#span-out-FN-atan2">atan2関数</a>の引数順序
+<br>
+atan2(1,0) -> 1.5707963267948966
+<br>
+atan2_ex(1,0) -> 0
+    </td>
+  </tr>
+  <tr>
+    <th>
+<a href="#span-index">
+目次
+</a>
+<br>
 Python
 <br>
 との相違
@@ -2018,13 +2074,17 @@ Python
 Pythonとの相違について記述する
 <br>
 <br>
-相違点を列挙する
+明確な相違点を列挙する
 <br>
 ・<a href="#span-out-type-ope">前置単項演算子</a>の<a href="#span-out-prec-ope">符号のprecedence</a>
 <br>
 3+-3 -> [MyErr]Invalid binary operation
 <br>
 3**-3 -> [MyErr]Invalid binary operation
+<br>
+・<a href="#span-out-com">虚数単位</a>の記号
+<br>
+3+1j -> [MyErr]Invalid ans isFound
     </td>
   </tr>
   <tr>
@@ -11286,9 +11346,9 @@ clear; (x={0,1,2,3,4,5,6,7})||~(x&lt;&lt;1)%3 -> (-1:-3:-2:-1:-3:-2:-1:-3)
 <br>
 ・<a href="#span-out-com">複素数</a>演算
 <br>
-cmin((1,2:3,4)i) || (cmin(1i,2i):cmin(3i,4i)) -> (1:3)
+camin((1,2:3,4)i) || (camin(1i,2i):camin(3i,4i)) -> (1:3)
 <br>
-cmax((1,2:3,4)i) || (cmax(1i,2i):cmax(3i,4i)) -> (2:4)
+camax((1,2:3,4)i) || (camax(1i,2i):camax(3i,4i)) -> (2:4)
 <br>
 (5,3,1)/(2i,i) || (5,3,1)/(2i,i,i) -> (-2.5i,-3i,-i)
 <br>
@@ -13840,9 +13900,9 @@ pow(2) -> NaN
 <br>
 ・引数不定の関数の場合、同じ引数を追加して正常化
 <br>
-cmin(NaN) || cmin(NaN,NaN) -> NaN
+camin(NaN) || camin(NaN,NaN) -> NaN
 <br>
-cmin(i) || cmin(i,i) -> 1
+camin(i) || camin(i,i) -> 1
 <br>
 <br>
 詳細は<a href="#span-in-FN-NaN">NaN対応</a>参照
@@ -14638,6 +14698,12 @@ min(x) -> -6
 <br>
 min(x:x*2) -> (-6:-12)
 <br>
+・<a href="#span-out-com">複素数</a>を含む場合、虚部=0
+<br>
+z=(-i,-2,3,-4,5+i,-6);
+<br>
+min(z) -> -6
+<br>
 <br>
 <a href="#span-out-num">実数値</a>の最大値を返すmax関数
 <br>
@@ -14647,58 +14713,39 @@ max(x) -> 5
 <br>
 max(x:x*2) -> (5:10)
 <br>
+・<a href="#span-out-com">複素数</a>を含む場合、虚部=0
 <br>
-<a href="#span-out-com">複素数</a><span class="clear">絶対値</span>の最小値を返すcmin関数
+z=(-i,-2,3,-4,5+i,-6);
 <br>
-z=(1,-2,3,-4,5,-6)i;
-<br>
-cmin(z) -> 1
-<br>
-cmin(z:z*(1+i)) -> (1:1.4142135623730951)
-<br>
-・同義
-<br>
-min(trans(abs(trans(z)))) -> 1
-<br>
-min(trans(abs(trans(z)),abs(trans(z*(1+i))))) -> (1:1.4142135623730951)
-<br>
-・<span class="clear">Ver.2.170.42</span>以降、引数1個の場合、同じ引数を2個目に追加して正常化
-<br>
-<del>cmin(i) -> i</del>
-<br>
-cmin(i) || cmin(i,i) -> 1
-<br>
-・<span class="clear">Ver.2.170.42</span>以降、<a href="#span-out-literal">NaN</a>の引数に対応
-<br>
-cmin(NaN) || cmin(NaN,NaN) -> NaN
+max(z) -> 5
 <br>
 <br>
-<a href="#span-out-com">複素数</a><span class="clear">絶対値</span>の最大値を返すcmax関数
-<br>
-z=(1,-2,3,-4,5,-6)i;
-<br>
-cmax(z) -> 6
-<br>
-cmax(z:z*(1+i)) -> (6:8.48528137423857)
-<br>
-・同義
-<br>
-max(trans(abs(trans(z)))) -> 6
-<br>
-max(trans(abs(trans(z)),abs(trans(z*(1+i))))) -> (6:8.48528137423857)
-<br>
-・<span class="clear">Ver.2.170.42</span>以降、引数1個の場合、同じ引数を2個目に追加して正常化
-<br>
-<del>cmax(i) -> i</del>
-<br>
-cmax(i) || cmax(i,i) -> 1
-<br>
-・<span class="clear">Ver.2.170.42</span>以降、<a href="#span-out-literal">NaN</a>の引数に対応
-<br>
-cmax(NaN) || cmax(NaN,NaN) -> NaN
+<span class="run">Ver.2.186.44</span>以降、cmin/cmax関数の仕様変更
 <br>
 <br>
-偏角不問で<a href="#span-out-com">複素数</a>を返す場合、<a href="#span-out-FN-statistic">統計関数</a>を使用
+<a href="#span-out-com">複素数</a>絶対値が最小の要素を返すcmin関数
+<br>
+z=(-i,-2,3,-4,5+i,-6);
+<br>
+cmin(z) -> -i
+<br>
+cmin(z:z*(1+i)) -> (-i:1-i)
+<br>
+cmin(NaN,1) -> NaN
+<br>
+<br>
+<a href="#span-out-com">複素数</a>絶対値が最大の要素を返すcmax関数
+<br>
+z=(-i,-2,3,-4,5+i,-6);
+<br>
+cmax(z) -> -6
+<br>
+cmax(z:z*(1+i)) -> (-6:-6-6i)
+<br>
+cmax(1,NaN) -> NaN
+<br>
+<br>
+偏角不問の場合、<a href="#span-out-FN-statistic">統計関数</a>で代替可
 <br>
 z=(-6,6,-6i,6i,1,-2,3,-4,5);
 <br>
@@ -14713,6 +14760,76 @@ last(z_sorted) -> 6i
 first(z_reversed) -> 6i
 <br>
 last(z_reversed) -> 1
+    </td>
+  </tr>
+  <tr>
+    <th>
+<a href="#span-index">
+目次
+</a>
+<br>
+camin
+<br>
+/camax関数
+<br>
+入力仕様
+    </th>
+    <td>
+<span id="span-out-FN-camin"></span>
+camin/camax関数の入力仕様と付随する留意事項について記述する
+<br>
+<br>
+<span class="run">Ver.2.186.44</span>以降、cmin/cmax関数　⇒　camin/camax関数に関数名を変更
+<br>
+<br>
+<a href="#span-out-com">複素数</a><span class="clear">絶対値</span>の最小値を返すcamin関数
+<br>
+z=(1,-2,3,-4,5,-6)i;
+<br>
+camin(z) -> 1
+<br>
+camin(z:z*(1+i)) -> (1:1.4142135623730951)
+<br>
+・同義
+<br>
+min(trans(abs(trans(z)))) -> 1
+<br>
+min(trans(abs(trans(z)),abs(trans(z*(1+i))))) -> (1:1.4142135623730951)
+<br>
+・<span class="clear">Ver.2.170.42</span>以降、引数1個の場合、同じ引数を2個目に追加して正常化
+<br>
+<del>camin(i) -> i</del>
+<br>
+camin(i) || camin(i,i) -> 1
+<br>
+・<span class="clear">Ver.2.170.42</span>以降、<a href="#span-out-literal">NaN</a>の引数に対応
+<br>
+camin(NaN) || camin(NaN,NaN) -> NaN
+<br>
+<br>
+<a href="#span-out-com">複素数</a><span class="clear">絶対値</span>の最大値を返すcamax関数
+<br>
+z=(1,-2,3,-4,5,-6)i;
+<br>
+camax(z) -> 6
+<br>
+camax(z:z*(1+i)) -> (6:8.48528137423857)
+<br>
+・同義
+<br>
+max(trans(abs(trans(z)))) -> 6
+<br>
+max(trans(abs(trans(z)),abs(trans(z*(1+i))))) -> (6:8.48528137423857)
+<br>
+・<span class="clear">Ver.2.170.42</span>以降、引数1個の場合、同じ引数を2個目に追加して正常化
+<br>
+<del>camax(i) -> i</del>
+<br>
+camax(i) || camax(i,i) -> 1
+<br>
+・<span class="clear">Ver.2.170.42</span>以降、<a href="#span-out-literal">NaN</a>の引数に対応
+<br>
+camax(NaN) || camax(NaN,NaN) -> NaN
     </td>
   </tr>
   <tr>
@@ -16310,6 +16427,8 @@ spaceを初期化する行列関数の入力仕様と付随する留意事項に
 linspace(a,b,opt_Np1)関数：linear-scaleの初期化
 <br>
 ・test caseを列挙する
+<br>
+linspace(0,5,6):linspace(0,5,6)**2 -> (0,1,2,3,4,5:0,1,4,9,16,25)
 <br>
 linspace(1+2i,10+10i,9) -> (1+2i,2.125+3i,3.25+4i,4.375+5i,5.5+6i,6.625+7i,7.75+8i,8.875+9i,10+10i)
 <br>
@@ -22753,7 +22872,7 @@ max(trans({mdx,-mdx}))  <span class="selection">// real-part</span> -> 0
 <br>
 max(i*trans({mdx,-mdx}))  <span class="selection">// imag-part</span> -> 0
 <br>
-cmax(trans(mdx))  <span class="selection">// |both-part|</span> -> 0
+camax(trans(mdx))  <span class="selection">// |both-part|</span> -> 0
 <br>
 ・反復3回の場合
 <br>
@@ -22769,7 +22888,7 @@ max(trans({mdx,-mdx}))  <span class="selection">// real-part</span> -> infoLost[
 <br>
 max(i*trans({mdx,-mdx}))  <span class="selection">// imag-part</span> -> infoLost[ri] 2.1963410797410362e-20
 <br>
-cmax(trans(mdx))  <span class="selection">// |both-part|</span> -> infoLost[ri] 1.7763568395696568e-15
+camax(trans(mdx))  <span class="selection">// |both-part|</span> -> infoLost[ri] 1.7763568395696568e-15
 <br>
 {x0,x1} ->
 <br>
@@ -22795,7 +22914,7 @@ max(trans({mdx,-mdx}))  <span class="selection">// real-part</span> -> 1.0355938
 <br>
 max(i*trans({mdx,-mdx}))  <span class="selection">// imag-part</span> -> 1.0355819825427455e-10
 <br>
-cmax(trans(mdx))  <span class="selection">// |both-part|</span> -> 1.464542464160083e-10
+camax(trans(mdx))  <span class="selection">// |both-part|</span> -> 1.464542464160083e-10
 <br>
 {x0,x1} ->
 <br>
@@ -22829,7 +22948,7 @@ max(trans({mdx,-mdx}))  <span class="selection">// real-part</span> -> infoLost[
 <br>
 max(i*trans({mdx,-mdx}))  <span class="selection">// imag-part</span> -> infoLost[ri] 2.250213020433239e-25
 <br>
-cmax(trans(mdx))  <span class="selection">// |both-part|</span> -> infoLost[ri] 1.7763568395916467e-15
+camax(trans(mdx))  <span class="selection">// |both-part|</span> -> infoLost[ri] 1.7763568395916467e-15
 <br>
 {x0,x1} ->
 <br>
@@ -22857,7 +22976,7 @@ max(trans({mdx,-mdx}))  <span class="selection">// real-part</span> -> 1.0355938
 <br>
 max(i*trans({mdx,-mdx}))  <span class="selection">// imag-part</span> -> 1.0355819825427455e-10
 <br>
-cmax(trans(mdx))  <span class="selection">// |both-part|</span> -> 1.464542464160083e-10
+camax(trans(mdx))  <span class="selection">// |both-part|</span> -> 1.464542464160083e-10
 <br>
 {x0,x1} ->
 <br>
@@ -22887,7 +23006,7 @@ max(trans({mdx,-mdx}))  <span class="selection">// real-part</span> -> infoLost[
 <br>
 max(i*trans({mdx,-mdx}))  <span class="selection">// imag-part</span> -> infoLost[ri] 2.1963410797410362e-20+O(1e-5)
 <br>
-cmax(trans(mdx))  <span class="selection">// |both-part|</span> -> infoLost[ri] 1.7763568395696568e-15+O(2e-5)
+camax(trans(mdx))  <span class="selection">// |both-part|</span> -> infoLost[ri] 1.7763568395696568e-15+O(2e-5)
 <br>
 {x0,x1} ->
 <br>
@@ -34074,7 +34193,7 @@ Calculator用途に特化した実装項目とfile名の対応関係を列挙す
   trees0d,
      tree: {}
       tag: {"name": <span class="selection">{val: val}</span>}
-         : {"BT?":  <span class="selection">{val: [], ref: [], ids: []}</span>}
+         : {"BT?":  <span class="selection">{val: [], ref: [], ids: [], arg: []}</span>}
       num: {mat:    {arr: arr}}
       1+i: arr [0] [0] {com: {r: 1, i: 1}}
    matrix:     row col {complex number   }
@@ -34154,21 +34273,6 @@ clear; [a=2,=&lt;[b=1,a=&lt;first[[b,],b,],=&lt;a=&gt;]=&gt;+a]=&gt; -> 3
 ・<a href="#span-out-eqns">式変数</a>のcall時、<a href="#span-out-eqns-args">式変数のarguments</a>に定義元のself-parents-idsを継承
 <br>
 <br>
-<a href="#span-out-eqns-args">式変数のarguments</a>について記述する
-<br>
-・定義元の<a href="#span-out-eqns">式変数</a>のcall毎に動的にscopeは作らない
-<br>
-・<a href="#span-out-flow">parse</a>段階で割当てた定義元の<a href="#span-out-eqns">式変数</a>のstatic scopes2d arrayを共有する
-<br>
-・argumentsのみ、call前後でbuffer経由store/restoreで模擬的にscopeが独立する
-<br>
-　<a href="#span-out-FNh">高階関数</a>のdummy変数同様（参考）
-<br>
-・argument判別の条件分岐が複雑化し、非常に重い（Nativeの参照渡しと異なる）
-<br>
-　restore -> REe2SEeの変換前後で2重cloneの無駄あり
-<br>
-<br>
 <a href="#span-out-scope-inherited-call">式変数のscope継承call</a>について記述する
 <br>
 ・<a href="#span-out-bracket">直列scope内</a>の<a href="#span-out-eqns">式変数</a>のみcall可
@@ -34178,6 +34282,39 @@ clear; [a=2,=&lt;[b=1,a=&lt;first[[b,],b,],=&lt;a=&gt;]=&gt;+a]=&gt; -> 3
 ・callする<a href="#span-out-eqns">式変数</a>のself-children-idsからpopで取り出した後、継承する
 <br>
 ・よってidsはn=0の0階層から取り出すFIFO-queueとする
+    </td>
+  </tr>
+  <tr>
+    <th>
+<a href="#span-index">
+目次
+</a>
+<br>
+式変数の
+<br>
+arguments
+    </th>
+    <td>
+<span id="span-in-eqns-args"></span>
+<a href="#span-out-eqns-args">式変数のarguments</a>について記述する
+<br>
+・定義元の<a href="#span-out-eqns">式変数</a>のcall毎にscopeは動的に作らない
+<br>
+・<a href="#span-out-flow">parse</a>段階で割当てた定義元の<a href="#span-out-eqns">式変数</a>のstatic scopes2d arrayを共有する
+<br>
+・よって<a href="#span-out-eqns">式変数</a>のreccursive call非対応
+<br>
+・以降、argumentsの<a href="#span-out-vars-symbol">変数名symbol</a>をargと呼ぶ
+<br>
+・<a href="#span-out-eqns">式変数</a>のstore時、argを<a href="#span-in-tree">単位tree構造</a>の<span class="selection">tag.val同列</span>に保存
+<br>
+・argのみ、call前後でbuffer経由store/restoreで模擬的にscopeが独立する
+<br>
+　<a href="#span-out-FNh">高階関数</a>のdummy変数同様（参考）
+<br>
+・call先のargument判別の条件分岐が複雑化し、非常に重い（Nativeの参照渡しと異なる）
+<br>
+　restore -> REe2SEeの変換前後で2重cloneの無駄あり
     </td>
   </tr>
   <tr>
@@ -34525,6 +34662,8 @@ operation.js抜粋
 ・<span class="run">Ver.2.176.43</span>以降、<a href="#span-out-FN-interp">補間関数</a>を追加
 <br>
 ・<span class="run">Ver.2.183.44</span>以降、<a href="#span-out-FNm-init-space">space初期化行列関数</a>を追加
+<br>
+・<span class="run">Ver.2.186.44</span>以降、<a href="#span-out-FN-camin">camin/camax関数</a>を追加
 <br>
 <br>
 予約語は大文字・小文字・全角・半角を区別しない
@@ -34876,6 +35015,8 @@ parser.js抜粋
       // |complex number|
       case "cmin":
       case "cmax":
+      <span class="jF">case "camin":</span>
+      <span class="jF">case "camax":</span>
       case "cmedian":
       case "csort":
       case "creverse":
@@ -35144,6 +35285,8 @@ sort(NaN);
 reverse(NaN);
 cmin(NaN);
 cmax(NaN);
+<span class="jF">camin(NaN);</span>
+<span class="jF">camax(NaN);</span>
 cmedian(NaN);
 csort(NaN);
 creverse(NaN);
@@ -35326,9 +35469,9 @@ or(NaN) || or(0)  <span class="selection">// NaN||undefined</span> -> undefined
 <br>
 ・別途、引数不定の関数の不具合
 <br>
-cmin(NaN) -> NaN
+camin(NaN) -> NaN
 <br>
-cmin(i) -> i
+camin(i) -> i
 <br>
 <br>
 修正後の対策を列挙する
@@ -35359,9 +35502,9 @@ or(NaN) || or(0) -> NaN
 <br>
 ・引数不定の関数の場合、同じ引数を追加して正常化
 <br>
-cmin(NaN) || cmin(NaN,NaN) -> NaN
+camin(NaN) || camin(NaN,NaN) -> NaN
 <br>
-cmin(i) || cmin(i,i) -> 1
+camin(i) || camin(i,i) -> 1
 <br>
 <br>
 結果の一覧は<a href="#span-in-FN-list">NaN対応結果</a>参照

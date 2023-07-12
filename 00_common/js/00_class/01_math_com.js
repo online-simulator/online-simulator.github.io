@@ -96,14 +96,26 @@ My_entry.math_com.prototype.cne = function(a, b){
   var sw = !((a.r == b.r) && (a.i == b.i));
   return self.entry.DATA.com(((sw)? 1: 0), 0);
 };
+/* Ver.2.186.44 -> */
 My_entry.math_com.prototype.cmin = function(a, b){
   var self = this;
-  return self.entry.DATA.com(Math.min(self.absolute_com(a),self.absolute_com(b)), 0);
+  if(self.isNaN(a) || self.isNaN(b)) return self.entry.DATA.com(NaN, NaN);
+  return ((self.absolute_com(a) < self.absolute_com(b))? a: b);
 };
 My_entry.math_com.prototype.cmax = function(a, b){
   var self = this;
+  if(self.isNaN(a) || self.isNaN(b)) return self.entry.DATA.com(NaN, NaN);
+  return ((self.absolute_com(a) < self.absolute_com(b))? b: a);
+};
+My_entry.math_com.prototype.camin = function(a, b){
+  var self = this;
+  return self.entry.DATA.com(Math.min(self.absolute_com(a),self.absolute_com(b)), 0);
+};
+My_entry.math_com.prototype.camax = function(a, b){
+  var self = this;
   return self.entry.DATA.com(Math.max(self.absolute_com(a),self.absolute_com(b)), 0);
 };
+/* -> Ver.2.186.44 */
 /* Ver.2.154.38 */
 My_entry.math_com.prototype.cdot = function(a, b){
   var self = this;
