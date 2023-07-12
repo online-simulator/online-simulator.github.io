@@ -1,9 +1,35 @@
 clear
 local storage cleared
 
-z=(-i,-2,3,-4,5+i,-6),min(z),max(z),cmin(z),cmax(z),camin(z),camax(z)
+test_min_max(=<z)
 (
-0,-6,5,-i,-6,1,6
+-6,5,-i,-6,1,6:
+-1,1,i,-1,1,1:
+-1,1,1,-i,1,1
+)
+
+test_min_max(z)=<(min(z),max(z),cmin(z),cmax(z),camin(z),camax(z))
+stored_eqn(test_min_max)
+
+csort(z)
+(
+-i,-2,3,-4,5+i,-6:
+-1,1,-i,i:
+-i,i,-1,1
+)
+
+sort(z)
+(
+-6,-4,-2,-i,3,5+i:
+-1,-i,i,1:
+-1,-i,i,1
+)
+
+z=(-i,-2,3,-4,5+i,-6:-1,1,-i,i:-i,i,-1,1)
+z=(
+-i,-2,3,-4,5+i,-6:
+-1,1,-i,i:
+-i,i,-1,1
 )
 
 clear
@@ -1823,4 +1849,4 @@ drag=false&sw=false&0x=false&useMatrix=true&useStrict=false&checkError=true&isRi
 --------------------------------
 --------------------------------
 
-online-simulator.github.io.6.251.108.13.56 @ Thu Jul 13 2023 01:58:13 GMT+0900 (日本標準時) @ Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/114.0.0.0 Safari/537.36
+online-simulator.github.io.6.251.108.13.56 @ Thu Jul 13 2023 06:25:43 GMT+0900 (日本標準時) @ Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/114.0.0.0 Safari/537.36

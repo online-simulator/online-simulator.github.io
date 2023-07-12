@@ -83,7 +83,7 @@
       script += "\nclear;\n";
       script += "sizer([]),sizec([]),size([]),size(NaN),size(zeros(2,2)),size(zeros(3)),size(ones(4)),size(identity(5)),size(scalars(6,1));\nmat2x3=zeros(2,3);\nsize(mat2x3),={sizer(mat2x3),sizec(mat2x3)},size({(1,2,3),4});\nvecr=(1,i,1-i);\nvecc=trans(vecr);\nA={normalizer(vecr*1),trans(normalize(vecc*2)),trans(normalizec(vecc*(-3)))};\nnorm(trans(A[0])),norm(trans(A[1])),norm(trans(A[2])),norm(trans(A));\nvectorr(0);vectorc(0);identity(0);scalars(0,1);zeros(0,1);zeros(1,0);ones(0,1);ones(1,0);\nvectorr(3);\nvectorc(3);\nidentity(3);\nscalars(3,-1+i);\nzeros(2,3);\nones(3,2);\nhtrans(linspace(1,i,3):linspace(i,1,5));";
       script += "\nclear;\n";
-      script += "z=(-i,-2,3,-4,5+i,-6),min(z),max(z),cmin(z),cmax(z),camin(z),camax(z);";
+      script += "z=(-i,-2,3,-4,5+i,-6:-1,1,-i,i:-i,i,-1,1);\nsort(z);\ncsort(z);\ntest_min_max(z)=<(min(z),max(z),cmin(z),cmax(z),camin(z),camax(z));\ntest_min_max(=<z);";
       script += "\nclear;\n";
       $._id("input").value = script;
     });
