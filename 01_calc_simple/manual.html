@@ -660,7 +660,11 @@ e^(-i(1pi(){2/2i}(5-{3-1}){i/(-4)}))
 <br>
 ・<a href="#span-out-development-additional">実装の特徴</a>
 <br>
-　・<a href="#span-out-development-problems">仕様上の問題点</a>
+　・<a href="#span-out-development-problems-after">実装上の問題点</a>
+<br>
+　　・<a href="#span-out-development-problems-FNh">高階関数の問題点</a>
+<br>
+　・<a href="#span-out-development-problems-before">仕様上の問題点</a>
 <br>
 　　・<a href="#span-out-development-problems-algebra">代数学準拠の問題点</a>
 <br>
@@ -20100,17 +20104,31 @@ clear; a=3; (a)=&gt; || {a}=&gt; -> [MyErr]Invalid mat([object Object])
 <br>
 clear; a=3; [a]=&gt; -> [MyErr]Invalid reference
 <br>
-・Native無名関数(function(){1; 2; return 3;})();の一例
+・(function(){1; 2; return 3;})();
 <br>
 (1,2,=&lt;3)=&gt; || {1,2,=&lt;3}=&gt; -> 3
 <br>
+・<a href="#span-out-FNm-last">最終要素</a>が値の場合、error終了
+<br>
 (1,2,3)=&gt; || {1,2,3}=&gt; -> [MyErr]Invalid mat([object Object])
 <br>
-・Native無名関数(function(){var a=1, b=2, c=3; return [a,b,c];})();の一例
+・(function(){var a=1, b=2, c=3; return [a,b,c];})();
 <br>
 (a=1,b=2,c=3,=&lt;(a,b,c))=&gt; -> (1,2,3)
 <br>
 {a=1,b=2,c=3,=&lt;(a,b,c)}=&gt; -> (1,2,3)
+<br>
+・(function(){return 0;return 1;})()
+<br>
+(=&lt;0,=&lt;1)=&gt; -> 1
+<br>
+(=&lt;0,=&lt;1,2)=&gt; -> [MyErr]Invalid mat([object Object])
+<br>
+・複数列挙の場合、最終returnのみ取り出す
+<br>
+(=&lt;(,:,),=&lt;1)=&gt; -> 1
+<br>
+(=&lt;(,:,):=&lt;1)=&gt; -> 1
 <br>
 ・<a href="#span-out-FNm-last">last行列関数</a>は<a href="#span-out-FNm-last">最終要素</a>のみ取り出す
 <br>
@@ -33403,16 +33421,6 @@ f=&lt;last{V=1,E=0,k=1,I=exp(k*(V-E))-exp(-k*(V-E))}
 <br>
 ・reccursive callを代替する<a href="#span-out-FNh-RX">再帰高階関数</a>も同様に、独自のcall stackを実装しない
 <br>
-・<a href="#span-out-FNh">高階関数</a>の反復処理毎に対象の<a href="#span-in-tree">tree構造</a>全体（scope-idsを含む）をdeep-copyで複製する
-<br>
-・よって<a href="#span-out-FNh">高階関数</a>をnestingする場合、致命的にthroughputが低下する（<a href="#span-out-FNh-DX">微分の多重化</a>||<a href="#span-out-interpolation-Lagrange">Lagrange補間</a>）
-<br>
-・その他、<a href="#span-out-FNh">高階関数</a>は引数順序に改善の余地がある（長引く<a href="#span-out-call-by-equation">式渡し</a>の引数は後方に配置する等）
-<br>
-n=4,primes={2,3,5},eqn<span class="clear">=&lt;last{prime=primes[k],k+1}</span>;
-<br>
-_rk(<span class="clear">=&lt;eqn</span>,N=sizer(primes),N,=&lt;{n%prime==0}); prime -> 2
-<br>
 ・<a href="#span-out-flow">parser</a>は複数種類の<a href="#span-out-BT">括弧</a>のnestingに対応し、再帰的に<a href="#span-in-tree">tree構造</a>を階層化する
 <br>
 ・よって<a href="#span-out-bracket">階層</a>に紐付く<a href="#span-out-scope-vars">変数のscope</a>はstaticで再利用可能としたが、最善を追及していない
@@ -33441,12 +33449,54 @@ _rk(<span class="clear">=&lt;eqn</span>,N=sizer(primes),N,=&lt;{n%prime==0}); pr
 目次
 </a>
 <br>
+実装上の
+<br>
+問題点
+    </th>
+    <td>
+<span id="span-out-development-problems-after"></span>
+実装上の問題点を列挙する
+<br>
+・<a href="#span-out-development-problems-FNh">高階関数の問題点</a>
+    </td>
+  </tr>
+  <tr>
+    <th>
+<a href="#span-index">
+目次
+</a>
+<br>
+高階関数の
+<br>
+問題点
+    </th>
+    <td>
+<span id="span-out-development-problems-FNh"></span>
+<a href="#span-out-FNh">高階関数</a>の問題点を列挙する
+<br>
+・反復処理毎に対象の<a href="#span-in-tree">tree構造</a>全体（scope-idsを含む）をdeep-copyで複製するため、
+<br>
+・<a href="#span-out-FNh">高階関数</a>をnestingする場合、致命的にthroughputが低下する（<a href="#span-out-FNh-DX">微分の多重化</a>||<a href="#span-out-interpolation-Lagrange">Lagrange補間</a>）
+<br>
+・その他、引数順序に問題がある（for文準拠に修正する等、改善の余地あり）
+<br>
+n=4,primes={2,3,5},eqn<span class="clear">=&lt;last{prime=primes[k],k+1}</span>;
+<br>
+_rk(<span class="clear">=&lt;eqn</span>,N=sizer(primes),N,=&lt;{n%prime==0}); prime -> 2
+    </td>
+  </tr>
+  <tr>
+    <th>
+<a href="#span-index">
+目次
+</a>
+<br>
 仕様上の
 <br>
 問題点
     </th>
     <td>
-<span id="span-out-development-problems"></span>
+<span id="span-out-development-problems-before"></span>
 仕様上の問題点を列挙する
 <br>
 ・<a href="#span-out-development-problems-algebra">代数学準拠の問題点</a>
