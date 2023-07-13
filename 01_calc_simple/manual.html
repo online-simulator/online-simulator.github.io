@@ -2078,13 +2078,35 @@ Pythonとの相違について記述する
 <br>
 ・<a href="#span-out-type-ope">前置単項演算子</a>の<a href="#span-out-prec-ope">符号のprecedence</a>
 <br>
-3+-3 -> [MyErr]Invalid binary operation
+3+-1 -> [MyErr]Invalid binary operation
 <br>
-3**-3 -> [MyErr]Invalid binary operation
+2**-1 -> [MyErr]Invalid binary operation
+<br>
+3+(-1) -> 2
+<br>
+2**(-1) -> 0.5
 <br>
 ・<a href="#span-out-com">虚数単位</a>の記号
 <br>
 3+1j -> [MyErr]Invalid ans isFound
+<br>
+3+1i -> 3+i
+<br>
+・<a href="#span-out-prec-ope-comparison">比較演算子</a>・<a href="#span-out-prec-ope-relational">関係演算子</a>
+<br>
+-3&lt;-2&lt;-1  <span class="selection">// NG</span> -> 0
+<br>
+-2==-2==-2  <span class="selection">// NG</span> -> 0
+<br>
+-3&lt;-2&amp;&amp;-2&lt;-1 -> 1
+<br>
+-2==-2&amp;&amp;-2==-2 -> 1
+<br>
+・<a href="#span-out-special-substitution">代入処理</a>
+<br>
+a=b=1 -> [MyErr]Invalid ans isFound
+<br>
+(b=1,a=b,a,b) -> (0,0,1,1)
     </td>
   </tr>
   <tr>
@@ -8844,6 +8866,8 @@ Right-Associativity（右結合）
 <br>
 3^2**3 || (3^(2**3)) -> 6561
 <br>
+2**2**2**2 || (2**(2**(2**2))) -> 65536
+<br>
 <br>
 留意事項を列挙する
 <br>
@@ -9420,6 +9444,18 @@ i&lt;&lt;2 || real(i)&lt;&lt;2 || 0&lt;&lt;2 -> 0
 <br>
 2i>i || real(2i)>real(i) || 0>0 -> 0
 <br>
+・多重比較不可
+<br>
+-3&lt;-2&lt;-1  <span class="selection">// NG</span> -> 0
+<br>
+・<a href="#span-out-prec-ope-logical">論理演算子</a>を使用
+<br>
+-3&lt;-2&amp;&amp;-2&lt;-1 -> 1
+<br>
+・<a href="#span-out-prec-ope-bit">bit演算子</a>を使用
+<br>
+(-3&lt;-2)&amp;(-2&lt;-1) -> 1
+<br>
 <br>
 比較演算子を代替する関数は<a href="#span-out-FN-ope">演算子代替関数</a>参照
     </td>
@@ -9507,6 +9543,18 @@ sne(false,0) -> 1+O(1e+0)
 ・operandに虚数を入力した場合、0と判別される
 <br>
 i==0 || real(i)==0 -> 1
+<br>
+・多重比較不可
+<br>
+-2==-2==-2  <span class="selection">// NG</span> -> 0
+<br>
+・<a href="#span-out-prec-ope-logical">論理演算子</a>を使用
+<br>
+-2==-2&amp;&amp;-2==-2 -> 1
+<br>
+・<a href="#span-out-prec-ope-bit">bit演算子</a>を使用
+<br>
+(-2==-2)&amp;(-2==-2) -> 1
 <br>
 ・operandに行列を入力した場合、<a href="#span-out-FNm-last">最終要素</a>を取り出す
 <br>
@@ -19355,6 +19403,10 @@ clear; x=(1,2); x -> (1,2)
 <br>
 clear; a=1; b=2; c=a+b; c -> 3
 <br>
+・複数の変数に多重代入不可
+<br>
+clear; a=b=1 -> [MyErr]Invalid ans isFound
+<br>
 ・未定義変数の代入不可
 <br>
 clear; a=1; c=a+b; c -> [MyErr]Invalid binary operation
@@ -20248,6 +20300,10 @@ clear; a=3; [a]=&gt; -> [MyErr]Invalid reference
 <br>
 (1,2,3)=&gt; || {1,2,3}=&gt; -> [MyErr]Invalid mat([object Object])
 <br>
+((,:,),=&lt;1)=&gt; -> [MyErr]Invalid mat([object Object])
+<br>
+((,:,):=&lt;1)=&gt; -> 1
+<br>
 ・(function(){var a=1, b=2, c=3; return [a,b,c];})();
 <br>
 (a=1,b=2,c=3,=&lt;(a,b,c))=&gt; -> (1,2,3)
@@ -20260,7 +20316,7 @@ clear; a=3; [a]=&gt; -> [MyErr]Invalid reference
 <br>
 (=&lt;0,=&lt;1,2)=&gt; -> [MyErr]Invalid mat([object Object])
 <br>
-・複数列挙の場合、最終returnのみ取り出す
+・複数列挙の場合、最終returnのみ取り出す（途中return不可）
 <br>
 (=&lt;(,:,),=&lt;1)=&gt; -> 1
 <br>
@@ -20294,7 +20350,7 @@ clear; (f=&lt;{x},x=(1,2),=&lt;f) -> [MyErr]Invalid BTe([object Object])
 <br>
 clear; (f=&lt;{x},x=(1,2),eqn_f=&lt;f); eqn_f -> (1,2)
 <br>
-・<a href="#span-out-config-strict">strict-mode</a>の場合、式変数の式読出し記号=&gt;省略不可
+・<a href="#span-out-config-strict">strict-mode</a>の場合、式変数の式読出し記号=&gt;省略不可（<a href="#span-out-eqns">式変数</a>のreturn不可）
 <br>
 clear; a=1; (=&lt;a)=&gt; -> 1
 <br>
@@ -34094,9 +34150,11 @@ f=&lt;{Ainv*A=identity2} || f=&lt;{=identity2-Ainv*A} || f=&lt;{identity2-Ainv*A
 <br>
 (x=3) || (3=3) -> 0
 <br>
-・代入後は0が残ると仮定して演算する
+・代入後は0が残ると仮定して演算する（<a href="#span-out-associativity">右結合</a>で値を残すNative仕様と異なる）
 <br>
 2(x=3) || 2(3=3) || 2(=3-3) || 2(0) -> 0
+<br>
+(a=(b=1),a,b) -> (0,0,1)
 <br>
 ・代入をcomma,||colon:で区切った場合、0を返す
 <br>
