@@ -1,6 +1,30 @@
 clear
 local storage cleared
 
+eval_norm(=<A)
+(
+1,2,3,3:
+1,2,3,3
+)
+
+eval_norm(A)=<(normr(A[0]),normr(A[1]),normr(A[2]),normr(A):normc(trans(A[0])),normc(trans(A[1])),normc(trans(A[2])),normc(trans(A)))
+stored_eqn(eval_norm)
+
+A={1*nvecr,(-2)*nvecr,3i*nvecr}
+A=(
+0.5,0.5i,0.5-0.5i:
+-1,-i,-1+i:
+1.5i,-1.5,1.5+1.5i
+)
+
+nvecr=normalizer(1,i,1-i)
+nvecr=(
+0.5,0.5i,0.5-0.5i
+)
+
+clear
+local storage cleared
+
 test_min_max(=<z)
 (
 -6,5,-i,-6,1,6:
@@ -1849,4 +1873,4 @@ drag=false&sw=false&0x=false&useMatrix=true&useStrict=false&checkError=true&isRi
 --------------------------------
 --------------------------------
 
-online-simulator.github.io.6.252.107.13.56 @ Thu Jul 13 2023 07:15:45 GMT+0900 (日本標準時) @ Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/114.0.0.0 Safari/537.36
+online-simulator.github.io.6.253.107.13.56 @ Fri Jul 14 2023 01:50:41 GMT+0900 (日本標準時) @ Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/114.0.0.0 Safari/537.36

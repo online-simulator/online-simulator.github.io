@@ -95,6 +95,8 @@
       script += "\nclear;\n";
       script += "z=(-i,-2,3,-4,5+i,-6:-1,1,-i,i:-i,i,-1,1);\nsort(z);\ncsort(z);\ntest_min_max(z)=<(min(z),max(z),cmin(z),cmax(z),camin(z),camax(z));\ntest_min_max(=<z);";
       script += "\nclear;\n";
+      script += "nvecr=normalizer(1,i,1-i);\nA={1*nvecr,(-2)*nvecr,3i*nvecr};\neval_norm(A)=<(normr(A[0]),normr(A[1]),normr(A[2]),normr(A):normc(trans(A[0])),normc(trans(A[1])),normc(trans(A[2])),normc(trans(A)));\neval_norm(=<A);";
+      script += "\nclear;\n";
       $._id("input").value = script;
       // test case
       var setVal = function(){

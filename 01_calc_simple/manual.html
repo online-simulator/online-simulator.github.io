@@ -10772,7 +10772,7 @@ erra=abs(real(dans))+abs(imag(dans))i; erra
 <br>
 -> 3.7769787297747826e-13+3.7769787297747826e-13i
 <br>
-・絶対誤差の<a href="#span-out-FNm-norm">Euclidian norm</a>
+・絶対誤差の<a href="#span-out-FNm-norm">Euclidean norm</a>
 <br>
 norm(erra) -> 5.341454544442203e-13
 <br>
@@ -10782,7 +10782,7 @@ errr=abs(real(erra)/real(ansa))+abs(imag(erra)/imag(ansa))i; errr
 <br>
 -> 1.8884893648873913e-13+1.8884893648873913e-13i
 <br>
-・相対誤差の<a href="#span-out-FNm-norm">Euclidian norm</a>
+・相対誤差の<a href="#span-out-FNm-norm">Euclidean norm</a>
 <br>
 norm(errr) -> 2.6707272722211015e-13
 <br>
@@ -10811,7 +10811,7 @@ erra=abs(real(dans))+abs(imag(dans))i; erra
 <br>
 -> 5.333333330526102e-9+5.3333332195038e-9i
 <br>
-・絶対誤差の<a href="#span-out-FNm-norm">Euclidian norm</a>
+・絶対誤差の<a href="#span-out-FNm-norm">Euclidean norm</a>
 <br>
 norm(erra) -> 7.54247225018186e-9
 <br>
@@ -10821,7 +10821,7 @@ errr=abs(real(erra)/real(ansa))+abs(imag(erra)/imag(ansa))i; errr
 <br>
 -> 6.666666663157625e-9+6.666666524379749e-9i
 <br>
-・相対誤差の<a href="#span-out-FNm-norm">Euclidian norm</a>
+・相対誤差の<a href="#span-out-FNm-norm">Euclidean norm</a>
 <br>
 norm(errr) -> 9.428090312727323e-9
 <br>
@@ -16817,9 +16817,31 @@ norm
 norm行列関数の入力仕様と付随する留意事項について記述する
 <br>
 <br>
-列vectorのEuclidian norm（vectorの長さ）
+<span class="run">Ver.2.187.44</span>以降、normr/normc行列関数を追加
 <br>
-・<a href="#span-out-linear">連立方程式</a>A*x=bのnorm(x)想定
+<br>
+行vectorのEuclidean norm（vectorの長さ）
+<br>
+normr(1,2,3) -> 3.7416573867739413
+<br>
+normr(NaN) -> NaN
+<br>
+・行vector形式の<a href="#span-out-linear">連立方程式</a>x*A=bのnorm(x)想定
+<br>
+normr(-i,2i,-3i) -> 3.7416573867739413
+<br>
+・<a href="#span-out-mat">行列</a>を指定した場合、最終行を参照
+<br>
+mat=(1,2:3,4); normr(mat),normr(mat[1]),normr(3,4) -> (5,5,5)
+<br>
+<br>
+列vectorのEuclidean norm（vectorの長さ）
+<br>
+norm(1:2:3) || normc(1:2:3) || euclidean(1:2:3) -> 3.7416573867739413
+<br>
+norm(NaN) || normc(NaN) || euclidean(NaN) -> NaN
+<br>
+・列vector形式の<a href="#span-out-linear">連立方程式</a>A*x=bのnorm(x)想定
 <br>
 norm(1:2:3) || norm{1,2,3} || norm({1,2,3}) -> 3.7416573867739413
 <br>
@@ -16875,13 +16897,9 @@ mat={1,2:3,4}; norm(mat),norm(mat[][1]),norm(3:4),norm{3,4},norm({3,4}),norm{{3,
 正規化行列関数の入力仕様と付随する留意事項について記述する
 <br>
 <br>
-vectorの正規化
+行vectorの正規化
 <br>
-・行vectorを正規化する場合
-<br>
-vr=(1,i,-i); vr -> (1,i,-i)
-<br>
-normalizer(vr) ->
+vr=(1,i,-i); normalizer(vr) ->
 <br>
 (0.5773502691896258,0.5773502691896258i,-0.5773502691896258i)
 <br>
@@ -16897,11 +16915,10 @@ vr=(1,i,-i); (1/norm(trans(vr)))vr ->
 <br>
 (0.5773502691896258,0.5773502691896258i,-0.5773502691896258i)
 <br>
-・列vectorを正規化する場合
 <br>
-vc={1,i,-i}; vc -> (1:i:-i)
+列vectorの正規化
 <br>
-normalize(vc) || normalizec(vc) -> 
+vc={1,i,-i}; normalize(vc) || normalizec(vc) -> 
 <br>
 (0.5773502691896258:0.5773502691896258i:-0.5773502691896258i)
 <br>
@@ -33605,7 +33622,7 @@ n=4,primes={2,3,5},eqn_k=&lt;<span class="clear">last{prime=primes[k],k+1}</span
 <br>
 _rk(=&lt;<span class="clear">eqn_k</span>,N=sizer(primes),N,=&lt;{n%prime==0}); prime -> 2
 <br>
-・<a href="#span-out-FNh">高階関数</a>の第1引数=&lt;<span class="clear">eqn</span>が必須の引数であり、以降、option引数を含むため、修正保留
+・<a href="#span-out-FNh">高階関数</a>の第1引数=&lt;<span class="clear">eqn</span>は必須であり、以降、option引数を含むため、修正保留とする
     </td>
   </tr>
   <tr>
@@ -34671,6 +34688,8 @@ operation.js抜粋
 <br>
 ・<span class="run">Ver.2.186.44</span>以降、<a href="#span-out-FN-camin">camin/camax関数</a>を追加
 <br>
+・<span class="run">Ver.2.187.44</span>以降、<a href="#span-out-FNm-norm">normr/normc行列関数</a>を追加
+<br>
 <br>
 予約語は大文字・小文字・全角・半角を区別しない
 <br>
@@ -34807,20 +34826,16 @@ parser.js抜粋
       case "normalizer":
       case "normalize":
       case "normalizec":
-        tree = DATA.tree_tag("FNm", token_lower);
-        break;
       case "trans":
       case "transpose":
-        tree = DATA.tree_tag("FNm", "transpose");
-        break;
       case "htrans":
       case "htranspose":
       case "hermitian":
-        tree = DATA.tree_tag("FNm", "hermitian");
-        break;
+      <span class="jF">case "normr":</span>
       case "norm":
+      <span class="jF">case "normc":</span>
       case "euclidean":
-        tree = DATA.tree_tag("FNm", "euclidean");
+        tree = DATA.tree_tag("FNm", token_lower);
         break;
       // "FNm2"
       case "scalars":
@@ -35149,7 +35164,9 @@ transpose(NaN);
 htrans(NaN);
 htranspose(NaN);
 hermitian(NaN);
+<span class="jF">normr(NaN);</span>
 norm(NaN);
+<span class="jF">normc(NaN);</span>
 euclidean(NaN);
 
 // error

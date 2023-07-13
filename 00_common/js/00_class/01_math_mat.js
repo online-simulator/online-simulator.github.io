@@ -473,6 +473,7 @@ My_entry.math_mat.prototype.normalizec = function(options, arr){
   }
   return _arr;
 };
+My_entry.math_mat.prototype.trans =  // Ver.2.187.44
 My_entry.math_mat.prototype.transpose = function(options, arr){
   var self = this;
   var DATA = self.entry.DATA;
@@ -488,6 +489,8 @@ My_entry.math_mat.prototype.transpose = function(options, arr){
   }
   return _arr;
 };
+My_entry.math_mat.prototype.htrans =  // Ver.2.187.44
+My_entry.math_mat.prototype.htranspose =  // Ver.2.187.44
 My_entry.math_mat.prototype.hermitian = function(options, arr){
   var self = this;
   var DATA = self.entry.DATA;
@@ -512,6 +515,17 @@ My_entry.math_mat.prototype.hermitian = function(options, arr){
   }
   return _arr;
 };
+/* Ver.2.187.44 */
+My_entry.math_mat.prototype.normr = function(options, arr){
+  var self = this;
+  var DATA = self.entry.DATA;
+  var unit = self.entry.unit;
+  var arr = self.BRm(options, arr, self.hermitian(options, arr));
+  var _arr = DATA.obj2arr(unit["FN"]("sqrt", options, self.arr2num(arr)));
+  return _arr;
+};
+My_entry.math_mat.prototype.norm =  // Ver.2.187.44
+My_entry.math_mat.prototype.normc =  // Ver.2.187.44
 My_entry.math_mat.prototype.euclidean = function(options, arr){
   var self = this;
   var DATA = self.entry.DATA;
