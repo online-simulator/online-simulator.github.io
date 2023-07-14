@@ -406,9 +406,8 @@ My_entry.math.prototype.lcm = function(x, y){
   if(x < 0 || y < 0) return false;
   var x = Math.floor(x);
   var y = Math.floor(y);
-  var xy = x*y;
-  if(xy === 0) return 0;
-  return (xy/self.gcd(x, y));
+  if(x*y === 0) return 0;
+  return (x*(y/self.gcd(x, y)));  // Ver.2.187.44
 };
 My_entry.math.prototype.gcd = function(x, y){
   var self = this;

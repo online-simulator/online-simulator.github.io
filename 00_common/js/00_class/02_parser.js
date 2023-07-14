@@ -512,6 +512,10 @@ My_entry.parser.prototype.make_trees = function(sentence, opt_re){  // Ver.2.158
       case "sizer":
       case "size":
       case "sizec":
+      case "normr":
+      case "norm":
+      case "normc":
+      case "euclidean":
       case "normalizer":
       case "normalize":
       case "normalizec":
@@ -520,10 +524,6 @@ My_entry.parser.prototype.make_trees = function(sentence, opt_re){  // Ver.2.158
       case "htrans":
       case "htranspose":
       case "hermitian":
-      case "normr":
-      case "norm":
-      case "normc":
-      case "euclidean":
         tree = DATA.tree_tag("FNm", token_lower);
         break;
       // "FNm2"

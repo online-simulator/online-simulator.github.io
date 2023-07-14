@@ -411,13 +411,10 @@ My_entry.math_mat.prototype.sizec = function(options, arr){
   var lens = self.get_lens(arr);
   return [[DATA.num(lens.j, 0)]];
 };
-My_entry.math_mat.prototype.normalizer = function(options, arr){
+/* Ver.2.187.44 -> */
+My_entry.math_mat.prototype.calc_norm = function(options, vec){
   var self = this;
-  var DATA = self.entry.DATA;
   var unit = self.entry.unit;
-  var lens = self.get_lens(arr);
-  var len_i = lens.i;
-  var len_j = lens.j;
   var callback = (options.useComplex)?
     function(num){
       return unit["FN"]("conjugate", options, num);
@@ -425,15 +422,55 @@ My_entry.math_mat.prototype.normalizer = function(options, arr){
     function(num){
       return num;
     };
+  var vec0 = vec;
+  var vec1 = [];
+  var len_j = vec0.length;
+  for(var j=0; j<len_j; ++j){
+    var vec0j = vec0[j];
+    vec1[j] = (vec0j)? callback(vec0j): null;
+  }
+  return self.sqrt_iproduct(options, vec0, vec1);
+};
+My_entry.math_mat.prototype.normr = function(options, arr){
+  var self = this;
+  var DATA = self.entry.DATA;
+  var unit = self.entry.unit;
+  var _arr = [];
+  var len_i = arr.length;
+  for(var i=0; i<len_i; ++i){
+    var arri = arr[i];
+    var norm_euclid = self.calc_norm(options, arri);
+    _arr[i] = [norm_euclid];
+  }
+  return _arr;
+};
+My_entry.math_mat.prototype.norm =
+My_entry.math_mat.prototype.normc =
+My_entry.math_mat.prototype.euclidean = function(options, arr){
+  var self = this;
+  var DATA = self.entry.DATA;
+  var unit = self.entry.unit;
+  var tarr = self.transpose(options, arr);
+  var _arr = [[]];
+  var len_j = tarr.length;
+  for(var j=0; j<len_j; ++j){
+    var tarrj = tarr[j];
+    var norm_euclid = self.calc_norm(options, tarrj);
+    _arr[0][j] = norm_euclid;
+  }
+  return _arr;
+};
+My_entry.math_mat.prototype.normalizer = function(options, arr){
+  var self = this;
+  var DATA = self.entry.DATA;
+  var unit = self.entry.unit;
+  var lens = self.get_lens(arr);
+  var len_i = lens.i;
+  var len_j = lens.j;
   var _arr = self.init2d(len_i, len_j);
   for(var i=0; i<len_i; ++i){
     var arri = arr[i];
-    var arrR = [];
-    for(var j=0; j<len_j; ++j){
-      var arrij = arri[j];
-      arrR[j] = (arrij)? callback(arrij): null;
-    }
-    var norm_euclid = self.sqrt_iproduct(options, arri, arrR);
+    var norm_euclid = self.calc_norm(options, arri);
     for(var j=0; j<len_j; ++j){
       var arrij = arri[j];
       _arr[i][j] = (arrij)? unit["BRd"](options, arrij, norm_euclid): DATA.num(0, 0);
@@ -449,23 +486,13 @@ My_entry.math_mat.prototype.normalizec = function(options, arr){
   var lens = self.get_lens(arr);
   var len_i = lens.i;
   var len_j = lens.j;
-  var callback = (options.useComplex)?
-    function(num){
-      return unit["FN"]("conjugate", options, num);
-    }:
-    function(num){
-      return num;
-    };
   var _arr = self.init2d(len_i, len_j);
   for(var j=0; j<len_j; ++j){
-    var arrL = [];
-    var arrR = [];
+    var arrj = [];
     for(var i=0; i<len_i; ++i){
-      var arrij = arr[i][j];
-      arrL[i] = (arrij)? callback(arrij): null;
-      arrR[i] = arrij;
+      arrj[i] = arr[i][j];
     }
-    var norm_euclid = self.sqrt_iproduct(options, arrL, arrR);
+    var norm_euclid = self.calc_norm(options, arrj);
     for(var i=0; i<len_i; ++i){
       var arrij = arr[i][j];
       _arr[i][j] = (arrij)? unit["BRd"](options, arrij, norm_euclid): DATA.num(0, 0);
@@ -473,6 +500,7 @@ My_entry.math_mat.prototype.normalizec = function(options, arr){
   }
   return _arr;
 };
+/* -> Ver.2.187.44 */
 My_entry.math_mat.prototype.trans =  // Ver.2.187.44
 My_entry.math_mat.prototype.transpose = function(options, arr){
   var self = this;
@@ -513,25 +541,6 @@ My_entry.math_mat.prototype.hermitian = function(options, arr){
       _arr[j][i] = callback(num);
     }
   }
-  return _arr;
-};
-/* Ver.2.187.44 */
-My_entry.math_mat.prototype.normr = function(options, arr){
-  var self = this;
-  var DATA = self.entry.DATA;
-  var unit = self.entry.unit;
-  var arr = self.BRm(options, arr, self.hermitian(options, arr));
-  var _arr = DATA.obj2arr(unit["FN"]("sqrt", options, self.arr2num(arr)));
-  return _arr;
-};
-My_entry.math_mat.prototype.norm =  // Ver.2.187.44
-My_entry.math_mat.prototype.normc =  // Ver.2.187.44
-My_entry.math_mat.prototype.euclidean = function(options, arr){
-  var self = this;
-  var DATA = self.entry.DATA;
-  var unit = self.entry.unit;
-  var arr = self.BRm(options, self.hermitian(options, arr), arr);
-  var _arr = DATA.obj2arr(unit["FN"]("sqrt", options, self.arr2num(arr)));
   return _arr;
 };
 My_entry.math_mat.prototype.jacobian = function(options, arr){

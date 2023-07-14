@@ -1657,6 +1657,12 @@ title/発行元(発行年)を列挙する
 　絶対値　⇒　要素（<a href="#span-out-FN-statistic">統計関数</a>に準拠）
 <br>
 　<a href="#span-eqn">strict-mode式変数list</a>への影響なし
+<br>
+・<span class="run">Ver.2.187.44</span>以降、<a href="#span-out-FNm-norm">normr/normc行列関数</a>を追加して返値の仕様変更
+<br>
+　最終行/最終列vectorのnorm　⇒　各行/各列vectorのnorm（<a href="#span-out-FNm-normalize">正規化行列関数</a>に準拠）
+<br>
+　<a href="#span-eqn">strict-mode式変数list</a>への影響なし
     </td>
   </tr>
   <tr>
@@ -16865,10 +16871,12 @@ norm
 norm行列関数の入力仕様と付随する留意事項について記述する
 <br>
 <br>
-<span class="run">Ver.2.187.44</span>以降、normr/normc行列関数を追加
+<span class="run">Ver.2.187.44</span>以降、normr/normc行列関数を追加して返値の仕様変更
+<br>
+・最終行/最終列vectorのnorm　⇒　各行/各列vectorのnorm（<a href="#span-out-FNm-normalize">正規化行列関数</a>に準拠）
 <br>
 <br>
-行vectorのEuclidean norm（vectorの長さ）
+各行vectorのEuclidean norm（vectorの長さ）
 <br>
 normr(1,2,3) -> 3.7416573867739413
 <br>
@@ -16878,12 +16886,20 @@ normr(NaN) -> NaN
 <br>
 normr(-i,2i,-3i) -> 3.7416573867739413
 <br>
-・<a href="#span-out-mat">行列</a>を指定した場合、最終行を参照
+<del>・<a href="#span-out-mat">行列</a>を指定した場合、最終行を参照
 <br>
-mat=(1,2:3,4); normr(mat),normr(mat[1]),normr(3,4) -> (5,5,5)
+mat=(1,2:3,4); normr(mat),normr(mat[1]),normr(3,4) -> (5,5,5)</del>
+<br>
+・<a href="#span-out-mat">行列</a>の場合
+<br>
+mat=(1,2:3,4); normr(mat) -> (2.23606797749979:5)
+<br>
+・正規化の<a href="#span-out-ope-extended">拡張行列演算</a>
+<br>
+mat=(4,3i:-3,4i); mat/normr(mat) -> (0.8,0.6i:-0.6,0.8i)
 <br>
 <br>
-列vectorのEuclidean norm（vectorの長さ）
+各列vectorのEuclidean norm（vectorの長さ）
 <br>
 norm(1:2:3) || normc(1:2:3) || euclidean(1:2:3) -> 3.7416573867739413
 <br>
@@ -16919,13 +16935,21 @@ x={(1-i)/sqrt2,2i,-3i}; trans(x)x -> -13-0.9999999999999998i
 <br>
 x={(1-i)/sqrt2,2i,-3i}; abs(sqrt(trans(x)x))  <span class="selection">// NG</span> -> 3.6108731368472777
 <br>
-・行vectorを誤入力した場合
+<del>・行vectorを誤入力した場合
 <br>
 norm((1-i)/sqrt2,2i,-3i) || norm(-3i)  <span class="selection">// NG</span> -> 3
 <br>
 ・<a href="#span-out-mat">行列</a>を指定した場合、最終列を参照
 <br>
-mat={1,2:3,4}; norm(mat),norm(mat[][1]),norm(3:4),norm{3,4},norm({3,4}),norm{{3,4}} -> (5,5,5,5,5,5)
+mat={1,2:3,4}; norm(mat),norm(mat[][1]),norm(3:4),norm{3,4},norm({3,4}),norm{{3,4}} -> (5,5,5,5,5,5)</del>
+<br>
+・<a href="#span-out-mat">行列</a>の場合
+<br>
+mat={1,2:3,4}; norm(mat) -> (2.23606797749979,5)
+<br>
+・正規化の<a href="#span-out-ope-extended">拡張行列演算</a>
+<br>
+mat={4,3i:-3,4i}; mat/normc(mat) -> (0.8,-0.6:0.6i,0.8i)
     </td>
   </tr>
   <tr>
@@ -16945,7 +16969,7 @@ mat={1,2:3,4}; norm(mat),norm(mat[][1]),norm(3:4),norm{3,4},norm({3,4}),norm{{3,
 正規化行列関数の入力仕様と付随する留意事項について記述する
 <br>
 <br>
-行vectorの正規化
+各行vectorの正規化
 <br>
 vr=(1,i,-i); normalizer(vr) ->
 <br>
@@ -16963,33 +16987,11 @@ vr=(1,i,-i); (1/norm(trans(vr)))vr ->
 <br>
 (0.5773502691896258,0.5773502691896258i,-0.5773502691896258i)
 <br>
+・<a href="#span-out-FNm">zeros-vector</a>の場合、不定として<a href="#span-out-literal">NaN</a>を返す
 <br>
-列vectorの正規化
+normalizer(0,0,0)  <span class="selection">// NG</span> -> (NaN,NaN,NaN)
 <br>
-vc={1,i,-i}; normalize(vc) || normalizec(vc) -> 
-<br>
-(0.5773502691896258:0.5773502691896258i:-0.5773502691896258i)
-<br>
-・同義
-<br>
-・列vectorの右からnormの逆数を積
-<br>
-vc={1,i,-i}; vc(1/norm(vc)) ->
-<br>
-(0.5773502691896258:0.5773502691896258i:-0.5773502691896258i)
-<br>
-・行vectorを誤入力した場合
-<br>
-vr=(1,i,-i); normalizec(vr)  <span class="selection">// NG</span> -> (1,i,-i)
-<br>
-・<a href="#span-out-FNm">zeros-vector</a>の場合
-<br>
-normalize({0,0,0})  <span class="selection">// NG</span> -> (NaN:NaN:NaN)
-<br>
-<br>
-行列の正規化（欠損要素を自動で埋める）
-<br>
-・すべての行vectorを正規化する場合
+・<a href="#span-out-mat">行列</a>の場合
 <br>
 A=(1:1,i:1,i,-i); A -> (1:1,i:1,i,-i)
 <br>
@@ -17015,7 +17017,30 @@ normalizer(A) ->
 <br>
 -> (0.5773502691896258,0.5773502691896258i,-0.5773502691896258i)
 <br>
-・すべての列vectorを正規化する場合
+<br>
+各列vectorの正規化
+<br>
+vc={1,i,-i}; normalize(vc) || normalizec(vc) -> 
+<br>
+(0.5773502691896258:0.5773502691896258i:-0.5773502691896258i)
+<br>
+・同義
+<br>
+・列vectorの右からnormの逆数を積
+<br>
+vc={1,i,-i}; vc(1/norm(vc)) ->
+<br>
+(0.5773502691896258:0.5773502691896258i:-0.5773502691896258i)
+<br>
+・行vectorを誤入力した場合
+<br>
+vr=(1,i,-i); normalizec(vr)  <span class="selection">// NG</span> -> (1,i,-i)
+<br>
+・<a href="#span-out-FNm">zeros-vector</a>の場合、不定として<a href="#span-out-literal">NaN</a>を返す
+<br>
+normalize({0,0,0})  <span class="selection">// NG</span> -> (NaN:NaN:NaN)
+<br>
+・<a href="#span-out-mat">行列</a>の場合
 <br>
 tA={1:1,i:1,i,-i}; tA -> (1,1,1:0,i,i:0,0,-i)
 <br>
@@ -34881,6 +34906,10 @@ parser.js抜粋
       case "sizer":
       case "size":
       case "sizec":
+      <span class="jF">case "normr":</span>
+      case "norm":
+      <span class="jF">case "normc":</span>
+      case "euclidean":
       case "normalizer":
       case "normalize":
       case "normalizec":
@@ -34889,10 +34918,6 @@ parser.js抜粋
       case "htrans":
       case "htranspose":
       case "hermitian":
-      <span class="jF">case "normr":</span>
-      case "norm":
-      <span class="jF">case "normc":</span>
-      case "euclidean":
         tree = DATA.tree_tag("FNm", token_lower);
         break;
       // "FNm2"
@@ -35214,6 +35239,10 @@ rotationz(NaN);
 sizer(NaN);  // 1
 size(NaN);  // 1
 sizec(NaN);  // 1
+<span class="jF">normr(NaN);</span>
+norm(NaN);
+<span class="jF">normc(NaN);</span>
+euclidean(NaN);
 normalizer(NaN);
 normalize(NaN);
 normalizec(NaN);
@@ -35222,10 +35251,6 @@ transpose(NaN);
 htrans(NaN);
 htranspose(NaN);
 hermitian(NaN);
-<span class="jF">normr(NaN);</span>
-norm(NaN);
-<span class="jF">normc(NaN);</span>
-euclidean(NaN);
 
 // error
 scalars(NaN);
@@ -35799,7 +35824,7 @@ gcd_(a,b)=&lt;last[_rn(=&lt;last{ia=floor(a),ib=floor(b),a=ia&lt;0||ib===0&amp;&
 <br>
 isBreak_a=&lt;isNaN(a)|||a&lt;0&amp;&amp;&amp;~~(a=false),1e6,=&lt;{isBreak_a=&gt;|||b==0}),a];
 <br>
-lcm_(a,b)=&lt;a*b/gcd_(a,b)=&gt;;
+lcm_(a,b)=&lt;a*(b/gcd_(a,b)=&gt;);
 <br>
 [gcd(111,222,333,444,555),gcd_(111,gcd_(222,gcd_(333,gcd_(444,555)=&gt;)=&gt;)=&gt;)=&gt;:
 <br>
