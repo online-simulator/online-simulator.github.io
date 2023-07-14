@@ -85,7 +85,7 @@
       script += "\nclear;\n";
       script += "z=(-i,-2,3,-4,5+i,-6:-1,1,-i,i:-i,i,-1,1);\nsort(z);\ncsort(z);\ntest_min_max(z)=<(min(z),max(z),cmin(z),cmax(z),camin(z),camax(z));\ntest_min_max(=<z);";
       script += "\nclear;\n";
-      script += "nvecr=normalizer(1,i,1-i);\nA={1*nvecr,(-2)*nvecr,3i*nvecr};\ntA=trans(A);\nnormalizer(A)-A/normr(A);\nnormalizec(tA)-tA/normc(tA);\nnormr(A),normr(normalizer(A));\nnormc(tA):normc(normalizec(tA));";
+      script += "nvecr=normalizer(1,i,1-i);\nA={1*nvecr,(-2)*nvecr,3i*nvecr,4};\ntA=trans(A);\nnormalizer(A)-A/normr(A);\nnormalizec(tA)-tA/normc(tA);\nnormr(A),normr(normalizer(A));\nnormc(tA):normc(normalizec(tA));";
       script += "\nclear;\n";
       $._id("input").value = script;
     });

@@ -95,7 +95,7 @@
       script += "\nclear;\n";
       script += "z=(-i,-2,3,-4,5+i,-6:-1,1,-i,i:-i,i,-1,1);\nsort(z);\ncsort(z);\ntest_min_max(z)=<(min(z),max(z),cmin(z),cmax(z),camin(z),camax(z));\ntest_min_max(=<z);";
       script += "\nclear;\n";
-      script += "nvecr=normalizer(1,i,1-i);\nA={1*nvecr,(-2)*nvecr,3i*nvecr};\ntA=trans(A);\nnormalizer(A)-A/normr(A);\nnormalizec(tA)-tA/normc(tA);\nnormr(A),normr(normalizer(A));\nnormc(tA):normc(normalizec(tA));";
+      script += "nvecr=normalizer(1,i,1-i);\nA={1*nvecr,(-2)*nvecr,3i*nvecr,4};\ntA=trans(A);\nnormalizer(A)-A/normr(A);\nnormalizec(tA)-tA/normc(tA);\nnormr(A),normr(normalizer(A));\nnormc(tA):normc(normalizec(tA));";
       script += "\nclear;\n";
       $._id("input").value = script;
       // test case
@@ -114,7 +114,7 @@
       $._id("ax").onclick = function(){setVal("1e-3(1+i)", "1e2(1+i)", "x=t,x;", "x;2x;3x;4x;5x;6x;7x;8x;9x;10x;");};
       $._id("pow1").onclick = function(){setVal("-1", "1", "x=t,x;", "x;x^2;x^3;x^4;x^5;", 30);};
       $._id("pow2").onclick = function(){setVal("-2(1+i)", "2(1+i)", "x=t,x;", "x;x^2;x^3;x^4;x^5;", 30);};
-      $._id("pow3").onclick = function(){setVal("1", "11", "m=t,m;", "log2(3);Nrshift(m)=<(2**m-1)/2**(m-1),Nrshift(m);", 10);};
+      $._id("pow3").onclick = function(){setVal("1", "11", "m=floor(t),m;", "log2(3);Nrshift(m)=<(2**m-1)/2**(m-1),Nrshift(m);hist=(1,1,2,4,8,16,32,64,128,256,512),Nzeros(m)=<linspace(1,m,m)*trans(reverse(hist[0][0][1][m])),Mcases(m)=<2**(m-1),Nrshift(m)=<(m>11&&&{NaN,}|||{Nzeros(m)/Mcases(m),})[0],Nrshift(m);", 10);};
       $._id("sin").onclick = function(){setVal("0", "2pi", "x=t,x;", "sin(x);cos(x);sin(2x);cos(2x);", 100);};
       $._id("circle").onclick = function(){setVal("0", "2pi", "cos(t);ft=<e^(i(t)),real(ft)1.5;2ft;ft2=<ecomp(t),real(ft2)2.5;rot=<(cos(t),-sin(t):sin(t),cos(t)),vec0=(3:0),(rot*vec0)[0];", "sin(t);imag(ft)1.5;2_dt(=<-ft);imag(ft2)2.5;(rot*vec0)[1];", 50);};
       $._id("cone").onclick = function(){setVal("0", "2pi", "p=1,r(t,p,er)=<p/(1+er*cos(t)),z(t,p,er)=<r(t,p,er)e^(i(t)),z1=z(t,p,0),z2=z(t,p,0.8),z3=z(t,p,1.1),real(z1);real(z2);real(z3);", "imag(z1);imag(z2);imag(z3);", 20);$._id("input-z").value+="TITLE{Polar equation of conic curve}::3:1.5:1.5::circle(er=0);::::::ellipse(er=0.8<1);::::::hyperbola(er=1.1>1);";};

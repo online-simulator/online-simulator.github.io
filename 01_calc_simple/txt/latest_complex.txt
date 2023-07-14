@@ -3,26 +3,28 @@ local storage cleared
 
 normc(tA):normc(normalizec(tA))
 (
-1,2,3:
-1,1,1
+1,2,3,4:
+1,1,1,1
 )
 
 normr(A),normr(normalizer(A))
 (
 1,1:
 2,1:
-3,1
+3,1:
+4,1
 )
 
 normalizec(tA)-tA/normc(tA)
 (
-0,0,0:
-0,0,0:
-0,0,0
+0,0,0,0:
+0,0,0,0:
+0,0,0,0
 )
 
 normalizer(A)-A/normr(A)
 (
+0,0,0:
 0,0,0:
 0,0,0:
 0,0,0
@@ -30,16 +32,17 @@ normalizer(A)-A/normr(A)
 
 tA=trans(A)
 tA=(
-0.5,-1,1.5i:
-0.5i,-i,-1.5:
-0.5-0.5i,-1+i,1.5+1.5i
+0.5,-1,1.5i,4:
+0.5i,-i,-1.5,0:
+0.5-0.5i,-1+i,1.5+1.5i,0
 )
 
-A={1*nvecr,(-2)*nvecr,3i*nvecr}
+A={1*nvecr,(-2)*nvecr,3i*nvecr,4}
 A=(
 0.5,0.5i,0.5-0.5i:
 -1,-i,-1+i:
-1.5i,-1.5,1.5+1.5i
+1.5i,-1.5,1.5+1.5i:
+4
 )
 
 nvecr=normalizer(1,i,1-i)
@@ -1898,4 +1901,4 @@ drag=false&sw=false&0x=false&useMatrix=true&useStrict=false&checkError=true&isRi
 --------------------------------
 --------------------------------
 
-online-simulator.github.io.6.253.107.13.56 @ Fri Jul 14 2023 22:48:22 GMT+0900 (日本標準時) @ Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/114.0.0.0 Safari/537.36
+online-simulator.github.io.6.253.107.13.56 @ Sat Jul 15 2023 05:06:19 GMT+0900 (日本標準時) @ Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/114.0.0.0 Safari/537.36
