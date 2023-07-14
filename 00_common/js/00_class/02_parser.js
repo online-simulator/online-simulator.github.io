@@ -524,8 +524,6 @@ My_entry.parser.prototype.make_trees = function(sentence, opt_re){  // Ver.2.158
       case "htrans":
       case "htranspose":
       case "hermitian":
-        tree = DATA.tree_tag("FNm", token_lower);
-        break;
       // "FNm2"
       case "scalars":
       case "zeros":
@@ -533,16 +531,10 @@ My_entry.parser.prototype.make_trees = function(sentence, opt_re){  // Ver.2.158
       case "coo2mat":
       case "mat2coo":
       case "interp":
-        tree = DATA.tree_tag("FNm", token_lower);
-        break;
       case "gauss_coo":
       case "gaussian_coo":
-        tree = DATA.tree_tag("FNm", "gaussian_coo");
-        break;
       case "gauss":
       case "gaussian":
-        tree = DATA.tree_tag("FNm", "gaussian");
-        break;
       // "FNm2or3"
       // Matlab defined
       // Python defined

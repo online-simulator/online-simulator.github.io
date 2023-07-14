@@ -34918,8 +34918,6 @@ parser.js抜粋
       case "htrans":
       case "htranspose":
       case "hermitian":
-        tree = DATA.tree_tag("FNm", token_lower);
-        break;
       // "FNm2"
       case "scalars":
       case "zeros":
@@ -34927,16 +34925,10 @@ parser.js抜粋
       case "coo2mat":
       case "mat2coo":
       <span class="jF">case "interp":</span>
-        tree = DATA.tree_tag("FNm", token_lower);
-        break;
       case "gauss_coo":
       case "gaussian_coo":
-        tree = DATA.tree_tag("FNm", "gaussian_coo");
-        break;
       case "gauss":
       case "gaussian":
-        tree = DATA.tree_tag("FNm", "gaussian");
-        break;
       // "FNm2or3"
       // Matlab defined
       // Python defined

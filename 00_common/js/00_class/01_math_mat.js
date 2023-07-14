@@ -543,6 +543,7 @@ My_entry.math_mat.prototype.hermitian = function(options, arr){
   }
   return _arr;
 };
+My_entry.math_mat.prototype.jacobi =  // Ver.2.187.44
 My_entry.math_mat.prototype.jacobian = function(options, arr){
   var self = this;
   if(arr[0].length > 2){
@@ -563,6 +564,7 @@ My_entry.math_mat.prototype.jacobian = function(options, arr){
   }
   return _arr;
 };
+My_entry.math_mat.prototype.gauss =  // Ver.2.187.44
 My_entry.math_mat.prototype.gaussian = function(options, arr){
   var self = this;
   var solver_com = self.entry.solver_com;
@@ -586,6 +588,7 @@ My_entry.math_mat.prototype.gaussian = function(options, arr){
   return _arr;
 };
 /* Ver.2.135.35 -> */
+My_entry.math_mat.prototype.gauss_coo =  // Ver.2.187.44
 My_entry.math_mat.prototype.gaussian_coo = function(options, arr){  // arr=(aA:mA:nA:tb) -> x
   var self = this;
   var solver_com = self.entry.solver_com;
