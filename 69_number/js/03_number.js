@@ -21,6 +21,22 @@ My_entry.test_number.prototype.init = function(){
       return "not supported";
     };
   self.len_m = 12;  // Ver.0.33.4
+  /* Ver.0.35.4 -> */
+  self.len_p = 14;
+  var results_m = [];
+  results_m[1] = "=(1){1}/1;";
+  results_m[2] = "=(1,2){1,1}/2;";
+  results_m[3] = "=(1,2,3){2,1,1}/4;";
+  results_m[4] = "=(1,2,3,4){4,2,1,1}/8;";
+  results_m[5] = "=(1,2,3,4,5){8,4,2,1,1}/16;";
+  results_m[6] = "=(1,2,3,4,5,6){16,8,4,2,1,1}/32;";
+  results_m[7] = "=(1,2,3,4,5,6,7){32,16,8,4,2,1,1}/64;";
+  results_m[8] = "=(1,2,3,4,5,6,7,8){64,32,16,8,4,2,1,1}/128;";
+  results_m[9] = "=(1,2,3,4,5,6,7,8,9){128,64,32,16,8,4,2,1,1}/256;";
+  results_m[10] = "=(1,2,3,4,5,6,7,8,9,10){256,128,64,32,16,8,4,2,1,1}/512;";
+  results_m[11] = "=(1,2,3,4,5,6,7,8,9,10,11){512,256,128,64,32,16,8,4,2,1,1}/1024;";
+  self.results_m = results_m;
+  /* -> Ver.0.35.4 */
   return self;
 };
 My_entry.test_number.prototype.init_elems = function(){
@@ -47,6 +63,7 @@ My_entry.test_number.prototype.init_handlers = function(){
       case "solve0":  // Ver.0.32.4
       case "solve1":  // Ver.0.32.4
       case "solve2":  // Ver.0.33.4
+      case "solve3":  // Ver.0.35.4
       case "clear":
       case "convert":
         self[id]();
@@ -127,6 +144,8 @@ My_entry.test_number.prototype.solve = function(isMinus){
   if(isNaN(Number(num))) return false;
   var num0 = num;  // Ver.0.34.4
   var nmax = num;  // Ver.0.34.4
+  var m0 = num.toString(2).length;  // Ver.0.35.4
+  var mmax = m0;  // Ver.0.35.4
   var isCircular = false;  // Ver.0.33.4
   var len_m = 4;
   var freq2d = new Array(len_m);
@@ -169,6 +188,7 @@ My_entry.test_number.prototype.solve = function(isMinus){
   /* Ver.0.34.4 */
   var output_log = function(msg){
     msg += "<br>floor(nmax/n)="+nmax/num0;
+    msg += "<br>mmax/m="+mmax/m0;  // Ver.0.35.4
     $._id("output-log").innerHTML = "<caption class="+((isMinus)? "selection": "run")+">"+msg+"</caption>";
   };
   var isBreak = (isMinus)?
@@ -222,6 +242,7 @@ My_entry.test_number.prototype.solve = function(isMinus){
       /* Ver.0.34.4 -> */
       if(num > nmax){
         nmax = num;
+        mmax = num.toString(2).length;  // Ver.0.35.4
       }
       /* -> Ver.0.34.4 */
       if(num%2n === 0n){
@@ -278,7 +299,7 @@ My_entry.test_number.prototype.solve2 = function(){
     return bin.substring(len-m, len);
   };
   var run = function(){
-    var header0 = self.output_line("wF", "m", "3*n-1", "3*n+1");
+    var header0 = self.output_line("wF", "m", "3*n-1", "3*n+1", "=Nrshift(m)");  // Ver.0.35.4
     var header1 = self.output_line("wF", "m", "n", "n&lt;&lt;1", "3*n<br>=n+(n&lt;&lt;1)", "3*n-1<br>=(3*n+1)-2", "3*n+1<br>=(3*n-1)+2");  // Ver.0.34.4
     var html0 = "";
     var html1 = "";
@@ -295,12 +316,51 @@ My_entry.test_number.prototype.solve2 = function(){
         N0p += count_N0(binp, m);
         html1 += self.output_line((m%2 === 1)? "condition": "wF", m, n.toString(2), (n<<1).toString(2), (n+(n<<1)).toString(2), get_lsmbit(binm, m), get_lsmbit(binp, m));  // Ver.0.34.4 32bit
       }
-      html0 += self.output_line("", m, N0m+"/"+len_n2, N0p+"/"+len_n2);
+      html0 += self.output_line("", m, N0m+"/"+len_n2, N0p+"/"+len_n2, self.results_m[m]);  // Ver.0.35.4
     }
-    $._id("output-log").innerHTML = "<caption class='condition'>simple expected value<br>Nrshift(m) with zeros counted<br>from bit string</caption>"+header0+html0;
-    $._id("output-html").innerHTML = "<caption class='condition'>bit string</caption>"+header1+html1;
+  /* Ver.0.35.4 -> */
+    var _logs = {};
+    _logs.log0 = "<caption class='condition'>simple expected value<br>Nrshift(m) with zeros counted<br>from bit string</caption>"+header0+html0;
+    _logs.log1 = "<caption class='condition'>bit string</caption>"+header1+html1;
+    return _logs;
   };
-  run();
+  self.logs2 = self.logs2 || run();
+  $._id("output-log").innerHTML = self.logs2.log0;
+  $._id("output-html").innerHTML = self.logs2.log1;
+  /* -> Ver.0.35.4 */
   return self;
 };
 /* -> Ver.0.32.4 */
+/* Ver.0.35.4 */
+My_entry.test_number.prototype.solve3 = function(){
+  var self = this;
+  var $ = self.entry.$;
+  self.convert();
+  var isPrime = function(n){
+    var _isPrime = (n > 1);
+    var len = Math.sqrt(n);
+    for(var i=2; i<=len; ++i){
+      if(n%i === 0){
+        _isPrime = false;
+        break;
+      }
+    }
+    return _isPrime;
+  };
+  var run = function(){
+    var header1 = self.output_line("clear", "radix", "=10", "=6", "=4", "=2", "=10");
+    var html1 = "";
+    var len_n = Math.pow(2, self.len_p);
+    for(var n=1; n<len_n; ++n){
+      if(isPrime(n)){
+        html1 += self.output_line((n%2 === 1)? "condition": "wF", "", n, n.toString(6), n.toString(4), n.toString(2), n);
+      }
+    }
+    var _logs = {};
+    _logs.log1 = "<caption class='condition'>prime numbers<br>n&lt;"+len_n+"</caption>"+header1+html1;
+    return _logs;
+  };
+  self.logs3 = self.logs3 || run();
+  $._id("output-html").innerHTML = self.logs3.log1;
+  return self;
+};
