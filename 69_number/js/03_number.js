@@ -22,6 +22,7 @@ My_entry.test_number.prototype.init = function(){
     };
   self.len_m = 12;  // Ver.0.33.4
   /* Ver.0.35.4 -> */
+  self.len_mf = 5;
   self.len_p = 14;
   var results_m = [];
   results_m[1] = "=(1){1}/1;";
@@ -135,6 +136,34 @@ My_entry.test_number.prototype.output_line = function(){
   _html += "</tr>";
   return _html;
 };
+/* Ver.0.35.4 -> */
+My_entry.test_number.prototype.init_freq = function(){
+  var self = this;
+  var freq2d = [];
+  for(var m=1; m<self.len_mf; ++m){
+    var len = Math.pow(2, m-1);
+    freq2d[m] = new Array(len);
+    for(var i=0; i<len; ++i){
+      freq2d[m][i] = 0;
+    }
+  }
+  self.freq2d = freq2d;
+  return self;
+};
+My_entry.test_number.prototype.save_freq = function(num){
+  var self = this;
+  for(var m=1; m<self.len_mf; ++m){
+    var n2 = "00000000"+num.toString(2);
+    var len = n2.length;
+    if(len-m >= 0){
+      var n2sub = n2.substring(len-m, len-1) || "0";
+      var n2num = Number("0b"+n2sub);
+      self.freq2d[m][n2num] += 1;
+    }
+  }
+  return self;
+};
+/* -> Ver.0.35.4 */
 My_entry.test_number.prototype.solve = function(isMinus){
   var self = this;
   var $ = self.entry.$;
@@ -147,27 +176,9 @@ My_entry.test_number.prototype.solve = function(isMinus){
   var m0 = num.toString(2).length;  // Ver.0.35.4
   var mmax = m0;  // Ver.0.35.4
   var isCircular = false;  // Ver.0.33.4
-  var len_m = 4;
-  var freq2d = new Array(len_m);
-  for(var m=1; m<len_m; ++m){
-    var len = Math.pow(2, m-1);
-    freq2d[m] = new Array(len);
-    for(var i=0; i<len; ++i){
-      freq2d[m][i] = 0;
-    }
-  }
-  var save_freq = function(num){
-    for(var m=1; m<len_m; ++m){
-      var n2 = "00000000"+num.toString(2);
-      var len = n2.length;
-      if(len-m >= 0){
-        var n2sub = n2.substring(len-m, len-1) || "0";
-        var n2num = Number("0b"+n2sub);
-        freq2d[m][n2num] += 1;
-      }
-    }
-  };
   /* Ver.0.33.4 */
+  self.init_freq();  // Ver.0.35.4
+  var freq2d = self.freq2d;  // Ver.0.35.4
   var get_Nrshift = function(i){
     return (-1+(i+1)/freq2d[1][0]);
   };
@@ -253,7 +264,7 @@ My_entry.test_number.prototype.solve = function(isMinus){
         num /= 2n;
       }
       else{
-        save_freq(num);
+        self.save_freq(num);  // Ver.0.35.4
         _html += self.output_line("condition", i, num, num.toString(16), num.toString(8), num.toString(2), freq2d[3], calc_Nrshift(i), get_Nrshift(i));  // Ver.0.33.4
         if(isBreak(num, i)){
           break;
@@ -314,7 +325,7 @@ My_entry.test_number.prototype.solve2 = function(){
         var binp = (3*n+1).toString(2);
         N0m += count_N0(binm, m);
         N0p += count_N0(binp, m);
-        html1 += self.output_line((m%2 === 1)? "condition": "wF", m, n.toString(2), (n<<1).toString(2), (n+(n<<1)).toString(2), get_lsmbit(binm, m), get_lsmbit(binp, m));  // Ver.0.34.4 32bit
+        html1 += self.output_line((m%2)? "condition": "wF", m, n.toString(2), (n<<1).toString(2), (n+(n<<1)).toString(2), get_lsmbit(binm, m), get_lsmbit(binp, m));  // Ver.0.34.4 32bit  // Ver.0.35.4
       }
       html0 += self.output_line("", m, N0m+"/"+len_n2, N0p+"/"+len_n2, self.results_m[m]);  // Ver.0.35.4
     }
@@ -336,6 +347,8 @@ My_entry.test_number.prototype.solve3 = function(){
   var self = this;
   var $ = self.entry.$;
   self.convert();
+  self.init_freq();
+  var freq2d = self.freq2d;
   var isPrime = function(n){
     var _isPrime = (n > 1);
     var len = Math.sqrt(n);
@@ -348,12 +361,16 @@ My_entry.test_number.prototype.solve3 = function(){
     return _isPrime;
   };
   var run = function(){
-    var header1 = self.output_line("clear", "radix", "=10", "=6", "=4", "=2", "=10");
+    var header1 = self.output_line("clear", "radix", "=10", "=6", "=4", "=10", "=2", "frequency distribution<br>ls3bit=<br>001,011,101,111", "frequency distribution<br>ls4bit=<br>0001,0011,0101,0111,1001,1011,1101,1111");
     var html1 = "";
     var len_n = Math.pow(2, self.len_p);
     for(var n=1; n<len_n; ++n){
       if(isPrime(n)){
-        html1 += self.output_line((n%2 === 1)? "condition": "wF", "", n, n.toString(6), n.toString(4), n.toString(2), n);
+        var isOdd = n%2;
+        if(isOdd){
+          self.save_freq(n);
+        }
+        html1 += self.output_line((isOdd)? "condition": "wF", "", n, n.toString(6), n.toString(4), n, n.toString(2), (isOdd)? freq2d[3]: "", (isOdd)? freq2d[4]: "");
       }
     }
     var _logs = {};
