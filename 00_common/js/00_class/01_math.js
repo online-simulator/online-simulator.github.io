@@ -99,6 +99,11 @@ My_entry.math.prototype.log_ex = function(x, base){
   var self = this;
   return Math.log(x)/Math.log(base || 10);
 };
+/* Ver.2.188.44 isReal && !(Math.log2) */
+My_entry.math.prototype.log2 = function(x){
+  var self = this;
+  return self.log_ex(x, 2);
+};
 My_entry.math.prototype.log10 = function(x){
   var self = this;
   return self.log_ex(x, 10);
