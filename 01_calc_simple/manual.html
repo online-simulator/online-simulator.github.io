@@ -899,6 +899,8 @@ en.m.wikipedia.org/wiki/項目を列挙する
 <br>
 ・Fermat's_Last_Theorem
 <br>
+・Abc_conjecture
+<br>
 ・Collatz conjecture
 <br>
 ・Bisection_method
@@ -979,6 +981,8 @@ ja.m.wikipedia.org/wiki/項目を列挙する
 ・ニュートン法
 <br>
 ・二分法
+<br>
+・ABC予想
 <br>
 ・コラッツの問題
 <br>
@@ -13483,7 +13487,7 @@ test caseを列挙する
 <br>
 ・全桁の場合、1回が連続する全bit=1（0b1111...1111）とそれ以外の場合分け
 <br>
-・他方、3*n-1の場合、右shift優勢でn -> 1||以下の循環に帰着
+・一方、3*n-1の場合、右shift優勢でn -> 1||以下の循環に帰着
 <br>
 5->14->7->20->10->5
 <br>
@@ -13552,6 +13556,14 @@ test caseを列挙する
 ・全桁の場合、1回が連続する両端bit=1（0b1000...0001）とそれ以外の場合分け
 <br>
 ・全桁数を表すbit列長が初期値の2倍を超えて発散するような予想の反例は見つかっていない
+<br>
+・m&gt;&gt;1でbit列長の比が1.6≒log2(3)をほぼ超えない
+<br>
+・他方、ABC予想も同様に、qualityがbit列長の比と等価で1.6をほぼ超えない
+<br>
+・これはradical(abc)が右shiftでabcの桁数を最小化する操作であり、
+<br>
+・互いに素なa||b||cの桁数最大値とradical(abc)との桁数差の限界をa+b=cの拘束条件で示している
 <br>
 <br>
 <a href="#span-out-number">built-inのNumber関数</a>||上記bit列の挙動を確認する場合、<a href="../69_number/index.html">Number変換</a>参照

@@ -22,6 +22,7 @@ My_entry.test_number.prototype.init = function(){
     };
   self.len_m = 12;  // Ver.0.33.4
   /* Ver.0.35.4 -> */
+  self.log = function(num){return Math.log(Number(num));};
   self.len_mf = 5;
   self.len_p = 14;
   var results_m = [];
@@ -173,7 +174,8 @@ My_entry.test_number.prototype.solve = function(isMinus){
   if(isNaN(Number(num))) return false;
   var num0 = num;  // Ver.0.34.4
   var nmax = num;  // Ver.0.34.4
-  var m0 = num.toString(2).length;  // Ver.0.35.4
+//  var m0 = num.toString(2).length;  // Ver.0.35.4
+  var m0 = self.log(num);  // Ver.0.35.4
   var mmax = m0;  // Ver.0.35.4
   var isCircular = false;  // Ver.0.33.4
   /* Ver.0.33.4 */
@@ -199,7 +201,7 @@ My_entry.test_number.prototype.solve = function(isMinus){
   /* Ver.0.34.4 */
   var output_log = function(msg){
     msg += "<br>floor(nmax/n)="+nmax/num0;
-    msg += "<br>mmax/m="+mmax/m0;  // Ver.0.35.4
+    msg += "<br>quality="+mmax/m0;  // Ver.0.35.4
     $._id("output-log").innerHTML = "<caption class="+((isMinus)? "selection": "run")+">"+msg+"</caption>";
   };
   var isBreak = (isMinus)?
@@ -253,7 +255,8 @@ My_entry.test_number.prototype.solve = function(isMinus){
       /* Ver.0.34.4 -> */
       if(num > nmax){
         nmax = num;
-        mmax = num.toString(2).length;  // Ver.0.35.4
+//        mmax = num.toString(2).length;  // Ver.0.35.4
+        mmax = self.log(num);  // Ver.0.35.4
       }
       /* -> Ver.0.34.4 */
       if(num%2n === 0n){
