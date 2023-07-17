@@ -14,8 +14,14 @@
   <link rel="stylesheet" type="text/css" href="css/color.css">
   <link rel="stylesheet" type="text/css" href="css/size.css">
   <script type="text/javascript" src="../00_common/js/000_namespace/000_entry.js"></script>
+  <script type="text/javascript" src="../00_common/js/00_class/000_reference.js"></script>
   <script type="text/javascript" src="../00_common/js/00_class/00_$.js"></script>
   <script type="text/javascript" src="../00_common/js/00_class/00_def.js"></script>
+  <script type="text/javascript" src="../00_common/js/00_class/01_math.js"></script>
+  <script type="text/javascript" src="../00_common/js/00_class/02_DATA.js"></script>
+  <script type="text/javascript" src="../00_common/js/00_class/02_operation.js"></script>
+  <script type="text/javascript" src="../00_common/js/00_class/02_parser.js"></script>
+  <script type="text/javascript" src="../00_common/js/00_class/02_unit.js"></script>
   <script type="text/javascript" src="../00_common/js/03_original/03_original_main.js"></script>
   <script type="text/javascript" src="js/03_number.js"></script>
 </head>
@@ -40,6 +46,14 @@
 更新履歴
   </td>
   <td>
+・<span class="run">Ver.0.36.4</span>以降、Number/BigIntの<span class="clear">Calculator入力（64bit）</span>に対応
+<br>
+MAX_SAFE_INTEGER -> 9007199254740991
+<br>
+3^2*5^6*7^3 -> 48234375
+<br>
+log2(3) -> 1.584962500721156
+<br>
 ・<span class="run">Ver.0.35.4</span>以降、show primesを追加
 <br>
 　show Nrshift(m)の表示項目（=Nrshift(m)）を追加
@@ -85,6 +99,14 @@ Number(string)
   </td>
   <td>
 <input id="input-Number" readonly="readonly">
+  </td>
+</tr>
+<tr>
+  <td>
+Number(<span class="clear">My_eval(string)</span>)
+  </td>
+  <td>
+<input id="input-Number_eval" readonly="readonly">
 　
 <button id="solve2" class="condition">show Nrshift(m)</button>
 　
@@ -95,10 +117,10 @@ Number(string)
 </tr>
 <tr>
   <td>
-n=BigInt(string)
+n=BigInt(<span class="clear">My_eval(string)</span>)
   </td>
   <td>
-<input id="input-BigInt" class="input-600" readonly="readonly">
+<input id="input-BigInt_eval" class="input-600" readonly="readonly">
   </td>
 </tr>
 <tr>

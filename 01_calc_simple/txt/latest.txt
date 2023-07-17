@@ -214,7 +214,7 @@ NaN,0.6931471805599453,1.3862943611198906,1.5707963267948966i:
 6.123233995736766e-17+i,6.123233995736766e-17+i:
 3.141592653589793i,-3.141592653589793i:
 7.999999999999998:
-7.999999999999998+O(2e-15):
+7.999999999999998:
 NaN,0.20000000000000018,0
 )
 
@@ -1901,4 +1901,4 @@ drag=false&sw=false&0x=false&useMatrix=true&useStrict=false&checkError=true&isRi
 --------------------------------
 --------------------------------
 
-online-simulator.github.io.6.254.108.13.56 @ Sun Jul 16 2023 20:31:11 GMT+0900 (日本標準時) @ Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/114.0.0.0 Safari/537.36
+online-simulator.github.io.6.256.109.13.56 @ Mon Jul 17 2023 17:16:36 GMT+0900 (日本標準時) @ Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/114.0.0.0 Safari/537.36

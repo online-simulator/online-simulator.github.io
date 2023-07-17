@@ -11,15 +11,33 @@ My_entry.def.mix_in(My_entry.test_number, My_entry.original_main);
 My_entry.test_number.prototype.init = function(){
   var self = this;
   self.init_main.call(self, ["$"]);
+  /* Ver.0.36.4 -> */
+  self.val2num = function(val){
+    var num = Number(val);
+    return ((isNaN(num))? Number(My_entry.eval(val)): num);
+  };
   /* Ver.0.32.4 */
   self.val2dec = (My_entry.flag.hasBigInt)?
     function(val){
       var num = Number(val);
-      return ((num%1 || isNaN(num))? NaN: BigInt(val));
+      if(num%1){
+        num = NaN;
+      }
+      else if(isNaN(num)){
+        num = self.val2num(val);
+        if(num%1 || num > Number.MAX_SAFE_INTEGER){
+          num = NaN;
+        }
+      }
+      else{
+        num = val;
+      }
+      return ((isNaN(num))? NaN: BigInt(num));
     }:
     function(val){
       return "not supported";
     };
+  /* -> Ver.0.36.4 */
   self.len_m = 12;  // Ver.0.33.4
   /* Ver.0.35.4 -> */
   self.log = function(num){return Math.log(Number(num));};
@@ -96,10 +114,11 @@ My_entry.test_number.prototype.clear = function(){
   $._id("input-parseInt").value = "";
   $._id("input-parseFloat").value = "";
   $._id("input-Number").value = "";
+  $._id("input-Number_eval").value = "";  // Ver.0.36.4
   $._id("input-string").value = "";
   $._id("input-radix").value = "";  // Ver.0.29.4
   /* Ver.0.32.4 -> */
-  $._id("input-BigInt").value = "";
+  $._id("input-BigInt_eval").value = "";  // Ver.0.36.4
   $._id("output-log").innerHTML = "";
   $._id("output-html").innerHTML = "";
   /* -> Ver.0.32.4 */
@@ -113,8 +132,9 @@ My_entry.test_number.prototype.convert = function(){
   $._id("input-parseInt").value = parseInt(str, radix);
   $._id("input-parseFloat").value = parseFloat(str);
   $._id("input-Number").value = Number(str);
+  $._id("input-Number_eval").value = self.val2num(str);  // Ver.0.36.4
   /* Ver.0.32.4 -> */
-  $._id("input-BigInt").value = self.val2dec(str);
+  $._id("input-BigInt_eval").value = self.val2dec(str);  // Ver.0.36.4
   $._id("output-log").innerHTML = "";
   $._id("output-html").innerHTML = "";
   /* -> Ver.0.32.4 */

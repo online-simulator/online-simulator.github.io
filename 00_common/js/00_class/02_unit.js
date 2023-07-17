@@ -70,7 +70,15 @@ My_entry.unit.prototype.FN = function(prop, options){
   var useComplex = options.useComplex;
   var callback = function(){
     var _com = null;
-    if(cmath[prop] && ((useComplex === -1)? self.get_hasImag.apply(self, arguments): useComplex)){  // Ver.2.184.44
+    /* Ver.2.189.44 common useComplex@FN_call -> */
+    if(useComplex && cmath[prop]){
+      useComplex = (useComplex === -1)? self.get_hasImag.apply(self, arguments): useComplex;  // Ver.2.184.44
+    }
+    else{
+      useComplex = false;
+    }
+    if(useComplex){
+    /* -> Ver.2.189.44 */
       _com = cmath[prop].apply(cmath, arguments);
     }
     else{
