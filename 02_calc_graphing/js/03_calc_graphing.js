@@ -407,20 +407,23 @@ My_entry.calc_graphing.prototype.arr_data2arr2d_vec = function(arr_data, options
         }
       }
     }
+    /* Ver.2.190.44 -> */
+    var ver_plot = options_plot["plot2d-Ver"];
     /* Ver.2.33.17 -> */
-    if(options_plot.oldPlot2d){
-      gxmin = xmin;
-      gymin = ymin;
-      gxmax = xmax;
-      gymax = ymax;
-    }
-    else{
+    if(ver_plot === 1){
       gxmin = conv.dec2round_sw(xmin);
       gymin = conv.dec2round_sw(ymin);
       gxmax = conv.dec2round_sw(xmax, "ceil");
       gymax = conv.dec2round_sw(ymax, "ceil");
     }
+    else{
+      gxmin = xmin;
+      gymin = ymin;
+      gxmax = xmax;
+      gymax = ymax;
+    }
     /* -> Ver.2.33.17 */
+    /* -> Ver.2.190.44 */
     /* Ver.2.43.21 -> */
     arr2d_x = arr2d_x.filter(Boolean);
     arr2d_y = arr2d_y.filter(Boolean);
@@ -531,6 +534,7 @@ My_entry.calc_graphing.prototype.get_options = function(isPlot){
   /* Ver.2.10.4 */
   if(isPlot){
     /* Ver.2.35.18 -> */
+    _options.oldPlot2d = _options.oldPlot2d || (_options["plot2d-Ver"] === 0);  // Ver.2.190.44
     if(_options.oldPlot2d){
       _options["input-z"] = parser.remove_commentAndWspace(self.io.read_text(self.elems.z));
     }
@@ -1136,6 +1140,7 @@ My_entry.calc_graphing.prototype.init_handlers = function(){
         self.isCheckedError = false;  // Ver.2.33.17
         self.re_plot(true);
         break;
+      case "select-plot2d-Ver":  // Ver.2.190.44
       case "select-decDigit":
       case "select-grid-line-width":
       case "select-marker-size":
