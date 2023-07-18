@@ -144,16 +144,13 @@
       $._id("recurrence3").onclick = function(){setVal("1", "1e3+1", "m0=3,m1=6,n=t,n;", "Nrshift(m)=<(2**m-1)/2**(m-1),r(m)=<2**(log2(3)-Nrshift(m)),run(m)=<_rN(=<last{nr=nr*r(m),N+1},nr=n,1e6,=<{nr<=1}),run(m0);run(m1);", 50);};
       $._id("Collatz").onclick = function(){setVal("1", "1e3+1", "n=floor(t),n;", "n;_rN(=<last{nr=nr%2==0&&&nr/2|||nr*2+1+nr/*nr>>1|||(nr<<1)+1+nr*/,nmax=max(nmax,nr),N+1},last{nmax=n,nr=n},1e6,=<{nr==1|||nr<=0||nr>MAX_SAFE_INTEGER&&&~~(nmax=NaN)});nmax/n;", 1000);$._id("input-z").value+="::0::::n;::::::operations frequency;::::::nmax/nTITLE{Collatz conjecture}XLABEL{n << 9007199254740991}YLABEL{};";};
       $._id("Collatz_sub").onclick = function(){setVal("1", "1e3+1", "n=floor(t),n;", "n;_rN(=<last{nr=nr%2==0&&&nr/2|||nr*2+(nr-1)/*nr>>1|||(nr<<1)+(nr-1)*/,nmax=max(nmax,nr),N+1},last{nmax=n,nr=n},1e6,=<{nr==1|||nr===5|||nr===17|||nr<=0||nr>MAX_SAFE_INTEGER&&&~~(nmax=NaN)});nmax/n;", 1000);$._id("input-z").value+="::0::::n;::::::operations frequency;::::::nmax/nTITLE{n -> 1||5||17-circular}XLABEL{n << 9007199254740991}YLABEL{};";};
-      $._id("quality").onclick = function(){setVal("1.048e6+1", "1.048e6+1e3+1", "n=floor(t),n;", "log2(3);quality(nmax)=<log(nmax)/log(n),_rN(=<last{nr=nr%2==0&&&nr/2|||nr*2+1+nr/*nr>>1|||(nr<<1)+1+nr*/,nmax=max(nmax,nr),N+1},last{nmax=n,nr=n},1e6,=<{nr==1|||nr<=0||nr>MAX_SAFE_INTEGER&&&~~(nmax=NaN)}),quality(nmax);_rN(=<last{nr=nr%2==0&&&nr/2|||nr*2+(nr-1)/*nr>>1|||(nr<<1)+(nr-1)*/,nmax=max(nmax,nr),N+1},last{nmax=n,nr=n},1e6,=<{nr==1|||nr===5|||nr===17|||nr<=0||nr>MAX_SAFE_INTEGER&&&~~(nmax=NaN)}),quality(nmax);", 1000);$._id("input-z").value+="::0::::log2(3);::::::3*n+1;::::::3*n-1TITLE{quality:=log(nmax)/log(n)≒mmax/m}XLABEL{n << 9007199254740991}YLABEL{quality};";};
+      $._id("quality").onclick = function(){setVal("1.048e6+1", "1.048e6+1e3+1", "n=floor(t),n;", "2;log2(3);quality(nmax)=<log(nmax)/log(n),_rN(=<last{nr=nr%2==0&&&nr/2|||nr*2+1+nr/*nr>>1|||(nr<<1)+1+nr*/,nmax=max(nmax,nr),N+1},last{nmax=n,nr=n},1e6,=<{nr==1|||nr<=0||nr>MAX_SAFE_INTEGER&&&~~(nmax=NaN)}),quality(nmax);_rN(=<last{nr=nr%2==0&&&nr/2|||nr*2+(nr-1)/*nr>>1|||(nr<<1)+(nr-1)*/,nmax=max(nmax,nr),N+1},last{nmax=n,nr=n},1e6,=<{nr==1|||nr===5|||nr===17|||nr<=0||nr>MAX_SAFE_INTEGER&&&~~(nmax=NaN)}),quality(nmax);", 1000);$._id("input-z").value+="::0::::nmax=n*n ⇔ mmax=2*m;::::::log2(3);::::::3*n+1;::::::3*n-1TITLE{quality:=log(nmax)/log(n)≒mmax/m}XLABEL{n << 9007199254740991}YLABEL{quality};";};
       $._id("integral1").onclick = function(){setVal("-2", "2", "b=t,b;", "_ix(=<{1},0,b);_ix(=<{x},0,b);_ix(=<{x^2},0,b);_ix(=<{x^3},0,b);2^4/4;", 10);$._id("input-z").value+="TITLE{_ix(=<fx,a,b,opt_NI||100) dx=(b-a)/NI error=Order(dx^4)};";};
       $._id("integral2").onclick = function(){setVal("-2", "2", "b=t,b;", "fxy=<x*y,_iy(=<{_ix(=<fxy,0,y,10)},0,b,10);2^4/8;_iy(=<{_ix(=<{fxy*fxy},0,y,10)},0,b,10);2^6/18;", 10);$._id("input-z").value+="TITLE{_ix(=<fx,a,b,opt_NI||100) dx=(b-a)/NI error=Order(dx^4)};";};
       $._id("differential1").onclick = function(){setVal("-2", "2", "a=t,a;", "fx=<x^5,_dx(=<fx,0,a);_dx(=<fx,1,a);_dx(=<fx,2,a);_dx(=<fx,3,a);_dx(=<fx,4,a);_dx(=<fx,5,a);_dx(=<fx,6,a);", 10);$._id("input-z").value+="TITLE{_dx(=<fx,Ndash||1,a,opt_dx0||max(1,abs(x))1e-3(1+i)) stencil_dx=dx0*2^(Ndash-1) error=Order(dx^4~dx^2)};";};
       $._id("differential2").onclick = function(){setVal("-2", "2", "a=t,a;", "fxy=<x*x*y*y,_Dy(=<{_Dx(=<fxy,1,y)},1,a);24;", 10);$._id("input-z").value+="TITLE{_dx(=<fx,Ndash||1,a,opt_dx0||max(1,abs(x))1e-3(1+i)) stencil_dx=dx0*2^(Ndash-1) error=Order(dx^4~dx^2)};";};
       $._id("calculus1").onclick = function(){setVal("-2(1+i)", "2(1+i)", "b=t,b;", "fx=<x^3,_ix(=<_dx(=<fx,1,x),0,b,10);-b^3;", 10);};
       $._id("calculus2").onclick = function(){setVal("-2(1+i)", "2(1+i)", "b=t,b;", "fx=<x^3,_dx(=<_ix(=<fx,0,x,10),1,b);-b^3;", 10);};
-      $._id("cSND").onclick = function(){setVal("-5*(1+i)", "5*(1+i)", "z=t,z;", "cSND(z)=<exp(-abs(z)^2)/pi,cSND(z)=>;", 50);};
-      $._id("cPz").onclick = function(){setVal("r=-5,r+abs(r)i", "r=5,r+abs(r)i", "z=t,z;", "cSND(z)=<exp(-abs(z)^2)/pi,cP_z(z)=<_iy(=<_ix(=<cSND(x+(y)i)=>,0,real(z))*2,0,imag(z))*2,cP_z(z)=>;", 20);};
-      $._id("cPr").onclick = function(){setVal("-5", "5", "r=t,r;", "cSND(z)=<exp(-abs(z)^2)/pi,cP_r(r)=<_it(=<_ir(=<cSND(r*e^(i*t))=>,0,r),0,2*pi)/sqrt(pi),cP_r(r)=>;SND(t)=<exp(-t^2/2)/sqrt(2*pi),erf(x)=<_it(=<SND(t)=>,0,x*sqrt2)*2,erf(r)=>;", 20);$._id("input-z").value+="TITLE{cP_r(r)=cP_z(r+abs(r)i)=erf(r)};";};
       $._id("Napier").onclick = function(){setVal("0", "20", "x=t,x;", "e;(1+1/(x||1))**x;_sn(=<1/(n)!,0,x);pi;_sn(=<(-1)**n/(2n+1),0,x)*4;_it(=<e^(-t**2),-x,x,max(100,real(x)*10))**2;", 100);$._id("input-z").value+="::0::::e;::::::limit;::::::series;::::::pi;::::::Leibniz formula;::::::Gaussian integral;";};
       $._id("Maclaurin1").onclick = function(){setVal("-pi", "pi", "x=t,x;", "fx=<sin(x),fx;MaclaurinN=<_sn(=<_dx(=<fx,n,0)x^n/n!,0,N),N=1,MaclaurinN;N=3,MaclaurinN;N=5,MaclaurinN;N=7,MaclaurinN;N=9,MaclaurinN;", 10);};
       $._id("Maclaurin2").onclick = function(){setVal("-(1+i)pi/4", "(1+i)pi/4", "x=t,x;", "fx=<sqrt(2-exp(sin(x)^2*x)/cos(x)),fx;MaclaurinN=<_sn(=<_dx(=<fx,n,0)x^n/n!,0,N),N=1,MaclaurinN;N=3,MaclaurinN;N=5,MaclaurinN;N=7,MaclaurinN;N=9,MaclaurinN;", 10);$._id("input-z").value+="TITLE{***** low accuracy *****};";};
@@ -177,14 +174,17 @@
       $._id("Px").onclick = function(){setVal("-5", "5", "x=t,x;", "SND=<exp(-t^2/2)/sqrt(2pi),Px=<_it(=<SND,-x,x),Px;Px_better=<_it(=<SND,0,x)2,Px_better;", 20);};
       $._id("erfx").onclick = function(){setVal("-5", "5", "x=t,x;", "SND=<exp(-t^2/2)/sqrt(2pi),erfx=<_it(=<SND,0,x(sqrt2))2,erfx;erfx=<_it(=<exp(-t^2),0,x)(2/sqrt(pi)),erfx;", 20);};
       $._id("erfcx").onclick = function(){setVal("-5", "5", "x=t,x;", "SND=<exp(-t^2/2)/sqrt(2pi),erfx=<_it(=<exp(-t^2),0,x)(2/sqrt(pi)),erfcx=<1-erfx,erfcx;", 20);};
+      $._id("cSND").onclick = function(){setVal("-5*(1+i)", "5*(1+i)", "z=t,z;", "cSND(z)=<exp(-abs(z)^2)/pi,cSND(z)=>;", 50);};
+      $._id("cPz").onclick = function(){setVal("r=-5,r+abs(r)i", "r=5,r+abs(r)i", "z=t,z;", "cSND(z)=<exp(-abs(z)^2)/pi,cP_z(z)=<_iy(=<_ix(=<cSND(x+(y)i)=>,0,real(z))*2,0,imag(z))*2,cP_z(z)=>;", 20);};
+      $._id("cPr").onclick = function(){setVal("-5", "5", "r=t,r;", "cSND(z)=<exp(-abs(z)^2)/pi,cP_r(r)=<_it(=<_ir(=<cSND(r*e^(i*t))=>,0,r),0,2*pi)/sqrt(pi),cP_r(r)=>;SND(t)=<exp(-t^2/2)/sqrt(2*pi),erf(x)=<_it(=<SND(t)=>,0,x*sqrt2)*2,erf(r)=>;", 20);$._id("input-z").value+="TITLE{cP_r(r)=cP_z(r+abs(r)i)=erf(r)};";};
+      $._id("rand_table0").onclick = function(){setVal("-5", "5", "get_ix(x)=<int(x*N)/N,ix=get_ix(t),ix;", "NN=N*200,Pinv_y_rough=(-0.999999427,-0.999936657,-0.997300203,-0.954499736,-0.682689492,0,0.682689492,0.954499736,0.997300203,0.999936657,0.999999427:-5,-4,-3,-2,-1,0,1,2,3,4,5),Pinv_y=(-0.999999427,-0.999997966,-0.999993205,-0.999978623,-0.999936657,-0.999823165,-0.999534741,-0.998845949,-0.997300203,-0.994040473,-0.987580669,-0.975551054,-0.954499736,-0.919881686,-0.866385598,-0.788700453,-0.682689492,-0.546745295,-0.382924923,-0.197412651,0,0.197412651,0.382924923,0.546745295,0.682689492,0.788700453,0.866385598,0.919881686,0.954499736,0.975551054,0.987580669,0.994040473,0.997300203,0.998845949,0.999534741,0.999823165,0.999936657,0.999978623,0.999993205,0.999997966,0.999999427:-5,-4.75,-4.5,-4.25,-4,-3.75,-3.5,-3.25,-3,-2.75,-2.5,-2.25,-2,-1.75,-1.5,-1.25,-1,-0.75,-0.5,-0.25,0,0.25,0.5,0.75,1,1.25,1.5,1.75,2,2.25,2.5,2.75,3,3.25,3.5,3.75,4,4.25,4.5,4.75,5),ymin_rough=min(Pinv_y_rough)[0],ymax_rough=max(Pinv_y_rough)[0],ymin=min(Pinv_y)[0],ymax=max(Pinv_y)[0],_rn(=<last{r=rand,y_rough=ymin_rough+(ymax_rough-ymin_rough)*r,y=ymin+(ymax-ymin)*r,x_rough=interp(y_rough:Pinv_y_rough),x=interp(y:Pinv_y),get_ix(x_rough)==ix&&&(nn[0]=nn[0]+1),get_ix(x)==ix&&&(nn[1]=nn[1]+1)},nn={0,0},NN),nn[0];nn[1];", 21);$._id("input-z").value+="::::::table.length=11(rough);::::::table.length=41TITLE{random frequency with lookup-table: x=Pinv(y)}XLABEL{x}YLABEL{frequency};";};
+      $._id("Runge").onclick = function(){setVal("-5", "5", "x=t,csv0=(-5,-4,-3,-2,-1,0,1,2,3,4,5:0.0000014867195147343004,0.00013383022576488548,0.004431848411938011,0.05399096651318806,0.24197072451914337,0.3989422804014327,0.24197072451914337,0.05399096651318806,0.004431848411938011,0.00013383022576488548,0.0000014867195147343004),table=(csv0[0]:(1+i)*csv0[1]),x0=interp0(x:table[0]:table[0]),x0;x;", "interp1(x0:table);interp2(x:table);interp3(x:table);", 21);$._id("input-z").value="ORIGIN{2,blue,17}::::::table;::::::Lagrange;::::::splineTITLE{Runge's phenomenon by interpolation methods of lookup-table: y=SND(x)};";};
       $._id("Legendre").onclick = function(){setVal("-1", "1", "x=t,Pn(x,n)=<_dx(=<(x**2-1)**n,n)/(2**n*(n)!),x;", "Pn(x,0);Pn(x,1);Pn(x,2);Pn(x,3);Pn(x,4);Pn(x,5);Pn(x,6);", 100);$._id("input-z").value+="TITLE{Legendre polynomials}XLABEL{x}YLABEL{Pn(x)}::0::::n=0;::::::n=1;::::::n=2;::::::n=3;::::::n=4;::::::n=5;::::::n=6;";};
       $._id("Laguerre").onclick = function(){setVal("-1", "5", "x=t,Pn(x,n,a)=<_dx(=<e^(-x)*x**(n+a),n)*x**(-a)*e^(x)/(n)!,x;", "Pn(x,0,0);Pn(x,1,0);Pn(x,2,0);Pn(x,3,0);Pn(x,4,0);Pn(x,1,1);Pn(x,2,1);Pn(x,2,2);", 100);$._id("input-z").value+="TITLE{generalized Laguerre polynomials}XLABEL{x}YLABEL{Pn(x)}::0::::n=0,a=0;::::::1,0;::::::2,0;::::::3,0;::::::4,0;::::::1,1;::::::2,1;::::::2,2;";};
       $._id("Hermite").onclick = function(){setVal("-1", "1", "x=t,Pn(x,n)=<(-1)**n*e^(x**2)*_dx(=<e^(-x**2),n),x;", "Pn(x,0);Pn(x,1);Pn(x,2);Pn(x,3);", 100);$._id("input-z").value+="TITLE{Hermite polynomials}XLABEL{x}YLABEL{Pn(x)}::0::::n=0;::::::n=1;::::::n=2;::::::n=3;";};
       $._id("Chebyshev").onclick = function(){setVal("-1", "1", "x=t,Pn(x,n)=<cos(n*acos(x)),x;", "Pn(x,0);Pn(x,1);Pn(x,2);Pn(x,3);Pn(x,4);Pn(x,5);Pn(x,6);", 100);$._id("input-z").value+="TITLE{Chebyshev polynomials of the first kind}XLABEL{x}YLABEL{Pn(x)}::0::::n=0;::::::n=1;::::::n=2;::::::n=3;::::::n=4;::::::n=5;::::::n=6;";};
 //      $._id("Gegenbauer").onclick = function(){setVal("-0.9", "0.9", "x=t,gamma(s)=<switch(real(s)%1==0&&real(s)>0&&imag(s)==0,=<(s-1)!:1,=<_it(=<t**(s-1)*e^(-t),0,20,2000)),Pn(x,n,a)=<((-0.5)**n/(n)!)*((gamma(n+2*a)*gamma(0+a+1/2))/(gamma(0+2*a)*gamma(n+a+1/2)))*(1-x**2)**(-a+1/2)*_dx(=<(1-x**2)**(n+a-1/2),n),x;", "Pn(x,0,1);Pn(x,1,1);Pn(x,2,1);Pn(x,3,1);", 100);$._id("input-z").value+="TITLE{Gegenbauer polynomials}XLABEL{x}YLABEL{Pn(x)}::0::::n=0,a=1;::::::1,1;::::::2,1;::::::3,1;";};
       $._id("Gegenbauer").onclick = function(){setVal("-0.5", "0.5", "x=t,Pn(x,n,a)=<last{P0=1,P1=2*a*x,switch(n==0,=<P1=P0:n==1,=<P1=P1:1,=<_sn(=<last{P2=(2*x*(n+a-1)*P1-(n+2*a-2)*P0)/n,P0=P1,P1=P2},2,n)),P1},x;", "Pn(x,0,1);Pn(x,1,1);Pn(x,2,1);Pn(x,3,1);Pn(x,0,2);Pn(x,1,2);Pn(x,2,2);Pn(x,3,2);Pn(x,0,3);Pn(x,1,3);Pn(x,2,3);Pn(x,3,3);", 100);$._id("input-z").value+="TITLE{Gegenbauer polynomials}XLABEL{x}YLABEL{Pn(x)}::0::::n=0,a=1;::::::1,1;::::::2,1;::::::3,1;::::::0,2;::::::1,2;::::::2,2;::::::3,2;::::::0,3;::::::1,3;::::::2,3;::::::3,3;";};
-      $._id("Runge").onclick = function(){setVal("-5", "5", "x=t,csv0=(-5,-4,-3,-2,-1,0,1,2,3,4,5:0.0000014867195147343004,0.00013383022576488548,0.004431848411938011,0.05399096651318806,0.24197072451914337,0.3989422804014327,0.24197072451914337,0.05399096651318806,0.004431848411938011,0.00013383022576488548,0.0000014867195147343004),table=(csv0[0]:(1+i)*csv0[1]),x0=interp0(x:table[0]:table[0]),x0;x;", "interp1(x0:table);interp2(x:table);interp3(x:table);", 21);$._id("input-z").value="ORIGIN{2,blue,17}::::::table;::::::Lagrange;::::::splineTITLE{Runge's phenomenon by interpolation methods of lookup-table: y=SND(x)};";};
-      $._id("rand_table0").onclick = function(){setVal("-5", "5", "get_ix(x)=<int(x*N)/N,ix=get_ix(t),ix;", "NN=N*200,Pinv_y_rough=(-0.999999427,-0.999936657,-0.997300203,-0.954499736,-0.682689492,0,0.682689492,0.954499736,0.997300203,0.999936657,0.999999427:-5,-4,-3,-2,-1,0,1,2,3,4,5),Pinv_y=(-0.999999427,-0.999997966,-0.999993205,-0.999978623,-0.999936657,-0.999823165,-0.999534741,-0.998845949,-0.997300203,-0.994040473,-0.987580669,-0.975551054,-0.954499736,-0.919881686,-0.866385598,-0.788700453,-0.682689492,-0.546745295,-0.382924923,-0.197412651,0,0.197412651,0.382924923,0.546745295,0.682689492,0.788700453,0.866385598,0.919881686,0.954499736,0.975551054,0.987580669,0.994040473,0.997300203,0.998845949,0.999534741,0.999823165,0.999936657,0.999978623,0.999993205,0.999997966,0.999999427:-5,-4.75,-4.5,-4.25,-4,-3.75,-3.5,-3.25,-3,-2.75,-2.5,-2.25,-2,-1.75,-1.5,-1.25,-1,-0.75,-0.5,-0.25,0,0.25,0.5,0.75,1,1.25,1.5,1.75,2,2.25,2.5,2.75,3,3.25,3.5,3.75,4,4.25,4.5,4.75,5),ymin_rough=min(Pinv_y_rough)[0],ymax_rough=max(Pinv_y_rough)[0],ymin=min(Pinv_y)[0],ymax=max(Pinv_y)[0],_rn(=<last{r=rand,y_rough=ymin_rough+(ymax_rough-ymin_rough)*r,y=ymin+(ymax-ymin)*r,x_rough=interp(y_rough:Pinv_y_rough),x=interp(y:Pinv_y),get_ix(x_rough)==ix&&&(nn[0]=nn[0]+1),get_ix(x)==ix&&&(nn[1]=nn[1]+1)},nn={0,0},NN),nn[0];nn[1];", 21);$._id("input-z").value+="::::::table.length=11(rough);::::::table.length=41TITLE{random frequency with lookup-table: x=Pinv(y)}XLABEL{x}YLABEL{frequency};";};
       $._id("legend1").onclick = function(){setVal("1e-3(1+i)", "1e2(1+i)", "x=t,x;", "x;2x;3x;4x;5x;6x;7x;8x;9x;10x;");$._id("input-z").value="circle:#f555/*#ff555555*/;:rgba(255,255,0,0.333333333333333)/*#ffff0055*/;:#0f05;  // markerType:markerColor:markerSize:markerLineWidth:plotLineWidth:fillPath:str:strFontSize";};
       $._id("legend2").onclick = function(){setVal("1e-3(1+i)", "1e2(1+i)", "x=t,x;", "x;2x;3x;4x;5x;6x;7x;8x;9x;10x;");$._id("input-z").value=":red:10;::5:2;:#ffff0055:10;:#ff05:::10;::::0::arbitrary string:20;";};
       $._id("legend3").onclick = function(){setVal("1e-3", "1", "x=t,x;", "pow(x,1/4);pow(x,1/2);x;x^2;x^4;x^8;", 30);$._id("input-z").value="circle:red::::1;triangle:green;triangle2:blue;square:#00ff00;diamond:#00ff0055;cross:#ff05;";};
@@ -386,17 +386,14 @@
   <button id="recurrence3">-rec3</button>
   <button id="Collatz">Collatz</button>
   <button id="Collatz_sub">3*n-1</button>
-  <button id="quality">-q</button>
+  <button id="quality">quality</button>
+<br>
   <button id="integral1">integral1</button>
   <button id="integral2">-int2</button>
-<br>
   <button id="differential1">differential1</button>
   <button id="differential2">-dif2</button>
   <button id="calculus1">calculus1</button>
   <button id="calculus2">-cal2</button>
-  <button id="cSND">cSND</button>
-  <button id="cPz">cP(z)</button>
-  <button id="cPr">cP(r)</button>
 <br>
   <button id="Napier">Napier</button>
   <button id="Maclaurin1">Maclaurin1</button>
@@ -424,32 +421,35 @@
   <button id="erfx">erf(x)</button>
   <button id="erfcx">erfc(x)</button>
 <br>
+  <button id="cSND">cSND</button>
+  <button id="cPz">cP(z)</button>
+  <button id="cPr">cP(r)</button>
+  <button id="rand_table0">rand_table</button>
+  <button id="Runge">Runge</button>
+<br>
   <button id="Legendre">Legendre</button>
   <button id="Laguerre">Laguerre</button>
   <button id="Hermite">Hermite</button>
   <button id="Chebyshev">Chebyshev</button>
   <button id="Gegenbauer">Gegenbauer</button>
 <br>
-  <button id="Runge">Runge</button>
-  <button id="rand_table0">rand_table</button>
   <button id="legend1">legend1</button>
   <button id="legend2">legend2</button>
   <button id="legend3">legend3</button>
-<br>
   <button id="NaN">NaN</button>
   <button id="range">range</button>
-  <button id="title">title&amp;labels&amp;origin</button>
+  <button id="title">title</button>
   <button id="color">color</button>
-  <button id="string">string</button>
 <br>
+  <button id="string">string</button>
   <button id="gradation1">grad1</button>
   <button id="filter5">-binWB</button>
   <button id="gradation2">grad2</button>
   <button id="gradation3">grad3</button>
   <button id="filter1">filter1</button>
   <button id="filter2">filter2</button>
-  <button id="filter3">filter3</button>
 <br>
+  <button id="filter3">filter3</button>
   <button id="blur1">blur1</button>
   <button id="blur2">blur2</button>
   <button id="blur3">blur3</button>
