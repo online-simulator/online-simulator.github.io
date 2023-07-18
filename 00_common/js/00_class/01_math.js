@@ -22,22 +22,20 @@ My_entry.math.prototype.isEven = function(x){
   var self = this;
   return (x%2 === 0);
 };
+/* Ver.2.189.44 -> */
 My_entry.math.prototype.isOdd = function(x){
   var self = this;
-  return !(self.isEven(x));
+  return (Math.abs(x%2) === 1);
 };
 My_entry.math.prototype.isInt = function(val, eps){
   var self = this;
-  var eps = eps || self.config.EPSD;
-  // round at val < 0
-  var ival = Math.round(val);
-  return (Math.abs(val-ival) < eps)? true: false;
+  return (Math.abs(val%1) < (eps || self.config.EPSD));
 };
 My_entry.math.prototype.isInf = function(val){
   var self = this;
-  if(val === Number.NEGATIVE_INFINITY || val === Number.POSITIVE_INFINITY) return true;
-  return false;
+  return (val === Number.NEGATIVE_INFINITY || val === Number.POSITIVE_INFINITY);
 };
+/* -> Ver.2.189.44 */
 /* for CALC */
 /* 2.87.32 -> */
 My_entry.math.prototype.int = function(x){

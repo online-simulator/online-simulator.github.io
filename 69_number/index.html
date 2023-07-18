@@ -54,6 +54,16 @@ MAX_SAFE_INTEGER -> 9007199254740991
 <br>
 log2(3) -> 1.584962500721156
 <br>
+solve 3*n+1: 0xfffff -> quality=1.6349626131746033
+<br>
+solve 3*n-1: 0xfffff+2 -> quality=1.718947382707015
+<br>
+solve 3*n-1: (0xfffff+2)-2**5 -> quality=1.6161668176073567
+<br>
+solve 3*n+1: 0xfffffffffffff -> quality=1.6041932699519255
+<br>
+solve 3*n-1: 0xfffffffffffff+2 -> quality=1.618710337301223
+<br>
 ・<span class="run">Ver.0.35.4</span>以降、show primesを追加
 <br>
 　show Nrshift(m)の表示項目（=Nrshift(m)）を追加
