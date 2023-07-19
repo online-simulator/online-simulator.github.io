@@ -13575,11 +13575,17 @@ test caseを列挙する
 <br>
 ・m&gt;&gt;1でbit列長の比が1.6≒log2(3)をほぼ超えない
 <br>
+・以上より、3*n=n+(n&lt;&lt;1)の一律bit操作の反復過程で
+<br>
+・最上位の桁を含む0連続部分に形成されるbit列のrandom性が示唆される
+<br>
 ・他方、ABC予想も同様に、qualityがbit列長の比と等価で1.6をほぼ超えない
 <br>
 ・これはradical(abc)が右shiftでabcの桁数を最小化する操作であり、
 <br>
 ・互いに素なa||b||cの最大値max(a,b,c)とradical(abc)の桁数差の限界をa+b=cの拘束条件で示している
+<br>
+・拘束条件がない場合、2変数同様に、qualityは2より大きな値を取り得る
 <br>
 <br>
 <a href="#span-out-number">built-inのNumber関数</a>||上記bit列の挙動を確認する場合、<a href="../69_number/index.html">Number変換</a>参照
