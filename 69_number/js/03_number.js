@@ -44,17 +44,19 @@ My_entry.test_number.prototype.init = function(){
   self.len_mf = 5;
   self.len_p = 14;
   var results_m = [];
-  results_m[1] = "=(1){1}/1;";
-  results_m[2] = "=(1,2){1,1}/2;";
-  results_m[3] = "=(1,2,3){2,1,1}/4;";
-  results_m[4] = "=(1,2,3,4){4,2,1,1}/8;";
-  results_m[5] = "=(1,2,3,4,5){8,4,2,1,1}/16;";
-  results_m[6] = "=(1,2,3,4,5,6){16,8,4,2,1,1}/32;";
-  results_m[7] = "=(1,2,3,4,5,6,7){32,16,8,4,2,1,1}/64;";
-  results_m[8] = "=(1,2,3,4,5,6,7,8){64,32,16,8,4,2,1,1}/128;";
-  results_m[9] = "=(1,2,3,4,5,6,7,8,9){128,64,32,16,8,4,2,1,1}/256;";
-  results_m[10] = "=(1,2,3,4,5,6,7,8,9,10){256,128,64,32,16,8,4,2,1,1}/512;";
-  results_m[11] = "=(1,2,3,4,5,6,7,8,9,10,11){512,256,128,64,32,16,8,4,2,1,1}/1024;";
+  /* Ver.0.37.4 -> */
+  results_m[1] = "=(1){<span class='run'>1</span>}/1;";
+  results_m[2] = "=(1,2){<span class='run'>1</span>,1}/2;";
+  results_m[3] = "=(1,2,3){<span class='run'>2</span>,1,1}/4;";
+  results_m[4] = "=(1,2,3,4){<span class='run'>4</span>,2,1,1}/8;";
+  results_m[5] = "=(1,2,3,4,5){<span class='run'>8</span>,4,2,1,1}/16;";
+  results_m[6] = "=(1,2,3,4,5,6){<span class='run'>16</span>,8,4,2,1,1}/32;";
+  results_m[7] = "=(1,2,3,4,5,6,7){<span class='run'>32</span>,16,8,4,2,1,1}/64;";
+  results_m[8] = "=(1,2,3,4,5,6,7,8){<span class='run'>64</span>,32,16,8,4,2,1,1}/128;";
+  results_m[9] = "=(1,2,3,4,5,6,7,8,9){<span class='run'>128</span>,64,32,16,8,4,2,1,1}/256;";
+  results_m[10] = "=(1,2,3,4,5,6,7,8,9,10){<span class='run'>256</span>,128,64,32,16,8,4,2,1,1}/512;";
+  results_m[11] = "=(1,2,3,4,5,6,7,8,9,10,11){<span class='run'>512</span>,256,128,64,32,16,8,4,2,1,1}/1024;";
+  /* -> Ver.0.37.4 */
   self.results_m = results_m;
   /* -> Ver.0.35.4 */
   return self;
@@ -333,8 +335,8 @@ My_entry.test_number.prototype.solve2 = function(){
     return bin.substring(len-m, len);
   };
   var run = function(){
-    var header0 = self.output_line("wF", "m", "3*n-1", "3*n+1", "=Nrshift(m)");  // Ver.0.35.4
-    var header1 = self.output_line("wF", "m", "n", "n&lt;&lt;1", "3*n<br>=n+(n&lt;&lt;1)", "3*n-1<br>=(3*n+1)-2", "3*n+1<br>=(3*n-1)+2");  // Ver.0.34.4
+    var header0 = self.output_line("wF", "m", "3n-1", "3n+1", "=Nrshift(m)");  // Ver.0.35.4  // Ver.0.37.4
+    var header1 = self.output_line("wF", "m", "n", "n&lt;&lt;1", "3n<br>=n+(n&lt;&lt;1)", "3n-1<br>=(3n+1)-2", "3n+1<br>=(3n-1)+2");  // Ver.0.34.4  // Ver.0.37.4
     var html0 = "";
     var html1 = "";
     var len_m = self.len_m;
