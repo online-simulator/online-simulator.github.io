@@ -110,6 +110,102 @@ Ver.0.32.4
     </table>
 <br>
     <table class="border">
+      <caption>UI</caption>
+      <tbody>
+        <tr class="border">
+          <td class="border">
+n
+          </td>
+          <td class="border">
+出力の自然数
+          </td>
+        </tr>
+        <tr class="border">
+          <td class="border">
+string
+          </td>
+          <td class="border">
+入力の文字列
+          </td>
+        </tr>
+        <tr class="border">
+          <td class="border">
+My_eval(string)
+<br>
+<span class="run">Ver.1.36.4追加</span>
+          </td>
+          <td class="border">
+n≦MAX_SAFE_INTEGERの場合、<a href="../01_calc_simple/manual.html#span-in-myeval">My_entry.eval</a>(string)を適用
+          </td>
+        </tr>
+        <tr class="border">
+          <td class="border">
+clear
+          </td>
+          <td class="border">
+stringを消去
+          </td>
+        </tr>
+        <tr class="border">
+          <td class="border">
+convert
+          </td>
+          <td class="border">
+parseInt/parseFloat/Number/BigIntの変換を実行
+          </td>
+        </tr>
+        <tr class="border">
+          <td class="vn">
+show primes
+<br>
+<span class="run">Ver.1.35.4追加</span>
+          </td>
+          <td class="border">
+素数の一覧を表示
+          </td>
+        </tr>
+        <tr class="border">
+          <td class="border">
+show Nrshift(m)
+<br>
+<span class="run">Ver.1.33.4追加</span>
+          </td>
+          <td class="border">
+桁数mに対する右shift可能回数の単純期待値を表示
+          </td>
+        </tr>
+        <tr class="border">
+          <td class="border">
+solve 3n-1
+<br>
+<span class="run">Ver.1.32.4追加</span>
+          </td>
+          <td class="border">
+繰り返し実行
+<br>
+・nが奇数の場合、3n-1の左shift相当演算
+<br>
+・nが偶数の場合、奇数になるまで右shift演算
+          </td>
+        </tr>
+        <tr class="border">
+          <td class="border">
+solve 3n+1
+<br>
+<span class="run">Ver.1.32.4追加</span>
+          </td>
+          <td class="border">
+繰り返し実行
+<br>
+・nが奇数の場合、3n+1の左shift相当演算
+<br>
+・nが偶数の場合、奇数になるまで右shift演算
+          </td>
+        </tr>
+      </tbody>
+    </table>
+<br>
+    <table class="border">
       <caption>test case</caption>
       <tbody>
         <tr class="border">
@@ -283,7 +379,7 @@ Collatz予想
 <br>
 ・m&gt;&gt;1でbit列長の比が1.6≒log2(3)をほぼ超えない
 <br>
-・以上より、3n=n+(n&lt;&lt;1)の一律bit操作の反復過程で
+・以上より、3n=n+(n&lt;&lt;1)と±1の一律bit操作の反復過程で
 <br>
 ・0連続部分（最上位bitの1桁上を含む）に形成されるbit列のrandom性が示唆される
 <br>
