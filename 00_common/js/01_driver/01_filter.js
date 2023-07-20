@@ -174,6 +174,82 @@ My_entry.filter.prototype.convID_hsv = function(ID, isHSV2RGB, isConical){
   }
   return self;
 };
+/* pen-Ver.1.55.10 */
+My_entry.filter.prototype.run_gblur = function(ctx, x0, y0, s0, ks0){
+  var self = this;
+  var px_w0 = ctx.canvas.width;
+  var px_h0 = ctx.canvas.height;
+  var ID0 = ctx.getImageData(0, 0, px_w0, px_h0);
+  var ID1 = ctx.getImageData(0, 0, px_w0, px_h0);
+  var data0 = ID0.data;
+  var data1 = ID1.data;
+  var i0 = Math.round(x0);
+  var j0 = Math.round(y0);
+  var s = Math.ceil(s0);
+  var s2 = s*s;
+  var di = s*ks0;
+  var dj = di;
+  var is = Math.max(i0-di, 0);
+  var js = Math.max(j0-dj, 0);
+  var ie = Math.min(i0+di, px_w0-1);
+  var je = Math.min(j0+dj, px_h0-1);
+  var run = function(i0, j0, sk){
+    var s = Math.ceil(sk);
+    var s2 = s*s;
+    var di = s*ks0;
+    var dj = di;
+    var is = Math.max(i0-di, 0);
+    var js = Math.max(j0-dj, 0);
+    var ie = Math.min(i0+di, px_w0-1);
+    var je = Math.min(j0+dj, px_h0-1);
+    var sum_r = 0;
+    var sum_g = 0;
+    var sum_b = 0;
+    var sum_a = 0;
+    var sum_w = 0;
+    for(var j=js; j<=je; ++j){
+      for(var i=is; i<=ie; ++i){
+        var ired = 4*(px_w0*j+i);
+        var a = data0[ired+3];
+        if(a){
+          var di = i-i0;
+          var dj = j-j0;
+          var r2 = di*di+dj*dj;
+          var t2 = r2/s2;
+          if(t2 < ks0){
+            var w = Math.exp(-0.5*t2);
+            sum_r += data0[ired+0]*w;
+            sum_g += data0[ired+1]*w;
+            sum_b += data0[ired+2]*w;
+            sum_a += data0[ired+3]*w;
+            sum_w += w;
+          }
+        }
+      }
+    }
+    if(sum_w){
+      var ired = 4*(px_w0*j0+i0);
+      data1[ired+0] = sum_r/sum_w;
+      data1[ired+1] = sum_g/sum_w;
+      data1[ired+2] = sum_b/sum_w;
+      data1[ired+3] = sum_a/sum_w;
+    }
+  };
+  for(var j=js; j<=je; ++j){
+    for(var i=is; i<=ie; ++i){
+      var di = i-i0;
+      var dj = j-j0;
+      var r2 = di*di+dj*dj;
+      var t2 = r2/s2;
+      if(t2 < ks0){
+        var ks = Math.exp(-0.5*t2);
+        run(i, j, s0*ks);
+      }
+    }
+  }
+  var _ID = ID1;
+  return _ID;
+};
 /* Ver.2.48.24 */
 /* Ver.2.46.24 */
 /* Ver.2.44.23 */

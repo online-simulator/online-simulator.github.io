@@ -22,6 +22,14 @@
       <tbody>
         <tr class="border">
           <td class="border run">
+Ver.1.55.10
+          </td>
+          <td class="border">
+・mode=gblur（Gaussぼかし機能）を追加
+          </td>
+        </tr>
+        <tr class="border">
+          <td class="border run">
 Ver.1.54.10
           </td>
           <td class="border">
@@ -648,6 +656,19 @@ default=KeyY
         </tr>
         <tr class="border jF">
           <td class="border">
+gblur
+<br>
+<span class="run">Ver.1.55.10追加</span>
+          </td>
+          <td class="border">
+Gaussぼかし
+          </td>
+          <td class="border">
+default=KeyQ
+          </td>
+        </tr>
+        <tr class="border jF">
+          <td class="border">
 draw
 <br>
 <span class="run">Ver.1.35.7追加</span>
@@ -1067,6 +1088,29 @@ canvas背面から取得
 <span class="run">・KeyY+1tapで代用可</span>
 <br>
 <span class="clear"><del>・auto-configのA初期化を対策予定</del>Ver.1.33.7済み</span>
+          </td>
+        </tr>
+        <tr class="border">
+          <td class="border">
+mode=gblur
+<br>
+<span class="run">Ver.1.55.10追加</span>
+          </td>
+          <td class="border">
+Gaussぼかし機能
+          </td>
+          <td class="border">
+canvas背面に適用
+<br>
+・強度分布あり（最適化なし）
+<br>
+・強度分布の最大値=min(sqrt(W),10)
+<br>
+・stabi無効
+<br>
+・grid-snapあり
+<br>
+<span class="run">・KeyQ+1dragで代用可</span>
           </td>
         </tr>
         <tr class="border">

@@ -38,8 +38,8 @@ My_entry.pen.prototype.init_keys = function(){
   ["eraser_A100", "eraser"].forEach(function(id, i){
     modes_pen[id] = options[id] || ["KeyF", "KeyR"][i];  // Ver.1.34.7
   });
-  ["bucket", "circle", "rectangle", "picker"].forEach(function(id, i){
-    modes[id] = options[id] || ["KeyB", "KeyG", "KeyT", "KeyY"][i];  // Ver.1.31.7
+  ["bucket", "circle", "rectangle", "picker", "gblur"].forEach(function(id, i){
+    modes[id] = options[id] || ["KeyB", "KeyG", "KeyT", "KeyY", "KeyQ"][i];  // Ver.1.31.7  // Ver.1.55.10
   });
   ["<<", ">>", "clear", "run", "draw", "put", "blur"].forEach(function(id, i){
     buttons[id] = options[id] || ["KeyS", "KeyD", "KeyA", "KeyW", "KeyE", "Digit3", "Digit2"][i];  // Ver.1.17.4  // Ver.1.35.7  // Ver.1.42.8  // Ver.1.44.8
@@ -557,6 +557,12 @@ My_entry.pen.prototype.make_handlers = function(){
           case 2:
           case 3:
             fg.draw.marker_circle({x: x0, y: y0}, r/2, r, "#000000", "#ffffff");
+            break;
+          /* Ver.1.55.10 */
+          case 5:
+            var s = Math.min(Math.sqrt(options.W), 10);
+            var sk = 4;
+            bg.putID(self.filter.run_gblur(bg.ctx, x1, y1, s, sk));
             break;
           default:
             break;
