@@ -22,6 +22,14 @@
       <tbody>
         <tr class="border">
           <td class="border run">
+Ver.0.38.4
+          </td>
+          <td class="border">
+・test caseを更新（Riemann予想の項目を追加）
+          </td>
+        </tr>
+        <tr class="border">
+          <td class="border run">
 Ver.0.37.4
           </td>
           <td class="border">
@@ -418,6 +426,38 @@ abc予想
 ・互いに素なa||b||cの最大値max(a,b,c)とradical(abc)の桁数差の限界をa+b=cの拘束条件で示している
 <br>
 ・拘束条件がない場合、2変数同様に、qualityは2より大きな値を取り得る
+          </td>
+        </tr>
+        <tr class="border">
+          <td class="border selection">
+Riemann予想
+          </td>
+          <td class="border">
+・素数計数関数の素数割合π(x)/xを桁数の比率で代替する関数を示す（厳密には対応しない）
+<br>
+pi_by_x(x)=&lt;log(radical(x!))/log(x!);
+<br>
+・変数を定義
+<br>
+primes_rad=radical(x!);
+<br>
+linspace_round(x)=&lt;trans(round(trans(linspace(1,x,x))));
+<br>
+・logの和で展開
+<br>
+log_radical_fact(x)=&lt;sum(trans(log(trans(primes_rad))));
+<br>
+log_fact(x)=&lt;sum(trans(log(trans(linspace_round(x)))));
+<br>
+pi_by_x(x)=&lt;log_radical_fact(x)/log_fact(x);
+<br>
+・log2の和で展開
+<br>
+log2_radical_fact(x)=&lt;sum(trans(log2(trans(primes_rad))+1));
+<br>
+log2_fact(x)=&lt;sum(trans(log2(trans(linspace_round(x)))+1));
+<br>
+pi_by_x(x)=&lt;log2_radical_fact(x)/log2_fact(x);
           </td>
         </tr>
       </tbody>
