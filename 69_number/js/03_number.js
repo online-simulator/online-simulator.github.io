@@ -43,6 +43,7 @@ My_entry.test_number.prototype.init = function(){
   self.log = function(num){return Math.log(Number(num));};
   self.len_mf = 5;
   self.len_p = 14;
+  self.len_r = 20;  // Ver.0.39.4
   var results_m = [];
   /* Ver.0.37.4 -> */
   results_m[1] = "=(1){<span class='run'>1</span>}/1;";
@@ -82,10 +83,11 @@ My_entry.test_number.prototype.init_handlers = function(){
     var self = this;
     var id = elem.id || elem.innerText;
     switch(id){
-      case "solve0":  // Ver.0.32.4
-      case "solve1":  // Ver.0.32.4
-      case "solve2":  // Ver.0.33.4
+      case "solve4":  // Ver.0.39.4
       case "solve3":  // Ver.0.35.4
+      case "solve2":  // Ver.0.33.4
+      case "solve1":  // Ver.0.32.4
+      case "solve0":  // Ver.0.32.4
       case "clear":
       case "convert":
         self[id]();
@@ -374,23 +376,12 @@ My_entry.test_number.prototype.solve3 = function(){
   self.convert();
   self.init_freq();
   var freq2d = self.freq2d;
-  var isPrime = function(n){
-    var _isPrime = (n > 1);
-    var len = Math.sqrt(n);
-    for(var i=2; i<=len; ++i){
-      if(n%i === 0){
-        _isPrime = false;
-        break;
-      }
-    }
-    return _isPrime;
-  };
   var run = function(){
     var header1 = self.output_line("clear", "radix", "=10", "=6", "=4", "=10", "=2", "frequency distribution<br>ls3bit=<br>001,011,101,111", "frequency distribution<br>ls4bit=<br>0001,0011,0101,0111,1001,1011,1101,1111");
     var html1 = "";
     var len_n = Math.pow(2, self.len_p);
     for(var n=1; n<len_n; ++n){
-      if(isPrime(n)){
+      if(self.isPrime(n)){  // Ver.0.39.4
         var isOdd = n%2;
         if(isOdd){
           self.save_freq(n);
@@ -406,3 +397,89 @@ My_entry.test_number.prototype.solve3 = function(){
   $._id("output-html").innerHTML = self.logs3.log1;
   return self;
 };
+/* Ver.0.39.4 -> */
+My_entry.test_number.prototype.isPrime = function(n){
+  var self = this;
+  var _isPrime = (n > 1);
+  var len = Math.sqrt(n);
+  for(var i=2; i<=len; ++i){
+    if(n%i === 0){
+      _isPrime = false;
+      break;
+    }
+  }
+  return _isPrime;
+};
+My_entry.test_number.prototype.listup_primes = function(len_n){
+  var self = this;
+  var _primes = [];
+  for(var n=1; n<len_n; ++n){
+    if(self.isPrime(n)){
+      _primes.push(n);
+    }
+  }
+  self.primes = _primes;
+  return _primes;
+};
+My_entry.test_number.prototype.pickup_prime = function(n, primes){
+  var self = this;
+  var _prime = 1;
+  var len = primes.length;
+  for(var i=0; i<len; ++i){
+    _prime = primes[i];
+    if(n%_prime === 0){
+      break;
+    }
+  }
+  return _prime;
+};
+My_entry.test_number.prototype.solve4 = function(){
+  var self = this;
+  var $ = self.entry.$;
+  self.convert();
+  var str = $._id("input-string").value;
+  var num = self.val2dec(str);
+  if(isNaN(Number(num))) return false;
+  var num0 = Number(num);
+  var len_n = Math.pow(2, self.len_r);
+  var run = function(num){
+    var num0 = num;
+    var header0 = self.output_line("wF", "n", "primes_factorized", "primes_radical", "radical(n)", "n/radical(n)", "quality:=log(n)/log(radical(n))");
+    var header1 = self.output_line("wF", "dec", "bin", "m:=bin.length", "≒log2(dec)+1", "log(dec)");
+    var html0 = "";
+    var html1 = "";
+    var primes = self.primes || self.listup_primes(len_n);
+    var primes_factorized = [];
+    var primes_radical = [];
+    var radical = 1;
+    while(num > 1){
+      var prime = self.pickup_prime(num, primes);
+      primes_factorized.push(prime);
+      if(primes_radical[primes_radical.length-1] !== prime){
+        primes_radical.push(prime);
+        radical *= prime;
+      }
+      num /= prime;
+    }
+    html0 += self.output_line("", num0, primes_factorized, primes_radical, radical, num0/radical, Math.log(num0)/Math.log(radical));
+    for(var i=0, len=primes_radical.length; i<len; ++i){
+      var prime = primes_radical[i];
+      html1 += self.output_line("", prime, prime.toString(2), prime.toString(2).length, Math.log(prime)*Math.LOG2E+1, Math.log(prime));
+    }
+    html1 += self.output_line("", num0, num0.toString(2), num0.toString(2).length, Math.log(num0)*Math.LOG2E+1, Math.log(num0));
+    var _logs = {};
+    _logs.log0 = "<caption class='run'>radical("+num0+")="+radical+"</caption>"+header0+html0;
+    _logs.log1 = header1+html1;
+    return _logs;
+  };
+  if(num0 < len_n){
+    var logs = run(num0);
+    $._id("output-log").innerHTML = logs.log0;
+    $._id("output-html").innerHTML = logs.log1;
+  }
+  else{
+    $._id("output-log").innerHTML = "<caption class='clear'>n&lt;0xfffff+1="+len_n+"</caption>";
+  }
+  return self;
+};
+/* -> Ver.0.39.4 */
