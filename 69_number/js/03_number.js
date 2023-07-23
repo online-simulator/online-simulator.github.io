@@ -444,7 +444,7 @@ My_entry.test_number.prototype.solve4 = function(){
   var len_n = Math.pow(2, self.len_r);
   var run = function(num){
     var num0 = num;
-    var header0 = self.output_line("wF", "n", "primes_factorized", "primes_radical", "radical(n)", "n/radical(n)", "quality:=log(n)/log(radical(n))");
+    var header0 = self.output_line("wF", "n", "primes_factorized", "primes_radical", "radical(n)", "n/radical(n)", "quality_log2:=<br>(log2(n)+1)/(log2(radical(n))+1)", "quality:=<br>log(n)/log(radical(n))");
     var header1 = self.output_line("wF", "dec", "bin", "m:=bin.length", "≒log2(dec)+1", "log(dec)");
     var html0 = "";
     var html1 = "";
@@ -461,12 +461,20 @@ My_entry.test_number.prototype.solve4 = function(){
       }
       num /= prime;
     }
-    html0 += self.output_line("", num0, primes_factorized, primes_radical, radical, num0/radical, Math.log(num0)/Math.log(radical));
+    var log2_radical = Math.log(radical)*Math.LOG2E+1;
+    var log2_num = Math.log(num0)*Math.LOG2E+1;
+    var quality_log2 = log2_num/log2_radical;
+    var log_radical = Math.log(radical);
+    var log_num = Math.log(num0);
+    var quality = log_num/log_radical;
+    html0 += self.output_line("", num0, primes_factorized, primes_radical, radical, num0/radical, quality_log2, quality);
     for(var i=0, len=primes_radical.length; i<len; ++i){
       var prime = primes_radical[i];
       html1 += self.output_line("", prime, prime.toString(2), prime.toString(2).length, Math.log(prime)*Math.LOG2E+1, Math.log(prime));
     }
-    html1 += self.output_line("", num0, num0.toString(2), num0.toString(2).length, Math.log(num0)*Math.LOG2E+1, Math.log(num0));
+    html1 += self.output_line("", radical, radical.toString(2), radical.toString(2).length, log2_radical, log_radical);
+    html1 += self.output_line("", num0, num0.toString(2), num0.toString(2).length, log2_num, log_num);
+    html1 += self.output_line("", "", "", "quality", "≒"+quality_log2, "="+quality);
     var _logs = {};
     _logs.log0 = "<caption class='run'>radical("+num0+")="+radical+"</caption>"+header0+html0;
     _logs.log1 = header1+html1;
