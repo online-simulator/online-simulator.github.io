@@ -42,7 +42,7 @@ My_entry.test_number.prototype.init = function(){
   /* Ver.0.35.4 -> */
   self.log = function(num){return Math.log(Number(num));};
   self.len_mf = 5;
-  self.len_p = 14;
+  self.len_p = 15;  // Ver.0.40.4
   self.len_r = 20;  // Ver.0.39.4
   var results_m = [];
   /* Ver.0.37.4 -> */
@@ -383,33 +383,59 @@ My_entry.test_number.prototype.solve3 = function(){
     /* Ver.0.40.4 -> */
     var freq_n  = [];
     var freq_prime  = [];
+    var log_n  = [];
+    var log_prime  = [];
+    var log2_n  = [];
+    var log2_prime  = [];
     for(var m=0; m<self.len_p+1; ++m){
       freq_n[m] = 0;
       freq_prime[m] = 0;
+      log_n[m] = 0;
+      log_prime[m] = 0;
+      log2_n[m] = 0;
+      log2_prime[m] = 0;
     }
     /* -> Ver.0.40.4 */
     var len_n = Math.pow(2, self.len_p);
     for(var n=1; n<len_n; ++n){
-      var m = n.toString(2).length;  // Ver.0.40.4
-      freq_n[m] += 1;  // Ver.0.40.4
+      /* Ver.0.40.4 -> */
+      var m = n.toString(2).length;
+      var logn = Math.log(n);
+      var log2n = logn*Math.LOG2E+1;
+      freq_n[m] += 1;
+      log_n[m] += logn;
+      log2_n[m] += log2n;
+      /* -> Ver.0.40.4 */
       if(self.isPrime(n)){  // Ver.0.39.4
         var isOdd = n%2;
         if(isOdd){
           self.save_freq(n);
         }
-        freq_prime[m] += 1;  // Ver.0.40.4
+        /* Ver.0.40.4 -> */
+        freq_prime[m] += 1;
+        log_prime[m] += logn;
+        log2_prime[m] += log2n;
+        /* -> Ver.0.40.4 */
         html1 += self.output_line((isOdd)? "condition": "wF", "", n, n.toString(6), n.toString(4), n, n.toString(2), (isOdd)? freq2d[3]: "", (isOdd)? freq2d[4]: "");
       }
     }
     /* Ver.0.40.4 -> */
     var sum_Nn = 0;
     var sum_Nprime = 0;
-    html0 += self.output_line("wF", "m", "n=ΣNn", "Nn", "Nprime", "π(n)=ΣNprime", "π(n)/n", "Nprime/Nn", "≒1/log(n)");
+    var sum_log_n = 0;
+    var sum_log_prime = 0;
+    var sum_log2_n = 0;
+    var sum_log2_prime = 0;
+    html0 += self.output_line("wF", "m", "n=ΣNn", "Nn", "Nprime", "π(n)=ΣNprime", "π(n)/n", "1/quality:=<br>log(radical(n!))/log(n!)", "≒1/quality_log2:=<br>(log2(radical(n!))+Nprime)<br>/(log2(n!)+Nn)", "Nprime/Nn", "≒1/log(n)");
     for(var m=1; m<self.len_p+1; ++m){
       var isOdd = m%2;
       sum_Nn += freq_n[m];
       sum_Nprime += freq_prime[m];
-      html0 += self.output_line((isOdd)? "condition": "wF", m, sum_Nn, freq_n[m], freq_prime[m], sum_Nprime, sum_Nprime/sum_Nn, freq_prime[m]/freq_n[m], 1/Math.log(sum_Nn));
+      sum_log_n += log_n[m];
+      sum_log_prime += log_prime[m];
+      sum_log2_n += log2_n[m];
+      sum_log2_prime += log2_prime[m];
+      html0 += self.output_line((isOdd)? "condition": "wF", m, sum_Nn, freq_n[m], freq_prime[m], sum_Nprime, sum_Nprime/sum_Nn, sum_log_prime/sum_log_n, sum_log2_prime/sum_log2_n, freq_prime[m]/freq_n[m], 1/Math.log(sum_Nn));
     }
     /* -> Ver.0.40.4 */
     var _logs = {};
