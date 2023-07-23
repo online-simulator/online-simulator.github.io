@@ -378,22 +378,47 @@ My_entry.test_number.prototype.solve3 = function(){
   var freq2d = self.freq2d;
   var run = function(){
     var header1 = self.output_line("clear", "radix", "=10", "=6", "=4", "=10", "=2", "frequency distribution<br>ls3bit=<br>001,011,101,111", "frequency distribution<br>ls4bit=<br>0001,0011,0101,0111,1001,1011,1101,1111");
+    var html0 = "";  // Ver.0.40.4
     var html1 = "";
+    /* Ver.0.40.4 -> */
+    var freq_n  = [];
+    var freq_prime  = [];
+    for(var m=0; m<self.len_p+1; ++m){
+      freq_n[m] = 0;
+      freq_prime[m] = 0;
+    }
+    /* -> Ver.0.40.4 */
     var len_n = Math.pow(2, self.len_p);
     for(var n=1; n<len_n; ++n){
+      var m = n.toString(2).length;  // Ver.0.40.4
+      freq_n[m] += 1;  // Ver.0.40.4
       if(self.isPrime(n)){  // Ver.0.39.4
         var isOdd = n%2;
         if(isOdd){
           self.save_freq(n);
         }
+        freq_prime[m] += 1;  // Ver.0.40.4
         html1 += self.output_line((isOdd)? "condition": "wF", "", n, n.toString(6), n.toString(4), n, n.toString(2), (isOdd)? freq2d[3]: "", (isOdd)? freq2d[4]: "");
       }
     }
+    /* Ver.0.40.4 -> */
+    var sum_Nn = 0;
+    var sum_Nprime = 0;
+    html0 += self.output_line("wF", "m", "n=ΣNn", "Nn", "Nprime", "π(n)=ΣNprime", "π(n)/n", "Nprime/Nn", "≒1/log(n)");
+    for(var m=1; m<self.len_p+1; ++m){
+      var isOdd = m%2;
+      sum_Nn += freq_n[m];
+      sum_Nprime += freq_prime[m];
+      html0 += self.output_line((isOdd)? "condition": "wF", m, sum_Nn, freq_n[m], freq_prime[m], sum_Nprime, sum_Nprime/sum_Nn, freq_prime[m]/freq_n[m], 1/Math.log(sum_Nn));
+    }
+    /* -> Ver.0.40.4 */
     var _logs = {};
+    _logs.log0 = "<caption class='condition'>prime counting function: π(n)</caption>"+html0;  // Ver.0.40.4
     _logs.log1 = "<caption class='condition'>prime numbers<br>n&lt;"+len_n+"</caption>"+header1+html1;
     return _logs;
   };
   self.logs3 = self.logs3 || run();
+  $._id("output-log").innerHTML = self.logs3.log0;  // Ver.0.40.4
   $._id("output-html").innerHTML = self.logs3.log1;
   return self;
 };
