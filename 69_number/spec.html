@@ -435,7 +435,15 @@ quality:=log(c)/log(radical(abc))
 <br>
 ・互いに素なa||b||cの最大値max(a,b,c)とradical(abc)のqualityの限界をa+b=cの拘束条件で示している
 <br>
-・拘束条件がない場合、qualityは2より大きな値を取り得る
+・quality≧1の場合、cが素数でない必要条件から、次のc'がc素因数の累乗積になる
+<br>
+c':=c/radical(c)≧2
+<br>
+radical(ab)≧2
+<br>
+quality:=log(c')/log(radical(ab))
+<br>
+・拘束条件がない場合、分母と分子が独立するため、qualityは2より大きな値を取り得る
           </td>
         </tr>
         <tr class="border">
