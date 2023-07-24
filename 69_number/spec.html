@@ -26,6 +26,12 @@ Ver.0.40.4
           </td>
           <td class="border">
 ・show primesを更新（素数計数関数を追加）
+<br>
+・根基の関数名を一括変更
+<br>
+　radical　⇒　rad
+<br>
+　radical(n)　⇒　calc rad(n)
           </td>
         </tr>
         <tr class="border">
@@ -33,7 +39,7 @@ Ver.0.40.4
 Ver.0.39.4
           </td>
           <td class="border">
-・radical(n)を追加
+・<del>radical(n)</del>calc rad(n)を追加
           </td>
         </tr>
         <tr class="border">
@@ -56,6 +62,8 @@ Ver.0.37.4
 ・show Nrshift(m)の表示色を調整
 <br>
 ・3*nの乗算記号*を省略を前提として一括削除
+<br>
+　3*n　⇒　3n
           </td>
         </tr>
         <tr class="border">
@@ -204,12 +212,16 @@ show primes
         </tr>
         <tr class="border">
           <td class="vn">
-radical(n)
+<del>radical(n)</del>
+<br>
+<span class="condition">calc rad(n)</span>
 <br>
 <span class="run">Ver.0.39.4追加</span>
+<br>
+<span class="condition">Ver.0.40.4更新</span>
           </td>
           <td class="border">
-radical(n)を表示
+nの根基rad(n)を表示
           </td>
         </tr>
         <tr class="border">
@@ -455,23 +467,23 @@ abc予想
           <td class="border">
 ・他方、abc予想も同様に、qualityがbit列長の比と等価で1.6をほぼ超えない
 <br>
-quality:=log(c)/log(radical(abc))
+quality:=log(c)/log(rad(abc))
 <br>
-・これはradical(abc)が右shiftでabcの桁数を最小化する操作であり、
+・根基rad(abc)は右shiftでabcの桁数を最小化する（素因数の累乗の指数を1に落とす）操作であり、
 <br>
-・互いに素なa||b||cの最大値max(a,b,c)とradical(abc)のqualityの限界をa+b=cの拘束条件で示している
+・互いに素なa||b||cの最大値max(a,b,c)とrad(abc)の桁数比qualityの限界をa+b=cの拘束条件で示している
 <br>
 ・quality≧1の場合、cが素数でない必要条件から、次のc'がc素因数の累乗積になる
 <br>
-c':=c/radical(c)≧2
+c':=c/rad(c)≧2
 <br>
-radical(ab)≧2
+rad(ab)≧2
 <br>
 ・互いに素（共通の素因数なし）の前提でqualityを再定義する
 <br>
-quality:=log(c')/log(radical(ab))
+quality:=log(c')/log(rad(ab))
 <br>
-・以上より、abc素因数の累乗の指数が大きくなる程、qualityが大きくなる
+・以上より、abc素因数の累乗の指数が大きくなる程、c'大/rad(ab)小の関係からqualityが大きくなる
 <br>
 ・拘束条件がない場合、分母abと分子c'が独立するため、qualityは2より大きな値を取り得る
           </td>
@@ -505,31 +517,31 @@ Li(x):=P(n)を範囲[2,x]で積分
 <br>
 ・素数計数関数の素数割合π(x)/xをqualityで代替する関数を示す（厳密には対応しない）
 <br>
-quality(x)=&lt;log(x!)/log(radical(x!));
+quality(x)=&lt;log(x!)/log(rad(x!));
 <br>
 pi_by_x(x)=&lt;1/quality(x);
 <br>
 ・変数を定義
 <br>
-primes_rad=radical(x!);
+primes_rad=rad(x!);
 <br>
 linspace_round(x)=&lt;trans(round(trans(linspace(1,x,x))));
 <br>
 ・logの和で展開
 <br>
-log_radical_fact(x)=&lt;sum(trans(log(trans(primes_rad))));
+log_rad_fact(x)=&lt;sum(trans(log(trans(primes_rad))));
 <br>
 log_fact(x)=&lt;sum(trans(log(trans(linspace_round(x)))));
 <br>
-pi_by_x(x)=&lt;log_radical_fact(x)/log_fact(x);
+pi_by_x(x)=&lt;log_rad_fact(x)/log_fact(x);
 <br>
 ・log2の和で展開（一律+1桁の操作のみでlogの和と大差なしを確認用）
 <br>
-log2_radical_fact(x)=&lt;sum(trans(log2(trans(primes_rad))+1));
+log2_rad_fact(x)=&lt;sum(trans(log2(trans(primes_rad))+1));
 <br>
 log2_fact(x)=&lt;sum(trans(log2(trans(linspace_round(x)))+1));
 <br>
-pi_by_x(x)=&lt;log2_radical_fact(x)/log2_fact(x);
+pi_by_x(x)=&lt;log2_rad_fact(x)/log2_fact(x);
           </td>
         </tr>
       </tbody>

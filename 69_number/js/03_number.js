@@ -426,7 +426,7 @@ My_entry.test_number.prototype.solve3 = function(){
     var sum_log_prime = 0;
     var sum_log2_n = 0;
     var sum_log2_prime = 0;
-    html0 += self.output_line("wF", "m", "n=ΣNn", "Nn", "Nprime", "π(n)=ΣNprime", "π(n)/n", "1/quality:=<br>log(radical(n!))/log(n!)", "≒1/quality_log2:=<br>(log2(radical(n!))+Nprime)<br>/(log2(n!)+Nn)", "Nprime/Nn", "≒1/log(n)");
+    html0 += self.output_line("wF", "m", "n=ΣNn", "Nn", "Nprime", "π(n)=ΣNprime", "π(n)/n", "1/quality:=<br>log(rad(n!))/log(n!)", "≒1/quality_log2:=<br>(log2(rad(n!))+Nprime)<br>/(log2(n!)+Nn)", "Nprime/Nn", "≒1/log(n)");
     for(var m=1; m<self.len_p+1; ++m){
       var isOdd = m%2;
       sum_Nn += freq_n[m];
@@ -495,39 +495,39 @@ My_entry.test_number.prototype.solve4 = function(){
   var len_n = Math.pow(2, self.len_r);
   var run = function(num){
     var num0 = num;
-    var header0 = self.output_line("wF", "n", "primes_factorized", "primes_radical", "radical(n)", "n/radical(n)", "quality_log2:=<br>(log2(n)+1)/(log2(radical(n))+1)", "quality:=<br>log(n)/log(radical(n))");
+    var header0 = self.output_line("wF", "n", "primes_factorized", "primes_rad", "rad(n)", "n/rad(n)", "quality_log2:=<br>(log2(n)+1)/(log2(rad(n))+1)", "quality:=<br>log(n)/log(rad(n))");
     var header1 = self.output_line("wF", "dec", "bin", "m:=bin.length", "≒log2(dec)+1", "log(dec)");
     var html0 = "";
     var html1 = "";
     var primes = self.primes || self.listup_primes(len_n);
     var primes_factorized = [];
-    var primes_radical = [];
-    var radical = 1;
+    var primes_rad = [];
+    var rad = 1;
     while(num > 1){
       var prime = self.pickup_prime(num, primes);
       primes_factorized.push(prime);
-      if(primes_radical[primes_radical.length-1] !== prime){
-        primes_radical.push(prime);
-        radical *= prime;
+      if(primes_rad[primes_rad.length-1] !== prime){
+        primes_rad.push(prime);
+        rad *= prime;
       }
       num /= prime;
     }
-    var log2_radical = Math.log(radical)*Math.LOG2E+1;
+    var log2_rad = Math.log(rad)*Math.LOG2E+1;
     var log2_num = Math.log(num0)*Math.LOG2E+1;
-    var quality_log2 = log2_num/log2_radical;
-    var log_radical = Math.log(radical);
+    var quality_log2 = log2_num/log2_rad;
+    var log_rad = Math.log(rad);
     var log_num = Math.log(num0);
-    var quality = log_num/log_radical;
-    html0 += self.output_line("", num0, primes_factorized, primes_radical, radical, num0/radical, quality_log2, quality);
-    for(var i=0, len=primes_radical.length; i<len; ++i){
-      var prime = primes_radical[i];
+    var quality = log_num/log_rad;
+    html0 += self.output_line("", num0, primes_factorized, primes_rad, rad, num0/rad, quality_log2, quality);
+    for(var i=0, len=primes_rad.length; i<len; ++i){
+      var prime = primes_rad[i];
       html1 += self.output_line("", prime, prime.toString(2), prime.toString(2).length, Math.log(prime)*Math.LOG2E+1, Math.log(prime));
     }
-    html1 += self.output_line("", radical, radical.toString(2), radical.toString(2).length, log2_radical, log_radical);
+    html1 += self.output_line("", rad, rad.toString(2), rad.toString(2).length, log2_rad, log_rad);
     html1 += self.output_line("", num0, num0.toString(2), num0.toString(2).length, log2_num, log_num);
     html1 += self.output_line("", "", "", "quality", "≒"+quality_log2, "="+quality);
     var _logs = {};
-    _logs.log0 = "<caption class='run'>radical("+num0+")="+radical+"</caption>"+header0+html0;
+    _logs.log0 = "<caption class='run'>rad("+num0+")="+rad+"</caption>"+header0+html0;
     _logs.log1 = header1+html1;
     return _logs;
   };
