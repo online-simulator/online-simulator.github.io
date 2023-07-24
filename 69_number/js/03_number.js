@@ -426,7 +426,7 @@ My_entry.test_number.prototype.solve3 = function(){
     var sum_log_prime = 0;
     var sum_log2_n = 0;
     var sum_log2_prime = 0;
-    html0 += self.output_line("wF", "m", "n=ΣNn", "Nn", "Nprime", "π(n)=ΣNprime", "π(n)/n", "1/quality:=<br>log(rad(n!))/log(n!)", "≒1/quality_log2:=<br>(log2(rad(n!))+Nprime)<br>/(log2(n!)+Nn)", "Nprime/Nn", "≒1/log(n)");
+    html0 += self.output_line("wF", "m", "n=ΣNn", "Nn", "Nprime", "π(n)=ΣNprime", "π(n)/n", "1/quality(n):=<br>log(rad(n!))/log(n!)", "≒1/quality_log2(n):=<br>(log2(rad(n!))+Nprime)<br>/(log2(n!)+Nn)", "Nprime/Nn", "≒1/log(n)");
     for(var m=1; m<self.len_p+1; ++m){
       var isOdd = m%2;
       sum_Nn += freq_n[m];
@@ -495,7 +495,7 @@ My_entry.test_number.prototype.solve4 = function(){
   var len_n = Math.pow(2, self.len_r);
   var run = function(num){
     var num0 = num;
-    var header0 = self.output_line("wF", "n", "primes_factorized", "primes_rad", "rad(n)", "n/rad(n)", "quality_log2:=<br>(log2(n)+1)/(log2(rad(n))+1)", "quality:=<br>log(n)/log(rad(n))");
+    var header0 = self.output_line("wF", "n", "primes_factorized", "primes_rad", "rad(n)", "n/rad(n)", "quality_log2(n):=<br>(log2(n)+1)/(log2(rad(n))+1)", "quality(n):=<br>log(n)/log(rad(n))");  // Ver.0.40.4
     var header1 = self.output_line("wF", "dec", "bin", "m:=bin.length", "≒log2(dec)+1", "log(dec)");
     var html0 = "";
     var html1 = "";
@@ -525,7 +525,7 @@ My_entry.test_number.prototype.solve4 = function(){
     }
     html1 += self.output_line("", rad, rad.toString(2), rad.toString(2).length, log2_rad, log_rad);
     html1 += self.output_line("", num0, num0.toString(2), num0.toString(2).length, log2_num, log_num);
-    html1 += self.output_line("", "", "", "quality", "≒"+quality_log2, "="+quality);
+    html1 += self.output_line("", "", "", "quality(dec)", "≒"+quality_log2, "="+quality);  // Ver.0.40.4
     var _logs = {};
     _logs.log0 = "<caption class='run'>rad("+num0+")="+rad+"</caption>"+header0+html0;
     _logs.log1 = header1+html1;
