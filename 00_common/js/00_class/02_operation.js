@@ -267,10 +267,16 @@ My_entry.operation.prototype.switch_method = function(options){
   var math = self.constructors.math;
   var math_com = self.constructors.math_com;
   var sw_LR = (options.isRightAssociativityBR)? "RA": "LA";
-  math.prototype.and = math.prototype["and_"+sw_LR];
-  math.prototype.or = math.prototype["or_"+sw_LR];
-  math_com.prototype.cand = math_com.prototype["cand_"+sw_LR];
-  math_com.prototype.cor = math_com.prototype["cor_"+sw_LR];
+  /* Ver.2.193.45 -> */
+  if(math){
+    math.prototype.and = math.prototype["and_"+sw_LR];
+    math.prototype.or = math.prototype["or_"+sw_LR];
+  }
+  if(math_com){
+    math_com.prototype.cand = math_com.prototype["cand_"+sw_LR];
+    math_com.prototype.cor = math_com.prototype["cor_"+sw_LR];
+  }
+  /* -> Ver.2.193.45 */
   return self;
 };
 My_entry.operation.prototype.prepare = function(data){
