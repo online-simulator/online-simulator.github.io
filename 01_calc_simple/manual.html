@@ -14015,7 +14015,7 @@ NaN+i -> NaN
 <br>
 演算子代替関数の仕様を列挙する
 <br>
-・<span class="clear"><a href="#span-out-option1">LA既定</a></span>
+・<del><span class="clear"><a href="#span-out-option1">LA既定</a></span></del><span class="run">Ver.2.193.44</span>以降、<span class="clear"><a href="#span-out-associativity">2項演算子のassociativity</a>に依存する代替関数</span>に対応
 <br>
 ・<a href="#span-out-error-numerical">数値誤差</a>は無視
 <br>
@@ -14184,9 +14184,11 @@ cnot(right),not(right) ->
 <br>
 留意事項を列挙する
 <br>
-・<a href="#span-out-option1">RA選択</a>の場合、<a href="#span-out-associativity">2項演算子のassociativity</a>に依存する代替関数<span class="clear">and||or()</span>は未対応（代替不可）
+<del>・<a href="#span-out-option1">RA選択</a>の場合、<a href="#span-out-associativity">2項演算子のassociativity</a>に依存する代替関数<span class="clear">and||or()</span>は未対応（代替不可）
 <br>
-　関数call前に引数のleftとrightを交換する特殊な条件分岐が増えるため、対応見送り
+　関数call前に引数のleftとrightを交換する特殊な条件分岐が増えるため、対応見送り</del>
+<br>
+・<span class="run">Ver.2.193.44</span>以降、mix-in切替で<span class="clear"><a href="#span-out-associativity">2項演算子のassociativity</a>に依存する代替関数</span>に対応
     </td>
   </tr>
   <tr>

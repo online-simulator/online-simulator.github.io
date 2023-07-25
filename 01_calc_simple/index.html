@@ -89,6 +89,8 @@
       script += "\nclear;\n";
       script += "mat=<(1,2i:3,4i:-5i);\nmat.=trans(mat);\nmat'=htrans(mat);\n(mat.)[0];\nmat[0]';\n(1,2i:3,4i:-5i).i'!!::(1,2i:3,4i:-5i)i.!!'::(1,2i:3,4i:-5i).!!'i::(1,2i:3,4i:-5i)!!.i';\nmat.i'!!::(mat)i.!!'::mat.!!'i::mat!!.i';\nmax(mat).,cmax(mat)':(max(mat)).,(cmax(mat))';\nmax(mat.):cmax(mat');";
       script += "\nclear;\n";
+      script += "left=1,right=2,left&&right,and(left,right),left||right,or(left,right),and(1,NaN),or(1):left=i,right=-2,left&&&right,cand(left,right),left|||right,cor(left,right),cand(i,NaN),cor(i);";
+      script += "\nclear;\n";
       $._id("input").value = script;
     });
   })();

@@ -384,11 +384,18 @@ My_entry.math.prototype["~~"] = function(y){
   var self = this;
   return ((y)? 0: 1);
 };
+My_entry.math.prototype.and_LA =  // Ver.2.193.44
 My_entry.math.prototype.and =
 My_entry.math.prototype["&&"] = function(x, y){  // && not used
   var self = this;
   if(typeof y === "undefined") return NaN;  // Ver.2.170.42
   return (x&&y);
+};
+/* Ver.2.193.44 */
+My_entry.math.prototype.and_RA = function(x, y){
+  var self = this;
+  if(typeof y === "undefined") return NaN;  // Ver.2.170.42
+  return (y&&x);
 };
 My_entry.math.prototype.xor =
 My_entry.math.prototype["@@"] = function(x, y){  // Ver.2.168.41
@@ -396,11 +403,18 @@ My_entry.math.prototype["@@"] = function(x, y){  // Ver.2.168.41
   if(typeof y === "undefined") return NaN;  // Ver.2.170.42
   return (((x)? 1: 0)^((y)? 1: 0));
 };
+My_entry.math.prototype.or_LA =  // Ver.2.193.44
 My_entry.math.prototype.or =
 My_entry.math.prototype["||"] = function(x, y){  // || not used
   var self = this;
   if(typeof y === "undefined") return NaN;  // Ver.2.170.42
   return (x||y);
+};
+/* Ver.2.193.44 */
+My_entry.math.prototype.or_RA = function(x, y){
+  var self = this;
+  if(typeof y === "undefined") return NaN;  // Ver.2.170.42
+  return (y||x);
 };
 /* -> Ver.2.167.40 */
 My_entry.math.prototype.lcm = function(x, y){

@@ -261,9 +261,22 @@ if(tagName === "BRmo"){
 }
   return self;
 };
+/* Ver.2.193.44 */
+My_entry.operation.prototype.switch_method = function(options){
+  var self = this;
+  var math = self.constructors.math;
+  var math_com = self.constructors.math_com;
+  var sw_LR = (options.isRightAssociativityBR)? "RA": "LA";
+  math.prototype.and = math.prototype["and_"+sw_LR];
+  math.prototype.or = math.prototype["or_"+sw_LR];
+  math_com.prototype.cand = math_com.prototype["cand_"+sw_LR];
+  math_com.prototype.cor = math_com.prototype["cor_"+sw_LR];
+  return self;
+};
 My_entry.operation.prototype.prepare = function(data){
   var self = this;
   var options = data.options;
+  self.switch_method(options);  // Ver.2.193.44
   /* Ver.2.24.11 -> */
   self.useTest = options.useTest;
   self.useStrict = options.useStrict;

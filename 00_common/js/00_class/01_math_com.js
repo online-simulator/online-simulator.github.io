@@ -53,10 +53,17 @@ My_entry.math_com.prototype.cnot = function(b){
   var sw = self.isFalse(b);
   return self.entry.DATA.com(((sw)? 1: 0), 0);
 };
+My_entry.math_com.prototype.cand_LA =  // Ver.2.193.44
 My_entry.math_com.prototype.cand = function(a, b){
   var self = this;
   if(!(b)) return self.entry.DATA.com(NaN, NaN);  // Ver.2.170.42
   return ((self.isFalse(a))? a: b);
+};
+/* Ver.2.193.44 */
+My_entry.math_com.prototype.cand_RA = function(a, b){
+  var self = this;
+  if(!(b)) return self.entry.DATA.com(NaN, NaN);  // Ver.2.170.42
+  return ((self.isFalse(b))? b: a);
 };
 My_entry.math_com.prototype["@@"] =
 My_entry.math_com.prototype.cxor = function(a, b){
@@ -66,10 +73,17 @@ My_entry.math_com.prototype.cxor = function(a, b){
   var hasB = (self.isFalse(b))? 0: 1;
   return self.entry.DATA.com(hasA^hasB, 0);
 };
+My_entry.math_com.prototype.cor_LA =  // Ver.2.193.44
 My_entry.math_com.prototype.cor = function(a, b){
   var self = this;
   if(!(b)) return self.entry.DATA.com(NaN, NaN);  // Ver.2.170.42
   return ((self.isFalse(a))? b: a);
+};
+/* Ver.2.193.44 */
+My_entry.math_com.prototype.cor_RA = function(a, b){
+  var self = this;
+  if(!(b)) return self.entry.DATA.com(NaN, NaN);  // Ver.2.170.42
+  return ((self.isFalse(b))? a: b);
 };
 My_entry.math_com.prototype.cseq = function(a, b){
   var self = this;
