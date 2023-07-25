@@ -51,9 +51,10 @@ My_entry.operation.prototype.config = {
     ],
     [
       [
-        /* following operator */
-        "URi",   // post-Unary operatoR imaginary unit i
-        "URf"    // factorial mark ! || !!... operand is only natural number
+        /* following post-Unary operatoR */
+        "UR"     //  . || ' -> transpose(left) || htranspose(left)
+                 // post-Unary operatoR imaginary unit i
+                 // factorial mark ! || !!... operand is only natural number
       ],
       [
         "BRpp",  // Binary operatoR ** -> pow(left, right)@Right-Associativity
@@ -633,13 +634,11 @@ My_entry.operation.prototype.SRr_or_SRt = function(data, i0, tagName, tagObj, is
 };
 My_entry.operation.prototype.SRr = function(data, i0, tagName, tagObj){
   var self = this;
-  self.SRr_or_SRt(data, i0, tagName, tagObj, false);
-  return self;
+  return self.SRr_or_SRt(data, i0, tagName, tagObj, false);  // Ver.2.192.44
 };
 My_entry.operation.prototype.SRt = function(data, i0, tagName, tagObj){
   var self = this;
-  self.SRr_or_SRt(data, i0, tagName, tagObj, true);
-  return self;
+  return self.SRr_or_SRt(data, i0, tagName, tagObj, true);  // Ver.2.192.44
 };
 /* Ver.2.157.38 -> */
 My_entry.operation.prototype.trees2tree_mat = function(data, trees, ids){
@@ -2087,9 +2086,38 @@ My_entry.operation.prototype.FNn = function(data, i0, tagName, tagObj){
   return self;
 };
 /* -> Ver.2.125.34 */
+/* Ver.2.192.44 -> */
+My_entry.operation.prototype.UR = function(data, i0, tagName, tagObj){
+  var self = this;
+  var prop = tagObj.val;
+  var hasD = (prop === "." || prop === "'");
+  return self[(hasD)? "URd": "URif"](data, i0, tagName, tagObj);
+};
+My_entry.operation.prototype.URd = function(data, i0, tagName, tagObj){
+  var self = this;
+  var trees = data.trees;
+  var options = data.options;
+  var math_mat = self.entry.math_mat;
+  var DATA = self.entry.DATA;
+  var is = i0-1;
+  var ie = i0;
+  var prop = tagObj.val;
+  var tree = null;
+  var leftArr = self.get_tagVal(trees[is], "mat", "arr");
+  if(leftArr){
+    var hasH = (prop === "'")? "h": "";
+    var tarr = math_mat[hasH+"transpose"](options, leftArr);
+    tree = DATA.tree_mat(tarr);
+  }
+  else{
+    throw "Invalid null"+prop;
+  }
+  self.feedback2trees(data, is, ie, tree);
+  return self;
+};
+/* -> Ver.2.192.44 */
 /* Ver.2.74.29 -> */
-My_entry.operation.prototype.URi =
-My_entry.operation.prototype.URf = function(data, i0, tagName, tagObj){
+My_entry.operation.prototype.URif = function(data, i0, tagName, tagObj){  // Ver.2.192.44
   var self = this;
   var trees = data.trees;
   var options = data.options;
@@ -2099,12 +2127,13 @@ My_entry.operation.prototype.URf = function(data, i0, tagName, tagObj){
   var ie = i0;
   /* Ver.2.73.29 -> */
   var prop = tagObj.val;
+  var hasI = (prop === "i");  // Ver.2.192.44
   var leftArr = self.get_tagVal(trees[is], "mat", "arr");
-  var right = (tagName === "URi")?
+  var right = (hasI)?  // Ver.2.192.44
     DATA.num(0, 1):
     DATA.num(Number(prop), 0);
   var tree = null;
-  var callback = (tagName === "URi")?
+  var callback = (hasI)?  // Ver.2.192.44
     function(left, right){
       return unit["BRm"](options, left, right);
     }:

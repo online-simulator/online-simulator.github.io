@@ -663,7 +663,7 @@ local storage cleared
 6,12,0
 )
 
-LpR(L,R)=<[product=<last{LR[ir][ic]=ttL[ir]*trans((trans(ttR))[ic])},ttL=trans(trans(L)),ttR=trans(trans(R)),LR=zeros(sizer(ttL),sizec(ttR)),_sir(=<_sic(=<product,0,sizec(ttR)-1),0,sizer(ttL)-1),=<LR]=>
+LpR(L,R)=<[product=<LR[ir][ic]=ttL[ir]*(ttR.)[ic].,ttL=L..,ttR=R..,LR=zeros(sizer(ttL),sizec(ttR)),_sir(=<_sic(=<product,0,sizec(ttR)-1),0,sizer(ttL)-1),=<LR]=>
 stored_eqn(LpR)
 
 clear
@@ -1155,7 +1155,7 @@ clear
 local storage cleared
 
 [Pinv_y=(-0.999999427,-0.999936657,-0.997300203,-0.954499736,-0.682689492,0,0.682689492,0.954499736,0.997300203,0.999936657,0.999999427:-5,-4,-3,-2,-1,0,1,2,3,4,5),N=1,arr=[],_rn(=<arr=(arr:rand_table(=<Pinv_y)=>),,N),=<arr]=>
-0.6672977588215662
+-1.1981206622895595
 
 rand_table(csv)=<last[table=sort0(csv),ymin=min(table)[0],ymax=max(table)[0],y=ymin+(ymax-ymin)*rand,x=interp(y:table),x]
 stored_eqn(rand_table)
@@ -1235,4 +1235,4 @@ center=true&drag=false&test-case=false&legend=true&axis-t=false&axis-x=true&log-
 --------------------------------
 --------------------------------
 
-online-simulator.github.io.6.257.109.13.56 @ Tue Jul 18 2023 16:28:38 GMT+0900 (日本標準時) @ Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/114.0.0.0 Safari/537.36
+online-simulator.github.io.6.262.111.13.56 @ Tue Jul 25 2023 16:03:48 GMT+0900 (日本標準時) @ Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/115.0.0.0 Safari/537.36

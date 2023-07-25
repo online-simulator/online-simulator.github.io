@@ -87,6 +87,8 @@
       script += "\nclear;\n";
       script += "nvecr=normalizer(1,i,1-i);\nA={1*nvecr,(-2)*nvecr,3i*nvecr,4};\ntA=trans(A);\nnormalizer(A)-A/normr(A);\nnormalizec(tA)-tA/normc(tA);\nnormr(A),normr(normalizer(A));\nnormc(tA):normc(normalizec(tA));";
       script += "\nclear;\n";
+      script += "mat=<(1,2i:3,4i:-5i);\nmat.=trans(mat);\nmat'=htrans(mat);\n(mat.)[0];\nmat[0]';\n(1,2i:3,4i:-5i).i'!!::(1,2i:3,4i:-5i)i.!!'::(1,2i:3,4i:-5i).!!'i::(1,2i:3,4i:-5i)!!.i';\nmat.i'!!::(mat)i.!!'::mat.!!'i::mat!!.i';\nmax(mat).,cmax(mat)':(max(mat)).,(cmax(mat))';\nmax(mat.):cmax(mat');";
+      script += "\nclear;\n";
       $._id("input").value = script;
     });
   })();

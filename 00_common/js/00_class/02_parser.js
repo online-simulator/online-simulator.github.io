@@ -49,9 +49,9 @@ My_entry.parser.prototype.config = {
       {b: /=</, a: "SEe"},
       // RestorE equation
       {b: /[=]{1,2}>/, a: "REe"},  // Ver.2.31.17
-      // fact -> "URf"
+      // fact -> "UR"  // Ver.2.192.44
       {b: /!+/, a: function(str){
-        return "URf"+","+str.length;
+        return "UR"+","+str.length;
       }},
       // ** -> ^
       {b: /[*]{2}/, a: "BRpp"},  // Ver.2.87.32
@@ -85,8 +85,10 @@ My_entry.parser.prototype.config = {
       "(": "BT1",
       "[": "BT0",
       // FunctioN: "FN?"
-      // post-Unary operatoR: "UR?"
-      "i": "URi",
+      // post-Unary operatoR: "UR"  // Ver.2.192.44
+      "'": "UR",  // Ver.2.192.44
+      ".": "UR",  // Ver.2.192.44
+      "i": "UR",  // Ver.2.192.44
       // Binary operatoR: "BR?"
       "^": "BRp",
       // omitted multiplication sign: "BRmo"
@@ -392,8 +394,6 @@ My_entry.parser.prototype.make_trees = function(sentence, opt_re){  // Ver.2.158
       case "\\":
       case "?":
       case "#":
-      case ".":
-      case "\'":
       case "\"":
       case "`":
         throw "reserved token("+token+")";

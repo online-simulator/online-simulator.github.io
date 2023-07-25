@@ -298,6 +298,8 @@ e^(-i(1pi(){2/2i}(5-{3-1}){i/(-4)}))
 <br>
 　　・<a href="#span-out-prec-ope-arithmetic">算術演算子</a>
 <br>
+　　　・<a href="#span-out-prec-ope-arithmetic-dot">dot演算子</a>
+<br>
 　　　・<a href="#span-out-prec-ope-arithmetic-mod">剰余・整数商演算子</a>
 <br>
 　　・<a href="#span-out-prec-ope-bit">bit演算子</a>
@@ -8990,11 +8992,13 @@ precedence
 <br>
 ・<a href="#span-out-prec-ope-arithmetic">算術演算子</a>
 <br>
-　・<a href="#span-out-type-ope">後置単項演算子</a>
+　・<a href="#span-out-type-ope">後置単項演算子</a>　<span class="run">Ver.2.192.44</span>以降、統合（左から順次処理）
 <br>
-　　・<a href="#span-out-com">虚数単位</a>演算子 i
+　　・<a href="#span-out-prec-ope-arithmetic-dot">dot演算子</a> . || '　<span class="run">Ver.2.192.44</span>以降、追加
 <br>
-　　・<a href="#span-out-FN-fact">階乗</a>演算子 ! || !!...
+　　<del>・</del>||<a href="#span-out-com">虚数単位</a>演算子 i
+<br>
+　　<del>・</del>||<a href="#span-out-FN-fact">階乗</a>演算子 ! || !!...
 <br>
 　・<a href="#span-out-type-ope">中置2項演算子</a>
 <br>
@@ -9156,6 +9160,76 @@ precedence
 <br>
 <br>
 <a href="#span-out-BRmo">記号省略乗算</a>を許容しない場合、<a href="#span-out-config">裏設定</a>参照
+    </td>
+  </tr>
+  <tr>
+    <th>
+<a href="#span-index">
+目次
+</a>
+<br>
+dot演算子
+    </th>
+    <td>
+<span id="span-out-prec-ope-arithmetic-dot"></span>
+dot演算子と付随する留意事項について記述する
+<br>
+<br>
+<span class="run">Ver.2.192.44</span>以降、転置行列関数代替演算子を追加
+<br>
+・<a href="#span-out-type-ope">後置単項演算子</a>の<a href="#span-out-prec-ope">演算子のprecedence</a>を統合（左から順次処理）
+<br>
+<br>
+<a href="#span-out-FNm-trans">trans行列関数</a>代替演算子.
+<br>
+(1,2i:3,4i:-5i). || trans(1,2i:3,4i:-5i) -> (1,3,-5i:2i,4i,0)
+<br>
+A=(1,2i:3,4i:-5i); A. -> (1,3,-5i:2i,4i,0)
+<br>
+・連続転置
+<br>
+A=(1,2i:3,4i:-5i); A.. -> (1,2i:3,4i:-5i,0)
+<br>
+・<a href="#span-out-type-ope">後置単項演算子</a>は左から順次処理
+<br>
+A=(1,2i:3,4i:-5i); A.i! -> (1,1,120:false,false,1)
+<br>
+A=(1,2i:3,4i:-5i); A.!i -> (i,6i,i:i,i,i)
+<br>
+A=(1,2i:3,4i:-5i); (A)i!. -> (1,1,120:false,false,0)
+<br>
+A=(1,2i:3,4i:-5i); A!i. -> (i,6i,i:i,i,0)
+<br>
+・小数点と判別されない場合
+<br>
+1..2 || (((1).).)2 || 1*2 -> 2
+<br>
+・null-leftの場合、error終了
+<br>
+..2 -> [MyErr]Invalid null.
+<br>
+・<a href="#span-out-csv-format">csv-format</a>判定の場合
+<br>
+.2 || (0.2) -> 0.2
+<br>
+7. || (7.0) -> 7
+<br>
+<br>
+<a href="#span-out-FNm-trans">htrans行列関数</a>代替演算子'
+<br>
+(1,2i:3,4i:-5i)' || htrans(1,2i:3,4i:-5i) -> (1,3,5i:-2i,-4i,0)
+<br>
+A=(1,2i:3,4i:-5i); A' -> (1,3,5i:-2i,-4i,0)
+<br>
+A=(1,2i:3,4i:-5i); A'' -> (1,2i:3,4i:-5i,0)
+<br>
+A=(1,2i:3,4i:-5i); A'i! -> (1,1,false:2,24,1)
+<br>
+A=(1,2i:3,4i:-5i); A'!i -> (i,6i,i:i,i,i)
+<br>
+A=(1,2i:3,4i:-5i); (A)i!' -> (1,1,120:false,false,0)
+<br>
+A=(1,2i:3,4i:-5i); A!i' -> (-i,-6i,-i:-i,-i,0)
     </td>
   </tr>
   <tr>
@@ -11027,9 +11101,11 @@ useScope=defaultの場合（上記以外の場合）、<a href="#span-out-BT-squ
 <br>
 ・<span class="run">Ver.2.168.41</span>以降、<a href="#span-out-prec-ope-logical">論理XOR演算子</a>を追加
 <br>
+・<span class="run">Ver.2.192.44</span>以降、<a href="#span-out-prec-ope-arithmetic-dot">dot演算子</a>を追加（URi,URfをURに統合）
+<br>
 precedence=
 <br>
-URi,URf,<span class="run">BRpp</span>,BRp,BRmo,BRdm,BRsa,
+<span class="run">UR</span>,<span class="run">BRpp</span>,BRp,BRmo,BRdm,BRsa,
 <br>
 <span class="run">PUbn</span>,BRbs,BRba,BRbx,BRbo,BRcn,BRrl,<span class="run">PUlN</span>,<span class="run">BRlA,BRlX,BRlO</span>
 <br>
@@ -13350,6 +13426,14 @@ test caseを列挙する
 0.123 -> 0.123
 <br>
 -0.123 -> -0.123
+<br>
+.123 -> 0.123
+<br>
+-.123 -> -0.123
+<br>
+123. -> 123
+<br>
+-123. -> -123
 <br>
 ・10進数literal指数（指数表記）
 <br>
@@ -16514,10 +16598,14 @@ isTrue(false,false),isTrue(NaN,NaN),isTrue(,) -> (true,true,true)
 <span id="span-out-FNm-trans"></span>
 転置行列関数の入力仕様と付随する留意事項について記述する
 <br>
+・<span class="run">Ver.2.192.44</span>以降、<a href="#span-out-prec-ope-arithmetic-dot">dot演算子</a>を追加
 <br>
-<a href="#span-out-mat">行列</a>の転置
+<br>
+<a href="#span-out-mat">行列</a>の非共役転置
 <br>
 trans(1,2:3,4) -> (1,3:2,4)
+<br>
+trans(1,2i:3,4i:-5i) -> (1,3,-5i:2i,4i,0)
 <br>
 ・行vectorを列vectorに変換
 <br>
@@ -16528,9 +16616,11 @@ transpose(1,2,3) || trans(1,2,3) -> (1:2:3)
 trans({1,2,3}) || trans{1,2,3} -> (1,2,3)
 <br>
 <br>
-<a href="#span-out-com">複素数</a>の<a href="#span-out-mat">行列</a>のHermit転置
+<a href="#span-out-com">複素数</a>の<a href="#span-out-mat">行列</a>の共役転置（Hermit転置）
 <br>
 htrans(1-i,1-2i:1-3i,1-4i) || Hermitian(1-i,1-2i:1-3i,1-4i) -> (1+i,1+3i:1+2i,1+4i)
+<br>
+htrans(1,2i:3,4i:-5i) -> (1,3,5i:-2i,-4i,0)
     </td>
   </tr>
   <tr>
@@ -24381,6 +24471,20 @@ _sir(=&lt;{_sic(=&lt;product,0,sizec(ttR)-1)},0,sizer(ttL)-1),
 <br>
 =&lt;LR}=&gt;;
 <br>
+・<span class="run">Ver.2.192.44</span>以降、<a href="#span-out-prec-ope-arithmetic-dot">dot演算子</a>を追加
+<br>
+LpR=&lt;{product=&lt;LR[ir][ic]=ttL[ir](ttR.)[ic].,
+<br>
+ttL=L..,
+<br>
+ttR=R..,
+<br>
+LR=zeros(sizer(ttL),sizec(ttR)),
+<br>
+_sir(=&lt;{_sic(=&lt;product,0,sizec(ttR)-1)},0,sizer(ttL)-1),
+<br>
+=&lt;LR}=&gt;;
+<br>
 ・演算子による行列積L*Rでは1回の転置trans(R)に最適化される
 <br>
 ・また、この転置時にRの欠損要素を埋める
@@ -24446,7 +24550,7 @@ L*R -> [MyErr]Invalid matrix operation
 </del>
 <br>
 <span class="condition">
-LpR -> (1,4)
+LpR -> (2,4)
 <br>
 L*R -> (1,4)
 </span>
@@ -34538,6 +34642,8 @@ precedence
 <br>
 ・<span class="run">Ver.2.168.41</span>以降、<a href="#span-out-prec-ope-logical">論理XOR演算子</a>を追加
 <br>
+・<span class="run">Ver.2.192.44</span>以降、<a href="#span-out-prec-ope-arithmetic-dot">dot演算子</a>を追加（URi,URfをURに統合）
+<br>
 <br>
 配列要素の定義順で<a href="#span-out-prec">演算のprecedence</a>を動的に変更可能とする
 <br>
@@ -34587,9 +34693,10 @@ operation.js抜粋
     ],
     [
       [
-        /* following operator */
-        "URi",   // post-Unary operatoR imaginary unit i
-        "URf"    // factorial mark ! || !!... operand is only natural number
+        /* following post-Unary operatoR */
+        "UR"     //  . || ' -> transpose(left) || htranspose(left)
+                 // post-Unary operatoR imaginary unit i
+                 // factorial mark ! || !!... operand is only natural number
       ],
       [
         "BRpp",  // Binary operatoR ** -> pow(left, right)@Right-Associativity
@@ -34684,8 +34791,6 @@ parser.js抜粋
       case "\\":
       case "?":
       case "#":
-      case ".":
-      case "\'":
       case "\"":
       case "`":
         throw "reserved token("+token+")";
@@ -36449,11 +36554,11 @@ _product
 <br>
 clear;
 <br>
-LpR(L,R)=&lt;[product=&lt;last{LR[ir][ic]=ttL[ir]*trans((trans(ttR))[ic])},
+LpR(L,R)=&lt;[product=&lt;LR[ir][ic]=ttL[ir]*(ttR.)[ic].,
 <br>
-ttL=trans(trans(L)),
+ttL=L..,
 <br>
-ttR=trans(trans(R)),
+ttR=R..,
 <br>
 LR=zeros(sizer(ttL),sizec(ttR)),
 <br>
