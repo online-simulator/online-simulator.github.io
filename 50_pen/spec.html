@@ -22,6 +22,14 @@
       <tbody>
         <tr class="border">
           <td class="border run">
+Ver.1.56.10
+          </td>
+          <td class="border">
+・mode=gblurを更新（stabiに対応）
+          </td>
+        </tr>
+        <tr class="border">
+          <td class="border run">
 Ver.1.55.10
           </td>
           <td class="border">
@@ -1095,6 +1103,8 @@ canvas背面から取得
 mode=gblur
 <br>
 <span class="run">Ver.1.55.10追加</span>
+<br>
+<span class="condition">Ver.1.56.10更新</span>
           </td>
           <td class="border">
 Gaussぼかし機能
@@ -1104,9 +1114,9 @@ canvas背面に適用
 <br>
 ・強度分布あり（最適化なし）
 <br>
-・強度分布の最大値=min(sqrt(W),10)
+・強度分布の最大値=min(<del>sqrt(W)</del><span class="condition">sqrt(w(f))</span>,10)
 <br>
-・stabi無効
+・stabi<del>無効</del><span class="condition">有効</span>
 <br>
 ・grid-snapあり
 <br>

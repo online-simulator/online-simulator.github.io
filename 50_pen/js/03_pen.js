@@ -346,6 +346,79 @@ My_entry.pen.prototype.run_filter = function(obj_canvas, text_filter, sw_put){
   }
   return _ID;
 };
+/* Ver.1.56.10 -> */
+My_entry.pen.prototype.update_xy = function(e, xy0, xy1){
+  var self = this;
+  var arr = self.arr_data;
+  var options = self.options;
+  var x0 = xy0.x;
+  var y0 = xy0.y;
+  var x1 = xy1.x;
+  var y1 = xy1.y;
+  /* Ver.1.18.4 */
+  /* Ver.1.13.4 */
+  var stabi = options.stabi;
+  var istabi = Math.floor(stabi);
+  if(istabi > 0){
+    var w = stabi-istabi;
+    var len = arr.length;
+    if(len){
+      var is = Math.max(0, len-istabi);
+      var ie = len-1;
+      var N_old = ie-is+1;
+      var x_old = 0;
+      var y_old = 0;
+      for(var i=is; i<=ie; ++i){
+        var xy1i = arr[i].xy1;
+        x_old += xy1i.x;
+        y_old += xy1i.y;
+      }
+      if(w){
+        x_old /= N_old;
+        y_old /= N_old;
+        x1 = w*x_old+(1-w)*x1;
+        y1 = w*y_old+(1-w)*y1;
+      }
+      else{
+        x1 = (x_old+x1)/(N_old+1);
+        y1 = (y_old+y1)/(N_old+1);
+      }
+    }
+  }
+  self.xy0 = {x: x1, y: y1};
+  return self;
+};
+My_entry.pen.prototype.update_w = function(e, xy0, xy1){
+  var self = this;
+  var options = self.options;
+  /* Ver.1.4.1 */
+  var w0 = self.w0 || 0;
+  var dx = xy1.x-xy0.x;
+  var dy = xy1.y-xy0.y;
+  var len = Math.sqrt(dx*dx+dy*dy);
+  var w_p = function(p){
+    return options.W*p;
+  };
+  /* Ver.1.5.1 */
+  var w_len = function(len){
+    var dw = 0;
+    var dlen = len-options.len_th;  // Ver.1.4.1
+    if(dlen > 0){
+      var s = options.out;
+      dw = (s < 0)? dlen: -1;
+      dw *= s;
+    }
+    else{
+      var s = options.in;
+      dw = (s < 0)? dlen: 1;
+      dw *= s;
+    }
+    return Math.min(options.W, Math.max(0, w0+dw));
+  };
+  self.w0 = (options.pressure)? w_p(e.pressure): w_len(len);
+  return self;
+};
+/* -> Ver.1.56.10 */
 My_entry.pen.prototype.make_handlers = function(){
   var self = this;
   var $ = self.entry.$;
@@ -412,25 +485,6 @@ My_entry.pen.prototype.make_handlers = function(){
       }
     },
     onmousemove: function(e){
-      var w_p = function(p){
-        return options.W*p;
-      };
-      /* Ver.1.5.1 */
-      var w_len = function(len){
-        var dw = 0;
-        var dlen = len-options.len_th;  // Ver.1.4.1
-        if(dlen > 0){
-          var s = options.out;
-          dw = (s < 0)? dlen: -1;
-          dw *= s;
-        }
-        else{
-          var s = options.in;
-          dw = (s < 0)? dlen: 1;
-          dw *= s;
-        }
-        return Math.min(options.W, Math.max(0, self.w0+dw));
-      };
       if(self.isDragging){
         e.preventDefault();
         e.stopPropagation();
@@ -451,125 +505,112 @@ My_entry.pen.prototype.make_handlers = function(){
         var x1 = xy1.x;
         var y1 = xy1.y;
         /* -> Ver.1.36.7 */
-      /* Ver.1.32.7 -> */
-      if(self.mode <= 0){  // Ver.1.34.7
-        /* Ver.1.18.4 -> */
-        /* Ver.1.13.4 -> */
-        var stabi = options.stabi;
-        var istabi = Math.floor(stabi);
-        if(!(hasSnap) && istabi > 0){
-          var w = stabi-istabi;
-          var arr = self.arr_data;
-          var len = arr.length;
-          if(len){
-            var is = Math.max(0, len-istabi);
-            var ie = len-1;
-            var N_old = ie-is+1;
-            var x_old = 0;
-            var y_old = 0;
-            for(var i=is; i<=ie; ++i){
-              var xy1i = arr[i].xy1;
-              x_old += xy1i.x;
-              y_old += xy1i.y;
-            }
-            if(w){
-              x_old /= N_old;
-              y_old /= N_old;
-              x1 = w*x_old+(1-w)*x1;
-              y1 = w*y_old+(1-w)*y1;
-            }
-            else{
-              x1 = (x_old+x1)/(N_old+1);
-              y1 = (y_old+y1)/(N_old+1);
-            }
-            xy1.x = x1;
-            xy1.y = y1;
-          }
-        }
-        /* -> Ver.1.13.4 */
-        /* -> Ver.1.18.4 */
-        self.xy0 = xy1;
-        /* Ver.1.4.1 -> */
-        var dx = x1-x0;
-        var dy = y1-y0;
-        var len = Math.sqrt(dx*dx+dy*dy);
+        /* Ver.1.56.10 -> */
         var w0 = self.w0 || 0;  // || 0
-        var w1 = (options.pressure)? w_p(e.pressure): w_len(len);
-        self.w0 = w1;
-        var k = (w1/2)/(len || 1);  // || not0
-        var dxk = dx*k;
-        var dyk = dy*k;
-        var xym1x = x1-dyk;
-        var xym1y = y1+dxk;
-        var xyp1x = x1+dyk;
-        var xyp1y = y1-dxk;
-        var xym1 = {x: xym1x, y: xym1y};
-        var xyp1 = {x: xyp1x, y: xyp1y};
-        var xym0 = self.xym0 || xym1;
-        var xyp0 = self.xyp0 || xyp1;
-        self.xym0 = xym1;
-        self.xyp0 = xyp1;
-        if(w0+w1){
-          self.arr_data.push({xy0: xy0, xy1: xy1, w0: w0, w1: w1, xym0: xym0, xyp0: xyp0, xym1: xym1, xyp1: xyp1});  // Ver.1.2.0
-        /* -> Ver.1.4.1 */
-          set_ctx();  // Ver.1.20.4
-          /* Ver.1.46.8 -> */
-          /* Ver.1.4.1 -> */
-          if(Math.min(w0, w1) < options.w_th){
-            ctx.beginPath();
-            ctx.moveTo(xym0.x, xym0.y);
-            ctx.lineTo(xyp0.x, xyp0.y);
-            ctx.lineTo(xyp1.x, xyp1.y);
-            ctx.lineTo(xym1.x, xym1.y);
-            ctx.fill();
+        var w1 = w0;
+        var data = null;
+        var isPen = (self.mode <= 0);
+        var useStabi = (isPen || self.mode === 5);
+        if(useStabi){
+          if(hasSnap){
+            self.xy0 = xy1;
           }
           else{
-            var len_p = Math.ceil(len/(options.dlen || 1));  // || not0
-            var dw01 = (w1-w0)/len_p;
-            var dx01 = (x1-x0)/len_p;
-            var dy01 = (y1-y0)/len_p;
-            var wp = w0;
-            var xp = x0;
-            var yp = y0;
-            for(var p=0; p<len_p; ++p){
+            self.update_xy(e, xy0, xy1);
+            xy1 = self.xy0;
+            x1 = xy1.x;
+            y1 = xy1.y;
+          }
+          self.update_w(e, xy0, xy1);
+          w1 = self.w0;
+        }
+        /* -> Ver.1.56.10 */
+        /* Ver.1.32.7 -> */
+        if(isPen){  // Ver.1.34.7  // Ver.1.56.10
+          /* Ver.1.4.1 -> */
+          var dx = xy1.x-xy0.x;
+          var dy = xy1.y-xy0.y;
+          var len = Math.sqrt(dx*dx+dy*dy);
+          var k = (w1/2)/(len || 1);  // || not0
+          var dxk = dx*k;
+          var dyk = dy*k;
+          var xym1x = x1-dyk;
+          var xym1y = y1+dxk;
+          var xyp1x = x1+dyk;
+          var xyp1y = y1-dxk;
+          var xym1 = {x: xym1x, y: xym1y};
+          var xyp1 = {x: xyp1x, y: xyp1y};
+          var xym0 = self.xym0 || xym1;
+          var xyp0 = self.xyp0 || xyp1;
+          self.xym0 = xym1;
+          self.xyp0 = xyp1;
+          if(w0+w1){
+            data = {xy0: xy0, xy1: xy1, w0: w0, w1: w1, xym0: xym0, xyp0: xyp0, xym1: xym1, xyp1: xyp1};  // Ver.1.2.0  // Ver.1.56.10
+          /* -> Ver.1.4.1 */
+            set_ctx();  // Ver.1.20.4
+            /* Ver.1.46.8 -> */
+            /* Ver.1.4.1 -> */
+            if(Math.min(w0, w1) < options.w_th){
               ctx.beginPath();
-              ctx.moveTo(xp, yp);
-              wp = w0+dw01*(p+1);
-              xp = x0+dx01*(p+1);
-              yp = y0+dy01*(p+1);
-              ctx.lineWidth = wp;
-              ctx.lineTo(xp, yp);
-              ctx.stroke();
+              ctx.moveTo(xym0.x, xym0.y);
+              ctx.lineTo(xyp0.x, xyp0.y);
+              ctx.lineTo(xyp1.x, xyp1.y);
+              ctx.lineTo(xym1.x, xym1.y);
+              ctx.fill();
+            }
+            else{
+              var len_p = Math.ceil(len/(options.dlen || 1));  // || not0
+              var dw01 = (w1-w0)/len_p;
+              var dx01 = (x1-x0)/len_p;
+              var dy01 = (y1-y0)/len_p;
+              var wp = w0;
+              var xp = x0;
+              var yp = y0;
+              for(var p=0; p<len_p; ++p){
+                ctx.beginPath();
+                ctx.moveTo(xp, yp);
+                wp = w0+dw01*(p+1);
+                xp = x0+dx01*(p+1);
+                yp = y0+dy01*(p+1);
+                ctx.lineWidth = wp;
+                ctx.lineTo(xp, yp);
+                ctx.stroke();
+              }
+            }
+            /* -> Ver.1.4.1 */
+            /* -> Ver.1.46.8 */
+            /* Ver.1.35.7 */
+            if(self.mode === 0){
+              self.arr_vec.push({x: x1, y: y1});
             }
           }
-          /* -> Ver.1.4.1 */
-          /* -> Ver.1.46.8 */
-          /* Ver.1.35.7 */
-          if(self.mode === 0){
-            self.arr_vec.push({x: x1, y: y1});
+        }
+        else{
+          fg.clear();
+          var r = (hasGrid)? Math.min(6, Math.min(dxg, dyg)/2): 6;
+          switch(self.mode){
+            case 2:
+            case 3:
+              fg.draw.marker_circle({x: x0, y: y0}, r/2, r, "#000000", "#ffffff");
+              break;
+            /* Ver.1.55.10 */
+            case 5:
+              data = {xy0: xy0, xy1: xy1};  // Ver.1.56.10
+              var s = Math.min(Math.sqrt(w1), 10);  // Ver.1.56.10
+              var sk = 4;
+              bg.putID(self.filter.run_gblur(bg.ctx, x1, y1, s, sk));
+              break;
+            default:
+              break;
           }
+          fg.draw.marker_circle({x: x1, y: y1}, r/2, r, "#000000", "#ffffff");
         }
-      }
-      else{
-        fg.clear();
-        var r = (hasGrid)? Math.min(6, Math.min(dxg, dyg)/2): 6;
-        switch(self.mode){
-          case 2:
-          case 3:
-            fg.draw.marker_circle({x: x0, y: y0}, r/2, r, "#000000", "#ffffff");
-            break;
-          /* Ver.1.55.10 */
-          case 5:
-            var s = Math.min(Math.sqrt(options.W), 10);
-            var sk = 4;
-            bg.putID(self.filter.run_gblur(bg.ctx, x1, y1, s, sk));
-            break;
-          default:
-            break;
+        /* -> Ver.1.32.7 */
+        /* Ver.1.56.10 -> */
+        if(data){
+          self.arr_data.push(data);
         }
-        fg.draw.marker_circle({x: x1, y: y1}, r/2, r, "#000000", "#ffffff");
-      }
-      /* -> Ver.1.32.7 */
+        /* -> Ver.1.56.10 */
       }
     },
     onmouseup: function(e){
@@ -686,6 +727,10 @@ My_entry.pen.prototype.make_handlers = function(){
               $._id("input-A").value = a_picked*100/255;
               elem_RGB.onchange();
             }
+            break;
+          /* Ver.1.56.10 */
+          case 5:
+            self.arr_data = [];
             break;
           default:
             break;
