@@ -21507,6 +21507,8 @@ fact_(N) -> 3628800
 <br>
 N=10; fn=&lt;(n,n*(1+i)); sum_(n)=&lt;n&gt;0&amp;&amp;&amp;fn+sum_(n-1); sum_(N) -> (55,55+55i)
 <br>
+N=10; fn(n)=&lt;(n,n*(1+i)); sum_(n)=&lt;n&gt;0&amp;&amp;&amp;fn(n)+sum_(n-1); sum_(N) -> (55,55+55i)
+<br>
 ・総積
 <br>
 N=10; prod_(n,A)=&lt;n&lt;1&amp;&amp;&amp;1|||A*prod_(n-1,=&lt;A);
@@ -34471,7 +34473,7 @@ arguments
 <span id="span-in-eqns-args"></span>
 <a href="#span-out-eqns-args">式変数のarguments</a>について記述する
 <br>
-・<a href="#span-out-eqns">式変数</a>のcall毎にscopeは動的に作らない
+・<a href="#span-out-eqns">式変数</a>のcall毎にscopeは動的に作らない（new演算子は未実装）
 <br>
 ・<a href="#span-out-flow">parse</a>段階で割当てた定義元の<a href="#span-in-scope-vars">static scopes2d array</a>を共有する
 <br>
@@ -34481,7 +34483,7 @@ arguments
 <br>
 ・argのみ、<a href="#span-out-FNh">高階関数</a>のdummy変数同様に、buffer経由でcall前後のscopeが独立する
 <br>
-・<span class="run">Ver.2.194.45</span>以降、<a href="#span-out-eqns-re-call">再帰call</a>に対応
+<span class="run">Ver.2.194.45</span>以降、以上の要件から<a href="#span-out-eqns-re-call">再帰call</a>に対応
 <br>
 ・call先のargument判別の条件分岐が複雑化し、非常に重い（Nativeの参照渡しと異なる）
 <br>
