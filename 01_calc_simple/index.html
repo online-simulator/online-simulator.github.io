@@ -91,6 +91,8 @@
       script += "\nclear;\n";
       script += "left=1,right=2,left&&right,and(left,right),left||right,or(left,right),and(1,NaN),or(1):left=i,right=-2,left&&&right,cand(left,right),left|||right,cor(left,right),cand(i,NaN),cor(i);";
       script += "\nclear;\n";
+      script += "N=10;\nF0=0,F1=1,F2=<last{F2=F0+F1,F0=F1,F1=F2,F2},fibonacci(n)=<_rn(=<F2,,n-1),fibonacci(N);\nfibo_exp(n)=<(n<2&&&{n,}|||{fibo_exp(n-1)+fibo_exp(n-2),})[0],fibo_exp(N);\nfibo_(n,a,b)=<(n<1&&&{a,}|||n<2&&&{b,}|||{fibo_(n-1,b,a+b),})[0],fibo_(N,0,1);\nfact_(n)=<n<=1&&&1|||floor(n)*fact_(n-1),fact_(N),N!;\nfn=<(n,n*(1+i)),sum_(n)=<n>0&&&fn+sum_(n-1),sum_(N);\n(prod_(n,A)=<n<1&&&1|||A*prod_(n-1,=<A):),prod_(N,=<(1,2:3,4));";
+      script += "\nclear;\n";
       $._id("input").value = script;
     });
   })();

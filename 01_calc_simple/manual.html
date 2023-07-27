@@ -546,6 +546,8 @@ e^(-i(1pi(){2/2i}(5-{3-1}){i/(-4)}))
 <br>
 　　　・<a href="#span-out-eqns-re-use">scope付式変数の再利用</a>
 <br>
+　　　・<a href="#span-out-eqns-re-call">再帰call</a>
+<br>
 　・<a href="#span-out-FNh">高階関数</a>
 <br>
 　　・<a href="#span-out-FNh-switch">switch高階関数</a>
@@ -1675,6 +1677,8 @@ title/発行元(発行年)を列挙する
 　最終行/最終列vectorのnorm　⇒　各行/各列vectorのnorm（<a href="#span-out-FNm-normalize">正規化行列関数</a>に準拠）
 <br>
 　<a href="#span-eqn">strict-mode式変数list</a>への影響なし
+<br>
+・<span class="run">Ver.2.194.45</span>以降、<a href="#span-out-eqns-args">式変数のarguments</a>の<a href="#span-out-eqns-re-call">再帰call</a>に対応
     </td>
   </tr>
   <tr>
@@ -12874,9 +12878,9 @@ clear; a=&lt;2; store; delEqn(a); a=&gt;  <span class="selection">// a deleted</
 <br>
 clear; a=&lt;2; store; delEqn(a); restore; a=&gt; -> 2
 <br>
-・自身をdelete不可
+<del>・自身をdelete不可</del><span class="run">Ver.2.194.45</span>以降、<a href="#span-out-eqns-args">式変数のarguments</a>の<a href="#span-out-eqns-re-call">再帰call</a>に対応
 <br>
-clear; delete=&lt;delEqn(delete); delete=&gt; -> [MyErr]Invalid delEqnSelf(delete)
+<del>clear; delete=&lt;delEqn(delete); delete=&gt; -> [MyErr]Invalid delEqnSelf(delete)</del>
 <br>
 <br>
 <span class="run">Ver.2.31.17</span>以降、addVar/addEqn/hasV/hasE最上位関数を追加
@@ -20486,23 +20490,23 @@ clear; _sn(=&lt;1,0,2) || _sn(=&lt;{1},0,2) || 1+1+1 -> 3
 式変数への式代入の入力仕様と付随する留意事項について記述する
 <br>
 <br>
-式変数を循環参照した場合、error終了
+<del>式変数を循環参照した場合、error終了</del><span class="run">Ver.2.194.45</span>以降、<a href="#span-out-eqns-args">式変数のarguments</a>の<a href="#span-out-eqns-re-call">再帰call</a>に対応
 <br>
 ・<a href="#span-out-FNh-RX">再帰高階関数</a>で代替のreccursive call非対応（call stackの独自実装なし）
 <br>
-clear; a=&lt;a; a -> [MyErr]Invalid circular(a)
+clear; a=&lt;a; a -> <del>[MyErr]Invalid circular(a)</del>Maximum call stack size exceeded
 <br>
-clear; a=&lt;{a}; a -> [MyErr]Invalid circular(a)
+clear; a=&lt;{a}; a -> <del>[MyErr]Invalid circular(a)</del>Maximum call stack size exceeded
 <br>
-clear; a=&lt;a=&gt;; a -> [MyErr]Invalid circular(a)
+clear; a=&lt;a=&gt;; a -> <del>[MyErr]Invalid circular(a)</del>Maximum call stack size exceeded
 <br>
-clear; a=&lt;{a=&gt;}; a -> [MyErr]Invalid circular(a)
+clear; a=&lt;{a=&gt;}; a -> <del>[MyErr]Invalid circular(a)</del>Maximum call stack size exceeded
 <br>
 ・<a href="#span-out-config-strict">strict-mode</a>の場合
 <br>
-clear; a=&lt;a=&gt;; a=&gt; -> [MyErr]Invalid circular(a)
+clear; a=&lt;a=&gt;; a=&gt; -> <del>[MyErr]Invalid circular(a)</del>Maximum call stack size exceeded
 <br>
-clear; a=&lt;{a=&gt;}; a=&gt; -> [MyErr]Invalid circular(a)
+clear; a=&lt;{a=&gt;}; a=&gt; -> <del>[MyErr]Invalid circular(a)</del>Maximum call stack size exceeded
 <br>
 <br>
 <span class="run">Ver.2.19.6</span>以降、<a href="#span-out-FN">関数</a>のre-nameの仕様を廃止（無駄仕様と判断）
@@ -21455,6 +21459,65 @@ scope_NG2(x)=&lt;2*[x=x/*NG*/,last[x=x/*NG*/,x],x];
 scope_NG1(1)=&gt;:scope_NG1(-1)=&gt; -> (0,1,1:0,1,-1)
 <br>
 scope_NG2(1)=&gt;:scope_NG2(-1)=&gt; -> (0,2,2:0,2,2)
+    </td>
+  </tr>
+  <tr>
+    <th>
+<a href="#span-index">
+目次
+</a>
+<br>
+再帰call
+    </th>
+    <td>
+<span id="span-out-eqns-re-call"></span>
+式変数のargumentsの再帰callの入力仕様と付随する留意事項について記述する
+<br>
+<br>
+<span class="run">Ver.2.194.45</span>以降、式変数のargumentsの再帰callに対応
+<br>
+<br>
+test caseを列挙する
+<br>
+・<a href="#span-out-FNh-RX">再帰高階関数</a>を使用
+<br>
+N=10; F0=0,F1=1,F2=&lt;last{F2=F0+F1,F0=F1,F1=F2,F2};
+<br>
+fibonacci(n)=&lt;_rn(=&lt;F2,,n-1); fibonacci(N) -> 55
+<br>
+・指数時間の再帰call
+<br>
+N=10; fibo_exp(n)=&lt;(n&lt;2&amp;&amp;&amp;{n,}|||{fibo_exp(n-1)+fibo_exp(n-2),})[0]; fibo_exp(N) -> 55
+<br>
+・対数時間の再帰call
+<br>
+N=10; fibo_(n,a,b)=&lt;(n&lt;1&amp;&amp;&amp;{a,}|||n&lt;2&amp;&amp;&amp;{b,}|||{fibo_(n-1,b,a+b),})[0]; fibo_(N,0,1) -> 55
+<br>
+・単純な<a href="#span-out-FN-fact">階乗</a>
+<br>
+N=10; fact_(n)=&lt;n&lt;=1&amp;&amp;&amp;1|||floor(n)*fact_(n-1); fact_(N) -> 3628800
+<br>
+・厳密な<a href="#span-out-FN-fact">階乗</a>
+<br>
+N=10; fact_(n)=&lt;(isNaN(n)&amp;&amp;&amp;{NaN,}|||n&lt;1&amp;&amp;&amp;{false,}|||floor(n)===1&amp;&amp;&amp;{1,}|||{floor(n)*fact_(n-1),})[0];
+<br>
+fact_(N) -> 3628800
+<br>
+・総和
+<br>
+N=10; fn=&lt;(n,n*(1+i)); sum_(n)=&lt;n&gt;0&amp;&amp;&amp;fn+sum_(n-1); sum_(N) -> (55,55+55i)
+<br>
+・総積
+<br>
+N=10; prod_(n,A)=&lt;n&lt;1&amp;&amp;&amp;1|||A*prod_(n-1,=&lt;A);
+<br>
+prod_(N,=&lt;(1,2:3,4)) -> (4783807,6972050:10458075,15241882)
+<br>
+・無限loopの場合、error終了
+<br>
+N=10; fact_=&lt;floor(n)*fact_; fact_ -> Maximum call stack size exceeded
+<br>
+N=10; fact_(n)=&lt;floor(n)*fact_(n-1); fact_(N) -> Maximum call stack size exceeded
     </td>
   </tr>
   <tr>
@@ -33642,7 +33705,7 @@ f=&lt;last{V=1,E=0,k=1,I=exp(k*(V-E))-exp(-k*(V-E))}
 <br>
 ・<a href="#span-out-mat">行列</a>演算を含む<a href="#span-out-associativity">2項演算子のassociativity</a>は単なるfor-loopで結合順||演算順を保証する
 <br>
-・reccursive callを代替する<a href="#span-out-FNh-RX">再帰高階関数</a>も同様に、独自のcall stackを実装しない
+・reccursive callを代替する<a href="#span-out-FNh-RX">再帰高階関数</a>||<a href="#span-out-eqns-re-call">再帰call</a>も同様に、独自のcall stackを実装しない
 <br>
 ・<a href="#span-out-flow">parser</a>は複数種類の<a href="#span-out-BT">括弧</a>のnestingに対応し、再帰的に<a href="#span-in-tree">tree構造</a>を階層化する
 <br>
@@ -34412,15 +34475,13 @@ arguments
 <br>
 ・<a href="#span-out-flow">parse</a>段階で割当てた定義元の<a href="#span-in-scope-vars">static scopes2d array</a>を共有する
 <br>
-・よって<a href="#span-out-eqns">式変数</a>のreccursive call非対応
-<br>
 ・以降、argumentsの<a href="#span-out-vars-symbol">変数名symbol</a>をargと呼ぶ
 <br>
 ・<a href="#span-out-eqns">式変数</a>のstore時、argを<a href="#span-in-tree">単位tree構造</a>の<span class="selection">tag.val同列</span>に保存
 <br>
-・argのみ、call前後でbuffer経由store/restoreで模擬的にscopeが独立する
+・argのみ、<a href="#span-out-FNh">高階関数</a>のdummy変数同様に、buffer経由でcall前後のscopeが独立する
 <br>
-　<a href="#span-out-FNh">高階関数</a>のdummy変数同様（参考）
+・<span class="run">Ver.2.194.45</span>以降、<a href="#span-out-eqns-re-call">再帰call</a>に対応
 <br>
 ・call先のargument判別の条件分岐が複雑化し、非常に重い（Nativeの参照渡しと異なる）
 <br>

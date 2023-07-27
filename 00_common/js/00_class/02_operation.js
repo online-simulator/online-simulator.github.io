@@ -166,7 +166,6 @@ My_entry.operation.prototype.init = function(){
   self.useEmpty = null;
   self.arr_precedence = [];
   self.options = {};
-  self.isLocked_eqns = [[{}]];  // Ver.2.32.17
   self.params = {};
   self.vars = null;
   self.eqns = null;
@@ -376,7 +375,6 @@ My_entry.operation.prototype.run = function(_data){
       _data.trees = trees;
       _data.scopes = scopes2d;
       if(Array.isArray(trees)){
-        self.init_flags(_data);
         self.remake_trees(_data);
         self.SEans(_data, 0);
       }
@@ -402,33 +400,9 @@ My_entry.operation.prototype.run = function(_data){
 };
 My_entry.operation.prototype.init_buffers = function(){
   var self = this;
-  self.init_flags();
   self.init_params();
   self.vars = null;
   self.eqns = null;
-  return self;
-};
-/* Ver.2.32.17 */
-My_entry.operation.prototype.init_flags = function(data){
-  var self = this;
-  self.isLocked_eqns = [[{}]];
-  if(data){
-    var scopes = data.scopes;
-    if(scopes){
-      var len_j = scopes.length;
-      self.isLocked_eqns = new Array(len_j);
-      var obj_n0 = {};
-      for(var j=0; j<len_j; ++j){
-        var scopej = scopes[j];
-        var len_n = scopej.length;
-        self.isLocked_eqns[j] = new Array(len_n);
-        self.isLocked_eqns[j][0] = obj_n0;  // shared
-        for(var n=1; n<len_n; ++n){
-          self.isLocked_eqns[j][n] = {};
-        }
-      }
-    }
-  }
   return self;
 };
 My_entry.operation.prototype.init_params = function(){
@@ -934,7 +908,6 @@ My_entry.operation.prototype.FNc = function(data, i0, tagName, tagObj){
           var id0 = ids_del[0];
           var j = id0[0];
           var n = id0[1];
-          if(self.isLocked_eqns[j][n][name]) throw "Invalid delEqnSelf("+name+")";
           tree = get_tree_sw(eqns[name]);  // first
           if(eqns[name]){
             delete eqns[name];
@@ -2851,28 +2824,12 @@ My_entry.operation.prototype.tree_eqn2tree = function(data, tree){
   var _tree = DATA.trees2tree(trees);
   return _tree;
 };
+/* Ver.2.193.45 isLocked_eqns deleted */
 /* Ver.2.32.17 clear; add(A,=<B)=<[A+B=>],A=(,:,),B=<(,:,),add[0](=<A,=<B) */
 /* Ver.2.20.8 */
 My_entry.operation.prototype.tree_eqn2tree_AtREe = function(data, tree, name, opt_ids){
   var self = this;
-  /* Ver.2.27.15 -> (=<3)=> null-name */
-  var ids = opt_ids || [[0, 0]];  // || sentence without bracket including command
-  var id0 = ids[0];
-  var j = id0[0];
-  var n = id0[1];
-  var isLocked_eqn = self.isLocked_eqns[j][n];
-  if(isLocked_eqn[name]){
-    isLocked_eqn[name] = false;
-    throw "Invalid circular("+name+")";
-  }
-  if(name){
-    isLocked_eqn[name] = true;
-  }
   var _tree = self.tree_eqn2tree(data, tree);
-  if(name){
-    isLocked_eqn[name] = false;
-  }
-  /* -> Ver.2.27.15 */
   return _tree;
 };
 My_entry.operation.prototype.tree2tree_ref = function(tree, ref){

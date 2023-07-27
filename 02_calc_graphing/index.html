@@ -98,6 +98,8 @@
       script += "\nclear;\n";
       script += "left=1,right=2,left&&right,and(left,right),left||right,or(left,right),and(1,NaN),or(1):left=i,right=-2,left&&&right,cand(left,right),left|||right,cor(left,right),cand(i,NaN),cor(i);";
       script += "\nclear;\n";
+      script += "N=10;\nF0=0,F1=1,F2=<last{F2=F0+F1,F0=F1,F1=F2,F2},fibonacci(n)=<_rn(=<F2,,n-1),fibonacci(N);\nfibo_exp(n)=<(n<2&&&{n,}|||{fibo_exp(n-1)+fibo_exp(n-2),})[0],fibo_exp(N);\nfibo_(n,a,b)=<(n<1&&&{a,}|||n<2&&&{b,}|||{fibo_(n-1,b,a+b),})[0],fibo_(N,0,1);\nfact_(n)=<n<=1&&&1|||floor(n)*fact_(n-1),fact_(N),N!;\nfn=<(n,n*(1+i)),sum_(n)=<n>0&&&fn+sum_(n-1),sum_(N);\n(prod_(n,A)=<n<1&&&1|||A*prod_(n-1,=<A):),prod_(N,=<(1,2:3,4));";
+      script += "\nclear;\n";
       $._id("input").value = script;
       // test case
       var setVal = function(){
@@ -140,9 +142,9 @@
       $._id("star2").onclick = function(){setVal("0", "2pi", "x=t,N=11,z0=<star(x,N,1)+star(x,N,0)i,z1=<poly(x,N,1)+poly(x,N,0)i,t=-2pi/(3N),real(z0*e^(i(t)));real(z0*e^(i(2t)));real(z0*e^(i(3t)));real(z1);", "imag(z0*e^(i(t)));imag(z0*e^(i(2t)));imag(z0*e^(i(3t)));imag(z1);", 100);};
       $._id("star3").onclick = function(){setVal("0", "2pi", "x=t,N=11,kr=0.5,z0=<star(x,N,1,kr)+star(x,N,0,kr)i,z1=<poly(x,N,1)+poly(x,N,0)i,t=-2pi/(3N),real(z0*e^(i(t)));real(z0*e^(i(2t)));real(z0*e^(i(3t)));real(z1);", "imag(z0*e^(i(t)));imag(z0*e^(i(2t)));imag(z0*e^(i(3t)));imag(z1);", 100);};
       $._id("star4").onclick = function(){setVal("0", "2pi", "N2=N/2,kr=0.5,star(t,N2,0,kr);", "star(t,N2,1,kr);", 26);$._id("input-z").value+="TITLE{Fibonacci sequence[0,1,1,2,3,5,8,13,21,...]}noneGRADATION{config[0:0:0:1:0:0:false:false:25600:10]#00000000:#000000ff:#ffffffff:#ffffff00};";};
-      $._id("Fibonacci").onclick = function(){setVal("1", "12", "N=round(t),F0=0,F1=1,_rn(=<F2,F2=<last{F2=F0+F1,F0=F1,F1=F2,F2},N),N;", "F2;", 11);};
-      $._id("summation").onclick = function(){setVal("0", "10", "N=t,N;", "fn=<n(1+2i),_sn(=<fn,0,N);(1+2i)55;", 10);};
-      $._id("product").onclick = function(){setVal("1", "10", "N=t,N;", "fn=<n,log10(_pn(=<fn,1,N));log10(10!);log10(_pn(=<fn,1,N,2));log10(9!!);", 10);};
+      $._id("Fibonacci").onclick = function(){setVal("0", "12", "N=round(t),N;", "fibo_exp(n)=<(n<2&&&{n,}|||{fibo_exp(n-1)+fibo_exp(n-2),})[0],fibo_exp(N);F0=0,F1=1,fibo_(n,a,b)=<(n<1&&&{a,}|||n<2&&&{b,}|||{fibo_(n-1,b,a+b),})[0],fibo_(N,F0,F1);F2=<last{F2=F0+F1,F0=F1,F1=F2,F2},_rn(=<F2,fibo_(N,F0,F1),N-1);", 12);};
+      $._id("summation").onclick = function(){setVal("0", "10", "N=round(t),N;", "fn=<n(1+2i),_sn(=<fn,0,N);sum_(n)=<n>0&&&fn+sum_(n-1),sum_(N);(1+2i)55;", 10);};
+      $._id("product").onclick = function(){setVal("1", "10", "N=round(t),N;", "fact_(n)=<n<=1&&&1|||floor(n)*fact_(n-1),log10(fact_(N));fn=<n,log10(_pn(=<fn,1,N));log10(10!);log10(_pn(=<fn,1,N,2));log10(9!!);", 10);};
       $._id("recurrence1").onclick = function(){setVal("0", "30", "N=t,a=0.9i,b=1,z0=0,fz=<a*z+b,fzN=_rz(=<fz,z0,N),real(fzN);z1=z0,fz1=<last{z=z1,z1=-fz},_rn(=<fz1,,N),real(z1);", "imag(fzN);", 30);};
       $._id("recurrence2").onclick = function(){setVal("0", "30", "N=t,z0=0,fz=<e^(i(z)),fzN=_rz(=<fz,z0,N),real(fzN);", "imag(fzN);z1=z0,fz1=<last{z=-z1,z1=fz},_rn(=<fz1,,N),imag(z1);", 30);};
       $._id("recurrence3").onclick = function(){setVal("1", "1e3+1", "m0=3,m1=6,n=t,n;", "Nrshift(m)=<(2**m-1)/2**(m-1),r(m)=<2**(log2(3)-Nrshift(m)),run(m)=<_rN(=<last{nr=nr*r(m),N+1},nr=n,1e6,=<{nr<=1}),run(m0);run(m1);", 50);};
