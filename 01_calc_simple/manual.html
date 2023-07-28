@@ -21497,6 +21497,8 @@ N=10; fibo_(n,a,b)=&lt;(n&lt;1&amp;&amp;&amp;{a,}|||n&lt;2&amp;&amp;&amp;{b,}|||
 <br>
 N=10; fact_(n)=&lt;n&lt;=1&amp;&amp;&amp;1|||floor(n)*fact_(n-1); fact_(N) -> 3628800
 <br>
+N=10; fact_(n)=&lt;n&lt;=1|||floor(n)*fact_(n-1); fact_(N) -> 3628800
+<br>
 ・厳密な<a href="#span-out-FN-fact">階乗</a>
 <br>
 N=10; fact_(n)=&lt;(isNaN(n)&amp;&amp;&amp;{NaN,}|||n&lt;1&amp;&amp;&amp;{false,}|||floor(n)===1&amp;&amp;&amp;{1,}|||{floor(n)*fact_(n-1),})[0];
@@ -21512,6 +21514,10 @@ N=10; fn(n)=&lt;(n,n*(1+i)); sum_(n)=&lt;n&gt;0&amp;&amp;&amp;fn(n)+sum_(n-1); s
 ・総積
 <br>
 N=10; prod_(n,A)=&lt;n&lt;1&amp;&amp;&amp;1|||A*prod_(n-1,=&lt;A);
+<br>
+prod_(N,=&lt;(1,2:3,4)) -> (4783807,6972050:10458075,15241882)
+<br>
+N=10; prod_(n,A)=&lt;n&lt;1|||A*prod_(n-1,=&lt;A);
 <br>
 prod_(N,=&lt;(1,2:3,4)) -> (4783807,6972050:10458075,15241882)
 <br>
