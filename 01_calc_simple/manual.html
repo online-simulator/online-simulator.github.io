@@ -21564,6 +21564,10 @@ test caseを列挙する
 <br>
 clear; f(n)=&lt;n<=1|||floor(n)*f(n-1); [n=10,(=&lt;fn)=&lt;fn=&gt;](=&lt;f)=&gt; -> 3628800
 <br>
+・<a href="#span-out-config-strict">strict-mode</a>
+<br>
+clear; f(n)=&lt;n<=1|||floor(n)*f(n-1)=&gt;; [n=10,(=&lt;f)=&lt;f(n)=&gt;](=&lt;f)=&gt; -> 3628800
+<br>
 ・複数列挙の場合、最終returnのみ取り出す（途中return不可）
 <br>
 clear; d=&lt;-a*z+b*A+c; [a=1,(z,A)=&lt;[b=2,(c)=&lt;d==&gt;](a*z)=&gt;](i,=&lt;(1,2:3,4))=&gt; -> (2,4:6,8)
