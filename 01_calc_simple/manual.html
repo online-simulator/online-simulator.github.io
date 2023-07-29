@@ -548,6 +548,8 @@ e^(-i(1pi(){2/2i}(5-{3-1}){i/(-4)}))
 <br>
 　　　・<a href="#span-out-eqns-re-call">再帰call</a>
 <br>
+　　　・<a href="#span-out-eqns-no-name">無名call</a>
+<br>
 　・<a href="#span-out-FNh">高階関数</a>
 <br>
 　　・<a href="#span-out-FNh-switch">switch高階関数</a>
@@ -1679,6 +1681,8 @@ title/発行元(発行年)を列挙する
 　<a href="#span-eqn">strict-mode式変数list</a>への影響なし
 <br>
 ・<span class="run">Ver.2.194.45</span>以降、<a href="#span-out-eqns-args">式変数のarguments</a>の<a href="#span-out-eqns-re-call">再帰call</a>に対応
+<br>
+・<span class="run">Ver.2.195.45</span>以降、<a href="#span-out-eqns-args">式変数のarguments</a>の<a href="#span-out-eqns-no-name">無名call</a>に対応
     </td>
   </tr>
   <tr>
@@ -21526,6 +21530,55 @@ prod_(N,=&lt;(1,2:3,4)) -> (4783807,6972050:10458075,15241882)
 N=10; fact_=&lt;floor(n)*fact_; fact_ -> Maximum call stack size exceeded
 <br>
 N=10; fact_(n)=&lt;floor(n)*fact_(n-1); fact_(N) -> Maximum call stack size exceeded
+    </td>
+  </tr>
+  <tr>
+    <th>
+<a href="#span-index">
+目次
+</a>
+<br>
+無名call
+    </th>
+    <td>
+<span id="span-out-eqns-no-name"></span>
+式変数のargumentsの無名callの入力仕様と付随する留意事項について記述する
+<br>
+<br>
+<span class="run">Ver.2.195.45</span>以降、式変数のargumentsの無名callに対応
+<br>
+<br>
+test caseを列挙する
+<br>
+[=&lt;0]=&gt; -> 0
+<br>
+[()=&lt;1]()=&gt; -> 1
+<br>
+[(x)=&lt;x](2)=&gt; -> 2
+<br>
+[(a,b)=&lt;(a,b)](3,=&lt;(i,2i))=&gt; -> (3,i,2i)
+<br>
+[(a)=&lt;[(b)=&lt;[(c)=&lt;(a+b+c)](3)=&gt;](2)=&gt;](1)=&gt; -> 6
+<br>
+・<a href="#span-out-call-by-equation">式渡し</a>
+<br>
+clear; f(n)=&lt;n<=1|||floor(n)*f(n-1); [n=10,(=&lt;fn)=&lt;fn=&gt;](=&lt;f)=&gt; -> 3628800
+<br>
+・複数列挙の場合、最終returnのみ取り出す（途中return不可）
+<br>
+clear; d=&lt;-a*z+b*A+c; [a=1,(z,A)=&lt;[b=2,(c)=&lt;d==&gt;](a*z)=&gt;](i,=&lt;(1,2:3,4))=&gt; -> (2,4:6,8)
+<br>
+・<a href="#span-out-eqns-call">式読出し</a>記号=&gt;省略不可
+<br>
+[(x)=&lt;x](2) -> [MyErr]Invalid FN operation
+<br>
+・<a href="#span-out-call-by-equation">式渡し</a>が不正の場合、error終了
+<br>
+[(a,b)](1,2)=&gt; -> [MyErr]Invalid no-name equation
+<br>
+・引数の要素数が異なる場合、error終了（<a href="#span-out-FN-args">関数の引数</a>と異なり、厳格に判別する）
+<br>
+[(a,b,c)=&lt;(a,b)](3,=&lt;(i,2i))=&gt; -> [MyErr]Invalid args.length=3(no-name)
     </td>
   </tr>
   <tr>

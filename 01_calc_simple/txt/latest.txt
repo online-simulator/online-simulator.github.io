@@ -1,6 +1,32 @@
 clear
 local storage cleared
 
+[a=1,(z,A)=<[b=2,(c)=<d==>](a*z)=>](i,=<(1,2:3,4))=>
+(
+2,4:
+6,8
+)
+
+d=<-a*z+b*A+c
+stored_eqn(d)
+
+[n=10,(=<fn)=<fn=>](=<f)=>
+3628800
+
+f(n)=<n<=1|||floor(n)*f(n-1)
+stored_eqn(f)
+
+[(a)=<[(b)=<[(c)=<(a+b+c)](3)=>](2)=>](1)=>
+6
+
+[=<0]=>,[()=<1]()=>,[(x)=<x](2)=>,[(a,b)=<(a,b)](3,=<(i,2i))=>
+(
+0,1,2,3,i,2i
+)
+
+clear
+local storage cleared
+
 (prod_(n,A)=<n<1&&&1|||A*prod_(n-1,=<A):),prod_(N,=<(1,2:3,4))
 (
 0,4783807,6972050:
@@ -2028,4 +2054,4 @@ drag=false&sw=false&0x=false&useMatrix=true&useStrict=false&checkError=true&isRi
 --------------------------------
 --------------------------------
 
-online-simulator.github.io.6.265.111.13.57 @ Thu Jul 27 2023 17:25:38 GMT+0900 (日本標準時) @ Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/115.0.0.0 Safari/537.36
+online-simulator.github.io.6.266.111.13.58 @ Sat Jul 29 2023 20:57:20 GMT+0900 (日本標準時) @ Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/115.0.0.0 Safari/537.36
