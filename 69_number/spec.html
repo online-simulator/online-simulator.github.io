@@ -21,6 +21,14 @@
       <caption>更新履歴</caption>
       <tbody>
         <tr class="border">
+          <td class="border clear">
+Ver.0.40.5
+          </td>
+          <td class="border">
+・abc予想の一部記述を追記して訂正（quality　⇒　quality'）
+          </td>
+        </tr>
+        <tr class="border">
           <td class="border run">
 Ver.0.40.4
           </td>
@@ -463,9 +471,11 @@ Collatz予想
         <tr class="border">
           <td class="border selection">
 abc予想
+<br>
+<span class="clear">Ver.0.40.5追記</span>
           </td>
           <td class="border">
-・他方、abc予想も同様に、qualityがbit列長の比と等価で1.6をほぼ超えない
+・他方、abc予想も同様に、qualityがbit列長<span class="clear">（entropy）</span>の比と等価で1.6をほぼ超えない
 <br>
 quality:=log(c)/log(rad(abc))
 <br>
@@ -479,9 +489,9 @@ c':=c/rad(c)≧2
 <br>
 rad(ab)≧2
 <br>
-・互いに素（共通の素因数なし）の前提でqualityを再定義する
+・互いに素（共通の素因数なし）の前提でquality<span class="clear">'</span>を定義する
 <br>
-quality:=log(c')/log(rad(ab))
+quality<span class="clear">'</span>:=log(c')/log(rad(ab))
 <br>
 ・以上より、abc素因数の累乗の指数が大きくなる程、c'大/rad(ab)小の関係からqualityが大きくなる
 <br>
