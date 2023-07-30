@@ -377,6 +377,7 @@ My_entry.operation.prototype.run = function(_data){
       if(Array.isArray(trees)){
         self.remake_trees(_data);
         self.SEans(_data, 0);
+        delete _data.eqns["no-name"];  // Ver.2.195.46
       }
       else{
         var command = trees;

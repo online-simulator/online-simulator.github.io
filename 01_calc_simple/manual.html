@@ -954,6 +954,8 @@ ja.m.wikipedia.org/wiki/項目を列挙する
 <br>
 ・JavaScriptエンジン
 <br>
+・無名再帰
+<br>
 ・演算子の優先順位
 <br>
 ・三項演算子
@@ -2189,7 +2191,7 @@ panel上段について記述する
 <br>
 panel右側について記述する
 <br>
-・C-buttonは入力欄&amp;log出力欄の内容とglobal <a href="#span-out-storage">storage</a>のClear実行を確定する
+・C-buttonは入力欄&amp;log出力欄の内容と<a href="#span-out-storage">global storage</a>のClear実行を確定する
 <br>
 　<a href="#span-out-option3">Multi-thread実行</a>の場合、演算を中断する
 <br>
@@ -2420,7 +2422,7 @@ panel中段について記述する
 <br>
 ・=-buttonは入力欄の内容で演算実行を確定する
 <br>
-・C-buttonは入力欄&amp;log出力欄の内容とglobal <a href="#span-out-storage">storage</a>のClear実行を確定する
+・C-buttonは入力欄&amp;log出力欄の内容と<a href="#span-out-storage">global storage</a>のClear実行を確定する
 <br>
 　<a href="#span-out-option3">Multi-thread実行</a>の場合、無条件に演算を中断する
 <br>
@@ -2441,7 +2443,7 @@ panel中段について記述する
 <br>
 <a href="#span-out-option3">Multi-thread実行</a>の場合、plot-buttonと=-buttonは並列に実行可
 <br>
-・shared storage checked時、global <a href="#span-out-storage">storage</a>を共有
+・shared storage checked時、<a href="#span-out-storage">global storage</a>を共有
 <br>
 ・plot-buttonによる演算はglobal storage readonly
 <br>
@@ -11742,14 +11744,20 @@ local buffer
 <span id="span-out-bracket"></span>
 階層とscopeの関係について記述する
 <br>
+・<span class="clear">Ver.2.195.46</span>以降、追記
+<br>
 <br>
 <a href="#span-out-flow">parse</a>段階で<a href="#span-out-BT">括弧</a>のnestingによる構文を解析し、深さ方向に<a href="#span-in-tree">tree構造</a>を階層化する
 <br>
-・深さ0の0階層にlocal <a href="#span-out-storage">storage</a>を統合・共通化する（<a href="#span-out-command">命令文</a>を含む）
+・深さ0の0階層に<a href="#span-out-storage">local storage</a>を統合・共通化する（<a href="#span-out-command">命令文</a>を含む）
 <br>
 ・既定で<a href="#span-out-BT-square">角括弧[]</a>のみ<a href="#span-out-scope-vars">変数のscope</a>を使用する
 <br>
 ・0階層を除く階層は実行文毎に独立する
+<br>
+<span class="clear">・0階層を最上位の階層とする</span>
+<br>
+<span class="clear">・0階層から階層の深さを昇順に定義する</span>
 <br>
 ・以上より、階層の概念を次に示す
 <br>
@@ -11768,13 +11776,13 @@ local buffer
 <br>
 ・階層の深さ方向に直列に並んだ<a href="#span-out-scope-vars">scope</a>を直列scopeと定義する
 <br>
-・自身の階層の深さ以下の直列scopeは参照可能で、直列scope内と定義する
+・自身の階層<span class="clear">以上（深さの降順）の直列scopeは参照可能（readonly）</span>で、直列scope内と定義する
 <br>
 ・それ以外の参照できない<a href="#span-out-scope-vars">scope</a>を直列scope外と定義する
 <br>
 ・同じ階層の並列scopeは直列scope外に含む
 <br>
-・よって0階層のlocal <a href="#span-out-storage">storage</a>はすべての<a href="#span-out-scope-vars">scope</a>の直列scope内で共通化される
+・よって0階層の<a href="#span-out-storage">local storage</a>はすべての<a href="#span-out-scope-vars">scope</a>の直列scope内で共通化される
 <br>
 ・以上より、<a href="#span-out-flow">parse</a>段階で作る<a href="#span-out-scope-vars">scope</a>の配列を<a href="#span-in-scope-vars">static scopes2d array</a>と定義する
 <br>
@@ -11793,7 +11801,7 @@ B-3階層直列 || B-2階層並列3 || B-1階層 || 0階層
 <br>
 B-4階層直列 || B-3階層直列 || B-2階層並列3 || B-1階層 || 0階層
 <br>
-・よって直列scope内の<a href="#span-out-bracket">階層</a>の深さの降順で0階層のlocal <a href="#span-out-storage">storage</a>が最下位のprecedence
+・よって直列scope内の<a href="#span-out-bracket">階層</a><span class="clear">（深さの降順）で0階層（<a href="#span-out-storage">local storage</a>）</span>が最下位のprecedence
     </td>
   </tr>
   <tr>
@@ -11832,14 +11840,14 @@ semi-colon;区切りで行列の<a href="#span-out-FNm-last">最終要素</a>の
 詳細は<a href="#span-out-FNm-last">last行列関数</a>参照
 <br>
 <br>
-tの範囲下限t0と範囲上限t1のlocal <a href="#span-out-storage">storage</a>は独立
+tの範囲下限t0と範囲上限t1の<a href="#span-out-storage">local storage</a>は独立
 <br>
-・global <a href="#span-out-storage">storage</a>をreadonlyで共有する場合、shared storage checked
+・<a href="#span-out-storage">global storage</a>をreadonlyで共有する場合、shared storage checked
 <br>
 <br>
-x軸とy軸のlocal <a href="#span-out-storage">storage</a>はx軸優先で共通
+x軸とy軸の<a href="#span-out-storage">local storage</a>はx軸優先で共通
 <br>
-・global <a href="#span-out-storage">storage</a>をreadonlyで共有する場合、shared storage checked
+・<a href="#span-out-storage">global storage</a>をreadonlyで共有する場合、shared storage checked
 <br>
 <br>
 t0/t1の演算を実行後、x/yの演算を実行
@@ -12597,7 +12605,7 @@ f=&lt;clear -> [MyErr]Invalid clear called
 <br>
 clear
 <br>
-・呼出し時点までのlocal <a href="#span-out-storage">storage</a>をclearする
+・呼出し時点までの<a href="#span-out-storage">local storage</a>をclearする
 <br>
 x=3; x -> 3
 <br>
@@ -12613,7 +12621,7 @@ clear; ans -> [MyErr]Invalid REv(ans)
 <br>
 ans -> 3
 <br>
-・続けてglobal <a href="#span-out-storage">storage</a>をclearする場合
+・続けて<a href="#span-out-storage">global storage</a>をclearする場合
 <br>
 Clear実行確定 ->
 <br>
@@ -12623,7 +12631,7 @@ x -> [MyErr]Invalid REv(x)
 <br>
 ans -> [MyErr]Invalid REv(ans)
 <br>
-・global <a href="#span-out-storage">storage</a>に一切の変数を残さない場合
+・<a href="#span-out-storage">global storage</a>に一切の変数を残さない場合
 <br>
 x=3; y=3x; y; clear -> local storage cleared
 <br>
@@ -12636,14 +12644,14 @@ ans -> [MyErr]Invalid REv(ans)
 <br>
 store
 <br>
-・呼出し時点までのlocal <a href="#span-out-storage">storage</a>をlocal <a href="#span-out-storage">buffer</a>に保存する
+・呼出し時点までの<a href="#span-out-storage">local storage</a>をlocal <a href="#span-out-storage">buffer</a>に保存する
 <br>
 ・元objectを新規objectに複製する
 <br>
 <br>
 restore
 <br>
-・local <a href="#span-out-storage">buffer</a>に保存されたlocal <a href="#span-out-storage">storage</a>を復帰する
+・local <a href="#span-out-storage">buffer</a>に保存された<a href="#span-out-storage">local storage</a>を復帰する
 <br>
 <del>・複製した新規objectをそのまま復帰する（元objectの参照を切る仕様）</del>
 <br>
@@ -12767,7 +12775,7 @@ x=3; x=2:3x -> (0:6)
 <br>
 hasVar最上位関数
 <br>
-・<a href="#span-out-vars">変数</a>のlocal <a href="#span-out-storage">storage</a>存在可否を判定する
+・<a href="#span-out-vars">変数</a>の<a href="#span-out-storage">local storage</a>存在可否を判定する
 <br>
 ・引数
 <br>
@@ -12804,7 +12812,7 @@ hasVar(2) || hasVar(a=2) -> [MyErr]Invalid hasvar arguments
 <br>
 hasEqn最上位関数
 <br>
-・<a href="#span-out-eqns">式変数</a>のlocal <a href="#span-out-storage">storage</a>存在可否を判定する
+・<a href="#span-out-eqns">式変数</a>の<a href="#span-out-storage">local storage</a>存在可否を判定する
 <br>
 ・hasVar最上位関数同様
 <br>
@@ -12819,7 +12827,7 @@ clear; a=&lt;2; hasEqn(b) -> 0
 <br>
 delVar最上位関数
 <br>
-・<a href="#span-out-vars">変数</a>をlocal <a href="#span-out-storage">storage</a>から削除する
+・<a href="#span-out-vars">変数</a>を<a href="#span-out-storage">local storage</a>から削除する
 <br>
 ・引数
 <br>
@@ -12858,7 +12866,7 @@ clear; a=2; (delVar({b,a},c),a)  <span class="selection">// a deleted</span> -> 
 <br>
 delEqn最上位関数
 <br>
-・<a href="#span-out-eqns">式変数</a>をlocal <a href="#span-out-storage">storage</a>から削除する
+・<a href="#span-out-eqns">式変数</a>を<a href="#span-out-storage">local storage</a>から削除する
 <br>
 ・delVar最上位関数同様
 <br>
@@ -12892,7 +12900,7 @@ clear; a=&lt;2; store; delEqn(a); restore; a=&gt; -> 2
 <br>
 addVar最上位関数
 <br>
-・<a href="#span-out-bracket">直列scope内</a>の<a href="#span-out-vars">変数</a>をlocal <a href="#span-out-storage">storage</a>に追加する
+・<a href="#span-out-bracket">直列scope内</a>の<a href="#span-out-vars">変数</a>を<a href="#span-out-storage">local storage</a>に追加する
 <br>
 ・引数
 <br>
@@ -12935,7 +12943,7 @@ clear; [a=2,[a=3,([a=5,],addVar(a))]]; a -> 3
 <br>
 addEqn最上位関数
 <br>
-・<a href="#span-out-bracket">直列scope内</a>の<a href="#span-out-eqns">式変数</a>をlocal <a href="#span-out-storage">storage</a>に追加する
+・<a href="#span-out-bracket">直列scope内</a>の<a href="#span-out-eqns">式変数</a>を<a href="#span-out-storage">local storage</a>に追加する
 <br>
 ・addVar最上位関数同様
 <br>
@@ -19852,7 +19860,7 @@ scope内での<a href="#span-out-vars">変数</a>||<a href="#span-out-eqns">式�
 <br>
 <a href="#span-out-bracket">直列scope内</a>の変数はreadonly（pollution disabled）
 <br>
-scopeから直接、local <a href="#span-out-storage">storage</a>にwriteする場合、<a href="#span-out-FNc">最上位関数</a>参照
+scopeから直接、<a href="#span-out-storage">local storage</a>にwriteする場合、<a href="#span-out-FNc">最上位関数</a>参照
 <br>
 ・test caseを列挙する
 <br>
@@ -21065,13 +21073,13 @@ clear; add(A,=&lt;B_)=&lt;(a=-1,=&lt;A+B_=&gt;)=&gt;; B=&lt;(a,4); a=1; add(=&lt
 <br>
 clear; add(A,=&lt;B_)=&lt;(a=-1,=&lt;A+B_=&gt;)=&gt;; B=&lt;(a,4); a=1; add(=&lt;(1,2),=&lt;[B=&gt;])=&gt; -> (0,6)
 <br>
-・以上の場合、定義元<a href="#span-out-bracket">scope</a>とlocal <a href="#span-out-storage">storage</a>が共通で<a href="#span-out-eqns">式変数</a>Bをcallする
+・以上の場合、定義元<a href="#span-out-bracket">scope</a>と<a href="#span-out-storage">local storage</a>が共通で<a href="#span-out-eqns">式変数</a>Bをcallする
 <br>
 clear; add(A,=&lt;B_)=&lt;[a=-1,=&lt;A+B_=&gt;]=&gt;; B=&lt;(a,4); a=1; add(=&lt;(1,2),=&lt;B=&gt;)=&gt; -> (2,6)
 <br>
 clear; add(A,=&lt;B_)=&lt;[a=-1,=&lt;A+B_=&gt;]=&gt;; B=&lt;(a,4); a=1; add(=&lt;(1,2),=&lt;[B=&gt;])=&gt; -> (2,6)
 <br>
-・以上の場合、定義元<a href="#span-out-bracket">scope</a>から参照可能なlocal <a href="#span-out-storage">storage</a>に定義された<a href="#span-out-eqns">式変数</a>Bをcallする
+・以上の場合、定義元<a href="#span-out-bracket">scope</a>から参照可能な<a href="#span-out-storage">local storage</a>に定義された<a href="#span-out-eqns">式変数</a>Bをcallする
 <br>
 ・よって定義元<a href="#span-out-bracket">scope</a>を<a href="#span-out-eqns">式変数</a>Bに継承する場合、<a href="#span-out-scope-inherited-call">式変数のscope継承call</a>をnestingする
 <br>
@@ -21546,6 +21554,10 @@ N=10; fact_(n)=&lt;floor(n)*fact_(n-1); fact_(N) -> Maximum call stack size exce
 <br>
 <br>
 <span class="run">Ver.2.195.45</span>以降、式変数のargumentsの無名callに対応
+<br>
+・無名再帰は非対応（自己参照の手段なし）
+<br>
+・<span class="clear">Ver.2.195.46</span>以降、実行確定の都度、<a href="#span-out-storage">local storage</a>から削除
 <br>
 <br>
 test caseを列挙する
@@ -34454,10 +34466,12 @@ Calculator用途に特化した実装項目とfile名の対応関係を列挙す
 <span id="span-in-scope-vars"></span>
 scopes2d arrayのstructureを以下に示す
 <br>
+・<span class="clear">Ver.2.195.46</span>以降、修正
+<br>
 <br>
 これに基づく<a href="#span-out-scope-vars">変数のscope</a>仕様について記述する
 <br>
-・n=0にlocal <a href="#span-out-storage">storage</a> object元のreferenceを統合・共通化（<a href="#span-out-command">命令文</a>を含む）
+・n=0に<a href="#span-out-storage">local storage</a> object元のreferenceを統合・共通化（<a href="#span-out-command">命令文</a>を含む）
 <br>
 ・Circular Reference回避のため、scopes2d arrayの要素id=[j,n]でreferenceを代替
 <br>
@@ -34485,9 +34499,9 @@ scopes2d arrayのstructureを以下に示す
 <br>
 ・childrenの<a href="#span-out-bracket">階層</a>のreferenceをまとめてchildren-idsと定義する
 <br>
-・宣言時の<a href="#span-out-bracket">階層</a>の深さ以上をself-parents-idsと定義する
+・宣言時の<a href="#span-out-bracket">階層</a><span class="clear">以上（深さの降順）</span>をself-parents-idsと定義する
 <br>
-・宣言時の<a href="#span-out-bracket">階層</a>の深さ以下をself-children-idsと定義する
+・宣言時の<a href="#span-out-bracket">階層</a><span class="clear">以下（深さの昇順）</span>をself-children-idsと定義する
 <br>
 <br>
 <a href="#span-out-scope-vars">変数のscope</a>の明示的なids継承が発生するcaseを列挙する
@@ -34504,7 +34518,7 @@ clear; [a=2,=&lt;[b=1,a=&lt;first[[b,],b,],=&lt;a=&gt;]=&gt;+a]=&gt; -> 3
 <br>
 <span class="run">Ver.2.32.17</span>以降、<a href="#span-out-eqns-re-use">scope付式変数の再利用</a>に対応
 <br>
-・global <a href="#span-out-storage">storage</a>　⇒　local <a href="#span-out-storage">storage</a>で<a href="#span-out-eqns">式変数</a>の復帰時、self-children idsを更新
+・<a href="#span-out-storage">global storage</a>　⇒　<a href="#span-out-storage">local storage</a>で<a href="#span-out-eqns">式変数</a>の復帰時、self-children idsを更新
 <br>
 <span class="run">Ver.2.32.17</span>以降、<a href="#span-out-eqns-args">式変数のarguments</a>を追加
 <br>
