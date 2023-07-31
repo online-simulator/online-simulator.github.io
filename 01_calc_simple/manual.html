@@ -20335,7 +20335,7 @@ clear; a=3; [a]=&gt; -> [MyErr]Invalid reference
 <br>
 ((,:,):=&lt;1)=&gt; -> 1
 <br>
-・(function(){var a=1, b=2, c=3; return [a,b,c];})();
+・(function(){var a=1; var b=2; var c=3; return [a,b,c];})();
 <br>
 (a=1,b=2,c=3,=&lt;(a,b,c))=&gt; -> (1,2,3)
 <br>
@@ -21570,13 +21570,25 @@ test caseを列挙する
 <br>
 [(a,b)=&lt;(a,b)](3,=&lt;(i,2i))=&gt; -> (3,i,2i)
 <br>
-・<a href="#span-out-bracket">scope</a>の挙動
+・(function(x,y){var a=1; var b=2; return a*x+b*y;})(1,2);
+<br>
+[(x,y)=&lt;[a=1,b=2,=&lt;a*x+b*y]=&gt;](1,2)=&gt; -> 5
+<br>
+・(function(a){return (function(b){return (function(c){return a+b+c;})(3);})(2);})(1);
 <br>
 [(a)=&lt;[(b)=&lt;[(c)=&lt;a+b+c](3)=&gt;](2)=&gt;](1)=&gt; -> 6
+<br>
+[(a)=&lt;[(b)=&lt;[(c)=&lt;[d=a+b+c,=&lt;d]=&gt;](3)=&gt;](2)=&gt;](1)=&gt; -> 6
+<br>
+・<a href="#span-out-bracket">scope</a>の挙動
 <br>
 [(a)=&lt;[(b)=&lt;[[a=4,b=5],(c)=&lt;a+b+c=1+2+3](3)=&gt;](2)=&gt;](1)=&gt; -> 0
 <br>
 [(a)=&lt;[(b)=&lt;[a=4,b=[a=5,=&lt;a]=&gt;,(c)=&lt;a+b+c=4+5+3](3)=&gt;](2)=&gt;](1)=&gt; -> 0
+<br>
+[(a)=&lt;[(b)=&lt;[(c)=&lt;[[a=4,b=5],=&lt;a+b+c=1+2+3]=&gt;](3)=&gt;](2)=&gt;](1)=&gt; -> 0
+<br>
+[(a)=&lt;[(b)=&lt;[(c)=&lt;[a=4,b=[a=5,=&lt;a]=&gt;,=&lt;a+b+c=4+5+3]=&gt;](3)=&gt;](2)=&gt;](1)=&gt; -> 0
 <br>
 ・<a href="#span-out-call-by-equation">式渡し</a>
 <br>

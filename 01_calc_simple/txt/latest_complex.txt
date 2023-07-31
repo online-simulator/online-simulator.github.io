@@ -22,8 +22,16 @@ stored_eqn(f)
 [(a)=<[(b)=<[[a=4,b=5],(c)=<a+b+c=1+2+3](3)=>](2)=>](1)=>
 0
 
+[(a)=<[(b)=<[(c)=<[d=a+b+c,=<d]=>](3)=>](2)=>](1)=>
+6
+
 [(a)=<[(b)=<[(c)=<a+b+c](3)=>](2)=>](1)=>
 6
+
+[(A,B)=<[a=1,b=2,=<a*A+b*B]=>](=<(1,i),=<(-1,-i))=>
+(
+-1,-i
+)
 
 [=<0]=>,[()=<1]()=>,[(x)=<x](2)=>,[(a,b)=<(a,b)](3,=<(i,2i))=>
 (
@@ -2060,4 +2068,4 @@ drag=false&sw=false&0x=false&useMatrix=true&useStrict=false&checkError=true&isRi
 --------------------------------
 --------------------------------
 
-online-simulator.github.io.6.266.111.13.59 @ Mon Jul 31 2023 11:57:21 GMT+0900 (日本標準時) @ Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/115.0.0.0 Safari/537.36
+online-simulator.github.io.6.266.111.13.59 @ Mon Jul 31 2023 16:06:35 GMT+0900 (日本標準時) @ Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/115.0.0.0 Safari/537.36
