@@ -2078,6 +2078,8 @@ Excelとの相違について記述する
 <br>
 ・<a href="#span-out-type-ope">前置単項演算子</a>の<a href="#span-out-prec-ope">符号のprecedence</a>
 <br>
+-1^2 || -(1^2) -> -1
+<br>
 3+-3 -> [MyErr]Invalid binary operation
 <br>
 2^-1 -> [MyErr]Invalid binary operation
@@ -21573,6 +21575,10 @@ test caseを列挙する
 ・(function(x,y){var a=1; var b=2; return a*x+b*y;})(1,2);
 <br>
 [(x,y)=&lt;[a=1,b=2,=&lt;a*x+b*y]=&gt;](1,2)=&gt; -> 5
+<br>
+[(x,y)=&lt;[a=1,b=2,fxy=&lt;a*x+b*y,=&lt;fxy=&gt;]=&gt;](1,2)=&gt; -> 5
+<br>
+[(x,y)=&lt;[a=1,b=2,fxy(c,d)=&lt;c*x+d*y,=&lt;fxy(a,b)=&gt;]=&gt;](1,2)=&gt; -> 5
 <br>
 ・(function(a){return (function(b){return (function(c){return a+b+c;})(3);})(2);})(1);
 <br>
