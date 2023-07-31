@@ -21492,6 +21492,8 @@ scope_NG2(1)=&gt;:scope_NG2(-1)=&gt; -> (0,2,2:0,2,2)
 <br>
 <span class="run">Ver.2.194.45</span>以降、式変数のargumentsの再帰callに対応
 <br>
+・<span class="clear">Ver.2.195.46</span>以降、訂正
+<br>
 <br>
 test caseを列挙する
 <br>
@@ -21505,11 +21507,11 @@ fibonacci(n)=&lt;_rn(=&lt;F2,,n-1); fibonacci(N) -> 55
 <br>
 N=10; fibo_exp(n)=&lt;(n&lt;2&amp;&amp;&amp;{n,}|||{fibo_exp(n-1)+fibo_exp(n-2),})[0]; fibo_exp(N) -> 55
 <br>
-・線形時間の再帰call
+・<span class="clear">線形時間</span>の再帰call
 <br>
 N=10; fibo_(n,a,b)=&lt;(n&lt;1&amp;&amp;&amp;{a,}|||n&lt;2&amp;&amp;&amp;{b,}|||{fibo_(n-1,b,a+b),})[0]; fibo_(N,0,1) -> 55
 <br>
-・対数時間の一般項（再帰なし）
+<span class="clear">・対数時間の一般項（再帰なし）</span>
 <br>
 N=10; fibo_log(n)=&lt;last{sqrt5=sqrt(5),round((((1+sqrt5)/2)**n-((1-sqrt5)/2)**n)/sqrt5)}; fibo_log(N) -> 55
 <br>
