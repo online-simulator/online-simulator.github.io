@@ -16,7 +16,13 @@ stored_eqn(d)
 f(n)=<n<=1|||floor(n)*f(n-1)
 stored_eqn(f)
 
-[(a)=<[(b)=<[(c)=<(a+b+c)](3)=>](2)=>](1)=>
+[(a)=<[(b)=<[a=4,b=[a=5,=<a]=>,(c)=<a+b+c=4+5+3](3)=>](2)=>](1)=>
+0
+
+[(a)=<[(b)=<[[a=4,b=5],(c)=<a+b+c=1+2+3](3)=>](2)=>](1)=>
+0
+
+[(a)=<[(b)=<[(c)=<a+b+c](3)=>](2)=>](1)=>
 6
 
 [=<0]=>,[()=<1]()=>,[(x)=<x](2)=>,[(a,b)=<(a,b)](3,=<(i,2i))=>
@@ -2054,4 +2060,4 @@ drag=false&sw=false&0x=false&useMatrix=true&useStrict=false&checkError=true&isRi
 --------------------------------
 --------------------------------
 
-online-simulator.github.io.6.266.111.13.59 @ Sun Jul 30 2023 12:07:34 GMT+0900 (日本標準時) @ Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/115.0.0.0 Safari/537.36
+online-simulator.github.io.6.266.111.13.59 @ Mon Jul 31 2023 11:57:03 GMT+0900 (日本標準時) @ Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/115.0.0.0 Safari/537.36

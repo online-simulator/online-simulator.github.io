@@ -21570,7 +21570,13 @@ test caseを列挙する
 <br>
 [(a,b)=&lt;(a,b)](3,=&lt;(i,2i))=&gt; -> (3,i,2i)
 <br>
-[(a)=&lt;[(b)=&lt;[(c)=&lt;(a+b+c)](3)=&gt;](2)=&gt;](1)=&gt; -> 6
+・<a href="#span-out-bracket">scope</a>の挙動
+<br>
+[(a)=&lt;[(b)=&lt;[(c)=&lt;a+b+c](3)=&gt;](2)=&gt;](1)=&gt; -> 6
+<br>
+[(a)=&lt;[(b)=&lt;[[a=4,b=5],(c)=&lt;a+b+c=1+2+3](3)=&gt;](2)=&gt;](1)=&gt; -> 0
+<br>
+[(a)=&lt;[(b)=&lt;[a=4,b=[a=5,=&lt;a]=&gt;,(c)=&lt;a+b+c=4+5+3](3)=&gt;](2)=&gt;](1)=&gt; -> 0
 <br>
 ・<a href="#span-out-call-by-equation">式渡し</a>
 <br>
