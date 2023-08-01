@@ -312,6 +312,8 @@ e^(-i(1pi(){2/2i}(5-{3-1}){i/(-4)}))
 <br>
 　　・<a href="#span-out-prec-ope-logical-short-circuit">論理演算子（短絡評価）</a>
 <br>
+　　・<a href="#span-out-prec-ope-logical-short-circuit-literal">論理演算子（literal）</a>
+<br>
 　　・<a href="#span-out-prec-ope-conditional">条件演算子</a>
 <br>
 ・<a href="#span-out-float">浮動小数点演算</a>
@@ -1687,6 +1689,10 @@ title/発行元(発行年)を列挙する
 ・<span class="run">Ver.2.194.45</span>以降、<a href="#span-out-eqns-args">式変数のarguments</a>の<a href="#span-out-eqns-re-call">再帰call</a>に対応
 <br>
 ・<span class="run">Ver.2.195.45</span>以降、<a href="#span-out-eqns-args">式変数のarguments</a>の<a href="#span-out-eqns-no-name">無名call</a>に対応
+<br>
+・<span class="run">Ver.2.196.46</span>以降、<a href="#span-out-FNc">最上位関数</a>||<a href="#span-out-FN-ope">演算子代替関数</a>||<a href="#span-out-prec-ope-comparison">比較演算子</a>||<a href="#span-out-prec-ope-relational">関係演算子</a>の返値の仕様変更
+<br>
+　0||1　⇒　<a href="#span-out-literal">false||true</a>
     </td>
   </tr>
   <tr>
@@ -9004,6 +9010,8 @@ precedence
 <br>
 　　・論理ANDs||ORs演算子 &amp;&amp;&amp; || |||
 <br>
+　　　||<a href="#span-out-prec-ope-logical-short-circuit-literal">ANDss||ORss演算子</a> &amp;&amp;&amp;&amp; || ||||　<span class="run">Ver.2.196.46</span>以降、追加
+<br>
 ・<a href="#span-out-prec-ope-arithmetic">算術演算子</a>
 <br>
 　・<a href="#span-out-type-ope">後置単項演算子</a>　<span class="run">Ver.2.192.44</span>以降、統合（左から順次処理）
@@ -9580,6 +9588,8 @@ i&lt;&lt;2 || real(i)&lt;&lt;2 || 0&lt;&lt;2 -> 0
 <br>
 (-3&lt;-2)&amp;(-2&lt;-1) -> 1
 <br>
+・<span class="run">Ver.2.196.46</span>以降、<a href="#span-out-literal">論理値literal</a>を返す
+<br>
 <br>
 比較演算子を代替する関数は<a href="#span-out-FN-ope">演算子代替関数</a>参照
     </td>
@@ -9699,6 +9709,8 @@ i==0 || real(i)==0 -> 1
 2&lt;(=2) || lt(2,=2) -> 0
 <br>
 2&lt;=2 -> 1
+<br>
+・<span class="run">Ver.2.196.46</span>以降、<a href="#span-out-literal">論理値literal</a>を返す
 <br>
 <br>
 関係演算子を代替する関数は<a href="#span-out-FN-ope">演算子代替関数</a>参照
@@ -10313,6 +10325,35 @@ clear; (a=0)|||~~(b=1)&amp;&amp;&amp;(c=2)|||3; a,b,c -> (0,1,2)
 目次
 </a>
 <br>
+論理演算子
+<br>
+（literal）
+    </th>
+    <td>
+<span id="span-out-prec-ope-logical-short-circuit-literal"></span>
+論理演算子（literal）と付随する留意事項について記述する
+<br>
+・通常の<a href="#span-out-prec-ope-logical">論理演算子</a>と区別してANDss||ORssと表記する
+<br>
+<br>
+<span class="run">Ver.2.196.46</span>以降、<a href="#span-out-prec-ope-conditional">条件演算子</a>代替のANDss||ORss演算子を追加
+<br>
+<br>
+論理ANDss||ORss演算子の留意事項を列挙する
+<br>
+・<a href="#span-out-prec-ope-logical-short-circuit">論理演算子（短絡評価）</a>と異なる点を列挙する
+<br>
+　・論理ANDss演算子は厳密に<a href="#span-out-literal">false||NaN</a>を短絡評価する
+<br>
+　・論理ORss演算子は厳密にnot(<a href="#span-out-literal">false||NaN</a>)を短絡評価する
+    </td>
+  </tr>
+  <tr>
+    <th>
+<a href="#span-index">
+目次
+</a>
+<br>
 条件演算子
     </th>
     <td>
@@ -10403,6 +10444,18 @@ sw_OK(isLeft)=&lt;isLeft&amp;&amp;&amp;~~(left=2)|||~~(right=3);
 sw_OK(false),right -> (1,3)
 <br>
 sw_OK(true),left -> (1,2)
+<br>
+・<span class="run">Ver.2.196.46</span>以降、<a href="#span-out-prec-ope-logical-short-circuit-literal">論理演算子（literal）</a>を追加
+<br>
+sw_OK(isLeft)=&lt;isLeft&amp;&amp;&amp;&amp;{=&lt;0}=&gt;||||{=&lt;1}=&gt;;
+<br>
+sw_OK(false),sw_OK(true) -> (1,0)
+<br>
+sw_OK(isLeft)=&lt;isLeft&amp;&amp;&amp;&amp;(left=2)||||(right=3);
+<br>
+sw_OK(false),right -> (0,3)
+<br>
+sw_OK(true),left -> (0,2)
 <br>
 ・<a href="#span-out-ope">有次元</a>の場合、対策不要
 <br>
@@ -10707,11 +10760,22 @@ true || TRUE -> true
 ・<span class="clear">Ver.2.161.39</span>以降、<a href="#span-out-UI-simple">指数表記</a>選択の場合、error終了を修正
 <br>
 <br>
-例外的に、論理値literalを返す関数を列挙する
+論理値literalのみを返す関数を列挙する
 <br>
 ・<span class="run">Ver.2.159.38</span>以降、<a href="#span-out-FN-isNaN">isNaN関数</a>
 <br>
 ・<span class="run">Ver.2.172.42</span>以降、<a href="#span-out-FNm-isFalse">isFalse/isTrue行列関数</a>
+<br>
+・<span class="run">Ver.2.196.46</span>以降、<a href="#span-out-FNc">最上位関数</a>
+<br>
+・<span class="run">Ver.2.196.46</span>以降、<a href="#span-out-FN-ope">演算子代替関数</a>
+<br>
+<br>
+<span class="run">Ver.2.196.46</span>以降、論理値literalのみを返す演算子を列挙する
+<br>
+・<a href="#span-out-prec-ope-comparison">比較演算子</a>
+<br>
+・<a href="#span-out-prec-ope-relational">関係演算子</a>
 <br>
 <br>
 test caseを列挙する
@@ -13039,6 +13103,8 @@ hasVar(a|||b) -> [MyErr]Undef var|||
 clear; a=1; b=1; hasVar(a) &amp;&amp; hasVar(b) -> 1
 <br>
 clear; a=1; b=1; hasVar(a) &amp;&amp;&amp; hasVar(b) -> 1
+<br>
+・<span class="run">Ver.2.196.46</span>以降、<a href="#span-out-literal">論理値literal</a>を返す
     </td>
   </tr>
   <tr>
@@ -13565,6 +13631,8 @@ false判定値の定義：無次元の0||<a href="#span-out-literal">false</a>||
 <br>
 ・<a href="#span-out-prec-ope-logical-short-circuit">論理演算子（短絡評価）</a>
 <br>
+・<span class="run">Ver.2.196.46</span>以降、<a href="#span-out-prec-ope-logical-short-circuit-literal">論理演算子（literal）</a>
+<br>
 <br>
 test caseを列挙する
 <br>
@@ -14013,7 +14081,7 @@ NaN+i -> NaN
 <br>
 留意事項を列挙する
 <br>
-・例外的に、<a href="#span-out-literal">論理値literal</a>を返す
+・<a href="#span-out-literal">論理値literal</a>を返す
     </td>
   </tr>
   <tr>
@@ -14039,7 +14107,7 @@ NaN+i -> NaN
 <br>
 ・<a href="#span-out-error-numerical">数値誤差</a>は無視
 <br>
-・false||true返値=0||1
+<del>・false||true返値=0||1</del><span class="run">Ver.2.196.46</span>以降、<a href="#span-out-literal">論理値literal</a>を返す
 <br>
 ・<span class="clear">Ver.2.170.42</span>以降、引数不足の場合、<a href="#span-out-literal">NaN</a>を返す
 <br>
@@ -14209,6 +14277,8 @@ cnot(right),not(right) ->
 　関数call前に引数のleftとrightを交換する特殊な条件分岐が増えるため、対応見送り</del>
 <br>
 ・<span class="run">Ver.2.193.44</span>以降、mix-in切替で<span class="clear"><a href="#span-out-associativity">2項演算子のassociativity</a>に依存する代替関数</span>に対応
+<br>
+・<span class="run">Ver.2.196.46</span>以降、<a href="#span-out-literal">論理値literal</a>を返す
     </td>
   </tr>
   <tr>
@@ -16601,7 +16671,7 @@ isTrue(false,false),isTrue(NaN,NaN),isTrue(,) -> (true,true,true)
 <br>
 留意事項を列挙する
 <br>
-・例外的に、<a href="#span-out-literal">論理値literal</a>を返す
+・<a href="#span-out-literal">論理値literal</a>を返す
     </td>
   </tr>
   <tr>
@@ -21514,6 +21584,12 @@ N=10; fibo_(n,a,b)=&lt;(n&lt;1&amp;&amp;&amp;{a,}|||n&lt;2&amp;&amp;&amp;{b,}|||
 <span class="clear">・対数時間の一般項（再帰なし）</span>
 <br>
 N=10; fibo_log(n)=&lt;last{sqrt5=sqrt(5),round((((1+sqrt5)/2)**n-((1-sqrt5)/2)**n)/sqrt5)}; fibo_log(N) -> 55
+<br>
+・<span class="run">Ver.2.196.46</span>以降、<a href="#span-out-prec-ope-conditional">条件演算子</a>代替の<a href="#span-out-prec-ope-logical-short-circuit-literal">論理演算子（literal）</a>を追加
+<br>
+N=10; fibo_exp(n)=&lt;n&lt;2&amp;&amp;&amp;&amp;n||||fibo_exp(n-1)+fibo_exp(n-2); fibo_exp(N) -> 55
+<br>
+N=10; fibo_(n,a,b)=&lt;n&lt;1&amp;&amp;&amp;&amp;a||||n&lt;2&amp;&amp;&amp;&amp;b||||fibo_(n-1,b,a+b); fibo_(N,0,1) -> 55
 <br>
 ・単純な<a href="#span-out-FN-fact">階乗</a>
 <br>
@@ -34818,6 +34894,8 @@ precedence
 <br>
 ・<span class="run">Ver.2.192.44</span>以降、<a href="#span-out-prec-ope-arithmetic-dot">dot演算子</a>を追加（URi,URfをURに統合）
 <br>
+・<span class="run">Ver.2.196.46</span>以降、<a href="#span-out-prec-ope-conditional">条件演算子</a>代替の<a href="#span-out-prec-ope-logical-short-circuit-literal">ANDss||ORss演算子</a>を追加
+<br>
 <br>
 配列要素の定義順で<a href="#span-out-prec">演算のprecedence</a>を動的に変更可能とする
 <br>
@@ -34839,7 +34917,7 @@ operation.js抜粋
       ],
       [
         /* following short-circuit */
-        "BRlAOs" // Binary operatoR logical ANDs || ORs &amp;&amp;&amp; || |||
+        "BRlAOs" // Binary operatoR logical ANDs || ORs || ANDss || ORss &amp;&amp;&amp; || ||| || &amp;&amp;&amp;&amp; || ||||
       ],
       [
         /* following function */

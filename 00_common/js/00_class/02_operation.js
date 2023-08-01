@@ -23,7 +23,7 @@ My_entry.operation.prototype.config = {
       ],
       [
         /* following short-circuit */
-        "BRlAOs" // Binary operatoR logical ANDs || ORs &&& || |||
+        "BRlAOs" // Binary operatoR logical ANDs || ORs || ANDss || ORss &&& || ||| || &&&& || ||||
       ],
       [
         /* following function */
@@ -692,8 +692,10 @@ My_entry.operation.prototype.BRlAOs = function(data, i0, tagName, tagObj){
   var options = data.options;
   var ids = data.ids;
   var DATA = self.entry.DATA;
-  var islO = (tagObj.val === "|||");
+  var islO = (tagObj.val === "|||" || tagObj.val === "||||");  // Ver.2.196.46
+  var hasS = (tagObj.val.length === 4);  // Ver.2.196.46
   var sw_tagName = (islO)? "": tagName;
+  var sw_prop = (hasS)? "isStrictFalse_arr": "isFalse_arr";  // Ver.2.196.46
   var il = self.get_il(trees, i0, sw_tagName);
   var ir = self.get_ir(trees, i0, sw_tagName);
   var leftTrees = trees.slice(il, i0);
@@ -714,7 +716,7 @@ My_entry.operation.prototype.BRlAOs = function(data, i0, tagName, tagObj){
     if(DATA.hasVar_arr(rightArr)){  // first
       throw "Undef "+tagObj.val+"var";  // hasVar(a|||b) disabled
     }
-    else if((DATA.isFalse_arr(rightArr))^islO){  // xor
+    else if((DATA[sw_prop](rightArr))^islO){  // xor  // Ver.2.196.46
       tree = rightTree;
     }
     else{
@@ -732,7 +734,7 @@ My_entry.operation.prototype.BRlAOs = function(data, i0, tagName, tagObj){
     if(DATA.hasVar_arr(leftArr)){  // first
       throw "Undef var"+tagObj.val;  // hasVar(a|||b) disabled
     }
-    else if((DATA.isFalse_arr(leftArr))^islO){  // xor
+    else if((DATA[sw_prop](leftArr))^islO){  // xor  // Ver.2.196.46
       tree = leftTree;
     }
     else{
@@ -874,7 +876,7 @@ My_entry.operation.prototype.FNc = function(data, i0, tagName, tagObj){
     if(name){
       var tree = null;
       var get_tree_sw = function(sw){
-        return DATA.tree_num(((sw)? 1: 0), 0);
+        return DATA.tree_num(((sw)? true: false), 0);  // Ver.2.196.46
       };
       switch(prop){
         /* Ver.2.31.17 -> */

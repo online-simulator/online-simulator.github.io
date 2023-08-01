@@ -1,6 +1,32 @@
 clear
 local storage cleared
 
+[sw(isLeft)=<isLeft&&&&(left=2)||||(right=3),hasEqn(sw),hasE(sw),sw(false),hasVar(left),hasV(left),hasVar(right),hasV(right),right,sw(true),left,delVar(left),delVar(right),delEqn(sw)]
+(
+0,false,true,0,false,false,false,true,3,0,2,false,false,false
+)
+
+sw(isLeft)=<isLeft&&&&(left=2)||||(right=3),[hasEqn(sw),hasE(sw),sw(false),hasVar(left),hasV(left),hasVar(right),hasV(right),right,sw(true),left,delVar(left),delVar(right),delEqn(sw)]
+(
+0,true,true,0,false,false,true,true,3,0,2,true,true,true
+)
+
+fibo_(n,a,b)=<n<1&&&&a||||n<2&&&&b||||fibo_(n-1,b,a+b),fibo_(N,0,1)
+(
+0,55
+)
+
+fibo_exp(n)=<n<2&&&&n||||fibo_exp(n-1)+fibo_exp(n-2),fibo_exp(N)
+(
+0,55
+)
+
+N=10
+N=10
+
+clear
+local storage cleared
+
 [a=1,(z,A)=<[b=2,(c)=<d==>](a*z)=>](i,=<(1,2:3,4))=>
 (
 2,4:
@@ -555,8 +581,8 @@ local storage cleared
 
 ~~(~~ans)
 (
-1,0,1,1,0,0,0,0,0:
-0,1,0,0,1,1,1,1,1
+true,false,true,true,false,false,false,false,false:
+false,true,false,false,true,true,true,true,true
 )
 
 isFalse(false),isFalse(true),isFalse(NaN),isFalse(0),isFalse(1),isFalse(i),isFalse(false,false),isFalse(NaN,NaN),isFalse(,):isTrue(false),isTrue(true),isTrue(NaN),isTrue(0),isTrue(1),isTrue(i),isTrue(false,false),isTrue(NaN,NaN),isTrue(,)
@@ -570,12 +596,12 @@ local storage cleared
 
 cnot(right),not(right)
 (
-1,1:
-0,0:
-1,1:
-1,1:
-0,0:
-0,1
+true,true:
+false,false:
+true,true:
+true,true:
+false,false:
+false,true
 )
 
 right=(false:true:NaN:0:1:i)
@@ -839,9 +865,9 @@ false,true,NaN,0,true,0,1,true,1,i,true,i:
 
 left@@left,left@@0,left@@1,left@@i
 (
-0,0,0,0,1,0,1,0,1,1,0,1:
-0,0,0,0,1,1,1,0,0,1,0,0:
-0,0,0,1,1,1,0,0,0,0,0,0
+false,false,false,false,true,false,true,false,true,true,false,true:
+false,false,false,false,true,true,true,false,false,true,false,false:
+false,false,false,true,true,true,false,false,false,false,false,false
 )
 
 left&&left,left&&0,left&&1,left&&i
@@ -853,9 +879,9 @@ false,true,NaN,false,0,NaN,false,1,NaN,false,i,NaN:
 
 ~~left
 (
-1,0,1:
-1,0,0:
-0,0,0
+true,false,true:
+true,false,false:
+false,false,false
 )
 
 left=(false,true,NaN:0,1,i:1+i,2+i,1+2i)
@@ -876,8 +902,8 @@ i,true,i,1,i
 false@i,true@i,0@i,1@i,i@1:false@@i,true@@i,0@@i,1@@i,i@@1:cxor(false,i),cxor(true,i),cxor(0,i),cxor(1,i),cxor(i,1)
 (
 0,1,0,1,1:
-1,0,1,0,0:
-1,0,1,0,0
+true,false,true,false,false:
+true,false,true,false,false
 )
 
 false&i,true&i,0&i,1&i,i&1:false&&i,true&&i,0&&i,1&&i,i&&1:false&&&i,true&&&i,0&&&i,1&&&i,i&&&1:cand(false,i),cand(true,i),cand(0,i),cand(1,i),cand(i,1)
@@ -891,20 +917,20 @@ false,i,0,i,1
 ~false,~true,~NaN,~0,~1,~i:~~false,~~true,~~NaN,~~0,~~1,~~i:cnot(false),cnot(true),cnot(NaN),cnot(0),cnot(1),cnot(i)
 (
 -1,-2,-1,-1,-2,-1:
-1,0,1,1,0,0:
-1,0,1,1,0,0
+true,false,true,true,false,false:
+true,false,true,true,false,false
 )
 
 true===1,true+i===1+2i:cseq(true,1),cseq(true+i,1+2i),csne(true,1),csne(true+i,1+i)
 (
-0+O(1e+0),1:
-0+O(1e+0),0,1+O(1e+0),0
+false+O(1e+0),true:
+false+O(1e+0),false,true+O(1e+0),false
 )
 
 true==1,true+i==1+2i,false<>0,false+i<>0+2i:ceq(true,1),ceq(true+i,1+2i),cne(false,0),cne(false+i,0+2i)
 (
-1,1,0,0:
-1,0,0,1
+true,true,false,false:
+true,false,false,true
 )
 
 clear
@@ -921,32 +947,32 @@ local storage cleared
 bitnot(0),bitnot(false),bitnot(1),bitnot(true),bitnot(i),bitnot(NaN),bitand(1,2),bitxor(1,2),bitor(2,3):not(0),not(false),not(1),not(true),not(i),not(NaN),and(1,2),xor(1,2),or(2,3)/*real number only*/
 (
 -1,-1,-2,-2,-1,-1,0,3,3:
-1,1,0,0,1,1,2,0,2
+true,true,false,false,true,true,2,false,2
 )
 
 sne(false,0),sne(true,1),~false,~false===0,~(false===0),~~false===0,~~(false===0)
 (
-1+O(1e+0),1+O(1e+0),-1,0,-1+O(1e+0),1+O(1e+0),1+O(1e+0)
+true+O(1e+0),true+O(1e+0),-1,false,-1+O(1e+0),true+O(1e+0),true+O(1e+0)
 )
 
 i=0,=0-i,i==0,i===0,i===false
 (
--i,-i,1,1,0+O(1e+0)
+-i,-i,true,true,false+O(1e+0)
 )
 
 false=true,=true-false,false==true,false===true
 (
-1,1,0,0
+1,1,false,false
 )
 
 false==0,false===0,false===FALSE,true==1,true===1,true===TRUE
 (
-1,0+O(1e+0),1,1,0+O(1e+0),1
+true,false+O(1e+0),true,true,false+O(1e+0),true
 )
 
 NaN===NaN,seq(NaN,NaN),seq(false,NaN),seq(false,0),seq(last{isMatched(x)=<switch(x>=0,true),isMatched(-1)},false)
 (
-0,0,0,0+O(1e+0),1
+false,false,false,false+O(1e+0),true
 )
 
 switch(0),switch(0,0),switch(1,0),switch(1,1),switch(1,i)
@@ -1013,12 +1039,12 @@ local storage cleared
 
 (isNaN(trans(csv0[0])),isNaN(trans(csv0[1])))==true
 (
-0,0:
-0,0:
-1,0:
-0,0:
-0,0:
-0,1
+false,false:
+false,false:
+true,false:
+false,false:
+false,false:
+false,true
 )
 
 csv0=(0,1,NaN,5,7,9:0,2,4,6,8,NaN)
@@ -1029,17 +1055,17 @@ csv0=(
 
 (a=0,b=a/a,c=1/a,isNaN_(x)=<(x<>x),isNaN_(a),isNaN_(b),isNaN_(c),isNaN(a),isNaN(b),isNaN(c))
 (
-0,0,0,0,0,1,0+O(1e+0),false,true,false+O(1e+0)
+0,0,0,0,false,true,false+O(1e+0),false,true,false+O(1e+0)
 )
 
 (0/0,1/0,~NaN,~~NaN,NaN|1,NaN||1,NaN|||1,NaN&1,NaN&&1,NaN&&&1)
 (
-NaN,Infinity,-1,1,1,1,1,0,NaN,NaN
+NaN,Infinity,-1,true,1,1,1,0,NaN,NaN
 )
 
 (NaN==NaN,nan==NAN,false==false,FALSE==0,true==true,TRUE==1)
 (
-0,0,1,1,1,1
+false,false,true,true,true,true
 )
 
 (empty=[],concat=(empty,1),concat)
@@ -1632,10 +1658,10 @@ local storage cleared
 
 [A0=(1,2:3,4::5,6),A0[0][0][0][0]=A0,A1=-(A0+(A0)i),A=A1,A[-1][-1][0][0]=A,A[0][0][3][2]=A0[-1][-1][3][2],A[-1]=A[3],A[e][-1]=A[e][1],A2=A,A2[-3][-2][-1][0][1]=A2[1][0][-1][-2][-3],=<(A[0][0][0][0],(A[-1]:A[-2]:A[-3]:A[-4]),(A[e][-1],A[e][-2]),A[-1][-1][0][0],A2)]=>A,A/*extended reference/substitution test case*/,~~A/*logical NOT test case*/,A*2-4+8
 (
-6,5,-2-2i,-1-i,5,6,-1-i,-2-2i,4,-2-2i,6,5,-2-2i,-1-i,5,6,-1-i,-2-2i,4,-2-2i,0,0,0,0,0,0,0,0,0,0,16,14,-4i,2-2i,14,16,2-2i,-4i,12,-4i:
-0,0,4,3,0,0,3,4,0,-1-i,0,0,4,3,0,0,3,4,0,-1-i,1,1,0,0,1,1,0,0,1,0,4,4,12,10,4,4,10,12,4,2-2i:
-4,3,0,0,3,4,0,0,6,3,4,3,0,0,3,4,0,0,6,3,0,0,1,1,0,0,1,1,0,0,12,10,4,4,10,12,4,4,16,10:
--2-2i,-1-i,6,5,-1-i,-2-2i,5,6,5,0,-2-2i,-1-i,6,5,-1-i,-2-2i,5,6,5,0,0,0,0,0,0,0,0,0,0,1,-4i,2-2i,16,14,2-2i,-4i,14,16,14,4
+6,5,-2-2i,-1-i,5,6,-1-i,-2-2i,4,-2-2i,6,5,-2-2i,-1-i,5,6,-1-i,-2-2i,4,-2-2i,false,false,false,false,false,false,false,false,false,false,16,14,-4i,2-2i,14,16,2-2i,-4i,12,-4i:
+0,0,4,3,0,0,3,4,0,-1-i,0,0,4,3,0,0,3,4,0,-1-i,true,true,false,false,true,true,false,false,true,false,4,4,12,10,4,4,10,12,4,2-2i:
+4,3,0,0,3,4,0,0,6,3,4,3,0,0,3,4,0,0,6,3,false,false,true,true,false,false,true,true,false,false,12,10,4,4,10,12,4,4,16,10:
+-2-2i,-1-i,6,5,-1-i,-2-2i,5,6,5,0,-2-2i,-1-i,6,5,-1-i,-2-2i,5,6,5,0,false,false,false,false,false,false,false,false,false,true,-4i,2-2i,16,14,2-2i,-4i,14,16,14,4
 )
 
 clear
@@ -1710,7 +1736,7 @@ local storage cleared
 
 (a=2,hasVar(a),delVar(a),delVar(a),hasVar(a),b=<3,hasEqn(b),delEqn(b),delEqn(b),hasEqn(b))/*function prior to bracket test case*/
 (
-0,1,1,0,0,0,1,1,0,0
+0,true,true,false,false,0,true,true,false,false
 )
 
 clear
@@ -2068,4 +2094,4 @@ drag=false&sw=false&0x=false&useMatrix=true&useStrict=false&checkError=true&isRi
 --------------------------------
 --------------------------------
 
-online-simulator.github.io.6.266.111.13.59 @ Mon Jul 31 2023 16:06:20 GMT+0900 (日本標準時) @ Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/115.0.0.0 Safari/537.36
+online-simulator.github.io.6.267.111.13.59 @ Tue Aug 01 2023 21:42:11 GMT+0900 (日本標準時) @ Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/115.0.0.0 Safari/537.36

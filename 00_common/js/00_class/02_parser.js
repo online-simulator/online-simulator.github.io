@@ -66,7 +66,7 @@ My_entry.parser.prototype.config = {
       {b: />[=]{0,1}/, a: "BRcn"},
       /* Ver.2.59.26 -> */
       // logical operator
-      {b: /[&]{3}|[|]{3}/, a: "BRlAOs"},  // Ver.2.157.38 short-circuit
+      {b: /[&]{3,4}|[|]{3,4}/, a: "BRlAOs"},  // Ver.2.157.38 short-circuit  // Ver.2.196.46
       {b: /[~]{2}/, a: "PUlN"},  // Ver.2.81.32
       {b: /[&]{2}/, a: "BRlA"},
       {b: /[@]{2}/, a: "BRlX"},  // Ver.2.168.41

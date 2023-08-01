@@ -99,6 +99,12 @@ My_entry.DATA.prototype.arr2arr00 = function(arr){
   var self = this;
   return self.obj2arr(self.arr2num(arr));
 };
+/* calc-Ver.2.196.46 */
+My_entry.DATA.prototype.isStrictFalse_arr = function(arr){
+  var self = this;
+  var has1elem = (arr.length === 1 && arr[0].length === 1 && arr[0][0].com);
+  return (has1elem && ((arr[0][0].com.r === false && Number(arr[0][0].com.i) === 0) || (isNaN(arr[0][0].com.r) || isNaN(arr[0][0].com.i))));
+};
 My_entry.DATA.prototype.isFalse_arr = function(arr){
   var self = this;
   var has1elem = (arr.length === 1 && arr[0].length === 1 && arr[0][0].com);

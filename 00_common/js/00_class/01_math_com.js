@@ -51,7 +51,7 @@ My_entry.math_com.prototype["~~"] =
 My_entry.math_com.prototype.cnot = function(b){
   var self = this;
   var sw = self.isFalse(b);
-  return self.entry.DATA.com(((sw)? 1: 0), 0);
+  return self.entry.DATA.com(sw, 0);  // Ver.2.196.46
 };
 My_entry.math_com.prototype.cand_LA =  // Ver.2.193.44
 My_entry.math_com.prototype.cand = function(a, b){
@@ -71,7 +71,8 @@ My_entry.math_com.prototype.cxor = function(a, b){
   if(!(b)) return self.entry.DATA.com(NaN, NaN);  // Ver.2.170.42
   var hasA = (self.isFalse(a))? 0: 1;
   var hasB = (self.isFalse(b))? 0: 1;
-  return self.entry.DATA.com(hasA^hasB, 0);
+  var sw = (hasA^hasB)? true: false;  // Ver.2.196.46
+  return self.entry.DATA.com(sw, 0);  // Ver.2.196.46
 };
 My_entry.math_com.prototype.cor_LA =  // Ver.2.193.44
 My_entry.math_com.prototype.cor = function(a, b){
@@ -89,26 +90,26 @@ My_entry.math_com.prototype.cseq = function(a, b){
   var self = this;
   if(!(b)) return self.entry.DATA.com(NaN, NaN);  // Ver.2.170.42
   var sw = self.isStrictEqual(a, b);
-  return self.entry.DATA.com(((sw)? 1: 0), 0);
+  return self.entry.DATA.com(sw, 0);  // Ver.2.196.46
 };
 My_entry.math_com.prototype.csne = function(a, b){
   var self = this;
   if(!(b)) return self.entry.DATA.com(NaN, NaN);  // Ver.2.170.42
   var sw = !(self.isStrictEqual(a, b));
-  return self.entry.DATA.com(((sw)? 1: 0), 0);
+  return self.entry.DATA.com(sw, 0);  // Ver.2.196.46
 };
 /* -> Ver.2.168.41 */
 My_entry.math_com.prototype.ceq = function(a, b){
   var self = this;
   if(!(b)) return self.entry.DATA.com(NaN, NaN);  // Ver.2.170.42
   var sw = ((a.r == b.r) && (a.i == b.i));
-  return self.entry.DATA.com(((sw)? 1: 0), 0);
+  return self.entry.DATA.com(sw, 0);  // Ver.2.196.46
 };
 My_entry.math_com.prototype.cne = function(a, b){
   var self = this;
   if(!(b)) return self.entry.DATA.com(NaN, NaN);  // Ver.2.170.42
   var sw = !((a.r == b.r) && (a.i == b.i));
-  return self.entry.DATA.com(((sw)? 1: 0), 0);
+  return self.entry.DATA.com(sw, 0);  // Ver.2.196.46
 };
 /* Ver.2.186.44 -> */
 My_entry.math_com.prototype.cmin = function(a, b){

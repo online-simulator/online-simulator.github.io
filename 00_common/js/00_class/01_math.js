@@ -336,53 +336,53 @@ My_entry.math.prototype.lt =
 My_entry.math.prototype["<"] = function(x, y){
   var self = this;
   if(typeof y === "undefined") return NaN;  // Ver.2.170.42
-  return ((x<y)? 1: 0);
+  return (x<y);  // Ver.2.196.46
 };
 My_entry.math.prototype.le =
 My_entry.math.prototype["<="] = function(x, y){
   var self = this;
   if(typeof y === "undefined") return NaN;  // Ver.2.170.42
-  return ((x<=y)? 1: 0);
+  return (x<=y);  // Ver.2.196.46
 };
 My_entry.math.prototype.ge =
 My_entry.math.prototype[">="] = function(x, y){
   var self = this;
   if(typeof y === "undefined") return NaN;  // Ver.2.170.42
-  return ((x>=y)? 1: 0);
+  return (x>=y);  // Ver.2.196.46
 };
 My_entry.math.prototype.gt =
 My_entry.math.prototype[">"] = function(x, y){
   var self = this;
   if(typeof y === "undefined") return NaN;  // Ver.2.170.42
-  return ((x>y)? 1: 0);
+  return (x>y);  // Ver.2.196.46
 };
 My_entry.math.prototype.seq =
 My_entry.math.prototype["==="] = function(x, y){
   var self = this;
   if(typeof y === "undefined") return NaN;  // Ver.2.170.42
-  return ((x===y)? 1: 0);
+  return (x===y);  // Ver.2.196.46
 };
 My_entry.math.prototype.sne = function(x, y){
   var self = this;
   if(typeof y === "undefined") return NaN;  // Ver.2.170.42
-  return ((x!==y)? 1: 0);
+  return (x!==y);  // Ver.2.196.46
 };
 My_entry.math.prototype.eq =
 My_entry.math.prototype["=="] = function(x, y){
   var self = this;
   if(typeof y === "undefined") return NaN;  // Ver.2.170.42
-  return ((x==y)? 1: 0);
+  return (x==y);  // Ver.2.196.46
 };
 My_entry.math.prototype.ne =
 My_entry.math.prototype["<>"] = function(x, y){
   var self = this;
   if(typeof y === "undefined") return NaN;  // Ver.2.170.42
-  return ((x!=y)? 1: 0);
+  return (x!=y);  // Ver.2.196.46
 };
 My_entry.math.prototype.not =
 My_entry.math.prototype["~~"] = function(y){
   var self = this;
-  return ((y)? 0: 1);
+  return ((y)? false: true);  // Ver.2.196.46
 };
 My_entry.math.prototype.and_LA =  // Ver.2.193.44
 My_entry.math.prototype.and =
@@ -401,7 +401,7 @@ My_entry.math.prototype.xor =
 My_entry.math.prototype["@@"] = function(x, y){  // Ver.2.168.41
   var self = this;
   if(typeof y === "undefined") return NaN;  // Ver.2.170.42
-  return (((x)? 1: 0)^((y)? 1: 0));
+  return ((((x)? 1: 0)^((y)? 1: 0))? true: false);  // Ver.2.196.46
 };
 My_entry.math.prototype.or_LA =  // Ver.2.193.44
 My_entry.math.prototype.or =
