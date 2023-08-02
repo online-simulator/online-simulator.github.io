@@ -744,6 +744,8 @@ e^(-i(1pi(){2/2i}(5-{3-1}){i/(-4)}))
 <br>
 ・<a href="#span-eqn-scope_NG">scope_NG</a>
 <br>
+・<a href="#span-eqn-Fibonacci">Fibonacci</a>
+<br>
 ・<a href="#span-eqn-gcd">gcd/lcm</a>
 <br>
 ・<a href="#span-eqn-rand_table">rand_table</a>
@@ -21585,11 +21587,13 @@ scope_NG2(1)=&gt;:scope_NG2(-1)=&gt; -> (0,2,2:0,2,2)
 <br>
 test caseを列挙する
 <br>
-・<a href="#span-out-FNh-RX">再帰高階関数</a>を使用
+・Fibonacci数列
 <br>
 N=10; F0=0,F1=1,F2=&lt;last{F2=F0+F1,F0=F1,F1=F2,F2};
 <br>
-fibonacci(n)=&lt;_rn(=&lt;F2,,n-1); fibonacci(N) -> 55
+・<a href="#span-out-FNh-RX">再帰高階関数</a>を使用
+<br>
+Fibonacci(n)=&lt;_rn(=&lt;F2,,n-1); Fibonacci(N) -> 55
 <br>
 ・指数時間の再帰call
 <br>
@@ -21614,6 +21618,18 @@ N=10; fibo_(n,a,b)=&lt;n&lt;1&amp;&amp;&amp;&amp;a||||n&lt;2&amp;&amp;&amp;&amp;
 N=10; fibo_exp(n)=&lt;n&lt;2&amp;&amp;n||||fibo_exp(n-1)+fibo_exp(n-2); fibo_exp(N) -> 55
 <br>
 N=10; fibo_(n,a,b)=&lt;n&lt;1&amp;&amp;a||||n&lt;2&amp;&amp;b||||fibo_(n-1,b,a+b); fibo_(N,0,1) -> 55
+<br>
+・以上より、先行するk項の和で一般化
+<br>
+fibok(n,k)=&lt;n&lt;k-1&amp;&amp;0||||n&lt;k&amp;&amp;1||||_sm(=&lt;fibok(n-m,k)=&gt;,1,k);
+<br>
+fibok(10,2) -> 55
+<br>
+fibok(10,3) -> 81
+<br>
+fibok(10,4) -> 56
+<br>
+fibok(10,5) -> 31
 <br>
 ・単純な<a href="#span-out-FN-fact">階乗</a>
 <br>
@@ -36085,6 +36101,33 @@ scope_NG2(x)=&lt;2*[x=x/*NG*/,last[x=x/*NG*/,x],x];
 scope_NG1(1)=&gt;:scope_NG1(-1)=&gt;;
 <br>
 scope_NG2(1)=&gt;:scope_NG2(-1)=&gt;;
+    </td>
+  </tr>
+  <tr>
+    <th>
+<a href="#span-index">
+目次
+</a>
+<br>
+Fibonacci
+    </th>
+    <td>
+<span id="span-eqn-Fibonacci"></span>
+<a href="#span-out-eqns-re-call">再帰call</a>参照
+<br>
+clear;
+<br>
+fibok(n,n0,k)=&lt;n&lt;k-1&amp;&amp;n0||||n&lt;k&amp;&amp;1||||_sm(=&lt;fibok(n-m,n0,k)=&gt;,1,k);
+<br>
+luca2(n)=&lt;fibok(n,2,2)=&gt;;
+<br>
+[N=10:
+<br>
+fibok(N,0,2)=&gt;,fibok(N,0,3)=&gt;,fibok(N,0,4)=&gt;,fibok(N,0,5)=&gt;:
+<br>
+fibok(N,1,2)=&gt;,fibok(N,1,3)=&gt;,fibok(N,1,4)=&gt;,fibok(N,1,5)=&gt;:
+<br>
+luca2(N)=&gt;];
     </td>
   </tr>
   <tr>
