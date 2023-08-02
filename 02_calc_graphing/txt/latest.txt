@@ -767,7 +767,7 @@ stored_eqn(plot2d_Lagrange)
 clear
 local storage cleared
 
-plot2d_evolution(0,5,0.5,0,20+20i,1,1)=>
+plot2d_evolution(0,5,0.5,0,20+20i,0,1,1)=>
 (
 0,0:
 7.864583333333332+O(6e-2),6.818229166666667:
@@ -782,7 +782,7 @@ plot2d_evolution(0,5,0.5,0,20+20i,1,1)=>
 19.86470649057239+O(6e-2),-19.40158732904714
 )
 
-plot2d_evolution(t0,t1,dt,z_x0,z_v0,m,Cd_sphere)=<[out=<(xt,yt),scope2storage=<last{addVar(xt),addVar(yt)},init=<last{g=-9.8,z_a=0+g*i,x=<{z_x,z_v},x_initial=<{z_x0,z_v0},f=<{z_v,z_a-(Cd_sphere/m)*z_v},N=round((t1-t0)/dt),M=0,xt=zeros(N+1,M+1),yt=zeros(N+1,M+1)},run=<last{dtn=<switch(n<=0,0:1,dt),step=<x_next=_otdummy(=<f,=<x,=<x_initial,0,dtn=>),stepnm=<last{step=>,xt[n][mdummy]=real(z_x),yt[n][mdummy]=imag(z_x)},casesM=<_smdummy(=<stepnm,0,M),evolutionN=<_sn(=<casesM,0,N),evolutionN=>},init=>,run=>,return=out=>,scope2storage=>,=<return]=>
+plot2d_evolution(t0,t1,dt,z_x0,z_v0,z_u,m,Cd_sphere)=<[out=<(xt,yt),scope2storage=<last{addVar(xt),addVar(yt)},init=<last{g=-9.8,z_a=0+g*i,x=<{z_x,z_v},x_initial=<{z_x0,z_v0},f=<{z_v,z_a+(Cd_sphere/m)*(z_u-z_v)},N=round((t1-t0)/dt),M=0,xt=zeros(N+1,M+1),yt=zeros(N+1,M+1)},run=<last{dtn=<switch(n<=0,0:1,dt),step=<x_next=_otdummy(=<f,=<x,=<x_initial,0,dtn=>),stepnm=<last{step=>,xt[n][mdummy]=real(z_x),yt[n][mdummy]=imag(z_x)},casesM=<_smdummy(=<stepnm,0,M),evolutionN=<_sn(=<casesM,0,N),evolutionN=>},init=>,run=>,return=out=>,scope2storage=>,=<return]=>
 stored_eqn(plot2d_evolution)
 
 clear
@@ -1155,7 +1155,7 @@ clear
 local storage cleared
 
 [Pinv_y=(-0.999999427,-0.999936657,-0.997300203,-0.954499736,-0.682689492,0,0.682689492,0.954499736,0.997300203,0.999936657,0.999999427:-5,-4,-3,-2,-1,0,1,2,3,4,5),N=1,arr=[],_rn(=<arr=(arr:rand_table(=<Pinv_y)=>),,N),=<arr]=>
-0.6412658856039867
+0.7308878617608188
 
 rand_table(csv)=<last[table=sort0(csv),ymin=min(table)[0],ymax=max(table)[0],y=ymin+(ymax-ymin)*rand,x=interp(y:table),x]
 stored_eqn(rand_table)
@@ -1235,4 +1235,4 @@ center=true&drag=false&test-case=false&legend=true&axis-t=false&axis-x=true&log-
 --------------------------------
 --------------------------------
 
-online-simulator.github.io.6.267.111.13.59 @ Wed Aug 02 2023 14:36:03 GMT+0900 (日本標準時) @ Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/115.0.0.0 Safari/537.36
+online-simulator.github.io.6.267.112.13.59 @ Wed Aug 02 2023 15:06:28 GMT+0900 (日本標準時) @ Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/115.0.0.0 Safari/537.36
