@@ -10339,6 +10339,24 @@ clear; (a=0)|||~~(b=1)&amp;&amp;&amp;(c=2)|||3; a,b,c -> (0,1,2)
 <span class="run">Ver.2.196.46</span>以降、<a href="#span-out-prec-ope-conditional">条件演算子</a>代替のANDss||ORss演算子を追加
 <br>
 <br>
+論理ORss
+<br>
+0||||1 -> 0
+<br>
+false||||1 -> 1
+<br>
+NaN||||1 -> 1
+<br>
+<br>
+論理ANDss
+<br>
+0&amp;&amp;&amp;&amp;1 -> 1
+<br>
+false&amp;&amp;&amp;&amp;1 -> false
+<br>
+NaN&amp;&amp;&amp;&amp;1 -> NaN
+<br>
+<br>
 論理ANDss||ORss演算子の留意事項を列挙する
 <br>
 ・<a href="#span-out-prec-ope-logical-short-circuit">論理演算子（短絡評価）</a>と異なる点を列挙する
@@ -20421,7 +20439,7 @@ clear; a=3; [a]=&gt; -> [MyErr]Invalid reference
 <br>
 (=&lt;0,=&lt;1,2)=&gt; -> [MyErr]Invalid mat([object Object])
 <br>
-・複数列挙の場合、最終returnのみ取り出す（途中return不可）
+・複数列挙の場合、末尾returnのみ取り出す（途中return不可）
 <br>
 (=&lt;(,:,),=&lt;1)=&gt; -> 1
 <br>
@@ -21619,6 +21637,13 @@ N=10; prod_(n,A)=&lt;n&lt;1|||A*prod_(n-1,=&lt;A);
 <br>
 prod_(N,=&lt;(1,2:3,4)) -> (4783807,6972050:10458075,15241882)
 <br>
+<br>
+留意事項を列挙する
+<br>
+・<a href="#span-out-option1">RA選択</a>の場合、要修正
+<br>
+N=10; fact_(n)=&lt;n&lt;=1|||floor(n)*fact_(n-1); fact_(N) -> Maximum call stack size exceeded
+<br>
 ・無限loopの場合、error終了
 <br>
 N=10; fact_=&lt;floor(n)*fact_; fact_ -> Maximum call stack size exceeded
@@ -21688,7 +21713,10 @@ clear; f(n)=&lt;n<=1|||floor(n)*f(n-1); [n=10,(=&lt;fn)=&lt;fn=&gt;](=&lt;f)=&gt
 <br>
 clear; f(n)=&lt;n<=1|||floor(n)*f(n-1)=&gt;; [n=10,(=&lt;f)=&lt;f(n)=&gt;](=&lt;f)=&gt; -> 3628800
 <br>
-・複数列挙の場合、最終returnのみ取り出す（途中return不可）
+<br>
+留意事項を列挙する
+<br>
+・複数列挙の場合、末尾returnのみ取り出す（途中return不可）
 <br>
 clear; d=&lt;-a*z+b*A+c; [a=1,(z,A)=&lt;[b=2,(c)=&lt;d==&gt;](a*z)=&gt;](i,=&lt;(1,2:3,4))=&gt; -> (2,4:6,8)
 <br>

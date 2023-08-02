@@ -95,6 +95,8 @@
       script += "\nclear;\n";
       script += "[=<0]=>,[()=<1]()=>,[(x)=<x](2)=>,[(a,b)=<(a,b)](3,=<(i,2i))=>;\n[(A,B)=<[a=1,b=2,=<a*A+b*B]=>](=<(1,i),=<(-1,-i))=>;\n[(a)=<[(b)=<[(c)=<a+b+c](3)=>](2)=>](1)=>;\n[(a)=<[(b)=<[(c)=<[d=a+b+c,=<d]=>](3)=>](2)=>](1)=>;\n[(a)=<[(b)=<[[a=4,b=5],(c)=<a+b+c=1+2+3](3)=>](2)=>](1)=>;\n[(a)=<[(b)=<[a=4,b=[a=5,=<a]=>,(c)=<a+b+c=4+5+3](3)=>](2)=>](1)=>;\nf(n)=<n<=1|||floor(n)*f(n-1);\n[n=10,(=<fn)=<fn=>](=<f)=>;\nd=<-a*z+b*A+c;\n[a=1,(z,A)=<[b=2,(c)=<d==>](a*z)=>](i,=<(1,2:3,4))=>;";
       script += "\nclear;\n";
+      script += "or_(x)=<(x|1,x||1,x|||1,x||||1):or_(0):or_(false):or_(NaN):and_(x)=<(x&1,x&&1,x&&&1,x&&&&1):and_(0):and_(false):and_(NaN);";
+      script += "\n";
       script += "N=10;\nfibo_exp(n)=<n<2&&&&n||||fibo_exp(n-1)+fibo_exp(n-2),fibo_exp(N);\nfibo_(n,a,b)=<n<1&&&&a||||n<2&&&&b||||fibo_(n-1,b,a+b),fibo_(N,0,1);";
       script += "\n";
       script += "sw(isLeft)=<isLeft&&&&(left=2)||||(right=3),[hasEqn(sw),hasE(sw),sw(false),hasVar(left),hasV(left),hasVar(right),hasV(right),right,sw(true),left,delVar(left),delVar(right),delEqn(sw)];";
