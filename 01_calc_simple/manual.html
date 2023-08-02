@@ -21609,6 +21609,12 @@ N=10; fibo_exp(n)=&lt;n&lt;2&amp;&amp;&amp;&amp;n||||fibo_exp(n-1)+fibo_exp(n-2)
 <br>
 N=10; fibo_(n,a,b)=&lt;n&lt;1&amp;&amp;&amp;&amp;a||||n&lt;2&amp;&amp;&amp;&amp;b||||fibo_(n-1,b,a+b); fibo_(N,0,1) -> 55
 <br>
+・<span class="run">Ver.2.196.46</span>以降、可読性の最適化
+<br>
+N=10; fibo_exp(n)=&lt;n&lt;2&amp;&amp;n||||fibo_exp(n-1)+fibo_exp(n-2); fibo_exp(N) -> 55
+<br>
+N=10; fibo_(n,a,b)=&lt;n&lt;1&amp;&amp;a||||n&lt;2&amp;&amp;b||||fibo_(n-1,b,a+b); fibo_(N,0,1) -> 55
+<br>
 ・単純な<a href="#span-out-FN-fact">階乗</a>
 <br>
 N=10; fact_(n)=&lt;n&lt;=1&amp;&amp;&amp;1|||floor(n)*fact_(n-1); fact_(N) -> 3628800

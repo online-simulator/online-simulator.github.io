@@ -104,7 +104,7 @@
       script += "\nclear;\n";
       script += "or_(x)=<(x|1,x||1,x|||1,x||||1):or_(0):or_(false):or_(NaN):and_(x)=<(x&1,x&&1,x&&&1,x&&&&1):and_(0):and_(false):and_(NaN);";
       script += "\n";
-      script += "N=10;\nfibo_exp(n)=<n<2&&&&n||||fibo_exp(n-1)+fibo_exp(n-2),fibo_exp(N);\nfibo_(n,a,b)=<n<1&&&&a||||n<2&&&&b||||fibo_(n-1,b,a+b),fibo_(N,0,1);";
+      script += "N=10;\nfibo_exp(n)=<n<2&&n||||fibo_exp(n-1)+fibo_exp(n-2),fibo_exp(N);\nfibo_(n,a,b)=<n<1&&a||||n<2&&b||||fibo_(n-1,b,a+b),fibo_(N,0,1);";
       script += "\n";
       script += "sw(isLeft)=<isLeft&&&&(left=2)||||(right=3),[hasEqn(sw),hasE(sw),sw(false),hasVar(left),hasV(left),hasVar(right),hasV(right),right,sw(true),left,delVar(left),delVar(right),delEqn(sw)];";
       script += "\n";

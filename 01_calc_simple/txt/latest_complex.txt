@@ -11,12 +11,12 @@ sw(isLeft)=<isLeft&&&&(left=2)||||(right=3),[hasEqn(sw),hasE(sw),sw(false),hasVa
 0,true,true,0,false,false,true,true,3,0,2,true,true,true
 )
 
-fibo_(n,a,b)=<n<1&&&&a||||n<2&&&&b||||fibo_(n-1,b,a+b),fibo_(N,0,1)
+fibo_(n,a,b)=<n<1&&a||||n<2&&b||||fibo_(n-1,b,a+b),fibo_(N,0,1)
 (
 0,55
 )
 
-fibo_exp(n)=<n<2&&&&n||||fibo_exp(n-1)+fibo_exp(n-2),fibo_exp(N)
+fibo_exp(n)=<n<2&&n||||fibo_exp(n-1)+fibo_exp(n-2),fibo_exp(N)
 (
 0,55
 )
@@ -2106,4 +2106,4 @@ drag=false&sw=false&0x=false&useMatrix=true&useStrict=false&checkError=true&isRi
 --------------------------------
 --------------------------------
 
-online-simulator.github.io.6.267.111.13.59 @ Wed Aug 02 2023 11:04:49 GMT+0900 (日本標準時) @ Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/115.0.0.0 Safari/537.36
+online-simulator.github.io.6.267.111.13.59 @ Wed Aug 02 2023 11:33:38 GMT+0900 (日本標準時) @ Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/115.0.0.0 Safari/537.36
