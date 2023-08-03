@@ -11898,7 +11898,7 @@ local buffer
 <br>
 ・global storage　⇒　local storageのflowで<a href="#span-out-eqns">式変数</a>の復帰時、
 <br>
-　新規に作る<a href="#span-in-scope-vars">scopes2d array ids</a>から<a href="#span-in-scope-vars">self-children ids</a>を更新
+　新規に作る<a href="#span-in-scope-vars">scopes2d array ids</a>から<a href="#span-in-scope-vars">self-lower-ids</a>を更新
     </td>
   </tr>
   <tr>
@@ -20830,7 +20830,7 @@ scope
 <br>
 ・Nativeの.call(this)を想定するが、
 <br>
-・thisの<a href="#span-out-bracket">直列scope内</a>の<a href="#span-in-scope-vars">parents-scope</a>を含めて継承後、callする点で異なる
+・thisの<a href="#span-out-bracket">直列scope内</a>の<a href="#span-in-scope-vars">upper-scope</a>を含めて継承後、callする点で異なる
 <br>
 <br>
 <span class="run">Ver.2.31.17</span>以降、追加の<a href="#span-out-eqns-call">式読出し</a>記号==&gt;を使用
@@ -34709,6 +34709,8 @@ scopes2d arrayのstructureを以下に示す
 <br>
 ・<span class="clear">Ver.2.195.46</span>以降、修正
 <br>
+・<span class="condition">Ver.2.200.46</span>以降、刷新
+<br>
 <br>
 これに基づく<a href="#span-out-scope-vars">変数のscope</a>仕様について記述する
 <br>
@@ -34722,6 +34724,8 @@ scopes2d arrayのstructureを以下に示す
 <br>
 ・同時に対応するidsを<a href="#span-in-tree">単位tree構造</a>の<span class="selection">tag.val同列</span>に保存
 <br>
+<span class="condition">・<a href="#span-out-eqns-re-use">scope付式変数の再利用</a>が存在する場合、scopes2d[最終行]に新規追加</span>
+<br>
 <pre><code>
              j-th sentence
   scopes2d: [j][n]{scope}
@@ -34734,45 +34738,75 @@ scopes2d arrayのstructureを以下に示す
 <br>
 ・<a href="#span-out-eqns">式変数</a>は宣言時の<a href="#span-out-bracket">階層</a>に依存する
 <br>
+<span class="condition">・定義元のidsをcalled-idsと定義する
+<br>
+・call先のidsをcaller-idsと定義する</span>
+<br>
 ・宣言時の<a href="#span-out-bracket">階層</a>のreferenceをself-idsと定義する
 <br>
-・parenetsの<a href="#span-out-bracket">階層</a>のreferenceをまとめてparents-idsと定義する
+・<span class="condition">上位</span>の<a href="#span-out-bracket">階層</a>のreferenceをまとめて<span class="condition">upper-ids</span>と定義する
 <br>
-・childrenの<a href="#span-out-bracket">階層</a>のreferenceをまとめてchildren-idsと定義する
+・<span class="condition">下位</span>の<a href="#span-out-bracket">階層</a>のreferenceをまとめて<span class="condition">lower-ids</span>と定義する
 <br>
-・宣言時の<a href="#span-out-bracket">階層</a><span class="clear">以上（深さの降順）</span>をself-parents-idsと定義する
+・宣言時の<a href="#span-out-bracket">階層</a><span class="clear">以上（深さの降順）</span>を<span class="condition">self-upper-ids</span>と定義する
 <br>
-・宣言時の<a href="#span-out-bracket">階層</a><span class="clear">以下（深さの昇順）</span>をself-children-idsと定義する
+・宣言時の<a href="#span-out-bracket">階層</a><span class="clear">以下（深さの昇順）</span>を<span class="condition">self-lower-ids</span>と定義する
 <br>
+<span class="condition">・以下の<a href="#span-out-bracket">直列scope内</a>で<span class="condition">self-upper-ids</span>の<a href="#span-out-eqns">式変数</a>のみcall可
 <br>
-<a href="#span-out-scope-vars">変数のscope</a>の明示的なids継承が発生するcaseを列挙する
+self,[lower,]
 <br>
-・<a href="#span-out-FNmh-EX">symbolic高階行列関数</a>の<a href="#span-out-eqns">式変数</a>への<a href="#span-out-substitution-equation">式代入</a>時、self-children-idsを継承
+upper,[self,[lower,]]
 <br>
-clear; [a=2,=&lt;[b=1,a=&lt;first[[b,],b,],=&lt;a=&gt;]=&gt;+a]=&gt; -> 3
+upper,[upper,[self,[lower,]]]
 <br>
-・上記a=&lt;first[[b,],b,]<a href="#span-out-substitution-equation">式代入</a>時、self-children-idsを継承
+upper,[upper,[self,[lower,[lower,]]]]
 <br>
-・上記=&lt;a=&gt;<a href="#span-out-call-by-equation">式渡し</a>時、self-children-idsを継承
+upper,[upper,[upper,[self,[lower,]]]]
 <br>
-・<a href="#span-out-scope-inherited-call">式変数のscope継承call</a>時、call先のself-parents-idsを継承
+upper,[upper,[upper,[upper,[self,]]]]</span>
 <br>
-<span class="run">Ver.2.32.17</span>以降、<a href="#span-out-eqns-re-use">scope付式変数の再利用</a>に対応
-<br>
-・<a href="#span-out-storage">global storage</a>　⇒　<a href="#span-out-storage">local storage</a>で<a href="#span-out-eqns">式変数</a>の復帰時、self-children idsを更新
+<span class="condition">・ids継承は<a href="#span-out-eqns">式変数</a>のself-lower-idsに対して再帰的に継承する
 <br>
 <span class="run">Ver.2.32.17</span>以降、<a href="#span-out-eqns-args">式変数のarguments</a>を追加
 <br>
-・<a href="#span-out-eqns">式変数</a>のcall時、<a href="#span-out-eqns-args">式変数のarguments</a>に定義元のself-parents-idsを継承
+・以下の形式で宣言時、<a href="#span-out-eqns-args">式変数のarguments</a>は<a href="#span-out-BT-square">角括弧[]</a>の<a href="#span-out-bracket">scope</a>内に定義する
+<br>
+f(x)=&lt;[,x]
+<br>
+f(x)=&lt;[,=&lt;x]=&gt;
+<br>
+f(x)=&lt;last[,x]</span>
+<br>
+<br>
+<a href="#span-out-scope-vars">変数のscope</a>の明示的なids継承が発生する項目を列挙する
+<br>
+・<a href="#span-out-FNmh-EX">symbolic高階行列関数</a>で<a href="#span-out-eqns">式変数</a>の生成時、<span class="condition">self-upper-ids</span>を継承
+<br>
+last[x0=1,[x0=2,[x0=3,],<span class="condition">_ex(=&lt;x,1,1)</span>,x=&gt;]] -> 2
+<br>
+last[x0=1,[[x0=3,],<span class="condition">_ex(=&lt;x,1,1)</span>,x=&gt;]] -> 1
+<br>
+last[[[x0=3,],<span class="condition">_ex(=&lt;x,1,1)</span>,x=&gt;]] -> [MyErr]Invalid REv(x0)
+<br>
+・<a href="#span-out-eqns">式変数</a>の<span class="condition">=&lt;</span>store時、<span class="condition">self-upper-ids</span>を継承
+<br>
+clear; [a=2,=&lt;[b=1,a<span class="condition">=&lt;</span>first[[b,],b,],<span class="condition">=&lt;</span>a=&gt;]=&gt;+a]=&gt; -> 3
+<br>
+・<a href="#span-out-scope-inherited-call">式変数のscope継承call</a>時、<span class="condition">caller-self-upper-ids</span>を継承
+<br>
+<span class="run">Ver.2.32.17</span>以降、<a href="#span-out-eqns-re-use">scope付式変数の再利用</a>に対応
+<br>
+・<a href="#span-out-storage">global storage</a>　⇒　<a href="#span-out-storage">local storage</a>で<a href="#span-out-eqns">式変数</a>の復帰時、<span class="condition">self-lower-ids</span>を更新
+<br>
+<span class="run">Ver.2.32.17</span>以降、<a href="#span-out-eqns-args">式変数のarguments</a>を追加
+<br>
+・<a href="#span-out-eqns">式変数</a>のcall時、<a href="#span-out-eqns-args">式変数のarguments</a>に<span class="condition">called-self-upper-ids</span>を継承
 <br>
 <br>
 <a href="#span-out-scope-inherited-call">式変数のscope継承call</a>について記述する
 <br>
-・<a href="#span-out-bracket">直列scope内</a>の<a href="#span-out-eqns">式変数</a>のみcall可
-<br>
-・callする<a href="#span-out-eqns">式変数</a>のself-parents-idsとcall先のself-parents-idsの重複するidsを
-<br>
-・callする<a href="#span-out-eqns">式変数</a>のself-children-idsからpopで取り出した後、継承する
+<span class="condition">・called||caller-self-upper-idsの重複idsをpopで取り出した後、caller-self-upper-idsを継承</span>
 <br>
 ・よってidsはn=0の0階層から取り出すFIFO-queueとする
     </td>

@@ -3102,13 +3102,14 @@ My_entry.operation.prototype.tree_REe2SEe = function(tree){
   _tree[BT.SEe] = self.entry.def.newClone(tree[BT.REe]);
   return _tree;
 };
-My_entry.operation.prototype.inherit_ids_sw = function(sw, tree, ids_parent){
+/* Ver.2.200.46 */
+My_entry.operation.prototype.inherit_ids_sw = function(sw, tree, ids_upper){
   var self = this;
   var isEqn = tree[sw];
   var ids_self = isEqn.ids;  // cloned ids
   if(ids_self){
     var N_pop = ids_self.length;  // pop overlapped ids
-    self.entry.def.join_arr(isEqn, "ids", ids_parent, function(arr){for(var n=0; n<N_pop; ++n){arr.pop();}});  // inherit ids of self-parents-scopes
+    self.entry.def.join_arr(isEqn, "ids", ids_upper, function(arr){for(var n=0; n<N_pop; ++n){arr.pop();}});  // inherit caller-self-upper-ids
   }
   return self;
 };
@@ -3185,7 +3186,7 @@ My_entry.operation.prototype.REe = function(data, i0, tagName, tagObj){
     var arr0 = self.get_tagVal(trees[i0-2], "mat", "arr");
     if(arr0){  // [f(x)=<x,f(1),[(x)=<x](1)=>];
       var tree = self.arr2num(arr0);
-      var isSEe = tree[self.config.BT.SEe];
+      var isSEe = tree[BT.SEe];  // Ver.2.200.46
       if(isSEe){
         name_eqn = "no-name";
         self.store_eqn(name_eqn, tree, scopes, ids);
@@ -3225,7 +3226,7 @@ My_entry.operation.prototype.REe = function(data, i0, tagName, tagObj){
           ids_args_eqn = tree_BT[tagName_BT].ids || ids_args_eqn;  // Ver.2.33.18
           id0 = ids_args_eqn[0];
         };
-        if(tagName0_BT && !(tagName1_BT)){       // f(x)=<[,x] ||  f(x)=<[,=<x]=>
+        if(tagName0_BT && !(tagName1_BT)){       // f(x)=<[,x] || f(x)=<[,=<x]=>  // Ver.2.200.46
           inherit_id0(0, tagName0_BT);
         }
         else if(!(tagName0_BT) && tagName1_BT){  // f(x)=<last[,x]
@@ -3318,7 +3319,7 @@ My_entry.operation.prototype.REe = function(data, i0, tagName, tagObj){
     /* -> Ver.2.43.22 */
   }
   if(tree_eqn){
-    var isREe = tree_eqn[self.config.BT.REe];
+    var isREe = tree_eqn[BT.REe];  // Ver.2.200.46
     _tree = (isREe)? self.tree_eqn2tree_AtREe(data, tree_eqn, name_eqn, ids): tree_eqn;  // Ver.2.20.8  // Ver.2.32.17
     if(hasArgs){
       for(var name in buffer_vars){

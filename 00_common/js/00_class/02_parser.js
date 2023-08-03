@@ -759,9 +759,10 @@ My_entry.parser.prototype.isCommand = function(sentence){
   }
   return _command;
 };
+/* Ver.2.200.46 */
 /* Ver.2.32.17 */
 /* Ver.2.31.17 (1,[2,{3,4}]) -> */
-My_entry.parser.prototype.make_scopes = function(useScope, trees, scopes_parent, ids2d_parent, j){
+My_entry.parser.prototype.make_scopes = function(useScope, trees, scopes_upper, ids2d_upper, j){
   var self = this;
   var DATA = self.entry.DATA;
   var operation = self.entry.operation;
@@ -769,11 +770,11 @@ My_entry.parser.prototype.make_scopes = function(useScope, trees, scopes_parent,
     var tagName = operation.isType(tree_BT, "BT");
     if(tagName){
       var obj = tree_BT[tagName];
-      var trees_child = obj.val;
-      var scopes = scopes_parent;
+      var trees_lower = obj.val;
+      var scopes = scopes_upper;
       var ids2d = [];  // new
       /* [a=1,a[0][0]=2,[(3,3)]] */
-      if(trees_child && trees_child.length){
+      if(trees_lower && trees_lower.length){
         if(operation.config.BT.hasScope(useScope, tagName)){
           var scope = DATA.scope();
           var n = scopes.length;
@@ -782,13 +783,13 @@ My_entry.parser.prototype.make_scopes = function(useScope, trees, scopes_parent,
           ids2d.push(ids1d);
         }
       }
-      if(ids2d_parent && ids2d_parent.length){
-        Array.prototype.push.apply(ids2d, ids2d_parent);  // FIFO-queue
+      if(ids2d_upper && ids2d_upper.length){
+        Array.prototype.push.apply(ids2d, ids2d_upper);  // FIFO-queue
       }
       if(ids2d.length){
         obj.ids = ids2d;  // scope ids cloned without Circular Reference at remake_trees
       }
-      self.make_scopes(useScope, trees_child, scopes, ids2d, j);
+      self.make_scopes(useScope, trees_lower, scopes, ids2d, j);
     }
   };
   if(trees && trees.length){
