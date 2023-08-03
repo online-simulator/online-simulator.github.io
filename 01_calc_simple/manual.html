@@ -308,6 +308,10 @@ e^(-i(1pi(){2/2i}(5-{3-1}){i/(-4)}))
 <br>
 　　・<a href="#span-out-prec-ope-relational">関係演算子</a>
 <br>
+　　・<a href="#span-out-prec-ope-logical-not">論理NOT演算子</a>
+<br>
+　　・<a href="#span-out-prec-ope-logical-xor">論理XOR演算子</a>
+<br>
 　　・<a href="#span-out-prec-ope-logical">論理演算子</a>
 <br>
 　　・<a href="#span-out-prec-ope-logical-short-circuit">論理演算子（短絡評価）</a>
@@ -1644,7 +1648,7 @@ title/発行元(発行年)を列挙する
 <br>
 　通常の<a href="#span-out-prec-ope-logical">論理演算子</a>の挙動は問題なし（追記のみ）
 <br>
-・<span class="run">Ver.2.168.41</span>以降、<a href="#span-out-prec-ope-logical">論理NOT演算子</a>の仕様変更
+・<span class="run">Ver.2.168.41</span>以降、<a href="#span-out-prec-ope-logical-not">論理NOT演算子</a>の仕様変更
 <br>
 　operandは実数のみ　⇒　AND||OR同様に、<a href="#span-out-com">複素数</a>に拡張
 <br>
@@ -1695,6 +1699,8 @@ title/発行元(発行年)を列挙する
 ・<span class="run">Ver.2.196.46</span>以降、<a href="#span-out-FNc">最上位関数</a>||<a href="#span-out-FN-ope">演算子代替関数</a>||<a href="#span-out-prec-ope-comparison">比較演算子</a>||<a href="#span-out-prec-ope-relational">関係演算子</a>の返値の仕様変更
 <br>
 　0||1　⇒　<a href="#span-out-literal">false||true</a>
+<br>
+　<a href="#span-eqn">strict-mode式変数list</a>への影響なし
     </td>
   </tr>
   <tr>
@@ -9076,11 +9082,13 @@ precedence
 <br>
 　・<a href="#span-out-type-ope">前置単項演算子</a>
 <br>
-　　・論理NOT演算子 ~~　<span class="run">Ver.2.81.32</span>以降、追加
+　　・<a href="#span-out-prec-ope-logical-not">論理NOT演算子</a> ~~　<span class="run">Ver.2.81.32</span>以降、追加
 <br>
 　・<a href="#span-out-type-ope">中置2項演算子</a>
 <br>
 　　・論理AND演算子 &amp;&amp;
+<br>
+　　・<a href="#span-out-prec-ope-logical-xor">論理XOR演算子</a> @@　<span class="run">Ver.2.168.41</span>以降、追加
 <br>
 　　・論理OR演算子 ||
 <br>
@@ -9635,14 +9643,14 @@ i===false -> 0+O(1e+0)
 <br>
 false&lt;&gt;0 -> 0
 <br>
-・厳密不等価の判定は<a href="#span-out-prec-ope-logical">論理NOT</a>||<a href="#span-out-FN-ope">関数</a>を使用
+・厳密不等価を判定する場合、<a href="#span-out-prec-ope-logical-not">論理NOT演算子</a>||<a href="#span-out-FN-ope">関数</a>を使用
 <br>
 ~~false===0 || ~~(false===0) -> 1+O(1e+0)
 <br>
 sne(false,0) -> 1+O(1e+0)
 <br>
 <br>
-論理ORをbit orで代替する場合、<a href="#span-out-BT">括弧</a>を明示するか<a href="#span-out-FN-ope">関数</a>を使用する
+論理ORをbit orで代替する場合、<a href="#span-out-BT">括弧</a>を明示||<a href="#span-out-FN-ope">関数</a>を使用
 <br>
 ・1==1 || 1==-1
 <br>
@@ -9657,7 +9665,7 @@ sne(false,0) -> 1+O(1e+0)
 1==1||1==-1 || (1==1)||(1==-1) || 1||0 -> 1
 <br>
 <br>
-論理ANDをbit andで代替する場合、<a href="#span-out-BT">括弧</a>を明示するか<a href="#span-out-FN-ope">関数</a>を使用する
+論理ANDをbit andで代替する場合、<a href="#span-out-BT">括弧</a>を明示||<a href="#span-out-FN-ope">関数</a>を使用
 <br>
 ・1==1 &amp;&amp; 1==-1
 <br>
@@ -9724,6 +9732,118 @@ i==0 || real(i)==0 -> 1
 目次
 </a>
 <br>
+論理NOT
+<br>
+演算子
+    </th>
+    <td>
+<span id="span-out-prec-ope-logical-not"></span>
+論理NOT演算子と付随する留意事項について記述する
+<br>
+<br>
+<span class="run">Ver.2.81.32</span>以降、論理NOT演算子を追加
+<br>
+~~0 -> 1
+<br>
+~~1 -> 0
+<br>
+~~-1 -> 0
+<br>
+~~0.1 -> 0
+<br>
+~~-1.3 -> 0
+<br>
+~~-1.6e-1 -> 0
+<br>
+~~epsilon -> 0
+<br>
+・<span class="run">Ver.2.168.41</span>以降、<a href="#span-out-com">複素数</a>に拡張
+<br>
+<del>~~i || ~~0 -> 1</del>
+<br>
+~~i || ~~1 -> 0
+<br>
+~~1+i<del> || ~~1</del> -> 0
+<br>
+~~~0 || ~~(~0) || ~~(-1) -> 0
+<br>
+~~~1 || ~~(~1) || ~~(-2) -> 0
+<br>
+~~~-1 || ~~(~-1) || ~~(0) -> 1
+<br>
+(~~0||~~1) || ((~~0)||(~~1)) -> 1
+<br>
+(~~1||~~1) || ((~~1)||(~~1)) -> 0
+<br>
+~~1&lt;0&amp;&amp;2 || ((~~(1&lt;0))&amp;&amp;2) -> 2
+<br>
+~~1&gt;0&amp;&amp;2 || ((~~(1&gt;0))&amp;&amp;2) -> 0
+<br>
+<br>
+留意事項を列挙する
+<br>
+・<del>operandは実数のみ対応</del><span class="run">Ver.2.168.41</span>以降、<a href="#span-out-com">複素数</a>に拡張
+<br>
+・<span class="run">Ver.2.196.46</span>以降、<a href="#span-out-literal">論理値literal</a>を返す
+    </td>
+  </tr>
+  <tr>
+    <th>
+<a href="#span-index">
+目次
+</a>
+<br>
+論理XOR
+<br>
+演算子
+    </th>
+    <td>
+<span id="span-out-prec-ope-logical-xor"></span>
+論理XOR演算子と付随する留意事項について記述する
+<br>
+<br>
+<span class="run">Ver.2.168.41</span>以降、論理XOR演算子を追加
+<br>
+0@@0 -> 0
+<br>
+0@@1 -> 1
+<br>
+1@@0 -> 1
+<br>
+1@@1 -> 0
+<br>
+0@@false || 0@@0 -> 0
+<br>
+0@@true || 0@@1 -> 1
+<br>
+0@@NaN || 0@@0 -> 0
+<br>
+・<a href="#span-out-com">複素数</a>に拡張
+<br>
+0@@i || 0@@1 -> 1
+<br>
+1@@i || 1@@1 -> 0
+<br>
+i@@0 || 1@@0 -> 1
+<br>
+i@@1 || 1@@1 -> 0
+<br>
+<br>
+留意事項を列挙する
+<br>
+・operandは<a href="#span-out-com">複素数</a>に拡張
+<br>
+・通常の<a href="#span-out-prec-ope-logical">論理演算子</a>と異なり、<a href="#span-out-associativity">2項演算子のassociativity</a>に依存しない
+<br>
+・<span class="run">Ver.2.196.46</span>以降、<a href="#span-out-literal">論理値literal</a>を返す
+    </td>
+  </tr>
+  <tr>
+    <th>
+<a href="#span-index">
+目次
+</a>
+<br>
 論理演算子
     </th>
     <td>
@@ -9772,23 +9892,6 @@ imag(0(1-i)||1(1-i)||2(1-i)||3(1-i)) -> -1
 real(0(1-i)||1(1-i)||2(1-i)||3(1-i)) -> 3
 <br>
 imag(0(1-i)||1(1-i)||2(1-i)||3(1-i)) -> -3
-<br>
-<br>
-<span class="run">Ver.2.168.41</span>以降、論理XOR：<a href="#span-out-com">複素数</a>の<a href="#span-out-num-false">false||true判定値</a>=0||1
-<br>
-0@@false || 0@0 -> 0
-<br>
-0@@true || 0@1 -> 1
-<br>
-0@@NaN || 0@0 -> 0
-<br>
-0@@1 || 0@1 -> 1
-<br>
-0@@i || 0@1 -> 1
-<br>
-1@@i || 1@1 -> 0
-<br>
-i@@1 || 1@1 -> 0
 <br>
 <br>
 論理AND
@@ -9850,45 +9953,6 @@ imag(1(1-i)&amp;&amp;2(1-i)&amp;&amp;3(1-i)&amp;&amp;4(1-i)) -> -1
 1(1-i)&amp;&amp;2(1-i)&amp;&amp;3(1-i)||4(1-i) -> 4-4i
 <br>
 <br>
-論理NOT
-<br>
-~~0 -> 1
-<br>
-~~1 -> 0
-<br>
-~~-1 -> 0
-<br>
-~~0.1 -> 0
-<br>
-~~-1.3 -> 0
-<br>
-~~-1.6e-1 -> 0
-<br>
-~~epsilon -> 0
-<br>
-・<span class="run">Ver.2.168.41</span>以降、<a href="#span-out-com">複素数</a>に拡張
-<br>
-<del>~~i || ~~0 -> 1</del>
-<br>
-~~i || ~~1 -> 0
-<br>
-~~1+i<del> || ~~1</del> -> 0
-<br>
-~~~0 || ~~(~0) || ~~(-1) -> 0
-<br>
-~~~1 || ~~(~1) || ~~(-2) -> 0
-<br>
-~~~-1 || ~~(~-1) || ~~(0) -> 1
-<br>
-(~~0||~~1) || ((~~0)||(~~1)) -> 1
-<br>
-(~~1||~~1) || ((~~1)||(~~1)) -> 0
-<br>
-~~1&lt;0&amp;&amp;2 || ((~~(1&lt;0))&amp;&amp;2) -> 2
-<br>
-~~1&gt;0&amp;&amp;2 || ((~~(1&gt;0))&amp;&amp;2) -> 0
-<br>
-<br>
 論理演算子は最下位の<a href="#span-out-prec-ope">演算子のprecedence</a>で<a href="#span-out-substitution">変数への代入</a>より優先する
 <br>
 clear; x=&lt;a=3; (0||x=&gt;||2,a)  <span class="selection">// (0||0||2,3)</span> -> (2,3)
@@ -9914,11 +9978,6 @@ clear; 0||0=3  <span class="selection">// (0||0)=3</span> -> 3
 clear; i||0=3  <span class="selection">// (i||0)=3</span> -> 3-i
 <br>
 clear; 0||i=3  <span class="selection">// (0||i)=3</span> -> 3-i
-<br>
-<br>
-論理NOT演算子の留意事項を列挙する
-<br>
-・<del>operandは実数のみ対応</del><span class="run">Ver.2.168.41</span>以降、<a href="#span-out-com">複素数</a>に拡張
 <br>
 <br>
 論理AND||OR演算子の留意事項を列挙する
@@ -10343,7 +10402,17 @@ clear; (a=0)|||~~(b=1)&amp;&amp;&amp;(c=2)|||3; a,b,c -> (0,1,2)
 <br>
 論理ORss
 <br>
+・<a href="#span-out-option1">LA既定</a>
+<br>
 0||||1 -> 0
+<br>
+false||||1 -> 1
+<br>
+NaN||||1 -> 1
+<br>
+・<a href="#span-out-option1">RA選択</a>
+<br>
+0||||1 -> 1
 <br>
 false||||1 -> 1
 <br>
@@ -10352,7 +10421,17 @@ NaN||||1 -> 1
 <br>
 論理ANDss
 <br>
+・<a href="#span-out-option1">LA既定</a>
+<br>
 0&amp;&amp;&amp;&amp;1 -> 1
+<br>
+false&amp;&amp;&amp;&amp;1 -> false
+<br>
+NaN&amp;&amp;&amp;&amp;1 -> NaN
+<br>
+・<a href="#span-out-option1">RA選択</a>
+<br>
+0&amp;&amp;&amp;&amp;1 -> 0
 <br>
 false&amp;&amp;&amp;&amp;1 -> false
 <br>
@@ -10796,6 +10875,10 @@ true || TRUE -> true
 ・<a href="#span-out-prec-ope-comparison">比較演算子</a>
 <br>
 ・<a href="#span-out-prec-ope-relational">関係演算子</a>
+<br>
+・<a href="#span-out-prec-ope-logical-not">論理NOT演算子</a>
+<br>
+・<a href="#span-out-prec-ope-logical-xor">論理XOR演算子</a>
 <br>
 <br>
 test caseを列挙する
@@ -11685,9 +11768,9 @@ round_f(=&lt;f,,2) -> (1:0.7+0.71i:i:-0.7+0.71i:-1:-0.7-0.71i:-i:0.7-0.71i)
 <br>
 演算単位のstructureを以降、<a href="#span-in-tree">単位tree構造</a>と呼ぶ
 <br>
-・複素数や整数、文字列等の型は定義しない
+・複素数や整数、文字列等の型は定義しない（必要に応じて変数名で区別する）
 <br>
-・<a href="#span-out-vars-symbol">変数名symbol</a>のみ、呼出し時に内部で判別する
+・<a href="#span-out-vars-symbol">変数名symbol</a>のみ、call時に内部で判別する
 <br>
 ・よって<a href="#span-out-ope">用途</a>をseamlessに切替えて<a href="#span-out-ope">演算量</a>を調整する
 <br>
@@ -12675,7 +12758,7 @@ clear || clear; -> local storage cleared
 <br>
 clear, || clear: -> [MyErr]Invalid clear called
 <br>
-・<a href="#span-out-BT">括弧</a>の中で呼出した場合、error終了
+・<a href="#span-out-BT">括弧</a>の中からcallの場合、error終了
 <br>
 (clear) || {clear} -> [MyErr]Invalid clear called
 <br>
@@ -12693,7 +12776,7 @@ f=&lt;clear -> [MyErr]Invalid clear called
 <br>
 clear
 <br>
-・呼出し時点までの<a href="#span-out-storage">local storage</a>をclearする
+・call時点までの<a href="#span-out-storage">local storage</a>をclearする
 <br>
 x=3; x -> 3
 <br>
@@ -12732,7 +12815,7 @@ ans -> [MyErr]Invalid REv(ans)
 <br>
 store
 <br>
-・呼出し時点までの<a href="#span-out-storage">local storage</a>をlocal <a href="#span-out-storage">buffer</a>に保存する
+・call時点までの<a href="#span-out-storage">local storage</a>をlocal <a href="#span-out-storage">buffer</a>に保存する
 <br>
 ・元objectを新規objectに複製する
 <br>
@@ -12786,7 +12869,7 @@ restore; x -> [MyErr]Invalid REv(x)
 <br>
 stop
 <br>
-・呼出し時点以降の演算を中断する
+・call時点以降、演算を中断する
 <br>
 x=3; 3x; stop; x -> operation stopped
     </td>
@@ -13735,7 +13818,7 @@ eは<a href="#span-out-num">指数表記</a>と区別するため、<a href="#sp
 <br>
 <del>random() || random || rand -> 0.7479324154774045</del>
 <br>
-・本来、<a href="#span-out-FN">関数</a>の呼出し時に<a href="#span-out-BT-empty">空括弧</a>を含めて判別するが、
+・本来、<a href="#span-out-FN">関数</a>call時に<a href="#span-out-BT-empty">空括弧</a>を含めて判別するが、
 <br>
 ・定数の引数<a href="#span-out-BT">括弧</a>の有無と<a href="#span-out-BRmo">記号省略乗算</a>を同時に許容した弊害への対策
 <br>
