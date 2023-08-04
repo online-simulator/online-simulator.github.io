@@ -117,10 +117,10 @@
         $._id("input-t1").value = arguments[1] || "";
         $._id("input-x").value = arguments[2] || "";
         $._id("input-y").value = arguments[3] || "";
-        $._id("input-z").value="ORIGIN{2,yellow,17}";
-        $._id("input-vx").value="";
-        $._id("input-vy").value="";
-        $._id("input-vz").value="";
+        $._id("input-z").value = "ORIGIN{2,yellow,17}";
+        $._id("input-vx").value = "";
+        $._id("input-vy").value = "";
+        $._id("input-vz").value = "";
         $._id("input-N").value = arguments[4] || 10;
         $.set_id("checkbox-axis-t", "checked", ((arguments[5])? "checked": null));
       };
@@ -168,6 +168,7 @@
       $._id("differential2").onclick = function(){setVal("-2", "2", "a=t,a;", "fxy=<x*x*y*y,_Dy(=<{_Dx(=<fxy,1,y)},1,a);24;", 10);$._id("input-z").value+="TITLE{_dx(=<fx,Ndash||1,a,opt_dx0||max(1,abs(x))1e-3(1+i)) stencil_dx=dx0*2^(Ndash-1) error=Order(dx^4~dx^2)};";};
       $._id("calculus1").onclick = function(){setVal("-2(1+i)", "2(1+i)", "b=t,b;", "fx=<x^3,_ix(=<_dx(=<fx,1,x),0,b,10);-b^3;", 10);};
       $._id("calculus2").onclick = function(){setVal("-2(1+i)", "2(1+i)", "b=t,b;", "fx=<x^3,_dx(=<_ix(=<fx,0,x,10),1,b);-b^3;", 10);};
+      $._id("rt2").onclick = function(){setVal("0", "10", "Nexpo=t,Nexpo;", "2;f0=sqrt(2),f0**f0**f0**f0**f0**f0**f0**f0**f0**f0**f0;f(n)=<f0**(n<1|||f(n-1)),f(Nexpo);", 10);};
       $._id("Napier").onclick = function(){setVal("0", "20", "x=t,x;", "e;(1+1/(x||1))**x;_sn(=<1/(n)!,0,x);pi;_sn(=<(-1)**n/(2n+1),0,x)*4;_it(=<e^(-t**2),-x,x,max(100,real(x)*10))**2;", 100);$._id("input-z").value+="::0::::e;::::::limit;::::::series;::::::pi;::::::Leibniz formula;::::::Gaussian integral;";};
       $._id("Maclaurin1").onclick = function(){setVal("-pi", "pi", "x=t,x;", "fx=<sin(x),fx;MaclaurinN=<_sn(=<_dx(=<fx,n,0)x^n/n!,0,N),N=1,MaclaurinN;N=3,MaclaurinN;N=5,MaclaurinN;N=7,MaclaurinN;N=9,MaclaurinN;", 10);};
       $._id("Maclaurin2").onclick = function(){setVal("-(1+i)pi/4", "(1+i)pi/4", "x=t,x;", "fx=<sqrt(2-exp(sin(x)^2*x)/cos(x)),fx;MaclaurinN=<_sn(=<_dx(=<fx,n,0)x^n/n!,0,N),N=1,MaclaurinN;N=3,MaclaurinN;N=5,MaclaurinN;N=7,MaclaurinN;N=9,MaclaurinN;", 10);$._id("input-z").value+="TITLE{***** low accuracy *****};";};
@@ -413,6 +414,7 @@
   <button id="differential2">-dif2</button>
   <button id="calculus1">calculus1</button>
   <button id="calculus2">-cal2</button>
+  <button id="rt2">rt2</button>
 <br>
   <button id="Napier">Napier</button>
   <button id="Maclaurin1">Maclaurin1</button>
