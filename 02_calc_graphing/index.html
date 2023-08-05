@@ -110,6 +110,8 @@
       script += "\n";
       script += "[sw(isLeft)=<isLeft&&&&(left=2)||||(right=3),hasEqn(sw),hasE(sw),sw(false),hasVar(left),hasV(left),hasVar(right),hasV(right),right,sw(true),left,delVar(left),delVar(right),delEqn(sw)];";
       script += "\nclear;\n";
+      script += "fv(A)=<A+B;\nfe(=<A)=<A=>+B;\nB=-1,[B=10,[fv(=<B)=>,B=20,fv(=<B)==>,fe(=<{B})=>,fe(=<{B})==>]];";
+      script += "\nclear;\n";
       $._id("input").value = script;
       // test case
       var setVal = function(){

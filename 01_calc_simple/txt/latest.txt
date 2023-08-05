@@ -1,6 +1,20 @@
 clear
 local storage cleared
 
+B=-1,[B=10,[fv(=<B)=>,B=20,fv(=<B)==>,fe(=<{B})=>,fe(=<{B})==>]]
+(
+0,0,9,0,40,-2,40
+)
+
+fe(=<A)=<A=>+B
+stored_eqn(fe)
+
+fv(A)=<A+B
+stored_eqn(fv)
+
+clear
+local storage cleared
+
 [sw(isLeft)=<isLeft&&&&(left=2)||||(right=3),hasEqn(sw),hasE(sw),sw(false),hasVar(left),hasV(left),hasVar(right),hasV(right),right,sw(true),left,delVar(left),delVar(right),delEqn(sw)]
 (
 0,false,true,0,false,false,false,true,3,0,2,false,false,false
@@ -2106,4 +2120,4 @@ drag=false&sw=false&0x=false&useMatrix=true&useStrict=false&checkError=true&isRi
 --------------------------------
 --------------------------------
 
-online-simulator.github.io.6.267.115.13.59 @ Fri Aug 04 2023 00:56:35 GMT+0900 (日本標準時) @ Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/115.0.0.0 Safari/537.36
+online-simulator.github.io.6.268.116.13.59 @ Sat Aug 05 2023 14:15:43 GMT+0900 (日本標準時) @ Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/115.0.0.0 Safari/537.36

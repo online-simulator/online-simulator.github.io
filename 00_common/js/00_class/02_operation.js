@@ -2825,21 +2825,22 @@ My_entry.operation.prototype.store_arr = function(_arr, ref, arr){
   /* -> Ver.2.78.31 */
   return _arr;
 };
-My_entry.operation.prototype.tree_eqn2tree = function(data, tree){
+My_entry.operation.prototype.tree_eqn2tree = function(data, tree, isREe){  // Ver.2.202.46
   var self = this;
   var ids = data.ids;
   var DATA = self.entry.DATA;
   var newData = self.get_newData(data, DATA.tree2trees(tree), ids);  // Ver.2.31.17
-  var trees = self.remake_trees(newData, true);  // Ver.2.160.38
+  var trees = self.remake_trees(newData, !(isREe));  // Ver.2.160.38  // Ver.2.202.46
   var _tree = DATA.trees2tree(trees);
   return _tree;
 };
+/* Ver.2.202.46 arguments arranged */
 /* Ver.2.193.45 isLocked_eqns deleted */
 /* Ver.2.32.17 clear; add(A,=<B)=<[A+B=>],A=(,:,),B=<(,:,),add[0](=<A,=<B) */
 /* Ver.2.20.8 */
-My_entry.operation.prototype.tree_eqn2tree_AtREe = function(data, tree, name, opt_ids){
+My_entry.operation.prototype.tree_eqn2tree_AtREe = function(data, tree){
   var self = this;
-  var _tree = self.tree_eqn2tree(data, tree);
+  var _tree = self.tree_eqn2tree(data, tree, true);
   return _tree;
 };
 My_entry.operation.prototype.tree2tree_ref = function(tree, ref){
@@ -2882,7 +2883,7 @@ My_entry.operation.prototype.REv = function(data, i0, tagName, tagObj){
         /* Ver.2.20.8 -> */
         var isREe = tree[self.config.BT.REe];
         if(isREe){
-          tree = (isREe.arg)? self.REe(data, i0+2, tagName, tagObj): self.tree_eqn2tree_AtREe(data, tree, name, ids);  // Ver.2.32.17
+          tree = (isREe.arg)? self.REe(data, i0+2, tagName, tagObj): self.tree_eqn2tree_AtREe(data, tree);  // Ver.2.32.17  // Ver.2.202.46
           if(isREe.arg && tree){
             ie = i0+1;
           }
@@ -3276,7 +3277,7 @@ My_entry.operation.prototype.REe = function(data, i0, tagName, tagObj){
           var isSEe = argi[BT.SEe];
           if(isSEe){
             var tree_eqn_call = self.tree_SEe2REe(argi);
-            tree = self.tree_eqn2tree(data, tree_eqn_call);  // called equation's ids
+            tree = self.tree_eqn2tree_AtREe(data, tree_eqn_call);  // Ver.2.202.46
             if(!(tree && tree.mat)){
               throw "Undef args.var||eqn("+name+")";
             }
@@ -3320,7 +3321,7 @@ My_entry.operation.prototype.REe = function(data, i0, tagName, tagObj){
   }
   if(tree_eqn){
     var isREe = tree_eqn[BT.REe];  // Ver.2.200.46
-    _tree = (isREe)? self.tree_eqn2tree_AtREe(data, tree_eqn, name_eqn, ids): tree_eqn;  // Ver.2.20.8  // Ver.2.32.17
+    _tree = (isREe)? self.tree_eqn2tree_AtREe(data, tree_eqn): tree_eqn;  // Ver.2.20.8  // Ver.2.32.17  // Ver.2.202.46
     if(hasArgs){
       for(var name in buffer_vars){
         if(name){  // check undefined
