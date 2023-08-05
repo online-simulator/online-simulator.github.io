@@ -1710,7 +1710,7 @@ title/発行元(発行年)を列挙する
 <br>
 　読出し値が残る唯一の仕様　⇒　読出し値が残る仕様を撤廃
 <br>
-　影響項目：<a href="#span-out-plot2d-command-from-arr">plot2d-from-arr</a>||<a href="#span-eqn-plot2d_circle">plot2d_circle</a>||<a href="#span-out-special-substitution">代入処理</a>
+　影響項目：<a href="#span-out-config-strict">strict-mode</a>||<a href="#span-out-plot2d-command-from-arr">plot2d-from-arr</a>||<a href="#span-eqn-plot2d_circle">plot2d_circle</a>||<a href="#span-out-eqns-call">式読出し</a>||<a href="#span-out-special-substitution">代入処理</a>
     </td>
   </tr>
   <tr>
@@ -11365,11 +11365,13 @@ clear; times(a,b)=&lt;a<span class="condition">*</span>b; times=2; times(-2,3)<s
 <br>
 clear; times(a,b)=&lt;a<span class="condition">*</span>b; times=2; times(-2,3) -> (-4,6)
 <br>
-clear; times(a,b)=&lt;a<span class="condition">*</span>b; times=2; times(-2,3)<span class="clear">=&gt;</span>times; times -> -6
+・<span class="clear">Ver.2.203.46</span>以降、<a href="#span-out-eqns-call2var">変数への式読出し</a>の仕様を廃止して<a href="#span-out-eqns-call2eqn">式変数への式読出し</a>を追加
+<br>
+clear; times(a,b)=&lt;a<span class="condition">*</span>b; times=2; times(-2,3)<span class="clear">=&gt;</span>times; times -> <del>-6</del>2
 <br>
 clear; times(a,b)=&lt;a<span class="condition">*</span>b; times=2; times(-2,3)<span class="clear">=&gt;</span>(times) -> -12
 <br>
-clear; times(a,b)=&lt;a<span class="condition">*</span>b; <span class="selection">a=2; b=3; times</span> -> [MyErr]Invalid REv(times)
+clear; times(a,b)=&lt;a<span class="condition">*</span>b; <span class="selection">a=2; b=3; times</span> -> <del>[MyErr]Invalid REv(times)</del>[MyErr]Invalid null=&gt;
 <br>
 clear; times(a,b)=&lt;a<span class="condition">*</span>b; <span class="selection">a=2; b=3; times<span class="clear">=&gt;</span></span> -> 6
 <br>
@@ -11396,7 +11398,9 @@ clear; times(a,b)=&lt;a<span class="condition">*</span>b; times=2; times(-2,3)<s
 <br>
 clear; times(a,b)=&lt;a<span class="condition">*</span>b; times=2; times(-2,3) -> [MyErr]Invalid ans isFound
 <br>
-clear; times(a,b)=&lt;a<span class="condition">*</span>b; times=2; times(-2,3)<span class="clear">=&gt;</span>times; times -> -6
+・<span class="clear">Ver.2.203.46</span>以降、<a href="#span-out-eqns-call2var">変数への式読出し</a>の仕様を廃止して<a href="#span-out-eqns-call2eqn">式変数への式読出し</a>を追加
+<br>
+clear; times(a,b)=&lt;a<span class="condition">*</span>b; times=2; times(-2,3)<span class="clear">=&gt;</span>times; times -> <del>-6</del>2
 <br>
 clear; times(a,b)=&lt;a<span class="condition">*</span>b; times=2; times(-2,3)<span class="clear">=&gt;</span>(times) -> [MyErr]Invalid ans isFound
 <br>
