@@ -2835,7 +2835,7 @@ My_entry.operation.prototype.tree_eqn2tree = function(data, tree, isREe){  // Ve
   return _tree;
 };
 /* Ver.2.202.46 arguments arranged */
-/* Ver.2.193.45 isLocked_eqns deleted */
+/* Ver.2.194.45 isLocked_eqns deleted */
 /* Ver.2.32.17 clear; add(A,=<B)=<[A+B=>],A=(,:,),B=<(,:,),add[0](=<A,=<B) */
 /* Ver.2.20.8 */
 My_entry.operation.prototype.tree_eqn2tree_AtREe = function(data, tree){
