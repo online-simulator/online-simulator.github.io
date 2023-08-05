@@ -20408,7 +20408,11 @@ y=-1; y=&lt;a*x+b; a=1; b=2; x=3; 2(y=&gt;) -> 10
 <br>
 y=3; y=&lt;3y-1; 2y -> 6
 <br>
-y=3; y=&lt;3y-1; y=&gt;y; 2y -> 16
+・<span class="clear">Ver.2.203.46</span>以降、<a href="#span-out-eqns-call2var">変数への式読出し</a>の仕様を廃止して<a href="#span-out-eqns-call2eqn">式変数への式読出し</a>を追加
+<br>
+<del>y=3; y=&lt;3y-1; y=&gt;y; 2y -> 16</del>
+<br>
+y=3; y=&lt;3y-1; y=&gt;y; 2y -> 6
 <br>
 <br>
 式変数名で明示して直接読出す方法もあり得る
@@ -20508,7 +20512,7 @@ y=&lt;a*x+b; a=1; b=2; x=3; y=&gt;y0; y0 -> 5
 <br>
 y0=3; y=&lt;3y0-1; y=&gt;y1; 2y1 -> 16
 <br>
-・<a href="#span-out-substitution">変数への代入</a>同様に、0を返す
+・<a href="#span-out-substitution">変数への代入</a>||<a href="#span-out-FNmh-EX">symbolic高階行列関数</a>同様に、0を返す
 <br>
 clear; a=&lt;1; a=&gt;b -> 0
 <br>
