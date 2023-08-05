@@ -3363,7 +3363,12 @@ My_entry.operation.prototype.REe = function(data, i0, tagName, tagObj){
       }
       /* a(a)=<(a,2:3,4); a[0][0](-1)=>b; b */
       if(name_var){
-        self.store_var(name_var, _tree, scopes, ids);  // Ver.2.31.17
+        /* Ver.2.203.46 -> */
+        var tree_var = (_tree[BT.REe])? self.tree_REe2SEe(_tree): self.inherit_ids_AtSEe(DATA.tree2trees(_tree), ids);
+        self.store_eqn(name_var, tree_var, scopes, ids);
+//        _tree = DATA.tree_tag("out", "stored_eqn("+name_var+")");
+        _tree = DATA.tree_num(0, 0);
+        /* -> Ver.2.203.46 */
       }
       self.feedback2trees(data, is, ie, _tree);
     }

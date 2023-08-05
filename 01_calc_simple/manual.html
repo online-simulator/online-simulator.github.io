@@ -538,6 +538,8 @@ e^(-i(1pi(){2/2i}(5-{3-1}){i/(-4)}))
 <br>
 　　　・<a href="#span-out-eqns-call2var">変数への式読出し</a>
 <br>
+　　　・<a href="#span-out-eqns-call2eqn">式変数への式読出し</a>
+<br>
 　　・<a href="#span-out-call-by-equation">式渡し</a>
 <br>
 　　・<a href="#span-out-substitution-equation">式変数への式代入</a>
@@ -1703,6 +1705,12 @@ title/発行元(発行年)を列挙する
 　0||1　⇒　<a href="#span-out-literal">false||true</a>
 <br>
 　<a href="#span-eqn">strict-mode式変数list</a>への影響なし
+<br>
+・<span class="clear">Ver.2.203.46</span>以降、<a href="#span-out-eqns-call2var">変数への式読出し</a>の仕様を廃止して<a href="#span-out-eqns-call2eqn">式変数への式読出し</a>を追加
+<br>
+　読出し値が残る唯一の仕様　⇒　読出し値が残る仕様を撤廃
+<br>
+　影響項目：<a href="#span-out-plot2d-command-from-arr">plot2d-from-arr</a>||<a href="#span-eqn-plot2d_circle">plot2d_circle</a>||<a href="#span-out-special-substitution">代入処理</a>
     </td>
   </tr>
   <tr>
@@ -12243,7 +12251,11 @@ N=10;
 <br>
 init=&lt;last{xt=vectorc(N+1),yt=vectorc(N+1)};
 <br>
-stepn=&lt;last{xt[n]=cos(tn=&gt;tn),yt[n]=sin(tn)};
+・<span class="clear">Ver.2.203.46</span>以降、<a href="#span-out-eqns-call2var">変数への式読出し</a>の仕様廃止
+<br>
+<del>stepn=&lt;last{xt[n]=cos(tn=&gt;tn),yt[n]=sin(tn)};</del>
+<br>
+stepn=&lt;last{tn=tn=&gt;,xt[n]=cos(tn),yt[n]=sin(tn)};
 <br>
 /*evolutionN=&lt;_sn(=&lt;{stepn=&gt;},0,N);*/
 <br>
@@ -12362,7 +12374,11 @@ M=3;
 <br>
 init=&lt;last{xt=zeros(N+1,M+1),yt=zeros(N+1,M+1)};
 <br>
-stepnm=&lt;last{xt[n][m]=cos(tn=&gt;tn)*m,yt[n][m]=sin(tn)*m};
+・<span class="clear">Ver.2.203.46</span>以降、<a href="#span-out-eqns-call2var">変数への式読出し</a>の仕様廃止
+<br>
+<del>stepnm=&lt;last{,xt[n][m]=cos(tn=&gt;tn)*m,yt[n][m]=sin(tn)*m};</del>
+<br>
+stepnm=&lt;last{tn=tn=&gt;,xt[n][m]=cos(tn)*m,yt[n][m]=sin(tn)*m};
 <br>
 casesM=&lt;_sm(=&lt;stepnm,0,M);
 <br>
@@ -20419,10 +20435,16 @@ clear; eqn_x=&lt;(a*x+b=0); a=1; b=2; x=3; 2eqn_x || 2*(-5) -> -10
 <span id="span-out-eqns-call2var"></span>
 変数への式読出しの入力仕様と付随する留意事項について記述する
 <br>
-・<a href="#span-out-substitution">変数への代入</a>と冗長なため、本仕様は廃止の可能性がある
+・本仕様は以下の理由から廃止の可能性がある
+<br>
+　<a href="#span-out-substitution">変数への代入</a>と冗長
+<br>
+　多重代入不可のため、読出し値が残る唯一の仕様は無駄仕様
+<br>
+・<span class="clear">Ver.2.203.46</span>以降、本仕様を廃止して<a href="#span-out-eqns-call2eqn">式変数への式読出し</a>を追加
 <br>
 <br>
-式変数から<a href="#span-out-vars">変数</a>に値代入する方法は、式変数名=&gt;変数名とする
+<del>式変数から<a href="#span-out-vars">変数</a>に値代入する方法は、式変数名=&gt;変数名とする
 <br>
 y=&lt;a*x+b; y=&gt;y0 -> [MyErr]Invalid binary operation
 <br>
@@ -20454,7 +20476,63 @@ clear; [a=1,b=2,last{v=&lt;{a,b},v=&gt;v},a=-1,b=-2,=&lt;v=&gt;]=&gt; -> (-1:-2)
 <br>
 clear; [a=1,b=2,v=&lt;{a,b},v=v=&gt;v,a=-1,b=-2,=&lt;v]=&gt; -> (1:2)
 <br>
-clear; [a=1,b=2,v=&lt;{a,b},v=v=&gt;v,a=-1,b=-2,=&lt;v=&gt;]=&gt; -> (-1:-2)
+clear; [a=1,b=2,v=&lt;{a,b},v=v=&gt;v,a=-1,b=-2,=&lt;v=&gt;]=&gt; -> (-1:-2)</del>
+    </td>
+  </tr>
+  <tr>
+    <th>
+<a href="#span-index">
+目次
+</a>
+<br>
+式変数への
+<br>
+式読出し
+<br>
+入力仕様
+    </th>
+    <td>
+<span id="span-out-eqns-call2eqn"></span>
+式変数への式読出しの入力仕様と付随する留意事項について記述する
+<br>
+・<span class="clear">Ver.2.203.46</span>以降、<a href="#span-out-eqns-call2var">変数への式読出し</a>の仕様を廃止して追加
+<br>
+・式読出し（式の授受）の仕様を検討中
+<br>
+<br>
+式変数のcall結果を<a href="#span-out-eqns">式変数</a>に渡す方法は、式変数名=&gt;式変数名とする
+<br>
+y=&lt;a*x+b; y=&gt;y0 -> [MyErr]Invalid binary operation
+<br>
+y=&lt;a*x+b; a=1; b=2; x=3; y=&gt;y0; y0 -> 5
+<br>
+y0=3; y=&lt;3y0-1; y=&gt;y1; 2y1 -> 16
+<br>
+・<a href="#span-out-substitution">変数への代入</a>同様に、0を返す
+<br>
+clear; a=&lt;1; a=&gt;b -> 0
+<br>
+clear; a=&lt;1; a==&gt;b -> 0
+<br>
+clear; a=&lt;1; a==&gt;b; b -> 1
+<br>
+clear; [v=&lt;{1,2},v=v=&gt;v,=&lt;v]=&gt; -> 0
+<br>
+clear; [v=&lt;(1,2),v=&gt;v,=&lt;v]=&gt; -> (1,2)
+<br>
+clear; [v=&lt;{1,2},v=&gt;v,=&lt;v]=&gt; -> (1:2)
+<br>
+・以降、undetermined
+<br>
+clear; [a=1,b=2,last{v=&lt;{a,b},v=&gt;v},a=-1,b=-2,=&lt;v]=&gt; -> (1:2)
+<br>
+clear; [a=1,b=2,last{v=&lt;{a,b},v=&gt;v},a=-1,b=-2,=&lt;v=&gt;]=&gt; -> (1:2)
+<br>
+clear; [a=1,b=2,last{v=&lt;{a,b},v=&gt;v0},a=-1,b=-2,=&lt;v=&gt;]=&gt; -> (-1:-2)
+<br>
+clear; [a=1,b=2,v=&lt;{a,b},v=v=&gt;v,a=-1,b=-2,=&lt;v]=&gt; -> 0
+<br>
+clear; [a=1,b=2,v=&lt;{a,b},v=v=&gt;v,a=-1,b=-2,=&lt;v=&gt;]=&gt; -> (1:2)
     </td>
   </tr>
   <tr>
@@ -34594,9 +34672,15 @@ vector={1,2,3}:trans(vector)vector -> (0:14)
 <br>
 (x=&lt;(a,b,c,d,e)) -> 0
 <br>
-・<a href="#span-out-eqns-call2var">変数への式読出し</a>は読出し値が残る
+・<span class="clear">Ver.2.203.46</span>以降、<a href="#span-out-eqns-call2eqn">式変数への式読出し</a>も同様
 <br>
-clear; y=&lt;3x-1,x=3,y=&gt;,y=&gt;y0,y0 -> (0,0,8,8,8)
+clear; vec(x)=&lt;(x,2*x),vec(1)=&gt;v,v=&gt; -> (0,0,1,2)
+<br>
+・<span class="clear">Ver.2.203.46</span>以降、<a href="#span-out-eqns-call2var">変数への式読出し</a>の仕様廃止
+<br>
+<del>・<a href="#span-out-eqns-call2var">変数への式読出し</a>は読出し値が残る
+<br>
+clear; y=&lt;3x-1,x=3,y=&gt;,y=&gt;y0,y0 -> (0,0,8,8,8)</del>
     </td>
   </tr>
 </tbody>
@@ -36556,7 +36640,7 @@ _circle
     </th>
     <td>
 <span id="span-eqn-plot2d_circle"></span>
-<a href="#span-out-plot2d-command">plot2d-command</a>参照
+<a href="#span-out-plot2d-command-from-arr">plot2d-from-arr</a>参照
 <br>
 clear;
 <br>
@@ -36577,7 +36661,7 @@ xt=zeros(N+1,M+1),yt=zeros(N+1,M+1)
 <div class="run">
 run=&lt;last{
 <br>
-stepnm=&lt;last{xt[n][m]=cos(tn=&gt;tn)*m,yt[n][m]=sin(tn)*m},
+stepnm=&lt;last{tn=tn=&gt;,xt[n][m]=cos(tn)*m,yt[n][m]=sin(tn)*m},
 <br>
 casesM=&lt;_sm(=&lt;stepnm,0,M),
 <br>
@@ -36606,7 +36690,7 @@ _evolution
     </th>
     <td>
 <span id="span-eqn-plot2d_evolution"></span>
-<a href="#span-out-plot2d-command">plot2d-command</a>参照
+<a href="#span-out-plot2d-command-from-arr">plot2d-from-arr</a>参照
 <br>
 clear;
 <br>

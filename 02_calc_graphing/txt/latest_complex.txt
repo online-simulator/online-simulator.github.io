@@ -803,7 +803,7 @@ plot2d_circle(0,2*pi,10,3)=>
 0,1,2,3,0,-2.4492935982947064e-16,-4.898587196589413e-16,-7.347880794884119e-16
 )
 
-plot2d_circle(t0,t1,N,M)=<[out=<(xt,yt),scope2storage=<last{addVar(xt),addVar(yt)},init=<last{tn=<t0+(t1-t0)*n/N,xt=zeros(N+1,M+1),yt=zeros(N+1,M+1)},run=<last{stepnm=<last{xt[n][m]=cos(tn=>tn)*m,yt[n][m]=sin(tn)*m},casesM=<_sm(=<stepnm,0,M),evolutionN=<_sn(=<casesM,0,N),evolutionN=>},init=>,run=>,return=out=>,scope2storage=>,=<return]=>
+plot2d_circle(t0,t1,N,M)=<[out=<(xt,yt),scope2storage=<last{addVar(xt),addVar(yt)},init=<last{tn=<t0+(t1-t0)*n/N,xt=zeros(N+1,M+1),yt=zeros(N+1,M+1)},run=<last{stepnm=<last{tn=tn=>,xt[n][m]=cos(tn)*m,yt[n][m]=sin(tn)*m},casesM=<_sm(=<stepnm,0,M),evolutionN=<_sn(=<casesM,0,N),evolutionN=>},init=>,run=>,return=out=>,scope2storage=>,=<return]=>
 stored_eqn(plot2d_circle)
 
 clear
@@ -1155,7 +1155,7 @@ clear
 local storage cleared
 
 [Pinv_y=(-0.999999427,-0.999936657,-0.997300203,-0.954499736,-0.682689492,0,0.682689492,0.954499736,0.997300203,0.999936657,0.999999427:-5,-4,-3,-2,-1,0,1,2,3,4,5),N=1,arr=[],_rn(=<arr=(arr:rand_table(=<Pinv_y)=>),,N),=<arr]=>
--0.28494755312311093
+2.965183797182918
 
 rand_table(csv)=<last[table=sort0(csv),ymin=min(table)[0],ymax=max(table)[0],y=ymin+(ymax-ymin)*rand,x=interp(y:table),x]
 stored_eqn(rand_table)
@@ -1252,4 +1252,4 @@ center=true&drag=false&test-case=false&legend=true&axis-t=false&axis-x=true&log-
 --------------------------------
 --------------------------------
 
-online-simulator.github.io.6.268.116.13.59 @ Sat Aug 05 2023 13:08:17 GMT+0900 (日本標準時) @ Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/115.0.0.0 Safari/537.36
+online-simulator.github.io.6.269.116.13.59 @ Sat Aug 05 2023 18:12:05 GMT+0900 (日本標準時) @ Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/115.0.0.0 Safari/537.36
