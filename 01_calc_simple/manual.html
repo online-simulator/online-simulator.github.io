@@ -20505,16 +20505,42 @@ clear; [a=1,b=2,v=&lt;{a,b},v=v=&gt;v,a=-1,b=-2,=&lt;v=&gt;]=&gt; -> (-1:-2)</de
 <br>
 ・<span class="clear">Ver.2.203.46</span>以降、<a href="#span-out-eqns-call2var">変数への式読出し</a>の仕様を廃止して追加
 <br>
-・式読出し（式の授受）の仕様を検討中
+・<span class="run">Ver.2.204.46</span>以降、式読出しの仕様を仮fix（現状、<a href="#span-out-eqns-no-name">無名call</a>は非対応）
 <br>
 <br>
-式変数のcall結果を<a href="#span-out-eqns">式変数</a>に渡す方法は、式変数名=&gt;式変数名とする
+式変数の複製方法は、式変数名=&gt;式変数名とする
 <br>
-y=&lt;a*x+b; y=&gt;y0 -> [MyErr]Invalid binary operation
+clear; g=&lt;x; g=&gt;f; x=1; f=&gt; -> 1
 <br>
-y=&lt;a*x+b; a=1; b=2; x=3; y=&gt;y0; y0 -> 5
+clear; g=&lt;x; g=&gt;f; x=1; f=f=&gt;; f,g=&gt;,f=&gt; -> (1,1,1)
 <br>
-y0=3; y=&lt;3y0-1; y=&gt;y1; 2y1 -> 16
+clear; g=&lt;x; g=&gt;f; x=1; f=f=&gt;; x=2; f,g=&gt;,f=&gt; -> (1,2,2)
+<br>
+clear; g(x)=&lt;x; g=&gt;f; f(3)=&gt; -> 3
+<br>
+・<a href="#span-out-call-by-equation">式渡しの直接式読出し</a>
+<br>
+clear; make_f(sw)=<[sw&amp;&amp;&amp;(f(x)=&lt;-x)||||(f(x)=&lt;x),=&lt;f]=&gt;f,make_f(false)=&gt;,f(1)=&gt; -> (0,0,1)
+<br>
+clear; (x=-1,g=&lt;x,=&lt;g)=&gt; -> -1
+<br>
+clear; (x=-1,g=&lt;x,=&lt;g)=&gt;f; x=1; f=&gt; -> 1
+<br>
+clear; [x=-1,g=&lt;x,=&lt;g]=&gt;f; x=1; f=&gt; -> -1
+<br>
+clear; [x=-1,g=&lt;x,=&lt;g]=&gt;f; x=1; f==&gt; -> 1
+<br>
+clear; [x=-1,g=&lt;x,=&lt;g]==&gt;f; x=1; f=&gt; -> 1
+<br>
+clear; (a=-1,g(x)=&lt;a*x,=&lt;g)=&gt; -> [MyErr]Invalid null=>
+<br>
+clear; (a=-1,g(x)=&lt;a*x,=&lt;g)=&gt;f; a=1; f(3)=&gt; -> 3
+<br>
+clear; [a=-1,g(x)=&lt;a*x,=&lt;g]=&gt;f; a=1; f(3)=&gt; -> -3
+<br>
+clear; [a=-1,g(x)=&lt;a*x,=&lt;g]=&gt;f; a=1; f(3)==&gt; -> 3
+<br>
+clear; [a=-1,g(x)=&lt;a*x,=&lt;g]==&gt;f; a=1; f(3)=&gt; -> 3
 <br>
 ・<a href="#span-out-substitution">変数への代入</a>||<a href="#span-out-FNmh-EX">symbolic高階行列関数</a>同様に、0を返す
 <br>
@@ -20522,25 +20548,26 @@ clear; a=&lt;1; a=&gt;b -> 0
 <br>
 clear; a=&lt;1; a==&gt;b -> 0
 <br>
-clear; a=&lt;1; a==&gt;b; b -> 1
-<br>
 clear; [v=&lt;{1,2},v=v=&gt;v,=&lt;v]=&gt; -> 0
+<br>
+<br>
+test caseを列挙する
 <br>
 clear; [v=&lt;(1,2),v=&gt;v,=&lt;v]=&gt; -> (1,2)
 <br>
 clear; [v=&lt;{1,2},v=&gt;v,=&lt;v]=&gt; -> (1:2)
 <br>
-・以降、undetermined
+clear; [a=1,b=2,last{v=&lt;{a,b},v=&gt;v},a=-1,b=-2,=&lt;v]=&gt; -> (-1:-2)
 <br>
-clear; [a=1,b=2,last{v=&lt;{a,b},v=&gt;v},a=-1,b=-2,=&lt;v]=&gt; -> (1:2)
+clear; [a=1,b=2,last{v=&lt;{a,b},v=&gt;v},v=v=&gt;,a=-1,b=-2,=&lt;v]=&gt; -> (1:2)
 <br>
-clear; [a=1,b=2,last{v=&lt;{a,b},v=&gt;v},a=-1,b=-2,=&lt;v=&gt;]=&gt; -> (1:2)
+clear; [a=1,b=2,last{v=&lt;{a,b},v=&gt;v},a=-1,b=-2,=&lt;v=&gt;]=&gt; -> (-1:-2)
 <br>
 clear; [a=1,b=2,last{v=&lt;{a,b},v=&gt;v0},a=-1,b=-2,=&lt;v=&gt;]=&gt; -> (-1:-2)
 <br>
 clear; [a=1,b=2,v=&lt;{a,b},v=v=&gt;v,a=-1,b=-2,=&lt;v]=&gt; -> 0
 <br>
-clear; [a=1,b=2,v=&lt;{a,b},v=v=&gt;v,a=-1,b=-2,=&lt;v=&gt;]=&gt; -> (1:2)
+clear; [a=1,b=2,v=&lt;{a,b},v=v=&gt;v,a=-1,b=-2,=&lt;v=&gt;]=&gt; -> (-1:-2)
     </td>
   </tr>
   <tr>

@@ -114,6 +114,8 @@
       script += "\nclear;\n";
       script += "vec(x)=<(x,2*x),vec(1)=>v,v=>;\n[v=<{1,2},v=>v,=<v]=>,[v=<{1,2},v={3,4},v=>v,=<v]=>,[v=<{1,2},v={3,4},v=>v,=<v=>]=>;";
       script += "\nclear;\n";
+      script += "[x=1,x=<x,=<x=>]=>;\n[[f(x)=<x,f=>f,=<f]=>f,f(3)=>];\n[g=<x,x=1,g=>f,f=(g=>),f,g=>,f=>,x=2,f,g=>,f=>];\nmake_g(a0)=<[a=a0,f(x)=<[(x)=<a*x](x)=>,=<f]=>g;\na=1,make_g(-a)=>:g=>f,f(1)=>,f(1)==>:g==>f,f(1)=>,f(1)==>:a=2,make_g(-a)=>:g=>f,f(1)=>,f(1)==>:g==>f,f(1)=>,f(1)==>;\n[a=1,make_g(-a)=>:g=>f,f(1)=>,f(1)==>:g==>f,f(1)=>,f(1)==>:a=2,make_g(-a)=>:g=>f,f(1)=>,f(1)==>:g==>f,f(1)=>,f(1)==>];\ng=<x,x=1,g=>f,g=>,f=>,x=2,g=>,f=>;\n[x=1,g(x)=<x,[x=2,g(x)=>f,f=>,g=>f,f(3)=>,[=<g]=>f,f(4)=>]];\nmake_f(hasMinus)=<[hasMinus&&&(f(x)=<-x)||||(f(x)=<x),=<f]=>f,make_f(false),f(1)=>;\n[[a=1,b=2,f(x)=<a*x+b,f=>g,g=>h,[x=3,=<h(x)=>]=>g,=<g]=>f,f=>];";
+      script += "\nclear;\n";
       $._id("input").value = script;
       // test case
       var setVal = function(){
