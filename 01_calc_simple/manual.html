@@ -20536,13 +20536,23 @@ clear; g(x)=&lt;x; g=&gt;f; f(3)=&gt; -> 3
 <br>
 ・call結果の式読出し
 <br>
+clear; g(x)=&lt;x; g(3)=&gt; -> 3
+<br>
 clear; g(x)=&lt;x; g(3)=&gt;f; f=&gt; -> 3
+<br>
+clear; [(x)=&lt;x](3)=&gt; -> 3
 <br>
 clear; [(x)=&lt;x](3)=&gt;f; f=&gt; -> 3
 <br>
 ・<a href="#span-out-call-by-equation">式渡しの直接式読出し</a>（<a href="#span-out-eqns-no-name">無名call</a>はcall結果が解決済みの前提で非対応）
 <br>
-clear; make_f(sw)=<[sw&amp;&amp;&amp;(f(x)=&lt;-x)||||(f(x)=&lt;x),=&lt;f]=&gt;f,make_f(false)=&gt;,f(1)=&gt; -> (0,0,1)
+clear; [f(x)=&lt;x,=&lt;f]=&gt; -> [MyErr]Invalid null=&gt;
+<br>
+clear; [f(x)=&lt;x,=&lt;f]=&gt;f; f(3)=&gt; -> 3
+<br>
+clear; make_f(hasMinus)=<[hasMinus&amp;&amp;&amp;(f(x)=&lt;-x)||||(f(x)=&lt;x),=&lt;f]=&gt;f;
+<br>
+make_f(false)=&gt;,f(1)=&gt;,make_f(true)=&gt;,f(1)=&gt; -> (0,0,1,0,-1)
 <br>
 clear; (x=-1,g=&lt;x,=&lt;g)=&gt; -> -1
 <br>

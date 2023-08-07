@@ -6,9 +6,9 @@ local storage cleared
 0,5
 )
 
-make_f(hasMinus)=<[hasMinus&&&(f(x)=<-x)||||(f(x)=<x),=<f]=>f,make_f(false),f(1)=>
+make_f(hasMinus)=<[hasMinus&&&(f(x)=<-x)||||(f(x)=<x),=<f]=>f,make_f(false),f(1)=>,make_f(true),f(1)=>
 (
-0,0,1
+0,0,1,0,-1
 )
 
 [x=1,g(x)=<x,[x=2,g(x)=>f,f=>,g=>f,f(3)=>,[=<g]=>f,f(4)=>]]
@@ -19,6 +19,20 @@ make_f(hasMinus)=<[hasMinus&&&(f(x)=<-x)||||(f(x)=<x),=<f]=>f,make_f(false),f(1)
 g=<x,x=1,g=>f,g=>,f=>,x=2,g=>,f=>
 (
 0,0,0,1,1,0,2,2
+)
+
+a=1,[a=2,[a=3,make_g(-a)=>,g=>f,=<f]==>f,=<f]==>f:f(1)=>,f(1)==>:g(1)=>,g(1)==>
+(
+0,0:
+1,1:
+-3,1
+)
+
+a=1,[a=2,[a=3,make_g(-a)=>,g=>f,=<f]==>f,=<f]=>f:f(1)=>,f(1)==>:g(1)=>,g(1)==>
+(
+0,0:
+2,1:
+-3,1
 )
 
 a=1,[[make_g(-a)=>,g=>f,=<f]=>f,=<f]=>f:f(1)=>,f(1)==>:g(1)=>,g(1)==>
@@ -2200,4 +2214,4 @@ drag=false&sw=false&0x=false&useMatrix=true&useStrict=false&checkError=true&isRi
 --------------------------------
 --------------------------------
 
-online-simulator.github.io.6.270.117.13.59 @ Mon Aug 07 2023 16:06:20 GMT+0900 (日本標準時) @ Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/115.0.0.0 Safari/537.36
+online-simulator.github.io.6.270.118.13.59 @ Mon Aug 07 2023 20:25:38 GMT+0900 (日本標準時) @ Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/115.0.0.0 Safari/537.36
