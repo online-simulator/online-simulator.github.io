@@ -20505,7 +20505,7 @@ clear; [a=1,b=2,v=&lt;{a,b},v=v=&gt;v,a=-1,b=-2,=&lt;v=&gt;]=&gt; -> (-1:-2)</de
 <br>
 ・<span class="clear">Ver.2.203.46</span>以降、<a href="#span-out-eqns-call2var">変数への式読出し</a>の仕様を廃止して追加
 <br>
-・<span class="run">Ver.2.204.46</span>以降、式読出しの仕様を仮fix（現状、<a href="#span-out-eqns-no-name">無名call</a>は非対応）
+・<span class="run">Ver.2.204.46</span>以降、式読出しの仕様を仮fix
 <br>
 <br>
 式変数の複製方法は、式変数名=&gt;式変数名とする
@@ -20518,7 +20518,13 @@ clear; g=&lt;x; g=&gt;f; x=1; f=f=&gt;; x=2; f,g=&gt;,f=&gt; -> (1,2,2)
 <br>
 clear; g(x)=&lt;x; g=&gt;f; f(3)=&gt; -> 3
 <br>
-・<a href="#span-out-call-by-equation">式渡しの直接式読出し</a>
+・call結果の式読出し
+<br>
+clear; g(x)=&lt;x; g(3)=&gt;f; f=&gt; -> 3
+<br>
+clear; [(x)=&lt;x](3)=&gt;f; f=&gt; -> 3
+<br>
+・<a href="#span-out-call-by-equation">式渡しの直接式読出し</a>（<a href="#span-out-eqns-no-name">無名call</a>はcall結果が解決済みの前提で非対応）
 <br>
 clear; make_f(sw)=<[sw&amp;&amp;&amp;(f(x)=&lt;-x)||||(f(x)=&lt;x),=&lt;f]=&gt;f,make_f(false)=&gt;,f(1)=&gt; -> (0,0,1)
 <br>
@@ -20528,15 +20534,17 @@ clear; (x=-1,g=&lt;x,=&lt;g)=&gt;f; x=1; f=&gt; -> 1
 <br>
 clear; [x=-1,g=&lt;x,=&lt;g]=&gt;f; x=1; f=&gt; -> -1
 <br>
-clear; [x=-1,g=&lt;x,=&lt;g]=&gt;f; x=1; f==&gt; -> 1
-<br>
-clear; [x=-1,g=&lt;x,=&lt;g]==&gt;f; x=1; f=&gt; -> 1
-<br>
 clear; (a=-1,g(x)=&lt;a*x,=&lt;g)=&gt; -> [MyErr]Invalid null=>
 <br>
 clear; (a=-1,g(x)=&lt;a*x,=&lt;g)=&gt;f; a=1; f(3)=&gt; -> 3
 <br>
 clear; [a=-1,g(x)=&lt;a*x,=&lt;g]=&gt;f; a=1; f(3)=&gt; -> -3
+<br>
+・<a href="#span-out-scope-inherited-call">scope継承call</a>
+<br>
+clear; [x=-1,g=&lt;x,=&lt;g]=&gt;f; x=1; f==&gt; -> 1
+<br>
+clear; [x=-1,g=&lt;x,=&lt;g]==&gt;f; x=1; f=&gt; -> 1
 <br>
 clear; [a=-1,g(x)=&lt;a*x,=&lt;g]=&gt;f; a=1; f(3)==&gt; -> 3
 <br>
@@ -21891,6 +21899,8 @@ N=10; fact_(n)=&lt;floor(n)*fact_(n-1); fact_(N) -> Maximum call stack size exce
 ・無名再帰は非対応（自己参照の手段なし）
 <br>
 ・<span class="clear">Ver.2.195.46</span>以降、実行確定の都度、<a href="#span-out-storage">local storage</a>から削除
+<br>
+・<span class="run">Ver.2.204.46</span>以降、call結果が解決済みの前提（未解決の場合、error終了）
 <br>
 <br>
 test caseを列挙する

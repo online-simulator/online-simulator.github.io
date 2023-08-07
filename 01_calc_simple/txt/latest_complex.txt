@@ -21,6 +21,13 @@ g=<x,x=1,g=>f,g=>,f=>,x=2,g=>,f=>
 0,0,0,1,1,0,2,2
 )
 
+a=1,[[make_g(-a)=>,g=>f,=<f]=>f,=<f]=>f:f(1)=>,f(1)==>:g(1)=>,g(1)==>
+(
+0,0:
+-1,1:
+-1,1
+)
+
 [a=1,make_g(-a)=>:g=>f,f(1)=>,f(1)==>:g==>f,f(1)=>,f(1)==>:a=2,make_g(-a)=>:g=>f,f(1)=>,f(1)==>:g==>f,f(1)=>,f(1)==>]
 (
 0,0:
@@ -2193,4 +2200,4 @@ drag=false&sw=false&0x=false&useMatrix=true&useStrict=false&checkError=true&isRi
 --------------------------------
 --------------------------------
 
-online-simulator.github.io.6.269.117.13.59 @ Sun Aug 06 2023 20:59:48 GMT+0900 (日本標準時) @ Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/115.0.0.0 Safari/537.36
+online-simulator.github.io.6.269.117.13.59 @ Mon Aug 07 2023 14:24:06 GMT+0900 (日本標準時) @ Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/115.0.0.0 Safari/537.36
