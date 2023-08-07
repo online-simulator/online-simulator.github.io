@@ -1144,7 +1144,7 @@ if(prop.key){
     /* Ver.2.29.15 -> */
     // Niteration
     var argN = args[5];
-    var Niteration = (argN && argN.com)? Math.floor(argN.com.r): 1;  // 0 enabled
+    var Niteration = (argN && argN.com)? Math.round(argN.com.r): 1;  // 0 enabled  // Ver.2.205.46 floor -> round
     /* -> Ver.2.29.15 */
     // orderT
     var orderT = (options.orderT === 2)? 2: 4;
@@ -1340,7 +1340,7 @@ var step = function(){
     if(isNewtonian){
       // Niteration
       var argN = args[4];
-      var Niteration = (argN && argN.com)? Math.floor(argN.com.r): 1;  // 0 enabled
+      var Niteration = (argN && argN.com)? Math.round(argN.com.r): 1;  // 0 enabled  // Ver.2.205.46 floor -> round
       // epsN
       var arg5 = args[5];
       var epsN = (arg5 && arg5.com)? arg5.com.r: self.options.epsN;  // 0 enabled
@@ -1478,7 +1478,7 @@ My_entry.operation.prototype.RX = function(data, rightArr, tagObj){
     var b = args[2];
     if(a.com && b.com){
       var tree_eqn = self.tree2tree_eqn(data, args[0]);
-      var br = Math.floor(b.com.r);
+      var br = Math.round(b.com.r);  // Ver.2.205.46 floor -> round
       /* Ver.2.30.15 -> */
       var arg3 = args[3];
       var tree_eqn_break = (arg3)? self.tree2tree_eqn(data, arg3): null;
@@ -1534,7 +1534,7 @@ My_entry.operation.prototype.DX = function(data, rightArr, tagObj){
     if(a && a.com){
       var tree_eqn = self.tree2tree_eqn(data, args[0]);
       var nthd = args[1];
-      nthd = (nthd && nthd.com)? Math.abs(Math.floor(nthd.com.r)): 1;  // nthd >= 0
+      nthd = (nthd && nthd.com)? Math.abs(Math.round(nthd.com.r)): 1;  // nthd >= 0  // Ver.2.205.46 floor -> round
       var h0c = self.get_hc(options, a, args[3], "dxD");
       var h0cr = h0c.r;
       var h0ci = h0c.i;
@@ -1656,7 +1656,7 @@ My_entry.operation.prototype.IX = function(data, rightArr, tagObj){
       var tree_eqn = self.tree2tree_eqn(data, args[0]);
       var N = args[3];
       N = (N && N.com)? N.com.r: null;
-      N = Math.abs(Math.floor(N) || self.options.NI);  // N > 0  // Ver.2.29.15
+      N = Math.abs(Math.round(N) || self.options.NI);  // N > 0  // Ver.2.29.15  // Ver.2.205.46 floor -> round
       N = (N%2)? N+1: N;
       var acr = a.com.r;
       var aci = a.com.i;
@@ -1742,9 +1742,9 @@ My_entry.operation.prototype.PX = function(data, rightArr, tagObj){
     if(a.com && b.com){
       var tree_eqn = self.tree2tree_eqn(data, args[0]);
       var di = args[3];
-      di = (di && di.com)? Math.abs(Math.floor(di.com.r) || 1): 1;  // di > 0
-      var ar = Math.floor(a.com.r);
-      var br = Math.floor(b.com.r);
+      di = (di && di.com)? Math.abs(Math.round(di.com.r) || 1): 1;  // di > 0  // Ver.2.205.46 floor -> round
+      var ar = Math.round(a.com.r);  // Ver.2.205.46 floor -> round
+      var br = Math.round(b.com.r);  // Ver.2.205.46 floor -> round
       var sign = "*";
       var PX = null;
       if(ar > br){
@@ -1799,9 +1799,9 @@ My_entry.operation.prototype.SX = function(data, rightArr, tagObj){
     if(a.com && b.com){
       var tree_eqn = self.tree2tree_eqn(data, args[0]);
       var di = args[3];
-      di = (di && di.com)? Math.abs(Math.floor(di.com.r) || 1): 1;  // di > 0
-      var ar = Math.floor(a.com.r);
-      var br = Math.floor(b.com.r);
+      di = (di && di.com)? Math.abs(Math.round(di.com.r) || 1): 1;  // di > 0  // Ver.2.205.46 floor -> round
+      var ar = Math.round(a.com.r);  // Ver.2.205.46 floor -> round
+      var br = Math.round(b.com.r);  // Ver.2.205.46 floor -> round
       var sign = "+";
       var SX = null;
       if(ar > br){

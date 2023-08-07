@@ -1155,7 +1155,7 @@ clear
 local storage cleared
 
 [Pinv_y=(-0.999999427,-0.999936657,-0.997300203,-0.954499736,-0.682689492,0,0.682689492,0.954499736,0.997300203,0.999936657,0.999999427:-5,-4,-3,-2,-1,0,1,2,3,4,5),N=1,arr=[],_rn(=<arr=(arr:rand_table(=<Pinv_y)=>),,N),=<arr]=>
--0.4452284274829297
+0.6499887195318232
 
 rand_table(csv)=<last[table=sort0(csv),ymin=min(table)[0],ymax=max(table)[0],y=ymin+(ymax-ymin)*rand,x=interp(y:table),x]
 stored_eqn(rand_table)
@@ -1172,7 +1172,7 @@ local storage cleared
 lcm_(a,b)=<a*(b/gcd_(a,b)=>)
 stored_eqn(lcm_)
 
-gcd_(a,b)=<last[_rn(=<last{ia=floor(a),ib=floor(b),a=ia<0||ib===0&&&ia|||ib,b=ia%(ib||1)},isBreak_a=<isNaN(a)|||a<0&&&~~(a=false),1e6,=<{isBreak_a=>|||b==0}),a]
+gcd_(a,b)=<last[_rn(=<last{ia=round(a),ib=round(b),a=ia<0||ib===0&&&ia|||ib,b=ia%(ib||1)},isBreak_a=<isNaN(a)|||a<0&&&~~(a=false),1e6,=<{isBreak_a=>|||b==0}),a]
 stored_eqn(gcd_)
 
 clear
@@ -1252,4 +1252,4 @@ center=true&drag=false&test-case=false&legend=true&axis-t=false&axis-x=true&log-
 --------------------------------
 --------------------------------
 
-online-simulator.github.io.6.269.117.13.59 @ Sun Aug 06 2023 21:01:14 GMT+0900 (日本標準時) @ Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/115.0.0.0 Safari/537.36
+online-simulator.github.io.6.270.117.13.59 @ Mon Aug 07 2023 16:08:02 GMT+0900 (日本標準時) @ Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/115.0.0.0 Safari/537.36

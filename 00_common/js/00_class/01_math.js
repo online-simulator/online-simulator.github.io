@@ -184,8 +184,8 @@ My_entry.math.prototype.fact = function(n){
 };
 My_entry.math.prototype.fact_k = function(left, right){
   var self = this;
-  var n = Math.floor(left);
-  var k = Math.floor(right);
+  var n = Math.round(left);  // Ver.2.205.46 floor -> round
+  var k = Math.round(right);  // Ver.2.205.46 floor -> round
   if(n < 0 || k < 0 || n < k) return 0;  // undefined first
   if(k === 1) return n;                  // permut(3,3) || fact(3) || 3*2*1 -> 6
   if(k === 0) return 1;                  // permut(3,0) || combin(3,0) -> 1
@@ -193,8 +193,8 @@ My_entry.math.prototype.fact_k = function(left, right){
 };
 My_entry.math.prototype.fact_m = function(left, right){
   var self = this;
-  var n = Math.floor(left);
-  var m = Math.floor(right);
+  var n = Math.round(left);  // Ver.2.205.46 floor -> round
+  var m = Math.round(right);  // Ver.2.205.46 floor -> round
   if(n < 0 || m <= 0) return 0;  // undefined first
   if(n === 0) return 1;          // 0! || 0!! -> 1
   if(n <= m) return n;           // 3!!! -> 3
@@ -205,7 +205,7 @@ My_entry.math.prototype.fact = function(left){
   var self = this;
   if(isNaN(left)) return NaN;  // Ver.2.170.42
   var _fact = 1;
-  var n = Math.floor(left);
+  var n = Math.round(left);  // Ver.2.205.46 floor -> round
   if(n < 0){
     _fact = false;  // Ver.2.170.42
   }
@@ -220,8 +220,8 @@ My_entry.math.prototype.fact_k = function(left, right){
   var self = this;
   if(isNaN(left) || isNaN(right)) return NaN;  // Ver.2.170.42
   var _fact = 1;
-  var n = Math.floor(left);
-  var k = Math.floor(right);
+  var n = Math.round(left);  // Ver.2.205.46 floor -> round
+  var k = Math.round(right);  // Ver.2.205.46 floor -> round
   if(n < 0 || k < 0 || n < k){
     _fact = false;  // Ver.2.170.42
   }
@@ -236,8 +236,8 @@ My_entry.math.prototype.fact_m = function(left, right){
   var self = this;
   if(isNaN(left) || isNaN(right)) return NaN;  // Ver.2.170.42
   var _fact = 1;
-  var n = Math.floor(left);
-  var m = Math.floor(right);
+  var n = Math.round(left);  // Ver.2.205.46 floor -> round
+  var m = Math.round(right);  // Ver.2.205.46 floor -> round
   if(n < 0 || m <= 0){
     _fact = false;  // Ver.2.170.42
   }
@@ -421,8 +421,8 @@ My_entry.math.prototype.lcm = function(x, y){
   var self = this;
   if(isNaN(x) || isNaN(y)) return NaN;  // Ver.2.170.42
   if(x < 0 || y < 0) return false;
-  var x = Math.floor(x);
-  var y = Math.floor(y);
+  var x = Math.round(x);  // Ver.2.205.46 floor -> round
+  var y = Math.round(y);  // Ver.2.205.46 floor -> round
   if(x*y === 0) return 0;
   return (x*(y/self.gcd(x, y)));  // Ver.2.187.44
 };
@@ -430,8 +430,8 @@ My_entry.math.prototype.gcd = function(x, y){
   var self = this;
   if(isNaN(x) || isNaN(y)) return NaN;  // Ver.2.170.42
   if(x < 0 || y < 0) return false;
-  var x = Math.floor(x);
-  var y = Math.floor(y);
+  var x = Math.round(x);  // Ver.2.205.46 floor -> round
+  var y = Math.round(y);  // Ver.2.205.46 floor -> round
   if(y === 0) return x;
   return self.gcd(y, x%y);
 };

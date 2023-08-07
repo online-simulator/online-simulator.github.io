@@ -145,7 +145,7 @@ stored_eqn(d)
 [n=10,(=<fn)=<fn=>](=<f)=>
 3628800
 
-f(n)=<n<=1|||floor(n)*f(n-1)
+f(n)=<n<=1|||round(n)*f(n-1)
 stored_eqn(f)
 
 [(a)=<[(b)=<[a=4,b=[a=5,=<a]=>,(c)=<a+b+c=4+5+3](3)=>](2)=>](1)=>
@@ -184,7 +184,7 @@ fn=<(n,n*(1+i)),sum_(n)=<n>0&&&fn+sum_(n-1),sum_(N)
 0,0,55,55+55i
 )
 
-fact_(n)=<n<=1&&&1|||floor(n)*fact_(n-1),fact_(N),N!
+fact_(n)=<n<=1&&&1|||round(n)*fact_(n-1),fact_(N),N!
 (
 0,3628800,3628800
 )
@@ -818,9 +818,9 @@ mat={1,2:3,4},norm(mat),norm(mat[][1]),norm(3:4),norm{3,4},norm({3,4}),norm{{3,4
 0,2.23606797749979,5,5,5,5,5,5,7.0710678118654755,7.0710678118654755
 )
 
-gcd_(a,b)=<last[_rn(=<last{ia=floor(a),ib=floor(b),a=ia<0||ib===0&&&ia|||ib,b=ia%(ib||1)},isBreak_a=<isNaN(a)|||a<0&&&~~(a=false),1e6,=<{isBreak_a|||b==0}),a],gcd_(2,0),gcd_(0,2),gcd_(111,gcd_(222,gcd_(333,gcd_(444,555)))),gcd_(NaN,1),gcd_(1,NaN),gcd_(-1,1),gcd_(1,-1),gcd_(-0.1,2),gcd_(1,-0.2)
+gcd_(a,b)=<last[_rn(=<last{ia=round(a),ib=round(b),a=ia<0||ib===0&&&ia|||ib,b=ia%(ib||1)},isBreak_a=<isNaN(a)|||a<0&&&~~(a=false),1e6,=<{isBreak_a|||b==0}),a],gcd_(2,0),gcd_(0,2),gcd_(111,gcd_(222,gcd_(333,gcd_(444,555)))),gcd_(NaN,1),gcd_(1,NaN),gcd_(-1,1),gcd_(1,-1),gcd_(-0.1,2),gcd_(1,-0.2)
 (
-0,2,2,111,NaN,NaN,false,false,false,false
+0,2,2,111,NaN,NaN,false,false,2,1
 )
 
 clear
@@ -1798,7 +1798,7 @@ local storage cleared
 
 [1e4!,-10!,16!!!,-1e1(1.6+1.3i)!!,(-1e1(1.6+1.3i))!!!,-(+1e1(1.6+1.3i))!!!,fact(10.6(1+i)),-permut(5,3.3(1+i)),combin(5.6(1+i),3)]
 (
-Infinity,-3628800,58240,-10,false,-58240,3628800,-60,10
+Infinity,-3628800,58240,-20,false,-58240,39916800,-60,20
 )
 
 clear
@@ -2200,4 +2200,4 @@ drag=false&sw=false&0x=false&useMatrix=true&useStrict=false&checkError=true&isRi
 --------------------------------
 --------------------------------
 
-online-simulator.github.io.6.269.117.13.59 @ Mon Aug 07 2023 14:23:34 GMT+0900 (日本標準時) @ Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/115.0.0.0 Safari/537.36
+online-simulator.github.io.6.270.117.13.59 @ Mon Aug 07 2023 16:06:20 GMT+0900 (日本標準時) @ Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/115.0.0.0 Safari/537.36
