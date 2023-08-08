@@ -21,6 +21,14 @@
       <caption>更新履歴</caption>
       <tbody>
         <tr class="border">
+          <td class="border run">
+Ver.0.41.5
+          </td>
+          <td class="border">
+・test caseを更新（3n+1の項目を追加）
+          </td>
+        </tr>
+        <tr class="border">
           <td class="border clear">
 Ver.0.40.5
           </td>
@@ -290,6 +298,150 @@ solve 3n+1
         </tr>
       </thead>
       <tbody>
+        <tr class="border">
+          <td class="border selection">
+3n+1
+<br>
+<span class="run">Ver.0.41.5追加</span>
+          </td>
+          <td class="border">
+・nを自然数として<span class="condition">N進数</span>を定義する
+<br>
+<span class="condition">N:=3n+1</span>（nが奇数の場合、Nが偶数）
+<br>
+・N進数表記で各桁の数字の再帰的な総和（以降、総和）を一般化する
+<br>
+s(N,k):=総和
+<br>
+・<span class="condition">3n</span>基準の場合、kを自然数として以下の総和は不変
+<br>
+s1(N,k)=&lt;s3(N,k-1)+(N-1)/3;
+<br>
+s2(N,k)=&lt;s3(N,k-1)+(N-1)*2/3;
+<br>
+s3(N,k)=&lt;(N-1)*k;
+<br>
+・<span class="condition">N進数</span>表記で列挙する
+<br>
+s1(N,1)||s1(N,2)||s1(N,3)||s1(N,4)||...
+<br>
+s2(N,1)||s2(N,2)||s2(N,3)||s2(N,4)||...
+<br>
+s3(N,1)||s3(N,2)||s3(N,3)||s3(N,4)||...
+<br>
+・<span class="condition">4進数（n=1）</span>
+<br>
+1||10||13||22||... -> 1
+<br>
+2||11||20||23||... -> 2
+<br>
+3||12||21||30||... -> 3
+<br>
+・7進数（n=2）
+<br>
+2||11||20||26||... -> 2
+<br>
+4||13||22||31||... -> 4
+<br>
+6||15||24||33||... -> 6
+<br>
+・<span class="condition">10進数（n=3）</span>
+<br>
+3||12||21||30||... -> 3
+<br>
+6||15||24||33||... -> 6
+<br>
+9||18||27||36||... -> 9
+<br>
+・13進数（n=4）
+<br>
+4||13||22||31||... -> 4
+<br>
+8||17||26||35||... -> 8
+<br>
+c||1b||2a||39||... -> c
+<br>
+・<span class="condition">16進数（n=5）</span>
+<br>
+5||14||23||50||... -> 5
+<br>
+a||19||28||37||... -> a
+<br>
+f||1e||2d||3c||... -> f
+<br>
+・N進数について以下の総和は不変（s3の拡張）
+<br>
+N進数表記：N-1の1||2||3||4||...倍数
+<br>
+N=1：0||0||0||0||... -> 0
+<br>
+N=2：1||10||11||100||... -> 1
+<br>
+N=3：2||11||20||22||... -> 2
+<br>
+<span class="condition">N=4：3||12||21||30||... -> 3</span>
+<br>
+N=5：4||13||22||31||... -> 4
+<br>
+N=6：5||14||23||32||... -> 5
+<br>
+N=7：6||15||24||33||... -> 6
+<br>
+N=8：7||16||25||34||... -> 7
+<br>
+N=9：8||17||26||35||... -> 8
+<br>
+<span class="condition">N=10：9||18||27||36||... -> 9</span>
+<br>
+N=11：a||19||28||37||... -> a
+<br>
+N=12：b||1a||29||38||... -> b
+<br>
+N=13：c||1b||2a||39||... -> c
+<br>
+N=14：d||1c||2b||3a||... -> d
+<br>
+N=15：e||1d||2c||3b||... -> e
+<br>
+<span class="condition">N=16：f||1e||2d||3c||... -> f</span>
+<br>
+・N進数について以下が成立（Nが偶数の場合、上記の総和と一致）
+<br>
+N進数表記：0~N-1の和
+<br>
+N=1：0 -> 0
+<br>
+N=2：1 -> 1
+<br>
+N=3：11 -> 2
+<br>
+<span class="condition">N=4：12 -> 3</span>
+<br>
+N=5：13 -> 4
+<br>
+N=6：23 -> 5
+<br>
+N=7：30 -> 3
+<br>
+N=8：34 -> 7
+<br>
+N=9：40 -> 4
+<br>
+<span class="condition">N=10：45 -> 9</span>
+<br>
+N=11：50 -> 5
+<br>
+N=12：56 -> b
+<br>
+N=13：60 -> 6
+<br>
+N=14：67 -> d
+<br>
+N=15：70 -> 7
+<br>
+<span class="condition">N=16：78 -> f</span>
+          </td>
+        </tr>
         <tr class="border">
           <td class="border selection">
 Collatz予想
