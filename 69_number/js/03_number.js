@@ -45,7 +45,7 @@ My_entry.test_number.prototype.init = function(){
   self.len_p = 15;  // Ver.0.40.4
   self.len_r = 20;  // Ver.0.39.4
   self.len_n = 12;  // Ver.0.42.5
-  self.len_k = 11;  // Ver.0.42.5
+  self.len_k = 37;  // Ver.0.42.5
   var results_m = [];
   /* Ver.0.37.4 -> */
   results_m[1] = "=(1){<span class='run'>1</span>}/1;";
@@ -560,7 +560,11 @@ My_entry.test_number.prototype.solve5 = function(){
     return (N-1)*k;
   };
   var run = function(){
-    var header1 = self.output_line("wF", "n", "N:=3n+1", "k=", "1", "2", "3", "4", "5", "6", "7", "8", "9", "10");
+    var arr = [];
+    for(var k=1; k<self.len_k; ++k){
+      arr.push(k);
+    }
+    var header1 = self.output_line.apply(self, ["wF", "n", "N:=3n+1", "k="].concat(arr));
     var html1 = "";
     for(var n=1; n<self.len_n; ++n){
       var isOdd = n%2;
