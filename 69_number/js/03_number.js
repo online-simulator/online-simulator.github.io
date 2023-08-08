@@ -44,6 +44,8 @@ My_entry.test_number.prototype.init = function(){
   self.len_mf = 5;
   self.len_p = 15;  // Ver.0.40.4
   self.len_r = 20;  // Ver.0.39.4
+  self.len_n = 12;  // Ver.0.42.5
+  self.len_k = 11;  // Ver.0.42.5
   var results_m = [];
   /* Ver.0.37.4 -> */
   results_m[1] = "=(1){<span class='run'>1</span>}/1;";
@@ -83,6 +85,7 @@ My_entry.test_number.prototype.init_handlers = function(){
     var self = this;
     var id = elem.id || elem.innerText;
     switch(id){
+      case "solve5":  // Ver.0.42.5
       case "solve4":  // Ver.0.39.4
       case "solve3":  // Ver.0.35.4
       case "solve2":  // Ver.0.33.4
@@ -542,3 +545,47 @@ My_entry.test_number.prototype.solve4 = function(){
   return self;
 };
 /* -> Ver.0.39.4 */
+/* Ver.0.42.5 */
+My_entry.test_number.prototype.solve5 = function(){
+  var self = this;
+  var $ = self.entry.$;
+  self.convert();
+  var calc_s1 = function(N, k){
+    return calc_s3(N, k-1)+(N-1)/3;
+  };
+  var calc_s2 = function(N, k){
+    return calc_s3(N, k-1)+(N-1)*2/3;
+  };
+  var calc_s3 = function(N, k){
+    return (N-1)*k;
+  };
+  var run = function(){
+    var header1 = self.output_line("wF", "n", "N:=3n+1", "k=", "1", "2", "3", "4", "5", "6", "7", "8", "9", "10");
+    var html1 = "";
+    for(var n=1; n<self.len_n; ++n){
+      var isOdd = n%2;
+      var hasClass = (isOdd)? "condition": "wF";
+      var N = 3*n+1;
+      var arr0 = [hasClass, n, N, "s1("+N+",k)"];
+      var arr1 = [hasClass, n, N, "s2("+N+",k)"];
+      var arr2 = [hasClass, n, N, "s3("+N+",k)"];
+      for(var k=1; k<self.len_k; ++k){
+        var s1 = calc_s1(N, k).toString(N);
+        var s2 = calc_s2(N, k).toString(N);
+        var s3 = calc_s3(N, k).toString(N);
+        arr0.push(s1);
+        arr1.push(s2);
+        arr2.push(s3);
+      }
+      html1 += self.output_line.apply(self, arr0);
+      html1 += self.output_line.apply(self, arr1);
+      html1 += self.output_line.apply(self, arr2);
+    }
+    var _logs = {};
+    _logs.log1 = "<caption class='condition'>N-adic representations of s(N,k)</caption>"+header1+html1;
+    return _logs;
+  };
+  self.logs5 = self.logs5 || run();
+  $._id("output-html").innerHTML = self.logs5.log1;
+  return self;
+};
