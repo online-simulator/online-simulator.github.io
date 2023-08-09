@@ -11271,6 +11271,8 @@ useScope=falseの場合、完全な後方互換で<a href="#span-out-scope-vars"
 <br>
 useScope=trueの場合、すべての<a href="#span-out-BT">括弧</a>に<a href="#span-out-scope-vars">変数のscope</a>を使用する
 <br>
+・多重積分等、不都合あり
+<br>
 useScope=BT2の場合、<a href="#span-out-BT">波括弧{}</a>のみ<a href="#span-out-scope-vars">変数のscope</a>を使用する
 <br>
 useScope=BT1の場合、<a href="#span-out-BT">丸括弧()</a>のみ<a href="#span-out-scope-vars">変数のscope</a>を使用する
@@ -11313,6 +11315,11 @@ precedence=
 ・別途、乗算記号*の省略を許容しない場合、tag名BRmoを削除する
 <br>
 　その場合、treeを全走査判定する無駄な<a href="#span-out-ope">演算量</a>が減る
+<br>
+<br>
+<span class="run">Ver.2.207.46</span>以降、testを追加
+<br>
+test=trueの場合、<a href="#span-out-UI-calc-config">calc-config</a>に<a href="#span-in-options">内部option</a>のuseScope||precedenceを追加表示
     </td>
   </tr>
   <tr>
@@ -35150,6 +35157,9 @@ data.logo -> "makeLog=true"
 <br>
 <br>
 ・oldPlot2d: <span class="run">Ver.2.33.17</span>以前のplot2d 0.seriesを使用するflag
+<br>
+<br>
+・test: <span class="run">Ver.2.207.46</span>以降、<a href="#span-out-UI-calc-config">calc-config</a>にuseScope||precedenceを追加表示するflag
 <br>
 <br>
 browser-GUI実行の場合、URLのGET入力でUI設定値||既定値を上書き可

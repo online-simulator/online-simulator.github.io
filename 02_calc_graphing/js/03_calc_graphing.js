@@ -526,6 +526,12 @@ My_entry.calc_graphing.prototype.get_options = function(isPlot){
   $.get_elemProps("select", "select-", "value", _options);
   _options.N = self.entry.def.limit(Math.round($.inputNum_id("input-N")), 1, self.config.MAT.sizeMax, 10);  // Ver.2.149.37 round
   $.get_urlParams(_options);
+  /* Ver.2.207.46 -> */
+  if(_options.test){
+    _options.useScope = $.val2literal(_options.useScope);
+    _options.precedence = _options.precedence || $.inputVal_id("input-precedence");
+  }
+  /* -> Ver.2.207.46 */
   /* Ver.2.22.11 -> */
   _options.matSizeMax = (isNaN(_options.matSizeMax)? null: _options.matSizeMax) || self.config.MAT.sizeMax;
   _options.depthMax = (isNaN(_options.depthMax)? null: _options.depthMax) || self.config.LIMIT.depthMax;  // Ver.2.144.36
