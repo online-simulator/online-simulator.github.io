@@ -22,6 +22,14 @@
       <tbody>
         <tr class="border">
           <td class="border run">
+Ver.0.42.6
+          </td>
+          <td class="border">
+・show s2(N,k)の変更取消し
+          </td>
+        </tr>
+        <tr class="border">
+          <td class="border run">
 Ver.0.42.5
           </td>
           <td class="border">
@@ -253,9 +261,13 @@ nの根基rad(n)を表示
 show s(N,k)
 <br>
 <span class="run">Ver.0.42.5追加</span>
+<br>
+<span class="clear">Ver.0.42.6訂正</span>
           </td>
           <td class="border">
 N進数表記でs(N,k):=(N-1)*kの再帰前生値を表示
+<br>
+<span class="clear">・s2(N,k)の変更取消し</span>
           </td>
         </tr>
         <tr class="border">
@@ -328,6 +340,8 @@ solve 3n+1
 <br>
 s3　⇒　s
 </span>
+<br>
+<span class="clear">Ver.0.42.6訂正</span>
           </td>
           <td class="border">
 ・nを自然数として<span class="condition">N進数</span>を定義する
@@ -342,7 +356,7 @@ s(N,k):=総和
 <br>
 s1(N,k)=&lt;<span class="jF">s</span>(N,k-1)+(N-1)/3; <span class="jF">s1(N,1) -> (N-1)<span class="condition">*1/3 -> n</span></span>
 <br>
-s2(N,k)=&lt;<span class="jF">s1(N,k)*2; s2(N,1) -> (N-1)<span class="condition">*2/3 -> 2n</span></span>
+s2(N,k)=&lt;<span class="clear">s(N,k-1)+(N-1)*2/3</span>; s2(N,1) -> (N-1)<span class="condition">*2/3 -> 2n</span></span>
 <br>
 <span class="jF">s</span>(N,k)=&lt;(N-1)*k; <span class="jF">s(N,1) -> (N-1)<span class="condition">*3/3 -> 3n</span></span>
 <br>

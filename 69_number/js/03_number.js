@@ -554,7 +554,7 @@ My_entry.test_number.prototype.solve5 = function(){
     return calc_s(N, k-1)+(N-1)/3;
   };
   var calc_s2 = function(N, k){
-    return calc_s1(N, k)*2;
+    return calc_s(N, k-1)+(N-1)*2/3;  // Ver.0.42.6
   };
   var calc_s = function(N, k){
     return (N-1)*k;
@@ -599,7 +599,7 @@ My_entry.test_number.prototype.solve5 = function(){
     }
     var _logs = {};
     _logs.log0 = "<caption class='condition'>N-adic representations of s(N,k):=(N-1)*k -> N-1</caption>"+header0+html0;
-    _logs.log1 = "<caption class='condition'>N:=3n+1-adic representations of s(N,k):=(N-1)*k -> 3n=N-1<br>s1(N,k):=s(N,k-1)+(N-1)/3 -> n=(N-1)/3<br>s2(N,k):=s1(N,k)*2 -> 2n=(N-1)*2/3</caption>"+header1+html1;
+    _logs.log1 = "<caption class='condition'>N:=3n+1-adic representations of s(N,k):=(N-1)*k -> 3n=N-1<br>s1(N,k):=s(N,k-1)+(N-1)/3 -> n=(N-1)/3<br>s2(N,k):=s(N,k-1)+(N-1)*2/3 -> 2n=(N-1)*2/3</caption>"+header1+html1;  // Ver.0.42.6
     return _logs;
   };
   self.logs5 = self.logs5 || run();
