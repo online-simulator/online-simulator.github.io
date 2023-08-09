@@ -551,12 +551,12 @@ My_entry.test_number.prototype.solve5 = function(){
   var $ = self.entry.$;
   self.convert();
   var calc_s1 = function(N, k){
-    return calc_s3(N, k-1)+(N-1)/3;
+    return calc_s(N, k-1)+(N-1)/3;
   };
   var calc_s2 = function(N, k){
-    return calc_s3(N, k-1)+(N-1)*2/3;
+    return calc_s1(N, k)*2;
   };
-  var calc_s3 = function(N, k){
+  var calc_s = function(N, k){
     return (N-1)*k;
   };
   var run = function(){
@@ -564,19 +564,31 @@ My_entry.test_number.prototype.solve5 = function(){
     for(var k=1; k<self.len_k; ++k){
       arr.push(k);
     }
-    var header1 = self.output_line.apply(self, ["wF", "n", "N:=3n+1", "k="].concat(arr));
+    var header0 = self.output_line.apply(self, ["wF", "N", "k="].concat(arr));
+    var header1 = self.output_line.apply(self, ["wF", "n", "N:=3n+1", "s1(N,k) -> n<br>s2(N,k) -> 2n<br>s(N,k) -> 3n", "k="].concat(arr));
+    var html0 = "";
     var html1 = "";
+    for(var N=2; N<self.len_k; ++N){
+      var isOdd = N%2;
+      var hasClass = (isOdd)? "condition": "wF";
+      var arr2 = [hasClass, N, "s("+N+",k)"];
+      for(var k=1; k<self.len_k; ++k){
+        var s3 = calc_s(N, k).toString(N);
+        arr2.push(s3);
+      }
+      html0 += self.output_line.apply(self, arr2);
+    }
     for(var n=1; n<self.len_n; ++n){
       var isOdd = n%2;
       var hasClass = (isOdd)? "condition": "wF";
       var N = 3*n+1;
-      var arr0 = [hasClass, n, N, "s1("+N+",k)"];
-      var arr1 = [hasClass, n, N, "s2("+N+",k)"];
-      var arr2 = [hasClass, n, N, "s3("+N+",k)"];
+      var arr0 = [hasClass, n, N, "s1("+N+",k) -> "+n, ""];
+      var arr1 = [hasClass, n, N, "s2("+N+",k) -> "+2*n, ""];
+      var arr2 = [hasClass, n, N, "s("+N+",k) -> "+3*n, ""];
       for(var k=1; k<self.len_k; ++k){
         var s1 = calc_s1(N, k).toString(N);
         var s2 = calc_s2(N, k).toString(N);
-        var s3 = calc_s3(N, k).toString(N);
+        var s3 = calc_s(N, k).toString(N);
         arr0.push(s1);
         arr1.push(s2);
         arr2.push(s3);
@@ -586,10 +598,12 @@ My_entry.test_number.prototype.solve5 = function(){
       html1 += self.output_line.apply(self, arr2);
     }
     var _logs = {};
-    _logs.log1 = "<caption class='condition'>N-adic representations of s(N,k)</caption>"+header1+html1;
+    _logs.log0 = "<caption class='condition'>N-adic representations of s(N,k):=(N-1)*k</caption>"+header0+html0;
+    _logs.log1 = "<caption class='condition'>N:=3n+1-adic representations of s(N,k):=(N-1)*k<br>s1(N,k):=s(N,k-1)+(N-1)/3<br>s2(N,k):=s1(N,k)*2</caption>"+header1+html1;
     return _logs;
   };
   self.logs5 = self.logs5 || run();
+  $._id("output-log").innerHTML = self.logs5.log0;
   $._id("output-html").innerHTML = self.logs5.log1;
   return self;
 };
