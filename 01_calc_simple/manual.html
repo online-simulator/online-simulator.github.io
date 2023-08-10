@@ -328,6 +328,10 @@ e^(-i(1pi(){2/2i}(5-{3-1}){i/(-4)}))
 <br>
 　・<a href="#span-out-literal">literal</a>
 <br>
+　　・<a href="#span-out-literal-FN">関数list</a>
+<br>
+　　・<a href="#span-out-literal-ope">演算子list</a>
+<br>
 ・<a href="#span-out-error">誤差の扱い</a>
 <br>
 　・<a href="#span-out-error-numerical">数値解の数値誤差</a>
@@ -542,7 +546,7 @@ e^(-i(1pi(){2/2i}(5-{3-1}){i/(-4)}))
 <br>
 　　・<a href="#span-out-call-by-equation">式渡し</a>
 <br>
-　　・<a href="#span-out-substitution-equation">式変数への式代入</a>
+　　　・<a href="#span-out-substitution-equation">式変数への式代入</a>
 <br>
 　　・<a href="#span-out-scope-inherited-call">scope継承call</a>
 <br>
@@ -693,6 +697,8 @@ e^(-i(1pi(){2/2i}(5-{3-1}){i/(-4)}))
 　　・<a href="#span-out-development-problems-matrix">行列演算の問題点</a>
 <br>
 　　・<a href="#span-out-development-problems-logical">論理演算の問題点</a>
+<br>
+　　・<a href="#span-out-development-problems-share">未実装の参照共有</a>
 <br>
 　　・<a href="#span-out-development-problems-CBR">未実装の参照渡し</a>
 <br>
@@ -10353,6 +10359,8 @@ false&amp;&amp;&amp;1 -> false
 <br>
 論理ANDs||ORs演算子の留意事項を列挙する
 <br>
+・可読性に難あり
+<br>
 ・<a href="#span-out-substitution">変数への代入</a>は<a href="#span-out-BT">括弧</a>を明示する方が間違いが少ない
 <br>
 clear; a=&lt;b=1&amp;&amp;&amp;c=2; a=&gt; -> [MyErr]Invalid operation
@@ -10419,6 +10427,8 @@ clear; (a=0)|||~~(b=1)&amp;&amp;&amp;(c=2)|||3; a,b,c -> (0,1,2)
 <br>
 <span class="run">Ver.2.196.46</span>以降、<a href="#span-out-prec-ope-conditional">条件演算子</a>代替のANDss||ORss演算子を追加
 <br>
+・0を返す<a href="#span-out-special-substitution">代入処理</a>と<a href="#span-out-literal-FN">論理値literalを返す関数</a>||<a href="#span-out-literal-ope">演算子</a>を活用
+<br>
 <br>
 論理ORss
 <br>
@@ -10459,6 +10469,8 @@ NaN&amp;&amp;&amp;&amp;1 -> NaN
 <br>
 <br>
 論理ANDss||ORss演算子の留意事項を列挙する
+<br>
+・可読性に難あり
 <br>
 ・<a href="#span-out-prec-ope-logical-short-circuit">論理演算子（短絡評価）</a>と異なる点を列挙する
 <br>
@@ -10879,28 +10891,6 @@ true || TRUE -> true
 ・<span class="clear">Ver.2.161.39</span>以降、<a href="#span-out-UI-simple">指数表記</a>選択の場合、error終了を修正
 <br>
 <br>
-論理値literalのみを返す関数を列挙する
-<br>
-・<span class="run">Ver.2.159.38</span>以降、<a href="#span-out-FN-isNaN">isNaN関数</a>
-<br>
-・<span class="run">Ver.2.172.42</span>以降、<a href="#span-out-FNm-isFalse">isFalse/isTrue行列関数</a>
-<br>
-・<span class="run">Ver.2.196.46</span>以降、<a href="#span-out-FNc">最上位関数</a>
-<br>
-・<span class="run">Ver.2.196.46</span>以降、<a href="#span-out-FN-ope">演算子代替関数</a>
-<br>
-<br>
-<span class="run">Ver.2.196.46</span>以降、論理値literalのみを返す演算子を列挙する
-<br>
-・<a href="#span-out-prec-ope-comparison">比較演算子</a>
-<br>
-・<a href="#span-out-prec-ope-relational">関係演算子</a>
-<br>
-・<a href="#span-out-prec-ope-logical-not">論理NOT演算子</a>
-<br>
-・<a href="#span-out-prec-ope-logical-xor">論理XOR演算子</a>
-<br>
-<br>
 test caseを列挙する
 <br>
 false==false || FALSE==0 -> 1
@@ -10945,6 +10935,48 @@ a=0; b=a/a; c=1/a; isNaN(a),isNaN(b),isNaN(c) -> (false,true,true)
 a=0; b=a/a; c=1/a; isNaN_(a),isNaN_(b),isNaN_(c) -> (0,1,0+O(1e+0))
 <br>
 a=0; b=a/a; c=1/a; isNaN(a),isNaN(b),isNaN(c) -> (false,true,false+O(1e+0))
+    </td>
+  </tr>
+  <tr>
+    <th>
+<a href="#span-index">
+目次
+</a>
+<br>
+関数list
+    </th>
+    <td>
+<span id="span-out-literal-FN"></span>
+論理値literalのみを返す関数を列挙する
+<br>
+・<span class="run">Ver.2.159.38</span>以降、<a href="#span-out-FN-isNaN">isNaN関数</a>
+<br>
+・<span class="run">Ver.2.172.42</span>以降、<a href="#span-out-FNm-isFalse">isFalse/isTrue行列関数</a>
+<br>
+・<span class="run">Ver.2.196.46</span>以降、<a href="#span-out-FNc">最上位関数</a>
+<br>
+・<span class="run">Ver.2.196.46</span>以降、<a href="#span-out-FN-ope">演算子代替関数</a>
+    </td>
+  </tr>
+  <tr>
+    <th>
+<a href="#span-index">
+目次
+</a>
+<br>
+演算子list
+    </th>
+    <td>
+<span id="span-out-literal-ope"></span>
+<span class="run">Ver.2.196.46</span>以降、論理値literalのみを返す演算子を列挙する
+<br>
+・<a href="#span-out-prec-ope-comparison">比較演算子</a>
+<br>
+・<a href="#span-out-prec-ope-relational">関係演算子</a>
+<br>
+・<a href="#span-out-prec-ope-logical-not">論理NOT演算子</a>
+<br>
+・<a href="#span-out-prec-ope-logical-xor">論理XOR演算子</a>
     </td>
   </tr>
   <tr>
@@ -20530,8 +20562,12 @@ clear; [a=1,b=2,v=&lt;{a,b},v=v=&gt;v,a=-1,b=-2,=&lt;v=&gt;]=&gt; -> (-1:-2)</de
 <br>
 ・<span class="run">Ver.2.204.46</span>以降、式読出しの仕様を仮fix
 <br>
+　<a href="#span-out-eqns-no-name">無名call</a>はcall結果が解決済みの前提で非対応
 <br>
-式変数の複製方法は、式変数名=&gt;式変数名とする
+　<a href="#span-out-call-by-symbol">symbol渡し</a>の前提で参照透過性なし
+<br>
+<br>
+式変数の新規複製方法は、式変数名=&gt;式変数名とする
 <br>
 clear; g=&lt;x; g=&gt;f; x=1; f=&gt; -> 1
 <br>
@@ -20545,21 +20581,33 @@ clear; g(x)=&lt;x; g=&gt;f; f(3)=&gt; -> 3
 <br>
 clear; g(x)=&lt;x; g(3)=&gt; -> 3
 <br>
+clear; [(x)=&lt;x](3)=&gt; -> 3
+<br>
+・var g = function(x){return x;}; var f = g(3); f;
+<br>
+clear; g(x)=&lt;x; f=g(3)=&gt;; f -> 3
+<br>
+・var g = function(x){return x;}; var f = function(){return g(3);}; f();
+<br>
 clear; g(x)=&lt;x; g(3)=&gt;f; f=&gt; -> 3
 <br>
-clear; [(x)=&lt;x](3)=&gt; -> 3
+・var f = (function(x){return x;})(3); f;
+<br>
+clear; f=[(x)=&lt;x](3)=&gt;; f -> 3
+<br>
+・var f = function(){return (function(x){return x;})(3);}; f();
 <br>
 clear; [(x)=&lt;x](3)=&gt;f; f=&gt; -> 3
 <br>
-・<a href="#span-out-call-by-equation">式渡しの直接式読出し</a>（<a href="#span-out-eqns-no-name">無名call</a>はcall結果が解決済みの前提で非対応）
+・<a href="#span-out-call-by-equation">式渡しの直接式読出し</a>
 <br>
 clear; [f(x)=&lt;x,=&lt;f]=&gt; -> [MyErr]Invalid null=&gt;
 <br>
+・var f = (function(){var f = function(x){return x;}; return f;})(); f(3);
+<br>
 clear; [f(x)=&lt;x,=&lt;f]=&gt;f; f(3)=&gt; -> 3
 <br>
-clear; make_f(hasMinus)=<[hasMinus&amp;&amp;&amp;(f(x)=&lt;-x)||||(f(x)=&lt;x),=&lt;f]=&gt;f;
-<br>
-make_f(false)=&gt;,f(1)=&gt;,make_f(true)=&gt;,f(1)=&gt; -> (0,0,1,0,-1)
+・<a href="#span-out-call-by-symbol">symbol渡し</a>の前提
 <br>
 clear; (x=-1,g=&lt;x,=&lt;g)=&gt; -> -1
 <br>
@@ -20571,7 +20619,15 @@ clear; (a=-1,g(x)=&lt;a*x,=&lt;g)=&gt; -> [MyErr]Invalid null=>
 <br>
 clear; (a=-1,g(x)=&lt;a*x,=&lt;g)=&gt;f; a=1; f(3)=&gt; -> 3
 <br>
+・var f = (function(){var a = -1; var g = function(x){return a*x;}; return g;})(); var a = 1; f(3);
+<br>
 clear; [a=-1,g(x)=&lt;a*x,=&lt;g]=&gt;f; a=1; f(3)=&gt; -> -3
+<br>
+・var f = (function(){var a = -1; return function(x){return a*x;};})(); f(3);の代替不可
+<br>
+clear; [a=-1,=&lt;a*x]=&gt;f; a=1; f=&gt; -> [MyErr]Invalid binary operation
+<br>
+clear; [a=-1,=&lt;(x)=&lt;a*x]=&gt;f; a=1; f(3)=&gt; -> [MyErr]Invalid args.length=0(f)
 <br>
 ・<a href="#span-out-scope-inherited-call">scope継承call</a>
 <br>
@@ -20590,6 +20646,24 @@ clear; a=&lt;1; a=&gt;b -> 0
 clear; a=&lt;1; a==&gt;b -> 0
 <br>
 clear; [v=&lt;{1,2},v=v=&gt;v,=&lt;v]=&gt; -> 0
+<br>
+・<a href="#span-out-substitution-equation">式代入</a>の場合、<a href="#span-out-BT">括弧</a>が必要
+<br>
+clear; make_f(hasMinus)=<[hasMinus&amp;&amp;&amp;(f(x)=&lt;-x)||||(f(x)=&lt;x),=&lt;f]=&gt;f;
+<br>
+make_f(false)=&gt;,f(1)=&gt;,make_f(true)=&gt;,f(1)=&gt; -> (0,0,1,0,-1)
+<br>
+・式読出しの場合、<a href="#span-out-BT">括弧</a>が不要
+<br>
+clear; fm(x)=&lt;-x,fp(x)=&lt;x,make_f(hasMinus)=<[hasMinus&amp;&amp;&amp;fm=&gt;f||||fp=&gt;f,=&lt;f]=&gt;f;
+<br>
+make_f(false)=&gt;,f(1)=&gt;,make_f(true)=&gt;,f(1)=&gt; -> (0,0,1,0,-1)
+<br>
+・<a href="#span-out-FNh-switch">switch高階関数</a>の場合、<a href="#span-eqn-implicit-Euler_method">implicit Euler_method</a>参照
+<br>
+clear; make_f(hasMinus)=&lt;switch(hasMinus,=&lt;f(x)=&lt;-x:1,=&lt;f(x)=&lt;x);
+<br>
+make_f(false)=&gt;,f(1)=&gt;,make_f(true)=&gt;,f(1)=&gt; -> (0,0,1,0,-1)
 <br>
 <br>
 test caseを列挙する
@@ -34275,6 +34349,8 @@ _rk(=&lt;<span class="clear">eqn_k</span>,N=sizer(primes),N,=&lt;{n%prime==0}); 
 <br>
 ・<a href="#span-out-development-problems-logical">論理演算の問題点</a>
 <br>
+・<a href="#span-out-development-problems-share">未実装の参照共有</a>
+<br>
 ・<a href="#span-out-development-problems-CBR">未実装の参照渡し</a>
 <br>
 ・<a href="#span-out-development-problems-CAS">未実装のCAS</a>
@@ -34474,6 +34550,29 @@ before: x=1,(y=&lt;(1/0))||2,x||y=&gt; -> (0,2,1)
 <br>
 <br>
 実装の詳細は<a href="#span-in-short-circuit">内部仕様</a>参照
+    </td>
+  </tr>
+  <tr>
+    <th>
+<a href="#span-index">
+目次
+</a>
+<br>
+未実装の
+<br>
+参照共有
+    </th>
+    <td>
+<span id="span-out-development-problems-share"></span>
+参照非共有の項目を列挙する
+<br>
+・<a href="#span-out-substitution">変数への代入</a>
+<br>
+・<a href="#span-out-matching">行列要素pattern matching</a>
+<br>
+・<a href="#span-out-substitution-equation">式変数への式代入</a>
+<br>
+・<span class="clear">Ver.2.203.46</span>以降、<a href="#span-out-eqns-call2eqn">式変数への式読出し</a>
     </td>
   </tr>
   <tr>
