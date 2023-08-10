@@ -1781,7 +1781,7 @@ title/発行元(発行年)を列挙する
 <br>
 ・<span class="run">Ver.2.142.36</span>以降、<a href="#span-out-flow">parse</a>段階で<a href="#span-out-num">実数値</a>の大規模<a href="#span-out-csv-format">csv-format</a>入力に対応
 <br>
-・<span class="run">Ver.2.156.38</span>以降、<a href="#span-out-flow">operation</a>段階で<a href="#span-out-concatination">行列結合</a>のnestingを削減する最適化を実施
+・<span class="run">Ver.2.156.38</span>以降、<a href="#span-out-flow">operation</a>段階の<a href="#span-out-concatination">行列結合</a>のnestingを最適化
 <br>
 　<a href="#span-out-SR">区切り文字</a>間に<a href="#span-out-BT">括弧</a>が存在しない場合、部分的にsliceして結合（nestingの多重化を事前に回避）
 <br>
@@ -1789,7 +1789,7 @@ title/発行元(発行年)を列挙する
 <br>
 　⇒　<a href="#span-in-options">depthMax</a>制限の余裕確保
 <br>
-・<span class="run">Ver.2.160.38</span>以降、<a href="#span-out-flow">operation</a>段階の<a href="#span-in-tree">tree構造</a>複製処理（演算外のbottleneck）の最適化を実施
+・<span class="run">Ver.2.160.38</span>以降、<a href="#span-out-flow">operation</a>段階の<a href="#span-in-tree">tree構造</a>複製処理（演算外のbottleneck）を最適化
 <br>
 　<span class="run">Ver.2.202.46</span>以降、複製対象を厳密化（<a href="#span-out-eqns-call">式読出し</a>由来を除外）
 <br>
@@ -1798,6 +1798,10 @@ title/発行元(発行年)を列挙する
 　⇒　動的memory使用量の低減
 <br>
 　⇒　<a href="#span-out-concatination">行列結合</a>を含む演算の高速化
+<br>
+・<span class="run">Ver.2.209.46</span>以降、<a href="#span-out-call-by-equation">式渡し</a>の実装を最適化
+<br>
+　<a href="#span-out-vars-symbol">式変数名symbol</a>を含む処理範囲の厳密化
     </td>
   </tr>
   <tr>
@@ -8991,7 +8995,7 @@ precedence
 <br>
 ・<a href="#span-out-SR">区切り文字</a>
 <br>
-・<a href="#span-out-substitution-equation">式変数への式代入</a>
+・<a href="#span-out-substitution-equation">式変数への式代入</a>　<a href="#span-in-call-by-equation">遅延評価</a>のため、<a href="#span-out-associativity">左結合</a>
 <br>
 ・<a href="#span-out-prec-ope-logical-short-circuit">論理演算子（短絡評価）</a>　<span class="run">Ver.2.157.38</span>以降、追加
 <br>
@@ -20626,6 +20630,8 @@ clear; [a=-1,g(x)=&lt;a*x,=&lt;g]=&gt;f; a=1; f(3)=&gt; -> -3
 ・var f = (function(){var a = -1; return function(x){return a*x;};})(); f(3);の代替不可
 <br>
 clear; [a=-1,=&lt;a*x]=&gt;f; a=1; f=&gt; -> [MyErr]Invalid binary operation
+<br>
+clear; [a=-1,=&lt;=&lt;a*x]=&gt;f; a=1; f=&gt; -> [MyErr]Invalid BTe([object Object],[object Object],[object Object])
 <br>
 clear; [a=-1,=&lt;(x)=&lt;a*x]=&gt;f; a=1; f(3)=&gt; -> [MyErr]Invalid args.length=0(f)
 <br>
@@ -35122,6 +35128,8 @@ arguments
 ・引数が値渡しの場合、関数call前に引数の演算を実行するが、
 <br>
 ・引数が式渡しの場合、関数callまで引数の演算を実行しない
+<br>
+・式渡しと<a href="#span-out-substitution-equation">式代入</a>記号=&lt;が共通で遅延評価を保証するため、<a href="#span-out-associativity">左結合</a>とする
 <br>
 <br>
 実装の経緯

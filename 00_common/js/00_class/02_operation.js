@@ -3418,12 +3418,17 @@ My_entry.operation.prototype.REe = function(data, i0, tagName, tagObj){
   return self;
 };
 /* Ver.2.31.17 */
-My_entry.operation.prototype.inherit_ids_AtSEe = function(trees, opt_ids){
+My_entry.operation.prototype.inherit_ids_AtSEe = function(trees, opt_ids, opt_arg){  // Ver.2.209.46
   var self = this;
   var DATA = self.entry.DATA;
   var BT = self.config.BT;
   var _tree = DATA.tree_tag(BT.SEe, trees);
   _tree[BT.SEe].ids = opt_ids || [[0, 0]];  // b=1,[a=<b,=<a=>]=> || a=<b+1; [b=1,a==>]  // || reference to local storage object
+  /* Ver.2.209.46 -> */
+  if(opt_arg){
+    _tree[BT.SEe].arg = opt_arg;  // Ver.2.32.17
+  }
+  /* -> Ver.2.209.46 */
   return _tree;
 };
 My_entry.operation.prototype.SEe = function(data, i0, tagName, tagObj){
@@ -3433,39 +3438,30 @@ My_entry.operation.prototype.SEe = function(data, i0, tagName, tagObj){
   var ids = data.ids;
   var DATA = self.entry.DATA;
   var len = trees.length;
-  var is = i0-1;
-  var ie = len-1;
+  /* Ver.2.209.46 -> */
   /* Ver.2.27.15 -> */
+  var leftTree = trees[i0-1];
   var rightTree = trees[i0+1];
   if(!(rightTree)) throw "Invalid =<null";
-  var store_with_arg_eqn = function(is, arg_eqn){
-    var _tree = null;
-    var name_eqn = self.get_tagVal(trees[is], "REv", "val");
-    var newTrees = trees.slice(i0+1, len);
-    _tree = self.inherit_ids_AtSEe(newTrees, ids);  // Ver.2.31.17
-    if(arg_eqn){
-      _tree[self.config.BT.SEe].arg = arg_eqn;  // Ver.2.32.17
-    }
-    if(name_eqn){
-      if(self.config.isEscaped(name_eqn)) throw "Invalid SEe("+name_eqn+")";  // Ver.2.27.15
-      self.store_eqn(name_eqn, _tree, scopes, ids);  // Ver.2.31.17
-      _tree = DATA.tree_tag("out", "stored_eqn("+name_eqn+")");
-    }
-    return _tree;
-  };
-  var tree = null;
-  /* Ver.2.195.45 -> */
-  if(self.isType(trees[i0-1], "BT")){  // f(x)=<x || (x)=<x
-    is = i0-2;
-    var tree_BT = trees[i0-1];
-    var names = self.get_names(data, tree_BT, true);  // NG: (x=1)=<x
-    tree = store_with_arg_eqn(is, names);
+  var rightTrees = trees.slice(i0+1, len);
+  var hasArgs = self.isType(leftTree, "BT");  // f(x)=<x || (x)=<x
+  var is = (hasArgs)? i0-2: i0-1;
+  var ie = len-1;
+  var name_eqn = self.get_tagVal(trees[is], "REv", "val");
+  if(!(name_eqn)){
+    is -= 1;
   }
-  else{
-    tree = store_with_arg_eqn(is);
+  /* Ver.2.195.45 -> */
+  var names = (hasArgs)? self.get_names(data, leftTree, true): null;  // NG: (x=1)=<x
+  var tree = self.inherit_ids_AtSEe(rightTrees, ids, names);  // Ver.2.31.17
+  if(name_eqn){
+    if(self.config.isEscaped(name_eqn)) throw "Invalid SEe("+name_eqn+")";  // Ver.2.27.15
+    self.store_eqn(name_eqn, tree, scopes, ids);  // Ver.2.31.17
+    tree = DATA.tree_tag("out", "stored_eqn("+name_eqn+")");
   }
   /* -> Ver.2.195.45 */
   /* -> Ver.2.27.15 */
+  /* -> Ver.2.209.46 */
   if(tree){
     self.feedback2trees(data, is, ie, tree);
   }
