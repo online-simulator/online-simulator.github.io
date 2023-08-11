@@ -3354,6 +3354,16 @@ My_entry.operation.prototype.REe = function(data, i0, tagName, tagObj){
     }
     else{
       _tree = (isREe)? self.tree_eqn2tree_AtREe(data, tree_eqn): tree_eqn;  // Ver.2.20.8  // Ver.2.32.17  // Ver.2.202.46
+      /* Ver.2.211.46 -> */
+      var arr = _tree.mat && _tree.mat.arr;
+      var has1elem = (arr && arr.length === 1 && arr[0].length === 1);
+      if(has1elem){
+        var arr00 = arr[0][0];
+        if(arr00.BTe){
+          _tree = self.tree_SEe2REe(arr00);
+        }
+      }
+      /* -> Ver.2.211.46 */
     }
     /* -> Ver.2.204.46 */
     if(hasArgs){

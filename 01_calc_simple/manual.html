@@ -20616,6 +20616,12 @@ clear; [a=1,b=2,v=&lt;{a,b},v=v=&gt;v,a=-1,b=-2,=&lt;v=&gt;]=&gt; -> (-1:-2)</de
 <br>
 　<a href="#span-out-call-by-symbol">symbol渡し</a>の前提で参照透過性なし
 <br>
+・<span class="run">Ver.2.211.46</span>以降、式読出しの仕様をfix
+<br>
+　<a href="#span-out-eqns-no-name">無名call</a>の式読出し可（削除されるargumentsを除く）
+<br>
+　<a href="#span-out-call-by-symbol">symbol渡し</a>の参照透過性を確保
+<br>
 <br>
 式変数の新規複製方法は、式変数名=&gt;式変数名とする
 <br>
@@ -20649,6 +20655,14 @@ clear; f=[(x)=&lt;x](3)=&gt;; f -> 3
 <br>
 clear; [(x)=&lt;x](3)=&gt;f; f=&gt; -> 3
 <br>
+・<span class="run">Ver.2.211.46</span>以降、var f = function(){return (function(x){return x;});}; f(3);
+<br>
+clear; [()=&lt;(x)=&lt;x]()=&gt;f; f(3)=&gt; -> 3
+<br>
+clear; [=&lt;(x)=&lt;x]=&gt;f; f(3)=&gt; -> 3
+<br>
+clear; [=&lt;[((x))=&lt;((x))]]=&gt;f; f(3)=&gt; -> 3
+<br>
 ・<a href="#span-out-call-by-equation">式渡しの直接式読出し</a>
 <br>
 clear; [f(x)=&lt;x,=&lt;f]=&gt; -> [MyErr]Invalid null=&gt;
@@ -20665,7 +20679,7 @@ clear; (x=-1,g=&lt;x,=&lt;g)=&gt;f; x=1; f=&gt; -> 1
 <br>
 clear; [x=-1,g=&lt;x,=&lt;g]=&gt;f; x=1; f=&gt; -> -1
 <br>
-clear; (a=-1,g(x)=&lt;a*x,=&lt;g)=&gt; -> [MyErr]Invalid null=>
+clear; (a=-1,g(x)=&lt;a*x,=&lt;g)=&gt; -> [MyErr]Invalid null=&gt;
 <br>
 clear; (a=-1,g(x)=&lt;a*x,=&lt;g)=&gt;f; a=1; f(3)=&gt; -> 3
 <br>
@@ -20679,13 +20693,23 @@ clear; make_f(a)=&lt;[g(x)=&lt;a*x,=&lt;g]=&gt;f; make_f(-1); a=1; f(3)=&gt;,f(3
 <br>
 clear; make_f(a0)=&lt;[a=a0,g(x)=&lt;a*x,=&lt;g]=&gt;f; make_f(-1); a=1; f(3)=&gt;,f(3)==&gt; -> (-3,3)
 <br>
-・var f = (function(){var a = -1; return function(x){return a*x;};})(); f(3);の代替不可
+・var f = (function(){var a = -1; return function(x){return a*x;};})(); f(3);<del>の代替不可
 <br>
 clear; [a=-1,=&lt;a*x]=&gt;f; a=1; f=&gt; -> [MyErr]Invalid binary operation
 <br>
 clear; [a=-1,=&lt;=&lt;a*x]=&gt;f; a=1; f=&gt; -> [MyErr]Invalid BTe([object Object],[object Object],[object Object])
 <br>
-clear; [a=-1,=&lt;(x)=&lt;a*x]=&gt;f; a=1; f(3)=&gt; -> [MyErr]Invalid args.length=0(f)
+clear; [a=-1,=&lt;(x)=&lt;a*x]=&gt;f; a=1; f(3)=&gt; -> [MyErr]Invalid args.length=0(f)</del>
+<br>
+・<span class="run">Ver.2.211.46</span>以降、参照透過性を確保
+<br>
+clear; [a=-1,f(x)=&lt;a*x,=&lt;f]=&gt;f; a=1; f(3)=&gt; -> -3
+<br>
+clear; [a=-1,=&lt;(x)=&lt;a*x]=&gt;f; a=1; f(3)=&gt; -> -3
+<br>
+clear; [a=-1,=&lt;{(x)=&lt;(a*x)}]=&gt;f; a=1; f(3)=&gt; -> -3
+<br>
+clear; [a=-1,f(x)=&lt;a*x,=&lt;{f}]=&gt;f; a=1; f(3)=&gt; -> [MyErr]Invalid null=&gt;
 <br>
 ・<a href="#span-out-scope-inherited-call">scope継承call</a>
 <br>
@@ -20707,13 +20731,13 @@ clear; [v=&lt;{1,2},v=v=&gt;v,=&lt;v]=&gt; -> 0
 <br>
 ・<a href="#span-out-substitution-equation">式代入</a>の場合、<a href="#span-out-BT">括弧</a>が必要
 <br>
-clear; make_f(hasMinus)=<[hasMinus&amp;&amp;&amp;(f(x)=&lt;-x)||||(f(x)=&lt;x),=&lt;f]=&gt;f;
+clear; make_f(hasMinus)=&lt;[hasMinus&amp;&amp;&amp;(f(x)=&lt;-x)||||(f(x)=&lt;x),=&lt;f]=&gt;f;
 <br>
 make_f(false)=&gt;,f(1)=&gt;,make_f(true)=&gt;,f(1)=&gt; -> (0,0,1,0,-1)
 <br>
 ・式読出しの場合、<a href="#span-out-BT">括弧</a>が不要
 <br>
-clear; fm(x)=&lt;-x,fp(x)=&lt;x,make_f(hasMinus)=<[hasMinus&amp;&amp;&amp;fm=&gt;f||||fp=&gt;f,=&lt;f]=&gt;f;
+clear; fm(x)=&lt;-x,fp(x)=&lt;x,make_f(hasMinus)=&lt;[hasMinus&amp;&amp;&amp;fm=&gt;f||||fp=&gt;f,=&lt;f]=&gt;f;
 <br>
 make_f(false)=&gt;,f(1)=&gt;,make_f(true)=&gt;,f(1)=&gt; -> (0,0,1,0,-1)
 <br>
