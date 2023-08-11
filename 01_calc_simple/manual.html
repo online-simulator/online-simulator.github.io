@@ -1728,7 +1728,7 @@ title/発行元(発行年)を列挙する
 <br>
 　<a href="#span-eqn">strict-mode式変数list</a>への影響なし
 <br>
-・<span class="run">Ver.2.210.46</span>以降、<a href="#span-out-scope-vars-has1BT">単独scope</a>の判定を厳密化
+・<span class="run">Ver.2.210.46</span>以降、<a href="#span-out-scope-vars-has1BT">単独scope</a>の判定を厳密化（<a href="#span-eqn-scope_NG">scope_NG</a>のNG範囲を最小化）
 <br>
 　式の長さ制限あり　⇒　長さ制限なし（単独の<a href="#span-out-BT">括弧</a>を探索）
 <br>
@@ -11902,7 +11902,9 @@ x=2; store; clear; x=3<span class="selection">/*independent local scope*/</span>
 <br>
 <span class="run">Ver.2.31.17</span>以降、<a href="#span-out-BT-square">角括弧[]</a>に変数のscopeを追加
 <br>
-・Nativeの場合、関数宣言に紐付くが、<a href="#span-out-BT">括弧</a>に紐付く点で異なる
+・Nativeの場合、関数宣言に紐付くが、<a href="#span-out-BT">括弧</a>に紐付くため、
+<br>
+・scope不定の<a href="#span-out-eqns-args">式変数のarguments</a>を削除する等、closure機能が異なる
 <br>
 <br>
 過去の後方互換性を完全に維持する場合、<a href="#span-out-config">裏設定</a>参照
@@ -20391,9 +20393,11 @@ clear; a=1; [=&lt;[=&lt;[=&lt;3]=&gt;+1]=&gt;*a]=&gt; -> 4
 <br>
 <span class="run">Ver.2.32.17</span>以降、<a href="#span-out-eqns-args">式変数のarguments</a>を追加
 <br>
-・<span class="run">Ver.2.210.46</span>以降、単独scopeの判定を厳密化
+・<span class="run">Ver.2.210.46</span>以降、単独scopeの判定を厳密化（<a href="#span-eqn-scope_NG">scope_NG</a>のNG範囲を最小化）
 <br>
 　式の長さ制限あり　⇒　長さ制限なし（単独の<a href="#span-out-BT">括弧</a>を探索）
+<br>
+・<a href="#span-out-eqns-args">式変数のarguments</a>を残さないため、以上の仕様は影響しない（<a href="#span-out-eqns-call2eqn">式変数への式読出し</a>参照）
 <br>
 <br>
 単独scopeの場合、<a href="#span-out-eqns-args">式変数のarguments</a>は<a href="#span-out-BT-square">角括弧[]</a>の<a href="#span-out-bracket">scope</a>内に定義する
@@ -20663,6 +20667,14 @@ clear; [=&lt;(x)=&lt;x]=&gt;f; f(3)=&gt; -> 3
 <br>
 clear; [=&lt;[((x))=&lt;((x))]]=&gt;f; f(3)=&gt; -> 3
 <br>
+・<span class="run">Ver.2.211.46</span>以降、var f = (function(a){return (function(x){return a*x;});})(-1); f(3);
+<br>
+clear; [a=-1,=&lt;(x)=&lt;a*x]=&gt;f; f(3)=&gt; -> -3
+<br>
+・厳密な記述の場合、error終了（<a href="#span-out-eqns-args">式変数のarguments</a>を残さない仕様を維持）
+<br>
+clear; [(a)=&lt;(x)=&lt;a*x](-1)=&gt;f; f(3)=&gt; -> [MyErr]Invalid binary operation
+<br>
 ・<a href="#span-out-call-by-equation">式渡しの直接式読出し</a>
 <br>
 clear; [f(x)=&lt;x,=&lt;f]=&gt; -> [MyErr]Invalid null=&gt;
@@ -20693,7 +20705,7 @@ clear; make_f(a)=&lt;[g(x)=&lt;a*x,=&lt;g]=&gt;f; make_f(-1); a=1; f(3)=&gt;,f(3
 <br>
 clear; make_f(a0)=&lt;[a=a0,g(x)=&lt;a*x,=&lt;g]=&gt;f; make_f(-1); a=1; f(3)=&gt;,f(3)==&gt; -> (-3,3)
 <br>
-・var f = (function(){var a = -1; return function(x){return a*x;};})(); f(3);<del>の代替不可
+・var f = (function(){var a = -1; return function(x){return a*x;};})(); var a = 1; f(3);<del>の代替不可
 <br>
 clear; [a=-1,=&lt;a*x]=&gt;f; a=1; f=&gt; -> [MyErr]Invalid binary operation
 <br>
@@ -21957,7 +21969,7 @@ size(A) -> (3:4)
 <br>
 scope_NG1(x)=&lt;[x=x,last[x=x/*NG*/,x],x];
 <br>
-・<span class="run">Ver.2.210.46</span>以降、<a href="#span-out-scope-vars-has1BT">単独scope</a>の判定を厳密化
+・<span class="run">Ver.2.210.46</span>以降、<a href="#span-out-scope-vars-has1BT">単独scope</a>の判定を厳密化（<a href="#span-eqn-scope_NG">scope_NG</a>のNG範囲を最小化）
 <br>
 scope_NG2(x)=&lt;2*[x=x,last[x=x/*NG*/,x],x];
 <br>
