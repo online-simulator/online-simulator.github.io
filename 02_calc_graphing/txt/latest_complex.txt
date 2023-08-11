@@ -1155,7 +1155,7 @@ clear
 local storage cleared
 
 [Pinv_y=(-0.999999427,-0.999936657,-0.997300203,-0.954499736,-0.682689492,0,0.682689492,0.954499736,0.997300203,0.999936657,0.999999427:-5,-4,-3,-2,-1,0,1,2,3,4,5),N=1,arr=[],_rn(=<arr=(arr:rand_table(=<Pinv_y)=>),,N),=<arr]=>
--1.2032956326971516
+0.12348909441529098
 
 rand_table(csv)=<last[table=sort0(csv),ymin=min(table)[0],ymax=max(table)[0],y=ymin+(ymax-ymin)*rand,x=interp(y:table),x]
 stored_eqn(rand_table)
@@ -1195,10 +1195,22 @@ stored_eqn(fibok)
 clear
 local storage cleared
 
+scope_NG4(1)=>:scope_NG4(-1)=>
+(
+0,4,4:
+0,4,4
+)
+
+scope_NG3(1)=>:scope_NG3(-1)=>
+(
+0,3,3:
+0,3,-3
+)
+
 scope_NG2(1)=>:scope_NG2(-1)=>
 (
 0,2,2:
-0,2,2
+0,2,-2
 )
 
 scope_NG1(1)=>:scope_NG1(-1)=>
@@ -1206,6 +1218,12 @@ scope_NG1(1)=>:scope_NG1(-1)=>
 0,1,1:
 0,1,-1
 )
+
+scope_NG4(x)=<last[x=x,4]*[x=x,last[x=x,x],x]
+stored_eqn(scope_NG4)
+
+scope_NG3(x)=<last[,3]*[x=x,last[x=x,x],x]
+stored_eqn(scope_NG3)
 
 scope_NG2(x)=<2*[x=x,last[x=x,x],x]
 stored_eqn(scope_NG2)
@@ -1252,4 +1270,4 @@ center=true&drag=false&test-case=false&legend=true&axis-t=false&axis-x=true&log-
 --------------------------------
 --------------------------------
 
-online-simulator.github.io.6.273.120.13.60 @ Thu Aug 10 2023 17:55:42 GMT+0900 (日本標準時) @ Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/115.0.0.0 Safari/537.36
+online-simulator.github.io.6.274.120.13.60 @ Fri Aug 11 2023 11:11:16 GMT+0900 (日本標準時) @ Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/115.0.0.0 Safari/537.36

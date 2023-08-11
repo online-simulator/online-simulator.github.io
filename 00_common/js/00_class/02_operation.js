@@ -3219,23 +3219,30 @@ My_entry.operation.prototype.REe = function(data, i0, tagName, tagObj){
       var ids_args_eqn = isREe.ids || [[0, 0]];
       var id0 = ids_args_eqn[0];  // ids[0]
       /* -> Ver.2.33.18 */
+      /* Ver.2.210.46 -> */
       /* solvex_Gauss()=<[inherit scope here]=> */
-      if(isREe.val.length < 3){
+      var inherit_id0 = function(){
+        var N_BT = 0;
+        var i_BT = -1;
+        var tagName_BT = null;
         var isREeVal = isREe.val;
-        var tagName0_BT = (isREeVal[0])? self.isType(isREeVal[0], "BT"): "";
-        var tagName1_BT = (isREeVal[1])? self.isType(isREeVal[1], "BT"): "";
-        var inherit_id0 = function(i, tagName_BT){
-          var tree_BT = isREe.val[i];
+        var len_isREe = isREeVal.length;
+        for(var i=0; i<len_isREe; ++i){
+          var tagName = self.isType(isREeVal[i], "BT");
+          if(tagName){
+            ++N_BT;
+            i_BT = i;
+            tagName_BT = tagName;
+          }
+        }
+        if(N_BT === 1){
+          var tree_BT = isREe.val[i_BT];
           ids_args_eqn = tree_BT[tagName_BT].ids || ids_args_eqn;  // Ver.2.33.18
           id0 = ids_args_eqn[0];
-        };
-        if(tagName0_BT && !(tagName1_BT)){       // f(x)=<[,x] || f(x)=<[,=<x]=>  // Ver.2.200.46
-          inherit_id0(0, tagName0_BT);
         }
-        else if(!(tagName0_BT) && tagName1_BT){  // f(x)=<last[,x]
-          inherit_id0(1, tagName1_BT);
-        }
-      }
+      };
+      inherit_id0();
+      /* -> Ver.2.210.46 */
       /* Ver.2.71.29 -> */
       var args_eqns = [];
       var args_vars = [];

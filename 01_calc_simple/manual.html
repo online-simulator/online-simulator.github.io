@@ -536,6 +536,8 @@ e^(-i(1pi(){2/2i}(5-{3-1}){i/(-4)}))
 <br>
 　　・<a href="#span-out-scope-vars">変数のscope</a>
 <br>
+　　　・<a href="#span-out-scope-vars-has1BT">単独scope</a>
+<br>
 　・<a href="#span-out-eqns">式変数</a>
 <br>
 　　・<a href="#span-out-eqns-call">式読出し</a>
@@ -1725,6 +1727,12 @@ title/発行元(発行年)を列挙する
 　　　　　　<a href="#span-out-FNh">高階関数</a>||<a href="#span-out-FNmh">高階行列関数</a>の引数（回数||整数範囲||step||次数||分割数）
 <br>
 　<a href="#span-eqn">strict-mode式変数list</a>への影響なし
+<br>
+・<span class="run">Ver.2.210.46</span>以降、<a href="#span-out-scope-vars-has1BT">単独scope</a>の判定を厳密化
+<br>
+　式の長さ制限あり　⇒　長さ制限なし（単独の<a href="#span-out-BT">括弧</a>を探索）
+<br>
+　影響項目：<a href="#span-out-eqns-re-use">scope付式変数の再利用</a>||<a href="#span-eqn-scope_NG">scope_NG</a>
     </td>
   </tr>
   <tr>
@@ -11894,6 +11902,9 @@ x=2; store; clear; x=3<span class="selection">/*independent local scope*/</span>
 <br>
 <span class="run">Ver.2.31.17</span>以降、<a href="#span-out-BT-square">角括弧[]</a>に変数のscopeを追加
 <br>
+・Nativeの場合、関数宣言に紐付くが、<a href="#span-out-BT">括弧</a>に紐付く点で異なる
+<br>
+<br>
 過去の後方互換性を完全に維持する場合、<a href="#span-out-config">裏設定</a>参照
     </td>
   </tr>
@@ -20369,6 +20380,41 @@ clear; a=1; [=&lt;[=&lt;[=&lt;3]=&gt;+1]=&gt;*a]=&gt; -> 4
 目次
 </a>
 <br>
+単独scope
+<br>
+入力仕様
+    </th>
+    <td>
+<span id="span-out-scope-vars-has1BT"></span>
+単独scopeの入力仕様と付随する留意事項について記述する
+<br>
+<br>
+<span class="run">Ver.2.32.17</span>以降、<a href="#span-out-eqns-args">式変数のarguments</a>を追加
+<br>
+・<span class="run">Ver.2.210.46</span>以降、単独scopeの判定を厳密化
+<br>
+　式の長さ制限あり　⇒　長さ制限なし（単独の<a href="#span-out-BT">括弧</a>を探索）
+<br>
+<br>
+単独scopeの場合、<a href="#span-out-eqns-args">式変数のarguments</a>は<a href="#span-out-BT-square">角括弧[]</a>の<a href="#span-out-bracket">scope</a>内に定義する
+<br>
+・一例を列挙する
+<br>
+f(x)=&lt;[,x]
+<br>
+f(x)=&lt;last[,x]
+<br>
+f(x)=&lt;[=&lt;x]=&gt;
+<br>
+f(x)=&lt;[=&lt;x*2]=&gt;x2
+    </td>
+  </tr>
+  <tr>
+    <th>
+<a href="#span-index">
+目次
+</a>
+<br>
 式変数
 <br>
 入力仕様
@@ -20626,6 +20672,12 @@ clear; (a=-1,g(x)=&lt;a*x,=&lt;g)=&gt;f; a=1; f(3)=&gt; -> 3
 ・var f = (function(){var a = -1; var g = function(x){return a*x;}; return g;})(); var a = 1; f(3);
 <br>
 clear; [a=-1,g(x)=&lt;a*x,=&lt;g]=&gt;f; a=1; f(3)=&gt; -> -3
+<br>
+・<a href="#span-out-eqns-args">式変数のarguments</a>を<a href="#span-out-bracket">scope</a>内に残す場合、変数名を区別して代入を明示
+<br>
+clear; make_f(a)=&lt;[g(x)=&lt;a*x,=&lt;g]=&gt;f; make_f(-1); a=1; f(3)=&gt;,f(3)==&gt; -> (3,3)
+<br>
+clear; make_f(a0)=&lt;[a=a0,g(x)=&lt;a*x,=&lt;g]=&gt;f; make_f(-1); a=1; f(3)=&gt;,f(3)==&gt; -> (-3,3)
 <br>
 ・var f = (function(){var a = -1; return function(x){return a*x;};})(); f(3);の代替不可
 <br>
@@ -21358,7 +21410,7 @@ clear; conv(=&lt;a_)=&lt;[a=-1,=&lt;a+a_==&gt;]=&gt;*2; a=&lt;a; a=1; conv(=&lt;
 <br>
 clear; conv(=&lt;a_)=&lt;[a=-1,=&lt;a+a_==&gt;]=&gt;*2; a=&lt;a; a=1; conv(=&lt;(a==&gt;))=&gt;,a -> (-4,1)
 <br>
-・単独<a href="#span-out-bracket">scope</a>と判別される場合、定義元のみ通常callに短縮可
+・<a href="#span-out-scope-vars-has1BT">単独scope</a>と判別される場合、定義元のみ通常callに短縮可
 <br>
 clear; conv(=&lt;a_)=&lt;[a=-1,=&lt;a+a_==&gt;]=&gt;; a=&lt;a; a=1; conv(=&lt;(a==&gt;))=&gt;,a -> (-2,1)
 <br>
@@ -21764,7 +21816,7 @@ scope付式変数の再利用の入力仕様と付随する留意事項につい
 <br>
 <a href="#span-out-scope-vars">変数のscope</a>付の<a href="#span-out-eqns">式変数</a>の一例を列挙する
 <br>
-・単独<a href="#span-out-bracket">scope</a>と判別されるcaseのみ、<a href="#span-out-eqns-args">定義元arguments</a>は<a href="#span-out-BT-square">角括弧[]</a>の<a href="#span-out-bracket">scope</a>内に定義する
+・<a href="#span-out-scope-vars-has1BT">単独scope</a>と判別される場合、<a href="#span-out-eqns-args">定義元arguments</a>は<a href="#span-out-BT-square">角括弧[]</a>の<a href="#span-out-bracket">scope</a>内に定義する
 <br>
 clear; com2vec(a)=&lt;[{real(a),imag(a)}]; com2vec(2-3i) -> (2:-3)
 <br>
@@ -21879,13 +21931,23 @@ size(A) -> (3:4)
 <br>
 ・<a href="#span-in-scope-vars">static scopes2d array</a>を共有するため、同じ<a href="#span-out-vars-symbol">変数名symbol</a>の代入不可（前回callの未初期化dataが残存）
 <br>
-scope_NG1(x)=&lt;[x=x/*OK*/,last[x=x/*NG*/,x],x];
+scope_NG1(x)=&lt;[x=x,last[x=x/*NG*/,x],x];
 <br>
-scope_NG2(x)=&lt;2*[x=x/*NG*/,last[x=x/*NG*/,x],x];
+・<span class="run">Ver.2.210.46</span>以降、<a href="#span-out-scope-vars-has1BT">単独scope</a>の判定を厳密化
+<br>
+scope_NG2(x)=&lt;2*[x=x,last[x=x/*NG*/,x],x];
+<br>
+scope_NG3(x)=&lt;last[,3]*[x=x,last[x=x/*NG*/,x],x];
+<br>
+scope_NG4(x)=&lt;last[x=x/*NG*/,4]*[x=x/*NG*/,last[x=x/*NG*/,x],x];
 <br>
 scope_NG1(1)=&gt;:scope_NG1(-1)=&gt; -> (0,1,1:0,1,-1)
 <br>
-scope_NG2(1)=&gt;:scope_NG2(-1)=&gt; -> (0,2,2:0,2,2)
+scope_NG2(1)=&gt;:scope_NG2(-1)=&gt; -> (0,2,2:0,2,-2)
+<br>
+scope_NG3(1)=&gt;:scope_NG3(-1)=&gt; -> (0,3,3:0,3,-3)
+<br>
+scope_NG4(1)=&gt;:scope_NG4(-1)=&gt; -> (0,4,4:0,4,4)
     </td>
   </tr>
   <tr>
@@ -35037,17 +35099,7 @@ upper,[upper,[upper,[self,[lower,]]]]
 <br>
 upper,[upper,[upper,[upper,[self,]]]]</span>
 <br>
-<span class="condition">・ids継承は<a href="#span-out-eqns">式変数</a>のself-lower-idsに対して再帰的に継承する
-<br>
-<span class="run">Ver.2.32.17</span>以降、<a href="#span-out-eqns-args">式変数のarguments</a>を追加
-<br>
-・以下の形式で宣言時、<a href="#span-out-eqns-args">式変数のarguments</a>は<a href="#span-out-BT-square">角括弧[]</a>の<a href="#span-out-bracket">scope</a>内に定義する
-<br>
-f(x)=&lt;[,x]
-<br>
-f(x)=&lt;[,=&lt;x]=&gt;
-<br>
-f(x)=&lt;last[,x]</span>
+<span class="condition">・ids継承は<a href="#span-out-eqns">式変数</a>のself-lower-idsに対して再帰的に継承する</span>
 <br>
 <br>
 <a href="#span-out-scope-vars">変数のscope</a>の明示的なids継承が発生する項目を列挙する
@@ -36489,13 +36541,21 @@ scope_NG
 <br>
 clear;
 <br>
-scope_NG1(x)=&lt;[x=x/*OK*/,last[x=x/*NG*/,x],x];
+scope_NG1(x)=&lt;[x=x,last[x=x/*NG*/,x],x];
 <br>
-scope_NG2(x)=&lt;2*[x=x/*NG*/,last[x=x/*NG*/,x],x];
+scope_NG2(x)=&lt;2*[x=x,last[x=x/*NG*/,x],x];
+<br>
+scope_NG3(x)=&lt;last[,3]*[x=x,last[x=x/*NG*/,x],x];
+<br>
+scope_NG4(x)=&lt;last[x=x/*NG*/,4]*[x=x/*NG*/,last[x=x/*NG*/,x],x];
 <br>
 scope_NG1(1)=&gt;:scope_NG1(-1)=&gt;;
 <br>
 scope_NG2(1)=&gt;:scope_NG2(-1)=&gt;;
+<br>
+scope_NG3(1)=&gt;:scope_NG3(-1)=&gt;;
+<br>
+scope_NG4(1)=&gt;:scope_NG4(-1)=&gt;;
     </td>
   </tr>
   <tr>
