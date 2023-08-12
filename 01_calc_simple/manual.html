@@ -21887,13 +21887,23 @@ clear; minus(a)=&lt;[,=&lt;-a]=&gt;; minus(2) -> -2
 <br>
 clear; add(a,b)=&lt;last[,a+b]; add(1,3) -> 4
 <br>
-・以下のような場合、<a href="#span-out-eqns-args">定義元arguments</a>は<a href="#span-out-BT-square">角括弧[]</a>の<a href="#span-out-bracket">scope</a>外に定義する
+<del>・以下のような場合、<a href="#span-out-eqns-args">定義元arguments</a>は<a href="#span-out-BT-square">角括弧[]</a>の<a href="#span-out-bracket">scope</a>外に定義する
 <br>
 clear; com2vec_k(a,k)=&lt;[{real(a),imag(a)}]*k; com2vec_k(2-3i,i) -> (2i:-3i)
 <br>
 clear; minus_k(a,k)=&lt;[,=&lt;-a]=&gt;*k; minus_k(2,2) -> -4
 <br>
-clear; add_k(a,b,k)=&lt;last[,a+b]*k; add_k(1,3,2) -> 8
+clear; add_k(a,b,k)=&lt;last[,a+b]*k; add_k(1,3,2) -> 8</del>
+<br>
+・<span class="run">Ver.2.210.46</span>以降、定義不能
+<br>
+clear; com2vec_k(a,k)=&lt;[{real(a),imag(a)}]*k; com2vec_k(2-3i,i) -> [MyErr]Invalid binary operation
+<br>
+clear; minus_k(a,k)=&lt;[,=&lt;-a]=&gt;*k; minus_k(2,2) -> [MyErr]Invalid binary operation
+<br>
+clear; add_k(a,b,k)=&lt;last[,a+b]*k; add_k(1,3,2) -> [MyErr]Invalid binary operation
+<br>
+・次の場合、<a href="#span-out-eqns-args">定義元arguments</a>は<a href="#span-out-BT-square">角括弧[]</a>の<a href="#span-out-bracket">scope</a>外に定義する
 <br>
 clear; iproduct(L,R)=&lt;[L]*[trans(R)]; iproduct(=&lt;(1,2),=&lt;(3,4)) -> 11
 <br>
