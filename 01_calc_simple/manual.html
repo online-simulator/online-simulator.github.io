@@ -548,6 +548,8 @@ e^(-i(1pi(){2/2i}(5-{3-1}){i/(-4)}))
 <br>
 　　・<a href="#span-out-call-by-equation">式渡し</a>
 <br>
+　　　・<a href="#span-out-eqns-no-name-short">直接式読出し</a>
+<br>
 　　　・<a href="#span-out-substitution-equation">式変数への式代入</a>
 <br>
 　　・<a href="#span-out-scope-inherited-call">scope継承call</a>
@@ -11315,7 +11317,7 @@ useScope=falseの場合、完全な後方互換で<a href="#span-out-scope-vars"
 <br>
 useScope=trueの場合、すべての<a href="#span-out-BT">括弧</a>に<a href="#span-out-scope-vars">変数のscope</a>を使用する
 <br>
-・多重積分等、不都合あり
+・多重積分等、支障あり
 <br>
 useScope=BT2の場合、<a href="#span-out-BT">波括弧{}</a>のみ<a href="#span-out-scope-vars">変数のscope</a>を使用する
 <br>
@@ -20341,7 +20343,7 @@ clear; a=-1; [a=1,(a=2,[a=&lt;3,=&lt;a=&gt;]=&gt;,a,[a,a],[($a)=4,a]),a],a -> (0
 <br>
 clear; a=-1; [a=1,(a=2,[a=&lt;3,=&lt;a=&gt;]=&gt;,a,[a,a],[($a)=4,a]),=&lt;a]=&gt;,a -> (2,-1)
 <br>
-・<a href="#span-out-call-by-equation">式渡しの直接式読出し</a>
+・<a href="#span-out-eqns-no-name-short">式渡しの直接式読出し</a>
 <br>
 ・(function(){return (function(){return (function(){var a=1; return 3;})()+a;})()*2;})();
 <br>
@@ -20575,7 +20577,7 @@ clear; a=&lt;1; a==&gt;b; b -> 1
 <br>
 2; y=&lt;ans; max(3,4(y=&gt;y0)2); y=&gt; -> 16
 <br>
-・<a href="#span-out-call-by-equation">式渡しの直接式読出し</a>で使用する場合、読出し値の次元が残らないように留意する
+・<a href="#span-out-eqns-no-name-short">式渡しの直接式読出し</a>で使用する場合、読出し値の次元が残らないように留意する
 <br>
 clear; [v=&lt;(1,2),v=v=&gt;,=&lt;v]=&gt;  <span class="selection">// OK</span> -> (1,2)
 <br>
@@ -20675,7 +20677,7 @@ clear; [a=-1,=&lt;(x)=&lt;a*x]=&gt;f; f(3)=&gt; -> -3
 <br>
 clear; [(a)=&lt;(x)=&lt;a*x](-1)=&gt;f; f(3)=&gt; -> [MyErr]Invalid binary operation
 <br>
-・<a href="#span-out-call-by-equation">式渡しの直接式読出し</a>
+・<a href="#span-out-eqns-no-name-short">式渡しの直接式読出し</a>（<span class="run">Ver.2.195.45</span>以降、<a href="#span-out-eqns-no-name">無名call</a>のarguments省略）
 <br>
 clear; [f(x)=&lt;x,=&lt;f]=&gt; -> [MyErr]Invalid null=&gt;
 <br>
@@ -20777,6 +20779,12 @@ clear; [a=1,b=2,last{v=&lt;{a,b},v=&gt;v0},a=-1,b=-2,=&lt;v=&gt;]=&gt; -> (-1:-2
 clear; [a=1,b=2,v=&lt;{a,b},v=v=&gt;v,a=-1,b=-2,=&lt;v]=&gt; -> 0
 <br>
 clear; [a=1,b=2,v=&lt;{a,b},v=v=&gt;v,a=-1,b=-2,=&lt;v=&gt;]=&gt; -> (-1:-2)
+<br>
+clear; g(x)=&lt;a*x; a=1,[a=2,=&lt;(x)=&lt;[a=3,=&lt;g(x)=&gt;]=&gt;]=&gt;f; f(-1)=&gt;,f(-1)==&gt; -> (-1,-1)
+<br>
+clear; g(x)=&lt;a*x; a=1,[a=2,=&lt;(x)=&lt;[a=3,=&lt;g(x)=&gt;]==&gt;]=&gt;f; f(-1)=&gt;,f(-1)==&gt; -> (-1,-1)
+<br>
+clear; g(x)=&lt;a*x; a=1,[a=2,=&lt;(x)=&lt;[a=3,=&lt;g(x)==&gt;]=&gt;]=&gt;f; f(-1)=&gt;,f(-1)==&gt; -> (-3,-3)
     </td>
   </tr>
   <tr>
@@ -20808,9 +20816,56 @@ clear; [a=1,b=2,v=&lt;{a,b},v=v=&gt;v,a=-1,b=-2,=&lt;v=&gt;]=&gt; -> (-1:-2)
 ・よって<a href="#span-out-substitution-equation">式代入</a>同等の<a href="#span-out-prec">演算のprecedence</a>
 <br>
 <br>
-Native無名関数を代替する式渡しの直接式読出し
+<span class="run">Ver.2.30.15</span>以降、<a href="#span-out-FN">関数</a>の引数に限定して、<a href="#span-out-substitution-equation">式代入</a>同様に、式渡しの仕様を緩和
 <br>
-・Native無名関数(function(){return 3;})();の一例
+・<a href="#span-out-FNh-SX">総和高階関数</a>を使用
+<br>
+・次の場合、<a href="#span-out-vars-symbol">式変数名symbol</a>と判別する
+<br>
+clear; _sn(=&lt;n,0,2) -> [MyErr]Invalid =&lt;Call-by-Equation
+<br>
+clear; n=1; _sn(=&lt;n,0,2) -> [MyErr]Invalid =&lt;Call-by-Equation
+<br>
+clear; n=&lt;n; _sn(=&lt;n,0,2) || 0+1+2 -> 3
+<br>
+・次の場合、dummy変数と判別する
+<br>
+clear; _sn(=&lt;{n},0,2) || 0+1+2 -> 3
+<br>
+clear; n=2; _sn(=&lt;{n},0,2) || 0+1+2 -> 3
+<br>
+・次の場合、<a href="#span-out-BT">括弧</a>省略と判別する
+<br>
+clear; _sn(=&lt;n+1,0,2) || _sn(=&lt;{n+1},0,2) || 1+2+3 -> 6
+<br>
+clear; n=&lt;n; _sn(=&lt;n=&gt;,0,2) || _sn(=&lt;{n=&gt;},0,2) || 0+1+2 -> 3
+<br>
+・次の場合、<a href="#span-out-BT">括弧</a>省略と判別する
+<br>
+clear; _sn(=&lt;1,0,2) || _sn(=&lt;{1},0,2) || 1+1+1 -> 3
+<br>
+<br>
+実装の詳細は<a href="#span-in-call-by-equation">内部仕様</a>参照
+    </td>
+  </tr>
+  <tr>
+    <th>
+<a href="#span-index">
+目次
+</a>
+<br>
+直接式読出し
+<br>
+入力仕様
+    </th>
+    <td>
+<span id="span-out-eqns-no-name-short"></span>
+直接式読出しの入力仕様と付随する留意事項について記述する
+<br>
+<br>
+Native無名関数を代替する式渡しの直接式読出し（<span class="run">Ver.2.195.45</span>以降、<a href="#span-out-eqns-no-name">無名call</a>のarguments省略）
+<br>
+・function(){return 3;})();
 <br>
 (=&lt;3)=&gt; || {=&lt;3}=&gt; -> 3
 <br>
@@ -20844,7 +20899,7 @@ clear; a=3; [a]=&gt; -> [MyErr]Invalid reference
 <br>
 {a=1,b=2,c=3,=&lt;(a,b,c)}=&gt; -> (1,2,3)
 <br>
-・(function(){return 0;return 1;})()
+・(function(){return 0; return 1;})();
 <br>
 (=&lt;0,=&lt;1)=&gt; -> 1
 <br>
@@ -20954,38 +21009,6 @@ clear; (=&lt;(a=1,=&lt;(=&lt;3)=&gt;+1)=&gt;*a)=&gt; -> 4
 clear; (a=1,=&lt;(=&lt;(=&lt;3)=&gt;+1)=&gt;*a)=&gt; -> 4
 <br>
 clear; a=1,(=&lt;(=&lt;(=&lt;3)=&gt;+1)=&gt;*a)=&gt; -> (0,4)
-<br>
-<br>
-<span class="run">Ver.2.30.15</span>以降、<a href="#span-out-FN">関数</a>の引数に限定して、<a href="#span-out-substitution-equation">式代入</a>同様に、式渡しの仕様を緩和
-<br>
-・<a href="#span-out-FNh-SX">総和高階関数</a>を使用
-<br>
-・次の場合、<a href="#span-out-vars-symbol">式変数名symbol</a>と判別する
-<br>
-clear; _sn(=&lt;n,0,2) -> [MyErr]Invalid =&lt;Call-by-Equation
-<br>
-clear; n=1; _sn(=&lt;n,0,2) -> [MyErr]Invalid =&lt;Call-by-Equation
-<br>
-clear; n=&lt;n; _sn(=&lt;n,0,2) || 0+1+2 -> 3
-<br>
-・次の場合、dummy変数と判別する
-<br>
-clear; _sn(=&lt;{n},0,2) || 0+1+2 -> 3
-<br>
-clear; n=2; _sn(=&lt;{n},0,2) || 0+1+2 -> 3
-<br>
-・次の場合、<a href="#span-out-BT">括弧</a>省略と判別する
-<br>
-clear; _sn(=&lt;n+1,0,2) || _sn(=&lt;{n+1},0,2) || 1+2+3 -> 6
-<br>
-clear; n=&lt;n; _sn(=&lt;n=&gt;,0,2) || _sn(=&lt;{n=&gt;},0,2) || 0+1+2 -> 3
-<br>
-・次の場合、<a href="#span-out-BT">括弧</a>省略と判別する
-<br>
-clear; _sn(=&lt;1,0,2) || _sn(=&lt;{1},0,2) || 1+1+1 -> 3
-<br>
-<br>
-実装の詳細は<a href="#span-in-call-by-equation">内部仕様</a>参照
     </td>
   </tr>
   <tr>
@@ -22105,20 +22128,24 @@ N=10; fact_(n)=&lt;round(n)*fact_(n-1); fact_(N) -> Maximum call stack size exce
 式変数のargumentsの無名callの入力仕様と付随する留意事項について記述する
 <br>
 <br>
-<span class="run">Ver.2.195.45</span>以降、式変数のargumentsの無名callに対応
+<span class="run">Ver.2.195.45</span>以降、式変数のargumentsの無名call（<a href="#span-out-eqns-no-name-short">式渡しの直接式読出し</a>のarguments）に対応
 <br>
 ・無名再帰は非対応（自己参照の手段なし）
 <br>
 ・<span class="clear">Ver.2.195.46</span>以降、実行確定の都度、<a href="#span-out-storage">local storage</a>から削除
 <br>
-・<span class="run">Ver.2.204.46</span>以降、call結果が解決済みの前提（未解決の場合、error終了）
+・<span class="run">Ver.2.204.46</span>以降、call結果が解決済みの前提（<span class="run">Ver.2.211.46</span>以降、<a href="#span-out-eqns-call2eqn">式変数への式読出し</a>を除く）
 <br>
 <br>
 test caseを列挙する
 <br>
+・<a href="#span-out-eqns-no-name-short">式渡しの直接式読出し</a>（<span class="run">Ver.2.195.45</span>以降、無名callのarguments省略）
+<br>
 [=&lt;0]=&gt; -> 0
 <br>
 [()=&lt;1]()=&gt; -> 1
+<br>
+・<a href="#span-out-eqns-no-name-short">式渡しの直接式読出し</a>にargumentsを追加
 <br>
 [(x)=&lt;x](2)=&gt; -> 2
 <br>

@@ -125,7 +125,7 @@
       script += "\nclear;\n";
       script += "a=1,[a=2,(a=3,{a=4:a},a),a],a;";
       script += "\nclear;\n";
-      script += "a=1,[a=2,g(a)=<last[,a],(a)=<g](3)=>f,f=>,f==>:a=1,[a=2,(a)=<=<last[,a]](3)=>f,f=>,f==>:a=1,[a=2,(a)=<{()=<(last[,a])}](3)=>f,f=>,f==>;\na=1,[a=2,g(a)=<last[,a],=<g]=>f,f=>,f==>,f(4)=>:a=1,[a=2,=<(a)=<last[,a]]=>f,f=>,f==>,f(4)=>:a=1,[a=2,=<{((a))=<(last[,a])}]=>f,f=>,f==>,f(4)=>;";
+      script += "a=1,[a=2,g(a)=<last[,a],(a)=<g](3)=>f,f=>,f==>:a=1,[a=2,(a)=<=<last[,a]](3)=>f,f=>,f==>:a=1,[a=2,(a)=<{()=<(last[,a])}](3)=>f,f=>,f==>;\na=1,[a=2,g(a)=<last[,a],=<g]=>f,f=>,f==>,f(4)=>:a=1,[a=2,=<(a)=<last[,a]]=>f,f=>,f==>,f(4)=>:a=1,[a=2,=<{((a))=<(last[,a])}]=>f,f=>,f==>,f(4)=>;\na=1,b=1,[a=2,b=2,g(a)=<last[,a+b],=<g]=>f,f=>,f==>,f(4)=>,f(4)==>:a=1,b=1,[a=2,b=2,=<(a)=<last[,a+b]]=>f,f=>,f==>,f(4)=>,f(4)==>:a=1,b=1,[a=2,b=2,=<{((a))=<(last[,a+b])}]=>f,f=>,f==>,f(4)=>,f(4)==>;";
       script += "\nclear;\n";
       $._id("input").value = script;
       // test case
