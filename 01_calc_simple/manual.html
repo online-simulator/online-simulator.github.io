@@ -20626,7 +20626,7 @@ clear; [a=1,b=2,v=&lt;{a,b},v=v=&gt;v,a=-1,b=-2,=&lt;v=&gt;]=&gt; -> (-1:-2)</de
 <br>
 　<a href="#span-out-call-by-symbol">symbol渡し</a>の前提で参照透過性なし
 <br>
-・<span class="run">Ver.2.211.46</span>以降、式読出しの仕様をfix
+・<span class="run">Ver.2.211.46</span>以降、式読出しの仕様をfix（現状、再利用不可）
 <br>
 　<a href="#span-out-eqns-no-name">無名call</a>の式読出しに対応（削除されるargumentsを除く）
 <br>
@@ -20738,6 +20738,12 @@ clear; [x=-1,g=&lt;x,=&lt;g]==&gt;f; x=1; f=&gt; -> 1
 clear; [a=-1,g(x)=&lt;a*x,=&lt;g]=&gt;f; a=1; f(3)==&gt; -> 3
 <br>
 clear; [a=-1,g(x)=&lt;a*x,=&lt;g]==&gt;f; a=1; f(3)=&gt; -> 3
+<br>
+・<a href="#span-out-bracket">scope</a>内の<a href="#span-out-vars">変数</a>||<a href="#span-out-eqns">式変数</a>は演算確定1回毎に初期化のため、再利用不可
+<br>
+・<a href="#span-in-scope-vars">scope-ids</a>未継承のため、式読出しで作る<a href="#span-out-eqns">式変数</a>の再利用不可
+<br>
+f(3)=&gt; -> [MyErr]Invalid operation
 <br>
 ・<a href="#span-out-substitution">変数への代入</a>||<a href="#span-out-FNmh-EX">symbolic高階行列関数</a>同様に、0を返す
 <br>
@@ -22001,6 +22007,8 @@ size(A) -> (3:4)
 <br>
 <br>
 留意事項を列挙する
+<br>
+・<a href="#span-out-bracket">scope</a>内の<a href="#span-out-vars">変数</a>||<a href="#span-out-eqns">式変数</a>は演算確定1回毎に初期化（<a href="#span-out-eqns-call2eqn">式変数への式読出し</a>で再利用不可）
 <br>
 ・<a href="#span-in-scope-vars">static scopes2d array</a>を共有するため、同じ<a href="#span-out-vars-symbol">変数名symbol</a>の代入不可（前回callの未初期化dataが残存）
 <br>
@@ -34457,7 +34465,7 @@ f=&lt;last{V=1,E=0,k=1,I=exp(k*(V-E))-exp(-k*(V-E))}
 <span id="span-out-development-problems-FNh"></span>
 <a href="#span-out-FNh">高階関数</a>の問題点を列挙する
 <br>
-・反復処理毎に下記<span class="clear">eqn_k</span>の<a href="#span-in-tree">tree構造</a>全体（scope-idsを含む）をdeep-copyで複製するため、
+・反復処理毎に下記<span class="clear">eqn_k</span>の<a href="#span-in-tree">tree構造</a>全体（<a href="#span-in-scope-vars">scope-ids</a>を含む）をdeep-copyで複製するため、
 <br>
 ・<a href="#span-out-FNh">高階関数</a>をnestingする場合、致命的にthroughputが低下する（<a href="#span-out-FNh-DX">微分の多重化</a>||<a href="#span-out-interpolation-Lagrange">Lagrange補間</a>）
 <br>
