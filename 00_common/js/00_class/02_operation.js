@@ -306,6 +306,16 @@ My_entry.operation.prototype.prepare = function(data){
     }
   }
   self.arr_precedence = arr_precedence.join().split(",").filter(Boolean);  // Ver.2.43.21
+  /* Ver.2.212.46 -> */
+  var hasTag = data.hasTag;
+  if(hasTag){
+    hasTag["SRr"] = true;
+    hasTag["SRt"] = true;
+    hasTag["BRmo"] = true;
+    hasTag["SEv"] = true;
+    self.arr_precedence = self.arr_precedence.filter(function(tag){return hasTag[tag];});
+  }
+  /* -> Ver.2.212.46 */
   self.init_callbacks(options);
   self.init_callbacks_mat(options);
   return self;

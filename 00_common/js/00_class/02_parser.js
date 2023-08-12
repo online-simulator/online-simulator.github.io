@@ -737,6 +737,7 @@ My_entry.parser.prototype.make_trees = function(sentence, opt_re){  // Ver.2.158
         break;
     }
     if(tree){
+      self.hasTag[(Object.keys(tree))[0]] = true;  // Ver.2.212.46
       _trees.push(tree);
     }
     i = i_next;
@@ -874,6 +875,7 @@ My_entry.parser.prototype.eval = function(script){
 My_entry.parser.prototype.run = function(data){
   var self = this;
   var _data = data;
+  self.hasTag = {};  // Ver.2.212.46
   var trees2d = null;
   var scopes2d = null;
   try{
@@ -888,6 +890,7 @@ My_entry.parser.prototype.run = function(data){
     if(trees2d && trees2d.length){
       _data.trees2d = trees2d;
       _data.scopes2d = scopes2d;
+      _data.hasTag = self.hasTag;  // Ver.2.212.46
       _data = self.entry.operation.run(_data);
       _data.out = trees2d;
     }
