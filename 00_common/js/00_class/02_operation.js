@@ -311,6 +311,7 @@ My_entry.operation.prototype.prepare = function(data){
   if(hasTag){
     hasTag["SRr"] = true;
     hasTag["SRt"] = true;
+    hasTag["BT1"] = true;  // Ver.2.212.47
     hasTag["BRmo"] = true;
     hasTag["SEv"] = true;
     self.arr_precedence = self.arr_precedence.filter(function(tag){return hasTag[tag];});
