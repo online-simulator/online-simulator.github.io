@@ -288,6 +288,8 @@ e^(-i(1pi(){2/2i}(5-{3-1}){i/(-4)}))
 <br>
 　・<a href="#span-out-option3">Multi-thread実行</a>
 <br>
+　・<a href="#span-out-option6">useScopeWith</a>
+<br>
 ・<a href="#span-out-type-ope">演算子の大分類</a>
 <br>
 ・<a href="#span-out-associativity">2項演算子のassociativity</a>
@@ -8702,6 +8704,8 @@ max(x=3,-1,-2) || max(0,-1,-2) -> 0
 ・<a href="#span-out-option4">comma演算子</a>
 <br>
 ・<a href="#span-out-option3">Multi-thread実行</a>
+<br>
+・<a href="#span-out-option6">useScopeWith</a>　<span class="run">Ver.2.213.47</span>以降、追加
     </td>
   </tr>
   <tr>
@@ -8879,6 +8883,39 @@ Multi-thread実行を選択可
 留意事項を列挙する
 <br>
 ・Single-thread実行の場合、browser既定のtimeoutまで演算||処理を中断不可
+    </td>
+  </tr>
+  <tr>
+    <th>
+<a href="#span-index">
+目次
+</a>
+<br>
+useScope
+<br>
+With
+    </th>
+    <td>
+<span id="span-out-option6"></span>
+外部optionのuseScopeWithと付随する留意事項について記述する
+<br>
+<br>
+<span class="run">Ver.2.213.47</span>以降、<a href="#span-out-scope-vars">変数のscope</a>の追加を選択可
+<br>
+false既定：追加なし
+<br>
+=&lt;選択：<a href="#span-out-substitution-equation">式代入</a>記号=&lt;に<a href="#span-out-scope-vars">変数のscope</a>を追加（Native準拠）
+<br>
+(args)=&lt;選択：<a href="#span-out-eqns-args">式変数のarguments</a>付の<a href="#span-out-substitution-equation">式代入</a>記号=&lt;に<a href="#span-out-scope-vars">変数のscope</a>を追加
+<br>
+<br>
+留意事項を列挙する
+<br>
+・追加を選択の場合、<a href="#span-eqn">strict-mode式変数list</a>等、要修正
+<br>
+　・<a href="#span-out-scope-vars-has1BT">単独scope</a>の<a href="#span-out-BT-square">角括弧[]</a>　⇒　()
+<br>
+　・<a href="#span-out-scope-inherited-call">式変数のscope継承call</a>の式読出し記号==&gt;を明示
     </td>
   </tr>
   <tr>
@@ -11340,6 +11377,13 @@ useScope=notBT0の場合、<a href="#span-out-BT-square">角括弧[]</a>を除�
 useScope=defaultの場合（上記以外の場合）、<a href="#span-out-BT-square">角括弧[]</a>のみ<a href="#span-out-scope-vars">変数のscope</a>を使用する
 <br>
 <br>
+<span class="run">Ver.2.213.47</span>以降、useScopeWithを追加
+<br>
+useScopeWith=SEeの場合、<a href="#span-out-substitution-equation">式代入</a>記号=&lt;に<a href="#span-out-scope-vars">変数のscope</a>を追加（Native準拠）
+<br>
+useScopeWith=BTeの場合、<a href="#span-out-eqns-args">式変数のarguments</a>付の<a href="#span-out-substitution-equation">式代入</a>記号=&lt;に<a href="#span-out-scope-vars">変数のscope</a>を追加
+<br>
+<br>
 <a href="#span-out-prec-ope">演算子のprecedence</a>を変更する場合
 <br>
 ・演算子の<a href="#span-in-prec">tag名</a>を優先順にcomma,区切りで列挙する
@@ -11913,7 +11957,16 @@ x=2; store; clear; x=3<span class="selection">/*independent local scope*/</span>
 ・scope不定の<a href="#span-out-eqns-args">式変数のarguments</a>を削除する等、closure機能が異なる
 <br>
 <br>
-過去の後方互換性を完全に維持する場合、<a href="#span-out-config">裏設定</a>参照
+特徴を列挙する
+<br>
+・<a href="#span-out-bracket">直列scope内</a>の<a href="#span-out-vars">変数</a>・<a href="#span-out-eqns">式変数</a>はreadonly（pollution disabled）
+<br>
+・scope範囲の可読性を優先（<a href="#span-out-BT-square">角括弧[]</a>内と対応）
+<br>
+・<a href="#span-out-scope-vars-has1BT">単独scope</a>を意識する負担あり
+<br>
+<br>
+<span class="run">Ver.2.213.47</span>以降、Native準拠に変更する場合、<a href="#span-out-option6">useScopeWith</a>||<a href="#span-out-config">裏設定</a>参照
     </td>
   </tr>
   <tr>
@@ -35343,6 +35396,9 @@ data.logo -> "makeLog=true"
 ・<a href="#span-out-scope-vars">useScope</a>: 変数のscopeを使用するflag
 <br>
 <br>
+・<a href="#span-out-option6">useScopeWith</a>: <span class="run">Ver.2.213.47</span>以降、<a href="#span-out-substitution-equation">式代入</a>記号=&lt;に変数のscopeを使用するflag
+<br>
+<br>
 ・isRightAssociativityBR: <a href="#span-out-associativity">2項演算子のassociativity</a>を<a href="#span-out-option1">RA選択</a>に変更するflag
 <br>
 <br>
@@ -35476,6 +35532,8 @@ precedence
 <br>
 ・<span class="run">Ver.2.196.46</span>以降、<a href="#span-out-prec-ope-conditional">条件演算子</a>代替の<a href="#span-out-prec-ope-logical-short-circuit-literal">ANDss||ORss演算子</a>を追加
 <br>
+・<span class="run">Ver.2.213.47</span>以降、<a href="#span-out-option6">useScopeWith</a>を追加（BTe）
+<br>
 <br>
 配列要素の定義順で<a href="#span-out-prec">演算のprecedence</a>を動的に変更可能とする
 <br>
@@ -35493,7 +35551,8 @@ operation.js抜粋
       ],
       [
         /* following store */
-        "SEe"    // StorE obvious equation including bracket =&lt;
+        "SEe",   // StorE obvious equation including bracket =&lt;
+        "BTe"    // StorE obvious equation with scope =&lt; || (args)=&lt;
       ],
       [
         /* following short-circuit */

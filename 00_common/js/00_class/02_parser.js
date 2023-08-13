@@ -320,6 +320,47 @@ My_entry.parser.prototype.compare2bas = function(token){
   }
   return _tree;
 };
+/* Ver.2.213.47 */
+My_entry.parser.prototype.SEe2BTe = function(trees){
+  var self = this;
+  var _trees = trees;
+  var DATA = self.entry.DATA;
+  var operation = self.entry.operation;
+  if(self.useScopeWith){
+    var len = trees.length;
+    var ip_s = -1;
+    var ip_e = len;
+    var hasArgs = false;
+    for(var i=0; i<len; ++i){
+      var tree = trees[i];
+      var tagName = (Object.keys(tree))[0];
+      if(tagName === "SEe"){
+        hasArgs = (self.useScopeWith === "SEe")? true: operation.isType(trees[i-1], "BT");
+        if(hasArgs){
+          ip_s = i;
+          if(ip_s+1 === ip_e) throw "Invalid =<null";
+          for(var ip=ip_s; ip<ip_e; ++ip){
+            var tree = trees[ip];
+            var tagName = (Object.keys(tree))[0];
+            if(tagName === "SRr" || tagName === "SRt"){
+              ip_e = ip;
+              break;
+            }
+          }
+          break;
+        }
+      }
+    }
+    if(hasArgs){
+      trees[ip_s] = DATA.tree_tag("BTe", self.SEe2BTe(trees.slice(ip_s+1, ip_e)));
+      for(var i=ip_s+1; i<ip_e; ++i){
+        trees[i] = null;
+      }
+      _trees = self.SEe2BTe(trees.filter(Boolean));
+    }
+  }
+  return _trees;
+};
 /*
             j-th sentence
   trees2d: [j][i]{tag || num}
@@ -742,7 +783,7 @@ My_entry.parser.prototype.make_trees = function(sentence, opt_re){  // Ver.2.158
     }
     i = i_next;
   }
-  return _trees;
+  return ((self.useScopeWith)? self.SEe2BTe(_trees): _trees);  // Ver.2.213.47
 };
 My_entry.parser.prototype.isCommand = function(sentence){
   var self = this;
@@ -828,6 +869,7 @@ My_entry.parser.prototype.script2objs2d = function(data){
             trees = command;
           }
           else{
+            self.useScopeWith = data.options.useScopeWith;  // Ver.2.213.47
             trees = self.make_trees(sentence);  // Ver.2.158.38
             var ids2d = [[j, 0]];
             self.make_scopes(data.options.useScope, trees, scopes, ids2d, j);

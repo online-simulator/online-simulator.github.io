@@ -19,7 +19,8 @@ My_entry.operation.prototype.config = {
       ],
       [
         /* following store */
-        "SEe"    // StorE obvious equation including bracket =<
+        "SEe",   // StorE obvious equation including bracket =<
+        "BTe"    // StorE obvious equation with scope =< || (args)=<
       ],
       [
         /* following short-circuit */
@@ -101,7 +102,7 @@ My_entry.operation.prototype.config = {
       var _sw = false;
       /* Ver.2.32.17 */
       var get_sw = function(notBT){
-        return (tagName.substring(0, 2) === "BT" && tagName !== "BTe"  && tagName !== notBT);
+        return (tagName.substring(0, 2) === "BT" && tagName !== notBT);  // Ver.2.213.47
       };
       switch(useScope){
         case false:
@@ -119,7 +120,7 @@ My_entry.operation.prototype.config = {
           _sw = (tagName === useScope);
           break;
         default:
-          _sw = (tagName === "BT0");
+          _sw = (tagName === "BT0" || tagName === "BTe");  // Ver.2.213.47
           break;
       }
       return _sw;
@@ -164,6 +165,7 @@ My_entry.operation.prototype.init = function(){
   self.useTest = null;
   self.useStrict = null;
   self.useEmpty = null;
+  self.useScopeWith = null;  // Ver.2.213.47
   self.arr_precedence = [];
   self.options = {};
   self.params = {};
@@ -286,6 +288,7 @@ My_entry.operation.prototype.prepare = function(data){
   self.useTest = options.useTest;
   self.useStrict = options.useStrict;
   self.useEmpty = (options.checkError === 0 || options.checkError < 0)? false: true;  // Ver.2.84.32
+  self.useScopeWith = options.useScopeWith;  // Ver.2.213.47
   self.options.isRelative_epsN = options.isRelative_epsN || self.config.params.isRelative_epsN;
   self.options.epsN = options.epsN || self.config.params.epsN;
   self.options.dxT = options.dxT || self.config.params.dxT;
@@ -311,6 +314,7 @@ My_entry.operation.prototype.prepare = function(data){
   if(hasTag){
     hasTag["SRr"] = true;
     hasTag["SRt"] = true;
+    if(options.useScopeWith) hasTag["BTe"] = true;  // Ver.2.213.47
     hasTag["BT1"] = true;  // Ver.2.212.47
     hasTag["BRmo"] = true;
     hasTag["SEv"] = true;
@@ -3252,7 +3256,9 @@ My_entry.operation.prototype.REe = function(data, i0, tagName, tagObj){
           id0 = ids_args_eqn[0];
         }
       };
-      inherit_id0();
+      if(!(self.useScopeWith)){  // Ver.2.213.47
+        inherit_id0();
+      }
       /* -> Ver.2.210.46 */
       /* Ver.2.71.29 -> */
       var args_eqns = [];
@@ -3384,7 +3390,7 @@ My_entry.operation.prototype.REe = function(data, i0, tagName, tagObj){
           if(tree){
             self.store_var(name, tree, scopes, ids_buffer);
           }
-          else{
+          else if(!(self.useScopeWith)){  // Ver.2.213.47
             self.del_scope_sw("vars", name, scopes, ids_buffer);
           }
         }
@@ -3395,7 +3401,7 @@ My_entry.operation.prototype.REe = function(data, i0, tagName, tagObj){
           if(tree){
             self.store_eqn(name, tree, scopes, ids_buffer);
           }
-          else{
+          else if(!(self.useScopeWith)){  // Ver.2.213.47
             self.del_scope_sw("eqns", name, scopes, ids_buffer);
           }
         }
@@ -3490,6 +3496,38 @@ My_entry.operation.prototype.SEe = function(data, i0, tagName, tagObj){
   /* -> Ver.2.195.45 */
   /* -> Ver.2.27.15 */
   /* -> Ver.2.209.46 */
+  if(tree){
+    self.feedback2trees(data, is, ie, tree);
+  }
+  return self;
+};
+/* Ver.2.213.47 */
+My_entry.operation.prototype.BTe = function(data, i0, tagName, tagObj){
+  var self = this;
+  var trees = data.trees;
+  var scopes = data.scopes;
+  var ids = data.ids;
+  var DATA = self.entry.DATA;
+  var BT = self.config.BT;
+  var len = trees.length;
+  var leftTree = trees[i0-1];
+  var tree = trees[i0];
+  var hasArgs = self.isType(leftTree, "BT");
+  var is = (hasArgs)? i0-2: i0-1;
+  var ie = len-1;
+  var name_eqn = self.get_tagVal(trees[is], "REv", "val");
+  if(!(name_eqn)){
+    is -= 1;
+  }
+  var names = (hasArgs)? self.get_names(data, leftTree, true): null;
+  if(names){
+    tree[BT.SEe].arg = names;
+  }
+  if(name_eqn){
+    if(self.config.isEscaped(name_eqn)) throw "Invalid SEe("+name_eqn+")";
+    self.store_eqn(name_eqn, tree, scopes, ids);
+    tree = DATA.tree_tag("out", "stored_eqn("+name_eqn+")");
+  }
   if(tree){
     self.feedback2trees(data, is, ie, tree);
   }
