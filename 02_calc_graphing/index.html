@@ -128,6 +128,8 @@
       script += "a=1,[a=2,g(a)=<last[,a],(a)=<g](3)=>f,f=>,f==>:a=1,[a=2,(a)=<=<last[,a]](3)=>f,f=>,f==>:a=1,[a=2,(a)=<{()=<(last[,a])}](3)=>f,f=>,f==>;\na=1,[a=2,g(a)=<last[,a],=<g]=>f,f=>,f==>,f(4)=>:a=1,[a=2,=<(a)=<last[,a]]=>f,f=>,f==>,f(4)=>:a=1,[a=2,=<{((a))=<(last[,a])}]=>f,f=>,f==>,f(4)=>;\na=1,b=1,[a=2,b=2,g(a)=<last[,a+b],=<g]=>f,f=>,f==>,f(4)=>,f(4)==>:a=1,b=1,[a=2,b=2,=<(a)=<last[,a+b]]=>f,f=>,f==>,f(4)=>,f(4)==>:a=1,b=1,[a=2,b=2,=<{((a))=<(last[,a+b])}]=>f,f=>,f==>,f(4)=>,f(4)==>;";
       script += "\nclear;\n";
       script += "($x,$i_,$j_)=(-1,-2,-3);\nA=(1,2,3:4,5,6:7);\nf(x,i_,j_)=<x*i_+j_;\ng(x,i_,j_,self)=<self[i_][j_]*i_+j_;\nA.map(=<f):(1,2,3:4,5,6:7).map((x,i_,j_)=<x*i_+j_);\nA.map(=<g):(1,2,3:4,5,6:7).map((x,i_,j_,self)=<self[i_][j_]*i_+j_);\ncoo_Aij=A.filter((x,i_,j_)=<i_==j_);\nA.filter((x)=<(x<0));\n(x,i_,j_);";
+      script += "\n";
+      script += "fibok(n,n0,k)=<n<k-1&&n0||||n<k&&1||||_sm(=<fibok(n-m,n0,k)=>,1,k);\n((NaN,linspace(2,5,5-2+1),NaN).map((k)=<(isNaN(k)&&&{NaN,}|||{fibok(10,0,k),})[0]).map((x)=<-x).filter((x)=<x))[0];";
       script += "\nclear;\n";
       $._id("input").value = script;
       // test case

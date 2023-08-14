@@ -107,6 +107,7 @@ My_entry.parser.prototype.config = {
       // logical  OR: "BRlO"
       "=": "BRe"  // x+3=1 -> x=1-3 prior to substitution
     },
+    props: ["map", "filter"],  // Ver.2.214.49
     word: {
       prifix: ((My_entry.flag.useES6)? /^0[xXbBoO]/: /^0[xX]/)  // Ver.2.146.37
     }
@@ -774,6 +775,17 @@ My_entry.parser.prototype.make_trees = function(sentence, opt_re){  // Ver.2.158
           self.check_varName_prifix(token, re);  // Ver.2.146.37
         }
         /* -> Ver.2.24.12 */
+        /* Ver.2.214.49 -> */
+        if(tokens[i-1] === "."){
+          var hasProp = false;
+          SYNTAX.props.forEach(function(prop){
+            hasProp = hasProp || (token_lower === prop);
+          });
+          if(hasProp){
+            token = "."+token_lower;
+          }
+        }
+        /* -> Ver.2.214.49 */
         tree = DATA.tree_tag("REv", token);
         break;
     }

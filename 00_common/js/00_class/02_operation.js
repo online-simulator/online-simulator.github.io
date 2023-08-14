@@ -2236,9 +2236,9 @@ My_entry.operation.prototype.URd = function(data, i0, tagName, tagObj){
   var DATA = self.entry.DATA;
   /* Ver.2.214.49 -> */
   var name_var = self.get_tagVal(trees[i0+1], "REv", "val");
-  var dot_prop = (name_var)? name_var.toLowerCase(): null;
-  var hasProp = (dot_prop === "map" || dot_prop === "filter");
+  var hasProp = (name_var)? (name_var[0] === "."): false;
 if(hasProp){
+  var dot_prop = name_var.substring(1);
   self.URh(data, i0, tagName, tagObj, dot_prop);
 }
 else{

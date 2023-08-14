@@ -1,6 +1,14 @@
 clear
 local storage cleared
 
+((NaN,linspace(2,5,5-2+1),NaN).map((k)=<(isNaN(k)&&&{NaN,}|||{fibok(10,0,k),})[0]).map((x)=<-x).filter((x)=<x))[0]
+(
+-55,-81,-56,-31
+)
+
+fibok(n,n0,k)=<n<k-1&&n0||||n<k&&1||||_sm(=<fibok(n-m,n0,k)=>,1,k)
+stored_eqn(fibok)
+
 (x,i_,j_)
 (
 -1,-2,-3
@@ -2309,4 +2317,4 @@ drag=false&sw=false&0x=false&useMatrix=true&useStrict=false&checkError=true&isRi
 --------------------------------
 --------------------------------
 
-online-simulator.github.io.6.278.120.13.63 @ Tue Aug 15 2023 00:09:05 GMT+0900 (日本標準時) @ Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/115.0.0.0 Safari/537.36
+online-simulator.github.io.6.278.120.13.63 @ Tue Aug 15 2023 05:38:49 GMT+0900 (日本標準時) @ Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/115.0.0.0 Safari/537.36

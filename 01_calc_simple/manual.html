@@ -36034,6 +36034,17 @@ parser.js抜粋
           self.check_varName_prifix(token, re);  // Ver.2.146.37
         }
         /* -> Ver.2.24.12 */
+        /* Ver.2.214.49 -> */
+        if(tokens[i-1] === "."){
+          var hasProp = false;
+          SYNTAX.props.forEach(function(prop){
+            hasProp = hasProp || (token_lower === prop);
+          });
+          if(hasProp){
+            token = "."+token_lower;
+          }
+        }
+        /* -> Ver.2.214.49 */
         tree = DATA.tree_tag("REv", token);
         break;
 </code></pre>
