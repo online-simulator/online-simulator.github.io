@@ -3382,7 +3382,7 @@ My_entry.operation.prototype.REe = function(data, i0, tagName, tagObj){
       var has1elem = (arr && arr.length === 1 && arr[0].length === 1);
       if(has1elem){
         var arr00 = arr[0][0];
-        if(arr00.BTe){
+        if(arr00[BT.SEe]){  // Ver.2.213.49
           _tree = self.tree_SEe2REe(arr00);
         }
       }
