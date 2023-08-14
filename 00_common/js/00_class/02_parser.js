@@ -817,7 +817,7 @@ My_entry.parser.prototype.make_scopes = function(useScope, trees, scopes_upper, 
       var ids2d = [];  // new
       /* [a=1,a[0][0]=2,[(3,3)]] */
       if(trees_lower && trees_lower.length){
-        if(operation.config.BT.hasScope(useScope, tagName)){
+        if(operation.config.BT.hasScope(useScope, tagName, self.useScopeWith)){  // Ver.2.213.48
           var scope = DATA.scope();
           var n = scopes.length;
           scopes[n] = scope;

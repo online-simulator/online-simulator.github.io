@@ -98,11 +98,12 @@ My_entry.operation.prototype.config = {
   ],
   BT: {
     /* Ver.2.31.17 */
-    hasScope: function(useScope, tagName){
+    hasScope: function(useScope, tagName, opt_useScopeWith){  // Ver.2.213.48
       var _sw = false;
+      var isBTe = (tagName === "BTe");  // Ver.2.213.48 data.eqns re-used
       /* Ver.2.32.17 */
       var get_sw = function(notBT){
-        return (tagName.substring(0, 2) === "BT" && tagName !== notBT);  // Ver.2.213.47
+        return (tagName.substring(0, 2) === "BT" && !(isBTe) && tagName !== notBT);  // Ver.2.213.48
       };
       switch(useScope){
         case false:
@@ -120,9 +121,14 @@ My_entry.operation.prototype.config = {
           _sw = (tagName === useScope);
           break;
         default:
-          _sw = (tagName === "BT0" || tagName === "BTe");  // Ver.2.213.47
+          _sw = (tagName === "BT0");
           break;
       }
+      /* Ver.2.213.48 -> */
+      if(opt_useScopeWith){
+        _sw = _sw || isBTe;
+      }
+      /* -> Ver.2.213.48 */
       return _sw;
     },
     row2col: "BT2",
@@ -3465,19 +3471,21 @@ My_entry.operation.prototype.inherit_ids_AtSEe = function(trees, opt_ids, opt_ar
   /* -> Ver.2.209.46 */
   return _tree;
 };
+My_entry.operation.prototype.BTe =  // Ver.2.213.47  // Ver.2.213.48
 My_entry.operation.prototype.SEe = function(data, i0, tagName, tagObj){
   var self = this;
   var trees = data.trees;
   var scopes = data.scopes;
   var ids = data.ids;
   var DATA = self.entry.DATA;
+  var BT = self.config.BT;  // Ver.2.213.48
   var len = trees.length;
+  var isSEe = (tagName === "SEe");  // Ver.2.213.48
   /* Ver.2.209.46 -> */
   /* Ver.2.27.15 -> */
   var leftTree = trees[i0-1];
+  var tree = trees[i0];  // Ver.2.213.48
   var rightTree = trees[i0+1];
-  if(!(rightTree)) throw "Invalid =<null";
-  var rightTrees = trees.slice(i0+1, len);
   var hasArgs = self.isType(leftTree, "BT");  // f(x)=<x || (x)=<x
   var is = (hasArgs)? i0-2: i0-1;
   var ie = len-1;
@@ -3487,7 +3495,16 @@ My_entry.operation.prototype.SEe = function(data, i0, tagName, tagObj){
   }
   /* Ver.2.195.45 -> */
   var names = (hasArgs)? self.get_names(data, leftTree, true): null;  // NG: (x=1)=<x
-  var tree = self.inherit_ids_AtSEe(rightTrees, ids, names);  // Ver.2.31.17
+  /* Ver.2.213.48 -> */
+  if(isSEe){
+    if(!(rightTree)) throw "Invalid =<null";
+    var rightTrees = trees.slice(i0+1, len);
+    tree = self.inherit_ids_AtSEe(rightTrees, ids, names);  // Ver.2.31.17
+  }
+  else if(names){
+    tree[BT.SEe].arg = names;
+  }
+  /* -> Ver.2.213.48 */
   if(name_eqn){
     if(self.config.isEscaped(name_eqn)) throw "Invalid SEe("+name_eqn+")";  // Ver.2.27.15
     self.store_eqn(name_eqn, tree, scopes, ids);  // Ver.2.31.17
@@ -3496,38 +3513,6 @@ My_entry.operation.prototype.SEe = function(data, i0, tagName, tagObj){
   /* -> Ver.2.195.45 */
   /* -> Ver.2.27.15 */
   /* -> Ver.2.209.46 */
-  if(tree){
-    self.feedback2trees(data, is, ie, tree);
-  }
-  return self;
-};
-/* Ver.2.213.47 */
-My_entry.operation.prototype.BTe = function(data, i0, tagName, tagObj){
-  var self = this;
-  var trees = data.trees;
-  var scopes = data.scopes;
-  var ids = data.ids;
-  var DATA = self.entry.DATA;
-  var BT = self.config.BT;
-  var len = trees.length;
-  var leftTree = trees[i0-1];
-  var tree = trees[i0];
-  var hasArgs = self.isType(leftTree, "BT");
-  var is = (hasArgs)? i0-2: i0-1;
-  var ie = len-1;
-  var name_eqn = self.get_tagVal(trees[is], "REv", "val");
-  if(!(name_eqn)){
-    is -= 1;
-  }
-  var names = (hasArgs)? self.get_names(data, leftTree, true): null;
-  if(names){
-    tree[BT.SEe].arg = names;
-  }
-  if(name_eqn){
-    if(self.config.isEscaped(name_eqn)) throw "Invalid SEe("+name_eqn+")";
-    self.store_eqn(name_eqn, tree, scopes, ids);
-    tree = DATA.tree_tag("out", "stored_eqn("+name_eqn+")");
-  }
   if(tree){
     self.feedback2trees(data, is, ie, tree);
   }

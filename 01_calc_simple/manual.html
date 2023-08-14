@@ -8902,6 +8902,11 @@ With
 <br>
 <span class="run">Ver.2.213.47</span>以降、<a href="#span-out-scope-vars">変数のscope</a>の追加を選択可
 <br>
+・<span class="clear">Ver.2.213.48</span>以降、<a href="#span-out-config">useScope</a>を含む選択切替の不具合を修正
+<br>
+・<span class="clear">Ver.2.213.48</span>以降、<a href="#span-out-eqns">式変数</a>の再利用に未配慮の変更取消し
+<br>
+<br>
 false既定：追加なし
 <br>
 =&lt;選択：<a href="#span-out-substitution-equation">式代入</a>記号=&lt;に<a href="#span-out-scope-vars">変数のscope</a>を追加（Native準拠）
@@ -20733,6 +20738,10 @@ clear; [a=-1,=&lt;(x)=&lt;a*x]=&gt;f; f(3)=&gt; -> -3
 ・厳密な記述の場合、error終了（<a href="#span-out-eqns-args">式変数のarguments</a>を残さない仕様を維持）
 <br>
 clear; [(a)=&lt;(x)=&lt;a*x](-1)=&gt;f; f(3)=&gt; -> [MyErr]Invalid binary operation
+<br>
+・<span class="run">Ver.2.213.47</span>以降、<a href="#span-out-option6">useScopeWith</a>選択の場合
+<br>
+clear; [(a)=&lt;(x)=&lt;a*x](-1)=&gt;f; a=1; f(3)=&gt;,f(3)==&gt; -> (-3,3)
 <br>
 ・<a href="#span-out-eqns-no-name-short">式渡しの直接式読出し</a>（<span class="run">Ver.2.195.45</span>以降、<a href="#span-out-eqns-no-name">無名call</a>のarguments省略）
 <br>
