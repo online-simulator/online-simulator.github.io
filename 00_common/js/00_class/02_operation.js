@@ -3491,7 +3491,7 @@ My_entry.operation.prototype.SEe = function(data, i0, tagName, tagObj){
   var ie = len-1;
   var name_eqn = self.get_tagVal(trees[is], "REv", "val");
   if(!(name_eqn)){
-    is -= 1;
+    is += 1;  // Ver.2.213.49
   }
   /* Ver.2.195.45 -> */
   var names = (hasArgs)? self.get_names(data, leftTree, true): null;  // NG: (x=1)=<x
