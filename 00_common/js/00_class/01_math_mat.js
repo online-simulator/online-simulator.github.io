@@ -48,6 +48,20 @@ My_entry.math_mat.prototype.make_arr = function(options, num0, num1, callback){
   var n = (num1)? self.num2size(options, num1, 0): 1;
   return ((n === 0 || m === 0)? []: callback(m, n));
 };
+/* Ver.2.214.49 */
+My_entry.math_mat.prototype.fill_arr = function(options, _arr, opt_common_num){
+  var self = this;
+  var DATA = self.entry.DATA;
+  var lens = self.get_lens(_arr);
+  var len_i = lens.i;
+  var len_j = lens.j;
+  for(var i=0; i<len_i; ++i){
+    for(var j=0; j<len_j; ++j){
+      _arr[i][j] = _arr[i][j] || opt_common_num || DATA.num(0, 0);
+    }
+  }
+  return _arr;
+};
 /* Ver.2.25.12 -> */
 My_entry.math_mat.prototype.vectorr = function(options, arr){
   var self = this;

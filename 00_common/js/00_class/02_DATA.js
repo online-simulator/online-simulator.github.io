@@ -151,3 +151,13 @@ My_entry.DATA.prototype.vec2arr = function(vec){
   }
   return _arr;
 };
+/* calc-Ver.2.214.49 */
+My_entry.DATA.prototype.arr2arr_false = function(_arr){
+  var self = this;
+  for(var i=0, len=_arr.length; i<len; ++i){
+    if(_arr[i].length === 0){
+      _arr[i][0] = self.num(false, 0);
+    }
+  }
+  return _arr;
+};

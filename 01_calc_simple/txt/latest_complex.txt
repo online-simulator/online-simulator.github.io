@@ -1,6 +1,64 @@
 clear
 local storage cleared
 
+(x,i_,j_)
+(
+-1,-2,-3
+)
+
+A.filter((x)=<(x<0))
+(
+false:
+false:
+false
+)
+
+coo_Aij=A.filter((x,i_,j_)=<i_==j_)
+coo_Aij=(
+1,5,NaN:
+0,1,2:
+0,1,2
+)
+
+A.map(=<g):(1,2,3:4,5,6:7).map((x,i_,j_,self)=<self[i_][j_]*i_+j_)
+(
+0,1,2:
+4,6,8:
+14,NaN,NaN:
+0,1,2:
+4,6,8:
+14,NaN,NaN
+)
+
+A.map(=<f):(1,2,3:4,5,6:7).map((x,i_,j_)=<x*i_+j_)
+(
+0,1,2:
+4,6,8:
+14,NaN,NaN:
+0,1,2:
+4,6,8:
+14,NaN,NaN
+)
+
+g(x,i_,j_,self)=<self[i_][j_]*i_+j_
+stored_eqn(g)
+
+f(x,i_,j_)=<x*i_+j_
+stored_eqn(f)
+
+A=(1,2,3:4,5,6:7)
+A=(
+1,2,3:
+4,5,6:
+7
+)
+
+($x,$i_,$j_)=(-1,-2,-3)
+stored_var(x) stored_var(i_) stored_var(j_) 
+
+clear
+local storage cleared
+
 a=1,b=1,[a=2,b=2,g(a)=<last[,a+b],=<g]=>f,f=>,f==>,f(4)=>,f(4)==>:a=1,b=1,[a=2,b=2,=<(a)=<last[,a+b]]=>f,f=>,f==>,f(4)=>,f(4)==>:a=1,b=1,[a=2,b=2,=<{((a))=<(last[,a+b])}]=>f,f=>,f==>,f(4)=>,f(4)==>
 (
 0,0,0,4,2,6,5:
@@ -2251,4 +2309,4 @@ drag=false&sw=false&0x=false&useMatrix=true&useStrict=false&checkError=true&isRi
 --------------------------------
 --------------------------------
 
-online-simulator.github.io.6.277.120.13.63 @ Mon Aug 14 2023 13:58:37 GMT+0900 (日本標準時) @ Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/115.0.0.0 Safari/537.36
+online-simulator.github.io.6.278.120.13.63 @ Tue Aug 15 2023 00:09:20 GMT+0900 (日本標準時) @ Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/115.0.0.0 Safari/537.36
