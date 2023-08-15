@@ -1823,7 +1823,7 @@ title/発行元(発行年)を列挙する
 <br>
 　走査対象：全<a href="#span-in-prec">tag名</a>　⇒　使用<a href="#span-in-prec">tag名</a>のみ（<span class="clear">Ver.2.212.47</span>以降、必須tagのBT1を追加修正）
 <br>
-　　　　　　⇒　使用<a href="#span-in-prec">tag名</a>のみ（<span class="clear">Ver.2.214.50</span>以降、<a href="#span-out-eqns-re-use">scope付式変数の再利用</a>を追加修正）
+　　　　　　⇒　使用<a href="#span-in-prec">tag名</a>のみ（<span class="clear">Ver.2.214.50</span>以降、<a href="#span-out-eqns-re-use">式変数の再利用</a>を追加修正）
     </td>
   </tr>
   <tr>
@@ -9186,6 +9186,8 @@ precedence
 <br>
 <br>
 留意事項を列挙する
+<br>
+・<a href="#span-out-type-ope">前置単項演算子</a>の<a href="#span-out-prec-ope-bit">bit not</a>||<a href="#span-out-prec-ope-logical-not">論理NOT</a>は記号共通（~||~~）のため、<a href="#span-out-associativity">左結合</a>（連続する場合、<a href="#span-out-BT">括弧</a>を明示）
 <br>
 ・演算子のprecedenceは言語仕様によって異なる
 <br>
@@ -20731,7 +20733,7 @@ clear; [a=1,b=2,v=&lt;{a,b},v=v=&gt;v,a=-1,b=-2,=&lt;v=&gt;]=&gt; -> (-1:-2)</de
 <br>
 　<a href="#span-out-call-by-symbol">symbol渡し</a>の前提で参照透過性なし
 <br>
-・<span class="run">Ver.2.211.46</span>以降、式読出しの仕様をfix（現状、再利用不可）
+・<span class="run">Ver.2.211.46</span>以降、式読出しの仕様をfix
 <br>
 　<a href="#span-out-eqns-no-name">無名call</a>の式読出しに対応（削除されるargumentsを除く）
 <br>
@@ -20850,9 +20852,13 @@ clear; [a=-1,g(x)=&lt;a*x,=&lt;g]==&gt;f; a=1; f(3)=&gt; -> 3
 <br>
 ・<a href="#span-out-bracket">scope</a>内の<a href="#span-out-vars">変数</a>||<a href="#span-out-eqns">式変数</a>は演算確定1回毎に初期化のため、再利用不可
 <br>
-・<a href="#span-in-scope-vars">scope-ids</a>未継承のため、式読出しで作る<a href="#span-out-eqns">式変数</a>の再利用不可
+clear; [a=-1,=&lt;(x)=&lt;a*x]=&gt;f; f(3)=&gt; -> -3
 <br>
-f(3)=&gt; -> [MyErr]Invalid operation
+f(3)=&gt; -> [MyErr]Invalid binary operation
+<br>
+・<a href="#span-in-scope-vars">scope-ids</a>初期化のため、再利用の場合、変数を新規定義
+<br>
+a=1; f(3)=&gt; -> 3
 <br>
 ・<a href="#span-out-substitution">変数への代入</a>||<a href="#span-out-FNmh-EX">symbolic高階行列関数</a>同様に、0を返す
 <br>
