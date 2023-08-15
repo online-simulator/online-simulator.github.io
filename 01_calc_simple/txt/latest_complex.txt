@@ -1,6 +1,27 @@
 clear
 local storage cleared
 
+vecr..filter(=<cond),vecr.filter(=<cond).
+(
+3,4,5,3,0,2:
+2,3,4,4,0,3:
+0,0,0,5,0,4
+)
+
+vecr..map(=<f),vecr'.map(=<f),vecr.map(=<f).,vecr.map(=<f)'
+(
+6i,6i,6i,-6i:
+5i,5i,5i,-5i:
+4i,4i,4i,-4i:
+3i,3i,3i,-3i:
+2i,2i,2i,-2i
+)
+
+vecr=linspace(1,5,5),f(x)=<(max(vecr)-x+2)i,cond(x)=<(x>2)
+(
+0,0,0
+)
+
 ((NaN,linspace(2,5,5-2+1),NaN).map((k)=<(isNaN(k)&&&{NaN,}|||{fibok(10,0,k),})[0]).map((x)=<-x).filter((x)=<x))[0]
 (
 -55,-81,-56,-31
@@ -9,9 +30,38 @@ local storage cleared
 fibok(n,n0,k)=<n<k-1&&n0||||n<k&&1||||_sm(=<fibok(n-m,n0,k)=>,1,k)
 stored_eqn(fibok)
 
-(x,i_,j_)
+coo_Amn-coo_Aij
 (
--1,-2,-3
+0,0,0,0,0,0,0,7:
+1,1,1,1,1,1,1,1:
+1,1,1,1,1,1,1,-1
+)
+
+coo_Aij=A.filter((x)=<x)
+coo_Aij=(
+1,2,3,4,5,6,7,0:
+0,0,0,1,1,1,2,2:
+0,1,2,0,1,2,0,2
+)
+
+coo_Amn=mat2coo(A)
+coo_Amn=(
+1,2,3,4,5,6,7:
+1,1,1,2,2,2,3:
+1,2,3,1,2,3,1
+)
+
+A=(1,2,3:4,5,6:7,NaN,)
+A=(
+1,2,3:
+4,5,6:
+7,NaN,0
+)
+
+(map,filter:x,i_,j_)
+(
+-1,-2:
+-3,-4,-5
 )
 
 A.filter((x)=<(x<0))
@@ -61,8 +111,8 @@ A=(
 7
 )
 
-($x,$i_,$j_)=(-1,-2,-3)
-stored_var(x) stored_var(i_) stored_var(j_) 
+($map,$filter:$x,$i_,$j_)=(-1,-2:-3,-4,-5)
+stored_var(map) stored_var(filter) stored_var(x) stored_var(i_) stored_var(j_) 
 
 clear
 local storage cleared
@@ -2317,4 +2367,4 @@ drag=false&sw=false&0x=false&useMatrix=true&useStrict=false&checkError=true&isRi
 --------------------------------
 --------------------------------
 
-online-simulator.github.io.6.278.120.13.63 @ Tue Aug 15 2023 05:39:03 GMT+0900 (日本標準時) @ Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/115.0.0.0 Safari/537.36
+online-simulator.github.io.6.278.120.13.63 @ Tue Aug 15 2023 12:58:38 GMT+0900 (日本標準時) @ Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/115.0.0.0 Safari/537.36
