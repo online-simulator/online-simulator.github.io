@@ -1822,6 +1822,8 @@ title/発行元(発行年)を列挙する
 ・<span class="run">Ver.2.212.46</span>以降、演算実行確定1回毎にtreeの走査対象を最適化
 <br>
 　走査対象：全<a href="#span-in-prec">tag名</a>　⇒　使用<a href="#span-in-prec">tag名</a>のみ（<span class="clear">Ver.2.212.47</span>以降、必須tagのBT1を追加修正）
+<br>
+　　　　　　⇒　使用<a href="#span-in-prec">tag名</a>のみ（<span class="clear">Ver.2.214.50</span>以降、<a href="#span-out-eqns-re-use">scope付式変数の再利用</a>を追加修正）
     </td>
   </tr>
   <tr>
@@ -20465,7 +20467,9 @@ clear; a=1; [=&lt;[=&lt;[=&lt;3]=&gt;+1]=&gt;*a]=&gt; -> 4
 <br>
 　式の長さ制限あり　⇒　長さ制限なし（単独の<a href="#span-out-BT">括弧</a>を探索）
 <br>
-・<a href="#span-out-eqns-args">式変数のarguments</a>を残さないため、以上の仕様は影響しない（<a href="#span-out-eqns-call2eqn">式変数への式読出し</a>参照）
+・<a href="#span-out-eqns-args">式変数のarguments</a>を残さない仕様を維持（<a href="#span-out-eqns-call2eqn">式変数への式読出し</a>参照）
+<br>
+・<span class="run">Ver.2.213.47</span>以降、<a href="#span-out-option6">useScopeWith</a>を追加
 <br>
 <br>
 単独scopeの場合、<a href="#span-out-eqns-args">式変数のarguments</a>は<a href="#span-out-BT-square">角括弧[]</a>の<a href="#span-out-bracket">scope</a>内に定義する
@@ -20479,6 +20483,45 @@ f(x)=&lt;last[,x]
 f(x)=&lt;[=&lt;x]=&gt;
 <br>
 f(x)=&lt;[=&lt;x*2]=&gt;x2
+<br>
+<br>
+test caseを列挙する
+<br>
+clear; com2vec(a)=&lt;[{real(a),imag(a)}]; com2vec(2-3i) -> (2:-3)
+<br>
+clear; minus(a)=&lt;[,=&lt;-a]=&gt;; minus(2) -> -2
+<br>
+clear; add(a,b)=&lt;last[,a+b]; add(1,3) -> 4
+<br>
+<del>・以下のような場合、<a href="#span-out-eqns-args">定義元arguments</a>は<a href="#span-out-BT-square">角括弧[]</a>の<a href="#span-out-bracket">scope</a>外に定義する
+<br>
+clear; com2vec_k(a,k)=&lt;[{real(a),imag(a)}]*k; com2vec_k(2-3i,i) -> (2i:-3i)
+<br>
+clear; minus_k(a,k)=&lt;[,=&lt;-a]=&gt;*k; minus_k(2,2) -> -4
+<br>
+clear; add_k(a,b,k)=&lt;last[,a+b]*k; add_k(1,3,2) -> 8</del>
+<br>
+・<span class="run">Ver.2.210.46</span>以降、定義不能
+<br>
+clear; com2vec_k(a,k)=&lt;[{real(a),imag(a)}]*k; com2vec_k(2-3i,i) -> [MyErr]Invalid binary operation
+<br>
+clear; minus_k(a,k)=&lt;[,=&lt;-a]=&gt;*k; minus_k(2,2) -> [MyErr]Invalid binary operation
+<br>
+clear; add_k(a,b,k)=&lt;last[,a+b]*k; add_k(1,3,2) -> [MyErr]Invalid binary operation
+<br>
+・次の場合、<a href="#span-out-eqns-args">定義元arguments</a>は<a href="#span-out-BT-square">角括弧[]</a>の<a href="#span-out-bracket">scope</a>外に定義する
+<br>
+clear; iproduct(L,R)=&lt;[L]*[trans(R)]; iproduct(=&lt;(1,2),=&lt;(3,4)) -> 11
+<br>
+・<a href="#span-out-config-strict">Non-strict-mode</a>の場合
+<br>
+clear; iproduct(L,R)=&lt;[(L)][trans(R)]; iproduct(=&lt;(1,2),=&lt;(3,4)) -> 11
+<br>
+clear; iproduct(L,R)=&lt;[(L)](trans(R)); iproduct(=&lt;(1,2),=&lt;(3,4)) -> 11
+<br>
+clear; iproduct(L,R)=&lt;(L)[trans(R)]; iproduct(=&lt;(1,2),=&lt;(3,4)) -> 11
+<br>
+clear; iproduct(L,R)=&lt;(L)(trans(R)); iproduct(=&lt;(1,2),=&lt;(3,4)) -> 11
     </td>
   </tr>
   <tr>
@@ -21949,48 +21992,7 @@ scope付
 scope付式変数の再利用の入力仕様と付随する留意事項について記述する
 <br>
 <br>
-<a href="#span-out-scope-vars">変数のscope</a>付の<a href="#span-out-eqns">式変数</a>の一例を列挙する
-<br>
-・<a href="#span-out-scope-vars-has1BT">単独scope</a>と判別される場合、<a href="#span-out-eqns-args">定義元arguments</a>は<a href="#span-out-BT-square">角括弧[]</a>の<a href="#span-out-bracket">scope</a>内に定義する
-<br>
-clear; com2vec(a)=&lt;[{real(a),imag(a)}]; com2vec(2-3i) -> (2:-3)
-<br>
-clear; minus(a)=&lt;[,=&lt;-a]=&gt;; minus(2) -> -2
-<br>
-clear; add(a,b)=&lt;last[,a+b]; add(1,3) -> 4
-<br>
-<del>・以下のような場合、<a href="#span-out-eqns-args">定義元arguments</a>は<a href="#span-out-BT-square">角括弧[]</a>の<a href="#span-out-bracket">scope</a>外に定義する
-<br>
-clear; com2vec_k(a,k)=&lt;[{real(a),imag(a)}]*k; com2vec_k(2-3i,i) -> (2i:-3i)
-<br>
-clear; minus_k(a,k)=&lt;[,=&lt;-a]=&gt;*k; minus_k(2,2) -> -4
-<br>
-clear; add_k(a,b,k)=&lt;last[,a+b]*k; add_k(1,3,2) -> 8</del>
-<br>
-・<span class="run">Ver.2.210.46</span>以降、定義不能
-<br>
-clear; com2vec_k(a,k)=&lt;[{real(a),imag(a)}]*k; com2vec_k(2-3i,i) -> [MyErr]Invalid binary operation
-<br>
-clear; minus_k(a,k)=&lt;[,=&lt;-a]=&gt;*k; minus_k(2,2) -> [MyErr]Invalid binary operation
-<br>
-clear; add_k(a,b,k)=&lt;last[,a+b]*k; add_k(1,3,2) -> [MyErr]Invalid binary operation
-<br>
-・次の場合、<a href="#span-out-eqns-args">定義元arguments</a>は<a href="#span-out-BT-square">角括弧[]</a>の<a href="#span-out-bracket">scope</a>外に定義する
-<br>
-clear; iproduct(L,R)=&lt;[L]*[trans(R)]; iproduct(=&lt;(1,2),=&lt;(3,4)) -> 11
-<br>
-・<a href="#span-out-config-strict">Non-strict-mode</a>の場合
-<br>
-clear; iproduct(L,R)=&lt;[(L)][trans(R)]; iproduct(=&lt;(1,2),=&lt;(3,4)) -> 11
-<br>
-clear; iproduct(L,R)=&lt;[(L)](trans(R)); iproduct(=&lt;(1,2),=&lt;(3,4)) -> 11
-<br>
-clear; iproduct(L,R)=&lt;(L)[trans(R)]; iproduct(=&lt;(1,2),=&lt;(3,4)) -> 11
-<br>
-clear; iproduct(L,R)=&lt;(L)(trans(R)); iproduct(=&lt;(1,2),=&lt;(3,4)) -> 11
-<br>
-<br>
-これらを再利用する一例を以下に示す
+再利用の一例を以下に示す
 <br>
 clear; add(a,b)=&lt;last[,a+b]; add(1,3) -> 4
 <br>

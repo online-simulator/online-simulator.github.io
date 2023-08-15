@@ -1,6 +1,18 @@
 clear
 local storage cleared
 
+check_last(A)=<[ttA=A..,ttA[sizer(A)-1][sizec(A)-1],last(ttA),last(A)]:check_last(=<(1,2:3,4)):check_last(=<(1,2:3,4:5)):check_last(=<(1,2:3,4:5:{6,7},8)):check_last(=<(1,2:3,4:5:{6,7},{8,9}))/*re-use of data.eqns test case*/
+(
+0:
+0,4,4,4:
+0,0,0,5:
+0,0,0,7:
+0,9,9,9
+)
+
+clear
+local storage cleared
+
 vecr..filter(=<cond),vecr.filter(=<cond).
 (
 3,4,5,3,0,2:
@@ -2367,4 +2379,4 @@ drag=false&sw=false&0x=false&useMatrix=true&useStrict=false&checkError=true&isRi
 --------------------------------
 --------------------------------
 
-online-simulator.github.io.6.278.120.13.63 @ Tue Aug 15 2023 12:58:38 GMT+0900 (日本標準時) @ Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/115.0.0.0 Safari/537.36
+online-simulator.github.io.6.278.120.13.64 @ Tue Aug 15 2023 20:52:00 GMT+0900 (日本標準時) @ Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/115.0.0.0 Safari/537.36

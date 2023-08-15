@@ -121,6 +121,8 @@
       script += "\n";
       script += "vecr=linspace(1,5,5),f(x)=<(max(vecr)-x+2)i,cond(x)=<(x>2);\nvecr..map(=<f),vecr'.map(=<f),vecr.map(=<f).,vecr.map(=<f)';\nvecr..filter(=<cond),vecr.filter(=<cond).;";
       script += "\nclear;\n";
+      script += "check_last(A)=<[ttA=A..,ttA[sizer(A)-1][sizec(A)-1],last(ttA),last(A)]:check_last(=<(1,2:3,4)):check_last(=<(1,2:3,4:5)):check_last(=<(1,2:3,4:5:{6,7},8)):check_last(=<(1,2:3,4:5:{6,7},{8,9}))/*re-use of data.eqns test case*/;";
+      script += "\nclear;\n";
       $._id("input").value = script;
     });
   })();
