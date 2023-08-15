@@ -2158,14 +2158,16 @@ My_entry.operation.prototype.URh = function(data, i0, tagName, tagObj, dot_prop)
     var sw_names = ["x", "i", "j", "s"];
     var names = {
       x: args_eqn[0],
-      i: args_eqn[1] || "__i__",
-      j: args_eqn[2] || "__j__",
-      s: args_eqn[3] || "__s__"
+      i: args_eqn[1],  // Ver.2.215.50
+      j: args_eqn[2],  // Ver.2.215.50
+      s: args_eqn[3]  // Ver.2.215.50
     };
     var buffer_vars = {};
     sw_names.forEach(function(sw){
       var name = names[sw];
-      buffer_vars[name] = self.restore_var(name, scopes, ids);
+      if(name){  // Ver.2.215.50
+        buffer_vars[name] = self.restore_var(name, scopes, ids);
+      }
     });
     var arr = leftArr;
     math_mat.fill_arr(null, arr, DATA.num(NaN, NaN));  // common reference
@@ -2193,11 +2195,17 @@ My_entry.operation.prototype.URh = function(data, i0, tagName, tagObj, dot_prop)
         }
       };
     }
-    self.store_var(names.s, leftTree, scopes, ids);  // clone
+    if(names.s){  // Ver.2.215.50
+      self.store_var(names.s, leftTree, scopes, ids);  // clone
+    }
     for(var i=0; i<len_i; ++i){
-      self.store_var(names.i, DATA.tree_num(i, 0), scopes, ids);
+      if(names.i){  // Ver.2.215.50
+        self.store_var(names.i, DATA.tree_num(i, 0), scopes, ids);
+      }
       for(var j=0; j<len_j; ++j){
-        self.store_var(names.j, DATA.tree_num(j, 0), scopes, ids);
+        if(names.j){  // Ver.2.215.50
+          self.store_var(names.j, DATA.tree_num(j, 0), scopes, ids);
+        }
         self.store_var(names.x, DATA.num2tree(arr[i][j]), scopes, ids);
         callback(_arr, arr, self.tree_eqn2tree(data, tree_eqn).mat.arr, i, j);
       }
@@ -2205,12 +2213,14 @@ My_entry.operation.prototype.URh = function(data, i0, tagName, tagObj, dot_prop)
     _tree = DATA.tree_mat(DATA.arr2arr_false(_arr));
     sw_names.forEach(function(sw){
       var name = names[sw];
-      var tree = buffer_vars[name];
-      if(tree){
-        self.store_var(name, tree, scopes, ids);
-      }
-      else{
-        self.del_scope_sw("vars", name, scopes, ids);
+      if(name){  // Ver.2.215.50
+        var tree = buffer_vars[name];
+        if(tree){
+          self.store_var(name, tree, scopes, ids);
+        }
+        else{
+          self.del_scope_sw("vars", name, scopes, ids);
+        }
       }
     });
     self.feedback2trees(data, is, ie, _tree);
@@ -3399,7 +3409,9 @@ My_entry.operation.prototype.REe = function(data, i0, tagName, tagObj){
         var tree = null;  // Ver.2.71.29
         if(self.config.isEscaped(argi_eqn)){
           var name = argi_eqn.substring(1);
-          buffer_eqns[name] = self.restore_eqn(name, scopes, ids_buffer);
+          if(name){  // Ver.2.215.50
+            buffer_eqns[name] = self.restore_eqn(name, scopes, ids_buffer);
+          }
           var isSEe = argi[BT.SEe];
           if(isSEe){
             var symbol = self.get_symbol(isSEe);
@@ -3427,7 +3439,9 @@ My_entry.operation.prototype.REe = function(data, i0, tagName, tagObj){
         }
         else{
           var name = argi_eqn;
-          buffer_vars[name] = self.restore_var(name, scopes, ids_buffer);
+          if(name){  // Ver.2.215.50
+            buffer_vars[name] = self.restore_var(name, scopes, ids_buffer);
+          }
           var isSEe = argi[BT.SEe];
           if(isSEe){
             var tree_eqn_call = self.tree_SEe2REe(argi);
