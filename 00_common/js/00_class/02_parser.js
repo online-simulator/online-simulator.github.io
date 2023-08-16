@@ -111,6 +111,43 @@ My_entry.parser.prototype.config = {
     word: {
       prifix: ((My_entry.flag.useES6)? /^0[xXbBoO]/: /^0[xX]/)  // Ver.2.146.37
     }
+  },
+  /* Ver.2.216.50 moved from operation.js */
+  BT: {
+    /* Ver.2.31.17 */
+    hasScope: function(useScope, tagName, opt_useScopeWith){  // Ver.2.213.48
+      var _sw = false;
+      var isBTe = (tagName === "BTe");  // Ver.2.213.48 data.eqns re-used
+      /* Ver.2.32.17 */
+      var get_sw = function(notBT){
+        return (tagName.substring(0, 2) === "BT" && !(isBTe) && tagName !== notBT);  // Ver.2.213.48
+      };
+      switch(useScope){
+        case false:
+          break;
+        case true:
+          _sw = get_sw("");
+          break;
+        case "notBT2":
+        case "notBT1":
+        case "notBT0":
+          _sw = get_sw(useScope.substring(3));
+          break;
+        case "BT2":
+        case "BT1":
+          _sw = (tagName === useScope);
+          break;
+        default:
+          _sw = (tagName === "BT0");
+          break;
+      }
+      /* Ver.2.213.48 -> */
+      if(opt_useScopeWith){
+        _sw = _sw || isBTe;
+      }
+      /* -> Ver.2.213.48 */
+      return _sw;
+    }
   }
 };
 My_entry.parser.prototype.init = function(){
@@ -829,9 +866,12 @@ My_entry.parser.prototype.check_hasTag = function(trees){
     self.set_hasTag(tree_BT);
     var tagName = operation.isType(tree_BT, "BT");
     if(tagName){
-      var obj = tree_BT[tagName];
-      var trees_lower = obj.val;
-      self.check_hasTag(trees_lower);
+      /* Ver.2.216.50 -> */
+      var trees_lower = operation.get_tagVal(tree_BT, tagName, "val");
+      if(trees_lower && trees_lower.length){
+        self.check_hasTag(trees_lower);
+      }
+      /* -> Ver.2.216.50 */
     }
   };
   if(trees && trees.length){
@@ -858,12 +898,13 @@ My_entry.parser.prototype.make_scopes = function(useScope, trees, scopes_upper, 
     var tagName = operation.isType(tree_BT, "BT");
     if(tagName){
       var obj = tree_BT[tagName];
-      var trees_lower = obj.val;
+      var trees_lower = operation.get_tagVal(tree_BT, tagName, "val");  // Ver.2.216.50
       var scopes = scopes_upper;
       var ids2d = [];  // new
       /* [a=1,a[0][0]=2,[(3,3)]] */
       if(trees_lower && trees_lower.length){
-        if(operation.config.BT.hasScope(useScope, tagName, self.useScopeWith)){  // Ver.2.213.48
+        var hasScope = self.config.BT.hasScope(useScope, tagName, self.useScopeWith);  // Ver.2.213.48  // Ver.2.216.50
+        if(hasScope){
           var scope = DATA.scope();
           var n = scopes.length;
           scopes[n] = scope;

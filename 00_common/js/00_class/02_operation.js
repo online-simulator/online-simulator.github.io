@@ -97,40 +97,6 @@ My_entry.operation.prototype.config = {
     ]
   ],
   BT: {
-    /* Ver.2.31.17 */
-    hasScope: function(useScope, tagName, opt_useScopeWith){  // Ver.2.213.48
-      var _sw = false;
-      var isBTe = (tagName === "BTe");  // Ver.2.213.48 data.eqns re-used
-      /* Ver.2.32.17 */
-      var get_sw = function(notBT){
-        return (tagName.substring(0, 2) === "BT" && !(isBTe) && tagName !== notBT);  // Ver.2.213.48
-      };
-      switch(useScope){
-        case false:
-          break;
-        case true:
-          _sw = get_sw("");
-          break;
-        case "notBT2":
-        case "notBT1":
-        case "notBT0":
-          _sw = get_sw(useScope.substring(3));
-          break;
-        case "BT2":
-        case "BT1":
-          _sw = (tagName === useScope);
-          break;
-        default:
-          _sw = (tagName === "BT0");
-          break;
-      }
-      /* Ver.2.213.48 -> */
-      if(opt_useScopeWith){
-        _sw = _sw || isBTe;
-      }
-      /* -> Ver.2.213.48 */
-      return _sw;
-    },
     row2col: "BT2",
     ref:     "BT0",
     SEe:     "BTe",
