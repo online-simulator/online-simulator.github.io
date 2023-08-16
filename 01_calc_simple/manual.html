@@ -9114,7 +9114,7 @@ precedence
 <br>
 ・<a href="#span-out-prec-ope-arithmetic">算術演算子</a>
 <br>
-　・<a href="#span-out-type-ope">後置単項演算子</a>　<span class="run">Ver.2.192.44</span>以降、統合（左から順次処理）
+　・<a href="#span-out-type-ope">後置単項演算子</a>　<span class="run">Ver.2.192.44</span>以降、統合（優先順位なしの<a href="#span-out-associativity">左結合</a>）
 <br>
 　　・<a href="#span-out-prec-ope-arithmetic-dot">dot演算子</a> . || '　<span class="run">Ver.2.192.44</span>以降、追加
 <br>
@@ -9186,6 +9186,8 @@ precedence
 <br>
 <br>
 留意事項を列挙する
+<br>
+・<span class="run">Ver.2.192.44</span>以降、<a href="#span-out-type-ope">後置単項演算子</a>は優先順位なしの<a href="#span-out-associativity">左結合</a>
 <br>
 ・<a href="#span-out-type-ope">前置単項演算子</a>の<a href="#span-out-prec-ope-bit">bit not</a>||<a href="#span-out-prec-ope-logical-not">論理NOT</a>は記号共通（~||~~）のため、<a href="#span-out-associativity">左結合</a>（連続する場合、<a href="#span-out-BT">括弧</a>を明示）
 <br>
@@ -9263,11 +9265,11 @@ precedence
 <br>
 -(3)! || (0-(3!)) || (0-(3*2*1)) -> -6
 <br>
-・<a href="#span-out-FN-fact">階乗</a>のoperandが負の場合、未定義で<del>1を返す</del><span class="clear">Ver.2.69.28</span>以降、0を返す
+・<a href="#span-out-FN-fact">階乗</a>のoperandが負の場合、未定義で<del>1を返す<span class="clear">Ver.2.69.28</span>以降、0を返す</del><span class="clear">Ver.2.170.42</span>以降、<span class="clear"><a href="#span-out-literal">false</a></span>を返す
 <br>
-<span class="clear">(-3)!</span> || ((-3)!) -> 0
+<span class="clear">(-3)!</span> || ((-3)!) -> false
 <br>
-<span class="clear">(-3)!!</span> || ((-3)!!) -> 0
+<span class="clear">(-3)!!</span> || ((-3)!!) -> false
 <br>
 (-3)*!! || (-3)*(0!!) -> -3
 <br>
@@ -17568,7 +17570,11 @@ clear; num0=_dx(=&lt;{1},1,); mcA=coo2mat(mat2coo(1,2,num0:3,4:5,,)); mcA ->
 <br>
 <del>mat2coo(NaN) || mat2coo(0) -> (:: )</del>
 <br>
-mat2coo(NaN) || mat2coo(0) -> (false:false:false)
+・<span class="run">Ver.2.217.50</span>以降、<a href="#span-out-literal">NaN</a>を返す
+<br>
+<del>mat2coo(NaN) || mat2coo(0) -> (false:false:false)</del>
+<br>
+mat2coo(NaN) || mat2coo(0) -> (NaN:NaN:NaN)
 <br>
 <br>
 COO形式の<a href="#span-out-linear">Gaussの消去法</a>
@@ -36176,7 +36182,7 @@ zeros(NaN);
 ones(NaN);
 coo2mat(NaN);
 
-// false
+// <del>false</del><span class="run">Ver.2.217.50</span>以降、NaN
 mat2coo(NaN);
 
 // error
@@ -36516,9 +36522,11 @@ combin(1,NaN) || permut(1,NaN) -> NaN
 <br>
 NaN! || fact(NaN) -> NaN
 <br>
-・未定義の場合、<a href="#span-out-literal">false</a>を返す
+・未定義の場合、<del><a href="#span-out-literal">false</a>を返す</del><span class="run">Ver.2.217.50</span>以降、<a href="#span-out-literal">NaN</a>を返す
 <br>
-mat2coo(NaN) || mat2coo(0) -> (false:false:false)
+<del>mat2coo(NaN) || mat2coo(0) -> (false:false:false)</del>
+<br>
+mat2coo(NaN) || mat2coo(0) -> (NaN:NaN:NaN)
 <br>
 ・引数不足の場合、<a href="#span-out-literal">NaN</a>を返す
 <br>

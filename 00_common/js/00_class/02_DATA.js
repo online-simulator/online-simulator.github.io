@@ -151,12 +151,15 @@ My_entry.DATA.prototype.vec2arr = function(vec){
   }
   return _arr;
 };
+/* calc-Ver.2.217.50 */
 /* calc-Ver.2.214.49 */
-My_entry.DATA.prototype.arr2arr_false = function(_arr){
+My_entry.DATA.prototype.arr2arr_r = function(_arr, opt_r){
   var self = this;
+  var r = opt_r || NaN;
   for(var i=0, len=_arr.length; i<len; ++i){
-    if(_arr[i].length === 0){
-      _arr[i][0] = self.num(false, 0);
+    var arri = _arr[i];
+    if(arri.length === 0){
+      arri[0] = self.num(r, 0);
     }
   }
   return _arr;

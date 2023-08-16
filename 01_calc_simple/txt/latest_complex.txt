@@ -78,9 +78,9 @@ A=(
 
 A.filter((x)=<(x<0))
 (
-false:
-false:
-false
+NaN:
+NaN:
+NaN
 )
 
 coo_Aij=A.filter((x,i_,j_)=<i_==j_)
@@ -1056,9 +1056,9 @@ NaN,NaN
 
 mat2coo(NaN),mat2coo(0)
 (
-false,false:
-false,false:
-false,false
+NaN,NaN:
+NaN,NaN:
+NaN,NaN
 )
 
 NaN!,fact(NaN)
@@ -2379,4 +2379,4 @@ drag=false&sw=false&0x=false&useMatrix=true&useStrict=false&checkError=true&isRi
 --------------------------------
 --------------------------------
 
-online-simulator.github.io.6.278.122.13.64 @ Wed Aug 16 2023 11:34:09 GMT+0900 (日本標準時) @ Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/115.0.0.0 Safari/537.36
+online-simulator.github.io.6.279.122.13.64 @ Wed Aug 16 2023 15:53:35 GMT+0900 (日本標準時) @ Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/115.0.0.0 Safari/537.36

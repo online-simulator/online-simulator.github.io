@@ -2176,7 +2176,7 @@ My_entry.operation.prototype.URh = function(data, i0, tagName, tagObj, dot_prop)
         callback(_arr, arr, self.tree_eqn2tree(data, tree_eqn).mat.arr, i, j);
       }
     }
-    _tree = DATA.tree_mat(DATA.arr2arr_false(_arr));
+    _tree = DATA.tree_mat(DATA.arr2arr_r(_arr));  // Ver.2.217.50
     sw_names.forEach(function(sw){
       var name = names[sw];
       if(name){  // Ver.2.215.50

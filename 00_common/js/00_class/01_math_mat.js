@@ -751,14 +751,7 @@ My_entry.math_mat.prototype.mat2coo = function(options, arr){
       }
     }
   }
-  /* Ver.2.170.42 -> */
-  if(_arr0.length === 0){
-    _arr0[0] = DATA.num(false, 0);
-    _arr1[0] = DATA.num(false, 0);
-    _arr2[0] = DATA.num(false, 0);
-  }
-  /* -> Ver.2.170.42 */
-  return _arr;
+  return DATA.arr2arr_r(_arr);  // Ver.2.170.42  // Ver.2.217.50
 };
 My_entry.math_mat.prototype.Imat = function(len){
   var self = this;
