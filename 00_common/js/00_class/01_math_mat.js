@@ -751,7 +751,7 @@ My_entry.math_mat.prototype.mat2coo = function(options, arr){
       }
     }
   }
-  return DATA.arr2arr_r(_arr);  // Ver.2.170.42  // Ver.2.217.50
+  return DATA.arr2arri_NaN(_arr);  // Ver.2.170.42  // Ver.2.217.50
 };
 My_entry.math_mat.prototype.Imat = function(len){
   var self = this;

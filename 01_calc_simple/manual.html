@@ -13934,6 +13934,8 @@ val=true; val==1,val==true,val===1,val===true -> (1,1,0+O(1e+0),1)
 ・<a href="#span-out-plot2d-command">plot2d-command</a>の欠損値=NaN+(NaN)i
 <br>
 ・<a href="#span-out-FN-interp">補間関数</a>の欠損値=NaN+(NaN)i
+<br>
+・<a href="#span-out-FNm-coo">座標形式行列関数</a>の欠損値=.filterの欠損値=NaN+(NaN)i
     </td>
   </tr>
   <tr>
@@ -16880,6 +16882,15 @@ args=(trans(linspace(2,2,4)),trans(linspace(1,4,4))); pow(args) ->
 16
 <br>
 )
+<br>
+<br>
+留意事項を列挙する
+<br>
+・整数の丸め方
+<br>
+round(linspace(1,1000,1000).).
+<br>
+linspace(1,1000,1000).map((x)=&lt;round(x))
     </td>
   </tr>
   <tr>

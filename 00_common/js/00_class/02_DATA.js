@@ -153,13 +153,12 @@ My_entry.DATA.prototype.vec2arr = function(vec){
 };
 /* calc-Ver.2.217.50 */
 /* calc-Ver.2.214.49 */
-My_entry.DATA.prototype.arr2arr_r = function(_arr, opt_r){
+My_entry.DATA.prototype.arr2arri_NaN = function(_arr){
   var self = this;
-  var r = opt_r || NaN;
   for(var i=0, len=_arr.length; i<len; ++i){
     var arri = _arr[i];
     if(arri.length === 0){
-      arri[0] = self.num(r, 0);
+      arri[0] = self.num(NaN, NaN);
     }
   }
   return _arr;
