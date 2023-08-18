@@ -21,6 +21,16 @@
       <caption>更新履歴</caption>
       <tbody>
         <tr class="border">
+          <td class="border run">
+Ver.0.43.6
+          </td>
+          <td class="border">
+・show magic-squareを追加
+<br>
+・test caseを更新（magic-squareの項目を追加）
+          </td>
+        </tr>
+        <tr class="border">
           <td class="border clear">
 Ver.0.42.6
           </td>
@@ -272,6 +282,16 @@ N進数表記でs(N,k):=(N-1)*kの再帰前生値を表示
         </tr>
         <tr class="border">
           <td class="border">
+show magic-square
+<br>
+<span class="run">Ver.0.43.6追加</span>
+          </td>
+          <td class="border">
+NxN:=2n+1のmagic-squareをN+1進数表記で表示
+          </td>
+        </tr>
+        <tr class="border">
+          <td class="border">
 show Nrshift(m)
 <br>
 <span class="run">Ver.0.33.4追加</span>
@@ -316,7 +336,7 @@ solve 3n+1
     </table>
 <br>
     <table class="border">
-      <caption>test case</caption>
+      <caption>[Reference]wikipedia.org<br>test case</caption>
       <thead>
         <tr class="border">
           <th class="border">
@@ -515,6 +535,68 @@ N=14：77 -> e
 N=15：80 -> 8
 <br>
 N=16：88 -> g
+          </td>
+        </tr>
+        <tr class="border">
+          <td class="border selection">
+magic-square
+<br>
+<span class="run">Ver.0.43.6追加</span>
+          </td>
+          <td class="border">
+・NxN:=2n+1のmagic-square（各行||各列||対角要素の和が一致）をN+1進数表記で表示する
+<br>
+・4進数（N=3）
+<br>
+(
+<br>
+10,2,21:
+<br>
+20,12,1:
+<br>
+3,13,11
+<br>
+)
+<br>
+・6進数（N=5）
+<br>
+(
+<br>
+14,24,2,21,40:
+<br>
+15,34,12,31,5:
+<br>
+25,3,22,41,10:
+<br>
+35,13,32,1,20:
+<br>
+4,23,33,11,30
+<br>
+)
+<br>
+・8進数（N=7）
+<br>
+(
+<br>
+15,34,44,2,21,40,57:
+<br>
+25,35,54,12,31,50,6:
+<br>
+26,45,3,22,41,60,16:
+<br>
+36,55,13,32,51,7,17:
+<br>
+46,4,23,42,61,10,27:
+<br>
+56,14,33,52,1,20,37:
+<br>
+5,24,43,53,11,30,47
+<br>
+)
+<br>
+・以上より、Nが奇数の場合、基準値1から総和が右方向と下方向に等差で循環する
+<br>
+・Nが偶数の場合、単純でない
           </td>
         </tr>
         <tr class="border">

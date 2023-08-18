@@ -85,6 +85,7 @@ My_entry.test_number.prototype.init_handlers = function(){
     var self = this;
     var id = elem.id || elem.innerText;
     switch(id){
+      case "solve6":  // Ver.0.43.6
       case "solve5":  // Ver.0.42.5
       case "solve4":  // Ver.0.39.4
       case "solve3":  // Ver.0.35.4
@@ -605,5 +606,56 @@ My_entry.test_number.prototype.solve5 = function(){
   self.logs5 = self.logs5 || run();
   $._id("output-log").innerHTML = self.logs5.log0;
   $._id("output-html").innerHTML = self.logs5.log1;
+  return self;
+};
+/* Ver.0.43.6 */
+My_entry.test_number.prototype.solve6 = function(){
+  var self = this;
+  var $ = self.entry.$;
+  self.convert();
+  var make_M = function(N, Np1, k, sw){
+    var _M = [];
+    for(var i=0; i<N; ++i){
+      _M[i] = [];
+      var m = i+1;
+      for(var j=0; j<N; ++j){
+        var n = j+1;
+        var a = (m+(n-1)*2)%N;
+        var b = (m+n+(N+k*2-1)/2)%N;
+        var c = (sw)? N*a+b+1: N*b+a+1;
+        _M[i][j] = c.toString(Np1);
+      }
+    }
+    return _M;
+  };
+  var run = function(){
+    var arr = [];
+    for(var k=1; k<self.len_k; ++k){
+      arr.push(k);
+    }
+    var header0 = self.output_line.apply(self, ["wF"].concat(arr));
+    var html0 = "";
+    for(var N=3; N<self.len_k; N+=2){
+      var isOdd = N%2;
+      var hasClass = (isOdd)? "condition": "wF";
+      var k = Math.floor(Math.random()*N);
+      var sw = (Math.random() < 0.5);
+      var M10 = make_M(N, 10, k, sw);
+      var M = make_M(N, N+1, k, sw);
+      html0 += self.output_line(hasClass, "N=", N, 10, "-adic");
+      for(var i=0; i<N; ++i){
+        html0 += self.output_line.apply(self, [""].concat(M10[i]));
+      }
+      html0 += self.output_line(hasClass, "N=", N, N+1, "-adic");
+      for(var i=0; i<N; ++i){
+        html0 += self.output_line.apply(self, [""].concat(M[i]));
+      }
+    }
+    var _logs = {};
+    _logs.log0 = "<caption class='condition'>N+1-adic representations of magic-square-NxN:=2n+1</caption>"+header0+html0;
+    return _logs;
+  };
+  self.logs6 = run();
+  $._id("output-log").innerHTML = self.logs6.log0;
   return self;
 };
