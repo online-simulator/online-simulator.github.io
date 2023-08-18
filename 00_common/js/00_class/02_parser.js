@@ -364,6 +364,7 @@ My_entry.parser.prototype.SEe2BTe = function(trees){
   var _trees = trees;
   var DATA = self.entry.DATA;
   var operation = self.entry.operation;
+  var BT = operation.config.BT;  // Ver.2.219.50
   if(self.useScopeWith){
     var len = trees.length;
     var ip_s = -1;
@@ -391,9 +392,8 @@ My_entry.parser.prototype.SEe2BTe = function(trees){
     }
     if(hasArgs){
       /* Ver.2.219.50 -> */
-      var tagName_BTe = "BTe";
-      trees[ip_s] = DATA.tree_tag(tagName_BTe, self.SEe2BTe(trees.slice(ip_s+1, ip_e)));
-      trees[ip_s][tagName_BTe].isSEee = true;
+      trees[ip_s] = DATA.tree_tag(BT.SEe, self.SEe2BTe(trees.slice(ip_s+1, ip_e)));
+      trees[ip_s][BT.SEe].isSEee = true;
       /* -> Ver.2.219.50 */
       for(var i=ip_s+1; i<ip_e; ++i){
         trees[i] = null;
