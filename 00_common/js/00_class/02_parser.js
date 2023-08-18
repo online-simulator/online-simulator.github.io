@@ -46,7 +46,7 @@ My_entry.parser.prototype.config = {
     },
     bas: [
       // StorE equation
-      {b: /=</, a: "SEe"},
+      {b: /[=]{1,2}</, a: "SEe"},  // Ver.2.219.50
       // RestorE equation
       {b: /[=]{1,2}>/, a: "REe"},  // Ver.2.31.17
       // fact -> "UR"  // Ver.2.192.44
@@ -390,7 +390,11 @@ My_entry.parser.prototype.SEe2BTe = function(trees){
       }
     }
     if(hasArgs){
-      trees[ip_s] = DATA.tree_tag("BTe", self.SEe2BTe(trees.slice(ip_s+1, ip_e)));
+      /* Ver.2.219.50 -> */
+      var tagName_BTe = "BTe";
+      trees[ip_s] = DATA.tree_tag(tagName_BTe, self.SEe2BTe(trees.slice(ip_s+1, ip_e)));
+      trees[ip_s][tagName_BTe].isSEee = true;
+      /* -> Ver.2.219.50 */
       for(var i=ip_s+1; i<ip_e; ++i){
         trees[i] = null;
       }

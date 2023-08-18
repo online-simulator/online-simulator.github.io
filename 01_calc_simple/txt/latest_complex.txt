@@ -1,6 +1,96 @@
 clear
 local storage cleared
 
+B=-1,[B=10,=<[g=<B,B=20,=<[B=30,==<g]=>]=>]=>:B=-1,[B=10,=<[g=<B,B=20,=<[B=30,==<g==>]=>]=>]=>
+(
+0,20:
+0,30
+)
+
+clear
+local storage cleared
+
+B=-1,[B=10,[g=<B,B=20,[B=30,=<g]=>f,=<f]=>f,==<f]=>f:f=>,f==>:B=-1,[B=10,[g=<B,B=20,[B=30,=<=<B]=>f,=<f]=>f,==<f]=>f:f=>,f==>
+(
+0,0:
+10,-1:
+0,0:
+10,-1
+)
+
+clear
+local storage cleared
+
+B=-1,[B=10,[g=<B,B=20,[B=30,==<g]=>f,=<f]=>f,=<f]=>f:f=>,f==>:B=-1,[B=10,[g=<B,B=20,[B=30,==<=<B]=>f,=<f]==>f,=<f]=>f:f=>,f==>
+(
+0,0:
+30,-1:
+0,0:
+10,-1
+)
+
+clear
+local storage cleared
+
+B=-1,[B=10,[g=<B,B=20,[B=30,=<g]=>f,=<f]=>f,=<f]=>f:f=>,f==>:B=-1,[B=10,[g=<B,B=20,[B=30,=<=<B]=>f,=<f]=>f,=<f]=>f:f=>,f==>
+(
+0,0:
+20,-1:
+0,0:
+30,-1
+)
+
+clear
+local storage cleared
+
+B=-1,[B=10,g=<B,[B=20:f(=<g)=>,f(==<g)=>,f(=<g)==>,f(==<g)==>]]
+(
+0,0,0,0:
+-2,-2,40,40
+)
+
+f(==<A)=<A==>+B
+stored_eqn(f)
+
+clear
+local storage cleared
+
+B=-1,[B=10,g=<B,[B=20:f(=<g)=>,f(==<g)=>,f(=<g)==>,f(==<g)==>]]
+(
+0,0,0,0:
+-2,-2,40,40
+)
+
+f(==<A)=<A=>+B
+stored_eqn(f)
+
+clear
+local storage cleared
+
+B=-1,[B=10,g=<B,[B=20:f(=<g)=>,f(==<g)=>,f(=<g)==>,f(==<g)==>]]
+(
+0,0,0,0:
+-2,-2,40,40
+)
+
+f(=<A)=<A==>+B
+stored_eqn(f)
+
+clear
+local storage cleared
+
+B=-1,[B=10,g=<B,[B=20:f(=<g)=>,f(==<g)=>,f(=<g)==>,f(==<g)==>]]
+(
+0,0,0,0:
+9,19,30,40
+)
+
+f(=<A)=<A=>+B
+stored_eqn(f)
+
+clear
+local storage cleared
+
 check_last(A)=<[ttA=A..,ttA[sizer(A)-1][sizec(A)-1],last(ttA),last(A)]:check_last(=<(1,2:3,4)):check_last(=<(1,2:3,4:5)):check_last(=<(1,2:3,4:5:{6,7},8)):check_last(=<(1,2:3,4:5:{6,7},{8,9}))/*re-use of data.eqns test case*/
 (
 0:
@@ -262,7 +352,7 @@ local storage cleared
 
 B=-1,[B=10,[fv(=<B)=>,B=20,fv(=<B)==>,fe(=<{B})=>,fe(=<{B})==>]]
 (
-0,0,9,0,40,-2,40
+0,0,9,0,40,19,40
 )
 
 fe(=<A)=<A=>+B
@@ -321,7 +411,7 @@ local storage cleared
 d=<-a*z+b*A+c
 stored_eqn(d)
 
-[n=10,(=<fn)=<fn=>](=<f)=>
+[n=10,(==<fn)=<fn=>](=<f)=>
 3628800
 
 f(n)=<n<=1|||round(n)*f(n-1)
@@ -2379,4 +2469,4 @@ drag=false&sw=false&0x=false&useMatrix=true&useStrict=false&checkError=true&isRi
 --------------------------------
 --------------------------------
 
-online-simulator.github.io.6.279.122.13.64 @ Thu Aug 17 2023 16:05:53 GMT+0900 (日本標準時) @ Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/115.0.0.0 Safari/537.36
+online-simulator.github.io.6.281.123.13.64 @ Fri Aug 18 2023 12:43:14 GMT+0900 (日本標準時) @ Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/115.0.0.0 Safari/537.36

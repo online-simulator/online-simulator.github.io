@@ -112,11 +112,16 @@ My_entry.operation.prototype.config = {
   },
   /* Ver.2.32.17 */
   symbol: {
-    escape: "$"
+    escape: "$",
+    escape2: "$$"  // Ver.2.219.50
   },
+  /* Ver.2.219.50 */
   /* Ver.2.27.15 */
   isEscaped: function(name){
-    return (name.charAt(0) === "$");
+    var _num_$ = 0;
+    if(name.charAt(0) === "$") _num_$++;
+    if(name.charAt(1) === "$") _num_$++;
+    return _num_$;
   },
   /* Ver.2.156.38 filter for csv-format */
   isNested: function(tagName){
@@ -805,11 +810,15 @@ My_entry.operation.prototype.get_names = function(data, tree_BT, isRow){
       var name = "";
       var name_checked = "";
       if(isSEe){
+        var isSEee = isSEe.isSEee;  // Ver.2.219.50
         var trees = isSEe.val;
         name = (trees && trees.length === 1)? self.get_tagVal(DATA.trees2tree(trees), "REv", "val"): null;
         if(name){
           name_checked = name;
-          name = self.config.symbol.escape+name;
+          /* Ver.2.219.50 -> */
+          var prefix = (isSEee)? self.config.symbol.escape2: self.config.symbol.escape;
+          name = prefix+name;
+          /* -> Ver.2.219.50 */
         }
       }
       else{
@@ -3376,19 +3385,26 @@ My_entry.operation.prototype.REe = function(data, i0, tagName, tagObj){
         var argi_eqn = args_eqn[i];
         var argi = args[i];
         var tree = null;  // Ver.2.71.29
-        if(self.config.isEscaped(argi_eqn)){
-          var name = argi_eqn.substring(1);
+        /* Ver.2.219.50 -> */
+        var num_$ = self.config.isEscaped(argi_eqn);
+        if(num_$){
+          var isSEee_argi = (num_$ === 2);
+          var name = argi_eqn.substring(num_$);
           if(name){  // Ver.2.215.50
             buffer_eqns[name] = self.restore_eqn(name, scopes, ids_buffer);
           }
           var isSEe = argi[BT.SEe];
           if(isSEe){
+            var isSEee = isSEe.isSEee;
             var symbol = self.get_symbol(isSEe);
             if(symbol){
               var ids_SEe = isSEe.ids;
               var tree_symbol = self.restore_eqn(symbol, scopes, ids_SEe);
               if(tree_symbol){
                 tree = self.tree_REe2SEe(tree_symbol);
+                if(ids && isSEee){
+                  self.inherit_ids_sw(BT.SEe, tree, ids);
+                }
               }
               else{
                 throw "Undef eqn("+symbol+")";
@@ -3397,9 +3413,10 @@ My_entry.operation.prototype.REe = function(data, i0, tagName, tagObj){
             else{
               tree = argi;
             }
-            if(ids_args_eqn){
+            if(ids_args_eqn && isSEee_argi){
               self.inherit_ids_sw(BT.SEe, tree, ids_args_eqn);  // solvex_non_linear
             }
+        /* -> Ver.2.219.50 */
           }
           else{
             throw "Invalid args."+name+"("+name_eqn+")";
@@ -3492,6 +3509,14 @@ My_entry.operation.prototype.REe = function(data, i0, tagName, tagObj){
       /* -> Ver.2.214.49 */
       /* -> Ver.2.211.46 */
     }
+    /* Ver.2.219.50 -> */
+    if(_tree[BT.REe]){
+      var ids_REe = isREe.ids;
+      if(ids_REe && isREe.isSEee){
+        self.inherit_ids_sw(BT.REe, _tree, ids_REe);
+      }
+    }
+    /* -> Ver.2.219.50 */
     /* -> Ver.2.204.46 */
     if(hasArgs){
       for(var name in buffer_vars){
@@ -3604,6 +3629,8 @@ My_entry.operation.prototype.SEe = function(data, i0, tagName, tagObj){
     if(!(rightTree)) throw "Invalid =<null";
     var rightTrees = trees.slice(i0+1, len);
     tree = self.inherit_ids_AtSEe(rightTrees, ids, names);  // Ver.2.31.17
+    var isSEee = (tagObj.val === "==<");  // Ver.2.219.50
+    tree[BT.SEe].isSEee = isSEee;  // Ver.2.219.50
   }
   else if(names){
     tree[BT.SEe].arg = names;
