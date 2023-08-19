@@ -356,6 +356,8 @@ e^(-i(1pi(){2/2i}(5-{3-1}){i/(-4)}))
 <br>
 ・<a href="#span-out-scope">変数のscope</a>
 <br>
+・<a href="#span-out-ref-transparency">参照透過性</a>
+<br>
 ・<a href="#span-out-storage">storage</a>
 <br>
 ・<a href="#span-out-bracket">階層とscopeの関係</a>
@@ -763,6 +765,8 @@ e^(-i(1pi(){2/2i}(5-{3-1}){i/(-4)}))
 ・<a href="#span-eqn-scope_NG">scope_NG</a>
 <br>
 ・<a href="#span-eqn-Fibonacci">Fibonacci</a>
+<br>
+・<a href="#span-eqn-fact">fact</a>
 <br>
 ・<a href="#span-eqn-gcd">gcd/lcm</a>
 <br>
@@ -11976,12 +11980,37 @@ x=2; store; clear; x=3<span class="selection">/*independent local scope*/</span>
 <br>
 ・<a href="#span-out-bracket">直列scope内</a>の<a href="#span-out-vars">変数</a>・<a href="#span-out-eqns">式変数</a>はreadonly（pollution disabled）
 <br>
-・scope範囲の可読性を優先（<a href="#span-out-BT-square">角括弧[]</a>内と対応）
+・scope範囲の可読性を優先（block単位の<a href="#span-out-BT-square">角括弧[]</a>内と対応）
 <br>
 ・<a href="#span-out-scope-vars-has1BT">単独scope</a>を意識する負担あり
 <br>
 <br>
 <span class="run">Ver.2.213.47</span>以降、Native準拠に変更する場合、<a href="#span-out-option6">useScopeWith</a>||<a href="#span-out-config">裏設定</a>参照
+    </td>
+  </tr>
+  <tr>
+    <th>
+<a href="#span-index">
+目次
+</a>
+<br>
+参照透過性
+    </th>
+    <td>
+<span id="span-out-ref-transparency"></span>
+参照透過性について記述する
+<br>
+<br>
+原則、参照透過性あり：実装関数の引数||<a href="#span-out-call-by-equation">式渡し</a>が同値||同義の場合、常に同じ結果を返す
+<br>
+一部、参照透過性なし：実装関数が作る<a href="#span-out-storage">local変数</a>の再利用の可否を意識する負担あり
+<br>
+<br>
+参照透過性を失う（<a href="#span-out-storage">local変数</a>を参照、上書きする）実装関数を列挙する
+<br>
+・<a href="#span-out-FNmh-newtonian">Newton高階行列関数</a>||<a href="#span-eqn-solvex_non_linear">solvex_non_linear</a>
+<br>
+・<a href="#span-out-FNmh-OX">ODE高階行列関数</a>||<a href="#span-eqn-explicit-ODE_RK4">explicit ODE_RK4</a>
     </td>
   </tr>
   <tr>
@@ -20748,13 +20777,13 @@ clear; [a=1,b=2,v=&lt;{a,b},v=v=&gt;v,a=-1,b=-2,=&lt;v=&gt;]=&gt; -> (-1:-2)</de
 <br>
 　<a href="#span-out-eqns-no-name">無名call</a>はcall結果が解決済みの前提で非対応
 <br>
-　<a href="#span-out-call-by-symbol">symbol渡し</a>の前提で参照透過性なし
+　<a href="#span-out-call-by-symbol">symbol渡し</a>の前提で<a href="#span-out-ref-transparency">参照透過性</a>なし
 <br>
 ・<span class="run">Ver.2.211.46</span>以降、式読出しの仕様をfix
 <br>
 　<a href="#span-out-eqns-no-name">無名call</a>の式読出しに対応（削除されるargumentsを除く）
 <br>
-　<a href="#span-out-call-by-symbol">symbol渡し</a>の参照透過性を確保
+　<a href="#span-out-call-by-symbol">symbol渡し</a>の<a href="#span-out-ref-transparency">参照透過性</a>を確保
 <br>
 <br>
 式変数の新規複製方法は、式変数名=&gt;式変数名とする
@@ -20766,6 +20795,10 @@ clear; g=&lt;x; g=&gt;f; x=1; f=f=&gt;; f,g=&gt;,f=&gt; -> (1,1,1)
 clear; g=&lt;x; g=&gt;f; x=1; f=f=&gt;; x=2; f,g=&gt;,f=&gt; -> (1,2,2)
 <br>
 clear; g(x)=&lt;x; g=&gt;f; f(3)=&gt; -> 3
+<br>
+・<a href="#span-out-bracket">scope</a>は<a href="#span-in-scope-vars">static scopes2d array</a>を共有する
+<br>
+clear; scope_NG(x)=&lt;last[x=x,last[x=x,x]]; scope_NG(3),scope_NG=>f,f(4) -> (3,0,3)
 <br>
 ・call結果の式読出し
 <br>
@@ -20847,7 +20880,7 @@ clear; [a=-1,=&lt;=&lt;a*x]=&gt;f; a=1; f=&gt; -> [MyErr]Invalid BTe([object Obj
 <br>
 clear; [a=-1,=&lt;(x)=&lt;a*x]=&gt;f; a=1; f(3)=&gt; -> [MyErr]Invalid args.length=0(f)</del>
 <br>
-・<span class="run">Ver.2.211.46</span>以降、参照透過性を確保
+・<span class="run">Ver.2.211.46</span>以降、<a href="#span-out-ref-transparency">参照透過性</a>を確保
 <br>
 clear; [a=-1,f(x)=&lt;a*x,=&lt;f]=&gt;f; a=1; f(3)=&gt; -> -3
 <br>
@@ -22290,11 +22323,11 @@ test caseを列挙する
 <br>
 ・<a href="#span-out-call-by-equation">式渡し</a>
 <br>
-clear; f(n)=&lt;n<=1|||round(n)*f(n-1); [n=10,(=&lt;fn)=&lt;fn=&gt;](=&lt;f)=&gt; -> 3628800
+clear; f(n)=&lt;n&lt;=1|||round(n)*f(n-1); [n=10,(=&lt;fn)=&lt;fn=&gt;](=&lt;f)=&gt; -> 3628800
 <br>
 ・<a href="#span-out-config-strict">strict-mode</a>
 <br>
-clear; f(n)=&lt;n<=1|||round(n)*f(n-1)=&gt;; [n=10,(=&lt;f)=&lt;f(n)=&gt;](=&lt;f)=&gt; -> 3628800
+clear; f(n)=&lt;n&lt;=1|||round(n)*f(n-1)=&gt;; [n=10,(=&lt;f)=&lt;f(n)=&gt;](=&lt;f)=&gt; -> 3628800
 <br>
 <br>
 留意事項を列挙する
@@ -36692,9 +36725,9 @@ template
 <span id="span-eqn-template"></span>
 clear;
 <br>
-template(x,y,=&lt;symbol_eqn_,=&lt;eqn_)=&lt;[
+template(x,y,=&lt;symbol_eqn_,=&lt;eqn_,==&lt;symbol__eqn__,==&lt;eqn__)=&lt;[
 <br>
-out=&lt;[=&lt;(symbol_eqn_=&gt;,eqn_=&gt;)]=&gt;,
+out=&lt;[=&lt;(symbol_eqn_=&gt;,eqn_=&gt;,symbol__eqn__=&gt;,eqn__=&gt;)]=&gt;,
 <br>
 scope2storage=&lt;last{0},
 <div class="condition">
@@ -36707,19 +36740,19 @@ init=&gt;,run=&gt;,return=out=&gt;,scope2storage=&gt;,
 <br>
 =&lt;return]=&gt;;
 <br>
-[x=1,y=2,f=3,f=&lt;[last(x=-2*x,x),y],=&lt;template(x,=&lt;last(f)/*var||eqn*/,=&lt;f,=&lt;[x,y])=&gt;]=&gt;;
+[x=1,y=2,f=3,f=&lt;{x,y},=&lt;template(x,f/*var||eqn*/,=&lt;f,=&lt;{x,y},=&lt;f,=&lt;{x,y})=&gt;]=&gt;;
 <br>
-/*following eqn(f) without scope called twice*/
+[x=1,y=2,f=3,f=&lt;(x:y),=&lt;template(x,last(f),=&lt;f,=&lt;(x:y),=&lt;f,=&lt;(x:y))=&gt;]=&gt;;
 <br>
-[x=1,y=2,f=3,f=&lt;(last(x=-2*x,x),y),=&lt;template(x,=&lt;last(f=&gt;),=&lt;f,=&lt;(x,y))=&gt;]=&gt;;
+[x=1,y=2,f=3,f=&lt;[x:y],=&lt;template(x,last(f),=&lt;f,=&lt;[x:y],=&lt;f,=&lt;[x:y])=&gt;]=&gt;;
 <br>
-[x=1,y=2,f=3,f=&lt;(last(x=-2*x,x),y),=&lt;template(x,=&lt;last(f=&gt;),=&lt;f,=&lt;[x,y])=&gt;]=&gt;;
+[x=1,y=2,f=3,f=&lt;(x:y),=&lt;template(x,=&lt;last(f),=&lt;f,=&lt;(x:y),=&lt;f,=&lt;(x:y))=&gt;]=&gt;;
 <br>
-/*following eqn(f) with static scope called twice*/
+[x=1,y=2,f=3,f=&lt;[x:y],=&lt;template(x,=&lt;last(f),=&lt;f,=&lt;[x:y],=&lt;f,=&lt;[x:y])=&gt;]=&gt;;
 <br>
-[x=1,y=2,f=3,f=&lt;[last(x=-2*x,x),y],=&lt;template(x,=&lt;last(f=&gt;),=&lt;f,=&lt;(x,y))=&gt;]=&gt;;
+[x=1,y=2,f=3,f=&lt;(x:y),=&lt;template(x,=&lt;last(f=&gt;),=&lt;f,=&lt;(x:y),=&lt;f,=&lt;(x:y))=&gt;]=&gt;;
 <br>
-[x=1,y=2,f=3,f=&lt;[last(x=-2*x,x),y],=&lt;template(x,=&lt;last(f=&gt;),=&lt;f,=&lt;[x,y])=&gt;]=&gt;;
+[x=1,y=2,f=3,f=&lt;[x:y],=&lt;template(x,=&lt;last(f=&gt;),=&lt;f,=&lt;[x:y],=&lt;f,=&lt;[x:y])=&gt;]=&gt;;
     </td>
   </tr>
   <tr>
@@ -36778,6 +36811,37 @@ fibok(N,0,2)=&gt;,fibok(N,0,3)=&gt;,fibok(N,0,4)=&gt;,fibok(N,0,5)=&gt;:
 fibok(N,1,2)=&gt;,fibok(N,1,3)=&gt;,fibok(N,1,4)=&gt;,fibok(N,1,5)=&gt;:
 <br>
 luca2(N)=&gt;];
+    </td>
+  </tr>
+  <tr>
+    <th>
+<a href="#span-index">
+目次
+</a>
+<br>
+fact
+    </th>
+    <td>
+<span id="span-eqn-fact"></span>
+<a href="#span-out-FN-fact">階乗関数</a>参照
+<br>
+clear;
+<br>
+fact_(n)=&lt;n&lt;=1|||n*fact_(n-1)=&gt;;
+<br>
+fact_sw0(n)=&lt;n&lt;=1|||n*fact_sw1(n-1)=&gt;;
+<br>
+fact_sw1(n)=&lt;n*fact_sw0(n-1)=&gt;;
+<br>
+[(N)=&lt;((N/2)!,fact(N/2),N!,fact(N):
+<br>
+fact_(N)=&gt;,fact_sw0(N)=&gt;,fact_sw1(N)=&gt;:
+<br>
+A=linspace(1,N,N).map((n)=&lt;fact_(n)=&gt;):
+<br>
+mat2coo(A)::
+<br>
+A.map((x)=&lt;-x).filter((x)=&lt;x&lt;-fact(N/2)))](10)=&gt;;
     </td>
   </tr>
   <tr>
@@ -37965,15 +38029,23 @@ global_n=1e3+1;
 <br>
 global_base=2**(log2(3)-7/4);
 <br>
-[N=1e2,f(x0)=&lt;{last(left=global_n*pow(global_base,x0),right=1,=right-left)},
+[N=1e2,a=0,b=100,f(x0)=&lt;{last(left=global_n*pow(global_base,x0),right=1,=right-left)},
 <br>
 =&lt;{solvex_non_linear(=&lt;f,=&lt;{0})=&gt;,
 <br>
-solvex_bisection(=&lt;f,0,100,N)=&gt;,
+solvex_bisection(=&lt;f,a,b,N)=&gt;,
 <br>
-solvex_bisection(=&lt;f,100,0,N)=&gt;,
+solvex_bisection(=&lt;f,b,a,N)=&gt;,
 <br>
-solvex_bisection(=&lt;f,0,0,N)=&gt;}]=&gt;;
+solvex_bisection(=&lt;f,a,a,N)=&gt;,
+<br>
+solvex_non_linear((x0)=&lt;1-global_n*pow(global_base,x0),=&lt;{0})=&gt;/*x0 re-used*/,
+<br>
+solvex_bisection((x0)=&lt;1-global_n*pow(global_base,x0),a,b,N)=&gt;,
+<br>
+solvex_bisection((x0)=&lt;1-global_n*pow(global_base,x0),b,a,N)=&gt;,
+<br>
+solvex_bisection((x0)=&lt;1-global_n*pow(global_base,x0),a,a,N)=&gt;}]=&gt;;
     </td>
   </tr>
   <tr>

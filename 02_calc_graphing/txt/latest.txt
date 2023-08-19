@@ -494,9 +494,13 @@ stored_eqn(ODE_RK4)
 Euler_method(t,dt,z_x00,z_v00,z_u,m,Cd_sphere,isImplicit)=<[out=<{t_total,x=>},scope2storage=<last{addVar(z_x0),addVar(z_v0),addVar(t_total)},init=<last{switch(hasVar(t_total)==0,=<last{t_total=0,z_x0=z_x00,z_v0=z_v00}),g=-9.8,z_a=0+g*i,x=<{z_x,z_v},x_initial=<{z_x0,z_v0},switch(isImplicit,=<f=<{(z_x-z_x0)/dt=z_v,m*((z_v-z_v0)/dt)=m*z_a+Cd_sphere*(z_u-z_v)}:1,=<f=<{(z_x-z_x0)/dt=z_v0,m*((z_v-z_v0)/dt)=m*z_a+Cd_sphere*(z_u-z_v0)}),orderT=1,epsN=max(eps*1e3,pow(dt,orderT)),isRelative_epsN=1,relative_epsN=(epsN,isRelative_epsN)},run=<last{args_Newton=(=<f,=<x,=<x_initial,Nmax=20,Nmax,relative_epsN),step_iteration=<mdx=Newton(args_Newton),step_post=<{$z_x0,$z_v0}=x=>,step=<last{step_iteration=>,step_post=>},evolution=<_rn(=<step,N=round(t/dt),N),evolution=>,t_total=t_total+N*dt},init=>,run=>,return=out=>,scope2storage=>,=<return]=>
 stored_eqn(Euler_method)
 
-[N=1e2,f(x0)=<{last(left=global_n*pow(global_base,x0),right=1,=right-left)},=<{solvex_non_linear(=<f,=<{0})=>,solvex_bisection(=<f,0,100,N)=>,solvex_bisection(=<f,100,0,N)=>,solvex_bisection(=<f,0,0,N)=>}]=>
+[N=1e2,a=0,b=100,f(x0)=<{last(left=global_n*pow(global_base,x0),right=1,=right-left)},=<{solvex_non_linear(=<f,=<{0})=>,solvex_bisection(=<f,a,b,N)=>,solvex_bisection(=<f,b,a,N)=>,solvex_bisection(=<f,a,a,N)=>,solvex_non_linear((x0)=<1-global_n*pow(global_base,x0),=<{0})=>,solvex_bisection((x0)=<1-global_n*pow(global_base,x0),a,b,N)=>,solvex_bisection((x0)=<1-global_n*pow(global_base,x0),b,a,N)=>,solvex_bisection((x0)=<1-global_n*pow(global_base,x0),a,a,N)=>}]=>
 (
 60.393706293353205+8.853472655692489e-17i+O(2e-10+4e-11i):
+60.39370596408844:
+60.39370633661747:
+0:
+infoLost[r ] 60.393706293353205+1.060028598962873e-21i+O(2e-10+4e-11i):
 60.39370596408844:
 60.39370633661747:
 0
@@ -1155,7 +1159,7 @@ clear
 local storage cleared
 
 [Pinv_y=(-0.999999427,-0.999936657,-0.997300203,-0.954499736,-0.682689492,0,0.682689492,0.954499736,0.997300203,0.999936657,0.999999427:-5,-4,-3,-2,-1,0,1,2,3,4,5),N=1,arr=[],_rn(=<arr=(arr:rand_table(=<Pinv_y)=>),,N),=<arr]=>
-0.5060855710345142
+1.3099718091142196
 
 rand_table(csv)=<last[table=sort0(csv),ymin=min(table)[0],ymax=max(table)[0],y=ymin+(ymax-ymin)*rand,x=interp(y:table),x]
 stored_eqn(rand_table)
@@ -1174,6 +1178,32 @@ stored_eqn(lcm_)
 
 gcd_(a,b)=<last[_rn(=<last{ia=round(a),ib=round(b),a=ia<0||ib===0&&&ia|||ib,b=ia%(ib||1)},isBreak_a=<isNaN(a)|||a<0&&&~~(a=false),1e6,=<{isBreak_a=>|||b==0}),a]
 stored_eqn(gcd_)
+
+clear
+local storage cleared
+
+[(N)=<((N/2)!,fact(N/2),N!,fact(N):fact_(N)=>,fact_sw0(N)=>,fact_sw1(N)=>:A=linspace(1,N,N).map((n)=<fact_(n)=>):mat2coo(A)::A.map((x)=<-x).filter((x)=<x<-fact(N/2)))](10)=>
+(
+120,120,3628800,3628800:
+3628800,3628800,3628800:
+0:
+true,2,6,24,120,720,5040,40320,362880,3628800:
+1,1,1,1,1,1,1,1,1,1:
+1,2,3,4,5,6,7,8,9,10:
+0:
+-720,-5040,-40320,-362880,-3628800:
+0,0,0,0,0:
+5,6,7,8,9
+)
+
+fact_sw1(n)=<n*fact_sw0(n-1)=>
+stored_eqn(fact_sw1)
+
+fact_sw0(n)=<n<=1|||n*fact_sw1(n-1)=>
+stored_eqn(fact_sw0)
+
+fact_(n)=<n<=1|||n*fact_(n-1)=>
+stored_eqn(fact_)
 
 clear
 local storage cleared
@@ -1234,32 +1264,49 @@ stored_eqn(scope_NG1)
 clear
 local storage cleared
 
-[x=1,y=2,f=3,f=<[last(x=-2*x,x),y],=<template(x,=<last(f=>),=<f,=<[x,y])=>]=>
+[x=1,y=2,f=3,f=<[x:y],=<template(x,=<last(f=>),=<f,=<[x:y],=<f,=<[x:y])=>]=>
 (
-4,2,1,2
+1,1,1,1:
+2,2,2,2
 )
 
-[x=1,y=2,f=3,f=<[last(x=-2*x,x),y],=<template(x,=<last(f=>),=<f,=<(x,y))=>]=>
+[x=1,y=2,f=3,f=<(x:y),=<template(x,=<last(f=>),=<f,=<(x:y),=<f,=<(x:y))=>]=>
 (
-4,2,1,2
+1,1,1,1:
+2,2,2,2
 )
 
-[x=1,y=2,f=3,f=<(last(x=-2*x,x),y),=<template(x,=<last(f=>),=<f,=<[x,y])=>]=>
+[x=1,y=2,f=3,f=<[x:y],=<template(x,=<last(f),=<f,=<[x:y],=<f,=<[x:y])=>]=>
 (
-4,2,4,2
+1,1,1,1:
+2,2,3,3
 )
 
-[x=1,y=2,f=3,f=<(last(x=-2*x,x),y),=<template(x,=<last(f=>),=<f,=<(x,y))=>]=>
+[x=1,y=2,f=3,f=<(x:y),=<template(x,=<last(f),=<f,=<(x:y),=<f,=<(x:y))=>]=>
 (
-4,2,4,2
+1,1,1,1:
+2,2,3,3
 )
 
-[x=1,y=2,f=3,f=<[last(x=-2*x,x),y],=<template(x,=<last(f),=<f,=<[x,y])=>]=>
+[x=1,y=2,f=3,f=<[x:y],=<template(x,last(f),=<f,=<[x:y],=<f,=<[x:y])=>]=>
 (
--2,2,1,2
+1,1,1,1:
+2,2,3,3
 )
 
-template(x,y,=<symbol_eqn_,=<eqn_)=<[out=<[=<(symbol_eqn_=>,eqn_=>)]=>,scope2storage=<last{0},init=<last{0},run=<last{0},init=>,run=>,return=out=>,scope2storage=>,=<return]=>
+[x=1,y=2,f=3,f=<(x:y),=<template(x,last(f),=<f,=<(x:y),=<f,=<(x:y))=>]=>
+(
+1,1,1,1:
+2,2,3,3
+)
+
+[x=1,y=2,f=3,f=<{x,y},=<template(x,f,=<f,=<{x,y},=<f,=<{x,y})=>]=>
+(
+1,1,1,1:
+2,2,3,3
+)
+
+template(x,y,=<symbol_eqn_,=<eqn_,==<symbol__eqn__,==<eqn__)=<[out=<[=<(symbol_eqn_=>,eqn_=>,symbol__eqn__=>,eqn__=>)]=>,scope2storage=<last{0},init=<last{0},run=<last{0},init=>,run=>,return=out=>,scope2storage=>,=<return]=>
 stored_eqn(template)
 
 clear
@@ -1270,4 +1317,4 @@ center=true&drag=false&test-case=false&legend=true&axis-t=false&axis-x=true&log-
 --------------------------------
 --------------------------------
 
-online-simulator.github.io.6.281.123.13.64 @ Fri Aug 18 2023 12:43:34 GMT+0900 (日本標準時) @ Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/115.0.0.0 Safari/537.36
+online-simulator.github.io.6.281.124.13.64 @ Sun Aug 20 2023 00:03:10 GMT+0900 (日本標準時) @ Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/115.0.0.0 Safari/537.36
