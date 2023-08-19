@@ -411,7 +411,7 @@ My_entry.parser.prototype.SEe2BTe = function(trees){
   trees0d,
      tree: {}
       tag: {"name": {val: val}}
-         : {"BT?":  {val: [], ref: [], ids: [], arg: []}}
+         : {"BT?":  {val: [], ref: [], ids: [], arg: [], flag}}
       num: {mat:    {arr: arr}}
       1+i: arr [0] [0] {com: {r: 1, i: 1}}
    matrix:     row col {complex number   }
