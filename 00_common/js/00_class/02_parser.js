@@ -365,7 +365,7 @@ My_entry.parser.prototype.FN2REv = function(tree, token, token_lower, token_uppe
   var DATA = self.entry.DATA;
   var operation = self.entry.operation;
   var isFN = operation.isType(tree, "FN");
-  if(isFN){
+  if(isFN && token[0] !== "_"){
     var hasRule1 = (self.useFunc === 1 && !(token === token_lower));
     var hasRule2 = (self.useFunc === 2 && !(token === token_upper));
     var hasRule3 = (self.useFunc === 3 && !(token[0] === token_upper[0] && token.substring(1) === token_lower.substring(1)));
