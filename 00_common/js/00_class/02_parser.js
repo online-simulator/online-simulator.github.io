@@ -358,6 +358,23 @@ My_entry.parser.prototype.compare2bas = function(token){
   }
   return _tree;
 };
+/* Ver.2.221.50 */
+My_entry.parser.prototype.FN2REv = function(tree, token, token_lower, token_upper){
+  var self = this;
+  var _tree = tree;
+  var DATA = self.entry.DATA;
+  var operation = self.entry.operation;
+  var isFN = operation.isType(tree, "FN");
+  if(isFN){
+    var hasRule1 = (self.useFunc === 1 && !(token === token_lower));
+    var hasRule2 = (self.useFunc === 2 && !(token === token_upper));
+    var hasRule3 = (self.useFunc === 3 && !(token[0] === token_upper[0] && token.substring(1) === token_lower.substring(1)));
+    if(hasRule1 || hasRule2 || hasRule3){
+      _tree = DATA.tree_tag("REv", token);
+    }
+  }
+  return _tree;
+};
 /* Ver.2.213.47 */
 My_entry.parser.prototype.SEe2BTe = function(trees){
   var self = this;
@@ -831,6 +848,11 @@ My_entry.parser.prototype.make_trees = function(sentence, opt_re){  // Ver.2.158
         break;
     }
     if(tree){
+      /* Ver.2.221.50 -> */
+      if(self.useFunc){
+        tree = self.FN2REv(tree, token, token_lower, token_upper);
+      }
+      /* -> Ver.2.221.50 */
       _trees.push(tree);
     }
     i = i_next;
@@ -957,6 +979,7 @@ My_entry.parser.prototype.script2objs2d = function(data){
             trees = command;
           }
           else{
+            self.useFunc = data.options.useFunc;  // Ver.2.221.50
             self.useScopeWith = data.options.useScopeWith;  // Ver.2.213.47
             trees = self.make_trees(sentence);  // Ver.2.158.38
             var ids2d = [[j, 0]];

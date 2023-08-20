@@ -288,6 +288,8 @@ e^(-i(1pi(){2/2i}(5-{3-1}){i/(-4)}))
 <br>
 　・<a href="#span-out-option3">Multi-thread実行</a>
 <br>
+　・<a href="#span-out-option7">useFunc</a>
+<br>
 　・<a href="#span-out-option6">useScopeWith</a>
 <br>
 ・<a href="#span-out-type-ope">演算子の大分類</a>
@@ -985,6 +987,10 @@ ja.m.wikipedia.org/wiki/項目を列挙する
 ・JavaScriptエンジン
 <br>
 ・MATLAB
+<br>
+・先読み
+<br>
+・遅延評価
 <br>
 ・無名再帰
 <br>
@@ -8723,6 +8729,8 @@ max(x=3,-1,-2) || max(0,-1,-2) -> 0
 <br>
 ・<a href="#span-out-option3">Multi-thread実行</a>
 <br>
+・<a href="#span-out-option7">useFunc</a>　<span class="run">Ver.2.221.50</span>以降、追加
+<br>
 ・<a href="#span-out-option6">useScopeWith</a>　<span class="run">Ver.2.213.47</span>以降、追加
     </td>
   </tr>
@@ -8909,6 +8917,36 @@ Multi-thread実行を選択可
 目次
 </a>
 <br>
+useFunc
+    </th>
+    <td>
+<span id="span-out-option7"></span>
+外部optionのuseFuncと付随する留意事項について記述する
+<br>
+<br>
+<span class="run">Ver.2.221.50</span>以降、名前衝突軽減のため、実装関数名の大文字・小文字のformatを追加
+<br>
+<br>
+FuNc既定：大文字・小文字を区別しない
+<br>
+func選択：すべて小文字
+<br>
+FUNC選択：すべて大文字
+<br>
+Func選択：最初のみ大文字
+<br>
+<br>
+留意事項を列挙する
+<br>
+・<a href="#span-out-FN0">定数</a>は対象外
+    </td>
+  </tr>
+  <tr>
+    <th>
+<a href="#span-index">
+目次
+</a>
+<br>
 useScope
 <br>
 With
@@ -9069,9 +9107,9 @@ precedence
 <br>
 ・<a href="#span-out-SR">区切り文字</a>
 <br>
-・<a href="#span-out-substitution-equation">式変数への式代入</a>　<a href="#span-in-call-by-equation">遅延評価</a>のため、<a href="#span-out-associativity">左結合</a>
+・<a href="#span-out-substitution-equation">式変数への式代入</a>　<a href="#span-in-call-by-equation">遅延評価</a>保証のため、<a href="#span-out-associativity">左結合</a>
 <br>
-・<a href="#span-out-prec-ope-logical-short-circuit">論理演算子（短絡評価）</a>　<span class="run">Ver.2.157.38</span>以降、追加
+・<a href="#span-out-prec-ope-logical-short-circuit">論理演算子（短絡評価）</a>　<a href="#span-in-short-circuit">先読み</a>で結合
 <br>
 ・<a href="#span-out-FNc">最上位関数</a>
 <br>
@@ -11404,11 +11442,22 @@ useScope=notBT0の場合、<a href="#span-out-BT-square">角括弧[]</a>を除�
 useScope=defaultの場合（上記以外の場合）、<a href="#span-out-BT-square">角括弧[]</a>のみ<a href="#span-out-scope-vars">変数のscope</a>を使用する
 <br>
 <br>
-<span class="run">Ver.2.213.47</span>以降、useScopeWithを追加
+<span class="run">Ver.2.213.47</span>以降、<a href="#span-out-option6">useScopeWith</a>を追加
 <br>
 useScopeWith=SEeの場合、<a href="#span-out-substitution-equation">式代入</a>記号=&lt;に<a href="#span-out-scope-vars">変数のscope</a>を追加（Native準拠）
 <br>
 useScopeWith=BTeの場合、<a href="#span-out-eqns-args">式変数のarguments</a>付の<a href="#span-out-substitution-equation">式代入</a>記号=&lt;に<a href="#span-out-scope-vars">変数のscope</a>を追加
+<br>
+<br>
+<span class="run">Ver.2.221.50</span>以降、<a href="#span-out-option7">useFunc</a>を追加
+<br>
+useFunc=1の場合、すべて小文字
+<br>
+useFunc=2の場合、すべて大文字
+<br>
+useFunc=3の場合、最初のみ大文字
+<br>
+useFunc=0の場合（上記以外の場合）、大文字・小文字を区別しない
 <br>
 <br>
 <a href="#span-out-prec-ope">演算子のprecedence</a>を変更する場合
@@ -13769,6 +13818,8 @@ max=&lt;3 -> [MyErr]Invalid BTe([object Object])
 <br>
 ＭＡＸ=3 -> [MyErr]Invalid ans isFound
 <br>
+・<span class="run">Ver.2.221.50</span>以降、実装関数名の大文字・小文字のformatを選択する<a href="#span-out-option7">useFunc</a>を追加
+<br>
 <br>
 予約語の一覧は<a href="#span-in-FN">内部仕様</a>参照
    </td>
@@ -13990,7 +14041,7 @@ val=true; val==1,val==true,val===1,val===true -> (1,1,0+O(1e+0),1)
 定数の入力仕様と付随する留意事項について記述する
 <br>
 <br>
-定数は引数<a href="#span-out-BT">括弧</a>なしで厳密には<a href="#span-out-FN">関数</a>に含めない
+<a href="#span-out-number">Number</a>型を含む定数は引数<a href="#span-out-BT">括弧</a>なしで厳密には<a href="#span-out-FN">関数</a>に含めない
 <br>
 ・実行文を作る<a href="#span-out-flow">parse</a>段階で数値に変換する
 <br>
@@ -20596,6 +20647,10 @@ clear; iproduct(L,R)=&lt;(L)(trans(R)); iproduct(=&lt;(1,2),=&lt;(3,4)) -> 11
 <br>
 <br>
 式変数への代入・再代入方法は、式変数名=&lt;方程式||関数式とする
+<br>
+・<a href="#span-out-substitution-equation">式代入</a>記号=&lt;
+<br>
+　<a href="#span-out-call-by-equation">式渡し</a>に流用するため、一般的な記号:=で代替不可
 <br>
 ・式変数への代入を以降、<a href="#span-out-substitution-equation">式代入</a>と呼ぶ
 <br>
@@ -35478,6 +35533,9 @@ data.logo -> "makeLog=true"
 ・<a href="#span-out-option6">useScopeWith</a>: <span class="run">Ver.2.213.47</span>以降、<a href="#span-out-substitution-equation">式代入</a>記号=&lt;に変数のscopeを使用するflag
 <br>
 <br>
+・<a href="#span-out-option7">useFunc</a>: <span class="run">Ver.2.221.50</span>以降、実装関数名の大文字・小文字のformatを選択するflag
+<br>
+<br>
 ・isRightAssociativityBR: <a href="#span-out-associativity">2項演算子のassociativity</a>を<a href="#span-out-option1">RA選択</a>に変更するflag
 <br>
 <br>
@@ -35752,6 +35810,8 @@ operation.js抜粋
 予約語は大文字・小文字・全角・半角を区別しない
 <br>
 ・<span class="clear">Ver.2.170.42</span>以降、<span class="jF">追加項目</span>
+<br>
+・<span class="run">Ver.2.221.50</span>以降、実装関数名の大文字・小文字のformatを選択する<a href="#span-out-option7">useFunc</a>を追加
 <br>
 <br>
 parser.js抜粋
@@ -36691,7 +36751,7 @@ cos(pi/4) -> 0.7071067811865476-0i
 ・<span class="run">Ver.2.196.46</span>以降、<a href="#span-out-prec-ope-conditional">条件演算子</a>代替の<a href="#span-out-prec-ope-logical-short-circuit-literal">論理演算子（literal）</a>を追加
 <br>
 <br>
-operand判定時の調整項目（operandを全走査する仕様の対策）を列挙する
+operand判定時、構文規則の先読み対策（operandを全走査する仕様の対策）を列挙する
 <br>
 ・代入記号=||=&lt;を<a href="#span-out-SR">区切り文字</a>として追加で判定
 <br>

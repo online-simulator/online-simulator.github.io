@@ -1210,7 +1210,7 @@ clear
 local storage cleared
 
 [Pinv_y=(-0.999999427,-0.999936657,-0.997300203,-0.954499736,-0.682689492,0,0.682689492,0.954499736,0.997300203,0.999936657,0.999999427:-5,-4,-3,-2,-1,0,1,2,3,4,5),N=1,arr=[],_rn(=<arr=(arr:rand_table(=<Pinv_y)=>),,N),=<arr]=>
--2.924924414721254
+-0.5478225985013675
 
 rand_table(csv)=<last[table=sort0(csv),ymin=min(table)[0],ymax=max(table)[0],y=ymin+(ymax-ymin)*rand,x=interp(y:table),x]
 stored_eqn(rand_table)
@@ -1392,8 +1392,8 @@ clear
 local storage cleared
 
 --------------------------------
-center=true&drag=false&test-case=false&legend=true&axis-t=false&axis-x=true&log-x=false&imag-x=false&axis-y=true&log-y=false&imag-y=false&axis-z=true&axis-v=true&config-plot=false&relzooming=true&snap=true&useMatrix=true&useStrict=true&sharedStorage=false&checkError=true&equation-list=true&config=false&isRightAssociativityBR=false&isDIVprior2OMUL=false&useComma=false&useWorker=true&plot2d-Ver=2&decDigit=1&n_thread=4&canvas-background=black&grid-line-width=0.5&marker-size=5&marker-line-width=0&plot-line-width=2&font-size=12&grid-x-Ni=0&grid-y-Nj=0&kx-adjust=2.5&marker-colors=red-blue&legend-kx=0.25&legend-ky=0.1&canvas-globalCompositeOperationLayer=source-over&canvas-globalCompositeOperation=source-over&useComplex=-1&expDigit=-1&useScopeWith=0&N=1&matSizeMax=1000&depthMax=300&makeLog=2
+center=true&drag=false&test-case=false&legend=true&axis-t=false&axis-x=true&log-x=false&imag-x=false&axis-y=true&log-y=false&imag-y=false&axis-z=true&axis-v=true&config-plot=false&relzooming=true&snap=true&useMatrix=true&useStrict=true&sharedStorage=false&checkError=true&equation-list=true&config=false&isRightAssociativityBR=false&isDIVprior2OMUL=false&useComma=false&useWorker=true&plot2d-Ver=2&decDigit=1&n_thread=4&canvas-background=black&grid-line-width=0.5&marker-size=5&marker-line-width=0&plot-line-width=2&font-size=12&grid-x-Ni=0&grid-y-Nj=0&kx-adjust=2.5&marker-colors=red-blue&legend-kx=0.25&legend-ky=0.1&canvas-globalCompositeOperationLayer=source-over&canvas-globalCompositeOperation=source-over&useComplex=-1&expDigit=-1&useFunc=0&useScopeWith=0&N=1&matSizeMax=1000&depthMax=300&makeLog=2
 --------------------------------
 --------------------------------
 
-online-simulator.github.io.6.281.124.13.64 @ Sun Aug 20 2023 11:48:03 GMT+0900 (日本標準時) @ Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/115.0.0.0 Safari/537.36
+online-simulator.github.io.6.282.124.13.64 @ Sun Aug 20 2023 15:56:01 GMT+0900 (日本標準時) @ Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/115.0.0.0 Safari/537.36
