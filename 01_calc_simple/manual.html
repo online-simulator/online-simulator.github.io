@@ -850,6 +850,8 @@ e^(-i(1pi(){2/2i}(5-{3-1}){i/(-4)}))
 <br>
 ・<a href="#span-eqn-Fermat">Fermat</a>
 <br>
+・<a href="#span-eqn-magic">magic-square</a>
+<br>
 ・<a href="#span-eqn-plot2d_EIS">plot2d_EIS</a>
 <br>
 ・<a href="#span-eqn-plot2d_EIS_DFT">plot2d_EIS_DFT</a>
@@ -939,6 +941,8 @@ en.m.wikipedia.org/wiki/項目を列挙する
 <br>
 ・Bisection_method
 <br>
+・Magic_square
+<br>
 ・Great_Pyramid_of_Giza
 <br>
 ・Maxwell's_equations
@@ -980,7 +984,11 @@ ja.m.wikipedia.org/wiki/項目を列挙する
 <br>
 ・JavaScriptエンジン
 <br>
+・MATLAB
+<br>
 ・無名再帰
+<br>
+・相互再帰
 <br>
 ・演算子の優先順位
 <br>
@@ -36753,6 +36761,46 @@ init=&gt;,run=&gt;,return=out=&gt;,scope2storage=&gt;,
 [x=1,y=2,f=3,f=&lt;(x:y),=&lt;template(x,=&lt;last(f=&gt;),=&lt;f,=&lt;(x:y),=&lt;f,=&lt;(x:y))=&gt;]=&gt;;
 <br>
 [x=1,y=2,f=3,f=&lt;[x:y],=&lt;template(x,=&lt;last(f=&gt;),=&lt;f,=&lt;[x:y],=&lt;f,=&lt;[x:y])=&gt;]=&gt;;
+<br>
+clear;
+<br>
+[f(=&lt;A)=&lt;A=&gt;+B,B=-1,C=-2,g=&lt;B,
+<br>
+[B=10,C=11,g=&lt;C,h=&lt;g=&gt;+B,[B=20,f(=&lt;h)=&gt;,f(==&lt;h)=&gt;,f(=&lt;h)==&gt;,f(==&lt;h)==&gt;]]]:
+<br>
+f(=&lt;A)=&lt;A=&gt;+B,B=-1,C=-2,g=&lt;B,
+<br>
+[B=10,C=11,g=&lt;C,h=&lt;g=&gt;+B,[B=20,f(=&lt;h)=&gt;,f(==&lt;h)=&gt;,f(=&lt;h)==&gt;,f(==&lt;h)==&gt;]]:
+<br>
+f(==&lt;A)=&lt;A=&gt;+B,B=-1,C=-2,g=&lt;B,
+<br>
+[B=10,C=11,g=&lt;C,h=&lt;g=&gt;+B,[B=20,f(=&lt;h)=&gt;,f(==&lt;h)=&gt;,f(=&lt;h)==&gt;,f(==&lt;h)==&gt;]]:
+<br>
+f(=&lt;A)=&lt;A==&gt;+B,B=-1,C=-2,g=&lt;B,
+<br>
+[B=10,C=11,g=&lt;C,h=&lt;g=&gt;+B,[B=20,f(=&lt;h)=&gt;,f(==&lt;h)=&gt;,f(=&lt;h)==&gt;,f(==&lt;h)==&gt;]];
+<br>
+clear;
+<br>
+B=-1,g=&lt;B,[B=10,[B=20,[B=30,=&lt;g]=&gt;f,=&lt;f]=&gt;f,=&lt;f]=&gt;f,f=&gt;,f==&gt;:
+<br>
+B=-1,[B=10,g=&lt;B,[B=20,[B=30,=&lt;g]=&gt;f,=&lt;f]=&gt;f,=&lt;f]=&gt;f,f=&gt;,f==&gt;:
+<br>
+B=-1,[B=10,[B=20,g=&lt;B,[B=30,=&lt;g]=&gt;f,=&lt;f]=&gt;f,=&lt;f]=&gt;f,f=&gt;,f==&gt;:
+<br>
+B=-1,[B=10,[B=20,g=&lt;B,[B=30,==&lt;g]=&gt;f,=&lt;f]=&gt;f,=&lt;f]=&gt;f,f=&gt;,f==&gt;:
+<br>
+B=-1,[B=10,[B=20,g=&lt;B,[B=30,==&lt;=&lt;B]=&gt;f,=&lt;f]=&gt;f,=&lt;f]=&gt;f,f=&gt;,f==&gt;:
+<br>
+B=-1,[B=10,[B=20,g=&lt;B,[B=30,==&lt;=&lt;B]==&gt;f,=&lt;f]=&gt;f,=&lt;f]=&gt;f,f=&gt;,f==&gt;:
+<br>
+B=-1,[B=10,[B=20,g=&lt;B,[B=30,==&lt;=&lt;B]=&gt;f,==&lt;f]=&gt;f,=&lt;f]=&gt;f,f=&gt;,f==&gt;:
+<br>
+B=-1,[B=10,[B=20,g=&lt;B,[B=30,==&lt;=&lt;B]=&gt;f,=&lt;f]==&gt;f,=&lt;f]=&gt;f,f=&gt;,f==&gt;:
+<br>
+B=-1,[B=10,[B=20,g=&lt;B,[B=30,==&lt;=&lt;B]=&gt;f,=&lt;f]=&gt;f,==&lt;f]=&gt;f,f=&gt;,f==&gt;:
+<br>
+B=-1,[B=10,[B=20,g=&lt;B,[B=30,==&lt;=&lt;B]=&gt;f,=&lt;f]=&gt;f,=&lt;f]==&gt;f,f=&gt;,f==&gt;;
     </td>
   </tr>
   <tr>
@@ -38691,6 +38739,43 @@ _sx(=&lt;yns[x]=yn(z,x)=&gt;,0,z-1),
 =&lt;yns]=&gt;;
 <br>
 Fermat(2,5)=&gt;;
+    </td>
+  </tr>
+  <tr>
+    <th>
+<a href="#span-index">
+目次
+</a>
+<br>
+magic-square
+    </th>
+    <td>
+<span id="span-eqn-magic"></span>
+clear;
+<br>
+make_Mij(m,n,k,sw)=&lt;last{
+<br>
+a0=(m+(n-1)*2)%N,
+<br>
+b0=(m+n+(N+k*2-1)/2)%N,
+<br>
+($a,$b)=sw&amp;&amp;&amp;(a0,b0)|||(b0,a0),
+<br>
+N*a+b+1};
+<br>
+make_M(N,k,sw)=&lt;zeros(N).map((x,i_,j_)=&lt;make_Mij(i_+1,j_+1,k,sw)=&gt;);
+<br>
+N=9;
+<br>
+N=floor(N/2)*2+1;
+<br>
+($sw0,$sw1)=[(useRand)=&lt;(useRand&amp;&amp;rand,useRand&amp;&amp;rand)](false)=&gt;;
+<br>
+M=make_M(N,floor(sw0*N),sw1)=&gt;;
+<br>
+M.filter((x)=&lt;x==1||x==N**2);
+<br>
+sum(M),sum(M.),sum((M[0][0][0].));
     </td>
   </tr>
   <tr>

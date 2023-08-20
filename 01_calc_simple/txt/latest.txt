@@ -1,7 +1,7 @@
 clear
 local storage cleared
 
-B=-1,[B=10,=<[g=<B,B=20,=<[B=30,==<g]=>]=>]=>:B=-1,[B=10,=<[g=<B,B=20,=<[B=30,==<g==>]=>]=>]=>
+B=-1,[B=10,=<[B=20,g=<B,=<[B=30,==<g]=>]=>]=>:B=-1,[B=10,=<[B=20,g=<B,=<[B=30,==<g==>]=>]=>]=>
 (
 0,20:
 0,30
@@ -10,7 +10,7 @@ B=-1,[B=10,=<[g=<B,B=20,=<[B=30,==<g]=>]=>]=>:B=-1,[B=10,=<[g=<B,B=20,=<[B=30,==
 clear
 local storage cleared
 
-B=-1,[B=10,[g=<B,B=20,[B=30,=<g]=>f,=<f]=>f,==<f]=>f:f=>,f==>:B=-1,[B=10,[g=<B,B=20,[B=30,=<=<B]=>f,=<f]=>f,==<f]=>f:f=>,f==>
+B=-1,[B=10,[B=20,g=<B,[B=30,=<g]=>f,=<f]=>f,==<f]=>f:f=>,f==>:B=-1,[B=10,[B=20,g=<B,[B=30,=<=<B]=>f,=<f]=>f,==<f]=>f:f=>,f==>
 (
 0,0:
 10,-1:
@@ -21,7 +21,7 @@ B=-1,[B=10,[g=<B,B=20,[B=30,=<g]=>f,=<f]=>f,==<f]=>f:f=>,f==>:B=-1,[B=10,[g=<B,B
 clear
 local storage cleared
 
-B=-1,[B=10,[g=<B,B=20,[B=30,==<g]=>f,=<f]=>f,=<f]=>f:f=>,f==>:B=-1,[B=10,[g=<B,B=20,[B=30,==<=<B]=>f,=<f]==>f,=<f]=>f:f=>,f==>
+B=-1,[B=10,[B=20,g=<B,[B=30,==<g]=>f,=<f]=>f,=<f]=>f:f=>,f==>:B=-1,[B=10,[B=20,g=<B,[B=30,==<=<B]=>f,=<f]==>f,=<f]=>f:f=>,f==>
 (
 0,0:
 30,-1:
@@ -32,7 +32,7 @@ B=-1,[B=10,[g=<B,B=20,[B=30,==<g]=>f,=<f]=>f,=<f]=>f:f=>,f==>:B=-1,[B=10,[g=<B,B
 clear
 local storage cleared
 
-B=-1,[B=10,[g=<B,B=20,[B=30,=<g]=>f,=<f]=>f,=<f]=>f:f=>,f==>:B=-1,[B=10,[g=<B,B=20,[B=30,=<=<B]=>f,=<f]=>f,=<f]=>f:f=>,f==>
+B=-1,[B=10,[B=20,g=<B,[B=30,=<g]=>f,=<f]=>f,=<f]=>f:f=>,f==>:B=-1,[B=10,[B=20,g=<B,[B=30,=<=<B]=>f,=<f]=>f,=<f]=>f:f=>,f==>
 (
 0,0:
 20,-1:
@@ -2469,4 +2469,4 @@ drag=false&sw=false&0x=false&useMatrix=true&useStrict=false&checkError=true&isRi
 --------------------------------
 --------------------------------
 
-online-simulator.github.io.6.281.123.13.64 @ Fri Aug 18 2023 12:42:59 GMT+0900 (日本標準時) @ Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/115.0.0.0 Safari/537.36
+online-simulator.github.io.6.281.124.13.64 @ Sun Aug 20 2023 10:56:09 GMT+0900 (日本標準時) @ Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/115.0.0.0 Safari/537.36
