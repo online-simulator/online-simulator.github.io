@@ -78,6 +78,11 @@ My_entry.DATA.prototype.trees2tree = function(trees){
   if(trees.length > 1) throw false;
   return trees[0];
 };
+/* calc-Ver.2.222.50 */
+My_entry.DATA.prototype.trees_msg = function(msg){
+  var self = this;
+  return self.tree2trees(self.tree_tag("out", msg));
+};
 My_entry.DATA.prototype.make_trees = function(_arr_tree){
   var self = this;
   return _arr_tree;

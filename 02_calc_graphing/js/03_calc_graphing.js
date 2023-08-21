@@ -1243,16 +1243,6 @@ My_entry.calc_graphing.prototype.set_callbacks_worker = function(){
   var $ = self.entry.$;
   self.callbacks_worker_calc = {};
   self.callbacks_worker_plot = {};
-  var store = function(data){
-    var vars = data.vars;
-    var eqns = data.eqns;
-    for(var name in vars){
-      self.vars[name] = vars[name];  // store vars
-    }
-    for(var name in eqns){
-      self.eqns[name] = eqns[name];  // store eqns
-    }
-  };
   self.callbacks_worker_calc.onmessage = function(e){
     var self = this;
     var data = e.data;

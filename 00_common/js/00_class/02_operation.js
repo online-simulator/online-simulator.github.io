@@ -146,8 +146,10 @@ My_entry.operation.prototype.init = function(){
   self.arr_precedence = [];
   self.options = {};
   self.params = {};
-  self.vars = null;
-  self.eqns = null;
+  /* Ver.2.222.50 -> */
+  self.scopes2d0 = null;
+  self.scopes2d = null;
+  /* -> Ver.2.222.50 */
   return self;
 };
 My_entry.operation.prototype.throw_tree = function(tree){
@@ -302,65 +304,62 @@ My_entry.operation.prototype.prepare = function(data){
   self.init_callbacks_mat(options);
   return self;
 };
+/* Ver.2.222.50 -> original reference to scopes2d array saved */
 /* Ver.2.30.17 -> original reference to local storage object saved */
 My_entry.operation.prototype.clear = function(data){
   var self = this;
-  var vars = data.vars;
-  var eqns = data.eqns;
-  var DATA = self.entry.DATA;
-  for(var name in vars){
-    delete vars[name];
-  }
-  for(var name in eqns){
-    delete eqns[name];
-  }
-  data.trees = DATA.tree2trees(DATA.tree_tag("out", "local storage cleared"));
-  return self;
+  return self.restore(data, true);
 };
 /* Ver.1.6.3 */
 My_entry.operation.prototype.store = function(data){
   var self = this;
-  var def = self.entry.def;
   var DATA = self.entry.DATA;
-  self.vars = def.newClone(data.vars);
-  self.eqns = def.newClone(data.eqns);
-  data.trees = DATA.tree2trees(DATA.tree_tag("out", "local storage stored"));
+  var msg = "local storage stored";
+  var scopes2d = data.scopes2d;
+  self.scopes2d = self.entry.def.newClone(scopes2d);
+  data.trees = DATA.trees_msg(msg);
   return self;
 };
 /* Ver.1.6.3 */
-My_entry.operation.prototype.restore = function(data){
+My_entry.operation.prototype.restore = function(data, isClear){
   var self = this;
-  var def = self.entry.def;
-  var vars = data.vars;
-  var eqns = data.eqns;
   var DATA = self.entry.DATA;
-  var buffer = (self.vars && self.eqns);
-  if(buffer){
-    self.clear(data);
-    for(var name in self.vars){
-      vars[name] = def.newClone(self.vars[name]);
+  var msg = "null buffer";
+  var scopes2d = data.scopes2d;
+  var scopes2d0 = (isClear)? self.scopes2d0: self.scopes2d;
+  if(scopes2d && scopes2d0){
+    delete data.vars;
+    delete data.eqns;
+    scopes2d.length = 0;
+    scopes2d.push.apply(scopes2d, self.entry.def.newClone(scopes2d0));
+    var scope0 = scopes2d[0][0];
+    for(var j=1, len=scopes2d.length; j<len; ++j){
+      scopes2d[j][0] = scope0;  // common local storage including re-use of data.eqns
     }
-    for(var name in self.eqns){
-      eqns[name] = def.newClone(self.eqns[name]);
-    }
+    data.vars = scope0.vars;
+    data.eqns = scope0.eqns;
+    msg = "local storage ";
+    msg += (isClear)? "cleared": "restored";
   }
-  var msg = (buffer)? "local storage restored": "null buffer";
-  data.trees = DATA.tree2trees(DATA.tree_tag("out", msg));
+  data.trees = DATA.trees_msg(msg);
   return self;
 };
 /* -> Ver.2.30.17 */
 My_entry.operation.prototype.stop = function(data){
   var self = this;
   var DATA = self.entry.DATA;
+  var msg = "operation stopped";
   self.options.isStopped = true;
-  data.trees = DATA.tree2trees(DATA.tree_tag("out", "operation stopped"));
+  data.trees = DATA.trees_msg(msg);
   return self;
 };
+/* -> Ver.2.222.50 */
 My_entry.operation.prototype.run = function(_data){
   var self = this;
   var trees2d = _data.trees2d;
   var scopes2d = _data.scopes2d;
   try{
+    self.scopes2d0 = self.entry.def.newClone(scopes2d);  // Ver.2.222.50
     self.prepare(_data);
     for(var j=0, len=trees2d.length; j<len; ++j){
       var trees = trees2d[j];
@@ -394,8 +393,10 @@ My_entry.operation.prototype.run = function(_data){
 My_entry.operation.prototype.init_buffers = function(){
   var self = this;
   self.init_params();
-  self.vars = null;
-  self.eqns = null;
+  /* Ver.2.222.50 -> */
+  self.scopes2d0 = null;
+  self.scopes2d = null;
+  /* -> Ver.2.222.50 */
   return self;
 };
 My_entry.operation.prototype.init_params = function(){
