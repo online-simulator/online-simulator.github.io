@@ -12148,7 +12148,7 @@ local buffer
 <br>
 ・local storageを<a href="#span-in-scope-vars">static scopes2d array</a>の<a href="#span-out-bracket">0階層</a>に割当てる
 <br>
-・演算実行確定1回毎にlocal storageを除くscope内の<a href="#span-out-vars">変数</a>・<a href="#span-out-eqns">式変数</a>は破棄する
+・<a href="#span-out-bracket">scope</a>内（local storageを除く）の<a href="#span-out-vars">変数</a>・<a href="#span-out-eqns">式変数</a>は演算実行確定1回毎に初期化
 <br>
 <span class="run">Ver.2.32.17</span>以降、<a href="#span-out-eqns-re-use">scope付式変数の再利用</a>に対応
 <br>
@@ -13079,14 +13079,14 @@ ans -> [MyErr]Invalid REv(ans)
 <br>
 store
 <br>
-・call時点までの<del><a href="#span-out-storage">local storage</a></del><span class="run">Ver.2.222.50</span>以降、<a href="#span-in-scope-vars">static scopes2d array</a>をlocal <a href="#span-out-storage">buffer</a>に保存する
+・call時点までの<del><a href="#span-out-storage">local storage</a></del><span class="run">Ver.2.222.50</span>以降、<a href="#span-in-scope-vars">static scopes2d array</a>を<a href="#span-out-storage">local buffer</a>に保存する
 <br>
 ・元objectを新規objectに複製する
 <br>
 <br>
 restore
 <br>
-・local <a href="#span-out-storage">buffer</a>に保存された<del><a href="#span-out-storage">local storage</a></del><span class="run">Ver.2.222.50</span>以降、<a href="#span-in-scope-vars">static scopes2d array</a>を復帰する
+・<a href="#span-out-storage">local buffer</a>に保存された<del><a href="#span-out-storage">local storage</a></del><span class="run">Ver.2.222.50</span>以降、<a href="#span-in-scope-vars">static scopes2d array</a>を復帰する
 <br>
 <del>・複製した新規objectをそのまま復帰する（元objectの参照を切る仕様）</del>
 <br>
@@ -13118,7 +13118,7 @@ clear; x=2; store; clear; x=3; restore; x -> 2
 <br>
 clear; x=2; store; clear; x -> [MyErr]Invalid REv(x)
 <br>
-・local <a href="#span-out-storage">buffer</a>は演算実行確定1回毎に初期化
+・<a href="#span-out-storage">local buffer</a>は演算実行確定1回毎に初期化
 <br>
 storage cleared
 <br>
