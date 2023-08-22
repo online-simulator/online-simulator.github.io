@@ -111,3 +111,19 @@ My_entry.io.prototype.write_stamp = function(elem){
   self.write_text(elem, text);
   return self;
 };
+/* calc-Ver.2.224.50 */
+My_entry.io.prototype.set_selection_elem = function(elem, je, sep){
+  var self = this;
+  var len = 0;
+  var script = self.read_text(elem);
+  var sc = script.split(sep);
+  for(var j=0, js=0, len_j=sc.length; j<len_j; ++j){
+    var scj = sc[j];
+    len += scj.length+sep.length;
+    if(scj.replace(/\s/g, "") && ++js > je){
+      break;
+    }
+  }
+  self.set_selection(elem, len-1);
+  return self;
+};

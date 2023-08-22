@@ -192,8 +192,22 @@ My_entry.calc_graphing.prototype.output_msgError_plot = function(e){
   if(!(self.isCheckedError)){
     self.plot2d.objs.temp.detach();  // Ver.2.50.25
     var msg = self.entry.def.get_msgError(e, "Invalid plot2d");
-    self.io.write_text(self.elems.d, msg.replace("Uncaught Error: ", ""));
-    self.elems.d.focus();
+    /* Ver.2.224.50 -> */
+    self.io.write_text(self.elems.d, msg);
+//    self.elems.d.focus();
+    var mc = msg.match(/j=(\d+)/);
+    if(mc && mc.length){
+      var je = Number(mc[1]);
+      var sc = self.io.read_text(self.elems.x).split(";").filter(function(sentence){return sentence.replace(/\s/g, "");});
+      var len_j = sc.length;
+      var je_x = len_j-((sc[len_j-1])? 0: 1);
+      var isY = (je >= je_x);
+      if(isY){
+        je -= je_x;
+      }
+      self.io.set_selection_elem(self.elems[(isY)? "y": "x"], je, ";");
+    }
+    /* -> Ver.2.224.50 */
     self.isCheckedError = true;
     throw false;
   }
@@ -1262,7 +1276,14 @@ My_entry.calc_graphing.prototype.set_callbacks_worker = function(){
     var self = this;
     self.worker_calc.stop(true);
     var msg = self.entry.def.get_msgError(e, "Invalid operation");
-    self.io.write_text(self.elems.o, msg.replace("Uncaught Error: ", ""));
+    /* Ver.2.224.50 -> */
+    self.io.write_text(self.elems.o, msg);
+    var mc = msg.match(/j=(\d+)/);
+    if(mc && mc.length){
+      var je = Number(mc[1]);
+      self.io.set_selection_elem(self.elems.i, je, ";");
+    }
+    /* -> Ver.2.224.50 */
     self.storage.restore();  // clear; f=<x; f -> error@re_output_log
     return self;
   };

@@ -386,7 +386,7 @@ My_entry.operation.prototype.run = function(_data){
   }
   catch(e){
     self.init_buffers();
-    throw e;
+    throw {message: e, j: j};  // Ver.2.224.50
   }
   return _data;
 };

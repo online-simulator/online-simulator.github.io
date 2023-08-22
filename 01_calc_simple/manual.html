@@ -276,6 +276,8 @@ e^(-i(1pi(){2/2i}(5-{3-1}){i/(-4)}))
 <br>
 ・<a href="#span-out-log">log表示仕様</a>
 <br>
+・<a href="#span-out-debug">debugger</a>
+<br>
 ・<a href="#span-out-options">外部option</a>
 <br>
 　・<a href="#span-out-option5">O(error)</a>
@@ -8723,6 +8725,26 @@ max(x=3,-1,-2) || max(0,-1,-2) -> 0
 <br>
 <br>
 詳細は<a href="#span-out-special-substitution">特殊仕様</a>参照
+    </td>
+  </tr>
+  <tr>
+    <th>
+<a href="#span-index">
+目次
+</a>
+<br>
+debugger
+    </th>
+    <td>
+<span id="span-out-debug"></span>
+debuggerについて記述する
+<br>
+<br>
+<span class="run">Ver.2.224.50</span>以降、catched error@<a href="#span-out-flow">operation</a>段階の簡易debuggerを追加
+<br>
+・該当の実行元<a href="#span-in-tree">j-th sentence</a>にcaretを移動
+<br>
+・<a href="#span-out-log">log表示</a>に@j=?を追加
     </td>
   </tr>
   <tr>
@@ -21259,7 +21281,7 @@ clear; (f=&lt;{(x=&gt;)},x=&lt;(1,2),=&lt;{(f=&gt;)})=&gt; -> (1,2)
 <br>
 clear; (f=&lt;{(x=&gt;)},x=&lt;(1,2),=&lt;{=&lt;{(f=&gt;)}}=&gt;)=&gt; -> (1,2)
 <br>
-・debug機能なしで無名関数の最短表記を許容
+・<a href="#span-out-debug">debugger</a>なしで無名関数の最短表記を許容
 <br>
 ・(function(){return (function(){return (function(){return 3;})();})();})();
 <br>
@@ -34685,7 +34707,7 @@ f=&lt;last{V=1,E=0,k=1,I=exp(k*(V-E))-exp(-k*(V-E))}
 <br>
 ・<a href="#span-out-FN">関数</a>を含む実装関数は最善のalgorithmとは限らない（<a href="#span-out-FN-statistic">sort関数</a>||<a href="#span-out-interpolation-spline">spline補間</a>||<a href="#span-out-linear">Gaussの消去法</a>）
 <br>
-・debug機能が存在しないため、<a href="#span-out-vars">変数</a>・<a href="#span-out-eqns">式変数</a>はpollution disabledの厳格な制約条件を課す
+・<a href="#span-out-debug">debugger</a>が存在しないため、<a href="#span-out-vars">変数</a>・<a href="#span-out-eqns">式変数</a>はpollution disabledの厳格な制約条件を課す
 <br>
 ・よって<a href="#span-out-bracket">scope</a>本来の利便性を大きく損なうが、緩和の見通しはない
 <br>

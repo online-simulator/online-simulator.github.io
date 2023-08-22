@@ -58,15 +58,36 @@ My_entry.def.prototype.mix_in_props = function(_sub, super_, props){
   });
   return _sub;
 };
+/* calc-Ver.2.224.50 */
 My_entry.def.get_msgError =
-My_entry.def.prototype.get_msgError = function(e, msg){
+My_entry.def.prototype.get_msgError = function(e, opt_msg){
   var self = this;
+  var _msg = "";
   var title = self.config.ERROR.title;
-  return (e === false)?
-    title+(msg || ""):
-    (typeof e === "string")?
-      title+e:
-      e.message;
+  var sw_msg = function(e){
+    return (title+((e === false)? (opt_msg || ""): e));
+  };
+  if(self.isObject(e)){
+    var msg = String(e.message);
+    var hasError = msg.match("Error");
+    var hasJ = !(isNaN(e.j));
+    if(hasError){
+      _msg = msg.substring(hasError.index+7);
+    }
+    else if(hasJ){
+      _msg = sw_msg(e.message);
+    }
+    else{
+      _msg = msg;
+    }
+    if(hasJ){
+      _msg += "@j="+e.j;
+    }
+  }
+  else{
+    _msg = sw_msg(e);
+  }
+  return _msg;
 };
 My_entry.def.prototype.hasElem_arr = function(arr, val_comp){
   var self = this;

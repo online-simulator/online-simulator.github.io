@@ -264,6 +264,7 @@ My_entry.calc_simple.prototype.init_handlers = function(){
 };
 My_entry.calc_simple.prototype.set_callbacks_worker = function(){
   var self = this;
+  var $ = self.entry.$;  // Ver.2.224.50
   self.callbacks_worker.onmessage = function(e){
     var self = this;
     var data = e.data;
@@ -283,7 +284,15 @@ My_entry.calc_simple.prototype.set_callbacks_worker = function(){
     var self = this;
     self.stop_worker(true);
     var msg = self.entry.def.get_msgError(e, "Invalid operation");
-    self.io.write_text(self.elems.o, msg.replace("Uncaught Error: ", ""));
+    /* Ver.2.224.50 -> */
+    self.io.write_text(self.elems.o, msg);
+    var mc = msg.match(/j=(\d+)/);
+    if(mc && mc.length){
+      $.set_id("checkbox-sw", "checked", "checked").onchange();
+      var je = Number(mc[1]);
+      self.io.set_selection_elem(self.elems.i, je, ";");
+    }
+    /* -> Ver.2.224.50 */
     self.storage.restore();  // clear; f=<x; f -> error@re_output_log
     return self;
   };
