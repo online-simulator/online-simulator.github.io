@@ -364,6 +364,8 @@ e^(-i(1pi(){2/2i}(5-{3-1}){i/(-4)}))
 <br>
 ・<a href="#span-out-bracket">階層とscopeの関係</a>
 <br>
+・<a href="#span-out-terms">用語集</a>
+<br>
 ・graph出力仕様
 <br>
 　・<a href="#span-out-plot2d">plot2d</a>
@@ -12076,14 +12078,21 @@ x=2; store; clear; x=3<span class="selection">/*independent local scope*/</span>
 <br>
 原則、参照透過性あり：実装関数の引数||<a href="#span-out-call-by-equation">式渡し</a>が同値||同義の場合、常に同じ結果を返す
 <br>
-一部、参照透過性なし：実装関数が作る<a href="#span-out-storage">local変数</a>の再利用の可否を意識する負担あり
+一部、参照透過性なし：実装関数が作る<a href="#span-out-terms">scope変数</a>の再利用の可否を意識する負担あり
 <br>
 <br>
-参照透過性を失う（<a href="#span-out-storage">local変数</a>を参照、上書きする）実装関数を列挙する
+参照透過性を失う（<a href="#span-out-terms">直列scope内変数</a>を参照、上書きする）実装関数を列挙する
 <br>
 ・<a href="#span-out-FNmh-newtonian">Newton高階行列関数</a>||<a href="#span-eqn-solvex_iteration">solvex_iteration</a>||<a href="#span-eqn-solveAinv">solveAinv</a>||<a href="#span-eqn-solvex_non_linear">solvex_non_linear</a>
 <br>
 ・<a href="#span-out-FNmh-OX">ODE高階行列関数</a>||<a href="#span-eqn-explicit-ODE_RK4">explicit ODE_RK4</a>
+<br>
+<br>
+暫定対策を列挙する
+<br>
+・<a href="#span-out-storage">local変数</a>を追加/削除する<a href="#span-out-FNc">add/del最上位関数</a>
+<br>
+・<span class="run">Ver.2.222.50</span>以降、<a href="#span-out-command">命令文</a>を拡張
     </td>
   </tr>
   <tr>
@@ -12114,18 +12123,14 @@ local storage
 <br>
 ・演算実行確定1回の各実行文の<a href="#span-out-vars">変数</a>・<a href="#span-out-eqns">式変数</a>を保存する
 <br>
-・保存された変数をlocal変数と呼ぶ
-<br>
-・保存された式変数をlocal式変数と呼ぶ
+・保存された変数を<a href="#span-out-terms">local変数</a>と呼ぶ
 <br>
 <br>
 global storage
 <br>
 ・演算実行確定1回毎に返る<a href="#span-out-vars">変数</a>・<a href="#span-out-eqns">式変数</a>を累積保存する
 <br>
-・保存された変数をglobal変数と呼ぶ
-<br>
-・保存された式変数をglobal式変数と呼ぶ
+・保存された変数を<a href="#span-out-terms">global変数</a>と呼ぶ
 <br>
 <br>
 local buffer
@@ -12144,17 +12149,15 @@ local buffer
 ・演算実行終了　local storage　⇒　global storageに保存
 <br>
 <br>
-<a href="#span-out-bracket">scope</a>との関係について記述する
+<span class="run">Ver.2.31.17</span>以降、<a href="#span-in-scope-vars">static scopes2d array</a>を追加
 <br>
-・local storageを<a href="#span-in-scope-vars">static scopes2d array</a>の<a href="#span-out-bracket">0階層</a>に割当てる
+・保存された変数を<a href="#span-out-terms">scope変数</a>と呼ぶ
 <br>
-・<a href="#span-out-bracket">scope</a>内（local storageを除く）の<a href="#span-out-vars">変数</a>・<a href="#span-out-eqns">式変数</a>は演算実行確定1回毎に初期化
+・<a href="#span-out-terms">scope変数</a>（<a href="#span-out-terms">local storage</a>を除く）は演算実行確定1回毎に初期化
 <br>
 <span class="run">Ver.2.32.17</span>以降、<a href="#span-out-eqns-re-use">scope付式変数の再利用</a>に対応
 <br>
-・global storage　⇒　local storageのflowで<a href="#span-out-eqns">式変数</a>の復帰時、
-<br>
-　新規に作る<a href="#span-in-scope-vars">scopes2d array ids</a>から<a href="#span-in-scope-vars">self-lower-ids</a>を更新
+・演算実行開始で<a href="#span-out-eqns">式変数</a>の復帰時、<a href="#span-in-scope-vars">scope-ids</a>を更新
     </td>
   </tr>
   <tr>
@@ -12214,7 +12217,7 @@ local buffer
 ・以上より、<a href="#span-out-flow">parse</a>段階で作る<a href="#span-out-scope-vars">scope</a>の配列を<a href="#span-in-scope-vars">static scopes2d array</a>と定義する
 <br>
 <br>
-直列scope内の<a href="#span-out-vars">変数</a>・<a href="#span-out-eqns">式変数</a>のsearch-precedenceの一例を示す
+<a href="#span-out-terms">直列scope内変数</a>のsearch-precedenceの一例を示す
 <br>
 ・上記B-2階層並列1の場合、次の論理ORを短絡評価
 <br>
@@ -12229,6 +12232,29 @@ B-3階層直列 || B-2階層並列3 || B-1階層 || 0階層
 B-4階層直列 || B-3階層直列 || B-2階層並列3 || B-1階層 || 0階層
 <br>
 ・よって直列scope内の<a href="#span-out-bracket">階層</a><span class="clear">（深さの降順）で0階層（<a href="#span-out-storage">local storage</a>）</span>が最下位のprecedence
+    </td>
+  </tr>
+  <tr>
+    <th>
+<a href="#span-index">
+目次
+</a>
+<br>
+用語集
+    </th>
+    <td>
+<span id="span-out-terms"></span>
+用語を整理する
+<br>
+・直列scope内変数：<a href="#span-out-bracket">直列scope内</a>のscope変数||local変数
+<br>
+・scope変数：<a href="#span-in-scope-vars">static scopes2d array</a>（<a href="#span-out-bracket">scope</a>集合）の<a href="#span-out-vars">変数</a>・<a href="#span-out-eqns">式変数</a>
+<br>
+・<a href="#span-out-storage">local storage</a>：<a href="#span-in-scope-vars">static scopes2d array</a>の<a href="#span-out-bracket">0階層</a>に共通化
+<br>
+・local変数：<a href="#span-out-storage">local storage</a>の<a href="#span-out-vars">変数</a>・<a href="#span-out-eqns">式変数</a>
+<br>
+・global変数：<a href="#span-out-storage">global storage</a>の<a href="#span-out-vars">変数</a>・<a href="#span-out-eqns">式変数</a>
     </td>
   </tr>
   <tr>
@@ -13140,7 +13166,7 @@ x=3; 3x; stop; x -> operation stopped
 <br>
 留意事項を列挙する
 <br>
-・<a href="#span-in-scope-vars">static scopes2d array</a>（<a href="#span-out-storage">local storage</a>を除く）の<a href="#span-out-vars">変数</a>||<a href="#span-out-eqns">式変数</a>は演算確定1回毎に初期化
+・<a href="#span-in-scope-vars">static scopes2d array</a>の<a href="#span-out-terms">scope変数</a>（<a href="#span-out-storage">local storage</a>を除く）は演算実行確定1回毎に初期化
     </td>
   </tr>
   <tr>
@@ -13464,7 +13490,7 @@ clear; a=&lt;2; hasE(a),[b=&lt;3,[hasE(a),hasE(b)]],hasE(b) -> (1,0,1,1,0)
 <br>
 留意事項を列挙する
 <br>
-・add||del最上位関数は<a href="#span-out-ref-transparency">参照透過性</a>の対策用で<a href="#span-out-bracket">scope</a>単位の操作不可（<a href="#span-out-command">命令文</a>参照）
+・add/del最上位関数は<a href="#span-out-ref-transparency">参照透過性</a>の対策用で<a href="#span-out-bracket">scope</a>単位の操作不可（<a href="#span-out-command">命令文</a>参照）
 <br>
 ・引数に<a href="#span-out-prec-ope">演算子</a>（上位を含む）は使用不可
 <br>
@@ -20986,7 +21012,7 @@ clear; [a=-1,g(x)=&lt;a*x,=&lt;g]=&gt;f; a=1; f(3)==&gt; -> 3
 <br>
 clear; [a=-1,g(x)=&lt;a*x,=&lt;g]==&gt;f; a=1; f(3)=&gt; -> 3
 <br>
-・<a href="#span-out-bracket">scope</a>内の<a href="#span-out-vars">変数</a>||<a href="#span-out-eqns">式変数</a>は演算確定1回毎に初期化のため、再利用不可
+・<a href="#span-out-terms">scope変数</a>は演算実行確定1回毎に初期化のため、再利用不可
 <br>
 clear; [a=-1,=&lt;(x)=&lt;a*x]=&gt;f; f(3)=&gt; -> -3
 <br>
@@ -21168,9 +21194,11 @@ clear; a=3; [a]=&gt; -> [MyErr]Invalid reference
 <br>
 ・複数列挙の場合、末尾returnのみ取り出す（途中return不可）
 <br>
-(=&lt;(,:,),=&lt;1)=&gt; -> 1
+[a=1,=&lt;a=2,=&lt;a=3,=&lt;a]=&gt; || [a=1,=&lt;a]=&gt; -> 1
 <br>
-(=&lt;(,:,):=&lt;1)=&gt; -> 1
+(=&lt;(,:,),=&lt;1)=&gt; || (,=&lt;1)=&gt; -> 1
+<br>
+(=&lt;(,:,):=&lt;1)=&gt; || (:=&lt;1)=&gt; -> 1
 <br>
 ・<a href="#span-out-FNm-last">last行列関数</a>は<a href="#span-out-FNm-last">最終要素</a>のみ取り出す
 <br>
@@ -22218,47 +22246,52 @@ size(A) -> (3:4)
 <br>
 留意事項を列挙する
 <br>
-・<a href="#span-out-bracket">scope</a>内の<a href="#span-out-vars">変数</a>||<a href="#span-out-eqns">式変数</a>は演算確定1回毎に初期化（<a href="#span-out-eqns-call2eqn">式変数への式読出し</a>で再利用不可）
+・<a href="#span-out-terms">scope変数</a>は演算実行確定1回毎に初期化のため、<a href="#span-out-eqns-call2eqn">式変数への式読出し</a>で再利用不可
 <br>
 ・<a href="#span-in-scope-vars">static scopes2d array</a>を共有するため、同じ<a href="#span-out-vars-symbol">変数名symbol</a>の代入不可（前回callの未初期化dataが残存）
 <br>
-scope_NG1(x)=&lt;[x=x,last[x=x/*NG*/,x],x];
+scope_NG1(x)=&lt;[x=x,x,last[x=x/*NG*/,x],x];
 <br>
 ・<span class="run">Ver.2.210.46</span>以降、<a href="#span-out-scope-vars-has1BT">単独scope</a>の判定を厳密化（<a href="#span-eqn-scope_NG">scope_NG</a>のNG範囲を最小化）
 <br>
-scope_NG2(x)=&lt;2*[x=x,last[x=x/*NG*/,x],x];
+clear;
 <br>
-scope_NG3(x)=&lt;last[,3]*[x=x,last[x=x/*NG*/,x],x];
+scope_NG1(x)=&lt;[x=x,x,last[x=x/*NG*/,x],x];
 <br>
-scope_NG4(x)=&lt;last[x=x/*NG*/,4]*[x=x/*NG*/,last[x=x/*NG*/,x],x];
+scope_NG2(x)=&lt;2*[x=x,x,last[x=x/*NG*/,x],x];
+<br>
+scope_NG3(x)=&lt;last[,3]*[x=x,x,last[x=x/*NG*/,x],x];
+<br>
+scope_NG4(x)=&lt;last[x=4,x]*[x=x/*NG*/,x,last[x=x/*NG*/,x],x];
 <br>
 check_all(x)=&lt;(scope_NG1(x)=&gt;:scope_NG2(x)=&gt;:scope_NG3(x)=&gt;:scope_NG4(x)=&gt;);
 <br>
 store;
 <br>
-scope_NG1(1)=&gt;:scope_NG1(-1)=&gt; -> (0,1,1:0,1,-1)
+scope_NG1(1)=&gt;:scope_NG1(-1)=&gt; -> (0,1,1,1:0,-1,1,-1)
 <br>
-scope_NG2(1)=&gt;:scope_NG2(-1)=&gt; -> (0,2,2:0,2,-2)
+scope_NG2(1)=&gt;:scope_NG2(-1)=&gt; -> (0,2,2,2:0,-2,2,-2)
 <br>
-scope_NG3(1)=&gt;:scope_NG3(-1)=&gt; -> (0,3,3:0,3,-3)
+scope_NG3(1)=&gt;:scope_NG3(-1)=&gt; -> (0,3,3,3:0,-3,3,-3)
 <br>
-scope_NG4(1)=&gt;:scope_NG4(-1)=&gt; -> (0,4,4:0,4,4)
+scope_NG4(1)=&gt;:scope_NG4(-1)=&gt; -> (0,4,4,4:0,4,4,4)
 <br>
 ・<a href="#span-out-command">命令文</a>を使用
 <br>
 restore;
 <br>
-check_all(1)=&gt; -> (0,1,1:0,2,2:0,3,3:0,4,4)
+check_all(1)=&gt; -> (0,1,1,1:0,2,2,2:0,3,3,3:0,4,4,4)
 <br>
-check_all(-1)=&gt; -> (0,1,-1:0,2,-2:0,3,-3:0,4,4)
-<br>
-restore;
-<br>
-check_all(1)=&gt; -> (0,1,1:0,2,2:0,3,3:0,4,4)
+check_all(-1)=&gt; -> (0,-1,1,-1:0,-2,2,-2:0,-3,3,-3:0,4,4,4)
 <br>
 restore;
 <br>
-check_all(-1)=&gt; -> (0,-1,-1:0,-2,-2:0,-3,-3:0,-4,-4)
+check_all(1)=&gt; -> (0,1,1,1:0,2,2,2:0,3,3,3:0,4,4,4)
+<br>
+restore;
+<br>
+check_all(-1)=&gt; -> (0,-1,-1,-1:0,-2,-2,-2:0,-3,-3,-3:0,-4,-4,-4)
+
     </td>
   </tr>
   <tr>
@@ -22439,6 +22472,8 @@ clear; f(n)=&lt;n&lt;=1|||round(n)*f(n-1)=&gt;; [n=10,(=&lt;f)=&lt;f(n)=&gt;](=&
 留意事項を列挙する
 <br>
 ・複数列挙の場合、末尾returnのみ取り出す（途中return不可）
+<br>
+[a=1,(b)=&lt;a=2,(b)=&lt;a=3,(b)=&lt;a+b](10)=&gt; || [a=1,(b)=&lt;a+b](10)=&gt; -> 11
 <br>
 clear; d=&lt;-a*z+b*A+c; [a=1,(z,A)=&lt;[b=2,(c)=&lt;d==&gt;](a*z)=&gt;](i,=&lt;(1,2:3,4))=&gt; -> (2,4:6,8)
 <br>
@@ -22666,7 +22701,7 @@ clear; b=0; a=&lt;b=1; c=&lt;b=-1; a|||c,b -> (0,-1)
 <br>
 ・_sdummy<a href="#span-out-vars-symbol">変数名symbol</a>でcallする
 <br>
-・dummy変数は無次元でlocal変数から独立する
+・dummy変数は無次元で<a href="#span-out-terms">直列scope内変数</a>から独立する
 <br>
 <br>
 _sdummy<a href="#span-out-vars-symbol">変数名symbol</a>(=&lt;第1引数,第2引数,第3引数[,第4引数])
@@ -22738,7 +22773,7 @@ _sy(=&lt;{_Sx(=&lt;{x+y},y,0)},0,2) || 0+2+1+4+3+2 -> 12
 <br>
 _Sy(=&lt;{_sx(=&lt;{x+y},0,y)},2,0) || 0+2+3+4+1+2 -> 12
 <br>
-・総和を取るdummy変数はlocal変数から独立
+・総和を取るdummy変数は<a href="#span-out-terms">直列scope内変数</a>から独立
 <br>
 x=-1; y=-2; _sy(=&lt;{_sx(=&lt;{x+y},0,y)},0,2); x+y -> -3
 <br>
@@ -22846,7 +22881,7 @@ N=0; _sn(=&lt;Pn,N,10) -> 99.99999999999999
 <br>
 ・_pdummy<a href="#span-out-vars-symbol">変数名symbol</a>でcallする
 <br>
-・dummy変数は無次元でlocal変数から独立する
+・dummy変数は無次元で<a href="#span-out-terms">直列scope内変数</a>から独立する
 <br>
 <br>
 _pdummy<a href="#span-out-vars-symbol">変数名symbol</a>(=&lt;第1引数,第2引数,第3引数[,第4引数])
@@ -22955,7 +22990,7 @@ x={0,1,2,3,4,5,6,7,8,9}; _pn(=&lt;x[n],1,9) -> 362880
 <br>
 ・_rdummy<a href="#span-out-vars-symbol">変数名symbol</a>でcallする
 <br>
-・dummy変数は無次元でlocal変数から独立する
+・dummy変数は無次元で<a href="#span-out-terms">直列scope内変数</a>から独立する
 <br>
 <br>
 _rdummy<a href="#span-out-vars-symbol">変数名symbol</a>(=&lt;第1引数,第2引数,第3引数[,=&lt;第4引数])
@@ -23163,7 +23198,7 @@ norm(mdx)/norm({x0,x1}) -> infoLost[ri] 3.6879601533907295e-16
 <br>
 ・dummy変数は無次元
 <br>
-・dummy変数と同名のlocal変数を参照するが、上書きしない
+・dummy変数と同名の<a href="#span-out-terms">直列scope内変数</a>を参照するが、上書きしない
 <br>
 <br>
 _ddummy<a href="#span-out-vars-symbol">変数名symbol</a>(=&lt;第1引数[,第2引数[,第3引数[,第4引数]]])
@@ -23174,7 +23209,7 @@ option
 <br>
 ・第2引数: 微分階数Ndash（正の整数）を値渡し[省略時、1]
 <br>
-・第3引数: 微分位置aを値渡し[省略時、local変数を参照]
+・第3引数: 微分位置aを値渡し[省略時、<a href="#span-out-terms">直列scope内変数</a>を参照]
 <br>
 ・第4引数: 1階微分の差分刻みdx0を値渡し[0||省略時、dx既定値]
 <br>
@@ -23500,7 +23535,7 @@ x -> (1.000000000000009+O(3e-5):0.9999999999999909+O(3e-5))
 <br>
 ・dummy変数は無次元
 <br>
-・dummy変数と同名のlocal変数を参照するが、上書きしない
+・dummy変数と同名の<a href="#span-out-terms">直列scope内変数</a>を参照するが、上書きしない
 <br>
 <br>
 _idummy<a href="#span-out-vars-symbol">変数名symbol</a>(=&lt;第1引数,第2引数,第3引数[,第4引数])
@@ -23719,7 +23754,7 @@ Jacobi高階行列関数
 <br>
 ・微分位置xでの差分刻みdx既定値dx=dxJ(1+i)
 <br>
-・未知変数のlocal変数を参照するが、上書きしない
+・未知変数の<a href="#span-out-terms">直列scope内変数</a>を参照するが、上書きしない
 <br>
 <br>
 Jacobi(=&lt;第1引数,=&lt;第2引数[,=&lt;第3引数[,第4引数]])
@@ -23774,7 +23809,7 @@ clear; a=1e10; h=max(1,abs(a))1e-5(1+i); Jacobi(=&lt;{2x^2},=&lt;{x},=&lt;{a},h)
 ・1階偏微分の解析解=4xからx=1e10周辺の傾き4e10を返す
 <br>
 <br>
-未知変数のlocal変数を参照するが、上書きしない
+未知変数の<a href="#span-out-terms">直列scope内変数</a>を参照するが、上書きしない
 <br>
 clear;
 <br>
@@ -23868,7 +23903,7 @@ Newton高階行列関数
 <br>
 ・絶対誤差の残差norm収束判定実数値epsN既定値epsN=1e-16
 <br>
-・未知変数のlocal変数を参照、上書きする
+・未知変数の<a href="#span-out-terms">直列scope内変数</a>を参照、上書きする
 <br>
 <br>
 Newton(=&lt;第1引数,=&lt;第2引数[,=&lt;第3引数[,第4引数[,第5引数[,第6引数[,第7引数]]]]])
@@ -24133,9 +24168,9 @@ ODE高階行列関数
 <br>
 ・dummy変数は無次元
 <br>
-・dummy変数と同名のlocal変数を参照、上書きする
+・dummy変数と同名の<a href="#span-out-terms">直列scope内変数</a>を参照、上書きする
 <br>
-・未知変数のlocal変数を参照、上書きする
+・未知変数の<a href="#span-out-terms">直列scope内変数</a>を参照、上書きする
 <br>
 <br>
 _odummy<a href="#span-out-vars-symbol">変数名symbol</a>(=&lt;第1引数,=&lt;第2引数[,=&lt;第3引数[,第4引数[,第5引数[,第6引数]]]])
@@ -24152,7 +24187,7 @@ option
 <br>
 ・第4引数: dummy変数初期値t0を値渡し[省略時、0]
 <br>
-　第4引数はdummy変数と同名のlocal変数未定義時のみ有効
+　第4引数はdummy変数と同名の<a href="#span-out-terms">直列scope内変数</a>未定義時のみ有効
 <br>
 ・第5引数: 常微分の差分刻みdtを値渡し[省略時、dxT既定値]
 <br>
@@ -34644,6 +34679,8 @@ f=&lt;last{V=1,E=0,k=1,I=exp(k*(V-E))-exp(-k*(V-E))}
 <br>
 ・<a href="#span-out-eqns-args">式変数のarguments</a>も同様に、最善の仕様を追及していない</del><span class="run">Ver.2.222.50</span>以降、削除
 <br>
+・多用しない前提で<a href="#span-out-scope-inherited-call">scope継承</a>を許容する
+<br>
 ・<a href="#span-out-FN">関数</a>を含む実装関数は最善のalgorithmとは限らない（<a href="#span-out-FN-statistic">sort関数</a>||<a href="#span-out-interpolation-spline">spline補間</a>||<a href="#span-out-linear">Gaussの消去法</a>）
 <br>
 ・debug機能が存在しないため、<a href="#span-out-vars">変数</a>・<a href="#span-out-eqns">式変数</a>はpollution disabledの厳格な制約条件を課す
@@ -35431,7 +35468,7 @@ clear; [a=2,=&lt;[b=1,a<span class="condition">=&lt;</span>first[[b,],b,],<span 
 <br>
 <span class="run">Ver.2.32.17</span>以降、<a href="#span-out-eqns-re-use">scope付式変数の再利用</a>に対応
 <br>
-・<a href="#span-out-storage">global storage</a>　⇒　<a href="#span-out-storage">local storage</a>で<a href="#span-out-eqns">式変数</a>の復帰時、<span class="condition">self-lower-ids</span>を更新
+・<a href="#span-out-eqns">式変数</a>の復帰時、新規idsから<span class="condition">self-lower-ids</span>を更新
 <br>
 <span class="run">Ver.2.32.17</span>以降、<a href="#span-out-eqns-args">式変数のarguments</a>を追加
 <br>
@@ -36889,17 +36926,17 @@ B=-1,[B=10,[B=20,g=&lt;B,[B=30,=&lt;g]=&gt;f,=&lt;f]=&gt;f,=&lt;f]=&gt;f,f=&gt;,
 <br>
 B=-1,[B=10,[B=20,g=&lt;B,[B=30,==&lt;g]=&gt;f,=&lt;f]=&gt;f,=&lt;f]=&gt;f,f=&gt;,f==&gt;:
 <br>
-B=-1,[B=10,[B=20,g=&lt;B,[B=30,==&lt;=&lt;B]=&gt;f,=&lt;f]=&gt;f,=&lt;f]=&gt;f,f=&gt;,f==&gt;:
+B=-1,[B=10,[B=20,[B=30,==&lt;=&lt;B]=&gt;f,=&lt;f]=&gt;f,=&lt;f]=&gt;f,f=&gt;,f==&gt;:
 <br>
-B=-1,[B=10,[B=20,g=&lt;B,[B=30,==&lt;=&lt;B]==&gt;f,=&lt;f]=&gt;f,=&lt;f]=&gt;f,f=&gt;,f==&gt;:
+B=-1,[B=10,[B=20,[B=30,==&lt;=&lt;B]==&gt;f,=&lt;f]=&gt;f,=&lt;f]=&gt;f,f=&gt;,f==&gt;:
 <br>
-B=-1,[B=10,[B=20,g=&lt;B,[B=30,==&lt;=&lt;B]=&gt;f,==&lt;f]=&gt;f,=&lt;f]=&gt;f,f=&gt;,f==&gt;:
+B=-1,[B=10,[B=20,[B=30,==&lt;=&lt;B]=&gt;f,==&lt;f]=&gt;f,=&lt;f]=&gt;f,f=&gt;,f==&gt;:
 <br>
-B=-1,[B=10,[B=20,g=&lt;B,[B=30,==&lt;=&lt;B]=&gt;f,=&lt;f]==&gt;f,=&lt;f]=&gt;f,f=&gt;,f==&gt;:
+B=-1,[B=10,[B=20,[B=30,==&lt;=&lt;B]=&gt;f,=&lt;f]==&gt;f,=&lt;f]=&gt;f,f=&gt;,f==&gt;:
 <br>
-B=-1,[B=10,[B=20,g=&lt;B,[B=30,==&lt;=&lt;B]=&gt;f,=&lt;f]=&gt;f,==&lt;f]=&gt;f,f=&gt;,f==&gt;:
+B=-1,[B=10,[B=20,[B=30,==&lt;=&lt;B]=&gt;f,=&lt;f]=&gt;f,==&lt;f]=&gt;f,f=&gt;,f==&gt;:
 <br>
-B=-1,[B=10,[B=20,g=&lt;B,[B=30,==&lt;=&lt;B]=&gt;f,=&lt;f]=&gt;f,=&lt;f]==&gt;f,f=&gt;,f==&gt;;
+B=-1,[B=10,[B=20,[B=30,==&lt;=&lt;B]=&gt;f,=&lt;f]=&gt;f,=&lt;f]==&gt;f,f=&gt;,f==&gt;;
     </td>
   </tr>
   <tr>
@@ -36916,13 +36953,13 @@ scope_NG
 <br>
 clear;
 <br>
-scope_NG1(x)=&lt;[x=x,last[x=x/*NG*/,x],x];
+scope_NG1(x)=&lt;[x=x,x,last[x=x/*NG*/,x],x];
 <br>
-scope_NG2(x)=&lt;2*[x=x,last[x=x/*NG*/,x],x];
+scope_NG2(x)=&lt;2*[x=x,x,last[x=x/*NG*/,x],x];
 <br>
-scope_NG3(x)=&lt;last[,3]*[x=x,last[x=x/*NG*/,x],x];
+scope_NG3(x)=&lt;last[,3]*[x=x,x,last[x=x/*NG*/,x],x];
 <br>
-scope_NG4(x)=&lt;last[x=x/*NG*/,4]*[x=x/*NG*/,last[x=x/*NG*/,x],x];
+scope_NG4(x)=&lt;last[x=4,x]*[x=x/*NG*/,x,last[x=x/*NG*/,x],x];
 <br>
 check_all(x)=&lt;(scope_NG1(x)=&gt;:scope_NG2(x)=&gt;:scope_NG3(x)=&gt;:scope_NG4(x)=&gt;);
 <br>
@@ -36969,13 +37006,21 @@ fibok(n,n0,k)=&lt;n&lt;k-1&amp;&amp;n0||||n&lt;k&amp;&amp;1||||_sm(=&lt;fibok(n-
 <br>
 luca2(n)=&lt;fibok(n,2,2)=&gt;;
 <br>
+fibok_s(N,n0,ks,ke)=&lt;[arr=[],_sk(=&lt;arr=(arr,fibok(N,n0,k)=&gt;),ks,ke),=&lt;arr]=&gt;;
+<br>
 [N=10:
 <br>
 fibok(N,0,2)=&gt;,fibok(N,0,3)=&gt;,fibok(N,0,4)=&gt;,fibok(N,0,5)=&gt;:
 <br>
+fibok_s(N,0,2,N)=&gt;:
+<br>
 fibok(N,1,2)=&gt;,fibok(N,1,3)=&gt;,fibok(N,1,4)=&gt;,fibok(N,1,5)=&gt;:
 <br>
-luca2(N)=&gt;];
+fibok_s(N,1,2,N)=&gt;:
+<br>
+luca2(N)=&gt;:
+<br>
+fibok_s(N,2,2,N)=&gt;];
     </td>
   </tr>
   <tr>
@@ -37895,9 +37940,7 @@ _Gauss_coo
     </th>
     <td>
 <span id="span-eqn-solvex_Gauss_coo"></span>
-<a href="#span-out-FNm-coo">座標形式行列関数</a>参照
-<br>
-<a href="#span-out-interpolation-spline">spline補間</a>参照
+<a href="#span-out-FNm-coo">座標形式行列関数</a>||<a href="#span-out-interpolation-spline">spline補間</a>参照
 <br>
 clear;
 <br>
