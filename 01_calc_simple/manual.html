@@ -1561,6 +1561,8 @@ title/発行元(発行年)を列挙する
 <br>
 　この場合の引数を通常の値渡しに対して式渡しと表記する
 <br>
+　高階関数の束縛変数をdummy変数と表記する
+<br>
 ・option引数をopt_変数名で表記する
 <br>
 ・SI単位系を使用する
@@ -37006,21 +37008,21 @@ fibok(n,n0,k)=&lt;n&lt;k-1&amp;&amp;n0||||n&lt;k&amp;&amp;1||||_sm(=&lt;fibok(n-
 <br>
 luca2(n)=&lt;fibok(n,2,2)=&gt;;
 <br>
-fibok_s(N,n0,ks,ke)=&lt;[arr=[],_sk(=&lt;arr=(arr,fibok(N,n0,k)=&gt;),ks,ke),=&lt;arr]=&gt;;
+fibok_se(N,n0,ks,ke)=&lt;[arr=[],_sk(=&lt;arr=(arr,fibok(N,n0,k)=&gt;),ks,ke),=&lt;arr]=&gt;;
 <br>
 [N=10:
 <br>
 fibok(N,0,2)=&gt;,fibok(N,0,3)=&gt;,fibok(N,0,4)=&gt;,fibok(N,0,5)=&gt;:
 <br>
-fibok_s(N,0,2,N)=&gt;:
+fibok_se(N,0,2,N)=&gt;:
 <br>
 fibok(N,1,2)=&gt;,fibok(N,1,3)=&gt;,fibok(N,1,4)=&gt;,fibok(N,1,5)=&gt;:
 <br>
-fibok_s(N,1,2,N)=&gt;:
+fibok_se(N,1,2,N)=&gt;:
 <br>
 luca2(N)=&gt;:
 <br>
-fibok_s(N,2,2,N)=&gt;];
+fibok_se(N,2,2,N)=&gt;];
     </td>
   </tr>
   <tr>
