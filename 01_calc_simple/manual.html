@@ -38927,7 +38927,7 @@ magic-square
 <span id="span-eqn-magic"></span>
 clear;
 <br>
-make_Mij(m,n,k,sw)=&lt;last{
+get_Mij(m,n,k,sw)=&lt;last[
 <br>
 a0=(m+(n-1)*2)%N,
 <br>
@@ -38935,9 +38935,9 @@ b0=(m+n+(N+k*2-1)/2)%N,
 <br>
 ($a,$b)=sw&amp;&amp;&amp;(a0,b0)|||(b0,a0),
 <br>
-N*a+b+1};
+N*a+b+1];
 <br>
-make_M(N,k,sw)=&lt;zeros(N).map((x,i_,j_)=&lt;make_Mij(i_+1,j_+1,k,sw)=&gt;);
+make_M(N,k,sw)=&lt;zeros(N).map((x,i_,j_)=&lt;get_Mij(i_+1,j_+1,k,sw)=&gt;);
 <br>
 N=9;
 <br>
