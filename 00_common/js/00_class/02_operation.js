@@ -79,7 +79,7 @@ My_entry.operation.prototype.config = {
       ],
       [
         "BRcn",  // Binary operatoR comparison < || <= || >= || >
-        "BRrl",  // Binary operatoR relational === || == || <>
+        "BRrl",  // Binary operatoR relational === || == || <> || <<>>
         "PUlN",  // Pre-Unary operator logical NOT ~~
         "BRlA",  // Binary operatoR logical    AND &&
         "BRlX",  // Binary operatoR logical    XOR @@

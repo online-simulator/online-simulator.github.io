@@ -9262,6 +9262,8 @@ precedence
 <br>
 　　・<span class="selection">厳密等価</span>||等価||不等価演算子 <span class="selection">===</span> || == || &lt;&gt;　<span class="selection">Ver.2.167.40</span>以降、追加
 <br>
+　　　||厳密不等価演算子 &lt;&lt;&gt;&gt;　<span class="run">Ver.2.225.52</span>以降、追加
+<br>
 ・<a href="#span-out-prec-ope-logical">論理演算子</a>　<span class="run">Ver.2.59.26</span>以降、追加
 <br>
 　・<a href="#span-out-type-ope">前置単項演算子</a>
@@ -9805,15 +9807,17 @@ i&lt;&lt;2 || real(i)&lt;&lt;2 || 0&lt;&lt;2 -> 0
 関係演算子と付随する留意事項について記述する
 <br>
 <br>
-<span class="run">Ver.2.167.40</span>以降、厳密等価演算子を追加
+等価演算子
 <br>
 false==0 -> 1
+<br>
+true==1 -> 1
+<br>
+・<span class="run">Ver.2.167.40</span>以降、厳密等価演算子を追加
 <br>
 false===0 -> 0+O(1e+0)
 <br>
 false===FALSE -> 1
-<br>
-true==1 -> 1
 <br>
 true===1 -> 0+O(1e+0)
 <br>
@@ -9827,11 +9831,32 @@ i===0 -> 1
 <br>
 i===false -> 0+O(1e+0)
 <br>
-・厳密不等価演算子は未実装
 <br>
-false&lt;&gt;0 -> 0
+不等価演算子
 <br>
-・厳密不等価を判定する場合、<a href="#span-out-prec-ope-logical-not">論理NOT演算子</a>||<a href="#span-out-FN-ope">関数</a>を使用
+NaN&lt;&gt;NaN -> true
+<br>
+false&lt;&gt;false -> false
+<br>
+0&lt;&gt;0 -> false
+<br>
+false&lt;&gt;0 -> false
+<br>
+true&lt;&gt;1 -> false
+<br>
+・<span class="run">Ver.2.225.52</span>以降、厳密不等価演算子を追加
+<br>
+NaN&lt;&lt;&gt;&gt;NaN -> true
+<br>
+false&lt;&lt;&gt;&gt;false -> false
+<br>
+0&lt;&lt;&gt;&gt;0 -> false
+<br>
+false&lt;&lt;&gt;&gt;0 -> true+O(1e+0)
+<br>
+true&lt;&lt;&gt;&gt;1 -> true+O(1e+0)
+<br>
+・<a href="#span-out-prec-ope-logical-not">論理NOT演算子</a>||<a href="#span-out-FN-ope">関数</a>を使用
 <br>
 ~~false===0 || ~~(false===0) -> 1+O(1e+0)
 <br>
@@ -35779,6 +35804,8 @@ precedence
 <br>
 ・<span class="run">Ver.2.213.47</span>以降、<a href="#span-out-option6">useScopeWith</a>を追加（BTe）
 <br>
+・<span class="run">Ver.2.225.52</span>以降、<a href="#span-out-prec-ope-relational">厳密不等価演算子</a>を追加
+<br>
 <br>
 配列要素の定義順で<a href="#span-out-prec">演算のprecedence</a>を動的に変更可能とする
 <br>
@@ -35856,7 +35883,7 @@ operation.js抜粋
       ],
       [
         "BRcn",  // Binary operatoR comparison &lt; || &lt;= || &gt;= || &gt;
-        "BRrl",  // Binary operatoR relational === || == || &lt;&gt;
+        "BRrl",  // Binary operatoR relational === || == || &lt;&gt; || &lt;&lt;&gt;&gt;
         "PUlN",  // Pre-Unary operator logical NOT ~~
         "BRlA",  // Binary operatoR logical    AND &amp;&amp;
         "BRlX",  // Binary operatoR logical    XOR @@

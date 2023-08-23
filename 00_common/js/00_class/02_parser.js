@@ -56,6 +56,8 @@ My_entry.parser.prototype.config = {
       // ** -> ^
       {b: /[*]{2}/, a: "BRpp"},  // Ver.2.87.32
       {b: /[%]{1,2}/, a: "BRdm"},  // Ver.2.87.32
+      // check prior to bit shift
+      {b: /<<>>/, a: "BRrl"},  // Ver.2.225.52
       // bit shift
       {b: /[<]{2}|[>]{2,3}/, a: "BRbs"},
       // relational operator check first

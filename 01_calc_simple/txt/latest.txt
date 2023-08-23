@@ -1296,9 +1296,9 @@ true,false,true,true,false,false:
 true,false,true,true,false,false
 )
 
-true===1,true+i===1+2i:cseq(true,1),cseq(true+i,1+2i),csne(true,1),csne(true+i,1+i)
+true===1,true+i===1+2i,true<<>>1,true+i<<>>1+i:cseq(true,1),cseq(true+i,1+2i),csne(true,1),csne(true+i,1+i)
 (
-false+O(1e+0),true:
+false+O(1e+0),true,true+O(1e+0),false:
 false+O(1e+0),false,true+O(1e+0),false
 )
 
@@ -2469,4 +2469,4 @@ drag=false&sw=false&0x=false&useMatrix=true&useStrict=false&checkError=true&isRi
 --------------------------------
 --------------------------------
 
-online-simulator.github.io.6.284.125.13.66 @ Wed Aug 23 2023 20:18:23 GMT+0900 (日本標準時) @ Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/116.0.0.0 Safari/537.36
+online-simulator.github.io.6.285.125.13.66 @ Wed Aug 23 2023 23:34:35 GMT+0900 (日本標準時) @ Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/116.0.0.0 Safari/537.36

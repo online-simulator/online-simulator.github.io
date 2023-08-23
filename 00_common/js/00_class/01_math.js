@@ -362,7 +362,8 @@ My_entry.math.prototype["==="] = function(x, y){
   if(typeof y === "undefined") return NaN;  // Ver.2.170.42
   return (x===y);  // Ver.2.196.46
 };
-My_entry.math.prototype.sne = function(x, y){
+My_entry.math.prototype.sne =
+My_entry.math.prototype["<<>>"] = function(x, y){  // Ver.2.225.52
   var self = this;
   if(typeof y === "undefined") return NaN;  // Ver.2.170.42
   return (x!==y);  // Ver.2.196.46
