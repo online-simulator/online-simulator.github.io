@@ -1085,10 +1085,17 @@ My_entry.parser.prototype.make_arr_num = function(data){
       var mat = tree.mat;
       var out = tree.out;
       if(mat){
+        /* Ver.2.224.51 -> */
+        var arr = mat.arr;
+        var hasVar = DATA.hasVar_arr(arr);
+        if(hasVar){
+          self.entry.operation.throw_tree(hasVar);
+        }
         /* Ver.2.158.38 -> */
-        var isEmpty = (mat.arr.length === 0);
-        num = (isEmpty)? DATA.num(0, 0): DATA.arr2num(mat.arr);
+        var isEmpty = (arr.length === 0);
+        num = (isEmpty)? DATA.num(0, 0): DATA.arr2num(arr);
         /* -> Ver.2.158.38 */
+        /* -> Ver.2.224.51 */
       }
       else if(out){
         num = DATA.num(0, 0);

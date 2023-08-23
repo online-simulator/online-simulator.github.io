@@ -120,7 +120,7 @@ My_entry.DATA.prototype.hasVar_arr = function(arr){
   var _hasVar = false;
   for(var i=0, len_i=arr.length; i<len_i; ++i){
     for(var j=0, len_j=arr[i].length; j<len_j; ++j){
-      _hasVar = _hasVar || !(arr[i][j].com);
+      _hasVar = _hasVar || (!(arr[i][j].com) && arr[i][j]);  // calc-Ver.2.224.51
     }
     if(_hasVar) break;
   }
