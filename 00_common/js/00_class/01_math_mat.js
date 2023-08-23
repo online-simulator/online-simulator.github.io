@@ -160,6 +160,18 @@ My_entry.math_mat.prototype.get_len = function(arr){
   var len_j = lens.j;
   return Math.max(len_i, len_j);
 };
+/* Ver.2.224.52 */
+My_entry.math_mat.prototype.hasNaN = function(options, arr){
+  var self = this;
+  var _hasNaN = false;
+  var len_i = arr.length;
+  var len_i0 = arr[0].length;
+  for(var i=1; i<len_i; ++i){
+    var arri = arr[i];
+    _hasNaN = _hasNaN || (arri.length !== len_i0);
+  }
+  return _hasNaN;
+};
 /* Ver.2.172.42 -> */
 My_entry.math_mat.prototype.isfalse = function(options, arr){
   var self = this;
@@ -579,14 +591,14 @@ My_entry.math_mat.prototype.jacobian = function(options, arr){
   return _arr;
 };
 My_entry.math_mat.prototype.gauss =  // Ver.2.187.44
-My_entry.math_mat.prototype.gaussian = function(options, arr){
+My_entry.math_mat.prototype.gaussian = function(options, arr){  // arr=(A,b) -> x
   var self = this;
   var solver_com = self.entry.solver_com;
   var DATA = self.entry.DATA;
   var lens = self.get_lens(arr);
   var len_i = lens.i;
   var len_j = lens.j;
-  if(len_i !== (len_j-1)) throw "Invalid irregular matrix";  // arr=concat(A, b) len_i = len_j-1
+  if(self.hasNaN(options, arr) || DATA.hasVar_arr(arr) || len_i !== (len_j-1)) throw "Invalid irregular matrix";  // Ver.2.224.52
   var obj_Axb = {};
   var A = [];
   var b = [];
