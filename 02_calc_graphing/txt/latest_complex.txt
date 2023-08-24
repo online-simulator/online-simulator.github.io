@@ -1231,7 +1231,7 @@ clear
 local storage cleared
 
 [Pinv_y=(-0.999999427,-0.999936657,-0.997300203,-0.954499736,-0.682689492,0,0.682689492,0.954499736,0.997300203,0.999936657,0.999999427:-5,-4,-3,-2,-1,0,1,2,3,4,5),N=1,arr=[],_rn(=<arr=(arr:rand_table(=<Pinv_y)=>),,N),=<arr]=>
-1.6677250005258775
+0.8508627142554563
 
 rand_table(csv)=<last[table=sort0(csv),ymin=min(table)[0],ymax=max(table)[0],y=ymin+(ymax-ymin)*rand,x=interp(y:table),x]
 stored_eqn(rand_table)
@@ -1297,7 +1297,7 @@ stored_eqn(fibok_se)
 luca2(n)=<fibok(n,2,2)=>
 stored_eqn(luca2)
 
-fibok(n,n0,k)=<n<k-1&&n0||||n<k&&1||||_sm(=<fibok(n-m,n0,k)=>,1,k)
+fibok(n,n0,k)=<n<k-1&&n0||||n<k|||_sm(=<fibok(n-m,n0,k)=>,1,k)
 stored_eqn(fibok)
 
 clear
@@ -1470,4 +1470,4 @@ center=true&drag=false&test-case=false&legend=true&axis-t=false&axis-x=true&log-
 --------------------------------
 --------------------------------
 
-online-simulator.github.io.6.285.125.13.67 @ Thu Aug 24 2023 14:26:05 GMT+0900 (日本標準時) @ Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/116.0.0.0 Safari/537.36
+online-simulator.github.io.6.285.126.13.67 @ Thu Aug 24 2023 22:07:09 GMT+0900 (日本標準時) @ Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/116.0.0.0 Safari/537.36

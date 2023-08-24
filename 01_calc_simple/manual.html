@@ -306,6 +306,8 @@ e^(-i(1pi(){2/2i}(5-{3-1}){i/(-4)}))
 <br>
 　　　・<a href="#span-out-prec-ope-arithmetic-dot">dot演算子</a>
 <br>
+　　　・<a href="#span-out-prec-ope-arithmetic-prop">prop演算子</a>
+<br>
 　　　・<a href="#span-out-prec-ope-arithmetic-mod">剰余・整数商演算子</a>
 <br>
 　　・<a href="#span-out-prec-ope-bit">bit演算子</a>
@@ -9216,6 +9218,8 @@ precedence
 <br>
 　　・<a href="#span-out-prec-ope-arithmetic-dot">dot演算子</a> . || '　<span class="run">Ver.2.192.44</span>以降、追加
 <br>
+　　　||<a href="#span-out-prec-ope-arithmetic-prop">prop演算子</a>　<span class="run">Ver.2.214.49</span>以降、追加
+<br>
 　　<del>・</del>||<a href="#span-out-com">虚数単位</a>演算子 i
 <br>
 　　<del>・</del>||<a href="#span-out-FN-fact">階乗</a>演算子 ! || !!...
@@ -9403,9 +9407,11 @@ dot演算子
 dot演算子と付随する留意事項について記述する
 <br>
 <br>
-<span class="run">Ver.2.192.44</span>以降、転置行列関数代替演算子を追加
+<span class="run">Ver.2.192.44</span>以降、転置行列関数を代替するdot演算子を追加
 <br>
 ・<a href="#span-out-type-ope">後置単項演算子</a>の<a href="#span-out-prec-ope">演算子のprecedence</a>を統合（左から順次処理）
+<br>
+・<span class="run">Ver.2.214.49</span>以降、dot演算子を拡張して<a href="#span-out-prec-ope-arithmetic-prop">prop演算子</a>を追加
 <br>
 <br>
 <a href="#span-out-FNm-trans">trans行列関数</a>代替演算子.
@@ -9458,6 +9464,65 @@ A=(1,2i:3,4i:-5i); A'!i -> (i,6i,i:i,i,i)
 A=(1,2i:3,4i:-5i); (A)i!' -> (1,1,120:false,false,0)
 <br>
 A=(1,2i:3,4i:-5i); A!i' -> (-i,-6i,-i:-i,-i,0)
+    </td>
+  </tr>
+  <tr>
+    <th>
+<a href="#span-index">
+目次
+</a>
+<br>
+prop演算子
+    </th>
+    <td>
+<span id="span-out-prec-ope-arithmetic-prop"></span>
+prop演算子と付随する留意事項について記述する
+<br>
+<br>
+<span class="run">Ver.2.214.49</span>以降、objectのpropertyを代替するprop演算子を追加
+<br>
+・<a href="#span-out-eqns-args">式変数のarguments</a>付の展開式を<a href="#span-out-call-by-equation">式渡し</a>||<a href="#span-out-call-by-symbol">symbol渡し</a>
+<br>
+・<span class="run">Ver.2.217.50</span>以降、<a href="#span-out-num-NaN">欠損値</a>の場合、<a href="#span-out-literal">NaN</a>を返す
+<br>
+1.filter((x)=&lt;false) -> <del>(false:false:false)</del>(NaN:NaN:NaN)
+<br>
+<br>
+.map演算子
+<br>
+clear; f(x)=&lt;x*2; (1,2:3,4).map(=&lt;f) -> (2,4:6,8)
+<br>
+clear; (1,2:3,4).map((x)=&lt;x*2) -> (2,4:6,8)
+<br>
+clear; A=(1,2:3,4); A.map((x)=&lt;x*2) -> (2,4:6,8)
+<br>
+clear; A=(1,2:3,4); A.map((x,i_,j_,self)=&lt;self[i_][j_]*2) -> (2,4:6,8)
+<br>
+clear; A=(1,2:3,4); A.map((x,i_,j_,self)=&lt;A[i_][j_]*2) -> (2,4:6,8)
+<br>
+<br>
+.filter演算子
+<br>
+clear; f(x)=&lt;x&gt;2; (1,2:3,4).filter(=&lt;f) -> (3,4:1,1:0,1)
+<br>
+clear; (1,2:3,4).filter((x)=&lt;x&gt;2) -> (3,4:1,1:0,1)
+<br>
+clear; A=(1,2:3,4); A.filter((x)=&lt;x&gt;2) -> (3,4:1,1:0,1)
+<br>
+clear; A=(1,2:3,4); A.filter((x,i_,j_,self)=&lt;self[i_][j_]&gt;2) -> (3,4:1,1:0,1)
+<br>
+clear; A=(1,2:3,4); A.filter((x,i_,j_,self)=&lt;A[i_][j_]&gt;2) -> (3,4:1,1:0,1)
+<br>
+clear; A=(1,2:3,4); mat2coo(A)-A.filter((x)=&lt;x) -> (0,0,0,0:1,1,1,1:1,1,1,1)
+<br>
+clear; A=(0,2:3,4); mat2coo(A)-A.filter((x)=&lt;x&lt;&gt;0) -> (0,0,0:1,1,1:1,1,1)
+<br>
+<br>
+留意事項を列挙する
+<br>
+・<a href="#span-out-type-ope">後置単項演算子</a>同等の<a href="#span-out-prec-ope">演算子のprecedence</a>
+<br>
+・objectのpropertyは未実装
     </td>
   </tr>
   <tr>
@@ -12312,7 +12377,7 @@ scope継承について記述する
 <br>
 ・scope継承はcall時に実施（<a href="#span-out-substitution-equation">式代入</a>は無効）
 <br>
-・現状、<a href="#span-out-FNh">高階関数</a>||<a href="#span-out-FNmh">高階行列関数</a>は未対応
+・<a href="#span-out-FNh">高階関数</a>||<a href="#span-out-FNmh">高階行列関数</a>の<a href="#span-out-call-by-equation">式渡し</a>は未対応
     </td>
   </tr>
   <tr>
@@ -17680,6 +17745,8 @@ trans((1/norm(trans(A[2])))A[2])
 <br>
 ・<span class="run">Ver.2.135.35</span>以降、制御文低減のため、COO形式⇒LIL形式の変換処理を追加（<a href="#span-out-linear">Gauss関数</a>の完全互換）
 <br>
+・<span class="run">Ver.2.217.50</span>以降、<a href="#span-out-num-NaN">欠損値</a>の場合、<a href="#span-out-literal">NaN</a>を返す
+<br>
 <br>
 COO形式の<a href="#span-out-mat">行列</a>から<a href="#span-out-reference-mat-size">m行n列の行列</a>を復元
 <br>
@@ -20778,13 +20845,16 @@ clear; iproduct(L,R)=&lt;(L)(trans(R)); iproduct(=&lt;(1,2),=&lt;(3,4)) -> 11
 式変数の入力仕様と付随する留意事項について記述する
 <br>
 <br>
-式変数への代入・再代入方法は、式変数名=&lt;方程式||関数式とする
+式変数への代入・再代入方法
 <br>
-・<a href="#span-out-substitution-equation">式代入</a>記号=&lt;
+式変数名=&lt;方程式||関数式||展開式
 <br>
-　<a href="#span-out-call-by-equation">式渡し</a>に流用するため、一般的な記号:=で代替不可
+・<a href="#span-out-substitution-equation">式代入</a>記号=&lt;（<a href="#span-out-call-by-equation">式渡し</a>に流用するため、一般的な記号:=で代替不可）
 <br>
 ・式変数への代入を以降、<a href="#span-out-substitution-equation">式代入</a>と呼ぶ
+<br>
+<br>
+test caseを列挙する
 <br>
 y=&lt;{a*x+b=0}; -> stored_eqn(y)
 <br>
@@ -20824,7 +20894,9 @@ $$a=&lt;1 -> [MyErr]Invalid SEe($$a)
 式読出しの入力仕様と付随する留意事項について記述する
 <br>
 <br>
-式変数から値を読出す方法は、式変数名=&gt;とする
+式変数から値を読出す方法
+<br>
+式変数名=&gt;
 <br>
 ・式変数からの値読出しを以降、式読出しと呼ぶ
 <br>
@@ -20915,7 +20987,9 @@ clear; eqn_x=&lt;(a*x+b=0); a=1; b=2; x=3; 2eqn_x || 2*(-5) -> -10
 ・<span class="clear">Ver.2.203.46</span>以降、本仕様を廃止して<a href="#span-out-eqns-call2eqn">式変数への式読出し</a>を追加
 <br>
 <br>
-<del>式変数から<a href="#span-out-vars">変数</a>に値代入する方法は、式変数名=&gt;変数名とする
+<del>式変数から<a href="#span-out-vars">変数</a>に値代入する方法
+<br>
+式変数名=&gt;変数名
 <br>
 y=&lt;a*x+b; y=&gt;y0 -> [MyErr]Invalid binary operation
 <br>
@@ -20981,7 +21055,9 @@ clear; [a=1,b=2,v=&lt;{a,b},v=v=&gt;v,a=-1,b=-2,=&lt;v=&gt;]=&gt; -> (-1:-2)</de
 　<a href="#span-out-call-by-symbol">symbol渡し</a>の<a href="#span-out-ref-transparency">参照透過性</a>を確保
 <br>
 <br>
-式変数の新規複製方法は、式変数名=&gt;式変数名とする
+式変数の新規複製方法
+<br>
+式変数名=&gt;式変数名
 <br>
 clear; g=&lt;x; g=&gt;f; x=1; f=&gt; -> 1
 <br>
@@ -20993,7 +21069,7 @@ clear; g(x)=&lt;x; g=&gt;f; f(3)=&gt; -> 3
 <br>
 ・<a href="#span-out-bracket">scope</a>は<a href="#span-in-scope-vars">static scopes2d array</a>を共有する
 <br>
-clear; scope_NG(x)=&lt;last[x=x,last[x=x,x]]; scope_NG(3),scope_NG=>f,f(4) -> (3,0,3)
+clear; scope_NG(x)=&lt;last[x=x,last[x=x,x]]; scope_NG(3),scope_NG=&gt;f,f(4) -> (3,0,3)
 <br>
 ・call結果の式読出し
 <br>
@@ -21172,18 +21248,18 @@ clear; g(x)=&lt;a*x; a=1,[a=2,=&lt;(x)=&lt;[a=3,=&lt;g(x)==&gt;]=&gt;]=&gt;f; f(
 式渡しの入力仕様と付随する留意事項について記述する
 <br>
 <br>
-<a href="#span-out-FN">関数</a>の引数に方程式||関数式||<a href="#span-out-vars-symbol">式変数名symbol</a>を渡す場合
-<br>
-・値||<a href="#span-out-vars-symbol">変数名symbol</a>の値渡しに対して式渡しと定義する
+<a href="#span-out-FN">関数</a>の引数に式を渡す場合、値渡しに対して式渡しと定義する
 <br>
 ・この場合の関数を<a href="#span-out-FNh">高階関数</a>と定義する
 <br>
 <br>
-式渡しの方法は、=&lt;方程式||関数式||<a href="#span-out-vars-symbol">式変数名symbol</a>とする
+式渡しの方法（<a href="#span-out-substitution-equation">式代入</a>記号=&lt;を流用）
 <br>
-・<a href="#span-out-substitution-equation">式代入</a>記号=&lt;を流用
+=&lt;<a href="#span-out-vars-symbol">式変数名symbol</a>||展開式
 <br>
-・よって<a href="#span-out-substitution-equation">式代入</a>同等の<a href="#span-out-prec">演算のprecedence</a>
+・<span class="run">Ver.2.32.17</span>以降、<a href="#span-out-eqns-args">式変数のarguments</a>を追加
+<br>
+(args)=&lt;<a href="#span-out-vars-symbol">式変数名symbol</a>||展開式
 <br>
 <br>
 <span class="run">Ver.2.30.15</span>以降、<a href="#span-out-FN">関数</a>の引数に限定して、<a href="#span-out-substitution-equation">式代入</a>同様に、式渡しの仕様を緩和
@@ -21213,6 +21289,11 @@ clear; n=&lt;n; _sn(=&lt;n=&gt;,0,2) || _sn(=&lt;{n=&gt;},0,2) || 0+1+2 -> 3
 ・次の場合、<a href="#span-out-BT">括弧</a>省略と判別する
 <br>
 clear; _sn(=&lt;1,0,2) || _sn(=&lt;{1},0,2) || 1+1+1 -> 3
+<br>
+<br>
+留意事項を列挙する
+<br>
+・<a href="#span-out-substitution-equation">式代入</a>同等の<a href="#span-out-prec">演算のprecedence</a>
 <br>
 <br>
 実装の詳細は<a href="#span-in-call-by-equation">内部仕様</a>参照
@@ -21785,23 +21866,25 @@ clear; add(=&lt;A_,=&lt;B_)=&lt;[A_=&gt;+B_=&gt;]; A=&lt;(1,2:3,4); add(=&lt;A[0
 <br>
 <span class="run">Ver.2.33.18</span>以降、<a href="#span-out-eqns-args">定義元arguments</a>の<a href="#span-out-eqns">式変数</a>は宣言時の<a href="#span-out-bracket">階層</a>に依存する
 <br>
+・<span class="run">Ver.2.219.50</span>以降、<a href="#span-out-call-by-equation">式渡し</a>記号=&lt;の仕様を変更（元scopeを維持）
+<br>
 ・通常callの場合
 <br>
 clear; conv(=&lt;a_)=&lt;last(a_=&gt;),[a=3,conv(=&lt;a)=&gt;] -> [MyErr]Undef eqn(a)
 <br>
-clear; conv(=&lt;a_)=&lt;last(a_=&gt;),[a=3,a=&lt;a,conv(=&lt;a)=&gt;] -> [MyErr]Invalid REv(a)
+clear; conv(=&lt;a_)=&lt;last(a_=&gt;),[a=3,a=&lt;a,conv(=&lt;a)=&gt;] -> <del>[MyErr]Invalid REv(a)</del>(0,0,0,3)
 <br>
-clear; conv(=&lt;a_)=&lt;last(a_=&gt;),[a=3,conv(=&lt;(a))=&gt;] -> [MyErr]Invalid REv(a)
+clear; conv(=&lt;a_)=&lt;last(a_=&gt;),[a=3,conv(=&lt;(a))=&gt;] -> <del>[MyErr]Invalid REv(a)</del>(0,0,3)
 <br>
-clear; [conv(=&lt;a_)=&lt;last(a_=&gt;),[a=3,conv(=&lt;(a))=&gt;]] -> [MyErr]Invalid REv(a)
+clear; [conv(=&lt;a_)=&lt;last(a_=&gt;),[a=3,conv(=&lt;(a))=&gt;]] -> <del>[MyErr]Invalid REv(a)</del>(0,0,3)
 <br>
 ・定義元で宣言される<a href="#span-out-vars">変数</a>・<a href="#span-out-eqns">式変数</a>は定義元<a href="#span-out-bracket">scope</a>に定義する
 <br>
-clear; conv(=&lt;a_)=&lt;last(a=-3,a_=&gt;),[a=3,a=&lt;a,conv(=&lt;a)=&gt;,a],a -> (0,0,0,-3,3,-3)
+clear; conv(=&lt;a_)=&lt;last(a=-3,a_=&gt;),[a=3,a=&lt;a,conv(=&lt;a)=&gt;,a],a -> (0,0,0,<del>-3</del>3,3,-3)
 <br>
-clear; conv(=&lt;a_)=&lt;last(a=-3,a_=&gt;),[a=3,conv(=&lt;(a))=&gt;,a],a -> (0,0,-3,3,-3)
+clear; conv(=&lt;a_)=&lt;last(a=-3,a_=&gt;),[a=3,conv(=&lt;(a))=&gt;,a],a -> (0,0,<del>-3</del>3,3,-3)
 <br>
-clear; [conv(=&lt;a_)=&lt;last(a=-3,a_=&gt;),[a=3,conv(=&lt;(a))=&gt;,a],a] -> (0,0,-3,3,-3)
+clear; [conv(=&lt;a_)=&lt;last(a=-3,a_=&gt;),[a=3,conv(=&lt;(a))=&gt;,a],a] -> (0,0,<del>-3</del>3,3,-3)
 <br>
 clear; [conv(=&lt;a_)=&lt;last(a=-3,a_=&gt;),[a=3,conv(=&lt;(a))=&gt;,a],a],a -> [MyErr]Invalid REv(a)
 <br>
@@ -21861,11 +21944,21 @@ clear; conv(=&lt;a_)=&lt;[a=-1,=&lt;a+a_==&gt;]=&gt;*2; a=&lt;a; a=1; conv(=&lt;
 <br>
 clear; conv(=&lt;a_)=&lt;[a=-1,=&lt;a+a_==&gt;]=&gt;*2; a=&lt;a; a=1; conv(=&lt;(a==&gt;))=&gt;,a -> (-4,1)
 <br>
-・<a href="#span-out-scope-vars-has1BT">単独scope</a>と判別される場合、定義元のみ通常callに短縮可
+・<a href="#span-out-scope-vars-has1BT">単独scope</a>の場合<del>、定義元のみ通常callに短縮可</del>
+<br>
+clear; conv(=&lt;a_)=&lt;[a=-1,=&lt;a+a_==&gt;]=&gt;; a=&lt;a; a=1; conv(=&lt;a)=&gt;,a -> (-2,1)
+<br>
+clear; conv(=&lt;a_)=&lt;[a=-1,=&lt;a+a_==&gt;]=&gt;; a=&lt;a; a=1; conv(=&lt;(a))=&gt;,a -> (-2,1)
 <br>
 clear; conv(=&lt;a_)=&lt;[a=-1,=&lt;a+a_==&gt;]=&gt;; a=&lt;a; a=1; conv(=&lt;(a==&gt;))=&gt;,a -> (-2,1)
 <br>
-clear; conv(=&lt;a_)=&lt;[a=-1,=&lt;a+a_=&gt;]=&gt;; a=&lt;a; a=1; conv(=&lt;(a==&gt;))=&gt;,a -> (-2,1)
+clear; conv(==&lt;a_)=&lt;[a=-1,=&lt;a+a_=&gt;]=&gt;; a=&lt;a; a=1; conv(=&lt;a)=&gt;,a -> (-2,1)
+<br>
+clear; conv(==&lt;a_)=&lt;[a=-1,=&lt;a+a_=&gt;]=&gt;; a=&lt;a; a=1; conv(=&lt;(a==&gt;))=&gt;,a -> (-2,1)
+<br>
+clear; conv(==&lt;a_)=&lt;[a=-1,=&lt;a+a_=&gt;]=&gt;; a=&lt;a; a=1; conv(=&lt;(a=&gt;))=&gt;,a -> (0,1)
+<br>
+clear; conv(=&lt;a_)=&lt;[a=-1,=&lt;a+a_=&gt;]=&gt;; a=&lt;a; a=1; conv(=&lt;(a==&gt;))=&gt;,a -> <del>(-2,1)</del>(0,1)
 <br>
 clear; conv(=&lt;a_)=&lt;[a=-1,=&lt;a+a_==&gt;]=&gt;; a=&lt;a; a=1; conv(=&lt;(a=&gt;))=&gt;,a -> (0,1)
 <br>
@@ -22166,9 +22259,7 @@ symbol渡し
 式変数のsymbol渡しの入力仕様と付随する留意事項について記述する
 <br>
 <br>
-call先argumentsに<a href="#span-out-vars-symbol">変数名symbol</a>を<a href="#span-out-call-by-equation">式渡し</a>する場合
-<br>
-・symbol渡しと定義する
+<a href="#span-out-vars-symbol">変数名symbol</a>を<a href="#span-out-call-by-equation">式渡し</a>する場合、symbol渡しと定義する
 <br>
 ・<a href="#span-out-vars">変数</a>を使用
 <br>
@@ -22194,7 +22285,7 @@ clear; add(=&lt;A_,=&lt;B_)=&lt;A_+B_;
 <br>
 A=&lt;(1,2:3,4); B=&lt;(5,6:7,8); add(=&lt;A,=&lt;B)=&gt; -> (6,8:10,12)
 <br>
-・引数は最終行vectorの左から順に参照（<a href="#span-out-FNh">高階関数</a>の<a href="#span-out-ope-extended">拡張機能</a>なし）
+・call先argumentsは最終行vectorの左から順に参照（<a href="#span-out-FNh">高階関数</a>同様に、<a href="#span-out-ope-extended">拡張機能</a>なし）
 <br>
 add(1,2:3,4) || add(3,4) -> 7
 <br>
@@ -22453,6 +22544,8 @@ N=10; fibo_(n,a,b)=&lt;n&lt;1&amp;&amp;a||||n&lt;2&amp;&amp;b||||fibo_(n-1,b,a+b
 <br>
 fibok(n,k)=&lt;n&lt;k-1&amp;&amp;0||||n&lt;k&amp;&amp;1||||_sm(=&lt;fibok(n-m,k)=&gt;,1,k);
 <br>
+fibok(n,k)=&lt;n&lt;k-1&amp;&amp;0||||n&lt;k|||_sm(=&lt;fibok(n-m,k)=&gt;,1,k);
+<br>
 fibok(10,2) -> 55
 <br>
 fibok(10,3) -> 81
@@ -22466,6 +22559,8 @@ fibok(10,5) -> 31
 N=10; fact_(n)=&lt;n&lt;=1&amp;&amp;&amp;1|||round(n)*fact_(n-1); fact_(N) -> 3628800
 <br>
 N=10; fact_(n)=&lt;n&lt;=1|||round(n)*fact_(n-1); fact_(N) -> 3628800
+<br>
+N=10; fact_(n)=&lt;n&lt;=1|||n*fact_(n-1); fact_(N) -> 3628800
 <br>
 ・厳密な<a href="#span-out-FN-fact">階乗</a>
 <br>
@@ -22584,6 +22679,14 @@ clear; d=&lt;-a*z+b*A+c; [a=1,(z,A)=&lt;[b=2,(c)=&lt;d==&gt;](a*z)=&gt;](i,=&lt;
 <br>
 [(x)=&lt;x](2) -> [MyErr]Invalid FN operation
 <br>
+[(x)=&lt;x](2)=&gt; -> 2
+<br>
+・返値の要素を指定する場合、<a href="#span-out-BT">括弧</a>を明示
+<br>
+clear; f(x)=&lt;(1,2:3,x); f[1](5) -> (3,5)
+<br>
+([(x)=&lt;(1,2:3,x)](5)=&gt;)[1] -> (3,5)
+<br>
 ・<a href="#span-out-call-by-equation">式渡し</a>が不正の場合、error終了
 <br>
 [(a,b)](1,2)=&gt; -> [MyErr]Invalid no-name equation
@@ -22657,7 +22760,7 @@ switch({第1引数:=&lt;第2引数}:{第3引数:=&lt;第4引数}:...)
 <br>
 　・第奇数番引数: 0||not0の実数値を返す条件文を値渡し
 <br>
-　・第偶数番引数: 条件文成立時に実行する処理||<a href="#span-out-vars-symbol">式変数名symbol</a>を<a href="#span-out-call-by-equation">式渡し</a>
+　・第偶数番引数: 条件文成立時の展開式を<a href="#span-out-call-by-equation">式渡し</a>||<a href="#span-out-call-by-symbol">symbol渡し</a>
 <br>
 ・返値
 <br>
@@ -22800,7 +22903,7 @@ clear; b=0; a=&lt;b=1; c=&lt;b=-1; a|||c,b -> (0,-1)
 <span id="span-out-FNh-SX"></span>
 総和高階関数
 <br>
-・任意関数のdummy変数整数範囲[a,b]の総和を演算して返す
+・展開式のdummy変数整数範囲[a,b]の総和を演算して返す
 <br>
 ・_sdummy<a href="#span-out-vars-symbol">変数名symbol</a>でcallする
 <br>
@@ -22809,7 +22912,7 @@ clear; b=0; a=&lt;b=1; c=&lt;b=-1; a|||c,b -> (0,-1)
 <br>
 _sdummy<a href="#span-out-vars-symbol">変数名symbol</a>(=&lt;第1引数,第2引数,第3引数[,第4引数])
 <br>
-・第1引数: dummy変数の関数式||<a href="#span-out-vars-symbol">式変数名symbol</a>を<a href="#span-out-call-by-equation">式渡し</a>
+・第1引数: dummy変数の展開式を<a href="#span-out-call-by-equation">式渡し</a>||<a href="#span-out-call-by-symbol">symbol渡し</a>
 <br>
 ・第2引数: dummy変数の範囲下限a（整数）を値渡し
 <br>
@@ -22980,7 +23083,7 @@ N=0; _sn(=&lt;Pn,N,10) -> 99.99999999999999
 <span id="span-out-FNh-PX"></span>
 総乗・総積高階関数
 <br>
-・任意関数のdummy変数整数範囲[a,b]の総乗・総積を演算して返す
+・展開式のdummy変数整数範囲[a,b]の総乗・総積を演算して返す
 <br>
 ・_pdummy<a href="#span-out-vars-symbol">変数名symbol</a>でcallする
 <br>
@@ -22989,7 +23092,7 @@ N=0; _sn(=&lt;Pn,N,10) -> 99.99999999999999
 <br>
 _pdummy<a href="#span-out-vars-symbol">変数名symbol</a>(=&lt;第1引数,第2引数,第3引数[,第4引数])
 <br>
-・第1引数: dummy変数の関数式||<a href="#span-out-vars-symbol">式変数名symbol</a>を<a href="#span-out-call-by-equation">式渡し</a>
+・第1引数: dummy変数の展開式を<a href="#span-out-call-by-equation">式渡し</a>||<a href="#span-out-call-by-symbol">symbol渡し</a>
 <br>
 ・第2引数: dummy変数の範囲下限a（整数）を値渡し
 <br>
@@ -23087,7 +23190,7 @@ x={0,1,2,3,4,5,6,7,8,9}; _pn(=&lt;x[n],1,9) -> 362880
 <span id="span-out-FNh-RX"></span>
 再帰高階関数
 <br>
-・任意処理の演算結果をdummy変数に代入する操作を再帰回数繰り返す
+・展開式の演算結果をdummy変数に代入する操作を再帰回数繰り返す
 <br>
 ・最後の演算結果を返す
 <br>
@@ -23098,7 +23201,7 @@ x={0,1,2,3,4,5,6,7,8,9}; _pn(=&lt;x[n],1,9) -> 362880
 <br>
 _rdummy<a href="#span-out-vars-symbol">変数名symbol</a>(=&lt;第1引数,第2引数,第3引数[,=&lt;第4引数])
 <br>
-・第1引数: 任意処理||<a href="#span-out-vars-symbol">式変数名symbol</a>を<a href="#span-out-call-by-equation">式渡し</a>
+・第1引数: dummy変数の展開式を<a href="#span-out-call-by-equation">式渡し</a>||<a href="#span-out-call-by-symbol">symbol渡し</a>
 <br>
 ・第2引数: dummy変数の初期値を値渡し
 <br>
@@ -23306,7 +23409,7 @@ norm(mdx)/norm({x0,x1}) -> infoLost[ri] 3.6879601533907295e-16
 <br>
 _ddummy<a href="#span-out-vars-symbol">変数名symbol</a>(=&lt;第1引数[,第2引数[,第3引数[,第4引数]]])
 <br>
-・第1引数: dummy変数の関数式||<a href="#span-out-vars-symbol">式変数名symbol</a>を<a href="#span-out-call-by-equation">式渡し</a>
+・第1引数: dummy変数の展開式を<a href="#span-out-call-by-equation">式渡し</a>||<a href="#span-out-call-by-symbol">symbol渡し</a>
 <br>
 option
 <br>
@@ -23643,7 +23746,7 @@ x -> (1.000000000000009+O(3e-5):0.9999999999999909+O(3e-5))
 <br>
 _idummy<a href="#span-out-vars-symbol">変数名symbol</a>(=&lt;第1引数,第2引数,第3引数[,第4引数])
 <br>
-・第1引数: dummy変数の関数式||<a href="#span-out-vars-symbol">式変数名symbol</a>を<a href="#span-out-call-by-equation">式渡し</a>
+・第1引数: dummy変数の展開式を<a href="#span-out-call-by-equation">式渡し</a>||<a href="#span-out-call-by-symbol">symbol渡し</a>
 <br>
 ・第2引数: dummy変数の積分下限aを値渡し
 <br>
@@ -23862,13 +23965,13 @@ Jacobi高階行列関数
 <br>
 Jacobi(=&lt;第1引数,=&lt;第2引数[,=&lt;第3引数[,第4引数]])
 <br>
-・第1引数: 方程式||関数式の列vector||<a href="#span-out-vars-symbol">式変数名symbol</a>を<a href="#span-out-call-by-equation">式渡し</a>
+・第1引数: 方程式||関数式の列vectorを<a href="#span-out-call-by-equation">式渡し</a>||<a href="#span-out-call-by-symbol">symbol渡し</a>
 <br>
-・第2引数: 未知<a href="#span-out-vars-symbol">変数名symbol</a>の列vector||<a href="#span-out-vars-symbol">式変数名symbol</a>を<a href="#span-out-call-by-equation">式渡し</a>
+・第2引数: 未知<a href="#span-out-vars-symbol">変数名symbol</a>の列vectorを<a href="#span-out-call-by-equation">式渡し</a>||<a href="#span-out-call-by-symbol">symbol渡し</a>
 <br>
 option
 <br>
-・第3引数: 未知変数初期値の列vector||<a href="#span-out-vars-symbol">式変数名symbol</a>を<a href="#span-out-call-by-equation">式渡し</a>[0||省略時、<a href="#span-out-FNm">zeros-vector</a>]
+・第3引数: 未知変数初期値の列vectorを<a href="#span-out-call-by-equation">式渡し</a>||<a href="#span-out-call-by-symbol">symbol渡し</a>[0||省略時、<a href="#span-out-FNm">zeros-vector</a>]
 <br>
 　第3引数は未知変数未定義時のみ有効
 <br>
@@ -24011,13 +24114,13 @@ Newton高階行列関数
 <br>
 Newton(=&lt;第1引数,=&lt;第2引数[,=&lt;第3引数[,第4引数[,第5引数[,第6引数[,第7引数]]]]])
 <br>
-・第1引数: 方程式||関数式の列vector||<a href="#span-out-vars-symbol">式変数名symbol</a>を<a href="#span-out-call-by-equation">式渡し</a>
+・第1引数: 方程式||関数式の列vectorを<a href="#span-out-call-by-equation">式渡し</a>||<a href="#span-out-call-by-symbol">symbol渡し</a>
 <br>
-・第2引数: 未知<a href="#span-out-vars-symbol">変数名symbol</a>の列vector||<a href="#span-out-vars-symbol">式変数名symbol</a>を<a href="#span-out-call-by-equation">式渡し</a>
+・第2引数: 未知<a href="#span-out-vars-symbol">変数名symbol</a>の列vectorを<a href="#span-out-call-by-equation">式渡し</a>||<a href="#span-out-call-by-symbol">symbol渡し</a>
 <br>
 option
 <br>
-・第3引数: 未知変数初期値の列vector||<a href="#span-out-vars-symbol">式変数名symbol</a>を<a href="#span-out-call-by-equation">式渡し</a>[0||省略時、<a href="#span-out-FNm">zeros-vector</a>]
+・第3引数: 未知変数初期値の列vectorを<a href="#span-out-call-by-equation">式渡し</a>||<a href="#span-out-call-by-symbol">symbol渡し</a>[0||省略時、<a href="#span-out-FNm">zeros-vector</a>]
 <br>
 　第3引数は未知変数未定義時のみ有効
 <br>
@@ -24037,7 +24140,7 @@ option
 <br>
 test caseを列挙する
 <br>
-・<a href="#span-out-config-strict">strict-mode</a>で<a href="#span-out-vars-symbol">式変数名symbol</a>を<a href="#span-out-call-by-equation">式渡し</a>する場合
+・<a href="#span-out-call-by-symbol">symbol渡し</a>
 <br>
 clear;
 <br>
@@ -24278,13 +24381,13 @@ ODE高階行列関数
 <br>
 _odummy<a href="#span-out-vars-symbol">変数名symbol</a>(=&lt;第1引数,=&lt;第2引数[,=&lt;第3引数[,第4引数[,第5引数[,第6引数]]]])
 <br>
-・第1引数: 1階常微分方程式右辺の関数式||<a href="#span-out-vars-symbol">式変数名symbol</a>を<a href="#span-out-call-by-equation">式渡し</a>
+・第1引数: 1階常微分方程式右辺の関数式を<a href="#span-out-call-by-equation">式渡し</a>||<a href="#span-out-call-by-symbol">symbol渡し</a>
 <br>
-・第2引数: 未知<a href="#span-out-vars-symbol">変数名symbol</a>の列vector||<a href="#span-out-vars-symbol">式変数名symbol</a>を<a href="#span-out-call-by-equation">式渡し</a>
+・第2引数: 未知<a href="#span-out-vars-symbol">変数名symbol</a>の列vectorを<a href="#span-out-call-by-equation">式渡し</a>||<a href="#span-out-call-by-symbol">symbol渡し</a>
 <br>
 option
 <br>
-・第3引数: 未知変数初期値の列vector||<a href="#span-out-vars-symbol">式変数名symbol</a>を<a href="#span-out-call-by-equation">式渡し</a>[0||省略時、<a href="#span-out-FNm">zeros-vector</a>]
+・第3引数: 未知変数初期値の列vectorを<a href="#span-out-call-by-equation">式渡し</a>||<a href="#span-out-call-by-symbol">symbol渡し</a>[0||省略時、<a href="#span-out-FNm">zeros-vector</a>]
 <br>
 　第3引数は未知変数未定義時のみ有効
 <br>
@@ -37113,7 +37216,7 @@ Fibonacci
 <br>
 clear;
 <br>
-fibok(n,n0,k)=&lt;n&lt;k-1&amp;&amp;n0||||n&lt;k&amp;&amp;1||||_sm(=&lt;fibok(n-m,n0,k)=&gt;,1,k);
+fibok(n,n0,k)=&lt;n&lt;k-1&amp;&amp;n0||||n&lt;k|||_sm(=&lt;fibok(n-m,n0,k)=&gt;,1,k);
 <br>
 luca2(n)=&lt;fibok(n,2,2)=&gt;;
 <br>
