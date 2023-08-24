@@ -102,6 +102,8 @@ My_entry.operation.prototype.config = {
     SEe:     "BTe",
     REe:     "BT1"
   },
+  /* Ver.2.225.53 common reference to ids of local storage object for sentence without bracket including command */
+  ids0: [[0, 0]],
   params: {
     isRelative_epsN: false,
     epsN: 1e-16,
@@ -911,7 +913,7 @@ My_entry.operation.prototype.FNc = function(data, i0, tagName, tagObj){
           }
           break;
         case "deleqn":
-          var ids_del = ids || [[0, 0]];  // || sentence without bracket including command
+          var ids_del = ids || self.config.ids0;  // Ver.2.225.53
           var id0 = ids_del[0];
           var j = id0[0];
           var n = id0[1];
@@ -1011,12 +1013,16 @@ My_entry.operation.prototype.jacobian = function(data, rightArr, tagObj){
     return _arr;
   };
   /* Ver.2.21.10 -> */
+  /* Ver.2.225.53 -> */
+  var id0 = (ids || self.config.ids0)[0];
+  var ids_buffer = [id0];
+  /* -> Ver.2.225.53 */
   var prop = tagObj.val;
   var init_x0 = function(arr, names, isFound){
     var _x0 = [];
     var get_num_i = function(i, name_var){
       var _num = null;
-      var tree_var = self.restore_var(name_var, scopes, ids);  // Ver.2.31.17
+      var tree_var = self.restore_var(name_var, scopes, ids_buffer);  // Ver.2.31.17  // Ver.2.225.53
       if(tree_var){
         isFound[i] = true;
         _num = self.arr2num(tree_var.mat.arr);
@@ -1025,7 +1031,7 @@ My_entry.operation.prototype.jacobian = function(data, rightArr, tagObj){
         isFound[i] = false;
         _num = self.arr2obj_i(arr, i);
         if(_num.com){
-          self.store_var(name_var, DATA.num2tree(_num), scopes, ids);  // Ver.2.31.17
+          self.store_var(name_var, DATA.num2tree(_num), scopes, ids_buffer);  // Ver.2.31.17  // Ver.2.225.53
         }
         else{
           self.throw_tree(_num);
@@ -1134,7 +1140,7 @@ if(prop.key){
     /* -> Ver.2.29.15 */
     // t0
     var name_var = tagObj.val.name;
-    var tree_var = self.restore_var(name_var, scopes, ids);  // Ver.2.31.17
+    var tree_var = self.restore_var(name_var, scopes, ids_buffer);  // Ver.2.31.17  // Ver.2.225.53
     var t0 = (tree_var)? self.arr2num(tree_var.mat.arr): args[3] || DATA.num(0, 0);
     // dt
     var dt = args[4] || DATA.num(self.options.dxT, 0);
@@ -1153,11 +1159,11 @@ if(prop.key){
     };
     var store_t = function(dt){
       var t = (dt)? unit["BRa"](options, t0, dt): t0;
-      self.store_var(name_var, DATA.num2tree(t), scopes, ids);  // Ver.2.31.17
+      self.store_var(name_var, DATA.num2tree(t), scopes, ids_buffer);  // Ver.2.31.17  // Ver.2.225.53
     };
     var store_x = function(x){
       for(var i=0; i<len_i; ++i){
-        self.store_var(names[i], DATA.num2tree(x[i]), scopes, ids);  // Ver.2.31.17
+        self.store_var(names[i], DATA.num2tree(x[i]), scopes, ids_buffer);  // Ver.2.31.17  // Ver.2.225.53
       }
     };
     var step_x = function(x, f, dt){
@@ -1324,7 +1330,7 @@ var step = function(){
       for(var i=0; i<len_i; ++i){
         var name_var = names[i];
         var num = (i === j)? x1[i]: x0[i];
-        self.store_var(name_var, DATA.num2tree(num), scopes, ids);  // Ver.2.31.17
+        self.store_var(name_var, DATA.num2tree(num), scopes, ids_buffer);  // Ver.2.31.17  // Ver.2.225.53
       }
       var tree = self.tree_eqn2tree(data, tree_eqn);
       var arr_f1 = tree.mat.arr;
@@ -1356,7 +1362,7 @@ for(var n=0; n<Niteration; ++n){
       for(var i=0; i<len_i; ++i){
         var name_var = names[i];
         var mdxi = self.arr2obj_i(arr_mdx, i);
-        self.store_var(name_var, DATA.num2tree(unit["BRs"](options, x0[i], mdxi)), scopes, ids);  // Ver.2.31.17
+        self.store_var(name_var, DATA.num2tree(unit["BRs"](options, x0[i], mdxi)), scopes, ids_buffer);  // Ver.2.31.17  // Ver.2.225.53
       }
       // update
       x0 = init_x0(arr_x, names, []);
@@ -1381,7 +1387,7 @@ for(var n=0; n<Niteration; ++n){
             var x0ie = x0[i].err;
             x0ie.r = Math.max(Math.abs(mdxi.com.r), x0ie.r);
             x0ie.i = Math.max(Math.abs(mdxi.com.i), x0ie.i);
-            self.store_var(name_var, DATA.num2tree(x0[i]), scopes, ids);  // Ver.2.31.17
+            self.store_var(name_var, DATA.num2tree(x0[i]), scopes, ids_buffer);  // Ver.2.31.17  // Ver.2.225.53
           }
         }
         _tree = DATA.tree_mat(arr_mdx);
@@ -1395,10 +1401,10 @@ for(var n=0; n<Niteration; ++n){
       for(var i=0; i<len_i; ++i){
         var name_var = names[i];
         if(isFound_x0[i]){
-          self.store_var(name_var, DATA.num2tree(x0[i]), scopes, ids);  // Ver.2.31.17
+          self.store_var(name_var, DATA.num2tree(x0[i]), scopes, ids_buffer);  // Ver.2.31.17  // Ver.2.225.53
         }
         else{
-          self.del_scope_sw("vars", name_var, scopes, ids);  // Ver.2.31.17
+          self.del_scope_sw("vars", name_var, scopes, ids_buffer);  // Ver.2.31.17  // Ver.2.225.53
         }
       }
     }
@@ -1494,19 +1500,23 @@ My_entry.operation.prototype.RX = function(data, rightArr, tagObj){
           }
         };
       /* -> Ver.2.30.15 */
+      /* Ver.2.225.53 -> */
+      var id0 = (ids || self.config.ids0)[0];
+      var ids_buffer = [id0];
+      /* -> Ver.2.225.53 */
       var name_var = tagObj.val.name;
-      var tree_var = self.restore_var(name_var, scopes, ids);  // Ver.2.31.17
+      var tree_var = self.restore_var(name_var, scopes, ids_buffer);  // Ver.2.31.17  // Ver.2.225.53
       var tree = DATA.num2tree(a);
       RX(function(i){
-        self.store_var(name_var, tree, scopes, ids);  // Ver.2.31.17
+        self.store_var(name_var, tree, scopes, ids_buffer);  // Ver.2.31.17  // Ver.2.225.53
         tree = self.tree_eqn2tree(data, tree_eqn);
       });
       _tree = tree;
       if(tree_var){
-        self.store_var(name_var, tree_var, scopes, ids);  // Ver.2.31.17
+        self.store_var(name_var, tree_var, scopes, ids_buffer);  // Ver.2.31.17  // Ver.2.225.53
       }
       else{
-        self.del_scope_sw("vars", name_var, scopes, ids);  // Ver.2.31.17
+        self.del_scope_sw("vars", name_var, scopes, ids_buffer);  // Ver.2.31.17  // Ver.2.225.53
       }
     }
   }
@@ -1523,8 +1533,12 @@ My_entry.operation.prototype.DX = function(data, rightArr, tagObj){
   var args = self.arr2args(rightArr);
   var len_j = args.length;
   if(len_j > 0){
+    /* Ver.2.225.53 -> */
+    var id0 = (ids || self.config.ids0)[0];
+    var ids_buffer = [id0];
+    /* -> Ver.2.225.53 */
     var name_var = tagObj.val.name;
-    var tree_var = self.restore_var(name_var, scopes, ids);  // Ver.2.31.17
+    var tree_var = self.restore_var(name_var, scopes, ids_buffer);  // Ver.2.31.17  // Ver.2.225.53
     var a0 = (tree_var)? self.arr2num(tree_var.mat.arr): null;
     /* Ver.1.3.1 */
     var a = args[2] || a0;
@@ -1544,7 +1558,7 @@ My_entry.operation.prototype.DX = function(data, rightArr, tagObj){
         return _newX;
       };
       var calc_f = function(x, cr, ci){
-        self.store_var(name_var, DATA.num2tree(get_newX(x, cr, ci)), scopes, ids);  // Ver.2.31.17
+        self.store_var(name_var, DATA.num2tree(get_newX(x, cr, ci)), scopes, ids_buffer);  // Ver.2.31.17  // Ver.2.225.53
         return self.arr2num(self.tree_eqn2tree(data, tree_eqn).mat.arr);
       };
       var DX_order2 = function(x, n){
@@ -1628,10 +1642,10 @@ My_entry.operation.prototype.DX = function(data, rightArr, tagObj){
       _tree = DATA.num2tree(num);
     }
     if(tree_var){
-      self.store_var(name_var, tree_var, scopes, ids);  // Ver.2.31.17
+      self.store_var(name_var, tree_var, scopes, ids_buffer);  // Ver.2.31.17  // Ver.2.225.53
     }
     else{
-      self.del_scope_sw("vars", name_var, scopes, ids);  // Ver.2.31.17
+      self.del_scope_sw("vars", name_var, scopes, ids_buffer);  // Ver.2.31.17  // Ver.2.225.53
     }
   }
   return _tree;
@@ -1666,10 +1680,14 @@ My_entry.operation.prototype.IX = function(data, rightArr, tagObj){
       var h0 = DATA.num(hcr, ((options.useComplex)? hci: 0));
       var h0cr = h0.com.r;
       var h0ci = h0.com.i;
+      /* Ver.2.225.53 -> */
+      var id0 = (ids || self.config.ids0)[0];
+      var ids_buffer = [id0];
+      /* -> Ver.2.225.53 */
       var name_var = tagObj.val.name;
-      var tree_var = self.restore_var(name_var, scopes, ids);  // Ver.2.31.17
+      var tree_var = self.restore_var(name_var, scopes, ids_buffer);  // Ver.2.31.17  // Ver.2.225.53
       var calc_f = function(cr, ci){
-        self.store_var(name_var, DATA.tree_num(cr, ci), scopes, ids);  // Ver.2.31.17
+        self.store_var(name_var, DATA.tree_num(cr, ci), scopes, ids_buffer);  // Ver.2.31.17  // Ver.2.225.53
         return self.arr2num(self.tree_eqn2tree(data, tree_eqn).mat.arr);
       };
       var DI_order2 = function(){
@@ -1715,10 +1733,10 @@ My_entry.operation.prototype.IX = function(data, rightArr, tagObj){
       var DI = (options.orderI === 2)? DI_order2: DI_order4;
       _tree = DATA.num2tree(DI());
       if(tree_var){
-        self.store_var(name_var, tree_var, scopes, ids);  // Ver.2.31.17
+        self.store_var(name_var, tree_var, scopes, ids_buffer);  // Ver.2.31.17  // Ver.2.225.53
       }
       else{
-        self.del_scope_sw("vars", name_var, scopes, ids);  // Ver.2.31.17
+        self.del_scope_sw("vars", name_var, scopes, ids_buffer);  // Ver.2.31.17  // Ver.2.225.53
       }
     }
   }
@@ -1758,24 +1776,28 @@ My_entry.operation.prototype.PX = function(data, rightArr, tagObj){
           }
         };
       }
+      /* Ver.2.225.53 -> */
+      var id0 = (ids || self.config.ids0)[0];
+      var ids_buffer = [id0];
+      /* -> Ver.2.225.53 */
       var name_var = tagObj.val.name;
-      var tree_var = self.restore_var(name_var, scopes, ids);  // Ver.2.31.17
+      var tree_var = self.restore_var(name_var, scopes, ids_buffer);  // Ver.2.31.17  // Ver.2.225.53
       var tagName = "BRdm";  // Ver.1.5.3
       var centerTree = DATA.tree_tag(tagName, sign);
       var tagObj = centerTree[tagName];
       var leftTree = null;
       PX(function(i){
-        self.store_var(name_var, DATA.tree_num(i, 0), scopes, ids);  // Ver.2.31.17
+        self.store_var(name_var, DATA.tree_num(i, 0), scopes, ids_buffer);  // Ver.2.31.17  // Ver.2.225.53
         var rightTree = self.tree_eqn2tree(data, tree_eqn);
         leftTree = leftTree || DATA.tree_mat(math_mat.Imat_arr(rightTree.mat.arr));
         leftTree = self.arr_tree2tree(data, 1, tagName, tagObj, [leftTree, centerTree, rightTree]);
       });
       _tree = leftTree;
       if(tree_var){
-        self.store_var(name_var, tree_var, scopes, ids);  // Ver.2.31.17
+        self.store_var(name_var, tree_var, scopes, ids_buffer);  // Ver.2.31.17  // Ver.2.225.53
       }
       else{
-        self.del_scope_sw("vars", name_var, scopes, ids);  // Ver.2.31.17
+        self.del_scope_sw("vars", name_var, scopes, ids_buffer);  // Ver.2.31.17  // Ver.2.225.53
       }
     }
   }
@@ -1816,24 +1838,28 @@ My_entry.operation.prototype.SX = function(data, rightArr, tagObj){
           }
         };
       }
+      /* Ver.2.225.53 -> */
+      var id0 = (ids || self.config.ids0)[0];
+      var ids_buffer = [id0];
+      /* -> Ver.2.225.53 */
       var name_var = tagObj.val.name;
-      var tree_var = self.restore_var(name_var, scopes, ids);  // Ver.2.31.17
+      var tree_var = self.restore_var(name_var, scopes, ids_buffer);  // Ver.2.31.17  // Ver.2.225.53
       var tagName = "BRsa";
       var centerTree = DATA.tree_tag(tagName, sign);
       var tagObj = centerTree[tagName];
       var leftTree = null;
       SX(function(i){
-        self.store_var(name_var, DATA.tree_num(i, 0), scopes, ids);  // Ver.2.31.17
+        self.store_var(name_var, DATA.tree_num(i, 0), scopes, ids_buffer);  // Ver.2.31.17  // Ver.2.225.53
         var rightTree = self.tree_eqn2tree(data, tree_eqn);
         leftTree = leftTree || DATA.tree_mat(math_mat.zeros2d_arr(rightTree.mat.arr));
         leftTree = self.arr_tree2tree(data, 1, tagName, tagObj, [leftTree, centerTree, rightTree]);
       });
       _tree = leftTree;
       if(tree_var){
-        self.store_var(name_var, tree_var, scopes, ids);  // Ver.2.31.17
+        self.store_var(name_var, tree_var, scopes, ids_buffer);  // Ver.2.31.17  // Ver.2.225.53
       }
       else{
-        self.del_scope_sw("vars", name_var, scopes, ids);  // Ver.2.31.17
+        self.del_scope_sw("vars", name_var, scopes, ids_buffer);  // Ver.2.31.17  // Ver.2.225.53
       }
     }
   }
@@ -3111,16 +3137,16 @@ My_entry.operation.prototype.del_scope_sw = function(sw, name, scopes, opt_ids){
 };
 My_entry.operation.prototype.get_scope0_RE_sw = function(sw, name, scopes, opt_ids){
   var self = this;
-  var _scope = null;
-  var ids = opt_ids || [[0, 0]];  // || sentence without bracket including command
-  var id0 = ids[0];
-  ids = [[].concat(id0)];
-  return self.get_scope_RE_sw(sw, name, scopes, ids);
+  /* Ver.2.225.53 -> */
+  var id0 = (opt_ids || self.config.ids0)[0];
+  var ids_buffer = [id0];
+  /* -> Ver.2.225.53 */
+  return self.get_scope_RE_sw(sw, name, scopes, ids_buffer);  // Ver.2.225.53
 };
 My_entry.operation.prototype.get_scope_RE_sw = function(sw, name, scopes, opt_ids){
   var self = this;
   var _scope = null;
-  var ids = opt_ids || [[0, 0]];  // || sentence without bracket including command
+  var ids = opt_ids || self.config.ids0;  // Ver.2.225.53
   if(scopes){
     var len = ids.length;
     for(var i=0; i<len; ++i){
@@ -3139,7 +3165,7 @@ My_entry.operation.prototype.get_scope_RE_sw = function(sw, name, scopes, opt_id
 My_entry.operation.prototype.get_scope_SE_sw = function(sw, scopes, opt_ids){
   var self = this;
   var _scope = null;
-  var ids = opt_ids || [[0, 0]];  // || sentence without bracket including command
+  var ids = opt_ids || self.config.ids0;  // Ver.2.225.53
   if(scopes){
     var id0 = ids[0];
     var j = id0[0];
@@ -3242,7 +3268,7 @@ My_entry.operation.prototype.inherit_ids_sw = function(sw, tree, opt_ids_upper){
   var ids_self = isEqn.ids;  // cloned ids
   if(ids_self){
     var N_pop = ids_self.length;  // pop overlapped ids
-    var ids_upper = opt_ids_upper || [[0, 0]];  // Ver.2.204.46
+    var ids_upper = opt_ids_upper || self.config.ids0;  // Ver.2.204.46  // Ver.2.225.53
     self.entry.def.join_arr(isEqn, "ids", ids_upper, function(arr){for(var n=0; n<N_pop; ++n){arr.pop();}});  // inherit caller-self-upper-ids
   }
   return self;
@@ -3348,7 +3374,7 @@ My_entry.operation.prototype.REe = function(data, i0, tagName, tagObj){
     var len_args = args.length;
     if(len_args_eqn === len_args){
       /* Ver.2.33.18 -> [conv(=<a_)=<last(b=4,a_=>),[a=3,conv(=<(a))==>,b]] */
-      var ids_args_eqn = isREe.ids || [[0, 0]];
+      var ids_args_eqn = isREe.ids || self.config.ids0;  // Ver.2.225.53
       var id0 = ids_args_eqn[0];  // ids[0]
       /* -> Ver.2.33.18 */
       /* Ver.2.210.46 -> */
@@ -3381,7 +3407,7 @@ My_entry.operation.prototype.REe = function(data, i0, tagName, tagObj){
       var args_eqns = [];
       var args_vars = [];
       /* -> Ver.2.71.29 */
-      ids_buffer = [[].concat(id0)];
+      ids_buffer = [id0];  // Ver.2.225.53
       for(var i=0; i<len_args; ++i){
         var argi_eqn = args_eqn[i];
         var argi = args[i];
@@ -3593,7 +3619,7 @@ My_entry.operation.prototype.inherit_ids_AtSEe = function(trees, opt_ids, opt_ar
   var DATA = self.entry.DATA;
   var BT = self.config.BT;
   var _tree = DATA.tree_tag(BT.SEe, trees);
-  _tree[BT.SEe].ids = opt_ids || [[0, 0]];  // b=1,[a=<b,=<a=>]=> || a=<b+1; [b=1,a==>]  // || reference to local storage object
+  _tree[BT.SEe].ids = opt_ids || self.config.ids0;  // b=1,[a=<b,=<a=>]=> || a=<b+1; [b=1,a==>]  // Ver.2.225.53
   /* Ver.2.209.46 -> */
   if(opt_arg){
     _tree[BT.SEe].arg = opt_arg;  // Ver.2.32.17

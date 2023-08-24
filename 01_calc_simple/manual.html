@@ -366,6 +366,8 @@ e^(-i(1pi(){2/2i}(5-{3-1}){i/(-4)}))
 <br>
 ・<a href="#span-out-bracket">階層とscopeの関係</a>
 <br>
+・<a href="#span-out-scope-inherited">scope継承</a>
+<br>
 ・<a href="#span-out-terms">用語集</a>
 <br>
 ・graph出力仕様
@@ -561,6 +563,8 @@ e^(-i(1pi(){2/2i}(5-{3-1}){i/(-4)}))
 　　　・<a href="#span-out-eqns-no-name-short">直接式読出し</a>
 <br>
 　　　・<a href="#span-out-substitution-equation">式変数への式代入</a>
+<br>
+　　・<a href="#span-out-scope-inherited-pass">scope継承pass</a>
 <br>
 　　・<a href="#span-out-scope-inherited-call">scope継承call</a>
 <br>
@@ -1563,7 +1567,7 @@ title/発行元(発行年)を列挙する
 <br>
 　この場合の引数を通常の値渡しに対して式渡しと表記する
 <br>
-　高階関数の束縛変数をdummy変数と表記する
+　高階関数の束縛変数（bound変数）をdummy変数と表記する
 <br>
 ・option引数をopt_変数名で表記する
 <br>
@@ -1750,9 +1754,9 @@ title/発行元(発行年)を列挙する
 <br>
 ・<span class="run">Ver.2.205.46</span>以降、整数の丸め方を変更floor　⇒　round（<a href="#span-out-reference-mat-size">行列size</a>の丸め方に準拠）
 <br>
-　影響項目：<a href="#span-out-FN-fact">階乗関数</a>||<a href="#span-out-eqns-re-call">再帰call</a>||<a href="#span-out-FN-gcd">gcd/lcm関数</a>||<a href="#span-eqn-gcd">gcd/lcm</a>||
+　影響項目：<a href="#span-out-FN-fact">階乗関数</a>||<a href="#span-out-eqns-re-call">再帰call</a>||<a href="#span-out-FN-gcd">gcd/lcm関数</a>||<a href="#span-eqn-gcd">gcd/lcm</a>
 <br>
-　　　　　　<a href="#span-out-FNh">高階関数</a>||<a href="#span-out-FNmh">高階行列関数</a>の引数（回数||整数範囲||step||次数||分割数）
+　　　　　　||<a href="#span-out-FNh">高階関数</a>||<a href="#span-out-FNmh">高階行列関数</a>の引数（回数||整数範囲||step||次数||分割数）
 <br>
 　<a href="#span-eqn">strict-mode式変数list</a>への影響なし
 <br>
@@ -1766,9 +1770,11 @@ title/発行元(発行年)を列挙する
 <br>
 　元scopeを維持（Native準拠）：=&lt;
 <br>
-　call先にscope継承：==&lt;
+　call先に<a href="#span-out-scope-inherited">scope継承</a>：==&lt;
 <br>
 　影響項目：<a href="#span-eqn-solvex_non_linear">solvex_non_linear</a>||<a href="#span-eqn-FourierN">FourierN</a>
+<br>
+　　　　　　||<a href="#span-out-scope-inherited-pass">scope継承pass</a>||<a href="#span-out-scope-inherited-call">scope継承call</a>||<a href="#span-out-scope-inherited-call-memo">scope継承callの補足</a>
 <br>
 ・<span class="run">Ver.2.222.50</span>以降、<a href="#span-out-command">命令文</a>を拡張（<a href="#span-out-log">log表示</a>内容の変更なし）
 <br>
@@ -11490,7 +11496,7 @@ useScope=falseの場合、完全な後方互換で<a href="#span-out-scope-vars"
 <br>
 useScope=trueの場合、すべての<a href="#span-out-BT">括弧</a>に<a href="#span-out-scope-vars">変数のscope</a>を使用する
 <br>
-・多重積分等、支障あり
+・多重積分等、支障あり（<a href="#span-out-ref-transparency">参照透過性</a>参照）
 <br>
 useScope=BT2の場合、<a href="#span-out-BT">波括弧{}</a>のみ<a href="#span-out-scope-vars">変数のscope</a>を使用する
 <br>
@@ -12083,7 +12089,7 @@ round_f(=&lt;f,,2) -> (1:0.7+0.71i:i:-0.7+0.71i:-1:-0.7-0.71i:-i:0.7-0.71i)
 <br>
 ・変数毎に<a href="#span-out-storage">storage</a>を共有する
 <br>
-・<a href="#span-out-FNh">高階関数</a>と<a href="#span-out-FNmh">高階行列関数</a>で扱うdummy変数のみ、scopeが独立する
+・<a href="#span-out-FNh">高階関数</a>||<a href="#span-out-FNmh">高階行列関数</a>のdummy変数のみ、scopeが独立する
 <br>
 <br>
 次の<a href="#span-out-command">命令文</a>の組合せで完全独立のlocal scopeを代替可
@@ -12142,6 +12148,8 @@ x=2; store; clear; x=3<span class="selection">/*independent local scope*/</span>
 ・<a href="#span-out-storage">local変数</a>を追加/削除する<a href="#span-out-FNc">add/del最上位関数</a>
 <br>
 ・<span class="run">Ver.2.222.50</span>以降、<a href="#span-out-command">命令文</a>を拡張
+<br>
+・<span class="clear">Ver.2.225.53</span>以降、<a href="#span-out-FNh">高階関数</a>||<a href="#span-out-FNmh">高階行列関数</a>のdummy変数が<a href="#span-out-terms">scope変数</a>に残存する不具合を修正
     </td>
   </tr>
   <tr>
@@ -12281,6 +12289,30 @@ B-3階層直列 || B-2階層並列3 || B-1階層 || 0階層
 B-4階層直列 || B-3階層直列 || B-2階層並列3 || B-1階層 || 0階層
 <br>
 ・よって直列scope内の<a href="#span-out-bracket">階層</a><span class="clear">（深さの降順）で0階層（<a href="#span-out-storage">local storage</a>）</span>が最下位のprecedence
+    </td>
+  </tr>
+  <tr>
+    <th>
+<a href="#span-index">
+目次
+</a>
+<br>
+scope継承
+    </th>
+    <td>
+<span id="span-out-scope-inherited"></span>
+scope継承について記述する
+<br>
+・<span class="run">Ver.2.31.17</span>以降、<a href="#span-out-scope-inherited-call">式変数のscope継承call</a>を追加
+<br>
+・<span class="run">Ver.2.219.50</span>以降、<a href="#span-out-scope-inherited-pass">式変数のscope継承pass</a>を追加
+<br>
+<br>
+留意事項を列挙する
+<br>
+・scope継承はcall時に実施（<a href="#span-out-substitution-equation">式代入</a>は無効）
+<br>
+・現状、<a href="#span-out-FNh">高階関数</a>||<a href="#span-out-FNmh">高階行列関数</a>は未対応
     </td>
   </tr>
   <tr>
@@ -21494,6 +21526,26 @@ clear; d=&lt;{a=&lt;{(b=&lt;1),{c=&lt;2}}}; d,a,b,c -> (0,0,1,2:0,0)
 <br>
 <br>
 応用例は<a href="#span-out-plot2d-command">plot2d-command</a>参照
+    </td>
+  </tr>
+  <tr>
+    <th>
+<a href="#span-index">
+目次
+</a>
+<br>
+scope
+<br>
+継承pass
+<br>
+入力仕様
+    </th>
+    <td>
+<span id="span-out-scope-inherited-pass"></span>
+式変数のscope継承passの入力仕様と付随する留意事項について記述する
+<br>
+<br>
+<span class="run">Ver.2.219.50</span>以降、式渡し記号==&lt;を追加
     </td>
   </tr>
   <tr>
@@ -34736,7 +34788,7 @@ f=&lt;last{V=1,E=0,k=1,I=exp(k*(V-E))-exp(-k*(V-E))}
 <br>
 ・<a href="#span-out-eqns-args">式変数のarguments</a>も同様に、最善の仕様を追及していない</del><span class="run">Ver.2.222.50</span>以降、削除
 <br>
-・多用しない前提で<a href="#span-out-scope-inherited-call">scope継承</a>を許容する
+・多用しない前提で<a href="#span-out-scope-inherited">scope継承</a>を許容する
 <br>
 ・<a href="#span-out-FN">関数</a>を含む実装関数は最善のalgorithmとは限らない（<a href="#span-out-FN-statistic">sort関数</a>||<a href="#span-out-interpolation-spline">spline補間</a>||<a href="#span-out-linear">Gaussの消去法</a>）
 <br>
@@ -35193,7 +35245,7 @@ CAS
 <span id="span-out-special-eqns"></span>
 <a href="#span-out-eqns">式変数</a>について記述する
 <br>
-・<a href="#span-out-eqns">式変数</a>、<a href="#span-out-eqns-call">式読出し</a>、<a href="#span-out-call-by-equation">式渡し</a>、<a href="#span-out-substitution-equation">式代入</a>、<a href="#span-out-scope-inherited-call">scope継承call</a>の仕様は呼び名含めて一般的でない
+・<a href="#span-out-eqns">式変数</a>、<a href="#span-out-eqns-call">式読出し</a>、<a href="#span-out-call-by-equation">式渡し</a>、<a href="#span-out-substitution-equation">式代入</a>、<a href="#span-out-scope-inherited">scope継承</a>の仕様は呼び名含めて一般的でない
 <br>
 ・連立方程式をscript入力から解くため、独自に定義している
     </td>
