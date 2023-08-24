@@ -306,7 +306,7 @@ e^(-i(1pi(){2/2i}(5-{3-1}){i/(-4)}))
 <br>
 　　　・<a href="#span-out-prec-ope-arithmetic-dot">dot演算子</a>
 <br>
-　　　・<a href="#span-out-prec-ope-arithmetic-prop">prop演算子</a>
+　　　・<a href="#span-out-prec-ope-arithmetic-ite">iterator演算子</a>
 <br>
 　　　・<a href="#span-out-prec-ope-arithmetic-mod">剰余・整数商演算子</a>
 <br>
@@ -9218,7 +9218,7 @@ precedence
 <br>
 　　・<a href="#span-out-prec-ope-arithmetic-dot">dot演算子</a> . || '　<span class="run">Ver.2.192.44</span>以降、追加
 <br>
-　　　||<a href="#span-out-prec-ope-arithmetic-prop">prop演算子</a>　<span class="run">Ver.2.214.49</span>以降、追加
+　　　||<a href="#span-out-prec-ope-arithmetic-ite">iterator演算子</a>　<span class="run">Ver.2.214.49</span>以降、追加
 <br>
 　　<del>・</del>||<a href="#span-out-com">虚数単位</a>演算子 i
 <br>
@@ -9411,7 +9411,7 @@ dot演算子と付随する留意事項について記述する
 <br>
 ・<a href="#span-out-type-ope">後置単項演算子</a>の<a href="#span-out-prec-ope">演算子のprecedence</a>を統合（左から順次処理）
 <br>
-・<span class="run">Ver.2.214.49</span>以降、dot演算子を拡張して<a href="#span-out-prec-ope-arithmetic-prop">prop演算子</a>を追加
+・<span class="run">Ver.2.214.49</span>以降、dot演算子を拡張して<a href="#span-out-prec-ope-arithmetic-ite">iterator演算子</a>を追加
 <br>
 <br>
 <a href="#span-out-FNm-trans">trans行列関数</a>代替演算子.
@@ -9472,14 +9472,16 @@ A=(1,2i:3,4i:-5i); A!i' -> (-i,-6i,-i:-i,-i,0)
 目次
 </a>
 <br>
-prop演算子
+iterator
+<br>
+演算子
     </th>
     <td>
-<span id="span-out-prec-ope-arithmetic-prop"></span>
-prop演算子と付随する留意事項について記述する
+<span id="span-out-prec-ope-arithmetic-ite"></span>
+iterator演算子と付随する留意事項について記述する
 <br>
 <br>
-<span class="run">Ver.2.214.49</span>以降、objectのpropertyを代替するprop演算子を追加
+<span class="run">Ver.2.214.49</span>以降、Nativeの<a href="#span-out-FNh">高階関数</a>を代替するiterator演算子を追加
 <br>
 ・<a href="#span-out-eqns-args">式変数のarguments</a>付の展開式を<a href="#span-out-call-by-equation">式渡し</a>||<a href="#span-out-call-by-symbol">symbol渡し</a>
 <br>
@@ -9523,6 +9525,12 @@ clear; A=(0,2:3,4); mat2coo(A)-A.filter((x)=&lt;x&lt;&gt;0) -> (0,0,0:1,1,1:1,1,
 ・<a href="#span-out-type-ope">後置単項演算子</a>同等の<a href="#span-out-prec-ope">演算子のprecedence</a>
 <br>
 ・objectのpropertyは未実装
+<br>
+・引数不正の場合、error終了
+<br>
+clear; (1,2:3,4).map() -> [MyErr]Invalid .map(null)
+<br>
+clear; (1,2:3,4).map(()=&lt;x*2) -> [MyErr]Invalid binary operation
     </td>
   </tr>
   <tr>
@@ -14220,7 +14228,7 @@ val=true; val==1,val==true,val===1,val===true -> (1,1,0+O(1e+0),1)
 <br>
 ・<a href="#span-out-FN-interp">補間関数</a>の欠損値=NaN+(NaN)i
 <br>
-・<a href="#span-out-FNm-coo">座標形式行列関数</a>の欠損値=.filterの欠損値=NaN+(NaN)i
+・<a href="#span-out-FNm-coo">座標形式行列関数</a>の欠損値=<a href="#span-out-prec-ope-arithmetic-ite">.filter演算子</a>の欠損値=NaN+(NaN)i
     </td>
   </tr>
   <tr>
