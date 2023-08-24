@@ -338,6 +338,13 @@ My_entry.operation.prototype.restore = function(data, isClear){
     for(var j=1, len=scopes2d.length; j<len; ++j){
       scopes2d[j][0] = scope0;  // common local storage including re-use of data.eqns
     }
+    /* Ver.2.226.54 -> */
+    if(isClear){
+      var scope = DATA.scope();
+      scope0.vars = scope.vars;
+      scope0.eqns = scope.eqns;
+    }
+    /* -> Ver.2.226.54 */
     data.vars = scope0.vars;
     data.eqns = scope0.eqns;
     msg = "local storage ";
