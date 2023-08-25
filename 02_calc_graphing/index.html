@@ -91,7 +91,7 @@
       script += "\nclear;\n";
       script += "x=(-1,0,0.25,0.5,0.75,1,2);\ntable=(0,1:1+i,2+3i);\ninterp0(x:table):interp1(x:table):interp2(x:table):interp3(x:table);";
       script += "\nclear;\n";
-      script += "x=(linspace(1+2i,10+10i,9):linspace(10+10i,1+2i,9));\nx<<1:x<<2:x<<3:x>>1:x>>2:x>>>3;\ntx=trans(x):floor(tx),round(tx),ceil(tx)::min(tx),max(tx)::camin(tx),camax(tx);\nargs=(trans(linspace(2,2,4)),trans(linspace(1,4,4))):pow(args);";
+      script += "x=(linspace(1+2i,10+10i,9):linspace(10+10i,1+2i,9):linspace(1+2i,10+10i,9:10+10i,1+2i,9));\nx<<1:x<<2:x<<3:x>>1:x>>2:x>>>3;\ntx=trans(x):floor(tx),round(tx),ceil(tx)::min(tx),max(tx)::camin(tx),camax(tx);\nargs=(trans(linspace(2,2,4)),trans(linspace(1,4,4))):pow(args):N=8:pow(trans(linspace(2,2,N:1,N,N)));";
       script += "\nclear;\n";
       script += "(eps,MIN_VALUE:1/0,2**3,2^3,(-1)**0.5,(-1)^0.5:sqrt(-1),sqrt(2),sqrt(4),sqrt(i):pow(-1,0.5),pow(2,2),pow(2,4),pow(i,4),pow(2,i):log(-1),log(2),log(4),log(i):sqrt(-1+eps*i),sqrt(-1+MIN_VALUE*i):pow(-1+(eps)i,0.5),pow(-1+(MIN_VALUE)i,0.5):log(-1+i*eps),log(-1-i*eps):pow(2+MIN_VALUE*i,3):complex(2,false)**3:imag(NaN*(1+2i)),2.2%2,NaN&NaN);";
       script += "\nclear;\n";
@@ -155,7 +155,7 @@
       script += "\nclear;\n";
       script += "x=0,[x=1,[,[,4.map((x)=<x),x],x],x],x:x=0,[x=1,[x=2,[x=3,4.map((x)=<x),x],x],x],x;";
       script += "\nclear;\n";
-      script += "check_integer(N)=<linspace(1,N/4,N/4:1,N/2,N/2:1,N,N)*(1+2i),A=check_integer(1000);\nB=check_integer(2**6);\nround(B[0].).:B[0].map((x)=<round(x));";
+      script += "check_integer(N)=<linspace(1,(N,N)/4:1,(N,N)/2:1,N,N)*(1+2i)/*extended operations*/,A=check_integer(1000);\nB=check_integer(2**6);\nround(B[0].).:B[0].map((x)=<round(x));";
       script += "\nclear;\n";
       $._id("input").value = script;
       // test case

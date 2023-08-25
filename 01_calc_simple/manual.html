@@ -17170,33 +17170,13 @@ linspace(1,NaN,2) -> (NaN,NaN)
 <br>
 args=(trans(linspace(2,2,4)),trans(linspace(1,4,4))); pow(args) ->
 <br>
-(
-<br>
-2:
-<br>
-4:
-<br>
-7.999999999999998:
-<br>
-15.999999999999998
-<br>
-)
+(2:4:7.999999999999998:15.999999999999998)
 <br>
 ・<span class="run">Ver.2.184.44</span>以降、auto-real selected時
 <br>
-args=(trans(linspace(2,2,4)),trans(linspace(1,4,4))); pow(args) ->
+args=(trans(linspace(2,2,4)),trans(linspace(1,4,4))); pow(args) -> (2:4:8:16)
 <br>
-(
-<br>
-2:
-<br>
-4:
-<br>
-8:
-<br>
-16
-<br>
-)
+N=8; pow(trans(linspace(2,2,N:1,N,N))) -> (2:4:8:16:32:64:128:256)
 <br>
 <br>
 留意事項を列挙する
