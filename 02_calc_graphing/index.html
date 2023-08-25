@@ -153,6 +153,8 @@
       script += "\nclear;\n";
       script += "B=-1,[B=10,=<[B=20,g=<B,=<[B=30,==<g]=>]=>]=>:B=-1,[B=10,=<[B=20,g=<B,=<[B=30,==<g==>]=>]=>]=>;";
       script += "\nclear;\n";
+      script += "x=0,[x=1,[,[,4.map((x)=<x),x],x],x],x:x=0,[x=1,[x=2,[x=3,4.map((x)=<x),x],x],x],x;";
+      script += "\nclear;\n";
       $._id("input").value = script;
       // test case
       var setVal = function(){

@@ -9489,6 +9489,8 @@ iterator演算子と付随する留意事項について記述する
 <br>
 1.filter((x)=&lt;false) -> <del>(false:false:false)</del>(NaN:NaN:NaN)
 <br>
+・<span class="clear">Ver.2.226.56</span>以降、dummy変数が<a href="#span-out-terms">scope変数</a>に残存する不具合を修正
+<br>
 <br>
 .map演算子
 <br>
@@ -9513,6 +9515,8 @@ clear; A=(1,2:3,4); A.filter((x)=&lt;x&gt;2) -> (3,4:1,1:0,1)
 <br>
 clear; A=(1,2:3,4); A.filter((x,i_,j_,self)=&lt;self[i_][j_]&gt;2) -> (3,4:1,1:0,1)
 <br>
+・dummy変数のself=A_cloned（参照非共有）
+<br>
 clear; A=(1,2:3,4); A.filter((x,i_,j_,self)=&lt;A[i_][j_]&gt;2) -> (3,4:1,1:0,1)
 <br>
 clear; A=(1,2:3,4); mat2coo(A)-A.filter((x)=&lt;x) -> (0,0,0,0:1,1,1,1:1,1,1,1)
@@ -9530,7 +9534,11 @@ clear; A=(0,2:3,4); mat2coo(A)-A.filter((x)=&lt;x&lt;&gt;0) -> (0,0,0:1,1,1:1,1,
 <br>
 clear; (1,2:3,4).map() -> [MyErr]Invalid .map(null)
 <br>
+・引数省略不可
+<br>
 clear; (1,2:3,4).map(()=&lt;x*2) -> [MyErr]Invalid binary operation
+<br>
+clear; x=1; (1,2:3,4).map(()=&lt;x*2) -> [MyErr]Invalid binary operation
     </td>
   </tr>
   <tr>

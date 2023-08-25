@@ -1,6 +1,15 @@
 clear
 local storage cleared
 
+x=0,[x=1,[,[,4.map((x)=<x),x],x],x],x:x=0,[x=1,[x=2,[x=3,4.map((x)=<x),x],x],x],x
+(
+0,0,0,0,4,1,1,1,0:
+0,0,0,0,4,3,2,1,0
+)
+
+clear
+local storage cleared
+
 B=-1,[B=10,=<[B=20,g=<B,=<[B=30,==<g]=>]=>]=>:B=-1,[B=10,=<[B=20,g=<B,=<[B=30,==<g==>]=>]=>]=>
 (
 0,20:
@@ -2469,4 +2478,4 @@ drag=false&sw=false&0x=false&useMatrix=true&useStrict=false&checkError=true&isRi
 --------------------------------
 --------------------------------
 
-online-simulator.github.io.6.285.126.14.67 @ Fri Aug 25 2023 00:06:10 GMT+0900 (日本標準時) @ Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/116.0.0.0 Safari/537.36
+online-simulator.github.io.6.285.126.14.68 @ Fri Aug 25 2023 11:33:04 GMT+0900 (日本標準時) @ Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/116.0.0.0 Safari/537.36

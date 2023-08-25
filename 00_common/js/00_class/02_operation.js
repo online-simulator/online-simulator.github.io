@@ -2164,6 +2164,10 @@ My_entry.operation.prototype.URh = function(data, i0, tagName, tagObj, dot_prop)
   var isREe = (tree_eqn)? tree_eqn[BT.REe]: null;
   var args_eqn = (isREe)? isREe.arg: null;
   if(leftArr && args_eqn){
+    /* Ver.2.226.55 -> */
+    var id0 = (ids || self.config.ids0)[0];
+    var ids_buffer = [id0];
+    /* -> Ver.2.226.55 */
     var sw_names = ["x", "i", "j", "s"];
     var names = {
       x: args_eqn[0],
@@ -2175,7 +2179,7 @@ My_entry.operation.prototype.URh = function(data, i0, tagName, tagObj, dot_prop)
     sw_names.forEach(function(sw){
       var name = names[sw];
       if(name){  // Ver.2.215.50
-        buffer_vars[name] = self.restore_var(name, scopes, ids);
+        buffer_vars[name] = self.restore_var(name, scopes, ids_buffer);  // Ver.2.226.55
       }
     });
     var arr = leftArr;
@@ -2205,17 +2209,17 @@ My_entry.operation.prototype.URh = function(data, i0, tagName, tagObj, dot_prop)
       };
     }
     if(names.s){  // Ver.2.215.50
-      self.store_var(names.s, leftTree, scopes, ids);  // clone
+      self.store_var(names.s, leftTree, scopes, ids_buffer);  // clone  // Ver.2.226.55
     }
     for(var i=0; i<len_i; ++i){
       if(names.i){  // Ver.2.215.50
-        self.store_var(names.i, DATA.tree_num(i, 0), scopes, ids);
+        self.store_var(names.i, DATA.tree_num(i, 0), scopes, ids_buffer);  // Ver.2.226.55
       }
       for(var j=0; j<len_j; ++j){
         if(names.j){  // Ver.2.215.50
-          self.store_var(names.j, DATA.tree_num(j, 0), scopes, ids);
+          self.store_var(names.j, DATA.tree_num(j, 0), scopes, ids_buffer);  // Ver.2.226.55
         }
-        self.store_var(names.x, DATA.num2tree(arr[i][j]), scopes, ids);
+        self.store_var(names.x, DATA.num2tree(arr[i][j]), scopes, ids_buffer);  // Ver.2.226.55
         callback(_arr, arr, self.tree_eqn2tree(data, tree_eqn).mat.arr, i, j);
       }
     }
@@ -2228,10 +2232,10 @@ My_entry.operation.prototype.URh = function(data, i0, tagName, tagObj, dot_prop)
       if(name){  // Ver.2.215.50
         var tree = buffer_vars[name];
         if(tree){
-          self.store_var(name, tree, scopes, ids);
+          self.store_var(name, tree, scopes, ids_buffer);  // Ver.2.226.55
         }
         else{
-          self.del_scope_sw("vars", name, scopes, ids);
+          self.del_scope_sw("vars", name, scopes, ids_buffer);  // Ver.2.226.55
         }
       }
     });
