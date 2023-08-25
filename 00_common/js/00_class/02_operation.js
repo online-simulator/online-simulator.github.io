@@ -19,8 +19,7 @@ My_entry.operation.prototype.config = {
       ],
       [
         /* following store */
-        "SEe",   // StorE obvious equation including bracket =<
-        "BTe"    // StorE obvious equation with scope =< || (args)=<
+        "BTe"    // StorE obvious equation =< || (args)=<
       ],
       [
         /* following short-circuit */
@@ -314,7 +313,7 @@ My_entry.operation.prototype.prepare = function(data){
   if(hasTag){
     hasTag["SRr"] = true;
     hasTag["SRt"] = true;
-    if(options.useScopeWith) hasTag["BTe"] = true;  // Ver.2.213.47
+    hasTag["BTe"] = true;  // Ver.2.213.47  // Ver.2.228.56
     hasTag["BT1"] = true;  // Ver.2.212.47
     hasTag["BRmo"] = true;
     hasTag["SEv"] = true;
@@ -3650,8 +3649,7 @@ My_entry.operation.prototype.inherit_ids_AtSEe = function(trees, opt_ids, opt_ar
   /* -> Ver.2.209.46 */
   return _tree;
 };
-My_entry.operation.prototype.BTe =  // Ver.2.213.47  // Ver.2.213.48
-My_entry.operation.prototype.SEe = function(data, i0, tagName, tagObj){
+My_entry.operation.prototype.BTe = function(data, i0, tagName, tagObj){  // Ver.2.213.47  // Ver.2.213.48  // Ver.2.228.56
   var self = this;
   var trees = data.trees;
   var scopes = data.scopes;
@@ -3659,7 +3657,6 @@ My_entry.operation.prototype.SEe = function(data, i0, tagName, tagObj){
   var DATA = self.entry.DATA;
   var BT = self.config.BT;  // Ver.2.213.48
   var len = trees.length;
-  var isSEe = (tagName === "SEe");  // Ver.2.213.48
   /* Ver.2.209.46 -> */
   /* Ver.2.27.15 -> */
   var leftTree = trees[i0-1];
@@ -3675,14 +3672,7 @@ My_entry.operation.prototype.SEe = function(data, i0, tagName, tagObj){
   /* Ver.2.195.45 -> */
   var names = (hasArgs)? self.get_names(data, leftTree, true): null;  // NG: (x=1)=<x
   /* Ver.2.213.48 -> */
-  if(isSEe){
-    if(!(rightTree)) throw "Invalid =<null";
-    var rightTrees = trees.slice(i0+1, len);
-    tree = self.inherit_ids_AtSEe(rightTrees, ids, names);  // Ver.2.31.17
-    var isSEee = (tagObj.val === "==<");  // Ver.2.219.50
-    tree[BT.SEe].isSEee = isSEee;  // Ver.2.219.50
-  }
-  else if(names){
+  if(names){
     tree[BT.SEe].arg = names;
   }
   /* -> Ver.2.213.48 */

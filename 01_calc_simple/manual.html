@@ -9016,6 +9016,16 @@ With
 <br>
 ・<span class="clear">Ver.2.213.48</span>以降、<a href="#span-out-eqns">式変数</a>の再利用に未配慮の変更取消し
 <br>
+・<span class="clear">Ver.2.228.56</span>以降、追加選択時に<a href="#span-out-scope-inherited">scope継承</a>が常に有効の致命的な不具合を修正
+<br>
+=&lt;選択：B=-1,g=&lt;B,[B=10,[B=20,[B=30,=&lt;g]=&gt;f,=&lt;f]=&gt;f,<span class="clear">=&lt;</span>f]=&gt;f,f=&gt;,f==&gt; -> (0,0,0,<del class="clear">10</del>-1,-1)
+<br>
+=&lt;選択：B=-1,g=&lt;B,[B=10,[B=20,[B=30,=&lt;g]=&gt;f,=&lt;f]=&gt;f,<span class="clear">==&lt;</span>f]=&gt;f,f=&gt;,f==&gt; -> (0,0,0,<span class="clear">10</span>,-1)
+<br>
+=&lt;選択：B=-1,g=&lt;B,[B=10,[B=20,[B=30,<span class="clear">==&lt;</span>g]=&gt;f,=&lt;f]=&gt;f,<span class="clear">==&lt;</span>f]=&gt;f,f=&gt;,f==&gt; -> (0,0,0,<span class="clear">10</span>,-1)
+<br>
+=&lt;選択：B=-1,g=&lt;B,[B=10,[B=20,[B=30,<span class="clear">==&lt;</span>g]=&gt;f,=&lt;f]=&gt;f,=&lt;f]=&gt;f,f=&gt;,f==&gt; -> (0,0,0,<span class="clear">30</span>,-1)
+<br>
 <br>
 false既定：追加なし
 <br>
@@ -11597,14 +11607,16 @@ useScope=notBT1の場合、<a href="#span-out-BT">丸括弧()</a>を除いて<a 
 <br>
 useScope=notBT0の場合、<a href="#span-out-BT-square">角括弧[]</a>を除いて<a href="#span-out-scope-vars">変数のscope</a>を使用する
 <br>
-useScope=defaultの場合（上記以外の場合）、<a href="#span-out-BT-square">角括弧[]</a>のみ<a href="#span-out-scope-vars">変数のscope</a>を使用する
+useScope=default（上記以外）の場合、<a href="#span-out-BT-square">角括弧[]</a>のみ<a href="#span-out-scope-vars">変数のscope</a>を使用する
 <br>
 <br>
 <span class="run">Ver.2.213.47</span>以降、<a href="#span-out-option6">useScopeWith</a>を追加
 <br>
+useScopeWith=false||0の場合、追加なし
+<br>
 useScopeWith=SEeの場合、<a href="#span-out-substitution-equation">式代入</a>記号=&lt;に<a href="#span-out-scope-vars">変数のscope</a>を追加（Native準拠）
 <br>
-useScopeWith=BTeの場合、<a href="#span-out-eqns-args">式変数のarguments</a>付の<a href="#span-out-substitution-equation">式代入</a>記号=&lt;に<a href="#span-out-scope-vars">変数のscope</a>を追加
+useScopeWith=BTe（上記以外）の場合、<a href="#span-out-eqns-args">式変数のarguments</a>付の<a href="#span-out-substitution-equation">式代入</a>記号=&lt;に<a href="#span-out-scope-vars">変数のscope</a>を追加
 <br>
 <br>
 <span class="run">Ver.2.221.50</span>以降、<a href="#span-out-option7">useFunc</a>を追加
@@ -11615,7 +11627,7 @@ useFunc=2の場合、すべて大文字
 <br>
 useFunc=3の場合、最初のみ大文字
 <br>
-useFunc=0の場合（上記以外の場合）、大文字・小文字を区別しない
+useFunc=0（上記以外）の場合、大文字・小文字を区別しない
 <br>
 <br>
 <a href="#span-out-prec-ope">演算子のprecedence</a>を変更する場合
@@ -11792,6 +11804,8 @@ parse関数とoperation関数の役割分担を示す
 parse関数の役割はcompiler
 <br>
 ・<a href="#span-out-BT">括弧</a>のnestingによる構文を解析し、深さ方向に<a href="#span-in-tree">tree構造</a>を階層化する
+<br>
+・<span class="clear">Ver.2.228.56</span>以降、<a href="#span-out-call-by-equation">式渡し</a>も同様に、<a href="#span-out-BT">括弧</a>に変換して階層化
 <br>
 ・入力dataの字句を解析してtagを付ける
 <br>
@@ -12320,6 +12334,8 @@ local buffer
 <br>
 <br>
 <a href="#span-out-flow">parse</a>段階で<a href="#span-out-BT">括弧</a>のnestingによる構文を解析し、深さ方向に<a href="#span-in-tree">tree構造</a>を階層化する
+<br>
+・<span class="clear">Ver.2.228.56</span>以降、<a href="#span-out-call-by-equation">式渡し</a>も同様に、<a href="#span-out-BT">括弧</a>に変換して階層化
 <br>
 ・深さ0の0階層に<a href="#span-out-storage">local storage</a>を統合・共通化する（<a href="#span-out-command">命令文</a>を含む）
 <br>
@@ -34901,6 +34917,8 @@ f=&lt;last{V=1,E=0,k=1,I=exp(k*(V-E))-exp(-k*(V-E))}
 <br>
 ・<a href="#span-out-flow">parser</a>は複数種類の<a href="#span-out-BT">括弧</a>のnestingに対応し、再帰的に<a href="#span-in-tree">tree構造</a>を階層化する
 <br>
+・<span class="clear">Ver.2.228.56</span>以降、<a href="#span-out-call-by-equation">式渡し</a>も同様に、<a href="#span-out-BT">括弧</a>に変換して階層化
+<br>
 <del>・よって<a href="#span-out-bracket">階層</a>に紐付く<a href="#span-out-scope-vars">変数のscope</a>はstaticで再利用可能としたが、最善を追及していない
 <br>
 ・<a href="#span-out-eqns-args">式変数のarguments</a>も同様に、最善の仕様を追及していない</del><span class="run">Ver.2.222.50</span>以降、削除
@@ -35765,6 +35783,8 @@ arguments
 ・式渡しの記号を明示した方が間違いが少ないと判断し、括弧優先で実装し直した
 <br>
 ・さらに、Native無名関数の代替手段として流用した
+<br>
+・<span class="clear">Ver.2.228.56</span>以降、<a href="#span-out-flow">parse</a>段階で<a href="#span-out-option6">useScopeWith</a>の<a href="#span-in-tree">flag</a>を含む<a href="#span-out-BT">括弧</a>に変換（SEe⇒BTe）
     </td>
   </tr>
   <tr>
@@ -35975,6 +35995,8 @@ precedence
 <br>
 ・<span class="run">Ver.2.225.52</span>以降、<a href="#span-out-prec-ope-relational">厳密不等価演算子</a>を追加
 <br>
+・<span class="clear">Ver.2.228.56</span>以降、SEeを削除
+<br>
 <br>
 配列要素の定義順で<a href="#span-out-prec">演算のprecedence</a>を動的に変更可能とする
 <br>
@@ -35992,8 +36014,7 @@ operation.js抜粋
       ],
       [
         /* following store */
-        "SEe",   // StorE obvious equation including bracket =&lt;
-        "BTe"    // StorE obvious equation with scope =&lt; || (args)=&lt;
+        "BTe"    // StorE obvious equation =&lt; || (args)=&lt;
       ],
       [
         /* following short-circuit */

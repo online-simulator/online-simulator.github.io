@@ -360,19 +360,22 @@ My_entry.parser.prototype.compare2bas = function(token){
   }
   return _tree;
 };
+/* Ver.2.228.56 */
 /* Ver.2.221.50 */
 My_entry.parser.prototype.FN2REv = function(tree, token, token_lower, token_upper){
   var self = this;
   var _tree = tree;
-  var DATA = self.entry.DATA;
-  var operation = self.entry.operation;
-  var isFN = operation.isType(tree, "FN");
-  if(isFN && token[0] !== "_"){
-    var hasRule1 = (self.useFunc === 1 && !(token === token_lower));
-    var hasRule2 = (self.useFunc === 2 && !(token === token_upper));
-    var hasRule3 = (self.useFunc === 3 && !(token[0] === token_upper[0] && token.substring(1) === token_lower.substring(1)));
-    if(hasRule1 || hasRule2 || hasRule3){
-      _tree = DATA.tree_tag("REv", token);
+  if(self.useFunc){
+    var DATA = self.entry.DATA;
+    var operation = self.entry.operation;
+    var isFN = operation.isType(tree, "FN");
+    if(isFN && token[0] !== "_"){
+      var hasRule1 = (self.useFunc === 1 && !(token === token_lower));
+      var hasRule2 = (self.useFunc === 2 && !(token === token_upper));
+      var hasRule3 = (self.useFunc === 3 && !(token[0] === token_upper[0] && token.substring(1) === token_lower.substring(1)));
+      if(hasRule1 || hasRule2 || hasRule3){
+        _tree = DATA.tree_tag("REv", token);
+      }
     }
   }
   return _tree;
@@ -384,41 +387,45 @@ My_entry.parser.prototype.SEe2BTe = function(trees){
   var DATA = self.entry.DATA;
   var operation = self.entry.operation;
   var BT = operation.config.BT;  // Ver.2.219.50
-  if(self.useScopeWith){
-    var len = trees.length;
-    var ip_s = -1;
-    var ip_e = len;
-    var hasArgs = false;
-    for(var i=0; i<len; ++i){
-      var tree = trees[i];
-      var tagName = (Object.keys(tree))[0];
-      if(tagName === "SEe"){
-        hasArgs = (self.useScopeWith === "SEe")? true: operation.isType(trees[i-1], "BT");
-        if(hasArgs){
-          ip_s = i;
-          if(ip_s+1 === ip_e) throw "Invalid =<null";
-          for(var ip=ip_s; ip<ip_e; ++ip){
-            var tree = trees[ip];
-            var tagName = (Object.keys(tree))[0];
-            if(tagName === "SRr" || tagName === "SRt"){
-              ip_e = ip;
-              break;
-            }
-          }
+  var len = trees.length;
+  var ip_s = -1;
+  var ip_e = len;
+  var isSEe = false;  // Ver.2.228.56
+  var hasArgs = false;
+  for(var i=0; i<len; ++i){
+    var tree = trees[i];
+    var tagName = (Object.keys(tree))[0];
+    if(tagName === "SEe"){
+      isSEe = true;  // Ver.2.228.56
+      hasArgs = operation.isType(trees[i-1], "BT");  // Ver.2.228.56
+      ip_s = i;
+      if(ip_s+1 === ip_e) throw "Invalid =<null";
+      for(var ip=ip_s; ip<len; ++ip){  // Ver.2.228.56
+        var tree = trees[ip];
+        var tagName = (Object.keys(tree))[0];
+        if(tagName === "SRr" || tagName === "SRt"){
+          ip_e = ip;
           break;
         }
       }
+      break;
     }
-    if(hasArgs){
-      /* Ver.2.219.50 -> */
-      trees[ip_s] = DATA.tree_tag(BT.SEe, self.SEe2BTe(trees.slice(ip_s+1, ip_e)));
-      trees[ip_s][BT.SEe].isSEee = true;
-      /* -> Ver.2.219.50 */
-      for(var i=ip_s+1; i<ip_e; ++i){
-        trees[i] = null;
-      }
-      _trees = self.SEe2BTe(trees.filter(Boolean));
+  }
+  if(isSEe){
+    /* Ver.2.228.56 -> */
+    /* Ver.2.219.50 -> */
+    var isSEee = (operation.get_tagVal(trees[ip_s], "SEe", "val") === "==<");  // first
+    var useScopeWith = (self.useScopeWith === "SEe" || (self.useScopeWith && hasArgs))? true: false;
+    trees[ip_s] = DATA.tree_tag(BT.SEe, self.SEe2BTe(trees.slice(ip_s+1, ip_e)));  // feedback2trees
+    var obj = trees[ip_s][BT.SEe];
+    obj.isSEee = isSEee;
+    obj.useScopeWith = useScopeWith;
+    /* -> Ver.2.219.50 */
+    /* -> Ver.2.228.56 */
+    for(var i=ip_s+1; i<ip_e; ++i){
+      trees[i] = null;
     }
+    _trees = self.SEe2BTe(trees.filter(Boolean));
   }
   return _trees;
 };
@@ -850,16 +857,11 @@ My_entry.parser.prototype.make_trees = function(sentence, opt_re){  // Ver.2.158
         break;
     }
     if(tree){
-      /* Ver.2.221.50 -> */
-      if(self.useFunc){
-        tree = self.FN2REv(tree, token, token_lower, token_upper);
-      }
-      /* -> Ver.2.221.50 */
-      _trees.push(tree);
+      _trees.push(self.FN2REv(tree, token, token_lower, token_upper));  // Ver.2.221.50  // Ver.2.228.56
     }
     i = i_next;
   }
-  return ((self.useScopeWith)? self.SEe2BTe(_trees): _trees);  // Ver.2.213.47
+  return self.SEe2BTe(_trees);  // Ver.2.213.47  // Ver.2.228.56
 };
 My_entry.parser.prototype.isCommand = function(sentence){
   var self = this;
@@ -937,7 +939,7 @@ My_entry.parser.prototype.make_scopes = function(useScope, trees, scopes_upper, 
       var ids2d = [];  // new
       /* [a=1,a[0][0]=2,[(3,3)]] */
       if(trees_lower && trees_lower.length){
-        var hasScope = self.config.BT.hasScope(useScope, tagName, self.useScopeWith);  // Ver.2.213.48  // Ver.2.216.50
+        var hasScope = self.config.BT.hasScope(useScope, tagName, obj.useScopeWith);  // Ver.2.213.48  // Ver.2.216.50  // Ver.2.228.56
         if(hasScope){
           var scope = DATA.scope();
           var n = scopes.length;
