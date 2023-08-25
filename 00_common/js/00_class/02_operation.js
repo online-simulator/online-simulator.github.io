@@ -261,6 +261,25 @@ My_entry.operation.prototype.switch_method = function(options){
   /* -> Ver.2.193.45 */
   return self;
 };
+/* Ver.2.227.55 */
+My_entry.operation.prototype.init_scopes2d = function(data){
+  var self = this;
+  var DATA = self.entry.DATA;
+  var scopes2d = self.entry.def.newClone(data.scopes2d);  // Ver.2.222.50
+  var scope0 = scopes2d[0][0];
+  /* Ver.2.226.54 -> */
+  var scope = DATA.scope();
+  scope0.vars = scope.vars;
+  scope0.eqns = scope.eqns;
+  /* -> Ver.2.226.54 */
+  /* Ver.2.222.50 -> */
+  for(var j=1, len=scopes2d.length; j<len; ++j){
+    scopes2d[j][0] = scope0;  // common local storage including re-use of data.eqns
+  }
+  /* -> Ver.2.222.50 */
+  self.scopes2d0 = scopes2d;
+  return self;
+};
 My_entry.operation.prototype.prepare = function(data){
   var self = this;
   var options = data.options;
@@ -336,15 +355,8 @@ My_entry.operation.prototype.restore = function(data, isClear){
     scopes2d.push.apply(scopes2d, self.entry.def.newClone(scopes2d0));
     var scope0 = scopes2d[0][0];
     for(var j=1, len=scopes2d.length; j<len; ++j){
-      scopes2d[j][0] = scope0;  // common local storage including re-use of data.eqns
+      scopes2d[j][0] = scope0;
     }
-    /* Ver.2.226.54 -> */
-    if(isClear){
-      var scope = DATA.scope();
-      scope0.vars = scope.vars;
-      scope0.eqns = scope.eqns;
-    }
-    /* -> Ver.2.226.54 */
     data.vars = scope0.vars;
     data.eqns = scope0.eqns;
     msg = "local storage ";
@@ -368,7 +380,7 @@ My_entry.operation.prototype.run = function(_data){
   var trees2d = _data.trees2d;
   var scopes2d = _data.scopes2d;
   try{
-    self.scopes2d0 = self.entry.def.newClone(scopes2d);  // Ver.2.222.50
+    self.init_scopes2d(_data);  // Ver.2.227.55
     self.prepare(_data);
     for(var j=0, len=trees2d.length; j<len; ++j){
       var trees = trees2d[j];
