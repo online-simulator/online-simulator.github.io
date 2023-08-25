@@ -1870,6 +1870,10 @@ title/発行元(発行年)を列挙する
 　走査対象：全<a href="#span-in-prec">tag名</a>　⇒　使用<a href="#span-in-prec">tag名</a>のみ（<span class="clear">Ver.2.212.47</span>以降、必須tagのBT1を追加修正）
 <br>
 　　　　　　⇒　使用<a href="#span-in-prec">tag名</a>のみ（<span class="clear">Ver.2.214.50</span>以降、<a href="#span-out-eqns-re-use">式変数の再利用</a>を追加修正）
+<br>
+・<span class="run">Ver.2.228.55</span>以降、<a href="#span-out-FNm-init-space">space初期化行列関数</a>の整数の丸め方を最適化
+<br>
+　影響項目：<a href="#span-eqn-plot2d_interp">plot2d_interp</a>
     </td>
   </tr>
   <tr>
@@ -17122,6 +17126,8 @@ spaceを初期化する行列関数の入力仕様と付随する留意事項に
 <br>
 <span class="run">Ver.2.183.44</span>以降、linspace関数を追加
 <br>
+・<span class="run">Ver.2.228.55</span>以降、整数の丸め方を最適化
+<br>
 <br>
 引数(a,b,opt_Np1)の仕様を列挙する
 <br>
@@ -17139,6 +17145,12 @@ linspace(0,5,6):linspace(0,5,6)**2 -> (0,1,2,3,4,5:0,1,4,9,16,25)
 linspace(1+2i,10+10i,9) -> (1+2i,2.125+3i,3.25+4i,4.375+5i,5.5+6i,6.625+7i,7.75+8i,8.875+9i,10+10i)
 <br>
 linspace(10+10i,1+2i,9) -> (10+10i,8.875+9i,7.75+8i,6.625+7i,5.5+6i,4.375+5i,3.25+4i,2.125+3i,1+2i)
+<br>
+・複数行の初期化
+<br>
+linspace(0,5,6:0,5,6) -> (0,1,2,3,4,5:0,1,2,3,4,5)
+<br>
+linspace(0,5,6:0,10,11) -> (0,1,2,3,4,5:0,1,2,3,4,5,6,7,8,9,10)
 <br>
 ・<a href="#span-out-reference-mat-size">行列size</a>=1の場合、範囲のleftを返す
 <br>
@@ -17194,6 +17206,10 @@ args=(trans(linspace(2,2,4)),trans(linspace(1,4,4))); pow(args) ->
 round(linspace(1,1000,1000).).
 <br>
 linspace(1,1000,1000).map((x)=&lt;round(x))
+<br>
+・<span class="run">Ver.2.228.55</span>以降、対策済み（round不要）
+<br>
+linspace(1,1000,1000)
     </td>
   </tr>
   <tr>

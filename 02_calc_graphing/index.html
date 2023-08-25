@@ -155,6 +155,8 @@
       script += "\nclear;\n";
       script += "x=0,[x=1,[,[,4.map((x)=<x),x],x],x],x:x=0,[x=1,[x=2,[x=3,4.map((x)=<x),x],x],x],x;";
       script += "\nclear;\n";
+      script += "check_integer(N)=<linspace(1,N/4,N/4:1,N/2,N/2:1,N,N)*(1+2i),A=check_integer(1000);\nB=check_integer(2**6);\nround(B[0].).:B[0].map((x)=<round(x));";
+      script += "\nclear;\n";
       $._id("input").value = script;
       // test case
       var setVal = function(){

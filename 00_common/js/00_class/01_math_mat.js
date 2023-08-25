@@ -189,10 +189,21 @@ My_entry.math_mat.prototype.istrue = function(options, arr){
 /* Ver.2.178.44 -> */
 /* Ver.2.176.43 -> */
 /* Ver.2.183.44 -> */
-My_entry.math_mat.prototype.getNum_linspace = function(a, b, k){
+My_entry.math_mat.prototype.getNum_linterp = function(a, b, k){  // Ver.2.228.55
   var self = this;
   return self.entry.DATA.num(a.r+(b.r-a.r)*k, a.i+(b.i-a.i)*k);
 };
+/* Ver.2.228.55 -> */
+My_entry.math_mat.prototype.getNum_linspace = function(y0, dy, j){
+  var self = this;
+  return self.entry.DATA.num(y0.r+dy.r*j, y0.i+dy.i*j);
+};
+My_entry.math_mat.prototype.getCom_dy = function(a, b, N_){
+  var self = this;
+  var N = N_ || 1;
+  return self.entry.DATA.com((b.r-a.r)/N, (b.i-a.i)/N);  // /not0
+};
+/* -> Ver.2.228.55 */
 My_entry.math_mat.prototype.linspace = function(options, arr){
   var self = this;
   var _arr = [];
@@ -204,10 +215,10 @@ My_entry.math_mat.prototype.linspace = function(options, arr){
     var com_y0 = arri[0].com;
     var com_y1 = arri[1].com;
     var Np1 = self.num2size(options, arri[2], 50);
+    var com_dy = self.getCom_dy(com_y0, com_y1, Np1-1);  // Ver.2.228.55
     var arr_interp = [];
     for(var j=0; j<Np1; ++j){
-      var k = j/(Np1-1 || 1);  // /not0
-      arr_interp[j] = self.getNum_linspace(com_y0, com_y1, k);
+      arr_interp[j] = self.getNum_linspace(com_y0, com_dy, j);  // Ver.2.228.55
     }
     if(arr_interp.length){
       _arr.push(arr_interp);
@@ -264,7 +275,7 @@ My_entry.math_mat.prototype.interp = function(options, arr){
     var dxr = com_x.r-com_x0.r;
     var hxr = com_x1.r-com_x0.r;
     var k = dxr/hxr;  // /0
-    return self.getNum_linspace(com_y0, com_y1, k);
+    return self.getNum_linterp(com_y0, com_y1, k);  // Ver.2.228.55
     /* -> Ver.2.183.44 */
   };
   return self.interp_base(options, arr, callback);
