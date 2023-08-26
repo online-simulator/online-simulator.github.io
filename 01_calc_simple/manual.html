@@ -1785,6 +1785,14 @@ title/発行元(発行年)を列挙する
 　<a href="#span-out-storage">local storage</a>　⇒　<a href="#span-in-scope-vars">static scopes2d array</a>
 <br>
 　影響項目：<a href="#span-eqn-scope_NG">scope_NG</a>||<a href="#span-eqn-solvex_bisection">solvex_bisection</a>
+<br>
+・<span class="run">Ver.2.229.56</span>以降、<a href="#span-out-scope">closure機能</a>の仕様変更
+<br>
+　<a href="#span-out-eqns-args">式変数のarguments</a>を<a href="#span-out-terms">scope変数</a>から削除　⇒　削除しない（Native準拠）
+<br>
+　影響項目：<a href="#span-out-scope-vars">変数のscope</a>||<a href="#span-out-scope-vars-has1BT">単独scope</a>||<a href="#span-out-eqns-call2eqn">式変数への式読出し</a>
+<br>
+　<a href="#span-eqn">strict-mode式変数list</a>への影響なし
     </td>
   </tr>
   <tr>
@@ -9518,9 +9526,11 @@ clear; (1,2:3,4).map((x)=&lt;x*2) -> (2,4:6,8)
 <br>
 clear; A=(1,2:3,4); A.map((x)=&lt;x*2) -> (2,4:6,8)
 <br>
-clear; A=(1,2:3,4); A.map((x,i_,j_,self)=&lt;self[i_][j_]*2) -> (2,4:6,8)
+clear; A=(1,2:3,4); A.map((x,i_,j_,self_cloned)=&lt;self_cloned[i_][j_]*2) -> (2,4:6,8)
 <br>
-clear; A=(1,2:3,4); A.map((x,i_,j_,self)=&lt;A[i_][j_]*2) -> (2,4:6,8)
+・self_clonedは参照非共有
+<br>
+clear; A=(1,2:3,4); A.map((x,i_,j_)=&lt;A[i_][j_]*2) -> (2,4:6,8)
 <br>
 <br>
 .filter演算子
@@ -9531,11 +9541,9 @@ clear; (1,2:3,4).filter((x)=&lt;x&gt;2) -> (3,4:1,1:0,1)
 <br>
 clear; A=(1,2:3,4); A.filter((x)=&lt;x&gt;2) -> (3,4:1,1:0,1)
 <br>
-clear; A=(1,2:3,4); A.filter((x,i_,j_,self)=&lt;self[i_][j_]&gt;2) -> (3,4:1,1:0,1)
+clear; A=(1,2:3,4); A.filter((x,i_,j_,self_cloned)=&lt;self_cloned[i_][j_]&gt;2) -> (3,4:1,1:0,1)
 <br>
-・dummy変数のself=A_cloned（参照非共有）
-<br>
-clear; A=(1,2:3,4); A.filter((x,i_,j_,self)=&lt;A[i_][j_]&gt;2) -> (3,4:1,1:0,1)
+clear; A=(1,2:3,4); A.filter((x,i_,j_)=&lt;A[i_][j_]&gt;2) -> (3,4:1,1:0,1)
 <br>
 clear; A=(1,2:3,4); mat2coo(A)-A.filter((x)=&lt;x) -> (0,0,0,0:1,1,1,1:1,1,1,1)
 <br>
@@ -9552,7 +9560,7 @@ clear; A=(0,2:3,4); mat2coo(A)-A.filter((x)=&lt;x&lt;&gt;0) -> (0,0,0:1,1,1:1,1,
 <br>
 clear; (1,2:3,4).map() -> [MyErr]Invalid .map(null)
 <br>
-・引数省略不可
+・引数の<a href="#span-out-eqns-args">arguments</a>省略不可
 <br>
 clear; (1,2:3,4).map(()=&lt;x*2) -> [MyErr]Invalid binary operation
 <br>
@@ -12200,9 +12208,11 @@ x=2; store; clear; x=3<span class="selection">/*independent local scope*/</span>
 <br>
 <span class="run">Ver.2.31.17</span>以降、<a href="#span-out-BT-square">角括弧[]</a>に変数のscopeを追加
 <br>
-・Nativeの場合、関数宣言に紐付くが、<a href="#span-out-BT">括弧</a>に紐付くため、
+・Nativeの場合、関数宣言に紐付くが、<a href="#span-out-BT">括弧</a>に紐付く<del>ため、
 <br>
-・scope不定の<a href="#span-out-eqns-args">式変数のarguments</a>を削除する等、closure機能が異なる
+・scope不定の<a href="#span-out-eqns-args">式変数のarguments</a>を削除する等、closure機能が異なる</del>
+<br>
+・<span class="run">Ver.2.229.56</span>以降、<a href="#span-out-eqns-args">式変数のarguments</a>を<a href="#span-out-terms">scope変数</a>に残す仕様に変更
 <br>
 <br>
 特徴を列挙する
@@ -15313,7 +15323,7 @@ gcd(gcd(a,b),c) || gcd(a,gcd(b,c)) -> 333
 <br>
 ・同義
 <br>
-gcd_(a,b)=&lt;last[_rn(=&lt;last{ia=int(a),ib=int(b),a=ib,b=ia%ib},,1e6,=&lt;{b==0}),a];
+gcd_(a0,b0)=&lt;last[a=a0,b=b0,_rn(=&lt;last{ia=int(a),ib=int(b),a=ib,b=ia%ib},,1e6,=&lt;{b==0}),a];
 <br>
 gcd_(gcd_(a,b),c) || gcd_(a,gcd_(b,c)) -> 333
 <br>
@@ -15321,7 +15331,9 @@ gcd_(gcd_(a,b),c) || gcd_(a,gcd_(b,c)) -> 333
 <br>
 ・<span class="run">Ver.2.205.46</span>以降、整数の丸め方をfloor　⇒　roundに<span class="run"><a href="#span-out-spec-changed-history">演算仕様変更</a></span>
 <br>
-gcd_(a,b)=&lt;last[_rn(=&lt;last{ia=round(a),ib=round(b),a=ia&lt;0||ib===0&amp;&amp;&amp;ia|||ib,b=ia%(ib||1)},
+gcd_(a0,b0)=&lt;last[
+<br>
+a=a0,b=b0,_rn(=&lt;last{ia=round(a),ib=round(b),a=ia&lt;0||ib===0&amp;&amp;&amp;ia|||ib,b=ia%(ib||1)},
 <br>
 isBreak_a=&lt;isNaN(a)|||a&lt;0&amp;&amp;&amp;~~(a=false),1e6,=&lt;{isBreak_a|||b==0}),a];
 <br>
@@ -20803,9 +20815,11 @@ clear; a=1; [=&lt;[=&lt;[=&lt;3]=&gt;+1]=&gt;*a]=&gt; -> 4
 <br>
 　式の長さ制限あり　⇒　長さ制限なし（単独の<a href="#span-out-BT">括弧</a>を探索）
 <br>
-・<a href="#span-out-eqns-args">式変数のarguments</a>を残さない仕様を維持（<a href="#span-out-eqns-call2eqn">式変数への式読出し</a>参照）
+<del>・<a href="#span-out-eqns-args">式変数のarguments</a>を残さない仕様を維持（<a href="#span-out-eqns-call2eqn">式変数への式読出し</a>参照）</del>
 <br>
 ・<span class="run">Ver.2.213.47</span>以降、<a href="#span-out-option6">useScopeWith</a>を追加
+<br>
+・<span class="run">Ver.2.229.56</span>以降、<a href="#span-out-eqns-args">式変数のarguments</a>を<a href="#span-out-terms">scope変数</a>に残す仕様に変更
 <br>
 <br>
 単独scopeの場合、<a href="#span-out-eqns-args">式変数のarguments</a>は<a href="#span-out-BT-square">角括弧[]</a>の<a href="#span-out-bracket">scope</a>内に定義する
@@ -21080,9 +21094,15 @@ clear; [a=1,b=2,v=&lt;{a,b},v=v=&gt;v,a=-1,b=-2,=&lt;v=&gt;]=&gt; -> (-1:-2)</de
 <br>
 ・<span class="run">Ver.2.211.46</span>以降、式読出しの仕様をfix
 <br>
-　<a href="#span-out-eqns-no-name">無名call</a>の式読出しに対応（削除されるargumentsを除く）
+　<a href="#span-out-eqns-no-name">無名call</a>の式読出しに対応<del>（削除されるargumentsを除く）</del>
 <br>
 　<a href="#span-out-call-by-symbol">symbol渡し</a>の<a href="#span-out-ref-transparency">参照透過性</a>を確保
+<br>
+・<span class="run">Ver.2.229.56</span>以降、<a href="#span-out-eqns-args">式変数のarguments</a>を<a href="#span-out-terms">scope変数</a>に残す仕様に変更
+<br>
+・<span class="run">Ver.2.229.56</span>以降、<a href="#span-out-vars-rule2">変数の命名規則</a>に準拠
+<br>
+[=&lt;$g]=&gt;f; f=&gt; -> <del>[MyErr]Invalid REv($g)</del>[MyErr]Invalid symbol($g)
 <br>
 <br>
 式変数の新規複製方法
@@ -21135,9 +21155,13 @@ clear; [=&lt;[((x))=&lt;((x))]]=&gt;f; f(3)=&gt; -> 3
 <br>
 clear; [a=-1,=&lt;(x)=&lt;a*x]=&gt;f; f(3)=&gt; -> -3
 <br>
-・厳密な記述の場合、error終了（<a href="#span-out-eqns-args">式変数のarguments</a>を残さない仕様を維持）
+<del>・厳密な記述の場合、error終了（<a href="#span-out-eqns-args">式変数のarguments</a>を残さない仕様を維持）</del>
 <br>
-clear; [(a)=&lt;(x)=&lt;a*x](-1)=&gt;f; f(3)=&gt; -> [MyErr]Invalid binary operation
+・<span class="run">Ver.2.229.56</span>以降、<a href="#span-out-eqns-args">式変数のarguments</a>を<a href="#span-out-terms">scope変数</a>に残す仕様に変更
+<br>
+<del>clear; [(a)=&lt;(x)=&lt;a*x](-1)=&gt;f; f(3)=&gt; -> [MyErr]Invalid binary operation</del>
+<br>
+clear; [(a)=&lt;(x)=&lt;a*x](-1)=&gt;f; f(3)=&gt; -> -3
 <br>
 ・<span class="run">Ver.2.213.47</span>以降、<a href="#span-out-option6">useScopeWith</a>選択の場合
 <br>
@@ -37340,7 +37364,9 @@ gcd/lcm
 <br>
 clear;
 <br>
-gcd_(a,b)=&lt;last[_rn(=&lt;last{ia=round(a),ib=round(b),a=ia&lt;0||ib===0&amp;&amp;&amp;ia|||ib,b=ia%(ib||1)},
+gcd_(a0,b0)=&lt;last[
+<br>
+a=a0,b=b0,_rn(=&lt;last{ia=round(a),ib=round(b),a=ia&lt;0||ib===0&amp;&amp;&amp;ia|||ib,b=ia%(ib||1)},
 <br>
 isBreak_a=&lt;isNaN(a)|||a&lt;0&amp;&amp;&amp;~~(a=false),1e6,=&lt;{isBreak_a=&gt;|||b==0}),a];
 <br>

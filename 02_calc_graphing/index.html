@@ -127,7 +127,7 @@
       script += "\nclear;\n";
       script += "a=1,[a=2,g(a)=<last[,a],(a)=<g](3)=>f,f=>,f==>:a=1,[a=2,(a)=<=<last[,a]](3)=>f,f=>,f==>:a=1,[a=2,(a)=<{()=<(last[,a])}](3)=>f,f=>,f==>;\na=1,[a=2,g(a)=<last[,a],=<g]=>f,f=>,f==>,f(4)=>:a=1,[a=2,=<(a)=<last[,a]]=>f,f=>,f==>,f(4)=>:a=1,[a=2,=<{((a))=<(last[,a])}]=>f,f=>,f==>,f(4)=>;\na=1,b=1,[a=2,b=2,g(a)=<last[,a+b],=<g]=>f,f=>,f==>,f(4)=>,f(4)==>:a=1,b=1,[a=2,b=2,=<(a)=<last[,a+b]]=>f,f=>,f==>,f(4)=>,f(4)==>:a=1,b=1,[a=2,b=2,=<{((a))=<(last[,a+b])}]=>f,f=>,f==>,f(4)=>,f(4)==>;";
       script += "\nclear;\n";
-      script += "($map,$filter:$x,$i_,$j_)=(-1,-2:-3,-4,-5);\nA=(1,2,3:4,5,6:7);\nf(x,i_,j_)=<x*i_+j_;\ng(x,i_,j_,self)=<self[i_][j_]*i_+j_;\nA.map(=<f):(1,2,3:4,5,6:7).map((x,i_,j_)=<x*i_+j_);\nA.map(=<g):(1,2,3:4,5,6:7).map((x,i_,j_,self)=<self[i_][j_]*i_+j_);\ncoo_Aij=A.filter((x,i_,j_)=<i_==j_);\nA.filter((x)=<(x<0));\n(map,filter:x,i_,j_);";
+      script += "($map,$filter:$x,$i_,$j_)=(-1,-2:-3,-4,-5);\nA=(1,2,3:4,5,6:7);\nf(x,i_,j_)=<x*i_+j_;\ng(x,i_,j_,self_cloned)=<self_cloned[i_][j_]*i_+j_;\nA.map(=<f):(1,2,3:4,5,6:7).map((x,i_,j_)=<x*i_+j_);\nA.map(=<g):(1,2,3:4,5,6:7).map((x,i_,j_,self_cloned)=<self_cloned[i_][j_]*i_+j_);\ncoo_Aij=A.filter((x,i_,j_)=<i_==j_);\nA.filter((x)=<(x<0));\n(map,filter:x,i_,j_);";
       script += "\n";
       script += "A=(1,2,3:4,5,6:7,NaN,);\ncoo_Amn=mat2coo(A);\ncoo_Aij=A.filter((x)=<x);\ncoo_Amn-coo_Aij;";
       script += "\n";
@@ -156,6 +156,14 @@
       script += "x=0,[x=1,[,[,4.map((x)=<x),x],x],x],x:x=0,[x=1,[x=2,[x=3,4.map((x)=<x),x],x],x],x;";
       script += "\nclear;\n";
       script += "check_integer(N)=<linspace(1,(N,N)/4:1,(N,N)/2:1,N,N)*(1+2i)/*extended operations*/,A=check_integer(1000);\nB=check_integer(2**6);\nround(B[0].).:B[0].map((x)=<round(x));";
+      script += "\nclear;\n";
+      script += "a=1,[[(a)=<(x,y)=<(a,x,y)](a)=>](2,3)=>:a=1,[[a=2,(a)=<=<last[,a]](3)=>]()=>:a=1,[a=2,(a)=<=<last[,a]](3)=>f,f=>,f==>;";
+      script += "\n";
+      script += "a=-1,b=-2,c=-3:[[[(a)=<(b)=<(c)=<(x,y)=<(a,b,c,x,y)](1)=>](2)=>](3)=>f:f(4,5)=>:f(6,7)=>:f(4,5)==>:f(6,7)==>:[(c)=<[(b)=<[(a)=<(x,y)=<(a,b,c,x,y)](1)=>](2)=>](3)=>f:f(4,5)=>:f(6,7)=>:f(4,5)==>:f(6,7)==>;";
+      script += "\n";
+      script += "a=-1,b=-2,c=-3:[[[()=<(b)=<()=<(x,y)=<(,b,,x,y)]()=>](2)=>]()=>f:f(4,5)=>:f(6,7)=>:f(4,5)==>:f(6,7)==>:[()=<[(b)=<[()=<(x,y)=<(,b,,x,y)]()=>](2)=>]()=>f:f(4,5)=>:f(6,7)=>:f(4,5)==>:f(6,7)==>;";
+      script += "\n";
+      script += "[[()=<(x,y)=<2*(x,y)]()=>](1,2)=>:[=<[[()=<(x,y)=<2*(x,y)]()=>](1,2)=>]=>:[(A)=<([[()=<(x,y)=<2*(x,y)]()=>](1,2)=>)*A](=<(1,2:3,4))=>;";
       script += "\nclear;\n";
       $._id("input").value = script;
       // test case
@@ -308,7 +316,7 @@
       $._id("scope_NG").onclick = function(){io["onclick_default"](elems, "clear;\nscope_NG1(x)=<[x=x,x,last[x=x/*NG*/,x],x];\nscope_NG2(x)=<2*[x=x,x,last[x=x/*NG*/,x],x];\nscope_NG3(x)=<last[,3]*[x=x,x,last[x=x/*NG*/,x],x];\nscope_NG4(x)=<last[x=4,x]*[x=x/*NG*/,x,last[x=x/*NG*/,x],x];\ncheck_all(x)=<(scope_NG1(x)=>:scope_NG2(x)=>:scope_NG3(x)=>:scope_NG4(x)=>);\nstore;\nscope_NG1(1)=>:scope_NG1(-1)=>;\nscope_NG2(1)=>:scope_NG2(-1)=>;\nscope_NG3(1)=>:scope_NG3(-1)=>;\nscope_NG4(1)=>:scope_NG4(-1)=>;\nrestore;\ncheck_all(1)=>;\ncheck_all(-1)=>;\nrestore;\ncheck_all(1)=>;\nrestore;\ncheck_all(-1)=>;\n", 0);};
       $._id("fibok").onclick = function(){io["onclick_default"](elems, "clear;\nfibok(n,n0,k)=<n<k-1&&n0||||n<k|||_sm(=<fibok(n-m,n0,k)=>,1,k);\nluca2(n)=<fibok(n,2,2)=>;\nfibok_se(N,n0,ks,ke)=<[arr=[],_sk(=<arr=(arr,fibok(N,n0,k)=>),ks,ke),=<arr]=>;\n[N=10:\nfibok(N,0,2)=>,fibok(N,0,3)=>,fibok(N,0,4)=>,fibok(N,0,5)=>:\nfibok_se(N,0,2,N)=>:\nfibok(N,1,2)=>,fibok(N,1,3)=>,fibok(N,1,4)=>,fibok(N,1,5)=>:\nfibok_se(N,1,2,N)=>:\nluca2(N)=>:\nfibok_se(N,2,2,N)=>];\n", 0);};
       $._id("fact").onclick = function(){io["onclick_default"](elems, "clear;\nfact_(n)=<n<=1|||n*fact_(n-1)=>;\nfact_sw0(n)=<n<=1|||n*fact_sw1(n-1)=>;\nfact_sw1(n)=<n*fact_sw0(n-1)=>;\n[(N)=<((N/2)!,fact(N/2),N!,fact(N):\nfact_(N)=>,fact_sw0(N)=>,fact_sw1(N)=>:\nA=linspace(1,N,N).map((n)=<fact_(n)=>):\nmat2coo(A)::\nA.map((x)=<-x).filter((x)=<x<-fact(N/2)))](10)=>;\n", 0);};
-      $._id("gcd").onclick = function(){io["onclick_default"](elems, "clear;\ngcd_(a,b)=<last[_rn(=<last{ia=round(a),ib=round(b),a=ia<0||ib===0&&&ia|||ib,b=ia%(ib||1)},\nisBreak_a=<isNaN(a)|||a<0&&&~~(a=false),1e6,=<{isBreak_a=>|||b==0}),a];\nlcm_(a,b)=<a*(b/gcd_(a,b)=>);\n[gcd(111,222,333,444,555),gcd_(111,gcd_(222,gcd_(333,gcd_(444,555)=>)=>)=>)=>:\nlcm(111,222,333,444,555),lcm_(111,lcm_(222,lcm_(333,lcm_(444,555)=>)=>)=>)=>];\n", 0);};
+      $._id("gcd").onclick = function(){io["onclick_default"](elems, "clear;\ngcd_(a0,b0)=<last[\na=a0,b=b0,_rn(=<last{ia=round(a),ib=round(b),a=ia<0||ib===0&&&ia|||ib,b=ia%(ib||1)},\nisBreak_a=<isNaN(a)|||a<0&&&~~(a=false),1e6,=<{isBreak_a=>|||b==0}),a];\nlcm_(a,b)=<a*(b/gcd_(a,b)=>);\n[gcd(111,222,333,444,555),gcd_(111,gcd_(222,gcd_(333,gcd_(444,555)=>)=>)=>)=>:\nlcm(111,222,333,444,555),lcm_(111,lcm_(222,lcm_(333,lcm_(444,555)=>)=>)=>)=>];\n", 0);};
       $._id("rand_table").onclick = function(){io["onclick_default"](elems, "clear;\nrand_table(csv)=<last[\ntable=sort0(csv),\nymin=min(table)[0],ymax=max(table)[0],\ny=ymin+(ymax-ymin)*rand,\nx=interp(y:table),x];\n[Pinv_y=(\n-0.999999427,-0.999936657,-0.997300203,-0.954499736,-0.682689492,0,\n0.682689492,0.954499736,0.997300203,0.999936657,0.999999427:\n-5,-4,-3,-2,-1,0,1,2,3,4,5\n),\nN=1,arr=[],_rn(=<arr=(arr:rand_table(=<Pinv_y)=>),,N),=<arr]=>;\n", 0);};
       $._id("average").onclick = function(){io["onclick_default"](elems, "clear;\n[isSquare=0,N=3,N2=int(N/2),filter=vectorc(N*N),\ncalc_w(s2)=<switch(isSquare==0,switch(s2>N2**2,0:1,1):1,1),\n_sir(=<{_sic(=<filter[(ir+N2)*N+(ic+N2)]=calc_w(ir**2+ic**2)=>,-N2,N2)},-N2,N2),\n=<trans(filter)]=>;\n", 0);};
       $._id("average_asym").onclick = function(){io["onclick_default"](elems, "clear;\n[isSquare=0,N=13,N2=int(N/2),filter=vectorc(N*N),\nx=1,y=2,k=3,rad=pi/4,\nrotz_LHS(psi)=<{rt=real(psi),=<(cos(rt),sin(rt),:-sin(rt),cos(rt),:,,1)}=>,\nRz=rotz_LHS(rad)=>,\nisOutOfArea(x)=<switch(\nisSquare==0,x[0]**2+(x[1]*k)**2>N2**2:\n1,(x[0]**2>N2**2)|((x[1]*k)**2>N2**2)\n),\ncalc_w(ir,ic)=<switch(isOutOfArea(=<Rz*{ic-x,ir-y,1})=>,0:1,1),\n_sir(=<{_sic(=<filter[(ir+N2)*N+(ic+N2)]=calc_w(ir,ic)=>,-N2,N2)},-N2,N2),\n=<trans(filter)]=>;\n", 0);};
