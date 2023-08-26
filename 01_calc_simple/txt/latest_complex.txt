@@ -54,10 +54,12 @@ a=-1,b=-2,c=-3:[[[(a)=<(b)=<(c)=<(a,b,c)](1)=>](2)=>](3)=>:[[[(a)=<(b)=<(c)=<(a,
 -1,-2,-3,6,7
 )
 
-a=1,[[(a)=<(x,y)=<(a,x,y)](a)=>](2,3)=>:a=1,[[a=2,(a)=<=<last[,a]](3)=>]()=>:a=1,[a=2,(a)=<=<last[,a]](3)=>f,f=>,f==>
+a=1,[[(a)=<(x,y)=<(a,x,y)](a)=>](2,3)=>:a=1,[[(a)=<=<last[,a]](3)=>]()=>:a=1,[[a=2,(a/*[overwrite-disabled]*/)=<=<last[,a]](3)=>]()=>:a=1,[(a)=<=<last[,a]](3)=>f,f=>,f==>:a=1,[a=2,(a/*[overwrite-disabled]*/)=<=<last[,a]](3)=>f,f=>,f==>
 (
 0,1,2,3:
+0,3:
 0,2:
+0,0,3,1:
 0,0,2,1
 )
 
@@ -2585,4 +2587,4 @@ drag=false&sw=false&0x=false&useMatrix=true&useStrict=false&checkError=true&isRi
 --------------------------------
 --------------------------------
 
-online-simulator.github.io.6.288.126.15.68 @ Sat Aug 26 2023 23:38:59 GMT+0900 (日本標準時) @ Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/116.0.0.0 Safari/537.36
+online-simulator.github.io.6.288.126.15.68 @ Sun Aug 27 2023 01:50:22 GMT+0900 (日本標準時) @ Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/116.0.0.0 Safari/537.36

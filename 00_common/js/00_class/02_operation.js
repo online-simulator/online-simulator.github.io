@@ -3530,6 +3530,11 @@ My_entry.operation.prototype.REe = function(data, i0, tagName, tagObj){
   }
   if(tree_eqn){
     var isREe = tree_eqn[BT.REe];  // Ver.2.200.46
+    /* Ver.2.174.42 -> */
+    if(self.useStrict && isREe.arg && !(hasArgs)){
+      throw "Invalid args.length="+isREe.arg.length+"("+name_eqn+")";
+    }
+    /* -> Ver.2.174.42 */
     /* Ver.2.204.46 -> */
     var tree_var = null;
     var symbol = self.get_symbol(isREe);  // Ver.2.229.56
@@ -3584,17 +3589,12 @@ My_entry.operation.prototype.REe = function(data, i0, tagName, tagObj){
         }
       }
     }
-    /* Ver.2.174.42 -> */
-    else if(self.useStrict && isREe.arg){
-      throw "Invalid args.length="+isREe.arg.length+"("+name_eqn+")";
-    }
-    /* -> Ver.2.174.42 */
   }
   if(_tree){
     if(tagName === "REe"){
       /* a(a)=<(a,2:3,4); a[0][0](-1)=> */
       if(ref){
-        _tree = self.tree2tree_ref(_tree, ref);  // Ver.2.32.17 
+        _tree = self.tree2tree_ref(_tree, ref);  // Ver.2.32.17
       }
       /* a(a)=<(a,2:3,4); a[0][0](-1)=>b; b */
       /* Ver.2.229.56 -> */
