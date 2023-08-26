@@ -728,6 +728,8 @@ e^(-i(1pi(){2/2i}(5-{3-1}){i/(-4)}))
 <br>
 　　・<a href="#span-out-special-eqns">式変数</a>
 <br>
+　　・<a href="#span-out-special-FNh">高階関数</a>
+<br>
 　　・<a href="#span-out-special-sign">単項の符号</a>
 <br>
 　　・<a href="#span-out-special-equal">equal記号</a>
@@ -9041,6 +9043,8 @@ false既定：追加なし
 　・<a href="#span-out-scope-vars-has1BT">単独scope</a>の<a href="#span-out-BT-square">角括弧[]</a>　⇒　()
 <br>
 　・<a href="#span-out-scope-inherited-call">式変数のscope継承call</a>の式読出し記号==&gt;を明示
+<br>
+・<a href="#span-out-eqns">式変数</a>の再利用の場合、保存時の<a href="#span-in-tree">flag</a>を継承
     </td>
   </tr>
   <tr>
@@ -11589,15 +11593,11 @@ checkError=-1
 <br>
 useScope=falseの場合、完全な後方互換で<a href="#span-out-scope-vars">変数のscope</a>を一切使用しない
 <br>
-useScope=trueの場合、すべての<a href="#span-out-BT">括弧</a>に<a href="#span-out-scope-vars">変数のscope</a>を使用する
-<br>
-・多重積分等、支障あり（<a href="#span-out-ref-transparency">参照透過性</a>参照）
+useScope=trueの場合、すべての<a href="#span-out-BT">括弧</a>に<a href="#span-out-scope-vars">変数のscope</a>を使用する（多重積分等、<a href="#span-out-ref-transparency">参照透過性</a>の支障あり）
 <br>
 useScope=BT2の場合、<a href="#span-out-BT">波括弧{}</a>のみ<a href="#span-out-scope-vars">変数のscope</a>を使用する
 <br>
 useScope=BT1の場合、<a href="#span-out-BT">丸括弧()</a>のみ<a href="#span-out-scope-vars">変数のscope</a>を使用する
-<br>
-・<a href="#span-out-call-by-equation">式読出し</a>時、既定で<a href="#span-out-BT">丸括弧()</a>で括るが、<a href="#span-out-flow">parse</a>段階で作る<a href="#span-in-scope-vars">static scopes2d array</a>以外は無効
 <br>
 <span class="run">Ver.2.32.17</span>以降、以下の条件を追加
 <br>
@@ -35361,6 +35361,8 @@ CAS
 <br>
 ・<a href="#span-out-special-eqns">式変数</a>
 <br>
+・<a href="#span-out-special-FNh">高階関数</a>
+<br>
 ・<a href="#span-out-special-sign">単項の符号</a>
 <br>
 ・<a href="#span-out-special-equal">equal記号</a>
@@ -35383,6 +35385,23 @@ CAS
 ・<a href="#span-out-eqns">式変数</a>、<a href="#span-out-eqns-call">式読出し</a>、<a href="#span-out-call-by-equation">式渡し</a>、<a href="#span-out-substitution-equation">式代入</a>、<a href="#span-out-scope-inherited">scope継承</a>の仕様は呼び名含めて一般的でない
 <br>
 ・連立方程式をscript入力から解くため、独自に定義している
+    </td>
+  </tr>
+  <tr>
+    <th>
+<a href="#span-index">
+目次
+</a>
+<br>
+高階関数
+    </th>
+    <td>
+<span id="span-out-special-FNh"></span>
+<a href="#span-out-FNh">高階関数</a>について記述する
+<br>
+・関数名に<a href="#span-out-vars-symbol">変数名symbol</a>を含む仕様は一般的に許容されない
+<br>
+・<a href="#span-out-FNspecial-spec">特殊仕様関数</a>も同様
     </td>
   </tr>
   <tr>
@@ -35778,13 +35797,17 @@ arguments
 <br>
 実装の経緯
 <br>
-・当初、括弧より関数優先で式渡しの仕様はなかったが、
+・当初、括弧より関数優先で本仕様はなかったが、括弧優先で再実装時、記号=&lt;を明示
 <br>
-・式渡しの記号を明示した方が間違いが少ないと判断し、括弧優先で実装し直した
+・さらに、<a href="#span-out-eqns-no-name-short">直接式読出し</a>||<a href="#span-out-eqns-no-name">無名call</a>に流用
 <br>
-・さらに、Native無名関数の代替手段として流用した
+・<span class="clear">Ver.2.228.56</span>以降、<a href="#span-out-flow">parse</a>段階で<a href="#span-out-option6">useScopeWith</a>||<a href="#span-out-scope-inherited">scope継承</a>の<a href="#span-in-tree">flag</a>を含む<a href="#span-out-BT">括弧</a>に変換（SEe⇒BTe）
 <br>
-・<span class="clear">Ver.2.228.56</span>以降、<a href="#span-out-flow">parse</a>段階で<a href="#span-out-option6">useScopeWith</a>の<a href="#span-in-tree">flag</a>を含む<a href="#span-out-BT">括弧</a>に変換（SEe⇒BTe）
+・<a href="#span-out-flow">parse</a>段階で<a href="#span-in-scope-vars">static scopes2d array</a>の<a href="#span-in-tree">ids</a>を追加
+<br>
+・<a href="#span-out-flow">operation</a>段階で<a href="#span-out-substitution-equation">式代入</a>時、<a href="#span-out-eqns-args">式変数のarguments</a>の<a href="#span-in-tree">arg</a>を追加
+<br>
+・<a href="#span-out-flow">operation</a>段階で<a href="#span-out-call-by-equation">式読出し</a>時、<a href="#span-out-BT">丸括弧()</a>に変換（BTe⇒BT1）
     </td>
   </tr>
   <tr>

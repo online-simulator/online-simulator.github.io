@@ -415,7 +415,7 @@ My_entry.parser.prototype.SEe2BTe = function(trees){
     /* Ver.2.228.56 -> */
     /* Ver.2.219.50 -> */
     var isSEee = (operation.get_tagVal(trees[ip_s], "SEe", "val") === "==<");  // first
-    var useScopeWith = (self.useScopeWith === "SEe" || (self.useScopeWith && hasArgs))? true: false;
+    var useScopeWith = (self.useScopeWith === "SEe" || (self.useScopeWith && hasArgs))? true: false;  // bool
     trees[ip_s] = DATA.tree_tag(BT.SEe, self.SEe2BTe(trees.slice(ip_s+1, ip_e)));  // feedback2trees
     var obj = trees[ip_s][BT.SEe];
     obj.isSEee = isSEee;
