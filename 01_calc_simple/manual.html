@@ -12247,7 +12247,7 @@ x=2; store; clear; x=3<span class="selection">/*independent local scope*/</span>
 一部、参照透過性なし：実装関数が作る<a href="#span-out-terms">scope変数</a>の再利用の可否を意識する負担あり
 <br>
 <br>
-参照透過性を失う（<a href="#span-out-terms">直列scope内変数</a>を参照、上書きする）実装関数を列挙する
+参照透過性を失う（<a href="#span-out-terms">scope変数</a>を参照、上書きする）実装関数を列挙する
 <br>
 ・<a href="#span-out-FNmh-newtonian">Newton高階行列関数</a>||<a href="#span-eqn-solvex_iteration">solvex_iteration</a>||<a href="#span-eqn-solveAinv">solveAinv</a>||<a href="#span-eqn-solvex_non_linear">solvex_non_linear</a>
 <br>
@@ -12446,9 +12446,13 @@ scope継承について記述する
 <span id="span-out-terms"></span>
 用語を整理する
 <br>
-・直列scope内変数：<a href="#span-out-bracket">直列scope内</a>のscope変数||local変数
+・<a href="#span-in-scope-vars">static scopes2d array</a>：全<a href="#span-out-bracket">scope</a>の<a href="#span-out-vars">変数</a>・<a href="#span-out-eqns">式変数</a>の集合
 <br>
-・scope変数：<a href="#span-in-scope-vars">static scopes2d array</a>（<a href="#span-out-bracket">scope</a>集合）の<a href="#span-out-vars">変数</a>・<a href="#span-out-eqns">式変数</a>
+・直列scope内変数：<a href="#span-out-bracket">直列scope内</a>の<a href="#span-out-vars">変数</a>・<a href="#span-out-eqns">式変数</a>の集合
+<br>
+・直列scope内self変数：<a href="#span-in-scope-vars">self-ids</a>の<a href="#span-out-vars">変数</a>・<a href="#span-out-eqns">式変数</a>（<a href="#span-in-scope-vars">static scopes2d array</a>の単位要素）
+<br>
+・scope変数：直列scope内self変数（<a href="#span-out-eqns-args">式変数のarguments</a>の保存先||dummy変数のbuffer）
 <br>
 ・<a href="#span-out-storage">local storage</a>：<a href="#span-in-scope-vars">static scopes2d array</a>の<a href="#span-out-bracket">0階層</a>に共通化
 <br>
