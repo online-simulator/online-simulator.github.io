@@ -1790,7 +1790,7 @@ title/発行元(発行年)を列挙する
 <br>
 　<a href="#span-out-eqns-args">式変数のarguments</a>を<a href="#span-out-terms">scope変数</a>から削除　⇒　削除しない（Native準拠）
 <br>
-　上書き不可の仕様を維持（上書きの場合、影響範囲大）
+　上書き不可の仕様を維持（<a href="#span-out-eqns-re-call">再帰call</a>の<a href="#span-out-ref-transparency">参照透過性</a>を維持）
 <br>
 　影響項目：<a href="#span-out-scope-vars">変数のscope</a>||<a href="#span-out-scope-vars-has1BT">単独scope</a>||<a href="#span-out-eqns-call2eqn">式変数への式読出し</a>
 <br>
@@ -12214,7 +12214,7 @@ x=2; store; clear; x=3<span class="selection">/*independent local scope*/</span>
 <br>
 ・scope不定の<a href="#span-out-eqns-args">式変数のarguments</a>を削除する等、closure機能が異なる</del>
 <br>
-・<span class="run">Ver.2.229.56</span>以降、<a href="#span-out-eqns-args">式変数のarguments</a>を<a href="#span-out-terms">scope変数</a>に残す仕様に変更
+・<span class="run">Ver.2.229.56</span>以降、<a href="#span-out-eqns-args">式変数のarguments</a>を<a href="#span-out-terms">scope変数</a>から削除しない仕様に変更
 <br>
 <br>
 特徴を列挙する
@@ -12261,6 +12261,12 @@ x=2; store; clear; x=3<span class="selection">/*independent local scope*/</span>
 ・<span class="run">Ver.2.222.50</span>以降、<a href="#span-out-command">命令文</a>を拡張
 <br>
 ・<span class="clear">Ver.2.225.53</span>以降、<a href="#span-out-FNh">高階関数</a>||<a href="#span-out-FNmh">高階行列関数</a>のdummy変数が<a href="#span-out-terms">scope変数</a>に残存する不具合を修正
+<br>
+・<span class="clear">Ver.2.226.56</span>以降、<a href="#span-out-prec-ope-arithmetic-ite">iterator演算子</a>のdummy変数が<a href="#span-out-terms">scope変数</a>に残存する不具合を修正
+<br>
+・<span class="run">Ver.2.229.56</span>以降、<a href="#span-out-eqns-args">式変数のarguments</a>を<a href="#span-out-terms">scope変数</a>から削除しない仕様に変更
+<br>
+　上書き不可の仕様を維持（<a href="#span-out-eqns-re-call">再帰call</a>の参照透過性を維持）
     </td>
   </tr>
   <tr>
@@ -20821,7 +20827,7 @@ clear; a=1; [=&lt;[=&lt;[=&lt;3]=&gt;+1]=&gt;*a]=&gt; -> 4
 <br>
 ・<span class="run">Ver.2.213.47</span>以降、<a href="#span-out-option6">useScopeWith</a>を追加
 <br>
-・<span class="run">Ver.2.229.56</span>以降、<a href="#span-out-eqns-args">式変数のarguments</a>を<a href="#span-out-terms">scope変数</a>に残す仕様に変更
+・<span class="run">Ver.2.229.56</span>以降、<a href="#span-out-eqns-args">式変数のarguments</a>を<a href="#span-out-terms">scope変数</a>から削除しない仕様に変更
 <br>
 <br>
 単独scopeの場合、<a href="#span-out-eqns-args">式変数のarguments</a>は<a href="#span-out-BT-square">角括弧[]</a>の<a href="#span-out-bracket">scope</a>内に定義する
@@ -21100,7 +21106,7 @@ clear; [a=1,b=2,v=&lt;{a,b},v=v=&gt;v,a=-1,b=-2,=&lt;v=&gt;]=&gt; -> (-1:-2)</de
 <br>
 　<a href="#span-out-call-by-symbol">symbol渡し</a>の<a href="#span-out-ref-transparency">参照透過性</a>を確保
 <br>
-・<span class="run">Ver.2.229.56</span>以降、<a href="#span-out-eqns-args">式変数のarguments</a>を<a href="#span-out-terms">scope変数</a>に残す仕様に変更
+・<span class="run">Ver.2.229.56</span>以降、<a href="#span-out-eqns-args">式変数のarguments</a>を<a href="#span-out-terms">scope変数</a>から削除しない仕様に変更
 <br>
 ・<span class="run">Ver.2.229.56</span>以降、<a href="#span-out-vars-rule2">変数の命名規則</a>に準拠
 <br>
@@ -21159,7 +21165,7 @@ clear; [a=-1,=&lt;(x)=&lt;a*x]=&gt;f; f(3)=&gt; -> -3
 <br>
 <del>・厳密な記述の場合、error終了（<a href="#span-out-eqns-args">式変数のarguments</a>を残さない仕様を維持）</del>
 <br>
-・<span class="run">Ver.2.229.56</span>以降、<a href="#span-out-eqns-args">式変数のarguments</a>を<a href="#span-out-terms">scope変数</a>に残す仕様に変更
+・<span class="run">Ver.2.229.56</span>以降、<a href="#span-out-eqns-args">式変数のarguments</a>を<a href="#span-out-terms">scope変数</a>から削除しない仕様に変更
 <br>
 <del>clear; [(a)=&lt;(x)=&lt;a*x](-1)=&gt;f; f(3)=&gt; -> [MyErr]Invalid binary operation</del>
 <br>
