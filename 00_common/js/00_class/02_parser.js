@@ -429,6 +429,378 @@ My_entry.parser.prototype.SEe2BTe = function(trees){
   }
   return _trees;
 };
+/* Ver.2.230.56 */
+My_entry.parser.prototype.switch_token = function(tokens, token_left, token, token_lower, token_upper, re){
+  var self = this;
+  var _tree = null;
+  var SYNTAX = self.config.SYNTAX;
+  var math = self.entry.math;
+  var math_mat = self.entry.math_mat;
+  var DATA = self.entry.DATA;
+  var operation = self.entry.operation;
+  var tree = null;
+  switch(token_lower){
+    // reserved word
+    // token
+    case "\\":
+    case "?":
+    case "#":
+    case "\"":
+    case "`":
+      throw "reserved token("+token+")";
+      break;
+    // literal
+    case "nan":
+      tree = DATA.tree_num(NaN, 0);
+      break;
+    case "false":
+      tree = DATA.tree_num(false, 0);
+      break;
+    case "true":
+      tree = DATA.tree_num(true, 0);
+      break;
+    // variable
+    case "ans":
+      tree = DATA.tree_tag("REv", token_lower);
+      break;
+    // command
+    case "clear":
+    case "store":
+    case "restore":
+    case "stop":
+      throw "Invalid "+token+" called";
+      break;
+    // "FNc"
+    // storage
+    case "hasvar":
+    case "haseqn":
+    case "delvar":
+    case "deleqn":
+    case "addvar":
+    case "addeqn":
+    // scopes+storage
+    case "hasv":
+    case "hase":
+      tree = DATA.tree_tag("FNc", token_lower);
+      break;
+    // "FNhn"
+    case "switch":
+      tree = DATA.tree_tag("FNh", {key: token_lower});
+      break;
+    // "FN2"
+    // real number
+    // relational
+    case "seq":
+    case "sne":
+    case "eq":
+    case "ne":
+    // comparison
+    case "lt":
+    case "le":
+    case "gt":
+    case "ge":
+    // logical
+    case "bitnot":
+    case "bitand":
+    case "bitxor":
+    case "bitor":
+    case "not":
+    case "and":
+    case "xor":
+    case "or":
+    // complex number
+    // relational
+    case "cseq":
+    case "csne":
+    case "ceq":
+    case "cne":
+    // logical
+    case "cnot":
+    case "cand":
+    case "cxor":
+    case "cor":
+      tree = DATA.tree_tag("FN", token_lower);
+      break;
+    // "FNmh"
+    case "jacobi":
+    case "jacobian":
+      tree = DATA.tree_tag("FNmh", "jacobian");
+      break;
+    case "newton":
+    case "newtonian":
+      tree = DATA.tree_tag("FNmh", "newtonian");
+      break;
+    // "FNm"
+    // "FNm0"
+    case "vector2r":
+    case "vector3r":
+    case "vector4r":
+    case "vector2c":
+    case "vector3c":
+    case "vector4c":
+    case "zeros2":
+    case "zeros3":
+    case "zeros4":
+    case "ones2":
+    case "ones3":
+    case "ones4":
+    case "identity2":
+    case "identity3":
+    case "identity4":
+      tree = DATA.tree_mat(math_mat[token_lower]());
+      break;
+    // "FNm1"
+    case "vectorr":
+    case "vectorc":
+    case "identity":
+    case "isfalse":
+    case "istrue":
+    case "first":
+    case "last":
+    case "rotationx":
+    case "rotationy":
+    case "rotationz":
+    case "sizer":
+    case "size":
+    case "sizec":
+    case "normr":
+    case "norm":
+    case "normc":
+    case "euclidean":
+    case "normalizer":
+    case "normalize":
+    case "normalizec":
+    case "trans":
+    case "transpose":
+    case "htrans":
+    case "htranspose":
+    case "hermitian":
+    // "FNm2"
+    case "scalars":
+    case "zeros":
+    case "ones":
+    case "coo2mat":
+    case "mat2coo":
+    case "interp":
+    case "gauss_coo":
+    case "gaussian_coo":
+    case "gauss":
+    case "gaussian":
+    // "FNm2or3"
+    // Matlab defined
+    // Python defined
+    case "linspace":
+      tree = DATA.tree_tag("FNm", token_lower);
+      break;
+    // "CT"
+    // JavaScript defined
+    case "epsilon":
+    case "min_safe_integer":
+    case "max_safe_integer":
+      tree = DATA.tree_num(math.config[token_upper], 0);
+      break;
+    case "min_value":
+    case "max_value":
+    case "positive_infinity":
+    case "negative_infinity":
+      tree = DATA.tree_num(Number[token_upper], 0);
+      break;
+    // My defined
+    case "eps":
+      tree = DATA.tree_num(math.config["EPSILON"], 0);
+      break;
+    case  "inf":
+    case  "infinity":
+    case "pinf":
+    case "pinfinity":
+      tree = DATA.tree_num(Number.POSITIVE_INFINITY, 0);
+      break;
+    case "ninf":
+    case "ninfinity":
+      tree = DATA.tree_num(Number.NEGATIVE_INFINITY, 0);
+      break;
+    case  "infi":
+    case  "infinityi":
+    case "pinfinityi":
+    case "pinfi":
+      tree = DATA.tree_num(0, Number.POSITIVE_INFINITY);
+      break;
+    case "ninfinityi":
+    case "ninfi":
+      tree = DATA.tree_num(0, Number.NEGATIVE_INFINITY);
+      break;
+    // JavaScript defined
+    case "ln2":
+    case "ln10":
+    case "log2e":
+    case "log10e":
+    case "sqrt1_2":
+    case "sqrt2":
+    // Both defined
+    case "e":
+    case "pi":  // pi || PI() in Excel
+      tree = DATA.tree_num(Math[token_upper], 0);
+      break;
+    // "FN0"
+    // JavaScript defined
+    case "random":
+    // Excel defined
+    case "rand":
+      tree = DATA.tree_tag("FN", "random");
+      break;
+    // "FN1"
+    case "ln":
+      tree = DATA.tree_tag("FN", "log");
+      break;
+    // JavaScript defined
+    case "ceil":
+    case "floor":
+    case "round":
+    case "log":
+    // Excel defined
+    case "sinh":
+    case "cosh":
+    case "tanh":
+    case "asinh":
+    case "acosh":
+    case "atanh":
+    case "csch":
+    case "sech":
+    case "coth":
+    case "acsch":
+    case "asech":
+    case "acoth":
+    case "sign":
+    case "fact":
+    case "degrees":
+    case "radians":
+    // Both defined
+    case "abs":
+    case "sqrt":
+    case "exp":
+    case "sin":
+    case "cos":
+    case "tan":
+    case "asin":
+    case "acos":
+    case "atan":
+    case "log10":
+    // Python defined
+    case "log2":
+    case "int":
+    // My defined
+    case "isnan":
+    case "sin_deg":
+    case "cos_deg":
+    case "tan_deg":
+    case "deg_asin":
+    case "deg_acos":
+    case "deg_atan":
+    case "rad2deg":
+    case "deg2rad":
+    case "cdot":
+    case "ecomp":
+    case "ecomplex":
+    case "real":
+    case "imag":
+    case "imaginary":
+    case "conj":
+    case "conjugate":
+    case "arg":
+    case "argument":
+    case "deg_arg":
+    case "deg_argument":
+      tree = DATA.tree_tag("FN", token_lower);
+      break;
+    // "FN1or2"
+    // Excel defined
+    case "log_ex":
+      tree = DATA.tree_tag("FN", token_lower);
+      break;
+    // "FN2"
+    case "power":
+      tree = DATA.tree_tag("FN", "pow");
+      break;
+    // JavaScript defined
+    case "pow":
+    case "atan2":
+    case "imul":
+    // Excel defined
+    case "combin":
+    case "combination":
+    // My defined
+    case "permut":
+    case "permutation":
+    case "deg_atan2":
+    case "atan2_ex":  // Excel spec
+    case "deg_atan2_ex":
+    case "comp":
+    case "complex":
+    case "pcomp":
+    case "pcomplex":
+    case "kdelta":
+    case "mod":
+    case "fmod":
+    case "quot":
+    // "FN3or4"
+    // My defined
+    case "star":
+    case "poly":
+    case "polygon":
+      tree = DATA.tree_tag("FN", token_lower);
+      break;
+    // "FNn"
+    // Excel defined@n<256
+    case "lcm":
+    case "gcd":
+    // Both defined
+    // real number
+    case "min":
+    case "max":
+    // Python defined
+    case "mean":
+    case "sum":
+    case "prod":
+    case "median":
+    case "sort":
+    case "reverse":
+    // My defined
+    // |complex number|
+    case "cmin":
+    case "cmax":
+    case "camin":
+    case "camax":
+    case "cmedian":
+    case "csort":
+    case "creverse":
+      tree = DATA.tree_tag("FNn", token_lower);
+      break;
+    default:
+      /* Ver.2.24.12 -> */
+      if(operation.config.isEscaped(token)){
+        self.check_varName(token.substring(1), re);
+      }
+      else{
+        self.check_varName_prifix(token, re);  // Ver.2.146.37
+      }
+      /* -> Ver.2.24.12 */
+      /* Ver.2.214.49 -> */
+      if(token_left === "."){  // Ver.2.230.56
+        var hasProp = false;
+        SYNTAX.props.forEach(function(prop){
+          hasProp = hasProp || (token_lower === prop);
+        });
+        if(hasProp){
+          token = "."+token_lower;
+        }
+      }
+      /* -> Ver.2.214.49 */
+      tree = DATA.tree_tag("REv", token);
+      break;
+  }
+  _tree = tree;
+  return _tree;
+};
 /*
             j-th sentence
   trees2d: [j][i]{tag || num}
@@ -464,7 +836,8 @@ My_entry.parser.prototype.make_trees = function(sentence, opt_re){  // Ver.2.158
   /* -> Ver.2.143.36 */
   for(var i=0, len_i=tokens.length; i<len_i; ++i){
     var i_next = i;
-    var tree = undefined;
+    var tree = null;  // Ver.2.230.56
+    var token_left = tokens[i-1];  // Ver.2.230.56
     var token = tokens[i];
     var token_lower = token.toLowerCase();
     var token_upper = token.toUpperCase();
@@ -495,366 +868,8 @@ My_entry.parser.prototype.make_trees = function(sentence, opt_re){  // Ver.2.158
       tree = self.compare2bas(token) || self.compare2bs(token, re);
       /* -> Ver.2.20.9 */
     }
-    if(ip_e || tree){
-    }
-    else switch(token_lower){
-      // reserved word
-      // token
-      case "\\":
-      case "?":
-      case "#":
-      case "\"":
-      case "`":
-        throw "reserved token("+token+")";
-        break;
-      // literal
-      case "nan":
-        tree = DATA.tree_num(NaN, 0);
-        break;
-      case "false":
-        tree = DATA.tree_num(false, 0);
-        break;
-      case "true":
-        tree = DATA.tree_num(true, 0);
-        break;
-      // variable
-      case "ans":
-        tree = DATA.tree_tag("REv", token_lower);
-        break;
-      // command
-      case "clear":
-      case "store":
-      case "restore":
-      case "stop":
-        throw "Invalid "+token+" called";
-        break;
-      // "FNc"
-      // storage
-      case "hasvar":
-      case "haseqn":
-      case "delvar":
-      case "deleqn":
-      case "addvar":
-      case "addeqn":
-      // scopes+storage
-      case "hasv":
-      case "hase":
-        tree = DATA.tree_tag("FNc", token_lower);
-        break;
-      // "FNhn"
-      case "switch":
-        tree = DATA.tree_tag("FNh", {key: token_lower});
-        break;
-      // "FN2"
-      // real number
-      // relational
-      case "seq":
-      case "sne":
-      case "eq":
-      case "ne":
-      // comparison
-      case "lt":
-      case "le":
-      case "gt":
-      case "ge":
-      // logical
-      case "bitnot":
-      case "bitand":
-      case "bitxor":
-      case "bitor":
-      case "not":
-      case "and":
-      case "xor":
-      case "or":
-      // complex number
-      // relational
-      case "cseq":
-      case "csne":
-      case "ceq":
-      case "cne":
-      // logical
-      case "cnot":
-      case "cand":
-      case "cxor":
-      case "cor":
-        tree = DATA.tree_tag("FN", token_lower);
-        break;
-      // "FNmh"
-      case "jacobi":
-      case "jacobian":
-        tree = DATA.tree_tag("FNmh", "jacobian");
-        break;
-      case "newton":
-      case "newtonian":
-        tree = DATA.tree_tag("FNmh", "newtonian");
-        break;
-      // "FNm"
-      // "FNm0"
-      case "vector2r":
-      case "vector3r":
-      case "vector4r":
-      case "vector2c":
-      case "vector3c":
-      case "vector4c":
-      case "zeros2":
-      case "zeros3":
-      case "zeros4":
-      case "ones2":
-      case "ones3":
-      case "ones4":
-      case "identity2":
-      case "identity3":
-      case "identity4":
-        tree = DATA.tree_mat(math_mat[token_lower]());
-        break;
-      // "FNm1"
-      case "vectorr":
-      case "vectorc":
-      case "identity":
-      case "isfalse":
-      case "istrue":
-      case "first":
-      case "last":
-      case "rotationx":
-      case "rotationy":
-      case "rotationz":
-      case "sizer":
-      case "size":
-      case "sizec":
-      case "normr":
-      case "norm":
-      case "normc":
-      case "euclidean":
-      case "normalizer":
-      case "normalize":
-      case "normalizec":
-      case "trans":
-      case "transpose":
-      case "htrans":
-      case "htranspose":
-      case "hermitian":
-      // "FNm2"
-      case "scalars":
-      case "zeros":
-      case "ones":
-      case "coo2mat":
-      case "mat2coo":
-      case "interp":
-      case "gauss_coo":
-      case "gaussian_coo":
-      case "gauss":
-      case "gaussian":
-      // "FNm2or3"
-      // Matlab defined
-      // Python defined
-      case "linspace":
-        tree = DATA.tree_tag("FNm", token_lower);
-        break;
-      // "CT"
-      // JavaScript defined
-      case "epsilon":
-      case "min_safe_integer":
-      case "max_safe_integer":
-        tree = DATA.tree_num(self.entry.math.config[token_upper], 0);
-        break;
-      case "min_value":
-      case "max_value":
-      case "positive_infinity":
-      case "negative_infinity":
-        tree = DATA.tree_num(Number[token_upper], 0);
-        break;
-      // My defined
-      case "eps":
-        tree = DATA.tree_num(self.entry.math.config["EPSILON"], 0);
-        break;
-      case  "inf":
-      case  "infinity":
-      case "pinf":
-      case "pinfinity":
-        tree = DATA.tree_num(Number.POSITIVE_INFINITY, 0);
-        break;
-      case "ninf":
-      case "ninfinity":
-        tree = DATA.tree_num(Number.NEGATIVE_INFINITY, 0);
-        break;
-      case  "infi":
-      case  "infinityi":
-      case "pinfinityi":
-      case "pinfi":
-        tree = DATA.tree_num(0, Number.POSITIVE_INFINITY);
-        break;
-      case "ninfinityi":
-      case "ninfi":
-        tree = DATA.tree_num(0, Number.NEGATIVE_INFINITY);
-        break;
-      // JavaScript defined
-      case "ln2":
-      case "ln10":
-      case "log2e":
-      case "log10e":
-      case "sqrt1_2":
-      case "sqrt2":
-      // Both defined
-      case "e":
-      case "pi":  // pi || PI() in Excel
-        tree = DATA.tree_num(Math[token_upper], 0);
-        break;
-      // "FN0"
-      // JavaScript defined
-      case "random":
-      // Excel defined
-      case "rand":
-        tree = DATA.tree_tag("FN", "random");
-        break;
-      // "FN1"
-      case "ln":
-        tree = DATA.tree_tag("FN", "log");
-        break;
-      // JavaScript defined
-      case "ceil":
-      case "floor":
-      case "round":
-      case "log":
-      // Excel defined
-      case "sinh":
-      case "cosh":
-      case "tanh":
-      case "asinh":
-      case "acosh":
-      case "atanh":
-      case "csch":
-      case "sech":
-      case "coth":
-      case "acsch":
-      case "asech":
-      case "acoth":
-      case "sign":
-      case "fact":
-      case "degrees":
-      case "radians":
-      // Both defined
-      case "abs":
-      case "sqrt":
-      case "exp":
-      case "sin":
-      case "cos":
-      case "tan":
-      case "asin":
-      case "acos":
-      case "atan":
-      case "log10":
-      // Python defined
-      case "log2":
-      case "int":
-      // My defined
-      case "isnan":
-      case "sin_deg":
-      case "cos_deg":
-      case "tan_deg":
-      case "deg_asin":
-      case "deg_acos":
-      case "deg_atan":
-      case "rad2deg":
-      case "deg2rad":
-      case "cdot":
-      case "ecomp":
-      case "ecomplex":
-      case "real":
-      case "imag":
-      case "imaginary":
-      case "conj":
-      case "conjugate":
-      case "arg":
-      case "argument":
-      case "deg_arg":
-      case "deg_argument":
-        tree = DATA.tree_tag("FN", token_lower);
-        break;
-      // "FN1or2"
-      // Excel defined
-      case "log_ex":
-        tree = DATA.tree_tag("FN", token_lower);
-        break;
-      // "FN2"
-      case "power":
-        tree = DATA.tree_tag("FN", "pow");
-        break;
-      // JavaScript defined
-      case "pow":
-      case "atan2":
-      case "imul":
-      // Excel defined
-      case "combin":
-      case "combination":
-      // My defined
-      case "permut":
-      case "permutation":
-      case "deg_atan2":
-      case "atan2_ex":  // Excel spec
-      case "deg_atan2_ex":
-      case "comp":
-      case "complex":
-      case "pcomp":
-      case "pcomplex":
-      case "kdelta":
-      case "mod":
-      case "fmod":
-      case "quot":
-      // "FN3or4"
-      // My defined
-      case "star":
-      case "poly":
-      case "polygon":
-        tree = DATA.tree_tag("FN", token_lower);
-        break;
-      // "FNn"
-      // Excel defined@n<256
-      case "lcm":
-      case "gcd":
-      // Both defined
-      // real number
-      case "min":
-      case "max":
-      // Python defined
-      case "mean":
-      case "sum":
-      case "prod":
-      case "median":
-      case "sort":
-      case "reverse":
-      // My defined
-      // |complex number|
-      case "cmin":
-      case "cmax":
-      case "camin":
-      case "camax":
-      case "cmedian":
-      case "csort":
-      case "creverse":
-        tree = DATA.tree_tag("FNn", token_lower);
-        break;
-      default:
-        /* Ver.2.24.12 -> */
-        if(self.entry.operation.config.isEscaped(token)){
-          self.check_varName(token.substring(1), re);
-        }
-        else{
-          self.check_varName_prifix(token, re);  // Ver.2.146.37
-        }
-        /* -> Ver.2.24.12 */
-        /* Ver.2.214.49 -> */
-        if(tokens[i-1] === "."){
-          var hasProp = false;
-          SYNTAX.props.forEach(function(prop){
-            hasProp = hasProp || (token_lower === prop);
-          });
-          if(hasProp){
-            token = "."+token_lower;
-          }
-        }
-        /* -> Ver.2.214.49 */
-        tree = DATA.tree_tag("REv", token);
-        break;
+    if(!(ip_e || tree)){
+      tree = self.switch_token(tokens, token_left, token, token_lower, token_upper, re);  // Ver.2.230.56
     }
     if(tree){
       _trees.push(self.FN2REv(tree, token, token_lower, token_upper));  // Ver.2.221.50  // Ver.2.228.56

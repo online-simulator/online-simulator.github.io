@@ -811,6 +811,15 @@ My_entry.operation.prototype.get_symbol = function(tree){
   if(_symbol && self.config.isEscaped(_symbol)) throw "Invalid symbol("+_symbol+")";
   return _symbol;
 };
+/* Ver.2.230.56 */
+My_entry.operation.prototype.get_symbols = function(data, tree, isRow){
+  var self = this;
+  var BT = self.config.BT;
+  var isSEe = tree[BT.SEe];
+  var symbol = (isSEe)? self.get_symbol(isSEe): "";
+  var _symbols = (symbol)? [symbol]: self.get_names(data, self.tree2tree_eqn(data, tree, isRow));
+  return _symbols;
+};
 /* Ver.2.27.15 -> */
 My_entry.operation.prototype.get_names = function(data, tree_BT, isRow){
   var self = this;
@@ -818,9 +827,16 @@ My_entry.operation.prototype.get_names = function(data, tree_BT, isRow){
   var DATA = self.entry.DATA;
   var BT = self.config.BT;
   var _names = [];
-  var tree = self.tree_BT2tree(data, tree_BT);
-  var arr = self.get_tagVal(tree, "mat", "arr");
-  if(arr){
+  /* Ver.2.230.56 -> */
+  var isSEe = tree_BT[BT.SEe];
+  var symbol = (isSEe)? self.get_symbol(isSEe): "";
+  if(symbol){
+    _names.push(symbol);
+  }
+  else{
+    var tree = self.tree_BT2tree(data, tree_BT);
+    var arr = self.get_tagVal(tree, "mat", "arr");
+  /* -> Ver.2.230.56 */
     if(isRow){
       arr = math_mat.transpose(data.options, arr);
     }
@@ -1012,6 +1028,7 @@ My_entry.operation.prototype.jacobian = function(data, rightArr, tagObj){
   var math_mat = self.entry.math_mat;
   var DATA = self.entry.DATA;
   var unit = self.entry.unit;
+  var BT = self.config.BT;  // Ver.2.230.56
   var _tree = null;
   var msgErr = "Invalid J arguments";
   var args = self.arr2args(rightArr);
@@ -1092,6 +1109,7 @@ My_entry.operation.prototype.jacobian = function(data, rightArr, tagObj){
     /* -> Ver.1.5.3 */
     return _get_f;
   };
+/* Ver.2.230.56 -> */
 if(prop.key){
   /* Ver.2.23.11 -> */
   prop = prop.key;
@@ -1099,15 +1117,7 @@ if(prop.key){
   // symbolic
   if(prop === "EX"){
     if(len_j > 2){
-      /* Ver.2.32.17 */
-      var get_names = function(j){
-        var isSEe = args[j][self.config.BT.SEe];
-        var symbol = (isSEe)? self.get_symbol(isSEe): "";
-        var _names = (symbol)? [symbol]: self.get_names(data, get_tree(j));
-        return _names;
-      };
-      /* Ver.2.27.15 -> */
-      var names = get_names(0);
+      var names = self.get_symbols(data, args[0]);  // Ver.2.230.56
       if(!(names.length)) throw msgErr;
       /* -> Ver.2.27.15 */
       var name_var = names[names.length-1];
@@ -1275,16 +1285,16 @@ if(prop.key){
       return _xc;
     };
     var OX = (orderT === 2)? OX_order2: OX_order4;
-/* Ver.2.29.15 -> */
+    /* Ver.2.29.15 -> */
     var vec = x0;  // initialize
-for(var n=0; n<Niteration; ++n){
+    for(var n=0; n<Niteration; ++n){
       vec = OX();
       // update
       t0 = unit["BRa"](options, t0, dt);
       x0 = init_x0(arr_x, names, []);
-}
+    }
     _tree = DATA.tree_mat(DATA.vec2arr(vec));
-/* -> Ver.2.29.15 */
+    /* -> Ver.2.29.15 */
   }
   else{
     throw msgErr;
@@ -1315,7 +1325,7 @@ else{
     var hcr = hc.r;
     var hci = hc.i;
     var h0 = DATA.num(hcr, hci);
-/* Ver.2.29.15 -> */
+    /* Ver.2.29.15 -> */
     var J = null;
     // x0
     var isFound_x0 = [];
@@ -1328,36 +1338,36 @@ else{
     var i0 = [];
     var j0 = [];
     var f0 = [];
-var step = function(){
-    // x1
-    for(var i=0; i<len_i; ++i){
-      var x0ic = x0[i].com;
-      dx[i] = h0;
-      x1[i] = DATA.num(x0ic.r+hcr, x0ic.i+hci);
-    }
-    // f0
-    var tree = self.tree_eqn2tree(data, tree_eqn);
-    var arr_f = tree.mat.arr;
-    get_f = get_f || make_get_f_from_arr_f0(arr_f, len_i, i0, j0);
-    for(var i=0; i<len_i; ++i){
-      f0[i] = get_f(arr_f, i);
-    }
-    // J
-    J = math_mat.init2d(len_i, len_i);
-    for(var j=0; j<len_i; ++j){
+    var step = function(){
+      // x1
       for(var i=0; i<len_i; ++i){
-        var name_var = names[i];
-        var num = (i === j)? x1[i]: x0[i];
-        self.store_var(name_var, DATA.num2tree(num), scopes, ids_buffer);  // Ver.2.31.17  // Ver.2.225.53
+        var x0ic = x0[i].com;
+        dx[i] = h0;
+        x1[i] = DATA.num(x0ic.r+hcr, x0ic.i+hci);
       }
+      // f0
       var tree = self.tree_eqn2tree(data, tree_eqn);
-      var arr_f1 = tree.mat.arr;
+      var arr_f = tree.mat.arr;
+      get_f = get_f || make_get_f_from_arr_f0(arr_f, len_i, i0, j0);
       for(var i=0; i<len_i; ++i){
-        var f1i = get_f(arr_f1, i);
-        J[i][j] = unit["BRd"](options, unit["BRs"](options, f1i, f0[i]), dx[i]);
+        f0[i] = get_f(arr_f, i);
       }
-    }
-};
+      // J
+      J = math_mat.init2d(len_i, len_i);
+      for(var j=0; j<len_i; ++j){
+        for(var i=0; i<len_i; ++i){
+          var name_var = names[i];
+          var num = (i === j)? x1[i]: x0[i];
+          self.store_var(name_var, DATA.num2tree(num), scopes, ids_buffer);  // Ver.2.31.17  // Ver.2.225.53
+        }
+        var tree = self.tree_eqn2tree(data, tree_eqn);
+        var arr_f1 = tree.mat.arr;
+        for(var i=0; i<len_i; ++i){
+          var f1i = get_f(arr_f1, i);
+          J[i][j] = unit["BRd"](options, unit["BRs"](options, f1i, f0[i]), dx[i]);
+        }
+      }
+    };
     if(isNewtonian){
       // Niteration
       var argN = args[4];
@@ -1370,33 +1380,33 @@ var step = function(){
       var isRelative_epsN = (arg6 && arg6.com)? arg6.com.r: self.options.isRelative_epsN;  // 0||not0
       _tree = DATA.tree_mat(DATA.vec2arr(x0));  // initialize
       var arr_mdx = null;
-for(var n=0; n<Niteration; ++n){
-      step();
-      for(var i=0; i<len_i; ++i){
-        J[i].push(f0[i]);
+      for(var n=0; n<Niteration; ++n){
+        step();
+        for(var i=0; i<len_i; ++i){
+          J[i].push(f0[i]);
+        }
+        arr_mdx = math_mat.gaussian(options, J);
+        // store x_next
+        for(var i=0; i<len_i; ++i){
+          var name_var = names[i];
+          var mdxi = self.arr2obj_i(arr_mdx, i);
+          self.store_var(name_var, DATA.num2tree(unit["BRs"](options, x0[i], mdxi)), scopes, ids_buffer);  // Ver.2.31.17  // Ver.2.225.53
+        }
+        // update
+        x0 = init_x0(arr_x, names, []);
+        // check convergence
+        if(isRelative_epsN){
+          // relative error
+          var normdx = math_mat.euclidean(options, arr_mdx);
+          var normx0 = math_mat.euclidean(options, DATA.vec2arr(x0));
+          if(self.arr2num(normdx).com.r < epsN*self.arr2num(normx0).com.r) break;
+        }
+        else{
+          // absolute error
+          var normdx = math_mat.euclidean(options, arr_mdx);
+          if(self.arr2num(normdx).com.r < epsN) break;
+        }
       }
-      arr_mdx = math_mat.gaussian(options, J);
-      // store x_next
-      for(var i=0; i<len_i; ++i){
-        var name_var = names[i];
-        var mdxi = self.arr2obj_i(arr_mdx, i);
-        self.store_var(name_var, DATA.num2tree(unit["BRs"](options, x0[i], mdxi)), scopes, ids_buffer);  // Ver.2.31.17  // Ver.2.225.53
-      }
-      // update
-      x0 = init_x0(arr_x, names, []);
-      // check convergence
-      if(isRelative_epsN){
-        // relative error
-        var normdx = math_mat.euclidean(options, arr_mdx);
-        var normx0 = math_mat.euclidean(options, DATA.vec2arr(x0));
-        if(self.arr2num(normdx).com.r < epsN*self.arr2num(normx0).com.r) break;
-      }
-      else{
-        // absolute error
-        var normdx = math_mat.euclidean(options, arr_mdx);
-        if(self.arr2num(normdx).com.r < epsN) break;
-      }
-}
       if(arr_mdx){
         if(options.checkError && argN && argN.com){
           for(var i=0; i<len_i; ++i){
@@ -1413,7 +1423,7 @@ for(var n=0; n<Niteration; ++n){
     }
     else{
       step();
-/* -> Ver.2.29.15 */
+    /* -> Ver.2.29.15 */
       _tree = DATA.tree_mat(J);
       // restore x0
       for(var i=0; i<len_i; ++i){
@@ -1431,6 +1441,7 @@ for(var n=0; n<Niteration; ++n){
     throw msgErr;
   }
 }
+/* -> Ver.2.230.56 */
   /* -> Ver.2.21.10 */
   return _tree;
 };
