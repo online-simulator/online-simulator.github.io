@@ -776,6 +776,8 @@ e^(-i(1pi(){2/2i}(5-{3-1}){i/(-4)}))
 <br>
 ・<a href="#span-eqn-template">template</a>
 <br>
+・<a href="#span-eqn-args">args</a>
+<br>
 ・<a href="#span-eqn-scope_NG">scope_NG</a>
 <br>
 ・<a href="#span-eqn-Fibonacci">Fibonacci</a>
@@ -34953,13 +34955,17 @@ f=&lt;last{V=1,E=0,k=1,I=exp(k*(V-E))-exp(-k*(V-E))}
 <br>
 ・<a href="#span-out-flow">parser</a>は複数種類の<a href="#span-out-BT">括弧</a>のnestingに対応し、再帰的に<a href="#span-in-tree">tree構造</a>を階層化する
 <br>
-・<span class="clear">Ver.2.228.56</span>以降、<a href="#span-out-call-by-equation">式渡し</a>も同様に、<a href="#span-out-BT">括弧</a>に変換して階層化
+・<span class="clear">Ver.2.228.56</span>以降、<a href="#span-out-call-by-equation">式渡し</a>も同様に、<a href="#span-out-BT">括弧</a>に変換して階層化する
+<br>
+・以上の階層を<a href="#span-out-scope-vars">変数のscope</a>（<a href="#span-out-config">useScope</a>||<a href="#span-out-option6">useScopeWith</a>）に活用する
 <br>
 <del>・よって<a href="#span-out-bracket">階層</a>に紐付く<a href="#span-out-scope-vars">変数のscope</a>はstaticで再利用可能としたが、最善を追及していない
 <br>
 ・<a href="#span-out-eqns-args">式変数のarguments</a>も同様に、最善の仕様を追及していない</del><span class="run">Ver.2.222.50</span>以降、削除
 <br>
-・多用しない前提で<a href="#span-out-scope-inherited">scope継承</a>を許容する
+・一方、階層毎に<a href="#span-out-SR">区切り文字</a>を<a href="#span-in-short-circuit">先読み</a>することで<a href="#span-in-short-circuit">短絡評価</a>を再現する
+<br>
+・他方、多用しない前提で<a href="#span-out-bracket">直列scope内</a>の<a href="#span-out-scope-inherited">scope継承</a>を許容する
 <br>
 ・<a href="#span-out-FN">関数</a>を含む実装関数は最善のalgorithmとは限らない（<a href="#span-out-FN-statistic">sort関数</a>||<a href="#span-out-interpolation-spline">spline補間</a>||<a href="#span-out-linear">Gaussの消去法</a>）
 <br>
@@ -35435,9 +35441,13 @@ CAS
 <span id="span-out-special-FNh"></span>
 <a href="#span-out-FNh">高階関数</a>について記述する
 <br>
-・関数名に<a href="#span-out-vars-symbol">変数名symbol</a>を含む仕様は一般的に許容されない
+・<a href="#span-out-ref-transparency">参照透過性</a>の観点から
 <br>
-・<a href="#span-out-FNspecial-spec">特殊仕様関数</a>も同様
+・関数名に<a href="#span-out-vars-symbol">変数名symbol</a>を含む仕様（dummy変数限定）は一般的に許容されない
+<br>
+・<a href="#span-out-FNspecial-spec">特殊仕様関数</a>（関数名に引数の一部を含む仕様）も同様
+<br>
+・本来、高負荷の正規表現は多用しない
     </td>
   </tr>
   <tr>
@@ -37226,7 +37236,17 @@ f(=&lt;A)=&lt;A==&gt;+B,B=-1,C=-2,g=&lt;B,
 <br>
 clear;
 <br>
-B=-1,g=&lt;B,[B=10,[B=20,[B=30,=&lt;g]=&gt;f,=&lt;f]=&gt;f,=&lt;f]=&gt;f,f=&gt;,f==&gt;:
+B=-1,g=&lt;B/*here*/,[B=10,[B=20,[B=30,f=&lt;g=/*required*/&gt;,=&lt;f]=&gt;f,=&lt;f]=&gt;f,=&lt;f]=&gt;f,f=&gt;,f==&gt;:
+<br>
+B=-1,g=&lt;B,[B=10,[B=20,[B=30,f=&lt;g==&gt;,=&lt;f]=&gt;f,=&lt;f]=&gt;f,=&lt;f]=&gt;f,f=&gt;,f==&gt;:
+<br>
+B=-1,g=&lt;B,[B=10,[B=20,[B=30,f=/*disabled*/=&lt;g=&gt;,=&lt;f]=&gt;f,=&lt;f]=&gt;f,=&lt;f]=&gt;f,f=&gt;,f==&gt;:
+<br>
+B=-1,g=&lt;B,[B=10,[B=20,[B=30,f=/*disabled*/=&lt;g==&gt;,=&lt;f]=&gt;f,=&lt;f]=&gt;f,=&lt;f]=&gt;f,f=&gt;,f==&gt;:
+<br>
+B=-1,[B=10,[B=20,g=&lt;B,[B=30,g=&gt;f,=&lt;f]=&gt;f,=&lt;f]=&gt;f,=&lt;f]=&gt;f,f=&gt;,f==&gt;:
+<br>
+B=-1,[B=10,[B=20,g=&lt;B,[B=30,g==&gt;f,=&lt;f]=&gt;f,=&lt;f]=&gt;f,=&lt;f]=&gt;f,f=&gt;,f==&gt;:
 <br>
 B=-1,[B=10,g=&lt;B,[B=20,[B=30,=&lt;g]=&gt;f,=&lt;f]=&gt;f,=&lt;f]=&gt;f,f=&gt;,f==&gt;:
 <br>
@@ -37234,17 +37254,116 @@ B=-1,[B=10,[B=20,g=&lt;B,[B=30,=&lt;g]=&gt;f,=&lt;f]=&gt;f,=&lt;f]=&gt;f,f=&gt;,
 <br>
 B=-1,[B=10,[B=20,g=&lt;B,[B=30,==&lt;g]=&gt;f,=&lt;f]=&gt;f,=&lt;f]=&gt;f,f=&gt;,f==&gt;:
 <br>
-B=-1,[B=10,[B=20,[B=30,==&lt;=&lt;B]=&gt;f,=&lt;f]=&gt;f,=&lt;f]=&gt;f,f=&gt;,f==&gt;:
+B=-1,[B=10,[B=20,g=&lt;B,[B=30,==&lt;=&lt;g]=&gt;f,=&lt;f]=&gt;f,=&lt;f]=&gt;f,f=&gt;,f==&gt;:
 <br>
-B=-1,[B=10,[B=20,[B=30,==&lt;=&lt;B]==&gt;f,=&lt;f]=&gt;f,=&lt;f]=&gt;f,f=&gt;,f==&gt;:
+B=-1,[B=10,[B=20,g=&lt;B,[B=30,=&lt;=/*disabled*/=&lt;g]=&gt;f,=&lt;f]=&gt;f,=&lt;f]=&gt;f,f=&gt;,f==&gt;:
 <br>
-B=-1,[B=10,[B=20,[B=30,==&lt;=&lt;B]=&gt;f,==&lt;f]=&gt;f,=&lt;f]=&gt;f,f=&gt;,f==&gt;:
+B=-1,[B=10,[B=20,[B=30,=/*disabled*/=&lt;=&lt;B]=&gt;f,=&lt;f]=&gt;f,=&lt;f]=&gt;f,f=&gt;,f==&gt;:
 <br>
-B=-1,[B=10,[B=20,[B=30,==&lt;=&lt;B]=&gt;f,=&lt;f]==&gt;f,=&lt;f]=&gt;f,f=&gt;,f==&gt;:
+B=-1,[B=10,[B=20,[B=30,=&lt;=&lt;B]==&gt;f,=&lt;f]=&gt;f,=&lt;f]=&gt;f,f=&gt;,f==&gt;:
 <br>
-B=-1,[B=10,[B=20,[B=30,==&lt;=&lt;B]=&gt;f,=&lt;f]=&gt;f,==&lt;f]=&gt;f,f=&gt;,f==&gt;:
+B=-1,[B=10,[B=20,[B=30,=&lt;=&lt;B]=&gt;f,==&lt;f]=&gt;f,=&lt;f]=&gt;f,f=&gt;,f==&gt;:
 <br>
-B=-1,[B=10,[B=20,[B=30,==&lt;=&lt;B]=&gt;f,=&lt;f]=&gt;f,=&lt;f]==&gt;f,f=&gt;,f==&gt;;
+B=-1,[B=10,[B=20,[B=30,=&lt;=&lt;B]=&gt;f,=&lt;f]==&gt;f,=&lt;f]=&gt;f,f=&gt;,f==&gt;:
+<br>
+B=-1,[B=10,[B=20,[B=30,=&lt;=&lt;B]=&gt;f,=&lt;f]=&gt;f,==&lt;f]=&gt;f,f=&gt;,f==&gt;:
+<br>
+B=-1,[B=10,[B=20,[B=30,=&lt;=&lt;B]=&gt;f,=&lt;f]=&gt;f,=&lt;f]==&gt;f,f=&gt;,f==&gt;:
+<br>
+B=-1,[B=10,[B=20,[B=30,=&lt;B/*resolved*/]=&gt;f,=&lt;f]=&gt;f,=&lt;f]==&gt;f,f=&gt;,f==&gt;;
+<br>
+clear;
+<br>
+B=-1,[B=10,=&lt;[B=20,g=&lt;B,g=-B,=&lt;[B=30,=&lt;g/*resolved*/]=&gt;]=&gt;]=&gt;:
+<br>
+B=-1,[B=10,=&lt;[B=20,g=&lt;B,g=-B,=&lt;[B=30,=&lt;g/*var||omitted=&gt;*/]=&gt;]=&gt;]=&gt;:
+<br>
+B=-1,[B=10,=&lt;[B=20,g=&lt;B,=&lt;[B=30,=&lt;g=&gt;]=&gt;]=&gt;]=&gt;:
+<br>
+B=-1,[B=10,=&lt;[B=20,g=&lt;B,=&lt;[B=30,=&lt;g==&gt;]=&gt;]=&gt;]=&gt;:
+<br>
+B=-1,[B=10,=&lt;[B=20,g=&lt;B,=&lt;[B=30,=/*disabled*/=&lt;g=&gt;]=&gt;]=&gt;]=&gt;:
+<br>
+B=-1,[B=10,=&lt;[B=20,g=&lt;B,=&lt;[B=30,=/*disabled*/=&lt;g==&gt;]=&gt;]=&gt;]=&gt;;
+    </td>
+  </tr>
+  <tr>
+    <th>
+<a href="#span-index">
+目次
+</a>
+<br>
+args
+    </th>
+    <td>
+<span id="span-eqn-args"></span>
+<a href="#span-out-eqns-args">式変数のarguments</a>||<a href="#span-out-eqns-no-name">無名call</a>参照
+<br>
+clear;
+<br>
+a=1:
+<br>
+[=&lt;a]=&gt;,[=&lt;[=&lt;a]=&gt;]=&gt;,[=&lt;[(a)=&lt;a](2)=&gt;]=&gt;,[=&lt;[a=1,(a)=&lt;a](2)=&gt;]=&gt;:
+<br>
+[=&lt;[(a)=&lt;last[,a]](3)=&gt;]()=&gt;:
+<br>
+[=&lt;[a=2,(a)=&lt;last[,a]/*resolved*/](3)=&gt;]()=&gt;:
+<br>
+[[(a)=&lt;=&lt;last[,a]/*not-resolved*/](3)=&gt;]()=&gt;:
+<br>
+[[a=2,(a/*[overwrite-disabled]*/)=&lt;=&lt;last[,a]](3)=&gt;]()=&gt;:
+<br>
+[(a)=&lt;=&lt;last[,a]](3)=&gt;f,f=&gt;,f==&gt;:
+<br>
+[a=2,(a)=&lt;=&lt;last[,a]](3)=&gt;f,f=&gt;,f==&gt;:
+<br>
+[[(a)=&lt;(x,y)=&lt;(a,x,y)](a)=&gt;](2,3)=&gt;:
+<br>
+[[a=2,(a/*[overwrite-disabled]*/)=&lt;(x,y)=&lt;(a,x,y)](a)=&gt;](2,3)=&gt;;
+<br>
+clear;
+<br>
+a=-1,b=0,x=1:
+<br>
+[a=1,[(a)=&lt;(x)=&lt;a*x+b](-3)=&gt;f,=&lt;f]=&gt;f,f(x)=&gt;,f(x)==&gt;:
+<br>
+[a=1,[(a)=&lt;(x)=/*disabled*/=&lt;a*x+b](-3)=&gt;f,=&lt;f]=&gt;f,f(x)=&gt;,f(x)==&gt;:
+<br>
+[a=1,[(a)=&lt;(x)=&lt;a*x+b](-3)==&gt;f,=&lt;f]=&gt;f,f(x)=&gt;,f(x)==&gt;:
+<br>
+[a=1,[(a)=&lt;(x)=&lt;a*x+b](-3)=&gt;f,==&lt;f]=&gt;f,f(x)=&gt;,f(x)==&gt;:
+<br>
+[a=1,[(a)=&lt;(x)=&lt;a*x+b](-3)=&gt;f,=&lt;f]==&gt;f,f(x)=&gt;,f(x)==&gt;:
+<br>
+[a=1,[a=2,(a/*overwrite-disabled*/)=&lt;(x)=&lt;a*x+b](-3)=&gt;f,=&lt;f]=&gt;f,f(x)=&gt;,f(x)==&gt;;
+<br>
+clear;
+<br>
+a=-1,b=-2,c=-3:
+<br>
+[[[(a)=&lt;(b)=&lt;(c)=&lt;(a,b,c)](1)=&gt;](2)=&gt;](3)=&gt;:
+<br>
+[[[(a)=&lt;(b)=&lt;(c)=&lt;(a,b,c)](1)==&gt;](2)=&gt;](3)=&gt;:
+<br>
+[[[(a)=&lt;(b)=&lt;(c)=&lt;(a,b,c)](1)=&gt;](2)==&gt;](3)=&gt;:
+<br>
+[[[(a)=&lt;(b)=&lt;(c)=&lt;(a,b,c)](1)=&gt;](2)=&gt;](3)==&gt;:
+<br>
+[(c)=&lt;[(b)=&lt;[(a)=&lt;(a,b,c)](1)=&gt;](2)=&gt;](3)=&gt;:
+<br>
+[(c)=&lt;[(b)=&lt;[(a)=&lt;(a,b,c)](1)==&gt;](2)=&gt;](3)=&gt;:
+<br>
+[(c)=&lt;[(b)=&lt;[(a)=&lt;(a,b,c)](1)=&gt;](2)==&gt;](3)=&gt;:
+<br>
+[(c)=&lt;[(b)=&lt;[(a)=&lt;(a,b,c)](1)=&gt;](2)=&gt;](3)==&gt;;
+<br>
+clear;
+<br>
+a=-1,b=-2,c=-3:
+<br>
+[[[(a)=&lt;(b)=&lt;(c)=&lt;(x,y)=&lt;(a,b,c,x,y)](1)=&gt;](2)=&gt;](3)=&gt;f:f(4,5)=&gt;:f(6,7)=&gt;:f(4,5)==&gt;:f(6,7)==&gt;:
+<br>
+[(c)=&lt;[(b)=&lt;[(a)=&lt;(x,y)=&lt;(a,b,c,x,y)](1)=&gt;](2)=&gt;](3)=&gt;f:f(4,5)=&gt;:f(6,7)=&gt;:f(4,5)==&gt;:f(6,7)==&gt;;
     </td>
   </tr>
   <tr>
