@@ -22975,7 +22975,7 @@ clear; b=0; a=&lt;b=1; c=&lt;b=-1; a|||c,b -> (0,-1)
 <br>
 ・_sdummy<a href="#span-out-vars-symbol">変数名symbol</a>でcallする
 <br>
-・dummy変数は無次元で<a href="#span-out-terms">直列scope内変数</a>から独立する
+・dummy変数は無次元で<a href="#span-out-terms">scope変数</a>から独立する
 <br>
 <br>
 _sdummy<a href="#span-out-vars-symbol">変数名symbol</a>(=&lt;第1引数,第2引数,第3引数[,第4引数])
@@ -23047,7 +23047,7 @@ _sy(=&lt;{_Sx(=&lt;{x+y},y,0)},0,2) || 0+2+1+4+3+2 -> 12
 <br>
 _Sy(=&lt;{_sx(=&lt;{x+y},0,y)},2,0) || 0+2+3+4+1+2 -> 12
 <br>
-・総和を取るdummy変数は<a href="#span-out-terms">直列scope内変数</a>から独立
+・総和を取るdummy変数は<a href="#span-out-terms">scope変数</a>から独立
 <br>
 x=-1; y=-2; _sy(=&lt;{_sx(=&lt;{x+y},0,y)},0,2); x+y -> -3
 <br>
@@ -23155,7 +23155,7 @@ N=0; _sn(=&lt;Pn,N,10) -> 99.99999999999999
 <br>
 ・_pdummy<a href="#span-out-vars-symbol">変数名symbol</a>でcallする
 <br>
-・dummy変数は無次元で<a href="#span-out-terms">直列scope内変数</a>から独立する
+・dummy変数は無次元で<a href="#span-out-terms">scope変数</a>から独立する
 <br>
 <br>
 _pdummy<a href="#span-out-vars-symbol">変数名symbol</a>(=&lt;第1引数,第2引数,第3引数[,第4引数])
@@ -23264,7 +23264,7 @@ x={0,1,2,3,4,5,6,7,8,9}; _pn(=&lt;x[n],1,9) -> 362880
 <br>
 ・_rdummy<a href="#span-out-vars-symbol">変数名symbol</a>でcallする
 <br>
-・dummy変数は無次元で<a href="#span-out-terms">直列scope内変数</a>から独立する
+・dummy変数は無次元で<a href="#span-out-terms">scope変数</a>から独立する
 <br>
 <br>
 _rdummy<a href="#span-out-vars-symbol">変数名symbol</a>(=&lt;第1引数,第2引数,第3引数[,=&lt;第4引数])
@@ -23472,7 +23472,7 @@ norm(mdx)/norm({x0,x1}) -> infoLost[ri] 3.6879601533907295e-16
 <br>
 ・dummy変数は無次元
 <br>
-・dummy変数と同名の<a href="#span-out-terms">直列scope内変数</a>を参照するが、上書きしない
+・dummy変数と同名の<a href="#span-out-terms">scope変数</a>を参照するが、上書きしない
 <br>
 <br>
 _ddummy<a href="#span-out-vars-symbol">変数名symbol</a>(=&lt;第1引数[,第2引数[,第3引数[,第4引数]]])
@@ -23483,7 +23483,7 @@ option
 <br>
 ・第2引数: 微分階数Ndash（正の整数）を値渡し[省略時、1]
 <br>
-・第3引数: 微分位置aを値渡し[省略時、<a href="#span-out-terms">直列scope内変数</a>を参照]
+・第3引数: 微分位置aを値渡し[省略時、<a href="#span-out-terms">scope変数</a>を参照]
 <br>
 ・第4引数: 1階微分の差分刻みdx0を値渡し[0||省略時、dx既定値]
 <br>
@@ -23809,7 +23809,7 @@ x -> (1.000000000000009+O(3e-5):0.9999999999999909+O(3e-5))
 <br>
 ・dummy変数は無次元
 <br>
-・dummy変数と同名の<a href="#span-out-terms">直列scope内変数</a>を参照するが、上書きしない
+・dummy変数と同名の<a href="#span-out-terms">scope変数</a>を参照するが、上書きしない
 <br>
 <br>
 _idummy<a href="#span-out-vars-symbol">変数名symbol</a>(=&lt;第1引数,第2引数,第3引数[,第4引数])
@@ -24028,7 +24028,7 @@ Jacobi高階行列関数
 <br>
 ・微分位置xでの差分刻みdx既定値dx=dxJ(1+i)
 <br>
-・未知変数の<a href="#span-out-terms">直列scope内変数</a>を参照するが、上書きしない
+・未知変数の<a href="#span-out-terms">scope変数</a>を参照するが、上書きしない
 <br>
 <br>
 Jacobi(=&lt;第1引数,=&lt;第2引数[,=&lt;第3引数[,第4引数]])
@@ -24083,7 +24083,7 @@ clear; a=1e10; h=max(1,abs(a))1e-5(1+i); Jacobi(=&lt;{2x^2},=&lt;{x},=&lt;{a},h)
 ・1階偏微分の解析解=4xからx=1e10周辺の傾き4e10を返す
 <br>
 <br>
-未知変数の<a href="#span-out-terms">直列scope内変数</a>を参照するが、上書きしない
+未知変数の<a href="#span-out-terms">scope変数</a>を参照するが、上書きしない
 <br>
 clear;
 <br>
@@ -24177,7 +24177,7 @@ Newton高階行列関数
 <br>
 ・絶対誤差の残差norm収束判定実数値epsN既定値epsN=1e-16
 <br>
-・未知変数の<a href="#span-out-terms">直列scope内変数</a>を参照、上書きする
+・未知変数の<a href="#span-out-terms">scope変数</a>を参照、上書きする
 <br>
 <br>
 Newton(=&lt;第1引数,=&lt;第2引数[,=&lt;第3引数[,第4引数[,第5引数[,第6引数[,第7引数]]]]])
@@ -24442,9 +24442,9 @@ ODE高階行列関数
 <br>
 ・dummy変数は無次元
 <br>
-・dummy変数と同名の<a href="#span-out-terms">直列scope内変数</a>を参照、上書きする
+・dummy変数と同名の<a href="#span-out-terms">scope変数</a>を参照、上書きする
 <br>
-・未知変数の<a href="#span-out-terms">直列scope内変数</a>を参照、上書きする
+・未知変数の<a href="#span-out-terms">scope変数</a>を参照、上書きする
 <br>
 <br>
 _odummy<a href="#span-out-vars-symbol">変数名symbol</a>(=&lt;第1引数,=&lt;第2引数[,=&lt;第3引数[,第4引数[,第5引数[,第6引数]]]])
@@ -24461,7 +24461,7 @@ option
 <br>
 ・第4引数: dummy変数初期値t0を値渡し[省略時、0]
 <br>
-　第4引数はdummy変数と同名の<a href="#span-out-terms">直列scope内変数</a>未定義時のみ有効
+　第4引数はdummy変数と同名の<a href="#span-out-terms">scope変数</a>未定義時のみ有効
 <br>
 ・第5引数: 常微分の差分刻みdtを値渡し[省略時、dxT既定値]
 <br>
