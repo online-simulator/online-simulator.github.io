@@ -815,10 +815,17 @@ My_entry.operation.prototype.get_symbol = function(tree){
 My_entry.operation.prototype.get_symbols = function(data, tree, isRow){
   var self = this;
   var BT = self.config.BT;
+  var _names = [];
   var isSEe = tree[BT.SEe];
   var symbol = (isSEe)? self.get_symbol(isSEe): "";
-  var _symbols = (symbol)? [symbol]: self.get_names(data, self.tree2tree_eqn(data, tree, isRow));
-  return _symbols;
+  if(symbol){
+    _names.push(symbol);
+  }
+  else{
+    var tree_BT = self.tree2tree_eqn(data, tree);
+    _names = self.get_names(data, tree_BT, isRow);
+  }
+  return _names;
 };
 /* Ver.2.27.15 -> */
 My_entry.operation.prototype.get_names = function(data, tree_BT, isRow){
