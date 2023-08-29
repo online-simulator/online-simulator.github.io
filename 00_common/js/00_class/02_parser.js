@@ -323,14 +323,18 @@ My_entry.parser.prototype.compare2bs = function(token, re){
       if(mc && mc.length > 1){
         var mc1 = mc[1];
         if(tagName === "FNmh" || tagName === "FNh"){  // Ver.2.21.10
+          /* Ver.2.231.56 -> */
+          var name = mc1;  // mc1="" enabled
           if(mc1){
             /* Ver.2.29.15 -> */
             if(self.entry.operation.config.isEscaped(mc1)){
               throw "Invalid dummy("+mc1+")";
             }
             /* -> Ver.2.29.15 */
-            _tree = DATA.tree_tag(tagName, {key: key, name: self.check_varName(mc1, re)});  // Ver.2.24.12
+            name = self.check_varName(mc1, re);
           }
+          _tree = DATA.tree_tag(tagName, {key: key, name: name});  // Ver.2.24.12
+          /* -> Ver.2.231.56 */
         }
         /* Ver.2.128.34 */
         else if(tagName === "FNm" || tagName === "FNn"){  // Ver.2.176.43

@@ -259,6 +259,52 @@ Y/M/D
 <tbody>
   <tr>
     <th>
+6.290.126.15.68
+    </th>
+    <td class="types">
+Calculator
+    </td>
+    <td>
+2.231.56
+    </td>
+    <td>
+minor update
+    </td>
+    <td>
+[Calculator]
+<br>
+・FNh||Newton(=&lt;f(args disabled　⇒　enabled)) with ODE solver
+<br>
+・test case updated
+<br>
+　deprecation for referential transparency:
+<br>
+clear; f(x)=&lt;x**2+x-12=0; mdx=Newton(=&lt;f,,,,20); x
+<br>
+clear; mdx=Newton((x)=&lt;f(x)=&gt;,,,,20); x
+<br>
+clear; mdx=Newton((x)=&lt;x**2+x-12=0,,,,20); x
+<br>
+　old:
+<br>
+clear; mdx=Newton(=&lt;x**2+x-12=0,=&lt;{x},,,20); x
+<br>
+　future:
+<br>
+Newton(=&lt;f,/*disabled*/,,,20)
+<br>
+-> infoLost[ri] 3+3.6251539429332055e-22i+O(3e-16+7e-22i)
+<br>
+[Graphing Calculator]
+<br>
+・test case all-buttons updated
+    </td>
+    <td>
+2023/8/29
+    </td>
+  </tr>
+  <tr>
+    <th>
 6.289.126.15.68
     </th>
     <td class="types">
