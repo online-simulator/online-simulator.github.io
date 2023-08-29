@@ -1231,7 +1231,7 @@ clear
 local storage cleared
 
 [Pinv_y=(-0.999999427,-0.999936657,-0.997300203,-0.954499736,-0.682689492,0,0.682689492,0.954499736,0.997300203,0.999936657,0.999999427:-5,-4,-3,-2,-1,0,1,2,3,4,5),N=1,arr=[],_rn(=<arr=(arr:rand_table(=<Pinv_y)=>),,N),=<arr]=>
-0.40521695998473267
+-0.10271207226609291
 
 rand_table(csv)=<last[table=sort0(csv),ymin=min(table)[0],ymax=max(table)[0],y=ymin+(ymax-ymin)*rand,x=interp(y:table),x]
 stored_eqn(rand_table)
@@ -1389,12 +1389,12 @@ stored_eqn(scope_NG1)
 clear
 local storage cleared
 
-x=3,A=linspace(1,2,2:3,4,2),f(x)=<x+1,g(x)=<x-2,h(x)=<x*x,compose_x(x)=<h(g(f(x)=>)=>)=>,compose_A(A)=<h(=<g(=<f(=<A)=>)=>)=>,pipe_A(A)=<A.map((x)=<f(x)=>).map((x)=<g(x)=>).map((x)=<h(x)=>):[[[(=<F)=<(=<G)=<(=<H)=<H(G(F(x)=>)=>)=>](=<f)=>](=<g)=>](=<h)=>,[(=<H)=<[(=<G)=<[(=<F)=<H(G(F(x)=>)=>)=>](=<f)=>](=<g)=>](=<h)=>,compose_x(x)=>,compose_A(x)=>,pipe_A(x)=>:[[[(=<F)=<(=<G)=<(=<H)=<H(=<G(=<F(=<A)=>)=>)=>](=<f)=>](=<g)=>](=<h)=>,[(=<H)=<[(=<G)=<[(=<F)=<H(=<G(=<F(=<A)=>)=>)=>](=<f)=>](=<g)=>](=<h)=>,compose_A(=<A)=>,pipe_A(=<A)=>
+k=1,x=3,A=linspace(1,2,2:3,4,2),f(x)=<x+1,g(x)=<x-2,h(x)=<x*x,compose_x(x)=<h(g(f(x)=>*k)=>*k)=>*k,compose_A(A)=<h(=<g(=<f(=<A)=>*k)=>*k)=>*k,fgh_pipe_x(x,=<f,=<g,=<h)=<[[[(=<F)=<(=<G)=<(=<H)=<H(G(F(x)=>*k)=>*k)=>*k](=<f)=>](=<g)=>](=<h)=>,fgh_nest_x(x,=<f,=<g,=<h)=<[(=<H)=<[(=<G)=<[(=<F)=<H(G(F(x)=>*k)=>*k)=>*k](=<f)=>*k](=<g)=>*k](=<h)=>*k,fgh_pipe_A(A,=<f,=<g,=<h)=<[[[(=<F)=<(=<G)=<(=<H)=<H(=<G(=<F(=<A)=>*k)=>*k)=>*k](=<f)=>](=<g)=>](=<h)=>,fgh_nest_A(A,=<f,=<g,=<h)=<[(=<H)=<[(=<G)=<[(=<F)=<H(=<G(=<F(=<A)=>*k)=>*k)=>*k](=<f)=>*k](=<g)=>*k](=<h)=>*k,A_map_fgh(A,=<f,=<g,=<h)=<A.map((x)=<f(x)=>*k).map((x)=<g(x)=>*k).map((x)=<h(x)=>*k),compose_pipe_x(x)=<fgh_pipe_x(x,=<f,=<g,=<h)=>,compose_nest_x(x)=<fgh_nest_x(x,=<f,=<g,=<h)=>,compose_pipe_A(A)=<fgh_pipe_A(=<A,=<f,=<g,=<h)=>,compose_nest_A(A)=<fgh_nest_A(=<A,=<f,=<g,=<h)=>,pipe_A(A)=<A_map_fgh(=<A,=<f,=<g,=<h)=>:[[[(=<F)=<(=<G)=<(=<H)=<H(G(F(x)=>*k)=>*k)=>*k](=<f)=>](=<g)=>](=<h)=>,[(=<H)=<[(=<G)=<[(=<F)=<H(G(F(x)=>*k)=>*k)=>*k](=<f)=>*k](=<g)=>*k](=<h)=>*k,compose_pipe_x(x)=>,compose_nest_x(x)=>,compose_x(x)=>,compose_A(x)=>,pipe_A(x)=>:[[[(=<F)=<(=<G)=<(=<H)=<H(=<G(=<F(=<A)=>*k)=>*k)=>*k](=<f)=>](=<g)=>](=<h)=>,[(=<H)=<[(=<G)=<[(=<F)=<H(=<G(=<F(=<A)=>*k)=>*k)=>*k](=<f)=>*k](=<g)=>*k](=<h)=>*k,compose_pipe_A(=<A)=>,compose_nest_A(=<A)=>,compose_A(=<A)=>,pipe_A(=<A)=>
 (
-0,0,0,0,0,0,0,0:
-4,4,4,4,4:
-2,3,2,3,2,3,0,1:
-6,11,6,11,6,11,4,9
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0:
+4,4,4,4,4,4,4:
+2,3,2,3,2,3,2,3,2,3,0,1:
+6,11,6,11,6,11,6,11,6,11,4,9
 )
 
 clear
@@ -1572,4 +1572,4 @@ center=true&drag=false&test-case=false&legend=true&axis-t=false&axis-x=true&log-
 --------------------------------
 --------------------------------
 
-online-simulator.github.io.6.289.126.15.68 @ Mon Aug 28 2023 21:36:37 GMT+0900 (日本標準時) @ Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/116.0.0.0 Safari/537.36
+online-simulator.github.io.6.289.126.15.68 @ Tue Aug 29 2023 11:14:46 GMT+0900 (日本標準時) @ Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/116.0.0.0 Safari/537.36
