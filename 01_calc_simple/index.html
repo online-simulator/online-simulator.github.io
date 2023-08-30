@@ -167,6 +167,8 @@
       script += "\nclear;\n";
       script += "[(x=0:f=0),(_e((f)=<x,2,2):($x0,$x1,$x2,$x3)=(1,2,3,4)),f=>,(x:f)];";
       script += "\nclear;\n";
+      script += "Jacobi(=<{x0**2+x1,x0+x1**2},=<{x0,x1},=<{1,2}):($x0,$x1)=(,):Jacobi(=<{x0**2+x1,x0+x1**2},=<{x0,x1},=<{1,2}):(x0,x1):($x0,$x1)=(1,2):Jacobi(=<{x0**2+x1,x0+x1**2},=<{x0,x1}):(x0,x1);";
+      script += "\nclear;\n";
       script += "f(x)=<x**2+x-12=0,mdx=Newton(=<f,,,,20),x;";
       script += "\nclear;\n";
       script += "f(x)=<x**2+x-12=0,mdx=Newton((x)=<f(x)=>,,,,20),x;";
