@@ -803,12 +803,18 @@ My_entry.operation.prototype.tree_BT2tree = function(data, tree, opt_ids){
   }
   return _tree;
 };
+/* Ver.2.232.56 */
+My_entry.operation.prototype.check_symbol = function(symbol){
+  var self = this;
+  if(symbol && self.config.isEscaped(symbol)) throw "Invalid symbol("+symbol+")";
+  return self;
+};
 /* Ver.2.229.56 */
 My_entry.operation.prototype.get_symbol = function(tree){
   var self = this;
   var has1val = (tree && tree.val.length === 1);
   var _symbol = has1val && self.get_tagVal(tree.val[0], "REv", "val");
-  if(_symbol && self.config.isEscaped(_symbol)) throw "Invalid symbol("+_symbol+")";
+  self.check_symbol(_symbol);  // Ver.2.232.56
   return _symbol;
 };
 /* Ver.2.230.56 */
@@ -870,7 +876,7 @@ My_entry.operation.prototype.get_names = function(data, tree_BT, isRow){
         name_checked = name;
       }
       if(name){
-        if(self.config.isEscaped(name_checked)) throw "Invalid REv("+name_checked+")";  // Ver.2.32.17
+        self.check_symbol(name_checked);  // Ver.2.32.17  // Ver.2.232.56
         _names.push(name);
       }
       else{
@@ -884,13 +890,11 @@ My_entry.operation.prototype.get_names = function(data, tree_BT, isRow){
 My_entry.operation.prototype.get_name_escaped = function(tree){
   var self = this;
   var _name = "";
-  var name_checked = "";
   var name = self.get_tagVal(tree, "REv", "val");
   if(name && self.config.isEscaped(name)){
     _name = name.substring(1);
-    name_checked = _name;
+    self.check_symbol(_name);  // Ver.2.30.16  // Ver.2.32.17  // Ver.2.232.56
   }
-  if(self.config.isEscaped(name_checked)) throw "Invalid SEv("+name_checked+")";  // Ver.2.30.16  // Ver.2.32.17
   return _name;
 };
 /* -> Ver.2.27.15 */
@@ -1130,7 +1134,7 @@ if(prop.key){
       if(!(names.length)) throw msgErr;
       /* -> Ver.2.27.15 */
       var name_var = names[names.length-1];
-      if(self.config.isEscaped(name_var)) throw "Invalid REv("+name_var+")";  // Ver.2.29.15
+      self.check_symbol(name_var);  // Ver.2.29.15  // Ver.2.232.56
       /* Ver.2.231.56 -> */
       var args_eqn = self.get_args(tree_eqn);
       var name_arg = (args_eqn)? args_eqn[args_eqn.length-1]: "";
@@ -1175,7 +1179,7 @@ if(prop.key){
     var name_bar = tagObj.val.name;
     var name_var = name_arg || name_bar;
     if(!(name_var) || (name_arg && name_bar)) throw msgErr;
-    if(self.config.isEscaped(name_var)) throw "Invalid REv("+name_var+")";  // Ver.2.29.15
+    self.check_symbol(name_var);  // Ver.2.29.15  // Ver.2.232.56
     var names = args_eqn || self.get_names(data, get_tree(1));
     /* -> Ver.2.231.56 */
     if(!(names.length)) throw msgErr;
@@ -3240,7 +3244,7 @@ My_entry.operation.prototype.SEv = function(data, i0, tagName, tagObj){
     if(trees.length === 3){
       var name_var = self.get_tagVal(leftTree, "REv", "val");
       if(name_var){
-        if(self.config.isEscaped(name_var)) throw "Invalid SEv("+name_var+")";  // Ver.2.27.15
+        self.check_symbol(name_var);  // Ver.2.27.15  // Ver.2.232.56
         tree = trees[ie];
         if(self.get_tag(tree, "mat")){  // only matrix is stored
           var ref = self.get_tagVal(leftTree, "REv", "ref");
@@ -3704,7 +3708,7 @@ My_entry.operation.prototype.BTe = function(data, i0, tagName, tagObj){  // Ver.
   }
   /* -> Ver.2.213.48 */
   if(name_eqn){
-    if(self.config.isEscaped(name_eqn)) throw "Invalid SEe("+name_eqn+")";  // Ver.2.27.15
+    self.check_symbol(name_eqn);  // Ver.2.27.15  // Ver.2.232.56
     self.store_eqn(name_eqn, tree, scopes, ids);  // Ver.2.31.17
     tree = DATA.tree_tag("out", "stored_eqn("+name_eqn+")");
   }
