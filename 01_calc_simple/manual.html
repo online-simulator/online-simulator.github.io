@@ -1894,6 +1894,10 @@ title/発行元(発行年)を列挙する
 　影響項目：<a href="#span-eqn-plot2d_interp">plot2d_interp</a>
 <br>
 ・<span class="run">Ver.2.230.56</span>以降、<a href="#span-out-vars-symbol">変数名symbol</a>の内部取得関数を最適化
+<br>
+・<span class="run">Ver.2.231.56</span>以降、<a href="#span-out-FNh">高階関数</a>の内部wrapper関数を追加
+<br>
+・<span class="run">Ver.2.233.56</span>以降、<a href="#span-out-FNmh">高階行列関数</a>の内部wrapper関数を追加
     </td>
   </tr>
   <tr>
@@ -12255,7 +12259,12 @@ x=2; store; clear; x=3<span class="selection">/*independent local scope*/</span>
 一部、参照透過性なし：実装関数が作る<a href="#span-out-terms">scope変数</a>の再利用の可否を意識する負担あり
 <br>
 <br>
-参照透過性を失う（<a href="#span-out-terms">scope変数</a>を参照、上書きする）実装関数を列挙する
+<a href="#span-out-terms">scope変数</a>を参照する実装関数を列挙する
+<br>
+・<a href="#span-out-FNmh-jacobian">Jacobi高階行列関数</a>
+<br>
+<br>
+<a href="#span-out-terms">scope変数</a>を参照、上書きする実装関数を列挙する
 <br>
 ・<a href="#span-out-FNmh-newtonian">Newton高階行列関数</a>||<a href="#span-eqn-solvex_iteration">solvex_iteration</a>||<a href="#span-eqn-solveAinv">solveAinv</a>||<a href="#span-eqn-solvex_non_linear">solvex_non_linear</a>
 <br>
