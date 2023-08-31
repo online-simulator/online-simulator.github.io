@@ -594,6 +594,10 @@ My_entry.parser.prototype.switch_token = function(tokens, token_left, token, tok
     // Matlab defined
     // Python defined
     case "linspace":
+    // "FNm3"
+    case "reshaper":
+    case "reshape":
+    case "reshapec":
       tree = DATA.tree_tag("FNm", token_lower);
       break;
     // "CT"

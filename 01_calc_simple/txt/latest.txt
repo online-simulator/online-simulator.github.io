@@ -1,31 +1,181 @@
 clear
 local storage cleared
 
-dt=0.1,N=10:f(t,x)=<t,_o(=<f,,,,dt,N):t,x:,_o((t,x)=<t,,,,dt,N):t,x
+reshaper(A.:(2,N))
 (
+1,1,2,2,3,3,4,4:
+5,5,6,6,7,7,8,8
+)
+
+reshaper(A:(2,N))
+(
+1,2,3,4,5,6,7,8:
+1,2,3,4,5,6,7,8
+)
+
+reshaper(A.:(N,2))
+(
+1,1:
+2,2:
+3,3:
+4,4:
+5,5:
+6,6:
+7,7:
+8,8
+)
+
+reshaper(A:(N,2))
+(
+1,2:
+3,4:
+5,6:
+7,8:
+1,2:
+3,4:
+5,6:
+7,8
+)
+
+reshape(A.:(2,N))
+(
+1,3,5,7,1,3,5,7:
+2,4,6,8,2,4,6,8
+)
+
+reshape(A:(2,N))
+(
+1,2,3,4,5,6,7,8:
+1,2,3,4,5,6,7,8
+)
+
+reshape(A.:(N,2))
+(
+1,1:
+2,2:
+3,3:
+4,4:
+5,5:
+6,6:
+7,7:
+8,8
+)
+
+reshape(A:(N,2))
+(
+1,5:
+1,5:
+2,6:
+2,6:
+3,7:
+3,7:
+4,8:
+4,8
+)
+
+A=linspace(1,N,N:1,N,N)
+A=(
+1,2,3,4,5,6,7,8:
+1,2,3,4,5,6,7,8
+)
+
+N=8
+N=8
+
+clear
+local storage cleared
+
+Newton(=<f,,=<{1},,20,1e-10,1)
+3+1.2456874309439032e-17i+O(1e+1+1e+0i)
+
+f(b)=<{_i((x)=<x^2,0,b,10)=3^3/3}/*integral equation*/
+stored_eqn(f)
+
+_R((n)=<run,,Niteration)
+(
+infoLost[ i] -0.04901921620544653+2.023423045158351i:
+0.07726186556052178-1.434248862158042i
+)
+
+run=<(x_next=Newton(=<f,,=<x_initial),{$x0,$x1}=x_next,=<x_next)=>
+stored_eqn(run)
+
+x=>,x_initial=>
+(
+1+i,1+i:
+1-i,1-i
+)
+
+x_solved=Newton(=<f,,=<x_initial,,Niteration)
+x_solved=(
+infoLost[ i] -0.04901921620544653+2.023423045158351i+O(3e-17+6e-18i):
+0.07726186556052178-1.434248862158042i+O(1e-17+2e-16i)
+)
+
+x=>,x_initial=>
+(
+1+i,1+i:
+1-i,1-i
+)
+
+f(x0,x1)=<{x0^i-2x1=3i,3x0+exp(x1)=5i}
+stored_eqn(f)
+
+x_solved=Newton(=<f,=<x,=<x_initial,,Niteration)
+x_solved=(
+infoLost[ i] -0.04901921620544653+2.023423045158351i+O(3e-17+6e-18i):
+0.07726186556052178-1.434248862158042i+O(1e-17+2e-16i)
+)
+
+x=>,x_initial=>
+(
+1+i,1+i:
+1-i,1-i
+)
+
+f=<{x0^i-2x1=3i,3x0+exp(x1)=5i}/*non-linear equations*/
+stored_eqn(f)
+
+x=>x_initial
+0
+
+x=<{x0,x1}
+stored_eqn(x)
+
+{$x0,$x1}={1+i,1-i}
+stored_var(x0) stored_var(x1) 
+
+Niteration=6
+Niteration=6
+
+clear
+local storage cleared
+
+x=-1,dt=0.1,N=10,t=N*dt:f(t,x)=<t,x_next=_o(=<f,,,,dt,N):t,x_next:t0=t,x_next=_o((t,x)=<t,,=<{x_next},t0,dt,N):t0+t,x_next,x
+(
+0,0,0,0:
 0,0:
-0,0.5+O(1e-4):
-0.9999999999999999,0.5+O(1e-4):
-0,2+O(1e-4):
-2.0000000000000004,2+O(1e-4)
+1,0.5+O(1e-4):
+0,0:
+2,2+O(1e-4),-1
 )
 
 clear
 local storage cleared
 
-dt=0.1,N=10:f(t)=<t,_o(=<f,=<{x},,,dt,N):t,x:,_o((t)=<t,=<{x},,,dt,N):t,x
+x=-1,dt=0.1,N=10,t=N*dt:f(t)=<t,x_next=_o(=<f,=<{x},,,dt,N):t,x_next:t0=t,x_next=_o((t)=<t,=<{x},=<{x_next},t0,dt,N):t0+t,x_next,x
 (
+0,0,0,0:
 0,0:
-0,0.5+O(1e-4):
-0.9999999999999999,0.5+O(1e-4):
-0,2+O(1e-4):
-2.0000000000000004,2+O(1e-4)
+1,0.5+O(1e-4):
+0,0:
+2,2+O(1e-4),-1
 )
 
 clear
 local storage cleared
 
-(f(x00,x01,x10,x11/*serialized*/)=<(x00,x01:x10,x11)*(1,2:3,4)=identity(2):mdx=Newton(=<f,,,,20)),(1,2:3,4)(x00,x01:x10,x11)
+(f(x00,x01,x10,x11/*serialized*/)=<(x00,x01:x10,x11)*(1,2:3,4)=identity(2):{$x00,$x01,$x10,$x11}=Newton(=<f,,,,20)),(1,2:3,4)(x00,x01:x10,x11)
 (
 0,infoLost[ri] 0.9999999999999996-1.0304861023705501e-26i+O(9e-16+1e-26i),infoLost[ri] 2.220446049250313e-16+3.91982596188828e-27i+O(4e-16+3e-27i):
 0,infoLost[ri] -8.881784197001252e-16-2.0609722047411003e-26i+O(2e-15+2e-26i),infoLost[ri] 1.0000000000000004+7.83965192377656e-27i+O(9e-16+6e-27i)
@@ -34,25 +184,25 @@ local storage cleared
 clear
 local storage cleared
 
-mdx=Newton((x)=<x**2+x-12=0,,,,20),x
+x=-1,x_solved=Newton((x)=<x**2+x-12=0,,,,20),x_solved,x
 (
-0,infoLost[ri] 3+3.6251539429332055e-22i+O(3e-16+7e-22i)
+0,0,infoLost[ri] 3+3.6251539429332055e-22i+O(3e-16+7e-22i),-1
 )
 
 clear
 local storage cleared
 
-f(x)=<x**2+x-12=0,mdx=Newton((x)=<f(x)=>,,,,20),x
+x=-1,f(x)=<x**2+x-12=0,x_solved=Newton((x)=<f(x)=>,,,,20),x_solved,x
 (
-0,0,infoLost[ri] 3+3.6251539429332055e-22i+O(3e-16+7e-22i)
+0,0,0,infoLost[ri] 3+3.6251539429332055e-22i+O(3e-16+7e-22i),-1
 )
 
 clear
 local storage cleared
 
-f(x)=<x**2+x-12=0,mdx=Newton(=<f,,,,20),x
+x=-1,f(x)=<x**2+x-12=0,x_solved=Newton(=<f,,,,20),x_solved,x
 (
-0,0,infoLost[ri] 3+3.6251539429332055e-22i+O(3e-16+7e-22i)
+0,0,0,infoLost[ri] 3+3.6251539429332055e-22i+O(3e-16+7e-22i),-1
 )
 
 clear
@@ -63,12 +213,12 @@ Jacobi(=<{x0**2+x1,x0+x1**2},=<{x0,x1},=<{1,2}):($x0,$x1)=(,):Jacobi(=<{x0**2+x1
 2.0000100000065513+0.000009999993449073826i,1.0000000000032756-3.2755706022246335e-12i:
 0.999999999981071+1.8928929719024988e-11i,4.000010000057512+0.000009999942489061227i:
 0:
-0.000010000000000000013+0.000010000000000000013i,1:
-1,0.000010000000000000013+0.000010000000000000013i:
-0,0:
-0:
 2.0000100000065513+0.000009999993449073826i,1.0000000000032756-3.2755706022246335e-12i:
 0.999999999981071+1.8928929719024988e-11i,4.000010000057512+0.000009999942489061227i:
+0,0:
+0:
+0.000010000000000000013+0.000010000000000000013i,1:
+1,0.000010000000000000013+0.000010000000000000013i:
 1,2
 )
 
@@ -2541,87 +2691,6 @@ _Sn(=<(n,2n(i):3n,4n+5n(i)),1,10)/*summation*/
 clear
 local storage cleared
 
-b
-3+1.2456874309439032e-17i+O(1e+1+1e+0i)
-
-mdx=Newton(=<f,=<{b},=<{1},,20,1e-10,1)
-mdx=1.9028726919626664e-12+1.83418497011244e-12i+O(1e-5+1e-5i)
-
-f=<{_ix(=<x^2,0,b,10)=3^3/3}/*integral equation*/
-stored_eqn(f)
-
-clear
-local storage cleared
-
-x
--0.17989326929739793-0.5079280004968625i+O(2e-1+5e-1i)
-
-mdx=Newton(=<f,=<{x},,,20,1e-10,1)
-mdx=-2.5375876640447435e-14-2.4451184565250488e-14i+O(1e-5+7e-6i)
-
-f=<{2x*_dx(=<x*exp(3x))=i}/*differential equation*/
-stored_eqn(f)
-
-clear
-local storage cleared
-
-x
-(
-infoLost[ i] -0.04901921620544653+2.023423045158351i:
-0.07726186556052178-1.434248862158042i
-)
-
-_Rn(=<run,,6)
-infoLost[ i] 2.2368035825474494e-16
-
-run=<last(mdx=Newton(=<f,=<x,=<x_initial),max(norm(f),norm(mdx)))
-stored_eqn(run)
-
-f=<{x0^i-2x1=3i,3x0+exp(x1)=5i}/*non-linear equations*/
-stored_eqn(f)
-
-x_initial=<{1+i,1-i}
-stored_eqn(x_initial)
-
-x=<{x0,x1}
-stored_eqn(x)
-
-clear
-local storage cleared
-
-solveAinv/*inverse matrix*/
-(
-infoLost[ri] -2-2.7169906227166025e-33i,infoLost[ri] 1+3.326931131471271e-33i:
-infoLost[ri] 1.5000000000000002+2.2201233082568935e-28i,infoLost[ri] -0.5000000000000001+5.05296129055519e-28i
-)
-
-solveAinv=<{sizeA=size(A),_eAinv(=<x,sizeA,sizeA),_ex(=<x,sizeA*sizeA,1),f=<Ainv*A=identity(sizeA),run=<last(mdx=Newton(=<f,=<x),max(norm(f),norm(mdx))),_rn(=<run,,3),=<Ainv}=>
-stored_eqn(solveAinv)
-
-x
-(
-infoLost[ri] -3.999999999999999-3.362471994400586e-26i:
-infoLost[ri] 4.499999999999999+6.466216308756395e-26i
-)
-
-_Rn(=<run,,3)
-infoLost[ri] 2.2204460494935903e-15
-
-run=<last(mdx=Newton(=<f,=<x,=<x_initial),max(norm(f),norm(mdx)))/*Newtonian method*/
-stored_eqn(run)
-
-f=<A(x)=b/*linear equations*/
-stored_eqn(f)
-
-x_initial=<{0,0}
-stored_eqn(x_initial)
-
-x=<{x0,x1}
-stored_eqn(x)
-
-restore
-local storage restored
-
 solvex_pivotting
 (
 -3.9999999999999987:
@@ -2746,4 +2815,4 @@ drag=false&sw=false&0x=false&useMatrix=true&useStrict=false&checkError=true&isRi
 --------------------------------
 --------------------------------
 
-online-simulator.github.io.6.292.126.15.68 @ Wed Aug 30 2023 22:15:35 GMT+0900 (日本標準時) @ Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/116.0.0.0 Safari/537.36
+online-simulator.github.io.6.293.126.15.68 @ Thu Aug 31 2023 22:15:32 GMT+0900 (日本標準時) @ Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/116.0.0.0 Safari/537.36

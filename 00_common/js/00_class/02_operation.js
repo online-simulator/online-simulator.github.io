@@ -1038,7 +1038,7 @@ My_entry.operation.prototype.get_hc = function(options, x, dx, sw_name){
   return _hc;
 };
 /* Ver.2.233.56 */
-My_entry.operation.prototype.FNmhX = function(data, rightArr, tagObj, len_j0, msgErr, callback_names, callback_FNmh, isOverwrite){
+My_entry.operation.prototype.FNmhX = function(data, rightArr, tagObj, len_j0, msgErr, callback_names, callback_FNmh){  // Ver.2.234.56 isOverwrite deleted
   var self = this;
   var scopes = data.scopes;
   var ids = data.ids;
@@ -1069,7 +1069,6 @@ My_entry.operation.prototype.FNmhX = function(data, rightArr, tagObj, len_j0, ms
         }
       });
       _tree = callback_FNmh(args, ids_buffer, name_var, names, tree_eqn);  // Ver.2.233.56
-    if(!(isOverwrite)){
       if(tree_var){
         self.store_var(name_var, tree_var, scopes, ids_buffer);  // Ver.2.31.17  // Ver.2.225.53
       }
@@ -1087,7 +1086,6 @@ My_entry.operation.prototype.FNmhX = function(data, rightArr, tagObj, len_j0, ms
           }
         }
       }
-    }
     }
     else{
       _tree = callback_names(args, args_eqn, name_arg, name_bar);  // Ver.2.233.56
@@ -1123,32 +1121,34 @@ My_entry.operation.prototype.jacobian = function(data, rightArr, tagObj){
     return _arr;
   };
   /* Ver.2.21.10 -> */
+  /* Ver.2.234.56 -> */
   var init_x0 = function(arr, names, ids_buffer){  // Ver.2.233.56
     var _x0 = [];
-    var get_num_i = function(i, name_var){
-      var _num = null;
-      var tree_var = self.restore_var(name_var, scopes, ids_buffer);  // Ver.2.31.17  // Ver.2.225.53
-      if(tree_var){
-        _num = self.arr2num(tree_var.mat.arr);
-      }
-      else{
-        _num = self.arr2obj_i(arr, i);
-        if(_num.com){
-          self.store_var(name_var, DATA.num2tree(_num), scopes, ids_buffer);  // Ver.2.31.17  // Ver.2.225.53
-        }
-        else{
-          self.throw_tree(_num);
-        }
-      }
-      return _num;
-    };
     var len_i = names.length;  // Ver.2.233.56
     for(var i=0; i<len_i; ++i){
       var name_var = names[i];
-      _x0[i] = get_num_i(i, name_var);
+      var num = self.arr2obj_i(arr, i);
+      if(num.com){
+        self.store_var(name_var, DATA.num2tree(num), scopes, ids_buffer);  // Ver.2.31.17  // Ver.2.225.53
+      }
+      else{
+        self.throw_tree(num);
+      }
+      _x0[i] = num;
     }
     return _x0;
   };
+  var update_x0 = function(names, ids_buffer){  // Ver.2.233.56  // Ver.2.234.56
+    var _x0 = [];
+    var len_i = names.length;  // Ver.2.233.56
+    for(var i=0; i<len_i; ++i){
+      var name_var = names[i];
+      var tree_var = self.restore_var(name_var, scopes, ids_buffer);  // Ver.2.31.17  // Ver.2.225.53
+      _x0[i] = self.arr2num(tree_var.mat.arr);
+    }
+    return _x0;
+  };
+  /* -> Ver.2.234.56 */
   var make_get_f_from_arr_f0 = function(arr_f0, len_i, i0, j0){
     var _get_f = null;
     /* Ver.1.5.3 -> f<={A(x)=b} */
@@ -1243,8 +1243,8 @@ else if(prop === "OX"){  // ODE  // Ver.2.23.11  // Ver.2.231.56  // Ver.2.233.5
     }
     /* -> Ver.2.29.15 */
     // t0
-    var tree_var = self.restore_var(name_var, scopes, ids_buffer);  // Ver.2.31.17  // Ver.2.225.53
-    var t0 = (tree_var)? self.arr2num(tree_var.mat.arr): args[3] || DATA.num(0, 0);
+    var t0ini = args[3] || DATA.num(0, 0);  // Ver.2.234.56
+    var t0 = t0ini;  // Ver.2.234.56
     // dt
     var dt = args[4] || DATA.num(self.options.dxT, 0);
     /* Ver.2.29.15 -> */
@@ -1365,14 +1365,14 @@ else if(prop === "OX"){  // ODE  // Ver.2.23.11  // Ver.2.231.56  // Ver.2.233.5
     for(var n=0; n<Niteration; ++n){
       vec = OX();
       // update
-      t0 = unit["BRa"](options, t0, dt);
-      x0 = init_x0(arr_x, names, ids_buffer);  // Ver.2.233.56
+      t0 = unit["BRa"](options, t0ini, unit["BRm"](options, DATA.num(n+1, 0), dt));  // Ver.2.234.56 t0ini+Niteration*dt not returned
+      x0 = update_x0(names, ids_buffer);  // Ver.2.233.56  // Ver.2.234.56
     }
     _tree = DATA.tree_mat(DATA.vec2arr(vec));
     /* -> Ver.2.29.15 */
     return _tree;
   };
-  _tree = self.FNmhX(data, rightArr, tagObj, 0, msgErr, callback_names, callback_FNmh, true);  // Ver.2.233.56
+  _tree = self.FNmhX(data, rightArr, tagObj, 0, msgErr, callback_names, callback_FNmh);  // Ver.2.233.56  // Ver.2.234.56
 }
 else{
   var isNewtonian = (prop === "newtonian");
@@ -1470,7 +1470,7 @@ else{
           self.store_var(name_var, DATA.num2tree(unit["BRs"](options, x0[i], mdxi)), scopes, ids_buffer);  // Ver.2.31.17  // Ver.2.225.53
         }
         // update
-        x0 = init_x0(arr_x, names, ids_buffer);  // Ver.2.233.56
+        x0 = update_x0(names, ids_buffer);  // Ver.2.233.56  // Ver.2.234.56
         // check convergence
         if(isRelative_epsN){
           // relative error
@@ -1492,10 +1492,9 @@ else{
             var x0ie = x0[i].err;
             x0ie.r = Math.max(Math.abs(mdxi.com.r), x0ie.r);
             x0ie.i = Math.max(Math.abs(mdxi.com.i), x0ie.i);
-            self.store_var(name_var, DATA.num2tree(x0[i]), scopes, ids_buffer);  // Ver.2.31.17  // Ver.2.225.53
           }
         }
-        _tree = DATA.tree_mat(arr_mdx);
+        _tree = DATA.tree_mat(DATA.vec2arr(x0));  // Ver.2.234.56
       }
     }
     else{
@@ -1505,7 +1504,7 @@ else{
     }
     return _tree;
   };
-  _tree = self.FNmhX(data, rightArr, tagObj, 0, msgErr, callback_names, callback_FNmh, isNewtonian);  // Ver.2.233.56
+  _tree = self.FNmhX(data, rightArr, tagObj, 0, msgErr, callback_names, callback_FNmh);  // Ver.2.233.56  // Ver.2.234.56
 }
 /* -> Ver.2.230.56 */
   /* -> Ver.2.21.10 */
@@ -1635,7 +1634,7 @@ My_entry.operation.prototype.FNhX = function(data, rightArr, tagObj, len_j0, cal
     if(!(name_var) || (name_arg && name_bar) || (args_eqn && args_eqn.length !== 1)) throw "Invalid FNh(=<args.length=1)";
     /* -> Ver.2.231.56 */
     var tree_var = self.restore_var(name_var, scopes, ids_buffer);  // Ver.2.31.17  // Ver.2.225.53
-    _tree = callback_FNh(args, ids_buffer, name_var, tree_var, tree_eqn);  // Ver.2.231.56
+    _tree = callback_FNh(args, ids_buffer, name_var, tree_eqn);  // Ver.2.231.56  // Ver.2.234.56 tree_var deleted
     if(tree_var){
       self.store_var(name_var, tree_var, scopes, ids_buffer);  // Ver.2.31.17  // Ver.2.225.53
     }
@@ -1651,7 +1650,7 @@ My_entry.operation.prototype.RX = function(data, rightArr, tagObj){
   var scopes = data.scopes;
   var ids = data.ids;
   var DATA = self.entry.DATA;
-  var callback_FNh = function(args, ids_buffer, name_var, tree_var, tree_eqn){  // Ver.2.231.56
+  var callback_FNh = function(args, ids_buffer, name_var, tree_eqn){  // Ver.2.231.56  // Ver.2.234.56
     var _tree = null;
     var a = args[1];
     var b = args[2];
@@ -1693,11 +1692,16 @@ My_entry.operation.prototype.DX = function(data, rightArr, tagObj){
   var ids = data.ids;
   var DATA = self.entry.DATA;
   var unit = self.entry.unit;
-  var callback_FNh = function(args, ids_buffer, name_var, tree_var, tree_eqn){  // Ver.2.231.56
+  var callback_FNh = function(args, ids_buffer, name_var, tree_eqn){  // Ver.2.231.56  // Ver.2.234.56
     var _tree = null;
-    var a0 = (tree_var)? self.arr2num(tree_var.mat.arr): null;
     /* Ver.1.3.1 */
-    var a = args[2] || a0;
+    var a = args[2];
+    /* Ver.2.234.56 -> */
+    if(!a){
+      var tree_var = self.restore_var(name_var, scopes, ids_buffer);  // Ver.2.31.17  // Ver.2.225.53
+      a = (tree_var)? self.arr2num(tree_var.mat.arr): null;
+    }
+    /* -> Ver.2.234.56 */
     if(a && a.com){
       var nthd = args[1];
       nthd = (nthd && nthd.com)? Math.abs(Math.round(nthd.com.r)): 1;  // nthd >= 0  // Ver.2.205.46 floor -> round
@@ -1807,7 +1811,7 @@ My_entry.operation.prototype.IX = function(data, rightArr, tagObj){
   var ids = data.ids;
   var DATA = self.entry.DATA;
   var unit = self.entry.unit;
-  var callback_FNh = function(args, ids_buffer, name_var, tree_var, tree_eqn){  // Ver.2.231.56
+  var callback_FNh = function(args, ids_buffer, name_var, tree_eqn){  // Ver.2.231.56  // Ver.2.234.56
     var _tree = null;
     var a = args[1];
     var b = args[2];
@@ -1884,7 +1888,7 @@ My_entry.operation.prototype.PX = function(data, rightArr, tagObj){
   var ids = data.ids;
   var math_mat = self.entry.math_mat;
   var DATA = self.entry.DATA;
-  var callback_FNh = function(args, ids_buffer, name_var, tree_var, tree_eqn){  // Ver.2.231.56
+  var callback_FNh = function(args, ids_buffer, name_var, tree_eqn){  // Ver.2.231.56  // Ver.2.234.56
     var _tree = null;
     var a = args[1];
     var b = args[2];
@@ -1931,7 +1935,7 @@ My_entry.operation.prototype.SX = function(data, rightArr, tagObj){
   var ids = data.ids;
   var math_mat = self.entry.math_mat;
   var DATA = self.entry.DATA;
-  var callback_FNh = function(args, ids_buffer, name_var, tree_var, tree_eqn){  // Ver.2.231.56
+  var callback_FNh = function(args, ids_buffer, name_var, tree_eqn){  // Ver.2.231.56  // Ver.2.234.56
     var _tree = null;
     var a = args[1];
     var b = args[2];

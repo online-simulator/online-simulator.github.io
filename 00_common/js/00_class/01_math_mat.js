@@ -448,6 +448,48 @@ My_entry.math_mat.prototype.sizec = function(options, arr){
   var lens = self.get_lens(arr);
   return [[DATA.num(lens.j, 0)]];
 };
+/* Ver.2.234.56 -> */
+My_entry.math_mat.prototype.reshaper = function(options, arr){
+  var self = this;
+  return self.reshape(options, arr, true);
+};
+My_entry.math_mat.prototype.reshape =
+My_entry.math_mat.prototype.reshapec = function(options, arr, isRow){
+  var self = this;
+  var DATA = self.entry.DATA;
+  var lens = self.get_lens(arr.slice(0, arr.length-1));
+  var len_i0 = lens.i;
+  var len_j0 = lens.j;
+  var len_je = arr[len_i0].length;
+  if(len_je !== 2) throw "Invalid reshape length";
+  var arr0_je = arr[len_i0][0];
+  var arr1_je = arr[len_i0][1];
+  var len_i = (arr0_je && arr0_je.com)? arr0_je.com.r: 0;
+  var len_j = (arr1_je && arr1_je.com)? arr1_je.com.r: 0;
+  if(len_i*len_j !== len_i0*len_j0) throw "Invalid reshape size";
+  var num_NaN = DATA.num(NaN, NaN);  // common reference
+  var callback = (isRow)?
+    function(i, j){
+      var n = len_j*i+j;
+      var j0 = Math.floor(n/len_j0);
+      var dj = n%len_j0;
+      return arr[j0][dj];
+    }:
+    function(i, j){
+      var n = len_i*j+i;
+      var i0 = Math.floor(n/len_i0);
+      var di = n%len_i0;
+      return arr[di][i0];
+    };
+  var _arr = self.init2d(len_i, len_j);
+  for(var i=0; i<len_i; ++i){
+    for(var j=0; j<len_j; ++j){
+      _arr[i][j] = callback(i, j) || num_NaN;
+    }
+  }
+  return _arr;
+};
+/* -> Ver.2.234.56 */
 /* Ver.2.187.44 -> */
 My_entry.math_mat.prototype.calc_norm = function(options, vec){
   var self = this;

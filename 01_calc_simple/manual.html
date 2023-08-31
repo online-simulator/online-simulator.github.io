@@ -492,6 +492,8 @@ e^(-i(1pi(){2/2i}(5-{3-1}){i/(-4)}))
 <br>
 　　・<a href="#span-out-FNm-size">size行列関数</a>
 <br>
+　　・<a href="#span-out-FNm-reshape">reshape行列関数</a>
+<br>
 　　・<a href="#span-out-FNm-norm">norm行列関数</a>
 <br>
 　　・<a href="#span-out-FNm-normalize">正規化行列関数</a>
@@ -1801,6 +1803,16 @@ title/発行元(発行年)を列挙する
 　dummy変数の<a href="#span-out-vars-symbol">変数名symbol</a>：関数名の一部　⇒　第1引数（旧仕様は廃止の可能性あり）
 <br>
 　<a href="#span-eqn">strict-mode式変数list</a>への影響なし
+<br>
+・<span class="run">Ver.2.234.56</span>以降、<a href="#span-out-FNh">高階関数</a>||<a href="#span-out-FNmh">高階行列関数</a>の<a href="#span-out-ref-transparency">参照透過性</a>対策を完了
+<br>
+　<a href="#span-out-terms">scope変数</a>を参照、上書きする　⇒　<a href="#span-out-terms">scope変数</a>から独立する（引数のみ有効）
+<br>
+　影響項目：<a href="#span-eqn-plot2d_evolution">plot2d_evolution</a>||<a href="#span-eqn-solvex_iteration">solvex_iteration</a>||<a href="#span-eqn-solveAinv">solveAinv</a>||<a href="#span-eqn-solvex_non_linear">solvex_non_linear</a>||<a href="#span-eqn-solvex_bisection">solvex_bisection</a>
+<br>
+　　　　　　||<a href="#span-eqn-implicit-Euler_method">implicit Euler_method</a>||<a href="#span-eqn-explicit-Euler_method">explicit Euler_method</a>||<a href="#span-eqn-explicit-ODE_RK4">explicit ODE_RK4</a>||<a href="#span-eqn-heat1d_evolution">heat1d_evolution</a>
+<br>
+　<a href="#span-eqn-heat1d_evolution">heat1d_evolution</a>のみ、<a href="#span-out-method-Newton">Newton法</a>の初期値を<a href="#span-out-terms">scope変数</a>から継承しないため、演算結果が変わる
     </td>
   </tr>
   <tr>
@@ -12256,12 +12268,7 @@ x=2; store; clear; x=3<span class="selection">/*independent local scope*/</span>
 <br>
 原則、参照透過性あり：実装関数の引数||<a href="#span-out-call-by-equation">式渡し</a>が同値||同義の場合、常に同じ結果を返す
 <br>
-一部、参照透過性なし：実装関数が作る<a href="#span-out-terms">scope変数</a>の再利用の可否を意識する負担あり
-<br>
-<br>
-引数省略時、<a href="#span-out-terms">scope変数</a>を参照する実装関数を列挙する
-<br>
-・<a href="#span-out-FNh-DX">微分高階関数</a>
+<del>一部、参照透過性なし：実装関数が作る<a href="#span-out-terms">scope変数</a>の再利用の可否を意識する負担あり
 <br>
 <br>
 <a href="#span-out-terms">scope変数</a>を参照する実装関数を列挙する
@@ -12273,7 +12280,12 @@ x=2; store; clear; x=3<span class="selection">/*independent local scope*/</span>
 <br>
 ・<a href="#span-out-FNmh-newtonian">Newton高階行列関数</a>||<a href="#span-eqn-solvex_iteration">solvex_iteration</a>||<a href="#span-eqn-solveAinv">solveAinv</a>||<a href="#span-eqn-solvex_non_linear">solvex_non_linear</a>
 <br>
-・<a href="#span-out-FNmh-OX">ODE高階行列関数</a>||<a href="#span-eqn-explicit-ODE_RK4">explicit ODE_RK4</a>
+・<a href="#span-out-FNmh-OX">ODE高階行列関数</a>||<a href="#span-eqn-explicit-ODE_RK4">explicit ODE_RK4</a></del><span class="run">Ver.2.234.56</span>以降、対策完了
+<br>
+<br>
+引数省略時、<a href="#span-out-terms">scope変数</a>を参照する実装関数を列挙する
+<br>
+・<a href="#span-out-FNh-DX">微分高階関数</a>
 <br>
 <br>
 暫定対策を列挙する
@@ -12293,6 +12305,10 @@ x=2; store; clear; x=3<span class="selection">/*independent local scope*/</span>
 ・<span class="run">Ver.2.231.56</span>以降、<a href="#span-out-FNh">高階関数</a>||<a href="#span-out-FNmh">高階行列関数</a>の<a href="#span-out-ref-transparency">参照透過性</a>対策を実施
 <br>
 　dummy変数の<a href="#span-out-vars-symbol">変数名symbol</a>：関数名の一部　⇒　第1引数（旧仕様は廃止の可能性あり）
+<br>
+・<span class="run">Ver.2.234.56</span>以降、<a href="#span-out-FNh">高階関数</a>||<a href="#span-out-FNmh">高階行列関数</a>の<a href="#span-out-ref-transparency">参照透過性</a>対策を完了
+<br>
+　<a href="#span-out-terms">scope変数</a>を参照、上書きする　⇒　<a href="#span-out-terms">scope変数</a>から独立する（引数のみ有効）
     </td>
   </tr>
   <tr>
@@ -12457,7 +12473,7 @@ scope継承について記述する
 <br>
 ・scope継承はcall時に実施（<a href="#span-out-substitution-equation">式代入</a>は無効）
 <br>
-・<a href="#span-out-FNh">高階関数</a>||<a href="#span-out-FNmh">高階行列関数</a>の<a href="#span-out-call-by-equation">式渡し</a>は未対応
+・<a href="#span-out-FNh">高階関数</a>||<a href="#span-out-FNmh">高階行列関数</a>の<a href="#span-out-call-by-equation">式渡し</a>は非対応（対応予定なし）
     </td>
   </tr>
   <tr>
@@ -14305,6 +14321,8 @@ val=true; val==1,val==true,val===1,val===true -> (1,1,0+O(1e+0),1)
 ・<a href="#span-out-plot2d-command">plot2d-command</a>の欠損値=NaN+(NaN)i
 <br>
 ・<a href="#span-out-FN-interp">補間関数</a>の欠損値=NaN+(NaN)i
+<br>
+・<a href="#span-out-FNm-reshape">reshape行列関数</a>の欠損値=NaN+(NaN)i
 <br>
 ・<a href="#span-out-FNm-coo">座標形式行列関数</a>の欠損値=<a href="#span-out-prec-ope-arithmetic-ite">.filter演算子</a>の欠損値=NaN+(NaN)i
     </td>
@@ -17581,6 +17599,23 @@ size_mn(=&lt;mat) -> (3:2)
 (m,n) -> (3,2)
 <br>
 =((size_mn(=&lt;mat))[0],(size_mn(=&lt;mat))[1]) -> (3,2)
+    </td>
+  </tr>
+  <tr>
+    <th>
+<a href="#span-index">
+目次
+</a>
+<br>
+reshape
+<br>
+行列関数
+<br>
+入力仕様
+    </th>
+    <td>
+<span id="span-out-FNm-reshape"></span>
+reshape行列関数の入力仕様と付随する留意事項について記述する
     </td>
   </tr>
   <tr>
@@ -33398,16 +33433,16 @@ test caseを示す
 <br>
 clear;
 <br>
-solvex_non_linear(=&lt;f_,=&lt;x_initial_)=&lt;[
+solvex_non_linear(<span class="jF">=</span>=&lt;f_,=&lt;x_initial_)=&lt;[
 <br>
-out=&lt;x=&gt;,
+out=&lt;<span class="jF">x_solved</span>,
 <div class="condition">
 init=&lt;last{_ex(=&lt;x,sizer(x_initial_=&gt;),1)},
 </div>
 <div class="run">
 run=&lt;last{
 <br>
-mdx=Newton(=&lt;f_,=&lt;x,=&lt;x_initial_,Nmax=20,Nmax,1e-10,1)
+<span class="jF">x_solved</span>=Newton(=&lt;f_,=&lt;x,=&lt;x_initial_,Nmax=20,Nmax,1e-10,1)
 <br>
 },
 </div>
@@ -35139,6 +35174,8 @@ _rk(=&lt;<span class="clear">eqn_k</span>,N=sizer(primes),N,=&lt;{n%prime==0}); 
 ・以上の余分な手順を省略するため、<del>行vector用のplot2d{xt,yt}の追加を検討する</del>
 <br>
 ・<span class="run">Ver.2.175.42</span>以降、行vector用の<a href="#span-out-plot2d-command-from-arr">plot2d{xt,yt}</a>を追加する（<a href="#span-eqn-plot2d{}_multi">plot2d{}_multi</a>参照）
+<br>
+・本来、行vector形式に統一して<a href="#span-out-FNm">行列関数</a>||plot出力を実装する方が無駄が少ない
     </td>
   </tr>
   <tr>
@@ -35498,6 +35535,10 @@ CAS
 ・<span class="run">Ver.2.231.56</span>以降、<a href="#span-out-FNh">高階関数</a>||<a href="#span-out-FNmh">高階行列関数</a>の<a href="#span-out-ref-transparency">参照透過性</a>対策を実施
 <br>
 　dummy変数の<a href="#span-out-vars-symbol">変数名symbol</a>：関数名の一部　⇒　第1引数（旧仕様は廃止の可能性あり）
+<br>
+・<span class="run">Ver.2.234.56</span>以降、<a href="#span-out-FNh">高階関数</a>||<a href="#span-out-FNmh">高階行列関数</a>の<a href="#span-out-ref-transparency">参照透過性</a>対策を完了
+<br>
+　<a href="#span-out-terms">scope変数</a>を参照、上書きする　⇒　<a href="#span-out-terms">scope変数</a>から独立する（引数のみ有効）
     </td>
   </tr>
   <tr>
@@ -36252,6 +36293,8 @@ operation.js抜粋
 <br>
 ・<span class="run">Ver.2.230.56</span>以降、下記switch文を関数化
 <br>
+・<span class="run">Ver.2.234.56</span>以降、<a href="#span-out-FNm-reshape">reshaper/reshapec行列関数</a>を追加
+<br>
 <br>
 予約語は大文字・小文字・全角・半角を区別しない
 <br>
@@ -36412,6 +36455,10 @@ parser.js抜粋
     // Matlab defined
     // Python defined
     <span class="jF">case "linspace":</span>
+    // "FNm3"
+    <span class="jF">case "reshaper":</span>
+    <span class="jF">case "reshape":</span>
+    <span class="jF">case "reshapec":</span>
       tree = DATA.tree_tag("FNm", token_lower);
       break;
     // "CT"
@@ -36750,6 +36797,9 @@ gaussian_coo(NaN);
 gauss(NaN);
 gaussian(NaN);
 <span class="jF">linspace(NaN);</span>
+<span class="jF">reshaper(NaN);</span>
+<span class="jF">reshape(NaN);</span>
+<span class="jF">reshapec(NaN);</span>
 
 //
 epsilon;
@@ -37215,7 +37265,7 @@ operand判定時、構文規則の先読み対策（operandを全走査する仕
 
 <div>
 <table>
-<caption><span id="span-eqn"><a href="#span-out-config-strict">strict-mode</a>式変数list</span></caption>
+<caption><span id="span-eqn"><a href="#span-out-config-strict">strict-mode</a>式変数list</span><br><span class="run">Ver.2.219.50</span>以降、<a href="#span-out-spec-changed-history">演算仕様変更</a>の<span class="jF">影響項目</span></caption>
 <thead>
   <tr>
     <th>
@@ -37498,7 +37548,7 @@ scope_NG
 <span id="span-eqn-scope_NG"></span>
 <a href="#span-out-command">命令文</a>||<a href="#span-out-eqns-re-use">scope付式変数の再利用</a>参照
 <br>
-clear;
+<span class="jF">clear</span>;
 <br>
 scope_NG1(x)=&lt;[x=x,x,last[x=x/*NG*/,x],x];
 <br>
@@ -37510,7 +37560,7 @@ scope_NG4(x)=&lt;last[x=4,x]*[x=x/*NG*/,x,last[x=x/*NG*/,x],x];
 <br>
 check_all(x)=&lt;(scope_NG1(x)=&gt;:scope_NG2(x)=&gt;:scope_NG3(x)=&gt;:scope_NG4(x)=&gt;);
 <br>
-store;
+<span class="jF">store</span>;
 <br>
 scope_NG1(1)=&gt;:scope_NG1(-1)=&gt;;
 <br>
@@ -37520,17 +37570,17 @@ scope_NG3(1)=&gt;:scope_NG3(-1)=&gt;;
 <br>
 scope_NG4(1)=&gt;:scope_NG4(-1)=&gt;;
 <br>
-restore;
+<span class="jF">restore</span>;
 <br>
 check_all(1)=&gt;;
 <br>
 check_all(-1)=&gt;;
 <br>
-restore;
+<span class="jF">restore</span>;
 <br>
 check_all(1)=&gt;;
 <br>
-restore;
+<span class="jF">restore</span>;
 <br>
 check_all(-1)=&gt;;
     </td>
@@ -37970,11 +38020,11 @@ init=&lt;last{
 <br>
 g=-9.8,z_a=0+g*i,
 <br>
-x=&lt;{z_x,z_v},
+<span class="jF">t=0,</span>
 <br>
 x_initial=&lt;{z_x0,z_v0},
 <br>
-f=&lt;{z_v,z_a+(Cd_sphere/m)*(<span class="selection">z_u</span>-z_v)},
+f<span class="jF">(t,z_x,z_v)</span>=&lt;{z_v,z_a+(Cd_sphere/m)*(<span class="selection">z_u</span>-z_v)},
 <br>
 N=round((t1-t0)/dt),M=0,
 <br>
@@ -37985,11 +38035,11 @@ xt=zeros(N+1,M+1),yt=zeros(N+1,M+1)
 <div class="run">
 run=&lt;last{
 <br>
-dtn=&lt;switch(n&lt;=0,0:1,dt),
+dtn=&lt;n&lt;=0&amp;&amp;0||||dt/*switch(n&lt;=0,0:1,dt)*/,
 <br>
-step=&lt;x_next=_otdummy(=&lt;f,=&lt;x,=&lt;x_initial,0,dtn=&gt;),
+step=&lt;last{dt0=dtn=&gt;,<span class="jF">x_next=_o(=&lt;f,,</span>=&lt;x_initial,t,dt0)<span class="jF">,{$z_x0,$z_v0}=x_next,t=t+dt0</span>},
 <br>
-stepnm=&lt;last{step=&gt;,xt[n][mdummy]=real(z_x),yt[n][mdummy]=imag(z_x)},
+stepnm=&lt;last{step=&gt;,<span class="jF">z_x=x_next[0],</span>xt[n][mdummy]=real(z_x),yt[n][mdummy]=imag(z_x)},
 <br>
 casesM=&lt;_smdummy(=&lt;stepnm,0,M)/*m-reserved*/,
 <br>
@@ -38620,16 +38670,16 @@ clear;
 <br>
 solvex_iteration(A,b)=&lt;[
 <br>
-out=&lt;x=&gt;,
+out=&lt;<span class="jF">x_solved</span>,
 <div class="condition">
-init=&lt;last{sizeA=size(A),_ex(=&lt;x,sizeA,1)},
+init=&lt;last{sizeA=size(A),_e<span class="jF">((x)</span>=&lt;x,sizeA,1)},
 </div>
 <div class="run">
 run=&lt;last{
 <br>
 f=&lt;A*(x=&gt;)=b,
 <br>
-mdx=Newton(=&lt;f,=&lt;x,,Nmax=20,Nmax,1e-10,1)
+<span class="jF">x_solved=</span>Newton(=&lt;f,=&lt;x,,Nmax=20,Nmax,1e-10,1)
 <br>
 },
 </div>
@@ -38656,16 +38706,18 @@ clear;
 <br>
 solveAinv(A)=&lt;[
 <br>
-out=&lt;Ainv=&gt;,
+out=&lt;<span class="jF">Ainv</span>,
 <div class="condition">
-init=&lt;last{sizeA=size(A),_eAinv(=&lt;x,sizeA,sizeA),_ex(=&lt;x,sizeA*sizeA,1)},
+init=&lt;last{sizeA=size(A),_e<span class="jF">((Ainv)</span>=&lt;x,sizeA,sizeA),_e<span class="jF">((x)</span>=&lt;x,sizeA*sizeA,1)},
 </div>
 <div class="run">
 run=&lt;last{
 <br>
 f=&lt;(Ainv=&gt;)*A=identity(sizeA),
 <br>
-mdx=Newton(=&lt;f,=&lt;x,,Nmax=20,Nmax,1e-10,1)
+<span class="jF">x_solved</span>=Newton(=&lt;f,=&lt;x,,Nmax=20,Nmax,1e-10,1),
+<br>
+<span class="jF">Ainv=reshaper(x_solved:sizeA,sizeA)/*Ainv=reshape(x_solved:sizeA,sizeA).*/</span>
 <br>
 },
 </div>
@@ -38692,16 +38744,16 @@ _non_linear
 <br>
 clear;
 <br>
-solvex_non_linear(==&lt;f_,=&lt;x_initial_)=&lt;[
+solvex_non_linear(<span class="jF">=</span>=&lt;f_,=&lt;x_initial_)=&lt;[
 <br>
-out=&lt;x=&gt;,
+out=&lt;<span class="jF">x_solved</span>,
 <div class="condition">
-init=&lt;last{_ex(=&lt;x,sizer(x_initial_=&gt;),1)},
+init=&lt;last{_e<span class="jF">((x)</span>=&lt;x,sizer(x_initial_=&gt;),1)},
 </div>
 <div class="run">
 run=&lt;last{
 <br>
-mdx=Newton(=&lt;f_,=&lt;x,=&lt;x_initial_,Nmax=20,Nmax,1e-10,1)
+<span class="jF">x_solved</span>=Newton(=&lt;f_,=&lt;x,=&lt;x_initial_,Nmax=20,Nmax,1e-10,1)
 <br>
 },
 </div>
@@ -38728,16 +38780,16 @@ _bisection
 <br>
 clear;
 <br>
-solvex_non_linear(==&lt;f_,=&lt;x_initial_)=&lt;[
+solvex_non_linear(<span class="jF">=</span>=&lt;f_,=&lt;x_initial_)=&lt;[
 <br>
-out=&lt;x=&gt;,
+out=&lt;<span class="jF">x_solved</span>,
 <div class="condition">
-init=&lt;last{_ex(=&lt;x,sizer(x_initial_=&gt;),1)},
+init=&lt;last{_e<span class="jF">((x)</span>=&lt;x,sizer(x_initial_=&gt;),1)},
 </div>
 <div class="run">
 run=&lt;last{
 <br>
-mdx=Newton(=&lt;f_,=&lt;x,=&lt;x_initial_,Nmax=20,Nmax,1e-10,1)
+<span class="jF">x_solved</span>=Newton(=&lt;f_<span class="jF">,,</span>=&lt;x_initial_,Nmax=20,Nmax,1e-10,1)
 <br>
 },
 </div>
@@ -38774,7 +38826,7 @@ global_n=1e3+1;
 <br>
 global_base=2**(log2(3)-7/4);
 <br>
-store;
+<span class="jF">store</span>;
 <br>
 f0(x0)=&lt;last[left=global_n*pow(global_base,x0),right=1,=right-left];
 <br>
@@ -38788,7 +38840,7 @@ solvex_bisection(=&lt;f,b,a,N)=&gt;,
 <br>
 solvex_bisection(=&lt;f,a,a,N)=&gt;,
 <br>
-solvex_non_linear((x0)=&lt;1-global_n*pow(global_base,x0),=&lt;{0})=&gt;/*x0 re-used*/,
+solvex_non_linear((x0)=&lt;1-global_n*pow(global_base,x0),=&lt;{0})=&gt;,
 <br>
 solvex_bisection((x0)=&lt;1-global_n*pow(global_base,x0),a,b,N)=&gt;,
 <br>
@@ -38796,7 +38848,7 @@ solvex_bisection((x0)=&lt;1-global_n*pow(global_base,x0),b,a,N)=&gt;,
 <br>
 solvex_bisection((x0)=&lt;1-global_n*pow(global_base,x0),a,a,N)=&gt;}]=&gt;;
 <br>
-restore;
+<span class="jF">restore</span>;
 <br>
 [N=1e2,a=0,b=100,f(x0)=&lt;1-global_n*pow(global_base,x0),
 <br>
@@ -38808,7 +38860,7 @@ solvex_bisection(=&lt;f,b,a,N)=&gt;,
 <br>
 solvex_bisection(=&lt;f,a,a,N)=&gt;,
 <br>
-solvex_non_linear((x0)=&lt;1-global_n*pow(global_base,x0),=&lt;{0})=&gt;/*x0 re-used*/,
+solvex_non_linear((x0)=&lt;1-global_n*pow(global_base,x0),=&lt;{0})=&gt;,
 <br>
 solvex_bisection((x0)=&lt;1-global_n*pow(global_base,x0),a,b,N)=&gt;,
 <br>
@@ -38833,7 +38885,7 @@ Euler_method
 <br>
 Euler_method(t,dt,z_x00,z_v00<span class="selection">,z_u</span>,m,Cd_sphere,isImplicit)=&lt;[
 <br>
-out=&lt;{t_total,x=&gt;},
+out=&lt;{t_total,<span class="jF">x_solved</span>},
 <br>
 scope2storage=&lt;last{addVar(z_x0),addVar(z_v0),addVar(t_total)},
 <div class="condition">
@@ -38843,19 +38895,17 @@ switch(hasVar(t_total)==0,=&lt;last{t_total=0,z_x0=z_x00,z_v0=z_v00}),
 <br>
 g=-9.8,z_a=0+g*i,
 <br>
-x=&lt;{z_x,z_v},
-<br>
 x_initial=&lt;{z_x0,z_v0},
 <br>
 switch(
 <br>
 isImplicit,
 <br>
-=&lt;f=&lt;{(z_x-z_x0)/dt=z_v,m*((z_v-z_v0)/dt)=m*z_a+Cd_sphere*(<span class="selection">z_u</span>-z_v)}:
+=&lt;f<span class="jF">(z_x,z_v)</span>=&lt;{(z_x-z_x0)/dt=z_v,m*((z_v-z_v0)/dt)=m*z_a+Cd_sphere*(<span class="selection">z_u</span>-z_v)}:
 <br>
 1/*else-explicit*/,
 <br>
-=&lt;f=&lt;{(z_x-z_x0)/dt=z_v0,m*((z_v-z_v0)/dt)=m*z_a+Cd_sphere*(<span class="selection">z_u</span>-z_v0)}
+=&lt;f<span class="jF">(z_x,z_v)</span>=&lt;{(z_x-z_x0)/dt=z_v0,m*((z_v-z_v0)/dt)=m*z_a+Cd_sphere*(<span class="selection">z_u</span>-z_v0)}
 <br>
 ),
 <br>
@@ -38872,11 +38922,11 @@ relative_epsN=(epsN,isRelative_epsN)/*(epsN,flag)*/
 <div class="run">
 run=&lt;last{
 <br>
-args_Newton=(=&lt;f,=&lt;x,=&lt;x_initial,Nmax=20,Nmax,relative_epsN)/*(args)*/,
+args_Newton=(=&lt;f<span class="jF">,,</span>=&lt;x_initial,Nmax=20,Nmax,relative_epsN)/*(args)*/,
 <br>
-step_iteration=&lt;mdx=Newton(args_Newton),
+step_iteration=&lt;<span class="jF">x_solved</span>=Newton(args_Newton),
 <br>
-step_post=&lt;{$z_x0,$z_v0}=x=&gt;,
+step_post=&lt;{$z_x0,$z_v0}=<span class="jF">x_solved</span>,
 <br>
 step=&lt;last{step_iteration=&gt;,step_post=&gt;},
 <br>
@@ -38936,28 +38986,26 @@ ODE_RK4
 <br>
 ODE_RK4(t,dt,z_x00,z_v00<span class="selection">,z_u</span>,m,Cd_sphere)=&lt;[
 <br>
-out=&lt;{tdummy,x=&gt;},
+out=&lt;{<span class="jF">N*dt,x_next</span>},
 <br>
 scope2storage=&lt;last{addVar(z_x),addVar(z_v),addVar(tdummy)},
 <div class="condition">
 init=&lt;last{
 <br>
-switch(hasVar(tdummy)==0,=&lt;last{z_x0=z_x00,z_v0=z_v00}),
+z_x0=z_x00,z_v0=z_v00,
 <br>
 g=-9.8,z_a=0+g*i,
 <br>
-x=&lt;{z_x,z_v},
-<br>
 x_initial=&lt;{z_x0,z_v0},
 <br>
-f=&lt;{z_v,z_a+(Cd_sphere/m)*(<span class="selection">z_u</span>-z_v)}
+f<span class="jF">(t,z_x,z_v)</span>=&lt;{z_v,z_a+(Cd_sphere/m)*(<span class="selection">z_u</span>-z_v)}
 <br>
 },
 </div>
 <div class="run">
 run=&lt;last{
 <br>
-stepN=&lt;last{N=round(t/dt),x_next=_otdummy(=&lt;f,=&lt;x,=&lt;x_initial,0,dt,N)},
+stepN=&lt;last{N=round(t/dt),<span class="jF">x_next=_o(=&lt;f,,</span>=&lt;x_initial,0,dt,N)},
 <br>
 evolution=&lt;stepN=&gt;,
 <br>
@@ -39356,7 +39404,7 @@ FourierN
 <br>
 clear;
 <br>
-FourierN(==&lt;ft_,x,N)=&lt;last[
+FourierN(<span class="jF">=</span>=&lt;ft_,x,N)=&lt;last[
 <br>
 cn(n)=&lt;_it(=&lt;(ft_=&gt;)*e^(-i*(n)*t),-pi,pi)/(2*pi),
 <br>
@@ -40310,7 +40358,7 @@ c=W0*(1-albedo)<span class="selection">*absorb</span>/C+a0*T0,
 <br>
 d=alpha1*A1*(T1-T0)/C,
 <br>
-_ex(=&lt;x,N,1),
+_e<span class="jF">((x)</span>=&lt;x,N,1),
 <br>
 A=zeros(N,N),
 <br>
@@ -40337,9 +40385,9 @@ r[0]=r[0]+c*dt,
 <br>
 r[-1]=r[-1]+d*dt,
 <br>
-Newton(=&lt;A*x=&gt;=r,=&lt;x),
+<span class="jF">x_solved</span>=Newton(=&lt;A*x=&gt;=r,=&lt;x),
 <br>
-oldT=x=&gt;
+oldT=<span class="jF">x_solved</span>
 <br>
 },
 <br>
