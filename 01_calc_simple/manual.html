@@ -38944,7 +38944,7 @@ init=&gt;,run=&gt;,return=out=&gt;,scope2storage=&gt;,
 <br>
 [cond_error=(hasVar(t_total)==0)&amp;hasVar(z_x0),
 <br>
-proc=&lt;[args=(1,0.5,0,20+20i<span class="selection">,0</span>,1,1),=&lt;Euler_method(args,1)=&gt;]=&gt;/*nesting-return*/,
+proc=&lt;[args=(1,0.5,0,20+20i<span class="selection">,0</span>,1,1),=&lt;Euler_method(args,1)=&gt;]=&gt;,
 <br>
 =&lt;switch(cond_error==0,=&lt;proc:1,-999/*error-code*/)]=&gt;;
     </td>
@@ -38965,7 +38965,7 @@ Euler_method
 <br>
 [cond_error=(hasVar(t_total)==0)&amp;hasVar(z_x0),
 <br>
-proc=&lt;[args=(1,0.5,0,20+20i<span class="selection">,0</span>,1,1),=&lt;Euler_method(args,0)=&gt;]=&gt;/*nesting-return*/,
+proc=&lt;[args=(1,0.5,0,20+20i<span class="selection">,0</span>,1,1),=&lt;Euler_method(args,0)=&gt;]=&gt;,
 <br>
 =&lt;switch(cond_error==0,=&lt;proc:1,-999/*error-code*/)]=&gt;;
     </td>
@@ -38986,13 +38986,13 @@ ODE_RK4
 <br>
 ODE_RK4(t,dt,z_x00,z_v00<span class="selection">,z_u</span>,m,Cd_sphere)=&lt;[
 <br>
-out=&lt;{<span class="jF">N*dt,x_next</span>},
+out=&lt;{<span class="jF">t_total,x_next</span>},
 <br>
-scope2storage=&lt;last{addVar(z_x),addVar(z_v),addVar(tdummy)},
+scope2storage=&lt;last{<span class="jF">addVar(z_x0),addVar(z_v0),addVar(t_total)</span>},
 <div class="condition">
 init=&lt;last{
 <br>
-z_x0=z_x00,z_v0=z_v00,
+<span class="jF">switch(hasVar(t_total)==0,=&lt;last{t_total=0,z_x0=z_x00,z_v0=z_v00}),</span>
 <br>
 g=-9.8,z_a=0+g*i,
 <br>
@@ -39005,11 +39005,15 @@ f<span class="jF">(t,z_x,z_v)</span>=&lt;{z_v,z_a+(Cd_sphere/m)*(<span class="se
 <div class="run">
 run=&lt;last{
 <br>
-stepN=&lt;last{N=round(t/dt),<span class="jF">x_next=_o(=&lt;f,,</span>=&lt;x_initial,0,dt,N)},
+stepN=&lt;last{N=round(t/dt),<span class="jF">x_next=_o(=&lt;f,,</span>=&lt;x_initial,<span class="jF">t_total</span>,dt,N)},
 <br>
-evolution=&lt;stepN=&gt;,
+<span class="jF">step_post=&lt;{$z_x0,$z_v0}=x_next,</span>
 <br>
-evolution=&gt;
+evolution=&lt;last{stepN=&gt;,<span class="jF">step_post=&gt;</span>},
+<br>
+evolution=&gt;,
+<br>
+<span class="jF">t_total=t_total+N*dt</span>
 <br>
 },
 </div>
@@ -39017,9 +39021,9 @@ init=&gt;,run=&gt;,return=out=&gt;,scope2storage=&gt;,
 <br>
 =&lt;return]=&gt;;
 <br>
-[cond_error=(hasVar(tdummy)==0)&amp;hasVar(z_x),
+[<span class="jF">cond_error=(hasVar(t_total)==0)&amp;hasVar(z_x0),</span>
 <br>
-proc=&lt;[args=(1,0.5,0,20+20i<span class="selection">,0</span>,1,1),=&lt;ODE_RK4(args)=&gt;]=&gt;/*nesting-return*/,
+proc=&lt;[args=(1,0.5,0,20+20i<span class="selection">,0</span>,1,1),=&lt;ODE_RK4(args)=&gt;]=&gt;,
 <br>
 =&lt;switch(cond_error==0,=&lt;proc:1,-999/*error-code*/)]=&gt;;
     </td>

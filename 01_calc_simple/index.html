@@ -177,11 +177,15 @@
       script += "\nclear;\n";
       script += "(f(x00,x01,x10,x11/*serialized*/)=<(x00,x01:x10,x11)*(1,2:3,4)=identity(2):{$x00,$x01,$x10,$x11}=Newton(=<f,,,,20)),(1,2:3,4)(x00,x01:x10,x11);";
       script += "\nclear;\n";
-      script += "x=-1,dt=0.1,N=10,t=N*dt:f(t)=<t,x_next=_o(=<f,=<{x},,,dt,N):t,x_next:t0=t,x_next=_o((t)=<t,=<{x},=<{x_next},t0,dt,N):t0+t,x_next,x;";
+      script += "x=-1,dt=0.1,N=10,t=N*dt:f(t)=<t,x_next=_o(=<f,=<{x},,,dt,N):t,x_next:t0=t,x_next=_o((t)=<t,=<{x},=<{x_next},t0,dt,N):t0+t,x_next:x;";
       script += "\nclear;\n";
-      script += "x=-1,dt=0.1,N=10,t=N*dt:f(t,x)=<t,x_next=_o(=<f,,,,dt,N):t,x_next:t0=t,x_next=_o((t,x)=<t,,=<{x_next},t0,dt,N):t0+t,x_next,x;";
+      script += "x=-1,dt=0.1,N=10,t=N*dt:f(t,x)=<t,x_next=_o(=<f,,,,dt,N):t,x_next:t0=t,x_next=_o((t,x)=<t,,=<{x_next},t0,dt,N):t0+t,x_next:x;";
       script += "\nclear;\n";
-      script += "Niteration=6;\n{$x0,$x1}={1+i,1-i};\nx=<{x0,x1};\nx=>x_initial;\nf=<{x0^i-2x1=3i,3x0+exp(x1)=5i}/*non-linear equations*/;\nx=>,x_initial=>;\nx_solved=Newton(=<f,=<x,=<x_initial,,Niteration);\nf(x0,x1)=<{x0^i-2x1=3i,3x0+exp(x1)=5i};\nx=>,x_initial=>;\nx_solved=Newton(=<f,,=<x_initial,,Niteration);\nx=>,x_initial=>;\nrun=<(x_next=Newton(=<f,,=<x_initial),{$x0,$x1}=x_next,=<x_next)=>;\n_R((n)=<run,,Niteration);\nf(b)=<{_i((x)=<x^2,0,b,10)=3^3/3}/*integral equation*/;\nNewton(=<f,,=<{1},,20,1e-10,1);"
+      script += "x=-1,dt=0.1,N=10,t=N*dt:f(t)=<{t,t**2},x_next=_o(=<f,=<{x0,x1},,,dt,N):t,x_next.:t0=t,x_next=_o((t)=<{t,t**2},=<{x0,x1},=<{x_next},t0,dt,N):t0+t,x_next.:x;";
+      script += "\nclear;\n";
+      script += "x=-1,dt=0.1,N=10,t=N*dt:f(t,x0,x1)=<{t,t**2},x_next=_o(=<f,,,,dt,N):t,x_next.:t0=t,x_next=_o((t,x0,x1)=<{t,t**2},,=<{x_next},t0,dt,N):t0+t,x_next.:x;";
+      script += "\nclear;\n";
+      script += "Niteration=6;\n{$x0,$x1}={1+i,1-i};\nx=<{x0,x1};\nx=>x_initial;\nf=<{x0^i-2x1=3i,3x0+exp(x1)=5i}/*non-linear equations*/;\nx=>,x_initial=>;\nx_solved=Newton(=<f,=<x,=<x_initial,,Niteration);\nf(x0,x1)=<{x0^i-2x1=3i,3x0+exp(x1)=5i};\nx=>,x_initial=>;\nx_solved=Newton(=<f,,=<x_initial,,Niteration);\nx=>,x_initial=>;\nrun=<(x_solved=Newton(=<f,,=<x_initial),{$x0,$x1}=x_solved,=<x_solved)=>;\n_R((n)=<run,,Niteration);\nf(b)=<{_i((x)=<x^2,0,b,10)=3^3/3}/*integral equation*/;\nNewton(=<f,,=<{1},,20,1e-10,1);"
       script += "\nclear;\n";
       script += "N=8;\nA=linspace(1,N,N:1,N,N);\nreshape(A:(N,2));\nreshape(A.:(N,2));\nreshape(A:(2,N));\nreshape(A.:(2,N));\nreshaper(A:(N,2));\nreshaper(A.:(N,2));\nreshaper(A:(2,N));\nreshaper(A.:(2,N));";
       script += "\nclear;\n";

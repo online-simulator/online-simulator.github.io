@@ -525,14 +525,14 @@ stored_eqn(DFT1d)
 clear
 local storage cleared
 
-[cond_error=(hasVar(tdummy)==0)&hasVar(z_x),proc=<[args=(1,0.5,0,20+20i,0,1,1),=<ODE_RK4(args)=>]=>,=<switch(cond_error==0,=<proc:1,-999)]=>
+[cond_error=(hasVar(t_total)==0)&hasVar(z_x0),proc=<[args=(1,0.5,0,20+20i,0,1,1),=<ODE_RK4(args)=>]=>,=<switch(cond_error==0,=<proc:1,-999)]=>
 (
-1:
-12.636583116319443+9.028508843315972i+O(6e-2):
-7.363416883680557+1.171491156684028i+O(6e-2)
+2:
+16.727370273919753+5.323781708140431i+O(6e-2+3e-4i):
+3.2726297260802473-4.9237817081404325i+O(6e-2+8e-5i)
 )
 
-ODE_RK4(t,dt,z_x00,z_v00,z_u,m,Cd_sphere)=<[out=<{N*dt,x_next},scope2storage=<last{addVar(z_x),addVar(z_v),addVar(tdummy)},init=<last{z_x0=z_x00,z_v0=z_v00,g=-9.8,z_a=0+g*i,x_initial=<{z_x0,z_v0},f(t,z_x,z_v)=<{z_v,z_a+(Cd_sphere/m)*(z_u-z_v)}},run=<last{stepN=<last{N=round(t/dt),x_next=_o(=<f,,=<x_initial,0,dt,N)},evolution=<stepN=>,evolution=>},init=>,run=>,return=out=>,scope2storage=>,=<return]=>
+ODE_RK4(t,dt,z_x00,z_v00,z_u,m,Cd_sphere)=<[out=<{t_total,x_next},scope2storage=<last{addVar(z_x0),addVar(z_v0),addVar(t_total)},init=<last{switch(hasVar(t_total)==0,=<last{t_total=0,z_x0=z_x00,z_v0=z_v00}),g=-9.8,z_a=0+g*i,x_initial=<{z_x0,z_v0},f(t,z_x,z_v)=<{z_v,z_a+(Cd_sphere/m)*(z_u-z_v)}},run=<last{stepN=<last{N=round(t/dt),x_next=_o(=<f,,=<x_initial,t_total,dt,N)},step_post=<{$z_x0,$z_v0}=x_next,evolution=<last{stepN=>,step_post=>},evolution=>,t_total=t_total+N*dt},init=>,run=>,return=out=>,scope2storage=>,=<return]=>
 stored_eqn(ODE_RK4)
 
 [cond_error=(hasVar(t_total)==0)&hasVar(z_x0),proc=<[args=(1,0.5,0,20+20i,0,1,1),=<Euler_method(args,1)=>]=>,=<switch(cond_error==0,=<proc:1,-999)]=>
@@ -1231,7 +1231,7 @@ clear
 local storage cleared
 
 [Pinv_y=(-0.999999427,-0.999936657,-0.997300203,-0.954499736,-0.682689492,0,0.682689492,0.954499736,0.997300203,0.999936657,0.999999427:-5,-4,-3,-2,-1,0,1,2,3,4,5),N=1,arr=[],_rn(=<arr=(arr:rand_table(=<Pinv_y)=>),,N),=<arr]=>
-1.4904304724543276
+-0.0147978025828287
 
 rand_table(csv)=<last[table=sort0(csv),ymin=min(table)[0],ymax=max(table)[0],y=ymin+(ymax-ymin)*rand,x=interp(y:table),x]
 stored_eqn(rand_table)
@@ -1572,4 +1572,4 @@ center=true&drag=false&test-case=false&legend=true&axis-t=false&axis-x=true&log-
 --------------------------------
 --------------------------------
 
-online-simulator.github.io.6.293.126.15.68 @ Thu Aug 31 2023 22:09:55 GMT+0900 (日本標準時) @ Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/116.0.0.0 Safari/537.36
+online-simulator.github.io.6.293.126.15.68 @ Fri Sep 01 2023 12:28:23 GMT+0900 (日本標準時) @ Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/116.0.0.0 Safari/537.36
