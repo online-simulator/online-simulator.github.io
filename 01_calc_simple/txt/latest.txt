@@ -91,13 +91,13 @@ Newton(=<f,,=<{1},,20,1e-10,1)
 f(b)=<{_i((x)=<x^2,0,b,10)=3^3/3}/*integral equation*/
 stored_eqn(f)
 
-_R((n)=<run,,Niteration)
+_R((n)=<run,x_solved=x_initial=>,Niteration)
 (
 infoLost[ i] -0.04901921620544653+2.023423045158351i:
 0.07726186556052178-1.434248862158042i
 )
 
-run=<(x_solved=Newton(=<f,,=<x_initial),{$x0,$x1}=x_solved,=<x_solved)=>
+run=<(x_solved=Newton(=<f,,=<{x_solved}),=<x_solved)=>
 stored_eqn(run)
 
 x=>,x_initial=>
@@ -2843,4 +2843,4 @@ drag=false&sw=false&0x=false&useMatrix=true&useStrict=false&checkError=true&isRi
 --------------------------------
 --------------------------------
 
-online-simulator.github.io.6.293.126.15.68 @ Fri Sep 01 2023 12:37:48 GMT+0900 (日本標準時) @ Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/116.0.0.0 Safari/537.36
+online-simulator.github.io.6.293.126.15.68 @ Fri Sep 01 2023 22:08:10 GMT+0900 (日本標準時) @ Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/116.0.0.0 Safari/537.36

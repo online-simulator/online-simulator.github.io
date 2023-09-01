@@ -38037,7 +38037,9 @@ run=&lt;last{
 <br>
 dtn=&lt;n&lt;=0&amp;&amp;0||||dt/*switch(n&lt;=0,0:1,dt)*/,
 <br>
-step=&lt;last{dt0=dtn=&gt;,<span class="jF">x_next=_o(=&lt;f,,</span>=&lt;x_initial,t,dt0)<span class="jF">,{$z_x0,$z_v0}=x_next,t=t+dt0</span>},
+<span class="jF">x_next=x_initial=&gt;,</span>
+<br>
+step=&lt;last{dt0=dtn=&gt;,<span class="jF">x_next=_o(=&lt;f,,=&lt;{x_next}</span>,t,dt0)<span class="jF">,t=t+dt0</span>},
 <br>
 stepnm=&lt;last{step=&gt;,<span class="jF">z_x=x_next[0],</span>xt[n][mdummy]=real(z_x),yt[n][mdummy]=imag(z_x)},
 <br>
@@ -39005,7 +39007,9 @@ f<span class="jF">(t,z_x,z_v)</span>=&lt;{z_v,z_a+(Cd_sphere/m)*(<span class="se
 <div class="run">
 run=&lt;last{
 <br>
-stepN=&lt;last{N=round(t/dt),<span class="jF">x_next=_o(=&lt;f,,</span>=&lt;x_initial,<span class="jF">t_total</span>,dt,N)},
+<span class="jF">x_next=x_initial=&gt;,</span>
+<br>
+stepN=&lt;last{N=round(t/dt),<span class="jF">x_next=_o(=&lt;f,,=&lt;{x_next}</span>,<span class="jF">t_total</span>,dt,N)},
 <br>
 <span class="jF">step_post=&lt;{$z_x0,$z_v0}=x_next,</span>
 <br>
