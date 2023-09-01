@@ -203,6 +203,8 @@
       script += "\nclear;\n";
       script += "N=8;\nA=linspace(1,N,N:1,N,N);\nreshape(A:(N,2));\nreshape(A.:(N,2));\nreshape(A:(2,N));\nreshape(A.:(2,N));\nreshaper(A:(N,2));\nreshaper(A.:(N,2));\nreshaper(A:(2,N));\nreshaper(A.:(2,N));";
       script += "\nclear;\n";
+      script += "N=12;\nA=linspace(1,N,N:1,N,N);\nreshaper(A:(3,));\nreshaper(A:(,3));\nreshapec(A:(3,));\nreshapec(A:(,3));";
+      script += "\nclear;\n";
       $._id("input").value = script;
       // test case
       var setVal = function(){

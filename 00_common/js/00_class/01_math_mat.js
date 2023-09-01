@@ -464,9 +464,18 @@ My_entry.math_mat.prototype.reshapec = function(options, arr, isRow){
   if(len_je !== 2) throw "Invalid reshape length";
   var arr0_je = arr[len_i0][0];
   var arr1_je = arr[len_i0][1];
-  var len_i = (arr0_je && arr0_je.com)? arr0_je.com.r: 0;
-  var len_j = (arr1_je && arr1_je.com)? arr1_je.com.r: 0;
-  if(len_i*len_j !== len_i0*len_j0) throw "Invalid reshape size";
+  /* Ver.2.235.56 -> */
+  var len_i = (arr0_je && arr0_je.com)? Math.round(arr0_je.com.r): -1;
+  var len_j = (arr1_je && arr1_je.com)? Math.round(arr1_je.com.r): -1;
+  var Nelem = len_i0*len_j0;
+  if(len_i === 0){
+    len_i = Nelem/len_j;
+  }
+  if(len_j === 0){
+    len_j = Nelem/len_i;
+  }
+  if(!(len_i%1 === 0 && len_j%1 === 0 && len_i*len_j === Nelem)) throw "Invalid reshape size";
+  /* -> Ver.2.235.56 */
   var num_NaN = DATA.num(NaN, NaN);  // common reference
   var callback = (isRow)?
     function(i, j){
