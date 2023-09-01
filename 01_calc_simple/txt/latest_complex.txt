@@ -151,27 +151,27 @@ Niteration=6
 clear
 local storage cleared
 
-x=-1,dt=0.1,N=10,t=N*dt:f(t,x0,x1)=<{t,t**2},x_next=_o(=<f,,,,dt,N):t,x_next.:t0=t,x_next=_o((t,x0,x1)=<{t,t**2},,=<{x_next},t0,dt,N):t0+t,x_next.:x
+($x0,$x1)=(-1,-2),dt=0.1,N=10,t=N*dt:f(t,x0,x1)=<{t,t**2},x_next=_o(=<f,,,,dt,N):t,x_next.:t0=t,x_next=_o((t,x0,x1)=<{t,t**2},,=<{x_next},t0,dt,N):t0+t,x_next.:(x0,x1)
 (
 0,0,0,0:
 0,0:
 1,0.5+O(1e-4),0.33333333333333337+O(1e-4):
 0,0:
 2,2+O(1e-4),2.6666666666666665+O(1e-4):
--1
+-1,-2
 )
 
 clear
 local storage cleared
 
-x=-1,dt=0.1,N=10,t=N*dt:f(t)=<{t,t**2},x_next=_o(=<f,=<{x0,x1},,,dt,N):t,x_next.:t0=t,x_next=_o((t)=<{t,t**2},=<{x0,x1},=<{x_next},t0,dt,N):t0+t,x_next.:x
+($x0,$x1)=(-1,-2),dt=0.1,N=10,t=N*dt:f(t)=<{t,t**2},x_next=_o(=<f,=<{x0,x1},,,dt,N):t,x_next.:t0=t,x_next=_o((t)=<{t,t**2},=<{x0,x1},=<{x_next},t0,dt,N):t0+t,x_next.:(x0,x1)
 (
 0,0,0,0:
 0,0:
 1,0.5+O(1e-4),0.33333333333333337+O(1e-4):
 0,0:
 2,2+O(1e-4),2.6666666666666665+O(1e-4):
--1
+-1,-2
 )
 
 clear
@@ -2843,4 +2843,4 @@ drag=false&sw=false&0x=false&useMatrix=true&useStrict=false&checkError=true&isRi
 --------------------------------
 --------------------------------
 
-online-simulator.github.io.6.293.126.15.68 @ Fri Sep 01 2023 12:15:09 GMT+0900 (日本標準時) @ Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/116.0.0.0 Safari/537.36
+online-simulator.github.io.6.293.126.15.68 @ Fri Sep 01 2023 12:38:03 GMT+0900 (日本標準時) @ Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/116.0.0.0 Safari/537.36
