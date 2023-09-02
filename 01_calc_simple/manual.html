@@ -37599,15 +37599,15 @@ Fibonacci
 <br>
 clear;
 <br>
-fibok(n,n0,k)=&lt;n&lt;k-1&amp;&amp;n0||||n&lt;k|||_s((m)=&lt;fibok(n-m,n0,k)=&gt;,1,k);
+fibok(n,n0,k)=&lt;n&lt;k-1&amp;&amp;n0||||n&lt;k|||_s<span class="jF">((m)</span>=&lt;fibok(n-m,n0,k)=&gt;,1,k);
 <br>
 luca2(n)=&lt;fibok(n,2,2)=&gt;;
 <br>
-fibon_se(N,n0,k,ns_,ne_)=&lt;[arr=[],_s((n)=&lt;arr=(arr,fibok(n,n0,k)=&gt;),ns_,ne_),=&lt;arr]=&gt;;
+fibon_se(N,n0,k,ns_,ne_)=&lt;[arr=[],_s<span class="jF">((n)</span>=&lt;arr=(arr,fibok(n,n0,k)=&gt;),ns_,ne_),=&lt;arr]=&gt;;
 <br>
-fibonk_se(N,n0,ks,ke)=&lt;[arr=[],_s((k)=&lt;arr=(arr:fibon_se(N,n0,k,0,N)=&gt;),ks,ke),=&lt;arr]=&gt;;
+fibonk_se(N,n0,ks,ke)=&lt;[arr=[],_s<span class="jF">((k)</span>=&lt;arr=(arr:fibon_se(N,n0,k,0,N)=&gt;),ks,ke),=&lt;arr]=&gt;;
 <br>
-fibok_se(N,n0,ks,ke)=&lt;[arr=[],_s((k)=&lt;arr=(arr,fibok(N,n0,k)=&gt;),ks,ke),=&lt;arr]=&gt;;
+fibok_se(N,n0,ks,ke)=&lt;[arr=[],_s<span class="jF">((k)</span>=&lt;arr=(arr,fibok(N,n0,k)=&gt;),ks,ke),=&lt;arr]=&gt;;
 <br>
 fibok_fill_n0(N,n0,ks,ke)=&lt;(
 <br>
@@ -37615,7 +37615,7 @@ fibonk_se(N,n0,ks,ke)=&gt;:
 <br>
 fibok_se(N,n0,2,N)=&gt;:
 <br>
-[=&lt;[arr=[],_s((k)=&lt;arr=(arr,fibok(N,n0,k)=&gt;),ks,ke),=&lt;arr]=&gt;]=&gt;
+[=&lt;[arr=[],_s<span class="jF">((k)</span>=&lt;arr=(arr,fibok(N,n0,k)=&gt;),ks,ke),=&lt;arr]=&gt;]=&gt;
 <br>
 );
 <br>
@@ -37623,7 +37623,7 @@ fibok_se(N,n0,2,N)=&gt;:
 <br>
 (N,n0s,n0e,ks,ke)=&lt;[
 <br>
-=&lt;[arr=[],_s((n0)=&lt;arr=(arr:n0:fibok_fill_n0(N,n0,ks,ke)=&gt;),n0s,n0e),=&lt;arr]=&gt;]=&gt;
+=&lt;[arr=[],_s<span class="jF">((n0)</span>=&lt;arr=(arr:n0:fibok_fill_n0(N,n0,ks,ke)=&gt;),n0s,n0e),=&lt;arr]=&gt;]=&gt;
 <br>
 ](N,0,3,2,N)=&gt;
 <br>
