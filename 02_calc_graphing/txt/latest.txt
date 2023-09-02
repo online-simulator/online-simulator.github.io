@@ -1231,7 +1231,7 @@ clear
 local storage cleared
 
 [Pinv_y=(-0.999999427,-0.999936657,-0.997300203,-0.954499736,-0.682689492,0,0.682689492,0.954499736,0.997300203,0.999936657,0.999999427:-5,-4,-3,-2,-1,0,1,2,3,4,5),N=1,arr=[],_rn(=<arr=(arr:rand_table(=<Pinv_y)=>),,N),=<arr]=>
-0.20730102370002954
+-2.1394539330968403
 
 rand_table(csv)=<last[table=sort0(csv),ymin=min(table)[0],ymax=max(table)[0],y=ymin+(ymax-ymin)*rand,x=interp(y:table),x]
 stored_eqn(rand_table)
@@ -1254,7 +1254,7 @@ stored_eqn(gcd_)
 clear
 local storage cleared
 
-[(N)=<((N/2)!,fact(N/2),N!,fact(N):fact_(N)=>,fact_sw0(N)=>,fact_sw1(N)=>:A=linspace(1,N,N).map((n)=<fact_(n)=>):mat2coo(A)::A.map((x)=<-x).filter((x)=<x<-fact(N/2)))](10)=>
+[(N)=<((N/2)!,fact(N/2),N!,fact(N):fact_(N)=>,fact_sw0(N)=>,fact_sw1(N)=>:A=linspace(1,N,N).map((n)=<fact_(n)=>):mat2coo(A)::A.map((x)=<-x).map((x)=<abs(x)).filter((x)=<x>fact(N/2)))](10)=>
 (
 120,120,3628800,3628800:
 3628800,3628800,3628800:
@@ -1263,7 +1263,7 @@ true,2,6,24,120,720,5040,40320,362880,3628800:
 1,1,1,1,1,1,1,1,1,1:
 1,2,3,4,5,6,7,8,9,10:
 0:
--720,-5040,-40320,-362880,-3628800:
+720,5040,40320,362880,3628800:
 0,0,0,0,0:
 5,6,7,8,9
 )
@@ -1280,24 +1280,74 @@ stored_eqn(fact_)
 clear
 local storage cleared
 
-[N=10:fibok(N,0,2)=>,fibok(N,0,3)=>,fibok(N,0,4)=>,fibok(N,0,5)=>:fibok_se(N,0,2,N)=>:fibok(N,1,2)=>,fibok(N,1,3)=>,fibok(N,1,4)=>,fibok(N,1,5)=>:fibok_se(N,1,2,N)=>:luca2(N)=>:fibok_se(N,2,2,N)=>]
+[(N)=<[(N,n0s,n0e,ks,ke)=<[=<[arr=[],_s((n0)=<arr=(arr:n0:fibok_fill_n0(N,n0,ks,ke)=>),n0s,n0e),=<arr]=>]=>](N,0,3,2,N)=>](10)=>
 (
 0:
-55,81,56,31:
+0,true,1,2,3,5,8,13,21,34,55:
+0,0,true,1,2,4,7,13,24,44,81:
+0,0,0,true,1,2,4,8,15,29,56:
+0,0,0,0,true,1,2,4,8,16,31:
+0,0,0,0,0,true,1,2,4,8,16:
+0,0,0,0,0,0,true,1,2,4,8:
+0,0,0,0,0,0,0,true,1,2,4:
+0,0,0,0,0,0,0,0,true,1,2:
+0,0,0,0,0,0,0,0,0,true,1:
 55,81,56,31,16,8,4,2,1:
-89,193,181,129:
+55,81,56,31,16,8,4,2,1:
+1:
+1,true,2,3,5,8,13,21,34,55,89:
+1,1,true,3,5,9,17,31,57,105,193:
+1,1,1,true,4,7,13,25,49,94,181:
+1,1,1,1,true,5,9,17,33,65,129:
+1,1,1,1,1,true,6,11,21,41,81:
+1,1,1,1,1,1,true,7,13,25,49:
+1,1,1,1,1,1,1,true,8,15,29:
+1,1,1,1,1,1,1,1,true,9,17:
+1,1,1,1,1,1,1,1,1,true,10:
 89,193,181,129,81,49,29,17,10:
-123:
-123,305,306,227,146,90,54,32,19
+89,193,181,129,81,49,29,17,10:
+2:
+2,true,3,4,7,11,18,29,47,76,123:
+2,2,true,5,8,14,27,49,90,166,305:
+2,2,2,true,7,12,22,42,83,159,306:
+2,2,2,2,true,9,16,30,58,114,227:
+2,2,2,2,2,true,11,20,38,74,146:
+2,2,2,2,2,2,true,13,24,46,90:
+2,2,2,2,2,2,2,true,15,28,54:
+2,2,2,2,2,2,2,2,true,17,32:
+2,2,2,2,2,2,2,2,2,true,19:
+123,305,306,227,146,90,54,32,19:
+123,305,306,227,146,90,54,32,19:
+3:
+3,true,4,5,9,14,23,37,60,97,157:
+3,3,true,7,11,19,37,67,123,227,417:
+3,3,3,true,10,17,31,59,117,224,431:
+3,3,3,3,true,13,23,43,83,163,325:
+3,3,3,3,3,true,16,29,55,107,211:
+3,3,3,3,3,3,true,19,35,67,131:
+3,3,3,3,3,3,3,true,22,41,79:
+3,3,3,3,3,3,3,3,true,25,47:
+3,3,3,3,3,3,3,3,3,true,28:
+157,417,431,325,211,131,79,47,28:
+157,417,431,325,211,131,79,47,28
 )
 
-fibok_se(N,n0,ks,ke)=<[arr=[],_sk(=<arr=(arr,fibok(N,n0,k)=>),ks,ke),=<arr]=>
+fibok_fill_n0(N,n0,ks,ke)=<(fibonk_se(N,n0,ks,ke)=>:fibok_se(N,n0,2,N)=>:[=<[arr=[],_s((k)=<arr=(arr,fibok(N,n0,k)=>),ks,ke),=<arr]=>]=>)
+stored_eqn(fibok_fill_n0)
+
+fibok_se(N,n0,ks,ke)=<[arr=[],_s((k)=<arr=(arr,fibok(N,n0,k)=>),ks,ke),=<arr]=>
 stored_eqn(fibok_se)
+
+fibonk_se(N,n0,ks,ke)=<[arr=[],_s((k)=<arr=(arr:fibon_se(N,n0,k,0,N)=>),ks,ke),=<arr]=>
+stored_eqn(fibonk_se)
+
+fibon_se(N,n0,k,ns_,ne_)=<[arr=[],_s((n)=<arr=(arr,fibok(n,n0,k)=>),ns_,ne_),=<arr]=>
+stored_eqn(fibon_se)
 
 luca2(n)=<fibok(n,2,2)=>
 stored_eqn(luca2)
 
-fibok(n,n0,k)=<n<k-1&&n0||||n<k|||_sm(=<fibok(n-m,n0,k)=>,1,k)
+fibok(n,n0,k)=<n<k-1&&n0||||n<k|||_s((m)=<fibok(n-m,n0,k)=>,1,k)
 stored_eqn(fibok)
 
 clear
@@ -1572,4 +1622,4 @@ center=true&drag=false&test-case=false&legend=true&axis-t=false&axis-x=true&log-
 --------------------------------
 --------------------------------
 
-online-simulator.github.io.6.293.126.15.68 @ Fri Sep 01 2023 22:02:36 GMT+0900 (日本標準時) @ Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/116.0.0.0 Safari/537.36
+online-simulator.github.io.6.294.126.15.68 @ Sat Sep 02 2023 11:58:39 GMT+0900 (日本標準時) @ Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/116.0.0.0 Safari/537.36
