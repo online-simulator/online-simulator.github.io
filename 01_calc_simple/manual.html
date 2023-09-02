@@ -1813,6 +1813,12 @@ title/発行元(発行年)を列挙する
 　　　　　　||<a href="#span-eqn-implicit-Euler_method">implicit Euler_method</a>||<a href="#span-eqn-explicit-Euler_method">explicit Euler_method</a>||<a href="#span-eqn-explicit-ODE_RK4">explicit ODE_RK4</a>||<a href="#span-eqn-heat1d_evolution">heat1d_evolution</a>
 <br>
 　<a href="#span-eqn-heat1d_evolution">heat1d_evolution</a>のみ、<a href="#span-out-method-Newton">Newton法</a>の初期値を<a href="#span-out-terms">scope変数</a>から継承しないため、演算結果が変わる
+<br>
+・<span class="run">Ver.2.237.56</span>以降、<a href="#span-out-FNmh-jacobian">Jacobi高階行列関数</a>||<a href="#span-out-FNmh-newtonian">Newton高階行列関数</a>||<a href="#span-out-FNmh-OX">ODE高階行列関数</a>の第1引数を拡張
+<br>
+　列vector形式のみ　⇒　行||列vector形式を自動判別
+<br>
+　<a href="#span-eqn">strict-mode式変数list</a>への影響なし
     </td>
   </tr>
   <tr>
@@ -35176,6 +35182,10 @@ _rk(=&lt;<span class="clear">eqn_k</span>,N=sizer(primes),N,=&lt;{n%prime==0}); 
 ・<span class="run">Ver.2.175.42</span>以降、行vector用の<a href="#span-out-plot2d-command-from-arr">plot2d{xt,yt}</a>を追加する（<a href="#span-eqn-plot2d{}_multi">plot2d{}_multi</a>参照）
 <br>
 ・本来、行vector形式に統一して<a href="#span-out-FNm">行列関数</a>||plot出力を実装する方が無駄が少ない
+<br>
+・<span class="run">Ver.2.237.56</span>以降、<a href="#span-out-FNmh-jacobian">Jacobi高階行列関数</a>||<a href="#span-out-FNmh-newtonian">Newton高階行列関数</a>||<a href="#span-out-FNmh-OX">ODE高階行列関数</a>の第1引数を拡張
+<br>
+　列vector形式のみ　⇒　行||列vector形式を自動判別（<a href="#span-out-FNm">行列関数</a>を行vector形式既定に変更予定）
     </td>
   </tr>
   <tr>

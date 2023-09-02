@@ -148,12 +148,23 @@ My_entry.DATA.prototype.arr2obj_i = function(arr, i){
   var _arri = arr[i];
   return _arri[_arri.length-1];
 };
-My_entry.DATA.prototype.vec2arr = function(vec){
+My_entry.DATA.prototype.vec2arr = function(vec, isRow){  // Ver.2.237.56
   var self = this;
   var _arr = [];
-  for(var i=0, len=vec.length; i<len; ++i){
-    _arr[i] = [vec[i]];
+  /* Ver.2.237.56 -> */
+  var len = vec.length;
+  if(isRow){
+    _arr[0] = [];
+    for(var i=0; i<len; ++i){
+      _arr[0][i] = vec[i];
+    }
   }
+  else{
+    for(var i=0; i<len; ++i){
+      _arr[i] = [vec[i]];
+    }
+  }
+  /* -> Ver.2.237.56 */
   return _arr;
 };
 /* calc-Ver.2.217.50 */

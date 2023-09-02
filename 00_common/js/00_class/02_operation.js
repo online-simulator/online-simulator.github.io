@@ -1109,17 +1109,6 @@ My_entry.operation.prototype.jacobian = function(data, rightArr, tagObj){
   var prop = tagObj.val;
   prop = (prop && prop.key)? prop.key: prop;  // Ver.2.233.56
   var msgErr = "Invalid "+prop+" arguments";  // Ver.2.233.56
-  var get_arr = function(argj){  // Ver.2.233.56
-    var _arr = null;
-    var tree = self.tree_eqn2tree(data, self.tree2tree_eqn(data, argj));  // Ver.2.233.56
-    if(tree.mat){
-      _arr = tree.mat.arr;
-    }
-    else{
-      throw msgErr;
-    }
-    return _arr;
-  };
   /* Ver.2.21.10 -> */
   /* Ver.2.234.56 -> */
   var init_x0 = function(arr, names, ids_buffer){  // Ver.2.233.56
@@ -1149,16 +1138,57 @@ My_entry.operation.prototype.jacobian = function(data, rightArr, tagObj){
     return _x0;
   };
   /* -> Ver.2.234.56 */
+  /* Ver.2.237.56 -> */
+  var isRow = true;  // default: hasArgs=true
+  var get_names = function(argj){
+    var names_col = self.get_symbols_expanded(data, argj);
+    var names_row = self.get_symbols_expanded(data, argj, true);
+    isRow = (names_row.length > names_col.length);
+    return ((isRow)? names_row: names_col);
+  };
+  var get_arr_x = function(argj, len_i){  // Ver.2.233.56  // Ver.2.237.56
+    var _arr_x = null;
+    var tree = self.tree_eqn2tree(data, self.tree2tree_eqn(data, argj));  // Ver.2.233.56
+    if(tree.mat){
+      _arr_x = tree.mat.arr;
+    }
+    else{
+      throw msgErr;
+    }
+    var len_xi = _arr_x.length;
+    var len_xj = _arr_x[len_xi-1].length;
+    if(len_xi === len_i){
+      isRow = false;
+    }
+    else if(len_xj === len_i){
+      isRow = true;
+      _arr_x = DATA.vec2arr(_arr_x[len_xi-1]);
+    }
+    else{
+      throw msgErr;
+    }
+    return _arr_x;
+  };
+  /* -> Ver.2.237.56 */
   var make_get_f_from_arr_f0 = function(arr_f0, len_i, i0, j0){
     var _get_f = null;
     /* Ver.1.5.3 -> f<={A(x)=b} */
     var len_fi = arr_f0.length;
     var len_fj = arr_f0[len_fi-1].length;
     if(len_fi === len_i){
+      isRow = false;  // Ver.2.237.56
       _get_f = function(arr_f, i){
         return self.arr2obj_i(arr_f, i);
       };
     }
+    /* Ver.2.237.56 -> */
+    else if(len_fj === len_i){
+      isRow = true;
+      _get_f = function(arr_f, i){
+        return arr_f[len_fi-1][i];
+      };
+    }
+    /* -> Ver.2.237.56 */
     else if(len_fi*len_fj === len_i){
       for(var i=0; i<len_i; ++i){
         var ii = Math.floor(i/len_fi);
@@ -1223,7 +1253,7 @@ else if(prop === "OX"){  // ODE  // Ver.2.23.11  // Ver.2.231.56  // Ver.2.233.5
     var name_var = name_arg || name_bar;
     if(!(name_var) || (name_arg && name_bar)) throw msgErr;
     self.check_symbol(name_var);  // Ver.2.29.15  // Ver.2.232.56
-    var names = args_eqn || self.get_symbols_expanded(data, args[1]);  // Ver.2.233.56
+    var names = args_eqn || get_names(args[1]);  // Ver.2.233.56  // Ver.2.237.56
     /* -> Ver.2.231.56 */
     if(!(names.length)) throw msgErr;
     /* -> Ver.2.27.15 */
@@ -1235,8 +1265,7 @@ else if(prop === "OX"){  // ODE  // Ver.2.23.11  // Ver.2.231.56  // Ver.2.233.5
     /* Ver.2.29.15 -> */
     var arg2 = args[2];  // Ver.2.233.56
     if(arg2 && !(arg2.com)){  // Ver.2.233.56
-      arr_x = get_arr(arg2);  // Ver.2.233.56
-      if(arr_x.length-len_i) throw msgErr;
+      arr_x = get_arr_x(arg2, len_i);  // Ver.2.233.56  // Ver.2.237.56
     }
     if(!(arr_x)){
       arr_x = math_mat.zeros2d(len_i, 1);
@@ -1368,7 +1397,7 @@ else if(prop === "OX"){  // ODE  // Ver.2.23.11  // Ver.2.231.56  // Ver.2.233.5
       t0 = unit["BRa"](options, t0ini, unit["BRm"](options, DATA.num(n+1, 0), dt));  // Ver.2.234.56 t0ini+Niteration*dt not returned
       x0 = update_x0(names, ids_buffer);  // Ver.2.233.56  // Ver.2.234.56
     }
-    _tree = DATA.tree_mat(DATA.vec2arr(vec));
+    _tree = DATA.tree_mat(DATA.vec2arr(vec, isRow));  // Ver.2.237.56
     /* -> Ver.2.29.15 */
     return _tree;
   };
@@ -1379,7 +1408,7 @@ else{
   var callback_names = function(args, args_eqn, name_arg, name_bar){  // Ver.2.233.56
     /* Ver.2.27.15 -> */
     /* Ver.2.231.56 -> */
-    var names = args_eqn || self.get_symbols_expanded(data, args[1]);  // Ver.2.233.56
+    var names = args_eqn || get_names(args[1]);  // Ver.2.233.56  // Ver.2.237.56
     /* -> Ver.2.231.56 */
     if(!(names.length)) throw msgErr;
     /* -> Ver.2.27.15 */
@@ -1391,8 +1420,7 @@ else{
     /* Ver.2.29.15 -> */
     var arg2 = args[2];  // Ver.2.233.56
     if(arg2 && !(arg2.com)){  // Ver.2.233.56
-      arr_x = get_arr(arg2);  // Ver.2.233.56
-      if(arr_x.length-len_i) throw msgErr;
+      arr_x = get_arr_x(arg2, len_i);  // Ver.2.233.56  // Ver.2.237.56
     }
     if(!(arr_x)){
       arr_x = math_mat.zeros2d(len_i, 1);
@@ -1455,7 +1483,7 @@ else{
       // isRelative_epsN
       var arg6 = args[6];
       var isRelative_epsN = (arg6 && arg6.com)? arg6.com.r: self.options.isRelative_epsN;  // 0||not0
-      _tree = DATA.tree_mat(DATA.vec2arr(x0));  // initialize
+      _tree = DATA.tree_mat(DATA.vec2arr(x0, isRow));  // initialize
       var arr_mdx = null;
       for(var n=0; n<Niteration; ++n){
         step();
@@ -1474,13 +1502,13 @@ else{
         // check convergence
         if(isRelative_epsN){
           // relative error
-          var normdx = math_mat.euclidean(options, arr_mdx);
-          var normx0 = math_mat.euclidean(options, DATA.vec2arr(x0));
+          var normdx = math_mat.normc(options, arr_mdx);  // Ver.2.237.56
+          var normx0 = math_mat.normc(options, DATA.vec2arr(x0));  // Ver.2.237.56 x0: vectorc
           if(self.arr2num(normdx).com.r < epsN*self.arr2num(normx0).com.r) break;
         }
         else{
           // absolute error
-          var normdx = math_mat.euclidean(options, arr_mdx);
+          var normdx = math_mat.normc(options, arr_mdx);  // Ver.2.237.56
           if(self.arr2num(normdx).com.r < epsN) break;
         }
       }
@@ -1494,7 +1522,7 @@ else{
             x0ie.i = Math.max(Math.abs(mdxi.com.i), x0ie.i);
           }
         }
-        _tree = DATA.tree_mat(DATA.vec2arr(x0));  // Ver.2.234.56
+        _tree = DATA.tree_mat(DATA.vec2arr(x0, isRow));  // Ver.2.234.56  // Ver.2.237.56
       }
     }
     else{
