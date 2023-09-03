@@ -1,7 +1,7 @@
 clear
 local storage cleared
 
-dt=0.1i,N=10,f(t,x0,x1)=<(x0+x1,t**2):x_next=_t(=<f,,=<(1+i,1,i),dt,N):x_next:step1(=<f):x_next:step1(=<f):x_next
+dt=0.1i,N=10,f(t,x0,x1)=<(x0+x1,t**2):tx_next=_t(=<f,,=<(1+i,1,i),dt,N):tx_next:step1(=<f):tx_next:step1(=<f):tx_next
 (
 0,0,0:
 0:
@@ -15,7 +15,7 @@ dt=0.1i,N=10,f(t,x0,x1)=<(x0+x1,t**2):x_next=_t(=<f,,=<(1+i,1,i),dt,N):x_next:st
 restore
 local storage restored
 
-dt=0.1,N=10,f(t,x0,x1)=<(t,t**2):x_next=_t(=<f,,=<(1,,),dt,N):x_next:step1(=<f):x_next:step1(=<f):x_next
+dt=0.1,N=10,f(t,x0,x1)=<(t,t**2):tx_next=_t(=<f,,=<(1,,),dt,N):tx_next:step1(=<f):tx_next:step1(=<f):tx_next
 (
 0,0,0:
 0:
@@ -29,7 +29,7 @@ dt=0.1,N=10,f(t,x0,x1)=<(t,t**2):x_next=_t(=<f,,=<(1,,),dt,N):x_next:step1(=<f):
 restore
 local storage restored
 
-dt=0.1,N=10,f(t,x0,x1)=<(t,t**2):x_next=_t(=<f,,,dt,N):x_next:step1(=<f):x_next:step1((t,x0,x1)=<(t,t**2)):x_next
+dt=0.1,N=10,f(t,x0,x1)=<(t,t**2):tx_next=_t(=<f,,,dt,N):tx_next:step1(=<f):tx_next:step1((t,x0,x1)=<(t,t**2)):tx_next
 (
 0,0,0:
 0:
@@ -43,7 +43,7 @@ dt=0.1,N=10,f(t,x0,x1)=<(t,t**2):x_next=_t(=<f,,,dt,N):x_next:step1(=<f):x_next:
 restore
 local storage restored
 
-dt=0.1,N=10,f(t,x0,x1)=<{t,t**2}:x_next=_t(=<f,,,dt,N):x_next.:step1(=<f):x_next.:step1((t,x0,x1)=<{t,t**2}):x_next.
+dt=0.1,N=10,f(t,x0,x1)=<{t,t**2}:tx_next=_t(=<f,,,dt,N):tx_next.:step1(=<f):tx_next.:step1((t,x0,x1)=<{t,t**2}):tx_next.
 (
 0,0,0:
 0:
@@ -57,7 +57,7 @@ dt=0.1,N=10,f(t,x0,x1)=<{t,t**2}:x_next=_t(=<f,,,dt,N):x_next.:step1(=<f):x_next
 restore
 local storage restored
 
-dt=0.1,N=10,f=<{t,t**2},x=<(t,x0,x1):x_next=_t(=<f,=<x,,dt,N):x_next.:step0(=<f,=<x):x_next.:step0(=<{t,t**2},=<(t,x0,x1)):x_next.
+dt=0.1,N=10,f=<{t,t**2},x=<(t,x0,x1):tx_next=_t(=<f,=<x,,dt,N):tx_next.:step0(=<f,=<x):tx_next.:step0(=<{t,t**2},=<(t,x0,x1)):tx_next.
 (
 0,0,0,0:
 0:
@@ -71,10 +71,10 @@ dt=0.1,N=10,f=<{t,t**2},x=<(t,x0,x1):x_next=_t(=<f,=<x,,dt,N):x_next.:step0(=<f,
 store
 local storage stored
 
-step1(=<f)=<x_next=_t(=<f,,=<{x_next},dt,N)
+step1(=<f)=<tx_next=_t(=<f,,=<{tx_next},dt,N)
 stored_eqn(step1)
 
-step0(=<f,=<x)=<x_next=_t(=<f,=<x,=<{x_next},dt,N)
+step0(=<f,=<x)=<tx_next=_t(=<f,=<x,=<{tx_next},dt,N)
 stored_eqn(step0)
 
 clear
@@ -3020,4 +3020,4 @@ drag=false&sw=false&0x=false&useMatrix=true&useStrict=false&checkError=true&isRi
 --------------------------------
 --------------------------------
 
-online-simulator.github.io.6.296.127.15.68 @ Sun Sep 03 2023 11:27:06 GMT+0900 (日本標準時) @ Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/116.0.0.0 Safari/537.36
+online-simulator.github.io.6.296.127.15.68 @ Sun Sep 03 2023 21:02:39 GMT+0900 (日本標準時) @ Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/116.0.0.0 Safari/537.36

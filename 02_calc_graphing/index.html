@@ -213,19 +213,19 @@
       script += "\nclear;\n";
       script += "N=12;\nA=linspace(1,N,N:1,N,N);\nreshaper(A:(3,));\nreshaper(A:(,3));\nreshapec(A:(3,));\nreshapec(A:(,3));";
       script += "\nclear;\n";
-      script += "step0(=<f,=<x)=<x_next=_t(=<f,=<x,=<{x_next},dt,N);";
+      script += "step0(=<f,=<x)=<tx_next=_t(=<f,=<x,=<{tx_next},dt,N);";
       script += "\n";
-      script += "step1(=<f)=<x_next=_t(=<f,,=<{x_next},dt,N);";
+      script += "step1(=<f)=<tx_next=_t(=<f,,=<{tx_next},dt,N);";
       script += "\nstore;\n";
-      script += "dt=0.1,N=10,f=<{t,t**2},x=<(t,x0,x1):x_next=_t(=<f,=<x,,dt,N):x_next.:step0(=<f,=<x):x_next.:step0(=<{t,t**2},=<(t,x0,x1)):x_next.;";
+      script += "dt=0.1,N=10,f=<{t,t**2},x=<(t,x0,x1):tx_next=_t(=<f,=<x,,dt,N):tx_next.:step0(=<f,=<x):tx_next.:step0(=<{t,t**2},=<(t,x0,x1)):tx_next.;";
       script += "\nrestore;\n";
-      script += "dt=0.1,N=10,f(t,x0,x1)=<{t,t**2}:x_next=_t(=<f,,,dt,N):x_next.:step1(=<f):x_next.:step1((t,x0,x1)=<{t,t**2}):x_next.;";
+      script += "dt=0.1,N=10,f(t,x0,x1)=<{t,t**2}:tx_next=_t(=<f,,,dt,N):tx_next.:step1(=<f):tx_next.:step1((t,x0,x1)=<{t,t**2}):tx_next.;";
       script += "\nrestore;\n";
-      script += "dt=0.1,N=10,f(t,x0,x1)=<(t,t**2):x_next=_t(=<f,,,dt,N):x_next:step1(=<f):x_next:step1((t,x0,x1)=<(t,t**2)):x_next;";
+      script += "dt=0.1,N=10,f(t,x0,x1)=<(t,t**2):tx_next=_t(=<f,,,dt,N):tx_next:step1(=<f):tx_next:step1((t,x0,x1)=<(t,t**2)):tx_next;";
       script += "\nrestore;\n";
-      script += "dt=0.1,N=10,f(t,x0,x1)=<(t,t**2):x_next=_t(=<f,,=<(1,,),dt,N):x_next:step1(=<f):x_next:step1(=<f):x_next;";
+      script += "dt=0.1,N=10,f(t,x0,x1)=<(t,t**2):tx_next=_t(=<f,,=<(1,,),dt,N):tx_next:step1(=<f):tx_next:step1(=<f):tx_next;";
       script += "\nrestore;\n";
-      script += "dt=0.1i,N=10,f(t,x0,x1)=<(x0+x1,t**2):x_next=_t(=<f,,=<(1+i,1,i),dt,N):x_next:step1(=<f):x_next:step1(=<f):x_next;";
+      script += "dt=0.1i,N=10,f(t,x0,x1)=<(x0+x1,t**2):tx_next=_t(=<f,,=<(1+i,1,i),dt,N):tx_next:step1(=<f):tx_next:step1(=<f):tx_next;";
       script += "\nclear;\n";
       $._id("input").value = script;
       // test case
