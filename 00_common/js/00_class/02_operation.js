@@ -1242,21 +1242,39 @@ if(prop === "EX"){  // symbolic
   };
   _tree = self.FNmhX(data, rightArr, tagObj, 2, msgErr, callback_names, null);  // Ver.2.233.56
 }
-else if(prop === "OX"){  // ODE  // Ver.2.23.11  // Ver.2.231.56  // Ver.2.233.56
+else if(prop === "OX" || prop === "TX"){  // ODE  // Ver.2.23.11  // Ver.2.231.56  // Ver.2.233.56  // Ver.2.238.56
+  var isTX = (prop === "TX");  // Ver.2.238.56
   var callback_names = function(args, args_eqn, name_arg, name_bar){  // Ver.2.233.56
+    /* Ver.2.238.56 -> */
     /* Ver.2.27.15 -> */
     /* Ver.2.231.56 -> */
-    var name_arg = (args_eqn)? args_eqn.shift(): "";
-    if(args_eqn && args_eqn.length === 0){
-      args_eqn = null;
+    var name_arg = "";
+    var names = null;
+    if(args_eqn){
+      if(isTX){
+        name_arg = args_eqn[0];
+      }
+      else{
+        name_arg = args_eqn.shift();
+        if(args_eqn.length === 0){
+          args_eqn = null;
+        }
+      }
+      names = args_eqn || get_names(args[1]);  // Ver.2.233.56  // Ver.2.237.56
+    }
+    else{
+      names = get_names(args[1]);  // Ver.2.233.56  // Ver.2.237.56
+      if(isTX){
+        name_arg = names[0];
+      }
     }
     var name_var = name_arg || name_bar;
     if(!(name_var) || (name_arg && name_bar)) throw msgErr;
     self.check_symbol(name_var);  // Ver.2.29.15  // Ver.2.232.56
-    var names = args_eqn || get_names(args[1]);  // Ver.2.233.56  // Ver.2.237.56
     /* -> Ver.2.231.56 */
     if(!(names.length)) throw msgErr;
     /* -> Ver.2.27.15 */
+    /* -> Ver.2.238.56 */
     return {name_var: name_var, names: names};  // Ver.2.233.56
   };
   var callback_FNmh = function(args, ids_buffer, name_var, names, tree_eqn){  // Ver.2.233.56
@@ -1270,15 +1288,23 @@ else if(prop === "OX"){  // ODE  // Ver.2.23.11  // Ver.2.231.56  // Ver.2.233.5
     if(!(arr_x)){
       arr_x = math_mat.zeros2d(len_i, 1);
     }
-    /* -> Ver.2.29.15 */
-    // t0
-    var t0ini = args[3] || DATA.num(0, 0);  // Ver.2.234.56
+    /* Ver.2.238.56 -> */
+    var t0ini = null;
+    if(isTX){
+      t0ini = (arr_x.shift())[0];
+      names.shift();
+    }
+    else{
+      t0ini = args[3] || DATA.num(0, 0);  // Ver.2.234.56
+    }
     var t0 = t0ini;  // Ver.2.234.56
+    len_i = names.length;  // tree_eqn change allowed
     // dt
-    var dt = args[4] || DATA.num(self.options.dxT, 0);
+    var dt = args[(isTX)? 3: 4] || DATA.num(self.options.dxT, 0);
     /* Ver.2.29.15 -> */
     // Niteration
-    var argN = args[5];
+    var argN = args[(isTX)? 4: 5];
+    /* -> Ver.2.238.56 */
     var Niteration = (argN && argN.com)? Math.round(argN.com.r): 1;  // 0 enabled  // Ver.2.205.46 floor -> round
     /* -> Ver.2.29.15 */
     // orderT
@@ -1396,6 +1422,9 @@ else if(prop === "OX"){  // ODE  // Ver.2.23.11  // Ver.2.231.56  // Ver.2.233.5
       // update
       t0 = unit["BRa"](options, t0ini, unit["BRm"](options, DATA.num(n+1, 0), dt));  // Ver.2.234.56 t0ini+Niteration*dt not returned
       x0 = update_x0(names, ids_buffer);  // Ver.2.233.56  // Ver.2.234.56
+    }
+    if(isTX){
+      vec.unshift(t0);  // Ver.2.238.56 t0 returned
     }
     _tree = DATA.tree_mat(DATA.vec2arr(vec, isRow));  // Ver.2.237.56
     /* -> Ver.2.29.15 */

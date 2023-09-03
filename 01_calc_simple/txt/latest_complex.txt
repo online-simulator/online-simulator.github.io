@@ -1,6 +1,85 @@
 clear
 local storage cleared
 
+dt=0.1i,N=10,f(t,x0,x1)=<(x0+x1,t**2):x_next=_t(=<f,,=<(1+i,1,i),dt,N):x_next:step1(=<f):x_next:step1(=<f):x_next
+(
+0,0,0:
+0:
+1+2i,infoLost[ i] 0.4941615773316157-0.7577976425918774i+O(3e-6+1e-4i),-3.0000000000000004-0.3333333333333336i+O(1e-4i):
+0:
+1+3i,infoLost[ i] 5.3727808442345015-3.8675676777275743i+O(3e-6+1e-4i),-8-5.666666666666668i+O(1e-4i):
+0:
+1+4i,infoLost[ i] 20.34442395278853-3.244346970061428i+O(3e-6+1e-4i),-15-17.000000000000004i+O(1e-4i)
+)
+
+restore
+local storage restored
+
+dt=0.1,N=10,f(t,x0,x1)=<(t,t**2):x_next=_t(=<f,,=<(1,,),dt,N):x_next:step1(=<f):x_next:step1(=<f):x_next
+(
+0,0,0:
+0:
+2,1.5000000000000002+O(1e-4),2.3333333333333335+O(1e-4):
+0:
+3,4+O(1e-4),8.666666666666666+O(1e-4):
+0:
+4,7.499999999999998+O(1e-4),20.999999999999996+O(1e-4)
+)
+
+restore
+local storage restored
+
+dt=0.1,N=10,f(t,x0,x1)=<(t,t**2):x_next=_t(=<f,,,dt,N):x_next:step1(=<f):x_next:step1((t,x0,x1)=<(t,t**2)):x_next
+(
+0,0,0:
+0:
+1,0.5+O(1e-4),0.33333333333333337+O(1e-4):
+0:
+2,2+O(1e-4),2.6666666666666665+O(1e-4):
+0:
+3,4.5+O(1e-4),8.999999999999998+O(1e-4)
+)
+
+restore
+local storage restored
+
+dt=0.1,N=10,f(t,x0,x1)=<{t,t**2}:x_next=_t(=<f,,,dt,N):x_next.:step1(=<f):x_next.:step1((t,x0,x1)=<{t,t**2}):x_next.
+(
+0,0,0:
+0:
+1,0.5+O(1e-4),0.33333333333333337+O(1e-4):
+0:
+2,2+O(1e-4),2.6666666666666665+O(1e-4):
+0:
+3,4.5+O(1e-4),8.999999999999998+O(1e-4)
+)
+
+restore
+local storage restored
+
+dt=0.1,N=10,f=<{t,t**2},x=<(t,x0,x1):x_next=_t(=<f,=<x,,dt,N):x_next.:step0(=<f,=<x):x_next.:step0(=<{t,t**2},=<(t,x0,x1)):x_next.
+(
+0,0,0,0:
+0:
+1,0.5+O(1e-4),0.33333333333333337+O(1e-4):
+0:
+2,2+O(1e-4),2.6666666666666665+O(1e-4):
+0:
+3,4.5+O(1e-4),8.999999999999998+O(1e-4)
+)
+
+store
+local storage stored
+
+step1(=<f)=<x_next=_t(=<f,,=<{x_next},dt,N)
+stored_eqn(step1)
+
+step0(=<f,=<x)=<x_next=_t(=<f,=<x,=<{x_next},dt,N)
+stored_eqn(step0)
+
+clear
+local storage cleared
+
 reshapec(A:(,3))
 (
 1,5,9:
@@ -2941,4 +3020,4 @@ drag=false&sw=false&0x=false&useMatrix=true&useStrict=false&checkError=true&isRi
 --------------------------------
 --------------------------------
 
-online-simulator.github.io.6.295.127.15.68 @ Sat Sep 02 2023 23:16:35 GMT+0900 (日本標準時) @ Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/116.0.0.0 Safari/537.36
+online-simulator.github.io.6.296.127.15.68 @ Sun Sep 03 2023 11:27:22 GMT+0900 (日本標準時) @ Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/116.0.0.0 Safari/537.36
