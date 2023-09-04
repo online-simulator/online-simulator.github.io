@@ -449,11 +449,11 @@ My_entry.math_mat.prototype.sizec = function(options, arr){
   return [[DATA.num(lens.j, 0)]];
 };
 /* Ver.2.234.56 -> */
+My_entry.math_mat.prototype.reshape =  // Ver.2.240.56
 My_entry.math_mat.prototype.reshaper = function(options, arr){
   var self = this;
-  return self.reshape(options, arr, true);
+  return self.reshapec(options, arr, true);  // Ver.2.240.56
 };
-My_entry.math_mat.prototype.reshape =
 My_entry.math_mat.prototype.reshapec = function(options, arr, isRow){
   var self = this;
   var DATA = self.entry.DATA;
@@ -519,6 +519,8 @@ My_entry.math_mat.prototype.calc_norm = function(options, vec){
   }
   return self.sqrt_iproduct(options, vec0, vec1);
 };
+My_entry.math_mat.prototype.euclidean =  // Ver.2.240.56
+My_entry.math_mat.prototype.norm =  // Ver.2.240.56
 My_entry.math_mat.prototype.normr = function(options, arr){
   var self = this;
   var DATA = self.entry.DATA;
@@ -532,9 +534,7 @@ My_entry.math_mat.prototype.normr = function(options, arr){
   }
   return _arr;
 };
-My_entry.math_mat.prototype.norm =
-My_entry.math_mat.prototype.normc =
-My_entry.math_mat.prototype.euclidean = function(options, arr){
+My_entry.math_mat.prototype.normc = function(options, arr){
   var self = this;
   var DATA = self.entry.DATA;
   var unit = self.entry.unit;
@@ -548,6 +548,7 @@ My_entry.math_mat.prototype.euclidean = function(options, arr){
   }
   return _arr;
 };
+My_entry.math_mat.prototype.normalize =  // Ver.2.185.44  // Ver.2.240.56
 My_entry.math_mat.prototype.normalizer = function(options, arr){
   var self = this;
   var DATA = self.entry.DATA;
@@ -566,7 +567,6 @@ My_entry.math_mat.prototype.normalizer = function(options, arr){
   }
   return _arr;
 };
-My_entry.math_mat.prototype.normalize =  // Ver.2.185.44
 My_entry.math_mat.prototype.normalizec = function(options, arr){
   var self = this;
   var DATA = self.entry.DATA;

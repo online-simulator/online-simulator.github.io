@@ -5,24 +5,24 @@ A=(1,2:3,4):reshaper(A:4,1),reshape(A:4,1)/*future:reshaper*/,reshapec(A:4,1)
 (
 0:
 1,1,1:
-2,3,3:
-3,2,2:
+2,2,3:
+3,3,2:
 4,4,4
 )
 
 vecc=sqrt2*{1,1}:normalizer(vecc),normalize(vecc)/*future:normalizer*/,normalizec(vecc)
 (
 0:
-1,0.7071067811865476,0.7071067811865476:
-1,0.7071067811865476,0.7071067811865476
+1,1,0.7071067811865476:
+1,1,0.7071067811865476
 )
 
 vecr=sqrt2*(1,1):normr(vecr):(norm(vecr):euclidean(vecr))/*future:normr*/:normc(vecr)
 (
 0:
 2:
-1.4142135623730951,1.4142135623730951:
-1.4142135623730951,1.4142135623730951:
+2:
+2:
 1.4142135623730951,1.4142135623730951
 )
 
@@ -280,19 +280,19 @@ reshaper(A:(N,2))
 7,8
 )
 
-reshape(A.:(2,N))
+reshapec(A.:(2,N))
 (
 1,3,5,7,1,3,5,7:
 2,4,6,8,2,4,6,8
 )
 
-reshape(A:(2,N))
+reshapec(A:(2,N))
 (
 1,2,3,4,5,6,7,8:
 1,2,3,4,5,6,7,8
 )
 
-reshape(A.:(N,2))
+reshapec(A.:(N,2))
 (
 1,1:
 2,2:
@@ -304,7 +304,7 @@ reshape(A.:(N,2))
 8,8
 )
 
-reshape(A:(N,2))
+reshapec(A:(N,2))
 (
 1,5:
 1,5:
@@ -1450,12 +1450,12 @@ vectorc(0)
 vectorr(0)
 []
 
-norm(trans(A[0])),norm(trans(A[1])),norm(trans(A[2])),norm(trans(A))
+normc(trans(A[0])),normc(trans(A[1])),normc(trans(A[2])),normc(trans(A))
 (
 1,1,1,1,1,1
 )
 
-A={normalizer(vecr*1),trans(normalize(vecc*2)),trans(normalizec(vecc*(-3)))}
+A={normalizer(vecr*1),trans(normalizec(vecc*2)),trans(normalizec(vecc*(-3)))}
 A=(
 0.5,0.5i,0.5-0.5i:
 0.5,0.5i,0.5-0.5i:
@@ -1828,7 +1828,7 @@ z=((1,-2,3,-4,5,-6)i:-6,6,-6i,6i,1,-2),last(csort(z[0])),first(creverse(z[0])),l
 2,4,2,4,2,4,2,4
 )
 
-mat={1,2:3,4},norm(mat),norm(mat[][1]),norm(3:4),norm{3,4},norm({3,4}),norm{{3,4}},norm({3,4}*(1+i)),norm{{3,4}*(1+i)}
+mat={1,2:3,4},normc(mat),normc(mat[][1]),normc(3:4),normc{3,4},normc({3,4}),normc{{3,4}},normc({3,4}*(1+i)),normc{{3,4}*(1+i)}
 (
 0,2.23606797749979,5,5,5,5,5,5,7.0710678118654755,7.0710678118654755
 )
@@ -3134,4 +3134,4 @@ drag=false&sw=false&0x=false&useMatrix=true&useStrict=false&checkError=true&isRi
 --------------------------------
 --------------------------------
 
-online-simulator.github.io.6.296.128.15.68 @ Mon Sep 04 2023 11:52:11 GMT+0900 (日本標準時) @ Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/116.0.0.0 Safari/537.36
+online-simulator.github.io.6.297.128.15.68 @ Mon Sep 04 2023 17:19:39 GMT+0900 (日本標準時) @ Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/116.0.0.0 Safari/537.36

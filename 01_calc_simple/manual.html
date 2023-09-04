@@ -1821,6 +1821,12 @@ title/発行元(発行年)を列挙する
 　列vector形式のみ　⇒　行||列vector形式を自動判別
 <br>
 　<a href="#span-eqn">strict-mode式変数list</a>への影響なし
+<br>
+・<span class="run">Ver.2.240.56</span>以降、<a href="#span-out-FNm">行列関数</a>の既定形式の仕様変更
+<br>
+　列vector形式　⇒　行vector形式（一般的な言語に準拠）
+<br>
+　影響項目：<a href="#span-out-FNm-reshape">reshape行列関数</a>||<a href="#span-out-FNm-norm">norm行列関数</a>||<a href="#span-out-FNm-normalize">正規化行列関数</a>||<a href="#span-eqn-solveAinv">solveAinv</a>
     </td>
   </tr>
   <tr>
@@ -11499,7 +11505,7 @@ erra=abs(real(dans))+abs(imag(dans))i; erra
 <br>
 ・絶対誤差の<a href="#span-out-FNm-norm">Euclidean norm</a>
 <br>
-norm(erra) -> 5.341454544442203e-13
+normc(erra) -> 5.341454544442203e-13
 <br>
 ・相対誤差
 <br>
@@ -11509,7 +11515,7 @@ errr=abs(real(erra)/real(ansa))+abs(imag(erra)/imag(ansa))i; errr
 <br>
 ・相対誤差の<a href="#span-out-FNm-norm">Euclidean norm</a>
 <br>
-norm(errr) -> 2.6707272722211015e-13
+normc(errr) -> 2.6707272722211015e-13
 <br>
 <br>
 f(x)=x^4の積分範囲[0,1+i]における定積分の数値解
@@ -11538,7 +11544,7 @@ erra=abs(real(dans))+abs(imag(dans))i; erra
 <br>
 ・絶対誤差の<a href="#span-out-FNm-norm">Euclidean norm</a>
 <br>
-norm(erra) -> 7.54247225018186e-9
+normc(erra) -> 7.54247225018186e-9
 <br>
 ・相対誤差
 <br>
@@ -11548,7 +11554,7 @@ errr=abs(real(erra)/real(ansa))+abs(imag(erra)/imag(ansa))i; errr
 <br>
 ・相対誤差の<a href="#span-out-FNm-norm">Euclidean norm</a>
 <br>
-norm(errr) -> 9.428090312727323e-9
+normc(errr) -> 9.428090312727323e-9
 <br>
 <br>
 数値誤差の特徴を示す
@@ -17507,7 +17513,7 @@ last(last{1,2}:last{3:4}) -> 4
 <br>
 ・仕様上、<a href="#span-out-substitution">変数への代入</a>は次元を残さず、無次元の0を返す
 <br>
-(vc={1,2,3},vr=(1,2,3),norm(vc)) -> (0,0,3.7416573867739413)
+(vc={1,2,3},vr=(1,2,3),normc(vc)) -> (0,0,3.7416573867739413)
 <br>
 last(ans) -> 3.7416573867739413
 <br>
@@ -17624,6 +17630,11 @@ reshape
     <td>
 <span id="span-out-FNm-reshape"></span>
 reshape行列関数の入力仕様と付随する留意事項について記述する
+<br>
+<br>
+<span class="run">Ver.2.234.56</span>以降、追加
+<br>
+・<span class="run">Ver.2.240.56</span>以降、既定形式の仕様変更（列vector形式　⇒　行vector形式）
     </td>
   </tr>
   <tr>
@@ -17647,10 +17658,12 @@ norm行列関数の入力仕様と付随する留意事項について記述す�
 <br>
 ・最終行/最終列vectorのnorm　⇒　各行/各列vectorのnorm（<a href="#span-out-FNm-normalize">正規化行列関数</a>に準拠）
 <br>
+・<span class="run">Ver.2.240.56</span>以降、既定形式の仕様変更（列vector形式　⇒　行vector形式）
+<br>
 <br>
 各行vectorのEuclidean norm（vectorの長さ）
 <br>
-normr(1,2,3) -> 3.7416573867739413
+normr(1,2,3) || norm(1,2,3) || euclidean(1,2,3) -> 3.7416573867739413
 <br>
 normr(NaN) -> NaN
 <br>
@@ -17673,19 +17686,19 @@ mat=(4,3i:-3,4i); mat/normr(mat) -> (0.8,0.6i:-0.6,0.8i)
 <br>
 各列vectorのEuclidean norm（vectorの長さ）
 <br>
-norm(1:2:3) || normc(1:2:3) || euclidean(1:2:3) -> 3.7416573867739413
+normc(1:2:3) -> 3.7416573867739413
 <br>
-norm(NaN) || normc(NaN) || euclidean(NaN) -> NaN
+normc(NaN) -> NaN
 <br>
 ・列vector形式の<a href="#span-out-linear">連立方程式</a>A*x=bのnorm(x)想定
 <br>
-norm(1:2:3) || norm{1,2,3} || norm({1,2,3}) -> 3.7416573867739413
+normc(1:2:3) || normc{1,2,3} || normc({1,2,3}) -> 3.7416573867739413
 <br>
-norm(-i:2i:-3i) || norm{-i,2i,-3i} || norm({-i,2i,-3i}) -> 3.7416573867739413
+normc(-i:2i:-3i) || normc{-i,2i,-3i} || normc({-i,2i,-3i}) -> 3.7416573867739413
 <br>
-norm((1-i)/sqrt2:2i:-3i) || norm({(1-i)/sqrt2,2i,-3i}) -> 3.7416573867739413
+normc((1-i)/sqrt2:2i:-3i) || normc({(1-i)/sqrt2,2i,-3i}) -> 3.7416573867739413
 <br>
-x=((1-i)/sqrt2,2i,-3i); norm(trans(x)) -> 3.7416573867739413
+x=((1-i)/sqrt2,2i,-3i); normc(trans(x)) -> 3.7416573867739413
 <br>
 ・<a href="#span-out-ope">有次元</a>の場合、同義
 <br>
@@ -17709,15 +17722,15 @@ x={(1-i)/sqrt2,2i,-3i}; abs(sqrt(trans(x)x))  <span class="selection">// NG</spa
 <br>
 <del>・行vectorを誤入力した場合
 <br>
-norm((1-i)/sqrt2,2i,-3i) || norm(-3i)  <span class="selection">// NG</span> -> 3
+normc((1-i)/sqrt2,2i,-3i) || normc(-3i)  <span class="selection">// NG</span> -> 3
 <br>
 ・<a href="#span-out-mat">行列</a>を指定した場合、最終列を参照
 <br>
-mat={1,2:3,4}; norm(mat),norm(mat[][1]),norm(3:4),norm{3,4},norm({3,4}),norm{{3,4}} -> (5,5,5,5,5,5)</del>
+mat={1,2:3,4}; normc(mat),normc(mat[][1]),normc(3:4),normc{3,4},normc({3,4}),normc{{3,4}} -> (5,5,5,5,5,5)</del>
 <br>
 ・<a href="#span-out-mat">行列</a>の場合
 <br>
-mat={1,2:3,4}; norm(mat) -> (2.23606797749979,5)
+mat={1,2:3,4}; normc(mat) -> (2.23606797749979,5)
 <br>
 ・正規化の<a href="#span-out-ope-extended">拡張行列演算</a>
 <br>
@@ -17743,11 +17756,13 @@ mat={4,3i:-3,4i}; mat/normc(mat) -> (0.8,-0.6:0.6i,0.8i)
 <br>
 各行vectorの正規化
 <br>
-vr=(1,i,-i); normalizer(vr) ->
+・<span class="run">Ver.2.240.56</span>以降、既定形式の仕様変更（列vector形式　⇒　行vector形式）
+<br>
+vr=(1,i,-i); normalizer(vr) || normalize(vr) ->
 <br>
 (0.5773502691896258,0.5773502691896258i,-0.5773502691896258i)
 <br>
-norm(trans(normalizer(vr)))
+normc(trans(normalizer(vr)))
 <br>
 ・同義
 <br>
@@ -17755,7 +17770,7 @@ norm(trans(normalizer(vr)))
 <br>
 ・<a href="#span-out-FNm-trans">転置行列関数</a>を使用
 <br>
-vr=(1,i,-i); (1/norm(trans(vr)))vr ->
+vr=(1,i,-i); (1/normc(trans(vr)))vr ->
 <br>
 (0.5773502691896258,0.5773502691896258i,-0.5773502691896258i)
 <br>
@@ -17779,20 +17794,20 @@ normalizer(A) ->
 <br>
 ・<a href="#span-out-FNm-trans">転置行列関数</a>を使用
 <br>
-(1/norm(trans(A[0])))A[0] -> 1
+(1/normc(trans(A[0])))A[0] -> 1
 <br>
-(1/norm(trans(A[1])))A[1]
+(1/normc(trans(A[1])))A[1]
 <br>
 -> (0.7071067811865475,0.7071067811865475i)
 <br>
-(1/norm(trans(A[2])))A[2]
+(1/normc(trans(A[2])))A[2]
 <br>
 -> (0.5773502691896258,0.5773502691896258i,-0.5773502691896258i)
 <br>
 <br>
 各列vectorの正規化
 <br>
-vc={1,i,-i}; normalize(vc) || normalizec(vc) -> 
+vc={1,i,-i}; normalizec(vc) -> 
 <br>
 (0.5773502691896258:0.5773502691896258i:-0.5773502691896258i)
 <br>
@@ -17800,7 +17815,7 @@ vc={1,i,-i}; normalize(vc) || normalizec(vc) ->
 <br>
 ・列vectorの右からnormの逆数を積
 <br>
-vc={1,i,-i}; vc(1/norm(vc)) ->
+vc={1,i,-i}; vc(1/normc(vc)) ->
 <br>
 (0.5773502691896258:0.5773502691896258i:-0.5773502691896258i)
 <br>
@@ -17810,7 +17825,7 @@ vr=(1,i,-i); normalizec(vr)  <span class="selection">// NG</span> -> (1,i,-i)
 <br>
 ・<a href="#span-out-FNm">zeros-vector</a>の場合、不定として<a href="#span-out-literal">NaN</a>を返す
 <br>
-normalize({0,0,0})  <span class="selection">// NG</span> -> (NaN:NaN:NaN)
+normalizec({0,0,0})  <span class="selection">// NG</span> -> (NaN:NaN:NaN)
 <br>
 ・<a href="#span-out-mat">行列</a>の場合
 <br>
@@ -17830,13 +17845,13 @@ normalizec(tA) ->
 <br>
 tA={1:1,i:1,i,-i}; A=trans(tA); A -> (1,0,0:1,i,0:1,i,-i)
 <br>
-trans((1/norm(trans(A[0])))A[0]) -> (1:0:0)
+trans((1/normc(trans(A[0])))A[0]) -> (1:0:0)
 <br>
-trans((1/norm(trans(A[1])))A[1])
+trans((1/normc(trans(A[1])))A[1])
 <br>
 -> (0.7071067811865475:0.7071067811865475i:0)
 <br>
-trans((1/norm(trans(A[2])))A[2])
+trans((1/normc(trans(A[2])))A[2])
 <br>
 -> (0.5773502691896258:0.5773502691896258i:-0.5773502691896258i)
     </td>
@@ -23486,17 +23501,17 @@ clear;
 <br>
 run=&lt;last{mdx=Newton(=&lt;{x0+2*x1=5,3*x0+4*x1=6},=&lt;{x0,x1})};
 <br>
-_rn(=&lt;run,Nmax=10,Nmax,=&lt;{norm(mdx)&lt;1e-3});
+_rn(=&lt;run,Nmax=10,Nmax,=&lt;{normc(mdx)&lt;1e-3});
 <br>
-norm(mdx) -> 2.0548659974995737e-10
+normc(mdx) -> 2.0548659974995737e-10
 <br>
 clear;
 <br>
 run=&lt;last{mdx=Newton(=&lt;{x0+2*x1=5,3*x0+4*x1=6},=&lt;{x0,x1})};
 <br>
-_rn(=&lt;run,Nmax=10,Nmax,=&lt;{norm(mdx)&lt;1e-12});
+_rn(=&lt;run,Nmax=10,Nmax,=&lt;{normc(mdx)&lt;1e-12});
 <br>
-norm(mdx) -> infoLost[ri] 2.2204460494935903e-15
+normc(mdx) -> infoLost[ri] 2.2204460494935903e-15
 <br>
 ・相対誤差指定で収束判定条件を設定する場合
 <br>
@@ -23504,21 +23519,21 @@ clear;
 <br>
 run=&lt;last{mdx=Newton(=&lt;{x0+2*x1=5,3*x0+4*x1=6},=&lt;{x0,x1})};
 <br>
-_rn(=&lt;run,Nmax=10,Nmax,=&lt;{norm(mdx)/norm({x0,x1})&lt;1e-3});
+_rn(=&lt;run,Nmax=10,Nmax,=&lt;{normc(mdx)/normc({x0,x1})&lt;1e-3});
 <br>
-norm(mdx) -> 2.0548659974995737e-10
+normc(mdx) -> 2.0548659974995737e-10
 <br>
-norm(mdx)/norm({x0,x1}) -> 3.4129466559497216e-11
+normc(mdx)/normc({x0,x1}) -> 3.4129466559497216e-11
 <br>
 clear;
 <br>
 run=&lt;last{mdx=Newton(=&lt;{x0+2*x1=5,3*x0+4*x1=6},=&lt;{x0,x1})};
 <br>
-_rn(=&lt;run,Nmax=10,Nmax,=&lt;{norm(mdx)/norm({x0,x1})&lt;1e-12});
+_rn(=&lt;run,Nmax=10,Nmax,=&lt;{normc(mdx)/normc({x0,x1})&lt;1e-12});
 <br>
-norm(mdx) -> infoLost[ri] 2.2204460494935903e-15
+normc(mdx) -> infoLost[ri] 2.2204460494935903e-15
 <br>
-norm(mdx)/norm({x0,x1}) -> infoLost[ri] 3.6879601533907295e-16
+normc(mdx)/normc({x0,x1}) -> infoLost[ri] 3.6879601533907295e-16
     </td>
   </tr>
   <tr>
@@ -23783,7 +23798,7 @@ clear;
 <br>
 f=&lt;{_dx(=&lt;{x^3},2)+x-7(1+i)=0};
 <br>
-run=&lt;last(mdx=Newton(=&lt;f,=&lt;{x}),max(norm(f),norm(mdx)));
+run=&lt;last(mdx=Newton(=&lt;f,=&lt;{x}),max(normc(f),normc(mdx)));
 <br>
 _rn(=&lt;run,,6) -> infoLost[ri] 2.3549912261033786e-10+O(8e+0)
 <br>
@@ -23797,7 +23812,7 @@ clear;
 <br>
 f=&lt;{2x*_dx(=&lt;{x*exp(3x)})=i};
 <br>
-run=&lt;last(mdx=Newton(=&lt;f,=&lt;{x}),max(norm(f),norm(mdx)));
+run=&lt;last(mdx=Newton(=&lt;f,=&lt;{x}),max(normc(f),normc(mdx)));
 <br>
 _rn(=&lt;run,,12) -> 3.844899655887233e-14+O(8e+0)
 <br>
@@ -23809,7 +23824,7 @@ clear;
 <br>
 f=&lt;{2x*(1*exp(3x)+x*exp(3x)3)=i};
 <br>
-run=&lt;last(mdx=Newton(=&lt;f,=&lt;{x}),max(norm(f),norm(mdx)));
+run=&lt;last(mdx=Newton(=&lt;f,=&lt;{x}),max(normc(f),normc(mdx)));
 <br>
 _rn(=&lt;run,,12) -> infoLost[r ] 3.3306690738754696e-16
 <br>
@@ -23827,7 +23842,7 @@ x=&lt;{x0,x1};
 <br>
 f=&lt;{x0+x1=2,_dx0(=&lt;{f0})+_dx1(=&lt;{f1},2)=2+6i};
 <br>
-run=&lt;last(mdx=Newton(=&lt;f,=&lt;x),max(norm(f),norm(mdx)));
+run=&lt;last(mdx=Newton(=&lt;f,=&lt;x),max(normc(f),normc(mdx)));
 <br>
 _rn(=&lt;run,,12) -> infoLost[ri] 3.236567392072123e-11+O(7e+0)
 <br>
@@ -23853,7 +23868,7 @@ x=&lt;{x0,x1};
 <br>
 f=&lt;{x0+x1=2,_dx0(=&lt;{f0})+_dx1(=&lt;{f1},2)=2+6i};
 <br>
-run=&lt;last(mdx=Newton(=&lt;f,=&lt;x),max(norm(f),norm(mdx)));
+run=&lt;last(mdx=Newton(=&lt;f,=&lt;x),max(normc(f),normc(mdx)));
 <br>
 _rn(=&lt;run,,12) -> 7.724854831493598e-14+O(7e+0)
 <br>
@@ -24013,7 +24028,7 @@ clear;
 <br>
 f=&lt;{_ix(=&lt;{x^2},0,b)=3^3/3};
 <br>
-run=&lt;last(mdx=Newton(=&lt;f,=&lt;{b},=&lt;{1}),max(norm(f),norm(mdx)));
+run=&lt;last(mdx=Newton(=&lt;f,=&lt;{b},=&lt;{1}),max(normc(f),normc(mdx)));
 <br>
 _rn(=&lt;run,,12) -> infoLost[ i] 1.3839478914652153e-28+O(8e-7)
 <br>
@@ -24035,7 +24050,7 @@ clear;
 <br>
 f=&lt;{_ix(=&lt;{x^4},0,b)=3^5/5};
 <br>
-run=&lt;last(mdx=Newton(=&lt;f,=&lt;{b},=&lt;{1}),max(norm(f),norm(mdx)));
+run=&lt;last(mdx=Newton(=&lt;f,=&lt;{b},=&lt;{1}),max(normc(f),normc(mdx)));
 <br>
 _rn(=&lt;run,,20) -> 1.4210854715508634e-14+O(8e-7)
 <br>
@@ -24297,7 +24312,7 @@ x=&lt;{x0,x1}; x_initial=&lt;{0,0};
 <br>
 f=&lt;{x0+2*x1=5,3*x0+4*x1=6};
 <br>
-run=&lt;last(mdx=Newton(=&lt;f,=&lt;x,=&lt;x_initial),max(norm(f=&gt;),norm(mdx)));
+run=&lt;last(mdx=Newton(=&lt;f,=&lt;x,=&lt;x_initial),max(normc(f=&gt;),normc(mdx)));
 <br>
 _rn(=&lt;run,,3) -> infoLost[ri] 2.2204460494935903e-15
 <br>
@@ -24305,7 +24320,7 @@ _rn(=&lt;run,,3) -> infoLost[ri] 2.2204460494935903e-15
 <br>
 clear;
 <br>
-run=&lt;last(mdx=Newton(=&lt;{x0+2*x1=5,3*x0+4*x1=6},=&lt;{x0,x1},=&lt;{0,0}),norm(mdx));
+run=&lt;last(mdx=Newton(=&lt;{x0+2*x1=5,3*x0+4*x1=6},=&lt;{x0,x1},=&lt;{0,0}),normc(mdx));
 <br>
 _rn(=&lt;run,,3) -> infoLost[ri] 2.2204460494935903e-15
 <br>
@@ -24315,7 +24330,7 @@ clear;
 <br>
 _rn(=&lt;{
 <br>
-last(mdx=Newton(=&lt;{x0+2*x1=5,3*x0+4*x1=6},=&lt;{x0,x1},=&lt;{0,0}),norm(mdx))
+last(mdx=Newton(=&lt;{x0+2*x1=5,3*x0+4*x1=6},=&lt;{x0,x1},=&lt;{0,0}),normc(mdx))
 <br>
 },,3) -> infoLost[ri] 2.2204460494935903e-15
 <br>
@@ -24338,7 +24353,7 @@ clear;
 <br>
 mdx=Newton(=&lt;{x0+2*x1=5,3*x0+4*x1=6},=&lt;{x0,x1},,,0);
 <br>
-norm(mdx) -> 0
+normc(mdx) -> 0
 <br>
 {x0,x1} -> (0:0)
 <br>
@@ -24360,7 +24375,7 @@ clear;
 <br>
 mdx=Newton(=&lt;{x0+2*x1=5,3*x0+4*x1=6},=&lt;{x0,x1},,,3);
 <br>
-norm(mdx) -> infoLost[ri] 2.2204460494935903e-15
+normc(mdx) -> infoLost[ri] 2.2204460494935903e-15
 <br>
 max(trans({mdx,-mdx}))  <span class="selection">// real-part</span> -> infoLost[ri] 1.7763568394338757e-15
 <br>
@@ -24386,7 +24401,7 @@ clear;
 <br>
 mdx=Newton(=&lt;{x0+2*x1=5,3*x0+4*x1=6},=&lt;{x0,x1},,,10,1e-8);
 <br>
-norm(mdx) -> 2.0548659974995737e-10
+normc(mdx) -> 2.0548659974995737e-10
 <br>
 max(trans({mdx,-mdx}))  <span class="selection">// real-part</span> -> 1.0355938329098548e-10
 <br>
@@ -24414,13 +24429,13 @@ clear;
 <br>
 {$x0,$x1}={,};
 <br>
-mdx=Newton(=&lt;{x0+2*x1=5,3*x0+4*x1=6},=&lt;{x0,x1},,,10,1e-8*norm({x0,x1}));
+mdx=Newton(=&lt;{x0+2*x1=5,3*x0+4*x1=6},=&lt;{x0,x1},,,10,1e-8*normc({x0,x1}));
 <br>
-norm(mdx) -> infoLost[ri] 2.2204460494895584e-15
+normc(mdx) -> infoLost[ri] 2.2204460494895584e-15
 <br>
-1e-8*norm({x0,x1}) -> infoLost[ri] 6.02079728939615e-8+O(2e-33i)
+1e-8*normc({x0,x1}) -> infoLost[ri] 6.02079728939615e-8+O(2e-33i)
 <br>
-norm(mdx)/norm({x0,x1}) -> infoLost[ri] 3.6879601533840316e-16+O(1e-41i)
+normc(mdx)/normc({x0,x1}) -> infoLost[ri] 3.6879601533840316e-16+O(1e-41i)
 <br>
 max(trans({mdx,-mdx}))  <span class="selection">// real-part</span> -> infoLost[ri] 1.7763568395916467e-15
 <br>
@@ -24446,9 +24461,9 @@ clear;
 <br>
 mdx=Newton(=&lt;{x0+2*x1=5,3*x0+4*x1=6},=&lt;{x0,x1},,,10,1e-8,1);
 <br>
-norm(mdx) -> 2.0548659974995737e-10
+normc(mdx) -> 2.0548659974995737e-10
 <br>
-norm(mdx)/norm({x0,x1}) -> 3.4129466559497216e-11+O(4e-22+4e-22i)
+normc(mdx)/normc({x0,x1}) -> 3.4129466559497216e-11+O(4e-22+4e-22i)
 <br>
 max(trans({mdx,-mdx}))  <span class="selection">// real-part</span> -> 1.0355938329098548e-10
 <br>
@@ -24478,7 +24493,7 @@ mdx=Newton(=&lt;{x0+2*x1=5,3*x0+4*x1=6},=&lt;{x0,x1},,,1)
 <br>
 },,3);
 <br>
-norm(mdx) -> infoLost[ri] 2.2204460494935903e-15+O(2e-5+5e-6i)
+normc(mdx) -> infoLost[ri] 2.2204460494935903e-15+O(2e-5+5e-6i)
 <br>
 max(trans({mdx,-mdx}))  <span class="selection">// real-part</span> -> infoLost[ri] 1.7763568394338757e-15+O(2e-5)
 <br>
@@ -24769,7 +24784,7 @@ cdot_(z0,z1)=&lt;(real(z0),imag(z0))*{real(z1),imag(z1)}; cdot_(z0,z1) || cdot(z
 <br>
 vec=(x,y); vec -> (1,-1)
 <br>
-r=norm(trans(vec)); r -> 1.4142135623730951
+r=normc(trans(vec)); r -> 1.4142135623730951
 <br>
 t=atan2(y,x); t -> -0.7853981633974483
 <br>
@@ -29342,7 +29357,7 @@ x_initial=&lt;{z_x0,z_v0};
 <br>
 f=&lt;{(z_x-z_x0)/dt=z_v,m*((z_v-z_v0)/dt)=m*z_a+Cd_sphere*(<span class="selection">z_u</span>-z_v)};
 <br>
-run=&lt;last(mdx=Newton(=&lt;f,=&lt;x,=&lt;x_initial),max(norm(f),norm(mdx)));
+run=&lt;last(mdx=Newton(=&lt;f,=&lt;x,=&lt;x_initial),max(normc(f),normc(mdx)));
 <br>
 /*step=&lt;last{_rn(=&lt;run,,3),z_x0=z_x,z_v0=z_v};*/
 <br>
@@ -29546,7 +29561,7 @@ infoLost[ i] 0.0000018087545367633257-9.79999730495574i+O(5e+0+6e+0i)
 <br>
 {$z_x,$z_v}=x_initial;
 <br>
-step_iteration=&lt;mdx=Newton(=&lt;f,=&lt;x,=&lt;x_initial,,Nmax,epsN*norm(x));
+step_iteration=&lt;mdx=Newton(=&lt;f,=&lt;x,=&lt;x_initial,,Nmax,epsN*normc(x));
 <br>
 ・t=10
 <br>
@@ -32589,7 +32604,7 @@ x0=x_next[0];
 <br>
 x1=x_next[1];
 <br>
-normf=max(norm(f),norm(-dx));
+normf=max(normc(f),normc(-dx));
 <br>
 ・反復3回目のnormと近似解を示す
 <br>
@@ -32612,7 +32627,7 @@ x=&lt;{x0,x1}; x_initial=&lt;{0,0};
 <br>
 f=&lt;{x0+2x1=5,3x0+4x1=6};
 <br>
-run=&lt;last(mdx=Newton(=&lt;f,=&lt;x,=&lt;x_initial),max(norm(f),norm(mdx)));
+run=&lt;last(mdx=Newton(=&lt;f,=&lt;x,=&lt;x_initial),max(normc(f),normc(mdx)));
 <br>
 ・実行用の<a href="#span-out-eqns">式変数</a>runを定義してnormのみ表示する
 <br>
@@ -32646,7 +32661,7 @@ x=&lt;{x0,x1}; x_initial=&lt;{0,0};
 <br>
 f=&lt;{x0+2x1=5,3x0+4x1=6};
 <br>
-run=&lt;last(mdx=Newton(=&lt;f,=&lt;x,=&lt;x_initial),max(norm(f),norm(mdx)));
+run=&lt;last(mdx=Newton(=&lt;f,=&lt;x,=&lt;x_initial),max(normc(f),normc(mdx)));
 <br>
 _rn(=&lt;run,,3) -> infoLost[ri] 2.2204460494935903e-15
 <br>
@@ -32785,7 +32800,7 @@ x=&lt;{x0,x1,x2}; x_initial=&lt;{0,0,0};
 <br>
 f=&lt;{A*x=b};
 <br>
-run=&lt;last(mdx=Newton(=&lt;f,=&lt;x,=&lt;x_initial),max(norm(f),norm(mdx)));
+run=&lt;last(mdx=Newton(=&lt;f,=&lt;x,=&lt;x_initial),max(normc(f),normc(mdx)));
 <br>
 _rn(=&lt;run,,3) -> 0.000002904400992198821
 <br>
@@ -32815,7 +32830,7 @@ x=&lt;{x0,x1,x2}; x_initial=&lt;{i,i,i};
 <br>
 f=&lt;{A*x=b};
 <br>
-run=&lt;last(mdx=Newton(=&lt;f,=&lt;x,=&lt;x_initial),max(norm(f),norm(mdx)));
+run=&lt;last(mdx=Newton(=&lt;f,=&lt;x,=&lt;x_initial),max(normc(f),normc(mdx)));
 <br>
 _rn(=&lt;run,,3) -> 0.000011389894276669376
 <br>
@@ -32849,7 +32864,7 @@ x=&lt;{x0,x1,x2}; x_initial=&lt;(-25.333333333333332:41.666666666666664:-16);
 <br>
 f=&lt;{A*x=b};
 <br>
-run=&lt;last(mdx=Newton(=&lt;f,=&lt;x,=&lt;x_initial),max(norm(f),norm(mdx)));
+run=&lt;last(mdx=Newton(=&lt;f,=&lt;x,=&lt;x_initial),max(normc(f),normc(mdx)));
 <br>
 _rn(=&lt;run,,3) -> 0.00013856472352298855
 <br>
@@ -32926,7 +32941,7 @@ x=&lt;{x0,x1,x2};
 <br>
 f=&lt;{A*x=b};
 <br>
-run=&lt;last(mdx=Newton(=&lt;f,=&lt;x),max(norm(f),norm(mdx)));
+run=&lt;last(mdx=Newton(=&lt;f,=&lt;x),max(normc(f),normc(mdx)));
 <br>
 run -> 234013055737.99323
 <br>
@@ -32973,7 +32988,7 @@ f=&lt;{x0+3x1=1,2x0+4x1=0,x2+3x3=0,2x2+4x3=1};
 <br>
 ・いずれの結果も以下に同じ
 <br>
-run=&lt;last(mdx=Newton(=&lt;f,=&lt;x),max(norm(f),norm(mdx)));
+run=&lt;last(mdx=Newton(=&lt;f,=&lt;x),max(normc(f),normc(mdx)));
 <br>
 _rn(=&lt;run,,3) -> infoLost[ri] 4.965068306494841e-16
 <br>
@@ -33026,7 +33041,7 @@ _ex(=&lt;{x},sizeA*sizeA,1),
 <br>
 f=&lt;{Ainv*A=identity(sizeA)},
 <br>
-run=&lt;last(mdx=Newton(=&lt;f,=&lt;x),max(norm(f),norm(mdx))),
+run=&lt;last(mdx=Newton(=&lt;f,=&lt;x),max(normc(f),normc(mdx))),
 <br>
 _rn(=&lt;run,,3),
 <br>
@@ -33045,7 +33060,7 @@ x=&lt;{x0,x1,x2,x3,x4,x5,x6,x7,x8};
 <br>
 f=&lt;{Ainv*A=identity3};
 <br>
-run=&lt;last(mdx=Newton(=&lt;f,=&lt;x),max(norm(f),norm(mdx)));
+run=&lt;last(mdx=Newton(=&lt;f,=&lt;x),max(normc(f),normc(mdx)));
 <br>
 _rn(=&lt;run,,3) -> infoLost[ri] 3.4546432349907805e-16
 <br>
@@ -33114,7 +33129,7 @@ x=&lt;{x0,x1,x2,x3,x4,x5,x6,x7,x8,x9,x10,x11,x12,x13,x14,x15};
 <br>
 f=&lt;{Ainv*A=identity4};
 <br>
-run=&lt;last(mdx=Newton(=&lt;f,=&lt;x),max(norm(f),norm(mdx)));
+run=&lt;last(mdx=Newton(=&lt;f,=&lt;x),max(normc(f),normc(mdx)));
 <br>
 _rn(=&lt;run,,3) -> infoLost[ri] 2.9893669801409083e-16
 <br>
@@ -33229,7 +33244,7 @@ x6(i)+x7(4i)+x8(7i)=0,x6(2i)+x7(5i)+x8(8i)=0,x6(3i)+x7(6i)+x8(9i)=1
 <br>
 f=&lt;{Ainv*A=identity3};
 <br>
-run=&lt;last(mdx=Newton(=&lt;f,=&lt;x),max(norm(f),norm(mdx)));
+run=&lt;last(mdx=Newton(=&lt;f,=&lt;x),max(normc(f),normc(mdx)));
 <br>
 run -> infoLost[ i] 2787964185176708
 <br>
@@ -33251,7 +33266,7 @@ x_initial=&lt;{h,h,h,h,h,h,h,h,h};
 <br>
 f=&lt;{Ainv*A=identity3};
 <br>
-run=&lt;last(mdx=Newton(=&lt;f,=&lt;x,=&lt;x_initial),max(norm(f),norm(mdx)));
+run=&lt;last(mdx=Newton(=&lt;f,=&lt;x,=&lt;x_initial),max(normc(f),normc(mdx)));
 <br>
 run -> infoLost[ i] 23884062379.765785
 <br>
@@ -33322,7 +33337,7 @@ f=&lt;{x0^2+1=0};
 <br>
 初期値を1+2iとした反復6回目の近似解を示す
 <br>
-run=&lt;last(mdx=Newton(=&lt;f,=&lt;x,=&lt;{1+2i}),max(norm(f),norm(mdx)));
+run=&lt;last(mdx=Newton(=&lt;f,=&lt;x,=&lt;{1+2i}),max(normc(f),normc(mdx)));
 <br>
 _rn(=&lt;run,,6) -> 4.848187063331881e-11
 <br>
@@ -33352,7 +33367,7 @@ x=&lt;{x0};
 <br>
 f=&lt;{real(x0)^2+1=0}; || f=&lt;{-(real(x0)^2+1)};
 <br>
-run=&lt;last(mdx=Newton(=&lt;f,=&lt;x,=&lt;{1}),max(norm(f),norm(mdx)));
+run=&lt;last(mdx=Newton(=&lt;f,=&lt;x,=&lt;{1}),max(normc(f),normc(mdx)));
 <br>
 run -> 1.414206491330789
 <br>
@@ -33396,7 +33411,7 @@ x=&lt;{x0,x1}; x_initial=&lt;{1+i,1-i};
 <br>
 f=&lt;{x0^i-2x1=3i,3x0+exp(x1)=5i};
 <br>
-run=&lt;last(mdx=Newton(=&lt;f,=&lt;x,=&lt;x_initial),max(norm(f),norm(mdx)));
+run=&lt;last(mdx=Newton(=&lt;f,=&lt;x,=&lt;x_initial),max(normc(f),normc(mdx)));
 <br>
 _rn(=&lt;run,,6) -> infoLost[ i] 2.2368035825474494e-16
 <br>
@@ -33423,7 +33438,7 @@ x=&lt;(x0:x1); x_initial=&lt;(1+i:1-i);
 <br>
 f=&lt;(x0^i-2x1=3i:3x0+exp(x1)=5i);
 <br>
-run=&lt;last(mdx=Newton(=&lt;f,=&lt;x,=&lt;x_initial),max(norm(f),norm(mdx)));
+run=&lt;last(mdx=Newton(=&lt;f,=&lt;x,=&lt;x_initial),max(normc(f),normc(mdx)));
 <br>
 _rn(=&lt;run,,6) -> infoLost[ i] 2.2368035825474494e-16
 <br>
@@ -33448,7 +33463,7 @@ run=&lt;last(
 <br>
 mdx=Newton(=&lt;(x0^i-2x1=3i:3x0+exp(x1)=5i),=&lt;(x0:x1),=&lt;(1+i:1-i)),
 <br>
-norm(mdx));
+normc(mdx));
 <br>
 _rn(=&lt;run,,6) -> 2.2368035825474494e-16
 <br>
@@ -35215,7 +35230,11 @@ _rk(=&lt;<span class="clear">eqn_k</span>,N=sizer(primes),N,=&lt;{n%prime==0}); 
 <br>
 ・<span class="run">Ver.2.237.56</span>以降、<a href="#span-out-FNmh-jacobian">Jacobi高階行列関数</a>||<a href="#span-out-FNmh-newtonian">Newton高階行列関数</a>||<a href="#span-out-FNmh-OX">ODE高階行列関数</a>の第1引数を拡張
 <br>
-　列vector形式のみ　⇒　行||列vector形式を自動判別（<a href="#span-out-FNm">行列関数</a>を行vector形式既定に変更予定）
+　列vector形式のみ　⇒　行||列vector形式を自動判別<del>（<a href="#span-out-FNm">行列関数</a>を行vector形式既定に変更予定）</del>
+<br>
+・<span class="run">Ver.2.240.56</span>以降、<a href="#span-out-FNm">行列関数</a>の既定形式の仕様変更（列vector形式　⇒　行vector形式）
+<br>
+　列vector形式の<a href="#span-out-FNm">行列関数</a>は削除しない（本来、引数を<a href="#span-out-FNm-trans">転置</a>して行vector形式に変換する）
     </td>
   </tr>
   <tr>
@@ -38777,7 +38796,7 @@ f=&lt;(Ainv=&gt;)*A=identity(sizeA),
 <br>
 <span class="jF">x_solved</span>=Newton(=&lt;f,=&lt;x,,Nmax=20,Nmax,1e-10,1),
 <br>
-<span class="jF">Ainv=reshaper(x_solved:sizeA,sizeA)/*Ainv=reshape(x_solved:sizeA,sizeA).*/</span>
+<span class="jF">Ainv=reshape(x_solved:sizeA,sizeA)/*Ainv=reshapec(x_solved:sizeA,sizeA).*/</span>
 <br>
 },
 </div>
