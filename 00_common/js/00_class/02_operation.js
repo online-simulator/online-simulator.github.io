@@ -1669,7 +1669,7 @@ My_entry.operation.prototype.tree2tree_eqn = function(data, tree){
   }
   return _tree_eqn;
 };
-My_entry.operation.prototype.FNhX = function(data, rightArr, tagObj, len_j0, callback_FNh){
+My_entry.operation.prototype.FNhX = function(data, rightArr, tagObj, len_j0, callback_FNh, isRX){  // Ver.2.242.56
   var self = this;
   var scopes = data.scopes;
   var ids = data.ids;
@@ -1688,9 +1688,17 @@ My_entry.operation.prototype.FNhX = function(data, rightArr, tagObj, len_j0, cal
     var name_arg = (args_eqn)? args_eqn[args_eqn.length-1]: "";
     var name_bar = tagObj.val.name;
     var name_var = name_arg || name_bar;
-    if(!(name_var) || (name_arg && name_bar) || (args_eqn && args_eqn.length !== 1)) throw "Invalid FNh(=<args.length=1)";
+    /* Ver.2.242.56 -> */
+    var hasBooking = (name_arg && name_bar);
+    if(isRX){
+      if(hasBooking || (args_eqn && args_eqn.length > 1)) throw "Invalid RX(=<args.length<=1)";
+    }
+    else{
+      if(!(name_var) || hasBooking || (args_eqn && args_eqn.length !== 1)) throw "Invalid FNh(=<args.length=1)";
+    }
+    /* -> Ver.2.242.56 */
     /* -> Ver.2.231.56 */
-    var tree_var = self.restore_var(name_var, scopes, ids_buffer);  // Ver.2.31.17  // Ver.2.225.53
+    var tree_var = (name_var)? self.restore_var(name_var, scopes, ids_buffer): null;  // Ver.2.31.17  // Ver.2.225.53  // Ver.2.242.56
     _tree = callback_FNh(args, ids_buffer, name_var, tree_eqn);  // Ver.2.231.56  // Ver.2.234.56 tree_var deleted
     if(tree_var){
       self.store_var(name_var, tree_var, scopes, ids_buffer);  // Ver.2.31.17  // Ver.2.225.53
@@ -1740,7 +1748,7 @@ My_entry.operation.prototype.RX = function(data, rightArr, tagObj){
     }
     return _tree;
   };
-  return self.FNhX(data, rightArr, tagObj, 2, callback_FNh);  // Ver.2.231.56
+  return self.FNhX(data, rightArr, tagObj, 2, callback_FNh, true);  // Ver.2.231.56  // Ver.2.242.56
 };
 My_entry.operation.prototype.DX = function(data, rightArr, tagObj){
   var self = this;
