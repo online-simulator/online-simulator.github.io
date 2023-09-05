@@ -35210,6 +35210,10 @@ _rk(=&lt;<span class="clear">eqn_k</span>,N=sizer(primes),N,=&lt;{n%prime==0}); 
 <br>
 ・x*A=bの行vector形式で実装の方が列方向の<a href="#span-out-mat-blank">欠損要素</a>||<a href="#span-out-FNm-trans">転置</a>を意識する負担が少ない
 <br>
+　(x*A)=(b)　⇔　{trans(A)*trans(x)}={trans(b)}
+<br>
+　{A*x}={b}　⇔　(trans(x)*trans(A))=(trans(b))
+<br>
 ・また、関数の引数は常に行vectorとして（<a href="#span-out-FNm-coo">Gauss_coo行列関数</a>参照）
 <br>
 ・内部で入出力の整合性を担保する方が拡張しやすい
@@ -38751,12 +38755,14 @@ solvex_iteration(A,b)=&lt;[
 <br>
 out=&lt;<span class="jF">x_solved</span>,
 <div class="condition">
-init=&lt;last{sizeA=size(A),_e<span class="jF">((x)</span>=&lt;x,sizeA,1)},
+init=&lt;last{sizeA=size(A),<span class="jF">sizerb=sizer(b),sizecb=sizec(b),isRow=sizerb&lt;sizecb,</span>
+<br>
+isRow&amp;&amp;&amp;_e<span class="jF">((x)</span>=&lt;x,1,sizeA)||||_e<span class="jF">((x)</span>=&lt;x,sizeA,1)},
 </div>
 <div class="run">
 run=&lt;last{
 <br>
-f=&lt;A*(x=&gt;)=b,
+<span class="jF">isRow&amp;&amp;&amp;(f=&lt;(x=&gt;)*A=b)||||(f=&lt;A*(x=&gt;)=b),</span>
 <br>
 <span class="jF">x_solved=</span>Newton(=&lt;f,=&lt;x,,Nmax=20,Nmax,1e-10,1)
 <br>
@@ -38766,7 +38772,19 @@ init=&gt;,run=&gt;,return=out=&gt;,
 <br>
 =&lt;return]=&gt;;
 <br>
-[A=(i,2,3i:4,5i,6:7i,8,9i),b={1,2i,4},=&lt;solvex_iteration(=&lt;A,=&lt;b)=&gt;]=&gt;;
+A=(i,2,3i:4,5i,6:7i,8,9i);
+<br>
+b={1,2i,4};
+<br>
+<span class="jF">t</span>A=A<span class="jF">.</span>;
+<br>
+<span class="jF">t</span>b=b<span class="jF">.</span>;
+<br>
+xr=solvex_iteration(=&lt;<span class="jF">t</span>A,=&lt;<span class="jF">t</span>b)=&gt;/*<span class="jF">(xr*tA)=(tb)</span>*/;
+<br>
+xc=solvex_iteration(=&lt;A,=&lt;b)=&gt;/*{A*xc}={b}*/;
+<br>
+double_check=(<span class="jF">norm((tb)-(xr*tA))</span>:norm<span class="jF">c</span>({b}-{A*xc}));
     </td>
   </tr>
   <tr>

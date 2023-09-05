@@ -618,14 +618,51 @@ stored_eqn(solveAinv)
 clear
 local storage cleared
 
-[A=(i,2,3i:4,5i,6:7i,8,9i),b={1,2i,4},=<solvex_iteration(=<A,=<b)=>]=>
-(
+double_check=(norm((tb)-(xr*tA)):normc({b}-{A*xc}))
+double_check=(
+infoLost[r ] 4.440892098500632e-16+O(3e-12+3e-12i):
+infoLost[r ] 4.440892098500632e-16+O(3e-12+3e-12i)
+)
+
+xc=solvex_iteration(=<A,=<b)=>
+xc=(
 -1.4159737704355074e-24-0.024999999999999946i+O(7e-14+6e-14i):
 0.45+1.1360606777141253e-24i+O(4e-13+3e-13i):
 -1.333881749194588e-24-0.02500000000000001i+O(7e-14+6e-14i)
 )
 
-solvex_iteration(A,b)=<[out=<x_solved,init=<last{sizeA=size(A),_e((x)=<x,sizeA,1)},run=<last{f=<A*(x=>)=b,x_solved=Newton(=<f,=<x,,Nmax=20,Nmax,1e-10,1)},init=>,run=>,return=out=>,=<return]=>
+xr=solvex_iteration(=<tA,=<tb)=>
+xr=(
+-1.4159737704355074e-24-0.024999999999999946i+O(7e-14+6e-14i),0.45+1.1360606777141253e-24i+O(4e-13+3e-13i),-1.333881749194588e-24-0.02500000000000001i+O(7e-14+6e-14i)
+)
+
+tb=b.
+tb=(
+1,2i,4
+)
+
+tA=A.
+tA=(
+i,4,7i:
+2,5i,8:
+3i,6,9i
+)
+
+b={1,2i,4}
+b=(
+1:
+2i:
+4
+)
+
+A=(i,2,3i:4,5i,6:7i,8,9i)
+A=(
+i,2,3i:
+4,5i,6:
+7i,8,9i
+)
+
+solvex_iteration(A,b)=<[out=<x_solved,init=<last{sizeA=size(A),sizerb=sizer(b),sizecb=sizec(b),isRow=sizerb<sizecb,isRow&&&_e((x)=<x,1,sizeA)||||_e((x)=<x,sizeA,1)},run=<last{isRow&&&(f=<(x=>)*A=b)||||(f=<A*(x=>)=b),x_solved=Newton(=<f,=<x,,Nmax=20,Nmax,1e-10,1)},init=>,run=>,return=out=>,=<return]=>
 stored_eqn(solvex_iteration)
 
 clear
@@ -1231,7 +1268,7 @@ clear
 local storage cleared
 
 [Pinv_y=(-0.999999427,-0.999936657,-0.997300203,-0.954499736,-0.682689492,0,0.682689492,0.954499736,0.997300203,0.999936657,0.999999427:-5,-4,-3,-2,-1,0,1,2,3,4,5),N=1,arr=[],_rn(=<arr=(arr:rand_table(=<Pinv_y)=>),,N),=<arr]=>
--0.06206491043782503
+-0.5410369587287682
 
 rand_table(csv)=<last[table=sort0(csv),ymin=min(table)[0],ymax=max(table)[0],y=ymin+(ymax-ymin)*rand,x=interp(y:table),x]
 stored_eqn(rand_table)
@@ -1604,4 +1641,4 @@ center=true&drag=false&test-case=false&legend=true&axis-t=false&axis-x=true&log-
 --------------------------------
 --------------------------------
 
-online-simulator.github.io.6.297.128.15.68 @ Mon Sep 04 2023 17:21:31 GMT+0900 (日本標準時) @ Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/116.0.0.0 Safari/537.36
+online-simulator.github.io.6.297.129.15.68 @ Tue Sep 05 2023 10:43:26 GMT+0900 (日本標準時) @ Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/116.0.0.0 Safari/537.36
