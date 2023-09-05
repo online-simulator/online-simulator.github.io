@@ -599,8 +599,8 @@ My_entry.test_number.prototype.solve5 = function(){
       html1 += self.output_line.apply(self, arr2);
     }
     var _logs = {};
-    _logs.log0 = "<caption class='condition'>N-adic representations of s(N,k):=(N-1)*k -> N-1</caption>"+header0+html0;
-    _logs.log1 = "<caption class='condition'>N:=3n+1-adic representations of s(N,k):=(N-1)*k -> 3n=N-1<br>s1(N,k):=s(N,k-1)+(N-1)/3 -> n=(N-1)/3<br>s2(N,k):=s(N,k-1)+(N-1)*2/3 -> 2n=(N-1)*2/3</caption>"+header1+html1;  // Ver.0.42.6
+    _logs.log0 = "<caption class='condition'>N-ary notations of s(N,k):=(N-1)*k -> N-1</caption>"+header0+html0;  // Ver.0.43.7
+    _logs.log1 = "<caption class='condition'>N:=3n+1-ary notations of s(N,k):=(N-1)*k -> 3n=N-1<br>s1(N,k):=s(N,k-1)+(N-1)/3 -> n=(N-1)/3<br>s2(N,k):=s(N,k-1)+(N-1)*2/3 -> 2n=(N-1)*2/3</caption>"+header1+html1;  // Ver.0.42.6  // Ver.0.43.7
     return _logs;
   };
   self.logs5 = self.logs5 || run();
@@ -642,17 +642,17 @@ My_entry.test_number.prototype.solve6 = function(){
       var sw = (Math.random() < 0.5);
       var M10 = make_M(N, 10, k, sw);
       var M = make_M(N, N+1, k, sw);
-      html0 += self.output_line(hasClass, "N=", N, 10, "-adic");
+      html0 += self.output_line(hasClass, "N=", N, 10, "-ary");  // Ver.0.43.7
       for(var i=0; i<N; ++i){
         html0 += self.output_line.apply(self, [""].concat(M10[i]));
       }
-      html0 += self.output_line(hasClass, "N=", N, N+1, "-adic");
+      html0 += self.output_line(hasClass, "N=", N, N+1, "-ary");  // Ver.0.43.7
       for(var i=0; i<N; ++i){
         html0 += self.output_line.apply(self, [""].concat(M[i]));
       }
     }
     var _logs = {};
-    _logs.log0 = "<caption class='condition'>N+1-adic representations of magic-square-NxN:=2n+1</caption>"+header0+html0;
+    _logs.log0 = "<caption class='condition'>N+1-ary notations of magic-square-NxN:=2n+1</caption>"+header0+html0;  // Ver.0.43.7
     return _logs;
   };
   self.logs6 = run();
