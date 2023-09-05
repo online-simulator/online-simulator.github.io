@@ -929,6 +929,14 @@ My_entry.operation.prototype.FNc = function(data, i0, tagName, tagObj){
         return DATA.tree_num(((sw)? true: false), 0);  // Ver.2.196.46
       };
       switch(prop){
+        /* Ver.2.243.56 -> */
+        case "hasvs":
+          tree = get_tree_sw(self.get_scope0_RE_sw("vars", name, scopes, ids));
+          break;
+        case "hases":
+          tree = get_tree_sw(self.get_scope0_RE_sw("eqns", name, scopes, ids));
+          break;
+        /* -> Ver.2.243.56 */
         /* Ver.2.31.17 -> */
         case "hasv":
           tree = get_tree_sw(self.get_scope_RE_sw("vars", name, scopes, ids));
@@ -964,10 +972,6 @@ My_entry.operation.prototype.FNc = function(data, i0, tagName, tagObj){
           }
           break;
         case "deleqn":
-          var ids_del = ids || self.config.ids0;  // Ver.2.225.53
-          var id0 = ids_del[0];
-          var j = id0[0];
-          var n = id0[1];
           tree = get_tree_sw(eqns[name]);  // first
           if(eqns[name]){
             delete eqns[name];

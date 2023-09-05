@@ -223,6 +223,8 @@
       script += "\nclear;\n";
       script += "check(=<f)=<(hasVar(n/*not-args*/),f=>):check(=<_rn(=<n+1,0,3)):check(=<_r((n)=<n+1,0,3)):check(=<_r(/*no-name*/=<n=n+1,n=0,3)):check(=<{n}):[n=-1,=<check(=<{n})]=>;";
       script += "\nclear;\n";
+      script += "check=<(hasVs(a),hasV(a),hasEs(f),hasE(f)),wrapper(n)=<(n,check=>,check==>),wrapper(0)==>:[a=1,f=<1,wrapper(1)==>:[a=1,,wrapper(2)==>:[f=<1,,wrapper(3)==>:[,,wrapper(4)==>]]]];";
+      script += "\nclear;\n";
       $._id("input").value = script;
     });
   })();

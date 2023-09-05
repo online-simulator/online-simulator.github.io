@@ -484,6 +484,9 @@ My_entry.parser.prototype.switch_token = function(tokens, token_left, token, tok
     // scopes+storage
     case "hasv":
     case "hase":
+    // scope
+    case "hasvs":
+    case "hases":
       tree = DATA.tree_tag("FNc", token_lower);
       break;
     // "FNhn"

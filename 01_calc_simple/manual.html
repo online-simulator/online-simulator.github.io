@@ -13502,6 +13502,10 @@ x=3; x=2:3x -> (0:6)
 <br>
 以下の最上位関数は<a href="#span-out-BT">括弧</a>より優先する
 <br>
+・<span class="run">Ver.2.31.17</span>以降、addVar/addEqn/hasV/hasE最上位関数を追加
+<br>
+・<span class="run">Ver.2.243.56</span>以降、hasVs/hasEs最上位関数を追加
+<br>
 <br>
 hasVar最上位関数
 <br>
@@ -13625,12 +13629,9 @@ clear; a=&lt;2; store; delEqn(a); restore; a=&gt; -> 2
 <del>clear; delete=&lt;delEqn(delete); delete=&gt; -> [MyErr]Invalid delEqnSelf(delete)</del>
 <br>
 <br>
-<span class="run">Ver.2.31.17</span>以降、addVar/addEqn/hasV/hasE最上位関数を追加
-<br>
-<br>
 addVar最上位関数
 <br>
-・<a href="#span-out-bracket">直列scope内</a>の<a href="#span-out-vars">変数</a>を<a href="#span-out-storage">local storage</a>に追加する
+・<a href="#span-out-terms">scope変数</a>の<a href="#span-out-vars">変数</a>を<a href="#span-out-storage">local storage</a>に追加する
 <br>
 ・引数
 <br>
@@ -13673,7 +13674,7 @@ clear; [a=2,[a=3,([a=5,],addVar(a))]]; a -> 3
 <br>
 addEqn最上位関数
 <br>
-・<a href="#span-out-bracket">直列scope内</a>の<a href="#span-out-eqns">式変数</a>を<a href="#span-out-storage">local storage</a>に追加する
+・<a href="#span-out-terms">scope変数</a>の<a href="#span-out-eqns">式変数</a>を<a href="#span-out-storage">local storage</a>に追加する
 <br>
 ・addVar最上位関数同様
 <br>
@@ -13708,7 +13709,7 @@ clear; [a=&lt;2,[a=&lt;3,([a=&lt;5,],addEqn(a))]]; a=&gt; -> 3
 <br>
 hasV最上位関数
 <br>
-・<a href="#span-out-vars">変数</a>の<a href="#span-out-bracket">直列scope内</a>存在可否を判定する
+・<a href="#span-out-vars">変数</a>の<a href="#span-out-terms">直列scope内</a>存在可否を判定する
 <br>
 ・引数
 <br>
@@ -13733,9 +13734,14 @@ clear; a=2; hasV(a),[b=3,hasV(a),hasV(b)],hasV(b) -> (1,0,1,1,0)
 clear; a=2; hasV(a),[b=3,[hasV(a),hasV(b)]],hasV(b) -> (1,0,1,1,0)
 <br>
 <br>
+hasVs最上位関数
+<br>
+・<a href="#span-out-vars">変数</a>の<a href="#span-out-terms">scope変数</a>存在可否を判定する
+<br>
+<br>
 hasE最上位関数
 <br>
-・<a href="#span-out-eqns">式変数</a>の<a href="#span-out-bracket">直列scope内</a>存在可否を判定する
+・<a href="#span-out-eqns">式変数</a>の<a href="#span-out-terms">直列scope内</a>存在可否を判定する
 <br>
 ・hasV最上位関数同様
 <br>
@@ -13750,6 +13756,11 @@ clear; a=&lt;2; hasE(b) -> 0
 clear; a=&lt;2; hasE(a),[b=&lt;3,hasE(a),hasE(b)],hasE(b) -> (1,0,1,1,0)
 <br>
 clear; a=&lt;2; hasE(a),[b=&lt;3,[hasE(a),hasE(b)]],hasE(b) -> (1,0,1,1,0)
+<br>
+<br>
+hasEs最上位関数
+<br>
+・<a href="#span-out-eqns">式変数</a>の<a href="#span-out-terms">scope変数</a>存在可否を判定する
 <br>
 <br>
 留意事項を列挙する
@@ -36360,6 +36371,8 @@ operation.js抜粋
 <br>
 ・<span class="run">Ver.2.234.56</span>以降、<a href="#span-out-FNm-reshape">reshaper/reshapec行列関数</a>を追加
 <br>
+・<span class="run">Ver.2.243.56</span>以降、<a href="#span-out-FNc">hasVs/hasEs最上位関数</a>を追加
+<br>
 <br>
 予約語は大文字・小文字・全角・半角を区別しない
 <br>
@@ -36411,6 +36424,9 @@ parser.js抜粋
     // scopes+storage
     case "hasv":
     case "hase":
+    // scope
+    case "hasvs":
+    case "hases":
       tree = DATA.tree_tag("FNc", token_lower);
       break;
     // "FNhn"
@@ -36764,6 +36780,8 @@ addvar(NaN);
 addeqn(NaN);
 hasv(NaN);
 hase(NaN);
+<span class="jF">hasvs(NaN);</span>
+<span class="jF">hases(NaN);</span>
 
 // false
 switch(NaN);
