@@ -1,13 +1,32 @@
 clear
 local storage cleared
 
-check=<(hasVs(a),hasV(a),hasEs(f),hasE(f)),wrapper(n)=<(n,check=>,check==>),wrapper(0)==>:[a=1,f=<1,wrapper(1)==>:[a=1,,wrapper(2)==>:[,f=<1,wrapper(3)==>:[,,wrapper(4)==>]]]]
+check=<(hasVs(a),hasV(a),hasVar(a):hasEs(f),hasE(f),hasEqn(f)),wrapper(n)=<({n,n},check=>,{n,n},check==>):wrapper(0)==>:[a=1,f=<1:wrapper(1)==>:[a=1,:wrapper(2)==>:[,f=<1:wrapper(3)==>:[delVar(a),delEqn(f):wrapper(4)==>:[last{a=1,addVar(a)},addEqn(f):wrapper(5)==>]:[addVar(a),last{f=<1,addEqn(f)}:wrapper(6)==>:[delVar(a),delEqn(f):wrapper(7)==>]]]]]]
 (
-0,0,0,false,false,false,false,false,false,false,false:
-0,0,1,false,false,false,false,true,true,true,true:
-0,0,2,false,false,false,false,true,true,false,true:
-0,0,3,false,false,false,false,false,true,true,true:
-0,0,4,false,false,false,false,false,true,false,true
+0,0:
+0,false,false,false,0,false,false,false:
+0,false,false,false,0,false,false,false:
+0,0:
+1,false,false,false,1,true,true,false:
+1,false,false,false,1,true,true,false:
+0,0:
+2,false,false,false,2,true,true,false:
+2,false,false,false,2,false,true,false:
+0,0:
+3,false,false,false,3,false,true,false:
+3,false,false,false,3,true,true,false:
+false,false:
+4,false,false,false,4,false,true,false:
+4,false,false,false,4,false,true,false:
+true,false:
+5,true,true,true,5,true,true,true:
+5,false,false,false,5,false,true,false:
+false,true:
+6,true,true,true,6,false,true,true:
+6,true,true,true,6,true,true,true:
+true,true:
+7,false,false,false,7,false,true,false:
+7,false,false,false,7,false,true,false
 )
 
 clear
@@ -3159,4 +3178,4 @@ drag=false&sw=false&0x=false&useMatrix=true&useStrict=false&checkError=true&isRi
 --------------------------------
 --------------------------------
 
-online-simulator.github.io.6.299.129.15.69 @ Wed Sep 06 2023 06:23:23 GMT+0900 (日本標準時) @ Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/116.0.0.0 Safari/537.36
+online-simulator.github.io.6.299.129.15.69 @ Wed Sep 06 2023 13:11:49 GMT+0900 (日本標準時) @ Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/116.0.0.0 Safari/537.36
