@@ -22,6 +22,14 @@
       <tbody>
         <tr class="border">
           <td class="border run">
+Ver.1.37.0
+          </td>
+          <td class="border">
+spec追記
+          </td>
+        </tr>
+        <tr class="border">
+          <td class="border run">
 Ver.1.36.0
 <br>
 Ver.1.35.0
@@ -136,9 +144,9 @@ Re無限大を想定
 系内の代表||特性値から規格化
           </td>
           <td class="border">
-代表||特性速さ:=U
+代表||特性速さ：U
 <br>
-代表||特性長さ:=L
+代表||特性長さ：L
           </td>
         </tr>
         <tr class="border">
@@ -199,6 +207,61 @@ solver@step1
         </tr>
         <tr class="border">
           <td class="border">
+DNS
+<br>
+<span class="run">Ver.1.37.0追加</span>
+          </td>
+          <td class="border">
+乱流modelなし
+<br>
+保存則から直接数値simulation
+          </td>
+          <td class="border">
+上記costから実用困難
+<br>
+・最小単位の渦scaleの解像度で離散化
+<br>
+<br>
+Re&gt;&gt;1000の2次元計算から3次元現象の予測は困難
+<br>
+・本仕様で非現実的な境界条件を除外することで安定的に時間発展可能
+          </td>
+        </tr>
+        <tr class="border">
+          <td class="border">
+乱流model
+<br>
+<span class="run">Ver.1.37.0追加</span>
+          </td>
+          <td class="border">
+scale間の輸送をmodel式で記述
+          </td>
+          <td class="border">
+DNSの代替として実用化
+<br>
+・現実的なcostで離散化
+<br>
+<br>
+渦scale||scale間の輸送無視の非定常計算から定量評価は困難
+<br>
+・乱流modelは未実装（層流を想定）
+          </td>
+        </tr>
+        <tr class="border">
+          <td class="border">
+渦scale
+<br>
+<span class="run">Ver.1.37.0追加</span>
+          </td>
+          <td class="border">
+scaleの異なる渦の大きさ
+          </td>
+          <td class="border">
+物体表面～後流で渦scaleが異なる
+          </td>
+        </tr>
+        <tr class="border">
+          <td class="border">
 格子||grid
           </td>
           <td class="border">
@@ -227,9 +290,6 @@ solver@step1
 格子sizeに反比例
           </td>
           <td class="border">
-DNS（乱流modelなし）の場合、最小単位の渦を解像可能な大きさ
-<br>
-・渦scale||scale間の輸送無視の非定常計算から乱流を含む定量評価は困難
           </td>
         </tr>
         <tr class="border">
@@ -669,6 +729,10 @@ Mach数
           </td>
           <td class="border">
 Ma=U/音速
+<br>
+Ma&gt;1: 超音速
+<br>
+Ma&lt;0.3: 非圧縮性を想定（弾性力が支配的）
           </td>
         </tr>
         <tr class="border">
@@ -691,6 +755,12 @@ Froude数
           </td>
           <td class="border">
 Fr=U/(L*加速度の大きさ)^0.5
+<br>
+Fr&gt;1: 射流（Fr&gt;&gt;1の場合、慣性が支配的）
+<br>
+Fr=1: 限界流
+<br>
+Fr&lt;1: 常流（Fr&lt;&lt;1の場合、外力が支配的）
           </td>
         </tr>
         <tr class="border">
