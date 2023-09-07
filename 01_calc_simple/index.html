@@ -223,7 +223,7 @@
       script += "\nclear;\n";
       script += "check(=<f)=<(hasVar(n/*not-args*/),f=>):check(=<_rn(=<n+1,0,3)):check(=<_r((n)=<n+1,0,3)):check(=<_r(/*no-name*/=<n=n+1,n=0,3)):check(=<{n}):[n=-1,=<check(=<{n})]=>;";
       script += "\nclear;\n";
-      script += "check=<(hasVs(a),hasV(a),hasVar(a):hasEs(f),hasE(f),hasEqn(f)),wrapper(n)=<({n,n},check=>,{n,n},check==>):wrapper(0)==>:[a=1,f=<1:wrapper(1)==>:[a=1,:wrapper(2)==>:[,f=<1:wrapper(3)==>:[delVar(a),delEqn(f):wrapper(4)==>:[last{a=1,addVar(a)},addEqn(f):wrapper(5)==>]:[addVar(a),last{f=<1,addEqn(f)}:wrapper(6)==>:[delVar(a),delEqn(f):wrapper(7)==>]]]]]];";
+      script += "check=<(hasVs(a),hasV(a),hasVar(a):hasEs(f),hasE(f),hasEqn(f)),wrapper(n)=<({n,n},check=>,{n,n},check==>):wrapper(0)==>:[a=1,f=<1:wrapper(1)==>:[a=1,:wrapper(2)==>:[,f=<1:wrapper(3)==>:[delVar(a),delEqn(f):wrapper(4)==>]:[last{a=1,addVar(a)},addEqn(f):wrapper(5)==>]:[addVar(a),last{f=<1,addEqn(f)}:wrapper(6)==>]:[delVar(a),delEqn(f):wrapper(7)==>]]]];";
       script += "\nclear;\n";
       $._id("input").value = script;
     });
