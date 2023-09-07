@@ -111,19 +111,24 @@ My_entry.operation.prototype.config = {
     dxD: 1e-3,
     NI: 100
   },
+  /* Ver.2.245.57 -> */
   /* Ver.2.32.17 */
   symbol: {
-    escape: "$",
-    escape2: "$$"  // Ver.2.219.50
+    escape_eqn1: "@",
+    escape_eqn2: "@@"  // Ver.2.219.50
   },
-  /* Ver.2.219.50 */
   /* Ver.2.27.15 */
   isEscaped: function(name){
-    var _num_$ = 0;
-    if(name.charAt(0) === "$") _num_$++;
-    if(name.charAt(1) === "$") _num_$++;
-    return _num_$;
+    return (name[0] === "$");
   },
+  /* Ver.2.219.50 */
+  isEscaped_eqn: function(name){
+    var _num_escape = 0;
+    if(name[0] === "@") _num_escape++;
+    if(name[1] === "@") _num_escape++;
+    return _num_escape;
+  },
+  /* -> Ver.2.245.57 */
   /* Ver.2.156.38 filter for csv-format */
   isNested: function(tagName){
     var type = tagName.substring(0, 2);
@@ -872,7 +877,7 @@ My_entry.operation.prototype.get_names = function(data, tree_BT, isRow){
         if(name){
           name_checked = name;
           /* Ver.2.219.50 -> */
-          var prefix = (isSEee)? self.config.symbol.escape2: self.config.symbol.escape;
+          var prefix = self.config.symbol["escape_eqn"+((isSEee)? 2: 1)];  // Ver.2.245.57
           name = prefix+name;
           /* -> Ver.2.219.50 */
         }
@@ -3575,10 +3580,12 @@ My_entry.operation.prototype.REe = function(data, i0, tagName, tagObj){
         var argi = args[i];
         var tree = null;  // Ver.2.71.29
         /* Ver.2.219.50 -> */
-        var num_$ = self.config.isEscaped(argi_eqn);
-        if(num_$){
-          var isSEee_argi = (num_$ === 2);
-          var name = argi_eqn.substring(num_$);
+        /* Ver.2.245.57 -> */
+        var num_escape = self.config.isEscaped_eqn(argi_eqn);
+        if(num_escape){
+          var isSEee_argi = (num_escape === 2);
+          var name = argi_eqn.substring(num_escape);
+        /* -> Ver.2.245.57 */
           if(name){  // Ver.2.215.50
             buffer_eqns[name] = self.restore_eqn(name, scopes, ids_buffer);
           }
