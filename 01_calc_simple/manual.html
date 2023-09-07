@@ -780,6 +780,8 @@ e^(-i(1pi(){2/2i}(5-{3-1}){i/(-4)}))
 <br>
 ・<a href="#span-eqn-template">template</a>
 <br>
+・<a href="#span-eqn-has4test">has4test</a>
+<br>
 ・<a href="#span-eqn-args">args</a>
 <br>
 ・<a href="#span-eqn-scope_NG">scope_NG</a>
@@ -9082,6 +9084,19 @@ false既定：追加なし
 =&lt;選択：<a href="#span-out-substitution-equation">式代入</a>記号=&lt;に<a href="#span-out-scope-vars">変数のscope</a>を追加（Native準拠）
 <br>
 (args)=&lt;選択：<a href="#span-out-eqns-args">式変数のarguments</a>付の<a href="#span-out-substitution-equation">式代入</a>記号=&lt;に<a href="#span-out-scope-vars">変数のscope</a>を追加
+<br>
+<br>
+test caseを列挙する
+<br>
+clear; x=1,((x)=&lt;x)(3)=&gt;,x -> (0,3,1)
+<br>
+clear; x=1,((x)=&lt;x)(3)=&gt;f,f=&gt;,x -> (0,0,3,1)
+<br>
+clear; x=1,[(x)=&lt;=&lt;x/*not-resolved*/](3)=&gt;f,f=&gt;,x -> (0,0,3,1)
+<br>
+既定時　clear; x=1,((x)=&lt;=&lt;x)(3)=&gt;f,f=&gt;,x -> (0,0,1,1)
+<br>
+選択時　clear; x=1,((x)=&lt;=&lt;x)(3)=&gt;f,f=&gt;,x -> (0,0,3,1)
 <br>
 <br>
 留意事項を列挙する
@@ -37470,6 +37485,47 @@ B=-1,[B=10,=&lt;[B=20,g=&lt;B,=&lt;[B=30,=&lt;g==&gt;]=&gt;]=&gt;]=&gt;:
 B=-1,[B=10,=&lt;[B=20,g=&lt;B,=&lt;[B=30,=/*disabled*/=&lt;g=&gt;]=&gt;]=&gt;]=&gt;:
 <br>
 B=-1,[B=10,=&lt;[B=20,g=&lt;B,=&lt;[B=30,=/*disabled*/=&lt;g==&gt;]=&gt;]=&gt;]=&gt;;
+    </td>
+  </tr>
+  <tr>
+    <th>
+<a href="#span-index">
+目次
+</a>
+<br>
+has4test
+    </th>
+    <td>
+<span id="span-eqn-has4test"></span>
+<a href="#span-out-FNc">最上位関数</a>参照
+<br>
+clear;
+<br>
+checkV_a=&lt;(hasVs(a),hasV(a),hasVar(a));
+<br>
+checkE_f=&lt;(hasEs(f),hasE(f),hasEqn(f));
+<br>
+check=&lt;(checkV_a==&gt;:checkE_f==&gt;);
+<br>
+wrapper(n)=&lt;({n,n},check=&gt;,{n,n},check==&gt;);
+<br>
+(,:wrapper(0)==&gt;:
+<br>
+[a=1,f=&lt;1:wrapper(1)==&gt;:
+<br>
+[a=1,:wrapper(2)==&gt;:
+<br>
+[,f=&lt;1:wrapper(3)==&gt;:
+<br>
+[delVar(a),delEqn(f):wrapper(4)==&gt;]:
+<br>
+[last{a=1,addVar(a)},addEqn(f):wrapper(5)==&gt;]:
+<br>
+[addVar(a),last{f=&lt;1,addEqn(f)}:wrapper(6)==&gt;]:
+<br>
+[delVar(a),delEqn(f):wrapper(7)==&gt;]
+<br>
+]]]);
     </td>
   </tr>
   <tr>

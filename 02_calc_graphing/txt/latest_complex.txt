@@ -1268,7 +1268,7 @@ clear
 local storage cleared
 
 [Pinv_y=(-0.999999427,-0.999936657,-0.997300203,-0.954499736,-0.682689492,0,0.682689492,0.954499736,0.997300203,0.999936657,0.999999427:-5,-4,-3,-2,-1,0,1,2,3,4,5),N=1,arr=[],_rn(=<arr=(arr:rand_table(=<Pinv_y)=>),,N),=<arr]=>
-1.910890185089248
+-1.1250491819447286
 
 rand_table(csv)=<last[table=sort0(csv),ymin=min(table)[0],ymax=max(table)[0],y=ymin+(ymax-ymin)*rand,x=interp(y:table),x]
 stored_eqn(rand_table)
@@ -1539,6 +1539,49 @@ a=1:[()=<a]()=>,[()=<[()=<a]()=>]()=>,[()=<[(a)=<a](2)=>]()=>,[()=<[a=1,(a)=<a](
 clear
 local storage cleared
 
+(,:wrapper(0)==>:[a=1,f=<1:wrapper(1)==>:[a=1,:wrapper(2)==>:[,f=<1:wrapper(3)==>:[delVar(a),delEqn(f):wrapper(4)==>]:[last{a=1,addVar(a)},addEqn(f):wrapper(5)==>]:[addVar(a),last{f=<1,addEqn(f)}:wrapper(6)==>]:[delVar(a),delEqn(f):wrapper(7)==>]]]])
+(
+0,0:
+0,false,false,false,0,false,false,false:
+0,false,false,false,0,false,false,false:
+0,0:
+1,false,false,false,1,true,true,false:
+1,false,false,false,1,true,true,false:
+0,0:
+2,false,false,false,2,true,true,false:
+2,false,false,false,2,false,true,false:
+0,0:
+3,false,false,false,3,false,true,false:
+3,false,false,false,3,true,true,false:
+false,false:
+4,false,false,false,4,false,true,false:
+4,false,false,false,4,false,true,false:
+true,false:
+5,true,true,true,5,true,true,true:
+5,false,false,false,5,false,true,false:
+false,true:
+6,true,true,true,6,false,true,true:
+6,true,true,true,6,true,true,true:
+true,true:
+7,false,false,false,7,false,true,false:
+7,false,false,false,7,false,true,false
+)
+
+wrapper(n)=<({n,n},check=>,{n,n},check==>)
+stored_eqn(wrapper)
+
+check=<(checkV_a==>:checkE_f==>)
+stored_eqn(check)
+
+checkE_f=<(hasEs(f),hasE(f),hasEqn(f))
+stored_eqn(checkE_f)
+
+checkV_a=<(hasVs(a),hasV(a),hasVar(a))
+stored_eqn(checkV_a)
+
+clear
+local storage cleared
+
 B=-1,[B=10,=<[B=20,g=<B,g=-B,=<[B=30,=<g]=>]=>]=>:B=-1,[B=10,=<[B=20,g=<B,g=-B,=<[B=30,=<g]=>]=>]=>:B=-1,[B=10,=<[B=20,g=<B,=<[B=30,=<g=>]=>]=>]=>:B=-1,[B=10,=<[B=20,g=<B,=<[B=30,=<g==>]=>]=>]=>:B=-1,[B=10,=<[B=20,g=<B,=<[B=30,==<g=>]=>]=>]=>:B=-1,[B=10,=<[B=20,g=<B,=<[B=30,==<g==>]=>]=>]=>
 (
 0,-20:
@@ -1641,4 +1684,4 @@ center=true&drag=false&test-case=false&legend=true&axis-t=false&axis-x=true&log-
 --------------------------------
 --------------------------------
 
-online-simulator.github.io.6.299.129.15.69 @ Wed Sep 06 2023 06:24:55 GMT+0900 (日本標準時) @ Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/116.0.0.0 Safari/537.36
+online-simulator.github.io.6.299.131.15.69 @ Thu Sep 07 2023 16:19:37 GMT+0900 (日本標準時) @ Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/116.0.0.0 Safari/537.36
