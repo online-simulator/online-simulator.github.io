@@ -37497,7 +37497,7 @@ has4test
     </th>
     <td>
 <span id="span-eqn-has4test"></span>
-<a href="#span-out-FNc">最上位関数</a>参照
+<a href="#span-out-FNc">最上位関数</a>||<span class="clear"><a href="#span-out-scope-inherited">scope継承</a></span>参照
 <br>
 clear;
 <br>
@@ -37505,27 +37505,59 @@ checkV_a=&lt;(hasVs(a),hasV(a),hasVar(a));
 <br>
 checkE_f=&lt;(hasEs(f),hasE(f),hasEqn(f));
 <br>
-check=&lt;(checkV_a==&gt;:checkE_f==&gt;);
+check=&lt;(checkV_a<span class="clear">==&gt;</span>:checkE_f<span class="clear">==&gt;</span>);
 <br>
-wrapper(n)=&lt;({n,n},check=&gt;,{n,n},check==&gt;);
+wrapper0(n)=&lt;({n,n},check=&gt;,{n,n},check<span class="clear">==&gt;</span>);
 <br>
-(,:wrapper(0)==&gt;:
+(,:wrapper0(0)<span class="clear">==&gt;</span>:
 <br>
-[a=1,f=&lt;1:wrapper(1)==&gt;:
+[a=1,f=&lt;1:wrapper0(1)<span class="clear">==&gt;</span>:
 <br>
-[a=1,:wrapper(2)==&gt;:
+[a=1,:wrapper0(2)<span class="clear">==&gt;</span>:
 <br>
-[,f=&lt;1:wrapper(3)==&gt;:
+[,f=&lt;1:wrapper0(3)<span class="clear">==&gt;</span>:
 <br>
-[delVar(a),delEqn(f):wrapper(4)==&gt;]:
+[delVar(a),delEqn(f):wrapper0(4)<span class="clear">==&gt;</span>]:
 <br>
-[last{a=1,addVar(a)},addEqn(f):wrapper(5)==&gt;]:
+[last{a=1,addVar(a)},addEqn(f):wrapper0(5)<span class="clear">==&gt;</span>]:
 <br>
-[addVar(a),last{f=&lt;1,addEqn(f)}:wrapper(6)==&gt;]:
+[addVar(a),last{f=&lt;1,addEqn(f)}:wrapper0(6)<span class="clear">==&gt;</span>]:
 <br>
-[delVar(a),delEqn(f):wrapper(7)==&gt;]
+[delVar(a),delEqn(f):wrapper0(7)<span class="clear">==&gt;</span>]
 <br>
 ]]]);
+<br>
+(ans0=ans,);
+<br>
+[
+<br>
+wrapper1(n,=&lt;f0,=&lt;f1)=&lt;(f0<span class="clear">==&gt;</span>,f1<span class="clear">==&gt;</span>:wrapper0(n)<span class="clear">==&gt;</span>),
+<br>
+/*wrapper1(n,<span class="clear">==&lt;</span>f0,<span class="clear">==&lt;</span>f1)=&lt;(f0=&gt;,f1=&gt;:wrapper0(n)<span class="clear">==&gt;</span>),*/
+<br>
+=&lt;(wrapper1(0,=&lt;0,=&lt;0)<span class="clear">==&gt;</span>:
+<br>
+[wrapper1(1,=&lt;a=1,=&lt;f=&lt;1)<span class="clear">==&gt;</span>:
+<br>
+[wrapper1(2,=&lt;a=1,=&lt;0)<span class="clear">==&gt;</span>:
+<br>
+[wrapper1(3,=&lt;0,=&lt;f=&lt;1)<span class="clear">==&gt;</span>:
+<br>
+[wrapper1(4,=&lt;delVar(a),=&lt;delEqn(f))<span class="clear">==&gt;</span>]:
+<br>
+[wrapper1(5,=&lt;last{a=1,addVar(a)},=&lt;addEqn(f))<span class="clear">==&gt;</span>]:
+<br>
+[wrapper1(6,=&lt;addVar(a),=&lt;last{f=&lt;1,addEqn(f)})<span class="clear">==&gt;</span>]:
+<br>
+[wrapper1(7,=&lt;delVar(a),=&lt;delEqn(f))<span class="clear">==&gt;</span>]
+<br>
+]]])
+<br>
+]=&gt;;
+<br>
+(ans1=ans,);
+<br>
+double_check=ans1-ans0;
     </td>
   </tr>
   <tr>

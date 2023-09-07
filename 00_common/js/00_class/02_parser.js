@@ -401,9 +401,8 @@ My_entry.parser.prototype.SEe2BTe = function(trees){
     if(tagName === "SEe"){
       isSEe = true;  // Ver.2.228.56
       hasArgs = operation.isType(trees[i-1], "BT");  // Ver.2.228.56
-      ip_s = i;
-      if(ip_s+1 === ip_e) throw "Invalid =<null";
-      for(var ip=ip_s; ip<len; ++ip){  // Ver.2.228.56
+      ip_s = i;  // i
+      for(var ip=ip_s+1; ip<len; ++ip){  // Ver.2.228.56  // Ver.2.244.57
         var tree = trees[ip];
         var tagName = (Object.keys(tree))[0];
         if(tagName === "SRr" || tagName === "SRt"){
@@ -414,6 +413,7 @@ My_entry.parser.prototype.SEe2BTe = function(trees){
       break;
     }
   }
+  if(ip_s+1 === ip_e) throw "Invalid =<null";  // f(=<)=>  // Ver.2.244.57 f(=<,)=>
   if(isSEe){
     /* Ver.2.228.56 -> */
     /* Ver.2.219.50 -> */
