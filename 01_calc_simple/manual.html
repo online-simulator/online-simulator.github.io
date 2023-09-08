@@ -37521,13 +37521,13 @@ has4test
 <br>
 clear;
 <br>
+set_ans(<span class="jF">$</span>varName)=&lt;varName=ans;
+<br>
 checkV(<span class="jF">$</span>varName)=&lt;(hasVs(varName),hasV(varName),hasVar(varName));
 <br>
 checkE(<span class="jF">$</span>eqnName)=&lt;(hasEs(eqnName),hasE(eqnName),hasEqn(eqnName));
 <br>
 check(<span class="jF">$</span>varName,<span class="jF">$</span>eqnName)=&lt;(checkV(<span class="jF">$</span>varName)<span class="clear">==&gt;</span>:checkE(<span class="jF">$</span>eqnName)<span class="clear">==&gt;</span>);
-<br>
-set_ans(<span class="jF">$</span>varName)=&lt;varName=ans;
 <br>
 wrapper0(n)=&lt;({n,n},check(<span class="jF">$</span>a,<span class="jF">$</span>f)=&gt;,{n,n},check(<span class="jF">$</span>a,<span class="jF">$</span>f)<span class="clear">==&gt;</span>);
 <br>
@@ -37810,7 +37810,7 @@ fibonk_se(N,n0,ks,ke)=&gt;:
 <br>
 fibok_se(N,n0,2,N)=&gt;:
 <br>
-[=&lt;[arr=[],_s<span class="jF">((k)</span>=&lt;arr=(arr,fibok(N,n0,k)=&gt;),ks,ke),=&lt;arr]=&gt;]=&gt;
+[arr=[],_s<span class="jF">((k)</span>=&lt;arr=(arr,fibok(N,n0,k)=&gt;),ks,ke),=&lt;arr]=&gt;
 <br>
 ),
 <br>
@@ -37818,7 +37818,7 @@ fibok_se(N,n0,2,N)=&gt;:
 <br>
 (N,n0s,n0e,ks,ke)=&lt;[
 <br>
-=&lt;[arr=[],_s<span class="jF">((n0)</span>=&lt;arr=(arr:n0:fibok_fill_n0(N,n0,ks,ke)=&gt;),n0s,n0e),=&lt;arr]=&gt;]=&gt;
+arr=[],_s<span class="jF">((n0)</span>=&lt;arr=(arr:n0:fibok_fill_n0(N,n0,ks,ke)=&gt;),n0s,n0e),=&lt;arr]=&gt;
 <br>
 ](N,0,3,2,N)=&gt;
 <br>

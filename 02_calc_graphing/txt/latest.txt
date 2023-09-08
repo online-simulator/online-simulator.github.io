@@ -1268,7 +1268,7 @@ clear
 local storage cleared
 
 [Pinv_y=(-0.999999427,-0.999936657,-0.997300203,-0.954499736,-0.682689492,0,0.682689492,0.954499736,0.997300203,0.999936657,0.999999427:-5,-4,-3,-2,-1,0,1,2,3,4,5),N=1,arr=[],_rn(=<arr=(arr:rand_table(=<Pinv_y)=>),,N),=<arr]=>
--0.5951016061662731
+1.8855303214047257
 
 rand_table(csv)=<last[table=sort0(csv),ymin=min(table)[0],ymax=max(table)[0],y=ymin+(ymax-ymin)*rand,x=interp(y:table),x]
 stored_eqn(rand_table)
@@ -1311,7 +1311,7 @@ stored_eqn(fact_)
 clear
 local storage cleared
 
-[fibon_se(N,n0,k,ns_,ne_)=<[arr=[],_s((n)=<arr=(arr,fibok(n,n0,k)=>),ns_,ne_),=<arr]=>,fibonk_se(N,n0,ks,ke)=<[arr=[],_s((k)=<arr=(arr:fibon_se(N,n0,k,0,N)=>),ks,ke),=<arr]=>,fibok_se(N,n0,ks,ke)=<[arr=[],_s((k)=<arr=(arr,fibok(N,n0,k)=>),ks,ke),=<arr]=>,fibok_fill_n0(N,n0,ks,ke)=<(fibonk_se(N,n0,ks,ke)=>:fibok_se(N,n0,2,N)=>:[=<[arr=[],_s((k)=<arr=(arr,fibok(N,n0,k)=>),ks,ke),=<arr]=>]=>),(N)=<[(N,n0s,n0e,ks,ke)=<[=<[arr=[],_s((n0)=<arr=(arr:n0:fibok_fill_n0(N,n0,ks,ke)=>),n0s,n0e),=<arr]=>]=>](N,0,3,2,N)=>](10)=>
+[fibon_se(N,n0,k,ns_,ne_)=<[arr=[],_s((n)=<arr=(arr,fibok(n,n0,k)=>),ns_,ne_),=<arr]=>,fibonk_se(N,n0,ks,ke)=<[arr=[],_s((k)=<arr=(arr:fibon_se(N,n0,k,0,N)=>),ks,ke),=<arr]=>,fibok_se(N,n0,ks,ke)=<[arr=[],_s((k)=<arr=(arr,fibok(N,n0,k)=>),ks,ke),=<arr]=>,fibok_fill_n0(N,n0,ks,ke)=<(fibonk_se(N,n0,ks,ke)=>:fibok_se(N,n0,2,N)=>:[arr=[],_s((k)=<arr=(arr,fibok(N,n0,k)=>),ks,ke),=<arr]=>),(N)=<[(N,n0s,n0e,ks,ke)=<[arr=[],_s((n0)=<arr=(arr:n0:fibok_fill_n0(N,n0,ks,ke)=>),n0s,n0e),=<arr]=>](N,0,3,2,N)=>](10)=>
 (
 0:
 0,true,1,2,3,5,8,13,21,34,55:
@@ -1632,9 +1632,6 @@ true,true:
 wrapper0(n)=<({n,n},check($a,$f)=>,{n,n},check($a,$f)==>)
 stored_eqn(wrapper0)
 
-set_ans($varName)=<varName=ans
-stored_eqn(set_ans)
-
 check($varName,$eqnName)=<(checkV($varName)==>:checkE($eqnName)==>)
 stored_eqn(check)
 
@@ -1643,6 +1640,9 @@ stored_eqn(checkE)
 
 checkV($varName)=<(hasVs(varName),hasV(varName),hasVar(varName))
 stored_eqn(checkV)
+
+set_ans($varName)=<varName=ans
+stored_eqn(set_ans)
 
 clear
 local storage cleared
@@ -1749,4 +1749,4 @@ center=true&drag=false&test-case=false&legend=true&axis-t=false&axis-x=true&log-
 --------------------------------
 --------------------------------
 
-online-simulator.github.io.6.301.131.15.70 @ Fri Sep 08 2023 19:46:54 GMT+0900 (日本標準時) @ Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/116.0.0.0 Safari/537.36
+online-simulator.github.io.6.301.131.15.70 @ Fri Sep 08 2023 22:38:43 GMT+0900 (日本標準時) @ Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/116.0.0.0 Safari/537.36

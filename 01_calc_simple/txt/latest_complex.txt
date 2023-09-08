@@ -1,6 +1,39 @@
 clear
 local storage cleared
 
+make_f($eqnName)=<[($eqnName)=<(x)=<eqnName(x)=>]($eqnName)=>f:make_f($f),-999/*error-code*/:make_f($g),f(3):make_f($h),f(3)
+(
+0:
+0,-999:
+0,-3:
+0,9
+)
+
+restore
+local storage restored
+
+make_f($eqnName)=<[($eqnName)=<eqnName]($eqnName)=>f:make_f($f),f(3):make_f($g),f(3):make_f($h),f(3)
+(
+0:
+0,3:
+0,-3:
+0,9
+)
+
+restore
+local storage restored
+
+:f=>f,f(3):g=>f,f(3):h=>f,f(3)
+(
+0:
+0,3:
+0,-3:
+0,9
+)
+
+restore
+local storage restored
+
 caller_($a,$f),caller_($a,$g),caller_($a,$h):caller_($b,$f),caller_($b,$g),caller_($b,$h):caller_($c,$f),caller_($c,$g),caller_($c,$h)
 (
 1,-1,1:
@@ -11,24 +44,42 @@ caller_($a,$f),caller_($a,$g),caller_($a,$h):caller_($b,$f),caller_($b,$g),calle
 caller_($varName,$eqnName)=<eqnName(varName)=>
 stored_eqn(caller_)
 
+store
+local storage stored
+
 f(x)=<x,g(x)=<-x,h(x)=<x*x
 (
 0,0,0
 )
 
-a=1,b=2,c=3
+($a,$b,$c)=(1,2,3)
+stored_var(a) stored_var(b) stored_var(c) 
+
+clear
+local storage cleared
+
+[($varName0,$varName1,$varName2)=<[pattern_matching($varName0)=>:pattern_matching($varName1)=>:pattern_matching($varName2)=>]]($a,$b,$c)=>
 (
-0,0,0
+0,3,2,3:
+0,1,3,3:
+0,1,2,3
+)
+
+[($varName)=<pattern_matching($varName)=>]($a)=>:[($varName)=<pattern_matching($varName)=>]($b)=>:[($varName)=<pattern_matching($varName)=>]($c)=>
+(
+0,3,2,3:
+0,1,3,3:
+0,1,2,3
 )
 
 pattern_matching($a):pattern_matching($b):pattern_matching($c)
 (
-0,2,2,3:
 0,3,2,3:
+0,1,3,3:
 0,1,2,3
 )
 
-pattern_matching($varName)=<(($varName,$a,$b)=(1,2,3),varName,a,b)
+pattern_matching($varName)=<[($a,$b,$varName)=(1,2,3),a,b,varName]
 stored_eqn(pattern_matching)
 
 clear
@@ -3211,4 +3262,4 @@ drag=false&sw=false&0x=false&useMatrix=true&useStrict=false&checkError=true&isRi
 --------------------------------
 --------------------------------
 
-online-simulator.github.io.6.301.131.15.70 @ Fri Sep 08 2023 19:46:16 GMT+0900 (日本標準時) @ Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/116.0.0.0 Safari/537.36
+online-simulator.github.io.6.301.131.15.70 @ Fri Sep 08 2023 22:43:10 GMT+0900 (日本標準時) @ Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/116.0.0.0 Safari/537.36
