@@ -145,6 +145,7 @@ My_entry.operation.prototype.init = function(){
   new My_entry.original_main().setup_constructors.call(self);
   new My_entry.original_main().make_instances.call(self, ["$", "def", "math", "math_mat", "DATA", "unit"]);
   My_entry.def.mix_in_props(My_entry.operation, My_entry.DATA, ["arr2num", "arr2args", "arr2obj_i"]);
+  My_entry.def.mix_in_props(My_entry.operation, My_entry.parser, ["loop_callback"]);  // Ver.2.246.57
   self.useTest = null;
   self.useStrict = null;
   self.useEmpty = null;
@@ -869,13 +870,12 @@ My_entry.operation.prototype.get_names = function(data, tree_BT, isRow){
       var tree = self.arr2obj_i(arr, i);
       var isSEe = tree[BT.SEe];
       var name = "";
-      var name_checked = "";
       if(isSEe){
         var isSEee = isSEe.isSEee;  // Ver.2.219.50
         var trees = isSEe.val;
         name = (trees && trees.length === 1)? self.get_tagVal(DATA.trees2tree(trees), "REv", "val"): null;
+        self.check_symbol(name);  // Ver.2.32.17  // Ver.2.232.56  // Ver.2.246.57
         if(name){
-          name_checked = name;
           /* Ver.2.219.50 -> */
           var prefix = self.config.symbol["escape_eqn"+((isSEee)? 2: 1)];  // Ver.2.245.57
           name = prefix+name;
@@ -884,10 +884,8 @@ My_entry.operation.prototype.get_names = function(data, tree_BT, isRow){
       }
       else{
         name = self.get_tagVal(tree, "REv", "val");
-        name_checked = name;
       }
       if(name){
-        self.check_symbol(name_checked);  // Ver.2.32.17  // Ver.2.232.56
         _names.push(name);
       }
       else{
@@ -3487,6 +3485,48 @@ My_entry.operation.prototype.store_eqn = function(name, tree, scopes, ids){
   return self;
 };
 /* -> Ver.2.31.17 */
+/* Ver.2.246.57 */
+My_entry.operation.prototype.replace_REv = function(trees, bas){
+  var self = this;
+  var replace = function(name_b, callback){
+    for(var i=0, len=bas.length; i<len; ++i){
+      var ba = bas[i];
+      var name_comp = ba.b;
+      if(name_b === name_comp){
+        var name_a = ba.a;
+        callback(name_a);
+        break;
+      }
+    }
+  };
+  var loop_tree_BT = function(tree_BT){
+    var tagName = "REv";
+    var name_b = self.get_tagVal(tree_BT, tagName, "val");
+    if(name_b){
+      replace(name_b, function(name_a){
+        var obj = tree_BT[tagName];
+        obj.val = name_a;
+      });
+    }
+    var tagName = self.isType(tree_BT, "BT");
+    if(tagName){
+      var obj = tree_BT[tagName];
+      var args = obj.arg;
+      if(args){
+        for(var i=0, len=args.length; i<len; ++i){
+          var name_b = args[i];
+          replace(name_b, function(name_a){
+            args[i] = name_a;
+          });
+        }
+      }
+      var trees_lower = self.get_tagVal(tree_BT, tagName, "val");
+      self.replace_REv(trees_lower, bas);
+    }
+  };
+  self.loop_callback(trees, loop_tree_BT);  // Ver.2.218.50
+  return self;
+};
 My_entry.operation.prototype.REe = function(data, i0, tagName, tagObj){
   var self = this;
   var trees = data.trees;
@@ -3573,6 +3613,7 @@ My_entry.operation.prototype.REe = function(data, i0, tagName, tagObj){
       /* Ver.2.71.29 -> */
       var args_eqns = [];
       var args_vars = [];
+      var args_bas = [];  // Ver.2.246.57
       /* -> Ver.2.71.29 */
       ids_buffer = [id0];  // Ver.2.225.53
       for(var i=0; i<len_args; ++i){
@@ -3619,6 +3660,25 @@ My_entry.operation.prototype.REe = function(data, i0, tagName, tagObj){
           }
           args_eqns.push([name, tree]);  // Ver.2.71.29
         }
+        /* Ver.2.246.57 -> */
+        else if(self.config.isEscaped(argi_eqn)){
+          var name_b0 = argi_eqn;
+          var name_b1 = name_b0.substring(1);
+          self.check_symbol(name_b1);
+          var name_a0 = self.get_tagVal(argi, "REv", "val");
+          if(name_a0 === name_b0){
+          }
+          else if(name_a0 && self.config.isEscaped(name_a0)){
+            var name_a1 = name_a0.substring(1);
+            self.check_symbol(name_a1);
+            args_bas.push({b: name_b0, a: name_a0});
+            args_bas.push({b: name_b1, a: name_a1});
+          }
+          else{
+            throw "Invalid matching args."+argi_eqn;
+          }
+        }
+        /* -> Ver.2.246.57 */
         else{
           var name = argi_eqn;
           if(name){  // Ver.2.215.50
@@ -3638,6 +3698,11 @@ My_entry.operation.prototype.REe = function(data, i0, tagName, tagObj){
           args_vars.push([name, tree]);  // Ver.2.71.29
         }
       }
+      /* Ver.2.246.57 -> */
+      if(args_bas.length){
+        self.replace_REv(DATA.tree2trees(tree_eqn), args_bas);
+      }
+      /* -> Ver.2.246.57 */
       /* Ver.2.71.29 -> */
       var store_args = function(args, isVars){
         var store_sw = (isVars)? self.store_var: self.store_eqn;

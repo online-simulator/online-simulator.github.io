@@ -578,6 +578,8 @@ e^(-i(1pi(){2/2i}(5-{3-1}){i/(-4)}))
 <br>
 　　　・<a href="#span-out-call-by-symbol">symbol渡し</a>
 <br>
+　　　・<a href="#span-out-call-by-name">name渡し</a>
+<br>
 　　　・<a href="#span-out-eqns-re-use">scope付式変数の再利用</a>
 <br>
 　　　・<a href="#span-out-eqns-re-call">再帰call</a>
@@ -22531,6 +22533,24 @@ clear; add(A,=&lt;B_)=&lt;[a=-1,=&lt;A+B_=&gt;]=&gt;; B=&lt;(a,4); a=1; add(=&lt
 目次
 </a>
 <br>
+name渡し
+<br>
+入力仕様
+    </th>
+    <td>
+<span id="span-out-call-by-name"></span>
+name渡しの入力仕様と付随する留意事項について記述する
+<br>
+<br>
+<span class="run">Ver.2.246.57</span>以降、式変数のargumentsのname渡しに対応
+    </td>
+  </tr>
+  <tr>
+    <th>
+<a href="#span-index">
+目次
+</a>
+<br>
 scope付
 <br>
 式変数の
@@ -37497,17 +37517,19 @@ has4test
     </th>
     <td>
 <span id="span-eqn-has4test"></span>
-<a href="#span-out-FNc">最上位関数</a>||<span class="clear"><a href="#span-out-scope-inherited">scope継承</a></span>参照
+<a href="#span-out-FNc">最上位関数</a>||<a href="#span-out-call-by-name">name渡し</a>||<span class="clear"><a href="#span-out-scope-inherited">scope継承</a></span>参照
 <br>
 clear;
 <br>
-checkV_a=&lt;(hasVs(a),hasV(a),hasVar(a));
+checkV(<span class="jF">$</span>varName)=&lt;(hasVs(varName),hasV(varName),hasVar(varName));
 <br>
-checkE_f=&lt;(hasEs(f),hasE(f),hasEqn(f));
+checkE(<span class="jF">$</span>eqnName)=&lt;(hasEs(eqnName),hasE(eqnName),hasEqn(eqnName));
 <br>
-check=&lt;(checkV_a<span class="clear">==&gt;</span>:checkE_f<span class="clear">==&gt;</span>);
+check(<span class="jF">$</span>varName,<span class="jF">$</span>eqnName)=&lt;(checkV(<span class="jF">$</span>varName)<span class="clear">==&gt;</span>:checkE(<span class="jF">$</span>eqnName)<span class="clear">==&gt;</span>);
 <br>
-wrapper0(n)=&lt;({n,n},check=&gt;,{n,n},check<span class="clear">==&gt;</span>);
+set_ans(<span class="jF">$</span>varName)=&lt;varName=ans;
+<br>
+wrapper0(n)=&lt;({n,n},check(<span class="jF">$</span>a,<span class="jF">$</span>f)=&gt;,{n,n},check(<span class="jF">$</span>a,<span class="jF">$</span>f)<span class="clear">==&gt;</span>);
 <br>
 (,:wrapper0(0)<span class="clear">==&gt;</span>:
 <br>
@@ -37527,7 +37549,7 @@ wrapper0(n)=&lt;({n,n},check=&gt;,{n,n},check<span class="clear">==&gt;</span>);
 <br>
 ]]]);
 <br>
-(ans0=ans,);
+set_ans(<span class="jF">$</span>ans0)=&gt;;
 <br>
 [
 <br>
@@ -37555,7 +37577,7 @@ wrapper1(n,=&lt;f0,=&lt;f1)=&lt;(f0<span class="clear">==&gt;</span>,f1<span cla
 <br>
 ]=&gt;;
 <br>
-(ans1=ans,);
+set_ans(<span class="jF">$</span>ans1)=&gt;;
 <br>
 double_check=ans1-ans0;
     </td>

@@ -1,6 +1,39 @@
 clear
 local storage cleared
 
+caller_($a,$f),caller_($a,$g),caller_($a,$h):caller_($b,$f),caller_($b,$g),caller_($b,$h):caller_($c,$f),caller_($c,$g),caller_($c,$h)
+(
+1,-1,1:
+2,-2,4:
+3,-3,9
+)
+
+caller_($varName,$eqnName)=<eqnName(varName)=>
+stored_eqn(caller_)
+
+f(x)=<x,g(x)=<-x,h(x)=<x*x
+(
+0,0,0
+)
+
+a=1,b=2,c=3
+(
+0,0,0
+)
+
+pattern_matching($a):pattern_matching($b):pattern_matching($c)
+(
+0,2,2,3:
+0,3,2,3:
+0,1,2,3
+)
+
+pattern_matching($varName)=<(($varName,$a,$b)=(1,2,3),varName,a,b)
+stored_eqn(pattern_matching)
+
+clear
+local storage cleared
+
 check=<(hasVs(a),hasV(a),hasVar(a):hasEs(f),hasE(f),hasEqn(f)),wrapper(n)=<({n,n},check=>,{n,n},check==>):wrapper(0)==>:[a=1,f=<1:wrapper(1)==>:[a=1,:wrapper(2)==>:[,f=<1:wrapper(3)==>:[delVar(a),delEqn(f):wrapper(4)==>]:[last{a=1,addVar(a)},addEqn(f):wrapper(5)==>]:[addVar(a),last{f=<1,addEqn(f)}:wrapper(6)==>]:[delVar(a),delEqn(f):wrapper(7)==>]]]]
 (
 0,0:
@@ -3178,4 +3211,4 @@ drag=false&sw=false&0x=false&useMatrix=true&useStrict=false&checkError=true&isRi
 --------------------------------
 --------------------------------
 
-online-simulator.github.io.6.300.131.15.70 @ Fri Sep 08 2023 06:39:01 GMT+0900 (日本標準時) @ Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/116.0.0.0 Safari/537.36
+online-simulator.github.io.6.301.131.15.70 @ Fri Sep 08 2023 19:46:16 GMT+0900 (日本標準時) @ Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/116.0.0.0 Safari/537.36
