@@ -874,8 +874,8 @@ My_entry.operation.prototype.get_names = function(data, tree_BT, isRow){
         var isSEee = isSEe.isSEee;  // Ver.2.219.50
         var trees = isSEe.val;
         name = (trees && trees.length === 1)? self.get_tagVal(DATA.trees2tree(trees), "REv", "val"): null;
-        self.check_symbol(name);  // Ver.2.32.17  // Ver.2.232.56  // Ver.2.246.57
         if(name){
+          self.check_symbol(name);  // Ver.2.32.17  // Ver.2.232.56  // Ver.2.246.57  // Ver.2.248.57
           /* Ver.2.219.50 -> */
           var prefix = self.config.symbol["escape_eqn"+((isSEee)? 2: 1)];  // Ver.2.245.57
           name = prefix+name;
@@ -902,7 +902,6 @@ My_entry.operation.prototype.get_name_escaped = function(tree){
   var name = self.get_tagVal(tree, "REv", "val");
   if(name && self.config.isEscaped(name)){
     _name = name.substring(1);
-    self.check_symbol(_name);  // Ver.2.30.16  // Ver.2.32.17  // Ver.2.232.56
   }
   return _name;
 };
@@ -3668,13 +3667,11 @@ My_entry.operation.prototype.REe = function(data, i0, tagName, tagObj){
         else if(self.config.isEscaped(argi_eqn)){
           var name_b0 = argi_eqn;
           var name_b1 = name_b0.substring(1);
-          self.check_symbol(name_b1);
           var name_a0 = self.get_tagVal(argi, "REv", "val");
           if(name_a0 === name_b0){
           }
           else if(name_a0 && self.config.isEscaped(name_a0)){
             var name_a1 = name_a0.substring(1);
-            self.check_symbol(name_a1);
             args_bas.push({b: name_b0, a: name_a0});
             args_bas.push({b: name_b1, a: name_a1});
           }

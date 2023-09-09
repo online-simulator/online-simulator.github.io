@@ -238,10 +238,16 @@ My_entry.parser.prototype.compare2pairs = function(tokens, i){
   return _ip_e;
 };
 /* Ver.2.24.12 */
-My_entry.parser.prototype.check_varName = function(token, re){
+My_entry.parser.prototype.check_varName = function(token, re, isFNh){  // Ver.2.248.57
   var self = this;
   var _tree = null;
   var DATA = self.entry.DATA;
+  /* Ver.2.248.57 -> */
+  var operation = self.entry.operation;
+  if(operation.config.isEscaped(token)){
+    throw "Invalid "+((isFNh)? "dummy": "varName")+"("+token+")";  // Ver.2.29.15
+  }
+  /* -> Ver.2.248.57 */
   var trees = self.make_trees(token, re);
   if(trees.length === 1){
     var tree = DATA.trees2tree(trees);
@@ -325,12 +331,7 @@ My_entry.parser.prototype.compare2bs = function(token, re){
           /* Ver.2.231.56 -> */
           var name = mc1;  // mc1="" enabled
           if(mc1){
-            /* Ver.2.29.15 -> */
-            if(self.entry.operation.config.isEscaped(mc1)){
-              throw "Invalid dummy("+mc1+")";
-            }
-            /* -> Ver.2.29.15 */
-            name = self.check_varName(mc1, re);
+            name = self.check_varName(mc1, re, true);  // Ver.2.248.57
           }
           _tree = DATA.tree_tag(tagName, {key: key, name: name});  // Ver.2.24.12
           /* -> Ver.2.231.56 */
