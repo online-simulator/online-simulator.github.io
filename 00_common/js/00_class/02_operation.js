@@ -1661,7 +1661,8 @@ My_entry.operation.prototype.tree2tree_eqn = function(data, tree){
       if(has1elem_tag){
         _tree_eqn = self.tree_SEe2REe(arr[0][0]);
         var isREe = _tree_eqn[BT.REe];
-        var symbol = !(isREe.arg) && self.get_symbol(isREe);
+        var args_eqn = isREe.arg;  // Ver.2.247.57
+        var symbol = !(args_eqn) && self.get_symbol(isREe);  // Ver.2.247.57
         if(symbol){
           var tree_symbol = self.restore_eqn(symbol, scopes, ids);
           if(tree_symbol){
@@ -3206,8 +3207,11 @@ My_entry.operation.prototype.REv = function(data, i0, tagName, tagObj){
         /* Ver.2.20.8 -> */
         var isREe = tree[self.config.BT.REe];
         if(isREe){
-          tree = (isREe.arg)? self.REe(data, i0+2, tagName, tagObj): self.tree_eqn2tree_AtREe(data, tree);  // Ver.2.32.17  // Ver.2.202.46
-          if(tree && isREe.arg){  // Ver.2.233.56 switched
+          /* Ver.2.247.57 -> */
+          var args_eqn = isREe.arg;
+          tree = (args_eqn)? self.REe(data, i0+2, tagName, tagObj): self.tree_eqn2tree_AtREe(data, tree);  // Ver.2.32.17  // Ver.2.202.46
+          if(tree && args_eqn){  // Ver.2.233.56 switched
+          /* -> Ver.2.247.57 */
             ie = i0+1;
           }
         }
@@ -3741,11 +3745,14 @@ My_entry.operation.prototype.REe = function(data, i0, tagName, tagObj){
   }
   if(tree_eqn){
     var isREe = tree_eqn[BT.REe];  // Ver.2.200.46
+    /* Ver.2.247.57 -> */
+    var args_eqn = isREe.arg;
     /* Ver.2.174.42 -> */
-    if(self.useStrict && isREe.arg && !(hasArgs)){
-      throw "Invalid args.length="+isREe.arg.length+"("+name_eqn+")";
+    if(self.useStrict && args_eqn && !(hasArgs)){
+      throw "Invalid args.length="+args_eqn.length+"("+name_eqn+")";
     }
     /* -> Ver.2.174.42 */
+    /* -> Ver.2.247.57 */
     /* Ver.2.204.46 -> */
     var tree_var = null;
     var symbol = self.get_symbol(isREe);  // Ver.2.229.56

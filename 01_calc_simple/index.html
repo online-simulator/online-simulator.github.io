@@ -233,7 +233,9 @@
       script += "\nclear;\n";
       script += "($a,$b,$c)=(1,2,3);\nf(x)=<x,g(x)=<-x,h(x)=<x*x;";
       script += "\nstore;\n";
-      script += "caller_($varName,$eqnName)=<eqnName(varName)=>;\ncaller_($a,$f),caller_($a,$g),caller_($a,$h):caller_($b,$f),caller_($b,$g),caller_($b,$h):caller_($c,$f),caller_($c,$g),caller_($c,$h);";
+      script += "caller_(x,=<f)=<f(x)=>;\ncaller_(a,=<f),caller_(a,=<g),caller_(a,=<h):caller_(b,=<f),caller_(b,=<g),caller_(b,=<h):caller_(c,=<f),caller_(c,=<g),caller_(c,=<h);";
+      script += "\n";
+      script += "caller_($x,$f)=<f(x)=>;\ncaller_($a,$f),caller_($a,$g),caller_($a,$h):caller_($b,$f),caller_($b,$g),caller_($b,$h):caller_($c,$f),caller_($c,$g),caller_($c,$h);";
       script += "\nrestore;\n";
       script += ":f=>f,f(3):g=>f,f(3):h=>f,f(3);";
       script += "\nrestore;\n";
