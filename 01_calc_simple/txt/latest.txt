@@ -1,7 +1,16 @@
 clear
 local storage cleared
 
-make_f($eqnName)=<[($eqnName)=<(x)=<eqnName(x)=>]($eqnName)=>f:make_f($f),-999/*error-code*/:make_f($g),f(3):make_f($h),f(3)
+constant_declaration_in_each_scope=($a=0,[$a=1,[$a=2,[$a=3,a],a],a],a:$f=<0,[$f=<1,[$f=<2,[$f=<3,f],f],f],f)
+constant_declaration_in_each_scope=(
+0,0,0,0,3,2,1,0:
+0,0,0,0,3,2,1,0
+)
+
+clear
+local storage cleared
+
+make_f($eqnName)=<[($eqnName)=<(x)=<eqnName(x)=>]($eqnName)=>f:make_f($f),-999/*error-code*/:make_f($g),call_f=>:make_f($h),call_f=>
 (
 0:
 0,-999:
@@ -12,7 +21,7 @@ make_f($eqnName)=<[($eqnName)=<(x)=<eqnName(x)=>]($eqnName)=>f:make_f($f),-999/*
 restore
 local storage restored
 
-make_f($eqnName)=<[($eqnName)=<eqnName]($eqnName)=>f:make_f($f),f(3):make_f($g),f(3):make_f($h),f(3)
+make_f($eqnName)=<[($eqnName)=<eqnName]($eqnName)=>f:make_f($f),call_f=>:make_f($g),call_f=>:make_f($h),call_f=>
 (
 0:
 0,3:
@@ -23,7 +32,7 @@ make_f($eqnName)=<[($eqnName)=<eqnName]($eqnName)=>f:make_f($f),f(3):make_f($g),
 restore
 local storage restored
 
-:f=>f,f(3):g=>f,f(3):h=>f,f(3)
+:f=>f,call_f=>:g=>f,call_f=>:h=>f,call_f=>
 (
 0:
 0,3:
@@ -56,6 +65,9 @@ stored_eqn(caller_)
 
 store
 local storage stored
+
+call_f=<f(3)=>
+stored_eqn(call_f)
 
 f(x)=<x,g(x)=<-x,h(x)=<x*x
 (
@@ -3272,4 +3284,4 @@ drag=false&sw=false&0x=false&useMatrix=true&useStrict=false&checkError=true&isRi
 --------------------------------
 --------------------------------
 
-online-simulator.github.io.6.302.132.15.70 @ Sat Sep 09 2023 22:36:12 GMT+0900 (日本標準時) @ Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/116.0.0.0 Safari/537.36
+online-simulator.github.io.6.303.132.15.70 @ Sun Sep 10 2023 06:19:11 GMT+0900 (日本標準時) @ Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/116.0.0.0 Safari/537.36

@@ -360,6 +360,8 @@ e^(-i(1pi(){2/2i}(5-{3-1}){i/(-4)}))
 <br>
 ・<a href="#span-out-types-vars">変数の種類</a>
 <br>
+・<a href="#span-out-const-vars">const宣言</a>
+<br>
 ・<a href="#span-out-scope">変数のscope</a>
 <br>
 ・<a href="#span-out-ref-transparency">参照透過性</a>
@@ -12242,6 +12244,55 @@ round_f(=&lt;f,,2) -> (1:0.7+0.71i:i:-0.7+0.71i:-1:-0.7-0.71i:-i:0.7-0.71i)
 目次
 </a>
 <br>
+const宣言
+    </th>
+    <td>
+<span id="span-out-const-vars"></span>
+const宣言について記述する
+<br>
+<br>
+<span class="run">Ver.2.249.57</span>以降、再代入と重複宣言を禁止するconst宣言を暫定追加（$開始のbeta版）
+<br>
+・<a href="#span-out-eqns-args">式変数のarguments</a>は非対応（厳密には<a href="#span-out-scope-vars">scope</a>不定）
+<br>
+・const代替記号の検討保留（<a href="#span-out-call-by-name">name渡し</a>と重複の$記号から変更の可能性あり）
+<br>
+・既定でconst宣言に変更を検討中（option追加の可能性あり）
+<br>
+<br>
+const宣言（$開始のbeta版）
+<br>
+・<a href="#span-out-vars">変数</a>
+<br>
+clear; $a=1; a -> 1
+<br>
+clear; $a=1; a=2; a -> [MyErr]Invalid SEv-scope(const a)
+<br>
+clear; $a=1; ($a)=2; a -> [MyErr]Invalid SEv-scope(const a)
+<br>
+clear; a=1; $a=2; a -> [MyErr]Invalid SEv-scope($a existed)
+<br>
+clear; ($a)=1; $a=2; a -> [MyErr]Invalid SEv-scope($a existed)
+<br>
+clear; ($a=0,[$a=1,[$a=2,[$a=3,a],a],a],a) -> (0,0,0,0,3,2,1,0)
+<br>
+・<a href="#span-out-eqns">式変数</a>
+<br>
+clear; $f=&lt;1; f -> 1
+<br>
+clear; $f=&lt;1; f=&lt;2; f -> [MyErr]Invalid SEe-scope(const f)
+<br>
+clear; f=&lt;1; $f=&lt;2; f -> [MyErr]Invalid SEe-scope($f existed)
+<br>
+clear; ($f=&lt;0,[$f=&lt;1,[$f=&lt;2,[$f=&lt;3,f],f],f],f) -> (0,0,0,0,3,2,1,0)
+    </td>
+  </tr>
+  <tr>
+    <th>
+<a href="#span-index">
+目次
+</a>
+<br>
 変数のscope
     </th>
     <td>
@@ -12265,7 +12316,7 @@ x=2; store; clear; x=3<span class="selection">/*independent local scope*/</span>
 <br>
 <span class="run">Ver.2.31.17</span>以降、<a href="#span-out-BT-square">角括弧[]</a>に変数のscopeを追加
 <br>
-・Nativeの場合、関数宣言に紐付くが、<a href="#span-out-BT">括弧</a>に紐付く<del>ため、
+・Nativeの非厳格modeの場合、関数宣言に紐付くのに対して<a href="#span-out-BT">括弧</a>に紐付く<del>ため、
 <br>
 ・scope不定の<a href="#span-out-eqns-args">式変数のarguments</a>を削除する等、closure機能が異なる</del>
 <br>
@@ -12276,7 +12327,7 @@ x=2; store; clear; x=3<span class="selection">/*independent local scope*/</span>
 <br>
 ・<a href="#span-out-bracket">直列scope内</a>の<a href="#span-out-vars">変数</a>・<a href="#span-out-eqns">式変数</a>はreadonly（pollution disabled）
 <br>
-・scope範囲の可読性を優先（block単位の<a href="#span-out-BT-square">角括弧[]</a>内と対応）
+・block-scope範囲の可読性を優先（block単位の<a href="#span-out-BT-square">角括弧[]</a>内と対応）
 <br>
 ・<a href="#span-out-scope-vars-has1BT">単独scope</a>を意識する負担あり
 <br>
@@ -20213,9 +20264,13 @@ rotx_LHS ->
 <br>
 x=2; x -> 2
 <br>
+・漸化式を記述するため、再代入を許容する
+<br>
 x=2; x=4; x -> 4
 <br>
 x=2; x=2x; x -> 4
+<br>
+・<span class="run">Ver.2.249.57</span>以降、再代入と重複宣言を禁止する<a href="#span-out-const-vars">const宣言</a>を暫定追加（$開始のbeta版）
     </td>
   </tr>
   <tr>
@@ -20313,9 +20368,19 @@ $ -> [MyErr]Invalid null string
 <br>
 ・<span class="run">Ver.2.232.56</span>以降、symbol表記に統一
 <br>
-$a=1 -> [MyErr]Invalid <del>SEe</del>symbol($a)
+・<span class="run">Ver.2.246.57</span>以降、<a href="#span-out-call-by-name">name渡し</a>に対応
 <br>
-$$a=1 -> [MyErr]Invalid <del>SEe</del>symbol($$a)
+・<span class="run">Ver.2.248.57</span>以降、$$開始の場合、<a href="#span-out-flow">parse</a>段階でerror終了
+<br>
+・<span class="run">Ver.2.248.57</span>以降、dummy　⇒　symbol
+<br>
+・<span class="run">Ver.2.249.57</span>以降、再代入と重複宣言を禁止する<a href="#span-out-const-vars">const宣言</a>を暫定追加（$開始のbeta版）
+<br>
+<del>$a=1 -> [MyErr]Invalid <del>SEe</del>symbol(a)</del>
+<br>
+$a=1; a -> 1
+<br>
+$$a=1 -> [MyErr]Invalid <del>SEe</del>symbol(<del>$</del>$a)
 <br>
 ・数字から開始不可
 <br>
@@ -20386,13 +20451,21 @@ symbol
 <br>
 ・<span class="run">Ver.2.232.56</span>以降、symbol表記に統一
 <br>
-delVar($x) -> [MyErr]Invalid <del>REv</del>symbol($x)
+・<span class="run">Ver.2.246.57</span>以降、<a href="#span-out-call-by-name">name渡し</a>に対応
+<br>
+・<span class="run">Ver.2.248.57</span>以降、$$開始の場合、<a href="#span-out-flow">parse</a>段階でerror終了
+<br>
+・<span class="run">Ver.2.248.57</span>以降、dummy　⇒　symbol
+<br>
+・<span class="run">Ver.2.249.57</span>以降、再代入と重複宣言を禁止する<a href="#span-out-const-vars">const宣言</a>を暫定追加（$開始のbeta版）
+<br>
+delVar($x) -> <del>[MyErr]Invalid <del>REv</del>symbol($x)</del>false
 <br>
 f(=&lt;$x)=&lt;x; f(=&lt;x) -> [MyErr]Invalid <del>REv</del>symbol($x)
 <br>
 f(=&lt;x)=&lt;x; f(=&lt;$x) -> [MyErr]Invalid symbol($x)
 <br>
-Jacobi(=&lt;{2x^2},=&lt;{$x},=&lt;{1}) -> [MyErr]Invalid <del>REv</del>symbol($x)
+Jacobi(=&lt;{2x^2},=&lt;{$x},=&lt;{1}) -> <del>[MyErr]Invalid <del>REv</del>symbol($x)</del>[MyErr]Invalid binary operation
     </td>
   </tr>
   <tr>
@@ -20549,6 +20622,12 @@ clear; $a=-1; ($a)=1 || (-1)=1 || =1-(-1) -> 2
 clear; ($a)=1; a -> 1
 </del><span class="clear">Ver.2.27.15</span>以降、<a href="#span-out-vars-rule2">変数の命名規則</a>で対策済み
 <br>
+・<span class="run">Ver.2.249.57</span>以降、再代入と重複宣言を禁止する<a href="#span-out-const-vars">const宣言</a>を暫定追加（$開始のbeta版）
+<br>
+clear; $a=1; a -> 1
+<br>
+clear; $a=1; ($a)=1 -> [MyErr]Invalid SEv-scope(const a)
+<br>
 ・$でescapeしない場合、error終了
 <br>
 clear; (a)=1 -> [MyErr]Invalid REv(a)
@@ -20578,7 +20657,9 @@ clear; c=&lt;(1,2); ($a,$b)=c; a,b -> (1,2)
 <br>
 ・<span class="run">Ver.2.232.56</span>以降、symbol表記に統一
 <br>
-clear; c=&lt;(1,2); c=($a,$b) -> [MyErr]Invalid <del>REv</del>symbol($a)
+・<span class="run">Ver.2.246.57</span>以降、<a href="#span-out-call-by-name">name渡し</a>に対応
+<br>
+clear; c=&lt;(1,2); c=($a,$b) -> <del>[MyErr]Invalid <del>REv</del>symbol($a)</del>[MyErr]Invalid REv($a)
 <br>
 ・1重列挙の場合
 <br>
@@ -21050,11 +21131,7 @@ x=&lt;; x -> [MyErr]Invalid =&lt;null
 <br>
 ・式変数は<a href="#span-out-vars-rule2">変数の命名規則</a>に準拠
 <br>
-・<span class="run">Ver.2.232.56</span>以降、symbol表記に統一
-<br>
-$a=&lt;1 -> [MyErr]Invalid <del>SEe</del>symbol($a)
-<br>
-$$a=&lt;1 -> [MyErr]Invalid <del>SEe</del>symbol($$a)
+・<span class="run">Ver.2.249.57</span>以降、再代入と重複宣言を禁止する<a href="#span-out-const-vars">const宣言</a>を暫定追加（$開始のbeta版）
     </td>
   </tr>
   <tr>
@@ -21235,6 +21312,8 @@ clear; [a=1,b=2,v=&lt;{a,b},v=v=&gt;v,a=-1,b=-2,=&lt;v=&gt;]=&gt; -> (-1:-2)</de
 ・<span class="run">Ver.2.229.56</span>以降、<a href="#span-out-eqns-args">式変数のarguments</a>を<a href="#span-out-terms">scope変数</a>から削除しない仕様に変更
 <br>
 ・<span class="run">Ver.2.229.56</span>以降、<a href="#span-out-vars-rule2">変数の命名規則</a>に準拠
+<br>
+・<span class="run">Ver.2.232.56</span>以降、symbol表記に統一
 <br>
 [=&lt;$g]=&gt;f; f=&gt; -> [MyErr]Invalid <del>REv</del>symbol($g)
 <br>
@@ -22429,9 +22508,7 @@ clear; a(max)=&lt;2; a()=&gt; || a()=&lt;2; a()=&gt; || a=&lt;2; a=&gt; -> 2
 <br>
 ・argumentsの<a href="#span-out-vars-symbol">変数名symbol</a>は<a href="#span-out-vars-rule2">変数の命名規則</a>に準拠
 <br>
-・<span class="run">Ver.2.232.56</span>以降、symbol表記に統一
-<br>
-clear; a($b)=&lt;$b*2 -> [MyErr]Invalid <del>REv</del>symbol($b)
+・<span class="run">Ver.2.249.57</span>以降、再代入と重複宣言を禁止する<a href="#span-out-const-vars">const宣言</a>を暫定追加（$開始のbeta版）
     </td>
   </tr>
   <tr>
@@ -23207,9 +23284,11 @@ _s3n(=&lt;{0},1,2) -> [MyErr]Invalid FNh called
 <br>
 ・<span class="run">Ver.2.29.15</span>以降
 <br>
-_s$n(=&lt;{0},1,2) -> [MyErr]Invalid dummy($n)
+・<span class="run">Ver.2.248.57</span>以降、dummy　⇒　symbol
 <br>
-_s$$n(=&lt;{0},1,2) -> [MyErr]Invalid dummy($$n)
+_s$n(=&lt;{0},1,2) -> [MyErr]Invalid <del>dummy</del>symbol($n)
+<br>
+_s$$n(=&lt;{0},1,2) -> [MyErr]Invalid <del>dummy</del>symbol($$n)
 <br>
 ・配列を使用
 <br>
@@ -24724,13 +24803,15 @@ clear; _ex(=&lt;{x},2) -> [MyErr]Invalid EX arguments
 <br>
 ・<span class="run">Ver.2.232.56</span>以降、symbol表記に統一
 <br>
+・<span class="run">Ver.2.248.57</span>以降、dummy　⇒　symbol
+<br>
 _ex(=&lt;{$x},2,2) -> [MyErr]Invalid <del>REv</del>symbol($x)
 <br>
 _ex(=&lt;{$$x},2,2) -> [MyErr]Invalid <del>REv</del>symbol($$x)
 <br>
-_e$x(=&lt;{x},2,2) -> [MyErr]Invalid dummy($x)
+_e$x(=&lt;{x},2,2) -> [MyErr]Invalid <del>dummy</del>symbol($x)
 <br>
-_e$$x(=&lt;{x},2,2) -> [MyErr]Invalid dummy($$x)
+_e$$x(=&lt;{x},2,2) -> [MyErr]Invalid <del>dummy</del>symbol($$x)
 <br>
 <br>
 <span class="run">Ver.2.32.17</span>以降、第1引数の<a href="#span-out-BT">括弧</a>省略可
@@ -35868,6 +35949,8 @@ Calculator用途に特化した実装項目とfile名の対応関係を列挙す
 <br>
 ・<a href="#span-out-BT-square">行列要素参照</a>用に<span class="selection">tag.val同列</span>のobjectを一層追加
 <br>
+<span class="run">Ver.2.249.57</span>以降、<a href="#span-out-const-vars">const宣言</a>用の<span class="condition">flag</span>を追加
+<br>
 <pre><code>
             j-th sentence
   trees2d: [j][i]{tag || num}
@@ -35876,8 +35959,8 @@ Calculator用途に特化した実装項目とfile名の対応関係を列挙す
   trees0d,
      tree: {}
       tag: {"name": <span class="selection">{val: val}</span>}
-         : {"BT?":  <span class="selection">{val: [], ref: [], ids: [], arg: [], flag}</span>}
-      num: {mat:    {arr: arr}}
+         : {"BT?":  <span class="selection">{val: [], ref: [], ids: [], arg: [], <span class="condition">flag</span>}</span>}
+      num: {mat:    {arr: arr, <span class="condition">flag</span>}}
       1+i: arr [0] [0] {com: {r: 1, i: 1}}
    matrix:     row col {complex number   }
 (i,2:3,4): arr [0] [0] {com: {r: 0, i: 1}}

@@ -821,7 +821,7 @@ My_entry.parser.prototype.switch_token = function(tokens, token_left, token, tok
      tree: {}
       tag: {"name": {val: val}}
          : {"BT?":  {val: [], ref: [], ids: [], arg: [], flag}}
-      num: {mat:    {arr: arr}}
+      num: {mat:    {arr: arr, flag}}
       1+i: arr [0] [0] {com: {r: 1, i: 1}}
    matrix:     row col {complex number   }
 (i,2:3,4): arr [0] [0] {com: {r: 0, i: 1}}
