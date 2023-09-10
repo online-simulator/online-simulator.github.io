@@ -2823,6 +2823,9 @@ My_entry.operation.prototype.inherit_const = function(sw, name, scopes, ids, tre
     var tree0 = scope[name];
     var tagName0 = Object.keys(tree0)[0];
     var isEscaped0 = tree0[tagName0].isEscaped;
+    if(isEscaped0 && opt_isEscaped){
+      throw "Invalid "+sw_tagName+"-scope(duplicate "+name+")";
+    }
     if(self.use$let){
       var isConstant = !(isEscaped0);
       if(isEscaped){
@@ -2838,7 +2841,7 @@ My_entry.operation.prototype.inherit_const = function(sw, name, scopes, ids, tre
     }
     else{
       if(isEscaped){
-        throw "Invalid "+sw_tagName+"-scope($"+name+" existed)";
+        throw "Invalid "+sw_tagName+"-scope("+name+" existed)";
       }
       else{
         var isConstant = isEscaped0;

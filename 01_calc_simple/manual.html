@@ -12314,15 +12314,37 @@ const宣言について記述する
 <br>
 clear; $a=1; a -> 1
 <br>
+・<a href="#span-out-matching">行列要素pattern matching</a>はlet宣言
+<br>
+clear; a=1; ($a)=2; a -> 2
+<br>
+clear; ($a)=2; a=1; a -> 1
+<br>
+clear; ($a)=2; $a=1; a -> [MyErr]Invalid SEv-scope(a existed)
+<br>
 clear; $a=1; a=2; a -> [MyErr]Invalid SEv-scope(const a)
 <br>
 clear; $a=1; ($a)=2; a -> [MyErr]Invalid SEv-scope(const a)
 <br>
-clear; a=1; $a=2; a -> [MyErr]Invalid SEv-scope($a existed)
+clear; a=1; $a=2; a -> [MyErr]Invalid SEv-scope(a existed)
 <br>
-clear; ($a)=1; $a=2; a -> [MyErr]Invalid SEv-scope($a existed)
+clear; ($a)=1; $a=2; a -> [MyErr]Invalid SEv-scope(a existed)
+<br>
+clear; $a=1; $a=2; a -> [MyErr]Invalid SEv-scope(duplicate a)
 <br>
 clear; ($a=0,[$a=1,[$a=2,[$a=3,a],a],a],a) -> (0,0,0,0,3,2,1,0)
+<br>
+・dummy変数はlet宣言
+<br>
+clear; _s((n)=&lt;n+1,1,3) -> 9
+<br>
+clear; _s((n)=&lt;n+1,1,3); $n=1; n -> 1
+<br>
+clear; n=1; _s((n)=&lt;n+1,n,3) -> 9
+<br>
+・現状、宣言の干渉あり
+<br>
+clear; $n=1; _s((n)=&lt;n+1,n,3) -> [MyErr]Invalid SEv-scope(const n)
 <br>
 ・<a href="#span-out-eqns">式変数</a>
 <br>
@@ -12330,7 +12352,9 @@ clear; $f=&lt;1; f -> 1
 <br>
 clear; $f=&lt;1; f=&lt;2; f -> [MyErr]Invalid SEe-scope(const f)
 <br>
-clear; f=&lt;1; $f=&lt;2; f -> [MyErr]Invalid SEe-scope($f existed)
+clear; f=&lt;1; $f=&lt;2; f -> [MyErr]Invalid SEe-scope(f existed)
+<br>
+clear; $f=&lt;1; $f=&lt;2; f -> [MyErr]Invalid SEe-scope(duplicate f)
 <br>
 clear; ($f=&lt;0,[$f=&lt;1,[$f=&lt;2,[$f=&lt;3,f],f],f],f) -> (0,0,0,0,3,2,1,0)
 <br>
@@ -12341,17 +12365,39 @@ clear; ($f=&lt;0,[$f=&lt;1,[$f=&lt;2,[$f=&lt;3,f],f],f],f) -> (0,0,0,0,3,2,1,0)
 <br>
 clear; a=1; a -> 1
 <br>
+・<a href="#span-out-matching">行列要素pattern matching</a>はlet宣言
+<br>
+clear; $a=1; ($a)=2; a -> 2
+<br>
+clear; ($a)=2; a=1; a -> 1
+<br>
+clear; ($a)=2; $a=1; a -> [MyErr]Invalid SEv-scope(duplicate a)
+<br>
 clear; a=1; $a=2; a -> [MyErr]Invalid SEv-scope(const a)
 <br>
 clear; a=1; ($a)=2; a -> [MyErr]Invalid SEv-scope(const a)
 <br>
 clear; a=1; a=2; a -> [MyErr]Invalid SEv-scope($a existed)
 <br>
+clear; $a=1; $a=2; a -> [MyErr]Invalid SEv-scope(duplicate a)
+<br>
 clear; $a=1; a=2; a -> 2
 <br>
 clear; ($a)=1; a=2; a -> 2
 <br>
 clear; (a=0,[a=1,[a=2,[a=3,a],a],a],a) -> (0,0,0,0,3,2,1,0)
+<br>
+・dummy変数はlet宣言
+<br>
+clear; _s((n)=&lt;n+1,1,3) -> 9
+<br>
+clear; _s((n)=&lt;n+1,1,3); n=1; n -> 1
+<br>
+clear; $n=1; _s((n)=&lt;n+1,n,3) -> 9
+<br>
+・現状、宣言の干渉あり
+<br>
+clear; n=1; _s((n)=&lt;n+1,n,3) -> [MyErr]Invalid SEv-scope(const n)
 <br>
 ・<a href="#span-out-eqns">式変数</a>
 <br>
@@ -12360,6 +12406,8 @@ clear; f=&lt;1; f -> 1
 clear; f=&lt;1; $f=&lt;2; f -> [MyErr]Invalid SEe-scope(const f)
 <br>
 clear; f=&lt;1; f=&lt;2; f -> [MyErr]Invalid SEe-scope(f existed)
+<br>
+clear; $f=&lt;1; $f=&lt;2; f -> [MyErr]Invalid SEe-scope(duplicate f)
 <br>
 clear; $f=&lt;1; f=&lt;2; f -> 2
 <br>
