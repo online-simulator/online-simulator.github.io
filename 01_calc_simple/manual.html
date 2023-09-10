@@ -12333,6 +12333,37 @@ clear; $f=&lt;1; f=&lt;2; f -> [MyErr]Invalid SEe-scope(const f)
 clear; f=&lt;1; $f=&lt;2; f -> [MyErr]Invalid SEe-scope($f existed)
 <br>
 clear; ($f=&lt;0,[$f=&lt;1,[$f=&lt;2,[$f=&lt;3,f],f],f],f) -> (0,0,0,0,3,2,1,0)
+<br>
+<br>
+<a href="#span-out-option8">$let</a>宣言（$開始のbeta版）
+<br>
+・<a href="#span-out-vars">変数</a>
+<br>
+clear; a=1; a -> 1
+<br>
+clear; a=1; $a=2; a -> [MyErr]Invalid SEv-scope(const a)
+<br>
+clear; a=1; ($a)=2; a -> [MyErr]Invalid SEv-scope(const a)
+<br>
+clear; a=1; a=2; a -> [MyErr]Invalid SEv-scope($a existed)
+<br>
+clear; $a=1; a=2; a -> 2
+<br>
+clear; ($a)=1; a=2; a -> 2
+<br>
+clear; (a=0,[a=1,[a=2,[a=3,a],a],a],a) -> (0,0,0,0,3,2,1,0)
+<br>
+・<a href="#span-out-eqns">式変数</a>
+<br>
+clear; f=&lt;1; f -> 1
+<br>
+clear; f=&lt;1; $f=&lt;2; f -> [MyErr]Invalid SEe-scope(const f)
+<br>
+clear; f=&lt;1; f=&lt;2; f -> [MyErr]Invalid SEe-scope(f existed)
+<br>
+clear; $f=&lt;1; f=&lt;2; f -> 2
+<br>
+clear; (f=&lt;0,[f=&lt;1,[f=&lt;2,[f=&lt;3,f],f],f],f) -> (0,0,0,0,3,2,1,0)
     </td>
   </tr>
   <tr>
