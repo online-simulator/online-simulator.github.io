@@ -288,6 +288,8 @@ e^(-i(1pi(){2/2i}(5-{3-1}){i/(-4)}))
 <br>
 　・<a href="#span-out-option4">comma演算子</a>
 <br>
+　・<a href="#span-out-option8">use$let</a>
+<br>
 　・<a href="#span-out-option3">Multi-thread実行</a>
 <br>
 　・<a href="#span-out-option7">useFunc</a>
@@ -8835,6 +8837,8 @@ debuggerについて記述する
 <br>
 ・<a href="#span-out-option4">comma演算子</a>
 <br>
+・<a href="#span-out-option8">use$let</a>　<span class="run">Ver.2.249.57</span>以降、追加
+<br>
 ・<a href="#span-out-option3">Multi-thread実行</a>
 <br>
 ・<a href="#span-out-option7">useFunc</a>　<span class="run">Ver.2.221.50</span>以降、追加
@@ -8983,6 +8987,45 @@ comma演算子使用選択
 留意事項を列挙する
 <br>
 ・<a href="#span-out-ope">無次元</a>の演算の場合、comma演算子は常に有効
+    </td>
+  </tr>
+  <tr>
+    <th>
+<a href="#span-index">
+目次
+</a>
+<br>
+use$let
+    </th>
+    <td>
+<span id="span-out-option8"></span>
+外部optionのuse$letと付随する留意事項について記述する
+<br>
+<br>
+<span class="run">Ver.2.249.57</span>以降、再代入と重複宣言を禁止するconst宣言の既定値を選択可
+<br>
+<br>
+$const既定
+<br>
+$なし：let宣言
+<br>
+$あり：const宣言
+<br>
+<br>
+$let選択
+<br>
+$なし：const宣言
+<br>
+$あり：let宣言
+<br>
+<br>
+留意事項を列挙する
+<br>
+・明示的な代入のみ対応
+<br>
+　・<a href="#span-out-eqns-args">式変数のarguments</a>は非対応でlet宣言（厳密には<a href="#span-out-scope-vars">scope</a>不定）
+<br>
+　・実装関数は非対応でlet宣言（現状、dummy変数と<a href="#span-out-terms">scope変数</a>の宣言に干渉あり）
     </td>
   </tr>
   <tr>
@@ -11658,43 +11701,50 @@ checkError=-1
 <br>
 <span class="run">Ver.2.31.17</span>以降、useScopeを追加
 <br>
-useScope=falseの場合、完全な後方互換で<a href="#span-out-scope-vars">変数のscope</a>を一切使用しない
+useScope=false：完全な後方互換で<a href="#span-out-scope-vars">変数のscope</a>を一切使用しない
 <br>
-useScope=trueの場合、すべての<a href="#span-out-BT">括弧</a>に<a href="#span-out-scope-vars">変数のscope</a>を使用する（多重積分等、<a href="#span-out-ref-transparency">参照透過性</a>の支障あり）
+useScope=true：すべての<a href="#span-out-BT">括弧</a>に<a href="#span-out-scope-vars">変数のscope</a>を使用する（多重積分等、<a href="#span-out-ref-transparency">参照透過性</a>の支障あり）
 <br>
-useScope=BT2の場合、<a href="#span-out-BT">波括弧{}</a>のみ<a href="#span-out-scope-vars">変数のscope</a>を使用する
+useScope=BT2：<a href="#span-out-BT">波括弧{}</a>のみ<a href="#span-out-scope-vars">変数のscope</a>を使用する
 <br>
-useScope=BT1の場合、<a href="#span-out-BT">丸括弧()</a>のみ<a href="#span-out-scope-vars">変数のscope</a>を使用する
+useScope=BT1：<a href="#span-out-BT">丸括弧()</a>のみ<a href="#span-out-scope-vars">変数のscope</a>を使用する
 <br>
 <span class="run">Ver.2.32.17</span>以降、以下の条件を追加
 <br>
-useScope=notBT2の場合、<a href="#span-out-BT">波括弧{}</a>を除いて<a href="#span-out-scope-vars">変数のscope</a>を使用する
+useScope=notBT2：<a href="#span-out-BT">波括弧{}</a>を除いて<a href="#span-out-scope-vars">変数のscope</a>を使用する
 <br>
-useScope=notBT1の場合、<a href="#span-out-BT">丸括弧()</a>を除いて<a href="#span-out-scope-vars">変数のscope</a>を使用する
+useScope=notBT1：<a href="#span-out-BT">丸括弧()</a>を除いて<a href="#span-out-scope-vars">変数のscope</a>を使用する
 <br>
-useScope=notBT0の場合、<a href="#span-out-BT-square">角括弧[]</a>を除いて<a href="#span-out-scope-vars">変数のscope</a>を使用する
+useScope=notBT0：<a href="#span-out-BT-square">角括弧[]</a>を除いて<a href="#span-out-scope-vars">変数のscope</a>を使用する
 <br>
-useScope=default（上記以外）の場合、<a href="#span-out-BT-square">角括弧[]</a>のみ<a href="#span-out-scope-vars">変数のscope</a>を使用する
+useScope=default（上記以外）：<a href="#span-out-BT-square">角括弧[]</a>のみ<a href="#span-out-scope-vars">変数のscope</a>を使用する
 <br>
 <br>
 <span class="run">Ver.2.213.47</span>以降、<a href="#span-out-option6">useScopeWith</a>を追加
 <br>
-useScopeWith=false||0の場合、追加なし
+useScopeWith=false||0：追加なし
 <br>
-useScopeWith=SEeの場合、<a href="#span-out-substitution-equation">式代入</a>記号=&lt;に<a href="#span-out-scope-vars">変数のscope</a>を追加（Native準拠）
+useScopeWith=SEe：<a href="#span-out-substitution-equation">式代入</a>記号=&lt;に<a href="#span-out-scope-vars">変数のscope</a>を追加（Native準拠）
 <br>
-useScopeWith=BTe（上記以外）の場合、<a href="#span-out-eqns-args">式変数のarguments</a>付の<a href="#span-out-substitution-equation">式代入</a>記号=&lt;に<a href="#span-out-scope-vars">変数のscope</a>を追加
+useScopeWith=BTe（上記以外）：<a href="#span-out-eqns-args">式変数のarguments</a>付の<a href="#span-out-substitution-equation">式代入</a>記号=&lt;に<a href="#span-out-scope-vars">変数のscope</a>を追加
 <br>
 <br>
 <span class="run">Ver.2.221.50</span>以降、<a href="#span-out-option7">useFunc</a>を追加
 <br>
-useFunc=1の場合、すべて小文字
+useFunc=1：すべて小文字
 <br>
-useFunc=2の場合、すべて大文字
+useFunc=2：すべて大文字
 <br>
-useFunc=3の場合、最初のみ大文字
+useFunc=3：最初のみ大文字
 <br>
-useFunc=0（上記以外）の場合、大文字・小文字を区別しない
+useFunc=0（上記以外）：大文字・小文字を区別しない
+<br>
+<br>
+<span class="run">Ver.2.249.57</span>以降、<a href="#span-out-option8">use$let</a>を追加
+<br>
+use$let=false||0：$const
+<br>
+use$let=true（上記以外）：$let
 <br>
 <br>
 <a href="#span-out-prec-ope">演算子のprecedence</a>を変更する場合
@@ -11726,7 +11776,7 @@ precedence=
 <br>
 <span class="run">Ver.2.207.46</span>以降、testを追加
 <br>
-test=trueの場合、<a href="#span-out-UI-calc-config">calc-config</a>に<a href="#span-in-options">内部option</a>のuseScope||precedenceを追加表示
+test=true：<a href="#span-out-UI-calc-config">calc-config</a>に<a href="#span-in-options">内部option</a>のuseScope||precedenceを追加表示
     </td>
   </tr>
   <tr>
@@ -12253,14 +12303,12 @@ const宣言について記述する
 <br>
 <span class="run">Ver.2.249.57</span>以降、再代入と重複宣言を禁止するconst宣言を暫定追加（$開始のbeta版）
 <br>
-・<a href="#span-out-eqns-args">式変数のarguments</a>は非対応（厳密には<a href="#span-out-scope-vars">scope</a>不定）
-<br>
 ・const代替記号の検討保留（<a href="#span-out-call-by-name">name渡し</a>と重複の$記号から変更の可能性あり）
 <br>
-・既定でconst宣言に変更を検討中（option追加の可能性あり）
+・既定でconst宣言に変更を検討保留（<a href="#span-out-option8">use$let</a>参照）
 <br>
 <br>
-const宣言（$開始のbeta版）
+<a href="#span-out-option8">$const</a>宣言（$開始のbeta版）
 <br>
 ・<a href="#span-out-vars">変数</a>
 <br>
@@ -36210,6 +36258,9 @@ data.logo -> "makeLog=true"
 <br>
 <br>
 ・<a href="#span-out-option7">useFunc</a>: <span class="run">Ver.2.221.50</span>以降、実装関数名の大文字・小文字のformatを選択するflag
+<br>
+<br>
+・<a href="#span-out-option8">use$let</a>: <span class="run">Ver.2.249.57</span>以降、再代入と重複宣言を禁止するconst宣言の既定値を選択するflag
 <br>
 <br>
 ・isRightAssociativityBR: <a href="#span-out-associativity">2項演算子のassociativity</a>を<a href="#span-out-option1">RA選択</a>に変更するflag

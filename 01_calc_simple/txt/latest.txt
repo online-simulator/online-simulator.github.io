@@ -1,8 +1,8 @@
 clear
 local storage cleared
 
-constant_declaration_in_each_scope=($a=0,[$a=1,[$a=2,[$a=3,a],a],a],a:$f=<0,[$f=<1,[$f=<2,[$f=<3,f],f],f],f)
-constant_declaration_in_each_scope=(
+constant_declaration_in_each_scope_beta_version_$start=($a=0,[$a=1,[$a=2,[$a=3,a],a],a],a:$f=<0,[$f=<1,[$f=<2,[$f=<3,f],f],f],f)
+constant_declaration_in_each_scope_beta_version_$start=(
 0,0,0,0,3,2,1,0:
 0,0,0,0,3,2,1,0
 )
@@ -3280,8 +3280,8 @@ e^(-i(1pi()2/2i(5-3-1)i/(-4)))/*associativity&precedence test case*/
 0.7071067811865476-0.7071067811865475i
 
 --------------------------------
-drag=false&sw=false&0x=false&useMatrix=true&useStrict=false&checkError=true&isRightAssociativityBR=false&isDIVprior2OMUL=false&useComma=false&useWorker=true&expDigit=-1&useComplex=-1&useFunc=0&useScopeWith=0&matSizeMax=1000&depthMax=300&makeLog=2
+drag=false&sw=false&0x=false&useMatrix=true&useStrict=false&checkError=true&isRightAssociativityBR=false&isDIVprior2OMUL=false&useComma=false&use$let=false&useWorker=true&expDigit=-1&useComplex=-1&useFunc=0&useScopeWith=0&matSizeMax=1000&depthMax=300&makeLog=2
 --------------------------------
 --------------------------------
 
-online-simulator.github.io.6.303.132.15.70 @ Sun Sep 10 2023 06:19:11 GMT+0900 (日本標準時) @ Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/116.0.0.0 Safari/537.36
+online-simulator.github.io.6.303.132.15.70 @ Sun Sep 10 2023 15:46:18 GMT+0900 (日本標準時) @ Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/116.0.0.0 Safari/537.36

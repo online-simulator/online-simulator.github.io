@@ -150,6 +150,7 @@ My_entry.operation.prototype.init = function(){
   self.useStrict = null;
   self.useEmpty = null;
   self.useScopeWith = null;  // Ver.2.213.47
+  self.use$let = null;  // Ver.2.249.57
   self.arr_precedence = [];
   self.options = {};
   self.params = {};
@@ -294,6 +295,7 @@ My_entry.operation.prototype.prepare = function(data){
   self.useStrict = options.useStrict;
   self.useEmpty = (options.checkError === 0 || options.checkError < 0)? false: true;  // Ver.2.84.32
   self.useScopeWith = options.useScopeWith;  // Ver.2.213.47
+  self.use$let = options.use$let;  // Ver.2.249.57
   self.options.isRelative_epsN = options.isRelative_epsN || self.config.params.isRelative_epsN;
   self.options.epsN = options.epsN || self.config.params.epsN;
   self.options.dxT = options.dxT || self.config.params.dxT;
@@ -2812,22 +2814,43 @@ My_entry.operation.prototype.BRe = function(data, i0, tagName, tagObj){
   return self;
 };
 /* Ver.2.249.57 */
-My_entry.operation.prototype.check_const = function(sw, name, scopes, ids, isConstant){
+My_entry.operation.prototype.inherit_const = function(sw, name, scopes, ids, tree, opt_isEscaped){
   var self = this;
   var scope = self.get_scope0_RE_sw(sw, name, scopes, ids);
+  var isEscaped = (typeof opt_isEscaped === "undefined")? self.use$let: opt_isEscaped;
   if(scope){
     var sw_tagName = (sw === "eqns")? "SEe": "SEv";
-    if(isConstant){
-      throw "Invalid "+sw_tagName+"-scope($"+name+" existed)";
-    }
-    else{
-      var tree = scope[name];
-      var tagName = Object.keys(tree)[0];
-      if(tree[tagName].isConstant){
-        throw "Invalid "+sw_tagName+"-scope(const "+name+")";
+    var tree0 = scope[name];
+    var tagName0 = Object.keys(tree0)[0];
+    var isEscaped0 = tree0[tagName0].isEscaped;
+    if(self.use$let){
+      var isConstant = !(isEscaped0);
+      if(isEscaped){
+        if(isConstant){
+          throw "Invalid "+sw_tagName+"-scope(const "+name+")";
+        }
+      }
+      else{
+        if(isConstant){
+          throw "Invalid "+sw_tagName+"-scope("+name+" existed)";
+        }
       }
     }
+    else{
+      if(isEscaped){
+        throw "Invalid "+sw_tagName+"-scope($"+name+" existed)";
+      }
+      else{
+        var isConstant = isEscaped0;
+        if(isConstant){
+          throw "Invalid "+sw_tagName+"-scope(const "+name+")";
+        }
+      }
+    }
+    isEscaped = isEscaped0;
   }
+  var tagName = Object.keys(tree)[0];
+  tree[tagName].isEscaped = isEscaped;
   return self;
 };
 /* Ver.2.31.17 -> */
@@ -2841,9 +2864,9 @@ My_entry.operation.prototype.restore_var = function(name, scopes, ids){
   }
   return _tree;
 };
-My_entry.operation.prototype.store_var = function(name, tree, scopes, ids, isConstant){  // Ver.2.249.57
+My_entry.operation.prototype.store_var = function(name, tree, scopes, ids, isEscaped){  // Ver.2.249.57
   var self = this;
-  self.check_const("vars", name, scopes, ids, isConstant);  // Ver.2.249.57
+  self.inherit_const("vars", name, scopes, ids, tree, isEscaped);  // Ver.2.249.57
   var vars = self.get_scope_SE_sw("vars", scopes, ids);
   vars[name] = self.entry.def.newClone(tree);  // separate from trees
   return self;
@@ -3379,10 +3402,10 @@ My_entry.operation.prototype.SEv = function(data, i0, tagName, tagObj){
       if(name_var){
         tree = trees[ie];
         /* Ver.2.249.57 -> */
-        var isConstant = self.config.isEscaped(name_var);
-        if(isConstant){
+        var isEscaped = self.config.isEscaped(name_var);
+        if(isEscaped){
           name_var = name_var.substring(1);
-          tree.mat.isConstant = true;
+          tree.mat.isEscaped = true;
         }
         /* -> Ver.2.249.57 */
         if(self.get_tag(tree, "mat")){  // only matrix is stored
@@ -3422,7 +3445,7 @@ My_entry.operation.prototype.SEv = function(data, i0, tagName, tagObj){
             }
             /* -> Ver.2.76.29 */
           }
-          self.store_var(name_var, tree, scopes, ids, isConstant);  // Ver.2.31.17  // Ver.2.249.57
+          self.store_var(name_var, tree, scopes, ids, isEscaped);  // Ver.2.31.17  // Ver.2.249.57
           tree = DATA.tag("out", {name: name_var, arr: tree.mat.arr});
         }
         else{
@@ -3507,9 +3530,9 @@ My_entry.operation.prototype.tree_no_name2restore_eqn = function(tree){
   }
   return _tree;
 };
-My_entry.operation.prototype.store_eqn = function(name, tree, scopes, ids, isConstant){  // Ver.2.249.57
+My_entry.operation.prototype.store_eqn = function(name, tree, scopes, ids, isEscaped){  // Ver.2.249.57
   var self = this;
-  self.check_const("eqns", name, scopes, ids, isConstant);  // Ver.2.249.57
+  self.inherit_const("eqns", name, scopes, ids, tree, isEscaped);  // Ver.2.249.57
   var eqns = self.get_scope_SE_sw("eqns", scopes, ids);
   eqns[name] = self.entry.def.newClone(tree);
   return self;
@@ -3920,13 +3943,13 @@ My_entry.operation.prototype.BTe = function(data, i0, tagName, tagObj){  // Ver.
   /* -> Ver.2.213.48 */
   if(name_eqn){
     /* Ver.2.249.57 -> */
-    var isConstant = self.config.isEscaped(name_eqn);
-    if(isConstant){
+    var isEscaped = self.config.isEscaped(name_eqn);
+    if(isEscaped){
       name_eqn = name_eqn.substring(1);
-      isSEe.isConstant = true;
+      isSEe.isEscaped = true;
     }
     /* -> Ver.2.249.57 */
-    self.store_eqn(name_eqn, tree, scopes, ids, isConstant);  // Ver.2.31.17  // Ver.2.249.57
+    self.store_eqn(name_eqn, tree, scopes, ids, isEscaped);  // Ver.2.31.17  // Ver.2.249.57
     tree = DATA.tree_tag("out", "stored_eqn("+name_eqn+")");
   }
   /* -> Ver.2.195.45 */
