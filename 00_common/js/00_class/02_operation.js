@@ -2821,11 +2821,7 @@ My_entry.operation.prototype.inherit_escape = function(sw, name, scopes, ids, tr
   if(scope){
     var get_msgErr = function(i){
       var sw_tagName = (sw === "eqns")? "SEe": "SEv";
-      return [
-        "Invalid "+sw_tagName+"-scope(duplicate "+name+")",
-        "Invalid "+sw_tagName+"-scope("+name+" existed)",
-        "Invalid "+sw_tagName+"-scope(const "+name+")"
-      ][i];
+      return "Invalid "+sw_tagName+"-scope-"+["duplicate", "existed", "const"][i]+"("+name+")";
     };
     var tree0 = scope[name];
     var tagName0 = Object.keys(tree0)[0];
