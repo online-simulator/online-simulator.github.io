@@ -151,6 +151,7 @@ My_entry.operation.prototype.init = function(){
   self.useEmpty = null;
   self.useScopeWith = null;  // Ver.2.213.47
   self.use$let = null;  // Ver.2.249.57
+  self.useMutex = null;  // Ver.2.250.57
   self.arr_precedence = [];
   self.options = {};
   self.params = {};
@@ -296,6 +297,7 @@ My_entry.operation.prototype.prepare = function(data){
   self.useEmpty = (options.checkError === 0 || options.checkError < 0)? false: true;  // Ver.2.84.32
   self.useScopeWith = options.useScopeWith;  // Ver.2.213.47
   self.use$let = options.use$let;  // Ver.2.249.57
+  self.useMutex = options.useMutex;  // Ver.2.250.57
   self.options.isRelative_epsN = options.isRelative_epsN || self.config.params.isRelative_epsN;
   self.options.epsN = options.epsN || self.config.params.epsN;
   self.options.dxT = options.dxT || self.config.params.dxT;
@@ -2858,6 +2860,11 @@ My_entry.operation.prototype.restore_var = function(name, scopes, ids){
 };
 My_entry.operation.prototype.store_var = function(name, tree, scopes, ids, isEscaped){  // Ver.2.249.57
   var self = this;
+  /* Ver.2.250.57 -> */
+  if(self.useMutex && self.get_scope0_RE_sw("eqns", name, scopes, ids)){
+    throw "Invalid SEv-scope-mutex("+name+")";
+  }
+  /* -> Ver.2.250.57 */
   self.inherit_escape("vars", name, scopes, ids, tree, isEscaped);  // Ver.2.249.57
   var vars = self.get_scope_SE_sw("vars", scopes, ids);
   vars[name] = self.entry.def.newClone(tree);  // separate from trees
@@ -3523,6 +3530,11 @@ My_entry.operation.prototype.tree_no_name2restore_eqn = function(tree){
 };
 My_entry.operation.prototype.store_eqn = function(name, tree, scopes, ids, isEscaped){  // Ver.2.249.57
   var self = this;
+  /* Ver.2.250.57 -> */
+  if(self.useMutex && self.get_scope0_RE_sw("vars", name, scopes, ids)){
+    throw "Invalid SEe-scope-mutex("+name+")";
+  }
+  /* -> Ver.2.250.57 */
   self.inherit_escape("eqns", name, scopes, ids, tree, isEscaped);  // Ver.2.249.57
   var eqns = self.get_scope_SE_sw("eqns", scopes, ids);
   eqns[name] = self.entry.def.newClone(tree);

@@ -290,11 +290,13 @@ e^(-i(1pi(){2/2i}(5-{3-1}){i/(-4)}))
 <br>
 　・<a href="#span-out-option8">use$let</a>
 <br>
-　・<a href="#span-out-option3">Multi-thread実行</a>
+　・<a href="#span-out-option9">useMutex</a>
 <br>
 　・<a href="#span-out-option7">useFunc</a>
 <br>
 　・<a href="#span-out-option6">useScopeWith</a>
+<br>
+　・<a href="#span-out-option3">Multi-thread実行</a>
 <br>
 ・<a href="#span-out-type-ope">演算子の大分類</a>
 <br>
@@ -8839,11 +8841,13 @@ debuggerについて記述する
 <br>
 ・<a href="#span-out-option8">use$let</a>　<span class="run">Ver.2.249.57</span>以降、追加
 <br>
-・<a href="#span-out-option3">Multi-thread実行</a>
+・<a href="#span-out-option9">useMutex</a>　<span class="run">Ver.2.250.57</span>以降、追加
 <br>
 ・<a href="#span-out-option7">useFunc</a>　<span class="run">Ver.2.221.50</span>以降、追加
 <br>
 ・<a href="#span-out-option6">useScopeWith</a>　<span class="run">Ver.2.213.47</span>以降、追加
+<br>
+・<a href="#span-out-option3">Multi-thread実行</a>
     </td>
   </tr>
   <tr>
@@ -8886,7 +8890,7 @@ associativity
 ・右から順に結合する場合、右結合（以降、Right-AssociativityをRAと省略する）
 <br>
 <br>
-LA既定
+unchecked既定：左結合
 <br>
 +3-5+7-9 || ((((0+3)-5)+7)-9) -> -4
 <br>
@@ -8897,7 +8901,7 @@ LA既定
 (1,2){3,4}(5,6) || (((1,2){3,4})(5,6)) || 11(5,6) -> (55,66)
 <br>
 <br>
-RA選択
+checked選択：右結合
 <br>
 +3-5+7-9 || (0+(3-(5+(7-9)))) -> 0
 <br>
@@ -8934,12 +8938,12 @@ RA選択
 <a href="#span-out-BRmo">記号省略乗算</a>と除算の<a href="#span-out-prec-ope">演算子のprecedence</a>を切替え可
 <br>
 <br>
-除算より記号省略乗算優先既定
+unchecked既定：除算より記号省略乗算優先
 <br>
 1/2(2) || 1/(2(2)) -> 0.25
 <br>
 <br>
-記号省略乗算より除算優先選択
+checked選択：記号省略乗算より除算優先
 <br>
 1/2(2) || (1/2)(2) -> 1
 <br>
@@ -8970,14 +8974,14 @@ comma
 comma演算子は行vectorの<a href="#span-out-FNm-last">最終要素</a>を取り出す
 <br>
 <br>
-comma演算子未使用既定
+unchecked既定：comma演算子未使用
 <br>
 (1,2:3,4)i -> (i,2i:3i,4i)
 <br>
 <span class="condition">(1,2:3,4)(i) || (1,2:3,4)*i -> (i,2i:3i,4i)</span>
 <br>
 <br>
-comma演算子使用選択
+checked選択：comma演算子使用
 <br>
 (1,2:3,4)i || ((1,2)i:(3,4)i) -> (2i:4i)
 <br>
@@ -9005,14 +9009,14 @@ use$let
 <span class="run">Ver.2.249.57</span>以降、再代入と重複宣言を禁止する<a href="#span-out-const-vars">const宣言</a>の既定値を選択可
 <br>
 <br>
-$const既定
+unchecked既定：$const
 <br>
 $なし：let宣言
 <br>
 $あり：const宣言
 <br>
 <br>
-$let選択
+checked選択：$let
 <br>
 $なし：const宣言
 <br>
@@ -9038,32 +9042,43 @@ $あり：let宣言
 目次
 </a>
 <br>
-Multi-thread
-<br>
-実行
+useMutex
     </th>
     <td>
-<span id="span-out-option3"></span>
-外部optionのMulti-thread実行と付随する留意事項について記述する
+<span id="span-out-option9"></span>
+外部optionのuseMutexと付随する留意事項について記述する
 <br>
 <br>
-Multi-thread実行を選択可
-<br>
-・Single-thread実行の場合、演算を中断不可
-<br>
-・Multi-thread実行の場合、演算を中断可
+<span class="run">Ver.2.250.57</span>以降、mutex対象の宣言禁止を選択可
 <br>
 <br>
-<a href="#span-out-UI-graphing">Graphing Calculator</a>の場合、Single-thread実行の演算||処理を列挙する
-<br>
-・<a href="#span-out-UI-graphing">t0/t1</a>の演算
-<br>
-・<a href="#span-out-UI-graphing-post">post処理</a>を含むcanvas描画処理
+mutex対象：<a href="#span-out-vars">変数</a>・<a href="#span-out-eqns">式変数</a>の同一<a href="#span-out-vars-symbol">変数名symbol</a>の<a href="#span-out-terms">scope変数</a>を同時宣言
 <br>
 <br>
-留意事項を列挙する
+unchecked既定：mutex対象の宣言を禁止しない
 <br>
-・Single-thread実行の場合、browser既定のtimeoutまで演算||処理を中断不可
+clear; f=&lt;2,f=1,f,f=&gt; -> (0,0,1,2)
+<br>
+clear; f=1,f=&lt;2,f,f=&gt; -> (0,0,1,2)
+<br>
+clear; f=1,[f=&lt;2,f,f=&gt;] -> (0,0,1,2)
+<br>
+clear; [f=1,f=&lt;2,f,f=&gt;] -> (0,0,1,2)
+<br>
+clear; [f=1,[f=&lt;2,f,f=&gt;]] -> (0,0,1,2)
+<br>
+<br>
+checked選択：mutex対象の宣言を禁止する
+<br>
+clear; f=&lt;2,f=1,f,f=&gt; -> [MyErr]Invalid SEv-scope-mutex(f)
+<br>
+clear; f=1,f=&lt;2,f,f=&gt; -> [MyErr]Invalid SEe-scope-mutex(f)
+<br>
+clear; f=1,[f=&lt;2,f,f=&gt;] -> (0,0,1,2)
+<br>
+clear; [f=1,f=&lt;2,f,f=&gt;] -> [MyErr]Invalid SEe-scope-mutex(f)
+<br>
+clear; [f=1,[f=&lt;2,f,f=&gt;]] -> (0,0,1,2)
     </td>
   </tr>
   <tr>
@@ -9159,6 +9174,40 @@ clear; x=1,[(x)=&lt;=&lt;x/*not-resolved*/](3)=&gt;f,f=&gt;,x -> (0,0,3,1)
 　・<a href="#span-out-scope-inherited-call">式変数のscope継承call</a>の式読出し記号==&gt;を明示
 <br>
 ・<a href="#span-out-eqns">式変数</a>の再利用の場合、保存時の<a href="#span-in-tree">flag</a>を継承
+    </td>
+  </tr>
+  <tr>
+    <th>
+<a href="#span-index">
+目次
+</a>
+<br>
+Multi-thread
+<br>
+実行
+    </th>
+    <td>
+<span id="span-out-option3"></span>
+外部optionのMulti-thread実行と付随する留意事項について記述する
+<br>
+<br>
+Multi-thread実行を選択可
+<br>
+<br>
+checked既定：Multi-thread実行（演算を中断可）
+<br>
+unchecked選択：Single-thread実行（演算を中断不可）
+<br>
+<br>
+留意事項を列挙する
+<br>
+・Single-thread実行の場合、browser既定のtimeoutまで演算||処理を中断不可
+<br>
+・<a href="#span-out-UI-graphing">Graphing Calculator</a>の場合、Single-thread実行の演算||処理を列挙する
+<br>
+　・<a href="#span-out-UI-graphing">t0/t1</a>の演算
+<br>
+　・<a href="#span-out-UI-graphing-post">post処理</a>を含むcanvas描画処理
     </td>
   </tr>
   <tr>
@@ -11749,6 +11798,13 @@ useFunc=0（上記以外）：大文字・小文字を区別しない
 use$let=false||0：$const
 <br>
 use$let=true（上記以外）：$let
+<br>
+<br>
+<span class="run">Ver.2.250.57</span>以降、<a href="#span-out-option9">useMutex</a>を追加
+<br>
+useMutex=false||0：mutex対象の宣言を禁止しない
+<br>
+useMutex=true（上記以外）：mutex対象の宣言を禁止する
 <br>
 <br>
 <a href="#span-out-prec-ope">演算子のprecedence</a>を変更する場合
@@ -36364,6 +36420,9 @@ data.logo -> "makeLog=true"
 <br>
 <br>
 ・<a href="#span-out-option8">use$let</a>: <span class="run">Ver.2.249.57</span>以降、再代入と重複宣言を禁止するconst宣言の既定値を選択するflag
+<br>
+<br>
+・<a href="#span-out-option9">useMutex</a>: <span class="run">Ver.2.250.57</span>以降、<a href="#span-out-vars">変数</a>・<a href="#span-out-eqns">式変数</a>の同一<a href="#span-out-vars-symbol">変数名symbol</a>の宣言禁止を選択するflag
 <br>
 <br>
 ・isRightAssociativityBR: <a href="#span-out-associativity">2項演算子のassociativity</a>を<a href="#span-out-option1">RA選択</a>に変更するflag
