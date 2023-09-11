@@ -2814,7 +2814,7 @@ My_entry.operation.prototype.BRe = function(data, i0, tagName, tagObj){
   return self;
 };
 /* Ver.2.249.57 */
-My_entry.operation.prototype.inherit_const = function(sw, name, scopes, ids, tree, opt_isEscaped){
+My_entry.operation.prototype.inherit_escape = function(sw, name, scopes, ids, tree, opt_isEscaped){
   var self = this;
   var isEscaped = (typeof opt_isEscaped === "undefined")? self.use$let: opt_isEscaped;
   var scope = self.get_scope0_RE_sw(sw, name, scopes, ids);
@@ -2862,7 +2862,7 @@ My_entry.operation.prototype.restore_var = function(name, scopes, ids){
 };
 My_entry.operation.prototype.store_var = function(name, tree, scopes, ids, isEscaped){  // Ver.2.249.57
   var self = this;
-  self.inherit_const("vars", name, scopes, ids, tree, isEscaped);  // Ver.2.249.57
+  self.inherit_escape("vars", name, scopes, ids, tree, isEscaped);  // Ver.2.249.57
   var vars = self.get_scope_SE_sw("vars", scopes, ids);
   vars[name] = self.entry.def.newClone(tree);  // separate from trees
   return self;
@@ -3401,7 +3401,6 @@ My_entry.operation.prototype.SEv = function(data, i0, tagName, tagObj){
         var isEscaped = self.config.isEscaped(name_var);
         if(isEscaped){
           name_var = name_var.substring(1);
-          tree.mat.isEscaped = true;
         }
         /* -> Ver.2.249.57 */
         if(self.get_tag(tree, "mat")){  // only matrix is stored
@@ -3528,7 +3527,7 @@ My_entry.operation.prototype.tree_no_name2restore_eqn = function(tree){
 };
 My_entry.operation.prototype.store_eqn = function(name, tree, scopes, ids, isEscaped){  // Ver.2.249.57
   var self = this;
-  self.inherit_const("eqns", name, scopes, ids, tree, isEscaped);  // Ver.2.249.57
+  self.inherit_escape("eqns", name, scopes, ids, tree, isEscaped);  // Ver.2.249.57
   var eqns = self.get_scope_SE_sw("eqns", scopes, ids);
   eqns[name] = self.entry.def.newClone(tree);
   return self;
@@ -3942,7 +3941,6 @@ My_entry.operation.prototype.BTe = function(data, i0, tagName, tagObj){  // Ver.
     var isEscaped = self.config.isEscaped(name_eqn);
     if(isEscaped){
       name_eqn = name_eqn.substring(1);
-      isSEe.isEscaped = true;
     }
     /* -> Ver.2.249.57 */
     self.store_eqn(name_eqn, tree, scopes, ids, isEscaped);  // Ver.2.31.17  // Ver.2.249.57

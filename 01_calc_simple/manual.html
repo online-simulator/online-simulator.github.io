@@ -9023,9 +9023,13 @@ $あり：let宣言
 <br>
 ・明示的な代入のみ対応
 <br>
-　・<a href="#span-out-eqns-args">式変数のarguments</a>は非対応でlet宣言（厳密には<a href="#span-out-scope-vars">scope</a>不定）
+・非対応の機能（後方互換のlet宣言）を列挙する
 <br>
-　・実装関数は非対応でlet宣言（現状、dummy変数と<a href="#span-out-terms">scope変数</a>の宣言に干渉あり）
+　・<a href="#span-out-matching">行列要素pattern matching</a>
+<br>
+　・<a href="#span-out-eqns-args">式変数のarguments</a>（厳密には<a href="#span-out-scope-vars">scope</a>不定）
+<br>
+　・<a href="#span-out-FNh">高階関数</a>||<a href="#span-out-FNmh">高階行列関数</a>のdummy変数（<a href="#span-out-terms">scope変数</a>の宣言と干渉あり仕様）
     </td>
   </tr>
   <tr>
@@ -12334,6 +12338,14 @@ clear; $a=1; $a=2; a -> [MyErr]Invalid SEv-scope(duplicate a)
 <br>
 clear; ($a=0,[$a=1,[$a=2,[$a=3,a],a],a],a) -> (0,0,0,0,3,2,1,0)
 <br>
+・<a href="#span-out-eqns-args">式変数のarguments</a>はlet宣言
+<br>
+clear; $n=1; f(n)=&lt;(n,n); f(1),f(2) -> [MyErr]Invalid SEv-scope(const n)
+<br>
+・<a href="#span-out-scope-vars-has1BT">単独scope</a>
+<br>
+clear; $n=1; f(n)=&lt;[n,n]; f(1),f(2) -> (1,1,2,2)
+<br>
 ・dummy変数はlet宣言
 <br>
 clear; _s((n)=&lt;n+1,1,3) -> 9
@@ -12342,9 +12354,11 @@ clear; _s((n)=&lt;n+1,1,3); $n=1; n -> 1
 <br>
 clear; n=1; _s((n)=&lt;n+1,n,3) -> 9
 <br>
-・現状、宣言の干渉あり
+・<a href="#span-out-terms">scope変数</a>の宣言と干渉あり仕様
 <br>
 clear; $n=1; _s((n)=&lt;n+1,n,3) -> [MyErr]Invalid SEv-scope(const n)
+<br>
+clear; _s((n)=&lt;n+1,1,3); $n=1; n -> 1
 <br>
 ・<a href="#span-out-eqns">式変数</a>
 <br>
@@ -12387,6 +12401,14 @@ clear; ($a)=1; a=2; a -> 2
 <br>
 clear; (a=0,[a=1,[a=2,[a=3,a],a],a],a) -> (0,0,0,0,3,2,1,0)
 <br>
+・<a href="#span-out-eqns-args">式変数のarguments</a>はlet宣言
+<br>
+clear; n=1; f(n)=&lt;(n,n); f(1),f(2) -> [MyErr]Invalid SEv-scope(const n)
+<br>
+・<a href="#span-out-scope-vars-has1BT">単独scope</a>
+<br>
+clear; n=1; f(n)=&lt;[n,n]; f(1),f(2) -> (1,1,2,2)
+<br>
 ・dummy変数はlet宣言
 <br>
 clear; _s((n)=&lt;n+1,1,3) -> 9
@@ -12395,9 +12417,11 @@ clear; _s((n)=&lt;n+1,1,3); n=1; n -> 1
 <br>
 clear; $n=1; _s((n)=&lt;n+1,n,3) -> 9
 <br>
-・現状、宣言の干渉あり
+・<a href="#span-out-terms">scope変数</a>の宣言と干渉あり仕様
 <br>
 clear; n=1; _s((n)=&lt;n+1,n,3) -> [MyErr]Invalid SEv-scope(const n)
+<br>
+clear; _s((n)=&lt;n+1,1,3); n=1; n -> 1
 <br>
 ・<a href="#span-out-eqns">式変数</a>
 <br>
