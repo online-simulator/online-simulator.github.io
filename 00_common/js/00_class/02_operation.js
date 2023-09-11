@@ -2816,38 +2816,31 @@ My_entry.operation.prototype.BRe = function(data, i0, tagName, tagObj){
 /* Ver.2.249.57 */
 My_entry.operation.prototype.inherit_const = function(sw, name, scopes, ids, tree, opt_isEscaped){
   var self = this;
-  var scope = self.get_scope0_RE_sw(sw, name, scopes, ids);
   var isEscaped = (typeof opt_isEscaped === "undefined")? self.use$let: opt_isEscaped;
+  var scope = self.get_scope0_RE_sw(sw, name, scopes, ids);
   if(scope){
-    var sw_tagName = (sw === "eqns")? "SEe": "SEv";
+    var get_msgErr = function(i){
+      var sw_tagName = (sw === "eqns")? "SEe": "SEv";
+      return [
+        "Invalid "+sw_tagName+"-scope(duplicate "+name+")",
+        "Invalid "+sw_tagName+"-scope("+name+" existed)",
+        "Invalid "+sw_tagName+"-scope(const "+name+")"
+      ][i];
+    };
     var tree0 = scope[name];
     var tagName0 = Object.keys(tree0)[0];
     var isEscaped0 = tree0[tagName0].isEscaped;
-    if(isEscaped0 && opt_isEscaped){
-      throw "Invalid "+sw_tagName+"-scope(duplicate "+name+")";
-    }
-    if(self.use$let){
-      var isConstant = !(isEscaped0);
-      if(isEscaped){
-        if(isConstant){
-          throw "Invalid "+sw_tagName+"-scope(const "+name+")";
-        }
-      }
-      else{
-        if(isConstant){
-          throw "Invalid "+sw_tagName+"-scope("+name+" existed)";
-        }
-      }
+    if(opt_isEscaped && isEscaped0){
+      throw get_msgErr(0);
     }
     else{
-      if(isEscaped){
-        throw "Invalid "+sw_tagName+"-scope("+name+" existed)";
+      var isConstant0 = (self.use$let)? !(isEscaped0): isEscaped0;
+      var isConstant = (self.use$let)? !(isEscaped): isEscaped;
+      if(isConstant0){
+        throw get_msgErr((isConstant)? 1: 2);
       }
-      else{
-        var isConstant = isEscaped0;
-        if(isConstant){
-          throw "Invalid "+sw_tagName+"-scope(const "+name+")";
-        }
+      else if(!(self.use$let) && isConstant){
+        throw get_msgErr(1);
       }
     }
     isEscaped = isEscaped0;
