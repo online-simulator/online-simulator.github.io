@@ -1644,42 +1644,49 @@ My_entry.operation.prototype.get_args = function(tree){
   }
   return _args;
 };
+/* Ver.2.251.57 -> */
+My_entry.operation.prototype.tree2tree_SEe = function(tree){
+  var self = this;
+  var BT = self.config.BT;
+  var arr = self.get_tagVal(tree, "mat", "arr");
+  return ((self.has1elem_tag(arr, BT.SEe))? arr[0][0]: null);
+};
 My_entry.operation.prototype.tree2tree_eqn = function(data, tree){
   var self = this;
   var scopes = data.scopes;
   var ids = data.ids;
   var BT = self.config.BT;
   var _tree_eqn = tree;
-  var args_eqn = self.get_args(tree);
-  if(args_eqn){  // (args)=<tree_eqn
-    var isSEe = tree[BT.SEe];
-    if(isSEe){
-      _tree_eqn = self.tree_SEe2REe(tree);
-    }
-  }
-  else{  // =<f || =<f(x)=> -> tree_eqn
-    var arr = self.get_tagVal(tree, "mat", "arr");
-    if(arr){
-      var has1elem_tag = self.has1elem_tag(arr, BT.SEe);
-      if(has1elem_tag){
-        _tree_eqn = self.tree_SEe2REe(arr[0][0]);
-        var isREe = _tree_eqn[BT.REe];
-        var args_eqn = isREe.arg;  // Ver.2.247.57
-        var symbol = !(args_eqn) && self.get_symbol(isREe);  // Ver.2.247.57
-        if(symbol){
-          var tree_symbol = self.restore_eqn(symbol, scopes, ids);
-          if(tree_symbol){
-            _tree_eqn = tree_symbol;
-          }
+  if(tree.mat){  // =<f || =<f(x)=> -> tree_eqn
+    var tree_SEe = self.tree2tree_SEe(tree);
+    if(tree_SEe){
+      _tree_eqn = self.tree_SEe2REe(tree_SEe);
+      var isSEe = tree_SEe[BT.SEe];
+      var args_eqn = isSEe.arg;  // Ver.2.247.57
+      var symbol = !(args_eqn) && self.get_symbol(isSEe);  // Ver.2.247.57
+      if(symbol){
+        var tree_symbol = self.restore_eqn(symbol, scopes, ids);
+        if(tree_symbol){
+          _tree_eqn = tree_symbol;
         }
       }
     }
-    else{
+  }
+  else{  // nest NG: =<(x)=<f(x)
+    var args_eqn = self.get_args(tree);
+    if(args_eqn){  // (args)=<tree_eqn
+      var isSEe = tree[BT.SEe];
+      if(isSEe){
+        _tree_eqn = self.tree_SEe2REe(tree);
+      }
+    }
+    else{  // ()=<tree_eqn
       _tree_eqn = self.tree2tree_eqn4no_args(data, tree);
     }
   }
   return _tree_eqn;
 };
+/* -> Ver.2.251.57 */
 My_entry.operation.prototype.FNhX = function(data, rightArr, tagObj, len_j0, callback_FNh, isRX){  // Ver.2.242.56
   var self = this;
   var scopes = data.scopes;
@@ -2320,8 +2327,7 @@ My_entry.operation.prototype.URh = function(data, i0, tagName, tagObj, dot_prop)
   var rightTree = trees[ie];
   var leftArr = self.get_tagVal(leftTree, "mat", "arr");
   var tree_eqn = self.tree2tree_eqn(data, rightTree);  // Ver.2.229.56  // Ver.2.231.56
-  var isREe = (tree_eqn)? tree_eqn[BT.REe]: null;
-  var args_eqn = (isREe)? isREe.arg: null;
+  var args_eqn = self.get_args(tree_eqn);  // Ver.2.251.57
   if(leftArr && args_eqn){
     /* Ver.2.226.55 -> */
     var id0 = (ids || self.config.ids0)[0];
