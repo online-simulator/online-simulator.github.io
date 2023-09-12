@@ -1672,7 +1672,7 @@ My_entry.operation.prototype.tree2tree_eqn = function(data, tree){
       }
     }
   }
-  else{  // nest NG: =<(x)=<f(x)
+  else{  // nesting NG: =<(x)=<f(x)
     var args_eqn = self.get_args(tree);
     if(args_eqn){  // (args)=<tree_eqn
       var isSEe = tree[BT.SEe];
@@ -1685,6 +1685,36 @@ My_entry.operation.prototype.tree2tree_eqn = function(data, tree){
     }
   }
   return _tree_eqn;
+};
+My_entry.operation.prototype.tree2tree_eqn_AtREe = function(data, tree, name_eqn, name_var, isREee){  // name_eqn=>name_var, ==>
+  var self = this;
+  var scopes = data.scopes;
+  var ids = data.ids;
+  var BT = self.config.BT;
+  var _tree = tree;
+  var isREe = tree[BT.REe];  // Ver.2.200.46
+  var ids_REe = isREe.ids;
+  /* Ver.2.204.46 -> */
+  var tree_var = null;
+  var symbol = self.get_symbol(isREe);  // Ver.2.229.56
+  if(symbol){  // Ver.2.229.56
+    tree_var = self.restore_var(symbol, scopes, ids_REe);  // Ver.2.229.56
+    if(name_var){
+      /* [f(x)=<x,f=>f,=<f]=>f,f(3)=> */
+      tree_var = tree_var || self.restore_eqn(symbol, scopes, ids_REe, isREee);  // Ver.2.229.56
+    }
+    else{
+      tree_var = tree_var || self.restore_eqn(name_eqn, scopes, ids, isREee);
+    }
+  }
+  _tree = (tree_var)? tree_var: self.tree2tree_eqn(data, self.tree_eqn2tree_AtREe(data, tree));  // Ver.2.20.8  // Ver.2.32.17  // Ver.2.202.46  // Ver.2.211.46  // Ver.2.214.49  // Ver.2.229.56  // Ver.2.231.56
+  /* Ver.2.219.50 -> */
+  if(_tree[BT.REe] && ids_REe && isREe.isSEee){
+    self.inherit_ids_sw(BT.REe, _tree, ids_REe);
+  }
+  /* -> Ver.2.219.50 */
+  /* -> Ver.2.204.46 */
+  return _tree;
 };
 /* -> Ver.2.251.57 */
 My_entry.operation.prototype.FNhX = function(data, rightArr, tagObj, len_j0, callback_FNh, isRX){  // Ver.2.242.56
@@ -3809,36 +3839,7 @@ My_entry.operation.prototype.REe = function(data, i0, tagName, tagObj){
     }
     /* -> Ver.2.174.42 */
     /* -> Ver.2.247.57 */
-    /* Ver.2.204.46 -> */
-    var tree_var = null;
-    var symbol = self.get_symbol(isREe);  // Ver.2.229.56
-    if(symbol){  // Ver.2.229.56
-      var ids_REe = isREe.ids;
-      tree_var = self.restore_var(symbol, scopes, ids_REe);  // Ver.2.229.56
-      if(name_var){
-        /* [f(x)=<x,f=>f,=<f]=>f,f(3)=> */
-        tree_var = tree_var || self.restore_eqn(symbol, scopes, ids_REe, isREee);  // Ver.2.229.56
-      }
-      else{
-        tree_var = tree_var || self.restore_eqn(name_eqn, scopes, ids, isREee);
-      }
-    }
-    if(tree_var){
-      _tree = tree_var;
-    }
-    else{
-      _tree = (isREe)? self.tree_eqn2tree_AtREe(data, tree_eqn): tree_eqn;  // Ver.2.20.8  // Ver.2.32.17  // Ver.2.202.46
-      _tree = self.tree2tree_eqn(data, _tree);  // Ver.2.211.46  // Ver.2.214.49  // Ver.2.229.56  // Ver.2.231.56
-    }
-    /* Ver.2.219.50 -> */
-    if(_tree[BT.REe]){
-      var ids_REe = isREe.ids;
-      if(ids_REe && isREe.isSEee){
-        self.inherit_ids_sw(BT.REe, _tree, ids_REe);
-      }
-    }
-    /* -> Ver.2.219.50 */
-    /* -> Ver.2.204.46 */
+    _tree = self.tree2tree_eqn_AtREe(data, tree_eqn, name_eqn, name_var, isREee);  // Ver.2.211.46  // Ver.2.214.49  // Ver.2.229.56  // Ver.2.231.56  // Ver.2.251.57
     if(hasArgs){
       for(var name in buffer_vars){
         if(name){  // check undefined

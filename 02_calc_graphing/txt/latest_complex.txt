@@ -1268,7 +1268,7 @@ clear
 local storage cleared
 
 [Pinv_y=(-0.999999427,-0.999936657,-0.997300203,-0.954499736,-0.682689492,0,0.682689492,0.954499736,0.997300203,0.999936657,0.999999427:-5,-4,-3,-2,-1,0,1,2,3,4,5),N=1,arr=[],_rn(=<arr=(arr:rand_table(=<Pinv_y)=>),,N),=<arr]=>
--0.6711585425326765
+-0.06954926017461971
 
 rand_table(csv)=<last[table=sort0(csv),ymin=min(table)[0],ymax=max(table)[0],y=ymin+(ymax-ymin)*rand,x=interp(y:table),x]
 stored_eqn(rand_table)
@@ -1749,4 +1749,4 @@ center=true&drag=false&test-case=false&legend=true&axis-t=false&axis-x=true&log-
 --------------------------------
 --------------------------------
 
-online-simulator.github.io.6.305.132.15.70 @ Mon Sep 11 2023 23:14:43 GMT+0900 (日本標準時) @ Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/116.0.0.0 Safari/537.36
+online-simulator.github.io.6.305.132.15.70 @ Tue Sep 12 2023 12:30:29 GMT+0900 (日本標準時) @ Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/116.0.0.0 Safari/537.36
