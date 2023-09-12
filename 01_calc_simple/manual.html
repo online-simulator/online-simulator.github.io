@@ -278,6 +278,10 @@ e^(-i(1pi(){2/2i}(5-{3-1}){i/(-4)}))
 <br>
 ・<a href="#span-out-debug">debugger</a>
 <br>
+・<a href="#span-out-config-strict">strict-mode</a>
+<br>
+・<a href="#span-out-config">内部option</a>
+<br>
 ・<a href="#span-out-options">外部option</a>
 <br>
 　・<a href="#span-out-option5">O(error)</a>
@@ -347,10 +351,6 @@ e^(-i(1pi(){2/2i}(5-{3-1}){i/(-4)}))
 ・<a href="#span-out-error">誤差の扱い</a>
 <br>
 　・<a href="#span-out-error-numerical">数値解の数値誤差</a>
-<br>
-・<a href="#span-out-config">裏設定</a>
-<br>
-　・<a href="#span-out-config-strict">strict-mode</a>
 <br>
 ・<a href="#span-out-flow">演算flow</a>
 <br>
@@ -591,6 +591,8 @@ e^(-i(1pi(){2/2i}(5-{3-1}){i/(-4)}))
 　　　・<a href="#span-out-eqns-re-call">再帰call</a>
 <br>
 　　　・<a href="#span-out-eqns-no-name">無名call</a>
+<br>
+　　　・<a href="#span-out-eqns-omitted-args">引数省略call</a>
 <br>
 　・<a href="#span-out-FNh">高階関数</a>
 <br>
@@ -1646,7 +1648,7 @@ title/発行元(発行年)を列挙する
 <br>
 　<a href="#span-out-BT-square">角括弧[]</a>
 <br>
-　<a href="#span-out-config">裏設定</a>
+　<a href="#span-out-config">内部option</a>
 <br>
 ・<span class="run">Ver.2.32.17</span>以降、<a href="#span-out-eqns-args">式変数のarguments</a>を追加
 <br>
@@ -4993,7 +4995,7 @@ average_squareの<a href="#span-out-UI-graphing-filter">filter配列</a>を列�
 <br>
 ]
 <br>
-・N=33（以降、<a href="#span-out-config">裏設定</a>で<a href="#span-in-options">matSizeMax</a>の上限値を解放）
+・N=33（以降、<a href="#span-out-config">内部option</a>で<a href="#span-in-options">matSizeMax</a>の上限値を解放）
 <br>
 [
 <br>
@@ -5916,7 +5918,7 @@ average_circleの<a href="#span-out-UI-graphing-filter">filter配列</a>を列�
 <br>
 ]
 <br>
-・N=33（以降、<a href="#span-out-config">裏設定</a>で<a href="#span-in-options">matSizeMax</a>の上限値を解放）
+・N=33（以降、<a href="#span-out-config">内部option</a>で<a href="#span-in-options">matSizeMax</a>の上限値を解放）
 <br>
 [
 <br>
@@ -8833,6 +8835,262 @@ debuggerについて記述する
 目次
 </a>
 <br>
+strict-mode
+    </th>
+    <td>
+<span id="span-out-config-strict"></span>
+strict-modeについて記述する
+<br>
+<br>
+strict-modeは演算内容の入力規則に以下3点の制約条件を追加する
+<br>
+・<span class="condition">乗算記号*省略不可</span>
+<br>
+　omitted multiplication sign(*) disabled
+<br>
+・<span class="clear"><a href="#span-out-eqns-call">式読出し</a>記号=&gt;省略不可</span>
+<br>
+　omitted equation's call sign(=&gt;) disabled
+<br>
+・<span class="run">Ver.2.174.42</span>以降、<span class="selection"><a href="#span-out-eqns-args">式変数のarguments</a>省略不可</span>
+<br>
+　omitted equation's arguments disabled
+<br>
+<del>・<a href="#span-out-call-by-equation">式渡し</a>の括弧{}省略不可
+<br>
+　omitted Call-by-Equation's bracket({}) disabled</del><span class="run">Ver.2.28.15</span>以降、text modified
+<br>
+<br>
+曖昧さを回避することで演算内容の入力上、引いては演算上の間違いを低減する
+<br>
+・<a href="#span-out-eqns-args">式変数のarguments</a>を使用して一例を示す
+<br>
+・Non-strict-modeの場合
+<br>
+clear; times(a,b)=&lt;a(b); times(-2) -> [MyErr]Invalid args.length=2(times)
+<br>
+clear; times(a,b)=&lt;a(b); times(-2)<span class="clear">=&gt;</span> -> [MyErr]Invalid args.length=2(times)
+<br>
+clear; times(a,b)=&lt;a(b); times(-2,3) -> -6
+<br>
+clear; times(a,b)=&lt;a(b); times(-2,3)<span class="clear">=&gt;</span> -> -6
+<br>
+clear; a(b)=&lt;-999; times(a,b)=&lt;a(b); times(-2,3)<span class="clear">=&gt;</span> -> -6
+<br>
+clear; a(b)=&lt;-999; times(a,b)=&lt;a(b)<span class="clear">=&gt;</span>; times(-2,3)<span class="clear">=&gt;</span> -> -999
+<br>
+clear; times(a,b)=&lt;a<span class="condition">*</span>b; times(-2,3) -> -6
+<br>
+clear; times(a,b)=&lt;a<span class="condition">*</span>b; times(-2,3)<span class="clear">=&gt;</span> -> -6
+<br>
+clear; times(a,b)=&lt;a<span class="condition">*</span>b; times=2; times(-2,3)<span class="clear">=&gt;</span> -> -6
+<br>
+clear; times(a,b)=&lt;a<span class="condition">*</span>b; times=2; times(-2,3) -> (-4,6)
+<br>
+・<span class="clear">Ver.2.203.46</span>以降、<a href="#span-out-eqns-call2var">変数への式読出し</a>の仕様を廃止して<a href="#span-out-eqns-call2eqn">式変数への式読出し</a>を追加
+<br>
+clear; times(a,b)=&lt;a<span class="condition">*</span>b; times=2; times(-2,3)<span class="clear">=&gt;</span>times; times -> <del>-6</del>2
+<br>
+clear; times(a,b)=&lt;a<span class="condition">*</span>b; times=2; times(-2,3)<span class="clear">=&gt;</span>(times) -> -12
+<br>
+clear; times(a,b)=&lt;a<span class="condition">*</span>b; <span class="selection">a=2; b=3; times</span> -> [MyErr]Invalid null=&gt;
+<br>
+clear; times(a,b)=&lt;a<span class="condition">*</span>b; <span class="selection">a=2; b=3; times<span class="clear">=&gt;</span></span> -> 6
+<br>
+・<a href="#span-out-eqns-omitted-args">引数省略call</a>
+<br>
+clear; a=2; f<span class="selection">(x)</span>=&lt;a; f<span class="clear">=&gt;</span> -> 2
+<br>
+・<span class="run">Ver.2.195.45</span>以降、<a href="#span-out-eqns-no-name">無名call</a>
+<br>
+clear; a=2; [<span class="selection">(x)</span>=&lt;a]()<span class="clear">=&gt;</span> -> 2
+<br>
+<br>
+・strict-modeの場合
+<br>
+clear; times(a,b)=&lt;a(b); times(-2) -> [MyErr]Invalid ans isFound
+<br>
+clear; times(a,b)=&lt;a(b); times(-2)<span class="clear">=&gt;</span> -> [MyErr]Invalid args.length=2(times)
+<br>
+clear; times(a,b)=&lt;a(b); times(-2,3) -> [MyErr]Invalid ans isFound
+<br>
+clear; times(a,b)=&lt;a(b); times(-2,3)<span class="clear">=&gt;</span> -> [MyErr]Invalid operation
+<br>
+clear; a(b)=&lt;-999; times(a,b)=&lt;a(b); times(-2,3)<span class="clear">=&gt;</span> -> [MyErr]Invalid operation
+<br>
+clear; a(b)=&lt;-999; times(a,b)=&lt;a(b)<span class="clear">=&gt;</span>; times(-2,3)<span class="clear">=&gt;</span> -> -999
+<br>
+clear; times(a,b)=&lt;a<span class="condition">*</span>b; times(-2,3) -> [MyErr]Invalid ans isFound
+<br>
+clear; times(a,b)=&lt;a<span class="condition">*</span>b; times(-2,3)<span class="clear">=&gt;</span> -> -6
+<br>
+clear; times(a,b)=&lt;a<span class="condition">*</span>b; times=2; times(-2,3)<span class="clear">=&gt;</span> -> -6
+<br>
+clear; times(a,b)=&lt;a<span class="condition">*</span>b; times=2; times(-2,3) -> [MyErr]Invalid ans isFound
+<br>
+・<span class="clear">Ver.2.203.46</span>以降、<a href="#span-out-eqns-call2var">変数への式読出し</a>の仕様を廃止して<a href="#span-out-eqns-call2eqn">式変数への式読出し</a>を追加
+<br>
+clear; times(a,b)=&lt;a<span class="condition">*</span>b; times=2; times(-2,3)<span class="clear">=&gt;</span>times; times -> <del>-6</del>2
+<br>
+clear; times(a,b)=&lt;a<span class="condition">*</span>b; times=2; times(-2,3)<span class="clear">=&gt;</span>(times) -> [MyErr]Invalid ans isFound
+<br>
+clear; times(a,b)=&lt;a<span class="condition">*</span>b; <span class="selection">a=2; b=3; times</span> -> [MyErr]Invalid REv(times)
+<br>
+clear; times(a,b)=&lt;a<span class="condition">*</span>b; <span class="selection">a=2; b=3; times<span class="clear">=&gt;</span></span> -> [MyErr]Invalid args.length=2(times)
+<br>
+・<a href="#span-out-eqns-omitted-args">引数省略call</a>
+<br>
+clear; a=2; f<span class="selection">(x)</span>=&lt;a; f<span class="clear">=&gt;</span> -> [MyErr]Invalid args.length=1(f)
+<br>
+・<span class="run">Ver.2.195.45</span>以降、<a href="#span-out-eqns-no-name">無名call</a>
+<br>
+clear; a=2; [<span class="selection">(x)</span>=&lt;a]()<span class="clear">=&gt;</span> -> [MyErr]Invalid args.length=1(null)
+    </td>
+  </tr>
+  <tr>
+    <th>
+<a href="#span-index">
+目次
+</a>
+<br>
+内部option
+    </th>
+    <td>
+<span id="span-out-config"></span>
+UIには表示しない内部optionについて記述する
+<br>
+<br>
+browser上部のURL入力欄のGET入力で<a href="#span-in-options">内部option</a>を変更可（UI設定値||既定値を上書き可）
+<br>
+・html直後の?に続けて&amp;区切りでparameterを渡す
+<br>
+index.html?param0=value0&amp;param1=value1&amp;param2=value2&amp;...
+<br>
+<br>
+<span class="run">Ver.2.184.44</span>以降、<a href="#span-out-auto-switching">real自動切替</a>機能を使用する場合、-1を設定
+<br>
+useComplex=-1
+<br>
+<br>
+<a href="#span-out-config-strict">strict-mode</a>で実行する場合、false||0以外を設定
+<br>
+useStrict=true
+<br>
+useStrict=1
+<br>
+<br>
+<a href="#span-out-error">情報落ち</a>の発生や<a href="#span-out-FNh-DX">微分</a>・<a href="#span-out-FNh-IX">積分</a>の<a href="#span-out-error-numerical">数値誤差</a>を評価しない場合、falseを設定
+<br>
+checkError=false
+<br>
+・<a href="#span-out-ope">演算量</a>が数倍軽くなる
+<br>
+・<span class="run">Ver.2.84.32</span>以降、さらに<a href="#span-out-array">行列操作</a>を最適化する場合、0を設定
+<br>
+checkError=0
+<br>
+・<a href="#span-out-mat-blank">欠損要素</a>を含む<a href="#span-out-array">行列操作</a>の予期せぬerror終了を許容する
+<br>
+(1,2:3)[0][0][0][0] -> Cannot read properties of undefined
+<br>
+・<span class="run">Ver.2.84.32</span>以降、<a href="#span-out-error-numerical">数値誤差</a>を評価して<a href="#span-out-array">行列操作</a>のみを最適化する場合、負数を設定
+<br>
+checkError=-1
+<br>
+<br>
+<span class="run">Ver.2.31.17</span>以降、useScopeを追加
+<br>
+useScope=false：完全な後方互換で<a href="#span-out-scope-vars">変数のscope</a>を一切使用しない
+<br>
+useScope=true：すべての<a href="#span-out-BT">括弧</a>に<a href="#span-out-scope-vars">変数のscope</a>を使用する（多重積分等、<a href="#span-out-ref-transparency">参照透過性</a>の支障あり）
+<br>
+useScope=BT2：<a href="#span-out-BT">波括弧{}</a>のみ<a href="#span-out-scope-vars">変数のscope</a>を使用する
+<br>
+useScope=BT1：<a href="#span-out-BT">丸括弧()</a>のみ<a href="#span-out-scope-vars">変数のscope</a>を使用する
+<br>
+<span class="run">Ver.2.32.17</span>以降、以下の条件を追加
+<br>
+useScope=notBT2：<a href="#span-out-BT">波括弧{}</a>を除いて<a href="#span-out-scope-vars">変数のscope</a>を使用する
+<br>
+useScope=notBT1：<a href="#span-out-BT">丸括弧()</a>を除いて<a href="#span-out-scope-vars">変数のscope</a>を使用する
+<br>
+useScope=notBT0：<a href="#span-out-BT-square">角括弧[]</a>を除いて<a href="#span-out-scope-vars">変数のscope</a>を使用する
+<br>
+useScope=default（上記以外）：<a href="#span-out-BT-square">角括弧[]</a>のみ<a href="#span-out-scope-vars">変数のscope</a>を使用する
+<br>
+<br>
+<span class="run">Ver.2.213.47</span>以降、<a href="#span-out-option6">useScopeWith</a>を追加
+<br>
+useScopeWith=false||0：追加なし
+<br>
+useScopeWith=SEe：<a href="#span-out-substitution-equation">式代入</a>記号=&lt;に<a href="#span-out-scope-vars">変数のscope</a>を追加（Native準拠）
+<br>
+useScopeWith=BTe（上記以外）：<a href="#span-out-eqns-args">式変数のarguments</a>付の<a href="#span-out-substitution-equation">式代入</a>記号=&lt;に<a href="#span-out-scope-vars">変数のscope</a>を追加
+<br>
+<br>
+<span class="run">Ver.2.221.50</span>以降、<a href="#span-out-option7">useFunc</a>を追加
+<br>
+useFunc=1：すべて小文字
+<br>
+useFunc=2：すべて大文字
+<br>
+useFunc=3：最初のみ大文字
+<br>
+useFunc=0（上記以外）：大文字・小文字を区別しない
+<br>
+<br>
+<span class="run">Ver.2.249.57</span>以降、<a href="#span-out-option8">use$let</a>を追加
+<br>
+use$let=false||0：$const
+<br>
+use$let=true（上記以外）：$let
+<br>
+<br>
+<span class="run">Ver.2.250.57</span>以降、<a href="#span-out-option9">useMutex</a>を追加
+<br>
+useMutex=false||0：mutex対象の宣言を禁止しない
+<br>
+useMutex=true（上記以外）：mutex対象の宣言を禁止する
+<br>
+<br>
+<a href="#span-out-prec-ope">演算子のprecedence</a>を変更する場合
+<br>
+・演算子の<a href="#span-in-prec">tag名</a>を優先順にcomma,区切りで列挙する
+<br>
+・<span class="run">Ver.2.59.26</span>以降、<a href="#span-out-prec-ope-logical">論理演算子</a>を追加
+<br>
+・<span class="run">Ver.2.71.28</span>以降、<a href="#span-out-prec-ope-bit">bit not演算子</a>を追加
+<br>
+・<span class="run">Ver.2.81.32</span>以降、<a href="#span-out-prec-ope-logical-not">論理NOT演算子</a>を追加
+<br>
+・<span class="run">Ver.2.87.32</span>以降、一部の<a href="#span-out-prec-ope">演算子</a>を<span class="run">Python</span>に準拠
+<br>
+・<span class="run">Ver.2.168.41</span>以降、<a href="#span-out-prec-ope-logical-xor">論理XOR演算子</a>を追加
+<br>
+・<span class="run">Ver.2.192.44</span>以降、<a href="#span-out-prec-ope-arithmetic-dot">dot演算子</a>を追加（URi,URfをURに統合）
+<br>
+precedence=
+<br>
+<span class="run">UR</span>,<span class="run">BRpp</span>,BRp,BRmo,BRdm,BRsa,
+<br>
+<span class="run">PUbn</span>,BRbs,BRba,BRbx,BRbo,BRcn,BRrl,<span class="run">PUlN</span>,<span class="run">BRlA,BRlX,BRlO</span>
+<br>
+・別途、乗算記号*の省略を許容しない場合、tag名BRmoを削除する
+<br>
+　その場合、treeを全走査判定する無駄な<a href="#span-out-ope">演算量</a>が減る
+<br>
+<br>
+<span class="run">Ver.2.207.46</span>以降、testを追加
+<br>
+test=true：<a href="#span-out-UI-calc-config">calc-config</a>に<a href="#span-in-options">内部option</a>のuseScope||precedenceを追加表示
+    </td>
+  </tr>
+  <tr>
+    <th>
+<a href="#span-index">
+目次
+</a>
+<br>
 外部option
     </th>
     <td>
@@ -8956,7 +9214,7 @@ checked選択：記号省略乗算より除算優先
 1/2(2) || (1/2)(2) -> 1
 <br>
 <br>
-<a href="#span-out-BRmo">記号省略乗算</a>を許容しない場合、<a href="#span-out-config">裏設定</a>参照
+<a href="#span-out-BRmo">記号省略乗算</a>を許容しない場合、<a href="#span-out-config">内部option</a>参照
     </td>
   </tr>
   <tr>
@@ -9487,7 +9745,7 @@ precedence
 ・演算子のprecedenceは言語仕様によって異なる
 <br>
 <br>
-演算子のprecedenceを変更する場合、<a href="#span-out-config">裏設定</a>参照
+演算子のprecedenceを変更する場合、<a href="#span-out-config">内部option</a>参照
 <br>
 ・<span class="run">Ver.2.157.38</span>以降、追加の<a href="#span-out-prec-ope-logical-short-circuit">論理演算子（短絡評価）</a>を除く
     </td>
@@ -9580,7 +9838,7 @@ precedence
 -0xff&gt;&gt;1@1 || (-0xff&gt;&gt;1)@1 || ((0-128)@1) -> -127
 <br>
 <br>
-<a href="#span-out-BRmo">記号省略乗算</a>を許容しない場合、<a href="#span-out-config">裏設定</a>参照
+<a href="#span-out-BRmo">記号省略乗算</a>を許容しない場合、<a href="#span-out-config">内部option</a>参照
     </td>
   </tr>
   <tr>
@@ -10844,7 +11102,7 @@ clear; (a=0)|||~~(b=1)&amp;&amp;&amp;(c=2)|||3; a,b,c -> (0,1,2)
 <br>
 　・有次元の<a href="#span-out-ope-extended">拡張行列演算</a>の対象外
 <br>
-　・<a href="#span-out-prec-ope">演算子のprecedence</a>を変更不可（<a href="#span-out-config">裏設定</a>の対象外）
+　・<a href="#span-out-prec-ope">演算子のprecedence</a>を変更不可（<a href="#span-out-config">内部option</a>の対象外）
 <br>
 　・<a href="#span-out-FNh-switch">switch高階関数</a>を代替可（低負荷の一方、難読化の可能性あり）
 <br>
@@ -11715,246 +11973,6 @@ ans*0 -> 0
 目次
 </a>
 <br>
-裏設定
-    </th>
-    <td>
-<span id="span-out-config"></span>
-UIには表示しない裏設定について記述する
-<br>
-<br>
-browser上部のURL入力欄のGET入力で<a href="#span-in-options">内部option</a>を変更可（UI設定値||既定値を上書き可）
-<br>
-・html直後の?に続けて&amp;区切りでparameterを渡す
-<br>
-index.html?param0=value0&amp;param1=value1&amp;param2=value2&amp;...
-<br>
-<br>
-<span class="run">Ver.2.184.44</span>以降、<a href="#span-out-auto-switching">real自動切替</a>機能を使用する場合、-1を設定
-<br>
-useComplex=-1
-<br>
-<br>
-<a href="#span-out-config-strict">strict-mode</a>で実行する場合、false||0以外を設定
-<br>
-useStrict=true
-<br>
-useStrict=1
-<br>
-<br>
-<a href="#span-out-error">情報落ち</a>の発生や<a href="#span-out-FNh-DX">微分</a>・<a href="#span-out-FNh-IX">積分</a>の<a href="#span-out-error-numerical">数値誤差</a>を評価しない場合、falseを設定
-<br>
-checkError=false
-<br>
-・<a href="#span-out-ope">演算量</a>が数倍軽くなる
-<br>
-・<span class="run">Ver.2.84.32</span>以降、さらに<a href="#span-out-array">行列操作</a>を最適化する場合、0を設定
-<br>
-checkError=0
-<br>
-・<a href="#span-out-mat-blank">欠損要素</a>を含む<a href="#span-out-array">行列操作</a>の予期せぬerror終了を許容する
-<br>
-(1,2:3)[0][0][0][0] -> Cannot read properties of undefined
-<br>
-・<span class="run">Ver.2.84.32</span>以降、<a href="#span-out-error-numerical">数値誤差</a>を評価して<a href="#span-out-array">行列操作</a>のみを最適化する場合、負数を設定
-<br>
-checkError=-1
-<br>
-<br>
-<span class="run">Ver.2.31.17</span>以降、useScopeを追加
-<br>
-useScope=false：完全な後方互換で<a href="#span-out-scope-vars">変数のscope</a>を一切使用しない
-<br>
-useScope=true：すべての<a href="#span-out-BT">括弧</a>に<a href="#span-out-scope-vars">変数のscope</a>を使用する（多重積分等、<a href="#span-out-ref-transparency">参照透過性</a>の支障あり）
-<br>
-useScope=BT2：<a href="#span-out-BT">波括弧{}</a>のみ<a href="#span-out-scope-vars">変数のscope</a>を使用する
-<br>
-useScope=BT1：<a href="#span-out-BT">丸括弧()</a>のみ<a href="#span-out-scope-vars">変数のscope</a>を使用する
-<br>
-<span class="run">Ver.2.32.17</span>以降、以下の条件を追加
-<br>
-useScope=notBT2：<a href="#span-out-BT">波括弧{}</a>を除いて<a href="#span-out-scope-vars">変数のscope</a>を使用する
-<br>
-useScope=notBT1：<a href="#span-out-BT">丸括弧()</a>を除いて<a href="#span-out-scope-vars">変数のscope</a>を使用する
-<br>
-useScope=notBT0：<a href="#span-out-BT-square">角括弧[]</a>を除いて<a href="#span-out-scope-vars">変数のscope</a>を使用する
-<br>
-useScope=default（上記以外）：<a href="#span-out-BT-square">角括弧[]</a>のみ<a href="#span-out-scope-vars">変数のscope</a>を使用する
-<br>
-<br>
-<span class="run">Ver.2.213.47</span>以降、<a href="#span-out-option6">useScopeWith</a>を追加
-<br>
-useScopeWith=false||0：追加なし
-<br>
-useScopeWith=SEe：<a href="#span-out-substitution-equation">式代入</a>記号=&lt;に<a href="#span-out-scope-vars">変数のscope</a>を追加（Native準拠）
-<br>
-useScopeWith=BTe（上記以外）：<a href="#span-out-eqns-args">式変数のarguments</a>付の<a href="#span-out-substitution-equation">式代入</a>記号=&lt;に<a href="#span-out-scope-vars">変数のscope</a>を追加
-<br>
-<br>
-<span class="run">Ver.2.221.50</span>以降、<a href="#span-out-option7">useFunc</a>を追加
-<br>
-useFunc=1：すべて小文字
-<br>
-useFunc=2：すべて大文字
-<br>
-useFunc=3：最初のみ大文字
-<br>
-useFunc=0（上記以外）：大文字・小文字を区別しない
-<br>
-<br>
-<span class="run">Ver.2.249.57</span>以降、<a href="#span-out-option8">use$let</a>を追加
-<br>
-use$let=false||0：$const
-<br>
-use$let=true（上記以外）：$let
-<br>
-<br>
-<span class="run">Ver.2.250.57</span>以降、<a href="#span-out-option9">useMutex</a>を追加
-<br>
-useMutex=false||0：mutex対象の宣言を禁止しない
-<br>
-useMutex=true（上記以外）：mutex対象の宣言を禁止する
-<br>
-<br>
-<a href="#span-out-prec-ope">演算子のprecedence</a>を変更する場合
-<br>
-・演算子の<a href="#span-in-prec">tag名</a>を優先順にcomma,区切りで列挙する
-<br>
-・<span class="run">Ver.2.59.26</span>以降、<a href="#span-out-prec-ope-logical">論理演算子</a>を追加
-<br>
-・<span class="run">Ver.2.71.28</span>以降、<a href="#span-out-prec-ope-bit">bit not演算子</a>を追加
-<br>
-・<span class="run">Ver.2.81.32</span>以降、<a href="#span-out-prec-ope-logical-not">論理NOT演算子</a>を追加
-<br>
-・<span class="run">Ver.2.87.32</span>以降、一部の<a href="#span-out-prec-ope">演算子</a>を<span class="run">Python</span>に準拠
-<br>
-・<span class="run">Ver.2.168.41</span>以降、<a href="#span-out-prec-ope-logical-xor">論理XOR演算子</a>を追加
-<br>
-・<span class="run">Ver.2.192.44</span>以降、<a href="#span-out-prec-ope-arithmetic-dot">dot演算子</a>を追加（URi,URfをURに統合）
-<br>
-precedence=
-<br>
-<span class="run">UR</span>,<span class="run">BRpp</span>,BRp,BRmo,BRdm,BRsa,
-<br>
-<span class="run">PUbn</span>,BRbs,BRba,BRbx,BRbo,BRcn,BRrl,<span class="run">PUlN</span>,<span class="run">BRlA,BRlX,BRlO</span>
-<br>
-・別途、乗算記号*の省略を許容しない場合、tag名BRmoを削除する
-<br>
-　その場合、treeを全走査判定する無駄な<a href="#span-out-ope">演算量</a>が減る
-<br>
-<br>
-<span class="run">Ver.2.207.46</span>以降、testを追加
-<br>
-test=true：<a href="#span-out-UI-calc-config">calc-config</a>に<a href="#span-in-options">内部option</a>のuseScope||precedenceを追加表示
-    </td>
-  </tr>
-  <tr>
-    <th>
-<a href="#span-index">
-目次
-</a>
-<br>
-strict-mode
-    </th>
-    <td>
-<span id="span-out-config-strict"></span>
-strict-modeについて記述する
-<br>
-<br>
-strict-modeは演算内容の入力規則に以下3点の制約条件を追加する
-<br>
-・<span class="condition">乗算記号*省略不可</span>
-<br>
-　omitted multiplication sign(*) disabled
-<br>
-・<span class="clear"><a href="#span-out-eqns-call">式読出し</a>記号=&gt;省略不可</span>
-<br>
-　omitted equation's call sign(=&gt;) disabled
-<br>
-・<span class="run">Ver.2.174.42</span>以降、<span class="selection"><a href="#span-out-eqns-args">式変数のarguments</a>省略不可</span>
-<br>
-　omitted equation's arguments disabled
-<br>
-<del>・<a href="#span-out-call-by-equation">式渡し</a>の括弧{}省略不可
-<br>
-　omitted Call-by-Equation's bracket({}) disabled</del><span class="run">Ver.2.28.15</span>以降、text modified
-<br>
-<br>
-曖昧さを回避することで演算内容の入力上、引いては演算上の間違いを低減する
-<br>
-・<a href="#span-out-eqns-args">式変数のarguments</a>を使用して一例を示す
-<br>
-・Non-strict-modeの場合
-<br>
-clear; times(a,b)=&lt;a(b); times(-2) -> [MyErr]Invalid args.length=2(times)
-<br>
-clear; times(a,b)=&lt;a(b); times(-2)<span class="clear">=&gt;</span> -> [MyErr]Invalid args.length=2(times)
-<br>
-clear; times(a,b)=&lt;a(b); times(-2,3) -> -6
-<br>
-clear; times(a,b)=&lt;a(b); times(-2,3)<span class="clear">=&gt;</span> -> -6
-<br>
-clear; a(b)=&lt;-999; times(a,b)=&lt;a(b); times(-2,3)<span class="clear">=&gt;</span> -> -6
-<br>
-clear; a(b)=&lt;-999; times(a,b)=&lt;a(b)<span class="clear">=&gt;</span>; times(-2,3)<span class="clear">=&gt;</span> -> -999
-<br>
-clear; times(a,b)=&lt;a<span class="condition">*</span>b; times(-2,3) -> -6
-<br>
-clear; times(a,b)=&lt;a<span class="condition">*</span>b; times(-2,3)<span class="clear">=&gt;</span> -> -6
-<br>
-clear; times(a,b)=&lt;a<span class="condition">*</span>b; times=2; times(-2,3)<span class="clear">=&gt;</span> -> -6
-<br>
-clear; times(a,b)=&lt;a<span class="condition">*</span>b; times=2; times(-2,3) -> (-4,6)
-<br>
-・<span class="clear">Ver.2.203.46</span>以降、<a href="#span-out-eqns-call2var">変数への式読出し</a>の仕様を廃止して<a href="#span-out-eqns-call2eqn">式変数への式読出し</a>を追加
-<br>
-clear; times(a,b)=&lt;a<span class="condition">*</span>b; times=2; times(-2,3)<span class="clear">=&gt;</span>times; times -> <del>-6</del>2
-<br>
-clear; times(a,b)=&lt;a<span class="condition">*</span>b; times=2; times(-2,3)<span class="clear">=&gt;</span>(times) -> -12
-<br>
-clear; times(a,b)=&lt;a<span class="condition">*</span>b; <span class="selection">a=2; b=3; times</span> -> [MyErr]Invalid null=&gt;
-<br>
-clear; times(a,b)=&lt;a<span class="condition">*</span>b; <span class="selection">a=2; b=3; times<span class="clear">=&gt;</span></span> -> 6
-<br>
-<br>
-・strict-modeの場合
-<br>
-clear; times(a,b)=&lt;a(b); times(-2) -> [MyErr]Invalid ans isFound
-<br>
-clear; times(a,b)=&lt;a(b); times(-2)<span class="clear">=&gt;</span> -> [MyErr]Invalid args.length=2(times)
-<br>
-clear; times(a,b)=&lt;a(b); times(-2,3) -> [MyErr]Invalid ans isFound
-<br>
-clear; times(a,b)=&lt;a(b); times(-2,3)<span class="clear">=&gt;</span> -> [MyErr]Invalid operation
-<br>
-clear; a(b)=&lt;-999; times(a,b)=&lt;a(b); times(-2,3)<span class="clear">=&gt;</span> -> [MyErr]Invalid operation
-<br>
-clear; a(b)=&lt;-999; times(a,b)=&lt;a(b)<span class="clear">=&gt;</span>; times(-2,3)<span class="clear">=&gt;</span> -> -999
-<br>
-clear; times(a,b)=&lt;a<span class="condition">*</span>b; times(-2,3) -> [MyErr]Invalid ans isFound
-<br>
-clear; times(a,b)=&lt;a<span class="condition">*</span>b; times(-2,3)<span class="clear">=&gt;</span> -> -6
-<br>
-clear; times(a,b)=&lt;a<span class="condition">*</span>b; times=2; times(-2,3)<span class="clear">=&gt;</span> -> -6
-<br>
-clear; times(a,b)=&lt;a<span class="condition">*</span>b; times=2; times(-2,3) -> [MyErr]Invalid ans isFound
-<br>
-・<span class="clear">Ver.2.203.46</span>以降、<a href="#span-out-eqns-call2var">変数への式読出し</a>の仕様を廃止して<a href="#span-out-eqns-call2eqn">式変数への式読出し</a>を追加
-<br>
-clear; times(a,b)=&lt;a<span class="condition">*</span>b; times=2; times(-2,3)<span class="clear">=&gt;</span>times; times -> <del>-6</del>2
-<br>
-clear; times(a,b)=&lt;a<span class="condition">*</span>b; times=2; times(-2,3)<span class="clear">=&gt;</span>(times) -> [MyErr]Invalid ans isFound
-<br>
-clear; times(a,b)=&lt;a<span class="condition">*</span>b; <span class="selection">a=2; b=3; times</span> -> [MyErr]Invalid REv(times)
-<br>
-clear; times(a,b)=&lt;a<span class="condition">*</span>b; <span class="selection">a=2; b=3; times<span class="clear">=&gt;</span></span> -> [MyErr]Invalid args.length=2(times)
-    </td>
-  </tr>
-  <tr>
-    <th>
-<a href="#span-index">
-目次
-</a>
-<br>
 演算flow
     </th>
     <td>
@@ -12547,7 +12565,7 @@ x=2; store; clear; x=3<span class="selection">/*independent local scope*/</span>
 ・<a href="#span-out-scope-vars-has1BT">単独scope</a>を意識する負担あり
 <br>
 <br>
-<span class="run">Ver.2.213.47</span>以降、Native準拠に変更する場合、<a href="#span-out-option6">useScopeWith</a>||<a href="#span-out-config">裏設定</a>参照
+<span class="run">Ver.2.213.47</span>以降、Native準拠に変更する場合、<a href="#span-out-option6">useScopeWith</a>||<a href="#span-out-config">内部option</a>参照
     </td>
   </tr>
   <tr>
@@ -23202,6 +23220,41 @@ clear; f(x)=&lt;(1,2:3,x); f[1](5) -> (3,5)
 ・引数の要素数が異なる場合、error終了（<a href="#span-out-FN-args">関数の引数</a>と異なり、厳格に判別する）
 <br>
 [(a,b,c)=&lt;(a,b)](3,=&lt;(i,2i))=&gt; -> [MyErr]Invalid args.length=3(no-name)
+    </td>
+  </tr>
+  <tr>
+    <th>
+<a href="#span-index">
+目次
+</a>
+<br>
+引数省略call
+    </th>
+    <td>
+<span id="span-out-eqns-omitted-args"></span>
+引数省略callの入力仕様と付随する留意事項について記述する
+<br>
+<br>
+<a href="#span-out-config-strict">Non-strict-mode</a>の場合、<a href="#span-out-eqns">式変数</a>の明示的な引数省略のcallを許容する（error終了に変更の可能性あり）
+<br>
+<br>
+<a href="#span-out-config-strict">Non-strict-mode</a>
+<br>
+clear; a=2; f<span class="selection">(x)</span>=&lt;a; f<span class="clear">=&gt;</span> -> 2
+<br>
+clear; a=2; [<span class="selection">(x)</span>=&lt;a]()<span class="clear">=&gt;</span> -> 2
+<br>
+<br>
+<a href="#span-out-config-strict">strict-mode</a>
+<br>
+clear; a=2; f<span class="selection">(x)</span>=&lt;a; f<span class="clear">=&gt;</span> -> [MyErr]Invalid args.length=1(f)
+<br>
+clear; a=2; [<span class="selection">(x)</span>=&lt;a]()<span class="clear">=&gt;</span> -> [MyErr]Invalid args.length=1(null)
+<br>
+<br>
+留意事項を列挙する
+<br>
+・<a href="#span-out-eqns-call">式読出し</a>記号<span class="clear">=&gt;</span>省略不可
     </td>
   </tr>
   <tr>
@@ -35646,7 +35699,7 @@ ans+1 -> <span class="clear">infoLost[r ]</span> 1+i
 <br>
 2^3 || 2**3 || pow(2,3) -> 8
 <br>
-<del>・<a href="#span-out-UI-simple">UI設定</a>||<a href="#span-out-config">裏設定</a>以外で<a href="#span-out-ope">実数演算</a>に切替え不可（自動判別しない）
+<del>・<a href="#span-out-UI-simple">UI設定</a>||<a href="#span-out-config">内部option</a>以外で<a href="#span-out-ope">実数演算</a>に切替え不可（自動判別しない）
 <br>
 2^3 || 2**3 || pow(2,3) -> <span class="clear">7.999999999999998</span></del>
 <br>
@@ -35695,7 +35748,7 @@ vectorr(round(2^3)) || vectorr(8)  <span class="selection">// OK</span> -> (0,0,
 <br>
 ・よって<a href="#span-out-mat-blank">欠損要素</a>がある場合、error終了の方が実装効率||演算効率が高い
 <br>
-演算効率を優先して<a href="#span-out-array">行列操作</a>を最適化する場合、<a href="#span-out-config">裏設定</a>参照
+演算効率を優先して<a href="#span-out-array">行列操作</a>を最適化する場合、<a href="#span-out-config">内部option</a>参照
     </td>
   </tr>
   <tr>
@@ -36387,9 +36440,9 @@ var data = {trees:null, options:{}, vars:{}, eqns:{}};
 <br>
 内部optionに相当するdata.optionsのpropertyを以下に列挙する
 <br>
-・<span class="clear">Ver.2.76.30</span>以降、makeLogの<a href="#span-out-config">裏設定</a>が反映されない不具合を修正
+・<span class="clear">Ver.2.76.30</span>以降、makeLogの<a href="#span-out-config">内部option</a>が反映されない不具合を修正
 <br>
-・<span class="clear">Ver.2.76.30</span>以降、expDigitの仕様追記（<a href="#span-out-config">裏設定</a>は無効）
+・<span class="clear">Ver.2.76.30</span>以降、expDigitの仕様追記（<a href="#span-out-config">内部option</a>は無効）
 <br>
 <br>
 ・makeLog: 演算終了後にlog出力用の文字列を作成するflag
@@ -36447,7 +36500,7 @@ data.logo -> "makeLog=true"
 ・isDIVprior2OMUL: <a href="#span-out-BRmo">記号省略乗算</a>より除算を優先するflag
 <br>
 <br>
-・expDigit: 演算結果を表示する<a href="#span-out-num">指数表記</a>の桁数（<span class="clear"><a href="#span-out-config">裏設定</a>は無効</span>）
+・expDigit: 演算結果を表示する<a href="#span-out-num">指数表記</a>の桁数（<span class="clear"><a href="#span-out-config">内部option</a>は無効</span>）
 <br>
 <br>
 ・<a href="#span-out-config">checkError</a>: <a href="#span-out-error">情報落ち</a>の発生や微分・積分の<a href="#span-out-error-numerical">数値誤差</a>を評価するflag
@@ -36529,7 +36582,7 @@ My_entry.eval("2*3") -> "6"
 <br>
 <a href="#span-in-options">内部option</a>は以下の既定値
 <br>
-・<span class="run">Ver.2.184.44</span>以降、<a href="#span-out-auto-switching">real自動切替</a>の<a href="#span-out-config">裏設定</a>既定値に変更
+・<span class="run">Ver.2.184.44</span>以降、<a href="#span-out-auto-switching">real自動切替</a>の<a href="#span-out-config">内部option</a>既定値に変更
 <pre><code>
 <del>data.options.useComplex = true;</del>
 data.options.useComplex = -1;
