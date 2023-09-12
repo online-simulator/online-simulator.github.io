@@ -820,10 +820,10 @@ My_entry.operation.prototype.check_symbol = function(symbol){
   return self;
 };
 /* Ver.2.229.56 */
-My_entry.operation.prototype.get_symbol = function(tree){
+My_entry.operation.prototype.get_symbol = function(tree, hasArgs){  // Ver.2.251.58
   var self = this;
   var has1val = (tree && tree.val.length === 1);
-  var _symbol = has1val && self.get_tagVal(tree.val[0], "REv", "val");
+  var _symbol = has1val && !(hasArgs && tree.arg) && self.get_tagVal(tree.val[0], "REv", "val");  // Ver.2.251.58
   self.check_symbol(_symbol);  // Ver.2.232.56
   return _symbol;
 };
@@ -833,7 +833,7 @@ My_entry.operation.prototype.get_symbols = function(data, tree, isRow){
   var BT = self.config.BT;
   var _names = [];
   var isSEe = tree[BT.SEe];
-  var symbol = (isSEe)? self.get_symbol(isSEe): "";
+  var symbol = (isSEe)? self.get_symbol(isSEe, true): "";  // Ver.2.251.58
   if(symbol){
     _names.push(symbol);
   }
@@ -858,7 +858,7 @@ My_entry.operation.prototype.get_names = function(data, tree_BT, isRow){
   var _names = [];
   /* Ver.2.230.56 -> */
   var isSEe = tree_BT[BT.SEe];
-  var symbol = (isSEe)? self.get_symbol(isSEe): "";
+  var symbol = (isSEe)? self.get_symbol(isSEe, true): "";  // Ver.2.251.58
   if(symbol){
     _names.push(symbol);
   }
@@ -1637,8 +1637,7 @@ My_entry.operation.prototype.tree2tree_eqn = function(data, tree){
     var isSEe = tree_SEe[BT.SEe];
     if(isSEe){
       _tree = self.tree_SEe2REe(tree_SEe);
-      var args_eqn = isSEe.arg;  // Ver.2.247.57
-      var symbol = !(args_eqn) && self.get_symbol(isSEe);  // Ver.2.247.57
+      var symbol = self.get_symbol(isSEe, true);  // Ver.2.247.57  // Ver.2.251.58
       if(symbol){
         var tree_symbol = self.restore_eqn(symbol, scopes, ids);
         if(tree_symbol){
@@ -1673,7 +1672,7 @@ My_entry.operation.prototype.tree2tree_eqn_AtREe = function(data, tree, name_eqn
   var ids_REe = isREe.ids;
   /* Ver.2.204.46 -> */
   var tree_var = null;
-  var symbol = self.get_symbol(isREe);  // Ver.2.229.56
+  var symbol = self.get_symbol(isREe, false);  // Ver.2.229.56  // Ver.2.251.58 [g(x)=<a,(a)=<g](3)=>f,f=>
   if(symbol){  // Ver.2.229.56
     tree_var = self.restore_var(symbol, scopes, ids_REe);  // Ver.2.229.56
     if(name_var){
@@ -3702,7 +3701,7 @@ My_entry.operation.prototype.REe = function(data, i0, tagName, tagObj){
           var isSEe = argi[BT.SEe];
           if(isSEe){
             var isSEee = isSEe.isSEee;
-            var symbol = self.get_symbol(isSEe);
+            var symbol = self.get_symbol(isSEe, true);  // Ver.2.251.58
             if(symbol){
               var ids_SEe = isSEe.ids;
               var tree_symbol = self.restore_eqn(symbol, scopes, ids_SEe);

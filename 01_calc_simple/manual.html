@@ -22735,6 +22735,12 @@ symbol渡し
 <br>
 <a href="#span-out-vars-symbol">変数名symbol</a>を<a href="#span-out-call-by-equation">式渡し</a>する場合、symbol渡しと定義する
 <br>
+・<span class="clear">Ver.2.251.58</span>以降、symbol渡しの判定を修正
+<br>
+clear; a=3,f(=&lt;g)=&lt;g(a)=&gt;,f((x)=&lt;<span class="clear">x</span>)=&gt; -> <del>[MyErr]Undef eqn(<span class="clear">x</span>)</del>(0,0,3)
+<br>
+clear; a=3,f(=&lt;g)=&lt;g(a)=&gt;,f((x)=&lt;x+1)=&gt; -> (0,0,4)
+<br>
 ・<a href="#span-out-vars">変数</a>を使用
 <br>
 clear; add(A,B)=&lt;A+B;

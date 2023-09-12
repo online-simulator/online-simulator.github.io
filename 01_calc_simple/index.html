@@ -245,6 +245,10 @@
       script += "\nclear;\n";
       script += "constant_declaration_in_each_scope_beta_version_$start=($a=0,[$a=1,[$a=2,[$a=3,a],a],a],a:$f=<0,[$f=<1,[$f=<2,[$f=<3,f],f],f],f);";
       script += "\nclear;\n";
+      script += "f=<2,f=1,f,f=>:f=1,f=<2,f,f=>:f=1,[f=<2,f,f=>]:[f=1,f=<2,f,f=>]:[f=1,[f=<2,f,f=>]];";
+      script += "\nclear;\n";
+      script += "a=3,f(=<g)=<g(a)=>,f((x)=<x)=>,f((x)=<x+1)=>;";
+      script += "\nclear;\n";
       $._id("input").value = script;
     });
   })();
