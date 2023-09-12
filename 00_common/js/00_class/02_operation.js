@@ -833,7 +833,7 @@ My_entry.operation.prototype.get_symbols = function(data, tree, isRow){
   var BT = self.config.BT;
   var _names = [];
   var isSEe = tree[BT.SEe];
-  var symbol = (isSEe)? self.get_symbol(isSEe, true): "";  // Ver.2.251.58
+  var symbol = (isSEe)? self.get_symbol(isSEe, false): "";  // Ver.2.251.58 _e((f)=<x,1,1) -> x
   if(symbol){
     _names.push(symbol);
   }
@@ -857,8 +857,11 @@ My_entry.operation.prototype.get_name = function(tree){
   var _name = "";
   var isSEe = tree[BT.SEe];
   if(isSEe){
+    if(isSEe.arg){
+      throw "Invalid args("+isSEe.arg+")=<name";  // Ver.2.251.58 (args)=<name disabled
+    }
     var isSEee = isSEe.isSEee;  // Ver.2.219.50
-    var name = self.get_symbol(isSEe, true);  // Ver.2.251.58
+    var name = self.get_symbol(isSEe, false);  // Ver.2.251.58
     if(name){
       /* Ver.2.219.50 -> */
       var prefix = self.config.symbol["escape_eqn"+((isSEee)? 2: 1)];  // Ver.2.245.57
