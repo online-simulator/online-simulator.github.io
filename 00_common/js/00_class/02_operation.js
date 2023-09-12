@@ -991,31 +991,6 @@ My_entry.operation.prototype.FNc = function(data, i0, tagName, tagObj){
   }
   return self;
 };
-My_entry.operation.prototype.tree2tree_eqn4no_args = function(data, tree){  // Ver.2.231.56
-  var self = this;
-  var scopes = data.scopes;
-  var ids = data.ids;
-  var DATA = self.entry.DATA;
-  var BT = self.config.BT;
-  var _tree = null;
-  /* Ver.2.30.15 -> */
-  var isSEe = tree[BT.SEe];
-  if(isSEe){
-    var trees = isSEe.val;
-    var name_eqn = (trees && trees.length === 1)? self.get_tagVal(DATA.trees2tree(trees), "REv", "val"): null;
-    if(name_eqn){
-      _tree = self.restore_eqn(name_eqn, scopes, ids);  // trees.length === 1  // Ver.2.31.17
-    }
-    else{
-      _tree = self.tree_SEe2REe(tree);  // Ver.2.32.17
-    }
-  }
-  if(!(_tree)){
-    throw "Invalid =<Call-by-Equation";
-  }
-  /* -> Ver.2.30.15 */
-  return _tree;
-};
 My_entry.operation.prototype.get_dxJ = function(x, h){
   var self = this;
   var DATA = self.entry.DATA;
@@ -1656,35 +1631,37 @@ My_entry.operation.prototype.tree2tree_eqn = function(data, tree){
   var scopes = data.scopes;
   var ids = data.ids;
   var BT = self.config.BT;
-  var _tree_eqn = tree;
-  if(tree.mat){  // =<f || =<f(x)=> -> tree_eqn
-    var tree_SEe = self.tree2tree_SEe(tree);
-    if(tree_SEe){
-      _tree_eqn = self.tree_SEe2REe(tree_SEe);
-      var isSEe = tree_SEe[BT.SEe];
+  var _tree = tree;
+  var get_tree_SEe2tree_eqn = function(tree_SEe, isMat){
+    var _tree = null;
+    var isSEe = tree_SEe[BT.SEe];
+    if(isSEe){
+      _tree = self.tree_SEe2REe(tree_SEe);
       var args_eqn = isSEe.arg;  // Ver.2.247.57
       var symbol = !(args_eqn) && self.get_symbol(isSEe);  // Ver.2.247.57
       if(symbol){
         var tree_symbol = self.restore_eqn(symbol, scopes, ids);
         if(tree_symbol){
-          _tree_eqn = tree_symbol;
+          _tree = tree_symbol;
+        }
+        else if(!(isMat)){
+          throw "Invalid =<Call-by-Equation";
         }
       }
     }
+    return _tree;
+  };
+  var isMat = tree.mat;
+  if(isMat){
+    var tree_SEe = self.tree2tree_SEe(tree);
+    if(tree_SEe){
+      _tree = get_tree_SEe2tree_eqn(tree_SEe, isMat);  // =<f || =<f(x)=> -> tree_eqn
+    }
   }
   else{  // nesting NG: =<(x)=<f(x)
-    var args_eqn = self.get_args(tree);
-    if(args_eqn){  // (args)=<tree_eqn
-      var isSEe = tree[BT.SEe];
-      if(isSEe){
-        _tree_eqn = self.tree_SEe2REe(tree);
-      }
-    }
-    else{  // ()=<tree_eqn
-      _tree_eqn = self.tree2tree_eqn4no_args(data, tree);
-    }
+    _tree = get_tree_SEe2tree_eqn(tree, isMat);  // (args)=<tree_eqn || ()=<tree_eqn
   }
-  return _tree_eqn;
+  return _tree;
 };
 My_entry.operation.prototype.tree2tree_eqn_AtREe = function(data, tree, name_eqn, name_var, isREee){  // name_eqn=>name_var, ==>
   var self = this;
