@@ -1931,6 +1931,14 @@ title/発行元(発行年)を列挙する
 <br>
 ・<span class="run">Ver.2.230.56</span>以降、<a href="#span-out-vars-symbol">変数名symbol</a>の内部取得関数を最適化
 <br>
+　<span class="clear">Ver.2.251.58</span>以降、<a href="#span-out-call-by-symbol">symbol渡し</a>の判定を修正
+<br>
+clear; a=3,f(=&lt;g)=&lt;g(a)=&gt;,f((x)=&lt;<span class="clear">x</span>)=&gt; -> <del>[MyErr]Undef eqn(<span class="clear">x</span>)</del>(0,0,3)
+<br>
+clear; a=3,f(=&lt;g)=&lt;g(a)=&gt;,f((x)=&lt;x+1)=&gt; -> (0,0,4)
+<br>
+clear; a=3,f(<span class="clear">(args)</span>=&lt;g)=&lt;g(a)=&gt;,f((x)=&lt;x+1)=&gt; -> <del>(0,0,4)</del>[MyErr]Invalid args.length=0(f)
+<br>
 ・<span class="run">Ver.2.231.56</span>以降、<a href="#span-out-FNh">高階関数</a>の内部wrapper関数を追加
 <br>
 ・<span class="run">Ver.2.233.56</span>以降、<a href="#span-out-FNmh">高階行列関数</a>の内部wrapper関数を追加
@@ -22740,6 +22748,8 @@ symbol渡し
 clear; a=3,f(=&lt;g)=&lt;g(a)=&gt;,f((x)=&lt;<span class="clear">x</span>)=&gt; -> <del>[MyErr]Undef eqn(<span class="clear">x</span>)</del>(0,0,3)
 <br>
 clear; a=3,f(=&lt;g)=&lt;g(a)=&gt;,f((x)=&lt;x+1)=&gt; -> (0,0,4)
+<br>
+clear; a=3,f(<span class="clear">(args)</span>=&lt;g)=&lt;g(a)=&gt;,f((x)=&lt;x+1)=&gt; -> <del>(0,0,4)</del>[MyErr]Invalid args.length=0(f)
 <br>
 ・<a href="#span-out-vars">変数</a>を使用
 <br>

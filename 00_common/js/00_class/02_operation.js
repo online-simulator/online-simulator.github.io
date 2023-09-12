@@ -849,6 +849,37 @@ My_entry.operation.prototype.get_symbols_expanded = function(data, tree, isRow){
   var _names = self.get_names(data, tree_BT, isRow);
   return _names;
 };
+/* Ver.2.251.58 */
+My_entry.operation.prototype.get_name = function(tree){
+  var self = this;
+  var DATA = self.entry.DATA;
+  var BT = self.config.BT;
+  var _name = "";
+  var isSEe = tree[BT.SEe];
+  if(isSEe){
+    var isSEee = isSEe.isSEee;  // Ver.2.219.50
+    var name = self.get_symbol(isSEe, true);  // Ver.2.251.58
+    if(name){
+      /* Ver.2.219.50 -> */
+      var prefix = self.config.symbol["escape_eqn"+((isSEee)? 2: 1)];  // Ver.2.245.57
+      _name = prefix+name;
+      /* -> Ver.2.219.50 */
+    }
+  }
+  else{
+    _name = self.get_tagVal(tree, "REv", "val");
+  }
+  return _name;
+};
+My_entry.operation.prototype.get_name_escaped = function(tree){
+  var self = this;
+  var _name = "";
+  var name = self.get_tagVal(tree, "REv", "val");
+  if(name && self.config.isEscaped(name)){
+    _name = name.substring(1);
+  }
+  return _name;
+};
 /* Ver.2.27.15 -> */
 My_entry.operation.prototype.get_names = function(data, tree_BT, isRow){
   var self = this;
@@ -857,10 +888,9 @@ My_entry.operation.prototype.get_names = function(data, tree_BT, isRow){
   var BT = self.config.BT;
   var _names = [];
   /* Ver.2.230.56 -> */
-  var isSEe = tree_BT[BT.SEe];
-  var symbol = (isSEe)? self.get_symbol(isSEe, true): "";  // Ver.2.251.58
-  if(symbol){
-    _names.push(symbol);
+  var name = self.get_name(tree_BT);  // Ver.2.251.58
+  if(name){
+    _names.push(name);
   }
   else{
     var tree = self.tree_BT2tree(data, tree_BT);
@@ -872,23 +902,7 @@ My_entry.operation.prototype.get_names = function(data, tree_BT, isRow){
     var len_i = arr.length;
     for(var i=0; i<len_i; ++i){
       var tree = self.arr2obj_i(arr, i);
-      var isSEe = tree[BT.SEe];
-      var name = "";
-      if(isSEe){
-        var isSEee = isSEe.isSEee;  // Ver.2.219.50
-        var trees = isSEe.val;
-        name = (trees && trees.length === 1)? self.get_tagVal(DATA.trees2tree(trees), "REv", "val"): null;
-        if(name){
-          self.check_symbol(name);  // Ver.2.32.17  // Ver.2.232.56  // Ver.2.246.57  // Ver.2.248.57
-          /* Ver.2.219.50 -> */
-          var prefix = self.config.symbol["escape_eqn"+((isSEee)? 2: 1)];  // Ver.2.245.57
-          name = prefix+name;
-          /* -> Ver.2.219.50 */
-        }
-      }
-      else{
-        name = self.get_tagVal(tree, "REv", "val");
-      }
+      var name = self.get_name(tree);  // Ver.2.251.58
       if(name){
         _names.push(name);
       }
@@ -899,15 +913,6 @@ My_entry.operation.prototype.get_names = function(data, tree_BT, isRow){
     }
   }
   return _names;
-};
-My_entry.operation.prototype.get_name_escaped = function(tree){
-  var self = this;
-  var _name = "";
-  var name = self.get_tagVal(tree, "REv", "val");
-  if(name && self.config.isEscaped(name)){
-    _name = name.substring(1);
-  }
-  return _name;
 };
 /* -> Ver.2.27.15 */
 /* -> Ver.2.32.17 */

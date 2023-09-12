@@ -275,9 +275,13 @@ minor bug-fix
 <br>
 ・operation.js bug-fixed with self.get_symbol()
 <br>
-clear; a=3,f(=&lt;g)=&lt;g(a)=&gt;,f((x)=&lt;<span class="clear">x</span>)=&gt; -> [MyErr]Undef eqn(<span class="clear">x</span>)　⇒　(0,0,3)
+clear; a=3,f(=&lt;g)=&lt;g(a)=&gt;,f((x)=&lt;<span class="clear">x</span>)=&gt; -> <del>[MyErr]Undef eqn(<span class="clear">x</span>)</del>(0,0,3)
 <br>
 clear; a=3,f(=&lt;g)=&lt;g(a)=&gt;,f((x)=&lt;x+1)=&gt; -> (0,0,4)
+<br>
+・operation.js self.get_name() added
+<br>
+clear; a=3,f(<span class="clear">(args)</span>=&lt;g)=&lt;g(a)=&gt;,f((x)=&lt;x+1)=&gt; -> <del>(0,0,4)</del>[MyErr]Invalid args
 <br>
 ・test case updated
     </td>
