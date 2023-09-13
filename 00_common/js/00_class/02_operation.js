@@ -3932,6 +3932,7 @@ My_entry.operation.prototype.BTe = function(data, i0, tagName, tagObj){  // Ver.
   var names = (hasArgs)? self.get_names(data, leftTree, true): null;  // NG: (x=1)=<x
   /* Ver.2.213.48 -> */
   if(names){
+    if(names.length === 0) throw "Invalid args isFound("+name_eqn+")";  // Ver.2.252.59
     isSEe.arg = names;  // Ver.2.249.57
   }
   /* -> Ver.2.213.48 */
