@@ -1839,6 +1839,20 @@ title/発行元(発行年)を列挙する
 　列vector形式　⇒　行vector形式（一般的な言語に準拠）
 <br>
 　影響項目：<a href="#span-out-FNm-reshape">reshape行列関数</a>||<a href="#span-out-FNm-norm">norm行列関数</a>||<a href="#span-out-FNm-normalize">正規化行列関数</a>||<a href="#span-eqn-solveAinv">solveAinv</a>
+<br>
+・<span class="run">Ver.2.253.59</span>以降、<a href="#span-out-eqns-omitted-args">引数省略call</a>の仕様廃止（<a href="#span-out-eqns-args">式変数のarguments</a>の判別を厳格化）
+<br>
+　影響項目：<a href="#span-out-config-strict">strict-mode</a>
+<br>
+・<span class="run">Ver.2.253.59</span>以降、<a href="#span-out-eqns-no-name-short">直接式読出し</a>の仕様変更
+<br>
+　返却時の<a href="#span-out-eqns-call">式読出し</a>記号=&gt;省略可　⇒　省略不可（省略時、<a href="#span-out-vars">変数</a>のみ判別）
+<br>
+　影響項目：<a href="#span-out-eqns-no-name-short">直接式読出し</a>||<a href="#span-eqn-template">template</a>
+<br>
+・<span class="run">Ver.2.253.59</span>以降、式変数の新規複製の仕様廃止
+<br>
+　影響項目：<a href="#span-out-eqns-call2eqn">式変数への式読出し</a>||<a href="#span-eqn-solvex_bisection">solvex_bisection</a>
     </td>
   </tr>
   <tr>
@@ -8905,13 +8919,13 @@ clear; times(a,b)=&lt;a<span class="condition">*</span>b; <span class="selection
 <br>
 clear; times(a,b)=&lt;a<span class="condition">*</span>b; <span class="selection">a=2; b=3; times<span class="clear">=&gt;</span></span> -> 6
 <br>
-・<a href="#span-out-eqns-omitted-args">引数省略call</a>
+・<span class="run">Ver.2.253.59</span>以降、<a href="#span-out-eqns-omitted-args">引数省略call</a>の仕様廃止（<a href="#span-out-eqns-args">式変数のarguments</a>の判別を厳格化）
 <br>
-clear; a=2; f<span class="selection">(x)</span>=&lt;a; f<span class="clear">=&gt;</span> -> 2
+<del>clear; a=2; f<span class="selection">(x)</span>=&lt;a; f<span class="clear">=&gt;</span> -> 2
 <br>
 ・<span class="run">Ver.2.195.45</span>以降、<a href="#span-out-eqns-no-name">無名call</a>
 <br>
-clear; a=2; [<span class="selection">(x)</span>=&lt;a]()<span class="clear">=&gt;</span> -> 2
+clear; a=2; [<span class="selection">(x)</span>=&lt;a]()<span class="clear">=&gt;</span> -> 2</del>
 <br>
 <br>
 ・strict-modeの場合
@@ -8946,7 +8960,7 @@ clear; times(a,b)=&lt;a<span class="condition">*</span>b; <span class="selection
 <br>
 clear; times(a,b)=&lt;a<span class="condition">*</span>b; <span class="selection">a=2; b=3; times<span class="clear">=&gt;</span></span> -> [MyErr]Invalid args.length=2(times)
 <br>
-・<a href="#span-out-eqns-omitted-args">引数省略call</a>
+・<span class="run">Ver.2.253.59</span>以降、<a href="#span-out-eqns-omitted-args">引数省略call</a>の仕様廃止（<a href="#span-out-eqns-args">式変数のarguments</a>の判別を厳格化）
 <br>
 clear; a=2; f<span class="selection">(x)</span>=&lt;a; f<span class="clear">=&gt;</span> -> [MyErr]Invalid args.length=1(f)
 <br>
@@ -21562,8 +21576,10 @@ clear; [a=1,b=2,v=&lt;{a,b},v=v=&gt;v,a=-1,b=-2,=&lt;v=&gt;]=&gt; -> (-1:-2)</de
 <br>
 [=&lt;$g]=&gt;f; f=&gt; -> [MyErr]Invalid <del>REv</del>symbol($g)
 <br>
+・<span class="run">Ver.2.253.59</span>以降、式変数の新規複製の仕様廃止
 <br>
-式変数の新規複製方法
+<br>
+<del>式変数の新規複製方法
 <br>
 式変数名=&gt;式変数名
 <br>
@@ -21577,7 +21593,7 @@ clear; g(x)=&lt;x; g=&gt;f; f(3)=&gt; -> 3
 <br>
 ・<a href="#span-out-bracket">scope</a>は<a href="#span-in-scope-vars">static scopes2d array</a>を共有する
 <br>
-clear; scope_NG(x)=&lt;last[x=x,last[x=x,x]]; scope_NG(3),scope_NG=&gt;f,f(4) -> (3,0,3)
+clear; scope_NG(x)=&lt;last[x=x,last[x=x,x]]; scope_NG(3),scope_NG=&gt;f,f(4) -> (3,0,3)</del>
 <br>
 ・call結果の式読出し
 <br>
@@ -21722,11 +21738,13 @@ make_f(false)=&gt;,f(1)=&gt;,make_f(true)=&gt;,f(1)=&gt; -> (0,0,1,0,-1)
 <br>
 test caseを列挙する
 <br>
-clear; [v=&lt;(1,2),v=&gt;v,=&lt;v]=&gt; -> (1,2)
+・<span class="run">Ver.2.253.59</span>以降、式変数の新規複製の仕様廃止
+<br>
+<del>clear; [v=&lt;(1,2),v=&gt;v,=&lt;v]=&gt; -> (1,2)
 <br>
 clear; [v=&lt;{1,2},v=&gt;v,=&lt;v]=&gt; -> (1:2)
 <br>
-clear; [a=1,b=2,last{v=&lt;{a,b},v=&gt;v},a=-1,b=-2,=&lt;v]=&gt; -> (-1:-2)
+clear; [a=1,b=2,last{v=&lt;{a,b},v=&gt;v},a=-1,b=-2,=&lt;v]=&gt; -> (-1:-2)</del>
 <br>
 clear; [a=1,b=2,last{v=&lt;{a,b},v=&gt;v},v=v=&gt;,a=-1,b=-2,=&lt;v]=&gt; -> (1:2)
 <br>
@@ -22706,9 +22724,11 @@ clear; add(A,B)=&lt;A+B; add[1][1](=&lt;(1,2:3,4),=&lt;(5,6:7,8))=&gt; -> 12
 <br>
 <span class="run">Ver.2.174.42</span>以降、<a href="#span-out-config-strict">Non-strict-mode</a>のみ、call先argumentsを省略可
 <br>
+・<span class="run">Ver.2.253.59</span>以降、call先argumentsを省略不可
+<br>
 clear; f(x)=&lt;2*x+1,x=0,f(x),f=&gt;,f==&gt;:[,x=1,f(x),f=&gt;,f==&gt;:[,x=2,f(x),f=&gt;,f==&gt;]] ->
 <br>
-(
+<del>(
 <br>
 0,0,1,1,1:
 <br>
@@ -22716,7 +22736,7 @@ clear; f(x)=&lt;2*x+1,x=0,f(x),f=&gt;,f==&gt;:[,x=1,f(x),f=&gt;,f==&gt;:[,x=2,f(
 <br>
 0,0,5,1,5
 <br>
-)
+)</del>[MyErr]Invalid args.length=1(f)
 <br>
 clear; x(t)=&lt;-t; f=&lt;x+1; f -> [MyErr]Invalid null args(x)
 <br>
@@ -23259,15 +23279,17 @@ clear; f(x)=&lt;(1,2:3,x); f[1](5) -> (3,5)
 <br>
 <a href="#span-out-config-strict">Non-strict-mode</a>の場合、<a href="#span-out-eqns">式変数</a>の明示的な引数省略のcallを許容する（error終了に変更の可能性あり）
 <br>
+・<span class="run">Ver.2.253.59</span>以降、本仕様を廃止
 <br>
-<a href="#span-out-config-strict">Non-strict-mode</a>
+<br>
+<del><a href="#span-out-config-strict">Non-strict-mode</a>
 <br>
 clear; a=2; f<span class="selection">(x)</span>=&lt;a; f<span class="clear">=&gt;</span> -> 2
 <br>
 clear; a=2; [<span class="selection">(x)</span>=&lt;a]()<span class="clear">=&gt;</span> -> 2
 <br>
 <br>
-<a href="#span-out-config-strict">strict-mode</a>
+<a href="#span-out-config-strict">strict-mode</a></del>
 <br>
 clear; a=2; f<span class="selection">(x)</span>=&lt;a; f<span class="clear">=&gt;</span> -> [MyErr]Invalid args.length=1(f)
 <br>
@@ -37881,9 +37903,13 @@ B=-1,[B=10,[B=20,[B=30,=&lt;B/*resolved*/]=&gt;f,=&lt;f]=&gt;f,=&lt;f]==&gt;f,f=
 <br>
 clear;
 <br>
-B=-1,[B=10,=&lt;[B=20,g=&lt;B,g=-B,=&lt;[B=30,=&lt;g/*resolved*/]=&gt;]=&gt;]=&gt;:
+B=-1,[B=10,=&lt;[B=20,g=&lt;B,=&lt;[B=30,=&lt;g/*not-resolved*/]=&gt;]=&gt;]=&gt;g,g=&gt;,g==&gt;:
 <br>
-B=-1,[B=10,=&lt;[B=20,g=&lt;B,g=-B,=&lt;[B=30,=&lt;g/*var||omitted=&gt;*/]=&gt;]=&gt;]=&gt;:
+B=-1,[B=10,=&lt;[B=20,g=&lt;B,=&lt;[B=30,==&lt;g]=&gt;]=&gt;]=&gt;g,g=&gt;,g==&gt;:
+<br>
+B=-1,[B=10,=&lt;[B=20,g=&lt;B,g=-B,=&lt;[B=30,=&lt;<span class="jF">g/*var*/</span>]=&gt;]=&gt;]=&gt;:
+<br>
+<span class="jF">//</span>B=-1,[B=10,=&lt;[B=20,g=&lt;B,=&lt;[B=30,=&lt;<span class="jF">g/*not-resolved*/</span>]=&gt;]=&gt;]=&gt;
 <br>
 B=-1,[B=10,=&lt;[B=20,g=&lt;B,=&lt;[B=30,=&lt;g=&gt;]=&gt;]=&gt;]=&gt;:
 <br>
@@ -37892,6 +37918,28 @@ B=-1,[B=10,=&lt;[B=20,g=&lt;B,=&lt;[B=30,=&lt;g==&gt;]=&gt;]=&gt;]=&gt;:
 B=-1,[B=10,=&lt;[B=20,g=&lt;B,=&lt;[B=30,=/*disabled*/=&lt;g=&gt;]=&gt;]=&gt;]=&gt;:
 <br>
 B=-1,[B=10,=&lt;[B=20,g=&lt;B,=&lt;[B=30,=/*disabled*/=&lt;g==&gt;]=&gt;]=&gt;]=&gt;;
+<br>
+clear;
+<br>
+a0=-1;
+<br>
+call_f(a0)=&lt;(a=a0,f(3)=&gt;,f(3)==&gt;);
+<br>
+make_f(a)=&lt;[g(x)=&lt;a*x,=&lt;g]=&gt;f,make_f(a0)=&gt;,call_f(1)=&gt;,call_f(2)=&gt;:
+<br>
+make_f(a)=&lt;[g(x)=&lt;a*x,=&lt;g]==&gt;f,make_f(a0)=&gt;,call_f(1)=&gt;,call_f(2)=&gt;:
+<br>
+make_f(a0)=&lt;[a=a0,g(x)=&lt;a*x,=&lt;g]=&gt;f,make_f(a0)=&gt;,call_f(1)=&gt;,call_f(2)=&gt;:
+<br>
+make_f(a0)=&lt;[a=a0,g(x)=&lt;a*x,=&lt;g]==&gt;f,make_f(a0)=&gt;,call_f(1)=&gt;,call_f(2)=&gt;:
+<br>
+<span class="jF">make_f(a)=&lt;[g(x)=&lt;a*x,=&lt;g]=&gt;,make_f(a0)=&gt;f,call_f(1)=&gt;,call_f(2)=&gt;:
+<br>
+,make_f(a0)==&gt;f,call_f(1)=&gt;,call_f(2)=&gt;:
+<br>
+make_f(a0)=&lt;[a=a0,g(x)=&lt;a*x,=&lt;g]=&gt;,make_f(a0)=&gt;f,call_f(1)=&gt;,call_f(2)=&gt;:
+<br>
+,make_f(a0)==&gt;f,call_f(1)=&gt;,call_f(2)=&gt;;</span>
     </td>
   </tr>
   <tr>
@@ -39442,9 +39490,9 @@ global_base=2**(log2(3)-7/4);
 <br>
 <span class="jF">store</span>;
 <br>
-f0(x0)=&lt;last[left=global_n*pow(global_base,x0),right=1,=right-left];
+f(x0)=&lt;last[left=global_n*pow(global_base,x0),right=1,=right-left];
 <br>
-[N=1e2,a=0,b=100,f0==&gt;f,
+[N=1e2,a=0,b=100,
 <br>
 =&lt;{solvex_non_linear(=&lt;f,=&lt;{0})=&gt;,
 <br>

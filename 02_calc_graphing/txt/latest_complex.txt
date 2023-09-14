@@ -560,7 +560,7 @@ stored_eqn(Euler_method)
 restore
 local storage restored
 
-[N=1e2,a=0,b=100,f0==>f,=<{solvex_non_linear(=<f,=<{0})=>,solvex_bisection(=<f,a,b,N)=>,solvex_bisection(=<f,b,a,N)=>,solvex_bisection(=<f,a,a,N)=>,solvex_non_linear((x0)=<1-global_n*pow(global_base,x0),=<{0})=>,solvex_bisection((x0)=<1-global_n*pow(global_base,x0),a,b,N)=>,solvex_bisection((x0)=<1-global_n*pow(global_base,x0),b,a,N)=>,solvex_bisection((x0)=<1-global_n*pow(global_base,x0),a,a,N)=>}]=>
+[N=1e2,a=0,b=100,=<{solvex_non_linear(=<f,=<{0})=>,solvex_bisection(=<f,a,b,N)=>,solvex_bisection(=<f,b,a,N)=>,solvex_bisection(=<f,a,a,N)=>,solvex_non_linear((x0)=<1-global_n*pow(global_base,x0),=<{0})=>,solvex_bisection((x0)=<1-global_n*pow(global_base,x0),a,b,N)=>,solvex_bisection((x0)=<1-global_n*pow(global_base,x0),b,a,N)=>,solvex_bisection((x0)=<1-global_n*pow(global_base,x0),a,a,N)=>}]=>
 (
 60.393706293353205+8.853472655692489e-17i+O(2e-10+4e-11i):
 60.39370596408844:
@@ -572,8 +572,8 @@ local storage restored
 0
 )
 
-f0(x0)=<last[left=global_n*pow(global_base,x0),right=1,=right-left]
-stored_eqn(f0)
+f(x0)=<last[left=global_n*pow(global_base,x0),right=1,=right-left]
+stored_eqn(f)
 
 store
 local storage stored
@@ -1268,7 +1268,7 @@ clear
 local storage cleared
 
 [Pinv_y=(-0.999999427,-0.999936657,-0.997300203,-0.954499736,-0.682689492,0,0.682689492,0.954499736,0.997300203,0.999936657,0.999999427:-5,-4,-3,-2,-1,0,1,2,3,4,5),N=1,arr=[],_rn(=<arr=(arr:rand_table(=<Pinv_y)=>),,N),=<arr]=>
--1.6420808884659917
+1.452230701110012
 
 rand_table(csv)=<last[table=sort0(csv),ymin=min(table)[0],ymax=max(table)[0],y=ymin+(ymax-ymin)*rand,x=interp(y:table),x]
 stored_eqn(rand_table)
@@ -1647,9 +1647,31 @@ stored_eqn(set_ans)
 clear
 local storage cleared
 
-B=-1,[B=10,=<[B=20,g=<B,g=-B,=<[B=30,=<g]=>]=>]=>:B=-1,[B=10,=<[B=20,g=<B,g=-B,=<[B=30,=<g]=>]=>]=>:B=-1,[B=10,=<[B=20,g=<B,=<[B=30,=<g=>]=>]=>]=>:B=-1,[B=10,=<[B=20,g=<B,=<[B=30,=<g==>]=>]=>]=>:B=-1,[B=10,=<[B=20,g=<B,=<[B=30,==<g=>]=>]=>]=>:B=-1,[B=10,=<[B=20,g=<B,=<[B=30,==<g==>]=>]=>]=>
+make_f(a)=<[g(x)=<a*x,=<g]=>f,make_f(a0)=>,call_f(1)=>,call_f(2)=>:make_f(a)=<[g(x)=<a*x,=<g]==>f,make_f(a0)=>,call_f(1)=>,call_f(2)=>:make_f(a0)=<[a=a0,g(x)=<a*x,=<g]=>f,make_f(a0)=>,call_f(1)=>,call_f(2)=>:make_f(a0)=<[a=a0,g(x)=<a*x,=<g]==>f,make_f(a0)=>,call_f(1)=>,call_f(2)=>:make_f(a)=<[g(x)=<a*x,=<g]=>,make_f(a0)=>f,call_f(1)=>,call_f(2)=>:,make_f(a0)==>f,call_f(1)=>,call_f(2)=>:make_f(a0)=<[a=a0,g(x)=<a*x,=<g]=>,make_f(a0)=>f,call_f(1)=>,call_f(2)=>:,make_f(a0)==>f,call_f(1)=>,call_f(2)=>
 (
-0,-20:
+0,0,0,-3,3,0,-3,6:
+0,0,0,3,3,0,6,6:
+0,0,0,-3,3,0,-3,6:
+0,0,0,3,3,0,6,6:
+0,0,0,-3,3,0,-3,6:
+0,0,0,3,3,0,6,6:
+0,0,0,-3,3,0,-3,6:
+0,0,0,3,3,0,6,6
+)
+
+call_f(a0)=<(a=a0,f(3)=>,f(3)==>)
+stored_eqn(call_f)
+
+a0=-1
+a0=-1
+
+clear
+local storage cleared
+
+B=-1,[B=10,=<[B=20,g=<B,=<[B=30,=<g]=>]=>]=>g,g=>,g==>:B=-1,[B=10,=<[B=20,g=<B,=<[B=30,==<g]=>]=>]=>g,g=>,g==>:B=-1,[B=10,=<[B=20,g=<B,g=-B,=<[B=30,=<g]=>]=>]=>:B=-1,[B=10,=<[B=20,g=<B,=<[B=30,=<g=>]=>]=>]=>:B=-1,[B=10,=<[B=20,g=<B,=<[B=30,=<g==>]=>]=>]=>:B=-1,[B=10,=<[B=20,g=<B,=<[B=30,==<g=>]=>]=>]=>:B=-1,[B=10,=<[B=20,g=<B,=<[B=30,==<g==>]=>]=>]=>
+(
+0,0,20,-1:
+0,0,30,-1:
 0,-20:
 0,20:
 0,30:
@@ -1666,8 +1688,8 @@ B=-1,g=<B,[B=10,[B=20,[B=30,f=<g=>,=<f]=>f,=<f]=>f,=<f]=>f,f=>,f==>:B=-1,g=<B,[B
 0,0,0,30,-1:
 0,0,0,-1,-1:
 0,0,0,30,-1:
-0,0,20,-1:
-0,0,30,-1:
+0,0,20,20:
+0,0,30,30:
 0,0,10,-1:
 0,0,20,-1:
 0,0,30,-1:
@@ -1749,4 +1771,4 @@ center=true&drag=false&test-case=false&legend=true&axis-t=false&axis-x=true&log-
 --------------------------------
 --------------------------------
 
-online-simulator.github.io.6.305.133.15.72 @ Wed Sep 13 2023 14:07:33 GMT+0900 (日本標準時) @ Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/116.0.0.0 Safari/537.36
+online-simulator.github.io.6.306.133.15.72 @ Thu Sep 14 2023 13:35:34 GMT+0900 (日本標準時) @ Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/117.0.0.0 Safari/537.36
