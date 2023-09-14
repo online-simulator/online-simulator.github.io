@@ -287,7 +287,7 @@ clear; [x=1,f=&lt;x,f=&gt;g] -> [MyErr]Invalid args.length=1(f)
 <br>
 　omitted=&gt; allowed@Non-strict-mode　⇒　disabled
 <br>
-clear; f(x)=&lt;x; x=1; f=&gt; -> [MyErr]Invalid args.length=1(f)
+clear; x=1; f(x)=&lt;x; f=&gt; -> [MyErr]Invalid args.length=1(f)
 <br>
 clear; [x=1,f=&lt;x,=&lt;f]=&gt; -> [MyErr]Invalid BTe([object Object])
 <br>
@@ -297,7 +297,7 @@ clear; [x=1,f=&lt;x,=&lt;f]=&gt;f; f -> 1
 <br>
 clear; f=&lt;[x=1,f=&lt;x,=&lt;f]=&gt;; f=&gt;g; g -> 1
 <br>
-・test case updated
+・test case re-updated
     </td>
     <td>
 2023/9/14

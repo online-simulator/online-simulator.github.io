@@ -1,6 +1,23 @@
 clear
 local storage cleared
 
+x=-1,[x=1,f=<x,=<f=>]=>:[x=1,f=<x,=<f]=>f,f:[x=1,f=<x,=<f]==>f,f:f=<[x=1,f=<x,=<f]=>,f=>g,g:f=<[x=1,f=<x,=<f]=>,f==>g,g:f=<[x=1,f(x)=<x,=<f]=>,f=>g,g(3)=>:f=<[x=1,f(x)=<x,=<(x)=<f(x)=>]=>,f=>g,g(3)=>:f=<[x=1,f(x)=<x,(a)=<f](2)=>,f=>g,g(3)=>:f=<[x=1,f(x)=<x,(a)=<f(a)](2)=>,f=>g,g=>:f=<[x=1,f(x)=<x,(a)=<(x)=<f(a*x)=>](2)=>,f=>g,g(3)=>
+(
+0,1:
+0,1:
+0,-1:
+0,0,1:
+0,0,-1:
+0,0,3:
+0,0,3:
+0,0,3:
+0,0,2:
+0,0,6
+)
+
+clear
+local storage cleared
+
 make_g(a0)=>g,call_g(1)=>,call_g(2)=>:make_g(a0)==>g,call_g(1)=>,call_g(2)=>
 (
 0,0,-3,3,0,-3,6:
@@ -3110,4 +3127,4 @@ drag=false&sw=false&0x=false&useMatrix=true&useStrict=false&checkError=true&isRi
 --------------------------------
 --------------------------------
 
-online-simulator.github.io.6.306.133.15.72 @ Thu Sep 14 2023 13:33:32 GMT+0900 (日本標準時) @ Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/117.0.0.0 Safari/537.36
+online-simulator.github.io.6.306.133.15.72 @ Thu Sep 14 2023 21:43:20 GMT+0900 (日本標準時) @ Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/117.0.0.0 Safari/537.36
