@@ -1852,7 +1852,7 @@ title/発行元(発行年)を列挙する
 <br>
 ・<span class="run">Ver.2.253.59</span>以降、式変数の新規複製の仕様廃止
 <br>
-　影響項目：<a href="#span-out-eqns-call2eqn">式変数への式読出し</a>||<a href="#span-eqn-solvex_bisection">solvex_bisection</a>
+　影響項目：<a href="#span-out-eqns-call2eqn">式変数への式読出し</a>||<a href="#span-eqn-args">args</a>||<a href="#span-eqn-solvex_bisection">solvex_bisection</a>
     </td>
   </tr>
   <tr>
@@ -38063,6 +38063,20 @@ a=1:
 <br>
 clear;
 <br>
+<span class="jF">f=&lt;[x=1,f(x)=&lt;x,(a)=&lt;(x)=&lt;f(a*x)=&gt;](2)=&gt;,f=&gt;g</span>,g(3)=&gt;:
+<br>
+<span class="jF">f(a0)=&lt;[x=1,f(x)=&lt;x,(a)=&lt;(x)=&lt;f(a*x)=&gt;](a0)=&gt;,f(2)=&gt;g</span>,g(3)=&gt;:
+<br>
+f(a0)=&lt;[x=1,f(x)=&lt;x,(a)=&lt;(x)=&lt;f(a*x)=&gt;](a0)=&gt;g,f(2)=&gt;,g(3)=&gt;:
+<br>
+<span class="jF">f(a0)=&lt;[x=1,f(x)=&lt;x,(a/*[overwrite-disabled]*/)=&lt;(x)=&lt;f(a*x)=&gt;](a0)=&gt;,f(2)=&gt;g</span>,g(3)=&gt;:
+<br>
+1,<span class="jF">f(-3)=&gt;h</span>,h(3)=&gt;:
+<br>
+f(a0)=&lt;[x=1,f(x)=&lt;x,a=-2,(a/*[overwrite-disabled]*/)=&lt;(x)=&lt;f(a*x)=&gt;](a0)=&gt;g,f(2)=&gt;,g(3)=&gt;;
+<br>
+clear;
+<br>
 a=-1,b=0,x=1:
 <br>
 [a=1,[(a)=&lt;(x)=&lt;a*x+b](-3)=&gt;f,=&lt;f]=&gt;f,f(x)=&gt;,f(x)==&gt;:
@@ -38075,7 +38089,7 @@ a=-1,b=0,x=1:
 <br>
 [a=1,[(a)=&lt;(x)=&lt;a*x+b](-3)=&gt;f,=&lt;f]==&gt;f,f(x)=&gt;,f(x)==&gt;:
 <br>
-[a=1,[a=2,(a/*overwrite-disabled*/)=&lt;(x)=&lt;a*x+b](-3)=&gt;f,=&lt;f]=&gt;f,f(x)=&gt;,f(x)==&gt;;
+[a=1,[a=2,(a/*[overwrite-disabled]*/)=&lt;(x)=&lt;a*x+b](-3)=&gt;f,=&lt;f]=&gt;f,f(x)=&gt;,f(x)==&gt;;
 <br>
 clear;
 <br>

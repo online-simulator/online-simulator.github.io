@@ -241,7 +241,7 @@
       script += "\nclear;\n";
       script += "a0=-1;\ncall_g(a0)=<(a=a0,g(3)=>,g(3)==>);\nmake_g(a0)=<[a=a0,f(x)=<[(x)=<a*x](x)=>,=<f]=>;\nmake_g(a0)=>g,call_g(1)=>,call_g(2)=>:make_g(a0)==>g,call_g(1)=>,call_g(2)=>;";
       script += "\nclear;\n";
-      script += "x=-1,[x=1,f=<x,=<f=>]=>:\n[x=1,f=<x,=<f]=>f,f:\n[x=1,f=<x,=<f]==>f,f:\nf=<[x=1,f=<x,=<f]=>,f=>g,g:\nf=<[x=1,f=<x,=<f]=>,f==>g,g:\nf=<[x=1,f(x)=<x,=<f]=>,f=>g,g(3)=>:\nf=<[x=1,f(x)=<x,=<(x)=<f(x)=>]=>,f=>g,g(3)=>:\nf=<[x=1,f(x)=<x,(a)=<f](2)=>,f=>g,g(3)=>:\nf=<[x=1,f(x)=<x,(a)=<f(a)](2)=>,f=>g,g=>:\nf=<[x=1,f(x)=<x,(a)=<(x)=<f(a*x)=>](2)=>,f=>g,g(3)=>:\nf(a0)=<[x=1,f(x)=<x,(a)=<(x)=<f(a*x)=>](a0)=>,f(2)=>g,g(3)=>:\nf(a0)=<[x=1,f(x)=<x,(a)=<(x)=<f(a*x)=>](a0)=>g,f(2)=>,g(3)=>;";
+      script += "x=-1,[x=1,f=<x,=<f=>]=>:\n[x=1,f=<x,=<f]=>f,f:\n[x=1,f=<x,=<f]==>f,f:\nf=<[x=1,f=<x,=<f]=>,f=>g,g:\nf=<[x=1,f=<x,=<f]=>,f==>g,g:\nf=<[x=1,f(x)=<x,=<f]=>,f=>g,g(3)=>:\nf=<[x=1,f(x)=<x,=<(x)=<f(x)=>]=>,f=>g,g(3)=>:\nf=<[x=1,f(x)=<x,(a)=<f](2)=>,f=>g,g(3)=>:\nf=<[x=1,f(x)=<x,(a)=<f(a)](2)=>,f=>g,g=>:\nf=<[x=1,f(x)=<x,(a)=<(x)=<f(a*x)=>](2)=>,f=>g,g(3)=>:\nf(a0)=<[x=1,f(x)=<x,(a)=<(x)=<f(a*x)=>](a0)=>,f(2)=>g,g(3)=>:\nf(a0)=<[x=1,f(x)=<x,(a)=<(x)=<f(a*x)=>](a0)=>g,f(2)=>,g(3)=>:\nf(a0)=<[x=1,f(x)=<x,(a/*[overwrite-disabled]*/)=<(x)=<f(a*x)=>](a0)=>,f(2)=>g,g(3)=>:1,f(-3)=>h,h(3)=>:\nf(a0)=<[x=1,f(x)=<x,a=-2,(a/*[overwrite-disabled]*/)=<(x)=<f(a*x)=>](a0)=>g,f(2)=>,g(3)=>;";
       script += "\nclear;\n";
       $._id("input").value = script;
     });
