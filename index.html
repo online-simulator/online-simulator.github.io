@@ -259,6 +259,38 @@ Y/M/D
 <tbody>
   <tr>
     <th>
+6.307.133.15.72
+    </th>
+    <td class="types">
+Calculator
+    </td>
+    <td>
+2.254.59
+    </td>
+    <td>
+minor update
+    </td>
+    <td>
+[Calculator]
+<br>
+・operation.js changed self.inherit_escape()　⇒　self.inherit_constant()
+<br>
+・checkbox-use$let=true spec-changed
+<br>
+clear; x=1; $x=2; x -> [MyErr]Invalid SEv-scope-const(x)
+<br>
+clear; x=1; x=2; x -> [MyErr]Invalid SEv-scope-<del>existed</del>duplicate(x)
+<br>
+clear; $x=1; x=2; x -> <del>2</del>[MyErr]Invalid SEv-scope-existed(x)
+<br>
+clear; $x=1; $x=2; x -> <del>[MyErr]Invalid SEv-scope-duplicate(x)</del>2
+    </td>
+    <td>
+2023/9/15
+    </td>
+  </tr>
+  <tr>
+    <th>
 6.306.133.15.72
     </th>
     <td class="types">

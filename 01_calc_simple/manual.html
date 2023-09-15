@@ -1853,6 +1853,8 @@ title/発行元(発行年)を列挙する
 ・<span class="run">Ver.2.253.59</span>以降、式変数の新規複製の仕様廃止
 <br>
 　影響項目：<a href="#span-out-eqns-call2eqn">式変数への式読出し</a>||<a href="#span-eqn-args">args</a>||<a href="#span-eqn-solvex_bisection">solvex_bisection</a>
+<br>
+・<span class="run">Ver.2.254.59</span>以降、<a href="#span-out-option8">$let宣言</a>の再代入の仕様変更（初回のみ、$あり　⇒　常時、$あり）
     </td>
   </tr>
   <tr>
@@ -9296,15 +9298,17 @@ use$let
 <br>
 <span class="run">Ver.2.249.57</span>以降、再代入と重複宣言を禁止する<a href="#span-out-const-vars">const宣言</a>の既定値を選択可
 <br>
+・<span class="run">Ver.2.254.59</span>以降、$let宣言の再代入の仕様変更（初回のみ、$あり　⇒　常時、$あり）
 <br>
-unchecked既定：$const
+<br>
+unchecked既定：$const宣言
 <br>
 $なし：let宣言
 <br>
 $あり：const宣言
 <br>
 <br>
-checked選択：$let
+checked選択：$let宣言
 <br>
 $なし：const宣言
 <br>
@@ -12415,8 +12419,10 @@ const宣言について記述する
 <br>
 ・既定でconst宣言に変更を検討保留（<a href="#span-out-option8">use$let</a>参照）
 <br>
+・<span class="run">Ver.2.254.59</span>以降、<a href="#span-out-option8">$let宣言</a>の再代入の仕様変更（初回のみ、$あり　⇒　常時、$あり）
 <br>
-<a href="#span-out-option8">$const</a>宣言（$開始のbeta版）
+<br>
+<a href="#span-out-option8">$const宣言</a>（$開始のbeta版）
 <br>
 ・<a href="#span-out-vars">変数</a>
 <br>
@@ -12479,7 +12485,7 @@ clear; $f=&lt;1; $f=&lt;2; f -> [MyErr]Invalid SEe-scope-duplicate(f)
 clear; ($f=&lt;0,[$f=&lt;1,[$f=&lt;2,[$f=&lt;3,f],f],f],f) -> (0,0,0,0,3,2,1,0)
 <br>
 <br>
-<a href="#span-out-option8">$let</a>宣言（$開始のbeta版）
+<a href="#span-out-option8">$let宣言</a>（$開始のbeta版）
 <br>
 ・<a href="#span-out-vars">変数</a>
 <br>
@@ -12489,21 +12495,23 @@ clear; a=1; a -> 1
 <br>
 clear; $a=1; ($a)=2; a -> 2
 <br>
-clear; ($a)=2; a=1; a -> 1
+・<span class="run">Ver.2.254.59</span>以降、$let宣言の再代入の仕様変更（初回のみ、$あり　⇒　常時、$あり）
 <br>
-clear; ($a)=2; $a=1; a -> [MyErr]Invalid SEv-scope-duplicate(a)
+clear; ($a)=2; a=1; a -> <del>1</del>[MyErr]Invalid SEv-scope-existed(a)
+<br>
+clear; ($a)=2; $a=1; a -> <del>[MyErr]Invalid SEv-scope-duplicate(a)</del>1
 <br>
 clear; a=1; $a=2; a -> [MyErr]Invalid SEv-scope-const(a)
 <br>
 clear; a=1; ($a)=2; a -> [MyErr]Invalid SEv-scope-const(a)
 <br>
-clear; a=1; a=2; a -> [MyErr]Invalid SEv-scope-existed(a)
+clear; a=1; a=2; a -> [MyErr]Invalid SEv-scope-<del>existed</del>duplicate(a)
 <br>
-clear; $a=1; $a=2; a -> [MyErr]Invalid SEv-scope-duplicate(a)
+clear; $a=1; $a=2; a -> <del>[MyErr]Invalid SEv-scope-duplicate(a)</del>2
 <br>
-clear; $a=1; a=2; a -> 2
+clear; $a=1; a=2; a -> <del>2</del>[MyErr]Invalid SEv-scope-existed(a)
 <br>
-clear; ($a)=1; a=2; a -> 2
+clear; ($a)=1; a=2; a -> <del>2</del>[MyErr]Invalid SEv-scope-existed(a)
 <br>
 clear; (a=0,[a=1,[a=2,[a=3,a],a],a],a) -> (0,0,0,0,3,2,1,0)
 <br>
@@ -12511,7 +12519,9 @@ clear; (a=0,[a=1,[a=2,[a=3,a],a],a],a) -> (0,0,0,0,3,2,1,0)
 <br>
 clear; n=1; f(n)=&lt;(n,n); f(1),f(2) -> [MyErr]Invalid SEv-scope-const(n)
 <br>
-clear; n=1; f(m)=&lt;(m=2,m); f(n),f(n) -> (0,2,0,2)
+clear; n=1; f(m)=&lt;(m=2,m); f(n),f(n) -> <del>(0,2,0,2)</del>[MyErr]Invalid SEv-scope-existed(m)
+<br>
+clear; n=1; f(m)=&lt;($m=2,m); f(n),f(n) -> (0,2,0,2)
 <br>
 ・<a href="#span-out-scope-vars-has1BT">単独scope</a>
 <br>
@@ -12537,11 +12547,11 @@ clear; f=&lt;1; f -> 1
 <br>
 clear; f=&lt;1; $f=&lt;2; f -> [MyErr]Invalid SEe-scope-const(f)
 <br>
-clear; f=&lt;1; f=&lt;2; f -> [MyErr]Invalid SEe-scope-existed(f)
+clear; f=&lt;1; f=&lt;2; f -> [MyErr]Invalid SEe-scope-<del>existed</del>duplicate(f)
 <br>
-clear; $f=&lt;1; $f=&lt;2; f -> [MyErr]Invalid SEe-scope-duplicate(f)
+clear; $f=&lt;1; $f=&lt;2; f -> <del>[MyErr]Invalid SEe-scope-duplicate(f)</del>2
 <br>
-clear; $f=&lt;1; f=&lt;2; f -> 2
+clear; $f=&lt;1; f=&lt;2; f -> <del>2</del>[MyErr]Invalid SEe-scope-existed(f)
 <br>
 clear; (f=&lt;0,[f=&lt;1,[f=&lt;2,[f=&lt;3,f],f],f],f) -> (0,0,0,0,3,2,1,0)
     </td>

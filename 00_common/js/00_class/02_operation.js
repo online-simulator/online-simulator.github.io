@@ -2843,10 +2843,12 @@ My_entry.operation.prototype.BRe = function(data, i0, tagName, tagObj){
   var tree = self.BR_original(data, i0, tagName, tagObj);
   return self;
 };
+/* Ver.2.254.59 escape -> constant */
 /* Ver.2.249.57 */
-My_entry.operation.prototype.inherit_escape = function(sw, name, scopes, ids, tree, opt_isEscaped){
+My_entry.operation.prototype.inherit_constant = function(sw, name, scopes, ids, tree, opt_isEscaped){
   var self = this;
   var isEscaped = (typeof opt_isEscaped === "undefined")? self.use$let: opt_isEscaped;
+  var isConstant = (self.use$let)? !(isEscaped): isEscaped;  // Ver.2.254.59
   var scope = self.get_scope0_RE_sw(sw, name, scopes, ids);
   if(scope){
     var get_msgErr = function(i){
@@ -2855,24 +2857,22 @@ My_entry.operation.prototype.inherit_escape = function(sw, name, scopes, ids, tr
     };
     var tree0 = scope[name];
     var tagName0 = Object.keys(tree0)[0];
-    var isEscaped0 = tree0[tagName0].isEscaped;
-    if(opt_isEscaped && isEscaped0){
+    var isConstant0 = tree0[tagName0].isConstant;  // Ver.2.254.59
+    if(isConstant0 && isConstant){  // Ver.2.254.59
       throw get_msgErr(0);
     }
     else{
-      var isConstant0 = (self.use$let)? !(isEscaped0): isEscaped0;
-      var isConstant = (self.use$let)? !(isEscaped): isEscaped;
       if(isConstant0){
         throw get_msgErr((isConstant)? 1: 2);
       }
-      else if(!(self.use$let) && isConstant){
+      else if(isConstant){  // Ver.2.254.59
         throw get_msgErr(1);
       }
     }
-    isEscaped = isEscaped0;
+    isConstant = isConstant0;  // Ver.2.254.59
   }
   var tagName = Object.keys(tree)[0];
-  tree[tagName].isEscaped = isEscaped;
+  tree[tagName].isConstant = isConstant;  // Ver.2.254.59
   return self;
 };
 /* Ver.2.31.17 -> */
@@ -2893,7 +2893,7 @@ My_entry.operation.prototype.store_var = function(name, tree, scopes, ids, isEsc
     throw "Invalid SEv-scope-mutex("+name+")";
   }
   /* -> Ver.2.250.57 */
-  self.inherit_escape("vars", name, scopes, ids, tree, isEscaped);  // Ver.2.249.57
+  self.inherit_constant("vars", name, scopes, ids, tree, isEscaped);  // Ver.2.249.57  // Ver.2.254.59
   var vars = self.get_scope_SE_sw("vars", scopes, ids);
   vars[name] = self.entry.def.newClone(tree);  // separate from trees
   return self;
@@ -3365,6 +3365,18 @@ My_entry.operation.prototype.SEv_pattern_matching = function(data, is, ie){
   return self;
 };
 /* Ver.2.31.17 -> */
+/* Ver.2.254.59 */
+My_entry.operation.prototype.get_scope0 = function(scopes, opt_ids){
+  var self = this;
+  var _scope = null;
+  var id0 = (opt_ids || self.config.ids0)[0];
+  if(scopes){
+    var j = id0[0];
+    var n = id0[1];
+    _scope = scopes[j][n];
+  }
+  return _scope;
+};
 My_entry.operation.prototype.del_scope_sw = function(sw, name, scopes, opt_ids){
   var self = this;
   var _scope = self.get_scope_RE_sw(sw, name, scopes, opt_ids);
@@ -3563,7 +3575,7 @@ My_entry.operation.prototype.store_eqn = function(name, tree, scopes, ids, isEsc
     throw "Invalid SEe-scope-mutex("+name+")";
   }
   /* -> Ver.2.250.57 */
-  self.inherit_escape("eqns", name, scopes, ids, tree, isEscaped);  // Ver.2.249.57
+  self.inherit_constant("eqns", name, scopes, ids, tree, isEscaped);  // Ver.2.249.57  // Ver.2.254.59
   var eqns = self.get_scope_SE_sw("eqns", scopes, ids);
   eqns[name] = self.entry.def.newClone(tree);
   return self;
