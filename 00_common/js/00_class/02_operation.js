@@ -3812,13 +3812,16 @@ My_entry.operation.prototype.get_args_AtREe = function(data, name_eqn, arr, isRE
   }
   return {buffer_vars: buffer_vars, buffer_eqns: buffer_eqns, ids_buffer: ids_buffer, tree_eqn: tree_eqn, args_eqns: args_eqns, args_vars: args_vars, args_bas: args_bas};
 };
-My_entry.operation.prototype.store_args_AtREe = function(sw, args, scopes, ids_buffer){
+My_entry.operation.prototype.store_buffer_sw = function(sw, buffer, scopes, ids_buffer, isClear){
   var self = this;
   var store_sw = (sw === "eqns")? self.store_eqn: self.store_var;
-  for(var name in args){  // Ver.2.256.59
-    var tree = args[name];  // Ver.2.256.59
+  for(var name in buffer){  // Ver.2.256.59
+    var tree = buffer[name];  // Ver.2.256.59
     if(tree){
       store_sw.call(self, name, tree, scopes, ids_buffer);  // .call
+    }
+    else if(isClear){  // Ver.2.256.59
+      self.del_scope_sw(sw, name, scopes, ids_buffer);  // Ver.2.226.55
     }
   }
   return self;
@@ -3874,8 +3877,8 @@ My_entry.operation.prototype.REe = function(data, i0, tagName, tagObj){
       self.replace_REv(DATA.tree2trees(tree_eqn), args_bas);  // Ver.2.246.57
     }
     /* Ver.2.71.29 -> */
-    self.store_args_AtREe("eqns", args_eqns, scopes, ids_buffer);
-    self.store_args_AtREe("vars", args_vars, scopes, ids_buffer);
+    self.store_buffer_sw("eqns", args_eqns, scopes, ids_buffer);
+    self.store_buffer_sw("vars", args_vars, scopes, ids_buffer);
     /* -> Ver.2.71.29 */
     /* -> Ver.2.256.59 */
   }
@@ -3902,8 +3905,8 @@ My_entry.operation.prototype.REe = function(data, i0, tagName, tagObj){
   }
   /* Ver.2.256.59 -> */
   if(hasArgs){
-    self.store_args_AtREe("eqns", buffer_eqns, scopes, ids_buffer);
-    self.store_args_AtREe("vars", buffer_vars, scopes, ids_buffer);
+    self.store_buffer_sw("eqns", buffer_eqns, scopes, ids_buffer);
+    self.store_buffer_sw("vars", buffer_vars, scopes, ids_buffer);
   }
   /* -> Ver.2.256.59 */
   if(_tree){
