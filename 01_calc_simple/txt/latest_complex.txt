@@ -1,6 +1,58 @@
 clear
 local storage cleared
 
+vecr_fgh_tail(0)=>,vecr_fgh_tail(1)=>,vecr_fgh_tail(2)=>
+(
+0,9,0,9,0,9:
+0,-9,0,-9,0,-9:
+0,-9,0,-9,0,-9
+)
+
+vecr_fgh_tail(ic)=<[(A_lazy=>)[0]=>f,call_f==>:(A_lazy=>)[1]=>f,call_f==>:(A_lazy=>)=>f,call_f==>]
+stored_eqn(vecr_fgh_tail)
+
+vecr_fgh(0)=>,vecr_fgh(1)=>,vecr_fgh(2)=>
+(
+0,3,0,-3,0,9:
+0,3,0,-3,0,9:
+0,3,0,-3,0,9:
+0,-3,0,3,0,-9:
+0,-3,0,3,0,-9:
+0,-3,0,-3,0,9:
+0,3,0,-3,0,9:
+0,3,0,-3,0,9:
+0,3,0,-3,0,9:
+0,-3,0,3,0,-9:
+0,-3,0,3,0,-9:
+0,-3,0,-3,0,9:
+0,3,0,-3,0,9:
+0,3,0,-3,0,9:
+0,-3,0,3,0,-9
+)
+
+vecr_fgh(ic)=<[((A=>)[0][ic])=>f,call_f==>:(A[0][ic])=>f,call_f==>:A[0][ic]=>f,call_f==>:(=<(A=>)[1][ic])=>f,call_f==>:(=<A[1][ic])=>f,call_f==>:(=<A[0][ic])=>f,call_f==>:((A=>)[0][ic])=>f,call_f==>:(A[0][ic])=>f,call_f==>:A[0][ic]=>f,call_f==>:(=<(A=>)[1][ic])=>f,call_f==>:(=<A[1][ic])=>f,call_f==>:(=<A[0][ic])=>f,call_f==>:(A=>)[0][ic]=>f,call_f==>:((A=>)[0][ic])=>f,call_f==>:(=<(A=>)[1][ic])=>f,call_f==>]
+stored_eqn(vecr_fgh)
+
+A_lazy=<(=<f,=<g,=<h:=<(x)=<-f(x)=>,=<(x)=<-g(x)=>,=<(x)=<-h(x)=>)
+stored_eqn(A_lazy)
+
+A=<(=<f,=<g,=<h:(x)=<-f(x)=>,(x)=<-g(x)=>,(x)=<-h(x)=>)
+stored_eqn(A)
+
+call_f=<f(3)=>
+stored_eqn(call_f)
+
+f(x)=<x,g(x)=<-x,h(x)=<x*x
+(
+0,0,0
+)
+
+ic=1
+ic=1
+
+clear
+local storage cleared
+
 vecr_fgh(0),vecr_fgh(1),vecr_fgh(2)
 (
 0,3,0,-3,0,9:
@@ -23,9 +75,6 @@ vecr_fgh(0),vecr_fgh(1),vecr_fgh(2)
 vecr_fgh(ic)=<[{vecr1=>.}[ic]=>f,call_f==>:{trans(vecr1=>)}[ic]=>f,call_f==>:{=<f,=<g,=<h}[ic]=>f,call_f==>:(=<f,=<g,=<h)[][ic]=>f,call_f==>:(=<(x)=<x,=<(x)=<-x,=<(x)=<x*x)[][ic]=>f,call_f==>:(=<((x)=<x,(x)=<-x,(x)=<x*x)[][ic])=>f,call_f==>:(=<(=<f,=<g,=<h)[][ic])=>f,call_f==>:(=<(vecr0=>)[][ic])=>f,call_f==>:(=<(vecr1=>)[][ic])=>f,call_f==>:(=<((vecr1=>).)[ic])=>f,call_f==>:(=<(trans(vecr1=>))[ic])=>f,call_f==>:(=<(vecr0=>:vecr1=>)[0][ic])=>f,call_f==>:(=<(vecr0=>:vecr1=>)[1][ic])=>f,call_f==>:get_eqn(=<(vecr0=>:vecr1=>),0,ic)=>f,call_f==>:get_eqn(=<(vecr0=>:vecr1=>),1,ic)=>f,call_f==>]
 stored_eqn(vecr_fgh)
 
-call_f=<f(3)=>
-stored_eqn(call_f)
-
 (1,2:3,4).map((x,i_,j_,self)=<get_eqn(=<{self},i_,j_)=>)
 (
 1,2:
@@ -40,6 +89,9 @@ stored_eqn(vecr1)
 
 vecr0=<((x)=<x,(x)=<-x,(x)=<x*x)
 stored_eqn(vecr0)
+
+call_f=<f(3)=>
+stored_eqn(call_f)
 
 f(x)=<x,g(x)=<-x,h(x)=<x*x
 (
@@ -3185,4 +3237,4 @@ drag=false&sw=false&0x=false&useMatrix=true&useStrict=false&checkError=true&isRi
 --------------------------------
 --------------------------------
 
-online-simulator.github.io.6.308.133.15.72 @ Sat Sep 16 2023 01:41:18 GMT+0900 (日本標準時) @ Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/117.0.0.0 Safari/537.36
+online-simulator.github.io.6.308.133.15.72 @ Sat Sep 16 2023 11:58:42 GMT+0900 (日本標準時) @ Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/117.0.0.0 Safari/537.36
