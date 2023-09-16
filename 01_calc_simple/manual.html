@@ -1882,6 +1882,10 @@ title/発行元(発行年)を列挙する
 ・<span class="run">Ver.2.88.32</span>以降、定義できない<a href="#span-out-prec-ope">乗算||減算||加算</a>を拡張対象に追加
 <br>
 ・<span class="run">Ver.2.255.59</span>以降、<a href="#span-out-reference-mat">行列への参照</a>から<a href="#span-out-eqns-call2eqn">式変数への式読出し</a>に対応
+<br>
+・<span class="run">Ver.2.257.59</span>以降、<a href="#span-out-prec-ope-arithmetic-ite">iterator演算子</a>のiterator対象を拡張
+<br>
+　iterator対象：<a href="#span-out-vars">変数</a>　⇒　<a href="#span-out-vars">変数</a>・<a href="#span-out-eqns">式変数</a>
     </td>
   </tr>
   <tr>
@@ -9965,6 +9969,10 @@ iterator演算子と付随する留意事項について記述する
 1.filter((x)=&lt;false) -> <del>(false:false:false)</del>(NaN:NaN:NaN)
 <br>
 ・<span class="clear">Ver.2.226.56</span>以降、dummy変数が<a href="#span-out-terms">scope変数</a>に残存する不具合を修正
+<br>
+・<span class="run">Ver.2.257.59</span>以降、iterator対象を拡張
+<br>
+　iterator対象：<a href="#span-out-vars">変数</a>　⇒　<a href="#span-out-vars">変数</a>・<a href="#span-out-eqns">式変数</a>
 <br>
 <br>
 .map演算子

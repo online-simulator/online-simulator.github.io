@@ -261,6 +261,16 @@
       script += "\nclear;\n";
       script += "ic=1;\nf(x)=<x,g(x)=<-x,h(x)=<x*x;\ncall_f=<f(3)=>;\nA=<(=<f,=<g,=<h:(x)=<-f(x)=>,(x)=<-g(x)=>,(x)=<-h(x)=>);\nA_lazy=<(=<f,=<g,=<h:=<(x)=<-f(x)=>,=<(x)=<-g(x)=>,=<(x)=<-h(x)=>);\nvecr_fgh(ic)=<[((A=>)[0][ic])=>f,call_f==>:(A[0][ic])=>f,call_f==>:A[0][ic]=>f,call_f==>:(=<(A=>)[1][ic])=>f,call_f==>:(=<A[1][ic])=>f,call_f==>:(=<A[0][ic])=>f,call_f==>:((A=>)[0][ic])=>f,call_f==>:(A[0][ic])=>f,call_f==>:A[0][ic]=>f,call_f==>:(=<(A=>)[1][ic])=>f,call_f==>:(=<A[1][ic])=>f,call_f==>:(=<A[0][ic])=>f,call_f==>:(A=>)[0][ic]=>f,call_f==>:((A=>)[0][ic])=>f,call_f==>:(=<(A=>)[1][ic])=>f,call_f==>];\nvecr_fgh(0)=>,vecr_fgh(1)=>,vecr_fgh(2)=>;\nvecr_fgh_tail(ic)=<[(A_lazy=>)[0]=>f,call_f==>:(A_lazy=>)[1]=>f,call_f==>:(A_lazy=>)=>f,call_f==>];\nvecr_fgh_tail(0)=>,vecr_fgh_tail(1)=>,vecr_fgh_tail(2)=>;";
       script += "\nclear;\n";
+      script += "f_=<-1;\n$f(x)=<x,$g(x)=<-x,$h(x)=<x*x;\nvecr0=<((x)=<x,(x)=<-x,(x)=<x*x);\nvecr1=<((x)=<f(x)=>,(x)=<g(x)=>,(x)=<h(x)=>);\n(vecr0=>:vecr1=>).map((=<f_)=<f_(3)=>);";
+      script += "\n";
+      script += "vecr0=<(=<(x)=<x,=<(x)=<-x,=<(x)=<x*x);\nvecr1=<(=<f,=<g,=<h);\ncallback_lazy(=<f_)=<(f_=>)(3)=>;\nA_lazy=<(vecr0=>:vecr1=>);\n(A_lazy=>).map(=<callback_lazy);";
+      script += "\n";
+      script += "call_map(=<list_eqn,=<callback)=<(list_eqn=>).map(=<callback);\ncall_map(=<(vecr0=>:vecr1=>),=<callback_lazy)=>;";
+      script += "\n";
+      script += "call_filter(=<list_eqn,=<callback)=<(list_eqn=>).filter(=<callback);\ncall_filter(=<(vecr0=>:vecr1=>),(=<f_)=<abs(callback_lazy(=<f_)=>)==3)=>list_eqn_filtered;\ncall_map(=<list_eqn_filtered[0]=>,=<callback_lazy)=>;";
+      script += "\n";
+      script += "vecr0=<(=<=<(x)=<x,=<=<(x)=<-x,=<=<(x)=<x*x);\nvecr1=<(=<=<(x)=<f(x)=>,=<=<(x)=<g(x)=>,=<=<(x)=<h(x)=>);\npiped(=<f_)=<((f_=>)=>)(3)=>;\n(A_lazy=>).map(=<piped);\nf_=>;";
+      script += "\nclear;\n";
       $._id("input").value = script;
       // test case
       var setVal = function(){
