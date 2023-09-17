@@ -794,6 +794,8 @@ e^(-i(1pi(){2/2i}(5-{3-1}){i/(-4)}))
 <br>
 ・<a href="#span-eqn-args">args</a>
 <br>
+・<a href="#span-eqn-map">map</a>
+<br>
 ・<a href="#span-eqn-scope_NG">scope_NG</a>
 <br>
 ・<a href="#span-eqn-Fibonacci">Fibonacci</a>
@@ -9040,11 +9042,11 @@ useScope=BT1：<a href="#span-out-BT">丸括弧()</a>のみ<a href="#span-out-sc
 <br>
 <span class="run">Ver.2.32.17</span>以降、以下の条件を追加
 <br>
-useScope=notBT2：<a href="#span-out-BT">波括弧{}</a>を除いて<a href="#span-out-scope-vars">変数のscope</a>を使用する
+useScope=notBT2：<a href="#span-out-BT">波括弧{}</a>以外で<a href="#span-out-scope-vars">変数のscope</a>を使用する
 <br>
-useScope=notBT1：<a href="#span-out-BT">丸括弧()</a>を除いて<a href="#span-out-scope-vars">変数のscope</a>を使用する
+useScope=notBT1：<a href="#span-out-BT">丸括弧()</a>以外で<a href="#span-out-scope-vars">変数のscope</a>を使用する
 <br>
-useScope=notBT0：<a href="#span-out-BT-square">角括弧[]</a>を除いて<a href="#span-out-scope-vars">変数のscope</a>を使用する
+useScope=notBT0：<a href="#span-out-BT-square">角括弧[]</a>以外で<a href="#span-out-scope-vars">変数のscope</a>を使用する
 <br>
 useScope=default（上記以外）：<a href="#span-out-BT-square">角括弧[]</a>のみ<a href="#span-out-scope-vars">変数のscope</a>を使用する
 <br>
@@ -21597,6 +21599,8 @@ clear; [a=1,b=2,v=&lt;{a,b},v=v=&gt;v,a=-1,b=-2,=&lt;v=&gt;]=&gt; -> (-1:-2)</de
 [=&lt;$g]=&gt;f; f=&gt; -> [MyErr]Invalid <del>REv</del>symbol($g)
 <br>
 ・<span class="run">Ver.2.253.59</span>以降、式変数の新規複製の仕様廃止
+<br>
+　式変数名=&lt;式変数名による新規複製は後方互換性（f=&lt;x等）のため、非対応（<a href="#span-out-call-by-symbol">symbol渡し</a>を除く）
 <br>
 <br>
 <del>式変数の新規複製方法
@@ -38200,6 +38204,77 @@ compose_x(x)=&gt;,compose_A(x)=&gt;,pipe_A(x)=&gt;:
 compose_pipe_A(=&lt;A)=&gt;,compose_nest_A(=&lt;A)=&gt;,
 <br>
 compose_A(=&lt;A)=&gt;,pipe_A(=&lt;A)=&gt;;
+    </td>
+  </tr>
+  <tr>
+    <th>
+<a href="#span-index">
+目次
+</a>
+<br>
+map
+    </th>
+    <td>
+<span id="span-eqn-map"></span>
+<a href="#span-out-prec-ope-arithmetic-ite">iterator演算子</a>参照
+<br>
+clear;
+<br>
+a=1;
+<br>
+f(x)=&lt;x;
+<br>
+<span class="jF">call_f_pipe0(=&lt;f_)=&lt;f_(a)=&gt;;
+<br>
+call_f_pipe1(=&lt;f_)=&lt;(f_=&gt;)(a)=&gt;;
+<br>
+call_f_pipe2(=&lt;f_)=&lt;((f_=&gt;)=&gt;)(a)=&gt;;
+<br>
+f0_p0(x)=&lt;x;
+<br>
+f0_p0(a)=&gt;;
+<br>
+call_f_pipe0(=&lt;f0_p0)=&gt;;
+<br>
+call_f_pipe1(=&lt;=&lt;f0_p0)=&gt;;
+<br>
+call_f_pipe2(=&lt;=&lt;=&lt;f0_p0)=&gt;;
+<br>
+((x)=&lt;x:=&lt;f0_p0).map(=&lt;call_f_pipe0);
+<br>
+f0_p1=&lt;(x)=&lt;x;
+<br>
+f1_p1=&lt;=&lt;f;
+<br>
+f2_p1=&lt;(=&lt;f);
+<br>
+(f0_p1=&gt;)(a)=&gt;;
+<br>
+(f1_p1=&gt;)(a)=&gt;;
+<br>
+(f2_p1=&gt;)(a)=&gt;;
+<br>
+(=&lt;(x)=&lt;x,=&lt;=&lt;f,=&lt;(=&lt;f):=&lt;f0_p1,=&lt;f1_p1,=&lt;f2_p1).map(=&lt;call_f_pipe1);
+<br>
+(=&lt;=&lt;f0_p0).map(=&lt;call_f_pipe1);
+<br>
+f0_p2=&lt;=&lt;(x)=&lt;x;
+<br>
+f1_p2=&lt;=&lt;=&lt;f;
+<br>
+f2_p2=&lt;(=&lt;=&lt;f);
+<br>
+((f0_p2=&gt;)=&gt;)(a)=&gt;;
+<br>
+((f1_p2=&gt;)=&gt;)(a)=&gt;;
+<br>
+((f2_p2=&gt;)=&gt;)(a)=&gt;;
+<br>
+(=&lt;=&lt;(x)=&lt;x,=&lt;=&lt;=&lt;f,=&lt;(=&lt;=&lt;f):=&lt;f0_p2,=&lt;f1_p2,=&lt;f2_p2).map(=&lt;call_f_pipe2);
+<br>
+(=&lt;=&lt;f0_p1,=&lt;=&lt;f1_p1,=&lt;=&lt;f2_p1).map(=&lt;call_f_pipe2);
+<br>
+(=&lt;=&lt;=&lt;f0_p0).map(=&lt;call_f_pipe2);</span>
     </td>
   </tr>
   <tr>

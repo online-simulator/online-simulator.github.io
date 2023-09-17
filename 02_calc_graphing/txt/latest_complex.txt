@@ -1268,7 +1268,7 @@ clear
 local storage cleared
 
 [Pinv_y=(-0.999999427,-0.999936657,-0.997300203,-0.954499736,-0.682689492,0,0.682689492,0.954499736,0.997300203,0.999936657,0.999999427:-5,-4,-3,-2,-1,0,1,2,3,4,5),N=1,arr=[],_rn(=<arr=(arr:rand_table(=<Pinv_y)=>),,N),=<arr]=>
--0.15317307779354317
+1.3052312076539525
 
 rand_table(csv)=<last[table=sort0(csv),ymin=min(table)[0],ymax=max(table)[0],y=ymin+(ymax-ymin)*rand,x=interp(y:table),x]
 stored_eqn(rand_table)
@@ -1454,6 +1454,104 @@ stored_eqn(scope_NG2)
 
 scope_NG1(x)=<[x=x,x,last[x=x,x],x]
 stored_eqn(scope_NG1)
+
+clear
+local storage cleared
+
+(=<=<=<f0_p0).map(=<call_f_pipe2)
+1
+
+(=<=<f0_p1,=<=<f1_p1,=<=<f2_p1).map(=<call_f_pipe2)
+(
+1,1,1
+)
+
+(=<=<(x)=<x,=<=<=<f,=<(=<=<f):=<f0_p2,=<f1_p2,=<f2_p2).map(=<call_f_pipe2)
+(
+1,1,1:
+1,1,1
+)
+
+((f2_p2=>)=>)(a)=>
+1
+
+((f1_p2=>)=>)(a)=>
+1
+
+((f0_p2=>)=>)(a)=>
+1
+
+f2_p2=<(=<=<f)
+stored_eqn(f2_p2)
+
+f1_p2=<=<=<f
+stored_eqn(f1_p2)
+
+f0_p2=<=<(x)=<x
+stored_eqn(f0_p2)
+
+(=<=<f0_p0).map(=<call_f_pipe1)
+1
+
+(=<(x)=<x,=<=<f,=<(=<f):=<f0_p1,=<f1_p1,=<f2_p1).map(=<call_f_pipe1)
+(
+1,1,1:
+1,1,1
+)
+
+(f2_p1=>)(a)=>
+1
+
+(f1_p1=>)(a)=>
+1
+
+(f0_p1=>)(a)=>
+1
+
+f2_p1=<(=<f)
+stored_eqn(f2_p1)
+
+f1_p1=<=<f
+stored_eqn(f1_p1)
+
+f0_p1=<(x)=<x
+stored_eqn(f0_p1)
+
+((x)=<x:=<f0_p0).map(=<call_f_pipe0)
+(
+1:
+1
+)
+
+call_f_pipe2(=<=<=<f0_p0)=>
+1
+
+call_f_pipe1(=<=<f0_p0)=>
+1
+
+call_f_pipe0(=<f0_p0)=>
+1
+
+f0_p0(a)=>
+1
+
+f0_p0(x)=<x
+stored_eqn(f0_p0)
+
+call_f_pipe2(=<f_)=<((f_=>)=>)(a)=>
+stored_eqn(call_f_pipe2)
+
+call_f_pipe1(=<f_)=<(f_=>)(a)=>
+stored_eqn(call_f_pipe1)
+
+call_f_pipe0(=<f_)=<f_(a)=>
+stored_eqn(call_f_pipe0)
+
+f(x)=<x
+stored_eqn(f)
+
+a=1
+a=1
 
 clear
 local storage cleared
@@ -1786,4 +1884,4 @@ center=true&drag=false&test-case=false&legend=true&axis-t=false&axis-x=true&log-
 --------------------------------
 --------------------------------
 
-online-simulator.github.io.6.310.133.15.73 @ Sun Sep 17 2023 14:15:41 GMT+0900 (日本標準時) @ Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/117.0.0.0 Safari/537.36
+online-simulator.github.io.6.310.133.15.73 @ Sun Sep 17 2023 15:27:52 GMT+0900 (日本標準時) @ Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/117.0.0.0 Safari/537.36
