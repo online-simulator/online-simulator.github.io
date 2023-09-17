@@ -2327,13 +2327,14 @@ My_entry.operation.prototype.has1elem_tag = function(arr, tagName){
   return (has1elem && arr[0][0][tagName]);
 };
 /* Ver.2.257.59 */
-My_entry.operation.prototype.store4URh_sw = function(num_escape, name, tree, scopes, ids_buffer){
+My_entry.operation.prototype.store4URh_sw = function(data, num_escape, name, argi, scopes, ids_buffer){  // Ver.2.257.60
   var self = this;
   var DATA = self.entry.DATA;
   var BT = self.config.BT;
   if(num_escape){
-    var isSEe = tree[BT.SEe];
+    var isSEe = argi[BT.SEe];
     if(isSEe){
+      var tree = self.tree_eqn2tree_AtSEe(data, argi);  // Ver.2.255.59  // Ver.2.257.60 inherit_ids not-supported
       self.store_eqn(name, tree, scopes, ids_buffer);
     }
     else{
@@ -2341,7 +2342,7 @@ My_entry.operation.prototype.store4URh_sw = function(num_escape, name, tree, sco
     }
   }
   else{
-    self.store_var(name, DATA.num2tree(tree), scopes, ids_buffer);  // Ver.2.226.55
+    self.store_var(name, DATA.num2tree(argi), scopes, ids_buffer);  // Ver.2.226.55
   }
   return self;
 };
@@ -2426,7 +2427,7 @@ My_entry.operation.prototype.URh = function(data, i0, tagName, tagObj, dot_prop)
         if(names.j){  // Ver.2.215.50
           self.store_var(names.j, DATA.tree_num(j, 0), scopes, ids_buffer);  // Ver.2.226.55
         }
-        self.store4URh_sw(num_escape, names.x, arr[i][j], scopes, ids_buffer);  // Ver.2.257.59
+        self.store4URh_sw(data, num_escape, names.x, arr[i][j], scopes, ids_buffer);  // Ver.2.257.59  // Ver.2.257.60
         callback(_arr, arr, self.tree_eqn2tree(data, tree_eqn).mat.arr, i, j);
       }
     }

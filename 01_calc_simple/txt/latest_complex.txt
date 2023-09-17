@@ -7,11 +7,15 @@ f_=>
 (A_lazy=>).map(=<piped)
 (
 3,-3,9:
+3,-3,9:
 3,-3,9
 )
 
 piped(=<f_)=<((f_=>)=>)(3)=>
 stored_eqn(piped)
+
+vecr2=<(=<=<=<f,=<=<=<g,=<=<=<h)
+stored_eqn(vecr2)
 
 vecr1=<(=<=<(x)=<f(x)=>,=<=<(x)=<g(x)=>,=<=<(x)=<h(x)=>)
 stored_eqn(vecr1)
@@ -42,26 +46,34 @@ stored_eqn(call_map)
 (A_lazy=>).map(=<callback_lazy)
 (
 3,-3,9:
+3,-3,9:
 3,-3,9
 )
 
-A_lazy=<(vecr0=>:vecr1=>)
+A_lazy=<(vecr0=>:vecr1=>:vecr2=>)
 stored_eqn(A_lazy)
 
 callback_lazy(=<f_)=<(f_=>)(3)=>
 stored_eqn(callback_lazy)
 
-vecr1=<(=<f,=<g,=<h)
+vecr2=<(=<=<f,=<=<g,=<=<h)
+stored_eqn(vecr2)
+
+vecr1=<(=<(x)=<f(x)=>,=<(x)=<g(x)=>,=<(x)=<h(x)=>)
 stored_eqn(vecr1)
 
 vecr0=<(=<(x)=<x,=<(x)=<-x,=<(x)=<x*x)
 stored_eqn(vecr0)
 
-(vecr0=>:vecr1=>).map((=<f_)=<f_(3)=>)
+(vecr0=>:vecr1=>:vecr2=>).map((=<f_)=<f_(3)=>)
 (
+3,-3,9:
 3,-3,9:
 3,-3,9
 )
+
+vecr2=<(=<f,=<g,=<h)
+stored_eqn(vecr2)
 
 vecr1=<((x)=<f(x)=>,(x)=<g(x)=>,(x)=<h(x)=>)
 stored_eqn(vecr1)
@@ -3316,4 +3328,4 @@ drag=false&sw=false&0x=false&useMatrix=true&useStrict=false&checkError=true&isRi
 --------------------------------
 --------------------------------
 
-online-simulator.github.io.6.310.133.15.72 @ Sun Sep 17 2023 02:19:50 GMT+0900 (日本標準時) @ Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/117.0.0.0 Safari/537.36
+online-simulator.github.io.6.310.133.15.73 @ Sun Sep 17 2023 14:14:31 GMT+0900 (日本標準時) @ Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/117.0.0.0 Safari/537.36
