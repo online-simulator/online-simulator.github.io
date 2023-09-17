@@ -574,6 +574,8 @@ e^(-i(1pi(){2/2i}(5-{3-1}){i/(-4)}))
 <br>
 　　　・<a href="#span-out-substitution-equation">式変数への式代入</a>
 <br>
+　　・<a href="#span-out-eqns-return">末尾return</a>
+<br>
 　　・<a href="#span-out-scope-inherited-pass">scope継承pass</a>
 <br>
 　　・<a href="#span-out-scope-inherited-call">scope継承call</a>
@@ -21785,33 +21787,6 @@ clear; g(x)=&lt;a*x; a=1,[a=2,=&lt;(x)=&lt;[a=3,=&lt;g(x)=&gt;]=&gt;]=&gt;f; f(-
 clear; g(x)=&lt;a*x; a=1,[a=2,=&lt;(x)=&lt;[a=3,=&lt;g(x)=&gt;]==&gt;]=&gt;f; f(-1)=&gt;,f(-1)==&gt; -> (-1,-1)
 <br>
 clear; g(x)=&lt;a*x; a=1,[a=2,=&lt;(x)=&lt;[a=3,=&lt;g(x)==&gt;]=&gt;]=&gt;f; f(-1)=&gt;,f(-1)==&gt; -> (-3,-3)
-<br>
-<br>
-留意事項を列挙する
-<br>
-・末尾returnの仕様：=&lt;=&lt;　⇔　=&lt;<a href="#span-out-vars-symbol">式変数名symbol</a>||解決済みvalueを式読出しの場合、省略可
-<br>
-・既定で末尾returnの記号を省略表記
-<br>
-clear; f(x)=&lt;x; [=&lt;f]=&gt;g; g(3)=&gt; -> 3
-<br>
-clear; f(x)=&lt;x; [(a)=&lt;f](2)=&gt;g; g(3)=&gt; -> 3
-<br>
-clear; f(x)=&lt;x; [(a)=&lt;f(a)=&gt;](2)=&gt;g; g=&gt; -> 2
-<br>
-clear; f(x)=&lt;x; [(a)=&lt;(a)=&lt;a](2)=&gt;g; g(3)=&gt; -> 3
-<br>
-・厳密表記（{}の中身を式読出し）
-<br>
-clear; f(x)=&lt;x; [=&lt;{=&lt;f}]=&gt;g; g(3)=&gt; -> 3
-<br>
-clear; f(x)=&lt;x; [(a)=&lt;{=&lt;f}](2)=&gt;g; g(3)=&gt; -> 3
-<br>
-clear; f(x)=&lt;x; [(a)=&lt;{f(a)=&gt;}](2)=&gt;g; g=&gt; -> 2
-<br>
-clear; f(x)=&lt;x; [(a)=&lt;=&lt;{f(a)=&gt;}](2)=&gt;g; g=&gt; -> 2
-<br>
-clear; f(x)=&lt;x; [(a)=&lt;{(a)=&lt;a}](2)=&gt;g; g(3)=&gt; -> 3
     </td>
   </tr>
   <tr>
@@ -21937,7 +21912,7 @@ clear; a=3; [a]=&gt; -> [MyErr]Invalid reference
 <br>
 (=&lt;0,=&lt;1,2)=&gt; -> [MyErr]Invalid mat([object Object])
 <br>
-・複数列挙の場合、末尾returnのみ取り出す（途中return不可）
+・複数列挙の場合、<a href="#span-out-eqns-return">末尾return</a>のみ取り出す（途中return不可）
 <br>
 [a=1,=&lt;a=2,=&lt;a=3,=&lt;a]=&gt; || [a=1,=&lt;a]=&gt; -> 1
 <br>
@@ -22188,6 +22163,81 @@ clear; d=&lt;{a=&lt;{(b=&lt;1),{c=&lt;2}}}; d,a,b,c -> (0,0,1,2:0,0)
 <br>
 <br>
 応用例は<a href="#span-out-plot2d-command">plot2d-command</a>参照
+    </td>
+  </tr>
+  <tr>
+    <th>
+<a href="#span-index">
+目次
+</a>
+<br>
+末尾return
+<br>
+入力仕様
+    </th>
+    <td>
+<span id="span-out-eqns-return"></span>
+末尾returnの入力仕様と付随する留意事項について記述する
+<br>
+<br>
+<a href="#span-out-eqns-no-name">無名call</a>の末尾returnの仕様を列挙する
+<br>
+・式渡し記号=&lt;を複数列挙の場合、末尾returnのみ取り出す（途中return不可）
+<br>
+[=&lt;1,=&lt;2,=&lt;3]=&gt; || [=&lt;3]=&gt; -> 3
+<br>
+[(a)=&lt;1,(a)=&lt;2,(a)=&lt;a](3)=&gt; || [(a)=&lt;a](3)=&gt; -> 3
+<br>
+・<a href="#span-out-vars-symbol">式変数名symbol</a>を式読出しの場合、末尾returnの式渡し記号{=&lt;}を省略可
+<br>
+clear; f(x)=&lt;x; [=&lt;{=&lt;f}]=&gt;g || [=&lt;f]=&gt;g; g(3)=&gt; -> 3
+<br>
+厳密表記　⇔　省略表記
+<br>
+=&lt;{=&lt;}　⇔　=&lt;
+<br>
+==&lt;{=&lt;}　⇔　==&lt;
+<br>
+<br>
+厳密表記：{}の中身を式読出し
+<br>
+clear; f(x)=&lt;x; [=&lt;{=&lt;f}]=&gt;g; g(3)=&gt; -> 3
+<br>
+clear; f(x)=&lt;x; [(a)=&lt;{=&lt;f}](2)=&gt;g; g(3)=&gt; -> 3
+<br>
+clear; f(x)=&lt;x; [(a)=&lt;{f(a)=&gt;}](2)=&gt; -> 2
+<br>
+clear; f(x)=&lt;x; [(a)=&lt;{f(a)=&gt;}](2)=&gt;g; g=&gt; -> 2
+<br>
+clear; f(x)=&lt;x; [(a)=&lt;=&lt;{f(a)=&gt;}](2)=&gt;g; g=&gt; -> 2
+<br>
+clear; [(a)=&lt;{(a)=&lt;a}](2)=&gt;g; g(3)=&gt; -> 3
+<br>
+clear; a=1, f(x)=&lt;a*x; [(a)=&lt;{=&lt;f}](2)=&gt;g; g(3)=&gt; -> 3
+<br>
+clear; a=1, f(x)=&lt;a*x; [(a)==&lt;{=&lt;f}](2)=&gt;g; g(3)=&gt; -> 6
+<br>
+<br>
+省略表記：末尾returnの式渡し記号{=&lt;}を省略
+<br>
+clear; f(x)=&lt;x; [=&lt;f]=&gt;g; g(3)=&gt; -> 3
+<br>
+clear; f(x)=&lt;x; [(a)=&lt;f](2)=&gt;g; g(3)=&gt; -> 3
+<br>
+clear; f(x)=&lt;x; [(a)=&lt;f(a)=&gt;](2)=&gt; -> 2
+<br>
+clear; f(x)=&lt;x; [(a)=&lt;f(a)=&gt;](2)=&gt;g; g=&gt; -> 2
+<br>
+clear; [(a)=&lt;(a)=&lt;a](2)=&gt;g; g(3)=&gt; -> 3
+<br>
+clear; a=1, f(x)=&lt;a*x; [(a)=&lt;f](2)=&gt;g; g(3)=&gt; -> 3
+<br>
+clear; a=1, f(x)=&lt;a*x; [(a)==&lt;f](2)=&gt;g; g(3)=&gt; -> 6
+<br>
+<br>
+留意事項を列挙する
+<br>
+・別途、末尾<a href="#span-out-eqns-re-call">再帰call</a>の最適化は未対応（call stackに依存）
     </td>
   </tr>
   <tr>
@@ -23288,7 +23338,7 @@ clear; f(n)=&lt;n&lt;=1|||round(n)*f(n-1)=&gt;; [n=10,(=&lt;f)=&lt;f(n)=&gt;](=&
 <br>
 留意事項を列挙する
 <br>
-・複数列挙の場合、末尾returnのみ取り出す（途中return不可）
+・複数列挙の場合、<a href="#span-out-eqns-return">末尾return</a>のみ取り出す（途中return不可）
 <br>
 [a=1,(b)=&lt;a=2,(b)=&lt;a=3,(b)=&lt;a+b](10)=&gt; || [a=1,(b)=&lt;a+b](10)=&gt; -> 11
 <br>
