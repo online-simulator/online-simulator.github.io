@@ -251,9 +251,9 @@
       script += "\n";
       script += "vecr0=<(=<(x)=<x,=<(x)=<-x,=<(x)=<x*x);\nvecr1=<(=<(x)=<f(x)=>,=<(x)=<g(x)=>,=<(x)=<h(x)=>);\nvecr2=<(=<=<f,=<=<g,=<=<h);\ncallback_lazy(=<f_)=<(f_=>)(3)=>;\nA_lazy=<(vecr0=>:vecr1=>:vecr2=>);\n(A_lazy=>).map(=<callback_lazy);";
       script += "\n";
-      script += "call_map(=<list_eqn,=<callback)=<(list_eqn=>).map(=<callback);\ncall_map(=<(vecr0=>:vecr1=>),=<callback_lazy)=>;";
+      script += "call_map(=<list_eqn,=<callback)=<(list_eqn=>).map(=<callback);\ncall_map(=<(vecr0=>:vecr1=>:vecr2=>),=<callback_lazy)=>;";
       script += "\n";
-      script += "call_filter(=<list_eqn,=<callback)=<(list_eqn=>).filter(=<callback);\ncall_filter(=<(vecr0=>:vecr1=>),(=<f_)=<abs(callback_lazy(=<f_)=>)==3)=>list_eqn_filtered;\ncall_map(=<list_eqn_filtered[0]=>,=<callback_lazy)=>;";
+      script += "call_filter(=<list_eqn,=<callback)=<(list_eqn=>).filter(=<callback);\ncall_filter(=<(vecr0=>:vecr1=>:vecr2=>),(=<f_)=<abs(callback_lazy(=<f_)=>)==3)=>list_eqn_filtered;\ncall_map(=<list_eqn_filtered[0]=>,=<callback_lazy)=>;";
       script += "\n";
       script += "vecr0=<(=<=<(x)=<x,=<=<(x)=<-x,=<=<(x)=<x*x);\nvecr1=<(=<=<(x)=<f(x)=>,=<=<(x)=<g(x)=>,=<=<(x)=<h(x)=>);\nvecr2=<(=<=<=<f,=<=<=<g,=<=<=<h);\npiped(=<f_)=<((f_=>)=>)(3)=>;\n(A_lazy=>).map(=<piped);\nf_=>;";
       script += "\nclear;\n";
