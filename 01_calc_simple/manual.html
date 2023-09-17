@@ -21785,6 +21785,33 @@ clear; g(x)=&lt;a*x; a=1,[a=2,=&lt;(x)=&lt;[a=3,=&lt;g(x)=&gt;]=&gt;]=&gt;f; f(-
 clear; g(x)=&lt;a*x; a=1,[a=2,=&lt;(x)=&lt;[a=3,=&lt;g(x)=&gt;]==&gt;]=&gt;f; f(-1)=&gt;,f(-1)==&gt; -> (-1,-1)
 <br>
 clear; g(x)=&lt;a*x; a=1,[a=2,=&lt;(x)=&lt;[a=3,=&lt;g(x)==&gt;]=&gt;]=&gt;f; f(-1)=&gt;,f(-1)==&gt; -> (-3,-3)
+<br>
+<br>
+留意事項を列挙する
+<br>
+・末尾returnの仕様：=&lt;=&lt;　⇔　=&lt;<a href="#span-out-vars-symbol">式変数名symbol</a>||解決済みvalueを返す場合、省略可
+<br>
+・既定で末尾returnの記号を省略表記
+<br>
+clear; f(x)=&lt;x; [=&lt;f]=&gt;g; g(3)=&gt; -> 3
+<br>
+clear; f(x)=&lt;x; [(a)=&lt;f](2)=&gt;g; g(3)=&gt; -> 3
+<br>
+clear; f(x)=&lt;x; [(a)=&lt;f(a)=&gt;](2)=&gt;g; g=&gt; -> 2
+<br>
+clear; f(x)=&lt;x; [(a)=&lt;(a)=&lt;a](2)=&gt;g; g(3)=&gt; -> 3
+<br>
+・厳密表記（{}の中身を式読出し）
+<br>
+clear; f(x)=&lt;x; [=&lt;{=&lt;f}]=&gt;g; g(3)=&gt; -> 3
+<br>
+clear; f(x)=&lt;x; [(a)=&lt;{=&lt;f}](2)=&gt;g; g(3)=&gt; -> 3
+<br>
+clear; f(x)=&lt;x; [(a)=&lt;{f(a)=&gt;}](2)=&gt;g; g=&gt; -> 2
+<br>
+clear; f(x)=&lt;x; [(a)=&lt;=&lt;{f(a)=&gt;}](2)=&gt;g; g=&gt; -> 2
+<br>
+clear; f(x)=&lt;x; [(a)=&lt;{(a)=&lt;a}](2)=&gt;g; g(3)=&gt; -> 3
     </td>
   </tr>
   <tr>
