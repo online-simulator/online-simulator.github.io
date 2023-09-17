@@ -38216,7 +38216,7 @@ map
     </th>
     <td>
 <span id="span-eqn-map"></span>
-<a href="#span-out-prec-ope-arithmetic-ite">iterator演算子</a>参照
+<a href="#span-out-prec-ope-arithmetic-ite">iterator演算子</a>||<a href="#span-out-eqns-call2eqn">式変数への式読出し</a>参照
 <br>
 clear;
 <br>
@@ -38229,6 +38229,20 @@ f(x)=&lt;x;
 call_f_pipe1(=&lt;f_)=&lt;(f_=&gt;)(a)=&gt;;
 <br>
 call_f_pipe2(=&lt;f_)=&lt;((f_=&gt;)=&gt;)(a)=&gt;;
+<br>
+[=&lt;f]=&gt;g,call_f_<span class="clear">pipe0</span>(=&lt;g)=&gt;;
+<br>
+[=&lt;{=&lt;f}<span class="clear">/*=&lt;f*/</span>]=&gt;g,call_f_<span class="clear">pipe0</span>(=&lt;g)=&gt;;
+<br>
+[=&lt;{=&lt;=&lt;f}]=&gt;g,call_f_pipe1(=&lt;g)=&gt;;
+<br>
+[=&lt;{=&lt;=&lt;=&lt;f}]=&gt;g,call_f_pipe2(=&lt;g)=&gt;;
+<br>
+([=&lt;{(x)=&lt;(x)}]=&gt;,[=&lt;{=&lt;f}<span class="clear">/*=&lt;f*/</span>]=&gt;,[<span class="clear">=&lt;f</span>]=&gt;).map(=&lt;call_f_<span class="clear">pipe0</span>);
+<br>
+([=&lt;{=&lt;(x)=&lt;(x)}]=&gt;,[=&lt;{=&lt;=&lt;f}]=&gt;).map(=&lt;call_f_pipe1);
+<br>
+([=&lt;{=&lt;=&lt;(x)=&lt;(x)}]=&gt;,[=&lt;{=&lt;=&lt;=&lt;f}]=&gt;).map(=&lt;call_f_pipe2);
 <br>
 f0_p0(x)=&lt;x;
 <br>

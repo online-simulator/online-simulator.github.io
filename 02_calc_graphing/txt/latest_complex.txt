@@ -1268,7 +1268,7 @@ clear
 local storage cleared
 
 [Pinv_y=(-0.999999427,-0.999936657,-0.997300203,-0.954499736,-0.682689492,0,0.682689492,0.954499736,0.997300203,0.999936657,0.999999427:-5,-4,-3,-2,-1,0,1,2,3,4,5),N=1,arr=[],_rn(=<arr=(arr:rand_table(=<Pinv_y)=>),,N),=<arr]=>
-1.3052312076539525
+0.9574890543051783
 
 rand_table(csv)=<last[table=sort0(csv),ymin=min(table)[0],ymax=max(table)[0],y=ymin+(ymax-ymin)*rand,x=interp(y:table),x]
 stored_eqn(rand_table)
@@ -1537,6 +1537,41 @@ f0_p0(a)=>
 
 f0_p0(x)=<x
 stored_eqn(f0_p0)
+
+([=<{=<=<(x)=<(x)}]=>,[=<{=<=<=<f}]=>).map(=<call_f_pipe2)
+(
+1,1
+)
+
+([=<{=<(x)=<(x)}]=>,[=<{=<=<f}]=>).map(=<call_f_pipe1)
+(
+1,1
+)
+
+([=<{(x)=<(x)}]=>,[=<{=<f}]=>,[=<f]=>).map(=<call_f_pipe0)
+(
+1,1,1
+)
+
+[=<{=<=<=<f}]=>g,call_f_pipe2(=<g)=>
+(
+0,1
+)
+
+[=<{=<=<f}]=>g,call_f_pipe1(=<g)=>
+(
+0,1
+)
+
+[=<{=<f}]=>g,call_f_pipe0(=<g)=>
+(
+0,1
+)
+
+[=<f]=>g,call_f_pipe0(=<g)=>
+(
+0,1
+)
 
 call_f_pipe2(=<f_)=<((f_=>)=>)(a)=>
 stored_eqn(call_f_pipe2)
@@ -1884,4 +1919,4 @@ center=true&drag=false&test-case=false&legend=true&axis-t=false&axis-x=true&log-
 --------------------------------
 --------------------------------
 
-online-simulator.github.io.6.310.133.15.73 @ Sun Sep 17 2023 15:27:52 GMT+0900 (日本標準時) @ Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/117.0.0.0 Safari/537.36
+online-simulator.github.io.6.310.133.15.73 @ Sun Sep 17 2023 17:48:11 GMT+0900 (日本標準時) @ Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/117.0.0.0 Safari/537.36
