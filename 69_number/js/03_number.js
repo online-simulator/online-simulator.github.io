@@ -85,6 +85,7 @@ My_entry.test_number.prototype.init_handlers = function(){
     var self = this;
     var id = elem.id || elem.innerText;
     switch(id){
+      case "solve7":  // Ver.0.45.7
       case "solve6":  // Ver.0.43.6
       case "solve5":  // Ver.0.42.5
       case "solve4":  // Ver.0.39.4
@@ -318,24 +319,26 @@ My_entry.test_number.prototype.solve1 = function(){
   self.solve(true);
   return self;
 };
+/* Ver.0.45.7 */
+My_entry.test_number.prototype.count_N0 = function(bin, m){
+  var self = this;
+  var _N0 = 0;
+  var len = bin.length;
+  for(var i=len-1; i>=len-m; --i){
+    if(bin.charAt(i) === "0"){
+      _N0++;
+    }
+    else{
+      break;
+    }
+  }
+  return _N0;
+};
 /* Ver.0.33.4 */
 My_entry.test_number.prototype.solve2 = function(){
   var self = this;
   var $ = self.entry.$;
   self.convert();
-  var count_N0 = function(bin, m){
-    var _N0 = 0;
-    var len = bin.length;
-    for(var i=len-1; i>=len-m; --i){
-      if(bin.charAt(i) === "0"){
-        _N0++;
-      }
-      else{
-        break;
-      }
-    }
-    return _N0;
-  };
   var get_lsmbit = function(bin, m){
     var len = bin.length;
     return bin.substring(len-m, len);
@@ -354,8 +357,8 @@ My_entry.test_number.prototype.solve2 = function(){
       for(var n=1; n<len_n; n+=2){
         var binm = (3*n-1).toString(2);
         var binp = (3*n+1).toString(2);
-        N0m += count_N0(binm, m);
-        N0p += count_N0(binp, m);
+        N0m += self.count_N0(binm, m);  // Ver.0.45.7
+        N0p += self.count_N0(binp, m);  // Ver.0.45.7
         html1 += self.output_line((m%2)? "condition": "wF", m, n.toString(2), (n<<1).toString(2), (n+(n<<1)).toString(2), get_lsmbit(binm, m), get_lsmbit(binp, m));  // Ver.0.34.4 32bit  // Ver.0.35.4
       }
       html0 += self.output_line("", m, N0m+"/"+len_n2, N0p+"/"+len_n2, self.results_m[m]);  // Ver.0.35.4
@@ -657,5 +660,34 @@ My_entry.test_number.prototype.solve6 = function(){
   };
   self.logs6 = run();
   $._id("output-log").innerHTML = self.logs6.log0;
+  return self;
+};
+/* Ver.0.45.7 */
+My_entry.test_number.prototype.solve7 = function(){
+  var self = this;
+  var $ = self.entry.$;
+  self.convert();
+  var str = $._id("input-string").value;
+  var num = self.val2dec(str);
+  if(isNaN(Number(num))) return false;
+  var num0 = Number(num);
+  var run = function(num){
+    var header0 = self.output_line("wF", "N", "N-ary(n)", "divisor<br>n%N==0", "prime", "divisor&amp;&amp;prime<br>right-shiftable");
+    var html0 = "";
+    for(var N=2; N<self.len_k; ++N){
+      var isOdd = N%2;
+      var hasClass = (isOdd)? "condition": "wF";
+      var num_N_ary = num.toString(N);
+      var isDivisor = (num%N === 0);
+      var isPrime = self.isPrime(N);
+      var Nrshift = self.count_N0(num_N_ary, num_N_ary.length);
+      html0 += self.output_line(hasClass, N, num_N_ary, ((isDivisor)? true: ""), ((isPrime)? true: ""), ((isDivisor && isPrime && Nrshift)? Nrshift: ""));
+    }
+    var _logs = {};
+    _logs.log0 = "<caption class='condition'>N-ary notations of n="+num+"</caption>"+header0+html0;  // Ver.0.43.7
+    return _logs;
+  };
+  var logs = run(num0);
+  $._id("output-log").innerHTML = logs.log0;
   return self;
 };
