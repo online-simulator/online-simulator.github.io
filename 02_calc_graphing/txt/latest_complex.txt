@@ -1268,7 +1268,7 @@ clear
 local storage cleared
 
 [Pinv_y=(-0.999999427,-0.999936657,-0.997300203,-0.954499736,-0.682689492,0,0.682689492,0.954499736,0.997300203,0.999936657,0.999999427:-5,-4,-3,-2,-1,0,1,2,3,4,5),N=1,arr=[],_rn(=<arr=(arr:rand_table(=<Pinv_y)=>),,N),=<arr]=>
-0.17414428379410712
+-0.4394355865815074
 
 rand_table(csv)=<last[table=sort0(csv),ymin=min(table)[0],ymax=max(table)[0],y=ymin+(ymax-ymin)*rand,x=interp(y:table),x]
 stored_eqn(rand_table)
@@ -1454,6 +1454,67 @@ stored_eqn(scope_NG2)
 
 scope_NG1(x)=<[x=x,x,last[x=x,x],x]
 stored_eqn(scope_NG1)
+
+clear
+local storage cleared
+
+[(=<list_eqn)=<[call_f(=<f_)=<f_(a)=>,call_sw(sw,=<fgh)=<[fgh(sw)=>f,call_f(=<f)=>,call_f((a)=<(fgh(sw)=>)(a)=>)=>],arr=[],(list_eqn=>).map((=<fgh)=<(0,1,2).map((sw)=<arr=(arr:call_sw(sw,=<fgh)=>))),=<arr]=>](=<(=<fgh0_strict,=<fgh1_strict,=<fgh2_strict,=<fgh3,=<fgh4))=>
+(
+0,3,3:
+0,-3,-3:
+0,9,9:
+0,3,3:
+0,-3,-3:
+0,9,9:
+0,3,3:
+0,-3,-3:
+0,9,9:
+0,3,3:
+0,-3,-3:
+0,9,9:
+0,3,3:
+0,-3,-3:
+0,9,9
+)
+
+restore
+local storage restored
+
+[(=<list_eqn)=<[call_f(=<f_)=<(f_=>)(a)=>,callback(=<f_)=<call_f(=<f_)=>,call_map(=<list_eqn,=<callback)=<(list_eqn=>).map(=<callback),call_filter(=<list_eqn,=<callback)=<(list_eqn=>).filter(=<callback),=<(((list_eqn=>)=>)(a)=>:(0,1,2).map((sw)=<call_f(=<(list_eqn[sw]=>)=>)=>):(0,1,2).map((sw)=<call_f(=<(list_eqn=>)[sw]=>)=>):call_map(=<list_eqn,=<callback)=>.:call_filter(=<list_eqn,(=<f_)=<abs(call_f(=<f_)=>)==3)=>list_eqn_filtered:call_map(=<list_eqn_filtered[0]=>,=<callback)=>)]=>](=<(=<(x)=<f(x)=>:=<(x)=<g(x)=>:=<(x)=<h(x)=>))=>
+(
+9:
+3,-3,9:
+3,-3,9:
+3,-3,9:
+0:
+3,-3
+)
+
+store
+local storage stored
+
+fgh4(sw)=<(sw==0&&&(=<f)|||sw==1&&&(=<g)|||sw==2&&&(=<h))=>
+stored_eqn(fgh4)
+
+fgh3(sw)=<(=<f:=<g:=<h)[sw]=>
+stored_eqn(fgh3)
+
+fgh2_strict(sw)=<(=<sw==0&&&(=<f)|||sw==1&&&(=<g)|||sw==2&&&(=<h))=>
+stored_eqn(fgh2_strict)
+
+fgh1_strict(sw)=<(=<=<f:=<=<g:=<=<h)[sw]=>
+stored_eqn(fgh1_strict)
+
+fgh0_strict(sw)=<(=<(x)=<f(x)=>:=<(x)=<g(x)=>:=<(x)=<h(x)=>)[sw]=>
+stored_eqn(fgh0_strict)
+
+$f(x)=<x,$g(x)=<-x,$h(x)=<x*x
+(
+0,0,0
+)
+
+$a=3
+a=3
 
 clear
 local storage cleared
@@ -1919,4 +1980,4 @@ center=true&drag=false&test-case=false&legend=true&axis-t=false&axis-x=true&log-
 --------------------------------
 --------------------------------
 
-online-simulator.github.io.6.311.133.15.73 @ Mon Sep 18 2023 14:20:11 GMT+0900 (日本標準時) @ Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/117.0.0.0 Safari/537.36
+online-simulator.github.io.6.311.133.15.73 @ Mon Sep 18 2023 21:46:02 GMT+0900 (日本標準時) @ Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/117.0.0.0 Safari/537.36
