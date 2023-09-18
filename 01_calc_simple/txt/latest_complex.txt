@@ -1,6 +1,24 @@
 clear
 local storage cleared
 
+((=<f)|||false)=>ff,f(3)=>,ff(3)=>:(true&&&(=<f))=>ff,f(3)=>,ff(3)=>:((=<f,=<g,=<h)|||false)=>hh,h(3)=>,hh(3)=>:(true&&&(=<f,=<g,=<h))=>hh,h(3)=>,hh(3)=>:(=<(=<f,=<g,=<h)|||false)=>fgh,(fgh=>)[][1]=>gg,g(3)=>,gg(3)=>:(=<true&&&(=<f,=<g,=<h))=>fgh,(fgh=>)[][1]=>gg,g(3)=>,gg(3)=>
+(
+0,3,3:
+0,3,3:
+0,9,9:
+0,9,9:
+0,0,-3,-3:
+0,0,-3,-3
+)
+
+f(x)=<x,g(x)=<-x,h(x)=<x*x
+(
+0,0,0
+)
+
+clear
+local storage cleared
+
 f_=>
 -1
 
@@ -3329,4 +3347,4 @@ drag=false&sw=false&0x=false&useMatrix=true&useStrict=false&checkError=true&isRi
 --------------------------------
 --------------------------------
 
-online-simulator.github.io.6.310.133.15.73 @ Sun Sep 17 2023 14:57:34 GMT+0900 (日本標準時) @ Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/117.0.0.0 Safari/537.36
+online-simulator.github.io.6.311.133.15.73 @ Mon Sep 18 2023 14:18:50 GMT+0900 (日本標準時) @ Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/117.0.0.0 Safari/537.36

@@ -271,6 +271,8 @@
       script += "\n";
       script += "vecr0=<(=<=<(x)=<x,=<=<(x)=<-x,=<=<(x)=<x*x);\nvecr1=<(=<=<(x)=<f(x)=>,=<=<(x)=<g(x)=>,=<=<(x)=<h(x)=>);\nvecr2=<(=<=<=<f,=<=<=<g,=<=<=<h);\npiped(=<f_)=<((f_=>)=>)(3)=>;\n(A_lazy=>).map(=<piped);\nf_=>;";
       script += "\nclear;\n";
+      script += "f(x)=<x,g(x)=<-x,h(x)=<x*x;\n((=<f)|||false)=>ff,f(3)=>,ff(3)=>:(true&&&(=<f))=>ff,f(3)=>,ff(3)=>:((=<f,=<g,=<h)|||false)=>hh,h(3)=>,hh(3)=>:(true&&&(=<f,=<g,=<h))=>hh,h(3)=>,hh(3)=>:(=<(=<f,=<g,=<h)|||false)=>fgh,(fgh=>)[][1]=>gg,g(3)=>,gg(3)=>:(=<true&&&(=<f,=<g,=<h))=>fgh,(fgh=>)[][1]=>gg,g(3)=>,gg(3)=>;";
+      script += "\nclear;\n";
       $._id("input").value = script;
       // test case
       var setVal = function(){

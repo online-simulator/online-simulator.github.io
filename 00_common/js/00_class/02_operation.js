@@ -716,6 +716,7 @@ My_entry.operation.prototype.BRlAOs = function(data, i0, tagName, tagObj){
   var options = data.options;
   var ids = data.ids;
   var DATA = self.entry.DATA;
+  var BT = self.config.BT;
   var islO = (tagObj.val === "|||" || tagObj.val === "||||");  // Ver.2.196.46
   var hasS = (tagObj.val.length === 4);  // Ver.2.196.46
   var sw_tagName = (islO)? "": tagName;
@@ -728,50 +729,27 @@ My_entry.operation.prototype.BRlAOs = function(data, i0, tagName, tagObj){
     throw "Invalid binary operation";
   }
   var is0D = !(options.useMatrix);  // Ver.2.158.38
-  var tree = null;
-  if(options.isRightAssociativityBR){
-    var rightTree = self.trees2tree_mat(data, rightTrees, ids);
-    var rightArr = rightTree.mat.arr;
-    /* Ver.2.158.38 -> */
-    if(is0D){
-      rightArr = DATA.arr2arr00(rightArr);
-    }
-    /* -> Ver.2.158.38 */
-    if(DATA.hasVar_arr(rightArr)){  // first
+  /* Ver.2.258.60 -> */
+  var get_tree_mat = function(trees){
+    var _tree = self.trees2tree_mat(data, trees, ids);
+    var hasVar = DATA.hasVar_arr(_tree.mat.arr);
+    var hasSEe = hasVar[BT.SEe];
+    if(hasVar && !(hasSEe)){  // first
       throw "Undef "+tagObj.val+"var";  // hasVar(a|||b) disabled
     }
-    else if((DATA[sw_prop](rightArr))^islO){  // xor  // Ver.2.196.46
-      tree = rightTree;
-    }
-    else{
-      tree = self.trees2tree_mat(data, leftTrees, ids);
-    }
-  }
-  else{
-    var leftTree = self.trees2tree_mat(data, leftTrees, ids);
-    var leftArr = leftTree.mat.arr;
     /* Ver.2.158.38 -> */
     if(is0D){
-      leftArr = DATA.arr2arr00(leftArr);
+      _tree = DATA.tree_mat(DATA.arr2arr00(_tree.mat.arr));
     }
     /* -> Ver.2.158.38 */
-    if(DATA.hasVar_arr(leftArr)){  // first
-      throw "Undef var"+tagObj.val;  // hasVar(a|||b) disabled
-    }
-    else if((DATA[sw_prop](leftArr))^islO){  // xor  // Ver.2.196.46
-      tree = leftTree;
-    }
-    else{
-      tree = self.trees2tree_mat(data, rightTrees, ids);
-    }
+    return _tree;
+  };
+  var tree = get_tree_mat((options.isRightAssociativityBR)? rightTrees: leftTrees);
+  var isFalse = !((DATA[sw_prop](tree.mat.arr))^islO);
+  if(isFalse){
+    tree = get_tree_mat((options.isRightAssociativityBR)? leftTrees: rightTrees);
   }
-  /* Ver.2.158.38 -> */
-  if(is0D){
-    var arr = tree.mat.arr;  // leftTree || rightTree
-    var arr00 = DATA.arr2arr00(arr);
-    tree = DATA.tree_mat(arr00);
-  }
-  /* -> Ver.2.158.38 */
+  /* -> Ver.2.258.60 */
   var is = il;
   var ie = ir-1;
   self.feedback2trees(data, is, ie, tree, options.isRightAssociativityBR);
