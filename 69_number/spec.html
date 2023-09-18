@@ -21,6 +21,14 @@
       <caption>更新履歴</caption>
       <tbody>
         <tr class="border">
+          <td class="border run">
+Ver.0.44.7
+          </td>
+          <td class="border">
+・test caseを更新（abc予想の項目に追記）
+          </td>
+        </tr>
+        <tr class="border">
           <td class="border clear">
 Ver.0.43.7
           </td>
@@ -792,6 +800,8 @@ Collatz予想
 abc予想
 <br>
 <span class="clear">Ver.0.40.5追記</span>
+<br>
+<span class="jF">Ver.0.44.7追記</span>
           </td>
           <td class="border">
 ・他方、abc予想も同様に、qualityがbit列長<span class="clear">（entropy）</span>の比と等価で1.6をほぼ超えない
@@ -815,6 +825,24 @@ quality<span class="clear">'</span>:=log(c')/log(rad(ab))
 ・以上より、abc素因数の累乗の指数が大きくなる程、c'大/rad(ab)小の関係からqualityが大きくなる
 <br>
 ・拘束条件がない場合、分母abと分子c'が独立するため、qualityは2より大きな値を取り得る
+<br>
+・<span class="jF">c=4095の一例</span>・N進数表記：(N-ary)・<span class="jF">p=[2,sqrt(c)]の昇順に右shiftを実行</span>
+<br>
+4095(10-ary) -> 121212<span class="jF">00</span>(3-ary) -> 121212(3-ary) ->
+<br>
+455(10-ary) -> 331<span class="jF">0</span>(5-ary) -> 331(5-ary) ->
+<br>
+91(10-ary) -> 16<span class="jF">0</span>(7-ary) -> 16(7-ary) ->
+<br>
+13(10-ary) -> 1<span class="jF">0</span>(13-ary) -> 1(13-ary) ->
+<br>
+1(10-ary)
+<br>
+・参考：455(10-ary) -> d<span class="jF">0</span>(35-ary)
+<br>
+・cの素因数pの場合、p進数表記で最下位に<span class="jF">0</span>が並ぶ（整数がpで割切れる必要条件・<span class="jF">p進数の右shift可能条件</span>）
+<br>
+・同様に、<span class="jF">0</span>の並びの個数が大きくなる程、qualityが大きくなる
           </td>
         </tr>
         <tr class="border">
