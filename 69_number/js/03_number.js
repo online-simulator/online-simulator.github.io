@@ -672,7 +672,7 @@ My_entry.test_number.prototype.solve7 = function(){
   if(isNaN(Number(num))) return false;
   var num0 = Number(num);
   var run = function(num){
-    var header0 = self.output_line("wF", "N", "N-ary(n)", "divisor<br>n%N==0", "prime", "divisor&amp;&amp;prime<br>right-shiftable");
+    var header0 = self.output_line("wF", "N", "N-ary(n)", "divisor<br>n%N==0", "prime", "divisor&amp;&amp;prime<br>right-shiftable<br>Nrshift(N)");
     var html0 = "";
     for(var N=2; N<self.len_k; ++N){
       var isOdd = N%2;
