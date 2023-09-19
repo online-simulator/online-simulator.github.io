@@ -574,8 +574,6 @@ e^(-i(1pi(){2/2i}(5-{3-1}){i/(-4)}))
 <br>
 　　　・<a href="#span-out-substitution-equation">式変数への式代入</a>
 <br>
-　　・<a href="#span-out-eqns-return">末尾return</a>
-<br>
 　　・<a href="#span-out-scope-inherited-pass">scope継承pass</a>
 <br>
 　　・<a href="#span-out-scope-inherited-call">scope継承call</a>
@@ -593,6 +591,8 @@ e^(-i(1pi(){2/2i}(5-{3-1}){i/(-4)}))
 　　　・<a href="#span-out-eqns-re-call">再帰call</a>
 <br>
 　　　・<a href="#span-out-eqns-no-name">無名call</a>
+<br>
+　　　　・<a href="#span-out-eqns-return">末尾return</a>
 <br>
 　　　・<a href="#span-out-eqns-omitted-args">引数省略call</a>
 <br>
@@ -22183,81 +22183,6 @@ clear; d=&lt;{a=&lt;{(b=&lt;1),{c=&lt;2}}}; d,a,b,c -> (0,0,1,2:0,0)
 目次
 </a>
 <br>
-末尾return
-<br>
-入力仕様
-    </th>
-    <td>
-<span id="span-out-eqns-return"></span>
-末尾returnの入力仕様と付随する留意事項について記述する
-<br>
-<br>
-<a href="#span-out-eqns-no-name">無名call</a>の末尾returnの仕様を列挙する
-<br>
-・式渡し記号=&lt;を複数列挙の場合、末尾returnのみ取り出す（途中return不可）
-<br>
-[=&lt;1,=&lt;2,=&lt;3]=&gt; || [=&lt;3]=&gt; -> 3
-<br>
-[(a)=&lt;1,(a)=&lt;2,(a)=&lt;a](3)=&gt; || [(a)=&lt;a](3)=&gt; -> 3
-<br>
-・<a href="#span-out-vars-symbol">式変数名symbol</a>を式読出しの場合、末尾returnの式渡し記号{=&lt;}を省略可
-<br>
-clear; f(x)=&lt;x; [=&lt;{=&lt;f}]=&gt;g || [=&lt;f]=&gt;g; g(3)=&gt; -> 3
-<br>
-厳密表記　⇔　省略表記
-<br>
-=&lt;{=&lt;}　⇔　=&lt;
-<br>
-==&lt;{=&lt;}　⇔　==&lt;
-<br>
-<br>
-厳密表記：{}の中身を式読出し
-<br>
-clear; f(x)=&lt;x; [=&lt;{=&lt;f}]=&gt;g; g(3)=&gt; -> 3
-<br>
-clear; f(x)=&lt;x; [(a)=&lt;{=&lt;f}](2)=&gt;g; g(3)=&gt; -> 3
-<br>
-clear; f(x)=&lt;x; [(a)=&lt;{f(a)=&gt;}](2)=&gt; -> 2
-<br>
-clear; f(x)=&lt;x; [(a)=&lt;{f(a)=&gt;}](2)=&gt;g; g=&gt; -> 2
-<br>
-clear; f(x)=&lt;x; [(a)=&lt;=&lt;{f(a)=&gt;}](2)=&gt;g; g=&gt; -> 2
-<br>
-clear; [(a)=&lt;{(a)=&lt;a}](2)=&gt;g; g(3)=&gt; -> 3
-<br>
-clear; a=1, f(x)=&lt;a*x; [(a)=&lt;{=&lt;f}](2)=&gt;g; g(3)=&gt; -> 3
-<br>
-clear; a=1, f(x)=&lt;a*x; [(a)==&lt;{=&lt;f}](2)=&gt;g; g(3)=&gt; -> 6
-<br>
-<br>
-省略表記：末尾returnの式渡し記号{=&lt;}を省略
-<br>
-clear; f(x)=&lt;x; [=&lt;f]=&gt;g; g(3)=&gt; -> 3
-<br>
-clear; f(x)=&lt;x; [(a)=&lt;f](2)=&gt;g; g(3)=&gt; -> 3
-<br>
-clear; f(x)=&lt;x; [(a)=&lt;f(a)=&gt;](2)=&gt; -> 2
-<br>
-clear; f(x)=&lt;x; [(a)=&lt;f(a)=&gt;](2)=&gt;g; g=&gt; -> 2
-<br>
-clear; [(a)=&lt;(a)=&lt;a](2)=&gt;g; g(3)=&gt; -> 3
-<br>
-clear; a=1, f(x)=&lt;a*x; [(a)=&lt;f](2)=&gt;g; g(3)=&gt; -> 3
-<br>
-clear; a=1, f(x)=&lt;a*x; [(a)==&lt;f](2)=&gt;g; g(3)=&gt; -> 6
-<br>
-<br>
-留意事項を列挙する
-<br>
-・別途、末尾<a href="#span-out-eqns-re-call">再帰call</a>の最適化は未対応（call stackに依存）
-    </td>
-  </tr>
-  <tr>
-    <th>
-<a href="#span-index">
-目次
-</a>
-<br>
 scope
 <br>
 継承pass
@@ -23375,6 +23300,117 @@ clear; f(x)=&lt;(1,2:3,x); f[1](5) -> (3,5)
 ・引数の要素数が異なる場合、error終了（<a href="#span-out-FN-args">関数の引数</a>と異なり、厳格に判別する）
 <br>
 [(a,b,c)=&lt;(a,b)](3,=&lt;(i,2i))=&gt; -> [MyErr]Invalid args.length=3(no-name)
+    </td>
+  </tr>
+  <tr>
+    <th>
+<a href="#span-index">
+目次
+</a>
+<br>
+末尾return
+<br>
+入力仕様
+    </th>
+    <td>
+<span id="span-out-eqns-return"></span>
+末尾returnの入力仕様と付随する留意事項について記述する
+<br>
+<br>
+<a href="#span-out-eqns-no-name">無名call</a>の末尾returnの仕様を列挙する
+<br>
+・式渡し記号=&lt;を複数列挙の場合、末尾returnのみ取り出す（途中return不可）
+<br>
+[=&lt;1,=&lt;2,=&lt;3]=&gt; || [=&lt;3]=&gt; -> 3
+<br>
+[(a)=&lt;1,(a)=&lt;2,(a)=&lt;a](3)=&gt; || [(a)=&lt;a](3)=&gt; -> 3
+<br>
+・<a href="#span-out-vars-symbol">式変数名symbol</a>を式読出しの場合、末尾returnの式渡し記号{=&lt;}を省略可
+<br>
+clear; f(x)=&lt;x; [=&lt;{=&lt;f}]=&gt;g || [=&lt;f]=&gt;g; g(3)=&gt; -> 3
+<br>
+厳密表記　⇔　省略表記
+<br>
+=&lt;{=&lt;}　⇔　=&lt;
+<br>
+==&lt;{=&lt;}　⇔　==&lt;
+<br>
+<br>
+厳密表記：{}の中身を式読出し
+<br>
+clear; f(x)=&lt;x; [=&lt;{=&lt;f}]=&gt;g; g(3)=&gt; -> 3
+<br>
+clear; f(x)=&lt;x; [(a)=&lt;{=&lt;f}](2)=&gt;g; g(3)=&gt; -> 3
+<br>
+clear; f(x)=&lt;x; [(a)=&lt;{f(a)=&gt;}/*resolved*/](2)=&gt; -> 2
+<br>
+clear; f(x)=&lt;x; [(a)=&lt;{f(a)=&gt;}](2)=&gt;g; g=&gt; -> 2
+<br>
+clear; f(x)=&lt;x; [(a)=&lt;=&lt;{f(a)=&gt;}/*not-resolved*/](2)=&gt; -> [MyErr]Invalid BTe([object Object])
+<br>
+clear; f(x)=&lt;x; [(a)=&lt;=&lt;{f(a)=&gt;}](2)=&gt;g; g=&gt; -> 2
+<br>
+clear; [(a)=&lt;{(a)=&lt;a}](2)=&gt;g; g(3)=&gt; -> 3
+<br>
+clear; a=1, f(x)=&lt;a*x; [(a)=&lt;{=&lt;f}](2)=&gt;g; g(3)=&gt; -> 3
+<br>
+clear; a=1, f(x)=&lt;a*x; [(a)==&lt;{=&lt;f}](2)=&gt;g; g(3)=&gt; -> 6
+<br>
+<br>
+省略表記：末尾returnの式渡し記号{=&lt;}を省略
+<br>
+clear; f(x)=&lt;x; [=&lt;f]=&gt;g; g(3)=&gt; -> 3
+<br>
+clear; f(x)=&lt;x; [(a)=&lt;f](2)=&gt;g; g(3)=&gt; -> 3
+<br>
+clear; f(x)=&lt;x; [(a)=&lt;f(a)=&gt;](2)=&gt; -> 2
+<br>
+clear; f(x)=&lt;x; [(a)=&lt;f(a)=&gt;](2)=&gt;g; g=&gt; -> 2
+<br>
+clear; [(a)=&lt;(a)=&lt;a](2)=&gt;g; g(3)=&gt; -> 3
+<br>
+clear; a=1, f(x)=&lt;a*x; [(a)=&lt;f](2)=&gt;g; g(3)=&gt; -> 3
+<br>
+clear; a=1, f(x)=&lt;a*x; [(a)==&lt;f](2)=&gt;g; g(3)=&gt; -> 6
+<br>
+<br>
+留意事項を列挙する
+<br>
+・末尾returnの参照要素は<a href="#span-out-FNm-last">last行列関数</a>の参照要素に一致
+<br>
+clear; (({=&lt;(x)=&lt;x,=&lt;(x)=&lt;-x},=&lt;(x)=&lt;x*x))=&gt;f; f(3)=&gt; -> -3
+<br>
+clear; (last({=&lt;(x)=&lt;x,=&lt;(x)=&lt;-x},=&lt;(x)=&lt;x*x))=&gt;f; f(3)=&gt; -> -3
+<br>
+clear; (first({=&lt;(x)=&lt;x,=&lt;(x)=&lt;-x},=&lt;(x)=&lt;x*x))=&gt;f; f(3)=&gt; -> 3
+<br>
+・<span class="run">Ver.2.255.59</span>以降、<a href="#span-out-reference-mat">行列への参照</a>の場合、<a href="#span-in-call-by-equation">遅延評価</a>の式渡し記号=&lt;を明示
+<br>
+clear; (=&lt;(x)=&lt;x:=&lt;(x)=&lt;-x:=&lt;(x)=&lt;x*x)[0]=&gt;f || (=&lt;(x)=&lt;x)=&gt;f; f(3)=&gt; -> 3
+<br>
+clear; (=&lt;(x)=&lt;x:=&lt;(x)=&lt;-x:=&lt;(x)=&lt;x*x)[1]=&gt;f || (=&lt;(x)=&lt;-x)=&gt;f; f(3)=&gt; -> -3
+<br>
+clear; (=&lt;(x)=&lt;x:=&lt;(x)=&lt;-x:=&lt;(x)=&lt;x*x)[2]=&gt;f || (=&lt;(x)=&lt;x*x)=&gt;f; f(3)=&gt; -> 9
+<br>
+・<a href="#span-out-reference-mat">行列への参照</a>省略の場合、末尾return
+<br>
+clear; (=&lt;(x)=&lt;x:=&lt;(x)=&lt;-x:=&lt;(x)=&lt;x*x)=&gt;f || (=&lt;(x)=&lt;x*x)=&gt;f; f(3)=&gt; -> 9
+<br>
+・<a href="#span-in-call-by-equation">遅延評価</a>の式渡し記号=&lt;省略の場合、末尾return
+<br>
+clear; (=&lt;x:=&lt;-x:=&lt;x*x)=&gt;f || (=&lt;x*x)=&gt;f; f=&gt; -> [MyErr]Invalid binary operation
+<br>
+clear; (x=3,=&lt;x:=&lt;-x:=&lt;x*x)=&gt;f || (x=3,=&lt;x*x)=&gt;f; f=&gt; -> 9
+<br>
+clear; (=&lt;=&lt;x:=&lt;=&lt;-x:=&lt;=&lt;x*x)=&gt;f || (=&lt;=&lt;x*x)=&gt;f; f=&gt; -> [MyErr]Invalid binary operation
+<br>
+clear; (=&lt;=&lt;x:=&lt;=&lt;-x:=&lt;=&lt;x*x)=&gt;f || (=&lt;=&lt;x*x)=&gt;f; x=3; f=&gt; -> 9
+<br>
+clear; ((x)=&lt;x:(x)=&lt;-x:(x)=&lt;x*x)=&gt;f || ((x)=&lt;x*x)=&gt;f; f(3)=&gt; -> [MyErr]Invalid args.length=1(null)
+<br>
+clear; ((x)=&lt;x:(x)=&lt;-x:(x)=&lt;x*x)(3)=&gt;f || ((x)=&lt;x*x)(3)=&gt;f; f=&gt; -> 9
+<br>
+・別途、末尾<a href="#span-out-eqns-re-call">再帰call</a>の最適化は未対応（call stackに依存）
     </td>
   </tr>
   <tr>
@@ -38397,7 +38433,7 @@ fgh4(sw)=&lt;(sw==0&amp;&amp;&amp;(=&lt;f)|||sw==1&amp;&amp;&amp;(=&lt;g)|||sw==
 <br>
 store;
 <br>
-[(=&lt;list_eqn)=&lt;[
+[
 <br>
 call_f(=&lt;f_)=&lt;(f_=&gt;)(a)=&gt;,
 <br>
@@ -38407,7 +38443,7 @@ call_map(=&lt;list_eqn,=&lt;callback)=&lt;(list_eqn=&gt;).map(=&lt;callback),
 <br>
 call_filter(=&lt;list_eqn,=&lt;callback)=&lt;(list_eqn=&gt;).filter(=&lt;callback),
 <br>
-=&lt;(
+(=&lt;list_eqn)=&lt;(
 <br>
 ((list_eqn=&gt;)=&gt;/*tail-return*/)(a)=&gt;:
 <br>
@@ -38421,17 +38457,19 @@ call_filter(=&lt;list_eqn,(=&lt;f_)=&lt;abs(call_f(=&lt;f_)=&gt;)==3)=&gt;list_e
 <br>
 call_map(=&lt;list_eqn_filtered[0]=&gt;,=&lt;callback)=&gt;
 <br>
-)]=&gt;
+)
 <br>
 ](=&lt;(=&lt;(x)=&lt;f(x)=&gt;:=&lt;(x)=&lt;g(x)=&gt;:=&lt;(x)=&lt;h(x)=&gt;))=&gt;;
 <br>
 restore;
 <br>
-[(=&lt;list_eqn)=&lt;[
+[
 <br>
 call_f(=&lt;f_)=&lt;f_(a)=&gt;,
 <br>
 call_sw(sw,=&lt;fgh)=&lt;[fgh(sw)=&gt;f,call_f(=&lt;f)=&gt;,call_f((a)=&lt;(fgh(sw)=&gt;)(a)=&gt;)=&gt;],
+<br>
+(=&lt;list_eqn)=&lt;[
 <br>
 arr=[],
 <br>
@@ -38535,7 +38573,7 @@ arr=[],_s<span class="jF">((n0)</span>=&lt;arr=(arr:n0:fibok_fill_n0(N,n0,ks,ke)
 <br>
 ](N,0,3,2,N)=&gt;
 <br>
-](10)=&gt;;
+](10/*exponential-time*/)=&gt;;
     </td>
   </tr>
   <tr>
