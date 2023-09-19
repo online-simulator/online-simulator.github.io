@@ -1610,9 +1610,10 @@ My_entry.operation.prototype.tree2tree_eqn = function(data, tree){
       _tree = self.tree_SEe2REe(tree_SEe);
       var symbol = self.get_symbol(isSEe, true);  // Ver.2.247.57  // Ver.2.251.58
       if(symbol){
-        var tree_symbol = self.restore_eqn(symbol, scopes, ids);
-        if(tree_symbol){
-          _tree = tree_symbol;
+        var ids_SEe = isSEe.ids;  // Ver.2.259.61
+        var tree = self.restore_eqn(symbol, scopes, ids_SEe);  // Ver.2.259.61 ids -> ids_SEe
+        if(tree){
+          _tree = tree;
         }
         else if(!(isMat)){
           throw "Invalid =<Call-by-Equation";
@@ -1644,10 +1645,10 @@ My_entry.operation.prototype.tree2tree_eqn_AtREe = function(data, tree, isREee){
   var isSEe_arr = tree.mat && self.has1elem_tag(tree.mat.arr, BT.SEe);  // Ver.2.255.59
   if(isREe){
     var ids_REe = isREe.ids;
-    var symbol = self.get_symbol(isREe, false);  // Ver.2.229.56  // Ver.2.251.58 [g(x)=<a,(a)=<g](3)=>f,f=>
+    var symbol = self.get_symbol(isREe, false);  // Ver.2.229.56  // Ver.2.251.58 [g(x)=<a,(a)=<g](3)=>f,f(4)=>
     if(symbol){  // Ver.2.229.56
-      /* [f(x)=<x,f=>f,=<f]=>f,f(3)=> */
-      /* make_g(a0)=<[a=a0,f(x)=<[(x)=<a*x](x)=>,=<f]=>,a=1,make_g(-a)=>g,g(3) */
+      /* f(x)=<[(x)=<a*x](x)=>,make_g(a0)=<[a=a0,=<=<f]=>,a=1,make_g(-a)=>g,g(3)=> */
+      /* make_g(a0)=<[a=a0,f(x)=<[(x)=<a*x](x)=>,=<f]=>,a=1,make_g(-a)=>g,g(3)=> */
       _tree = self.restore_var(symbol, scopes, ids_REe) || self.restore_eqn(symbol, scopes, ids_REe, isREee);  // Ver.2.229.56  // Ver.2.253.59
     }
     _tree = _tree || self.tree2tree_eqn(data, self.tree_eqn2tree_AtREe(data, tree));  // Ver.2.20.8  // Ver.2.32.17  // Ver.2.202.46  // Ver.2.211.46  // Ver.2.214.49  // Ver.2.229.56  // Ver.2.231.56  // Ver.2.253.59
@@ -1661,7 +1662,7 @@ My_entry.operation.prototype.tree2tree_eqn_AtREe = function(data, tree, isREee){
   }
   /* Ver.2.255.59 -> */
   else if(isSEe_arr){
-    /* clear; f(x)=<x,g(x)=<-x,h(x)=<x*x; A=<((x)=<x,(x)=<-x,(x)=<x*x:=<f,=<g,=<h); A[0][1]=>f,f(3)=>:A[1][1]=>f,f(3)=>; */
+    /* f(x)=<x,g(x)=<-x,h(x)=<x*x; A=<((x)=<x,(x)=<-x,(x)=<x*x:=<f,=<g,=<h); A[0][1]=>f,f(3)=>:A[1][1]=>f,f(3)=>; */
     var tree_REe = self.tree_SEe2REe(tree.mat.arr[0][0]);
     _tree = (self.get_symbol(isSEe_arr, true))? self.tree2tree_eqn_AtREe(data, tree_REe, isREee): tree_REe;
   }

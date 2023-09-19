@@ -23329,32 +23329,58 @@ clear; f(x)=&lt;(1,2:3,x); f[1](5) -> (3,5)
 <br>
 clear; f(x)=&lt;x; [=&lt;{=&lt;f}]=&gt;g || [=&lt;f]=&gt;g; g(3)=&gt; -> 3
 <br>
-厳密表記　⇔　省略表記
+厳密表記　⇔　省略表記（廃止の可能性あり）
 <br>
 =&lt;{=&lt;}　⇔　=&lt;
 <br>
 ==&lt;{=&lt;}　⇔　==&lt;
 <br>
+・<span class="clear">Ver.2.259.61</span>以降、末尾returnの<a href="#span-in-tree">ids</a>未継承の実装不具合を修正
+<br>
+clear; f(x)=&lt;x,[=&lt;{=&lt;f}]=&gt;g; g(3)=&gt; -> 3
+<br>
+clear; [f(x)=&lt;x,=&lt;{=&lt;f}]=&gt;g; g(3)=&gt; -> <del>[MyErr]Invalid args.length=0(g)</del>3
+<br>
 <br>
 厳密表記：{}の中身を式読出し
 <br>
-clear; f(x)=&lt;x; [=&lt;{=&lt;f}]=&gt;g; g(3)=&gt; -> 3
+clear; f(x)=&lt;x,[=&lt;{=&lt;f}]=&gt;g; g(3)=&gt; -> 3
 <br>
-clear; f(x)=&lt;x; [(a)=&lt;{=&lt;f}](2)=&gt;g; g(3)=&gt; -> 3
+clear; [f(x)=&lt;x,=&lt;{=&lt;f}]=&gt;g; g(3)=&gt; -> <del>[MyErr]Invalid args.length=0(g)</del>3
 <br>
-clear; f(x)=&lt;x; [(a)=&lt;{f(a)=&gt;}/*resolved*/](2)=&gt; -> 2
+clear; f(x)=&lt;x,[(a)=&lt;{=&lt;f}](2)=&gt;g; g(3)=&gt; -> 3
 <br>
-clear; f(x)=&lt;x; [(a)=&lt;{f(a)=&gt;}](2)=&gt;g; g=&gt; -> 2
+clear; [f(x)=&lt;x,(a)=&lt;{=&lt;f}](2)=&gt;g; g(3)=&gt; -> <del>[MyErr]Invalid args.length=0(g)</del>3
 <br>
-clear; f(x)=&lt;x; [(a)=&lt;=&lt;{f(a)=&gt;}/*not-resolved*/](2)=&gt; -> [MyErr]Invalid BTe([object Object])
+clear; f(x)=&lt;x,[(a)=&lt;{f(a)=&gt;}/*resolved*/](2)=&gt; -> 2
 <br>
-clear; f(x)=&lt;x; [(a)=&lt;=&lt;{f(a)=&gt;}](2)=&gt;g; g=&gt; -> 2
+clear; [f(x)=&lt;x,(a)=&lt;{f(a)=&gt;}/*resolved*/](2)=&gt; -> 2
+<br>
+clear; f(x)=&lt;x,[(a)=&lt;{f(a)=&gt;}](2)=&gt;g; g=&gt; -> 2
+<br>
+clear; [f(x)=&lt;x,(a)=&lt;{f(a)=&gt;}](2)=&gt;g; g=&gt; -> 2
+<br>
+clear; f(x)=&lt;x,[(a)=&lt;=&lt;{f(a)=&gt;}/*not-resolved*/](2)=&gt; -> [MyErr]Invalid BTe([object Object])
+<br>
+clear; [f(x)=&lt;x,(a)=&lt;=&lt;{f(a)=&gt;}/*not-resolved*/](2)=&gt; -> [MyErr]Invalid BTe([object Object])
+<br>
+clear; f(x)=&lt;x,[(a)=&lt;=&lt;{f(a)=&gt;}](2)=&gt;g; g=&gt; -> 2
+<br>
+clear; [f(x)=&lt;x,(a)=&lt;=&lt;{f(a)=&gt;}](2)=&gt;g; g=&gt; -> 2
 <br>
 clear; [(a)=&lt;{(a)=&lt;a}](2)=&gt;g; g(3)=&gt; -> 3
 <br>
-clear; a=1, f(x)=&lt;a*x; [(a)=&lt;{=&lt;f}](2)=&gt;g; g(3)=&gt; -> 3
+clear; a=1, f(x)=&lt;a*x,[(a)=&lt;{=&lt;f}](2)=&gt;g; g(3)=&gt; -> 3
 <br>
-clear; a=1, f(x)=&lt;a*x; [(a)==&lt;{=&lt;f}](2)=&gt;g; g(3)=&gt; -> 6
+clear; a=1, [f(x)=&lt;a*x,(a)=&lt;{=&lt;f}](2)=&gt;g; g(3)=&gt; -> <del>[MyErr]Invalid args.length=0(g)</del>6
+<br>
+clear; a=1, [f(x)=&lt;a*x,(a)=&lt;{=&lt;f}](2)=&gt;g; (g=&gt;)(3)=&gt; -> 6
+<br>
+clear; a=1, f(x)=&lt;a*x,[(a)==&lt;{=&lt;f}](2)=&gt;g; g(3)=&gt; -> 6
+<br>
+clear; a=1, [f(x)=&lt;a*x,(a)==&lt;{=&lt;f}](2)=&gt;g; g(3)=&gt; -> <del>[MyErr]Invalid args.length=0(g)</del>6
+<br>
+clear; a=1, [f(x)=&lt;a*x,(a)==&lt;{=&lt;f}](2)=&gt;g; (g=&gt;)(3)=&gt; -> 6
 <br>
 <br>
 省略表記：末尾returnの式渡し記号{=&lt;}を省略

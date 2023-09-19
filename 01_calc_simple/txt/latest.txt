@@ -1,6 +1,45 @@
 clear
 local storage cleared
 
+[f(x)=<x,=<{=<f}]=>g,g(3)=>
+(
+0,3
+)
+
+clear
+local storage cleared
+
+f(x)=<x,[=<{=<f}]=>g,g(3)=>
+(
+0,0,3
+)
+
+clear
+local storage cleared
+
+vecr_fgh(0)=>,vecr_fgh(1)=>,vecr_fgh(2)=>
+(
+0,-3,0,3,0,-9:
+0,3,0,-3,0,9
+)
+
+vecr_fgh(ic)=<[(=<A[1][ic])=>f,call_f==>:(=<A[0][ic])=>f,call_f==>]
+stored_eqn(vecr_fgh)
+
+A=<(=<f,=<g,=<h:(x)=<-f(x)=>,(x)=<-g(x)=>,(x)=<-h(x)=>)
+stored_eqn(A)
+
+call_f=<f(3)=>
+stored_eqn(call_f)
+
+f(x)=<x,g(x)=<-x,h(x)=<x*x
+(
+0,0,0
+)
+
+clear
+local storage cleared
+
 ((=<f)|||false)=>ff,f(3)=>,ff(3)=>:(true&&&(=<f))=>ff,f(3)=>,ff(3)=>:((=<f,=<g,=<h)|||false)=>hh,h(3)=>,hh(3)=>:(true&&&(=<f,=<g,=<h))=>hh,h(3)=>,hh(3)=>:(=<(=<f,=<g,=<h)|||false)=>fgh,(fgh=>)[][1]=>gg,g(3)=>,gg(3)=>:(=<true&&&(=<f,=<g,=<h))=>fgh,(fgh=>)[][1]=>gg,g(3)=>,gg(3)=>
 (
 0,3,3:
@@ -128,13 +167,13 @@ vecr_fgh(0)=>,vecr_fgh(1)=>,vecr_fgh(2)=>
 0,3,0,-3,0,9:
 0,-3,0,3,0,-9:
 0,-3,0,3,0,-9:
-0,-3,0,-3,0,9:
+0,3,0,-3,0,9:
 0,3,0,-3,0,9:
 0,3,0,-3,0,9:
 0,3,0,-3,0,9:
 0,-3,0,3,0,-9:
 0,-3,0,3,0,-9:
-0,-3,0,-3,0,9:
+0,3,0,-3,0,9:
 0,3,0,-3,0,9:
 0,3,0,-3,0,9:
 0,-3,0,3,0,-9
@@ -156,9 +195,6 @@ f(x)=<x,g(x)=<-x,h(x)=<x*x
 (
 0,0,0
 )
-
-ic=1
-ic=1
 
 clear
 local storage cleared
@@ -207,9 +243,6 @@ f(x)=<x,g(x)=<-x,h(x)=<x*x
 (
 0,0,0
 )
-
-ic=1
-ic=1
 
 clear
 local storage cleared
@@ -3347,4 +3380,4 @@ drag=false&sw=false&0x=false&useMatrix=true&useStrict=false&checkError=true&isRi
 --------------------------------
 --------------------------------
 
-online-simulator.github.io.6.311.133.15.73 @ Mon Sep 18 2023 14:18:37 GMT+0900 (日本標準時) @ Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/117.0.0.0 Safari/537.36
+online-simulator.github.io.6.312.135.15.74 @ Tue Sep 19 2023 18:40:22 GMT+0900 (日本標準時) @ Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/117.0.0.0 Safari/537.36
