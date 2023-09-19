@@ -31,10 +31,10 @@ vecr_fgh(0)=>,vecr_fgh(1)=>,vecr_fgh(2)=>
 0,3,0,-3,0,9
 )
 
-vecr_fgh(ic)=<[(=<A[1][ic])=>f,call_f==>:(=<A[0][ic])=>f,call_f==>]
+vecr_fgh(ic)=<[A[0][ic]=>f,call_f==>:A[1][ic]=>f,call_f==>]
 stored_eqn(vecr_fgh)
 
-A=<(=<f,=<g,=<h:(x)=<-f(x)=>,(x)=<-g(x)=>,(x)=<-h(x)=>)
+A=<((x)=<-f(x)=>,(x)=<-g(x)=>,(x)=<-h(x)=>:=<f,=<g,=<h)
 stored_eqn(A)
 
 call_f=<f(3)=>
@@ -3388,4 +3388,4 @@ drag=false&sw=false&0x=false&useMatrix=true&useStrict=false&checkError=true&isRi
 --------------------------------
 --------------------------------
 
-online-simulator.github.io.6.313.135.15.74 @ Wed Sep 20 2023 01:10:27 GMT+0900 (日本標準時) @ Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/117.0.0.0 Safari/537.36
+online-simulator.github.io.6.313.135.15.74 @ Wed Sep 20 2023 06:43:58 GMT+0900 (日本標準時) @ Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/117.0.0.0 Safari/537.36

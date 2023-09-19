@@ -3593,7 +3593,7 @@ My_entry.operation.prototype.restore_eqn_tree = function(tree, scopes, opt_ids, 
     }
   }
   if(!(_tree) && opt_callback_AtREe){
-    _tree = (opt_callback_AtREe === true)? self.tree_SEe2REe(tree_SEe): opt_callback_AtREe();
+    _tree = (opt_callback_AtREe === true)? ((tree_SEe)? self.tree_SEe2REe(tree_SEe): null): opt_callback_AtREe();
   }
   /* Ver.2.253.59 -> */
   /* Ver.2.219.50 -> */
