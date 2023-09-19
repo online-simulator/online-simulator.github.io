@@ -1,6 +1,14 @@
 clear
 local storage cleared
 
+B=-1,[B=10,[B=20,g=<B,[B=30,=<==<g]=>f,=<f]=>f,=<f]=>f,f=>,f==>
+(
+0,0,30,-1
+)
+
+clear
+local storage cleared
+
 [f(x)=<x,=<{=<f}]=>g,g(3)=>
 (
 0,3
@@ -3380,4 +3388,4 @@ drag=false&sw=false&0x=false&useMatrix=true&useStrict=false&checkError=true&isRi
 --------------------------------
 --------------------------------
 
-online-simulator.github.io.6.312.135.15.74 @ Tue Sep 19 2023 18:40:22 GMT+0900 (日本標準時) @ Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/117.0.0.0 Safari/537.36
+online-simulator.github.io.6.313.135.15.74 @ Wed Sep 20 2023 01:10:14 GMT+0900 (日本標準時) @ Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/117.0.0.0 Safari/537.36

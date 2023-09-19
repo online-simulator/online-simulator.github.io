@@ -799,10 +799,13 @@ My_entry.operation.prototype.check_symbol = function(symbol){
   return self;
 };
 /* Ver.2.229.56 */
-My_entry.operation.prototype.get_symbol = function(tree, hasArgs){  // Ver.2.251.58
+My_entry.operation.prototype.get_symbol = function(obj, hasArgs){  // Ver.2.251.58  // Ver.2.260.61
   var self = this;
-  var has1val = (tree && tree.val.length === 1);
-  var _symbol = has1val && !(hasArgs && tree.arg) && self.get_tagVal(tree.val[0], "REv", "val");  // Ver.2.251.58
+  /* Ver.2.260.61 -> */
+  var prop = obj && obj.val;
+  var prop0 = (prop && prop.length === 1 && prop[0]);
+  var _symbol = prop0 && !(hasArgs && obj.arg) && self.get_tagVal(prop0, "REv", "val");  // Ver.2.251.58
+  /* -> Ver.2.260.61 */
   self.check_symbol(_symbol);  // Ver.2.232.56
   return _symbol;
 };
@@ -1602,36 +1605,27 @@ My_entry.operation.prototype.tree2tree_eqn = function(data, tree){
   var scopes = data.scopes;
   var ids = data.ids;
   var BT = self.config.BT;
-  var _tree = tree;
-  var get_tree_SEe2tree_eqn = function(tree_SEe, isMat){
-    var _tree = null;
-    var isSEe = tree_SEe[BT.SEe];
-    if(isSEe){
-      _tree = self.tree_SEe2REe(tree_SEe);
-      var symbol = self.get_symbol(isSEe, true);  // Ver.2.247.57  // Ver.2.251.58
-      if(symbol){
-        var ids_SEe = isSEe.ids;  // Ver.2.259.61
-        var tree = self.restore_eqn(symbol, scopes, ids_SEe);  // Ver.2.259.61 ids -> ids_SEe
-        if(tree){
-          _tree = tree;
-        }
-        else if(!(isMat)){
-          throw "Invalid =<Call-by-Equation";
-        }
-      }
-    }
+  /* Ver.2.260.61 -> */
+  var _tree = null;
+  var isMat = tree.mat;
+  var get_tree_SEe2tree_eqn = function(tree){
+    var msgErr = (isMat)? "": "Invalid =<Call-by-Equation";
+    var _tree = self.restore_eqn_tree(tree, scopes, null, null, null, true, msgErr);
     return _tree;
   };
-  var isMat = tree.mat;
   if(isMat){
     var tree_SEe = self.tree2tree_SEe(tree);
     if(tree_SEe){
-      _tree = get_tree_SEe2tree_eqn(tree_SEe, isMat);  // =<f || =<f(x)=> -> tree_eqn
+      _tree = get_tree_SEe2tree_eqn(tree_SEe);  // =<f || =<f(x)=> -> tree_eqn
+    }
+    else{
+      _tree = tree;
     }
   }
   else{  // nesting NG: =<(x)=<f(x)
-    _tree = get_tree_SEe2tree_eqn(tree, isMat);  // (args)=<tree_eqn || ()=<tree_eqn
+    _tree = get_tree_SEe2tree_eqn(tree);  // (args)=<tree_eqn || ()=<tree_eqn
   }
+  /* -> Ver.2.260.61 */
   return _tree;
 };
 My_entry.operation.prototype.tree2tree_eqn_AtREe = function(data, tree, isREee){  // Ver.2.253.59 independent of names
@@ -1644,21 +1638,15 @@ My_entry.operation.prototype.tree2tree_eqn_AtREe = function(data, tree, isREee){
   var isREe = tree[BT.REe];  // Ver.2.200.46
   var isSEe_arr = tree.mat && self.has1elem_tag(tree.mat.arr, BT.SEe);  // Ver.2.255.59
   if(isREe){
-    var ids_REe = isREe.ids;
-    var symbol = self.get_symbol(isREe, false);  // Ver.2.229.56  // Ver.2.251.58 [g(x)=<a,(a)=<g](3)=>f,f(4)=>
-    if(symbol){  // Ver.2.229.56
-      /* f(x)=<[(x)=<a*x](x)=>,make_g(a0)=<[a=a0,=<=<f]=>,a=1,make_g(-a)=>g,g(3)=> */
-      /* make_g(a0)=<[a=a0,f(x)=<[(x)=<a*x](x)=>,=<f]=>,a=1,make_g(-a)=>g,g(3)=> */
-      _tree = self.restore_var(symbol, scopes, ids_REe) || self.restore_eqn(symbol, scopes, ids_REe, isREee);  // Ver.2.229.56  // Ver.2.253.59
-    }
-    _tree = _tree || self.tree2tree_eqn(data, self.tree_eqn2tree_AtREe(data, tree));  // Ver.2.20.8  // Ver.2.32.17  // Ver.2.202.46  // Ver.2.211.46  // Ver.2.214.49  // Ver.2.229.56  // Ver.2.231.56  // Ver.2.253.59
-    /* Ver.2.253.59 -> */
-    /* Ver.2.219.50 -> */
-    if(_tree[BT.REe] && ids_REe && isREe.isSEee){
-      self.inherit_ids_sw(BT.REe, _tree, ids_REe);
-    }
-    /* -> Ver.2.219.50 */
-    /* -> Ver.2.253.59 */
+    /* f(x)=<[(x)=<a*x](x)=>,make_g(a0)=<[a=a0,=<=<f]=>,a=1,make_g(-a)=>g,g(3)=> */
+    /* make_g(a0)=<[a=a0,f(x)=<[(x)=<a*x](x)=>,=<f]=>,a=1,make_g(-a)=>g,g(3)=> */
+    /* Ver.2.260.61 -> */
+    var withVar = true;
+    var callback_AtREe = function(){
+      return self.tree2tree_eqn(data, self.tree_eqn2tree_AtREe(data, tree));
+    };
+    /* -> Ver.2.260.61 */
+    _tree = self.restore_eqn_tree(tree, scopes, null, isREee, withVar, callback_AtREe);  // Ver.2.20.8  // Ver.2.32.17  // Ver.2.202.46  // Ver.2.211.46  // Ver.2.214.49  // Ver.2.229.56  // Ver.2.231.56  // Ver.2.253.59  // Ver.2.260.61
   }
   /* Ver.2.255.59 -> */
   else if(isSEe_arr){
@@ -3247,20 +3235,9 @@ My_entry.operation.prototype.tree_eqn2tree_AtSEe = function(data, tree_eqn, opt_
   var _tree = null;
   var isSEe = tree_eqn[BT.SEe];
   if(isSEe){
-    var isSEee = isSEe.isSEee;
-    var symbol = self.get_symbol(isSEe, true);  // Ver.2.251.58
-    if(symbol){
-      var ids_SEe = isSEe.ids;
-      var tree = self.restore_eqn(symbol, scopes, ids_SEe);
-      if(tree){
-        _tree = self.tree_REe2SEe(tree);
-        if(ids && isSEee){
-          self.inherit_ids_sw(BT.SEe, _tree, ids);
-        }
-      }
-      else{
-        throw "Undef eqn("+symbol+")";
-      }
+    var tree_REe = self.restore_eqn_tree(tree_eqn, scopes, null, null, null, null, true);  // Ver.2.260.61
+    if(tree_REe){
+      _tree = self.tree_REe2SEe(tree_REe);  // double clone  // Ver.2.260.61
     }
     else{
       _tree = tree_eqn;
@@ -3293,6 +3270,7 @@ My_entry.operation.prototype.REv = function(data, i0, tagName, tagObj){
   var scopes = data.scopes;
   var ids = data.ids;
   var DATA = self.entry.DATA;
+  var BT = self.config.BT;
   var is = i0;
   var ie = i0;
   var isStorE = function(tree){
@@ -3301,31 +3279,28 @@ My_entry.operation.prototype.REv = function(data, i0, tagName, tagObj){
   var ref = trees[is]["REv"]["ref"];
   var tree = null;
   var isSE = (i0 === 0 && isStorE(trees[i0+1]));
-  if(!(isSE)){
-    var name = tagObj.val;
-    tree = self.restore_var(name, scopes, ids);
+  /* Ver.2.260.61 -> */
+  var name = tagObj.val;
+  if(!(isSE) && !(self.config.isEscaped(name))){  // Ver.2.260.61
+    tree = (self.useStrict)? self.restore_var(name, scopes, ids): self.restore_eqn(name, scopes, ids, null, true);  // Ver.2.260.61
     /* Ver.2.24.11 -> */
     if(tree){
-    }
-    else if(!(self.useStrict)){
-      tree = self.restore_eqn(name, scopes, ids);
-      if(tree){
-        /* Ver.2.20.8 -> */
-        var isREe = tree[self.config.BT.REe];
-        if(isREe){
-          /* Ver.2.247.57 -> */
-          var args_eqn = isREe.arg;
-          tree = (args_eqn)? self.REe(data, i0+2, tagName, tagObj): self.tree_eqn2tree_AtREe(data, tree);  // Ver.2.32.17  // Ver.2.202.46
-          if(tree && args_eqn){  // Ver.2.233.56 switched
-          /* -> Ver.2.247.57 */
-            ie = i0+1;
-          }
+      /* Ver.2.20.8 -> */
+      var isREe = tree[BT.REe];
+      if(isREe){
+        /* Ver.2.247.57 -> */
+        var args_eqn = isREe.arg;
+        tree = (args_eqn)? self.REe(data, i0+2, tagName, tagObj): self.tree_eqn2tree_AtREe(data, tree);  // Ver.2.32.17  // Ver.2.202.46
+        if(tree && args_eqn){  // Ver.2.233.56 switched
+        /* -> Ver.2.247.57 */
+          ie = i0+1;
         }
-        /* -> Ver.2.20.8 */
       }
+      /* -> Ver.2.20.8 */
     }
     /* -> Ver.2.24.11 */
   }
+  /* -> Ver.2.260.61 */
   if(tree){
     if(ref){
       tree = self.tree2tree_ref(tree, ref);
@@ -3566,13 +3541,14 @@ My_entry.operation.prototype.inherit_ids_sw = function(sw, tree, opt_ids_upper){
   return self;
 };
 /* Ver.2.31.17 -> */
-My_entry.operation.prototype.restore_eqn = function(name, scopes, ids, isREee){
+My_entry.operation.prototype.restore_eqn = function(name, scopes, ids, isREee, withVar){  // Ver.2.260.61
   var self = this;
+  var BT = self.config.BT;
   var _tree = null;
-  var eqns = self.get_scope_RE_sw("eqns", name, scopes, ids);
+  var tree_var = (withVar)? self.restore_var(name, scopes, ids): null;  // Ver.2.260.61
+  var eqns = (tree_var)? null: self.get_scope_RE_sw("eqns", name, scopes, ids);  // Ver.2.260.61
   if(eqns){
     var tree = eqns[name];
-    var BT = self.config.BT;
     var isSEe = tree[BT.SEe];
     if(isSEe){
       _tree = self.tree_SEe2REe(tree);
@@ -3584,6 +3560,48 @@ My_entry.operation.prototype.restore_eqn = function(name, scopes, ids, isREee){
       _tree = self.entry.def.newClone(tree);
     }
   }
+  else{
+    _tree = tree_var;  // Ver.2.260.61
+  }
+  return _tree;
+};
+/* Ver.2.260.61 */
+My_entry.operation.prototype.restore_eqn_tree = function(tree, scopes, opt_ids, isREee, withVar, opt_callback_AtREe, msgErr){
+  var self = this;
+  var BT = self.config.BT;
+  var _tree = null;
+  var name = "";
+  var ids = opt_ids;
+  var ids_SEee = null;
+  var tree_SEe = null;
+  var isSEe = tree[BT.SEe];
+  var isREe = tree[BT.REe];
+  if(isSEe){
+    tree_SEe = tree;
+  }
+  var obj = isSEe || isREe;
+  if(obj){
+    var hasArgs = (isSEe)? true: false;
+    name = self.get_symbol(obj, hasArgs);  // Ver.2.247.57  // Ver.2.251.58
+    ids = obj.ids;  // overwrite
+    ids_SEee = (obj.isSEee)? ids: null;
+  }
+  if(name){
+    _tree = self.restore_eqn(name, scopes, ids, isREee, withVar);
+    if(!(_tree) && msgErr){
+      throw ((msgErr === true)? "Undef eqn("+name+")": msgErr);
+    }
+  }
+  if(!(_tree) && opt_callback_AtREe){
+    _tree = (opt_callback_AtREe === true)? self.tree_SEe2REe(tree_SEe): opt_callback_AtREe();
+  }
+  /* Ver.2.253.59 -> */
+  /* Ver.2.219.50 -> */
+  if(_tree && _tree[BT.REe] && ids_SEee){
+    self.inherit_ids_sw(BT.REe, _tree, ids_SEee);
+  }
+  /* -> Ver.2.219.50 */
+  /* -> Ver.2.253.59 */
   return _tree;
 };
 /* Ver.2.30.15 name changed */
