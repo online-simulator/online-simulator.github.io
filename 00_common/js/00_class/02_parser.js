@@ -908,13 +908,19 @@ My_entry.parser.prototype.isCommand = function(sentence){
   }
   return _command;
 };
-/* Ver.2.214.50 -> */
-My_entry.parser.prototype.set_hasTag = function(tree){
+/* Ver.2.261.61 */
+My_entry.parser.prototype.wrapper_loop = function(trees, callback_pre, callback){
   var self = this;
-  if(tree){
-    self.hasTag = self.hasTag || {};  // Ver.2.212.46
-    self.hasTag[(Object.keys(tree))[0]] = true;
-  }
+  var operation = self.entry.operation;
+  var loop_tree_BT = function(tree_BT){
+    callback_pre(tree_BT);
+    var tagName = operation.isType(tree_BT, "BT");
+    if(tagName){
+      var trees_lower = operation.get_tagVal(tree_BT, tagName, "val");
+      callback(trees_lower);
+    }
+  };
+  self.loop_callback(trees, loop_tree_BT);  // Ver.2.218.50
   return self;
 };
 /* Ver.2.218.50 */
@@ -935,38 +941,51 @@ My_entry.parser.prototype.loop_callback = function(trees, callback){
   }
   return self;
 };
+/* Ver.2.214.50 -> */
+My_entry.parser.prototype.set_hasTag = function(tree){
+  var self = this;
+  if(tree){
+    self.hasTag = self.hasTag || {};  // Ver.2.212.46
+    self.hasTag[(Object.keys(tree))[0]] = true;
+  }
+  return self;
+};
 My_entry.parser.prototype.check_hasTag = function(trees){
   var self = this;
-  var operation = self.entry.operation;
-  var loop_tree_BT = function(tree_BT){
-    self.set_hasTag(tree_BT);
-    var tagName = operation.isType(tree_BT, "BT");
-    if(tagName){
-      /* Ver.2.216.50 -> */
-      var trees_lower = operation.get_tagVal(tree_BT, tagName, "val");
-      self.check_hasTag(trees_lower);
-      /* -> Ver.2.216.50 */
-    }
+  var callback_pre = function(tree){
+    self.set_hasTag(tree);
   };
-  self.loop_callback(trees, loop_tree_BT);  // Ver.2.218.50
+  var callback = function(trees){
+    self.check_hasTag(trees);
+  };
+  self.wrapper_loop(trees, callback_pre, callback);
   return self;
 };
 /* -> Ver.2.214.50 */
-/* Ver.2.261.61 */
-My_entry.parser.prototype.delete_id = function(trees){
+/* Ver.2.261.61 -> */
+My_entry.parser.prototype.delete_id_tree = function(tree){
   var self = this;
-  var loop_tree_BT = function(tree_BT){
-    var tagName = (Object.keys(tree_BT))[0];
-    if(tagName){
-      var obj = tree_BT[tagName];
-      if(obj){
-        delete obj.id;
-      }
+  var tagName = (Object.keys(tree))[0];
+  if(tagName){
+    var obj = tree[tagName];
+    if(obj){
+      delete obj.id;
     }
-  };
-  self.loop_callback(trees, loop_tree_BT);  // Ver.2.218.50
+  }
   return self;
 };
+My_entry.parser.prototype.delete_id_trees = function(trees){
+  var self = this;
+  var callback_pre = function(tree){
+    self.delete_id_tree(tree);
+  };
+  var callback = function(trees){
+    self.delete_id_trees(trees);
+  };
+  self.wrapper_loop(trees, callback_pre, callback);
+  return self;
+};
+/* -> Ver.2.261.61 */
 /* Ver.2.200.46 */
 /* Ver.2.32.17 */
 /* Ver.2.31.17 (1,[2,{3,4}]) -> */
@@ -1047,10 +1066,10 @@ My_entry.parser.prototype.script2objs2d = function(data){
         self.make_scopes(data.options.useScope, data.eqns, scopes, ids2d, j);
         scopes2d.push(scopes);
         self.check_hasTag(data.eqns);  // Ver.2.214.50
-        self.delete_id(data.eqns);  // Ver.2.261.61
+        self.delete_id_trees(data.eqns);  // Ver.2.261.61
       }
       if(data.vars){
-        self.delete_id(data.vars);  // Ver.2.261.61
+        self.delete_id_trees(data.vars);  // Ver.2.261.61
       }
       /* -> Ver.2.32.17 */
     }

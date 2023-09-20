@@ -9340,6 +9340,16 @@ $あり：let宣言
 　・<a href="#span-out-eqns-args">式変数のarguments</a>（厳密には<a href="#span-out-scope-vars">scope</a>不定）
 <br>
 　・<a href="#span-out-FNh">高階関数</a>||<a href="#span-out-FNmh">高階行列関数</a>のdummy変数（<a href="#span-out-terms">scope変数</a>の宣言と干渉あり仕様）
+<br>
+・<span class="run">Ver.2.261.61</span>以降、define判別<span class="condition">id</span>を追加して<a href="#span-out-eqns">式変数</a>のre-callに対応（<a href="#span-out-eqns-re-use">再利用</a>の場合、id削除）
+<br>
+[$f=&lt;0,$a=1,$b=2,=&lt;(c)=&lt;f=&gt;+a+b+c]=&gt;f,f(3)=&gt;,f(4)=&gt;,f(5)=&gt; -> (0,6,7,8)
+<br>
+・<a href="#span-out-eqns">式変数</a>の場合、re-call毎に判別するため、<a href="#span-out-eqns-no-name">無名call</a>のclosureより重い
+<br>
+f(c)=&lt;[$f=&lt;0,$a=1,$b=2,=&lt;f=&gt;+a+b+c]=&gt;,f(3)=&gt;,f(4)=&gt;,f(5)=&gt;
+<br>
+-> <del>[MyErr]Invalid SEe-scope-duplicate(f)</del>(0,6,7,8)
     </td>
   </tr>
   <tr>
