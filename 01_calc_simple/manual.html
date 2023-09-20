@@ -11136,6 +11136,39 @@ false|||1 -> 1
 false&amp;&amp;&amp;1 -> false
 <br>
 <br>
+<span class="run">Ver.2.258.60</span>以降、operandを拡張
+<br>
+・((x)=&gt;x)||false  <span class="selection">// ES2015</span> -> (x)=&gt;x
+<br>
+((x)=&lt;x)|||false -> [MyErr]Invalid BTe([object Object])
+<br>
+(=&lt;(x)=&lt;x)|||false -> [MyErr]Invalid BTe([object Object],[object Object])
+<br>
+・(((x)=&gt;x)||false)(2)  <span class="selection">// ES2015</span> -> 2
+<br>
+(((x)=&lt;x)|||false)(2) -> [MyErr]Invalid FN operation
+<br>
+(((x)=&lt;x)|||false)(2)=&gt; -> 2
+<br>
+・pipe
+<br>
+clear; ((=&lt;(x)=&lt;x)|||false)(2)=&gt; -> [MyErr]Invalid args.length=0(no-name)
+<br>
+clear; (((=&lt;(x)=&lt;x)|||false)=&gt;)(2)=&gt; -> 2
+<br>
+clear; (((()=&lt;(x)=&lt;x)|||false)()=&gt;)(2)=&gt; -> 2
+<br>
+・=&lt;　⇔　<a href="#span-out-eqns-return">return</a>
+<br>
+clear; ((((a)=&lt;(b)=&lt;(a,b))|||false)(1)=&gt;)(2)=&gt; -> (1,2)
+<br>
+clear; a=-1; ((((a/*[overwrite-disabled]*/)=&lt;(b)=&lt;(a,b))|||false)(1)=&gt;)(2)=&gt; -> (-1,2)
+<br>
+・<a href="#span-out-scope-vars-has1BT">単独scope</a>
+<br>
+clear; a=-1; [(((a)=&lt;(b)=&lt;(a,b))|||false)(1)=&gt;](2)=&gt; -> (1,2)
+<br>
+<br>
 論理ANDs||ORs演算子の留意事項を列挙する
 <br>
 ・可読性に難あり
