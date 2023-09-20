@@ -12447,6 +12447,14 @@ const宣言について記述する
 <br>
 ・<span class="run">Ver.2.254.59</span>以降、<a href="#span-out-option8">$let宣言</a>の再代入の仕様変更（初回のみ、$あり　⇒　常時、$あり）
 <br>
+・<span class="run">Ver.2.261.61</span>以降、define判別<span class="condition">id</span>を追加して<a href="#span-out-eqns">式変数</a>のre-callに対応（<a href="#span-out-eqns-re-use">再利用</a>の場合、id削除）
+<br>
+[$f=&lt;0,$a=1,$b=2,=&lt;(c)=&lt;f=&gt;+a+b+c]=&gt;f,f(3)=&gt;,f(4)=&gt;,f(5)=&gt; -> (0,6,7,8)
+<br>
+f(c)=&lt;[$f=&lt;0,$a=1,$b=2,=&lt;f=&gt;+a+b+c]=&gt;,f(3)=&gt;,f(4)=&gt;,f(5)=&gt;
+<br>
+-> <del>[MyErr]Invalid SEe-scope-duplicate(f)</del>(0,6,7,8)
+<br>
 <br>
 <a href="#span-out-option8">$const宣言</a>（$開始のbeta版）
 <br>
@@ -36448,6 +36456,8 @@ Calculator用途に特化した実装項目とfile名の対応関係を列挙す
 <br>
 <span class="run">Ver.2.249.57</span>以降、<a href="#span-out-const-vars">const宣言</a>用の<span class="condition">flag</span>を追加
 <br>
+<span class="run">Ver.2.261.61</span>以降、<a href="#span-out-const-vars">const宣言</a>用のdefine判別<span class="condition">id</span>を追加（<a href="#span-out-eqns-re-use">再利用</a>の場合、id削除）
+<br>
 <pre><code>
             j-th sentence
   trees2d: [j][i]{tag || num}
@@ -36455,9 +36465,9 @@ Calculator用途に特化した実装項目とfile名の対応関係を列挙す
     trees: [i]{}
   trees0d,
      tree: {}
-      tag: {"name": <span class="selection">{val: val}</span>}
-         : {"BT?":  <span class="selection">{val: [], ref: [], ids: [], arg: [], <span class="condition">flag</span>}</span>}
-      num: {mat:    {arr: arr, <span class="condition">flag</span>}}
+      tag: {"name": <span class="selection">{<span class="condition">id</span>, val: val}</span>}
+         : {"BT?":  <span class="selection">{<span class="condition">id</span>, val: [], ref: [], ids: [], arg: [], <span class="condition">flag</span>}</span>}
+      num: {mat:    {<span class="condition">id</span>, arr: arr, <span class="condition">flag</span>}}
       1+i: arr [0] [0] {com: {r: 1, i: 1}}
    matrix:     row col {complex number   }
 (i,2:3,4): arr [0] [0] {com: {r: 0, i: 1}}
@@ -38234,7 +38244,31 @@ args
     </th>
     <td>
 <span id="span-eqn-args"></span>
-<a href="#span-out-eqns-args">式変数のarguments</a>||<a href="#span-out-eqns-no-name">無名call</a>参照
+<a href="#span-out-matching">行列要素pattern matching</a>||<a href="#span-out-const-vars">const宣言</a>||<a href="#span-out-eqns-args">式変数のarguments</a>||<a href="#span-out-eqns-no-name">無名call</a>参照
+<br>
+clear;
+<br>
+($c0,$c1,$c2)=(3,4,5);
+<br>
+call_f=&lt;(f(c0)=&gt;,f(c1)=&gt;,f(c2)=&gt;);
+<br>
+[
+<br>
+[(a,b)=&lt;(c)=&lt;a+b+c](1,2)=&gt;f,call_f==&gt;:
+<br>
+[a=1,b=2,=&lt;(c)=&lt;a+b+c]=&gt;f,call_f==&gt;:
+<br>
+f(c)=&lt;[a=1,b=2,=&lt;a+b+c]=&gt;,call_f==&gt;:
+<br>
+f(c)=&lt;last[a=1,b=2,a+b+c],call_f==&gt;:
+<br>
+[$f=&lt;0,$a=1,$b=2,=&lt;(c)=&lt;f=&gt;+a+b+c]=&gt;f,call_f==&gt;:
+<br>
+f(c)=&lt;[<span class="jF">$</span>f=&lt;0,<span class="jF">$</span>a=1,<span class="jF">$</span>b=2,=&lt;f=&gt;+a+b+c]=&gt;,call_f==&gt;<span class="jF">/*Ver.2.261.61~*/</span>:
+<br>
+f(c)=&lt;last[<span class="jF">$</span>f=&lt;0,<span class="jF">$</span>a=1,<span class="jF">$</span>b=2,f=&gt;+a+b+c],call_f==&gt;<span class="jF">/*Ver.2.261.61~*/</span>
+<br>
+];
 <br>
 clear;
 <br>

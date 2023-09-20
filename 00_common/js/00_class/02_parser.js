@@ -422,6 +422,8 @@ My_entry.parser.prototype.SEe2BTe = function(trees){
     var useScopeWith = (self.useScopeWith === "SEe" || (self.useScopeWith && hasArgs))? true: false;  // bool
     trees[ip_s] = DATA.tree_tag(BT.SEe, self.SEe2BTe(trees.slice(ip_s+1, ip_e)));  // feedback2trees
     var obj = trees[ip_s][BT.SEe];
+    var prop0 = obj.val[0];  // Ver.2.261.61
+    obj.id = prop0[(Object.keys(prop0))[0]].id;  // Ver.2.261.61
     obj.isSEee = isSEee;
     obj.useScopeWith = useScopeWith;
     /* -> Ver.2.219.50 */
@@ -819,9 +821,9 @@ My_entry.parser.prototype.switch_token = function(tokens, token_left, token, tok
     trees: [i]{}
   trees0d,
      tree: {}
-      tag: {"name": {val: val}}
-         : {"BT?":  {val: [], ref: [], ids: [], arg: [], flag}}
-      num: {mat:    {arr: arr, flag}}
+      tag: {"name": {id, val: val}}
+         : {"BT?":  {id, val: [], ref: [], ids: [], arg: [], flag}}
+      num: {mat:    {id, arr: arr, flag}}
       1+i: arr [0] [0] {com: {r: 1, i: 1}}
    matrix:     row col {complex number   }
 (i,2:3,4): arr [0] [0] {com: {r: 0, i: 1}}
@@ -883,6 +885,7 @@ My_entry.parser.prototype.make_trees = function(sentence, opt_re){  // Ver.2.158
       tree = self.switch_token(tokens, token_left, token, token_lower, token_upper, re);  // Ver.2.230.56
     }
     if(tree){
+      tree[(Object.keys(tree))[0]].id = self.id_tree++;  // Ver.2.261.61
       _trees.push(self.FN2REv(tree, token, token_lower, token_upper));  // Ver.2.221.50  // Ver.2.228.56
     }
     i = i_next;
@@ -949,6 +952,21 @@ My_entry.parser.prototype.check_hasTag = function(trees){
   return self;
 };
 /* -> Ver.2.214.50 */
+/* Ver.2.261.61 */
+My_entry.parser.prototype.delete_id = function(trees){
+  var self = this;
+  var loop_tree_BT = function(tree_BT){
+    var tagName = (Object.keys(tree_BT))[0];
+    if(tagName){
+      var obj = tree_BT[tagName];
+      if(obj){
+        delete obj.id;
+      }
+    }
+  };
+  self.loop_callback(trees, loop_tree_BT);  // Ver.2.218.50
+  return self;
+};
 /* Ver.2.200.46 */
 /* Ver.2.32.17 */
 /* Ver.2.31.17 (1,[2,{3,4}]) -> */
@@ -992,6 +1010,7 @@ My_entry.parser.prototype.script2objs2d = function(data){
   var trees2d = null;
   var scopes2d = null;
   if(data && data.in){
+    self.id_tree = 1;  // Ver.2.261.61 id_tree=1~
     data.in = String(data.in);  // Ver.2.30.15
     var script = self.remove_commentAndWspace(self.entry.reference.fullStr2half(data.in));
     var arr_sentence = self.script2arr(script);
@@ -1028,6 +1047,10 @@ My_entry.parser.prototype.script2objs2d = function(data){
         self.make_scopes(data.options.useScope, data.eqns, scopes, ids2d, j);
         scopes2d.push(scopes);
         self.check_hasTag(data.eqns);  // Ver.2.214.50
+        self.delete_id(data.eqns);  // Ver.2.261.61
+      }
+      if(data.vars){
+        self.delete_id(data.vars);  // Ver.2.261.61
       }
       /* -> Ver.2.32.17 */
     }

@@ -259,6 +259,46 @@ Y/M/D
 <tbody>
   <tr>
     <th>
+6.314.135.15.74
+    </th>
+    <td class="types">
+Calculator
+    </td>
+    <td>
+2.261.61
+    </td>
+    <td>
+minor update
+    </td>
+    <td>
+[Calculator]
+<br>
+・constant declaration extended for re-call of eqn
+<br>
+[$f=&lt;0,$a=1,$b=2,=&lt;(c)=&lt;f=&gt;+a+b+c]=&gt;f,f(3)=&gt;,f(4)=&gt;,f(5)=&gt;
+<br>
+-> (0,6,7,8)
+<br>
+f(c)=&lt;[$f=&lt;0,$a=1,$b=2,=&lt;f=&gt;+a+b+c]=&gt;,f(3)=&gt;,f(4)=&gt;,f(5)=&gt;
+<br>
+-> <del>[MyErr]Invalid SEe-scope-duplicate(f)</del>(0,6,7,8)
+<br>
+・parser.js self.id_tree added
+<br>
+・operation.js self.inherit_constant() updated with id_tree filtering
+<br>
+・test case updated
+<br>
+[Graphing Calculator]
+<br>
+・strict-mode equation-list-args updated
+    </td>
+    <td>
+2023/9/20
+    </td>
+  </tr>
+  <tr>
+    <th>
 6.313.135.15.74
     </th>
     <td class="types">

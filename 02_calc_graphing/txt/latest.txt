@@ -1268,7 +1268,7 @@ clear
 local storage cleared
 
 [Pinv_y=(-0.999999427,-0.999936657,-0.997300203,-0.954499736,-0.682689492,0,0.682689492,0.954499736,0.997300203,0.999936657,0.999999427:-5,-4,-3,-2,-1,0,1,2,3,4,5),N=1,arr=[],_rn(=<arr=(arr:rand_table(=<Pinv_y)=>),,N),=<arr]=>
--0.7539637964821924
+0.0774009846570983
 
 rand_table(csv)=<last[table=sort0(csv),ymin=min(table)[0],ymax=max(table)[0],y=ymin+(ymax-ymin)*rand,x=interp(y:table),x]
 stored_eqn(rand_table)
@@ -1748,6 +1748,26 @@ a=1:[()=<a]()=>,[()=<[()=<a]()=>]()=>,[()=<[(a)=<a](2)=>]()=>,[()=<[a=1,(a)=<a](
 clear
 local storage cleared
 
+[[(a,b)=<(c)=<a+b+c](1,2)=>f,call_f==>:[a=1,b=2,=<(c)=<a+b+c]=>f,call_f==>:f(c)=<[a=1,b=2,=<a+b+c]=>,call_f==>:f(c)=<last[a=1,b=2,a+b+c],call_f==>:[$f=<0,$a=1,$b=2,=<(c)=<f=>+a+b+c]=>f,call_f==>:f(c)=<[$f=<0,$a=1,$b=2,=<f=>+a+b+c]=>,call_f==>:f(c)=<last[$f=<0,$a=1,$b=2,f=>+a+b+c],call_f==>]
+(
+0,6,7,8:
+0,6,7,8:
+0,6,7,8:
+0,6,7,8:
+0,6,7,8:
+0,6,7,8:
+0,6,7,8
+)
+
+call_f=<(f(c0)=>,f(c1)=>,f(c2)=>)
+stored_eqn(call_f)
+
+($c0,$c1,$c2)=(3,4,5)
+stored_var(c0) stored_var(c1) stored_var(c2) 
+
+clear
+local storage cleared
+
 double_check=ans1-ans0
 double_check=(
 0,0,0,0,0,0,0,0:
@@ -1995,4 +2015,4 @@ center=true&drag=false&test-case=false&legend=true&axis-t=false&axis-x=true&log-
 --------------------------------
 --------------------------------
 
-online-simulator.github.io.6.313.135.15.74 @ Wed Sep 20 2023 14:23:51 GMT+0900 (日本標準時) @ Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/117.0.0.0 Safari/537.36
+online-simulator.github.io.6.314.135.15.74 @ Wed Sep 20 2023 17:56:46 GMT+0900 (日本標準時) @ Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/117.0.0.0 Safari/537.36

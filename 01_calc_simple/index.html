@@ -267,6 +267,8 @@
       script += "\nclear;\n";
       script += "B=-1,[B=10,[B=20,g=<B,[B=30,=<==<g]=>f,=<f]=>f,=<f]=>f,f=>,f==>;";
       script += "\nclear;\n";
+      script += "[$f=<0,$a=1,$b=2,=<(c)=<f=>+a+b+c]=>f,f(3)=>,f(4)=>,f(5)=>:f(c)=<[$f=<0,$a=1,$b=2,=<f=>+a+b+c]=>,f(3)=>,f(4)=>,f(5)=>;";
+      script += "\nclear;\n";
       $._id("input").value = script;
     });
   })();

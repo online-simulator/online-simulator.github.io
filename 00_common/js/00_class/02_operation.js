@@ -2822,36 +2822,47 @@ My_entry.operation.prototype.BRe = function(data, i0, tagName, tagObj){
   var tree = self.BR_original(data, i0, tagName, tagObj);
   return self;
 };
+/* Ver.2.261.61 id_tree=1~ filtering */
 /* Ver.2.254.59 escape -> constant */
 /* Ver.2.249.57 */
 My_entry.operation.prototype.inherit_constant = function(sw, name, scopes, ids, tree, opt_isEscaped){
   var self = this;
   var isEscaped = (typeof opt_isEscaped === "undefined")? self.use$let: opt_isEscaped;
   var isConstant = (self.use$let)? !(isEscaped): isEscaped;  // Ver.2.254.59
+  /* Ver.2.261.61 -> */
+  var tagName = Object.keys(tree)[0];
+  var obj = tree[tagName];
   var scope = self.get_scope0_RE_sw(sw, name, scopes, ids);
   if(scope){
-    var get_msgErr = function(i){
-      var sw_tagName = (sw === "eqns")? "SEe": "SEv";
-      return "Invalid "+sw_tagName+"-scope-"+["duplicate", "existed", "const"][i]+"("+name+")";
-    };
     var tree0 = scope[name];
     var tagName0 = Object.keys(tree0)[0];
-    var isConstant0 = tree0[tagName0].isConstant;  // Ver.2.254.59
-    if(isConstant0 && isConstant){  // Ver.2.254.59
-      throw get_msgErr(0);
-    }
-    else{
-      if(isConstant0){
-        throw get_msgErr((isConstant)? 1: 2);
+    var obj0 = tree0[tagName0];
+    var isConstant0 = obj0.isConstant;  // Ver.2.254.59
+    var check_error = function(){
+      var get_msgErr = function(i){
+        var sw_tagName = (sw === "eqns")? "SEe": "SEv";
+        return "Invalid "+sw_tagName+"-scope-"+["duplicate", "existed", "const"][i]+"("+name+")";
+      };
+      if(isConstant0 && isConstant){  // Ver.2.254.59
+        throw get_msgErr(0);
       }
-      else if(isConstant){  // Ver.2.254.59
-        throw get_msgErr(1);
+      else{
+        if(isConstant0){
+          throw get_msgErr((isConstant)? 1: 2);
+        }
+        else if(isConstant){  // Ver.2.254.59
+          throw get_msgErr(1);
+        }
       }
+    };
+    var isDefine_id = (obj.id === obj0.id);
+    if(!(isDefine_id)){
+      check_error();
     }
     isConstant = isConstant0;  // Ver.2.254.59
   }
-  var tagName = Object.keys(tree)[0];
-  tree[tagName].isConstant = isConstant;  // Ver.2.254.59
+  obj.isConstant = isConstant;  // Ver.2.254.59
+  /* -> Ver.2.261.61 */
   return self;
 };
 /* Ver.2.31.17 -> */
