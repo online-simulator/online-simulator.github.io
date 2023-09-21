@@ -11196,6 +11196,10 @@ clear; ((((a)=&lt;(b)=&lt;(a,b))|||false)(1)=&gt;)(2)=&gt; -> (1,2)
 <br>
 clear; a=-1; ((((a/*[overwrite-disabled]*/)=&lt;(b)=&lt;(a,b))|||false)(1)=&gt;)(2)=&gt; -> (-1,2)
 <br>
+・<span class="clear">Ver.2.262.62</span>以降、define判別<span class="condition">id</span>が消失する致命的な不具合を修正（値のid　⇒　nameのid継承）
+<br>
+clear; $a=-1; ((((a)=&lt;(b)=&lt;(a,b))|||false)(1)=&gt;)(2)=&gt; -> <del>(-1,2)</del>[MyErr]Invalid SEv-scope-const(a)
+<br>
 ・<a href="#span-out-scope-vars-has1BT">単独scope</a>
 <br>
 clear; a=-1; [(((a)=&lt;(b)=&lt;(a,b))|||false)(1)=&gt;](2)=&gt; -> (1,2)

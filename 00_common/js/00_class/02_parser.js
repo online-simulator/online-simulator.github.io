@@ -422,8 +422,6 @@ My_entry.parser.prototype.SEe2BTe = function(trees){
     var useScopeWith = (self.useScopeWith === "SEe" || (self.useScopeWith && hasArgs))? true: false;  // bool
     trees[ip_s] = DATA.tree_tag(BT.SEe, self.SEe2BTe(trees.slice(ip_s+1, ip_e)));  // feedback2trees
     var obj = trees[ip_s][BT.SEe];
-    var prop0 = obj.val[0];  // Ver.2.261.61
-    obj.id = prop0[(Object.keys(prop0))[0]].id;  // Ver.2.261.61
     obj.isSEee = isSEee;
     obj.useScopeWith = useScopeWith;
     /* -> Ver.2.219.50 */

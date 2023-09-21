@@ -2865,6 +2865,12 @@ My_entry.operation.prototype.inherit_constant = function(sw, name, scopes, ids, 
   /* -> Ver.2.261.61 */
   return self;
 };
+/* Ver.2.262.62 */
+My_entry.operation.prototype.inherit_id_tree = function(left, right){
+  var self = this;
+  left[(Object.keys(left))[0]].id = self.get_tagVal(right, "REv", "id");
+  return self;
+};
 /* Ver.2.31.17 -> */
 My_entry.operation.prototype.restore_var = function(name, scopes, ids){
   var self = this;
@@ -3506,6 +3512,7 @@ My_entry.operation.prototype.SEv = function(data, i0, tagName, tagObj){
             }
             /* -> Ver.2.76.29 */
           }
+          self.inherit_id_tree(tree, leftTree);  // Ver.2.262.62
           self.store_var(name_var, tree, scopes, ids, isEscaped);  // Ver.2.31.17  // Ver.2.249.57
           tree = DATA.tag("out", {name: name_var, arr: tree.mat.arr});
         }
@@ -3949,6 +3956,7 @@ My_entry.operation.prototype.REe = function(data, i0, tagName, tagObj){
           if(isEscaped){
             name_var = name_var.substring(1);
           }
+          self.inherit_id_tree(tree_var, rightTree);  // Ver.2.262.62
           self.store_eqn(name_var, tree_var, scopes, ids, isEscaped);
           /* -> Ver.2.262.61 */
           _tree = DATA.tree_num(0, 0);
@@ -4020,6 +4028,7 @@ My_entry.operation.prototype.BTe = function(data, i0, tagName, tagObj){  // Ver.
       name_eqn = name_eqn.substring(1);
     }
     /* -> Ver.2.249.57 */
+    self.inherit_id_tree(tree, trees[is]);  // Ver.2.262.62
     self.store_eqn(name_eqn, tree, scopes, ids, isEscaped);  // Ver.2.31.17  // Ver.2.249.57
     tree = DATA.tree_tag("out", "stored_eqn("+name_eqn+")");
   }
