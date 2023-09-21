@@ -1,6 +1,14 @@
 clear
 local storage cleared
 
+[$f=<0,$a=1,$b=2,=<(c)=<f=>+a+b+c]=>$f,f(3)=>,f(4)=>,f(5)=>
+(
+0,6,7,8
+)
+
+clear
+local storage cleared
+
 [$f=<0,$a=1,$b=2,=<(c)=<f=>+a+b+c]=>f,f(3)=>,f(4)=>,f(5)=>:f(c)=<[$f=<0,$a=1,$b=2,=<f=>+a+b+c]=>,f(3)=>,f(4)=>,f(5)=>
 (
 0,6,7,8:
@@ -3397,4 +3405,4 @@ drag=false&sw=false&0x=false&useMatrix=true&useStrict=false&checkError=true&isRi
 --------------------------------
 --------------------------------
 
-online-simulator.github.io.6.314.135.15.74 @ Wed Sep 20 2023 22:22:00 GMT+0900 (日本標準時) @ Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/117.0.0.0 Safari/537.36
+online-simulator.github.io.6.315.135.15.74 @ Thu Sep 21 2023 13:37:07 GMT+0900 (日本標準時) @ Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/117.0.0.0 Safari/537.36

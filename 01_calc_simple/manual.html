@@ -9333,6 +9333,12 @@ $あり：let宣言
 <br>
 ・明示的な代入のみ対応
 <br>
+・<span class="run">Ver.2.262.61</span>以降、<a href="#span-out-eqns-call2eqn">式変数への式読出し</a>に対応
+<br>
+[$f=&lt;0,$a=1,$b=2,=&lt;(c)=&lt;f=&gt;+a+b+c]=&gt;$g,g=&lt;1 -> [MyErr]Invalid SEe-scope-const(g)
+<br>
+f(c)=&lt;[$f=&lt;0,$a=1,$b=2,=&lt;f=&gt;+a+b+c]=&gt;$f,f(3)=&gt; -> [MyErr]Invalid SEe-scope-existed(f)
+<br>
 ・非対応の機能（後方互換のlet宣言）を列挙する
 <br>
 　・<a href="#span-out-matching">行列要素pattern matching</a>
@@ -12497,6 +12503,12 @@ const宣言について記述する
 f(c)=&lt;[$f=&lt;0,$a=1,$b=2,=&lt;f=&gt;+a+b+c]=&gt;,f(3)=&gt;,f(4)=&gt;,f(5)=&gt;
 <br>
 -> <del>[MyErr]Invalid SEe-scope-duplicate(f)</del>(0,6,7,8)
+<br>
+・<span class="run">Ver.2.262.61</span>以降、<a href="#span-out-eqns-call2eqn">式変数への式読出し</a>に対応
+<br>
+[$f=&lt;0,$a=1,$b=2,=&lt;(c)=&lt;f=&gt;+a+b+c]=&gt;$g,g=&lt;1 -> [MyErr]Invalid SEe-scope-const(g)
+<br>
+f(c)=&lt;[$f=&lt;0,$a=1,$b=2,=&lt;f=&gt;+a+b+c]=&gt;$f,f(3)=&gt; -> [MyErr]Invalid SEe-scope-existed(f)
 <br>
 <br>
 <a href="#span-out-option8">$const宣言</a>（$開始のbeta版）
@@ -38295,6 +38307,8 @@ clear;
 <br>
 call_f=&lt;(f(c0)=&gt;,f(c1)=&gt;,f(c2)=&gt;);
 <br>
+store;
+<br>
 [
 <br>
 [(a,b)=&lt;(c)=&lt;a+b+c](1,2)=&gt;f,call_f==&gt;:
@@ -38305,13 +38319,25 @@ f(c)=&lt;[a=1,b=2,=&lt;a+b+c]=&gt;,call_f==&gt;:
 <br>
 f(c)=&lt;last[a=1,b=2,a+b+c],call_f==&gt;:
 <br>
-[$f=&lt;0,$a=1,$b=2,=&lt;(c)=&lt;f=&gt;+a+b+c]=&gt;f,call_f==&gt;:
+[<span class="jF">$</span>f=&lt;0,<span class="jF">$</span>a=1,<span class="jF">$</span>b=2,=&lt;(c)=&lt;f=&gt;+a+b+c]=&gt;f,call_f==&gt;:
 <br>
 f(c)=&lt;[<span class="jF">$</span>f=&lt;0,<span class="jF">$</span>a=1,<span class="jF">$</span>b=2,=&lt;f=&gt;+a+b+c]=&gt;,call_f==&gt;<span class="jF">/*Ver.2.261.61~*/</span>:
 <br>
 f(c)=&lt;last[<span class="jF">$</span>f=&lt;0,<span class="jF">$</span>a=1,<span class="jF">$</span>b=2,f=&gt;+a+b+c],call_f==&gt;<span class="jF">/*Ver.2.261.61~*/</span>
 <br>
 ];
+<br>
+restore;
+<br>
+<span class="jF">$</span>f(c)=&lt;[a=1,b=2,=&lt;a+b+c]=&gt;,call_f=&gt;:
+<br>
+[<span class="jF">$</span>f(c)=&lt;[a=2,b=3,=&lt;a+b+c]=&gt;,call_f==&gt;];
+<br>
+restore;
+<br>
+[<span class="jF">$</span>f=&lt;0,<span class="jF">$</span>a=1,<span class="jF">$</span>b=2,=&lt;(c)=&lt;f=&gt;+a+b+c]=&gt;<span class="jF">$</span>f<span class="jF">/*Ver.2.262.61~*/</span>,call_f=&gt;:
+<br>
+[[<span class="jF">$</span>f=&lt;0,<span class="jF">$</span>a=2,<span class="jF">$</span>b=3,=&lt;(c)=&lt;f=&gt;+a+b+c]=&gt;<span class="jF">$</span>f<span class="jF">/*Ver.2.262.61~*/</span>,call_f==&gt;];
 <br>
 clear;
 <br>

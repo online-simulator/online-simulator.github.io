@@ -3944,7 +3944,13 @@ My_entry.operation.prototype.REe = function(data, i0, tagName, tagObj){
       /* -> Ver.2.204.46 */
       if(tree_var){
         if(name_var){
-          self.store_eqn(name_var, tree_var, scopes, ids);
+          /* Ver.2.262.61 -> */
+          var isEscaped = self.config.isEscaped(name_var);
+          if(isEscaped){
+            name_var = name_var.substring(1);
+          }
+          self.store_eqn(name_var, tree_var, scopes, ids, isEscaped);
+          /* -> Ver.2.262.61 */
           _tree = DATA.tree_num(0, 0);
         }
         else{
