@@ -182,6 +182,8 @@ e^(-i(1pi(){2/2i}(5-{3-1}){i/(-4)}))
 <br>
 　・<a href="#span-out-browsers-ie">Internet Explorer非対応の機能</a>
 <br>
+　・<a href="#span-out-spec-ECMAScript">ECMAScriptとの相違</a>
+<br>
 　・<a href="#span-out-spec-Excel">Excelとの相違</a>
 <br>
 　・<a href="#span-out-spec-Python">Pythonとの相違</a>
@@ -2025,9 +2027,7 @@ plot仕様
 <span id="span-out-development"></span>
 <span class="run">JavaScript</span>のinterpreterを介してbrowser上で演算を実行する
 <br>
-・よってNativeに近い言語で直接記述するよりthroughputは圧倒的に低いが、
-<br>
-・以下のcross-platform開発とonline-test管理の容易さを選択
+・以降、<span class="run">JavaScript</span>標準規格のECMAScriptをNativeと省略する
 <br>
 <br>
 開発環境を列挙する
@@ -2283,6 +2283,30 @@ IE非対応の機能/原因を列挙する
 ・<a href="#span-out-UI-graphing-config">bg-image-file</a>
 <br>
 　描画更新時、SCRIPT5022: SecurityError
+    </td>
+  </tr>
+  <tr>
+    <th>
+<a href="#span-index">
+目次
+</a>
+<br>
+ECMAScript
+<br>
+との相違
+    </th>
+    <td>
+<span id="span-out-spec-ECMAScript"></span>
+ECMAScriptとの相違について記述する
+<br>
+<br>
+明確に冗長な仕様（allow関数の記号=&gt;が反転の主要因）を列挙する
+<br>
+・<a href="#span-out-eqns">式変数</a>
+<br>
+・<a href="#span-out-BRmo">記号省略乗算</a>
+<br>
+・<a href="#span-out-scope-inherited">scope継承</a>
     </td>
   </tr>
   <tr>
@@ -11162,9 +11186,11 @@ clear; ((=&lt;(x)=&lt;x)|||false)(2)=&gt; -> [MyErr]Invalid args.length=0(no-nam
 <br>
 clear; (((=&lt;(x)=&lt;x)|||false)=&gt;)(2)=&gt; -> 2
 <br>
+・=&lt;　⇔　<a href="#span-out-eqns-return">return</a>
+<br>
 clear; (((()=&lt;(x)=&lt;x)|||false)()=&gt;)(2)=&gt; -> 2
 <br>
-・=&lt;　⇔　<a href="#span-out-eqns-return">return</a>
+・(((a=&gt;b=&gt;[a,b])||false)(1))(2)  <span class="selection">// ES2015</span> -> [1, 2]
 <br>
 clear; ((((a)=&lt;(b)=&lt;(a,b))|||false)(1)=&gt;)(2)=&gt; -> (1,2)
 <br>
@@ -11173,6 +11199,16 @@ clear; a=-1; ((((a/*[overwrite-disabled]*/)=&lt;(b)=&lt;(a,b))|||false)(1)=&gt;)
 ・<a href="#span-out-scope-vars-has1BT">単独scope</a>
 <br>
 clear; a=-1; [(((a)=&lt;(b)=&lt;(a,b))|||false)(1)=&gt;](2)=&gt; -> (1,2)
+<br>
+・nest
+<br>
+clear; (((x)=&lt;((=&lt;x)|||false)=&gt;)|||false)(2)=&gt; -> 2
+<br>
+clear; (((x)=&lt;((()=&lt;x)|||false)()=&gt;)|||false)(2)=&gt; -> 2
+<br>
+・((b=&gt;((a=&gt;[a,b])||false)(1))||false)(2)  <span class="selection">// ES2015</span> -> [1, 2]
+<br>
+clear; (((b)=&lt;(((a)=&lt;[a,b])|||false)(1)=&gt;)|||false)(2)=&gt; -> (1,2)
 <br>
 <br>
 論理ANDs||ORs演算子の留意事項を列挙する
