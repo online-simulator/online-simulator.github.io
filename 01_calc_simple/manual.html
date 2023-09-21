@@ -11190,7 +11190,7 @@ clear; (((=&lt;(x)=&lt;x)|||false)=&gt;)(2)=&gt; -> 2
 <br>
 clear; (((()=&lt;(x)=&lt;x)|||false)()=&gt;)(2)=&gt; -> 2
 <br>
-・(((a=&gt;b=&gt;[a,b])||false)(1))(2)  <span class="selection">// ES2015</span> -> [1, 2]
+・a=-1; (((a=&gt;b=&gt;[a,b])||false)(1))(2)  <span class="selection">// ES2015</span> -> [1, 2]
 <br>
 clear; ((((a)=&lt;(b)=&lt;(a,b))|||false)(1)=&gt;)(2)=&gt; -> (1,2)
 <br>
