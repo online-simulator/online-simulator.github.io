@@ -960,30 +960,49 @@ My_entry.parser.prototype.check_hasTag = function(trees){
   return self;
 };
 /* -> Ver.2.214.50 */
-/* Ver.2.261.61 -> */
-My_entry.parser.prototype.delete_id_tree = function(tree){
+/* Ver.2.264.62 delete -> restore -> */
+/* Ver.2.261.61 delete -> */
+My_entry.parser.prototype.restore_id_tree = function(tree){
   var self = this;
   var tagName = (Object.keys(tree))[0];
   if(tagName){
     var obj = tree[tagName];
-    if(obj){
-      delete obj.id;
-    }
+    self.id_tree = Math.max(self.id_tree, obj.id || 0);
   }
   return self;
 };
-My_entry.parser.prototype.delete_id_trees = function(trees){
+My_entry.parser.prototype.check_id_trees = function(trees){
   var self = this;
   var callback_pre = function(tree){
-    self.delete_id_tree(tree);
+    self.restore_id_tree(tree);
   };
   var callback = function(trees){
-    self.delete_id_trees(trees);
+    self.check_id_trees(trees);
   };
   self.wrapper_loop(trees, callback_pre, callback);
   return self;
 };
+My_entry.parser.prototype.init_id_tree = function(data){
+  var self = this;
+  self.id_tree = 0;
+  if(data.vars){
+    self.check_id_trees(data.vars);
+  }
+  if(data.eqns){
+    self.check_id_trees(data.eqns);
+  }
+  self.id_tree += 1;  // Ver.2.261.61 id_tree=1~
+  return self;
+};
 /* -> Ver.2.261.61 */
+My_entry.parser.prototype.check_id_tree_max = function(){
+  var self = this;
+  if(self.id_tree > Number.MAX_SAFE_INTEGER){
+    throw "id_tree is over limit";
+  }
+  return self;
+};
+/* -> Ver.2.264.62 */
 /* Ver.2.200.46 */
 /* Ver.2.32.17 */
 /* Ver.2.31.17 (1,[2,{3,4}]) -> */
@@ -1027,7 +1046,7 @@ My_entry.parser.prototype.script2objs2d = function(data){
   var trees2d = null;
   var scopes2d = null;
   if(data && data.in){
-    self.id_tree = 1;  // Ver.2.261.61 id_tree=1~
+    self.init_id_tree(data);  // Ver.2.264.62
     data.in = String(data.in);  // Ver.2.30.15
     var script = self.remove_commentAndWspace(self.entry.reference.fullStr2half(data.in));
     var arr_sentence = self.script2arr(script);
@@ -1064,13 +1083,10 @@ My_entry.parser.prototype.script2objs2d = function(data){
         self.make_scopes(data.options.useScope, data.eqns, scopes, ids2d, j);
         scopes2d.push(scopes);
         self.check_hasTag(data.eqns);  // Ver.2.214.50
-        self.delete_id_trees(data.eqns);  // Ver.2.261.61
-      }
-      if(data.vars){
-        self.delete_id_trees(data.vars);  // Ver.2.261.61
       }
       /* -> Ver.2.32.17 */
     }
+    self.check_id_tree_max();  // Ver.2.264.62
   }
   return {trees: trees2d, scopes: scopes2d};
 };

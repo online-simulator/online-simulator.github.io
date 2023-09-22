@@ -9357,12 +9357,6 @@ $あり：let宣言
 <br>
 ・明示的な代入のみ対応
 <br>
-・<span class="run">Ver.2.262.61</span>以降、<a href="#span-out-eqns-call2eqn">式変数への式読出し</a>に対応
-<br>
-[$f=&lt;0,$a=1,$b=2,=&lt;(c)=&lt;f=&gt;+a+b+c]=&gt;$g,g=&lt;1 -> [MyErr]Invalid SEe-scope-const(g)
-<br>
-f(c)=&lt;[$f=&lt;0,$a=1,$b=2,=&lt;f=&gt;+a+b+c]=&gt;$f,f(3)=&gt; -> [MyErr]Invalid SEe-scope-existed(f)
-<br>
 ・非対応の機能（後方互換のlet宣言）を列挙する
 <br>
 　・<a href="#span-out-matching">行列要素pattern matching</a>
@@ -9380,6 +9374,24 @@ f(c)=&lt;[$f=&lt;0,$a=1,$b=2,=&lt;f=&gt;+a+b+c]=&gt;$f,f(3)=&gt; -> [MyErr]Inval
 f(c)=&lt;[$f=&lt;0,$a=1,$b=2,=&lt;f=&gt;+a+b+c]=&gt;,f(3)=&gt;,f(4)=&gt;,f(5)=&gt;
 <br>
 -> <del>[MyErr]Invalid SEe-scope-duplicate(f)</del>(0,6,7,8)
+<br>
+・<span class="run">Ver.2.262.61</span>以降、<a href="#span-out-eqns-call2eqn">式変数への式読出し</a>に対応
+<br>
+[$f=&lt;0,$a=1,$b=2,=&lt;(c)=&lt;f=&gt;+a+b+c]=&gt;$g,g=&lt;1 -> [MyErr]Invalid SEe-scope-const(g)
+<br>
+f(c)=&lt;[$f=&lt;0,$a=1,$b=2,=&lt;f=&gt;+a+b+c]=&gt;$f,f(3)=&gt; -> [MyErr]Invalid SEe-scope-existed(f)
+<br>
+・<span class="clear">Ver.2.262.62</span>以降、define判別<span class="condition">id</span>が消失する致命的な不具合を修正（値のid　⇒　nameのid継承）
+<br>
+clear; $a=-1; ((((a)=&lt;(b)=&lt;(a,b))|||false)(1)=&gt;)(2)=&gt; -> <del>(-1,2)</del>[MyErr]Invalid SEv-scope-const(a)
+<br>
+・<span class="run">Ver.2.264.62</span>以降、<a href="#span-out-eqns-re-use">式変数の再利用</a>に対応（id削除　⇒　id保持）
+<br>
+$x=-1; x -> -1
+<br>
+f(x)=&lt;x; f(1)=&gt; -> <del>1</del>[MyErr]Invalid SEv-scope-const(x)
+<br>
+f(x)=&lt;[=&lt;x]=&gt; f(1)=&gt; -> 1
     </td>
   </tr>
   <tr>
@@ -9478,7 +9490,7 @@ With
 <br>
 ・<span class="clear">Ver.2.213.48</span>以降、<a href="#span-out-config">useScope</a>を含む選択切替の不具合を修正
 <br>
-・<span class="clear">Ver.2.213.48</span>以降、<a href="#span-out-eqns">式変数</a>の再利用に未配慮の変更取消し
+・<span class="clear">Ver.2.213.48</span>以降、<a href="#span-out-eqns-re-use">式変数の再利用</a>に未配慮の変更取消し
 <br>
 ・<span class="clear">Ver.2.228.56</span>以降、追加選択時に<a href="#span-out-scope-inherited">scope継承</a>が常に有効の致命的な不具合を修正
 <br>
@@ -9519,7 +9531,7 @@ clear; x=1,[(x)=&lt;=&lt;x/*not-resolved*/](3)=&gt;f,f=&gt;,x -> (0,0,3,1)
 <br>
 　・<a href="#span-out-scope-inherited-call">式変数のscope継承call</a>の式読出し記号==&gt;を明示
 <br>
-・<a href="#span-out-eqns">式変数</a>の再利用の場合、保存時の<a href="#span-in-tree">flag</a>を継承
+・<a href="#span-out-eqns-re-use">式変数の再利用</a>の場合、保存時の<a href="#span-in-tree">flag</a>を継承
     </td>
   </tr>
   <tr>
@@ -12554,6 +12566,18 @@ f(c)=&lt;[$f=&lt;0,$a=1,$b=2,=&lt;f=&gt;+a+b+c]=&gt;,f(3)=&gt;,f(4)=&gt;,f(5)=&g
 [$f=&lt;0,$a=1,$b=2,=&lt;(c)=&lt;f=&gt;+a+b+c]=&gt;$g,g=&lt;1 -> [MyErr]Invalid SEe-scope-const(g)
 <br>
 f(c)=&lt;[$f=&lt;0,$a=1,$b=2,=&lt;f=&gt;+a+b+c]=&gt;$f,f(3)=&gt; -> [MyErr]Invalid SEe-scope-existed(f)
+<br>
+・<span class="clear">Ver.2.262.62</span>以降、define判別<span class="condition">id</span>が消失する致命的な不具合を修正（値のid　⇒　nameのid継承）
+<br>
+clear; $a=-1; ((((a)=&lt;(b)=&lt;(a,b))|||false)(1)=&gt;)(2)=&gt; -> <del>(-1,2)</del>[MyErr]Invalid SEv-scope-const(a)
+<br>
+・<span class="run">Ver.2.262.61</span>以降、<a href="#span-out-eqns-re-use">式変数の再利用</a>に対応（id削除　⇒　id保持）
+<br>
+$x=-1; x -> -1
+<br>
+f(x)=&lt;x; f(1)=&gt; -> <del>1</del>[MyErr]Invalid SEv-scope-const(x)
+<br>
+f(x)=&lt;[=&lt;x]=&gt; f(1)=&gt; -> 1
 <br>
 <br>
 <a href="#span-out-option8">$const宣言</a>（$開始のbeta版）
@@ -36560,7 +36584,7 @@ Calculator用途に特化した実装項目とfile名の対応関係を列挙す
 <br>
 <span class="run">Ver.2.249.57</span>以降、<a href="#span-out-const-vars">const宣言</a>用の<span class="condition">flag</span>を追加
 <br>
-<span class="run">Ver.2.261.61</span>以降、<a href="#span-out-const-vars">const宣言</a>用のdefine判別<span class="condition">id</span>を追加（<a href="#span-out-eqns-re-use">再利用</a>の場合、id削除）
+<span class="run">Ver.2.261.61</span>以降、<a href="#span-out-const-vars">const宣言</a>用のdefine判別<span class="condition">id</span>を追加
 <br>
 <pre><code>
             j-th sentence
