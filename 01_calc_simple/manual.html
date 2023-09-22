@@ -798,6 +798,8 @@ e^(-i(1pi(){2/2i}(5-{3-1}){i/(-4)}))
 <br>
 ・<a href="#span-eqn-args">args</a>
 <br>
+・<a href="#span-eqn-closure">closure</a>
+<br>
 ・<a href="#span-eqn-map">map</a>
 <br>
 ・<a href="#span-eqn-scope_NG">scope_NG</a>
@@ -11223,7 +11225,7 @@ clear; (((()=&lt;(x)=&lt;x)|||false)()=&gt;)(2)=&gt; -> 2
 <br>
 clear; ((((a)=&lt;(b)=&lt;(a,b))|||false)(1)=&gt;)(2)=&gt; -> (1,2)
 <br>
-clear; a=-1; ((((a/*[overwrite-disabled]*/)=&lt;(b)=&lt;(a,b))|||false)(1)=&gt;)(2)=&gt; -> (-1,2)
+clear; a=-1; ((((a<span class="clear">/*not-closed*/</span>)=&lt;(b)=&lt;(a,b))|||false)(1)=&gt;)(2)=&gt; -> (-1,2)
 <br>
 ・<span class="clear">Ver.2.262.62</span>以降、define判別<span class="condition">id</span>が消失する致命的な不具合を修正（値のid　⇒　nameのid継承）
 <br>
@@ -11231,7 +11233,13 @@ clear; $a=-1; ((((a)=&lt;(b)=&lt;(a,b))|||false)(1)=&gt;)(2)=&gt; -> <del>(-1,2)
 <br>
 ・<a href="#span-out-scope-vars-has1BT">単独scope</a>
 <br>
-clear; a=-1; [(((a)=&lt;(b)=&lt;(a,b))|||false)(1)=&gt;](2)=&gt; -> (1,2)
+clear; a=-1; ((((a/*closed@1st-call*/)=&lt;[(b)=&lt;(a,b)])|||false)(1)=&gt;)(2)=&gt; -> (1,2)
+<br>
+clear; a=-1; (([(a/*closed@1st-call*/)=&lt;(b)=&lt;(a,b)]|||false)(1)=&gt;)(2)=&gt; -> (1,2)
+<br>
+clear; a=-1; ([((a/*closed@1st-call*/)=&lt;(b)=&lt;(a,b))|||false](1)=&gt;)(2)=&gt; -> (1,2)
+<br>
+clear; a=-1; [(((a/*closed@1st-call*/)=&lt;(b)=&lt;(a,b))|||false)(1)=&gt;](2)=&gt; -> (1,2)
 <br>
 ・nest
 <br>
@@ -38400,7 +38408,7 @@ args
     </th>
     <td>
 <span id="span-eqn-args"></span>
-<a href="#span-out-matching">行列要素pattern matching</a>||<a href="#span-out-const-vars">const宣言</a>||<a href="#span-out-eqns-args">式変数のarguments</a>||<a href="#span-out-eqns-no-name">無名call</a>参照
+<a href="#span-out-matching">行列要素pattern matching</a>||<a href="#span-out-const-vars">const宣言</a>||<a href="#span-out-scope-vars-has1BT">単独scope</a>||<a href="#span-out-eqns-args">式変数のarguments</a>||<a href="#span-out-eqns-no-name">無名call</a>参照
 <br>
 clear;
 <br>
@@ -38439,72 +38447,6 @@ restore;
 [<span class="jF">$</span>f=&lt;0,<span class="jF">$</span>a=1,<span class="jF">$</span>b=2,=&lt;(c)=&lt;f=&gt;+a+b+c]=&gt;<span class="jF">$</span>f<span class="jF">/*Ver.2.262.61~*/</span>,call_f=&gt;:
 <br>
 [[<span class="jF">$</span>f=&lt;0,<span class="jF">$</span>a=2,<span class="jF">$</span>b=3,=&lt;(c)=&lt;f=&gt;+a+b+c]=&gt;<span class="jF">$</span>f<span class="jF">/*Ver.2.262.61~*/</span>,call_f==&gt;];
-<br>
-clear;
-<br>
-a=1:
-<br>
-[()=&lt;a]()=&gt;,[()=&lt;[()=&lt;a]()=&gt;]()=&gt;,[()=&lt;[(a)=&lt;a](2)=&gt;]()=&gt;,[()=&lt;[a=1,(a)=&lt;a](2)=&gt;]()=&gt;:
-<br>
-[=&lt;a]=&gt;,[=&lt;[=&lt;a]=&gt;]=&gt;,[=&lt;[(a)=&lt;a](2)=&gt;]=&gt;,[=&lt;[a=1,(a)=&lt;a](2)=&gt;]=&gt;:
-<br>
-[=&lt;[(a)=&lt;last[,a]](3)=&gt;]=&gt;:
-<br>
-[=&lt;[a=2,(a)=&lt;last[,a]/*resolved*/](3)=&gt;]=&gt;:
-<br>
-[[(a)=&lt;=&lt;last[,a]/*not-resolved*/](3)=&gt;]=&gt;:
-<br>
-[[a=2,(a/*[overwrite-disabled]*/)=&lt;=&lt;last[,a]](3)=&gt;]=&gt;:
-<br>
-[(a)=&lt;=&lt;last[,a]](3)=&gt;f,f=&gt;,f==&gt;:
-<br>
-[a=2,(a)=&lt;=&lt;last[,a]](3)=&gt;f,f=&gt;,f==&gt;:
-<br>
-[(a)=&lt;()=&lt;last[,a]](3)=&gt;f,f()=&gt;,f()==&gt;:
-<br>
-[a=2,(a)=&lt;()=&lt;last[,a]](3)=&gt;f,f()=&gt;,f()==&gt;:
-<br>
-[[(a)=&lt;(x,y)=&lt;(a,x,y)](a)=&gt;](2,3)=&gt;:
-<br>
-[[a=2,(a/*[overwrite-disabled]*/)=&lt;(x,y)=&lt;(a,x,y)](a)=&gt;](2,3)=&gt;:
-<br>
-[[(a)=&lt;(x,y)=&lt;(a,x,y)](a)=&gt;](2,3)=&gt;f/*resolved*/,f=&gt;,f==&gt;:
-<br>
-[[a=2,(a)=&lt;(x,y)=&lt;(a,x,y)](a)=&gt;](2,3)=&gt;f/*resolved*/,f=&gt;,f==&gt;;
-<br>
-clear;
-<br>
-<span class="jF">f=&lt;[x=1,f(x)=&lt;x,(a)=&lt;(x)=&lt;f(a*x)=&gt;](2)=&gt;,f=&gt;g</span>,g(3)=&gt;:
-<br>
-<span class="jF">f(a0)=&lt;[x=1,f(x)=&lt;x,(a)=&lt;(x)=&lt;f(a*x)=&gt;](a0)=&gt;,f(2)=&gt;g</span>,g(3)=&gt;:
-<br>
-f(a0)=&lt;[x=1,f(x)=&lt;x,(a)=&lt;(x)=&lt;f(a*x)=&gt;](a0)=&gt;g,f(2)=&gt;,g(3)=&gt;:
-<br>
-<span class="jF">f(a0)=&lt;[x=1,f(x)=&lt;x,(a/*[overwrite-disabled]*/)=&lt;(x)=&lt;f(a*x)=&gt;](a0)=&gt;,f(2)=&gt;g</span>,g(3)=&gt;:
-<br>
-1,<span class="jF">f(-3)=&gt;h</span>,h(3)=&gt;:
-<br>
-f(a0)=&lt;[x=1,f(x)=&lt;x,a=-2,(a/*[overwrite-disabled]*/)=&lt;(x)=&lt;f(a*x)=&gt;](a0)=&gt;g,f(2)=&gt;,g(3)=&gt;:
-<br>
-<span class="jF">f(a0)=&lt;[x=1,f(x)=&lt;x,a=-2,(a)=&lt;(x)=&lt;f(a*x)=&gt;](a0)=&gt;,f(2)=&gt;g</span>,g(3)=&gt;:
-<br>
-1,<span class="jF">f(-3)=&gt;h</span>,h(3)=&gt;;
-<br>
-clear;
-<br>
-a=-1,b=0,x=1:
-<br>
-[a=1,[(a)=&lt;(x)=&lt;a*x+b](-3)=&gt;f,=&lt;f]=&gt;f,f(x)=&gt;,f(x)==&gt;:
-<br>
-[a=1,[(a)=&lt;(x)=/*disabled*/=&lt;a*x+b](-3)=&gt;f,=&lt;f]=&gt;f,f(x)=&gt;,f(x)==&gt;:
-<br>
-[a=1,[(a)=&lt;(x)=&lt;a*x+b](-3)==&gt;f,=&lt;f]=&gt;f,f(x)=&gt;,f(x)==&gt;:
-<br>
-[a=1,[(a)=&lt;(x)=&lt;a*x+b](-3)=&gt;f,==&lt;f]=&gt;f,f(x)=&gt;,f(x)==&gt;:
-<br>
-[a=1,[(a)=&lt;(x)=&lt;a*x+b](-3)=&gt;f,=&lt;f]==&gt;f,f(x)=&gt;,f(x)==&gt;:
-<br>
-[a=1,[a=2,(a/*[overwrite-disabled]*/)=&lt;(x)=&lt;a*x+b](-3)=&gt;f,=&lt;f]=&gt;f,f(x)=&gt;,f(x)==&gt;;
 <br>
 clear;
 <br>
@@ -38591,6 +38533,111 @@ compose_x(x)=&gt;,compose_A(x)=&gt;,pipe_A(x)=&gt;:
 compose_pipe_A(=&lt;A)=&gt;,compose_nest_A(=&lt;A)=&gt;,
 <br>
 compose_A(=&lt;A)=&gt;,pipe_A(=&lt;A)=&gt;;
+    </td>
+  </tr>
+  <tr>
+    <th>
+<a href="#span-index">
+目次
+</a>
+<br>
+closure
+    </th>
+    <td>
+<span id="span-eqn-closure"></span>
+<a href="#span-out-scope-vars-has1BT">単独scope</a>||<a href="#span-out-eqns-no-name">無名call</a>||<a href="#span-in-eqns-args">式変数のarguments</a>参照
+<br>
+clear;
+<br>
+a=1:
+<br>
+[()=&lt;a]()=&gt;,[()=&lt;[()=&lt;a]()=&gt;]()=&gt;,[()=&lt;[(a)=&lt;a](2)=&gt;]()=&gt;,[()=&lt;[a=1,(a)=&lt;a](2)=&gt;]()=&gt;:
+<br>
+[=&lt;a]=&gt;,[=&lt;[=&lt;a]=&gt;]=&gt;,[=&lt;[(a)=&lt;a](2)=&gt;]=&gt;,[=&lt;[a=1,(a)=&lt;a](2)=&gt;]=&gt;:
+<br>
+[=&lt;[(a)=&lt;last[,a]](3)=&gt;]=&gt;:
+<br>
+[=&lt;[a=2,(a)=&lt;last[,a]/*resolved*/](3)=&gt;]=&gt;:
+<br>
+[[(a)=&lt;=&lt;last[,a]/*not-resolved*/](3)=&gt;]=&gt;:
+<br>
+[[a=2,(a<span class="clear">/*not-closed*/</span>)=&lt;=&lt;last[,a]](3)=&gt;]=&gt;:
+<br>
+[[a=2,(a/*closed@1st-call*/)=&lt;[=&lt;last[,a]]](3)=&gt;]=&gt;:
+<br>
+[[a=2,[(a/*closed@1st-call*/)=&lt;=&lt;last[,a]]](3)=&gt;]=&gt;:
+<br>
+[(a)=&lt;=&lt;last[,a]](3)=&gt;f,f=&gt;,f==&gt;:
+<br>
+[a=2,(a)=&lt;=&lt;last[,a]](3)=&gt;f,f=&gt;,f==&gt;:
+<br>
+[(a)=&lt;()=&lt;last[,a]](3)=&gt;f,f()=&gt;,f()==&gt;:
+<br>
+[a=2,(a)=&lt;()=&lt;last[,a]](3)=&gt;f,f()=&gt;,f()==&gt;:
+<br>
+[[(a)=&lt;(x,y)=&lt;(a,x,y)](a)=&gt;](2,3)=&gt;:
+<br>
+[[a=2,(a<span class="clear">/*not-closed*/</span>)=&lt;(x,y)=&lt;(a,x,y)](a)=&gt;](2,3)=&gt;:
+<br>
+[[a=2,(a/*closed@1st-call*/)=&lt;[(x,y)=&lt;(a,x,y)]](a)=&gt;](2,3)=&gt;:
+<br>
+[[a=2,[(a/*closed@1st-call*/)=&lt;(x,y)=&lt;(a,x,y)]](a)=&gt;](2,3)=&gt;:
+<br>
+[[(a)=&lt;(x,y)=&lt;(a,x,y)](a)=&gt;](2,3)=&gt;f/*resolved*/,f=&gt;,f==&gt;:
+<br>
+[[a=2,(a)=&lt;(x,y)=&lt;(a,x,y)](a)=&gt;](2,3)=&gt;f/*resolved*/,f=&gt;,f==&gt;;
+<br>
+clear;
+<br>
+<span class="jF">f=&lt;[x=1,f(x)=&lt;x,(a)=&lt;(x)=&lt;f(a*x)=&gt;](2)=&gt;,f=&gt;g</span>,g(3)=&gt;:
+<br>
+<span class="jF">f(a0)=&lt;[x=1,f(x)=&lt;x,(a)=&lt;(x)=&lt;f(a*x)=&gt;](a0)=&gt;,f(2)=&gt;g</span>,g(3)=&gt;:
+<br>
+f(a0)=&lt;[x=1,f(x)=&lt;x,(a)=&lt;(x)=&lt;f(a*x)=&gt;](a0)=&gt;g,f(2)=&gt;,g(3)=&gt;:
+<br>
+<span class="jF">f(a0)=&lt;[x=1,f(x)=&lt;x,(a<span class="clear">/*not-closed*/</span>)=&lt;(x)=&lt;f(a*x)=&gt;](a0)=&gt;,f(2)=&gt;g</span>,g(3)=&gt;:
+<br>
+1,<span class="jF">f(-3)=&gt;h</span>,h(3)=&gt;:
+<br>
+f(a0)=&lt;[x=1,f(x)=&lt;x,a=-2,(a<span class="clear">/*not-closed*/</span>)=&lt;(x)=&lt;f(a*x)=&gt;](a0)=&gt;g,f(2)=&gt;,g(3)=&gt;:
+<br>
+1,f(-3)=&gt;,g(3)=&gt;:
+<br>
+f(a0)=&lt;[x=1,f(x)=&lt;x,a=-2,(a/*closed@1st-call*/)=&lt;[(x)=&lt;f(a*x)=&gt;]](a0)=&gt;g,f(2)=&gt;,g(3)=&gt;:
+<br>
+f(a0)=&lt;[x=1,f(x)=&lt;x,a=-2,[(a/*closed@1st-call*/)=&lt;(x)=&lt;f(a*x)=&gt;]](a0)=&gt;g,f(2)=&gt;,g(3)=&gt;:
+<br>
+1,f(-3)=&gt;,g(3)=&gt;:
+<br>
+<span class="jF">f(a0)=&lt;[x=1,f(x)=&lt;x,a=-2,(a<span class="clear">/*not-closed*/</span>)=&lt;(x)=&lt;f(a*x)=&gt;](a0)=&gt;,f(2)=&gt;g</span>,g(3)=&gt;:
+<br>
+1,<span class="jF">f(-3)=&gt;h</span>,h(3)=&gt;:
+<br>
+<span class="jF">f(a0)=&lt;[x=1,f(x)=&lt;x,a=-2,(a/*closed@1st-call*/)=&lt;[(x)=&lt;f(a*x)=&gt;]](a0)=&gt;,f(2)=&gt;g</span>,g(3)=&gt;:
+<br>
+<span class="jF">f(a0)=&lt;[x=1,f(x)=&lt;x,a=-2,[(a/*closed@1st-call*/)=&lt;(x)=&lt;f(a*x)=&gt;]](a0)=&gt;,f(2)=&gt;g</span>,g(3)=&gt;:
+<br>
+1,<span class="jF">f(-3)=&gt;h</span>,h(3)=&gt;;
+<br>
+clear;
+<br>
+a=-1,b=0,x=1:
+<br>
+[a=1,[(a)=&lt;(x)=&lt;a*x+b](-3)=&gt;f,=&lt;f]=&gt;f,f(x)=&gt;,f(x)==&gt;:
+<br>
+[a=1,[(a)=&lt;(x)=/*disabled*/=&lt;a*x+b](-3)=&gt;f,=&lt;f]=&gt;f,f(x)=&gt;,f(x)==&gt;:
+<br>
+[a=1,[(a)=&lt;(x)=&lt;a*x+b](-3)==&gt;f,=&lt;f]=&gt;f,f(x)=&gt;,f(x)==&gt;:
+<br>
+[a=1,[(a)=&lt;(x)=&lt;a*x+b](-3)=&gt;f,==&lt;f]=&gt;f,f(x)=&gt;,f(x)==&gt;:
+<br>
+[a=1,[(a)=&lt;(x)=&lt;a*x+b](-3)=&gt;f,=&lt;f]==&gt;f,f(x)=&gt;,f(x)==&gt;:
+<br>
+[a=1,[a=2,(a<span class="clear">/*not-closed*/</span>)=&lt;(x)=&lt;a*x+b](-3)=&gt;f,=&lt;f]=&gt;f,f(x)=&gt;,f(x)==&gt;:
+<br>
+[a=1,[a=2,(a/*closed@1st-call*/)=&lt;[(x)=&lt;a*x+b]](-3)=&gt;f,=&lt;f]=&gt;f,f(x)=&gt;,f(x)==&gt;:
+<br>
+[a=1,[a=2,[(a/*closed@1st-call*/)=&lt;(x)=&lt;a*x+b]](-3)=&gt;f,=&lt;f]=&gt;f,f(x)=&gt;,f(x)==&gt;;
     </td>
   </tr>
   <tr>
