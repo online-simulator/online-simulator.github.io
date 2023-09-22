@@ -1268,7 +1268,7 @@ clear
 local storage cleared
 
 [Pinv_y=(-0.999999427,-0.999936657,-0.997300203,-0.954499736,-0.682689492,0,0.682689492,0.954499736,0.997300203,0.999936657,0.999999427:-5,-4,-3,-2,-1,0,1,2,3,4,5),N=1,arr=[],_rn(=<arr=(arr:rand_table(=<Pinv_y)=>),,N),=<arr]=>
-0.8301276621137651
+-0.6251929029007431
 
 rand_table(csv)=<last[table=sort0(csv),ymin=min(table)[0],ymax=max(table)[0],y=ymin+(ymax-ymin)*rand,x=interp(y:table),x]
 stored_eqn(rand_table)
@@ -1480,12 +1480,14 @@ local storage cleared
 restore
 local storage restored
 
-[call_f(=<f_)=<(f_=>)(a)=>,callback(=<f_)=<call_f(=<f_)=>,call_map(=<list_eqn,=<callback)=<(list_eqn=>).map(=<callback),call_filter(=<list_eqn,=<callback)=<(list_eqn=>).filter(=<callback),(=<list_eqn)=<(((list_eqn=>)=>)(a)=>:(0,1,2).map((sw)=<call_f(=<(list_eqn[sw]=>)=>)=>):(0,1,2).map((sw)=<call_f(=<(list_eqn=>)[sw]=>)=>):call_map(=<list_eqn,=<callback)=>.:call_filter(=<list_eqn,(=<f_)=<abs(call_f(=<f_)=>)==3)=>list_eqn_filtered:call_map(=<list_eqn_filtered[0]=>,=<callback)=>)](=<(=<(x)=<f(x)=>:=<(x)=<g(x)=>:=<(x)=<h(x)=>))=>
+[call_f(=<f_)=<(f_=>)(a)=>,callback(=<f_)=<call_f(=<f_)=>,call_map(=<list_eqn,=<callback)=<(list_eqn=>).map(=<callback),call_filter(=<list_eqn,=<callback)=<(list_eqn=>).filter(=<callback),call_filter0(=<list_eqn,=<callback)=<(list_eqn=>).filter0(=<callback),(=<list_eqn)=<(((list_eqn=>)=>)(a)=>:(0,1,2).map((sw)=<call_f(=<(list_eqn[sw]=>)=>)=>):(0,1,2).map((sw)=<call_f(=<(list_eqn=>)[sw]=>)=>):call_map(=<list_eqn,=<callback)=>.:call_filter(=<list_eqn,(=<f_)=<abs(call_f(=<f_)=>)==3)=>list_eqn_filtered:call_map(=<list_eqn_filtered[0]=>,=<callback)=>:call_filter0(=<list_eqn,(=<f_)=<abs(call_f(=<f_)=>)==3)=>list_eqn_filtered0:call_map(=<list_eqn_filtered0=>,=<callback)=>)](=<(=<(x)=<f(x)=>:=<(x)=<g(x)=>:=<(x)=<h(x)=>))=>
 (
 9:
 3,-3,9:
 3,-3,9:
 3,-3,9:
+0:
+3,-3:
 0:
 3,-3
 )
@@ -1652,6 +1654,123 @@ a=1
 clear
 local storage cleared
 
+A.map(=<f0).map(=<f1).filter0(=<cond0).filter0(=<cond1)
+(
+-3,-3
+)
+
+((A.map(=<f0).map(=<f1).filter(=<cond0))[0].filter(=<cond1))[0]
+(
+-3,-3
+)
+
+(A.map(=<f0).map(=<f1).filter(=<cond0))[0].filter(=<cond1)
+(
+-3,-3:
+0,0:
+1,4
+)
+
+A.map(=<f0).map(=<f1).filter(=<cond1)
+(
+-3,-3:
+0,2:
+2,2
+)
+
+A.map(=<f0).map(=<f1).filter(=<cond0)
+(
+-1,-3,-5,-1,-3,-5:
+0,0,1,2,2,3:
+0,2,1,0,2,1
+)
+
+arr_j=A_filtered[2]
+arr_j=(
+0,2,1,0,2,1
+)
+
+arr_i=A_filtered[1]
+arr_i=(
+0,0,1,2,2,3
+)
+
+Aij=A_filtered[0]
+Aij=(
+-1,-3,-5,-1,-3,-5
+)
+
+A_filter0_4chain=A_mapped.filter0((x)=<x<0)
+A_filter0_4chain=(
+-1,-3,-5,-1,-3,-5
+)
+
+A_filtered=A_mapped.filter((x)=<x<0)
+A_filtered=(
+-1,-3,-5,-1,-3,-5:
+0,0,1,2,2,3:
+0,2,1,0,2,1
+)
+
+A_mapped=A.map((x)=<abs(x)).map((x,i_,j_,self)=<x%2&&&-x|||self[i_][j_])
+A_mapped=(
+-1,2,-3:
+4,-5,6:
+-1,2,-3:
+4,-5,6
+)
+
+cond1(x)=<abs(x)==3
+stored_eqn(cond1)
+
+cond0(x)=<x<0
+stored_eqn(cond0)
+
+f1(x,i_,j_,self)=<x%2&&&-x|||self[i_][j_]
+stored_eqn(f1)
+
+f0(x)=<abs(x)
+stored_eqn(f0)
+
+arr_n=cooA[2]
+arr_n=(
+1,2,3,1,2,3,1,2,3,1,2,3
+)
+
+arr_m=cooA[1]
+arr_m=(
+1,1,1,2,2,2,3,3,3,4,4,4
+)
+
+Amn=cooA[0]
+Amn=(
+1,2,3,4,5,6,-1,-2,-3,-4,-5,-6
+)
+
+cooA=mat2coo(A)
+cooA=(
+1,2,3,4,5,6,-1,-2,-3,-4,-5,-6:
+1,1,1,2,2,2,3,3,3,4,4,4:
+1,2,3,1,2,3,1,2,3,1,2,3
+)
+
+A=(A0:-A0)
+A=(
+1,2,3:
+4,5,6:
+-1,-2,-3:
+-4,-5,-6
+)
+
+A0=(1,2,3:4,5,6)
+A0=(
+1,2,3:
+4,5,6
+)
+
+clear
+local storage cleared
+
 k=1,x=3,A=linspace(1,2,2:3,4,2),f(x)=<x+1,g(x)=<x-2,h(x)=<x*x,compose_x(x)=<h(g(f(x)=>*k)=>*k)=>*k,compose_A(A)=<h(=<g(=<f(=<A)=>*k)=>*k)=>*k,fgh_pipe_x(x,=<f,=<g,=<h)=<[[[(=<F)=<(=<G)=<(=<H)=<H(G(F(x)=>*k)=>*k)=>*k](=<f)=>](=<g)=>](=<h)=>,fgh_nest_x(x,=<f,=<g,=<h)=<[(=<H)=<[(=<G)=<[(=<F)=<H(G(F(x)=>*k)=>*k)=>*k](=<f)=>*k](=<g)=>*k](=<h)=>*k,fgh_pipe_A(A,=<f,=<g,=<h)=<[[[(=<F)=<(=<G)=<(=<H)=<H(=<G(=<F(=<A)=>*k)=>*k)=>*k](=<f)=>](=<g)=>](=<h)=>,fgh_nest_A(A,=<f,=<g,=<h)=<[(=<H)=<[(=<G)=<[(=<F)=<H(=<G(=<F(=<A)=>*k)=>*k)=>*k](=<f)=>*k](=<g)=>*k](=<h)=>*k,A_map_fgh(A,=<f,=<g,=<h)=<A.map((x)=<f(x)=>*k).map((x)=<g(x)=>*k).map((x)=<h(x)=>*k),compose_pipe_x(x)=<fgh_pipe_x(x,=<f,=<g,=<h)=>,compose_nest_x(x)=<fgh_nest_x(x,=<f,=<g,=<h)=>,compose_pipe_A(A)=<fgh_pipe_A(=<A,=<f,=<g,=<h)=>,compose_nest_A(A)=<fgh_nest_A(=<A,=<f,=<g,=<h)=>,pipe_A(A)=<A_map_fgh(=<A,=<f,=<g,=<h)=>:[[[(=<F)=<(=<G)=<(=<H)=<H(G(F(x)=>*k)=>*k)=>*k](=<f)=>](=<g)=>](=<h)=>,[(=<H)=<[(=<G)=<[(=<F)=<H(G(F(x)=>*k)=>*k)=>*k](=<f)=>*k](=<g)=>*k](=<h)=>*k,compose_pipe_x(x)=>,compose_nest_x(x)=>,compose_x(x)=>,compose_A(x)=>,pipe_A(x)=>:[[[(=<F)=<(=<G)=<(=<H)=<H(=<G(=<F(=<A)=>*k)=>*k)=>*k](=<f)=>](=<g)=>](=<h)=>,[(=<H)=<[(=<G)=<[(=<F)=<H(=<G(=<F(=<A)=>*k)=>*k)=>*k](=<f)=>*k](=<g)=>*k](=<h)=>*k,compose_pipe_A(=<A)=>,compose_nest_A(=<A)=>,compose_A(=<A)=>,pipe_A(=<A)=>
 (
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0:
@@ -1785,9 +1904,6 @@ stored_eqn(call_f)
 
 ($c0,$c1,$c2)=(3,4,5)
 stored_var(c0) stored_var(c1) stored_var(c2) 
-
-clear
-local storage cleared
 
 clear
 local storage cleared
@@ -2039,4 +2155,4 @@ center=true&drag=false&test-case=false&legend=true&axis-t=false&axis-x=true&log-
 --------------------------------
 --------------------------------
 
-online-simulator.github.io.6.315.135.16.74 @ Fri Sep 22 2023 00:38:03 GMT+0900 (日本標準時) @ Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/117.0.0.0 Safari/537.36
+online-simulator.github.io.6.316.135.16.74 @ Fri Sep 22 2023 11:57:16 GMT+0900 (日本標準時) @ Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/117.0.0.0 Safari/537.36

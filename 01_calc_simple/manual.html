@@ -10055,6 +10055,11 @@ clear; A=(1,2:3,4); mat2coo(A)-A.filter((x)=&lt;x) -> (0,0,0,0:1,1,1,1:1,1,1,1)
 clear; A=(0,2:3,4); mat2coo(A)-A.filter((x)=&lt;x&lt;&gt;0) -> (0,0,0:1,1,1:1,1,1)
 <br>
 <br>
+.filter0演算子　<span class="run">Ver.2.263.62</span>以降、追加
+<br>
+clear; A=(1,2:3,4); (A.filter((x)=&lt;x&gt;2))[0] || A.filter0((x)=&lt;x&gt;2) -> (3,4)
+<br>
+<br>
 留意事項を列挙する
 <br>
 ・<a href="#span-out-type-ope">後置単項演算子</a>同等の<a href="#span-out-prec-ope">演算子のprecedence</a>
@@ -35841,7 +35846,11 @@ f=&lt;last{V=1,E=0,k=1,I=exp(k*(V-E))-exp(-k*(V-E))}
 <br>
 ・よって関数式のconstructorはhoistingなしの前提で実装する
 <br>
-・同制約の下、既存のframework||plug-inを一切使用しない
+・同制約の下、既存のframework||plug-inを使用しないが、一部で公式に非推奨の実装を使用している
+<br>
+　・instanceのoptionからprototypeの動的な変更（mix-in継承の代替）
+<br>
+　・download-linkのonclickでsourceの動的な変更
     </td>
   </tr>
   <tr>
@@ -38542,7 +38551,53 @@ map
     </th>
     <td>
 <span id="span-eqn-map"></span>
-<a href="#span-out-prec-ope-arithmetic-ite">iterator演算子</a>||<a href="#span-out-eqns-call2eqn">式変数への式読出し</a>参照
+<a href="#span-out-prec-ope-arithmetic-ite">iterator演算子</a>||<a href="#span-out-FNm-coo">座標形式行列関数</a>||<a href="#span-out-eqns-call2eqn">式変数への式読出し</a>参照
+<br>
+clear;
+<br>
+A0=(1,2,3:4,5,6);
+<br>
+A=(A0:-A0);
+<br>
+cooA=mat2coo(A);
+<br>
+Amn=cooA[0];
+<br>
+arr_m=cooA[1];
+<br>
+arr_n=cooA[2];
+<br>
+f0(x)=&lt;abs(x);
+<br>
+f1(x,i_,j_,self)=&lt;x%2&amp;&amp;&amp;-x|||self[i_][j_]/*x*/;
+<br>
+cond0(x)=&lt;x&lt;0;
+<br>
+cond1(x)=&lt;abs(x)==3;
+<br>
+/*f1(x,i_,j_,self)=&lt;switch(x%2,-x:1,x);*/
+<br>
+A_mapped=A.map((x)=&lt;abs(x)).map((x,i_,j_,self)=&lt;x%2&amp;&amp;&amp;-x|||self[i_][j_]);
+<br>
+A_filtered=A_mapped.filter((x)=&lt;x&lt;0);
+<br>
+A_filter0_4chain=A_mapped<span class="jF">.filter0</span>((x)=&lt;x&lt;0);
+<br>
+Aij=A_filtered[0];
+<br>
+arr_i=A_filtered[1];
+<br>
+arr_j=A_filtered[2];
+<br>
+A.map(=&lt;f0).map(=&lt;f1).filter(=&lt;cond0);
+<br>
+A.map(=&lt;f0).map(=&lt;f1).filter(=&lt;cond1);
+<br>
+(A.map(=&lt;f0).map(=&lt;f1).filter(=&lt;cond0))[0].filter(=&lt;cond1);
+<br>
+((A.map(=&lt;f0).map(=&lt;f1).filter(=&lt;cond0))[0].filter(=&lt;cond1))[0];
+<br>
+A.map(=&lt;f0).map(=&lt;f1)<span class="jF">.filter0</span>(=&lt;cond0)<span class="jF">.filter0</span>(=&lt;cond1);
 <br>
 clear;
 <br>
@@ -38644,6 +38699,8 @@ call_map(=&lt;list_eqn,=&lt;callback)=&lt;(list_eqn=&gt;).map(=&lt;callback),
 <br>
 call_filter(=&lt;list_eqn,=&lt;callback)=&lt;(list_eqn=&gt;).filter(=&lt;callback),
 <br>
+call_filter0(=&lt;list_eqn,=&lt;callback)=&lt;(list_eqn=&gt;)<span class="jF">.filter0</span>(=&lt;callback),
+<br>
 (=&lt;list_eqn)=&lt;(
 <br>
 ((list_eqn=&gt;)=&gt;/*tail-return*/)(a)=&gt;:
@@ -38656,7 +38713,11 @@ call_map(=&lt;list_eqn,=&lt;callback)=&gt;.:
 <br>
 call_filter(=&lt;list_eqn,(=&lt;f_)=&lt;abs(call_f(=&lt;f_)=&gt;)==3)=&gt;list_eqn_filtered:
 <br>
-call_map(=&lt;list_eqn_filtered[0]=&gt;,=&lt;callback)=&gt;
+call_map(=&lt;list_eqn_filtered[0]=&gt;,=&lt;callback)=&gt;:
+<br>
+call_filter0(=&lt;list_eqn,(=&lt;f_)=&lt;abs(call_f(=&lt;f_)=&gt;)==3)=&gt;list_eqn_filtered0:
+<br>
+call_map(=&lt;list_eqn_filtered0=&gt;,=&lt;callback)=&gt;
 <br>
 )
 <br>

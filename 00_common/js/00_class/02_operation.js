@@ -2383,6 +2383,16 @@ My_entry.operation.prototype.URh = function(data, i0, tagName, tagObj, dot_prop)
         }
       };
     }
+    /* Ver.2.263.62 -> */
+    else if(dot_prop === "filter0"){
+      _arr = [[]];
+      callback = function(_arr, arr, arr_, i, j){
+        if(!(DATA.isStrictFalse_arr(arr_))){
+          _arr[0].push(arr[i][j]);
+        }
+      };
+    }
+    /* -> Ver.2.263.62 */
     if(names.s){  // Ver.2.215.50
       self.store_var(names.s, leftTree, scopes, ids_buffer);  // clone  // Ver.2.226.55
     }
@@ -2398,7 +2408,7 @@ My_entry.operation.prototype.URh = function(data, i0, tagName, tagObj, dot_prop)
         callback(_arr, arr, self.tree_eqn2tree(data, tree_eqn).mat.arr, i, j);
       }
     }
-    if(dot_prop === "filter"){
+    if(dot_prop === "filter" || dot_prop === "filter0"){  // Ver.2.263.62
       _arr = DATA.arr2arri_NaN(_arr);  // Ver.2.217.50
     }
     _tree = DATA.tree_mat(_arr);

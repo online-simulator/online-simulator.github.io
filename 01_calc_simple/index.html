@@ -271,6 +271,8 @@
       script += "\nclear;\n";
       script += "[$f=<0,$a=1,$b=2,=<(c)=<f=>+a+b+c]=>$f,f(3)=>,f(4)=>,f(5)=>;";
       script += "\nclear;\n";
+      script += "A0=(1,2,3:4,5,6),A=(A0:-A0),f0(x)=<abs(x),f1(x,i_,j_,self)=<x%2&&&-x|||self[i_][j_]/*x*/,cond0(x)=<x<0,cond1(x)=<abs(x)==3:A.map((x)=<abs(x)).map((x,i_,j_,self)=<x%2&&&-x|||self[i_][j_]).filter0(=<cond0).filter0(=<cond1):((A.map(=<f0).map(=<f1).filter(=<cond0))[0].filter(=<cond1))[0]:A.map(=<f0).map(=<f1).filter0(=<cond0).filter0(=<cond1);";
+      script += "\nclear;\n";
       $._id("input").value = script;
     });
   })();

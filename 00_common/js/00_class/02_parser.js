@@ -108,7 +108,7 @@ My_entry.parser.prototype.config = {
       // logical  OR: "BRlO"
       "=": "BRe"  // x+3=1 -> x=1-3 prior to substitution
     },
-    props: ["map", "filter"],  // Ver.2.214.49
+    props: ["map", "filter", "filter0"],  // Ver.2.214.49  // Ver.2.263.62
     word: {
       prifix: ((My_entry.flag.useES6)? /^0[xXbBoO]/: /^0[xX]/)  // Ver.2.146.37
     }
