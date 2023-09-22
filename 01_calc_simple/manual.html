@@ -9381,17 +9381,29 @@ f(c)=&lt;[$f=&lt;0,$a=1,$b=2,=&lt;f=&gt;+a+b+c]=&gt;,f(3)=&gt;,f(4)=&gt;,f(5)=&g
 <br>
 f(c)=&lt;[$f=&lt;0,$a=1,$b=2,=&lt;f=&gt;+a+b+c]=&gt;$f,f(3)=&gt; -> [MyErr]Invalid SEe-scope-existed(f)
 <br>
-・<span class="clear">Ver.2.262.62</span>以降、define判別<span class="condition">id</span>が消失する致命的な不具合を修正（値のid　⇒　nameのid継承）
+・<span class="clear">Ver.2.262.62</span>以降、define判別<span class="condition">id</span>が消失する致命的な不具合を修正（value-id　⇒　name-id継承）
 <br>
 clear; $a=-1; ((((a)=&lt;(b)=&lt;(a,b))|||false)(1)=&gt;)(2)=&gt; -> <del>(-1,2)</del>[MyErr]Invalid SEv-scope-const(a)
 <br>
-・<span class="run">Ver.2.264.62</span>以降、<a href="#span-out-eqns-re-use">式変数の再利用</a>に対応（id削除　⇒　id保持）
+・<span class="run">Ver.2.264.62</span>以降、<a href="#span-out-eqns-re-use">式変数の再利用</a>に対応（id削除　⇒　name-id保持）
+<br>
+clear -> local storage cleared
 <br>
 $x=-1; x -> -1
 <br>
 f(x)=&lt;x; f(1)=&gt; -> <del>1</del>[MyErr]Invalid SEv-scope-const(x)
 <br>
-f(x)=&lt;[=&lt;x]=&gt; f(1)=&gt; -> 1
+f(x)=&lt;[=&lt;x]=&gt;; f(1)=&gt; -> 1
+<br>
+clear -> local storage cleared
+<br>
+$f=&lt;-1; f=&gt; -> -1
+<br>
+f(x)=&lt;[=&lt;x]=&gt;; f(1)=&gt; -> <del>1</del>[MyErr]Invalid SEe-scope-const(f)
+<br>
+g(=&lt;f)=&lt;f=&gt;; g(=&lt;1)=&gt; -> <del>1</del>[MyErr]Invalid SEe-scope-const(f)
+<br>
+g(=&lt;f)=&lt;[=&lt;f=&gt;]=&gt;; g(=&lt;1)=&gt; -> 1
     </td>
   </tr>
   <tr>
@@ -12567,17 +12579,29 @@ f(c)=&lt;[$f=&lt;0,$a=1,$b=2,=&lt;f=&gt;+a+b+c]=&gt;,f(3)=&gt;,f(4)=&gt;,f(5)=&g
 <br>
 f(c)=&lt;[$f=&lt;0,$a=1,$b=2,=&lt;f=&gt;+a+b+c]=&gt;$f,f(3)=&gt; -> [MyErr]Invalid SEe-scope-existed(f)
 <br>
-・<span class="clear">Ver.2.262.62</span>以降、define判別<span class="condition">id</span>が消失する致命的な不具合を修正（値のid　⇒　nameのid継承）
+・<span class="clear">Ver.2.262.62</span>以降、define判別<span class="condition">id</span>が消失する致命的な不具合を修正（value-id　⇒　name-id継承）
 <br>
 clear; $a=-1; ((((a)=&lt;(b)=&lt;(a,b))|||false)(1)=&gt;)(2)=&gt; -> <del>(-1,2)</del>[MyErr]Invalid SEv-scope-const(a)
 <br>
-・<span class="run">Ver.2.262.61</span>以降、<a href="#span-out-eqns-re-use">式変数の再利用</a>に対応（id削除　⇒　id保持）
+・<span class="run">Ver.2.264.62</span>以降、<a href="#span-out-eqns-re-use">式変数の再利用</a>に対応（id削除　⇒　name-id保持）
+<br>
+clear -> local storage cleared
 <br>
 $x=-1; x -> -1
 <br>
 f(x)=&lt;x; f(1)=&gt; -> <del>1</del>[MyErr]Invalid SEv-scope-const(x)
 <br>
-f(x)=&lt;[=&lt;x]=&gt; f(1)=&gt; -> 1
+f(x)=&lt;[=&lt;x]=&gt;; f(1)=&gt; -> 1
+<br>
+clear -> local storage cleared
+<br>
+$f=&lt;-1; f=&gt; -> -1
+<br>
+f(x)=&lt;[=&lt;x]=&gt;; f(1)=&gt; -> <del>1</del>[MyErr]Invalid SEe-scope-const(f)
+<br>
+g(=&lt;f)=&lt;f=&gt;; g(=&lt;1)=&gt; -> <del>1</del>[MyErr]Invalid SEe-scope-const(f)
+<br>
+g(=&lt;f)=&lt;[=&lt;f=&gt;]=&gt;; g(=&lt;1)=&gt; -> 1
 <br>
 <br>
 <a href="#span-out-option8">$const宣言</a>（$開始のbeta版）
@@ -12595,6 +12619,8 @@ clear; ($a)=2; a=1; a -> 1
 clear; ($a)=2; $a=1; a -> [MyErr]Invalid SEv-scope-existed(a)
 <br>
 clear; $a=1; a=2; a -> [MyErr]Invalid SEv-scope-const(a)
+<br>
+clear; $a=-1; a=-2; a -> [MyErr]Invalid SEv-scope-const(a)
 <br>
 clear; $a=1; ($a)=2; a -> [MyErr]Invalid SEv-scope-const(a)
 <br>
@@ -12660,6 +12686,8 @@ clear; ($a)=2; a=1; a -> <del>1</del>[MyErr]Invalid SEv-scope-existed(a)
 clear; ($a)=2; $a=1; a -> <del>[MyErr]Invalid SEv-scope-duplicate(a)</del>1
 <br>
 clear; a=1; $a=2; a -> [MyErr]Invalid SEv-scope-const(a)
+<br>
+clear; a=-1; $a=-2; a -> [MyErr]Invalid SEv-scope-const(a)
 <br>
 clear; a=1; ($a)=2; a -> [MyErr]Invalid SEv-scope-const(a)
 <br>

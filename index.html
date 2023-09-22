@@ -269,6 +269,8 @@ Calculator
     </td>
     <td>
 minor update
+<br>
+2.262.62~
     </td>
     <td>
 [Calculator]
@@ -282,6 +284,8 @@ f(x)=&lt;x; f(1)=&gt; -> <del>1</del>[MyErr]Invalid SEv-scope-const(x)
 f(x)=&lt;[=&lt;x]=&gt;; f(1)=&gt; -> 1
 <br>
 ・parser.js changed self.delete_id_tree()　⇒　self.restore_id_tree()
+<br>
+・parser.js added self.set_id_tree() including value-id　⇒　name-id only
     </td>
     <td>
 2023/9/22
@@ -331,7 +335,7 @@ fatal bug-fix
     <td>
 [Calculator]
 <br>
-・constant declaration bug-fixed with self.inherit_id_tree(value id　⇒　name id)
+・constant declaration bug-fixed with self.inherit_id_tree(value-id　⇒　name-id)
 <br>
 $a=-1; a=-2; a -> <del>-2</del>[MyErr]Invalid SEv-scope-const(a)
     </td>

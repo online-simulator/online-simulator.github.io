@@ -883,8 +883,11 @@ My_entry.parser.prototype.make_trees = function(sentence, opt_re){  // Ver.2.158
       tree = self.switch_token(tokens, token_left, token, token_lower, token_upper, re);  // Ver.2.230.56
     }
     if(tree){
-      tree[(Object.keys(tree))[0]].id = self.id_tree++;  // Ver.2.261.61
-      _trees.push(self.FN2REv(tree, token, token_lower, token_upper));  // Ver.2.221.50  // Ver.2.228.56
+      /* Ver.2.264.62 -> */
+      tree = self.FN2REv(tree, token, token_lower, token_upper);
+      self.set_id_tree(tree);  // last
+      _trees.push(tree);  // Ver.2.221.50  // Ver.2.228.56
+      /* -> Ver.2.264.62 */
     }
     i = i_next;
   }
@@ -965,7 +968,7 @@ My_entry.parser.prototype.check_hasTag = function(trees){
 My_entry.parser.prototype.restore_id_tree = function(tree){
   var self = this;
   var tagName = (Object.keys(tree))[0];
-  if(tagName){
+  if(tagName){  // no filter
     var obj = tree[tagName];
     self.id_tree = Math.max(self.id_tree, obj.id || 0);
   }
@@ -995,6 +998,14 @@ My_entry.parser.prototype.init_id_tree = function(data){
   return self;
 };
 /* -> Ver.2.261.61 */
+My_entry.parser.prototype.set_id_tree = function(tree){
+  var self = this;
+  var tagName = (Object.keys(tree))[0];
+  if(tagName === "REv"){  // filter
+    tree[tagName].id = self.id_tree++;
+  }
+  return self;
+};
 My_entry.parser.prototype.check_id_tree_max = function(){
   var self = this;
   if(self.id_tree > Number.MAX_SAFE_INTEGER){
