@@ -38839,6 +38839,36 @@ arr=[],
 =&lt;arr]=&gt;
 <br>
 ](=&lt;(=&lt;fgh0_strict,=&lt;fgh1_strict,=&lt;fgh2_strict,=&lt;fgh3,=&lt;fgh4))=&gt;;</span>
+<br>
+restore;
+<br>
+call_fgh(a,=&lt;fgh)=&lt;[fgh(<span class="jF">$</span>f)=&gt;f,fgh(<span class="jF">$</span>g)=&gt;g,fgh(<span class="jF">$</span>h)=&gt;h,=&lt;[f(a)=&gt;,g(a)=&gt;,h(a)=&gt;]]=&gt;;
+<br>
+make_f0(<span class="jF">$</span>eqnName)=&lt;[(<span class="jF">$</span>eqnName)=&lt;(x)=&lt;eqnName(x)=&gt;](<span class="jF">$</span>eqnName)=&gt;;
+<br>
+make_f1(<span class="jF">$</span>eqnName)=&lt;[(<span class="jF">$</span>eqnName)=&lt;()=&lt;eqnName](<span class="jF">$</span>eqnName)=&gt;;
+<br>
+make_f2(<span class="jF">$</span>eqnName)=&lt;[(<span class="jF">$</span>eqnName)=&lt;eqnName](<span class="jF">$</span>eqnName)=&gt;;
+<br>
+push_arr4vecr(=&lt;f_,i_,j_)=&lt;arr=[arr:call_fgh(a*(j_+1),=&lt;f_)=&gt;];
+<br>
+push_arr4vecc(=&lt;f_,i_)=&lt;arr=[arr:call_fgh(a*(i_+1),=&lt;f_)=&gt;];
+<br>
+0:
+<br>
+call_fgh(a*1,=&lt;make_f0)=&gt;:
+<br>
+call_fgh(a*2,=&lt;make_f1)=&gt;:
+<br>
+call_fgh(a*3,=&lt;make_f2)=&gt;:
+<br>
+1:
+<br>
+[arr=[],<span class="jF">(=&lt;make_f0,=&lt;make_f1,=&lt;make_f2)</span>.map(<span class="jF">=</span>=&lt;push_arr4vecr),=&lt;arr]=&gt;:
+<br>
+2:
+<br>
+[arr=[],<span class="jF">{=&lt;make_f0,=&lt;make_f1,=&lt;make_f2}</span>.map(<span class="jF">=</span>=&lt;push_arr4vecc).<span class="clear">/*vecc->vecr*/</span>,=&lt;arr]=&gt;;
     </td>
   </tr>
   <tr>
