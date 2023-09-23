@@ -35873,7 +35873,7 @@ f=&lt;last{V=1,E=0,k=1,I=exp(k*(V-E))-exp(-k*(V-E))}
 <br>
 ・<a href="#span-out-vars">変数</a>のread-writeは<a href="#span-in-tree">tree構造</a>を複製して参照上の副作用を単純に回避する
 <br>
-・<a href="#span-out-eqns">式変数</a>のread-write||call時も同様
+・<a href="#span-out-eqns">式変数</a>のread-write||call時も同様に、入出力の<a href="#span-in-tree">tree構造</a>を複製して<a href="#span-in-scope-vars">static scopes2d array</a>を共有する
 <br>
 ・<a href="#span-out-mat">行列</a>演算を含む<a href="#span-out-associativity">2項演算子のassociativity</a>は単なるfor-loopで結合順||演算順を保証する
 <br>
@@ -38868,7 +38868,11 @@ call_fgh(a*3,=&lt;make_f2)=&gt;:
 <br>
 2:
 <br>
-[arr=[],<span class="jF">{=&lt;make_f0,=&lt;make_f1,=&lt;make_f2}</span>.map(<span class="jF">=</span>=&lt;push_arr4vecc).<span class="clear">/*vecc->vecr*/</span>,=&lt;arr]=&gt;;
+[arr=[],<span class="jF">{=&lt;make_f0,=&lt;make_f1,=&lt;make_f2}</span>.map(<span class="jF">=</span>=&lt;push_arr4vecc).<span class="clear">/*vecc->vecr*/</span>,=&lt;arr]=&gt;:
+<br>
+3:
+<br>
+[arr=[],temp=<span class="jF">{=&lt;make_f0,=&lt;make_f1,=&lt;make_f2}</span>.map(<span class="jF">=</span>=&lt;push_arr4vecc)<span class="clear">/*->0*/</span>,=&lt;arr]=&gt;;
     </td>
   </tr>
   <tr>
