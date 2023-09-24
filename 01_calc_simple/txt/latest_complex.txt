@@ -1,7 +1,55 @@
 clear
 local storage cleared
 
-[vec=(0,1),f=<(vec,vec),(delVar(vec),delEqn(f),addVar(vec),addEqn(f)),vec=-1,f=<-2]:(vec,vec):f=>:f==>
+t0=(1,2,3:4,5,6),representation_scope2storage=<[xt=<t0,yt=<(t0)i,out_lazy=<{=<xt,=<yt},=<out_lazy]=>:representation_scope2storage=>xy:xt=(xy[0]=>)=>,yt=(xy[1]=>)=>:(xt:yt)
+(
+0,0:
+0:
+0,0:
+1,2,3:
+4,5,6:
+i,2i,3i:
+4i,5i,6i
+)
+
+clear
+local storage cleared
+
+t0=(1,2,3:4,5,6),representation_scope2storage=<[xt=t0,yt=(t0)i,out_lazy=<{=<xt,=<yt},=<out_lazy]=>:representation_scope2storage=>xy:xt=(xy=>)[0]=>,yt=(xy=>)[1]=>:(xt:yt):,representation_scope2storage=<[out_lazy=<{=<xt,=<yt},=<out_lazy]=>:representation_scope2storage=>xy:xt=xy[0]=>,yt=xy[1]=>:(xt:yt)
+(
+0,0:
+0:
+0,0:
+1,2,3:
+4,5,6:
+i,2i,3i:
+4i,5i,6i:
+0,0:
+0:
+0,0:
+1,2,3:
+4,5,6:
+i,2i,3i:
+4i,5i,6i
+)
+
+clear
+local storage cleared
+
+t0=(1,2,3:4,5,6),representation_scope2storage=<[xt=t0.,yt=(t0)i.,out_lazy=<{=<xt,=<yt},=<out_lazy]=>:representation_scope2storage=>xy:xt=(xy=>)[0]=>,yt=(xy=>)[1]=>:(xt,yt)
+(
+0,0:
+0:
+0,0:
+1,4,i,4i:
+2,5,2i,5i:
+3,6,3i,6i
+)
+
+clear
+local storage cleared
+
+[vec=(0,1),f=<(vec,vec),(del__(vec),del__(=<f),add__(vec),add__(=<f)),vec=-1,f=<-2]:(vec,vec):f=>:f==>
 (
 0,0,false,false,true,true,0,0:
 0,1,0,1:
@@ -468,7 +516,7 @@ stored_eqn(pattern_matching)
 clear
 local storage cleared
 
-check=<(hasVs(a),hasV(a),hasVar(a):hasEs(f),hasE(f),hasEqn(f)),wrapper(n)=<({n,n},check=>,{n,n},check==>):wrapper(0)==>:[a=1,f=<1:wrapper(1)==>:[a=1,:wrapper(2)==>:[,f=<1:wrapper(3)==>:[delVar(a),delEqn(f):wrapper(4)==>]:[last{a=1,addVar(a)},addEqn(f):wrapper(5)==>]:[addVar(a),last{f=<1,addEqn(f)}:wrapper(6)==>]:[delVar(a),delEqn(f):wrapper(7)==>]]]]
+check=<(hass(a),has(a),has__(a):hass(=<f),has(=<f),has__(=<f)),wrapper(n)=<({n,n},check=>,{n,n},check==>):wrapper(0)==>:[a=1,f=<1:wrapper(1)==>:[a=1,:wrapper(2)==>:[,f=<1:wrapper(3)==>:[del__(a),del__(=<f):wrapper(4)==>]:[last{a=1,add__(a)},add__(=<f):wrapper(5)==>]:[add__(a),last{f=<1,add__(=<f)}:wrapper(6)==>]:[del__(a),del__(=<f):wrapper(7)==>]]]]
 (
 0,0:
 0,false,false,false,0,false,false,false:
@@ -499,7 +547,7 @@ true,true:
 clear
 local storage cleared
 
-check(=<f)=<(hasVar(n/*not-args*/),f=>):check(=<_rn(=<n+1,0,3)):check(=<_r((n)=<n+1,0,3)):check(=<_r(/*no-name*/=<n=n+1,n=0,3)):check(=<{n}):[n=-1,=<check(=<{n})]=>
+check(=<f)=<(has__(n/*not-args*/),f=>):check(=<_rn(=<n+1,0,3)):check(=<_r((n)=<n+1,0,3)):check(=<_r(/*no-name*/=<n=n+1,n=0,3)):check(=<{n}):[n=-1,=<check(=<{n})]=>
 (
 0:
 false,3:
@@ -1405,12 +1453,12 @@ stored_eqn(fv)
 clear
 local storage cleared
 
-[sw(isLeft)=<isLeft&&&&(left=2)||||(right=3),hasEqn(sw),hasE(sw),sw(false),hasVar(left),hasV(left),hasVar(right),hasV(right),right,sw(true),left,delVar(left),delVar(right),delEqn(sw)]
+[sw(isLeft)=<isLeft&&&&(left=2)||||(right=3),has__(=<sw),has(=<sw),sw(false),has__(left),has(left),has__(right),has(right),right,sw(true),left,del__(left),del__(right),del__(=<sw)]
 (
 0,false,true,0,false,false,false,true,3,0,2,false,false,false
 )
 
-sw(isLeft)=<isLeft&&&&(left=2)||||(right=3),[hasEqn(sw),hasE(sw),sw(false),hasVar(left),hasV(left),hasVar(right),hasV(right),right,sw(true),left,delVar(left),delVar(right),delEqn(sw)]
+sw(isLeft)=<isLeft&&&&(left=2)||||(right=3),[has__(=<sw),has(=<sw),sw(false),has__(left),has(left),has__(right),has(right),right,sw(true),left,del__(left),del__(right),del__(=<sw)]
 (
 0,true,true,0,false,false,true,true,3,0,2,true,true,true
 )
@@ -3165,7 +3213,7 @@ _rn(=<last{Pn=Pn*2,n+1},Pn=1,10,=<{Pn>100})/*reccursive function's break test ca
 clear
 local storage cleared
 
-(a=2,hasVar(a),delVar(a),delVar(a),hasVar(a),b=<3,hasEqn(b),delEqn(b),delEqn(b),hasEqn(b))/*function prior to bracket test case*/
+(a=2,has__(a),del__(a),del__(a),has__(a),b=<3,has__(=<b),del__(=<b),del__(=<b),has__(=<b))/*function prior to bracket test case*/
 (
 0,true,true,false,false,0,true,true,false,false
 )
@@ -3444,4 +3492,4 @@ drag=false&sw=false&0x=false&useMatrix=true&useStrict=false&checkError=true&isRi
 --------------------------------
 --------------------------------
 
-online-simulator.github.io.6.318.137.16.74 @ Sun Sep 24 2023 17:34:30 GMT+0900 (日本標準時) @ Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/117.0.0.0 Safari/537.36
+online-simulator.github.io.6.319.137.16.74 @ Mon Sep 25 2023 01:22:10 GMT+0900 (日本標準時) @ Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/117.0.0.0 Safari/537.36

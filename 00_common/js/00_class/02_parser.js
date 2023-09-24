@@ -475,19 +475,11 @@ My_entry.parser.prototype.switch_token = function(tokens, token_left, token, tok
       throw "Invalid "+token+" called";
       break;
     // "FNc"
-    // storage
-    case "hasvar":
-    case "haseqn":
-    case "delvar":
-    case "deleqn":
-    case "addvar":
-    case "addeqn":
-    // scopes+storage
-    case "hasv":
-    case "hase":
-    // scope
-    case "hasvs":
-    case "hases":
+    case "hass":
+    case "has":
+    case "has__":
+    case "del__":
+    case "add__":
       tree = DATA.tree_tag("FNc", token_lower);
       break;
     // "FNhn"

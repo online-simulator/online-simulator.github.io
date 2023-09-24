@@ -732,11 +732,6 @@ My_entry.operation.prototype.BRlAOs = function(data, i0, tagName, tagObj){
   /* Ver.2.258.60 -> */
   var get_tree_mat = function(trees){
     var _tree = self.trees2tree_mat(data, trees, ids);
-    var hasVar = DATA.hasVar_arr(_tree.mat.arr);
-    var hasSEe = hasVar[BT.SEe];
-    if(hasVar && !(hasSEe)){  // first
-      throw "Undef "+tagObj.val+"var";  // hasVar(a|||b) disabled
-    }
     /* Ver.2.158.38 -> */
     if(is0D){
       _tree = DATA.tree_mat(DATA.arr2arr00(_tree.mat.arr));
@@ -919,60 +914,65 @@ My_entry.operation.prototype.FNc = function(data, i0, tagName, tagObj){
     var names = self.get_names(data, rightTree);
     if(!(names.length)) throw msgErr;
     var name = names[names.length-1];
+    /* Ver.2.268.62 -> */
+    var sw = "vars";
+    var num_escape = self.config.isEscaped_eqn(name);
+    if(num_escape){
+      sw = "eqns";
+      name = name.substring(num_escape);
+    }
+    var isEqn = (sw === "eqns");
+    /* -> Ver.2.268.62 */
     if(name){
       var tree = null;
       var get_tree_sw = function(sw){
         return DATA.tree_num(((sw)? true: false), 0);  // Ver.2.196.46
       };
       switch(prop){
+        /* Ver.2.268.62 -> */
         /* Ver.2.243.56 -> */
-        case "hasvs":
-          tree = get_tree_sw(self.get_scope0_RE_sw("vars", name, scopes, ids));
-          break;
-        case "hases":
-          tree = get_tree_sw(self.get_scope0_RE_sw("eqns", name, scopes, ids));
+        case "hass":
+          tree = get_tree_sw(self.get_scope0_RE_sw(sw, name, scopes, ids));
           break;
         /* -> Ver.2.243.56 */
         /* Ver.2.31.17 -> */
-        case "hasv":
-          tree = get_tree_sw(self.get_scope_RE_sw("vars", name, scopes, ids));
+        case "has":
+          tree = get_tree_sw(self.get_scope_RE_sw(sw, name, scopes, ids));
           break;
-        case "hase":
-          tree = get_tree_sw(self.get_scope_RE_sw("eqns", name, scopes, ids));
-          break;
-        case "addvar":
-          var scope = self.get_scope0_RE_sw("vars", name, scopes, ids);
+        case "add__":
+          var scope = self.get_scope0_RE_sw(sw, name, scopes, ids);
           tree = get_tree_sw(scope);  // first
           if(scope){
-            vars[name] = self.entry.def.newClone(scope[name]);
-          }
-          break;
-        case "addeqn":
-          var scope = self.get_scope0_RE_sw("eqns", name, scopes, ids);
-          tree = get_tree_sw(scope);  // first
-          if(scope){
-            eqns[name] = self.entry.def.newClone(scope[name]);
+            var tree_checked = scope[name];
+            if(tree_checked){
+              var tree_added = self.entry.def.newClone(tree_checked);
+              if(isEqn){
+                eqns[name] = tree_added;
+              }
+              else{
+                vars[name] = tree_added;
+              }
+            }
           }
           break;
         /* -> Ver.2.31.17 */
-        case "hasvar":
-          tree = get_tree_sw(vars[name]);
+        case "has__":
+          var tree_checked = (isEqn)? eqns[name]: vars[name];
+          tree = get_tree_sw(tree_checked);  // first
           break;
-        case "haseqn":
-          tree = get_tree_sw(eqns[name]);
-          break;
-        case "delvar":
-          tree = get_tree_sw(vars[name]);  // first
-          if(vars[name]){
-            delete vars[name];
+        case "del__":
+          var tree_checked = (isEqn)? eqns[name]: vars[name];
+          tree = get_tree_sw(tree_checked);  // first
+          if(tree_checked){
+            if(isEqn){
+              delete eqns[name];
+            }
+            else{
+              delete vars[name];
+            }
           }
           break;
-        case "deleqn":
-          tree = get_tree_sw(eqns[name]);  // first
-          if(eqns[name]){
-            delete eqns[name];
-          }
-          break;
+        /* -> Ver.2.268.62 */
         default:
           break;
       }
@@ -1177,8 +1177,13 @@ if(prop === "EX"){  // symbolic
     var name_var = names[names.length-1];
     self.check_symbol(name_var);  // Ver.2.29.15  // Ver.2.232.56
     var name_eqn = name_arg || name_bar;
+    /* Ver.2.268.62 -> */
+    var num_escape = self.config.isEscaped_eqn(name_eqn);
+    if(num_escape){
+      name_eqn = name_eqn.substring(num_escape);
+    }
+    /* -> Ver.2.268.62 */
     if(!(name_eqn) || (name_arg && name_bar) || (args_eqn && args_eqn.length !== 1)) throw msgErr;
-    /* -> Ver.2.231.56 */
     var len_i = math_mat.num2size(options, args[1]);
     var len_j = math_mat.num2size(options, args[2]);
     var counter = 0;

@@ -1865,6 +1865,10 @@ title/発行元(発行年)を列挙する
 　影響項目：<a href="#span-out-eqns-call2eqn">式変数への式読出し</a>||<a href="#span-eqn-args">args</a>||<a href="#span-eqn-solvex_bisection">solvex_bisection</a>
 <br>
 ・<span class="run">Ver.2.254.59</span>以降、<a href="#span-out-option8">$let宣言</a>の再代入の仕様変更（初回のみ、$あり　⇒　常時、$あり）
+<br>
+・<span class="run">Ver.2.268.62</span>以降、<a href="#span-out-FNc">最上位関数</a>のvar||eqnを統合
+<br>
+　影響項目：<a href="#span-out-FNc">最上位関数</a>||<a href="#span-eqn">strict-mode式変数list</a>
     </td>
   </tr>
   <tr>
@@ -14043,6 +14047,58 @@ x=3; x=2:3x -> (0:6)
 <br>
 ・<span class="run">Ver.2.243.56</span>以降、hasVs/hasEs最上位関数を追加
 <br>
+・<span class="run">Ver.2.268.62</span>以降、var||eqnを統合
+<br>
+　hasVs　⇒　hass(varName_in_self_scope)
+<br>
+　hasEs　⇒　hass(=&lt;eqnName_in_self_scope)
+<br>
+　hasV　⇒　has(varName)
+<br>
+　hasE　⇒　has(=&lt;eqnName)
+<br>
+　hasVar　⇒　has__(varName_in_storage)
+<br>
+　hasEqn　⇒　has__(=&lt;eqnName_in_storage)
+<br>
+　delVar　⇒　del__(varName_in_storage)
+<br>
+　delEqn　⇒　del__(=&lt;eqnName_in_storage)
+<br>
+　addVar　⇒　add__(varName_in_storage)
+<br>
+　addEqn　⇒　add__(=&lt;eqnName_in_storage)
+<br>
+・double-underscore__の意味：仕様廃止の可能性あり
+<br>
+clear;
+<br>
+t0=(1,2,3:4,5,6);
+<br>
+representation_scope2storage=&lt;[xt=t0.,yt=(t0)i.,out_lazy=&lt;{=&lt;xt,=&lt;yt},=&lt;out_lazy]=&gt;;
+<br>
+representation_scope2storage=&gt;xy;
+<br>
+xt=(xy=&gt;)[0]=&gt;;
+<br>
+yt=(xy=&gt;)[1]=&gt;;
+<br>
+(xt,yt) -> (1,4,i,4i:2,5,2i,5i:3,6,3i,6i)
+<br>
+clear;
+<br>
+t0=(1,2,3:4,5,6);
+<br>
+representation_scope2storage=&lt;[xt=t0,yt=(t0)i,out_lazy=&lt;{=&lt;xt,=&lt;yt},=&lt;out_lazy]=&gt;;
+<br>
+representation_scope2storage=&gt;xy;
+<br>
+xt=(xy=&gt;)[0]=&gt;;
+<br>
+yt=(xy=&gt;)[1]=&gt;;
+<br>
+(xt:yt) -> (1,2,3:4,5,6:i,2i,3i:4i,5i,6i)
+<br>
 <br>
 hasVar最上位関数
 <br>
@@ -14304,7 +14360,7 @@ hasEs最上位関数
 <br>
 ・add/del最上位関数は<a href="#span-out-ref-transparency">参照透過性</a>の対策用で<a href="#span-out-bracket">scope</a>単位の操作不可（<a href="#span-out-command">命令文</a>参照）
 <br>
-・引数に<a href="#span-out-prec-ope">演算子</a>（上位を含む）は使用不可
+・引数に<a href="#span-out-prec-ope">演算子</a>（上位を含む）の使用不可
 <br>
 hasVar(a||b) -> [MyErr]Invalid binary operation
 <br>
@@ -14317,6 +14373,10 @@ clear; a=1; b=1; hasVar(a) &amp;&amp; hasVar(b) -> 1
 clear; a=1; b=1; hasVar(a) &amp;&amp;&amp; hasVar(b) -> 1
 <br>
 ・<span class="run">Ver.2.196.46</span>以降、<a href="#span-out-literal">論理値literal</a>を返す
+<br>
+・<span class="run">Ver.2.268.62</span>以降、error判定処理を削除
+<br>
+has__(a|||b) || has__(a) -> <del>[MyErr]Undef var|||</del>false
     </td>
   </tr>
   <tr>
@@ -25432,6 +25492,10 @@ clear; _ef(=&lt;x,2,2) -> 0
 ・<span class="run">Ver.2.231.56</span>以降、第1引数の<a href="#span-out-eqns-args">arguments</a>優先
 <br>
 clear; _e((f)=&lt;x,2,2) -> 0
+<br>
+・<span class="run">Ver.2.268.62</span>以降、同義
+<br>
+clear; _e((=&lt;f)=&lt;x,2,2) -> 0
 <br>
 ・x=&lt;(x0,x1,x2,x3)
 <br>
@@ -37199,6 +37263,8 @@ operation.js抜粋
 <br>
 ・<span class="run">Ver.2.243.56</span>以降、<a href="#span-out-FNc">hasVs/hasEs最上位関数</a>を追加
 <br>
+・<span class="run">Ver.2.268.62</span>以降、<a href="#span-out-FNc">最上位関数</a>のvar||eqnを統合
+<br>
 <br>
 予約語は大文字・小文字・全角・半角を区別しない
 <br>
@@ -37240,19 +37306,11 @@ parser.js抜粋
       throw "Invalid "+token+" called";
       break;
     // "FNc"
-    // storage
-    case "hasvar":
-    case "haseqn":
-    case "delvar":
-    case "deleqn":
-    case "addvar":
-    case "addeqn":
-    // scopes+storage
-    case "hasv":
-    case "hase":
-    // scope
-    case "hasvs":
-    case "hases":
+    <span class="jF">case "hass":</span>
+    <span class="jF">case "has":</span>
+    <span class="jF">case "has__":</span>
+    <span class="jF">case "del__":</span>
+    <span class="jF">case "add__":</span>
       tree = DATA.tree_tag("FNc", token_lower);
       break;
     // "FNhn"
@@ -37598,7 +37656,7 @@ NaN対応結果
 <br>
 <pre><code>
 // error
-hasvar(NaN);
+<del>hasvar(NaN);
 haseqn(NaN);
 delvar(NaN);
 deleqn(NaN);
@@ -37607,7 +37665,17 @@ addeqn(NaN);
 hasv(NaN);
 hase(NaN);
 <span class="jF">hasvs(NaN);</span>
-<span class="jF">hases(NaN);</span>
+<span class="jF">hases(NaN);</span></del>
+<span class="jF">hass(NaN);
+hass(=&lt;NaN);
+has(NaN);
+has(=&lt;NaN);
+has__(NaN);
+has__(=&lt;NaN);
+del__(NaN);
+del__(=&lt;NaN);
+add__(NaN);
+add__(=&lt;NaN);</span>
 
 // false
 switch(NaN);
@@ -38370,9 +38438,9 @@ clear;
 <br>
 set_ans(<span class="jF">$</span>varName)=&lt;varName=ans;
 <br>
-checkV(<span class="jF">$</span>varName)=&lt;(hasVs(varName),hasV(varName),hasVar(varName));
+checkV(<span class="jF">$</span>varName)=&lt;(hass(varName),has(varName),has__(varName));
 <br>
-checkE(<span class="jF">$</span>eqnName)=&lt;(hasEs(eqnName),hasE(eqnName),hasEqn(eqnName));
+checkE(<span class="jF">$</span>eqnName)=&lt;(hass(=&lt;eqnName),has(=&lt;eqnName),has__(=&lt;eqnName));
 <br>
 check(<span class="jF">$</span>varName,<span class="jF">$</span>eqnName)=&lt;(checkV(<span class="jF">$</span>varName)<span class="clear">==&gt;</span>:checkE(<span class="jF">$</span>eqnName)<span class="clear">==&gt;</span>);
 <br>
@@ -38386,13 +38454,13 @@ wrapper0(n)=&lt;({n,n},check(<span class="jF">$</span>a,<span class="jF">$</span
 <br>
 [,f=&lt;1:wrapper0(3)<span class="clear">==&gt;</span>:
 <br>
-[delVar(a),delEqn(f):wrapper0(4)<span class="clear">==&gt;</span>]:
+[del__(a),del__(=&lt;f):wrapper0(4)<span class="clear">==&gt;</span>]:
 <br>
-[last{a=1,addVar(a)},addEqn(f):wrapper0(5)<span class="clear">==&gt;</span>]:
+[last{a=1,add__(a)},add__(=&lt;f):wrapper0(5)<span class="clear">==&gt;</span>]:
 <br>
-[addVar(a),last{f=&lt;1,addEqn(f)}:wrapper0(6)<span class="clear">==&gt;</span>]:
+[add__(a),last{f=&lt;1,add__(=&lt;f)}:wrapper0(6)<span class="clear">==&gt;</span>]:
 <br>
-[delVar(a),delEqn(f):wrapper0(7)<span class="clear">==&gt;</span>]
+[del__(a),del__(=&lt;f):wrapper0(7)<span class="clear">==&gt;</span>]
 <br>
 ]]]);
 <br>
@@ -38412,13 +38480,13 @@ wrapper1(n,=&lt;f0,=&lt;f1)=&lt;(f0<span class="clear">==&gt;</span>,f1<span cla
 <br>
 [wrapper1(3,=&lt;0,=&lt;f=&lt;1)<span class="clear">==&gt;</span>:
 <br>
-[wrapper1(4,=&lt;delVar(a),=&lt;delEqn(f))<span class="clear">==&gt;</span>]:
+[wrapper1(4,=&lt;del__(a),=&lt;del__(=&lt;f))<span class="clear">==&gt;</span>]:
 <br>
-[wrapper1(5,=&lt;last{a=1,addVar(a)},=&lt;addEqn(f))<span class="clear">==&gt;</span>]:
+[wrapper1(5,=&lt;last{a=1,add__(a)},=&lt;add__(=&lt;f))<span class="clear">==&gt;</span>]:
 <br>
-[wrapper1(6,=&lt;addVar(a),=&lt;last{f=&lt;1,addEqn(f)})<span class="clear">==&gt;</span>]:
+[wrapper1(6,=&lt;add__(a),=&lt;last{f=&lt;1,add__(=&lt;f)})<span class="clear">==&gt;</span>]:
 <br>
-[wrapper1(7,=&lt;delVar(a),=&lt;delEqn(f))<span class="clear">==&gt;</span>]
+[wrapper1(7,=&lt;del__(a),=&lt;del__(=&lt;f))<span class="clear">==&gt;</span>]
 <br>
 ]]])
 <br>
@@ -39249,7 +39317,7 @@ plot2d_interp(Nx,Nt)=&lt;[
 <br>
 out=&lt;{xt,yt},
 <br>
-scope2storage=&lt;last{addVar(xt),addVar(yt)},
+scope2storage=&lt;last{add__(xt),add__(yt)},
 <div class="condition">
 init=&lt;last{
 <br>
@@ -39352,7 +39420,7 @@ plot2d_circle(t0,t1,N,M)=&lt;[
 <br>
 out=&lt;(xt,yt),
 <br>
-scope2storage=&lt;last{addVar(xt),addVar(yt)},
+scope2storage=&lt;last{add__(xt),add__(yt)},
 <div class="condition">
 init=&lt;last{
 <br>
@@ -39402,7 +39470,7 @@ plot2d_evolution(t0,t1,dt,z_x0,z_v0<span class="selection">,z_u</span>,m,Cd_sphe
 <br>
 out=&lt;(xt,yt),
 <br>
-scope2storage=&lt;last{addVar(xt),addVar(yt)},
+scope2storage=&lt;last{add__(xt),add__(yt)},
 <div class="condition">
 init=&lt;last{
 <br>
@@ -39466,7 +39534,7 @@ plot2d_Lagrange(x,y)=&lt;[
 <br>
 out=&lt;(xt,yt),
 <br>
-scope2storage=&lt;last{addVar(xt),addVar(yt)},
+scope2storage=&lt;last{add__(xt),add__(yt)},
 <div class="condition">
 init=&lt;last{
 <br>
@@ -39600,7 +39668,7 @@ plot2d_nspline(x,y)=&lt;[
 <br>
 out=&lt;(xt,yt),
 <br>
-scope2storage=&lt;last{addVar(xt),addVar(yt)},
+scope2storage=&lt;last{add__(xt),add__(yt)},
 <div class="condition">
 init=&lt;last{
 <br>
@@ -39690,7 +39758,7 @@ plot2d_bspline(x,y)=&lt;[
 <br>
 out=&lt;(xt,yt),
 <br>
-scope2storage=&lt;last{addVar(xt),addVar(yt)},
+scope2storage=&lt;last{add__(xt),add__(yt)},
 <div class="condition">
 init=&lt;last{
 <br>
@@ -40291,11 +40359,11 @@ Euler_method(t,dt,z_x00,z_v00<span class="selection">,z_u</span>,m,Cd_sphere,isI
 <br>
 out=&lt;{t_total,<span class="jF">x_solved</span>},
 <br>
-scope2storage=&lt;last{addVar(z_x0),addVar(z_v0),addVar(t_total)},
+scope2storage=&lt;last{add__(z_x0),add__(z_v0),add__(t_total)},
 <div class="condition">
 init=&lt;last{
 <br>
-switch(hasVar(t_total)==0,=&lt;last{t_total=0,z_x0=z_x00,z_v0=z_v00}),
+switch(has__(t_total)==0,=&lt;last{t_total=0,z_x0=z_x00,z_v0=z_v00}),
 <br>
 g=-9.8,z_a=0+g*i,
 <br>
@@ -40346,7 +40414,7 @@ init=&gt;,run=&gt;,return=out=&gt;,scope2storage=&gt;,
 <br>
 =&lt;return]=&gt;;
 <br>
-[cond_error=(hasVar(t_total)==0)&amp;hasVar(z_x0),
+[cond_error=(has__(t_total)==0)&amp;has__(z_x0),
 <br>
 proc=&lt;[args=(1,0.5,0,20+20i<span class="selection">,0</span>,1,1),=&lt;Euler_method(args,1)=&gt;]=&gt;,
 <br>
@@ -40367,7 +40435,7 @@ Euler_method
 <span id="span-eqn-explicit-Euler_method"></span>
 <a href="#span-out-evolution">時間発展の解法</a>参照
 <br>
-[cond_error=(hasVar(t_total)==0)&amp;hasVar(z_x0),
+[cond_error=(has__(t_total)==0)&amp;has__(z_x0),
 <br>
 proc=&lt;[args=(1,0.5,0,20+20i<span class="selection">,0</span>,1,1),=&lt;Euler_method(args,0)=&gt;]=&gt;,
 <br>
@@ -40392,11 +40460,11 @@ ODE_RK4(t,dt,z_x00,z_v00<span class="selection">,z_u</span>,m,Cd_sphere)=&lt;[
 <br>
 out=&lt;{<span class="jF">t_total,x_next</span>},
 <br>
-scope2storage=&lt;last{<span class="jF">addVar(z_x0),addVar(z_v0),addVar(t_total)</span>},
+scope2storage=&lt;last{<span class="jF">add__(z_x0),add__(z_v0),add__(t_total)</span>},
 <div class="condition">
 init=&lt;last{
 <br>
-<span class="jF">switch(hasVar(t_total)==0,=&lt;last{t_total=0,z_x0=z_x00,z_v0=z_v00}),</span>
+<span class="jF">switch(has__(t_total)==0,=&lt;last{t_total=0,z_x0=z_x00,z_v0=z_v00}),</span>
 <br>
 g=-9.8,z_a=0+g*i,
 <br>
@@ -40427,7 +40495,7 @@ init=&gt;,run=&gt;,return=out=&gt;,scope2storage=&gt;,
 <br>
 =&lt;return]=&gt;;
 <br>
-[<span class="jF">cond_error=(hasVar(t_total)==0)&amp;hasVar(z_x0),</span>
+[<span class="jF">cond_error=(has__(t_total)==0)&amp;has__(z_x0),</span>
 <br>
 proc=&lt;[args=(1,0.5,0,20+20i<span class="selection">,0</span>,1,1),=&lt;ODE_RK4(args)=&gt;]=&gt;,
 <br>
@@ -41099,7 +41167,7 @@ plot2d_EIS(isBode,fZ)=&lt;[
 <br>
 out=&lt;(xt,yt),
 <br>
-scope2storage=&lt;last{addVar(xt),addVar(yt)},
+scope2storage=&lt;last{add__(xt),add__(yt)},
 <div class="condition">
 init=&lt;last{N=sizer(fZ),xt=zeros(N,1),yt=zeros(N,1)},
 </div>
@@ -41300,7 +41368,7 @@ plot2d_EIS_DFT(isBode,fZ)=&lt;[
 <br>
 out=&lt;(xt,yt),
 <br>
-scope2storage=&lt;last{addVar(xt),addVar(yt)},
+scope2storage=&lt;last{add__(xt),add__(yt)},
 <div class="condition">
 init=&lt;last{N=sizer(fZ),xt=zeros(N,1),yt=zeros(N,1)},
 </div>
@@ -41437,7 +41505,7 @@ plot2d_IV(dI,f,Nt,Nint,isImplicit)=&lt;[
 <br>
 out=&lt;(xt,yt),
 <br>
-scope2storage=&lt;last{addVar(xt),addVar(yt)},
+scope2storage=&lt;last{add__(xt),add__(yt)},
 <div class="condition">
 init=&lt;last{N=Nt*Nint,xt=zeros(N+1,1),yt=zeros(N+1,2)},
 </div>
@@ -41478,7 +41546,7 @@ heat0d_evolution(t,dt,kalpha0,kalpha1,kalbedo<span class="selection">,kabsorb</s
 <br>
 out=&lt;{t_total,dT},
 <br>
-scope2storage=&lt;last{addVar(oldT),addVar(t_total)},
+scope2storage=&lt;last{add__(oldT),add__(t_total)},
 <div class="condition">
 init=&lt;last{
 <br>
@@ -41594,7 +41662,7 @@ a=(alpha1*A1+alpha0*A0)/C,
 <br>
 b=(alpha1*A1*T1+W0*(1-albedo)<span class="selection">*absorb</span>+alpha0*A0*T0)/C,
 <br>
-switch(hasVar(t_total)==0,=&lt;last{t_total=0,oldT=T0}),
+switch(has__(t_total)==0,=&lt;last{t_total=0,oldT=T0}),
 <br>
 newT=oldT
 <br>
@@ -41619,7 +41687,7 @@ init=&gt;,run=&gt;,return=out=&gt;,scope2storage=&gt;,
 <br>
 =&lt;return]=&gt;;
 <br>
-[cond_error=(hasVar(t_total)==0)&amp;&amp;hasVar(oldT),
+[cond_error=(has__(t_total)==0)&amp;&amp;has__(oldT),
 <br>
 proc=&lt;[s_1day=60*60*24,
 <br>
@@ -41644,7 +41712,7 @@ heat1d_evolution(t,dt,kalpha0,kalpha1,kalbedo<span class="selection">,kabsorb</s
 <br>
 out=&lt;{t_total,newT},
 <br>
-scope2storage=&lt;last{addVar(oldT),addVar(t_total)},
+scope2storage=&lt;last{add__(oldT),add__(t_total)},
 <div class="condition">
 init=&lt;last{
 <br>
@@ -41778,7 +41846,7 @@ A[0][0]=1+a1*dt+a0*dt,
 <br>
 A[-1][-1]=1+a1*dt,
 <br>
-switch(hasVar(t_total)==0,=&lt;last{t_total=0,oldT=zeros(N,1)+Te}),
+switch(has__(t_total)==0,=&lt;last{t_total=0,oldT=zeros(N,1)+Te}),
 <br>
 newT=oldT
 <br>
@@ -41817,7 +41885,7 @@ init=&gt;,run=&gt;,return=out=&gt;,scope2storage=&gt;,
 <br>
 =&lt;return]=&gt;;
 <br>
-[cond_error=(hasVar(t_total)==0)&amp;&amp;hasVar(oldT),
+[cond_error=(has__(t_total)==0)&amp;&amp;has__(oldT),
 <br>
 proc=&lt;[s_1day=60*60*24,
 <br>
