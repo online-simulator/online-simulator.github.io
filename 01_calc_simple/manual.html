@@ -761,6 +761,8 @@ e^(-i(1pi(){2/2i}(5-{3-1}){i/(-4)}))
 <br>
 ・<a href="#span-in-tree">単位tree構造</a>
 <br>
+・<a href="#span-in-deep-copy">deep-copy</a>
+<br>
 ・<a href="#span-in-scope-vars">変数のscope</a>
 <br>
 ・<a href="#span-in-eqns-args">式変数のarguments</a>
@@ -1987,9 +1989,9 @@ clear; f(3,x)=&lt;x -> [MyErr]Invalid args isFound(f)
 <br>
 ・<span class="run">Ver.2.233.56</span>以降、<a href="#span-out-FNmh">高階行列関数</a>の内部wrapper関数を追加
 <br>
-・<span class="clear">Ver.2.266.62</span>以降、deep-copyの適用対象を最適化
+・<span class="clear">Ver.2.266.62</span>以降、<a href="#span-in-deep-copy">deep-copy</a>の適用対象を最適化
 <br>
-　<a href="#span-out-vars">変数</a>・<a href="#span-out-eqns">式変数</a>のstore||restore時　⇒　<span class="clear">restore時</span>
+　<a href="#span-out-vars">変数</a>・<a href="#span-out-eqns">式変数</a>のstore||restore時　⇒　<span class="clear">restore時</span>（<a href="#span-out-ans">予約変数</a>ansを含む）
 <br>
 　2重cloneの無駄あり　⇒　なし
     </td>
@@ -13908,22 +13910,20 @@ store
 <br>
 ・call時点までの<del><a href="#span-out-storage">local storage</a></del><span class="run">Ver.2.222.50</span>以降、<a href="#span-in-scope-vars">static scopes2d array</a>を<a href="#span-out-storage">local buffer</a>に保存する
 <br>
-・元objectを新規objectに複製する
+・<a href="#span-in-deep-copy">deep-copy</a>で新規複製
 <br>
 <br>
 restore
 <br>
 ・<a href="#span-out-storage">local buffer</a>に保存された<del><a href="#span-out-storage">local storage</a></del><span class="run">Ver.2.222.50</span>以降、<a href="#span-in-scope-vars">static scopes2d array</a>を復帰する
 <br>
-<del>・複製した新規objectをそのまま復帰する（元objectの参照を切る仕様）</del>
-<br>
-<span class="clear">Ver.2.30.17</span>以降、元objectの参照を保存
+・<del>複製した新規objectを復帰</del><span class="clear">Ver.2.30.17</span>以降、元objectの参照を保存
 <br>
 clear; x=2; store; x=3; restore; x -> 2
 <br>
 clear; x=2; store; clear; restore; x -> 2
 <br>
-<span class="clear">Ver.2.30.17</span>以降、clear実行後、新規objectを複製してから復帰する（再利用に対応）
+<span class="clear">Ver.2.30.17</span>以降、<a href="#span-in-deep-copy">deep-copy</a>で復帰（再利用に対応）
 <br>
 clear; a=2; store; a=3; restore; a; a=3; restore; a -> 2
 <br>
@@ -35877,9 +35877,9 @@ f=&lt;last{V=1,E=0,k=1,I=exp(k*(V-E))-exp(-k*(V-E))}
 <br>
 実装の特徴を列挙する
 <br>
-・<span class="clear">Ver.2.266.62</span>以降、deep-copyの適用対象を最適化（<a href="#span-out-vars">変数</a>・<a href="#span-out-eqns">式変数</a>のstore||restore時　⇒　<span class="clear">restore時</span>）
+・<span class="clear">Ver.2.266.62</span>以降、<a href="#span-in-deep-copy">deep-copy</a>の適用対象を最適化（<a href="#span-out-vars">変数</a>・<a href="#span-out-eqns">式変数</a>のstore||restore時　⇒　<span class="clear">restore時</span>）
 <br>
-・<a href="#span-out-vars">変数</a>の<span class="clear">restore時</span>、<a href="#span-in-tree">tree構造</a>をdeep-copyで複製して参照上の副作用を単純に回避する
+・<a href="#span-out-vars">変数</a>の<span class="clear">restore時</span>、<a href="#span-in-tree">tree構造</a>を<a href="#span-in-deep-copy">deep-copy</a>で複製して参照上の副作用を単純に回避する
 <br>
 ・<a href="#span-out-eqns">式変数</a>の<span class="clear">restore時</span>も同様に、入出力の<a href="#span-in-tree">tree構造</a>を複製して<a href="#span-in-scope-vars">static scopes2d array</a>を共有する
 <br>
@@ -35952,7 +35952,7 @@ f=&lt;last{V=1,E=0,k=1,I=exp(k*(V-E))-exp(-k*(V-E))}
 <span id="span-out-development-problems-FNh"></span>
 <a href="#span-out-FNh">高階関数</a>の問題点を列挙する
 <br>
-・反復処理毎に下記<span class="clear">eqn_k</span>の<a href="#span-in-tree">tree構造</a>全体（<a href="#span-in-scope-vars">scope-ids</a>を含む）をdeep-copyで複製するため、
+・反復処理毎に下記<span class="clear">eqn_k</span>の<a href="#span-in-tree">tree構造</a>全体（<a href="#span-in-scope-vars">scope-ids</a>を含む）を<a href="#span-in-deep-copy">deep-copy</a>で複製するため、
 <br>
 ・<a href="#span-out-FNh">高階関数</a>をnestingする場合、致命的にthroughputが低下する（<a href="#span-out-FNh-DX">微分の多重化</a>||<a href="#span-out-interpolation-Lagrange">Lagrange補間</a>）
 <br>
@@ -36655,6 +36655,25 @@ Calculator用途に特化した実装項目とfile名の対応関係を列挙す
 目次
 </a>
 <br>
+deep-copy
+    </th>
+    <td>
+<span id="span-in-deep-copy"></span>
+deep-copyの適用対象を列挙する
+<br>
+・<a href="#span-out-command">命令文</a>の<a href="#span-in-scope-vars">static scopes2d array</a>
+<br>
+・<a href="#span-out-vars">変数</a>・<a href="#span-out-eqns">式変数</a>の<del>store||restore時</del><span class="clear">Ver.2.266.62</span>以降、<span class="clear">restore時</span>（<a href="#span-out-ans">予約変数</a>ansを含む）
+<br>
+・<a href="#span-out-FNh">高階関数</a>の再帰対象（第1引数の<a href="#span-in-tree">tree構造</a>）
+    </td>
+  </tr>
+  <tr>
+    <th>
+<a href="#span-index">
+目次
+</a>
+<br>
 変数のscope
     </th>
     <td>
@@ -36785,7 +36804,7 @@ arguments
 <br>
 　<del>restore -> REe2SEeの変換前後で2重cloneの無駄あり</del>
 <br>
-　<span class="clear">Ver.2.266.62</span>以降、deep-copyの適用対象を最適化（2重cloneの無駄あり　⇒　なし）
+　<span class="clear">Ver.2.266.62</span>以降、<a href="#span-in-deep-copy">deep-copy</a>の適用対象を最適化（2重cloneの無駄あり　⇒　なし）
     </td>
   </tr>
   <tr>

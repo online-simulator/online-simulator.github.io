@@ -4070,7 +4070,7 @@ My_entry.operation.prototype.SEans = function(data, i0, tagName, tagObj){
         if(tree.out){
         }
         else if(tree.mat){
-          data.vars.ans = self.entry.def.newClone(tree);  // Ver.2.31.17
+          data.vars.ans = tree;  // Ver.2.31.17  // Ver.2.266.62
         }
         else{
           self.throw_tree(tree);
