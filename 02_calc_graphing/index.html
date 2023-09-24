@@ -289,6 +289,8 @@
       script += "\nclear;\n";
       script += "f(a0)=<[x=1,f(x)=<x,a=-2,(a/*not-closed*/)=<(x)=<f(a*x)=>](a0)=>g,f(2)=>,g(3)=>:1,f(-3)=>,g(3)=>:\nf(a0)=<[x=1,f(x)=<x,a=-2,(a/*closed@1st-call*/)=<[(x)=<f(a*x)=>]](a0)=>g,f(2)=>,g(3)=>:\nf(a0)=<[x=1,f(x)=<x,a=-2,[(a/*closed@1st-call*/)=<(x)=<f(a*x)=>]](a0)=>g,f(2)=>,g(3)=>:1,f(-3)=>,g(3)=>:\nf(a0)=<[x=1,f(x)=<x,a=-2,(a/*not-closed*/)=<(x)=<f(a*x)=>](a0)=>,f(2)=>g,g(3)=>:1,f(-3)=>h,h(3)=>:\nf(a0)=<[x=1,f(x)=<x,a=-2,(a/*closed@1st-call*/)=<[(x)=<f(a*x)=>]](a0)=>,f(2)=>g,g(3)=>:\nf(a0)=<[x=1,f(x)=<x,a=-2,[(a/*closed@1st-call*/)=<(x)=<f(a*x)=>]](a0)=>,f(2)=>g,g(3)=>:1,f(-3)=>h,h(3)=>;";
       script += "\nclear;\n";
+      script += "[vec=(0,1),f=<(vec,vec),(delVar(vec),delEqn(f),addVar(vec),addEqn(f)),vec=-1,f=<-2]:(vec,vec):f=>:f==>;";
+      script += "\nclear;\n";
       $._id("input").value = script;
       // test case
       var setVal = function(){

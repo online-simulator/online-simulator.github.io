@@ -1,6 +1,17 @@
 clear
 local storage cleared
 
+[vec=(0,1),f=<(vec,vec),(delVar(vec),delEqn(f),addVar(vec),addEqn(f)),vec=-1,f=<-2]:(vec,vec):f=>:f==>
+(
+0,0,false,false,true,true,0,0:
+0,1,0,1:
+-1,-1:
+0,1,0,1
+)
+
+clear
+local storage cleared
+
 f(a0)=<[x=1,f(x)=<x,a=-2,(a/*not-closed*/)=<(x)=<f(a*x)=>](a0)=>g,f(2)=>,g(3)=>:1,f(-3)=>,g(3)=>:f(a0)=<[x=1,f(x)=<x,a=-2,(a/*closed@1st-call*/)=<[(x)=<f(a*x)=>]](a0)=>g,f(2)=>,g(3)=>:f(a0)=<[x=1,f(x)=<x,a=-2,[(a/*closed@1st-call*/)=<(x)=<f(a*x)=>]](a0)=>g,f(2)=>,g(3)=>:1,f(-3)=>,g(3)=>:f(a0)=<[x=1,f(x)=<x,a=-2,(a/*not-closed*/)=<(x)=<f(a*x)=>](a0)=>,f(2)=>g,g(3)=>:1,f(-3)=>h,h(3)=>:f(a0)=<[x=1,f(x)=<x,a=-2,(a/*closed@1st-call*/)=<[(x)=<f(a*x)=>]](a0)=>,f(2)=>g,g(3)=>:f(a0)=<[x=1,f(x)=<x,a=-2,[(a/*closed@1st-call*/)=<(x)=<f(a*x)=>]](a0)=>,f(2)=>g,g(3)=>:1,f(-3)=>h,h(3)=>
 (
 0,0,-6:
@@ -3433,4 +3444,4 @@ drag=false&sw=false&0x=false&useMatrix=true&useStrict=false&checkError=true&isRi
 --------------------------------
 --------------------------------
 
-online-simulator.github.io.6.318.136.16.74 @ Sun Sep 24 2023 12:29:12 GMT+0900 (日本標準時) @ Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/117.0.0.0 Safari/537.36
+online-simulator.github.io.6.318.137.16.74 @ Sun Sep 24 2023 17:34:30 GMT+0900 (日本標準時) @ Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/117.0.0.0 Safari/537.36

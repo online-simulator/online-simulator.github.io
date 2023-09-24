@@ -35952,7 +35952,7 @@ f=&lt;last{V=1,E=0,k=1,I=exp(k*(V-E))-exp(-k*(V-E))}
 <span id="span-out-development-problems-FNh"></span>
 <a href="#span-out-FNh">高階関数</a>の問題点を列挙する
 <br>
-・反復処理毎に下記<span class="clear">eqn_k</span>の<a href="#span-in-tree">tree構造</a>全体（<a href="#span-in-scope-vars">scope-ids</a>を含む）を<a href="#span-in-deep-copy">deep-copy</a>で複製するため、
+・反復処理毎に下記<span class="clear">eqn_k</span>の<a href="#span-in-tree">tree構造</a>を<a href="#span-in-deep-copy">deep-copy</a>で複製するため、
 <br>
 ・<a href="#span-out-FNh">高階関数</a>をnestingする場合、致命的にthroughputが低下する（<a href="#span-out-FNh-DX">微分の多重化</a>||<a href="#span-out-interpolation-Lagrange">Lagrange補間</a>）
 <br>
@@ -36659,13 +36659,15 @@ deep-copy
     </th>
     <td>
 <span id="span-in-deep-copy"></span>
-deep-copyの適用対象を列挙する
+<a href="#span-in-tree">tree構造</a>（<a href="#span-in-scope-vars">scope-ids</a>等を含む）のdeep-copyの適用対象を列挙する
 <br>
 ・<a href="#span-out-command">命令文</a>の<a href="#span-in-scope-vars">static scopes2d array</a>
 <br>
+・<a href="#span-out-FNc">addVar/addEqn最上位関数</a>
+<br>
 ・<a href="#span-out-vars">変数</a>・<a href="#span-out-eqns">式変数</a>の<del>store||restore時</del><span class="clear">Ver.2.266.62</span>以降、<span class="clear">restore時</span>（<a href="#span-out-ans">予約変数</a>ansを含む）
 <br>
-・<a href="#span-out-FNh">高階関数</a>の再帰対象（第1引数の<a href="#span-in-tree">tree構造</a>）
+・<a href="#span-out-FNh">高階関数</a>の再帰対象（第1引数）
     </td>
   </tr>
   <tr>
