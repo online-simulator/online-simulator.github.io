@@ -1986,6 +1986,8 @@ clear; f(3,x)=&lt;x -> [MyErr]Invalid args isFound(f)
 ・<span class="run">Ver.2.231.56</span>以降、<a href="#span-out-FNh">高階関数</a>の内部wrapper関数を追加
 <br>
 ・<span class="run">Ver.2.233.56</span>以降、<a href="#span-out-FNmh">高階行列関数</a>の内部wrapper関数を追加
+<br>
+・<span class="clear">Ver.2.266.62</span>以降、deep-copyの適用対象を最適化（無駄あり　⇒　なし）
     </td>
   </tr>
   <tr>
@@ -35871,9 +35873,9 @@ f=&lt;last{V=1,E=0,k=1,I=exp(k*(V-E))-exp(-k*(V-E))}
 <br>
 実装の特徴を列挙する
 <br>
-・<a href="#span-out-vars">変数</a>のread-writeは<a href="#span-in-tree">tree構造</a>を複製して参照上の副作用を単純に回避する
+・<a href="#span-out-vars">変数</a>のrestore時、<a href="#span-in-tree">tree構造</a>を複製して参照上の副作用を単純に回避する
 <br>
-・<a href="#span-out-eqns">式変数</a>のread-write||call時も同様に、入出力の<a href="#span-in-tree">tree構造</a>を複製して<a href="#span-in-scope-vars">static scopes2d array</a>を共有する
+・<a href="#span-out-eqns">式変数</a>のrestore時も同様に、入出力の<a href="#span-in-tree">tree構造</a>を複製して<a href="#span-in-scope-vars">static scopes2d array</a>を共有する
 <br>
 ・<a href="#span-out-mat">行列</a>演算を含む<a href="#span-out-associativity">2項演算子のassociativity</a>は単なるfor-loopで結合順||演算順を保証する
 <br>
@@ -36775,7 +36777,7 @@ arguments
 <br>
 ・call先のargument判別の条件分岐が複雑化し、非常に重い（Nativeの参照渡しと異なる）
 <br>
-　restore -> REe2SEeの変換前後で2重cloneの無駄あり
+　<del>restore -> REe2SEeの変換前後で2重cloneの無駄あり</del><span class="clear">Ver.2.266.62</span>以降、deep-copyの適用対象を最適化
     </td>
   </tr>
   <tr>

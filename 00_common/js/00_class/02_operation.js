@@ -2888,7 +2888,7 @@ My_entry.operation.prototype.restore_var = function(name, scopes, ids){
   var vars = self.get_scope_RE_sw("vars", name, scopes, ids);
   if(vars){
     var tree = vars[name];
-    _tree = (tree)? self.entry.def.newClone(tree): null;  // clone for concatination x=2;(x,2x:3x,4x)
+    _tree = (tree)? self.entry.def.newClone(tree): null;  // separate from trees  // clone for concatination x=2;(x,2x:3x,4x)
   }
   return _tree;
 };
@@ -2901,7 +2901,7 @@ My_entry.operation.prototype.store_var = function(name, tree, scopes, ids, isEsc
   /* -> Ver.2.250.57 */
   self.inherit_constant("vars", name, scopes, ids, tree, isEscaped);  // Ver.2.249.57  // Ver.2.254.59
   var vars = self.get_scope_SE_sw("vars", scopes, ids);
-  vars[name] = self.entry.def.newClone(tree);  // separate from trees
+  vars[name] = tree;  // Ver.2.266.62
   return self;
 };
 /* -> Ver.2.31.17 */
@@ -3264,7 +3264,7 @@ My_entry.operation.prototype.tree_eqn2tree_AtSEe = function(data, tree_eqn, opt_
   if(isSEe){
     var tree_REe = self.restore_eqn_tree(tree_eqn, scopes, null, null, null, null, true);  // Ver.2.260.61
     if(tree_REe){
-      _tree = self.tree_REe2SEe(tree_REe);  // double clone  // Ver.2.260.61
+      _tree = self.tree_REe2SEe(tree_REe);  // Ver.2.260.61  // Ver.2.266.62
     }
     else{
       _tree = tree_eqn;
@@ -3542,18 +3542,19 @@ My_entry.operation.prototype.SEv = function(data, i0, tagName, tagObj){
   return self;
 };
 /* Ver.2.32.17 -> */
-My_entry.operation.prototype.tree_SEe2REe = function(tree){
+My_entry.operation.prototype.tree_SEe2REe = function(tree, isReUsed){  // Ver.2.266.62
   var self = this;
   var BT = self.config.BT;
   var _tree = {};
-  _tree[BT.REe] = self.entry.def.newClone(tree[BT.SEe]);
+  var isSEe = tree[BT.SEe];
+  _tree[BT.REe] = (isReUsed)? self.entry.def.newClone(isSEe): isSEe;  // Ver.2.266.62
   return _tree;
 };
 My_entry.operation.prototype.tree_REe2SEe = function(tree){
   var self = this;
   var BT = self.config.BT;
   var _tree = {};
-  _tree[BT.SEe] = self.entry.def.newClone(tree[BT.REe]);
+  _tree[BT.SEe] = tree[BT.REe];  // Ver.2.266.62
   return _tree;
 };
 /* Ver.2.200.46 */
@@ -3579,7 +3580,7 @@ My_entry.operation.prototype.restore_eqn = function(name, scopes, ids, isREee, w
     var tree = eqns[name];
     var isSEe = tree[BT.SEe];
     if(isSEe){
-      _tree = self.tree_SEe2REe(tree);
+      _tree = self.tree_SEe2REe(tree, true);  // Ver.2.266.62
       if(isREee){
         self.inherit_ids_sw(BT.REe, _tree, ids);  // Ver.2.204.46 [=<f]==>f
       }
@@ -3621,7 +3622,7 @@ My_entry.operation.prototype.restore_eqn_tree = function(tree, scopes, opt_ids, 
     }
   }
   if(!(_tree) && opt_callback_AtREe){
-    _tree = (opt_callback_AtREe === true)? ((tree_SEe)? self.tree_SEe2REe(tree_SEe): null): opt_callback_AtREe();
+    _tree = (opt_callback_AtREe === true)? ((tree_SEe)? self.tree_SEe2REe(tree_SEe, true): null): opt_callback_AtREe();  // Ver.2.266.62
   }
   /* Ver.2.253.59 -> */
   /* Ver.2.219.50 -> */
@@ -3660,7 +3661,7 @@ My_entry.operation.prototype.store_eqn = function(name, tree, scopes, ids, isEsc
   /* -> Ver.2.250.57 */
   self.inherit_constant("eqns", name, scopes, ids, tree, isEscaped);  // Ver.2.249.57  // Ver.2.254.59
   var eqns = self.get_scope_SE_sw("eqns", scopes, ids);
-  eqns[name] = self.entry.def.newClone(tree);
+  eqns[name] = tree;  // Ver.2.266.62
   return self;
 };
 /* -> Ver.2.31.17 */
