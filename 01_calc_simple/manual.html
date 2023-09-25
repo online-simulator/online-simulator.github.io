@@ -38775,6 +38775,26 @@ a=-1,b=0,x=1:
 [a=1,[a=2,(a/*closed@1st-call*/)=&lt;[(x)=&lt;a*x+b]](-3)=&gt;f,=&lt;f]=&gt;f,f(x)=&gt;,f(x)==&gt;:
 <br>
 [a=1,[a=2,[(a/*closed@1st-call*/)=&lt;(x)=&lt;a*x+b]](-3)=&gt;f,=&lt;f]=&gt;f,f(x)=&gt;,f(x)==&gt;;
+<br>
+clear;
+<br>
+x=i;
+<br>
+f=&lt;x;
+<br>
+call_f=&lt;(f=&gt;,f==&gt;);
+<br>
+call_a(x0)=&lt;[x=x0,call_f==&gt;:<span class="jF">($a)=(=&lt;call_f==&gt;)/*Ver.2.269.62~*/</span>,a];
+<br>
+wrapper(x)=&lt;(x:call_a(x)==&gt;:call_a(-x)==&gt;);
+<br>
+wrapper_closed(x)=&lt;[x:call_a(x)==&gt;:call_a(-x)==&gt;];
+<br>
+wrapper(0)==&gt;:wrapper_closed(0)==&gt;;
+<br>
+[wrapper(1)==&gt;:[wrapper(2)==&gt;:[wrapper(3)==&gt;]]];
+<br>
+[wrapper_closed(1)==&gt;:[wrapper_closed(2)==&gt;:[wrapper_closed(3)==&gt;]]];
     </td>
   </tr>
   <tr>

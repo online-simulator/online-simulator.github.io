@@ -1268,7 +1268,7 @@ clear
 local storage cleared
 
 [Pinv_y=(-0.999999427,-0.999936657,-0.997300203,-0.954499736,-0.682689492,0,0.682689492,0.954499736,0.997300203,0.999936657,0.999999427:-5,-4,-3,-2,-1,0,1,2,3,4,5),N=1,arr=[],_rn(=<arr=(arr:rand_table(=<Pinv_y)=>),,N),=<arr]=>
-1.4930102673710706
+0.8774427071293045
 
 rand_table(csv)=<last[table=sort0(csv),ymin=min(table)[0],ymax=max(table)[0],y=ymin+(ymax-ymin)*rand,x=interp(y:table),x]
 stored_eqn(rand_table)
@@ -1812,6 +1812,79 @@ A0=(
 clear
 local storage cleared
 
+[wrapper_closed(1)==>:[wrapper_closed(2)==>:[wrapper_closed(3)==>]]]
+(
+1:
+0,i,1:
+0,i,1:
+0,i,-1:
+0,i,-1:
+2:
+0,i,2:
+0,i,2:
+0,i,-2:
+0,i,-2:
+3:
+0,i,3:
+0,i,3:
+0,i,-3:
+0,i,-3
+)
+
+[wrapper(1)==>:[wrapper(2)==>:[wrapper(3)==>]]]
+(
+1:
+0,i,1:
+0,i,1:
+0,i,-1:
+0,i,-1:
+2:
+0,i,2:
+0,i,2:
+0,i,-2:
+0,i,-2:
+3:
+0,i,3:
+0,i,3:
+0,i,-3:
+0,i,-3
+)
+
+wrapper(0)==>:wrapper_closed(0)==>
+(
+0:
+0,0,0:
+0,0,0:
+0,0,0:
+0,0,0:
+0:
+0,i,0:
+0,i,0:
+0,i,0:
+0,i,0
+)
+
+wrapper_closed(x)=<[x:call_a(x)==>:call_a(-x)==>]
+stored_eqn(wrapper_closed)
+
+wrapper(x)=<(x:call_a(x)==>:call_a(-x)==>)
+stored_eqn(wrapper)
+
+call_a(x0)=<[x=x0,call_f==>:($a)=(=<call_f==>),a]
+stored_eqn(call_a)
+
+call_f=<(f=>,f==>)
+stored_eqn(call_f)
+
+f=<x
+stored_eqn(f)
+
+x=i
+x=i
+
+clear
+local storage cleared
+
 a=-1,b=0,x=1:[a=1,[(a)=<(x)=<a*x+b](-3)=>f,=<f]=>f,f(x)=>,f(x)==>:[a=1,[(a)=<(x)==<a*x+b](-3)=>f,=<f]=>f,f(x)=>,f(x)==>:[a=1,[(a)=<(x)=<a*x+b](-3)==>f,=<f]=>f,f(x)=>,f(x)==>:[a=1,[(a)=<(x)=<a*x+b](-3)=>f,==<f]=>f,f(x)=>,f(x)==>:[a=1,[(a)=<(x)=<a*x+b](-3)=>f,=<f]==>f,f(x)=>,f(x)==>:[a=1,[a=2,(a)=<(x)=<a*x+b](-3)=>f,=<f]=>f,f(x)=>,f(x)==>:[a=1,[a=2,(a)=<[(x)=<a*x+b]](-3)=>f,=<f]=>f,f(x)=>,f(x)==>:[a=1,[a=2,[(a)=<(x)=<a*x+b]](-3)=>f,=<f]=>f,f(x)=>,f(x)==>
 (
 0,0,0:
@@ -2209,4 +2282,4 @@ center=true&drag=false&test-case=false&legend=true&axis-t=false&axis-x=true&log-
 --------------------------------
 --------------------------------
 
-online-simulator.github.io.6.320.137.16.74 @ Mon Sep 25 2023 14:46:10 GMT+0900 (日本標準時) @ Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/117.0.0.0 Safari/537.36
+online-simulator.github.io.6.320.137.16.74 @ Mon Sep 25 2023 21:36:20 GMT+0900 (日本標準時) @ Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/117.0.0.0 Safari/537.36
