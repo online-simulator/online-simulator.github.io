@@ -160,7 +160,9 @@ e^(-i(1pi(){2/2i}(5-{3-1}){i/(-4)}))
 <br>
 　・<a href="#span-out-spec-changed-history">演算仕様変更履歴</a>
 <br>
-　・<a href="#span-out-ope-extended-history">拡張履歴</a>
+　・<a href="#span-out-ope-extended-history1">機能拡張履歴</a>
+<br>
+　・<a href="#span-out-ope-extended-history2">拡張行列演算拡張履歴</a>
 <br>
 　・<a href="#span-out-spec-limited-history">制限追加履歴</a>
 <br>
@@ -1628,7 +1630,9 @@ title/発行元(発行年)を列挙する
 <br>
 ・<a href="#span-out-spec-changed-history">演算仕様変更履歴</a>
 <br>
-・<a href="#span-out-ope-extended-history">拡張履歴</a>
+・<a href="#span-out-ope-extended-history1">機能拡張履歴</a>
+<br>
+・<a href="#span-out-ope-extended-history2">拡張行列演算拡張履歴</a>
 <br>
 ・<a href="#span-out-spec-limited-history">制限追加履歴</a>
 <br>
@@ -1877,10 +1881,39 @@ title/発行元(発行年)を列挙する
 目次
 </a>
 <br>
+機能拡張履歴
+    </th>
+    <td>
+<span id="span-out-ope-extended-history1"></span>
+機能の拡張履歴を列挙する
+<br>
+・<span class="run">Ver.2.255.59</span>以降、<a href="#span-out-reference-mat">行列への参照</a>から<a href="#span-out-eqns-call2eqn">式変数への式読出し</a>に対応
+<br>
+・<span class="run">Ver.2.257.59</span>以降、<a href="#span-out-prec-ope-arithmetic-ite">iterator演算子</a>のiterator対象を拡張
+<br>
+　iterator対象：<a href="#span-out-vars">変数</a>　⇒　<a href="#span-out-vars">変数</a>・<a href="#span-out-eqns">式変数</a>
+<br>
+・<span class="run">Ver.2.258.60</span>以降、<a href="#span-out-prec-ope-logical-short-circuit">論理演算子（短絡評価）</a>||<a href="#span-out-prec-ope-logical-short-circuit-literal">論理演算子（literal）</a>のoperandを拡張
+<br>
+　operand：<a href="#span-out-vars">変数</a>　⇒　<a href="#span-out-vars">変数</a>・<a href="#span-out-eqns">式変数</a>
+<br>
+・<span class="run">Ver.2.269.62</span>以降、<a href="#span-out-matching">行列要素pattern matching</a>の<a href="#span-in-call-by-equation">遅延評価</a>に対応
+<br>
+　<a href="#span-out-vars">変数</a>：要素の値代入のみ　⇒　<a href="#span-out-eqns-args">式変数のarguments</a>との互換性を確保（未解決の場合、error終了）
+    </td>
+  </tr>
+  <tr>
+    <th>
+<a href="#span-index">
+目次
+</a>
+<br>
+拡張行列演算
+<br>
 拡張履歴
     </th>
     <td>
-<span id="span-out-ope-extended-history"></span>
+<span id="span-out-ope-extended-history2"></span>
 <a href="#span-out-ope-extended">拡張行列演算</a>の拡張履歴を列挙する
 <br>
 ・<a href="#span-out-FN">関数の引数vector</a>の場合
@@ -1894,16 +1927,6 @@ title/発行元(発行年)を列挙する
 　　　　　　　⇒　<span class="run">Ver.2.74.29</span>以降、各要素に拡張（<a href="#span-out-option4">comma演算子</a>使用を選択可）
 <br>
 ・<span class="run">Ver.2.88.32</span>以降、定義できない<a href="#span-out-prec-ope">乗算||減算||加算</a>を拡張対象に追加
-<br>
-・<span class="run">Ver.2.255.59</span>以降、<a href="#span-out-reference-mat">行列への参照</a>から<a href="#span-out-eqns-call2eqn">式変数への式読出し</a>に対応
-<br>
-・<span class="run">Ver.2.257.59</span>以降、<a href="#span-out-prec-ope-arithmetic-ite">iterator演算子</a>のiterator対象を拡張
-<br>
-　iterator対象：<a href="#span-out-vars">変数</a>　⇒　<a href="#span-out-vars">変数</a>・<a href="#span-out-eqns">式変数</a>
-<br>
-・<span class="run">Ver.2.258.60</span>以降、<a href="#span-out-prec-ope-logical-short-circuit">論理演算子（短絡評価）</a>||<a href="#span-out-prec-ope-logical-short-circuit-literal">論理演算子（literal）</a>のoperandを拡張
-<br>
-　operand：<a href="#span-out-vars">変数</a>　⇒　<a href="#span-out-vars">変数</a>・<a href="#span-out-eqns">式変数</a>
     </td>
   </tr>
   <tr>
@@ -12399,7 +12422,7 @@ NaN&amp;NaN -> 0
 <br>
 ・<span class="run">Ver.2.88.32</span>以降、<span class="condition">定義できない<a href="#span-out-prec-ope">乗算||減算||加算</a></span>を拡張対象に追加
 <br>
-詳細は<a href="#span-out-ope-extended-history">拡張履歴</a>参照
+詳細は<a href="#span-out-ope-extended-history2">拡張履歴</a>参照
 <br>
 <br>
 拡張行列演算の仕様を列挙する
@@ -21127,6 +21150,8 @@ matching
 <br>
 ・<a href="#span-out-BT">括弧</a>のnestingを解決後、左辺と右辺の対応する各行列要素を比較
 <br>
+・<span class="run">Ver.2.269.62</span>以降、<a href="#span-in-call-by-equation">遅延評価</a>に対応
+<br>
 <br>
 行列要素pattern matchingによる変数への値の代入規則を列挙する
 <br>
@@ -21272,6 +21297,19 @@ clear; f(x)=&lt;x,((a=1)=((b=2)=((c=&lt;3)=((d=&lt;4)+5)))),f(-1)*(a,b,c,d) -> (
 clear; f(x)=&lt;x,((a=&lt;1)=((b=&lt;2)=((c=3)=((d=4)+5)))),f(-1)*(a,b,c,d) -> (0,5,-1,-2,-3,-4)
 <br>
 clear; f(x)=&lt;x,((a=&lt;1)=((b=&lt;2)=((c=&lt;3)=((d=&lt;4)+5)))),f(-1)*(a,b,c,d) -> (0,5,-1,-2,-3,-4)
+<br>
+<br>
+<span class="run">Ver.2.269.62</span>以降、<a href="#span-in-call-by-equation">遅延評価</a>に対応
+<br>
+clear; ($A)=(=&lt;(1,2:3,4)); A -> (1,2:3,4)
+<br>
+・未解決の場合、error終了
+<br>
+clear; ($A)=((x)=&lt;(1,2:3,4)); A -> [MyErr]Invalid args isFound(x)
+<br>
+clear; ($A)=(=&lt;(x,2:3,4)); A -> [MyErr]Invalid matching var(A)
+<br>
+clear; ($A)=(=&lt;f); A -> [MyErr]Invalid matching var(A)
     </td>
   </tr>
   <tr>

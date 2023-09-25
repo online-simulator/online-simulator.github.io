@@ -1,6 +1,20 @@
 clear
 local storage cleared
 
+t0=(1,2,3:4,5,6),representation_scope2storage=<[xt=<t0,yt=<(t0)i,out_lazy=<{=<xt,=<yt},=<out_lazy]=>:representation_scope2storage=>xy:($xt,$yt)=(=<(xy[0]=>)=>,=<(xy[1]=>)=>):(xt:yt)
+(
+0,0:
+0:
+0:
+1,2,3:
+4,5,6:
+i,2i,3i:
+4i,5i,6i
+)
+
+clear
+local storage cleared
+
 t0=(1,2,3:4,5,6),representation_scope2storage=<[xt=<t0,yt=<(t0)i,out_lazy=<{=<xt,=<yt},=<out_lazy]=>:representation_scope2storage=>xy:xt=(xy[0]=>)=>,yt=(xy[1]=>)=>:(xt:yt)
 (
 0,0:
@@ -3497,4 +3511,4 @@ drag=false&sw=false&0x=false&useMatrix=true&useStrict=false&checkError=true&isRi
 --------------------------------
 --------------------------------
 
-online-simulator.github.io.6.319.137.16.74 @ Mon Sep 25 2023 12:09:59 GMT+0900 (日本標準時) @ Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/117.0.0.0 Safari/537.36
+online-simulator.github.io.6.320.137.16.74 @ Mon Sep 25 2023 14:45:26 GMT+0900 (日本標準時) @ Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/117.0.0.0 Safari/537.36

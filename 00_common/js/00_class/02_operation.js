@@ -3352,16 +3352,31 @@ My_entry.operation.prototype.SEv_pattern_matching = function(data, is, ie){
   var scopes = data.scopes;
   var ids = data.ids;
   var DATA = self.entry.DATA;
+  var BT = self.config.BT;  // Ver.2.269.62
   var tree = null;
   var leftArr = self.get_tagVal(trees[is], "mat", "arr");
   var rightArr = self.get_tagVal(trees[ie], "mat", "arr");
-  var store_var = function(leftArrij, rightNum){
+  var store_elem = function(leftArrij, rightObj){  // Ver.2.269.62
     var _out = "";
+    /* Ver.2.269.62 -> */
+    var isSEe = rightObj[BT.SEe];
+    if(isSEe && isSEe.arg) throw "Invalid args isFound("+isSEe.arg+")";
+    /* -> Ver.2.269.62 */
     var name_var = self.get_tagVal(leftArrij, "REv", "val");
     if(name_var){
       var name_var_escaped = self.get_name_escaped(leftArrij);  // Ver.2.27.15
       if(name_var_escaped){
-        self.store_var(name_var_escaped, DATA.num2tree(rightNum), scopes, ids);  // Ver.2.31.17
+        /* Ver.2.269.62 -> */
+        var tree = (isSEe)? self.tree_eqn2tree_AtREe(data, rightObj): DATA.num2tree(rightObj);
+        if(tree.mat){
+          var arr = tree.mat.arr;
+          if(DATA.hasVar_arr(arr)) throw "Invalid matching var("+name_var_escaped+")";
+        }
+        else{
+          self.throw_tree(rightArrij);
+        }
+        self.store_var(name_var_escaped, tree, scopes, ids);  // Ver.2.31.17
+        /* -> Ver.2.269.62 */
         _out += "stored_var("+name_var_escaped+") ";
         --self.params.hasUndefVars;
       }
@@ -3383,12 +3398,14 @@ My_entry.operation.prototype.SEv_pattern_matching = function(data, is, ie){
           var leftArrij = leftArri[j];
           var rightArrij = rightArri[j];
           if(leftArrij && rightArrij){
-            if(leftArrij.com){
-              out += store_var(rightArrij, leftArrij);
+            /* Ver.2.269.62 -> */
+            if(leftArrij.com || leftArrij[BT.SEe]){
+              out += store_elem(rightArrij, leftArrij);
             }
-            else if(rightArrij.com){
-              out += store_var(leftArrij, rightArrij);
+            else if(rightArrij.com || rightArrij[BT.SEe]){
+              out += store_elem(leftArrij, rightArrij);
             }
+            /* -> Ver.2.269.62 */
             else{
               throw "Invalid matching(LR)";
             }
@@ -3735,6 +3752,62 @@ My_entry.operation.prototype.get_name_eqn_AtREe = function(trees, i0, arr){
   }
   return {name_eqn: name_eqn, tree_eqn: tree_eqn};
 };
+/* Ver.2.269.62 */
+My_entry.operation.prototype.restore_args_AtREe = function(data, args_eqn, args, ids_args_eqn, args_eqns, args_vars, args_bas, buffer_vars, buffer_eqns, ids_buffer){
+  var self = this;
+  var scopes = data.scopes;
+  var len_args = args.length;
+  for(var i=0; i<len_args; ++i){
+    var left = args_eqn[i];
+    var right = args[i];
+    /* Ver.2.219.50 -> */
+    /* Ver.2.245.57 -> */
+    var num_escape = self.config.isEscaped_eqn(left);
+    if(num_escape){
+      var isSEee_argi = (num_escape === 2);
+      var name = left.substring(num_escape);
+    /* -> Ver.2.245.57 */
+      if(buffer_eqns && name){  // Ver.2.215.50
+        buffer_eqns[name] = self.restore_eqn(name, scopes, ids_buffer);
+      }
+      var tree = self.tree_eqn2tree_AtSEe(data, right, ((isSEee_argi)? ids_args_eqn: null));  // Ver.2.255.59
+    /* -> Ver.2.219.50 */
+      if(!(tree)){  // Ver.2.255.59
+        throw "Invalid args."+name+"("+name_eqn+")";
+      }
+      args_eqns[name] = tree;  // Ver.2.71.29  // Ver.2.256.59
+    }
+    /* Ver.2.246.57 -> */
+    else if(self.config.isEscaped(left)){
+      var name_b0 = left;
+      var name_b1 = name_b0.substring(1);
+      var name_a0 = self.get_tagVal(right, "REv", "val");
+      if(name_a0 === name_b0){
+      }
+      else if(name_a0 && self.config.isEscaped(name_a0)){
+        var name_a1 = name_a0.substring(1);
+        args_bas[name_b0] = name_a0;
+        args_bas[name_b1] = name_a1;
+      }
+      else{
+        throw "Invalid matching args."+left;
+      }
+    }
+    /* -> Ver.2.246.57 */
+    else{
+      var name = left;
+      if(buffer_vars && name){  // Ver.2.215.50
+        buffer_vars[name] = self.restore_var(name, scopes, ids_buffer);
+      }
+      var tree = self.tree_eqn2tree_AtREe(data, right);  // Ver.2.202.46  // Ver.2.255.59
+      if(!(tree && tree.mat)){  // Ver.2.255.59
+        throw "Undef args.var||eqn("+name+")";
+      }
+      args_vars[name] = tree;  // Ver.2.71.29  // Ver.2.256.59
+    }
+  }
+  return self;
+};
 My_entry.operation.prototype.get_args_AtREe = function(data, name_eqn, arr, isREee){
   var self = this;
   var scopes = data.scopes;
@@ -3790,56 +3863,7 @@ My_entry.operation.prototype.get_args_AtREe = function(data, name_eqn, arr, isRE
       }
       /* -> Ver.2.210.46 */
       ids_buffer = [id0];  // Ver.2.225.53
-      for(var i=0; i<len_args; ++i){
-        var argi_eqn = args_eqn[i];
-        var argi = args[i];
-        var tree = null;  // Ver.2.71.29
-        /* Ver.2.219.50 -> */
-        /* Ver.2.245.57 -> */
-        var num_escape = self.config.isEscaped_eqn(argi_eqn);
-        if(num_escape){
-          var isSEee_argi = (num_escape === 2);
-          var name = argi_eqn.substring(num_escape);
-        /* -> Ver.2.245.57 */
-          if(name){  // Ver.2.215.50
-            buffer_eqns[name] = self.restore_eqn(name, scopes, ids_buffer);
-          }
-          tree = self.tree_eqn2tree_AtSEe(data, argi, ((isSEee_argi)? ids_args_eqn: null));  // Ver.2.255.59
-        /* -> Ver.2.219.50 */
-          if(!(tree)){  // Ver.2.255.59
-            throw "Invalid args."+name+"("+name_eqn+")";
-          }
-          args_eqns[name] = tree;  // Ver.2.71.29  // Ver.2.256.59
-        }
-        /* Ver.2.246.57 -> */
-        else if(self.config.isEscaped(argi_eqn)){
-          var name_b0 = argi_eqn;
-          var name_b1 = name_b0.substring(1);
-          var name_a0 = self.get_tagVal(argi, "REv", "val");
-          if(name_a0 === name_b0){
-          }
-          else if(name_a0 && self.config.isEscaped(name_a0)){
-            var name_a1 = name_a0.substring(1);
-            args_bas[name_b0] = name_a0;
-            args_bas[name_b1] = name_a1;
-          }
-          else{
-            throw "Invalid matching args."+argi_eqn;
-          }
-        }
-        /* -> Ver.2.246.57 */
-        else{
-          var name = argi_eqn;
-          if(name){  // Ver.2.215.50
-            buffer_vars[name] = self.restore_var(name, scopes, ids_buffer);
-          }
-          tree = self.tree_eqn2tree_AtREe(data, argi);  // Ver.2.202.46  // Ver.2.255.59
-          if(!(tree && tree.mat)){  // Ver.2.255.59
-            throw "Undef args.var||eqn("+name+")";
-          }
-          args_vars[name] = tree;  // Ver.2.71.29  // Ver.2.256.59
-        }
-      }
+      self.restore_args_AtREe(data, args_eqn, args, ids_args_eqn, args_eqns, args_vars, args_bas, buffer_vars, buffer_eqns, ids_buffer);  // Ver.2.269.62
     }
     else{
       throw "Invalid args.length="+len_args_eqn+"("+name_eqn+")";
