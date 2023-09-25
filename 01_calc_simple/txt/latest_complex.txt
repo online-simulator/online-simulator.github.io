@@ -36,9 +36,14 @@ i,2i,3i:
 clear
 local storage cleared
 
-t0=(1,2,3:4,5,6),representation_scope2storage=<[xt=t0.,yt=(t0)i.,out_lazy=<{=<xt,=<yt},=<out_lazy]=>:representation_scope2storage=>xy:xt=(xy=>)[0]=>,yt=(xy=>)[1]=>:(xt,yt)
+t0=(1,2,3:4,5,6),representation_scope2storage=<[xt=t0.,yt=(t0)i.,out_lazy=<{=<xt,=<yt},=<out_lazy]=>:representation_scope2storage=>xy:xt=(xy=>)[0]=>,yt=(xy=>)[1]=>:(xt,yt):representation_scope2storage=>xy:xt=xy[0]=>,yt=xy[1]=>:(xt,yt)
 (
 0,0:
+0:
+0,0:
+1,4,i,4i:
+2,5,2i,5i:
+3,6,3i,6i:
 0:
 0,0:
 1,4,i,4i:
@@ -3492,4 +3497,4 @@ drag=false&sw=false&0x=false&useMatrix=true&useStrict=false&checkError=true&isRi
 --------------------------------
 --------------------------------
 
-online-simulator.github.io.6.319.137.16.74 @ Mon Sep 25 2023 01:22:10 GMT+0900 (日本標準時) @ Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/117.0.0.0 Safari/537.36
+online-simulator.github.io.6.319.137.16.74 @ Mon Sep 25 2023 12:10:24 GMT+0900 (日本標準時) @ Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/117.0.0.0 Safari/537.36

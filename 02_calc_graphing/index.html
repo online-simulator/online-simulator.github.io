@@ -291,7 +291,9 @@
       script += "\nclear;\n";
       script += "[vec=(0,1),f=<(vec,vec),(del__(vec),del__(=<f),add__(vec),add__(=<f)),vec=-1,f=<-2]:(vec,vec):f=>:f==>;";
       script += "\nclear;\n";
-      script += "t0=(1,2,3:4,5,6),representation_scope2storage=<[xt=t0.,yt=(t0)i.,out_lazy=<{=<xt,=<yt},=<out_lazy]=>:representation_scope2storage=>xy:xt=(xy=>)[0]=>,yt=(xy=>)[1]=>:(xt,yt);";
+      script += "t0=(1,2,3:4,5,6),representation_scope2storage=<[xt=t0.,yt=(t0)i.,out_lazy=<{=<xt,=<yt},=<out_lazy]=>:representation_scope2storage=>xy:xt=(xy=>)[0]=>,yt=(xy=>)[1]=>:(xt,yt):";
+      script += "\n";
+      script += "representation_scope2storage=>xy:xt=xy[0]=>,yt=xy[1]=>:(xt,yt);";
       script += "\nclear;\n";
       script += "t0=(1,2,3:4,5,6),representation_scope2storage=<[xt=t0,yt=(t0)i,out_lazy=<{=<xt,=<yt},=<out_lazy]=>:representation_scope2storage=>xy:xt=(xy=>)[0]=>,yt=(xy=>)[1]=>:(xt:yt):";
       script += "\n";
