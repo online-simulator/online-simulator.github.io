@@ -11252,7 +11252,7 @@ clear; ((=&lt;(x)=&lt;x)|||false)(2)=&gt; -> [MyErr]Invalid args.length=0(no-nam
 <br>
 clear; (((=&lt;(x)=&lt;x)|||false)=&gt;)(2)=&gt; -> 2
 <br>
-・=&lt;　⇔　<a href="#span-out-eqns-return">return</a>
+・=&lt;　⇔　<a href="#span-in-call-by-equation">遅延評価</a>の<a href="#span-out-eqns-return">return</a>
 <br>
 clear; (((()=&lt;(x)=&lt;x)|||false)()=&gt;)(2)=&gt; -> 2
 <br>
@@ -22156,7 +22156,13 @@ clear; _sn(=&lt;1,0,2) || _sn(=&lt;{1},0,2) || 1+1+1 -> 3
 <br>
 Native無名関数を代替する式渡しの直接式読出し（<span class="run">Ver.2.195.45</span>以降、<a href="#span-out-eqns-no-name">無名call</a>のarguments省略）
 <br>
-・function(){return 3;})();
+・記号の定義
+<br>
+pass記号：=&lt;　⇔　<a href="#span-in-call-by-equation">遅延評価</a>の<a href="#span-out-eqns-return">return</a>
+<br>
+call記号：=&gt;　⇔　関数callの<a href="#span-out-BT">丸括弧()</a>
+<br>
+・(function(){return 3;})();
 <br>
 (=&lt;3)=&gt; || {=&lt;3}=&gt; -> 3
 <br>
@@ -38280,7 +38286,7 @@ operand判定時、構文規則の先読み対策（operandを全走査する仕
 
 <div>
 <table>
-<caption><span id="span-eqn"><a href="#span-out-config-strict">strict-mode</a>式変数list</span><br><span class="run">Ver.2.219.50</span>以降、<a href="#span-out-spec-changed-history">演算仕様変更</a>の<span class="jF">影響項目</span></caption>
+<caption><span id="span-eqn"><a href="#span-out-config-strict">strict-mode</a>式変数list</span><br><span class="run">Ver.2.219.50</span>以降、<a href="#span-out-spec-changed-history">演算仕様変更</a>||<a href="#span-out-ope-extended-history1">機能拡張</a>の<span class="jF">影響項目</span></caption>
 <thead>
   <tr>
     <th>
