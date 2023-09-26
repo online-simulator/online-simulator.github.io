@@ -1268,7 +1268,7 @@ clear
 local storage cleared
 
 [Pinv_y=(-0.999999427,-0.999936657,-0.997300203,-0.954499736,-0.682689492,0,0.682689492,0.954499736,0.997300203,0.999936657,0.999999427:-5,-4,-3,-2,-1,0,1,2,3,4,5),N=1,arr=[],_rn(=<arr=(arr:rand_table(=<Pinv_y)=>),,N),=<arr]=>
-0.45786344676109253
+-0.38064100866066886
 
 rand_table(csv)=<last[table=sort0(csv),ymin=min(table)[0],ymax=max(table)[0],y=ymin+(ymax-ymin)*rand,x=interp(y:table),x]
 stored_eqn(rand_table)
@@ -1401,6 +1401,104 @@ stored_eqn(get_terms)
 
 ($a,$b,$ans_correct)=(77617.0,33096.0,-0.8273960599468214)
 stored_var(a) stored_var(b) stored_var(ans_correct) 
+
+clear
+local storage cleared
+
+{xt,yt}
+(
+1,2,3:
+4,5,6:
+i,2i,3i:
+4i,5i,6i
+)
+
+{$xt,$yt}=call_xy_eqn1(=<xy_eqn)=>
+stored_var(xt) stored_var(yt) 
+
+restore
+local storage restored
+
+{xt,yt}
+(
+1,2,3:
+4,5,6:
+i,2i,3i:
+4i,5i,6i
+)
+
+{$xt,$yt}=call_xy_eqn0(=<xy_eqn)=>
+stored_var(xt) stored_var(yt) 
+
+store
+local storage stored
+
+eqn2var=>xy_eqn
+0
+
+restore
+local storage restored
+
+{xt,yt}
+(
+1,2,3:
+4,5,6:
+i,2i,3i:
+4i,5i,6i
+)
+
+{$xt,$yt}=call_xy_var1(=<xy_var)=>
+stored_var(xt) stored_var(yt) 
+
+restore
+local storage restored
+
+{xt,yt}
+(
+1,2,3:
+4,5,6:
+i,2i,3i:
+4i,5i,6i
+)
+
+{$xt,$yt}=call_xy_var0(=<xy_var)=>
+stored_var(xt) stored_var(yt) 
+
+store
+local storage stored
+
+var2var=>xy_var
+0
+
+eqn2var=<[out_lazy=<{=<xt,=<yt},=<out_lazy]=>
+stored_eqn(eqn2var)
+
+var2var=<[xt=t0,yt=(t0)i,out_lazy=<{=<xt,=<yt},=<out_lazy]=>
+stored_eqn(var2var)
+
+call_xy_eqn1(=<xy)=<{=<((xy=>)[0]=>)=>,=<((xy=>)[1]=>)=>}
+stored_eqn(call_xy_eqn1)
+
+call_xy_eqn0(=<xy)=<{=<(xy[0]=>)=>,=<(xy[1]=>)=>}
+stored_eqn(call_xy_eqn0)
+
+call_xy_var1(=<xy)=<{=<(xy=>)[0]=>,=<(xy=>)[1]=>}
+stored_eqn(call_xy_var1)
+
+call_xy_var0(=<xy)=<{=<xy[0]=>,=<xy[1]=>}
+stored_eqn(call_xy_var0)
+
+yt=<(t0)i
+stored_eqn(yt)
+
+xt=<t0
+stored_eqn(xt)
+
+t0=(1,2,3:4,5,6)
+t0=(
+1,2,3:
+4,5,6
+)
 
 clear
 local storage cleared
@@ -2315,4 +2413,4 @@ center=true&drag=false&test-case=false&legend=true&axis-t=false&axis-x=true&log-
 --------------------------------
 --------------------------------
 
-online-simulator.github.io.6.320.138.16.74 @ Tue Sep 26 2023 15:54:32 GMT+0900 (日本標準時) @ Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/117.0.0.0 Safari/537.36
+online-simulator.github.io.6.320.138.16.74 @ Tue Sep 26 2023 22:58:59 GMT+0900 (日本標準時) @ Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/117.0.0.0 Safari/537.36

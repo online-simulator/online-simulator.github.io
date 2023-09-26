@@ -808,6 +808,8 @@ e^(-i(1pi(){2/2i}(5-{3-1}){i/(-4)}))
 <br>
 ・<a href="#span-eqn-scope_NG">scope_NG</a>
 <br>
+・<a href="#span-eqn-scope2storage">scope2storage</a>
+<br>
 ・<a href="#span-eqn-Rump">Rump</a>
 <br>
 ・<a href="#span-eqn-Fibonacci">Fibonacci</a>
@@ -38571,7 +38573,7 @@ args
     </th>
     <td>
 <span id="span-eqn-args"></span>
-<a href="#span-out-matching">行列要素pattern matching</a>||<a href="#span-out-const-vars">const宣言</a>||<a href="#span-out-scope-vars-has1BT">単独scope</a>||<a href="#span-out-eqns-args">式変数のarguments</a>||<a href="#span-out-eqns-no-name">無名call</a>参照
+<a href="#span-out-matching">行列要素pattern matching</a>||<a href="#span-out-const-vars">const宣言</a>||<a href="#span-out-scope-vars-has1BT">単独scope</a>||<a href="#span-out-eqns-call2eqn">式変数への式読出し</a>||<a href="#span-out-eqns-args">式変数のarguments</a>||<a href="#span-out-eqns-no-name">無名call</a>参照
 <br>
 clear;
 <br>
@@ -38808,19 +38810,19 @@ x=i;
 <br>
 f=&lt;x;
 <br>
-call_f=&lt;(f=&gt;,f==&gt;);
+call_f=&lt;(f=&gt;,f<span class="clear">==&gt;</span>);
 <br>
-call_a(x0)=&lt;[x=x0,call_f==&gt;:<span class="jF">($a)=(=&lt;call_f==&gt;)/*Ver.2.269.62~*/</span>,a];
+call_a(x0)=&lt;[x=x0,call_f<span class="clear">==&gt;</span>:<span class="jF">($a)=(=&lt;call_f<span class="clear">==&gt;</span>)/*Ver.2.269.62~*/</span>,a];
 <br>
-wrapper(x)=&lt;(x:call_a(x)==&gt;:call_a(-x)==&gt;);
+wrapper(x)=&lt;(x:call_a(x)<span class="clear">==&gt;</span>:call_a(-x)<span class="clear">==&gt;</span>);
 <br>
-wrapper_closed(x)=&lt;[x:call_a(x)==&gt;:call_a(-x)==&gt;];
+wrapper_closed(x)=&lt;[x:call_a(x)<span class="clear">==&gt;</span>:call_a(-x)<span class="clear">==&gt;</span>];
 <br>
-wrapper(0)==&gt;:wrapper_closed(0)==&gt;;
+wrapper(0)<span class="clear">==&gt;</span>:wrapper_closed(0)<span class="clear">==&gt;</span>;
 <br>
-[wrapper(1)==&gt;:[wrapper(2)==&gt;:[wrapper(3)==&gt;]]];
+[wrapper(1)<span class="clear">==&gt;</span>:[wrapper(2)<span class="clear">==&gt;</span>:[wrapper(3)<span class="clear">==&gt;</span>]]];
 <br>
-[wrapper_closed(1)==&gt;:[wrapper_closed(2)==&gt;:[wrapper_closed(3)==&gt;]]];
+[wrapper_closed(1)<span class="clear">==&gt;</span>:[wrapper_closed(2)<span class="clear">==&gt;</span>:[wrapper_closed(3)<span class="clear">==&gt;</span>]]];
     </td>
   </tr>
   <tr>
@@ -39105,6 +39107,71 @@ check_all(1)=&gt;;
 <span class="jF">restore</span>;
 <br>
 check_all(-1)=&gt;;
+    </td>
+  </tr>
+  <tr>
+    <th>
+<a href="#span-index">
+目次
+</a>
+<br>
+scope
+<br>
+2storage
+    </th>
+    <td>
+<span id="span-eqn-scope2storage"></span>
+<a href="#span-out-matching">行列要素pattern matching</a>||<a href="#span-out-eqns-call2eqn">式変数への式読出し</a>||<a href="#span-out-eqns-no-name">無名call</a>参照
+<br>
+clear;
+<br>
+t0=(1,2,3:4,5,6);
+<br>
+xt=&lt;t0;
+<br>
+yt=&lt;(t0)i;
+<br>
+call_xy_var0(=&lt;xy)=&lt;{=&lt;xy[0]=&gt;,=&lt;xy[1]=&gt;};
+<br>
+call_xy_var1(=&lt;xy)=&lt;{=&lt;(xy=&gt;)[0]=&gt;,=&lt;(xy=&gt;)[1]=&gt;};
+<br>
+call_xy_eqn0(=&lt;xy)=&lt;{=&lt;(xy[0]=&gt;)=&gt;,=&lt;(xy[1]=&gt;)=&gt;};
+<br>
+call_xy_eqn1(=&lt;xy)=&lt;{=&lt;((xy=&gt;)[0]=&gt;)=&gt;,=&lt;((xy=&gt;)[1]=&gt;)=&gt;};
+<br>
+var2var=&lt;[xt=t0,yt=(t0)i,out_lazy=&lt;{=&lt;xt,=&lt;yt},=&lt;out_lazy]=&gt;;
+<br>
+eqn2var=&lt;[out_lazy=&lt;{=&lt;xt,=&lt;yt},=&lt;out_lazy]=&gt;;
+<br>
+var2var=&gt;xy_var;
+<br>
+store;
+<br>
+<span class="jF">{$xt,$yt}=call_xy_var0(=&lt;xy_var)=&gt;/*Ver.2.269.62~*/</span>;
+<br>
+{xt,yt};
+<br>
+restore;
+<br>
+<span class="jF">{$xt,$yt}=call_xy_var1(=&lt;xy_var)=&gt;/*Ver.2.269.62~*/</span>;
+<br>
+{xt,yt};
+<br>
+restore;
+<br>
+eqn2var=&gt;xy_eqn;
+<br>
+store;
+<br>
+<span class="jF">{$xt,$yt}=call_xy_eqn0(=&lt;xy_eqn)=&gt;/*Ver.2.269.62~*/</span>;
+<br>
+{xt,yt};
+<br>
+restore;
+<br>
+<span class="jF">{$xt,$yt}=call_xy_eqn1(=&lt;xy_eqn)=&gt;/*Ver.2.269.62~*/</span>;
+<br>
+{xt,yt};
     </td>
   </tr>
   <tr>
