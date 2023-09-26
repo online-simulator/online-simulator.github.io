@@ -1268,7 +1268,7 @@ clear
 local storage cleared
 
 [Pinv_y=(-0.999999427,-0.999936657,-0.997300203,-0.954499736,-0.682689492,0,0.682689492,0.954499736,0.997300203,0.999936657,0.999999427:-5,-4,-3,-2,-1,0,1,2,3,4,5),N=1,arr=[],_rn(=<arr=(arr:rand_table(=<Pinv_y)=>),,N),=<arr]=>
--0.7252298553279134
+0.45786344676109253
 
 rand_table(csv)=<last[table=sort0(csv),ymin=min(table)[0],ymax=max(table)[0],y=ymin+(ymax-ymin)*rand,x=interp(y:table),x]
 stored_eqn(rand_table)
@@ -1372,7 +1372,7 @@ stored_eqn(fibok)
 clear
 local storage cleared
 
-[polynomial=<333.75*b**6+a**2*(11*(a*b)**2-b**6-121*b**4-2)+5.5*b**8+a/(2*b),polynomial_expanded=<333.75*b**6+a**2*11*(a*b)**2-a**2*b**6-a**2*121*b**4-a**2*2+5.5*b**8+a/(2*b),Rump_s_example(a,b)=<(polynomial=>,polynomial_expanded=>,sum(terms.),ans_correct),calc_decimal_digits(vecr,=<callback)=<round(log10(callback(=<vecr)=>)+1),get_terms_normalized=<[term_min=min(abs(terms).),=<abs(terms)./term_min]=>,=<(Rump_s_example(a,b)=>.:nvecr=get_terms_normalized=>,decimal_digits_min=calc_decimal_digits(=<nvecr,(nvecr)=<min(nvecr))=>,decimal_digits_max=calc_decimal_digits(=<nvecr,(nvecr)=<max(nvecr))=>,decimal_digits_needed=decimal_digits_max-decimal_digits_min:decimal_digits_min,decimal_digits_max,decimal_digits_needed)]=>
+[polynomial=<333.75*b**6+a**2*(11*(a*b)**2-b**6-121*b**4-2)+5.5*b**8+a/(2*b),polynomial_expanded=<333.75*b**6+a**2*11*(a*b)**2-a**2*b**6-a**2*121*b**4-a**2*2+5.5*b**8+a/(2*b),Rump_s_example(a,b)=<(polynomial=>,polynomial_expanded=>,sum(terms.),ans_correct),get_terms_normalized=<[term_min=min(abs(terms).),=<abs(terms)./term_min]=>,calc_decimal_digits(vecr,=<callback)=<round(log10(callback(=<vecr)=>)+1),=<(Rump_s_example(a,b)=>.:nvecr=get_terms_normalized=>,decimal_digits_min=calc_decimal_digits(=<nvecr,(vecr)=<min(vecr))=>,decimal_digits_max=calc_decimal_digits(=<nvecr,(vecr)=<max(vecr))=>,decimal_digits_needed=decimal_digits_max-decimal_digits_min:decimal_digits_min,decimal_digits_max,decimal_digits_needed)]=>
 (
 infoLost[r ] -1.1805916207174113e+21:
 infoLost[r ] 1.1726039400531787:
@@ -2315,4 +2315,4 @@ center=true&drag=false&test-case=false&legend=true&axis-t=false&axis-x=true&log-
 --------------------------------
 --------------------------------
 
-online-simulator.github.io.6.320.138.16.74 @ Tue Sep 26 2023 14:40:00 GMT+0900 (日本標準時) @ Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/117.0.0.0 Safari/537.36
+online-simulator.github.io.6.320.138.16.74 @ Tue Sep 26 2023 15:54:32 GMT+0900 (日本標準時) @ Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/117.0.0.0 Safari/537.36
