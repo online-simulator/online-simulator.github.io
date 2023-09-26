@@ -808,6 +808,8 @@ e^(-i(1pi(){2/2i}(5-{3-1}){i/(-4)}))
 <br>
 ・<a href="#span-eqn-scope_NG">scope_NG</a>
 <br>
+・<a href="#span-eqn-Rump">Rump</a>
+<br>
 ・<a href="#span-eqn-Fibonacci">Fibonacci</a>
 <br>
 ・<a href="#span-eqn-fact">fact</a>
@@ -1051,6 +1053,8 @@ ja.m.wikipedia.org/wiki/項目を列挙する
 ・IEEE_754
 <br>
 ・誤差
+<br>
+・精度保証付き数値計算
 <br>
 ・複素数の偏角
 <br>
@@ -11934,6 +11938,8 @@ a=0; b=a/a; c=1/a; isNaN(a),isNaN(b),isNaN(c) -> (false,true,false+O(1e+0))
 <br>
 　・桁落ち（丸め誤差を含む同符号の2つの近い数値の差を取る場合）
 <br>
+　・Rumpの例題の要求桁数＞10進数で37桁（<a href="#span-eqn-Rump">Rump</a>参照）
+<br>
 ・数値誤差: 数学的な近似由来の誤差
 <br>
 　・離散化誤差（<a href="#span-out-FNh-DX">微分</a>・<a href="#span-out-FNh-IX">積分</a>の無限小を有限の幅で離散化する場合）
@@ -12070,7 +12076,7 @@ Computer Algebra Systemで解析的に真値||厳密解||解析解が得られ�
 <br>
 ・Order表示は後置の+O(実部+虚部i)とする
 <br>
-・ただし、目安の解析誤差は当てにならないため、解のdouble-checkが必要
+・目安のため、解のdouble-checkが必要
 <br>
 <br>
 f(x)=x^2のx=1+iにおける1階微分の数値解
@@ -14636,6 +14642,20 @@ clear; 3*[a=2] || 3*[0] -> [MyErr]Invalid BRdm(*)
 clear; [a=2]*3 || [0]*3 -> [MyErr]Invalid reference
 <br>
 clear; 3*[a=2,a] || 3*[0,2] -> (0,6)
+<br>
+・<a href="#span-out-eqns-args">式変数のarguments</a>を括る場合、closure無効
+<br>
+clear; f(x)=&lt;x; f(2)=&gt;,x -> (2,2)
+<br>
+clear; f[x]=&lt;x; f(2)=&gt;,x -> (2,2)
+<br>
+clear; f[x,y]=&lt;x; f(2,false)=&gt;,x -> (2,2)
+<br>
+clear; x=1; f[x]=&lt;x; f(2)=&gt;,x -> (2,1)
+<br>
+・<a href="#span-out-scope-vars-has1BT">単独scope</a>
+<br>
+clear; x=1; f[x]=&lt;last[,x]; f(2)=&gt;,x -> (2,1)
 <br>
 ・<span class="run">Ver.2.88.32</span>以降、<span class="condition">定義できない<a href="#span-out-prec-ope">乗算||減算||加算</a></span>を<a href="#span-out-ope-extended">拡張行列演算</a>に追加
 <br>
@@ -25016,9 +25036,9 @@ Jacobi高階行列関数
 <br>
 ・数値的安定性・収束性を最優先
 <br>
-　精度を上げると不必要にNewton法の収束速度が悪化する
+　Newton法で偏微分の精度は重視しない
 <br>
-　微分位置に応じて差分刻みを可変すると収束速度が悪化する
+　微分位置に応じて差分刻みは可変しない
 <br>
 ・1次精度の<a href="#span-out-error-numerical">数値誤差</a>O(dx)を含むが、<a href="#span-out-error-numerical">目安の解析誤差</a>を評価・表示しない
 <br>
@@ -39085,6 +39105,57 @@ check_all(1)=&gt;;
 <span class="jF">restore</span>;
 <br>
 check_all(-1)=&gt;;
+    </td>
+  </tr>
+  <tr>
+    <th>
+<a href="#span-index">
+目次
+</a>
+<br>
+Rump
+    </th>
+    <td>
+<span id="span-eqn-Rump"></span>
+<a href="#span-out-error">誤差の扱い</a>参照
+<br>
+clear;
+<br>
+($a,$b,$ans_correct)=(77617.0,33096.0,-0.8273960599468214);
+<br>
+get_terms(a,b)=&lt;{333.75*b**6,a**2*11*(a*b)**2,-a**2*b**6,-a**2*121*b**4,-a**2*2,5.5*b**8,a/(2*b)};
+<br>
+terms=get_terms(a,b)=&gt;;
+<br>
+check_last=(last(terms)=sum(terms.));
+<br>
+[
+<br>
+polynomial=&lt;333.75*b**6+a**2*(11*(a*b)**2-b**6-121*b**4-2)+5.5*b**8+a/(2*b),
+<br>
+polynomial_expanded=&lt;333.75*b**6+a**2*11*(a*b)**2-a**2*b**6-a**2*121*b**4-a**2*2+5.5*b**8+a/(2*b),
+<br>
+Rump_s_example(a,b)=&lt;(polynomial=&gt;,polynomial_expanded=&gt;,sum(terms.),ans_correct),
+<br>
+calc_decimal_digits(vecr,=&lt;callback)=&lt;round(log10(callback(=&lt;vecr)=&gt;)+1),
+<br>
+get_terms_normalized=&lt;[term_min=min(abs(terms).),=&lt;abs(terms)./term_min]=&gt;,
+<br>
+=&lt;(Rump_s_example(a,b)=&gt;.:
+<br>
+nvecr=get_terms_normalized=&gt;,
+<br>
+decimal_digits_min=calc_decimal_digits(=&lt;nvecr,(nvecr)=&lt;min(nvecr))=&gt;,
+<br>
+decimal_digits_max=calc_decimal_digits(=&lt;nvecr,(nvecr)=&lt;max(nvecr))=&gt;,
+<br>
+decimal_digits_needed=decimal_digits_max-decimal_digits_min:
+<br>
+decimal_digits_min,decimal_digits_max,decimal_digits_needed
+<br>
+)
+<br>
+]=&gt;;
     </td>
   </tr>
   <tr>

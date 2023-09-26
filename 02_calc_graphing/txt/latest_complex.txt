@@ -1268,7 +1268,7 @@ clear
 local storage cleared
 
 [Pinv_y=(-0.999999427,-0.999936657,-0.997300203,-0.954499736,-0.682689492,0,0.682689492,0.954499736,0.997300203,0.999936657,0.999999427:-5,-4,-3,-2,-1,0,1,2,3,4,5),N=1,arr=[],_rn(=<arr=(arr:rand_table(=<Pinv_y)=>),,N),=<arr]=>
--0.9268686110127983
+-0.7419630251919508
 
 rand_table(csv)=<last[table=sort0(csv),ymin=min(table)[0],ymax=max(table)[0],y=ymin+(ymax-ymin)*rand,x=interp(y:table),x]
 stored_eqn(rand_table)
@@ -1368,6 +1368,39 @@ stored_eqn(luca2)
 
 fibok(n,n0,k)=<n<k-1&&n0||||n<k|||_s((m)=<fibok(n-m,n0,k)=>,1,k)
 stored_eqn(fibok)
+
+clear
+local storage cleared
+
+[polynomial=<333.75*b**6+a**2*(11*(a*b)**2-b**6-121*b**4-2)+5.5*b**8+a/(2*b),polynomial_expanded=<333.75*b**6+a**2*11*(a*b)**2-a**2*b**6-a**2*121*b**4-a**2*2+5.5*b**8+a/(2*b),Rump_s_example(a,b)=<(polynomial=>,polynomial_expanded=>,sum(terms.),ans_correct),calc_decimal_digits(vecr,=<callback)=<round(log10(callback(=<vecr)=>)+1),get_terms_normalized=<[term_min=min(abs(terms).),=<abs(terms)./term_min]=>,=<(Rump_s_example(a,b)=>.:nvecr=get_terms_normalized=>,decimal_digits_min=calc_decimal_digits(=<nvecr,(nvecr)=<min(nvecr))=>,decimal_digits_max=calc_decimal_digits(=<nvecr,(nvecr)=<max(nvecr))=>,decimal_digits_needed=decimal_digits_max-decimal_digits_min:decimal_digits_min,decimal_digits_max,decimal_digits_needed)]=>
+(
+infoLost[r ] 1.1805916207174113e+22:
+infoLost[r ] 1.2986507827891524e+22:
+infoLost[r ] 1.2986507827891524e+22:
+-0.8273960599468214:
+0,0,0,0:
+1,38,37
+)
+
+check_last=(last(terms)=sum(terms.))
+check_last=infoLost[r ] 1.2986507827891524e+22
+
+terms=get_terms(a,b)=>
+terms=(
+4.38605750846395e+29:
+4.372915764571958e+29:
+-7.917111341983167e+36:
+-8.745831527692196e+29:
+-12048797377.999996:
+7.917111340669006e+36:
+1.1726039400531787
+)
+
+get_terms(a,b)=<{333.75*b**6,a**2*11*(a*b)**2,-a**2*b**6,-a**2*121*b**4,-a**2*2,5.5*b**8,a/(2*b)}
+stored_eqn(get_terms)
+
+($a,$b,$ans_correct)=(77617.0,33096.0,-0.8273960599468214)
+stored_var(a) stored_var(b) stored_var(ans_correct) 
 
 clear
 local storage cleared
@@ -2282,4 +2315,4 @@ center=true&drag=false&test-case=false&legend=true&axis-t=false&axis-x=true&log-
 --------------------------------
 --------------------------------
 
-online-simulator.github.io.6.320.137.16.74 @ Mon Sep 25 2023 21:36:57 GMT+0900 (日本標準時) @ Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/117.0.0.0 Safari/537.36
+online-simulator.github.io.6.320.138.16.74 @ Tue Sep 26 2023 14:40:35 GMT+0900 (日本標準時) @ Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/117.0.0.0 Safari/537.36
