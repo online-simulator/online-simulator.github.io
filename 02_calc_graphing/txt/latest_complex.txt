@@ -1268,7 +1268,7 @@ clear
 local storage cleared
 
 [Pinv_y=(-0.999999427,-0.999936657,-0.997300203,-0.954499736,-0.682689492,0,0.682689492,0.954499736,0.997300203,0.999936657,0.999999427:-5,-4,-3,-2,-1,0,1,2,3,4,5),N=1,arr=[],_rn(=<arr=(arr:rand_table(=<Pinv_y)=>),,N),=<arr]=>
--0.3367099812501688
+-2.0958405041818127
 
 rand_table(csv)=<last[table=sort0(csv),ymin=min(table)[0],ymax=max(table)[0],y=ymin+(ymax-ymin)*rand,x=interp(y:table),x]
 stored_eqn(rand_table)
@@ -1407,10 +1407,8 @@ local storage cleared
 
 {xt,yt}
 (
-1,2,3:
-4,5,6:
-i,2i,3i:
-4i,5i,6i
+false:
+false
 )
 
 {$xt,$yt}=call_xy_eqn1(=<xy_eqn)=>
@@ -1421,10 +1419,42 @@ local storage restored
 
 {xt,yt}
 (
-1,2,3:
-4,5,6:
-i,2i,3i:
-4i,5i,6i
+false:
+false
+)
+
+{$xt,$yt}=call_xy_eqn0(=<xy_eqn)=>
+stored_var(xt) stored_var(yt) 
+
+store
+local storage stored
+
+undefined2var=>xy_eqn
+0
+
+restore
+local storage restored
+
+{xt,yt}
+(
+2,4,6:
+8,10,12:
+2i,4i,6i:
+8i,10i,12i
+)
+
+{$xt,$yt}=call_xy_eqn1(=<xy_eqn)=>
+stored_var(xt) stored_var(yt) 
+
+restore
+local storage restored
+
+{xt,yt}
+(
+2,4,6:
+8,10,12:
+2i,4i,6i:
+8i,10i,12i
 )
 
 {$xt,$yt}=call_xy_eqn0(=<xy_eqn)=>
@@ -1470,7 +1500,10 @@ local storage stored
 var2var=>xy_var
 0
 
-eqn2var=<[out_lazy=<{=<xt,=<yt},=<out_lazy]=>
+undefined2var=<[out_lazy=<{=<xt,=<yt},=<out_lazy]=>
+stored_eqn(undefined2var)
+
+eqn2var=<[xt=<t0*2,yt=<(t0*2)i,out_lazy=<{=<xt,=<yt},=<out_lazy]=>
 stored_eqn(eqn2var)
 
 var2var=<[xt=t0,yt=(t0)i,out_lazy=<{=<xt,=<yt},=<out_lazy]=>
@@ -1488,10 +1521,10 @@ stored_eqn(call_xy_var1)
 call_xy_var0(=<xy)=<{=<xy[0]=>,=<xy[1]=>}
 stored_eqn(call_xy_var0)
 
-yt=<(t0)i
+yt=<false
 stored_eqn(yt)
 
-xt=<t0
+xt=<false
 stored_eqn(xt)
 
 t0=(1,2,3:4,5,6)
@@ -2413,4 +2446,4 @@ center=true&drag=false&test-case=false&legend=true&axis-t=false&axis-x=true&log-
 --------------------------------
 --------------------------------
 
-online-simulator.github.io.6.320.138.16.74 @ Tue Sep 26 2023 23:00:12 GMT+0900 (日本標準時) @ Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/117.0.0.0 Safari/537.36
+online-simulator.github.io.6.320.138.16.74 @ Tue Sep 26 2023 23:25:33 GMT+0900 (日本標準時) @ Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/117.0.0.0 Safari/537.36

@@ -39127,9 +39127,9 @@ clear;
 <br>
 t0=(1,2,3:4,5,6);
 <br>
-xt=&lt;t0;
+xt=&lt;false;
 <br>
-yt=&lt;(t0)i;
+yt=&lt;false;
 <br>
 call_xy_var0(=&lt;xy)=&lt;{=&lt;xy[0]=&gt;,=&lt;xy[1]=&gt;};
 <br>
@@ -39141,7 +39141,9 @@ call_xy_eqn1(=&lt;xy)=&lt;{=&lt;((xy=&gt;)[0]=&gt;)=&gt;,=&lt;((xy=&gt;)[1]=&gt;
 <br>
 var2var=&lt;[xt=t0,yt=(t0)i,out_lazy=&lt;{=&lt;xt,=&lt;yt},=&lt;out_lazy]=&gt;;
 <br>
-eqn2var=&lt;[out_lazy=&lt;{=&lt;xt,=&lt;yt},=&lt;out_lazy]=&gt;;
+eqn2var=&lt;[xt=&lt;t0*2,yt=&lt;(t0*2)i,out_lazy=&lt;{=&lt;xt,=&lt;yt},=&lt;out_lazy]=&gt;;
+<br>
+undefined2var=&lt;[out_lazy=&lt;{=&lt;xt,=&lt;yt},=&lt;out_lazy]=&gt;;
 <br>
 var2var=&gt;xy_var;
 <br>
@@ -39160,6 +39162,22 @@ restore;
 restore;
 <br>
 eqn2var=&gt;xy_eqn;
+<br>
+store;
+<br>
+<span class="jF">{$xt,$yt}=call_xy_eqn0(=&lt;xy_eqn)=&gt;/*Ver.2.269.62~*/</span>;
+<br>
+{xt,yt};
+<br>
+restore;
+<br>
+<span class="jF">{$xt,$yt}=call_xy_eqn1(=&lt;xy_eqn)=&gt;/*Ver.2.269.62~*/</span>;
+<br>
+{xt,yt};
+<br>
+restore;
+<br>
+undefined2var=&gt;xy_eqn;
 <br>
 store;
 <br>
