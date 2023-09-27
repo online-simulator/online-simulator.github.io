@@ -1,6 +1,18 @@
 clear
 local storage cleared
 
+a=-1,b=-2,c=-3:[[[(b)=<()=<()=<(a,b,c)](2)=>]()=>]()=>:[[[(b)=<()=<()=<(a,b,c)](2)==>]()=>]()=>:[[[(b)=<()=<()=<(a,b,c)](2)=>]()==>]()=>:[[[(b)=<()=<()=<(a,b,c)](2)=>]()=>]()==>
+(
+0,0,0:
+-1,2,-3:
+-1,2,-3:
+-1,-2,-3:
+-1,2,-3
+)
+
+clear
+local storage cleared
+
 N=10,_r((n)=<n+1,0,N),_r((n)=<n+1,0,N,=<n>2):(A0=(1,2:3,4):isBreak_last=<A[0][0]>2),_r((A)=<A+A0,=<A0,N),_r((A)=<A+A0,=<A0,N,=<isBreak_last/*to share static scopes2d array*/)
 (
 0,10,4:
@@ -3535,4 +3547,4 @@ drag=false&sw=false&0x=false&useMatrix=true&useStrict=false&checkError=true&isRi
 --------------------------------
 --------------------------------
 
-online-simulator.github.io.6.321.138.16.74 @ Wed Sep 27 2023 15:47:45 GMT+0900 (日本標準時) @ Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/117.0.0.0 Safari/537.36
+online-simulator.github.io.6.322.138.16.75 @ Thu Sep 28 2023 04:48:17 GMT+0900 (日本標準時) @ Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/117.0.0.0 Safari/537.36

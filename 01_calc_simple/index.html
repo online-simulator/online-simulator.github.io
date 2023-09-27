@@ -293,6 +293,8 @@
       script += "\nclear;\n";
       script += "N=10,_r((n)=<n+1,0,N),_r((n)=<n+1,0,N,=<n>2):(A0=(1,2:3,4):isBreak_last=<A[0][0]>2),_r((A)=<A+A0,=<A0,N),_r((A)=<A+A0,=<A0,N,=<isBreak_last/*to share static scopes2d array*/);";
       script += "\nclear;\n";
+      script += "a=-1,b=-2,c=-3:[[[(b)=<()=<()=<(a,b,c)](2)=>]()=>]()=>:[[[(b)=<()=<()=<(a,b,c)](2)==>]()=>]()=>:[[[(b)=<()=<()=<(a,b,c)](2)=>]()==>]()=>:[[[(b)=<()=<()=<(a,b,c)](2)=>]()=>]()==>;";
+      script += "\nclear;\n";
       $._id("input").value = script;
     });
   })();

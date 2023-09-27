@@ -1954,6 +1954,16 @@ title/発行元(発行年)を列挙する
 制限追加履歴を列挙する
 <br>
 ・<span class="clear">Ver.2.144.36</span>以降、<a href="#span-out-flow">operation</a>段階の<a href="#span-out-concatination">行列結合</a>を含む<a href="#span-in-options">depthMax</a>制限を追加（browser crashの2重対策）
+<br>
+・<span class="run">Ver.2.272.63</span>以降、<a href="#span-out-BT-empty">空括弧</a>の判別を厳格化
+<br>
+　無条件に削除　⇒　定数<a href="#span-out-BT">()</a>のみ削除・<a href="#span-out-BT">波括弧{}</a>禁止
+<br>
+・<span class="run">Ver.2.272.63</span>以降、引数0個の関数callを厳格化
+<br>
+　<a href="#span-out-BT">丸括弧()</a>の省略可　⇒　省略不可
+<br>
+　影響項目：<a href="#span-out-FN-rand">乱数関数</a>||<a href="#span-eqn-rand_table">rand_table</a>||<a href="#span-eqn-magic">magic-square</a>
     </td>
   </tr>
   <tr>
@@ -14737,6 +14747,10 @@ clear; 3*[a=2,a]; a -> [MyErr]Invalid REv(a)
 <br>
 [] -> []
 <br>
+・<span class="run">Ver.2.272.63</span>以降、<a href="#span-out-BT-empty">空括弧</a>の判別を厳格化
+<br>
+　無条件に削除　⇒　定数<a href="#span-out-BT">()</a>のみ削除・<a href="#span-out-BT">波括弧{}</a>禁止
+<br>
 <br>
 test caseを列挙する
 <br>
@@ -15714,6 +15728,10 @@ clear; a=-3.2; b=2; q=floor(a/b); q  <span class="selection">// NG</span> -> -2
 <br>
 <br>
 <span class="run">Ver.2.30.15</span>以降、乱数の即時callに対応
+<br>
+・<span class="run">Ver.2.272.63</span>以降、引数0個の関数callを厳格化
+<br>
+　<a href="#span-out-BT">丸括弧()</a>の省略可　⇒　省略不可
 <br>
 <br>
 乱数の仕様はbuilt-inのMath.random()に同義
@@ -39423,7 +39441,7 @@ table=sort0(csv),
 <br>
 ymin=min(table)[0],ymax=max(table)[0],
 <br>
-y=ymin+(ymax-ymin)*rand,
+y=ymin+(ymax-ymin)*rand<span class="jF">()</span>,
 <br>
 x=interp(y:table),x];
 <br>
@@ -41285,7 +41303,7 @@ N=9;
 <br>
 N=floor(N/2)*2+1;
 <br>
-($sw0,$sw1)=[(useRand)=&lt;(useRand&amp;&amp;rand,useRand&amp;&amp;rand)](false)=&gt;;
+($sw0,$sw1)=[(useRand)=&lt;(useRand&amp;&amp;rand<span class="jF">()</span>,useRand&amp;&amp;rand<span class="jF">()</span>)](false)=&gt;;
 <br>
 M=make_M(N,floor(sw0*N),sw1)=&gt;;
 <br>

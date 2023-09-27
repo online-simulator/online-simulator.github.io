@@ -840,6 +840,7 @@ My_entry.parser.prototype.make_trees = function(sentence, opt_re){  // Ver.2.158
   for(var i=0, len_i=tokens.length; i<len_i; ++i){
     var i_next = i;
     var tree = null;  // Ver.2.230.56
+    var leftTree = _trees[_trees.length-1];  // Ver.2.272.63
     var token_left = tokens[i-1];  // Ver.2.230.56
     var token = tokens[i];
     var token_lower = token.toLowerCase();
@@ -855,9 +856,19 @@ My_entry.parser.prototype.make_trees = function(sentence, opt_re){  // Ver.2.158
         var str_tokens = tokens.slice(ip_s+1, ip_e).join("");
         tree = self.check_csv(str_tokens, tagName) || DATA.tree_tag(tagName, self.make_trees(str_tokens, re));  // Ver.2.142.36
       }
-      else if(token === "["){  // () || {} -> removed
+      /* Ver.2.272.63 -> */
+      else if(token === "{"){
+        throw "Invalid {}";
+      }
+      else if(token === "["){
         tree = DATA.tree_tag(tagName, [DATA.tree_mat([])]);  // [] -> empty array  // Ver.2.170.41
       }
+      else if(leftTree && leftTree.mat && self.entry.operation.has1elem_tag(leftTree.mat.arr, "com")){  // CT() -> removed
+      }
+      else if(token === "("){
+        tree = DATA.tree_tag(tagName, []);  // () -> empty tree
+      }
+      /* -> Ver.2.272.63 */
     }
     else if(tagName){
       tree = DATA.tree_tag(tagName, token_lower);
