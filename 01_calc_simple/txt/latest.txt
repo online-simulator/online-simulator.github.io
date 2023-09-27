@@ -7,7 +7,7 @@ a=-1,b=-2,c=-3:[[[(b)=<()=<()=<(a,b,c)](2)=>]()=>]()=>:[[[(b)=<()=<()=<(a,b,c)](
 -1,2,-3:
 -1,2,-3:
 -1,-2,-3:
--1,2,-3
+-1,-2,-3
 )
 
 clear
@@ -1144,7 +1144,7 @@ a=-1,b=-2,c=-3:[[[()=<(b)=<()=<(a,b,c)]()=>](2)=>]()=>:[[[()=<(b)=<()=<(a,b,c)](
 -1,2,-3:
 -1,2,-3:
 -1,2,-3:
--1,2,-3:
+-1,-2,-3:
 -1,2,-3:
 -1,2,-3:
 -1,2,-3:
@@ -3547,4 +3547,4 @@ drag=false&sw=false&0x=false&useMatrix=true&useStrict=false&checkError=true&isRi
 --------------------------------
 --------------------------------
 
-online-simulator.github.io.6.322.138.16.75 @ Thu Sep 28 2023 04:48:17 GMT+0900 (日本標準時) @ Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/117.0.0.0 Safari/537.36
+online-simulator.github.io.6.322.138.16.76 @ Thu Sep 28 2023 04:55:07 GMT+0900 (日本標準時) @ Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/117.0.0.0 Safari/537.36

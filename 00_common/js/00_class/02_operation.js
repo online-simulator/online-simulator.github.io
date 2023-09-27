@@ -3974,8 +3974,7 @@ My_entry.operation.prototype.REe = function(data, i0, tagName, tagObj){
   }
   /* Ver.2.43.22 -> */
   else{
-    name_eqn = self.get_tagVal(leftTree, "REv", "val");  // f=>
-    tree_eqn = (name_eqn)? self.restore_eqn(name_eqn, scopes, ids, isREee): self.tree_no_name2restore_eqn(trees[is]);  // Ver.2.31.17  // Ver.2.204.46  // Ver.2.272.63
+    tree_eqn = (name_eqn)? self.restore_eqn(name_eqn, scopes, ids, isREee): self.tree_no_name2restore_eqn(trees[is]);  // Ver.2.31.17  // Ver.2.204.46  // Ver.2.272.63  // Ver.2.272.64
   }
   /* -> Ver.2.43.22 */
   if(tree_eqn){
