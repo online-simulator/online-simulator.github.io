@@ -3770,7 +3770,7 @@ My_entry.operation.prototype.get_name_eqn_AtREe = function(trees, i0, arr){
   return {name_eqn: name_eqn, tree_eqn: tree_eqn};
 };
 /* Ver.2.269.62 */
-My_entry.operation.prototype.restore_args_AtREe = function(data, args_eqn, args, ids_args_eqn, args_eqns, args_vars, args_bas, buffer_vars, buffer_eqns, ids_buffer){
+My_entry.operation.prototype.restore_args_AtREe = function(data, name_eqn, args_eqn, args, ids_args_eqn, args_eqns, args_vars, args_bas, buffer_vars, buffer_eqns, ids_buffer){  // Ver.2.271.63
   var self = this;
   var scopes = data.scopes;
   var len_args = args.length;
@@ -3877,7 +3877,7 @@ My_entry.operation.prototype.get_args_AtREe = function(data, name_eqn, arr, isRE
       }
       /* -> Ver.2.210.46 */
       ids_buffer = [id0];  // Ver.2.225.53
-      self.restore_args_AtREe(data, args_eqn, args, ids_args_eqn, args_eqns, args_vars, args_bas, buffer_vars, buffer_eqns, ids_buffer);  // Ver.2.269.62
+      self.restore_args_AtREe(data, name_eqn, args_eqn, args, ids_args_eqn, args_eqns, args_vars, args_bas, buffer_vars, buffer_eqns, ids_buffer);  // Ver.2.269.62  // Ver.2.271.63
     }
     else{
       throw "Invalid args.length="+len_args_eqn+"("+name_eqn+")";
