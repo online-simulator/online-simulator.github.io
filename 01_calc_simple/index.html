@@ -291,6 +291,8 @@
       script += "\nclear;\n";
       script += "t0=(1,2,3:4,5,6),representation_scope2storage=<[xt=<t0,yt=<(t0)i,out_lazy=<{=<xt,=<yt},=<out_lazy]=>:representation_scope2storage=>xy:($xt,$yt)=(=<(xy[0]=>)=>,=<(xy[1]=>)=>):(xt:yt);";
       script += "\nclear;\n";
+      script += "N=10,_r((n)=<n+1,0,N),_r((n)=<n+1,0,N,=<n>2):(A0=(1,2:3,4):isBreak_last=<A[0][0]>2),_r((A)=<A+A0,=<A0,N),_r((A)=<A+A0,=<A0,N,=<isBreak_last/*to share static scopes2d array*/);";
+      script += "\nclear;\n";
       $._id("input").value = script;
     });
   })();

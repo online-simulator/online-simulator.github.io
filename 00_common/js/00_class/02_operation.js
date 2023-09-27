@@ -1493,17 +1493,23 @@ else{
         // update
         x0 = update_x0(names, ids_buffer);  // Ver.2.233.56  // Ver.2.234.56
         // check convergence
+        var isBreak = false;  // Ver.2.271.62
         if(isRelative_epsN){
           // relative error
           var normdx = math_mat.normc(options, arr_mdx);  // Ver.2.237.56
           var normx0 = math_mat.normc(options, DATA.vec2arr(x0));  // Ver.2.237.56 x0: vectorc
-          if(self.arr2num(normdx).com.r < epsN*self.arr2num(normx0).com.r) break;
+          if(self.arr2num(normdx).com.r < epsN*self.arr2num(normx0).com.r){
+            isBreak = true;  // Ver.2.271.62
+          }
         }
         else{
           // absolute error
           var normdx = math_mat.normc(options, arr_mdx);  // Ver.2.237.56
-          if(self.arr2num(normdx).com.r < epsN) break;
+          if(self.arr2num(normdx).com.r < epsN){
+            isBreak = true;  // Ver.2.271.62
+          }
         }
+        if(isBreak) break;  // last to share static_scopes2d_array  // Ver.2.271.62
       }
       if(arr_mdx){
         if(options.checkError && argN && argN.com){
@@ -1721,9 +1727,9 @@ My_entry.operation.prototype.RX = function(data, rightArr, tagObj){
   var DATA = self.entry.DATA;
   var callback_FNh = function(args, ids_buffer, name_var, tree_eqn){  // Ver.2.231.56  // Ver.2.234.56
     var _tree = null;
-    var a = args[1];
+    var tree = self.tree_eqn2tree_AtREe(data, args[1]);  // Ver.2.271.62
     var b = args[2];
-    if(a.com && b.com){
+    if(tree && b.com){  // Ver.2.271.62
       var br = Math.round(b.com.r);  // Ver.2.205.46 floor -> round
       /* Ver.2.30.15 -> */
       var arg3 = args[3];
@@ -1731,10 +1737,7 @@ My_entry.operation.prototype.RX = function(data, rightArr, tagObj){
       var RX = (tree_eqn_break)?
         function(callback){
           for(var i=1; i<=br; ++i){  // i=1
-            callback(i);
-            var tree_break = self.tree_eqn2tree(data, tree_eqn_break);
-            var num = DATA.tree2num(tree_break);
-            if(num && num.com.r) break;
+            if(callback(i)) break;  // Ver.2.271.62
           }
         }:
         function(callback){
@@ -1743,10 +1746,20 @@ My_entry.operation.prototype.RX = function(data, rightArr, tagObj){
           }
         };
       /* -> Ver.2.30.15 */
-      var tree = DATA.num2tree(a);
       RX(function(i){
+        var _isBreak = false;  // Ver.2.271.62
         self.store_var(name_var, tree, scopes, ids_buffer);  // Ver.2.31.17  // Ver.2.225.53
-        tree = self.tree_eqn2tree(data, tree_eqn);
+        tree = self.tree_eqn2tree(data, tree_eqn);  // deep-copy
+        /* Ver.2.271.62 -> */
+        if(tree_eqn_break){  // last to share static_scopes2d_array
+          var tree_break_last = self.tree_eqn2tree_AtREe(data, tree_eqn_break);  // not-cloned
+          var num = DATA.tree2num(tree_break_last);
+          if(num && num.com.r){
+            _isBreak = true;
+          }
+        }
+        return _isBreak;
+        /* -> Ver.2.271.62 */
       });
       _tree = tree;
     }
@@ -3243,7 +3256,7 @@ My_entry.operation.prototype.tree_eqn2tree = function(data, tree, isREe){  // Ve
 /* Ver.2.194.45 isLocked_eqns deleted */
 /* Ver.2.32.17 clear; add(A,=<B)=<[A+B=>],A=(,:,),B=<(,:,),add[0](=<A,=<B) */
 /* Ver.2.20.8 */
-My_entry.operation.prototype.tree_eqn2tree_AtREe = function(data, tree_eqn){
+My_entry.operation.prototype.tree_eqn2tree_AtREe = function(data, tree_eqn, opt_name){  // Ver.2.271.62
   var self = this;
   var DATA = self.entry.DATA;
   var BT = self.config.BT;
@@ -3257,6 +3270,17 @@ My_entry.operation.prototype.tree_eqn2tree_AtREe = function(data, tree_eqn){
     _tree = (isSEe)? self.tree_SEe2REe(tree_eqn): tree_eqn;
     _tree = self.tree_eqn2tree(data, _tree, true);
   }
+  /* Ver.2.271.62 -> */
+  if(opt_name){
+    if(_tree && _tree.mat){
+      var arr = _tree.mat.arr;
+      if(DATA.hasVar_arr(arr)) throw "Invalid matching var("+opt_name+")";
+    }
+    else{
+      throw "Undef args.var||eqn("+opt_name+")";  // Ver.2.255.59
+    }
+  }
+  /* -> Ver.2.271.62 */
   return _tree;
 };
 My_entry.operation.prototype.tree_eqn2tree_AtSEe = function(data, tree_eqn, opt_ids_SEe){
@@ -3367,14 +3391,7 @@ My_entry.operation.prototype.SEv_pattern_matching = function(data, is, ie){
       var name_var_escaped = self.get_name_escaped(leftArrij);  // Ver.2.27.15
       if(name_var_escaped){
         /* Ver.2.269.62 -> */
-        var tree = (isSEe)? self.tree_eqn2tree_AtREe(data, rightObj): DATA.num2tree(rightObj);
-        if(tree.mat){
-          var arr = tree.mat.arr;
-          if(DATA.hasVar_arr(arr)) throw "Invalid matching var("+name_var_escaped+")";
-        }
-        else{
-          self.throw_tree(rightArrij);
-        }
+        var tree = self.tree_eqn2tree_AtREe(data, rightObj, name_var_escaped);  // Ver.2.271.62
         self.store_var(name_var_escaped, tree, scopes, ids);  // Ver.2.31.17
         /* -> Ver.2.269.62 */
         _out += "stored_var("+name_var_escaped+") ";
@@ -3799,10 +3816,7 @@ My_entry.operation.prototype.restore_args_AtREe = function(data, args_eqn, args,
       if(buffer_vars && name){  // Ver.2.215.50
         buffer_vars[name] = self.restore_var(name, scopes, ids_buffer);
       }
-      var tree = self.tree_eqn2tree_AtREe(data, right);  // Ver.2.202.46  // Ver.2.255.59
-      if(!(tree && tree.mat)){  // Ver.2.255.59
-        throw "Undef args.var||eqn("+name+")";
-      }
+      var tree = self.tree_eqn2tree_AtREe(data, right, name);  // Ver.2.202.46  // Ver.2.255.59  // Ver.2.271.62
       args_vars[name] = tree;  // Ver.2.71.29  // Ver.2.256.59
     }
   }
