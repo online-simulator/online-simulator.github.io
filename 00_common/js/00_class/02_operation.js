@@ -3624,27 +3624,38 @@ My_entry.operation.prototype.inherit_ids_sw = function(sw, tree, opt_ids_upper){
   return self;
 };
 /* Ver.2.31.17 -> */
+/* Ver.2.273.64 */
+My_entry.operation.prototype.tree_SEe2REe_isREee = function(tree, ids, isREee, isReUsed){
+  var self = this;
+  var BT = self.config.BT;
+  var _tree = null;
+  if(tree){
+    var isSEe = tree[BT.SEe];
+    if(isSEe){
+      _tree = self.tree_SEe2REe(tree, isReUsed);
+      if(isREee){
+        self.inherit_ids_sw(BT.REe, _tree, ids);
+      }
+    }
+    else{
+      _tree = (isReUsed)? self.entry.def.newClone(tree): tree;
+    }
+  }
+  return _tree;
+};
 My_entry.operation.prototype.restore_eqn = function(name, scopes, ids, isREee, withVar){  // Ver.2.260.61
   var self = this;
   var BT = self.config.BT;
   var _tree = null;
   var tree_var = (withVar)? self.restore_var(name, scopes, ids): null;  // Ver.2.260.61
-  var eqns = (tree_var)? null: self.get_scope_RE_sw("eqns", name, scopes, ids);  // Ver.2.260.61
-  if(eqns){
-    var tree = eqns[name];
-    var isSEe = tree[BT.SEe];
-    if(isSEe){
-      _tree = self.tree_SEe2REe(tree, true);  // Ver.2.266.62
-      if(isREee){
-        self.inherit_ids_sw(BT.REe, _tree, ids);  // Ver.2.204.46 [=<f]==>f
-      }
-    }
-    else{
-      _tree = self.entry.def.newClone(tree);
-    }
+  if(tree_var){
+    _tree = tree_var;  // Ver.2.260.61
   }
   else{
-    _tree = tree_var;  // Ver.2.260.61
+    var eqns = self.get_scope_RE_sw("eqns", name, scopes, ids);  // Ver.2.260.61
+    if(eqns){
+      _tree = self.tree_SEe2REe_isREee(eqns[name], ids, isREee, true);  // Ver.2.273.64
+    }
   }
   return _tree;
 };
@@ -3685,25 +3696,6 @@ My_entry.operation.prototype.restore_eqn_tree = function(tree, scopes, opt_ids, 
   }
   /* -> Ver.2.219.50 */
   /* -> Ver.2.253.59 */
-  return _tree;
-};
-/* Ver.2.30.15 name changed */
-My_entry.operation.prototype.tree_no_name2restore_eqn = function(tree){
-  var self = this;
-  var _tree = null;
-  /* Ver.2.27.15 -> */
-  /* Ver.2.119.34 -> */
-  var arr = self.get_tagVal(tree, "mat", "arr");
-  var tree_ = (arr)? self.arr2num(arr): null;
-  /* -> Ver.2.119.34 */
-  if(tree_){
-    var BT = self.config.BT;
-    var isSEe = tree_[BT.SEe];
-  /* -> Ver.2.27.15 */
-    if(isSEe){
-      _tree = self.tree_SEe2REe(tree_);
-    }
-  }
   return _tree;
 };
 My_entry.operation.prototype.store_eqn = function(name, tree, scopes, ids, isEscaped){  // Ver.2.249.57
@@ -3760,29 +3752,33 @@ My_entry.operation.prototype.replace_REv = function(trees, bas){
   self.loop_callback(trees, loop_tree_BT);  // Ver.2.218.50
   return self;
 };
-My_entry.operation.prototype.get_name_eqn_AtREe = function(trees, i0, hasArgs){  // Ver.2.272.63
+My_entry.operation.prototype.get_name_eqn_AtREe = function(trees, i0){  // Ver.2.272.63  // Ver.2.273.64
   var self = this;
   var BT = self.config.BT;
-  var i0m1or2 = (hasArgs)? i0-2: i0-1;  // Ver.2.272.63
-  var i0m2 = i0-2;
-  var name_eqn = self.get_tagVal(trees[i0m1or2], "REv", "val");
-  var tree_eqn = null;
+  /* Ver.2.273.64 -> */
+  var name0 = self.config.symbol.anonymous;
+  var name1 = self.get_tagVal(trees[i0-1], "REv", "val");
+  var name2 = self.get_tagVal(trees[i0-2], "REv", "val");
+  var arr1 = self.get_tagVal(trees[i0-1], "mat", "arr");
+  var arr2 = self.get_tagVal(trees[i0-2], "mat", "arr");
+  var hasArgs = (name2 && arr1) || (arr2 && arr1);  // f() || []()
+  var arr_eqn = (hasArgs)? arr2: arr1;
+  var name_eqn = (hasArgs)? name2: name1;
+  var tree_eqn = (arr_eqn)? self.arr2num(arr_eqn): null;
   var isNoName = !(name_eqn);
-  if(isNoName && hasArgs){  // Ver.2.272.63
-    var arr0 = self.get_tagVal(trees[i0m2], "mat", "arr");
-    if(arr0){  // [f(x)=<x,f(1),[(x)=<x](1)=>];
-      var name0 = self.config.symbol.anonymous;
-      tree_eqn = self.arr2num(arr0);
-      var isSEe = tree_eqn[BT.SEe];  // Ver.2.200.46
-      if(isSEe){
-        name_eqn = name0;  // Ver.2.253.59
-      }
-      else{
-        throw "Invalid "+name0+" equation";  // Ver.2.253.59
-      }
+  if(isNoName && hasArgs && arr_eqn){  // Ver.2.272.63
+    // [f(x)=<x,f(1),[(x)=<x](1)=>]
+    // a0=-1,make_f(a)=<[g(x)=<a0*x,==<==<g]==>f,make_f(a0)=>,f(3)=>
+    var isSEe = tree_eqn[BT.SEe];  // Ver.2.200.46
+    if(isSEe){
+      name_eqn = name0;  // Ver.2.253.59
+    }
+    else{
+      throw "Invalid "+name0+" equation";  // Ver.2.253.59
     }
   }
-  return {name_eqn: name_eqn, tree_eqn: tree_eqn};
+  /* -> Ver.2.273.64 */
+  return {hasArgs: hasArgs, name_eqn: name_eqn, tree_eqn: tree_eqn};  // Ver.2.273.64
 };
 /* Ver.2.269.62 */
 My_entry.operation.prototype.restore_args_AtREe = function(data, name_eqn, args_eqn, args, ids_args_eqn, args_eqns, args_vars, args_bas, buffer_vars, buffer_eqns, ids_buffer){  // Ver.2.271.63
@@ -3934,13 +3930,14 @@ My_entry.operation.prototype.REe = function(data, i0, tagName, tagObj){
   /* Ver.2.204.46 -> */
   var isREee = (tagObj.val === "==>");
   var arr = self.get_tagVal(leftTree, "mat", "arr");  // Ver.2.272.63
-  var hasArgs = arr;  // Ver.2.272.63
   /* Ver.2.256.59 -> */
-  var obj = self.get_name_eqn_AtREe(trees, i0, hasArgs);  // Ver.2.272.63
-  if(obj.name_eqn && obj.tree_eqn){
-    self.store_eqn(obj.name_eqn, obj.tree_eqn, scopes, ids);
-  }
+  var obj = self.get_name_eqn_AtREe(trees, i0);  // Ver.2.272.63
+  var hasArgs = obj.hasArgs;
   var name_eqn = obj.name_eqn;
+  var tree_eqn0 = obj.tree_eqn;
+  if(name_eqn && tree_eqn0){
+    self.store_eqn(name_eqn, tree_eqn0, scopes, ids);
+  }
   var isNoName = !(name_eqn) || (name_eqn === self.config.symbol.anonymous);
   /* -> Ver.2.256.59 */
   /* -> Ver.2.204.46 */
@@ -3974,7 +3971,7 @@ My_entry.operation.prototype.REe = function(data, i0, tagName, tagObj){
   }
   /* Ver.2.43.22 -> */
   else{
-    tree_eqn = (name_eqn)? self.restore_eqn(name_eqn, scopes, ids, isREee): self.tree_no_name2restore_eqn(trees[is]);  // Ver.2.31.17  // Ver.2.204.46  // Ver.2.272.63  // Ver.2.272.64
+    tree_eqn = (name_eqn)? self.restore_eqn(name_eqn, scopes, ids, isREee): self.tree_SEe2REe_isREee(tree_eqn0);  // Ver.2.31.17  // Ver.2.204.46  // Ver.2.272.63  // Ver.2.273.64
   }
   /* -> Ver.2.43.22 */
   if(tree_eqn){
