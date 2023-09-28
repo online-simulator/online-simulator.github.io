@@ -3356,7 +3356,7 @@ My_entry.operation.prototype.REv = function(data, i0, tagName, tagObj){
       /* Ver.2.20.8 -> */
       var isREe = tree[BT.REe];
       if(isREe){
-        var isCall = isREe.arg || (rightTree && self.isEmpty_tree(rightTree));  // Ver.2.247.57  // Ver.2.272.63
+        var isCall = rightTree && (isREe.arg || self.isEmpty_tree(rightTree));  // Ver.2.247.57  // Ver.2.272.63  // Ver.2.273.64
         if(isCall){  // Ver.2.272.63
           tree = self.REe(data, i0+2, tagName, tagObj);  // Ver.2.32.17
           if(tree){
