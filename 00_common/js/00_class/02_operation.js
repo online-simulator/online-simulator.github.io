@@ -2385,7 +2385,7 @@ My_entry.operation.prototype.URh = function(data, i0, tagName, tagObj, dot_prop)
         buffer_vars[name] = self.restore_var(name, scopes, ids_buffer);  // Ver.2.226.55
       }
     });
-    buffer_eqns[name_x] = self.restore_eqn(name_x, scopes, ids_buffer);  // Ver.2.257.59
+    buffer_eqns[name_x] = self.tree_REe2SEe(self.restore_eqn(name_x, scopes, ids_buffer));  // Ver.2.257.59  // Ver.2.273.65
     var arr = leftArr;
     math_mat.fill_arr(null, arr, DATA.num(NaN, NaN));  // common reference
     var lens = math_mat.get_lens(arr);
@@ -3599,16 +3599,22 @@ My_entry.operation.prototype.SEv = function(data, i0, tagName, tagObj){
 My_entry.operation.prototype.tree_SEe2REe = function(tree, isReUsed){  // Ver.2.266.62
   var self = this;
   var BT = self.config.BT;
-  var _tree = {};
-  var isSEe = tree[BT.SEe];
-  _tree[BT.REe] = (isReUsed)? self.entry.def.newClone(isSEe): isSEe;  // Ver.2.266.62
+  var _tree = null;
+  if(tree){  // Ver.2.273.65
+    var isSEe = tree[BT.SEe];
+    _tree = {};
+    _tree[BT.REe] = (isReUsed)? self.entry.def.newClone(isSEe): isSEe;  // Ver.2.266.62
+  }
   return _tree;
 };
 My_entry.operation.prototype.tree_REe2SEe = function(tree){
   var self = this;
   var BT = self.config.BT;
-  var _tree = {};
-  _tree[BT.SEe] = tree[BT.REe];  // Ver.2.266.62
+  var _tree = null;
+  if(tree){  // Ver.2.273.65
+    _tree = {};
+    _tree[BT.SEe] = tree[BT.REe];  // Ver.2.266.62
+  }
   return _tree;
 };
 /* Ver.2.200.46 */
@@ -3796,7 +3802,7 @@ My_entry.operation.prototype.restore_args_AtREe = function(data, name_eqn, args_
       var name = left.substring(num_escape);
     /* -> Ver.2.245.57 */
       if(buffer_eqns && name){  // Ver.2.215.50
-        buffer_eqns[name] = self.restore_eqn(name, scopes, ids_buffer);
+        buffer_eqns[name] = self.tree_REe2SEe(self.restore_eqn(name, scopes, ids_buffer));  // Ver.2.273.65
       }
       var tree = self.tree_eqn2tree_AtSEe(data, right, ((isSEee_argi)? ids_args_eqn: null));  // Ver.2.255.59
     /* -> Ver.2.219.50 */
