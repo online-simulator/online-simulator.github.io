@@ -3436,11 +3436,11 @@ local storage cleared
 
 solvex_pivotting()
 (
--4:
-4.5
+-3.9999999999999982:
+4.499999999999999
 )
 
-solvex_pivotting=<{compare=<switch(abs(A[ir][ir])<abs(A[ir_comp][ir]),=<ir_pivot=ir_comp),proc=<{w=A[ir],A[ir]=A[ir_pivot],A[ir_pivot]=w,w=b[ir],b[ir]=b[ir_pivot],b[ir_pivot]=w},pivotting=<last{ir_pivot=ir,compare,switch(ir<>ir_pivot,=<proc)},forward=<last{k=A[ir][ic]/A[ic][ic],A[ir]=A[ir]-k(A[ic]),b[ir]=b[ir]-k(b[ic])},backward=<x[ir]=(b[ir]-A[ir]x)/A[ir][ir],sizeA=size(A),x=zeros(sizeA,1),_sir(=<_sir_comp(=<pivotting,ir+1,sizeA-1),0,sizeA-2),_sic(=<_sir(=<forward,ic+1,sizeA-1),0,sizeA-2),_sir(=<backward,sizeA-1,0),=<x}=>
+solvex_pivotting=<{compare=<switch(abs(A[ir][ir])<abs(A[ir_comp][ir]),=<ir_pivot=ir_comp),proc=<{w=A[ir],A[ir]=A[ir_pivot],A[ir_pivot]=w,w=b[ir],b[ir]=b[ir_pivot],b[ir_pivot]=w},pivotting=<last{ir_pivot=ir,compare()/*not-define*/,switch(ir<>ir_pivot,=<proc)},forward=<last{k=A[ir][ic]/A[ic][ic],A[ir]=A[ir]-k(A[ic]),b[ir]=b[ir]-k(b[ic])},backward=<x[ir]=(b[ir]-A[ir]x)/A[ir][ir],sizeA=size(A),x=zeros(sizeA,1),_sir(=<_sir_comp(=<pivotting,ir+1,sizeA-1),0,sizeA-2),_sic(=<_sir(=<forward,ic+1,sizeA-1),0,sizeA-2),_sir(=<backward,sizeA-1,0),=<x}=>
 stored_eqn(solvex_pivotting)
 
 store
@@ -3558,4 +3558,4 @@ drag=false&sw=false&0x=false&useMatrix=true&useStrict=false&checkError=true&isRi
 --------------------------------
 --------------------------------
 
-online-simulator.github.io.6.325.138.16.77 @ Fri Sep 29 2023 12:53:12 GMT+0900 (日本標準時) @ Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/117.0.0.0 Safari/537.36
+online-simulator.github.io.6.325.138.16.77 @ Sat Sep 30 2023 00:47:51 GMT+0900 (日本標準時) @ Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/117.0.0.0 Safari/537.36

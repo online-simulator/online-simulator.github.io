@@ -3364,7 +3364,9 @@ My_entry.operation.prototype.REv = function(data, i0, tagName, tagObj){
           }
         }
         else{
-          tree = self.tree_REe2SEe(tree);  // Ver.2.275.65
+//          tree = self.tree_eqn2tree_AtREe(data, tree);  // Ver.2.202.46  // Ver.2.275.65 auto-run disabled
+//          throw "Invalid call("+name+")";  // last{set_x=<(x=1),x=0,set_x,x} -> error  // Ver.2.275.65 pending
+          tree = self.tree_REe2SEe(tree);  // last{set_x=<(x=1),x=0,set_x,x} -> 0  // Ver.2.275.65
         }
       }
       /* -> Ver.2.20.8 */

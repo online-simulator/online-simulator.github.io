@@ -1971,6 +1971,12 @@ title/発行元(発行年)を列挙する
 <br>
 _r((n)=&lt;run,run(n,n)=&lt;n+1,3) -> <del>3</del>[MyErr]Invalid BTe([object Object],[object Object],[object Object])
 <br>
+　記号省略：自動実行　⇒　<a href="#span-out-eqns">式変数</a>宣言と判別（callの場合、記号を明示）
+<br>
+last{set_x=&lt;(x=1),x=0,set_x,x} -> <del>1</del>0
+<br>
+last{set_x=&lt;(x=1),x=0,set_x(),x} -> 1
+<br>
 　影響項目：<a href="#span-out-config-strict">Non-strict-mode</a>||<a href="#span-out-FNh">高階関数</a>||<a href="#span-out-FNmh">高階行列関数</a>
     </td>
   </tr>
@@ -2068,6 +2074,8 @@ pending項目を列挙する
 ・allowの反転option
 <br>
 ・arr=arr|||[]の実装：undef宣言未実装のため、見送り
+<br>
+・<a href="#span-out-eqns">式変数</a>のcall記号省略：<del>自動実行　⇒　error終了</del><a href="#span-out-eqns">式変数</a>宣言と判別（callの場合、記号を明示）
     </td>
   </tr>
   <tr>
@@ -9025,6 +9033,12 @@ _r((n)=&lt;run(),run=&lt;1,3) -> 1
 _r(()=&lt;run,run(n)=&lt;n+1,3) -> 3
 <br>
 _r((n)=&lt;run(n)=&gt;,run(n)=&lt;n+1,3) -> 3
+<br>
+　記号省略：自動実行　⇒　<a href="#span-out-eqns">式変数</a>宣言と判別（callの場合、記号を明示）
+<br>
+last{set_x=&lt;(x=1),x=0,set_x,x} -> <del>1</del>0
+<br>
+last{set_x=&lt;(x=1),x=0,set_x(),x} -> 1
 <br>
 <br>
 曖昧さを回避することで演算内容の入力上、引いては演算上の間違いを低減する
