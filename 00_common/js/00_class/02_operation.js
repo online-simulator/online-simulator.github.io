@@ -293,7 +293,6 @@ My_entry.operation.prototype.prepare = function(data){
   var options = data.options;
   self.switch_method(options);  // Ver.2.193.44
   /* Ver.2.24.11 -> */
-  self.useTest = options.useTest;
   self.useStrict = options.useStrict;
   self.useEmpty = (options.checkError === 0 || options.checkError < 0)? false: true;  // Ver.2.84.32
   self.useScopeWith = options.useScopeWith;  // Ver.2.213.47
@@ -3365,7 +3364,7 @@ My_entry.operation.prototype.REv = function(data, i0, tagName, tagObj){
           }
         }
         else{
-          tree = self.tree_eqn2tree_AtREe(data, tree);  // Ver.2.202.46
+          tree = self.tree_REe2SEe(tree);  // Ver.2.275.65
         }
       }
       /* -> Ver.2.20.8 */
@@ -3791,26 +3790,39 @@ My_entry.operation.prototype.get_name_eqn_AtREe = function(trees, i0){  // Ver.2
 My_entry.operation.prototype.restore_args_AtREe = function(data, name_eqn, args_eqn, args, ids_args_eqn, args_eqns, args_vars, args_bas, buffer_vars, buffer_eqns, ids_buffer){  // Ver.2.271.63
   var self = this;
   var scopes = data.scopes;
+  var BT = self.config.BT;
   var len_args = args.length;
+  /* Ver.2.275.65 -> */
+  var set_var = function(name){
+    if(buffer_vars && name){  // Ver.2.215.50
+      buffer_vars[name] = self.restore_var(name, scopes, ids_buffer);
+    }
+    var tree = self.tree_eqn2tree_AtREe(data, right, name);  // Ver.2.202.46  // Ver.2.255.59  // Ver.2.271.62
+    args_vars[name] = tree;  // Ver.2.71.29  // Ver.2.256.59
+  };
+  var set_eqn = function(name){
+    /* Ver.2.219.50 -> */
+    if(buffer_eqns && name){  // Ver.2.215.50
+      buffer_eqns[name] = self.tree_REe2SEe(self.restore_eqn(name, scopes, ids_buffer));  // Ver.2.273.65
+    }
+    var tree = self.tree_eqn2tree_AtSEe(data, right, ((isSEee_argi)? ids_args_eqn: null));  // Ver.2.255.59
+    /* -> Ver.2.219.50 */
+    if(!(tree)){  // Ver.2.255.59
+      throw "Invalid args."+name+"("+name_eqn+")";
+    }
+    args_eqns[name] = tree;  // Ver.2.71.29  // Ver.2.256.59
+  };
+  /* -> Ver.2.275.65 */
   for(var i=0; i<len_args; ++i){
     var left = args_eqn[i];
     var right = args[i];
-    /* Ver.2.219.50 -> */
     /* Ver.2.245.57 -> */
     var num_escape = self.config.isEscaped_eqn(left);
     if(num_escape){
       var isSEee_argi = (num_escape === 2);
       var name = left.substring(num_escape);
     /* -> Ver.2.245.57 */
-      if(buffer_eqns && name){  // Ver.2.215.50
-        buffer_eqns[name] = self.tree_REe2SEe(self.restore_eqn(name, scopes, ids_buffer));  // Ver.2.273.65
-      }
-      var tree = self.tree_eqn2tree_AtSEe(data, right, ((isSEee_argi)? ids_args_eqn: null));  // Ver.2.255.59
-    /* -> Ver.2.219.50 */
-      if(!(tree)){  // Ver.2.255.59
-        throw "Invalid args."+name+"("+name_eqn+")";
-      }
-      args_eqns[name] = tree;  // Ver.2.71.29  // Ver.2.256.59
+      set_eqn(name);  // Ver.2.275.65
     }
     /* Ver.2.246.57 -> */
     else if(self.config.isEscaped(left)){
@@ -3831,11 +3843,7 @@ My_entry.operation.prototype.restore_args_AtREe = function(data, name_eqn, args_
     /* -> Ver.2.246.57 */
     else{
       var name = left;
-      if(buffer_vars && name){  // Ver.2.215.50
-        buffer_vars[name] = self.restore_var(name, scopes, ids_buffer);
-      }
-      var tree = self.tree_eqn2tree_AtREe(data, right, name);  // Ver.2.202.46  // Ver.2.255.59  // Ver.2.271.62
-      args_vars[name] = tree;  // Ver.2.71.29  // Ver.2.256.59
+      set_var(name);  // Ver.2.275.65
     }
   }
   return self;
