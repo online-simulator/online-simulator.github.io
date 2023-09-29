@@ -8965,6 +8965,10 @@ debuggerについて記述する
 ・該当の実行元<a href="#span-in-tree">j-th sentence</a>終端位置;にcaretを移動（実行確定~catched間に変更の場合、不正確）
 <br>
 ・<a href="#span-out-log">log表示</a>に@j=?を追加
+<br>
+・<span class="run">Ver.2.274.65</span>以降、catched error@<a href="#span-out-flow">parse</a>段階のpost処理に対応
+<br>
+　<a href="#span-out-log">log表示</a>に@post@j=?を追加
     </td>
   </tr>
   <tr>
@@ -12256,19 +12260,19 @@ main関数　⇔　parse関数　⇔　operation関数
 <br>
 ・main関数
 <br>
-　・入力dataを作ってparse関数に渡す
+　pre処理：入力dataを作ってparse関数に渡す
 <br>
-　・出力dataから演算結果を外部に表示する
+　post処理：出力dataから演算結果を外部に表示する
 <br>
 ・parse関数
 <br>
-　・入力dataから実行文を作ってoperation関数に渡す
+　pre処理：入力dataから実行文を作ってoperation関数に渡す
 <br>
-　・演算結果から出力dataを作ってmain関数に返す
+　post処理：演算結果から出力dataを作ってmain関数に返す
 <br>
 ・operation関数
 <br>
-　・実行文から演算結果を作ってparse関数に返す
+　run処理：実行文から演算結果を作ってparse関数に返す
 <br>
 <br>
 parse関数とoperation関数の役割分担を示す

@@ -389,10 +389,11 @@ My_entry.operation.prototype.run = function(_data){
   var self = this;
   var trees2d = _data.trees2d;
   var scopes2d = _data.scopes2d;
+  var j = 0;  // Ver.2.274.65
   try{
     self.init_scopes2d(_data);  // Ver.2.227.55
     self.prepare(_data);
-    for(var j=0, len=trees2d.length; j<len; ++j){
+    for(var len=trees2d.length; j<len; ++j){  // Ver.2.274.65
       var trees = trees2d[j];
       _data.trees = trees;
       _data.scopes = scopes2d;

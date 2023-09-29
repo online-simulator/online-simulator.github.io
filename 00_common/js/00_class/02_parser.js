@@ -1179,6 +1179,7 @@ My_entry.parser.prototype.make_arr_num = function(data){
   var DATA = self.entry.DATA;
   var _arr_num = [];
   data.trees2d.forEach(function(trees, j){
+  try{
     trees.forEach(function(tree, i){
       // Ver.2.11.4
       var num = null;
@@ -1202,6 +1203,10 @@ My_entry.parser.prototype.make_arr_num = function(data){
       }
       _arr_num.push(num);
     });
+  }
+  catch(e){
+    throw {message: String(e)+"@post", j: j};  // Ver.2.274.65
+  }
   });
   return _arr_num;
 };
@@ -1323,6 +1328,7 @@ My_entry.parser.prototype.make_log = function(data){
   var _log = "";
   var options = data.options;
   data.trees2d.forEach(function(trees, j){
+  try{
     if(j > 0){
       _log += ";";
     }
@@ -1355,6 +1361,10 @@ My_entry.parser.prototype.make_log = function(data){
         }
       }
     });
+  }
+  catch(e){
+    throw {message: String(e)+"@post", j: j};  // Ver.2.274.65
+  }
   });
   return _log;
 };
