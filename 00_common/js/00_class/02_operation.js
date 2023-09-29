@@ -3790,7 +3790,6 @@ My_entry.operation.prototype.get_name_eqn_AtREe = function(trees, i0){  // Ver.2
 My_entry.operation.prototype.restore_args_AtREe = function(data, name_eqn, args_eqn, args, ids_args_eqn, args_eqns, args_vars, args_bas, buffer_vars, buffer_eqns, ids_buffer){  // Ver.2.271.63
   var self = this;
   var scopes = data.scopes;
-  var BT = self.config.BT;
   var len_args = args.length;
   /* Ver.2.275.65 -> */
   var set_var = function(name){
