@@ -1915,7 +1915,7 @@ title/発行元(発行年)を列挙する
 <br>
 ・<span class="run">Ver.2.276.65</span>以降、<a href="#span-out-eqns-args">式変数のarguments</a>の動的判別@<a href="#span-out-config-strict">Non-strict-mode</a>に対応
 <br>
-　defineの記号=&lt;を省略不可　⇒　省略可
+　defineの記号=&lt;を省略不可　⇒　省略可（<a href="#span-in-call-by-equation">遅延評価</a>の明示を除く）
     </td>
   </tr>
   <tr>
@@ -2075,7 +2075,7 @@ pending
 <span id="span-out-spec-pending"></span>
 pending項目を列挙する
 <br>
-・allowの反転option
+・arrowの反転option
 <br>
 ・arr=arr|||[]の実装：undef宣言未実装のため、見送り
 <br>
@@ -2396,7 +2396,14 @@ ECMAScript
 ECMAScriptとの相違について記述する
 <br>
 <br>
-明確に冗長な仕様（allow関数の記号=&gt;が反転の主要因）を列挙する
+明確な相違点を列挙する
+<br>
+・<a href="#span-out-BT">括弧</a>の<a href="#span-out-prec">演算のprecedence</a>（<a href="#span-out-eqns">式変数</a>||<a href="#span-out-FNm">関数</a>callより優先）
+<br>
+　<a href="#span-out-BT">括弧</a>の中身を自動展開するため、<a href="#span-in-call-by-equation">遅延評価</a>の場合、記号=&lt;を明示
+<br>
+<br>
+明確に冗長な仕様（arrow関数の記号=&gt;が反転の主要因）を列挙する
 <br>
 ・<a href="#span-out-eqns">式変数</a>
 <br>
@@ -9046,9 +9053,11 @@ last{set_x=&lt;(x=1),x=0,set_x(),x} -> 1
 <br>
 ・<span class="run">Ver.2.276.65</span>以降、<a href="#span-out-eqns-args">式変数のarguments</a>の動的判別@<a href="#span-out-config-strict">Non-strict-mode</a>に対応
 <br>
-　defineの記号=&lt;を省略不可　⇒　省略可
+　defineの記号=&lt;を省略不可　⇒　省略可（<a href="#span-in-call-by-equation">遅延評価</a>の明示を除く）
 <br>
-h(x)=&lt;x,f(g)=&lt;g(3),f(h) -> <del>[MyErr]Invalid matching var(g)</del>3
+h(x)=&lt;x; f(g)=&lt;g(3); f(h) -> <del>[MyErr]Invalid matching var(g)</del>3
+<br>
+A=(1,2:3,4); f(A)=&lt;A; f(A) -> [MyErr]Invalid args.length=1(f)
 <br>
 <br>
 曖昧さを回避することで演算内容の入力上、引いては演算上の間違いを低減する
