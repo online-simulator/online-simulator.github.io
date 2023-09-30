@@ -3797,20 +3797,20 @@ My_entry.operation.prototype.restore_args_AtREe = function(data, name_eqn, args_
     if(buffer_vars && name){  // Ver.2.215.50
       buffer_vars[name] = self.restore_var(name, scopes, ids_buffer);
     }
-    var tree = self.tree_eqn2tree_AtREe(data, tree, opt_name);  // Ver.2.202.46  // Ver.2.255.59  // Ver.2.271.62
-    args_vars[name] = tree;  // Ver.2.71.29  // Ver.2.256.59
+    var tree_var = self.tree_eqn2tree_AtREe(data, tree, opt_name);  // Ver.2.202.46  // Ver.2.255.59  // Ver.2.271.62
+    args_vars[name] = tree_var;  // Ver.2.71.29  // Ver.2.256.59
   };
   var set_eqn = function(name, tree, isSEee_argi){
     /* Ver.2.219.50 -> */
     if(buffer_eqns && name){  // Ver.2.215.50
       buffer_eqns[name] = self.tree_REe2SEe(self.restore_eqn(name, scopes, ids_buffer));  // Ver.2.273.65
     }
-    var tree = self.tree_eqn2tree_AtSEe(data, tree, ((isSEee_argi)? ids_args_eqn: null));  // Ver.2.255.59
+    var tree_eqn = self.tree_eqn2tree_AtSEe(data, tree, ((isSEee_argi)? ids_args_eqn: null));  // Ver.2.255.59
     /* -> Ver.2.219.50 */
-    if(!(tree)){  // Ver.2.255.59
+    if(!(tree_eqn)){  // Ver.2.255.59
       throw "Invalid args."+name+"("+name_eqn+")";
     }
-    args_eqns[name] = tree;  // Ver.2.71.29  // Ver.2.256.59
+    args_eqns[name] = tree_eqn;  // Ver.2.71.29  // Ver.2.256.59
   };
   /* -> Ver.2.275.65 */
   for(var i=0; i<len_args; ++i){
