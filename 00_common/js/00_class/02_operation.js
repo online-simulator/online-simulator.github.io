@@ -3794,14 +3794,14 @@ My_entry.operation.prototype.restore_args_AtREe = function(data, name_eqn, args_
   var scopes = data.scopes;
   var len_args = args.length;
   /* Ver.2.275.65 -> */
-  var set_var = function(name){
+  var set_var = function(name, opt_name){
     if(buffer_vars && name){  // Ver.2.215.50
       buffer_vars[name] = self.restore_var(name, scopes, ids_buffer);
     }
-    var tree = self.tree_eqn2tree_AtREe(data, right, name);  // Ver.2.202.46  // Ver.2.255.59  // Ver.2.271.62
+    var tree = self.tree_eqn2tree_AtREe(data, right, opt_name);  // Ver.2.202.46  // Ver.2.255.59  // Ver.2.271.62
     args_vars[name] = tree;  // Ver.2.71.29  // Ver.2.256.59
   };
-  var set_eqn = function(name){
+  var set_eqn = function(name, isSEee_argi){
     /* Ver.2.219.50 -> */
     if(buffer_eqns && name){  // Ver.2.215.50
       buffer_eqns[name] = self.tree_REe2SEe(self.restore_eqn(name, scopes, ids_buffer));  // Ver.2.273.65
@@ -3823,7 +3823,7 @@ My_entry.operation.prototype.restore_args_AtREe = function(data, name_eqn, args_
       var isSEee_argi = (num_escape === 2);
       var name = left.substring(num_escape);
     /* -> Ver.2.245.57 */
-      set_eqn(name);  // Ver.2.275.65
+      set_eqn(name, isSEee_argi);  // Ver.2.275.65
     }
     /* Ver.2.246.57 -> */
     else if(self.config.isEscaped(left)){
@@ -3844,7 +3844,7 @@ My_entry.operation.prototype.restore_args_AtREe = function(data, name_eqn, args_
     /* -> Ver.2.246.57 */
     else{
       var name = left;
-      set_var(name);  // Ver.2.275.65
+      set_var(name, name);  // Ver.2.275.65
     }
   }
   return self;
