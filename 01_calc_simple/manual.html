@@ -1915,7 +1915,9 @@ title/発行元(発行年)を列挙する
 <br>
 ・<span class="run">Ver.2.276.65</span>以降、<a href="#span-out-eqns-args">式変数のarguments</a>の動的判別@<a href="#span-out-config-strict">Non-strict-mode</a>に対応
 <br>
-　defineの記号=&lt;を省略不可　⇒　省略可（<a href="#span-in-call-by-equation">遅延評価</a>の明示を除く）
+　define側：記号=&lt;を省略不可　⇒　省略可（call側の引数を自動展開時、付与のflagからtree継承）
+<br>
+　call側：省略可（<a href="#span-in-call-by-equation">遅延評価</a>の明示を除く）
     </td>
   </tr>
   <tr>
@@ -9053,7 +9055,9 @@ last{set_x=&lt;(x=1),x=0,set_x(),x} -> 1
 <br>
 ・<span class="run">Ver.2.276.65</span>以降、<a href="#span-out-eqns-args">式変数のarguments</a>の動的判別@<a href="#span-out-config-strict">Non-strict-mode</a>に対応
 <br>
-　defineの記号=&lt;を省略不可　⇒　省略可（<a href="#span-in-call-by-equation">遅延評価</a>の明示を除く）
+　define側：記号=&lt;を省略不可　⇒　省略可
+<br>
+　call側：省略可（<a href="#span-in-call-by-equation">遅延評価</a>の明示を除く）
 <br>
 h(x)=&lt;x; f(g)=&lt;g(3); f(h) -> <del>[MyErr]Invalid matching var(g)</del>3
 <br>
