@@ -2906,7 +2906,8 @@ My_entry.operation.prototype.inherit_constant = function(sw, name, scopes, ids, 
 /* Ver.2.262.62 */
 My_entry.operation.prototype.inherit_id_tree = function(left, right){
   var self = this;
-  left[(Object.keys(left))[0]].id = self.get_tagVal(right, "REv", "id");
+  var DATA = self.entry.DATA;  // Ver.2.276.65
+  DATA.setProp_tree(left, "id", self.get_tagVal(right, "REv", "id"));  // Ver.2.276.65
   return self;
 };
 /* Ver.2.31.17 -> */
@@ -3368,6 +3369,7 @@ My_entry.operation.prototype.REv = function(data, i0, tagName, tagObj){
           tree = self.tree_REe2SEe(tree);  // last{set_x=<(x=1),x=0,set_x,x} -> 0  // Ver.2.275.65
         }
       }
+      DATA.setProp_tree(tree, "isREv", true);  // Ver.2.276.65
       /* -> Ver.2.20.8 */
     }
     /* -> Ver.2.24.11 */
@@ -3787,31 +3789,77 @@ My_entry.operation.prototype.get_name_eqn_AtREe = function(trees, i0){  // Ver.2
   /* -> Ver.2.273.64 */
   return {hasArgs: hasArgs, name_eqn: name_eqn, tree_eqn: tree_eqn};  // Ver.2.273.64
 };
+/* Ver.2.276.65 */
+My_entry.operation.prototype.switch_type_tree = function(data, tree){
+  var self = this;
+  var ids = data.ids;
+  var DATA = self.entry.DATA;
+  var BT = self.config.BT;
+  var _tree = null;
+  var tagName = Object.keys(tree)[0];
+  var obj = tree[tagName];
+  if((obj && obj.isREv)){
+    _tree = tree;
+  }
+  else{
+    var tree_var = self.tree_eqn2tree_AtREe(data, tree);
+    if(tree_var && tree_var.mat){
+      var arr = tree_var.mat.arr;
+      if(!(DATA.hasVar_arr(arr))){
+        _tree = tree_var;
+      }
+    }
+  }
+  if(!(_tree)){
+    _tree = self.tree_eqn2tree_AtSEe(data, tree);
+  }
+  return _tree;
+};
 /* Ver.2.269.62 */
 My_entry.operation.prototype.restore_args_AtREe = function(data, name_eqn, args_eqn, args, ids_args_eqn, args_eqns, args_vars, args_bas, buffer_vars, buffer_eqns, ids_buffer){  // Ver.2.271.63
   var self = this;
   var scopes = data.scopes;
+  var BT = self.config.BT;  // Ver.2.276.65
   var len_args = args.length;
   /* Ver.2.275.65 -> */
-  var set_var = function(name, tree, opt_name){
+  var set_var = function(name, tree, opt_name, opt_tree){  // Ver.2.276.65
     if(buffer_vars && name){  // Ver.2.215.50
       buffer_vars[name] = self.restore_var(name, scopes, ids_buffer);
     }
-    var tree_var = self.tree_eqn2tree_AtREe(data, tree, opt_name);  // Ver.2.202.46  // Ver.2.255.59  // Ver.2.271.62
+    var tree_var = opt_tree || self.tree_eqn2tree_AtREe(data, tree, opt_name);  // Ver.2.202.46  // Ver.2.255.59  // Ver.2.271.62  // Ver.2.276.65
     args_vars[name] = tree_var;  // Ver.2.71.29  // Ver.2.256.59
   };
-  var set_eqn = function(name, tree, isSEee_argi){
+  var set_eqn = function(name, tree, isSEee_argi, opt_tree){  // Ver.2.276.65
     /* Ver.2.219.50 -> */
     if(buffer_eqns && name){  // Ver.2.215.50
       buffer_eqns[name] = self.tree_REe2SEe(self.restore_eqn(name, scopes, ids_buffer));  // Ver.2.273.65
     }
-    var tree_eqn = self.tree_eqn2tree_AtSEe(data, tree, ((isSEee_argi)? ids_args_eqn: null));  // Ver.2.255.59
+    var tree_eqn = opt_tree || self.tree_eqn2tree_AtSEe(data, tree, ((isSEee_argi)? ids_args_eqn: null));  // Ver.2.255.59  // Ver.2.276.65
     /* -> Ver.2.219.50 */
     if(!(tree_eqn)){  // Ver.2.255.59
       throw "Invalid args."+name+"("+name_eqn+")";
     }
     args_eqns[name] = tree_eqn;  // Ver.2.71.29  // Ver.2.256.59
   };
+  /* Ver.2.276.65 -> */
+  var set_type = function(name, tree){
+    var sw_tree = self.switch_type_tree(data, tree);
+    var isSEe = sw_tree[BT.SEe];
+    if(isSEe){
+      set_eqn(name, null, null, sw_tree);
+    }
+    else{
+      set_var(name, null, null, sw_tree);
+    }
+  };
+  var callback = (self.useStrict)?
+    function(name, right){
+      set_var(name, right, name);
+    }:
+    function(name, right){
+      set_type(name, right);
+    };
+  /* -> Ver.2.276.65 */
   /* -> Ver.2.275.65 */
   for(var i=0; i<len_args; ++i){
     var left = args_eqn[i];
@@ -3842,8 +3890,7 @@ My_entry.operation.prototype.restore_args_AtREe = function(data, name_eqn, args_
     }
     /* -> Ver.2.246.57 */
     else{
-      var name = left;
-      set_var(name, right, name);  // Ver.2.275.65
+      callback(left, right);  // Ver.2.276.65
     }
   }
   return self;

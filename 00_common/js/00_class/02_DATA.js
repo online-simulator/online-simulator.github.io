@@ -126,6 +126,15 @@ My_entry.DATA.prototype.hasVar_arr = function(arr){
   }
   return _hasVar;
 };
+/* calc-Ver.2.276.65 */
+My_entry.DATA.prototype.setProp_tree = function(_tree, prop, val){
+  var self = this;
+  if(_tree){
+    var tagName = (Object.keys(_tree))[0];
+    _tree[tagName][prop] = val;
+  }
+  return _tree;
+};
 My_entry.DATA.prototype.tree2num = function(tree){
   var self = this;
   var mat = (tree)? tree.mat: null;
