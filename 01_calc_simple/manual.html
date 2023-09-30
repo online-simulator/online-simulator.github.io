@@ -1971,7 +1971,7 @@ title/発行元(発行年)を列挙する
 <br>
 _r((n)=&lt;run,run(n,n)=&lt;n+1,3) -> <del>3</del>[MyErr]Invalid BTe([object Object],[object Object],[object Object])
 <br>
-　記号省略：自動実行　⇒　<a href="#span-out-eqns">式変数</a>宣言と判別（callの場合、記号を明示）
+　記号省略：自動実行　⇒　変数宣言の判別（callの場合、記号を明示）
 <br>
 last{set_x=&lt;(x=1),x=0,set_x,x} -> <del>1</del>0
 <br>
@@ -2075,7 +2075,7 @@ pending項目を列挙する
 <br>
 ・arr=arr|||[]の実装：undef宣言未実装のため、見送り
 <br>
-・<a href="#span-out-eqns">式変数</a>のcall記号省略：<del>自動実行　⇒　error終了</del><a href="#span-out-eqns">式変数</a>宣言と判別（callの場合、記号を明示）
+・<a href="#span-out-eqns">式変数</a>のcall記号省略：<del>自動実行　⇒　error終了</del>変数宣言の判別（callの場合、記号を明示）
     </td>
   </tr>
   <tr>
@@ -9034,7 +9034,7 @@ _r(()=&lt;run,run(n)=&lt;n+1,3) -> 3
 <br>
 _r((n)=&lt;run(n)=&gt;,run(n)=&lt;n+1,3) -> 3
 <br>
-　記号省略：自動実行　⇒　<a href="#span-out-eqns">式変数</a>宣言と判別（callの場合、記号を明示）
+　記号省略：自動実行　⇒　変数宣言の判別（callの場合、記号を明示）
 <br>
 last{set_x=&lt;(x=1),x=0,set_x,x} -> <del>1</del>0
 <br>
@@ -9085,6 +9085,10 @@ clear; times(a,b)=&lt;a<span class="condition">*</span>b; <span class="selection
 <br>
 clear; a=2; [<span class="selection">(x)</span>=&lt;a]()<span class="clear">=&gt;</span> -> 2</del>
 <br>
+・<span class="run">Ver.2.275.65</span>以降、既定で<a href="#span-out-eqns">式変数</a>のcall記号省略不可
+<br>
+clear; set_x=&lt;(x=1),x=0,set_x,x -> [MyErr]Invalid BTe([object Object])
+<br>
 <br>
 ・strict-modeの場合
 <br>
@@ -9125,6 +9129,10 @@ clear; a=2; f<span class="selection">(x)</span>=&lt;a; f<span class="clear">=&gt
 ・<span class="run">Ver.2.195.45</span>以降、<a href="#span-out-eqns-no-name">無名call</a>
 <br>
 clear; a=2; [<span class="selection">(x)</span>=&lt;a]()<span class="clear">=&gt;</span> -> [MyErr]Invalid args.length=1(null)
+<br>
+・<span class="run">Ver.2.275.65</span>以降、既定で<a href="#span-out-eqns">式変数</a>のcall記号省略不可
+<br>
+clear; set_x=&lt;(x=1),x=0,set_x,x -> [MyErr]Invalid REv(set_x)
     </td>
   </tr>
   <tr>
