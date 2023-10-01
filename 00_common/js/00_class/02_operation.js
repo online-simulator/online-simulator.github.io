@@ -3373,11 +3373,12 @@ My_entry.operation.prototype.REv = function(data, i0, tagName, tagObj){
             ie = i0+1;
           }
         }
-        else{
-//          tree = self.tree_eqn2tree_AtREe(data, tree);  // Ver.2.202.46  // Ver.2.275.65 auto-run disabled
-//          throw "Invalid call("+name+")";  // last{set_x=<(x=1),x=0,set_x,x} -> error  // Ver.2.275.65 pending
-          tree = self.tree_REe2SEe(tree);  // last{set_x=<(x=1),x=0,set_x,x} -> 0  // Ver.2.275.65
+        /* Ver.2.277.65 -> div=(x,y)=<x/y,div_curried=(x)=<(y)=<div(x,y),inv_y=div_curried(1) */
+        var isREe_post = tree[BT.REe];
+        if(isREe_post){
+          tree = self.tree_REe2SEe(tree);  // Ver.2.275.65
         }
+        /* -> Ver.2.277.65 */
       }
       /* -> Ver.2.20.8 */
     }

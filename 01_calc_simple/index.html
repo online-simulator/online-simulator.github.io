@@ -301,6 +301,8 @@
       script += "\nclear;\n";
       script += "h=(x)=<x,f=(g)=<g(3),f(h);\nA={(x)=<x,(x)=<-x,(x)=<x*x};\ncall_f=(ir)=<(h=A[ir],[f(h),f(A[ir])]/*Non-strict-mode*/);\nh=A[0];\nf(h);\ncall_f(0):call_f(1):call_f(2);";
       script += "\nclear;\n";
+      script += "div=(x,y)=<x/y;\ndiv_curried_not_closed=(x)=<(y)=<div(x,y);\ndiv_curried_closed_1st_call=(x)=<[(y)=<div(x,y)];\n(div_curried_not_closed(1))(1)=>:\n(div_curried_closed_1st_call(2))(1)=>:\nx=3,f=div_curried_not_closed,g=div_curried_closed_1st_call:\n(f(4))(1)=>:\n(g(5))(1)=>;";
+      script += "\nclear;\n";
       $._id("input").value = script;
     });
   })();

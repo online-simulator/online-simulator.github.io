@@ -1,6 +1,27 @@
 clear
 local storage cleared
 
+(div_curried_not_closed(1))(1)=>:(div_curried_closed_1st_call(2))(1)=>:x=3,f=div_curried_not_closed,g=div_curried_closed_1st_call:(f(4))(1)=>:(g(5))(1)=>
+(
+1:
+2:
+0,0,0:
+3:
+2
+)
+
+div_curried_closed_1st_call=(x)=<[(y)=<div(x,y)]
+stored_eqn(div_curried_closed_1st_call)
+
+div_curried_not_closed=(x)=<(y)=<div(x,y)
+stored_eqn(div_curried_not_closed)
+
+div=(x,y)=<x/y
+stored_eqn(div)
+
+clear
+local storage cleared
+
 call_f(0):call_f(1):call_f(2)
 (
 0,3,3:
@@ -3602,4 +3623,4 @@ drag=false&sw=false&0x=false&useMatrix=true&useStrict=false&checkError=true&isRi
 --------------------------------
 --------------------------------
 
-online-simulator.github.io.6.327.138.16.77 @ Sun Oct 01 2023 21:46:06 GMT+0900 (日本標準時) @ Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/117.0.0.0 Safari/537.36
+online-simulator.github.io.6.327.138.16.77 @ Mon Oct 02 2023 02:56:06 GMT+0900 (日本標準時) @ Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/117.0.0.0 Safari/537.36

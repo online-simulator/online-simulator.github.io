@@ -273,14 +273,24 @@ minor update
     <td>
 [Calculator]
 <br>
-・operation.js substitution extended
+・operation.js substitution extended/updated
 <br>
 h=(x)=&lt;x; f=(g)=&lt;g(3); f(h) -> 3
 <br>
-・test case updated
+div=(x,y)=&lt;x/y;
+<br>
+div_curried_closed_1st_call=(x)=&lt;[(y)=&lt;div(x,y)];
+<br>
+f=div_curried_closed_1st_call;
+<br>
+g=div_curried_closed_1st_call;
+<br>
+(f(2))(1)=&gt;,(f(3))(1)=&gt;,(g(3))(1)=&gt; -> (2,2,2)
+<br>
+・test case re-updated
     </td>
     <td>
-2023/10/1
+2023/10/2
     </td>
   </tr>
   <tr>

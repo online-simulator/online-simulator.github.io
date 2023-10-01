@@ -1040,6 +1040,8 @@ ja.m.wikipedia.org/wiki/項目を列挙する
 <br>
 ・遅延評価
 <br>
+・カリー化
+<br>
 ・無名再帰
 <br>
 ・相互再帰
@@ -9082,6 +9084,20 @@ f(3) -> 3
 ・<a href="#span-out-eqns-no-name">無名call</a>の<a href="#span-out-eqns-return">末尾return</a>
 <br>
 (A)(2)=&gt; -> 4
+<br>
+・curried
+<br>
+clear;
+<br>
+div=(x,y)=&lt;x/y;
+<br>
+div_curried_closed_1st_call=(x)=&lt;[(y)=&lt;div(x,y)];
+<br>
+f=div_curried_closed_1st_call;
+<br>
+g=div_curried_closed_1st_call;
+<br>
+(f(2))(1)=&gt;,(f(3))(1)=&gt;,(g(3))(1)=&gt; -> (2,2,2)
 <br>
 <br>
 曖昧さを回避することで演算内容の入力上、引いては演算上の間違いを低減する
