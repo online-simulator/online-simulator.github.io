@@ -313,6 +313,8 @@
       script += "\nclear;\n";
       script += "h(x)=<x,f(g)=<g(3),f(h):[[_e((A)=<x,1,1),x0=1,f(A)=<[x0=2,A(),A==>],f(=<A):_e((A)=<x,1,1),x0=3,f(A)=<[x0=4,A(),A==>],f(A):_e((A)=<x,1,2),x0=5,x1=6,f(A)=<[x0=7,x1=8,A(),A==>],f(A):[f=<x,x=i,g(f)=<[x=2i,f(),f==>],g(f)]:[f=<-x,x=3i,g(f)=<[x=4i,f(),f==>],g(f)]]]/*Non-strict-mode*/;";
       script += "\nclear;\n";
+      script += "h=(x)=<x,f=(g)=<g(3),f(h);\nA={(x)=<x,(x)=<-x,(x)=<x*x};\ncall_f=(ir)=<(h=A[ir],[f(h),f(A[ir])]/*Non-strict-mode*/);\nh=A[0];\nf(h);\ncall_f(0):call_f(1):call_f(2);";
+      script += "\nclear;\n";
       $._id("input").value = script;
       // test case
       var setVal = function(){

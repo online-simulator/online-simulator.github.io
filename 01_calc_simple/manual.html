@@ -1918,6 +1918,10 @@ title/発行元(発行年)を列挙する
 　define側：記号=&lt;を省略不可　⇒　省略可（call側の引数を自動展開時、付与のflagからtree継承）
 <br>
 　call側：省略可（<a href="#span-in-call-by-equation">遅延評価</a>の明示を除く）
+<br>
+・<span class="run">Ver.2.277.65</span>以降、equal記号=の動的判別に対応（<a href="#span-out-reference-mat">行列への参照</a>||<a href="#span-out-eqns-re-use">再利用</a>を含む）
+<br>
+　equal記号=：省略の前提　⇒　省略可（旧仕様を含めて統廃合の可能性あり）
     </td>
   </tr>
   <tr>
@@ -2402,7 +2406,7 @@ ECMAScriptとの相違について記述する
 <br>
 ・<a href="#span-out-BT">括弧</a>の<a href="#span-out-prec">演算のprecedence</a>（<a href="#span-out-eqns">式変数</a>||<a href="#span-out-FNm">関数</a>callより優先）
 <br>
-　<a href="#span-out-BT">括弧</a>の中身を自動展開するため、<a href="#span-in-call-by-equation">遅延評価</a>の場合、記号=&lt;を明示
+　<a href="#span-out-BT">括弧</a>の中身を自動展開（<a href="#span-out-mat">行列</a>を想定）するため、<a href="#span-in-call-by-equation">遅延評価</a>の場合、記号=&lt;を明示
 <br>
 <br>
 明確に冗長な仕様（arrow関数の記号=&gt;が反転の主要因）を列挙する
@@ -9062,6 +9066,22 @@ last{set_x=&lt;(x=1),x=0,set_x(),x} -> 1
 h(x)=&lt;x; f(g)=&lt;g(3); f(h) -> <del>[MyErr]Invalid matching var(g)</del>3
 <br>
 A=(1,2:3,4); f(A)=&lt;A; f(A) -> [MyErr]Invalid args.length=1(f)
+<br>
+・<span class="run">Ver.2.277.65</span>以降、equal記号=の動的判別に対応（<a href="#span-out-reference-mat">行列への参照</a>||<a href="#span-out-eqns-re-use">再利用</a>を含む）
+<br>
+　equal記号=：省略の前提　⇒　省略可
+<br>
+f<span class="run">=</span>(x)=&lt;x; f(3)=&gt; -> 3
+<br>
+A={(x)=&lt;x,(x)=&lt;-x,(x)=&lt;x*x} -> (<span class="run">BTe:BTe:BTe</span>)
+<br>
+f=A[0] -> stored_<span class="run">eqn</span>(f)
+<br>
+f(3) -> 3
+<br>
+・<a href="#span-out-eqns-no-name">無名call</a>の<a href="#span-out-eqns-return">末尾return</a>
+<br>
+(A)(2)=&gt; -> 4
 <br>
 <br>
 曖昧さを回避することで演算内容の入力上、引いては演算上の間違いを低減する

@@ -935,7 +935,19 @@ My_entry.parser.prototype.loop_callback = function(trees, callback){
   if(isDataEqn){
     for(var name in trees){
       var tree = trees[name];
-      callback(tree);
+      /* Ver.2.277.65 -> */
+      if(tree && tree.mat){
+        var arr = tree.mat.arr;
+        for(var i=0, len_i=arr.length; i<len_i; ++i){
+          for(var j=0, len_j=arr[i].length; j<len_j; ++j){
+            callback(arr[i][j]);
+          }
+        }
+      }
+      /* -> Ver.2.277.65 */
+      else{
+        callback(tree);
+      }
     }
   }
   else if(isBT){
@@ -1097,6 +1109,7 @@ My_entry.parser.prototype.script2objs2d = function(data){
         self.make_scopes(data.options.useScope, data.eqns, scopes, ids2d, j);
         scopes2d.push(scopes);
         self.check_hasTag(data.eqns);  // Ver.2.214.50
+        self.check_hasTag(data.vars);  // Ver.2.277.65
       }
       /* -> Ver.2.32.17 */
     }
@@ -1213,6 +1226,7 @@ My_entry.parser.prototype.make_arr_num = function(data){
 My_entry.parser.prototype.make_log_num = function(num, options){
   var self = this;
   var DATA = self.entry.DATA;
+  var BT = self.entry.operation.config.BT;  // Ver.2.277.65
   var _log = "";
   var useComplex = options.useComplex;
   var ed = options.expDigit;
@@ -1283,6 +1297,11 @@ My_entry.parser.prototype.make_log_num = function(num, options){
       _log += ")";
     }
   }
+  /* Ver.2.277.65 -> */
+  else if(num[BT.SEe]){
+    _log += BT.SEe;
+  }
+  /* -> Ver.2.277.65 */
   else{
     self.entry.operation.throw_tree(num);
   }

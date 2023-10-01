@@ -1,6 +1,37 @@
 clear
 local storage cleared
 
+call_f(0):call_f(1):call_f(2)
+(
+0,3,3:
+0,-3,-3:
+0,9,9
+)
+
+f(h)
+3
+
+h=A[0]
+stored_eqn(h)
+
+call_f=(ir)=<(h=A[ir],[f(h),f(A[ir])]/*Non-strict-mode*/)
+stored_eqn(call_f)
+
+A={(x)=<x,(x)=<-x,(x)=<x*x}
+A=(
+BTe:
+BTe:
+BTe
+)
+
+h=(x)=<x,f=(g)=<g(3),f(h)
+(
+0,0,3
+)
+
+clear
+local storage cleared
+
 h(x)=<x,f(g)=<g(3),f(h):[[_e((A)=<x,1,1),x0=1,f(A)=<[x0=2,A(),A==>],f(=<A):_e((A)=<x,1,1),x0=3,f(A)=<[x0=4,A(),A==>],f(A):_e((A)=<x,1,2),x0=5,x1=6,f(A)=<[x0=7,x1=8,A(),A==>],f(A):[f=<x,x=i,g(f)=<[x=2i,f(),f==>],g(f)]:[f=<-x,x=3i,g(f)=<[x=4i,f(),f==>],g(f)]]]/*Non-strict-mode*/
 (
 0,0,3:
@@ -3571,4 +3602,4 @@ drag=false&sw=false&0x=false&useMatrix=true&useStrict=false&checkError=true&isRi
 --------------------------------
 --------------------------------
 
-online-simulator.github.io.6.326.138.16.77 @ Sun Oct 01 2023 00:17:10 GMT+0900 (日本標準時) @ Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/117.0.0.0 Safari/537.36
+online-simulator.github.io.6.327.138.16.77 @ Sun Oct 01 2023 21:46:06 GMT+0900 (日本標準時) @ Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/117.0.0.0 Safari/537.36

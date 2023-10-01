@@ -3317,13 +3317,23 @@ My_entry.operation.prototype.tree_eqn2tree_AtSEe = function(data, tree_eqn, opt_
   return _tree;
 };
 /* -> Ver.2.255.59 */
-My_entry.operation.prototype.tree2tree_ref = function(tree, ref){
+My_entry.operation.prototype.tree2tree_ref = function(tree, ref, isREv){  // Ver.2.277.65
   var self = this;
   var DATA = self.entry.DATA;
+  var BT = self.config.BT;  // Ver.2.277.65
   var _tree = null;
   var arr = self.get_tagVal(tree, "mat", "arr");
   if(arr){
-    _tree = DATA.tree_mat(self.restore_arr(arr, ref));
+    /* Ver.2.277.65 -> */
+    var arr_ref = self.restore_arr(arr, ref);
+    _tree = DATA.tree_mat(arr_ref);
+    if(isREv){
+      var isSEe_arr = self.has1elem_tag(arr_ref, BT.SEe);  // Ver.2.255.59
+      if(isSEe_arr){
+        _tree = self.tree2tree_SEe(_tree);
+      }
+    }
+    /* -> Ver.2.277.65 */
   }
   else{
     self.throw_tree(tree);
@@ -3369,7 +3379,6 @@ My_entry.operation.prototype.REv = function(data, i0, tagName, tagObj){
           tree = self.tree_REe2SEe(tree);  // last{set_x=<(x=1),x=0,set_x,x} -> 0  // Ver.2.275.65
         }
       }
-      DATA.setProp_tree(tree, "isREv", true);  // Ver.2.276.65
       /* -> Ver.2.20.8 */
     }
     /* -> Ver.2.24.11 */
@@ -3377,8 +3386,9 @@ My_entry.operation.prototype.REv = function(data, i0, tagName, tagObj){
   /* -> Ver.2.260.61 */
   if(tree){
     if(ref){
-      tree = self.tree2tree_ref(tree, ref);
+      tree = self.tree2tree_ref(tree, ref, true);  // Ver.2.277.65
     }
+    DATA.setProp_tree(tree, "isREv", true);  // Ver.2.276.65  // Ver.2.277.65 last to support isSEe@SEv
     self.feedback2trees(data, is, ie, tree);
   }
   else{
@@ -3527,6 +3537,7 @@ My_entry.operation.prototype.SEv = function(data, i0, tagName, tagObj){
   var scopes = data.scopes;
   var ids = data.ids;
   var DATA = self.entry.DATA;
+  var BT = self.config.BT;  // Ver.2.277.65
   var is = i0-1;
   var ie = i0+1;
   var leftTree = trees[is];
@@ -3542,7 +3553,9 @@ My_entry.operation.prototype.SEv = function(data, i0, tagName, tagObj){
           name_var = name_var.substring(1);
         }
         /* -> Ver.2.249.57 */
-        if(self.get_tag(tree, "mat")){  // only matrix is stored
+        var isSEe = tree[BT.SEe];  // Ver.2.277.65
+        if(tree.mat){
+          var arr = tree.mat.arr;  // Ver.2.277.65
           var ref = self.get_tagVal(leftTree, "REv", "ref");
           if(ref){
             /* Ver.2.76.29 -> */
@@ -3554,19 +3567,19 @@ My_entry.operation.prototype.SEv = function(data, i0, tagName, tagObj){
             if(tree_var){
               var len_ref = ref.length;
               if(len_ref === 2 && ref[0] === Math.E){  // Ver.2.79.31
-                self.store_arr_col(tree_var.mat.arr, ref, tree.mat.arr);
+                self.store_arr_col(tree_var.mat.arr, ref, arr);  // Ver.2.277.65
               }
               else if(len_ref < 3){
-                self.store_arr(tree_var.mat.arr, ref, tree.mat.arr);
+                self.store_arr(tree_var.mat.arr, ref, arr);  // Ver.2.277.65
               }
               /* Ver.2.77.30 -> */
               else if(len_ref === 4){
-                self.store_arr_area(tree_var.mat.arr, ref, tree.mat.arr);
+                self.store_arr_area(tree_var.mat.arr, ref, arr);  // Ver.2.277.65
               }
               /* -> Ver.2.77.30 */
               /* Ver.2.80.32 -> */
               else if((len_ref+1)%2 === 0){
-                self.store_arr_band(tree_var.mat.arr, ref, tree.mat.arr);
+                self.store_arr_band(tree_var.mat.arr, ref, arr);  // Ver.2.277.65
               }
               /* -> Ver.2.80.32 */
               else{
@@ -3582,6 +3595,11 @@ My_entry.operation.prototype.SEv = function(data, i0, tagName, tagObj){
           self.inherit_id_tree(tree, leftTree);  // Ver.2.262.62
           self.store_var(name_var, tree, scopes, ids, isEscaped);  // Ver.2.31.17  // Ver.2.249.57
           tree = DATA.tag("out", {name: name_var, arr: tree.mat.arr});
+        }
+        else if(isSEe){  // Ver.2.277.65
+          self.inherit_id_tree(tree, leftTree);  // Ver.2.262.62
+          self.store_eqn(name_var, tree, scopes, ids, isEscaped);  // Ver.2.277.65
+          tree = DATA.tree_tag("out", "stored_eqn("+name_var+")");  // Ver.2.277.65
         }
         else{
           self.throw_tree(tree);
