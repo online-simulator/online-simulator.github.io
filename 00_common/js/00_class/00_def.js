@@ -70,6 +70,7 @@ My_entry.def.prototype.get_msgError = function(e, opt_msg){
   if(self.isObject(e)){
     var msg = String(e.message);
     var hasError = msg.match("Error");
+    var hasP = e.process;  // calc-Ver.2.278.65
     var hasJ = !(isNaN(e.j));
     if(hasError){
       _msg = msg.substring(hasError.index+7);
@@ -79,6 +80,9 @@ My_entry.def.prototype.get_msgError = function(e, opt_msg){
     }
     else{
       _msg = msg;
+    }
+    if(hasP){
+      _msg += "@"+e.process;  // calc-Ver.2.278.65
     }
     if(hasJ){
       _msg += "@j="+e.j;

@@ -1078,9 +1078,12 @@ My_entry.parser.prototype.script2objs2d = function(data){
     var arr_sentence = self.script2arr(script);
     var scope0 = DATA.scope(data.vars, data.eqns);
     if(arr_sentence && arr_sentence.length){
+      var j = 0;
+    try{
       trees2d = [];
       scopes2d = [];
-      arr_sentence.forEach(function(sentence, j){
+      for(var len_j=arr_sentence.length; j<len_j; ++j){
+        var sentence = arr_sentence[j];
         var isOK = self.check_syntax(sentence);
         if(isOK){
           var trees = null;
@@ -1100,7 +1103,7 @@ My_entry.parser.prototype.script2objs2d = function(data){
           trees2d.push(trees);
           scopes2d.push(scopes);
         }
-      });
+      }
       /* Ver.2.32.17 re-use of equations with static scope supported -> */
       if(data.eqns){
         var j = scopes2d.length;
@@ -1112,6 +1115,10 @@ My_entry.parser.prototype.script2objs2d = function(data){
         self.check_hasTag(data.vars);  // Ver.2.277.65
       }
       /* -> Ver.2.32.17 */
+    }
+    catch(e){
+      throw {message: e, j: j, process: "pre"};  // Ver.2.278.65
+    }
     }
     self.check_id_tree_max();  // Ver.2.264.62
   }
@@ -1218,7 +1225,7 @@ My_entry.parser.prototype.make_arr_num = function(data){
     });
   }
   catch(e){
-    throw {message: String(e)+"@post", j: j};  // Ver.2.274.65
+    throw {message: e, j: j, process: "post"};  // Ver.2.274.65  // Ver.2.278.65
   }
   });
   return _arr_num;
@@ -1382,7 +1389,7 @@ My_entry.parser.prototype.make_log = function(data){
     });
   }
   catch(e){
-    throw {message: String(e)+"@post", j: j};  // Ver.2.274.65
+    throw {message: e, j: j, process: "post"};  // Ver.2.274.65  // Ver.2.278.65
   }
   });
   return _log;
