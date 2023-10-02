@@ -1924,6 +1924,10 @@ title/発行元(発行年)を列挙する
 ・<span class="run">Ver.2.277.65</span>以降、equal記号=の動的判別に対応（<a href="#span-out-reference-mat">行列への参照</a>||<a href="#span-out-eqns-re-use">再利用</a>を含む）
 <br>
 　equal記号=：省略の前提　⇒　省略可（旧仕様を含めて統廃合の可能性あり）
+<br>
+・<span class="run">Ver.2.279.65</span>以降、<a href="#span-out-prec-ope-arithmetic-ite">iterator演算子</a>の第1引数の動的判別@<a href="#span-out-config-strict">Non-strict-mode</a>に対応
+<br>
+　実装関数の引数：動的判別なし　⇒　<a href="#span-out-prec-ope-arithmetic-ite">iterator演算子</a>@<a href="#span-out-config-strict">Non-strict-mode</a>のみ対応
     </td>
   </tr>
   <tr>
@@ -2117,6 +2121,14 @@ plot仕様
 　Ver.1：<span class="run">Ver.2.33.17</span>~<span class="run">Ver.2.190.44</span>の仕様
 <br>
 　Ver.2：<span class="run">Ver.2.190.44</span>~の仕様
+<br>
+・<span class="run">Ver.2.279.65</span>以降、<a href="#span-out-BT-empty">空括弧</a>のplot値を変更
+<br>
+　0　⇒　<a href="#span-out-num-NaN">欠損値</a>
+<br>
+・<span class="run">Ver.2.279.65</span>以降、変数宣言が残存する場合、plotの挙動を変更
+<br>
+　error終了　⇒　<a href="#span-out-num-NaN">欠損値</a>に変換
     </td>
   </tr>
   <tr>
@@ -9091,6 +9103,14 @@ f(3) -> 3
 <br>
 (A)(2)=&gt; -> 4
 <br>
+x=(=&lt;2) -> x=BTe
+<br>
+(x)=&gt; -> 2
+<br>
+x=()=&lt;2 -> stored_eqn(x)
+<br>
+x() -> 2
+<br>
 ・curried（pipelineの各引数は初回callでclosed）
 <br>
 clear;
@@ -9170,6 +9190,10 @@ clear; a=2; [<span class="selection">(x)</span>=&lt;a]()<span class="clear">=&gt
 <br>
 clear; set_x=&lt;(x=1),x=0,set_x,x -> [MyErr]Invalid BTe([object Object])
 <br>
+・<span class="run">Ver.2.279.65</span>以降、<a href="#span-out-prec-ope-arithmetic-ite">iterator演算子</a>の第1引数の動的判別@Non-strict-modeに対応
+<br>
+clear; [(x)=&lt;x,(x)=&lt;-x,(x)=&lt;x*x].map((f)=&lt;f(3)) -> (3,-3,9)
+<br>
 <br>
 ・strict-modeの場合
 <br>
@@ -9214,6 +9238,10 @@ clear; a=2; [<span class="selection">(x)</span>=&lt;a]()<span class="clear">=&gt
 ・<span class="run">Ver.2.275.65</span>以降、既定で<a href="#span-out-eqns">式変数</a>のcall記号省略不可
 <br>
 clear; set_x=&lt;(x=1),x=0,set_x,x -> [MyErr]Invalid REv(set_x)
+<br>
+・<span class="run">Ver.2.279.65</span>以降、<a href="#span-out-prec-ope-arithmetic-ite">iterator演算子</a>の第1引数の動的判別@Non-strict-modeに対応
+<br>
+clear; [(x)=&lt;x,(x)=&lt;-x,(x)=&lt;x*x].map((f)=&lt;f(3)) -> [MyErr]Invalid URh-args.f
     </td>
   </tr>
   <tr>
@@ -10268,6 +10296,12 @@ iterator演算子と付随する留意事項について記述する
 ・<span class="run">Ver.2.257.59</span>以降、iterator対象を拡張
 <br>
 　iterator対象：<a href="#span-out-vars">変数</a>　⇒　<a href="#span-out-vars">変数</a>・<a href="#span-out-eqns">式変数</a>
+<br>
+・<span class="run">Ver.2.279.65</span>以降、第1引数の動的判別@<a href="#span-out-config-strict">Non-strict-mode</a>に対応
+<br>
+clear; A=[(x)=&lt;x,(x)=&lt;-x,(x)=&lt;x*x]; A.map((f)=&lt;f(3)) -> (3,-3,9)
+<br>
+clear; [(x)=&lt;x,(x)=&lt;-x,(x)=&lt;x*x].map((f)=&lt;f(3)) -> (3,-3,9)
 <br>
 <br>
 .map演算子

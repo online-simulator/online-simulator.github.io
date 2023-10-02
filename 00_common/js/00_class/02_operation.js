@@ -2326,8 +2326,8 @@ My_entry.operation.prototype.store4URh_sw = function(data, num_escape, name, arg
   var self = this;
   var DATA = self.entry.DATA;
   var BT = self.config.BT;
-  if(num_escape){
-    var isSEe = argi[BT.SEe];
+  /* Ver.2.279.65 -> */
+  var store_eqn = function(isSEe){
     if(isSEe){
       var tree = self.tree_eqn2tree_AtSEe(data, argi);  // Ver.2.255.59  // Ver.2.257.60 inherit_ids not-supported
       self.store_eqn(name, tree, scopes, ids_buffer);
@@ -2335,10 +2335,21 @@ My_entry.operation.prototype.store4URh_sw = function(data, num_escape, name, arg
     else{
       throw "Invalid URh-args."+name;
     }
+  };
+  var isSEe = argi[BT.SEe];
+  if(num_escape){
+    store_eqn(isSEe);
   }
   else{
-    self.store_var(name, DATA.num2tree(argi), scopes, ids_buffer);  // Ver.2.226.55
+    if(isSEe){
+      var isSEe_dynamic = (self.useStrict)? false: isSEe;
+      store_eqn(isSEe_dynamic);
+    }
+    else{
+      self.store_var(name, DATA.num2tree(argi), scopes, ids_buffer);  // Ver.2.226.55
+    }
   }
+  /* -> Ver.2.279.65 */
   return self;
 };
 My_entry.operation.prototype.URh = function(data, i0, tagName, tagObj, dot_prop){
@@ -3374,8 +3385,8 @@ My_entry.operation.prototype.REv = function(data, i0, tagName, tagObj){
           }
         }
         /* Ver.2.277.65 -> div=(x,y)=<x/y,div_curried=(x)=<(y)=<div(x,y),inv_y=div_curried(1) */
-        var isREe_post = tree[BT.REe];
-        if(isREe_post){
+        var isREe_dynamic = tree[BT.REe];  // Ver.2.279.65
+        if(isREe_dynamic){  // Ver.2.279.65
           tree = self.tree_REe2SEe(tree);  // Ver.2.275.65
         }
         /* -> Ver.2.277.65 */
@@ -3554,7 +3565,7 @@ My_entry.operation.prototype.SEv = function(data, i0, tagName, tagObj){
           name_var = name_var.substring(1);
         }
         /* -> Ver.2.249.57 */
-        var isSEe = tree[BT.SEe];  // Ver.2.277.65
+        var isSEe_dynamic = tree[BT.SEe];  // Ver.2.277.65  // Ver.2.279.65
         if(tree.mat){
           var arr = tree.mat.arr;  // Ver.2.277.65
           var ref = self.get_tagVal(leftTree, "REv", "ref");
@@ -3597,7 +3608,7 @@ My_entry.operation.prototype.SEv = function(data, i0, tagName, tagObj){
           self.store_var(name_var, tree, scopes, ids, isEscaped);  // Ver.2.31.17  // Ver.2.249.57
           tree = DATA.tag("out", {name: name_var, arr: tree.mat.arr});
         }
-        else if(isSEe){  // Ver.2.277.65
+        else if(isSEe_dynamic){  // Ver.2.277.65  // Ver.2.279.65
           self.inherit_id_tree(tree, leftTree);  // Ver.2.262.62
           self.store_eqn(name_var, tree, scopes, ids, isEscaped);  // Ver.2.277.65
           tree = DATA.tree_tag("out", "stored_eqn("+name_var+")");  // Ver.2.277.65
@@ -4219,7 +4230,7 @@ My_entry.operation.prototype.SEans = function(data, i0, tagName, tagObj){
           data.vars.ans = tree;  // Ver.2.31.17  // Ver.2.266.62
         }
         else{
-          self.throw_tree(tree);
+          self.throw_tree(tree);  // Ver.2.279.65 including BTe
         }
       }
       if(tree){

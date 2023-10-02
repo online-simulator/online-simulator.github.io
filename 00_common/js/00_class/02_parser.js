@@ -1208,13 +1208,9 @@ My_entry.parser.prototype.make_arr_num = function(data){
       if(mat){
         /* Ver.2.224.51 -> */
         var arr = mat.arr;
-        var hasVar = DATA.hasVar_arr(arr);
-        if(hasVar){
-          self.entry.operation.throw_tree(hasVar);
-        }
         /* Ver.2.158.38 -> */
         var isEmpty = (arr.length === 0);
-        num = (isEmpty)? DATA.num(0, 0): DATA.arr2num(arr);
+        num = (isEmpty || DATA.hasVar_arr(arr))? DATA.num(NaN, NaN): DATA.arr2num(arr);  // Ver.2.279.65 0 -> NaN
         /* -> Ver.2.158.38 */
         /* -> Ver.2.224.51 */
       }
