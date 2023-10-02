@@ -1,7 +1,27 @@
 clear
 local storage cleared
 
-(div_curried_not_closed(1))(1)=>:(div_curried_closed_1st_call(2))(1)=>:x=3,f=div_curried_not_closed,g=div_curried_closed_1st_call:(f(4))(1)=>:(g(5))(1)=>
+(1/linspace(1,10,10):linspace(1,10,10)).map((x)=<inv_y_applied_partially(x)).
+(
+1,1:
+2,0.5:
+3,0.3333333333333333:
+4,0.25:
+5,0.2:
+6,0.16666666666666666:
+7,0.14285714285714285:
+8,0.125:
+9,0.1111111111111111:
+10,0.1
+)
+
+inv_y_applied_partially=div_curried_closed_1st_call(1)
+stored_eqn(inv_y_applied_partially)
+
+div_curried_closed_1st_call=(x)=<[(x)=<(y)=<div(x,y)](x)=>
+stored_eqn(div_curried_closed_1st_call)
+
+(div_curried_not_closed(1))(1)=>:(div_curried_closed_1st_call(2))(1)=>:x=3,f=div_curried_not_closed,g=div_curried_closed_1st_call:(f(4))(1)=>:(g(5))(1)=>/*anonymous call sign to distinguish omitted multiplication sign(*)*/
 (
 1:
 2:
@@ -3623,4 +3643,4 @@ drag=false&sw=false&0x=false&useMatrix=true&useStrict=false&checkError=true&isRi
 --------------------------------
 --------------------------------
 
-online-simulator.github.io.6.328.138.16.77 @ Mon Oct 02 2023 03:33:30 GMT+0900 (日本標準時) @ Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/117.0.0.0 Safari/537.36
+online-simulator.github.io.6.328.138.16.77 @ Mon Oct 02 2023 16:35:27 GMT+0900 (日本標準時) @ Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/117.0.0.0 Safari/537.36

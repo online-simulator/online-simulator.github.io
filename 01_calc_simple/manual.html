@@ -2410,6 +2410,8 @@ ECMAScriptとの相違について記述する
 <br>
 　<a href="#span-out-BT">括弧</a>の中身を自動展開（<a href="#span-out-mat">行列</a>を想定）するため、<a href="#span-in-call-by-equation">遅延評価</a>の場合、記号=&lt;を明示
 <br>
+　<a href="#span-out-BRmo">記号省略乗算</a>と区別するため、<a href="#span-out-eqns-no-name">無名call</a>のcall記号=&gt;省略不可
+<br>
 <br>
 明確に冗長な仕様（arrow関数の記号=&gt;が反転の主要因）を列挙する
 <br>
@@ -9101,7 +9103,19 @@ f=div_curried_closed_1st_call;
 <br>
 g=div_curried_closed_1st_call;
 <br>
+・<a href="#span-out-eqns-no-name">無名call</a>のcall記号=&gt;省略不可
+<br>
 (f(2))(1)=&gt;,(f(3))(1)=&gt;,(g(3))(1)=&gt; -> (2,2,2)
+<br>
+・同義（pipe表記）
+<br>
+div_curried_closed_1st_call=(x)=&lt;[(x)=&lt;(y)=&lt;div(x,y)](x)=&gt;;
+<br>
+・部分適用
+<br>
+inv_y_applied_partially=div_curried_closed_1st_call(1);
+<br>
+(1,5,10).map((x)=&lt;inv_y_applied_partially(x)) -> (1,0.2,0.1)
 <br>
 <br>
 曖昧さを回避することで演算内容の入力上、引いては演算上の間違いを低減する
@@ -23751,7 +23765,7 @@ clear; f(n)=&lt;n&lt;=1|||round(n)*f(n-1)=&gt;; [n=10,(=&lt;f)=&lt;f(n)=&gt;](=&
 <br>
 clear; d=&lt;-a*z+b*A+c; [a=1,(z,A)=&lt;[b=2,(c)=&lt;d==&gt;](a*z)=&gt;](i,=&lt;(1,2:3,4))=&gt; -> (2,4:6,8)
 <br>
-・<a href="#span-out-eqns-call">式読出し</a>記号=&gt;省略不可
+・call記号=&gt;省略不可
 <br>
 [(x)=&lt;x](2) -> [MyErr]Invalid FN operation
 <br>
