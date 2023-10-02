@@ -305,6 +305,10 @@
       script += "\n";
       script += "div_curried_closed_1st_call=(x)=<[(x)=<(y)=<div(x,y)](x)=>;\ninv_y_applied_partially=div_curried_closed_1st_call(1);\n(1/linspace(1,10,10):linspace(1,10,10)).map((x)=<inv_y_applied_partially(x)).;";
       script += "\nclear;\n";
+      script += "f=(x)=<[(y)=<(z)=<(x,y,z)]:xy_z=(f(1))(2)=>:xy_z(3):xy_z(4):xy_z(5);";
+      script += "\nclear;\n";
+      script += "call_f=<(hass(=<f)&&&f=>||||false,a):a=i,[a=1,[a=2,[a=3,(a)==<=<call_f](a)=>f,=<==<call_f]=>f,/*omitted=<*/==<call_f]=>f,call_f():a=i,f=[a=1,f=[a=2,f=[a=3,(a)==<=<call_f](a)=>,=<==<call_f]=>,/*omitted=<*/==<call_f]=>,call_f();";
+      script += "\nclear;\n";
       $._id("input").value = script;
     });
   })();

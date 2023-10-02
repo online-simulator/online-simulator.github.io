@@ -9091,7 +9091,7 @@ f(3) -> 3
 <br>
 (A)(2)=&gt; -> 4
 <br>
-・curried
+・curried（pipelineの各引数は初回callでclosed）
 <br>
 clear;
 <br>
@@ -9116,6 +9116,10 @@ div_curried_closed_1st_call=(x)=&lt;[(x)=&lt;(y)=&lt;div(x,y)](x)=&gt;;
 inv_y_applied_partially=div_curried_closed_1st_call(1);
 <br>
 (1,5,10).map((x)=&lt;inv_y_applied_partially(x)) -> (1,0.2,0.1)
+<br>
+・pipe
+<br>
+f=(x)=&lt;[(y)=&lt;(z)=&lt;(x,y,z)]; xy_z=(f(1))(2)=&gt;; xy_z(3):xy_z(4):xy_z(5) -> (1,2,3:1,2,4:1,2,5)
 <br>
 <br>
 曖昧さを回避することで演算内容の入力上、引いては演算上の間違いを低減する

@@ -1,6 +1,28 @@
 clear
 local storage cleared
 
+call_f=<(hass(=<f)&&&f=>||||false,a):a=i,[a=1,[a=2,[a=3,(a)==<=<call_f](a)=>f,=<==<call_f]=>f,/*omitted=<*/==<call_f]=>f,call_f():a=i,f=[a=1,f=[a=2,f=[a=3,(a)==<=<call_f](a)=>,=<==<call_f]=>,/*omitted=<*/==<call_f]=>,call_f()
+(
+0:
+0,0,false,3,2,1,i:
+0,0,false,3,2,1,i
+)
+
+clear
+local storage cleared
+
+f=(x)=<[(y)=<(z)=<(x,y,z)]:xy_z=(f(1))(2)=>:xy_z(3):xy_z(4):xy_z(5)
+(
+0:
+0:
+1,2,3:
+1,2,4:
+1,2,5
+)
+
+clear
+local storage cleared
+
 (1/linspace(1,10,10):linspace(1,10,10)).map((x)=<inv_y_applied_partially(x)).
 (
 1,1:
@@ -3643,4 +3665,4 @@ drag=false&sw=false&0x=false&useMatrix=true&useStrict=false&checkError=true&isRi
 --------------------------------
 --------------------------------
 
-online-simulator.github.io.6.328.138.16.77 @ Mon Oct 02 2023 16:35:27 GMT+0900 (日本標準時) @ Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/117.0.0.0 Safari/537.36
+online-simulator.github.io.6.328.138.16.77 @ Mon Oct 02 2023 20:14:44 GMT+0900 (日本標準時) @ Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/117.0.0.0 Safari/537.36
