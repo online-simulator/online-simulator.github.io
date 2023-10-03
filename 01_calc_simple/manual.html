@@ -2095,9 +2095,19 @@ pending項目を列挙する
 <br>
 ・arrowの反転option
 <br>
-・arr=arr|||[]の実装：undef宣言未実装のため、見送り
+・arr=arr|||[]の実装
 <br>
-・<a href="#span-out-eqns">式変数</a>のcall記号省略：<del>自動実行　⇒　error終了</del>変数宣言の判別（callの場合、記号を明示）
+　undef宣言未実装のため、見送り
+<br>
+・<a href="#span-out-eqns">式変数</a>のcall記号省略時の挙動
+<br>
+　<del>自動実行　⇒　error終了</del>の検討を見送り
+<br>
+　<span class="run">Ver.2.275.65</span>以降、変数宣言の判別（callの場合、記号を明示）
+<br>
+・右代入の廃止
+<br>
+　<span class="run">Ver.2.279.65</span>以降、冗長
     </td>
   </tr>
   <tr>
@@ -13277,7 +13287,7 @@ scope継承について記述する
 <br>
 留意事項を列挙する
 <br>
-・scope継承はcall時に実施（<a href="#span-out-substitution-equation">式代入</a>は無効）
+・scope継承はcall時に実施（<a href="#span-out-substitution-equation">式代入</a>の継承を含む）
 <br>
 ・<a href="#span-out-FNh">高階関数</a>||<a href="#span-out-FNmh">高階行列関数</a>の<a href="#span-out-call-by-equation">式渡し</a>は非対応（対応予定なし）
     </td>

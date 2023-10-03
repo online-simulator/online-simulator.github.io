@@ -325,6 +325,8 @@
       script += "\nclear;\n";
       script += "(x)=<x,(x)=<-x,(x)=<x*x;\nA=ans;\n[(x)=<x,(x)=<-x,(x)=<x*x].map((f)=<f(3)):A.map((f)=<f(3)):A.filter((f)=<(f(3)<0)):A.filter0((f)=<(f(3)>0)).map((g)=<g(3))/*Non-strict-mode*/;";
       script += "\nclear;\n";
+      script += "f=()=<x;\nx=i;\n[g=<f,x=1,(g())=>:g=()=<f,x=2,(g())=>:g==<f,x=3,(g())=>:g=()==<f,x=4,(g())=>:[g=<f,x=5,(g())=>:g=()=<f,x=6,(g())=>:g==<f,x=7,(g())=>:g=()==<f,x=8,(g())=>]];";
+      script += "\nclear;\n";
       $._id("input").value = script;
       // test case
       var setVal = function(){
