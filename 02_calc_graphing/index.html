@@ -323,7 +323,7 @@
       script += "\nclear;\n";
       script += "call_f=<(hass(=<f)&&&f=>||||false,a):a=i,[a=1,[a=2,[a=3,(a)==<=<call_f](a)=>f,=<==<call_f]=>f,/*omitted=<*/==<call_f]=>f,call_f():a=i,f=[a=1,f=[a=2,f=[a=3,(a)==<=<call_f](a)=>,=<==<call_f]=>,/*omitted=<*/==<call_f]=>,call_f();";
       script += "\nclear;\n";
-      script += "(x)=<x,(x)=<-x,(x)=<x*x;\nA=ans;\n[(x)=<x,(x)=<-x,(x)=<x*x].map((f)=<f(3)):A.map((f)=<f(3)):A.filter((f)=<(f(3)<0))/*Non-strict-mode*/;";
+      script += "(x)=<x,(x)=<-x,(x)=<x*x;\nA=ans;\n[(x)=<x,(x)=<-x,(x)=<x*x].map((f)=<f(3)):A.map((f)=<f(3)):A.filter((f)=<(f(3)<0)):A.filter0((f)=<(f(3)>0)).map((g)=<g(3))/*Non-strict-mode*/;";
       script += "\nclear;\n";
       $._id("input").value = script;
       // test case
