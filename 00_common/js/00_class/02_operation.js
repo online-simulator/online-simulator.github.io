@@ -2327,6 +2327,14 @@ My_entry.operation.prototype.store4URh_sw = function(data, num_escape, name, arg
   var DATA = self.entry.DATA;
   var BT = self.config.BT;
   /* Ver.2.279.65 -> */
+/*
+  var buffer_vars = {};
+  var buffer_eqns = {};
+  var args_eqns = {};
+  var args_vars = {};
+  var args_bas = {};
+  var obj = self.restore_args_AtREe(data, self.config.symbol.anonymous, [name], [argi], null, args_eqns, args_vars, args_bas, null, null, ids_buffer);
+*/
   var store_eqn = function(isSEe){
     if(isSEe){
       var tree = self.tree_eqn2tree_AtSEe(data, argi);  // Ver.2.255.59  // Ver.2.257.60 inherit_ids not-supported
@@ -2346,7 +2354,8 @@ My_entry.operation.prototype.store4URh_sw = function(data, num_escape, name, arg
       store_eqn(isSEe_dynamic);
     }
     else{
-      self.store_var(name, DATA.num2tree(argi), scopes, ids_buffer);  // Ver.2.226.55
+      var tree = DATA.num2tree(argi);  // Ver.2.279.65
+      self.store_var(name, tree, scopes, ids_buffer);  // Ver.2.226.55
     }
   }
   /* -> Ver.2.279.65 */
@@ -3874,8 +3883,8 @@ My_entry.operation.prototype.restore_args_AtREe = function(data, name_eqn, args_
   /* Ver.2.276.65 -> */
   var set_type = function(name, tree){
     var sw_tree = self.switch_type_tree(data, tree);
-    var isSEe = sw_tree[BT.SEe];
-    if(isSEe){
+    var isSEe_dynamic = sw_tree[BT.SEe];  // Ver.2.279.65
+    if(isSEe_dynamic){
       set_eqn(name, null, null, sw_tree);
     }
     else{

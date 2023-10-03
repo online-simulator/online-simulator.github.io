@@ -1917,15 +1917,21 @@ title/発行元(発行年)を列挙する
 <br>
 ・<span class="run">Ver.2.276.65</span>以降、<a href="#span-out-eqns-args">式変数のarguments</a>の動的判別@<a href="#span-out-config-strict">Non-strict-mode</a>に対応
 <br>
-　define側：記号=&lt;を省略不可　⇒　省略可（call側の引数を自動展開時、付与のflagからtree継承）
+　動的判別対象：記号=&lt;の有無||<a href="#span-in-call-by-equation">遅延評価</a>の明示
 <br>
-　call側：省略可（<a href="#span-in-call-by-equation">遅延評価</a>の明示を除く）
+　定義元：記号=&lt;を省略不可　⇒　省略可（call先の引数を自動展開時、付与のflagからtree継承）
+<br>
+　call先：省略可（<a href="#span-in-call-by-equation">遅延評価</a>の明示を除く）
 <br>
 ・<span class="run">Ver.2.277.65</span>以降、equal記号=の動的判別に対応（<a href="#span-out-reference-mat">行列への参照</a>||<a href="#span-out-eqns-re-use">再利用</a>を含む）
+<br>
+　動的判別対象：記号=&lt;の有無
 <br>
 　equal記号=：省略の前提　⇒　省略可（旧仕様を含めて統廃合の可能性あり）
 <br>
 ・<span class="run">Ver.2.279.65</span>以降、<a href="#span-out-prec-ope-arithmetic-ite">iterator演算子</a>の第1引数の動的判別@<a href="#span-out-config-strict">Non-strict-mode</a>に対応
+<br>
+　動的判別対象：記号=&lt;の有無
 <br>
 　実装関数の引数：動的判別なし　⇒　<a href="#span-out-prec-ope-arithmetic-ite">iterator演算子</a>@<a href="#span-out-config-strict">Non-strict-mode</a>のみ対応
     </td>
@@ -9079,17 +9085,15 @@ last{set_x=&lt;(x=1),x=0,set_x(),x} -> 1
 <br>
 ・<span class="run">Ver.2.276.65</span>以降、<a href="#span-out-eqns-args">式変数のarguments</a>の動的判別@<a href="#span-out-config-strict">Non-strict-mode</a>に対応
 <br>
-　define側：記号=&lt;を省略不可　⇒　省略可
+　定義元：記号=&lt;を省略不可　⇒　省略可
 <br>
-　call側：省略可（<a href="#span-in-call-by-equation">遅延評価</a>の明示を除く）
+　call先：省略可（<a href="#span-in-call-by-equation">遅延評価</a>の明示を除く）
 <br>
 h(x)=&lt;x; f(g)=&lt;g(3); f(h) -> <del>[MyErr]Invalid matching var(g)</del>3
 <br>
 A=(1,2:3,4); f(A)=&lt;A; f(A) -> [MyErr]Invalid args.length=1(f)
 <br>
-・<span class="run">Ver.2.277.65</span>以降、equal記号=の動的判別に対応（<a href="#span-out-reference-mat">行列への参照</a>||<a href="#span-out-eqns-re-use">再利用</a>を含む）
-<br>
-　equal記号=：省略の前提　⇒　省略可
+・<span class="run">Ver.2.277.65</span>以降、equal記号=の動的判別（記号=&lt;の有無のみ）に対応
 <br>
 f<span class="run">=</span>(x)=&lt;x; f(3)=&gt; -> 3
 <br>
@@ -9111,13 +9115,13 @@ x=()=&lt;2 -> stored_eqn(x)
 <br>
 x() -> 2
 <br>
-・curried（pipelineの各引数は初回callでclosed）
+・curried（<span class="jF">pipelineの各引数</span>は初回callでclosed）
 <br>
 clear;
 <br>
 div=(x,y)=&lt;x/y;
 <br>
-div_curried_closed_1st_call=(x)=&lt;[(y)=&lt;div(x,y)];
+div_curried_closed_1st_call=<span class="jF">(x)</span>=&lt;[(y)=&lt;div(x,y)];
 <br>
 f=div_curried_closed_1st_call;
 <br>
@@ -9129,7 +9133,7 @@ g=div_curried_closed_1st_call;
 <br>
 ・同義（pipe表記）
 <br>
-div_curried_closed_1st_call=(x)=&lt;[(x)=&lt;(y)=&lt;div(x,y)](x)=&gt;;
+div_curried_closed_1st_call=(x)=&lt;[<span class="jF">(x)</span>=&lt;(y)=&lt;div(x,y)](x)=&gt;;
 <br>
 ・部分適用
 <br>
@@ -9139,7 +9143,7 @@ inv_y_applied_partially=div_curried_closed_1st_call(1);
 <br>
 ・pipe
 <br>
-f=(x)=&lt;[(y)=&lt;(z)=&lt;(x,y,z)]; xy_z=(f(1))(2)=&gt;; xy_z(3):xy_z(4):xy_z(5) -> (1,2,3:1,2,4:1,2,5)
+f=<span class="jF">(x)</span>=&lt;[<span class="jF">(y)</span>=&lt;(z)=&lt;(x,y,z)]; xy_z=(f(1))(2)=&gt;; xy_z(3):xy_z(4):xy_z(5) -> (1,2,3:1,2,4:1,2,5)
 <br>
 <br>
 曖昧さを回避することで演算内容の入力上、引いては演算上の間違いを低減する
@@ -9190,7 +9194,7 @@ clear; a=2; [<span class="selection">(x)</span>=&lt;a]()<span class="clear">=&gt
 <br>
 clear; set_x=&lt;(x=1),x=0,set_x,x -> [MyErr]Invalid BTe([object Object])
 <br>
-・<span class="run">Ver.2.279.65</span>以降、<a href="#span-out-prec-ope-arithmetic-ite">iterator演算子</a>の第1引数の動的判別@Non-strict-modeに対応
+・<span class="run">Ver.2.279.65</span>以降、<a href="#span-out-prec-ope-arithmetic-ite">iterator演算子</a>の第1引数の動的判別（記号=&lt;の有無のみ）@Non-strict-modeに対応
 <br>
 clear; [(x)=&lt;x,(x)=&lt;-x,(x)=&lt;x*x].map((f)=&lt;f(3)) -> (3,-3,9)
 <br>
@@ -9239,7 +9243,7 @@ clear; a=2; [<span class="selection">(x)</span>=&lt;a]()<span class="clear">=&gt
 <br>
 clear; set_x=&lt;(x=1),x=0,set_x,x -> [MyErr]Invalid REv(set_x)
 <br>
-・<span class="run">Ver.2.279.65</span>以降、<a href="#span-out-prec-ope-arithmetic-ite">iterator演算子</a>の第1引数の動的判別@Non-strict-modeに対応
+・<span class="run">Ver.2.279.65</span>以降、<a href="#span-out-prec-ope-arithmetic-ite">iterator演算子</a>の第1引数の動的判別（記号=&lt;の有無のみ）@Non-strict-modeに対応
 <br>
 clear; [(x)=&lt;x,(x)=&lt;-x,(x)=&lt;x*x].map((f)=&lt;f(3)) -> [MyErr]Invalid URh-args.f
     </td>
@@ -10297,7 +10301,7 @@ iterator演算子と付随する留意事項について記述する
 <br>
 　iterator対象：<a href="#span-out-vars">変数</a>　⇒　<a href="#span-out-vars">変数</a>・<a href="#span-out-eqns">式変数</a>
 <br>
-・<span class="run">Ver.2.279.65</span>以降、第1引数の動的判別@<a href="#span-out-config-strict">Non-strict-mode</a>に対応
+・<span class="run">Ver.2.279.65</span>以降、第1引数の動的判別（記号=&lt;の有無のみ）@<a href="#span-out-config-strict">Non-strict-mode</a>に対応
 <br>
 clear; A=[(x)=&lt;x,(x)=&lt;-x,(x)=&lt;x*x]; A.map((f)=&lt;f(3)) -> (3,-3,9)
 <br>
@@ -37164,7 +37168,9 @@ arguments
 <br>
 <span class="run">Ver.2.194.45</span>以降、以上の要件から<a href="#span-out-eqns-re-call">再帰call</a>に対応
 <br>
-・call先のargument判別の条件分岐が複雑化し、非常に重い（Nativeの参照渡しと異なる）
+・call先のargument判別の条件分岐が複雑化し、非常に重い
+<br>
+　判別対象：記号=&lt;の有無||<a href="#span-in-call-by-equation">遅延評価</a>の明示
 <br>
 　<del>restore -> REe2SEeの変換前後で2重cloneの無駄あり</del>
 <br>
