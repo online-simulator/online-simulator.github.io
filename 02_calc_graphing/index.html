@@ -327,7 +327,7 @@
       script += "\nclear;\n";
       script += "f=()=<x;\nx=i;\n[g=<f,x=1,(g())=>:g=()=<f,x=2,(g())=>:g==<f,x=3,(g())=>:g=()==<f,x=4,(g())=>:[g=<f,x=5,(g())=>:g=()=<f,x=6,(g())=>:g==<f,x=7,(g())=>:g=()==<f,x=8,(g())=>]];";
       script += "\nclear;\n";
-      script += "last{a=1,a},last{f(x)=<x,f},(x)=<x;";
+      script += "last{a=1,a},=<f,last{f(x)=<x,f},(x)=<x;";
       script += "\nclear;\n";
       $._id("input").value = script;
       // test case
