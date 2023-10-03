@@ -1993,7 +1993,7 @@ title/発行元(発行年)を列挙する
 <br>
 _r((n)=&lt;run,run(n,n)=&lt;n+1,3) -> <del>3</del>[MyErr]Invalid BTe([object Object],[object Object],[object Object])
 <br>
-　記号省略：自動実行　⇒　変数宣言の判別（callの場合、記号を明示）
+　記号省略：自動実行　⇒　<a href="#span-out-eqns">式変数</a>宣言の判別（callの場合、記号を明示）
 <br>
 last{set_x=&lt;(x=1),x=0,set_x,x} -> <del>1</del>0
 <br>
@@ -2103,7 +2103,7 @@ pending項目を列挙する
 <br>
 　<del>自動実行　⇒　error終了</del>の検討を見送り
 <br>
-　<span class="run">Ver.2.275.65</span>以降、変数宣言の判別（callの場合、記号を明示）
+　<span class="run">Ver.2.275.65</span>以降、<a href="#span-out-eqns">式変数</a>宣言の判別（callの場合、記号を明示）
 <br>
 ・右代入の廃止
 <br>
@@ -2138,13 +2138,25 @@ plot仕様
 <br>
 　Ver.2：<span class="run">Ver.2.190.44</span>~の仕様
 <br>
+・<span class="run">Ver.2.277.65</span>以降、<a href="#span-out-eqns">式変数</a>宣言の<a href="#span-out-flow">parser-post</a>処理を変更
+<br>
+　error終了　⇒　BTe（BrackeTeqn）の<a href="#span-out-log">log表示</a>
+<br>
 ・<span class="run">Ver.2.279.65</span>以降、<a href="#span-out-BT-empty">空括弧</a>のplot値を変更
 <br>
 　0　⇒　<a href="#span-out-num-NaN">欠損値</a>
 <br>
-・<span class="run">Ver.2.279.65</span>以降、変数宣言が残存する場合、plotの挙動を変更
+・<span class="run">Ver.2.279.65</span>以降、数値以外の要素（<a href="#span-out-eqns">式変数</a>宣言を含む）が残存する場合、plotの挙動を変更
 <br>
 　error終了　⇒　<a href="#span-out-num-NaN">欠損値</a>に変換
+<br>
+・<span class="clear">Ver.2.280.66</span>以降、上記変更により、未定義の<a href="#span-out-vars">変数</a>を検知不能の致命的な不具合を修正
+<br>
+　検知段階：<del><a href="#span-out-flow">parser-post</a></del><span class="run">Ver.2.279.65</span>以降、削除　⇒　<a href="#span-out-flow">operation</a>（<a href="#span-out-vars-symbol">symbol</a>取得処理を除外して対策）
+<br>
+clear; last{a,1} -> <del>1</del>[MyErr]Undef var(a)
+<br>
+clear; last{f(x)=&lt;x,f},(x)=&lt;x -> (BTe,BTe)
     </td>
   </tr>
   <tr>
@@ -9087,11 +9099,15 @@ _r(()=&lt;run,run(n)=&lt;n+1,3) -> 3
 <br>
 _r((n)=&lt;run(n)=&gt;,run(n)=&lt;n+1,3) -> 3
 <br>
-　記号省略：自動実行　⇒　変数宣言の判別（callの場合、記号を明示）
+　記号省略：自動実行　⇒　<a href="#span-out-eqns">式変数</a>宣言の判別（callの場合、記号を明示）
 <br>
 last{set_x=&lt;(x=1),x=0,set_x,x} -> <del>1</del>0
 <br>
 last{set_x=&lt;(x=1),x=0,set_x(),x} -> 1
+<br>
+・<span class="run">Ver.2.277.65</span>以降、<a href="#span-out-eqns">式変数</a>宣言：BTeの<a href="#span-out-log">log表示</a>
+<br>
+clear; set_x=&lt;(x=1),x=0,set_x,x -> (0,0,BTe,0)
 <br>
 ・<span class="run">Ver.2.276.65</span>以降、<a href="#span-out-eqns-args">式変数のarguments</a>の動的判別@<a href="#span-out-config-strict">Non-strict-mode</a>に対応
 <br>

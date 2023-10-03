@@ -778,6 +778,7 @@ My_entry.operation.prototype.tree_BT2tree = function(data, tree, opt_ids){
   var _tree = null;
   var tagName = self.isType(tree, "BT");
   if(tagName){
+    self.isBT2tree = true;  // Ver.2.280.66
     /* Ver.2.102.33 -> */
     var hasUndefVars = self.params.hasUndefVars;
     var newData = self.get_newData(data, DATA.tree2trees(tree), opt_ids);
@@ -791,6 +792,7 @@ My_entry.operation.prototype.tree_BT2tree = function(data, tree, opt_ids){
     _tree = DATA.trees2tree(newData.trees);
     self.params.hasUndefVars = hasUndefVars;
     /* -> Ver.2.102.33 */
+    self.isBT2tree = false;  // Ver.2.280.66
   }
   return _tree;
 };
@@ -3379,7 +3381,8 @@ My_entry.operation.prototype.REv = function(data, i0, tagName, tagObj){
   var isSE = (i0 === 0 && isStorE(rightTree));  // Ver.2.272.63
   /* Ver.2.260.61 -> */
   var name = tagObj.val;
-  if(!(isSE) && !(self.config.isEscaped(name))){  // Ver.2.260.61
+  var isName = !(self.config.isEscaped(name));  // Ver.2.280.66
+  if(!(isSE) && isName){  // Ver.2.260.61  // Ver.2.280.66
     tree = (self.useStrict)? self.restore_var(name, scopes, ids): self.restore_eqn(name, scopes, ids, null, true);  // Ver.2.260.61
     /* Ver.2.24.11 -> */
     if(tree){
@@ -3412,6 +3415,11 @@ My_entry.operation.prototype.REv = function(data, i0, tagName, tagObj){
     DATA.setProp_tree(tree, "isREv", true);  // Ver.2.276.65  // Ver.2.277.65 last to support isSEe@SEv
     self.feedback2trees(data, is, ie, tree);
   }
+  /* Ver.2.280.66 -> */
+  else if(!(self.isBT2tree) && trees.length === 1 && isName){
+    throw "Undef var("+name+")";
+  }
+  /* -> Ver.2.280.66 */
   else{
     ++self.params.hasUndefVars;
   }

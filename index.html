@@ -259,6 +259,36 @@ Y/M/D
 <tbody>
   <tr>
     <th>
+6.329.139.17.77
+    </th>
+    <td class="types">
+Calculator
+    </td>
+    <td>
+2.280.66
+    </td>
+    <td class="clear">
+fatal bug-fix
+<br>
+2.279.65~
+    </td>
+    <td>
+[Calculator]
+<br>
+・Undef var errors catched <del>in parser-post</del>@Ver.2.279.65 ⇒　operation
+<br>
+clear; last{a,1} -> <del>1</del>[MyErr]Undef var(a)
+<br>
+clear; last{f(x)=&lt;x,f},(x)=&lt;x -> (BTe,BTe)
+<br>
+・test case updated
+    </td>
+    <td>
+2023/10/4
+    </td>
+  </tr>
+  <tr>
+    <th>
 6.329.139.16.77
     </th>
     <td class="types">
@@ -298,6 +328,8 @@ minor update
 ・A.map/filter() extended@Non-strict-mode
 <br>
 clear; [(x)=&lt;x,(x)=&lt;-x,(x)=&lt;x*x].map((f)=&lt;f(3)) -> (3,-3,9)
+<br>
+・parser.js self.make_arr_num() modified for plot2d BTe||REv -> <del>[MyErr]...</del>NaN
 <br>
 ・operation.js arranged
 <br>
@@ -366,6 +398,10 @@ f=div_curried_closed_1st_call;
 g=div_curried_closed_1st_call;
 <br>
 (f(2))(1)=&gt;,(f(3))(1)=&gt;,(g(3))(1)=&gt; -> (2,2,2)
+<br>
+・parser.js self.make_log_num() extended for BTe(BrackeTeqn)
+<br>
+clear; last{(x)=&lt;x} -> <del>[MyErr]...</del>BTe
 <br>
 ・test case re-updated
     </td>

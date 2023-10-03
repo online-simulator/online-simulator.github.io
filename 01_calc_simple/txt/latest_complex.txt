@@ -1,6 +1,14 @@
 clear
 local storage cleared
 
+last{a=1,a},last{f(x)=<x,f},(x)=<x
+(
+1,BTe,BTe
+)
+
+clear
+local storage cleared
+
 [g=<f,x=1,(g())=>:g=()=<f,x=2,(g())=>:g==<f,x=3,(g())=>:g=()==<f,x=4,(g())=>:[g=<f,x=5,(g())=>:g=()=<f,x=6,(g())=>:g==<f,x=7,(g())=>:g=()==<f,x=8,(g())=>]]
 (
 0,0,i:
@@ -3709,4 +3717,4 @@ drag=false&sw=false&0x=false&useMatrix=true&useStrict=false&checkError=true&isRi
 --------------------------------
 --------------------------------
 
-online-simulator.github.io.6.329.138.16.77 @ Tue Oct 03 2023 18:10:38 GMT+0900 (日本標準時) @ Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/117.0.0.0 Safari/537.36
+online-simulator.github.io.6.329.139.17.77 @ Wed Oct 04 2023 04:46:39 GMT+0900 (日本標準時) @ Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/117.0.0.0 Safari/537.36
