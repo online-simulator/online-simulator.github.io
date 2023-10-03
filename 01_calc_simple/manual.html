@@ -38752,9 +38752,9 @@ clear;
 <br>
 set_ans(<span class="jF">$</span>varName)=&lt;varName=ans;
 <br>
-checkV(<span class="jF">$</span>varName)=&lt;(hass(varName),has(varName),has__(varName));
+checkV(<span class="jF">$</span>varName)=&lt;(<span class="jF">hass(varName),has(varName),has__(varName)</span>);
 <br>
-checkE(<span class="jF">$</span>eqnName)=&lt;(hass(=&lt;eqnName),has(=&lt;eqnName),has__(=&lt;eqnName));
+checkE(<span class="jF">$</span>eqnName)=&lt;(<span class="jF">hass(=&lt;eqnName),has(=&lt;eqnName),has__(=&lt;eqnName)</span>);
 <br>
 check(<span class="jF">$</span>varName,<span class="jF">$</span>eqnName)=&lt;(checkV(<span class="jF">$</span>varName)<span class="clear">==&gt;</span>:checkE(<span class="jF">$</span>eqnName)<span class="clear">==&gt;</span>);
 <br>
@@ -38768,13 +38768,13 @@ wrapper0(n)=&lt;({n,n},check(<span class="jF">$</span>a,<span class="jF">$</span
 <br>
 [,f=&lt;1:wrapper0(3)<span class="clear">==&gt;</span>:
 <br>
-[del__(a),del__(=&lt;f):wrapper0(4)<span class="clear">==&gt;</span>]:
+[<span class="jF">del__(a),del__(=&lt;f)</span>:wrapper0(4)<span class="clear">==&gt;</span>]:
 <br>
-[last{a=1,add__(a)},add__(=&lt;f):wrapper0(5)<span class="clear">==&gt;</span>]:
+[last{a=1,<span class="jF">add__(a)},add__(=&lt;f)</span>:wrapper0(5)<span class="clear">==&gt;</span>]:
 <br>
-[add__(a),last{f=&lt;1,add__(=&lt;f)}:wrapper0(6)<span class="clear">==&gt;</span>]:
+[<span class="jF">add__(a),last{f=&lt;1,add__(=&lt;f)</span>}:wrapper0(6)<span class="clear">==&gt;</span>]:
 <br>
-[del__(a),del__(=&lt;f):wrapper0(7)<span class="clear">==&gt;</span>]
+[<span class="jF">del__(a),del__(=&lt;f)</span>:wrapper0(7)<span class="clear">==&gt;</span>]
 <br>
 ]]]);
 <br>
@@ -38794,13 +38794,13 @@ wrapper1(n,=&lt;f0,=&lt;f1)=&lt;(f0<span class="clear">==&gt;</span>,f1<span cla
 <br>
 [wrapper1(3,=&lt;0,=&lt;f=&lt;1)<span class="clear">==&gt;</span>:
 <br>
-[wrapper1(4,=&lt;del__(a),=&lt;del__(=&lt;f))<span class="clear">==&gt;</span>]:
+[wrapper1(4,=&lt;<span class="jF">del__(a),=&lt;del__(=&lt;f)</span>)<span class="clear">==&gt;</span>]:
 <br>
-[wrapper1(5,=&lt;last{a=1,add__(a)},=&lt;add__(=&lt;f))<span class="clear">==&gt;</span>]:
+[wrapper1(5,=&lt;last{a=1,<span class="jF">add__(a)},=&lt;add__(=&lt;f)</span>)<span class="clear">==&gt;</span>]:
 <br>
-[wrapper1(6,=&lt;add__(a),=&lt;last{f=&lt;1,add__(=&lt;f)})<span class="clear">==&gt;</span>]:
+[wrapper1(6,=&lt;<span class="jF">add__(a),=&lt;last{f=&lt;1,add__(=&lt;f)}</span>)<span class="clear">==&gt;</span>]:
 <br>
-[wrapper1(7,=&lt;del__(a),=&lt;del__(=&lt;f))<span class="clear">==&gt;</span>]
+[wrapper1(7,=&lt;<span class="jF">del__(a),=&lt;del__(=&lt;f)</span>)<span class="clear">==&gt;</span>]
 <br>
 ]]])
 <br>
@@ -38946,6 +38946,38 @@ compose_x(x)=&gt;,compose_A(x)=&gt;,pipe_A(x)=&gt;:
 compose_pipe_A(=&lt;A)=&gt;,compose_nest_A(=&lt;A)=&gt;,
 <br>
 compose_A(=&lt;A)=&gt;,pipe_A(=&lt;A)=&gt;;
+<br>
+clear;
+<br>
+div<span class="jF">=</span>(x,y)=&lt;x/y;
+<br>
+div_curried_not_closed<span class="jF">=</span>(x)=&lt;(y)=&lt;div(x,y)=&gt;;
+<br>
+div_curried_closed_1st_call<span class="jF">=</span>(x)=&lt;[(y)=&lt;div(x,y)=&gt;];
+<br>
+(div_curried_not_closed(1)=&gt;)(1)=&gt;;
+<br>
+(div_curried_closed_1st_call(2)=&gt;)(1)=&gt;;
+<br>
+x=3;
+<br>
+(div_curried_not_closed(4)=&gt;)(1)=&gt;;
+<br>
+(div_curried_closed_1st_call(5)=&gt;)(1)=&gt;;
+<br>
+div_curried_closed_1st_call<span class="jF">=</span>(x)=&lt;[(x)=&lt;(y)=&lt;div(x,y)=&gt;](x)=&gt;;
+<br>
+inv_y_applied_partially<span class="jF">=</span>div_curried_closed_1st_call(1)=&gt;;
+<br>
+(1/linspace(1,10,10):linspace(1,10,10)).map((x)=&lt;inv_y_applied_partially(x)=&gt;).;
+<br>
+clear;
+<br>
+f<span class="jF">=</span>(x)=&lt;[(y)=&lt;(z)=&lt;(x,y,z)];
+<br>
+xy_z<span class="jF">=</span>(f(1)=&gt;)(2)=&gt;;
+<br>
+xy_z(3)=&gt;:xy_z(4)=&gt;:xy_z(5)=&gt;;
     </td>
   </tr>
   <tr>
@@ -39071,6 +39103,62 @@ wrapper(0)<span class="clear">==&gt;</span>:wrapper_closed(0)<span class="clear"
 [wrapper(1)<span class="clear">==&gt;</span>:[wrapper(2)<span class="clear">==&gt;</span>:[wrapper(3)<span class="clear">==&gt;</span>]]];
 <br>
 [wrapper_closed(1)<span class="clear">==&gt;</span>:[wrapper_closed(2)<span class="clear">==&gt;</span>:[wrapper_closed(3)<span class="clear">==&gt;</span>]]];
+<br>
+clear;
+<br>
+call_f=&lt;(<span class="jF">hass(=&lt;f)</span>&&&f=&gt;||||false,a);
+<br>
+a=i,f<span class="jF">=</span>[
+<br>
+a=1,f<span class="jF">=</span>[
+<br>
+a=2,f<span class="jF">=</span>[
+<br>
+a=3,
+<br>
+(a)==&lt;=&lt;call_f](a)=&gt;,
+<br>
+=&lt;==&lt;call_f]=&gt;,
+<br>
+/*omitted=&lt;*/==&lt;call_f]=&gt;;
+<br>
+call_f=&gt;;
+<br>
+clear;
+<br>
+f<span class="jF">=</span>()=&lt;x;
+<br>
+call_f=(x0,=&lt;f)=&lt;[
+<br>
+x0:
+<br>
+g=&lt;f,x=x0+1,(g=&gt;)=&gt;:
+<br>
+g<span class="jF">=</span>()=&lt;f,x=x0+2,(g=&gt;)=&gt;:
+<br>
+g=&lt;f,x=x0+1,(g==&gt;)=&gt;:
+<br>
+g<span class="jF">=</span>()=&lt;f,x=x0+2,(g==&gt;)=&gt;:
+<br>
+g==&lt;f,x=x0+3,(g=&gt;)=&gt;:
+<br>
+g<span class="jF">=</span>()==&lt;f,x=x0+4,(g=&gt;)=&gt;
+<br>
+];
+<br>
+x=i;
+<br>
+[call_f(0,()=&lt;f)=&gt;:
+<br>
+[call_f(0,()=&lt;-x*2)=&gt;:
+<br>
+[call_f(f<span class="jF">=</span>()=&lt;-x*3,=&lt;f)=&gt;]:
+<br>
+[call_f(f<span class="jF">=</span>()=&lt;last{not(<span class="jF">hass(x)</span>)&&&(x=NaN),-x*3},=&lt;f)=&gt;:
+<br>
+[call_f(f<span class="jF">=</span>()=&lt;last[not(<span class="jF">hass(x)</span>)&&&(x=NaN),-x*4],=&lt;f)=&gt;]]
+<br>
+]];
     </td>
   </tr>
   <tr>
@@ -39306,6 +39394,28 @@ call_fgh(a*3,=&lt;make_f2)=&gt;:
 3:
 <br>
 [arr=[],temp=<span class="jF">{=&lt;make_f0,=&lt;make_f1,=&lt;make_f2}</span>.map(<span class="jF">=</span>=&lt;push_arr4vecc)<span class="clear">/*->0*/</span>,=&lt;arr]=&gt;;
+<br>
+clear;
+<br>
+<span class="jF">$</span>f(x)=&lt;x,<span class="jF">$</span>g(x)=&lt;-x,<span class="jF">$</span>h(x)=&lt;x*x;
+<br>
+<span class="jF">(x)=&lt;x,(x)=&lt;-x,(x)=&lt;x*x;</span>
+<br>
+<span class="jF">A=ans;</span>
+<br>
+<span class="jF">[
+<br>
+[=&lt;f,=&lt;g,=&lt;h].map</span>((=&lt;f)=&lt;f(3)=&gt;):
+<br>
+<span class="jF">[(x)=&lt;x,(x)=&lt;-x,(x)=&lt;x*x].map</span>((=&lt;f)=&lt;f(3)=&gt;):
+<br>
+A.map((=&lt;f)=&lt;f(3)=&gt;):
+<br>
+A.filter((=&lt;f)=&lt;(lt(f(3)=&gt;,0))):
+<br>
+A.filter0((=&lt;f)=&lt;(gt(f(3)=&gt;,0))).map((=&lt;g)=&lt;g(3)=&gt;)
+<br>
+];
     </td>
   </tr>
   <tr>
