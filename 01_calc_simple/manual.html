@@ -1991,7 +1991,7 @@ title/発行元(発行年)を列挙する
 <br>
 　call記号：=&gt;　⇔　関数callの<a href="#span-out-BT">丸括弧()</a>
 <br>
-　記号省略：自動実行　⇒　<a href="#span-out-eqns">式変数</a>宣言の判別（callの場合、記号を明示）
+　記号省略：自動実行　⇒　<a href="#span-out-eqns">式変数</a>宣言@<a href="#span-out-config-strict">Non-strict-mode</a>の判別（callの場合、記号を明示）
 <br>
 last{set_x=&lt;(x=1),x=0,set_x,x} -> <del>1</del>0
 <br>
@@ -2107,9 +2107,9 @@ pending項目を列挙する
 <br>
 ・<a href="#span-out-eqns">式変数</a>のcall記号省略時の挙動
 <br>
-　<del>自動実行　⇒　error終了</del>の検討を見送り
+　<del>自動実行　⇒　無条件でerror終了</del>の検討を見送り
 <br>
-　<span class="run">Ver.2.275.65</span>以降、<a href="#span-out-eqns">式変数</a>宣言の判別（callの場合、記号を明示）
+　<span class="run">Ver.2.275.65</span>以降、<a href="#span-out-eqns">式変数</a>宣言@<a href="#span-out-config-strict">Non-strict-mode</a>の判別（callの場合、記号を明示）
 <br>
 ・右代入の廃止
 <br>
@@ -9103,7 +9103,7 @@ _r(()=&lt;run,run(n)=&lt;n+1,3) -> 3
 <br>
 _r((n)=&lt;run(n)=&gt;,run(n)=&lt;n+1,3) -> 3
 <br>
-　記号省略：自動実行　⇒　<a href="#span-out-eqns">式変数</a>宣言の判別（callの場合、記号を明示）
+　記号省略：自動実行　⇒　<a href="#span-out-eqns">式変数</a>宣言@Non-strict-modeの判別（callの場合、記号を明示）
 <br>
 last{set_x=&lt;(x=1),x=0,set_x,x} -> <del>1</del>0
 <br>
