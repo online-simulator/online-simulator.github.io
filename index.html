@@ -259,6 +259,42 @@ Y/M/D
 <tbody>
   <tr>
     <th>
+6.330.140.17.77
+    </th>
+    <td class="types">
+Calculator
+    </td>
+    <td>
+2.282.66
+    </td>
+    <td>
+minor update
+    </td>
+    <td>
+[Calculator]
+<br>
+・lazy evaluation including (x)=&lt;x supported
+<br>
+clear; f(A)=&lt;A; f(=&lt;(1,2)) -> (1,2)
+<br>
+clear; A=((x)=&lt;x); (A[0][0])(2)=&gt; -> 2
+<br>
+clear; A_lazy=((x)=&lt;x); f(A)=&lt;(A[0][0])(2)=&gt;; f(=&lt;A_lazy)
+<br>
+-> <del>[MyErr]Undef eqn(A_lazy)</del>2
+<br>
+・test case updated
+<br>
+[Graphing Calculator]
+<br>
+・strict-mode equation-list-map updated
+    </td>
+    <td>
+2023/10/5
+    </td>
+  </tr>
+  <tr>
+    <th>
 6.329.140.17.77
     </th>
     <td class="types">

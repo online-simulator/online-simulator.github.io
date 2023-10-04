@@ -1,6 +1,43 @@
 clear
 local storage cleared
 
+f(=<A_lazy),(f(=<A_lazy[0]):f(=<A_lazy[1])),(f(=<A_lazy[][0]),f(=<A_lazy[][1]))
+(
+1,2,1,2,1,2:
+3,4,3,4,3,4
+)
+
+f(A)=<[=<A.map((f)=<f())]=>
+stored_eqn(f)
+
+$A=((A_lazy[0][0])=>,(A_lazy[0][1])=>:(A_lazy[1][0])=>,(A_lazy[1][1])=>)
+A=(
+1,2:
+3,4
+)
+
+anonymous_call=(A_lazy)=>
+anonymous_call=4
+
+$A_lazy=(=<1,=<2:=<3,=<4)
+A_lazy=(
+BTe,BTe:
+BTe,BTe
+)
+
+clear
+local storage cleared
+
+f(A)=<A,f(=<(1,2)):A=((x)=<x),(A[0][0])(2)=>:A_lazy=((x)=<x),f(A)=<(A[0][0])(2)=>,f(=<A_lazy)
+(
+0,1,2:
+0,2:
+0,0,2
+)
+
+clear
+local storage cleared
+
 last{a=1,a},=<f,last{f(x)=<x,f},(x)=<x
 (
 1,BTe,BTe,BTe
@@ -3717,4 +3754,4 @@ drag=false&sw=false&0x=false&useMatrix=true&useStrict=false&checkError=true&isRi
 --------------------------------
 --------------------------------
 
-online-simulator.github.io.6.329.139.17.77 @ Wed Oct 04 2023 05:19:57 GMT+0900 (日本標準時) @ Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/117.0.0.0 Safari/537.36
+online-simulator.github.io.6.330.140.17.77 @ Thu Oct 05 2023 03:02:10 GMT+0900 (日本標準時) @ Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/117.0.0.0 Safari/537.36

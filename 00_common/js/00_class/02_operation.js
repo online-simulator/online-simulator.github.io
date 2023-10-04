@@ -3303,17 +3303,9 @@ My_entry.operation.prototype.tree_eqn2tree_AtREe = function(data, tree_eqn, opt_
     _tree = (isSEe)? self.tree_SEe2REe(tree_eqn): tree_eqn;
     _tree = self.tree_eqn2tree(data, _tree, true);
   }
-  /* Ver.2.271.62 -> */
   if(opt_name){
-    if(_tree && _tree.mat){
-      var arr = _tree.mat.arr;
-      if(DATA.hasVar_arr(arr)) throw "Invalid matching var("+opt_name+")";
-    }
-    else{
-      throw "Undef args.var||eqn("+opt_name+")";  // Ver.2.255.59
-    }
+    _tree = self.get_tree_isREv(_tree, opt_name);  // Ver.2.271.62  // Ver.2.282.66
   }
-  /* -> Ver.2.271.62 */
   return _tree;
 };
 My_entry.operation.prototype.tree_eqn2tree_AtSEe = function(data, tree_eqn, opt_ids_SEe){
@@ -3836,25 +3828,54 @@ My_entry.operation.prototype.get_name_eqn_AtREe = function(trees, i0){  // Ver.2
   /* -> Ver.2.273.64 */
   return {hasArgs: hasArgs, name_eqn: name_eqn, tree_eqn: tree_eqn};  // Ver.2.273.64
 };
-/* Ver.2.276.65 */
-My_entry.operation.prototype.switch_type_tree = function(data, tree){
+/* Ver.2.282.66 -> */
+My_entry.operation.prototype.get_tree_isREv = function(tree, opt_name){
   var self = this;
-  var ids = data.ids;
   var DATA = self.entry.DATA;
-  var BT = self.config.BT;
   var _tree = null;
   var tagName = Object.keys(tree)[0];
   var obj = tree[tagName];
-  if((obj && obj.isREv)){
+  if(obj && obj.isREv){
     _tree = tree;
   }
-  else{
-    var tree_var = self.tree_eqn2tree_AtREe(data, tree);
-    if(tree_var && tree_var.mat){
-      var arr = tree_var.mat.arr;
-      if(!(DATA.hasVar_arr(arr))){
-        _tree = tree_var;
+  else if(opt_name){
+    var isMat = tree.mat;
+    var set_tree = function(){
+      var arr = tree.mat.arr;
+      var hasVar = DATA.hasVar_arr(arr);
+      if(!(hasVar)){
+        _tree = tree;
       }
+    };
+    if(self.useStrict){
+      /* Ver.2.271.62 -> */
+      if(isMat){
+        set_tree();
+        if(!(_tree)){
+          throw "Invalid matching var("+opt_name+")";
+        }
+      }
+      else{
+        throw "Undef args.var||eqn("+opt_name+")";  // Ver.2.255.59
+      }
+      /* -> Ver.2.271.62 */
+    }
+    else{
+      if(isMat){
+        set_tree();
+      }
+    }
+  }
+  return _tree;
+};
+/* Ver.2.276.65 */
+My_entry.operation.prototype.switch_type_tree = function(data, tree){
+  var self = this;
+  var _tree = self.get_tree_isREv(tree);
+  if(!(_tree)){
+    var tree_var = self.tree_eqn2tree_AtREe(data, tree);
+    if(tree_var){
+      _tree = self.get_tree_isREv(tree_var, true);
     }
   }
   if(!(_tree)){
@@ -3862,6 +3883,7 @@ My_entry.operation.prototype.switch_type_tree = function(data, tree){
   }
   return _tree;
 };
+/* -> Ver.2.282.66 */
 /* Ver.2.269.62 */
 My_entry.operation.prototype.restore_args_AtREe = function(data, name_eqn, args_eqn, args, ids_args_eqn, args_eqns, args_vars, args_bas, buffer_vars, buffer_eqns, ids_buffer){  // Ver.2.271.63
   var self = this;

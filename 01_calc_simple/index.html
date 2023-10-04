@@ -315,6 +315,10 @@
       script += "\nclear;\n";
       script += "last{a=1,a},=<f,last{f(x)=<x,f},(x)=<x;";
       script += "\nclear;\n";
+      script += "f(A)=<A,f(=<(1,2)):A=((x)=<x),(A[0][0])(2)=>:A_lazy=((x)=<x),f(A)=<(A[0][0])(2)=>,f(=<A_lazy);";
+      script += "\nclear;\n";
+      script += "$A_lazy=(=<1,=<2:=<3,=<4);\nanonymous_call=(A_lazy)=>;\n$A=((A_lazy[0][0])=>,(A_lazy[0][1])=>:(A_lazy[1][0])=>,(A_lazy[1][1])=>);\nf(A)=<[=<A.map((f)=<f())]=>;\nf(=<A_lazy),(f(=<A_lazy[0]):f(=<A_lazy[1])),(f(=<A_lazy[][0]),f(=<A_lazy[][1]));";
+      script += "\nclear;\n";
       $._id("input").value = script;
     });
   })();

@@ -1268,7 +1268,7 @@ clear
 local storage cleared
 
 [Pinv_y=(-0.999999427,-0.999936657,-0.997300203,-0.954499736,-0.682689492,0,0.682689492,0.954499736,0.997300203,0.999936657,0.999999427:-5,-4,-3,-2,-1,0,1,2,3,4,5),N=1,arr=[],_rn(=<arr=(arr:rand_table(=<Pinv_y)=>),,N),=<arr]=>
-0.179116853652177
+0.19834509853652244
 
 rand_table(csv)=<last[table=sort0(csv),ymin=min(table)[0],ymax=max(table)[0],y=ymin+(ymax-ymin)*rand(),x=interp(y:table),x]
 stored_eqn(rand_table)
@@ -1618,6 +1618,74 @@ stored_eqn(scope_NG2)
 
 scope_NG1(x)=<[x=x,x,last[x=x,x],x]
 stored_eqn(scope_NG1)
+
+clear
+local storage cleared
+
+[$a=2:A.map((=<f)=<f(3)=>):A.map((=<f)=<f(3)==>):[arr=[],A.map((=<f)=<arr=(arr,f(3)=>,f(3)==>)),=<arr]=>]
+(
+0:
+3,-3,9:
+6,-6,18:
+3,6,-3,-6,9,18
+)
+
+$A=((x)=<a*x,(x)=<-a*x,(x)=<a*x*x)
+A=(
+BTe,BTe,BTe
+)
+
+$a=1
+a=1
+
+clear
+local storage cleared
+
+f(=<A_lazy[][0])=>,f(=<A_lazy[][1])=>
+(
+1,2:
+3,4
+)
+
+f(=<A_lazy[0])=>:f(=<A_lazy[1])=>
+(
+1,2:
+3,4
+)
+
+f(=<A_lazy)=>
+(
+1,2:
+3,4
+)
+
+f(A)=<[=<A.map((=<f)=<f=>)]=>
+stored_eqn(f)
+
+$A=((A_lazy[0][0])=>,(A_lazy[0][1])=>:(A_lazy[1][0])=>,(A_lazy[1][1])=>)
+A=(
+1,2:
+3,4
+)
+
+anonymous_call=(A_lazy)=>
+anonymous_call=4
+
+$A_lazy=(=<1,=<2:=<3,=<4)
+A_lazy=(
+BTe,BTe:
+BTe,BTe
+)
+
+clear
+local storage cleared
+
+f(A)=<A,f(=<(1,2))=>:A=((x)=<x),(A[0][0])(2)=>:A_lazy=((x)=<x),f(A)=<(A[0][0])(2)=>,f(=<A_lazy)=>
+(
+0,1,2:
+0,2:
+0,0,2
+)
 
 clear
 local storage cleared
@@ -2605,4 +2673,4 @@ center=true&drag=false&test-case=false&legend=true&axis-t=false&axis-x=true&log-
 --------------------------------
 --------------------------------
 
-online-simulator.github.io.6.329.139.17.77 @ Wed Oct 04 2023 04:42:08 GMT+0900 (日本標準時) @ Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/117.0.0.0 Safari/537.36
+online-simulator.github.io.6.330.140.17.77 @ Thu Oct 05 2023 03:01:06 GMT+0900 (日本標準時) @ Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/117.0.0.0 Safari/537.36

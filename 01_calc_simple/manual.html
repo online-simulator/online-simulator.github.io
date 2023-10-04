@@ -1934,6 +1934,16 @@ title/発行元(発行年)を列挙する
 　動的判別対象：記号=&lt;の有無
 <br>
 　実装関数の引数：動的判別なし　⇒　<a href="#span-out-prec-ope-arithmetic-ite">iterator演算子</a>@<a href="#span-out-config-strict">Non-strict-mode</a>のみ対応
+<br>
+・<span class="run">Ver.2.282.66</span>以降、<a href="#span-out-eqns-args">式変数のarguments</a>の動的判別@<a href="#span-out-config-strict">Non-strict-mode</a>を拡張
+<br>
+　<a href="#span-in-call-by-equation">遅延評価</a>の明示対象：<a href="#span-out-eqns">式変数</a>宣言を除く　⇒　<a href="#span-out-eqns">式変数</a>宣言を含む
+<br>
+clear; f(A)=&lt;A; f(=&lt;(1,2))=&gt; -> (1,2)
+<br>
+clear; A=((x)=&lt;x); (A[0][0])(2)=&gt; -> 2
+<br>
+clear; A_lazy=((x)=&lt;x); f(A)=&lt;(A[0][0])(2)=&gt;; f(=&lt;A_lazy)=&gt; -> <del>[MyErr]Undef eqn(A_lazy)</del>2
     </td>
   </tr>
   <tr>
@@ -39445,15 +39455,15 @@ call_fgh(a*3,=&lt;make_f2)=&gt;:
 <br>
 1:
 <br>
-[arr=[],<span class="jF">(=&lt;make_f0,=&lt;make_f1,=&lt;make_f2)</span>.map(<span class="jF">=</span>=&lt;push_arr4vecr),=&lt;arr]=&gt;:
+[arr=[],<span class="jF">(=&lt;make_f0,=&lt;make_f1,=&lt;make_f2).map</span>(<span class="jF">=</span>=&lt;push_arr4vecr),=&lt;arr]=&gt;:
 <br>
 2:
 <br>
-[arr=[],<span class="jF">{=&lt;make_f0,=&lt;make_f1,=&lt;make_f2}</span>.map(<span class="jF">=</span>=&lt;push_arr4vecc).<span class="clear">/*vecc->vecr*/</span>,=&lt;arr]=&gt;:
+[arr=[],<span class="jF">{=&lt;make_f0,=&lt;make_f1,=&lt;make_f2}.map</span>(<span class="jF">=</span>=&lt;push_arr4vecc).<span class="clear">/*vecc->vecr*/</span>,=&lt;arr]=&gt;:
 <br>
 3:
 <br>
-[arr=[],temp=<span class="jF">{=&lt;make_f0,=&lt;make_f1,=&lt;make_f2}</span>.map(<span class="jF">=</span>=&lt;push_arr4vecc)<span class="clear">/*->0*/</span>,=&lt;arr]=&gt;;
+[arr=[],temp=<span class="jF">{=&lt;make_f0,=&lt;make_f1,=&lt;make_f2}.map</span>(<span class="jF">=</span>=&lt;push_arr4vecc)<span class="clear">/*->0*/</span>,=&lt;arr]=&gt;;
 <br>
 clear;
 <br>
@@ -39474,6 +39484,48 @@ A.map((=&lt;f)=&lt;f(3)=&gt;):
 A.filter((=&lt;f)=&lt;(lt(f(3)=&gt;,0))):
 <br>
 A.filter0((=&lt;f)=&lt;(gt(f(3)=&gt;,0))).map((=&lt;g)=&lt;g(3)=&gt;)
+<br>
+];
+<br>
+clear;
+<br>
+f(A)=&lt;A,f(=&lt;(1,2))=&gt;:
+<br>
+A=(<span class="jF">(x)=&lt;x</span>),(<span class="jF">A[0][0]</span>)(2)=&gt;:
+<br>
+A_lazy=(<span class="jF">(x)=&lt;x</span>),f(<span class="jF">A</span>)=&lt;(<span class="jF">A[0][0]</span>)(2)=&gt;,f(<span class="jF">=&lt;A_lazy</span>)=&gt;;
+<br>
+clear;
+<br>
+<span class="jF">$</span>A_lazy=<span class="jF">(=&lt;1,=&lt;2:=&lt;3,=&lt;4)</span>;
+<br>
+anonymous_call=(A_lazy)=&gt;;
+<br>
+<span class="jF">$</span>A=((A_lazy[0][0])=&gt;,(A_lazy[0][1])=&gt;:(A_lazy[1][0])=&gt;,(A_lazy[1][1])=&gt;);
+<br>
+f(<span class="jF">A</span>)=&lt;[=&lt;A.map((=&lt;f)=&lt;f=&gt;)]=&gt;;
+<br>
+f(<span class="jF">=&lt;A_lazy</span>)=&gt;;
+<br>
+f(<span class="jF">=&lt;A_lazy[0]</span>)=&gt;:f(<span class="jF">=&lt;A_lazy[1]</span>)=&gt;;
+<br>
+f(<span class="jF">=&lt;A_lazy[][0]</span>)=&gt;,f(<span class="jF">=&lt;A_lazy[][1]</span>)=&gt;;
+<br>
+clear;
+<br>
+<span class="jF">$</span>a=1;
+<br>
+<span class="jF">$</span>A=<span class="jF">((x)=&lt;a*x,(x)=&lt;-a*x,(x)=&lt;a*x*x)</span>;
+<br>
+[
+<br>
+<span class="jF">$</span>a=2:
+<br>
+A.map((=&lt;f)=&lt;f(3)=&gt;):
+<br>
+A.map((=&lt;f)=&lt;f(3)==&gt;):
+<br>
+[arr=[],A.map((=&lt;f)=&lt;arr=(arr,f(3)=&gt;,f(3)==&gt;)),=&lt;arr]=&gt;
 <br>
 ];
     </td>
