@@ -1987,17 +1987,23 @@ title/発行元(発行年)を列挙する
 <br>
 　影響項目：<a href="#span-out-FN-rand">乱数関数</a>||<a href="#span-eqn-rand_table">rand_table</a>||<a href="#span-eqn-magic">magic-square</a>
 <br>
-・<span class="run">Ver.2.275.65</span>以降、既定で<a href="#span-out-eqns">式変数</a>のcall記号省略不可（syntaxの曖昧さを低減）
+・<span class="run">Ver.2.275.65</span>以降、既定で<a href="#span-out-eqns">式変数</a>のcall記号省略不可（syntaxの問題を解消）
 <br>
 　call記号：=&gt;　⇔　関数callの<a href="#span-out-BT">丸括弧()</a>
-<br>
-_r((n)=&lt;run,run(n,n)=&lt;n+1,3) -> <del>3</del>[MyErr]Invalid BTe([object Object],[object Object],[object Object])
 <br>
 　記号省略：自動実行　⇒　<a href="#span-out-eqns">式変数</a>宣言の判別（callの場合、記号を明示）
 <br>
 last{set_x=&lt;(x=1),x=0,set_x,x} -> <del>1</del>0
 <br>
 last{set_x=&lt;(x=1),x=0,set_x(),x} -> 1
+<br>
+　syntaxの問題：下記<span class="clear"><a href="#span-out-eqns-args">arguments</a></span>無効で実行可能　⇒　error終了
+<br>
+_r((n)=&lt;run,run<span class="clear">(n,n)</span>=&lt;n+1,3) -> <del>3</del>[MyErr]Invalid BTe([object Object],[object Object],[object Object])
+<br>
+_r((n)=&lt;run(),run(n,n)=&lt;n+1,3) -> [MyErr]Invalid args.length=2(run)
+<br>
+_r((n)=&lt;run(),run=&lt;n+1,3) -> 3
 <br>
 　影響項目：<a href="#span-out-config-strict">Non-strict-mode</a>||<a href="#span-out-FNh">高階関数</a>||<a href="#span-out-FNmh">高階行列関数</a>
     </td>
@@ -2155,8 +2161,6 @@ plot仕様
 　検知段階：<del><a href="#span-out-flow">parser-post</a></del><span class="run">Ver.2.279.65</span>以降、削除　⇒　<a href="#span-out-flow">operation</a>（<a href="#span-out-vars-symbol">symbol</a>取得処理を除外して対策）
 <br>
 clear; last{a,1} -> <del>1</del>[MyErr]Undef var(a)
-<br>
-clear; last{f(x)=&lt;x,f},(x)=&lt;x -> (BTe,BTe)
     </td>
   </tr>
   <tr>
@@ -9109,7 +9113,7 @@ last{set_x=&lt;(x=1),x=0,set_x(),x} -> 1
 <br>
 clear; set_x=&lt;(x=1),x=0,set_x,x -> (0,0,BTe,0)
 <br>
-・<span class="run">Ver.2.276.65</span>以降、<a href="#span-out-eqns-args">式変数のarguments</a>の動的判別@<a href="#span-out-config-strict">Non-strict-mode</a>に対応
+・<span class="run">Ver.2.276.65</span>以降、<a href="#span-out-eqns-args">式変数のarguments</a>の動的判別@Non-strict-modeに対応
 <br>
 　定義元：記号=&lt;を省略不可　⇒　省略可
 <br>
@@ -9220,6 +9224,20 @@ clear; a=2; [<span class="selection">(x)</span>=&lt;a]()<span class="clear">=&gt
 <br>
 clear; set_x=&lt;(x=1),x=0,set_x,x -> [MyErr]Invalid BTe([object Object])
 <br>
+・<span class="run">Ver.2.277.65</span>以降、<a href="#span-out-eqns">式変数</a>宣言：BTeの<a href="#span-out-log">log表示</a>
+<br>
+clear; set_x=&lt;(x=1),x=0,set_x,x -> (0,0,BTe,0)
+<br>
+・<span class="run">Ver.2.277.65</span>以降、<a href="#span-out-vars-symbol">変数名symbol</a>単体の場合、動的判別@Non-strict-modeに対応
+<br>
+clear; last{f(x)=&lt;x,f} -> BTe
+<br>
+clear; ((x)=&lt;x) -> BTe
+<br>
+・<a href="#span-out-eqns">式変数</a>宣言単体の場合、error終了（<a href="#span-out-ans">予約変数</a>ansへの代入不可）
+<br>
+clear; (x)=&lt;x -> [MyErr]Invalid BTe([object Object])
+<br>
 ・<span class="run">Ver.2.279.65</span>以降、<a href="#span-out-prec-ope-arithmetic-ite">iterator演算子</a>の第1引数の動的判別（記号=&lt;の有無のみ）@Non-strict-modeに対応
 <br>
 clear; [(x)=&lt;x,(x)=&lt;-x,(x)=&lt;x*x].map((f)=&lt;f(3)) -> (3,-3,9)
@@ -9268,6 +9286,22 @@ clear; a=2; [<span class="selection">(x)</span>=&lt;a]()<span class="clear">=&gt
 ・<span class="run">Ver.2.275.65</span>以降、既定で<a href="#span-out-eqns">式変数</a>のcall記号省略不可
 <br>
 clear; set_x=&lt;(x=1),x=0,set_x,x -> [MyErr]Invalid REv(set_x)
+<br>
+・<span class="clear">Ver.2.280.66</span>以降、<a href="#span-out-UI-graphing-changed-history">plot仕様変更</a>により、未定義の<a href="#span-out-vars">変数</a>を検知不能の致命的な不具合を修正
+<br>
+clear; set_x=&lt;(x=1),x=0,set_x,x -> [MyErr]Undef var(set_x)
+<br>
+・<span class="run">Ver.2.277.65</span>以降、<a href="#span-out-vars-symbol">変数名symbol</a>単体の場合、動的判別@Non-strict-modeに対応
+<br>
+clear; last{f(x)=&lt;x,f} -> [MyErr]Undef var(f)
+<br>
+・<span class="run">Ver.2.277.65</span>以降、<a href="#span-out-eqns">式変数</a>宣言：BTeの<a href="#span-out-log">log表示</a>
+<br>
+clear; ((x)=&lt;x) -> BTe
+<br>
+・<a href="#span-out-eqns">式変数</a>宣言単体の場合、error終了（<a href="#span-out-ans">予約変数</a>ansへの代入不可）
+<br>
+clear; (x)=&lt;x -> [MyErr]Invalid BTe([object Object])
 <br>
 ・<span class="run">Ver.2.279.65</span>以降、<a href="#span-out-prec-ope-arithmetic-ite">iterator演算子</a>の第1引数の動的判別（記号=&lt;の有無のみ）@Non-strict-modeに対応
 <br>
@@ -37220,6 +37254,8 @@ arguments
 ・引数が式渡しの場合、関数callまで引数の演算を実行しない
 <br>
 ・式渡しと<a href="#span-out-substitution-equation">式代入</a>記号=&lt;が共通で遅延評価を保証するため、<a href="#span-out-associativity">左結合</a>とする
+<br>
+　<a href="#span-out-BT">括弧</a>の中身を自動展開（<a href="#span-out-mat">行列</a>を想定）するため、遅延評価の記号を追加（逆の場合、展開記号を追加）
 <br>
 <br>
 実装の経緯

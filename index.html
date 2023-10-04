@@ -279,7 +279,11 @@ fatal bug-fix
 <br>
 clear; last{a,1} -> <del>1</del>[MyErr]Undef var(a)
 <br>
-clear; last{f(x)=&lt;x,f},(x)=&lt;x -> (BTe,BTe)
+clear; last{f(x)=&lt;x,f},(x)=&lt;x ->
+<br>
+Non-strict-mode: (BTe,BTe)
+<br>
+strict-mode: [MyErr]Undef var(f)
 <br>
 ・test case re-updated
     </td>
