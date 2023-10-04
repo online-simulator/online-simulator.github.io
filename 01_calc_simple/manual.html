@@ -2161,6 +2161,8 @@ plot仕様
 　検知段階：<del><a href="#span-out-flow">parser-post</a></del><span class="run">Ver.2.279.65</span>以降、削除　⇒　<a href="#span-out-flow">operation</a>（<a href="#span-out-vars-symbol">symbol</a>取得処理を除外して対策）
 <br>
 clear; last{a,1} -> <del>1</del>[MyErr]Undef var(a)
+<br>
+　影響項目：<a href="#span-out-FNm-size">size行列関数</a>
     </td>
   </tr>
   <tr>
@@ -18514,7 +18516,9 @@ sizec(1,2:3) -> 2
 <br>
 sizec(1,2:3:4,5,) -> 3
 <br>
-・定義済み<a href="#span-out-vars">変数</a>を含まない場合
+・<span class="clear">Ver.2.280.66</span>以降、未定義の<a href="#span-out-vars">変数</a>を<a href="#span-out-flow">operation</a>段階で検知するため、error終了
+<br>
+<del>・定義済み<a href="#span-out-vars">変数</a>を含まない場合
 <br>
 clear; sizer(a,b:c,d) || sizer(,:,) -> 2
 <br>
@@ -18528,7 +18532,7 @@ clear; A=(,:,); sizec(A,b:c,d) || sizec(A,:,) -> 3
 <br>
 clear; A=(,:,); sizer(A,b:c,A) || sizer(A,:,A) -> 4
 <br>
-clear; A=(,:,); sizec(A,b:c,A) || sizec(A,:,A) -> 3
+clear; A=(,:,); sizec(A,b:c,A) || sizec(A,:,A) -> 3</del>
 <br>
 clear; A=(,:,); sizer(A,A:A,A) -> 4
 <br>
