@@ -1935,7 +1935,7 @@ title/発行元(発行年)を列挙する
 <br>
 　実装関数の引数：動的判別なし　⇒　<a href="#span-out-prec-ope-arithmetic-ite">iterator演算子</a>@<a href="#span-out-config-strict">Non-strict-mode</a>のみ対応
 <br>
-・<span class="run">Ver.2.282.66</span>以降、<a href="#span-out-eqns-args">式変数のarguments</a>の動的判別@<a href="#span-out-config-strict">Non-strict-mode</a>を拡張
+・<span class="run">Ver.2.282.66</span>以降、<a href="#span-out-eqns-args">式変数のarguments</a>の判別対象を拡張
 <br>
 　<a href="#span-in-call-by-equation">遅延評価</a>の明示対象：<a href="#span-out-eqns">式変数</a>宣言を除く　⇒　<a href="#span-out-eqns">式変数</a>宣言を含む
 <br>
@@ -9256,6 +9256,10 @@ clear; (x)=&lt;x -> [MyErr]Invalid BTe([object Object])
 <br>
 clear; [(x)=&lt;x,(x)=&lt;-x,(x)=&lt;x*x].map((f)=&lt;f(3)) -> (3,-3,9)
 <br>
+・<span class="run">Ver.2.282.66</span>以降、<a href="#span-out-eqns-args">式変数のarguments</a>の判別対象を拡張
+<br>
+clear; A_lazy=((x)=&lt;x); f(A)=&lt;(A[0][0])(2)=&gt;; f(=&lt;A_lazy)=&gt; -> <del>[MyErr]Undef eqn(A_lazy)</del>2
+<br>
 <br>
 ・strict-modeの場合
 <br>
@@ -9322,6 +9326,10 @@ clear; (x)=&lt;x -> [MyErr]Invalid BTe([object Object])
 ・<span class="run">Ver.2.279.65</span>以降、<a href="#span-out-prec-ope-arithmetic-ite">iterator演算子</a>の第1引数の動的判別（記号=&lt;の有無のみ）@Non-strict-modeに対応
 <br>
 clear; [(x)=&lt;x,(x)=&lt;-x,(x)=&lt;x*x].map((f)=&lt;f(3)) -> [MyErr]Invalid URh-args.f
+<br>
+・<span class="run">Ver.2.282.66</span>以降、<a href="#span-out-eqns-args">式変数のarguments</a>の判別対象を拡張
+<br>
+clear; A_lazy=((x)=&lt;x); f(A)=&lt;(A[0][0])(2)=&gt;; f(=&lt;A_lazy)=&gt; -> <del>[MyErr]Invalid matching var(A)</del>2
     </td>
   </tr>
   <tr>
