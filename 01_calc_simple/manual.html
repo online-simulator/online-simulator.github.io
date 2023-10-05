@@ -2112,9 +2112,15 @@ clear; f(3,x)=&lt;x -> [MyErr]Invalid args isFound(f)
 <br>
 ・<span class="clear">Ver.2.266.62</span>以降、<a href="#span-in-deep-copy">deep-copy</a>の適用対象を最適化
 <br>
-　<a href="#span-out-vars">変数</a>・<a href="#span-out-eqns">式変数</a>のstore||restore時　⇒　<span class="clear">restore時</span>（<a href="#span-out-ans">予約変数</a>ansを含む）
+　<a href="#span-in-deep-copy">deep-copy</a>の適用対象：<a href="#span-out-vars">変数</a>・<a href="#span-out-eqns">式変数</a>のstore||restore時　⇒　<span class="clear">restore時</span>（<a href="#span-out-ans">予約変数</a>ansを含む）
 <br>
-　2重cloneの無駄あり　⇒　なし
+　2重clone：あり　⇒　なし
+<br>
+・<span class="run">Ver.2.284.67</span>以降、<a href="#span-out-eqns-args">式変数のarguments</a>解決の処理を最適化
+<br>
+　tree継承flagの保存：<a href="#span-out-vars">変数</a>・<a href="#span-out-eqns">式変数</a>のrestore時　⇒　store時
+<br>
+　<span class="clear">Ver.2.280.66</span>以降、未定義の<a href="#span-out-vars">変数</a>を<a href="#span-out-flow">operation</a>段階で検知の影響：重複判定の処理を削除
     </td>
   </tr>
   <tr>
