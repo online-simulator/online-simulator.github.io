@@ -1939,7 +1939,7 @@ title/発行元(発行年)を列挙する
 <br>
 　<a href="#span-in-call-by-equation">遅延評価</a>の明示対象：<a href="#span-out-eqns">式変数</a>宣言を除く　⇒　<a href="#span-out-eqns">式変数</a>宣言を含む
 <br>
-clear; f(A)=&lt;A; f(=&lt;(1,2))=&gt; -> (1,2)
+clear; f=(A)=&lt;A; f(=&lt;(1,2))=&gt; -> (1,2)
 <br>
 clear; A=((x)=&lt;x); (A[0][0])(2)=&gt; -> 2
 <br>
@@ -39513,11 +39513,13 @@ A.filter0((=&lt;f)=&lt;(gt(f(3)=&gt;,0))).map((=&lt;g)=&lt;g(3)=&gt;)
 <br>
 clear;
 <br>
-f<span class="jF">=</span>(A)=&lt;A,f(=&lt;(1,2))=&gt;:
+f<span class="jF">=</span>(A)=&lt;A,f(=&lt;(1,2))=&gt;,f(=&lt;(1))=&gt;,f((1))=&gt;:
 <br>
-A=(<span class="jF">(x)=&lt;x</span>),(<span class="jF">A[0][0]</span>)(2)=&gt;:
+A_not_iterable<span class="jF">=</span>(<span class="jF">(x)=&lt;x</span>),(<span class="jF">A_not_iterable</span>)(2)=&gt;:
 <br>
-A_lazy=(<span class="jF">(x)=&lt;x</span>),f(<span class="jF">A</span>)=&lt;(<span class="jF">A[0][0]</span>)(2)=&gt;,f(<span class="jF">=&lt;A_lazy</span>)=&gt;;
+A_iterable=(<span class="jF">(x)=&lt;x,(x)=&lt;-x,(x)=&lt;x*x</span>),(<span class="jF">A_iterable[0][0]</span>)(2)=&gt;:
+<br>
+A_lazy=(<span class="jF">(x)=&lt;x,(x)=&lt;-x,(x)=&lt;x*x</span>),f(<span class="jF">A</span>)=&lt;(<span class="jF">A[0][0]</span>)(2)=&gt;,f(<span class="jF">=&lt;A_lazy</span>)=&gt;;
 <br>
 clear;
 <br>
@@ -39527,13 +39529,15 @@ anonymous_call=(A_lazy)=&gt;;
 <br>
 <span class="jF">$</span>A=((A_lazy[0][0])=&gt;,(A_lazy[0][1])=&gt;:(A_lazy[1][0])=&gt;,(A_lazy[1][1])=&gt;);
 <br>
-f<span class="jF">=</span>(<span class="jF">A</span>)=&lt;[=&lt;A.map((=&lt;f)=&lt;f=&gt;)]=&gt;;
+f<span class="jF">=</span>(<span class="jF">A_iterable</span>)=&lt;[=&lt;A_iterable.map((=&lt;f)=&lt;f=&gt;)]=&gt;;
 <br>
 f(<span class="jF">=&lt;A_lazy</span>)=&gt;;
 <br>
 f(<span class="jF">=&lt;A_lazy[0]</span>)=&gt;:f(<span class="jF">=&lt;A_lazy[1]</span>)=&gt;;
 <br>
 f(<span class="jF">=&lt;A_lazy[][0]</span>)=&gt;,f(<span class="jF">=&lt;A_lazy[][1]</span>)=&gt;;
+<br>
+f(<span class="jF">=&lt;(=&lt;1,=&lt;2:=&lt;3,=&lt;4)</span>)=&gt;;
 <br>
 clear;
 <br>

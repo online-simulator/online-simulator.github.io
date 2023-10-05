@@ -259,6 +259,46 @@ Y/M/D
 <tbody>
   <tr>
     <th>
+6.331.140.17.78
+    </th>
+    <td class="types">
+Calculator
+    </td>
+    <td>
+2.283.67
+    </td>
+    <td class="clear">
+minor bug-fix
+<br>
+2.282.66~
+    </td>
+    <td>
+[Calculator]
+<br>
+・DATA.js self.hasVar_arr() bug-fixed not(num.com)　⇒　not(num.com || BTe)
+<br>
+A_iterable=(=&lt;1,=&lt;2:=&lt;3,=&lt;4);
+<br>
+A_iterable.map((f)=&lt;f()) -> (1,2:3,4)
+<br>
+f=(A_iterable)=&lt;[=&lt;A_iterable.map((f)=&lt;f())]=&gt;;
+<br>
+f(=&lt;A_iterable) -> (1,2:3,4)
+<br>
+f(=&lt;(=&lt;1,=&lt;2:=&lt;3,=&lt;4)) -> <del>[MyErr]Invalid .map(f)</del>(1,2:3,4)
+<br>
+・test case updated
+<br>
+[Graphing Calculator]
+<br>
+・strict-mode equation-list-map updated
+    </td>
+    <td>
+2023/10/5
+    </td>
+  </tr>
+  <tr>
+    <th>
 6.331.140.17.77
     </th>
     <td class="types">

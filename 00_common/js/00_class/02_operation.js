@@ -3832,6 +3832,7 @@ My_entry.operation.prototype.get_name_eqn_AtREe = function(trees, i0){  // Ver.2
 My_entry.operation.prototype.get_tree_isREv = function(tree, opt_name){
   var self = this;
   var DATA = self.entry.DATA;
+  var BT = self.config.BT;  // Ver.2.283.67
   var _tree = null;
   var tagName = Object.keys(tree)[0];
   var obj = tree[tagName];
@@ -3842,7 +3843,7 @@ My_entry.operation.prototype.get_tree_isREv = function(tree, opt_name){
     var isMat = tree.mat;
     var set_tree = function(){
       var arr = tree.mat.arr;
-      var hasVar = DATA.hasVar_arr(arr);
+      var hasVar = DATA.hasVar_arr(arr, BT.SEe);  // Ver.2.283.67
       if(!(hasVar)){
         _tree = tree;
       }
@@ -3880,6 +3881,15 @@ My_entry.operation.prototype.switch_type_tree = function(data, tree){
       _tree = self.get_tree_isREv(tree_var, true);
     }
   }
+  /* Ver.2.283.67 -> */
+  if(_tree && _tree.mat){
+    var arr = _tree.mat.arr;
+    var isSEe_arr = self.has1elem_tag(arr, BT.SEe);  // Ver.2.255.59
+    if(isSEe_arr){
+      _tree = self.tree2tree_SEe(_tree);
+    }
+  }
+  /* -> Ver.2.283.67 */
   if(!(_tree)){
     _tree = self.tree_eqn2tree_AtSEe(data, tree);
   }

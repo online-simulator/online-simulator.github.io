@@ -115,12 +115,21 @@ My_entry.DATA.prototype.isFalse_arr = function(arr){
   var has1elem = (arr.length === 1 && arr[0].length === 1 && arr[0][0].com);
   return (has1elem && ((Number(arr[0][0].com.r) === 0 && Number(arr[0][0].com.i) === 0) || (isNaN(arr[0][0].com.r) || isNaN(arr[0][0].com.i))));  // calc-Ver.2.165.40
 };
-My_entry.DATA.prototype.hasVar_arr = function(arr){
+My_entry.DATA.prototype.hasVar_arr = function(arr, opt_tagName){  // calc-Ver.2.283.67
   var self = this;
   var _hasVar = false;
+  /* calc-Ver.2.283.67 -> */
+  var callback = (opt_tagName)?
+    function(arrij){
+      return (arrij && !(arrij.com || arrij[opt_tagName]));
+    }:
+    function(arrij){
+      return (arrij && !(arrij.com));
+    };
+  /* -> calc-Ver.2.283.67 */
   for(var i=0, len_i=arr.length; i<len_i; ++i){
     for(var j=0, len_j=arr[i].length; j<len_j; ++j){
-      _hasVar = _hasVar || (!(arr[i][j].com) && arr[i][j]);  // calc-Ver.2.224.51
+      _hasVar = _hasVar || callback(arr[i][j]);  // calc-Ver.2.224.51  // calc-Ver.2.283.67
     }
     if(_hasVar) break;
   }

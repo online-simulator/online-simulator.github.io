@@ -1,6 +1,36 @@
 clear
 local storage cleared
 
+f(=<(=<1,=<2:=<3,=<4))
+(
+1,2:
+3,4
+)
+
+f(=<A_iterable)
+(
+1,2:
+3,4
+)
+
+f=(A_iterable)=<[=<A_iterable.map((f)=<f())]=>
+stored_eqn(f)
+
+A_iterable.map((f)=<f())
+(
+1,2:
+3,4
+)
+
+A_iterable=(=<1,=<2:=<3,=<4)
+A_iterable=(
+BTe,BTe:
+BTe,BTe
+)
+
+clear
+local storage cleared
+
 f=(h)=<h(3),f((x)=<(1,2)*x):g=(x)=<x,f((x)=<x),f(g)
 (
 0,3,6:
@@ -10,13 +40,19 @@ f=(h)=<h(3),f((x)=<(1,2)*x):g=(x)=<x,f((x)=<x),f(g)
 clear
 local storage cleared
 
+f(=<(=<1,=<2:=<3,=<4))
+(
+1,2:
+3,4
+)
+
 f(=<A_lazy),(f(=<A_lazy[0]):f(=<A_lazy[1])),(f(=<A_lazy[][0]),f(=<A_lazy[][1]))
 (
 1,2,1,2,1,2:
 3,4,3,4,3,4
 )
 
-f=(A)=<[=<A.map((f)=<f())]=>
+f=(A_iterable)=<[=<A_iterable.map((f)=<f())]=>
 stored_eqn(f)
 
 $A=((A_lazy[0][0])=>,(A_lazy[0][1])=>:(A_lazy[1][0])=>,(A_lazy[1][1])=>)
@@ -37,9 +73,10 @@ BTe,BTe
 clear
 local storage cleared
 
-f=(A)=<A,f(=<(1,2)):A=((x)=<x),(A[0][0])(2)=>:A_lazy=((x)=<x),f(A)=<(A[0][0])(2)=>,f(=<A_lazy)
+f=(A)=<A,f(=<(1,2)),f(=<(1)),f((1)):A_not_iterable=((x)=<x),(A_not_iterable)(2)=>:A_iterable=((x)=<x,(x)=<-x,(x)=<x*x),(A_iterable[0][0])(2)=>:A_lazy=((x)=<x,(x)=<-x,(x)=<x*x),f(A)=<(A[0][0])(2)=>,f(=<A_lazy)
 (
-0,1,2:
+0,1,2,1,1:
+0,2:
 0,2:
 0,0,2
 )
@@ -193,12 +230,12 @@ h=(x)=<x,f=(g)=<g(3),f(h)
 clear
 local storage cleared
 
-h(x)=<x,f(g)=<g(3),f(h):[[_e((A)=<x,1,1),x0=1,f(A)=<[x0=2,A(),A==>],f(=<A):_e((A)=<x,1,1),x0=3,f(A)=<[x0=4,A(),A==>],f(A):_e((A)=<x,1,2),x0=5,x1=6,f(A)=<[x0=7,x1=8,A(),A==>],f(A):[f=<x,x=i,g(f)=<[x=2i,f(),f==>],g(f)]:[f=<-x,x=3i,g(f)=<[x=4i,f(),f==>],g(f)]]]/*Non-strict-mode*/
+h(x)=<x,f(g)=<g(3),f(h):[[_e((A)=<x,1,1),x0=1,A(),f(A)=<[x0=2,A(),A==>],f(=<A):_e((A)=<x,1,1),x0=3,A(),f(A)=<[x0=4,A(),A==>],f(=<A):_e((A)=<x,1,2),x0=5,x1=6,A(),f(A)=<[x0=7,x1=8,A(),A==>],f(=<A):[f=<x,x=i,g(f)=<[x=2i,f(),f==>],g(f)]:[f=<-x,x=3i,g(f)=<[x=4i,f(),f==>],g(f)]]]/*Non-strict-mode*/
 (
 0,0,3:
-0,0,0,0,1,2:
-0,0,0,0,3,4:
-0,0,0,0,0,0,5,6,7,8:
+0,0,1,0,0,1,2:
+0,0,3,0,0,3,4:
+0,0,0,5,6,0,0,0,5,6,7,8:
 0,0,0,0,i,2i:
 0,0,0,0,-3i,-4i
 )
@@ -3763,4 +3800,4 @@ drag=false&sw=false&0x=false&useMatrix=true&useStrict=false&checkError=true&isRi
 --------------------------------
 --------------------------------
 
-online-simulator.github.io.6.331.140.17.77 @ Thu Oct 05 2023 10:43:39 GMT+0900 (日本標準時) @ Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/117.0.0.0 Safari/537.36
+online-simulator.github.io.6.331.140.17.78 @ Thu Oct 05 2023 17:09:25 GMT+0900 (日本標準時) @ Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/117.0.0.0 Safari/537.36
