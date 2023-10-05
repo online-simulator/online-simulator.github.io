@@ -1944,6 +1944,12 @@ clear; f(A)=&lt;A; f(=&lt;(1,2))=&gt; -> (1,2)
 clear; A=((x)=&lt;x); (A[0][0])(2)=&gt; -> 2
 <br>
 clear; A_lazy=((x)=&lt;x); f(A)=&lt;(A[0][0])(2)=&gt;; f(=&lt;A_lazy)=&gt; -> <del>[MyErr]Undef eqn(A_lazy)</del>2
+<br>
+・<span class="run">Ver.2.283.66</span>以降、<a href="#span-out-eqns-args">式変数のarguments</a>の動的判別@<a href="#span-out-config-strict">Non-strict-mode</a>の<a href="#span-out-ref-transparency">参照透過性</a>を対策
+<br>
+clear; f=(h)=&lt;h(3); g=(x)=&lt;x; f(g) -> 3
+<br>
+clear; f=(h)=&lt;h(3); f((x)=&lt;x) -> <del>[MyErr]Undef var(x)</del>3
     </td>
   </tr>
   <tr>
