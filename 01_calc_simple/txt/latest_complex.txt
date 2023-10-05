@@ -22,7 +22,7 @@ A_iterable.map((f)=<f())
 3,4
 )
 
-A_iterable=(=<1,=<2:=<3,=<4)
+$A_iterable=(=<1,=<2:=<3,=<4)
 A_iterable=(
 BTe,BTe:
 BTe,BTe
@@ -61,7 +61,7 @@ A=(
 3,4
 )
 
-anonymous_call=(A_lazy)=>
+anonymous_call=(A_lazy/*tail-return*/)=>
 anonymous_call=4
 
 $A_lazy=(=<1,=<2:=<3,=<4)
@@ -73,12 +73,13 @@ BTe,BTe
 clear
 local storage cleared
 
-f=(A)=<A,f(=<(1,2)),f(=<(1)),f((1)):A_not_iterable=((x)=<x),(A_not_iterable)(2)=>:A_iterable=((x)=<x,(x)=<-x,(x)=<x*x),(A_iterable[0][0])(2)=>:A_lazy=((x)=<x,(x)=<-x,(x)=<x*x),f(A)=<(A[0][0])(2)=>,f(=<A_lazy)
+f=(A)=<A,f(=<(1,2)),f(=<(1)),f((1)):A_not_iterable=(x)=<x,A_not_iterable(2):A_iterable=((x)=<x),(A_iterable[0][0])(2)=>,(A_iterable)(2)=>:A_iterable=((x)=<x,(x)=<-x,(x)=<x*x),(A_iterable[0][0])(2)=>,(A_iterable)(2)=>:A_lazy=((x)=<x,(x)=<-x,(x)=<x*x),f(A)=<((A[0][0])(2)=>,(A)(2)=>),f(=<A_lazy)
 (
 0,1,2,1,1:
 0,2:
-0,2:
-0,0,2
+0,2,2:
+0,2,4:
+0,0,2,4
 )
 
 clear
@@ -3800,4 +3801,4 @@ drag=false&sw=false&0x=false&useMatrix=true&useStrict=false&checkError=true&isRi
 --------------------------------
 --------------------------------
 
-online-simulator.github.io.6.332.140.17.78 @ Thu Oct 05 2023 22:26:44 GMT+0900 (日本標準時) @ Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/117.0.0.0 Safari/537.36
+online-simulator.github.io.6.332.140.17.78 @ Fri Oct 06 2023 01:07:03 GMT+0900 (日本標準時) @ Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/117.0.0.0 Safari/537.36

@@ -39535,17 +39535,19 @@ clear;
 <br>
 f<span class="jF">=</span>(A)=&lt;A,f(=&lt;(1,2))=&gt;,f(=&lt;(1))=&gt;,f((1))=&gt;:
 <br>
-A_not_iterable<span class="jF">=</span>(<span class="jF">(x)=&lt;x</span>),(<span class="jF">A_not_iterable</span>)(2)=&gt;:
+A_not_iterable<span class="jF">=</span>(x)=&lt;x,<span class="jF">A_not_iterable</span>(2)=&gt;:
 <br>
-A_iterable=(<span class="jF">(x)=&lt;x,(x)=&lt;-x,(x)=&lt;x*x</span>),(<span class="jF">A_iterable[0][0]</span>)(2)=&gt;:
+A_iterable<span class="jF">=</span>(<span class="jF">(x)=&lt;x</span>),(<span class="jF">A_iterable[0][0]</span>)(2)=&gt;,(<span class="jF">A_iterable</span>)(2)=&gt;:
 <br>
-A_lazy=(<span class="jF">(x)=&lt;x,(x)=&lt;-x,(x)=&lt;x*x</span>),f(<span class="jF">A</span>)=&lt;(<span class="jF">A[0][0]</span>)(2)=&gt;,f(<span class="jF">=&lt;A_lazy</span>)=&gt;;
+A_iterable=(<span class="jF">(x)=&lt;x,(x)=&lt;-x,(x)=&lt;x*x</span>),(<span class="jF">A_iterable[0][0]</span>)(2)=&gt;,(<span class="jF">A_iterable</span>)(2)=&gt;:
+<br>
+A_lazy=(<span class="jF">(x)=&lt;x,(x)=&lt;-x,(x)=&lt;x*x</span>),f(<span class="jF">A</span>)=&lt;((<span class="jF">A[0][0]</span>)(2)=&gt;,(<span class="jF">A</span>)(2)=&gt;),f(<span class="jF">=&lt;A_lazy</span>)=&gt;;
 <br>
 clear;
 <br>
 <span class="jF">$</span>A_lazy=<span class="jF">(=&lt;1,=&lt;2:=&lt;3,=&lt;4)</span>;
 <br>
-anonymous_call=(A_lazy)=&gt;;
+anonymous_call=(A_lazy/*tail-return*/)=&gt;;
 <br>
 <span class="jF">$</span>A=((A_lazy[0][0])=&gt;,(A_lazy[0][1])=&gt;:(A_lazy[1][0])=&gt;,(A_lazy[1][1])=&gt;);
 <br>
