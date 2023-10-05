@@ -1950,6 +1950,20 @@ clear; A_lazy=((x)=&lt;x); f(A)=&lt;(A[0][0])(2)=&gt;; f(=&lt;A_lazy)=&gt; -> <d
 clear; f=(h)=&lt;h(3); g=(x)=&lt;x; f(g) -> 3
 <br>
 clear; f=(h)=&lt;h(3); f((x)=&lt;x) -> <del>[MyErr]Undef var(x)</del>3
+<br>
+・<span class="clear">Ver.2.283.67</span>以降、<a href="#span-out-eqns-args">式変数のarguments</a>の<a href="#span-out-ref-transparency">参照透過性</a>の不具合を修正
+<br>
+　<a href="#span-out-vars">変数</a>への代入可能判定：数値のみの<a href="#span-out-mat">行列</a>　⇒　数値||<a href="#span-out-eqns">式変数</a>宣言の<a href="#span-out-mat">行列</a>
+<br>
+A_iterable=(=&lt;1,=&lt;2:=&lt;3,=&lt;4);
+<br>
+A_iterable.map((f)=&lt;f()) -> (1,2:3,4)
+<br>
+f=(A_iterable)=&lt;[=&lt;A_iterable.map((f)=&lt;f())]=&gt;;
+<br>
+f(=&lt;A_iterable) -> (1,2:3,4)
+<br>
+f(=&lt;(=&lt;1,=&lt;2:=&lt;3,=&lt;4)) -> <del>[MyErr]Invalid .map(f)</del>(1,2:3,4)
     </td>
   </tr>
   <tr>
