@@ -1268,7 +1268,7 @@ clear
 local storage cleared
 
 [Pinv_y=(-0.999999427,-0.999936657,-0.997300203,-0.954499736,-0.682689492,0,0.682689492,0.954499736,0.997300203,0.999936657,0.999999427:-5,-4,-3,-2,-1,0,1,2,3,4,5),N=1,arr=[],_rn(=<arr=(arr:rand_table(=<Pinv_y)=>),,N),=<arr]=>
-0.19834509853652244
+-0.8956116236063452
 
 rand_table(csv)=<last[table=sort0(csv),ymin=min(table)[0],ymax=max(table)[0],y=ymin+(ymax-ymin)*rand(),x=interp(y:table),x]
 stored_eqn(rand_table)
@@ -1659,7 +1659,7 @@ f(=<A_lazy)=>
 3,4
 )
 
-f(A)=<[=<A.map((=<f)=<f=>)]=>
+f=(A)=<[=<A.map((=<f)=<f=>)]=>
 stored_eqn(f)
 
 $A=((A_lazy[0][0])=>,(A_lazy[0][1])=>:(A_lazy[1][0])=>,(A_lazy[1][1])=>)
@@ -1680,7 +1680,7 @@ BTe,BTe
 clear
 local storage cleared
 
-f(A)=<A,f(=<(1,2))=>:A=((x)=<x),(A[0][0])(2)=>:A_lazy=((x)=<x),f(A)=<(A[0][0])(2)=>,f(=<A_lazy)=>
+f=(A)=<A,f(=<(1,2))=>:A=((x)=<x),(A[0][0])(2)=>:A_lazy=((x)=<x),f(A)=<(A[0][0])(2)=>,f(=<A_lazy)=>
 (
 0,1,2:
 0,2:
@@ -2277,6 +2277,25 @@ a=1:[()=<a]()=>,[()=<[()=<a]()=>]()=>,[()=<[(a)=<a](2)=>]()=>,[()=<[a=1,(a)=<a](
 clear
 local storage cleared
 
+f((x)=<x)=>,f(=<g)=>
+(
+3,3
+)
+
+g=(x)=<x
+stored_eqn(g)
+
+f((x)=<(1,2)*x)=>
+(
+3,6
+)
+
+f=(=<h)=<h(3)=>
+stored_eqn(f)
+
+clear
+local storage cleared
+
 xy_z(3)=>:xy_z(4)=>:xy_z(5)=>
 (
 1,2,3:
@@ -2673,4 +2692,4 @@ center=true&drag=false&test-case=false&legend=true&axis-t=false&axis-x=true&log-
 --------------------------------
 --------------------------------
 
-online-simulator.github.io.6.330.140.17.77 @ Thu Oct 05 2023 03:01:06 GMT+0900 (日本標準時) @ Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/117.0.0.0 Safari/537.36
+online-simulator.github.io.6.331.140.17.77 @ Thu Oct 05 2023 10:41:32 GMT+0900 (日本標準時) @ Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/117.0.0.0 Safari/537.36

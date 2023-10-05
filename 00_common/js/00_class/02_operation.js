@@ -3871,8 +3871,10 @@ My_entry.operation.prototype.get_tree_isREv = function(tree, opt_name){
 /* Ver.2.276.65 */
 My_entry.operation.prototype.switch_type_tree = function(data, tree){
   var self = this;
+  var BT = self.config.BT;  // Ver.2.283.66
   var _tree = self.get_tree_isREv(tree);
-  if(!(_tree)){
+  var isSEe = tree[BT.SEe];  // Ver.2.283.66
+  if(!(_tree) && !(isSEe && isSEe.arg)){  // Ver.2.283.66 f=(h)=<h(3),f((x)=<(1,2)):g=(x)=<x,f((x)=<x),f(g)
     var tree_var = self.tree_eqn2tree_AtREe(data, tree);
     if(tree_var){
       _tree = self.get_tree_isREv(tree_var, true);

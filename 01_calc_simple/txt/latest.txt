@@ -1,13 +1,22 @@
 clear
 local storage cleared
 
+f=(h)=<h(3),f((x)=<(1,2)*x):g=(x)=<x,f((x)=<x),f(g)
+(
+0,3,6:
+0,3,3
+)
+
+clear
+local storage cleared
+
 f(=<A_lazy),(f(=<A_lazy[0]):f(=<A_lazy[1])),(f(=<A_lazy[][0]),f(=<A_lazy[][1]))
 (
 1,2,1,2,1,2:
 3,4,3,4,3,4
 )
 
-f(A)=<[=<A.map((f)=<f())]=>
+f=(A)=<[=<A.map((f)=<f())]=>
 stored_eqn(f)
 
 $A=((A_lazy[0][0])=>,(A_lazy[0][1])=>:(A_lazy[1][0])=>,(A_lazy[1][1])=>)
@@ -28,7 +37,7 @@ BTe,BTe
 clear
 local storage cleared
 
-f(A)=<A,f(=<(1,2)):A=((x)=<x),(A[0][0])(2)=>:A_lazy=((x)=<x),f(A)=<(A[0][0])(2)=>,f(=<A_lazy)
+f=(A)=<A,f(=<(1,2)):A=((x)=<x),(A[0][0])(2)=>:A_lazy=((x)=<x),f(A)=<(A[0][0])(2)=>,f(=<A_lazy)
 (
 0,1,2:
 0,2:
@@ -3754,4 +3763,4 @@ drag=false&sw=false&0x=false&useMatrix=true&useStrict=false&checkError=true&isRi
 --------------------------------
 --------------------------------
 
-online-simulator.github.io.6.330.140.17.77 @ Thu Oct 05 2023 03:01:57 GMT+0900 (日本標準時) @ Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/117.0.0.0 Safari/537.36
+online-simulator.github.io.6.331.140.17.77 @ Thu Oct 05 2023 10:43:39 GMT+0900 (日本標準時) @ Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/117.0.0.0 Safari/537.36
