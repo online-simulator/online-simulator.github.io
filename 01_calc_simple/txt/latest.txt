@@ -1,10 +1,10 @@
 clear
 local storage cleared
 
-f(=<(=<1,=<2:=<3,=<4))
+f(=<(=<1,=<2:=<3,=<4)),(f(=<(=<1,=<2:=<3,=<4)[0]):f(=<(=<1,=<2:=<3,=<4)[1])),(f(=<(=<1,=<2:=<3,=<4)[][0]),f(=<(=<1,=<2:=<3,=<4)[][1]))
 (
-1,2:
-3,4
+1,2,1,2,1,2:
+3,4,3,4,3,4
 )
 
 f(=<A_iterable)
@@ -40,10 +40,10 @@ f=(h)=<h(3),f((x)=<(1,2)*x):g=(x)=<x,f((x)=<x),f(g)
 clear
 local storage cleared
 
-f(=<(=<1,=<2:=<3,=<4))
+f(=<(=<1,=<2:=<3,=<4)),(f(=<(=<1,=<2:=<3,=<4)[0]):f(=<(=<1,=<2:=<3,=<4)[1])),(f(=<(=<1,=<2:=<3,=<4)[][0]),f(=<(=<1,=<2:=<3,=<4)[][1]))
 (
-1,2:
-3,4
+1,2,1,2,1,2:
+3,4,3,4,3,4
 )
 
 f(=<A_lazy),(f(=<A_lazy[0]):f(=<A_lazy[1])),(f(=<A_lazy[][0]),f(=<A_lazy[][1]))
@@ -3801,4 +3801,4 @@ drag=false&sw=false&0x=false&useMatrix=true&useStrict=false&checkError=true&isRi
 --------------------------------
 --------------------------------
 
-online-simulator.github.io.6.332.140.17.78 @ Fri Oct 06 2023 01:06:44 GMT+0900 (日本標準時) @ Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/117.0.0.0 Safari/537.36
+online-simulator.github.io.6.332.140.17.78 @ Fri Oct 06 2023 12:40:30 GMT+0900 (日本標準時) @ Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/117.0.0.0 Safari/537.36
