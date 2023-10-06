@@ -2121,6 +2121,12 @@ clear; f(3,x)=&lt;x -> [MyErr]Invalid args isFound(f)
 　tree継承flagの保存：<a href="#span-out-vars">変数</a>・<a href="#span-out-eqns">式変数</a>のrestore時　⇒　store時
 <br>
 　<span class="clear">Ver.2.280.66</span>以降、未定義の<a href="#span-out-vars">変数</a>を<a href="#span-out-flow">operation</a>段階で検知の影響：重複判定の処理を削除
+<br>
+・<span class="run">Ver.2.286.67</span>以降、<span class="run">Ver.2.212.46</span>の追加更新
+<br>
+　使用<a href="#span-in-prec">tag名</a>判定用のobject初期化処理：instance毎　⇒　関数call毎
+<br>
+　影響範囲：実行確定1回毎に、instanceを作るため、影響なし（<a href="#span-in-myeval">独自eval</a>を含む）
     </td>
   </tr>
   <tr>
