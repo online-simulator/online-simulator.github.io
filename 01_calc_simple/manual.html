@@ -9175,7 +9175,9 @@ f(3) -> 3
 <br>
 (A)(2)=&gt; -> 4
 <br>
-x=(=&lt;2) -> x=BTe
+・<span class="run">Ver.2.285.67</span>以降、行列要素がBTe単体の場合、iterableの<a href="#span-out-BT">丸括弧()</a>を明示
+<br>
+x=(=&lt;2) -> x=<del>BTe</del>(BTe)
 <br>
 (x)=&gt; -> 2
 <br>
@@ -9268,9 +9270,11 @@ clear; set_x=&lt;(x=1),x=0,set_x,x -> (0,0,BTe,0)
 <br>
 ・<span class="run">Ver.2.277.65</span>以降、<a href="#span-out-vars-symbol">変数名symbol</a>単体の場合、動的判別@Non-strict-modeに対応
 <br>
-clear; last{f(x)=&lt;x,f} -> BTe
+・<span class="run">Ver.2.285.67</span>以降、行列要素がBTe単体の場合、iterableの<a href="#span-out-BT">丸括弧()</a>を明示
 <br>
-clear; ((x)=&lt;x) -> BTe
+clear; last{f(x)=&lt;x,f} -> <del>BTe</del>(BTe)
+<br>
+clear; ((x)=&lt;x) -> <del>BTe</del>(BTe)
 <br>
 clear; f=&lt;x; g=f -> stored_eqn(g)
 <br>
@@ -9343,7 +9347,9 @@ clear; f=&lt;x; g=f -> [MyErr]Invalid REv(f)
 <br>
 ・<span class="run">Ver.2.277.65</span>以降、<a href="#span-out-eqns">式変数</a>宣言：BTeの<a href="#span-out-log">log表示</a>
 <br>
-clear; ((x)=&lt;x) -> BTe
+・<span class="run">Ver.2.285.67</span>以降、行列要素がBTe単体の場合、iterableの<a href="#span-out-BT">丸括弧()</a>を明示
+<br>
+clear; ((x)=&lt;x) -> <del>BTe</del>(BTe)
 <br>
 ・<a href="#span-out-eqns">式変数</a>宣言単体の場合、error終了（<a href="#span-out-ans">予約変数</a>ansへの代入不可）
 <br>

@@ -1,6 +1,41 @@
 clear
 local storage cleared
 
+last{f=(x)=<x,f}.map((f)=<f(1))
+1
+
+((x)=<x,(((x)=<x)),((((x)=<x))))
+(
+BTe,BTe,BTe
+)
+
+((x)=<x)
+(BTe)
+
+(=<1,=<2:=<3,=<4)
+(
+BTe,BTe:
+BTe,BTe
+)
+
+(=<1)
+(BTe)
+
+A_iterable=(=<1,=<2:=<3,=<4)
+A_iterable=(
+BTe,BTe:
+BTe,BTe
+)
+
+A_iterable=(()=<1)
+A_iterable=(BTe)
+
+define_eqn_not_iterable=()=<1
+stored_eqn(define_eqn_not_iterable)
+
+clear
+local storage cleared
+
 f(=<(=<1,=<2:=<3,=<4)),(f(=<(=<1,=<2:=<3,=<4)[0]):f(=<(=<1,=<2:=<3,=<4)[1])),(f(=<(=<1,=<2:=<3,=<4)[][0]),f(=<(=<1,=<2:=<3,=<4)[][1]))
 (
 1,2,1,2,1,2:
@@ -3801,4 +3836,4 @@ drag=false&sw=false&0x=false&useMatrix=true&useStrict=false&checkError=true&isRi
 --------------------------------
 --------------------------------
 
-online-simulator.github.io.6.332.140.17.78 @ Fri Oct 06 2023 12:48:03 GMT+0900 (日本標準時) @ Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/117.0.0.0 Safari/537.36
+online-simulator.github.io.6.333.140.17.78 @ Sat Oct 07 2023 02:41:29 GMT+0900 (日本標準時) @ Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/117.0.0.0 Safari/537.36

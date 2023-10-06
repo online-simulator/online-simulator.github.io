@@ -1614,12 +1614,19 @@ My_entry.operation.prototype.get_args = function(tree){
   return _args;
 };
 /* Ver.2.251.57 -> */
-My_entry.operation.prototype.tree2tree_SEe = function(tree){
+/* Ver.2.285.67 -> */
+My_entry.operation.prototype.get_arr00_isSEe = function(arr){
+  var self = this;
+  var BT = self.config.BT;
+  return ((self.has1elem_tag(arr, BT.SEe))? arr[0][0]: null);
+};
+My_entry.operation.prototype.get_tree_SEe_arr00 = function(tree){
   var self = this;
   var BT = self.config.BT;
   var arr = self.get_tagVal(tree, "mat", "arr");
-  return ((self.has1elem_tag(arr, BT.SEe))? arr[0][0]: null);
+  return self.get_arr00_isSEe(arr);
 };
+/* -> Ver.2.285.67 */
 My_entry.operation.prototype.tree2tree_eqn = function(data, tree){
   var self = this;
   var scopes = data.scopes;
@@ -1634,7 +1641,7 @@ My_entry.operation.prototype.tree2tree_eqn = function(data, tree){
     return _tree;
   };
   if(isMat){
-    var tree_SEe = self.tree2tree_SEe(tree);
+    var tree_SEe = self.get_tree_SEe_arr00(tree);  // Ver.2.285.67
     if(tree_SEe){
       _tree = get_tree_SEe2tree_eqn(tree_SEe);  // =<f || =<f(x)=> -> tree_eqn
     }
@@ -1670,7 +1677,7 @@ My_entry.operation.prototype.tree2tree_eqn_AtREe = function(data, tree, isREee){
   }
   /* Ver.2.255.59 -> */
   else if(isMat){  // Ver.2.284.67
-    var tree_SEe = self.tree2tree_SEe(tree);  // Ver.2.284.67
+    var tree_SEe = self.get_tree_SEe_arr00(tree);  // Ver.2.284.67  // Ver.2.285.67
     if(tree_SEe){
       /* f(x)=<x,g(x)=<-x,h(x)=<x*x; A=<((x)=<x,(x)=<-x,(x)=<x*x:=<f,=<g,=<h); A[0][1]=>f,f(3)=>:A[1][1]=>f,f(3)=>; */
       var tree_REe = self.tree_SEe2REe(tree_SEe);
@@ -3350,7 +3357,7 @@ My_entry.operation.prototype.tree2tree_ref = function(tree, ref, isREv){  // Ver
     var arr_ref = self.restore_arr(arr, ref);
     _tree = DATA.tree_mat(arr_ref);
     if(isREv){
-      _tree = self.tree2tree_SEe(_tree) || _tree;  // Ver.2.284.67
+      _tree = self.get_tree_SEe_arr00(_tree) || _tree;  // Ver.2.284.67  // Ver.2.285.67
     }
     /* -> Ver.2.277.65 */
   }
@@ -3859,7 +3866,7 @@ My_entry.operation.prototype.switch_type_tree = function(data, tree){
   }
   /* Ver.2.283.67 -> */
   if(_tree && _tree.mat){
-    _tree = self.tree2tree_SEe(_tree) || _tree;  // Ver.2.284.67
+    _tree = self.get_tree_SEe_arr00(_tree) || _tree;  // Ver.2.284.67  // Ver.2.285.67
   }
   /* -> Ver.2.283.67 */
   if(!(_tree)){

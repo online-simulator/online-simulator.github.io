@@ -1347,8 +1347,12 @@ My_entry.parser.prototype.make_log_mat = function(arr, options){
 };
 My_entry.parser.prototype.make_log = function(data){
   var self = this;
-  var _log = "";
   var options = data.options;
+  var BT = self.entry.operation.config.BT;  // Ver.2.285.67
+  var _log = "";
+  var get_log_arr = function(arr){
+    return (self.entry.operation.get_arr00_isSEe(arr))? "("+BT.SEe+")": self.make_log_mat(arr, options);  // Ver.2.285.67
+  };
   data.trees2d.forEach(function(trees, j){
   try{
     if(j > 0){
@@ -1363,7 +1367,7 @@ My_entry.parser.prototype.make_log = function(data){
         var out = tree.out;
         if(mat){
           var arr = mat.arr;
-          _log += self.make_log_mat(arr, options);
+          _log += get_log_arr(arr);  // Ver.2.285.67
         }
         else if(out){
           var tagVal = out.val;
@@ -1378,7 +1382,7 @@ My_entry.parser.prototype.make_log = function(data){
             if(!(is0d && isAns)){
               _log += name+"=";
             }
-            _log += self.make_log_mat(arr, options);
+            _log += get_log_arr(arr);  // Ver.2.285.67
           }
         }
       }

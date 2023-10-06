@@ -337,6 +337,8 @@
       script += "\nclear;\n";
       script += "$A_iterable=(=<1,=<2:=<3,=<4);\nA_iterable.map((f)=<f());\nf=(A_iterable)=<[=<A_iterable.map((f)=<f())]=>;\nf(=<A_iterable),(f(=<A_iterable[0]):f(=<A_iterable[1])),(f(=<A_iterable[][0]),f(=<A_iterable[][1]));\nf(=<(=<1,=<2:=<3,=<4)),(f(=<(=<1,=<2:=<3,=<4)[0]):f(=<(=<1,=<2:=<3,=<4)[1])),(f(=<(=<1,=<2:=<3,=<4)[][0]),f(=<(=<1,=<2:=<3,=<4)[][1]));";
       script += "\nclear;\n";
+      script += "define_eqn_not_iterable=()=<1;\nA_iterable=(()=<1);\nA_iterable=(=<1,=<2:=<3,=<4);\n(=<1);\n(=<1,=<2:=<3,=<4);\n((x)=<x);\n((x)=<x,(((x)=<x)),((((x)=<x))));\nlast{f=(x)=<x,f}.map((f)=<f(1));";
+      script += "\nclear;\n";
       $._id("input").value = script;
       // test case
       var setVal = function(){
