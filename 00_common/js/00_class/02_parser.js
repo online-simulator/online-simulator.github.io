@@ -961,7 +961,6 @@ My_entry.parser.prototype.loop_callback = function(trees, callback){
 My_entry.parser.prototype.set_hasTag = function(tree){
   var self = this;
   if(tree){
-    self.hasTag = self.hasTag || {};  // Ver.2.212.46
     self.hasTag[(Object.keys(tree))[0]] = true;
   }
   return self;
@@ -1072,6 +1071,7 @@ My_entry.parser.prototype.script2objs2d = function(data){
   var trees2d = null;
   var scopes2d = null;
   if(data && data.in){
+    self.hasTag = {};  // Ver.2.286.67
     self.init_id_tree(data);  // Ver.2.264.62
     data.in = String(data.in);  // Ver.2.30.15
     var script = self.remove_commentAndWspace(self.entry.reference.fullStr2half(data.in));
