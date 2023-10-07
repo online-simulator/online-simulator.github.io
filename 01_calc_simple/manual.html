@@ -17891,7 +17891,7 @@ sizec(vecr) -> 5
 <br>
 留意事項を列挙する
 <br>
-・現状、空行列との演算を逐次判定しないため、<a href="#span-out-concatination">行列結合</a>を前提とする
+・<a href="#span-out-concatination">行列結合</a>の前提
 <br>
 [],[] -> []
 <br>
@@ -17900,6 +17900,12 @@ sizec(vecr) -> 5
 [],1,[]:1:[] -> (1:1)
 <br>
 x=[]; (x,2),(2,x),{x,2},{2,x} -> (2,2,2,2)
+<br>
+・<span class="clear">Ver.2.286.69</span>以降、空行列との演算の場合、error終了を正常化
+<br>
+3*() || 3/() -> <del>Cannot read properties of null (reading 'length')</del>[MyErr]Invalid () operation
+<br>
+x=[]; 3*x || 3/x -> <del>Cannot read properties of null (reading 'length')</del>[MyErr]Invalid () operation
 <br>
 ・<a href="#span-out-mat-blank">欠損要素</a>
 <br>

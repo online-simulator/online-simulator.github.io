@@ -1552,7 +1552,7 @@ My_entry.operation.prototype.FNmh = function(data, i0, tagName, tagObj){
   var is = i0;
   var ie = i0+1;
   var rightArr = self.get_tagVal(trees[ie], "mat", "arr");
-  if(rightArr){
+  if(rightArr && self.hasElem_arr(rightArr)){  // Ver.2.286.69
     /* Ver.2.21.10 -> */
     var tree = self.jacobian(data, rightArr, tagObj);
     /* -> Ver.2.21.10 */
@@ -1568,11 +1568,11 @@ My_entry.operation.prototype.FNm = function(data, i0, tagName, tagObj){
   var DATA = self.entry.DATA;
   var is = i0;
   var ie = i0+1;
+  var prop = tagObj.val;  // Ver.2.286.69
   var rightArr = self.get_tagVal(trees[ie], "mat", "arr");
-  if(rightArr){
+  if(rightArr && ((prop.substring(0, 4) === "size")? true: self.hasElem_arr(rightArr))){  // Ver.2.286.69
     /* Ver.2.176.43 -> */
     /* Ver.2.179.44 -> */
-    var prop = tagObj.val;
     var i_key = tagObj.i;
     var hasKey = (typeof i_key !== "undefined");
     if(hasKey){
@@ -2120,7 +2120,7 @@ My_entry.operation.prototype.FNh = function(data, i0, tagName, tagObj){
   var is = i0;
   var ie = i0+1;
   var rightArr = self.get_tagVal(trees[ie], "mat", "arr");
-  if(rightArr){
+  if(rightArr && self.hasElem_arr(rightArr)){  // Ver.2.286.69
     var prop = tagObj.val.key;
     var tree = self[prop](data, rightArr, tagObj);
     if(tree){
@@ -2145,7 +2145,7 @@ My_entry.operation.prototype.FN = function(data, i0, tagName, tagObj){
   var prop = tagObj.val;
   var isFN0 = (prop === "random");
   var rightArr = self.get_tagVal(trees[ie], "mat", "arr");
-if(rightArr){
+if(rightArr && ((isFN0)? true: self.hasElem_arr(rightArr))){  // Ver.2.286.69
   var len_i = rightArr.length;
   if(isFN0){
     if(len_i) throw "Invalid args.length=0(random)";  // Ver.2.272.63
@@ -2182,7 +2182,7 @@ My_entry.operation.prototype.FN_statistics0 = function(data, i0, tagName, tagObj
   var ie = i0+1;
   var prop = tagObj.val;
   var rightArr = self.get_tagVal(trees[ie], "mat", "arr");
-  if(rightArr){
+  if(rightArr && self.hasElem_arr(rightArr)){  // Ver.2.286.69
     var tree = null;
     var len_i = rightArr.length;
     var i_sw = (options.useMatrix)? 0: len_i-1;
@@ -2224,7 +2224,7 @@ My_entry.operation.prototype.FN_statistics1 = function(data, i0, tagName, tagObj
   var prop = tagObj.val;
   var i_key = tagObj.i;
   var rightArr = self.get_tagVal(trees[ie], "mat", "arr");
-  if(rightArr){
+  if(rightArr && self.hasElem_arr(rightArr)){  // Ver.2.286.69
     var sort_bubble = function(args){
       var _arr_key = [];
       var len_j = args.length;
@@ -2394,7 +2394,7 @@ My_entry.operation.prototype.URh = function(data, i0, tagName, tagObj, dot_prop)
   var leftArr = self.get_tagVal(leftTree, "mat", "arr");
   var tree_eqn = self.tree2tree_eqn(data, rightTree);  // Ver.2.229.56  // Ver.2.231.56
   var args_eqn = self.get_args(tree_eqn);  // Ver.2.251.57
-  if(leftArr && args_eqn){
+  if(leftArr && self.hasElem_arr(leftArr) && args_eqn){  // Ver.2.286.69
     /* Ver.2.226.55 -> */
     var id0 = (ids || self.config.ids0)[0];
     var ids_buffer = [id0];
@@ -2529,7 +2529,7 @@ else{
   var prop = tagObj.val;
   var tree = null;
   var leftArr = self.get_tagVal(trees[is], "mat", "arr");
-  if(leftArr){
+  if(leftArr && self.hasElem_arr(leftArr)){  // Ver.2.286.69
     var hasH = (prop === "'")? "h": "";
     var tarr = math_mat[hasH+"transpose"](options, leftArr);
     tree = DATA.tree_mat(tarr);
@@ -2567,7 +2567,7 @@ My_entry.operation.prototype.URif = function(data, i0, tagName, tagObj){  // Ver
     function(left, right){
       return unit["FN"]("fact_m", options, left, right);
     };
-  if(leftArr){
+  if(leftArr && self.hasElem_arr(leftArr)){  // Ver.2.286.69
     if(options.useMatrix){
       var arr = [];
       var len_i = leftArr.length;
@@ -2617,7 +2617,7 @@ My_entry.operation.prototype.PUlN = function(data, i0, tagName, tagObj){
   var ie = i0+1;
   var leftArr = self.get_tagVal(trees[is-1], "mat", "arr");
   var rightArr = self.get_tagVal(trees[ie], "mat", "arr");
-  if(!(leftArr) && rightArr){
+  if(!(leftArr) && rightArr && self.hasElem_arr(rightArr)){  // Ver.2.286.69
     /* Ver.2.74.29 -> */
     /* Ver.2.73.29 -> */
     var prop = tagObj.val;
@@ -2655,6 +2655,17 @@ My_entry.operation.prototype.PUlN = function(data, i0, tagName, tagObj){
   }
   return self;
 };
+/* Ver.2.286.69 -> */
+My_entry.operation.prototype.hasElem_arr = function(arr){
+  var self = this;
+  if(arr && arr.length === 0) throw "Invalid () operation";
+  return arr;
+};
+My_entry.operation.prototype.hasElems_LR = function(leftArr, rightArr){
+  var self = this;
+  return (self.hasElem_arr(leftArr) && self.hasElem_arr(rightArr));
+};
+/* -> Ver.2.286.69 */
 My_entry.operation.prototype.BRmo = function(data, i0, tagName, tagObj){
   var self = this;
   var trees = data.trees;
@@ -2665,7 +2676,7 @@ My_entry.operation.prototype.BRmo = function(data, i0, tagName, tagObj){
   var ie = i0+1;
   var leftArr = self.get_tagVal(trees[is], "mat", "arr");
   var rightArr = self.get_tagVal(trees[ie], "mat", "arr");
-  if(leftArr && rightArr){
+  if(leftArr && rightArr && self.hasElems_LR(leftArr, rightArr)){  // Ver.2.286.69
     var tree = self.switch_unitBR("BRm", options, leftArr, rightArr);
     /* Ver.2.88.32 -> */
     var isNotDefined_BRmsa = !(tree.mat.arr);
@@ -2720,7 +2731,7 @@ My_entry.operation.prototype.init_callbacks_mat = function(options){
   };
   self.callbacks_mat.BRm = function(tagName, tagObj, leftArr, rightArr){
     var _tree = null;
-    if(leftArr && rightArr){
+    if(leftArr && rightArr && self.hasElems_LR(leftArr, rightArr)){  // Ver.2.286.69
       _tree = self.switch_unitBR(tagName, options, leftArr, rightArr);
     }
     return _tree;
@@ -2728,7 +2739,7 @@ My_entry.operation.prototype.init_callbacks_mat = function(options){
   /* Ver.2.74.29 -> */
   self.callbacks_mat.BRelse = function(tagName, tagObj, leftArr, rightArr, callback){
     var _tree = null;
-    if(leftArr && rightArr){
+    if(leftArr && rightArr && self.hasElems_LR(leftArr, rightArr)){  // Ver.2.286.69
       /* Ver.2.73.29 -> */
       if(options.useMatrix){
         var arr = [];
@@ -3481,7 +3492,7 @@ My_entry.operation.prototype.SEv_pattern_matching = function(data, is, ie){
     }
     return _out;
   };
-  if(leftArr && rightArr){
+  if(leftArr && rightArr && self.hasElems_LR(leftArr, rightArr)){  // Ver.2.286.69
     var out = "";
     var len_i = Math.max(leftArr.length, rightArr.length);
     for(var i=0; i<len_i; ++i){

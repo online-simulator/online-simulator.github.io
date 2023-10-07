@@ -1,6 +1,24 @@
 clear
 local storage cleared
 
+[]&&&true
+true
+
+[]|||true
+[]
+
+x&&&true
+true
+
+x|||true
+[]
+
+x=[]
+x=[]
+
+clear
+local storage cleared
+
 f=<x,f=i,x=1,A=(x,=<x+1,-x,=<-x+1),A.map((f)=<f),x,f:A.filter0((f)=<hass(f)):A.filter0((f)=<hass(=<f)):A.filter0((g)=<hass(g)),A.filter0((g)=<hass(=<g)):[A.filter0((f)=<hass(f))],[A.filter0((f)=<hass(=<f))]:[A.filter0((f)=<hass(f)),A.filter0((f)=<hass(=<f))]/*Non-strict-mode*/
 (
 0,0,0,0,1,i,-1,i,1,i:
@@ -3849,4 +3867,4 @@ drag=false&sw=false&0x=false&useMatrix=true&useStrict=false&checkError=true&isRi
 --------------------------------
 --------------------------------
 
-online-simulator.github.io.6.334.140.17.79 @ Sat Oct 07 2023 14:48:27 GMT+0900 (日本標準時) @ Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/117.0.0.0 Safari/537.36
+online-simulator.github.io.6.334.140.17.80 @ Sat Oct 07 2023 18:25:46 GMT+0900 (日本標準時) @ Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/117.0.0.0 Safari/537.36

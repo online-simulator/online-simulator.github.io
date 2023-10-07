@@ -327,6 +327,8 @@
       script += "\nclear;\n";
       script += "f=<x,f=i,x=1,A=(x,=<x+1,-x,=<-x+1),A.map((f)=<f),x,f:A.filter0((f)=<hass(f)):A.filter0((f)=<hass(=<f)):A.filter0((g)=<hass(g)),A.filter0((g)=<hass(=<g)):[A.filter0((f)=<hass(f))],[A.filter0((f)=<hass(=<f))]:[A.filter0((f)=<hass(f)),A.filter0((f)=<hass(=<f))]/*Non-strict-mode*/;";
       script += "\nclear;\n";
+      script += "x=[];\nx|||true;\nx&&&true;\n[]|||true;\n[]&&&true;";
+      script += "\nclear;\n";
       $._id("input").value = script;
     });
   })();
