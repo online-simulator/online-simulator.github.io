@@ -339,6 +339,8 @@
       script += "\nclear;\n";
       script += "define_eqn_not_iterable=()=<1;\nA_iterable=(()=<1);\nA_iterable=(=<1,=<2:=<3,=<4);\n(=<1);\n(=<1,=<2:=<3,=<4);\n((x)=<x);\n((x)=<x,(((x)=<x)),((((x)=<x))));\nlast{f=(x)=<x,f}.map((f)=<f(1));";
       script += "\nclear;\n";
+      script += "f=<x,f=i,x=1,A=(x,=<x+1,-x,=<-x+1),A.map((f)=<f),x,f:A.filter0((f)=<hass(f)):A.filter0((f)=<hass(=<f)):A.filter0((g)=<hass(g)),A.filter0((g)=<hass(=<g)):[A.filter0((f)=<hass(f))],[A.filter0((f)=<hass(=<f))]:[A.filter0((f)=<hass(f)),A.filter0((f)=<hass(=<f))]/*Non-strict-mode*/;";
+      script += "\nclear;\n";
       $._id("input").value = script;
       // test case
       var setVal = function(){

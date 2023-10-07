@@ -2350,7 +2350,9 @@ My_entry.operation.prototype.store4URh_sw = function(data, num_escape, name, arg
   var args_bas = {};
   var obj = self.restore_args_AtREe(data, self.config.symbol.anonymous, [name], [argi], null, args_eqns, args_vars, args_bas, null, null, ids_buffer);
 */
+  var _isEqn = false;  // Ver.2.286.68
   var store_eqn = function(isSEe){
+    _isEqn = true;  // Ver.2.286.68
     if(isSEe){
       var tree = self.tree_eqn2tree_AtSEe(data, argi);  // Ver.2.255.59  // Ver.2.257.60 inherit_ids not-supported
       self.store_eqn(name, tree, scopes, ids_buffer);
@@ -2374,7 +2376,7 @@ My_entry.operation.prototype.store4URh_sw = function(data, num_escape, name, arg
     }
   }
   /* -> Ver.2.279.65 */
-  return self;
+  return _isEqn;  // Ver.2.286.68
 };
 My_entry.operation.prototype.URh = function(data, i0, tagName, tagObj, dot_prop){
   var self = this;
@@ -2456,6 +2458,21 @@ My_entry.operation.prototype.URh = function(data, i0, tagName, tagObj, dot_prop)
       };
     }
     /* -> Ver.2.263.62 */
+    /* Ver.2.286.68 -> f=<x,x=1,(x,=<x+1).map((f)=<f),(x,=<x+1,-x,=<-x+1).filter0((f)=<hass(=<f)),x,f,f() */
+    var scope0 = self.get_scope0(scopes, ids_buffer);
+    var update_scope0 = function(isEqn_stored){
+      var sw = (isEqn_stored)? "vars": "eqns";
+      var buffer = (sw === "eqns")? buffer_eqns: buffer_vars;
+      var name = names.x;
+      var sw_tree = buffer[name];
+      if(sw_tree){
+        scope0[sw][name] = sw_tree;  // cloned@restore
+      }
+      else{
+        delete scope0[sw][name];
+      }
+    };
+    /* -> Ver.2.286.68 */
     if(names.s){  // Ver.2.215.50
       self.store_var(names.s, leftTree, scopes, ids_buffer);  // clone  // Ver.2.226.55
     }
@@ -2467,7 +2484,8 @@ My_entry.operation.prototype.URh = function(data, i0, tagName, tagObj, dot_prop)
         if(names.j){  // Ver.2.215.50
           self.store_var(names.j, DATA.tree_num(j, 0), scopes, ids_buffer);  // Ver.2.226.55
         }
-        self.store4URh_sw(data, num_escape, names.x, arr[i][j], scopes, ids_buffer);  // Ver.2.257.59  // Ver.2.257.60
+        var isEqn_stored = self.store4URh_sw(data, num_escape, names.x, arr[i][j], scopes, ids_buffer);  // Ver.2.257.59  // Ver.2.257.60  // Ver.2.286.68
+        update_scope0(isEqn_stored);  // Ver.2.286.68
         callback(_arr, arr, self.tree_eqn2tree(data, tree_eqn).mat.arr, i, j);
       }
     }

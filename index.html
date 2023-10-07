@@ -259,6 +259,38 @@ Y/M/D
 <tbody>
   <tr>
     <th>
+6.334.140.17.79
+    </th>
+    <td class="types">
+Calculator
+    </td>
+    <td>
+2.286.68
+    </td>
+    <td class="clear">
+minor bug-fix
+<br>
+2.279.65~
+    </td>
+    <td>
+[Calculator]
+<br>
+・A.map/filter(eqns&amp;&amp;vars) bug-fixed@Non-strict-mode
+<br>
+clear; x=1; (x,=&lt;x+1).map((f)=&lt;f) -> (1,<del>1</del>BTe)
+<br>
+clear; x=1; [(x,=&lt;x+1:-x,=&lt;-x+1).filter0((f)=&lt;hass(f))] -> (1,-1)
+<br>
+clear; x=1; [(x,=&lt;x+1:-x,=&lt;-x+1).filter0((f)=&lt;hass(=&lt;f))] -> (BTe,BTe)
+<br>
+・test case updated
+    </td>
+    <td>
+2023/10/7
+    </td>
+  </tr>
+  <tr>
+    <th>
 6.334.140.17.78
     </th>
     <td class="types">

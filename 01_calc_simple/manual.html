@@ -1964,6 +1964,16 @@ f=(A_iterable)=&lt;[=&lt;A_iterable.map((f)=&lt;f())]=&gt;;
 f(=&lt;A_iterable) -> (1,2:3,4)
 <br>
 f(=&lt;(=&lt;1,=&lt;2:=&lt;3,=&lt;4)) -> <del>[MyErr]Invalid .map(f)</del>(1,2:3,4)
+<br>
+・<span class="clear">Ver.2.286.68</span>以降、<span class="run">Ver.2.279.65</span>の追加修正@<a href="#span-out-config-strict">Non-strict-mode</a>
+<br>
+　dummy変数：iterate中に削除しない　⇒　毎回、<a href="#span-out-terms">scope変数</a>を復帰||削除
+<br>
+clear; x=1; (x,=&lt;x+1).map((f)=&lt;f) -> (1,<del>1</del>BTe)
+<br>
+clear; x=1; [(x,=&lt;x+1:-x,=&lt;-x+1).filter0((f)=&lt;hass(f))] -> (1,-1)
+<br>
+clear; x=1; [(x,=&lt;x+1:-x,=&lt;-x+1).filter0((f)=&lt;hass(=&lt;f))] -> (BTe,BTe)
     </td>
   </tr>
   <tr>
