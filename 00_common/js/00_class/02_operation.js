@@ -3854,21 +3854,24 @@ My_entry.operation.prototype.get_name_eqn_AtREe = function(trees, i0){  // Ver.2
   var hasArgs = (name2 && arr1) || (arr2 && arr1);  // f() || []()
   var arr_eqn = (hasArgs)? arr2: arr1;
   var name_eqn = (hasArgs)? name2: name1;
-  var tree_eqn = (arr_eqn)? self.arr2num(arr_eqn): null;
-  var isNoName = !(name_eqn);
-  if(isNoName && hasArgs && arr_eqn){  // Ver.2.272.63
+  /* Ver.2.287.70 -> */
+  var tree_eqn_anonymous = (arr_eqn)? self.arr2num(arr_eqn): null;
+  if(tree_eqn_anonymous){
     // [f(x)=<x,f(1),[(x)=<x](1)=>]
     // a0=-1,make_f(a)=<[g(x)=<a0*x,==<==<g]==>f,make_f(a0)=>,f(3)=>
-    var isSEe = tree_eqn[BT.SEe];  // Ver.2.200.46
+    var isSEe = tree_eqn_anonymous[BT.SEe];  // Ver.2.200.46
     if(isSEe){
-      name_eqn = name0;  // Ver.2.253.59
+      if(hasArgs){  // Ver.2.272.63
+        name_eqn = name0;  // Ver.2.253.59
+      }
     }
     else{
       throw "Invalid "+name0+" equation";  // Ver.2.253.59
     }
   }
+  /* -> Ver.2.287.70 */
   /* -> Ver.2.273.64 */
-  return {hasArgs: hasArgs, name_eqn: name_eqn, tree_eqn: tree_eqn};  // Ver.2.273.64
+  return {hasArgs: hasArgs, name_eqn: name_eqn, tree_eqn: tree_eqn_anonymous};  // Ver.2.273.64  // Ver.2.287.70
 };
 /* Ver.2.282.66 -> */
 My_entry.operation.prototype.get_tree_isSE = function(tree, opt_name){  // Ver.2.284.67
@@ -4003,7 +4006,7 @@ My_entry.operation.prototype.get_args_AtREe = function(data, name_eqn, arr, isRE
     tree_eqn = self.restore_eqn(name_eqn, scopes, ids, isREee);  // Ver.2.31.17  // Ver.2.204.46
     if(!(tree_eqn)) throw "Undef eqn("+name_eqn+")";
     var isREe = tree_eqn[BT.REe];
-    var args_eqn = isREe.arg;
+    var args_eqn = isREe && isREe.arg;  // Ver.2.287.70
     var len_args_eqn = (args_eqn)? args_eqn.length: 0;
     var args = self.arr2args(arr);
     var len_args = args.length;
@@ -4128,7 +4131,7 @@ My_entry.operation.prototype.REe = function(data, i0, tagName, tagObj){
   if(tree_eqn){
     var isREe = tree_eqn[BT.REe];  // Ver.2.200.46
     /* Ver.2.247.57 -> */
-    var args_eqn = isREe.arg;
+    var args_eqn = isREe && isREe.arg;  // Ver.2.287.70
     /* Ver.2.174.42 -> */
     if(args_eqn && !(hasArgs)){  // Ver.2.253.59 disabled: f(x)=<x; f=>g
       throw "Invalid args.length="+args_eqn.length+"("+name_eqn+")";
