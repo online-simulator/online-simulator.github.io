@@ -1302,7 +1302,7 @@ My_entry.parser.prototype.make_log_num = function(num, options){
   }
   /* Ver.2.277.65 -> */
   else if(num[BT.SEe]){
-    _log += BT.SEe;
+    _log += self.get_log_arr(null, options, num);  // Ver.2.288.70
   }
   /* -> Ver.2.277.65 */
   else{
@@ -1345,10 +1345,37 @@ My_entry.parser.prototype.make_log_mat = function(arr, options){
   /* -> Ver.2.158.38 */
   return _log;
 };
+/* Ver.2.288.70 */
+My_entry.parser.prototype.get_log_arr = function(arr, options, opt_arr00){
+  var self = this;
+  var BT = self.entry.operation.config.BT;  // Ver.2.285.67
+  var _log = "";
+  var arr00 = opt_arr00 || self.entry.operation.get_arr00_isSEe(arr);
+  var isSEe = arr00 && arr00[BT.SEe];
+  if(isSEe){
+    var symbol = self.entry.operation.get_symbol(isSEe, true);
+    _log += (opt_arr00)? "": "(";
+    if(symbol){
+      _log += "$"+symbol;
+    }
+    else{
+      _log += "eqn";
+      if(typeof isSEe.arg !== "undefined"){
+        _log += "(";
+        _log += isSEe.arg || "";
+        _log += ")";
+      }
+    }
+    _log += (opt_arr00)? "": ")";
+  }
+  else{
+    _log = self.make_log_mat(arr, options);  // Ver.2.285.67
+  }
+  return _log;
+};
 My_entry.parser.prototype.make_log = function(data){
   var self = this;
   var options = data.options;
-  var BT = self.entry.operation.config.BT;  // Ver.2.285.67
   var _log = "";
   var get_log_arr = function(arr){
     return (self.entry.operation.get_arr00_isSEe(arr))? "("+BT.SEe+")": self.make_log_mat(arr, options);  // Ver.2.285.67
@@ -1367,7 +1394,7 @@ My_entry.parser.prototype.make_log = function(data){
         var out = tree.out;
         if(mat){
           var arr = mat.arr;
-          _log += get_log_arr(arr);  // Ver.2.285.67
+          _log += self.get_log_arr(arr, options);  // Ver.2.285.67  // Ver.2.288.70
         }
         else if(out){
           var tagVal = out.val;
@@ -1382,7 +1409,7 @@ My_entry.parser.prototype.make_log = function(data){
             if(!(is0d && isAns)){
               _log += name+"=";
             }
-            _log += get_log_arr(arr);  // Ver.2.285.67
+            _log += self.get_log_arr(arr, options);  // Ver.2.285.67  // Ver.2.288.70
           }
         }
       }

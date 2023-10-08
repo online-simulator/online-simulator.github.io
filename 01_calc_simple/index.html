@@ -329,6 +329,8 @@
       script += "\nclear;\n";
       script += "x=[];\nx|||true;\nx&&&true;\n[]|||true;\n[]&&&true;";
       script += "\nclear;\n";
+      script += "=<x,()=<x:\n=<x+1,()=<x+1:\n(x)=<x,(x,y)=<x+y:\n{x,y}=<x+y,{(x,(y,z))}=<x+y+z;";
+      script += "\nclear;\n";
       $._id("input").value = script;
     });
   })();

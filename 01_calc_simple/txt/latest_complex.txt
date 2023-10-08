@@ -1,6 +1,17 @@
 clear
 local storage cleared
 
+=<x,()=<x:=<x+1,()=<x+1:(x)=<x,(x,y)=<x+y:{x,y}=<x+y,{(x,(y,z))}=<x+y+z
+(
+$x,$x:
+eqn,eqn():
+eqn(x),eqn(x,y):
+eqn(y),eqn(x,y,z)
+)
+
+clear
+local storage cleared
+
 []&&&true
 true
 
@@ -22,11 +33,11 @@ local storage cleared
 f=<x,f=i,x=1,A=(x,=<x+1,-x,=<-x+1),A.map((f)=<f),x,f:A.filter0((f)=<hass(f)):A.filter0((f)=<hass(=<f)):A.filter0((g)=<hass(g)),A.filter0((g)=<hass(=<g)):[A.filter0((f)=<hass(f))],[A.filter0((f)=<hass(=<f))]:[A.filter0((f)=<hass(f)),A.filter0((f)=<hass(=<f))]/*Non-strict-mode*/
 (
 0,0,0,0,1,i,-1,i,1,i:
-1,BTe,-1,BTe:
-1,BTe,-1,BTe:
-1,-1,BTe,BTe:
-1,-1,BTe,BTe:
-1,-1,BTe,BTe
+1,eqn,-1,eqn:
+1,eqn,-1,eqn:
+1,-1,eqn,eqn:
+1,-1,eqn,eqn:
+1,-1,eqn,eqn
 )
 
 clear
@@ -37,29 +48,29 @@ last{f=(x)=<x,f}.map((f)=<f(1))
 
 ((x)=<x,(((x)=<x)),((((x)=<x))))
 (
-BTe,BTe,BTe
+eqn(x),eqn(x),eqn(x)
 )
 
 ((x)=<x)
-(BTe)
+(eqn(x))
 
 (=<1,=<2:=<3,=<4)
 (
-BTe,BTe:
-BTe,BTe
+eqn,eqn:
+eqn,eqn
 )
 
 (=<1)
-(BTe)
+(eqn)
 
 A_iterable=(=<1,=<2:=<3,=<4)
 A_iterable=(
-BTe,BTe:
-BTe,BTe
+eqn,eqn:
+eqn,eqn
 )
 
 A_iterable=(()=<1)
-A_iterable=(BTe)
+A_iterable=(eqn())
 
 define_eqn_not_iterable=()=<1
 stored_eqn(define_eqn_not_iterable)
@@ -90,8 +101,8 @@ A_iterable.map((f)=<f())
 
 $A_iterable=(=<1,=<2:=<3,=<4)
 A_iterable=(
-BTe,BTe:
-BTe,BTe
+eqn,eqn:
+eqn,eqn
 )
 
 clear
@@ -132,8 +143,8 @@ anonymous_call=4
 
 $A_lazy=(=<1,=<2:=<3,=<4)
 A_lazy=(
-BTe,BTe:
-BTe,BTe
+eqn,eqn:
+eqn,eqn
 )
 
 clear
@@ -153,7 +164,7 @@ local storage cleared
 
 last{a=1,a},=<f,last{f(x)=<x,f},(x)=<x
 (
-1,BTe,BTe,BTe
+1,$f,eqn(x),eqn(x)
 )
 
 clear
@@ -184,7 +195,7 @@ local storage cleared
 (
 3,-3,9:
 3,-3,9:
-BTe:
+eqn(x):
 0:
 1:
 3,9
@@ -192,12 +203,12 @@ BTe:
 
 A=ans
 A=(
-BTe,BTe,BTe
+eqn(x),eqn(x),eqn(x)
 )
 
 (x)=<x,(x)=<-x,(x)=<x*x
 (
-BTe,BTe,BTe
+eqn(x),eqn(x),eqn(x)
 )
 
 clear
@@ -284,9 +295,9 @@ stored_eqn(call_f)
 
 A={(x)=<x,(x)=<-x,(x)=<x*x}
 A=(
-BTe:
-BTe:
-BTe
+eqn(x):
+eqn(x):
+eqn(x)
 )
 
 h=(x)=<x,f=(g)=<g(3),f(h)
@@ -3867,4 +3878,4 @@ drag=false&sw=false&0x=false&useMatrix=true&useStrict=false&checkError=true&isRi
 --------------------------------
 --------------------------------
 
-online-simulator.github.io.6.334.141.17.81 @ Sun Oct 08 2023 06:11:00 GMT+0900 (日本標準時) @ Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/117.0.0.0 Safari/537.36
+online-simulator.github.io.6.335.141.17.81 @ Sun Oct 08 2023 15:44:10 GMT+0900 (日本標準時) @ Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/117.0.0.0 Safari/537.36

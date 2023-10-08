@@ -1965,15 +1965,19 @@ f(=&lt;A_iterable) -> (1,2:3,4)
 <br>
 f(=&lt;(=&lt;1,=&lt;2:=&lt;3,=&lt;4)) -> <del>[MyErr]Invalid .map(f)</del>(1,2:3,4)
 <br>
-・<span class="clear">Ver.2.286.68</span>以降、<span class="run">Ver.2.279.65</span>の追加修正@<a href="#span-out-config-strict">Non-strict-mode</a>
+・<span class="run">Ver.2.288.70</span>以降、<a href="#span-out-eqns">式変数</a>宣言の<a href="#span-out-log">log表示</a>を変更
 <br>
-　dummy変数：iterate中に削除しない　⇒　毎回、<a href="#span-out-terms">scope変数</a>を復帰||削除
+　<a href="#span-out-eqns">式変数</a>宣言の<a href="#span-out-log">log表示</a>：BTe　⇒　$symbol || eqn || eqn(args)
 <br>
-clear; x=1; (x,=&lt;x+1).map((f)=&lt;f) -> (1,<del>1</del>BTe)
+=&lt;x -> [MyErr]Invalid BTe([object Object])
 <br>
-clear; x=1; [(x,=&lt;x+1:-x,=&lt;-x+1).filter0((f)=&lt;hass(f))] -> (1,-1)
+=&lt;x,()=&lt;x -> ($x,$x)
 <br>
-clear; x=1; [(x,=&lt;x+1:-x,=&lt;-x+1).filter0((f)=&lt;hass(=&lt;f))] -> (BTe,BTe)
+=&lt;x+1,()=&lt;x+1 -> (eqn,eqn())
+<br>
+(x)=&lt;x,(x,y)=&lt;x+y -> (eqn(x),eqn(x,y))
+<br>
+{x,y}=&lt;x+y,{(x,(y,z))}=&lt;x+y+z -> (eqn(y),eqn(x,y,z))
     </td>
   </tr>
   <tr>

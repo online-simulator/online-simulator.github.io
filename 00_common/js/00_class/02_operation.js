@@ -1681,7 +1681,8 @@ My_entry.operation.prototype.tree2tree_eqn_AtREe = function(data, tree, isREee){
     if(tree_SEe){
       /* f(x)=<x,g(x)=<-x,h(x)=<x*x; A=<((x)=<x,(x)=<-x,(x)=<x*x:=<f,=<g,=<h); A[0][1]=>f,f(3)=>:A[1][1]=>f,f(3)=>; */
       var tree_REe = self.tree_SEe2REe(tree_SEe);
-      _tree = (self.get_symbol(tree_REe[BT.REe], true))? self.tree2tree_eqn_AtREe(data, tree_REe, isREee): tree_REe;
+      var symbol = self.get_symbol(tree_REe[BT.REe], true);  // Ver.2.288.70
+      _tree = (symbol)? self.tree2tree_eqn_AtREe(data, tree_REe, isREee): tree_REe;  // Ver.2.288.70
     }
     else{
       _tree = tree;  // Ver.2.284.67
@@ -4236,7 +4237,6 @@ My_entry.operation.prototype.BTe = function(data, i0, tagName, tagObj){  // Ver.
   var rightTree = trees[i0+1];
   var hasArgs = self.isType(leftTree, "BT");  // f(x)=<x || (x)=<x
   var is = (hasArgs)? i0-2: i0-1;
-  hasArgs = hasArgs && !(self.isEmpty_tree(leftTree));  // Ver.2.272.63
   var ie = len-1;
   var name_eqn = self.get_tagVal(trees[is], "REv", "val");
   if(!(name_eqn)){
@@ -4244,13 +4244,22 @@ My_entry.operation.prototype.BTe = function(data, i0, tagName, tagObj){  // Ver.
   }
   var isSEe = tree[BT.SEe];  // Ver.2.249.57
   /* Ver.2.195.45 -> */
-  var names = (hasArgs)? self.get_names(data, leftTree, true): null;  // NG: (x=1)=<x
-  /* Ver.2.213.48 -> */
-  if(names){
-    if(names.length === 0) throw "Invalid args isFound("+name_eqn+")";  // Ver.2.252.59
-    isSEe.arg = names;  // Ver.2.249.57
+  /* Ver.2.288.70 -> */
+  if(hasArgs){
+    if(self.isEmpty_tree(leftTree)){
+      isSEe.arg = null;
+    }
+    else{
+      var names = self.get_names(data, leftTree, true);  // NG: (x=1)=<x
+      /* Ver.2.213.48 -> */
+      if(names){
+        if(names.length === 0) throw "Invalid args isFound("+name_eqn+")";  // Ver.2.252.59
+        isSEe.arg = names;  // Ver.2.249.57
+      }
+      /* -> Ver.2.213.48 */
+    }
   }
-  /* -> Ver.2.213.48 */
+  /* -> Ver.2.288.70 */
   if(name_eqn){
     /* Ver.2.249.57 -> */
     var isEscaped = self.config.isEscaped(name_eqn);
