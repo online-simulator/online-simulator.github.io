@@ -1635,23 +1635,20 @@ My_entry.operation.prototype.tree2tree_eqn = function(data, tree){
   /* Ver.2.260.61 -> */
   var _tree = null;
   var isMat = tree.mat;
-  var get_tree_SEe2tree_eqn = function(tree){
-    var msgErr = (isMat)? "": "Invalid =<Call-by-Equation";
-    var _tree = self.restore_eqn_tree(tree, scopes, null, null, null, true, msgErr);
-    return _tree;
-  };
-  if(isMat){
-    var tree_SEe = self.get_tree_SEe_arr00(tree);  // Ver.2.285.67
-    if(tree_SEe){
-      _tree = get_tree_SEe2tree_eqn(tree_SEe);  // =<f || =<f(x)=> -> tree_eqn
-    }
-    else{
-      _tree = tree;
-    }
+  /* Ver.2.288.71 -> */
+  var tree_eqn = ((isMat)? self.get_tree_SEe_arr00(tree): null) || tree;  // (=<f || =<f(x)=>) || ((args)=<tree_eqn || ()=<tree_eqn) -> tree_eqn
+  var isSEe = tree_eqn[BT.SEe];
+  if(isSEe){
+    var msgErr = (isMat)? "": "Invalid =<eqn";
+    _tree = self.restore_eqn_tree(tree_eqn, scopes, null, null, null, true, msgErr);  // NG: =<(x)=<f(x)
   }
-  else{  // nesting NG: =<(x)=<f(x)
-    _tree = get_tree_SEe2tree_eqn(tree);  // (args)=<tree_eqn || ()=<tree_eqn
+  else if(isMat){
+    _tree = tree;
   }
+  else{
+    throw "Invalid =<eqn";
+  }
+  /* -> Ver.2.288.71 */
   /* -> Ver.2.260.61 */
   return _tree;
 };
