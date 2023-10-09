@@ -1353,14 +1353,15 @@ My_entry.parser.prototype.get_log_arr = function(arr, options, opt_arr00){
   var arr00 = opt_arr00 || self.entry.operation.get_arr00_isSEe(arr);
   var isSEe = arr00 && arr00[BT.SEe];
   if(isSEe){
-    var symbol = self.entry.operation.get_symbol(isSEe, true);
+    var isEqn = self.entry.operation.isEqn_obj(isSEe);  // Ver.2.290.71
+    var symbol = (isEqn)? null: self.entry.operation.get_symbol(isSEe, true);  // Ver.2.290.71
     _log += (opt_arr00)? "": "(";
     if(symbol){
       _log += "$"+symbol;
     }
     else{
       _log += "eqn";
-      if(typeof isSEe.arg !== "undefined"){
+      if(isEqn){  // Ver.2.290.71
         _log += "(";
         _log += isSEe.arg || "";
         _log += ")";

@@ -3,7 +3,7 @@ local storage cleared
 
 A_eqn=(f(()=<1),f(()=<(2,3)),f(()=<4))
 A_eqn=(
-1,2,3,4
+eqn(),eqn(),eqn()
 )
 
 A_lazy=(f(=<1),f(=<(2,3)),f(=<4))
@@ -18,10 +18,10 @@ A_var=(
 
 f(1),f((x)=<x)
 (
-1,1
+1,eqn(x)
 )
 
-f=(args_)=<args_
+f=(args_/*deleted@resolved-return*/)=<args_
 stored_eqn(f)
 
 clear
@@ -29,7 +29,7 @@ local storage cleared
 
 =<x,()=<x:=<x+1,()=<x+1:(x)=<x,(x,y)=<x+y:{x,y}=<x+y,{(x,(y,z))}=<x+y+z
 (
-$x,$x:
+$x,eqn():
 eqn,eqn():
 eqn(x),eqn(x,y):
 eqn(y),eqn(x,y,z)
@@ -3904,4 +3904,4 @@ drag=false&sw=false&0x=false&useMatrix=true&useStrict=false&checkError=true&isRi
 --------------------------------
 --------------------------------
 
-online-simulator.github.io.6.335.142.17.82 @ Tue Oct 10 2023 02:54:36 GMT+0900 (日本標準時) @ Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/117.0.0.0 Safari/537.36
+online-simulator.github.io.6.336.142.17.82 @ Tue Oct 10 2023 03:17:43 GMT+0900 (日本標準時) @ Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/117.0.0.0 Safari/537.36

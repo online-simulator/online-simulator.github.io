@@ -1885,6 +1885,14 @@ title/発行元(発行年)を列挙する
 ・<span class="run">Ver.2.268.62</span>以降、<a href="#span-out-FNc">最上位関数</a>のvar||eqnを統合
 <br>
 　影響項目：<a href="#span-out-FNc">最上位関数</a>||<a href="#span-eqn">strict-mode式変数list</a>
+<br>
+・<span class="run">Ver.2.290.71</span>以降、<a href="#span-out-eqns-args">式変数のarguments</a>の<a href="#span-out-terms">scope変数</a>保持条件の仕様変更
+<br>
+　保持条件：無条件　⇒　<a href="#span-out-eqns">式変数</a>が未解決（右代入を含む）
+<br>
+　影響項目：<a href="#span-out-eqns-args">式変数のarguments</a>の動的判別@<a href="#span-out-config-strict">Non-strict-mode</a>
+<br>
+clear; f=(g)=&lt;g; f(1),f((x)=&lt;x) -> <del>(1,1)</del>(1,eqn(x))
     </td>
   </tr>
   <tr>
@@ -1971,7 +1979,9 @@ f(=&lt;(=&lt;1,=&lt;2:=&lt;3,=&lt;4)) -> <del>[MyErr]Invalid .map(f)</del>(1,2:3
 <br>
 =&lt;x -> [MyErr]Invalid BTe([object Object])
 <br>
-=&lt;x,()=&lt;x -> ($x,$x)
+・<span class="run">Ver.2.290.71</span>以降、<a href="#span-out-BT">丸括弧()</a>の判別を厳格化
+<br>
+=&lt;x,()=&lt;x -> ($x,<del>$x</del>eqn())
 <br>
 =&lt;x+1,()=&lt;x+1 -> (eqn,eqn())
 <br>

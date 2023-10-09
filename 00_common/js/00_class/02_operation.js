@@ -3899,13 +3899,28 @@ My_entry.operation.prototype.get_tree_isSE = function(tree, opt_name){  // Ver.2
   }
   return _tree;
 };
+/* Ver.2.290.71 -> */
+My_entry.operation.prototype.isResolved_tree = function(tree){
+  var self = this;
+  var DATA = self.entry.DATA;
+  var BT = self.config.BT;
+  var isSEe = tree[BT.SEe];
+  var isREe = tree[BT.REe];
+  var isNotResolved = tree.mat && (tree.mat.isNotResolved || DATA.hasVar_arr(tree.mat.arr));
+  return !(isSEe || isREe || isNotResolved);
+};
+My_entry.operation.prototype.isEqn_obj = function(obj){
+  var self = this;
+  return (obj && (typeof obj.arg !== "undefined"));
+};
+/* -> Ver.2.290.71 */
 /* Ver.2.276.65 */
 My_entry.operation.prototype.switch_type_tree = function(data, tree){
   var self = this;
   var BT = self.config.BT;  // Ver.2.283.66
   var _tree = self.get_tree_isSE(tree);  // Ver.2.284.67
   var isSEe = tree[BT.SEe];  // Ver.2.283.66
-  if(!(_tree) && !(isSEe && isSEe.arg)){  // Ver.2.283.66 f=(h)=<h(3),f((x)=<(1,2)):g=(x)=<x,f((x)=<x),f(g)
+  if(!(_tree) && !(self.isEqn_obj(isSEe))){  // Ver.2.283.66 f=(h)=<h(3),f((x)=<(1,2)):g=(x)=<x,f((x)=<x),f(g)  // Ver.2.290.71
     var tree_var = self.tree_eqn2tree_AtREe(data, tree);
     if(tree_var){
       _tree = self.get_tree_isSE(tree_var, true);  // Ver.2.284.67
@@ -4157,8 +4172,11 @@ My_entry.operation.prototype.REe = function(data, i0, tagName, tagObj){
   }
   /* Ver.2.256.59 -> */
   if(hasArgs){
-    self.store_buffer_sw("eqns", buffer_eqns, scopes, ids_buffer);
-    self.store_buffer_sw("vars", buffer_vars, scopes, ids_buffer);
+    /* Ver.2.290.71 -> */
+    var isClear = self.isResolved_tree(_tree);  // check arr
+    self.store_buffer_sw("eqns", buffer_eqns, scopes, ids_buffer, isClear);
+    self.store_buffer_sw("vars", buffer_vars, scopes, ids_buffer, isClear);
+    /* -> Ver.2.290.71 */
   }
   /* -> Ver.2.256.59 */
   if(_tree){
@@ -4194,6 +4212,7 @@ My_entry.operation.prototype.REe = function(data, i0, tagName, tagObj){
           self.store_eqn(name_var, tree_var, scopes, ids, isEscaped);
           /* -> Ver.2.262.61 */
           _tree = DATA.tree_num(0, 0);
+          DATA.setProp_tree(_tree, "isNotResolved", true);  // Ver.2.290.71
         }
         else{
           _tree = tree_var;
