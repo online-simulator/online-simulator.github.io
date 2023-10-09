@@ -2074,15 +2074,15 @@ _r((n)=&lt;run(),run=&lt;n+1,3) -> 3
 <br>
 　⇒　<a href="#span-in-options">depthMax</a>制限の余裕確保
 <br>
-・<span class="run">Ver.2.160.38</span>以降、<a href="#span-out-flow">operation</a>段階の<a href="#span-in-tree">tree構造</a>複製処理（演算外のbottleneck）を最適化
+・<span class="run">Ver.2.160.38</span>以降、<a href="#span-in-deep-copy">deep-copy</a>の適用対象を最適化
 <br>
-　<span class="run">Ver.2.202.46</span>以降、複製対象を厳密化（<a href="#span-out-eqns-call">式読出し</a>由来を除外）
-<br>
-　複製対象：<a href="#span-out-concatination">行列結合</a>由来を含む全nesting　⇒　<a href="#span-out-FNh">高階関数</a>||<a href="#span-out-FNmh">高階行列関数</a>の反復処理由来のnesting
+　適用対象：<a href="#span-out-concatination">行列結合</a>由来を含む全nesting　⇒　<a href="#span-out-FNh">高階関数</a>||<a href="#span-out-FNmh">高階行列関数</a>の反復処理由来のnesting
 <br>
 　⇒　動的memory使用量の低減
 <br>
 　⇒　<a href="#span-out-concatination">行列結合</a>を含む演算の高速化
+<br>
+・<span class="run">Ver.2.202.46</span>以降、<a href="#span-in-deep-copy">deep-copy</a>の適用対象を厳密化（<a href="#span-out-eqns-call">式読出し</a>由来を除外）
 <br>
 ・<span class="run">Ver.2.209.46</span>以降、<a href="#span-out-call-by-equation">式渡し</a>の実装を最適化
 <br>
@@ -2126,7 +2126,7 @@ clear; f(3,x)=&lt;x -> [MyErr]Invalid args isFound(f)
 <br>
 ・<span class="clear">Ver.2.266.62</span>以降、<a href="#span-in-deep-copy">deep-copy</a>の適用対象を最適化
 <br>
-　<a href="#span-in-deep-copy">deep-copy</a>の適用対象：<a href="#span-out-vars">変数</a>・<a href="#span-out-eqns">式変数</a>のstore||restore時　⇒　<span class="clear">restore時</span>（<a href="#span-out-ans">予約変数</a>ansを含む）
+　適用対象：<a href="#span-out-vars">変数</a>・<a href="#span-out-eqns">式変数</a>のstore||restore時　⇒　<span class="clear">restore時</span>（<a href="#span-out-ans">予約変数</a>ansを含む）
 <br>
 　2重clone：あり　⇒　なし
 <br>
