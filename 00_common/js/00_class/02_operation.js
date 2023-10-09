@@ -1652,6 +1652,23 @@ My_entry.operation.prototype.tree2tree_eqn = function(data, tree){
   /* -> Ver.2.260.61 */
   return _tree;
 };
+/* Ver.2.289.71 */
+My_entry.operation.prototype.tree_mat2tree_REe = function(data, tree, isREee){
+  var self = this;
+  var BT = self.config.BT;
+  var _tree = null;
+  var tree_SEe = self.get_tree_SEe_arr00(tree);  // Ver.2.284.67  // Ver.2.285.67
+  if(tree_SEe){
+    /* f(x)=<x,g(x)=<-x,h(x)=<x*x; A=<((x)=<x,(x)=<-x,(x)=<x*x:=<f,=<g,=<h); A[0][1]=>f,f(3)=>:A[1][1]=>f,f(3)=>; */
+    var tree_REe = self.tree_SEe2REe(tree_SEe);
+    var symbol = self.get_symbol(tree_REe[BT.REe], true);  // Ver.2.288.70
+    _tree = (symbol)? self.tree2tree_eqn_AtREe(data, tree_REe, isREee): tree_REe;  // Ver.2.288.70
+  }
+  else{
+    _tree = tree;  // Ver.2.284.67
+  }
+  return _tree;
+};
 My_entry.operation.prototype.tree2tree_eqn_AtREe = function(data, tree, isREee){  // Ver.2.253.59 independent of names
   var self = this;
   var scopes = data.scopes;
@@ -1674,16 +1691,7 @@ My_entry.operation.prototype.tree2tree_eqn_AtREe = function(data, tree, isREee){
   }
   /* Ver.2.255.59 -> */
   else if(isMat){  // Ver.2.284.67
-    var tree_SEe = self.get_tree_SEe_arr00(tree);  // Ver.2.284.67  // Ver.2.285.67
-    if(tree_SEe){
-      /* f(x)=<x,g(x)=<-x,h(x)=<x*x; A=<((x)=<x,(x)=<-x,(x)=<x*x:=<f,=<g,=<h); A[0][1]=>f,f(3)=>:A[1][1]=>f,f(3)=>; */
-      var tree_REe = self.tree_SEe2REe(tree_SEe);
-      var symbol = self.get_symbol(tree_REe[BT.REe], true);  // Ver.2.288.70
-      _tree = (symbol)? self.tree2tree_eqn_AtREe(data, tree_REe, isREee): tree_REe;  // Ver.2.288.70
-    }
-    else{
-      _tree = tree;  // Ver.2.284.67
-    }
+    _tree = self.tree_mat2tree_REe(data, tree, isREee);  // Ver.2.289.71
   }
   /* -> Ver.2.255.59 */
   else{
