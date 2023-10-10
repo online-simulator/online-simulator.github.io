@@ -2980,6 +2980,22 @@ My_entry.operation.prototype.inherit_id_tree = function(left, right){
   DATA.setProp_tree(left, "id", self.get_tagVal(right, "REv", "id"));  // Ver.2.276.65
   return self;
 };
+/* Ver.2.291.71 */
+My_entry.operation.prototype.store_mutex = function(sw, name, tree, scopes, ids, isEscaped){  // Ver.2.249.57
+  var self = this;
+  var DATA = self.entry.DATA;  // Ver.2.284.67
+  var scope0 = self.get_scope0(scopes, ids);
+  var isEqn = (sw === "eqns");
+  /* Ver.2.250.57 -> */
+  if(self.useMutex){
+    delete scope0[(isEqn)? "vars": "eqns"][name];
+  }
+  /* -> Ver.2.250.57 */
+  self.inherit_constant(sw, name, scopes, ids, tree, isEscaped);  // Ver.2.249.57  // Ver.2.254.59
+  DATA.setProp_tree(tree, "isSE", true);  // Ver.2.284.67 representation of reference
+  scope0[sw][name] = tree;  // Ver.2.266.62
+  return self;
+};
 /* Ver.2.31.17 -> */
 My_entry.operation.prototype.restore_var = function(name, scopes, ids){
   var self = this;
@@ -2993,17 +3009,7 @@ My_entry.operation.prototype.restore_var = function(name, scopes, ids){
 };
 My_entry.operation.prototype.store_var = function(name, tree, scopes, ids, isEscaped){  // Ver.2.249.57
   var self = this;
-  var DATA = self.entry.DATA;  // Ver.2.284.67
-  /* Ver.2.250.57 -> */
-  if(self.useMutex && self.get_scope0_RE_sw("eqns", name, scopes, ids)){
-    throw "Invalid SEv-scope-mutex("+name+")";
-  }
-  /* -> Ver.2.250.57 */
-  self.inherit_constant("vars", name, scopes, ids, tree, isEscaped);  // Ver.2.249.57  // Ver.2.254.59
-  var vars = self.get_scope_SE_sw("vars", scopes, ids);
-  DATA.setProp_tree(tree, "isSE", true);  // Ver.2.284.67 representation of reference
-  vars[name] = tree;  // Ver.2.266.62
-  return self;
+  return self.store_mutex("vars", name, tree, scopes, ids, isEscaped);  // Ver.2.291.71
 };
 /* -> Ver.2.31.17 */
 /* Ver.2.76.29 -> */
@@ -3567,6 +3573,26 @@ My_entry.operation.prototype.del_scope_sw = function(sw, name, scopes, opt_ids){
   }
   return _scope;
 };
+/* Ver.2.291.71 */
+My_entry.operation.prototype.get_ids_RE = function(name, scopes, opt_ids){
+  var self = this;
+  var _ids = null;
+  var ids = opt_ids || self.config.ids0;  // Ver.2.225.53
+  if(scopes){
+    var len = ids.length;
+    for(var i=0; i<len; ++i){
+      var idi = ids[i];
+      var j = idi[0];
+      var n = idi[1];
+      var scope = scopes[j][n];
+      if(scope.vars[name] || scope.eqns[name]){
+        _ids = [idi];
+        break;
+      }
+    }
+  }
+  return _ids;
+};
 My_entry.operation.prototype.get_scope0_RE_sw = function(sw, name, scopes, opt_ids){
   var self = this;
   /* Ver.2.225.53 -> */
@@ -3750,11 +3776,13 @@ My_entry.operation.prototype.restore_eqn = function(name, scopes, ids, isREee, w
   var self = this;
   var BT = self.config.BT;
   var _tree = null;
-  var tree_var = (withVar)? self.restore_var(name, scopes, ids): null;  // Ver.2.260.61
-  if(tree_var){
-    _tree = tree_var;  // Ver.2.260.61
+  if(withVar){
+    ids = self.get_ids_RE(name, scopes, ids);  // Ver.2.291.71
+    if(ids){
+      _tree = self.restore_var(name, scopes, ids);  // Ver.2.260.61
+    }
   }
-  else{
+  if(!(_tree)){
     var eqns = self.get_scope_RE_sw("eqns", name, scopes, ids);  // Ver.2.260.61
     if(eqns){
       _tree = self.tree_SEe2REe_isREee(eqns[name], ids, isREee, true);  // Ver.2.273.64
@@ -3803,17 +3831,7 @@ My_entry.operation.prototype.restore_eqn_tree = function(tree, scopes, opt_ids, 
 };
 My_entry.operation.prototype.store_eqn = function(name, tree, scopes, ids, isEscaped){  // Ver.2.249.57
   var self = this;
-  var DATA = self.entry.DATA;  // Ver.2.284.67
-  /* Ver.2.250.57 -> */
-  if(self.useMutex && self.get_scope0_RE_sw("vars", name, scopes, ids)){
-    throw "Invalid SEe-scope-mutex("+name+")";
-  }
-  /* -> Ver.2.250.57 */
-  self.inherit_constant("eqns", name, scopes, ids, tree, isEscaped);  // Ver.2.249.57  // Ver.2.254.59
-  var eqns = self.get_scope_SE_sw("eqns", scopes, ids);
-  DATA.setProp_tree(tree, "isSE", true);  // Ver.2.284.67 representation of reference
-  eqns[name] = tree;  // Ver.2.266.62
-  return self;
+  return self.store_mutex("eqns", name, tree, scopes, ids, isEscaped);  // Ver.2.291.71
 };
 /* -> Ver.2.31.17 */
 /* Ver.2.256.59 -> */

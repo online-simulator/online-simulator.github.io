@@ -380,6 +380,8 @@ e^(-i(1pi(){2/2i}(5-{3-1}){i/(-4)}))
 <br>
 ・<a href="#span-out-bracket">階層とscopeの関係</a>
 <br>
+・<a href="#span-out-search">search-precedence</a>
+<br>
 ・<a href="#span-out-scope-inherited">scope継承</a>
 <br>
 ・<a href="#span-out-terms">用語集</a>
@@ -1893,6 +1895,14 @@ title/発行元(発行年)を列挙する
 　影響項目：<a href="#span-out-eqns-args">式変数のarguments</a>の動的判別@<a href="#span-out-config-strict">Non-strict-mode</a>
 <br>
 clear; f=(g)=&lt;g; f(1),f((x)=&lt;x) -> <del>(1,1)</del>(1,eqn(x))
+<br>
+・<span class="run">Ver.2.291.71</span>以降、<a href="#span-out-terms">scope変数</a>の<a href="#span-out-search">search-precedence</a>の仕様変更
+<br>
+　<a href="#span-out-vars">変数</a>||<a href="#span-out-eqns">式変数</a>の<a href="#span-out-search">search-precedence</a>：全階層　⇒　階層毎
+<br>
+　影響項目：<a href="#span-out-search">search-precedence</a>||<a href="#span-out-option9">useMutex</a>
+<br>
+clear; f=&lt;-1; f=1; [f=2,=&lt;f]=&gt;,[f=&lt;-2,=&lt;f]=&gt; -> <del>(2,1)</del>(2,eqn)
     </td>
   </tr>
   <tr>
@@ -9806,6 +9816,10 @@ useMutex
 <br>
 <span class="run">Ver.2.250.57</span>以降、mutex対象の宣言禁止を選択可
 <br>
+・<span class="run">Ver.2.291.71</span>以降、排他処理の仕様変更
+<br>
+　同時宣言：error終了　⇒　他方を削除
+<br>
 <br>
 mutex対象：<a href="#span-out-vars">変数</a>・<a href="#span-out-eqns">式変数</a>の同一<a href="#span-out-vars-symbol">変数名symbol</a>の<a href="#span-out-terms">scope変数</a>を同時宣言
 <br>
@@ -9825,13 +9839,15 @@ clear; [f=1,[f=&lt;2,f,f=&gt;]] -> (0,0,1,2)
 <br>
 checked選択：mutex対象の宣言を禁止する
 <br>
-clear; f=&lt;2,f=1,f,f=&gt; -> [MyErr]Invalid SEv-scope-mutex(f)
+・<span class="run">Ver.2.291.71</span>以降、排他処理の他方を削除
 <br>
-clear; f=1,f=&lt;2,f,f=&gt; -> [MyErr]Invalid SEe-scope-mutex(f)
+clear; f=&lt;2,f=1,f,f=&gt; -> <del>[MyErr]Invalid SEv-scope-mutex(f)</del>[MyErr]Undef eqn(f)
+<br>
+clear; f=1,f=&lt;2,f,f=&gt; -> <del>[MyErr]Invalid SEe-scope-mutex(f)</del>(0,0,eqn,2)
 <br>
 clear; f=1,[f=&lt;2,f,f=&gt;] -> (0,0,1,2)
 <br>
-clear; [f=1,f=&lt;2,f,f=&gt;] -> [MyErr]Invalid SEe-scope-mutex(f)
+clear; [f=1,f=&lt;2,f,f=&gt;] -> <del>[MyErr]Invalid SEe-scope-mutex(f)</del>(0,0,eqn,2)
 <br>
 clear; [f=1,[f=&lt;2,f,f=&gt;]] -> (0,0,1,2)
     </td>
@@ -13192,6 +13208,12 @@ x=2; store; clear; x=3<span class="selection">/*independent local scope*/</span>
 <br>
 ・<span class="run">Ver.2.229.56</span>以降、<a href="#span-out-eqns-args">式変数のarguments</a>を<a href="#span-out-terms">scope変数</a>から削除しない仕様に変更
 <br>
+・<span class="run">Ver.2.290.71</span>以降、<a href="#span-out-eqns-args">式変数のarguments</a>の<a href="#span-out-terms">scope変数</a>保持条件の仕様変更
+<br>
+　保持条件：無条件　⇒　<a href="#span-out-eqns">式変数</a>が未解決（右代入を含む）
+<br>
+・<span class="run">Ver.2.291.71</span>以降、<a href="#span-out-terms">scope変数</a>の<a href="#span-out-search">search-precedence</a>の仕様変更
+<br>
 <br>
 特徴を列挙する
 <br>
@@ -13385,9 +13407,35 @@ local buffer
 ・よって0階層の<a href="#span-out-storage">local storage</a>はすべての<a href="#span-out-scope-vars">scope</a>の直列scope内で共通化される
 <br>
 ・以上より、<a href="#span-out-flow">parse</a>段階で作る<a href="#span-out-scope-vars">scope</a>の配列を<a href="#span-in-scope-vars">static scopes2d array</a>と定義する
+    </td>
+  </tr>
+  <tr>
+    <th>
+<a href="#span-index">
+目次
+</a>
+<br>
+search-
+<br>
+precedence
+    </th>
+    <td>
+<span id="span-out-search"></span>
+<a href="#span-out-terms">scope変数</a>のsearch-precedenceについて記述する
 <br>
 <br>
-<a href="#span-out-terms">直列scope内変数</a>のsearch-precedenceの一例を示す
+<a href="#span-out-bracket">階層</a>の概念
+<br>
+実行文A[,];
+<br>
+実行文B[,[],[],[,[,[,]]]]; ->
+<br>
+0階層[A-1階層,];
+<br>
+0階層[B-1階層,[B-2階層並列1],[B-2階層並列2],[B-2階層並列3,[B-3階層直列,[B-4階層直列,]]]];
+<br>
+<br>
+<a href="#span-out-terms">直列scope内変数</a>のsearch-precedenceの一例
 <br>
 ・上記B-2階層並列1の場合、次の論理ORを短絡評価
 <br>
@@ -13402,6 +13450,17 @@ B-3階層直列 || B-2階層並列3 || B-1階層 || 0階層
 B-4階層直列 || B-3階層直列 || B-2階層並列3 || B-1階層 || 0階層
 <br>
 ・よって直列scope内の<a href="#span-out-bracket">階層</a><span class="clear">（深さの降順）で0階層（<a href="#span-out-storage">local storage</a>）</span>が最下位のprecedence
+<br>
+<br>
+<a href="#span-out-vars">変数</a>・<a href="#span-out-eqns">式変数</a>のsearch-precedence
+<br>
+・<a href="#span-out-vars">変数</a>を<a href="#span-out-eqns">式変数</a>より優先
+<br>
+・<span class="run">Ver.2.291.71</span>以降、<a href="#span-out-option9">useMutex</a>とともに仕様変更
+<br>
+　<a href="#span-out-vars">変数</a>||<a href="#span-out-eqns">式変数</a>のsearch-precedence：全階層　⇒　階層毎
+<br>
+clear; f=&lt;-1; f=1; [f=2,=&lt;f]=&gt;,[f=&lt;-2,=&lt;f]=&gt; -> <del>(2,1)</del>(2,eqn)
     </td>
   </tr>
   <tr>
@@ -21793,7 +21852,7 @@ clear; A=(1,2); [B=-A,[C=A+B,C],C] -> [MyErr]Invalid REv(C)
 <br>
 clear; a=3; [($a,{($b)=a})=2,a+b] -> (0,5)
 <br>
-・<a href="#span-out-bracket">直列scope内</a>の変数の<a href="#span-out-bracket">search-precedence</a>
+・<a href="#span-out-bracket">直列scope内</a>の変数の<a href="#span-out-search">search-precedence</a>
 <br>
 clear; A=(1,2); B=A; [B=-B,[C=A+B,C]] -> (0,0,0,0)
 <br>
