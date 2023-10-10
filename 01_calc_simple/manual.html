@@ -1902,7 +1902,7 @@ clear; f=(g)=&lt;g; f(1),f((x)=&lt;x) -> <del>(1,1)</del>(1,eqn(x))
 <br>
 　影響項目：<a href="#span-out-search">search-precedence</a>||<a href="#span-out-option9">useMutex</a>
 <br>
-clear; f=&lt;-1; f=1; [f=2,=&lt;f]=&gt;,[f=&lt;-2,=&lt;f]=&gt; -> <del>(2,1)</del>(2,eqn)
+clear; f=&lt;-1; f=1; [f=2,=&lt;f]=&gt;,[f=&lt;-2,=&lt;f]=&gt; -> (2,<del>1</del>eqn)
     </td>
   </tr>
   <tr>
@@ -13460,7 +13460,7 @@ B-4階層直列 || B-3階層直列 || B-2階層並列3 || B-1階層 || 0階層
 <br>
 　<a href="#span-out-vars">変数</a>||<a href="#span-out-eqns">式変数</a>のsearch-precedence：全階層　⇒　階層毎
 <br>
-clear; f=&lt;-1; f=1; [f=2,=&lt;f]=&gt;,[f=&lt;-2,=&lt;f]=&gt; -> <del>(2,1)</del>(2,eqn)
+clear; f=&lt;-1; f=1; [f=2,=&lt;f]=&gt;,[f=&lt;-2,=&lt;f]=&gt; -> (2,<del>1</del>eqn)
     </td>
   </tr>
   <tr>
