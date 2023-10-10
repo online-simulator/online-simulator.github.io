@@ -347,6 +347,8 @@
       script += "\nclear;\n";
       script += "f=(args_/*deleted@resolved-return*/)=<args_;\nf(1),f((x)=<x);\nA_var=(f(1),f(2),f(3),f(4));\nA_lazy=(f(=<1),f(=<(2,3)),f(=<4));\nA_eqn=(f(()=<1),f(()=<(2,3)),f(()=<4));";
       script += "\nclear;\n";
+      script += "test4useMutex=(f=<-1,f=1:[=<f]=>:[f=2,=<f]=>:[f=<-2,=<f]=>:[f=<-2,f=2,=<f]=>:[f=2,f=<-2,=<f]=>:[f=<-2,=<[=<f]]=>);";
+      script += "\nclear;\n";
       $._id("input").value = script;
       // test case
       var setVal = function(){

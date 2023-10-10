@@ -1,6 +1,20 @@
 clear
 local storage cleared
 
+test4useMutex=(f=<-1,f=1:[=<f]=>:[f=2,=<f]=>:[f=<-2,=<f]=>:[f=<-2,f=2,=<f]=>:[f=2,f=<-2,=<f]=>:[f=<-2,=<[=<f]]=>)
+test4useMutex=(
+0,0:
+1:
+2:
+1:
+2:
+2:
+eqn
+)
+
+clear
+local storage cleared
+
 A_eqn=(f(()=<1),f(()=<(2,3)),f(()=<4))
 A_eqn=(
 eqn(),eqn(),eqn()
@@ -3904,4 +3918,4 @@ drag=false&sw=false&0x=false&useMatrix=true&useStrict=false&checkError=true&isRi
 --------------------------------
 --------------------------------
 
-online-simulator.github.io.6.336.142.17.82 @ Tue Oct 10 2023 03:18:01 GMT+0900 (日本標準時) @ Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/117.0.0.0 Safari/537.36
+online-simulator.github.io.6.336.142.17.82 @ Tue Oct 10 2023 16:39:47 GMT+0900 (日本標準時) @ Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/117.0.0.0 Safari/537.36
