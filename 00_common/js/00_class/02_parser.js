@@ -115,6 +115,7 @@ My_entry.parser.prototype.config = {
   },
   /* Ver.2.216.50 moved from operation.js */
   BT: {
+    SEe: "eqn",  // Ver.2.292.71
     /* Ver.2.31.17 */
     hasScope: function(useScope, tagName, opt_useScopeWith){  // Ver.2.213.48
       var _sw = false;
@@ -1360,7 +1361,7 @@ My_entry.parser.prototype.get_log_arr = function(arr, options, opt_arr00){
       _log += "$"+symbol;
     }
     else{
-      _log += "eqn";
+      _log += self.config.BT.SEe;  // Ver.2.292.71
       if(isEqn){  // Ver.2.290.71
         _log += "(";
         _log += isSEe.arg || "";

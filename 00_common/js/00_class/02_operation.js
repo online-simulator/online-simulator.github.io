@@ -4035,6 +4035,30 @@ My_entry.operation.prototype.restore_args_AtREe = function(data, name_eqn, args_
   }
   return self;
 };
+/* Ver.2.292.71 f=(args)=<[independent scope ids0]=> || [not ids0]()=> || [not ids0](args)=> */
+/* Ver.2.210.46 */
+My_entry.operation.prototype.get_ids0 = function(tree){
+  var self = this;
+  var BT = self.config.BT;
+  var _ids0 = null;
+  var isREe = tree[BT.REe];
+  var isREeVal = isREe.val;
+  var N_BT = 0;
+  for(var i=0, len=isREeVal.length; i<len; ++i){
+    var tree_i = isREeVal[i];
+    var tagName = self.isType(tree_i, "BT");
+    if(tagName){
+      if(++N_BT > 1){
+        _ids0 = null;
+        break;
+      }
+      else{
+        _ids0 = tree_i[tagName].ids;
+      }
+    }
+  }
+  return _ids0;
+};
 My_entry.operation.prototype.get_args_AtREe = function(data, name_eqn, tree_eqn, arr, isREee){  // Ver.2.289.71
   var self = this;
   var scopes = data.scopes;
@@ -4055,36 +4079,9 @@ My_entry.operation.prototype.get_args_AtREe = function(data, name_eqn, tree_eqn,
   var args = self.arr2args(arr);
   var len_args = args.length;
   if(len_args_eqn === len_args){
-    /* Ver.2.33.18 -> [conv(=<a_)=<last(b=4,a_=>),[a=3,conv(=<(a))==>,b]] */
-    var ids_args_eqn = isREe.ids || self.config.ids0;  // Ver.2.225.53
-    var id0 = ids_args_eqn[0];  // ids[0]
-    /* -> Ver.2.33.18 */
-    /* Ver.2.210.46 -> */
-    /* solvex_Gauss()=<[inherit scope here]=> */
-    var inherit_id0 = function(){
-      var N_BT = 0;
-      var i_BT = -1;
-      var tagName_BT = null;
-      var isREeVal = isREe.val;
-      var len_isREe = isREeVal.length;
-      for(var i=0; i<len_isREe; ++i){
-        var tagName = self.isType(isREeVal[i], "BT");
-        if(tagName){
-          ++N_BT;
-          i_BT = i;
-          tagName_BT = tagName;
-        }
-      }
-      if(N_BT === 1){
-        var tree_BT = isREe.val[i_BT];
-        ids_args_eqn = tree_BT[tagName_BT].ids || ids_args_eqn;  // Ver.2.33.18
-        id0 = ids_args_eqn[0];
-      }
-    };
-    if(!(self.useScopeWith)){  // Ver.2.213.47
-      inherit_id0();
-    }
-    /* -> Ver.2.210.46 */
+    var ids0 = (self.useScopeWith)? null: self.get_ids0(tree_eqn);  // Ver.2.33.18  // Ver.2.213.47  // Ver.2.292.71
+    var ids_args_eqn = ids0 || isREe.ids || self.config.ids0;  // Ver.2.33.18 [conv(=<a_)=<last(b=4,a_=>),[a=3,conv(=<(a))==>,b]]  // Ver.2.225.53  // Ver.2.292.71
+    var id0 = ids_args_eqn[0];
     ids_buffer = [id0];  // Ver.2.225.53
     self.restore_args_AtREe(data, name_eqn, args_eqn, args, ids_args_eqn, args_eqns, args_vars, args_bas, buffer_vars, buffer_eqns, ids_buffer);  // Ver.2.269.62  // Ver.2.271.63
   }
