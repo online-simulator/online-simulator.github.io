@@ -1822,7 +1822,7 @@ title/発行元(発行年)を列挙する
 <br>
 ・<span class="run">Ver.2.219.50</span>以降、<a href="#span-out-call-by-equation">式渡し</a>記号=&lt;の仕様を変更して==&lt;を追加
 <br>
-　元scopeを維持（Native準拠）：=&lt;
+　元scopeを維持：=&lt;
 <br>
 　call先に<a href="#span-out-scope-inherited">scope継承</a>：==&lt;
 <br>
@@ -1838,7 +1838,7 @@ title/発行元(発行年)を列挙する
 <br>
 ・<span class="run">Ver.2.229.56</span>以降、<a href="#span-out-scope">closure機能</a>の仕様変更
 <br>
-　<a href="#span-out-eqns-args">式変数のarguments</a>を<a href="#span-out-terms">scope変数</a>から削除　⇒　削除しない（Native準拠）
+　<a href="#span-out-eqns-args">式変数のarguments</a>を<a href="#span-out-terms">scope変数</a>から削除　⇒　削除しない
 <br>
 　上書き不可の仕様を維持（<a href="#span-out-eqns-re-call">再帰call</a>の<a href="#span-out-ref-transparency">参照透過性</a>を維持）
 <br>
@@ -9484,7 +9484,7 @@ useScope=default（上記以外）：<a href="#span-out-BT-square">角括弧[]</
 <br>
 useScopeWith=false||0：追加なし
 <br>
-useScopeWith=SEe：<a href="#span-out-substitution-equation">式代入</a>記号=&lt;に<a href="#span-out-scope-vars">変数のscope</a>を追加（Native準拠）
+useScopeWith=SEe：<a href="#span-out-substitution-equation">式代入</a>記号=&lt;に<a href="#span-out-scope-vars">変数のscope</a>を追加（function-scope）
 <br>
 useScopeWith=BTe（上記以外）：<a href="#span-out-eqns-args">式変数のarguments</a>付の<a href="#span-out-substitution-equation">式代入</a>記号=&lt;に<a href="#span-out-scope-vars">変数のscope</a>を追加
 <br>
@@ -9922,7 +9922,7 @@ With
 <br>
 false既定：追加なし
 <br>
-=&lt;選択：<a href="#span-out-substitution-equation">式代入</a>記号=&lt;に<a href="#span-out-scope-vars">変数のscope</a>を追加（Native準拠）
+=&lt;選択：<a href="#span-out-substitution-equation">式代入</a>記号=&lt;に<a href="#span-out-scope-vars">変数のscope</a>を追加（function-scope）
 <br>
 (args)=&lt;選択：<a href="#span-out-eqns-args">式変数のarguments</a>付の<a href="#span-out-substitution-equation">式代入</a>記号=&lt;に<a href="#span-out-scope-vars">変数のscope</a>を追加
 <br>
@@ -13206,7 +13206,7 @@ x=2; store; clear; x=3<span class="selection">/*independent local scope*/</span>
 <br>
 <span class="run">Ver.2.31.17</span>以降、<a href="#span-out-BT-square">角括弧[]</a>に変数のscopeを追加
 <br>
-・Nativeの非厳格modeの場合、関数宣言に紐付くfunction-scopeに対して
+・Nativeのvar宣言の場合、関数宣言に紐付くfunction-scope（<a href="#span-out-option6">useScopeWith</a>参照）に対して
 <br>
 ・let||const宣言同様に、<a href="#span-out-BT">括弧</a>に紐付くblock-scopeとして扱う<del>ため、
 <br>
@@ -13229,8 +13229,10 @@ x=2; store; clear; x=3<span class="selection">/*independent local scope*/</span>
 <br>
 ・<a href="#span-out-scope-vars-has1BT">単独scope</a>を意識する負担あり
 <br>
+・<a href="#span-in-scope-vars">static scopes2d array</a>を共有するため、複数の状態を保持不可（new演算子は未実装）
 <br>
-<span class="run">Ver.2.213.47</span>以降、Native準拠に変更する場合、<a href="#span-out-option6">useScopeWith</a>||<a href="#span-out-config">内部option</a>参照
+<br>
+<span class="run">Ver.2.213.47</span>以降、function-scopeに変更する場合、<a href="#span-out-config">useScope</a>||<a href="#span-out-option6">useScopeWith</a>||<a href="#span-out-config">内部option</a>参照
     </td>
   </tr>
   <tr>
