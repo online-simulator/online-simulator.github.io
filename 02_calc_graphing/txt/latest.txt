@@ -1268,7 +1268,7 @@ clear
 local storage cleared
 
 [Pinv_y=(-0.999999427,-0.999936657,-0.997300203,-0.954499736,-0.682689492,0,0.682689492,0.954499736,0.997300203,0.999936657,0.999999427:-5,-4,-3,-2,-1,0,1,2,3,4,5),N=1,arr=[],_rn(=<arr=(arr:rand_table(=<Pinv_y)=>),,N),=<arr]=>
-0.7927258357016234
+0.27932656566446085
 
 rand_table(csv)=<last[table=sort0(csv),ymin=min(table)[0],ymax=max(table)[0],y=ymin+(ymax-ymin)*rand(),x=interp(y:table),x]
 stored_eqn(rand_table)
@@ -1401,223 +1401,6 @@ stored_eqn(get_terms)
 
 ($a,$b,$ans_correct)=(77617.0,33096.0,-0.8273960599468214)
 stored_var(a) stored_var(b) stored_var(ans_correct) 
-
-clear
-local storage cleared
-
-{xt,yt}
-(
-false:
-false
-)
-
-{$xt,$yt}=call_xy_eqn1(=<xy_eqn)=>
-stored_var(xt) stored_var(yt) 
-
-restore
-local storage restored
-
-{xt,yt}
-(
-false:
-false
-)
-
-{$xt,$yt}=call_xy_eqn0(=<xy_eqn)=>
-stored_var(xt) stored_var(yt) 
-
-store
-local storage stored
-
-undefined2var=>xy_eqn
-0
-
-restore
-local storage restored
-
-{xt,yt}
-(
-2,4,6:
-8,10,12:
-2i,4i,6i:
-8i,10i,12i
-)
-
-{$xt,$yt}=call_xy_eqn1(=<xy_eqn)=>
-stored_var(xt) stored_var(yt) 
-
-restore
-local storage restored
-
-{xt,yt}
-(
-2,4,6:
-8,10,12:
-2i,4i,6i:
-8i,10i,12i
-)
-
-{$xt,$yt}=call_xy_eqn0(=<xy_eqn)=>
-stored_var(xt) stored_var(yt) 
-
-store
-local storage stored
-
-eqn2var=>xy_eqn
-0
-
-restore
-local storage restored
-
-{xt,yt}
-(
-1,2,3:
-4,5,6:
-i,2i,3i:
-4i,5i,6i
-)
-
-{$xt,$yt}=call_xy_var1(=<xy_var)=>
-stored_var(xt) stored_var(yt) 
-
-restore
-local storage restored
-
-{xt,yt}
-(
-1,2,3:
-4,5,6:
-i,2i,3i:
-4i,5i,6i
-)
-
-{$xt,$yt}=call_xy_var0(=<xy_var)=>
-stored_var(xt) stored_var(yt) 
-
-store
-local storage stored
-
-var2var=>xy_var
-0
-
-undefined2var=<[out_lazy=<{=<xt,=<yt},=<out_lazy]=>
-stored_eqn(undefined2var)
-
-eqn2var=<[xt=<t0*2,yt=<(t0*2)i,out_lazy=<{=<xt,=<yt},=<out_lazy]=>
-stored_eqn(eqn2var)
-
-var2var=<[xt=t0,yt=(t0)i,out_lazy=<{=<xt,=<yt},=<out_lazy]=>
-stored_eqn(var2var)
-
-call_xy_eqn1(=<xy)=<{=<((xy=>)[0]=>)=>,=<((xy=>)[1]=>)=>}
-stored_eqn(call_xy_eqn1)
-
-call_xy_eqn0(=<xy)=<{=<(xy[0]=>)=>,=<(xy[1]=>)=>}
-stored_eqn(call_xy_eqn0)
-
-call_xy_var1(=<xy)=<{=<(xy=>)[0]=>,=<(xy=>)[1]=>}
-stored_eqn(call_xy_var1)
-
-call_xy_var0(=<xy)=<{=<xy[0]=>,=<xy[1]=>}
-stored_eqn(call_xy_var0)
-
-yt=<false
-stored_eqn(yt)
-
-xt=<false
-stored_eqn(xt)
-
-t0=(1,2,3:4,5,6)
-t0=(
-1,2,3:
-4,5,6
-)
-
-clear
-local storage cleared
-
-check_all(-1)=>
-(
-0,-1,-1,-1:
-0,-2,-2,-2:
-0,-3,-3,-3:
-0,-4,-4,-4
-)
-
-restore
-local storage restored
-
-check_all(1)=>
-(
-0,1,1,1:
-0,2,2,2:
-0,3,3,3:
-0,4,4,4
-)
-
-restore
-local storage restored
-
-check_all(-1)=>
-(
-0,-1,1,-1:
-0,-2,2,-2:
-0,-3,3,-3:
-0,4,4,4
-)
-
-check_all(1)=>
-(
-0,1,1,1:
-0,2,2,2:
-0,3,3,3:
-0,4,4,4
-)
-
-restore
-local storage restored
-
-scope_NG4(1)=>:scope_NG4(-1)=>
-(
-0,4,4,4:
-0,4,4,4
-)
-
-scope_NG3(1)=>:scope_NG3(-1)=>
-(
-0,3,3,3:
-0,-3,3,-3
-)
-
-scope_NG2(1)=>:scope_NG2(-1)=>
-(
-0,2,2,2:
-0,-2,2,-2
-)
-
-scope_NG1(1)=>:scope_NG1(-1)=>
-(
-0,1,1,1:
-0,-1,1,-1
-)
-
-store
-local storage stored
-
-check_all(x)=<(scope_NG1(x)=>:scope_NG2(x)=>:scope_NG3(x)=>:scope_NG4(x)=>)
-stored_eqn(check_all)
-
-scope_NG4(x)=<last[x=4,x]*[x=x,x,last[x=x,x],x]
-stored_eqn(scope_NG4)
-
-scope_NG3(x)=<last[,3]*[x=x,x,last[x=x,x],x]
-stored_eqn(scope_NG3)
-
-scope_NG2(x)=<2*[x=x,x,last[x=x,x],x]
-stored_eqn(scope_NG2)
-
-scope_NG1(x)=<[x=x,x,last[x=x,x],x]
-stored_eqn(scope_NG1)
 
 clear
 local storage cleared
@@ -2093,6 +1876,36 @@ A0=(
 clear
 local storage cleared
 
+[c0=-1:make_counter=(c0,dc0)=<[c=c0,dc=dc0,=<()=<last(c=c+dc,c)]()=>:make_counter(0,1)=>count0:count0=>,count0=>,count0=>:make_counter(100,3)=>count1:count1=>,count1=>,count1=>,count0=>,count0=>,count0=>:make_counter_closed_1st_call=(c0,dc0)=<[c=c0,(dc)=<()=<last(c=c+dc,c)](dc0)=>:make_counter_closed_1st_call(0,1)=>count0:count0=>,count0=>,count0=>:make_counter_closed_1st_call(100,3)=>count1:count1=>,count1=>,count1=>,count0=>,count0=>,count0=>:make_counter_closed_1st_call=(c0,dc0)=<[(c,dc)=<()=<last(c=c+dc,c)](c0,dc0)=>:make_counter_closed_1st_call(0,1)=>count0:count0=>,count0=>,count0=>:make_counter_closed_1st_call(100,3)=>count1:count1=>,count1=>,count1=>,count0=>,count0=>,count0=>:make_counter_closed_1st_call=(c0,dc0)=<[c=c0,(dc)=<()=<last[c=c+dc,c]](dc0)=>:make_counter_closed_1st_call(0,1)=>count0:count0=>,count0=>,count0=>:make_counter_closed_1st_call(100,3)=>count1:count1=>,count1=>,count1=>,count0=>,count0=>,count0=>:[arr=[],_r(=<arr=(arr,count0=>),,10),=<arr]=>:c0]
+(
+0:
+0:
+0:
+1,2,3:
+0:
+103,106,109,112,115,118:
+0:
+0:
+1,2,3:
+0:
+101,102,103,104,105,106:
+0:
+0:
+1,2,3:
+0:
+4,5,6,7,8,9:
+0:
+0:
+1,2,3:
+0:
+4,5,6,7,8,9:
+10,11,12,13,14,15,16,17,18,19:
+-1
+)
+
+clear
+local storage cleared
+
 [call_f(0,()=<f)=>:[call_f(0,()=<-x*2)=>:[call_f(f=()=<-x*3,=<f)=>]:[call_f(f=()=<last{not(hass(x))&&&(x=NaN),-x*3},=<f)=>:[call_f(f=()=<last[not(hass(x))&&&(x=NaN),-x*4],=<f)=>]]]]
 (
 0:
@@ -2297,25 +2110,6 @@ a=1:[()=<a]()=>,[()=<[()=<a]()=>]()=>,[()=<[(a)=<a](2)=>]()=>,[()=<[a=1,(a)=<a](
 clear
 local storage cleared
 
-f((x)=<x)=>,f(=<g)=>
-(
-3,3
-)
-
-g=(x)=<x
-stored_eqn(g)
-
-f((x)=<(1,2)*x)=>
-(
-3,6
-)
-
-f=(=<h)=<h(3)=>
-stored_eqn(f)
-
-clear
-local storage cleared
-
 xy_z(3)=>:xy_z(4)=>:xy_z(5)=>
 (
 1,2,3:
@@ -2375,6 +2169,25 @@ stored_eqn(div_curried_not_closed)
 
 div=(x,y)=<x/y
 stored_eqn(div)
+
+clear
+local storage cleared
+
+f((x)=<x)=>,f(=<g)=>
+(
+3,3
+)
+
+g=(x)=<x
+stored_eqn(g)
+
+f((x)=<(1,2)*x)=>
+(
+3,6
+)
+
+f=(=<h)=<h(3)=>
+stored_eqn(f)
 
 clear
 local storage cleared
@@ -2573,6 +2386,223 @@ stored_eqn(set_ans)
 clear
 local storage cleared
 
+{xt,yt}
+(
+false:
+false
+)
+
+{$xt,$yt}=call_xy_eqn1(=<xy_eqn)=>
+stored_var(xt) stored_var(yt) 
+
+restore
+local storage restored
+
+{xt,yt}
+(
+false:
+false
+)
+
+{$xt,$yt}=call_xy_eqn0(=<xy_eqn)=>
+stored_var(xt) stored_var(yt) 
+
+store
+local storage stored
+
+undefined2var=>xy_eqn
+0
+
+restore
+local storage restored
+
+{xt,yt}
+(
+2,4,6:
+8,10,12:
+2i,4i,6i:
+8i,10i,12i
+)
+
+{$xt,$yt}=call_xy_eqn1(=<xy_eqn)=>
+stored_var(xt) stored_var(yt) 
+
+restore
+local storage restored
+
+{xt,yt}
+(
+2,4,6:
+8,10,12:
+2i,4i,6i:
+8i,10i,12i
+)
+
+{$xt,$yt}=call_xy_eqn0(=<xy_eqn)=>
+stored_var(xt) stored_var(yt) 
+
+store
+local storage stored
+
+eqn2var=>xy_eqn
+0
+
+restore
+local storage restored
+
+{xt,yt}
+(
+1,2,3:
+4,5,6:
+i,2i,3i:
+4i,5i,6i
+)
+
+{$xt,$yt}=call_xy_var1(=<xy_var)=>
+stored_var(xt) stored_var(yt) 
+
+restore
+local storage restored
+
+{xt,yt}
+(
+1,2,3:
+4,5,6:
+i,2i,3i:
+4i,5i,6i
+)
+
+{$xt,$yt}=call_xy_var0(=<xy_var)=>
+stored_var(xt) stored_var(yt) 
+
+store
+local storage stored
+
+var2var=>xy_var
+0
+
+undefined2var=<[out_lazy=<{=<xt,=<yt},=<out_lazy]=>
+stored_eqn(undefined2var)
+
+eqn2var=<[xt=<t0*2,yt=<(t0*2)i,out_lazy=<{=<xt,=<yt},=<out_lazy]=>
+stored_eqn(eqn2var)
+
+var2var=<[xt=t0,yt=(t0)i,out_lazy=<{=<xt,=<yt},=<out_lazy]=>
+stored_eqn(var2var)
+
+call_xy_eqn1(=<xy)=<{=<((xy=>)[0]=>)=>,=<((xy=>)[1]=>)=>}
+stored_eqn(call_xy_eqn1)
+
+call_xy_eqn0(=<xy)=<{=<(xy[0]=>)=>,=<(xy[1]=>)=>}
+stored_eqn(call_xy_eqn0)
+
+call_xy_var1(=<xy)=<{=<(xy=>)[0]=>,=<(xy=>)[1]=>}
+stored_eqn(call_xy_var1)
+
+call_xy_var0(=<xy)=<{=<xy[0]=>,=<xy[1]=>}
+stored_eqn(call_xy_var0)
+
+yt=<false
+stored_eqn(yt)
+
+xt=<false
+stored_eqn(xt)
+
+t0=(1,2,3:4,5,6)
+t0=(
+1,2,3:
+4,5,6
+)
+
+clear
+local storage cleared
+
+check_all(-1)=>
+(
+0,-1,-1,-1:
+0,-2,-2,-2:
+0,-3,-3,-3:
+0,-4,-4,-4
+)
+
+restore
+local storage restored
+
+check_all(1)=>
+(
+0,1,1,1:
+0,2,2,2:
+0,3,3,3:
+0,4,4,4
+)
+
+restore
+local storage restored
+
+check_all(-1)=>
+(
+0,-1,1,-1:
+0,-2,2,-2:
+0,-3,3,-3:
+0,4,4,4
+)
+
+check_all(1)=>
+(
+0,1,1,1:
+0,2,2,2:
+0,3,3,3:
+0,4,4,4
+)
+
+restore
+local storage restored
+
+scope_NG4(1)=>:scope_NG4(-1)=>
+(
+0,4,4,4:
+0,4,4,4
+)
+
+scope_NG3(1)=>:scope_NG3(-1)=>
+(
+0,3,3,3:
+0,-3,3,-3
+)
+
+scope_NG2(1)=>:scope_NG2(-1)=>
+(
+0,2,2,2:
+0,-2,2,-2
+)
+
+scope_NG1(1)=>:scope_NG1(-1)=>
+(
+0,1,1,1:
+0,-1,1,-1
+)
+
+store
+local storage stored
+
+check_all(x)=<(scope_NG1(x)=>:scope_NG2(x)=>:scope_NG3(x)=>:scope_NG4(x)=>)
+stored_eqn(check_all)
+
+scope_NG4(x)=<last[x=4,x]*[x=x,x,last[x=x,x],x]
+stored_eqn(scope_NG4)
+
+scope_NG3(x)=<last[,3]*[x=x,x,last[x=x,x],x]
+stored_eqn(scope_NG3)
+
+scope_NG2(x)=<2*[x=x,x,last[x=x,x],x]
+stored_eqn(scope_NG2)
+
+scope_NG1(x)=<[x=x,x,last[x=x,x],x]
+stored_eqn(scope_NG1)
+
+clear
+local storage cleared
+
 make_f(a)=<[g(x)=<a*x,=<g]=>f,make_f(a0)=>,call_f(1)=>,call_f(2)=>:make_f(a)=<[g(x)=<a*x,=<g]==>f,make_f(a0)=>,call_f(1)=>,call_f(2)=>:make_f(a0)=<[a=a0,g(x)=<a*x,=<g]=>f,make_f(a0)=>,call_f(1)=>,call_f(2)=>:make_f(a0)=<[a=a0,g(x)=<a*x,=<g]==>f,make_f(a0)=>,call_f(1)=>,call_f(2)=>:make_f(a)=<[g(x)=<a*x,=<g]=>,make_f(a0)=>f,call_f(1)=>,call_f(2)=>:,make_f(a0)==>f,call_f(1)=>,call_f(2)=>:make_f(a0)=<[a=a0,g(x)=<a*x,=<g]=>,make_f(a0)=>f,call_f(1)=>,call_f(2)=>:,make_f(a0)==>f,call_f(1)=>,call_f(2)=>
 (
 0,0,0,-3,3,0,-3,6:
@@ -2712,4 +2742,4 @@ center=true&drag=false&test-case=false&legend=true&axis-t=false&axis-x=true&log-
 --------------------------------
 --------------------------------
 
-online-simulator.github.io.6.337.142.17.82 @ Tue Oct 10 2023 16:46:06 GMT+0900 (日本標準時) @ Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/117.0.0.0 Safari/537.36
+online-simulator.github.io.6.337.142.17.82 @ Wed Oct 11 2023 17:20:40 GMT+0900 (日本標準時) @ Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/117.0.0.0 Safari/537.36
