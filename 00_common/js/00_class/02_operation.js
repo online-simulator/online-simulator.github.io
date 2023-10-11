@@ -146,7 +146,6 @@ My_entry.operation.prototype.init = function(){
   new My_entry.original_main().setup_constructors.call(self);
   new My_entry.original_main().make_instances.call(self, ["$", "def", "math", "math_mat", "DATA", "unit"]);
   My_entry.def.mix_in_props(My_entry.operation, My_entry.DATA, ["arr2num", "arr2args", "arr2obj_i"]);
-  My_entry.def.mix_in_props(My_entry.operation, My_entry.parser, ["loop_callback"]);  // Ver.2.246.57
   self.useStrict = null;
   self.useEmpty = null;
   self.useScopeWith = null;  // Ver.2.213.47
@@ -3834,6 +3833,85 @@ My_entry.operation.prototype.store_eqn = function(name, tree, scopes, ids, isEsc
   return self.store_mutex("eqns", name, tree, scopes, ids, isEscaped);  // Ver.2.291.71
 };
 /* -> Ver.2.31.17 */
+/* Ver.2.293.71 moved from parser.js -> */
+/* Ver.2.261.61 */
+My_entry.operation.prototype.wrapper_loop = function(trees, callback_pre, callback){
+  var self = this;
+  var loop_tree_BT = function(tree_BT){
+    callback_pre(tree_BT);
+    var tagName = self.isType(tree_BT, "BT");
+    if(tagName){
+      var trees_lower = self.get_tagVal(tree_BT, tagName, "val");
+      callback(trees_lower);
+    }
+  };
+  self.loop_callback(trees, loop_tree_BT);  // Ver.2.218.50
+  return self;
+};
+/* Ver.2.218.50 */
+My_entry.operation.prototype.loop_callback = function(trees, callback){
+  var self = this;
+  var isDataEqn = self.entry.def.isObject(trees);
+  var isBT = (trees && trees.length);
+  if(isDataEqn){
+    for(var name in trees){
+      var tree = trees[name];
+      /* Ver.2.277.65 -> */
+      if(tree && tree.mat){
+        var arr = tree.mat.arr;
+        for(var i=0, len_i=arr.length; i<len_i; ++i){
+          for(var j=0, len_j=arr[i].length; j<len_j; ++j){
+            callback(arr[i][j]);
+          }
+        }
+      }
+      /* -> Ver.2.277.65 */
+      else{
+        callback(tree);
+      }
+    }
+  }
+  else if(isBT){
+    trees.forEach(function(tree){
+      callback(tree);
+    });
+  }
+  return self;
+};
+My_entry.operation.prototype.make_scopes = function(callback_hasScope, trees, scopes_upper, ids2d_upper, j){
+  var self = this;
+  var DATA = self.entry.DATA;
+  var loop_tree_BT = function(tree_BT){
+    var tagName = self.isType(tree_BT, "BT");
+    if(tagName){
+      var obj = tree_BT[tagName];
+      var trees_lower = self.get_tagVal(tree_BT, tagName, "val");  // Ver.2.216.50
+      var scopes = scopes_upper;
+      var ids2d = [];  // new
+      /* [a=1,a[0][0]=2,[(3,3)]] */
+      if(trees_lower && trees_lower.length){
+        var hasScope = callback_hasScope(tagName, obj);  // Ver.2.213.48  // Ver.2.216.50  // Ver.2.228.56
+        if(hasScope){
+          var scope = DATA.scope();
+          var n = scopes.length;
+          scopes[n] = scope;
+          var ids1d = [j, n];
+          ids2d.push(ids1d);
+        }
+      }
+      if(ids2d_upper && ids2d_upper.length){
+        Array.prototype.push.apply(ids2d, ids2d_upper);  // FIFO-queue
+      }
+      if(ids2d.length){
+        obj.ids = ids2d;  // scope ids cloned without Circular Reference at remake_trees
+      }
+      self.make_scopes(callback_hasScope, trees_lower, scopes, ids2d, j);
+    }
+  };
+  self.loop_callback(trees, loop_tree_BT);  // Ver.2.218.50
+  return self;
+};
+/* -> Ver.2.293.71 */
 /* Ver.2.256.59 -> */
 /* Ver.2.246.57 */
 My_entry.operation.prototype.replace_REv = function(trees, bas){
