@@ -179,16 +179,17 @@ My_entry.def.prototype.newClone = function(right){
   }
   if(isDeep){
     for(var prop in right){
-      if(right[prop]){                             // no filter
-        _left[prop] = self.newClone(right[prop]);  // value || reference
+      var rightprop = right[prop];  // calc-Ver.2.294.71
+      if(rightprop){                             // no filter
+        _left[prop] = self.newClone(rightprop);  // value || reference
       }
       else{
-        _left[prop] = right[prop];                 // value
+        _left[prop] = rightprop;                 // value
       }
     }
   }
   else{
-    _left = right;                                 // value || reference
+    _left = right;                               // value || reference
   }
   return _left;
 };
