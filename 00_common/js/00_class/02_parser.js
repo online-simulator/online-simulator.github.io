@@ -110,6 +110,7 @@ My_entry.parser.prototype.config = {
     },
     props: ["map", "filter", "filter0"],  // Ver.2.214.49  // Ver.2.263.62
     word: {
+      escape: "$",  // Ver.2.294.72
       prifix: ((My_entry.flag.useES6)? /^0[xXbBoO]/: /^0[xX]/)  // Ver.2.146.37
     }
   },
@@ -246,7 +247,7 @@ My_entry.parser.prototype.check_varName = function(token, re){
   /* Ver.2.248.57 -> */
   var operation = self.entry.operation;
   if(operation.config.isEscaped(token)){
-    throw "Invalid symbol("+token+")";  // Ver.2.29.15
+    throw "Invalid token("+token+")";  // Ver.2.29.15  // Ver.2.294.72
   }
   /* -> Ver.2.248.57 */
   var trees = self.make_trees(token, re);
@@ -259,6 +260,9 @@ My_entry.parser.prototype.check_varName = function(token, re){
       throw "Invalid "+token+" called";
     }
   }
+  else{
+    throw "Invalid tokens("+token+")";  // Ver.2.294.72
+  }
   return _tree;
 };
 /* Ver.2.146.37 */
@@ -266,9 +270,15 @@ My_entry.parser.prototype.check_varName_prifix = function(token, re){
   var self = this;
   var _tree = null;
   var SYNTAX = self.config.SYNTAX;
-  if(token.match(SYNTAX.word.prifix)){
+  /* Ver.2.294.72 -> */
+  var operation = self.entry.operation;
+  if(operation.config.isEscaped(token)){
+    self.check_varName(token.substring(1), re);
+  }
+  else if(token.match(SYNTAX.word.prifix)){
     throw "Invalid varName("+token+")";
   }
+  /* -> Ver.2.294.72 */
   return _tree;
 };
 /* Ver.2.142.36 */
@@ -780,14 +790,7 @@ My_entry.parser.prototype.switch_token = function(tokens, token_left, token, tok
       tree = DATA.tree_tag("FNn", token_lower);
       break;
     default:
-      /* Ver.2.24.12 -> */
-      if(operation.config.isEscaped(token)){
-        self.check_varName(token.substring(1), re);
-      }
-      else{
-        self.check_varName_prifix(token, re);  // Ver.2.146.37
-      }
-      /* -> Ver.2.24.12 */
+      self.check_varName_prifix(token, re);  // Ver.2.24.12  // Ver.2.146.37
       /* Ver.2.214.49 -> */
       if(token_left === "."){  // Ver.2.230.56
         var hasProp = false;
@@ -1289,7 +1292,7 @@ My_entry.parser.prototype.get_log_arr = function(arr, options, opt_arr00){
     var symbol = (isEqn)? null: self.entry.operation.get_symbol(isSEe, true);  // Ver.2.290.71
     _log += (opt_arr00)? "": "(";
     if(symbol){
-      _log += "$"+symbol;
+      _log += self.config.SYNTAX.word.escape+symbol;  // Ver.2.294.72
     }
     else{
       _log += self.config.BT.SEe;  // Ver.2.292.71

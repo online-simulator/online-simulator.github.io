@@ -120,7 +120,7 @@ My_entry.operation.prototype.config = {
   },
   /* Ver.2.27.15 */
   isEscaped: function(name){
-    return (name[0] === "$");
+    return (name && name[0] === "$");  // Ver.2.294.72
   },
   /* Ver.2.219.50 */
   isEscaped_eqn: function(name){
@@ -798,7 +798,7 @@ My_entry.operation.prototype.tree_BT2tree = function(data, tree, opt_ids){
 /* Ver.2.232.56 */
 My_entry.operation.prototype.check_symbol = function(symbol){
   var self = this;
-  if(symbol && self.config.isEscaped(symbol)) throw "Invalid symbol("+symbol+")";
+  if(self.config.isEscaped(symbol)) throw "Invalid symbol("+symbol+")";  // Ver.2.294.72
   return self;
 };
 /* Ver.2.229.56 */
@@ -809,7 +809,6 @@ My_entry.operation.prototype.get_symbol = function(obj, hasArgs){  // Ver.2.251.
   var prop0 = (prop && prop.length === 1 && prop[0]);
   var _symbol = prop0 && !(hasArgs && obj.arg) && self.get_tagVal(prop0, "REv", "val");  // Ver.2.251.58
   /* -> Ver.2.260.61 */
-  self.check_symbol(_symbol);  // Ver.2.232.56
   return _symbol;
 };
 /* Ver.2.230.56 */
@@ -863,7 +862,7 @@ My_entry.operation.prototype.get_name_escaped = function(tree){
   var self = this;
   var _name = "";
   var name = self.get_tagVal(tree, "REv", "val");
-  if(name && self.config.isEscaped(name)){
+  if(self.config.isEscaped(name)){  // Ver.2.294.72
     _name = name.substring(1);
   }
   return _name;
@@ -932,6 +931,7 @@ My_entry.operation.prototype.FNc = function(data, i0, tagName, tagObj){
     var isEqn = (sw === "eqns");
     /* -> Ver.2.268.62 */
     if(name){
+      self.check_symbol(name);  // Ver.2.294.72
       var tree = null;
       var get_tree_sw = function(sw){
         return DATA.tree_num(((sw)? true: false), 0);  // Ver.2.196.46
@@ -1183,7 +1183,6 @@ if(prop === "EX"){  // symbolic
     if(!(names.length)) throw msgErr;
     /* -> Ver.2.27.15 */
     var name_var = names[names.length-1];
-    self.check_symbol(name_var);  // Ver.2.29.15  // Ver.2.232.56
     var name_eqn = name_arg || name_bar;
     /* Ver.2.268.62 -> */
     var num_escape = self.config.isEscaped_eqn(name_eqn);
@@ -1192,6 +1191,8 @@ if(prop === "EX"){  // symbolic
     }
     /* -> Ver.2.268.62 */
     if(!(name_eqn) || (name_arg && name_bar) || (args_eqn && args_eqn.length !== 1)) throw msgErr;
+    self.check_symbol(name_var);  // Ver.2.294.72
+    self.check_symbol(name_eqn);  // Ver.2.294.72
     var len_i = math_mat.num2size(options, args[1]);
     var len_j = math_mat.num2size(options, args[2]);
     var counter = 0;
@@ -1242,7 +1243,6 @@ else if(prop === "OX" || prop === "TX"){  // ODE  // Ver.2.23.11  // Ver.2.231.5
     }
     var name_var = name_arg || name_bar;
     if(!(name_var) || (name_arg && name_bar)) throw msgErr;
-    self.check_symbol(name_var);  // Ver.2.29.15  // Ver.2.232.56
     /* -> Ver.2.231.56 */
     if(!(names.length)) throw msgErr;
     /* -> Ver.2.27.15 */
@@ -2992,6 +2992,7 @@ My_entry.operation.prototype.store_mutex = function(sw, name, tree, scopes, ids,
   /* -> Ver.2.250.57 */
   self.inherit_constant(sw, name, scopes, ids, tree, isEscaped);  // Ver.2.249.57  // Ver.2.254.59
   DATA.setProp_tree(tree, "isSE", true);  // Ver.2.284.67 representation of reference
+  self.check_symbol(name);  // Ver.2.294.72
   scope0[sw][name] = tree;  // Ver.2.266.62
   return self;
 };

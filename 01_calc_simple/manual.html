@@ -2198,6 +2198,12 @@ pending項目を列挙する
 ・eqn表記　⇒　fn表記の変更
 <br>
 　参照と区別
+<br>
+・has($x)　⇔　has(x)||has(=&lt;x)の実装
+<br>
+　<span class="run">Ver.2.295.71</span>以降、error終了
+<br>
+has($x) -> <del>false</del>[MyErr]Invalid symbol($x)
     </td>
   </tr>
   <tr>
@@ -38160,14 +38166,7 @@ parser.js抜粋
       tree = DATA.tree_tag("FNn", token_lower);
       break;
     default:
-      /* Ver.2.24.12 -> */
-      if(operation.config.isEscaped(token)){
-        self.check_varName(token.substring(1), re);
-      }
-      else{
-        self.check_varName_prifix(token, re);  // Ver.2.146.37
-      }
-      /* -> Ver.2.24.12 */
+      self.check_varName_prifix(token, re);  // Ver.2.24.12  // Ver.2.146.37
       /* Ver.2.214.49 -> */
       if(token_left === "."){  // Ver.2.230.56
         var hasProp = false;
