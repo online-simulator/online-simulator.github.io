@@ -4316,9 +4316,14 @@ My_entry.operation.prototype.REe = function(data, i0, tagName, tagObj){
       /* -> Ver.2.229.56 */
       return _tree;  // Ver.2.272.63
     };
-    if(tagName === "REe"){
+    if(tagName === "REe"){  // Ver.2.295.72 REe -> (f[ref](args)=>)=> || (f(args)=>)[ref]=> -> SEe -> store_eqn(name_var, tree_var
+      /* f=<(=<1,=<2),(f[][1]()=>)=>,(f()=>)[][1]=> */
       _tree = REe2SEe(_tree);  // Ver.2.272.63
       self.feedback2trees(data, is, ie, _tree);
+    }
+    else if(tagName === "REv"){  // Ver.2.295.72 REe -> SEe4SEv -> A[ref]
+      /* A=(=<1,=<2),(A[][1])=> */
+      return _tree;
     }
   }
   /* Ver.2.204.46 -> */
@@ -4326,7 +4331,6 @@ My_entry.operation.prototype.REe = function(data, i0, tagName, tagObj){
     self.throw_tree(leftTree);
   }
   /* -> Ver.2.204.46 */
-  if(tagName === "REv") return _tree;
   return self;
 };
 /* Ver.2.31.17 */
