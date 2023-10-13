@@ -114,9 +114,14 @@ My_entry.operation.prototype.config = {
   /* Ver.2.245.57 -> */
   /* Ver.2.32.17 */
   symbol: {
+    const: "const ",  // Ver.2.296.72
     anonymous: "no-name",  // Ver.2.253.59
     escape_eqn1: "@",
     escape_eqn2: "@@"  // Ver.2.219.50
+  },
+  /* Ver.2.296.72 */
+  get_out: function(isEqn, name, isConstant){
+    return ("stored_"+((isEqn)? "eqn": "var")+"("+((isConstant)? "const ": "")+name+")");
   },
   /* Ver.2.27.15 */
   isEscaped: function(name){
@@ -3696,12 +3701,12 @@ My_entry.operation.prototype.SEv = function(data, i0, tagName, tagObj){
           }
           self.inherit_id_tree(tree, leftTree);  // Ver.2.262.62
           self.store_var(name_var, tree, scopes, ids, isEscaped);  // Ver.2.31.17  // Ver.2.249.57
-          tree = DATA.tag("out", {name: name_var, arr: tree.mat.arr});
+          tree = DATA.tag("out", {name: ((tree.mat.isConstant)? self.config.symbol.const: "")+name_var, arr: tree.mat.arr});  // Ver.2.296.72
         }
         else if(isSEe_dynamic){  // Ver.2.277.65  // Ver.2.279.65
           self.inherit_id_tree(tree, leftTree);  // Ver.2.262.62
           self.store_eqn(name_var, tree, scopes, ids, isEscaped);  // Ver.2.277.65
-          tree = DATA.tree_tag("out", "stored_eqn("+name_var+")");  // Ver.2.277.65
+          tree = DATA.tree_tag("out", self.config.get_out(true, name_var, isSEe_dynamic.isConstant));  // Ver.2.277.65  // Ver.2.296.72
         }
         else{
           self.throw_tree(tree);
@@ -4305,7 +4310,7 @@ My_entry.operation.prototype.REe = function(data, i0, tagName, tagObj){
           self.inherit_id_tree(tree_var, rightTree);  // Ver.2.262.62
           self.store_eqn(name_var, tree_var, scopes, ids, isEscaped);
           /* -> Ver.2.262.61 */
-          _tree = DATA.tree_num(0, 0);
+          _tree = DATA.tree_num(0, 0);  // Ver.2.296.72 resolved for flag
           DATA.setProp_tree(_tree, "isNotResolved", true);  // Ver.2.290.71
         }
         else{
@@ -4400,7 +4405,7 @@ My_entry.operation.prototype.BTe = function(data, i0, tagName, tagObj){  // Ver.
     /* -> Ver.2.249.57 */
     self.inherit_id_tree(tree, trees[is]);  // Ver.2.262.62
     self.store_eqn(name_eqn, tree, scopes, ids, isEscaped);  // Ver.2.31.17  // Ver.2.249.57
-    tree = DATA.tree_tag("out", "stored_eqn("+name_eqn+")");
+    tree = DATA.tree_tag("out", self.config.get_out(true, name_eqn, isSEe.isConstant));  // Ver.2.277.65  // Ver.2.296.72
   }
   /* -> Ver.2.195.45 */
   /* -> Ver.2.27.15 */

@@ -2002,6 +2002,16 @@ f(=&lt;(=&lt;1,=&lt;2:=&lt;3,=&lt;4)) -> <del>[MyErr]Invalid .map(f)</del>(1,2:3
 (x)=&lt;x,(x,y)=&lt;x+y -> (eqn(x),eqn(x,y))
 <br>
 {x,y}=&lt;x+y,{(x,(y,z))}=&lt;x+y+z -> (eqn(y),eqn(x,y,z))
+<br>
+・<span class="run">Ver.2.296.72</span>以降、<a href="#span-out-const-vars">const宣言</a>の<a href="#span-out-log">log表示</a>に対応（右代入を除く）
+<br>
+clear; $a=1 -> const a=1
+<br>
+clear; $f=&lt;1 -> stored_eqn(const f)
+<br>
+clear; $f=()=&lt;1 -> stored_eqn(const f)
+<br>
+clear; [()=&lt;1]=&gt;$f -> 0
     </td>
   </tr>
   <tr>
@@ -2180,6 +2190,10 @@ pending
 pending項目を列挙する
 <br>
 ・arrowの反転option
+<br>
+・A.unshift/push(val,opt_i)の実装（<a href="#span-out-concatination">行列結合</a>arr=(arr,val)の高速化）
+<br>
+・<a href="#span-out-vars-symbol">symbol</a>明示記号の追加
 <br>
 ・arr=arr|||[]の実装
 <br>
@@ -22107,6 +22121,14 @@ clear; com2vec(a)=&lt;[{real(a),imag(a)}]; com2vec(2-3i) -> (2:-3)
 clear; minus(a)=&lt;[,=&lt;-a]=&gt;; minus(2) -> -2
 <br>
 clear; add(a,b)=&lt;last[,a+b]; add(1,3) -> 4
+<br>
+clear; f(a,b)=&lt;[()=&lt;[a,b]],(f(1,2))()=&gt;,(a,b) -> [MyErr]Undef var(a)
+<br>
+・以下の場合、外側の<a href="#span-out-BT">括弧</a>を判定するため、単独scopeではない
+<br>
+clear; f(a,b)=&lt;(()=&lt;[a,b]),(f(1,2))()=&gt;,(a,b) -> (0,1,2,1,2)
+<br>
+clear; f(a,b)=&lt;([()=&lt;[a,b]]),(f(1,2))()=&gt;,(a,b) -> (0,1,2,1,2)
 <br>
 <br>
 留意事項を列挙する
