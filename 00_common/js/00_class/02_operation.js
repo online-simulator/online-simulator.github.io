@@ -3017,6 +3017,20 @@ My_entry.operation.prototype.store_var = function(name, tree, scopes, ids, isEsc
   return self.store_mutex("vars", name, tree, scopes, ids, isEscaped);  // Ver.2.291.71
 };
 /* -> Ver.2.31.17 */
+/* Ver.2.297.72 */
+My_entry.operation.prototype.get_index_arr = function(i, len, isColumn){
+  var self = this;
+  var _i = null;
+  var hasArea0 = (i%1 === 0);
+  var isInArea = (i >= -len && i < len);
+  if(hasArea0 && isInArea){
+    _i = (i+len)%len;
+  }
+  else{
+    throw "Invalid reference of array"+((isColumn)? "(column)": "");
+  }
+  return _i;
+};
 /* Ver.2.76.29 -> */
 My_entry.operation.prototype.restore_arr = function(arr, ref){
   var self = this;
@@ -3029,37 +3043,19 @@ My_entry.operation.prototype.restore_arr = function(arr, ref){
   if(len_ref === 2 && ref[0] === Math.E){  // Ver.2.79.31
     var tarr = math_mat.transpose(null, arr);
     /* Ver.2.78.31 -> */
-    var _j = ref[1];
-    var dj = tarr.length;
-    var j_ref = (_j+dj)%dj;
+    var j_ref = self.get_index_arr(ref[1], tarr.length, true);  // Ver.2.297.72
     var tarrj = tarr[j_ref];
-    var hasArea0 = (_j%1 === 0);
-    var isInArea = (_j >= -dj && _j < dj);
-    if(hasArea0 && isInArea){
     /* -> Ver.2.78.31 */
-      for(var i=0, len_i=tarrj.length; i<len_i; ++i){
-        _arr[i] = [tarrj[i]];
-      }
-    }
-    else{
-      throw "Invalid reference of array(column)";
+    for(var i=0, len_i=tarrj.length; i<len_i; ++i){
+      _arr[i] = [tarrj[i]];
     }
   }
   /* Ver.2.79.32 -> */
   /* Ver.2.78.31 -> */
   else if(len_ref < 3){
     ref.forEach(function(i_ref0, i){
-      var _i = i_ref0;
-      var di = arri.length;
-      var i_ref = (_i+di)%di;
-      var hasArea0 = (_i%1 === 0);
-      var isInArea = (_i >= -di && _i < di);
-      if(hasArea0 && isInArea){
-        _arri[0] = (i === len_ref-1)? arri[i_ref]: [];
-      }
-      else{
-        throw "Invalid reference of array";
-      }
+      var i_ref = self.get_index_arr(i_ref0, arri.length);  // Ver.2.297.72
+      _arri[0] = (i === len_ref-1)? arri[i_ref]: [];
       _arri = _arri[0];
       arri = arri[i_ref];
     });

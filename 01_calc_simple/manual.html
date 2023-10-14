@@ -2191,11 +2191,13 @@ pending項目を列挙する
 <br>
 ・arrowの反転option
 <br>
-・A.unshift/push(val,opt_i)の実装（<a href="#span-out-concatination">行列結合</a>の高速化）
+・<a href="#span-out-prec-ope-arithmetic-dot">dot演算子</a>を<a href="#span-out-terms">scope変数</a>の直接edit関数に拡張（<a href="#span-out-array">行列操作</a>||<a href="#span-out-concatination">行列結合</a>の高速化）
 <br>
-　arr[opt_i]=(val,arr[opt_i])
+　A.unshift/push(val,opt_i)
 <br>
-　arr[opt_i]=(arr[opt_i],val)
+unshift：len=sizer(A),opt_i==-(len+1)&amp;&amp;&amp;(A=(val:A))||||last{is=(opt_i||0)%len,A[is]=(val,A[is])}
+<br>
+push：len=sizer(A),opt_i==len&amp;&amp;&amp;(A=(A:val))||||last{ie=(opt_i||len-1)%len,A[ie]=(A[ie],val)}
 <br>
 ・<a href="#span-out-vars-symbol">symbol</a>明示記号の追加
 <br>
@@ -17229,9 +17231,6 @@ Kdelta(1,NaN) -> NaN
 <span id="span-out-FN-statistic"></span>
 統計関数の入力仕様と付随する留意事項について記述する
 <br>
-<br>
-統計関数の仕様は原則<span class="run">Python</span>準拠とする
-<br>
 ・<span class="run">Ver.2.90.32</span>以降、mean/sum/prod関数を追加
 <br>
 ・<span class="run">Ver.2.91.32</span>以降、median/sort/reverse/cmedian/csort/creverse関数を追加
@@ -17400,6 +17399,11 @@ csort(creverse(1,-2i,3:4,-5,6i:7)) -> (1,-2i,3:4,-5,6i:7)
 ・<a href="#span-out-reference-mat-area">area参照</a>の<span class="selection">反転参照</span>を使用
 <br>
 (csort(1,-2i,3:4,-5,6i:7))[0][<span class="selection">-1</span>][0][0] -> (3,-2i,1:6i,-5,4:0,0,7)
+<br>
+<br>
+留意事項を列挙する
+<br>
+・統計関数のalgorithmは未最適化
     </td>
   </tr>
   <tr>
@@ -39353,7 +39357,7 @@ curried
     </th>
     <td>
 <span id="span-eqn-curried"></span>
-<a href="#span-out-scope-vars-has1BT">単独scope</a>||<a href="#span-out-eqns-call2eqn">式変数への式読出し</a>||<a href="#span-out-eqns-no-name">無名call</a>参照
+<a href="#span-out-config-strict">strict-mode</a>||<a href="#span-out-scope-vars-has1BT">単独scope</a>||<a href="#span-out-eqns-call2eqn">式変数への式読出し</a>||<a href="#span-out-eqns-no-name">無名call</a>参照
 <br>
 clear;
 <br>
