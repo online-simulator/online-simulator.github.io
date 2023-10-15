@@ -108,7 +108,8 @@ My_entry.parser.prototype.config = {
       // logical  OR: "BRlO"
       "=": "BRe"  // x+3=1 -> x=1-3 prior to substitution
     },
-    props: ["map", "filter", "filter0"],  // Ver.2.214.49  // Ver.2.263.62
+    props: ["map", "filter", "filter0"],  // props for iterable with ref  // Ver.2.214.49  // Ver.2.263.62
+    props_method: ["unshift", "push", "shift", "pop"],  // prototype method using ref  // Ver.2.298.72
     word: {
       escape: "$",  // Ver.2.294.72
       prifix: ((My_entry.flag.useES6)? /^0[xXbBoO]/: /^0[xX]/)  // Ver.2.146.37
@@ -448,7 +449,6 @@ My_entry.parser.prototype.SEe2BTe = function(trees){
 My_entry.parser.prototype.switch_token = function(tokens, token_left, token, token_lower, token_upper, re){
   var self = this;
   var _tree = null;
-  var SYNTAX = self.config.SYNTAX;
   var math = self.entry.math;
   var math_mat = self.entry.math_mat;
   var DATA = self.entry.DATA;
@@ -791,22 +791,39 @@ My_entry.parser.prototype.switch_token = function(tokens, token_left, token, tok
       break;
     default:
       self.check_varName_prifix(token, re);  // Ver.2.24.12  // Ver.2.146.37
+      /* Ver.2.298.72 -> */
+      var tree_method = null;
       /* Ver.2.214.49 -> */
       if(token_left === "."){  // Ver.2.230.56
-        var hasProp = false;
-        SYNTAX.props.forEach(function(prop){
-          hasProp = hasProp || (token_lower === prop);
-        });
-        if(hasProp){
-          token = "."+token_lower;
+        var token_method = self.hasProp_token(token_lower, true);
+        if(token_method){
+          tree_method = {isMethod: DATA.tree_tag("REv", token_method)};
+        }
+        else{
+          token = self.hasProp_token(token_lower);
         }
       }
       /* -> Ver.2.214.49 */
-      tree = DATA.tree_tag("REv", token);
+      tree = tree_method || DATA.tree_tag("REv", token);
+      /* -> Ver.2.298.72 */
       break;
   }
   _tree = tree;
   return _tree;
+};
+/* Ver.2.298.72 */
+My_entry.parser.prototype.hasProp_token = function(token, isMethod){
+  var self = this;
+  var SYNTAX = self.config.SYNTAX;
+  var _prop = "";
+  var hasProp = false;
+  SYNTAX[(isMethod)? "props_method": "props"].forEach(function(prop){
+    hasProp = hasProp || (prop === token);
+  });
+  if(hasProp){
+    _prop = "."+token;
+  }
+  return _prop;
 };
 /*
             j-th sentence
@@ -890,11 +907,20 @@ My_entry.parser.prototype.make_trees = function(sentence, opt_re){  // Ver.2.158
       tree = self.switch_token(tokens, token_left, token, token_lower, token_upper, re);  // Ver.2.230.56
     }
     if(tree){
-      /* Ver.2.264.62 -> */
-      tree = self.FN2REv(tree, token, token_lower, token_upper);
-      self.set_id_tree(tree);  // last
-      _trees.push(tree);  // Ver.2.221.50  // Ver.2.228.56
-      /* -> Ver.2.264.62 */
+      /* Ver.2.298.72 -> */
+      if(tree.isMethod){
+        tree = tree.isMethod;
+        self.set_id_tree(tree);  // last
+        _trees[_trees.length-1] = tree;
+      }
+      /* -> Ver.2.298.72 */
+      else{
+        /* Ver.2.264.62 -> */
+        tree = self.FN2REv(tree, token, token_lower, token_upper);
+        self.set_id_tree(tree);  // last
+        _trees.push(tree);  // Ver.2.221.50  // Ver.2.228.56
+        /* -> Ver.2.264.62 */
+      }
     }
     i = i_next;
   }

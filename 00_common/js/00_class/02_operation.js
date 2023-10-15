@@ -3417,6 +3417,135 @@ My_entry.operation.prototype.restore_sw = function(name, scopes, ids, isREee){
   }
   return _tree;
 };
+/* Ver.2.298.72 */
+My_entry.operation.prototype.change_scopes_directly = function(data, i0, name, prop, ref){
+  var self = this;
+  var trees = data.trees;
+  var scopes = data.scopes;
+  var ids = data.ids;
+  var DATA = self.entry.DATA;
+  var _tree = DATA.tree_num(NaN, NaN);
+  var rightTree = trees[i0+2];
+  var rightArr = self.get_tagVal(rightTree, "mat", "arr");
+  var arr = null;
+  var dot_prop = prop.substring(1);
+  if(dot_prop === "unshift" || dot_prop === "push"){
+    var has1elem = (rightArr && rightArr.length === 1 && rightArr[0].length === 1);
+    if(has1elem){
+      var args = self.arr2args(rightArr);
+      arr = self.get_tagVal(self.tree_eqn2tree_AtREe(data, args[0]), "mat", "arr");
+    }
+    else{
+      throw "Invalid "+name+"[]"+prop+"(x||=<(,))";
+    }
+    var len_i = arr && arr.length;
+    if(len_i !== 1){
+      throw "Invalid "+dot_prop+"(size(arr)=1)";
+    }
+  }
+  else{
+    if(!(rightArr && rightArr.length === 0)){
+      throw "Invalid "+dot_prop+"()";
+    }
+  }
+  if(ref && ref.length !== 1){
+    throw "Invalid "+dot_prop+"(ref.length<=1)";
+  }
+  var scope = self.get_scope0_RE_sw("vars", name, scopes, ids);
+  if(scope){
+    var tree0 = scope[name];
+    var isMat0 = tree0.mat;
+    if(isMat0){
+      var arr0 = tree0.mat.arr;
+      var len_i0 = arr0.length;
+      var i0 = undefined;
+      var j0 = undefined;
+      if(ref){
+        i0 = ref[0];
+        j0 = ref[1];
+      }
+      if(dot_prop === "unshift"){
+        switch(i0){
+          case -(len_i0+1):
+            arr0.unshift([]);
+            i0 = 0;
+            break;
+          default:
+            if(len_i0 === 0){
+              arr0.push([]);
+              len_i0 = arr0.length;
+            }
+            if(typeof i0 === "undefined"){
+              i0 = 0;
+            }
+            else{
+              i0 = self.get_index_arr(i0, len_i0);
+            }
+            break;
+        }
+        var arri = arr0[i0];
+        arri.unshift.apply(arri, arr[0]);
+      }
+      else if(dot_prop === "push"){
+        switch(i0){
+          case len_i0:
+            arr0.push([]);
+            i0 = arr0.length-1;
+            break;
+          default:
+            if(len_i0 === 0){
+              arr0.push([]);
+              len_i0 = arr0.length;
+            }
+            if(typeof i0 === "undefined"){
+              i0 = len_i0-1;
+            }
+            else{
+              i0 = self.get_index_arr(i0, len_i0);
+            }
+            break;
+        }
+        var arri = arr0[i0];
+        arri.push.apply(arri, arr[0]);
+      }
+      else if(dot_prop === "shift"){
+        if(len_i0){
+          if(typeof i0 === "undefined"){
+            i0 = 0;
+          }
+          else{
+            i0 = self.get_index_arr(i0, len_i0);
+          }
+          var num = arr0[i0].shift();
+          if(num){
+            _tree = DATA.num2tree(num);
+          }
+        }
+      }
+      else if(dot_prop === "pop"){
+        if(len_i0){
+          if(typeof i0 === "undefined"){
+            i0 = len_i0-1;
+          }
+          else{
+            i0 = self.get_index_arr(i0, len_i0);
+          }
+          var num = arr0[i0].pop();
+          if(num){
+            _tree = DATA.num2tree(num);
+          }
+        }
+      }
+    }
+    else{
+      throw "Invalid "+name+prop;
+    }
+  }
+  else{
+    throw "Undef var("+name+prop+")";
+  }
+  return _tree;
+};
 My_entry.operation.prototype.REv = function(data, i0, tagName, tagObj){
   var self = this;
   var trees = data.trees;
@@ -3438,7 +3567,17 @@ My_entry.operation.prototype.REv = function(data, i0, tagName, tagObj){
   var name = tagObj.val;
   var isName = !(self.config.isEscaped(name));  // Ver.2.280.66
   if(!(isSE) && isName){  // Ver.2.260.61  // Ver.2.280.66
-    tree = self.restore_sw(name, scopes, ids);  // Ver.2.289.71
+    /* Ver.2.298.72 -> */
+    var prop = self.get_tagVal(rightTree, "REv", "val");
+    if(prop && prop[0] === "."){
+      tree = self.change_scopes_directly(data, i0, name, prop, ref);
+      ie = i0+2;
+      ref = null;
+    }
+    /* -> Ver.2.298.72 */
+    else{
+      tree = self.restore_sw(name, scopes, ids);  // Ver.2.289.71
+    }
     /* Ver.2.24.11 -> */
     if(tree){
       /* Ver.2.20.8 -> */

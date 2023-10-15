@@ -314,6 +314,8 @@ e^(-i(1pi(){2/2i}(5-{3-1}){i/(-4)}))
 <br>
 ・<a href="#span-out-prec">演算のprecedence</a>
 <br>
+　・<a href="#span-out-prec-ope-arithmetic-method">method演算子</a>
+<br>
 　・<a href="#span-out-prec-ope">演算子のprecedence</a>
 <br>
 　　・<a href="#span-out-prec-ope-arithmetic">算術演算子</a>
@@ -2012,6 +2014,8 @@ clear; $f=&lt;1 -> stored_eqn(const f)
 clear; $f=()=&lt;1 -> stored_eqn(const f)
 <br>
 clear; [()=&lt;1]=&gt;$f -> 0
+<br>
+・<span class="run">Ver.2.298.72</span>以降、<a href="#span-out-vars">変数</a>のprototype method代替の<a href="#span-out-prec-ope-arithmetic-method">method演算子</a>を追加
     </td>
   </tr>
   <tr>
@@ -2191,14 +2195,6 @@ pending項目を列挙する
 <br>
 ・arrowの反転option
 <br>
-・<a href="#span-out-prec-ope-arithmetic-dot">dot演算子</a>を<a href="#span-out-terms">scope変数</a>の直接edit関数に拡張（<a href="#span-out-array">行列操作</a>||<a href="#span-out-concatination">行列結合</a>の高速化）
-<br>
-　A.unshift/push(val,opt_i)
-<br>
-unshift：len=sizer(A),opt_i==-(len+1)&amp;&amp;&amp;(A=(val:A))||||last{is=(opt_i||0)%len,A[is]=(val,A[is])}
-<br>
-push：len=sizer(A),opt_i==len&amp;&amp;&amp;(A=(A:val))||||last{ie=(opt_i||len-1)%len,A[ie]=(A[ie],val)}
-<br>
 ・<a href="#span-out-vars-symbol">symbol</a>明示記号の追加
 <br>
 ・arr=arr|||[]の実装
@@ -2226,6 +2222,19 @@ push：len=sizer(A),opt_i==len&amp;&amp;&amp;(A=(A:val))||||last{ie=(opt_i||len-
 has($x) -> <del>false</del>[MyErr]Invalid symbol($x)
 <br>
 $$=1 -> [MyErr]Invalid <del>symbol($)</del>token($)
+<br>
+<br>
+以降、closed
+<br>
+・<span class="run">Ver.2.298.72</span>以降、<a href="#span-out-vars">変数</a>のprototype method代替の<a href="#span-out-prec-ope-arithmetic-method">method演算子</a>を追加
+<br>
+<del>　<a href="#span-out-prec-ope-arithmetic-dot">dot演算子</a>を<a href="#span-out-terms">scope変数</a>の直接edit関数に拡張（<a href="#span-out-array">行列操作</a>||<a href="#span-out-concatination">行列結合</a>の高速化）
+<br>
+　A.unshift/push(val,opt_i)
+<br>
+unshift：len=sizer(A),opt_i==-(len+1)&amp;&amp;&amp;(A=(val:A))||||last{is=(opt_i||0)%len,A[is]=(val,A[is])}
+<br>
+push：len=sizer(A),opt_i==len&amp;&amp;&amp;(A=(A:val))||||last{ie=(opt_i||len-1)%len,A[ie]=(A[ie],val)}</del>
     </td>
   </tr>
   <tr>
@@ -10169,7 +10178,11 @@ precedence
 <br>
 ・<a href="#span-out-BT">括弧</a>
 <br>
-・<a href="#span-out-eqns-call">式読出し</a>
+・<a href="#span-out-eqns-call">式読出し</a>（call記号=&gt;明示）
+<br>
+・<a href="#span-out-vars">変数</a>読出し||<a href="#span-out-prec-ope-arithmetic-method">method演算子</a>
+<br>
+　||<a href="#span-out-eqns-call">式読出し</a>（call記号=&gt;省略）@<a href="#span-out-config-strict">Non-strict-mode</a>
 <br>
 ・<a href="#span-out-FN">関数</a>
 <br>
@@ -10189,6 +10202,35 @@ max(x=1,(x):2,3)[0]2 || (max((0,1:2,3)[0]))2 || (max(0,1))2 || (1)2 -> 2
 <br>
 <br>
 詳細は<a href="#span-in-prec">内部仕様</a>参照
+    </td>
+  </tr>
+  <tr>
+    <th>
+<a href="#span-index">
+目次
+</a>
+<br>
+method
+<br>
+演算子
+    </th>
+    <td>
+<span id="span-out-prec-ope-arithmetic-method"></span>
+<a href="#span-out-terms">scope変数</a>を直接editするmethod演算子と付随する留意事項について記述する
+<br>
+<br>
+<span class="run">Ver.2.298.72</span>以降、<a href="#span-out-vars">変数</a>のprototype method代替のunshift/push/shift/pop()を追加
+<br>
+<br>
+留意事項を列挙する
+<br>
+・pollution disabled
+<br>
+clear; A=(1,2:3,4); [,A.push(-1)] -> [MyErr]Undef var(A.push)
+<br>
+・<a href="#span-out-vars">変数</a>読出し同等の<a href="#span-out-prec">演算のprecedence</a>
+<br>
+・chain不可
     </td>
   </tr>
   <tr>
@@ -37711,6 +37753,8 @@ precedence
 <br>
 ・<span class="clear">Ver.2.228.56</span>以降、SEeを削除
 <br>
+・<span class="run">Ver.2.298.72</span>以降、<a href="#span-out-vars">変数</a>のprototype method代替の<a href="#span-out-prec-ope-arithmetic-method">method演算子</a>を追加（REv）
+<br>
 <br>
 配列要素の定義順で<a href="#span-out-prec">演算のprecedence</a>を動的に変更可能とする
 <br>
@@ -38196,21 +38240,6 @@ parser.js抜粋
     case "csort":
     case "creverse":
       tree = DATA.tree_tag("FNn", token_lower);
-      break;
-    default:
-      self.check_varName_prifix(token, re);  // Ver.2.24.12  // Ver.2.146.37
-      /* Ver.2.214.49 -> */
-      if(token_left === "."){  // Ver.2.230.56
-        var hasProp = false;
-        SYNTAX.props.forEach(function(prop){
-          hasProp = hasProp || (token_lower === prop);
-        });
-        if(hasProp){
-          token = "."+token_lower;
-        }
-      }
-      /* -> Ver.2.214.49 */
-      tree = DATA.tree_tag("REv", token);
       break;
 </code></pre>
 <br>
