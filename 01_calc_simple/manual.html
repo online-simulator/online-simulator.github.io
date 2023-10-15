@@ -1909,6 +1909,14 @@ clear; f=(g)=&lt;g; f(1),f((x)=&lt;x) -> <del>(1,1)</del>(1,eqn(x))
 　影響項目：<a href="#span-out-search">search-precedence</a>||<a href="#span-out-option9">useMutex</a>
 <br>
 clear; f=&lt;-1; f=1; [f=2,=&lt;f]=&gt;,[f=&lt;-2,=&lt;f]=&gt; -> (2,<del>1</del>eqn)
+<br>
+・<span class="run">Ver.2.299.72</span>以降、<a href="#span-out-scope-vars">変数のscope</a>の仕様変更
+<br>
+　<a href="#span-in-scope-vars">static scopes2d array</a>を共有　⇒　動的に確保して解決済みの場合、削除
+<br>
+　影響項目：<a href="#span-out-config-strict">strict-mode</a>||<a href="#span-out-scope-vars">変数のscope</a>||<a href="#span-out-scope-vars-has1BT">単独scope</a>
+<br>
+　　　　　　||<a href="#span-eqn-scope_NG">scope_NG</a>||<a href="#span-eqn-curried">curried</a>||<a href="#span-eqn-counter">counter</a>
     </td>
   </tr>
   <tr>
@@ -37600,6 +37608,9 @@ data.logo -> "makeLog=true"
 <br>
 <br>
 ・<a href="#span-out-scope-vars">useScope</a>: 変数のscopeを使用するflag
+<br>
+<br>
+・useStaticScopes2dArray: <span class="run">Ver.2.299.72</span>以降、<a href="#span-in-scope-vars">static scopes2d array</a>を共有するflag
 <br>
 <br>
 ・<a href="#span-out-option6">useScopeWith</a>: <span class="run">Ver.2.213.47</span>以降、<a href="#span-out-substitution-equation">式代入</a>記号=&lt;に変数のscopeを使用するflag

@@ -4031,8 +4031,13 @@ My_entry.operation.prototype.make_scopes = function(callback_hasScope, trees, sc
       var ids2d = [];  // new
       /* [a=1,a[0][0]=2,[(3,3)]] */
       if(trees_lower && trees_lower.length){
-        var hasScope = callback_hasScope(tagName, obj);  // Ver.2.213.48  // Ver.2.216.50  // Ver.2.228.56
+        /* Ver.2.299.72 -> */
+        var hasScope = (callback_hasScope)? callback_hasScope(tagName, obj): obj.hasScope;  // Ver.2.213.48  // Ver.2.216.50  // Ver.2.228.56
         if(hasScope){
+          if(callback_hasScope){
+            obj.hasScope = true;
+          }
+        /* -> Ver.2.299.72 */
           var scope = DATA.scope();
           var n = scopes.length;
           scopes[n] = scope;
@@ -4324,9 +4329,31 @@ My_entry.operation.prototype.store_buffer_sw = function(sw, buffer, scopes, ids_
   return self;
 };
 /* -> Ver.2.256.59 */
+/* Ver.2.299.72 */
+My_entry.operation.prototype.update_ids = function(tree_eqn, scopes){
+  var self = this;
+  var DATA = self.entry.DATA;
+  var BT = self.config.BT;
+  var isREe = tree_eqn[BT.REe];
+  if(isREe){
+    var trees = DATA.tree2trees(tree_eqn);
+    var scopes_new = [scopes[0][0]];
+    var ids0 = isREe.ids || self.config.ids0;
+    var j = scopes.length;
+/*
+    var scopes_new = [scopes[0][0], DATA.scope()];
+    var ids0 = isREe.ids || self.entry.def.newClone(self.config.ids0);
+    ids0.unshift([j, 1]);
+*/
+    self.make_scopes(null, trees, scopes_new, ids0, j);
+    scopes.push(scopes_new);
+  }
+  return self;
+};
 My_entry.operation.prototype.REe = function(data, i0, tagName, tagObj){
   var self = this;
   var trees = data.trees;
+  var options = data.options;  // Ver.2.299.72
   var scopes = data.scopes;
   var ids = data.ids;
   var DATA = self.entry.DATA;
@@ -4339,7 +4366,6 @@ My_entry.operation.prototype.REe = function(data, i0, tagName, tagObj){
   var buffer_vars = {};
   var buffer_eqns = {};
   var ids_buffer = null;
-  var tree_eqn = null;
   /* Ver.2.204.46 -> */
   var isREee = (tagObj.val === "==>");
   var arr = self.get_tagVal(leftTree, "mat", "arr");  // Ver.2.272.63
@@ -4351,7 +4377,8 @@ My_entry.operation.prototype.REe = function(data, i0, tagName, tagObj){
   if(name_eqn && tree_eqn0){
     self.store_eqn(name_eqn, tree_eqn0, scopes, ids);
   }
-  var isNoName = !(name_eqn) || (name_eqn === self.config.symbol.anonymous);
+  var hasName = (name_eqn && name_eqn !== self.config.symbol.anonymous);  // Ver.2.299.72
+  var isNoName = !(hasName);  // Ver.2.299.72
   /* -> Ver.2.256.59 */
   /* -> Ver.2.204.46 */
   /* Ver.2.195.45 -> */
@@ -4364,33 +4391,33 @@ My_entry.operation.prototype.REe = function(data, i0, tagName, tagObj){
   var ref = (isNoName)? null: trees[is]["REv"]["ref"];
   /* -> Ver.2.195.45 */
   /* Ver.2.289.71 -> */
-  if(name_eqn){
-    tree_eqn = self.restore_eqn(name_eqn, scopes, ids, isREee);  // Ver.2.31.17  // Ver.2.204.46
-    if(!(tree_eqn)) throw "Undef eqn("+name_eqn+")";
-    if(hasArgs){
-      /* Ver.2.256.59 -> */
-      var obj = self.get_args_AtREe(data, name_eqn, tree_eqn, arr, isREee);
-      buffer_vars = obj.buffer_vars;
-      buffer_eqns = obj.buffer_eqns;
-      ids_buffer = obj.ids_buffer;
-      var args_eqns = obj.args_eqns;
-      var args_vars = obj.args_vars;
-      var args_bas = obj.args_bas;
-      if(Object.keys(args_bas).length){  // Ver.2.256.59
-        self.replace_REv(DATA.tree2trees(tree_eqn), args_bas);  // Ver.2.246.57
-      }
-      /* Ver.2.71.29 -> */
-      self.store_buffer_sw("eqns", args_eqns, scopes, ids_buffer);
-      self.store_buffer_sw("vars", args_vars, scopes, ids_buffer);
-      /* -> Ver.2.71.29 */
-      /* -> Ver.2.256.59 */
+  /* Ver.2.299.72 -> */
+  var tree_eqn = (name_eqn)?
+    self.restore_eqn(name_eqn, scopes, ids, isREee):  // Ver.2.31.17  // Ver.2.204.46
+    self.tree_SEe2REe_isREee(tree_eqn0);  // Ver.2.43.22  // Ver.2.272.63  // Ver.2.273.64
+  if(!(tree_eqn)) throw "Undef eqn("+name_eqn+")";
+  if(!(options.useStaticScopes2dArray)){
+    self.update_ids(tree_eqn, scopes);
+  }
+  /* -> Ver.2.299.72 */
+  if(name_eqn && hasArgs){
+    /* Ver.2.256.59 -> */
+    var obj = self.get_args_AtREe(data, name_eqn, tree_eqn, arr, isREee);
+    buffer_vars = obj.buffer_vars;
+    buffer_eqns = obj.buffer_eqns;
+    ids_buffer = obj.ids_buffer;
+    var args_eqns = obj.args_eqns;
+    var args_vars = obj.args_vars;
+    var args_bas = obj.args_bas;
+    if(Object.keys(args_bas).length){  // Ver.2.256.59
+      self.replace_REv(DATA.tree2trees(tree_eqn), args_bas);  // Ver.2.246.57
     }
+    /* Ver.2.71.29 -> */
+    self.store_buffer_sw("eqns", args_eqns, scopes, ids_buffer);
+    self.store_buffer_sw("vars", args_vars, scopes, ids_buffer);
+    /* -> Ver.2.71.29 */
+    /* -> Ver.2.256.59 */
   }
-  /* Ver.2.43.22 -> */
-  else{
-    tree_eqn = self.tree_SEe2REe_isREee(tree_eqn0);  // Ver.2.272.63  // Ver.2.273.64
-  }
-  /* -> Ver.2.43.22 */
   /* -> Ver.2.289.71 */
   if(tree_eqn){
     var isREe = tree_eqn[BT.REe];  // Ver.2.200.46
@@ -4405,13 +4432,20 @@ My_entry.operation.prototype.REe = function(data, i0, tagName, tagObj){
     _tree = self.tree2tree_eqn_AtREe(data, tree_eqn, isREee);  // Ver.2.211.46  // Ver.2.214.49  // Ver.2.229.56  // Ver.2.231.56  // Ver.2.251.57  // Ver.2.253.59
   }
   /* Ver.2.256.59 -> */
+  var isClear = self.isResolved_tree(_tree);  // check arr  // Ver.2.299.72
   if(hasArgs){
     /* Ver.2.290.71 -> */
-    var isClear = self.isResolved_tree(_tree);  // check arr
     self.store_buffer_sw("eqns", buffer_eqns, scopes, ids_buffer, isClear);
     self.store_buffer_sw("vars", buffer_vars, scopes, ids_buffer, isClear);
     /* -> Ver.2.290.71 */
   }
+  /* Ver.2.299.72 -> */
+  if(!(options.useStaticScopes2dArray)){
+    if(isClear){
+      scopes.pop();
+    }
+  }
+  /* -> Ver.2.299.72 */
   /* -> Ver.2.256.59 */
   if(_tree){
     var REe2SEe = function(tree){  // Ver.2.272.63
