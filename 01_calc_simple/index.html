@@ -347,7 +347,7 @@
       script += "\nrestore;\n";
       script += "show_A(=<A.push(-1));\nshow_A(=<A[0].push(-2));\nshow_A(=<A[1].push(=<(-3,-4)));\nshow_A(=<A[-1].push(=<(-5,-6)));\nshow_A(=<A[2].push(=<(-7,-8)));";
       script += "\nrestore;\n";
-      script += "show_A(=<A.shift());\nshow_A(=<A.pop());\show_A(=<A[0].shift());\nshow_A(=<A[1].pop());\nshow_A(=<A.pop());";
+      script += "show_A(=<A.shift());\nshow_A(=<A.pop());\nshow_A(=<A[0].shift());\nshow_A(=<A[1].pop());\nshow_A(=<A.pop());";
       script += "\n";
       script += "[arr=[],_s((n)=<arr.push(n)/*heavy_concat={arr=(arr,n)}*/,1,10000),=<arr.filter0((x)=<x%100==0)]=>;";
       script += "\nclear;\n";
