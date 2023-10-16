@@ -75,6 +75,8 @@ My_entry.parser.prototype.config = {
       /* -> Ver.2.59.26 */
     ],
     tagNames: {
+      // escape
+      "$": "null string",
       // delimiter
       // SeparatoR: "SR"
       ";": "SRs",  // sentence;sentence
@@ -245,12 +247,6 @@ My_entry.parser.prototype.check_varName = function(token, re){
   var self = this;
   var _tree = null;
   var DATA = self.entry.DATA;
-  /* Ver.2.248.57 -> */
-  var operation = self.entry.operation;
-  if(operation.config.isEscaped(token)){
-    throw "Invalid token("+token+")";  // Ver.2.29.15  // Ver.2.294.72
-  }
-  /* -> Ver.2.248.57 */
   var trees = self.make_trees(token, re);
   if(trees.length === 1){
     var tree = DATA.trees2tree(trees);
@@ -272,11 +268,7 @@ My_entry.parser.prototype.check_varName_prifix = function(token, re){
   var _tree = null;
   var SYNTAX = self.config.SYNTAX;
   /* Ver.2.294.72 -> */
-  var operation = self.entry.operation;
-  if(operation.config.isEscaped(token)){
-    self.check_varName(token.substring(1), re);
-  }
-  else if(token.match(SYNTAX.word.prifix)){
+  if(token.match(SYNTAX.word.prifix)){
     throw "Invalid varName("+token+")";
   }
   /* -> Ver.2.294.72 */
@@ -919,9 +911,21 @@ My_entry.parser.prototype.check_token_left = function(tree, token_left, token, t
   var DATA = self.entry.DATA;
   var operation = self.entry.operation;
   var _tree = tree;
+  /* Ver.2.301.72 -> */
+  var isEscape = (token_left === "$");
+  if(isEscape){
+    var symbol = operation.get_tagVal(tree, "REv", "val");
+    if(symbol){
+      _tree = {isReplaced: DATA.tree_tag("REv", token_left+symbol)};
+    }
+    else{
+      throw "Invalid "+token_left+"symbol";
+    }
+  }
+  /* -> Ver.2.301.72 */
   /* Ver.2.298.72 -> */
   /* Ver.2.214.49 -> */
-  if(token_left === "."){  // Ver.2.230.56
+  else if(token_left === "."){  // Ver.2.230.56
     var prop = operation.get_tagVal(tree, "REv", "val");  // Ver.2.300.72
     if(prop){
       var token_method = self.hasProp_token(token_lower, true);

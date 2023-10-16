@@ -1010,8 +1010,8 @@ f=<2,f=1,f,f=>:f=1,f=<2,f,f=>:f=1,[f=<2,f,f=>]:[f=1,f=<2,f,f=>]:[f=1,[f=<2,f,f=>
 clear
 local storage cleared
 
-constant_declaration_in_each_scope_beta_version_$start=($a=0,[$a=1,[$a=2,[$a=3,a],a],a],a:$f=<0,[$f=<1,[$f=<2,[$f=<3,f()],f()],f()],f())
-constant_declaration_in_each_scope_beta_version_$start=(
+constant_declaration_in_each_scope=($a=0,[$a=1,[$a=2,[$a=3,a],a],a],a:$f=<0,[$f=<1,[$f=<2,[$f=<3,f()],f()],f()],f())
+constant_declaration_in_each_scope=(
 0,0,0,0,3,2,1,0:
 0,0,0,0,3,2,1,0
 )
@@ -4081,4 +4081,4 @@ drag=false&sw=false&0x=false&useMatrix=true&useStrict=false&checkError=true&isRi
 --------------------------------
 --------------------------------
 
-online-simulator.github.io.6.343.145.17.83 @ Mon Oct 16 2023 16:47:17 GMT+0900 (日本標準時) @ Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/118.0.0.0 Safari/537.36
+online-simulator.github.io.6.344.146.17.83 @ Tue Oct 17 2023 07:27:42 GMT+0900 (日本標準時) @ Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/118.0.0.0 Safari/537.36
