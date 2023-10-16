@@ -10244,9 +10244,9 @@ clear; A=(1,2:3,4); A.unshift(5); A -> (5,1,2:3,4)
 <br>
 clear; A=(1,2:3,4); A.unshift(=&lt;(5,6)); A -> (5,6,1,2:3,4)
 <br>
-・複数行の操作不可
+・複数行の操作不可（<span class="clear">Ver.2.300.72</span>以降、訂正）
 <br>
-clear; A=(1,2:3,4); A.unshift(=&lt;(5:6)); A -> [MyErr]Invalid unshift(size(arr)=1)
+clear; A=(1,2:3,4); A.unshift(=&lt;(5:6)); A -> [MyErr]Invalid unshift(size<span class="clear">r</span>(arr)=1)
 <br>
 ・行指定の場合、<a href="#span-out-reference-mat-row">行参照</a>を使用
 <br>

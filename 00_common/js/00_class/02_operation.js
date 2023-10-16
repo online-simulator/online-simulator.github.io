@@ -3440,7 +3440,7 @@ My_entry.operation.prototype.change_scopes_directly = function(data, i0, name, p
     }
     var len_i = arr && arr.length;
     if(len_i !== 1){
-      throw "Invalid "+dot_prop+"(size(arr)=1)";
+      throw "Invalid "+dot_prop+"(sizer(arr)=1)";  // Ver.2.300.72
     }
   }
   else{
