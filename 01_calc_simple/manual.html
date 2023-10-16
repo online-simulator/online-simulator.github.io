@@ -10264,7 +10264,7 @@ clear; A=(1,2:3,4); A[-4].unshift(5); A -> [MyErr]Invalid reference of array
 <br>
 clear; A=(1,2:3,4); A[1][1].unshift(5); A -> [MyErr]Invalid unshift(ref.length&lt;=1)
 <br>
-・iterableの操作不可
+・展開済みiterableの操作不可
 <br>
 clear; (1,2:3.4).unshift(5) -> [MyErr]Invalid ans isFound
 <br>
@@ -10283,7 +10283,7 @@ clear; A=(1,2:3,4); A[1].shift() -> 3
 <br>
 clear; A=(1,2:3,4); A[1].shift(); A -> (1,2:4)
 <br>
-・iterableの操作不可
+・展開済みiterableの操作不可
 <br>
 clear; (1,2:3.4).shift() -> [MyErr]Invalid ans isFound
 <br>
