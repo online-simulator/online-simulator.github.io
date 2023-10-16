@@ -10244,7 +10244,7 @@ clear; A=(1,2:3,4); A.unshift(5); A -> (5,1,2:3,4)
 <br>
 clear; A=(1,2:3,4); A.unshift(=&lt;(5,6)); A -> (5,6,1,2:3,4)
 <br>
-・複数行の操作不可（<span class="clear">Ver.2.300.72</span>以降、訂正）
+・複数行の操作不可（<span class="clear">Ver.2.300.72</span>以降、<a href="#span-out-log">log表示</a>内容を訂正）
 <br>
 clear; A=(1,2:3,4); A.unshift(=&lt;(5:6)); A -> [MyErr]Invalid unshift(size<span class="clear">r</span>(arr)=1)
 <br>
