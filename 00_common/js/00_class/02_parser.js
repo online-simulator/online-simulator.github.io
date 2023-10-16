@@ -446,13 +446,12 @@ My_entry.parser.prototype.SEe2BTe = function(trees){
   return _trees;
 };
 /* Ver.2.230.56 */
-My_entry.parser.prototype.switch_token = function(tokens, token_left, token, token_lower, token_upper, re){
+My_entry.parser.prototype.switch_token = function(tokens, token, token_lower, token_upper, re){  // Ver.2.300.72
   var self = this;
   var _tree = null;
   var math = self.entry.math;
   var math_mat = self.entry.math_mat;
   var DATA = self.entry.DATA;
-  var operation = self.entry.operation;
   var tree = null;
   switch(token_lower){
     // reserved word
@@ -791,21 +790,7 @@ My_entry.parser.prototype.switch_token = function(tokens, token_left, token, tok
       break;
     default:
       self.check_varName_prifix(token, re);  // Ver.2.24.12  // Ver.2.146.37
-      /* Ver.2.298.72 -> */
-      var tree_method = null;
-      /* Ver.2.214.49 -> */
-      if(token_left === "."){  // Ver.2.230.56
-        var token_method = self.hasProp_token(token_lower, true);
-        if(token_method){
-          tree_method = {isMethod: DATA.tree_tag("REv", token_method)};
-        }
-        else{
-          token = self.hasProp_token(token_lower);
-        }
-      }
-      /* -> Ver.2.214.49 */
-      tree = tree_method || DATA.tree_tag("REv", token);
-      /* -> Ver.2.298.72 */
+      tree = DATA.tree_tag("REv", token);
       break;
   }
   _tree = tree;
@@ -848,6 +833,7 @@ My_entry.parser.prototype.make_trees = function(sentence, opt_re){  // Ver.2.158
   var SYNTAX = self.config.SYNTAX;
   var math_mat = self.entry.math_mat;
   var DATA = self.entry.DATA;
+  var operation = self.entry.operation;
   var re = opt_re || new RegExp(self.get_pattern(), "g");  // Ver.2.158.38
   var tokens = sentence.match(re);
   if(!(tokens)) throw "Invalid null string";  // Ver.2.25.13
@@ -884,7 +870,7 @@ My_entry.parser.prototype.make_trees = function(sentence, opt_re){  // Ver.2.158
       else if(token === "["){
         tree = DATA.tree_tag(tagName, [DATA.tree_mat([])]);  // [] -> empty array  // Ver.2.170.41
       }
-      else if(leftTree && leftTree.mat && self.entry.operation.has1elem_tag(leftTree.mat.arr, "com")){  // CT() -> removed
+      else if(leftTree && leftTree.mat && operation.has1elem_tag(leftTree.mat.arr, "com")){  // CT() -> removed
       }
       else if(token === "("){
         tree = DATA.tree_tag(tagName, []);  // () -> empty tree
@@ -904,12 +890,13 @@ My_entry.parser.prototype.make_trees = function(sentence, opt_re){  // Ver.2.158
       /* -> Ver.2.20.9 */
     }
     if(!(ip_e || tree)){
-      tree = self.switch_token(tokens, token_left, token, token_lower, token_upper, re);  // Ver.2.230.56
+      tree = self.switch_token(tokens, token, token_lower, token_upper, re);  // Ver.2.230.56  // Ver.2.300.72
     }
     if(tree){
+      tree = self.check_token_left(tree, token_left, token, token_lower, token_upper);  // Ver.2.300.72
       /* Ver.2.298.72 -> */
-      if(tree.isMethod){
-        tree = tree.isMethod;
+      if(tree.isReplaced){  // Ver.2.300.72
+        tree = tree.isReplaced;  // Ver.2.300.72
         self.set_id_tree(tree);  // last
         _trees[_trees.length-1] = tree;
       }
@@ -925,6 +912,36 @@ My_entry.parser.prototype.make_trees = function(sentence, opt_re){  // Ver.2.158
     i = i_next;
   }
   return self.SEe2BTe(_trees);  // Ver.2.213.47  // Ver.2.228.56
+};
+/* Ver.2.300.72 */
+My_entry.parser.prototype.check_token_left = function(tree, token_left, token, token_lower, token_upper){
+  var self = this;
+  var DATA = self.entry.DATA;
+  var operation = self.entry.operation;
+  var _tree = tree;
+  /* Ver.2.298.72 -> */
+  /* Ver.2.214.49 -> */
+  if(token_left === "."){  // Ver.2.230.56
+    var prop = operation.get_tagVal(tree, "REv", "val");  // Ver.2.300.72
+    if(prop){
+      var token_method = self.hasProp_token(token_lower, true);
+      if(token_method){
+        _tree = {isReplaced: DATA.tree_tag("REv", token_method)};  // Ver.2.300.72
+      }
+      else{
+        var hasProp = self.hasProp_token(token_lower);
+        if(hasProp){
+          _tree = DATA.tree_tag("REv", hasProp);
+        }
+        else{
+          throw "Undef .prop("+prop+")";  // Ver.2.300.72
+        }
+      }
+    }
+  }
+  /* -> Ver.2.214.49 */
+  /* -> Ver.2.298.72 */
+  return _tree;
 };
 My_entry.parser.prototype.isCommand = function(sentence){
   var self = this;
