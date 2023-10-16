@@ -2205,6 +2205,8 @@ pending項目を列挙する
 <br>
 ・<a href="#span-out-vars-symbol">symbol</a>明示記号の追加
 <br>
+・参照渡しの実装
+<br>
 ・arr=arr|||[]の実装
 <br>
 　undef宣言未実装
@@ -2230,6 +2232,10 @@ pending項目を列挙する
 has($x) -> <del>false</del>[MyErr]Invalid symbol($x)
 <br>
 $$=1 -> [MyErr]Invalid <del>symbol($)</del>token($)
+<br>
+・[0] -> 0の演算
+<br>
+　単独要素の場合、無条件のerror終了
 <br>
 <br>
 以降、closed
@@ -10230,13 +10236,120 @@ method
 <span class="run">Ver.2.298.72</span>以降、<a href="#span-out-vars">変数</a>のprototype method代替のunshift/push/shift/pop()を追加
 <br>
 <br>
+.unshift()演算子
+<br>
+clear; A=(1,2:3,4); A.unshift(5) -> NaN
+<br>
+clear; A=(1,2:3,4); A.unshift(5); A -> (5,1,2:3,4)
+<br>
+clear; A=(1,2:3,4); A.unshift(=&lt;(5,6)); A -> (5,6,1,2:3,4)
+<br>
+・複数行の操作不可
+<br>
+clear; A=(1,2:3,4); A.unshift(=&lt;(5:6)); A -> [MyErr]Invalid unshift(size(arr)=1)
+<br>
+・行指定の場合、<a href="#span-out-reference-mat-row">行参照</a>を使用
+<br>
+clear; A=(1,2:3,4); A[1].unshift(5); A -> (1,2:5,3,4)
+<br>
+clear; A=(1,2:3,4); A[-1].unshift(=&lt;(5,6)); A -> (1,2:5,6,3,4)
+<br>
+clear; A=(1,2:3,4); A[-3].unshift(5); A -> (5:1,2:3,4)
+<br>
+clear; A=(1,2:3,4); A[2].unshift(5); A -> [MyErr]Invalid reference of array
+<br>
+clear; A=(1,2:3,4); A[-4].unshift(5); A -> [MyErr]Invalid reference of array
+<br>
+・列指定不可
+<br>
+clear; A=(1,2:3,4); A[1][1].unshift(5); A -> [MyErr]Invalid unshift(ref.length&lt;=1)
+<br>
+・iterableの操作不可
+<br>
+clear; (1,2:3.4).unshift(5) -> [MyErr]Invalid ans isFound
+<br>
+<br>
+.shift()演算子
+<br>
+clear; A=(1,2:3,4); A.shift() -> 1
+<br>
+clear; A=(1,2:3,4); A.shift(); A -> (2:3,4)
+<br>
+clear; A=(1,2:3,4); A[0].shift() -> 1
+<br>
+clear; A=(1,2:3,4); A[0].shift(); A -> (2:3,4)
+<br>
+clear; A=(1,2:3,4); A[1].shift() -> 3
+<br>
+clear; A=(1,2:3,4); A[1].shift(); A -> (1,2:4)
+<br>
+・iterableの操作不可
+<br>
+clear; (1,2:3.4).shift() -> [MyErr]Invalid ans isFound
+<br>
+・<a href="#span-out-BT-empty">空括弧</a>のみ有効
+<br>
+clear; A=(1,2:3,4); A.shift -> [MyErr]Invalid shift()
+<br>
+clear; A=(1,2:3,4); A.shift(2) -> [MyErr]Invalid shift()
+<br>
+<br>
+.push()演算子
+<br>
+clear; A=(1,2:3,4); A.push(5) -> NaN
+<br>
+clear; A=(1,2:3,4); A.push(5); A -> (1,2:3,4,5)
+<br>
+clear; A=(1,2:3,4); A.push(=&lt;(5,6)); A -> (1,2:3,4,5,6)
+<br>
+clear; A=(1,2:3,4); A[0].push(5); A -> (1,2,5:3,4)
+<br>
+clear; A=(1,2:3,4); A[2].push(5); A -> (1,2:3,4:5)
+<br>
+clear; A=(1,2:3,4); A[-1].push(=&lt;(5,6)); A -> (1,2:3,4,5,6)
+<br>
+clear; A=(1,2:3,4); A[3].push(5); A -> [MyErr]Invalid reference of array
+<br>
+clear; A=(1,2:3,4); A[-3].push(5); A -> [MyErr]Invalid reference of array
+<br>
+<br>
+.pop()演算子
+<br>
+clear; A=(1,2:3,4); A.pop() -> 4
+<br>
+clear; A=(1,2:3,4); A.pop(); A -> (1,2:3)
+<br>
+clear; A=(1,2:3,4); A[0].pop() -> 2
+<br>
+clear; A=(1,2:3,4); A[0].pop(); A -> (1:3,4)
+<br>
+clear; A=(1,2:3,4); A[1].pop() -> 4
+<br>
+clear; A=(1,2:3,4); A[1].pop(); A -> (1,2:3)
+<br>
+<br>
+test caseを列挙する
+<br>
+clear; A[1].push(=&lt;(A=(1,2,3,4),A.unshift(5),A.push(6),=&lt;A)=&gt;); A -> (5,1,2,3,4,6:5,1,2,3,4,6)
+<br>
+clear; A[1].push(=&lt;[A=(1,2,3,4),A.unshift(5),A.push(6),=&lt;A]=&gt;); A -> [MyErr]Undef var(A.push)
+<br>
+・<span class="run">Ver.2.300.72</span>以降、prop未定義の場合、error終了
+<br>
+1.Test() -> <del>[MyErr]Invalid ans isFound</del>[MyErr]Undef .prop(Test)
+<br>
+<br>
 留意事項を列挙する
+<br>
+・<a href="#span-out-vars">変数</a>読出し同等の<a href="#span-out-prec">演算のprecedence</a>
+<br>
+・宣言の場合、操作後の内容を反映して<a href="#span-out-log">log表示</a>（出力用の複製なし）
+<br>
+clear; A=(1,2:3,4); A.pop() -> A=(1,2:3); 4
 <br>
 ・pollution disabled
 <br>
 clear; A=(1,2:3,4); [,A.push(-1)] -> [MyErr]Undef var(A.push)
-<br>
-・<a href="#span-out-vars">変数</a>読出し同等の<a href="#span-out-prec">演算のprecedence</a>
 <br>
 ・chain不可
     </td>
@@ -10556,7 +10669,7 @@ clear; A=[(x)=&lt;x,(x)=&lt;-x,(x)=&lt;x*x]; A.map((f)=&lt;f(3)) -> (3,-3,9)
 clear; [(x)=&lt;x,(x)=&lt;-x,(x)=&lt;x*x].map((f)=&lt;f(3)) -> (3,-3,9)
 <br>
 <br>
-.map演算子
+.map()演算子
 <br>
 clear; f(x)=&lt;x*2; (1,2:3,4).map(=&lt;f) -> (2,4:6,8)
 <br>
@@ -10571,7 +10684,7 @@ clear; A=(1,2:3,4); A.map((x,i_,j_,self_cloned)=&lt;self_cloned[i_][j_]*2) -> (2
 clear; A=(1,2:3,4); A.map((x,i_,j_)=&lt;A[i_][j_]*2) -> (2,4:6,8)
 <br>
 <br>
-.filter演算子
+.filter()演算子
 <br>
 clear; f(x)=&lt;x&gt;2; (1,2:3,4).filter(=&lt;f) -> (3,4:1,1:0,1)
 <br>
@@ -10588,7 +10701,7 @@ clear; A=(1,2:3,4); mat2coo(A)-A.filter((x)=&lt;x) -> (0,0,0,0:1,1,1,1:1,1,1,1)
 clear; A=(0,2:3,4); mat2coo(A)-A.filter((x)=&lt;x&lt;&gt;0) -> (0,0,0:1,1,1:1,1,1)
 <br>
 <br>
-.filter0演算子　<span class="run">Ver.2.263.62</span>以降、追加
+.filter0()演算子　<span class="run">Ver.2.263.62</span>以降、追加
 <br>
 clear; A=(1,2:3,4); (A.filter((x)=&lt;x&gt;2))[0] || A.filter0((x)=&lt;x&gt;2) -> (3,4)
 <br>
