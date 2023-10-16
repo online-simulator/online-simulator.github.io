@@ -10252,9 +10252,15 @@ clear; A=(1,2:3,4); A.unshift(=&lt;(5:6)); A -> [MyErr]Invalid unshift(size<span
 <br>
 clear; A=(1,2:3,4); A[1].unshift(5); A -> (1,2:5,3,4)
 <br>
+・行の反転参照
+<br>
 clear; A=(1,2:3,4); A[-1].unshift(=&lt;(5,6)); A -> (1,2:5,6,3,4)
 <br>
+・最初行の追加
+<br>
 clear; A=(1,2:3,4); A[-3].unshift(5); A -> (5:1,2:3,4)
+<br>
+・参照不可の場合、error終了
 <br>
 clear; A=(1,2:3,4); A[2].unshift(5); A -> [MyErr]Invalid reference of array
 <br>
@@ -10283,6 +10289,14 @@ clear; A=(1,2:3,4); A[1].shift() -> 3
 <br>
 clear; A=(1,2:3,4); A[1].shift(); A -> (1,2:4)
 <br>
+・行要素が空の場合、行数を維持して<a href="#span-out-literal">NaN</a>を返す
+<br>
+clear; A=[]; A.shift() -> NaN
+<br>
+clear; A=(1:); A.shift(); A.shift(); A -> (:0)
+<br>
+clear; A=(1:); A.shift(); A.unshift(2); A -> (2:0)
+<br>
 ・展開済みiterableの操作不可
 <br>
 clear; (1,2:3.4).shift() -> [MyErr]Invalid ans isFound
@@ -10304,9 +10318,15 @@ clear; A=(1,2:3,4); A.push(=&lt;(5,6)); A -> (1,2:3,4,5,6)
 <br>
 clear; A=(1,2:3,4); A[0].push(5); A -> (1,2,5:3,4)
 <br>
+・最終行の追加
+<br>
 clear; A=(1,2:3,4); A[2].push(5); A -> (1,2:3,4:5)
 <br>
+・行の反転参照
+<br>
 clear; A=(1,2:3,4); A[-1].push(=&lt;(5,6)); A -> (1,2:3,4,5,6)
+<br>
+・参照不可の場合、error終了
 <br>
 clear; A=(1,2:3,4); A[3].push(5); A -> [MyErr]Invalid reference of array
 <br>
