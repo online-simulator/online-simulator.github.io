@@ -76,7 +76,7 @@ My_entry.parser.prototype.config = {
     ],
     tagNames: {
       // escape
-      "$": "null string",
+      "$": "null string",  // Ver.2.301.72
       // delimiter
       // SeparatoR: "SR"
       ";": "SRs",  // sentence;sentence
