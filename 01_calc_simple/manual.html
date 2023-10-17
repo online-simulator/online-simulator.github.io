@@ -10246,6 +10246,8 @@ method
 <br>
 .unshift()演算子
 <br>
+・直接editの場合、<a href="#span-out-literal">NaN</a>を返す
+<br>
 clear; A=(1,2:3,4); A.unshift(5) -> NaN
 <br>
 clear; A=(1,2:3,4); A.unshift(5); A -> (5,1,2:3,4)
@@ -10326,13 +10328,13 @@ clear; A=(1,2:3,4); A.push(=&lt;(5,6)); A -> (1,2:3,4,5,6)
 <br>
 clear; A=(1,2:3,4); A[0].push(5); A -> (1,2,5:3,4)
 <br>
-・最終行の追加
-<br>
-clear; A=(1,2:3,4); A[2].push(5); A -> (1,2:3,4:5)
-<br>
 ・行の反転参照
 <br>
 clear; A=(1,2:3,4); A[-1].push(=&lt;(5,6)); A -> (1,2:3,4,5,6)
+<br>
+・最終行の追加
+<br>
+clear; A=(1,2:3,4); A[2].push(5); A -> (1,2:3,4:5)
 <br>
 ・参照不可の場合、error終了
 <br>
@@ -15646,6 +15648,8 @@ val=true; val==1,val==true,val===1,val===true -> (1,1,0+O(1e+0),1)
 ・<a href="#span-out-UI-graphing-config-csv">csv-read</a>の欠損値=NaN
 <br>
 ・<a href="#span-out-plot2d-command">plot2d-command</a>の欠損値=NaN+(NaN)i
+<br>
+・<a href="#span-out-prec-ope-arithmetic-method">method演算子</a>の欠損値=NaN+(NaN)i
 <br>
 ・<a href="#span-out-FN-interp">補間関数</a>の欠損値=NaN+(NaN)i
 <br>
