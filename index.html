@@ -259,6 +259,40 @@ Y/M/D
 <tbody>
   <tr>
     <th>
+6.344.146.18.83
+    </th>
+    <td class="types">
+Calculator
+    </td>
+    <td>
+2.301.73
+    </td>
+    <td class="clear">
+fatal bug-fix
+<br>
+2.298.72~
+    </td>
+    <td>
+[Calculator]
+<br>
+・A.unshift/push/shift/pop() bug-fixed about mutex of constant declaration
+<br>
+　evaluation order modified
+<br>
+clear; A.push(=&lt;(A=1,A.push(2))); A -> <del>(1,2,0,NaN)</del>[MyErr]Undef var(A.push)
+<br>
+clear; $A=1; A.pop(); A -> <del>()</del>[MyErr]Invalid const var(A.pop)
+<br>
+　A is not reference
+<br>
+clear; $A=(1,2:3,4); A.push(5); A -> <del>(1,2:3,4,5)</del>[MyErr]Invalid const var(A.push)
+    </td>
+    <td>
+2023/10/17
+    </td>
+  </tr>
+  <tr>
+    <th>
 6.344.146.17.83
     </th>
     <td class="types">

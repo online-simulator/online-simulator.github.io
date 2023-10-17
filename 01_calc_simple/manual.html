@@ -10243,6 +10243,14 @@ method
 <br>
 <span class="run">Ver.2.298.72</span>以降、<a href="#span-out-vars">変数</a>のprototype method代替のunshift/push/shift/pop()を追加
 <br>
+・<span class="clear">Ver.2.301.73</span>以降、致命的な不具合を修正（<a href="#span-out-const-vars">const宣言</a>の<a href="#span-out-vars">変数</a>の操作不可）
+<br>
+　参照ではなく、<a href="#span-out-mat">行列</a>iterableの<a href="#span-out-const-vars">const宣言</a>
+<br>
+clear; $A=1; A.pop(); A -> <del>()</del>[MyErr]Invalid const var(A.pop)
+<br>
+clear; $A=(1,2:3,4); A.push(5); A -> <del>(1,2:3,4,5)</del>[MyErr]Invalid const var(A.push)
+<br>
 <br>
 .unshift()演算子
 <br>
@@ -10360,7 +10368,13 @@ clear; A=(1,2:3,4); A[1].pop(); A -> (1,2:3)
 <br>
 test caseを列挙する
 <br>
-clear; A[1].push(=&lt;(A=(1,2,3,4),A.unshift(5),A.push(6),=&lt;A)=&gt;); A -> (5,1,2,3,4,6:5,1,2,3,4,6)
+・<span class="clear">Ver.2.301.73</span>以降、評価順を修正
+<br>
+clear; A.push(=&lt;(A=1,A.push(2))); A -> <del>(1,2,0,NaN)</del>[MyErr]Undef var(A.push)
+<br>
+clear; A[1].push(=&lt;(A=(1,2,3,4),A.unshift(5),A.push(6),=&lt;A)=&gt;); A
+<br>
+-> <del>(5,1,2,3,4,6:5,1,2,3,4,6)</del>[MyErr]Undef var(A.push)
 <br>
 clear; A[1].push(=&lt;[A=(1,2,3,4),A.unshift(5),A.push(6),=&lt;A]=&gt;); A -> [MyErr]Undef var(A.push)
 <br>
@@ -13400,6 +13414,11 @@ clear; $f=&lt;1; $f=&lt;2; f -> <del>[MyErr]Invalid SEe-scope-duplicate(f)</del>
 clear; $f=&lt;1; f=&lt;2; f -> <del>2</del>[MyErr]Invalid SEe-scope-existed(f)
 <br>
 clear; (f=&lt;0,[f=&lt;1,[f=&lt;2,[f=&lt;3,f],f],f],f) -> (0,0,0,0,3,2,1,0)
+<br>
+<br>
+留意事項を列挙する
+<br>
+・<a href="#span-out-vars">変数</a>の場合、参照ではなく、<a href="#span-out-mat">行列</a>iterableのconst宣言として定義する
     </td>
   </tr>
   <tr>

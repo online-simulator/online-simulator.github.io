@@ -3428,34 +3428,39 @@ My_entry.operation.prototype.change_scopes_directly = function(data, i0, name, p
   var rightTree = trees[i0+2];
   var rightArr = self.get_tagVal(rightTree, "mat", "arr");
   var arr = null;
-  var dot_prop = prop.substring(1);
-  if(dot_prop === "unshift" || dot_prop === "push"){
-    var has1elem = (rightArr && rightArr.length === 1 && rightArr[0].length === 1);
-    if(has1elem){
-      var args = self.arr2args(rightArr);
-      arr = self.get_tagVal(self.tree_eqn2tree_AtREe(data, args[0]), "mat", "arr");
+  var scope = self.get_scope0_RE_sw("vars", name, scopes, ids);  // Ver.2.301.73 first
+  if(scope){
+    var dot_prop = prop.substring(1);
+    if(dot_prop === "unshift" || dot_prop === "push"){
+      var has1elem = (rightArr && rightArr.length === 1 && rightArr[0].length === 1);
+      if(has1elem){
+        var args = self.arr2args(rightArr);
+        arr = self.get_tagVal(self.tree_eqn2tree_AtREe(data, args[0]), "mat", "arr");
+      }
+      else{
+        throw "Invalid "+name+"[]"+prop+"(x||=<(,))";
+      }
+      var len_i = arr && arr.length;
+      if(len_i !== 1){
+        throw "Invalid "+dot_prop+"(sizer(arr)=1)";  // Ver.2.300.72
+      }
     }
     else{
-      throw "Invalid "+name+"[]"+prop+"(x||=<(,))";
+      if(!(rightArr && rightArr.length === 0)){
+        throw "Invalid "+dot_prop+"()";
+      }
     }
-    var len_i = arr && arr.length;
-    if(len_i !== 1){
-      throw "Invalid "+dot_prop+"(sizer(arr)=1)";  // Ver.2.300.72
+    if(ref && ref.length !== 1){
+      throw "Invalid "+dot_prop+"(ref.length<=1)";
     }
-  }
-  else{
-    if(!(rightArr && rightArr.length === 0)){
-      throw "Invalid "+dot_prop+"()";
-    }
-  }
-  if(ref && ref.length !== 1){
-    throw "Invalid "+dot_prop+"(ref.length<=1)";
-  }
-  var scope = self.get_scope0_RE_sw("vars", name, scopes, ids);
-  if(scope){
     var tree0 = scope[name];
     var isMat0 = tree0.mat;
     if(isMat0){
+      /* Ver.2.301.73 -> */
+      if(isMat0.isConstant){
+        throw "Invalid const var("+name+prop+")";
+      }
+      /* -> Ver.2.301.73 */
       var arr0 = tree0.mat.arr;
       var len_i0 = arr0.length;
       var i0 = undefined;
