@@ -3727,10 +3727,8 @@ My_entry.operation.prototype.get_ids_RE = function(name, scopes, opt_ids){
     var len = ids.length;
     for(var i=0; i<len; ++i){
       var idi = ids[i];
-      var j = idi[0];
-      var n = idi[1];
-      var scope = scopes[j][n];
-      if(scope.vars[name] || scope.eqns[name]){
+      var scopei = self.get_scope0(scopes, [idi]);  // Ver.2.302.73
+      if(scopei.vars[name] || scopei.eqns[name]){
         _ids = [idi];
         break;
       }
@@ -3754,11 +3752,9 @@ My_entry.operation.prototype.get_scope_RE_sw = function(sw, name, scopes, opt_id
     var len = ids.length;
     for(var i=0; i<len; ++i){
       var idi = ids[i];
-      var j = idi[0];
-      var n = idi[1];
-      var scope = scopes[j][n][sw];
-      if(scope[name]){
-        _scope = scope;
+      var scopei = self.get_scope0(scopes, [idi]);  // Ver.2.302.73
+      if(scopei[sw][name]){
+        _scope = scopei[sw];
         break;
       }
     }
@@ -3771,9 +3767,8 @@ My_entry.operation.prototype.get_scope_SE_sw = function(sw, scopes, opt_ids){
   var ids = opt_ids || self.config.ids0;  // Ver.2.225.53
   if(scopes){
     var id0 = ids[0];
-    var j = id0[0];
-    var n = id0[1];
-    _scope = scopes[j][n][sw];
+    var scope0 = self.get_scope0(scopes, [id0]);  // Ver.2.302.73
+    _scope = scope0[sw];
   }
   return _scope;
 };
@@ -4138,10 +4133,9 @@ My_entry.operation.prototype.get_name_eqn_AtREe = function(trees, i0){  // Ver.2
 /* Ver.2.282.66 -> */
 My_entry.operation.prototype.get_tree_isSE = function(tree, opt_name){  // Ver.2.284.67
   var self = this;
+  var DATA = self.entry.DATA;  // Ver.2.302.73
   var _tree = null;
-  var tagName = Object.keys(tree)[0];
-  var obj = tree[tagName];
-  if((obj && obj.isSE) || (opt_name && tree.mat)){  // Ver.2.284.67
+  if(DATA.getProp_tree(tree, "isSE") || (opt_name && tree.mat)){  // Ver.2.284.67  // Ver.2.302.73
     _tree = tree;
   }
   return _tree;
@@ -4526,11 +4520,14 @@ My_entry.operation.prototype.inherit_ids_AtSEe = function(trees, opt_ids, opt_ar
   /* -> Ver.2.209.46 */
   return _tree;
 };
+/* Ver.2.302.73 */
 /* Ver.2.272.63 */
 My_entry.operation.prototype.isEmpty_tree = function(tree){
   var self = this;
-  var tagName = (Object.keys(tree))[0];
-  return ((self.get_tagVal(tree, tagName, "val") || []).length === 0);
+  var DATA = self.entry.DATA;
+  var arr = DATA.getProp_tree(tree, "val");
+  var len = (arr)? arr.length: 0;
+  return (len === 0);
 };
 My_entry.operation.prototype.BTe = function(data, i0, tagName, tagObj){  // Ver.2.213.47  // Ver.2.213.48  // Ver.2.228.56
   var self = this;

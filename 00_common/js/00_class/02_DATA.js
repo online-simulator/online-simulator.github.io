@@ -135,15 +135,34 @@ My_entry.DATA.prototype.hasVar_arr = function(arr, opt_tagName){  // calc-Ver.2.
   }
   return _hasVar;
 };
+/* calc-Ver.2.302.73 -> */
+My_entry.DATA.prototype.delProp_tree = function(_tree, prop){
+  var self = this;
+  if(_tree){
+    var tagName = Object.keys(_tree)[0];
+    delete _tree[tagName][prop];
+  }
+  return _tree;
+};
 /* calc-Ver.2.276.65 */
 My_entry.DATA.prototype.setProp_tree = function(_tree, prop, val){
   var self = this;
   if(_tree){
-    var tagName = (Object.keys(_tree))[0];
+    var tagName = Object.keys(_tree)[0];
     _tree[tagName][prop] = val;
   }
   return _tree;
 };
+My_entry.DATA.prototype.getProp_tree = function(tree, prop){
+  var self = this;
+  var _prop = null;
+  if(tree){
+    var tagName = Object.keys(tree)[0];
+    _prop = tree[tagName][prop];
+  }
+  return _prop;
+};
+/* -> calc-Ver.2.302.73 */
 My_entry.DATA.prototype.tree2num = function(tree){
   var self = this;
   var mat = (tree)? tree.mat: null;

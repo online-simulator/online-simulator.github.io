@@ -812,6 +812,8 @@ e^(-i(1pi(){2/2i}(5-{3-1}){i/(-4)}))
 <br>
 ・<a href="#span-eqn-has4test">has4test</a>
 <br>
+・<a href="#span-eqn-test4useStatic">test4useStatic</a>
+<br>
 ・<a href="#span-eqn-args">args</a>
 <br>
 ・<a href="#span-eqn-curried">curried</a>
@@ -1915,6 +1917,8 @@ clear; f=&lt;-1; f=1; [f=2,=&lt;f]=&gt;,[f=&lt;-2,=&lt;f]=&gt; -> (2,<del>1</del
 ・<span class="run">Ver.2.299.72</span>以降、<a href="#span-out-scope-vars">変数のscope</a>の仕様変更
 <br>
 　<a href="#span-in-scope-vars">static scopes2d array</a>を共有　⇒　動的に確保して解決済みの場合、削除
+<br>
+　block-scope：id_treeのfiltering継続
 <br>
 　影響項目：<a href="#span-out-config-strict">strict-mode</a>||<a href="#span-out-scope-vars">変数のscope</a>||<a href="#span-out-scope-vars-has1BT">単独scope</a>
 <br>
@@ -39436,6 +39440,35 @@ wrapper1(n,=&lt;f0,=&lt;f1)=&lt;(f0<span class="clear">==&gt;</span>,f1<span cla
 set_ans(<span class="jF">$</span>ans1)=&gt;;
 <br>
 double_check=ans1-ans0;
+    </td>
+  </tr>
+  <tr>
+    <th>
+<a href="#span-index">
+目次
+</a>
+<br>
+test4
+<br>
+useStatic
+    </th>
+    <td>
+<span id="span-eqn-test4useStatic"></span>
+<a href="#span-in-options">useStaticScopes2dArray</a>参照
+<br>
+clear;
+<br>
+<span class="jF">call_f0=()=&lt;[make_f(1)=&gt;,f=&gt;,make_f(2)=&gt;,f=&gt;,make_f(3)=&gt;,f=&gt;]:
+<br>
+call_f1=()=&lt;[make_f(1)=&gt;f,f=&gt;,make_f(2)=&gt;f,f=&gt;,make_f(3)=&gt;f,f=&gt;]:
+<br>
+make_f=(x)=&lt;[a=1,=&lt;()=&lt;a*x]=&gt;f,call_f0=&gt;:
+<br>
+make_f=(x)=&lt;[a=1,=&lt;[a=2,=&lt;()=&lt;a*x]=&gt;]=&gt;f,call_f0=&gt;:
+<br>
+make_f=(x)=&lt;[a=1,[a=2,=&lt;()=&lt;a*x]=&gt;f,=&lt;f]=&gt;f,call_f0=&gt;:
+<br>
+make_f=(x)=&lt;[a=1,[a=2,=&lt;()=&lt;a*x]=&gt;f,=&lt;f]=&gt;,call_f1=&gt;;</span>
     </td>
   </tr>
   <tr>

@@ -402,14 +402,14 @@ My_entry.parser.prototype.SEe2BTe = function(trees){
   var hasArgs = false;
   for(var i=0; i<len; ++i){
     var tree = trees[i];
-    var tagName = (Object.keys(tree))[0];
+    var tagName = Object.keys(tree)[0];  // Ver.2.302.73
     if(tagName === "SEe"){
       isSEe = true;  // Ver.2.228.56
       hasArgs = operation.isType(trees[i-1], "BT");  // Ver.2.228.56
       ip_s = i;  // i
       for(var ip=ip_s+1; ip<len; ++ip){  // Ver.2.228.56  // Ver.2.244.57
         var tree = trees[ip];
-        var tagName = (Object.keys(tree))[0];
+        var tagName = Object.keys(tree)[0];  // Ver.2.302.73
         if(tagName === "SRr" || tagName === "SRt"){
           ip_e = ip;
           break;
@@ -967,7 +967,7 @@ My_entry.parser.prototype.isCommand = function(sentence){
 My_entry.parser.prototype.set_hasTag = function(tree){
   var self = this;
   if(tree){
-    self.hasTag[(Object.keys(tree))[0]] = true;
+    self.hasTag[Object.keys(tree)[0]] = true;  // Ver.2.302.73
   }
   return self;
 };
@@ -987,7 +987,7 @@ My_entry.parser.prototype.check_hasTag = function(trees){
 /* Ver.2.261.61 delete -> */
 My_entry.parser.prototype.restore_id_tree = function(tree){
   var self = this;
-  var tagName = (Object.keys(tree))[0];
+  var tagName = Object.keys(tree)[0];  // Ver.2.302.73
   if(tagName){  // no filter
     var obj = tree[tagName];
     self.id_tree = Math.max(self.id_tree, obj.id || 0);
@@ -1020,7 +1020,7 @@ My_entry.parser.prototype.init_id_tree = function(data){
 /* -> Ver.2.261.61 */
 My_entry.parser.prototype.set_id_tree = function(tree){
   var self = this;
-  var tagName = (Object.keys(tree))[0];
+  var tagName = Object.keys(tree)[0];  // Ver.2.302.73
   if(tagName === "REv"){  // filter
     tree[tagName].id = self.id_tree++;
   }
