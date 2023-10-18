@@ -399,13 +399,13 @@ local storage cleared
 2,3,5,7,11,13,17,19,23,29,31,37,41,43,47,53,59,61,67,71,73,79,83,89,97
 )
 
-factorize(n,primes)=<[arr=[],_rk(=<last{prime=pickup_prime(n,=<primes)=>,arr=(arr,prime),n=n/prime},isPrime=n>1,isPrime&&1e6,=<{n<=1}),=<arr]=>
+factorize(n,primes)=<[arr=[],_rk(=<last{prime=pickup_prime(n,=<primes)=>,arr.push(prime),n=n/prime},isPrime=n>1,isPrime&&1e6,=<{n<=1}),=<arr]=>
 stored_eqn(factorize)
 
 pickup_prime(n,primes)=<[_rk(=<last{prime=primes[k],k+1},N=sizer(primes),N,=<{n%prime==0}),=<prime]=>
 stored_eqn(pickup_prime)
 
-listup_primes(n0,n1)=<[arr=[],_sn(=<isPrime(n)=>&&&(arr=(arr,n)),n0,n1),=<arr]=>
+listup_primes(n0,n1)=<[arr=[],_sn(=<isPrime(n)=>&&&arr.push(n),n0,n1),=<arr]=>
 stored_eqn(listup_primes)
 
 isPrime(n)=<[isPrime=n>1,kmax=sqrt(n),_rk(=<k+1,2,isPrime&&1e6,=<{k>kmax|||n%k==0&&&(isPrime=0)}),=<isPrime]=>
@@ -1268,7 +1268,7 @@ clear
 local storage cleared
 
 [Pinv_y=(-0.999999427,-0.999936657,-0.997300203,-0.954499736,-0.682689492,0,0.682689492,0.954499736,0.997300203,0.999936657,0.999999427:-5,-4,-3,-2,-1,0,1,2,3,4,5),N=1,arr=[],_rn(=<arr=(arr:rand_table(=<Pinv_y)=>),,N),=<arr]=>
--1.2436781052211194
+-0.09893165343723997
 
 rand_table(csv)=<last[table=sort0(csv),ymin=min(table)[0],ymax=max(table)[0],y=ymin+(ymax-ymin)*rand(),x=interp(y:table),x]
 stored_eqn(rand_table)
@@ -2291,6 +2291,20 @@ call_f0=()=<[make_f(1)=>,f=>,make_f(2)=>,f=>,make_f(3)=>,f=>]:call_f1=()=<[make_
 clear
 local storage cleared
 
+f=<-1,f=1:[=<f]=>:[f=2,=<f]=>:[f=<-3,=<f]=>:[f=<-4,f=4,=<f]=>:[f=5,f=<-5,=<f]=>:[f=<-6,=<[=<f]]=>
+(
+0,0:
+1:
+2:
+eqn:
+4:
+5:
+eqn
+)
+
+clear
+local storage cleared
+
 double_check=ans1-ans0
 double_check=(
 0,0,0,0,0,0,0,0:
@@ -2755,4 +2769,4 @@ center=true&drag=false&test-case=false&legend=true&axis-t=false&axis-x=true&log-
 --------------------------------
 --------------------------------
 
-online-simulator.github.io.6.345.146.18.83 @ Wed Oct 18 2023 23:12:23 GMT+0900 (日本標準時) @ Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/118.0.0.0 Safari/537.36
+online-simulator.github.io.6.345.146.18.83 @ Thu Oct 19 2023 03:46:10 GMT+0900 (日本標準時) @ Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/118.0.0.0 Safari/537.36

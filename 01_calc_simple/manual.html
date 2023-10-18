@@ -812,6 +812,8 @@ e^(-i(1pi(){2/2i}(5-{3-1}){i/(-4)}))
 <br>
 ・<a href="#span-eqn-has4test">has4test</a>
 <br>
+・<a href="#span-eqn-test4useMutex">test4useMutex</a>
+<br>
 ・<a href="#span-eqn-test4useStatic">test4useStatic</a>
 <br>
 ・<a href="#span-eqn-args">args</a>
@@ -39450,6 +39452,37 @@ double_check=ans1-ans0;
 <br>
 test4
 <br>
+useMutex
+    </th>
+    <td>
+<span id="span-eqn-test4useMutex"></span>
+<a href="#span-in-options">useMutex</a>参照
+<br>
+clear;
+<br>
+f=&lt;-1,f=1:
+<br>
+[=&lt;f]=&gt;:
+<br>
+[f=2,=&lt;f]=&gt;:
+<br>
+[f=&lt;-3,=&lt;f]=&gt;:
+<br>
+[f=&lt;-4,f=4,=&lt;f]=&gt;:
+<br>
+[f=5,f=&lt;-5,=&lt;f]=&gt;:
+<br>
+[f=&lt;-6,=&lt;[=&lt;f]]=&gt;;
+    </td>
+  </tr>
+  <tr>
+    <th>
+<a href="#span-index">
+目次
+</a>
+<br>
+test4
+<br>
 useStatic
     </th>
     <td>
@@ -42161,7 +42194,7 @@ _rk(=&lt;k+1,2,isPrime&amp;&amp;1e6,=&lt;{k&gt;kmax|||n%k==0&amp;&amp;&amp;(isPr
 <br>
 listup_primes(n0,n1)=&lt;[arr=[],
 <br>
-_sn(=&lt;isPrime(n)=&gt;&amp;&amp;&amp;(arr=(arr,n)),n0,n1),
+_sn(=&lt;isPrime(n)=&gt;&amp;&amp;&amp;<span class="jF">arr.push(n)</span>,n0,n1),
 <br>
 =&lt;arr]=&gt;;
 <br>
@@ -42175,7 +42208,7 @@ factorize(n,primes)=&lt;[arr=[],
 <br>
 _rk(=&lt;last{prime=pickup_prime(n,=&lt;primes)=&gt;,
 <br>
-arr=(arr,prime),n=n/prime},isPrime=n&gt;1,isPrime&amp;&amp;1e6,=&lt;{n&lt;=1}),
+<span class="jF">arr.push(prime)</span>,n=n/prime},isPrime=n&gt;1,isPrime&amp;&amp;1e6,=&lt;{n&lt;=1}),
 <br>
 =&lt;arr]=&gt;;
 <br>
