@@ -1,6 +1,71 @@
 clear
 local storage cleared
 
+[a=1,f(?b)=<b=-b:a,f(?a),a]:[g=<1,f(?h)=<h=<-1:g(),f(?g),g()]
+(
+0,0:
+1,0,-1:
+0,0:
+1,0,-1
+)
+
+clear
+local storage cleared
+
+call_by_reference_in_each_scope()
+(
+0:
+1:
+1,-1:
+1,-1:
+0:
+2:
+2,-1:
+2,-1:
+0:
+3:
+3,-1:
+3,-1:
+0:
+4:
+4,-1:
+4,-1:
+0:
+5,6:
+5,6,-1:
+5,6,-1:
+0:
+7,8:
+7,8,-1:
+7,8,-1
+)
+
+call_by_reference_in_each_scope=()=<(show_A(1):show_A(2)==>:[show_A(3):show_A(4)==>:[show_A(=<(5,6)):show_A(=<(7,8))==>]])
+stored_eqn(call_by_reference_in_each_scope)
+
+show_A=(A0)=<(A=A0:A:[(?A)=<[A.push(-1),=<A]=>](?A)=>:A)
+stored_eqn(show_A)
+
+clear
+local storage cleared
+
+call_by_reference()
+(
+0:
+1,2:
+3,4:
+1,2:
+3,4,-1:
+1,2:
+3,4,-1
+)
+
+call_by_reference=()=<[A=(1,2:3,4):A:[(?A)=<[A.push(-1),=<A]=>](?A)=>:A]
+stored_eqn(call_by_reference)
+
+clear
+local storage cleared
+
 pollution_disabled()
 (
 0:
@@ -4081,4 +4146,4 @@ drag=false&sw=false&0x=false&useMatrix=true&useStrict=false&checkError=true&isRi
 --------------------------------
 --------------------------------
 
-online-simulator.github.io.6.345.146.18.83 @ Wed Oct 18 2023 23:14:11 GMT+0900 (日本標準時) @ Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/118.0.0.0 Safari/537.36
+online-simulator.github.io.6.346.146.18.83 @ Fri Oct 20 2023 08:07:15 GMT+0900 (日本標準時) @ Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/118.0.0.0 Safari/537.36

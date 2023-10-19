@@ -1268,7 +1268,7 @@ clear
 local storage cleared
 
 [Pinv_y=(-0.999999427,-0.999936657,-0.997300203,-0.954499736,-0.682689492,0,0.682689492,0.954499736,0.997300203,0.999936657,0.999999427:-5,-4,-3,-2,-1,0,1,2,3,4,5),N=1,arr=[],_rn(=<arr=(arr:rand_table(=<Pinv_y)=>),,N),=<arr]=>
-1.2689507020695083
+0.40914882881804604
 
 rand_table(csv)=<last[table=sort0(csv),ymin=min(table)[0],ymax=max(table)[0],y=ymin+(ymax-ymin)*rand(),x=interp(y:table),x]
 stored_eqn(rand_table)
@@ -2278,6 +2278,63 @@ stored_var(c0) stored_var(c1) stored_var(c2)
 clear
 local storage cleared
 
+call_f(=<[(?f)=<f=<1](?f)=>)=>:call_f(=<[(?f)=<[(?f)=<f=<2](?f)=>](?f)=>)=>:call_f(=<[(?g)=<[(?h)=<h=<3](?g)=>](?f)=>)=>:call_f(=<([(?g)=<(?h)=<h=<-g=>](?f)=>)(?f)=>)=>:f=>
+(
+1:
+2:
+3:
+-3:
+-3
+)
+
+call_f=(=<callback)=<[callback=>,=<f=>]=>
+stored_eqn(call_f)
+
+f=<false
+stored_eqn(f)
+
+clear
+local storage cleared
+
+show_A(=<[A=false,(?B)=<B.push(A)](?A)=>)=>:show_A(=<(A=(1,2:3,4),(?B)=<push0(?B)=>)(?A)=>)=>:show_A(=<((?A)=<push1(?A)=>)(?A)=>)=>:show_A(=<[(?A)=<push1(?A)=>](?A)=>)=>:show_A(=<[(?A)=<push1(?A)=>](?A)=>)=>:show_A(=<[(?A)=<[(?A)=<push1(?A)=>](?A)=>](?A)=>)=>:show_A(=<[(?B)=<[(?C)=<push1(?C)=>](?B)=>](?A)=>)=>:show_A(=<[(?B)=<((?C)=<push2(?B,?C)=>)(?B)=>](?A)=>)=>:show_A(=<([(?B)=<(?C)=<push2(?B,?C)=>](?A)=>)(?A)=>)=>:show_A(=<([run=<push2(?B,?C)=>,(?B)=<(?C)=<run=>](?A)=>)(?A)=>)=>:show_A(=<([run(?D,?F)=<push2(?D,?F)=>,(?B)=<(?C)=<run(?B,?C)=>](?A)=>)(?A)=>)=>:A
+(
+false,false:
+NaN:
+NaN,2:
+NaN,2,3:
+NaN,2,3,4:
+NaN,2,3,4,5:
+NaN,2,3,4,5,6:
+NaN,2,3,4,5,6,7,8:
+NaN,2,3,4,5,6,7,8,9,10:
+NaN,2,3,4,5,6,7,8,9,10,11,12:
+NaN,2,3,4,5,6,7,8,9,10,11,12,13,14:
+NaN,2,3,4,5,6,7,8,9,10,11,12,13,14
+)
+
+push2=(?A,?B)=<last[A.push(count=>),B.push(count=>)]
+stored_eqn(push2)
+
+push1=(?A)=<A.push(count=>)
+stored_eqn(push1)
+
+push0=(?A)=<($A)=(=<push1(?A)=>)
+stored_eqn(push0)
+
+[n=0,f=()=<last(n=n+1,n),=<f]=>count
+0
+
+show_A=(=<callback)=<[callback=>,=<A]=>
+stored_eqn(show_A)
+
+A=false
+A=(
+false,false
+)
+
+clear
+local storage cleared
+
 call_f0=()=<[make_f(1)=>,f=>,make_f(2)=>,f=>,make_f(3)=>,f=>]:call_f1=()=<[make_f(1)=>f,f=>,make_f(2)=>f,f=>,make_f(3)=>f,f=>]:make_f=(x)=<[a=1,=<()=<a*x]=>f,call_f0=>:make_f=(x)=<[a=1,=<[a=2,=<()=<a*x]=>]=>f,call_f0=>:make_f=(x)=<[a=1,[a=2,=<()=<a*x]=>f,=<f]=>f,call_f0=>:make_f=(x)=<[a=1,[a=2,=<()=<a*x]=>f,=<f]=>,call_f1=>
 (
 0:
@@ -2769,4 +2826,4 @@ center=true&drag=false&test-case=false&legend=true&axis-t=false&axis-x=true&log-
 --------------------------------
 --------------------------------
 
-online-simulator.github.io.6.345.146.18.83 @ Thu Oct 19 2023 03:45:22 GMT+0900 (日本標準時) @ Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/118.0.0.0 Safari/537.36
+online-simulator.github.io.6.346.146.18.83 @ Fri Oct 20 2023 08:07:51 GMT+0900 (日本標準時) @ Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/118.0.0.0 Safari/537.36

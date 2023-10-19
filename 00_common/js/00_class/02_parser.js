@@ -77,6 +77,7 @@ My_entry.parser.prototype.config = {
     tagNames: {
       // escape
       "$": "null string",  // Ver.2.301.72
+      "?": "null string",  // Ver.2.303.73
       // delimiter
       // SeparatoR: "SR"
       ";": "SRs",  // sentence;sentence
@@ -449,7 +450,6 @@ My_entry.parser.prototype.switch_token = function(tokens, token, token_lower, to
     // reserved word
     // token
     case "\\":
-    case "?":
     case "#":
     case "\"":
     case "`":
@@ -912,7 +912,7 @@ My_entry.parser.prototype.check_token_left = function(tree, token_left, token, t
   var operation = self.entry.operation;
   var _tree = tree;
   /* Ver.2.301.72 -> */
-  var isEscape = (token_left === "$");
+  var isEscape = (token_left === "$" || token_left === "?");  // Ver.2.303.73
   if(isEscape){
     var symbol = operation.get_tagVal(tree, "REv", "val");
     if(symbol){

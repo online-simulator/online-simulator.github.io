@@ -127,6 +127,10 @@ My_entry.operation.prototype.config = {
   isEscaped: function(name){
     return (name && name[0] === "$");  // Ver.2.294.72
   },
+  /* Ver.2.303.73 */
+  isEscaped_ref: function(name){
+    return (name && name[0] === "?");
+  },
   /* Ver.2.219.50 */
   isEscaped_eqn: function(name){
     var _num_escape = 0;
@@ -800,10 +804,15 @@ My_entry.operation.prototype.tree_BT2tree = function(data, tree, opt_ids){
   }
   return _tree;
 };
+/* Ver.2.303.73 */
+My_entry.operation.prototype.isEscaped_symbol = function(symbol){
+  var self = this;
+  return (self.config.isEscaped(symbol) || self.config.isEscaped_ref(symbol));
+};
 /* Ver.2.232.56 */
 My_entry.operation.prototype.check_symbol = function(symbol){
   var self = this;
-  if(self.config.isEscaped(symbol)) throw "Invalid symbol("+symbol+")";  // Ver.2.294.72
+  if(self.isEscaped_symbol(symbol)) throw "Invalid symbol("+symbol+")";  // Ver.2.294.72  // Ver.2.303.73
   return self;
 };
 /* Ver.2.229.56 */
@@ -2995,10 +3004,34 @@ My_entry.operation.prototype.store_mutex = function(sw, name, tree, scopes, ids,
     delete scope0[(isEqn)? "vars": "eqns"][name];
   }
   /* -> Ver.2.250.57 */
-  self.inherit_constant(sw, name, scopes, ids, tree, isEscaped);  // Ver.2.249.57  // Ver.2.254.59
-  DATA.setProp_tree(tree, "isSE", true);  // Ver.2.284.67 representation of reference
-  self.check_symbol(name);  // Ver.2.294.72
-  scope0[sw][name] = tree;  // Ver.2.266.62
+  /* Ver.2.303.73 -> */
+  var isReset = true;
+  var isExisted = scope0[sw][name];
+  if(isExisted){
+    var obj_ref = DATA.getProp_tree(isExisted, "obj_ref");
+    if(obj_ref){
+      sw = obj_ref.sw;
+      name = obj_ref.name;
+      ids = [obj_ref.id0];
+      scope0 = self.get_scope0(scopes, ids);
+    }
+    if(tree){
+      var isBuffer4ref = DATA.getProp_tree(tree, "isBuffer");
+      if(isBuffer4ref){
+        isReset = false;
+      }
+      else{
+        DATA.setProp_tree(tree, "obj_ref", obj_ref);  // inherit obj_ref
+      }
+    }
+  }
+  if(isReset){
+    self.inherit_constant(sw, name, scopes, ids, tree, isEscaped);  // Ver.2.249.57  // Ver.2.254.59
+    DATA.setProp_tree(tree, "isSE", true);  // Ver.2.284.67 representation of reference
+    self.check_symbol(name);  // Ver.2.294.72
+    scope0[sw][name] = tree;  // Ver.2.266.62
+  }
+  /* -> Ver.2.303.73 */
   return self;
 };
 /* Ver.2.31.17 -> */
@@ -3570,7 +3603,7 @@ My_entry.operation.prototype.REv = function(data, i0, tagName, tagObj){
   var isSE = (i0 === 0 && isStorE(rightTree));  // Ver.2.272.63
   /* Ver.2.260.61 -> */
   var name = tagObj.val;
-  var isName = !(self.config.isEscaped(name));  // Ver.2.280.66
+  var isName = !(self.isEscaped_symbol(name));  // Ver.2.280.66  // Ver.2.303.73
   if(!(isSE) && isName){  // Ver.2.260.61  // Ver.2.280.66
     /* Ver.2.298.72 -> */
     var prop = self.get_tagVal(rightTree, "REv", "val");
@@ -4178,10 +4211,20 @@ My_entry.operation.prototype.switch_type_tree = function(data, tree){
   return _tree;
 };
 /* -> Ver.2.282.66 */
+/* Ver.2.303.73 */
+My_entry.operation.prototype.inherit_obj_ref = function(sw, name, tree, ids){
+  var self = this;
+  var DATA = self.entry.DATA;
+  var obj_ref = DATA.getProp_tree(tree, "obj_ref") || {sw: sw, name: name, id0: (ids || self.config.ids0)[0]};
+  DATA.setProp_tree(tree, "obj_ref", obj_ref);
+  return self;
+};
 /* Ver.2.269.62 */
 My_entry.operation.prototype.restore_args_AtREe = function(data, name_eqn, args_eqn, args, ids_args_eqn, args_eqns, args_vars, args_bas, buffer_vars, buffer_eqns, ids_buffer){  // Ver.2.271.63
   var self = this;
   var scopes = data.scopes;
+  var ids = data.ids;  // Ver.2.303.73
+  var DATA = self.entry.DATA;  // Ver.2.303.73
   var BT = self.config.BT;  // Ver.2.276.65
   var len_args = args.length;
   /* Ver.2.275.65 -> */
@@ -4252,6 +4295,46 @@ My_entry.operation.prototype.restore_args_AtREe = function(data, name_eqn, args_
       }
     }
     /* -> Ver.2.246.57 */
+    /* Ver.2.303.73 -> */
+    else if(self.config.isEscaped_ref(left)){  // f(?name_left)=<eqn,f(?name_right)=>
+      var name_left = left.substring(1);
+      var name_a0 = self.get_tagVal(right, "REv", "val");
+      if(name_a0 && self.config.isEscaped_ref(name_a0)){
+        var name_right = name_a0.substring(1);
+        var scope_right = self.get_scope0(scopes, ids);  // scope only
+        var sw_tree = scope_right.vars[name_right] || scope_right.eqns[name_right];  // vars first
+        if(sw_tree){
+          var id0 = ids_buffer[0];
+          var scope_left = self.get_scope0(scopes, [id0]);
+          var sw = (scope_right.vars[name_right])? "vars": "eqns";  // vars first
+          if(name_left){
+            var tree_left = scope_left[sw][name_left];
+            DATA.setProp_tree(tree_left, "isBuffer", true);
+            var isEqn = (sw === "eqns");
+            if(isEqn){
+              if(buffer_eqns){
+                buffer_eqns[name_left] = tree_left;  // not cloned
+              }
+            }
+            else{
+              if(buffer_vars){
+                buffer_vars[name_left] = tree_left;  // not cloned
+              }
+            }
+          }
+          var tree_right = scope_right[sw][name_right];
+          self.inherit_obj_ref(sw, name_right, tree_right, ids);
+          scope_left[sw][name_left] = tree_right;
+        }
+        else{
+          throw "Undef scope-var("+name_right+")";
+        }
+      }
+      else{
+        throw "Invalid matching args."+left;
+      }
+    }
+    /* -> Ver.2.303.73 */
     else{
       callback(left, right);  // Ver.2.276.65
     }
@@ -4440,7 +4523,8 @@ My_entry.operation.prototype.REe = function(data, i0, tagName, tagObj){
   }
   /* Ver.2.299.72 -> */
   if(!(options.useStaticScopes2dArray)){
-    if(isClear){
+    var hasNotObjRef = (Object.keys(buffer_eqns).length === 0);  // Ver.2.303.73
+    if(hasNotObjRef && isClear){  // Ver.2.303.73 not optimized
       scopes.pop();
     }
   }

@@ -816,6 +816,8 @@ e^(-i(1pi(){2/2i}(5-{3-1}){i/(-4)}))
 <br>
 ・<a href="#span-eqn-test4useStatic">test4useStatic</a>
 <br>
+・<a href="#span-eqn-Call-by-Reference">Call-by-Reference</a>
+<br>
 ・<a href="#span-eqn-args">args</a>
 <br>
 ・<a href="#span-eqn-curried">curried</a>
@@ -2032,6 +2034,8 @@ clear; $f=()=&lt;1 -> stored_eqn(const f)
 clear; [()=&lt;1]=&gt;$f -> 0
 <br>
 ・<span class="run">Ver.2.298.72</span>以降、<a href="#span-out-vars">変数</a>のprototype method代替の<a href="#span-out-prec-ope-arithmetic-method">method演算子</a>を追加
+<br>
+・<span class="run">Ver.2.303.73</span>以降、<a href="#span-out-terms">scope変数</a>の参照渡しの仕様追加（未最適化）
     </td>
   </tr>
   <tr>
@@ -2218,8 +2222,6 @@ pending項目を列挙する
 ・arrowの反転option
 <br>
 ・<a href="#span-out-vars-symbol">symbol</a>明示記号の追加
-<br>
-・参照渡しの実装
 <br>
 ・arr=arr|||[]の実装
 <br>
@@ -38102,6 +38104,8 @@ operation.js抜粋
 <br>
 ・<span class="run">Ver.2.301.72</span>以降、<a href="#span-out-vars-escape">escape記号</a>を追加
 <br>
+・<span class="run">Ver.2.303.73</span>以降、参照渡し記号?を予約
+<br>
 <br>
 予約語は大文字・小文字・全角・半角を区別しない
 <br>
@@ -38115,7 +38119,6 @@ parser.js抜粋
     // reserved word
     // token
     case "\\":
-    case "?":
     case "#":
     case "\"":
     case "`":
@@ -39502,6 +39505,74 @@ make_f=(x)=&lt;[a=1,=&lt;[a=2,=&lt;()=&lt;a*x]=&gt;]=&gt;f,call_f0=&gt;:
 make_f=(x)=&lt;[a=1,[a=2,=&lt;()=&lt;a*x]=&gt;f,=&lt;f]=&gt;f,call_f0=&gt;:
 <br>
 make_f=(x)=&lt;[a=1,[a=2,=&lt;()=&lt;a*x]=&gt;f,=&lt;f]=&gt;,call_f1=&gt;;</span>
+    </td>
+  </tr>
+  <tr>
+    <th>
+<a href="#span-index">
+目次
+</a>
+<br>
+Call-by
+<br>
+-Reference
+    </th>
+    <td>
+<span id="span-eqn-Call-by-Reference"></span>
+<br>
+clear;
+<br>
+A=false;
+<br>
+show_A<span class="jF">=</span>(=&lt;callback)=&lt;[callback=&gt;,=&lt;A/*cloned*/]=&gt;;
+<br>
+[n=0,f<span class="jF">=</span>()=&lt;last(n=n+1,n),=&lt;f]=&gt;count;
+<br>
+push0<span class="jF">=</span>(<span class="jF">?</span>A)=&lt;<span class="jF">($A)=(=&lt;</span>push1(<span class="jF">?</span>A)=&gt;);
+<br>
+push1<span class="jF">=</span>(<span class="jF">?</span>A)=&lt;A.push(count=&gt;);
+<br>
+push2<span class="jF">=</span>(<span class="jF">?</span>A,<span class="jF">?</span>B)=&lt;last[A.push(count=&gt;),B.push(count=&gt;)];
+<br>
+show_A(=&lt;[A=false,(<span class="jF">?</span>B)=&lt;B.push(A)](<span class="jF">?</span>A)=&gt;)=&gt;:
+<br>
+show_A(=&lt;(A=(1,2:3,4),(<span class="jF">?</span>B)=&lt;push0(<span class="jF">?</span>B)=&gt;)(<span class="jF">?</span>A)=&gt;)=&gt;:
+<br>
+show_A(=&lt;((<span class="jF">?</span>A)=&lt;push1(<span class="jF">?</span>A)=&gt;)(<span class="jF">?</span>A)=&gt;)=&gt;:
+<br>
+show_A(=&lt;[(<span class="jF">?</span>A)=&lt;push1(<span class="jF">?</span>A)=&gt;](<span class="jF">?</span>A)=&gt;)=&gt;:
+<br>
+show_A(=&lt;[(<span class="jF">?</span>A)=&lt;push1(<span class="jF">?</span>A)=&gt;](<span class="jF">?</span>A)=&gt;)=&gt;:
+<br>
+show_A(=&lt;[(<span class="jF">?</span>A)=&lt;[(<span class="jF">?</span>A)=&lt;push1(<span class="jF">?</span>A)=&gt;](<span class="jF">?</span>A)=&gt;](<span class="jF">?</span>A)=&gt;)=&gt;:
+<br>
+show_A(=&lt;[(<span class="jF">?</span>B)=&lt;[(<span class="jF">?</span>C)=&lt;push1(<span class="jF">?</span>C)=&gt;](<span class="jF">?</span>B)=&gt;](<span class="jF">?</span>A)=&gt;)=&gt;:
+<br>
+show_A(=&lt;[(<span class="jF">?</span>B)=&lt;((<span class="jF">?</span>C)=&lt;push2(<span class="jF">?</span>B,<span class="jF">?</span>C)=&gt;)(<span class="jF">?</span>B)=&gt;](<span class="jF">?</span>A)=&gt;)=&gt;:
+<br>
+show_A(=&lt;([(<span class="jF">?</span>B)=&lt;(<span class="jF">?</span>C)=&lt;push2(<span class="jF">?</span>B,<span class="jF">?</span>C)=&gt;](<span class="jF">?</span>A)=&gt;)(<span class="jF">?</span>A)=&gt;)=&gt;:
+<br>
+show_A(=&lt;([run=&lt;push2(<span class="jF">?</span>B,<span class="jF">?</span>C)=&gt;,(<span class="jF">?</span>B)=&lt;(<span class="jF">?</span>C)=&lt;run=&gt;](<span class="jF">?</span>A)=&gt;)(<span class="jF">?</span>A)=&gt;)=&gt;:
+<br>
+show_A(=&lt;([run(<span class="jF">?</span>D,<span class="jF">?</span>F)=&lt;push2(<span class="jF">?</span>D,<span class="jF">?</span>F)=&gt;,(<span class="jF">?</span>B)=&lt;(<span class="jF">?</span>C)=&lt;run(<span class="jF">?</span>B,<span class="jF">?</span>C)=&gt;](<span class="jF">?</span>A)=&gt;)(<span class="jF">?</span>A)=&gt;)=&gt;:
+<br>
+A;
+<br>
+clear;
+<br>
+f=&lt;false;
+<br>
+call_f<span class="jF">=</span>(=&lt;callback)=&lt;[callback=&gt;,=&lt;f=&gt;]=&gt;;
+<br>
+call_f(=&lt;[(<span class="jF">?</span>f)=&lt;f=&lt;1](<span class="jF">?</span>f)=&gt;)=&gt;:
+<br>
+call_f(=&lt;[(<span class="jF">?</span>f)=&lt;[(<span class="jF">?</span>f)=&lt;f=&lt;2](<span class="jF">?</span>f)=&gt;](<span class="jF">?</span>f)=&gt;)=&gt;:
+<br>
+call_f(=&lt;[(<span class="jF">?</span>g)=&lt;[(<span class="jF">?</span>h)=&lt;h=&lt;3](<span class="jF">?</span>g)=&gt;](<span class="jF">?</span>f)=&gt;)=&gt;:
+<br>
+call_f(=&lt;([(<span class="jF">?</span>g)=&lt;(<span class="jF">?</span>h)=&lt;h=&lt;-g=&gt;](<span class="jF">?</span>f)=&gt;)(<span class="jF">?</span>f)=&gt;)=&gt;:
+<br>
+f=&gt;;
     </td>
   </tr>
   <tr>

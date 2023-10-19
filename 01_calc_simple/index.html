@@ -353,6 +353,12 @@
       script += "\nclear;\n";
       script += "pollution_disabled=()=<[A=(1,2:3,4):A:[(A)=<[A.push(-1),=<A]=>](=<A)=>:A];\npollution_disabled();";
       script += "\nclear;\n";
+      script += "call_by_reference=()=<[A=(1,2:3,4):A:[(?A)=<[A.push(-1),=<A]=>](?A)=>:A];\ncall_by_reference();";
+      script += "\nclear;\n";
+      script += "show_A=(A0)=<(A=A0:A:[(?A)=<[A.push(-1),=<A]=>](?A)=>:A);\ncall_by_reference_in_each_scope=()=<(show_A(1):show_A(2)==>:[show_A(3):show_A(4)==>:[show_A(=<(5,6)):show_A(=<(7,8))==>]]);\ncall_by_reference_in_each_scope();";
+      script += "\nclear;\n";
+      script += "[a=1,f(?b)=<b=-b:a,f(?a),a]:[g=<1,f(?h)=<h=<-1:g(),f(?g),g()];";
+      script += "\nclear;\n";
       $._id("input").value = script;
     });
   })();
