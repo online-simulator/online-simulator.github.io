@@ -3006,6 +3006,7 @@ My_entry.operation.prototype.store_mutex = function(sw, name, tree, scopes, ids,
   /* -> Ver.2.250.57 */
   /* Ver.2.303.73 -> */
   var isReset = true;
+  var isArray = false;  // Ver.2.303.74
   var isExisted = scope0[sw][name];
   if(isExisted){
     var obj_ref = DATA.getProp_tree(isExisted, "obj_ref");
@@ -3021,15 +3022,23 @@ My_entry.operation.prototype.store_mutex = function(sw, name, tree, scopes, ids,
         isReset = false;
       }
       else{
+        isArray = DATA.getProp_tree(tree, "isArray");  // Ver.2.303.74
         DATA.setProp_tree(tree, "obj_ref", obj_ref);  // inherit obj_ref
       }
     }
   }
   if(isReset){
-    self.inherit_constant(sw, name, scopes, ids, tree, isEscaped);  // Ver.2.249.57  // Ver.2.254.59
-    DATA.setProp_tree(tree, "isSE", true);  // Ver.2.284.67 representation of reference
+    /* Ver.2.303.74 -> */
     self.check_symbol(name);  // Ver.2.294.72
-    scope0[sw][name] = tree;  // Ver.2.266.62
+    self.inherit_constant(sw, name, scopes, ids, tree, isEscaped);  // Ver.2.249.57  // Ver.2.254.59
+    if(isArray){
+      scope0[sw][name].mat.arr = tree.mat.arr;
+    }
+    else{
+      DATA.setProp_tree(tree, "isSE", true);  // Ver.2.284.67 representation of reference
+      scope0[sw][name] = tree;  // Ver.2.266.62
+    }
+    /* -> Ver.2.303.74 */
   }
   /* -> Ver.2.303.73 */
   return self;
@@ -3868,6 +3877,8 @@ My_entry.operation.prototype.SEv = function(data, i0, tagName, tagObj){
             /* -> Ver.2.76.29 */
           }
           self.inherit_id_tree(tree, leftTree);  // Ver.2.262.62
+          DATA.delProp_tree(tree, "isBuffer");  // Ver.2.303.74
+          DATA.setProp_tree(tree, "isArray", true);  // Ver.2.303.74
           self.store_var(name_var, tree, scopes, ids, isEscaped);  // Ver.2.31.17  // Ver.2.249.57
           tree = DATA.tag("out", {name: ((tree.mat.isConstant)? self.config.symbol.const: "")+name_var, arr: tree.mat.arr});  // Ver.2.296.72
         }

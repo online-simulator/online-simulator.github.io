@@ -359,6 +359,10 @@
       script += "\nclear;\n";
       script += "[a=1,f(?b)=<b=-b:a,f(?a),a]:[g=<1,f(?h)=<h=<-1:g(),f(?g),g()];";
       script += "\nclear;\n";
+      script += "f(?a)=<(a[0][0]=-1);\na=1,a,f(?a),a:[a=2,a,f(?a),a];";
+      script += "\nclear;\n";
+      script += "f(?A)=<[A[0]:A[1]:(A[0][0],A[0][1]:A[1][0],A[1][1]):A[1]=A[0],A[][1]=A[][0]:A];\nA=(1,2:3,4):A:f(?A):A:[A=(1,2:3,4):A:f(?A):A];";
+      script += "\nclear;\n";
       $._id("input").value = script;
     });
   })();
