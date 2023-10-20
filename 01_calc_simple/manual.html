@@ -386,6 +386,8 @@ e^(-i(1pi(){2/2i}(5-{3-1}){i/(-4)}))
 <br>
 ・<a href="#span-out-scope-inherited">scope継承</a>
 <br>
+・<a href="#span-out-scope-reference">scope参照</a>
+<br>
 ・<a href="#span-out-terms">用語集</a>
 <br>
 ・graph出力仕様
@@ -2035,7 +2037,9 @@ clear; [()=&lt;1]=&gt;$f -> 0
 <br>
 ・<span class="run">Ver.2.298.72</span>以降、<a href="#span-out-vars">変数</a>のprototype method代替の<a href="#span-out-prec-ope-arithmetic-method">method演算子</a>を追加
 <br>
-・<span class="run">Ver.2.303.73</span>以降、<a href="#span-out-terms">scope変数</a>の参照渡しの仕様追加（未最適化）
+・<span class="run">Ver.2.303.73</span>以降、<a href="#span-out-terms">scope変数</a>の<a href="#span-out-scope-reference">scope参照</a>の仕様追加（未最適化）
+<br>
+　参照渡し記号：?symbol
     </td>
   </tr>
   <tr>
@@ -13745,6 +13749,38 @@ scope継承について記述する
 ・scope継承はcall時に実施（<a href="#span-out-substitution-equation">式代入</a>の継承を含む）
 <br>
 ・<a href="#span-out-FNh">高階関数</a>||<a href="#span-out-FNmh">高階行列関数</a>の<a href="#span-out-call-by-equation">式渡し</a>は非対応（対応予定なし）
+    </td>
+  </tr>
+  <tr>
+    <th>
+<a href="#span-index">
+目次
+</a>
+<br>
+scope参照
+    </th>
+    <td>
+<span id="span-out-scope-reference"></span>
+scope参照について記述する
+<br>
+・<span class="run">Ver.2.303.73</span>以降、<a href="#span-out-terms">scope変数</a>のscope参照の仕様追加
+<br>
+　参照渡し記号：?symbol
+<br>
+・<span class="clear">Ver.2.303.74</span>以降、<a href="#span-out-reference-mat">行列への参照</a>を適用する参照渡しの不具合を修正
+<br>
+clear; f(?a)=&lt;a[0][0]=2; a=1,a,f(?a),a -> <del>(0,1,0,1)</del>(0,1,0,2)
+<br>
+<br>
+留意事項を列挙する
+<br>
+・<a href="#span-out-terms">scope変数</a>未定義の場合、error終了
+<br>
+clear; a=1,f(?a)=&lt;a=2,a,f(?a),a -> (0,0,1,0,2)
+<br>
+clear; f(?a)=&lt;a=2,a,f(?a),a -> [MyErr]Undef scope-var(a)
+<br>
+clear; a=1,[f(?a)=&lt;a=2,a,f(?a),a] -> [MyErr]Undef scope-var(a)
     </td>
   </tr>
   <tr>
@@ -37133,7 +37169,9 @@ before: x=1,(y=&lt;(1/0))||2,x||y=&gt; -> (0,2,1)
     </th>
     <td>
 <span id="span-out-development-problems-CBR"></span>
-未実装の参照渡しについて留意事項を列挙する
+<del>未実装の</del>参照渡しについて留意事項を列挙する
+<br>
+・<span class="run">Ver.2.303.73</span>以降、<a href="#span-out-terms">scope変数</a>の<a href="#span-out-scope-reference">scope参照</a>の仕様追加
 <br>
 ・<span class="run">Ver.2.19.6</span>以降、<a href="#span-out-FN">関数</a>のre-name不可
 <br>
@@ -38104,7 +38142,7 @@ operation.js抜粋
 <br>
 ・<span class="run">Ver.2.301.72</span>以降、<a href="#span-out-vars-escape">escape記号</a>を追加
 <br>
-・<span class="run">Ver.2.303.73</span>以降、参照渡し記号?を予約
+・<span class="run">Ver.2.303.73</span>以降、<a href="#span-out-scope-reference">scope参照</a>の仕様追加（参照渡し記号?を予約）
 <br>
 <br>
 予約語は大文字・小文字・全角・半角を区別しない
@@ -39519,6 +39557,7 @@ Call-by
     </th>
     <td>
 <span id="span-eqn-Call-by-Reference"></span>
+<a href="#span-out-scope-reference">scope参照</a>参照
 <br>
 clear;
 <br>
@@ -39562,6 +39601,8 @@ clear;
 <br>
 f=&lt;false;
 <br>
+recursive_call<span class="jF">=</span>(?g,?h)=&lt;h=&lt;g=&gt;+1;
+<br>
 call_f<span class="jF">=</span>(=&lt;callback)=&lt;[callback=&gt;,=&lt;f=&gt;]=&gt;;
 <br>
 call_f(=&lt;[(<span class="jF">?</span>f)=&lt;f=&lt;1](<span class="jF">?</span>f)=&gt;)=&gt;:
@@ -39570,9 +39611,59 @@ call_f(=&lt;[(<span class="jF">?</span>f)=&lt;[(<span class="jF">?</span>f)=&lt;
 <br>
 call_f(=&lt;[(<span class="jF">?</span>g)=&lt;[(<span class="jF">?</span>h)=&lt;h=&lt;3](<span class="jF">?</span>g)=&gt;](<span class="jF">?</span>f)=&gt;)=&gt;:
 <br>
-call_f(=&lt;([(<span class="jF">?</span>g)=&lt;(<span class="jF">?</span>h)=&lt;h=&lt;-g=&gt;](<span class="jF">?</span>f)=&gt;)(<span class="jF">?</span>f)=&gt;)=&gt;:
+call_f(=&lt;([(<span class="jF">?</span>g)=&lt;(<span class="jF">?</span>h)=&lt;recursive_call(?g,?h)==&gt;](<span class="jF">?</span>f)=&gt;)(<span class="jF">?</span>f)=&gt;)=&gt;:
+<br>
+call_f(=&lt;([(<span class="jF">?</span>g)=&lt;(<span class="jF">?</span>h)=&lt;recursive_call(?g,?h)==&gt;](<span class="jF">?</span>f)=&gt;)(<span class="jF">?</span>f)=&gt;)=&gt;:
+<br>
+call_f(=&lt;([(<span class="jF">?</span>g)=&lt;(<span class="jF">?</span>h)=&lt;recursive_call(?g,?h)==&gt;](<span class="jF">?</span>f)=&gt;)(<span class="jF">?</span>f)=&gt;)=&gt;:
+<br>
+call_f(=&lt;([(<span class="jF">?</span>g)=&lt;(<span class="jF">?</span>h)=&lt;recursive_call(?g,?h)==&gt;](<span class="jF">?</span>f)=&gt;)(<span class="jF">?</span>f)=&gt;)=&gt;:
 <br>
 f=&gt;;
+<br>
+clear;
+<br>
+f<span class="jF">=</span>(<span class="jF">?</span>a)=&lt;[a,a=a+1];
+<br>
+call_f0<span class="jF">=</span>(a)=&lt;[a,f(<span class="jF">?</span>a)=&gt;,a,f(<span class="jF">?</span>a)==&gt;,a];
+<br>
+call_f1<span class="jF">=</span>(<span class="jF">?</span>a)=&lt;[a,f(<span class="jF">?</span>a)=&gt;,a,f(<span class="jF">?</span>a)==&gt;,a];
+<br>
+wrapper<span class="jF">=</span>(a0)=&lt;[a0:a=a0,call_f0(a)==&gt;,a:a=a0,call_f1(<span class="jF">?</span>a)==&gt;,a];
+<br>
+a=1,wrapper(a)=&gt;,wrapper(a)==&gt;:
+<br>
+[
+<br>
+a=2,wrapper(a)=&gt;,wrapper(a)==&gt;:
+<br>
+[a=3,wrapper(a)=&gt;,wrapper(a)==&gt;]:
+<br>
+[a=4,wrapper(a)=&gt;,wrapper(a)==&gt;]
+<br>
+];
+<br>
+clear;
+<br>
+f<span class="jF">=</span>(<span class="jF">?</span>A)=&lt;[
+<br>
+(A[0]:A[1]):
+<br>
+(A[0][0],A[0][1]:A[1][0],A[1][1]):
+<br>
+last{A[0][0][sizer(A)][sizec(A)]=A}:
+<br>
+A:
+<br>
+last{A[1]=A[0],A[][1]=A[][0]}:
+<br>
+A
+<br>
+];
+<br>
+A=(1,2:3,4):A::f(<span class="jF">?</span>A)=&gt;::A;
+<br>
+[A=(1,2:3,4):A::f(<span class="jF">?</span>A)=&gt;::A];
     </td>
   </tr>
   <tr>
