@@ -3399,7 +3399,7 @@ My_entry.operation.prototype.tree_eqn2tree_AtREe = function(data, tree_eqn, opt_
     _tree = DATA.num2tree(tree_eqn);
   }
   else{
-    _tree = (isSEe)? self.tree_SEe2REe(tree_eqn): tree_eqn;
+    _tree = (isSEe && !(isSEe.arg))? self.tree_SEe2REe(tree_eqn): tree_eqn;  // Ver.2.304.74
     _tree = self.tree_eqn2tree(data, _tree, true);
   }
   if(opt_name){
