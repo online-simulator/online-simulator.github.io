@@ -311,7 +311,8 @@ My_entry.operation.prototype.prepare = function(data){
   self.options.dxJ = options.dxJ || self.config.params.dxJ;
   self.options.dxD = options.dxD || self.config.params.dxD;
   self.options.NI = options.NI || self.config.params.NI;
-  var arr_precedence = self.entry.def.newClone(self.config.precedence);
+  var precedence = self.config.precedence;  // Ver.2.304.75
+  var arr_precedence = self.entry.def.newClone(precedence);  // Ver.2.304.75
   if(options.precedence){
     arr_precedence[1] = options.precedence.split(",");
   }
@@ -325,6 +326,7 @@ My_entry.operation.prototype.prepare = function(data){
     }
   }
   self.arr_precedence = arr_precedence.join().split(",").filter(Boolean);  // Ver.2.43.21
+  self.arr_precedence4args = [precedence[0][0], precedence[0][4]].join().split(",");  // Ver.2.304.75
   /* Ver.2.212.46 -> */
   var hasTag = data.hasTag;
   if(hasTag){
@@ -335,6 +337,7 @@ My_entry.operation.prototype.prepare = function(data){
     hasTag["BRmo"] = true;
     hasTag["SEv"] = true;
     self.arr_precedence = self.arr_precedence.filter(function(tag){return hasTag[tag];});
+    self.arr_precedence4args = self.arr_precedence4args.filter(function(tag){return hasTag[tag];});  // Ver.2.304.75
   }
   /* -> Ver.2.212.46 */
   self.init_callbacks(options);
@@ -471,7 +474,8 @@ My_entry.operation.prototype.data2trees = function(data, tagName_BT){  // Ver.2.
   }
   /* -> Ver.2.144.36 */
   self.params.BT = tagName_BT || self.params.BT;  // Ver.2.164.39
-  self.arr_precedence.forEach(function(tagName){
+  var arr_precedence = self["arr_precedence"+((self.isBT2tree)? "4args": "")];  // Ver.2.304.75
+  arr_precedence.forEach(function(tagName){  // Ver.2.304.75
     self.callbacks[tagName](data);
     data.trees = data.trees.filter(Boolean);  // Ver.2.43.21
   });
@@ -496,16 +500,26 @@ My_entry.operation.prototype.get_tagVal = function(tree, tagName, valName){
   var self = this;
   return ((tree)? ((tree[tagName])? tree[tagName][valName]: null): null);
 };
-My_entry.operation.prototype.get_newData = function(data, trees, opt_ids){
+My_entry.operation.prototype.get_newData = function(data, trees, opt_ids, isClear_scopes){  // Ver.2.304.75
   var self = this;
+  /* Ver.2.304.75 -> */
+  var DATA = self.entry.DATA;
   /* Ver.2.31.17 -> */
-  var _data = self.entry.DATA.data(trees, data.options, data.vars, data.eqns);
-  _data.scopes = data.scopes;  // made in parser
-  if(opt_ids){
-    _data.ids = opt_ids;
+  var _data = null;
+  if(isClear_scopes){
+    _data = DATA.data(trees, data.options);
+    _data.scopes = null;
+  }
+  else{
+    _data = DATA.data(trees, data.options, data.vars, data.eqns);
+    _data.scopes = data.scopes;
+    if(opt_ids){
+      _data.ids = opt_ids;
+    }
   }
   return _data;
   /* -> Ver.2.31.17 */
+  /* -> Ver.2.304.75 */
 };
 My_entry.operation.prototype.tree2tree_mat = function(tree){
   var self = this;
@@ -780,7 +794,7 @@ My_entry.operation.prototype.isType = function(tree, type_comp){
   return _type;
 };
 /* Ver.2.32.17 -> */
-My_entry.operation.prototype.tree_BT2tree = function(data, tree, opt_ids){
+My_entry.operation.prototype.tree_BT2tree = function(data, tree){  // Ver.2.304.75
   var self = this;
   var DATA = self.entry.DATA;
   var _tree = null;
@@ -789,12 +803,7 @@ My_entry.operation.prototype.tree_BT2tree = function(data, tree, opt_ids){
     self.isBT2tree = true;  // Ver.2.280.66
     /* Ver.2.102.33 -> */
     var hasUndefVars = self.params.hasUndefVars;
-    var newData = self.get_newData(data, DATA.tree2trees(tree), opt_ids);
-    if(!(opt_ids)){  // get_names
-      newData.scopes = null;
-      newData.vars = {};
-      newData.eqns = {};
-    }
+    var newData = self.get_newData(data, DATA.tree2trees(tree), null, true);  // Ver.2.304.75
     var obj = DATA.tag(tagName, self.get_tagVal(tree, tagName, "val"));
     self[tagName](newData, 0, tagName, obj[tagName]);
     _tree = DATA.trees2tree(newData.trees);
