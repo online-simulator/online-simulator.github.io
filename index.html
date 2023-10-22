@@ -259,6 +259,36 @@ Y/M/D
 <tbody>
   <tr>
     <th>
+6.347.146.18.86
+    </th>
+    <td class="types">
+Calculator
+    </td>
+    <td>
+2.304.76
+    </td>
+    <td class="clear">
+minor bug-fix
+    </td>
+    <td>
+[Calculator]
+<br>
+・Call-by-Reference bug-fixed about re-use of data.vars/eqns
+<br>
+clear; A=1,f(?A)=&lt;A=3,[A=2,f(?A),A];
+<br>
+A=4; A -> <del>Cannot read properties of undefined</del>4
+<br>
+clear; g=&lt;1,f(?g)=&lt;g=&lt;3,[g=&lt;2,f(?g),g()];
+<br>
+g=&lt;4; g() -> <del>Cannot read properties of undefined</del>4
+    </td>
+    <td>
+2023/10/23
+    </td>
+  </tr>
+  <tr>
+    <th>
 6.347.146.18.85
     </th>
     <td class="types">

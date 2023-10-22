@@ -4045,11 +4045,13 @@ My_entry.operation.prototype.wrapper_loop = function(trees, callback_pre, callba
 /* Ver.2.218.50 */
 My_entry.operation.prototype.loop_callback = function(trees, callback){
   var self = this;
+  var DATA = self.entry.DATA;  // Ver.2.304.76
   var isDataEqn = self.entry.def.isObject(trees);
   var isBT = (trees && trees.length);
   if(isDataEqn){
     for(var name in trees){
       var tree = trees[name];
+      DATA.delProp_tree(tree, "obj_ref");  // Ver.2.304.76
       /* Ver.2.277.65 -> */
       if(tree && tree.mat){
         var arr = tree.mat.arr;
