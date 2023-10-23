@@ -2263,19 +2263,28 @@ My_entry.operation.prototype.FN_statistics1 = function(data, i0, tagName, tagObj
         for(var jj=1; jj<len_j-j; ++jj){
           var left = args[jj-1];
           var right = args[jj];
-          var lcr = left.com.r;
-          var lci = left.com.i;
-          var rcr = right.com.r;
-          var rci = right.com.i;
-          var isSorted = (isComplex)? (lcr*lcr+lci*lci > rcr*rcr+rci*rci): (lcr > rcr);
-          if(isSorted){
-            var w = left;
-            args[jj-1] = args[jj];
-            args[jj] = w;
-            var w = _arr_key[jj-1];
-            _arr_key[jj-1] = _arr_key[jj];
-            _arr_key[jj] = w;
+          /* Ver.2.304.77 -> */
+          var leftCom = left.com;
+          var rightCom = right.com;
+          if(leftCom && rightCom){
+            var lcr = leftCom.r;
+            var lci = leftCom.i;
+            var rcr = rightCom.r;
+            var rci = rightCom.i;
+            var isSorted = (isComplex)? (lcr*lcr+lci*lci > rcr*rcr+rci*rci): (lcr > rcr);
+            if(isSorted){
+              var w = left;
+              args[jj-1] = args[jj];
+              args[jj] = w;
+              var w = _arr_key[jj-1];
+              _arr_key[jj-1] = _arr_key[jj];
+              _arr_key[jj] = w;
+            }
           }
+          else{
+            throw "Invalid operation("+prop+")";
+          }
+          /* -> Ver.2.304.77 */
         }
       }
       return _arr_key;
