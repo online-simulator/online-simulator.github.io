@@ -39561,6 +39561,14 @@ Call-by
 <br>
 clear;
 <br>
+set_f(<span class="jF">?</span>f)=&lt;[,f=&lt;x];
+<br>
+make_NG=(x)=&lt;[f=&lt;0,set_f(<span class="jF">?</span>f)==&gt;,=&lt;f]=&gt;f;
+<br>
+[make_NG(1)==&gt;,f=&gt;,[make_NG(2)==&gt;,f=&gt;,make_NG(3)==&gt;,f=&gt;]];
+<br>
+clear;
+<br>
 A=false;
 <br>
 show_A<span class="jF">=</span>(=&lt;callback)=&lt;[callback=&gt;,=&lt;A/*cloned*/]=&gt;;
