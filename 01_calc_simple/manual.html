@@ -22458,6 +22458,18 @@ clear; f(a,b)=&lt;(()=&lt;[a,b]),(f(1,2))()=&gt;,(a,b) -> (0,1,2,1,2)
 <br>
 clear; f(a,b)=&lt;([()=&lt;[a,b]]),(f(1,2))()=&gt;,(a,b) -> (0,1,2,1,2)
 <br>
+・明示的な代入も同様
+<br>
+clear; f=(x)=&lt;g=&lt;[x,x]; f(3); g() -> [MyErr]Undef var(x)
+<br>
+clear; f=(x)=&lt;(g=&lt;[x,x]); f(3); g() -> [MyErr]Undef var(x)
+<br>
+f=(x)=&lt;[g=&lt;[x,x],=&lt;g]=&gt;;
+<br>
+f(3)=&gt;g; g() -> (3,3)
+<br>
+f(5)=&gt;g; g() -> (5,5)
+<br>
 <br>
 留意事項を列挙する
 <br>
