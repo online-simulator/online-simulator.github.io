@@ -42531,7 +42531,23 @@ _EIS
 clear;
 <br>
 <br>
-make_IV(dI,f,Nt,Nint,isImplicit)=&lt;last{
+make_IV(dT,dI,f,Nt,Nint,isImplicit)=&lt;last{
+<br>
+<span class="jF">$</span>TK=273.15,
+<br>
+Tref=15+TK,
+<br>
+T=Tref+dT,
+<br>
+($Eact_a1,$Eact_a2)=(50,10)*1e3,
+<br>
+<span class="jF">$</span>Rgas=8.31446261815324,
+<br>
+ratio_factor(T,Tref,Eact)=&lt;exp((1/Tref-1/T)*Eact/Rgas),
+<br>
+ratio_a1=ratio_factor(T,Tref,Eact_a1)=&gt;,
+<br>
+ratio_a2=ratio_factor(T,Tref,Eact_a2)=&gt;,
 <br>
 L=1e-4,
 <br>
@@ -42542,6 +42558,10 @@ R1=2,C1=0.1,
 a1=1/(R1*C1),b1=1/C1,
 <br>
 a2=0.01,b2=0.12,
+<br>
+a1=a1*ratio_a1,
+<br>
+a2=a2*ratio_a2,
 <br>
 omega=2*pi*f,
 <br>
@@ -42624,7 +42644,7 @@ init=&gt;,run=&gt;,return=out=&gt;,
 =&lt;return]=&gt;;
 <br>
 <br>
-sweep_f(dI,f0,f1,Nf,Nt,Nint,isImplicit)=&lt;[
+sweep_f(dT,dI,f0,f1,Nf,Nt,Nint,isImplicit)=&lt;[
 <br>
 out=&lt;fZ,
 <div class="condition">
@@ -42639,7 +42659,7 @@ _sn(=&lt;last{
 <br>
 f=calc_f(n)=&gt;,
 <br>
-make_IV(dI,f,Nt,Nint,isImplicit)==&gt;,
+make_IV(dT,dI,f,Nt,Nint,isImplicit)==&gt;,
 <br>
 fZ[n]=(f,calc_Z(FT_IV(=&lt;tI,f,dt)=&gt;,FT_IV(=&lt;tV,f,dt)=&gt;)=&gt;)
 <br>
@@ -42716,7 +42736,7 @@ init=&gt;,run=&gt;,return=out=&gt;,scope2storage=&gt;,
 <br>
 [isImplicit=1,isBode=0,
 <br>
-=&lt;plot2d_EIS(isBode,=&lt;sweep_f(1e-3,1e3,0.01,10,100,1,isImplicit)=&gt;)=&gt;]=&gt;;
+=&lt;plot2d_EIS(isBode,=&lt;sweep_f(0,1e-3,1e3,0.01,10,100,1,isImplicit)=&gt;)=&gt;]=&gt;;
     </td>
   </tr>
   <tr>
@@ -42736,7 +42756,23 @@ _EIS_DFT
 clear;
 <br>
 <br>
-make_IV(dI,f,Nt,Nint,isImplicit)=&lt;last{
+make_IV(dT,dI,f,Nt,Nint,isImplicit)=&lt;last{
+<br>
+<span class="jF">$</span>TK=273.15,
+<br>
+Tref=15+TK,
+<br>
+T=Tref+dT,
+<br>
+($Eact_a1,$Eact_a2)=(50,10)*1e3,
+<br>
+<span class="jF">$</span>Rgas=8.31446261815324,
+<br>
+ratio_factor(T,Tref,Eact)=&lt;exp((1/Tref-1/T)*Eact/Rgas),
+<br>
+ratio_a1=ratio_factor(T,Tref,Eact_a1)=&gt;,
+<br>
+ratio_a2=ratio_factor(T,Tref,Eact_a2)=&gt;,
 <br>
 L=1e-4,
 <br>
@@ -42747,6 +42783,10 @@ R1=2,C1=0.1,
 a1=1/(R1*C1),b1=1/C1,
 <br>
 a2=0.01,b2=0.12,
+<br>
+a1=a1*ratio_a1,
+<br>
+a2=a2*ratio_a2,
 <br>
 omega=2*pi*f,
 <br>
@@ -42825,7 +42865,7 @@ init=&gt;,run=&gt;,return=out=&gt;,
 =&lt;return]=&gt;;
 <br>
 <br>
-sweep_f(dI,f0,f1,Nf,Nt,Nint,isImplicit)=&lt;[
+sweep_f(dT,dI,f0,f1,Nf,Nt,Nint,isImplicit)=&lt;[
 <br>
 out=&lt;fZ,
 <div class="condition">
@@ -42840,7 +42880,7 @@ _sn(=&lt;last{
 <br>
 f=calc_f(n)=&gt;,
 <br>
-make_IV(dI,f,Nt,Nint,isImplicit)==&gt;,
+make_IV(dT,dI,f,Nt,Nint,isImplicit)==&gt;,
 <br>
 fZ[n]=(f,calc_Z(DFT_IV(=&lt;tI,f,dt)=&gt;,DFT_IV(=&lt;tV,f,dt)=&gt;)=&gt;)
 <br>
@@ -42917,7 +42957,7 @@ init=&gt;,run=&gt;,return=out=&gt;,scope2storage=&gt;,
 <br>
 [isImplicit=1,isBode=0,
 <br>
-=&lt;plot2d_EIS_DFT(isBode,=&lt;sweep_f(1e-3,1e3,0.01,10,100,1,isImplicit)=&gt;)=&gt;]=&gt;;
+=&lt;plot2d_EIS_DFT(isBode,=&lt;sweep_f(0,1e-3,1e3,0.01,10,100,1,isImplicit)=&gt;)=&gt;]=&gt;;
     </td>
   </tr>
   <tr>
@@ -42937,7 +42977,23 @@ _IV
 clear;
 <br>
 <br>
-make_tIV(dI,f,Nt,Nint,isImplicit)=&lt;last{
+make_tIV(dT,dI,f,Nt,Nint,isImplicit)=&lt;last{
+<br>
+<span class="jF">$</span>TK=273.15,
+<br>
+Tref=15+TK,
+<br>
+T=Tref+dT,
+<br>
+($Eact_a1,$Eact_a2)=(50,10)*1e3,
+<br>
+<span class="jF">$</span>Rgas=8.31446261815324,
+<br>
+ratio_factor(T,Tref,Eact)=&lt;exp((1/Tref-1/T)*Eact/Rgas),
+<br>
+ratio_a1=ratio_factor(T,Tref,Eact_a1)=&gt;,
+<br>
+ratio_a2=ratio_factor(T,Tref,Eact_a2)=&gt;,
 <br>
 L=1e-4,
 <br>
@@ -42948,6 +43004,10 @@ R1=2,C1=0.1,
 a1=1/(R1*C1),b1=1/C1,
 <br>
 a2=0.01,b2=0.12,
+<br>
+a1=a1*ratio_a1,
+<br>
+a2=a2*ratio_a2,
 <br>
 omega=2*pi*f,
 <br>
@@ -42990,7 +43050,7 @@ tV[n]=Vt
 };
 <br>
 <br>
-plot2d_IV(dI,f,Nt,Nint,isImplicit)=&lt;[
+plot2d_IV(dT,dI,f,Nt,Nint,isImplicit)=&lt;[
 <br>
 out=&lt;(xt,yt),
 <br>
@@ -43001,7 +43061,7 @@ init=&lt;last{N=Nt*Nint,xt=zeros(N+1,1),yt=zeros(N+1,2)},
 <div class="run">
 run=&lt;last{
 <br>
-make_tIV(dI,f,Nt,Nint,isImplicit)==&gt;,
+make_tIV(dT,dI,f,Nt,Nint,isImplicit)==&gt;,
 <br>
 _sn(=&lt;last{xt[n]=tt[n],yt[n]=(tI[n],tV[n])},0,N)
 <br>
@@ -43014,7 +43074,7 @@ init=&gt;,run=&gt;,return=out=&gt;,scope2storage=&gt;,
 <br>
 [isImplicit=1,
 <br>
-=&lt;plot2d_IV(1e-3,0.5,100,2,isImplicit)=&gt;]=&gt;;
+=&lt;plot2d_IV(0,1e-3,0.5,100,2,isImplicit)=&gt;]=&gt;;
     </td>
   </tr>
   <tr>

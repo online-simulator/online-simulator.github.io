@@ -35,7 +35,7 @@ stored_eqn(heat1d_evolution)
 heat0d_evolution(t,dt,kalpha0,kalpha1,kalbedo,kabsorb)=<[out=<{t_total,dT},scope2storage=<last{add__(oldT),add__(t_total)},init=<last{I0=1367,sigma=5.670374419184429e-8,TK=273.15,T0=15,T1=-56.5,T0K=T0+TK,T1K=T1+TK,H1=11000,R0=6378136.6,R1=R0+H1,S0=pi*R0^2,S1=pi*R1^2,A0=S0*4,A1=S1*4,albedo0=0.3,e0=1,TeK=(I0*(1-albedo0)/(4*e0*sigma))**0.25,Te=TeK-TK,W0=S1*I0,Wee=A0*(e0*sigma*TeK**4),We0=A0*(e0*sigma*T0K**4),absorbh=1-W0*(1-albedo0)/We0,absorbhmax=0.5,absorb0=We0*absorbh/(W0*(1-albedo0)),absorb0max=We0*absorbhmax/(W0*(1-albedo0)),kh0=(absorbhmax-absorbh)/(absorb0max-absorb0),Te_th(a)=<(I0*(1-albedo0)/(2*(2-a)*e0*sigma))**0.25-TK,Te_th0=Te_th(absorbh*2)=>,Wea=We0*absorbh,Wet=We0*(1-absorbh),l=0.0241,rho=1.29,cp=1007,V=_ir(=<4*pi*r^2,R0,R0+H1),C=rho*cp*V,alpha10=-W0*(1-albedo0)*absorb0/(A1*(T1-T0)),alpha0=alpha10*kalpha0,alpha1=alpha10*kalpha1,albedo=albedo0*kalbedo,absorb=absorb0*kabsorb,absorbe=(1-albedo)*absorb,T=T0,flux0=alpha0*(T0-T),flux1=alpha1*(T1-T),W2=flux0*A0,W1=flux1*A1,W0a=W0*albedo,W0t=W0*(1-albedo)*(1-absorb),W0e=W0*(1-albedo)*absorb,(Wee-Wet),(Wea-W0e),(W0t+W0e-Wet),(W0a+W0t+W0e-W0),(W1+W0e+W2),a=(alpha1*A1+alpha0*A0)/C,b=(alpha1*A1*T1+W0*(1-albedo)*absorb+alpha0*A0*T0)/C,switch(has__(t_total)==0,=<last{t_total=0,oldT=T0}),newT=oldT},run=<last{step=<last{newT=(oldT+b*dt)/(1+a*dt),oldT=newT},evolution=<_rn(=<step,N=round(t/dt),N),evolution=>,dT=newT-T0,t_total=t_total+N*dt},init=>,run=>,return=out=>,scope2storage=>,=<return]=>
 stored_eqn(heat0d_evolution)
 
-[isImplicit=1,=<plot2d_IV(1e-3,0.5,100,2,isImplicit)=>]=>
+[isImplicit=1,=<plot2d_IV(0,1e-3,0.5,100,2,isImplicit)=>]=>
 (
 0,0,3.141592653589793e-7:
 0.02,0.00006279051952931337,0.00007467118408281147:
@@ -240,16 +240,16 @@ stored_eqn(heat0d_evolution)
 4,-4.898587196589413e-19,infoLost[r ] -0.0008768489563688463
 )
 
-plot2d_IV(dI,f,Nt,Nint,isImplicit)=<[out=<(xt,yt),scope2storage=<last{add__(xt),add__(yt)},init=<last{N=Nt*Nint,xt=zeros(N+1,1),yt=zeros(N+1,2)},run=<last{make_tIV(dI,f,Nt,Nint,isImplicit)==>,_sn(=<last{xt[n]=tt[n],yt[n]=(tI[n],tV[n])},0,N)},init=>,run=>,return=out=>,scope2storage=>,=<return]=>
+plot2d_IV(dT,dI,f,Nt,Nint,isImplicit)=<[out=<(xt,yt),scope2storage=<last{add__(xt),add__(yt)},init=<last{N=Nt*Nint,xt=zeros(N+1,1),yt=zeros(N+1,2)},run=<last{make_tIV(dT,dI,f,Nt,Nint,isImplicit)==>,_sn(=<last{xt[n]=tt[n],yt[n]=(tI[n],tV[n])},0,N)},init=>,run=>,return=out=>,scope2storage=>,=<return]=>
 stored_eqn(plot2d_IV)
 
-make_tIV(dI,f,Nt,Nint,isImplicit)=<last{L=1e-4,R0=1,R1=2,C1=0.1,a1=1/(R1*C1),b1=1/C1,a2=0.01,b2=0.12,omega=2*pi*f,dt=1/(f*Nt),N=Nt*Nint,tt=zeros(N+1,1),tI=zeros(N+1,1),tV=zeros(N+1,1),oldV1=0,oldV2=0,_sn(=<last{t=n*dt,It=dI*sin(omega*t),dIt=dI*cos(omega*t)*omega,newV1=switch(isImplicit,(oldV1+b1*dt*It)/(1+a1*dt):1,(1-a1*dt)*oldV1+b1*dt*It),newV2=switch(isImplicit,(oldV2+b2*dt*It)/(1+a2*dt):1,(1-a2*dt)*oldV2+b2*dt*It),oldV1=newV1,oldV2=newV2,Vt=L*dIt+R0*It+newV1+newV2,tt[n]=t,tI[n]=It,tV[n]=Vt},0,N)}
+make_tIV(dT,dI,f,Nt,Nint,isImplicit)=<last{$TK=273.15,Tref=15+TK,T=Tref+dT,($Eact_a1,$Eact_a2)=(50,10)*1e3,$Rgas=8.31446261815324,ratio_factor(T,Tref,Eact)=<exp((1/Tref-1/T)*Eact/Rgas),ratio_a1=ratio_factor(T,Tref,Eact_a1)=>,ratio_a2=ratio_factor(T,Tref,Eact_a2)=>,L=1e-4,R0=1,R1=2,C1=0.1,a1=1/(R1*C1),b1=1/C1,a2=0.01,b2=0.12,a1=a1*ratio_a1,a2=a2*ratio_a2,omega=2*pi*f,dt=1/(f*Nt),N=Nt*Nint,tt=zeros(N+1,1),tI=zeros(N+1,1),tV=zeros(N+1,1),oldV1=0,oldV2=0,_sn(=<last{t=n*dt,It=dI*sin(omega*t),dIt=dI*cos(omega*t)*omega,newV1=switch(isImplicit,(oldV1+b1*dt*It)/(1+a1*dt):1,(1-a1*dt)*oldV1+b1*dt*It),newV2=switch(isImplicit,(oldV2+b2*dt*It)/(1+a2*dt):1,(1-a2*dt)*oldV2+b2*dt*It),oldV1=newV1,oldV2=newV2,Vt=L*dIt+R0*It+newV1+newV2,tt[n]=t,tI[n]=It,tV[n]=Vt},0,N)}
 stored_eqn(make_tIV)
 
 clear
 local storage cleared
 
-[isImplicit=1,isBode=0,=<plot2d_EIS_DFT(isBode,=<sweep_f(1e-3,1e3,0.01,10,100,1,isImplicit)=>)=>]=>
+[isImplicit=1,isBode=0,=<plot2d_EIS_DFT(isBode,=<sweep_f(0,1e-3,1e3,0.01,10,100,1,isImplicit)=>)=>]=>
 (
 infoLost[ri] 1.0000543892797595,infoLost[ri] -0.6392747864438679:
 infoLost[ri] 1.0001977616975475,infoLost[ri] -0.1975740615050974:
@@ -267,7 +267,7 @@ infoLost[ri] 3.7113368362120522,infoLost[ri] 1.8234973547405817
 plot2d_EIS_DFT(isBode,fZ)=<[out=<(xt,yt),scope2storage=<last{add__(xt),add__(yt)},init=<last{N=sizer(fZ),xt=zeros(N,1),yt=zeros(N,1)},run=<last{switch(isBode==0,=<_sn(=<last{Z=fZ[n][1],xt[n]=real(Z),yt[n]=-imag(Z)},0,N-1):isBode>0,=<_sn(=<last{f=fZ[n][0],Z=fZ[n][1],xt[n]=log10(f),yt[n]=abs(Z)},0,N-1):1,=<_sn(=<last{f=fZ[n][0],Z=fZ[n][1],xt[n]=log10(f),yt[n]=deg_atan2(imag(Z),real(Z))},0,N-1))},init=>,run=>,return=out=>,scope2storage=>,=<return]=>
 stored_eqn(plot2d_EIS_DFT)
 
-sweep_f(dI,f0,f1,Nf,Nt,Nint,isImplicit)=<[out=<fZ,init=<last{fZ=zeros(Nf+1,2)},run=<last{calc_f(n)=<exp(log(f0)+(log(f1)-log(f0))*n/Nf),_sn(=<last{f=calc_f(n)=>,make_IV(dI,f,Nt,Nint,isImplicit)==>,fZ[n]=(f,calc_Z(DFT_IV(=<tI,f,dt)=>,DFT_IV(=<tV,f,dt)=>)=>)},0,Nf)},init=>,run=>,return=out=>,=<return]=>
+sweep_f(dT,dI,f0,f1,Nf,Nt,Nint,isImplicit)=<[out=<fZ,init=<last{fZ=zeros(Nf+1,2)},run=<last{calc_f(n)=<exp(log(f0)+(log(f1)-log(f0))*n/Nf),_sn(=<last{f=calc_f(n)=>,make_IV(dT,dI,f,Nt,Nint,isImplicit)==>,fZ[n]=(f,calc_Z(DFT_IV(=<tI,f,dt)=>,DFT_IV(=<tV,f,dt)=>)=>)},0,Nf)},init=>,run=>,return=out=>,=<return]=>
 stored_eqn(sweep_f)
 
 calc_Z(zI,zV)=<[out=<Z,init=<last{0},run=<last{Z=zV/zI},init=>,run=>,return=out=>,=<return]=>
@@ -276,13 +276,13 @@ stored_eqn(calc_Z)
 DFT_IV(IV,f,dt)=<[out=<zIV,init=<last{N=sizer(IV)},run=<last{omega=2*pi*f,zIV=_sn(=<IV[n]*exp(-i*omega*n*dt),0,N-1)},init=>,run=>,return=out=>,=<return]=>
 stored_eqn(DFT_IV)
 
-make_IV(dI,f,Nt,Nint,isImplicit)=<last{L=1e-4,R0=1,R1=2,C1=0.1,a1=1/(R1*C1),b1=1/C1,a2=0.01,b2=0.12,omega=2*pi*f,dt=1/(f*Nt),N=Nt*Nint,tI=zeros(N+1,1),tV=zeros(N+1,1),oldV1=0,oldV2=0,_sn(=<last{t=n*dt,It=dI*sin(omega*t),dIt=dI*cos(omega*t)*omega,newV1=switch(isImplicit,(oldV1+b1*dt*It)/(1+a1*dt):1,(1-a1*dt)*oldV1+b1*dt*It),newV2=switch(isImplicit,(oldV2+b2*dt*It)/(1+a2*dt):1,(1-a2*dt)*oldV2+b2*dt*It),oldV1=newV1,oldV2=newV2,Vt=L*dIt+R0*It+newV1+newV2,tI[n]=It,tV[n]=Vt},0,N)}
+make_IV(dT,dI,f,Nt,Nint,isImplicit)=<last{$TK=273.15,Tref=15+TK,T=Tref+dT,($Eact_a1,$Eact_a2)=(50,10)*1e3,$Rgas=8.31446261815324,ratio_factor(T,Tref,Eact)=<exp((1/Tref-1/T)*Eact/Rgas),ratio_a1=ratio_factor(T,Tref,Eact_a1)=>,ratio_a2=ratio_factor(T,Tref,Eact_a2)=>,L=1e-4,R0=1,R1=2,C1=0.1,a1=1/(R1*C1),b1=1/C1,a2=0.01,b2=0.12,a1=a1*ratio_a1,a2=a2*ratio_a2,omega=2*pi*f,dt=1/(f*Nt),N=Nt*Nint,tI=zeros(N+1,1),tV=zeros(N+1,1),oldV1=0,oldV2=0,_sn(=<last{t=n*dt,It=dI*sin(omega*t),dIt=dI*cos(omega*t)*omega,newV1=switch(isImplicit,(oldV1+b1*dt*It)/(1+a1*dt):1,(1-a1*dt)*oldV1+b1*dt*It),newV2=switch(isImplicit,(oldV2+b2*dt*It)/(1+a2*dt):1,(1-a2*dt)*oldV2+b2*dt*It),oldV1=newV1,oldV2=newV2,Vt=L*dIt+R0*It+newV1+newV2,tI[n]=It,tV[n]=Vt},0,N)}
 stored_eqn(make_IV)
 
 clear
 local storage cleared
 
-[isImplicit=1,isBode=0,=<plot2d_EIS(isBode,=<sweep_f(1e-3,1e3,0.01,10,100,1,isImplicit)=>)=>]=>
+[isImplicit=1,isBode=0,=<plot2d_EIS(isBode,=<sweep_f(0,1e-3,1e3,0.01,10,100,1,isImplicit)=>)=>]=>
 (
 infoLost[ri] 1.000054390110971,infoLost[ri] -0.626708495177503:
 infoLost[ri] 1.000197769963538,infoLost[ri] -0.19360101526223308:
@@ -300,7 +300,7 @@ infoLost[ri] 3.7114598750937624,infoLost[ri] 1.811702692783572
 plot2d_EIS(isBode,fZ)=<[out=<(xt,yt),scope2storage=<last{add__(xt),add__(yt)},init=<last{N=sizer(fZ),xt=zeros(N,1),yt=zeros(N,1)},run=<last{switch(isBode==0,=<_sn(=<last{Z=fZ[n][1],xt[n]=real(Z),yt[n]=-imag(Z)},0,N-1):isBode>0,=<_sn(=<last{f=fZ[n][0],Z=fZ[n][1],xt[n]=log10(f),yt[n]=abs(Z)},0,N-1):1,=<_sn(=<last{f=fZ[n][0],Z=fZ[n][1],xt[n]=log10(f),yt[n]=deg_atan2(imag(Z),real(Z))},0,N-1))},init=>,run=>,return=out=>,scope2storage=>,=<return]=>
 stored_eqn(plot2d_EIS)
 
-sweep_f(dI,f0,f1,Nf,Nt,Nint,isImplicit)=<[out=<fZ,init=<last{fZ=zeros(Nf+1,2)},run=<last{calc_f(n)=<exp(log(f0)+(log(f1)-log(f0))*n/Nf),_sn(=<last{f=calc_f(n)=>,make_IV(dI,f,Nt,Nint,isImplicit)==>,fZ[n]=(f,calc_Z(FT_IV(=<tI,f,dt)=>,FT_IV(=<tV,f,dt)=>)=>)},0,Nf)},init=>,run=>,return=out=>,=<return]=>
+sweep_f(dT,dI,f0,f1,Nf,Nt,Nint,isImplicit)=<[out=<fZ,init=<last{fZ=zeros(Nf+1,2)},run=<last{calc_f(n)=<exp(log(f0)+(log(f1)-log(f0))*n/Nf),_sn(=<last{f=calc_f(n)=>,make_IV(dT,dI,f,Nt,Nint,isImplicit)==>,fZ[n]=(f,calc_Z(FT_IV(=<tI,f,dt)=>,FT_IV(=<tV,f,dt)=>)=>)},0,Nf)},init=>,run=>,return=out=>,=<return]=>
 stored_eqn(sweep_f)
 
 calc_Z(zI,zV)=<[out=<Z,init=<last{0},run=<last{Z=zV/zI},init=>,run=>,return=out=>,=<return]=>
@@ -309,7 +309,7 @@ stored_eqn(calc_Z)
 FT_IV(IV,f,dt)=<[out=<zIV,init=<last{N=sizer(IV)},run=<last{omega=2*pi*f,calc_w(n)=<switch((n==0)|(n==N-1),1:n%2==0,2:1,4),calc_v(n,t,val)=<calc_w(n)=>*val*exp(-i*omega*t),zIV=_sn(=<calc_v(n,n*dt,IV[n])=>,0,N-1)*dt/3},init=>,run=>,return=out=>,=<return]=>
 stored_eqn(FT_IV)
 
-make_IV(dI,f,Nt,Nint,isImplicit)=<last{L=1e-4,R0=1,R1=2,C1=0.1,a1=1/(R1*C1),b1=1/C1,a2=0.01,b2=0.12,omega=2*pi*f,dt=1/(f*Nt),N=Nt*Nint,tI=zeros(N+1,1),tV=zeros(N+1,1),oldV1=0,oldV2=0,_sn(=<last{t=n*dt,It=dI*sin(omega*t),dIt=dI*cos(omega*t)*omega,newV1=switch(isImplicit,(oldV1+b1*dt*It)/(1+a1*dt):1,(1-a1*dt)*oldV1+b1*dt*It),newV2=switch(isImplicit,(oldV2+b2*dt*It)/(1+a2*dt):1,(1-a2*dt)*oldV2+b2*dt*It),oldV1=newV1,oldV2=newV2,Vt=L*dIt+R0*It+newV1+newV2,tI[n]=It,tV[n]=Vt},0,N)}
+make_IV(dT,dI,f,Nt,Nint,isImplicit)=<last{$TK=273.15,Tref=15+TK,T=Tref+dT,($Eact_a1,$Eact_a2)=(50,10)*1e3,$Rgas=8.31446261815324,ratio_factor(T,Tref,Eact)=<exp((1/Tref-1/T)*Eact/Rgas),ratio_a1=ratio_factor(T,Tref,Eact_a1)=>,ratio_a2=ratio_factor(T,Tref,Eact_a2)=>,L=1e-4,R0=1,R1=2,C1=0.1,a1=1/(R1*C1),b1=1/C1,a2=0.01,b2=0.12,a1=a1*ratio_a1,a2=a2*ratio_a2,omega=2*pi*f,dt=1/(f*Nt),N=Nt*Nint,tI=zeros(N+1,1),tV=zeros(N+1,1),oldV1=0,oldV2=0,_sn(=<last{t=n*dt,It=dI*sin(omega*t),dIt=dI*cos(omega*t)*omega,newV1=switch(isImplicit,(oldV1+b1*dt*It)/(1+a1*dt):1,(1-a1*dt)*oldV1+b1*dt*It),newV2=switch(isImplicit,(oldV2+b2*dt*It)/(1+a2*dt):1,(1-a2*dt)*oldV2+b2*dt*It),oldV1=newV1,oldV2=newV2,Vt=L*dIt+R0*It+newV1+newV2,tI[n]=It,tV[n]=Vt},0,N)}
 stored_eqn(make_IV)
 
 clear
@@ -1268,7 +1268,7 @@ clear
 local storage cleared
 
 [Pinv_y=(-0.999999427,-0.999936657,-0.997300203,-0.954499736,-0.682689492,0,0.682689492,0.954499736,0.997300203,0.999936657,0.999999427:-5,-4,-3,-2,-1,0,1,2,3,4,5),N=1,arr=[],_rn(=<arr.push(rand_table(=<Pinv_y)=>),,N),=<arr.]=>
-1.956024439856901
+-1.175636705678142
 
 rand_table(csv)=<last[table=sort0(csv),ymin=min(table)[0],ymax=max(table)[0],y=ymin+(ymax-ymin)*rand(),x=interp(y:table),x]
 stored_eqn(rand_table)
@@ -2925,4 +2925,7 @@ center=true&drag=false&test-case=false&legend=true&axis-t=false&axis-x=true&log-
 --------------------------------
 --------------------------------
 
-online-simulator.github.io.6.347.147.18.87 @ Tue Oct 24 2023 21:20:08 GMT+0900 (日本標準時) @ Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/118.0.0.0 Safari/537.36
+storage cleared
+
+--------------------------------
+online-simulator.github.io.6.347.148.18.87 @ Fri Oct 27 2023 06:22:30 GMT+0900 (日本標準時) @ Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/118.0.0.0 Safari/537.36
