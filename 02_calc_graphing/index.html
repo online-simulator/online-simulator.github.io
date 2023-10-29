@@ -377,6 +377,8 @@
       script += "\nclear;\n";
       script += "f(?A)=<[A[0]:A[1]:(A[0][0],A[0][1]:A[1][0],A[1][1]):A[1]=A[0],A[][1]=A[][0]:A];\nA=(1,2:3,4):A:f(?A):A:[A=(1,2:3,4):A:f(?A):A];";
       script += "\nclear;\n";
+      script += "f=<1,g=f:f(),g():set_f(?f)=<f=<-1,set_f(?f):f(),g()/*Non-strict-mode*/;";
+      script += "\nclear;\n";
       $._id("input").value = script;
       // test case
       var setVal = function(){

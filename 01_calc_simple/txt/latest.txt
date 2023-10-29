@@ -1,6 +1,17 @@
 clear
 local storage cleared
 
+f=<1,g=f:f(),g():set_f(?f)=<f=<-1,set_f(?f):f(),g()/*Non-strict-mode*/
+(
+0,0:
+1,1:
+0,0:
+-1,1
+)
+
+clear
+local storage cleared
+
 A=(1,2:3,4):A:f(?A):A:[A=(1,2:3,4):A:f(?A):A]
 (
 0:
@@ -4192,4 +4203,4 @@ drag=false&sw=false&0x=false&useMatrix=true&useStrict=false&checkError=true&isRi
 --------------------------------
 --------------------------------
 
-online-simulator.github.io.6.347.146.18.87 @ Mon Oct 23 2023 17:48:54 GMT+0900 (日本標準時) @ Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/118.0.0.0 Safari/537.36
+online-simulator.github.io.6.347.149.18.87 @ Sun Oct 29 2023 18:46:35 GMT+0900 (日本標準時) @ Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/118.0.0.0 Safari/537.36
