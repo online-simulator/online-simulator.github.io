@@ -1524,23 +1524,15 @@ else{
         // update
         x0 = update_x0(names, ids_buffer);  // Ver.2.233.56  // Ver.2.234.56
         // check convergence
-        var isBreak = false;  // Ver.2.271.62
-        if(isRelative_epsN){
-          // relative error
-          var normdx = math_mat.normc(options, arr_mdx);  // Ver.2.237.56
-          var normx0 = math_mat.normc(options, DATA.vec2arr(x0));  // Ver.2.237.56 x0: vectorc
-          if(self.arr2num(normdx).com.r < epsN*self.arr2num(normx0).com.r){
-            isBreak = true;  // Ver.2.271.62
-          }
-        }
-        else{
-          // absolute error
-          var normdx = math_mat.normc(options, arr_mdx);  // Ver.2.237.56
-          if(self.arr2num(normdx).com.r < epsN){
-            isBreak = true;  // Ver.2.271.62
-          }
-        }
-        if(isBreak) break;  // last to share static_scopes2d_array  // Ver.2.271.62
+        /* Ver.2.309.77 -> */
+        var normdx = math_mat.normc(options, arr_mdx);  // Ver.2.237.56
+        /* Ver.2.271.62 -> */
+        var cr_norm = self.arr2num(normdx).com.r;
+        var epsn = (isRelative_epsN)? epsN*self.arr2num(math_mat.normc(options, DATA.vec2arr(x0))).com.r: epsN;  // Ver.2.237.56 x0: vectorc
+        var isBreak = isNaN(cr_norm) || (cr_norm < epsn);
+        if(isBreak) break;  // last to share static_scopes2d_array
+        /* -> Ver.2.271.62 */
+        /* -> Ver.2.309.77 */
       }
       if(arr_mdx){
         if(options.checkError && argN && argN.com){
