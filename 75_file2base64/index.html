@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+
+<html lang="ja">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="description" content="file2base64">
+  <meta name="author" content="online-simulator.github.io">
+  <noscript>JavaScript is not enabled on browser.</noscript>
+  <link rel="stylesheet" type="text/css" href="../00_common/css/common.css">
+  <link rel="stylesheet" type="text/css" href="../00_common/css/color.css">
+  <link rel="stylesheet" type="text/css" href="../00_common/css/size.css">
+  <link rel="stylesheet" type="text/css" href="css/common.css">
+  <link rel="stylesheet" type="text/css" href="css/color.css">
+  <link rel="stylesheet" type="text/css" href="css/size.css">
+  <script type="text/javascript" src="../00_common/js/000_namespace/000_entry.js"></script>
+  <script type="text/javascript" src="../00_common/js/00_class/00_$.js"></script>
+  <script type="text/javascript" src="../00_common/js/00_class/00_def.js"></script>
+  <script type="text/javascript" src="../00_common/js/03_original/03_original_main.js"></script>
+  <script type="text/javascript" src="js/03_file2base64.js"></script>
+</head>
+
+<body>
+
+<script type="text/javascript">
+  (function(){
+    new My_entry.$().onload(function(e){
+      new My_entry.test_file2base64().onload(e);
+    });
+  })();
+</script>
+
+  <div class="absolute">
+
+<hr>
+<div>
+<table><tbody>
+<tr><td class="input-700">
+icon等、input-fileを選択　⇒　Base64を出力
+</td></tr>
+<tr><td>
+  <input id="input-file" type="file">
+</td></tr>
+<tr><td>
+  <label for="textarea-output">Base64:</label>
+<br>
+  <textarea id="textarea-output" readonly="readonly" rows="20"></textarea>
+</td></tr>
+</tbody></table>
+</div>
+<hr>
+
+  </div>
+
+</body>
+
+</html>
