@@ -54,13 +54,17 @@ My_entry.test_file2base64.prototype.convert = function(elem){
   var self = this;
   var $ = self.entry.$;
   var elemo = self.entry.$._id("textarea-output");
+  var elemt = self.entry.$._id("textarea-text");
   var file = $.readFile_elem(elem, /^/, function(e){
     var base64 = e.target.result;
     elemo.value = base64;
+    var mc = base64.match(/text\/.*base64,(.*)/);
+    elemt.value = (window.atob && mc && mc.length)? atob(mc[1]): null;
   });
   if(!(file)){
     elem.value = null;
     elemo.value = "input-file not found";
+    elemt.value = null;
   }
   return self;
 };
