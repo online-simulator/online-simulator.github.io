@@ -830,6 +830,8 @@ e^(-i(1pi(){2/2i}(5-{3-1}){i/(-4)}))
 <br>
 ・<a href="#span-eqn-map">map</a>
 <br>
+・<a href="#span-eqn-arr_ext">arr_ext</a>
+<br>
 ・<a href="#span-eqn-Rump">Rump</a>
 <br>
 ・<a href="#span-eqn-Fibonacci">Fibonacci</a>
@@ -37036,6 +37038,9 @@ _rk(=&lt;<span class="clear">eqn_k</span>,N=sizer(primes),N,=&lt;{n%prime==0}); 
 ・3次元以上の配列に相当する自由度は<a href="#span-out-vars-symbol">変数名symbol</a>で区別する
 <br>
 ・3次元以上の配列に相当するfor-loopは展開して記述する
+<br>
+<br>
+<a href="#span-in-call-by-equation">遅延評価</a>で3次元以上の配列を代替する場合、<a href="#span-eqn-arr_ext">arr_ext</a>参照
     </td>
   </tr>
   <tr>
@@ -40461,6 +40466,41 @@ A.map((=&lt;f)=&lt;f(3)==&gt;):
 [arr=[],A.map((=&lt;f)=&lt;arr=(arr,f(3)=&gt;,f(3)==&gt;)),=&lt;arr]=&gt;
 <br>
 ];
+    </td>
+  </tr>
+  <tr>
+    <th>
+<a href="#span-index">
+目次
+</a>
+<br>
+arr_ext
+    </th>
+    <td>
+<span id="span-eqn-arr_ext"></span>
+<a href="#span-in-call-by-equation">遅延評価</a>||<a href="#span-out-development-problems-type">型定義の問題点</a>参照
+<br>
+clear;
+<br>
+A_lazy=[=&lt;1,=&lt;[2,3],=&lt;[4,=&lt;[5,=&lt;x]]];
+<br>
+(((A_lazy[][2])=&gt;)[][1])=&gt;;
+<br>
+((([=&lt;1,=&lt;[2,3],=&lt;[4,=&lt;[5,=&lt;x]]][][2])=&gt;)[][1])=&gt;;
+<br>
+((((A_lazy[][2])=&gt;)[][1])=&gt;)[][1];
+<br>
+(((([=&lt;1,=&lt;[2,3],=&lt;[4,=&lt;[5,=&lt;x]]][][2])=&gt;)[][1])=&gt;)[][1];
+<br>
+tA_lazy=[=&lt;1,=&lt;[2,3],=&lt;[4,=&lt;[5,=&lt;x].].].;
+<br>
+(((tA_lazy[2])=&gt;)[1])=&gt;;
+<br>
+(((([=&lt;1,=&lt;[2,3],=&lt;[4,=&lt;[5,=&lt;x].].].)[2])=&gt;)[1])=&gt;;
+<br>
+((((tA_lazy[2])=&gt;)[1])=&gt;)[1];
+<br>
+((((([=&lt;1,=&lt;[2,3],=&lt;[4,=&lt;[5,=&lt;x].].].)[2])=&gt;)[1])=&gt;)[1];
     </td>
   </tr>
   <tr>
