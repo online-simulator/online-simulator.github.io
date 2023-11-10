@@ -243,7 +243,7 @@ stored_eqn(heat0d_evolution)
 plot2d_IV(dT,dI,f,Nt,Nint,isImplicit)=<[out=<(xt,yt),scope2storage=<last{add__(xt),add__(yt)},init=<last{N=Nt*Nint,xt=zeros(N+1,1),yt=zeros(N+1,2)},run=<last{make_tIV(dT,dI,f,Nt,Nint,isImplicit)==>,_sn(=<last{xt[n]=tt[n],yt[n]=(tI[n],tV[n])},0,N)},init=>,run=>,return=out=>,scope2storage=>,=<return]=>
 stored_eqn(plot2d_IV)
 
-make_tIV(dT,dI,f,Nt,Nint,isImplicit)=<last{$TK=273.15,Tref=15+TK,T=Tref+dT,($Eact_a1,$Eact_a2)=(50,10)*1e3,$Rgas=8.31446261815324,ratio_factor(T,Tref,Eact)=<exp((1/Tref-1/T)*Eact/Rgas),ratio_a1=ratio_factor(T,Tref,Eact_a1)=>,ratio_a2=ratio_factor(T,Tref,Eact_a2)=>,L=1e-4,R0=1,R1=2,C1=0.1,a1=1/(R1*C1),b1=1/C1,a2=0.01,b2=0.12,a1=a1*ratio_a1,a2=a2*ratio_a2,omega=2*pi*f,dt=1/(f*Nt),N=Nt*Nint,tt=zeros(N+1,1),tI=zeros(N+1,1),tV=zeros(N+1,1),oldV1=0,oldV2=0,_sn(=<last{t=n*dt,It=dI*sin(omega*t),dIt=dI*cos(omega*t)*omega,newV1=switch(isImplicit,(oldV1+b1*dt*It)/(1+a1*dt):1,(1-a1*dt)*oldV1+b1*dt*It),newV2=switch(isImplicit,(oldV2+b2*dt*It)/(1+a2*dt):1,(1-a2*dt)*oldV2+b2*dt*It),oldV1=newV1,oldV2=newV2,Vt=L*dIt+R0*It+newV1+newV2,tt[n]=t,tI[n]=It,tV[n]=Vt},0,N)}
+make_tIV(dT,dI,f,Nt,Nint,isImplicit)=<last{$TK=273.15,Tref=15+TK,T=Tref+dT,($Eact_R0,$Eact_a1,$Eact_a2)=(20,50,10)*1e3,$Rgas=8.31446261815324,ratio_factor(T,Tref,Eact)=<exp((1/Tref-1/T)*Eact/Rgas),ratio_R0=ratio_factor(T,Tref,Eact_R0)=>,ratio_a1=ratio_factor(T,Tref,Eact_a1)=>,ratio_a2=ratio_factor(T,Tref,Eact_a2)=>,L=1e-4,R0=0.5+0.5/ratio_R0,R1=2,C1=0.1,a1=1/(R1*C1),b1=1/C1,a2=0.01,b2=0.12,a1=a1*ratio_a1,a2=a2*ratio_a2,omega=2*pi*f,dt=1/(f*Nt),N=Nt*Nint,tt=zeros(N+1,1),tI=zeros(N+1,1),tV=zeros(N+1,1),oldV1=0,oldV2=0,_sn(=<last{t=n*dt,It=dI*sin(omega*t),dIt=dI*cos(omega*t)*omega,newV1=switch(isImplicit,(oldV1+b1*dt*It)/(1+a1*dt):1,(1-a1*dt)*oldV1+b1*dt*It),newV2=switch(isImplicit,(oldV2+b2*dt*It)/(1+a2*dt):1,(1-a2*dt)*oldV2+b2*dt*It),oldV1=newV1,oldV2=newV2,Vt=L*dIt+R0*It+newV1+newV2,tt[n]=t,tI[n]=It,tV[n]=Vt},0,N)}
 stored_eqn(make_tIV)
 
 clear
@@ -276,7 +276,7 @@ stored_eqn(calc_Z)
 DFT_IV(IV,f,dt)=<[out=<zIV,init=<last{N=sizer(IV)},run=<last{omega=2*pi*f,zIV=_sn(=<IV[n]*exp(-i*omega*n*dt),0,N-1)},init=>,run=>,return=out=>,=<return]=>
 stored_eqn(DFT_IV)
 
-make_IV(dT,dI,f,Nt,Nint,isImplicit)=<last{$TK=273.15,Tref=15+TK,T=Tref+dT,($Eact_a1,$Eact_a2)=(50,10)*1e3,$Rgas=8.31446261815324,ratio_factor(T,Tref,Eact)=<exp((1/Tref-1/T)*Eact/Rgas),ratio_a1=ratio_factor(T,Tref,Eact_a1)=>,ratio_a2=ratio_factor(T,Tref,Eact_a2)=>,L=1e-4,R0=1,R1=2,C1=0.1,a1=1/(R1*C1),b1=1/C1,a2=0.01,b2=0.12,a1=a1*ratio_a1,a2=a2*ratio_a2,omega=2*pi*f,dt=1/(f*Nt),N=Nt*Nint,tI=zeros(N+1,1),tV=zeros(N+1,1),oldV1=0,oldV2=0,_sn(=<last{t=n*dt,It=dI*sin(omega*t),dIt=dI*cos(omega*t)*omega,newV1=switch(isImplicit,(oldV1+b1*dt*It)/(1+a1*dt):1,(1-a1*dt)*oldV1+b1*dt*It),newV2=switch(isImplicit,(oldV2+b2*dt*It)/(1+a2*dt):1,(1-a2*dt)*oldV2+b2*dt*It),oldV1=newV1,oldV2=newV2,Vt=L*dIt+R0*It+newV1+newV2,tI[n]=It,tV[n]=Vt},0,N)}
+make_IV(dT,dI,f,Nt,Nint,isImplicit)=<last{$TK=273.15,Tref=15+TK,T=Tref+dT,($Eact_R0,$Eact_a1,$Eact_a2)=(20,50,10)*1e3,$Rgas=8.31446261815324,ratio_factor(T,Tref,Eact)=<exp((1/Tref-1/T)*Eact/Rgas),ratio_R0=ratio_factor(T,Tref,Eact_R0)=>,ratio_a1=ratio_factor(T,Tref,Eact_a1)=>,ratio_a2=ratio_factor(T,Tref,Eact_a2)=>,L=1e-4,R0=0.5+0.5/ratio_R0,R1=2,C1=0.1,a1=1/(R1*C1),b1=1/C1,a2=0.01,b2=0.12,a1=a1*ratio_a1,a2=a2*ratio_a2,omega=2*pi*f,dt=1/(f*Nt),N=Nt*Nint,tI=zeros(N+1,1),tV=zeros(N+1,1),oldV1=0,oldV2=0,_sn(=<last{t=n*dt,It=dI*sin(omega*t),dIt=dI*cos(omega*t)*omega,newV1=switch(isImplicit,(oldV1+b1*dt*It)/(1+a1*dt):1,(1-a1*dt)*oldV1+b1*dt*It),newV2=switch(isImplicit,(oldV2+b2*dt*It)/(1+a2*dt):1,(1-a2*dt)*oldV2+b2*dt*It),oldV1=newV1,oldV2=newV2,Vt=L*dIt+R0*It+newV1+newV2,tI[n]=It,tV[n]=Vt},0,N)}
 stored_eqn(make_IV)
 
 clear
@@ -309,7 +309,7 @@ stored_eqn(calc_Z)
 FT_IV(IV,f,dt)=<[out=<zIV,init=<last{N=sizer(IV)},run=<last{omega=2*pi*f,calc_w(n)=<switch((n==0)|(n==N-1),1:n%2==0,2:1,4),calc_v(n,t,val)=<calc_w(n)=>*val*exp(-i*omega*t),zIV=_sn(=<calc_v(n,n*dt,IV[n])=>,0,N-1)*dt/3},init=>,run=>,return=out=>,=<return]=>
 stored_eqn(FT_IV)
 
-make_IV(dT,dI,f,Nt,Nint,isImplicit)=<last{$TK=273.15,Tref=15+TK,T=Tref+dT,($Eact_a1,$Eact_a2)=(50,10)*1e3,$Rgas=8.31446261815324,ratio_factor(T,Tref,Eact)=<exp((1/Tref-1/T)*Eact/Rgas),ratio_a1=ratio_factor(T,Tref,Eact_a1)=>,ratio_a2=ratio_factor(T,Tref,Eact_a2)=>,L=1e-4,R0=1,R1=2,C1=0.1,a1=1/(R1*C1),b1=1/C1,a2=0.01,b2=0.12,a1=a1*ratio_a1,a2=a2*ratio_a2,omega=2*pi*f,dt=1/(f*Nt),N=Nt*Nint,tI=zeros(N+1,1),tV=zeros(N+1,1),oldV1=0,oldV2=0,_sn(=<last{t=n*dt,It=dI*sin(omega*t),dIt=dI*cos(omega*t)*omega,newV1=switch(isImplicit,(oldV1+b1*dt*It)/(1+a1*dt):1,(1-a1*dt)*oldV1+b1*dt*It),newV2=switch(isImplicit,(oldV2+b2*dt*It)/(1+a2*dt):1,(1-a2*dt)*oldV2+b2*dt*It),oldV1=newV1,oldV2=newV2,Vt=L*dIt+R0*It+newV1+newV2,tI[n]=It,tV[n]=Vt},0,N)}
+make_IV(dT,dI,f,Nt,Nint,isImplicit)=<last{$TK=273.15,Tref=15+TK,T=Tref+dT,($Eact_R0,$Eact_a1,$Eact_a2)=(20,50,10)*1e3,$Rgas=8.31446261815324,ratio_factor(T,Tref,Eact)=<exp((1/Tref-1/T)*Eact/Rgas),ratio_R0=ratio_factor(T,Tref,Eact_R0)=>,ratio_a1=ratio_factor(T,Tref,Eact_a1)=>,ratio_a2=ratio_factor(T,Tref,Eact_a2)=>,L=1e-4,R0=0.5+0.5/ratio_R0,R1=2,C1=0.1,a1=1/(R1*C1),b1=1/C1,a2=0.01,b2=0.12,a1=a1*ratio_a1,a2=a2*ratio_a2,omega=2*pi*f,dt=1/(f*Nt),N=Nt*Nint,tI=zeros(N+1,1),tV=zeros(N+1,1),oldV1=0,oldV2=0,_sn(=<last{t=n*dt,It=dI*sin(omega*t),dIt=dI*cos(omega*t)*omega,newV1=switch(isImplicit,(oldV1+b1*dt*It)/(1+a1*dt):1,(1-a1*dt)*oldV1+b1*dt*It),newV2=switch(isImplicit,(oldV2+b2*dt*It)/(1+a2*dt):1,(1-a2*dt)*oldV2+b2*dt*It),oldV1=newV1,oldV2=newV2,Vt=L*dIt+R0*It+newV1+newV2,tI[n]=It,tV[n]=Vt},0,N)}
 stored_eqn(make_IV)
 
 clear
@@ -1268,7 +1268,7 @@ clear
 local storage cleared
 
 [Pinv_y=(-0.999999427,-0.999936657,-0.997300203,-0.954499736,-0.682689492,0,0.682689492,0.954499736,0.997300203,0.999936657,0.999999427:-5,-4,-3,-2,-1,0,1,2,3,4,5),N=1,arr=[],_rn(=<arr.push(rand_table(=<Pinv_y)=>),,N),=<arr.]=>
-0.06206973046699689
+0.358004413914024
 
 rand_table(csv)=<last[table=sort0(csv),ymin=min(table)[0],ymax=max(table)[0],y=ymin+(ymax-ymin)*rand(),x=interp(y:table),x]
 stored_eqn(rand_table)
@@ -1405,13 +1405,13 @@ stored_var(a) stored_var(b) stored_var(ans_correct)
 clear
 local storage cleared
 
-((((([=<1,=<[2,3],=<[4,=<[5,=<x].].].)[2])=>)[1])=>)[1]
+((((([=<1,=<[2,3].,=<[4,=<[5,=<x].].].)[2])=>)[1])=>)[1]
 ($x)
 
 ((((tA_lazy[2])=>)[1])=>)[1]
 ($x)
 
-(((([=<1,=<[2,3],=<[4,=<[5,=<x].].].)[2])=>)[1])=>
+(((([=<1,=<[2,3].,=<[4,=<[5,=<x].].].)[2])=>)[1])=>
 (
 5:
 $x
@@ -1423,7 +1423,7 @@ $x
 $x
 )
 
-tA_lazy=[=<1,=<[2,3],=<[4,=<[5,=<x].].].
+tA_lazy=[=<1,=<[2,3].,=<[4,=<[5,=<x].].].
 tA_lazy=(
 eqn:
 eqn:
@@ -2974,4 +2974,4 @@ center=true&drag=false&test-case=false&legend=true&axis-t=false&axis-x=true&log-
 --------------------------------
 --------------------------------
 
-online-simulator.github.io.6.349.153.18.87 @ Thu Nov 09 2023 14:17:04 GMT+0900 (日本標準時) @ Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/119.0.0.0 Safari/537.36
+online-simulator.github.io.6.349.155.18.87 @ Sat Nov 11 2023 05:52:20 GMT+0900 (日本標準時) @ Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/119.0.0.0 Safari/537.36

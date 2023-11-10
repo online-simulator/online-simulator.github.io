@@ -42581,11 +42581,13 @@ Tref=15+TK,
 <br>
 T=Tref+dT,
 <br>
-($Eact_a1,$Eact_a2)=(50,10)*1e3,
+($Eact_R0,$Eact_a1,$Eact_a2)=(20,50,10)*1e3,
 <br>
 <span class="jF">$</span>Rgas=8.31446261815324,
 <br>
 ratio_factor(T,Tref,Eact)=&lt;exp((1/Tref-1/T)*Eact/Rgas),
+<br>
+ratio_R0=ratio_factor(T,Tref,Eact_R0)=&gt;,
 <br>
 ratio_a1=ratio_factor(T,Tref,Eact_a1)=&gt;,
 <br>
@@ -42593,7 +42595,7 @@ ratio_a2=ratio_factor(T,Tref,Eact_a2)=&gt;,
 <br>
 L=1e-4,
 <br>
-R0=1,
+R0=0.5+0.5/ratio_R0,
 <br>
 R1=2,C1=0.1,
 <br>
@@ -42806,11 +42808,13 @@ Tref=15+TK,
 <br>
 T=Tref+dT,
 <br>
-($Eact_a1,$Eact_a2)=(50,10)*1e3,
+($Eact_R0,$Eact_a1,$Eact_a2)=(20,50,10)*1e3,
 <br>
 <span class="jF">$</span>Rgas=8.31446261815324,
 <br>
 ratio_factor(T,Tref,Eact)=&lt;exp((1/Tref-1/T)*Eact/Rgas),
+<br>
+ratio_R0=ratio_factor(T,Tref,Eact_R0)=&gt;,
 <br>
 ratio_a1=ratio_factor(T,Tref,Eact_a1)=&gt;,
 <br>
@@ -42818,7 +42822,7 @@ ratio_a2=ratio_factor(T,Tref,Eact_a2)=&gt;,
 <br>
 L=1e-4,
 <br>
-R0=1,
+R0=0.5+0.5/ratio_R0,
 <br>
 R1=2,C1=0.1,
 <br>
@@ -43027,11 +43031,13 @@ Tref=15+TK,
 <br>
 T=Tref+dT,
 <br>
-($Eact_a1,$Eact_a2)=(50,10)*1e3,
+($Eact_R0,$Eact_a1,$Eact_a2)=(20,50,10)*1e3,
 <br>
 <span class="jF">$</span>Rgas=8.31446261815324,
 <br>
 ratio_factor(T,Tref,Eact)=&lt;exp((1/Tref-1/T)*Eact/Rgas),
+<br>
+ratio_R0=ratio_factor(T,Tref,Eact_R0)=&gt;,
 <br>
 ratio_a1=ratio_factor(T,Tref,Eact_a1)=&gt;,
 <br>
@@ -43039,7 +43045,7 @@ ratio_a2=ratio_factor(T,Tref,Eact_a2)=&gt;,
 <br>
 L=1e-4,
 <br>
-R0=1,
+R0=0.5+0.5/ratio_R0,
 <br>
 R1=2,C1=0.1,
 <br>
