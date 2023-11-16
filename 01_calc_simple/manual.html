@@ -40568,6 +40568,24 @@ Fibonacci
 <br>
 clear;
 <br>
+[
+<br>
+F0=0,
+<br>
+F1=1,
+<br>
+arr=[F0,F1],
+<br>
+[F0=F0,F1=F1,<span class="jF">eqn=()=&lt;</span>last{F2=F0+F1,F0=F1,F1=F2,F2},=&lt;eqn]=&gt;generator_fibo2,
+<br>
+_s<span class="jF">((n)</span>=&lt;arr.push(generator_fibo2=&gt;),2,10),
+<br>
+=&lt;arr
+<br>
+]=&gt;;
+<br>
+clear;
+<br>
 fibok(n,n0,k)=&lt;n&lt;k-1&amp;&amp;n0||||n&lt;k|||_s<span class="jF">((m)</span>=&lt;fibok(n-m,n0,k)=&gt;,1,k);
 <br>
 luca2(n)=&lt;fibok(n,2,2)=&gt;;
