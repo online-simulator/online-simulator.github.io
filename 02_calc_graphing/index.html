@@ -396,6 +396,7 @@
       $._id("ax").onclick = function(){setVal("1e-3(1+i)", "1e2(1+i)", "x=t,x;", "x;2x;3x;4x;5x;6x;7x;8x;9x;10x;");};
       $._id("pow1").onclick = function(){setVal("-1", "1", "x=t,x;", "x;x^2;x^3;x^4;x^5;", 30);};
       $._id("pow2").onclick = function(){setVal("-2(1+i)", "2(1+i)", "x=t,x;", "x;x^2;x^3;x^4;x^5;", 30);};
+      $._id("ln").onclick = function(){setVal("1", "10", "x=t,x;", "ln(x)/x;log2(x);log(x);log_ex(x,3);log_ex(x,4);log10(x);", 20);};
       $._id("pow3").onclick = function(){setVal("1", "11", "m=floor(t),m;", "log2(3);Nrshift(m)=<(2**m-1)/2**(m-1),Nrshift(m);hist=(1,1,2,4,8,16,32,64,128,256,512),Nzeros(m)=<linspace(1,m,m)*trans(reverse(hist[0][0][1][m])),Mcases(m)=<2**(m-1),Nrshift(m)=<(m>11&&&{NaN,}|||{Nzeros(m)/Mcases(m),})[0],Nrshift(m);", 10);};
       $._id("sin").onclick = function(){setVal("0", "2pi", "x=t,x;", "sin(x);cos(x);sin(2x);cos(2x);", 100);};
       $._id("circle").onclick = function(){setVal("0", "2pi", "cos(t);ft=<e^(i(t)),real(ft())1.5;2ft();ft2=<ecomp(t),real(ft2())2.5;rot=<(cos(t),-sin(t):sin(t),cos(t)),vec0=(3:0),(rot()*vec0)[0];", "sin(t);imag(ft())1.5;2_d((t)=<-ft());imag(ft2())2.5;(rot()*vec0)[1];", 50);};
@@ -661,6 +662,7 @@
   <button id="ax">a*x</button>
   <button id="pow1">pow1</button>
   <button id="pow2">pow2</button>
+  <button id="ln">ln</button>
   <button id="pow3">Nrshift</button>
   <button id="sin">sin</button>
   <button id="circle">circle</button>
