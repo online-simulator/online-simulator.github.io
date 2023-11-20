@@ -533,6 +533,7 @@
       $._id("stress").onclick = function(){setVal("0", "H=146.6,H", "h=t,g=9.8,rho=2500,L=230.3,H=t1,S(h)=<(L*h/H)^2,V(h)=<_i((h)=<S(h),0,h)/*V(h)=<L^2*H/3*/,m(h)=<rho*V(h),F(h)=<m(h)g,s(h)=<F(h)/(S(h)||1),h;", "s(h)/1e6;", 10);$._id("input-z").value+="XLABEL{depth[m]}YLABEL{vertical stress[MPa]};";};
       $._id("stress2").onclick = function(){setVal("1", "10", "D=t,H=100,step=zeros(H,1),ns=zeros(H,1),s(h)=<_s((n)=<n**(D-1),1,h)/h**(D-1),_s((n)=<last{step[n-1]=n,ns[n-1]=s(n)=>},1,H),step[H-1];", "ns[H-1];", 9);$._id("input-z").value+="XLABEL{step}YLABEL{normalized stress}::0::::D=1;::::::D=2;::::::D=3;::::::D=4;::::::D=5;::::::D=6;::::::D=7;::::::D=8;::::::D=9;::::::D=10;";$._id("input-vx").value="step";$._id("input-vy").value="ns";};
       $._id("catenary").onclick = function(){setVal("-3", "3", "x=t,a=1,x;", "a*(e^(x/a)+e^(-x/a))/2;a+x**2/(2a);", 100);$._id("input-z").value+="::0::::catenary curve;";};
+      $._id("BMI").onclick = function(){setVal("30", "130", "w=t,w;", "BMI(weight,height)=<weight/height**2,BMI(w,1.4);BMI(w,1.5);BMI(w,1.6);BMI(w,1.7);BMI(w,1.8);BMI(w,1.9);BMI(w,2.0);BMI(w,2.1);BMI(w,2.2);18.5;25;", 10);$._id("input-z").value+="PLOTCONFIG{,,10,}TITLE{Body Mass Index}XLABEL{weight[kg]}YLABEL{BMI[kg/m^2]}::::::height=1.4[m];::::::1.5[m];::::::1.6[m];::::::1.7[m];::::::1.8[m];::::::1.9[m];::::::2.0[m];::::::2.1[m];::::::2.2[m];:blue:0::::BMI=18.5;:red:0::::BMI=25;";};
       // strict-mode equation-list
       /* out=text.replace(/\s/g,"\n"); */
 //      $._id("").onclick = function(){io["onclick_default"](elems, "", 0);};
@@ -818,6 +819,7 @@
   <button id="stress">stress</button>
   <button id="stress2">-(step,ns)</button>
   <button id="catenary">catenary</button>
+  <button id="BMI">BMI</button>
 <hr>
 </div>
 <hr>
