@@ -1268,7 +1268,7 @@ clear
 local storage cleared
 
 [Pinv_y=(-0.999999427,-0.999936657,-0.997300203,-0.954499736,-0.682689492,0,0.682689492,0.954499736,0.997300203,0.999936657,0.999999427:-5,-4,-3,-2,-1,0,1,2,3,4,5),N=1,arr=[],_rn(=<arr.push(rand_table(=<Pinv_y)=>),,N),=<arr.]=>
--0.7248662857095962
+-0.401796162543817
 
 rand_table(csv)=<last[table=sort0(csv),ymin=min(table)[0],ymax=max(table)[0],y=ymin+(ymax-ymin)*rand(),x=interp(y:table),x]
 stored_eqn(rand_table)
@@ -1276,13 +1276,23 @@ stored_eqn(rand_table)
 clear
 local storage cleared
 
-PRNG_LCGs(6,0,11,1)=>
+[PRNG_LCG(16807,0,m,x0,N)=>:PRNG_LCG(48271,0,m,x0,N)=>:PRNG_LCG(0x7FFFFFED,0x7FFFFFC3,m,x0,N)=>]
+(
+1,16807,282475249,1622650073,984943658,1144108930,470211272,101027544,1457850878,1458777923,2007237709:
+1,48271,182605794,1291394886,1914720637,2078669041,407355683,1105902161,854716505,564586691,1596680831:
+1,2147483569,1440,2147457667,467570,2139067327,151493550,1568083309,1839271264,1252855633,1070918471
+)
+
+($m,$x0,$N)=(0x7fffffff,1,10)
+stored_var(m) stored_var(x0) stored_var(N) 
+
+PRNG_LCG(6,0,11,1,10)=>
 (
 1,6,3,7,9,10,5,8,4,2,1
 )
 
-PRNG_LCGs(a,b,m,x0)=<[arr=(x0),[x=x0,eqn=<last{x=(a*x+b)%m,x},=<eqn]=>gen_rand,_r(=<arr.push(gen_rand=>),,m-1),=<arr]=>
-stored_eqn(PRNG_LCGs)
+PRNG_LCG(a,b,m,x0,N)=<[arr=(x0),[x=x0,eqn=<last{x=(a*x+b)%m,x},=<eqn]=>gen_rand,_r(=<arr.push(gen_rand=>),,min(N,m-1)),=<arr]=>
+stored_eqn(PRNG_LCG)
 
 clear
 local storage cleared
@@ -2993,4 +3003,4 @@ center=true&drag=false&test-case=false&legend=true&axis-t=false&axis-x=true&log-
 --------------------------------
 --------------------------------
 
-online-simulator.github.io.6.349.159.18.87 @ Fri Nov 24 2023 15:44:48 GMT+0900 (日本標準時) @ Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/119.0.0.0 Safari/537.36
+online-simulator.github.io.6.349.159.18.87 @ Fri Nov 24 2023 20:32:38 GMT+0900 (日本標準時) @ Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/119.0.0.0 Safari/537.36
