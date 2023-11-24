@@ -1268,10 +1268,21 @@ clear
 local storage cleared
 
 [Pinv_y=(-0.999999427,-0.999936657,-0.997300203,-0.954499736,-0.682689492,0,0.682689492,0.954499736,0.997300203,0.999936657,0.999999427:-5,-4,-3,-2,-1,0,1,2,3,4,5),N=1,arr=[],_rn(=<arr.push(rand_table(=<Pinv_y)=>),,N),=<arr.]=>
--1.2090830182842414
+-0.9232296303686242
 
 rand_table(csv)=<last[table=sort0(csv),ymin=min(table)[0],ymax=max(table)[0],y=ymin+(ymax-ymin)*rand(),x=interp(y:table),x]
 stored_eqn(rand_table)
+
+clear
+local storage cleared
+
+PRNG_LCGs(6,0,11,1)=>
+(
+1,6,3,7,9,10,5,8,4,2,1
+)
+
+PRNG_LCGs(a,b,m,x0)=<[arr=(x0),[x=x0,eqn=<last{x=(a*x+b)%m,x},=<eqn]=>gen_rand,_r(=<arr.push(gen_rand=>),,m-1),=<arr]=>
+stored_eqn(PRNG_LCGs)
 
 clear
 local storage cleared
@@ -2982,4 +2993,4 @@ center=true&drag=false&test-case=false&legend=true&axis-t=false&axis-x=true&log-
 --------------------------------
 --------------------------------
 
-online-simulator.github.io.6.349.156.18.87 @ Thu Nov 16 2023 18:24:43 GMT+0900 (日本標準時) @ Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/119.0.0.0 Safari/537.36
+online-simulator.github.io.6.349.159.18.87 @ Fri Nov 24 2023 15:43:52 GMT+0900 (日本標準時) @ Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/119.0.0.0 Safari/537.36

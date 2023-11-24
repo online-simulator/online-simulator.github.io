@@ -840,7 +840,7 @@ e^(-i(1pi(){2/2i}(5-{3-1}){i/(-4)}))
 <br>
 ・<a href="#span-eqn-gcd">gcd/lcm</a>
 <br>
-・<a href="#span-eqn-rand_table">rand_table</a>
+・<a href="#span-eqn-random">random</a>
 <br>
 ・<a href="#span-eqn-average">average</a>
 <br>
@@ -2101,7 +2101,7 @@ clear; [()=&lt;1]=&gt;$f -> 0
 <br>
 　<a href="#span-out-BT">丸括弧()</a>の省略可　⇒　省略不可
 <br>
-　影響項目：<a href="#span-out-FN-rand">乱数関数</a>||<a href="#span-eqn-rand_table">rand_table</a>||<a href="#span-eqn-magic">magic-square</a>
+　影響項目：<a href="#span-out-FN-rand">乱数関数</a>||<a href="#span-eqn-random">random</a>||<a href="#span-eqn-magic">magic-square</a>
 <br>
 ・<span class="run">Ver.2.275.65</span>以降、既定で<a href="#span-out-eqns">式変数</a>のcall記号省略不可（syntaxの問題を解消）
 <br>
@@ -40695,11 +40695,27 @@ lcm(111,222,333,444,555),lcm_(111,lcm_(222,lcm_(333,lcm_(444,555)=&gt;)=&gt;)=&g
 目次
 </a>
 <br>
-rand_table
+random
     </th>
     <td>
-<span id="span-eqn-rand_table"></span>
+<span id="span-eqn-random"></span>
 <a href="#span-out-FN-rand-else">その他の乱数</a>参照
+<br>
+clear;
+<br>
+PRNG_LCGs(a,b,m,x0)=&lt;[
+<br>
+arr=(x0),
+<br>
+[x=x0,eqn=&lt;last{x=(a*x+b)%m,x},=&lt;eqn]=&gt;gen_rand,
+<br>
+_r(=&lt;arr.push(gen_rand=&gt;),,m-1),
+<br>
+=&lt;arr
+<br>
+]=&gt;;
+<br>
+PRNG_LCGs(6,0,11,1)=&gt;;
 <br>
 clear;
 <br>
