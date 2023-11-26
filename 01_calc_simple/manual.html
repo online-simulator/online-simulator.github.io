@@ -40733,6 +40733,20 @@ PRNG_LCG(0x7FFFFFED,0x7FFFFFC3,m,x0,N)=&gt;
 <br>
 clear;
 <br>
+shuffle_FY(?tarr)=&lt;last[
+<br>
+len=sizer(tarr),
+<br>
+switch_arr<span class="jF">=(i1)</span>=&lt;last{i0=floor(rand<span class="jF">()</span>*(i1+1)),w=tarr[i1],tarr[i1]=tarr[i0],tarr[i0]=w},
+<br>
+_s((i_)=&lt;switch_arr(i_)=&gt;,len-1,1)
+<br>
+];
+<br>
+[(N)=&lt;[tarr=linspace(0,N-1,N).,shuffle_FY(<span class="jF">?</span>tarr)=&gt;,=&lt;tarr.]=&gt;](2)=&gt;;
+<br>
+clear;
+<br>
 rand_table(csv)=&lt;last[
 <br>
 table=sort0(csv),
