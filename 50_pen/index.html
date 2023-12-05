@@ -59,6 +59,18 @@
         $._id("input-third-url-parameters").value = "";
         $.hide("#div-dot", true, true);
       }
+      else if(options.wb){
+        $.set_id("checkbox-auto-config", "checked", null);
+        $._id("input-stabi").value = 0;
+        $._id("input-A").value = 100;
+        $._id("input-w_th").value = 0;
+        $._id("input-len_th").value = 99;
+        $._id("input-dlen").value = 99;
+        $._id("input-in").value = 99;
+        $._id("input-out").value = 99;
+        $._id("input-sh").value = 0;
+        $.set_id("checkbox-pressure", "checked", "checked");
+      }
       new My_entry.pen().onload(e);
     });
   })();
