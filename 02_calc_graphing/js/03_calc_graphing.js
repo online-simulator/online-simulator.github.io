@@ -241,22 +241,25 @@ My_entry.calc_graphing.prototype.plot = function(arr_data_, options_plot, isFina
         if(len_x === len_y){
           for(var j=0; j<len_y; ++j){
             if(!(_arr_data[j])){
-              _arr_data[j] = {arr_num: [], len_x: 1, len_y: len_n};
+              _arr_data[j] = {arr_num: [], len_x: len_n, len_y: len_n};  // Ver.2.319.77
             }
             var arr_numj = _arr_data[j].arr_num;
+            /* Ver.2.319.77 -> */
             for(var n=0; n<len_n; ++n){
               var datan = arr_data[n];
               var x = datan.vars[name_x];
-              var y = datan.vars[name_y];
               var arr_x = x.mat.arr;
-              var arr_y = y.mat.arr;
               var len_x = arr_x.length;
+              arr_numj.push(DATA.arr2obj_i(arr_x, j));
+            }
+            for(var n=0; n<len_n; ++n){
+              var datan = arr_data[n];
+              var y = datan.vars[name_y];
+              var arr_y = y.mat.arr;
               var len_y = arr_y.length;
-              if(arr_numj.length === 0){
-                arr_numj.push(DATA.arr2obj_i(arr_x, j));
-              }
               arr_numj.push(DATA.arr2obj_i(arr_y, j));
             }
+            /* -> Ver.2.319.77 */
           }
           arr_data = _arr_data;
         }
