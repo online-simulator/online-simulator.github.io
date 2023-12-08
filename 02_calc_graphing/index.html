@@ -529,7 +529,8 @@
       $._id("methods").onclick = function(){setVal("1", "1000", "Nelem=t,Nelem;", "da=9e-5,dp=2.5,ip=2/*undetermined*/,sec_d(p)=<pow(Nelem,p)*da/1000,sec_d(dp);sec_d(ip);", 10);$._id("input-z").value="ORIGIN{2,yellow,17}TITLE{computing time by methods}XLABEL{number of elements}YLABEL{computing time[sec/step]}::::::direct method in Incompressible flow [test]solver;::0::::iterative method(imaginary line);";};
       $._id("Order").onclick = function(){setVal("2", "4", "N=t,N;", "N**3;N**2;N*log(N);N**1;N**0.5;log(N);", 10);$._id("input-z").value="ORIGIN{2,yellow,17}TITLE{Big O notation}XLABEL{N}YLABEL{computations}::::::O(N**3);::::::O(N**2);::::::O(N*log(N));::::::O(N**1);::::::O(N**0.5);::::::O(log(N));";};
       $._id("Newton").onclick = function(){setVal("0", "30", "Nmax=t,Nmax;", "{$ans_x0,$ans_x1}={1,i},{$x0ini,$x1ini}={2,2},solvex(=<h)=<Newton(=<{last[f(x)=<x+1,g(x)=<x-2,fgh(x)=<h(g(f(x))),fgh(x0)=fgh(ans_x0)],x0+h(x1)=ans_x0+h(ans_x1)},=<{x0,x1},=<{x0ini,x1ini},,Nmax,1e-10,1),x=solvex((x)=<x+3),x[0];x[1];x[0]+x[1];x=solvex((x)=<x*x),x[0];x[1];x[0]+x[1];", 30);$._id("input-z").value+="TITLE{Newton's method}XLABEL{iteration count}::3:1.5:1.5::linear,x0;::::::linear,x1;::::::linear,x0+x1;::::::non-linear,x0;::::::non-linear,x1;::::::non-linear,x0+x1;";};
-      $._id("Brown").onclick = function(){setVal("1", "3", "k_mu=t,N=1e3,z=0,dlen=1/k_mu,arr_x=(real(z)),arr_y=(imag(z)),step=<last{t=2pi*rand(),z=z+dlen*e**(i(t)),arr_x.push(real(z)),arr_y.push(imag(z))},_r(=<step,,N);", "tarr_x=arr_x.,tarr_y=arr_y.;", 2);$._id("input-z").value="ORIGIN{2,blue,17}TITLE{Brownian Motion with white noise}XLABEL{x(t)}YLABEL{y(t)}::0::::k_mu=1;::::::2;::::::3;";$._id("input-vx").value="tarr_x";$._id("input-vy").value="tarr_y";};
+      $._id("Brown1").onclick = function(){setVal("1", "3", "k_viscosity=t,N=1e3,z=0,dlen=1/k_viscosity,arr_x=(real(z)),arr_y=(imag(z)),step=<last{t=2pi*rand(),z=z+dlen*e**(i(t)),arr_x.push(real(z)),arr_y.push(imag(z))},_r(=<step,,N);", "tarr_x=arr_x.,tarr_y=arr_y.;", 2);$._id("input-z").value="ORIGIN{2,blue,17}TITLE{Brownian Motion under white noise}XLABEL{x(t)}YLABEL{y(t)}::0::::k_viscosity=1;::::::2;::::::3;";$._id("input-vx").value="tarr_x";$._id("input-vy").value="tarr_y";};
+      $._id("Brown2").onclick = function(){setVal("1", "3", "k_directivity=1/t,k_viscosity=1,N=1e3,z=0,t=0,dlen=1/k_viscosity,arr_x=(real(z)),arr_y=(imag(z)),step=<last{dt_uniform(k)=<(-pi+2pi*rand())*k,t=t+dt_uniform(k_directivity),z=z+dlen*e**(i(t)),arr_x.push(real(z)),arr_y.push(imag(z))},_r(=<step,,N);", "tarr_x=arr_x.,tarr_y=arr_y.;", 2);$._id("input-z").value="ORIGIN{2,blue,17}TITLE{Brownian Motion with simple directivity}XLABEL{x(t)}YLABEL{y(t)}::0::::k_directivity=1;::::::2;::::::3;";$._id("input-vx").value="tarr_x";$._id("input-vy").value="tarr_y";};
       $._id("Compton").onclick = function(){setVal("0", "2pi", "c=299792458,h=6.62607015e-34,me=9.1093837015e-31,dlambda=h*(1-cos(t))/(me*c),z=dlambda*e^(i(t)),real(z);", "imag(z);", 100);$._id("input-z").value+="TITLE{Compton scattering}::0::::t vs. wavelength change[m];";};
       $._id("EM").onclick = function(){setVal("0", "5", "M=t,EM(M)=<pow(10,1.5*M+4.8),M;", "EM(M);", 10);$._id("input-z").value+="TITLE{magnitude vs. energy}XLABEL{M}YLABEL{E[J]};";};
       $._id("stress").onclick = function(){setVal("0", "H=146.6,H", "h=t,g=9.8,rho=2500,L=230.3,H=t1,S(h)=<(L*h/H)^2,V(h)=<_i((h)=<S(h),0,h)/*V(h)=<L^2*H/3*/,m(h)=<rho*V(h),F(h)=<m(h)g,s(h)=<F(h)/(S(h)||1),h;", "s(h)/1e6;", 10);$._id("input-z").value+="XLABEL{depth[m]}YLABEL{vertical stress[MPa]};";};
@@ -816,7 +817,8 @@
   <button id="methods">methods</button>
   <button id="Order">-Order</button>
   <button id="Newton">Newton</button>
-  <button id="Brown">Brown</button>
+  <button id="Brown1">Brown1</button>
+  <button id="Brown2">Brown2</button>
 <br>
   <button id="Compton">Compton</button>
   <button id="EM">E(M)</button>
