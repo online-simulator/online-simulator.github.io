@@ -119,7 +119,7 @@ My_entry.test_waveplot.prototype.output_log = function(log){
   $._id("textarea-plot2d").value = log;
   return self;
 };
-My_entry.test_waveplot.prototype.output = function(elem){
+My_entry.test_waveplot.prototype.output = function(){  // Ver.1.51.11
   var self = this;
   var $ = self.entry.$;
   var text_xt = "";
@@ -151,9 +151,11 @@ My_entry.test_waveplot.prototype.output = function(elem){
       function(){
         return handler_baseview.getInt8n(view, Bytes_perSample, arguments[0], arguments[1]);
       };
-    text_xt += "xt=(1/samples_perSecond)*{";
-    text_yt0 += "yt0={";
-    text_yt1 += "yt1={";
+    /* Ver.1.51.11 -> */
+    text_xt += "xt=(1/samples_perSecond)*(";
+    text_yt0 += "yt0=(";
+    text_yt1 += "yt1=(";
+    /* -> Ver.1.51.11 */
     /* -> Ver.1.48.11 */
     /* -> Ver.1.49.11 */
     var ns = 0;
@@ -172,19 +174,24 @@ My_entry.test_waveplot.prototype.output = function(elem){
       text_yt0 += String(val0);
       text_yt1 += String(val1);
     }
-    text_xt += "};\n";
-    text_yt0 += "};\n";
-    text_yt1 += "};\n";
+    /* Ver.1.51.11 -> */
+    text_xt += ");\n";
+    text_yt0 += ");\n";
+    text_yt1 += ");\n";
+    /* -> Ver.1.51.11 */
     var text = self.make_log(samples_perSecond);
     text += text_xt;
     text += text_yt0;
+    /* Ver.1.51.11 -> */
     if(isStereo){
       text += text_yt1;
-      text += "yt=(yt0,yt1);\n";
+      text += "yt={yt0,yt1};\n";
     }
     else{
-      text += "yt=(yt0);\n";
+      text += "yt={yt0};\n";
     }
+    text += "fft1d(yt0);\n";
+    /* -> Ver.1.51.11 */
     self.output_log(text);
   }
   return self;

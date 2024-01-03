@@ -36,12 +36,18 @@
 
 <hr>
 <div>
-<table><caption><span class="selection">input-file.wav</span>　⇒　<span class="run">make data for plot2d</span>　⇒　<a title="Graphing Calculator" href="../02_calc_graphing/index.html">plot2d(xt,yt)</a></caption><tbody>
+<table><caption><span class="selection">input-file.wav</span>　⇒　<span class="run">make data for plot2d</span>　⇒　<a title="Graphing Calculator" href="../02_calc_graphing/index.html">plot2d{xt,yt}</a></caption><tbody>
 <tr>
   <td>
 更新履歴
   </td>
   <td>
+・<span class="run">Ver.1.51.11</span>以降、仕様変更
+<br>
+　出力形式：plot2d(xt,yt)　⇒　plot2d{xt,yt}
+<br>
+　出力sample数既定値：50000　⇒　10000
+<br>
 ・<span class="run">Ver.1.49.11</span>以降、入力値のfloor処理を追加
 <br>
 ・<span class="run">Ver.1.48.11</span>以降、int24に対応（3Byte数/sampleを追加）
@@ -132,7 +138,7 @@ input-file.wav
 出力sample数
   </td>
   <td>
-<input id="input-Ns" type="number" min="1" max="500000" value="50000">&le;min(<input id="input-Nsmax" readonly="readonly">,500000)
+<input id="input-Ns" type="number" min="1" max="500000" value="10000">&le;min(<input id="input-Nsmax" readonly="readonly">,500000)
   </td>
 </tr>
 <tr>
@@ -144,7 +150,7 @@ input-file.wav
 </tr>
 <tr>
   <td>
-<a title="Graphing Calculator" href="../02_calc_graphing/index.html">plot2d(xt,yt)</a>
+<a title="Graphing Calculator" href="../02_calc_graphing/index.html">plot2d{xt,yt}</a>
 <br>
 xt: 時間[sec]
 <br>

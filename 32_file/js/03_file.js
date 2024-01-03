@@ -201,7 +201,7 @@ My_entry.test_file.prototype.val2val = function(val0, val1){
   var zeros = self.dec0[dec1.length-dec0.length] || "";
   return (zeros+dec0);
 };
-My_entry.test_file.prototype.output = function(elem){
+My_entry.test_file.prototype.output = function(){  // Ver.1.51.11
   var self = this;
   var $ = self.entry.$;
   self.update();
@@ -234,7 +234,7 @@ My_entry.test_file.prototype.output = function(elem){
     /* -> Ver.1.49.11 */
     var isMulti = (Bytes_perSample > 1);
     var text = self.make_log(samples_perSecond);
-    text += "{\n";
+    text += "(\n";  // else-Ver.0.48.7
     /* else-Ver.0.28.4 -> */
     var text_hex = text;
     var ns = 0;
@@ -257,8 +257,8 @@ My_entry.test_file.prototype.output = function(elem){
       uintLE = self.val2dec(uintLE, Bytes_perSample);
       intLE = self.val2dec(intLE, Bytes_perSample);
       if(i > is){
-        text += ":\n";
-        text_hex += ":\n";
+        text += ",\n";  // else-Ver.0.48.7
+        text_hex += ",\n";  // else-Ver.0.48.7
       }
       text += "{\n";
       text += No_hex;
@@ -295,17 +295,21 @@ My_entry.test_file.prototype.output = function(elem){
       text += "\n}";
       text_hex += "\n}";
     }
-    text += "\n};\n\n";
-    text += "xt=trans(data[0]);\n";
+    text += "\n);\n\n";  // else-Ver.0.48.7
+    text += "xt=data[0];\n";  // else-Ver.0.48.7
     var bits = Bytes_perSample*8;
     var hex8n = "hex"+bits;  // else-Ver.0.30.4
     var uint8n = "uint"+bits;
     var int8n = "int"+bits;
     var sw_index = (isMulti)? "7/*1:"+hex8n+"BE, 2:"+uint8n+"BE, 3:"+int8n+"BE, 5:"+hex8n+"LE, 6:"+uint8n+"LE, 7:"+int8n+"LE*/": "1/*1:"+hex8n+", 2:"+uint8n+", 3:"+int8n+"*/";  // else-Ver.0.30.4
-    text += "yt=trans(data["+sw_index+"]);\n";
-    text_hex += "\n};\n\n";
-    text_hex += "xt=trans(data[0]);\n";
-    text_hex += "yt=trans(data[1]);\n";
+    /* else-Ver.0.48.7 -> */
+    text += "yt=data["+sw_index+"];\n";
+    text += "fft1d(yt);\n";
+    text_hex += "\n);\n\n";
+    text_hex += "xt=data[0];\n";
+    text_hex += "yt=data[1];\n";
+    text_hex += "fft1d(yt);\n";
+    /* -> else-Ver.0.48.7 */
     $._id("textarea-plot2d-hex").value = text_hex;
     $._id("textarea-plot2d").value = text;
     /* -> else-Ver.0.28.4 */
