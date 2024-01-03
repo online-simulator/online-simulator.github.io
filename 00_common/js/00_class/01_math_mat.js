@@ -937,7 +937,7 @@ My_entry.math_mat.prototype.BRe = function(options, left, right){
   return self.BRs(options, right, left);
 };
 /* Ver.2.321.77 -> */
-My_entry.math_mat.prototype.fft1d = function(options, arr, isInverse){
+My_entry.math_mat.prototype.fft1d = function(options, arr, opt_isInverse){
   var self = this;
   var DATA = self.entry.DATA;
   var Q = 2;
@@ -961,7 +961,7 @@ My_entry.math_mat.prototype.fft1d = function(options, arr, isInverse){
       }
     }
   };
-  if(isInverse){
+  if(opt_isInverse){
     conjugate(fi);
   }
   var is = 1;
@@ -1017,7 +1017,7 @@ My_entry.math_mat.prototype.fft1d = function(options, arr, isInverse){
       }
     }
   }
-  if(isInverse){
+  if(opt_isInverse){
     conjugate(fi, 1/N);
   }
   var flip = function(i){

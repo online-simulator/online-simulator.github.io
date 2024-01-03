@@ -1,6 +1,14 @@
 clear
 local storage cleared
 
+ifft1d(fft1d(0,1,i,1+i))
+(
+5.551115123125783e-17+1.1102230246251565e-16i,1,-5.551115123125783e-17+0.9999999999999999i,1.0000000000000002+0.9999999999999998i
+)
+
+clear
+local storage cleared
+
 f=<1,g=f:f(),g():set_f(?f)=<f=<-1,set_f(?f):f(),g()/*Non-strict-mode*/
 (
 0,0:
@@ -4203,4 +4211,4 @@ drag=false&sw=false&0x=false&useMatrix=true&useStrict=false&checkError=true&isRi
 --------------------------------
 --------------------------------
 
-online-simulator.github.io.6.352.162.18.87 @ Wed Jan 03 2024 17:20:58 GMT+0900 (日本標準時) @ Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36
+online-simulator.github.io.6.352.162.18.87 @ Wed Jan 03 2024 19:38:04 GMT+0900 (日本標準時) @ Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36
