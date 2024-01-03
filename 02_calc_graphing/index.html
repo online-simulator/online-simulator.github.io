@@ -379,7 +379,7 @@
       script += "\nclear;\n";
       script += "f=<1,g=f:f(),g():set_f(?f)=<f=<-1,set_f(?f):f(),g()/*Non-strict-mode*/;";
       script += "\nclear;\n";
-      script += "ifft1d(fft1d(0,1,i,1+i));";
+      script += "ifft1d(fft1d(0,1,i,1+i)):fft1d(ifft1d(0,1,i,1+i));";
       script += "\nclear;\n";
       $._id("input").value = script;
       // test case
