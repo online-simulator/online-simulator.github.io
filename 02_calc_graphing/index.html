@@ -565,6 +565,7 @@
       $._id("Gaussian").onclick = function(){io["onclick_default"](elems, "clear;\n[isStrict=0,N=3,N2=int(N/2),filter=vectorc(N*N),Nbit=N-1,wmax=2**Nbit,\ncalc_w(s2)=<switch(isStrict==0,round(wmax*exp(-0.5*s2)):1,exp(-0.5*s2)),\n_sir(=<{_sic(=<filter[(ir+N2)*N+(ic+N2)]=calc_w(ir**2+ic**2)=>,-N2,N2)},-N2,N2),\n=<trans(filter)]=>;\n", 0);};
       $._id("plot2d{}_multi").onclick = function(){io["onclick_default"](elems, "clear;\nx_long=(1+2i)*(1,2,3,4,5,6,7,8,9,10);\ny_long=2*x_long;\nx_short=(1+2i)*(1,2,3,4,5);\ny_short=4*x_short;\nxt_OK={x_long,x_short};\nyt_OK={y_long,y_short};\nxt_OK={x_short,x_long};\nyt_OK={y_short,y_long};\nxt={x_short,x_long,x_long,2*x_short};\nyt={y_short,y_long,2*y_short,y_long};\n{xt,yt};\ntrans(ans);\n", 0);};
       $._id("plot2d_interp").onclick = function(){io["onclick_default"](elems, "clear;\nplot2d_interp(Nx,Nt)=<[\nout=<{xt,yt},\nscope2storage=<last{add__(xt),add__(yt)},\ninit=<last{\nx=linspace(0,2*pi,Nx+1),\nxn=linspace(0,2*pi,Nt+1),\ntable=(xn:trans(sin(trans(xn))))\n},\nrun=<last{\ntable[1]=(1+2i)*table[1],\ntable_sorted_key0=sort0(table),\nxt=(table[0]:x),\nyt=(table[1]:interp0(x:table_sorted_key0):interp1(x:table_sorted_key0):\ninterp2(x:table_sorted_key0):interp3(x:table_sorted_key0))\n},\ninit=>,run=>,return=out=>,scope2storage=>,\n=<return]=>;\nplot2d_interp(last{Nx=21,Nx},Nx>>1)=>;\n", 0);};
+      $._id("plot2d_fft1d").onclick = function(){io["onclick_default"](elems, "clear;\n$radix=2;\ndeg=4;\nN=radix**deg;\narr_n=linspace(0,N-1,N);\n($n0,$n1,$n2)=N/(2,4,8);\n($A0,$A1,$A2)=1/(1,2,3)+i;\nf(t)=<(A0,A1,A2)*{e^((i*n0*t)*2*pi/N),e^((i*n1*t)*2*pi/N),e^((i*n2*t)*2*pi/N)/2};\nf_samples=f(=<arr_n)=>;\nF_FFT=fft1d(f_samples);\nf_IFFT=ifft1d(F_FFT);\nF_DFT=[];\nf_IDFT=[];\nDFT(n)=<_s((t)=<f(t)=>*e^((-i*n*t)*2*pi/N),0,N-1);\nIDFT(t)=<_s((n)=<F_DFT[][n]*e^((i*n*t)*2*pi/N),0,N-1)/N;\narr_n.map((n)=<F_DFT.push(DFT(n)=>));\narr_n.map((n)=<f_IDFT.push(IDFT(n)=>));\nxt=arr_n;\nyt=((f_samples:f_IDFT:f_IFFT):(F_DFT:F_FFT)/N);\n", 0);};
       $._id("plot2d()_multi").onclick = function(){io["onclick_default"](elems, "clear;\nx_long={1,2,3,4,5,6,7,8,9,10}*(1+2i);\ny_long=x_long*2;\nx_short={1,2,3,4,5}*(1+2i);\ny_short=x_short*4;\nxt_OK=(x_long,x_short);\nyt_OK=(y_long,y_short);\nxt_NG=(x_short,x_long);\nyt_NG=(y_short,y_long);\nx_short_mod={1,2,3,4,5,NaN,NaN,NaN,NaN,NaN}*(1+2i);\ny_short_mod=x_short_mod*4;\nxt_OK=(x_short_mod,x_long);\nyt_OK=(y_short_mod,y_long);\nxt=(x_short_mod,x_long,x_long,x_short_mod*2);\nyt=(y_short_mod,y_long,y_short_mod*2,y_long);\n(xt,yt);\ntrans(ans);\n", 0);};
       $._id("plot2d_circle").onclick = function(){io["onclick_default"](elems, "clear;\nplot2d_circle(t0,t1,N,M)=<[\nout=<(xt,yt),\nscope2storage=<last{add__(xt),add__(yt)},\ninit=<last{\ntn=<t0+(t1-t0)*n/N,\nxt=zeros(N+1,M+1),yt=zeros(N+1,M+1)\n},\nrun=<last{\nstepnm=<last{tn=tn=>,xt[n][m]=cos(tn)*m,yt[n][m]=sin(tn)*m},\ncasesM=<_sm(=<stepnm,0,M),\nevolutionN=<_sn(=<casesM,0,N),\nevolutionN=>\n},\ninit=>,run=>,return=out=>,scope2storage=>,\n=<return]=>;\nplot2d_circle(0,2*pi,10,3)=>;\n", 0);};
       $._id("plot2d_evolution").onclick = function(){io["onclick_default"](elems, "clear;\nplot2d_evolution(t0,t1,dt,z_x0,z_v0,z_u,m,Cd_sphere)=<[\nout=<(xt,yt),\nscope2storage=<last{add__(xt),add__(yt)},\ninit=<last{\ng=-9.8,z_a=0+g*i,\nt=0,\nx_initial=<{z_x0,z_v0},\nf(t,z_x,z_v)=<{z_v,z_a+(Cd_sphere/m)*(z_u-z_v)},\nN=round((t1-t0)/dt),M=0,\nxt=zeros(N+1,M+1),yt=zeros(N+1,M+1)\n},\nrun=<last{\ndtn=<n<=0&&0||||dt/*switch(n<=0,0:1,dt)*/,\nx_next=x_initial=>,\nstep=<last{dt0=dtn=>,x_next=_o(=<f,,=<{x_next},t,dt0),t=t+dt0},\nstepnm=<last{step=>,z_x=x_next[0],xt[n][mdummy]=real(z_x),yt[n][mdummy]=imag(z_x)},\ncasesM=<_smdummy(=<stepnm,0,M)/*m-reserved*/,\nevolutionN=<_sn(=<casesM,0,N),\nevolutionN=>\n},\ninit=>,run=>,return=out=>,scope2storage=>,\n=<return]=>;\nplot2d_evolution(0,5,0.5,0,20+20i,0,1,1)=>;\n", 0);};
@@ -858,7 +859,7 @@
 ~
 <input id="input-t1" class="width-auto">
   <label>N:
-<input id="input-N" type="number" class="input-50" min="1" max="1000">
+<input id="input-N" type="number" class="input-50" min="1" max="1024">
   </label>
         </td>
       </tr>
@@ -1526,6 +1527,7 @@
 <br>
   <button id="plot2d{}_multi">plot2d{}_multi</button>
   <button id="plot2d_interp">_interp</button>
+  <button id="plot2d_fft1d">_fft1d</button>
 <br>
   <button id="plot2d()_multi">plot2d()_multi</button>
   <button id="plot2d_circle">_circle</button>

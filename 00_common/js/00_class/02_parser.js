@@ -576,6 +576,8 @@ My_entry.parser.prototype.switch_token = function(tokens, token, token_lower, to
     case "htrans":
     case "htranspose":
     case "hermitian":
+    case "fft1d":
+    case "ifft1d":
     // "FNm2"
     case "scalars":
     case "zeros":

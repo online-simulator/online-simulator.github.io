@@ -14,7 +14,7 @@ My_entry.calc_simple.prototype.config = {
   },
   /* Ver.2.22.11 */
   MAT: {
-    sizeMax: 1000
+    sizeMax: 1024  // Ver.2.321.77
   },
   /* Ver.2.144.36 */
   LIMIT: {

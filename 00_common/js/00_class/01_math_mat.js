@@ -936,6 +936,114 @@ My_entry.math_mat.prototype.BRe = function(options, left, right){
   var self = this;
   return self.BRs(options, right, left);
 };
+/* Ver.2.321.77 -> */
+My_entry.math_mat.prototype.fft1d = function(options, arr, isInverse){
+  var self = this;
+  var DATA = self.entry.DATA;
+  var Q = 2;
+  var len_i = arr.length;
+  var fi = arr[0];
+  var len_j = fi.length;
+  var deg = Math.floor(Math.log(len_j)/Math.log(Q));
+  if(len_i !== 1 || deg < 1) throw "Invalid args(fft1d)";
+  var N = Math.pow(Q, deg);
+  var _arr = self.init2d(len_i, N);
+  var fo = _arr[0];
+  var conjugate = function(f, opt_k){
+    var is = 0;
+    var ie = N-1;
+    for(var i=is; i<=ie; ++i){
+      var comi = f[i].com;
+      comi.i = -comi.i;
+      if(opt_k){
+        comi.r *= opt_k;
+        comi.i *= opt_k;
+      }
+    }
+  };
+  if(isInverse){
+    conjugate(fi);
+  }
+  var is = 1;
+  var ie = deg;
+  for(var i=is; i<=ie; ++i){
+    var Pdeg = Math.pow(Q, deg-i);
+    var t = Math.PI*2/(Pdeg*Q);
+    var j0s = 0;
+    var j0e = Math.pow(Q, i-1)-1;
+    for(var j0=j0s; j0<=j0e; ++j0){
+      var j1s = 0;
+      var j1e = Pdeg-1;
+      for(var j1=j1s; j1<=j1e; ++j1){
+        var j = j1+j0*Pdeg*Q;
+/*
+  var Q = 4;
+        var com0 = fi[j+0*Pdeg].com;
+        var com1 = fi[j+1*Pdeg].com;
+        var com2 = fi[j+2*Pdeg].com;
+        var com3 = fi[j+3*Pdeg].com;
+        var cr0 = com0.r+com1.r+com2.r+com3.r;
+        var ci0 = com0.i+com1.i+com2.i+com3.i;
+        var cr1 = com0.r+com1.i-com2.r-com3.i;
+        var ci1 = com0.i-com1.r-com2.i+com3.r;
+        var cr2 = com0.r-com1.r+com2.r-com3.r;
+        var ci2 = com0.i-com1.i+com2.i-com3.i;
+        var cr3 = com0.r-com1.i-com2.r+com3.i;
+        var ci3 = com0.i+com1.r-com2.i-com3.r;
+        fi[j+0*Pdeg] = DATA.num(cr0, ci0);
+        fi[j+1*Pdeg] = DATA.num(cr1, ci1);
+        fi[j+2*Pdeg] = DATA.num(cr2, ci2);
+        fi[j+3*Pdeg] = DATA.num(cr3, ci3);
+*/
+        var com0 = fi[j+0*Pdeg].com;
+        var com1 = fi[j+1*Pdeg].com;
+        var cr0 = com0.r+com1.r;
+        var ci0 = com0.i+com1.i;
+        var cr1 = com0.r-com1.r;
+        var ci1 = com0.i-com1.i;
+        fi[j+0*Pdeg] = DATA.num(cr0, ci0);
+        fi[j+1*Pdeg] = DATA.num(cr1, ci1);
+        var ks = 0;
+        var ke = Q-1;
+        for(var k=ks; k<=ke; ++k){
+          var comk = fi[j+k*Pdeg].com;
+          var tjk = t*j*k;
+          var cost = Math.cos(tjk);
+          var sint = Math.sin(tjk);
+          var crk = +comk.r*cost+comk.i*sint;
+          var cik = -comk.r*sint+comk.i*cost;
+          fi[j+k*Pdeg] = DATA.num(crk, cik);
+        }
+      }
+    }
+  }
+  if(isInverse){
+    conjugate(fi, 1/N);
+  }
+  var flip = function(i){
+    var _k = 0;
+    var k = i;
+    var js = 1;
+    var je = deg;
+    for(var j=js; j<=je; ++j){
+      var k0 = Math.floor(k/Q);
+      _k += (k-k0*Q)*Math.pow(Q, deg-j);
+      k = k0;
+    }
+    return _k;
+  };
+  var is = 0;
+  var ie = N-1;
+  for(var i=is; i<=ie; ++i){
+    fo[i] = fi[flip(i)];
+  }
+  return _arr;
+};
+My_entry.math_mat.prototype.ifft1d = function(options, arr){
+  var self = this;
+  return self.fft1d(options, arr, true);
+};
+/* -> Ver.2.321.77 */
 My_entry.math_mat.prototype.rotationx = function(options, arr){
   var self = this;
   var DATA = self.entry.DATA;

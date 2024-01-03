@@ -852,6 +852,8 @@ e^(-i(1pi(){2/2i}(5-{3-1}){i/(-4)}))
 <br>
 ・<a href="#span-eqn-plot2d_interp">plot2d_interp</a>
 <br>
+・<a href="#span-eqn-plot2d_fft1d">plot2d_fft1d</a>
+<br>
 ・<a href="#span-eqn-plot2d()_multi">plot2d()_multi</a>
 <br>
 ・<a href="#span-eqn-plot2d_circle">plot2d_circle</a>
@@ -1163,6 +1165,8 @@ ja.m.wikipedia.org/wiki/項目を列挙する
 ・フーリエ変換
 <br>
 ・フーリエ級数
+<br>
+・高速フーリエ変換
 <br>
 ・ハールウェーブレット
 <br>
@@ -2334,6 +2338,12 @@ clear; last{a,1} -> <del>1</del>[MyErr]Undef var(a)
 ・<span class="run">Ver.2.319.77</span>以降、<a href="#span-out-UI-graphing-v">v入力仕様</a>の仕様変更
 <br>
 　vx入力：legend1番で共通　⇒　各legendで独立（vy入力に準拠）
+<br>
+・<span class="run">Ver.2.321.77</span>以降、<a href="#span-in-options">matSizeMax</a>の既定値を変更
+<br>
+　<a href="#span-in-options">matSizeMax</a>既定値：1000　⇒　1024
+<br>
+　影響項目：<a href="#span-out-UI-graphing">Graphing Calculator</a>||<a href="#span-out-FNm-init">初期化行列関数</a>
     </td>
   </tr>
   <tr>
@@ -37936,7 +37946,7 @@ data.logo -> "makeLog=true"
 ・<a href="#span-out-config">precedence</a>: comma,区切りで演算子の<a href="#span-in-prec">tag名</a>を列挙した文字列
 <br>
 <br>
-・<a href="#span-out-FNm">matSizeMax</a>: <a href="#span-out-reference-mat-size">行列size</a>指定の行||列のlengthの上限値=1000
+・<a href="#span-out-FNm">matSizeMax</a>: <a href="#span-out-reference-mat-size">行列size</a>指定の行||列のlengthの上限値=<del>1000</del><span class="run">Ver.2.321.77</span>以降、1024
 <br>
 <br>
 ・<a href="#span-out-csv-format">depthMax</a>: <span class="clear">Ver.2.144.36</span>以降、<a href="#span-out-flow">operation</a>段階のnesting深さの上限値=300
@@ -38205,6 +38215,8 @@ operation.js抜粋
 <br>
 ・<span class="run">Ver.2.303.73</span>以降、<a href="#span-out-scope-reference">scope参照</a>の仕様追加（参照渡し記号?を予約）
 <br>
+・<span class="run">Ver.2.321.77</span>以降、fft1d/ifft1d関数@radix=2を追加（<a href="#span-ref-wiki">高速フーリエ変換</a>のprogram例を参考）
+<br>
 <br>
 予約語は大文字・小文字・全角・半角を区別しない
 <br>
@@ -38344,6 +38356,8 @@ parser.js抜粋
     case "htrans":
     case "htranspose":
     case "hermitian":
+    <span class="jF">case "fft1d":</span>
+    <span class="jF">case "ifft1d":</span>
     // "FNm2"
     case "scalars":
     case "zeros":
@@ -38676,6 +38690,8 @@ htranspose(NaN);
 hermitian(NaN);
 
 // error
+<span class="jF">fft1d(NaN);</span>
+<span class="jF">ifft1d(NaN);</span>
 scalars(NaN);
 zeros(NaN);
 ones(NaN);
@@ -40954,6 +40970,59 @@ init=&gt;,run=&gt;,return=out=&gt;,scope2storage=&gt;,
 =&lt;return]=&gt;;
 <br>
 plot2d_interp(last{Nx=21,Nx},Nx&gt;&gt;1)=&gt;;
+    </td>
+  </tr>
+  <tr>
+    <th>
+<a href="#span-index">
+目次
+</a>
+<br>
+plot2d
+<br>
+_fft1d
+    </th>
+    <td>
+<span id="span-eqn-plot2d_fft1d"></span>
+<a href="#span-out-transform-fft">高速Fourier変換</a>参照
+<br>
+clear;
+<br>
+<span class="jF">$</span>radix=2;
+<br>
+deg=4;
+<br>
+N=radix**deg;
+<br>
+arr_n=linspace(0,N-1,N);
+<br>
+($n0,$n1,$n2)=N/(2,4,8);
+<br>
+($A0,$A1,$A2)=1/(1,2,3)+i;
+<br>
+f(t)=&lt;(A0,A1,A2)*{e^((i*n0*t)*2*pi/N),e^((i*n1*t)*2*pi/N),e^((i*n2*t)*2*pi/N)/2};
+<br>
+f_samples=f(=&lt;arr_n)=&gt;;
+<br>
+F_FFT=fft1d(f_samples);
+<br>
+f_IFFT=ifft1d(F_FFT);
+<br>
+F_DFT=[];
+<br>
+f_IDFT=[];
+<br>
+DFT(n)=&lt;_s((t)=&lt;f(t)=&gt;*e^((-i*n*t)*2*pi/N),0,N-1);
+<br>
+IDFT(t)=&lt;_s((n)=&lt;F_DFT[][n]*e^((i*n*t)*2*pi/N),0,N-1)/N;
+<br>
+<span class="jF">arr_n.map((n)=&lt;F_DFT.push(DFT(n)=&gt;));
+<br>
+arr_n.map((n)=&lt;f_IDFT.push(IDFT(n)=&gt;));</span>
+<br>
+xt=arr_n;
+<br>
+yt=((f_samples:f_IDFT:f_IFFT):(F_DFT:F_FFT)/N);
     </td>
   </tr>
   <tr>
