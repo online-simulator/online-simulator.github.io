@@ -41827,7 +41827,7 @@ run=&lt;last{
 <br>
 <span class="jF">isRow&amp;&amp;&amp;(f=&lt;(x=&gt;)*A=b)||||(f=&lt;A*(x=&gt;)=b),</span>
 <br>
-<span class="jF">x_solved=</span>Newton(=&lt;f,=&lt;x,,Nmax=20,Nmax,1e-10,1)
+<span class="jF">x_solved=</span>Newton(=&lt;f,=&lt;x,,Nmax=1e3,Nmax,1e-10,1)
 <br>
 },
 </div>
@@ -41875,7 +41875,7 @@ run=&lt;last{
 <br>
 f=&lt;(Ainv=&gt;)*A=identity(sizeA),
 <br>
-<span class="jF">x_solved</span>=Newton(=&lt;f,=&lt;x,,Nmax=20,Nmax,1e-10,1),
+<span class="jF">x_solved</span>=Newton(=&lt;f,=&lt;x,,Nmax=1e3,Nmax,1e-10,1),
 <br>
 <span class="jF">Ainv=reshape(x_solved:sizeA,sizeA)/*Ainv=reshapec(x_solved:sizeA,sizeA).*/</span>
 <br>
@@ -41913,7 +41913,7 @@ init=&lt;last{_e<span class="jF">((x)</span>=&lt;x,sizer(x_initial_=&gt;),1)},
 <div class="run">
 run=&lt;last{
 <br>
-<span class="jF">x_solved</span>=Newton(=&lt;f_,=&lt;x,=&lt;x_initial_,Nmax=20,Nmax,1e-10,1)
+<span class="jF">x_solved</span>=Newton(=&lt;f_,=&lt;x,=&lt;x_initial_,Nmax=1e3,Nmax,1e-10,1)
 <br>
 },
 </div>
@@ -41949,7 +41949,7 @@ init=&lt;last{_e<span class="jF">((x)</span>=&lt;x,sizer(x_initial_=&gt;),1)},
 <div class="run">
 run=&lt;last{
 <br>
-<span class="jF">x_solved</span>=Newton(=&lt;f_<span class="jF">,,</span>=&lt;x_initial_,Nmax=20,Nmax,1e-10,1)
+<span class="jF">x_solved</span>=Newton(=&lt;f_<span class="jF">,,</span>=&lt;x_initial_,Nmax=1e3,Nmax,1e-10,1)
 <br>
 },
 </div>
@@ -42082,7 +42082,7 @@ relative_epsN=(epsN,isRelative_epsN)/*(epsN,flag)*/
 <div class="run">
 run=&lt;last{
 <br>
-args_Newton=(=&lt;f<span class="jF">,,</span>=&lt;x_initial,Nmax=20,Nmax,relative_epsN)/*(args)*/,
+args_Newton=(=&lt;f<span class="jF">,,</span>=&lt;x_initial,Nmax=1e3,Nmax,relative_epsN)/*(args)*/,
 <br>
 step_iteration=&lt;<span class="jF">x_solved</span>=Newton(args_Newton),
 <br>

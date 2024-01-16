@@ -542,7 +542,7 @@ stored_eqn(ODE_RK4)
 8.88888888888889+3.4444444444444438i+O(8e-7+1e-7i)
 )
 
-Euler_method(t,dt,z_x00,z_v00,z_u,m,Cd_sphere,isImplicit)=<[out=<{t_total,x_solved},scope2storage=<last{add__(z_x0),add__(z_v0),add__(t_total)},init=<last{switch(has__(t_total)==0,=<last{t_total=0,z_x0=z_x00,z_v0=z_v00}),g=-9.8,z_a=0+g*i,x_initial=<{z_x0,z_v0},switch(isImplicit,=<f(z_x,z_v)=<{(z_x-z_x0)/dt=z_v,m*((z_v-z_v0)/dt)=m*z_a+Cd_sphere*(z_u-z_v)}:1,=<f(z_x,z_v)=<{(z_x-z_x0)/dt=z_v0,m*((z_v-z_v0)/dt)=m*z_a+Cd_sphere*(z_u-z_v0)}),orderT=1,epsN=max(eps*1e3,pow(dt,orderT)),isRelative_epsN=1,relative_epsN=(epsN,isRelative_epsN)},run=<last{args_Newton=(=<f,,=<x_initial,Nmax=20,Nmax,relative_epsN),step_iteration=<x_solved=Newton(args_Newton),step_post=<{$z_x0,$z_v0}=x_solved,step=<last{step_iteration=>,step_post=>},evolution=<_rn(=<step,N=round(t/dt),N),evolution=>,t_total=t_total+N*dt},init=>,run=>,return=out=>,scope2storage=>,=<return]=>
+Euler_method(t,dt,z_x00,z_v00,z_u,m,Cd_sphere,isImplicit)=<[out=<{t_total,x_solved},scope2storage=<last{add__(z_x0),add__(z_v0),add__(t_total)},init=<last{switch(has__(t_total)==0,=<last{t_total=0,z_x0=z_x00,z_v0=z_v00}),g=-9.8,z_a=0+g*i,x_initial=<{z_x0,z_v0},switch(isImplicit,=<f(z_x,z_v)=<{(z_x-z_x0)/dt=z_v,m*((z_v-z_v0)/dt)=m*z_a+Cd_sphere*(z_u-z_v)}:1,=<f(z_x,z_v)=<{(z_x-z_x0)/dt=z_v0,m*((z_v-z_v0)/dt)=m*z_a+Cd_sphere*(z_u-z_v0)}),orderT=1,epsN=max(eps*1e3,pow(dt,orderT)),isRelative_epsN=1,relative_epsN=(epsN,isRelative_epsN)},run=<last{args_Newton=(=<f,,=<x_initial,Nmax=1e3,Nmax,relative_epsN),step_iteration=<x_solved=Newton(args_Newton),step_post=<{$z_x0,$z_v0}=x_solved,step=<last{step_iteration=>,step_post=>},evolution=<_rn(=<step,N=round(t/dt),N),evolution=>,t_total=t_total+N*dt},init=>,run=>,return=out=>,scope2storage=>,=<return]=>
 stored_eqn(Euler_method)
 
 [N=1e2,a=0,b=100,f(x0)=<1-global_n*pow(global_base,x0),=<{solvex_non_linear(=<f,=<{0})=>,solvex_bisection(=<f,a,b,N)=>,solvex_bisection(=<f,b,a,N)=>,solvex_bisection(=<f,a,a,N)=>,solvex_non_linear((x0)=<1-global_n*pow(global_base,x0),=<{0})=>,solvex_bisection((x0)=<1-global_n*pow(global_base,x0),a,b,N)=>,solvex_bisection((x0)=<1-global_n*pow(global_base,x0),b,a,N)=>,solvex_bisection((x0)=<1-global_n*pow(global_base,x0),a,a,N)=>}]=>
@@ -587,7 +587,7 @@ global_n=1001
 solvex_bisection(=<f_,x0,x1,N)=<[out=<x0,init=<last{epsf=1e-7,isBreak=<isNaN(x0)|||norm(y0)<epsf},run=<_rn(=<last{x=(x0+x1)/2,y=f_(x)=>,y0=f_(x0)=>,y1=f_(x1)=>,sign(y)==sign(y0)&&&(x0=x)||||sign(y)==sign(y1)&&&(x1=x),x0},,N,=<isBreak),init=>,run=>,return=out=>,=<return]=>
 stored_eqn(solvex_bisection)
 
-solvex_non_linear(==<f_,=<x_initial_)=<[out=<x_solved,init=<last{_e((x)=<x,sizer(x_initial_=>),1)},run=<last{x_solved=Newton(=<f_,,=<x_initial_,Nmax=20,Nmax,1e-10,1)},init=>,run=>,return=out=>,=<return]=>
+solvex_non_linear(==<f_,=<x_initial_)=<[out=<x_solved,init=<last{_e((x)=<x,sizer(x_initial_=>),1)},run=<last{x_solved=Newton(=<f_,,=<x_initial_,Nmax=1e3,Nmax,1e-10,1)},init=>,run=>,return=out=>,=<return]=>
 stored_eqn(solvex_non_linear)
 
 clear
@@ -599,7 +599,7 @@ local storage cleared
 0.07726186556052178-1.434248862158042i+O(5e-13+5e-13i)
 )
 
-solvex_non_linear(==<f_,=<x_initial_)=<[out=<x_solved,init=<last{_e((x)=<x,sizer(x_initial_=>),1)},run=<last{x_solved=Newton(=<f_,=<x,=<x_initial_,Nmax=20,Nmax,1e-10,1)},init=>,run=>,return=out=>,=<return]=>
+solvex_non_linear(==<f_,=<x_initial_)=<[out=<x_solved,init=<last{_e((x)=<x,sizer(x_initial_=>),1)},run=<last{x_solved=Newton(=<f_,=<x,=<x_initial_,Nmax=1e3,Nmax,1e-10,1)},init=>,run=>,return=out=>,=<return]=>
 stored_eqn(solvex_non_linear)
 
 clear
@@ -612,7 +612,7 @@ infoLost[ri] 0.04999999999999999-3.688196100059626e-24i+O(2e-14+3e-14i),infoLost
 infoLost[ri] 1.6369179327698083e-24-0.5583333333333333i+O(1e-13+2e-13i),infoLost[ri] 0.05+1.4659244429541018e-25i+O(2e-14+9e-15i),infoLost[ri] -3.1762064399094643e-25+0.10833333333333334i+O(2e-14+5e-14i)
 )
 
-solveAinv(A)=<[out=<Ainv,init=<last{sizeA=size(A),_e((Ainv)=<x,sizeA,sizeA),_e((x)=<x,sizeA*sizeA,1)},run=<last{f=<(Ainv=>)*A=identity(sizeA),x_solved=Newton(=<f,=<x,,Nmax=20,Nmax,1e-10,1),Ainv=reshape(x_solved:sizeA,sizeA)},init=>,run=>,return=out=>,=<return]=>
+solveAinv(A)=<[out=<Ainv,init=<last{sizeA=size(A),_e((Ainv)=<x,sizeA,sizeA),_e((x)=<x,sizeA*sizeA,1)},run=<last{f=<(Ainv=>)*A=identity(sizeA),x_solved=Newton(=<f,=<x,,Nmax=1e3,Nmax,1e-10,1),Ainv=reshape(x_solved:sizeA,sizeA)},init=>,run=>,return=out=>,=<return]=>
 stored_eqn(solveAinv)
 
 clear
@@ -662,7 +662,7 @@ i,2,3i:
 7i,8,9i
 )
 
-solvex_iteration(A,b)=<[out=<x_solved,init=<last{sizeA=size(A),sizerb=sizer(b),sizecb=sizec(b),isRow=sizerb<sizecb,isRow&&&_e((x)=<x,1,sizeA)||||_e((x)=<x,sizeA,1)},run=<last{isRow&&&(f=<(x=>)*A=b)||||(f=<A*(x=>)=b),x_solved=Newton(=<f,=<x,,Nmax=20,Nmax,1e-10,1)},init=>,run=>,return=out=>,=<return]=>
+solvex_iteration(A,b)=<[out=<x_solved,init=<last{sizeA=size(A),sizerb=sizer(b),sizecb=sizec(b),isRow=sizerb<sizecb,isRow&&&_e((x)=<x,1,sizeA)||||_e((x)=<x,sizeA,1)},run=<last{isRow&&&(f=<(x=>)*A=b)||||(f=<A*(x=>)=b),x_solved=Newton(=<f,=<x,,Nmax=1e3,Nmax,1e-10,1)},init=>,run=>,return=out=>,=<return]=>
 stored_eqn(solvex_iteration)
 
 clear
@@ -1349,7 +1349,7 @@ clear
 local storage cleared
 
 [Pinv_y=(-0.999999427,-0.999936657,-0.997300203,-0.954499736,-0.682689492,0,0.682689492,0.954499736,0.997300203,0.999936657,0.999999427:-5,-4,-3,-2,-1,0,1,2,3,4,5),N=1,arr=[],_rn(=<arr.push(rand_table(=<Pinv_y)=>),,N),=<arr.]=>
--0.6820313215100375
+0.904278050021294
 
 rand_table(csv)=<last[table=sort0(csv),ymin=min(table)[0],ymax=max(table)[0],y=ymin+(ymax-ymin)*rand(),x=interp(y:table),x]
 stored_eqn(rand_table)
@@ -1359,7 +1359,7 @@ local storage cleared
 
 [(N)=<[tarr=linspace(0,N-1,N).,shuffle_FY(?tarr)=>,=<tarr.]=>](2)=>
 (
-0,1
+1,0
 )
 
 shuffle_FY(?tarr)=<last[len=sizer(tarr),switch_arr=(i1)=<last{i0=floor(rand()*(i1+1)),w=tarr[i1],tarr[i1]=tarr[i0],tarr[i0]=w},_s((i_)=<switch_arr(i_)=>,len-1,1)]
@@ -3095,4 +3095,4 @@ center=true&drag=false&test-case=false&legend=true&axis-t=false&axis-x=true&log-
 --------------------------------
 --------------------------------
 
-online-simulator.github.io.6.354.162.18.88 @ Tue Jan 16 2024 13:24:42 GMT+0900 (日本標準時) @ Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36
+online-simulator.github.io.6.354.163.18.88 @ Wed Jan 17 2024 00:27:29 GMT+0900 (日本標準時) @ Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36
