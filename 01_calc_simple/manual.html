@@ -1945,6 +1945,16 @@ clear; f=&lt;-1; f=1; [f=2,=&lt;f]=&gt;,[f=&lt;-2,=&lt;f]=&gt; -> (2,<del>1</del
 　影響項目：<a href="#span-out-config-strict">strict-mode</a>||<a href="#span-out-scope-vars">変数のscope</a>||<a href="#span-out-scope-vars-has1BT">単独scope</a>
 <br>
 　　　　　　||<a href="#span-eqn-scope_NG">scope_NG</a>||<a href="#span-eqn-curried">curried</a>||<a href="#span-eqn-counter">counter</a>
+<br>
+・<span class="clear">Ver.2.321.78</span>以降、差分刻みの仕様修正（絶対値　⇒　微分位置の相対値）
+<br>
+　微分位置xでの差分刻みdx既定値：max(1,abs(x))dx(1+i)　⇒　dx((real(x)||1)+(imag(x)||1)i)
+<br>
+　影響項目：<a href="#span-out-FNh-DX">微分高階関数</a>||<a href="#span-out-FNmh-jacobian">Jacobi高階行列関数</a>||<a href="#span-out-FNmh-newtonian">Newton高階行列関数</a>
+<br>
+　　　　　　||<a href="#span-eqn-solvex_iteration">solvex_iteration</a>||<a href="#span-eqn-solveAinv">solveAinv</a>||<a href="#span-eqn-solvex_non_linear">solvex_non_linear</a>||<a href="#span-eqn-solvex_bisection">solvex_bisection</a>
+<br>
+　　　　　　||<a href="#span-eqn-implicit-Euler_method">implicit Euler_method</a>||<a href="#span-eqn-explicit-Euler_method">explicit Euler_method</a>
     </td>
   </tr>
   <tr>
@@ -25348,7 +25358,9 @@ normc(mdx)/normc({x0,x1}) -> infoLost[ri] 3.6879601533907295e-16
 <br>
 ・1階微分の差分刻み実数値dxD既定値dxD=1e-3
 <br>
-・微分位置xでの差分刻みdx既定値dx=max(1,abs(x))dxD(1+i)
+・微分位置xでの差分刻みdx既定値<del>dx=max(1,abs(x))dxD(1+i)</del>
+<br>
+　<span class="clear">Ver.2.321.78</span>以降、dx=dxD((real(x)||1)+(imag(x)||1)i)
 <br>
 ・_ddummy<a href="#span-out-vars-symbol">変数名symbol</a>でcallする
 <br>
@@ -25904,13 +25916,15 @@ Jacobi高階行列関数
 <br>
 　Newton法で偏微分の精度は重視しない
 <br>
-　微分位置に応じて差分刻みは可変しない
+　<del>微分位置に応じて差分刻みは可変しない</del><span class="clear">Ver.2.321.78</span>以降、初期値依存性を改善のため、削除
 <br>
 ・1次精度の<a href="#span-out-error-numerical">数値誤差</a>O(dx)を含むが、<a href="#span-out-error-numerical">目安の解析誤差</a>を評価・表示しない
 <br>
 ・1階偏微分の差分刻み実数値dxJ既定値dxJ=1e-5
 <br>
-・微分位置xでの差分刻みdx既定値dx=dxJ(1+i)
+・微分位置xでの差分刻みdx既定値<del>dx=dxJ(1+i)</del>
+<br>
+　<span class="clear">Ver.2.321.78</span>以降、dx=dxD((real(x)||1)+(imag(x)||1)i)
 <br>
 ・未知変数の<a href="#span-out-terms">scope変数</a>を参照するが、上書きしない
 <br>
@@ -34079,7 +34093,7 @@ Newton法について記述する
 <br>
 {df[i]}=(df[i]/dx[j]){dx[j]}
 <br>
-・左辺の全微分を単純に仮定すると（<a href="#span-out-FNmh-jacobian">Jacobi高階行列関数</a>に高精度を求めない理由）
+・左辺の全微分を単純に仮定すると
 <br>
 {df[i]}={0-f[i]}
 <br>

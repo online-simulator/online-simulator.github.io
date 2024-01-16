@@ -1014,11 +1014,7 @@ My_entry.operation.prototype.FNc = function(data, i0, tagName, tagObj){
 };
 My_entry.operation.prototype.get_dxJ = function(x, h){
   var self = this;
-  var DATA = self.entry.DATA;
-  var hc = h.com;
-  var hcr = hc.r;
-  var hci = hc.i;
-  return DATA.com(hcr, hci);
+  return self.get_dxD(x, h);  // Ver.2.321.78
 };
 My_entry.operation.prototype.get_dxD = function(x, h){
   var self = this;
@@ -1026,8 +1022,8 @@ My_entry.operation.prototype.get_dxD = function(x, h){
   /* Ver.1.3.1 */
   var xc = x.com;
   var hc = h.com;
-  var hcr = Math.max(1, Math.abs(xc.r))*hc.r;
-  var hci = Math.max(1, Math.abs(xc.i))*hc.i;
+  var hcr = (xc.r || 1)*hc.r;  // Ver.2.321.78
+  var hci = (xc.i || 1)*hc.i;  // Ver.2.321.78
   return DATA.com(hcr, hci);
 };
 /* differential step */
@@ -1449,13 +1445,6 @@ else{
     if(!(arr_x)){
       arr_x = math_mat.zeros2d(len_i, 1);
     }
-    /* -> Ver.2.29.15 */
-    /* Ver.1.3.1 */
-    var hc = self.get_hc(options, null, args[3], "dxJ");
-    var hcr = hc.r;
-    var hci = hc.i;
-    var h0 = DATA.num(hcr, hci);
-    /* Ver.2.29.15 -> */
     var J = null;
     // x0
     var x0 = init_x0(arr_x, names, ids_buffer);  // Ver.2.233.56
@@ -1471,7 +1460,13 @@ else{
       // x1
       for(var i=0; i<len_i; ++i){
         var x0ic = x0[i].com;
-        dx[i] = h0;
+        /* Ver.2.321.78 -> */
+        /* Ver.1.3.1 */
+        var hc = self.get_hc(options, x0[i], args[3], "dxJ");
+        var hcr = hc.r;
+        var hci = hc.i;
+        dx[i] = DATA.num(hcr, hci);
+        /* -> Ver.2.321.78 */
         x1[i] = DATA.num(x0ic.r+hcr, x0ic.i+hci);
       }
       // f0
@@ -1493,7 +1488,7 @@ else{
         var arr_f1 = tree.mat.arr;
         for(var i=0; i<len_i; ++i){
           var f1i = get_f(arr_f1, i);
-          J[i][j] = unit["BRd"](options, unit["BRs"](options, f1i, f0[i]), dx[i]);
+          J[i][j] = unit["BRd"](options, unit["BRs"](options, f1i, f0[i]), dx[j]);  // Ver.2.321.78
         }
       }
     };
