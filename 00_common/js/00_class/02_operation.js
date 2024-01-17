@@ -1456,6 +1456,7 @@ else{
     var i0 = [];
     var j0 = [];
     var f0 = [];
+    var checkError = options.checkError && !(isNewtonian);  // Ver.2.323.78
     var step = function(){
       // x1
       for(var i=0; i<len_i; ++i){
@@ -1488,7 +1489,15 @@ else{
         var arr_f1 = tree.mat.arr;
         for(var i=0; i<len_i; ++i){
           var f1i = get_f(arr_f1, i);
-          J[i][j] = unit["BRd"](options, unit["BRs"](options, f1i, f0[i]), dx[j]);  // Ver.2.321.78
+          /* Ver.2.323.78 -> */
+          var num = unit["BRd"](options, unit["BRs"](options, f1i, f0[i]), dx[j]);  // Ver.2.321.78
+          if(checkError){
+            var dxj = dx[j];
+            num.err.r = dxj.com.r;
+            num.err.i = dxj.com.i;
+          }
+          J[i][j] = num;
+          /* -> Ver.2.323.78 */
         }
       }
     };
