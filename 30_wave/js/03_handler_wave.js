@@ -169,6 +169,7 @@ My_entry.handler_wave.prototype.init_handlers = function(){
     self.output_amplitude_max(self.params._amplitude_max || ((self.params.maxAmp)? self.pre_maxAmp: ""));  // Ver.1.35.6  // Ver.1.45.11
     if(self.isScriptMode){
       self.output_time("");
+      $._id("input-BPM").value = 60/$._id("input-tempo").value;  // Ver.1.52.11
     }
     else{
       self.output_fileSize();
