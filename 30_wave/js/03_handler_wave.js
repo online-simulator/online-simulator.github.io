@@ -169,7 +169,6 @@ My_entry.handler_wave.prototype.init_handlers = function(){
     self.output_amplitude_max(self.params._amplitude_max || ((self.params.maxAmp)? self.pre_maxAmp: ""));  // Ver.1.35.6  // Ver.1.45.11
     if(self.isScriptMode){
       self.output_time("");
-      $._id("input-BPM").value = 60/$._id("input-tempo").value;  // Ver.1.52.11
     }
     else{
       self.output_fileSize();
@@ -345,7 +344,11 @@ My_entry.handler_wave.prototype.make_params = function(){
   params.fileSizeMax = $.selectNum_id("select-fileSizeMax");
   /* Ver.1.17.4 -> */
   if(self.isScriptMode){
-    params.tempo = $.inputVal_id("input-tempo");
+    /* Ver.1.52.11 -> */
+    var tempo = 60/$.inputVal_id("input-BPM");
+    $._id("input-tempo").value = tempo;
+    params.tempo = tempo;
+    /* -> Ver.1.52.11 */
     params.pitch = $.inputVal_id("input-pitch");
     params.tempo = def.limit(params.tempo, 0, Number.MAX_VALUE, 1);  // Ver.1.19.4
     params.pitch = def.limit(params.pitch, -16, 16, 0);
