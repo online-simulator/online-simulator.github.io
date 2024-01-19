@@ -348,6 +348,11 @@ My_entry.handler_wave.prototype.make_params = function(){
     var tempo = 60/$.inputVal_id("input-BPM");
     $._id("input-tempo").value = tempo;
     params.tempo = tempo;
+    var isAutoDfreq = $.checkbox_id("checkbox-autoDfreq");
+    $.set_id("input-dfreq", "readOnly", isAutoDfreq);
+    if(isAutoDfreq){
+      $._id("input-dfreq").value = 4/tempo;
+    }
     /* -> Ver.1.52.11 */
     params.pitch = $.inputVal_id("input-pitch");
     params.tempo = def.limit(params.tempo, 0, Number.MAX_VALUE, 1);  // Ver.1.19.4
