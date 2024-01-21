@@ -72,6 +72,11 @@ My_entry.handler_wave.prototype.init_handlers = function(){
     if(self.isSingle){
       self.output_freq();
     }
+    /* Ver.1.53.11 -> */
+    if(self.isScriptMode){
+      $.set_selectVal_id("select-n_thread", (Math.min(window.navigator.hardwareConcurrency || 1, 12)*2));
+    }
+    /* -> Ver.1.53.11 */
     self.elem_top.onchange();
     self.output_fileName();
     return self;

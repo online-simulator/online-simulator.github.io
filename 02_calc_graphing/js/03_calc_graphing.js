@@ -882,6 +882,7 @@ My_entry.calc_graphing.prototype.init_handlers = function(){
     self.handler_link = new self.constructors.handler_link(json);
     self.handler_link.setter.callback(function(){return self.logh;});
     self.handler_drag = new self.constructors.handler_drag("div-drag", "checkbox-drag", {});
+    $.set_selectVal_id("select-n_thread", (Math.min(window.navigator.hardwareConcurrency || 1, 12)*2));  // Ver.2.325.78
     $.change_elems$("input[type='checkbox']");
     self.io.write_stamp(self.elems.h);
     self.logh = self.io.getter.stamp();
