@@ -21,7 +21,7 @@
     var $ = new My_entry.$();
     $.onload(function(e){
       $._id("VERSION").textContent = My_entry.VERSION;
-      ["calc", "fluid", "wave", "pen", "else"].forEach(function(name){
+      ["calc", "fluid", "cell", "wave", "pen", "else"].forEach(function(name){
         $._id("Ver-"+name).textContent = My_entry.Ver[name];
       });
       var elem_s = $._id("select-types");
@@ -115,6 +115,7 @@ Visualiser
 Electrochemical cell
     </td>
     <td>
+<a title="[spec]Electrochemical 0D-cell" href="20_cell/spec.html">[spec]Electrochemical 0D-cell</a>
     </td>
     <td>
 <span id="Ver-cell"></span>
@@ -286,6 +287,26 @@ Y/M/D
   </tr>
 </thead>
 <tbody>
+  <tr>
+    <th>
+6.356.167.18.88
+    </th>
+    <td class="types">
+Visualiser
+    </td>
+    <td>
+0.1.0
+    </td>
+    <td>
+minor change
+    </td>
+    <td>
+[spec]Electrochemical 0D-cell added
+    </td>
+    <td>
+2024/1/24
+    </td>
+  </tr>
   <tr>
     <th>
 6.356.166.18.88
