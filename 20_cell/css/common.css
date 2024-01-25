@@ -1,0 +1,18 @@
+@charset "UTF-8";
+
+html, body, input, textarea, select, button, table, caption, label{
+  font-family: Arial, sans-serif;
+}
+
+canvas{
+  -ms-touch-action: none;
+  touch-action: none;
+  float: none;
+  margin: 0;
+  padding: 0;
+  border: solid 1px #333;
+}
+
+#div-canvas, #div-plot2d{
+  margin: 0 50px;
+}

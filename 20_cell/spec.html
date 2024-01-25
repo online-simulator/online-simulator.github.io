@@ -18,6 +18,30 @@
 <body>
   <div class="absolute">
     <table class="border">
+      <caption>更新履歴</caption>
+      <tbody>
+        <tr class="border">
+          <td class="border clear">
+Ver.0.1.1
+          </td>
+          <td class="border">
+・不備の校正
+<br>
+・css追加
+          </td>
+        </tr>
+        <tr class="border">
+          <td class="border run">
+Ver.0.1.0
+          </td>
+          <td class="border">
+・draft版
+          </td>
+        </tr>
+      </tbody>
+    </table>
+<br>
+    <table class="border">
       <caption>0D-model（反応と拡散を強連成）の特殊な実装例</caption>
       <tbody>
         <tr class="border">
@@ -391,6 +415,8 @@ Ds1ref=1e-8;
         <tr class="border">
           <td class="border selection">
 activation energies
+<br>
+<span class="clear">Ver.0.1.1訂正</span>
           </td>
           <td class="border">
 J/mol
@@ -406,7 +432,7 @@ ERf2=50e3;
 <br>
 ERf1=50e3;
 <br>
-EDe2=30e3;
+<span class="clear">EDe</span>=30e3;
 <br>
 EDs2=10e3;
 <br>
@@ -432,6 +458,19 @@ define
         </tr>
       </thead>
       <tbody>
+        <tr class="border">
+          <td class="border">
+time step
+<br>
+<span class="clear">Ver.0.1.1追加</span>
+          </td>
+          <td class="border">
+s
+          </td>
+          <td class="border">
+dt=1e-2;
+          </td>
+        </tr>
         <tr class="border">
           <td class="border">
 temperature
@@ -567,11 +606,13 @@ R0=R0ref*(0.5+0.5/ratio_factor(T,ER0)=&gt;)
         <tr class="border">
           <td class="border">
 exchange current density
+<br>
+<span class="clear">Ver.0.1.1訂正</span>
           </td>
           <td class="border">
-i02=i02ref*ratio_factor(T,Ek2)=&gt;*(ce2/ce0)**aa2*(1-cse2/csmax2)**aa2*(cse2/csmax2)**(1-aa2)
+i02=i02ref*ratio_factor(T,<span class="clear">Ei02</span>)=&gt;*(ce2/ce0)**aa2*(1-cse2/csmax2)**aa2*(cse2/csmax2)**(1-aa2)
 <br>
-i01=i01ref*ratio_factor(T,Ek1)=&gt;*(ce1/ce0)**aa1*(1-cse1/csmax1)**aa1*(cse1/csmax1)**(1-aa1)
+i01=i01ref*ratio_factor(T,<span class="clear">Ei01</span>)=&gt;*(ce1/ce0)**aa1*(1-cse1/csmax1)**aa1*(cse1/csmax1)**(1-aa1)
           </td>
         </tr>
         <tr class="border">
@@ -663,15 +704,17 @@ It/L1=<span class="run">jLi1R</span>+C1*(U1(cse1/csmax1)=&gt;+eta1+Rf1ref*ratio_
         <tr class="border">
           <td class="border run">
 Butler-Volmer
+<br>
+<span class="clear">Ver.0.1.1訂正</span>
           </td>
           <td class="border">
 jLi2R/as2=<span class="selection">i02</span>*exp(<span class="run">eta2</span>*aa2*n2*F/(Rgas*T))-exp(-<span class="run">eta2</span>*(1-aa2)*n2*F/(Rgas*T))
 <br>
 jLi1R/as1=<span class="selection">i01</span>*exp(<span class="run">eta1</span>*aa1*n1*F/(Rgas*T))-exp(-<span class="run">eta1</span>*(1-aa1)*n1*F/(Rgas*T))
 <hr>
-jLi2R/as2=i02ref*ratio_factor(T,Ek2)=&gt;*(ce2/ce0)**aa2*(1-cse2/csmax2)**aa2*(cse2/csmax2)**(1-aa2)*exp(<span class="run">eta2</span>*aa2*n2*F/(Rgas*T))-exp(-<span class="run">eta2</span>*(1-aa2)*n2*F/(Rgas*T));
+jLi2R/as2=i02ref*ratio_factor(T,<span class="clear">Ei02</span>)=&gt;*(ce2/ce0)**aa2*(1-cse2/csmax2)**aa2*(cse2/csmax2)**(1-aa2)*exp(<span class="run">eta2</span>*aa2*n2*F/(Rgas*T))-exp(-<span class="run">eta2</span>*(1-aa2)*n2*F/(Rgas*T));
 <br>
-jLi1R/as1=i01ref*ratio_factor(T,Ek1)=&gt;*(ce1/ce0)**aa1*(1-cse1/csmax1)**aa1*(cse1/csmax1)**(1-aa1)*exp(<span class="run">eta1</span>*aa1*n1*F/(Rgas*T))-exp(-<span class="run">eta1</span>*(1-aa1)*n1*F/(Rgas*T));
+jLi1R/as1=i01ref*ratio_factor(T,<span class="clear">Ei01</span>)=&gt;*(ce1/ce0)**aa1*(1-cse1/csmax1)**aa1*(cse1/csmax1)**(1-aa1)*exp(<span class="run">eta1</span>*aa1*n1*F/(Rgas*T))-exp(-<span class="run">eta1</span>*(1-aa1)*n1*F/(Rgas*T));
           </td>
         </tr>
         <tr class="border">
