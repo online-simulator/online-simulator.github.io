@@ -269,7 +269,7 @@ as1=3*epss1/rs1;
         </tr>
         <tr class="border">
           <td class="border">
-diffusion length
+diffusion length of active material
           </td>
           <td class="border">
 cm
@@ -541,33 +541,33 @@ define
       </thead>
       <tbody>
         <tr class="border">
-          <th class="border">
+          <td class="border">
 output voltage
-          </th>
+          </td>
           <td class="border">
 Vt=psmpe1-psmpe2+R0*It
           </td>
         </tr>
         <tr class="border">
-          <th class="border clear">
+          <td class="border clear">
 temperature factor
-          </th>
+          </td>
           <td class="border">
 ratio_factor(T,Eact)=&lt;exp((1/Tref-1/T)*Eact/Rgas);
           </td>
         </tr>
         <tr class="border">
-          <th class="border">
+          <td class="border">
 Ohmic resistance
-          </th>
+          </td>
           <td class="border">
 R0=R0ref*(0.5+0.5/ratio_factor(T,ER0)=&gt;)
           </td>
         </tr>
         <tr class="border">
-          <th class="border">
+          <td class="border">
 exchange current density
-          </th>
+          </td>
           <td class="border">
 i02=i02ref*ratio_factor(T,Ek2)=&gt;*(ce2/ce0)**aa2*(1-cse2/csmax2)**aa2*(cse2/csmax2)**(1-aa2)
 <br>
@@ -575,9 +575,9 @@ i01=i01ref*ratio_factor(T,Ek1)=&gt;*(ce1/ce0)**aa1*(1-cse1/csmax1)**aa1*(cse1/cs
           </td>
         </tr>
         <tr class="border">
-          <th class="border">
+          <td class="border">
 SEI film resistance
-          </th>
+          </td>
           <td class="border">
 Rf2=Rf2ref*ratio_factor(T,ERf2)=&gt;
 <br>
@@ -585,17 +585,17 @@ Rf1=Rf1ref*ratio_factor(T,ERf1)=&gt;
           </td>
         </tr>
         <tr class="border">
-          <th class="border">
+          <td class="border">
 diffusion coefficient De
-          </th>
+          </td>
           <td class="border">
 De=Deref*ratio_factor(T,EDe)=&gt;
           </td>
         </tr>
         <tr class="border">
-          <th class="border">
+          <td class="border">
 diffusion coefficient Ds
-          </th>
+          </td>
           <td class="border">
 Ds2=Ds2ref*ratio_factor(T,EDs2)=&gt;
 <br>
@@ -603,9 +603,9 @@ Ds1=Ds1ref*ratio_factor(T,EDs1)=&gt;
           </td>
         </tr>
         <tr class="border">
-          <th class="border clear">
+          <td class="border clear">
 Open Circuit Potential
-          </th>
+          </td>
           <td class="border">
 f(t,a,b,c)=&lt;b+a*exp(c*t);
 <br>
@@ -617,9 +617,9 @@ U1(t)=&lt;g(t,-(4.5-1),4.5-t,-50,0.3,-0.3*(1-t),-20)=&gt;;
           </td>
         </tr>
         <tr class="border">
-          <th class="border">
+          <td class="border">
 potential
-          </th>
+          </td>
           <td class="border">
 psmpe2=U2(cse2/csmax2)=&gt;+eta2+<span class="selection">Rf2</span>*jLi2R/as2
 <br>
@@ -627,9 +627,9 @@ psmpe1=U1(cse1/csmax1)=&gt;+eta1+<span class="selection">Rf1</span>*jLi1R/as1
           </td>
         </tr>
         <tr class="border">
-          <th class="border">
+          <td class="border">
 double-layer capacitance
-          </th>
+          </td>
           <td class="border">
 jLi2C=C2*(psmpe2-<span class="clear">psmpe20</span>)/dt
 <br>
@@ -637,9 +637,9 @@ jLi1C=C1*(psmpe1-<span class="clear">psmpe10</span>)/dt
           </td>
         </tr>
         <tr class="border">
-          <th class="border">
+          <td class="border">
 volume averaged current density
-          </th>
+          </td>
           <td class="border">
 jLi2=-It/L2
 <br>
@@ -647,9 +647,9 @@ jLi1=It/L1
           </td>
         </tr>
         <tr class="border">
-          <th class="border run">
+          <td class="border run">
 charge conservation
-          </th>
+          </td>
           <td class="border">
 jLi2=<span class="run">jLi2R</span>+jLi2C
 <br>
@@ -661,9 +661,9 @@ It/L1=<span class="run">jLi1R</span>+C1*(U1(cse1/csmax1)=&gt;+eta1+Rf1ref*ratio_
           </td>
         </tr>
         <tr class="border">
-          <th class="border run">
+          <td class="border run">
 Butler-Volmer
-          </th>
+          </td>
           <td class="border">
 jLi2R/as2=<span class="selection">i02</span>*exp(<span class="run">eta2</span>*aa2*n2*F/(Rgas*T))-exp(-<span class="run">eta2</span>*(1-aa2)*n2*F/(Rgas*T))
 <br>
@@ -675,25 +675,25 @@ jLi1R/as1=i01ref*ratio_factor(T,Ek1)=&gt;*(ce1/ce0)**aa1*(1-cse1/csmax1)**aa1*(c
           </td>
         </tr>
         <tr class="border">
-          <th class="border">
+          <td class="border">
 average concentration
-          </th>
+          </td>
           <td class="border">
 cet=ce0*(epse2*L2+epses*Ls+epse1*L1)
           </td>
         </tr>
         <tr class="border">
-          <th class="border">
+          <td class="border">
 ces
-          </th>
+          </td>
           <td class="border">
 ces=(cet-(ce2*epse2*L2+ce1*epse1*L1))/(epses*Ls)
           </td>
         </tr>
         <tr class="border">
-          <th class="border run">
+          <td class="border run">
 ce
-          </th>
+          </td>
           <td class="border">
 epse2*(<span class="run">ce2</span>-<span class="clear">ce20</span>)/dt=<span class="selection">De</span>*epse2**1.5*(ces-<span class="run">ce2</span>)/(0.5*(L2+Ls))+jLi2*(1-t0)/F
 <br>
@@ -705,9 +705,9 @@ epse1*(<span class="run">ce1</span>-<span class="clear">ce10</span>)/dt=Deref*ra
           </td>
         </tr>
         <tr class="border">
-          <th class="border">
+          <td class="border">
 cs
-          </th>
+          </td>
           <td class="border">
 cs2=<span class="clear">cs20</span><span class="wF">-</span>dt*jLi2R/(epss2*F)
 <br>
@@ -715,9 +715,9 @@ cs1=<span class="clear">cs10</span><span class="wF">-</span>dt*jLi1R/(epss1*F)
           </td>
         </tr>
         <tr class="border">
-          <th class="border run">
+          <td class="border run">
 cse
-          </th>
+          </td>
           <td class="border">
 (<span class="selection">Ds2</span>/lse2)*(<span class="run">cse2</span>-cs2)=<span class="wF">-</span>jLi2R/(as2*F)
 <br>
