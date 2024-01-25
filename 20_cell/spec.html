@@ -473,6 +473,19 @@ dt=1e-2;
         </tr>
         <tr class="border">
           <td class="border">
+time
+<br>
+<span class="clear">Ver.0.1.1追加</span>
+          </td>
+          <td class="border">
+s
+          </td>
+          <td class="border">
+t=0;
+          </td>
+        </tr>
+        <tr class="border">
+          <td class="border">
 temperature
           </td>
           <td class="border">
@@ -496,6 +509,8 @@ It=1e-3;
         <tr class="border">
           <td class="border jF">
 previous values
+<br>
+<span class="clear">Ver.0.1.1変更</span>
           </td>
           <td class="border">
 mol/cm^3
@@ -515,9 +530,9 @@ ce20=ce0;
 <br>
 ce10=ce0;
 <br>
-cs20=0;
+cs20=<span class="clear">csmax2*0.05</span>;
 <br>
-cs10=csmax1;
+cs10=<span class="clear">csmax1*0.95</span>;
 <br>
 psmpe20=U2(cs20/csmax2)=&gt;;
 <br>
@@ -585,6 +600,26 @@ output voltage
           </td>
           <td class="border">
 Vt=psmpe1-psmpe2+R0*It
+          </td>
+        </tr>
+        <tr class="border">
+          <td class="border">
+time evolution
+<br>
+<span class="clear">Ver.0.1.1追加</span>
+          </td>
+          <td class="border">
+t=t+dt
+          </td>
+        </tr>
+        <tr class="border">
+          <td class="border">
+break conditions
+<br>
+<span class="clear">Ver.0.1.1追加</span>
+          </td>
+          <td class="border">
+le(ce2,0)||le(ce1,0)||le(cse2,0)||ge(cse2,csmax2)||le(cse1,0)||ge(cse1,csmax1)
           </td>
         </tr>
         <tr class="border">
