@@ -771,15 +771,17 @@ ces=(cet-(ce2*epse2*L2+ce1*epse1*L1))/(epses*Ls)
         <tr class="border">
           <td class="border run">
 ce
+<br>
+<span class="clear">Ver.0.1.1訂正</span>
           </td>
           <td class="border">
 epse2*(<span class="run">ce2</span>-<span class="jF">ce20</span>)/dt=<span class="selection">De</span>*epse2**1.5*(ces-<span class="run">ce2</span>)/(0.5*(L2+Ls))+jLi2*(1-t0)/F
 <br>
-epse1*(<span class="run">ce1</span>-<span class="jF">ce10</span>)/dt=<span class="selection">De</span>*epse1**1.5*(<span class="run">ce1</span>-ces)/(0.5*(Ls+L1))+jLi1*(1-t0)/F
+epse1*(<span class="run">ce1</span>-<span class="jF">ce10</span>)/dt=<span class="selection">De</span>*epse1**1.5*(<span class="clear">ces-<span class="run">ce1</span></span>)/(0.5*(Ls+L1))+jLi1*(1-t0)/F
 <hr>
 epse2*(<span class="run">ce2</span>-<span class="jF">ce20</span>)/dt=Deref*ratio_factor(T,EDe)=&gt;*epse2**1.5*((ce0*(epse2*L2+epses*Ls+epse1*L1)-(<span class="run">ce2</span>*epse2*L2+ce1*epse1*L1))/(epses*Ls)-<span class="run">ce2</span>)/(0.5*(L2+Ls))-(It/L2)*(1-t0)/F;
 <br>
-epse1*(<span class="run">ce1</span>-<span class="jF">ce10</span>)/dt=Deref*ratio_factor(T,EDe)=&gt;*epse1**1.5*(<span class="run">ce1</span>-(ce0*(epse2*L2+epses*Ls+epse1*L1)-(ce2*epse2*L2+<span class="run">ce1</span>*epse1*L1))/(epses*Ls))/(0.5*(Ls+L1))+(It/L1)*(1-t0)/F;
+epse1*(<span class="run">ce1</span>-<span class="jF">ce10</span>)/dt=Deref*ratio_factor(T,EDe)=&gt;*epse1**1.5*(<span class="clear">(ce0*(epse2*L2+epses*Ls+epse1*L1)-(ce2*epse2*L2+<span class="run">ce1</span>*epse1*L1))/(epses*Ls)-<span class="run">ce1</span></span>)/(0.5*(Ls+L1))+(It/L1)*(1-t0)/F;
           </td>
         </tr>
         <tr class="border">
