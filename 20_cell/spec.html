@@ -455,7 +455,7 @@ It=1e-3;
           </td>
         </tr>
         <tr class="border">
-          <td class="border clear">
+          <td class="border jF">
 previous values
           </td>
           <td class="border">
@@ -549,7 +549,7 @@ Vt=psmpe1-psmpe2+R0*It
           </td>
         </tr>
         <tr class="border">
-          <td class="border clear">
+          <td class="border jF">
 temperature factor
           </td>
           <td class="border">
@@ -603,7 +603,7 @@ Ds1=Ds1ref*ratio_factor(T,EDs1)=&gt;
           </td>
         </tr>
         <tr class="border">
-          <td class="border clear">
+          <td class="border jF">
 Open Circuit Potential
           </td>
           <td class="border">
@@ -631,9 +631,9 @@ psmpe1=U1(cse1/csmax1)=&gt;+eta1+<span class="selection">Rf1</span>*jLi1R/as1
 double-layer capacitance
           </td>
           <td class="border">
-jLi2C=C2*(psmpe2-<span class="clear">psmpe20</span>)/dt
+jLi2C=C2*(psmpe2-<span class="jF">psmpe20</span>)/dt
 <br>
-jLi1C=C1*(psmpe1-<span class="clear">psmpe10</span>)/dt
+jLi1C=C1*(psmpe1-<span class="jF">psmpe10</span>)/dt
           </td>
         </tr>
         <tr class="border">
@@ -655,9 +655,9 @@ jLi2=<span class="run">jLi2R</span>+jLi2C
 <br>
 jLi1=<span class="run">jLi1R</span>+jLi1C
 <hr>
--It/L2=<span class="run">jLi2R</span>+C2*(U2(cse2/csmax2)=&gt;+eta2+Rf2ref*ratio_factor(T,ERf2)=&gt;*<span class="run">jLi2R</span>/as2-<span class="clear">psmpe20</span>)/dt;
+-It/L2=<span class="run">jLi2R</span>+C2*(U2(cse2/csmax2)=&gt;+eta2+Rf2ref*ratio_factor(T,ERf2)=&gt;*<span class="run">jLi2R</span>/as2-<span class="jF">psmpe20</span>)/dt;
 <br>
-It/L1=<span class="run">jLi1R</span>+C1*(U1(cse1/csmax1)=&gt;+eta1+Rf1ref*ratio_factor(T,ERf1)=&gt;*<span class="run">jLi1R</span>/as1-<span class="clear">psmpe10</span>)/dt;
+It/L1=<span class="run">jLi1R</span>+C1*(U1(cse1/csmax1)=&gt;+eta1+Rf1ref*ratio_factor(T,ERf1)=&gt;*<span class="run">jLi1R</span>/as1-<span class="jF">psmpe10</span>)/dt;
           </td>
         </tr>
         <tr class="border">
@@ -695,13 +695,13 @@ ces=(cet-(ce2*epse2*L2+ce1*epse1*L1))/(epses*Ls)
 ce
           </td>
           <td class="border">
-epse2*(<span class="run">ce2</span>-<span class="clear">ce20</span>)/dt=<span class="selection">De</span>*epse2**1.5*(ces-<span class="run">ce2</span>)/(0.5*(L2+Ls))+jLi2*(1-t0)/F
+epse2*(<span class="run">ce2</span>-<span class="jF">ce20</span>)/dt=<span class="selection">De</span>*epse2**1.5*(ces-<span class="run">ce2</span>)/(0.5*(L2+Ls))+jLi2*(1-t0)/F
 <br>
-epse1*(<span class="run">ce1</span>-<span class="clear">ce10</span>)/dt=<span class="selection">De</span>*epse1**1.5*(<span class="run">ce1</span>-ces)/(0.5*(Ls+L1))+jLi1*(1-t0)/F
+epse1*(<span class="run">ce1</span>-<span class="jF">ce10</span>)/dt=<span class="selection">De</span>*epse1**1.5*(<span class="run">ce1</span>-ces)/(0.5*(Ls+L1))+jLi1*(1-t0)/F
 <hr>
-epse2*(<span class="run">ce2</span>-<span class="clear">ce20</span>)/dt=Deref*ratio_factor(T,EDe)=&gt;*epse2**1.5*((ce0*(epse2*L2+epses*Ls+epse1*L1)-(<span class="run">ce2</span>*epse2*L2+ce1*epse1*L1))/(epses*Ls)-<span class="run">ce2</span>)/(0.5*(L2+Ls))-(It/L2)*(1-t0)/F;
+epse2*(<span class="run">ce2</span>-<span class="jF">ce20</span>)/dt=Deref*ratio_factor(T,EDe)=&gt;*epse2**1.5*((ce0*(epse2*L2+epses*Ls+epse1*L1)-(<span class="run">ce2</span>*epse2*L2+ce1*epse1*L1))/(epses*Ls)-<span class="run">ce2</span>)/(0.5*(L2+Ls))-(It/L2)*(1-t0)/F;
 <br>
-epse1*(<span class="run">ce1</span>-<span class="clear">ce10</span>)/dt=Deref*ratio_factor(T,EDe)=&gt;*epse1**1.5*(<span class="run">ce1</span>-(ce0*(epse2*L2+epses*Ls+epse1*L1)-(ce2*epse2*L2+<span class="run">ce1</span>*epse1*L1))/(epses*Ls))/(0.5*(Ls+L1))+(It/L1)*(1-t0)/F;
+epse1*(<span class="run">ce1</span>-<span class="jF">ce10</span>)/dt=Deref*ratio_factor(T,EDe)=&gt;*epse1**1.5*(<span class="run">ce1</span>-(ce0*(epse2*L2+epses*Ls+epse1*L1)-(ce2*epse2*L2+<span class="run">ce1</span>*epse1*L1))/(epses*Ls))/(0.5*(Ls+L1))+(It/L1)*(1-t0)/F;
           </td>
         </tr>
         <tr class="border">
@@ -709,9 +709,9 @@ epse1*(<span class="run">ce1</span>-<span class="clear">ce10</span>)/dt=Deref*ra
 cs
           </td>
           <td class="border">
-cs2=<span class="clear">cs20</span><span class="wF">-</span>dt*jLi2R/(epss2*F)
+cs2=<span class="jF">cs20</span><span class="wF">-</span>dt*jLi2R/(epss2*F)
 <br>
-cs1=<span class="clear">cs10</span><span class="wF">-</span>dt*jLi1R/(epss1*F)
+cs1=<span class="jF">cs10</span><span class="wF">-</span>dt*jLi1R/(epss1*F)
           </td>
         </tr>
         <tr class="border">
@@ -723,9 +723,9 @@ cse
 <br>
 (<span class="selection">Ds1</span>/lse1)*(<span class="run">cse1</span>-cs1)=<span class="wF">-</span>jLi1R/(as1*F)
 <hr>
-(Ds2ref*ratio_factor(T,EDs2)=&gt;/lse2)*(<span class="run">cse2</span>-(<span class="clear">cs20</span><span class="wF">-</span>dt*jLi2R/(epss2*F)))=<span class="wF">-</span>jLi2R/(as2*F);
+(Ds2ref*ratio_factor(T,EDs2)=&gt;/lse2)*(<span class="run">cse2</span>-(<span class="jF">cs20</span><span class="wF">-</span>dt*jLi2R/(epss2*F)))=<span class="wF">-</span>jLi2R/(as2*F);
 <br>
-(Ds1ref*ratio_factor(T,EDs1)=&gt;/lse1)*(<span class="run">cse1</span>-(<span class="clear">cs10</span><span class="wF">-</span>dt*jLi1R/(epss1*F)))=<span class="wF">-</span>jLi1R/(as1*F);
+(Ds1ref*ratio_factor(T,EDs1)=&gt;/lse1)*(<span class="run">cse1</span>-(<span class="jF">cs10</span><span class="wF">-</span>dt*jLi1R/(epss1*F)))=<span class="wF">-</span>jLi1R/(as1*F);
           </td>
         </tr>
       </tbody>
