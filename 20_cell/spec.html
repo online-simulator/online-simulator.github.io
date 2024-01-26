@@ -21,6 +21,14 @@
       <caption>更新履歴</caption>
       <tbody>
         <tr class="border">
+          <td class="border run">
+Ver.0.2.1
+          </td>
+          <td class="border">
+・濃度過電圧dphieを液間電位差として追加考慮
+          </td>
+        </tr>
+        <tr class="border">
           <td class="border clear">
 Ver.0.1.1
           </td>
@@ -47,11 +55,13 @@ Ver.0.1.0
         <tr class="border">
           <td class="border run">
 仮定
+<br>
+<span class="condition">Ver.0.2.1更新</span>
           </td>
           <td class="border">
 ・反応分布が均一（容量型の大電流でmodeling誤差大）
 <br>
-・濃度過電圧を無視
+・濃度過電圧<del>を無視</del><span class="condition">dphieを液間電位差として追加考慮（電気二重層より長時定数で緩和）</span>
           </td>
         </tr>
         <tr class="border">
@@ -600,10 +610,24 @@ define
       <tbody>
         <tr class="border">
           <td class="border">
-output voltage
+dphie
+<br>
+<span class="condition">Ver.0.2.1仮定</span>
           </td>
           <td class="border">
-Vt=psmpe1-psmpe2+R0*It
+dphie=(ln(ce1)-ln(ce2))*2*Rgas*T*(1-t0)/(n*F)
+          </td>
+        </tr>
+        <tr class="border">
+          <td class="border">
+output voltage
+<br>
+<span class="condition">Ver.0.2.1更新</span>
+          </td>
+          <td class="border">
+Vt=psmpe1-psmpe2+R0*It<span class="condition">+dphie</span>
+<hr>
+Vt=psmpe1-psmpe2+R0*It<span class="condition">+(ln(ce1)-ln(ce2))*2*Rgas*T*(1-t0)/(n*F)</span>
           </td>
         </tr>
         <tr class="border">
