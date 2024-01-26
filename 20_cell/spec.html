@@ -60,6 +60,8 @@ Ver.0.1.0
           </td>
           <td class="border">
 ・端子間の充電電流を正
+<br>
+・初回充電||過充放電時に発生する副反応は未考慮
           </td>
         </tr>
         <tr class="border">
@@ -777,37 +779,41 @@ ce
 <span class="clear">Ver.0.1.1訂正</span>
           </td>
           <td class="border">
-epse2*(<span class="run">ce2</span>-<span class="jF">ce20</span>)/dt=<span class="selection">De</span>*epse2**1.5*(ces-<span class="run">ce2</span>)/(0.5*(L2+Ls))+jLi2*(1-t0)/F
+epse2*(<span class="run">ce2</span>-<span class="jF">ce20</span>)/dt=<span class="selection">De</span>*epse2**1.5*(ces-<span class="run">ce2</span>)/(0.5*(L2+Ls))+jLi2*(1-t0)/<span class="clear">(n2*F)</span>
 <br>
-epse1*(<span class="run">ce1</span>-<span class="jF">ce10</span>)/dt=<span class="selection">De</span>*epse1**1.5*(<span class="clear">ces-<span class="run">ce1</span></span>)/(0.5*(Ls+L1))+jLi1*(1-t0)/F
+epse1*(<span class="run">ce1</span>-<span class="jF">ce10</span>)/dt=<span class="selection">De</span>*epse1**1.5*(<span class="clear">ces-<span class="run">ce1</span></span>)/(0.5*(Ls+L1))+jLi1*(1-t0)/<span class="clear">(n1*F)</span>
 <hr>
-epse2*(<span class="run">ce2</span>-<span class="jF">ce20</span>)/dt=Deref*ratio_factor(T,EDe)=&gt;*epse2**1.5*((ce0*(epse2*L2+epses*Ls+epse1*L1)-(<span class="run">ce2</span>*epse2*L2+ce1*epse1*L1))/(epses*Ls)-<span class="run">ce2</span>)/(0.5*(L2+Ls))-(It/L2)*(1-t0)/F;
+epse2*(<span class="run">ce2</span>-<span class="jF">ce20</span>)/dt=Deref*ratio_factor(T,EDe)=&gt;*epse2**1.5*((ce0*(epse2*L2+epses*Ls+epse1*L1)-(<span class="run">ce2</span>*epse2*L2+ce1*epse1*L1))/(epses*Ls)-<span class="run">ce2</span>)/(0.5*(L2+Ls))-(It/L2)*(1-t0)/<span class="clear">(n2*F)</span>;
 <br>
-epse1*(<span class="run">ce1</span>-<span class="jF">ce10</span>)/dt=Deref*ratio_factor(T,EDe)=&gt;*epse1**1.5*(<span class="clear">(ce0*(epse2*L2+epses*Ls+epse1*L1)-(ce2*epse2*L2+<span class="run">ce1</span>*epse1*L1))/(epses*Ls)-<span class="run">ce1</span></span>)/(0.5*(Ls+L1))+(It/L1)*(1-t0)/F;
+epse1*(<span class="run">ce1</span>-<span class="jF">ce10</span>)/dt=Deref*ratio_factor(T,EDe)=&gt;*epse1**1.5*(<span class="clear">(ce0*(epse2*L2+epses*Ls+epse1*L1)-(ce2*epse2*L2+<span class="run">ce1</span>*epse1*L1))/(epses*Ls)-<span class="run">ce1</span></span>)/(0.5*(Ls+L1))+(It/L1)*(1-t0)/<span class="clear">(n1*F)</span>;
           </td>
         </tr>
         <tr class="border">
           <td class="border">
 cs
+<br>
+<span class="clear">Ver.0.1.1訂正</span>
           </td>
           <td class="border">
-cs2=<span class="jF">cs20</span><span class="wF">-</span>dt*jLi2R/(epss2*F)
+cs2=<span class="jF">cs20</span><span class="wF">-</span>dt*jLi2R/(epss2*<span class="clear">n2*F</span>)
 <br>
-cs1=<span class="jF">cs10</span><span class="wF">-</span>dt*jLi1R/(epss1*F)
+cs1=<span class="jF">cs10</span><span class="wF">-</span>dt*jLi1R/(epss1*<span class="clear">n1*F</span>)
           </td>
         </tr>
         <tr class="border">
           <td class="border run">
 cse
+<br>
+<span class="clear">Ver.0.1.1訂正</span>
           </td>
           <td class="border">
-(<span class="selection">Ds2</span>/lse2)*(<span class="run">cse2</span>-cs2)=<span class="wF">-</span>jLi2R/(as2*F)
+(<span class="selection">Ds2</span>/lse2)*(<span class="run">cse2</span>-cs2)=<span class="wF">-</span>jLi2R/(as2*<span class="clear">n2*F</span>)
 <br>
-(<span class="selection">Ds1</span>/lse1)*(<span class="run">cse1</span>-cs1)=<span class="wF">-</span>jLi1R/(as1*F)
+(<span class="selection">Ds1</span>/lse1)*(<span class="run">cse1</span>-cs1)=<span class="wF">-</span>jLi1R/(as1*<span class="clear">n1*F</span>)
 <hr>
-(Ds2ref*ratio_factor(T,EDs2)=&gt;/lse2)*(<span class="run">cse2</span>-(<span class="jF">cs20</span><span class="wF">-</span>dt*jLi2R/(epss2*F)))=<span class="wF">-</span>jLi2R/(as2*F);
+(Ds2ref*ratio_factor(T,EDs2)=&gt;/lse2)*(<span class="run">cse2</span>-(<span class="jF">cs20</span><span class="wF">-</span>dt*jLi2R/(epss2*<span class="clear">n2*F</span>)))=<span class="wF">-</span>jLi2R/(as2*<span class="clear">n2*F</span>);
 <br>
-(Ds1ref*ratio_factor(T,EDs1)=&gt;/lse1)*(<span class="run">cse1</span>-(<span class="jF">cs10</span><span class="wF">-</span>dt*jLi1R/(epss1*F)))=<span class="wF">-</span>jLi1R/(as1*F);
+(Ds1ref*ratio_factor(T,EDs1)=&gt;/lse1)*(<span class="run">cse1</span>-(<span class="jF">cs10</span><span class="wF">-</span>dt*jLi1R/(epss1*<span class="clear">n1*F</span>)))=<span class="wF">-</span>jLi1R/(as1*<span class="clear">n1*F</span>);
           </td>
         </tr>
       </tbody>
