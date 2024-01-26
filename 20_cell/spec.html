@@ -221,13 +221,13 @@ define
         <tr class="border">
           <td class="border">
 valence
-          </td>
-          <td class="border">
-          </td>
-          <td class="border">
-n2=1;
 <br>
-n1=1;
+<span class="clear">Ver.0.1.1統合</span>
+          </td>
+          <td class="border">
+          </td>
+          <td class="border">
+<span class="clear">n=1;</span>
           </td>
         </tr>
         <tr class="border">
@@ -747,13 +747,13 @@ Butler-Volmer
 <span class="clear">Ver.0.1.1訂正</span>
           </td>
           <td class="border">
-jLi2R/as2=<span class="selection">i02</span>*<span class="clear">(</span>exp(<span class="run">eta2</span>*aa2*n2*F/(Rgas*T))-exp(-<span class="run">eta2</span>*(1-aa2)*n2*F/(Rgas*T))<span class="clear">)</span>
+jLi2R/as2=<span class="selection">i02</span>*<span class="clear">(</span>exp(<span class="run">eta2</span>*aa2*<span class="clear">n*F</span>/(Rgas*T))-exp(-<span class="run">eta2</span>*(1-aa2)*<span class="clear">n*F</span>/(Rgas*T))<span class="clear">)</span>
 <br>
-jLi1R/as1=<span class="selection">i01</span>*<span class="clear">(</span>exp(<span class="run">eta1</span>*aa1*n1*F/(Rgas*T))-exp(-<span class="run">eta1</span>*(1-aa1)*n1*F/(Rgas*T))<span class="clear">)</span>
+jLi1R/as1=<span class="selection">i01</span>*<span class="clear">(</span>exp(<span class="run">eta1</span>*aa1*<span class="clear">n*F</span>/(Rgas*T))-exp(-<span class="run">eta1</span>*(1-aa1)*<span class="clear">n*F</span>/(Rgas*T))<span class="clear">)</span>
 <hr>
-jLi2R/as2=i02ref*ratio_factor(T,<span class="clear">Ei02</span>)=&gt;*(ce2/ce0)**aa2*(1-cse2/csmax2)**aa2*(cse2/csmax2)**(1-aa2)*<span class="clear">(</span>exp(<span class="run">eta2</span>*aa2*n2*F/(Rgas*T))-exp(-<span class="run">eta2</span>*(1-aa2)*n2*F/(Rgas*T))<span class="clear">)</span>;
+jLi2R/as2=i02ref*ratio_factor(T,<span class="clear">Ei02</span>)=&gt;*(ce2/ce0)**aa2*(1-cse2/csmax2)**aa2*(cse2/csmax2)**(1-aa2)*<span class="clear">(</span>exp(<span class="run">eta2</span>*aa2*<span class="clear">n*F</span>/(Rgas*T))-exp(-<span class="run">eta2</span>*(1-aa2)*<span class="clear">n*F</span>/(Rgas*T))<span class="clear">)</span>;
 <br>
-jLi1R/as1=i01ref*ratio_factor(T,<span class="clear">Ei01</span>)=&gt;*(ce1/ce0)**aa1*(1-cse1/csmax1)**aa1*(cse1/csmax1)**(1-aa1)*<span class="clear">(</span>exp(<span class="run">eta1</span>*aa1*n1*F/(Rgas*T))-exp(-<span class="run">eta1</span>*(1-aa1)*n1*F/(Rgas*T))<span class="clear">)</span>;
+jLi1R/as1=i01ref*ratio_factor(T,<span class="clear">Ei01</span>)=&gt;*(ce1/ce0)**aa1*(1-cse1/csmax1)**aa1*(cse1/csmax1)**(1-aa1)*<span class="clear">(</span>exp(<span class="run">eta1</span>*aa1*<span class="clear">n*F</span>/(Rgas*T))-exp(-<span class="run">eta1</span>*(1-aa1)*<span class="clear">n*F</span>/(Rgas*T))<span class="clear">)</span>;
           </td>
         </tr>
         <tr class="border">
@@ -779,13 +779,13 @@ ce
 <span class="clear">Ver.0.1.1訂正</span>
           </td>
           <td class="border">
-epse2*(<span class="run">ce2</span>-<span class="jF">ce20</span>)/dt=<span class="selection">De</span>*epse2**1.5*(ces-<span class="run">ce2</span>)/(0.5*(L2+Ls))+jLi2*(1-t0)/<span class="clear">(n2*F)</span>
+epse2*(<span class="run">ce2</span>-<span class="jF">ce20</span>)/dt=<span class="selection">De</span>*epse2**1.5*(ces-<span class="run">ce2</span>)/(0.5*(L2+Ls))+jLi2*(1-t0)/<span class="clear">(n*F)</span>
 <br>
-epse1*(<span class="run">ce1</span>-<span class="jF">ce10</span>)/dt=<span class="selection">De</span>*epse1**1.5*(<span class="clear">ces-<span class="run">ce1</span></span>)/(0.5*(Ls+L1))+jLi1*(1-t0)/<span class="clear">(n1*F)</span>
+epse1*(<span class="run">ce1</span>-<span class="jF">ce10</span>)/dt=<span class="selection">De</span>*epse1**1.5*(<span class="clear">ces-<span class="run">ce1</span></span>)/(0.5*(Ls+L1))+jLi1*(1-t0)/<span class="clear">(n*F)</span>
 <hr>
-epse2*(<span class="run">ce2</span>-<span class="jF">ce20</span>)/dt=Deref*ratio_factor(T,EDe)=&gt;*epse2**1.5*((ce0*(epse2*L2+epses*Ls+epse1*L1)-(<span class="run">ce2</span>*epse2*L2+ce1*epse1*L1))/(epses*Ls)-<span class="run">ce2</span>)/(0.5*(L2+Ls))-(It/L2)*(1-t0)/<span class="clear">(n2*F)</span>;
+epse2*(<span class="run">ce2</span>-<span class="jF">ce20</span>)/dt=Deref*ratio_factor(T,EDe)=&gt;*epse2**1.5*((ce0*(epse2*L2+epses*Ls+epse1*L1)-(<span class="run">ce2</span>*epse2*L2+ce1*epse1*L1))/(epses*Ls)-<span class="run">ce2</span>)/(0.5*(L2+Ls))-(It/L2)*(1-t0)/<span class="clear">(n*F)</span>;
 <br>
-epse1*(<span class="run">ce1</span>-<span class="jF">ce10</span>)/dt=Deref*ratio_factor(T,EDe)=&gt;*epse1**1.5*(<span class="clear">(ce0*(epse2*L2+epses*Ls+epse1*L1)-(ce2*epse2*L2+<span class="run">ce1</span>*epse1*L1))/(epses*Ls)-<span class="run">ce1</span></span>)/(0.5*(Ls+L1))+(It/L1)*(1-t0)/<span class="clear">(n1*F)</span>;
+epse1*(<span class="run">ce1</span>-<span class="jF">ce10</span>)/dt=Deref*ratio_factor(T,EDe)=&gt;*epse1**1.5*(<span class="clear">(ce0*(epse2*L2+epses*Ls+epse1*L1)-(ce2*epse2*L2+<span class="run">ce1</span>*epse1*L1))/(epses*Ls)-<span class="run">ce1</span></span>)/(0.5*(Ls+L1))+(It/L1)*(1-t0)/<span class="clear">(n*F)</span>;
           </td>
         </tr>
         <tr class="border">
@@ -795,9 +795,9 @@ cs
 <span class="clear">Ver.0.1.1訂正</span>
           </td>
           <td class="border">
-cs2=<span class="jF">cs20</span><span class="wF">-</span>dt*jLi2R/(epss2*<span class="clear">n2*F</span>)
+cs2=<span class="jF">cs20</span><span class="wF">-</span>dt*jLi2R/(epss2*<span class="clear">n*F</span>)
 <br>
-cs1=<span class="jF">cs10</span><span class="wF">-</span>dt*jLi1R/(epss1*<span class="clear">n1*F</span>)
+cs1=<span class="jF">cs10</span><span class="wF">-</span>dt*jLi1R/(epss1*<span class="clear">n*F</span>)
           </td>
         </tr>
         <tr class="border">
@@ -807,13 +807,13 @@ cse
 <span class="clear">Ver.0.1.1訂正</span>
           </td>
           <td class="border">
-(<span class="selection">Ds2</span>/lse2)*(<span class="run">cse2</span>-cs2)=<span class="wF">-</span>jLi2R/(as2*<span class="clear">n2*F</span>)
+(<span class="selection">Ds2</span>/lse2)*(<span class="run">cse2</span>-cs2)=<span class="wF">-</span>jLi2R/(as2*<span class="clear">n*F</span>)
 <br>
-(<span class="selection">Ds1</span>/lse1)*(<span class="run">cse1</span>-cs1)=<span class="wF">-</span>jLi1R/(as1*<span class="clear">n1*F</span>)
+(<span class="selection">Ds1</span>/lse1)*(<span class="run">cse1</span>-cs1)=<span class="wF">-</span>jLi1R/(as1*<span class="clear">n*F</span>)
 <hr>
-(Ds2ref*ratio_factor(T,EDs2)=&gt;/lse2)*(<span class="run">cse2</span>-(<span class="jF">cs20</span><span class="wF">-</span>dt*jLi2R/(epss2*<span class="clear">n2*F</span>)))=<span class="wF">-</span>jLi2R/(as2*<span class="clear">n2*F</span>);
+(Ds2ref*ratio_factor(T,EDs2)=&gt;/lse2)*(<span class="run">cse2</span>-(<span class="jF">cs20</span><span class="wF">-</span>dt*jLi2R/(epss2*<span class="clear">n*F</span>)))=<span class="wF">-</span>jLi2R/(as2*<span class="clear">n*F</span>);
 <br>
-(Ds1ref*ratio_factor(T,EDs1)=&gt;/lse1)*(<span class="run">cse1</span>-(<span class="jF">cs10</span><span class="wF">-</span>dt*jLi1R/(epss1*<span class="clear">n1*F</span>)))=<span class="wF">-</span>jLi1R/(as1*<span class="clear">n1*F</span>);
+(Ds1ref*ratio_factor(T,EDs1)=&gt;/lse1)*(<span class="run">cse1</span>-(<span class="jF">cs10</span><span class="wF">-</span>dt*jLi1R/(epss1*<span class="clear">n*F</span>)))=<span class="wF">-</span>jLi1R/(as1*<span class="clear">n*F</span>);
           </td>
         </tr>
       </tbody>
