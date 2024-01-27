@@ -26,6 +26,8 @@ Ver.0.2.1
           </td>
           <td class="border">
 ・濃度過電圧dphieを液間電位差として追加考慮
+<br>
+・Deの実効値を修正（lee2/lee1を追加）
           </td>
         </tr>
         <tr class="border">
@@ -292,19 +294,6 @@ rs1=L1/2;
         </tr>
         <tr class="border">
           <td class="border">
-diffusion length of active material
-          </td>
-          <td class="border">
-cm
-          </td>
-          <td class="border">
-lse2=rs2/5;
-<br>
-lse1=rs1/5;
-          </td>
-        </tr>
-        <tr class="border">
-          <td class="border">
 volume fraction of electrolyte
           </td>
           <td class="border">
@@ -327,6 +316,34 @@ volume fraction of active material
 epss2=(4*pi/3)/2**3;
 <br>
 epss1=(4*pi/3)/2**3;
+          </td>
+        </tr>
+        <tr class="border">
+          <td class="border">
+diffusion length of electrolyte
+<br>
+<span class="condition">Ver.0.2.1追加</span>
+          </td>
+          <td class="border">
+cm
+          </td>
+          <td class="border">
+lee2=0.5*(epse2**1.5*L2+epses**1.5*Ls)/((epse2*epses)**1.5);
+<br>
+lee1=0.5*(epses**1.5*Ls+epse1**1.5*L1)/((epses*epse1)**1.5);
+          </td>
+        </tr>
+        <tr class="border">
+          <td class="border">
+diffusion length of active material
+          </td>
+          <td class="border">
+cm
+          </td>
+          <td class="border">
+lse2=rs2/5;
+<br>
+lse1=rs1/5;
           </td>
         </tr>
         <tr class="border">
@@ -382,6 +399,8 @@ Tref=TK+15;
 reference values
 <br>
 <span class="clear">Ver.0.1.1変更</span>
+<br>
+<span class="condition">Ver.0.2.1更新</span>
           </td>
           <td class="border">
 F/cm^2
@@ -615,7 +634,7 @@ dphie
 <span class="condition">Ver.0.2.1仮定</span>
           </td>
           <td class="border">
-dphie=(ln(ce1)-ln(ce2))*2*Rgas*T*(1-t0)/(n*F)
+dphie=ln(ce1/ce2)*2*Rgas*T*(1-t0)/(n*F)
           </td>
         </tr>
         <tr class="border">
@@ -626,8 +645,6 @@ output voltage
           </td>
           <td class="border">
 Vt=psmpe1-psmpe2+R0*It<span class="condition">+dphie</span>
-<hr>
-Vt=psmpe1-psmpe2+R0*It<span class="condition">+(ln(ce1)-ln(ce2))*2*Rgas*T*(1-t0)/(n*F)</span>
           </td>
         </tr>
         <tr class="border">
@@ -801,15 +818,17 @@ ces=(cet-(ce2*epse2*L2+ce1*epse1*L1))/(epses*Ls)
 ce
 <br>
 <span class="clear">Ver.0.1.1訂正</span>
+<br>
+<span class="condition">Ver.0.2.1更新</span>
           </td>
           <td class="border">
-epse2*(<span class="run">ce2</span>-<span class="jF">ce20</span>)/dt=<span class="selection">De</span>*epse2**1.5*(ces-<span class="run">ce2</span>)/(0.5*(L2+Ls))+jLi2*(1-t0)/<span class="clear">(n*F)</span>
+epse2*(<span class="run">ce2</span>-<span class="jF">ce20</span>)/dt=<span class="condition">(</span><span class="selection">De</span><span class="condition">/lee2)</span>*(ces-<span class="run">ce2</span>)+jLi2*(1-t0)/<span class="clear">(n*F)</span>
 <br>
-epse1*(<span class="run">ce1</span>-<span class="jF">ce10</span>)/dt=<span class="selection">De</span>*epse1**1.5*(<span class="clear">ces-<span class="run">ce1</span></span>)/(0.5*(Ls+L1))+jLi1*(1-t0)/<span class="clear">(n*F)</span>
+epse1*(<span class="run">ce1</span>-<span class="jF">ce10</span>)/dt=<span class="condition">(</span><span class="selection">De</span><span class="condition">/lee1)</span>*(<span class="clear">ces-<span class="run">ce1</span></span>)+jLi1*(1-t0)/<span class="clear">(n*F)</span>
 <hr>
-epse2*(<span class="run">ce2</span>-<span class="jF">ce20</span>)/dt=Deref*ratio_factor(T,EDe)=&gt;*epse2**1.5*((ce0*(epse2*L2+epses*Ls+epse1*L1)-(<span class="run">ce2</span>*epse2*L2+ce1*epse1*L1))/(epses*Ls)-<span class="run">ce2</span>)/(0.5*(L2+Ls))-(It/L2)*(1-t0)/<span class="clear">(n*F)</span>;
+epse2*(<span class="run">ce2</span>-<span class="jF">ce20</span>)/dt=<span class="condition">(</span>Deref*ratio_factor(T,EDe)=&gt;<span class="condition">/lee2)</span>*((ce0*(epse2*L2+epses*Ls+epse1*L1)-(<span class="run">ce2</span>*epse2*L2+ce1*epse1*L1))/(epses*Ls)-<span class="run">ce2</span>)-(It/L2)*(1-t0)/<span class="clear">(n*F)</span>;
 <br>
-epse1*(<span class="run">ce1</span>-<span class="jF">ce10</span>)/dt=Deref*ratio_factor(T,EDe)=&gt;*epse1**1.5*(<span class="clear">(ce0*(epse2*L2+epses*Ls+epse1*L1)-(ce2*epse2*L2+<span class="run">ce1</span>*epse1*L1))/(epses*Ls)-<span class="run">ce1</span></span>)/(0.5*(Ls+L1))+(It/L1)*(1-t0)/<span class="clear">(n*F)</span>;
+epse1*(<span class="run">ce1</span>-<span class="jF">ce10</span>)/dt=<span class="condition">(</span>Deref*ratio_factor(T,EDe)=&gt;<span class="condition">/lee1)</span>*(<span class="clear">(ce0*(epse2*L2+epses*Ls+epse1*L1)-(ce2*epse2*L2+<span class="run">ce1</span>*epse1*L1))/(epses*Ls)-<span class="run">ce1</span></span>)+(It/L1)*(1-t0)/<span class="clear">(n*F)</span>;
           </td>
         </tr>
         <tr class="border">
