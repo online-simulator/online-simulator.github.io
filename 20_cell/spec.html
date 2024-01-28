@@ -28,6 +28,8 @@ Ver.0.2.1
 ・濃度過電圧dphieを液間電位差として追加考慮
 <br>
 ・Deの実効値を修正（lee2/lee1を追加）
+<br>
+・収束判定条件を追加
           </td>
         </tr>
         <tr class="border">
@@ -648,13 +650,13 @@ Vt=psmpe1-psmpe2+R0*It<span class="condition">+dphie</span>
           </td>
         </tr>
         <tr class="border">
-          <td class="border">
-time evolution
+          <td class="border run">
+convergence conditions of absolute residual norm 
 <br>
-<span class="clear">Ver.0.1.1追加</span>
+<span class="condition">Ver.0.2.1追加</span>
           </td>
           <td class="border">
-t=t+dt
+isNaN(norm)||norm&lt;1e-10
           </td>
         </tr>
         <tr class="border">
@@ -665,6 +667,16 @@ break conditions
           </td>
           <td class="border">
 le(ce2,0)||le(ce1,0)||le(cse2,0)||ge(cse2,csmax2)||le(cse1,0)||ge(cse1,csmax1)
+          </td>
+        </tr>
+        <tr class="border">
+          <td class="border">
+time evolution
+<br>
+<span class="clear">Ver.0.1.1追加</span>
+          </td>
+          <td class="border">
+t=t+dt
           </td>
         </tr>
         <tr class="border">
