@@ -484,6 +484,7 @@ My_entry.calc_graphing.prototype.make_log_plot2d = function(){
 My_entry.calc_graphing.prototype.arr_data2csv = function(arr_data, options_plot){
   var self = this;
   var $ = self.entry.$;
+  var DATA = self.entry.DATA;  // Ver.2.328.79
   var ds = My_entry.$.config.DELIMITER;
   var dq = ds.dq;
   var ca = ds.ca;
@@ -493,6 +494,77 @@ My_entry.calc_graphing.prototype.arr_data2csv = function(arr_data, options_plot)
   var sw_ri_y = (options_plot["imag-y"])? "i": "r";
   /* Ver.2.16.6 -> */
   if(arr_data && arr_data.length){
+  /* Ver.2.328.79 -> */
+    var name_x = $._id("input-vx").value;
+    var name_y = $._id("input-vy").value;
+    var hasName = (name_x && name_y);
+  if(options_plot["axis-v"] && hasName){
+    var len_n = arr_data.length;
+    // stamp
+    for(var n=0; n<len_n; ++n){
+      _csv += name_x+n+ca+name_y+n+ca;
+    }
+    var options_calc = arr_data[0].options;
+    if(options_calc){
+      _csv += dq+options_calc.plot2d+dq+ca;
+      _csv += dq+options_calc.logo+dq+ca;
+    }
+    _csv += dq+self.io.getter.stamp()+dq+rn;
+    // (x,y)
+    var data0 = arr_data[0];
+    var x = data0.vars[name_x];
+    var y = data0.vars[name_y];
+    if(x && y){
+      var arr_x = x.mat.arr;
+      var arr_y = y.mat.arr;
+      var len_x = arr_x.length;
+      var len_y = arr_y.length;
+      for(var j=0; j<len_y; ++j){
+        for(var n=0; n<len_n; ++n){
+          var datan = arr_data[n];
+          var x = datan.vars[name_x];
+          var y = datan.vars[name_y];
+          if(x && y){
+            var arr_x = x.mat.arr;
+            var arr_y = y.mat.arr;
+            var len_x = arr_x.length;
+            var len_y = arr_y.length;
+            if(len_x === len_y){
+              var xj = arr_x[j];
+              var yj = arr_y[j];
+              var x = "";
+              var y = "";
+              if(xj){
+                var num_x = DATA.arr2obj_i(arr_x, j);
+                x = num_x.com[sw_ri_x];
+                if(isNaN(x)){
+                  x = "";
+                }
+              }
+              if(yj){
+                var num_y = DATA.arr2obj_i(arr_y, j);
+                y = num_y.com[sw_ri_y];
+                if(isNaN(y)){
+                  y = "";
+                }
+              }
+              _csv += x+ca;
+              _csv += y+ca;
+            }
+            else{
+              throw "Invalid v.length("+len_x+"<>"+len_y+")";
+            }
+          }
+        }
+        _csv += rn;
+      }
+    }
+    else{
+      throw "Undef v.name("+((x)? name_y: name_x)+")";
+    }
+  }
+  /* -> Ver.2.328.79 */
+  else{
     var arr_x = options_plot.arr_x;
     var arr_y = options_plot.arr_y;
   /* -> Ver.2.16.6 */
@@ -530,11 +602,20 @@ My_entry.calc_graphing.prototype.arr_data2csv = function(arr_data, options_plot)
         var yj = arr_y[j];
         var x = arr2d_vec.x[n][j];
         var y = arr2d_vec.y[n][j];
+        /* Ver.2.328.79 -> */
+        if(isNaN(x)){
+          x = "";
+        }
+        if(isNaN(y)){
+          y = "";
+        }
+        /* -> Ver.2.328.79 */
         _csv += (xj)? x+ca: "";
         _csv += (yj)? y+ca: "";
       }
       _csv += rn;
     }
+  }
   }
   return _csv;
 };
