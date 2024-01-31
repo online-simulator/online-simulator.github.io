@@ -250,14 +250,18 @@ My_entry.calc_graphing.prototype.plot = function(arr_data_, options_plot, isFina
               var x = datan.vars[name_x];
               var arr_x = x.mat.arr;
               var len_x = arr_x.length;
-              arr_numj.push(DATA.arr2obj_i(arr_x, j));
+              if(arr_x[j]){  // Ver.2.327.79
+                arr_numj.push(DATA.arr2obj_i(arr_x, j));
+              }
             }
             for(var n=0; n<len_n; ++n){
               var datan = arr_data[n];
               var y = datan.vars[name_y];
               var arr_y = y.mat.arr;
               var len_y = arr_y.length;
-              arr_numj.push(DATA.arr2obj_i(arr_y, j));
+              if(arr_y[j]){  // Ver.2.327.79
+                arr_numj.push(DATA.arr2obj_i(arr_y, j));
+              }
             }
             /* -> Ver.2.319.77 */
           }
