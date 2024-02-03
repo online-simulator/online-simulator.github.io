@@ -226,54 +226,19 @@ My_entry.calc_graphing.prototype.plot = function(arr_data_, options_plot, isFina
     /* Ver.2.105.33 -> */
     var name_x = $._id("input-vx").value;
     var name_y = $._id("input-vy").value;
-    var hasName = (name_x && name_y);
-    if(options_plot["axis-v"] && hasName){
+    var hasName_v = (options_plot["axis-v"] && name_x && name_y);  // Ver.2.328.80
+    if(hasName_v){  // Ver.2.328.80
       var _arr_data = [];
       var len_n = arr_data.length;
-      var data0 = arr_data[0];
-      var x = data0.vars[name_x];
-      var y = data0.vars[name_y];
-      if(x && y){
-        var arr_x = x.mat.arr;
-        var arr_y = y.mat.arr;
-        var len_x = arr_x.length;
-        var len_y = arr_y.length;
-        if(len_x === len_y){
-          for(var j=0; j<len_y; ++j){
-            if(!(_arr_data[j])){
-              _arr_data[j] = {arr_num: [], len_x: len_n, len_y: len_n};  // Ver.2.319.77
-            }
-            var arr_numj = _arr_data[j].arr_num;
-            /* Ver.2.319.77 -> */
-            for(var n=0; n<len_n; ++n){
-              var datan = arr_data[n];
-              var x = datan.vars[name_x];
-              var arr_x = x.mat.arr;
-              var len_x = arr_x.length;
-              if(arr_x[j]){  // Ver.2.327.79
-                arr_numj.push(DATA.arr2obj_i(arr_x, j));
-              }
-            }
-            for(var n=0; n<len_n; ++n){
-              var datan = arr_data[n];
-              var y = datan.vars[name_y];
-              var arr_y = y.mat.arr;
-              var len_y = arr_y.length;
-              if(arr_y[j]){  // Ver.2.327.79
-                arr_numj.push(DATA.arr2obj_i(arr_y, j));
-              }
-            }
-            /* -> Ver.2.319.77 */
-          }
-          arr_data = _arr_data;
-        }
-        else{
-          throw "Invalid v.length("+len_x+"<>"+len_y+")";
+      for(var n=0; n<len_n; ++n){
+        var datan = arr_data[n];
+        var x = datan.vars[name_x];
+        var y = datan.vars[name_y];
+        if(!(_arr_data[n])){
+          _arr_data[n] = {len_n: len_n, x: x, y: y};  // Ver.2.328.80
         }
       }
-      else{
-        throw "Undef v.name("+((x)? name_y: name_x)+")";
-      }
+      arr_data = _arr_data;
     }
     else{
       arr_data.forEach(function(data){
@@ -364,9 +329,11 @@ My_entry.calc_graphing.prototype.re_plot = function(isFinal){
 };
 My_entry.calc_graphing.prototype.arr_data2arr2d_vec = function(arr_data, options_plot){
   var self = this;
+  var $ = self.entry.$;  // Ver.2.328.80
   var conv = self.entry.conv;
-  var arr2d_x = null;
-  var arr2d_y = null;
+  var DATA = self.entry.DATA;  // Ver.2.328.80
+  var arr2d_x = [];  // Ver.2.328.80
+  var arr2d_y = [];  // Ver.2.328.80
   var isLog_x = (options_plot["log-x"])? true: false;
   var isLog_y = (options_plot["log-y"])? true: false;
   var sw_ri_x = (options_plot["imag-x"])? "i": "r";
@@ -381,17 +348,86 @@ My_entry.calc_graphing.prototype.arr_data2arr2d_vec = function(arr_data, options
   var gymax = 0;
   var len_n = 0;
   var len_j = 0;
+  /* Ver.2.328.80 -> */
+  var update_xy = function(n, j, x, y){
+    var tx = self.plot2d.trans(x, isLog_x);
+    var ty = self.plot2d.trans(y, isLog_y);
+    if(isNaN(tx)){
+      arr2d_x[n][j] = NaN;
+    }
+    else{
+      arr2d_x[n][j] = x;
+      xmin = Math.min(xmin, x);
+      xmax = Math.max(xmax, x);
+    }
+    if(isNaN(ty)){
+      arr2d_y[n][j] = NaN;
+    }
+    else{
+      arr2d_y[n][j] = y;
+      ymin = Math.min(ymin, y);
+      ymax = Math.max(ymax, y);
+    }
+  };
   if(arr_data && arr_data.length){
-    arr2d_x = [];
-    arr2d_y = [];
     len_n = arr_data.length;
+    var name_x = $._id("input-vx").value;
+    var name_y = $._id("input-vy").value;
+    var hasName_v = (options_plot["axis-v"] && name_x && name_y);
+  if(hasName_v){
+    var data0 = arr_data[0];
+    var x = data0.x;
+    var y = data0.y;
+    len_j = data0.len_n;
+    if(x && y){
+      for(var n=0; n<len_n; ++n){
+        arr2d_x[n] = new Array(len_j);
+        arr2d_y[n] = new Array(len_j);
+        for(var j=0; j<len_j; ++j){
+          var data = arr_data[j];
+          var x = data.x;
+          var y = data.y;
+          if(x && y){
+            var arr_x = x.mat.arr;
+            var arr_y = y.mat.arr;
+            var len_x = arr_x.length;
+            var len_y = arr_y.length;
+            len_n = Math.max(len_x, len_y);
+            if(len_x === len_y){
+              var xj = arr_x[n];
+              var yj = arr_y[n];
+              var x = NaN;
+              var y = NaN;
+              if(xj){
+                var num_x = DATA.arr2obj_i(arr_x, n);
+                x = num_x.com[sw_ri_x];
+              }
+              if(yj){
+                var num_y = DATA.arr2obj_i(arr_y, n);
+                y = num_y.com[sw_ri_y];
+              }
+              update_xy(n, j, x, y);
+            }
+            else{
+              throw "Invalid v.length("+len_x+"<>"+len_y+")";
+            }
+          }
+        }
+      }
+    }
+    else{
+      throw "Undef v.name("+((x)? name_y: name_x)+")";
+    }
+  }
+  /* -> Ver.2.328.80 */
+  else{
     for(var n=0; n<len_n; ++n){
       var data = arr_data[n];
       var len_x = data.len_x;
       var len_y = data.len_y;
       var arr_num = data.arr_num;
       if(arr_num){
-        var len_j = Math.max(len_x, len_y);
+        len_j = Math.max(len_x, len_y);  // Ver.2.328.80
         arr2d_x[n] = new Array(len_j);
         arr2d_y[n] = new Array(len_j);
         for(var j=0; j<len_j; ++j){
@@ -401,24 +437,7 @@ My_entry.calc_graphing.prototype.arr_data2arr2d_vec = function(arr_data, options
             /* Ver.2.162.39 -> */
             var x = num_x.com[sw_ri_x];
             var y = num_y.com[sw_ri_y];
-            var tx = self.plot2d.trans(x, isLog_x);
-            var ty = self.plot2d.trans(y, isLog_y);
-            if(isNaN(tx)){
-              arr2d_x[n][j] = NaN;
-            }
-            else{
-              arr2d_x[n][j] = x;
-              xmin = Math.min(xmin, x);
-              xmax = Math.max(xmax, x);
-            }
-            if(isNaN(ty)){
-              arr2d_y[n][j] = NaN;
-            }
-            else{
-              arr2d_y[n][j] = y;
-              ymin = Math.min(ymin, y);
-              ymax = Math.max(ymax, y);
-            }
+            update_xy(n, j, x, y);  // Ver.2.328.80
             /* -> Ver.2.162.39 */
           }
           else{
@@ -428,6 +447,8 @@ My_entry.calc_graphing.prototype.arr_data2arr2d_vec = function(arr_data, options
         }
       }
     }
+    len_n = arr2d_x.length;  // Ver.2.328.80
+  }
     /* Ver.2.190.44 -> */
     var ver_plot = options_plot["plot2d-Ver"];
     /* Ver.2.33.17 -> */
@@ -449,7 +470,6 @@ My_entry.calc_graphing.prototype.arr_data2arr2d_vec = function(arr_data, options
     arr2d_x = arr2d_x.filter(Boolean);
     arr2d_y = arr2d_y.filter(Boolean);
     /* -> Ver.2.43.21 */
-    len_n = arr2d_x.length;
   }
   return {x: arr2d_x, y: arr2d_y, len_n: len_n, len_j: len_j, xmin: xmin, ymin: ymin, xmax: xmax, ymax: ymax, gxmin: gxmin, gymin: gymin, gxmax: gxmax, gymax: gymax};
 };
@@ -497,8 +517,8 @@ My_entry.calc_graphing.prototype.arr_data2csv = function(arr_data, options_plot)
   /* Ver.2.328.79 -> */
     var name_x = $._id("input-vx").value;
     var name_y = $._id("input-vy").value;
-    var hasName = (name_x && name_y);
-  if(options_plot["axis-v"] && hasName){
+    var hasName_v = (options_plot["axis-v"] && name_x && name_y);  // Ver.2.328.80
+  if(hasName_v){  // Ver.2.328.80
     var len_n = arr_data.length;
     // stamp
     for(var n=0; n<len_n; ++n){
