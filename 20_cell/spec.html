@@ -22,6 +22,14 @@
       <tbody>
         <tr class="border">
           <td class="border run">
+Ver.0.3.1
+          </td>
+          <td class="border">
+・spec追記
+          </td>
+        </tr>
+        <tr class="border">
+          <td class="border run">
 Ver.0.2.1
           </td>
           <td class="border">
@@ -54,7 +62,7 @@ Ver.0.1.0
     </table>
 <br>
     <table class="border">
-      <caption>0D-model（反応と拡散を強連成）の特殊な実装例</caption>
+      <caption>0D-model（反応と拡散を強連成）の特殊な実装例<br><span class="selection">Ver.0.3.1追記</span></caption>
       <tbody>
         <tr class="border">
           <td class="border run">
@@ -65,7 +73,7 @@ Ver.0.1.0
           <td class="border">
 ・反応分布が均一（容量型の大電流でmodeling誤差大）
 <br>
-・濃度過電圧<del>を無視</del><span class="condition">dphieを液間電位差として追加考慮（電気二重層より長時定数で緩和）</span>
+・濃度過電圧<del>を無視</del><span class="condition">dphieを液間電位差として追加考慮（<span class="selection">capacitance成分</span>より長時定数で緩和）</span>
           </td>
         </tr>
         <tr class="border">
@@ -73,9 +81,11 @@ Ver.0.1.0
 前提
           </td>
           <td class="border">
-・端子間の充電電流を正
+・端子間の充電電流<span class="selection">の符号</span>を正
 <br>
 ・初回充電||過充放電時に発生する副反応は未考慮
+<br>
+<span class="selection">・瞬時の副反応を抑制するcapacitance成分：電気二重層||圧電効果</span>
           </td>
         </tr>
         <tr class="border">
@@ -84,6 +94,14 @@ Ver.0.1.0
           </td>
           <td class="border">
 ・時間scaleの異なる拡散現象の時間発展は通常、弱連成
+          </td>
+        </tr>
+        <tr class="border">
+          <td class="border selection">
+結果
+          </td>
+          <td class="border">
+<a title="Graphing Calculator" href="../02_calc_graphing/index.html">Graphing Calculator-test case-cell0d</a>参照
           </td>
         </tr>
       </tbody>
@@ -401,8 +419,6 @@ Tref=TK+15;
 reference values
 <br>
 <span class="clear">Ver.0.1.1変更</span>
-<br>
-<span class="condition">Ver.0.2.1更新</span>
           </td>
           <td class="border">
 F/cm^2
@@ -761,7 +777,9 @@ psmpe1=U1(cse1/csmax1)=&gt;+eta1+<span class="selection">Rf1</span>*jLi1R/as1
         </tr>
         <tr class="border">
           <td class="border">
-double-layer capacitance
+<del class="selection">double-layer </del>capacitance
+<br>
+<span class="selection">Ver.0.3.1削除</span>
           </td>
           <td class="border">
 jLi2C=C2*(psmpe2-<span class="jF">psmpe20</span>)/dt
