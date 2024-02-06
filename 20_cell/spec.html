@@ -21,6 +21,20 @@
       <caption>更新履歴</caption>
       <tbody>
         <tr class="border">
+          <td class="border clear">
+Ver.0.3.2
+          </td>
+          <td class="border">
+・Rfの温度因子ratio_factorの演算子を訂正（高温で抵抗小）
+<br>
+　*　⇒　/
+<br>
+・Rf2ref/Rf1refの初期値を変更
+<br>
+　1　⇒　1e-1
+          </td>
+        </tr>
+        <tr class="border">
           <td class="border run">
 Ver.0.3.1
           </td>
@@ -421,6 +435,8 @@ Tref=TK+15;
 reference values
 <br>
 <span class="clear">Ver.0.1.1変更</span>
+<br>
+<span class="jF">Ver.0.3.2変更</span>
           </td>
           <td class="border">
 F/cm^2
@@ -454,9 +470,9 @@ i02ref=1e-3;
 <br>
 i01ref=1e-3;
 <br>
-Rf2ref=1;
+Rf2ref=<span class="jF">1e-1</span>;
 <br>
-Rf1ref=1;
+Rf1ref=<span class="jF">1e-1</span>;
 <br>
 Deref=1e-6;
 <br>
@@ -728,11 +744,13 @@ i01=i01ref*ratio_factor(T,<span class="clear">Ei01</span>)=&gt;*(ce1/ce0)**aa1*(
         <tr class="border">
           <td class="border">
 SEI film resistance
+<br>
+<span class="clear">Ver.0.3.2訂正</span>
           </td>
           <td class="border">
-Rf2=Rf2ref*ratio_factor(T,ERf2)=&gt;
+Rf2=Rf2ref<span class="clear">/</span>ratio_factor(T,ERf2)=&gt;
 <br>
-Rf1=Rf1ref*ratio_factor(T,ERf1)=&gt;
+Rf1=Rf1ref<span class="clear">/</span>ratio_factor(T,ERf1)=&gt;
           </td>
         </tr>
         <tr class="border">
@@ -802,15 +820,17 @@ jLi1=It/L1
         <tr class="border">
           <td class="border run">
 charge conservation
+<br>
+<span class="clear">Ver.0.3.2訂正</span>
           </td>
           <td class="border">
 jLi2=<span class="run">jLi2R</span>+jLi2C
 <br>
 jLi1=<span class="run">jLi1R</span>+jLi1C
 <hr>
--It/L2=<span class="run">jLi2R</span>+C2*(U2(cse2/csmax2)=&gt;+eta2+Rf2ref*ratio_factor(T,ERf2)=&gt;*<span class="run">jLi2R</span>/as2-<span class="jF">psmpe20</span>)/dt;
+-It/L2=<span class="run">jLi2R</span>+C2*(U2(cse2/csmax2)=&gt;+eta2+Rf2ref<span class="clear">/</span>ratio_factor(T,ERf2)=&gt;*<span class="run">jLi2R</span>/as2-<span class="jF">psmpe20</span>)/dt;
 <br>
-It/L1=<span class="run">jLi1R</span>+C1*(U1(cse1/csmax1)=&gt;+eta1+Rf1ref*ratio_factor(T,ERf1)=&gt;*<span class="run">jLi1R</span>/as1-<span class="jF">psmpe10</span>)/dt;
+It/L1=<span class="run">jLi1R</span>+C1*(U1(cse1/csmax1)=&gt;+eta1+Rf1ref<span class="clear">/</span>ratio_factor(T,ERf1)=&gt;*<span class="run">jLi1R</span>/as1-<span class="jF">psmpe10</span>)/dt;
           </td>
         </tr>
         <tr class="border">
