@@ -22,6 +22,14 @@
       <tbody>
         <tr class="border">
           <td class="border run">
+Ver.0.5.2
+          </td>
+          <td class="border">
+・内部発熱の温度変化を弱連成（電圧変化量から非厳密の発熱量を仮定）
+          </td>
+        </tr>
+        <tr class="border">
+          <td class="border run">
 Ver.0.4.2
           </td>
           <td class="border">
@@ -123,13 +131,17 @@ Ver.0.1.0
 結果
 <br>
 <span class="wF">Ver.0.4.2追記</span>
+<br>
+<span class="wF">Ver.0.5.2追記</span>
           </td>
           <td class="border">
 ・capacitance成分の効果（C大で瞬時の副反応を抑制）：<a title="Graphing Calculator" href="../02_calc_graphing/index.html">Graphing Calculator-test case-cell0d/-C*10</a>参照
 <br>
 ・反応と拡散を強連成の効果（natural）：<a title="Graphing Calculator" href="../02_calc_graphing/index.html">Graphing Calculator-test case-cell0d-heavy</a>参照
 <br>
-<span class="wF">・浮動小数点演算でrobust性の確認（追加で外部強制の温度変化を弱連成）：<a title="Graphing Calculator" href="../02_calc_graphing/index.html">Graphing Calculator-test case-cell0d-Trise</a>参照</span>
+<span class="wF">・外部強制の温度変化を弱連成（浮動小数演算のrobust性を確認）：<a title="Graphing Calculator" href="../02_calc_graphing/index.html">Graphing Calculator-test case-cell0d-Tout</a>参照</span>
+<br>
+<span class="wF">・内部発熱の温度変化を弱連成（強連成の優先度低）：<a title="Graphing Calculator" href="../02_calc_graphing/index.html">Graphing Calculator-test case-cell0d-Tin</a>参照</span>
           </td>
         </tr>
       </tbody>
@@ -205,6 +217,16 @@ cse2
           </td>
           <td class="border">
 cse1
+          </td>
+        </tr>
+        <tr class="border">
+          <th class="border run">
+T
+<br>
+<span class="wF">Ver.0.5.2追加</span>
+          </th>
+          <td class="border" colspan="3">
+T
           </td>
         </tr>
       </tbody>
@@ -329,6 +351,19 @@ L1=1e-3;
         </tr>
         <tr class="border">
           <td class="border">
+thickness
+<br>
+<span class="wF">Ver.0.5.2追加</span>
+          </td>
+          <td class="border">
+cm
+          </td>
+          <td class="border">
+L=L2+Ls+L1;
+          </td>
+        </tr>
+        <tr class="border">
+          <td class="border">
 radius of active material
           </td>
           <td class="border">
@@ -429,6 +464,32 @@ mol/cm^3
 csmax2=1e-2;
 <br>
 csmax1=1e-2;
+          </td>
+        </tr>
+        <tr class="border">
+          <td class="border">
+volumetric heat capacity
+<br>
+<span class="wF">Ver.0.5.2追加</span>
+          </td>
+          <td class="border">
+J/(cm^3*K)
+          </td>
+          <td class="border">
+rhocp=1;
+          </td>
+        </tr>
+        <tr class="border">
+          <td class="border">
+heat transfer coefficient
+<br>
+<span class="wF">Ver.0.5.2追加</span>
+          </td>
+          <td class="border">
+W/(cm^2*K)
+          </td>
+          <td class="border">
+alpha=1e-3;
           </td>
         </tr>
         <tr class="border">
@@ -578,6 +639,19 @@ T=Tref;
         </tr>
         <tr class="border">
           <td class="border">
+ambient temperature
+<br>
+<span class="wF">Ver.0.5.2追加</span>
+          </td>
+          <td class="border">
+K
+          </td>
+          <td class="border">
+Ta=Tref;
+          </td>
+        </tr>
+        <tr class="border">
+          <td class="border">
 current
           </td>
           <td class="border">
@@ -592,6 +666,8 @@ It=1e-3;
 previous values
 <br>
 <span class="clear">Ver.0.1.1変更</span>
+<br>
+<span class="wF">Ver.0.5.2追加</span>
           </td>
           <td class="border">
 mol/cm^3
@@ -605,6 +681,8 @@ mol/cm^3
 V
 <br>
 V
+<br>
+<span class="wF">K</span>
           </td>
           <td class="border">
 ce20=ce0;
@@ -618,11 +696,15 @@ cs10=<span class="clear">csmax1*0.999</span>;
 psmpe20=U2(cs20/csmax2)=&gt;;
 <br>
 psmpe10=U1(cs10/csmax1)=&gt;;
+<br>
+<span class="wF">T0=Ta;</span>
           </td>
         </tr>
         <tr class="border">
           <td class="border">
 unknowns
+<br>
+<span class="wF">Ver.0.5.2追加</span>
           </td>
           <td class="border">
 A/cm^3
@@ -640,6 +722,8 @@ mol/cm^3
 mol/cm^3
 <br>
 mol/cm^3
+<br>
+<span class="wF">K</span>
           </td>
           <td class="border">
 jLi2R=0;
@@ -657,6 +741,8 @@ ce1=ce10;
 cse2=cs20;
 <br>
 cse1=cs10;
+<br>
+<span class="wF">T=T0;</span>
           </td>
         </tr>
       </tbody>
@@ -921,6 +1007,28 @@ cse
 (Ds2ref*ratio_factor(T,EDs2)=&gt;/lse2)*(<span class="run">cse2</span>-(<span class="jF">cs20</span><span class="wF">-</span>dt*jLi2R/(epss2*<span class="clear">n*F</span>)))=<span class="wF">-</span>jLi2R/(as2*<span class="clear">n*F</span>);
 <br>
 (Ds1ref*ratio_factor(T,EDs1)=&gt;/lse1)*(<span class="run">cse1</span>-(<span class="jF">cs10</span><span class="wF">-</span>dt*jLi1R/(epss1*<span class="clear">n*F</span>)))=<span class="wF">-</span>jLi1R/(as1*<span class="clear">n*F</span>);
+          </td>
+        </tr>
+        <tr class="border">
+          <td class="border">
+Open Circuit Voltage
+<br>
+<span class="wF">Ver.0.5.2追加</span>
+          </td>
+          <td class="border">
+OCVt=U1(cs1/csmax1)=&gt;-U2(cs2/csmax2)=&gt;
+          </td>
+        </tr>
+        <tr class="border">
+          <td class="border run">
+T
+<br>
+<span class="wF">Ver.0.5.2仮定</span>
+          </td>
+          <td class="border">
+L*<span class="selection">rhocp</span>*(<span class="run">T</span>-<span class="jF">T0</span>)/dt=It*(Vt-OCVt)-<span class="selection">alpha</span>*(<span class="run">T</span>-Ta)
+<hr>
+<span class="run">T</span>=(L*<span class="selection">rhocp</span>*<span class="jF">T0</span>+(It*(Vt-OCVt)+<span class="selection">alpha</span>*Ta)*dt)/(L*<span class="selection">rhocp</span>+<span class="selection">alpha</span>*dt);
           </td>
         </tr>
       </tbody>
