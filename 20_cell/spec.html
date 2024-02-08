@@ -22,6 +22,16 @@
       <tbody>
         <tr class="border">
           <td class="border run">
+Ver.0.6.2
+          </td>
+          <td class="border">
+・休止中の電流値を設定（It=0で収束不能の対策）
+<br>
+　It=0　⇒　It_rest=1e-8（極小値）
+          </td>
+        </tr>
+        <tr class="border">
+          <td class="border run">
 Ver.0.5.2
           </td>
           <td class="border">
@@ -657,12 +667,16 @@ Ta=Tref;
         <tr class="border">
           <td class="border">
 current
+<br>
+<span class="wF">Ver.0.6.2追加</span>
           </td>
           <td class="border">
 A/cm^2
           </td>
           <td class="border">
 It=1e-3;
+<br>
+<span class="wF">It_rest=1e-8;</span>
           </td>
         </tr>
         <tr class="border">
