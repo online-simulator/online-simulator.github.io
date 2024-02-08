@@ -25,7 +25,7 @@
 Ver.0.5.2
           </td>
           <td class="border">
-・内部発熱の温度変化を弱連成（電圧変化量から非厳密の発熱量を仮定）
+・内部発熱と外部放熱の温度変化を弱連成
           </td>
         </tr>
         <tr class="border">
@@ -141,7 +141,11 @@ Ver.0.1.0
 <br>
 <span class="wF">・外部強制の温度変化を弱連成（浮動小数演算のrobust性を確認）：<a title="Graphing Calculator" href="../02_calc_graphing/index.html">Graphing Calculator-test case-cell0d-Tout</a>参照</span>
 <br>
-<span class="wF">・内部発熱の温度変化を弱連成（強連成の優先度低）：<a title="Graphing Calculator" href="../02_calc_graphing/index.html">Graphing Calculator-test case-cell0d-Tin</a>参照</span>
+<span class="wF">・内部発熱と外部放熱の温度変化を弱連成（強連成の優先度低）：<a title="Graphing Calculator" href="../02_calc_graphing/index.html">Graphing Calculator-test case-cell0d-Tin</a>参照</span>
+<br>
+　<span class="wF">内部発熱：電圧変化量Vt-OCVtから非厳密の発熱量を仮定</span>
+<br>
+　<span class="wF">外部放熱：熱伝達係数alphaを調整（熱伝導を含めて換算）</span>
           </td>
         </tr>
       </tbody>
