@@ -430,6 +430,8 @@
       $._id("recurrence1").onclick = function(){setVal("0", "30", "N=t,a=0.9i,b=1,z0=0,f(z)=<a*z+b,fzN=_r(=<f,z0,N),real(fzN);z1=z0,fz1=<last{z=z1,z1=-f(z)},_r(=<fz1,,N),real(z1);", "imag(fzN);", 30);};
       $._id("recurrence2").onclick = function(){setVal("0", "30", "N=t,z0=0,f(z)=<e^(i(z)),fzN=_r(=<f,z0,N),real(fzN);", "imag(fzN);z1=z0,fz1=<last{z=-z1,z1=f(z)},_r(=<fz1,,N),imag(z1);", 30);};
       $._id("recurrence3").onclick = function(){setVal("1", "1e3+1", "m0=3,m1=6,n=t,n;", "Nrshift(m)=<(2**m-1)/2**(m-1),r(m)=<2**(log2(3)-Nrshift(m)),run(m)=<_r((N)=<last{nr=nr*r(m),N+1},nr=n,1e6,=<{nr<=1}),run(m0);run(m1);", 50);};
+      $._id("Mandelbrot").onclick = function(){setVal("0", "100", "N=t,z0=0,dc=(1+i)*0.1,c1=0.1i,c2=c1+dc,c3=c2+dc,c4=c3+dc,f(c)=<last{z=z0,_r(=<last{z=z*z+c,z},z,N)},z1=f(c1),real(z1);z2=f(c2),real(z2);z3=f(c3),real(z3);z4=f(c4),real(z4);", "imag(z1);imag(z2);imag(z3);imag(z4);", 100);};
+      $._id("Julia").onclick = function(){setVal("0", "100", "N=t,z0=0.3,dc=(1+i)*0.1,c1=0.1i,c2=c1+dc,c3=c2+dc,c4=c3+dc,f(c)=<last{z=z0,_r(=<last{z=z*z+c,z},z,N)},z1=f(c1),real(z1);z2=f(c2),real(z2);z3=f(c3),real(z3);z4=f(c4),real(z4);", "imag(z1);imag(z2);imag(z3);imag(z4);", 100);};
       $._id("Collatz").onclick = function(){setVal("1", "1e3+1", "n=floor(t),n;", "n;_r((N)=<last{nr=nr%2==0&&&nr/2|||nr*2+1+nr/*nr>>1|||(nr<<1)+1+nr*/,nmax=max(nmax,nr),N+1},last{nmax=n,nr=n},1e6,=<{nr==1|||nr<=0||nr>MAX_SAFE_INTEGER&&&~~(nmax=NaN)});nmax/n;", 1000);$._id("input-z").value+="::0::::n;::::::operations frequency;::::::nmax/nTITLE{Collatz conjecture}XLABEL{n << 9007199254740991}YLABEL{};";};
       $._id("Collatz_sub").onclick = function(){setVal("1", "1e3+1", "n=floor(t),n;", "n;_r((N)=<last{nr=nr%2==0&&&nr/2|||nr*2+(nr-1)/*nr>>1|||(nr<<1)+(nr-1)*/,nmax=max(nmax,nr),N+1},last{nmax=n,nr=n},1e6,=<{nr==1|||nr===5|||nr===17|||nr<=0||nr>MAX_SAFE_INTEGER&&&~~(nmax=NaN)});nmax/n;", 1000);$._id("input-z").value+="::0::::n;::::::operations frequency;::::::nmax/nTITLE{n -> 1||5||17-circular}XLABEL{n << 9007199254740991}YLABEL{};";};
       $._id("quality").onclick = function(){setVal("1.048e6+1", "1.048e6+1e3+1", "n=floor(t),n;", "2;log2(3);quality(nmax)=<log(nmax)/log(n),_r((N)=<last{nr=nr%2==0&&&nr/2|||nr*2+1+nr/*nr>>1|||(nr<<1)+1+nr*/,nmax=max(nmax,nr),N+1},last{nmax=n,nr=n},1e6,=<{nr==1|||nr<=0||nr>MAX_SAFE_INTEGER&&&~~(nmax=NaN)}),quality(nmax);_r((N)=<last{nr=nr%2==0&&&nr/2|||nr*2+(nr-1)/*nr>>1|||(nr<<1)+(nr-1)*/,nmax=max(nmax,nr),N+1},last{nmax=n,nr=n},1e6,=<{nr==1|||nr===5|||nr===17|||nr<=0||nr>MAX_SAFE_INTEGER&&&~~(nmax=NaN)}),quality(nmax);", 1000);$._id("input-z").value+="::0::::nmax=n*n ⇔ mmax=2m;::::::log2(3);::::::3n+1;::::::3n-1TITLE{quality:=log(nmax)/log(n)≒mmax/m}XLABEL{n << 9007199254740991}YLABEL{quality};";};
@@ -729,6 +731,9 @@
   <button id="recurrence1">recurrence1</button>
   <button id="recurrence2">-rec2</button>
   <button id="recurrence3">-rec3</button>
+  <button id="Mandelbrot">Mandelbrot</button>
+  <button id="Julia">Julia</button>
+<br>
   <button id="Collatz">Collatz</button>
   <button id="Collatz_sub">3n-1</button>
   <button id="quality">quality</button>
