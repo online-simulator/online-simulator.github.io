@@ -370,57 +370,59 @@ My_entry.calc_graphing.prototype.arr_data2arr2d_vec = function(arr_data, options
     }
   };
   if(arr_data && arr_data.length){
-    len_n = arr_data.length;
     var name_x = $._id("input-vx").value;
     var name_y = $._id("input-vy").value;
     var hasName_v = (options_plot["axis-v"] && name_x && name_y);
   if(hasName_v){
-    var data0 = arr_data[0];
-    var x = data0.x;
-    var y = data0.y;
-    len_j = data0.len_n;
-    if(x && y){
-      for(var n=0; n<len_n; ++n){
-        arr2d_x[n] = new Array(len_j);
-        arr2d_y[n] = new Array(len_j);
-        for(var j=0; j<len_j; ++j){
-          var data = arr_data[j];
-          var x = data.x;
-          var y = data.y;
-          if(x && y){
-            var arr_x = x.mat.arr;
-            var arr_y = y.mat.arr;
-            var len_x = arr_x.length;
-            var len_y = arr_y.length;
-            len_n = Math.max(len_x, len_y);
-            if(len_x === len_y){
-              var xj = arr_x[n];
-              var yj = arr_y[n];
-              var x = NaN;
-              var y = NaN;
-              if(xj){
-                var num_x = DATA.arr2obj_i(arr_x, n);
-                x = num_x.com[sw_ri_x];
-              }
-              if(yj){
-                var num_y = DATA.arr2obj_i(arr_y, n);
-                y = num_y.com[sw_ri_y];
-              }
-              update_xy(n, j, x, y);
-            }
-            else{
-              throw "Invalid v.length("+len_x+"<>"+len_y+")";
-            }
-          }
+    /* Ver.2.337.82 -> */
+    len_j = arr_data.length;
+    len_n = 0;
+    arr_data.forEach(function(data){
+      var x = data.x;
+      var y = data.y;
+      if(x && y){
+        var arr_x = x.mat.arr;
+        var arr_y = y.mat.arr;
+        var len_x = arr_x.length;
+        var len_y = arr_y.length;
+        if(len_x === len_y){
+          len_n = Math.max(len_n, len_y);
+        }
+        else{
+          throw "Invalid v.length("+len_x+"<>"+len_y+")";
         }
       }
+      else{
+        throw "Undef v.name("+((x)? name_y: name_x)+")";
+      }
+    });
+    for(var n=0; n<len_n; ++n){
+      arr2d_x[n] = new Array(len_j);
+      arr2d_y[n] = new Array(len_j);
+      for(var j=0; j<len_j; ++j){
+        var data = arr_data[j];
+        var x = NaN;
+        var y = NaN;
+        if(data && data.x && data.y){
+          var arr_x = data.x.mat.arr;
+          var arr_y = data.y.mat.arr;
+          if(arr_x[n]){
+            var num_x = DATA.arr2obj_i(arr_x, n);
+            x = num_x.com[sw_ri_x];
+          }
+          if(arr_y[n]){
+            var num_y = DATA.arr2obj_i(arr_y, n);
+            y = num_y.com[sw_ri_y];
+          }
+        }
+        update_xy(n, j, x, y);
+      }
     }
-    else{
-      throw "Undef v.name("+((x)? name_y: name_x)+")";
-    }
+    /* -> Ver.2.337.82 */
   }
   /* -> Ver.2.328.80 */
   else{
+    len_n = arr_data.length;  // Ver.2.337.82
     for(var n=0; n<len_n; ++n){
       var data = arr_data[n];
       var len_x = data.len_x;
@@ -531,57 +533,57 @@ My_entry.calc_graphing.prototype.arr_data2csv = function(arr_data, options_plot)
     }
     _csv += dq+self.io.getter.stamp()+dq+rn;
     // (x,y)
-    var data0 = arr_data[0];
-    var x = data0.vars[name_x];
-    var y = data0.vars[name_y];
-    if(x && y){
-      var arr_x = x.mat.arr;
-      var arr_y = y.mat.arr;
-      var len_x = arr_x.length;
-      var len_y = arr_y.length;
-      for(var j=0; j<len_y; ++j){
-        for(var n=0; n<len_n; ++n){
-          var datan = arr_data[n];
-          var x = datan.vars[name_x];
-          var y = datan.vars[name_y];
-          if(x && y){
-            var arr_x = x.mat.arr;
-            var arr_y = y.mat.arr;
-            var len_x = arr_x.length;
-            var len_y = arr_y.length;
-            if(len_x === len_y){
-              var xj = arr_x[j];
-              var yj = arr_y[j];
-              var x = "";
-              var y = "";
-              if(xj){
-                var num_x = DATA.arr2obj_i(arr_x, j);
-                x = num_x.com[sw_ri_x];
-                if(isNaN(x)){
-                  x = "";
-                }
-              }
-              if(yj){
-                var num_y = DATA.arr2obj_i(arr_y, j);
-                y = num_y.com[sw_ri_y];
-                if(isNaN(y)){
-                  y = "";
-                }
-              }
-              _csv += x+ca;
-              _csv += y+ca;
+    /* Ver.2.337.82 -> */
+    len_j = arr_data.length;
+    len_n = 0;
+    arr_data.forEach(function(data){
+      var x = data.vars[name_x];
+      var y = data.vars[name_y];
+      if(x && y){
+        var arr_x = x.mat.arr;
+        var arr_y = y.mat.arr;
+        var len_x = arr_x.length;
+        var len_y = arr_y.length;
+        if(len_x === len_y){
+          len_n = Math.max(len_n, len_y);
+        }
+        else{
+          throw "Invalid v.length("+len_x+"<>"+len_y+")";
+        }
+      }
+      else{
+        throw "Undef v.name("+((x)? name_y: name_x)+")";
+      }
+    });
+    for(var n=0; n<len_n; ++n){
+      for(var j=0; j<len_j; ++j){
+        var data = arr_data[j];
+        var x = "";
+        var y = "";
+        if(data && data.vars[name_x] && data.vars[name_y]){
+          var arr_x = data.vars[name_x].mat.arr;
+          var arr_y = data.vars[name_y].mat.arr;
+          if(arr_x[n]){
+            var num_x = DATA.arr2obj_i(arr_x, n);
+            x = num_x.com[sw_ri_x];
+            if(isNaN(x)){
+              x = "";
             }
-            else{
-              throw "Invalid v.length("+len_x+"<>"+len_y+")";
+          }
+          if(arr_y[n]){
+            var num_y = DATA.arr2obj_i(arr_y, n);
+            y = num_y.com[sw_ri_y];
+            if(isNaN(y)){
+              y = "";
             }
           }
         }
-        _csv += rn;
+        _csv += x+ca;
+        _csv += y+ca;
       }
+      _csv += rn;
     }
-    else{
-      throw "Undef v.name("+((x)? name_y: name_x)+")";
-    }
+    /* -> Ver.2.337.82 */
   }
   /* -> Ver.2.328.79 */
   else{
