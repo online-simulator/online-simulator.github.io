@@ -22082,6 +22082,10 @@ clear; $a=1; ($a)=1 -> [MyErr]Invalid SEv-scope-const(a)
 <br>
 clear; (a)=1 -> [MyErr]Invalid REv(a)
 <br>
+・変数に代入する値を解決後、代入
+<br>
+clear; a=1; ($a,$b)=(-1,a); (a,b) -> (-1,1)
+<br>
 ・変数に代入する値が存在しない場合、error終了
 <br>
 clear; ($a,$b)=(1,$b) -> [MyErr]Invalid matching
