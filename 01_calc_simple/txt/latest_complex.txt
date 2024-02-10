@@ -1,6 +1,14 @@
 clear
 local storage cleared
 
+a=1,($a,$b)=(-1,a),(a,b)
+(
+0,0,-1,1
+)
+
+clear
+local storage cleared
+
 ifft1d(fft1d(0,1,i,1+i)):fft1d(ifft1d(0,1,i,1+i))
 (
 5.551115123125783e-17+1.1102230246251565e-16i,1,-5.551115123125783e-17+0.9999999999999999i,1.0000000000000002+0.9999999999999998i:
@@ -4212,4 +4220,4 @@ drag=false&sw=false&0x=false&useMatrix=true&useStrict=false&checkError=true&isRi
 --------------------------------
 --------------------------------
 
-online-simulator.github.io.6.355.163.18.88 @ Wed Jan 17 2024 13:41:24 GMT+0900 (日本標準時) @ Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36
+online-simulator.github.io.6.359.186.18.94 @ Sat Feb 10 2024 22:57:18 GMT+0900 (日本標準時) @ Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/121.0.0.0 Safari/537.36
