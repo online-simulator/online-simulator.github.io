@@ -3891,6 +3891,7 @@ My_entry.operation.prototype.SEv = function(data, i0, tagName, tagObj){
             /* -> Ver.2.76.29 */
           }
           self.inherit_id_tree(tree, leftTree);  // Ver.2.262.62
+          DATA.delProp_tree(tree, "obj_ref");  // Ver.2.343.83
           DATA.delProp_tree(tree, "isBuffer");  // Ver.2.303.74
           DATA.setProp_tree(tree, "isArray", true);  // Ver.2.303.74
           self.store_var(name_var, tree, scopes, ids, isEscaped);  // Ver.2.31.17  // Ver.2.249.57

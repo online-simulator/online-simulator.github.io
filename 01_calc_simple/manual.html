@@ -1981,6 +1981,14 @@ clear; f=&lt;-1; f=1; [f=2,=&lt;f]=&gt;,[f=&lt;-2,=&lt;f]=&gt; -> (2,<del>1</del
 　　　　　　||<a href="#span-eqn-solvex_iteration">solvex_iteration</a>||<a href="#span-eqn-solveAinv">solveAinv</a>||<a href="#span-eqn-solvex_non_linear">solvex_non_linear</a>||<a href="#span-eqn-solvex_bisection">solvex_bisection</a>
 <br>
 　　　　　　||<a href="#span-eqn-implicit-Euler_method">implicit Euler_method</a>||<a href="#span-eqn-explicit-Euler_method">explicit Euler_method</a>
+<br>
+・<span class="clear">Ver.2.343.83</span>以降、scope参照の仕様修正
+<br>
+　代入時に参照を削除しない　⇒　削除する
+<br>
+　影響項目：<a href="#span-out-scope-reference">scope参照</a>
+<br>
+　<a href="#span-eqn">strict-mode式変数list</a>への影響なし
     </td>
   </tr>
   <tr>
@@ -13856,6 +13864,14 @@ A=4; A -> <del>Cannot read properties of undefined</del>4
 clear; g=&lt;1,f(?g)=&lt;g=&lt;3,[g=&lt;2,f(?g),g()];
 <br>
 g=&lt;4; g() -> <del>Cannot read properties of undefined</del>4
+<br>
+・<span class="clear">Ver.2.343.83</span>以降、代入時にscope参照を削除する仕様に修正
+<br>
+clear; arr=(1,2),f=(?arr)=&lt;[arr1=arr,arr1[][1]=-1],f(?arr)=&gt;; arr -> <del>(1,-1)</del>(1,2)
+<br>
+clear; arr=(1,2),f=(?arr)=&lt;[arr1=arr,arr1[][1]=-1,arr=arr1],f(?arr)=&gt;; arr -> <del>(1,2)</del>(1,-1)
+<br>
+clear; arr=(1,2),f=(?arr)=&lt;[arr1=arr+0,arr1[][1]=-1,arr=arr1],f(?arr)=&gt;; arr -> (1,-1)
 <br>
 <br>
 留意事項を列挙する

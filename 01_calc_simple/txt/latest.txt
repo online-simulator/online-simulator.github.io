@@ -3,8 +3,8 @@ local storage cleared
 
 arr=(1,2),f=(?arr)=<[arr1=arr,arr1[][1]=-1],f(?arr)=>,arr:arr=(1,2),f=(?arr)=<[arr1=arr,arr1[][1]=-1,arr=arr1],f(?arr)=>,arr:arr=(1,2),f=(?arr)=<[arr1=arr+0,arr1[][1]=-1,arr=arr1],f(?arr)=>,arr
 (
-0,0,0,0,1,-1:
-0,0,0,0,0,1,2:
+0,0,0,0,1,2:
+0,0,0,0,0,1,-1:
 0,0,0,0,0,1,-1
 )
 
@@ -4230,4 +4230,4 @@ drag=false&sw=false&0x=false&useMatrix=true&useStrict=false&checkError=true&isRi
 --------------------------------
 --------------------------------
 
-online-simulator.github.io.6.359.188.18.94 @ Mon Feb 12 2024 22:46:49 GMT+0900 (日本標準時) @ Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/121.0.0.0 Safari/537.36
+online-simulator.github.io.6.359.189.18.95 @ Mon Feb 12 2024 23:11:55 GMT+0900 (日本標準時) @ Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/121.0.0.0 Safari/537.36
