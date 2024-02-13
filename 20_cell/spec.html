@@ -21,6 +21,22 @@
       <caption>更新履歴</caption>
       <tbody>
         <tr class="border">
+          <td class="border clear">
+Ver.0.8.3
+          </td>
+          <td class="border">
+・ce時間発展式の致命的な不具合を修正
+<br>
+　事象：ce濃度分布が温度に依らず、ほぼ緩和しない（限界電流の温度依存性がない）
+<br>
+　対策：fluxの発散項を修正して左右の次元を統一
+<br>
+　結果：ce濃度分布の緩和が正常に進行し、高温で緩和速度大（限界電流の温度依存性）を確認
+<br>
+・spec追記
+          </td>
+        </tr>
+        <tr class="border">
           <td class="border run">
 Ver.0.8.2
           </td>
@@ -163,6 +179,8 @@ Ver.0.1.0
 <span class="jF">Ver.0.7.2追記</span>
 <br>
 <span class="clear">Ver.0.8.2追記</span>
+<br>
+<span class="condition">Ver.0.8.3追記</span>
           </td>
           <td class="border">
 ・capacitance成分の効果（C大で瞬時の副反応を抑制）：<a title="Graphing Calculator" href="../02_calc_graphing/index.html">Graphing Calculator-test case-cell0d/-C*10</a>参照
@@ -178,6 +196,8 @@ Ver.0.1.0
 　<span class="wF">外部放熱：熱伝達係数alphaを調整（熱伝導を含めて換算）</span>
 <br>
 <span class="jF">・まとめ（反応と拡散を強連成＋温度変化を弱連成）：<a title="Graphing Calculator" href="../02_calc_graphing/index.html">Graphing Calculator-test case-cell0d-Ta=-30~60</a>参照</span>
+<br>
+<span class="condition">・濃度変化（修正後、高温で緩和速度大を確認）：<a title="Graphing Calculator" href="../02_calc_graphing/index.html">Graphing Calculator-test case-cell0d-ce2/cse2</a>参照</span>
           </td>
         </tr>
       </tbody>
@@ -960,15 +980,17 @@ jLi1=It/L1
 charge conservation
 <br>
 <span class="clear">Ver.0.3.2訂正</span>
+<br>
+<span class="wF">Ver.0.8.3追記</span>
           </td>
           <td class="border">
 jLi2=<span class="run">jLi2R</span>+jLi2C
 <br>
 jLi1=<span class="run">jLi1R</span>+jLi1C
 <hr>
--It/L2=<span class="run">jLi2R</span>+C2*(U2(cse2/csmax2)=&gt;+eta2+Rf2ref<span class="clear">/</span>ratio_factor(T,ERf2)=&gt;*<span class="run">jLi2R</span>/as2-<span class="jF">psmpe20</span>)/dt;
+-It/L2=<span class="run">jLi2R</span>+C2*(U2(cse2/csmax2)=&gt;+eta2+<span class="wF">(</span>Rf2ref<span class="clear">/</span>ratio_factor(T,ERf2)=&gt;<span class="wF">)</span>*<span class="run">jLi2R</span>/as2-<span class="jF">psmpe20</span>)/dt;
 <br>
-It/L1=<span class="run">jLi1R</span>+C1*(U1(cse1/csmax1)=&gt;+eta1+Rf1ref<span class="clear">/</span>ratio_factor(T,ERf1)=&gt;*<span class="run">jLi1R</span>/as1-<span class="jF">psmpe10</span>)/dt;
+It/L1=<span class="run">jLi1R</span>+C1*(U1(cse1/csmax1)=&gt;+eta1+<span class="wF">(</span>Rf1ref<span class="clear">/</span>ratio_factor(T,ERf1)=&gt;<span class="wF">)</span>*<span class="run">jLi1R</span>/as1-<span class="jF">psmpe10</span>)/dt;
           </td>
         </tr>
         <tr class="border">
@@ -1010,15 +1032,17 @@ ce
 <span class="clear">Ver.0.1.1訂正</span>
 <br>
 <span class="condition">Ver.0.2.1更新</span>
+<br>
+<span class="wF">Ver.0.8.3修正</span>
           </td>
           <td class="border">
-epse2*(<span class="run">ce2</span>-<span class="jF">ce20</span>)/dt=<span class="condition">(</span><span class="selection">De</span><span class="condition">/lee2)</span>*(ces-<span class="run">ce2</span>)+jLi2*(1-t0)/<span class="clear">(n*F)</span>
+epse2*(<span class="run">ce2</span>-<span class="jF">ce20</span>)/dt=<span class="condition">(</span><span class="selection">De</span><span class="condition">/lee2)</span>*(ces-<span class="run">ce2</span>)<span class="wF">/L2</span>+jLi2*(1-t0)/<span class="clear">(n*F)</span>
 <br>
-epse1*(<span class="run">ce1</span>-<span class="jF">ce10</span>)/dt=<span class="condition">(</span><span class="selection">De</span><span class="condition">/lee1)</span>*(<span class="clear">ces-<span class="run">ce1</span></span>)+jLi1*(1-t0)/<span class="clear">(n*F)</span>
+epse1*(<span class="run">ce1</span>-<span class="jF">ce10</span>)/dt=<span class="condition">(</span><span class="selection">De</span><span class="condition">/lee1)</span>*(<span class="clear">ces-<span class="run">ce1</span></span>)<span class="wF">/L1</span>+jLi1*(1-t0)/<span class="clear">(n*F)</span>
 <hr>
-epse2*(<span class="run">ce2</span>-<span class="jF">ce20</span>)/dt=<span class="condition">(</span>Deref*ratio_factor(T,EDe)=&gt;<span class="condition">/lee2)</span>*((ce0*(epse2*L2+epses*Ls+epse1*L1)-(<span class="run">ce2</span>*epse2*L2+ce1*epse1*L1))/(epses*Ls)-<span class="run">ce2</span>)-(It/L2)*(1-t0)/<span class="clear">(n*F)</span>;
+epse2*(<span class="run">ce2</span>-<span class="jF">ce20</span>)/dt=<span class="condition">(</span>Deref*ratio_factor(T,EDe)=&gt;<span class="condition">/lee2)</span>*((ce0*(epse2*L2+epses*Ls+epse1*L1)-(<span class="run">ce2</span>*epse2*L2+ce1*epse1*L1))/(epses*Ls)-<span class="run">ce2</span>)<span class="wF">/L2</span>-(It/L2)*(1-t0)/<span class="clear">(n*F)</span>;
 <br>
-epse1*(<span class="run">ce1</span>-<span class="jF">ce10</span>)/dt=<span class="condition">(</span>Deref*ratio_factor(T,EDe)=&gt;<span class="condition">/lee1)</span>*(<span class="clear">(ce0*(epse2*L2+epses*Ls+epse1*L1)-(ce2*epse2*L2+<span class="run">ce1</span>*epse1*L1))/(epses*Ls)-<span class="run">ce1</span></span>)+(It/L1)*(1-t0)/<span class="clear">(n*F)</span>;
+epse1*(<span class="run">ce1</span>-<span class="jF">ce10</span>)/dt=<span class="condition">(</span>Deref*ratio_factor(T,EDe)=&gt;<span class="condition">/lee1)</span>*(<span class="clear">(ce0*(epse2*L2+epses*Ls+epse1*L1)-(ce2*epse2*L2+<span class="run">ce1</span>*epse1*L1))/(epses*Ls)-<span class="run">ce1</span></span>)<span class="wF">/L1</span>+(It/L1)*(1-t0)/<span class="clear">(n*F)</span>;
           </td>
         </tr>
         <tr class="border">
