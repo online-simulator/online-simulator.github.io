@@ -1,9 +1,10 @@
 clear
 local storage cleared
 
-bin8_rule={0,0,0,1,1,1,1,0},len_bin=sizer(bin8_rule),No_rule=_s((n)=<bin8_rule[n]*2**(len_bin-1-n),0,len_bin-1),No_rule
+arr=(1,2),f=(?arr)=<[($arr1)=(=<arr),arr1[][1]=-1,],f(?arr)=>,arr:arr=(1,2),f=(?arr)=<[($arr1)=(=<arr),arr1[][1]=-1,arr=arr1],f(?arr)=>,arr
 (
-0,0,0,29.999999999999996
+0,0,0,0,0,1,2:
+0,0,0,0,0,1,-1
 )
 
 clear
@@ -14,6 +15,14 @@ arr=(1,2),f=(?arr)=<[arr1=arr,arr1[][1]=-1,],f(?arr)=>,arr:arr=(1,2),f=(?arr)=<[
 0,0,0,0,0,1,2:
 0,0,0,0,0,1,-1:
 0,0,0,0,0,1,-1
+)
+
+clear
+local storage cleared
+
+bin8_rule={0,0,0,1,1,1,1,0},len_bin=sizer(bin8_rule),No_rule=_s((n)=<bin8_rule[n]*2**(len_bin-1-n),0,len_bin-1),No_rule
+(
+0,0,0,29.999999999999996
 )
 
 clear
@@ -4238,4 +4247,4 @@ drag=false&sw=false&0x=false&useMatrix=true&useStrict=false&checkError=true&isRi
 --------------------------------
 --------------------------------
 
-online-simulator.github.io.6.359.191.19.96 @ Tue Feb 13 2024 18:39:28 GMT+0900 (日本標準時) @ Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/121.0.0.0 Safari/537.36
+online-simulator.github.io.6.359.192.19.97 @ Wed Feb 14 2024 06:35:32 GMT+0900 (日本標準時) @ Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/121.0.0.0 Safari/537.36

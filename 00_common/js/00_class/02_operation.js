@@ -3703,6 +3703,7 @@ My_entry.operation.prototype.SEv_pattern_matching = function(data, is, ie){
       if(name_var_escaped){
         /* Ver.2.269.62 -> */
         var tree = self.tree_eqn2tree_AtREe(data, rightObj, name_var_escaped);  // Ver.2.271.62
+        self.SE_common("vars", tree, leftArrij);  // Ver.2.346.85
         self.store_var(name_var_escaped, tree, scopes, ids);  // Ver.2.31.17
         /* -> Ver.2.269.62 */
         _out += "stored_var("+name_var_escaped+") ";
@@ -3829,6 +3830,20 @@ My_entry.operation.prototype.get_scope_SE_sw = function(sw, scopes, opt_ids){
   return _scope;
 };
 /* -> Ver.2.31.17 */
+/* Ver.2.346.85 */
+My_entry.operation.prototype.SE_common = function(sw, tree, opt_tree){
+  var self = this;
+  var DATA = self.entry.DATA;
+  if(opt_tree){
+    self.inherit_id_tree(tree, opt_tree);  // Ver.2.262.62
+  }
+  DATA.delProp_tree(tree, "obj_ref");  // Ver.2.343.83
+  DATA.delProp_tree(tree, "isBuffer");  // Ver.2.303.74
+  if(sw === "vars"){
+    DATA.setProp_tree(tree, "isArray", true);  // Ver.2.303.74
+  }
+  return self;
+};
 My_entry.operation.prototype.SEv = function(data, i0, tagName, tagObj){
   var self = this;
   var trees = data.trees;
@@ -3890,15 +3905,12 @@ My_entry.operation.prototype.SEv = function(data, i0, tagName, tagObj){
             }
             /* -> Ver.2.76.29 */
           }
-          self.inherit_id_tree(tree, leftTree);  // Ver.2.262.62
-          DATA.delProp_tree(tree, "obj_ref");  // Ver.2.343.83
-          DATA.delProp_tree(tree, "isBuffer");  // Ver.2.303.74
-          DATA.setProp_tree(tree, "isArray", true);  // Ver.2.303.74
+          self.SE_common("vars", tree, leftTree);  // Ver.2.346.85
           self.store_var(name_var, tree, scopes, ids, isEscaped);  // Ver.2.31.17  // Ver.2.249.57
           tree = DATA.tag("out", {name: ((tree.mat.isConstant)? self.config.symbol.const: "")+name_var, arr: tree.mat.arr});  // Ver.2.296.72
         }
         else if(isSEe_dynamic){  // Ver.2.277.65  // Ver.2.279.65
-          self.inherit_id_tree(tree, leftTree);  // Ver.2.262.62
+          self.SE_common("eqns", tree, leftTree);  // Ver.2.346.85
           self.store_eqn(name_var, tree, scopes, ids, isEscaped);  // Ver.2.277.65
           tree = DATA.tree_tag("out", self.config.get_out(true, name_var, isSEe_dynamic.isConstant));  // Ver.2.277.65  // Ver.2.296.72
         }
@@ -4430,6 +4442,7 @@ My_entry.operation.prototype.store_buffer_sw = function(sw, buffer, scopes, ids_
   for(var name in buffer){  // Ver.2.256.59
     var tree = buffer[name];  // Ver.2.256.59
     if(tree){
+//      self.SE_common(sw, tree, null);  // Ver.2.346.85
       store_sw.call(self, name, tree, scopes, ids_buffer);  // .call
     }
     else if(isClear){  // Ver.2.256.59
@@ -4485,6 +4498,7 @@ My_entry.operation.prototype.REe = function(data, i0, tagName, tagObj){
   var name_eqn = obj.name_eqn;
   var tree_eqn0 = obj.tree_eqn;
   if(name_eqn && tree_eqn0){
+    self.SE_common("eqns", tree_eqn0, null);  // Ver.2.346.85
     self.store_eqn(name_eqn, tree_eqn0, scopes, ids);
   }
   var hasName = (name_eqn && name_eqn !== self.config.symbol.anonymous);  // Ver.2.299.72
@@ -4587,7 +4601,7 @@ My_entry.operation.prototype.REe = function(data, i0, tagName, tagObj){
           if(isEscaped){
             name_var = name_var.substring(1);
           }
-          self.inherit_id_tree(tree_var, rightTree);  // Ver.2.262.62
+          self.SE_common("eqns", tree_var, rightTree);  // Ver.2.346.85
           self.store_eqn(name_var, tree_var, scopes, ids, isEscaped);
           /* -> Ver.2.262.61 */
           _tree = DATA.tree_num(0, 0);  // Ver.2.296.72 resolved for flag
@@ -4686,7 +4700,7 @@ My_entry.operation.prototype.BTe = function(data, i0, tagName, tagObj){  // Ver.
       name_eqn = name_eqn.substring(1);
     }
     /* -> Ver.2.249.57 */
-    self.inherit_id_tree(tree, trees[is]);  // Ver.2.262.62
+    self.SE_common("eqns", tree, trees[is]);  // Ver.2.346.85
     self.store_eqn(name_eqn, tree, scopes, ids, isEscaped);  // Ver.2.31.17  // Ver.2.249.57
     tree = DATA.tree_tag("out", self.config.get_out(true, name_eqn, isSEe.isConstant));  // Ver.2.277.65  // Ver.2.296.72
   }

@@ -383,9 +383,11 @@
       script += "\nclear;\n";
       script += "a=1,($a,$b)=(-1,a),(a,b);";
       script += "\nclear;\n";
+      script += "bin8_rule={0,0,0,1,1,1,1,0},len_bin=sizer(bin8_rule),No_rule=_s((n)=<bin8_rule[n]*2**(len_bin-1-n),0,len_bin-1),No_rule;";
+      script += "\nclear;\n";
       script += "arr=(1,2),f=(?arr)=<[arr1=arr,arr1[][1]=-1,],f(?arr)=>,arr:\narr=(1,2),f=(?arr)=<[arr1=arr,arr1[][1]=-1,arr=arr1],f(?arr)=>,arr:\narr=(1,2),f=(?arr)=<[arr1=arr+0,arr1[][1]=-1,arr=arr1],f(?arr)=>,arr;";
       script += "\nclear;\n";
-      script += "bin8_rule={0,0,0,1,1,1,1,0},len_bin=sizer(bin8_rule),No_rule=_s((n)=<bin8_rule[n]*2**(len_bin-1-n),0,len_bin-1),No_rule;";
+      script += "arr=(1,2),f=(?arr)=<[($arr1)=(=<arr),arr1[][1]=-1,],f(?arr)=>,arr:\narr=(1,2),f=(?arr)=<[($arr1)=(=<arr),arr1[][1]=-1,arr=arr1],f(?arr)=>,arr;";
       script += "\nclear;\n";
       $._id("input").value = script;
       // test case

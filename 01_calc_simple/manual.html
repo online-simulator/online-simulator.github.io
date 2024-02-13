@@ -1982,13 +1982,15 @@ clear; f=&lt;-1; f=1; [f=2,=&lt;f]=&gt;,[f=&lt;-2,=&lt;f]=&gt; -> (2,<del>1</del
 <br>
 　　　　　　||<a href="#span-eqn-implicit-Euler_method">implicit Euler_method</a>||<a href="#span-eqn-explicit-Euler_method">explicit Euler_method</a>
 <br>
-・<span class="clear">Ver.2.343.83</span>以降、scope参照の仕様修正
+・<span class="clear">Ver.2.343.83</span>以降、<a href="#span-out-scope-reference">scope参照</a>の仕様修正
 <br>
-　代入時に参照を削除しない　⇒　削除する
-<br>
-　影響項目：<a href="#span-out-scope-reference">scope参照</a>
+　<a href="#span-out-vars">変数</a>への代入時に右辺の参照を削除しない　⇒　削除する
 <br>
 　<a href="#span-eqn">strict-mode式変数list</a>への影響なし
+<br>
+　<span class="clear">Ver.2.346.85</span>以降、<a href="#span-out-matching">行列要素pattern matching</a>||<a href="#span-out-eqns">式変数</a>への代入時も同様に、右辺の参照を削除
+<br>
+　影響項目：<a href="#span-eqn-Call-by-Reference">Call-by-Reference</a>（<a href="#span-out-eqns">式変数</a>make_NG部分のみ）
     </td>
   </tr>
   <tr>
@@ -13865,7 +13867,7 @@ clear; g=&lt;1,f(?g)=&lt;g=&lt;3,[g=&lt;2,f(?g),g()];
 <br>
 g=&lt;4; g() -> <del>Cannot read properties of undefined</del>4
 <br>
-・<span class="clear">Ver.2.343.83</span>以降、代入時にscope参照を削除する仕様に修正
+・<span class="clear">Ver.2.343.83</span>以降、<a href="#span-out-vars">変数</a>の代入時に右辺のscope参照を削除する仕様に修正
 <br>
 clear; arr=(1,2),f=(?arr)=&lt;[arr1=arr,arr1[][1]=-1],f(?arr)=&gt;; arr -> <del>(1,-1)</del>(1,2)
 <br>
@@ -13873,10 +13875,18 @@ clear; arr=(1,2),f=(?arr)=&lt;[arr1=arr,arr1[][1]=-1,arr=arr1],f(?arr)=&gt;; arr
 <br>
 clear; arr=(1,2),f=(?arr)=&lt;[arr1=arr+0,arr1[][1]=-1,arr=arr1],f(?arr)=&gt;; arr -> (1,-1)
 <br>
+・<span class="clear">Ver.2.346.85</span>以降、<a href="#span-out-matching">行列要素pattern matching</a>も同様に修正
+<br>
+clear; arr=(1,2),f=(?arr)=&lt;[($arr1)=(=&lt;arr),arr1[][1]=-1,],f(?arr)=&gt;; arr -> <del>(1,-1)</del>(1,2)
+<br>
+clear; arr=(1,2),f=(?arr)=&lt;[($arr1)=(=&lt;arr),arr1[][1]=-1,arr=arr1],f(?arr)=&gt;; arr -> <del>(1,2)</del>(1,-1)
+<br>
 <br>
 留意事項を列挙する
 <br>
-・右代入の併用困難（<a href="#span-eqn-Call-by-Reference">Call-by-Reference</a>参照）
+・<span class="clear">Ver.2.343.83</span>以降、改善するが、右代入の併用困難（<a href="#span-eqn-Call-by-Reference">Call-by-Reference</a>参照）
+<br>
+・読出し時に参照を不使用のため、意図とは異なる可能性あり（現状、代入時のみ参照を使用）
 <br>
 ・<a href="#span-out-terms">scope変数</a>未定義の場合、error終了
 <br>
