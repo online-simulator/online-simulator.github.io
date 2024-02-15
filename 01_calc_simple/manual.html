@@ -810,6 +810,8 @@ e^(-i(1pi(){2/2i}(5-{3-1}){i/(-4)}))
 <br>
 ・<a href="#span-eqn-scope_NG">scope_NG</a>
 <br>
+・<a href="#span-eqn-matching">matching</a>
+<br>
 ・<a href="#span-eqn-scope2storage">scope2storage</a>
 <br>
 ・<a href="#span-eqn-has4test">has4test</a>
@@ -22104,6 +22106,8 @@ matching
 <br>
 ・<span class="run">Ver.2.269.62</span>以降、<a href="#span-in-call-by-equation">遅延評価</a>に対応
 <br>
+・<span class="run">Ver.2.350.86</span>以降、定義済み<a href="#span-out-substitution-mat">行列への代入</a>に対応
+<br>
 <br>
 行列要素pattern matchingによる変数への値の代入規則を列挙する
 <br>
@@ -22243,6 +22247,30 @@ clear; ($A)=((x)=&lt;(1,2:3,4)); A -> [MyErr]Invalid args isFound(x)
 clear; ($A)=(=&lt;(x,2:3,4)); A -> [MyErr]Invalid matching var(A)
 <br>
 clear; ($A)=(=&lt;f); A -> [MyErr]Invalid matching var(A)
+<br>
+<br>
+<span class="run">Ver.2.350.86</span>以降、定義済み<a href="#span-out-substitution-mat">行列への代入</a>に対応
+<br>
+clear; A=zeros(2); ($A[0][0],$A[1][1])=(1,4); A -> (1,0:0,4)
+<br>
+clear; A=zeros(2); ($A[0],$A[1])=(=&lt;(1,1),=&lt;(2,2)); A -> (1,1:2,2)
+<br>
+clear; A=(1,2:3,4); ($A[-1][-1][0][0])=(=&lt;A); A -> (4,3:2,1)
+<br>
+<br>
+留意事項を列挙する
+<br>
+・<a href="#span-in-call-by-equation">遅延評価</a>の場合、列挙順序に依存するため、非可換
+<br>
+clear; A=(1,2:3,4); ($A[0],$A[][0])=(=&lt;(,),=&lt;{1,1}); A -> (1,0:1,4)
+<br>
+clear; A=(1,2:3,4); ($A[][0],$A[0])=(=&lt;{1,1},=&lt;(,)); A -> (0,0:1,4)
+<br>
+・<a href="#span-in-call-by-equation">遅延評価</a>の場合、同時交換不可（<a href="#span-eqn-matching">matching</a>参照）
+<br>
+clear; A=(1,2:3,4); ($A[0],$A[1])=(=&lt;A[1],=&lt;A[0]); A  <span class="selection">// NG</span> -> (3,4:3,4)
+<br>
+clear; A=(1,2:3,4); B=A; ($A[0],$A[1])=(=&lt;B[1],=&lt;B[0]); A -> (3,4:1,2)
     </td>
   </tr>
   <tr>
@@ -39490,6 +39518,61 @@ check_all(1)=&gt;;
 <span class="jF">restore</span>;
 <br>
 check_all(-1)=&gt;;
+    </td>
+  </tr>
+  <tr>
+    <th>
+<a href="#span-index">
+目次
+</a>
+<br>
+matching
+    </th>
+    <td>
+<span id="span-eqn-matching"></span>
+<a href="#span-out-matching">行列要素pattern matching</a>参照
+<br>
+clear;
+<br>
+[
+<br>
+a=1,($a,$b)=(-1,a),(a,b):
+<br>
+a=1,($a,a)=(-1,$b),(a,b):
+<br>
+a=1,(-1,$b)=($a,a),(a,b):
+<br>
+a=1,(-1,a)=($a,$b),(a,b)
+<br>
+];
+<br>
+clear;
+<br>
+switch_NG4lazy=&lt;[
+<br>
+A=(1,2:3,4),
+<br>
+($A[0],$A[1])=(<span class="jF">=&lt;A[1],=&lt;A[0]</span>),
+<br>
+($A[][0],$A[][1])=(<span class="jF">=&lt;A[][1],=&lt;A[][0]</span>),
+<br>
+=&lt;(false:A)]=&gt;;
+<br>
+switch_OK=&lt;[
+<br>
+A=(1,2:3,4),
+<br>
+B=A,
+<br>
+($A[0],$A[1])=(<span class="jF">=&lt;B[1],=&lt;B[0]</span>),
+<br>
+B=A,
+<br>
+($A[][0],$A[][1])=(<span class="jF">=&lt;B[][1],=&lt;B[][0]</span>),
+<br>
+=&lt;(true:A)]=&gt;;
+<br>
+switch_NG4lazy=&gt;:switch_OK=&gt;;
     </td>
   </tr>
   <tr>

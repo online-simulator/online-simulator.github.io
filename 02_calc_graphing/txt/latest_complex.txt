@@ -1349,7 +1349,7 @@ clear
 local storage cleared
 
 [Pinv_y=(-0.999999427,-0.999936657,-0.997300203,-0.954499736,-0.682689492,0,0.682689492,0.954499736,0.997300203,0.999936657,0.999999427:-5,-4,-3,-2,-1,0,1,2,3,4,5),N=1,arr=[],_rn(=<arr.push(rand_table(=<Pinv_y)=>),,N),=<arr.]=>
-0.6055300995362757
+-0.9702109069208373
 
 rand_table(csv)=<last[table=sort0(csv),ymin=min(table)[0],ymax=max(table)[0],y=ymin+(ymax-ymin)*rand(),x=interp(y:table),x]
 stored_eqn(rand_table)
@@ -1359,7 +1359,7 @@ local storage cleared
 
 [(N)=<[tarr=linspace(0,N-1,N).,shuffle_FY(?tarr)=>,=<tarr.]=>](2)=>
 (
-0,1
+1,0
 )
 
 shuffle_FY(?tarr)=<last[len=sizer(tarr),switch_arr=(i1)=<last{i0=floor(rand()*(i1+1)),w=tarr[i1],tarr[i1]=tarr[i0],tarr[i0]=w},_s((i_)=<switch_arr(i_)=>,len-1,1)]
@@ -2908,6 +2908,36 @@ t0=(
 clear
 local storage cleared
 
+switch_NG4lazy=>:switch_OK=>
+(
+false:
+4,4:
+4,4:
+true:
+4,3:
+2,1
+)
+
+switch_OK=<[A=(1,2:3,4),B=A,($A[0],$A[1])=(=<B[1],=<B[0]),B=A,($A[][0],$A[][1])=(=<B[][1],=<B[][0]),=<(true:A)]=>
+stored_eqn(switch_OK)
+
+switch_NG4lazy=<[A=(1,2:3,4),($A[0],$A[1])=(=<A[1],=<A[0]),($A[][0],$A[][1])=(=<A[][1],=<A[][0]),=<(false:A)]=>
+stored_eqn(switch_NG4lazy)
+
+clear
+local storage cleared
+
+[a=1,($a,$b)=(-1,a),(a,b):a=1,($a,a)=(-1,$b),(a,b):a=1,(-1,$b)=($a,a),(a,b):a=1,(-1,a)=($a,$b),(a,b)]
+(
+0,0,-1,1:
+0,0,-1,1:
+0,0,-1,1:
+0,0,-1,1
+)
+
+clear
+local storage cleared
+
 check_all(-1)=>
 (
 0,-1,-1,-1:
@@ -3133,4 +3163,4 @@ center=true&drag=false&test-case=false&legend=true&axis-t=false&axis-x=true&log-
 --------------------------------
 --------------------------------
 
-online-simulator.github.io.6.359.196.19.98 @ Thu Feb 15 2024 14:06:01 GMT+0900 (日本標準時) @ Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/121.0.0.0 Safari/537.36
+online-simulator.github.io.6.360.196.19.98 @ Thu Feb 15 2024 20:36:21 GMT+0900 (日本標準時) @ Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/121.0.0.0 Safari/537.36

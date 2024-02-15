@@ -2960,7 +2960,7 @@ My_entry.operation.prototype.BRe = function(data, i0, tagName, tagObj){
 /* Ver.2.261.61 id_tree=1~ filtering */
 /* Ver.2.254.59 escape -> constant */
 /* Ver.2.249.57 */
-My_entry.operation.prototype.inherit_constant = function(sw, name, scopes, ids, tree, opt_isEscaped){
+My_entry.operation.prototype.inherit_constant = function(sw, name, tree, scopes, ids, opt_isEscaped){  // Ver.2.350.86
   var self = this;
   var isEscaped = (typeof opt_isEscaped === "undefined")? self.use$let: opt_isEscaped;
   var isConstant = (self.use$let)? !(isEscaped): isEscaped;  // Ver.2.254.59
@@ -3044,7 +3044,7 @@ My_entry.operation.prototype.store_mutex = function(sw, name, tree, scopes, ids,
   if(isReset){
     /* Ver.2.303.74 -> */
     self.check_symbol(name);  // Ver.2.294.72
-    self.inherit_constant(sw, name, scopes, ids, tree, isEscaped);  // Ver.2.249.57  // Ver.2.254.59
+    self.inherit_constant(sw, name, tree, scopes, ids, isEscaped);  // Ver.2.249.57  // Ver.2.254.59  // Ver.2.350.86
     if(isArray){
       scope0[sw][name].mat.arr = tree.mat.arr;
     }
@@ -3703,6 +3703,12 @@ My_entry.operation.prototype.SEv_pattern_matching = function(data, is, ie){
       if(name_var_escaped){
         /* Ver.2.269.62 -> */
         var tree = self.tree_eqn2tree_AtREe(data, rightObj, name_var_escaped);  // Ver.2.271.62
+        /* Ver.2.350.86 -> */
+        var ref = self.get_tagVal(leftArrij, "REv", "ref");
+        if(ref){
+          tree = self.get_tree_ref(name_var_escaped, tree, ref, scopes, ids);
+        }
+        /* -> Ver.2.350.86 */
         self.SE_common("vars", tree, leftArrij);  // Ver.2.346.85
         self.store_var(name_var_escaped, tree, scopes, ids);  // Ver.2.31.17
         /* -> Ver.2.269.62 */
@@ -3844,6 +3850,46 @@ My_entry.operation.prototype.SE_common = function(sw, tree, opt_tree){
   }
   return self;
 };
+/* Ver.2.350.86 */
+My_entry.operation.prototype.get_tree_ref = function(name_var, tree, ref, scopes, ids){
+  var self = this;
+  var _tree = tree;
+  var arr = tree.mat.arr;  // Ver.2.277.65
+  /* Ver.2.76.29 -> */
+  /* Ver.2.31.17 -> */
+  var scope = self.get_scope0_RE_sw("vars", name_var, scopes, ids);
+  if(!(scope)) throw "Invalid SEv-scope("+name_var+")";  // x=(,),[x[0][0]=1,]
+  var tree_var = self.restore_var(name_var, scopes, ids);  // Ver.2.30.16
+  /* -> Ver.2.31.17 */
+  if(tree_var){
+    var len_ref = ref.length;
+    if(len_ref === 2 && ref[0] === Math.E){  // Ver.2.79.31
+      self.store_arr_col(tree_var.mat.arr, ref, arr);  // Ver.2.277.65
+    }
+    else if(len_ref < 3){
+      self.store_arr(tree_var.mat.arr, ref, arr);  // Ver.2.277.65
+    }
+    /* Ver.2.77.30 -> */
+    else if(len_ref === 4){
+      self.store_arr_area(tree_var.mat.arr, ref, arr);  // Ver.2.277.65
+    }
+    /* -> Ver.2.77.30 */
+    /* Ver.2.80.32 -> */
+    else if((len_ref+1)%2 === 0){
+      self.store_arr_band(tree_var.mat.arr, ref, arr);  // Ver.2.277.65
+    }
+    /* -> Ver.2.80.32 */
+    else{
+      throw "Invalid substitution";
+    }
+    _tree = tree_var;
+  }
+  else{
+    throw "Undef var("+name_var+")";
+  }
+  /* -> Ver.2.76.29 */
+  return _tree;
+};
 My_entry.operation.prototype.SEv = function(data, i0, tagName, tagObj){
   var self = this;
   var trees = data.trees;
@@ -3868,42 +3914,9 @@ My_entry.operation.prototype.SEv = function(data, i0, tagName, tagObj){
         /* -> Ver.2.249.57 */
         var isSEe_dynamic = tree[BT.SEe];  // Ver.2.277.65  // Ver.2.279.65
         if(tree.mat){
-          var arr = tree.mat.arr;  // Ver.2.277.65
           var ref = self.get_tagVal(leftTree, "REv", "ref");
           if(ref){
-            /* Ver.2.76.29 -> */
-            /* Ver.2.31.17 -> */
-            var scope = self.get_scope0_RE_sw("vars", name_var, scopes, ids);
-            if(!(scope)) throw "Invalid SEv-scope("+name_var+")";  // x=(,),[x[0][0]=1,]
-            var tree_var = self.restore_var(name_var, scopes, ids);  // Ver.2.30.16
-            /* -> Ver.2.31.17 */
-            if(tree_var){
-              var len_ref = ref.length;
-              if(len_ref === 2 && ref[0] === Math.E){  // Ver.2.79.31
-                self.store_arr_col(tree_var.mat.arr, ref, arr);  // Ver.2.277.65
-              }
-              else if(len_ref < 3){
-                self.store_arr(tree_var.mat.arr, ref, arr);  // Ver.2.277.65
-              }
-              /* Ver.2.77.30 -> */
-              else if(len_ref === 4){
-                self.store_arr_area(tree_var.mat.arr, ref, arr);  // Ver.2.277.65
-              }
-              /* -> Ver.2.77.30 */
-              /* Ver.2.80.32 -> */
-              else if((len_ref+1)%2 === 0){
-                self.store_arr_band(tree_var.mat.arr, ref, arr);  // Ver.2.277.65
-              }
-              /* -> Ver.2.80.32 */
-              else{
-                throw "Invalid substitution";
-              }
-              tree = tree_var;
-            }
-            else{
-              throw "Undef var("+name_var+")";
-            }
-            /* -> Ver.2.76.29 */
+            tree = self.get_tree_ref(name_var, tree, ref, scopes, ids);  // Ver.2.350.86
           }
           self.SE_common("vars", tree, leftTree);  // Ver.2.346.85
           self.store_var(name_var, tree, scopes, ids, isEscaped);  // Ver.2.31.17  // Ver.2.249.57
