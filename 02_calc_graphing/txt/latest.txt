@@ -1349,7 +1349,7 @@ clear
 local storage cleared
 
 [Pinv_y=(-0.999999427,-0.999936657,-0.997300203,-0.954499736,-0.682689492,0,0.682689492,0.954499736,0.997300203,0.999936657,0.999999427:-5,-4,-3,-2,-1,0,1,2,3,4,5),N=1,arr=[],_rn(=<arr.push(rand_table(=<Pinv_y)=>),,N),=<arr.]=>
--2.3690744379448256
+2.67670584546125
 
 rand_table(csv)=<last[table=sort0(csv),ymin=min(table)[0],ymax=max(table)[0],y=ymin+(ymax-ymin)*rand(),x=interp(y:table),x]
 stored_eqn(rand_table)
@@ -2590,6 +2590,44 @@ false,false
 clear
 local storage cleared
 
+[x=1,x:f(x)=<x,f(x)=>:CbE_g(=<f)=>f,f(x)=>:CbR_g(?f)=>f,f(x)=>:step_CbE(=<f)==>,f(x)=>:step_CbR(?f)=>,f(x)=>]
+(
+0,1:
+0,1:
+0,2:
+0,3:
+0,4:
+0,5
+)
+
+step_CbR=(?f)=<CbR_g(?f)=>f
+stored_eqn(step_CbR)
+
+step_CbE=(=<fdummy)=<CbE_g(=<fdummy)=>f
+stored_eqn(step_CbE)
+
+CbR_g=(?f)=<[g(x)=<f(x)=>+1,=<g]=>
+stored_eqn(CbR_g)
+
+CbE_g=(=<f)=<[g(x)=<f(x)=>+1,=<g]=>
+stored_eqn(CbE_g)
+
+clear
+local storage cleared
+
+[arr=(1,2),f=(?arr)=<[arr1=arr,arr1[][1]=-1,],f(?arr)=>,arr:arr=(1,2),f=(?arr)=<[arr1=arr,arr1[][1]=-1,arr=arr1],f(?arr)=>,arr:arr=(1,2),f=(?arr)=<[arr1=arr+0,arr1[][1]=-1,arr=arr1],f(?arr)=>,arr:arr=(1,2),f=(?arr)=<[($arr1)=(=<arr),arr1[][1]=-1,],f(?arr)=>,arr:arr=(1,2),f=(?arr)=<[($arr1)=(=<arr),arr1[][1]=-1,arr=arr1],f(?arr)=>,arr:g=<(1,2),f=(?g)=<[,,g=<(1,-1)],f(?g)=>,g=>]
+(
+0,0,0,0,0,1,2:
+0,0,0,0,0,1,-1:
+0,0,0,0,0,1,-1:
+0,0,0,0,0,1,2:
+0,0,0,0,0,1,-1:
+0,0,0,0,0,1,-1
+)
+
+clear
+local storage cleared
+
 [make_NG(1)==>,f=>,[make_NG(2)==>,f=>,make_NG(3)==>,f=>]]
 (
 0,1,0,2,0,3
@@ -3095,4 +3133,4 @@ center=true&drag=false&test-case=false&legend=true&axis-t=false&axis-x=true&log-
 --------------------------------
 --------------------------------
 
-online-simulator.github.io.6.359.192.19.97 @ Wed Feb 14 2024 06:35:57 GMT+0900 (日本標準時) @ Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/121.0.0.0 Safari/537.36
+online-simulator.github.io.6.359.196.19.98 @ Thu Feb 15 2024 14:05:08 GMT+0900 (日本標準時) @ Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/121.0.0.0 Safari/537.36

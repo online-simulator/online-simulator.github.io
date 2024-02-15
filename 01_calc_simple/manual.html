@@ -39734,6 +39734,50 @@ make_NG=(x)=&lt;[f=&lt;0,set_f(<span class="jF">?</span>f)==&gt;,=&lt;f]=&gt;f;
 <br>
 clear;
 <br>
+[
+<br>
+arr=(1,2),f<span class="jF">=</span>(<span class="jF">?</span>arr)=&lt;[arr1=arr,arr1[][1]=-1,],f(<span class="jF">?</span>arr)=&gt;,arr:
+<br>
+arr=(1,2),f<span class="jF">=</span>(<span class="jF">?</span>arr)=&lt;[arr1=arr,arr1[][1]=-1,arr=arr1],f(<span class="jF">?</span>arr)=&gt;,arr:
+<br>
+arr=(1,2),f<span class="jF">=</span>(<span class="jF">?</span>arr)=&lt;[arr1=arr+0,arr1[][1]=-1,arr=arr1],f(<span class="jF">?</span>arr)=&gt;,arr:
+<br>
+arr=(1,2),f<span class="jF">=</span>(<span class="jF">?</span>arr)=&lt;[<span class="jF">($arr1)=(=&lt;</span>arr),arr1[][1]=-1,],f(<span class="jF">?</span>arr)=&gt;,arr:
+<br>
+arr=(1,2),f<span class="jF">=</span>(<span class="jF">?</span>arr)=&lt;[<span class="jF">($arr1)=(=&lt;</span>arr),arr1[][1]=-1,arr=arr1],f(<span class="jF">?</span>arr)=&gt;,arr:
+<br>
+g=&lt;(1,2),f<span class="jF">=</span>(<span class="jF">?</span>g)=&lt;[,,g=&lt;(1,-1)],f(<span class="jF">?</span>g)=&gt;,g=&gt;:
+<br>
+];
+<br>
+clear;
+<br>
+CbE_g<span class="jF">=</span>(=&lt;f)=&lt;[g(x)=&lt;f(x)=&gt;+1,=&lt;g]=&gt;;
+<br>
+CbR_g<span class="jF">=</span>(<span class="jF">?</span>f)=&lt;[g(x)=&lt;f(x)=&gt;+1,=&lt;g]=&gt;;
+<br>
+step_CbE<span class="jF">=</span>(=&lt;<span class="clear">fdummy</span>)=&lt;CbE_g(=&lt;<span class="clear">fdummy</span>)=&gt;f;
+<br>
+step_CbR<span class="jF">=</span>(<span class="jF">?</span>f)=&lt;CbR_g(<span class="jF">?</span>f)=&gt;f;
+<br>
+[
+<br>
+x=1,x:
+<br>
+f(x)=&lt;x,f(x)=&gt;:
+<br>
+CbE_g(=&lt;f)=&gt;f,f(x)=&gt;:
+<br>
+CbR_g(<span class="jF">?</span>f)=&gt;f,f(x)=&gt;:
+<br>
+step_CbE(=&lt;f)<span class="clear">==&gt;</span>,f(x)=&gt;:
+<br>
+step_CbR(<span class="jF">?</span>f)=&gt;,f(x)=&gt;
+<br>
+];
+<br>
+clear;
+<br>
 A=false;
 <br>
 show_A<span class="jF">=</span>(=&lt;callback)=&lt;[callback=&gt;,=&lt;A/*cloned*/]=&gt;;
