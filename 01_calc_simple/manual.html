@@ -13904,7 +13904,7 @@ clear; arr=(1,2),f=(?arr)=&lt;[($arr1)=(=&lt;arr),arr1[][1]=-1,arr=arr1],f(?arr)
 <br>
 clear; a=1,f(?a)=&lt;a=2,a,f(?a),a -> (0,0,1,0,2)
 <br>
-clear; f(?a)=&lt;a=2,a,f(?a),a -> [MyErr]Undef scope-var(a)
+clear; f(?a)=&lt;a=2,f(?a),a -> [MyErr]Undef scope-var(a)
 <br>
 clear; a=1,[f(?a)=&lt;a=2,a,f(?a),a] -> [MyErr]Undef scope-var(a)
     </td>
