@@ -46,6 +46,7 @@ My_entry.calc_graphing.prototype.init_elems = function(){
   $.setup_elems$_tag("button", self.handlers, "onclick");
   $.setup_elems$_tag("input", self.handlers, "onchange");
   $.setup_elems$_tag("select", self.handlers, "onchange");
+  $.setup_elem$_id("input-z", self.handlers, "onchange");  // Ver.2.354.86
   self.entry.def.mix_over(self.constructors.io, self.constructors.io_ex1);
   return self;
 };
