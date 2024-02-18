@@ -1344,6 +1344,10 @@ ja.m.wikipedia.org/wiki/項目を列挙する
 <br>
 ・月の軌道
 <br>
+・軌道力学
+<br>
+・多体問題
+<br>
 ・潮汐
 <br>
 ・潮汐力
@@ -32961,11 +32965,15 @@ r'=v
 <br>
 θ'=w
 <br>
-v'=-alpha/r^2+beta/r^3
+<del>v'=-alpha/r^2+<span class="run">beta/r^3</span></del>
+<br>
+・<span class="run">Ver.2.358.86</span>以降、遠心力項のwを残して記述（小数点以下の演算結果に影響あり）
+<br>
+v'=-alpha/r^2+<span class="run">r*w^2</span>
 <br>
 w'=-2*v*w/r
 <br>
-・最小構成の時間発展方程式
+・w消去可能（非多体問題）の場合、最小構成の時間発展方程式
 <br>
 r'=v
 <br>
@@ -33132,7 +33140,11 @@ dt=T/1e4;
 <br>
 t=T*kT;
 <br>
-x1=_otdummy(=&lt;{v,w,-alpha/r^2+beta/r^3,-2*v*w/r},=&lt;{r,theta,v,w},=&lt;{r0,theta0,v0,w0},N=round(t/dt),dt,N);
+<del>x1=_otdummy(=&lt;{v,w,-alpha/r^2+<span class="run">beta/r^3</span>,-2*v*w/r},=&lt;{r,theta,v,w},=&lt;{r0,theta0,v0,w0},N=round(t/dt),dt,N);</del>
+<br>
+・<span class="run">Ver.2.358.86</span>以降、遠心力項のwを残して記述（小数点以下の演算結果に影響あり）
+<br>
+x1=_otdummy(=&lt;{v,w,-alpha/r^2+<span class="run">r*w^2</span>,-2*v*w/r},=&lt;{r,theta,v,w},=&lt;{r0,theta0,v0,w0},N=round(t/dt),dt,N);
 <br>
 r1=x1[0];
 <br>
