@@ -730,41 +730,45 @@ e^(-i(1pi(){2/2i}(5-{3-1}){i/(-4)}))
 <br>
 ・<a href="#span-out-application">application</a>
 <br>
-・<a href="#span-out-development-additional">実装の特徴</a>
+・<a href="#span-out-development-original">独自実装の反省点</a>
 <br>
-　・<a href="#span-out-development-problems-after">実装上の問題点</a>
+　・<a href="#span-out-development-javascript">特有の実装</a>
 <br>
-　　・<a href="#span-out-development-problems-FNh">高階関数の問題点</a>
+　・<a href="#span-out-development-additional">実装の特徴</a>
 <br>
-　・<a href="#span-out-development-problems-before">仕様上の問題点</a>
+　　・<a href="#span-out-development-problems-after">実装上の問題点</a>
 <br>
-　　・<a href="#span-out-development-problems-algebra">代数学準拠の問題点</a>
+　　　・<a href="#span-out-development-problems-FNh">高階関数の問題点</a>
 <br>
-　　・<a href="#span-out-development-problems-type">型定義の問題点</a>
+　　・<a href="#span-out-development-problems-before">仕様上の問題点</a>
 <br>
-　　・<a href="#span-out-development-problems-complex">複素数演算の問題点</a>
+　　　・<a href="#span-out-development-problems-algebra">代数学準拠の問題点</a>
 <br>
-　　・<a href="#span-out-development-problems-matrix">行列演算の問題点</a>
+　　　・<a href="#span-out-development-problems-type">型定義の問題点</a>
 <br>
-　　・<a href="#span-out-development-problems-logical">論理演算の問題点</a>
+　　　・<a href="#span-out-development-problems-complex">複素数演算の問題点</a>
 <br>
-　　・<a href="#span-out-development-problems-share">未実装の参照共有</a>
+　　　・<a href="#span-out-development-problems-matrix">行列演算の問題点</a>
 <br>
-　　・<a href="#span-out-development-problems-CBR">未実装の参照渡し</a>
+　　　・<a href="#span-out-development-problems-logical">論理演算の問題点</a>
 <br>
-　　・<a href="#span-out-development-problems-CAS">未実装のCAS</a>
+　　　・<a href="#span-out-development-problems-share">未実装の参照共有</a>
 <br>
-　・<a href="#span-out-special">特殊仕様</a>
+　　　・<a href="#span-out-development-problems-CBR">未実装の参照渡し</a>
 <br>
-　　・<a href="#span-out-special-eqns">式変数</a>
+　　　・<a href="#span-out-development-problems-CAS">未実装のCAS</a>
 <br>
-　　・<a href="#span-out-special-FNh">高階関数</a>
+　　・<a href="#span-out-special">特殊仕様</a>
 <br>
-　　・<a href="#span-out-special-sign">単項の符号</a>
+　　　・<a href="#span-out-special-eqns">式変数</a>
 <br>
-　　・<a href="#span-out-special-equal">equal記号</a>
+　　　・<a href="#span-out-special-FNh">高階関数</a>
 <br>
-　　・<a href="#span-out-special-substitution">代入処理</a>
+　　　・<a href="#span-out-special-sign">単項の符号</a>
+<br>
+　　　・<a href="#span-out-special-equal">equal記号</a>
+<br>
+　　　・<a href="#span-out-special-substitution">代入処理</a>
 <br>
 <br>
 <a href="#span-in">内部仕様</a>
@@ -37011,28 +37015,86 @@ f=&lt;last{V=1,E=0,k=1,I=exp(k*(V-E))-exp(-k*(V-E))}
 目次
 </a>
 <br>
-実装の特徴
+独自実装の
+<br>
+反省点
     </th>
     <td>
-<span id="span-out-development-additional"></span>
+<span id="span-out-development-original"></span>
 基本構文のみで最短かつ確実な実装を選択したため、platform以前に最適化の余地がある
 <br>
 また、すべての結果の確からしさは自己判断のため、致命的な見落としを残す可能性がある
 <br>
 <br>
+<a href="#span-out-development-additional">実装の特徴</a>に示す独自実装の反省点を列挙する
+<br>
+・<a href="#span-out-development-problems-after">実装上の問題点</a>
+<br>
+　・call stackを使用しない（<a href="#span-out-debug">debugger</a>・保守性・その他）
+<br>
+　・<a href="#span-out-terms">scope変数</a>・<a href="#span-out-scope-reference">scope参照</a>（冗長性・その他）
+<br>
+・<a href="#span-out-development-problems-before">仕様上の問題点</a>
+<br>
+　・<a href="#span-out-mat">行列</a>前提の仕様（拡張性・その他）
+<br>
+　・<a href="#span-out-FNm">関数</a>より優先して<a href="#span-out-BT">括弧</a>の中身を自動展開する仕様（<a href="#span-out-eqns-args">arguments</a>実装の複雑化・可読性・その他）
+<br>
+・<a href="#span-out-special">特殊仕様</a>
+<br>
+　・<a href="#span-out-vars">変数</a>と<a href="#span-out-eqns">式変数</a>の区別（<a href="#span-out-option9">useMutex</a>・その他）
+<br>
+　・<a href="#span-out-special-equal">equal記号</a>・<a href="#span-out-special-substitution">代入処理</a>（可読性・その他）
+    </td>
+  </tr>
+  <tr>
+    <th>
+<a href="#span-index">
+目次
+</a>
+<br>
+特有の実装
+    </th>
+    <td>
+<span id="span-out-development-javascript"></span>
+<span class="run">JavaScript</span>特有の実装を列挙する
+<br>
+・namespaceの中に全objectを宣言してglobal searchを省略する（定量的な効果は不明）
+<br>
+・よって関数式のconstructorはhoistingなしの前提で実装する
+<br>
+・既存のframework||plug-inを使用しないが、一部で公式に非推奨の実装を使用する
+<br>
+　・instanceのoptionからprototypeの動的な変更（mix-in継承の代替）
+<br>
+　・download-linkのonclickでsourceの動的な変更
+    </td>
+  </tr>
+  <tr>
+    <th>
+<a href="#span-index">
+目次
+</a>
+<br>
+実装の特徴
+    </th>
+    <td>
+<span id="span-out-development-additional"></span>
 実装の特徴を列挙する
 <br>
 ・<span class="clear">Ver.2.266.62</span>以降、<a href="#span-in-deep-copy">deep-copy</a>の適用対象を最適化（<a href="#span-out-vars">変数</a>・<a href="#span-out-eqns">式変数</a>のstore||restore時　⇒　<span class="clear">restore時</span>）
 <br>
 ・<a href="#span-out-vars">変数</a>の<span class="clear">restore時</span>、<a href="#span-in-tree">tree構造</a>を<a href="#span-in-deep-copy">deep-copy</a>で複製して参照上の副作用を単純に回避する
 <br>
-・<a href="#span-out-eqns">式変数</a>の<span class="clear">restore時</span>も同様に、入出力の<a href="#span-in-tree">tree構造</a>を複製して<a href="#span-in-scope-vars">static scopes2d array</a>を共有する
+・<a href="#span-out-eqns">式変数</a>の<span class="clear">restore時</span>も同様に、入出力の<a href="#span-in-tree">tree構造</a>を複製する<del>して<a href="#span-in-scope-vars">static scopes2d array</a>を共有する</del>
+<br>
+・<span class="run">Ver.2.299.72</span>以降、<a href="#span-out-scope-vars">変数のscope</a>を動的に確保して解決済みの場合、削除する
 <br>
 ・<a href="#span-out-mat">行列</a>演算を含む<a href="#span-out-associativity">2項演算子のassociativity</a>は単なるfor-loopで結合順||演算順を保証する
 <br>
 ・reccursive callを代替する<a href="#span-out-FNh-RX">再帰高階関数</a>||<a href="#span-out-eqns-re-call">再帰call</a>も同様に、独自のcall stackを実装しない
 <br>
-・一般的な言語と異なり、<a href="#span-in-scope-vars">static scopes2d array</a>を共有するため、
+<del>・一般的な言語と異なり、<a href="#span-in-scope-vars">static scopes2d array</a>を共有するため、</del>
 <br>
 ・<a href="#span-out-FNh-RX">再帰高階関数</a>||<a href="#span-out-FNmh-newtonian">Newton高階行列関数</a>のbreak判定は反復後に実施する
 <br>
@@ -37055,19 +37117,6 @@ f=&lt;last{V=1,E=0,k=1,I=exp(k*(V-E))-exp(-k*(V-E))}
 ・<a href="#span-out-debug">debugger</a>が存在しないため、<a href="#span-out-vars">変数</a>・<a href="#span-out-eqns">式変数</a>はpollution disabledの厳格な制約条件を課す
 <br>
 ・よって<a href="#span-out-bracket">scope</a>本来の利便性を大きく損なうが、緩和の見通しはない
-<br>
-<br>
-<span class="run">JavaScript</span>特有の実装を列挙する
-<br>
-・namespaceの中に全objectを宣言してglobal searchを省略する（定量的な効果は不明）
-<br>
-・よって関数式のconstructorはhoistingなしの前提で実装する
-<br>
-・同制約の下、既存のframework||plug-inを使用しないが、一部で公式に非推奨の実装を使用している
-<br>
-　・instanceのoptionからprototypeの動的な変更（mix-in継承の代替）
-<br>
-　・download-linkのonclickでsourceの動的な変更
     </td>
   </tr>
   <tr>
