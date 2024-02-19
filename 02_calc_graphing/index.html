@@ -750,7 +750,7 @@
 <div id="div-plot2d" class="relative"></div>
 <hr>
         </td>
-        <td rowspan="11">
+        <td rowspan="12">
 <hr>
   <label>
 　test case　<input id="checkbox-test-case" type="checkbox">
@@ -1020,6 +1020,22 @@
       </tr>
       <tr>
         <td>
+        </td>
+        <td>
+  <label><input id="checkbox-relzooming" type="checkbox" checked="checked">:rel.</label>
+  <button class="selection">x0.1</button>
+  <button class="selection">x0.5</button>
+  <button class="clear">x 1</button>
+  <button class="selection">x 2</button>
+  <button class="selection">x10</button>
+  <label><input id="checkbox-snap" type="checkbox" checked="checked">:snap</label>
+        </td>
+        <td class="input-100">
+  <button id="button-plot" class="button-box run right">plot</button>
+        </td>
+      </tr>
+      <tr>
+        <td>
   <label>l:
 <input id="checkbox-legend" type="checkbox" checked="checked">
   </label>
@@ -1028,8 +1044,7 @@
 <input id="output-plot" readonly="readonly">
         </td>
         <td>
-  <button id="button-plot" class="button-box run">plot</button>
-  <button class="button-box clear">stop</button>
+  <button class="button-box clear left">stop</button>
         </td>
       </tr>
       <tr>
@@ -1065,7 +1080,7 @@
 ~
 <input id="input-xmax" type="number" class="width-auto selection">
 <br>
-<textarea id="input-x" rows="4"></textarea>
+<textarea id="input-x" rows="5"></textarea>
         </td>
       </tr>
       <tr>
@@ -1086,7 +1101,7 @@
 ~
 <input id="input-ymax" type="number" class="width-auto selection">
 <br>
-<textarea id="input-y" rows="4"></textarea>
+<textarea id="input-y" rows="5"></textarea>
         </td>
       </tr>
       <tr>
@@ -1096,7 +1111,7 @@
   </label>
         </td>
         <td colspan="2">
-<textarea id="input-z" rows="2"></textarea>
+<textarea id="input-z" rows="3"></textarea>
         </td>
       </tr>
       <tr>
@@ -1123,15 +1138,6 @@
   <label>
 　plot-config　<input id="checkbox-config-plot" type="checkbox">
   </label>
-　
-  <label><input id="checkbox-relzooming" type="checkbox" checked="checked">:rel.</label>
-  <button class="selection">x0.1</button>
-  <button class="selection">x0.5</button>
-  <button class="clear">x 1</button>
-  <button class="selection">x 2</button>
-  <button class="selection">x10</button>
-  <label><input id="checkbox-snap" type="checkbox" checked="checked">:snap</label>
-　
 <hr>
         </td>
       </tr>
