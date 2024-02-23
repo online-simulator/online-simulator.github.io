@@ -1299,7 +1299,15 @@ else if(prop === "OX" || prop === "TX"){  // ODE  // Ver.2.23.11  // Ver.2.231.5
     var Niteration = (argN && argN.com)? Math.round(argN.com.r): 1;  // 0 enabled  // Ver.2.205.46 floor -> round
     /* -> Ver.2.29.15 */
     // orderT
-    var orderT = (options.orderT === 2)? 2: 4;
+    /* Ver.2.369.86 -> */
+    var orderT = 4;
+    if(tagObj.val.order){
+      orderT = tagObj.val.order;
+    }
+    else if(options.orderT === 2 || options.orderT === 5){
+      orderT = options.orderT;
+    }
+    /* -> Ver.2.369.86 */
     // x0
     var x0 = init_x0(arr_x, names, ids_buffer);  // Ver.2.233.56
     // functions
@@ -1319,6 +1327,22 @@ else if(prop === "OX" || prop === "TX"){  // ODE  // Ver.2.23.11  // Ver.2.231.5
       var _x = [];
       for(var i=0; i<len_i; ++i){
         _x[i] = unit["BRa"](options, x[i], unit["BRm"](options, f[i], dt));
+      }
+      return _x;
+    };
+    /* Ver.2.369.86 */
+    var step_x_sum = function(x, arr2d){
+      var _x = [];
+      for(var i=0; i<len_i; ++i){
+        _x[i] = x[i];
+      }
+      var len_n = arr2d.length;
+      for(var n=0; n<len_n; ++n){
+        var f = arr2d[n][0];
+        var dt = arr2d[n][1];
+        for(var i=0; i<len_i; ++i){
+          _x[i] = unit["BRa"](options, _x[i], unit["BRm"](options, f[i], dt));
+        }
       }
       return _x;
     };
@@ -1377,6 +1401,7 @@ else if(prop === "OX" || prop === "TX"){  // ODE  // Ver.2.23.11  // Ver.2.231.5
       store_x(_xc);
       return _xc;
     };
+    /* Ver.2.369.86 -> */
     // classical Runge-Kutta method
     var OX_order4 = function(){
       var _xc = null;
@@ -1385,18 +1410,19 @@ else if(prop === "OX" || prop === "TX"){  // ODE  // Ver.2.23.11  // Ver.2.231.5
       var kcr_1r3 = 1/3;
       // t0
       store_t();
-      var f1 = calc_f();
-      var x1 = step_x(x0, f1, dtr2);
-      store_t(dtr2);
+      var f1 = calc_f();              // f1=f(t0,x0)
+      var x1 = step_x(x0, f1, dtr2);  // x1=x0+f1*dt/2
+      store_t(dtr2);                  // t1=t0+dt/2
       store_x(x1);
-      var f2 = calc_f();
-      var x2 = step_x(x0, f2, dtr2);
+      var f2 = calc_f();              // f2=f(t1,x1)
+      var x2 = step_x(x0, f2, dtr2);  // x2=x0+f2*dt/2
       store_x(x2);
-      var f3 = calc_f();
-      var x3 = step_x(x0, f3, dt);
-      store_t(dt);
+                                      // t2=t1
+      var f3 = calc_f();              // f3=f(t2,x2)
+      var x3 = step_x(x0, f3, dt);    // x3=x0+f3*dt
+      store_t(dt);                    // t3=t0+dt
       store_x(x3);
-      var f4 = calc_f();
+      var f4 = calc_f();              // f4=f(t3,x3)
       var fc = combinate([f1, f2, f3, f4], [kcr_1r6, kcr_1r3, kcr_1r3, kcr_1r6]);
       _xc = step_x(x0, fc, dt);
       if(options.checkError){
@@ -1405,7 +1431,50 @@ else if(prop === "OX" || prop === "TX"){  // ODE  // Ver.2.23.11  // Ver.2.231.5
       store_x(_xc);
       return _xc;
     };
-    var OX = (orderT === 2)? OX_order2: OX_order4;
+    // Runge-Kutta-Fehlberg method
+    var OX_order5 = function(){
+      var _xc = null;
+      var dtr2 = get_dt(0.5);
+      var dtr4 = get_dt(0.25);
+      // t0
+      store_t();
+      var f1 = calc_f();
+      var x1 = step_x(x0, f1, dtr4);
+      store_t(dtr4);
+      store_x(x1);
+      var f2 = calc_f();
+      var x2 = step_x_sum(x0, [[f1, get_dt(3/32)], [f2, get_dt(9/32)]]);
+      store_t(get_dt(3/8));
+      store_x(x2);
+      var f3 = calc_f();
+      var x3 = step_x_sum(x0, [[f1, get_dt(1932/2197)], [f2, get_dt(-7200/2197)], [f3, get_dt(7296/2197)]]);
+      store_t(get_dt(12/13));
+      store_x(x3);
+      var f4 = calc_f();
+      var x4 = step_x_sum(x0, [[f1, get_dt(439/216)], [f2, get_dt(-8)], [f3, get_dt(3680/513)], [f4, get_dt(-845/4104)]]);
+      store_t(dt);
+      store_x(x4);
+      var f5 = calc_f();
+      var x5 = step_x_sum(x0, [[f1, get_dt(-8/27)], [f2, get_dt(2)], [f3, get_dt(-3544/2565)], [f4, get_dt(1859/4104)], [f5, get_dt(-11/40)]]);
+      store_t(dtr2);
+      store_x(x5);
+      var f6 = calc_f();
+      var fc = combinate([f1, f2, f3, f4, f5, f6], [16/135, 0, 6656/12825, 28561/56430, -9/50, 2/55]);
+      _xc = step_x(x0, fc, dt);
+      if(options.checkError){
+        set_error(_xc);
+      }
+      store_x(_xc);
+      return _xc;
+    };
+    var OX = OX_order4;
+    if(orderT === 2){
+      OX = OX_order2;
+    }
+    else if(orderT === 5){
+      OX = OX_order5;
+    }
+    /* -> Ver.2.369.86 */
     /* Ver.2.29.15 -> */
     var vec = x0;  // initialize
     for(var n=0; n<Niteration; ++n){
@@ -1837,6 +1906,15 @@ My_entry.operation.prototype.DX = function(data, rightArr, tagObj){
       var h0cr = h0c.r;
       var h0ci = h0c.i;
       var num_8 = DATA.num(8, 0);
+      /* Ver.2.369.86 -> */
+      var orderD = (nthd < 3)? 4: 2;
+      if(tagObj.val.order){
+        orderD = tagObj.val.order;
+      }
+      else if(options.orderD === 2 || options.orderD === 4){
+        orderD = options.orderD;
+      }
+      /* -> Ver.2.369.86 */
       var get_newX = function(x, cr, ci){
         var _newX = DATA.newNum(x);
         var com = _newX.com;
@@ -1917,13 +1995,12 @@ My_entry.operation.prototype.DX = function(data, rightArr, tagObj){
         num = calc_f(a, 0, 0);
       }
       else{
-        var DX = (nthd < 3)? DX_order4: DX_order2;
-        if(options.orderD === 2){
+        /* Ver.2.369.86 -> */
+        var DX = DX_order4;
+        if(orderD === 2){
           DX = DX_order2;
         }
-        else if(options.orderD === 4){
-          DX = DX_order4;
-        }
+        /* -> Ver.2.369.86 */
         num = DX(a, nthd);
       }
       _tree = DATA.num2tree(num);
@@ -1959,6 +2036,15 @@ My_entry.operation.prototype.IX = function(data, rightArr, tagObj){
       var h0 = DATA.num(hcr, ((options.useComplex)? hci: 0));
       var h0cr = h0.com.r;
       var h0ci = h0.com.i;
+      /* Ver.2.369.86 -> */
+      var orderI = 4;
+      if(tagObj.val.order){
+        orderI = tagObj.val.order;
+      }
+      else if(options.orderI === 2 || options.orderI === 4){
+        orderI = options.orderI;
+      }
+      /* -> Ver.2.369.86 */
       var calc_f = function(cr, ci){
         self.store_var(name_var, DATA.tree_num(cr, ci), scopes, ids_buffer);  // Ver.2.31.17  // Ver.2.225.53
         return self.arr2num(self.tree_eqn2tree(data, tree_eqn).mat.arr);
@@ -2003,7 +2089,12 @@ My_entry.operation.prototype.IX = function(data, rightArr, tagObj){
         /* -> Ver.2.20.10 */
         return _sum;
       };
-      var DI = (options.orderI === 2)? DI_order2: DI_order4;
+      /* Ver.2.369.86 -> */
+      var DI = DI_order4;
+      if(orderI === 2){
+        DI = DI_order2;
+      }
+      /* -> Ver.2.369.86 */
       _tree = DATA.num2tree(DI());
     }
     return _tree;

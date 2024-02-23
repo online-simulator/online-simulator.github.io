@@ -1007,6 +1007,8 @@ en.m.wikipedia.org/wiki/項目を列挙する
 <br>
 ・Lehmer_random_number_generator
 <br>
+・List of Runge-Kutta methods
+<br>
 ・Kepler's equation
 <br>
 ・Kepler's_laws_of_planetary_motion
@@ -1141,6 +1143,8 @@ ja.m.wikipedia.org/wiki/項目を列挙する
 ・斜方投射
 <br>
 ・ルンゲ＝クッタ法
+<br>
+・ルンゲ＝クッタ＝フェールベルグ法
 <br>
 ・ルンゲ現象
 <br>
@@ -2017,6 +2021,20 @@ clear; f=&lt;-1; f=1; [f=2,=&lt;f]=&gt;,[f=&lt;-2,=&lt;f]=&gt; -> (2,<del>1</del
 　<span class="clear">Ver.2.346.85</span>以降、<a href="#span-out-matching">行列要素pattern matching</a>||<a href="#span-out-eqns">式変数</a>への代入時も同様に、右辺の参照を削除
 <br>
 　影響項目：<a href="#span-eqn-Call-by-Reference">Call-by-Reference</a>（<a href="#span-out-eqns">式変数</a>make_NG部分のみ）
+<br>
+・<span class="run">Ver.2.369.86</span>以降、精度次数が存在する<a href="#span-out-FNh">高階関数</a>の仕様変更
+<br>
+　精度次数：固定　⇒　関数名直後の数字で指定可（<a href="#span-out-config">内部option</a>より優先）
+<br>
+　　_o()　⇒　_o||_o4||_o2||_o5()
+<br>
+　　_t()　⇒　_t||_t4||_t2||_t5()
+<br>
+　　_d()　⇒　_d||_d4||_d2()
+<br>
+　　_i()　⇒　_i||_i4||_i2()
+<br>
+　影響項目：<a href="#span-out-FNh-DX">微分高階関数</a>||<a href="#span-out-FNh-IX">積分高階関数</a>||<a href="#span-out-FNmh-OX">ODE高階行列関数</a>||<a href="#span-out-FNmh-TX">ODEt高階行列関数</a>
     </td>
   </tr>
   <tr>
