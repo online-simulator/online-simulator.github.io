@@ -10545,6 +10545,8 @@ clear; A=(1,2:3,4); A.flip() -> NaN
 <br>
 clear; A=(1,2:3,4:i); A.flip(); A -> (i:4,3:2,1)
 <br>
+・欠損要素を自動で埋めない
+<br>
 clear; A=(1,2:3); A.flip(); A -> (3:2,1)
 <br>
 clear; A=[]; A.flip(); A -> []

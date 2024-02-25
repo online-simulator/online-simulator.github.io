@@ -391,9 +391,9 @@
       script += "\n";
       script += "a**6/6:_i(=<f,0,a):_i4(=<f,0,a):_i2(=<f,0,a);";
       script += "\nclear;\n";
-      script += "A=(1,2:3,4:i):A.flip():A:A[0].flip():A:A[1].flip():A:A[2].flip():A;";
+      script += "A=(1,2:3,4:1i,2i,3i):A.flip():A:A[0].flip():A:A[1].flip():A:A[2].flip():A:A[-1].flip():A;";
       script += "\nclear;\n";
-      script += "A=(1,2:3,4):A.flip():A:A[0].flip():A:A[1].flip():A;";
+      script += "A=(1,2:3,4:1i,2i,3i):A[-1][-1][][]:-1:A[0][-1][1][]:-2:A[1][-1][1][]:-3:A[2][-1][1][]:-4:A[-1][-1][1][]:-5:A[-1][0][][1].:-6:A[-1][1][][1].:-7:A[-1][2][][1].:-8:A[-1][-1][][1].;";
       script += "\nclear;\n";
       $._id("input").value = script;
     });
