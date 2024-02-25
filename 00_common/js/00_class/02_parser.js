@@ -112,7 +112,7 @@ My_entry.parser.prototype.config = {
       "=": "BRe"  // x+3=1 -> x=1-3 prior to substitution
     },
     props: ["map", "filter", "filter0"],  // props for iterable with ref  // Ver.2.214.49  // Ver.2.263.62
-    props_method: ["unshift", "push", "shift", "pop"],  // prototype method using ref  // Ver.2.298.72
+    props_method: ["unshift", "push", "shift", "pop", "flip"],  // prototype method using ref  // Ver.2.298.72  // Ver.2.372.86
     word: {
       escape: "$",  // Ver.2.294.72
       prifix: ((My_entry.flag.useES6)? /^0[xXbBoO]/: /^0[xX]/)  // Ver.2.146.37

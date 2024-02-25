@@ -391,6 +391,10 @@
       script += "\n";
       script += "a**6/6:_i(=<f,0,a):_i4(=<f,0,a):_i2(=<f,0,a);";
       script += "\nclear;\n";
+      script += "A=(1,2:3,4:i):A.flip():A:A[0].flip():A:A[1].flip():A:A[2].flip():A;";
+      script += "\nclear;\n";
+      script += "A=(1,2:3,4):A.flip():A:A[0].flip():A:A[1].flip():A;";
+      script += "\nclear;\n";
       $._id("input").value = script;
     });
   })();

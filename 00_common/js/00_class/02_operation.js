@@ -3688,6 +3688,21 @@ My_entry.operation.prototype.change_scopes_directly = function(data, i0, name, p
           }
         }
       }
+      /* Ver.2.372.86 */
+      else if(dot_prop === "flip"){
+        if(len_i0){
+          if(typeof i0 === "undefined"){
+            arr0.reverse();
+            for(var i=0, len=arr0.length; i<len; ++i){
+              arr0[i].reverse();
+            }
+          }
+          else{
+            i0 = self.get_index_arr(i0, len_i0);
+            arr0[i0].reverse();
+          }
+        }
+      }
     }
     else{
       throw "Invalid "+name+prop;

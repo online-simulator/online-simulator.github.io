@@ -1,6 +1,47 @@
 clear
 local storage cleared
 
+A=(1,2:3,4):A.flip():A:A[0].flip():A:A[1].flip():A
+(
+0:
+NaN:
+4,3:
+2,1:
+NaN:
+3,4:
+2,1:
+NaN:
+3,4:
+1,2
+)
+
+clear
+local storage cleared
+
+A=(1,2:3,4:i):A.flip():A:A[0].flip():A:A[1].flip():A:A[2].flip():A
+(
+0:
+NaN:
+i:
+4,3:
+2,1:
+NaN:
+i:
+4,3:
+2,1:
+NaN:
+i:
+3,4:
+2,1:
+NaN:
+i:
+3,4:
+1,2
+)
+
+clear
+local storage cleared
+
 a**6/6:_i(=<f,0,a):_i4(=<f,0,a):_i2(=<f,0,a)
 (
 10.666666666666664:
@@ -4321,4 +4362,4 @@ drag=false&sw=false&0x=false&useMatrix=true&useStrict=false&checkError=true&isRi
 --------------------------------
 --------------------------------
 
-online-simulator.github.io.6.365.210.19.98 @ Sat Feb 24 2024 01:34:04 GMT+0900 (日本標準時) @ Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/121.0.0.0 Safari/537.36
+online-simulator.github.io.6.366.212.19.98 @ Sun Feb 25 2024 10:33:35 GMT+0900 (日本標準時) @ Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/121.0.0.0 Safari/537.36
