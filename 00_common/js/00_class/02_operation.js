@@ -577,7 +577,7 @@ My_entry.operation.prototype.BTref = function(data, i0, tagName, tagObj){
   var leftTree = trees[i0-1];
   var thisTree = trees[i0];
   var ref0 = thisTree[tagName].ref;
-  var isEmpty4ref = (tree.mat.arr.length === 0 && ref0);
+  var isEmpty4ref = (tree.mat.arr.length === 0 && (ref0 || (leftTree && leftTree[tagName])));  // Ver.2.373.86 A[][0] || A[0][0][][]
   if(isEmpty4ref){
     tree = DATA.tree_num(Math.E, 0);
   }
@@ -3221,8 +3221,8 @@ My_entry.operation.prototype.restore_arr = function(arr, ref){
     var _dj = ttarr[0].length;
     var _i = ref[0];
     var _j = ref[1];
-    var di = ref[2] || _di;  // || not0
-    var dj = ref[3] || _dj;  // || not0
+    var di = (ref[2] === Math.E)? _di: ref[2];  // Ver.2.373.86
+    var dj = (ref[3] === Math.E)? _dj: ref[3];  // Ver.2.373.86
     var _di2 = _di*2;
     var _dj2 = _dj*2;
     var hasArea0 = (_i%1 === 0 && _j%1 === 0 && di%1 === 0 && dj%1 === 0 && _di >= di && _dj >= dj && di > 0 && dj > 0);  // Ver.2.77.31  // Ver.2.79.32
@@ -3366,8 +3366,8 @@ My_entry.operation.prototype.store_arr_area = function(_arr, ref, arr){
   var _dj = _ttarr[0].length;
   var _i = ref[0];
   var _j = ref[1];
-  var di = ref[2] || _di;  // || not0
-  var dj = ref[3] || _dj;  // || not0
+  var di = (ref[2] === Math.E)? _di: ref[2];  // Ver.2.373.86
+  var dj = (ref[3] === Math.E)? _dj: ref[3];  // Ver.2.373.86
   var _di2 = _di*2;
   var _dj2 = _dj*2;
   /* Ver.2.78.31 -> */
