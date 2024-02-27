@@ -22,6 +22,16 @@
       <tbody>
         <tr class="border">
           <td class="border run">
+Ver.1.41.0
+          </td>
+          <td class="border">
+・上段csv出力の仕様修正（行と列を転置）
+<br>
+　各軸を明示してcanvas表示通りに出力：u||v||p(y|x->)
+          </td>
+        </tr>
+        <tr class="border">
+          <td class="border run">
 Ver.1.40.0
           </td>
           <td class="border">
@@ -1598,14 +1608,18 @@ png出力はcanvas中面を出力（grid||矢印のみ）
 download-csv
 <br>
 <span class="run">Ver.1.18.0追加</span>
+<br>
+<span class="jF">Ver.1.41.0修正</span>
           </td>
           <td class="border">
 (u,v,p)のdownload機能
           </td>
           <td class="border">
-col: 要素中心のx座標
+・<span class="jF"><del>col</del>横方向の各行row</span>: 要素中心のx座標
 <br>
-row: 要素中心のy座標
+・<span class="jF"><del>row</del>縦方向の各列col</span>: 要素中心のy座標
+<br>
+<span class="jF">・各軸を明示してcanvas表示通りに出力：u||v||p(y|x->)</span>
 <br>
 <br>
 <span class="clear">再downloadのbrowser-blockあり（保存file更新の許可が必要）</span>

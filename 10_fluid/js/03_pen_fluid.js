@@ -43,20 +43,25 @@ My_entry.pen.prototype.make_csv = function(){
     _csv += rn;
     ["u", "v", "p"].forEach(function(sw_uvp){
       var out = uvp[sw_uvp];
-      _csv += sw_uvp;
+      /* fluid-Ver.1.41.0 -> */
+      _csv += sw_uvp+"(y|x->)";
       _csv += ca;
-      for(var j=0; j<uvp.Nj; ++j){
-        _csv += uvp.dy*(j+0.5);
-        _csv += ca;
-      }
-      _csv += rn;
       for(var i=0; i<uvp.Ni; ++i){
         _csv += uvp.dx*(i+0.5);
         _csv += ca;
-        _csv += out[i];
+      }
+      _csv += rn;
+      for(var j=0; j<uvp.Nj; ++j){
+        _csv += uvp.dy*(j+0.5);
+        _csv += ca;
+        for(var i=0; i<uvp.Ni; ++i){
+          _csv += out[i][j];
+          _csv += ca;
+        }
         _csv += rn;
       }
       _csv += rn;
+      /* -> fluid-Ver.1.41.0 */
     });
   }
   return _csv;
