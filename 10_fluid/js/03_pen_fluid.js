@@ -55,7 +55,7 @@ My_entry.pen.prototype.make_csv = function(){
         _csv += uvp.dy*(j+0.5);
         _csv += ca;
         for(var i=0; i<uvp.Ni; ++i){
-          _csv += out[i][j];
+          _csv += (typeof out[i][j] === "undefined")? "": out[i][j];
           _csv += ca;
         }
         _csv += rn;
