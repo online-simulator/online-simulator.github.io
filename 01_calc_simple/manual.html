@@ -284,6 +284,8 @@ e^(-i(1pi(){2/2i}(5-{3-1}){i/(-4)}))
 <br>
 ・<a href="#span-out-debug">debugger</a>
 <br>
+　・<a href="#span-out-callstack">call stack</a>
+<br>
 ・<a href="#span-out-config-strict">strict-mode</a>
 <br>
 ・<a href="#span-out-config">内部option</a>
@@ -9376,6 +9378,44 @@ debuggerについて記述する
 目次
 </a>
 <br>
+call stack
+    </th>
+    <td>
+<span id="span-out-callstack"></span>
+browser由来のcall stackについて記述する
+<br>
+<br>
+内部的な処理の深さに依存する最大stack size
+<br>
+Maximum call stack size=O(1e4~1e6)
+<br>
+<br>
+size超過error
+<br>
+Maximum call stack size exceeded
+<br>
+<br>
+size超過の対策候補を列挙する
+<br>
+・<a href="#span-out-option3">Single-thread実行</a>（並列のstack消費を回避）
+<br>
+・設定で一時的に最大sizeを拡張||size最大のFirefoxで実行
+<br>
+・漸化式の末尾最適化を手動で実施
+<br>
+　例：<a href="#span-out-eqns-re-call">再帰call</a>　⇒　<a href="#span-out-FNh-RX">再帰高階関数</a>の反復処理
+<br>
+・構文の見直し
+<br>
+　例：<a href="#span-out-FNh-switch">switch高階関数</a>　⇒　<a href="#span-out-prec-ope-logical-short-circuit">論理演算子（短絡評価）</a>
+    </td>
+  </tr>
+  <tr>
+    <th>
+<a href="#span-index">
+目次
+</a>
+<br>
 strict-mode
     </th>
     <td>
@@ -14901,7 +14941,7 @@ clear; a=2; store; a=3; restore; a; a=3; restore; a -> 2
 <br>
 clear; a=2; store; a=3; restore; a; a=3; b=4; restore; b -> [MyErr]Invalid REv(b)
 <br>
-・HTML5描画canvas等、stack方式と異なり、最新のstore時点のobjectのみ再利用可
+・HTML5描画canvas等、<a href="#span-out-callstack">stack</a>方式と異なり、最新のstore時点のobjectのみ再利用可
 <br>
 clear; a=2; store; a=3; store; restore; a; a=4; restore; a  <span class="selection">// not stacked</span> -> 3
 <br>
@@ -23453,7 +23493,7 @@ clear; a=1,(=&lt;(=&lt;(=&lt;3)=&gt;+1)=&gt;*a)=&gt; -> (0,4)
 <br>
 <del>循環参照の場合、error終了</del><span class="run">Ver.2.194.45</span>以降、<a href="#span-out-eqns-args">式変数のarguments</a>の<a href="#span-out-eqns-re-call">再帰call</a>に対応
 <br>
-・<a href="#span-out-FNh-RX">再帰高階関数</a>で代替のreccursive call非対応（call stackの独自実装なし）
+・<a href="#span-out-FNh-RX">再帰高階関数</a>で代替のreccursive call非対応（<a href="#span-out-callstack">call stack</a>の独自実装なし）
 <br>
 clear; a=&lt;a; a -> <del>[MyErr]Invalid circular(a)</del>Maximum call stack size exceeded
 <br>
@@ -24840,7 +24880,7 @@ clear; ((x)=&lt;x:(x)=&lt;-x:(x)=&lt;x*x)=&gt;f || ((x)=&lt;x*x)=&gt;f; f(3)=&gt
 <br>
 clear; ((x)=&lt;x:(x)=&lt;-x:(x)=&lt;x*x)(3)=&gt;f || ((x)=&lt;x*x)(3)=&gt;f; f=&gt; -> 9
 <br>
-・別途、末尾<a href="#span-out-eqns-re-call">再帰call</a>の最適化は未対応（call stackに依存）
+・別途、末尾<a href="#span-out-eqns-re-call">再帰call</a>の最適化は未対応（<a href="#span-out-callstack">call stack</a>に依存）
     </td>
   </tr>
   <tr>
@@ -25467,9 +25507,7 @@ _Ry(=&lt;{_Rx(=&lt;{x+y+1},1,2)},1,2) -> 13
 <br>
 ・第4引数で再帰処理の反復後break条件を指定可
 <br>
-・本来、Maximum call stack sizeの制限O(10000~1000000)を受けるが、
-<br>
-・単なるfor-loopのため、再帰回数と反復後break条件以外の制限はない
+　単なるfor-loopのため、<a href="#span-out-callstack">call stack</a>の制限はない（再帰回数||反復後break条件で終了）
 <br>
 ・test caseを列挙する
 <br>
@@ -33146,6 +33184,8 @@ r方向の遠心力kbeta
 <br>
 ・よって正確な影響を予測する場合、太陽系内外で地球に接近する全天体の運動方程式を連成する
 <br>
+・一方、系全体の安定軌道を再現する初期値を決定困難のため、ある程度、独立して主要項のみ連成する
+<br>
 ・月parameter
 <br>
 近地点距離rmmin=pm/(1+erm)=363304000[m]
@@ -37121,7 +37161,7 @@ f=&lt;last{V=1,E=0,k=1,I=exp(k*(V-E))-exp(-k*(V-E))}
 <br>
 ・<a href="#span-out-development-problems-after">実装上の問題点</a>
 <br>
-　・call stackを使用しない（<a href="#span-out-debug">debugger</a>・拡張性・保守性・その他）
+　・明示的な<a href="#span-out-callstack">call stack</a>を未実装（<a href="#span-out-debug">debugger</a>・拡張性・保守性・その他）
 <br>
 　・<a href="#span-out-terms">scope変数</a>・<a href="#span-out-scope-reference">scope参照</a>（冗長性・その他）
 <br>
@@ -37183,7 +37223,7 @@ f=&lt;last{V=1,E=0,k=1,I=exp(k*(V-E))-exp(-k*(V-E))}
 <br>
 ・<a href="#span-out-mat">行列</a>演算を含む<a href="#span-out-associativity">2項演算子のassociativity</a>は単なるfor-loopで結合順||演算順を保証する
 <br>
-・reccursive callを代替する<a href="#span-out-FNh-RX">再帰高階関数</a>||<a href="#span-out-eqns-re-call">再帰call</a>も同様に、独自のcall stackを実装しない
+・reccursive callを代替する<a href="#span-out-FNh-RX">再帰高階関数</a>||<a href="#span-out-eqns-re-call">再帰call</a>も同様に、独自の<a href="#span-out-callstack">call stack</a>を実装しない
 <br>
 <del>・一般的な言語と異なり、<a href="#span-in-scope-vars">static scopes2d array</a>を共有するため、</del>
 <br>
