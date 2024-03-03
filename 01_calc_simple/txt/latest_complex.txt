@@ -1,6 +1,28 @@
 clear
 local storage cleared
 
+__n__=-1:_r(=<arr.push(__n__),arr=[],10):arr:_r(=<arr[sizer(arr)].push(=<[_r(=<arr.push(__n__),arr=[],__n__),=<arr]=>),arr=[],10):arr:__n__
+(
+0:
+NaN:
+1,2,3,4,5,6,7,8,9,10:
+NaN:
+1:
+1,2:
+1,2,3:
+1,2,3,4:
+1,2,3,4,5:
+1,2,3,4,5,6:
+1,2,3,4,5,6,7:
+1,2,3,4,5,6,7,8:
+1,2,3,4,5,6,7,8,9:
+1,2,3,4,5,6,7,8,9,10:
+-1
+)
+
+clear
+local storage cleared
+
 A=(1,2:3,4:5i,6i,7i):A[-1][-1][][]:-1:A[0][-1][1][]:-2:A[1][-1][1][]:-3:A[2][-1][1][]:-4:A[-1][-1][1][]:-5:A[-1][-1][2][]:-6:A[-1][0][][1].:-7:A[-1][1][][1].:-8:A[-1][2][][1].:-9:A[-1][-1][][1].:-10:A[-1][-1][][2].
 (
 0:
@@ -4386,4 +4408,4 @@ drag=false&sw=false&0x=false&useMatrix=true&useStrict=false&checkError=true&isRi
 --------------------------------
 --------------------------------
 
-online-simulator.github.io.6.367.213.19.98 @ Mon Feb 26 2024 12:36:38 GMT+0900 (日本標準時) @ Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/121.0.0.0 Safari/537.36
+online-simulator.github.io.6.369.220.19.98 @ Sun Mar 03 2024 18:33:49 GMT+0900 (日本標準時) @ Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/122.0.0.0 Safari/537.36

@@ -1835,6 +1835,22 @@ My_entry.operation.prototype.FNhX = function(data, rightArr, tagObj, len_j0, cal
   return _tree;
 };
 /* -> Ver.2.231.56 */
+/* Ver.2.381.86 */
+My_entry.operation.prototype.wrapper_useDummy = function(name_var, scopes, ids_buffer, callback){
+  var self = this;
+  var DATA = self.entry.DATA;
+  var scope0 = self.get_scope0(scopes, ids_buffer);
+  var tree_var = scope0.vars[name_var];
+  scope0.vars[name_var] = DATA.tree_num(0, 0);
+  callback(scope0.vars[name_var]);
+  if(tree_var){
+    scope0.vars[name_var] = tree_var;
+  }
+  else{
+    delete scope0.vars[name_var];
+  }
+  return self;
+};
 My_entry.operation.prototype.RX = function(data, rightArr, tagObj){
   var self = this;
   var scopes = data.scopes;
@@ -1861,20 +1877,23 @@ My_entry.operation.prototype.RX = function(data, rightArr, tagObj){
           }
         };
       /* -> Ver.2.30.15 */
-      RX(function(i){
-        var _isBreak = false;  // Ver.2.271.62
-        self.store_var(name_var, tree, scopes, ids_buffer);  // Ver.2.31.17  // Ver.2.225.53
-        tree = self.tree_eqn2tree(data, tree_eqn);  // deep-copy
-        /* Ver.2.271.62 -> */
-        if(tree_eqn_break){  // last to share static_scopes2d_array
-          var tree_break_last = self.tree_eqn2tree_AtREe(data, tree_eqn_break);  // not-cloned
-          var num = DATA.tree2num(tree_break_last);
-          if(num && num.com.r){
-            _isBreak = true;
+      self.wrapper_useDummy("__n__", scopes, ids_buffer, function(tree_dummy){  // Ver.2.381.86
+        RX(function(i){
+          var _isBreak = false;  // Ver.2.271.62
+          tree_dummy.mat.arr[0][0].com.r = i;  // Ver.2.381.86 change_scopes_directly
+          self.store_var(name_var, tree, scopes, ids_buffer);  // Ver.2.31.17  // Ver.2.225.53
+          tree = self.tree_eqn2tree(data, tree_eqn);  // deep-copy
+          /* Ver.2.271.62 -> */
+          if(tree_eqn_break){  // last to share static_scopes2d_array
+            var tree_break_last = self.tree_eqn2tree_AtREe(data, tree_eqn_break);  // not-cloned
+            var num = DATA.tree2num(tree_break_last);
+            if(num && num.com.r){
+              _isBreak = true;
+            }
           }
-        }
-        return _isBreak;
-        /* -> Ver.2.271.62 */
+          return _isBreak;
+          /* -> Ver.2.271.62 */
+        });
       });
       _tree = tree;
     }

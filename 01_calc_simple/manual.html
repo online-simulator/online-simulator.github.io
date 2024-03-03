@@ -2049,6 +2049,10 @@ clear; f=&lt;-1; f=1; [f=2,=&lt;f]=&gt;,[f=&lt;-2,=&lt;f]=&gt; -> (2,<del>1</del
 　index：[0]　⇒　<a href="#span-out-mat-empty">空行列</a>[]（[0]指定の場合、初期化と異なり、size不正のerror終了）
 <br>
 　影響項目：<a href="#span-out-reference-mat-area">area参照</a>||<a href="#span-out-substitution-mat-area">area代入</a>
+<br>
+・<span class="run">Ver.2.381.86</span>以降、繰り返し回数=1~のdummy変数を一時的に保持する<a href="#span-out-ans">予約変数</a>__n__を追加
+<br>
+　影響項目：<a href="#span-out-FNh-RX">再帰高階関数</a>
     </td>
   </tr>
   <tr>
@@ -22170,6 +22174,13 @@ Jacobi(=&lt;{2x^2},=&lt;{$x},=&lt;{1}) -> <del>[MyErr]Invalid <del>REv</del>symb
 ・error終了の場合、ansは更新されない
 <br>
 <br>
+予約変数__n__　<span class="run">Ver.2.381.86</span>以降、追加
+<br>
+・<a href="#span-out-FNh-RX">再帰高階関数</a>の繰り返し回数=1~のdummy変数を一時的に保持する
+<br>
+clear; _r(=&lt;arr.push(__n__),arr=[],10); arr -> (1,2,3,4,5,6,7,8,9,10)
+<br>
+<br>
 <span class="run">Ver.2.158.38</span>以降、<a href="#span-out-num">実数値</a>の<a href="#span-out-UI-graphing-config-csv">csv-fileのread機能</a>を追加
 <br>
 予約変数csv連番
@@ -25421,6 +25432,10 @@ x={0,1,2,3,4,5,6,7,8,9}; _pn(=&lt;x[n],1,9) -> 362880
 ・dummy変数は無次元で<a href="#span-out-terms">scope変数</a>から独立する
 <br>
 ・<span class="run">Ver.2.242.56</span>以降、再帰高階関数のみ、dummy<a href="#span-out-vars-symbol">変数名symbol</a>を省略可（while文の代替）
+<br>
+・<span class="run">Ver.2.381.86</span>以降、繰り返し回数=1~のdummy変数を一時的に保持する<a href="#span-out-ans">予約変数</a>__n__を追加
+<br>
+clear; _r(=&lt;arr.push(__n__),arr=[],10); arr -> (1,2,3,4,5,6,7,8,9,10)
 <br>
 <br>
 _rdummy<a href="#span-out-vars-symbol">変数名symbol</a>(=&lt;第1引数,第2引数,第3引数[,=&lt;第4引数])
