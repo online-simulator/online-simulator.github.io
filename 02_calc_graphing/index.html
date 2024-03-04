@@ -666,7 +666,8 @@
       $._id("Koch3").onclick = function(){setVal("1", "4", "order=t,N=order-1,Npoly=3,dt=pi/(Npoly%2&&2||Npoly),scale=1/3,arr_z=[],v0=[0,1,1+e**(i(pi/3)),2,3]/3,v1=v0,v1.pop(),v=e**(i*linspace(dt+2pi,dt,Npoly+1))/sqrt(2*(1-cos(2pi/Npoly))),get_v(id)=<(id==Nv-2&&&v0|||v1)*e**(i*arg(v[][id+1]-v[][id])),step(n)=<last{arr=[],Nv=sizec(v),v.map((z0,ir,ic)=<ic<Nv-1&&&arr.push(=<z0+get_v(ic)*scale**(n-1))),v=arr},_r(=<step(__n__),,N),arr_z.push(=<v);", "tarr_z=arr_z.,tarr_x=real(tarr_z),tarr_y=imag(tarr_z);", 3);$._id("input-z").value="ORIGIN{2,blue,17}TITLE{Koch snowflake}XLABEL{x(t)}YLABEL{y(t)}::2::::1;::::::2;::::::3;::::::4;";$._id("input-vx").value="tarr_x";$._id("input-vy").value="tarr_y";};
       $._id("Koch2").onclick = function(){setVal("1", "4", "order=t,N=order-1,scale=1/3,arr_z=[],v0=[0,1,1+e**(i(pi/3)),2,3]*scale,Nv=sizec(v0),get_v(id)=<v*e**(i*arg(v[][id+1]-v[][id])),step=<last{arr=[],v0.map((z0,ir,ic)=<ic<Nv-1&&&arr.push(=<z0+get_v(ic)*scale)),v=arr},_r(=<step,v=v0,N),arr_z.push(=<v);", "tarr_z=arr_z.,tarr_x=real(tarr_z),tarr_y=imag(tarr_z);", 3);$._id("input-z").value="ORIGIN{2,blue,17}TITLE{Koch curve}XLABEL{x(t)}YLABEL{y(t)}::2::::1;::::::2;::::::3;::::::4;";$._id("input-vx").value="tarr_x";$._id("input-vy").value="tarr_y";};
       $._id("Koch1").onclick = function(){setVal("1", "3", "N=1e4,($x,$y)=(0,0),arr_x=x,arr_y=y,sqrt3by6=sqrt(3)/6,step=<last{r=rand()*100,r<25&&&(($x,$y)=((1/3)*x,(1/3)*y))||||r<50&&&(($x,$y)=((1/6)*x-sqrt3by6*y+1/3,sqrt3by6*x+(1/6)*y))||||r<75&&&(($x,$y)=((1/6)*x+sqrt3by6*y+1/2,-sqrt3by6*x+(1/6)*y+sqrt3by6))||||(($x,$y)=((1/3)*x+2/3,(1/3)*y)),arr_x.push(x),arr_y.push(y)},_r(=<step,,N);", "tarr_x=arr_x.,tarr_y=arr_y.;", 2);$._id("input-z").value="ORIGIN{2,blue,17}TITLE{Koch curve from IFS(Iterated Function System)}XLABEL{x(t)}YLABEL{y(t)}::0.5::0::1;::::::2;::::::3;";$._id("input-vx").value="tarr_x";$._id("input-vy").value="tarr_y";};
-      $._id("Henon").onclick = function(){setVal("0", "3", "sw=t,N=1e4,($x,$y)=(0.1,0)*(sw%2+1),a=1.4,b=0.3,arr_x=x,arr_y=y,step=<last{sw<=1&&&(($x,$y)=(-a*x**2+y+1,b*x))||||(($x,$y)=(cos(a)*x+sin(a)*(y-x**2),sin(a)*x+cos(a)*(y-x**2))),arr_x.push(x),arr_y.push(y)},_r(=<step,,N);", "tarr_x=arr_x.,tarr_y=arr_y.;", 3);$._id("input-z").value="ORIGIN{2,blue,17}TITLE{Hénon map}XLABEL{x(t)}YLABEL{y(t)}::1::0::type1,x0=0.1;::::::type1,x0=0.2;::::::type2,x0=0.1;::::::type2,x0=0.2;";$._id("input-vx").value="tarr_x";$._id("input-vy").value="tarr_y";};
+      $._id("Henon1").onclick = function(){setVal("1", "4", "N=1e4,($x,$y)=(0.1,0)*t,a=1.4,b=0.3,arr_x=x,arr_y=y,step=<last{($x,$y)=(-a*x**2+y+1,b*x),arr_x.push(x),arr_y.push(y)},_r(=<step,,N);", "tarr_x=arr_x.,tarr_y=arr_y.;", 3);$._id("input-z").value="ORIGIN{2,blue,17}TITLE{Hénon map}XLABEL{x(t)}YLABEL{y(t)}::1::0::x0=0.1;::::::0.2;::::::0.3;::::::0.4;";$._id("input-vx").value="tarr_x";$._id("input-vy").value="tarr_y";};
+      $._id("Henon2").onclick = function(){setVal("1", "4", "N=1e4,($x,$y)=(0.1,0)*t,a=1.4,b=0.3,arr_x=x,arr_y=y,step=<last{($x,$y)=(cos(a)*x+sin(a)*(y-x**2),sin(a)*x+cos(a)*(y-x**2)),arr_x.push(x),arr_y.push(y)},_r(=<step,,N);", "tarr_x=arr_x.,tarr_y=arr_y.;", 3);$._id("input-z").value="ORIGIN{2,blue,17}TITLE{another Hénon map}XLABEL{x(t)}YLABEL{y(t)}::1::0::x0=0.1;::::::0.2;::::::0.3;::::::0.4;";$._id("input-vx").value="tarr_x";$._id("input-vy").value="tarr_y";};
       $._id("Barnsley").onclick = function(){setVal("1", "3", "N=1e4,($x,$y)=(0,0),arr_x=x,arr_y=y,step=<last{r=rand()*100,r<1&&&(($x,$y)=(0,0.16*y))||||r<86&&&(($x,$y)=(0.85*x+0.04*y,-0.04*x+0.85*y+1.6))||||r<93&&&(($x,$y)=(0.20*x-0.26*y,0.23*x+0.22*y+1.6))||||(($x,$y)=(-0.15*x+0.28*y,0.26*x+0.24*y+0.44)),arr_x.push(x),arr_y.push(y)},_r(=<step,,N);", "tarr_x=arr_x.,tarr_y=arr_y.;", 2);$._id("input-z").value="ORIGIN{2,blue,17}TITLE{Barnsley fern}XLABEL{x(t)}YLABEL{y(t)}::0.5::0::1;::::::2;::::::3;";$._id("input-vx").value="tarr_x";$._id("input-vy").value="tarr_y";};
       $._id("Heighway").onclick = function(){setVal("1", "3", "N=1e4,z=0,arr_z=z,w=(1+i)/2,cw=conj(w),f(z)=<rand()<0.5&&&w*z||||1-cw*z,step=<arr_z.push(last{z=f(z),z}),_r(=<step,,N);", "tarr_z=arr_z.,tarr_x=real(tarr_z),tarr_y=imag(tarr_z);", 2);$._id("input-z").value="ORIGIN{2,blue,17}TITLE{Harter-Heighway dragon curve}XLABEL{x(t)}YLABEL{y(t)}::0.5::0::1;::::::2;::::::3;";$._id("input-vx").value="tarr_x";$._id("input-vy").value="tarr_y";};
       $._id("Littlewood").onclick = function(){setVal("1", "3", "N=1e4,z=0,arr_z=z,w=(1+i)/2,f(z)=<1+sign(rand()-0.5)*w*z,step=<arr_z.push(last{z=f(z),z}),_r(=<step,,N);", "tarr_z=arr_z.,tarr_x=real(tarr_z),tarr_y=imag(tarr_z);", 2);$._id("input-z").value="ORIGIN{2,blue,17}TITLE{twindragon curve from Littlewood polynomial}XLABEL{x(t)}YLABEL{y(t)}::0.5::0::1;::::::2;::::::3;";$._id("input-vx").value="tarr_x";$._id("input-vy").value="tarr_y";};
@@ -813,7 +814,7 @@
   <label>
 　test case　<input id="checkbox-test-case" type="checkbox">
   </label>
-<div id="div-test-case" class="condition">
+<div id="div-test-case" class="condition input-500">
 <hr>
   <button id="ax">a*x</button>
   <button id="pow1">pow1</button>
@@ -1091,7 +1092,8 @@
   <button id="Koch3">Koch</button>
   <button id="Koch2">-part</button>
   <button id="Koch1">-IFS</button>
-  <button id="Henon">Hénon</button>
+  <button id="Henon1">Hénon</button>
+  <button id="Henon2">-2</button>
 <br>
   <button id="Barnsley">Barnsley</button>
   <button id="Heighway">Heighway</button>
