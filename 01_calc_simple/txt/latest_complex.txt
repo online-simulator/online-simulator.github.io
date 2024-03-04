@@ -1,22 +1,22 @@
 clear
 local storage cleared
 
-__n__=-1:_r(=<arr.push(__n__),arr=[],10):arr:_r(=<arr[sizer(arr)].push(=<[_r(=<arr.push(__n__),arr=[],__n__),=<arr]=>*__n__),arr=[],10):arr:__n__
+__n__=-1:_r(=<arr.push(__n__),arr=[],10):arr:_r(=<arr[sizer(arr)].push(=<[_r(=<arr.push(__n__),arr=[],__n__),=<__n__*arr]=>*__n__),arr=[],10):arr:__n__
 (
 0:
 NaN:
 1,2,3,4,5,6,7,8,9,10:
 NaN:
 1:
-2,4:
-3,6,9:
-4,8,12,16:
-5,10,15,20,25:
-6,12,18,24,30,36:
-7,14,21,28,35,42,49:
-8,16,24,32,40,48,56,64:
-9,18,27,36,45,54,63,72,81:
-10,20,30,40,50,60,70,80,90,100:
+4,8:
+9,18,27:
+16,32,48,64:
+25,50,75,100,125:
+36,72,108,144,180,216:
+49,98,147,196,245,294,343:
+64,128,192,256,320,384,448,512:
+81,162,243,324,405,486,567,648,729:
+100,200,300,400,500,600,700,800,900,1000:
 -1
 )
 
@@ -4408,4 +4408,4 @@ drag=false&sw=false&0x=false&useMatrix=true&useStrict=false&checkError=true&isRi
 --------------------------------
 --------------------------------
 
-online-simulator.github.io.6.370.220.19.98 @ Sun Mar 03 2024 20:42:10 GMT+0900 (日本標準時) @ Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/122.0.0.0 Safari/537.36
+online-simulator.github.io.6.370.220.19.98 @ Mon Mar 04 2024 12:54:52 GMT+0900 (日本標準時) @ Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/122.0.0.0 Safari/537.36
