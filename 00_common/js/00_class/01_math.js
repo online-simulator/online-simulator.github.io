@@ -6,13 +6,12 @@ My_entry.math = function(){
   return self;
 };
 
+/* Ver.2.383.86 */
 My_entry.math.config =
 My_entry.math.prototype.config = {
   EPSILON: Number.EPSILON || Math.pow(2, -52),
   MAX_SAFE_INTEGER: Number.MAX_SAFE_INTEGER || Math.pow(2, 53)-1,
-  MIN_SAFE_INTEGER: Number.MIN_SAFE_INTEGER || -(Math.pow(2, 53)-1),
-  EPSF: Math.pow(2, -26+4),
-  EPSD: Math.pow(2, -52+8)
+  MIN_SAFE_INTEGER: Number.MIN_SAFE_INTEGER || -(Math.pow(2, 53)-1)
 };
 My_entry.math.prototype.init = function(){
   var self = this;
@@ -26,10 +25,6 @@ My_entry.math.prototype.isEven = function(x){
 My_entry.math.prototype.isOdd = function(x){
   var self = this;
   return (Math.abs(x%2) === 1);
-};
-My_entry.math.prototype.isInt = function(val, eps){
-  var self = this;
-  return (Math.abs(val%1) < (eps || self.config.EPSD));
 };
 My_entry.math.prototype.isInf = function(val){
   var self = this;
