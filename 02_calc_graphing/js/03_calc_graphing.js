@@ -114,7 +114,7 @@ My_entry.calc_graphing.prototype.output_log_plot = function(isFinal){
   if(!(self.isCheckedError)){
     var len_in = (arr_data_in)? arr_data_in.length: 0;
     var len_out = (arr_data_out)? Object.keys(arr_data_out).length: 0;
-    self.io.write_text(self.elems.d, ("finished"+((isFinal)? "": "...")+" ")+len_out+"/"+len_in);  // 2.387.86
+    self.io.write_text(self.elems.d, ("finished"+((self.worker_plot && self.worker_plot.handler.isLocked)? "...": "")+" ")+len_out+"/"+len_in);  // 2.387.86  // 2.391.86
   }
   /* -> Ver.2.15.6 */
   /* -> Ver.2.30.15 */
