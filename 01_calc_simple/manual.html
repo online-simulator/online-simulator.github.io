@@ -10163,6 +10163,8 @@ useFunc
 <br>
 ・<span class="run">Ver.2.382.86</span>以降、_?dummy変数の<a href="#span-out-FNh">高階関数</a>||<a href="#span-out-FNmh">高階行列関数</a>に対応（?部分の1文字が対象）
 <br>
+・<span class="run">Ver.2.390.86</span>以降、<a href="#span-out-command">命令文</a>以外の全<a href="#span-out-RW">予約語</a>に対応（<a href="#span-out-FN0">定数</a>・<a href="#span-out-com">虚数単位</a>iを含む）
+<br>
 <br>
 FuNc既定：大文字・小文字を区別しない
 <br>
@@ -10175,9 +10177,11 @@ Func選択：最初のみ大文字
 <br>
 留意事項を列挙する
 <br>
-・<a href="#span-out-FN0">定数</a>は対象外
+・<a href="#span-out-FN0">定数</a>は<del>対象外</del><span class="run">Ver.2.390.86</span>以降、対応
 <br>
 ・_?dummy変数の<a href="#span-out-FNh">高階関数</a>||<a href="#span-out-FNmh">高階行列関数</a>は<del>対象外</del><span class="run">Ver.2.382.86</span>以降、対応（?部分の1文字が対象）
+<br>
+・browserの入力欄で大文字の<a href="#span-out-com">虚数単位</a>Iと小文字のlを判別困難
     </td>
   </tr>
   <tr>
@@ -38590,6 +38594,8 @@ operation.js抜粋
 <br>
 ・<span class="run">Ver.2.221.50</span>以降、実装関数名の大文字・小文字のformatを選択する<a href="#span-out-option7">useFunc</a>を追加
 <br>
+・<span class="run">Ver.2.390.86</span>以降、<a href="#span-out-option7">useFunc</a>の内部wrapper関数を追加して<a href="#span-out-command">命令文</a>以外の全予約語に対応（<a href="#span-out-FN0">定数</a>・<a href="#span-out-com">虚数単位</a>iを含む）
+<br>
 <br>
 parser.js抜粋
 <pre><code>
@@ -38601,19 +38607,23 @@ parser.js抜粋
     case "`":
       throw "reserved token("+token+")";
       break;
+    // unary operator
+    case "i":
+      _tree = self.wrapper_useFunc(token, token_lower, token_upper, function(){return DATA.tree_tag("UR", token_lower);});
+      break;
     // literal
     case "nan":
-      tree = DATA.tree_num(NaN, 0);
+      _tree = self.wrapper_useFunc(token, token_lower, token_upper, function(){return DATA.tree_num(NaN, 0);});
       break;
     case "false":
-      tree = DATA.tree_num(false, 0);
+      _tree = self.wrapper_useFunc(token, token_lower, token_upper, function(){return DATA.tree_num(false, 0);});
       break;
     case "true":
-      tree = DATA.tree_num(true, 0);
+      _tree = self.wrapper_useFunc(token, token_lower, token_upper, function(){return DATA.tree_num(true, 0);});
       break;
     // variable
     case "ans":
-      tree = DATA.tree_tag("REv", token_lower);
+      _tree = self.wrapper_useFunc(token, token_lower, token_upper, function(){return DATA.tree_tag("REv", token_lower);});
       break;
     // command
     case "clear":
@@ -38628,11 +38638,11 @@ parser.js抜粋
     <span class="jF">case "has__":</span>
     <span class="jF">case "del__":</span>
     <span class="jF">case "add__":</span>
-      tree = DATA.tree_tag("FNc", token_lower);
+      _tree = self.wrapper_useFunc(token, token_lower, token_upper, function(){return DATA.tree_tag("FNc", token_lower);});
       break;
     // "FNhn"
     case "switch":
-      tree = DATA.tree_tag("FNh", {key: token_lower});
+      _tree = self.wrapper_useFunc(token, token_lower, token_upper, function(){return DATA.tree_tag("FNh", {key: token_lower});});
       break;
     // "FN2"
     // real number
@@ -38666,16 +38676,16 @@ parser.js抜粋
     case "cand":
     case "cxor":
     case "cor":
-      tree = DATA.tree_tag("FN", token_lower);
+      _tree = self.wrapper_useFunc(token, token_lower, token_upper, function(){return DATA.tree_tag("FN", token_lower);});
       break;
     // "FNmh"
     case "jacobi":
     case "jacobian":
-      tree = DATA.tree_tag("FNmh", "jacobian");
+      _tree = self.wrapper_useFunc(token, token_lower, token_upper, function(){return DATA.tree_tag("FNmh", "jacobian");});
       break;
     case "newton":
     case "newtonian":
-      tree = DATA.tree_tag("FNmh", "newtonian");
+      _tree = self.wrapper_useFunc(token, token_lower, token_upper, function(){return DATA.tree_tag("FNmh", "newtonian");});
       break;
     // "FNm"
     // "FNm0"
@@ -38694,7 +38704,7 @@ parser.js抜粋
     case "identity2":
     case "identity3":
     case "identity4":
-      tree = DATA.tree_mat(math_mat[token_lower]());
+      _tree = self.wrapper_useFunc(token, token_lower, token_upper, function(){return DATA.tree_mat(math_mat[token_lower]());});
       break;
     // "FNm1"
     case "vectorr":
@@ -38743,44 +38753,44 @@ parser.js抜粋
     <span class="jF">case "reshaper":</span>
     <span class="jF">case "reshape":</span>
     <span class="jF">case "reshapec":</span>
-      tree = DATA.tree_tag("FNm", token_lower);
+      _tree = self.wrapper_useFunc(token, token_lower, token_upper, function(){return DATA.tree_tag("FNm", token_lower);});
       break;
     // "CT"
     // JavaScript defined
     case "epsilon":
     case "min_safe_integer":
     case "max_safe_integer":
-      tree = DATA.tree_num(math.config[token_upper], 0);
+      _tree = self.wrapper_useFunc(token, token_lower, token_upper, function(){return DATA.tree_num(math.config[token_upper], 0);});
       break;
     case "min_value":
     case "max_value":
     case "positive_infinity":
     case "negative_infinity":
-      tree = DATA.tree_num(Number[token_upper], 0);
+      _tree = self.wrapper_useFunc(token, token_lower, token_upper, function(){return DATA.tree_num(Number[token_upper], 0);});
       break;
     // My defined
     case "eps":
-      tree = DATA.tree_num(math.config["EPSILON"], 0);
+      _tree = self.wrapper_useFunc(token, token_lower, token_upper, function(){return DATA.tree_num(math.config["EPSILON"], 0);});
       break;
     case  "inf":
     case  "infinity":
     case "pinf":
     case "pinfinity":
-      tree = DATA.tree_num(Number.POSITIVE_INFINITY, 0);
+      _tree = self.wrapper_useFunc(token, token_lower, token_upper, function(){return DATA.tree_num(Number.POSITIVE_INFINITY, 0);});
       break;
     case "ninf":
     case "ninfinity":
-      tree = DATA.tree_num(Number.NEGATIVE_INFINITY, 0);
+      _tree = self.wrapper_useFunc(token, token_lower, token_upper, function(){return DATA.tree_num(Number.NEGATIVE_INFINITY, 0);});
       break;
     case  "infi":
     case  "infinityi":
     case "pinfinityi":
     case "pinfi":
-      tree = DATA.tree_num(0, Number.POSITIVE_INFINITY);
+      _tree = self.wrapper_useFunc(token, token_lower, token_upper, function(){return DATA.tree_num(0, Number.POSITIVE_INFINITY);});
       break;
     case "ninfinityi":
     case "ninfi":
-      tree = DATA.tree_num(0, Number.NEGATIVE_INFINITY);
+      _tree = self.wrapper_useFunc(token, token_lower, token_upper, function(){return DATA.tree_num(0, Number.NEGATIVE_INFINITY);});
       break;
     // JavaScript defined
     case "ln2":
@@ -38792,18 +38802,18 @@ parser.js抜粋
     // Both defined
     case "e":
     case "pi":  // pi || PI() in Excel
-      tree = DATA.tree_num(Math[token_upper], 0);
+      _tree = self.wrapper_useFunc(token, token_lower, token_upper, function(){return DATA.tree_num(Math[token_upper], 0);});
       break;
     // "FN0"
     // JavaScript defined
     case "random":
     // Excel defined
     case "rand":
-      tree = DATA.tree_tag("FN", "random");
+      _tree = self.wrapper_useFunc(token, token_lower, token_upper, function(){return DATA.tree_tag("FN", "random");});
       break;
     // "FN1"
     case "ln":
-      tree = DATA.tree_tag("FN", "log");
+      _tree = self.wrapper_useFunc(token, token_lower, token_upper, function(){return DATA.tree_tag("FN", "log");});
       break;
     // JavaScript defined
     case "ceil":
@@ -38863,16 +38873,16 @@ parser.js抜粋
     case "argument":
     case "deg_arg":
     case "deg_argument":
-      tree = DATA.tree_tag("FN", token_lower);
+      _tree = self.wrapper_useFunc(token, token_lower, token_upper, function(){return DATA.tree_tag("FN", token_lower);});
       break;
     // "FN1or2"
     // Excel defined
     case "log_ex":
-      tree = DATA.tree_tag("FN", token_lower);
+      _tree = self.wrapper_useFunc(token, token_lower, token_upper, function(){return DATA.tree_tag("FN", token_lower);});
       break;
     // "FN2"
     case "power":
-      tree = DATA.tree_tag("FN", "pow");
+      _tree = self.wrapper_useFunc(token, token_lower, token_upper, function(){return DATA.tree_tag("FN", "pow");});
       break;
     // JavaScript defined
     case "pow":
@@ -38900,7 +38910,7 @@ parser.js抜粋
     case "star":
     case "poly":
     case "polygon":
-      tree = DATA.tree_tag("FN", token_lower);
+      _tree = self.wrapper_useFunc(token, token_lower, token_upper, function(){return DATA.tree_tag("FN", token_lower);});
       break;
     // "FNn"
     // Excel defined@n&lt;256
@@ -38926,7 +38936,7 @@ parser.js抜粋
     case "cmedian":
     case "csort":
     case "creverse":
-      tree = DATA.tree_tag("FNn", token_lower);
+      _tree = self.wrapper_useFunc(token, token_lower, token_upper, function(){return DATA.tree_tag("FNn", token_lower);});
       break;
 </code></pre>
 <br>

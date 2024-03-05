@@ -95,7 +95,7 @@ My_entry.parser.prototype.config = {
       // post-Unary operatoR: "UR"  // Ver.2.192.44
       "'": "UR",  // Ver.2.192.44
       ".": "UR",  // Ver.2.192.44
-      "i": "UR",  // Ver.2.192.44
+//      "i": "UR",  // Ver.2.192.44  // Ver.2.390.86 moved to self.switch_token()
       // Binary operatoR: "BR?"
       "^": "BRp",
       // omitted multiplication sign: "BRmo"
@@ -320,13 +320,22 @@ My_entry.parser.prototype.check_csv = function(str_tokens, tagName){
   /* -> Ver.2.145.36 */
   return _tree;
 };
-My_entry.parser.prototype.compare2bs = function(token, re){
+My_entry.parser.prototype.compare2bs = function(token, token_lower, token_upper, re){  // Ver.2.390.86
   var self = this;
   var _tree = null;
   var SYNTAX = self.config.SYNTAX;
   var DATA = self.entry.DATA;
   /* Ver.2.389.86 -> */
   var hasBar = (token[0] === "_");
+  /* Ver.2.390.86 -> */
+  var check_hasRule = (hasBar)?
+    function(){
+      return self.check_hasRule4FNh(token, token_lower, token_upper);
+    }:
+    function(){
+      return self.check_hasRule(token, token_lower, token_upper);
+    };
+  /* -> Ver.2.390.86 */
   var callback = (hasBar)?
     // Ver.2.21.10
     function(mc1){
@@ -377,7 +386,7 @@ My_entry.parser.prototype.compare2bs = function(token, re){
       if(_tree) break;
       var b = bstagName[key];
       var mc = token.match(b);
-      if(mc && mc.length > 1){
+      if(mc && mc.length > 1 && !(check_hasRule())){  // Ver.2.390.86
         var mc1 = mc[1];
         _tree = callback(mc1);  // Ver.2.389.86
         if(!(_tree)){
@@ -399,38 +408,6 @@ My_entry.parser.prototype.compare2bas = function(token){
     if(token.match(ba.b)){
       var as = token.replace(ba.b, ba.a).split(",");
       _tree = DATA.tree_tag(as[0], (as[1] || token));
-    }
-  }
-  return _tree;
-};
-/* Ver.2.228.56 */
-/* Ver.2.221.50 */
-My_entry.parser.prototype.FN2REv = function(tree, token, token_lower, token_upper){
-  var self = this;
-  var _tree = tree;
-  if(self.useFunc){
-    var DATA = self.entry.DATA;
-    var operation = self.entry.operation;
-    var isFN = operation.isType(tree, "FN");
-    if(isFN){
-      /* Ver.2.382.86 -> */
-      var hasRule1 = false;
-      var hasRule2 = false;
-      var hasRule3 = false;
-      if(token[0] === "_" && (isFN === "FNmh" || isFN === "FNh")){
-        hasRule1 = (self.useFunc === 1 && !(token[1] === token_lower[1]));
-        hasRule2 = (self.useFunc === 2 && !(token[1] === token_upper[1]));
-        hasRule3 = (self.useFunc === 3 && !(token[1] === token_upper[1]));
-      }
-      else{
-        hasRule1 = (self.useFunc === 1 && !(token === token_lower));
-        hasRule2 = (self.useFunc === 2 && !(token === token_upper));
-        hasRule3 = (self.useFunc === 3 && !(token[0] === token_upper[0] && token.substring(1) === token_lower.substring(1)));
-      }
-      /* -> Ver.2.382.86 */
-      if(hasRule1 || hasRule2 || hasRule3){
-        _tree = DATA.tree_tag("REv", token);
-      }
     }
   }
   return _tree;
@@ -484,6 +461,30 @@ My_entry.parser.prototype.SEe2BTe = function(trees){
   }
   return _trees;
 };
+/* Ver.2.390.86 -> */
+My_entry.parser.prototype.check_hasRule = function(token, token_lower, token_upper){
+  var self = this;
+  var hasRule1 = (self.useFunc === 1 && !(token === token_lower));
+  var hasRule2 = (self.useFunc === 2 && !(token === token_upper));
+  var hasRule3 = (self.useFunc === 3 && !(token[0] === token_upper[0] && token.substring(1) === token_lower.substring(1)));
+  return (hasRule1 || hasRule2 || hasRule3);
+};
+My_entry.parser.prototype.check_hasRule4FNh = function(token, token_lower, token_upper){
+  var self = this;
+  var hasRule1 = (self.useFunc === 1 && !(token[1] === token_lower[1]));
+  var hasRule2 = (self.useFunc === 2 && !(token[1] === token_upper[1]));
+  var hasRule3 = (self.useFunc === 3 && !(token[1] === token_upper[1]));
+  return (hasRule1 || hasRule2 || hasRule3);
+};
+My_entry.parser.prototype.wrapper_useFunc = function(token, token_lower, token_upper, callback){
+  var self = this;
+  var _tree = null;
+  if(!(self.check_hasRule(token, token_lower, token_upper))){
+    _tree = callback();
+  }
+  return _tree;
+};
+/* -> Ver.2.390.86 */
 /* Ver.2.230.56 */
 My_entry.parser.prototype.switch_token = function(tokens, token, token_lower, token_upper, re){  // Ver.2.300.72
   var self = this;
@@ -491,7 +492,6 @@ My_entry.parser.prototype.switch_token = function(tokens, token, token_lower, to
   var math = self.entry.math;
   var math_mat = self.entry.math_mat;
   var DATA = self.entry.DATA;
-  var tree = null;
   switch(token_lower){
     // reserved word
     // token
@@ -501,19 +501,23 @@ My_entry.parser.prototype.switch_token = function(tokens, token, token_lower, to
     case "`":
       throw "reserved token("+token+")";
       break;
+    // unary operator
+    case "i":
+      _tree = self.wrapper_useFunc(token, token_lower, token_upper, function(){return DATA.tree_tag("UR", token_lower);});
+      break;
     // literal
     case "nan":
-      tree = DATA.tree_num(NaN, 0);
+      _tree = self.wrapper_useFunc(token, token_lower, token_upper, function(){return DATA.tree_num(NaN, 0);});
       break;
     case "false":
-      tree = DATA.tree_num(false, 0);
+      _tree = self.wrapper_useFunc(token, token_lower, token_upper, function(){return DATA.tree_num(false, 0);});
       break;
     case "true":
-      tree = DATA.tree_num(true, 0);
+      _tree = self.wrapper_useFunc(token, token_lower, token_upper, function(){return DATA.tree_num(true, 0);});
       break;
     // variable
     case "ans":
-      tree = DATA.tree_tag("REv", token_lower);
+      _tree = self.wrapper_useFunc(token, token_lower, token_upper, function(){return DATA.tree_tag("REv", token_lower);});
       break;
     // command
     case "clear":
@@ -528,11 +532,11 @@ My_entry.parser.prototype.switch_token = function(tokens, token, token_lower, to
     case "has__":
     case "del__":
     case "add__":
-      tree = DATA.tree_tag("FNc", token_lower);
+      _tree = self.wrapper_useFunc(token, token_lower, token_upper, function(){return DATA.tree_tag("FNc", token_lower);});
       break;
     // "FNhn"
     case "switch":
-      tree = DATA.tree_tag("FNh", {key: token_lower});
+      _tree = self.wrapper_useFunc(token, token_lower, token_upper, function(){return DATA.tree_tag("FNh", {key: token_lower});});
       break;
     // "FN2"
     // real number
@@ -566,16 +570,16 @@ My_entry.parser.prototype.switch_token = function(tokens, token, token_lower, to
     case "cand":
     case "cxor":
     case "cor":
-      tree = DATA.tree_tag("FN", token_lower);
+      _tree = self.wrapper_useFunc(token, token_lower, token_upper, function(){return DATA.tree_tag("FN", token_lower);});
       break;
     // "FNmh"
     case "jacobi":
     case "jacobian":
-      tree = DATA.tree_tag("FNmh", "jacobian");
+      _tree = self.wrapper_useFunc(token, token_lower, token_upper, function(){return DATA.tree_tag("FNmh", "jacobian");});
       break;
     case "newton":
     case "newtonian":
-      tree = DATA.tree_tag("FNmh", "newtonian");
+      _tree = self.wrapper_useFunc(token, token_lower, token_upper, function(){return DATA.tree_tag("FNmh", "newtonian");});
       break;
     // "FNm"
     // "FNm0"
@@ -594,7 +598,7 @@ My_entry.parser.prototype.switch_token = function(tokens, token, token_lower, to
     case "identity2":
     case "identity3":
     case "identity4":
-      tree = DATA.tree_mat(math_mat[token_lower]());
+      _tree = self.wrapper_useFunc(token, token_lower, token_upper, function(){return DATA.tree_mat(math_mat[token_lower]());});
       break;
     // "FNm1"
     case "vectorr":
@@ -643,44 +647,44 @@ My_entry.parser.prototype.switch_token = function(tokens, token, token_lower, to
     case "reshaper":
     case "reshape":
     case "reshapec":
-      tree = DATA.tree_tag("FNm", token_lower);
+      _tree = self.wrapper_useFunc(token, token_lower, token_upper, function(){return DATA.tree_tag("FNm", token_lower);});
       break;
     // "CT"
     // JavaScript defined
     case "epsilon":
     case "min_safe_integer":
     case "max_safe_integer":
-      tree = DATA.tree_num(math.config[token_upper], 0);
+      _tree = self.wrapper_useFunc(token, token_lower, token_upper, function(){return DATA.tree_num(math.config[token_upper], 0);});
       break;
     case "min_value":
     case "max_value":
     case "positive_infinity":
     case "negative_infinity":
-      tree = DATA.tree_num(Number[token_upper], 0);
+      _tree = self.wrapper_useFunc(token, token_lower, token_upper, function(){return DATA.tree_num(Number[token_upper], 0);});
       break;
     // My defined
     case "eps":
-      tree = DATA.tree_num(math.config["EPSILON"], 0);
+      _tree = self.wrapper_useFunc(token, token_lower, token_upper, function(){return DATA.tree_num(math.config["EPSILON"], 0);});
       break;
     case  "inf":
     case  "infinity":
     case "pinf":
     case "pinfinity":
-      tree = DATA.tree_num(Number.POSITIVE_INFINITY, 0);
+      _tree = self.wrapper_useFunc(token, token_lower, token_upper, function(){return DATA.tree_num(Number.POSITIVE_INFINITY, 0);});
       break;
     case "ninf":
     case "ninfinity":
-      tree = DATA.tree_num(Number.NEGATIVE_INFINITY, 0);
+      _tree = self.wrapper_useFunc(token, token_lower, token_upper, function(){return DATA.tree_num(Number.NEGATIVE_INFINITY, 0);});
       break;
     case  "infi":
     case  "infinityi":
     case "pinfinityi":
     case "pinfi":
-      tree = DATA.tree_num(0, Number.POSITIVE_INFINITY);
+      _tree = self.wrapper_useFunc(token, token_lower, token_upper, function(){return DATA.tree_num(0, Number.POSITIVE_INFINITY);});
       break;
     case "ninfinityi":
     case "ninfi":
-      tree = DATA.tree_num(0, Number.NEGATIVE_INFINITY);
+      _tree = self.wrapper_useFunc(token, token_lower, token_upper, function(){return DATA.tree_num(0, Number.NEGATIVE_INFINITY);});
       break;
     // JavaScript defined
     case "ln2":
@@ -692,18 +696,18 @@ My_entry.parser.prototype.switch_token = function(tokens, token, token_lower, to
     // Both defined
     case "e":
     case "pi":  // pi || PI() in Excel
-      tree = DATA.tree_num(Math[token_upper], 0);
+      _tree = self.wrapper_useFunc(token, token_lower, token_upper, function(){return DATA.tree_num(Math[token_upper], 0);});
       break;
     // "FN0"
     // JavaScript defined
     case "random":
     // Excel defined
     case "rand":
-      tree = DATA.tree_tag("FN", "random");
+      _tree = self.wrapper_useFunc(token, token_lower, token_upper, function(){return DATA.tree_tag("FN", "random");});
       break;
     // "FN1"
     case "ln":
-      tree = DATA.tree_tag("FN", "log");
+      _tree = self.wrapper_useFunc(token, token_lower, token_upper, function(){return DATA.tree_tag("FN", "log");});
       break;
     // JavaScript defined
     case "ceil":
@@ -763,16 +767,16 @@ My_entry.parser.prototype.switch_token = function(tokens, token, token_lower, to
     case "argument":
     case "deg_arg":
     case "deg_argument":
-      tree = DATA.tree_tag("FN", token_lower);
+      _tree = self.wrapper_useFunc(token, token_lower, token_upper, function(){return DATA.tree_tag("FN", token_lower);});
       break;
     // "FN1or2"
     // Excel defined
     case "log_ex":
-      tree = DATA.tree_tag("FN", token_lower);
+      _tree = self.wrapper_useFunc(token, token_lower, token_upper, function(){return DATA.tree_tag("FN", token_lower);});
       break;
     // "FN2"
     case "power":
-      tree = DATA.tree_tag("FN", "pow");
+      _tree = self.wrapper_useFunc(token, token_lower, token_upper, function(){return DATA.tree_tag("FN", "pow");});
       break;
     // JavaScript defined
     case "pow":
@@ -800,7 +804,7 @@ My_entry.parser.prototype.switch_token = function(tokens, token, token_lower, to
     case "star":
     case "poly":
     case "polygon":
-      tree = DATA.tree_tag("FN", token_lower);
+      _tree = self.wrapper_useFunc(token, token_lower, token_upper, function(){return DATA.tree_tag("FN", token_lower);});
       break;
     // "FNn"
     // Excel defined@n<256
@@ -826,14 +830,17 @@ My_entry.parser.prototype.switch_token = function(tokens, token, token_lower, to
     case "cmedian":
     case "csort":
     case "creverse":
-      tree = DATA.tree_tag("FNn", token_lower);
+      _tree = self.wrapper_useFunc(token, token_lower, token_upper, function(){return DATA.tree_tag("FNn", token_lower);});
       break;
     default:
-      self.check_varName_prifix(token, re);  // Ver.2.24.12  // Ver.2.146.37
-      tree = DATA.tree_tag("REv", token);
       break;
   }
-  _tree = tree;
+  /* Ver.2.390.86 -> */
+  if(!(_tree)){
+    self.check_varName_prifix(token, re);  // Ver.2.24.12  // Ver.2.146.37
+    _tree = DATA.tree_tag("REv", token);
+  }
+  /* -> Ver.2.390.86 */
   return _tree;
 };
 /* Ver.2.298.72 */
@@ -925,12 +932,8 @@ My_entry.parser.prototype.make_trees = function(sentence, opt_re){  // Ver.2.158
       tree = DATA.tree_num(self.entry.def.Number(token), 0);
     }
     else{
-      /* Ver.2.20.9 -> */
-      tree = self.compare2bas(token) || self.compare2bs(token, re);
-      /* -> Ver.2.20.9 */
-    }
-    if(!(ip_e || tree)){
-      tree = self.switch_token(tokens, token, token_lower, token_upper, re);  // Ver.2.230.56  // Ver.2.300.72
+      tree = self.compare2bas(token) || self.compare2bs(token, token_lower, token_upper, re);  // Ver.2.20.9  // Ver.2.390.86
+      tree = tree || self.switch_token(tokens, token, token_lower, token_upper, re);  // Ver.2.230.56  // Ver.2.300.72  // Ver.2.390.86
     }
     if(tree){
       tree = self.check_token_left(tree, token_left, token, token_lower, token_upper);  // Ver.2.300.72
@@ -943,7 +946,6 @@ My_entry.parser.prototype.make_trees = function(sentence, opt_re){  // Ver.2.158
       /* -> Ver.2.298.72 */
       else{
         /* Ver.2.264.62 -> */
-        tree = self.FN2REv(tree, token, token_lower, token_upper);
         self.set_id_tree(tree);  // last
         _trees.push(tree);  // Ver.2.221.50  // Ver.2.228.56
         /* -> Ver.2.264.62 */
