@@ -14,7 +14,8 @@ My_entry.parser.prototype.config = {
       {s: "(", e: ")"},
       {s: "[", e: "]"}
     ],
-    bs: {
+    /* Ver.2.389.86 */
+    _bs: {
       /* Ver.2.21.10 -> */
       FNmh: {
         EX: /^_e(.*)$/i,  // Ver.2.23.11
@@ -29,8 +30,10 @@ My_entry.parser.prototype.config = {
         DX: /^_d(.*)$/i,
         PX: /^_p(.*)$/i,
         SX: /^_s(.*)$/i
-      },
+      }
       /* -> Ver.2.20.9 */
+    },
+    bs: {
       /* Ver.2.176.43 */
       FNm: {
         interp: /^interp(\d+)$/i
@@ -322,7 +325,51 @@ My_entry.parser.prototype.compare2bs = function(token, re){
   var _tree = null;
   var SYNTAX = self.config.SYNTAX;
   var DATA = self.entry.DATA;
-  var bs = SYNTAX.bs;
+  /* Ver.2.389.86 -> */
+  var hasBar = (token[0] === "_");
+  var callback = (hasBar)?
+    // Ver.2.21.10
+    function(mc1){
+      var _tree = null;
+      /* Ver.2.369.86 -> */
+      var obj = {key: key};
+      var num = Number(mc1);
+      if(num){
+        if(key === "OX" || key === "TX"){
+          if(num === 2 || num === 4 || num === 5){
+            mc1 = "";
+            obj["order"] = num;
+          }
+          else{
+            throw "Invalid order=4||2||5("+key+")";
+          }
+        }
+        else if(key === "DX" || key === "IX"){
+          if(num === 2 || num === 4){
+            mc1 = "";
+            obj["order"] = num;
+          }
+          else{
+            throw "Invalid order="+((key === "DX")? "auto||4||2(": "4||2(")+key+")";
+          }
+        }
+      }
+      /* Ver.2.231.56 -> */
+      var name = (mc1)? self.check_varName(mc1, re): mc1;  // mc1="" enabled  // Ver.2.389.86
+      obj["name"] = name;
+      _tree = DATA.tree_tag(tagName, obj);  // Ver.2.24.12
+      /* -> Ver.2.231.56 */
+      /* -> Ver.2.369.86 */
+      return _tree;
+    }:
+    // Ver.2.176.43
+    function(mc1){
+      var _tree = DATA.tree_tag(tagName, key);
+      _tree[tagName].i = Number(mc1);
+      return _tree;
+    };
+  var bs = (hasBar)? SYNTAX._bs: SYNTAX.bs;
+  /* -> Ver.2.389.86 */
   for(var tagName in bs){
     if(_tree) break;
     var bstagName = bs[tagName];
@@ -332,45 +379,7 @@ My_entry.parser.prototype.compare2bs = function(token, re){
       var mc = token.match(b);
       if(mc && mc.length > 1){
         var mc1 = mc[1];
-        if(tagName === "FNmh" || tagName === "FNh"){  // Ver.2.21.10
-          /* Ver.2.369.86 -> */
-          var obj = {key: key};
-          var num = Number(mc1);
-          if(num){
-            if(key === "OX" || key === "TX"){
-              if(num === 2 || num === 4 || num === 5){
-                mc1 = "";
-                obj["order"] = num;
-              }
-              else{
-                throw "Invalid order=4||2||5("+key+")";
-              }
-            }
-            else if(key === "DX" || key === "IX"){
-              if(num === 2 || num === 4){
-                mc1 = "";
-                obj["order"] = num;
-              }
-              else{
-                throw "Invalid order="+((key === "DX")? "auto||4||2(": "4||2(")+key+")";
-              }
-            }
-          }
-          /* Ver.2.231.56 -> */
-          var name = mc1;  // mc1="" enabled
-          if(mc1){
-            name = self.check_varName(mc1, re);
-          }
-          obj["name"] = name;
-          _tree = DATA.tree_tag(tagName, obj);  // Ver.2.24.12
-          /* -> Ver.2.231.56 */
-          /* -> Ver.2.369.86 */
-        }
-        /* Ver.2.128.34 */
-        else if(tagName === "FNm" || tagName === "FNn"){  // Ver.2.176.43
-          _tree = DATA.tree_tag(tagName, key);
-          _tree[tagName].i = Number(mc1);
-        }
+        _tree = callback(mc1);  // Ver.2.389.86
         if(!(_tree)){
           throw "Invalid "+tagName+" called";
         }

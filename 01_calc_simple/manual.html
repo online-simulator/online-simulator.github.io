@@ -2335,6 +2335,12 @@ clear; f(3,x)=&lt;x -> [MyErr]Invalid args isFound(f)
 　使用<a href="#span-in-prec">tag名</a>判定用のobject初期化処理：instance毎　⇒　関数call毎
 <br>
 　影響範囲：実行確定1回毎に、instanceを作るため、影響なし（<a href="#span-in-myeval">独自eval</a>を含む）
+<br>
+・<span class="run">Ver.2.389.86</span>以降、<a href="#span-out-flow">parse</a>段階のpattern matching処理を最適化
+<br>
+　対象：<a href="#span-out-FN-statistic">統計関数</a>||<a href="#span-out-FNh">高階関数</a>||<a href="#span-out-FNmh">高階行列関数</a>
+<br>
+　内容：tokenの1文字目のunderscore_を判定して<a href="#span-out-FNh">高階関数</a>||<a href="#span-out-FNmh">高階行列関数</a>と<a href="#span-out-FN-statistic">統計関数</a>の処理を切替
     </td>
   </tr>
   <tr>
