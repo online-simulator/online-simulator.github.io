@@ -649,7 +649,7 @@ My_entry.calc_graphing.prototype.get_options = function(isPlot){
   var _options = {};
   $.get_elemProps("input[type='checkbox']", "checkbox-", "checked", _options);
   $.get_elemProps("select", "select-", "value", _options);
-  _options.N = self.entry.def.limit(Math.round($.inputNum_id("input-N")), 1, self.config.MAT.sizeMax, 10);  // Ver.2.149.37 round
+  _options.N = self.entry.def.limit(Math.round($.inputNum_id("input-N")), 0, self.config.MAT.sizeMax, 10);  // Ver.2.149.37 round  // Ver.2.392.86
   $.get_urlParams(_options);
   /* Ver.2.207.46 -> */
   if(_options.test){
@@ -1029,9 +1029,9 @@ My_entry.calc_graphing.prototype.init_handlers = function(){
         var len_n = N+1;
         try{
           var t0 = get_num($.inputVal_id("input-t0"), options);
-          var t1 = get_num($.inputVal_id("input-t1"), options);
+          var t1 = (N)? get_num($.inputVal_id("input-t1"), options): t0;  // Ver.2.392.86
           for(var n=0; n<len_n; ++n){
-            var tn = math_com.lerp_sw(t0.com, t1.com, n/N, isAxisT);
+            var tn = math_com.lerp_sw(t0.com, t1.com, n/(N || 1), isAxisT);  // || not0  // Ver.2.392.86
             var tcr = tn.r;
             var tci = tn.i;
             /* Ver.2.50.25 -> */
