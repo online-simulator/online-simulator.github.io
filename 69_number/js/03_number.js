@@ -662,6 +662,26 @@ My_entry.test_number.prototype.solve6 = function(){
   $._id("output-log").innerHTML = self.logs6.log0;
   return self;
 };
+My_entry.test_number.prototype.get_rsum = function(base, n){
+  var self = this;
+  var _rsum_n = n;
+  var calc_rsum = function(n0){
+    var _rsum_n = 0;
+    var n = n0;
+    for(var expo=Math.floor(Math.log(n)/Math.log(base)); expo>=0; --expo){
+      var deno = Math.pow(base, expo);
+      var intq = Math.floor(n/deno);
+      n -= intq*deno;
+      _rsum_n += intq;
+    }
+    return _rsum_n;
+  };
+  for(var i=0, len=Math.ceil(Math.log(n)/Math.log(base)); i<len; ++i){
+    _rsum_n = calc_rsum(_rsum_n);
+    if(_rsum_n < base) break;
+  }
+  return _rsum_n;
+};
 /* Ver.0.45.7 */
 My_entry.test_number.prototype.solve7 = function(){
   var self = this;
@@ -672,7 +692,7 @@ My_entry.test_number.prototype.solve7 = function(){
   if(isNaN(Number(num))) return false;
   var num0 = Number(num);
   var run = function(num){
-    var header0 = self.output_line("wF", "N", "N-ary(n)", "divisor<br>n%N==0", "prime", "divisor&amp;&amp;prime<br>right-shiftable<br>Nrshift(N)");
+    var header0 = self.output_line("wF", "N", "N-ary(n)", "'rsum'", "divisor<br>n%N==0", "prime", "divisor&amp;&amp;prime<br>right-shiftable<br>Nrshift(N)");
     var html0 = "";
     for(var N=2; N<self.len_k; ++N){
       var isOdd = N%2;
@@ -681,7 +701,7 @@ My_entry.test_number.prototype.solve7 = function(){
       var isDivisor = (num%N === 0);
       var isPrime = self.isPrime(N);
       var Nrshift = self.count_N0(num_N_ary, num_N_ary.length);
-      html0 += self.output_line(hasClass, N, num_N_ary, ((isDivisor)? true: ""), ((isPrime)? true: ""), ((isDivisor && isPrime && Nrshift)? Nrshift: ""));
+      html0 += self.output_line(hasClass, N, num_N_ary, self.get_rsum(N, num).toString(N), ((isDivisor)? true: ""), ((isPrime)? true: ""), ((isDivisor && isPrime && Nrshift)? Nrshift: ""));
     }
     var _logs = {};
     _logs.log0 = "<caption class='condition'>N-ary notations of n="+num+"</caption>"+header0+html0;  // Ver.0.43.7
