@@ -693,7 +693,7 @@ My_entry.test_number.prototype.solve7 = function(){
   if(isNaN(Number(num))) return false;
   var num0 = Number(num);
   var run = function(num){
-    var header0 = self.output_line("wF", "N", "N-ary(n)", "'rsum'", "divisor<br>n%N==0", "prime", "divisor&amp;&amp;prime<br>right-shiftable<br>Nrshift(N)");  // Ver.0.49.7
+    var header0 = self.output_line("wF", "N", "N-ary(n)", "'rsum'", "=(n-1)%(N-1)+1", "divisor<br>n%N==0", "prime", "divisor&amp;&amp;prime<br>right-shiftable<br>Nrshift(N)");  // Ver.0.49.7
     var html0 = "";
     for(var N=2; N<self.len_k; ++N){
       var isOdd = N%2;
@@ -704,7 +704,7 @@ My_entry.test_number.prototype.solve7 = function(){
       var isDivisor = (num%N === 0);
       var isPrime = self.isPrime(N);
       var Nrshift = self.count_N0(num_N_ary, num_N_ary.length);
-      html0 += self.output_line(hasClass, N, num_N_ary, str_rsum+((String(rsum) === str_rsum)? "": "("+rsum+")"), ((isDivisor)? true: ""), ((isPrime)? true: ""), ((isDivisor && isPrime && Nrshift)? Nrshift: ""));  // Ver.0.49.7
+      html0 += self.output_line(hasClass, N, num_N_ary, str_rsum, (num-1)%(N-1)+1, ((isDivisor)? true: ""), ((isPrime)? true: ""), ((isDivisor && isPrime && Nrshift)? Nrshift: ""));  // Ver.0.49.7
     }
     var _logs = {};
     _logs.log0 = "<caption class='condition'>N-ary notations of n="+num+"</caption>"+header0+html0;  // Ver.0.43.7
