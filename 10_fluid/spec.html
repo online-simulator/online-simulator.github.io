@@ -22,6 +22,14 @@
       <tbody>
         <tr class="border">
           <td class="border run">
+Ver.1.43.0
+          </td>
+          <td class="border">
+・?testcase=-23||-24||-25||-26追加（old -24　⇒　-23）
+          </td>
+        </tr>
+        <tr class="border">
+          <td class="border run">
 Ver.1.42.0
           </td>
           <td class="border">
@@ -1029,6 +1037,8 @@ testcase
 <span class="wF">Ver.1.40.0追加</span>
 <br>
 <span class="wF">Ver.1.42.0追加</span>
+<br>
+<span class="wF">Ver.1.43.0追加</span>
           </td>
           <td class="border">
 test case
@@ -1060,7 +1070,7 @@ test case
 <br>
 <span class="condition">2: 斜めの一様流</span>
 <br>
-3: 左右のKarman渦列（領域不足、Ly=3相当のRe）
+3: 左右のKármán渦列（領域不足、Ly=3相当のRe）
 <br>
 ・scheme=o3
 <br>
@@ -1074,11 +1084,11 @@ test case
 <br>
 ・Re&gt;20でSt≒0.2
 <br>
-<span class="condition">4: 上下のKarman渦列（同上）</span>
+<span class="condition">4: 上下のKármán渦列（同上）</span>
 <br>
-<span class="selection"><span class="clear">|5|</span>: 左右のKarman渦列（同上）</span>
+<span class="selection"><span class="clear">|5|</span>: 左右のKármán渦列（同上）</span>
 <br>
-<span class="selection">6: 上下のKarman渦列（同上）</span>
+<span class="selection">6: 上下のKármán渦列（同上）</span>
 <br>
 <span class="run"><span class="wF">|7|</span>: Hagen-Poiseuille流れ</span>
 <br>
@@ -1114,9 +1124,19 @@ test case
 <br>
 <span class="wF">23: 閉空間の循環流（速度指定）</span>
 <br>
-<span class="wF">|24|: 閉空間の循環流（圧力指定）</span>
+<span class="wF">24: 閉空間の循環流（圧力指定）</span>
 <br>
-・磁石の磁力線のanalogy：速度⇔磁束密度、渦糸⇔電線
+<span class="wF">-23~-26: 閉空間の循環流（圧力指定）</span>
+<br>
+・磁石の磁力線のanalogy：速度⇔磁束密度、渦糸⇔導線
+<br>
+・-23：磁石単体の磁力線
+<br>
+・-24：NS相互作用の引力
+<br>
+・-25：NN相互作用の斥力
+<br>
+・-26：SS相互作用の斥力
 <br>
 <span class="wF">25: 蛇行流（速度指定、解像度不足）</span>
 <br>
