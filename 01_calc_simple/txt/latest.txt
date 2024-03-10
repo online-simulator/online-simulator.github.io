@@ -1,11 +1,24 @@
 clear
 local storage cleared
 
-__n__=-1:_r(=<arr.push(__n__),arr=[],10):arr:_r(=<arr[sizer(arr)].push(=<[_r(=<arr.push(__n__),arr=[],__n__),=<__n__*arr]=>*__n__),arr=[],10):arr:__n__
+__n__=-1:_r(=<__n__+2,5,10,=<__n__>5),=6+2:_r((__n__)=<__n__+2,5,10,=<__n__>5),=7+2:_r(=<arr.push(__n__),arr=[],10,=<__n__>4):arr:_r(=<arr[sizer(arr)].push(=<[_r(=<arr.push(__n__),arr=[],__n__),=<__n__*arr]=>*__n__),arr=[],10):arr:_r(=<arr[sizer(arr)].push(=<[n=__n__,_r(=<arr.push(n*__n__),arr=[],n),=<arr]=>*__n__),arr=[],10):arr:__n__
 (
 0:
+8,8:
+9,9:
 NaN:
-1,2,3,4,5,6,7,8,9,10:
+1,2,3,4,5:
+NaN:
+1:
+4,8:
+9,18,27:
+16,32,48,64:
+25,50,75,100,125:
+36,72,108,144,180,216:
+49,98,147,196,245,294,343:
+64,128,192,256,320,384,448,512:
+81,162,243,324,405,486,567,648,729:
+100,200,300,400,500,600,700,800,900,1000:
 NaN:
 1:
 4,8:
@@ -4408,4 +4421,4 @@ drag=false&sw=false&0x=false&useMatrix=true&useStrict=false&checkError=true&isRi
 --------------------------------
 --------------------------------
 
-online-simulator.github.io.6.374.225.19.98 @ Tue Mar 05 2024 17:33:42 GMT+0900 (日本標準時) @ Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/122.0.0.0 Safari/537.36
+online-simulator.github.io.6.377.232.19.98 @ Sun Mar 10 2024 21:34:57 GMT+0900 (日本標準時) @ Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/122.0.0.0 Safari/537.36
