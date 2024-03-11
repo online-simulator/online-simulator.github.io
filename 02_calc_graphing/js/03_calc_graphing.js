@@ -682,7 +682,7 @@ My_entry.calc_graphing.prototype.get_options = function(isPlot){
     _options.arr_y = self.arr_y;
     /* -> Ver.2.16.6 */
     /* Ver.2.401.86 -> */
-    if(_options["plot"]){
+    if(_options["plot-only"]){
       _options["legend"] = false;
       _options["axis-x"] = false;
       _options["axis-y"] = false;
@@ -1294,7 +1294,7 @@ My_entry.calc_graphing.prototype.init_handlers = function(){
       case "select-kx-adjust":
       case "select-legend-kx":
       case "select-legend-ky":
-      case "checkbox-plot":  // Ver.2.401.86
+      case "checkbox-plot-only":  // Ver.2.401.86
       case "checkbox-log-x":
       case "checkbox-log-y":
       case "checkbox-legend":
