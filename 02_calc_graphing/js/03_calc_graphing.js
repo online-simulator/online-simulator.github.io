@@ -686,6 +686,7 @@ My_entry.calc_graphing.prototype.get_options = function(isPlot){
       _options["legend"] = false;
       _options["axis-x"] = false;
       _options["axis-y"] = false;
+      _options.oldPlot2d = true;  // last
     }
     /* -> Ver.2.401.86 */
   }
