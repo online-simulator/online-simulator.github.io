@@ -22,6 +22,16 @@
       <tbody>
         <tr class="border">
           <td class="border run">
+Ver.0.10.3
+          </td>
+          <td class="border">
+・時間刻みdtを可変（低温で収束不能の対策）
+<br>
+・spec追記
+          </td>
+        </tr>
+        <tr class="border">
+          <td class="border run">
 Ver.0.9.3
           </td>
           <td class="border">
@@ -159,11 +169,13 @@ Ver.0.1.0
         <tr class="border">
           <td class="border run">
 前提
+<br>
+<span class="run">Ver.0.10.3追記</span>
           </td>
           <td class="border">
 ・端子間の充電電流<span class="selection">の符号</span>を正
 <br>
-・初回充電||過充放電時に発生する副反応は未考慮
+・初回充電||過充放電時に発生する副反応<span class="run">（不可逆な性能低下の要因）</span>は未考慮
 <br>
 <span class="selection">・通常反応のcapacitance成分（電気二重層||圧電効果）を考慮</span>
           </td>
@@ -677,12 +689,16 @@ define
 time step
 <br>
 <span class="clear">Ver.0.1.1追加</span>
+<br>
+<span class="run">Ver.0.10.3追加</span>
           </td>
           <td class="border">
 s
           </td>
           <td class="border">
 dt=1e-2;
+<br>
+<span class="run">get_dt(t)=t&lt;=1e-2&amp;&amp;&amp;1e-3||1e-2;</span>
           </td>
         </tr>
         <tr class="border">
