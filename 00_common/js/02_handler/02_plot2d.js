@@ -540,6 +540,11 @@ My_entry.plot2d.prototype.run = function(arr2d_vec, options, toSVG, isFinal){
     inputZ = def.enter_name(inputZ, "xlabel", false, 0, function(content){if(isAxis_x){label_x = content;}});
     inputZ = def.enter_name(inputZ, "ylabel", false, 0, function(content){if(isAxis_y){label_y = content;}});
     inputZ = def.enter_name(inputZ, "origin", false, 0, function(content){options._origin = content;});
+    /* Ver.2.401.86 -> */
+    if(options["plot"]){
+      title = "";
+    }
+    /* -> Ver.2.401.86 */
   }
   /* -> 1.8.6 */
   /* -> 1.18.7 */
