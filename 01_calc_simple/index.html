@@ -397,6 +397,8 @@
       script += "\nclear;\n";
       script += "__n__=-1:_r(=<__n__+2,5,10,=<__n__>5),=6+2:_r((__n__)=<__n__+2,5,10,=<__n__>5),=7+2:_r(=<arr.push(__n__),arr=[],10,=<__n__>4):arr:_r(=<arr[sizer(arr)].push(=<[_r(=<arr.push(__n__),arr=[],__n__),=<__n__*arr]=>*__n__),arr=[],10):arr:_r(=<arr[sizer(arr)].push(=<[n=__n__,_r(=<arr.push(n*__n__),arr=[],n),=<arr]=>*__n__),arr=[],10):arr:__n__;";
       script += "\nclear;\n";
+      script += "Jacobi((x0,x1)=<{x0**2+x1,x0+x1**2},,=<{1,2},false);\nNewton((x)=<x**2+x-12=0,,,false,20);\nNewton((x0,x1)=<{x0**2+x1-12=1e-5**2+1e5-12,x0+x1=1e-5+1e5},,,false,20);";
+      script += "\nclear;\n";
       $._id("input").value = script;
     });
   })();

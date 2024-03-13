@@ -1030,11 +1030,36 @@ My_entry.operation.prototype.get_dxD = function(x, h){
 My_entry.operation.prototype.get_hc = function(options, x, dx, sw_name){
   var self = this;
   var DATA = self.entry.DATA;
-  /* Ver.2.29.15 -> isFixed excluding 0 */
-  var isFixed = (dx && dx.com && (dx.com.r || dx.com.i));
-  /* -> Ver.2.29.15 */
+  /* Ver.2.404.86 -> */
+  /* Ver.2.29.15 -> */
+  var dx0 = null;
   var dxo = self.options[sw_name];
-  var dx0 = (isFixed)? dx: DATA.num(dxo, dxo);
+  var dxc = (dx && dx.com);
+  var isFixed = false;
+  if(dxc){
+    var dxcr = dxc.r;
+    var dxci = dxc.i;
+    if(dxcr === false && dxci === 0){
+      dx0 = DATA.num(dxo, 0);
+    }
+    else if(dxcr || dxci){
+      isFixed = true;  // not0
+      dx0 = dx;
+    }
+/*
+    else{
+      isFixed = false;
+      // false+0 -> 0
+      // (false)i -> 0
+      // false*(1+i) -> 0
+    }
+*/
+  }
+  if(!(dx0)){
+    dx0 = DATA.num(dxo, dxo);
+  }
+  /* -> Ver.2.29.15 */
+  /* -> Ver.2.404.86 */
   var h = DATA.num(dx0.com.r, ((options.useComplex)? dx0.com.i: 0));
   var _hc = (isFixed)? h.com: self["get_"+sw_name](x, h);
   return _hc;

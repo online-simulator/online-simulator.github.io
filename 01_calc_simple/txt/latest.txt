@@ -1,6 +1,24 @@
 clear
 local storage cleared
 
+Newton((x0,x1)=<{x0**2+x1-12=1e-5**2+1e5-12,x0+x1=1e-5+1e5},,,false,20)
+(
+0.000010000000266175229:
+100000
+)
+
+Newton((x)=<x**2+x-12=0,,,false,20)
+3
+
+Jacobi((x0,x1)=<{x0**2+x1,x0+x1**2},,=<{1,2},false)
+(
+2.00001000001393+O(1e-5),1.0000000000065512+O(2e-5):
+0.9999999999621422+O(1e-5),4.00002000002786+O(2e-5)
+)
+
+clear
+local storage cleared
+
 __n__=-1:_r(=<__n__+2,5,10,=<__n__>5),=6+2:_r((__n__)=<__n__+2,5,10,=<__n__>5),=7+2:_r(=<arr.push(__n__),arr=[],10,=<__n__>4):arr:_r(=<arr[sizer(arr)].push(=<[_r(=<arr.push(__n__),arr=[],__n__),=<__n__*arr]=>*__n__),arr=[],10):arr:_r(=<arr[sizer(arr)].push(=<[n=__n__,_r(=<arr.push(n*__n__),arr=[],n),=<arr]=>*__n__),arr=[],10):arr:__n__
 (
 0:
@@ -4421,4 +4439,4 @@ drag=false&sw=false&0x=false&useMatrix=true&useStrict=false&checkError=true&isRi
 --------------------------------
 --------------------------------
 
-online-simulator.github.io.6.377.232.19.98 @ Sun Mar 10 2024 21:34:57 GMT+0900 (日本標準時) @ Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/122.0.0.0 Safari/537.36
+online-simulator.github.io.6.379.239.19.98 @ Wed Mar 13 2024 16:18:37 GMT+0900 (日本標準時) @ Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/122.0.0.0 Safari/537.36
