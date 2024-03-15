@@ -34470,9 +34470,9 @@ x=x-mdx
 <br>
 留意事項を列挙する
 <br>
-・回路計算の<a href="#span-out-FNmh-jacobian">Jacobi行列</a>等、full-rank前提で係数行列が疎行列の場合、<a href="#span-out-linear">前進消去</a>後の対角要素≠0の保証は未対応
+・<a href="#span-out-FNmh-newtonian">Newton高階行列関数</a>の反復中に<a href="#span-out-FNmh-jacobian">Jacobi行列</a>の対角要素=0の場合、収束計算のretry機能は未実装
 <br>
-　<a href="#span-out-FNmh-newtonian">Newton高階行列関数</a>の収束可否が初期値より連立する方程式の列挙順に依存
+・現状、不連続性の高いswitchingを含む回路計算等、収束可否が初期値より連立する方程式の列挙順に依存
     </td>
   </tr>
   <tr>
