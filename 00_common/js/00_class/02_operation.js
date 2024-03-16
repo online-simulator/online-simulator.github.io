@@ -104,6 +104,7 @@ My_entry.operation.prototype.config = {
   /* Ver.2.225.53 common reference to ids of local storage object for sentence without bracket including command */
   ids0: [[0, 0]],
   params: {
+    useRetry: false,  // Ver.2.408.86
     isRelative_epsN: false,
     epsN: 1e-16,
     dxT: 1e-3,
@@ -305,6 +306,7 @@ My_entry.operation.prototype.prepare = function(data){
   self.useScopeWith = options.useScopeWith;  // Ver.2.213.47
   self.use$let = options.use$let;  // Ver.2.249.57
   self.useMutex = options.useMutex;  // Ver.2.250.57
+  self.options.useRetry = options.useRetry || self.config.params.useRetry;  // Ver.2.408.86
   self.options.isRelative_epsN = options.isRelative_epsN || self.config.params.isRelative_epsN;
   self.options.epsN = options.epsN || self.config.params.epsN;
   self.options.dxT = options.dxT || self.config.params.dxT;
@@ -1605,6 +1607,13 @@ else{
       // isRelative_epsN
       var arg6 = args[6];
       var isRelative_epsN = (arg6 && arg6.com)? arg6.com.r: self.options.isRelative_epsN;  // 0||not0
+      /* Ver.2.408.86 -> */
+      // useRetry
+      var arg7 = args[7];
+      var useRetry = (arg7 && arg7.com)? arg7.com.r: self.options.useRetry;  // 0||not0
+      var x0_retry = x0;
+      var counter_retry = 0;
+      /* -> Ver.2.408.86 */
       _tree = DATA.tree_mat(DATA.vec2arr(x0, isRow));  // initialize
       var arr_mdx = null;
       for(var n=0; n<Niteration; ++n){
@@ -1627,7 +1636,34 @@ else{
         /* Ver.2.271.62 -> */
         var cr_norm = self.arr2num(normdx).com.r;
         var epsn = (isRelative_epsN)? epsN*self.arr2num(math_mat.normc(options, DATA.vec2arr(x0))).com.r: epsN;  // Ver.2.237.56 x0: vectorc
-        var isBreak = isNaN(cr_norm) || (cr_norm < epsn);
+        /* Ver.2.408.86 -> */
+        var isBreak = false;
+        if(isNaN(cr_norm)){
+          if(useRetry){
+            ++counter_retry;
+            x0 = self.entry.def.newClone(x0_retry);
+            for(var i=0; i<len_i; ++i){
+              var name_var = names[i];
+              var num = x0[i];
+              var ncr = num.com.r;
+              var nci = num.com.i;
+              if(ncr){
+                num.com.r = ncr*(Math.random()*2-1)*counter_retry;
+              }
+              if(nci){
+                num.com.i = nci*(Math.random()*2-1)*counter_retry;
+              }
+              self.store_var(name_var, DATA.num2tree(num), scopes, ids_buffer);  // Ver.2.31.17  // Ver.2.225.53
+            }
+          }
+          else{
+            isBreak = true;
+          }
+        }
+        else if(cr_norm < epsn){
+          isBreak = true;
+        }
+        /* -> Ver.2.408.86 */
         if(isBreak) break;  // last to share static_scopes2d_array
         /* -> Ver.2.271.62 */
         /* -> Ver.2.309.77 */

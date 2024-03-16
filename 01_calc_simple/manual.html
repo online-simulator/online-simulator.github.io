@@ -26397,7 +26397,7 @@ Newton高階行列関数
 ・未知変数の<a href="#span-out-terms">scope変数</a>を参照、上書きする
 <br>
 <br>
-Newton(=&lt;第1引数,=&lt;第2引数[,=&lt;第3引数[,第4引数[,第5引数[,第6引数[,第7引数]]]]])
+Newton(=&lt;第1引数,=&lt;第2引数[,=&lt;第3引数[,第4引数[,第5引数[,第6引数[,第7引数[,第8引数]]]]]])
 <br>
 ・第1引数: 方程式||関数式の列vectorを<a href="#span-out-call-by-equation">式渡し</a>||<a href="#span-out-call-by-symbol">symbol渡し</a>
 <br>
@@ -26420,6 +26420,10 @@ option
 　<a href="#span-in-scope-vars">static scopes2d array</a>を共有するため、引数指定のbreak判定は反復後に実施
 <br>
 ・第7引数: 第6引数epsNを相対誤差に変換する0||not0のflag[省略時、0]
+<br>
+<span class="run">Ver.2.408.86</span>以降、第8引数追加
+<br>
+・第8引数: 収束計算のretry機能（最大retry回数&lt;反復回数）を使用する0||not0のflag[省略時、0]
 <br>
 <br>
 応用例は<a href="#span-out-linear">連立方程式の解法</a>参照
@@ -34470,7 +34474,11 @@ x=x-mdx
 <br>
 留意事項を列挙する
 <br>
-・<a href="#span-out-FNmh-newtonian">Newton高階行列関数</a>の反復中に<a href="#span-out-FNmh-jacobian">Jacobi行列</a>の対角要素=0の場合、収束計算のretry機能は未実装
+・<a href="#span-out-FNmh-newtonian">Newton高階行列関数</a>の反復中に<a href="#span-out-FNmh-jacobian">Jacobi行列</a>の対角要素=0の場合、<del>収束計算のretry機能は未実装</del>
+<br>
+・<span class="run">Ver.2.408.86</span>以降、収束計算のretry機能を追加
+<br>
+　近似解の列vector{x}の各要素初期値：乱数の係数倍=範囲[-1,1)の乱数*retry回数倍
 <br>
 ・現状、不連続性の高いswitchingを含む回路計算等、収束可否が初期値より連立する方程式の列挙順に依存
     </td>
@@ -38094,6 +38102,8 @@ deep-copy
 ・<a href="#span-out-vars">変数</a>・<a href="#span-out-eqns">式変数</a>の<del>store||restore時</del><span class="clear">Ver.2.266.62</span>以降、<span class="clear">restore時</span>（<a href="#span-out-ans">予約変数</a>ansを含む）
 <br>
 ・<a href="#span-out-FNh">高階関数</a>の再帰対象（第1引数）
+<br>
+・<span class="run">Ver.2.408.86</span>以降、収束計算のretry時、近似解の列vector{x}の初期値
     </td>
   </tr>
   <tr>
@@ -38375,6 +38385,9 @@ data.logo -> "makeLog=true"
 <br>
 <br>
 ・<a href="#span-out-csv-format">depthMax</a>: <span class="clear">Ver.2.144.36</span>以降、<a href="#span-out-flow">operation</a>段階のnesting深さの上限値=300
+<br>
+<br>
+・<a href="#span-out-FNmh-newtonian">useRetry</a>: <span class="run">Ver.2.408.86</span>以降、収束計算のretry機能を使用するflag
 <br>
 <br>
 ・<a href="#span-out-FNmh-newtonian">isRelative_epsN</a>: epsNを相対誤差に変換するflag
