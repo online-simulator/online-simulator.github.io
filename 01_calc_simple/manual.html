@@ -714,6 +714,8 @@ e^(-i(1pi(){2/2i}(5-{3-1}){i/(-4)}))
 <br>
 　・<a href="#span-out-non-linear">連立非線形方程式</a>
 <br>
+　　・<a href="#span-out-non-linear1">電気回路</a>
+<br>
 　・<a href="#span-out-transform">信号変換</a>
 <br>
 　　・<a href="#span-out-transform-fft">高速Fourier変換</a>
@@ -34480,7 +34482,7 @@ x=x-mdx
 <br>
 　近似解の列vector{x}の各要素初期値：乱数の係数倍=範囲[-1,1)の乱数*retry回数倍
 <br>
-・現状、不連続性の高いswitchingを含む回路計算等、収束可否が初期値より連立する方程式の列挙順に依存
+・現状、不連続性の高いswitchingを含む<a href="#span-out-non-linear1">電気回路計算</a>等、収束可否が初期値より連立する方程式の列挙順に依存
     </td>
   </tr>
   <tr>
@@ -34548,13 +34550,6 @@ x={,}; x -> (0:0)
 x[1]=b[1]/A[1][1]; x -> (0:4.499999999999999)
 <br>
 x[0]=(b[0]-A[0]x)/A[0][0]; x -> (-3.9999999999999982:4.499999999999999)
-<br>
-<br>
-留意事項を列挙する
-<br>
-・回路計算の<a href="#span-out-FNmh-jacobian">Jacobi行列</a>等、full-rank前提で係数行列が疎行列の場合、前進消去後の対角要素≠0の保証は未対応
-<br>
-　<a href="#span-out-FNmh-newtonian">Newton高階行列関数</a>の収束可否が初期値より連立する方程式の列挙順に依存
     </td>
   </tr>
   <tr>
@@ -35698,6 +35693,26 @@ exp(ans) -> 6.123233995736766e-17+i+O(1e-15+9e-16i)
 [f=&lt;{exp(<span class="condition">x</span>)=i},=&lt;solvex_non_linear(=&lt;f,=&lt;{1+i})=&gt;]=&gt;;
 <br>
 -> 3.813245622601571e-17+1.5707963267948966i+O(9e-16+1e-15i)
+    </td>
+  </tr>
+  <tr>
+    <th>
+<a href="#span-index">
+目次
+</a>
+<br>
+電気回路
+    </th>
+    <td>
+<span id="span-out-non-linear1"></span>
+電気回路計算について記述する
+<br>
+<br>
+連立する方程式の列挙基準を示す
+<br>
+・Kirchhoff's Current Law(KCL)：接続線を分岐する明示的なnodeのみ（1本線のnodeは解かない）
+<br>
+・Kirchhoff's Voltage Law(KVL)：電源優先で独立の閉loop
     </td>
   </tr>
   <tr>
