@@ -461,7 +461,7 @@ My_entry.operation.prototype.run = function(_data){
       };
       var get_token = function(i){
         var tree = trees[i];
-        return (get_num(i) || self.get_tagVal(tree, "REv", "val") || ((tree)? Object.keys(tree)[0]: ""));
+        return (get_num(i) || self.get_tagVal(tree, "REv", "val") || ((tree)? "'"+Object.keys(tree)[0]+"'": ""));
       };
       if(tagVal){
         message = "Invalid operation "+get_token(i0-1)+tagVal+get_token(i0+1);
