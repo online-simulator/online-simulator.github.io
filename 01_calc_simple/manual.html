@@ -282,6 +282,8 @@ e^(-i(1pi(){2/2i}(5-{3-1}){i/(-4)}))
 <br>
 ・<a href="#span-out-log">log表示仕様</a>
 <br>
+　・<a href="#span-out-log-error">error-log</a>
+<br>
 ・<a href="#span-out-debug">debugger</a>
 <br>
 　・<a href="#span-out-callstack">call stack</a>
@@ -9378,6 +9380,38 @@ max(x=3,-1,-2) || max(0,-1,-2) -> 0
 <br>
 <br>
 詳細は<a href="#span-out-special-substitution">特殊仕様</a>参照
+    </td>
+  </tr>
+  <tr>
+    <th>
+<a href="#span-index">
+目次
+</a>
+<br>
+error-log
+    </th>
+    <td>
+<span id="span-out-log-error"></span>
+error-logについて記述する
+<br>
+<br>
+<span class="run">Ver.2.409.86</span>以降、一部のerror-log表示を改善
+<br>
+・<a href="#span-out-type-ope">中置2項演算子</a>
+<br>
+1+ -> <del>[MyErr]Invalid binary operation</del>[MyErr]Invalid operation number+
+<br>
+(1,1)+ -> <del>[MyErr]Invalid binary operation</del>[MyErr]Invalid operation (,)+
+<br>
+**(1,1:) -> <del>[MyErr]Invalid binary operation</del>[MyErr]Invalid operation **(,:,)
+<br>
+&amp;&amp;&amp;(1,1:) -> <del>[MyErr]Invalid binary operation</del>[MyErr]Invalid operation &amp;&amp;&amp;BT1
+<br>
+・未解決<a href="#span-out-ans">ans</a>
+<br>
+1x -> <del>[MyErr]Invalid ans isFound</del>[MyErr]Invalid ans(number,x)
+<br>
+x(1,1) -> <del>[MyErr]Invalid ans isFound</del>[MyErr]Invalid ans(x,(,))
     </td>
   </tr>
   <tr>

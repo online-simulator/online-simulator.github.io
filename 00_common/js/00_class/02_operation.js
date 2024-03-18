@@ -429,7 +429,53 @@ My_entry.operation.prototype.run = function(_data){
   }
   catch(e){
     self.init_buffers();
-    throw {message: e, j: j};  // Ver.2.224.50
+    /* Ver.2.409.86 -> */
+    var message = e;
+    if(typeof e === "object"){
+      var math_mat = self.entry.math_mat;
+      var data = e[0];
+      var i0 = e[1];
+      var tagName = e[2];
+      var tagObj = e[3];
+      var trees = data.trees;
+      var tagVal = (tagObj)? tagObj.val: null;
+      var len = trees.length;
+      var get_num = function(i){
+        var _str = "";
+        if(trees[i] && trees[i].mat){
+          var arr = trees[i].mat.arr;
+          var lens = math_mat.get_lens(arr);
+          var len_i = lens.i;
+          var len_j = lens.j;
+          if(len_i === 1){
+            _str = (len_j === 1)? "number": "(,)";
+          }
+          else if(len_j === 1){
+            _str = "{,}";
+          }
+          else{
+            _str = "(,:,)";
+          }
+        }
+        return _str;
+      };
+      var get_token = function(i){
+        var tree = trees[i];
+        return (get_num(i) || self.get_tagVal(tree, "REv", "val") || ((tree)? Object.keys(tree)[0]: ""));
+      };
+      if(tagVal){
+        message = "Invalid operation "+get_token(i0-1)+tagVal+get_token(i0+1);
+      }
+      else{
+        var arr = [];
+        for(var i=0; i<len; ++i){
+          arr.push(get_token(i));
+        }
+        message = "Invalid ans("+arr+")";
+      }
+    }
+    throw {message: message, j: j};  // Ver.2.224.50
+    /* -> Ver.2.409.86 */
   }
   return _data;
 };
@@ -757,7 +803,7 @@ My_entry.operation.prototype.BRlAOs = function(data, i0, tagName, tagObj){
   var leftTrees = trees.slice(il, i0);
   var rightTrees = trees.slice(i0+1, ir);
   if(leftTrees.length === 0 || rightTrees.length === 0){
-    throw "Invalid binary operation";
+    throw arguments;  // Ver.2.409.86
   }
   var is0D = !(options.useMatrix);  // Ver.2.158.38
   /* Ver.2.258.60 -> */
@@ -3040,6 +3086,11 @@ My_entry.operation.prototype.BR_original = function(data, i0, tagName, tagObj){
     var isRightAssociativity = options.isRightAssociativityBR;
     self.feedback2trees(data, is, ie, _tree, isRightAssociativity);
   }
+  /* Ver.2.409.86 -> */
+  if(!(_tree) && tagName !== "BRe"){
+    throw arguments;
+  }
+  /* -> Ver.2.409.86 */
   return _tree;
 };
 My_entry.operation.prototype.BR_original_RA = function(data, i0, tagName, tagObj){
@@ -3057,14 +3108,16 @@ My_entry.operation.prototype.BR_original_RA = function(data, i0, tagName, tagObj
     var isRightAssociativity = true;
     self.feedback2trees(data, is, ie, _tree, isRightAssociativity);
   }
+  /* Ver.2.409.86 -> */
+  if(!(_tree)){
+    throw arguments;
+  }
+  /* -> Ver.2.409.86 */
   return _tree;
 };
 My_entry.operation.prototype.BRpp = function(data, i0, tagName, tagObj){
   var self = this;
   var tree = self.BR_original_RA(data, i0, tagName, tagObj);
-  if(!(tree)){
-    throw "Invalid binary operation";
-  }
   return self;
 };
 /* -> Ver.2.87.32 */
@@ -3082,9 +3135,6 @@ My_entry.operation.prototype.BRlO = function(data, i0, tagName, tagObj){
 /* -> Ver.2.59.26 */
   var self = this;
   var tree = self.BR_original(data, i0, tagName, tagObj);
-  if(!(tree)){
-    throw "Invalid binary operation";
-  }
   return self;
 };
 /* Ver.1.2.0 */
@@ -3109,18 +3159,12 @@ My_entry.operation.prototype.BRdm = function(data, i0, tagName, tagObj){
       break;
   }
   /* -> Ver.2.87.32 */
-  if(!(tree)){
-    throw "Invalid binary operation";
-  }
   return self;
 };
 My_entry.operation.prototype.BRsa = function(data, i0, tagName, tagObj){
   var self = this;
   var sw_tagName = (tagObj.val === "-")? "BRs": "BRa";
   var tree = self.BR_original(data, i0, sw_tagName, tagObj);
-  if(!(tree)){
-    throw "Invalid binary operation";
-  }
   return self;
 };
 My_entry.operation.prototype.BRe = function(data, i0, tagName, tagObj){
@@ -4941,7 +4985,7 @@ My_entry.operation.prototype.SEans = function(data, i0, tagName, tagObj){
       }
     }
     else{
-      throw "Invalid ans isFound";
+      throw arguments;  // Ver.2.409.86
     }
   }
   return self;
