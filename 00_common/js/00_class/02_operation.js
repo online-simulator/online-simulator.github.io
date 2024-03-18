@@ -440,36 +440,40 @@ My_entry.operation.prototype.run = function(_data){
       var trees = data.trees;
       var tagVal = (tagObj)? tagObj.val: null;
       var len = trees.length;
-      var get_num = function(i){
-        var _str = "";
-        if(trees[i] && trees[i].mat){
-          var arr = trees[i].mat.arr;
-          var lens = math_mat.get_lens(arr);
-          var len_i = lens.i;
-          var len_j = lens.j;
-          if(len_i === 1){
-            _str = (len_j === 1)? "number": "(,)";
-          }
-          else if(len_j === 1){
-            _str = "{,}";
+      var check_tree = function(i){
+        var _tagVal = "";
+        var tree = trees[i];
+        if(tree){
+          if(tree.mat){
+            var arr = tree.mat.arr;
+            var lens = math_mat.get_lens(arr);
+            var len_i = lens.i;
+            var len_j = lens.j;
+            if(len_i === 1){
+              _tagVal = (len_j === 1)? "number": "(,)";
+            }
+            else if(len_j === 1){
+              _tagVal = "{,}";
+            }
+            else{
+              _tagVal = "(,:,)";
+            }
           }
           else{
-            _str = "(,:,)";
+            var tagName = Object.keys(tree)[0];
+            var tagVal = self.get_tagVal(tree, tagName, "val");
+            _tagVal = (typeof tagVal === "string")? tagVal: "'"+tagName+"'";
           }
         }
-        return _str;
-      };
-      var get_token = function(i){
-        var tree = trees[i];
-        return (get_num(i) || self.get_tagVal(tree, "REv", "val") || ((tree)? "'"+Object.keys(tree)[0]+"'": ""));
+        return _tagVal;
       };
       if(tagVal){
-        message = "Invalid operation "+get_token(i0-1)+tagVal+get_token(i0+1);
+        message = "Invalid operation "+check_tree(i0-1)+tagVal+check_tree(i0+1);
       }
       else{
         var arr = [];
         for(var i=0; i<len; ++i){
-          arr.push(get_token(i));
+          arr.push(check_tree(i));
         }
         message = "Invalid ans("+arr+")";
       }
