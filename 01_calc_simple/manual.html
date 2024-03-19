@@ -26461,7 +26461,13 @@ option
 <br>
 <span class="run">Ver.2.408.86</span>以降、第8引数追加
 <br>
-・第8引数: 収束計算のretry機能（最大retry回数&lt;反復回数）を使用する0||not0のflag[省略時、0]
+・第8引数: 収束計算のretry機能を使用する0||not0のflag[省略時、0]
+<br>
+　最大retry回数&lt;反復回数<span class="run">-1</span>
+<br>
+　retry時、初期値を<a href="#span-out-FN-rand">乱数</a>でresetして反復継続
+<br>
+　<span class="run">Ver.2.410.86</span>以降、最終反復回数の場合、retry無効で反復終了（<a href="#span-out-literal">NaN</a>確定）
 <br>
 <br>
 応用例は<a href="#span-out-linear">連立方程式の解法</a>参照
@@ -34516,7 +34522,7 @@ x=x-mdx
 <br>
 ・<span class="run">Ver.2.408.86</span>以降、収束計算のretry機能を追加
 <br>
-　近似解の列vector{x}の各要素初期値：乱数の係数倍=範囲[-1,1)の乱数*retry回数倍
+　近似解の列vector{x}の各要素初期値：乱数の係数倍=範囲[-1,1)の<a href="#span-out-FN-rand">乱数</a>*retry回数倍
 <br>
 ・現状、不連続性の高いswitchingを含む<a href="#span-out-non-linear1">電気回路計算</a>等、収束可否が初期値より連立する方程式の列挙順に依存
     </td>

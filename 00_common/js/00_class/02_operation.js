@@ -1689,7 +1689,8 @@ else{
         /* Ver.2.408.86 -> */
         var isBreak = false;
         if(isNaN(cr_norm)){
-          if(useRetry){
+          var isLast_iteration = (n === Niteration-1);  // Ver.2.410.86
+          if(useRetry && !(isLast_iteration)){  // Ver.2.410.86
             ++counter_retry;
             x0 = self.entry.def.newClone(x0_retry);
             for(var i=0; i<len_i; ++i){
