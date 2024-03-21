@@ -431,7 +431,7 @@ My_entry.operation.prototype.run = function(_data){
     self.init_buffers();
     /* Ver.2.409.86 -> */
     var message = e;
-    if(typeof e === "object"){
+    if(typeof e === "object" && e.length){  // Ver.2.411.87
       var math_mat = self.entry.math_mat;
       var data = e[0];
       var i0 = e[1];
