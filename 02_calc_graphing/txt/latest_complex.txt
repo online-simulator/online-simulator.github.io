@@ -532,7 +532,7 @@ local storage cleared
 3.2726297260802473-4.9237817081404325i+O(6e-2+7e-7i)
 )
 
-ODE_RK4(t,dt,z_x00,z_v00,z_u,m,Cd_sphere)=<[out=<{t_total,x_next},scope2storage=<last{add__(z_x0),add__(z_v0),add__(t_total)},init=<last{switch(has__(t_total)==0,=<last{t_total=0,z_x0=z_x00,z_v0=z_v00}),g=-9.8,z_a=0+g*i,x_initial=<{z_x0,z_v0},f(t,z_x,z_v)=<{z_v,z_a+(Cd_sphere/m)*(z_u-z_v)}},run=<last{x_next=x_initial=>,stepN=<last{N=round(t/dt),x_next=_o(=<f,,=<{x_next},t_total,dt,N)},step_post=<{$z_x0,$z_v0}=x_next,evolution=<last{stepN=>,step_post=>},evolution=>,t_total=t_total+N*dt},init=>,run=>,return=out=>,scope2storage=>,=<return]=>
+ODE_RK4(t,dt,z_x00,z_v00,z_u,m,CdA_sphere)=<[out=<{t_total,x_next},scope2storage=<last{add__(z_x0),add__(z_v0),add__(t_total)},init=<last{switch(has__(t_total)==0,=<last{t_total=0,z_x0=z_x00,z_v0=z_v00}),g=-9.8,z_a=0+g*i,x_initial=<{z_x0,z_v0},f(t,z_x,z_v)=<{z_v,z_a+(CdA_sphere/m)*(z_u-z_v)}},run=<last{x_next=x_initial=>,stepN=<last{N=round(t/dt),x_next=_o(=<f,,=<{x_next},t_total,dt,N)},step_post=<{$z_x0,$z_v0}=x_next,evolution=<last{stepN=>,step_post=>},evolution=>,t_total=t_total+N*dt},init=>,run=>,return=out=>,scope2storage=>,=<return]=>
 stored_eqn(ODE_RK4)
 
 [cond_error=(has__(t_total)==0)&has__(z_x0),proc=<[args=(1,0.5,0,20+20i,0,1,1),=<Euler_method(args,1)=>]=>,=<switch(cond_error==0,=<proc:1,-999)]=>
@@ -542,7 +542,7 @@ stored_eqn(ODE_RK4)
 8.88888888888889+3.4444444444444438i+O(8e-7+7e-7i)
 )
 
-Euler_method(t,dt,z_x00,z_v00,z_u,m,Cd_sphere,isImplicit)=<[out=<{t_total,x_solved},scope2storage=<last{add__(z_x0),add__(z_v0),add__(t_total)},init=<last{switch(has__(t_total)==0,=<last{t_total=0,z_x0=z_x00,z_v0=z_v00}),g=-9.8,z_a=0+g*i,x_initial=<{z_x0,z_v0},switch(isImplicit,=<f(z_x,z_v)=<{(z_x-z_x0)/dt=z_v,m*((z_v-z_v0)/dt)=m*z_a+Cd_sphere*(z_u-z_v)}:1,=<f(z_x,z_v)=<{(z_x-z_x0)/dt=z_v0,m*((z_v-z_v0)/dt)=m*z_a+Cd_sphere*(z_u-z_v0)}),orderT=1,epsN=max(eps*1e3,pow(dt,orderT)),isRelative_epsN=1,relative_epsN=(epsN,isRelative_epsN)},run=<last{args_Newton=(=<f,,=<x_initial,Nmax=1e3,Nmax,relative_epsN),step_iteration=<x_solved=Newton(args_Newton),step_post=<{$z_x0,$z_v0}=x_solved,step=<last{step_iteration=>,step_post=>},evolution=<_rn(=<step,N=round(t/dt),N),evolution=>,t_total=t_total+N*dt},init=>,run=>,return=out=>,scope2storage=>,=<return]=>
+Euler_method(t,dt,z_x00,z_v00,z_u,m,CdA_sphere,isImplicit)=<[out=<{t_total,x_solved},scope2storage=<last{add__(z_x0),add__(z_v0),add__(t_total)},init=<last{switch(has__(t_total)==0,=<last{t_total=0,z_x0=z_x00,z_v0=z_v00}),g=-9.8,z_a=0+g*i,x_initial=<{z_x0,z_v0},switch(isImplicit,=<f(z_x,z_v)=<{(z_x-z_x0)/dt=z_v,m*((z_v-z_v0)/dt)=m*z_a+CdA_sphere*(z_u-z_v)}:1,=<f(z_x,z_v)=<{(z_x-z_x0)/dt=z_v0,m*((z_v-z_v0)/dt)=m*z_a+CdA_sphere*(z_u-z_v0)}),orderT=1,epsN=max(eps*1e3,pow(dt,orderT)),isRelative_epsN=1,relative_epsN=(epsN,isRelative_epsN)},run=<last{args_Newton=(=<f,,=<x_initial,Nmax=1e3,Nmax,relative_epsN),step_iteration=<x_solved=Newton(args_Newton),step_post=<{$z_x0,$z_v0}=x_solved,step=<last{step_iteration=>,step_post=>},evolution=<_rn(=<step,N=round(t/dt),N),evolution=>,t_total=t_total+N*dt},init=>,run=>,return=out=>,scope2storage=>,=<return]=>
 stored_eqn(Euler_method)
 
 [N=1e2,a=0,b=100,f(x0)=<1-global_n*pow(global_base,x0),=<{solvex_non_linear(=<f,=<{0})=>,solvex_bisection(=<f,a,b,N)=>,solvex_bisection(=<f,b,a,N)=>,solvex_bisection(=<f,a,a,N)=>,solvex_non_linear((x0)=<1-global_n*pow(global_base,x0),=<{0})=>,solvex_bisection((x0)=<1-global_n*pow(global_base,x0),a,b,N)=>,solvex_bisection((x0)=<1-global_n*pow(global_base,x0),b,a,N)=>,solvex_bisection((x0)=<1-global_n*pow(global_base,x0),a,a,N)=>}]=>
@@ -895,7 +895,7 @@ plot2d_evolution(0,5,0.5,0,20+20i,0,1,1)=>
 19.86470649057239+O(6e-2),-19.40158732904714
 )
 
-plot2d_evolution(t0,t1,dt,z_x0,z_v0,z_u,m,Cd_sphere)=<[out=<(xt,yt),scope2storage=<last{add__(xt),add__(yt)},init=<last{g=-9.8,z_a=0+g*i,t=0,x_initial=<{z_x0,z_v0},f(t,z_x,z_v)=<{z_v,z_a+(Cd_sphere/m)*(z_u-z_v)},N=round((t1-t0)/dt),M=0,xt=zeros(N+1,M+1),yt=zeros(N+1,M+1)},run=<last{dtn=<n<=0&&0||||dt,x_next=x_initial=>,step=<last{dt0=dtn=>,x_next=_o(=<f,,=<{x_next},t,dt0),t=t+dt0},stepnm=<last{step=>,z_x=x_next[0],xt[n][mdummy]=real(z_x),yt[n][mdummy]=imag(z_x)},casesM=<_smdummy(=<stepnm,0,M),evolutionN=<_sn(=<casesM,0,N),evolutionN=>},init=>,run=>,return=out=>,scope2storage=>,=<return]=>
+plot2d_evolution(t0,t1,dt,z_x0,z_v0,z_u,m,CdA_sphere)=<[out=<(xt,yt),scope2storage=<last{add__(xt),add__(yt)},init=<last{g=-9.8,z_a=0+g*i,t=0,x_initial=<{z_x0,z_v0},f(t,z_x,z_v)=<{z_v,z_a+(CdA_sphere/m)*(z_u-z_v)},N=round((t1-t0)/dt),M=0,xt=zeros(N+1,M+1),yt=zeros(N+1,M+1)},run=<last{dtn=<n<=0&&0||||dt,x_next=x_initial=>,step=<last{dt0=dtn=>,x_next=_o(=<f,,=<{x_next},t,dt0),t=t+dt0},stepnm=<last{step=>,z_x=x_next[0],xt[n][mdummy]=real(z_x),yt[n][mdummy]=imag(z_x)},casesM=<_smdummy(=<stepnm,0,M),evolutionN=<_sn(=<casesM,0,N),evolutionN=>},init=>,run=>,return=out=>,scope2storage=>,=<return]=>
 stored_eqn(plot2d_evolution)
 
 clear
@@ -1349,7 +1349,7 @@ clear
 local storage cleared
 
 [Pinv_y=(-0.999999427,-0.999936657,-0.997300203,-0.954499736,-0.682689492,0,0.682689492,0.954499736,0.997300203,0.999936657,0.999999427:-5,-4,-3,-2,-1,0,1,2,3,4,5),N=1,arr=[],_rn(=<arr.push(rand_table(=<Pinv_y)=>),,N),=<arr.]=>
--0.4762362307764655
+0.7257426439423442
 
 rand_table(csv)=<last[table=sort0(csv),ymin=min(table)[0],ymax=max(table)[0],y=ymin+(ymax-ymin)*rand(),x=interp(y:table),x]
 stored_eqn(rand_table)
@@ -1359,7 +1359,7 @@ local storage cleared
 
 [(N)=<[tarr=linspace(0,N-1,N).,shuffle_FY(?tarr)=>,=<tarr.]=>](2)=>
 (
-0,1
+1,0
 )
 
 shuffle_FY(?tarr)=<last[len=sizer(tarr),switch_arr=(i1)=<last{i0=floor(rand()*(i1+1)),w=tarr[i1],tarr[i1]=tarr[i0],tarr[i0]=w},_s((i_)=<switch_arr(i_)=>,len-1,1)]
@@ -3163,4 +3163,4 @@ center=true&drag=false&test-case=false&plot-only=false&relzooming=true&snap=true
 --------------------------------
 --------------------------------
 
-online-simulator.github.io.6.379.239.19.98 @ Wed Mar 13 2024 16:20:09 GMT+0900 (日本標準時) @ Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/122.0.0.0 Safari/537.36
+online-simulator.github.io.6.382.251.19.100 @ Tue Mar 26 2024 11:06:47 GMT+0900 (日本標準時) @ Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/122.0.0.0 Safari/537.36

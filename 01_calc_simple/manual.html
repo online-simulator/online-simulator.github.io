@@ -14632,13 +14632,13 @@ dt=0.5;
 <br>
 m=1;
 <br>
-Cd_sphere=1;
+CdA_sphere=1;
 <br>
 x=&lt;{z_x,z_v};
 <br>
 x_initial=&lt;{z_x0,z_v0};
 <br>
-f=&lt;{z_v,z_a-(Cd_sphere/m)*z_v};
+f=&lt;{z_v,z_a-(CdA_sphere/m)*z_v};
 <br>
 /*{$z_x,$z_v}=x_initial=&gt;;*/
 <br>
@@ -31383,7 +31383,7 @@ albedoの年率低下割合=0.125%で徐々に変化した場合、20年間1年�
 時間発展（時間積分）の解法について記述する
 <br>
 <br>
-球の空気抵抗係数Cd_sphereを考慮する2次元の運動方程式を一例に示す
+球の空気抵抗係数CdA_sphereを考慮する2次元の運動方程式を一例に示す
 <br>
 ・<span class="run">Ver.2.104.33</span>以降、<span class="selection">風速</span>を追加考慮
 <br>
@@ -31416,23 +31416,23 @@ albedoの年率低下割合=0.125%で徐々に変化した場合、20年間1年�
 <br>
 　・右辺を既知関数とするEuler前進差分の陽解法explicit Euler method
 <br>
-f=&lt;{(z_x-z_x0)/dt=z_v0,m*((z_v-z_v0)/dt)=m*z_a+Cd_sphere*(<span class="selection">z_u</span>-z_v0)};
+f=&lt;{(z_x-z_x0)/dt=z_v0,m*((z_v-z_v0)/dt)=m*z_a+CdA_sphere*(<span class="selection">z_u</span>-z_v0)};
 <br>
 　・右辺を未知関数とするEuler後退差分の陰解法implicit Euler method
 <br>
-f=&lt;{(z_x-z_x0)/dt=z_v,m*((z_v-z_v0)/dt)=m*z_a+Cd_sphere*(<span class="selection">z_u</span>-z_v)};
+f=&lt;{(z_x-z_x0)/dt=z_v,m*((z_v-z_v0)/dt)=m*z_a+CdA_sphere*(<span class="selection">z_u</span>-z_v)};
 <br>
 　・<a href="#span-out-error">modelling誤差</a>はOrder(dt)
 <br>
 ・速度の時間微分が0（抵抗と重力が平衡）となる終端速度terminal velocity
 <br>
-0=m*z_a+Cd_sphere*(<span class="selection">z_u</span>-z_v_terminal)
+0=m*z_a+CdA_sphere*(<span class="selection">z_u</span>-z_v_terminal)
 <br>
-z_v_terminal=<span class="selection">z_u</span>+(m/Cd_sphere)*z_a
+z_v_terminal=<span class="selection">z_u</span>+(m/CdA_sphere)*z_a
 <br>
 ・抗力の大きさ=|抵抗成分の合力|
 <br>
-Fd=Cd_sphere*abs(<span class="selection">z_u</span>-z_v0)=Cd_sphere*sqrt(real(<span class="selection">z_u</span>-z_v0)**2+imag(<span class="selection">z_u</span>-z_v0)**2)
+Fd=CdA_sphere*abs(<span class="selection">z_u</span>-z_v0)=CdA_sphere*sqrt(real(<span class="selection">z_u</span>-z_v0)**2+imag(<span class="selection">z_u</span>-z_v0)**2)
 <br>
 <br>
 斜方投射の解析解を示す（<span class="selection">風速</span>なし）
@@ -31449,9 +31449,9 @@ z_x0=0;
 <br>
 m=1;
 <br>
-Cd_sphere=1;
+CdA_sphere=1;
 <br>
-k=Cd_sphere;
+k=CdA_sphere;
 <br>
 vt(v,a,t)=&lt;(v-m*a/k)*exp(-k*t/m)+m*a/k;
 <br>
@@ -31528,13 +31528,13 @@ dt=0.5;
 <br>
 m=1;
 <br>
-Cd_sphere=1;
+CdA_sphere=1;
 <br>
 x=&lt;{z_x,z_v};
 <br>
 x_initial=&lt;{z_x0,z_v0};
 <br>
-f=&lt;{(z_x-z_x0)/dt=z_v,m*((z_v-z_v0)/dt)=m*z_a+Cd_sphere*(<span class="selection">z_u</span>-z_v)};
+f=&lt;{(z_x-z_x0)/dt=z_v,m*((z_v-z_v0)/dt)=m*z_a+CdA_sphere*(<span class="selection">z_u</span>-z_v)};
 <br>
 run=&lt;last(mdx=Newton(=&lt;f,=&lt;x,=&lt;x_initial),max(normc(f),normc(mdx)));
 <br>
@@ -31624,7 +31624,7 @@ z_v0 -> infoLost[ri] 0.006014573196434349-9.791038285937313i
 <br>
 ・terminal velocityに収束
 <br>
-z_v_terminal=<span class="selection">z_u</span>+(m/Cd_sphere)*z_a; z_v_terminal -> -9.8i
+z_v_terminal=<span class="selection">z_u</span>+(m/CdA_sphere)*z_a; z_v_terminal -> -9.8i
 <br>
 <br>
 近似解の収束判定条件を設定する場合、stepの一例を示す
@@ -31688,13 +31688,13 @@ dt=0.5;
 <br>
 m=1;
 <br>
-Cd_sphere=1;
+CdA_sphere=1;
 <br>
 x=&lt;{z_x,z_v};
 <br>
 x_initial=&lt;{z_x0,z_v0};
 <br>
-f=&lt;{(z_x-z_x0)/dt=z_v,m*((z_v-z_v0)/dt)=m*z_a+Cd_sphere*(<span class="selection">z_u</span>-z_v)};
+f=&lt;{(z_x-z_x0)/dt=z_v,m*((z_v-z_v0)/dt)=m*z_a+CdA_sphere*(<span class="selection">z_u</span>-z_v)};
 <br>
 orderT=1;
 <br>
@@ -31817,13 +31817,13 @@ dt=0.5;
 <br>
 m=1;
 <br>
-Cd_sphere=1;
+CdA_sphere=1;
 <br>
 x=&lt;{z_x,z_v};
 <br>
 x_initial=&lt;{z_x0,z_v0};
 <br>
-f=&lt;{(z_x-z_x0)/dt=z_v,m*((z_v-z_v0)/dt)=m*z_a+Cd_sphere*(<span class="selection">z_u</span>-z_v)};
+f=&lt;{(z_x-z_x0)/dt=z_v,m*((z_v-z_v0)/dt)=m*z_a+CdA_sphere*(<span class="selection">z_u</span>-z_v)};
 <br>
 orderT=1;
 <br>
@@ -31878,13 +31878,13 @@ dt=0.5;
 <br>
 m=1;
 <br>
-Cd_sphere=1;
+CdA_sphere=1;
 <br>
 x=&lt;{z_x,z_v};
 <br>
 x_initial=&lt;{z_x0,z_v0};
 <br>
-f=&lt;{z_v,z_a+(Cd_sphere/m)*(<span class="selection">z_u</span>-z_v)};
+f=&lt;{z_v,z_a+(CdA_sphere/m)*(<span class="selection">z_u</span>-z_v)};
 <br>
 step=&lt;{x_next=_otdummy(=&lt;f,=&lt;x,=&lt;x_initial,0,dt)};
 <br>
@@ -32039,13 +32039,13 @@ dt=0.5;
 <br>
 m=1;
 <br>
-Cd_sphere=1;
+CdA_sphere=1;
 <br>
 x=&lt;{z_x,z_v};
 <br>
 x_initial=&lt;{z_x0,z_v0};
 <br>
-f=&lt;{z_v,z_a+(Cd_sphere/m)*(<span class="selection">z_u</span>-z_v)};
+f=&lt;{z_v,z_a+(CdA_sphere/m)*(<span class="selection">z_u</span>-z_v)};
 <br>
 stepN=&lt;last{N=round(t/dt),x_next=_otdummy(=&lt;f,=&lt;x,=&lt;x_initial,0,dt,N)};
 <br>
@@ -32108,13 +32108,13 @@ dt=0.5;
 <br>
 m=1;
 <br>
-<span class="clear">Cd_sphere=0;</span>
+<span class="clear">CdA_sphere=0;</span>
 <br>
 x=&lt;{z_x,z_v};
 <br>
 x_initial=&lt;{z_x0,z_v0};
 <br>
-/*f=&lt;{z_v,z_a+(<span class="clear">Cd_sphere</span>/m)*(<span class="selection">z_u</span>-z_v)};*/
+/*f=&lt;{z_v,z_a+(<span class="clear">CdA_sphere</span>/m)*(<span class="selection">z_u</span>-z_v)};*/
 <br>
 f=&lt;{z_v,z_a};
 <br>
@@ -41757,7 +41757,7 @@ _evolution
 <br>
 clear;
 <br>
-plot2d_evolution(t0,t1,dt,z_x0,z_v0<span class="selection">,z_u</span>,m,Cd_sphere)=&lt;[
+plot2d_evolution(t0,t1,dt,z_x0,z_v0<span class="selection">,z_u</span>,m,CdA_sphere)=&lt;[
 <br>
 out=&lt;(xt,yt),
 <br>
@@ -41771,7 +41771,7 @@ g=-9.8,z_a=0+g*i,
 <br>
 x_initial=&lt;{z_x0,z_v0},
 <br>
-f<span class="jF">(t,z_x,z_v)</span>=&lt;{z_v,z_a+(Cd_sphere/m)*(<span class="selection">z_u</span>-z_v)},
+f<span class="jF">(t,z_x,z_v)</span>=&lt;{z_v,z_a+(CdA_sphere/m)*(<span class="selection">z_u</span>-z_v)},
 <br>
 N=round((t1-t0)/dt),M=0,
 <br>
@@ -42646,7 +42646,7 @@ Euler_method
 <span id="span-eqn-implicit-Euler_method"></span>
 <a href="#span-out-evolution">時間発展の解法</a>参照
 <br>
-Euler_method(t,dt,z_x00,z_v00<span class="selection">,z_u</span>,m,Cd_sphere,isImplicit)=&lt;[
+Euler_method(t,dt,z_x00,z_v00<span class="selection">,z_u</span>,m,CdA_sphere,isImplicit)=&lt;[
 <br>
 out=&lt;{t_total,<span class="jF">x_solved</span>},
 <br>
@@ -42664,11 +42664,11 @@ switch(
 <br>
 isImplicit,
 <br>
-=&lt;f<span class="jF">(z_x,z_v)</span>=&lt;{(z_x-z_x0)/dt=z_v,m*((z_v-z_v0)/dt)=m*z_a+Cd_sphere*(<span class="selection">z_u</span>-z_v)}:
+=&lt;f<span class="jF">(z_x,z_v)</span>=&lt;{(z_x-z_x0)/dt=z_v,m*((z_v-z_v0)/dt)=m*z_a+CdA_sphere*(<span class="selection">z_u</span>-z_v)}:
 <br>
 1/*else-explicit*/,
 <br>
-=&lt;f<span class="jF">(z_x,z_v)</span>=&lt;{(z_x-z_x0)/dt=z_v0,m*((z_v-z_v0)/dt)=m*z_a+Cd_sphere*(<span class="selection">z_u</span>-z_v0)}
+=&lt;f<span class="jF">(z_x,z_v)</span>=&lt;{(z_x-z_x0)/dt=z_v0,m*((z_v-z_v0)/dt)=m*z_a+CdA_sphere*(<span class="selection">z_u</span>-z_v0)}
 <br>
 ),
 <br>
@@ -42747,7 +42747,7 @@ ODE_RK4
 <span id="span-eqn-explicit-ODE_RK4"></span>
 <a href="#span-out-evolution">時間発展の解法</a>参照
 <br>
-ODE_RK4(t,dt,z_x00,z_v00<span class="selection">,z_u</span>,m,Cd_sphere)=&lt;[
+ODE_RK4(t,dt,z_x00,z_v00<span class="selection">,z_u</span>,m,CdA_sphere)=&lt;[
 <br>
 out=&lt;{<span class="jF">t_total,x_next</span>},
 <br>
@@ -42761,7 +42761,7 @@ g=-9.8,z_a=0+g*i,
 <br>
 x_initial=&lt;{z_x0,z_v0},
 <br>
-f<span class="jF">(t,z_x,z_v)</span>=&lt;{z_v,z_a+(Cd_sphere/m)*(<span class="selection">z_u</span>-z_v)}
+f<span class="jF">(t,z_x,z_v)</span>=&lt;{z_v,z_a+(CdA_sphere/m)*(<span class="selection">z_u</span>-z_v)}
 <br>
 },
 </div>
