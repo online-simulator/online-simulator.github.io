@@ -3303,7 +3303,7 @@ My_entry.operation.prototype.get_index_arr = function(i, len, isColumn){
     _i = (i+len)%len;
   }
   else{
-    throw "Invalid reference of array"+((isColumn)? "(column)": "");
+    throw "Invalid reference of array"+((isColumn)? "[]": "")+"["+i+"]";  // Ver.2.421.88
   }
   return _i;
 };
@@ -3330,7 +3330,7 @@ My_entry.operation.prototype.restore_arr = function(arr, ref){
   /* Ver.2.78.31 -> */
   else if(len_ref < 3){
     ref.forEach(function(i_ref0, i){
-      var i_ref = self.get_index_arr(i_ref0, arri.length);  // Ver.2.297.72
+      var i_ref = self.get_index_arr(i_ref0, arri.length, (i === 1));  // Ver.2.297.72  // Ver.2.421.88
       _arri[0] = (i === len_ref-1)? arri[i_ref]: [];
       _arri = _arri[0];
       arri = arri[i_ref];
@@ -3534,32 +3534,28 @@ My_entry.operation.prototype.store_arr_col = function(_arr, ref, arr){
   var math_mat = self.entry.math_mat;
   var _tarr = math_mat.transpose(null, _arr);
   var tarr = math_mat.transpose(null, arr);
-  var tarr_stored = self.arr2args(tarr);
+  /* Ver.2.421.88 -> */
+  var tarr_stored = null;
+  if(tarr.length === 1){
+    tarr_stored = self.arr2args(tarr);
+  }
+  else{
+    throw "Invalid store array[]["+ref[1]+"]";
+  }
+  /* -> Ver.2.421.88 */
   /* Ver.2.78.31 -> */
-  var _j = ref[1];
-  var _dj = _tarr.length;
-  var j_ref = (_j+_dj)%_dj;
-  var _tarrj = _tarr[j_ref];
-  var di = (_tarrj)? _tarrj.length: 0;
-  var hasArea0 = (_j%1 === 0);
-  var isInArea = (_j >= -_dj && _j < _dj);
-  if(hasArea0 && isInArea){
-    var hasArea1 = (tarr_stored.length === di);
-    if(hasArea1){
-      _tarr[j_ref] = tarr_stored;
-      var _ttarr = math_mat.transpose(null, _tarr);
-      for(var i=0, len_i=_ttarr.length; i<len_i; ++i){
-        for(var j=0, len_j=_ttarr[i].length; j<len_j; ++j){
-          _arr[i][j] = _ttarr[i][j];
-        }
+  var j_ref = self.get_index_arr(ref[1], ((_tarr)? _tarr.length: 0), true);  // Ver.2.421.88
+  if(_tarr[j_ref].length === tarr_stored.length){  // Ver.2.421.88
+    _tarr[j_ref] = tarr_stored;
+    var _ttarr = math_mat.transpose(null, _tarr);
+    for(var i=0, len_i=_ttarr.length; i<len_i; ++i){
+      for(var j=0, len_j=_ttarr[i].length; j<len_j; ++j){
+        _arr[i][j] = _ttarr[i][j];
       }
-    }
-    else{
-      throw "Invalid store array(column)";
     }
   }
   else{
-    throw "Invalid reference of array(column)";
+    throw "Invalid store size of array[]["+ref[1]+"]";  // Ver.2.421.88
   }
   /* -> Ver.2.78.31 */
   return _arr;
@@ -3568,43 +3564,30 @@ My_entry.operation.prototype.store_arr_col = function(_arr, ref, arr){
 My_entry.operation.prototype.store_arr = function(_arr, ref, arr){
   var self = this;
   var _arri = _arr;
-  var arri = arr;
   var len_ref = ref.length;
   var arr_stored = null;
-  if(len_ref === 1){
+  if(len_ref === 1 && arr.length === 1){  // Ver.2.421.88
     arr_stored = self.arr2args(arr);
   }
-  else if(len_ref === 2){
+  else if(len_ref === 2 && self.has1elem_tag(arr, "com")){  // Ver.2.421.88
     arr_stored = self.arr2num(arr);
   }
   else{
-    throw "Invalid store array";
+    throw "Invalid store array["+ref.join("][")+"]";  // Ver.2.421.88
   }
   /* Ver.2.78.31 -> */
-  ref.forEach(function(i_ref0, i){
-    var _i = i_ref0;
-    var _di = (_arri)? _arri.length: 0;
-    var i_ref = (_i+_di)%_di;
-    var _arrii = _arri[i_ref];
-    var hasArea0 = (_i%1 === 0);
-    var isInArea = (_i >= -_di && _i < _di);
-    if(hasArea0 && isInArea){
-      if(i === len_ref-1){
-        var _dj = _arrii.length;
-        var hasArea1 = (arr_stored.length === _dj);
-        if(hasArea1){
-          _arri[i_ref] = arr_stored;
-        }
-        else{
-          throw "Invalid store array";
-        }
+  for(var i=0; i<len_ref; ++i){
+    var i_ref = self.get_index_arr(ref[i], ((_arri)? _arri.length: 0), (i === 1));  // Ver.2.421.88
+    if(i === len_ref-1){
+      if(_arri[i_ref].length === arr_stored.length){  // including undefined  // Ver.2.421.88
+        _arri[i_ref] = arr_stored;
       }
-      _arri = _arri[i_ref];
+      else{
+        throw "Invalid store size of array["+ref.join("][")+"]";  // Ver.2.421.88
+      }
     }
-    else{
-      throw "Invalid reference of array";
-    }
-  });
+    _arri = _arri[i_ref];
+  }
   /* -> Ver.2.78.31 */
   return _arr;
 };

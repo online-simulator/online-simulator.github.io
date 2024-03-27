@@ -289,6 +289,38 @@ Y/M/D
 <tbody>
   <tr>
     <th>
+6.383.253.19.100
+    </th>
+    <td class="types">
+Calculator
+    </td>
+    <td>
+2.421.88
+    </td>
+    <td>
+minor update
+    </td>
+    <td>
+[Calculator]
+<br>
+・operation.js substitution updated strictly with error-index
+<br>
+A=(1,2:3,4); A[0]=A; A -> <del>(3,4:3,4)</del>[MyErr]Invalid store array<span class="run">[0]</span>
+<br>
+A=(1,2:3,4); A[0]=1 -> [MyErr]Invalid store size of array<span class="run">[0]</span>
+<br>
+A=(1,2:3,4); A[][0]=A; A -> <del>(2,4:2,4)</del>[MyErr]Invalid store array<span class="run">[][0]</span>
+<br>
+A=(1,2:3,4); A[][0]=1 -> [MyErr]Invalid store size of array<span class="run">[][0]</span>
+<br>
+A=(1,2:3,4); A[0][0]=A; A -> <del>(4,2:3,4)</del>[MyErr]Invalid store array<span class="run">[0][0]</span>
+    </td>
+    <td>
+2024/3/27
+    </td>
+  </tr>
+  <tr>
+    <th>
 6.382.253.19.100
     </th>
     <td class="types">

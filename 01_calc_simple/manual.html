@@ -2069,6 +2069,16 @@ clear; f=&lt;-1; f=1; [f=2,=&lt;f]=&gt;,[f=&lt;-2,=&lt;f]=&gt; -> (2,<del>1</del
 ・<span class="run">Ver.2.381.86</span>以降、繰り返し回数=1~のdummy変数を一時的に保持する<a href="#span-out-ans">予約変数</a>__n__を追加
 <br>
 　影響項目：<a href="#span-out-FNh-RX">再帰高階関数</a>
+<br>
+・<span class="run">Ver.2.421.88</span>以降、<a href="#span-out-substitution-mat">行列への代入</a>の<a href="#span-out-FNm-size">行列size</a>比較を厳密化
+<br>
+　<a href="#span-out-substitution-mat-row">行代入</a>：右辺の最終行を代入　⇒　1行の場合、代入可
+<br>
+　<a href="#span-out-substitution-mat-col">列代入</a>：右辺の最終列を代入　⇒　1列の場合、代入可
+<br>
+　<a href="#span-out-substitution-mat-elem">要素代入</a>：右辺の<a href="#span-out-FNm-last">最終要素</a>を代入　⇒　1要素の場合、代入可
+<br>
+　影響項目：<a href="#span-out-substitution-mat-row">行代入</a>||<a href="#span-out-substitution-mat-col">列代入</a>||<a href="#span-out-substitution-mat-elem">要素代入</a>
     </td>
   </tr>
   <tr>
@@ -9420,6 +9430,22 @@ error-logについて記述する
 1x -> <del>[MyErr]Invalid ans isFound</del>[MyErr]Invalid ans(number,x)
 <br>
 x(1,1) -> <del>[MyErr]Invalid ans isFound</del>[MyErr]Invalid ans(x,(,))
+<br>
+・<span class="run">Ver.2.421.88</span>以降、<a href="#span-out-substitution-mat-row">行代入</a>のerror-indexを追加表示
+<br>
+A=(1,2:3,4); A[0]=A -> [MyErr]Invalid store array<span class="run">[0]</span>
+<br>
+A=(1,2:3,4); A[0]=1 -> [MyErr]Invalid store size of array<span class="run">[0]</span>
+<br>
+・<span class="run">Ver.2.421.88</span>以降、<a href="#span-out-substitution-mat-col">列代入</a>のerror-indexを追加表示
+<br>
+A=(1,2:3,4); A[][0]=A -> [MyErr]Invalid store array<span class="run">[][0]</span>
+<br>
+A=(1,2:3,4); A[][0]=1 -> [MyErr]Invalid store size of array<span class="run">[][0]</span>
+<br>
+・<span class="run">Ver.2.421.88</span>以降、<a href="#span-out-substitution-mat-elem">要素代入</a>のerror-indexを追加表示
+<br>
+A=(1,2:3,4); A[0][0]=A -> [MyErr]Invalid store array<span class="run">[0][0]</span>
     </td>
   </tr>
   <tr>
@@ -20653,6 +20679,12 @@ A=A0; A[0.3][0][0] -> [MyErr]Invalid reference of array(band)
 <br>
 <span class="run">Ver.2.78.31</span>以降、行列の<a href="#span-out-reference-mat-row">行参照</a>と行代入の<span class="selection">反転機能</span>を追加
 <br>
+・<span class="run">Ver.2.421.88</span>以降、<a href="#span-out-substitution-mat">行列への代入</a>の<a href="#span-out-FNm-size">行列size</a>比較を厳密化
+<br>
+A=(1,2:3,4); A[0]=A; A -> <del>(3,4:3,4)</del>[MyErr]Invalid store array<span class="run">[0]</span>
+<br>
+A=(1,2:3,4); A[0]=1 -> [MyErr]Invalid store size of array<span class="run">[0]</span>
+<br>
 <br>
 行代入
 <br>
@@ -20771,6 +20803,12 @@ A=(1,2:3,4); A[0]=(A:A(2,:,2)); A -> (6,8:3,4)
 <br>
 ・<span class="run">Ver.2.170.41</span>以降、列代入の[e]を<a href="#span-out-mat-empty">空行列</a>で代替可
 <br>
+・<span class="run">Ver.2.421.88</span>以降、<a href="#span-out-substitution-mat">行列への代入</a>の<a href="#span-out-FNm-size">行列size</a>比較を厳密化
+<br>
+A=(1,2:3,4); A[][0]=A; A -> <del>(2,4:2,4)</del>[MyErr]Invalid store array<span class="run">[][0]</span>
+<br>
+A=(1,2:3,4); A[][0]=1 -> [MyErr]Invalid store size of array<span class="run">[][0]</span>
+<br>
 <br>
 列代入
 <br>
@@ -20876,13 +20914,15 @@ A=(,:); A[1][1]=1; A -> [MyErr]Invalid reference of array
 <br>
 ・行列を代入した場合、<a href="#span-out-FNm-last">最終要素</a>を代入
 <br>
-A=(1,2:3,4); A[0][0]=A; A -> (4,2:3,4)
+・<span class="run">Ver.2.421.88</span>以降、<a href="#span-out-substitution-mat">行列への代入</a>の<a href="#span-out-FNm-size">行列size</a>比較を厳密化
 <br>
-A=(1,2:3,4); A[0][0]=last(A); A -> (4,2:3,4)
+A=(1,2:3,4); A[0][0]=A; A -> <del>(4,2:3,4)</del>[MyErr]Invalid store array<span class="run">[0][0]</span>
+<br>
+<del>A=(1,2:3,4); A[0][0]=last(A); A -> (4,2:3,4)
 <br>
 A=(1,2:3,4); A[0][0]=first(A); A -> (1,2:3,4)
 <br>
-A=(1,2:3,4); A[1][1]=(x=2,-2x); A -> (1,2:3,-4)
+A=(1,2:3,4); A[1][1]=(x=2,-2x); A -> (1,2:3,-4)</del>
 <br>
 ・<span class="run">Ver.2.79.31</span>以降、<span class="selection">反転代入</span>可
 <br>
