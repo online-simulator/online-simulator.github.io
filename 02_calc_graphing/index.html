@@ -432,7 +432,8 @@
       $._id("pow2").onclick = function(){setVal("-2(1+i)", "2(1+i)", "x=t,x;", "x;x^2;x^3;x^4;x^5;", 30);};
       $._id("ln").onclick = function(){setVal("1", "10", "x=t,x;", "ln(x)/x;log2(x);log(x);log_ex(x,3);log_ex(x,4);log10(x);", 20);};
       $._id("pow3").onclick = function(){setVal("1", "11", "m=floor(t),m;", "log2(3);Nrshift(m)=<(2**m-1)/2**(m-1),Nrshift(m);hist=(1,1,2,4,8,16,32,64,128,256,512),Nzeros(m)=<linspace(1,m,m)*trans(reverse(hist[0][0][1][m])),Mcases(m)=<2**(m-1),Nrshift(m)=<(m>11&&&{NaN,}|||{Nzeros(m)/Mcases(m),})[0],Nrshift(m);", 10);};
-      $._id("sin").onclick = function(){setVal("0", "2pi", "x=t,x;", "sin(x);cos(x);sin(2x);cos(2x);", 100);};
+      $._id("sin1").onclick = function(){setVal("0", "2pi", "x=t,x;", "sin(x);cos(x);sin(2x);cos(2x);", 100);};
+      $._id("sin2").onclick = function(){setVal("0", "1", "t;", "dphi=2pi/16,f=1,omega=2pi*f,composite(phi)=<sin(omega*t)+sin(omega*t-phi),composite(dphi*0);composite(dphi*1);composite(dphi*2);composite(dphi*3);composite(dphi*4);composite(dphi*5);composite(dphi*6);composite(dphi*7);composite(dphi*8);composite(dphi*9);composite(dphi*10);composite(dphi*11);composite(dphi*12);composite(dphi*13);composite(dphi*14);composite(dphi*15);composite(dphi*16);", 100);$._id("input-z").value+="::0;";};
       $._id("circle").onclick = function(){setVal("0", "2pi", "cos(t);ft=<e^(i(t)),real(ft())1.5;2ft();ft2=<ecomp(t),real(ft2())2.5;rot=<(cos(t),-sin(t):sin(t),cos(t)),vec0=(3:0),(rot()*vec0)[0];", "sin(t);imag(ft())1.5;2_d((t)=<-ft());imag(ft2())2.5;(rot()*vec0)[1];", 50);};
       $._id("cone").onclick = function(){setVal("0", "2pi", "p=1,r(t,p,er)=<p/(1+er*cos(t)),z(t,p,er)=<r(t,p,er)e^(i(t)),z1=z(t,p,0),z2=z(t,p,0.8),z3=z(t,p,1.1),real(z1);real(z2);real(z3);", "imag(z1);imag(z2);imag(z3);", 20);$._id("input-z").value+="TITLE{Polar equation of conic curve}::3:1.5:1.5::circle(er=0);::::::ellipse(er=0.8<1);::::::hyperbola(er=1.1>1);";};
       $._id("spiral").onclick = function(){setVal("0", "Nr=1.5,2pi*Nr", "real(e^(i(t)))t;rot=<(cos(t),-sin(t):sin(t),cos(t)),vec0=(-t:0),vec1=rot()*vec0,vec1[0];", "imag(e^(i(t)))t;vec1[1];", 100);};
@@ -741,11 +742,6 @@
       $._id("rule110").onclick = function(){setVal("1", "3", "Nstep=t*2**5-1,useRand=0,bin8_rule={0,1,1,0,1,1,1,0},arr=[0,1,0],len_bin=sizer(bin8_rule),No_step=0,arr_x=[],arr_y=[],push_xy(arr)=<_s((n)=<arr[][n]&&&last{arr_x.push(n-floor(N/2)),arr_y.push(-No_step)},N=sizec(arr),N-1),update(arr)=<[arr0=useRand&&&[rand()<0.5,arr,rand()<0.5]|||[0,arr,0],arr1=arr0,_s((n)=<arr1[][n]=bin8_rule[len_bin-1-(arr0[][n-1]*4+arr0[][n]*2+arr0[][n+1]*1)],1,sizec(arr0)-2),=<arr1]=>,step=<last{No_step=No_step+1,arr=update(=<arr),push_xy(=<arr)},push_xy(=<arr),_r(=<step,,Nstep);", "tarr_x=arr_x.,tarr_y=arr_y.;", 2);$._id("input-z").value="ORIGIN{2,blue,17}TITLE{cellular automaton rule110}XLABEL{x(t)}YLABEL{y(t)}::1::0::1;::::::2;::::::3;";$._id("input-vx").value="tarr_x";$._id("input-vy").value="tarr_y";};
       $._id("rule184r").onclick = function(){setVal("1", "3", "Nstep=t*2**5-1,useRand=1,bin8_rule={1,0,1,1,1,0,0,0},arr=[0,1,0],len_bin=sizer(bin8_rule),No_step=0,arr_x=[],arr_y=[],push_xy(arr)=<_s((n)=<arr[][n]&&&last{arr_x.push(n-floor(N/2)),arr_y.push(-No_step)},N=sizec(arr),N-1),update(arr)=<[arr0=useRand&&&[rand()<0.5,arr,rand()<0.5]|||[0,arr,0],arr1=arr0,_s((n)=<arr1[][n]=bin8_rule[len_bin-1-(arr0[][n-1]*4+arr0[][n]*2+arr0[][n+1]*1)],1,sizec(arr0)-2),=<arr1]=>,step=<last{No_step=No_step+1,arr=update(=<arr),push_xy(=<arr)},push_xy(=<arr),_r(=<step,,Nstep);", "tarr_x=arr_x.,tarr_y=arr_y.;", 2);$._id("input-z").value="ORIGIN{2,blue,17}TITLE{cellular automaton rule184 with random number}XLABEL{x(t)}YLABEL{y(t)}::1::0::1;::::::2;::::::3;";$._id("input-vx").value="tarr_x";$._id("input-vy").value="tarr_y";};
       $._id("Compton").onclick = function(){setVal("0", "2pi", "c=299792458,h=6.62607015e-34,me=9.1093837015e-31,dlambda=h*(1-cos(t))/(me*c),z=dlambda*e^(i(t)),real(z);", "imag(z);", 100);$._id("input-z").value+="TITLE{Compton scattering}::0::::wavelength change[m] against t;";};
-
-      $._id("Compton").onclick = function(){setVal("0", "1", "t;", "dphi=2pi/8,f=1,omega=2pi*f,composite(phi)=<sin(omega*t)+sin(omega*t-phi),composite(dphi*0);composite(dphi*1);composite(dphi*2);composite(dphi*3);composite(dphi*4);composite(dphi*5);composite(dphi*6);composite(dphi*7);composite(dphi*8);", 100);$._id("input-z").value+="TITLE{Compton scattering}::0::::wavelength change[m] against t;";};
-
-
-
       $._id("EM").onclick = function(){setVal("0", "5", "M=t,EM(M)=<pow(10,1.5*M+4.8),M;", "EM(M);", 10);$._id("input-z").value+="TITLE{energy against magnitude}XLABEL{M}YLABEL{E[J]};";};
       $._id("ME").onclick = function(){setVal("5e0", "5e3", "r=t,ME(r,rho,vel)=<last{vol=(4pi/3)r**3,Et=0.5*rho*vol*vel**2,(log10(Et)-4.8)/1.5},r;", "rho=2e3,ME(r,rho,10e3);ME(r,rho,20e3);ME(r,rho,40e3);ME(r,rho,80e3);rho=3e3,ME(r,rho,80e3);12;", 10, true);$._id("input-z").value+="TITLE{impact energy -> magnitude}XLABEL{radius[m]}YLABEL{M}::::::10[km/s],2[g/cm^3];::::::20[km/s];::::::40[km/s];::::::80[km/s];::::::80[km/s],3[g/cm^3];::0::::M=12;";};
       $._id("stress").onclick = function(){setVal("0", "H=146.6,H", "h=t,$g=-9.8,rho=2500,L=230.3,H=t1,S(h)=<(L*h/H)^2,V(h)=<_i((h)=<S(h),0,h)/*V(h)=<L^2*H/3*/,m(h)=<rho*V(h),F(h)=<m(h)g,s(h)=<F(h)/(S(h)||1),h;", "s(h)/1e6;", 10);$._id("input-z").value+="XLABEL{depth[m]}YLABEL{vertical stress[MPa]};";};
@@ -885,7 +881,8 @@
   <button id="pow2">pow2</button>
   <button id="ln">ln</button>
   <button id="pow3">Nrshift</button>
-  <button id="sin">sin</button>
+  <button id="sin1">sin</button>
+  <button id="sin2">-2</button>
   <button id="circle">circle</button>
   <button id="cone">cone</button>
   <button id="spiral">spiral</button>
