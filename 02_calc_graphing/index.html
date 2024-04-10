@@ -495,7 +495,8 @@
       $._id("rt2").onclick = function(){setVal("0", "10", "Nexpo=t,Nexpo;", "2;f0=sqrt(2),f0**f0**f0**f0**f0**f0**f0**f0**f0**f0**f0;f(n)=<f0**(n<1|||f(n-1)),f(Nexpo);", 10);};
       $._id("Napier").onclick = function(){setVal("0", "20", "x=t,x;", "e;(1+1/(x||1))**x;_s((n)=<1/(n)!,0,x);pi;_s((n)=<(-1)**n/(2n+1),0,x)*4;_i((t)=<e^(-t**2),-x,x,max(100,real(x)*10))**2;", 100);$._id("input-z").value+="::0::::e;::::::limit;::::::series;::::::pi;::::::Leibniz formula;::::::Gaussian integral;";};
       $._id("Maclaurin1").onclick = function(){setVal("-pi", "pi", "x=t,x;", "fx=<sin(x),fx();MaclaurinN=<_s((n)=<_dx(=<fx,n,0)x^n/n!,0,N),N=1,MaclaurinN();N=3,MaclaurinN();N=5,MaclaurinN();N=7,MaclaurinN();N=9,MaclaurinN();", 10);};
-      $._id("Maclaurin2").onclick = function(){setVal("-(1+i)pi/4", "(1+i)pi/4", "x=t,x;", "fx=<sqrt(2-exp(sin(x)^2*x)/cos(x)),fx();MaclaurinN=<_s((n)=<_d((x)=<fx(),n,0)x^n/n!,0,N),N=1,MaclaurinN();N=3,MaclaurinN();N=5,MaclaurinN();N=7,MaclaurinN();N=9,MaclaurinN();", 10);$._id("input-z").value+="TITLE{***** low accuracy *****};";};
+      $._id("Maclaurin2").onclick = function(){setVal("-pi", "pi", "x=t,x;", "fx=<cos(x)+i*sin(x),fx();MaclaurinN=<_s((n)=<_d((x)=<fx(),n,0)x^n/n!,0,N),N=1,MaclaurinN();N=3,MaclaurinN();N=5,MaclaurinN();N=7,MaclaurinN();N=9,MaclaurinN();", 10);};
+      $._id("Maclaurin3").onclick = function(){setVal("-(1+i)pi/4", "(1+i)pi/4", "x=t,x;", "fx=<sqrt(2-exp(sin(x)^2*x)/cos(x)),fx();MaclaurinN=<_s((n)=<_d((x)=<fx(),n,0)x^n/n!,0,N),N=1,MaclaurinN();N=3,MaclaurinN();N=5,MaclaurinN();N=7,MaclaurinN();N=9,MaclaurinN();", 10);$._id("input-z").value+="TITLE{***** low accuracy *****};";};
       $._id("Taylor").onclick = function(){setVal("0", "2(1+i)pi/4", "x=t,x;", "fx=<exp(x)/cos(x),fx();TaylorN=<_s((n)=<_d((x)=<fx(),n,a)(x-a)^n/n!,0,N),a=(t0+t1)/2,N=1,TaylorN();N=3,TaylorN();N=5,TaylorN();N=7,TaylorN();N=9,TaylorN();", 10);$._id("input-z").value+="TITLE{***** low accuracy *****};";};
       $._id("Fourier").onclick = function(){setVal("-pi", "pi", "x=t,x;", "NI=300,ft=<atan(tan(t)),ft();cn=<_i((t)=<ft()*e^(-i(n)t),-pi,pi,NI)/(2pi),FourierN=<_s((n)=<cn()*e^(i(n)x),-N,N),N=1,FourierN();N=3,FourierN();N=5,FourierN();N=7,FourierN();", 10);$._id("input-z").value+="TITLE{triangle: ft=<asin(sin(t)) || square: ft=<sign(sin(t))};";};
       $._id("DFT").onclick = function(){setVal("0", "10", "n=t,n;", "n0=2,n1=4,N=max(n0,n1)*4,fn=<Kdelta(n,n0)+Kdelta(n,n1),fn();ft=<e^((i(n0)t)2pi/N)+e^((i(n1)t)2pi/N),DFT=<_s((t)=<ft()*e^((-i(n)t)2pi/N),0,N-1)/N,DFT();", 30);};
@@ -976,6 +977,7 @@
   <button id="Napier">Napier</button>
   <button id="Maclaurin1">Maclaurin</button>
   <button id="Maclaurin2">-2</button>
+  <button id="Maclaurin3">-3</button>
   <button id="Taylor">Taylor</button>
   <button id="Fourier">Fourier</button>
   <button id="DFT">DFT</button>
