@@ -22,6 +22,16 @@
       <tbody>
         <tr class="border">
           <td class="border run">
+Ver.0.50.7
+          </td>
+          <td class="border">
+・solve結果表示を変更
+<br>
+　n -> 1　⇒　1-circular（1を循環の帰着に含む）
+          </td>
+        </tr>
+        <tr class="border">
+          <td class="border run">
 Ver.0.46.7
           </td>
           <td class="border">
@@ -658,6 +668,8 @@ magic-square
 Collatz予想
 <br>
 <span class="wF">Ver.0.46.7追記</span>
+<br>
+<span class="jF">Ver.0.50.7追記</span>
           </td>
           <td class="border">
 ・nを任意の自然数の奇数として3n+1の下位3桁のbit列を2進数literalで昇順に列挙する
@@ -754,7 +766,13 @@ Collatz予想
 <br>
 ・全桁の場合、1回が連続する全bit=1（0b1111...1111）とそれ以外の場合分け
 <br>
-・一方、3n-1の場合、右shift優勢でn -> 1||以下の循環に帰着
+<span class="jF">・3n+1の場合、右shift優勢で次の循環に帰着
+<br>
+1->4->2->1</span>
+<br>
+・一方、3n-1の場合、右shift優勢で以下の循環に帰着
+<br>
+<span class="jF">1->2->1</span>
 <br>
 5->14->7->20->10->5
 <br>

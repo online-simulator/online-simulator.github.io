@@ -233,50 +233,38 @@ My_entry.test_number.prototype.solve = function(isMinus){
     msg += "<br>quality="+mmax/m0;  // Ver.0.35.4
     $._id("output-log").innerHTML = "<caption class="+((isMinus)? "selection": "run")+">"+msg+"</caption>";
   };
-  var isBreak = (isMinus)?
-    function(num, i){
-      var _msg = "";
-      if(num === 17n || num === 5n){
-        /* Ver.0.33.4 -> */
-        if(isCircular){
-          _msg = "n -> "+num+"-circular";
-          i = isCircular-1;
-        }
-        else{
-          isCircular = i+1;
-        }
-        /* -> Ver.0.33.4 */
-      }
-      else if(num === 1n){
-        _msg = "n -> 1";
-      }
-      else if(num <= 0n){
-        _msg = "n <= 0";
-      }
-      if(_msg){
-        /* Ver.0.34.4 -> */
-        _msg += " @No.="+i;
-        output_log(_msg);
-        /* -> Ver.0.34.4 */
-      }
-      return _msg;
+  /* Ver.0.50.7 */
+  var isCircular_num = (isMinus)?
+    function(num){
+      return (num === 17n || num === 5n || num === 1n);
     }:
-    function(num, i){
-      var _msg = "";
-      if(num === 1n){
-        _msg = "n -> 1";
-      }
-      else if(num <= 0n){
-        _msg = "n <= 0";
-      }
-      if(_msg){
-        /* Ver.0.34.4 -> */
-        _msg += " @No.="+i;
-        output_log(_msg);
-        /* -> Ver.0.34.4 */
-      }
-      return _msg;
+    function(num){
+      return (num === 1n);
     };
+  var isBreak = function(num, i){
+    var _msg = "";
+    if(isCircular_num(num)){  // Ver.0.50.7
+      /* Ver.0.33.4 -> */
+      if(isCircular){
+        _msg = "n -> "+num+"-circular";
+        i = isCircular-1;
+      }
+      else{
+        isCircular = i+1;
+      }
+      /* -> Ver.0.33.4 */
+    }
+    else if(num <= 0n){
+      _msg = "n <= 0";
+    }
+    if(_msg){
+      /* Ver.0.34.4 -> */
+      _msg += " @No.="+i;
+      output_log(_msg);
+      /* -> Ver.0.34.4 */
+    }
+    return _msg;
+  };
   var run = function(num, N){
     var _html = "";
     _html += self.output_line("wF", "No.<br>&lt;1e6", "dec", "hex", "oct", "bin", "frequency distribution<br>ls3bit=001,011,101,111", "Nrshift(3)", "-1+(No.+1)/sum(frequency)");  // Ver.0.33.4
