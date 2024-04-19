@@ -399,6 +399,8 @@
       script += "\nclear;\n";
       script += "Jacobi((x0,x1)=<{x0**2+x1,x0+x1**2},,=<{1,2},false);\nNewton((x)=<x**2+x-12=0,,,false,20);\nNewton((x0,x1)=<{x0**2+x1-12=1e-5**2+1e5-12,x0+x1=1e-5+1e5},,,false,20);";
       script += "\nclear;\n";
+      script += "_t((t,x,v)=<{,},,=<{1,1,1},N=0,N);\n_t((t,x,v)=<{,},,/*omitted*/,N=0,N);\n_t((t,x,v)=<(,),,/*omitted*/,N=0,N);\n_t(=<{,},=<(t,x,v),/*omitted*/,N=0,N);\n_t(=<{,},=<{t,x,v},/*omitted*/,N=0,N);\nNewton((x0,x1)=<{,},,=<{1,1},N=0,N);\nNewton((x0,x1)=<{,},,/*omitted*/,N=0,N);\nNewton((x0,x1)=<(,),,/*omitted*/,N=0,N);\nNewton(=<{,},=<(x0,x1),/*omitted*/,N=0,N);\nNewton(=<{,},=<{x0,x1},/*omitted*/,N=0,N);";
+      script += "\nclear;\n";
       $._id("input").value = script;
     });
   })();

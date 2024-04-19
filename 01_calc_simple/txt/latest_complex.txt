@@ -1,6 +1,65 @@
 clear
 local storage cleared
 
+Newton(=<{,},=<{x0,x1},/*omitted*/,N=0,N)
+(
+0:
+0
+)
+
+Newton(=<{,},=<(x0,x1),/*omitted*/,N=0,N)
+(
+0,0
+)
+
+Newton((x0,x1)=<(,),,/*omitted*/,N=0,N)
+(
+0,0
+)
+
+Newton((x0,x1)=<{,},,/*omitted*/,N=0,N)
+(
+0,0
+)
+
+Newton((x0,x1)=<{,},,=<{1,1},N=0,N)
+(
+1:
+1
+)
+
+_t(=<{,},=<{t,x,v},/*omitted*/,N=0,N)
+(
+0:
+0:
+0
+)
+
+_t(=<{,},=<(t,x,v),/*omitted*/,N=0,N)
+(
+0,0,0
+)
+
+_t((t,x,v)=<(,),,/*omitted*/,N=0,N)
+(
+0,0,0
+)
+
+_t((t,x,v)=<{,},,/*omitted*/,N=0,N)
+(
+0,0,0
+)
+
+_t((t,x,v)=<{,},,=<{1,1,1},N=0,N)
+(
+1:
+1:
+1
+)
+
+clear
+local storage cleared
+
 Newton((x0,x1)=<{x0**2+x1-12=1e-5**2+1e5-12,x0+x1=1e-5+1e5},,,false,20)
 (
 0.000010000000266175229:
@@ -4439,4 +4498,4 @@ drag=false&sw=false&0x=false&useMatrix=true&useStrict=false&checkError=true&isRi
 --------------------------------
 --------------------------------
 
-online-simulator.github.io.6.383.253.19.100 @ Wed Mar 27 2024 16:45:58 GMT+0900 (日本標準時) @ Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/123.0.0.0 Safari/537.36
+online-simulator.github.io.6.384.263.19.101 @ Fri Apr 19 2024 23:59:50 GMT+0900 (日本標準時) @ Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/123.0.0.0 Safari/537.36
