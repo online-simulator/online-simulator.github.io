@@ -545,6 +545,25 @@ stored_eqn(ODE_RK4)
 Euler_method(t,dt,z_x00,z_v00,z_u,m,kCdA_sphere,isImplicit)=<[out=<{t_total,x_solved},scope2storage=<last{add__(z_x0),add__(z_v0),add__(t_total)},init=<last{switch(has__(t_total)==0,=<last{t_total=0,z_x0=z_x00,z_v0=z_v00}),g=-9.8,z_a=0+g*i,x_initial=<{z_x0,z_v0},switch(isImplicit,=<f(z_x,z_v)=<{(z_x-z_x0)/dt=z_v,m*((z_v-z_v0)/dt)=m*z_a+kCdA_sphere*(z_u-z_v)}:1,=<f(z_x,z_v)=<{(z_x-z_x0)/dt=z_v0,m*((z_v-z_v0)/dt)=m*z_a+kCdA_sphere*(z_u-z_v0)}),orderT=1,epsN=max(eps*1e3,pow(dt,orderT)),isRelative_epsN=1,relative_epsN=(epsN,isRelative_epsN)},run=<last{args_Newton=(=<f,,=<x_initial,Nmax=1e3,Nmax,relative_epsN),step_iteration=<x_solved=Newton(args_Newton),step_post=<{$z_x0,$z_v0}=x_solved,step=<last{step_iteration=>,step_post=>},evolution=<_rn(=<step,N=round(t/dt),N),evolution=>,t_total=t_total+N*dt},init=>,run=>,return=out=>,scope2storage=>,=<return]=>
 stored_eqn(Euler_method)
 
+arr_sorted=sort0(arr),($xt,$yt)=(=<arr_sorted[0],=<arr_sorted[1])
+(
+0,0
+)
+
+_r(=<step(=<f,generate_initial_value=>,?arr)=>,arr=[],1e2)
+NaN
+
+generate_initial_value=<6*rand()
+stored_eqn(generate_initial_value)
+
+step=(==<f_,x0,?arr)=<last[solvex=<Newton(=<f_,,=<{x0},Nmax=1e3,Nmax,eps),arr[0].push(x0),arr[1].push(solvex=>)],f=(x)=<(x-0)*(x-1)*(x-2)*(x-3)*(x-4)*(x-5)*(x-6)=0
+(
+0,0
+)
+
+clear
+local storage cleared
+
 [N=1e2,a=0,b=100,f(x0)=<1-global_n*pow(global_base,x0),=<{solvex_non_linear(=<f,=<{0})=>,solvex_bisection(=<f,a,b,N)=>,solvex_bisection(=<f,b,a,N)=>,solvex_bisection(=<f,a,a,N)=>,solvex_non_linear((x0)=<1-global_n*pow(global_base,x0),=<{0})=>,solvex_bisection((x0)=<1-global_n*pow(global_base,x0),a,b,N)=>,solvex_bisection((x0)=<1-global_n*pow(global_base,x0),b,a,N)=>,solvex_bisection((x0)=<1-global_n*pow(global_base,x0),a,a,N)=>}]=>
 (
 60.39370629335314+2.9411635530711223e-19i+O(2e-9+9e-15i):
@@ -1349,7 +1368,7 @@ clear
 local storage cleared
 
 [Pinv_y=(-0.999999427,-0.999936657,-0.997300203,-0.954499736,-0.682689492,0,0.682689492,0.954499736,0.997300203,0.999936657,0.999999427:-5,-4,-3,-2,-1,0,1,2,3,4,5),N=1,arr=[],_rn(=<arr.push(rand_table(=<Pinv_y)=>),,N),=<arr.]=>
-2.2252923231525137
+-0.8502521816854293
 
 rand_table(csv)=<last[table=sort0(csv),ymin=min(table)[0],ymax=max(table)[0],y=ymin+(ymax-ymin)*rand(),x=interp(y:table),x]
 stored_eqn(rand_table)
@@ -1359,7 +1378,7 @@ local storage cleared
 
 [(N)=<[tarr=linspace(0,N-1,N).,shuffle_FY(?tarr)=>,=<tarr.]=>](2)=>
 (
-0,1
+1,0
 )
 
 shuffle_FY(?tarr)=<last[len=sizer(tarr),switch_arr=(i1)=<last{i0=floor(rand()*(i1+1)),w=tarr[i1],tarr[i1]=tarr[i0],tarr[i0]=w},_s((i_)=<switch_arr(i_)=>,len-1,1)]
@@ -3163,4 +3182,4 @@ center=true&drag=false&test-case=false&plot-only=false&relzooming=true&snap=true
 --------------------------------
 --------------------------------
 
-online-simulator.github.io.6.383.257.19.101 @ Wed Apr 03 2024 17:39:56 GMT+0900 (日本標準時) @ Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/123.0.0.0 Safari/537.36
+online-simulator.github.io.6.384.266.19.101 @ Wed Apr 24 2024 12:22:04 GMT+0900 (日本標準時) @ Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0.0.0 Safari/537.36

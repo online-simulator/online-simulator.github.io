@@ -910,6 +910,8 @@ e^(-i(1pi(){2/2i}(5-{3-1}){i/(-4)}))
 <br>
 ・<a href="#span-eqn-solvex_bisection">solvex_bisection</a>
 <br>
+・<a href="#span-eqn-solvex_polynomial">solvex_polynomial</a>
+<br>
 ・<a href="#span-eqn-implicit-Euler_method">implicit Euler_method</a>
 <br>
 ・<a href="#span-eqn-explicit-Euler_method">explicit Euler_method</a>
@@ -42832,6 +42834,39 @@ solvex_bisection((x0)=&lt;1-global_n*pow(global_base,x0),a,b,N)=&gt;,
 solvex_bisection((x0)=&lt;1-global_n*pow(global_base,x0),b,a,N)=&gt;,
 <br>
 solvex_bisection((x0)=&lt;1-global_n*pow(global_base,x0),a,a,N)=&gt;}]=&gt;;
+    </td>
+  </tr>
+  <tr>
+    <th>
+<a href="#span-index">
+目次
+</a>
+<br>
+solvex
+<br>
+_polynomial
+    </th>
+    <td>
+<span id="span-eqn-solvex_polynomial"></span>
+<a href="#span-out-non-linear">連立非線形方程式の解法</a>参照
+<br>
+clear;
+<br>
+step<span class="jF">=</span>(<span class="jF">=</span>=&lt;f_,x0,<span class="jF">?</span>arr)=&lt;last[
+<br>
+solvex=&lt;Newton(=&lt;f_<span class="jF">,,</span>=&lt;{x0},Nmax=1e3,Nmax,eps),
+<br>
+<span class="jF">arr[0].push(x0)</span>,
+<br>
+<span class="jF">arr[1].push(solvex=&gt;)</span>],
+<br>
+f<span class="jF">=</span>(x)=&lt;(x-0)*(x-1)*(x-2)*(x-3)*(x-4)*(x-5)*(x-6)=0;
+<br>
+generate_initial_value=&lt;6*rand();
+<br>
+_r(=&lt;step(=&lt;f,generate_initial_value=&gt;,<span class="jF">?</span>arr)=&gt;,arr=[],1e2);
+<br>
+arr_sorted=sort0(arr),<span class="jF">($xt,$yt)=(=&lt;arr_sorted[0],=&lt;arr_sorted[1])</span>;
     </td>
   </tr>
   <tr>
