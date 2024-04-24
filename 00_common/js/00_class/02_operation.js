@@ -449,8 +449,13 @@ My_entry.operation.prototype.run = function(_data){
             var lens = math_mat.get_lens(arr);
             var len_i = lens.i;
             var len_j = lens.j;
-            if(len_i === 1){
-              _tagVal = (len_j === 1)? "number": "(,)";
+            /* Ver.2.433.90 -> */
+            if(len_i === 1 && len_j === 1){
+              _tagVal = (arr[0][0][self.config.BT.SEe])? "=<": "number";
+            }
+            /* -> Ver.2.433.90 */
+            else if(len_i === 1){
+              _tagVal = "(,)";
             }
             else if(len_j === 1){
               _tagVal = "{,}";
