@@ -577,6 +577,19 @@ My_entry.pen.prototype.make_handlers = function(){
                 ctx.stroke();
               }
             }
+            /* Ver.1.58.10 -> */
+            if(options.dash && len > 1.5 && Math.random() > (100-options.dash)/100){
+              var kw = w1/(options.W || 1);  // || not0
+              ctx.save();
+              ctx.lineWidth = (w1/2)*kw*kw || 1e-3;  // not0
+              ctx.globalCompositeOperation = "destination-out";
+              ctx.beginPath();
+              ctx.moveTo(x0, y0);
+              ctx.lineTo(x1, y1);
+              ctx.stroke();
+              ctx.restore();
+            }
+            /* -> Ver.1.58.10 */
             /* -> Ver.1.4.1 */
             /* -> Ver.1.46.8 */
             /* Ver.1.35.7 */
