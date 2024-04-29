@@ -119,7 +119,7 @@ My_entry.canvas.prototype.get_base64 = function(){
   return self.ctx.canvas.toDataURL();
 };
 /* 1.32.8 -> */
-My_entry.canvas.prototype.draw_base64 = function(base64, opt_callback_first, opt_callback_last, opt_globalCompositeOperation){
+My_entry.canvas.prototype.draw_base64 = function(base64, opt_callback_first, opt_callback_last, opt_globalCompositeOperation, opt_transform){  // Ver.1.59.10
   var self = this;
   var ctx = self.ctx;
   var img = new Image();
@@ -134,7 +134,25 @@ My_entry.canvas.prototype.draw_base64 = function(base64, opt_callback_first, opt
     ctx.shadowOffsetX = 0;
     ctx.shadowOffsetY = 0;
     /* -> 0.3.0  */
-    self.ctx.drawImage(img, 0, 0);
+    /* Ver.1.59.10 -> */
+    if(opt_transform){
+      var px_w = img.width;
+      var px_h = img.height;
+      var w = opt_transform[6];
+      var scale = Math.min(w/Math.min(px_w, px_h), 1);
+      var abcdef = [opt_transform[0]*scale, opt_transform[1]*scale, opt_transform[2]*scale, opt_transform[3]*scale, opt_transform[4], opt_transform[5]];
+      ctx.setTransform.apply(ctx, abcdef);
+      if(w){
+        ctx.beginPath();
+        ctx.arc(0, 0, w/2, 0, Math.PI*2);
+        ctx.clip();
+      }
+      self.ctx.drawImage(img, -0.5*px_w, -0.5*px_h);
+    }
+    else{
+      self.ctx.drawImage(img, 0, 0);
+    }
+    /* -> Ver.1.59.10 */
     ctx.restore();
     if(opt_callback_last){
       opt_callback_last(e);
@@ -143,13 +161,13 @@ My_entry.canvas.prototype.draw_base64 = function(base64, opt_callback_first, opt
   img.src = base64;
   return self;
 };
-My_entry.canvas.prototype.draw_base64s = function(arr_base64, opt_callback, opt_globalCompositeOperation){
+My_entry.canvas.prototype.draw_base64s = function(arr_base64, opt_callback, opt_globalCompositeOperation, opt_transform){  // Ver.1.59.10
   var self = this;
   var ctx = self.ctx;
   if(arr_base64.length){
     self.draw_base64(arr_base64.pop(), null, function(e){
-      self.draw_base64s(arr_base64, opt_callback, opt_globalCompositeOperation);
-    }, opt_globalCompositeOperation);  // 0.3.0 simplified
+      self.draw_base64s(arr_base64, opt_callback, opt_globalCompositeOperation, opt_transform);  // Ver.1.59.10
+    }, opt_globalCompositeOperation, opt_transform);  // 0.3.0 simplified  // Ver.1.59.10
   }
   else{
     if(opt_callback){
