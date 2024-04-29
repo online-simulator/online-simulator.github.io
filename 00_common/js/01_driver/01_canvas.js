@@ -139,15 +139,15 @@ My_entry.canvas.prototype.draw_base64 = function(base64, opt_callback_first, opt
       var px_w = img.width;
       var px_h = img.height;
       var w = opt_transform[6];
-      var scale = Math.min(w/Math.min(px_w, px_h), 1);
-      var abcdef = [opt_transform[0]*scale, opt_transform[1]*scale, opt_transform[2]*scale, opt_transform[3]*scale, opt_transform[4], opt_transform[5]];
-      ctx.setTransform.apply(ctx, abcdef);
       if(w){
+        var scale = Math.min(w/Math.min(px_w, px_h), 1);
+        var abcdef = [opt_transform[0]*scale, opt_transform[1]*scale, opt_transform[2]*scale, opt_transform[3]*scale, opt_transform[4], opt_transform[5]];
+        ctx.setTransform.apply(ctx, abcdef);
         ctx.beginPath();
         ctx.arc(0, 0, w/2, 0, Math.PI*2);
         ctx.clip();
+        self.ctx.drawImage(img, -0.5*px_w, -0.5*px_h);
       }
-      self.ctx.drawImage(img, -0.5*px_w, -0.5*px_h);
     }
     else{
       self.ctx.drawImage(img, 0, 0);
