@@ -134,25 +134,31 @@ My_entry.canvas.prototype.draw_base64 = function(base64, opt_callback_first, opt
     ctx.shadowOffsetX = 0;
     ctx.shadowOffsetY = 0;
     /* -> 0.3.0  */
+    /* Ver.1.60.10 -> */
     /* Ver.1.59.10 -> */
     if(opt_transform){
       var px_w = img.width;
       var px_h = img.height;
-      var w = opt_transform[6];
+      var w = opt_transform[3];
       if(w){
-        var scale = Math.min(w/Math.min(px_w, px_h), 1);
-        var abcdef = [opt_transform[0]*scale, opt_transform[1]*scale, opt_transform[2]*scale, opt_transform[3]*scale, opt_transform[4], opt_transform[5]];
-        ctx.setTransform.apply(ctx, abcdef);
+        var theta = opt_transform[0];
+        var xc = opt_transform[1];
+        var yc = opt_transform[2];
+        ctx.resetTransform();
+        ctx.translate(xc, yc);  // first
+        ctx.rotate(theta);
+        ctx.scale(Math.min(w/px_w, 1), Math.min(w/px_h, 1));
         ctx.beginPath();
         ctx.arc(0, 0, w/2, 0, Math.PI*2);
         ctx.clip();
-        self.ctx.drawImage(img, -0.5*px_w, -0.5*px_h);
+        ctx.drawImage(img, -0.5*px_w, -0.5*px_h);
       }
     }
     else{
-      self.ctx.drawImage(img, 0, 0);
+      ctx.drawImage(img, 0, 0);
     }
     /* -> Ver.1.59.10 */
+    /* -> Ver.1.60.10 */
     ctx.restore();
     if(opt_callback_last){
       opt_callback_last(e);

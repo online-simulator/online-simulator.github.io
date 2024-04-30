@@ -608,7 +608,7 @@ My_entry.pen.prototype.make_handlers = function(){
                   break;
               }
               var theta = Math.atan2(dy, dx);
-              fg.draw_base64(base64, null, null, "destination-out", [Math.cos(theta), Math.sin(theta), -Math.sin(theta), Math.cos(theta), (x0+x1)/2, (y0+y1)/2, (w0+w1)/2]);
+              fg.draw_base64(base64, null, null, "destination-out", [theta, (x0+x1)/2, (y0+y1)/2, (w0+w1)/2]);  // Ver.1.60.10
             }
             /* -> Ver.1.59.10 */
             /* -> Ver.1.4.1 */
