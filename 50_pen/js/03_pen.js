@@ -591,7 +591,7 @@ My_entry.pen.prototype.make_handlers = function(){
             }
             /* -> Ver.1.58.10 */
             /* Ver.1.59.10 -> */
-            if(options.stripe){
+            if(options.stripe && len > 1.5){
               // W=8,A=50,canvas=64,grid=4,pressure
               var base64 = "";
               switch(options.stripe){
