@@ -141,16 +141,24 @@ My_entry.canvas.prototype.draw_base64 = function(base64, opt_callback_first, opt
       var px_h = img.height;
       var w = opt_transform[3];
       if(w){
+        /* Ver.1.60.11 -> */
+        var clip = function(){
+          var kr = 0.8;
+          var r = (w/2)*kr;
+          ctx.beginPath();
+          ctx.arc(0, 0, r, 0, Math.PI*2);
+          ctx.clip();
+        };
+        var scale = w/Math.max(px_w, px_h);
+        /* -> Ver.1.60.11 */
         var theta = opt_transform[0];
         var xc = opt_transform[1];
         var yc = opt_transform[2];
         ctx.resetTransform();
         ctx.translate(xc, yc);  // first
+        clip();  // Ver.1.60.11 second
         ctx.rotate(theta);
-        ctx.scale(Math.min(w/px_w, 1), Math.min(w/px_h, 1));
-        ctx.beginPath();
-        ctx.arc(0, 0, w/2, 0, Math.PI*2);
-        ctx.clip();
+        ctx.scale(scale, scale);  // Ver.1.60.11
         ctx.drawImage(img, -0.5*px_w, -0.5*px_h);
       }
     }
