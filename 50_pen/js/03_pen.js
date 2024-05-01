@@ -559,29 +559,24 @@ My_entry.pen.prototype.make_handlers = function(){
           }
           /* -> Ver.1.62.11 */
           /* -> Ver.1.4.1 */
-          var isFrame_update = w0+w1 && (self.counter++)%options.df === 0  // Ver.1.62.11
+          var isFrame_update = w0+w1 && (self.counter++)%options.df === 0;  // Ver.1.62.11  // Ver.1.64.12
           if(isFrame_update){  // Ver.1.62.11
             set_ctx();  // Ver.1.20.4
             /* Ver.1.46.8 -> */
             /* Ver.1.4.1 -> */
             /* Ver.1.61.11 -> */
+            /* Ver.1.64.12 */
             /* Ver.1.63.11 */
             var draw_interp = function(callback){
               var len_p = Math.ceil(len/(options.dlen || 1));  // || not0
               var dw01 = (w1-w0)/len_p;
               var dx01 = (x1-x0)/len_p;
               var dy01 = (y1-y0)/len_p;
-              var wp1 = w0;
-              var xp1 = x0;
-              var yp1 = y0;
               for(var p=0; p<len_p; ++p){
-                var wp0 = wp1;
-                var xp0 = xp1;
-                var yp0 = yp1;
-                wp1 = wp0+dw01*(p+1);
-                xp1 = xp0+dx01*(p+1);
-                yp1 = yp0+dy01*(p+1);
-                callback(wp0, xp0, yp0, wp1, xp1, yp1);
+                var wp = w0+dw01*p;
+                var xp = x0+dx01*p;
+                var yp = y0+dy01*p;
+                callback(wp, xp, yp, wp+dw01, xp+dx01, yp+dy01);
               }
             };
             var hasImg = self.base64s[0];  // Ver.1.63.11
@@ -589,7 +584,10 @@ My_entry.pen.prototype.make_handlers = function(){
             if(useImgPen){
               var base64 = self.base64s[0];  // Ver.1.63.11
               var theta = Math.atan2(dy, dx);
-              fg.draw_base64(base64, null, null, null, [theta, (x0+x1)/2, (y0+y1)/2, (w0+w1)/2, options.clip]);
+              /* Ver.1.64.12 */
+              draw_interp(function(w0, x0, y0, w1, x1, y1){
+                fg.draw_base64(base64, null, null, null, [theta, (x0+x1)/2, (y0+y1)/2, (w0+w1)/2, options.clip]);
+              });
             }
             /* Ver.1.61.11 -> */
             else if(Math.min(w0, w1) < options.w_th){
@@ -601,12 +599,13 @@ My_entry.pen.prototype.make_handlers = function(){
               ctx.fill();
             }
             else{
+              /* Ver.1.64.12 */
               /* Ver.1.63.11 */
-              draw_interp(function(wp0, xp0, yp0, wp1, xp1, yp1){
+              draw_interp(function(w0, x0, y0, w1, x1, y1){
                 ctx.beginPath();
-                ctx.moveTo(xp0, yp0);
-                ctx.lineWidth = wp1;
-                ctx.lineTo(xp1, yp1);
+                ctx.moveTo(x0, y0);
+                ctx.lineWidth = w1;
+                ctx.lineTo(x1, y1);
                 ctx.stroke();
               });
             }
@@ -638,7 +637,10 @@ My_entry.pen.prototype.make_handlers = function(){
                   break;
               }
               var theta = Math.atan2(dy, dx);
-              fg.draw_base64(base64, null, null, "destination-out", [theta, (x0+x1)/2, (y0+y1)/2, (w0+w1)/2, options.clip]);  // Ver.1.60.10  // Ver.1.61.11
+              /* Ver.1.64.12 */
+              draw_interp(function(w0, x0, y0, w1, x1, y1){
+                fg.draw_base64(base64, null, null, "destination-out", [theta, (x0+x1)/2, (y0+y1)/2, (w0+w1)/2, options.clip]);  // Ver.1.60.10  // Ver.1.61.11
+              });
             }
             /* -> Ver.1.59.10 */
             /* -> Ver.1.4.1 */

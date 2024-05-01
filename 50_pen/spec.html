@@ -21,11 +21,29 @@
       <caption>筆pen機能の更新履歴</caption>
       <tbody>
         <tr class="border">
+          <td class="border clear">
+Ver.1.64.12
+          </td>
+          <td class="border">
+・line間の内挿補間の不具合@Ver.1.63.11を修正
+<br>
+　stripeと任意penのbase64を内挿補間の対象に追加
+          </td>
+        </tr>
+        <tr class="border">
           <td class="border run">
 Ver.1.64.11
           </td>
           <td class="border">
 ・Image Penのpageを追加
+          </td>
+        </tr>
+        <tr class="border">
+          <td class="border run">
+Ver.1.63.11
+          </td>
+          <td class="border">
+・pen.jsを整理
           </td>
         </tr>
         <tr class="border">
@@ -2002,6 +2020,8 @@ read完了後、初期化
 <br>
 <br>
 任意penのimageをcanvas前面に逐次合成
+<br>
+・sampleの縦横size：64[px]*64[px]
 <br>
 ・cancel||未選択状態で任意penの解除
 <br>

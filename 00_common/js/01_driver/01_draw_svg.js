@@ -221,23 +221,22 @@ for(var nsh=0; nsh<len_sh+1; ++nsh){
     var dw01 = (w1-w0)/len_p;
     var dx01 = (x1-x0)/len_p;
     var dy01 = (y1-y0)/len_p;
-    var wp = w0;
-    var xp = x0;
-    var yp = y0;
+    /* pen-Ver.1.64.12 -> */
     for(var p=0; p<len_p; ++p){
 //      if(p > 0) _svg += self.rn;
       _svg += "<line";
       _svg += svg_alpha;  // 1.29.7
-      wp = w0+dw01*(p+1);
-      _svg += " stroke-width="+self.quote(self.floor(wp));
+      var wp = w0+dw01*p;
+      var xp = x0+dx01*p;
+      var yp = y0+dy01*p;
+      _svg += " stroke-width="+self.quote(self.floor(wp+dw01));
       _svg += " x1="+self.quote(self.floor(xp+ox));
       _svg += " y1="+self.quote(self.floor(yp+oy));
-      xp = x0+dx01*(p+1);
-      yp = y0+dy01*(p+1);
-      _svg += " x2="+self.quote(self.floor(xp+ox));
-      _svg += " y2="+self.quote(self.floor(yp+oy));
+      _svg += " x2="+self.quote(self.floor(xp+dx01+ox));
+      _svg += " y2="+self.quote(self.floor(yp+dy01+oy));
       _svg += "/>";
     }
+    /* -> pen-Ver.1.64.12 */
   }
   /* -> 1.27.7 */
     _svg += self.rn;
