@@ -22,6 +22,14 @@
       <tbody>
         <tr class="border">
           <td class="border run">
+Ver.1.62.11
+          </td>
+          <td class="border">
+・config-Δframe（描画更新のframe間隔）を追加
+          </td>
+        </tr>
+        <tr class="border">
+          <td class="border run">
 Ver.1.61.11
           </td>
           <td class="border">
@@ -1382,6 +1390,19 @@ clip範囲の係数
           </td>
           <td class="border">
 円の半径=((w0+w1)/2)*clip
+          </td>
+        </tr>
+        <tr class="border">
+          <td class="border">
+Δframe=1~
+<br>
+<span class="run">Ver.1.62.11追加</span>
+          </td>
+          <td class="border">
+描画更新のframe間隔df
+          </td>
+          <td class="border">
+更新条件：w0+w1 &amp;&amp; f%df === 0
           </td>
         </tr>
         <tr class="border">

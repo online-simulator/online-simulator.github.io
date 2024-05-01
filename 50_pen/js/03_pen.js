@@ -467,6 +467,7 @@ My_entry.pen.prototype.make_handlers = function(){
       /* -> Ver.1.24.7 */
       self.isLocked = true;  // Ver.1.21.5
       self.isDragging = true;
+      self.counter = 0;  // Ver.1.62.11
       /* Ver.1.4.1 -> */
       var xy1 = get_offset(e);  // Ver.1.54.10
       self.xy0 = xy1;
@@ -544,9 +545,18 @@ My_entry.pen.prototype.make_handlers = function(){
           var xyp0 = self.xyp0 || xyp1;
           self.xym0 = xym1;
           self.xyp0 = xyp1;
+          /* Ver.1.62.11 -> */
           if(w0+w1){
             data = {xy0: xy0, xy1: xy1, w0: w0, w1: w1, xym0: xym0, xyp0: xyp0, xym1: xym1, xyp1: xyp1};  // Ver.1.2.0  // Ver.1.56.10
+            /* Ver.1.35.7 */
+            if(self.mode === 0){
+              self.arr_vec.push({x: x1, y: y1});
+            }
+          }
+          /* -> Ver.1.62.11 */
           /* -> Ver.1.4.1 */
+          var isFrame_update = w0+w1 && (self.counter++)%options.df === 0  // Ver.1.62.11
+          if(isFrame_update){  // Ver.1.62.11
             set_ctx();  // Ver.1.20.4
             /* Ver.1.46.8 -> */
             /* Ver.1.4.1 -> */
@@ -623,10 +633,6 @@ My_entry.pen.prototype.make_handlers = function(){
             /* -> Ver.1.59.10 */
             /* -> Ver.1.4.1 */
             /* -> Ver.1.46.8 */
-            /* Ver.1.35.7 */
-            if(self.mode === 0){
-              self.arr_vec.push({x: x1, y: y1});
-            }
           }
         }
         else{
