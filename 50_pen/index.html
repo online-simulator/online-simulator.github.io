@@ -147,11 +147,15 @@
   </label>
   <label>stripe:
 <select id="select-stripe">
-  <option>0</option>
+  <option>img</option>
+  <option selected="selected">0</option>
   <option>3</option>
   <option>5</option>
   <option>7</option>
 </select>
+  </label>
+  <label>-clip:
+<input id="input-clip" type="number" class="input-50" min="0" step="0.1" value="0.8">
   </label>
   <label>cap:
 <select id="select-cap">
@@ -302,6 +306,10 @@ pre/post processing for png
 <br>
   <label>bg-image-file:
     <input id="input-file-bg" type="file" class="jF">
+  </label>
+<br>
+  <label>pen-image-file:
+    <input id="input-file-pen" type="file" class="jF">
   </label>
 <hr>
 </div>

@@ -21,6 +21,20 @@
       <caption>筆pen機能の更新履歴</caption>
       <tbody>
         <tr class="border">
+          <td class="border run">
+Ver.1.61.11
+          </td>
+          <td class="border">
+・config-pen-img-fileを追加（任意penのimageを指定）
+<br>
+・config-stripe=imgを追加（任意penのimageを使用）
+<br>
+・config--clipを追加（stripe||任意penのclip範囲を指定）
+<br>
+・spec追記
+          </td>
+        </tr>
+        <tr class="border">
           <td class="border clear">
 Ver.1.60.11
           </td>
@@ -1298,26 +1312,21 @@ canvas背面に描画
           <td class="border">
 canvas-width=<span class="clear">16~2560</span>[px]
 <br>
-<span class="clear">Ver.1.45.8更新</span>
-          </td>
-          <td class="border">
-canvas幅
-          </td>
-          <td class="border">
-<span class="clear">limiterを追加</span>
-          </td>
-        </tr>
-        <tr class="border">
-          <td class="border">
 canvas-height=<span class="clear">16~2560</span>[px]
 <br>
 <span class="clear">Ver.1.45.8更新</span>
+<br>
+<span class="wF">Ver.1.61.11追記</span>
           </td>
           <td class="border">
+canvas幅
+<br>
 canvas高さ
           </td>
           <td class="border">
 <span class="clear">limiterを追加</span>
+<br>
+<span class="wF">・整数（丸め処理あり）</span>
           </td>
         </tr>
         <tr class="border">
@@ -1340,7 +1349,20 @@ w*0.5のeraser
         </tr>
         <tr class="border">
           <td class="border">
-stripe=0||3||5||7
+clip=0~
+<br>
+<span class="run">Ver.1.61.11追加</span>
+          </td>
+          <td class="border">
+clip範囲の係数
+          </td>
+          <td class="border">
+円の半径=((w0+w1)/2)*clip
+          </td>
+        </tr>
+        <tr class="border">
+          <td class="border">
+stripe=<span class="condition">img||</span>0||3||5||7
 <br>
 <span class="run">Ver.1.59.10追加</span>
 <br>
@@ -1360,8 +1382,6 @@ base64のeraser
 <del class="clear">・W&le;64[px]</del>
 <br>
 <span class="clear">・縦横比固定<span>
-<br>
-<span class="clear">・clip範囲：半径((w0+w1)/2)*0.8の円形範囲<span>
           </td>
         </tr>
         <tr class="border">
@@ -1574,11 +1594,18 @@ grid-height=0~[px]
 <span class="selection">Ver.1.51.9更新</span>
 <br>
 <span class="jF">Ver.1.52.10修正</span>
+<br>
+<span class="wF">Ver.1.61.11追記</span>
           </td>
           <td class="border">
 grid表示機能
           </td>
           <td class="border">
+<span class="wF">limiter
+<br>
+・整数（丸め処理あり）</span>
+<br>
+<br>
 canvas中面に描画
 <br>
 <span class="clear">・bgcolorでgrid色を切替</span>
@@ -1924,6 +1951,32 @@ read完了後、canvas背面に合成
 <span class="clear">・Aのalpha値を無効に修正</span>
 <br>
 <span class="clear">・1tapで入力欄のfile名を消去</span>
+          </td>
+        </tr>
+        <tr class="border">
+          <td class="border">
+png逐次処理
+<br>
+pen-image-file
+<br>
+<span class="run">Ver.1.61.11追加</span>
+          </td>
+          <td class="border">
+local fileのread機能
+          </td>
+          <td class="border">
+read完了後、初期化
+<br>
+・dash=0
+<br>
+・stripe=0
+<br>
+<br>
+任意penのimageをcanvas前面に逐次合成
+<br>
+・cancel||未選択状態で任意penの解除
+<br>
+・stripe=img選択で合成可（destination-out）
           </td>
         </tr>
         <tr class="border">

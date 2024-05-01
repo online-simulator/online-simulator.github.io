@@ -142,8 +142,7 @@ My_entry.canvas.prototype.draw_base64 = function(base64, opt_callback_first, opt
       var w = opt_transform[3];
       if(w){
         /* Ver.1.60.11 -> */
-        var clip = function(){
-          var kr = 0.8;
+        var clip = function(kr){  // Ver.1.61.11
           var r = (w/2)*kr;
           ctx.beginPath();
           ctx.arc(0, 0, r, 0, Math.PI*2);
@@ -154,9 +153,10 @@ My_entry.canvas.prototype.draw_base64 = function(base64, opt_callback_first, opt
         var theta = opt_transform[0];
         var xc = opt_transform[1];
         var yc = opt_transform[2];
+        var kr = opt_transform[4];  // Ver.1.61.11
         ctx.resetTransform();
         ctx.translate(xc, yc);  // first
-        clip();  // Ver.1.60.11 second
+        clip(kr);  // second  // Ver.1.60.11  // Ver.1.61.11
         ctx.rotate(theta);
         ctx.scale(scale, scale);  // Ver.1.60.11
         ctx.drawImage(img, -0.5*px_w, -0.5*px_h);
