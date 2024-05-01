@@ -913,6 +913,11 @@ My_entry.pen.prototype.init_handlers = function(){
     $._id("input-W").onchange(e);  // Ver.1.53.10
     self.reset_canvas();
     self.update_options();  // Ver.1.35.7 re-update
+    /* Ver.1.64.11 -> */
+    if(options.image){
+      self.base64s[0] = self.base64s[7];
+    }
+    /* -> Ver.1.64.11 */
     return self;
   };
   self.handlers.onbeforeunload = function(e){
@@ -1131,7 +1136,14 @@ My_entry.pen.prototype.init_handlers = function(){
         });
         if(!(file)){
           elem.value = null;
-          self.base64s[0] = null;  // Ver.1.63.11
+          /* Ver.1.64.11 -> */
+          if(options.image){
+            self.base64s[0] = self.base64s[7];
+          }
+          else{
+            self.base64s[0] = null;  // Ver.1.63.11
+          }
+          /* -> Ver.1.64.11 */
         }
         break;
       /* -> Ver.1.11.4 */
