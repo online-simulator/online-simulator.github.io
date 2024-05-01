@@ -21,6 +21,10 @@ My_entry.pen.prototype.init = function(){
   self.keys = {modes_pen: {}, modes: {}, buttons: {}, inputs: {}};  // Ver.1.15.4  // Ver.1.16.4  // Ver.1.19.4  // Ver.1.34.7  // Ver.1.38.7
   self.init_main.call(self, ["$", "conv", "def"]);
   self.filter = new self.constructors.filter();  // Ver.1.17.4
+  self.base64s = [];  // Ver.1.63.11
+  self.base64s[3] = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAEAAAABACAYAAACqaXHeAAAAAXNSR0IArs4c6QAAAfhJREFUeF7tm91KxDAUhL/1b1FRVNgbH8HH8K19Dd/BS0GUddH1j5EMxFLXutBe5JxCSLsJbWd6kmanZ2YE32bB8ZMEZAQEZyCHQPAAyEkwhwDEjgJFwBzYKUREiYhPQOVDgBfAPrAH7DZOhIG/A2/AWgRcAUfAQSmKBhV1VntLtbAI/Bp4AVYCeA2cFhI0HBwJrb0hv0O+PHmBfwYeRcANcFkI0LFLawQYj4lYAXcCewscA2cBwIsEzwMPwDIJyCGQk2C+BsMvhMIvhaOs/3vXNaHBi5EkIDoJqQekHpB6QOoBqQekHhBcEAk/BMKLouFl8dQDon8aC/2PMDT41AOCfAna+Ikv9YDUA1IPSD0g/J+hzA+ILoiEHwKpB0RPk0s9IPWAVjMCB+BKPWAASU13mSot1knXJrM+HqNt8EMbWw9QWmqdozs2AfX5N5Ewul/AF3Bismvn6nbnnm5Kfn3zQ9rU36aP2vzRdx2nzI/qFzBgp6crR183o2Ntqu1JUF/te9umzedyqr+NH13fwyR+AYMXaDszvO/IMBmeg+qh8t829bfJQ8DlflGt31TXQ3Byv4Au+ArcA4elyKiwBM7LTapN6fpyrWzbptx/lYvigXLo973mJ/ML+Gk/lUfgY8vxIqfvBusI6E5kv7U5CnSNkz/U7h9+gS8RQcnc60r6TgAAAABJRU5ErkJggg==";
+  self.base64s[5] = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAEAAAABACAYAAACqaXHeAAAAAXNSR0IArs4c6QAAAS1JREFUeF7tm0FqAkEURJ/GKEQQN248Qo7hrb2Gd3AvgopoYijpXmff7w80s9BN1XTVr5pmJsivCZClvQJ+AUwbERYyXkDWbwBvgE9gBnwMTkQH/gM8gUcI+Aa+gHlb2Q1Z+XN+H+keLAH/AO7ALQB3wKqREDn0nTCaL7y3fHvyAX8FziFgD2wbAd0UR/aCTsQNOAboAVgC68H133d094ETcCkCSgJlgjUG9UFIH4X1BOglUF2gukB1geoC6jKkr8P6FyL6MagPQvoorCdALwG9CerHoD4I1bmA/WBELwG9CerHoD4I6aOwngC9BPQmqB+D+iBUXaC6gPxoTG+C+jGoD0L6KKwnQC8BvQnqx2B1AXsU1pchvQT0Jqgfg/ogpI/CI38j+O/Hn2rwYecP1GExH8dnYW0AAAAASUVORK5CYII=";
+  self.base64s[7] = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAEAAAABACAYAAACqaXHeAAAAAXNSR0IArs4c6QAAAYdJREFUeF7lm0tKA1EURE+M+Bcd61J0HNfsNtyDjhU/UVETSu6DlsQN3NPweNBND6r6VtXrQc2AO+AYOAdmtWh8rYCsR+A1gG+BC+BoQkDud70C/gdYAvcBegOcFQH7wC4wb4h+AP8CPoA34CkEXAGnwCEQAgJ+p8Ykz/Nilz1YQsBnEfAyCDipCdirCRhe0Al8MGX0v2sCIoHn/ySQCejoAwG/IYGY4GVJoCvwYWkjAbLHAx7ylfUxqCdAL4Ft54CuXrDVBHMOUMeg/iCkPwrrf4b0MagnQC8BvQnqY1BPgF4CehPUx6CeAL0E9Caoj0E9AXoJ6E1QH4N6AvQS0JugPgb1BOgloDdBfQzqCdBLQG+C+hjUE6CXgN4E9TGoJ0AvAb0J6mNQT4BeAnoT1MegngC9BKYmeFC1ua69wVGbe5/2Bq+rLxDwWSlLhIBulblRnExpYqM3mOJkwI/iZMcJSHNs9AYzAVm/vcFFFafTHR4SyP1MQl7osgdTvn4w/ZGA3gTVMbgGIBz9L4Sv+zQAAAAASUVORK5CYII=";
   return self;
 };
 /* Ver.1.16.4 */
@@ -561,10 +565,29 @@ My_entry.pen.prototype.make_handlers = function(){
             /* Ver.1.46.8 -> */
             /* Ver.1.4.1 -> */
             /* Ver.1.61.11 -> */
-            var hasImg = self.base64_stripe;
+            /* Ver.1.63.11 */
+            var draw_interp = function(callback){
+              var len_p = Math.ceil(len/(options.dlen || 1));  // || not0
+              var dw01 = (w1-w0)/len_p;
+              var dx01 = (x1-x0)/len_p;
+              var dy01 = (y1-y0)/len_p;
+              var wp1 = w0;
+              var xp1 = x0;
+              var yp1 = y0;
+              for(var p=0; p<len_p; ++p){
+                var wp0 = wp1;
+                var xp0 = xp1;
+                var yp0 = yp1;
+                wp1 = wp0+dw01*(p+1);
+                xp1 = xp0+dx01*(p+1);
+                yp1 = yp0+dy01*(p+1);
+                callback(wp0, xp0, yp0, wp1, xp1, yp1);
+              }
+            };
+            var hasImg = self.base64s[0];  // Ver.1.63.11
             var useImgPen = options.stripe !== "img" && hasImg;
             if(useImgPen){
-              var base64 = self.base64_stripe;
+              var base64 = self.base64s[0];  // Ver.1.63.11
               var theta = Math.atan2(dy, dx);
               fg.draw_base64(base64, null, null, null, [theta, (x0+x1)/2, (y0+y1)/2, (w0+w1)/2, options.clip]);
             }
@@ -578,23 +601,14 @@ My_entry.pen.prototype.make_handlers = function(){
               ctx.fill();
             }
             else{
-              var len_p = Math.ceil(len/(options.dlen || 1));  // || not0
-              var dw01 = (w1-w0)/len_p;
-              var dx01 = (x1-x0)/len_p;
-              var dy01 = (y1-y0)/len_p;
-              var wp = w0;
-              var xp = x0;
-              var yp = y0;
-              for(var p=0; p<len_p; ++p){
+              /* Ver.1.63.11 */
+              draw_interp(function(wp0, xp0, yp0, wp1, xp1, yp1){
                 ctx.beginPath();
-                ctx.moveTo(xp, yp);
-                wp = w0+dw01*(p+1);
-                xp = x0+dx01*(p+1);
-                yp = y0+dy01*(p+1);
-                ctx.lineWidth = wp;
-                ctx.lineTo(xp, yp);
+                ctx.moveTo(xp0, yp0);
+                ctx.lineWidth = wp1;
+                ctx.lineTo(xp1, yp1);
                 ctx.stroke();
-              }
+              });
             }
             /* Ver.1.58.10 -> */
             if(options.dash && len > 1.5 && Math.random() > (100-options.dash)/100){
@@ -615,16 +629,12 @@ My_entry.pen.prototype.make_handlers = function(){
               switch(options.stripe){
                 // W=8,A=50,canvas=64,grid=4,pressure
                 case 3:
-                  base64 = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAEAAAABACAYAAACqaXHeAAAAAXNSR0IArs4c6QAAAfhJREFUeF7tm91KxDAUhL/1b1FRVNgbH8HH8K19Dd/BS0GUddH1j5EMxFLXutBe5JxCSLsJbWd6kmanZ2YE32bB8ZMEZAQEZyCHQPAAyEkwhwDEjgJFwBzYKUREiYhPQOVDgBfAPrAH7DZOhIG/A2/AWgRcAUfAQSmKBhV1VntLtbAI/Bp4AVYCeA2cFhI0HBwJrb0hv0O+PHmBfwYeRcANcFkI0LFLawQYj4lYAXcCewscA2cBwIsEzwMPwDIJyCGQk2C+BsMvhMIvhaOs/3vXNaHBi5EkIDoJqQekHpB6QOoBqQekHhBcEAk/BMKLouFl8dQDon8aC/2PMDT41AOCfAna+Ikv9YDUA1IPSD0g/J+hzA+ILoiEHwKpB0RPk0s9IPWAVjMCB+BKPWAASU13mSot1knXJrM+HqNt8EMbWw9QWmqdozs2AfX5N5Ewul/AF3Bismvn6nbnnm5Kfn3zQ9rU36aP2vzRdx2nzI/qFzBgp6crR183o2Ntqu1JUF/te9umzedyqr+NH13fwyR+AYMXaDszvO/IMBmeg+qh8t829bfJQ8DlflGt31TXQ3Byv4Au+ArcA4elyKiwBM7LTapN6fpyrWzbptx/lYvigXLo973mJ/ML+Gk/lUfgY8vxIqfvBusI6E5kv7U5CnSNkz/U7h9+gS8RQcnc60r6TgAAAABJRU5ErkJggg==";
-                  break;
                 case 5:
-                  base64 = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAEAAAABACAYAAACqaXHeAAAAAXNSR0IArs4c6QAAAS1JREFUeF7tm0FqAkEURJ/GKEQQN248Qo7hrb2Gd3AvgopoYijpXmff7w80s9BN1XTVr5pmJsivCZClvQJ+AUwbERYyXkDWbwBvgE9gBnwMTkQH/gM8gUcI+Aa+gHlb2Q1Z+XN+H+keLAH/AO7ALQB3wKqREDn0nTCaL7y3fHvyAX8FziFgD2wbAd0UR/aCTsQNOAboAVgC68H133d094ETcCkCSgJlgjUG9UFIH4X1BOglUF2gukB1geoC6jKkr8P6FyL6MagPQvoorCdALwG9CerHoD4I1bmA/WBELwG9CerHoD4I6aOwngC9BPQmqB+D+iBUXaC6gPxoTG+C+jGoD0L6KKwnQC8BvQnqx2B1AXsU1pchvQT0Jqgfg/ogpI/CI38j+O/Hn2rwYecP1GExH8dnYW0AAAAASUVORK5CYII=";
-                  break;
                 case 7:
-                  base64 = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAEAAAABACAYAAACqaXHeAAAAAXNSR0IArs4c6QAAAYdJREFUeF7lm0tKA1EURE+M+Bcd61J0HNfsNtyDjhU/UVETSu6DlsQN3NPweNBND6r6VtXrQc2AO+AYOAdmtWh8rYCsR+A1gG+BC+BoQkDud70C/gdYAvcBegOcFQH7wC4wb4h+AP8CPoA34CkEXAGnwCEQAgJ+p8Ykz/Nilz1YQsBnEfAyCDipCdirCRhe0Al8MGX0v2sCIoHn/ySQCejoAwG/IYGY4GVJoCvwYWkjAbLHAx7ylfUxqCdAL4Ft54CuXrDVBHMOUMeg/iCkPwrrf4b0MagnQC8BvQnqY1BPgF4CehPUx6CeAL0E9Caoj0E9AXoJ6E1QH4N6AvQS0JugPgb1BOgloDdBfQzqCdBLQG+C+hjUE6CXgN4E9TGoJ0AvAb0J6mNQT4BeAnoT1MegngC9BKYmeFC1ua69wVGbe5/2Bq+rLxDwWSlLhIBulblRnExpYqM3mOJkwI/iZMcJSHNs9AYzAVm/vcFFFafTHR4SyP1MQl7osgdTvn4w/ZGA3gTVMbgGIBz9L4Sv+zQAAAAASUVORK5CYII=";
+                  base64 = self.base64s[options.stripe];  // Ver.1.63.11
                   break;
                 default:
-                  base64 = self.base64_stripe;  // Ver.1.61.11
+                  base64 = self.base64s[0];  // Ver.1.61.11  // Ver.1.63.11
                   break;
               }
               var theta = Math.atan2(dy, dx);
@@ -1115,13 +1125,13 @@ My_entry.pen.prototype.init_handlers = function(){
       case "input-file-pen":
         var file = $.readFile_elem(elem, /^image/, function(e){
           var base64 = e.target.result;
-          self.base64_stripe = base64;
+          self.base64s[0] = base64;  // Ver.1.63.11
           $._id("input-dash").value = 0;
           $.set_selectVal_id("select-stripe", "0");
         });
         if(!(file)){
           elem.value = null;
-          self.base64_stripe = null;
+          self.base64s[0] = null;  // Ver.1.63.11
         }
         break;
       /* -> Ver.1.11.4 */
