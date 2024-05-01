@@ -44,6 +44,10 @@
       if(options.image){
         $._id("input-W").value = 50;
       }
+      else if(options.rainbow){
+        $._id("input-W").value = 50;
+        $.set_selectVal_id("select-composite", "lighter");
+      }
       else if(options.pen3d){
         $._id("input-W").value = 50;
         $._id("input-dash").value = 50;
