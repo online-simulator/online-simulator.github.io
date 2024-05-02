@@ -41,8 +41,11 @@
     new My_entry.$().onload(function(e){
       var $ = new My_entry.$();
       var options = $.get_urlParams();
-      if(options.image || options.imageb){
+      if(options.image || options.imageb || options.imageb2){
         $._id("input-W").value = 50;
+        if(options.imageb2){
+          $.set_id("checkbox-random", "checked", "checked");
+        }
       }
       else if(options.rainbow){
         $._id("input-W").value = 50;

@@ -903,6 +903,9 @@ My_entry.pen.prototype.init_base64s0 = function(options){
   else if(options.imageb){
     self.base64s[0] = self.base64s["6b"];  // Ver.1.66.12
   }
+  else if(options.imageb2){
+    self.base64s[0] = self.base64s["3b"];  // Ver.1.69.12
+  }
   else if(options.rainbow){
     self.base64s[0] = self.base64s["rainbow"];
   }
