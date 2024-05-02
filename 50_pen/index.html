@@ -48,16 +48,26 @@
         $._id("input-W").value = 50;
         $.set_selectVal_id("select-composite", "lighter");
       }
+      else if(options.stamp){
+        $._id("input-W").value = 100;
+        $._id("input-A").value = 100;
+        $._id("input-df").value = 30;
+        $.set_id("checkbox-random", "checked", "checked");
+        $.set_selectVal_id("select-composite", "lighter");
+      }
       else if(options.pen3d){
         $._id("input-W").value = 50;
         $._id("input-dash").value = 50;
         $.set_selectVal_id("select-stripe", "7");
       }
-      else if(options.pen3d2){
+      else if(options.pen3d2 || options.pen3d3){
         $._id("input-W").value = 50;
         $._id("input-RGB").value = "#117733";
         $._id("input-dash").value = 50;
         $.set_selectVal_id("select-stripe", "6b");
+        if(options.pen3d3){
+          $.set_id("checkbox-random", "checked", "checked");
+        }
       }
       else if(options.dot){
         $.set_id("checkbox-auto-config", "checked", null);
@@ -176,6 +186,9 @@
   </label>
   <label>Δframe:
 <input id="input-df" type="number" class="input-50" min="1" step="1" value="1">
+  </label>
+  <label>-random:
+    <input id="checkbox-random" type="checkbox">
   </label>
 <hr>
   <label>cap:

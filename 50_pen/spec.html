@@ -22,6 +22,18 @@
       <tbody>
         <tr class="border">
           <td class="border run">
+Ver.1.67.12
+          </td>
+          <td class="border">
+・Stamp Penのpageを追加
+<br>
+・3D Pen-3のpageを追加
+<br>
+・config-checkbox-randomを追加（stripe||任意penの回転角を乱数化）
+          </td>
+        </tr>
+        <tr class="border">
+          <td class="border run">
 Ver.1.66.12
           </td>
           <td class="border">
@@ -1459,6 +1471,23 @@ clip範囲の係数
         </tr>
         <tr class="border">
           <td class="border">
+checkbox-random
+<br>
+<span class="run">Ver.1.67.12追加</span>
+          </td>
+          <td class="border">
+回転角の乱数化
+          </td>
+          <td class="border">
+stripe||任意penのbase64描画時の回転角
+<br>
+・unchecked時：x軸に対する進行方向の角度
+<br>
+・checked時：2π*[0,1)の乱数
+          </td>
+        </tr>
+        <tr class="border">
+          <td class="border">
 cap=butt||round||square
           </td>
           <td class="border">
@@ -2037,6 +2066,8 @@ pen-image-file
 <span class="clear">Ver.1.64.12更新</span>
 <br>
 <span class="condition">Ver.1.65.12更新</span>
+<br>
+<span class="jF">Ver.1.67.12更新</span>
           </td>
           <td class="border">
 local fileのread機能
@@ -2051,9 +2082,13 @@ read完了後、初期化
 <br>
 任意penのimageをcanvas前面に逐次合成
 <br>
-<span class="clear">・sampleの縦横size：64[px]*64[px]</span>
+<span class="clear">・<span class="jF">stripe||任意penの</span>縦横size：64[px]*64[px]</span>
 <br>
 　<span class="condition">rainbow：<a title="Graphing Calculator" href="../02_calc_graphing/index.html">Graphing Calculator-test case-gradation-2</a>参照</span>
+<br>
+<span class="jF">・stampの縦横size：256[px]*256[px]
+<br>
+　star：<a title="Graphing Calculator" href="../02_calc_graphing/index.html">Graphing Calculator-test case-gradation</a>参照</span>
 <br>
 ・cancel||未選択状態で任意penの解除
 <br>
