@@ -29,7 +29,11 @@ Ver.1.68.12
 <br>
 ・stripe||任意penの内挿補間時の描画sizeを修正（line幅の内挿補間に準拠）
 <br>
-　(w0+w1)/2　⇒　丸め誤差対策Math.abs(w1)
+　(w0+w1)/2　⇒　w1
+<br>
+　ctx.arc(radius=-1e-16)でerror発生のため、再修正（丸め誤差を対策）
+<br>
+　w1　⇒　Math.max(0, w1)
           </td>
         </tr>
         <tr class="border">
@@ -2109,7 +2113,7 @@ read完了後、初期化
 <br>
 任意penのimageをcanvas前面に逐次合成
 <br>
-<span class="wF">・内挿補間時の描画sizeを修正（line幅の内挿補間に準拠）：(w0+w1)/2　⇒　丸め誤差対策Math.abs(w1)</span>
+<span class="wF">・内挿補間時の描画sizeを修正（line幅の内挿補間に準拠）：(w0+w1)/2　⇒　丸め誤差対策Math.max(0, w1)</span>
 <br>
 <span class="clear">・<span class="jF">stripe||任意penの</span>縦横size：64[px]*64[px]</span>
 <br>

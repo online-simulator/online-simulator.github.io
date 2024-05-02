@@ -584,7 +584,7 @@ My_entry.pen.prototype.make_handlers = function(){
                 var wp = w0+dw01*p;
                 var xp = x0+dx01*p;
                 var yp = y0+dy01*p;
-                callback(wp, xp, yp, Math.abs(wp+dw01), xp+dx01, yp+dy01);  // Ver.1.68.12 w>=0
+                callback(wp, xp, yp, Math.max(0, wp+dw01), xp+dx01, yp+dy01);  // Ver.1.68.12 w>=0
               }
             };
             /* Ver.1.68.12 */
