@@ -229,7 +229,7 @@ for(var nsh=0; nsh<len_sh+1; ++nsh){
       var wp = w0+dw01*p;
       var xp = x0+dx01*p;
       var yp = y0+dy01*p;
-      _svg += " stroke-width="+self.quote(self.floor(wp+dw01));
+      _svg += " stroke-width="+self.quote(self.floor(Math.abs(wp+dw01)));  // Ver.1.68.12 w>=0
       _svg += " x1="+self.quote(self.floor(xp+ox));
       _svg += " y1="+self.quote(self.floor(yp+oy));
       _svg += " x2="+self.quote(self.floor(xp+dx01+ox));
