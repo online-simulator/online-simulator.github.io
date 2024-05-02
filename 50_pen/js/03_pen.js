@@ -427,7 +427,7 @@ My_entry.pen.prototype.update_w = function(e, xy0, xy1){
     }
     return Math.min(options.W, Math.max(0, w0+dw));
   };
-  self.w0 = (options.pressure)? w_p(e.pressure): w_len(len);
+  self.w0 = (options.pressure)? w_p(e.pressure): ((options.fade_w)? w_len(len): options.W);  // Ver.1.68.12
   return self;
 };
 /* -> Ver.1.56.10 */
@@ -587,6 +587,13 @@ My_entry.pen.prototype.make_handlers = function(){
                 callback(wp, xp, yp, wp+dw01, xp+dx01, yp+dy01);
               }
             };
+            /* Ver.1.68.12 */
+            var draw_base64 = function(opt_globalCompositeOperation){
+              /* Ver.1.64.12 */
+              draw_interp(function(w0, x0, y0, w1, x1, y1){
+                fg.draw_base64(base64, null, null, opt_globalCompositeOperation, [theta, (x0+x1)/2, (y0+y1)/2, w1, options.clip]);  // Ver.1.68.12 w1 fixed for fade_w
+              });
+            };
             /* Ver.1.67.12 */
             var get_theta = function(dx, dy){
               return ((options.random)? Math.PI*2*Math.random(): Math.atan2(dy, dx));
@@ -596,10 +603,7 @@ My_entry.pen.prototype.make_handlers = function(){
             if(useImgPen){
               var base64 = self.base64s[0];  // Ver.1.63.11
               var theta = get_theta(dx, dy);  // Ver.1.67.12
-              /* Ver.1.64.12 */
-              draw_interp(function(w0, x0, y0, w1, x1, y1){
-                fg.draw_base64(base64, null, null, null, [theta, (x0+x1)/2, (y0+y1)/2, (w0+w1)/2, options.clip]);
-              });
+              draw_base64();  // Ver.1.68.12
             }
             /* Ver.1.61.11 -> */
             else if(Math.min(w0, w1) < options.w_th){
@@ -655,10 +659,7 @@ My_entry.pen.prototype.make_handlers = function(){
                   break;
               }
               var theta = get_theta(dx, dy);  // Ver.1.67.12
-              /* Ver.1.64.12 */
-              draw_interp(function(w0, x0, y0, w1, x1, y1){
-                fg.draw_base64(base64, null, null, "destination-out", [theta, (x0+x1)/2, (y0+y1)/2, (w0+w1)/2, options.clip]);  // Ver.1.60.10  // Ver.1.61.11
-              });
+              draw_base64("destination-out");  // Ver.1.68.12
             }
             /* -> Ver.1.59.10 */
             /* -> Ver.1.4.1 */

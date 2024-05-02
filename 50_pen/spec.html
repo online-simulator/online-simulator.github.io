@@ -22,6 +22,18 @@
       <tbody>
         <tr class="border">
           <td class="border run">
+Ver.1.68.12
+          </td>
+          <td class="border">
+・config-checkbox-fade_wを追加（line幅のfade-in/outを有効化）
+<br>
+・stripe||任意penの内挿補間時の描画sizeを修正（line幅の内挿補間に準拠）
+<br>
+　(w0+w1)/2　⇒　w1
+          </td>
+        </tr>
+        <tr class="border">
+          <td class="border run">
 Ver.1.67.12
           </td>
           <td class="border">
@@ -1542,6 +1554,18 @@ oy[px]
         </tr>
         <tr class="border">
           <td class="border">
+checkbox-fade_w
+<br>
+<span class="run">Ver.1.68.12追加</span>
+          </td>
+          <td class="border">
+line幅のfade-in/outの有効化
+          </td>
+          <td class="border">
+          </td>
+        </tr>
+        <tr class="border">
+          <td class="border">
 w_th=0~[px]
 <br>
 <span class="run">Ver.1.4.1追加</span>
@@ -2068,6 +2092,8 @@ pen-image-file
 <span class="condition">Ver.1.65.12更新</span>
 <br>
 <span class="jF">Ver.1.67.12更新</span>
+<br>
+<span class="wF">Ver.1.68.12更新</span>
           </td>
           <td class="border">
 local fileのread機能
@@ -2081,6 +2107,8 @@ read完了後、初期化
 <br>
 <br>
 任意penのimageをcanvas前面に逐次合成
+<br>
+<span class="wF">・内挿補間時の描画sizeを修正（line幅の内挿補間に準拠）：(w0+w1)/2　⇒　w1</span>
 <br>
 <span class="clear">・<span class="jF">stripe||任意penの</span>縦横size：64[px]*64[px]</span>
 <br>
