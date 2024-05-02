@@ -41,7 +41,7 @@
     new My_entry.$().onload(function(e){
       var $ = new My_entry.$();
       var options = $.get_urlParams();
-      if(options.image){
+      if(options.image || options.imageb){
         $._id("input-W").value = 50;
       }
       else if(options.rainbow){
@@ -159,6 +159,10 @@
   <option>3</option>
   <option>5</option>
   <option>7</option>
+  <option>3b</option>
+  <option>4b</option>
+  <option>5b</option>
+  <option>6b</option>
 </select>
   </label>
   <label>-clip:
