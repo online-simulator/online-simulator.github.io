@@ -41,20 +41,28 @@
     new My_entry.$().onload(function(e){
       var $ = new My_entry.$();
       var options = $.get_urlParams();
-      if(options.image || options.imageb || options.imageb2){
+      if(options.image || options.imageb || options.imageb2 || options.imageb3){
         $._id("input-W").value = 50;
         if(options.imageb2){
-          $.set_id("checkbox-random", "checked", "checked");
+          $._id("input-freq").value = 3;
+        }
+        else if(options.imageb3){
+          $._id("input-freq").value = -1;
         }
       }
       else if(options.rainbow){
         $._id("input-W").value = 50;
         $.set_selectVal_id("select-composite", "lighter");
       }
-      else if(options.rainbow2){
+      else if(options.rainbow2 || options.rainbow3){
         $._id("input-W").value = 120;
         $._id("input-clip").value = 0.3;
-        $.set_id("checkbox-random", "checked", "checked");
+        if(options.rainbow2){
+          $._id("input-freq").value = 3;
+        }
+        else{
+          $._id("input-freq").value = -1;
+        }
         $.set_selectVal_id("select-composite", "lighter");
       }
       else if(options.stamp){
@@ -62,7 +70,7 @@
         $._id("input-A").value = 100;
         $._id("input-clip").value = 2;
         $._id("input-df").value = 30;
-        $.set_id("checkbox-random", "checked", "checked");
+        $._id("input-freq").value = -1;
         $.set_selectVal_id("select-composite", "lighter");
       }
       else if(options.pen3d){
@@ -70,13 +78,16 @@
         $._id("input-dash").value = 50;
         $.set_selectVal_id("select-stripe", "7");
       }
-      else if(options.pen3d2 || options.pen3d3){
+      else if(options.pen3d2 || options.pen3d3 || options.pen3d4){
         $._id("input-W").value = 50;
         $._id("input-RGB").value = "#117733";
         $._id("input-dash").value = 50;
         $.set_selectVal_id("select-stripe", "6b");
         if(options.pen3d3){
-          $.set_id("checkbox-random", "checked", "checked");
+          $._id("input-freq").value = 3;
+        }
+        else if(options.pen3d4){
+          $._id("input-freq").value = -1;
         }
       }
       else if(options.dot){
@@ -197,8 +208,8 @@
   <label>Δframe:
 <input id="input-df" type="number" class="input-50" min="1" step="1" value="1">
   </label>
-  <label>-random:
-    <input id="checkbox-random" type="checkbox">
+  <label>-freq[Hz]:
+<input id="input-freq" type="number" class="input-50" min="-1" step="1" value="0">
   </label>
 <hr>
   <label>cap:

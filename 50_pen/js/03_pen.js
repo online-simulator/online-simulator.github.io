@@ -567,7 +567,7 @@ My_entry.pen.prototype.make_handlers = function(){
           }
           /* -> Ver.1.62.11 */
           /* -> Ver.1.4.1 */
-          var isFrame_update = w0+w1 && (self.counter++)%options.df === 0;  // Ver.1.62.11  // Ver.1.64.12
+          var isFrame_update = w0+w1 && self.counter%options.df === 0;  // Ver.1.62.11  // Ver.1.64.12  // Ver.1.70.12
           if(isFrame_update){  // Ver.1.62.11
             set_ctx();  // Ver.1.20.4
             /* Ver.1.46.8 -> */
@@ -594,9 +594,19 @@ My_entry.pen.prototype.make_handlers = function(){
                 fg.draw_base64(base64, null, null, opt_globalCompositeOperation, [theta, (x0+x1)/2, (y0+y1)/2, w1, options.clip]);  // Ver.1.68.12 w1 fixed for fade_w
               });
             };
+            /* Ver.1.70.12 */
             /* Ver.1.67.12 */
             var get_theta = function(dx, dy){
-              return ((options.random)? Math.PI*2*Math.random(): Math.atan2(dy, dx));
+              var _theta = Math.atan2(dy, dx);
+              var fps = 60;
+              if(options.freq > 0){
+                var omega = Math.PI*2*options.freq;
+                _theta += omega*self.counter/fps;
+              }
+              else if(options.freq < 0){
+                _theta = Math.PI*2*Math.random();
+              }
+              return _theta;
             };
             var hasImg = self.base64s[0];  // Ver.1.63.11
             var useImgPen = options.stripe !== "img" && hasImg;
@@ -665,6 +675,7 @@ My_entry.pen.prototype.make_handlers = function(){
             /* -> Ver.1.4.1 */
             /* -> Ver.1.46.8 */
           }
+          ++self.counter;  // Ver.1.70.12
         }
         else{
           fg.clear();
@@ -903,10 +914,10 @@ My_entry.pen.prototype.init_base64s0 = function(options){
   else if(options.imageb){
     self.base64s[0] = self.base64s["6b"];  // Ver.1.66.12
   }
-  else if(options.imageb2){
+  else if(options.imageb2 || options.imageb3){  // Ver.1.70.12
     self.base64s[0] = self.base64s["3b"];  // Ver.1.69.12
   }
-  else if(options.rainbow || options.rainbow2){  // Ver.1.69.12
+  else if(options.rainbow || options.rainbow2 || options.rainbow3){  // Ver.1.69.12  // Ver.1.70.12
     self.base64s[0] = self.base64s["rainbow"];
   }
   else if(options.stamp){

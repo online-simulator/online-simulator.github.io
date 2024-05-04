@@ -22,6 +22,24 @@
       <tbody>
         <tr class="border">
           <td class="border run">
+Ver.1.70.12
+          </td>
+          <td class="border">
+・config-checkbox-randomを廃止してfreq[Hz]を追加
+<br>
+　freq&ge;0：ω=2pi*freqの回転
+<br>
+　freq&lt;0：randomの回転
+<br>
+・Image Pen-3/-3rのpageを更新
+<br>
+・Rainbow Pen-2/-2rのpageを更新
+<br>
+・3D Pen-3/-3rのpageを更新
+          </td>
+        </tr>
+        <tr class="border">
+          <td class="border run">
 Ver.1.69.12
           </td>
           <td class="border">
@@ -1499,19 +1517,25 @@ clip範囲の係数
         </tr>
         <tr class="border">
           <td class="border">
-checkbox-random
+<del class="condition">checkbox-random</del>
+<br>
+<span class="condition">freq[Hz]</span>
 <br>
 <span class="run">Ver.1.67.12追加</span>
+<br>
+<span class="condition">Ver.1.70.12変更</span>
           </td>
           <td class="border">
-回転角の乱数化
+回転角の周波数
+<br>
+ω=2pi*freq
           </td>
           <td class="border">
 stripe||任意penのbase64描画時の回転角
 <br>
-・unchecked時：x軸に対する進行方向の角度
+<span class="condition">・freq&ge;0：x軸に対する進行方向の角度+ω*frame数/60</span>
 <br>
-・checked時：2π*[0,1)の乱数
+<span class="condition">・freq&lt;0</span>：2π*[0,1)の乱数
           </td>
         </tr>
         <tr class="border">
