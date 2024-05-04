@@ -1533,6 +1533,8 @@ stripe||任意penのbase64描画時の回転角
 checkbox-random
 <br>
 <span class="run">Ver.1.67.12追加</span>
+<br>
+<span class="condition">Ver.1.70.12更新</span>
           </td>
           <td class="border">
 回転角の乱数化
@@ -1540,7 +1542,9 @@ checkbox-random
           <td class="border">
 stripe||任意penのbase64描画時の回転角
 <br>
-・checked時：2π*[0,1)の乱数（freq無効）
+・unchecked時：<span class="condition">freq依存</span>
+<br>
+・checked時：2π*[0,1)の乱数<span class="condition">（freq無効）</span>
           </td>
         </tr>
         <tr class="border">
