@@ -50,14 +50,14 @@
           $.set_id("checkbox-random", "checked", "checked");
         }
       }
-      else if(options.rainbow){
+      else if(options.rainbow || options.rainbow2){
         $._id("input-W").value = 50;
         $.set_selectVal_id("select-composite", "lighter");
       }
-      else if(options.rainbow2 || options.rainbow3){
+      else if(options.rainbow3 || options.rainbow4){
         $._id("input-W").value = 120;
         $._id("input-clip").value = 0.3;
-        if(options.rainbow2){
+        if(options.rainbow3){
           $._id("input-freq").value = 3;
         }
         else{
@@ -72,6 +72,15 @@
         $._id("input-df").value = 30;
         $.set_id("checkbox-random", "checked", "checked");
         $.set_selectVal_id("select-composite", "lighter");
+      }
+      else if(options.stamp2 || options.stamp3){
+        $._id("input-W").value = 100;
+        $._id("input-A").value = 50;
+        $._id("input-clip").value = 0.5;
+        $._id("input-df").value = 5;
+        if(options.stamp3){
+          $.set_id("checkbox-random", "checked", "checked");
+        }
       }
       else if(options.pen3d){
         $._id("input-W").value = 50;
