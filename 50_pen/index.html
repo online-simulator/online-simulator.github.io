@@ -47,7 +47,7 @@
           $._id("input-freq").value = 3;
         }
         else if(options.imageb3){
-          $._id("input-freq").value = -1;
+          $.set_id("checkbox-random", "checked", "checked");
         }
       }
       else if(options.rainbow){
@@ -61,7 +61,7 @@
           $._id("input-freq").value = 3;
         }
         else{
-          $._id("input-freq").value = -1;
+          $.set_id("checkbox-random", "checked", "checked");
         }
         $.set_selectVal_id("select-composite", "lighter");
       }
@@ -87,7 +87,7 @@
           $._id("input-freq").value = 3;
         }
         else if(options.pen3d4){
-          $._id("input-freq").value = -1;
+          $.set_id("checkbox-random", "checked", "checked");
         }
       }
       else if(options.dot){
@@ -209,7 +209,10 @@
 <input id="input-df" type="number" class="input-50" min="1" step="1" value="1">
   </label>
   <label>-freq[Hz]:
-<input id="input-freq" type="number" class="input-50" min="-1" step="1" value="0">
+<input id="input-freq" type="number" class="input-50" step="1" value="0">
+  </label>
+  <label>-random:
+    <input id="checkbox-random" type="checkbox">
   </label>
 <hr>
   <label>cap:

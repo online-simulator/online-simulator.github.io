@@ -598,13 +598,13 @@ My_entry.pen.prototype.make_handlers = function(){
             /* Ver.1.67.12 */
             var get_theta = function(dx, dy){
               var _theta = Math.atan2(dy, dx);
-              var fps = 60;
-              if(options.freq > 0){
+              if(options.random){
+                _theta = Math.PI*2*Math.random();
+              }
+              else if(options.freq){
+                var fps = 60;
                 var omega = Math.PI*2*options.freq;
                 _theta += omega*self.counter/fps;
-              }
-              else if(options.freq < 0){
-                _theta = Math.PI*2*Math.random();
               }
               return _theta;
             };
