@@ -880,7 +880,7 @@ w1=0
           </td>
         </tr>
         <tr class="border">
-          <td class="border">
+          <td class="border" rowspan="2">
           </td>
           <td class="border">
 <span class="condition">
@@ -895,6 +895,31 @@ g1
           </td>
           <td class="border">
 振幅gainのfilter特性値
+          </td>
+        </tr>
+        <tr class="border">
+          <td class="border">
+<span class="wF">f_vib</span>=0@default
+<br>
+<span class="run">Ver.1.56.11追加</span>
+          </td>
+          <td class="border">
+vibratoの周波数[Hz]
+<br>
+・pitch変化のみを想定
+<br>
+・変化量の連続性を考慮
+<br>
+<br>
+omega_vib=2pi*f_vib
+<br>
+dkf_vib=(1-pow(2,1/12))/2
+<br>
+kdf=sin(omega_vib*t)*dkf_vib
+<br>
+df=kdf*f
+<br>
+f=f+df
           </td>
         </tr>
         <tr class="border">
