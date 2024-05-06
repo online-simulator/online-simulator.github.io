@@ -25,7 +25,7 @@
 Ver.1.56.12
           </td>
           <td class="border">
-・sweep中の位相の連続性を改善（位相の前回値を継承）
+・sweep中の位相の連続性を改善（dataset内で位相の前回値を継承）
 <br>
 　f_vib=-3~3　⇒　-10~10
           </td>
@@ -927,9 +927,9 @@ vibratoの周波数[Hz]
 <br>
 omega_vib=2pi*f_vib
 <br>
-dkf_vib=(1-pow(2,1/12))/2
+dkf_vib=(1-pow(2,1/12))/2　<span class="jF">半音の半値幅の振幅を仮定</span>
 <br>
-kdf=sin(omega_vib*t)*dkf_vib
+kdf=sin(omega_vib*t)*dkf_vib　<span class="jF">±両側の変動を仮定</span>
 <br>
 df=kdf*f
 <br>
@@ -1512,7 +1512,7 @@ rate=2：指定時間で周波数を倍増
 <br>
 rate&gt;&gt;1：sample数/sec&gt;&gt;10000（要分解能）
 <br>
-<span class="jF">・sweep中の位相の連続性を改善（位相の前回値を継承）</span>
+<span class="jF">・sweep中の位相の連続性を改善（dataset内で位相の前回値を継承）</span>
           </td>
         </tr>
         <tr class="border">
