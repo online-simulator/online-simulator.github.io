@@ -320,6 +320,11 @@ My_entry.output_wave.prototype.check_limit = function(_params){
   ["order_fade"].forEach(function(prop){
     _params[prop] = def.limit(Math.floor(_params[prop]), -2, 3, 2);  // Ver.1.49.11
   });
+  /* Ver.1.56.11 -> */
+  ["f_vib"].forEach(function(prop){
+    _params[prop] = def.limit(_params[prop], -Number.MAX_VALUE, Number.MAX_VALUE, 0);
+  });
+  /* -> Ver.1.56.11 */
   return _params;
 };
 My_entry.output_wave.prototype.check_params = function(_params){
@@ -386,6 +391,11 @@ My_entry.output_wave.prototype.encode_soundData_LE = function(params){  // Ver.1
   var get_newAmp = function(ns){
     return amplitude;
   };
+  /* Ver.1.56.11 -> */
+  var useVib = params.f_vib;
+  var dkf_vib = (Math.pow(2, 1/12)-1)/2;
+  var omega_vib = Math.PI*2*params.f_vib;
+  /* -> Ver.1.56.11 */
   if(useFade && params.order_fade === 0){  // Ver.1.39.8
     get_newAmp = function(ns){
       var _newAmp = amplitude;
@@ -499,6 +509,7 @@ My_entry.output_wave.prototype.encode_soundData_LE = function(params){  // Ver.1
     var order = params.order;
     var prop_dkf = Math.pow(dt, order);
     var kf = kf0+(kf1-kf0)*prop_dkf;
+    var kdf = (useVib)? Math.sin(omega_vib*t)*dkf_vib: 0;  // Ver.1.56.11
     /* -> Ver.1.26.4 */
     /* -> Ver.1.24.4 */
     var val = 0;
@@ -506,6 +517,12 @@ My_entry.output_wave.prototype.encode_soundData_LE = function(params){  // Ver.1
     params.arr_f.forEach(function(f, i){
       var f0 = f;
       var ft = f*kf;
+      /* Ver.1.56.11 -> */
+      if(useVib){
+        var dft = kdf*ft;
+        ft += dft;
+      }
+      /* -> Ver.1.56.11 */
       var gain_normalized = params.arr_g_normalized[i];
       var gaint = gain_normalized;
       var gain_f0 = self.get_gain_loglog(f0, params.f0, params.f1, params.g0, params.g1);
