@@ -23,6 +23,12 @@ My_entry.math_wave.prototype.normalize_t = function(freq, t, phi0, duty){
   _t = self.t_duty(_t, duty);
   return _t;
 };
+/* Ver.1.56.12 */
+My_entry.math_wave.prototype.normalize_phi = function(freq, t, phi0){
+  var self = this;
+  var t = (t*freq+phi0/self.pi2)%1;
+  return t*self.pi2;
+};
 My_entry.math_wave.prototype.sin = function(freq, t, phi0, duty){
   var self = this;
   var _val = 0;

@@ -352,20 +352,26 @@ My_entry.output_wave.prototype.get_binary_soundData_LE = function(params){
 };
 My_entry.output_wave.prototype.encode_soundData_LE = function(params){  // Ver.1.25.4
   var self = this;
+  var math_wave = self.entry.math_wave;  // Ver.1.56.12
   var _binary = "";
   var Bytes_perSample = self.Bytes_perSample;
   var amplitude = self.amplitude;
   var offset = self.offset;
   var seconds_perSample = 1/self.samples_perSecond;
   /* Ver.1.16.4 -> */
-  var fn = self.entry.math_wave[params.type.replace(self.ba_type.b, self.ba_type.a)];  // Ver.1.25.4  // Ver.1.34.6  // Ver.1.46.11
+  var fn = math_wave[params.type.replace(self.ba_type.b, self.ba_type.a)];  // Ver.1.25.4  // Ver.1.34.6  // Ver.1.46.11  // Ver.1.56.12
   var func_t = function(){
-    return fn.apply(self.entry.math_wave, arguments);
+    return fn.apply(math_wave, arguments);  // Ver.1.56.12
   };
   /* -> Ver.1.16.4 */
   /* Ver.1.47.11 -> */
   var hasRand_phi0 = (params.type.match(self.ba_type.b));
-  var phi0 = (hasRand_phi0)? Math.random()*Math.PI*2: 0;  // Ver.1.34.6
+  /* Ver.1.56.12 -> */
+  var arr_phi = [];
+  for(var i=0; i<params.arr_f.length; ++i){
+    arr_phi[i] = (hasRand_phi0)? Math.PI*2*Math.random(): 0;  // Ver.1.34.6
+  }
+  /* -> Ver.1.56.12 */
   /* -> Ver.1.47.11 */
   /* Ver.1.25.4 -> */
   /* Ver.1.17.4 */
@@ -530,7 +536,11 @@ My_entry.output_wave.prototype.encode_soundData_LE = function(params){  // Ver.1
         var gain_ft = self.get_gain_loglog(ft, params.f0, params.f1, params.g0, params.g1);
         gaint *= gain_ft/gain_f0;
       }
-      val += gaint*func_t(ft, t, phi0, duty);  // gain first  // Ver.1.16.4  // Ver.1.25.4
+      /* Ver.1.56.12 -> */
+      var phii = arr_phi[i];
+      val += gaint*func_t(ft, seconds_perSample, phii, duty);  // gain first  // Ver.1.16.4  // Ver.1.25.4
+      arr_phi[i] = math_wave.normalize_phi(ft, seconds_perSample, phii);
+      /* -> Ver.1.56.12 */
     });
     val *= get_newAmp(ns);
     val *= kamplitude;  // Ver.1.20.4

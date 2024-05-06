@@ -21,6 +21,16 @@
       <caption><span id="span-history">演奏機能の更新履歴</span></caption>
       <tbody>
         <tr class="border">
+          <td class="border clear">
+Ver.1.56.12
+          </td>
+          <td class="border">
+・sweep中の位相の連続性を改善（位相の前回値を継承）
+<br>
+　f_vib=-3~3　⇒　-10~10
+          </td>
+        </tr>
+        <tr class="border">
           <td class="border run">
 Ver.1.56.11
           </td>
@@ -747,6 +757,8 @@ r
 <span class="wF">Ver.1.49.11更新</span>
 <br>
 <span class="wF">Ver.1.56.11更新</span>
+<br>
+<span class="jF">Ver.1.56.12更新</span>
           </td>
           <td class="border">
 datasetの拡張
@@ -768,7 +780,7 @@ datasetの拡張
 <br>
 <span class="condition">:w0=0~1:p0=0~1:w1=0~1:p1=0~1:f0:g0=0~1:f1:g1=0~1</span>
 <br>
-<span class="jF">:rate=0~:order=0~</span><span class="selection">:order_d=0~:order_a=0~</span><span class="wF">:order_fade=floor(-2~3):f_vib=-3~3</span>;
+<span class="jF">:rate=0~:order=0~</span><span class="selection">:order_d=0~:order_a=0~</span><span class="wF">:order_fade=floor(-2~3):f_vib=<span class="jF">-10~10</span></span>;
           </td>
         </tr>
         <tr class="border">
@@ -902,6 +914,8 @@ g1
 <span class="wF">f_vib</span>=0@default
 <br>
 <span class="run">Ver.1.56.11追加</span>
+<br>
+<span class="jF">Ver.1.56.12更新</span>
           </td>
           <td class="border">
 vibratoの周波数[Hz]
@@ -1478,6 +1492,8 @@ duty≠0.5：上下非対称・上下不連続（duty比を閾値に比例係数
 sweep-rate
 <br>
 <span class="run">Ver.1.24.4追加</span>
+<br>
+<span class="jF">Ver.1.56.12更新</span>
           </td>
           <td class="border">
 出だし音の周波数sweep用
@@ -1495,6 +1511,8 @@ rate=0.5：指定時間で周波数を半減
 rate=2：指定時間で周波数を倍増
 <br>
 rate&gt;&gt;1：sample数/sec&gt;&gt;10000（要分解能）
+<br>
+<span class="jF">・sweep中の位相の連続性を改善（位相の前回値を継承）</span>
           </td>
         </tr>
         <tr class="border">
