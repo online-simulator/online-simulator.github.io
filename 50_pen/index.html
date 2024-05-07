@@ -65,6 +65,16 @@
         }
         $.set_selectVal_id("select-composite", "lighter");
       }
+      else if(options.snow || options.snow2 || options.snow3){
+        $._id("input-W").value = 100;
+        $._id("input-clip").value = 0.6;
+        if(options.snow2){
+          $._id("input-freq").value = 1.618033988749895;
+        }
+        else if(options.snow3){
+          $.set_id("checkbox-random", "checked", "checked");
+        }
+      }
       else if(options.stamp){
         $._id("input-W").value = 100;
         $._id("input-A").value = 100;
