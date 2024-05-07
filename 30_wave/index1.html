@@ -39,6 +39,17 @@
   (function(){
     var $ = new My_entry.$();
     $.onload(function(e){
+      var options = $.get_urlParams();
+      if(options.testcase === "beep"){
+        $.set_selectVal_id("select-octave", "3");
+        $.set_id("o1c9", "checked", "checked");
+        $.set_selectVal_id("select-type", "triangle_rand");
+        $._id("input-duty").value = 0.25;
+        $._id("input-rate").value = -2;
+        $._id("input-order").value = 2;
+        $._id("input-f_vib").value = -15;
+        $._id("input-time").value = 600;
+      }
       new My_entry.handler_wave().onload(e);
       $._id("select-MIDI-octave").onchange =
       $._id("input-MIDI-note").onchange = function(){
