@@ -52,9 +52,9 @@
       var $ = new My_entry.$();
       var options = $.get_urlParams();
       if(options.sim === "fluid"){
-        $.set_id("checkbox-auto-config", "checked", null);
         $._id("input-W").value = 2;
         $._id("input-A").value = 100;
+        $.set_id("checkbox-auto-config", "checked", null);
         $._id("input-w_th").value = 0;
         $._id("input-len_th").value = 99;
         $._id("input-dlen").value = 99;
@@ -148,7 +148,7 @@
 <table><tbody>
 <tr><td>
 <div>
-  <input id="checkbox-auto-config" type="checkbox" checked="checked">
+  <input id="checkbox-fade_w" type="checkbox" checked="checked">
   <label>W:
 <input id="input-W" type="number" class="input-50" min="0" value="16">
   </label>
@@ -177,6 +177,35 @@
   </label>
   <label>canvas-height:
 <input id="input-canvas-height" type="number" class="input-50" min="16" max="2560" step="16" value="512">
+  </label>
+<hr>
+  <label>dash:
+<input id="input-dash" type="number" class="input-50" min="0" max="100" step="10" value="0">
+  </label>
+  <label>stripe:
+<select id="select-stripe">
+  <option>img</option>
+  <option selected="selected">0</option>
+  <option>3</option>
+  <option>5</option>
+  <option>7</option>
+  <option>3b</option>
+  <option>4b</option>
+  <option>5b</option>
+  <option>6b</option>
+</select>
+  </label>
+  <label>-clip:
+<input id="input-clip" type="number" class="input-50" min="0" step="0.1" value="0.8">
+  </label>
+  <label>Δframe:
+<input id="input-df" type="number" class="input-50" min="1" step="1" value="1">
+  </label>
+  <label>-freq[Hz]:
+<input id="input-freq" type="number" class="input-50" step="1" value="0">
+  </label>
+  <label>-random:
+    <input id="checkbox-random" type="checkbox">
   </label>
 <hr>
   <label>cap:
@@ -224,6 +253,9 @@
 <input id="input-oy" type="number" class="input-50" value="0">
   </label>
 <hr>
+  <label>auto:
+    <input id="checkbox-auto-config" type="checkbox" checked="checked">
+  </label>
   <label>w_th:
 <input id="input-w_th" type="number" class="input-50" min="0" value="3">
   </label>

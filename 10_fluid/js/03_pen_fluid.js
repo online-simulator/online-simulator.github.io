@@ -771,8 +771,6 @@ My_entry.pen.prototype.init_handlers = function(){
         var W = options.W;  // options
         var isChecked = options["auto-config"];  // options
         if(isChecked && W > 0){
-          var A = options.A;  // options
-          $._id("input-A").value = (W < 5)? ((A < 0)? A: -30): ((A > 0)? A: 10);
           /* Ver.1.46.8 -> */
           $._id("input-w_th").value = (1-Math.pow(Math.E, -0.029375226827858474*W))*8;
           $._id("input-dlen").value = (1-Math.pow(Math.E, -0.11198496682675355*W))*6;
