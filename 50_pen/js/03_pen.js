@@ -168,6 +168,7 @@ My_entry.pen.prototype.update_options = function(){
     options["grid-width"] = Math.floor(options["grid-width"]);
     options["grid-height"] = Math.floor(options["grid-height"]);
     /* -> Ver.1.49.9 */
+    options.df = def.limit(options.df, 1, Number.MAX_VALUE, 1);  // fluid-Ver.1.45.1
     options.dlen = def.limit(options.dlen, 1, 2560, 5);  // Ver.1.46.8 for direct-input
     options.x0 = def.limit(options.x0, 0, fg.px_w, fg.px_w/2);
     options.y0 = def.limit(options.y0, 0, fg.px_h, fg.px_h/2);
