@@ -38,6 +38,38 @@ button
     <td>
 new My_entry.output_wave().output_sound(
 <br>
+{type: 'triangle<span class="clear">_rand</span>', sec: 0.6, arr_f: [220, 440], arr_g: [<span class="condition">0, 1</span>]
+<br>
+, duty0: 0.25, duty1: 0.25, rate: -2, order: 2, f_vib: -15
+<br>
+, w0: 0.97, p0: 0.02, w1: 0.97, p1: 0.02}
+<br>
+);
+    </td>
+    <td class="border">
+  <button class="run" onclick="new My_entry.output_wave().output_sound({type: 'triangle_rand', sec: 0.6, arr_f: [220, 440], arr_g: [0, 1], duty0: 0.25, duty1: 0.25, rate: -2, order: 2, f_vib: -15, w0: 0.97, p0: 0.02, w1: 0.97, p1: 0.02});">beep1</button>
+    </td>
+  </tr>
+  <tr class="border">
+    <td>
+new My_entry.output_wave().output_sound(
+<br>
+{type: 'triangle<span class="clear">_rand</span>', sec: 0.6, arr_f: [220, 440], arr_g: [<span class="condition">1, 1</span>]
+<br>
+, duty0: 0.25, duty1: 0.25, rate: -2, order: 2, f_vib: -15
+<br>
+, w0: 0.97, p0: 0.02, w1: 0.97, p1: 0.02}
+<br>
+);
+    </td>
+    <td class="border">
+  <button class="run" onclick="new My_entry.output_wave().output_sound({type: 'triangle_rand', sec: 0.6, arr_f: [220, 440], arr_g: [1, 1], duty0: 0.25, duty1: 0.25, rate: -2, order: 2, f_vib: -15, w0: 0.97, p0: 0.02, w1: 0.97, p1: 0.02});">beep2</button>
+    </td>
+  </tr>
+  <tr class="border">
+    <td>
+new My_entry.output_wave().output_sound(
+<br>
 {type: 'sin', sec: 1, arr_f: [523, 660, 784, 3000], arr_g: null}
 <br>
 );
