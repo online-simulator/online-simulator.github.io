@@ -65,13 +65,13 @@
         }
         $.set_selectVal_id("select-composite", "lighter");
       }
-      else if(options.snow || options.snow2 || options.snow3){
+      else if(options.snow || options.snow2 || options.snow3 || options.snow4 || options.snow5){
         $._id("input-W").value = 100;
-        $._id("input-clip").value = 0.6;
+        $._id("input-clip").value = (options.snow4 || options.snow5)? 0.5: 0.6;
         if(options.snow2){
           $._id("input-freq").value = 1.618033988749895;
         }
-        else if(options.snow3){
+        else if(options.snow3 || options.snow5){
           $.set_id("checkbox-random", "checked", "checked");
         }
         $.set_selectVal_id("select-composite", "lighter");
