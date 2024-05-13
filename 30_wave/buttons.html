@@ -14,6 +14,7 @@
   <link rel="stylesheet" type="text/css" href="css/color.css">
   <link rel="stylesheet" type="text/css" href="css/size.css">
   <script type="text/javascript" src="../00_common/js/000_namespace/000_entry.js"></script>
+  <script type="text/javascript" src="../00_common/js/00_class/00_$.js"></script>
   <script type="text/javascript" src="../00_common/js/00_class/00_def.js"></script>
   <script type="text/javascript" src="../00_common/js/00_class/01_math_wave.js"></script>
   <script type="text/javascript" src="../00_common/js/02_handler/02_handler_baseview.js"></script>
@@ -36,186 +37,158 @@ button
   </tr>
   <tr class="border">
     <td>
-new My_entry.output_wave().output_sound(
+new My_entry.output_wave().output_sound({
 <br>
-{type: 'triangle<span class="clear">_rand</span>', sec: 0.6, arr_f: [220, 440], arr_g: [<span class="condition">0, 1</span>]
+<textarea id="textarea-beep1" rows="5">"type": "triangle_rand", "sec": 0.6, "arr_f": [220, 440], "arr_g": [0, 1], "duty0": 0.25, "duty1": 0.25, "rate": -2, "order": 2, "f_vib": -15, "w0": 0.97, "p0": 0.02, "w1": 0.97, "p1": 0.02</textarea>
 <br>
-, duty0: 0.25, duty1: 0.25, rate: -2, order: 2, f_vib: -15
-<br>
-, w0: 0.97, p0: 0.02, w1: 0.97, p1: 0.02}
-<br>
-);
+});
     </td>
     <td class="border">
-  <button class="run" onclick="new My_entry.output_wave().output_sound({type: 'triangle_rand', sec: 0.6, arr_f: [220, 440], arr_g: [0, 1], duty0: 0.25, duty1: 0.25, rate: -2, order: 2, f_vib: -15, w0: 0.97, p0: 0.02, w1: 0.97, p1: 0.02});">beep1</button>
+  <button class="run" onclick="new My_entry.output_wave().output_sound(JSON.parse('{'+new My_entry.$().inputVal_id('textarea-'+this.innerText)+'}'));">beep1</button>
     </td>
   </tr>
   <tr class="border">
     <td>
-new My_entry.output_wave().output_sound(
+new My_entry.output_wave().output_sound({
 <br>
-{type: 'triangle<span class="clear">_rand</span>', sec: 0.6, arr_f: [220, 440], arr_g: [<span class="condition">1, 1</span>]
+<textarea id="textarea-beep2" rows="5">"type": "triangle_rand", "sec": 0.6, "arr_f": [220, 440], "arr_g": [1, 1], "duty0": 0.25, "duty1": 0.25, "rate": -2, "order": 2, "f_vib": -15, "w0": 0.97, "p0": 0.02, "w1": 0.97, "p1": 0.02</textarea>
 <br>
-, duty0: 0.25, duty1: 0.25, rate: -2, order: 2, f_vib: -15
-<br>
-, w0: 0.97, p0: 0.02, w1: 0.97, p1: 0.02}
-<br>
-);
+});
     </td>
     <td class="border">
-  <button class="run" onclick="new My_entry.output_wave().output_sound({type: 'triangle_rand', sec: 0.6, arr_f: [220, 440], arr_g: [1, 1], duty0: 0.25, duty1: 0.25, rate: -2, order: 2, f_vib: -15, w0: 0.97, p0: 0.02, w1: 0.97, p1: 0.02});">beep2</button>
+  <button class="run" onclick="new My_entry.output_wave().output_sound(JSON.parse('{'+new My_entry.$().inputVal_id('textarea-'+this.innerText)+'}'));">beep2</button>
     </td>
   </tr>
   <tr class="border">
     <td>
-new My_entry.output_wave().output_sound(
+new My_entry.output_wave().output_sound({
 <br>
-{type: 'sin', sec: 1, arr_f: [523, 660, 784, 3000], arr_g: null}
+<textarea id="textarea-play1" rows="5">"type": "sin", "sec": 1, "arr_f": [523, 660, 784, 3000], "arr_g": null</textarea>
 <br>
-);
+});
     </td>
     <td class="border">
-  <button class="run" onclick="new My_entry.output_wave().output_sound({type: 'sin', sec: 1, arr_f: [523, 660, 784, 3000], arr_g: null});">play</button>
+  <button class="run" onclick="new My_entry.output_wave().output_sound(JSON.parse('{'+new My_entry.$().inputVal_id('textarea-'+this.innerText)+'}'));">play1</button>
     </td>
   </tr>
   <tr class="border">
     <td>
-new My_entry.output_wave().output_sound(
+new My_entry.output_wave().output_sound({
 <br>
-{type: 'triangle<span class="clear">_rand</span>', sec: 1, arr_f: [523, 660, 784, 3000], arr_g: null}
+<textarea id="textarea-play2" rows="5">"type": "triangle_rand", "sec": 1, "arr_f": [523, 660, 784, 3000], "arr_g": null</textarea>
 <br>
-);
+});
     </td>
     <td class="border">
-  <button class="run" onclick="new My_entry.output_wave().output_sound({type: 'triangle_rand', sec: 1, arr_f: [523, 660, 784, 3000], arr_g: null});">play</button>
+  <button class="run" onclick="new My_entry.output_wave().output_sound(JSON.parse('{'+new My_entry.$().inputVal_id('textarea-'+this.innerText)+'}'));">play2</button>
     </td>
   </tr>
   <tr class="border">
     <td>
-new My_entry.output_wave().output_sound(
+new My_entry.output_wave().output_sound({
 <br>
-{sec: 1, arr_f: [523, 660, 784, 3000], arr_g: []}
+<textarea id="textarea-play3" rows="5">"sec": 1, "arr_f": [523, 660, 784, 3000], "arr_g": []</textarea>
 <br>
-);
+});
     </td>
     <td class="border">
-  <button class="run" onclick="new My_entry.output_wave().output_sound({sec: 1, arr_f: [523, 660, 784, 3000], arr_g: []});">play</button>
+  <button class="run" onclick="new My_entry.output_wave().output_sound(JSON.parse('{'+new My_entry.$().inputVal_id('textarea-'+this.innerText)+'}'));">play3</button>
     </td>
   </tr>
   <tr class="border">
     <td>
-new My_entry.output_wave().output_sound(
+new My_entry.output_wave().output_sound({
 <br>
-{sec: 1, arr_f: [523, 660, 784, 3000], arr_g: [,1]}
+<textarea id="textarea-play4" rows="5">"sec": 1, "arr_f": [523, 660, 784, 3000], "arr_g": [0,1]</textarea>
 <br>
-);
+});
     </td>
     <td class="border">
-  <button class="run" onclick="new My_entry.output_wave().output_sound({sec: 1, arr_f: [523, 660, 784, 3000], arr_g: [,1]});">play</button>
+  <button class="run" onclick="new My_entry.output_wave().output_sound(JSON.parse('{'+new My_entry.$().inputVal_id('textarea-'+this.innerText)+'}'));">play4</button>
     </td>
   </tr>
   <tr class="border">
     <td>
-new My_entry.output_wave().output_sound(
+new My_entry.output_wave().output_sound({
 <br>
-{sec: 1, arr_f: [523, 660, 784, 3000], arr_g: [,1]
+<textarea id="textarea-play5" rows="5">"sec": 1, "arr_f": [523, 660, 784, 3000], "arr_g": [0,1], "w0": 0.97, "p0": 0.02, "w1": 0.97, "p1": 0.02</textarea>
 <br>
-, w0: 0.97, p0: 0.02, w1: 0.97, p1: 0.02}
-<br>
-);
+});
     </td>
     <td class="border">
-  <button class="run" onclick="new My_entry.output_wave().output_sound({sec: 1, arr_f: [523, 660, 784, 3000], arr_g: [,1], w0: 0.97, p0: 0.02, w1: 0.97, p1: 0.02});">play with fade</button><br>-in=20msec<br>-out=20msec
+  <button class="run" onclick="new My_entry.output_wave().output_sound(JSON.parse('{'+new My_entry.$().inputVal_id('textarea-'+this.innerText)+'}'));">play5</button> with fade<br>-in=20msec<br>-out=20msec
     </td>
   </tr>
   <tr class="border">
     <td>
-new My_entry.output_wave().output_sound(
+new My_entry.output_wave().output_sound({
 <br>
-{sec: 1, arr_f: [523, 660, 784, 3000], arr_g: [,1]
+<textarea id="textarea-play6" rows="5">"sec": 1, "arr_f": [523, 660, 784, 3000], "arr_g": [0,1], "w0": 0.97, "p0": 0.2, "w1": 0.97, "p1": 0.02</textarea>
 <br>
-, w0: 0.97, p0: 0.2, w1: 0.97, p1: 0.02}
-<br>
-);
+});
     </td>
     <td class="border">
-  <button class="run" onclick="new My_entry.output_wave().output_sound({sec: 1, arr_f: [523, 660, 784, 3000], arr_g: [,1], w0: 0.97, p0: 0.2, w1: 0.97, p1: 0.02});">play with fade</button><br>-in=200msec<br>-out=20msec
+  <button class="run" onclick="new My_entry.output_wave().output_sound(JSON.parse('{'+new My_entry.$().inputVal_id('textarea-'+this.innerText)+'}'));">play6</button> with fade<br>-in=200msec<br>-out=20msec
     </td>
   </tr>
   <tr class="border">
     <td>
-new My_entry.output_wave().output_sound(
+new My_entry.output_wave().output_sound({
 <br>
-{sec: 1, arr_f: [523, 660, 784, 3000], arr_g: [,1]
+<textarea id="textarea-play7" rows="5">"sec": 1, "arr_f": [523, 660, 784, 3000], "arr_g": [0,1], "w0": 0.97, "p0": 0.02, "w1": 0.97, "p1": 0.2</textarea>
 <br>
-, w0: 0.97, p0: 0.02, w1: 0.97, p1: 0.2}
-<br>
-);
+});
     </td>
     <td class="border">
-  <button class="run" onclick="new My_entry.output_wave().output_sound({sec: 1, arr_f: [523, 660, 784, 3000], arr_g: [,1], w0: 0.97, p0: 0.02, w1: 0.97, p1: 0.2});">play with fade</button><br>-in=20msec<br>-out=200msec
+  <button class="run" onclick="new My_entry.output_wave().output_sound(JSON.parse('{'+new My_entry.$().inputVal_id('textarea-'+this.innerText)+'}'));">play7</button> with fade<br>-in=20msec<br>-out=200msec
     </td>
   </tr>
   <tr class="border">
     <td>
-new My_entry.output_wave().output_sound(
+new My_entry.output_wave().output_sound({
 <br>
-{sec: 1, arr_f: [523, 660, 784, 3000], arr_g: [,1]
+<textarea id="textarea-play8" rows="5">"sec": 1, "arr_f": [523, 660, 784, 3000], "arr_g": [0,1], "w0": 0.97, "p0": 0.2, "w1": 0.97, "p1": 0.2</textarea>
 <br>
-, w0: 0.97, p0: 0.2, w1: 0.97, p1: 0.2}
-<br>
-);
+});
     </td>
     <td class="border">
-  <button class="run" onclick="new My_entry.output_wave().output_sound({sec: 1, arr_f: [523, 660, 784, 3000], arr_g: [,1], w0: 0.97, p0: 0.2, w1: 0.97, p1: 0.2});">play with fade</button><br>-in=200msec<br>-out=200msec
+  <button class="run" onclick="new My_entry.output_wave().output_sound(JSON.parse('{'+new My_entry.$().inputVal_id('textarea-'+this.innerText)+'}'));">play8</button> with fade<br>-in=200msec<br>-out=200msec
     </td>
   </tr>
   <tr class="border">
     <td>
-new My_entry.output_wave().output_sound(
+new My_entry.output_wave().output_sound({
 <br>
-{sec: 1, arr_f: [440], arr_g: [1]
+<textarea id="textarea-play9" rows="5">"sec": 1, "arr_f": [440], "arr_g": [1], "f_vib": 5, "w0": 0.97, "p0": 0.02, "w1": 0.97, "p1": 0.02</textarea>
 <br>
-, f_vib: 5
-<br>
-, w0: 0.97, p0: 0.02, w1: 0.97, p1: 0.02}
-<br>
-);
+});
     </td>
     <td class="border">
-  <button class="run" onclick="new My_entry.output_wave().output_sound({sec: 1, arr_f: [440], arr_g: [1], f_vib: 5, w0: 0.97, p0: 0.02, w1: 0.97, p1: 0.02});">play with vibrato</button><br>=5Hz
+  <button class="run" onclick="new My_entry.output_wave().output_sound(JSON.parse('{'+new My_entry.$().inputVal_id('textarea-'+this.innerText)+'}'));">play9</button> with vibrato<br>=5Hz
     </td>
   </tr>
   <tr class="border">
     <td>
-new My_entry.output_wave().output_sound(
+new My_entry.output_wave().output_sound({
 <br>
-{sec: 1, arr_f: [440], arr_g: [1]
+<textarea id="textarea-play10" rows="5">"sec": 1, "arr_f": [440], "arr_g": [1], "f_vib": 10, "w0": 0.97, "p0": 0.02, "w1": 0.97, "p1": 0.02</textarea>
 <br>
-, f_vib: 10
-<br>
-, w0: 0.97, p0: 0.02, w1: 0.97, p1: 0.02}
-<br>
-);
+});
     </td>
     <td class="border">
-  <button class="run" onclick="new My_entry.output_wave().output_sound({sec: 1, arr_f: [440], arr_g: [1], f_vib: 10, w0: 0.97, p0: 0.02, w1: 0.97, p1: 0.02});">play with vibrato</button><br>=10Hz
+  <button class="run" onclick="new My_entry.output_wave().output_sound(JSON.parse('{'+new My_entry.$().inputVal_id('textarea-'+this.innerText)+'}'));">play10</button> with vibrato<br>=10Hz
     </td>
   </tr>
   <tr class="border">
     <td>
-new My_entry.output_wave().output_sound(
+new My_entry.output_wave().output_sound({
 <br>
-{sec: 1, arr_f: [440], arr_g: [1]
+<textarea id="textarea-play11" rows="5">"sec": 1, "arr_f": [440], "arr_g": [1], "f_vib": 15, "w0": 0.97, "p0": 0.02, "w1": 0.97, "p1": 0.02</textarea>
 <br>
-, f_vib: 15
-<br>
-, w0: 0.97, p0: 0.02, w1: 0.97, p1: 0.02}
-<br>
-);
+});
     </td>
     <td class="border">
-  <button class="run" onclick="new My_entry.output_wave().output_sound({sec: 1, arr_f: [440], arr_g: [1], f_vib: 15, w0: 0.97, p0: 0.02, w1: 0.97, p1: 0.02});">play with vibrato</button><br>=15Hz
+  <button class="run" onclick="new My_entry.output_wave().output_sound(JSON.parse('{'+new My_entry.$().inputVal_id('textarea-'+this.innerText)+'}'));">play11</button> with vibrato<br>=15Hz
     </td>
   </tr>
 </tbody></table>
