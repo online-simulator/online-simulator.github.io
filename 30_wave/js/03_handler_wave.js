@@ -171,6 +171,7 @@ My_entry.handler_wave.prototype.init_handlers = function(){
     self.waveo = new self.constructors.output_wave();
     self.make_params();
     self.waveo.init(self.params.Bytes_perSample, self.params.samples_perSecond, self.params.number_channels);
+    self.update_number_samples();  // Ver.1.59.13
     self.output_amplitude_max(self.params._amplitude_max || ((self.params.maxAmp)? self.pre_maxAmp: ""));  // Ver.1.35.6  // Ver.1.45.11
     if(self.isScriptMode){
       self.output_time("");
@@ -340,7 +341,6 @@ My_entry.handler_wave.prototype.make_params = function(){
     $._id("input-time").value = sec*1000;
   }
   params.sec = sec;
-  self.update_number_samples();
   var volume = $.inputNum_id("range-volume")*0.01;
   if(isNaN(volume)){
     volume = 0.5;
