@@ -25,7 +25,9 @@
 Ver.1.59.13
           </td>
           <td class="border">
-・file size制限の不具合を再修正
+・file size制限の不具合を再修正（check時のみ、params.number_samplesが未反映の状態を修正）
+<br>
+　self.update_number_samples()のcall箇所：self.waveo.init()直前とplay直前　⇒　self.waveo.init()直後
           </td>
         </tr>
         <tr class="border">

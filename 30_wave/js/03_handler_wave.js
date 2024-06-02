@@ -127,7 +127,6 @@ My_entry.handler_wave.prototype.init_handlers = function(){
             arr_params = self.waveo.check_arr_params([self.params]);
           }
           if(arr_params.length){
-            self.update_number_samples();
             var useWorker = $.checkbox_id("checkbox-useWorker");
             setTimeout(function(){
               self.run_worker(arr_params, useWorker);
