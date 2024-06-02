@@ -926,10 +926,10 @@ My_entry.pen.prototype.init_base64s0 = function(options){
   else if(options.brush){  // Ver.1.74.12
     self.base64s[0] = self.base64s["brush"];  // Ver.1.74.12
   }
-  else if(options.rainbow){  // Ver.1.69.12  // Ver.1.70.12
+  else if(options.rainbow || options.rainbow3 || options.rainbow4){  // Ver.1.69.12  // Ver.1.70.12  // Ver.1.75.12
     self.base64s[0] = self.base64s["rainbow"];
   }
-  else if(options.rainbow2 || options.rainbow3 || options.rainbow4){  // Ver.1.70.12
+  else if(options.rainbow2){  // Ver.1.70.12
     self.base64s[0] = self.base64s["rainbow2"];  // Ver.1.70.12
   }
   else if(options.snow || options.snow2 || options.snow3){  // Ver.1.71.12
