@@ -31,10 +31,13 @@
     <td class="text-center">
 executable instance from console
 <br>
-with correct JSON of extended dataset
+with correct JSON of dataset
     </td>
     <td class="border">
 button
+    </td>
+    <td class="border">
+dataset
     </td>
   </tr>
   <tr class="border">
@@ -48,6 +51,9 @@ new My_entry.output_wave().output_sound({
     <td class="border">
   <button class="run" onclick="new My_entry.output_wave().output_sound(JSON.parse('{'+new My_entry.$().inputVal_id('textarea-'+this.innerText)+'}'));">default</button>
     </td>
+    <td class="border">
+{2b:[440]::0:0.5:0.5:1:1:0:0:0:0:800:1:4800:0.3:1:1:1:1:2:0}
+    </td>
   </tr>
   <tr class="border">
     <td>
@@ -59,6 +65,9 @@ new My_entry.output_wave().output_sound({
     </td>
     <td class="border">
   <button class="run" onclick="new My_entry.output_wave().output_sound(JSON.parse('{'+new My_entry.$().inputVal_id('textarea-'+this.innerText)+'}'));">chord</button>
+    </td>
+    <td class="border">
+{2b:[440,880,1760]}
     </td>
   </tr>
   <tr class="border">
@@ -72,6 +81,9 @@ new My_entry.output_wave().output_sound({
     <td class="border">
   <button class="run" onclick="new My_entry.output_wave().output_sound(JSON.parse('{'+new My_entry.$().inputVal_id('textarea-'+this.innerText)+'}'));">beep1</button>
     </td>
+    <td class="border">
+{1.2b:[440]::8:0.25:0.25:1:1:0.97:0.02:0.97:0.02:::::-2:2::::-15}
+    </td>
   </tr>
   <tr class="border">
     <td>
@@ -84,41 +96,53 @@ new My_entry.output_wave().output_sound({
     <td class="border">
   <button class="run" onclick="new My_entry.output_wave().output_sound(JSON.parse('{'+new My_entry.$().inputVal_id('textarea-'+this.innerText)+'}'));">beep2</button>
     </td>
+    <td class="border">
+{1.2b:[220,440]::8:0.25:0.25:1:1:0.97:0.02:0.97:0.02:::::-2:2::::-15}
+    </td>
   </tr>
   <tr class="border">
     <td>
 new My_entry.output_wave().output_sound({
 <br>
-<textarea id="textarea-play1" rows="5">"sec": 1, "arr_f": [523, 660, 784, 3000], "arr_g": null, "type": "sin"</textarea>
+<textarea id="textarea-play1" rows="5">"sec": 1, "arr_f": [523, 660, 784, 3000], "arr_g": []</textarea>
 <br>
 });
     </td>
     <td class="border">
   <button class="run" onclick="new My_entry.output_wave().output_sound(JSON.parse('{'+new My_entry.$().inputVal_id('textarea-'+this.innerText)+'}'));">play1</button>
     </td>
+    <td class="border">
+{2b:[523,660,784,3000]}
+    </td>
   </tr>
   <tr class="border">
     <td>
 new My_entry.output_wave().output_sound({
 <br>
-<textarea id="textarea-play2" rows="5">"sec": 1, "arr_f": [523, 660, 784, 3000], "arr_g": null, "type": "triangle_rand"</textarea>
+<textarea id="textarea-play2" rows="5">"sec": 1, "arr_f": [523, 660, 784, 3000], "arr_g": null, "type": "sin"</textarea>
 <br>
 });
     </td>
     <td class="border">
   <button class="run" onclick="new My_entry.output_wave().output_sound(JSON.parse('{'+new My_entry.$().inputVal_id('textarea-'+this.innerText)+'}'));">play2</button>
     </td>
+    <td class="border">
+{2b:[523,660,784,3000]::0}
+    </td>
   </tr>
   <tr class="border">
     <td>
 new My_entry.output_wave().output_sound({
 <br>
-<textarea id="textarea-play3" rows="5">"sec": 1, "arr_f": [523, 660, 784, 3000], "arr_g": []</textarea>
+<textarea id="textarea-play3" rows="5">"sec": 1, "arr_f": [523, 660, 784, 3000], "arr_g": null, "type": "triangle_rand"</textarea>
 <br>
 });
     </td>
     <td class="border">
   <button class="run" onclick="new My_entry.output_wave().output_sound(JSON.parse('{'+new My_entry.$().inputVal_id('textarea-'+this.innerText)+'}'));">play3</button>
+    </td>
+    <td class="border">
+{2b:[523,660,784,3000]::8}
     </td>
   </tr>
   <tr class="border">
@@ -132,6 +156,9 @@ new My_entry.output_wave().output_sound({
     <td class="border">
   <button class="run" onclick="new My_entry.output_wave().output_sound(JSON.parse('{'+new My_entry.$().inputVal_id('textarea-'+this.innerText)+'}'));">play4</button>
     </td>
+    <td class="border">
+{2b:[660]:::::1:1}
+    </td>
   </tr>
   <tr class="border">
     <td>
@@ -143,6 +170,9 @@ new My_entry.output_wave().output_sound({
     </td>
     <td class="border">
   <button class="run" onclick="new My_entry.output_wave().output_sound(JSON.parse('{'+new My_entry.$().inputVal_id('textarea-'+this.innerText)+'}'));">play5</button> with fade<br>-in=20[msec]<br>-out=20[msec]
+    </td>
+    <td class="border">
+{2b:[660]:::::1:1:0.97:0.02:0.97:0.02}
     </td>
   </tr>
   <tr class="border">
@@ -156,6 +186,9 @@ new My_entry.output_wave().output_sound({
     <td class="border">
   <button class="run" onclick="new My_entry.output_wave().output_sound(JSON.parse('{'+new My_entry.$().inputVal_id('textarea-'+this.innerText)+'}'));">play6</button> with fade<br>-in=200[msec]<br>-out=20[msec]
     </td>
+    <td class="border">
+{2b:[660]:::::1:1:0.97:0.2:0.97:0.02}
+    </td>
   </tr>
   <tr class="border">
     <td>
@@ -167,6 +200,9 @@ new My_entry.output_wave().output_sound({
     </td>
     <td class="border">
   <button class="run" onclick="new My_entry.output_wave().output_sound(JSON.parse('{'+new My_entry.$().inputVal_id('textarea-'+this.innerText)+'}'));">play7</button> with fade<br>-in=20[msec]<br>-out=200[msec]
+    </td>
+    <td class="border">
+{2b:[660]:::::1:1:0.97:0.02:0.97:0.2}
     </td>
   </tr>
   <tr class="border">
@@ -180,6 +216,9 @@ new My_entry.output_wave().output_sound({
     <td class="border">
   <button class="run" onclick="new My_entry.output_wave().output_sound(JSON.parse('{'+new My_entry.$().inputVal_id('textarea-'+this.innerText)+'}'));">play8</button> with fade<br>-in=200[msec]<br>-out=200[msec]
     </td>
+    <td class="border">
+{2b:[660]:::::1:1:0.97:0.2:0.97:0.2}
+    </td>
   </tr>
   <tr class="border">
     <td>
@@ -191,6 +230,9 @@ new My_entry.output_wave().output_sound({
     </td>
     <td class="border">
   <button class="run" onclick="new My_entry.output_wave().output_sound(JSON.parse('{'+new My_entry.$().inputVal_id('textarea-'+this.innerText)+'}'));">play9</button> with vibrato<br>=5[Hz]
+    </td>
+    <td class="border">
+{2b:[440]:::::1:1:0.97:0.2:0.97:0.02::::::::::5}
     </td>
   </tr>
   <tr class="border">
@@ -204,6 +246,9 @@ new My_entry.output_wave().output_sound({
     <td class="border">
   <button class="run" onclick="new My_entry.output_wave().output_sound(JSON.parse('{'+new My_entry.$().inputVal_id('textarea-'+this.innerText)+'}'));">play10</button> with vibrato<br>=10[Hz]
     </td>
+    <td class="border">
+{2b:[440]:::::1:1:0.97:0.2:0.97:0.02::::::::::10}
+    </td>
   </tr>
   <tr class="border">
     <td>
@@ -215,6 +260,9 @@ new My_entry.output_wave().output_sound({
     </td>
     <td class="border">
   <button class="run" onclick="new My_entry.output_wave().output_sound(JSON.parse('{'+new My_entry.$().inputVal_id('textarea-'+this.innerText)+'}'));">play11</button> with vibrato<br>=15[Hz]
+    </td>
+    <td class="border">
+{2b:[440]:::::1:1:0.97:0.2:0.97:0.02::::::::::15}
     </td>
   </tr>
 </tbody></table>
