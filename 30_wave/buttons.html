@@ -104,6 +104,21 @@ new My_entry.output_wave().output_sound({
     <td>
 new My_entry.output_wave().output_sound({
 <br>
+<textarea id="textarea-beep3" rows="5">"sec": 1, "arr_f": [3330, 7770], "w0": 0.97, "p0": 0.02, "w1": 0.97, "p1": 0.02, "f_vib": 30</textarea>
+<br>
+});
+    </td>
+    <td class="border">
+  <button class="run" onclick="new My_entry.output_wave().output_sound(JSON.parse('{'+new My_entry.$().inputVal_id('textarea-'+this.innerText)+'}'));">beep3</button>
+    </td>
+    <td class="border">
+{2b:[3330,7770]:::::::0.97:0.2:0.97:0.02::::::::::30}
+    </td>
+  </tr>
+  <tr class="border">
+    <td>
+new My_entry.output_wave().output_sound({
+<br>
 <textarea id="textarea-play1" rows="5">"sec": 1, "arr_f": [523, 660, 784, 3000], "arr_g": []</textarea>
 <br>
 });
