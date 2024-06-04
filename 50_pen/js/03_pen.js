@@ -580,7 +580,7 @@ My_entry.pen.prototype.make_handlers = function(){
             /* Ver.1.61.11 -> */
             /* Ver.1.64.12 */
             /* Ver.1.63.11 */
-            var isStamp = options.stamp || options.stamp2 || options.stamp3;  // Ver.1.70.12
+            var isStamp = options.stamp || options.stamp2 || options.stamp3 || options.stamp4;  // Ver.1.70.12  // Ver.1.76.12
             var draw_interp = function(callback){
               var len_p = (isStamp)? 1: Math.ceil(len/(options.dlen || 1));  // || not0  // Ver.1.67.12  // Ver.1.70.12
               var dw01 = (w1-w0)/len_p;
@@ -945,7 +945,7 @@ My_entry.pen.prototype.init_base64s0 = function(options){
   else if(options.snow4 || options.snow5 || options.snow6){  // Ver.1.73.12  // Ver.1.76.12
     self.base64s[0] = self.base64s["snow2"];  // Ver.1.73.12
   }
-  else if(options.stamp || options.stamp2 || options.stamp3){  // Ver.1.70.12
+  else if(options.stamp || options.stamp2 || options.stamp3 || options.stamp4){  // Ver.1.70.12  // Ver.1.76.12
     self.base64s[0] = self.base64s["star"];  // Ver.1.67.12
   }
   else{

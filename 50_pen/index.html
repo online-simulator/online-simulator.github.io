@@ -41,7 +41,7 @@
     new My_entry.$().onload(function(e){
       var $ = new My_entry.$();
       var options = $.get_urlParams();
-      if(options.imageb4 || options.brush2 || options.rainbow5 || options.snow6){
+      if(options.imageb4 || options.brush2 || options.rainbow5 || options.snow6 || options.stamp4){
         $._id("input-RGB").value = "#ff00ff";
         $.set_id("checkbox-sync", "checked", "checked");
       }
@@ -90,12 +90,12 @@
         $.set_id("checkbox-random", "checked", "checked");
         $.set_selectVal_id("select-composite", "lighter");
       }
-      else if(options.stamp2 || options.stamp3){
+      else if(options.stamp2 || options.stamp3 || options.stamp4){
         $._id("input-W").value = 100;
         $._id("input-A").value = 50;
         $._id("input-clip").value = 0.5;
         $._id("input-df").value = 5;
-        if(options.stamp3){
+        if(options.stamp3 || options.stamp4){
           $.set_id("checkbox-random", "checked", "checked");
         }
       }
