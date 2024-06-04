@@ -36,6 +36,8 @@ Ver.1.76.12
 ・Snow Pen-3sのpageを追加
 <br>
 ・Stamp Pen-2sのpageを追加
+<br>
+・pen.jsのdraw_base64()を整理
           </td>
         </tr>
         <tr class="border">
@@ -1415,11 +1417,11 @@ Base64のRGB同期を有効化
           <td class="border">
 canvas前面に適用
 <br>
-・mode=penのみ
+・適用条件：mode=penかつstripe=img非選択
 <br>
-・flat_allを適用@pointer-up（composite無効）
+・適用filter：flat_all@pointer-up（composite無効）
 <br>
-・compositeを維持する場合、pen-image-fileのRGBを直接編集
+・補足：compositeを維持する場合、pen-image-fileのRGBを直接編集
           </td>
         </tr>
         <tr class="border">
