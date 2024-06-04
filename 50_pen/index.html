@@ -41,23 +41,27 @@
     new My_entry.$().onload(function(e){
       var $ = new My_entry.$();
       var options = $.get_urlParams();
-      if(options.image || options.imageb || options.imageb2 || options.imageb3){
+      if(options.imageb4 || options.brush2 || options.rainbow5 || options.snow6){
+        $._id("input-RGB").value = "#ff00ff";
+        $.set_id("checkbox-sync", "checked", "checked");
+      }
+      if(options.image || options.imageb || options.imageb2 || options.imageb3 || options.imageb4){
         $._id("input-W").value = 50;
         if(options.imageb2){
           $._id("input-freq").value = 3;
         }
-        else if(options.imageb3){
+        else if(options.imageb3 || options.imageb4){
           $.set_id("checkbox-random", "checked", "checked");
         }
       }
-      else if(options.brush){
+      else if(options.brush || options.brush2){
         $._id("input-W").value = 50;
       }
       else if(options.rainbow || options.rainbow2){
         $._id("input-W").value = 50;
         $.set_selectVal_id("select-composite", "lighter");
       }
-      else if(options.rainbow3 || options.rainbow4){
+      else if(options.rainbow3 || options.rainbow4 || options.rainbow5){
         $._id("input-W").value = 50;
         if(options.rainbow3){
           $._id("input-freq").value = 2;
@@ -67,13 +71,13 @@
         }
         $.set_selectVal_id("select-composite", "lighter");
       }
-      else if(options.snow || options.snow2 || options.snow3 || options.snow4 || options.snow5){
+      else if(options.snow || options.snow2 || options.snow3 || options.snow4 || options.snow5 || options.snow6){
         $._id("input-W").value = 100;
-        $._id("input-clip").value = (options.snow4 || options.snow5)? 0.5: 0.6;
+        $._id("input-clip").value = (options.snow4 || options.snow5 || options.snow6)? 0.5: 0.6;
         if(options.snow2){
           $._id("input-freq").value = 1.618033988749895;
         }
-        else if(options.snow3 || options.snow5){
+        else if(options.snow3 || options.snow5 || options.snow6){
           $.set_id("checkbox-random", "checked", "checked");
         }
         $.set_selectVal_id("select-composite", "lighter");
@@ -183,6 +187,9 @@
   </label>
   <label>stabi:
 <input id="input-stabi" type="number" class="input-50" min="0" max="100" step="0.1" value="2.7">
+  </label>
+  <label>sync:
+    <input id="checkbox-sync" type="checkbox">
   </label>
   <label>RGB:
 <input id="input-RGB" type="color" class="input-100">

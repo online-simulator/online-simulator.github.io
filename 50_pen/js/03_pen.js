@@ -739,6 +739,13 @@ My_entry.pen.prototype.make_handlers = function(){
           alpha = 1;
         }
       }
+      /* Ver.1.76.12 -> */
+      else if(self.mode === 0){
+        if(options.sync){
+          self.flat(fg, {r: rgba.r, g: rgba.g, b: rgba.b, a: -1});
+        }
+      }
+      /* -> Ver.1.76.12 */
       /* -> Ver.1.47.8 */
       /* Ver.1.32.7 -> */
       /* Ver.1.20.4 -> */
@@ -920,13 +927,13 @@ My_entry.pen.prototype.init_base64s0 = function(options){
   else if(options.imageb){
     self.base64s[0] = self.base64s["6b"];  // Ver.1.66.12
   }
-  else if(options.imageb2 || options.imageb3){  // Ver.1.70.12
+  else if(options.imageb2 || options.imageb3 || options.imageb4){  // Ver.1.70.12  // Ver.1.76.12
     self.base64s[0] = self.base64s["3b"];  // Ver.1.69.12
   }
-  else if(options.brush){  // Ver.1.74.12
+  else if(options.brush || options.brush2){  // Ver.1.74.12  // Ver.1.76.12
     self.base64s[0] = self.base64s["brush"];  // Ver.1.74.12
   }
-  else if(options.rainbow || options.rainbow3 || options.rainbow4){  // Ver.1.69.12  // Ver.1.70.12  // Ver.1.75.12
+  else if(options.rainbow || options.rainbow3 || options.rainbow4 || options.rainbow5){  // Ver.1.69.12  // Ver.1.70.12  // Ver.1.75.12  // Ver.1.76.12
     self.base64s[0] = self.base64s["rainbow"];
   }
   else if(options.rainbow2){  // Ver.1.70.12
@@ -935,7 +942,7 @@ My_entry.pen.prototype.init_base64s0 = function(options){
   else if(options.snow || options.snow2 || options.snow3){  // Ver.1.71.12
     self.base64s[0] = self.base64s["snow"];  // Ver.1.71.12
   }
-  else if(options.snow4 || options.snow5){  // Ver.1.73.12
+  else if(options.snow4 || options.snow5 || options.snow6){  // Ver.1.73.12  // Ver.1.76.12
     self.base64s[0] = self.base64s["snow2"];  // Ver.1.73.12
   }
   else if(options.stamp || options.stamp2 || options.stamp3){  // Ver.1.70.12
@@ -945,6 +952,24 @@ My_entry.pen.prototype.init_base64s0 = function(options){
     self.base64s[0] = null;  // Ver.1.63.11
   }
   /* -> Ver.1.64.11 */
+  return self;
+};
+/* Ver.1.76.12 */
+My_entry.pen.prototype.flat = function(obj, rgba, opt_type){
+  var self = this;
+  var options = self.options;
+  var R255 = Math.min(255, Math.max(-1, rgba.r));
+  var G255 = Math.min(255, Math.max(-1, rgba.g));
+  var B255 = Math.min(255, Math.max(-1, rgba.b));
+  var A100 = Math.min(100, Math.max(-1, rgba.a));
+  if(R255 >= 0 || G255 >= 0 || B255 >= 0 || A100 >= 0){
+    var ID = obj.getID_RGBA(R255, G255, B255, A100, opt_type || "flat_all");
+    obj.putID(ID);
+    if(opt_type){
+      self.handler_history_ID.save(ID);
+      self.handler_history_svg.save("");
+    }
+  }
   return self;
 };
 My_entry.pen.prototype.init_handlers = function(){
@@ -1007,16 +1032,7 @@ My_entry.pen.prototype.init_handlers = function(){
       case "flat_low":
       case "flat_all":
       case "flat_upp":
-        var R255 = Math.min(255, Math.max(-1, options["png-R255"]));
-        var G255 = Math.min(255, Math.max(-1, options["png-G255"]));
-        var B255 = Math.min(255, Math.max(-1, options["png-B255"]));
-        var A100 = Math.min(100, Math.max(-1, options["png-A100"]));
-        if(R255 >= 0 || G255 >= 0 || B255 >= 0 || A100 >= 0){
-          var ID = bg.getID_RGBA(R255, G255, B255, A100, elem.id);
-          bg.putID(ID);
-          self.handler_history_ID.save(ID);
-          self.handler_history_svg.save("");
-        }
+        self.flat(bg, {r: options["png-R255"], g: options["png-G255"], b: options["png-B255"], a: options["png-A100"]}, elem.id);  // Ver.1.76.12
         break;
       /* -> Ver.1.7.1 */
       /* Ver.1.17.4 */

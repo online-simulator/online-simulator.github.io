@@ -22,10 +22,26 @@
       <tbody>
         <tr class="border">
           <td class="border run">
+Ver.1.76.12
+          </td>
+          <td class="border">
+・checkbox-syncを追加（Base64のRGB同期を有効化）
+<br>
+・Brush Pen-2sのpageを追加
+<br>
+・Image Pen-3sのpageを追加
+<br>
+・Rainbow Pen-3sのpageを追加
+<br>
+・Snow Pen-3sのpageを追加
+          </td>
+        </tr>
+        <tr class="border">
+          <td class="border run">
 Ver.1.75.12
           </td>
           <td class="border">
-・Rainbow Pen-3/-3rのpageを更新（base64を変更）
+・Rainbow Pen-3/-3rのpageを更新（Base64を変更）
           </td>
         </tr>
         <tr class="border">
@@ -35,7 +51,7 @@ Ver.1.74.12
           <td class="border">
 ・Brush Pen-2のpageを追加
 <br>
-　現状、base64を直接描画するため、RGB無効
+　現状、Base64を直接描画するため、RGB無効
           </td>
         </tr>
         <tr class="border">
@@ -45,7 +61,7 @@ Ver.1.73.12
           <td class="border">
 ・Snow Pen-3/-3r（正6角形）のpageを追加
 <br>
-　現状、base64を直接描画するため、RGB無効
+　現状、Base64を直接描画するため、RGB無効
           </td>
         </tr>
         <tr class="border">
@@ -65,7 +81,7 @@ Ver.1.71.12
           <td class="border">
 ・Snow Pen/-2/-2r（仮想上の正5角形）のpageを追加
 <br>
-　現状、base64を直接描画するため、RGB無効
+　現状、Base64を直接描画するため、RGB無効
           </td>
         </tr>
         <tr class="border">
@@ -153,7 +169,7 @@ Ver.1.64.12
           <td class="border">
 ・line間の内挿補間の不具合@Ver.1.63.11を修正
 <br>
-　stripeと任意penのbase64を内挿補間の対象に追加
+　stripeと任意penのBase64を内挿補間の対象に追加
           </td>
         </tr>
         <tr class="border">
@@ -203,7 +219,7 @@ Ver.1.60.11
 <br>
 　円形範囲のclip順序：ctx.scale()後　⇒　前
 <br>
-　base64の縦横比：可変　⇒　不変
+　Base64の縦横比：可変　⇒　不変
           </td>
         </tr>
         <tr class="border">
@@ -1387,6 +1403,25 @@ xy=w*xy_old_ave+(1-w)*xy_pointer
         </tr>
         <tr class="border">
           <td class="border">
+sync=false||true
+<br>
+<span class="run">Ver.1.76.12追加</span>
+          </td>
+          <td class="border">
+Base64のRGB同期を有効化
+          </td>
+          <td class="border">
+canvas前面に適用
+<br>
+・mode=penのみ
+<br>
+・flat_allを適用@pointer-up（composite無効）
+<br>
+・compositeを維持する場合、pen-image-fileのRGBを直接編集
+          </td>
+        </tr>
+        <tr class="border">
+          <td class="border">
 RGB=#000000~#ffffff
           </td>
           <td class="border">
@@ -1515,7 +1550,7 @@ stripe=<span class="condition">img||</span>0||3||5||7
 png出力のみ対応
 <br>
 <br>
-base64のeraser
+Base64のeraser
 <br>
 ・筆中心の移動量&gt;1.5[px]
 <br>
@@ -1562,7 +1597,7 @@ freq[Hz]
 ω=2pi*freq
           </td>
           <td class="border">
-stripe||任意penのbase64描画時の回転角
+stripe||任意penのBase64描画時の回転角
 <br>
 ・x軸に対する進行方向の角度+ω*frame数/60
           </td>
@@ -1579,7 +1614,7 @@ checkbox-random
 回転角の乱数化
           </td>
           <td class="border">
-stripe||任意penのbase64描画時の回転角
+stripe||任意penのBase64描画時の回転角
 <br>
 ・unchecked時：<span class="condition">freq依存</span>
 <br>
