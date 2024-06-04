@@ -594,7 +594,7 @@ My_entry.pen.prototype.make_handlers = function(){
               }
             };
             /* Ver.1.68.12 */
-            var draw_base64 = function(base64, theta, opt_globalCompositeOperation){  // Ver.1.76.12
+            var draw_base64 = function(base64, theta, opt_globalCompositeOperation){  // Ver.1.77.12
               /* Ver.1.64.12 */
               draw_interp(function(w0, x0, y0, w1, x1, y1){
                 fg.draw_base64(base64, null, null, opt_globalCompositeOperation, [theta, (x0+x1)/2, (y0+y1)/2, w1, options.clip]);  // Ver.1.68.12 w1 fixed for fade_w
@@ -619,7 +619,7 @@ My_entry.pen.prototype.make_handlers = function(){
             if(useImgPen){
               var base64 = self.base64s[0];  // Ver.1.63.11
               var theta = get_theta(dx, dy);  // Ver.1.67.12
-              draw_base64(base64, theta);  // Ver.1.68.12  // Ver.1.76.12
+              draw_base64(base64, theta);  // Ver.1.68.12  // Ver.1.77.12
             }
             /* Ver.1.61.11 -> */
             else if(Math.min(w0, w1) < options.w_th){
@@ -675,7 +675,7 @@ My_entry.pen.prototype.make_handlers = function(){
                   break;
               }
               var theta = get_theta(dx, dy);  // Ver.1.67.12
-              draw_base64(base64, theta, "destination-out");  // Ver.1.68.12  // Ver.1.76.12
+              draw_base64(base64, theta, "destination-out");  // Ver.1.68.12  // Ver.1.77.12
             }
             /* -> Ver.1.59.10 */
             /* -> Ver.1.4.1 */
