@@ -692,6 +692,13 @@ checker:
   <tr class="border">
     <td>
 script:
+<div class="right">
+  <input id="input-N" class="input-50" type="number" min="0" value="20">
+  <input id="input-prob_rest" class="input-50" type="number" min="0" max="1" step="0.05" value="0">
+  <input id="input-prob_init" class="input-50" type="number" min="0" max="1" step="0.05" value="0">
+  <input id="input-w" type="number" class="input-50" min="0" max="1" step="0.05" value="0.5">
+  <button id="random" class="jF">random</button>
+</div>
 <br>
 <span class="condition">$[0-9a-zA-Z_-]+</span>(<span class="selection">[0-9a-zA-Z_-+.,:;[]$\s]+</span>)　{<span class="condition">$tag</span>; -> <span class="selection">dataset||chordset</span>;}
 <br>

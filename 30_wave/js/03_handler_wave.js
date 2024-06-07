@@ -155,6 +155,56 @@ My_entry.handler_wave.prototype.init_handlers = function(){
         });
         self.elem_top.onchange();
         break;
+      case "random":
+        var make_sheet = function(){
+          var _script = "";
+          var note0 = 60;
+          var Nnote = 12;
+          var init_note = function(){
+            return Math.floor(note0+Math.random()*Nnote*2);
+          };
+          var len = $.inputNum_id("input-N");
+          var prob_rest0 = $.inputNum_id("input-prob_rest");
+          var prob_init0 = $.inputNum_id("input-prob_init");
+          var w = $.inputNum_id("input-w");
+          var prob_rest = prob_rest0;
+          var prob_init = prob_init0;
+          var note = init_note();
+          var dnote0 = 0;
+          for(var i=0; i<len; ++i){
+            var r = Math.random();
+            var isRest = false;
+            if(r < prob_rest){
+              isRest = true;
+              dnote0 = 0;
+            }
+            else if(r < prob_rest+prob_init){
+              prob_init = prob_init0;
+              note = init_note();
+              dnote0 = 0;
+            }
+            else{
+              var dnote1 = (-1+Math.random()*2)*Nnote;
+              var dnote = w*dnote0+(1-w)*dnote1;
+              dnote0 = dnote;
+              note += Math.floor(dnote);
+            }
+            if(!(isRest) && note > 0){
+              _script += "n"+note;
+            }
+            else{
+              _script += 0;
+            }
+            if(i < len-1){
+              _script += ";";
+            }
+          }
+          return _script;
+        };
+        $._id("textarea-script").value = "";
+        $._id("textarea-script").value += "$sheet("+make_sheet()+")\n\n";
+        $._id("textarea-script").value += "{b::::::1:0;$sheet;}\n\n";
+        break;
       default:
         break;
     }
