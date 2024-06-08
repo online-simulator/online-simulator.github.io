@@ -739,15 +739,6 @@ My_entry.pen.prototype.make_handlers = function(){
           alpha = 1;
         }
       }
-      /* Ver.1.76.12 -> */
-      else if(self.mode === 0){
-        var hasImg = self.base64s[0];
-        var useImgPen = options.stripe !== "img" && hasImg;
-        if(useImgPen && options.sync){
-          self.flat(fg, {r: rgba.r, g: rgba.g, b: rgba.b, a: -1});
-        }
-      }
-      /* -> Ver.1.76.12 */
       /* -> Ver.1.47.8 */
       /* Ver.1.32.7 -> */
       /* Ver.1.20.4 -> */
@@ -954,8 +945,39 @@ My_entry.pen.prototype.init_base64s0 = function(options){
     self.base64s[0] = null;  // Ver.1.63.11
   }
   /* -> Ver.1.64.11 */
+  self.store_base64();  // Ver.1.78.12
+  self.remake_base64();  // Ver.1.78.12
   return self;
 };
+/* Ver.1.78.12 -> */
+My_entry.pen.prototype.store_base64 = function(){
+  var self = this;
+  self.base64_inner = self.base64s[0];
+  return self;
+};
+My_entry.pen.prototype.remake_base64 = function(){
+  var self = this;
+  var options = self.options;
+  var canvas = self.canvas_inner;
+  var base64 = self.base64s[0];
+  if(base64){
+    if(options.sync){
+      self.entry.conv.base2img(base64, function(e, img){
+        canvas.change_size(img.width, img.height);
+        canvas.draw_base64(base64, null, function(e){
+          var rgba = options._rgba;
+          self.flat(canvas, {r: rgba.r, g: rgba.g, b: rgba.b, a: -1});
+          self.base64s[0] = canvas.get_base64();
+        });
+      });
+    }
+    else{
+      self.base64s[0] = self.base64_inner;
+    }
+  }
+  return self;
+};
+/* -> Ver.1.78.12 */
 /* Ver.1.76.12 */
 My_entry.pen.prototype.flat = function(obj, rgba, opt_type){
   var self = this;
@@ -1003,6 +1025,7 @@ My_entry.pen.prototype.init_handlers = function(){
     self.objs.fg = new self.constructors.canvas($._id("canvas-fg"));
     self.objs.mg = new self.constructors.canvas($._id("canvas-mg"));  // Ver.1.10.2
     self.objs.bg = new self.constructors.canvas($._id("canvas-bg"));
+    self.canvas_inner = new self.constructors.canvas(document.createElement("canvas"));  // Ver.1.78.12
     /* -> Ver.1.7.1 */
     self.objs.fg.attach_point(self.make_handlers());
     /* Ver.1.35.7 -> */
@@ -1167,6 +1190,11 @@ My_entry.pen.prototype.init_handlers = function(){
           self.update_options();  // including URL-parameter
         }
         break;
+      /* Ver.1.78.12 */
+      case "checkbox-sync":
+      case "input-RGB":
+        self.remake_base64();
+        break;
       case "input-canvas-width":  // Ver.1.52.10
       case "input-canvas-height":  // Ver.1.52.10
       case "select-bgcolor":  // Ver.1.7.1
@@ -1218,6 +1246,8 @@ My_entry.pen.prototype.init_handlers = function(){
         var file = $.readFile_elem(elem, /^image/, function(e){
           var base64 = e.target.result;
           self.base64s[0] = base64;  // Ver.1.63.11
+          self.store_base64();  // Ver.1.78.12
+          self.remake_base64();  // Ver.1.78.12
           $._id("input-dash").value = 0;
           $.set_selectVal_id("select-stripe", "0");
         });

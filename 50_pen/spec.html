@@ -22,6 +22,14 @@
       <tbody>
         <tr class="border">
           <td class="border run">
+Ver.1.78.12
+          </td>
+          <td class="border">
+・checkbox-syncを更新（Base64のRGB同期を自動化）
+          </td>
+        </tr>
+        <tr class="border">
+          <td class="border run">
 Ver.1.77.12
           </td>
           <td class="border">
@@ -1418,18 +1426,23 @@ xy=w*xy_old_ave+(1-w)*xy_pointer
 sync=false||true
 <br>
 <span class="run">Ver.1.76.12追加</span>
+<br>
+<span class="clear">Ver.1.78.12更新</span>
           </td>
           <td class="border">
 Base64のRGB同期を有効化
           </td>
           <td class="border">
-canvas前面に適用
+<span class="clear"><del>canvas前面に適用
 <br>
 ・適用条件：mode=penかつstripe=img非選択
 <br>
 ・適用filter：flat_all@pointer-up（composite無効）
 <br>
-・補足：compositeを維持する場合、pen-image-fileのRGBを直接編集（canvas経由で自動変換の実装は保留）
+・補足：compositeを維持する場合、pen-image-fileのRGBを直接編集</del>
+<br>
+<br>
+canvas経由でBase64のRGBを自動変換（compositeを維持）</span>
           </td>
         </tr>
         <tr class="border">
