@@ -57,6 +57,14 @@
       else if(options.brush || options.brush2){
         $._id("input-W").value = 50;
       }
+      else if(options.spray || options.spray2){
+        $._id("input-W").value = 100;
+        $._id("input-clip").value = 2;
+        if(options.spray2){
+          $.set_id("checkbox-random", "checked", "checked");
+        }
+        $.set_selectVal_id("select-composite", "lighter");
+      }
       else if(options.rainbow || options.rainbow2){
         $._id("input-W").value = 50;
         $.set_selectVal_id("select-composite", "lighter");
