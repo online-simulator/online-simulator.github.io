@@ -581,7 +581,7 @@ My_entry.pen.prototype.make_handlers = function(){
             /* Ver.1.61.11 -> */
             /* Ver.1.64.12 */
             /* Ver.1.63.11 */
-            var isStamp = options.stamp || options.stamp2 || options.stamp3 || options.stamp4;  // Ver.1.70.12  // Ver.1.76.12
+            var isStamp = (options.df-1 > 0);  // Ver.1.70.12  // Ver.1.76.12  // Ver.1.80.12
             var draw_interp = function(callback){
               var len_p = (isStamp)? 1: Math.ceil(len/(options.dlen || 1));  // || not0  // Ver.1.67.12  // Ver.1.70.12
               var dw01 = (w1-w0)/len_p;
@@ -1179,6 +1179,13 @@ My_entry.pen.prototype.init_handlers = function(){
       case "checkbox-black":
         $.set_id("div-canvas", "background", ((options.black)? "black": "white"));  // options including URL-parameter
         break;
+      /* Ver.1.80.12 */
+      case "select-pre-image":
+        self.base64s[0] = self.base64s[$.selectVal_id("select-pre-image")];
+        self.store_base64();
+        self.remake_base64();
+        $._id("input-file-pen").value = null;
+        break;
       /* Ver.1.24.6 */
       case "input-W":
         var W = options.W;  // options
@@ -1247,6 +1254,7 @@ My_entry.pen.prototype.init_handlers = function(){
         break;
       /* Ver.1.61.11 */
       case "input-file-pen":
+        $.set_selectVal_id("select-pre-image", "none");  // Ver.1.80.12
         var file = $.readFile_elem(elem, /^image/, function(e){
           var base64 = e.target.result;
           self.base64s[0] = base64;  // Ver.1.63.11
