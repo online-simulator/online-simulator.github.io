@@ -27,6 +27,8 @@ Ver.1.80.12
           <td class="border">
 ・pre-imageを追加
 <br>
+・config--clipの位置を変更（config内部　⇒　画面上部）
+<br>
 ・stamp判定条件の仕様変更
 <br>
 　Stamp Penのみ　⇒　Δframe-1 &gt; 0
@@ -1168,6 +1170,21 @@ stamp判定の場合、補間点の追加を無効化
         </tr>
         <tr class="border">
           <td class="border">
+clip=0~
+<br>
+<span class="run">Ver.1.61.11追加</span>
+<br>
+<span class="clear">Ver.1.80.12更新</span>
+          </td>
+          <td class="border">
+clip範囲の係数
+          </td>
+          <td class="border">
+円の半径=((w0+w1)/2)*clip
+          </td>
+        </tr>
+        <tr class="border">
+          <td class="border">
 pressure=false||true
           </td>
           <td class="border">
@@ -1617,19 +1634,6 @@ Base64のeraser
 <del class="clear">・W&le;64[px]</del>
 <br>
 <span class="clear">・縦横比固定<span>
-          </td>
-        </tr>
-        <tr class="border">
-          <td class="border">
-clip=0~
-<br>
-<span class="run">Ver.1.61.11追加</span>
-          </td>
-          <td class="border">
-clip範囲の係数
-          </td>
-          <td class="border">
-円の半径=((w0+w1)/2)*clip
           </td>
         </tr>
         <tr class="border">
