@@ -98,12 +98,18 @@
         $.set_id("checkbox-random", "checked", "checked");
         $.set_selectVal_id("select-composite", "lighter");
       }
-      else if(options.stamp2 || options.stamp3 || options.stamp4){
+      else if(options.stamp2 || options.stamp3 || options.stamp4 || options.stamp5 || options.stamp6){
         $._id("input-W").value = 100;
         $._id("input-A").value = 50;
         $._id("input-clip").value = 0.5;
+        if(options.stamp5){
+          $._id("input-clip").value = 0.6;
+        }
+        else if(options.stamp6){
+          $._id("input-clip").value = 0.8;
+        }
         $._id("input-df").value = 5;
-        if(options.stamp3 || options.stamp4){
+        if(options.stamp3 || options.stamp4 || options.stamp5 || options.stamp6){
           $.set_id("checkbox-random", "checked", "checked");
         }
       }

@@ -931,6 +931,12 @@ My_entry.pen.prototype.init_base64s0 = function(){
   else if(options.stamp || options.stamp2 || options.stamp3 || options.stamp4){  // Ver.1.67.12  // Ver.1.70.12  // Ver.1.76.12
     name = "star";
   }
+  else if(options.stamp5){  // Ver.1.81.12
+    name = "snow";
+  }
+  else if(options.stamp6){  // Ver.1.81.12
+    name = "snow2";
+  }
   $.set_selectVal_id("select-pre-image", name);
   $._id("select-pre-image").onchange();
   return self;
