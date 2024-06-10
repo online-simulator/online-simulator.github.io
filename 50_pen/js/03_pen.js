@@ -911,46 +911,46 @@ My_entry.pen.prototype.make_handlers = function(){
   /* -> Ver.1.54.10 */
   return _handlers;
 };
+/* Ver.1.80.12 */
 /* Ver.1.65.12 */
-My_entry.pen.prototype.init_base64s0 = function(options){
+My_entry.pen.prototype.init_base64s0 = function(){
   var self = this;
+  var $ = self.entry.$;
+  var options = self.options;
   /* Ver.1.64.11 -> */
+  var name = "";
   if(options.image){
-    self.base64s[0] = self.base64s[7];
+    name = 7;
   }
-  else if(options.imageb){
-    self.base64s[0] = self.base64s["6b"];  // Ver.1.66.12
+  else if(options.imageb){  // Ver.1.66.12
+    name = "6b";
   }
-  else if(options.imageb2 || options.imageb3 || options.imageb4){  // Ver.1.70.12  // Ver.1.76.12
-    self.base64s[0] = self.base64s["3b"];  // Ver.1.69.12
+  else if(options.imageb2 || options.imageb3 || options.imageb4){  // Ver.1.69.12  // Ver.1.70.12  // Ver.1.76.12
+    name = "3b";
   }
   else if(options.brush || options.brush2){  // Ver.1.74.12  // Ver.1.76.12
-    self.base64s[0] = self.base64s["brush"];  // Ver.1.74.12
+    name = "brush";
   }
   else if(options.spray || options.spray2){  // Ver.1.79.12
-    self.base64s[0] = self.base64s["spray"];
+    name = "spray";
   }
   else if(options.rainbow || options.rainbow3 || options.rainbow4 || options.rainbow5){  // Ver.1.69.12  // Ver.1.70.12  // Ver.1.75.12  // Ver.1.76.12
-    self.base64s[0] = self.base64s["rainbow"];
+    name = "rainbow";
   }
   else if(options.rainbow2){  // Ver.1.70.12
-    self.base64s[0] = self.base64s["rainbow2"];  // Ver.1.70.12
+    name = "rainbow2";
   }
   else if(options.snow || options.snow2 || options.snow3){  // Ver.1.71.12
-    self.base64s[0] = self.base64s["snow"];  // Ver.1.71.12
+    name = "snow";
   }
   else if(options.snow4 || options.snow5 || options.snow6){  // Ver.1.73.12  // Ver.1.76.12
-    self.base64s[0] = self.base64s["snow2"];  // Ver.1.73.12
+    name = "snow2";
   }
-  else if(options.stamp || options.stamp2 || options.stamp3 || options.stamp4){  // Ver.1.70.12  // Ver.1.76.12
-    self.base64s[0] = self.base64s["star"];  // Ver.1.67.12
+  else if(options.stamp || options.stamp2 || options.stamp3 || options.stamp4){  // Ver.1.67.12  // Ver.1.70.12  // Ver.1.76.12
+    name = "star";
   }
-  else{
-    self.base64s[0] = null;  // Ver.1.63.11
-  }
-  /* -> Ver.1.64.11 */
-  self.store_base64();  // Ver.1.78.12
-  self.remake_base64();  // Ver.1.78.12
+  $.set_selectVal_id("select-pre-image", name);
+  $._id("select-pre-image").onchange();
   return self;
 };
 /* Ver.1.78.12 -> */
@@ -1042,7 +1042,7 @@ My_entry.pen.prototype.init_handlers = function(){
     $._id("input-W").onchange(e);  // Ver.1.53.10
     self.reset_canvas();
     self.update_options();  // Ver.1.35.7 re-update
-    self.init_base64s0(options);  // Ver.1.65.12
+    self.init_base64s0();  // Ver.1.65.12  // Ver.1.80.12
     return self;
   };
   self.handlers.onbeforeunload = function(e){
@@ -1265,7 +1265,7 @@ My_entry.pen.prototype.init_handlers = function(){
         });
         if(!(file)){
           elem.value = null;
-          self.init_base64s0(options);  // Ver.1.65.12
+          self.init_base64s0();  // Ver.1.65.12  // Ver.1.80.12
         }
         break;
       /* -> Ver.1.11.4 */
