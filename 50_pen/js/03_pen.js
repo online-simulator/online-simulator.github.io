@@ -615,10 +615,9 @@ My_entry.pen.prototype.make_handlers = function(){
               }
               return _theta;
             };
-            var hasImg = self.base64s[0];  // Ver.1.63.11
-            var useImgPen = options.stripe !== "img" && hasImg;
+            var base64 = self.base64s[0];  // Ver.1.63.11  // Ver.1.80.12
+            var useImgPen = base64 && (options.stripe === "none");  // Ver.1.80.12
             if(useImgPen){
-              var base64 = self.base64s[0];  // Ver.1.63.11
               var theta = get_theta(dx, dy);  // Ver.1.67.12
               draw_base64(base64, theta);  // Ver.1.68.12  // Ver.1.77.12
             }
@@ -656,25 +655,8 @@ My_entry.pen.prototype.make_handlers = function(){
             }
             /* -> Ver.1.58.10 */
             /* Ver.1.59.10 -> */
-            if(!(useImgPen) && options.stripe && len > 1.5){  // Ver.1.61.11
-              var base64 = "";
-              switch(options.stripe){
-                // W=8,A=50,canvas=64,grid=4,pressure
-                case 3:
-                case 5:
-                case 7:
-                /* Ver.1.66.12 -> */
-                case "3b":
-                case "4b":
-                case "5b":
-                case "6b":
-                /* -> Ver.1.66.12 */
-                  base64 = self.base64s[options.stripe];  // Ver.1.63.11
-                  break;
-                default:
-                  base64 = self.base64s[0];  // Ver.1.61.11  // Ver.1.63.11
-                  break;
-              }
+            if(base64 && options.stripe === "image" && len > 1.5){  // Ver.1.61.11  // Ver.1.63.11  // Ver.1.66.12  // Ver.1.80.12
+              // W=8,A=50,canvas=64,grid=4,pressure
               var theta = get_theta(dx, dy);  // Ver.1.67.12
               draw_base64(base64, theta, "destination-out");  // Ver.1.68.12  // Ver.1.77.12
             }
@@ -920,7 +902,7 @@ My_entry.pen.prototype.init_base64s0 = function(){
   /* Ver.1.64.11 -> */
   var name = "";
   if(options.image){
-    name = 7;
+    name = "7";
   }
   else if(options.imageb){  // Ver.1.66.12
     name = "6b";
@@ -1261,7 +1243,7 @@ My_entry.pen.prototype.init_handlers = function(){
           self.store_base64();  // Ver.1.78.12
           self.remake_base64();  // Ver.1.78.12
           $._id("input-dash").value = 0;
-          $.set_selectVal_id("select-stripe", "0");
+          $.set_selectVal_id("select-stripe", "none");  // Ver.1.80.12
         });
         if(!(file)){
           elem.value = null;

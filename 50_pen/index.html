@@ -110,13 +110,15 @@
       else if(options.pen3d){
         $._id("input-W").value = 50;
         $._id("input-dash").value = 50;
-        $.set_selectVal_id("select-stripe", "7");
+        $.set_selectVal_id("select-stripe", "image");
+        $.set_selectVal_id("select-pre-image", "7");
       }
       else if(options.pen3d2 || options.pen3d3 || options.pen3d4){
         $._id("input-W").value = 50;
         $._id("input-RGB").value = "#117733";
         $._id("input-dash").value = 50;
-        $.set_selectVal_id("select-stripe", "6b");
+        $.set_selectVal_id("select-stripe", "image");
+        $.set_selectVal_id("select-pre-image", "6b");
         if(options.pen3d3){
           $._id("input-freq").value = 3;
         }
@@ -250,15 +252,8 @@
   </label>
   <label>stripe:
 <select id="select-stripe">
-  <option>img</option>
-  <option selected="selected">0</option>
-  <option>3</option>
-  <option>5</option>
-  <option>7</option>
-  <option>3b</option>
-  <option>4b</option>
-  <option>5b</option>
-  <option>6b</option>
+  <option>none</option>
+  <option>image</option>
 </select>
   </label>
   <label>Δframe:

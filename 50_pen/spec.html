@@ -29,6 +29,8 @@ Ver.1.80.12
 <br>
 ・config--clipの位置を変更（config内部　⇒　画面上部）
 <br>
+・config-stripeを更新
+<br>
 ・stamp判定条件の仕様変更
 <br>
 　Stamp Penのみ　⇒　Δframe-1 &gt; 0
@@ -1484,6 +1486,8 @@ sync=false||true
 <span class="run">Ver.1.76.12追加</span>
 <br>
 <span class="clear">Ver.1.78.12更新</span>
+<br>
+<span class="jF">Ver.1.80.12更新</span>
           </td>
           <td class="border">
 Base64のRGB同期を有効化
@@ -1491,7 +1495,7 @@ Base64のRGB同期を有効化
           <td class="border">
 <span class="clear"><del>canvas前面に適用
 <br>
-・適用条件：mode=penかつstripe=img非選択
+・適用条件：mode=penかつ<span class="jF">stripe=none選択</span>
 <br>
 ・適用filter：flat_all@pointer-up（composite無効）
 <br>
@@ -1612,9 +1616,11 @@ w*0.5のeraser
         </tr>
         <tr class="border">
           <td class="border">
-stripe=<span class="condition">img||</span>0||3||5||7
+stripe=<del class="jF"><span class="condition">img||</span>0||3||5||7
 <br>
-<span class="selection">||3b||4b||5b||6b</span>
+<span class="selection">||3b||4b||5b||6b</span></del>
+<br>
+<span class="jF">none||image</span>
 <br>
 <span class="run">Ver.1.59.10追加</span>
 <br>
@@ -1623,6 +1629,8 @@ stripe=<span class="condition">img||</span>0||3||5||7
 <span class="condition">Ver.1.61.11追加</span>
 <br>
 <span class="selection">Ver.1.66.12追加</span>
+<br>
+<span class="jF">Ver.1.80.12更新</span>
           </td>
           <td class="border">
 筆の縞の本数
@@ -2314,6 +2322,8 @@ pen-image-file
 <span class="selection">Ver.1.71.12更新</span>
 <br>
 <span class="selection">Ver.1.73.12更新</span>
+<br>
+<span class="selection">Ver.1.80.12更新</span>
           </td>
           <td class="border">
 local fileのread機能
@@ -2323,7 +2333,7 @@ read完了後、初期化
 <br>
 ・dash=0
 <br>
-・stripe=0
+・stripe=<span class="selection">none</span>
 <br>
 <br>
 任意penのimageをcanvas前面に逐次合成
@@ -2344,9 +2354,9 @@ read完了後、初期化
 <br>
 ・stripe機能
 <br>
-　<span class="selection">stripe=img選択：pen描画の上からimageをdestination-outで合成</span>
+　<span class="selection">stripe=image選択：pen描画の上からimageをdestination-outで合成</span>
 <br>
-　<span class="selection">stripe=img非選択：imageを直接描画（Δframe&gt;&gt;10でclip後のimageを確認可）</span>
+　<span class="selection">stripe=none選択：imageを直接描画（Δframe&gt;&gt;10でclip後のimageを確認可）</span>
           </td>
         </tr>
         <tr class="border">
