@@ -41,7 +41,7 @@
     new My_entry.$().onload(function(e){
       var $ = new My_entry.$();
       var options = $.get_urlParams();
-      if(options.imageb4 || options.brush2 || options.rainbow5 || options.snow6 || options.stamp4){
+      if(options.imageb4 || options.brush2 || options.rainbow5 || options.snow6 || options.crayon || options.stamp4){
         $._id("input-RGB").value = "#44aa44";
         $.set_id("checkbox-sync", "checked", "checked");
       }
@@ -89,6 +89,12 @@
           $.set_id("checkbox-random", "checked", "checked");
         }
         $.set_selectVal_id("select-composite", "lighter");
+      }
+      else if(options.crayon){
+        $.set_id("checkbox-fade_w", "checked", null);
+        $._id("input-W").value = 100;
+        $._id("input-clip").value = 0.5;
+        $.set_id("checkbox-random", "checked", "checked");
       }
       else if(options.stamp){
         $._id("input-W").value = 100;

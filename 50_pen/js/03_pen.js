@@ -928,6 +928,9 @@ My_entry.pen.prototype.init_base64s0 = function(){
   else if(options.snow4 || options.snow5 || options.snow6){  // Ver.1.73.12  // Ver.1.76.12
     name = "snow2";
   }
+  else if(options.crayon){  // Ver.1.81.12
+    name = "snow";
+  }
   else if(options.stamp || options.stamp2 || options.stamp3 || options.stamp4){  // Ver.1.67.12  // Ver.1.70.12  // Ver.1.76.12
     name = "star";
   }
