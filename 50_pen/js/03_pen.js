@@ -598,7 +598,7 @@ My_entry.pen.prototype.make_handlers = function(){
             var draw_base64 = function(base64, theta, opt_globalCompositeOperation){  // Ver.1.77.12
               /* Ver.1.64.12 */
               draw_interp(function(w0, x0, y0, w1, x1, y1){
-                fg.draw_base64(base64, null, null, opt_globalCompositeOperation, [theta, (x0+x1)/2, (y0+y1)/2, w1, options.clip]);  // Ver.1.68.12 w1 fixed for fade_w
+                fg.draw_base64(base64, null, null, opt_globalCompositeOperation, [theta, (x0+x1)/2, (y0+y1)/2, w1, options.clip, options.cap]);  // Ver.1.68.12 w1 fixed for fade_w  // Ver.1.82.12
               });
             };
             /* Ver.1.70.12 */

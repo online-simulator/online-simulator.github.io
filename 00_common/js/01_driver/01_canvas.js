@@ -141,22 +141,48 @@ My_entry.canvas.prototype.draw_base64 = function(base64, opt_callback_first, opt
       var px_h = img.height;
       var w = opt_transform[3];
       if(w){
+        /* Ver.1.82.12 -> */
         /* Ver.1.60.11 -> */
-        var clip = function(kr){  // Ver.1.61.11
-          var r = (w/2)*kr;
-          ctx.beginPath();
-          ctx.arc(0, 0, r, 0, Math.PI*2);
-          ctx.clip();
-        };
-        var scale = w/Math.max(px_w, px_h);
-        /* -> Ver.1.60.11 */
         var theta = opt_transform[0];
         var xc = opt_transform[1];
         var yc = opt_transform[2];
         var kr = opt_transform[4];  // Ver.1.61.11
+        var cap = opt_transform[5];
+        var clip = function(){  // Ver.1.61.11
+          var cost = Math.cos(theta);
+          var sint = Math.sin(theta);
+          var trans_x = function(x, y){
+            return cost*x-sint*y;
+          };
+          var trans_y = function(x, y){
+            return sint*x+cost*y;
+          };
+          var r = (w/2)*kr;
+          var r8 = r/8;
+          ctx.beginPath();
+          if(cap === "butt"){
+            ctx.moveTo(trans_x(-r8, -r), trans_y(-r8, -r));
+            ctx.lineTo(trans_x(-r8, r), trans_y(-r8, r));
+            ctx.lineTo(trans_x(r8, r), trans_y(r8, r));
+            ctx.lineTo(trans_x(r8, -r), trans_y(r8, -r));
+          }
+          else if(cap === "square"){
+            ctx.moveTo(trans_x(-r, -r), trans_y(-r, -r));
+            ctx.lineTo(trans_x(-r, r), trans_y(-r, r));
+            ctx.lineTo(trans_x(r, r), trans_y(r, r));
+            ctx.lineTo(trans_x(r, -r), trans_y(r, -r));
+          }
+          else{
+            ctx.arc(0, 0, r, 0, Math.PI*2);
+          }
+          ctx.clip();
+        };
+        var scale = w/Math.max(px_w, px_h);
+        /* -> Ver.1.60.11 */
+        /* -> Ver.1.82.12 */
         ctx.resetTransform();
         ctx.translate(xc, yc);  // first
-        clip(kr);  // second  // Ver.1.60.11  // Ver.1.61.11
+        clip();  // second  // Ver.1.60.11  // Ver.1.61.11  // Ver.1.82.12
         ctx.rotate(theta);
         ctx.scale(scale, scale);  // Ver.1.60.11
         ctx.drawImage(img, -0.5*px_w, -0.5*px_h);
