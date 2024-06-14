@@ -27,6 +27,10 @@ Ver.1.82.12
           <td class="border">
 ・config-capを拡張（pen-image-file@clip&lt;1に対応）
 <br>
+・canvas.jsを更新
+<br>
+　clip順序：ctx.rotate()前　⇒　後
+<br>
 ・Rainbow Pen-3/-3r/-3sのpageを更新
           </td>
         </tr>
@@ -1721,13 +1725,17 @@ stripe||任意penのBase64描画時の回転角
           <td class="border">
 cap=butt||round||square
 <br>
-<span class="run">Ver.1.82.12更新</span>
+<span class="selection">||diamond||up||down</span>
+<br>
+<span class="selection">Ver.1.82.12更新</span>
           </td>
           <td class="border">
 line端の形状
           </td>
           <td class="border">
-<span class="run">pen-image-file@clip&lt;1に対応</span>
+<span class="selection">pen-image-file@clip&lt;1に対応
+<br>
+・pre-image=noneの場合、diamond||up||down無効（butt）</span>
           </td>
         </tr>
         <tr class="border">

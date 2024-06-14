@@ -149,8 +149,9 @@ My_entry.canvas.prototype.draw_base64 = function(base64, opt_callback_first, opt
         var kr = opt_transform[4];  // Ver.1.61.11
         var cap = opt_transform[5];
         var clip = function(){  // Ver.1.61.11
-          var cost = Math.cos(theta);
-          var sint = Math.sin(theta);
+          var t = (cap === "diamond")? Math.PI/4: 0;
+          var cost = Math.cos(t);
+          var sint = Math.sin(t);
           var trans_x = function(x, y){
             return cost*x-sint*y;
           };
@@ -166,11 +167,27 @@ My_entry.canvas.prototype.draw_base64 = function(base64, opt_callback_first, opt
             ctx.lineTo(trans_x(r8, r), trans_y(r8, r));
             ctx.lineTo(trans_x(r8, -r), trans_y(r8, -r));
           }
-          else if(cap === "square"){
+          else if(cap === "square" || cap === "diamond"){
             ctx.moveTo(trans_x(-r, -r), trans_y(-r, -r));
             ctx.lineTo(trans_x(-r, r), trans_y(-r, r));
             ctx.lineTo(trans_x(r, r), trans_y(r, r));
             ctx.lineTo(trans_x(r, -r), trans_y(r, -r));
+          }
+          else if(cap === "up"){
+            var t = Math.PI/6;
+            var x = r*Math.cos(t);
+            var y = r*Math.sin(t);
+            ctx.moveTo(trans_x(0, -r), trans_y(0, -r));
+            ctx.lineTo(trans_x(x, y), trans_y(x, y));
+            ctx.lineTo(trans_x(-x, y), trans_y(-x, y));
+          }
+          else if(cap === "down"){
+            var t = Math.PI/6;
+            var x = r*Math.cos(t);
+            var y = -r*Math.sin(t);
+            ctx.moveTo(trans_x(0, r), trans_y(0, r));
+            ctx.lineTo(trans_x(x, y), trans_y(x, y));
+            ctx.lineTo(trans_x(-x, y), trans_y(-x, y));
           }
           else{
             ctx.arc(0, 0, r, 0, Math.PI*2);
@@ -182,8 +199,8 @@ My_entry.canvas.prototype.draw_base64 = function(base64, opt_callback_first, opt
         /* -> Ver.1.82.12 */
         ctx.resetTransform();
         ctx.translate(xc, yc);  // first
-        clip();  // second  // Ver.1.60.11  // Ver.1.61.11  // Ver.1.82.12
         ctx.rotate(theta);
+        clip();  // Ver.1.60.11  // Ver.1.61.11  // Ver.1.82.12
         ctx.scale(scale, scale);  // Ver.1.60.11
         ctx.drawImage(img, -0.5*px_w, -0.5*px_h);
       }
