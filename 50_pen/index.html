@@ -67,11 +67,19 @@
       }
       else if(options.rainbow || options.rainbow2){
         $._id("input-W").value = 50;
+        if(options.rainbow2){
+          $.set_selectVal_id("select-cap", "butt");
+        }
         $.set_selectVal_id("select-composite", "lighter");
       }
       else if(options.rainbow3 || options.rainbow4 || options.rainbow5){
         $._id("input-W").value = 50;
-        $.set_selectVal_id("select-cap", "butt");
+        if(options.rainbow5){
+          $.set_selectVal_id("select-cap", "up");
+        }
+        else{
+          $.set_selectVal_id("select-cap", "butt");
+        }
         if(options.rainbow3){
           $._id("input-freq").value = 2;
         }
