@@ -57,13 +57,18 @@
       else if(options.brush || options.brush2){
         $._id("input-W").value = 50;
       }
-      else if(options.spray || options.spray2){
+      else if(options.spray || options.spray2 || options.spray3){
         $._id("input-W").value = 100;
         $._id("input-clip").value = 2;
         if(options.spray2){
           $.set_id("checkbox-random", "checked", "checked");
         }
-        $.set_selectVal_id("select-composite", "lighter");
+        if(options.spray3){
+          $.set_selectVal_id("select-composite", "darker");
+        }
+        else{
+          $.set_selectVal_id("select-composite", "lighter");
+        }
       }
       else if(options.rainbow || options.rainbow2){
         $._id("input-W").value = 50;

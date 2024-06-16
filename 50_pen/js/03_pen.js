@@ -913,7 +913,7 @@ My_entry.pen.prototype.init_base64s0 = function(){
   else if(options.brush || options.brush2){  // Ver.1.74.12  // Ver.1.76.12
     name = "brush";
   }
-  else if(options.spray || options.spray2){  // Ver.1.79.12
+  else if(options.spray || options.spray2 || options.spray3){  // Ver.1.79.12  // Ver.1.83.12
     name = "spray";
   }
   else if(options.rainbow || options.rainbow3 || options.rainbow4 || options.rainbow5){  // Ver.1.69.12  // Ver.1.70.12  // Ver.1.75.12  // Ver.1.76.12
