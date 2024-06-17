@@ -63,10 +63,7 @@
         if(options.spray2){
           $.set_id("checkbox-random", "checked", "checked");
         }
-        if(options.spray3){
-          $.set_selectVal_id("select-composite", "darker");
-        }
-        else{
+        if(options.spray || options.spray2){
           $.set_selectVal_id("select-composite", "lighter");
         }
       }
@@ -109,10 +106,7 @@
         $._id("input-W").value = 100;
         $._id("input-clip").value = 0.5;
         $.set_id("checkbox-random", "checked", "checked");
-        if(options.crayon2){
-          $.set_selectVal_id("select-composite", "darker");
-        }
-        else{
+        if(options.crayon){
           $.set_selectVal_id("select-composite", "multiply");
         }
       }
@@ -319,7 +313,6 @@
   <option>destination-out</option>
   <option>destination-atop</option>
   <option>xor</option>
-  <option>darker</option>
   <option>lighter</option>
   <option>copy</option>
   <option>multiply</option>
