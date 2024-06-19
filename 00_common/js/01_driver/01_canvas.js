@@ -159,9 +159,9 @@ My_entry.canvas.prototype.draw_base64 = function(base64, opt_callback_first, opt
             return sint*x+cost*y;
           };
           var r = (w/2)*kr;
-          var r8 = r/8;
           ctx.beginPath();
           if(cap === "butt"){
+            var r8 = r/8;
             ctx.moveTo(trans_x(-r8, -r), trans_y(-r8, -r));
             ctx.lineTo(trans_x(-r8, r), trans_y(-r8, r));
             ctx.lineTo(trans_x(r8, r), trans_y(r8, r));
@@ -189,6 +189,26 @@ My_entry.canvas.prototype.draw_base64 = function(base64, opt_callback_first, opt
             ctx.lineTo(trans_x(x, y), trans_y(x, y));
             ctx.lineTo(trans_x(-x, y), trans_y(-x, y));
           }
+          /* Ver.1.84.12 -> */
+          else if(cap === "pentagon" || cap === "hexagon"){
+            var len = (cap === "pentagon")? 5: 6;
+            var dt = Math.PI*2/len;
+            for(var i=0; i<len; ++i){
+              var t = dt*i-Math.PI/2;
+              var x = r*Math.cos(t);
+              var y = r*Math.sin(t);
+              ctx[((i === 0)? "move": "line")+"To"](trans_x(x, y), trans_y(x, y));
+            }
+          }
+          else if(cap === "heart" || cap === "heart2"){
+            var y0 = (cap === "heart")? r/2: r/4;
+            var rc = r+r/2;
+            ctx.moveTo(trans_x(0, -y0), trans_y(0, -y0));
+            ctx.bezierCurveTo(trans_x(-rc, -rc), trans_y(-rc, -rc), trans_x(-rc, 0), trans_y(-rc, 0), trans_x(0, r), trans_y(0, r));
+            ctx.moveTo(trans_x(0, -y0), trans_y(0, -y0));
+            ctx.bezierCurveTo(trans_x(+rc, -rc), trans_y(+rc, -rc), trans_x(+rc, 0), trans_y(+rc, 0), trans_x(0, r), trans_y(0, r));
+          }
+          /* -> Ver.1.84.12 */
           else{
             ctx.arc(0, 0, r, 0, Math.PI*2);
           }
