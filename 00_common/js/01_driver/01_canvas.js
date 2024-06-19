@@ -173,14 +173,6 @@ My_entry.canvas.prototype.draw_base64 = function(base64, opt_callback_first, opt
             ctx.lineTo(trans_x(r, r), trans_y(r, r));
             ctx.lineTo(trans_x(r, -r), trans_y(r, -r));
           }
-          else if(cap === "up"){
-            var t = Math.PI/6;
-            var x = r*Math.cos(t);
-            var y = r*Math.sin(t);
-            ctx.moveTo(trans_x(0, -r), trans_y(0, -r));
-            ctx.lineTo(trans_x(x, y), trans_y(x, y));
-            ctx.lineTo(trans_x(-x, y), trans_y(-x, y));
-          }
           else if(cap === "down"){
             var t = Math.PI/6;
             var x = r*Math.cos(t);
@@ -190,13 +182,41 @@ My_entry.canvas.prototype.draw_base64 = function(base64, opt_callback_first, opt
             ctx.lineTo(trans_x(-x, y), trans_y(-x, y));
           }
           /* Ver.1.84.12 -> */
-          else if(cap === "pentagon" || cap === "hexagon"){
-            var len = (cap === "pentagon")? 5: 6;
+          else if(cap === "up" || cap === "pentagon" || cap === "hexagon" || cap === "septagon" || cap === "octagon" || cap === "nonagon" || cap === "decagon" || cap === "star" || cap === "star2"){  // circumcircle
+            var isStar = false;
+            var len = 3;
+            if(cap === "pentagon"){
+              len = 5;
+            }
+            else if(cap === "hexagon"){
+              len = 6;
+            }
+            else if(cap === "septagon"){
+              len = 7;
+            }
+            else if(cap === "octagon"){
+              len = 8;
+            }
+            else if(cap === "nonagon"){
+              len = 9;
+            }
+            else if(cap === "decagon"){
+              len = 10;
+            }
+            else if(cap === "star" || cap === "star2"){
+              isStar = true;
+              len = 10;
+            }
             var dt = Math.PI*2/len;
             for(var i=0; i<len; ++i){
               var t = dt*i-Math.PI/2;
               var x = r*Math.cos(t);
               var y = r*Math.sin(t);
+              if(isStar && i%2 === 1){
+                var k = (cap === "star")? 1/2: 1/2.7;
+                x *= k;
+                y *= k;
+              }
               ctx[((i === 0)? "move": "line")+"To"](trans_x(x, y), trans_y(x, y));
             }
           }
