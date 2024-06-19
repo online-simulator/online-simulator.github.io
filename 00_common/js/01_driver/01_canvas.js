@@ -159,6 +159,7 @@ My_entry.canvas.prototype.draw_base64 = function(base64, opt_callback_first, opt
             return sint*x+cost*y;
           };
           var r = (w/2)*kr;
+          var r1 = r*Math.sqrt(2);  // Ver.1.84.12
           ctx.beginPath();
           if(cap === "butt"){
             var r8 = r/8;
@@ -173,15 +174,15 @@ My_entry.canvas.prototype.draw_base64 = function(base64, opt_callback_first, opt
             ctx.lineTo(trans_x(r, r), trans_y(r, r));
             ctx.lineTo(trans_x(r, -r), trans_y(r, -r));
           }
+          /* Ver.1.84.12 -> */
           else if(cap === "down"){
             var t = Math.PI/6;
-            var x = r*Math.cos(t);
-            var y = -r*Math.sin(t);
-            ctx.moveTo(trans_x(0, r), trans_y(0, r));
+            var x = r1*Math.cos(t);
+            var y = -r1*Math.sin(t);
+            ctx.moveTo(trans_x(0, r1), trans_y(0, r1));
             ctx.lineTo(trans_x(x, y), trans_y(x, y));
             ctx.lineTo(trans_x(-x, y), trans_y(-x, y));
           }
-          /* Ver.1.84.12 -> */
           else if(cap === "up" || cap === "pentagon" || cap === "hexagon" || cap === "septagon" || cap === "octagon" || cap === "nonagon" || cap === "decagon" || cap === "star" || cap === "star2"){  // circumcircle
             var isStar = false;
             var len = 3;
@@ -210,8 +211,8 @@ My_entry.canvas.prototype.draw_base64 = function(base64, opt_callback_first, opt
             var dt = Math.PI*2/len;
             for(var i=0; i<len; ++i){
               var t = dt*i-Math.PI/2;
-              var x = r*Math.cos(t);
-              var y = r*Math.sin(t);
+              var x = r1*Math.cos(t);
+              var y = r1*Math.sin(t);
               if(isStar && i%2 === 1){
                 var k = (cap === "star")? 1/2: 1/2.7;
                 x *= k;
