@@ -97,6 +97,9 @@
           $._id("input-freq").value = 1.618033988749895;
         }
         else if(options.snow3 || options.snow5 || options.snow6){
+          if(options.snow5 || options.snow6){
+            $.set_selectVal_id("select-cap", "star2");
+          }
           $.set_id("checkbox-random", "checked", "checked");
         }
         $.set_selectVal_id("select-composite", "lighter");
