@@ -52,8 +52,8 @@ My_entry.pen.prototype.init_keys = function(){
   var inputs = keys.inputs;
   /* Ver.1.19.4 -> */
   self.mode = 0;
-  ["eraser_A100", "eraser"].forEach(function(id, i){
-    modes_pen[id] = options[id] || ["KeyF", "KeyR"][i];  // Ver.1.34.7
+  ["eraser_A100", "eraser", "eraserL_A100", "eraserL"].forEach(function(id, i){
+    modes_pen[id] = options[id] || ["KeyF", "KeyR", "Digit5", "Digit4"][i];  // Ver.1.34.7  // Ver.1.85.12
   });
   ["bucket", "circle", "rectangle", "picker", "gblur"].forEach(function(id, i){
     modes[id] = options[id] || ["KeyB", "KeyG", "KeyT", "KeyY", "KeyQ"][i];  // Ver.1.31.7  // Ver.1.55.10
@@ -461,8 +461,8 @@ My_entry.pen.prototype.make_handlers = function(){
     ctx.shadowOffsetY = 0;
     ctx.shadowColor = options.RGB;
     ctx.fillStyle = ctx.strokeStyle = options.RGB;
-    ctx.globalAlpha = (self.mode === -1)? 1: alpha;  // Ver.1.34.7
-    ctx.globalCompositeOperation = (self.mode < 0)? "source-over": options.composite;
+    ctx.globalAlpha = (self.mode === -1 || self.mode === -3)? 1: alpha;  // Ver.1.34.7  // Ver.1.85.12
+    ctx.globalCompositeOperation = (self.mode === -1 || self.mode === -2)? "source-over": options.compositeLayer;  // Ver.1.85.12
     ctx.lineCap = options.cap;
   };
   var _handlers = {
@@ -716,7 +716,7 @@ My_entry.pen.prototype.make_handlers = function(){
       /* Ver.1.47.8 -> */
       if(isEraser){  // Ver.1.49.9
         options.RGB = "#ffffff";  // for svg
-        if(self.mode === -1){
+        if(self.mode === -1 || self.mode === -3){  // Ver.1.85.12
           options.A = 100;  // for svg
           rgba.a = 255;
           alpha = 1;
@@ -1217,7 +1217,7 @@ My_entry.pen.prototype.init_handlers = function(){
           var callback_last = function(){
             fg.tap_point({mysvg: ""});
           };
-          fg.draw_base64(base64, null, callback_last, options.composite);
+          fg.draw_base64(base64, null, callback_last, options.compositeLayer);  // Ver.1.85.12
         });
         if(!(file)){
           elem.value = null;

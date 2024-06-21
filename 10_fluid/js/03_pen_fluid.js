@@ -801,7 +801,7 @@ My_entry.pen.prototype.init_handlers = function(){
           var callback_last = function(){
             fg.tap_point({mysvg: ""});
           };
-          fg.draw_base64(base64, null, callback_last, options.composite);
+          fg.draw_base64(base64, null, callback_last, options.compositeLayer);  // Ver.1.85.12
         });
         if(!(file)){
           elem.value = null;

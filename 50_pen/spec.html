@@ -22,6 +22,16 @@
       <tbody>
         <tr class="border">
           <td class="border run">
+Ver.1.85.12
+          </td>
+          <td class="border">
+・config-compositeLayerを追加（<a href="../01_calc_simple/manual.html#span-out-UI-graphing-config">Graphing Calculator</a>に準拠）
+<br>
+・mode=eraserL||eraserL_A100を追加
+          </td>
+        </tr>
+        <tr class="border">
+          <td class="border run">
 Ver.1.84.12
           </td>
           <td class="border">
@@ -944,6 +954,32 @@ default=KeyF
         </tr>
         <tr class="border jF">
           <td class="border">
+eraserL
+<br>
+<span class="run">Ver.1.85.12追加</span>
+          </td>
+          <td class="border">
+compositeLayer有効のeraser
+          </td>
+          <td class="border">
+default=Digit4
+          </td>
+        </tr>
+        <tr class="border jF">
+          <td class="border">
+eraserL_A100
+<br>
+<span class="run">Ver.1.85.12追加</span>
+          </td>
+          <td class="border">
+compositeLayer有効のeraser_A100
+          </td>
+          <td class="border">
+default=Digit5
+          </td>
+        </tr>
+        <tr class="border jF">
+          <td class="border">
 bucket
 <br>
 <span class="run">Ver.1.16.4追加</span>
@@ -1326,6 +1362,32 @@ canvas前面に描画後（source-over）、
 ・svg出力はA=100のwhiteで代替（source-over）
 <br>
 <span class="run">・KeyF+1dragで代用可</span>
+          </td>
+        </tr>
+        <tr class="border">
+          <td class="border">
+mode=eraserL
+<br>
+<span class="run">Ver.1.85.12追加</span>
+          </td>
+          <td class="border">
+compositeLayer有効のeraser
+          </td>
+          <td class="border">
+<span class="run">・Digit4+1dragで代用可</span>
+          </td>
+        </tr>
+        <tr class="border">
+          <td class="border">
+mode=eraserL_A100
+<br>
+<span class="run">Ver.1.85.12追加</span>
+          </td>
+          <td class="border">
+compositeLayer有効のeraser_A100
+          </td>
+          <td class="border">
+<span class="run">・Digit5+1dragで代用可</span>
           </td>
         </tr>
         <tr class="border">
@@ -1768,21 +1830,33 @@ line端の形状
         </tr>
         <tr class="border">
           <td class="border">
-composite
+compositeLayer
 <br>
-<span class="run">Ver.1.8.1更新</span>
-<br>
-<span class="condition">Ver.1.83.12更新</span>
+<span class="run">Ver.1.85.12追加</span>
           </td>
           <td class="border">
-lineのRGBA合成方法
+canvas前面のRGBA合成方法
           </td>
           <td class="border">
 同期処理（shadow描画を除く）
 <br>
 ・canvas前面にlineを逐次合成
+          </td>
+        </tr>
+        <tr class="border">
+          <td class="border">
+composite
 <br>
+<span class="run">Ver.1.8.1更新</span>
 <br>
+<span class="condition">Ver.1.83.12更新</span>
+<br>
+<span class="jF">Ver.1.85.12更新</span>
+          </td>
+          <td class="border">
+<span class="jF">canvas背面</span>のRGBA合成方法
+          </td>
+          <td class="border">
 <span class="run">非同期処理を追加</span>
 <br>
 ・up検知でcanvas前面から背面に合成
