@@ -1076,9 +1076,14 @@ My_entry.pen.prototype.init_handlers = function(){
         var len = arr_vec.length;
         var text = $._id("input-text-draw").value;
         if(text && len > 0){
-          bg.draw.textpath_sw(text, arr_vec, options.composite, len-1, options.fontFamily, options.fontSize || options.W, options.isBold, options.isItalic, options.isReverse, options.fillStyle || options.bgcolor, options.strokeStyle || options._color_rgba, options.fillStr, options.spacingX || 0, options.spacingY || 0, options.offsetX || 0, options.offsetY || 0, options.blur || options._sh, options.deg0 || 0);
+          fg.draw.textpath_sw(text, arr_vec, options.compositeLayer, len-1, options.fontFamily, options.fontSize || options.W, options.isBold, options.isItalic, options.isReverse, options.fillStyle || options.bgcolor, options.strokeStyle || options._color_rgba, options.fillStr, options.spacingX || 0, options.spacingY || 0, options.offsetX || 0, options.offsetY || 0, options.blur || options._sh, options.deg0 || 0);  // Ver.1.85.12
           var svg = bg.draw.textpath_sw(text, arr_vec, options.composite, len-1, options.fontFamily, options.fontSize || options.W, options.isBold, options.isItalic, options.isReverse, options.fillStyle || options.bgcolor, options.strokeStyle || options._color_rgba, options.fillStr, options.spacingX || 0, options.spacingY || 0, options.offsetX || 0, options.offsetY || 0, options.blur || options._sh, options.deg0 || 0, true);
-          self.handler_history_ID.save(bg.getID());
+          /* Ver.1.85.12 -> */
+          bg.draw_base64(fg.get_base64(), null, function(e){
+            self.handler_history_ID.save(bg.getID());
+            fg.clear();
+          }, options.composite);
+          /* -> Ver.1.85.12 */
           self.handler_history_svg.save(svg);
         }
         break;

@@ -30,6 +30,10 @@ Ver.1.85.12
 ・config-compositeLayerを追加（<a href="../01_calc_simple/manual.html#span-out-UI-graphing-config">Graphing Calculator</a>に準拠）
 <br>
 ・mode=eraserL||eraserL_A100を追加
+<br>
+・drawを更新
+<br>
+・pen_fluid.jsを更新
           </td>
         </tr>
         <tr class="border">
@@ -52,6 +56,8 @@ Ver.1.83.12
 ・Crayon Pen-2sのpageを追加
 <br>
 ・config-compositeを更新（廃止済みのdarkerを削除）
+<br>
+・pen_fluid.jsを更新
           </td>
         </tr>
         <tr class="border">
@@ -2254,6 +2260,8 @@ text-draw
 draw
 <br>
 <span class="run">Ver.1.35.7追加</span>
+<br>
+<span class="jF">Ver.1.85.12更新</span>
           </td>
           <td class="border">
 text-draw機能
@@ -2261,7 +2269,7 @@ text-draw機能
 <a href="../01_calc_simple/manual.html#span-out-UI-graphing-string-path">[manual]Calculator</a>参照
           </td>
           <td class="border">
-draw実行後、canvas背面にtextを描画
+draw実行後、canvas<span class="jF">前面にtextを描画後、背面に合成</span>
 <br>
 ・second-url-parameters有効
 <br>
@@ -2278,6 +2286,8 @@ blur=|sh|
 ・描画するtextを入力
 <br>
 ・path=pen最終の1筆lines
+<br>
+<span class="jF">・string部分のみを描画する場合、composite=destination-atopを選択（label作成用）</span>
           </td>
         </tr>
         <tr class="border">
