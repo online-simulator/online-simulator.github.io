@@ -186,7 +186,24 @@
         $._id("input-sh").value = 0;
         $.set_id("checkbox-pressure", "checked", "checked");
       }
-      new My_entry.pen().onload(e);
+      else if(options.label){
+        $._id("input-canvas-height").value = 256;
+        $._id("input-sh").value = 24;
+        $.set_selectVal_id("select-composite", "destination-atop");
+        $._id("input-second-url-parameters").value = "fontFamily=Times New Roman&fontSize=200&isBold=true&isItalic=true&fillStyle=#000000&strokeStyle=rgba(255,255,0,0.5)&fillStr=&spacingX=&spacingY=&offsetX=&offsetY=&blur=&deg0=&isReverse=&lineWidth=3&bgcolor_=&gridLineColor=&gridLineWidth=";
+        $._id("input-text-draw").value = "label";
+      }
+      var pen = new My_entry.pen().onload(e);
+      if(options.label){
+        var bg = pen.objs.bg;
+        bg.draw_base64(pen.base64s["star"], null, function(e){
+          pen.handler_history_ID.save(bg.getID());
+          pen.handler_history_svg.save("");
+          pen.arr_vec.push({x: 0+48, y: 192});
+          pen.arr_vec.push({x: 512-48, y: 192});
+          $._id("draw").onclick();
+        });
+      }
     });
   })();
 </script>
