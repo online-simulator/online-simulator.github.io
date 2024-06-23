@@ -22,6 +22,20 @@
       <tbody>
         <tr class="border">
           <td class="border run">
+Ver.1.87.12
+          </td>
+          <td class="border">
+・download-svgのfile size[MB]の計算を厳密化
+<br>
+　fileSize/1e6　⇒　fileSize/pow(2,20)
+<br>
+・config-shのlimiterを追加
+<br>
+・sh&lt;0の機能@Ver.1.21.4~を廃止（png出力の場合、Spray Penとclip範囲等で代替）
+          </td>
+        </tr>
+        <tr class="border">
+          <td class="border run">
 Ver.1.86.12
           </td>
           <td class="border">
@@ -2041,30 +2055,36 @@ dw(dlen) = (out&lt;0)? dlen*out: -out;
         </tr>
         <tr class="border">
           <td class="border">
-sh=<span class="run">-100</span>~
+sh=<span class="clear">0</span>~
 <br>
 <span class="run">Ver.1.21.4追加</span>
+<br>
+<span class="clear">Ver.1.87.12更新</span>
           </td>
           <td class="border">
-shadowのぼかし強度|sh|
+shadowのぼかし強度sh
           </td>
           <td class="border">
 svg出力
 <br>
 ・filter効果範囲のclip対策
+<br>
+・download-svgの右側に<span class="clear">file size[MB]</span>を表示
           </td>
         </tr>
         <tr class="border">
           <td class="border">
-sh=-100~0
+<del class="clear">sh=-100~0</del>
 <br>
 <span class="run">Ver.1.21.4追加</span>
+<br>
+<span class="clear">Ver.1.87.12廃止</span>
           </td>
           <td class="border">
-inkのにじみ強度|sh|
+<del class="clear">inkのにじみ強度|sh|</span>
           </td>
           <td class="border">
-fg-filter後、canvas前面に適用
+<del class="clear">fg-filter後、canvas前面に適用
 <br>
 ・canvas背面への合成回数=|sh|+1
 <br>
@@ -2073,9 +2093,7 @@ svg出力
 <br>
 ・svg-file-size=|sh|+1倍
 <br>
-・sh入力欄の右側に&ge;-20(svg)を表示
-<br>
-・download-svgの右側にMBを表示
+・sh入力欄の右側に&ge;-20(svg)を表示</del>
           </td>
         </tr>
         <tr class="border">

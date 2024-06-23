@@ -173,6 +173,7 @@ My_entry.pen.prototype.update_options = function(){
     /* -> Ver.1.49.9 */
     options.df = def.limit(options.df, 1, Number.MAX_VALUE, 1);  // fluid-Ver.1.45.1
     options.dlen = def.limit(options.dlen, 1, 2560, 5);  // Ver.1.46.8 for direct-input
+    options.sh = def.limit(options.sh, 0, Number.MAX_VALUE, 0);  // Ver.1.87.12
     options.x0 = def.limit(options.x0, 0, fg.px_w, fg.px_w/2);
     options.y0 = def.limit(options.y0, 0, fg.px_h, fg.px_h/2);
     options.offsetR = def.limit(options.offsetR, 0, 1, 0);
@@ -208,7 +209,7 @@ My_entry.pen.prototype.show_fileSize_svg = function(){
       break;
     }
   }
-  $._id("span-fileSize-svg").innerText = "<"+Math.ceil(fileSize/1e6)+"MB";
+  $._id("span-fileSize-svg").innerText = "<"+Math.ceil(fileSize/Math.pow(2, 10*2))+"MB";  // Ver.1.87.12
   return _i_header;
 };
 /* Ver.1.2.0 -> */
@@ -871,7 +872,7 @@ My_entry.pen.prototype.make_handlers = function(){
       }
       var composite = (isEraser)? "destination-out": options.composite;  // Ver.1.49.9
       /* Ver.1.21.4 -> */
-      if(options.sh < 0){
+      if(options.sh < 0){  // Ver.1.87.12 false
         var len_sh = Math.min(100, -options.sh);
         var arr_base64 = [];
         for(var nsh=0; nsh<len_sh+1; ++nsh){
