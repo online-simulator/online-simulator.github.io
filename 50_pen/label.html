@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+
+<html lang="ja">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="description" content="[manual]Label">
+  <meta name="author" content="online-simulator.github.io">
+  <noscript>JavaScript is not enabled on browser.</noscript>
+  <link rel="stylesheet" type="text/css" href="../00_common/css/common.css">
+  <link rel="stylesheet" type="text/css" href="../00_common/css/color.css">
+  <link rel="stylesheet" type="text/css" href="../00_common/css/size.css">
+  <link rel="stylesheet" type="text/css" href="css/common.css">
+  <link rel="stylesheet" type="text/css" href="css/color.css">
+  <link rel="stylesheet" type="text/css" href="css/size.css">
+</head>
+
+<body>
+  <div class="absolute">
+    <table class="border">
+      <caption>装飾labelの<span class="run">作成方法</span>@Ver.1.86.12~</caption>
+      <tbody>
+        <tr class="border">
+          <td class="border wF">
+概要
+          </td>
+          <td class="border">
+canvas背面にstring部分のみを合成して描画
+          </td>
+        </tr>
+        <tr class="border">
+          <td class="border wF">
+要点
+          </td>
+          <td class="border">
+image-fileのread機能で各layerを順次合成
+          </td>
+        </tr>
+        <tr class="border">
+          <td class="border run">
+方法1
+          </td>
+          <td class="border">
+・Label Pageを開く
+<br>
+・bg-image-fileで背景画像をcanvas背面にread
+<br>
+・composite=source-in/out||destination-in/atopを選択
+<br>
+・second-url-parametersを更新
+<br>
+・textを更新
+<br>
+・text-draw実行
+          </td>
+        </tr>
+        <tr class="border">
+          <td class="border run">
+方法2
+          </td>
+          <td class="border">
+・Label Pageを開く
+<br>
+・bg-image-fileで背景画像をcanvas背面にread
+<br>
+・composite=source-in/out||destination-in/atopを選択
+<br>
+・fg-image-fileで別途作成のlabel（手書き等）をcanvas前面にread
+          </td>
+        </tr>
+        <tr class="border">
+          <td class="border clear">
+label枠の補足
+          </td>
+          <td class="border">
+・fg-image-fileで別途作成のlabel枠をcanvas前面にread
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</body>
+
+</html>
