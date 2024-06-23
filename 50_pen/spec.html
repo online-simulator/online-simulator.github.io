@@ -1852,9 +1852,11 @@ line端の形状
           <td class="border">
 <span class="selection">pen-image-file@clip&lt;1に対応
 <br>
-・butt||round||square||◆の場合、内接円基準の大きさ（それ以外の場合、√2倍の外接円基準）
+・butt||round||square||◆の場合、内接円基準の大きさ
 <br>
-・stripe=image||pre-image=noneの場合、◆<span class="condition">~heart2</span>無効（butt）</span>
+・それ以外の場合、√2倍の大きさの外接円基準
+<br>
+・stripe=image||pre-image=noneの場合、◆<span class="condition">~heart2</span>無効（butt扱い）</span>
           </td>
         </tr>
         <tr class="border">
@@ -2308,7 +2310,22 @@ blur=|sh|
 <br>
 ・path=pen最終の1筆lines
 <br>
-<span class="jF">・背面にstring部分のみを合成して描画する場合、composite=source-in/out||destination-in/atopを選択（label作成用）</span>
+<br>
+<span class="jF">label作成方法（canvas背面にstring部分のみを合成して描画）
+<br>
+・Label Pageを開く
+<br>
+・bg-image-fileで背景画像をread
+<br>
+・composite=source-in/out||destination-in/atopを選択
+<br>
+・second-url-parametersを更新
+<br>
+・textを更新
+<br>
+・text-draw実行
+<br>
+</span>
           </td>
         </tr>
         <tr class="border">
