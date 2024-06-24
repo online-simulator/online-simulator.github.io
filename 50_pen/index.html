@@ -202,8 +202,10 @@
         bg.draw_base64(pen.base64s["star"], null, function(e){
           pen.handler_history_ID.save(bg.getID());
           pen.handler_history_svg.save("");
-          pen.arr_vec.push({x: 0+48, y: 192});
-          pen.arr_vec.push({x: 512-48, y: 192});
+          var xlabel = pen.options.xlabel || 0;
+          var ylabel = pen.options.ylabel || 0;
+          pen.arr_vec.push({x: xlabel, y: ylabel});
+          pen.arr_vec.push({x: 2560, y: ylabel});
           $._id("draw").onclick();
         });
       }
