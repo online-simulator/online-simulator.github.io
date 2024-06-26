@@ -189,6 +189,7 @@
       }
       else if(options.label){
         isLabel = true;
+        $._id("input-canvas-width").value = 1024;
         $._id("input-canvas-height").value = 256;
         $.set_selectVal_id("select-composite", "destination-atop");
         $._id("input-second-url-parameters").value = "fontFamily=Times New Roman&fontSize=200&isBold=true&isItalic=true&fillStyle=#000000&strokeStyle=rgba(255,255,0,0.5)&fillStr=&spacingX=&spacingY=&offsetX=&offsetY=&blur=24&deg0=&isReverse=&lineWidth=3&bgcolor_=&gridLineColor=&gridLineWidth=";
@@ -199,7 +200,7 @@
       var pen = new My_entry.pen().onload(e);
       if(isLabel){
         var bg = pen.objs.bg;
-        bg.draw_base64(pen.base64s["star"], null, function(e){
+        bg.draw_base64(pen.base64s["rainbow"], null, function(e){
           pen.handler_history_ID.save(bg.getID());
           pen.handler_history_svg.save("");
           var xlabel = pen.options.xlabel || 0;
@@ -207,7 +208,7 @@
           pen.arr_vec.push({x: xlabel, y: ylabel});
           pen.arr_vec.push({x: 2560, y: ylabel});
           $._id("draw").onclick();
-        });
+        }, null, [true, 10, 0, 0, 1, 0, 0]);
       }
     });
   })();

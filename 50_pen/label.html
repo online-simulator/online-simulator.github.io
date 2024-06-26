@@ -45,7 +45,7 @@ image-fileのread機能で各layerを順次合成
 <br>
 ・URL-parameterのxlabel||ylabelを更新
 <br>
-・bg-image-fileで背景画像をcanvas背面にread
+・bg-image-fileで背景画像をcanvas背面にread（戻る&lt;&lt;1回で虹背景を復帰可）
 <br>
 ・composite=source-in/out||destination-in/atopを選択
 <br>
@@ -63,7 +63,7 @@ image-fileのread機能で各layerを順次合成
           <td class="border">
 ・Label Pageを開く
 <br>
-・bg-image-fileで背景画像をcanvas背面にread
+・bg-image-fileで背景画像をcanvas背面にread（戻る&lt;&lt;1回で虹背景を復帰可）
 <br>
 ・composite=source-in/out||destination-in/atopを選択
 <br>
@@ -72,10 +72,22 @@ image-fileのread機能で各layerを順次合成
         </tr>
         <tr class="border">
           <td class="border clear">
+文字pathの補足
+          </td>
+          <td class="border">
+・pen最終の1筆linesを指定可（snap等を駆使）
+<br>
+・戻る&lt;&lt;1回で最終linesを消去（戻ってもpathを保持）
+          </td>
+        </tr>
+        <tr class="border">
+          <td class="border clear">
 label枠の補足
           </td>
           <td class="border">
 ・fg-image-fileで別途作成のlabel枠をcanvas前面にread
+<br>
+・長方形の場合、mode=rectangleで範囲指定可（second-url-parameters依存）
           </td>
         </tr>
       </tbody>

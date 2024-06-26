@@ -136,7 +136,14 @@ My_entry.canvas.prototype.draw_base64 = function(base64, opt_callback_first, opt
     /* -> 0.3.0  */
     /* Ver.1.60.10 -> */
     /* Ver.1.59.10 -> */
-    if(opt_transform){
+    /* Ver.1.89.12 -> */
+    var isSetTransform = opt_transform && opt_transform[0] === true;
+    if(isSetTransform){
+      ctx.setTransform.apply(ctx, opt_transform.slice(1));
+      ctx.drawImage(img, 0, 0);
+    }
+    /* -> Ver.1.89.12 */
+    else if(opt_transform){
       var px_w = img.width;
       var px_h = img.height;
       var w = opt_transform[3];
