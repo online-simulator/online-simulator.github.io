@@ -1089,6 +1089,7 @@ My_entry.pen.prototype.init_handlers = function(){
               for(var n=0; n<len_n; ++n){
                 arr_vec.push({x: Number(sc[2*n]), y: Number(sc[2*n+1])});
               }
+              self.arr_vec = arr_vec;  // for svg
             }
           }
           if(hasPath){
