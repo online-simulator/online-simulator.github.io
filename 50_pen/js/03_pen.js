@@ -1075,18 +1075,35 @@ My_entry.pen.prototype.init_handlers = function(){
       case "draw":
         var arr_vec = self.arr_vec;
         var len = arr_vec.length;
+        /* Ver.1.90.12 -> */
+        var path = $._id("input-text-path").value;
         var text = $._id("input-text-draw").value;
-        if(text && len > 0){
-          fg.draw.textpath_sw(text, arr_vec, options.compositeLayer, len-1, options.fontFamily, options.fontSize || options.W, options.isBold, options.isItalic, options.isReverse, options.fillStyle || options.bgcolor, options.strokeStyle || options._color_rgba, options.fillStr, options.spacingX || 0, options.spacingY || 0, options.offsetX || 0, options.offsetY || 0, options.blur || options._sh, options.deg0 || 0);  // Ver.1.85.12
-          var svg = bg.draw.textpath_sw(text, arr_vec, options.composite, len-1, options.fontFamily, options.fontSize || options.W, options.isBold, options.isItalic, options.isReverse, options.fillStyle || options.bgcolor, options.strokeStyle || options._color_rgba, options.fillStr, options.spacingX || 0, options.spacingY || 0, options.offsetX || 0, options.offsetY || 0, options.blur || options._sh, options.deg0 || 0, true);
-          /* Ver.1.85.12 -> */
-          bg.draw_base64(fg.get_base64(), null, function(e){
-            self.handler_history_ID.save(bg.getID());
-            fg.clear();
-          }, options.composite);
-          /* -> Ver.1.85.12 */
-          self.handler_history_svg.save(svg);
+        if(text){
+          var hasPath = len;
+          if(path){
+            var sc = path.split(",");
+            var len_n = sc.length/2;
+            if(len_n%1 === 0){
+              hasPath = true;
+              arr_vec = [];
+              for(var n=0; n<len_n; ++n){
+                arr_vec.push({x: Number(sc[2*n]), y: Number(sc[2*n+1])});
+              }
+            }
+          }
+          if(hasPath){
+            fg.draw.textpath_sw(text, arr_vec, options.compositeLayer, len-1, options.fontFamily, options.fontSize || options.W, options.isBold, options.isItalic, options.isReverse, options.fillStyle || options.bgcolor, options.strokeStyle || options._color_rgba, options.fillStr, options.spacingX || 0, options.spacingY || 0, options.offsetX || 0, options.offsetY || 0, options.blur || options._sh, options.deg0 || 0);  // Ver.1.85.12
+            var svg = bg.draw.textpath_sw(text, arr_vec, options.composite, len-1, options.fontFamily, options.fontSize || options.W, options.isBold, options.isItalic, options.isReverse, options.fillStyle || options.bgcolor, options.strokeStyle || options._color_rgba, options.fillStr, options.spacingX || 0, options.spacingY || 0, options.offsetX || 0, options.offsetY || 0, options.blur || options._sh, options.deg0 || 0, true);
+            /* Ver.1.85.12 -> */
+            bg.draw_base64(fg.get_base64(), null, function(e){
+              self.handler_history_ID.save(bg.getID());
+              fg.clear();
+            }, options.composite);
+            /* -> Ver.1.85.12 */
+            self.handler_history_svg.save(svg);
+          }
         }
+        /* -> Ver.1.90.12 */
         break;
       /* Ver.1.43.8 */
       /* Ver.1.42.8 */

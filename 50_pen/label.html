@@ -43,13 +43,15 @@ image-fileのread機能で各layerを順次合成
           <td class="border">
 ・Label Pageを開く
 <br>
-・URL-parameterのxlabel||ylabelを更新
+・bg-image-fileで背景画像をcanvas背面にread
 <br>
-・bg-image-fileで背景画像をcanvas背面にread（戻る&lt;&lt;1回で虹背景を復帰可）
+　虹背景を使用する場合、戻る&lt;&lt;1回で復帰可
 <br>
 ・composite=source-in/out||destination-in/atopを選択
 <br>
 ・second-url-parametersを更新
+<br>
+・pathを更新
 <br>
 ・textを更新
 <br>
@@ -63,7 +65,7 @@ image-fileのread機能で各layerを順次合成
           <td class="border">
 ・Label Pageを開く
 <br>
-・bg-image-fileで背景画像をcanvas背面にread（戻る&lt;&lt;1回で虹背景を復帰可）
+・bg-image-fileで背景画像をcanvas背面にread
 <br>
 ・composite=source-in/out||destination-in/atopを選択
 <br>
@@ -72,10 +74,10 @@ image-fileのread機能で各layerを順次合成
         </tr>
         <tr class="border">
           <td class="border clear">
-文字pathの補足
+pathの補足
           </td>
           <td class="border">
-・pen最終の1筆linesを指定可（snap等を駆使）
+・path未指定の場合、pen最終の1筆linesを使用（snap等を駆使）
 <br>
 ・戻る&lt;&lt;1回で最終linesを消去（戻ってもpathを保持）
           </td>

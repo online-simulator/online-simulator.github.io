@@ -22,6 +22,16 @@
       <tbody>
         <tr class="border">
           <td class="border run">
+Ver.1.90.12
+          </td>
+          <td class="border">
+・config-pathを追加（任意pathの指定用）
+<br>
+・Labelのpageを更新（URL-parameter-xlabel/ylabel@Ver.1.88.12~を廃止）
+          </td>
+        </tr>
+        <tr class="border">
+          <td class="border run">
 Ver.1.89.12
           </td>
           <td class="border">
@@ -39,7 +49,7 @@ Ver.1.89.12
 Ver.1.88.12
           </td>
           <td class="border">
-・Labelのpageを更新（label左下のcanvas座標を指定するURL-parameterを追加）
+・Labelのpageを更新（URL-parameter-xlabel/ylabelを追加）
           </td>
         </tr>
         <tr class="border">
@@ -958,17 +968,19 @@ default=abcdefghijklmnopqrstuvwxyz0123456789
         </tr>
         <tr class="border selection">
           <td class="border">
-xlabel
+<del class="clear">xlabel
 <br>
-ylabel
+ylabel</del>
 <br>
 <span class="run">Ver.1.88.12追加</span>
+<br>
+<span class="clear">Ver.1.90.12廃止</span>
           </td>
           <td class="border">
-label左下のcanvas座標
+<del class="clear">label左下のcanvas座標</del>
           </td>
           <td class="border">
-default=0
+<del class="clear">default=0</del>
           </td>
         </tr>
         <tr class="border jF">
@@ -2329,6 +2341,23 @@ parameter初期化の一例
 bgcolor=#fff -> bgcolor= || bgcolor
 <br>
 <span class="clear">・変更時、canvasのresetあり</span>
+          </td>
+        </tr>
+        <tr class="border">
+          <td class="border">
+path
+<br>
+<span class="run">Ver.1.90.12追加</span>
+          </td>
+          <td class="border">
+任意path
+          </td>
+          <td class="border">
+x0,y0,x1,y1,...,xn,yn
+<br>
+・canvas座標(x,y)をcomma区切りで入力
+<br>
+・pen最終の1筆linesより優先
           </td>
         </tr>
         <tr class="border">
