@@ -74,6 +74,36 @@ new My_entry.output_wave().output_sound({
     <td>
 new My_entry.output_wave().output_sound({
 <br>
+<textarea id="textarea-sweep1" rows="5">"sec": 1, "arr_f": [440], "rate": 3, "order": 1.5</textarea>
+<br>
+});
+    </td>
+    <td class="border">
+  <button class="run" onclick="new My_entry.output_wave().output_sound(JSON.parse('{'+new My_entry.$().inputVal_id('textarea-'+this.innerText)+'}'));">sweep1</button>
+    </td>
+    <td class="border">
+{2b:[440]:::::::::::::::2:1.5}
+    </td>
+  </tr>
+  <tr class="border">
+    <td>
+new My_entry.output_wave().output_sound({
+<br>
+<textarea id="textarea-sweep2" rows="5">"sec": 1, "arr_f": [440], "rate": 3, "order": 0.25</textarea>
+<br>
+});
+    </td>
+    <td class="border">
+  <button class="run" onclick="new My_entry.output_wave().output_sound(JSON.parse('{'+new My_entry.$().inputVal_id('textarea-'+this.innerText)+'}'));">sweep2</button>
+    </td>
+    <td class="border">
+{2b:[440]:::::::::::::::2:0.25}
+    </td>
+  </tr>
+  <tr class="border">
+    <td>
+new My_entry.output_wave().output_sound({
+<br>
 <textarea id="textarea-beep1" rows="5">"sec": 0.6, "arr_f": [220, 440], "arr_g": [0, 1], "type": "triangle_rand", "duty0": 0.25, "duty1": 0.25, "w0": 0.97, "p0": 0.02, "w1": 0.97, "p1": 0.02, "rate": 0.25, "order": 4, "f_vib": -15</textarea>
 <br>
 });
