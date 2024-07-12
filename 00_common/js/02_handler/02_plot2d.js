@@ -906,7 +906,7 @@ if(isAxis_z){
           if(i > 0){
             path += ",";
           }
-          path += arr_vecp[i].x+","+arr_vecp[i].y;
+          path += plot.draw.floor(arr_vecp[i].x)+","+plot.draw.floor(arr_vecp[i].y);
         }
         options._path = path;
       }
