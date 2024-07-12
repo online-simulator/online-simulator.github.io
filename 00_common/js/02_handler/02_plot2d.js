@@ -897,6 +897,20 @@ if(isAxis_z){
     /* calc-Ver.2.162.39 -> */
     var callback = function(arr_vec){
       _svg += plot.lines(arr_vec, plotLineWidth, styleRGBA, globalCompositeOperation, fillPath);
+      /* calc-Ver.2.437.90 -> */
+      options._path = "";
+      if(isFinal && j === len_j-1){
+        var path = "";
+        var arr_vecp = plot.arr_vec2arr_vecp(arr_vec);
+        for(var i=0, len=arr_vecp.length; i<len; ++i){
+          if(i > 0){
+            path += ",";
+          }
+          path += arr_vecp[i].x+","+arr_vecp[i].y;
+        }
+        options._path = path;
+      }
+      /* -> calc-Ver.2.437.90 */
     };
     exclude_NaN(j, callback);
     /* -> calc-Ver.2.162.39 */

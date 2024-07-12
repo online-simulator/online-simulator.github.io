@@ -277,6 +277,7 @@ My_entry.calc_graphing.prototype.plot = function(arr_data_, options_plot, isFina
       else{
         self.plot2d.run(arr2d_vec, options_plot);
       }
+      $._id("output-path").value = options_plot._path;  // Ver.2.437.90
     }
   }
   /* Ver.2.14.5 -> */
