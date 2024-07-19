@@ -18,6 +18,7 @@ My_entry.pen.prototype.init = function(){
   self.objs = {};
   self.options = {};
   self.arr_vec = [];  // Ver.1.35.7
+  self.id_textpath = 0;  // Ver.1.91.13
   self.keys = {modes_pen: {}, modes: {}, buttons: {}, inputs: {}};  // Ver.1.15.4  // Ver.1.16.4  // Ver.1.19.4  // Ver.1.34.7  // Ver.1.38.7
   self.init_main.call(self, ["$", "conv", "def"]);
   self.filter = new self.constructors.filter();  // Ver.1.17.4
@@ -1102,8 +1103,11 @@ My_entry.pen.prototype.init_handlers = function(){
             /* -> Ver.1.91.12 */
           }
           if(hasPath){
-            fg.draw.textpath_sw(text, arr_vec, options.compositeLayer, len-1, options.fontFamily, options.fontSize || options.W, options.isBold, options.isItalic, options.isReverse, options.fillStyle || options.bgcolor, options.strokeStyle || options._color_rgba, options.fillStr, options.spacingX || 0, options.spacingY || 0, options.offsetX || 0, options.offsetY || 0, options.blur || options._sh, options.deg0 || 0);  // Ver.1.85.12
-            var svg = bg.draw.textpath_sw(text, arr_vec, options.composite, len-1, options.fontFamily, options.fontSize || options.W, options.isBold, options.isItalic, options.isReverse, options.fillStyle || options.bgcolor, options.strokeStyle || options._color_rgba, options.fillStr, options.spacingX || 0, options.spacingY || 0, options.offsetX || 0, options.offsetY || 0, options.blur || options._sh, options.deg0 || 0, true);
+            /* Ver.1.91.13 -> */
+            var id_textpath = self.id_textpath++;
+            fg.draw.textpath_sw(text, arr_vec, options.compositeLayer, id_textpath, options.fontFamily, options.fontSize || options.W, options.isBold, options.isItalic, options.isReverse, options.fillStyle || options.bgcolor, options.strokeStyle || options._color_rgba, options.fillStr, options.spacingX || 0, options.spacingY || 0, options.offsetX || 0, options.offsetY || 0, options.blur || options._sh, options.deg0 || 0);  // Ver.1.85.12
+            var svg = bg.draw.textpath_sw(text, arr_vec, options.composite, id_textpath, options.fontFamily, options.fontSize || options.W, options.isBold, options.isItalic, options.isReverse, options.fillStyle || options.bgcolor, options.strokeStyle || options._color_rgba, options.fillStr, options.spacingX || 0, options.spacingY || 0, options.offsetX || 0, options.offsetY || 0, options.blur || options._sh, options.deg0 || 0, true);
+            /* -> Ver.1.91.13 */
             /* Ver.1.85.12 -> */
             bg.draw_base64(fg.get_base64(), null, function(e){
               self.handler_history_ID.save(bg.getID());
