@@ -1081,16 +1081,25 @@ My_entry.pen.prototype.init_handlers = function(){
         if(text){
           var hasPath = len;
           if(path){
-            var sc = path.split(",");
-            var len_n = sc.length/2;
-            if(len_n%1 === 0){
-              hasPath = true;
-              arr_vec = [];
-              for(var n=0; n<len_n; ++n){
-                arr_vec.push({x: Number(sc[2*n]), y: Number(sc[2*n+1])});
+            /* Ver.1.91.12 -> */
+            var sc_s = path.split(" ");
+            var len_s = sc_s.length;
+            var arr = [];
+            for(var i=0; i<len_s; ++i){
+              var sc = sc_s[i].split(",");
+              var len_n = sc.length/2;
+              if(len_n%1 === 0){
+                for(var n=0; n<len_n; ++n){
+                  arr.push({x: Number(sc[2*n]), y: Number(sc[2*n+1])});
+                }
               }
-              self.arr_vec = arr_vec;  // for svg
             }
+            if(arr.length){
+              hasPath = true;
+              arr_vec = arr;
+              self.arr_vec = arr;  // for svg
+            }
+            /* -> Ver.1.91.12 */
           }
           if(hasPath){
             fg.draw.textpath_sw(text, arr_vec, options.compositeLayer, len-1, options.fontFamily, options.fontSize || options.W, options.isBold, options.isItalic, options.isReverse, options.fillStyle || options.bgcolor, options.strokeStyle || options._color_rgba, options.fillStr, options.spacingX || 0, options.spacingY || 0, options.offsetX || 0, options.offsetY || 0, options.blur || options._sh, options.deg0 || 0);  // Ver.1.85.12

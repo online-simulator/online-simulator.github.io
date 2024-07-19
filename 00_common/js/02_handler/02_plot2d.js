@@ -904,7 +904,7 @@ if(isAxis_z){
         var arr_vecp = plot.arr_vec2arr_vecp(arr_vec);
         for(var i=0, len=arr_vecp.length; i<len; ++i){
           if(i > 0){
-            path += ",";
+            path += " ";  // calc-Ver.2.438.90
           }
           path += plot.draw.floor(arr_vecp[i].x)+","+plot.draw.floor(arr_vecp[i].y);
         }

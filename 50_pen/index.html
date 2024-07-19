@@ -193,7 +193,7 @@
         $._id("input-canvas-height").value = 256;
         $.set_selectVal_id("select-composite", "destination-atop");
         $._id("input-second-url-parameters").value = "fontFamily=Times New Roman&fontSize=200&isBold=true&isItalic=true&fillStyle=#000000&strokeStyle=rgba(255,255,0,0.5)&fillStr=&spacingX=&spacingY=&offsetX=&offsetY=&blur=24&deg0=&isReverse=&lineWidth=3&bgcolor_=&gridLineColor=&gridLineWidth=";
-        $._id("input-text-path").value = "48,172,2560,172";
+        $._id("input-text-path").value = "48,172 2560,172";
       }
       if(options.label){
         $._id("input-text-draw").value = options.label;
@@ -206,7 +206,7 @@
           pen.handler_history_svg.save("");
           $._id("draw").onclick();
           setTimeout(function(){
-            $._id("input-text-path").value = "53,177,2560,177";
+            $._id("input-text-path").value = "53,177 2560,177";
             $._id("draw").onclick();
           }, 50);
         }, null, [true, 10, 0, 0, 1, 0, 0]);
@@ -478,7 +478,7 @@ pre/post processing for png
   <label>second-url-parameters:
 <input id="input-second-url-parameters" type="text" value="fontFamily=Times New Roman&fontSize=32&isBold=true&isItalic=true&fillStyle=#00ff0077&strokeStyle=rgba(255,255,0,0.5)&fillStr=&spacingX=&spacingY=&offsetX=&offsetY=&blur=&deg0=&isReverse=&lineWidth=3&bgcolor_=&gridLineColor=&gridLineWidth=">
   </label>
-  <label>path: x0,y0,x1,y1,...,xn,yn
+  <label>path: x0,y0 x1,y1 ... xn,yn
 <input id="input-text-path" type="text" value="">
   </label>
   <label>text-draw: <a href="../01_calc_simple/manual.html#span-out-UI-graphing-string-path" target="_blank" rel="noopener noreferrer">[manual]Calculator</a>
