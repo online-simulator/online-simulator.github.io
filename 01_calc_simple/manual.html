@@ -2112,6 +2112,14 @@ clear; f=&lt;-1; f=1; [f=2,=&lt;f]=&gt;,[f=&lt;-2,=&lt;f]=&gt; -> (2,<del>1</del
 　<a href="#span-out-substitution-mat-elem">要素代入</a>：右辺の<a href="#span-out-FNm-last">最終要素</a>を代入　⇒　1要素の場合、代入可
 <br>
 　影響項目：<a href="#span-out-substitution-mat-row">行代入</a>||<a href="#span-out-substitution-mat-col">列代入</a>||<a href="#span-out-substitution-mat-elem">要素代入</a>
+<br>
+・<span class="run">Ver.2.440.90</span>以降、<a href="#span-out-matching">行列要素pattern matching</a>の<a href="#span-out-FNm-size">行列size</a>比較を厳密化
+<br>
+　<a href="#span-out-FNm-size">行列size</a>違いの比較可　⇒　比較不可
+<br>
+　影響項目：<a href="#span-out-matching">行列要素pattern matching</a>
+<br>
+clear; ($a,$b,$c)=(1,2); (a,b) -> <del>(1,2)</del>[MyErr]Invalid matching size(LR)
     </td>
   </tr>
   <tr>
@@ -22484,6 +22492,10 @@ matching
 ・<span class="run">Ver.2.269.62</span>以降、<a href="#span-in-call-by-equation">遅延評価</a>に対応
 <br>
 ・<span class="run">Ver.2.350.86</span>以降、定義済み<a href="#span-out-substitution-mat">行列への代入</a>に対応
+<br>
+・<span class="run">Ver.2.440.90</span>以降、<a href="#span-out-matching">行列要素pattern matching</a>の<a href="#span-out-FNm-size">行列size</a>比較を厳密化
+<br>
+clear; ($a,$b,$c)=(1,2); (a,b) -> <del>(1,2)</del>[MyErr]Invalid matching size(LR)
 <br>
 <br>
 行列要素pattern matchingによる変数への値の代入規則を列挙する

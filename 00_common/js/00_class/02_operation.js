@@ -3946,11 +3946,13 @@ My_entry.operation.prototype.SEv_pattern_matching = function(data, is, ie){
   };
   if(leftArr && rightArr && self.hasElems_LR(leftArr, rightArr)){  // Ver.2.286.69
     var out = "";
+    if(leftArr.length !== rightArr.length) throw "Invalid matching size(LR)";  // Ver.2.440.90
     var len_i = Math.max(leftArr.length, rightArr.length);
     for(var i=0; i<len_i; ++i){
       var leftArri = leftArr[i];
       var rightArri = rightArr[i];
       if(leftArri && rightArri){
+        if(leftArri.length !== rightArri.length) throw "Invalid matching size(LR)";  // Ver.2.440.90
         var len_j = Math.max(leftArri.length, rightArri.length);
         for(var j=0; j<len_j; ++j){
           var leftArrij = leftArri[j];
