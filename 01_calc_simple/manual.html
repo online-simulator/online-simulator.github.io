@@ -2120,6 +2120,14 @@ clear; f=&lt;-1; f=1; [f=2,=&lt;f]=&gt;,[f=&lt;-2,=&lt;f]=&gt; -> (2,<del>1</del
 　影響項目：<a href="#span-out-matching">行列要素pattern matching</a>
 <br>
 clear; ($a,$b,$c)=(1,2); (a,b) -> <del>(1,2)</del>[MyErr]Invalid matching-size(LR)
+<br>
+・<span class="run">Ver.2.441.90</span>以降、<a href="#span-out-matching">行列要素pattern matching</a>の要素比較を厳密化
+<br>
+　代入に無関係の要素の比較可　⇒　比較不可
+<br>
+　影響項目：<a href="#span-out-matching">行列要素pattern matching</a>
+<br>
+clear; ($a,$b,3)=(1,2,=&lt;4); (a,b) -> <del>(1,2)</del>[MyErr]Invalid matching(LR)
     </td>
   </tr>
   <tr>
@@ -22493,9 +22501,13 @@ matching
 <br>
 ・<span class="run">Ver.2.350.86</span>以降、定義済み<a href="#span-out-substitution-mat">行列への代入</a>に対応
 <br>
-・<span class="run">Ver.2.440.90</span>以降、<a href="#span-out-matching">行列要素pattern matching</a>の<a href="#span-out-FNm-size">行列size</a>比較を厳密化
+・<span class="run">Ver.2.440.90</span>以降、<a href="#span-out-FNm-size">行列size</a>比較を厳密化
 <br>
 clear; ($a,$b,$c)=(1,2); (a,b) -> <del>(1,2)</del>[MyErr]Invalid matching-size(LR)
+<br>
+・<span class="run">Ver.2.441.90</span>以降、代入に無関係の要素の比較不可
+<br>
+clear; ($a,$b,3)=(1,2,=&lt;4); (a,b) -> <del>(1,2)</del>[MyErr]Invalid matching(LR)
 <br>
 <br>
 行列要素pattern matchingによる変数への値の代入規則を列挙する
@@ -22510,9 +22522,11 @@ clear; ($a,{$b,3})=(1,{2,$c}); (a,{b,c}) -> (1,2:0,3)
 <br>
 ($a,$b)=1(1,2); (a,b) -> (1,2)
 <br>
-・代入に無関係の要素は変化しない
+・<del>代入に無関係の要素は変化しない</del><span class="run">Ver.2.441.90</span>以降、代入に無関係の要素の比較不可
 <br>
-($a,(a,c))=(b,{$b,c},4); (a,{b,c}) -> (2,1:0,3)
+<del>($a,(a,c))=(b,{$b,c},4); (a,{b,c}) -> (2,1:0,3)</del>
+<br>
+clear; ($a,$b,3)=(1,2,=&lt;4); (a,b) -> <del>(1,2)</del>[MyErr]Invalid matching(LR)
 <br>
 <del>・変数$aが定義済みの場合、変数aへの代入不可
 <br>

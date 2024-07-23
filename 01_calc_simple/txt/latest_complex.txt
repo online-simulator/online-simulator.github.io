@@ -4255,7 +4255,7 @@ _ot(=<{t,i},=<{x,v},=<{,},1+i,0.1i)/*explicit ODE solver test case*/
 clear
 local storage cleared
 
- {($a,{$b,3},4)=(1,{2,$c},5),(a,b,c)}/*pattern matching test case*/
+ {($a,{$b,3})=(1,{2,$c}),(a,b,c)}/*pattern matching test case*/
 (
 0:
 1,2,3
@@ -4498,4 +4498,4 @@ drag=false&sw=false&0x=false&useMatrix=true&useStrict=false&checkError=true&isRi
 --------------------------------
 --------------------------------
 
-online-simulator.github.io.6.426.275.19.109 @ Tue Jul 23 2024 00:40:28 GMT+0900 (日本標準時) @ Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/126.0.0.0 Safari/537.36
+online-simulator.github.io.6.427.275.19.109 @ Tue Jul 23 2024 18:15:14 GMT+0900 (日本標準時) @ Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/126.0.0.0 Safari/537.36

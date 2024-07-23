@@ -3959,10 +3959,10 @@ My_entry.operation.prototype.SEv_pattern_matching = function(data, is, ie){
           var rightArrij = rightArri[j];
           if(leftArrij && rightArrij){
             /* Ver.2.269.62 -> */
-            if(leftArrij.com || leftArrij[BT.SEe]){
+            if((leftArrij.com || leftArrij[BT.SEe]) && self.get_tagVal(rightArrij, "REv", "val")){  // Ver.2.441.90
               out += store_elem(rightArrij, leftArrij);
             }
-            else if(rightArrij.com || rightArrij[BT.SEe]){
+            else if(self.get_tagVal(leftArrij, "REv", "val") && (rightArrij.com || rightArrij[BT.SEe])){  // Ver.2.441.90
               out += store_elem(leftArrij, rightArrij);
             }
             /* -> Ver.2.269.62 */
