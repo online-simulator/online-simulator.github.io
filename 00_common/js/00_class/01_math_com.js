@@ -417,3 +417,9 @@ My_entry.math_com.prototype.lerp_sw = function(t0, t1, k, isLog){
   var math = self.entry.math;
   return self.entry.DATA.com(math.lerp_sw(t0.r, t1.r, k, isLog), math.lerp_sw(t0.i, t1.i, k, isLog));
 };
+/* Ver.2.444.90 */
+My_entry.math_com.prototype.lerp_sw_better = function(t0, t1, n, N, isLog){
+  var self = this;
+  var math = self.entry.math;
+  return self.entry.DATA.com(math.lerp_sw_better(t0.r, t1.r, n, N, isLog), math.lerp_sw_better(t0.i, t1.i, n, N, isLog));
+};

@@ -2138,6 +2138,12 @@ clear; ($a,$b,$c)=(1,2); (a,b) -> <del>(1,2)</del>[MyErr]Invalid matching-size(L
 　影響項目：<a href="#span-out-matching">行列要素pattern matching</a>
 <br>
 clear; ($a,$b,3)=(1,2,=&lt;4); (a,b) -> <del>(1,2)</del>[MyErr]Invalid matching(LR)
+<br>
+・<span class="run">Ver.2.444.90</span>以降、<a href="#span-out-UI-graphing">Graphing Calculator</a>の<a href="#span-out-UI-graphing">t0/t1</a>分割点の<a href="#span-out-error">丸め誤差</a>を改善（<a href="#span-out-epsilon">Machine epsilon</a>程度の相違あり）
+<br>
+　<a href="#span-out-FNm-init-space">space初期化行列関数</a>同様の対策@<span class="run">Ver.2.228.55</span>：t0+(t1-t0)*(n/N)　⇒　t0+((t1-t0)/N)*n
+<br>
+　影響項目：<a href="#span-out-UI-graphing">t0/t1</a>||<a href="#span-out-plot2d">plot2d</a>
     </td>
   </tr>
   <tr>
@@ -3115,6 +3121,8 @@ panel上段について記述する
 　<span class="run">Ver.2.50.25</span>以降、checked時、t0||t1の入力規則を緩和（実部||虚部のみに対応）
 <br>
 　<span class="run">Ver.2.50.25</span>以降、副次的にcomplex unchecked時、logarithmic-scale選択不能の不具合を解消
+<br>
+　<span class="run">Ver.2.444.90</span>以降、分割点の<a href="#span-out-error">丸め誤差</a>を改善（<a href="#span-out-epsilon">Machine epsilon</a>程度の相違あり）
 <br>
 ・媒介変数tの範囲等分割数Nを<del>選択</del><span class="run">Ver.2.149.37</span>以降、round入力
 <br>

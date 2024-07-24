@@ -1040,7 +1040,7 @@ My_entry.calc_graphing.prototype.init_handlers = function(){
           var t0 = get_num($.inputVal_id("input-t0"), options);
           var t1 = (N)? get_num($.inputVal_id("input-t1"), options): t0;  // Ver.2.392.86
           for(var n=0; n<len_n; ++n){
-            var tn = math_com.lerp_sw(t0.com, t1.com, n/(N || 1), isAxisT);  // || not0  // Ver.2.392.86
+            var tn = math_com.lerp_sw_better(t0.com, t1.com, n, N || 1, isAxisT);  // || not0  // Ver.2.392.86  // Ver.2.444.90
             var tcr = tn.r;
             var tci = tn.i;
             /* Ver.2.50.25 -> */

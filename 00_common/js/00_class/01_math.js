@@ -543,3 +543,8 @@ My_entry.math.prototype.lerp_sw = function(t0, t1, k, isLog){
   var self = this;
   return ((isLog)? Math.exp(Math.log(t0)+(Math.log(t1)-Math.log(t0))*k): t0+(t1-t0)*k);
 };
+/* Ver.2.444.90 */
+My_entry.math.prototype.lerp_sw_better = function(t0, t1, n, N, isLog){
+  var self = this;
+  return ((isLog)? Math.exp(Math.log(t0)+((Math.log(t1)-Math.log(t0))/N)*n): t0+((t1-t0)/N)*n);
+};
