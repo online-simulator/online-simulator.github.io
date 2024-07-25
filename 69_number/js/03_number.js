@@ -42,7 +42,7 @@ My_entry.test_number.prototype.init = function(){
   /* Ver.0.35.4 -> */
   self.log = function(num){return Math.log(Number(num));};
   self.len_mf = 5;
-  self.len_p = 15;  // Ver.0.40.4
+  self.len_p = 17;  // Ver.0.40.4  // Ver.0.53.7
   self.len_r = 20;  // Ver.0.39.4
   self.len_n = 12;  // Ver.0.42.5
   self.len_k = 37;  // Ver.0.42.5
@@ -194,6 +194,31 @@ My_entry.test_number.prototype.save_freq = function(num){
   return self;
 };
 /* -> Ver.0.35.4 */
+/* Ver.0.53.7 -> */
+My_entry.test_number.prototype.get_Mean = function(x){
+  var self = this;
+  var _Mean = 0;
+  var N = x.length;
+  for(var i=0; i<N; ++i){
+    _Mean += x[i];
+  }
+  _Mean /= N;
+  return _Mean;
+};
+My_entry.test_number.prototype.get_Standard_Deviation = function(x){
+  var self = this;
+  var _SD = 0;
+  var N = x.length;
+  var mean = self.get_Mean(x);
+  for(var i=0; i<N; ++i){
+    var dx = x[i]-mean;
+    _SD += dx*dx;
+  }
+  _SD /= N;
+  _SD = Math.sqrt(_SD);
+  return _SD;
+};
+/* -> Ver.0.53.7 */
 My_entry.test_number.prototype.solve = function(isMinus){
   var self = this;
   var $ = self.entry.$;
@@ -372,7 +397,7 @@ My_entry.test_number.prototype.solve3 = function(){
   self.init_freq();
   var freq2d = self.freq2d;
   var run = function(){
-    var header1 = self.output_line("clear", "radix", "=10", "=6", "=4", "=10", "=2", "frequency distribution<br>ls3bit=<br>001,011,101,111", "frequency distribution<br>ls4bit=<br>0001,0011,0101,0111,1001,1011,1101,1111");
+    var header1 = self.output_line("clear", "radix", "=10", "=6", "=4", "=10", "=2", "frequency distribution<br>ls3bit=<br>001,011,101,111", "frequency distribution<br>ls4bit=<br>0001,0011,0101,0111,1001,1011,1101,1111", "frequency distribution<br>ls3bit<br>Standard Deviation/Mean", "frequency distribution<br>ls4bit<br>Standard Deviation/Mean");  // Ver.0.53.7
     var html0 = "";  // Ver.0.40.4
     var html1 = "";
     /* Ver.0.40.4 -> */
@@ -411,7 +436,7 @@ My_entry.test_number.prototype.solve3 = function(){
         log_prime[m] += logn;
         log2_prime[m] += log2n;
         /* -> Ver.0.40.4 */
-        html1 += self.output_line((isOdd)? "condition": "wF", "", n, n.toString(6), n.toString(4), n, n.toString(2), (isOdd)? freq2d[3]: "", (isOdd)? freq2d[4]: "");
+        html1 += self.output_line((isOdd)? "condition": "wF", "", n, n.toString(6), n.toString(4), n, n.toString(2), (isOdd)? freq2d[3]: "", (isOdd)? freq2d[4]: "", (isOdd)? self.get_Standard_Deviation(freq2d[3])/self.get_Mean(freq2d[3]): "", (isOdd)? self.get_Standard_Deviation(freq2d[4])/self.get_Mean(freq2d[4]): "");  // Ver.0.53.7
       }
     }
     /* Ver.0.40.4 -> */

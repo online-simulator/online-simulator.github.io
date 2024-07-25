@@ -22,6 +22,20 @@
       <tbody>
         <tr class="border">
           <td class="border run">
+Ver.0.53.7
+          </td>
+          <td class="border">
+・show primesを更新
+<br>
+　自然数の範囲：n&lt;32768　⇒　131072
+<br>
+・show primes結果表示にStandard Deviation/Meanを追加
+<br>
+・test caseを更新（Goldbach予想の項目を追加）
+          </td>
+        </tr>
+        <tr class="border">
+          <td class="border run">
 Ver.0.50.7
           </td>
           <td class="border">
@@ -959,6 +973,28 @@ log2_rad_fact(x)=&lt;sum(trans(log2(trans(primes_rad))+1));
 log2_fact(x)=&lt;sum(trans(log2(trans(linspace_round(x)))+1));
 <br>
 pi_by_x(x)=&lt;log2_rad_fact(x)/log2_fact(x);
+          </td>
+        </tr>
+        <tr class="border">
+          <td class="border selection">
+Goldbach予想
+<br>
+<span class="run">Ver.0.53.7追加</span>
+          </td>
+          <td class="border">
+・頻度の偏り度を定義する
+<br>
+頻度の偏り度:=標準偏差/平均値=Standard Deviation/Mean
+<br>
+・show primesのStandard Deviation/Meanから素数のbit列の偏り度は1%未満に収束する
+<br>
+・上位bitまで再帰的に成立し、2個の素数和のbit列も偏りがないと仮定する
+<br>
+・以上より、素数計数関数π(x)を用いて組合せ数の期待値を示す（<a title="Graphing Calculator" href="../02_calc_graphing/index.html">Graphing Calculator-test case-Goldbach</a>参照）</span>
+<br>
+組合せ数の期待値=π(x)**2/x
+<br>
+・素数和の個数が最小の2個であっても、無限大に近づく程、統計的に反例を見つけるのは非常に困難である
           </td>
         </tr>
       </tbody>
