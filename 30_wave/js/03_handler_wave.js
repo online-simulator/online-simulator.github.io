@@ -383,6 +383,7 @@ My_entry.handler_wave.prototype.make_params = function(){
   /* Ver.1.38.8 -> */
   params.order_fade = $.selectNum_id("select-order-fade");
   /* -> Ver.1.38.8 */
+  params.overtone = $.selectNum_id("select-overtone");  // Ver.1.64.14
   params.f_vib = $.inputVal_id("input-f_vib");  // Ver.1.57.12
   var sec = $.inputNum_id("input-time")*0.001;
   if(isNaN(sec) || sec < 0){

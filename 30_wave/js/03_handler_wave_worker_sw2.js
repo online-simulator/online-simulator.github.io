@@ -349,7 +349,8 @@ My_entry.handler_wave.prototype.input2arr = function(input){
       "order_d",  // Ver.1.31.6
       "order_a",  // Ver.1.31.6
       "order_fade",  // Ver.1.38.8
-      "f_vib"  // Ver.1.56.11
+      "f_vib",  // Ver.1.56.11
+      "overtone"  // 1.64.14
     ];
     var params0 = {};
     /* -> Ver.1.20.4 */

@@ -325,6 +325,11 @@ My_entry.output_wave.prototype.check_limit = function(_params){
     _params[prop] = def.limit(_params[prop], -Number.MAX_VALUE, Number.MAX_VALUE, 0);
   });
   /* -> Ver.1.56.11 */
+  /* Ver.1.64.14 -> */
+  ["overtone"].forEach(function(prop){
+    _params[prop] = def.limit(Math.floor(_params[prop]), 0, 12, 0);
+  });
+  /* -> Ver.1.64.14 */
   return _params;
 };
 My_entry.output_wave.prototype.check_params = function(_params){
@@ -367,8 +372,27 @@ My_entry.output_wave.prototype.encode_soundData_LE = function(params){  // Ver.1
   /* Ver.1.47.11 -> */
   var hasRand_phi0 = (params.type.match(self.ba_type.b));
   /* Ver.1.56.12 -> */
+  /* Ver.1.64.14 -> */
+  var overtone = params.overtone;
+  var arr_f = params.arr_f;
+  var arr_g = params.arr_g_normalized;
+  if(overtone > 1){
+    arr_f = [];
+    arr_g = [];
+    for(var i=0, len=params.arr_f.length; i<len; ++i){
+      var fi = params.arr_f[i];
+      var gi = params.arr_g_normalized[i];
+      for(var k=0; k<overtone; ++k){
+        var ft = fi*(k+1);
+        var gain_ft = self.get_gain_loglog(ft, params.f0, params.f1, params.g0, params.g1);
+        arr_f.push(ft);
+        arr_g.push(gi*gain_ft/overtone);
+      }
+    }
+  }
+  /* -> Ver.1.64.14 */
   var arr_phi = [];
-  for(var i=0; i<params.arr_f.length; ++i){
+  for(var i=0, len=arr_f.length; i<len; ++i){  // Ver.1.64.14
     arr_phi[i] = (hasRand_phi0)? Math.PI*2*Math.random(): 0;  // Ver.1.34.6
   }
   /* -> Ver.1.56.12 */
@@ -520,7 +544,7 @@ My_entry.output_wave.prototype.encode_soundData_LE = function(params){  // Ver.1
     /* -> Ver.1.24.4 */
     var val = 0;
     // composite waves
-    params.arr_f.forEach(function(f, i){
+    arr_f.forEach(function(f, i){  // Ver.1.64.14
       var f0 = f;
       var ft = f*kf;
       /* Ver.1.56.11 -> */
@@ -529,7 +553,7 @@ My_entry.output_wave.prototype.encode_soundData_LE = function(params){  // Ver.1
         ft += dft;
       }
       /* -> Ver.1.56.11 */
-      var gain_normalized = params.arr_g_normalized[i];
+      var gain_normalized = arr_g[i];  // Ver.1.64.14
       var gaint = gain_normalized;
       var gain_f0 = self.get_gain_loglog(f0, params.f0, params.f1, params.g0, params.g1);
       if(gain_f0){

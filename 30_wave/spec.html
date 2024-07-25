@@ -22,6 +22,28 @@
       <tbody>
         <tr class="border">
           <td class="border run">
+Ver.1.64.14
+          </td>
+          <td class="border">
+・overtoneを追加（基音より高周波数の倍音を自動付与）
+<br>
+・拡張datasetにovertoneの項目を追加
+<br>
+・?testcase link-overtoneを追加
+<br>
+・?testcase link-beep3を更新
+<br>
+・<a title="[test]play-buttons" href="../30_wave/buttons.html">[test]play-buttons</a>を更新
+<br>
+　beep3を変更
+<br>
+　chord2を追加
+<br>
+　overtone1~3を追加
+          </td>
+        </tr>
+        <tr class="border">
+          <td class="border run">
 Ver.1.63.14
           </td>
           <td class="border">
@@ -855,6 +877,8 @@ r
 <span class="wF">Ver.1.56.12更新</span>
 <br>
 <span class="wF">Ver.1.57.12更新</span>
+<br>
+<span class="wF">Ver.1.64.14更新</span>
           </td>
           <td class="border">
 datasetの拡張
@@ -876,7 +900,9 @@ datasetの拡張
 <br>
 <span class="condition">:w0=0~1:p0=0~1:w1=0~1:p1=0~1:f0:g0=0~1:f1:g1=0~1</span>
 <br>
-<span class="jF">:rate=0~:order=0~</span><span class="selection">:order_d=0~:order_a=0~</span><span class="wF">:order_fade=floor(-2~3):f_vib</span>;
+<span class="jF">:rate=0~:order=0~</span><span class="selection">:order_d=0~:order_a=0~</span>
+<br>
+<span class="wF">:order_fade=floor(-2~3):f_vib:overtone=floor(0~12)</span>;
           </td>
         </tr>
         <tr class="border">
@@ -988,7 +1014,7 @@ w1=0
           </td>
         </tr>
         <tr class="border">
-          <td class="border" rowspan="2">
+          <td class="border" rowspan="3">
           </td>
           <td class="border">
 <span class="condition">
@@ -1015,6 +1041,16 @@ g1
           </td>
           <td class="border">
 f_vibrato[Hz]
+          </td>
+        </tr>
+        <tr class="border">
+          <td class="border">
+<span class="wF">overtone</span>=0@default
+<br>
+<span class="run">Ver.1.64.14追加</span>
+          </td>
+          <td class="border">
+基音より高周波数の倍音の整数倍上限値
           </td>
         </tr>
         <tr class="border">
@@ -1649,6 +1685,30 @@ kdf=sin(omega_vib*t)*dkf_vib　<span class="jF">±両側の変動を仮定</span
 df=kdf*f
 <br>
 f=f+df
+          </td>
+        </tr>
+        <tr class="border">
+          <td class="border">
+overtone
+<br>
+<span class="run">Ver.1.64.14追加</span>
+          </td>
+          <td class="border">
+倍音の整数倍上限値
+          </td>
+          <td class="border">
+<span class="clear">dataset優先</span>
+<br>
+<br>
+基音より高周波数の倍音を自動付与
+<br>
+・overtone=0||1の場合、無効
+<br>
+・乱数なしの整数倍
+<br>
+・log-log filterを適用
+<br>
+・現状、script入力のみ、max係数が厳密
           </td>
         </tr>
         <tr class="border">
