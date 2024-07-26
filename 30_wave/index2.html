@@ -59,7 +59,7 @@
         }
         else if(options.testcase === "Froschgesang_overtone"){
           script = "$sheet($chord1; :r$2; $chord2; :r$3; $chord3; r; $chordset4)\n\n$1(:::0.5:0.5:1:0.5:::::::::::0.1:2)\n$e1(:::0.5:0.5:0.5:0.25:::::::::::0.1:2)\n$e2(:::0.5:0.5:0.25:0.125:::::::::::0.1:2)\n$2(::::::0)\n$3(:::0.25:0.5)\n\n$chordset4($chord4-1; $chord4-2; $chord4-3)\n\n$chord1($C; $D; $E; $F; $E; $D; $C)\n$chord2($E; $F; $G; $A; $G; $F; $E)\n$chord3($C; :r; $C; :r; $C; :r; $C)\n$chord4-1(b2:$C; b2:$C; b2:$D; b2:$D)\n$chord4-2(b2:$E; b2:$E; b2:$F; b2:$F)\n$chord4-3(b2:$E; b2:r; 3b4:$D; 1b4:r; b:$C)\n\n$A(A4)$C(C4)$D(D4)$E(E4)$F(F4)$G(G4)\n\n{01.0b:r$1; $sheet;}{07.0b:r$1; $sheet;}{13.0b:r$1; $sheet;}{19.0b:r$1; $sheet;}\n{01.5b:r$e1; $sheet;}{07.5b:r$e1; $sheet;}{13.5b:r$e1; $sheet;}{19.5b:r$e1; $sheet;}\n{02.0b:r$e2; $sheet;}{08.0b:r$e2; $sheet;}{14.0b:r$e2; $sheet;}{20.0b:r$e2; $sheet;}\n";
-          $.set_selectVal_id("select-overtone", 5);
+          $._id("input-overtone").value = 5;
         }
         else if(options.testcase === "Froschgesang100"){
           $._id("input-BPM").value /= 4;
@@ -68,7 +68,7 @@
         }
         else if(options.testcase === "Froschgesang100_overtone"){
           script = "$1(:::0.5:0.5:1:0.5:::::::::::0.1:2)\n$2(::::::0)\n$3(:::0.25:0.5)\n\n$chordset4(\n$chord4-1;\n$chord4-2;\n$chord4-3)\n\n$chord1($C; $D; $E; $F; $E; $D; $C)\n$chord2($E; $F; $G; $A; $G; $F; $E)\n$chord3($C; :r; $C; :r; $C; :r; $C)\n$chord4-1(b2:$C; b2:$C; b2:$D; b2:$D)\n$chord4-2(b2:$E; b2:$E; b2:$F; b2:$F)\n$chord4-3(b2:$E; b2:r; 3b4:$D; 1b4:r; b:$C)\n\n$A(A4)$C(C4)$D(D4)$E(E4)$F(F4)$G(G4)\n\n{01b:r$1; $chord1; :r$2; $chord2; :r$3; $chord3; r; $chordset4;}\n{07b:r$1; $chord1; :r$2; $chord2; :r$3; $chord3; 0; $chordset4;}\n{13b:r$1; $chord1; :r$2; $chord2; :r$3; $chord3; r; $chordset4;}\n{19b:r$1; $chord1; :r$2; $chord2; :r$3; $chord3; 0; $chordset4;}\n";
-          $.set_selectVal_id("select-overtone", 5);
+          $._id("input-overtone").value = 5;
           $._id("input-BPM").value /= 4;
           $.set_selectVal_id("select-fileSizeMax", 20);
         }
@@ -213,20 +213,7 @@ f_vibrato[Hz]：
 overtone：
     </td>
     <td>
-<select id="select-overtone">
-  <option>0</option>
-  <option>2</option>
-  <option>3</option>
-  <option>4</option>
-  <option>5</option>
-  <option>6</option>
-  <option>7</option>
-  <option>8</option>
-  <option>9</option>
-  <option>10</option>
-  <option>11</option>
-  <option>12</option>
-</select>
+<input id="input-overtone" type="number" min="0" max="24" step="1" value="0">
 <span class="clear right">dataset優先</span>
     </td>
   </tr>

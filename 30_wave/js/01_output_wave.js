@@ -296,8 +296,7 @@ My_entry.output_wave.prototype.check_limit = function(_params){
     _params[prop] = def.limit(_params[prop], 0, 1, 0.5);
   });
   ["amplitude0", "amplitude1"].forEach(function(prop){
-    var sw_max = _params._amplitude_max || Number.MAX_VALUE;
-    _params[prop] = def.limit(_params[prop], 0, sw_max, 1);
+    _params[prop] = def.limit(_params[prop], 0, Number.MAX_VALUE, 1);  // Ver.1.64.14
   });
   ["w0", "p0", "w1", "p1"].forEach(function(prop){
     _params[prop] = def.limit(_params[prop], 0, 1, 0);
@@ -327,7 +326,7 @@ My_entry.output_wave.prototype.check_limit = function(_params){
   /* -> Ver.1.56.11 */
   /* Ver.1.64.14 -> */
   ["overtone"].forEach(function(prop){
-    _params[prop] = def.limit(Math.floor(_params[prop]), 0, 12, 0);
+    _params[prop] = def.limit(Math.floor(_params[prop]), 0, 24, 0);
   });
   /* -> Ver.1.64.14 */
   return _params;

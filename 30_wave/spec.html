@@ -27,6 +27,10 @@ Ver.1.64.14
           <td class="border">
 ・overtoneを追加（基音より高周波数の倍音を自動付与）
 <br>
+　select-0~12　⇒　input-0~24
+<br>
+　単音/和音pageのamplitudeの内部limiterを解除
+<br>
 ・拡張datasetにovertoneの項目を追加
 <br>
 ・?testcase link-overtoneを追加
@@ -40,6 +44,10 @@ Ver.1.64.14
 　chord2を追加
 <br>
 　overtone1~3を追加
+<br>
+・handler_wave.jsを更新
+<br>
+　$.inputVal_id()　⇒　$.inputNum_id()
           </td>
         </tr>
         <tr class="border">
@@ -902,7 +910,7 @@ datasetの拡張
 <br>
 <span class="jF">:rate=0~:order=0~</span><span class="selection">:order_d=0~:order_a=0~</span>
 <br>
-<span class="wF">:order_fade=floor(-2~3):f_vib:overtone=floor(0~12)</span>;
+<span class="wF">:order_fade=floor(-2~3):f_vib:overtone=floor(0~24)</span>;
           </td>
         </tr>
         <tr class="border">
@@ -1708,7 +1716,7 @@ overtone
 <br>
 ・log-log filterを適用
 <br>
-・現状、script入力のみ、max係数が厳密
+・現状、script入力のみ、max係数が厳密（単音/和音pageのamplitudeの内部limiterを解除）
           </td>
         </tr>
         <tr class="border">

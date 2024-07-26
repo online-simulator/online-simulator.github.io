@@ -221,7 +221,7 @@ My_entry.handler_wave.prototype.init_handlers = function(){
     self.make_params();
     self.waveo.init(self.params.Bytes_perSample, self.params.samples_perSecond, self.params.number_channels);
     self.update_number_samples();  // Ver.1.59.13
-    self.output_amplitude_max(self.params._amplitude_max || ((self.params.maxAmp)? self.pre_maxAmp: ""));  // Ver.1.35.6  // Ver.1.45.11
+    self.output_amplitude_max((self.params.maxAmp)? self.pre_maxAmp: "");  // Ver.1.35.6  // Ver.1.45.11  // Ver.1.64.14
     if(self.isScriptMode){
       self.output_time("");
     }
@@ -347,13 +347,12 @@ My_entry.handler_wave.prototype.make_params = function(){
   params.type = $.selectVal_id("select-type");
   /* Ver.1.20.4 -> */
   /* Ver.1.16.4 -> */
-  params.duty0 = $.inputVal_id("input-duty");
+  params.duty0 = $.inputNum_id("input-duty");  // Ver.1.64.14
   params.duty1 = params.duty0;
   /* -> Ver.1.16.4 */
   /* Ver.1.35.6 -> */
   var amplitude_max = (self.waveo)? 1/self.waveo.get_gain_type(params.type): 1;
-  params._amplitude_max = (self.isScriptMode)? null: amplitude_max;
-  params.amplitude0 = $.inputVal_id("input-amplitude");
+  params.amplitude0 = $.inputNum_id("input-amplitude");  // Ver.1.64.14
   params.amplitude1 = params.amplitude0;
   /* -> Ver.1.35.6 */
   params.w0 = $.selectNum_id("select-w0");
@@ -366,12 +365,12 @@ My_entry.handler_wave.prototype.make_params = function(){
   params.g1 = $.selectNum_id("select-g1");
   /* Ver.1.24.4 -> */
   var base0 = 2;
-  var expo0 = $.inputVal_id("input-rate");
+  var expo0 = $.inputNum_id("input-rate");  // Ver.1.64.14
   var rate0 = Math.pow(base0, expo0);
   params.rate = rate0;
   /* Ver.1.26.4 -> */
   var base1 = 2;
-  var expo1 = $.inputVal_id("input-order");
+  var expo1 = $.inputNum_id("input-order");  // Ver.1.64.14
   var rate1 = Math.pow(base1, expo1);
   params.order = rate1;
   /* Ver.1.31.6 -> */
@@ -383,8 +382,8 @@ My_entry.handler_wave.prototype.make_params = function(){
   /* Ver.1.38.8 -> */
   params.order_fade = $.selectNum_id("select-order-fade");
   /* -> Ver.1.38.8 */
-  params.overtone = $.selectNum_id("select-overtone");  // Ver.1.64.14
-  params.f_vib = $.inputVal_id("input-f_vib");  // Ver.1.57.12
+  params.f_vib = $.inputNum_id("input-f_vib");  // Ver.1.57.12  // Ver.1.64.14
+  params.overtone = $.inputNum_id("input-overtone");  // Ver.1.64.14
   var sec = $.inputNum_id("input-time")*0.001;
   if(isNaN(sec) || sec < 0){
     sec = 1;
@@ -401,7 +400,7 @@ My_entry.handler_wave.prototype.make_params = function(){
   /* Ver.1.17.4 -> */
   if(self.isScriptMode){
     /* Ver.1.52.11 -> */
-    var tempo = 60/$.inputVal_id("input-BPM");
+    var tempo = 60/$.inputNum_id("input-BPM");  // Ver.1.64.14
     $._id("input-tempo").value = tempo;
     params.tempo = tempo;
     var isAutoDfreq = $.checkbox_id("checkbox-autoDfreq");
@@ -410,25 +409,25 @@ My_entry.handler_wave.prototype.make_params = function(){
       $._id("input-dfreq").value = 4/tempo;
     }
     /* -> Ver.1.52.11 */
-    params.pitch = $.inputVal_id("input-pitch");
+    params.pitch = $.inputNum_id("input-pitch");  // Ver.1.64.14
     params.tempo = def.limit(params.tempo, 0, Number.MAX_VALUE, 1);  // Ver.1.19.4
     params.pitch = def.limit(params.pitch, -16, 16, 0);
     params.ampli = params.amplitude0;  // Ver.1.28.4
     params.maxAmp = $.checkbox_id("checkbox-maxAmp");  // Ver.1.45.11
     /* Ver.1.29.4 -> */
-    params.dfreq = $.inputVal_id("input-dfreq");
+    params.dfreq = $.inputNum_id("input-dfreq");  // Ver.1.64.14
     params.dfreq = def.limit(params.dfreq, -Number.MAX_VALUE, Number.MAX_VALUE, 0);
     /* Ver.1.32.6 -> */
-    params.s_random = $.inputVal_id("input-s_random");
+    params.s_random = $.inputNum_id("input-s_random");  // Ver.1.64.14
     params.s_random = def.limit(params.s_random, -16, 16, 0);
     /* -> Ver.1.32.6 */
     /* Ver.1.33.6 -> */
-    params.s_stereo = $.inputVal_id("input-s_stereo");
+    params.s_stereo = $.inputNum_id("input-s_stereo");  // Ver.1.64.14
     params.s_stereo = def.limit(params.s_stereo, 0, 100, 0);
     /* -> Ver.1.33.6 */
     /* -> Ver.1.29.4 */
     /* Ver.1.18.4 -> */
-    params.wr = $.inputVal_id("input-wr");
+    params.wr = $.inputNum_id("input-wr");  // Ver.1.64.14
     params.wr = def.limit(params.wr, 0, 1, 0);
     /* -> Ver.1.18.4 */
   }
