@@ -24,7 +24,7 @@ My_entry.handler_wave.prototype.set_callbacks_worker = function(){
         self.waveo.play_base64(base64, data.volume);
       }
       self.stop_worker();
-      self.output_amplitude_max(1/data.gain_type);  // Ver.1.35.6
+      self.output_amplitude_max(data._amplitude_max);  // Ver.1.35.6  // Ver.1.64.14
       self.output_log();
       self.output_fileName(fileName);
     }

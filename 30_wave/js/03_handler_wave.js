@@ -351,7 +351,6 @@ My_entry.handler_wave.prototype.make_params = function(){
   params.duty1 = params.duty0;
   /* -> Ver.1.16.4 */
   /* Ver.1.35.6 -> */
-  var amplitude_max = (self.waveo)? 1/self.waveo.get_gain_type(params.type): 1;
   params.amplitude0 = $.inputNum_id("input-amplitude");  // Ver.1.64.14
   params.amplitude1 = params.amplitude0;
   /* -> Ver.1.35.6 */

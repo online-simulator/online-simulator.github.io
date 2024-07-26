@@ -389,6 +389,11 @@ My_entry.output_wave.prototype.encode_soundData_LE = function(params){  // Ver.1
       }
     }
   }
+  var sum_gain = 0;
+  for(var i=0, len=arr_g.length; i<len; ++i){
+    sum_gain += arr_g[i];
+  }
+  params._amplitude_max = 1/sum_gain;
   /* -> Ver.1.64.14 */
   var arr_phi = [];
   for(var i=0, len=arr_f.length; i<len; ++i){  // Ver.1.64.14
