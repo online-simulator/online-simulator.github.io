@@ -406,33 +406,61 @@ My_entry.handler_wave.prototype.input2arr = function(input){
         if(command === "clear"){
           params0 = {};
         }
+        /* Ver.1.65.14 -> */
+        var hasProp = {};
+        for(var n=0, len_n=props0.length; n<len_n; ++n){
+          var prop = props0[n];
+          hasProp[prop] = true;
+        }
+        var set_params = function(prop, num){
+          if(hasProp[prop]){
+            var param0 = params0[prop];
+            if(!(isNaN(num))){
+              var param = null;
+              switch(prop){
+                case "type":
+                  param = types0[num] || params[prop];
+                  break;
+                // Ver.1.28.4
+                case "amplitude0":
+                case "amplitude1":
+                  param = num*kampli;  // Ver.1.47.11
+                  break;
+                default:
+                  param = num;  // Ver.1.47.11
+                  break;
+              }
+              params[prop] = param;
+              params0[prop] = param;
+            }
+            else if(typeof param0 !== "undefined"){
+              params[prop] = param0;
+            }
+          }
+          else{
+            throw new Error(self.waveo.config.ERROR.title+"Invalid dataset-"+prop);
+          }
+        };
+        /* -> Ver.1.65.14 */
         for(var n=3, len_n=props0.length; n<len_n; ++n){
           var prop = props0[n];
-          var param0 = params0[prop];
           var token = arr_token[n];
-          var num = Number(token);
-          if(token && !(isNaN(num))){
-            var param = null;
-            switch(prop){
-              case "type":
-                param = types0[num] || params[prop];
-                break;
-              // Ver.1.28.4
-              case "amplitude0":
-              case "amplitude1":
-                param = num*kampli;  // Ver.1.47.11
-                break;
-              default:
-                param = num;  // Ver.1.47.11
-                break;
+          var num = (token)? Number(token): NaN;  // Ver.1.65.14
+          set_params(prop, num);  // Ver.1.65.14
+        }
+        /* Ver.1.65.14 -> */
+        for(var n=0, len_n=props0.length; n<len_n; ++n){
+          var token = arr_token[n];
+          if(token){
+            var sc = token.split("=");
+            if(sc && sc.length === 2){
+              var prop = sc[0];
+              var num = (sc[1])? Number(sc[1]): NaN;
+              set_params(prop, num);
             }
-            params[prop] = param;
-            params0[prop] = param;
-          }
-          else if(typeof param0 !== "undefined"){
-            params[prop] = param0;
           }
         }
+        /* -> Ver.1.65.14 */
         /* -> Ver.1.20.4 */
         params.gain_band = (f_isFound)? 1/len_band: 0;
         _arr_input[i].push(params);

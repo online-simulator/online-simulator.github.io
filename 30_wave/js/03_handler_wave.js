@@ -27,7 +27,7 @@ My_entry.handler_wave.prototype.init = function(){
     return (new RegExp("\\"+tag, "gm"));
   };
   var sw_flag = (My_entry.flag.hasFlagS)? "s": "";
-  self.regex.macros = new RegExp("\\$[0-9a-zA-Z_\\-]+\\([0-9a-zA-Z_\\-\\+.,:;\\[\\]\\$\\s]+?\\)", "g"+sw_flag);  // Ver.1.41.9  // Ver.1.42.10  // Ver.1.42.11
+  self.regex.macros = new RegExp("\\$[0-9a-zA-Z_\\-]+\\([0-9a-zA-Z_\\-\\+\\=.,:;\\[\\]\\$\\s]+?\\)", "g"+sw_flag);  // Ver.1.41.9  // Ver.1.42.10  // Ver.1.42.11  // Ver.1.65.14
   self.regex.macro = new RegExp("^(\\$[0-9a-zA-Z\\-_]+)\\((.*)?\\)$", sw_flag);  // Ver.1.41.9  // Ver.1.42.10
   self.regex.mb = new RegExp("\\{.*?\\}", "g"+sw_flag);
   self.regex.ml = new RegExp("\\[.*?\\]", "g"+sw_flag);

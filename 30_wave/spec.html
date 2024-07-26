@@ -22,6 +22,18 @@
       <tbody>
         <tr class="border">
           <td class="border run">
+Ver.1.65.14
+          </td>
+          <td class="border">
+・datasetを拡張（代入formatを追加）
+<br>
+・?testcase link-beep3以降を更新（macro定義の一部を代入formatに変更）
+<br>
+・<a title="[test]play-buttons" href="../30_wave/buttons.html">[test]play-buttons</a>を更新（代入formatを追記）
+          </td>
+        </tr>
+        <tr class="border">
+          <td class="border run">
 Ver.1.64.14
           </td>
           <td class="border">
@@ -688,6 +700,8 @@ macro機能
 <span class="clear">Ver.1.42.11追加</span>
 <br>
 <span class="wF">Ver.1.43.11追加</span>
+<br>
+<span class="wF">Ver.1.65.14追加</span>
           </td>
           <td class="border">
 {}外に定義
@@ -696,7 +710,7 @@ macro機能
 <span id="span-macro"></span>
 入力textの前方からmacro定義順に{}内のtext置換
 <br>
-・macro定義のformat：$<span class="condition">[0-9a-zA-Z<span class="jF">_-</span>]+</span>(<span class="selection">[0-9a-zA-Z<span class="jF">_-<span class="clear">+</span></span>.,:;[]$<span class="wF">\s</span>]+</span>)
+・macro定義のformat：$<span class="condition">[0-9a-zA-Z<span class="jF">_-</span>]+</span>(<span class="selection">[0-9a-zA-Z<span class="jF">_-<span class="clear">+</span><span class="wF">=</span></span>.,:;[]$<span class="wF">\s</span>]+</span>)
 <br>
 　0-9a-zA-Z<span class="jF">_</span>部分は\wで短縮可
 <br>
@@ -859,7 +873,7 @@ r
           </td>
         </tr>
         <tr class="border">
-          <td class="border">
+          <td class="border" rowspan="2">
 拡張dataset
 <br>
 <span class="condition">Ver.1.20.4追加</span>
@@ -911,6 +925,30 @@ datasetの拡張
 <span class="jF">:rate=0~:order=0~</span><span class="selection">:order_d=0~:order_a=0~</span>
 <br>
 <span class="wF">:order_fade=floor(-2~3):f_vib:overtone=floor(0~24)</span>;
+          </td>
+        </tr>
+        <tr class="border">
+          <td class="border">
+代入format
+<br>
+<span class="run">Ver.1.65.14追加</span>
+          </td>
+          <td class="border">
+項目名を指定して値を代入するformat
+<br>
+b:A4:clear:1:0.5::::::::::::::::::5
+<br>
+b:A4:clear:1:0.5:overtone=5
+<br>
+b:A4:clear:1:duty0=0.5:overtone=5
+<br>
+b:A4:clear:duty0=0.5:type=1:overtone=5
+<br>
+・type以降の項目を指定可（順不同）
+<br>
+・重複定義の場合、代入formatの左から順次上書き
+<br>
+・項目名のspell不正の場合、error終了
           </td>
         </tr>
         <tr class="border">
