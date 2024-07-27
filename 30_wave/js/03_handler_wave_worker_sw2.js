@@ -412,8 +412,30 @@ My_entry.handler_wave.prototype.input2arr = function(input){
           var prop = props0[n];
           hasProp[prop] = true;
         }
-        var set_params = function(prop, num){
+        var get_num = function(prop, token){
+          var _num = NaN;
+          if(token){
+            var num = Number(token);
+            if(isNaN(num)){
+              var sc = token.split("=");
+              if(sc.length > 1){
+                if(sc.length !== 2){
+                  throw new Error(self.waveo.config.ERROR.title+"Invalid dataset-"+token);
+                }
+              }
+              else{
+                throw new Error(self.waveo.config.ERROR.title+"Invalid dataset-"+prop+"="+token);
+              }
+            }
+            else{
+              _num = num;
+            }
+          }
+          return _num;
+        };
+        var set_params = function(prop, token){
           if(hasProp[prop]){
+            var num = get_num(prop, token);
             var param0 = params0[prop];
             if(!(isNaN(num))){
               var param = null;
@@ -445,8 +467,7 @@ My_entry.handler_wave.prototype.input2arr = function(input){
         for(var n=3, len_n=props0.length; n<len_n; ++n){
           var prop = props0[n];
           var token = arr_token[n];
-          var num = (token)? Number(token): NaN;  // Ver.1.65.14
-          set_params(prop, num);  // Ver.1.65.14
+          set_params(prop, token);  // Ver.1.65.14
         }
         /* Ver.1.65.14 -> */
         for(var n=0, len_n=props0.length; n<len_n; ++n){
@@ -455,8 +476,8 @@ My_entry.handler_wave.prototype.input2arr = function(input){
             var sc = token.split("=");
             if(sc && sc.length === 2){
               var prop = sc[0];
-              var num = (sc[1])? Number(sc[1]): NaN;
-              set_params(prop, num);
+              var token = sc[1];
+              set_params(prop, token);
             }
           }
         }

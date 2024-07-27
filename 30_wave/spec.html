@@ -27,6 +27,8 @@ Ver.1.65.14
           <td class="border">
 ・datasetを拡張（代入formatを追加）
 <br>
+・datasetの構文||値不正のerror終了処理を追加
+<br>
 ・testcase-duty0/duty1を追加
 <br>
 ・?testcase link-beep3以降を更新（macro定義の一部を代入formatに変更）
@@ -907,9 +909,16 @@ r
 <span class="wF">Ver.1.64.14更新</span>
           </td>
           <td class="border">
-datasetの拡張
+通常format
+<br>
+<span class="run">Ver.1.65.14更新</span>
           </td>
           <td class="border">
+type以降の値を列挙するformat
+<br>
+<span class="run">・値不正のerror終了処理を追加</span>
+<br>
+<br>
 <span class="run">音階;</span>
 <br>
 時間:音階
@@ -938,7 +947,7 @@ datasetの拡張
 <span class="run">Ver.1.65.14追加</span>
           </td>
           <td class="border">
-項目名を指定して値を代入するformat
+type以降の項目名を指定して値を代入するformat
 <br>
 b:A4:clear:1:0.5::::::::::::::::::5
 <br>
@@ -952,7 +961,9 @@ b:A4:clear:duty0=0.5:type=1:overtone=5
 <br>
 ・重複定義の場合、代入formatの左から順次上書き
 <br>
-・項目名のspell不正の場合、error終了
+・構文不正（項目名のspellを含む）の場合、error終了
+<br>
+・値不正の場合、error終了
           </td>
         </tr>
         <tr class="border">
