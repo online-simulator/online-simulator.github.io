@@ -27,7 +27,7 @@ Ver.1.65.14
           <td class="border">
 ・datasetを拡張（代入formatを追加）
 <br>
-・拡張datasetの構文||値不正のerror終了処理を追加
+・dataset不正のerror終了処理を追加
 <br>
 ・testcase-duty0/duty1を追加
 <br>
@@ -816,11 +816,18 @@ dataset
 <span class="clear">Ver.1.30.6対応</span>
 <br>
 <span class="run">Ver.1.44.11更新</span>
+<br>
+<span class="selection">Ver.1.65.14更新</span>
           </td>
           <td class="border">
 音dataの単位
           </td>
           <td class="border">
+<span class="selection">基本dataset
+<br>
+・値不正のerror終了処理を追加</span>
+<br>
+<br>
 <span class="run">音階;</span>
 <br>
 時間:音階;
@@ -971,11 +978,15 @@ b:A4:clear:duty0=0.5:type=1:overtone=5
           </td>
           <td class="border">
 <span class="condition">command</span>
+<br>
+<span class="selection">Ver.1.65.14更新</span>
           </td>
           <td class="border">
 省略時：直前datasetの拡張設定値を継承||clear状態でUI設定値を参照
 <br>
 clear：直前datasetの拡張設定値をclear
+<br>
+<span class="selection">・command不正のerror終了処理を追加</span>
           </td>
         </tr>
         <tr class="border">

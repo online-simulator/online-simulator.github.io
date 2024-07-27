@@ -305,6 +305,11 @@ My_entry.handler_wave.prototype.input2arr = function(input){
     else{
       _freq = Number(str);
     }
+    /* Ver.1.65.14 -> */
+    if(isNaN(_freq)){
+      throw new Error(self.waveo.config.ERROR.title+"Invalid frequency-"+str);
+    }
+    /* -> Ver.1.65.14 */
     return _freq;
   };
   mcb.forEach(function(str, i){
@@ -375,6 +380,11 @@ My_entry.handler_wave.prototype.input2arr = function(input){
           var deno = Number(mct[2] || 1);
           t = (deno)? self.msec_60BPM*nume/deno: 0;
         }
+        /* Ver.1.65.14 -> */
+        if(isNaN(t)){
+          throw new Error(self.waveo.config.ERROR.title+"Invalid time-"+time);
+        }
+        /* -> Ver.1.65.14 */
         /* -> Ver.1.19.4 */
         var params = {};
         for(var prop in self.params){
@@ -407,6 +417,12 @@ My_entry.handler_wave.prototype.input2arr = function(input){
           params0 = {};
         }
         /* Ver.1.65.14 -> */
+        else if(command){
+          var sc = command.split("=");
+          if(sc.length === 1){
+            throw new Error(self.waveo.config.ERROR.title+"Invalid command-"+command);
+          }
+        }
         var hasProp = {};
         for(var n=0, len_n=props0.length; n<len_n; ++n){
           var prop = props0[n];
