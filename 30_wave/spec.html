@@ -28,6 +28,8 @@ Ver.1.67.14
 ・overtoneを更新
 <br>
 　倍音のgainを厳密化（音質の劣化を改善：max係数の目安≒7.15　⇒　6.15）
+<br>
+・testcase-duty0/duty1を更新（order_dを調整）
           </td>
         </tr>
         <tr class="border">
@@ -1547,6 +1549,8 @@ testcase
 <span class="jF">Ver.1.52.11更新</span>
 <br>
 <span class="wF">Ver.1.65.14更新</span>
+<br>
+<span class="wF">Ver.1.67.14更新</span>
           </td>
           <td class="border">
 test case
@@ -1554,9 +1558,9 @@ test case
           <td class="border">
 0：1octaveのstereo出力（左右の差なし・Δf=0）
 <br>
-<span class="wF">duty0：1octaveの1ch出力（duty0=0・order_d=1）</span>
+<span class="wF">duty0：1octaveの1ch出力（duty0=0・order_d=0.5）</span>
 <br>
-<span class="wF">duty1：1octaveの1ch出力（duty1=0・order_d=1）</span>
+<span class="wF">duty1：1octaveの1ch出力（duty1=0・order_d=2）</span>
 <br>
 1：1octaveのstereo出力（左右の差あり・Δf=0）
 <br>

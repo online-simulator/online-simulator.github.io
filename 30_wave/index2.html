@@ -48,10 +48,10 @@
         script = "{\n1000:[C4,C5,C6]::0:0.5:0.5:1:0:0:0:0:0:::::2:1e-3::;\nb1:[D4,D5,D6];\n1b:[E4,E5,E6];\n1b1:[F4,F5,F6];\n2b2:[G4,G5,G6];\n-4e-1b-4e-1:[A4,A5,A6];\n8.0e+0b0.8e+1:[B4,B5,B6];\n16b16:[C5,C6,C7];\nb:r;\n}\n{\n6b2:r::1:0.25:0.25:0.5:0.5:0.97:0.005:0.97:0.005:800:1:4800:0.3;\n:[C4,C5,C6];\n:[D4,D5,D6];\n:[E4,E5,E6];\n:[F4,F5,F6];\n:[G4,G5,G6];\n:[A4,A5,A6]:clear;\n:[B4,B5,B6];\n4b:[C5,C6,C7]:::::::::0.9999:0.15;\n:r;\n}\n{\n6b1:r::2:0.25:0.25:0.5:0.5:0.97:0.005:0.97:0.005:800:1:4800:0.3;\n:[n60,n72,n84];\n:[n62,n74,n86];\n:[n64,n76,n88];\n:[n65,n77,n89];\n:[n67,n79,n91];\n:[n69,n81,n93]:clear;\n:[n71,n83,n95];\n4b:[n72,n84,n96]:::::::::0.9999:0.15;\n:r;\n}\n{\n9b1:r::3:0.25:0.25:0.5:0.5:0.97:0.005:0.97:0.005:800:1:4800:0.3;\n:[o-1c60,f52325e-2,1.0465e+3];\n:[o04c02,o05c02,o06c02];\n:[o4c4,o5c4,o6c4];\n:[o4c5,o5c5,o6c5];\n:[o4c7,o5c7,o6c7]:clear;\n:[o4c9,o5c9,o6c9];\n:[o4c11,o5c11,o6c11];\n4b:[o5c0,o6c0,o7c0]:w1=0.9999:p1=0.15;\n:r;\n}";
       }
       else if(options.testcase === "duty0"){
-        script = "{\n:r::duty0=0:order_d=1;\nC4;D4;E4;F4;G4;A4;B4;C5;\n}";
+        script = "{\n:r::duty0=0:order_d=0.5;\nC4;D4;E4;F4;G4;A4;B4;C5;\n}";
       }
       else if(options.testcase === "duty1"){
-        script = "{\n:r::duty1=0:order_d=1;\nC4;D4;E4;F4;G4;A4;B4;C5;\n}";
+        script = "{\n:r::duty1=0:order_d=2;\nC4;D4;E4;F4;G4;A4;B4;C5;\n}";
       }
       else if(options.testcase === "beep"){
         script = "{2b:[440]:::::::::::::::3:2::::20:5}\n{2b:[440]::rate=3:order=2:f_vib=20:overtone=5}";
