@@ -381,12 +381,21 @@ My_entry.output_wave.prototype.encode_soundData_LE = function(params){  // Ver.1
     for(var i=0, len=params.arr_f.length; i<len; ++i){
       var fi = params.arr_f[i];
       var gi = params.arr_g_normalized[i];
+      /* Ver.1.67.14 -> */
+      var arr_gain_ft = [];
+      var sum_gain_ft = 0;
       for(var k=0; k<overtone; ++k){
         var ft = fi*(k+1);
-        var gain_ft = self.get_gain_loglog(ft, params.f0, params.f1, params.g0, params.g1);
         arr_f.push(ft);
-        arr_g.push(gi*gain_ft/overtone);
+        var gain_ft = self.get_gain_loglog(ft, params.f0, params.f1, params.g0, params.g1);
+        arr_gain_ft[k] = gain_ft;
+        sum_gain_ft += gain_ft;
       }
+      for(var k=0; k<overtone; ++k){
+        var gk = arr_gain_ft[k]/sum_gain_ft;
+        arr_g.push(gi*gk);
+      }
+      /* -> Ver.1.67.14 */
     }
   }
   var sum_gain = 0;
