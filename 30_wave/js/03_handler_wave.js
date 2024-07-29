@@ -18,7 +18,7 @@ My_entry.handler_wave.prototype.init = function(){
   self.text_link = "download-wav@double-click";  // Ver.1.23.4
   self.pre_maxAmp = "auto-";  // Ver.1.45.11
   self.post_maxAmp = {eq: "＝", simeq: "≒"};  // Ver.1.45.11
-  self.fileName_default = (self.isScriptMode)? "made_by_script.wav": "download.wav";  // Ver.1.68.14
+  self.fileName_default = (self.isScriptMode)? "made_by_script": "download";  // Ver.1.68.14
   self.regex = {};
   self.regex.s = /\s/g;
   self.regex.macro_prifix = /\$/;  // Ver.1.42.10
@@ -78,7 +78,7 @@ My_entry.handler_wave.prototype.update_fileName = function(){
   if(!(fileName) || fileName.length > 50){
     fileName = self.fileName_default;
   }
-  self.handler_link.link.name = fileName;
+  self.handler_link.link.name = fileName+".wav";
   $._id("input-fileName").value = fileName;
   $.set_id("input-fileName", "readOnly", isAuto);
   return self;
@@ -88,7 +88,7 @@ My_entry.handler_wave.prototype.init_handlers = function(){
   var $ = self.entry.$;
   self.handlers.onload = function(e){
     var self = this;
-    var json = {p: {id: "wrapper-link"}, a: {id: "a", it: self.text_link}, name: self.fileName_default, ext: "wav"};
+    var json = {p: {id: "wrapper-link"}, a: {id: "a", it: self.text_link}, name: self.fileName_default+".wav", ext: "wav"};  // Ver.1.68.14
     self.handler_link = new self.constructors.handler_link(json);
     if(self.isSingle){
       self.output_freq();
@@ -315,7 +315,6 @@ My_entry.handler_wave.prototype.get_fileName = function(){
   });
   _name += Math.round(self.params.sec*1000)/1000;
   _name += "sec";
-  _name += ".wav";
   return _name;
 };
 My_entry.handler_wave.prototype.get_freqs = function(){

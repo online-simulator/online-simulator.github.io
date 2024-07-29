@@ -192,7 +192,7 @@ My_entry.handler_wave.prototype.set_callbacks_worker = function(){
     }
     catch(e){
       log = e.message;
-      self.handler_link.link.name = self.fileName_default;  // Ver.1.68.14
+      self.handler_link.link.name = self.fileName_default+".wav";  // Ver.1.68.14
       self.handler_link.link.clear_url();
     }
       self.stop_worker();

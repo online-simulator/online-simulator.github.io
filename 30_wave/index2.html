@@ -82,7 +82,7 @@
         $._id("input-order").value = -9;
         $.set_id("checkbox-maxAmp", "checked", "checked");
         $.set_id("checkbox-autoDfreq", "checked", "checked");
-        $._id("input-fileName").value = options.testcase+".wav";
+        $._id("input-fileName").value = options.testcase;
         $.set_id("input-fileName", "readOnly", true);
         $.hide("#wrapper-fileName", true, true);
       }
@@ -92,7 +92,7 @@
         $.set_selectVal_id("select-fileSizeMax", 20);
         $.set_id("checkbox-maxAmp", "checked", "checked");
         $.set_id("checkbox-autoDfreq", "checked", "checked");
-        $._id("input-fileName").value = options.testcase+".wav";
+        $._id("input-fileName").value = options.testcase;
         $.set_id("input-fileName", "readOnly", true);
         $.hide("#wrapper-fileName", true, true);
       }
@@ -348,8 +348,8 @@ link:
   </label>
 <div id="wrapper-link"></div>
 <div class="selection">
-  <input id="input-fileName" maxlength="50">
-  <span id="wrapper-fileName">
+  <input id="input-fileName" maxlength="50">.wav
+  <span id="wrapper-fileName" class="right">
     <label>auto:
       <input id="checkbox-fileName" type="checkbox">
     </label>
