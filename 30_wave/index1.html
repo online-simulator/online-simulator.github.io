@@ -228,11 +228,6 @@ MIDI-相対note数0~11
   </tr>
 </tbody></table>
 </div>
-<div class="selection">
-  最長50<label>Name:
-    <span id="span-name"></span>
-  </label>
-</div>
 <hr>
 
 <div>
@@ -392,7 +387,7 @@ log:
 <br>
 link:
 <br>
-file name:
+<label for="input-fileName">file name:</label>
     </td>
     <td>
 <div class="selection">
@@ -422,7 +417,10 @@ file name:
   </label>
 <div id="wrapper-link"></div>
 <div class="selection">
-See Above
+  <input id="input-fileName" maxlength="50">
+  <label>auto:
+    <input id="checkbox-fileName" type="checkbox" checked="checked">
+  </label>
 </div>
     </td>
   </tr>

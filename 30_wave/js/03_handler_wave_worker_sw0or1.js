@@ -15,8 +15,6 @@ My_entry.handler_wave.prototype.set_callbacks_worker = function(){
       var binary_soundData_LE = data.out;
       var binary = binary_header+binary_soundData_LE;
       var buffer = self.waveo.binary2buffer(binary);
-      var fileName = self.get_fileName();
-      self.handler_link.link.name = fileName;
       self.handler_link.link.set_url(buffer);
       var base64 = (window.btoa)? "data:audio/wav;base64,"+btoa(binary): "";
       var isIE = self.handler_link.browser.sws.isIE;
@@ -26,7 +24,6 @@ My_entry.handler_wave.prototype.set_callbacks_worker = function(){
       self.stop_worker();
       self.output_amplitude_max(data._amplitude_max);  // Ver.1.35.6  // Ver.1.64.14
       self.output_log();
-      self.output_fileName(fileName);
     }
     return self;
   };

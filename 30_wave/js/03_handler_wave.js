@@ -18,7 +18,7 @@ My_entry.handler_wave.prototype.init = function(){
   self.text_link = "download-wav@double-click";  // Ver.1.23.4
   self.pre_maxAmp = "auto-";  // Ver.1.45.11
   self.post_maxAmp = {eq: "＝", simeq: "≒"};  // Ver.1.45.11
-  self.fileName_default = "download.wav";
+  self.fileName_default = (self.isScriptMode)? "made_by_script.wav": "download.wav";  // Ver.1.68.14
   self.regex = {};
   self.regex.s = /\s/g;
   self.regex.macro_prifix = /\$/;  // Ver.1.42.10
@@ -53,13 +53,34 @@ My_entry.handler_wave.prototype.init_elems = function(){
   var self = this;
   var $ = self.entry.$;
   self.elem_log = $._id("span-log");
-  self.elem_name = $._id("span-name");
   self.elem_time = $._id("input-time");
   self.elem_top = $._id("select-Bytes_perSample");
   $.setup_elems_readonly$("input,textarea");  // Ver.1.41.9
   $.setup_elems$_tag("button", self.handlers, "onclick");
   $.setup_elems$_tag("input", self.handlers, "onchange");
   $.setup_elems$_tag("select", self.handlers, "onchange");
+  return self;
+};
+/* Ver.1.68.14 */
+My_entry.handler_wave.prototype.update_fileName = function(){
+  var self = this;
+  var $ = self.entry.$;
+  var fileName = "";
+  var isAuto = $.checkbox_id("checkbox-fileName");
+  if(isAuto){
+    if(!(self.isScriptMode)){
+      fileName = self.get_fileName();
+    }
+  }
+  else{
+    fileName = $._id("input-fileName").value;
+  }
+  if(!(fileName) || fileName.length > 50){
+    fileName = self.fileName_default;
+  }
+  self.handler_link.link.name = fileName;
+  $._id("input-fileName").value = fileName;
+  $.set_id("input-fileName", "readOnly", isAuto);
   return self;
 };
 My_entry.handler_wave.prototype.init_handlers = function(){
@@ -78,7 +99,6 @@ My_entry.handler_wave.prototype.init_handlers = function(){
     }
     /* -> Ver.1.53.11 */
     self.elem_top.onchange();
-    self.output_fileName();
     return self;
   };
   self.handlers.stop_sound = function(isClear){
@@ -228,6 +248,7 @@ My_entry.handler_wave.prototype.init_handlers = function(){
     else{
       self.output_fileSize();
     }
+    self.update_fileName();  // Ver.1.68.14
     switch(id){
       case "select-n_thread":
         self.set_n_thread_worker($.selectNum_id(id));
@@ -242,11 +263,6 @@ My_entry.handler_wave.prototype.init_handlers = function(){
 My_entry.handler_wave.prototype.output_log = function(log){
   var self = this;
   self.elem_log.textContent = (log || self.text_log).replace("Uncaught Error: ", "");  // Ver.1.41.10
-  return self;
-};
-My_entry.handler_wave.prototype.output_fileName = function(fileName){
-  var self = this;
-  self.elem_name.textContent = fileName || self.fileName_default;
   return self;
 };
 My_entry.handler_wave.prototype.output_time = function(sec){
@@ -300,9 +316,6 @@ My_entry.handler_wave.prototype.get_fileName = function(){
   _name += Math.round(self.params.sec*1000)/1000;
   _name += "sec";
   _name += ".wav";
-  if(_name.length > 50){
-    _name = self.fileName_default;
-  }
   return _name;
 };
 My_entry.handler_wave.prototype.get_freqs = function(){
