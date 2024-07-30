@@ -22,6 +22,20 @@
       <tbody>
         <tr class="border">
           <td class="border run">
+Ver.0.55.7
+          </td>
+          <td class="border">
+・素数判定isPrime(n)を追加
+<br>
+　self.isPrime()の変更なし（show primesの演算負荷を維持）
+<br>
+・show primes/calc rad(n)のbutton位置を変更
+<br>
+・UIの更新履歴を追記（Ver.0.46.7以降の未反映分）
+          </td>
+        </tr>
+        <tr class="border">
+          <td class="border run">
 Ver.0.53.7
           </td>
           <td class="border">
@@ -293,37 +307,11 @@ stringを消去
         <tr class="border">
           <td class="border">
 convert
+<br>
+<span class="jF">Ver.0.55.7更新</span>
           </td>
           <td class="border">
-parseInt/parseFloat/Number/BigIntの変換を実行
-          </td>
-        </tr>
-        <tr class="border">
-          <td class="vn">
-show primes
-<br>
-<span class="run">Ver.0.35.4追加</span>
-<br>
-<span class="selection">Ver.0.40.4更新</span>
-          </td>
-          <td class="border">
-素数の一覧を表示
-<br>
-<span class="selection">・素数計数関数を追加</span>
-          </td>
-        </tr>
-        <tr class="border">
-          <td class="vn">
-<del>radical(n)</del>
-<br>
-<span class="condition">calc rad(n)</span>
-<br>
-<span class="run">Ver.0.39.4追加</span>
-<br>
-<span class="condition">Ver.0.40.4更新</span>
-          </td>
-          <td class="border">
-nの根基rad(n)を表示
+parseInt/parseFloat/Number/BigInt/<span class="jF">素数判定isPrime(n)</span>の変換を実行
           </td>
         </tr>
         <tr class="border">
@@ -331,9 +319,13 @@ nの根基rad(n)を表示
 N-ary(n)
 <br>
 <span class="run">Ver.0.45.7追加</span>
+<br>
+<span class="selection">Ver.0.46.7更新</span>
           </td>
           <td class="border">
 N=[2,36]進数表記でnの一覧を表示
+<br>
+<span class="selection">・N進数表記で各桁の数字の再帰的な総和'rsum'を追加</span>
           </td>
         </tr>
         <tr class="border">
@@ -379,6 +371,8 @@ show Nrshift(m)
 solve 3n-1
 <br>
 <span class="run">Ver.0.32.4追加</span>
+<br>
+<span class="condition">Ver.0.50.7更新</span>
           </td>
           <td class="border">
 繰り返し実行
@@ -386,6 +380,8 @@ solve 3n-1
 ・nが奇数の場合、3n-1=(n&lt;&lt;1)+n-1の左shift相当演算
 <br>
 ・nが偶数の場合、奇数になるまで右shift演算
+<br>
+<span class="condition">・結果表示：n -> 1　⇒　1-circular（1を循環の帰着に含む）</span>
           </td>
         </tr>
         <tr class="border">
@@ -393,6 +389,8 @@ solve 3n-1
 solve 3n+1
 <br>
 <span class="run">Ver.0.32.4追加</span>
+<br>
+<span class="condition">Ver.0.50.7更新</span>
           </td>
           <td class="border">
 繰り返し実行
@@ -400,6 +398,50 @@ solve 3n+1
 ・nが奇数の場合、3n+1=(n&lt;&lt;1)+n+1の左shift相当演算
 <br>
 ・nが偶数の場合、奇数になるまで右shift演算
+<br>
+<span class="condition">・結果表示：n -> 1　⇒　1-circular（1を循環の帰着に含む）</span>
+          </td>
+        </tr>
+        <tr class="border">
+          <td class="vn">
+show primes
+<br>
+<span class="run">Ver.0.35.4追加</span>
+<br>
+<span class="selection">Ver.0.40.4更新</span>
+<br>
+<span class="condition">Ver.0.53.7更新</span>
+<br>
+<span class="jF">Ver.0.55.7更新</span>
+          </td>
+          <td class="border">
+素数の一覧を表示
+<br>
+<span class="selection">・素数計数関数を追加</span>
+<br>
+<span class="condition">・自然数の範囲：n&lt;32768　⇒　131072</span>
+<br>
+<span class="condition">・Standard Deviation/Meanを追加</span>
+<br>
+<span class="jF">・button位置を変更</span>
+          </td>
+        </tr>
+        <tr class="border">
+          <td class="vn">
+<span class="condition"><del>radical(n)</del>
+<br>
+calc rad(n)</span>
+<br>
+<span class="run">Ver.0.39.4追加</span>
+<br>
+<span class="condition">Ver.0.40.4更新</span>
+<br>
+<span class="jF">Ver.0.55.7更新</span>
+          </td>
+          <td class="border">
+nの根基rad(n)を表示
+<br>
+<span class="jF">・button位置を変更</span>
           </td>
         </tr>
       </tbody>

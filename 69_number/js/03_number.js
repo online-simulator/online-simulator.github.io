@@ -128,6 +128,7 @@ My_entry.test_number.prototype.clear = function(){
   $._id("input-radix").value = "";  // Ver.0.29.4
   /* Ver.0.32.4 -> */
   $._id("input-BigInt_eval").value = "";  // Ver.0.36.4
+  $._id("input-isPrime").value = "";  // Ver.0.55.7
   $._id("output-log").innerHTML = "";
   $._id("output-html").innerHTML = "";
   /* -> Ver.0.32.4 */
@@ -143,7 +144,16 @@ My_entry.test_number.prototype.convert = function(){
   $._id("input-Number").value = Number(str);
   $._id("input-Number_eval").value = self.val2num(str);  // Ver.0.36.4
   /* Ver.0.32.4 -> */
-  $._id("input-BigInt_eval").value = self.val2dec(str);  // Ver.0.36.4
+  /* Ver.0.55.7 -> */
+  var n_BigInt = self.val2dec(str);
+  $._id("input-BigInt_eval").value = n_BigInt;  // Ver.0.36.4
+  var isPrime = "";
+  var n = Number(n_BigInt);
+  if(!(isNaN(n))){
+    isPrime = (n > Number.MAX_SAFE_INTEGER)? "n > "+Number.MAX_SAFE_INTEGER: self.isPrime(n);
+  }
+  $._id("input-isPrime").value = isPrime;
+  /* -> Ver.0.55.7 */
   $._id("output-log").innerHTML = "";
   $._id("output-html").innerHTML = "";
   /* -> Ver.0.32.4 */
