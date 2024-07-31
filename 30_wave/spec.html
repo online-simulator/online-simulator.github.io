@@ -22,6 +22,16 @@
       <tbody>
         <tr class="border">
           <td class="border run">
+Ver.1.69.14
+          </td>
+          <td class="border">
+・handler_wave.js/handler_wave_worker_sw2.jsを整理（dataset定義の仕様変更の準備）
+<br>
+・代入formatのerror終了処理を改善
+          </td>
+        </tr>
+        <tr class="border">
+          <td class="border run">
 Ver.1.68.14
           </td>
           <td class="border">
@@ -1012,6 +1022,8 @@ type以降の値を列挙するformat
 代入format
 <br>
 <span class="run">Ver.1.65.14追加</span>
+<br>
+<span class="clear">Ver.1.69.14更新</span>
           </td>
           <td class="border">
 type以降の項目名を指定して値を代入するformat
@@ -1031,6 +1043,8 @@ b:A4:clear:duty0=0.5:type=1:overtone=5
 ・構文不正（項目名のspellを含む）の場合、error終了
 <br>
 ・値不正の場合、error終了
+<br>
+<span class="clear">・複数の代入記号=が存在する場合、error終了</span>
           </td>
         </tr>
         <tr class="border">

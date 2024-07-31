@@ -45,6 +45,54 @@ My_entry.handler_wave.prototype.init = function(){
   self.params = {};
   if(self.isScriptMode){
     self.set_n_thread_worker(self.entry.$.selectNum_id("select-n_thread"));
+    /* Ver.1.69.14 -> */
+    self.types0 = {
+      0: "sin",
+      1: "triangle",
+      2: "square",
+      3: "sawtooth",
+      /* Ver.1.34.6 -> */
+      4: "sawtoothrev",
+      5: "sawtooth0",
+      6: "sawtooth0rev",
+      7: "sin_rand",
+      8: "triangle_rand",
+      9: "square_rand",
+      10: "sawtooth_rand",
+      11: "sawtoothrev_rand"
+      /* -> Ver.1.34.6 */
+    };
+    self.props0 = [
+      "time",
+      "arr_f",
+      "command",
+      "type",
+      "duty0",
+      "duty1",
+      "amplitude0",
+      "amplitude1",
+      "w0",
+      "p0",
+      "w1",
+      "p1",
+      "f0",
+      "g0",
+      "f1",
+      "g1",
+      "rate",  // Ver.1.24.4
+      "order",  // Ver.1.26.4
+      "order_d",  // Ver.1.31.6
+      "order_a",  // Ver.1.31.6
+      "order_fade",  // Ver.1.38.8
+      "f_vib",  // Ver.1.56.11
+      "overtone"  // Ver.1.64.14
+    ];
+    self.hasProp = {};
+    for(var n=0, len_n=self.props0.length; n<len_n; ++n){
+      var prop = self.props0[n];
+      self.hasProp[prop] = true;
+    }
+    /* -> Ver.1.69.14 */
   }
   self.handler_view = new self.constructors.handler_baseview([,,,"Int",]);  // Ver.1.48.11
   return self;

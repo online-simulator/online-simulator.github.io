@@ -215,6 +215,87 @@ My_entry.handler_wave.prototype.set_callbacks_worker = function(){
   };
   return self;
 };
+/* Ver.1.69.14 */
+My_entry.handler_wave.prototype.make_params_extended = function(arr_token, params0, opt_params){
+  var self = this;
+  var _params = opt_params || {};
+  var kampli = self.params.ampli || 0;  // Ver.1.28.4
+  /* Ver.1.65.14 -> */
+  var get_num = function(prop, token){
+    var _num = NaN;
+    if(token){
+      var num = Number(token);
+      if(isNaN(num)){
+        var sc = token.split("=");
+        if(sc.length > 1){
+          if(sc.length !== 2){
+            throw new Error(self.waveo.config.ERROR.title+"Invalid dataset-"+token);
+          }
+        }
+        else{
+          throw new Error(self.waveo.config.ERROR.title+"Invalid dataset-"+prop+"="+token);
+        }
+      }
+      else{
+        _num = num;
+      }
+    }
+    return _num;
+  };
+  var set_params = function(prop, token){
+    if(self.hasProp[prop]){
+      var num = get_num(prop, token);
+      var param0 = params0[prop];
+      if(!(isNaN(num))){
+        var param = null;
+        switch(prop){
+          case "type":
+            param = self.types0[num] || _params[prop];
+            break;
+          // Ver.1.28.4
+          case "amplitude0":
+          case "amplitude1":
+            param = num*kampli;  // Ver.1.47.11
+            break;
+          default:
+            param = num;  // Ver.1.47.11
+            break;
+        }
+        _params[prop] = param;
+        params0[prop] = param;
+      }
+      else if(typeof param0 !== "undefined"){
+        _params[prop] = param0;
+      }
+    }
+    else{
+      throw new Error(self.waveo.config.ERROR.title+"Invalid dataset-"+prop);
+    }
+  };
+  for(var n=3, len_n=self.props0.length; n<len_n; ++n){
+    var prop = self.props0[n];
+    var token = arr_token[n];
+    set_params(prop, token);
+  }
+  for(var n=0, len_n=self.props0.length; n<len_n; ++n){
+    var token = arr_token[n];
+    if(token){
+      var sc = token.split("=");
+      if(sc && sc.length === 2){
+        var prop = sc[0];
+        var token = sc[1];
+        set_params(prop, token);
+      }
+      /* Ver.1.69.14 -> */
+      else if(sc && sc.length > 2){
+        throw new Error(self.waveo.config.ERROR.title+"Invalid dataset-"+token);
+      }
+      /* -> Ver.1.69.14 */
+    }
+  }
+  /* -> Ver.1.65.14 */
+  return _params;
+};
 My_entry.handler_wave.prototype.input2arr = function(input){
   var self = this;
   var _arr_input = [];
@@ -256,7 +337,6 @@ My_entry.handler_wave.prototype.input2arr = function(input){
   /* Ver.1.17.4 -> */
   var ktempo = self.params.tempo || 0;
   var kpitch = Math.pow(2, self.params.pitch || 0);
-  var kampli = self.params.ampli || 0;  // Ver.1.28.4
   /* -> Ver.1.17.4 */
   var len_band = Math.max(mcb.length/number_channels, 1);
   var str2freq = function(str){
@@ -312,47 +392,6 @@ My_entry.handler_wave.prototype.input2arr = function(input){
     // include empty channel {}
     _arr_input[i] = [];
     /* Ver.1.20.4 -> */
-    var types0 = {
-      0: "sin",
-      1: "triangle",
-      2: "square",
-      3: "sawtooth",
-      /* Ver.1.34.6 -> */
-      4: "sawtoothrev",
-      5: "sawtooth0",
-      6: "sawtooth0rev",
-      7: "sin_rand",
-      8: "triangle_rand",
-      9: "square_rand",
-      10: "sawtooth_rand",
-      11: "sawtoothrev_rand"
-      /* -> Ver.1.34.6 */
-    };
-    var props0 = [
-      "time",
-      "arr_f",
-      "command",
-      "type",
-      "duty0",
-      "duty1",
-      "amplitude0",
-      "amplitude1",
-      "w0",
-      "p0",
-      "w1",
-      "p1",
-      "f0",
-      "g0",
-      "f1",
-      "g1",
-      "rate",  // Ver.1.24.4
-      "order",  // Ver.1.26.4
-      "order_d",  // Ver.1.31.6
-      "order_a",  // Ver.1.31.6
-      "order_fade",  // Ver.1.38.8
-      "f_vib",  // Ver.1.56.11
-      "overtone"  // 1.64.14
-    ];
     var params0 = {};
     /* -> Ver.1.20.4 */
     var arr_data = str.replace(self.regex.rb, "").split(";");
@@ -414,85 +453,11 @@ My_entry.handler_wave.prototype.input2arr = function(input){
         }
         /* Ver.1.65.14 -> */
         else if(command){
-          var sc = command.split("=");
-          if(sc.length === 1){
+          if(!(command.match("="))){  // Ver.1.69.14
             throw new Error(self.waveo.config.ERROR.title+"Invalid command-"+command);
           }
         }
-        var hasProp = {};
-        for(var n=0, len_n=props0.length; n<len_n; ++n){
-          var prop = props0[n];
-          hasProp[prop] = true;
-        }
-        var get_num = function(prop, token){
-          var _num = NaN;
-          if(token){
-            var num = Number(token);
-            if(isNaN(num)){
-              var sc = token.split("=");
-              if(sc.length > 1){
-                if(sc.length !== 2){
-                  throw new Error(self.waveo.config.ERROR.title+"Invalid dataset-"+token);
-                }
-              }
-              else{
-                throw new Error(self.waveo.config.ERROR.title+"Invalid dataset-"+prop+"="+token);
-              }
-            }
-            else{
-              _num = num;
-            }
-          }
-          return _num;
-        };
-        var set_params = function(prop, token){
-          if(hasProp[prop]){
-            var num = get_num(prop, token);
-            var param0 = params0[prop];
-            if(!(isNaN(num))){
-              var param = null;
-              switch(prop){
-                case "type":
-                  param = types0[num] || params[prop];
-                  break;
-                // Ver.1.28.4
-                case "amplitude0":
-                case "amplitude1":
-                  param = num*kampli;  // Ver.1.47.11
-                  break;
-                default:
-                  param = num;  // Ver.1.47.11
-                  break;
-              }
-              params[prop] = param;
-              params0[prop] = param;
-            }
-            else if(typeof param0 !== "undefined"){
-              params[prop] = param0;
-            }
-          }
-          else{
-            throw new Error(self.waveo.config.ERROR.title+"Invalid dataset-"+prop);
-          }
-        };
-        /* -> Ver.1.65.14 */
-        for(var n=3, len_n=props0.length; n<len_n; ++n){
-          var prop = props0[n];
-          var token = arr_token[n];
-          set_params(prop, token);  // Ver.1.65.14
-        }
-        /* Ver.1.65.14 -> */
-        for(var n=0, len_n=props0.length; n<len_n; ++n){
-          var token = arr_token[n];
-          if(token){
-            var sc = token.split("=");
-            if(sc && sc.length === 2){
-              var prop = sc[0];
-              var token = sc[1];
-              set_params(prop, token);
-            }
-          }
-        }
+        self.make_params_extended(arr_token, params0, params);  // Ver.1.69.14
         /* -> Ver.1.65.14 */
         /* -> Ver.1.20.4 */
         params.gain_band = (f_isFound)? 1/len_band: 0;
