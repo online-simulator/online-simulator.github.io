@@ -489,6 +489,7 @@ My_entry.handler_wave.prototype.make_params = function(){
     params.wr = $.inputNum_id("input-wr");  // Ver.1.64.14
     params.wr = def.limit(params.wr, 0, 1, 0);
     /* -> Ver.1.18.4 */
+    params.ver_script = $.selectNum_id("select-script-Ver");  // Ver.1.70.14
   }
   /* -> Ver.1.17.4 */
   /* -> Ver.1.20.4 */

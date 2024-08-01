@@ -220,6 +220,8 @@ My_entry.handler_wave.prototype.make_params_extended = function(arr_token, param
   var self = this;
   var _params = opt_params || {};
   var kampli = self.params.ampli || 0;  // Ver.1.28.4
+  var hasDataset_base = opt_params;  // Ver.1.70.14
+  var isStored = !(hasDataset_base) || (opt_params && opt_params.ver_script === 1);  // Ver.1.70.14
   /* Ver.1.65.14 -> */
   var get_num = function(prop, token){
     var _num = NaN;
@@ -262,7 +264,11 @@ My_entry.handler_wave.prototype.make_params_extended = function(arr_token, param
             break;
         }
         _params[prop] = param;
-        params0[prop] = param;
+        /* Ver.1.70.14 -> */
+        if(isStored){
+          params0[prop] = param;
+        }
+        /* -> Ver.1.70.14 */
       }
       else if(typeof param0 !== "undefined"){
         _params[prop] = param0;
@@ -272,11 +278,15 @@ My_entry.handler_wave.prototype.make_params_extended = function(arr_token, param
       throw new Error(self.waveo.config.ERROR.title+"Invalid dataset-"+prop);
     }
   };
-  for(var n=3, len_n=self.props0.length; n<len_n; ++n){
-    var prop = self.props0[n];
-    var token = arr_token[n];
-    set_params(prop, token);
+  /* Ver.1.70.14 -> */
+  if(hasDataset_base){
+    for(var n=3, len_n=self.props0.length; n<len_n; ++n){
+      var prop = self.props0[n];
+      var token = arr_token[n];
+      set_params(prop, token);
+    }
   }
+  /* -> Ver.1.70.14 */
   for(var n=0, len_n=self.props0.length; n<len_n; ++n){
     var token = arr_token[n];
     if(token){
@@ -287,7 +297,7 @@ My_entry.handler_wave.prototype.make_params_extended = function(arr_token, param
         set_params(prop, token);
       }
       /* Ver.1.69.14 -> */
-      else if(sc && sc.length > 2){
+      else if(sc && sc.length > 2 || !(hasDataset_base)){  // Ver.1.70.14
         throw new Error(self.waveo.config.ERROR.title+"Invalid dataset-"+token);
       }
       /* -> Ver.1.69.14 */
@@ -295,6 +305,22 @@ My_entry.handler_wave.prototype.make_params_extended = function(arr_token, param
   }
   /* -> Ver.1.65.14 */
   return _params;
+};
+/* Ver.1.70.14 */
+My_entry.handler_wave.prototype.isClear_command = function(command, checkError){
+  var self = this;
+  var _isClear = false;
+  if(command === "clear"){
+    _isClear = true;
+  }
+  /* Ver.1.65.14 -> */
+  else if(checkError && command){
+    if(!(command.match("="))){  // Ver.1.69.14
+      throw new Error(self.waveo.config.ERROR.title+"Invalid command-"+command);
+    }
+  }
+  /* -> Ver.1.65.14 */
+  return _isClear;
 };
 My_entry.handler_wave.prototype.input2arr = function(input){
   var self = this;
@@ -399,13 +425,26 @@ My_entry.handler_wave.prototype.input2arr = function(input){
       var arr_token = tokens.split(":");
       /* Ver.1.44.11 -> */
       var token0 = arr_token[0];
+      /* Ver.1.70.14 -> */
+      var hasOnlyDataset_ext = token0.match("=");
+      if(hasOnlyDataset_ext){
+        self.make_params_extended(arr_token, params0);
+        arr_token.length = 0;
+      }
       var has1elem = (arr_token.length === 1 && token0 !== "");
       if(has1elem){
-        arr_token[0] = String(self.msec_60BPM);
-        arr_token[1] = (token0.match(self.regex.rest))? String(0): token0;
+        if(self.isClear_command(token0, false)){
+          params0 = {};
+        }
+        else{
+          arr_token[0] = String(self.msec_60BPM);
+          arr_token[1] = (token0.match(self.regex.rest))? String(0): token0;
+        }
       }
+      var hasDataset_base = (arr_token.length > 1);
+      /* -> Ver.1.70.14 */
       /* -> Ver.1.44.11 */
-      if(arr_token.length > 1){
+      if(hasDataset_base){
         /* Ver.1.19.4 -> */
         var time = arr_token[0];
         var t = (time === "")? self.msec_60BPM: Number(time);
@@ -448,17 +487,12 @@ My_entry.handler_wave.prototype.input2arr = function(input){
         /* -> Ver.1.17.4 */
         /* Ver.1.20.4 -> */
         var command = arr_token[2];
-        if(command === "clear"){
+        /* Ver.1.70.14 -> */
+        if(self.isClear_command(command, true)){
           params0 = {};
         }
-        /* Ver.1.65.14 -> */
-        else if(command){
-          if(!(command.match("="))){  // Ver.1.69.14
-            throw new Error(self.waveo.config.ERROR.title+"Invalid command-"+command);
-          }
-        }
+        /* -> Ver.1.70.14 */
         self.make_params_extended(arr_token, params0, params);  // Ver.1.69.14
-        /* -> Ver.1.65.14 */
         /* -> Ver.1.20.4 */
         params.gain_band = (f_isFound)? 1/len_band: 0;
         _arr_input[i].push(params);

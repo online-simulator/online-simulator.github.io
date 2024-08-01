@@ -22,6 +22,28 @@
       <tbody>
         <tr class="border">
           <td class="border run">
+Ver.1.70.14
+          </td>
+          <td class="border">
+・script-Verを追加
+<br>
+　Ver.1：後方互換性を担保
+<br>
+　Ver.2：基本dataset:通常formatの仕様変更
+<br>
+・拡張datasetを更新
+<br>
+　command単体で実行可
+<br>
+　代入formatを列挙して実行可
+<br>
+・?testcase linkを全更新（script-Ver.2用）
+<br>
+・tVer@URL-parameterを追加
+          </td>
+        </tr>
+        <tr class="border">
+          <td class="border run">
 Ver.1.69.14
           </td>
           <td class="border">
@@ -991,7 +1013,7 @@ r
 <span class="run">Ver.1.65.14更新</span>
           </td>
           <td class="border">
-type以降の値を列挙するformat
+拡張設定値を列挙
 <br>
 <span class="run">・値不正のerror終了処理を追加</span>
 <br>
@@ -1024,9 +1046,11 @@ type以降の値を列挙するformat
 <span class="run">Ver.1.65.14追加</span>
 <br>
 <span class="clear">Ver.1.69.14更新</span>
+<br>
+<span class="condition">Ver.1.70.14更新</span>
           </td>
           <td class="border">
-type以降の項目名を指定して値を代入するformat
+拡張設定項目=拡張設定値を列挙
 <br>
 b:A4:clear:1:0.5::::::::::::::::::5
 <br>
@@ -1036,7 +1060,7 @@ b:A4:clear:1:duty0=0.5:overtone=5
 <br>
 b:A4:clear:duty0=0.5:type=1:overtone=5
 <br>
-・type以降の項目を指定可（順不同）
+・拡張設定項目のみ、指定可（順不同）
 <br>
 ・重複定義の場合、代入formatの左から順次上書き
 <br>
@@ -1045,6 +1069,25 @@ b:A4:clear:duty0=0.5:type=1:overtone=5
 ・値不正の場合、error終了
 <br>
 <span class="clear">・複数の代入記号=が存在する場合、error終了</span>
+<br>
+<span class="condition">・代入formatを列挙して実行可</span>
+          </td>
+        </tr>
+        <tr class="border">
+          <td class="border">
+拡張設定項目
+<br>
+<span class="run">Ver.1.70.14追加</span>
+          </td>
+          <td class="border">
+type以降の設定項目
+          </td>
+          <td class="border">
+基本dataset:通常formatの仕様
+<br>
+・script-Ver.1：直前datasetの拡張設定値を継承（後方互換性を担保）
+<br>
+・script-Ver.2：dataset内のみ拡張設定値が有効
           </td>
         </tr>
         <tr class="border">
@@ -1054,6 +1097,8 @@ b:A4:clear:duty0=0.5:type=1:overtone=5
 <span class="condition">command</span>
 <br>
 <span class="selection">Ver.1.65.14更新</span>
+<br>
+<span class="condition">Ver.1.70.14更新</span>
           </td>
           <td class="border">
 省略時：直前datasetの拡張設定値を継承||clear状態でUI設定値を参照
@@ -1061,6 +1106,8 @@ b:A4:clear:duty0=0.5:type=1:overtone=5
 clear：直前datasetの拡張設定値をclear
 <br>
 <span class="selection">・command不正のerror終了処理を追加</span>
+<br>
+<span class="condition">・command単体で実行可</span>
           </td>
         </tr>
         <tr class="border">
@@ -1624,6 +1671,21 @@ Froschgesang100：かえるの合唱（100秒・Δf=<span class="jF"><del>10</de
 <span class="clear">・macro定義のspellを訂正：code　⇒　chord</span>
 <br>
 <span class="wF">Yuyake_Koyake：ja.wikipedia.org/wiki/夕焼小焼（作詞：中村雨紅／作曲：草川信）</span>
+          </td>
+        </tr>
+        <tr class="border">
+          <td class="border">
+tVer
+<br>
+<span class="run">Ver.1.70.14追加</span>
+          </td>
+          <td class="border">
+testcase-Ver
+          </td>
+          <td class="border">
+tVer=1：script-Ver.1用のtestcaseを表示
+<br>
+それ以外：script-Ver.2用のtestcaseを表示
           </td>
         </tr>
       </tbody>
@@ -2439,6 +2501,23 @@ original script出力欄
 macro機能のtext置換後のscriptを出力
 <br>
 <span class="clear">・macro残存の場合、error終了</span>
+          </td>
+        </tr>
+        <tr class="border">
+          <td class="border">
+script-Ver
+<br>
+<span class="run">Ver.1.70.14追加</span>
+          </td>
+          <td class="border">
+script仕様
+          </td>
+          <td class="border">
+基本dataset:通常formatの仕様
+<br>
+・script-Ver.1：直前datasetの拡張設定値を継承（後方互換性を担保）
+<br>
+・script-Ver.2：dataset内のみ拡張設定値が有効
           </td>
         </tr>
       </tbody>
