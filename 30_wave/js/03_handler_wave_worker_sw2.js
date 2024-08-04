@@ -287,7 +287,7 @@ My_entry.handler_wave.prototype.make_params_extended = function(arr_token, param
     }
   }
   /* -> Ver.1.70.14 */
-  for(var n=0, len_n=self.props0.length; n<len_n; ++n){
+  for(var n=0, len_n=arr_token.length; n<len_n; ++n){  // Ver.1.70.14
     var token = arr_token[n];
     if(token){
       var sc = token.split("=");
