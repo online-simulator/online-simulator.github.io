@@ -29,6 +29,27 @@ My_entry.math_wave.prototype.normalize_phi = function(freq, t, phi0){
   var t = (t*freq+phi0/self.pi2)%1;
   return t*self.pi2;
 };
+/* Ver.1.71.14 */
+My_entry.math_wave.prototype.table = function(freq, t, phi0, duty, table){
+  var self = this;
+  var _val = 0;
+  if(freq && table && table[0] && table[1]){
+    var t = self.normalize_t.apply(self, arguments);
+    var table0 = table[0];
+    var table1 = table[1];
+    for(var i=0, len=table0.length; i<len-1; ++i){
+      var t0 = table0[i];
+      var t1 = table0[i+1];
+      if(t >= t0 && t <= t1){
+        var y0 = table1[i];
+        var y1 = table1[i+1];
+        _val = (t0 === t1)? (y0+y1)/2: y0+((y1-y0)/(t1-t0))*(t-t0);
+        break;
+      }
+    }
+  }
+  return _val;
+};
 My_entry.math_wave.prototype.sin = function(freq, t, phi0, duty){
   var self = this;
   var _val = 0;
@@ -73,6 +94,17 @@ My_entry.math_wave.prototype.sawtoothrev = function(freq, t, phi0, duty){
   _val *= -1;
   return _val;
 };
+/* Ver.1.71.14 */
+My_entry.math_wave.prototype.sawsmooth = function(freq, t, phi0, duty){
+  var self = this;
+  var _val = 0;
+  if(freq){
+    var t = self.normalize_t.apply(self, arguments);
+    _val = (t < 0.5)? t: 0.5-t;
+    _val *= 2;
+  }
+  return _val;
+};
 My_entry.math_wave.prototype.sawtooth0 = function(freq, t, phi0, duty){
   var self = this;
   var _val = 0;
@@ -91,12 +123,12 @@ My_entry.math_wave.prototype.sawtooth0rev = function(freq, t, phi0, duty){
 };
 /* -> Ver.1.34.6 */
 /* -> Ver.1.30.6 */
-My_entry.math_wave.prototype.get_rms = function(len, fn, freq){
+My_entry.math_wave.prototype.get_rms = function(len, fn, opt_freq, opt_table){  // Ver.1.71.14
   var self = this;
   var _rms = 0;
   for(var i=0; i<len; ++i){
     var t = i/len;
-    var y = fn.call(self, freq || 1, t, 0, 0.5);
+    var y = fn.call(self, opt_freq || 1, t, 0, 0.5, opt_table);  // Ver.1.71.14
     _rms += y*y;
   }
   _rms = Math.sqrt(_rms/len);

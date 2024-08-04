@@ -59,7 +59,9 @@ My_entry.handler_wave.prototype.init = function(){
       8: "triangle_rand",
       9: "square_rand",
       10: "sawtooth_rand",
-      11: "sawtoothrev_rand"
+      11: "sawtoothrev_rand",
+      12: "sawsmooth",  // Ver.1.71.14
+      13: "sawsmooth_rand"  // Ver.1.71.14
       /* -> Ver.1.34.6 */
     };
     self.props0 = [

@@ -261,10 +261,10 @@ My_entry.output_wave.prototype.check_gains = function(params){
   }
   return _arr_g;
 };
-My_entry.output_wave.prototype.get_gain_type = function(type){
+My_entry.output_wave.prototype.get_gain_type = function(type, opt_table){  // Ver.1.71.14
   var self = this;
-  var fn = self.entry.math_wave[type.replace(self.ba_type.b, self.ba_type.a)];  // Ver.1.34.6  // Ver.1.46.11
-  var rms = self.entry.math_wave.get_rms(1000, fn);
+  var fn = self.entry.math_wave[type];  // Ver.1.34.6  // Ver.1.46.11  // Ver.1.71.14
+  var rms = self.entry.math_wave.get_rms(1000, fn, 1, opt_table);  // Ver.1.71.14
   return Math.min(1, 0.5/rms);  // gain["square"] = 0.5(at rms=1)
 };
 My_entry.output_wave.prototype.check_error = function(params){
@@ -288,8 +288,20 @@ My_entry.output_wave.prototype.check_error = function(params){
 My_entry.output_wave.prototype.check_limit = function(_params){
   var self = this;
   var def = self.entry.def;
-  var type = (_params.type || "").replace(self.ba_type.b, self.ba_type.a);
-  if(!(self.entry.math_wave[type])){
+  /* Ver.1.71.14 -> */
+  var type = _params.type;
+  if(typeof type === "string"){
+    if(type.match(self.ba_type.b)){
+      _params._hasRand_phi0 = true;
+      _params.type = type.replace(self.ba_type.b, self.ba_type.a);
+    }
+  }
+  else if(type && type.length){
+    _params._table = _params.type;
+    _params.type = "table";
+  }
+  /* -> Ver.1.71.14 */
+  if(!(self.entry.math_wave[_params.type])){  // Ver.1.71.14
     _params.type = "sin";
   }
   ["duty0", "duty1"].forEach(function(prop){
@@ -338,7 +350,7 @@ My_entry.output_wave.prototype.check_params = function(_params){
   var arr_f = _params.arr_f;
   var arr_g = _params.arr_g;
   var arr_g = self.check_gains(_params);
-  _params.gain_type = self.get_gain_type(_params.type);
+  _params.gain_type = self.get_gain_type(_params.type, _params._table);  // Ver.1.71.14
   _params.arr_g_normalized = self.normalize_gains(arr_g, _params.gain_type, _params.gain_band);
   return _params;
 };
@@ -363,13 +375,14 @@ My_entry.output_wave.prototype.encode_soundData_LE = function(params){  // Ver.1
   var offset = self.offset;
   var seconds_perSample = 1/self.samples_perSecond;
   /* Ver.1.16.4 -> */
-  var fn = math_wave[params.type.replace(self.ba_type.b, self.ba_type.a)];  // Ver.1.25.4  // Ver.1.34.6  // Ver.1.46.11  // Ver.1.56.12
+  var fn = math_wave[params.type];  // Ver.1.25.4  // Ver.1.34.6  // Ver.1.46.11  // Ver.1.56.12  // Ver.1.71.14
+  var table = params._table;  // Ver.1.71.14
   var func_t = function(){
     return fn.apply(math_wave, arguments);  // Ver.1.56.12
   };
   /* -> Ver.1.16.4 */
   /* Ver.1.47.11 -> */
-  var hasRand_phi0 = (params.type.match(self.ba_type.b));
+  var hasRand_phi0 = params._hasRand_phi0;  // Ver.1.71.14
   /* Ver.1.56.12 -> */
   /* Ver.1.64.14 -> */
   var overtone = params.overtone;
@@ -575,7 +588,7 @@ My_entry.output_wave.prototype.encode_soundData_LE = function(params){  // Ver.1
       }
       /* Ver.1.56.12 -> */
       var phii = arr_phi[i];
-      val += gaint*func_t(ft, seconds_perSample, phii, duty);  // gain first  // Ver.1.16.4  // Ver.1.25.4
+      val += gaint*func_t(ft, seconds_perSample, phii, duty, table);  // gain first  // Ver.1.16.4  // Ver.1.25.4  // Ver.1.71.14
       arr_phi[i] = math_wave.normalize_phi(ft, seconds_perSample, phii);
       /* -> Ver.1.56.12 */
     });

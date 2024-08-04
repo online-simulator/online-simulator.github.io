@@ -215,6 +215,40 @@ My_entry.handler_wave.prototype.set_callbacks_worker = function(){
   };
   return self;
 };
+/* Ver.1.71.14 */
+My_entry.handler_wave.prototype.make_table = function(token0, token1){
+  var self = this;
+  var _table = null;
+  if(token1 && token1.match(",")){
+    var arr_x = token0.split(",");
+    var arr_y = token1.split(",");
+    if(arr_x.length === arr_y.length){
+      var len = arr_x.length;
+      _table = [[], []];
+      for(var i=0; i<len; ++i){
+        var x = Number(arr_x[i]);
+        var y = Number(arr_y[i]);
+        if(isNaN(x) || x < 0 || x > 1){
+          throw new Error(self.waveo.config.ERROR.title+"Invalid table-x="+arr_x[i]);
+        }
+        else if(isNaN(y) || y < -1 || y > 1){
+          throw new Error(self.waveo.config.ERROR.title+"Invalid table-y="+arr_y[i]);
+        }
+        else{
+          _table[0][i] = x;
+          _table[1][i] = y;
+        }
+      }
+    }
+    else{
+      throw new Error(self.waveo.config.ERROR.title+"Invalid table-size");
+    }
+  }
+  else{
+    throw new Error(self.waveo.config.ERROR.title+"Invalid table-"+token0+":"+token1);
+  }
+  return _table;
+};
 /* Ver.1.69.14 */
 My_entry.handler_wave.prototype.make_params_extended = function(arr_token, params0, opt_params){
   var self = this;
@@ -244,6 +278,15 @@ My_entry.handler_wave.prototype.make_params_extended = function(arr_token, param
     }
     return _num;
   };
+  /* Ver.1.71.14 */
+  var store = function(prop, param){
+    _params[prop] = param;
+    /* Ver.1.70.14 -> */
+    if(isStored){
+      params0[prop] = param;
+    }
+    /* -> Ver.1.70.14 */
+  };
   var set_params = function(prop, token){
     if(self.hasProp[prop]){
       var num = get_num(prop, token);
@@ -263,12 +306,7 @@ My_entry.handler_wave.prototype.make_params_extended = function(arr_token, param
             param = num;  // Ver.1.47.11
             break;
         }
-        _params[prop] = param;
-        /* Ver.1.70.14 -> */
-        if(isStored){
-          params0[prop] = param;
-        }
-        /* -> Ver.1.70.14 */
+        store(prop, param);  // Ver.1.71.14
       }
       else if(typeof param0 !== "undefined"){
         _params[prop] = param0;
@@ -294,7 +332,16 @@ My_entry.handler_wave.prototype.make_params_extended = function(arr_token, param
       if(sc && sc.length === 2){
         var prop = sc[0];
         var token = sc[1];
-        set_params(prop, token);
+        /* Ver.1.71.14 -> */
+        if(prop === "type" && token.match(",")){
+          var table = self.make_table(token, arr_token[n+1]);
+          store(prop, table);
+          ++n;
+        }
+        else{
+          set_params(prop, token);
+        }
+        /* -> Ver.1.71.14 */
       }
       /* Ver.1.69.14 -> */
       else if(sc && sc.length > 2 || !(hasDataset_base)){  // Ver.1.70.14
