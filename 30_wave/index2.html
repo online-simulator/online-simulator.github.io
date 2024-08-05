@@ -66,7 +66,7 @@
         script = (options.tVer === 1)? script_ver1: script_ver2;
       }
       else if(options.testcase === "table"){
-        script = "$triangle(0,0.25,0.75,1:0,1,-1,0)\n$square(0,0.5,0.5,1:1,1,-1,-1)\n$sawtooth0(0,0.5,0.5,1:0,1,-1,0)\n$sawtooth1(0,0.5,0.5,1:0,-1,1,0)\n$sawsmooth(0,0.5,0.5,1:0,1,0,-1)\n\n{\ntype=$sawsmooth:duty1=0:order_d=2;\nr;C4;D4;E4;F4;G4;A4;B4;C5;\n}";
+        script = "$triangle([0,0.25,0.75,1:0,1,-1,0])\n$square([0,0.5,0.5,1:1,1,-1,-1])\n$sawtooth0([0,0.5,0.5,1:0,1,-1,0])\n$sawtooth1([0,0.5,0.5,1:0,-1,1,0])\n$sawsmooth([0,0.5,0.5,1:0,1,0,-1])\n\n{\ntype=$sawsmooth:duty1=0:order_d=2;\nr;C4;D4;E4;F4;G4;A4;B4;C5;\n}";
       }
       else if(options.testcase && options.testcase.substring(0, 12) === "Froschgesang"){  // ===
         var script_ver1 = "$1(:::0.5:0.5:1:0.5:order_d=0.1:order_a=2)\n$2(::amplitude1=0)\n$3(::duty0=0.25:duty1=0.5)\n\n$chordset4(\n$chord4-1;\n$chord4-2;\n$chord4-3)\n\n$chord1($C; $D; $E; $F; $E; $D; $C)\n$chord2($E; $F; $G; $A; $G; $F; $E)\n$chord3($C; :r; $C; :r; $C; :r; $C)\n$chord4-1(b2:$C; b2:$C; b2:$D; b2:$D)\n$chord4-2(b2:$E; b2:$E; b2:$F; b2:$F)\n$chord4-3(b2:$E; b2:r; 3b4:$D; 1b4:r; b:$C)\n\n$A([A4,A5,A6])$C([C4,C5,C6])$D([D4,D5,D6])$E([E4,E5,E6])$F([F4,F5,F6])$G([G4,G5,G6])\n\n{01b:r$1; $chord1; :r$2; $chord2; :r$3; $chord3; r; $chordset4;}\n{07b:r$1; $chord1; :r$2; $chord2; :r$3; $chord3; 0; $chordset4;}\n{13b:r$1; $chord1; :r$2; $chord2; :r$3; $chord3; r; $chordset4;}\n{19b:r$1; $chord1; :r$2; $chord2; :r$3; $chord3; 0; $chordset4;}\n";

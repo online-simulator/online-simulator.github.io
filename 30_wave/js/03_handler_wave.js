@@ -40,6 +40,8 @@ My_entry.handler_wave.prototype.init = function(){
   self.regex.sn = /^([A-G]?)([+-]?\d+)([sf]?)$/;  // Ver.1.14.4
   self.regex.freq = /^f(.*)/;  // Ver.1.19.4
   self.regex.rest = /^r$/;  // Ver.1.65.14
+  self.regex.type = /type=\[(.*?):(.*?)\]/g;  // Ver.1.71.14
+  self.regex.table = /\[(.*?):(.*?)\]/;  // Ver.1.71.14
   self.msec_60BPM = 1000;  // Ver.1.19.4
   self.notes = {C: 0, D: 2, E: 4, F: 5, G: 7, A: 9, B: 11};
   self.params = {};

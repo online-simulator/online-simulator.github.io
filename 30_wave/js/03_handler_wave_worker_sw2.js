@@ -219,10 +219,10 @@ My_entry.handler_wave.prototype.set_callbacks_worker = function(){
 My_entry.handler_wave.prototype.make_table = function(token0, token1){
   var self = this;
   var _table = null;
-  if(token1 && token1.match(",")){
+  if(token0 && token1){
     var arr_x = token0.split(",");
     var arr_y = token1.split(",");
-    if(arr_x.length === arr_y.length){
+    if(arr_x.length === arr_y.length && arr_x.length > 1){
       var len = arr_x.length;
       _table = [[], []];
       for(var i=0; i<len; ++i){
@@ -250,9 +250,11 @@ My_entry.handler_wave.prototype.make_table = function(token0, token1){
   return _table;
 };
 /* Ver.1.69.14 */
-My_entry.handler_wave.prototype.make_params_extended = function(arr_token, params0, opt_params){
+My_entry.handler_wave.prototype.make_params_extended = function(tokens, params0, opt_params){  // Ver.1.71.14
   var self = this;
   var _params = opt_params || {};
+  var isDefined = {};  // Ver.1.71.14
+  var tokens_ = tokens;  // Ver.1.71.14
   var kampli = self.params.ampli || 0;  // Ver.1.28.4
   var hasDataset_base = opt_params;  // Ver.1.70.14
   var isStored = !(hasDataset_base) || (opt_params && opt_params.ver_script === 1);  // Ver.1.70.14
@@ -280,6 +282,12 @@ My_entry.handler_wave.prototype.make_params_extended = function(arr_token, param
   };
   /* Ver.1.71.14 */
   var store = function(prop, param){
+    if(isDefined[prop]){
+      throw new Error(self.waveo.config.ERROR.title+"Duplicate dataset-"+prop+"="+param);
+    }
+    else{
+      isDefined[prop] = true;
+    }
     _params[prop] = param;
     /* Ver.1.70.14 -> */
     if(isStored){
@@ -316,9 +324,21 @@ My_entry.handler_wave.prototype.make_params_extended = function(arr_token, param
       throw new Error(self.waveo.config.ERROR.title+"Invalid dataset-"+prop);
     }
   };
+  /* Ver.1.71.14 -> */
+  var n0 = 3;
+  var mc_type = tokens_.match(self.regex.type);
+  if(mc_type && mc_type.length){
+    var token = mc_type[mc_type.length-1];
+    var mc = token.match(self.regex.table);
+    store("type", self.make_table(mc[1], mc[2]));
+    tokens_ = tokens_.replace(self.regex.type, "");
+    n0 = 4;
+  }
+  var arr_token = tokens_.split(":");
+  /* -> Ver.1.71.14 */
   /* Ver.1.70.14 -> */
   if(hasDataset_base){
-    for(var n=3, len_n=self.props0.length; n<len_n; ++n){
+    for(var n=n0, len_n=self.props0.length; n<len_n; ++n){  // Ver.1.71.14
       var prop = self.props0[n];
       var token = arr_token[n];
       set_params(prop, token);
@@ -332,16 +352,7 @@ My_entry.handler_wave.prototype.make_params_extended = function(arr_token, param
       if(sc && sc.length === 2){
         var prop = sc[0];
         var token = sc[1];
-        /* Ver.1.71.14 -> */
-        if(prop === "type" && token.match(",")){
-          var table = self.make_table(token, arr_token[n+1]);
-          store(prop, table);
-          ++n;
-        }
-        else{
-          set_params(prop, token);
-        }
-        /* -> Ver.1.71.14 */
+        set_params(prop, token);
       }
       /* Ver.1.69.14 -> */
       else if(sc && sc.length > 2 || !(hasDataset_base)){  // Ver.1.70.14
@@ -475,7 +486,7 @@ My_entry.handler_wave.prototype.input2arr = function(input){
       /* Ver.1.70.14 -> */
       var hasOnlyDataset_ext = token0.match("=");
       if(hasOnlyDataset_ext){
-        self.make_params_extended(arr_token, params0);
+        self.make_params_extended(tokens, params0);  // Ver.1.71.14
         arr_token.length = 0;
       }
       var has1elem = (arr_token.length === 1 && token0 !== "");
@@ -539,7 +550,7 @@ My_entry.handler_wave.prototype.input2arr = function(input){
           params0 = {};
         }
         /* -> Ver.1.70.14 */
-        self.make_params_extended(arr_token, params0, params);  // Ver.1.69.14
+        self.make_params_extended(tokens, params0, params);  // Ver.1.69.14  // Ver.1.71.14
         /* -> Ver.1.20.4 */
         params.gain_band = (f_isFound)? 1/len_band: 0;
         _arr_input[i].push(params);

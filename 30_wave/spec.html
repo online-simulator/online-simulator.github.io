@@ -27,6 +27,12 @@ Ver.1.71.14
           <td class="border">
 ・dataset-typeを拡張（任意波形tableの線形補間に対応）
 <br>
+　format修正：type=x0,x1,...xn:y0,y1,...yn　⇒　type=[x0,x1,...xn:y0,y1,...yn]
+<br>
+　基本dataset:通常formatに対応
+<br>
+・拡張datasetを更新（重複定義のerror終了処理を追加）
+<br>
 ・wave-typeを更新
 <br>
 　sawsmooth/sawsmooth_randを追加
@@ -1041,11 +1047,15 @@ r
 通常format
 <br>
 <span class="run">Ver.1.65.14更新</span>
+<br>
+<span class="jF">Ver.1.71.14更新</span>
           </td>
           <td class="border">
 拡張設定値を列挙
 <br>
 <span class="run">・値不正のerror終了処理を追加</span>
+<br>
+<span class="jF">・重複定義のerror終了処理を追加（代入formatを含む）</span>
 <br>
 <br>
 <span class="run">音階;</span>
@@ -1078,6 +1088,8 @@ r
 <span class="clear">Ver.1.69.14更新</span>
 <br>
 <span class="condition">Ver.1.70.14更新</span>
+<br>
+<span class="jF">Ver.1.71.14更新</span>
           </td>
           <td class="border">
 拡張設定項目=拡張設定値を列挙
@@ -1092,7 +1104,7 @@ b:A4:clear:duty0=0.5:type=1:overtone=5
 <br>
 ・拡張設定項目のみ、指定可（順不同）
 <br>
-・重複定義の場合、代入formatの左から順次上書き
+・重複定義の場合、<span class="jF"><del>代入formatの左から順次上書き</del>error終了</span>
 <br>
 ・構文不正（項目名のspellを含む）の場合、error終了
 <br>
@@ -1180,17 +1192,17 @@ clear：直前datasetの拡張設定値をclear
 <span class="jF">13：sawsmooth_rand</span>
 <br>
 <br>
-<span class="jF">任意波形tableの線形補間に対応</span>
+<span class="jF">任意波形tableの線形補間に対応
 <br>
-・tableのformat：type=x0,x1,...xn:y0,y1,...yn
+・tableのformat：type=[x0,x1,...xn:y0,y1,...yn]
 <br>
-・基本dataset:通常formatの場合、非対応（error終了）
+<del>・基本dataset:通常formatの場合、非対応（error終了）</del>
 <br>
 ・x範囲=[0,1]
 <br>
 ・y範囲=[-1,1]
 <br>
-・x前提：昇順sort済み
+・x前提：昇順sort済み</span>
           </td>
         </tr>
         <tr class="border">
