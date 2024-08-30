@@ -341,6 +341,11 @@ My_entry.output_wave.prototype.check_limit = function(_params){
     _params[prop] = def.limit(Math.floor(_params[prop]), 0, 24, 0);
   });
   /* -> Ver.1.64.14 */
+  /* Ver.1.74.14 -> */
+  ["ti", "to"].forEach(function(prop){
+    _params[prop] = def.limit(_params[prop], 0, Number.MAX_VALUE, 0);
+  });
+  /* -> Ver.1.74.14 */
   return _params;
 };
 My_entry.output_wave.prototype.check_params = function(_params){
@@ -374,6 +379,7 @@ My_entry.output_wave.prototype.encode_soundData_LE = function(params){  // Ver.1
   var amplitude = self.amplitude;
   var offset = self.offset;
   var seconds_perSample = 1/self.samples_perSecond;
+  var tend = params.number_samples*seconds_perSample;  // Ver.1.74.14
   /* Ver.1.16.4 -> */
   var fn = math_wave[params.type];  // Ver.1.25.4  // Ver.1.34.6  // Ver.1.46.11  // Ver.1.56.12  // Ver.1.71.14
   var table = params._table;  // Ver.1.71.14
@@ -385,7 +391,10 @@ My_entry.output_wave.prototype.encode_soundData_LE = function(params){  // Ver.1
   var hasRand_phi0 = params._hasRand_phi0;  // Ver.1.71.14
   /* Ver.1.56.12 -> */
   /* Ver.1.64.14 -> */
-  var overtone = params.overtone;
+  var overtone = params.overtone || 1;  // Ver.1.74.14
+  var ti = params.ti;  // Ver.1.74.14
+  var to = params.to;  // Ver.1.74.14
+  var hasTio = (params.ti || params.to);  // Ver.1.74.14
   var arr_f = params.arr_f;
   var arr_g = params.arr_g_normalized;
   if(overtone > 1){
@@ -418,8 +427,20 @@ My_entry.output_wave.prototype.encode_soundData_LE = function(params){  // Ver.1
   params._amplitude_max = 1/sum_gain;
   /* -> Ver.1.64.14 */
   var arr_phi = [];
+  var arr_t0 = [];  // Ver.1.74.14
+  var arr_t1 = [];  // Ver.1.74.14
   for(var i=0, len=arr_f.length; i<len; ++i){  // Ver.1.64.14
     arr_phi[i] = (hasRand_phi0)? Math.PI*2*Math.random(): 0;  // Ver.1.34.6
+    /* Ver.1.74.14 -> */
+    if(hasTio){
+      var k = Math.floor(i/overtone);
+      var kmax = Math.floor((len-1)/overtone);
+      var t0 = ti*k;
+      var t1 = (to)? tend-to*k: t0+(tend-ti*kmax);
+      arr_t0[i] = t0;
+      arr_t1[i] = t1;
+    }
+    /* -> Ver.1.74.14 */
   }
   /* -> Ver.1.56.12 */
   /* -> Ver.1.47.11 */
@@ -446,6 +467,16 @@ My_entry.output_wave.prototype.encode_soundData_LE = function(params){  // Ver.1
   var useFade = (params.p0 || params.p1);
   var get_newAmp = function(ns){
     return amplitude;
+  };
+  /* Ver.1.74.14 */
+  var get_gaint = function(gain_normalized, f0, ft){
+    var _gaint = gain_normalized;  // Ver.1.64.14
+    var gain_f0 = self.get_gain_loglog(f0, params.f0, params.f1, params.g0, params.g1);
+    if(gain_f0){
+      var gain_ft = self.get_gain_loglog(ft, params.f0, params.f1, params.g0, params.g1);
+      _gaint *= gain_ft/gain_f0;
+    }
+    return _gaint;
   };
   /* Ver.1.56.11 -> */
   var useVib = params.f_vib;
@@ -579,13 +610,27 @@ My_entry.output_wave.prototype.encode_soundData_LE = function(params){  // Ver.1
         ft += dft;
       }
       /* -> Ver.1.56.11 */
-      var gain_normalized = arr_g[i];  // Ver.1.64.14
-      var gaint = gain_normalized;
-      var gain_f0 = self.get_gain_loglog(f0, params.f0, params.f1, params.g0, params.g1);
-      if(gain_f0){
-        var gain_ft = self.get_gain_loglog(ft, params.f0, params.f1, params.g0, params.g1);
-        gaint *= gain_ft/gain_f0;
+      /* Ver.1.74.14 -> */
+      var gaint = 0;
+      if(hasTio){
+        var t0i = arr_t0[i];
+        var t1i = arr_t1[i];
+        if(t >= t0i && t <= t1i){
+          gaint = get_gaint(arr_g[i], f0, ft);
+          var ki = 1;
+          if(t-t0i < p0){
+            ki = (t-t0i)/p0;  // /not0
+          }
+          else if(t1i-t < p1){
+            ki = (t1i-t)/p1;  // /not0
+          }
+          gaint *= ki;
+        }
       }
+      else{
+        gaint = get_gaint(arr_g[i], f0, ft);
+      }
+      /* -> Ver.1.74.14 */
       /* Ver.1.56.12 -> */
       var phii = arr_phi[i];
       val += gaint*func_t(ft, seconds_perSample, phii, duty, table);  // gain first  // Ver.1.16.4  // Ver.1.25.4  // Ver.1.71.14

@@ -352,10 +352,10 @@ My_entry.handler_wave.prototype.make_params_extended = function(tokens, params0,
   var hasDataset_base = opt_params;  // Ver.1.70.14
   var isStored = !(hasDataset_base) || (opt_params && opt_params.ver_script === 1);  // Ver.1.70.14
   /* Ver.1.65.14 -> */
-  var get_num = function(prop, token){
+  var get_num = function(prop, token, isTime){  // Ver.1.74.14
     var _num = NaN;
     if(token){
-      var num = Number(token);
+      var num = (isTime)? self.str2sec(token): Number(token);  // Ver.1.74.14
       if(isNaN(num)){
         var sc = token.split("=");
         if(sc.length > 1){
@@ -390,8 +390,9 @@ My_entry.handler_wave.prototype.make_params_extended = function(tokens, params0,
   };
   var set_params = function(prop, token){
     if(self.hasProp[prop]){
-      var num = get_num(prop, token);
       var param0 = params0[prop];
+      var isTime = (prop === "ti" || prop === "to");  // Ver.1.74.14
+      var num = get_num(prop, token, isTime);  // Ver.1.74.14
       if(!(isNaN(num))){
         var param = null;
         switch(prop){

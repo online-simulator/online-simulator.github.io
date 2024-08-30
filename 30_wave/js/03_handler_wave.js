@@ -89,7 +89,9 @@ My_entry.handler_wave.prototype.init = function(){
       "order_a",  // Ver.1.31.6
       "order_fade",  // Ver.1.38.8
       "f_vib",  // Ver.1.56.11
-      "overtone"  // Ver.1.64.14
+      "overtone",  // Ver.1.64.14
+      "ti",  // Ver.1.74.14
+      "to"  // Ver.1.74.14
     ];
     self.hasProp = {};
     for(var n=0, len_n=self.props0.length; n<len_n; ++n){
@@ -447,6 +449,8 @@ My_entry.handler_wave.prototype.make_params = function(){
   /* -> Ver.1.38.8 */
   params.f_vib = $.inputNum_id("input-f_vib");  // Ver.1.57.12  // Ver.1.64.14
   params.overtone = $.inputNum_id("input-overtone");  // Ver.1.64.14
+  params.ti = 0;  // Ver.1.74.14
+  params.to = 0;  // Ver.1.74.14
   var sec = $.inputNum_id("input-time")*0.001;
   if(isNaN(sec) || sec < 0){
     sec = 1;
