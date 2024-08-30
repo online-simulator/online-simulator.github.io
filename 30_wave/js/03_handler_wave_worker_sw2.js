@@ -249,6 +249,99 @@ My_entry.handler_wave.prototype.make_table = function(token0, token1){
   }
   return _table;
 };
+/* Ver.1.73.14 -> */
+My_entry.handler_wave.prototype.str2sec = function(str){
+  var self = this;
+  var msec = (str === "")? self.msec_60BPM: Number(str);
+  var mct = str.match(self.regex.qn);
+  if(mct && mct.length){
+    var nume = Number(mct[1] || 1);
+    var deno = Number(mct[2] || 1);
+    msec = (deno)? self.msec_60BPM*nume/deno: 0;
+  }
+  /* Ver.1.65.14 -> */
+  if(isNaN(msec)){
+    throw new Error(self.waveo.config.ERROR.title+"Invalid time-"+str);
+  }
+  /* -> Ver.1.65.14 */
+  var _sec = msec/1000;
+  var ktempo = self.params.tempo || 0;  // Ver.1.17.4
+  _sec *= ktempo;  // Ver.1.17.4
+  return _sec;
+};
+My_entry.handler_wave.prototype.str2freq = function(str){
+  var self = this;
+  var _freq = null;
+  var mc_oc = str.match(self.regex.oc);
+  var mc_nc = str.match(self.regex.nc);  // Ver.1.13.4
+  var mc_sn = str.match(self.regex.sn);  // Ver.1.14.4
+  var mc_f = str.match(self.regex.freq);
+  var mc_r = str.match(self.regex.rest);
+  if(mc_oc){
+    var octave = Number(mc_oc[1]);
+    var note = Number(mc_oc[2]);  // Ver.1.44.11
+    _freq = self.calc_freq(octave, note);  // Ver.1.44.11
+  }
+  /* Ver.1.13.4 -> */
+  else if(mc_nc){
+    var octave = -1;
+    var note = Number(mc_nc[1]);
+    _freq = self.calc_freq(octave, note);
+  }
+  /* -> Ver.1.13.4 */
+  /* Ver.1.14.4 -> */
+  else if(mc_sn && mc_sn[1]){
+    var octave = Number(mc_sn[2]);
+    var note = self.notes[mc_sn[1]];
+    var sw_sf = mc_sn[3];
+    if(sw_sf === "s"){
+      note += 1;
+    }
+    else if(sw_sf === "f"){
+      note += -1;
+    }
+    _freq = self.calc_freq(octave, note);
+  }
+  /* -> Ver.1.14.4 */
+  else if(mc_f){
+    _freq = Number(mc_f[1]);
+  }
+  else if(mc_r){
+    _freq = 0;
+  }
+  else{
+    _freq = Number(str);
+  }
+  /* Ver.1.65.14 -> */
+  if(isNaN(_freq)){
+    throw new Error(self.waveo.config.ERROR.title+"Invalid frequency-"+str);
+  }
+  /* -> Ver.1.65.14 */
+  var kpitch = Math.pow(2, self.params.pitch || 0);  // Ver.1.17.4
+  _freq *= kpitch;  // Ver.1.17.4
+  return _freq;
+};
+My_entry.handler_wave.prototype.str2arr_f = function(str){
+  var self = this;
+  var _arr_f = [0];
+  var mcl = str.match(self.regex.ml);
+  var f_isFound = false;
+  if(mcl){
+    var arr_f = mcl[0].replace(self.regex.rl, "").split(",");
+    arr_f.forEach(function(str, k){
+      arr_f[k] = self.str2freq(str);
+    });
+    f_isFound = arr_f;
+  }
+  else{
+    f_isFound = [self.str2freq(str)];
+  }
+  if(f_isFound){
+    _arr_f = f_isFound;
+  }
+  return _arr_f;
+};
+/* -> Ver.1.73.14 */
 /* Ver.1.69.14 */
 My_entry.handler_wave.prototype.make_params_extended = function(tokens, params0, opt_params){  // Ver.1.71.14
   var self = this;
@@ -418,60 +511,7 @@ My_entry.handler_wave.prototype.input2arr = function(input){
   if(!(mcb)) throw new Error(self.waveo.config.ERROR.title+"Invalid dataset");
   var number_channels = self.waveo.number_channels;  // from waveo
   /* Ver.1.4.2 */
-  /* Ver.1.17.4 -> */
-  var ktempo = self.params.tempo || 0;
-  var kpitch = Math.pow(2, self.params.pitch || 0);
-  /* -> Ver.1.17.4 */
   var len_band = Math.max(mcb.length/number_channels, 1);
-  var str2freq = function(str){
-    var _freq = null;
-    var mc_oc = str.match(self.regex.oc);
-    var mc_nc = str.match(self.regex.nc);  // Ver.1.13.4
-    var mc_sn = str.match(self.regex.sn);  // Ver.1.14.4
-    var mc_f = str.match(self.regex.freq);
-    var mc_r = str.match(self.regex.rest);
-    if(mc_oc){
-      var octave = Number(mc_oc[1]);
-      var note = Number(mc_oc[2]);  // Ver.1.44.11
-      _freq = self.calc_freq(octave, note);  // Ver.1.44.11
-    }
-    /* Ver.1.13.4 -> */
-    else if(mc_nc){
-      var octave = -1;
-      var note = Number(mc_nc[1]);
-      _freq = self.calc_freq(octave, note);
-    }
-    /* -> Ver.1.13.4 */
-    /* Ver.1.14.4 -> */
-    else if(mc_sn && mc_sn[1]){
-      var octave = Number(mc_sn[2]);
-      var note = self.notes[mc_sn[1]];
-      var sw_sf = mc_sn[3];
-      if(sw_sf === "s"){
-        note += 1;
-      }
-      else if(sw_sf === "f"){
-        note += -1;
-      }
-      _freq = self.calc_freq(octave, note);
-    }
-    /* -> Ver.1.14.4 */
-    else if(mc_f){
-      _freq = Number(mc_f[1]);
-    }
-    else if(mc_r){
-      _freq = 0;
-    }
-    else{
-      _freq = Number(str);
-    }
-    /* Ver.1.65.14 -> */
-    if(isNaN(_freq)){
-      throw new Error(self.waveo.config.ERROR.title+"Invalid frequency-"+str);
-    }
-    /* -> Ver.1.65.14 */
-    return _freq;
-  };
   mcb.forEach(function(str, i){
     // include empty channel {}
     _arr_input[i] = [];
@@ -503,46 +543,12 @@ My_entry.handler_wave.prototype.input2arr = function(input){
       /* -> Ver.1.70.14 */
       /* -> Ver.1.44.11 */
       if(hasDataset_base){
-        /* Ver.1.19.4 -> */
-        var time = arr_token[0];
-        var t = (time === "")? self.msec_60BPM: Number(time);
-        var mct = time.match(self.regex.qn);
-        if(mct && mct.length){
-          var nume = Number(mct[1] || 1);
-          var deno = Number(mct[2] || 1);
-          t = (deno)? self.msec_60BPM*nume/deno: 0;
-        }
-        /* Ver.1.65.14 -> */
-        if(isNaN(t)){
-          throw new Error(self.waveo.config.ERROR.title+"Invalid time-"+time);
-        }
-        /* -> Ver.1.65.14 */
-        /* -> Ver.1.19.4 */
         var params = {};
         for(var prop in self.params){
           params[prop] = self.params[prop];
         }
-        params.sec = t/1000;
-        params.sec *= ktempo;  // Ver.1.17.4
-        var token = arr_token[1];
-        var mcl = token.match(self.regex.ml);
-        var f_isFound = false;
-        if(mcl){
-          var arr_f = mcl[0].replace(self.regex.rl, "").split(",");
-          arr_f.forEach(function(str, k){
-            arr_f[k] = str2freq(str);
-          });
-          f_isFound = arr_f;
-        }
-        else{
-          f_isFound = [str2freq(token)];
-        }
-        params.arr_f = (f_isFound)? f_isFound: [0];
-        /* Ver.1.17.4 -> */
-        params.arr_f.forEach(function(f, i){
-          params.arr_f[i] *= kpitch;
-        });
-        /* -> Ver.1.17.4 */
+        params.sec = self.str2sec(arr_token[0]);  // Ver.1.73.14
+        params.arr_f = self.str2arr_f(arr_token[1]);  // Ver.1.73.14
         /* Ver.1.20.4 -> */
         var command = arr_token[2];
         /* Ver.1.70.14 -> */
@@ -552,7 +558,7 @@ My_entry.handler_wave.prototype.input2arr = function(input){
         /* -> Ver.1.70.14 */
         self.make_params_extended(tokens, params0, params);  // Ver.1.69.14  // Ver.1.71.14
         /* -> Ver.1.20.4 */
-        params.gain_band = (f_isFound)? 1/len_band: 0;
+        params.gain_band = 1/len_band;  // Ver.1.73.14
         _arr_input[i].push(params);
       }
     });
