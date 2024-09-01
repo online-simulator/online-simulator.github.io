@@ -28,6 +28,10 @@ Ver.1.75.14
 ・input-amplitude（kampli）の仕様修正
 <br>
 　kampliとamplitude0/amplitude1：従属　⇒　独立
+<br>
+・handler_wave_worker_sw2.jsを更新
+<br>
+・?testcase link-glissando1/glissando2を調整
           </td>
         </tr>
         <tr class="border">
@@ -1379,7 +1383,9 @@ to：out時間[msec]
 <br>
 ・datasetのみ
 <br>
-・各音階（overtoneを含む）で直線近似のfade-in/out処理
+・各音階（overtoneを含む）で別途、fade-in/out処理を実施（直線近似）
+<br>
+・発音条件：(ti||to)×(音階の個数-1)＜時間
           </td>
         </tr>
         <tr class="border">
