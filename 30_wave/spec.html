@@ -28,6 +28,8 @@ Ver.1.74.14
 ・拡張datasetにti/toの項目を追加
 <br>
 ・?testcase link-glissando1/glissando2を追加
+<br>
+・<a title="[test]play-buttons" href="../30_wave/buttons.html">[test]play-buttons</a>を更新
           </td>
         </tr>
         <tr class="border">
@@ -1078,6 +1080,8 @@ r
 <span class="wF">Ver.1.64.14更新</span>
 <br>
 <span class="wF">Ver.1.71.14更新</span>
+<br>
+<span class="wF">Ver.1.74.14更新</span>
           </td>
           <td class="border">
 通常format
@@ -1112,7 +1116,7 @@ r
 <br>
 <span class="jF">:rate=0~:order=0~</span><span class="selection">:order_d=0~:order_a=0~</span>
 <br>
-<span class="wF">:order_fade=floor(-2~3):f_vib:overtone=floor(0~24)</span>;
+<span class="wF">:order_fade=floor(-2~3):f_vib:overtone=floor(0~24):ti=0~:to=0~</span>;
           </td>
         </tr>
         <tr class="border">
@@ -1304,7 +1308,7 @@ w1=0
           </td>
         </tr>
         <tr class="border">
-          <td class="border" rowspan="3">
+          <td class="border" rowspan="4">
           </td>
           <td class="border">
 <span class="condition">
@@ -1341,6 +1345,31 @@ f_vibrato[Hz]
           </td>
           <td class="border">
 基音より高周波数の倍音の整数倍上限値
+          </td>
+        </tr>
+        <tr class="border">
+          <td class="border">
+ti=0@default
+<br>
+to=0@default
+<br>
+<span class="run">Ver.1.74.14追加</span>
+          </td>
+          <td class="border">
+ti：in時間[msec]
+<br>
+to：out時間[msec]
+<br>
+・b使用可
+<br>
+・<a title="[test]play-buttons" href="../30_wave/buttons.html">[test]play-buttons</a>の場合、時間[sec]を指定
+<br>
+<br>
+音階列挙の左からglissando
+<br>
+・datasetのみ
+<br>
+・各音階（overtoneを含む）で直線近似のfade-in/out処理
           </td>
         </tr>
         <tr class="border">

@@ -44,7 +44,7 @@ dataset
     <td>
 new My_entry.output_wave().output_sound({
 <br>
-<textarea id="textarea-default" rows="10">"sec": 1, "arr_f": [440], "arr_g": [1], "type": "sin", "duty0": 0.5, "duty1": 0.5, "amplitude0": 1, "amplitude1": 1, "w0": 0, "p0": 0, "w1": 0, "p1": 0, "f0": 800, "g0": 1, "f1": 4800, "g1": 0.3, "rate": 1, "order": 1, "order_d": 1, "order_a": 1, "order_fade": 2, "f_vib": 0, "overtone": 0</textarea>
+<textarea id="textarea-default" rows="10">"sec": 1, "arr_f": [440], "arr_g": [1], "type": "sin", "duty0": 0.5, "duty1": 0.5, "amplitude0": 1, "amplitude1": 1, "w0": 0, "p0": 0, "w1": 0, "p1": 0, "f0": 800, "g0": 1, "f1": 4800, "g1": 0.3, "rate": 1, "order": 1, "order_d": 1, "order_a": 1, "order_fade": 2, "f_vib": 0, "overtone": 0, "ti": 0, "to": 0</textarea>
 <br>
 });
     </td>
@@ -52,7 +52,7 @@ new My_entry.output_wave().output_sound({
   <button class="run" onclick="new My_entry.output_wave().output_sound(JSON.parse('{'+new My_entry.$().inputVal_id('textarea-'+this.innerText)+'}'));">default</button>
     </td>
     <td class="border">
-{2b:[440]::0:0.5:0.5:1:1:0:0:0:0:800:1:4800:0.3:1:1:1:1:2:0:0}
+{2b:[440]::0:0.5:0.5:1:1:0:0:0:0:800:1:4800:0.3:1:1:1:1:2:0:0:0:0}
 <br>
 {2b:[440]:
 <br>
@@ -60,7 +60,9 @@ new My_entry.output_wave().output_sound({
 <br>
 :w0=0:p0=0:w1=0:p1=0:f0=800:g0=1:f1=4800:g1=0.3
 <br>
-:rate=1:order=1:order_d=1:order_a=1:order_fade=2:f_vib=0:overtone=0}
+:rate=1:order=1:order_d=1:order_a=1:order_fade=2
+<br>
+:f_vib=0:overtone=0:ti=0:to=0}
     </td>
   </tr>
   <tr class="border">
