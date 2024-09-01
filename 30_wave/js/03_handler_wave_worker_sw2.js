@@ -84,7 +84,7 @@ My_entry.handler_wave.prototype.composite_binary_soundData_LE = function(arr_bin
   var isMax_amp = (iaval_max === val_amplitude);
   var kampli_post0 = (isMax_amp)? 1: (val_amplitude-1)/iaval_max;  // /0
   var kampli_post = (maxAmp && iaval_max)? kampli_post0: 1;
-  var kampli_max = (iaval_max)? data.ampli*kampli_post0: null;
+  var kampli_max = (iaval_max)? data.kampli*kampli_post0: null;  // Ver.1.75.14
   var log_amplitude_max = (isMax_amp)? self.post_maxAmp.eq+String(kampli_max): self.post_maxAmp.simeq+String(Math.floor(kampli_max*100)/100);
   data._amplitude_max = (maxAmp && kampli_max)? log_amplitude_max: kampli_max;  // Ver.1.36.6
   /* -> Ver.1.35.6 */
@@ -348,7 +348,7 @@ My_entry.handler_wave.prototype.make_params_extended = function(tokens, params0,
   var _params = opt_params || {};
   var isDefined = {};  // Ver.1.71.14
   var tokens_ = tokens;  // Ver.1.71.14
-  var kampli = self.params.ampli || 0;  // Ver.1.28.4
+  var kampli = self.params.kampli || 0;  // Ver.1.28.4  // Ver.1.75.14
   var hasDataset_base = opt_params;  // Ver.1.70.14
   var isStored = !(hasDataset_base) || (opt_params && opt_params.ver_script === 1);  // Ver.1.70.14
   /* Ver.1.65.14 -> */

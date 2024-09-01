@@ -417,8 +417,9 @@ My_entry.handler_wave.prototype.make_params = function(){
   params.duty1 = params.duty0;
   /* -> Ver.1.16.4 */
   /* Ver.1.35.6 -> */
-  params.amplitude0 = $.inputNum_id("input-amplitude");  // Ver.1.64.14
-  params.amplitude1 = params.amplitude0;
+  params.kampli = $.inputNum_id("input-amplitude");  // Ver.1.64.14  // Ver.1.75.14
+  params.amplitude0 = 1;  // Ver.1.75.14
+  params.amplitude1 = 1;  // Ver.1.75.14
   /* -> Ver.1.35.6 */
   params.w0 = $.selectNum_id("select-w0");
   params.p0 = $.selectNum_id("select-p0");
@@ -479,7 +480,6 @@ My_entry.handler_wave.prototype.make_params = function(){
     params.pitch = $.inputNum_id("input-pitch");  // Ver.1.64.14
     params.tempo = def.limit(params.tempo, 0, Number.MAX_VALUE, 1);  // Ver.1.19.4
     params.pitch = def.limit(params.pitch, -16, 16, 0);
-    params.ampli = params.amplitude0;  // Ver.1.28.4
     params.maxAmp = $.checkbox_id("checkbox-maxAmp");  // Ver.1.45.11
     /* Ver.1.29.4 -> */
     params.dfreq = $.inputNum_id("input-dfreq");  // Ver.1.64.14
@@ -503,6 +503,8 @@ My_entry.handler_wave.prototype.make_params = function(){
   /* -> Ver.1.20.4 */
   else{
     params.arr_f = self.get_freqs();
+    params.amplitude0 *= params.kampli;  // Ver.1.75.14
+    params.amplitude1 *= params.kampli;  // Ver.1.75.14
   }
   return self;
 };
