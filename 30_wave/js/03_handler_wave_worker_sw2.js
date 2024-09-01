@@ -394,25 +394,23 @@ My_entry.handler_wave.prototype.make_params_extended = function(tokens, params0,
       var isTime = (prop === "ti" || prop === "to");  // Ver.1.74.14
       var num = get_num(prop, token, isTime);  // Ver.1.74.14
       if(!(isNaN(num))){
-        var param = null;
-        switch(prop){
-          case "type":
-            param = self.types0[num] || _params[prop];
-            break;
-          // Ver.1.28.4
-          case "amplitude0":
-          case "amplitude1":
-            param = num*kampli;  // Ver.1.47.11
-            break;
-          default:
-            param = num;  // Ver.1.47.11
-            break;
+        /* Ver.1.75.14 -> */
+        var param = num;  // Ver.1.47.11
+        if(prop === "type"){
+          param = self.types0[num] || _params[prop];
         }
+        /* -> Ver.1.75.14 */
         store(prop, param);  // Ver.1.71.14
       }
       else if(typeof param0 !== "undefined"){
         _params[prop] = param0;
       }
+      /* Ver.1.75.14 -> */
+      var isAmplitude = (prop === "amplitude0" || prop === "amplitude1");  // Ver.1.28.4
+      if(isAmplitude){
+        _params[prop] *= kampli;  // Ver.1.47.11
+      }
+      /* -> Ver.1.75.14 */
     }
     else{
       throw new Error(self.waveo.config.ERROR.title+"Invalid dataset-"+prop);
