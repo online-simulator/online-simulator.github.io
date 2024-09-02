@@ -478,6 +478,11 @@ My_entry.output_wave.prototype.encode_soundData_LE = function(params){  // Ver.1
     }
     return _gaint;
   };
+  /* Ver.1.75.14 */
+  var interp_f = function(dt, f0, f1, order){
+    var prop = Math.pow(dt, order);
+    return f0+(f1-f0)*prop;
+  };
   /* Ver.1.56.11 -> */
   var useVib = params.f_vib;
   var dkf_vib = (Math.pow(2, 1/12)-1)/2;
@@ -581,56 +586,52 @@ My_entry.output_wave.prototype.encode_soundData_LE = function(params){  // Ver.1
     /* Ver.1.20.4 -> */
     var dt = ns/params.number_samples;
     /* Ver.1.31.6 -> */
-    var order_a = params.order_a;
-    var prop_da = Math.pow(dt, order_a);
-    var kamplitude = params.amplitude0+(params.amplitude1-params.amplitude0)*prop_da;
-    var order_d = params.order_d;
-    var prop_dd = Math.pow(dt, order_d);
-    var duty = params.duty0+(params.duty1-params.duty0)*prop_dd;
+    var kamplitude = interp_f(dt, params.amplitude0, params.amplitude1, params.order_a);  // Ver.1.75.14
+    var duty = interp_f(dt, params.duty0, params.duty1, params.order_d);  // Ver.1.75.14
     /* -> Ver.1.31.6 */
     /* -> Ver.1.20.4 */
     /* Ver.1.24.4 -> */
-    var kf0 = 1;
-    var kf1 = params.rate;
     /* Ver.1.26.4 -> */
-    var order = params.order;
-    var prop_dkf = Math.pow(dt, order);
-    var kf = kf0+(kf1-kf0)*prop_dkf;
     var kdf = (useVib)? Math.sin(omega_vib*t)*dkf_vib: 0;  // Ver.1.56.11
     /* -> Ver.1.26.4 */
     /* -> Ver.1.24.4 */
     var val = 0;
     // composite waves
     arr_f.forEach(function(f, i){  // Ver.1.64.14
+      /* Ver.1.75.14 -> */
       var f0 = f;
-      var ft = f*kf;
+      var f1 = f0*params.rate;
+      /* Ver.1.74.14 -> */
+      var dti = dt;
+      if(hasTio){
+        var t0i = arr_t0[i];
+        var t1i = arr_t1[i];
+        if(t >= t0i && t <= t1i){
+          dti = t-t0i;
+          duty = interp_f(dti, params.duty0, params.duty1, params.order_d);
+          kamplitude = interp_f(dti, params.amplitude0, params.amplitude1, params.order_a);
+          if(t-t0i < p0){
+            kamplitude *= (t-t0i)/p0;  // /not0
+          }
+          else if(t1i-t < p1){
+            kamplitude *= (t1i-t)/p1;  // /not0
+          }
+        }
+        else{
+          dti = 0;
+          kamplitude = 0;
+        }
+      }
+      var ft = interp_f(dti, f0, f1, params.order);
       /* Ver.1.56.11 -> */
       if(useVib){
         var dft = kdf*ft;
         ft += dft;
       }
       /* -> Ver.1.56.11 */
-      /* Ver.1.74.14 -> */
-      var gaint = 0;
-      if(hasTio){
-        var t0i = arr_t0[i];
-        var t1i = arr_t1[i];
-        if(t >= t0i && t <= t1i){
-          gaint = get_gaint(arr_g[i], f0, ft);
-          var ki = 1;
-          if(t-t0i < p0){
-            ki = (t-t0i)/p0;  // /not0
-          }
-          else if(t1i-t < p1){
-            ki = (t1i-t)/p1;  // /not0
-          }
-          gaint *= ki;
-        }
-      }
-      else{
-        gaint = get_gaint(arr_g[i], f0, ft);
-      }
+      var gaint = kamplitude*get_gaint(arr_g[i], f0, ft);  // k first
       /* -> Ver.1.74.14 */
+      /* -> Ver.1.75.14 */
       /* Ver.1.56.12 -> */
       var phii = arr_phi[i];
       val += gaint*func_t(ft, seconds_perSample, phii, duty, table);  // gain first  // Ver.1.16.4  // Ver.1.25.4  // Ver.1.71.14
@@ -638,7 +639,6 @@ My_entry.output_wave.prototype.encode_soundData_LE = function(params){  // Ver.1
       /* -> Ver.1.56.12 */
     });
     val *= get_newAmp(ns);
-    val *= kamplitude;  // Ver.1.20.4
     if(val > amplitude) throw new Error(self.title_error+"stopped by over-flow@stream");  // Ver.1.41.10
     val += offset;
     var binary_perChannel = self.int2binary_LE(Bytes_perSample, val);
