@@ -607,7 +607,7 @@ My_entry.output_wave.prototype.encode_soundData_LE = function(params){  // Ver.1
         var t0i = arr_t0[i];
         var t1i = arr_t1[i];
         if(t >= t0i && t <= t1i){
-          dti = t-t0i;
+          dti = (t-t0i)/(t1i-t0i || 1);  // || not0
           duty = interp_f(dti, params.duty0, params.duty1, params.order_d);
           kamplitude = interp_f(dti, params.amplitude0, params.amplitude1, params.order_a);
           if(t-t0i < p0){
