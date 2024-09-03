@@ -1113,6 +1113,8 @@ r
 <span class="run">Ver.1.65.14更新</span>
 <br>
 <span class="jF">Ver.1.71.14更新</span>
+<br>
+<span class="wF">Ver.1.75.14更新</span>
           </td>
           <td class="border">
 拡張設定値を列挙
@@ -1134,13 +1136,22 @@ r
 <br>
 <span class="condition">:command=""||"clear"</span>
 <br>
-<span class="condition">:type=0~<span class="wF">13</span>:duty0=0~1:duty1=0~1:amplitude0=<span class="selection">0~<del>1</del></span>:amplitude1=<span class="selection">0~<del>1</del></span>
+<span class="condition">:type=0~<span class="wF">13</span>:duty0=0~1:duty1=0~1:amplitude0=<span class="selection">0~<del>1</del></span>:amplitude1=<span class="selection">0~<del>1</del></span></span>
 <br>
 <span class="condition">:w0=0~1:p0=0~1:w1=0~1:p1=0~1:f0:g0=0~1:f1:g1=0~1</span>
 <br>
 <span class="jF">:rate=0~:order=0~</span><span class="selection">:order_d=0~:order_a=0~</span>
 <br>
 <span class="wF">:order_fade=floor(-2~3):f_vib:overtone=floor(0~24):ti=0~:to=0~</span>;
+<br>
+<br>
+<span class="wF">
+script入力のみ対応の項目
+<br>
+・order_d/order_a
+<br>
+・ti/to
+</span>
           </td>
         </tr>
         <tr class="border">
@@ -1391,7 +1402,7 @@ to：out時間[msec]
 <br>
 音階列挙の左からglissando
 <br>
-・datasetのみ
+・script入力のみ
 <br>
 ・各音階でduty/amplitude/rate可変
 <br>
