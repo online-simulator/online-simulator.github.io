@@ -407,7 +407,7 @@ My_entry.test_number.prototype.solve3 = function(){
   self.init_freq();
   var freq2d = self.freq2d;
   var run = function(){
-    var header1 = self.output_line("clear", "radix", "=10", "=6", "=4", "=10", "=2", "frequency distribution<br>ls3bit=<br>001,011,101,111", "frequency distribution<br>ls4bit=<br>0001,0011,0101,0111,1001,1011,1101,1111", "frequency distribution<br>ls3bit<br>Standard Deviation/Mean", "frequency distribution<br>ls4bit<br>Standard Deviation/Mean");  // Ver.0.53.7
+    var header1 = self.output_line("clear", "radix", "=10", "=6", "=4", "=10", "=2", "frequency distribution<br>ls3bit=<br>001,011,101,111", "frequency distribution<br>ls4bit=<br>0001,0011,0101,0111,1001,1011,1101,1111", "frequency distribution<br>ls3bit<br>Standard Deviation/Mean", "frequency distribution<br>ls4bit<br>Standard Deviation/Mean", "P(lsd=1)<br>radix=4", "P(lsd=1)<br>radix=6");  // Ver.0.53.7  // Ver.0.56.7
     var html0 = "";  // Ver.0.40.4
     var html1 = "";
     /* Ver.0.40.4 -> */
@@ -426,6 +426,12 @@ My_entry.test_number.prototype.solve3 = function(){
       log2_prime[m] = 0;
     }
     /* -> Ver.0.40.4 */
+    /* Ver.0.56.7 -> */
+    var freq_p4 = 0;
+    var freq_p6 = 0;
+    var freq_4 = 0;
+    var freq_6 = 0;
+    /* -> Ver.0.56.7 */
     var len_n = Math.pow(2, self.len_p);
     for(var n=1; n<len_n; ++n){
       /* Ver.0.40.4 -> */
@@ -446,7 +452,23 @@ My_entry.test_number.prototype.solve3 = function(){
         log_prime[m] += logn;
         log2_prime[m] += log2n;
         /* -> Ver.0.40.4 */
-        html1 += self.output_line((isOdd)? "condition": "wF", "", n, n.toString(6), n.toString(4), n, n.toString(2), (isOdd)? freq2d[3]: "", (isOdd)? freq2d[4]: "", (isOdd)? self.get_Standard_Deviation(freq2d[3])/self.get_Mean(freq2d[3]): "", (isOdd)? self.get_Standard_Deviation(freq2d[4])/self.get_Mean(freq2d[4]): "");  // Ver.0.53.7
+        /* Ver.0.56.7 -> */
+        var n4 = n.toString(4);
+        var n6 = n.toString(6);
+        if(n >= 4-1){
+          freq_p4++;
+        }
+        if(n >= 6-1){
+          freq_p6++;
+        }
+        if(n4[n4.length-1] === "1"){
+          freq_4++;
+        }
+        if(n6[n6.length-1] === "1"){
+          freq_6++;
+        }
+        /* -> Ver.0.56.7 */
+        html1 += self.output_line((isOdd)? "condition": "wF", "", n, n6, n4, n, n.toString(2), (isOdd)? freq2d[3]: "", (isOdd)? freq2d[4]: "", (isOdd)? self.get_Standard_Deviation(freq2d[3])/self.get_Mean(freq2d[3]): "", (isOdd)? self.get_Standard_Deviation(freq2d[4])/self.get_Mean(freq2d[4]): "", (freq_p4)? freq_4/freq_p4: "", (freq_p6)? freq_6/freq_p6: "");  // Ver.0.53.7  // Ver.0.56.7
       }
     }
     /* Ver.0.40.4 -> */

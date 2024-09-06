@@ -22,6 +22,16 @@
       <tbody>
         <tr class="border">
           <td class="border run">
+Ver.0.56.7
+          </td>
+          <td class="border">
+・show primes結果表示にP(lsd=1)を追加
+<br>
+・test caseを追記
+          </td>
+        </tr>
+        <tr class="border">
+          <td class="border run">
 Ver.0.55.7
           </td>
           <td class="border">
@@ -1024,6 +1034,8 @@ pi_by_x(x)=&lt;log2_rad_fact(x)/log2_fact(x);
 Goldbach予想
 <br>
 <span class="run">Ver.0.53.7追加</span>
+<br>
+<span class="wF">Ver.0.56.7追記</span>
           </td>
           <td class="border">
 ・頻度の偏り度を定義する
@@ -1041,6 +1053,16 @@ Goldbach予想
 ・素数和の個数が最小の2個であっても、無限大に近づく程、統計的に反例を見つけるのは非常に困難である
 <br>
 組合せ数の期待値∝π(x)**素数和の個数/x
+<span class="wF">
+<br>
+・4進数表記の場合、4の倍数±1の素数のlsd（最下位桁）は1||3に対して、
+<br>
+・6進数表記の場合、1||5（6の倍数±1）であり、
+<br>
+・show primesのP(lsd=1)から2択の確率がいずれも0.5に漸近する
+<br>
+・以上より、素数の頻度について特徴的な偏りを見つけるのは難しい
+</span>
           </td>
         </tr>
       </tbody>
