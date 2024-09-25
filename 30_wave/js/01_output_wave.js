@@ -420,15 +420,12 @@ My_entry.output_wave.prototype.encode_soundData_LE = function(params){  // Ver.1
       /* -> Ver.1.67.14 */
     }
   }
-  var sum_gain = 0;
-  for(var i=0, len=arr_g.length; i<len; ++i){
-    sum_gain += arr_g[i];
-  }
-  params._amplitude_max = 1/sum_gain;
   /* -> Ver.1.64.14 */
   var arr_phi = [];
   var arr_t0 = [];  // Ver.1.74.14
   var arr_t1 = [];  // Ver.1.74.14
+  var t10 = 0;  // Ver.1.77.14
+  var len_overlap = 0;  // Ver.1.77.14
   for(var i=0, len=arr_f.length; i<len; ++i){  // Ver.1.64.14
     arr_phi[i] = (hasRand_phi0)? Math.PI*2*Math.random(): 0;  // Ver.1.34.6
     /* Ver.1.74.14 -> */
@@ -439,9 +436,27 @@ My_entry.output_wave.prototype.encode_soundData_LE = function(params){  // Ver.1
       var t1 = (to)? tend-to*k: t0+(tend-ti*kmax);
       arr_t0[i] = t0;
       arr_t1[i] = t1;
+      /* Ver.1.77.14 -> */
+      t10 = t10 || t1;
+      if(t0 < t10){
+        len_overlap++;
+      }
+      /* -> Ver.1.77.14 */
     }
     /* -> Ver.1.74.14 */
   }
+  /* Ver.1.64.14 -> */
+  var sum_gain = 0;
+  for(var i=0, len=arr_g.length; i<len; ++i){
+    /* Ver.1.77.14 -> */
+    if(hasTio && len_overlap){
+      arr_g[i] *= len/len_overlap;  // /not0
+    }
+    /* -> Ver.1.77.14 */
+    sum_gain += arr_g[i];
+  }
+  params._amplitude_max = 1/sum_gain;
+  /* -> Ver.1.64.14 */
   /* -> Ver.1.56.12 */
   /* -> Ver.1.47.11 */
   /* Ver.1.25.4 -> */

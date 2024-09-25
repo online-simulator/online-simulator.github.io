@@ -22,6 +22,18 @@
       <tbody>
         <tr class="border">
           <td class="border run">
+Ver.1.77.14
+          </td>
+          <td class="border">
+・output_wave.jsを更新（glissandoの各音階gainの過小評価を改善）
+<br>
+・testcase-glissando1/-duty0/glissando2を更新
+<br>
+　amplitude0=2　⇒　amplitude1=0.5
+          </td>
+        </tr>
+        <tr class="border">
+          <td class="border run">
 Ver.1.76.14
           </td>
           <td class="border">
@@ -1401,6 +1413,8 @@ ti=0@default
 to=0@default
 <br>
 <span class="run">Ver.1.74.14追加</span>
+<br>
+<span class="clear">Ver.1.77.14更新</span>
           </td>
           <td class="border">
 ti：in時間差[msec]
@@ -1423,6 +1437,8 @@ to：out時間差[msec]
 　（p0/p1指定時間に対する直線近似処理）
 <br>
 ・発音条件：(ti+to)×(音階の個数-1)＜時間
+<br>
+<span class="clear">・各音階gainの過小評価を改善</span>
           </td>
         </tr>
         <tr class="border">
