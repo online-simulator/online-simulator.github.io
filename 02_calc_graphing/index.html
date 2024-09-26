@@ -438,7 +438,7 @@
       $._id("sin2").onclick = function(){setVal("0", "1", "t;", "dphi=2pi/16,f=1,omega=2pi*f,composite(phi)=<sin(omega*t)+sin(omega*t-phi),composite(dphi*0);composite(dphi*1);composite(dphi*2);composite(dphi*3);composite(dphi*4);composite(dphi*5);composite(dphi*6);composite(dphi*7);composite(dphi*8);composite(dphi*9);composite(dphi*10);composite(dphi*11);composite(dphi*12);composite(dphi*13);composite(dphi*14);composite(dphi*15);composite(dphi*16);", 100);$._id("input-z").value+="::0;";};
       $._id("sin3").onclick = function(){setVal("0", "2pi*3", "x=t,dx=1e-1,Ndx=round(x/dx),dx*Ndx;", "omega=1,{$t0,$x0,$v0}={0,0,1},{$t0,$x0,$v0}=_t5((t,x,v)=<{v,-omega**2*x},,=<{t0,x0,v0},dx,Ndx),x0;x0**2;", 50);$._id("input-z").value+="TITLE{psi(x) error=Order(dx^5)};";};
       $._id("circle").onclick = function(){setVal("0", "2pi", "cos(t);ft=<e^(i(t)),real(ft())1.5;2ft();ft2=<ecomp(t),real(ft2())2.5;rot=<(cos(t),-sin(t):sin(t),cos(t)),vec0=(3:0),(rot()*vec0)[0];", "sin(t);imag(ft())1.5;2_d((t)=<-ft());imag(ft2())2.5;(rot()*vec0)[1];", 50);};
-      $._id("cone").onclick = function(){setVal("0", "2pi", "p=1,r(t,p,er)=<p/(1+er*cos(t)),z(t,p,er)=<r(t,p,er)e^(i(t)),z1=z(t,p,0),z2=z(t,p,0.8),z3=z(t,p,1.1),real(z1);real(z2);real(z3);", "imag(z1);imag(z2);imag(z3);", 20);$._id("input-z").value+="TITLE{Polar equation of conic curve}::3:1.5:1.5::circle(er=0);::::::ellipse(er=0.8<1);::::::hyperbola(er=1.1>1);";};
+      $._id("cone").onclick = function(){setVal("0", "2pi", "p=1,r(t,p,er)=<p/(1+er*cos(t)),z(t,p,er)=<r(t,p,er)e^(i(t)),z1=z(t,p,0),z2=z(t,p,0.8),z3=z(t,p,1.1),real(z1);real(z2);real(z3);", "imag(z1);imag(z2);imag(z3);", 20);$._id("input-z").value+="TITLE{polar equation of conic curve}::3:1.5:1.5::circle(er=0);::::::ellipse(er=0.8<1);::::::hyperbola(er=1.1>1);";};
       $._id("spiral").onclick = function(){setVal("0", "Nr=1.5,2pi*Nr", "real(e^(i(t)))t;rot=<(cos(t),-sin(t):sin(t),cos(t)),vec0=(-t:0),vec1=rot()*vec0,vec1[0];", "imag(e^(i(t)))t;vec1[1];", 100);};
       $._id("tan").onclick = function(){setVal("-2pi", "2pi", "x=t,x;", "tan(x);", 100);};
       $._id("sinh").onclick = function(){setVal("-2", "2", "x=t,x;", "sinh(x);sinh_(z)=<(exp(z)-exp(-z))/2,sinh_(x);cosh(x);cosh_(z)=<(exp(z)+exp(-z))/2,cosh_(x);tanh(x);tanh_(z)=<(exp(z)-exp(-z))/(exp(z)+exp(-z)),tanh_(x);", 7);};
@@ -452,6 +452,7 @@
       $._id("sigmoid").onclick = function(){setVal("-2", "2", "x=t,x;", "Gudermannian_fn(x)=<asin(tanh(x)),Gudermannian_fn(x);zeta(x,a,b)=<(1+exp(-a*x))**(-1)+b,zeta(x,3,-0.5);sin(atan(x));atan(x);tanh(x);", 10);};
       $._id("clothoid").onclick = function(){setVal("0", "2pi", "_i((t)=<cos(t**2/2),0,t);", "_i((t)=<sin(t**2/2),0,t);", 50);$._id("input-z").value+="::3:1.5:1.5;";};
       $._id("cycloid").onclick = function(){setVal("0", "2pi", "rm=1,rc=3,x1=rm*(t-sin(t)),x2=(rc+rm)cos(t)-rm*cos((rc+rm)t/rm),x3=(rc-rm)cos(t)+rm*cos((rc-rm)t/rm),x1;x2;x3;", "y1=rm*(1-cos(t)),y2=(rc+rm)sin(t)-rm*sin((rc+rm)t/rm),y3=(rc-rm)sin(t)-rm*sin((rc-rm)t/rm),y1;y2;y3;", 100);$._id("input-z").value+="::0::::cycloid;::::::epicycloid;::::::hypocycloid;";};
+      $._id("Fay").onclick = function(){setVal("0", "12pi", "r=exp(cos(t))-2cos(4t)-sin(t/12)**5,r*sin(t);", "r*cos(t);", 1024);$._id("input-z").value+="TITLE{butterfly curve}::0;";};
       $._id("Lissajous").onclick = function(){setVal("0", "2pi", "cos(3t);", "sin(2t+pi/3);", 100);};
       $._id("rose").onclick = function(){setVal("0", "2pi", "sin(2t)cos(t);sin(4t)cos(t);sin(6t)cos(t);sin(6t)cos(5t);", "sin(2t)sin(t);sin(4t)sin(t);sin(6t)sin(t);sin(6t)sin(5t);", 100);};
       $._id("heart").onclick = function(){setVal("0", "2pi", "pow(sin(t),3);pow(sin(t),5);", "y=7cos(t)-4cos(2t)-2cos(3t),y/7;", 50);};
@@ -947,30 +948,32 @@
   <button id="acsch">acsch</button>
   <button id="acoth">acoth</button>
   <button id="acoth_com">-c</button>
-  <button id="finv1">finv</button>
 <br>
+  <button id="finv1">finv</button>
   <button id="finv2">-2</button>
   <button id="finv3">-3</button>
   <button id="sigmoid">sigmoid</button>
   <button id="clothoid">clothoid</button>
   <button id="cycloid">cycloid</button>
+<br>
+  <button id="Fay">Fay</button>
   <button id="Lissajous">Lissajous</button>
   <button id="rose">rose</button>
   <button id="heart">heart</button>
-<br>
   <button id="polygon">poly</button>
   <button id="star1">star</button>
   <button id="star2">-2</button>
   <button id="star3">-3</button>
   <button id="star4">-4</button>
+<br>
   <button id="Fibonacci">Fibonacci</button>
   <button id="gold">gold</button>
   <button id="Sierpinski5gold1">-2</button>
   <button id="Sierpinski5gold2">-3</button>
   <button id="Sierpinski5gold3">-4</button>
   <button id="summation">sum</button>
-<br>
   <button id="product">prod</button>
+<br>
   <button id="recurrence1">recurrence</button>
   <button id="recurrence2">-2</button>
   <button id="recurrence3">-3</button>
