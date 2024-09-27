@@ -68,7 +68,7 @@
         $._id("input-Re").value = 500;
         $._id("input-sx").value = 0;
         $._id("input-sy").value = 0;
-        if(options.testcase === -1){
+        if(options.testcase === -1 || options.testcase === -11){
           $._id("input-grid-width").value = 10;
           $._id("input-grid-height").value = 10;
           $._id("input-canvas-width").value = 1000;
@@ -77,6 +77,11 @@
           $._id("input-Ndt").value = -2;
           $._id("input-k_arrow").value = 3;
           $._id("input-Ly").value = 2.5;
+          if(options.testcase === -11){
+            $._id("input-grid-width").value = 40;
+            $._id("input-canvas-width").value = 2000;
+            $._id("input-Re").value += "*10";
+          }
         }
         else if(options.testcase === -5){
           $._id("input-Re").value = "min(100+10*t,500)";
