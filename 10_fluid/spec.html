@@ -22,6 +22,14 @@
       <tbody>
         <tr class="border">
           <td class="border run">
+Ver.1.49.1
+          </td>
+          <td class="border">
+・spec追記
+          </td>
+        </tr>
+        <tr class="border">
+          <td class="border run">
 Ver.1.48.1
           </td>
           <td class="border">
@@ -1105,6 +1113,8 @@ testcase
 <span class="wF">Ver.1.45.0追加</span>
 <br>
 <span class="wF">Ver.1.48.1追加</span>
+<br>
+<span class="clear">Ver.1.49.1追記</span>
           </td>
           <td class="border">
 test case
@@ -1232,7 +1242,13 @@ test case
 <br>
 ・揚力：推進中に翼の下面（正圧）と上面（負圧）の圧力差で生じる上向きの力
 <br>
-　翼形状：上面の流れがはく離なしで合流する最適形状の流線形（はく離で失速）
+　<span class="clear">Bernoulliの定理：翼の上下で流速が異なるため、全圧から上下の圧力差に換算</span>
+<br>
+　<span class="clear">Magnus効果：翼は回転していないが、翼断面の循環≠0のため、Magnus効果の力≒揚力</span>
+<br>
+　<span class="clear">厳密な計算：圧力と摩擦力の面積分（翼表面の法線vectorを考慮）</span>
+<br>
+・翼形状：上面の流れがはく離なしで合流する最適形状の流線形（はく離で失速）
 <br>
 <span class="wF">34: 一様流の中で渦糸が受けるMagnus効果（領域不足、助走区間不足、解像度不足）</span>
 <br>
