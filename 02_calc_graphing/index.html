@@ -452,7 +452,8 @@
       $._id("sigmoid").onclick = function(){setVal("-2", "2", "x=t,x;", "Gudermannian_fn(x)=<asin(tanh(x)),Gudermannian_fn(x);zeta(x,a,b)=<(1+exp(-a*x))**(-1)+b,zeta(x,3,-0.5);sin(atan(x));atan(x);tanh(x);", 10);};
       $._id("clothoid").onclick = function(){setVal("0", "2pi", "_i((t)=<cos(t**2/2),0,t);", "_i((t)=<sin(t**2/2),0,t);", 50);$._id("input-z").value+="::3:1.5:1.5;";};
       $._id("cycloid").onclick = function(){setVal("0", "2pi", "rm=1,rc=3,x1=rm*(t-sin(t)),x2=(rc+rm)cos(t)-rm*cos((rc+rm)t/rm),x3=(rc-rm)cos(t)+rm*cos((rc-rm)t/rm),x1;x2;x3;", "y1=rm*(1-cos(t)),y2=(rc+rm)sin(t)-rm*sin((rc+rm)t/rm),y3=(rc-rm)sin(t)-rm*sin((rc-rm)t/rm),y1;y2;y3;", 100);$._id("input-z").value+="::0::::cycloid;::::::epicycloid;::::::hypocycloid;";};
-      $._id("Fay").onclick = function(){setVal("0", "12pi", "r=exp(cos(t))-2cos(4t)-sin(t/12)**5,r*sin(t);", "r*cos(t);", 1024);$._id("input-z").value+="TITLE{butterfly curve}::0;";};
+      $._id("Fay1").onclick = function(){setVal("0", "12pi", "k=4,r=exp(cos(t))-2cos(k*t)-sin(t/12)**5,r*sin(t);", "r*cos(t);", 1024);$._id("input-z").value+="TITLE{butterfly curve}::0;";};
+      $._id("Fay2").onclick = function(){setVal("0", "12pi", "k=8,r=exp(cos(t))-2cos(k*t)-sin(t/12)**5,r*sin(t);", "r*cos(t);", 1024);$._id("input-z").value+="TITLE{butterfly curve}::0;";};
       $._id("Lissajous").onclick = function(){setVal("0", "2pi", "cos(3t);", "sin(2t+pi/3);", 100);};
       $._id("rose").onclick = function(){setVal("0", "2pi", "sin(2t)cos(t);sin(4t)cos(t);sin(6t)cos(t);sin(6t)cos(5t);", "sin(2t)sin(t);sin(4t)sin(t);sin(6t)sin(t);sin(6t)sin(5t);", 100);};
       $._id("heart").onclick = function(){setVal("0", "2pi", "pow(sin(t),3);pow(sin(t),5);", "y=7cos(t)-4cos(2t)-2cos(3t),y/7;", 50);};
@@ -956,7 +957,8 @@
   <button id="clothoid">clothoid</button>
   <button id="cycloid">cycloid</button>
 <br>
-  <button id="Fay">Fay</button>
+  <button id="Fay1">Fay</button>
+  <button id="Fay2">-2</button>
   <button id="Lissajous">Lissajous</button>
   <button id="rose">rose</button>
   <button id="heart">heart</button>
