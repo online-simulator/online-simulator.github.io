@@ -11,8 +11,8 @@ const My_entry = {
     // inner
     plot: "2.56.10",
     // outer
-    calc: "2.486.90",
-    fluid: "1.51.1",
+    calc: "2.487.90",
+    fluid: "1.50.1",
     cell: "0.11.3",
     wave: "1.78.14",
     pen: "1.91.13",
