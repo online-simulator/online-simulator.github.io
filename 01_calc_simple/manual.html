@@ -28121,7 +28121,7 @@ Dyson球の解釈の一例を示す
 <br>
 ・恒星の放射を遮るような人工物の場合、放射量が間接的に低下（赤外線に変換）するため、系全体に影響を及ぼす
 <br>
-・地球の場合、太陽から到達の放射量が3%低下（<a href="#span-out-modelling-0D-heat">太陽定数</a>*0.97を仮定）で地上の平均気温が約2℃低下する
+・地球の場合、太陽から到達の放射強度が3%低下（<a href="#span-out-modelling-0D-heat">太陽定数</a>*0.97を仮定）で地上の平均気温が約2℃低下する
 <br>
 ・元来提唱の人工生物圏は以上の影響が少ないenergy利用が想定される
 <br>
@@ -28287,7 +28287,7 @@ magnitude=(log10(Et)-4.8)/1.5;
 <br>
 ・他方、温室効果以外の直接的な要因として、太陽と地球の相対的な運動||活動による寄与度が大きい
 <br>
-・現状、太陽から到達の放射量は<a href="#span-out-period">太陽活動周期</a>に渡ってほとんど変化しない（変動量＜0.1%）が、
+・現状、<a href="#span-out-modelling-0D-heat">太陽放射の強度</a>は<a href="#span-out-period">太陽活動周期</a>に渡ってほとんど変化しない（変動量＜0.1%）が、
 <br>
 ・今後、それら活動の影響（小氷期||<a href="#span-out-modelling-0D-heat">albedo</a>増加）で（一時的に）寒冷化が優勢になる見方も存在する
 <br>
@@ -30717,6 +30717,8 @@ modelling
 <br>
 ・<span class="clear">Ver.2.99.32</span>以降、<span class="jF">energy保存則の省略項</span>を訂正
 <br>
+・<span class="run">Ver.2.507.90</span>以降、<span class="wF">太陽定数の補足</span>を追記
+<br>
 <br>
 前提を列挙する
 <br>
@@ -30772,7 +30774,7 @@ modelling
 <br>
 代表的な状態量||物性値を示す
 <br>
-　太陽定数I0=1367[W/m^2]
+　太陽定数<span class="wF">（太陽放射の強度）</span>I0=1367[W/m^2]
 <br>
 　Stefan-Boltzmann定数sigma=5.670374419184429e-8[W/m^2K^-4]
 <br>
