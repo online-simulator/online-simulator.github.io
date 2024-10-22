@@ -698,6 +698,8 @@ e^(-i(1pi(){2/2i}(5-{3-1}){i/(-4)}))
 <br>
 　・<a href="#span-out-aerodynamics">空気力学の解釈</a>
 <br>
+　　・<a href="#span-out-baseball">野球の解釈</a>
+<br>
 　　・<a href="#span-out-plane">飛行機の解釈</a>
 <br>
 　　・<a href="#span-out-jet">jetの解釈</a>
@@ -28516,6 +28518,113 @@ magnitude=(log10(Et)-4.8)/1.5;
 目次
 </a>
 <br>
+野球
+<br>
+の解釈
+    </th>
+    <td>
+<span id="span-out-baseball"></span>
+野球の解釈について記述する
+<br>
+<br>
+pitchingについて解釈の一例を以下に示す
+<br>
+・<span class="run">Ver.2.515.90</span>以降、<a href="#span-out-evolution-spin">spin</a>から解釈として移植
+<br>
+<br>
+<a href="#span-out-Euclid">左手系</a>の回転軸の定義（球種の認識）
+<br>
+・進行方向のx'軸：jyro-spin（jyro）
+<br>
+・+y'軸：side-spin（screw）
+<br>
+　-y'軸：side-spin（slider||sweeper）
+<br>
+・+z軸：back-spin（fork||straight）
+<br>
+　-z軸：top-spin（"縦の"slider）
+<br>
+・billiard||tennisと異なり、top-spinの投球は難しい
+<br>
+<br>
+Magnus効果
+<br>
+・Magnus力＝流体密度×進行速度×<a href="#span-out-plane">循環</a>
+<br>
+　<a href="#span-out-plane">循環</a>∝回転の角速度
+<br>
+・力の向きは進行方向と回転軸の両方に垂直<del>を仮定</del>（仕事なし）
+<br>
+・Magnus力の比例係数：Cl
+<br>
+<br>
+<a href="#span-out-gravity">重力</a>の影響
+<br>
+・y方向落下速さ（落差の微分値）からx方向のMagnus効果が生じる
+<br>
+・back-spinの場合、top-spinより若干、x方向の進行が速い
+<br>
+・また、落差が小さく、若干、運動energyが小さい（力学的なenergy保存則）
+<br>
+・空気中の場合、密度比から生じる浮力の影響は小さい（空気/球の密度比&lt;&lt;1）
+<br>
+・Coriolis力の影響は<a href="#span-out-error-numerical">数値誤差</a>の範囲内で考慮しない
+<br>
+<br>
+jyro-spinの影響
+<br>
+・y'-z面変化量の微分値からz軸成分のMagnus効果より一桁小さい
+<br>
+・spinの回転方向に応じて無回転より若干、y方向に上下する
+<br>
+・screw効果で後流のはく離が小さく、安定的に空気抵抗を低減する
+<br>
+・よって、失速の程度が小さく、球速が伸びる
+<br>
+<del>・一方、球の空気抵抗が軌道変化に与える影響はMagnus効果より小さい</del>
+<br>
+・<span class="run">Ver.2.425.89</span>以降、乱流を想定して<a href="#span-out-aerodynamics">抗力</a>と速度の関係を修正（軌道変化を明確化）
+<br>
+　層流の<a href="#span-out-aerodynamics">抗力</a>∝速度（Stokesの抵抗則）　⇒　乱流の<a href="#span-out-aerodynamics">抗力</a>∝速度の2乗（Newtonの抵抗則）
+<br>
+・<a href="#span-out-aerodynamics">抗力</a>の比例係数：Cd
+<br>
+<br>
+無回転
+<br>
+・後流の渦放出が不規則で軌道が安定しにくい
+<br>
+・境界層を含む表面粗さの影響を受けやすい
+<br>
+<br>
+球の規則的な<a href="#span-out-vibration">振動</a>の目安
+<br>
+・St=0.2を仮定
+<br>
+・到達時間[sec]=18.44/40=0.461
+<br>
+・渦放出の<a href="#span-out-vibration">振動</a>周期[sec]=(73e-3/40)/0.2=0.009124999999999998
+<br>
+・渦放出の<a href="#span-out-vibration">振動</a>回数=0.461/0.009124999999999998=50.52054794520549
+<br>
+<br>
+<a href="#span-out-plane">循環</a>の空間積分
+<br>
+・簡単化する場合、比例係数×回転数で代替
+<br>
+・非厳密のため、回転数のみに依存する1次の回転減衰効果を仮定（粘性の摩擦<a href="#span-out-aerodynamics">抗力</a>が主要因）
+<br>
+　<span class="run">Ver.2.425.89</span>以降、流体密度を含む有次元の比例係数を無次元化
+<br>
+・回転減衰の比例係数：Cf
+    </td>
+  </tr>
+  <tr>
+    <th>
+<a href="#span-index">
+目次
+</a>
+<br>
 飛行機
 <br>
 の解釈
@@ -33654,94 +33763,7 @@ spin
     </th>
     <td>
 <span id="span-out-evolution-spin"></span>
-野球pitcherの投球（球の軌道）を一例に、無風状態でspin運動を追加考慮する
-<br>
-<br>
-<a href="#span-out-Euclid">左手系</a>の回転軸の定義（球種の認識）
-<br>
-・進行方向のx'軸：jyro-spin（jyro）
-<br>
-・+y'軸：side-spin（screw）
-<br>
-　-y'軸：side-spin（slider||sweeper）
-<br>
-・+z軸：back-spin（fork||straight）
-<br>
-　-z軸：top-spin（"縦の"slider）
-<br>
-・billiard||tennisと異なり、top-spinの投球は難しい
-<br>
-<br>
-Magnus効果
-<br>
-・Magnus力＝流体密度×進行速度×<a href="#span-out-plane">循環</a>
-<br>
-　<a href="#span-out-plane">循環</a>∝回転の角速度
-<br>
-・力の向きは進行方向と回転軸の両方に垂直<del>を仮定</del>（仕事なし）
-<br>
-・Magnus力の比例係数：Cl
-<br>
-<br>
-<a href="#span-out-gravity">重力</a>の影響
-<br>
-・y方向落下速さ（落差の微分値）からx方向のMagnus効果が生じる
-<br>
-・back-spinの場合、top-spinより若干、x方向の進行が速い
-<br>
-・また、落差が小さく、若干、運動energyが小さい（力学的なenergy保存則）
-<br>
-・空気中の場合、密度比から生じる浮力の影響は小さい（空気/球の密度比&lt;&lt;1）
-<br>
-・Coriolis力の影響は<a href="#span-out-error-numerical">数値誤差</a>の範囲内で考慮しない
-<br>
-<br>
-jyro-spinの影響
-<br>
-・y'-z面変化量の微分値からz軸成分のMagnus効果より一桁小さい
-<br>
-・spinの回転方向に応じて無回転より若干、y方向に上下する
-<br>
-・screw効果で後流のはく離が小さく、安定的に空気抵抗を低減する
-<br>
-・よって、失速の程度が小さく、球速が伸びる
-<br>
-<del>・一方、球の空気抵抗が軌道変化に与える影響はMagnus効果より小さい</del>
-<br>
-・<span class="run">Ver.2.425.89</span>以降、乱流を想定して<a href="#span-out-aerodynamics">抗力</a>と速度の関係を修正（軌道変化を明確化）
-<br>
-　層流の<a href="#span-out-aerodynamics">抗力</a>∝速度（Stokesの抵抗則）　⇒　乱流の<a href="#span-out-aerodynamics">抗力</a>∝速度の2乗（Newtonの抵抗則）
-<br>
-・<a href="#span-out-aerodynamics">抗力</a>の比例係数：Cd
-<br>
-<br>
-無回転
-<br>
-・後流の渦放出が不規則で軌道が安定しにくい
-<br>
-・境界層を含む表面粗さの影響を受けやすい
-<br>
-<br>
-球の規則的な<a href="#span-out-vibration">振動</a>の目安
-<br>
-・St=0.2を仮定
-<br>
-・到達時間[sec]=18.44/40=0.461
-<br>
-・渦放出の<a href="#span-out-vibration">振動</a>周期[sec]=(73e-3/40)/0.2=0.009124999999999998
-<br>
-・渦放出の<a href="#span-out-vibration">振動</a>回数=0.461/0.009124999999999998=50.52054794520549
-<br>
-<br>
-<a href="#span-out-plane">循環</a>の空間積分
-<br>
-・簡単化する場合、比例係数×回転数で代替
-<br>
-・非厳密のため、回転数のみに依存する1次の回転減衰効果を仮定（粘性の摩擦<a href="#span-out-aerodynamics">抗力</a>が主要因）
-<br>
-　<span class="run">Ver.2.425.89</span>以降、流体密度を含む有次元の比例係数を無次元化
-<br>
-・回転減衰の比例係数：Cf
+無風状態でspin運動を追加考慮する場合、<a href="#span-out-baseball">野球の解釈</a>を参照
     </td>
   </tr>
   <tr>
