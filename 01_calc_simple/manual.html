@@ -28566,15 +28566,17 @@ magnitude=(log10(Et)-4.8)/1.5;
 <br>
 ・温室効果gasは<a href="#span-out-modelling-0D-heat">大気の吸収率</a>（放射熱を吸収する効率）に関係する
 <br>
-・以降、大気中の温室効果の促進を想定する（熱容量は大差なしの前提）
+・以降、大気中の温室効果の促進を想定する
 <br>
 　濃度上昇で<a href="#span-out-modelling-0D-heat">大気の吸収率</a>が増加（正の相関）
 <br>
 　⇒太陽から流入する放射と地面から流出する放射の吸収量が増加
 <br>
-　⇒宇宙に透過する放射量が低下
+　⇒宇宙に透過する放射量が低下（正の<a href="#span-out-modelling-0D-heat">放射強制力</a>）
 <br>
 　⇒平均気温が上昇（<a href="#span-out-climate">温暖化</a>）
+<br>
+　⇒温度上昇量=<a href="#span-out-modelling-0D-heat">放射強制力</a>の電力量/熱容量
 <br>
 <br>
 2004年の人為的な温室効果gasの総排出量の内訳（二酸化炭素排出換算）
@@ -31168,7 +31170,7 @@ modelling
 熱収支を無次元化する0D-heatのsimplified modellingについて記述する
 <br>
 <br>
-地球の対流圏と成層圏の熱収支のmodellingを一例に示す
+地球の<a href="#span-out-atmosphere">対流圏</a>と<a href="#span-out-atmosphere">成層圏</a>の熱収支のmodellingを一例に示す
 <br>
 ※<span class="clear">最も単純化した参考程度（前提から正しいとは限らない）</span>
 <br>
@@ -31192,8 +31194,12 @@ modelling
 <br>
 ・<span class="run">Ver.2.507.90</span>以降、<span class="wF">太陽定数の補足</span>を追記
 <br>
+・<span class="run">Ver.2.523.90</span>以降、<span class="wF">放射強制力の補足</span>を追記
+<br>
 <br>
 前提を列挙する
+<br>
+<span class="wF">・放射強制力：対流圏界面の熱流束fluxの変化量（系内部の増加が正）</span>
 <br>
 ・対流圏を系内部、成層圏と<span class="condition">地球内部</span>を系外部と想定する
 <br>
