@@ -29270,7 +29270,7 @@ s(h)=&lt;1.1972333333333337e6*h/H
 <br>
 高さHに対する赤道半径R0の比：R0=6378136.6; R0/H -> 43507.07094133697
 <br>
-対角線の半値幅：L*sqrt2/2 -> 162.84669170726193
+対角線半分値：L*sqrt2/2 -> 162.84669170726193
     </td>
   </tr>
   <tr>
@@ -31280,7 +31280,7 @@ modelling
 <br>
 ・<span class="run">Ver.2.96.32</span>以降、<del><span class="jF">大気の吸収率</span></del><span class="selection">対流圏の吸収率</span>の定義文を追記
 <br>
-・<span class="run">Ver.2.96.32</span>以降、<span class="clear">擬似的な熱伝達係数</span>の定義文を訂正
+・<span class="clear">Ver.2.96.32</span>以降、<span class="clear">擬似的な熱伝達係数</span>の定義文を訂正
 <br>
 ・<span class="run">Ver.2.97.32</span>以降、<span class="condition">地球表面の熱伝達係数alpha0</span>を追加考慮（<span class="condition">最悪想定の場合、alpha0=0</span>）
 <br>
@@ -31291,6 +31291,8 @@ modelling
 ・<span class="run">Ver.2.507.90</span>以降、<span class="wF">太陽定数の補足</span>を追記
 <br>
 ・<span class="run">Ver.2.523.90</span>以降、<span class="wF">放射強制力の定義</span>を追記
+<br>
+・<span class="clear">Ver.2.530.91</span>以降、定義文を訂正（半値幅⇒半分値）
 <br>
 <br>
 前提を列挙する
@@ -31383,7 +31385,7 @@ modelling
 <br>
 　太陽放射の直接反射率<span class="clear">基準値</span>albedo0=0.3
 <br>
-　<span class="condition"><span class="jF">大気の吸収率</span>半値幅absorbh=0.3859311811416972</span>
+　<span class="condition"><span class="jF">大気の吸収率</span>半分値absorbh=0.3859311811416972</span>
 <br>
 　<span class="condition">対流圏の吸収率<span class="clear">基準値</span>absorb0=0.6284819702443666</span>
 <br>
@@ -31587,7 +31589,7 @@ We0=A0*(e0*sigma*T0K**4); We0 -> 199840601786823800
 <br>
 W0=S1*I0; W0 -> 175308403284524770
 <br>
-・<span class="condition"><span class="jF">大気の吸収率</span>半値幅</span>
+・<span class="condition"><span class="jF">大気の吸収率</span>半分値</span>
 <br>
 We0*(1-absorbh)=W0*(1-albedo0) ->
 <br>
@@ -31603,7 +31605,7 @@ We0*absorbh=W0*(1-albedo0)<span class="selection">*absorb0</span> ->
 <br>
 <span class="condition">absorb0max=We0*absorbhmax/(W0*(1-albedo0)); absorb0max -> 0.8142409851221832</span>
 <br>
-・<span class="condition"><span class="jF">大気の吸収率</span>半値幅への換算係数</span>
+・<span class="condition"><span class="jF">大気の吸収率</span>半分値への換算係数</span>
 <br>
 kh0 -> 0.6140688188583029
 <br>
