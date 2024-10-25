@@ -29223,13 +29223,13 @@ geometryの解釈について記述する
 <br>
 　・3辺の比が3:4:5の面積比：p=5/3; p -> 1.6666666666666667（&gt;黄金比）
 <br>
-・傾斜角[deg]：t=rad2deg(atan(H/Lh)); t -> 51.88767875905652
+・<span class="condition">傾斜角</span>[deg]：t=rad2deg(atan(H/Lh)); t -> <span class="condition">51.85140476483709</span>
 <br>
 　・粉体の安息角[deg]：15~45
 <br>
 　　・自然の山の傾斜角[deg]：15~35
 <br>
-・以上より、Gizaの3大<a href="#span-out-pyramid">pyramid</a>の<span class="jF">面積比</span>と<span class="wF">3辺の比</span>を丸めて列挙する
+・以上より、Gizaの3大<a href="#span-out-pyramid">pyramid</a>の<span class="jF">面積比</span>:<span class="wF">3辺の比</span>:<span class="condition">傾斜角</span>を丸めて列挙する
 <br>
 calc_geometry(L,H)=&lt;[
 <br>
@@ -29237,15 +29237,15 @@ Lh=L/2,SH=L**2,c=sqrt(Lh**2+H**2),Sc4=(L*c/2)*4,
 <br>
 ratio=(Lh:H:c)*3/Lh,p=Sc4/SH,t=rad2deg(atan(H/Lh)),
 <br>
-=&lt;round((p:ratio)*1e3)/1e3
+=&lt;round((p:ratio:t)*1e3)/1e3
 <br>
 ]=&gt;;
 <br>
-　・1st：calc_geometry(230.3,146.6)=&gt; -> (<span class="jF">1.619</span>:<span class="wF">3:3.819:4.857</span>)
+　・1st：calc_geometry(230.3,146.6)=&gt; -> (<span class="jF">1.619</span>:<span class="wF">3:3.819:4.857</span>:<span class="condition">51.851</span>)
 <br>
-　・2nd：calc_geometry(215.29,143.87)=&gt; -> (<span class="jF">1.669</span>:<span class="wF">3:4.01:5.008</span>)
+　・2nd：calc_geometry(215.29,143.87)=&gt; -> (<span class="jF">1.669</span>:<span class="wF">3:4.01:5.008</span>:<span class="condition">53.196</span>)
 <br>
-　・3rd：calc_geometry(105,65.5)=&gt; -> (<span class="jF">1.599</span>:<span class="wF">3:3.743:4.797</span>)
+　・3rd：calc_geometry(105,65.5)=&gt; -> (<span class="jF">1.599</span>:<span class="wF">3:3.743:4.797</span>:<span class="condition">51.287</span>)
     </td>
   </tr>
   <tr>
