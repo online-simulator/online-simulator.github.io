@@ -28550,7 +28550,7 @@ Dyson球の解釈の一例を示す
 <br>
 ・実際：圧縮空気の熱変換＋大気摩擦で0~1桁減速と破裂cycleあり（<a href="#span-out-atmosphere">大気圏</a>sizeで減速なしの直撃）
 <br>
-・結論：直径10kmの隕石直撃で壊滅級のmagnitude≒12
+・結論：直径10kmの隕石直撃で壊滅級のmagnitude≒12（<a href="#span-out-history">約6600万年前に1度</a>の頻度）
 <br>
 ・直径d[m]
 <br>
@@ -28570,15 +28570,31 @@ Et=0.5*rho*vol*vel**2;
 <br>
 magnitude=(log10(Et)-4.8)/1.5;
 <br>
-・d,magnitude,
+・直径を変えてmagnitudeを列挙する
 <br>
-10.000000000000002,5.945999081540326,
+calc_magnitude(d)=&lt;[
 <br>
-100.00000000000004,7.945999081540326,
+($vel,$rho)=(10e3,2e3),
 <br>
-1000.0000000000007,9.945999081540327,
+vol=(4pi/3)*(d/2)**3,Et=0.5*rho*vol*vel**2,magnitude=(log10(Et)-4.8)/1.5,
 <br>
-10000.00000000001,11.945999081540327,
+=&lt;round(magnitude*10)/10
+<br>
+]=&gt;;
+<br>
+d=1e1; calc_magnitude(d)=&gt; -> 5.9
+<br>
+d=1e2; calc_magnitude(d)=&gt; -> 7.9
+<br>
+d=1e3; calc_magnitude(d)=&gt; -> 9.9
+<br>
+d=1e4; calc_magnitude(d)=&gt; -> 11.9
+<br>
+d=1e5; calc_magnitude(d)=&gt; -> 13.9
+<br>
+d=1e6; calc_magnitude(d)=&gt; -> 15.9
+<br>
+d=1e7; calc_magnitude(d)=&gt; -> 17.9
     </td>
   </tr>
   <tr>
