@@ -724,6 +724,8 @@ e^(-i(1pi(){2/2i}(5-{3-1}){i/(-4)}))
 <br>
 　　・<a href="#span-out-pyramid">pyramidの解釈</a>
 <br>
+　　　・<a href="#span-out-geometry">geometryの解釈</a>
+<br>
 　　　・<a href="#span-out-stress">応力分布の解釈</a>
 <br>
 　・<a href="#span-out-analogy">analogyの解釈</a>
@@ -1927,6 +1929,8 @@ domainを列挙する
 ・mathworks.com
 <br>
 ・wolframalpha.com
+<br>
+・mathematica.site
 <br>
 ・numpy.org
 <br>
@@ -29174,6 +29178,48 @@ pyramidの解釈について記述する
 目次
 </a>
 <br>
+geometry
+<br>
+の解釈
+    </th>
+    <td>
+<span id="span-out-geometry"></span>
+geometryの解釈について記述する
+<br>
+<br>
+<a href="#span-out-pyramid">pyramid</a>のgeometryの解釈の一例を示す
+<br>
+・底辺長：L=230.3;
+<br>
+　・底辺長半分値：Lh=L/2; Lh -> 115.15
+<br>
+　・対角線半分値：Lh*sqrt2 -> 162.84669170726193
+<br>
+　・底面の面積：SH=L**2; SH -> 53038.090000000004
+<br>
+・高さ：H=146.6;
+<br>
+　・赤道半径R0との比：R0=6378136.6; R0/H -> 43507.07094133697
+<br>
+・斜辺長（側面図）：c=sqrt(Lh**2+H**2); c -> 186.41642229159962
+<br>
+・直角三角形の3辺の比（側面図）：
+<br>
+Lh:H:c=3:3.8193660442900557:4.856702274205809
+<br>
+・斜面の総面積：Sc4=(L*c/2)*4; Sc4 -> 85863.40410751078
+<br>
+・底面の面積に対する斜面の総面積の比率：p=Sc4/SH; p -> 1.6189007580686028（≒黄金比）
+<br>
+・直角三角形の3辺の比が3:4:5の場合、p=5/3： 5/3 -> 1.6666666666666667（&gt;黄金比）
+    </td>
+  </tr>
+  <tr>
+    <th>
+<a href="#span-index">
+目次
+</a>
+<br>
 応力分布
 <br>
 の解釈
@@ -29265,12 +29311,6 @@ s(H) -> 1197233.3333333337+O(2e+0)
 ・stressを線形化
 <br>
 s(h)=&lt;1.1972333333333337e6*h/H
-<br>
-・geometry
-<br>
-高さHに対する赤道半径R0の比：R0=6378136.6; R0/H -> 43507.07094133697
-<br>
-対角線半分値：L*sqrt2/2 -> 162.84669170726193
     </td>
   </tr>
   <tr>
