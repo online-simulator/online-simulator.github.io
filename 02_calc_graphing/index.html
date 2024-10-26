@@ -530,6 +530,7 @@
       $._id("Cauchy").onclick = function(){setVal("-5", "5", "x=t,Cauchy(x0,gamma)=<(gamma/pi)/((x-x0)**2+gamma**2),x;", "Cauchy(0,0.5);Cauchy(0,1);Cauchy(0,2);Cauchy(-2,1);", 50);$._id("input-z").value+="TITLE{Cauchy distribution}XLABEL{x}YLABEL{f(x)}::3:1.5:1.5::x0=0,gamma=0.5;::::::0,1;::::::0,2;::::::-2,1;";};
       $._id("Bose").onclick = function(){setVal("0.1", "2", "x=t,Bose_Einstein(T,eps_)=<last{beta=1/(kB*T),1/(e**(beta*(eps_-mu))-1)},x;", "$kB=1.380649e-23,mu=0,T0=1,Bose_Einstein(T0,mu+x*kB*T0);Bose_Einstein(T0*2,mu+x*kB*T0);Bose_Einstein(T0*3,mu+x*kB*T0);", 50);$._id("input-z").value+="TITLE{Bose-Einstein distribution}XLABEL{(x-mu)/(kB*T)}YLABEL{f(x)}::3:1.5:1.5::T;::::::2T;::::::3T;";};
       $._id("Maxwell").onclick = function(){setVal("-1", "5", "x=t,Maxwell_Boltzmann(T,eps_)=<last{beta=1/(kB*T),1/(e**(beta*(eps_-mu)))},x;", "$kB=1.380649e-23,mu=0,T0=1,Maxwell_Boltzmann(T0,mu+x*kB*T0);Maxwell_Boltzmann(T0*2,mu+x*kB*T0);Maxwell_Boltzmann(T0*3,mu+x*kB*T0);", 50);$._id("input-z").value+="TITLE{Maxwell-Boltzmann distribution}XLABEL{(x-mu)/(kB*T)}YLABEL{f(x)}::3:1.5:1.5::T;::::::2T;::::::3T;";};
+      $._id("MD").onclick = function(){setVal("0", "20", "x=t,Maxwell(a)=<sqrt(2/pi)*x**2*exp(-x**2/(2a**2))/a**3,x;", "Maxwell(1);Maxwell(2);Maxwell(5);", 40);$._id("input-z").value+="TITLE{Maxwell distribution}XLABEL{x}YLABEL{f(x)}::3:1.5:1.5::a=1;::::::2;::::::5;";};
       $._id("Fermi").onclick = function(){setVal("-5", "5", "x=t,Fermi_Dirac(T,eps_)=<last{beta=1/(kB*T),1/(e**(beta*(eps_-mu))+1)},x;", "$kB=1.380649e-23,mu=kB,T0=1,Fermi_Dirac(T0,mu+x*kB*T0);Fermi_Dirac(T0/2,mu+x*kB*T0);Fermi_Dirac(T0/10,mu+x*kB*T0);Fermi_Dirac(T0/100,mu+x*kB*T0);", 50);$._id("input-z").value+="TITLE{Fermi-Dirac distribution}XLABEL{(x-mu)/(kB*T)}YLABEL{f(x)}::3:1.5:1.5::T;::::::T/2;::::::T/10;::::::T/100;";};
       $._id("BMF").onclick = function(){setVal("-1", "3", "x=t,Bose_Einstein(T,eps_)=<last{beta=1/(kB*T),1/(e**(beta*(eps_-mu))-1)},Maxwell_Boltzmann(T,eps_)=<last{beta=1/(kB*T),1/(e**(beta*(eps_-mu)))},Fermi_Dirac(T,eps_)=<last{beta=1/(kB*T),1/(e**(beta*(eps_-mu))+1)},x;", "$kB=1.380649e-23,mu=0,T0=1,Bose_Einstein(T0,mu+x*kB*T0);Maxwell_Boltzmann(T0,mu+x*kB*T0);Fermi_Dirac(T0,mu+x*kB*T0);", 14);$._id("input-z").value+="XLABEL{(x-mu)/(kB*T)}YLABEL{f(x)}::3:1.5:1.5::Bose-Einstein;::::::Maxwell-Boltzmann;::::::Fermi-Dirac;";};
       $._id("SND").onclick = function(){setVal("-5", "5", "t;", "SND=<exp(-t^2/2)/sqrt(2pi),SND();", 50);};
@@ -1047,6 +1048,7 @@
 <br>
   <button id="Bose">Bose</button>
   <button id="Maxwell">Maxwell</button>
+  <button id="MD">MD</button>
   <button id="Fermi">Fermi</button>
   <button id="BMF">BMF</button>
 <br>
