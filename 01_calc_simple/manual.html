@@ -736,6 +736,8 @@ e^(-i(1pi(){2/2i}(5-{3-1}){i/(-4)}))
 <br>
 　　　・<a href="#span-out-stress">応力分布の解釈</a>
 <br>
+　　　　・<a href="#span-out-Fermat">Fermatの最終定理</a>
+<br>
 ・解法
 <br>
 　・<a href="#span-out-mat-product">行列積</a>
@@ -29916,22 +29918,46 @@ ns(100) -> 518.7377517639624
 ns(1000) -> 7485.470860550342
 <br>
 ns(10000) -> 97876.06036044357
+    </td>
+  </tr>
+  <tr>
+    <th>
+<a href="#span-index">
+目次
+</a>
 <br>
-・以上より、自然数n=D-1を定義すると、Fermatの最終定理から次の<a href="#span-out-analogy">analogy</a>が成立する
+Fermat
 <br>
-　4次元以上の場合、任意2段の区間(x,z)に対してy^n=z^n-x^nを満たす階段yは存在しない
+の最終定理
+    </th>
+    <td>
+<span id="span-out-Fermat"></span>
+Fermatの最終定理について記述する
+<br>
+<br>
+<a href="#span-out-analogy">analogy</a>
+<br>
+・自然数n&ge;3の場合、任意2段の区間(x,z)に対してy^n=z^n-x^nを満たす階段yは存在しない
+<br>
+listup(n,zs,ze)=&lt;[
+<br>
+arr_y=[],
+<br>
+zn(z)=&lt;z**n,
+<br>
+yn(z,x)=&lt;zn(z)-zn(x),
+<br>
+get_yns(z)=&lt;[yns=[],_sx(=&lt;yns.push(yn(z,x)),0,max(0,z-1)),=&lt;yns]=&gt;,
+<br>
+_s((z)=&lt;arr_y[sizer(arr_y)].push(=&lt;get_yns(z)),zs,ze),
+<br>
+=&lt;arr_y
+<br>
+]=&gt;;
 <br>
 ・n=1の場合、階段yが常に見つかる
 <br>
-yns=zeros(z,1);
-<br>
-zn(z)=&lt;z**n;
-<br>
-yn(z,x)=&lt;zn(z)-zn(x);
-<br>
-_sx(=&lt;yns[x]=yn(z,x),0,z-1);
-<br>
-zn(z) yn(z,x)
+listup(1,0,15)
 <br>
 <span class="selection">0</span>
 <br>
@@ -29967,7 +29993,7 @@ zn(z) yn(z,x)
 <br>
 ・n=2の場合、階段yが稀に見つかる
 <br>
-zn(z) yn(z,x)
+listup(2,0,25)
 <br>
 <span class="selection">0</span>
 <br>
@@ -30041,7 +30067,7 @@ b=m-(l)i
 <br>
 ・n=3の場合、階段yは見つからない
 <br>
-zn(z) yn(z,x)
+listup(3,0,15)
 <br>
 <span class="selection">0</span>
 <br>
@@ -30077,7 +30103,7 @@ zn(z) yn(z,x)
 <br>
 ・n=4の場合、階段yは見つからない
 <br>
-zn(z) yn(z,x)
+listup(4,0,15)
 <br>
 <span class="selection">0</span>
 <br>
@@ -45090,8 +45116,6 @@ primes
     </th>
     <td>
 <span id="span-eqn-primes"></span>
-<a href="#span-out-analogy">analogy</a>参照
-<br>
 clear;
 <br>
 isPrime(n)=&lt;[isPrime=n&gt;1,kmax=sqrt(n),
@@ -45137,7 +45161,7 @@ Pythagoras
     </th>
     <td>
 <span id="span-eqn-Pythagoras"></span>
-<a href="#span-out-analogy">analogy</a>参照
+<a href="#span-out-Fermat">Fermatの最終定理</a>参照
 <br>
 clear;
 <br>
@@ -45156,7 +45180,7 @@ Fermat
     </th>
     <td>
 <span id="span-eqn-Fermat"></span>
-<a href="#span-out-analogy">analogy</a>参照
+<a href="#span-out-Fermat">Fermatの最終定理</a>参照
 <br>
 clear;
 <br>
