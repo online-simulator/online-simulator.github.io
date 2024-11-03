@@ -29439,7 +29439,7 @@ DNAの解釈について記述する
 <br>
 ・突然変異の長期平均rate：4.5±1.5[塩基対/年]（<a href="#span-out-origin">Pan</a>を含めて重複なしを仮定）
 <br>
-calc_rate(ts,te,p)=&lt;[N=30e8,t=(te,ts),r=(p/2)/100,=&lt;N*(r/t)]=&gt;;
+calc_rate(ts,te,p)=&lt;[N=30e8,t=(te,ts),r=(p/2)/100,rate=N*(r/t),=&lt;rate]=&gt;;
 <br>
 calc_rate(25e4,40e4,0.1)=&gt; -> (3.75,6)
 <br>
@@ -29457,7 +29457,7 @@ calc_rate(50e5,80e5,1.6)=&gt; -> (3,4.8)
 <br>
 　　・突然変異の発生確率P：1e-9（校正修復込みの不正対合に由来）
 <br>
-calc_P(rate,M)=&lt;[N=30e8,=&lt;rate/(N*M)]=&gt;;
+calc_P(rate,M)=&lt;[N=30e8,P=rate/(N*M),=&lt;P]=&gt;;
 <br>
 calc_P(3,1)=&gt; -> 1e-9
 <br>
