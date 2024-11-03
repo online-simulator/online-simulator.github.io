@@ -3529,6 +3529,243 @@ jyro-spinの影響
 ・回転減衰の比例係数：Cf
     </td>
   </tr>
+  <tr>
+    <th>
+<a href="#span-index">
+目次
+</a>
+<br>
+飛行機
+<br>
+の解釈
+    </th>
+    <td>
+<span id="span-out-plane"></span>
+飛行機の解釈について記述する
+<br>
+<br>
+飛行機の翼の解釈の一例を列挙する
+<br>
+・<a href="#span-out-aerodynamics">揚力</a>：推進中に翼の下面（正圧）と上面（負圧）の圧力差で生じる上向きの力
+<br>
+　Bernoulliの定理：翼の上下で流速が異なるため、全圧から上下の圧力差に換算
+<br>
+　循環：物体周りの閉曲線に渡る速度の線積分（流れ場が上下対称の場合、循環=0）
+<br>
+　<a href="#span-out-baseball">Magnus効果</a>：翼は回転していないが、循環≠0のため、<a href="#span-out-baseball">Magnus効果</a>の力≒<a href="#span-out-aerodynamics">揚力</a>
+<br>
+　<a href="#span-out-aerodynamics">揚力</a>の厳密な計算：圧力の面積分（翼表面の法線vectorを考慮）
+<br>
+・摩擦<a href="#span-out-aerodynamics">抗力</a>成分の厳密な計算：摩擦応力の面積分（翼表面の接線vectorを考慮）
+<br>
+　壁法則：境界層の速度分布と壁面摩擦応力の関係を表す法則
+<br>
+・翼型（断面形状）：上面の流れがはく離なしで合流する最適形状の流線型（はく離で失速）
+<br>
+　対称翼（上下）：よどみ点を下側に制御することで<a href="#span-out-aerodynamics">揚力</a>が発生（仰角＞0）
+<br>
+　縦渦発生装置：前縁に設置して後流のはく離を抑制
+    </td>
+  </tr>
+  <tr>
+    <th>
+<a href="#span-index">
+目次
+</a>
+<br>
+jet
+<br>
+の解釈
+    </th>
+    <td>
+<span id="span-out-jet"></span>
+jetの解釈について記述する
+<br>
+<br>
+jetの解釈の一例を列挙する
+<br>
+・宇宙jet：重力天体の単極||双極の軸方向に噴出するplasma等のjet（線のように映る）
+<br>
+・jet気流（偏西風）：<a href="#span-out-atmosphere">対流圏</a>上層にあり、<a href="#span-out-plane">飛行機</a>||台風の進路に影響（軽い程、蛇行して流されやすい）
+<br>
+・jet雲：jet<a href="#span-out-plane">飛行機</a>engine後流に発生（高温の排気gasが凝縮）
+<br>
+・筒内直接噴射式内燃機関：相対速度による摩擦の反作用でgas噴流のjetが形成（噴射圧力||RPM等に依存）
+    </td>
+  </tr>
+  <tr>
+    <th>
+<a href="#span-index">
+目次
+</a>
+<br>
+大気圏
+<br>
+の解釈
+    </th>
+    <td>
+<span id="span-out-atmosphere"></span>
+大気圏の解釈について記述する
+<br>
+<br>
+各高度範囲（概要）の解釈の一例を列挙する
+<br>
+・大気圏：0~100km
+<br>
+・宇宙空間：100km~
+<br>
+・対流圏：0~8（極）~17（赤道）km
+<br>
+・成層圏：8（極）~17（赤道）~50km
+<br>
+・中間圏：50~80km
+<br>
+・熱圏：80~800km
+<br>
+・外気圏：800~10000km
+<br>
+・電離層：60~800km
+<br>
+・ozone層：10~50km
+<br>
+・磁気圏：1000~60000（太陽側）~1000000（反対側）km
+<br>
+・plasma圏：800~20000km
+<br>
+・均質圏：80~90km
+<br>
+・乱流圏：100~110km
+<br>
+・拡散圏：110km~
+    </td>
+  </tr>
+  <tr>
+    <th>
+<a href="#span-index">
+目次
+</a>
+<br>
+地球史
+<br>
+の解釈
+    </th>
+    <td>
+<span id="span-out-history"></span>
+地球史の解釈（西暦2000年基準）について記述する
+<br>
+<br>
+地球史の解釈の一例を列挙する
+<br>
+・約6600万年前の<a href="#span-out-meteorite">隕石衝突</a>：Yucatan半島に小惑星が衝突⇒粉塵を生成⇒地球規模の<a href="#span-out-climate">寒冷化</a>⇒大量絶滅（恐竜を含む）
+<br>
+　粉塵で反射率が3割増を仮定（<a href="#span-out-modelling-0D-heat">albedo</a>=0.3⇒0.39）：<a href="#span-out-UI-graphing-testcase">地上の平均気温</a>が約8℃低下
+<br>
+　自転軸への影響：size比依存で小さい（地球直径に対するsize比≒0.001）
+<br>
+・約77万年前の<a href="#span-out-period">地磁気逆転</a>：直近の反転
+<br>
+・7~7.5万年前のToba事変：火山の超巨大噴火⇒火山灰を生成⇒地球規模の<a href="#span-out-climate">寒冷化</a>（約6000年間継続）
+<br>
+　火山灰で反射率が2割増を仮定（<a href="#span-out-modelling-0D-heat">albedo</a>=0.3⇒0.36）：<a href="#span-out-UI-graphing-testcase">地上の平均気温</a>が5℃強低下
+<br>
+・1~2万年前の移行期（最終氷期⇒完新世）：<a href="#span-out-climate">温暖化</a>⇒海面上昇と陸地減少
+<br>
+・1~1.3万年前のYounger Dryas期（欧州一帯）：<a href="#span-out-climate">温暖化</a>⇒急速に<a href="#span-out-climate">寒冷化</a>（逆戻り）⇒農耕の開始
+<br>
+　逆戻りの原因：熱塩循環の弱化||<a href="#span-out-meteorite">彗星衝突</a>の可能性
+<br>
+・約4500年前の古代Egypt：Gizaの3大<a href="#span-out-pyramid">pyramid</a>を建造
+<br>
+　<a href="#span-out-stress">「重量拡散の間」最上層</a>の壁面に残る複数のhieroglyph：「khufu」の「17回目の牛を数える年」
+<br>
+　同上のcartouche（王名枠）：「raa(h)ta」説あり（約1.2万年前の獅子座の時代）
+<br>
+　大Sphinx前足発掘の碑文の最後：「khaf」（Khafra王の時代が定説）
+    </td>
+  </tr>
+  <tr>
+    <th>
+<a href="#span-index">
+目次
+</a>
+<br>
+起源
+<br>
+の解釈
+    </th>
+    <td>
+<span id="span-out-origin"></span>
+起源の解釈（西暦2000年基準）について記述する
+<br>
+<br>
+地球の起源の解釈の一例を列挙する
+<br>
+・宇宙創成：約138億年前（big-bang仮説）
+<br>
+・銀河誕生：約132億年前
+<br>
+・地球誕生：約46億年前（giant-impact仮説）
+<br>
+<br>
+人類の起源の解釈の一例を列挙する
+<br>
+・Gorillaと分岐：約1000万年前
+<br>
+・Panと分岐：500~800万年前
+<br>
+・現生人類誕生：25~40万年前
+    </td>
+  </tr>
+  <tr>
+    <th>
+<a href="#span-index">
+目次
+</a>
+<br>
+DNA
+<br>
+の解釈
+    </th>
+    <td>
+<span id="span-out-DNA"></span>
+DNAの解釈について記述する
+<br>
+<br>
+<a href="#span-out-origin">現生人類</a>のDNAの解釈の一例を示す
+<br>
+・DNA：約30億塩基対（目安の基準値N）
+<br>
+・塩基配列：個人差は0.1%程度　⇔　近縁の<a href="#span-out-origin">Pan</a>との差異は1.6%程度
+<br>
+・突然変異の長期平均rate：4.5±1.5[塩基対/年]（<a href="#span-out-origin">Pan</a>を含めて重複なしの均等配分p=0.5を仮定）
+<br>
+calc_rate(ts,te,percent,p)=&lt;[N=30e8,t=(te,ts),r=(percent/100)*p,rate=N*(r/t),=&lt;rate]=&gt;;
+<br>
+calc_rate(25e4,40e4,0.1,0.5)=&gt; -> (3.75,6)
+<br>
+calc_rate(50e5,80e5,1.6,0.5)=&gt; -> (3,4.8)
+<br>
+・細胞周期：G1(checkpoint)⇒S⇒G2(checkpoint)⇒M期
+<br>
+　・M期：細胞分裂
+<br>
+　　・細胞分裂の回数上限：50回
+<br>
+　　・年平均の細胞分裂回数[回/年]：M
+<br>
+　・S期：DNA複製
+<br>
+　　・突然変異の発生確率P：1e-9（校正修復込みの不正対合に由来）
+<br>
+calc_P(rate,M)=&lt;[N=30e8,P=rate/(N*M),=&lt;P]=&gt;;
+<br>
+calc_P(3,1)=&gt; -> 1e-9
+<br>
+calc_P(4.5,1)=&gt; -> 1.5e-9
+<br>
+calc_P(6,1)=&gt; -> 2e-9
+    </td>
+  </tr>
 </tbody>
 </table>
 </div>
@@ -29263,243 +29500,6 @@ e_p・e_r=0
 e_p・e_t=0
 <br>
 e_p・e_p=1
-    </td>
-  </tr>
-  <tr>
-    <th>
-<a href="#span-index">
-目次
-</a>
-<br>
-飛行機
-<br>
-の解釈
-    </th>
-    <td>
-<span id="span-out-plane"></span>
-飛行機の解釈について記述する
-<br>
-<br>
-飛行機の翼の解釈の一例を列挙する
-<br>
-・<a href="#span-out-aerodynamics">揚力</a>：推進中に翼の下面（正圧）と上面（負圧）の圧力差で生じる上向きの力
-<br>
-　Bernoulliの定理：翼の上下で流速が異なるため、全圧から上下の圧力差に換算
-<br>
-　循環：物体周りの閉曲線に渡る速度の線積分（流れ場が上下対称の場合、循環=0）
-<br>
-　<a href="#span-out-baseball">Magnus効果</a>：翼は回転していないが、循環≠0のため、<a href="#span-out-baseball">Magnus効果</a>の力≒<a href="#span-out-aerodynamics">揚力</a>
-<br>
-　<a href="#span-out-aerodynamics">揚力</a>の厳密な計算：圧力の面積分（翼表面の法線vectorを考慮）
-<br>
-・摩擦<a href="#span-out-aerodynamics">抗力</a>成分の厳密な計算：摩擦応力の面積分（翼表面の接線vectorを考慮）
-<br>
-　壁法則：境界層の速度分布と壁面摩擦応力の関係を表す法則
-<br>
-・翼型（断面形状）：上面の流れがはく離なしで合流する最適形状の流線型（はく離で失速）
-<br>
-　対称翼（上下）：よどみ点を下側に制御することで<a href="#span-out-aerodynamics">揚力</a>が発生（仰角＞0）
-<br>
-　縦渦発生装置：前縁に設置して後流のはく離を抑制
-    </td>
-  </tr>
-  <tr>
-    <th>
-<a href="#span-index">
-目次
-</a>
-<br>
-jet
-<br>
-の解釈
-    </th>
-    <td>
-<span id="span-out-jet"></span>
-jetの解釈について記述する
-<br>
-<br>
-jetの解釈の一例を列挙する
-<br>
-・宇宙jet：重力天体の単極||双極の軸方向に噴出するplasma等のjet（線のように映る）
-<br>
-・jet気流（偏西風）：<a href="#span-out-atmosphere">対流圏</a>上層にあり、<a href="#span-out-plane">飛行機</a>||台風の進路に影響（軽い程、蛇行して流されやすい）
-<br>
-・jet雲：jet<a href="#span-out-plane">飛行機</a>engine後流に発生（高温の排気gasが凝縮）
-<br>
-・筒内直接噴射式内燃機関：相対速度による摩擦の反作用でgas噴流のjetが形成（噴射圧力||RPM等に依存）
-    </td>
-  </tr>
-  <tr>
-    <th>
-<a href="#span-index">
-目次
-</a>
-<br>
-大気圏
-<br>
-の解釈
-    </th>
-    <td>
-<span id="span-out-atmosphere"></span>
-大気圏の解釈について記述する
-<br>
-<br>
-各高度範囲（概要）の解釈の一例を列挙する
-<br>
-・大気圏：0~100km
-<br>
-・宇宙空間：100km~
-<br>
-・対流圏：0~8（極）~17（赤道）km
-<br>
-・成層圏：8（極）~17（赤道）~50km
-<br>
-・中間圏：50~80km
-<br>
-・熱圏：80~800km
-<br>
-・外気圏：800~10000km
-<br>
-・電離層：60~800km
-<br>
-・ozone層：10~50km
-<br>
-・磁気圏：1000~60000（太陽側）~1000000（反対側）km
-<br>
-・plasma圏：800~20000km
-<br>
-・均質圏：80~90km
-<br>
-・乱流圏：100~110km
-<br>
-・拡散圏：110km~
-    </td>
-  </tr>
-  <tr>
-    <th>
-<a href="#span-index">
-目次
-</a>
-<br>
-地球史
-<br>
-の解釈
-    </th>
-    <td>
-<span id="span-out-history"></span>
-地球史の解釈（西暦2000年基準）について記述する
-<br>
-<br>
-地球史の解釈の一例を列挙する
-<br>
-・約6600万年前の<a href="#span-out-meteorite">隕石衝突</a>：Yucatan半島に小惑星が衝突⇒粉塵を生成⇒地球規模の<a href="#span-out-climate">寒冷化</a>⇒大量絶滅（恐竜を含む）
-<br>
-　粉塵で反射率が3割増を仮定（<a href="#span-out-modelling-0D-heat">albedo</a>=0.3⇒0.39）：<a href="#span-out-UI-graphing-testcase">地上の平均気温</a>が約8℃低下
-<br>
-　自転軸への影響：size比依存で小さい（地球直径に対するsize比≒0.001）
-<br>
-・約77万年前の<a href="#span-out-period">地磁気逆転</a>：直近の反転
-<br>
-・7~7.5万年前のToba事変：火山の超巨大噴火⇒火山灰を生成⇒地球規模の<a href="#span-out-climate">寒冷化</a>（約6000年間継続）
-<br>
-　火山灰で反射率が2割増を仮定（<a href="#span-out-modelling-0D-heat">albedo</a>=0.3⇒0.36）：<a href="#span-out-UI-graphing-testcase">地上の平均気温</a>が5℃強低下
-<br>
-・1~2万年前の移行期（最終氷期⇒完新世）：<a href="#span-out-climate">温暖化</a>⇒海面上昇と陸地減少
-<br>
-・1~1.3万年前のYounger Dryas期（欧州一帯）：<a href="#span-out-climate">温暖化</a>⇒急速に<a href="#span-out-climate">寒冷化</a>（逆戻り）⇒農耕の開始
-<br>
-　逆戻りの原因：熱塩循環の弱化||<a href="#span-out-meteorite">彗星衝突</a>の可能性
-<br>
-・約4500年前の古代Egypt：Gizaの3大<a href="#span-out-pyramid">pyramid</a>を建造
-<br>
-　<a href="#span-out-stress">「重量拡散の間」最上層</a>の壁面に残る複数のhieroglyph：「khufu」の「17回目の牛を数える年」
-<br>
-　同上のcartouche（王名枠）：「raa(h)ta」説あり（約1.2万年前の獅子座の時代）
-<br>
-　大Sphinx前足発掘の碑文の最後：「khaf」（Khafra王の時代が定説）
-    </td>
-  </tr>
-  <tr>
-    <th>
-<a href="#span-index">
-目次
-</a>
-<br>
-起源
-<br>
-の解釈
-    </th>
-    <td>
-<span id="span-out-origin"></span>
-起源の解釈（西暦2000年基準）について記述する
-<br>
-<br>
-地球の起源の解釈の一例を列挙する
-<br>
-・宇宙創成：約138億年前（big-bang仮説）
-<br>
-・銀河誕生：約132億年前
-<br>
-・地球誕生：約46億年前（giant-impact仮説）
-<br>
-<br>
-人類の起源の解釈の一例を列挙する
-<br>
-・Gorillaと分岐：約1000万年前
-<br>
-・Panと分岐：500~800万年前
-<br>
-・現生人類誕生：25~40万年前
-    </td>
-  </tr>
-  <tr>
-    <th>
-<a href="#span-index">
-目次
-</a>
-<br>
-DNA
-<br>
-の解釈
-    </th>
-    <td>
-<span id="span-out-DNA"></span>
-DNAの解釈について記述する
-<br>
-<br>
-<a href="#span-out-origin">現生人類</a>のDNAの解釈の一例を示す
-<br>
-・DNA：約30億塩基対（目安の基準値N）
-<br>
-・塩基配列：個人差は0.1%程度　⇔　近縁の<a href="#span-out-origin">Pan</a>との差異は1.6%程度
-<br>
-・突然変異の長期平均rate：4.5±1.5[塩基対/年]（<a href="#span-out-origin">Pan</a>を含めて重複なしの均等配分p=0.5を仮定）
-<br>
-calc_rate(ts,te,percent,p)=&lt;[N=30e8,t=(te,ts),r=(percent/100)*p,rate=N*(r/t),=&lt;rate]=&gt;;
-<br>
-calc_rate(25e4,40e4,0.1,0.5)=&gt; -> (3.75,6)
-<br>
-calc_rate(50e5,80e5,1.6,0.5)=&gt; -> (3,4.8)
-<br>
-・細胞周期：G1(checkpoint)⇒S⇒G2(checkpoint)⇒M期
-<br>
-　・M期：細胞分裂
-<br>
-　　・細胞分裂の回数上限：50回
-<br>
-　　・年平均の細胞分裂回数[回/年]：M
-<br>
-　・S期：DNA複製
-<br>
-　　・突然変異の発生確率P：1e-9（校正修復込みの不正対合に由来）
-<br>
-calc_P(rate,M)=&lt;[N=30e8,P=rate/(N*M),=&lt;P]=&gt;;
-<br>
-calc_P(3,1)=&gt; -> 1e-9
-<br>
-calc_P(4.5,1)=&gt; -> 1.5e-9
-<br>
-calc_P(6,1)=&gt; -> 2e-9
     </td>
   </tr>
   <tr>
