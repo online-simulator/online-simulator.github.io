@@ -28062,7 +28062,23 @@ analogyの解釈について記述する
 <br>
 ・円　⇔　正n角形（n個の二等辺三角形の集合）
 <br>
-　円周×半径÷2　⇔　外周×内接円半径÷2（自然数n&ge;3の<a href="#span-out-limit">極限</a>で外周≒円周）
+　円周×半径÷2　⇔　外周×内接円半径÷2
+<br>
+・正n角形の補足：自然数n&ge;3の<a href="#span-out-limit">極限</a>で外周≒円周（半径基準r=1で2piに漸近）
+<br>
+calc_len_incircle(n,r)=&lt;[t=(2pi/n)/2,x=r*tan(t),len=2x*n,=&lt;len]=&gt;;
+<br>
+calc_len_incircle(10,1) -> 6.498393924658126
+<br>
+calc_len_incircle(20,1) -> 6.335377612981451
+<br>
+calc_len_incircle(30,1) -> 6.306254115940588
+<br>
+calc_len_incircle(300,1) -> 6.2834149933783126
+<br>
+calc_len_incircle(3000,1) -> 6.283187603941828
+<br>
+2pi -> 6.283185307179586
 <br>
 <br>
 並進運動　⇔　回転運動
