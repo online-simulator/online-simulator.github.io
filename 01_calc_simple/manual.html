@@ -2988,6 +2988,188 @@ substitution方式の変換の一例を列挙する
 ・<a href="../74_base64/index.html">Base64変換Checker</a>
     </td>
   </tr>
+  <tr>
+    <th>
+<a href="#span-index">
+目次
+</a>
+<br>
+天文
+<br>
+の解釈
+    </th>
+    <td>
+<span id="span-out-astronomy"></span>
+天文の解釈について記述する
+<br>
+<br>
+天文の解釈の一例を列挙する
+<br>
+・天文道：地球と系全体の<a href="#span-out-interaction">相互作用</a>の<a href="#span-out-period">周期</a>で誘発しやすい大小の事象を統計して共有（<a href="#span-out-FN-gcd">最小公倍数</a>を重視）
+<br>
+　・占星術：惑星直列等、経験||観測上の位置関係を重視（古代からの伝統的な分類）
+<br>
+<br>
+天文現象の解釈の一例を列挙する
+<br>
+・gamma線burst：宇宙最大のenergy解放現象
+<br>
+・<a href="#span-out-flare">太陽flare</a>：太陽系最大のenergy解放現象
+<br>
+・磁気嵐：太陽風のplasmaと<a href="#span-out-atmosphere">磁気圏</a>の<a href="#span-out-interaction">相互作用</a>で生じる地磁気のじょう乱
+<br>
+・aurora現象：磁気嵐による<a href="#span-out-atmosphere">電離層</a>大気の<a href="#span-out-light">発光</a>現象
+<br>
+・彗星~小惑星：天体とのnear-missで<a href="#span-out-orbit">摂動</a>が発生
+<br>
+・<a href="#span-out-meteorite">隕石</a>（小惑星の破片）：超音速で<a href="#span-out-atmosphere">大気圏</a>に突入し、<a href="#span-out-wave">衝撃波</a>を伴い地上に衝突する岩石||金属
+<br>
+・流星（小惑星の塵）：<a href="#span-out-atmosphere">大気圏</a>で燃え尽きるsizeの小石（温度&gt;&gt;1000℃）
+    </td>
+  </tr>
+  <tr>
+    <th>
+<a href="#span-index">
+目次
+</a>
+<br>
+太陽flare
+<br>
+の解釈
+    </th>
+    <td>
+<span id="span-out-flare"></span>
+太陽flareの解釈について記述する
+<br>
+<br>
+太陽flareの各放出物の最速到達時間の目安を列挙する
+<br>
+・電磁波：8分19秒後
+<br>
+・高energy粒子（主に陽子）：約30分後
+<br>
+・CMEのplasma：約14時間後
+<br>
+<br>
+太陽flareによる影響の解釈の一例を列挙する
+<br>
+・<a href="#span-out-atmosphere">電離層</a>の密度変化（突発の密度増加による到達高度不足で打ち上げ失敗の事例あり）
+<br>
+・通信||人工衛星||電力系統の障害（機器故障を含む）
+<br>
+・GPSの精度悪化（位置情報の<a href="#span-out-error">誤差</a>が拡大）
+<br>
+・以上の2次被害
+    </td>
+  </tr>
+  <tr>
+    <th>
+<a href="#span-index">
+目次
+</a>
+<br>
+隕石
+<br>
+の解釈
+    </th>
+    <td>
+<span id="span-out-meteorite"></span>
+隕石の解釈について記述する
+<br>
+<br>
+隕石の衝突energyをmagnitudeに換算する一例を示す
+<br>
+・仮定：energy損失なしの直撃（<a href="#span-out-atmosphere">大気圏</a>での減速と破裂なし）
+<br>
+・実際：圧縮空気の熱変換と大気摩擦で0~1桁減速と破裂cycleあり（<a href="#span-out-atmosphere">大気圏</a>sizeで減速なし）
+<br>
+・結論：直径10kmの隕石直撃で壊滅級のmagnitude≒12（<a href="#span-out-history">約6600万年前に1度</a>の頻度）
+<br>
+・直径d[m]
+<br>
+・速さvel=10e3[m/s]
+<br>
+・密度rho=2e3[kg/m^3]
+<br>
+・球の体積[m^3]
+<br>
+vol=(4pi/3)*(d/2)**3;
+<br>
+・運動energy[J]
+<br>
+Et=0.5*rho*vol*vel**2;
+<br>
+・energy換算のmagnitude
+<br>
+magnitude=(log10(Et)-4.8)/1.5;
+<br>
+・直径を変えてmagnitudeを列挙する
+<br>
+calc_magnitude(d)=&lt;[
+<br>
+($vel,$rho)=(10e3,2e3),
+<br>
+vol=(4pi/3)*(d/2)**3,Et=0.5*rho*vol*vel**2,magnitude=(log10(Et)-4.8)/1.5,
+<br>
+=&lt;round(magnitude*10)/10
+<br>
+]=&gt;;
+<br>
+d=1e1; calc_magnitude(d)=&gt; -> 5.9
+<br>
+d=1e2; calc_magnitude(d)=&gt; -> 7.9
+<br>
+d=1e3; calc_magnitude(d)=&gt; -> 9.9
+<br>
+d=1e4; calc_magnitude(d)=&gt; -> 11.9
+<br>
+d=1e5; calc_magnitude(d)=&gt; -> 13.9
+<br>
+d=1e6; calc_magnitude(d)=&gt; -> 15.9
+<br>
+d=1e7; calc_magnitude(d)=&gt; -> 17.9
+    </td>
+  </tr>
+  <tr>
+    <th>
+<a href="#span-index">
+目次
+</a>
+<br>
+軌道計算
+<br>
+の解釈
+    </th>
+    <td>
+<span id="span-out-orbit"></span>
+軌道計算の解釈について記述する
+<br>
+<br>
+軌道計算の解釈の一例を示す
+<br>
+・本来、地球の衛星である月の運動方程式を連成する
+<br>
+・また、別の天体の接近は地球の<a href="#span-out-ODE3">公転軌道</a>||地軸に多少の摂動||章動を与える
+<br>
+・さらに、潮汐力で地球全体が変形するため、地殻||海面が追加の影響を受ける
+<br>
+潮汐力∝天体の質量／接近距離の3乗
+<br>
+・月の場合、潮汐力の影響が大きく、楕円体の長軸を地球に向けて潮汐固定（自転と公転が同期する現象）する
+<br>
+・より厳密には<a href="#span-out-gravity">重力</a>場と電磁場を含む系全体の<a href="#span-out-interaction">相互作用</a>によって摂動||章動が生じる
+<br>
+・例えば、太陽系が通過する宇宙空間のplasma等、大域的なenergy密度の変化が影響する
+<br>
+・よって正確な影響を予測する場合、太陽系内外で地球に接近する全天体の運動方程式を連成する
+<br>
+・一方、系全体の安定軌道を再現する初期値を確定困難のため、ある程度、独立して主要項のみ連成する
+<br>
+・また、滑らかな楕円軌道を想定して多項式近似の時間積分法（<a href="#span-out-FNmh-OX">ODE高階行列関数</a>）を適用する
+<br>
+・さらに、一般相対性理論の影響は<a href="#span-out-error-numerical">数値誤差</a>の範囲内と仮定する
+    </td>
+  </tr>
 </tbody>
 </table>
 </div>
@@ -28722,188 +28904,6 @@ e_p・e_r=0
 e_p・e_t=0
 <br>
 e_p・e_p=1
-    </td>
-  </tr>
-  <tr>
-    <th>
-<a href="#span-index">
-目次
-</a>
-<br>
-天文
-<br>
-の解釈
-    </th>
-    <td>
-<span id="span-out-astronomy"></span>
-天文の解釈について記述する
-<br>
-<br>
-天文の解釈の一例を列挙する
-<br>
-・天文道：地球と系全体の<a href="#span-out-interaction">相互作用</a>の<a href="#span-out-period">周期</a>で誘発しやすい大小の事象を統計して共有（<a href="#span-out-FN-gcd">最小公倍数</a>を重視）
-<br>
-　・占星術：惑星直列等、経験||観測上の位置関係を重視（古代からの伝統的な分類）
-<br>
-<br>
-天文現象の解釈の一例を列挙する
-<br>
-・gamma線burst：宇宙最大のenergy解放現象
-<br>
-・<a href="#span-out-flare">太陽flare</a>：太陽系最大のenergy解放現象
-<br>
-・磁気嵐：太陽風のplasmaと<a href="#span-out-atmosphere">磁気圏</a>の<a href="#span-out-interaction">相互作用</a>で生じる地磁気のじょう乱
-<br>
-・aurora現象：磁気嵐による<a href="#span-out-atmosphere">電離層</a>大気の<a href="#span-out-light">発光</a>現象
-<br>
-・彗星~小惑星：天体とのnear-missで<a href="#span-out-orbit">摂動</a>が発生
-<br>
-・<a href="#span-out-meteorite">隕石</a>（小惑星の破片）：超音速で<a href="#span-out-atmosphere">大気圏</a>に突入し、<a href="#span-out-wave">衝撃波</a>を伴い地上に衝突する岩石||金属
-<br>
-・流星（小惑星の塵）：<a href="#span-out-atmosphere">大気圏</a>で燃え尽きるsizeの小石（温度&gt;&gt;1000℃）
-    </td>
-  </tr>
-  <tr>
-    <th>
-<a href="#span-index">
-目次
-</a>
-<br>
-太陽flare
-<br>
-の解釈
-    </th>
-    <td>
-<span id="span-out-flare"></span>
-太陽flareの解釈について記述する
-<br>
-<br>
-太陽flareの各放出物の最速到達時間の目安を列挙する
-<br>
-・電磁波：8分19秒後
-<br>
-・高energy粒子（主に陽子）：約30分後
-<br>
-・CMEのplasma：約14時間後
-<br>
-<br>
-太陽flareによる影響の解釈の一例を列挙する
-<br>
-・<a href="#span-out-atmosphere">電離層</a>の密度変化（突発の密度増加による到達高度不足で打ち上げ失敗の事例あり）
-<br>
-・通信||人工衛星||電力系統の障害（機器故障を含む）
-<br>
-・GPSの精度悪化（位置情報の<a href="#span-out-error">誤差</a>が拡大）
-<br>
-・以上の2次被害
-    </td>
-  </tr>
-  <tr>
-    <th>
-<a href="#span-index">
-目次
-</a>
-<br>
-隕石
-<br>
-の解釈
-    </th>
-    <td>
-<span id="span-out-meteorite"></span>
-隕石の解釈について記述する
-<br>
-<br>
-隕石の衝突energyをmagnitudeに換算する一例を示す
-<br>
-・仮定：energy損失なしの直撃（<a href="#span-out-atmosphere">大気圏</a>での減速と破裂なし）
-<br>
-・実際：圧縮空気の熱変換と大気摩擦で0~1桁減速と破裂cycleあり（<a href="#span-out-atmosphere">大気圏</a>sizeで減速なし）
-<br>
-・結論：直径10kmの隕石直撃で壊滅級のmagnitude≒12（<a href="#span-out-history">約6600万年前に1度</a>の頻度）
-<br>
-・直径d[m]
-<br>
-・速さvel=10e3[m/s]
-<br>
-・密度rho=2e3[kg/m^3]
-<br>
-・球の体積[m^3]
-<br>
-vol=(4pi/3)*(d/2)**3;
-<br>
-・運動energy[J]
-<br>
-Et=0.5*rho*vol*vel**2;
-<br>
-・energy換算のmagnitude
-<br>
-magnitude=(log10(Et)-4.8)/1.5;
-<br>
-・直径を変えてmagnitudeを列挙する
-<br>
-calc_magnitude(d)=&lt;[
-<br>
-($vel,$rho)=(10e3,2e3),
-<br>
-vol=(4pi/3)*(d/2)**3,Et=0.5*rho*vol*vel**2,magnitude=(log10(Et)-4.8)/1.5,
-<br>
-=&lt;round(magnitude*10)/10
-<br>
-]=&gt;;
-<br>
-d=1e1; calc_magnitude(d)=&gt; -> 5.9
-<br>
-d=1e2; calc_magnitude(d)=&gt; -> 7.9
-<br>
-d=1e3; calc_magnitude(d)=&gt; -> 9.9
-<br>
-d=1e4; calc_magnitude(d)=&gt; -> 11.9
-<br>
-d=1e5; calc_magnitude(d)=&gt; -> 13.9
-<br>
-d=1e6; calc_magnitude(d)=&gt; -> 15.9
-<br>
-d=1e7; calc_magnitude(d)=&gt; -> 17.9
-    </td>
-  </tr>
-  <tr>
-    <th>
-<a href="#span-index">
-目次
-</a>
-<br>
-軌道計算
-<br>
-の解釈
-    </th>
-    <td>
-<span id="span-out-orbit"></span>
-軌道計算の解釈について記述する
-<br>
-<br>
-軌道計算の解釈の一例を示す
-<br>
-・本来、地球の衛星である月の運動方程式を連成する
-<br>
-・また、別の天体の接近は地球の<a href="#span-out-ODE3">公転軌道</a>||地軸に多少の摂動||章動を与える
-<br>
-・さらに、潮汐力で地球全体が変形するため、地殻||海面が追加の影響を受ける
-<br>
-潮汐力∝天体の質量／接近距離の3乗
-<br>
-・月の場合、潮汐力の影響が大きく、楕円体の長軸を地球に向けて潮汐固定（自転と公転が同期する現象）する
-<br>
-・より厳密には<a href="#span-out-gravity">重力</a>場と電磁場を含む系全体の<a href="#span-out-interaction">相互作用</a>によって摂動||章動が生じる
-<br>
-・例えば、太陽系が通過する宇宙空間のplasma等、大域的なenergy密度の変化が影響する
-<br>
-・よって正確な影響を予測する場合、太陽系内外で地球に接近する全天体の運動方程式を連成する
-<br>
-・一方、系全体の安定軌道を再現する初期値を確定困難のため、ある程度、独立して主要項のみ連成する
-<br>
-・また、滑らかな楕円軌道を想定して多項式近似の時間積分法（<a href="#span-out-FNmh-OX">ODE高階行列関数</a>）を適用する
-<br>
-・さらに、一般相対性理論の影響は<a href="#span-out-error-numerical">数値誤差</a>の範囲内と仮定する
     </td>
   </tr>
   <tr>
