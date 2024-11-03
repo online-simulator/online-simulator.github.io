@@ -29433,17 +29433,17 @@ DNAの解釈について記述する
 <br>
 <a href="#span-out-origin">現生人類</a>のDNAの解釈の一例を示す
 <br>
-・DNA：約30億塩基対（目安の基準値）
+・DNA：約30億塩基対（目安の基準値N）
 <br>
 ・塩基配列：個人差は0.1%程度　⇔　近縁の<a href="#span-out-origin">Pan</a>との差異は1.6%程度
 <br>
-・突然変異の長期平均rate：4.5±1.5[塩基対/年]（<a href="#span-out-origin">Pan</a>を含めて重複なしを仮定）
+・突然変異の長期平均rate：4.5±1.5[塩基対/年]（<a href="#span-out-origin">Pan</a>を含めて重複なしの均等配分p=0.5を仮定）
 <br>
-calc_rate(ts,te,p)=&lt;[N=30e8,t=(te,ts),r=(p/2)/100,rate=N*(r/t),=&lt;rate]=&gt;;
+calc_rate(ts,te,percent,p)=&lt;[N=30e8,t=(te,ts),r=(percent/100)*p,rate=N*(r/t),=&lt;rate]=&gt;;
 <br>
-calc_rate(25e4,40e4,0.1)=&gt; -> (3.75,6)
+calc_rate(25e4,40e4,0.1,0.5)=&gt; -> (3.75,6)
 <br>
-calc_rate(50e5,80e5,1.6)=&gt; -> (3,4.8)
+calc_rate(50e5,80e5,1.6,0.5)=&gt; -> (3,4.8)
 <br>
 ・細胞周期：G1(checkpoint)⇒S⇒G2(checkpoint)⇒M期
 <br>
