@@ -266,6 +266,8 @@ test case
 <br>
 　　・<a href="#span-app-period-motion">運動周期の解釈</a>
 <br>
+　　　・<a href="#span-app-period-motion-synodic">会合周期の解釈</a>
+<br>
 　　・<a href="#span-app-period-activity">活動周期の解釈</a>
 <br>
 　・<a href="#span-app-flare">太陽flareの解釈</a>
@@ -3120,7 +3122,7 @@ substitution方式の変換の一例を列挙する
 <br>
 ・天文道：地球と系全体の<a href="#span-app-interaction">相互作用</a>の<a href="#span-app-period-activity">周期</a>で誘発しやすい大小の事象を統計して共有（<a href="#span-out-FN-gcd">最小公倍数</a>を重視）
 <br>
-　・占星術：<a href="#span-app-period-motion">惑星直列</a>等、経験||観測上の位置関係を重視（古代からの伝統的な分類）
+　・占星術：<a href="#span-app-period-motion-synodic">惑星直列</a>等、経験||観測上の位置関係を重視（古代からの伝統的な分類）
 <br>
 <br>
 天文現象の解釈の一例を列挙する
@@ -3236,6 +3238,86 @@ T=1611; round(T/{1,2,4,5,7,8,9,11,12,13,16,20,22,25,28,32,33,42,60,72,99,108,360
 T=360; round(T/{1,2,4,5,7,8,9,11,12,13,16,20,22,25,28,32,33,42,60,72,99,108,360}) ->
 <br>
 (360:180:90:72:51:45:40:33:30:28:23:18:16:14:13:11:11:9:6:5:4:3:1)
+    </td>
+  </tr>
+  <tr>
+    <th>
+<a href="#span-index">
+目次
+</a>
+<br>
+会合周期
+<br>
+の解釈
+    </th>
+    <td>
+<span id="span-app-period-motion-synodic"></span>
+会合周期の解釈（地球年基準）について記述する
+<br>
+<br>
+惑星の<a href="#span-app-period-motion">公転周期</a>から地球との会合周期[日]を丸めて列挙する
+<br>
+arr_T={0.241,0.615,1.881,11.87,29.45,84.07,164.9};
+<br>
+m=1;
+<br>
+dec=10**m;
+<br>
+days=365.2425;
+<br>
+calc_synodic_period(T0,T1)=&lt;1/abs(1/T0-1/T1);
+<br>
+calc_days(x)=&lt;round(x*days*dec)/dec;
+<br>
+calc_years(x)=&lt;lcm(x*dec)/(days*dec);
+<br>
+arr_Ts0=calc_synodic_period(1,=&lt;arr_T);
+<br>
+arr_days=calc_days(=&lt;arr_Ts0);
+<br>
+arr_dayso=arr_days[2][0][5][1];
+<br>
+arr_daysi=arr_days[0][0][2][1];
+<br>
+years=calc_years(=&lt;arr_days.);
+<br>
+yearso=calc_years(=&lt;arr_dayso.);
+<br>
+yearsi=calc_years(=&lt;arr_daysi.);
+<br>
+arr_days ->
+<br>
+(
+<br>
+116:
+<br>
+583.4:
+<br>
+779.8:
+<br>
+398.8:
+<br>
+378.1:
+<br>
+369.6:
+<br>
+367.5
+<br>
+)
+<br>
+・惑星直列の周期[年]
+<br>
+years -> 3302702547335783400
+<br>
+・外惑星直列の周期[年]
+<br>
+yearso -> 371831120478.36707
+<br>
+・内惑星直列の周期[年]
+<br>
+yearsi -> 926.4310697687152
+<br>
+・以上、<a href="#span-out-FN-gcd">最小公倍数</a>の単純計算（有効数字の桁数に依存）
     </td>
   </tr>
   <tr>
