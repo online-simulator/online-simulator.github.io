@@ -1803,6 +1803,8 @@ ja.m.wikipedia.org/wiki/項目を列挙する
 <br>
 ・公転周期
 <br>
+・惑星直列
+<br>
 ・年
 <br>
 ・地球史年表
@@ -3275,15 +3277,15 @@ arr_Ts0=calc_synodic_period(1,=&lt;arr_T);
 <br>
 arr_days=calc_days(=&lt;arr_Ts0);
 <br>
-arr_dayso=arr_days[2][0][5][1];
+<span class="condition">arr_dayso</span>=arr_days[2][0][5][1];
 <br>
-arr_daysi=arr_days[0][0][2][1];
+<span class="selection">arr_daysi</span>=arr_days[0][0][2][1];
 <br>
 years=calc_years(=&lt;arr_days.);
 <br>
-yearso=calc_years(=&lt;arr_dayso.);
+<span class="condition">yearso</span>=calc_years(=&lt;arr_dayso.);
 <br>
-yearsi=calc_years(=&lt;arr_daysi.);
+<span class="selection">yearsi</span>=calc_years(=&lt;arr_daysi.);
 <br>
 arr_days ->
 <br>
@@ -3305,19 +3307,40 @@ arr_days ->
 <br>
 )
 <br>
-・惑星直列の周期[年]
 <br>
-years -> <del>3302702547335783400</del>桁数不足（m=0のみ有効）
+惑星直列の解釈の一例を示す
 <br>
-・<span class="condition">外惑星</span>直列の周期[年]
+・惑星直列：見かけ上、惑星が太陽に向かって一直線に並ぶ<a href="#span-app-astronomy">天文</a>事象（程度のばらつきあり）
 <br>
-yearso -> 371831120478.36707
+・小数点以下の桁数m=0の場合
 <br>
-・<span class="selection">内惑星</span>直列の周期[年]
+　・地球との会合周期[日]
 <br>
-yearsi -> 926.4310697687152
+arr_days. -> (116,583,780,399,378,370,367)
 <br>
-・以上、<a href="#span-out-FN-gcd">最小公倍数</a>の単純計算（有効数字の桁数に依存）
+　・上から惑星、<span class="condition">外惑星</span>、<span class="selection">内惑星</span>直列の周期[年]
+<br>
+years -> 586869834835.7051
+<br>
+<span class="condition">yearso</span> -> <span class="condition">34711648.12419146</span>
+<br>
+<span class="selection">yearsi</span> -> <span class="selection">185.1591750686188</span>
+<br>
+・小数点以下の桁数m=1の場合
+<br>
+　・地球との会合周期[日]
+<br>
+arr_days. -> (116,583.4,779.8,398.8,378.1,369.6,367.5)
+<br>
+　・上から惑星、<span class="condition">外惑星</span>、<span class="selection">内惑星</span>直列の周期[年]
+<br>
+years -> <del>3302702547335783400</del>桁数不足
+<br>
+<span class="condition">yearso</span> -> <span class="condition">371831120478.36707</span>（≒<span class="condition">34711648</span>*10712）
+<br>
+<span class="selection">yearsi</span> -> <span class="selection">926.4310697687152</span>（≒<span class="selection">185</span>*5）
+<br>
+・以上、会合周期[日]の<a href="#span-out-FN-gcd">最小公倍数</a>の単純計算（有効数字の桁数に依存）
     </td>
   </tr>
   <tr>
