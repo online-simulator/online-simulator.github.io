@@ -172,11 +172,11 @@ test case
 <br>
 ・<span class="selection">heat1d</span>~-2.9B：<a href="#span-eqn-heat1d_evolution">heat1d_evolution</a>の実施例（<a href="#span-app-Dyson">地上の平均気温</a>||<a href="#span-app-history">全球凍結</a>の計算に使用）
 <br>
-　初期値の仮定：界面温度を現在基準値で固定（時間軸を移動の場合、不正確）
+　初期値の仮定：界面温度T0/T1を現在基準値で固定（時間軸を移動の場合、不正確）
 <br>
 ・orbit<span class="selection">-kdrm=0.36</span>：地球と月の<a href="#span-app-orbit">軌道計算</a>結果（月の<a href="#span-app-period-motion">歳差運動周期</a>に相対位置の初期値を適合）
 <br>
-　初期値の仮定：月の<a href="#span-app-period-motion">公転周期</a>を保存するため、周方向成分の力を消去（不確定性の背反を排除）
+　初期値の仮定：月の<a href="#span-out-ODE3">面積速度</a>vAmを保存のため、周方向成分一部の力を消去（不確定性の背反を排除）
 <br>
 ・<span class="selection">Brown</span>：2次元Brown運動の軌跡（最も単純な記述）
 <br>
