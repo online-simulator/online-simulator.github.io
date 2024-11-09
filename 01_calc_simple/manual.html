@@ -4141,9 +4141,15 @@ DNAの解釈について記述する
 <br>
 ・DNA：約30億塩基対（目安の基準値N）
 <br>
-・塩基配列：個人差は0.1%程度　⇔　近縁の<a href="#span-app-origin">Pan</a>との差異は1.6%程度
+・塩基配列
 <br>
-・突然変異の長期平均rate[塩基対/年]：4.5±1.5（<a href="#span-app-origin">Pan</a>を含めて重複なしの均等配分p=0.5を仮定）
+　個人差：0.1%程度
+<br>
+　<a href="#span-app-origin">Pan</a>との差異：1.6%程度
+<br>
+　<a href="#span-app-origin">Gorilla</a>との差異：2.3%程度
+<br>
+・突然変異の長期平均rate[塩基対/年]：4.5±1.5（<a href="#span-app-origin">近縁種</a>を含めて重複なしの均等配分p=0.5を仮定）
 <br>
 calc_rate(ts,te,percent,p)=&lt;[N=30e8,t=(te,ts),r=(percent/100)*p,rate=N*(r/t),=&lt;rate]=&gt;;
 <br>
@@ -4151,17 +4157,19 @@ calc_rate(25e4,40e4,0.1,0.5) -> (3.75,6)
 <br>
 calc_rate(50e5,80e5,1.6,0.5) -> (3,4.8)
 <br>
+calc_rate(100e5,100e5,2.3,0.5) -> (3.4499999999999997,3.4499999999999997)
+<br>
 ・細胞周期：G1(checkpoint)⇒S⇒G2(checkpoint)⇒M期
 <br>
-　・M期：細胞分裂
+　M期：細胞分裂
 <br>
-　　・細胞分裂の回数上限：50回
+　　細胞分裂の回数上限：50回
 <br>
-　　・年平均の細胞分裂回数[回/年]：M
+　　年平均の細胞分裂回数[回/年]：M
 <br>
-　・S期：DNA複製
+　S期：DNA複製
 <br>
-　　・突然変異の発生確率P：1e-9（校正修復込みの不正対合に由来）
+　　突然変異の発生確率P：1e-9（長期平均rate換算）
 <br>
 calc_P(rate,M)=&lt;[N=30e8,P=rate/(N*M),=&lt;P]=&gt;;
 <br>
