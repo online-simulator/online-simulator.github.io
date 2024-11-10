@@ -280,11 +280,15 @@ test case
 <br>
 　・<a href="#span-app-orbit">軌道計算の解釈</a>
 <br>
-　・<a href="#span-app-unknowns">仮説上の天体の解釈</a>
+　・<a href="#span-app-object">天体の解釈</a>
 <br>
-　　・<a href="#span-app-earth">反地球の解釈</a>
+　　・<a href="#span-app-knowns">既知の天体の解釈</a>
 <br>
-　　・<a href="#span-app-Dyson">Dyson球の解釈</a>
+　　・<a href="#span-app-unknowns">仮説上の天体の解釈</a>
+<br>
+　　　・<a href="#span-app-earth">反地球の解釈</a>
+<br>
+　　　・<a href="#span-app-Dyson">Dyson球の解釈</a>
 <br>
 　・<a href="#span-app-climate">気候変動の解釈</a>
 <br>
@@ -1729,6 +1733,8 @@ ja.m.wikipedia.org/wiki/項目を列挙する
 <br>
 ・スイングバイ
 <br>
+・オウムアムア
+<br>
 ・長楕円軌道
 <br>
 ・反地球
@@ -2335,7 +2341,7 @@ gravityの解釈について記述する
 <br>
 ・媒介粒子を検出困難のため、重力子のみ未発見（重力子を操作||遮断する手段なし）
 <br>
-・天体間に働く力は<a href="#span-app-interaction">電磁力</a>より重力が支配的（距離に依存）
+・<a href="#span-app-object">天体</a>間に働く力は<a href="#span-app-interaction">電磁力</a>より重力が支配的（距離に依存）
 <br>
 <br>
 実施例を列挙する
@@ -3151,7 +3157,7 @@ substitution方式の変換の一例を列挙する
 <br>
 ・aurora現象：磁気嵐による<a href="#span-app-atmosphere">電離層</a>大気の<a href="#span-app-light">発光</a>現象
 <br>
-・彗星~小惑星：天体とのnear-missで<a href="#span-app-orbit">摂動</a>が発生
+・彗星~小惑星：<a href="#span-app-object">天体</a>とのnear-missで<a href="#span-app-orbit">摂動</a>が発生
 <br>
 ・<a href="#span-app-meteorite">隕石</a>（小惑星の破片）：超音速で<a href="#span-app-atmosphere">大気圏</a>に突入し、<a href="#span-app-wave">衝撃波</a>を伴い地上に衝突する岩石||金属
 <br>
@@ -3240,7 +3246,7 @@ substitution方式の変換の一例を列挙する
 <br>
 　・月自転軸の歳差運動：約8.85年（近地点移動が1周して回帰する周期）
 <br>
-・公転周期：公転運動の周期（天体が恒星||惑星を1周して回帰する周期）
+・公転周期：公転運動の周期（<a href="#span-app-object">天体</a>が恒星||惑星を1周して回帰する周期）
 <br>
 ・<a href="#span-app-period-motion-synodic">会合周期</a>：惑星が地球と太陽の直線上に並ぶ周期
 <br>
@@ -3509,11 +3515,11 @@ d=1e7; calc_magnitude(d) -> 17.9
 <br>
 ・本来、地球の衛星である月の運動方程式を連成する
 <br>
-・また、<a href="#span-app-unknowns">別の天体</a>の接近は地球の<a href="#span-out-ODE3">公転軌道</a>||地軸に多少の摂動||章動を与える
+・また、別の<a href="#span-app-object">天体</a>の接近は地球の<a href="#span-out-ODE3">公転軌道</a>||地軸に多少の摂動||章動を与える
 <br>
 ・さらに、潮汐力で地球全体が変形するため、地殻||海面が追加の影響を受ける
 <br>
-潮汐力∝天体の質量／接近距離の3乗
+潮汐力∝<a href="#span-app-object">天体</a>の質量／接近距離の3乗
 <br>
 ・月の場合、潮汐力の影響が大きく、楕円体の長軸を地球に向けて潮汐固定（自転と公転が同期する現象）する
 <br>
@@ -3521,13 +3527,52 @@ d=1e7; calc_magnitude(d) -> 17.9
 <br>
 ・例えば、太陽系が通過する宇宙空間のplasma等、大域的なenergy密度の変化が影響する
 <br>
-・よって正確な影響を予測する場合、太陽系内外で地球に接近する全天体の運動方程式を連成する
+・よって正確な影響を予測する場合、太陽系内外で地球に接近する全<a href="#span-app-object">天体</a>の運動方程式を連成する
 <br>
 ・一方、系全体の安定軌道を再現する初期値を確定困難のため、ある程度、独立して主要項のみ連成する
 <br>
 ・また、滑らかな楕円軌道を想定して多項式近似の時間積分法（<a href="#span-out-FNmh-OX">ODE高階行列関数</a>）を適用する
 <br>
 ・さらに、一般相対性理論の影響は<a href="#span-out-error-numerical">数値誤差</a>の範囲内と仮定する
+    </td>
+  </tr>
+  <tr>
+    <th>
+<a href="#span-index">
+目次
+</a>
+<br>
+天体
+<br>
+の解釈
+    </th>
+    <td>
+<span id="span-app-object"></span>
+天体の解釈を列挙する
+<br>
+・<a href="#span-app-knowns">既知の天体の解釈</a>
+<br>
+・<a href="#span-app-unknowns">仮説上の天体の解釈</a>
+    </td>
+  </tr>
+  <tr>
+    <th>
+<a href="#span-index">
+目次
+</a>
+<br>
+既知の天体
+<br>
+の解釈
+    </th>
+    <td>
+<span id="span-app-knowns"></span>
+既知の天体の解釈について記述する
+<br>
+<br>
+既知の天体の解釈の一例を列挙する
+<br>
+・ʻOumuamua：太陽系外から飛来の観測史上初の恒星間天体（<a href="#span-app-unknowns">swing-by</a>の効果不明）
     </td>
   </tr>
   <tr>
@@ -4002,7 +4047,7 @@ jetの解釈について記述する
 <br>
 jetの解釈の一例を列挙する
 <br>
-・宇宙jet：重力天体の単極||双極の軸方向に噴出するplasma等のjet（線のように映る）
+・宇宙jet：<a href="#span-app-gravity">重力</a><a href="#span-app-object">天体</a>の単極||双極の軸方向に噴出するplasma等のjet（線のように映る）
 <br>
 ・jet気流（偏西風）：<a href="#span-app-atmosphere">対流圏</a>上層にあり、<a href="#span-app-plane">飛行機</a>||台風の進路に影響（軽い程、蛇行して流されやすい）
 <br>
@@ -35645,7 +35690,7 @@ m3_s2=G*(M+m)/(4*pi^2)=3361638785675266600[m^3/s^2]
 <br>
 面積速度vA=n*a*b/2=A/T=2227550113662627.2[m^2/s]
 <br>
-・各天体の影響を記述する定数（太陽のみを想定）
+・各<a href="#span-app-object">天体</a>の影響を記述する定数（太陽のみを想定）
 <br>
 定数alpha=G*M
 <br>
