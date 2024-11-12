@@ -160,7 +160,9 @@ test case
 <br>
 ・<span class="selection">circuit</span>：<a href="#span-app-369">「369の法則」</a>の実施例（三相交流）
 <br>
-・<span class="selection">switching</span>：<a href="#span-out-non-linear1">電気回路</a>の実施例（昇圧用のswitching回路）
+・<span class="selection">switching</span>~-load：<a href="#span-out-non-linear1">電気回路</a>の実施例（昇圧用のswitching回路）
+<br>
+　<a href="#span-out-method-Newton">Newton法</a>の初期値：収束性改善のため、連立する方程式の列挙順序を調整
 <br>
 ・seriRLC||paraRLC<span class="selection">-reso</span>：<a href="#span-app-vibration">共振</a>の実施例（電波受信用の<a href="#span-app-vibration">共振</a>回路）
 <br>
@@ -36856,7 +36858,7 @@ x=x-mdx
 <br>
 　近似解の列vector{x}の各要素初期値：乱数の係数倍=範囲[-1,1)の<a href="#span-out-FN-rand">乱数</a>*retry回数倍
 <br>
-・現状、不連続性の高いswitchingを含む<a href="#span-out-non-linear1">電気回路計算</a>等、収束可否が初期値より連立する方程式の列挙順に依存
+・現状、不連続性の高いswitchingを含む<a href="#span-out-non-linear1">電気回路計算</a>等、収束可否が初期値より連立する方程式の列挙順序に依存
     </td>
   </tr>
   <tr>
