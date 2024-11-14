@@ -172,23 +172,7 @@ test case
 <br>
 ・<span class="clear">CO2</span>：<a href="#span-app-gas-CO2">二酸化炭素</a>と<a href="#span-app-history">地球史</a>の実施例（<a href="#span-app-history">Younger Dryas期</a>を基準に<a href="#span-app-period-activity">Milankovitch cycle</a>の変動を記述）
 <br>
-・<span class="clear">sea</span>：<a href="#span-app-climate">気候変動</a>の<a href="#span-app-sea">海面上昇</a>の実施例
-<br>
-　単純化の仮定：氷雪の融解量level1∝年平均の温度上昇量dTの積分値（n次変化の場合、n+1次関数）
-<br>
-　　残存量の制限：level1＜level1max
-<br>
-　[m]年stepの積分値sum_dTのfeedback項
-<br>
-　　<a href="#span-out-modelling">陽解法</a>：sum_dT[m+1]=(1-1/Tc)*sum_dT[m]+dT[m]
-<br>
-　　<a href="#span-out-modelling">陰解法</a>：sum_dT[m+1]=(sum_dT[m]+dT[m])/(1+1/Tc)
-<br>
-　時定数
-<br>
-　　通常mode：Tc=<a href="#span-app-sea">Order(100年)</a>
-<br>
-　　暴走mode：Tc→∞（緩和なし）
+・<span class="clear">sea</span>：<a href="#span-out-modelling-0D-sea-level">0D-sea-level simplified modelling</a>の実施例
 <br>
 　寄与度の予想：<a href="#span-app-sea">Order(100年)の時定数</a>で西暦2035年に融解量が熱膨張を逆転（徐々に顕現）
 <br>
@@ -880,6 +864,8 @@ test case
 　　・<a href="#span-out-modelling-0D-RC">0D-RC並列回路simplified modelling</a>
 <br>
 　　・<a href="#span-out-modelling-0D-diffusion">0D-diffusion simplified modelling</a>
+<br>
+　　・<a href="#span-out-modelling-0D-sea-level">0D-sea-level simplified modelling</a>
 <br>
 　　・<a href="#span-out-modelling-0D-cell">0D-cell simplified modelling</a>
 <br>
@@ -31756,6 +31742,8 @@ modellingの実施例を列挙する
 <br>
 ・<a href="#span-out-modelling-0D-diffusion">0D-diffusion simplified modelling</a>
 <br>
+・<a href="#span-out-modelling-0D-sea-level">0D-sea-level simplified modelling</a>
+<br>
 ・<a href="#span-out-modelling-0D-cell">0D-cell simplified modelling</a>
 <br>
 ・<a href="#span-out-modelling-0D-heat">0D-heat simplified modelling</a>
@@ -31777,7 +31765,7 @@ modelling
     </th>
     <td>
 <span id="span-out-modelling-0D-RC"></span>
-RC並列回路を無次元化する0D-RC並列回路のsimplified modellingについて記述する
+RC並列回路を漸化式で記述する0D-RC並列回路のsimplified modellingについて記述する
 <br>
 <br>
 1次遅れ系のRC並列回路要素（以降、RC-1次遅れ要素と省略する）のmodellingを一例に示す
@@ -31916,7 +31904,7 @@ modelling
     </th>
     <td>
 <span id="span-out-modelling-0D-diffusion"></span>
-1次元拡散方程式を無次元化する0D-diffusionのsimplified modellingについて記述する
+1次元拡散方程式を漸化式で記述する0D-diffusionのsimplified modellingについて記述する
 <br>
 <br>
 <span class="selection">porous電極</span><span class="jF">活物質内</span><span class="condition">ionの</span>拡散方程式のmodellingを一例に示す
@@ -32055,6 +32043,44 @@ V'=-<span class="selection">Ds_eff*</span>V/(dx^2<span class="selection">*es</sp
 目次
 </a>
 <br>
+0D-sea-level
+<br>
+simplified
+<br>
+modelling
+    </th>
+    <td>
+<span id="span-out-modelling-0D-sea-level"></span>
+<a href="#span-app-sea">海面上昇</a>を漸化式で記述する0D-sea-levelのsimplified modellingについて記述する
+<br>
+<br>
+simplifiedの仮定を列挙する
+<br>
+・時間刻み：1年
+<br>
+・相関：氷雪の融解量level1∝年平均の温度上昇量dTの積分値（n次変化の場合、n+1次関数）
+<br>
+・残存量の制限：level1&lt;level1max
+<br>
+・[m]年stepの積分値sum_dTの漸化式（feedback項を含む）
+<br>
+　陽解法：sum_dT[m+1]=(1-1/Tc)*sum_dT[m]+dT[m]
+<br>
+　陰解法：sum_dT[m+1]=(sum_dT[m]+dT[m])/(1+1/Tc)
+<br>
+・時定数
+<br>
+　通常mode：Tc=<a href="#span-app-sea">Order(100年)</a>
+<br>
+　暴走mode：Tc→∞（緩和なし）
+    </td>
+  </tr>
+  <tr>
+    <th>
+<a href="#span-index">
+目次
+</a>
+<br>
 0D-cell
 <br>
 simplified
@@ -32063,7 +32089,7 @@ modelling
     </th>
     <td>
 <span id="span-out-modelling-0D-cell"></span>
-電気化学cellを無次元化する0D-cellのsimplified modellingについて記述する
+電気化学cellを漸化式で記述する0D-cellのsimplified modellingについて記述する
 <br>
 <br>
 simplifiedの仮定を列挙する
@@ -32107,7 +32133,7 @@ modelling
     </th>
     <td>
 <span id="span-out-modelling-0D-heat"></span>
-熱収支を無次元化する0D-heatのsimplified modellingについて記述する
+熱収支を漸化式で記述する0D-heatのsimplified modellingについて記述する
 <br>
 <br>
 地球の<a href="#span-app-atmosphere">対流圏</a>と<a href="#span-app-atmosphere">成層圏</a>の熱収支のmodellingを一例に示す
