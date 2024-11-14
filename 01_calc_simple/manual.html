@@ -845,6 +845,10 @@ test case
 <br>
 　・<a href="#span-out-interpolation">補間法</a>
 <br>
+　　・<a href="#span-out-approximation-linear">線形近似</a>
+<br>
+　　・<a href="#span-out-interpolation-linear">線形補間</a>
+<br>
 　　・<a href="#span-out-interpolation-Lagrange">Lagrange補間</a>
 <br>
 　　・<a href="#span-out-interpolation-spline">spline補間</a>
@@ -2411,7 +2415,7 @@ gravityの解釈について記述する
 <br>
 波の特徴を列挙する
 <br>
-・重ね合わせの原理：線形な系の合成波で成立（非線形な系で振幅が小さい場合、線形近似）
+・重ね合わせの原理：線形な系の合成波で成立（非線形な系で振幅が小さい場合、<a href="#span-out-approximation-linear">線形近似</a>）
 <br>
 <br>
 実施例を列挙する
@@ -3736,7 +3740,7 @@ Dyson球の解釈の一例を示す
 <br>
 ・自然の長期変動に対して温暖化が急速に進行中のため、人為的な<a href="#span-app-gas">温室効果gas</a>の排出が主要因とされる
 <br>
-・とくに、<a href="#span-app-gas-CO2">大気中の二酸化炭素濃度</a>の増加と温暖化には強い相関が見られる（<a href="#span-out-modelling-0D-heat">大気の吸収率</a>増加）
+・とくに、<a href="#span-app-gas-CO2">大気中の二酸化炭素濃度</a>の増加と温暖化には<a href="#span-out-approximation-linear">強い相関</a>が見られる（<a href="#span-out-modelling-0D-heat">大気の吸収率</a>増加）
 <br>
 ・そのため、森林減少の影響も大きい（<a href="#span-app-gas-reference">「総排出量の内訳」</a>参照）
 <br>
@@ -3784,7 +3788,7 @@ Dyson球の解釈の一例を示す
 <br>
 　温室効果gasの濃度が増加（駆動力を仮定）
 <br>
-　⇒<a href="#span-out-modelling-0D-heat">大気の吸収率</a>が増加（正の相関）
+　⇒<a href="#span-out-modelling-0D-heat">大気の吸収率</a>が増加（<a href="#span-out-approximation-linear">正の相関</a>）
 <br>
 　⇒太陽から流入する放射と地表から流出する放射の吸収量が増加
 <br>
@@ -3822,9 +3826,9 @@ Dyson球の解釈の一例を示す
 <br>
 ・予想の目安
 <br>
-　直近の温度変化との相関：100ppmの濃度変化量　⇔　約1℃の温度変化量
+　直近の温度変化との<a href="#span-out-approximation-linear">相関</a>：100ppmの濃度変化量　⇔　約1℃の温度変化量
 <br>
-　　一意の相関の仮定：濃度小の線形領域
+　　一意の<a href="#span-out-approximation-linear">相関</a>の仮定：濃度小の<a href="#span-out-approximation-linear">線形領域</a>
 <br>
 　大気換算（全因子を含む）の<a href="#span-app-rule">経験則</a>の仮定：<a href="#span-out-modelling-0D-heat">大気の吸収率</a>係数=1-0.013*(<span class="clear">280</span>-ppm)/(<span class="clear">280</span>-<span class="jF">190</span>)
 <br>
@@ -4673,7 +4677,7 @@ s(H) -> 1197233.3333333337+O(2e+0)
 <br>
 底面の垂直応力：F(H)/S(H) -> 1197233.3333333337+O(2e+0)
 <br>
-・stressを線形化
+・stressを<a href="#span-out-approximation-linear">線形化</a>
 <br>
 s(h)=&lt;1.1972333333333337e6*h/H
 <br>
@@ -7285,7 +7289,7 @@ shadowOffsetX:shadowOffsetY:shadowBlur:deg0
 <br>
 ・shadowColorはfillStr=falseでstrokeStyle・fillStr=trueでfillStyle
 <br>
-・それ以外はfillStr=0~255を比例係数とするstrokeStyleとfillStyleのRGBA値の線形補間
+・それ以外はfillStr=0~255を比例係数とするstrokeStyleとfillStyleのRGBA値の<a href="#span-out-interpolation-linear">線形補間</a>
 <br>
 ・R値の一例を次に示す
 <br>
@@ -7384,7 +7388,7 @@ originX:originY:offsetR:<span class="clear">orderR:NrandR:NrandT:isMin:isRound:N
 <br>
 　orderR=0の場合、svg出力相当のuniform
 <br>
-　orderR=1の場合、既定の線形補間
+　orderR=1の場合、既定の<a href="#span-out-interpolation-linear">線形補間</a>
 <br>
 ・NrandR=0~255はgradation代表長さの<a href="#span-out-FN-rand">乱数</a>
 <br>
@@ -7400,9 +7404,9 @@ originX:originY:offsetR:<span class="clear">orderR:NrandR:NrandT:isMin:isRound:N
 <br>
 ・isRound=false||trueはplot点の存在しない領域の補間方法を選択する
 <br>
-　falseの場合、plot座標系で線形補間（<span class="clear">plot間vectorを等分割して回転角に変換する誤差あり</span>）
+　falseの場合、plot座標系で<a href="#span-out-interpolation-linear">線形補間</a>（<span class="clear">plot間vectorを等分割して回転角に変換する誤差あり</span>）
 <br>
-　trueの場合、gradation起点からplot点までの長さ空間で線形補間（<span class="clear">false同様の誤差あり</span>）
+　trueの場合、gradation起点からplot点までの長さ空間で<a href="#span-out-interpolation-linear">線形補間</a>（<span class="clear">false同様の誤差あり</span>）
 <br>
 ・Nrender=1~32767は周方向のrendering分割数（数値以外を指定時、tの範囲等分割数N）
 <br>
@@ -21426,7 +21430,7 @@ csort(creverse(1,-2i,3:4,-5,6i:7)) -> (1,-2i,3:4,-5,6i:7)
 補間関数の入力仕様と付随する留意事項について記述する
 <br>
 <br>
-<span class="run">Ver.2.176.43</span>以降、線形補間のinterp関数を追加
+<span class="run">Ver.2.176.43</span>以降、<a href="#span-out-interpolation-linear">線形補間</a>のinterp関数を追加
 <br>
 ・<span class="run">Ver.2.178.44</span>以降、lookup-table標本点の仕様変更
 <br>
@@ -21441,7 +21445,7 @@ csort(creverse(1,-2i,3:4,-5,6i:7)) -> (1,-2i,3:4,-5,6i:7)
 <br>
 ・<a href="#span-out-FN-interp0">interp0関数</a>：最近傍補間
 <br>
-・<a href="#span-out-FN-interp1">interp||interp1関数</a>：線形補間
+・<a href="#span-out-FN-interp1">interp||interp1関数</a>：<a href="#span-out-interpolation-linear">線形補間</a>
 <br>
 ・<a href="#span-out-FN-interp2">interp2関数</a>：<a href="#span-out-interpolation-Lagrange">Lagrange補間</a>
 <br>
@@ -21532,7 +21536,7 @@ NaN,1+i,1+i,2+3i,2+3i,2+3i,NaN
 1次補間関数の入力仕様と付随する留意事項について記述する
 <br>
 <br>
-interp||interp1(x:table)関数：<a href="#span-out-num">実数値</a>keyに対する<a href="#span-out-com">複素数</a>valueの線形補間
+interp||interp1(x:table)関数：<a href="#span-out-num">実数値</a>keyに対する<a href="#span-out-com">複素数</a>valueの<a href="#span-out-interpolation-linear">線形補間</a>
 <br>
 <br>
 test caseを示す
@@ -30861,6 +30865,10 @@ L*R -> (2,1-i:1+i,1)
 <span id="span-out-interpolation"></span>
 補間法を列挙する
 <br>
+・<a href="#span-out-approximation-linear">線形近似</a>
+<br>
+・<a href="#span-out-interpolation-linear">線形補間</a>
+<br>
 ・<a href="#span-out-interpolation-Lagrange">Lagrange補間</a>
 <br>
 ・<a href="#span-out-interpolation-spline">spline補間</a>
@@ -30872,21 +30880,57 @@ L*R -> (2,1-i:1+i,1)
 目次
 </a>
 <br>
-Lagrange
-<br>
-補間
+線形近似
     </th>
     <td>
-<span id="span-out-interpolation-Lagrange"></span>
-Lagrange補間について記述する
+<span id="span-out-approximation-linear"></span>
+線形近似について記述する
 <br>
 <br>
-主な用途
+1次関数
 <br>
-・計算||実験で得られる標本点の補間（制御点の取り方でRunge現象の<a href="#span-out-error">数値誤差</a>が発生しやすい）
+y=f(x)=a*x+b
 <br>
 <br>
-1次のLagrange補間（線形補間）
+回帰直線
+<br>
+・通常回帰：y方向の残差の二乗和を最小化する直線
+<br>
+・主成分回帰：垂線の残差の二乗和を最小化する直線
+<br>
+<br>
+相関
+<br>
+・相関係数の範囲：[-1,1]
+<br>
+・強い：|相関係数|＞0.4
+<br>
+・弱い：|相関係数|＜0.4
+<br>
+・正：相関係数＞0（x増でy増）
+<br>
+・負：相関係数＜0（x増でy減）
+<br>
+<br>
+非線形な系で線形近似の条件
+<br>
+・従属変数xに対する応答yが線形領域：平衡状態に対する変動量が相対的に小さい（変動の振幅が微小）
+    </td>
+  </tr>
+  <tr>
+    <th>
+<a href="#span-index">
+目次
+</a>
+<br>
+線形補間
+    </th>
+    <td>
+<span id="span-out-interpolation-linear"></span>
+線形補間について記述する
+<br>
+<br>
+1次のLagrange補間
 <br>
 ・1次の補間多項式P1(x)を定義する
 <br>
@@ -30945,6 +30989,26 @@ L1=((x-x1)/(x0-x1),(x-x0)/(x1-x0))
 ・以上より、制御点の基底vectorが得られる
 <br>
 Lj(xi)=(Kdelta(i,0),Kdelta(i,1),...,Kdelta(i,j))
+    </td>
+  </tr>
+  <tr>
+    <th>
+<a href="#span-index">
+目次
+</a>
+<br>
+Lagrange
+<br>
+補間
+    </th>
+    <td>
+<span id="span-out-interpolation-Lagrange"></span>
+Lagrange補間について記述する
+<br>
+<br>
+主な用途
+<br>
+・計算||実験で得られる標本点の補間（制御点の取り方でRunge現象の<a href="#span-out-error">数値誤差</a>が発生しやすい）
 <br>
 <br>
 2次のLagrange補間
@@ -31580,7 +31644,7 @@ S=Σ&lt;i=0,N-1&gt;dS[i]
 ・各変数は列vectorとして添字iで各要素の離散点を参照する
 <br>
 <br>
-微小区間の関数fを線形補間する場合、2次精度の台形公式
+微小区間の関数fを<a href="#span-out-interpolation-linear">線形補間</a>する場合、2次精度の台形公式
 <br>
 ・微小区間の台形の面積の総和を取ることで
 <br>
@@ -31795,7 +31859,7 @@ RC並列回路を漸化式で記述する0D-RC並列回路のsimplified modellin
 <br>
 前提を列挙する
 <br>
-・電流Iと電圧Vは正の相関を前提とする
+・電流Iと電圧Vは<a href="#span-out-approximation-linear">正の相関</a>を前提とする
 <br>
 ・Laplace領域における合成impedanceの伝達関数Z(s)は電流I(s)に対する電圧V(s)の比で表す
 <br>
@@ -31927,7 +31991,7 @@ modelling
 <br>
 前提を列挙する
 <br>
-・電流Iと電圧Vは正の相関を前提とする
+・電流Iと電圧Vは<a href="#span-out-approximation-linear">正の相関</a>を前提とする
 <br>
 ・Faraday定数をF[C/mol]とする
 <br>
@@ -32042,7 +32106,7 @@ simplifiedの仮定を列挙する
 <br>
 ・時間刻み：1年
 <br>
-・相関：氷雪の融解量level1∝年平均の温度上昇量dTの積分値（n次変化の場合、n+1次関数）
+・<a href="#span-out-approximation-linear">相関</a>：氷雪の融解量level1∝年平均の温度上昇量dTの積分値（n次変化の場合、n+1次関数）
 <br>
 　比例係数k1：基準年の実測値に適合
 <br>
@@ -32610,7 +32674,7 @@ Electrochemical Impedance Spectroscopy（以降、EISと省略する）
 <br>
 <a href="#span-eqn-plot2d_EIS">plot2d_EIS</a>に示すZ変換（impedance演算部）の想定algorithmを列挙する
 <br>
-・電流Iと電圧Vは正の相関を前提とする
+・電流Iと電圧Vは<a href="#span-out-approximation-linear">正の相関</a>を前提とする
 <br>
 ・各実測波形の角周波数をomegaとして時間tに対する<span class="clear">基準波形</span>exp(<span class="clear">-</span>i*omega*t)を作る
 <br>
@@ -32676,7 +32740,7 @@ Z(s)=V(s)/I(s)
 <br>
 ・Open Circuit Voltage測定中に測定対象は測定機の影響（主に暗電流）を受けて変化しない
 <br>
-・測定電流||電圧の入力と測定対象の応答がButler-Volmer式の線形領域の範囲内に収まる
+・測定電流||電圧の入力と測定対象の応答がButler-Volmer式の<a href="#span-out-approximation-linear">線形領域</a>の範囲内に収まる
 <br>
 ・測定機と測定対象の接続線impedance（主にinductance）を分離できる
     </td>
@@ -33898,7 +33962,7 @@ albedoの年率低下割合=0.25%で徐々に変化した場合、20年間1年�
 1.5321428571428548
 <br>
 <br>
-放射強制力||代表温度とalbedoの各変化量に有意な相関を想定する一例を以下に示す
+放射強制力||代表温度とalbedoの各変化量に有意な<a href="#span-out-approximation-linear">相関</a>を想定する一例を以下に示す
 <br>
 <br>
 放射強制力の年率増加割合=0.1%、
@@ -33913,7 +33977,7 @@ albedoの年率低下割合=0.25%で徐々に変化した場合、20年間1年�
 <br>
 <a href="#span-eqn-heat0d_evolution">heat0d_evolution</a>[1](s_1day*30*365*year,s_1day*30,<span class="condition">0,</span>1-0.001*year,1-0.0025*year,1)=&gt;
 <br>
-※本来、<a href="#span-out-eqns">式変数</a>内部に相関関係を反映するが、<a href="#span-out-eqns-args">式変数のarguments</a>に反映
+※本来、<a href="#span-out-eqns">式変数</a>内部に<a href="#span-out-approximation-linear">相関</a>を反映するが、<a href="#span-out-eqns-args">式変数のarguments</a>に反映
 <br>
 ・20年間1年毎の温度変化量dT[℃]
 <br>
@@ -33972,7 +34036,7 @@ albedoの年率低下割合=0.125%で徐々に変化した場合、20年間1年�
 <br>
 <a href="#span-eqn-heat0d_evolution">heat0d_evolution</a>[1](s_1day*30*365*year,s_1day*30,<span class="condition">0,</span>1-0.0005*year,1-0.00125*year,1)=&gt;
 <br>
-※本来、<a href="#span-out-eqns">式変数</a>内部に相関関係を反映するが、<a href="#span-out-eqns-args">式変数のarguments</a>に反映
+※本来、<a href="#span-out-eqns">式変数</a>内部に<a href="#span-out-approximation-linear">相関</a>を反映するが、<a href="#span-out-eqns-args">式変数のarguments</a>に反映
 <br>
 ・20年間1年毎の温度変化量dT[℃]
 <br>
