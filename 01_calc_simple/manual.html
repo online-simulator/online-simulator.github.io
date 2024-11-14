@@ -172,13 +172,13 @@ test case
 <br>
 ・<span class="clear">CO2</span>：<a href="#span-app-gas-CO2">二酸化炭素</a>と<a href="#span-app-history">地球史</a>の実施例（<a href="#span-app-history">Younger Dryas期</a>を基準に<a href="#span-app-period-activity">Milankovitch cycle</a>の変動を記述）
 <br>
-・<span class="clear">sea</span>：<a href="#span-out-modelling-0D-sea-level">0D-sea-level simplified modelling</a>の実施例
+・<span class="clear">sea</span>：<a href="#span-out-modelling-0D-sea-level">0D-sea-level simplified modelling</a>の実施例（<a href="#span-app-climate">気候変動</a>の<a href="#span-app-sea">海面上昇</a>）
 <br>
 　寄与度の予想：<a href="#span-app-sea">Order(100年)の時定数</a>で西暦2035年に融解量が熱膨張を逆転（徐々に顕現）
 <br>
-・<span class="selection">heat0d</span>~Toba：<a href="#span-out-modelling-0D-heat">0D-heat simplified modelling</a>の実施例（<a href="#span-app-gas-CO2">平均気温の変化量</a>||<a href="#span-app-history">平均気温</a>の計算に使用）
+・<span class="selection">heat0d</span>~Toba：<a href="#span-out-modelling-0D-heat">0D-heat simplified modelling</a>の実施例（<a href="#span-app-climate">気候変動</a>の<a href="#span-app-gas-CO2">平均気温の変化量</a>||<a href="#span-app-history">平均気温</a>）
 <br>
-・<span class="selection">heat1d</span>~-2.9B：<a href="#span-eqn-heat1d_evolution">heat1d_evolution</a>の実施例（<a href="#span-app-Dyson">地上の平均気温</a>||<a href="#span-app-history">全球凍結</a>の計算に使用）
+・<span class="selection">heat1d</span>~-2.9B：<a href="#span-eqn-heat1d_evolution">heat1d_evolution</a>の実施例（<a href="#span-app-Dyson">地上の平均気温</a>||<a href="#span-app-history">全球凍結</a>）
 <br>
 　初期値の仮定：界面温度T0/T1を現在基準値で固定（時間軸を移動の場合、不正確）
 <br>
@@ -4193,10 +4193,6 @@ jetの解釈の一例を列挙する
 <br>
 　海水回帰の過程：氷床の後退＋大陸上に蓄積の雪氷の融解（<span class="clear">氷期の陸地侵食⇒風化の痕跡</span>あり）
 <br>
-　平均気温の変化量[℃]の想定範囲：[4,7]
-<br>
-　平均気温の変化量に対する海面上昇量[m/℃]の目安：120/[7,4]=[17.142857142857142,30]
-<br>
 ・1.29~1.15万年前のYounger Dryas期（欧州一帯）：<a href="#span-app-climate">温暖化</a>⇒急速に<a href="#span-app-climate">寒冷化</a>（逆戻り）⇒農耕の開始
 <br>
 　逆戻りの原因：熱塩循環の弱化||<a href="#span-app-meteorite">彗星衝突</a>の可能性
@@ -4257,6 +4253,24 @@ jetの解釈の一例を列挙する
 <br>
 ・海水準：陸地に対する海面の相対的な高さ（地殻変動に依存）
 <br>
+・<a href="#span-out-UI-graphing-testcase">海面上昇</a>の基準年
+<br>
+　開始年：西暦1900年
+<br>
+　基準年：西暦2000年
+<br>
+・平均気温の上昇量[℃]の想定範囲
+<br>
+　<a href="#span-app-history">最終氷期⇒間氷期</a>：[4,7]
+<br>
+　西暦2000年：1
+<br>
+・平均気温の上昇量に対する<a href="#span-out-UI-graphing-testcase">海面上昇</a>量[m/℃]の目安
+<br>
+　<a href="#span-app-history">最終氷期⇒間氷期</a>：120/[7,4]=[17.142857142857142,30]
+<br>
+　西暦2000年：0.2/1=0.2
+<br>
 ・変動rate[mm/年]
 <br>
 　<a href="#span-app-history">最終氷期⇒間氷期</a>：120e3/(1.8e4-0.6e4)=10
@@ -4265,15 +4279,15 @@ jetの解釈の一例を列挙する
 <br>
 　西暦1900年前後：0.1~0.2　⇒　1~3
 <br>
-　　西暦2000年の基準値：2
+　　西暦2000年：2
 <br>
-・直近の変動rate[mm/年]の内訳（海面上昇の寄与度）
+・西暦2000年の変動rate[mm/年]の内訳（<a href="#span-out-UI-graphing-testcase">海面上昇</a>の寄与度）
 <br>
 　熱膨張：1.6
 <br>
 　雪氷の融解：0.77+0.21+0.21=1.19
 <br>
-・温度変化に対する追従性（温度上昇rate≒1[℃/100年]）
+・温度変化に対する追従性
 <br>
 　熱膨張：即座に追従（直近の変動rateの大半）
 <br>
@@ -4281,7 +4295,7 @@ jetの解釈の一例を列挙する
 <br>
 ・<span class="clear">時定数</span>の根拠
 <br>
-　9000~6000年前：<a href="#span-app-period-activity">日射量のpeak</a>以降の海面上昇の緩和過程に適合
+　9000~6000年前：<a href="#span-app-period-activity">日射量のpeak</a>以降の<a href="#span-out-UI-graphing-testcase">海面上昇</a>の緩和過程に適合
 <br>
 　現在：次の関係性が不変の想定で流用
 <br>
@@ -4300,6 +4314,8 @@ jetの解釈の一例を列挙する
 　Greenlandの氷床：7
 <br>
 　南極の氷床：60
+<br>
+　北極の海氷：浮遊（海水準に無関係）
     </td>
   </tr>
   <tr>
