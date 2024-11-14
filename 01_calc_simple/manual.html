@@ -32076,13 +32076,15 @@ simplifiedの仮定を列挙する
 <br>
 ・相関：氷雪の融解量level1∝年平均の温度上昇量dTの積分値（n次変化の場合、n+1次関数）
 <br>
+　比例係数k1：基準年の実測値に適合
+<br>
 ・残存量の制限：level1&lt;level1max
 <br>
-・[m]年stepの積分値sum_dTの漸化式（feedback項を含む）
+・積分値sum_dTの漸化式（feedback項を含む）
 <br>
-　陽解法：sum_dT[m+1]=(1-1/Tc)*sum_dT[m]+dT[m]
+　陽解法：sum_dT=(1-1/Tc)*sum_dT+dT
 <br>
-　陰解法：sum_dT[m+1]=(sum_dT[m]+dT[m])/(1+1/Tc)
+　陰解法：sum_dT=(sum_dT+dT)/(1+1/Tc)
 <br>
 ・時定数
 <br>
