@@ -174,15 +174,21 @@ test case
 <br>
 ・<span class="clear">sea</span>：<a href="#span-app-climate">気候変動</a>の<a href="#span-app-sea">海面上昇</a>の実施例
 <br>
-　単純化の仮定：氷雪の融解量level∝年平均の温度上昇量dTの積分値（n次変化の場合、n+1次関数）
+　単純化の仮定：氷雪の融解量level1∝年平均の温度上昇量dTの積分値（n次変化の場合、n+1次関数）
 <br>
-　m年stepの積分値sum_dTのfeedback項
+　　残存量の制限：level1＜level1max
+<br>
+　[m]年stepの積分値sum_dTのfeedback項
 <br>
 　　<a href="#span-out-modelling">陽解法</a>：sum_dT[m+1]=(1-1/Tc)*sum_dT[m]+dT[m]
 <br>
 　　<a href="#span-out-modelling">陰解法</a>：sum_dT[m+1]=(sum_dT[m]+dT[m])/(1+1/Tc)
 <br>
-　時定数：通常modeのTc=<a href="#span-app-sea">Order(100年)</a>　⇔　暴走modeのTc→∞
+　時定数
+<br>
+　　通常mode：Tc=<a href="#span-app-sea">Order(100年)</a>
+<br>
+　　暴走mode：Tc→∞（緩和なし）
 <br>
 　寄与度の予想：<a href="#span-app-sea">Order(100年)の時定数</a>で西暦2035年に融解量が熱膨張を逆転（徐々に顕現）
 <br>
@@ -4300,6 +4306,14 @@ jetの解釈の一例を列挙する
 　<a href="#span-app-history">最終氷期⇒間氷期</a>：氷床の後退＋大陸上に蓄積の雪氷の融解
 <br>
 　現在の大小関係：氷床の後退＞大陸上の雪氷の融解
+<br>
+・海水準換算の残存量[m]の目安
+<br>
+　山岳氷河：少
+<br>
+　Greenlandの氷床：7
+<br>
+　南極の氷床：60
     </td>
   </tr>
   <tr>
