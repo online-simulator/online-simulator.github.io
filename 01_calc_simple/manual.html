@@ -881,6 +881,8 @@ test case
 <br>
 　・<a href="#span-out-evolution">時間発展の解法</a>
 <br>
+　　・<a href="#span-out-evolution-method">陽解法と陰解法</a>
+<br>
 　　・<a href="#span-out-evolution-space">斜方投射</a>
 <br>
 　　・<a href="#span-out-evolution-spin">spin</a>
@@ -17997,7 +17999,7 @@ yt4=yt; yt4 ->
 )
 <br>
 <br>
-<a href="#span-out-evolution">時間発展の解法</a>を使用して時系列dataを作成する一例を以下に示す
+<a href="#span-out-evolution-space">斜方投射</a>の時系列dataを作成する一例を以下に示す
 <br>
 ・total時間積分回数がplot2d-buttonのN回に対して1回で済むため、圧倒的に速い
 <br>
@@ -18075,7 +18077,7 @@ init=&gt;; evolutionN=&gt;; xt,yt ->
 <br>
 )
 <br>
-・<a href="#span-out-evolution">時間発展の解法</a>に示す各時刻の位置z_xの近似解に一致する
+・<a href="#span-out-evolution-space">斜方投射</a>の各時刻の位置z_xの近似解に一致する
 <br>
 xt+yt*i ->
 <br>
@@ -30161,7 +30163,7 @@ option
 ・陽的improved Euler法による2次精度を<a href="#span-in-options">内部option</a>で選択可
 <br>
 <br>
-応用例は<a href="#span-out-evolution">時間発展の解法</a>参照
+応用例は<a href="#span-out-evolution-space">斜方投射</a>参照
     </td>
   </tr>
   <tr>
@@ -31737,7 +31739,7 @@ S=(f[0]+4Σ&lt;k=0,N/2-1&gt;f[2k+1]+2Σ&lt;k=1,N/2-1&gt;f[2k]+f[N])h/3+O(h^4)
 <br>
 ・3次元の場合、上下左右に加えてz方向の前後の面を通過するfluxを考慮する
 <br>
-・よって単位体積当たりの状態量の<a href="#span-out-evolution">時間微分</a>は
+・よって単位体積当たりの状態量の<a href="#span-out-evolution-method">時間微分</a>は
 <br>
 　fluxのdivergence項とsource||sink項の和で表される（Fick's second law）
     </td>
@@ -31868,32 +31870,15 @@ cut-off角周波数a=1/(R*C) -> cut-off周波数=1/周期=1/(2pi*R*C)
 V*s=-V/(R*C)+I/C -> V*s=-a*V+b*I
 <br>
 <br>
-<a href="#span-out-evolution">時間発展</a>方程式を離散化して漸化式を導出する
+<a href="#span-out-evolution-method">時間微分</a>V*sを離散化して以下の漸化式を得る
 <br>
-・時間刻みをdtとして<a href="#span-out-evolution">時間微分</a>V*sを1次精度の<a href="#span-out-fdm-differential">有限差分</a>で離散化する場合
+・<a href="#span-out-evolution-method">陽解法</a>
 <br>
-　・右辺を既知関数とするEuler前進差分の陽解法explicit Euler method
+newV=(1-a*dt)*oldV+b*dt*I
 <br>
-(newV-oldV)/dt=-a*oldV+b*I -> newV=(1-a*dt)*oldV+b*dt*I
+・<a href="#span-out-evolution-method">陰解法</a>
 <br>
-　・右辺を未知関数とするEuler後退差分の陰解法implicit Euler method
-<br>
-(newV-oldV)/dt=-a*newV+b*I -> newV=(oldV+b*dt*I)/(1+a*dt)
-<br>
-　・<a href="#span-out-error">modelling誤差</a>はOrder(dt)
-<br>
-・以上より、離散化した<a href="#span-out-evolution">時間発展</a>方程式は無次元の漸化式に帰結する
-<br>
-<br>
-漸化式の数値的安定性の要件（安定条件）を示す
-<br>
-・a&gt;0の前提
-<br>
-・陽解法の場合、<span class="run">|1-a*dt|&le;1</span>から0&le;dt&le;2/a（0≦時間刻み≦時定数<span class="clear">*2</span>）
-<br>
-　<span class="clear">Ver.2.51.25</span>以降、<span class="run">Von Neumannの安定性解析結果</span>から時定数の係数倍<span class="clear">*2</span>を追記して訂正
-<br>
-・陰解法の場合、<span class="run">|1/(1+a*dt)|&le;1</span>からdt&le;-2/a||0&le;dt（0≦時間刻みの範囲で無条件安定）
+newV=(oldV+b*dt*I)/(1+a*dt)
 <br>
 <br>
 各parameterのOrder推定方法を示す
@@ -32013,32 +31998,15 @@ b=1/(<span class="condition">n*</span>F*S<span class="jF">*as</span>*dx*<span cl
 V'=-<span class="selection">Ds_eff*</span>V/(dx^2<span class="selection">*es</span>)+I/(<span class="condition">n*</span>F*S<span class="jF">*as</span>*dx*<span class="selection">es*</span>cmax*k) -> V'=-a*V+b*I
 <br>
 <br>
-<a href="#span-out-evolution">時間発展</a>方程式を離散化して漸化式を導出する
+<a href="#span-out-evolution-method">時間微分</a>V'を離散化して以下の漸化式を得る
 <br>
-・時間刻みをdtとして<a href="#span-out-evolution">時間微分</a>V'を1次精度の<a href="#span-out-fdm-differential">有限差分</a>で離散化する場合
+・<a href="#span-out-evolution-method">陽解法</a>
 <br>
-　・右辺を既知関数とするEuler前進差分の陽解法explicit Euler method
+newV=(1-a*dt)*oldV+b*dt*I
 <br>
-(newV-oldV)/dt=-a*oldV+b*I -> newV=(1-a*dt)*oldV+b*dt*I
+・<a href="#span-out-evolution-method">陰解法</a>
 <br>
-　・右辺を未知関数とするEuler後退差分の陰解法implicit Euler method
-<br>
-(newV-oldV)/dt=-a*newV+b*I -> newV=(oldV+b*dt*I)/(1+a*dt)
-<br>
-　・<a href="#span-out-error">modelling誤差</a>はOrder(dt)
-<br>
-・以上より、離散化した<a href="#span-out-evolution">時間発展</a>方程式は無次元の漸化式に帰結する
-<br>
-<br>
-漸化式の数値的安定性の要件（安定条件）を示す
-<br>
-・a&gt;0の前提
-<br>
-・陽解法の場合、<span class="run">|1-a*dt|&le;1</span>から0&le;dt&le;2/a（0≦時間刻み≦<span class="selection">有効拡散</span>の時定数<span class="clear">*2</span>）
-<br>
-　<span class="clear">Ver.2.51.25</span>以降、<span class="run">Von Neumannの安定性解析結果</span>から時定数の係数倍<span class="clear">*2</span>を追記して訂正
-<br>
-・陰解法の場合、<span class="run">|1/(1+a*dt)|&le;1</span>からdt&le;-2/a||0&le;dt（0≦時間刻みの範囲で無条件安定）
+newV=(oldV+b*dt*I)/(1+a*dt)
 <br>
 <br>
 各parameterのOrder推定方法を示す
@@ -32082,9 +32050,9 @@ simplifiedの仮定を列挙する
 <br>
 ・積分値sum_dTの漸化式（feedback項を含む）
 <br>
-　陽解法：sum_dT=(1-1/Tc)*sum_dT+dT
+　<a href="#span-out-evolution-method">陽解法</a>：sum_dT=(1-1/Tc)*sum_dT+dT
 <br>
-　陰解法：sum_dT=(sum_dT+dT)/(1+1/Tc)
+　<a href="#span-out-evolution-method">陰解法</a>：sum_dT=(sum_dT+dT)/(1+1/Tc)
 <br>
 ・時定数
 <br>
@@ -32181,6 +32149,8 @@ modelling
 ・<span class="run">Ver.2.523.90</span>以降、<span class="wF">放射強制力の厳密な定義</span>を追記
 <br>
 ・<span class="clear">Ver.2.530.91</span>以降、<span class="jF">大気の吸収率</span>の定義文を訂正（半値幅　⇒　半分値）
+<br>
+・<span class="run">Ver.2.597.93</span>以降、<a href="#span-out-evolution-method">陰解法</a>の導出式の説明文を簡略化
 <br>
 <br>
 前提を列挙する
@@ -32340,9 +32310,9 @@ a=(alpha1*A1<span class="condition">+alpha0*A0</span>)/C
 <br>
 b=(alpha1*A1*T1+W0*(1-albedo)<span class="selection">*absorb</span><span class="condition">+alpha0*A0*T0</span>)/C
 <br>
-・<a href="#span-out-evolution">時間発展</a>方程式を陰解法implicit Euler methodで離散化して無次元の漸化式を得る
+・<a href="#span-out-evolution-method">時間微分</a>T'を<a href="#span-out-evolution-method">陰解法</a>で離散化して次の漸化式を得る
 <br>
-(newT-oldT)/dt=-a*newT+b -> newT=(oldT+b*dt)/(1+a*dt)
+newT=(oldT+b*dt)/(1+a*dt)
 <br>
 dT=newT-T0
 <br>
@@ -32756,7 +32726,7 @@ a1=1/(R1*C1),b1=1/C1, -> 1/a1=0.2（<span class="selection">時定数</span>=0.2
 <br>
 a2=0.01,b2=0.12, -> 1/a2=100（<span class="selection">有効拡散の時定数</span>=100）
 <br>
-・<a href="#span-out-evolution">時間発展</a>の解法の設定値（陰解法選択）
+・<a href="#span-out-evolution">時間発展</a>の解法の設定値（<a href="#span-out-evolution-method">陰解法</a>選択）
 <br>
 isImplicit=1,
 <br>
@@ -32966,9 +32936,9 @@ infoLost[ri] 3.711459875093761,infoLost[ri] 1.811702692783572
 )
 <br>
 <br>
-<a href="#span-out-evolution">時間発展</a>の解法のみ変更isImplicit=0（陽解法選択）の影響
+<a href="#span-out-evolution">時間発展</a>の解法のみ変更isImplicit=0（<a href="#span-out-evolution-method">陽解法</a>選択）の影響
 <br>
-・<span class="selection">陽解法の安定条件</span>
+・<span class="selection"><a href="#span-out-evolution-method">陽解法</a>の安定条件</span>
 <br>
 dt&le;min(0.2,100)<span class="selection">*2</span>
 <br>
@@ -32976,7 +32946,7 @@ dt&le;min(0.2,100)<span class="selection">*2</span>
 <br>
 <span class="selection">f&ge;0.025</span>
 <br>
-・Zのsimulation結果は<span class="selection">陽解法の安定条件</span>の範囲内で定性的に大差なし
+・Zのsimulation結果は<span class="selection"><a href="#span-out-evolution-method">陽解法</a>の安定条件</span>の範囲内で定性的に大差なし
 <br>
 (
 <br>
@@ -34066,11 +34036,81 @@ albedoの年率低下割合=0.125%で徐々に変化した場合、20年間1年�
 時間発展（時間積分）の解法について記述する
 <br>
 <br>
-時間発展の解法を示す実施例を列挙する
+時間発展の解法を列挙する
+<br>
+・<a href="#span-out-evolution-method">陽解法と陰解法</a>
+<br>
+<br>
+実施例を列挙する
 <br>
 ・<a href="#span-out-evolution-space">斜方投射</a>
 <br>
 ・<a href="#span-out-evolution-spin">spin</a>
+    </td>
+  </tr>
+  <tr>
+    <th>
+<a href="#span-index">
+目次
+</a>
+<br>
+陽解法と
+<br>
+陰解法
+<br>
+の解法
+    </th>
+    <td>
+<span id="span-out-evolution-method"></span>
+陽解法と陰解法の解法について記述する
+<br>
+<br>
+1次遅れ系の時間発展方程式
+<br>
+V'=-a*V+b*I
+<br>
+<br>
+右辺の関数
+<br>
+・陽解法：既知
+<br>
+・陰解法：未知
+<br>
+<br>
+1次精度の<a href="#span-out-fdm-differential">有限差分</a>
+<br>
+・陽解法：Euler前進差分（explicit Euler method）
+<br>
+・陰解法：Euler後退差分（implicit Euler method）
+<br>
+・<a href="#span-out-error">離散化誤差</a>：Order(dt)
+<br>
+<br>
+漸化式の導出
+<br>
+・時間刻み：dt
+<br>
+・陽解法：(newV-oldV)/dt=-a*oldV+b*I -> newV=(1-a*dt)*oldV+b*dt*I
+<br>
+・陰解法：(newV-oldV)/dt=-a*newV+b*I -> newV=(oldV+b*dt*I)/(1+a*dt)
+<br>
+・時定数：Tc=1/a
+<br>
+<br>
+漸化式の数値的安定性の要件（安定条件）
+<br>
+・前提：a&gt;0
+<br>
+・陽解法：<span class="run">|1-a*dt|&le;1</span>から0&le;dt&le;2/a（0≦時間刻み≦時定数<span class="clear">*2</span>）
+<br>
+　<span class="clear">Ver.2.51.25</span>以降、<span class="run">Von Neumannの安定性解析結果</span>から時定数の係数倍<span class="clear">*2</span>を追記して訂正
+<br>
+・陰解法：<span class="run">|1/(1+a*dt)|&le;1</span>からdt&le;-2/a||0&le;dt（0≦時間刻みの範囲で無条件安定）
+<br>
+<br>
+留意事項を列挙する
+<br>
+・制御実装の場合、安定条件を検討する
     </td>
   </tr>
   <tr>
@@ -34112,17 +34152,13 @@ albedoの年率低下割合=0.125%で徐々に変化した場合、20年間1年�
 <br>
 ・step毎に位置z_xと速度z_vの連立方程式fの近似解を反復法で求解
 <br>
-・時間微分を1次精度の<a href="#span-out-fdm-differential">有限差分</a>で離散化する場合
-<br>
-　・右辺を既知関数とするEuler前進差分の陽解法explicit Euler method
+・<a href="#span-out-evolution-method">陽解法</a>
 <br>
 f=&lt;{(z_x-z_x0)/dt=z_v0,m*((z_v-z_v0)/dt)=m*z_a+kCdA_sphere*(<span class="selection">z_u</span>-z_v0)};
 <br>
-　・右辺を未知関数とするEuler後退差分の陰解法implicit Euler method
+・<a href="#span-out-evolution-method">陰解法</a>
 <br>
 f=&lt;{(z_x-z_x0)/dt=z_v,m*((z_v-z_v0)/dt)=m*z_a+kCdA_sphere*(<span class="selection">z_u</span>-z_v)};
-<br>
-　・<a href="#span-out-error">modelling誤差</a>はOrder(dt)
 <br>
 ・速度の時間微分が0（<a href="#span-app-aerodynamics">抗力</a>と<a href="#span-app-gravity">重力</a>が平衡）となる終端速度terminal velocity
 <br>
