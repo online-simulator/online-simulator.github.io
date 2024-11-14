@@ -172,11 +172,17 @@ test case
 <br>
 ・<span class="clear">CO2</span>：<a href="#span-app-gas-CO2">二酸化炭素</a>と<a href="#span-app-history">地球史</a>の実施例（<a href="#span-app-history">Younger Dryas期</a>を基準に<a href="#span-app-period-activity">Milankovitch cycle</a>の変動を記述）
 <br>
-・<span class="clear">sea</span>：<a href="#span-app-climate">気候変動</a>の<a href="#span-app-sea">海面上昇</a>の実施例（次の仮定のfeedback項を省略の最悪想定）
+・<span class="clear">sea</span>：<a href="#span-app-climate">気候変動</a>の<a href="#span-app-sea">海面上昇</a>の実施例
 <br>
-　単純化の仮定：氷雪の融解量∝年平均の温度上昇量の積分値（n次変化の場合、n+1次関数）
+　単純化の仮定：氷雪の融解量level∝年平均の温度上昇量dTの積分値（n次変化の場合、n+1次関数）
 <br>
-　　feedback項：通常modeの場合、<a href="#span-app-sea">Order(100年)の時定数</a>で緩和　⇔　暴走modeの場合、緩和なし
+　m年stepの積分値sum_dTのfeedback項
+<br>
+　　<a href="#span-out-modelling">陽解法</a>：sum_dT[m+1]=(1-1/Tc)*sum_dT[m]+dT[m]
+<br>
+　　<a href="#span-out-modelling">陰解法</a>：sum_dT[m+1]=(sum_dT[m]+dT[m])/(1+1/Tc)
+<br>
+　時定数：通常modeのTc=<a href="#span-app-sea">Order(100年)</a>　⇔　暴走modeのTc→∞
 <br>
 　寄与度の予想：<a href="#span-app-sea">Order(100年)の時定数</a>で西暦2035年に融解量が熱膨張を逆転（徐々に顕現）
 <br>
