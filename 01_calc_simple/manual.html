@@ -34142,12 +34142,14 @@ V'=-a*V+b*I
 <br>
 ・従属変数：V
 <br>
+　時間微分：V'
+<br>
 <br>
 右辺の関数
 <br>
-・陽解法：既知
+・陽解法：既知（oldを付与）
 <br>
-・陰解法：未知
+・陰解法：未知（newを付与）
 <br>
 <br>
 1次精度の<a href="#span-out-fdm-differential">有限差分</a>
@@ -34163,9 +34165,9 @@ V'=-a*V+b*I
 <br>
 ・時間刻み：dt
 <br>
-・陽解法：(newV-oldV)/dt=-a*oldV+b*I　⇒　newV=(1-a*dt)*oldV+b*dt*I
+・Euler前進差分：(newV-oldV)/dt=-a*oldV+b*I　⇒　newV=(1-a*dt)*oldV+b*dt*I
 <br>
-・陰解法：(newV-oldV)/dt=-a*newV+b*I　⇒　newV=(oldV+b*dt*I)/(1+a*dt)
+・Euler後退差分：(newV-oldV)/dt=-a*newV+b*I　⇒　newV=(oldV+b*dt*I)/(1+a*dt)
 <br>
 ・時定数：Tc=1/a
 <br>
@@ -34178,7 +34180,7 @@ V'=-a*V+b*I
 <br>
 　<span class="clear">Ver.2.51.25</span>以降、<span class="run">Von Neumannの安定性解析結果</span>から時定数の係数倍<span class="clear">*2</span>を追記して訂正
 <br>
-・陰解法：<span class="run">|1/(1+a*dt)|&le;1</span>　⇒　dt&le;-2/a||0&le;dt（0≦時間刻みの範囲で無条件安定）
+・陰解法：<span class="run">|1/(1+a*dt)|&le;1</span>　⇒　dt&le;-2/a || 0&le;dt（0≦時間刻みの範囲で無条件安定）
 <br>
 <br>
 留意事項を列挙する
