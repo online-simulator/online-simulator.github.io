@@ -174,7 +174,9 @@ test case
 <br>
 ・<span class="clear">sea</span>：<a href="#span-out-modelling-0D-sea-level">0D-sea-level simplified modelling</a>の実施例（<a href="#span-app-climate">気候変動</a>の<a href="#span-app-sea">海面上昇</a>）
 <br>
-　寄与度の予想：<a href="#span-app-sea">Order(100年)の時定数</a>で西暦2035年に融解量が熱膨張を逆転（徐々に顕現）
+　実測1点の最悪想定：寄与度換算で融解量を過大評価（rate換算の場合、krate1で基準年のrateを調整）
+<br>
+　寄与度の予想：<a href="#span-app-sea">Order(100年)の時定数</a>で西暦2035以降に融解量が熱膨張を逆転（徐々に顕現）
 <br>
 ・<span class="selection">heat0d</span>~Toba：<a href="#span-out-modelling-0D-heat">0D-heat simplified modelling</a>の実施例（<a href="#span-app-climate">気候変動</a>の<a href="#span-app-gas-CO2">平均気温の変化量</a>||<a href="#span-app-history">平均気温</a>）
 <br>
@@ -4287,11 +4289,19 @@ jetの解釈の一例を列挙する
 <br>
 　　西暦2000年：2
 <br>
-・西暦2000年の変動rate[mm/年]の内訳（<a href="#span-out-UI-graphing-testcase">海面上昇</a>の寄与度）
+・西暦2000年の変動rate[mm/年]の内訳
 <br>
 　熱膨張：1.6
 <br>
 　雪氷の融解：0.77+0.21+0.21=1.19
+<br>
+　　氷河と氷帽：0.77
+<br>
+　　Greenlanの氷床：0.21
+<br>
+　　南極の氷床：0.21
+<br>
+　　その他の目安：3.1-(1.6+1.19)=0.31
 <br>
 ・温度変化に対する追従性
 <br>
@@ -4303,25 +4313,17 @@ jetの解釈の一例を列挙する
 <br>
 　9000~6000年前：<a href="#span-app-period-activity">日射量のpeak</a>以降の<a href="#span-out-UI-graphing-testcase">海面上昇</a>の緩和過程に適合
 <br>
-　現在：次の関係性が不変の想定で流用
-<br>
-　　長短関係：氷床の後退＞大陸上の雪氷の融解
-<br>
-・雪氷の融解量
-<br>
-　<a href="#span-app-history">最終氷期⇒間氷期</a>：氷床の後退＋大陸上に蓄積の雪氷の融解
-<br>
-　現在の大小関係：氷床の後退＞大陸上の雪氷の融解
+　現在：不変の想定で流用
 <br>
 ・海水準換算の残存量[m]の目安
 <br>
-　山岳氷河：少
+　氷河と氷帽：不明
 <br>
 　Greenlandの氷床：7
 <br>
 　南極の氷床：60
 <br>
-　北極の海氷：浮遊（海水準に無関係）
+　北極の海氷：浮遊（海水準に影響小）
     </td>
   </tr>
   <tr>
@@ -32108,7 +32110,7 @@ simplifiedの仮定を列挙する
 <br>
 ・<a href="#span-out-approximation-linear">相関</a>：氷雪の融解量level1∝年平均の温度上昇量dTの積分値（n次変化の場合、n+1次関数）
 <br>
-　比例係数k1：基準年の実測値に適合
+　比例係数k1：基準年の実測値に適合（rate||寄与度換算）
 <br>
 ・残存量の制限：level1&lt;level1max
 <br>
