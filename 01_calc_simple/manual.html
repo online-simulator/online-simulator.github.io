@@ -172,7 +172,7 @@ test case
 <br>
 ・<span class="clear">CO2</span>：<a href="#span-app-gas-CO2">二酸化炭素</a>と<a href="#span-app-history">地球史</a>の実施例（<a href="#span-app-history">Younger Dryas期</a>を基準に<a href="#span-app-period-activity">Milankovitch cycle</a>の変動を記述）
 <br>
-・<span class="clear">sea</span>：<a href="#span-out-modelling-0D-sea-level">0D-sea-level simplified modelling</a>の実施例（<a href="#span-app-climate">気候変動</a>の<a href="#span-app-sea">海面上昇</a>）
+・<span class="clear">sea</span>：<a href="#span-out-modelling-0D-sea-level">0D-sea-level simplified modelling</a>||<a href="#span-out-evolution-method">陽解法と陰解法</a>の実施例（<a href="#span-app-climate">気候変動</a>の<a href="#span-app-sea">海面上昇</a>を<a href="#span-out-evolution-method">1次遅れ系</a>で記述）
 <br>
 　実測1点の最悪想定：寄与度換算で融解量を過大評価（rate換算の場合、krate1で基準年のrateを調整）
 <br>
@@ -31852,7 +31852,7 @@ modelling
 RC並列回路を漸化式で記述する0D-RC並列回路のsimplified modellingについて記述する
 <br>
 <br>
-1次遅れ系のRC並列回路要素（以降、RC-1次遅れ要素と省略する）のmodellingを一例に示す
+<a href="#span-out-evolution-method">1次遅れ系</a>のRC並列回路要素（以降、RC-1次遅れ要素と省略する）のmodellingを一例に示す
 <br>
 ・保存則はKirchhoff's laws
 <br>
@@ -34147,9 +34147,9 @@ V'=-a*V+b*I
 <br>
 ・時間刻み：dt
 <br>
-・陽解法：(newV-oldV)/dt=-a*oldV+b*I -> newV=(1-a*dt)*oldV+b*dt*I
+・陽解法：(newV-oldV)/dt=-a*oldV+b*I　⇒　newV=(1-a*dt)*oldV+b*dt*I
 <br>
-・陰解法：(newV-oldV)/dt=-a*newV+b*I -> newV=(oldV+b*dt*I)/(1+a*dt)
+・陰解法：(newV-oldV)/dt=-a*newV+b*I　⇒　newV=(oldV+b*dt*I)/(1+a*dt)
 <br>
 ・時定数：Tc=1/a
 <br>
@@ -34158,11 +34158,11 @@ V'=-a*V+b*I
 <br>
 ・前提：a&gt;0
 <br>
-・陽解法：<span class="run">|1-a*dt|&le;1</span>から0&le;dt&le;2/a（0≦時間刻み≦時定数<span class="clear">*2</span>）
+・陽解法：<span class="run">|1-a*dt|&le;1</span>　⇒　0&le;dt&le;2/a（0≦時間刻み≦時定数<span class="clear">*2</span>）
 <br>
 　<span class="clear">Ver.2.51.25</span>以降、<span class="run">Von Neumannの安定性解析結果</span>から時定数の係数倍<span class="clear">*2</span>を追記して訂正
 <br>
-・陰解法：<span class="run">|1/(1+a*dt)|&le;1</span>からdt&le;-2/a||0&le;dt（0≦時間刻みの範囲で無条件安定）
+・陰解法：<span class="run">|1/(1+a*dt)|&le;1</span>　⇒　dt&le;-2/a||0&le;dt（0≦時間刻みの範囲で無条件安定）
 <br>
 <br>
 留意事項を列挙する
