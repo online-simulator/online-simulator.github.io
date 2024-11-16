@@ -34191,11 +34191,11 @@ V'=-a*V+b*I
 <br>
 ・前提：a&gt;0
 <br>
-・陽解法：<span class="run">|1-a*dt|&le;1</span>　⇒　0&le;dt&le;2/a（0≦時間刻み≦時定数<span class="clear">*2</span>）
+・Euler前進差分：<span class="run">|1-a*dt|&le;1</span>　⇒　0&le;dt&le;2/a（0≦時間刻み≦時定数<span class="clear">*2</span>）
 <br>
 　<span class="clear">Ver.2.51.25</span>以降、<span class="run">Von Neumannの安定性解析結果</span>から時定数の係数倍<span class="clear">*2</span>を追記して訂正
 <br>
-・陰解法：<span class="run">|1/(1+a*dt)|&le;1</span>　⇒　dt&le;-2/a || 0&le;dt（0≦時間刻みの範囲で無条件安定）
+・Euler後退差分：<span class="run">|1/(1+a*dt)|&le;1</span>　⇒　dt&le;-2/a || 0&le;dt（0≦時間刻みの範囲で無条件安定）
 <br>
 <br>
 留意事項を列挙する
