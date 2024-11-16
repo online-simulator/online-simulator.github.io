@@ -73,8 +73,19 @@ My_entry.conv.prototype.base2img = function(base64, opt_callback){
 };
 My_entry.conv.prototype.num2not = function(num, decDigit, expDigit){
   var self = this;
-  var len_str = (num < 0)? decDigit+1: decDigit;
-  var _not = (expDigit < 0 && num.toString().length < len_str)? num: num.toExponential(Math.abs(expDigit));
+  /* calc-Ver.2.601.94 -> */
+  var _not = null;
+  var isDecimal = (expDigit === -1);
+  var isRound = (expDigit < -1);
+  if(isRound){
+    var dec = Math.pow(10, -(expDigit+2));
+    _not = Math.round(num*dec)/dec;
+  }
+  else{
+    var len_str = (num < 0)? decDigit+1: decDigit;
+    _not = (isDecimal && num.toString().length < len_str)? num: num.toExponential(Math.abs(expDigit));
+  }
+  /* -> calc-Ver.2.601.94 */
   return _not;
 };
 My_entry.conv.prototype.arrb_uint8_2binary = function(arrb_uint8){
