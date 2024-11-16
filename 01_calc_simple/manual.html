@@ -302,6 +302,8 @@ test case
 <br>
 　・<a href="#span-app-climate">気候変動の解釈</a>
 <br>
+　　・<a href="#span-app-rate">変動rateの解釈</a>
+<br>
 　　・<a href="#span-app-gas">温室効果gasの解釈</a>
 <br>
 　　　・<a href="#span-app-gas-CO2">二酸化炭素の解釈</a>
@@ -3744,7 +3746,7 @@ Dyson球の解釈の一例を示す
 <br>
 ・偏り発生の要因と寄与度の因果関係が本質的に問題となる
 <br>
-・<span class="condition"><a href="#span-app-sea">自然の長期変動に対して温暖化が急速に進行中</a></span>のため、人為的な<a href="#span-app-gas">温室効果gas</a>の排出が主要因とされる
+・<span class="condition"><a href="#span-app-rate">自然の長期変動に対して温暖化が急速に進行中</a></span>のため、人為的な<a href="#span-app-gas">温室効果gas</a>の排出が主要因とされる
 <br>
 ・とくに、<a href="#span-app-gas-CO2">大気中の二酸化炭素濃度</a>の増加と温暖化には<a href="#span-out-approximation-linear">強い相関</a>が見られる（<a href="#span-out-modelling-0D-heat">大気の吸収率</a>増加）
 <br>
@@ -3769,6 +3771,48 @@ Dyson球の解釈の一例を示す
 ・その他、地磁気の弱化||<a href="#span-app-period-activity">pole shift</a>と<a href="#span-app-unknowns">未知の天体</a>接近による可能性が指摘されている
 <br>
 その他の議題：大域の循環と熱交換||環境汚染||環境破壊||気候災害||自然災害||食糧問題||大量絶滅
+    </td>
+  </tr>
+  <tr>
+    <th>
+<a href="#span-index">
+目次
+</a>
+<br>
+変動rate
+<br>
+の解釈
+    </th>
+    <td>
+<span id="span-app-rate"></span>
+変動rateの解釈について記述する
+<br>
+<br>
+変動rateの解釈の一例を示す
+<br>
+・<a href="#span-app-climate">気候変動</a>の基準年
+<br>
+　開始年：西暦1900年（balance状態）
+<br>
+　基準年：西暦2000年（<a href="#span-app-climate">温暖化</a>が優勢　⇒　<a href="#span-app-history">海水回帰</a>の融解rate&gt;&gt;降雪rate）
+<br>
+・平均気温の上昇量[℃]の想定範囲
+<br>
+　<a href="#span-app-history">最終氷期⇒間氷期</a>：<a href="#span-app-gas-CO2">[4,7]</a>
+<br>
+　西暦2000年：1
+<br>
+・平均気温の上昇<span class="condition">rate</span>[℃/年]（目安）
+<br>
+　<a href="#span-app-history">最終氷期⇒間氷期</a>：<a href="#span-app-gas-CO2">[4,7]</a>/(1.8e4-0.6e4)=(0.0003333333333333333,0.0005833333333333334)
+<br>
+　西暦2000年：1/100=0.01（<span class="condition">step入力</span>相当）
+<br>
+・平均気温の上昇量に対する<a href="#span-out-UI-graphing-testcase">海面上昇</a>量[m/℃]（目安）
+<br>
+　<a href="#span-app-history">最終氷期⇒間氷期</a>：120/<a href="#span-app-gas-CO2">[7,4]</a>=[17.142857142857142,30]
+<br>
+　西暦2000年：0.2/1=0.2（<span class="condition">step応答</span>で上と2桁差　⇒　<span class="clear"><a href="#span-app-sea">長時定数</a></span>の蓄積で顕現）
     </td>
   </tr>
   <tr>
@@ -3844,7 +3888,7 @@ Dyson球の解釈の一例を示す
 <br>
 　<span class="jF">氷期</span>の<a href="#span-out-UI-graphing-testcase">平均気温の変化量</a>：-[4,7]℃＝-1℃（<a href="#span-out-modelling-0D-heat">大気の吸収率</a>低下）-[3,6]℃（<a href="#span-out-modelling-0D-heat">albedo</a>増加）
 <br>
-　超過の深刻度：超過量/自然変動の振幅=(410-<span class="clear">280</span>)/((<span class="clear">280</span>-<span class="jF">190</span>)/2)=2.888888888888889（<span class="condition"><a href="#span-app-sea">rate</a></span>未考慮）
+　超過の深刻度：超過量/自然変動の振幅=(410-<span class="clear">280</span>)/((<span class="clear">280</span>-<span class="jF">190</span>)/2)=2.888888888888889（<span class="condition"><a href="#span-app-rate">rate</a></span>未考慮）
 <br>
 ・当面の予想：間氷期⇒氷期の移行（<a href="#span-app-history">熱塩循環の弱化</a>等の影響）より<a href="#span-app-climate">温暖化</a>が優勢
 <br>
@@ -3854,7 +3898,7 @@ Dyson球の解釈の一例を示す
 <br>
 　逆説の補足：濃度超過が従属の場合、実際の温度変化量に対して<span class="condition">rate</span><span class="wF">過大||<a href="#span-app-history">過敏</a></span>　⇒　<a href="#span-app-gas">濃度超過が駆動力</a>
 <br>
-　極論の比喩：地球環境の金星化が闇雲に加速（<span class="condition"><a href="#span-app-sea">実験室level</a></span>）
+　極論の比喩：地球環境の金星化が闇雲に加速（<span class="condition"><a href="#span-app-rate">実験室level</a></span>）
     </td>
   </tr>
   <tr>
@@ -4271,30 +4315,6 @@ jetの解釈の一例を列挙する
 <br>
 <br>
 <a href="#span-app-climate">気候変動</a>に伴う海水準変動の解釈の一例を示す
-<br>
-・<a href="#span-out-UI-graphing-testcase">海面上昇</a>の基準年
-<br>
-　開始年：西暦1900年（balance状態）
-<br>
-　基準年：西暦2000年（<a href="#span-app-climate">温暖化</a>が優勢　⇒　<a href="#span-app-history">海水回帰</a>の融解rate&gt;&gt;降雪rate）
-<br>
-・平均気温の上昇量[℃]の想定範囲
-<br>
-　<a href="#span-app-history">最終氷期⇒間氷期</a>：<a href="#span-app-gas-CO2">[4,7]</a>
-<br>
-　西暦2000年：1
-<br>
-・平均気温の上昇<span class="condition">rate</span>[℃/年]（目安）
-<br>
-　<a href="#span-app-history">最終氷期⇒間氷期</a>：<a href="#span-app-gas-CO2">[4,7]</a>/(1.8e4-0.6e4)=(0.0003333333333333333,0.0005833333333333334)
-<br>
-　西暦2000年：1/100=0.01（<span class="condition">step入力</span>相当）
-<br>
-・平均気温の上昇量に対する<a href="#span-out-UI-graphing-testcase">海面上昇</a>量[m/℃]（目安）
-<br>
-　<a href="#span-app-history">最終氷期⇒間氷期</a>：120/<a href="#span-app-gas-CO2">[7,4]</a>=[17.142857142857142,30]
-<br>
-　西暦2000年：0.2/1=0.2（<span class="condition">step応答</span>で上と2桁差　⇒　<span class="clear">長時定数</span>の蓄積で顕現）
 <br>
 ・変動rate[mm/年]
 <br>
