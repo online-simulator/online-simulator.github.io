@@ -304,6 +304,8 @@ test case
 <br>
 　　・<a href="#span-app-rate">変動rateの解釈</a>
 <br>
+　　　・<a href="#span-app-sea">海面上昇の解釈</a>
+<br>
 　　・<a href="#span-app-gas">温室効果gasの解釈</a>
 <br>
 　　　・<a href="#span-app-gas-CO2">二酸化炭素の解釈</a>
@@ -324,7 +326,7 @@ test case
 <br>
 　・<a href="#span-app-Holocene">完新世の解釈</a>
 <br>
-　　・<a href="#span-app-sea">海水準の解釈</a>
+　　・<a href="#span-app-sea-level">海水準の解釈</a>
 <br>
 　・<a href="#span-app-origin">起源の解釈</a>
 <br>
@@ -3808,11 +3810,81 @@ Dyson球の解釈の一例を示す
 <br>
 　西暦2000年：1/100=0.01（<span class="condition">step入力</span>相当）
 <br>
-・平均気温の上昇量に対する<a href="#span-out-UI-graphing-testcase">海面上昇</a>量[m/℃]（目安）
+・平均気温の上昇量に対する<a href="#span-app-sea">海面上昇</a>量[m/℃]（目安）
 <br>
 　<a href="#span-app-history">最終氷期⇒間氷期</a>：120/<a href="#span-app-gas-CO2">[7,4]</a>=[17.142857142857142,30]
 <br>
 　西暦2000年：0.2/1=0.2（<span class="condition">step応答</span>で上と2桁差　⇒　<span class="clear"><a href="#span-app-sea">長時定数</a></span>の蓄積で顕現）
+    </td>
+  </tr>
+  <tr>
+    <th>
+<a href="#span-index">
+目次
+</a>
+<br>
+海面上昇
+<br>
+の解釈
+    </th>
+    <td>
+<span id="span-app-sea"></span>
+海面上昇の解釈（西暦2000年基準）について記述する
+<br>
+<br>
+<a href="#span-app-climate">温暖化</a>に伴う海面上昇の解釈の一例を示す
+<br>
+・<a href="#span-app-sea-level">海水準</a>の変動rate[mm/年]
+<br>
+　<a href="#span-app-history">最終氷期⇒間氷期</a>：120e3/(1.8e4-0.6e4)=10
+<br>
+　　約1.4万年前のmeltwater pulse：40
+<br>
+　西暦1900年前後：0.1~0.2　⇒　1~3
+<br>
+　　西暦2000年：2
+<br>
+・西暦2000年のrate内訳（目安）
+<br>
+　熱膨張：1.6
+<br>
+　<a href="#span-app-history">海水回帰</a>の融解：0.77+0.21+0.21=1.19
+<br>
+　　氷河と氷帽：0.77
+<br>
+　　Greenlandの氷床：0.21
+<br>
+　　南極の氷床：0.21
+<br>
+　その他：3.1-(1.6+1.19)=0.31
+<br>
+　　地下水汲み上げ：高度成長期の一因
+<br>
+・全海洋の<a href="#span-app-sea-level">海水準</a>換算の残存量[m]（目安）
+<br>
+　氷河と氷帽：不明
+<br>
+　Greenlandの氷床：7
+<br>
+　南極の氷床：60
+<br>
+　北極の海氷：浮遊（<a href="#span-app-sea-level">海水準</a>に影響小）
+<br>
+・温度変化に対する追従性
+<br>
+　熱膨張：即座に追従（当初の変動rateの大半）
+<br>
+　雪氷の融解：複数spotで<a href="#span-out-modelling-0D-heat">熱拡散</a>を伴う<span class="clear">Order(100年)の時定数</span>で顕在化（徐々にrate増の可能性）
+<br>
+・<span class="clear">時定数</span>の根拠
+<br>
+　9000~6000年前：<a href="#span-app-period-activity">日射量のpeak</a>以降の<a href="#span-out-UI-graphing-testcase">海面上昇</a>の緩和過程に適合
+<br>
+　西暦1900年~：不変の想定で流用
+<br>
+・<span class="clear">長時定数</span>の影響
+<br>
+　雪氷由来の<a href="#span-out-modelling-0D-heat">albedo</a>低下：<a href="#span-app-climate">温暖化</a>に寄与する「正のfeedback」
     </td>
   </tr>
   <tr>
@@ -4291,7 +4363,7 @@ jetの解釈の一例を列挙する
 <br>
 　完新世：約1.17万年前の最終氷期~現在の間氷期（温暖な気候で農耕||牧畜の開始）
 <br>
-・時系列の平均気温||<a href="#span-app-sea">海水準</a>と静水圧||南北の陸地面積率||大気圧||<a href="#span-app-gas-CO2">二酸化炭素濃度</a>||酸素濃度||骨格等の推移次第
+・時系列の平均気温||<a href="#span-app-sea-level">海水準</a>と静水圧||南北の陸地面積率||大気圧||<a href="#span-app-gas-CO2">二酸化炭素濃度</a>||酸素濃度||骨格等の推移次第
     </td>
   </tr>
   <tr>
@@ -4305,68 +4377,13 @@ jetの解釈の一例を列挙する
 の解釈
     </th>
     <td>
-<span id="span-app-sea"></span>
+<span id="span-app-sea-level"></span>
 海水準の解釈（西暦2000年基準）について記述する
 <br>
 <br>
 海水準の解釈の一例を列挙する
 <br>
 ・海水準：陸地に対する海面の相対的な高さ（地殻変動に依存）
-<br>
-<br>
-<a href="#span-app-climate">気候変動</a>に伴う海水準変動の解釈の一例を示す
-<br>
-・変動rate[mm/年]
-<br>
-　<a href="#span-app-history">最終氷期⇒間氷期</a>：120e3/(1.8e4-0.6e4)=10
-<br>
-　　約1.4万年前のmeltwater pulse：40
-<br>
-　西暦1900年前後：0.1~0.2　⇒　1~3
-<br>
-　　西暦2000年：2
-<br>
-・西暦2000年のrate内訳（目安）
-<br>
-　熱膨張：1.6
-<br>
-　<a href="#span-app-history">海水回帰</a>の融解：0.77+0.21+0.21=1.19
-<br>
-　　氷河と氷帽：0.77
-<br>
-　　Greenlandの氷床：0.21
-<br>
-　　南極の氷床：0.21
-<br>
-　その他：3.1-(1.6+1.19)=0.31
-<br>
-　　地下水汲み上げ：高度成長期の一因
-<br>
-・全海洋の海水準換算の残存量[m]（目安）
-<br>
-　氷河と氷帽：不明
-<br>
-　Greenlandの氷床：7
-<br>
-　南極の氷床：60
-<br>
-　北極の海氷：浮遊（海水準に影響小）
-<br>
-・温度変化に対する追従性
-<br>
-　熱膨張：即座に追従（当初の変動rateの大半）
-<br>
-　雪氷の融解：複数spotで<a href="#span-out-modelling-0D-heat">熱拡散</a>を伴う<span class="clear">Order(100年)の時定数</span>で顕在化（徐々にrate増の可能性）
-<br>
-・<span class="clear">時定数</span>の根拠
-<br>
-　9000~6000年前：<a href="#span-app-period-activity">日射量のpeak</a>以降の<a href="#span-out-UI-graphing-testcase">海面上昇</a>の緩和過程に適合
-<br>
-　西暦1900年~：不変の想定で流用
-<br>
-・<span class="clear">長時定数</span>の影響
-<br>
-　雪氷由来の<a href="#span-out-modelling-0D-heat">albedo</a>低下：<a href="#span-app-climate">温暖化</a>に寄与する「正のfeedback」
     </td>
   </tr>
   <tr>
