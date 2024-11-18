@@ -3806,25 +3806,35 @@ Dyson球
 <br>
 主要因子
 <br>
-・<a href="#span-out-modelling-0D-heat">太陽定数</a>：太陽放射の強度（主に地球の<a href="#span-app-period-motion">運動周期</a>に依存）
+・太陽定数：放射線に対して垂直な面の太陽放射の強度[W/m^2]
 <br>
-・<a href="#span-out-modelling-0D-heat">大気の吸収率</a>：放射線を吸収する効率（大気中の<a href="#span-app-gas">温室効果gas</a>濃度に依存）
+・大気の吸収率：放射線を吸収する効率（大気中の<a href="#span-app-gas">温室効果gas</a>濃度に依存）
 <br>
-・<a href="#span-out-modelling-0D-heat">albedo</a>：放射線を反射する効率（主に<a href="#span-app-sea">氷床の残存量</a>に依存）
+・albedo：放射線を反射する効率（主に<a href="#span-app-sea">氷床の残存量</a>に依存）
+<br>
+・日射：地表換算の放射強度（主に地球の<a href="#span-app-period-motion">運動周期</a>に依存）
+<br>
+　単純平均：I0=1367; I0/4 -> 341.75
+<br>
+　albedo加味の最大値：I0=1367; I0*(1-0.3) -> 956.9
+<br>
+　夏至の正午@北緯30[deg]：I0=1367; I0*(1-0.3)*cos(deg2rad(30-23.4)) -> 950.5583994030193
+<br>
+　冬至の正午@北緯30[deg]：I0=1367; I0*(1-0.3)*cos(deg2rad(30+23.4)) -> 570.5275828545979
 <br>
 <br>
 変動の従属関係（顕現順）
 <br>
 ・気温
 <br>
-　⇒<a href="#span-out-modelling-0D-heat">albedo</a>（主に氷床）
+　⇒albedo（主に氷床）
 <br>
 　⇒<a href="#span-app-sea-level">海水準</a>と<a href="#span-app-gas">温室効果gas</a>（主に<a href="#span-app-gas-CO2">二酸化炭素</a>とmethane）
 <br>
 <br>
 気温変動の駆動力
 <br>
-・自然：<a href="#span-app-period-activity">日射</a>
+・自然：日射
 <br>
 ・外乱：<a href="#span-app-gas-reference">「人為起源温室効果ガス総排出量」</a>
     </td>
