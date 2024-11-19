@@ -32272,6 +32272,8 @@ modelling
 <span id="span-out-modelling-0D-sea-level"></span>
 <a href="#span-app-sea">海面上昇</a>を漸化式で記述する0D-sea-levelのsimplified modellingについて記述する
 <br>
+・<span class="clear">Ver.2.614.96</span>以降、重み係数<span class="clear">b</span>を適合
+<br>
 <br>
 simplifiedの仮定を列挙する
 <br>
@@ -32281,9 +32283,9 @@ simplifiedの仮定を列挙する
 <br>
 ・積算温度sum_dTの漸化式（feedback項を含む）
 <br>
-　<a href="#span-out-evolution-method">陽解法</a>：sum_dT=(1-1/Tc)*sum_dT+dT
+　<a href="#span-out-evolution-method">陽解法</a>：sum_dT=(1-1/Tc)*sum_dT+<span class="clear">b</span>*dT
 <br>
-　<a href="#span-out-evolution-method">陰解法</a>：sum_dT=(sum_dT+dT)/(1+1/Tc)
+　<a href="#span-out-evolution-method">陰解法</a>：sum_dT=(sum_dT+<span class="clear">b</span>*dT)/(1+1/Tc)
 <br>
 ・時定数
 <br>
@@ -32302,6 +32304,20 @@ simplifiedの仮定を列挙する
 ・<a href="#span-app-sea">残存量</a>の制限：level1&le;level1max
 <br>
 　level：level0+min(level1max,level1)
+<br>
+・<a href="#span-app-sea">西暦2000年の海面上昇</a>の適合結果（寄与度換算）
+<br>
+　level0の比例係数：k0=11.46953405017921
+<br>
+　level1の比例係数：k1=0.18059344991172854
+<br>
+・<a href="#span-app-history">最終氷期⇒間氷期</a>の<a href="#span-app-sea">海面上昇</a>の適合結果
+<br>
+　温度peakの時間[年]：tpeak=-7700
+<br>
+　時定数[年]：Tc=900
+<br>
+　重み係数：<span class="clear">b</span>=10.5
     </td>
   </tr>
   <tr>
