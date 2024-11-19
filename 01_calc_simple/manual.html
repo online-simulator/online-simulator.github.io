@@ -2552,6 +2552,13 @@ calc_len_incircle(3000,1) -> 6.283187603941828
 2pi -> 6.283185307179586
 <br>
 <br>
+<a href="#span-out-evolution-method">1次遅れ系</a>の<a href="#span-out-modelling-0D-diffusion">拡散</a>
+<br>
+・種の発芽　⇔　氷床の融解（時定数の異なる<a href="#span-out-modelling-0D-heat">熱拡散</a>支配の想定）
+<br>
+　日平均気温||地温の積算温度　⇔　<a href="#span-out-modelling-0D-sea-level">年平均の温度上昇量の積算温度</a>
+<br>
+<br>
 並進運動　⇔　回転運動
 <br>
 ・力　⇔　力のmoment
@@ -32260,13 +32267,9 @@ simplifiedの仮定を列挙する
 <br>
 ・時間刻み：1年
 <br>
-・<a href="#span-out-approximation-linear">相関</a>：氷雪の融解量level1∝年平均の温度上昇量dTの積分値（n次変化の場合、n+1次関数）
+・<a href="#span-app-analogy">analogy</a>：氷雪の融解量level1∝年平均の温度上昇量dTの積算温度（n次変化の場合、n+1次関数）
 <br>
-　比例係数k1：基準年の実測値に適合（rate||寄与度換算）
-<br>
-・残存量の制限：level1&lt;level1max
-<br>
-・積分値sum_dTの漸化式（feedback項を含む）
+・積算温度sum_dTの漸化式（feedback項を含む）
 <br>
 　<a href="#span-out-evolution-method">陽解法</a>：sum_dT=(1-1/Tc)*sum_dT+dT
 <br>
@@ -32277,6 +32280,18 @@ simplifiedの仮定を列挙する
 　通常mode：Tc=<a href="#span-app-sea">Order(100年)</a>
 <br>
 　暴走mode：Tc→∞（緩和なし）
+<br>
+・<a href="#span-app-sea">海面上昇</a>level：線形項level0＋非線形項level1
+<br>
+　熱膨張level0：k0*dT
+<br>
+　氷雪の融解量level1：k1*sum_dT
+<br>
+・<a href="#span-out-approximation-linear">回帰直線</a>の比例係数k0/k1：基準年の実測値に適合（rate||寄与度換算）
+<br>
+・<a href="#span-app-sea">残存量</a>の制限：level1&le;level1max
+<br>
+　level：level0+min(level1max,level1)
     </td>
   </tr>
   <tr>
