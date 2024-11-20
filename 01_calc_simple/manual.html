@@ -170,7 +170,7 @@ test case
 <br>
 ・<span class="selection">cell0d</span>：<a href="#span-out-modelling-0D-cell">0D-cell simplified modelling</a>の実施例（<a title="[spec]Electrochemical 0D-cell" href="../20_cell/spec.html">[spec]Electrochemical 0D-cell</a>参照）
 <br>
-・<span class="clear">CO2</span>：<a href="#span-app-gas-CO2">二酸化炭素</a>と<a href="#span-app-history">地球史</a>の実施例（<a href="#span-app-history">Younger Dryas期</a>を基準に<a href="#span-app-period-activity">Milankovitch cycle</a>を<a href="#span-out-series-Fourier">のこぎり波</a>で記述）
+・<span class="clear">CO2</span>：<a href="#span-app-gas-CO2">二酸化炭素</a>と<a href="#span-app-history">地球史</a>の実施例（<a href="#span-app-history">Younger Dryas期</a>を基準に<a href="#span-app-period-activity">Milankovitch cycle</a>を<a href="#span-out-series-Fourier">逆のこぎり波</a>で記述）
 <br>
 ・<span class="clear">sea</span>：<a href="#span-out-modelling-0D-sea-level">0D-sea-level simplified modelling</a>||<a href="#span-out-evolution-method">陰||陽解法</a>の実施例（<a href="#span-app-climate">気候変動</a>の<a href="#span-app-sea">海面上昇</a>を<a href="#span-out-evolution-method">1次遅れ系</a>で記述）
 <br>
@@ -3859,12 +3859,22 @@ Dyson球
 <br>
 　⇒<a href="#span-app-sea-level">海水準</a>と<a href="#span-app-gas">温室効果gas</a>（主に<a href="#span-app-gas-CO2">二酸化炭素</a>とmethane）
 <br>
+・<a href="#span-app-climate">温暖化</a>の<span class="clear">自然界の「正のfeedback-loop」</span>
+<br>
+　⇒雪氷由来のalbedo低下（日射と温度のpeak時間差の一因）
+<br>
+　⇒<a href="#span-app-sea">海面上昇</a>と大気中の<a href="#span-app-gas">温室効果gas</a>濃度増加（大気と海洋の循環作用）
+<br>
+　<a href="#span-app-history">最終氷期⇒間氷期</a>：逆順より速やかに移行（<a href="#span-out-series-Fourier">逆のこぎり波</a>の波形）
+<br>
+　　停止機構：北極の日射peak以降、徐々に温度peakで大陸氷床の成長に逆転（南極の時間遅れが最大）
+<br>
 <br>
 気温変動の駆動力
 <br>
 ・自然：太陽の日射&gt;&gt;地球の熱源
 <br>
-・外乱：<a href="#span-app-gas-reference">「人為起源温室効果ガス総排出量」</a>
+・外乱：<a href="#span-app-gas-reference">「人為起源温室効果ガス総排出量の内訳」</a>（<span class="clear">「正のfeedback-loop」</span>に介入）
     </td>
   </tr>
   <tr>
@@ -3976,15 +3986,15 @@ Dyson球
 <br>
 ・<span class="clear">時定数</span>の根拠
 <br>
-　9000~6000年前：<a href="#span-app-period-activity">日射量のpeak</a>以降の<a href="#span-out-UI-graphing-testcase">海面上昇</a>の緩和過程に適合（温度peakの時間遅れを含む）
+　9000~6000年前：<a href="#span-app-period-activity">日射peak</a>以降の<a href="#span-out-UI-graphing-testcase">海面上昇</a>の緩和過程に適合（温度peakの時間遅れを含む）
 <br>
-　　約7700年前：平均気温の<a href="#span-out-modelling-0D-sea-level">温度peakの推定時刻</a>（南極の時間遅れが最大）
+　　約7700年前：平均気温の<a href="#span-out-modelling-0D-sea-level">温度peakの推定時刻</a>
 <br>
 　西暦1900年~：緩和過程の延長で流用（長期のbalance状態を想定）
 <br>
 ・<span class="clear">長時定数</span>の影響
 <br>
-　雪氷由来の<a href="#span-out-modelling-0D-heat">albedo</a>低下：<a href="#span-app-climate">温暖化</a>に寄与する「正のfeedback」（日射と温度のpeak差の一因）
+　<a href="#span-app-climate">温暖化</a>：<a href="#span-app-factor">「正のfeedback-loop」</a>
 <br>
 　突発の<span class="jF">meltwater pulse</span>@<span class="condition">rate</span>&gt;0：Order(10年)の大洪水event（当時よりspot減の残存量次第）
     </td>
@@ -39950,6 +39960,10 @@ ft=&lt;sign(asin(sin(t))); || ft=&lt;sign(sin(t));
 ・のこぎり波
 <br>
 ft=&lt;atan(tan(t));
+<br>
+・逆のこぎり波
+<br>
+ft=&lt;-atan(tan(t));
     </td>
   </tr>
   <tr>
