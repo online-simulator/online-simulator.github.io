@@ -1673,6 +1673,8 @@ ja.m.wikipedia.org/wiki/項目を列挙する
 <br>
 ・海水準変動
 <br>
+・熱膨張率
+<br>
 ・縄文時代
 <br>
 ・縄文海進
@@ -32272,7 +32274,7 @@ modelling
 <span id="span-out-modelling-0D-sea-level"></span>
 <a href="#span-app-sea">海面上昇</a>を漸化式で記述する0D-sea-levelのsimplified modellingについて記述する
 <br>
-・<span class="clear">Ver.2.614.96</span>以降、重み係数<span class="clear">b</span>を適合
+・<span class="clear">Ver.2.614.96</span>以降、<span class="selection">基準年</span>の<span class="jF">線膨張量係数</span>k1に対する無次元の重み係数<span class="clear">b</span>を適合
 <br>
 <br>
 simplifiedの仮定を列挙する
@@ -32287,7 +32289,9 @@ simplifiedの仮定を列挙する
 <br>
 　<a href="#span-out-evolution-method">陰解法</a>：sum_dT=(sum_dT+<span class="clear">b</span>*dT)/(1+1/Tc)
 <br>
-・重み係数<span class="clear">b</span>：総spotの形状因子（Tcとk1に従属）
+・無次元の重み係数<span class="clear">b</span>：総spotの形状因子
+<br>
+　定数の場合、sum_dTから外出可：k1*<span class="clear">b</span>
 <br>
 ・時定数
 <br>
@@ -32305,20 +32309,20 @@ simplifiedの仮定を列挙する
 <br>
 　level：level0+min(level1max,level1)
 <br>
-・<a href="#span-out-approximation-linear">回帰直線</a>の比例係数k0/k1：基準年の実測値に適合（rate||寄与度換算）
+・<a href="#span-out-approximation-linear">回帰直線</a>の<span class="jF">線膨張量係数</span>k0/k1：<span class="selection">基準年</span>の実測値に適合（rate||寄与度換算）
 <br>
 <br>
 実施例
 <br>
 ・<a href="#span-app-sea">西暦2000年の海面上昇</a>の適合結果（寄与度換算）
 <br>
-　level0の比例係数[cm/℃]：k0=11.46953405017921
+　level0の<span class="jF">線膨張量係数</span>[cm/℃]：k0=11.46953405017921
 <br>
-　level1の比例係数[cm/℃]：k1=0.18059344991172854
+　level1の<span class="jF">線膨張量係数</span>[cm/℃]：k1=0.18059344991172854
 <br>
 　時定数[年]：Tc=500（仮）
 <br>
-　重み係数：<span class="clear">b</span>=1
+　重み係数：<span class="clear">b</span>=1（<span class="selection">基準年</span>）
 <br>
 ・<a href="#span-app-history">最終氷期⇒間氷期</a>の<a href="#span-app-sea">海面上昇</a>の適合結果
 <br>
@@ -32332,11 +32336,13 @@ simplifiedの仮定を列挙する
 <br>
 ・氷期の形状因子<span class="clear">b</span>が10.5倍：単なる適合で定量性はないが、<a href="#span-out-UI-graphing-testcase">未来のlevelを過小評価の可能性あり</a>
 <br>
+　安全率の補足：<span class="condition"><a href="#span-app-rate">step応答</a></span>の2桁差の内1桁の幾分かを説明する候補
+<br>
 ・modelling詳細化の検討候補
 <br>
-　k0：熱膨張率との整合性||水深と時間遅れの考慮
+　k0：<span class="jF">熱膨張率</span>との整合性||水深と時間遅れの考慮（非線形化）
 <br>
-　k1：<a href="#span-app-analogy">analogy</a>の見直し||氷床分布の差異||形状因子<span class="clear">b</span>の時間変化
+　k1：<a href="#span-app-analogy">analogy</a>の見直し||日射と氷床分布の差異||形状因子<span class="clear">b</span>の時間変化（Tcとk1に従属）
     </td>
   </tr>
   <tr>
