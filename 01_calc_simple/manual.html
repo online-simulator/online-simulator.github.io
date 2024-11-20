@@ -40040,6 +40040,26 @@ y/(y*y)  <span class="selection">// NG</span> -> NaN
 _dy(=&lt;{y})/_dy(=&lt;{y*y})  <span class="selection">// NG</span> -> NaN
 <br>
 _dy(=&lt;{1/(y*y)})/_dy(=&lt;{1/y})  <span class="selection">// NG</span> -> NaN
+<br>
+・有限の場合
+<br>
+y=1e7; y -> 10000000
+<br>
+(1/y)/y -> 1e-14
+<br>
+y*y -> 100000000000000
+<br>
+y/(y*y) -> 1e-7
+<br>
+_dy(=&lt;{y})/_dy(=&lt;{y*y}) -> 5e-8+O(1e+0)
+<br>
+_dy(=&lt;{1/(y*y)})/_dy(=&lt;{1/y}) -> 1.9999999999838647e-7-6.386544827326884e-25i+O(1e+0+6e-25i)
+<br>
+・公式
+<br>
+x=1e7; (1+1/x)**x=e -> 1.3432696333026684e-7
+<br>
+x=1e7; a=1.3; ((x+a)/(x-a))**x=e**(2a) -> -1.9790533656305342e-8
     </td>
   </tr>
   <tr>
