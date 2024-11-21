@@ -288,6 +288,8 @@ test case
 <br>
 　　・<a href="#span-app-period-activity">活動周期</a>
 <br>
+　　　・<a href="#span-app-period-activity-Milankovitch">Milankovitch cycle</a>
+<br>
 　・<a href="#span-app-flare">太陽flare</a>
 <br>
 　・<a href="#span-app-meteorite">隕石</a>
@@ -3311,7 +3313,13 @@ substitution方式の変換
 <br>
 ・地球自転軸の歳差運動：25776~25920年（春分点が黄道12星座を1周して回帰する周期）
 <br>
-　・黄道12星座の転換：2148~2160年
+　黄道12星座の転換：2148~2160年
+<br>
+・地球自転軸の傾き変化：約4.1万年
+<br>
+　傾き[deg]の範囲：[21.5,24.5]
+<br>
+　現在の傾き[deg]：23.4（減少方向）
 <br>
 ・地球の近日点移動周期：360*60**2/11.45≒113188年（近日点移動が1周して回帰する周期）
 <br>
@@ -3457,17 +3465,35 @@ years -> <del>3302702547335783400</del><span class="clear"><a href="#span-out-fl
 <br>
 ・地磁気逆転：10~100万年
 <br>
-・氷期＋間氷期cycle
-<br>
-　258.8~160万年前：数万年
-<br>
-　160~80万年前：約4万年
-<br>
-　80万年前~：約10万年（Milankovitch cycleが主導）
-<br>
-・Milankovitch cycle：約10万年（日射量の変動）
+・氷期＋間氷期cycle：2~10万年（<a href="#span-app-period-activity-Milankovitch">Milankovitch仮説</a>の日射変動）
 <br>
 ・太陽活動：約11年（黒点数を含む見かけ上の増減）
+    </td>
+  </tr>
+  <tr>
+    <th>
+<a href="#span-index">
+目次
+</a>
+<br>
+Milankovitch
+<br>
+cycle
+<br>
+の解釈
+    </th>
+    <td>
+<span id="span-app-period-activity-Milankovitch"></span>
+Milankovitch cycleの解釈（地球年基準）について記述する
+<br>
+<br>
+Milankovitch cycleの日射変動周期と地球軌道要素
+<br>
+・258.8~160万年前：約2.3万年（<a href="#span-app-period-motion">地軸の歳差運動周期</a>が卓越）
+<br>
+・160~80万年前：約4.1万年（<a href="#span-app-period-motion">地軸の傾き変化周期</a>が卓越）
+<br>
+・80万年前~：約10万年（離心率の<a href="#span-app-period-motion">近日点移動周期</a>が卓越）
     </td>
   </tr>
   <tr>
@@ -3821,6 +3847,8 @@ Dyson球
 <br>
 ・太陽定数：放射線に対して垂直な面の太陽放射の強度[W/m^2]
 <br>
+　球対称の放射：強度∝1/距離**2
+<br>
 ・大気の吸収率：放射線を吸収する効率（大気中の<a href="#span-app-gas">温室効果gas</a>濃度に依存）
 <br>
 ・albedo：放射線を反射する効率（主に<a href="#span-app-sea">氷床の残存量</a>に依存）
@@ -3831,9 +3859,9 @@ Dyson球
 <br>
 　albedo加味の最大値：I0=1367; I0*(1-0.3) -> 956.9
 <br>
-　夏至の正午@北緯30[deg]：I0=1367; I0*(1-0.3)*cos(deg2rad(30-23.4)) -> 950.5583994030193
+　夏至の正午@北緯30[deg]：I0=1367; I0*(1-0.3)*cos(deg2rad(30-<a href="#span-app-period-motion">23.4</a>)) -> 950.5583994030193
 <br>
-　冬至の正午@北緯30[deg]：I0=1367; I0*(1-0.3)*cos(deg2rad(30+23.4)) -> 570.5275828545979
+　冬至の正午@北緯30[deg]：I0=1367; I0*(1-0.3)*cos(deg2rad(30+<a href="#span-app-period-motion">23.4</a>)) -> 570.5275828545979
 <br>
 ・放射強制力（統一指標）：<a href="#span-app-atmosphere">対流圏</a>界面の熱流束fluxの変化量
 <br>
@@ -4011,7 +4039,7 @@ Dyson球
 <br>
 ・<span class="clear">時定数</span>の根拠
 <br>
-　9000~6000年前：<a href="#span-app-period-activity">日射peak</a>以降の<a href="#span-out-UI-graphing-testcase">海面上昇</a>の緩和過程に適合（温度peakの時間遅れを含む）
+　9000~6000年前：<a href="#span-app-period-activity-Milankovitch">日射peak</a>以降の<a href="#span-out-UI-graphing-testcase">海面上昇</a>の緩和過程に適合（温度peakの時間遅れを含む）
 <br>
 　　約7700年前：平均気温の<a href="#span-out-modelling-0D-sea-level">温度peakの推定時刻</a>
 <br>
@@ -4090,7 +4118,7 @@ Dyson球
 <br>
 ・億年scaleの傾向：濃度は減少傾向　⇔　<a href="#span-out-modelling-0D-heat">太陽放射の強度</a>は増加傾向（今後、<span class="selection"><a href="#span-app-history">全球凍結</a>は起こり得ない</span>）
 <br>
-・<span class="run">自然cycle</span>（<a href="#span-app-period-activity">Milankovitch cycle</a>）の濃度変動[ppm]：<span class="jF">190</span>~<span class="clear">280</span>（<a href="#span-out-modelling-0D-heat">albedo</a>=<span class="jF">[0.33,0.36]</span>~0.3相当の氷床の変動に従属）
+・<span class="run">自然cycle</span>（<a href="#span-app-period-activity-Milankovitch">Milankovitch cycle</a>）の濃度変動[ppm]：<span class="jF">190</span>~<span class="clear">280</span>（<a href="#span-out-modelling-0D-heat">albedo</a>=<span class="jF">[0.33,0.36]</span>~0.3相当の氷床の変動に従属）
 <br>
 ・直近の濃度変化[ppm]：<span class="clear">280</span>~410（<span class="wF">万年scale</span>の<span class="clear">間氷期の上限</span>を超えて高<span class="condition">rate</span>≒2[ppm/年]で増加中）
 <br>
@@ -4464,7 +4492,7 @@ jet
 <br>
 ・約77万年前の<a href="#span-app-period-activity">地磁気逆転</a>：直近の反転
 <br>
-・約40万年前の<a href="#span-app-origin">現生人類</a>の出現期~：<a href="#span-app-period-activity">Milankovitch cycle</a>が主導（約10万年の<a href="#span-app-period-activity">周期</a>）
+・約40万年前の<a href="#span-app-origin">現生人類</a>の出現期~：<a href="#span-app-period-activity-Milankovitch">Milankovitch cycle</a>が主導（約10万年の<a href="#span-app-period-activity">周期</a>）
 <br>
 　<a href="#span-app-gas-CO2">大気中の二酸化炭素濃度</a>の推移：化石燃料を大量消費する文明の痕跡なし
 <br>
@@ -4474,7 +4502,7 @@ jet
 <br>
 　火山灰で反射率が2割増を仮定（<a href="#span-out-modelling-0D-heat">albedo</a>=0.3⇒0.36）：<a href="#span-out-UI-graphing-testcase">平均気温</a>が約6℃低下
 <br>
-・1.8~0.6万年前の<a href="#span-app-period-activity">最終氷期⇒間氷期</a>：<a href="#span-app-climate">温暖化</a>⇒<a href="#span-app-sea">海面上昇</a>120m⇒陸地減少
+・1.8~0.6万年前の<a href="#span-app-period-activity-Milankovitch">最終氷期⇒間氷期</a>：<a href="#span-app-climate">温暖化</a>⇒<a href="#span-app-sea">海面上昇</a>120m⇒陸地減少
 <br>
 　<span class="clear">海水回帰</span>の過程：氷床の後退＋大陸上に蓄積の雪氷の融解（<span class="clear">氷期の陸地侵食⇒風化の痕跡</span>あり）
 <br>
