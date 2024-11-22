@@ -3867,13 +3867,11 @@ Dyson球
 <br>
 ・放射強制力（統一指標）：<a href="#span-app-atmosphere">対流圏</a>界面の熱流束fluxの変化量
 <br>
-　対策効果の1次感度：<a href="#span-out-modelling-0D-heat">Order(1年)</a>
+・熱輸送の時定数：温度変化に伴う応答の時間遅れ（主に日射の地表分布のspot依存）
 <br>
-・熱輸送の時定数（2次感度）：温度変化に伴う応答の時間遅れ（主に日射の地表分布のspot依存）
+　<a href="#span-app-atmosphere">対流圏</a>内の1次感度の熱輸送（<a href="#span-out-modelling-0D-heat">放射⇒対流</a>）：<a href="#span-out-modelling-0D-heat">Order(0.1~1年)</a>
 <br>
-　<a href="#span-app-atmosphere">対流圏</a>内の熱輸送（<a href="#span-out-modelling-0D-heat">放射⇒対流</a>）：Order(0.01年)
-<br>
-　<a href="#span-app-atmosphere">対流圏</a>外の熱輸送（<a href="#span-app-analogy">伝達⇒拡散</a>）：<a href="#span-app-sea">Order(100~年)</a>
+　<a href="#span-app-atmosphere">対流圏</a>外の2次感度の熱輸送（<a href="#span-app-analogy">伝達⇒拡散</a>）：<a href="#span-app-sea">Order(100~年)</a>
 <br>
 <br>
 補足因子
@@ -32522,6 +32520,8 @@ modelling
 <br>
 ・<span class="clear">Ver.2.614.95</span>以降、時定数の表記を修正：O(年)　⇒　Order(1年)
 <br>
+・<span class="clear">Ver.2.621.97</span>以降、時定数を修正：Order(1年)　⇒　Order(0.1~1年)
+<br>
 <br>
 前提を列挙する
 <br>
@@ -32855,7 +32855,7 @@ year_l=Tc_l/s_1year; year_l -> 206814.46061249104
 <br>
 alpha10=-W0*(<span class="clear">1-albedo0</span>)<span class="selection">*absorb0</span>/(A1*(T1-T0)); alpha10 -> 2.1027776130308893
 <br>
-・<span class="clear">放射強制力の時定数Tc_a=Order(1年)</span>
+・<span class="clear">放射強制力の時定数Tc_a=Order(0.1~1年)</span>
 <br>
 Tc_a=C/(alpha10*A1); Tc_a -> 6783761.861191721+O(2e-4)
 <br>
@@ -33412,6 +33412,8 @@ simulation
 ・<span class="run">Ver.2.102.32</span>以降、<span class="jF">大気の吸収率</span>について補足を追記
 <br>
 ・<span class="clear">Ver.2.614.95</span>以降、時定数の表記を修正：感度O(年)　⇒　1次感度Order(1年)
+<br>
+・<span class="clear">Ver.2.621.97</span>以降、時定数を修正：Order(1年)　⇒　Order(0.1~1年)
 <hr>
 放射強制力の増加量＜<span class="clear">基準値</span>の約2%=<span class="condition">3.007~3.896</span>[W/m^2]
 <br>
@@ -33570,7 +33572,7 @@ Te_th(a0+0.025264986)=&gt;-Te_th0 -> 1.500000016245508
 <br>
 1.442405512427431+O(7e-15)
 <br>
-・対策効果の<span class="clear">1次</span>感度に相当する<span class="clear">放射強制力の時定数Tc_a=Order(1年)</span>
+・対策効果の<span class="clear">1次</span>感度に相当する<span class="clear">放射強制力の時定数Tc_a=Order(0.1~1年)</span>
 <br>
 <br>
 以降、記述がない限り、<span class="selection">対流圏の吸収率</span><span class="clear">基準値</span><span class="clear">absorb0=1</span>とする
