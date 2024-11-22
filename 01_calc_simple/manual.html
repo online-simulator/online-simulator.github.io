@@ -2558,9 +2558,11 @@ calc_len_incircle(3000,1) -> 6.283187603941828
 2pi -> 6.283185307179586
 <br>
 <br>
-<a href="#span-out-evolution-method">1次遅れ系</a>の<a href="#span-out-modelling-0D-diffusion">拡散</a>
+<a href="#span-out-evolution-method">1次遅れ系</a>の輸送（<a href="#span-out-modelling-0D-heat">放射</a>を除く、<a href="#span-out-modelling-0D-heat">伝達</a>||<a href="#span-out-modelling-0D-diffusion">拡散</a>）
 <br>
-・種の発芽　⇔　氷床の融解（時定数の異なる<a href="#span-out-modelling-0D-heat">熱拡散</a>支配の想定）
+・<a href="#span-app-factor">時定数</a>：<a href="#span-out-modelling-0D-heat">伝達</a>＜<a href="#span-out-modelling-0D-diffusion">拡散</a>
+<br>
+・種の発芽　⇔　氷床の融解（時定数の異なる熱輸送の想定）
 <br>
 　日平均気温||地温の積算温度　⇔　<a href="#span-out-modelling-0D-sea-level">年平均の温度上昇量の積算温度</a>
 <br>
@@ -3869,9 +3871,9 @@ Dyson球
 <br>
 ・熱輸送の時定数（2次感度）：温度変化に伴う応答の時間遅れ（主に日射の地表分布のspot依存）
 <br>
-　<a href="#span-app-atmosphere">対流圏</a>内の熱輸送：Order(0.01年)
+　<a href="#span-app-atmosphere">対流圏</a>内の熱輸送（<a href="#span-out-modelling-0D-heat">放射⇒対流</a>）：Order(0.01年)
 <br>
-　<a href="#span-app-atmosphere">対流圏</a>外の熱拡散：<a href="#span-app-sea">Order(100~年)</a>
+　<a href="#span-app-atmosphere">対流圏</a>外の熱輸送（<a href="#span-app-analogy">伝達⇒拡散</a>）：<a href="#span-app-sea">Order(100~年)</a>
 <br>
 <br>
 補足因子
@@ -4035,7 +4037,7 @@ Dyson球
 <br>
 　熱膨張：多少の時間遅れで追従（当初の変動<span class="condition">rate</span>の大半）
 <br>
-　雪氷の融解：複数spotで<a href="#span-out-modelling-0D-heat">熱拡散</a>を伴う<span class="clear">Order(100年)の時定数</span>で顕在化（徐々に<span class="condition">rate</span>増の可能性）
+　雪氷の融解：複数spotで<a href="#span-app-analogy">熱伝達⇒熱拡散</a>を伴う<span class="clear">Order(100年)の時定数</span>で顕在化（徐々に<span class="condition">rate</span>増の可能性）
 <br>
 ・<span class="clear">時定数</span>の根拠
 <br>
@@ -4144,7 +4146,7 @@ Dyson球
 <br>
 　大方の懸念：<span class="run">自然cycle</span>逸脱で定量予測困難（feedback機構のcancel率||<a href="#span-out-modelling-0D-sea-level">暴走mode</a>の閾値||<a href="#span-app-sea">氷床の最終残存量</a>等）
 <br>
-　副次的な影響：温度変化に従属の<a href="#span-out-modelling-0D-heat">熱拡散</a>と<a href="#span-out-modelling-0D-heat">albedo</a>変化の影響は<a href="#span-app-sea">Order(100年)の時定数</a>で顕在化（<a href="#span-app-sea">海面上昇</a>等）
+　副次的な影響：温度変化に従属の<a href="#span-app-analogy">熱伝達⇒熱拡散</a>の影響は<a href="#span-app-sea">Order(100年)の時定数</a>で顕在化（<a href="#span-app-sea">海面上昇</a>等）
 <br>
 　逆説の補足：濃度超過が従属の場合、実際の温度変化量に対して<span class="condition">rate</span><span class="wF">過大||<a href="#span-app-history">過敏</a></span>　⇒　<a href="#span-app-gas">濃度超過が駆動力</a>
 <br>
