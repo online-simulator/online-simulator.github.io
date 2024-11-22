@@ -2564,7 +2564,7 @@ calc_len_incircle(3000,1) -> 6.283187603941828
 <br>
 ・種の発芽　⇔　氷床の融解（時定数の異なる熱輸送の想定）
 <br>
-　日平均気温||地温の積算温度　⇔　<a href="#span-out-modelling-0D-sea-level">年平均の温度上昇量の積算温度</a>
+　日平均気温||地温の積算温度　⇔　<a href="#span-out-modelling-0D-sea-level">年平均の代表温度上昇量の積算温度</a>
 <br>
 <br>
 並進運動　⇔　回転運動
@@ -3813,7 +3813,7 @@ Dyson球
 <br>
 ・また、簡単には追従しないであろう、<a href="#span-app-gas-CO2">副次的な環境変化への影響</a>を考慮する
 <br>
-・例えば、温度上昇（<a href="#span-out-modelling-0D-heat">放射強制力</a>増加）が停止しても、雪氷由来の<a href="#span-out-modelling-0D-heat">albedo</a>低下と<a href="#span-app-sea">海面上昇</a>は即座に停止しない
+・例えば、気温上昇（<a href="#span-out-modelling-0D-heat">放射強制力</a>増加）が停止しても、雪氷由来の<a href="#span-out-modelling-0D-heat">albedo</a>低下と<a href="#span-app-sea">海面上昇</a>は即座に停止しない
 <br>
 ・一方、北半球は人口と陸地面積率が南半球の数倍あるため、南半球より顕著な影響が見られる
 <br>
@@ -3954,7 +3954,7 @@ Dyson球
 <br>
 　基準年：西暦2000年（<a href="#span-app-climate">温暖化</a>が優勢　⇒　<a href="#span-app-history">海水回帰</a>の融解rate&gt;&gt;湿度依存の降雪rate）
 <br>
-・平均気温の上昇量[℃]の想定範囲
+・平均気温の上昇量[℃]の範囲（想定）
 <br>
 　<a href="#span-app-history">最終氷期⇒間氷期</a>：<a href="#span-app-gas-CO2">[4,7]</a>
 <br>
@@ -4144,7 +4144,7 @@ Dyson球
 <br>
 ・予想の目安
 <br>
-　直近の温度変化との<a href="#span-out-approximation-linear">相関</a>：100ppmの濃度変化量　⇔　約1℃の温度変化量
+　直近の気温変化との<a href="#span-out-approximation-linear">相関</a>：100ppmの濃度変化量　⇔　約1℃の気温変化量
 <br>
 　　一意の<a href="#span-out-approximation-linear">相関</a>の仮定：濃度小の<a href="#span-out-approximation-linear">線形領域</a>
 <br>
@@ -4162,7 +4162,7 @@ Dyson球
 <br>
 　大方の懸念：<span class="run">自然cycle</span>逸脱で定量予測困難（海洋の吸収限界||<a href="#span-out-modelling-0D-sea-level">暴走mode</a>の閾値||<a href="#span-app-sea">氷床の最終残存量</a>等）
 <br>
-　副次的な影響：温度変化に従属の<a href="#span-app-factor">熱伝達⇒熱拡散</a>の影響は<a href="#span-app-sea">Order(100年)の時定数</a>で顕在化（<a href="#span-app-sea">海面上昇</a>等）
+　副次的な影響：気温変化に従属の<a href="#span-app-factor">熱伝達⇒熱拡散</a>の影響は<a href="#span-app-sea">Order(100年)の時定数</a>で顕在化（<a href="#span-app-sea">海面上昇</a>等）
 <br>
 　逆説の補足：濃度超過が従属の場合、実際の温度変化量に対して<span class="condition">rate</span><span class="wF">過大||<a href="#span-app-history">過敏</a></span>　⇒　<a href="#span-app-gas">濃度超過が駆動力</a>
 <br>
@@ -4514,7 +4514,7 @@ jet
 <br>
 　<a href="#span-app-gas-CO2">大気中の二酸化炭素濃度</a>の推移：化石燃料を大量消費する文明の痕跡なし
 <br>
-　　次のToba事変：濃度変化は自然変動の範囲内（温度変化を含む火山活動の影響に対して<span class="wF">感度小</span>の可能性）
+　　次のToba事変：濃度変化は自然変動の範囲内（気温変化を含む火山活動の影響に対して<span class="wF">感度小</span>の可能性）
 <br>
 ・7~7.5万年前のToba事変：火山の超巨大噴火⇒火山灰を生成⇒地球規模の<a href="#span-app-climate">寒冷化</a>（約6000年間継続）
 <br>
@@ -32379,9 +32379,21 @@ simplifiedの仮定
 <br>
 ・時間刻み：1年
 <br>
-・<a href="#span-app-analogy">analogy</a>：雪氷の融解量level1∝年平均の温度上昇量dTの積算温度（n次変化の場合、n+1次関数）
+・代表温度：地表の平均気温（<a href="#span-app-sea">海水温</a>を反映可）
 <br>
-・積算温度sum_dTの漸化式（feedback項を含む）
+・年平均の代表温度上昇量：dT
+<br>
+・dTの積算温度：sum_dT
+<br>
+・<a href="#span-app-sea">海面上昇</a>量：level=level0+level1
+<br>
+　海水の熱膨張量：level0
+<br>
+　雪氷の融解量：level1
+<br>
+・<a href="#span-app-analogy">analogy</a>：雪氷の融解量level1∝年平均の代表温度上昇量dTの積算温度（n次変化の場合、n+1次関数）
+<br>
+・dTの積算温度sum_dTの漸化式（feedback項を含む）
 <br>
 　<a href="#span-out-evolution-method">陽解法</a>：sum_dT=(1-1/Tc)*sum_dT+<span class="clear">b</span>*dT
 <br>
@@ -32397,11 +32409,11 @@ simplifiedの仮定
 <br>
 　暴走mode：Tc<a href="#span-out-limit">→∞</a>（緩和なし）
 <br>
-・<a href="#span-app-sea">海面上昇</a>level：線形項level0＋非線形項level1
+・<a href="#span-app-sea">海面上昇</a>level：level0+level1
 <br>
-　海水の熱膨張量level0：k0*dT
+　level0：k0*dT（線形項）
 <br>
-　雪氷の融解量level1：k1*sum_dT
+　level1：k1*sum_dT（非線形項）
 <br>
 ・<a href="#span-app-sea">残存量</a>の制限：level1&le;level1max
 <br>
