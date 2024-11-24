@@ -4066,7 +4066,7 @@ Dyson球
 <br>
 ・<a href="#span-app-sea-level">海水準</a>換算の残存量[m]（目安）
 <br>
-　氷河と氷帽：不明
+　氷河と氷帽：0.5
 <br>
 　Greenlandの氷床：7
 <br>
@@ -32500,9 +32500,19 @@ simplifiedの仮定
 <br>
 　Tc：<a href="#span-app-factor">熱輸送</a>の時間遅れの実質寄与度と現在の経過時間（正味予測）
 <br>
-　k0：<a href="#span-app-sea">海水温</a>と<span class="jF">熱膨張率</span>の整合性||水深と時間遅れの考慮（非線形化）
+　k0：<a href="#span-app-sea">海水温</a>と<span class="jF">熱膨張率</span>の整合性||水深方向の熱伝導と時間遅れの考慮（非線形化）
 <br>
 　k1：<a href="#span-app-analogy">analogy</a>の見直し||形状因子<span class="clear">b</span>の時間変化（Tcとk1に従属）
+<br>
+・補足
+<br>
+　全海洋平均の水深[km]：0.97*1.4e9/0.36e9=3.772222222222222
+<br>
+　水深2~0kmの平均温度[℃]：2~20
+<br>
+　20℃の<span class="jF">熱膨張率</span>[1/℃]：0.025e-2
+<br>
+　水深2kmまで+[1,2]℃の熱膨張量[cm]：2e5*0.025e-2*[1,2]=[50,100]（<span class="jF">熱膨張率</span>と海洋面積一定を仮定）
     </td>
   </tr>
   <tr>
