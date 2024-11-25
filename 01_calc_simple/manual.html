@@ -901,6 +901,8 @@ test case
 <br>
 　・<a href="#span-out-evolution">時間発展の解法</a>
 <br>
+　　・<a href="#span-out-evolution-system">線形system論</a>
+<br>
 　　・<a href="#span-out-evolution-method">陰||陽解法</a>
 <br>
 　・<a href="#span-out-ODE">常微分方程式</a>
@@ -1444,6 +1446,8 @@ ja.m.wikipedia.org/wiki/項目を列挙する
 ・有限差分
 <br>
 ・微分の記法
+<br>
+・線形システム論
 <br>
 ・斜方投射
 <br>
@@ -31235,7 +31239,7 @@ y=f(x)=a*x+b
 <br>
 非線形な系で線形近似の条件（|相関係数|≒1の許容誤差範囲内）
 <br>
-・xとyの関係が線形領域：平衡状態に対する変動量が相対的に小さい（変動の振幅が微小）
+・線形応答（xとyの関係が線形領域）：平衡状態に対する変動量が相対的に小さい（変動の振幅が微小）
     </td>
   </tr>
   <tr>
@@ -32441,7 +32445,7 @@ simplifiedの仮定
 <br>
 　雪氷の融解量：level1
 <br>
-・熱膨張：遅延なしの線形応答（詳細化の優先度低）
+・熱膨張：遅延なしの<a href="#span-out-approximation-linear">線形応答</a>（詳細化の優先度低）
 <br>
 ・<a href="#span-app-analogy">analogy</a>：雪氷の融解量level1∝年平均の代表温度上昇量dTの積算温度（n次変化の場合、n+1次関数）
 <br>
@@ -34508,7 +34512,29 @@ albedoの年率低下割合=0.125%で徐々に変化した場合、20年間1年�
 <br>
 時間発展の解法を列挙する
 <br>
+・<a href="#span-out-evolution-system">線形system論</a>
+<br>
 ・<a href="#span-out-evolution-method">陰||陽解法</a>
+    </td>
+  </tr>
+  <tr>
+    <th>
+<a href="#span-index">
+目次
+</a>
+<br>
+線形
+<br>
+system論
+    </th>
+    <td>
+<span id="span-out-evolution-system"></span>
+線形system論について記述する
+<br>
+<br>
+線形systemの制御理論（平衡状態に対する外乱の応答を<a href="#span-out-approximation-linear">線形近似</a>で記述）
+<br>
+・状態方程式：1階線形定数係数<a href="#span-out-ODE">常微分方程式</a>の<a href="#span-out-linear">連立線形微分方程式</a>
     </td>
   </tr>
   <tr>
@@ -34524,7 +34550,9 @@ albedoの年率低下割合=0.125%で徐々に変化した場合、20年間1年�
 陰||陽解法について記述する
 <br>
 <br>
-1次遅れ系の時間発展方程式（平衡状態に対する外乱の応答を記述）
+1次遅れ系の時間発展方程式
+<br>
+・<a href="#span-out-evolution-system">1階線形常微分方程式</a>
 <br>
 V'=-a*V+b*I
 <br>
