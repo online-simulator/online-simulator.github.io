@@ -3897,7 +3897,9 @@ Dyson球
 <br>
 ・放射強制力（統一指標）：<a href="#span-app-atmosphere">対流圏</a>界面の熱流束fluxの変化量
 <br>
-・熱輸送の時定数：気温変化に伴う応答の時間遅れ（主に日射の地表分布のspot依存）
+・熱輸送の時定数：気温変化に伴う<a href="#span-out-evolution-method">1次遅れ系</a>の時間遅れ（主に日射の地表分布のspot依存）
+<br>
+　時間遅れ：入力に対して応答が遅れる時間の目安
 <br>
 　1次感度（<a href="#span-app-atmosphere">対流圏</a>内の<a href="#span-out-modelling-0D-heat">放射⇒対流</a>）：<a href="#span-out-modelling-0D-heat">Order(0.1~1年)</a>
 <br>
@@ -3955,7 +3957,7 @@ Dyson球
 <br>
 　⇒<a href="#span-app-sea">海面上昇</a>と大気中の<a href="#span-app-gas">温室効果gas</a>濃度増加（大気と海洋の循環作用）
 <br>
-・停止機構：北極の<a href="#span-app-period-activity-Milankovitch">日射peak</a>以降、徐々に温度peakで<a href="#span-app-history">大陸氷床</a>の後退から成長に逆転（南極の時間遅れが最大）
+・停止機構：北極の<a href="#span-app-period-activity-Milankovitch">日射peak</a>以降、徐々に温度peakで<a href="#span-app-history">大陸氷床</a>の後退から成長に逆転（南極の<a href="#span-app-factor">時間遅れ</a>が最大）
 <br>
 ・<a href="#span-app-period-activity-Milankovitch">非対称性：氷床の後退:成長時間[万年]≒1:9</a>（<a href="#span-out-series-Fourier">逆のこぎり波</a>の波形）
 <br>
@@ -4086,13 +4088,13 @@ Dyson球
 <br>
 ・気温変化に対する追従性
 <br>
-　海水の熱膨張：多少の時間遅れで追従（当初の変動<span class="condition">rate</span>の大半）
+　海水の熱膨張：多少の<a href="#span-app-factor">時間遅れ</a>で追従（当初の変動<span class="condition">rate</span>の大半）
 <br>
 　雪氷の融解：複数spotで<a href="#span-app-factor">熱伝達⇒熱拡散</a>を伴う<span class="clear">Order(100年)の時定数</span>で顕在化（徐々に<span class="condition">rate</span>増の可能性）
 <br>
 ・<span class="clear">時定数</span>の根拠
 <br>
-　9000~6000年前：<a href="#span-app-period-activity-Milankovitch">日射peak</a>以降の<a href="#span-out-UI-graphing-testcase">海面上昇</a>の緩和過程に適合（温度peakの時間遅れを含む）
+　9000~6000年前：<a href="#span-app-period-activity-Milankovitch">日射peak</a>以降の<a href="#span-out-UI-graphing-testcase">海面上昇</a>の緩和過程に適合（温度peakの<a href="#span-app-factor">時間遅れ</a>を含む）
 <br>
 　　約7700年前：平均気温の<a href="#span-out-modelling-0D-sea-level">温度peakの推定時刻</a>
 <br>
@@ -32504,9 +32506,9 @@ simplifiedの仮定
 <br>
 　氷期と現在で異なる状況：<a href="#span-app-dependency">駆動力</a>と<span class="condition"><a href="#span-app-rate">rate</a></span>||<a href="#span-app-factor">日射</a>と氷床分布
 <br>
-　Tc：<a href="#span-app-factor">熱輸送</a>の時間遅れの実質寄与度と現在の経過時間（正味予測）
+　Tc：<a href="#span-app-factor">熱輸送</a>の<a href="#span-app-factor">時間遅れ</a>の実質寄与度と現在の経過時間（正味予測）
 <br>
-　k0：<a href="#span-app-sea">海水温</a>と<span class="jF">熱膨張率</span>の整合性||水深方向の熱容量と時間遅れの考慮（非線形化）
+　k0：<a href="#span-app-sea">海水温</a>と<span class="jF">熱膨張率</span>の整合性||水深方向の熱容量と<a href="#span-app-factor">時間遅れ</a>の考慮（非線形化）
 <br>
 　k1：<a href="#span-app-analogy">analogy</a>の見直し||形状因子<span class="clear">b</span>の時間変化（Tcとk1に従属）
 <br>
