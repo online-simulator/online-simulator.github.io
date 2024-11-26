@@ -28,6 +28,12 @@ Ver.0.59.7
 ・solve 3n±1結果表示に(zeros counted)/(bin.length-2)を追加
 <br>
 ・test caseを追記（Collatz予想　⇔　entropy増大則）
+<br>
+　均等化　⇒　伸長と均一化
+<br>
+　不可逆性（復元　⇒　再現）
+<br>
+　均一化後の挙動
           </td>
         </tr>
         <tr class="border">
@@ -950,9 +956,11 @@ Collatz予想
 <br>
 <span class="condition">・完全性は証明不能のため、一律bit操作の反復過程から以下の統計的な結論（entropy増大則）を示す</span>
 <br>
-　<span class="condition">発散しない根拠（bit列のentropy小⇒大）：偏り最大の状態　⇒　均等化（両端bitを除く、0||1の比率≒0.5）</span>
+　<span class="condition">発散しない根拠（bit列のentropy小⇒大）：偏り最大　⇒　伸長と均一化（両端bitを除く、0||1の比率≒0.5）</span>
 <br>
-　<span class="condition">循環しない根拠（bit列のentropy大）：bit列長のsize大（m&gt;&gt;1）で同じbit列の復元不可</span>
+　<span class="condition">循環しない根拠（bit列のentropy大の不可逆性）：bit列長&gt;&gt;1の反復過程で同じbit列の再現不可</span>
+<br>
+　<span class="condition">均一化後の挙動（bit列のentropy最大）：有限の反復回数で前述の循環に帰着（常に右shift優勢）</span>
           </td>
         </tr>
         <tr class="border">
