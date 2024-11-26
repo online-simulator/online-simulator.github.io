@@ -22,6 +22,16 @@
       <tbody>
         <tr class="border">
           <td class="border run">
+Ver.0.59.7
+          </td>
+          <td class="border">
+・solve 3n±1結果表示に(zeros counted)/(bin.length-2)を追加
+<br>
+・test caseを追記（Collatz予想　⇔　entropy増大則）
+          </td>
+        </tr>
+        <tr class="border">
+          <td class="border run">
 Ver.0.58.7
           </td>
           <td class="border">
@@ -754,6 +764,8 @@ Collatz予想
 <span class="wF">Ver.0.46.7追記</span>
 <br>
 <span class="jF">Ver.0.50.7追記</span>
+<br>
+<span class="condition">Ver.0.59.7追記</span>
           </td>
           <td class="border">
 ・nを任意の自然数の奇数として3n+1の下位3桁のbit列を2進数literalで昇順に列挙する
@@ -854,7 +866,7 @@ Collatz予想
 <br>
 1->4->2->1</span>
 <br>
-・一方、3n-1の場合、右shift優勢で以下の循環<span class="jF">のいずれか</span>に帰着
+・一方、3n-1の場合、右shift優勢で以下の循環<span class="jF">のいずれか</span>に帰着<span class="condition">（整数に拡張相当）</span>
 <br>
 <span class="jF">1->2->1</span>
 <br>
@@ -930,9 +942,17 @@ Collatz予想
 <br>
 ・以上より、3n=n+(n&lt;&lt;1)と±1の一律bit操作の反復過程で
 <br>
-・0連続部分（最上位bitの1桁上を含む）に形成されるbit列のrandom性（1回が連続しない状況）が示唆される
+・0連続部分（最上位bitの<span class="condition">上側</span>を含む）に形成されるbit列のrandom性（1回が連続しない状況）が示唆される
+<br>
+　<span class="condition">1回が連続する状況：bit列の偏りが最大の状態（0b1111...1111||0b1000...0001）</span>
 <br>
 ・完全randomの場合、bit列長の比がlog2(3)到達以降、常に右shift優勢（無限大で3/4の期待値）が確定する
+<br>
+<span class="condition">・完全性は証明不能のため、一律bit操作の反復過程から以下の統計的な結論（entropy増大則）を示す</span>
+<br>
+　<span class="condition">発散しない根拠（bit列のentropy小⇒大）：偏り最大の状態　⇒　均等化（両端bitを除く、0||1の比率≒0.5）</span>
+<br>
+　<span class="condition">循環しない根拠（bit列のentropy大）：bit列長のsize大（m&gt;&gt;1）で同じbit列の復元不可</span>
           </td>
         </tr>
         <tr class="border">

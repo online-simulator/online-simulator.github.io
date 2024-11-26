@@ -302,7 +302,7 @@ My_entry.test_number.prototype.solve = function(isMinus){
   };
   var run = function(num, N){
     var _html = "";
-    _html += self.output_line("wF", "No.<br>&lt;1e6", "dec", "hex", "oct", "bin", "frequency distribution<br>ls3bit=001,011,101,111", "Nrshift(3)", "-1+(No.+1)/sum(frequency)");  // Ver.0.33.4
+    _html += self.output_line("wF", "No.<br>&lt;1e6", "dec", "hex", "oct", "bin", "(zeros counted)/(bin.length-2)", "frequency distribution<br>ls3bit=001,011,101,111", "Nrshift(3)", "-1+(No.+1)/sum(frequency)");  // Ver.0.33.4  // Ver.0.59.7
     for(var i=0; i<N; ++i){
       /* Ver.0.34.4 -> */
       if(num > nmax){
@@ -320,7 +320,8 @@ My_entry.test_number.prototype.solve = function(isMinus){
       }
       else{
         self.save_freq(num);  // Ver.0.35.4
-        _html += self.output_line("condition", i, num, num.toString(16), num.toString(8), num.toString(2), freq2d[3], calc_Nrshift(i), get_Nrshift(i));  // Ver.0.33.4
+        var bin = num.toString(2);  // Ver.0.59.7
+        _html += self.output_line("condition", i, num, num.toString(16), num.toString(8), bin, self.count_bin0(bin, 1, 1)/(bin.length-2), freq2d[3], calc_Nrshift(i), get_Nrshift(i));  // Ver.0.33.4  // Ver.0.59.7
         if(isBreak(num, i)){
           break;
         }
@@ -353,6 +354,18 @@ My_entry.test_number.prototype.count_N0 = function(bin, m){
     }
     else{
       break;
+    }
+  }
+  return _N0;
+};
+/* Ver.0.59.7 */
+My_entry.test_number.prototype.count_bin0 = function(bin, m0, m1){
+  var self = this;
+  var _N0 = 0;
+  var len = bin.length;
+  for(var i=m0; i<len-m1; ++i){
+    if(bin.charAt(i) === "0"){
+      _N0++;
     }
   }
   return _N0;
