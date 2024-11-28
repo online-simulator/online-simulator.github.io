@@ -22,6 +22,14 @@
       <tbody>
         <tr class="border">
           <td class="border run">
+Ver.0.60.7
+          </td>
+          <td class="border">
+・test caseを追記（Collatz予想）
+          </td>
+        </tr>
+        <tr class="border">
+          <td class="border run">
 Ver.0.59.7
           </td>
           <td class="border">
@@ -772,6 +780,8 @@ Collatz予想
 <span class="jF">Ver.0.50.7追記</span>
 <br>
 <span class="condition">Ver.0.59.7追記</span>
+<br>
+<span class="selection">Ver.0.60.7追記</span>
           </td>
           <td class="border">
 ・nを任意の自然数の奇数として3n+1の下位3桁のbit列を2進数literalで昇順に列挙する
@@ -954,13 +964,17 @@ Collatz予想
 <br>
 ・完全randomの場合、bit列長の比がlog2(3)到達以降、常に右shift優勢（無限大で3/4の期待値）が確定する
 <br>
-<span class="condition">・完全性は証明不能のため、一律bit操作の反復過程から以下の統計的な結論（entropy増大則）を示す</span>
+<span class="condition">・完全<span class="selection">random</span>性は証明不能のため、一律bit操作の反復過程から以下の統計的な結論（entropy増大則）を示す</span>
 <br>
 　<span class="condition">発散しない根拠（bit列のentropy小⇒大）：偏り最大　⇒　伸長と均一化（両端bitを除く、0||1の比率≒0.5）</span>
 <br>
 　<span class="condition">循環しない根拠（bit列のentropy大の不可逆性）：bit列長&gt;&gt;1の反復過程で同じbit列の再現不可</span>
 <br>
 　<span class="condition">均一化後の挙動（bit列のentropy最大）：有限の反復回数で前述の循環に帰着（常に右shift優勢）</span>
+<br>
+<span class="selection">・以上より、一種の宇宙的挙動から熱力学同等の確度で次の不等式を得る</span>
+<br>
+　<span class="selection">上限の不等式（bit列の初期値に対するquality）：反復過程でqualityが2を超えない（quality&lt;2）</span>
           </td>
         </tr>
         <tr class="border">
