@@ -26,6 +26,8 @@ Ver.0.60.7
           </td>
           <td class="border">
 ・test caseを追記（Collatz予想）
+<br>
+　N進法に一般化（定義とqualityの不等式）
           </td>
         </tr>
         <tr class="border">
@@ -972,9 +974,19 @@ Collatz予想
 <br>
 　<span class="condition">均一化後の挙動（bit列のentropy最大）：有限の反復回数で前述の循環に帰着（常に右shift優勢）</span>
 <br>
-<span class="selection">・以上より、一種の宇宙的挙動から熱力学同等の確度で次の不等式を得る</span>
+<span class="selection">・以上より、一種の宇宙的挙動から熱力学同等の確度でN進法に一般化する</span>
 <br>
-　<span class="selection">qualityの上限（bit列のentropy増大率）：反復過程でbit列長が初期値の2倍を超えない（quality&lt;2）</span>
+<span class="selection">・定義</span>
+<br>
+　<span class="selection">N進法のentropy：自然数nの桁数　⇔　entropy:=log_ex(n,N)+1≒log_ex(n,N)</span>
+<br>
+　<span class="selection">quality：entropy初期値に対するentropy増大率</span>
+<br>
+<span class="selection">・qualityの不等式</span>
+<br>
+　<span class="selection">均一化の平衡点：scaling最小（底Nと真数N+1）の非対称な演算に依存　⇔　平衡点のquality&lt;log_ex(N+1,N)</span>
+<br>
+　<span class="selection">全過程の上限：非対称な演算の反復過程でqualityが2を超えない　⇔　quality&lt;2</span>
           </td>
         </tr>
         <tr class="border">
