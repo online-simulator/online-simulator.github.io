@@ -204,6 +204,18 @@ My_entry.test_number.prototype.save_freq = function(num){
   return self;
 };
 /* -> Ver.0.35.4 */
+/* Ver.0.61.7 */
+My_entry.test_number.prototype.get_freq_bin = function(bin, m0, m1){
+  var self = this;
+  var _freq = [0, 0];
+  var len = bin.length;
+  var lenm2 = len-2;
+  if(lenm2 > 0){
+    var N_bin0 = self.count_bin0(bin, m0, m1);
+    _freq = [N_bin0, lenm2-N_bin0];
+  }
+  return _freq;
+};
 /* Ver.0.53.7 -> */
 My_entry.test_number.prototype.get_Mean = function(x){
   var self = this;
@@ -302,7 +314,7 @@ My_entry.test_number.prototype.solve = function(isMinus){
   };
   var run = function(num, N){
     var _html = "";
-    _html += self.output_line("wF", "No.<br>&lt;1e6", "dec", "hex", "oct", "bin", "(zeros counted)/(bin.length-2)", "frequency distribution<br>ls3bit=001,011,101,111", "Nrshift(3)", "-1+(No.+1)/sum(frequency)");  // Ver.0.33.4  // Ver.0.59.7
+    _html += self.output_line("wF", "No.<br>&lt;1e6", "dec", "hex", "oct", "bin", "(zeros counted)/(bin.length-2)", "frequency distribution<br>1bit-pattern1=0,1", "frequency distribution<br>bit-pattern<br>Standard Deviation/Mean", "frequency distribution<br>ls3bit=001,011,101,111", "Nrshift(3)", "-1+(No.+1)/sum(frequency)");  // Ver.0.33.4  // Ver.0.59.7  // Ver.0.61.7
     for(var i=0; i<N; ++i){
       /* Ver.0.34.4 -> */
       if(num > nmax){
@@ -321,7 +333,8 @@ My_entry.test_number.prototype.solve = function(isMinus){
       else{
         self.save_freq(num);  // Ver.0.35.4
         var bin = num.toString(2);  // Ver.0.59.7
-        _html += self.output_line("condition", i, num, num.toString(16), num.toString(8), bin, self.count_bin0(bin, 1, 1)/(bin.length-2), freq2d[3], calc_Nrshift(i), get_Nrshift(i));  // Ver.0.33.4  // Ver.0.59.7
+        var freq = self.get_freq_bin(bin, 1, 1);  // Ver.0.61.7
+        _html += self.output_line("condition", i, num, num.toString(16), num.toString(8), bin, freq[0]/(bin.length-2), freq, self.get_Standard_Deviation(freq)/self.get_Mean(freq), freq2d[3], calc_Nrshift(i), get_Nrshift(i));  // Ver.0.33.4  // Ver.0.59.7  // Ver.0.61.7
         if(isBreak(num, i)){
           break;
         }
