@@ -26,6 +26,8 @@ Ver.0.62.7
           </td>
           <td class="border">
 ・test caseを追記（entropyとqualityの定義を明確化）
+<br>
+　qmax=2の根拠（一旦cancelを復帰）
           </td>
         </tr>
         <tr class="border">
@@ -1008,7 +1010,9 @@ Collatz予想
 <br>
 　<span class="selection">均一化の平衡点：底Nと真数Mの非対称な演算（±αの桁調整を含む）に依存　⇔　1&lt;平衡点のquality&lt;log_ex(M,N)</span>
 <br>
-　<span class="selection">予想成立の必要条件：quality&lt;qmax　⇔　log_ex(M,N)&lt;qmax　⇔　qmax=2の場合、M=[N+1,N*N-1]</span>
+　<span class="selection">N=2の場合、qmax=2の根拠：右shift可能回数の期待値が無限大で2に漸近　⇔　M&lt;4　⇔　quality&lt;log_ex(4,2)</span>
+<br>
+　<span class="selection">予想成立の必要条件：quality&lt;2　⇔　log_ex(M,N)&lt;2　⇔　M=[N+1,N*N-1]</span>
           </td>
         </tr>
         <tr class="border">
