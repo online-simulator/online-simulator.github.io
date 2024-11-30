@@ -25,7 +25,7 @@
 Ver.0.62.7
           </td>
           <td class="border">
-・test caseを追記（entropyの定義を明確化）
+・test caseを追記（entropyとqualityの定義を明確化）
           </td>
         </tr>
         <tr class="border">
@@ -1020,6 +1020,8 @@ abc予想
 <span class="jF">Ver.0.44.7追記</span>
 <br>
 <span class="condition">Ver.0.45.7追記</span>
+<br>
+<span class="selection">Ver.0.62.7追記</span>
           </td>
           <td class="border">
 ・他方、abc予想も同様に、qualityがbit列長<span class="clear">（entropy）</span>の比と等価で1.6をほぼ超えない
@@ -1042,7 +1044,7 @@ quality<span class="clear">'</span>:=log(c')/log(rad(ab))
 <br>
 ・以上より、abc素因数の累乗の指数が大きくなる程、c'大/rad(ab)小の関係からqualityが大きくなる
 <br>
-・拘束条件がない場合、分母abと分子c'が独立するため、qualityは2より大きな値を取り得る
+・拘束条件がない場合、分母abと分子c'が独立するため、<span class="selection">quality&ge;2の</span>値を取り得る
 <br>
 ・<span class="jF">c=4095の一例</span>・N進数表記：(N-ary)・<span class="jF">p=[2,sqrt(c)]の昇順に右shiftを実行</span>
 <br>
