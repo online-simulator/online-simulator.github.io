@@ -21,6 +21,16 @@
       <caption>更新履歴</caption>
       <tbody>
         <tr class="border">
+          <td class="border clear">
+Ver.0.62.8
+          </td>
+          <td class="border">
+・test caseを追記（Collatz予想）
+<br>
+　qmaxの定義を訂正（quality　⇒　平衡点のquality）
+          </td>
+        </tr>
+        <tr class="border">
           <td class="border run">
 Ver.0.62.7
           </td>
@@ -806,6 +816,8 @@ Collatz予想
 <span class="selection">Ver.0.60.7追記</span>
 <br>
 <span class="selection">Ver.0.62.7追記</span>
+<br>
+<span class="wF">Ver.0.62.8追記</span>
           </td>
           <td class="border">
 ・nを任意の自然数の奇数として3n+1の下位3桁のbit列を2進数literalで昇順に列挙する
@@ -1004,15 +1016,15 @@ Collatz予想
 <br>
 　<span class="selection">quality：系のentropy初期値に対するentropy増大率</span>
 <br>
-　<span class="selection">qmax：発散系の場合、quality&ge;qmax</span>
+　<span class="selection">qmax：発散系の場合、<span class="wF">平衡点の</span>quality&ge;qmax</span>
 <br>
 <span class="selection">・qualityの不等式</span>
 <br>
 　<span class="selection">均一化の平衡点：底Nと真数Mの非対称な演算（±αの桁調整を含む）に依存　⇔　1&lt;平衡点のquality&lt;log_ex(M,N)</span>
 <br>
-　<span class="selection">N=2の場合、qmax=2の根拠：右shift可能回数の期待値が無限大で2に漸近　⇔　M&lt;4　⇔　quality&lt;log_ex(4,2)</span>
+　<span class="selection">N=2の場合、qmaxの根拠：右shift可能回数の期待値が無限大で2に漸近　⇔　M&lt;4　⇔　<span class="wF">qmax=log_ex(4,2)=2</span></span>
 <br>
-　<span class="selection">予想成立の必要条件：quality&lt;2　⇔　log_ex(M,N)&lt;2　⇔　M=[N+1,N*N-1]</span>
+　<span class="selection">予想成立の必要条件：<span class="wF">平衡点の</span>quality&lt;2　⇔　log_ex(M,N)&lt;2　⇔　M=[N+1,N*N-1]</span>
           </td>
         </tr>
         <tr class="border">
