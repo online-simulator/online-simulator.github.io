@@ -21,6 +21,16 @@
       <caption>更新履歴</caption>
       <tbody>
         <tr class="border">
+          <td class="border run">
+Ver.0.63.8
+          </td>
+          <td class="border">
+・test caseを追記（Collatz予想）
+<br>
+　命題を追加
+          </td>
+        </tr>
+        <tr class="border">
           <td class="border clear">
 Ver.0.62.8
           </td>
@@ -820,6 +830,8 @@ Collatz予想
 <span class="selection">Ver.0.62.7追記</span>
 <br>
 <span class="wF">Ver.0.62.8追記</span>
+<br>
+<span class="wF">Ver.0.63.8追記</span>
           </td>
           <td class="border">
 ・nを任意の自然数の奇数として3n+1の下位3桁のbit列を2進数literalで昇順に列挙する
@@ -1014,9 +1026,9 @@ Collatz予想
 <br>
 <span class="selection">・定義</span>
 <br>
-　<span class="selection">自然数nのentropy：log(n)　⇔　底Nの場合、N進法の桁数-1</span>
+　<span class="selection">自然数nのentropy：log(n)　⇔　底Nの場合、N進法の桁数-1</span><span class="wF">　⇔　m:=log_ex(n,N)+1</span>
 <br>
-　<span class="selection">quality：系のentropy初期値に対するentropy増大率</span>
+　<span class="selection">quality：系のentropy初期値に対するentropy増大率</span><span class="wF">　⇔　quality:=log(nmax)/log(n)</span>
 <br>
 　<span class="selection">qmax：発散系の場合、<span class="wF">平衡点の</span>quality&ge;qmax</span>
 <br>
@@ -1027,6 +1039,14 @@ Collatz予想
 　<span class="selection">N=2の場合、qmaxの根拠：右shift可能回数の期待値が無限大で2に漸近　⇔　M&lt;4　⇔　<span class="wF">qmax=log_ex(4,2)=2</span></span>
 <br>
 　<span class="selection">予想成立の必要条件：<span class="wF">平衡点の</span>quality&lt;log_ex(M,N)&lt;2　⇔　M=[N+1,N*N-1]</span>
+<br>
+<span class="wF">・命題：quality/log_ex(M,N)&gt;1+ε, 実数ε&gt;0を満たすnは有限個</span>
+<br>
+　<span class="wF">式変形：quality&gt;qmax_ep+ε', ε'=ε*qmax_ep, qmax_ep:=log_ex(M,N)</span>
+<br>
+　<span class="wF">超過qualityのε'：連続超過の反復回数期待値Lが有限　⇔　ε'∝1/(m*qmax_ep)　⇔　無限大で0に漸近</span>
+<br>
+　<span class="wF">quality上限の目安：quality&lt;qmax_ep+L/(m*qmax_ep)</span>
           </td>
         </tr>
         <tr class="border">
