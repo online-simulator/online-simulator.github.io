@@ -28,6 +28,8 @@ Ver.0.62.8
 ・test caseを追記（Collatz予想）
 <br>
 　qmaxの定義を訂正（quality　⇒　平衡点のquality）
+<br>
+・test caseを追記
           </td>
         </tr>
         <tr class="border">
@@ -1088,6 +1090,8 @@ Riemann予想
 <span class="run">Ver.0.38.4追加</span>
 <br>
 <span class="wF">Ver.0.46.7追記</span>
+<br>
+<span class="selection">Ver.0.62.7追記</span>
           </td>
           <td class="border">
 ・nが素数の確率P（全素数の倍数にならない）
@@ -1122,7 +1126,7 @@ primes_rad=rad(x!);
 <br>
 linspace_round(x)=&lt;trans(round(trans(linspace(1,x,x))));
 <br>
-・logの和で展開
+・logの和で展開<span class="selection">（entropy換算）</span>
 <br>
 log_rad_fact(x)=&lt;sum(trans(log(trans(primes_rad))));
 <br>
@@ -1130,7 +1134,7 @@ log_fact(x)=&lt;sum(trans(log(trans(linspace_round(x)))));
 <br>
 pi_by_x(x)=&lt;log_rad_fact(x)/log_fact(x);
 <br>
-・log2の和で展開（一律+1桁の操作のみでlogの和と大差なしを確認用）
+・log2の和で展開（一律+1桁の<span class="selection">桁数換算</span>）
 <br>
 log2_rad_fact(x)=&lt;sum(trans(log2(trans(primes_rad))+1));
 <br>
