@@ -3195,7 +3195,7 @@ AIのsingularityのlevel
 <br>
 　拘束条件：a+b=c（背反を付与）
 <br>
-・<span class="condition">命題の一般化</span>：quality&gt;1+ε, <span class="wF">実数ε&gt;0</span>を満たすsomethingは有限個<span class="wF">　⇔　稀な事象の規定</span>
+・<span class="condition">命題の一般化</span>：quality&gt;1+ε, <span class="wF">実数ε&gt;0</span>を満たすsomethingは有限個<span class="wF">　⇔　<a href="#span-app-thermodynamics">稀な事象</a>の規定</span>
 <br>
 　<span class="wF">理想ε=(0,1)：ε=0で無限個　⇔　quality&ge;2で0個（全経路履歴の上限を含む「強い証明」）</span>
 <br>
@@ -3235,7 +3235,7 @@ AIのsingularityのlevel
 <br>
 　集積率の限界：原子sizeの物理的な制約（2020年~本格化）
 <br>
-・Murphyの法則："If it can happen, it will happen."　⇒　「起こり得る事象はいつか起こる」
+・Murphyの法則："If it can happen, it will happen."　⇒　「<a href="#span-app-thermodynamics">起こり得る事象</a>はいつか起こる」
 <br>
 ・天気俚諺||観天望気（天気の口伝||ことわざ）：<a href="#span-app-optics">「朝虹は雨、夕虹は晴れ」</a>
 <br>
@@ -3261,13 +3261,17 @@ AIのsingularityのlevel
 <br>
 ・scale：熱力学＞統計力学＞量子力学　⇔　自然数＞確率＞<a href="#span-out-float">浮動小数</a>
 <br>
-・entropy：多様性と「乱雑さ」の<a href="#span-app-arithmetic">示量性状態量</a>　⇔　<a href="#span-out-FN-log">entropy∝ln(状態数)</a>　⇔　情報量∝log2(1/確率)
+・entropy：<a href="#span-app-arithmetic">示量性状態量</a>
+<br>
+　定義：<a href="#span-out-FN-log">entropy∝ln(状態数)</a>　⇔　情報量∝log2(1/確率)
+<br>
+　表現：「多様性と乱雑さ」　⇔　「起こりにくさのrarity」
 <br>
 ・<a href="#span-app-unsolved">entropy増大則</a>：「秩序⇒無秩序」の自発的な状態変化
 <br>
 　「時間の矢」：孤立系全体で不可逆
 <br>
-　反復過程：秩序の偏りを形成（energy投入が必要）　⇔　全体の均一化が進行（地球は太陽に依存）
+　反復過程：秩序の偏りを形成（<a href="#span-app-synthesis">energy投入が必要</a>）　⇔　全体の均一化が進行（<a href="#span-app-dependency">地球は太陽に依存</a>）
 <br>
 ・系のquality：系のentropy初期値に対するentropy増大率
     </td>
@@ -4889,7 +4893,9 @@ calc_P(6,1) -> 2e-9
 <br>
 ・実数・度数法・弧度法・<a href="#span-out-com">複素数</a>・vector・<a href="#span-out-mat">行列</a>
 <br>
-・<a href="#span-app-thermodynamics">entropy</a>・示量性||示強性状態量
+・示量性状態量（体積||<a href="#span-app-thermodynamics">entropy</a>）
+<br>
+・示強性状態量（温度||速さ||濃度||電位potential）
 <br>
 <br>
 定義の補足
@@ -32273,11 +32279,9 @@ S=(f[0]+4Σ&lt;k=0,N/2-1&gt;f[2k+1]+2Σ&lt;k=1,N/2-1&gt;f[2k]+f[N])h/3+O(h^4)
 有限体積法の概要について記述する
 <br>
 <br>
-有限体積法は状態量（物理量）のfluxを基準にcontrol volume内の保存則を離散化する
+有限体積法は<a href="#span-app-arithmetic">状態量（物理量）</a>のfluxを基準にcontrol volume内の保存則を離散化する
 <br>
-・主な<a href="#span-app-arithmetic">示強性状態量</a>は温度||速さ||濃度||電位potential
-<br>
-・fluxは離散化した基準面を通過する単位面積当たりの状態量（Fick's first law）
+・fluxは離散化した基準面を通過する単位面積当たりの<a href="#span-app-arithmetic">状態量</a>（Fick's first law）
 <br>
 ・1次元の場合、x方向の左右の面を通過するfluxを考慮する
 <br>
@@ -32285,7 +32289,7 @@ S=(f[0]+4Σ&lt;k=0,N/2-1&gt;f[2k+1]+2Σ&lt;k=1,N/2-1&gt;f[2k]+f[N])h/3+O(h^4)
 <br>
 ・3次元の場合、上下左右に加えてz方向の前後の面を通過するfluxを考慮する
 <br>
-・よって単位体積当たりの状態量の<a href="#span-out-evolution-method">時間微分</a>は
+・よって単位体積当たりの<a href="#span-app-arithmetic">状態量</a>の<a href="#span-out-evolution-method">時間微分</a>は
 <br>
 　fluxのdivergence項とsource||sink項の和で表される（Fick's second law）
     </td>
@@ -32834,7 +32838,7 @@ modelling
 ※<span class="clear">その他の全因子は定常状態（系内部のenergy変化に寄与しない）を想定する</span>
 <br>
 <br>
-代表的な状態量||物性値を示す
+代表的な<a href="#span-app-arithmetic">状態量</a>||物性値を示す
 <br>
 　<a href="#span-app-factor">太陽定数</a><span class="wF">（太陽放射の強度）</span>I0=1367[W/m^2]
 <br>
