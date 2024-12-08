@@ -3259,7 +3259,7 @@ AIのsingularityのlevel
 <br>
 　<a href="#span-out-FNm-normalize">正規化</a>の理想範囲：(0,1)
 <br>
-・有限：ε=O(1/y)
+・有限：<a href="#span-app-thermodynamics">ε:=dS/S0</a>=O(1/y)
 <br>
 ・任意の関数y=f(x)：x<a href="#span-out-limit">→∞</a>でy=+∞
 <br>
@@ -3346,13 +3346,17 @@ f(x)
 <br>
 　最大化：均一な熱平衡状態
 <br>
-・断熱過程：entropy変化量&ge;0
+・断熱過程：entropy変化量dS&ge;0
 <br>
-　可逆な理想cycle：準静的な等entropyの温度変化　⇔　entropy変化量=0
+　可逆な理想cycle：準静的な等entropyの温度変化　⇔　dS=0
 <br>
-　不可逆な自由膨張（仕事=0）：準静的な等温変化　⇔　entropy変化量∝ln(体積変化率)
+　不可逆な自由膨張（仕事=0）：準静的な等温過程の体積変化（V0⇒V1）　⇔　dS∝ln(V1/V0)
 <br>
 ・系のquality：系のentropy初期値に対するentropy増大率
+<br>
+　初期値S0：quality:=(S0+dS)/S0=1+dS/S0
+<br>
+　<a href="#span-app-eps">実数ε</a>：ε:=dS/S0
     </td>
   </tr>
   <tr>
