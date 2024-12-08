@@ -34894,21 +34894,32 @@ V'=-a*V+b*I
 ・<span class="run">Ver.2.104.33</span>以降、<span class="selection">風速</span>を追加考慮
 <br>
 <br>
-前提を列挙する
+仮定を列挙する
 <br>
-・進行方向に対する物体の姿勢は不変を仮定して<a href="#span-app-aerodynamics">抗力</a>を考慮する（変形なしの剛体球を想定）
+・変形なしの剛体球
 <br>
-・層流を想定して<a href="#span-app-aerodynamics">抗力</a>∝速度を仮定する（乱流の場合、<a href="#span-app-aerodynamics">抗力</a>∝速度の2乗）
+・層流の空気抵抗を考慮
 <br>
-・進行方向に対して垂直方向の<a href="#span-app-aerodynamics">揚力</a>は考慮しない
+　層流：<a href="#span-app-aerodynamics">抗力</a>∝速度
 <br>
-・vector演算を<a href="#span-out-complex">直交座標表示</a>の<a href="#span-out-com">複素数</a>演算で代替する
+　乱流：<a href="#span-app-aerodynamics">抗力</a>∝速度の2乗
+<br>
+・進行方向に対する物体の姿勢は不変
+<br>
+・進行方向に対して垂直方向の<a href="#span-app-aerodynamics">揚力</a>は未考慮
+<br>
+・浮力は未考慮
+<br>
+<br>
+vector演算を<a href="#span-out-complex">直交座標表示</a>の<a href="#span-out-com">複素数</a>演算で代替する
 <br>
 ・t=0の複素数zの初期値
 <br>
-　初期位置：z_x0=0
+　位置：z_x0=0
 <br>
-　初速：z_v0=20+20i
+　速度：z_v0=20+20i
+<br>
+　加速度：z_a=0-9.8i
 <br>
 　<span class="selection">風速</span>：z_u=0
 <br>
