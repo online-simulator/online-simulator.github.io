@@ -3336,6 +3336,8 @@ f(x)
 <br>
 　表現：「多様性と乱雑さの度合」　⇔　「起こりにくさのrarity」
 <br>
+　目安：同一の系　⇔　個別の系
+<br>
 ・<a href="#span-app-unsolved">entropy増大則</a>：「秩序⇒無秩序」の自発的な状態変化
 <br>
 　「時間の矢」：孤立系全体で不可逆（<a href="#span-out-modelling-0D-diffusion">拡散</a>現象の遷移過程の観測結果）
@@ -3357,6 +3359,18 @@ f(x)
 　初期値S：quality:=(S+dS)/S=1+dS/S
 <br>
 　<a href="#span-app-eps">実数ε</a>：ε:=dS/S
+<br>
+　意義：比例係数を消去して任意の底Nで議論（entropyの任意性を担保）
+<br>
+n0=3;
+<br>
+n1=3**3;
+<br>
+quality(N)=&lt;log_ex(n1,N)/log_ex(n0,N);
+<br>
+quality(2) -> 3.0000000000000004
+<br>
+quality(e) -> 3.0000000000000004
     </td>
   </tr>
   <tr>
