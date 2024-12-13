@@ -3444,16 +3444,16 @@ AIのsingularityのlevel
 <br>
 　<a href="#span-out-FNm-normalize">正規化</a>の理想範囲：(0,1)
 <br>
-・有限：<a href="#span-app-quality">ε:=dS/S</a>=O(1/y)
+・有限：<a href="#span-app-quality">ε:=dS/S</a>=O(1/f)
 <br>
-・任意の関数y=f(x)：x<a href="#span-out-limit">→∞</a>でy=+∞
+・任意の関数f(x)：f(+∞)=+∞
 <br>
 <br>
 f(x)
 <br>
-・x&gt;1の<a href="#span-app-entropy">entropy</a>：log(x)
+・<a href="#span-app-entropy">entropy</a>：log(x)
 <br>
-　<a href="#span-out-FN-log">自然対数</a>（素数の確率の逆数）：ln(x)
+　<a href="#span-out-FN-log">自然対数</a>：ln(x)
 <br>
 　<a href="#span-out-FN-log">N進法の桁数-1</a>：log_ex(x,N)
 <br>
@@ -5258,6 +5258,17 @@ calc_P(6,1) -> 2e-9
 ・示量性状態量（体積||<a href="#span-app-entropy">entropy</a>）
 <br>
 ・示強性状態量（温度||速さ||濃度||電位potential）
+<br>
+・<a href="#span-app-quality">quality</a>・<a href="#span-app-eps">実数ε</a>
+<br>
+<br>
+<a href="#span-app-eps">素数の確率</a>≒1/<a href="#span-out-FN-log">自然対数</a>
+<br>
+1/ln(2**5-1) -> 0.29120667621996243
+<br>
+1/ln(2**10-1) -> 0.14428984275593634
+<br>
+1/ln(2**15-1) -> 0.09617995170146938
 <br>
 <br>
 定義の補足
@@ -32795,7 +32806,7 @@ newV=(oldV+b*dt*I)/(1+a*dt)
 <br>
 各parameterのOrder推定方法を示す
 <br>
-・<a href="#span-out-simulation-EIS">交流impedance</a>実測結果のs<a href="#span-out-limit">→∞</a>に漸近する高周波数のZ(s)=R+1/(C*s)からRを推定
+・<a href="#span-out-simulation-EIS">交流impedance</a>実測結果のs<a href="#span-out-limit">→+∞</a>に漸近する高周波数のZ(s)=R+1/(C*s)からRを推定
 <br>
 ・推定Rとcut-off周波数=1/(2pi*R*C)からCを推定
 <br>
@@ -32986,7 +32997,7 @@ simplifiedの仮定
 <br>
 　通常mode：Tc=<a href="#span-app-sea">Order(100年)</a>
 <br>
-　暴走mode：Tc<a href="#span-out-limit">→∞</a>（緩和なし）
+　暴走mode：Tc<a href="#span-out-limit">→+∞</a>（緩和なし）
 <br>
 ・<a href="#span-app-sea">海面上昇</a>level：level0+level1
 <br>
