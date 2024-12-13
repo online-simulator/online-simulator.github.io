@@ -262,6 +262,8 @@ test case
 <br>
 　・<a href="#span-app-universe">現宇宙</a>
 <br>
+　　・<a href="#span-app-flatness">平坦性問題</a>
+<br>
 　・<a href="#span-app-UFT">統一場理論</a>
 <br>
 　・<a href="#span-app-interaction">相互作用</a>
@@ -2386,25 +2388,21 @@ keyword
 <br>
 前提
 <br>
-・時間t
+・<a href="#span-app-thermodynamics">時間</a>：t
 <br>
 　<a href="#span-app-origin">創成</a>：t=0
 <br>
 　現在：t=t0
 <br>
-・scale因子a(t)
+・scale因子：a(t)
 <br>
 　<a href="#span-app-origin">創成</a>：a(0)=0
 <br>
 　現在：a(t0)=1
 <br>
-・温度T(t)
+・温度：T(t)
 <br>
-・曲率=1/曲率半径
-<br>
-・質量変化Δm=energy/光速c^2
-<br>
-・赤方偏移は膨張由来（光の減衰なし）
+・赤方偏移：膨張由来（光の減衰なし）
 <br>
 <br>
 密度
@@ -2414,6 +2412,8 @@ keyword
 ・物質：密度∝1/a**3
 <br>
 ・等密度：放射と物質のenergy密度が一致
+<br>
+・質量変化：Δm=energy/光速c**2
 <br>
 <br>
 温度
@@ -2429,13 +2429,11 @@ keyword
 　物質：Tm∝t**(-4/3)
 <br>
 <br>
-「平坦で一様等方性」の仮定
+<a href="#span-app-flatness">時空</a>の運動方程式
 <br>
-・時空の形状：風船状の孤立系　⇔　<a href="#span-app-entropy">断熱膨張</a>
+・観測結果と整合の仮定：<a href="#span-app-flatness">「平坦で一様等方性」</a>
 <br>
-　時空の曲率：<a href="#span-app-entropy">entropy増大</a>の単調性から発散し得ない（Poincaré定理）
-<br>
-・時空の運動方程式：Friedmann方程式（次のFLRW計量の物質分布を<a title="[spec]Incompressible flow" href="../10_fluid/spec.html">完全流体</a>近似）
+・Friedmann方程式：次のFLRW計量の物質分布を<a title="[spec]Incompressible flow" href="../10_fluid/spec.html">完全流体</a>近似
 <br>
 　Friedmann-Lemaître-Robertson-Walker計量：一般相対性理論のEinstein方程式の1厳密解
 <br>
@@ -2467,6 +2465,82 @@ keyword
 　減衰あり：<a href="#span-app-entropy">均一な熱平衡状態</a>に到達||収縮に反転
 <br>
 　減衰なし：全物質が素粒子まで分解（<a href="#span-app-interaction">基本相互作用</a>の媒介不能）
+    </td>
+  </tr>
+  <tr>
+    <th>
+<a href="#span-index">
+目次
+</a>
+<br>
+平坦性問題
+<br>
+の解釈
+    </th>
+    <td>
+<span id="span-app-flatness"></span>
+時空の平坦性問題の解釈について記述する
+<br>
+<br>
+Poincaré定理（西暦2006年）
+<br>
+・<a href="#span-app-entropy">entropy増大</a>の単調性
+<br>
+<br>
+時空の定義
+<br>
+・<a href="#span-app-thermodynamics">時間</a>：t
+<br>
+・空間
+<br>
+　次元：D
+<br>
+　曲率：k(t)
+<br>
+　曲率半径：r(t):=1/k
+<br>
+　体積：V(t)∝r**D
+<br>
+<br>
+仮定
+<br>
+・孤立系
+<br>
+・初期値が正：V(0)&gt;0　⇔　k(0)&gt;0
+<br>
+・等温過程の不可逆な<a href="#span-app-entropy">断熱自由膨張</a>
+<br>
+・空間のみを考慮
+<br>
+<br>
+関係式
+<br>
+r**D=(1/k)**D
+<br>
+ln(V)∝ln(1/k)
+<br>
+<br>
+<a href="#span-app-entropy">entropy定義の任意性</a>
+<br>
+<a href="#span-app-entropy">entropy</a>∝ln(V)
+<br>
+<a href="#span-app-entropy">情報量</a>∝log2(1/k)
+<br>
+<br>
+<a href="#span-app-entropy">entropy増大則</a>
+<br>
+V(∞)=+∞
+<br>
+k(∞)=0
+<br>
+<br>
+「平坦で一様等方性」の根拠
+<br>
+・時空の制約条件：<a href="#span-app-entropy">entropy∝ln(体積)</a>∝log2(1/曲率)
+<br>
+・<a href="#span-app-entropy">entropy増大則</a>：無限小の空間から膨張で曲率は平坦化に向かう
+<br>
+・時空の形状：風船状の孤立系　⇔　<a href="#span-app-entropy">断熱自由膨張</a>
     </td>
   </tr>
   <tr>
@@ -3474,6 +3548,8 @@ entropy
 ・目安：同一の系　⇔　個別の系
 <br>
 ・断熱自由変化（仕事=0）：entropy∝ln(体積)
+<br>
+・<a href="#span-app-flatness">時空の制約条件</a>：entropy∝ln(体積)∝log2(1/曲率)
 <br>
 <br>
 <a href="#span-app-unsolved">entropy増大則</a>：「秩序⇒無秩序」の自発的な状態変化
