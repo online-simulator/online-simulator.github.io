@@ -674,7 +674,8 @@ My_entry.calc_graphing.prototype.get_options = function(isPlot){
       _options["input-z"] = parser.remove_comment(self.io.read_text(self.elems.z));
     }
     /* -> Ver.2.35.18 */
-    _options.expDigit = $.selectNum_id("select-roundDigit") || _options.expDigit;  // Ver.2.601.94 URL-parameter disabled
+    _options.expDigitX = $.selectNum_id("select-roundDigit-x") || _options.expDigit;  // Ver.2.601.94 URL-parameter disabled  // Ver.2.666.98
+    _options.expDigitY = $.selectNum_id("select-roundDigit-y") || _options.expDigit;  // Ver.2.666.98
     _options["bg-color"] = $.inputVal_id("input-bg-color");
     _options["grid-line-color"] = $.inputVal_id("input-grid-line-color");
     _options["logo"] = parser.make_logo({options: _options});  // including z
@@ -1246,7 +1247,8 @@ My_entry.calc_graphing.prototype.init_handlers = function(){
         var isChecked = $.checkbox_elem(elem);
         $.show("#div-equation-list", isChecked, true);
         break;
-      case "select-roundDigit":  // Ver.2.601.94
+      case "select-roundDigit-x":  // Ver.2.601.94  // Ver.2.666.98
+      case "select-roundDigit-y":  // Ver.2.666.98
       case "select-expDigit":
         self.re_output_log();
         self.isCheckedError = false;  // Ver.2.33.17

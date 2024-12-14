@@ -306,7 +306,7 @@ My_entry.plot2d.prototype.update = function(opt_px_w, opt_px_h, opt_px_b){
   return self;
 };
 /* 1.0.0 */
-My_entry.plot2d.prototype.grid = function(options, tx0, ty0, tx1, ty1, Ni, Nj, isLog_x, isLog_y, label_x, label_y, fontSize, expDigit, gridLineWidth, gridLineColor, globalCompositeOperation){
+My_entry.plot2d.prototype.grid = function(options, tx0, ty0, tx1, ty1, Ni, Nj, isLog_x, isLog_y, label_x, label_y, expDigitX, expDigitY, fontSize, gridLineWidth, gridLineColor, globalCompositeOperation){  // Ver.2.666.98
   var self = this;
   var grid = self.objs.grid;
   var _svg = "";
@@ -374,7 +374,7 @@ My_entry.plot2d.prototype.grid = function(options, tx0, ty0, tx1, ty1, Ni, Nj, i
     var tx = tx0+i*tdx;
     _svg += grid.line(tx, ty0, tx, ty1, lineWidth, styleRGBA, globalCompositeOperation);
     if(label_x){
-      var val = self.entry.conv.num2not(tx, self.config.default.decDigit, expDigit);
+      var val = self.entry.conv.num2not(tx, self.config.default.decDigit, expDigitX);  // Ver.2.666.98
       _svg += grid.axis(val, tx, ty0, fontSize, styleRGBA, globalCompositeOperation, false);
     }
   }
@@ -382,7 +382,7 @@ My_entry.plot2d.prototype.grid = function(options, tx0, ty0, tx1, ty1, Ni, Nj, i
     var ty = ty0+j*tdy;
     _svg += grid.line(tx0, ty, tx1, ty, lineWidth, styleRGBA, globalCompositeOperation);
     if(label_y){
-      var val = self.entry.conv.num2not(ty, self.config.default.decDigit, expDigit);
+      var val = self.entry.conv.num2not(ty, self.config.default.decDigit, expDigitY);  // Ver.2.666.98
       _svg += grid.axis(val, tx0, ty, fontSize, styleRGBA, globalCompositeOperation, true);
     }
   }
@@ -434,6 +434,8 @@ My_entry.plot2d.prototype.run = function(arr2d_vec, options, toSVG, isFinal){
   var markers = plot.markers;
   var _svg = "";
   var expDigit = options["expDigit"];
+  var expDigitX = options["expDigitX"] || expDigit;  // Ver.2.666.98
+  var expDigitY = options["expDigitY"] || expDigit;  // Ver.2.666.98
   var markerSize0 = options["marker-size"];
   var markerLineWidth0 = options["marker-line-width"];
   var plotLineWidth0 = options["plot-line-width"];
@@ -795,7 +797,7 @@ My_entry.plot2d.prototype.run = function(arr2d_vec, options, toSVG, isFinal){
   }
   self.screen_xy = grid.plot2screen(tgxmin, tgymin, tgxmax, tgymax, Ni, Nj);
   /* -> 0.5.0 */
-  _svg += self.grid(options, tgxmin, tgymin, tgxmax, tgymax, Ni, Nj, isLog_x, isLog_y, label_x, label_y, fontSize, expDigit, gridLineWidth, gridLineColor, globalCompositeOperation);
+  _svg += self.grid(options, tgxmin, tgymin, tgxmax, tgymax, Ni, Nj, isLog_x, isLog_y, label_x, label_y, expDigitX, expDigitY, fontSize, gridLineWidth, gridLineColor, globalCompositeOperation);  // Ver.2.666.98
   // masking
   var idName_mask = "mask_lines_and_gradations";
   /* 1.21.7 -> */
