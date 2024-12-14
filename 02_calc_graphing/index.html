@@ -890,6 +890,7 @@
       $._id("plot2d_bspline").onclick = function(){io["onclick_default"](elems, "clear;\nbspline2d(x,y,i_,t)=<[\nout=<(xy),\ninit=<last{\nSi(i_,t)=<0.5*(t^2,t,1)*(1,-2,1:-2,2,0:1,1,0)*{(x[i_-1],y[i_-1]),(x[i_],y[i_]),(x[i_+1],y[i_+1])}\n},\nrun=<last{\nxy=Si(i_,t)=>\n},\ninit=>,run=>,return=out=>,\n=<return]=>;\nplot2d_bspline(x,y)=<[\nout=<(xt,yt),\nscope2storage=<last{add__(xt),add__(yt)},\ninit=<last{\nN=min(sizer(x),sizer(y))-1,\nM=N-1,\nxt=zeros(N+1,M),\nyt=zeros(N+1,M)\n},\nrun=<last{\n_sm(=<_sn(=<last{\n($xnm,$ynm)=bspline2d(=<x,=<y,m,n/N)=>,\nxt[n][m-1]=xnm,\nyt[n][m-1]=ynm\n},0,N),1,M),\nxt=(x,xt),\nyt=(y,yt)\n},\ninit=>,run=>,return=out=>,scope2storage=>,\n=<return]=>;\nplot2d_bspline(=<{0,1,2,3,2},=<{1,4,2,4,4}*(1+2i))=>;\n", 0);};
       $._id("SND_Px_erfx").onclick = function(){io["onclick_default"](elems, "clear;\nSND(t)=<exp(-t^2/2)/sqrt(2*pi);\nP(x)=<_it(=<SND(t)=>,0,x)*2;\nerf(x)=<_it(=<SND(t)=>,0,x*sqrt2)*2;\nerfc(x)=<1-erf(x)=>;\n[x=3,SND(x)=>,P(x)=>,erf(x)=>,erfc(x)=>];\n", 0);};
       $._id("cSND_cP").onclick = function(){io["onclick_default"](elems, "clear;\ncSND(z)=<exp(-abs(z)^2)/pi;\ncP_z(z)=<_iy(=<_ix(=<cSND(x+(y)i)=>,0,real(z))*2,0,imag(z))*2;\ncP_r(r)=<_it(=<_ir(=<cSND(r*e^(i*t))=>,0,r),0,2*pi)/sqrt(pi);\n[z=3*(1+i)/sqrt2,cSND(z)=>,cP_z(z)=>,cP_r(abs(z))=>];\n", 0);};
+      $._id("residue").onclick = function(){io["onclick_default"](elems, "clear;\nintegral_C(=<f,z,r,n)=<_r((s)=<s+last[dt=2*pi/n,t=(__n__-1)*dt,a=z+r*e**(i*t),b=z+r*e**(i*(t+dt)),_i(==<f,a,b)],,n);\nintegral_C((z)=<1/(z-0.5i),0,1,10)=>;\n", 0);};
       $._id("matrix_product").onclick = function(){io["onclick_default"](elems, "clear;\nLpR(L,R)=<[product=<LR[ir][ic]=ttL[ir]*(ttR.)[ic].,\nttL=L..,\nttR=R..,\nLR=zeros(sizer(ttL),sizec(ttR)),\n_sir(=<_sic(=<product,0,sizec(ttR)-1),0,sizer(ttL)-1),\n=<LR]=>;\n[L=(1,2:3:4,5:6),R=(1,2:3,4,5),=<LpR(=<L,=<R)=>]=>;\n", 0);};
       $._id("rotationxyz").onclick = function(){io["onclick_default"](elems, "clear;\nrotx(phi)=<[rt=real(phi),=<(1,,:,cos(rt),-sin(rt):,sin(rt),cos(rt))]=>;\nroty(theta)=<[rt=real(theta),=<(cos(rt),,sin(rt):,1,:-sin(rt),,cos(rt))]=>;\nrotz(psi)=<[rt=real(psi),=<(cos(rt),-sin(rt),:sin(rt),cos(rt),:,,1)]=>;\n[t=pi/4,=<[rotx(t)=>,roty(t)=>,rotz(t)=>]]=>;\n", 0);};
       $._id("rotationxyz_LHS").onclick = function(){io["onclick_default"](elems, "clear;\nrotx_LHS(phi)=<[rt=real(phi),=<(1,,:,cos(rt),sin(rt):,-sin(rt),cos(rt))]=>;\nroty_LHS(theta)=<[rt=real(theta),=<(cos(rt),,-sin(rt):,1,:sin(rt),,cos(rt))]=>;\nrotz_LHS(psi)=<[rt=real(psi),=<(cos(rt),sin(rt),:-sin(rt),cos(rt),:,,1)]=>;\n[t=pi/4,=<[rotx_LHS(t)=>,roty_LHS(t)=>,rotz_LHS(t)=>]]=>;\n", 0);};
@@ -2206,6 +2207,7 @@ path:
 <br>
   <button id="SND_Px_erfx">SND/P(x)/erf(x)</button>
   <button id="cSND_cP">cSND/cP</button>
+  <button id="residue">residue</button>
   <button id="matrix_product">matrix_product</button>
 <br>
   <button id="rotationxyz">rotationx/y/z-RHS</button>

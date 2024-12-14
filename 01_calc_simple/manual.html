@@ -1129,6 +1129,8 @@ test case
 <br>
 ・<a href="#span-eqn-cSND_cP">cSND/cP</a>
 <br>
+・<a href="#span-eqn-residue">residue</a>
+<br>
 ・<a href="#span-eqn-matrix_product">matrix_product</a>
 <br>
 ・<a href="#span-eqn-rotationxyz">rotationx/rotationy/rotationz-Right-Handed-System</a>
@@ -45700,6 +45702,23 @@ cP_z(z)=&lt;_iy(=&lt;_ix(=&lt;cSND(x+(y)i)=&gt;,0,real(z))*2,0,imag(z))*2;
 cP_r(r)=&lt;_it(=&lt;_ir(=&lt;cSND(r*e^(i*t))=&gt;,0,r),0,2*pi)/sqrt(pi);
 <br>
 [z=3*(1+i)/sqrt2,cSND(z)=&gt;,cP_z(z)=&gt;,cP_r(abs(z))=&gt;];
+    </td>
+  </tr>
+  <tr>
+    <th>
+<a href="#span-index">
+目次
+</a>
+<br>
+residue
+    </th>
+    <td>
+<span id="span-eqn-residue"></span>
+clear;
+<br>
+integral_C(=&lt;f,z,r,n)=&lt;_r((s)=&lt;s+last[dt=2*pi/n,t=(__n__-1)*dt,a=z+r*e**(i*t),b=z+r*e**(i*(t+dt)),_i(==&lt;f,a,b)],,n);
+<br>
+integral_C((z)=&lt;1/(z-0.5i),0,1,10)=&gt;;
     </td>
   </tr>
   <tr>
