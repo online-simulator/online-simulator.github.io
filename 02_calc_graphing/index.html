@@ -502,6 +502,7 @@
       $._id("Euler").onclick = function(){setVal("1", "101", "n=round(t),n;", "0.5772156649015328606065120900824024310421593359399235988057672348848677267776646709369470632917467495;harmonic_series(n)=<_s((k)=<1/k,1,n),harmonic_series(n)-ln(n);harmonic_series(n);ln(n);", 100);$._id("input-z").value+="TITLE{Euler's constant}::0;";};
       $._id("phi_n").onclick = function(){setVal("1", "101", "n=t,n;", "n;_s((m)=<gcd(n,m)==1,1,n);", 100);$._id("input-z").value+="TITLE{Euler's totient function};";};
       $._id("penta").onclick = function(){setVal("1", "51", "N=round(t),N;", "q=-1/2,left_prod=_p((n)=<1-q**n,1,N),left_prod;right_sum=_s((n)=<(-1)**n*q**(n(3n-1)/2),-N,N),right_sum;", 50);$._id("input-z").value+="TITLE{Euler's pentagonal number theorem};";};
+      $._id("residue").onclick = function(){setVal("0", "1", "r=t,r;", "zc=0,f(z)=<1/(z-0.5i),integral_C(=<f,z,r,n)=<_r((s)=<s+last[dt=2pi/n,t=(__n__-1)*dt,a=z+r*e**(i(t)),b=z+r*e**(i(t+dt)),_i(==<f,a,b)],,n),imag(integral_C(=<f,zc,r,10));", 10);$._id("input-z").value+="TITLE{residue theorem with integral path-C: regular n-sided polygon}XLABEL{radius of circumcircle from origin}YLABEL{imag(integral_C)}::::::f(z)=<1/(z-0.5i);";};
       $._id("integral1").onclick = function(){setVal("-2", "2", "b=t,b;", "_i((x)=<{1},0,b);_i((x)=<{x},0,b);_i((x)=<{x^2},0,b);_i((x)=<{x^3},0,b);2^4/4;", 10);$._id("input-z").value+="TITLE{_i((x)=<f(x),a,b,opt_NI||100) dx=(b-a)/NI error=Order(dx^4)};";};
       $._id("integral2").onclick = function(){setVal("-2", "2", "b=t,b;", "f(x,y)=<x*y,_i((y)=<{_i((x)=<f(x,y),0,y)},0,b);2^4/8;_i((y)=<{_i((x)=<{f(x,y)*f(x,y)},0,y)},0,b);2^6/18;", 10);$._id("input-z").value+="TITLE{_i((x)=<f(x),a,b,opt_NI||100) dx=(b-a)/NI error=Order(dx^4)};";};
       $._id("integralo").onclick = function(){setVal("-2", "2", "b=t,b;", "NI=1e2,f(x)=<exp(x),ans_correct=exp(b)-1,get_log_errr(ans_numerical)=<log10(abs((ans_numerical-ans_correct)/ans_correct)),get_log_errr(_i(=<f,0,b,NI));get_log_errr(_i4(=<f,0,b,NI));get_log_errr(_i2(=<f,0,b,NI));", 10);$._id("input-z").value+="TITLE{_io() error=Order(dx^o)}YLABEL{log10|relative error|}::7:2:::_i();::::::_i4();::::::_i2();";};
@@ -1074,6 +1075,7 @@
   <button id="Euler">Euler</button>
   <button id="phi_n">phi(n)</button>
   <button id="penta">penta</button>
+  <button id="residue" class="selection">residue</button>
 <br>
   <button id="integral1">integral</button>
   <button id="integral2">-2</button>
