@@ -204,7 +204,7 @@ test case
 <br>
 　-k=0：<a href="#span-app-flatness">時空の曲率</a>k=0の制約条件を追加
 <br>
-　⇒<a href="#span-app-universe">現宇宙</a>@q=-0.64：<a href="#span-app-universe">後期加速膨張</a>の<a href="#span-app-unsolved">発散系</a>
+　⇒<a href="#span-app-universe">現宇宙</a>@q=-0.64：<a href="#span-app-universe">後期加速膨張</a>の<a href="#span-app-divergence">発散系</a>
 <br>
 　-dR/dt：最初期の発散と後期の減速⇒加速の変曲点（約138/2=69億年前）を明示
 <br>
@@ -265,6 +265,8 @@ test case
 　・<a href="#span-app-universe">現宇宙</a>
 <br>
 　　・<a href="#span-app-flatness">平坦性問題</a>
+<br>
+　　・<a href="#span-app-divergence">発散系</a>
 <br>
 　・<a href="#span-app-UFT">統一場理論</a>
 <br>
@@ -2111,6 +2113,10 @@ ja.m.wikipedia.org/wiki/項目を列挙する
 <br>
 ・宇宙背景放射
 <br>
+・観測可能な宇宙
+<br>
+・光年
+<br>
 ・暗黒物質
 <br>
 ・ダークエネルギー
@@ -2502,11 +2508,13 @@ Poincaré定理（西暦2006年）
 <br>
 　次元：D
 <br>
+　形状因子：b
+<br>
 　曲率：k(t)
 <br>
 　曲率半径：r(t):=1/k
 <br>
-　体積：V(t)∝r**D
+　体積：V(t):=b*r**D
 <br>
 <br>
 仮定
@@ -2522,7 +2530,13 @@ Poincaré定理（西暦2006年）
 <br>
 関係式
 <br>
+r=1/k
+<br>
 r**D=(1/k)**D
+<br>
+V=b*(1/k)**D
+<br>
+ln(V)=ln(b)+D*ln(1/k)
 <br>
 ln(V)∝ln(1/k)
 <br>
@@ -2541,13 +2555,65 @@ V(<a href="#span-out-limit">+∞</a>)=+∞
 k(<a href="#span-out-limit">+∞</a>)=0
 <br>
 <br>
-「平坦で一様等方性」の根拠
+「平坦で一様等方性」
 <br>
 ・時空の制約条件：<a href="#span-app-entropy">entropy∝ln(体積)</a>∝log2(1/曲率)
 <br>
 ・<a href="#span-app-entropy">entropy増大則</a>：無限小の空間から膨張で曲率は平坦化に向かう
 <br>
 ・時空の形状：風船状の孤立系　⇔　<a href="#span-app-entropy">断熱自由膨張</a>
+    </td>
+  </tr>
+  <tr>
+    <th>
+<a href="#span-index">
+目次
+</a>
+<br>
+発散系
+<br>
+の解釈
+    </th>
+    <td>
+<span id="span-app-divergence"></span>
+発散系の解釈について記述する
+<br>
+<br>
+仮定
+<br>
+・<a href="#span-app-flatness">「平坦で一様等方性」</a>
+<br>
+<br>
+定義
+<br>
+・半径[m]
+<br>
+　現在：r
+<br>
+　過去：r0
+<br>
+・球の体積[m^3]：V
+<br>
+　現在：V
+<br>
+　過去：V0
+<br>
+・<a href="#span-app-quality">系のquality</a>：quality:=ln(V)/ln(V0)
+<br>
+<br>
+<a href="#span-app-universe">現宇宙</a>は発散系（<a href="#span-app-unsolved"><span class="wF">平衡点の</span>系のquality&ge;2</a>）
+<br>
+r=465e8*9460730472580800;
+<br>
+V=(4pi/3)*r**3;
+<br>
+V0(quality)=&lt;e**(ln(V)/quality);
+<br>
+V0(1) -> 3.566329598716132e+80
+<br>
+V0(2) -> 1.8884728218102934e+40
+<br>
+V0(2**8) -> 2.063750137225363
     </td>
   </tr>
   <tr>
@@ -3405,7 +3471,7 @@ AIのsingularityのlevel
 <br>
 　bit単位の<a href="#span-app-369">「宇宙」</a>で真数が最小の非対称な演算<span class="wF">（引力と斥力）</span>　⇔　<a href="#span-app-369">「宇宙」</a>の<a href="#span-app-entropy">膨張</a>⇒平衡⇒収縮
 <br>
-　<span class="condition">予想成立の必要条件</span>（<span class="wF">平衡点の</span><a href="#span-app-quality">系のquality</a>&lt;2）　⇔　<a href="#span-app-universe">現宇宙</a>は<a href="#span-out-UI-graphing-testcase">発散系</a>（<span class="wF">平衡点の</span><a href="#span-app-quality">系のquality</a>&ge;2）
+　<span class="condition">予想成立の必要条件</span>（<span class="wF">平衡点の</span><a href="#span-app-quality">系のquality</a>&lt;2）　⇔　<a href="#span-app-universe">現宇宙</a>は<a href="#span-app-divergence">発散系</a>（<span class="wF">平衡点の</span><a href="#span-app-quality">系のquality</a>&ge;2）
 <br>
 ・<a title="[spec]Number変換" href="../69_number/spec.html">Collatz予想</a>の命題：quality&gt;1+εを満たす初期値n-singleは有限個（<a href="#span-app-rule">熱力学</a>同等の確度で成立）
 <br>
