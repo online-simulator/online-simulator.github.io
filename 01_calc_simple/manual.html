@@ -306,6 +306,8 @@ test case
 <br>
 　　　・<a href="#span-app-eps">実数ε</a>
 <br>
+　　　・<a href="#span-app-prime">素数定理</a>
+<br>
 　　・<a href="#span-app-rule">経験則</a>
 <br>
 　　　・<a href="#span-app-thermodynamics">熱力学</a>
@@ -3561,7 +3563,7 @@ AIのsingularityのlevel
 <br>
 ・<a title="[spec]Number変換" href="../69_number/spec.html">Goldbach予想</a>の命題：自然数の集合Nの基本特性を保持する最小構成の集合（2を含む）は素数の集合P
 <br>
-　<span class="condition">素数の集合P　⇔　rad(自然数)の集合</span>
+　<span class="condition">素数の集合P　⇔　rad(自然数)の集合</span>（<a href="#span-app-prime">素数定理</a>）
 <br>
 　素数の集合は偏りなし（一様性）　⇔　素数のbit-patternの頻度分布（<a href="#span-app-flatness">平坦化</a>）
 <br>
@@ -3605,6 +3607,54 @@ f(x)
 　<a href="#span-out-FN-log">N進法の桁数-1</a>：log_ex(x,N)
 <br>
 ・多項式：x
+    </td>
+  </tr>
+  <tr>
+    <th>
+<a href="#span-index">
+目次
+</a>
+<br>
+素数定理
+<br>
+の解釈
+    </th>
+    <td>
+<span id="span-app-prime"></span>
+素数定理の解釈について記述する
+<br>
+<br>
+素数の確率≒1/ln(自然数)
+<br>
+・自然数nの<a href="#span-app-eps">実数ε</a>
+<br>
+1/ln(1) -> Infinity
+<br>
+1/ln(2) -> 1.4426950408889634
+<br>
+1/ln(e) -> 1
+<br>
+1/ln(3) -> 0.9102392266268375
+<br>
+1/ln(2**5-1) -> 0.29120667621996243
+<br>
+1/ln(2**10-1) -> 0.14428984275593634
+<br>
+1/ln(2**15-1) -> 0.09617995170146938
+<br>
+1/ln(1e2) -> 0.21714724095162588
+<br>
+1/ln(1e4) -> 0.10857362047581294
+<br>
+1/ln(1e6) -> 0.07238241365054197
+<br>
+・期待値：(n,n+ln(n))の範囲に素数が1個
+<br>
+n=1e2; (n,n+ln(n)) -> (100,104.60517018598809)
+<br>
+n=1e4; (n,n+ln(n)) -> (10000,10009.210340371976)
+<br>
+n=1e6; (n,n+ln(n)) -> (1000000,1000013.815510558)
     </td>
   </tr>
   <tr>
@@ -5388,7 +5438,7 @@ calc_P(6,1) -> 2e-9
 <br>
 ・数字・進数・桁数
 <br>
-・素数・合成数
+・<a href="#span-app-prime">素数</a>・合成数
 <br>
 ・公約数・公倍数
 <br>
@@ -5407,15 +5457,6 @@ calc_P(6,1) -> 2e-9
 ・示強性状態量（温度||速さ||濃度||電位potential）
 <br>
 ・<a href="#span-app-quality">quality</a>・<a href="#span-app-eps">実数ε</a>
-<br>
-<br>
-<a href="#span-app-eps">素数の確率</a>≒1/<a href="#span-out-FN-log">自然対数</a>
-<br>
-1/ln(2**5-1) -> 0.29120667621996243
-<br>
-1/ln(2**10-1) -> 0.14428984275593634
-<br>
-1/ln(2**15-1) -> 0.09617995170146938
 <br>
 <br>
 定義の補足
