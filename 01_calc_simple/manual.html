@@ -1443,6 +1443,8 @@ ja.m.wikipedia.org/wiki/項目を列挙する
 <br>
 ・複素対数函数
 <br>
+・対数
+<br>
 ・行列
 <br>
 ・疎行列
@@ -3624,9 +3626,9 @@ f(x)
 素数定理の解釈について記述する
 <br>
 <br>
-素数の確率≒1/ln(自然数)
+自然数nの<a href="#span-app-eps">実数ε</a>
 <br>
-・自然数nの<a href="#span-app-eps">実数ε</a>
+・素数の確率≒1/ln(n)
 <br>
 1/ln(1) -> Infinity
 <br>
@@ -21870,6 +21872,17 @@ log関数の仕様は<span class="run">JavaScript</span>準拠の自然対数と
 log(e) -> 1
 <br>
 log(i) -> 1.5707963267948966i
+<br>
+<br>
+底の変換
+<br>
+・log(x)∝log10(x)∝log2(x)
+<br>
+x=2; log(x) -> 0.6931471805599453
+<br>
+x=2; log10(x)/log10(e) -> 0.6931471805599453
+<br>
+x=2; log2(x)/log2(e) -> 0.6931471805599453
 <br>
 <br>
 自然対数
@@ -40998,6 +41011,8 @@ _dy(=&lt;{y})/_dy(=&lt;{y*y})  <span class="selection">// NG</span> -> NaN
 <br>
 _dy(=&lt;{1/(y*y)})/_dy(=&lt;{1/y})  <span class="selection">// NG</span> -> NaN
 <br>
+ln(y)/y  <span class="selection">// NG</span> -> NaN
+<br>
 ・有限の場合
 <br>
 y=1e7; y -> 10000000
@@ -41011,6 +41026,8 @@ y/(y*y) -> 1e-7
 _dy(=&lt;{y})/_dy(=&lt;{y*y}) -> 5e-8+O(1e+0)
 <br>
 _dy(=&lt;{1/(y*y)})/_dy(=&lt;{1/y}) -> 1.9999999999838647e-7-6.386544827326884e-25i+O(1e+0+6e-25i)
+<br>
+ln(y)/y -> 0.000001611809565095832
 <br>
 ・公式
 <br>
