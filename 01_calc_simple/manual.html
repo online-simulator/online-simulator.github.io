@@ -2666,32 +2666,44 @@ k(<a href="#span-out-limit">+∞</a>)=0
 <br>
 ・半径[m]
 <br>
-　現在：r
-<br>
-　過去：r0
+　現在：rnow
 <br>
 ・球の体積[m^3]
 <br>
-　現在：V
+　現在：Vnow
 <br>
-　過去：V0
+　過去：Vpast
 <br>
-・<a href="#span-app-quality">系のquality</a>：quality:=ln(V)/ln(V0)
+・<a href="#span-app-quality">系のquality</a>：quality:=ln(Vnow)/ln(Vpast)
 <br>
 <br>
 <a href="#span-app-universe">現宇宙</a>は発散系（<a href="#span-app-unsolved"><span class="wF">平衡点の</span>系のquality&ge;2</a>）
 <br>
-r=465e8*9460730472580800;
+・現在
 <br>
-V=(4pi/3)*r**3;
+V(r)=&lt;(4pi/3)*r**3;
 <br>
-V0(quality)=&lt;e**(ln(V)/quality);
+Vpast(quality)=&lt;e**(ln(Vnow)/quality);
 <br>
-V0(1) -> 3.566329598716132e+80
+rnow=465e8*9460730472580800;
 <br>
-V0(2) -> 1.8884728218102934e+40
+Vnow=V(rnow);
 <br>
-V0(2**8) -> 2.063750137225363
+Vnow -> 3.5663295987161737e+80
+<br>
+Vpast(1) -> 3.566329598716132e+80
+<br>
+・宇宙の晴れ上がり
+<br>
+Vre=V(rnow/1e3); Vre -> 3.566329598716174e+71
+<br>
+qualityre=ln(Vnow)/ln(Vre); qualityre -> 1.125782258245689
+<br>
+・初期宇宙
+<br>
+Vpast(2) -> 1.8884728218102934e+40
+<br>
+Vpast(2**8) -> 2.063750137225363
     </td>
   </tr>
   <tr>
