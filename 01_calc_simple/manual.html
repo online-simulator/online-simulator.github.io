@@ -3652,19 +3652,26 @@ f(x)
 <br>
 素数計数関数π(x)
 <br>
-・素数計数関数：実数x以下の素数の個数を表す関数π(x)
+・π(x)：実数x以下の素数の個数を表す関数
 <br>
-π(x):=∫dx/ln(x)≒<span class="selection">x/ln(x)</span>+O(x/ln(x)**2)
+π(x):=Li(x)+O(sqrt(x)ln(x))
 <br>
-・定義：素数の確率の定積分
+・<span class="jF">素数の確率</span>：<span class="jF">1/ln(x)</span>
 <br>
-　<span class="jF">素数の確率</span>：<span class="jF">1/ln(x)</span>
+・Li(x) ：素数の確率の定積分（補正対数積分）
 <br>
-　範囲：[2,x]
+Li(x):=∫dx/ln(x)=li(x)-li(2)
 <br>
-　定積分：∫dx/ln(x)
+・π(x)-li(x)：符号が無限に振動（西暦1914年の証明）
 <br>
-・1次近似：<span class="jF">近傍の確率</span>を<span class="selection">全体の個数比</span>で近似　⇔　<span class="jF">1/ln(x)</span>≒<span class="selection">π(x)/x</span>
+・<a href="#span-out-error">誤差</a>評価：未証明
+<br>
+<br>
+π(x)の1次近似
+<br>
+・<span class="jF">近傍の確率</span>を<span class="selection">全体の個数比</span>で近似　⇔　<span class="jF">1/ln(x)</span>≒<span class="selection">π(x)/x</span>
+<br>
+π(x)≒<span class="selection">x/ln(x)</span>+O(x/ln(x)**2)
 <br>
 <br>
 自然数nの<a href="#span-app-eps">実数ε</a>
