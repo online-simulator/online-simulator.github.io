@@ -40,7 +40,7 @@
 
 <hr>
 <div>
-<table><caption>handler_baseview.js：parseInt("10||16進数")の自動判別を利用</caption><tbody>
+<table><caption></caption><tbody>
 <tr>
   <td>
 parseInt(string,radix=<input id="input-radix" type="number" step="1" min="2" max="36">)
@@ -119,7 +119,70 @@ string
 </tr>
 </tbody></table>
 <hr>
-<table id="output-log" class="input-300"><caption class="run">test case</caption></table>
+<table id="output-log">
+  <caption>buttonとlinkの一覧</caption>
+  <thead>
+    <tr>
+      <th>button</th>
+      <th class="selection">実施例</th>
+      <th class="selection"><a title="[spec]Number変換" href="../69_number/spec.html">[spec]Number変換</a><br>検討内容</th>
+      <th class="selection"><a title="[manual]Calculator" href="../01_calc_simple/manual.html">[manual]Calculator</a><br>結論</th>
+      <th class="selection"><a title="Graphing Calculator" href="../02_calc_graphing/index.html">Graphing Calculator</a><br><a title="[manual]Calculator" href="../01_calc_simple/manual.html#span-out-UI-graphing-testcase">test case</a></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th class="condition">show s(N,k)</th>
+      <td>「369の法則」の一般化</td>
+      <td><a title="[spec]Number変換" href="../69_number/spec.html#span-3n+1">3n+1</a></td>
+      <td><a title="[manual]Calculator" href="../01_calc_simple/manual.html#span-app-369">「369の法則」の解釈</a></td>
+      <td><span class="selection">circuit</span></td>
+    </tr>
+    <tr>
+      <th class="condition">show magic-square</th>
+      <td>N進法の魔方陣の規則性</td>
+      <td><a title="[spec]Number変換" href="../69_number/spec.html#span-magic">magic-square</a></td>
+      <td><a title="[manual]Calculator" href="../01_calc_simple/manual.html#span-eqn-magic">magic-square</a></td>
+      <td></td>
+    </tr>
+    <tr>
+      <th class="run">N-ary(n)</th>
+      <td>N進法の自然数nと'rsum'の一覧（N&le;36）<br>p進法の素因数分解と指数Nrshift(N)</td>
+      <td><a title="[spec]Number変換" href="../69_number/spec.html#span-abc">abc予想</a></td>
+      <td><a title="[manual]Calculator" href="../01_calc_simple/manual.html#span-app-369">「369の法則」の解釈</a><br><a title="[manual]Calculator" href="../01_calc_simple/manual.html#span-app-unsolved">未解決問題の解釈</a><br></td>
+      <td><span class="wF">N-ary</span></td>
+    </tr>
+    <tr>
+      <th class="condition">show Nrshift(m)</th>
+      <td>右shift可能回数の期待値が無限大で2に漸近<br>1回と2回以上の比率は同等</td>
+      <td rowspan="3"><a title="[spec]Number変換" href="../69_number/spec.html#span-Collatz">Collatz予想</a></td>
+      <td rowspan="3"><a title="[manual]Calculator" href="../01_calc_simple/manual.html#span-app-unsolved">未解決問題の解釈</a></td>
+      <td>Nrshift</td>
+    </tr>
+    <tr>
+      <th class="selection">solve 3n-1</th>
+      <td rowspan="2">Collatz予想　⇔　entropy増大則<br>bit単位の「宇宙」の膨張⇒平衡⇒収縮</td>
+      <td rowspan="2">Collatz~<span class="wF">quality</span>~-L</td>
+    </tr>
+    <tr>
+      <th class="run">solve 3n+1</th>
+    </tr>
+    <tr>
+      <th class="condition">show primes</th>
+      <td>素数定理<br>素数の集合の一様性　⇔　p進法で10の集合<br>bit-patternの頻度分布が平坦化</td>
+      <td><a title="[spec]Number変換" href="../69_number/spec.html#span-Riemann">Riemann予想</a><br><a title="[spec]Number変換" href="../69_number/spec.html#span-Goldbach">Goldbach予想</a></td>
+      <td><a title="[manual]Calculator" href="../01_calc_simple/manual.html#span-app-unsolved">未解決問題の解釈</a></td>
+      <td><span class="wF">pi_(x)</span><br><span class="wF">Goldbach</span></td>
+    </tr>
+    <tr>
+      <th class="run">calc rad(n)</th>
+      <td>素因数分解とrad(n)の計算<br>qualityと桁数比の比較</td>
+      <td><a title="[spec]Number変換" href="../69_number/spec.html#span-abc">abc予想</a></td>
+      <td><a title="[manual]Calculator" href="../01_calc_simple/manual.html#span-app-unsolved">未解決問題の解釈</a></td>
+      <td>elipic</td>
+    </tr>
+  </tbody>
+</table>
 <table id="output-html"></table>
 </div>
 <hr>
