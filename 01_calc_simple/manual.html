@@ -310,6 +310,8 @@ test case
 <br>
 　　　・<a href="#span-app-prime">素数定理</a>
 <br>
+　　　・<a href="#span-app-characteristic">基本特性</a>
+<br>
 　　・<a href="#span-app-rule">経験則</a>
 <br>
 　　　・<a href="#span-app-thermodynamics">熱力学</a>
@@ -3594,7 +3596,7 @@ AIのsingularityのlevel
 <br>
 ・<a title="[spec]Number変換" href="../69_number/spec.html#span-Riemann">Riemann予想</a>の命題：Riemann zeta関数の非自明な零点の一様性（素数の分布に関する臨界線）
 <br>
-・<a title="[spec]Number変換" href="../69_number/spec.html#span-Goldbach">Goldbach予想</a>の命題：自然数の集合Nの基本特性を保持する最小構成の集合（2を含む）は素数の集合P
+・<a title="[spec]Number変換" href="../69_number/spec.html#span-Goldbach">Goldbach予想</a>の命題：自然数の集合Nの<a href="#span-app-characteristic">基本特性</a>を保持する最小構成の集合（2を含む）は素数の集合P
 <br>
 　<span class="condition">素数の集合P　⇔　p進法で10の集合</span>（<a href="#span-app-prime">素数定理</a>）
 <br>
@@ -3657,13 +3659,26 @@ f(x)
 素数定理の解釈について記述する
 <br>
 <br>
-素数の特徴
+素数pの無限等比級数
 <br>
-・調和級数：Euler積　⇔　調和級数　⇔　∫dx/x=ln|x|+C
+1/p**0+1/p**1+1/p**2+1/p**3+...≒1/(1-1/p)
 <br>
-・素数の個数：無限個　⇔　調和級数が発散
+・p進数表記：1/1+1/10+1/100+1/1000+...
 <br>
-・x→<a href="#span-out-limit">+∞</a>で成立：<span class="jF">素数の確率</span>≒<span class="jF">1/ln(x)</span>
+・p進法の<a href="#span-out-prec-ope-bit">shift演算</a>：(1&gt;&gt;0)+(1&gt;&gt;1)+(1&gt;&gt;2)+(1&gt;&gt;3)+...
+<br>
+<br>
+<span class="jF">素数の確率</span>P(x)
+<br>
+・P(x)：素数pのΠ(1-1/p)
+<br>
+・Euler積：1/P(x)
+<br>
+・調和級数：自然数n=1~のΣ1/n
+<br>
+・<a href="#span-out-FN-log">自然対数</a>：Euler積　⇔　調和級数　⇔　∫dx/x=ln|x|+C
+<br>
+・x→<a href="#span-out-limit">+∞</a>で成立：P(x)≒<span class="jF">1/ln(x)</span>
 <br>
 <br>
 素数計数関数π(x)
@@ -3672,22 +3687,24 @@ f(x)
 <br>
 π(x):=Li(x)+O(sqrt(x)ln(x))
 <br>
-・Li(x) ：<span class="jF">素数の確率</span>の定積分（補正対数積分）
+・Li(x) ：<span class="jF">素数の確率</span>を範囲[2,x]で積分（補正対数積分）
 <br>
-Li(x):=∫dx/ln(x)=li(x)-li(2)
+Li(x):=∫dt/ln(t)=li(x)-li(2)
 <br>
-・π(x)-li(x)：符号が無限に振動（西暦1914年の証明）
+・π(x)-li(x)：符号が無限に変動（西暦1914年の証明）
 <br>
-・<a href="#span-out-error">誤差</a>評価：未証明
+・<a href="#span-out-error">誤差</a>項：未証明
 <br>
 <br>
 π(x)の1次近似
 <br>
-・∫dx/ln(x)：1回部分積分
+・∫dt/ln(t)：1回部分積分
 <br>
 <span class="selection">π(x)</span>≒<span class="selection">x</span><span class="jF">/ln(x)</span>+O(x/ln(x)**2)
 <br>
-・x→<a href="#span-out-limit">+∞</a>で成立：<span class="jF">近傍の確率</span>≒<span class="selection">全体の個数比</span>　⇔　<span class="jF">1/ln(x)</span>≒<span class="selection">π(x)/x</span>
+・x→<a href="#span-out-limit">+∞</a>で成立：<span class="jF">近傍の確率</span>≒<span class="selection">全体の個数比</span>
+<br>
+<span class="jF">1/ln(x)</span>≒<span class="selection">π(x)/x</span>
 <br>
 <br>
 自然数nの<a href="#span-app-eps">実数ε</a>
@@ -3752,6 +3769,32 @@ n=1e2; (n,n+ln(n)) -> (100,104.60517018598809)
 n=1e4; (n,n+ln(n)) -> (10000,10009.210340371976)
 <br>
 n=1e6; (n,n+ln(n)) -> (1000000,1000013.815510558)
+    </td>
+  </tr>
+  <tr>
+    <th>
+<a href="#span-index">
+目次
+</a>
+<br>
+基本特性
+<br>
+の解釈
+    </th>
+    <td>
+<span id="span-app-characteristic"></span>
+基本特性について記述する
+<br>
+<br>
+自然数nと素数pの基本特性
+<br>
+・無限個：<a href="#span-app-prime">調和級数</a>が発散
+<br>
+・全体集合の一様性
+<br>
+　n=4k±1：昇順の出現率=0.5に条件収束
+<br>
+　n=6k±1：同上
     </td>
   </tr>
   <tr>
