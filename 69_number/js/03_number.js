@@ -437,8 +437,10 @@ My_entry.test_number.prototype.solve3 = function(){
     var html0 = "";  // Ver.0.40.4
     var html1 = "";
     /* Ver.0.40.4 -> */
+    var prime0 = -1;  // Ver.0.68.8
     var freq_n  = [];
     var freq_prime  = [];
+    var freq_twinprime  = [];  // Ver.0.68.8
     var log_n  = [];
     var log_prime  = [];
     var log2_n  = [];
@@ -446,6 +448,7 @@ My_entry.test_number.prototype.solve3 = function(){
     for(var m=0; m<self.len_p+1; ++m){
       freq_n[m] = 0;
       freq_prime[m] = 0;
+      freq_twinprime[m] = 0;  // Ver.0.68.8
       log_n[m] = 0;
       log_prime[m] = 0;
       log2_n[m] = 0;
@@ -475,6 +478,12 @@ My_entry.test_number.prototype.solve3 = function(){
         }
         /* Ver.0.40.4 -> */
         freq_prime[m] += 1;
+        /* Ver.0.68.8 -> */
+        if(n-prime0 === 2){
+          freq_twinprime[m] += 1;
+        }
+        prime0 = n;
+        /* -> Ver.0.68.8 */
         log_prime[m] += logn;
         log2_prime[m] += log2n;
         /* -> Ver.0.40.4 */
@@ -504,7 +513,7 @@ My_entry.test_number.prototype.solve3 = function(){
     var sum_log_prime = 0;
     var sum_log2_n = 0;
     var sum_log2_prime = 0;
-    html0 += self.output_line("wF", "m", "n=ΣNn", "Nn", "Nprime", "π(n)=ΣNprime", "π(n)/n", "1/quality(n):=<br>log(rad(n!))/log(n!)", "≒1/quality_log2(n):=<br>(log2(rad(n!))+Nprime)<br>/(log2(n!)+Nn)", "Nprime/Nn", "≒1/log(n)");
+    html0 += self.output_line("wF", "m", "n=ΣNn", "Nn", "Nprime", "π(n)=ΣNprime", "π(n)/n", "1/quality(n):=<br>log(rad(n!))/log(n!)", "≒1/quality_log2(n):=<br>(log2(rad(n!))+Nprime)<br>/(log2(n!)+Nn)", "Nprime/Nn", "≒1/log(n)", "Ntwinprime/Nn", "≒1/log(n)**2");  // Ver.0.68.8
     for(var m=1; m<self.len_p+1; ++m){
       var isOdd = m%2;
       sum_Nn += freq_n[m];
@@ -513,7 +522,7 @@ My_entry.test_number.prototype.solve3 = function(){
       sum_log_prime += log_prime[m];
       sum_log2_n += log2_n[m];
       sum_log2_prime += log2_prime[m];
-      html0 += self.output_line((isOdd)? "condition": "wF", m, sum_Nn, freq_n[m], freq_prime[m], sum_Nprime, sum_Nprime/sum_Nn, sum_log_prime/sum_log_n, sum_log2_prime/sum_log2_n, freq_prime[m]/freq_n[m], 1/Math.log(sum_Nn));
+      html0 += self.output_line((isOdd)? "condition": "wF", m, sum_Nn, freq_n[m], freq_prime[m], sum_Nprime, sum_Nprime/sum_Nn, sum_log_prime/sum_log_n, sum_log2_prime/sum_log2_n, freq_prime[m]/freq_n[m], 1/Math.log(sum_Nn), freq_twinprime[m]/freq_n[m], 1/Math.pow(Math.log(sum_Nn), 2));  // Ver.0.68.8
     }
     /* -> Ver.0.40.4 */
     var _logs = {};
