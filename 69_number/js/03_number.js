@@ -513,7 +513,7 @@ My_entry.test_number.prototype.solve3 = function(){
     var sum_log_prime = 0;
     var sum_log2_n = 0;
     var sum_log2_prime = 0;
-    html0 += self.output_line("wF", "m", "n=ΣNn", "Nn", "Nprime", "π(n)=ΣNprime", "π(n)/n", "1/quality(n):=<br>log(rad(n!))/log(n!)", "≒1/quality_log2(n):=<br>(log2(rad(n!))+Nprime)<br>/(log2(n!)+Nn)", "Nprime/Nn", "≒1/log(n)", "Ntwinprime/Nn", "≒1/log(n)**2");  // Ver.0.68.8
+    html0 += self.output_line("wF", "m", "n=ΣNn", "Nn", "Nprime", "π(n)=ΣNprime", "π(n)/n", "1/quality(n):=<br>log(rad(n!))/log(n!)", "≒1/quality_log2(n):=<br>(log2(rad(n!))+Nprime)<br>/(log2(n!)+Nn)", "Nprime/Nn", "≒1/ln(n)", "Ntwinprime/Nn", "≒1/ln(n)**2");  // Ver.0.68.8
     for(var m=1; m<self.len_p+1; ++m){
       var isOdd = m%2;
       sum_Nn += freq_n[m];
