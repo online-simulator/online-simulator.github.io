@@ -154,7 +154,7 @@ test case
 <br>
 ・<span class="wF">residue</span>：任意の積分経路Cの留数定理（正多角形で記述）
 <br>
-・zeta<span class="wF">-ac</span>：Riemann zeta関数の解析接続（Dirichlet級数と関数等式で記述）
+・zeta<span class="wF">-ac</span>：Riemann zeta関数の<a href="#span-app-continuation">解析接続</a>（Dirichlet級数と関数等式で記述）
 <br>
 　-y||<span class="wF">Riemann</span>：<a href="#span-app-unsolved">Riemann予想</a>の非自明な零点の計算結果
 <br>
@@ -162,7 +162,9 @@ test case
 <br>
 　-obvious：<a href="#span-app-unsolved">Riemann予想</a>の自明な零点の計算結果（負の偶数が零点は関数等式から自明）
 <br>
-・beta<span class="wF">-ac</span>||gamma<span class="wF">-ac</span>：beta||gamma関数の解析接続（精度保証用の級数で記述）
+　<span class="wF">-sym</span>||<span class="wF">-xi</span>：元の定義域と<a href="#span-app-continuation">解析接続</a>の臨界領域で対称性の計算結果（n大で精度改善を確認）
+<br>
+・beta<span class="wF">-ac</span>||gamma<span class="wF">-ac</span>：beta||gamma関数の<a href="#span-app-continuation">解析接続</a>（精度保証用の級数で記述）
 <br>
 ・<span class="wF">digamma</span>~-psi：gamma関数の対数微分のdigamma||psi関数（<a href="#span-out-FNh-DX">微分高階関数</a>の<a href="#span-out-error-numerical">数値解</a>と解析解の比較）
 <br>
@@ -323,6 +325,8 @@ test case
 　　　・<a href="#span-app-prime">素数定理</a>
 <br>
 　　　・<a href="#span-app-characteristic">基本特性</a>
+<br>
+　　　・<a href="#span-app-continuation">解析接続</a>
 <br>
 　　・<a href="#span-app-rule">経験則</a>
 <br>
@@ -3621,6 +3625,12 @@ AIのsingularityのlevel
 <br>
 ・<a title="[spec]Number変換" href="../69_number/spec.html#span-Riemann">Riemann予想</a>の命題：<a href="#span-out-UI-graphing-testcase">Riemann zeta関数の非自明な零点</a>の一様性（素数の分布に関する臨界線）
 <br>
+　以下の対称性を両立でζ関数を<a href="#span-app-continuation">解析接続</a>　⇔　非自明な零点がreal(s)≠1/2の場合、個数が倍増
+<br>
+　　元の定義域の反転対称性：ζ(s)=conjugate(ζ(conjugate(s)))　⇔　ξ(s)=conjugate(ξ(conjugate(s)))
+<br>
+　　s=1/2で点対称性の関数等式：ξ(s)=ξ(1-s)　⇔　零点ζ(s)=0の場合、完備ζ関数ξ(s)=ξ(1-s)=0
+<br>
 ・<a title="[spec]Number変換" href="../69_number/spec.html#span-Goldbach">Goldbach予想</a>の命題：自然数の集合Nの<a href="#span-app-characteristic">基本特性</a>を保持する最小構成の集合（2を含む）は素数の集合P
 <br>
 　<span class="condition">素数の集合P　⇔　p進法で10の集合　⇔　<a href="#span-app-entropy">情報量</a>の元の総和</span>（<a href="#span-app-prime">素数定理</a>）
@@ -3826,6 +3836,32 @@ n=1e6; (n,n+ln(n)) -> (1000000,1000013.815510558)
 　n=4k±1：昇順の出現率=0.5に条件収束
 <br>
 　n=6k±1：同上
+    </td>
+  </tr>
+  <tr>
+    <th>
+<a href="#span-index">
+目次
+</a>
+<br>
+解析接続
+<br>
+の解釈
+    </th>
+    <td>
+<span id="span-app-continuation"></span>
+解析接続の解釈について記述する
+<br>
+<br>
+解析接続
+<br>
+・定義域の拡張：元の定義域を解析的に拡張
+<br>
+・接続条件：元の定義域の対称性を保存
+<br>
+・正則：<a href="#span-out-complex">複素数平面</a>で微分可能
+<br>
+・一致の定理：有理型関数の一意性
     </td>
   </tr>
   <tr>
