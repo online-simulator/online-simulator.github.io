@@ -162,6 +162,8 @@ test case
 <br>
 　-obvious：<a href="#span-app-unsolved">Riemann予想</a>の自明な零点の計算結果（負の偶数が零点は関数等式から自明）
 <br>
+　-x：臨界領域x方向の単調性（零点は対称性の2点⇒中点の1点に<a href="#span-app-continuation">解析接続</a>で最小化）
+<br>
 　<span class="wF">-sym</span>~<span class="wF">-xi</span>：元の定義域と<a href="#span-app-continuation">解析接続</a>の臨界領域で対称性の計算結果（n大で精度改善を確認）
 <br>
 　-zero：完備ζ関数の非自明な零点の計算結果（整合性の最終確認）
@@ -3629,9 +3631,9 @@ AIのsingularityのlevel
 <br>
 　以下の対称性を両立でζ関数を<a href="#span-app-continuation">解析接続</a>　⇔　非自明な零点がreal(s)≠1/2の場合、個数が倍増（<a href="#span-app-flatness">|曲率|</a>増）
 <br>
-　　元の定義域の反転対称性：ζ(s)=conjugate(ζ(conjugate(s)))　⇔　ξ(s)=conjugate(ξ(conjugate(s)))
+　　元の定義域の<a href="#span-out-UI-graphing-testcase">反転対称性</a>：ζ(s)=conjugate(ζ(conjugate(s)))　⇔　ξ(s)=conjugate(ξ(conjugate(s)))
 <br>
-　　s=1/2で点対称性の関数等式：ξ(s)=ξ(1-s)　⇔　零点ζ(s)=0の場合、完備ζ関数ξ(s)=ξ(1-s)=0
+　　s=1/2で<a href="#span-out-UI-graphing-testcase">点対称性</a>の関数等式：ξ(s)=ξ(1-s)　⇔　零点ζ(s)=0の場合、完備ζ関数ξ(s)=ξ(1-s)=0
 <br>
 ・<a title="[spec]Number変換" href="../69_number/spec.html#span-Goldbach">Goldbach予想</a>の命題：自然数の集合Nの<a href="#span-app-characteristic">基本特性</a>を保持する最小構成の集合（2を含む）は素数の集合P
 <br>
