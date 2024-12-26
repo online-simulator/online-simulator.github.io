@@ -164,6 +164,10 @@ test case
 <br>
 ・<span class="wF">residue</span>：任意の積分経路Cの留数定理（正多角形で記述）
 <br>
+・<span class="wF">heat</span>：同方向@kd&lt;0の<a href="#span-app-continuation">解析接続</a>の可視化（0~12段階の<a href="#span-eqn-heat1d_evolution">温度分布</a>）
+<br>
+　-2：異方向@kd&gt;0の<a href="#span-app-continuation">解析接続</a>の可視化（同上）
+<br>
 ・zeta<span class="wF">-ac</span>：Riemann zeta関数の<a href="#span-app-continuation">解析接続</a>（Dirichlet級数と関数等式で記述）
 <br>
 　eta：Dirichlet eta関数
@@ -351,6 +355,8 @@ test case
 　　　・<a href="#span-app-characteristic">基本特性</a>
 <br>
 　　　・<a href="#span-app-continuation">解析接続</a>
+<br>
+　　　・<a href="#span-app-boundary">境界条件</a>
 <br>
 　　・<a href="#span-app-rule">経験則</a>
 <br>
@@ -1665,6 +1671,8 @@ ja.m.wikipedia.org/wiki/項目を列挙する
 <br>
 ・断熱過程
 <br>
+・ロビン境界条件
+<br>
 ・カルノーサイクル
 <br>
 ・オットーサイクル
@@ -2654,7 +2662,7 @@ Poincaré定理（西暦2006年）
 <br>
 　形状因子：b
 <br>
-　曲率：k(t)
+　<a href="#span-app-continuation">曲率</a>：k(t)
 <br>
 　曲率半径：r(t):=1/k
 <br>
@@ -2701,7 +2709,7 @@ k(<a href="#span-out-limit">+∞</a>)=0
 <br>
 ・時空の制約条件：<a href="#span-app-entropy">entropy∝ln(体積)</a>∝log2(1/|曲率|)
 <br>
-・<a href="#span-app-entropy">entropy増大則</a>：無限小の<a href="#span-app-dimension">空間</a>から膨張で曲率は平坦化に向かう
+・<a href="#span-app-entropy">entropy増大則</a>：無限小の<a href="#span-app-dimension">空間</a>から膨張で<a href="#span-app-continuation">曲率</a>は平坦化に向かう
 <br>
 ・全体像：風船状の孤立系　⇔　<a href="#span-app-entropy">断熱自由膨張</a>
     </td>
@@ -3894,6 +3902,36 @@ n=1e6; (n,n+ln(n)) -> (1000000,1000013.815510558)
 ・実数：定義域（重複可）の異なる2個の連続関数を接続する連続曲線　⇔　<a href="#span-app-flatness">|曲率|</a>最小
 <br>
 　変曲点の個数：同方向の接続で0個　⇔　異方向の接続で1個
+<br>
+・単純な物理：<a href="#span-eqn-heat1d_evolution">heat1d_evolution</a>の<a href="#span-out-UI-graphing-testcase">温度分布</a>
+<br>
+　方程式：2階<a href="#span-out-FNh-DX">微分</a>の熱<a href="#span-out-modelling-0D-diffusion">拡散方程式</a>
+<br>
+　<a href="#span-app-boundary">境界条件</a>：温度と<a href="#span-out-modelling-0D-heat">熱流束flux</a>のRobin条件
+    </td>
+  </tr>
+  <tr>
+    <th>
+<a href="#span-index">
+目次
+</a>
+<br>
+境界条件
+<br>
+の解釈
+    </th>
+    <td>
+<span id="span-app-boundary"></span>
+境界条件の解釈について記述する
+<br>
+<br>
+境界条件
+<br>
+・第1種　⇔　Dirichlet条件：関数値を規定
+<br>
+・第2種　⇔　Neumann条件：1階導関数値を規定
+<br>
+・第3種　⇔　Robin条件：第1と第2の線形結合を規定
     </td>
   </tr>
   <tr>
@@ -4785,7 +4823,7 @@ Dyson球
 <br>
 　上層雲||夜間：吸収＞反射の寄与　⇔　<a href="#span-app-climate">温暖化</a>と<a href="#span-out-approximation-linear">正の相関</a>
 <br>
-・放射強制力[W/m^2]：<a href="#span-app-atmosphere">対流圏</a>界面の熱流束fluxの変化量（熱量収支の統一指標）
+・放射強制力[W/m^2]：<a href="#span-app-atmosphere">対流圏</a>界面の<a href="#span-out-modelling-0D-heat">熱流束flux</a>の変化量（熱量収支の統一指標）
 <br>
 　<span class="jF">系全体</span>の平均気温の変化：統一指標換算で要因の寄与度を議論
 <br>
