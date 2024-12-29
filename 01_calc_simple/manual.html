@@ -146,6 +146,8 @@ test case
 <span id="span-out-UI-graphing-testcase"></span>
 ・<span class="jF">incircle</span>：<a href="#span-app-analogy">面積のanalogy</a>の実施例（<a href="#span-app-arithmetic">円周率の基準径</a>の<a href="#span-out-Euclid">幾何学</a>）
 <br>
+・sigmoid：sigmoid曲線の計算結果（zeta関数のみ、非対称性あり）
+<br>
 ・<span class="wF">N-ary</span>：<a href="#span-app-369">'rsum'</a>の計算結果（厳密な再帰計算と導出式の比較を含む）
 <br>
 ・Collatz~<span class="wF">Goldbach</span>：<a href="#span-app-unsolved">数学上の未解決予想</a>の計算結果（<a href="../69_number/index.html">Number変換</a>参照）
@@ -197,6 +199,12 @@ test case
 　<span class="wF">-sym</span>~<span class="wF">-6</span>：元の定義域と<a href="#span-app-continuation">解析接続</a>の臨界領域でζ関数の対称性の計算結果
 <br>
 　<span class="wF">-xi</span>：臨界領域で完備ζ関数の対称性の計算結果（s=1/2に対する4点の対称性）
+<br>
+　<span class="wF">-x</span>~-7：完備ζ関数の臨界領域x方向の単調性　⇔　関数等式
+<br>
+　⇒real成分：両軸の線対称性　⇔　real(完備ζ(x))∝(x-1/2)**2　⇔　<a href="#span-app-boundary">Robin条件</a>の<a href="#span-out-modelling-0D-diffusion">拡散方程式</a>の定常解
+<br>
+　⇒imag成分：imag(完備ζ(臨界線))=0　⇔　imag(完備ζ(x))∝|x-1/2|**r（r≒1）||sigmoid(x-1/2)
 <br>
 　-zero：完備ζ関数の非自明な零点の計算結果（整合性の最終確認）
 <br>
@@ -3673,7 +3681,7 @@ AIのsingularityのlevel
 <br>
 　零点のrandom性：次の対称性から臨界領域全体に分布は困難　⇔　real(s)=1/2の臨界線に顕現
 <br>
-　<a href="#span-app-continuation">解析接続</a>の対称性
+　<a href="#span-app-continuation">解析接続</a>の対称性　⇔　imag(完備ζ(臨界線))=0
 <br>
 　　元の定義域の<a href="#span-out-UI-graphing-testcase">反転対称性</a>：ζ(s)=conjugate(ζ(conjugate(s)))　⇔　ξ(s)=conjugate(ξ(conjugate(s)))
 <br>
