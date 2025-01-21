@@ -414,6 +414,15 @@ stored_eqn(isPrime)
 clear
 local storage cleared
 
+zeta_Euler_Maclaurin(10,4,1/2+14.135i)=>
+-0.000034071008587155394+0.00021549396328158707i
+
+zeta_Euler_Maclaurin(n,m,s)=<last[Bn(n)=<n==0|||-_s((k)=<combin(n+1,k)*Bn(k)=>,0,n-1)/(n+1),Tkn(k,n,s)=<(Bn(2*k)=>*n**(1-s-2*k)/(2*k)!)*_p((j)=<s+j,0,2*k-2),_s((j)=<j**(-s),1,n-1)+n**(-s)/2+n**(1-s)/(s-1)+_s((k)=<Tkn(k,n,s)=>,1,m)]
+stored_eqn(zeta_Euler_Maclaurin)
+
+clear
+local storage cleared
+
 last[ft=<e^(i*(2.5)*t),FourierN(=<ft,2,5)=>]
 infoLost[ri] 0.29934712994045376-1.0833440107828245i+O(2e-6+2e-6i)
 
@@ -1377,7 +1386,7 @@ clear
 local storage cleared
 
 [Pinv_y=(-0.999999427,-0.999936657,-0.997300203,-0.954499736,-0.682689492,0,0.682689492,0.954499736,0.997300203,0.999936657,0.999999427:-5,-4,-3,-2,-1,0,1,2,3,4,5),N=1,arr=[],_rn(=<arr.push(rand_table(=<Pinv_y)=>),,N),=<arr.]=>
-0.5142143711415704
+-0.7919803867912749
 
 rand_table(csv)=<last[table=sort0(csv),ymin=min(table)[0],ymax=max(table)[0],y=ymin+(ymax-ymin)*rand(),x=interp(y:table),x]
 stored_eqn(rand_table)
@@ -1387,7 +1396,7 @@ local storage cleared
 
 [(N)=<[tarr=linspace(0,N-1,N).,shuffle_FY(?tarr)=>,=<tarr.]=>](2)=>
 (
-1,0
+0,1
 )
 
 shuffle_FY(?tarr)=<last[len=sizer(tarr),switch_arr=(i1)=<last{i0=floor(rand()*(i1+1)),w=tarr[i1],tarr[i1]=tarr[i0],tarr[i0]=w},_s((i_)=<switch_arr(i_)=>,len-1,1)]
@@ -3191,4 +3200,4 @@ center=true&drag=false&test-case=false&plot-only=false&relzooming=true&snap=true
 --------------------------------
 --------------------------------
 
-online-simulator.github.io.6.448.513.20.117 @ Sun Dec 15 2024 01:20:02 GMT+0900 (日本標準時) @ Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.0.0 Safari/537.36
+online-simulator.github.io.6.450.552.20.117 @ Tue Jan 21 2025 23:02:12 GMT+0900 (日本標準時) @ Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.0.0 Safari/537.36
