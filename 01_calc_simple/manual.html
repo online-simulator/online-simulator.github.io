@@ -192,9 +192,11 @@ test case
 <br>
 　<span class="jF">-z</span>：同上のζ関数を<a href="#span-out-complex">複素数平面</a>にplot
 <br>
-　<span class="wF">-EM</span>：<span class="run">Ver.2.700.98</span>以降、Euler-Maclaurinの和公式で記述のζ関数と比較
+　-EM：<span class="run">Ver.2.700.98</span>以降、Euler-Maclaurinの和公式で記述のζ関数と比較
 <br>
-　⇒以上の全公式を<a href="#span-out-eqns">式変数</a>に変換のため、非常に重い（<a href="#span-out-FN-interp">lookup-table</a>化は未実施）
+　⇒以上の全公式を<a href="#span-out-eqns">式変数</a>に変換のため、非常に重い
+<br>
+　<span class="clear">-abs</span>：同上のSeki-Bernoulli数を<a href="#span-out-FN-interp">lookup-table</a>化（ζ関数の絶対値をplot）
 <br>
 　-x：ζ関数の臨界領域x方向の単調性　⇔　関数等式
 <br>
@@ -47450,7 +47452,25 @@ _s((j)=&lt;j**(-s),1,n-1)+n**(-s)/2+n**(1-s)/(s-1)+_s((k)=&lt;Tkn(k,n,s)=&gt;,1,
 <br>
 ];
 <br>
-zeta_Euler_Maclaurin(10,4,1/2+14.135i)=&gt;;
+zeta_Euler_Maclaurin_table_Bn(n,m,s)=&lt;last[
+<br>
+table_Bn={1/1,-1/2,1/6,,-1/30,,1/42,,-1/30,,5/66,,-691/2730,,7/6,,
+<br>
+-3617/510,,43867/798,,-174611/330,,854513/138,,-236364091/2730,,8553103/6,,-23749461029/870},
+<br>
+Tkn(k,n,s)=&lt;(table_Bn[2*k]*n**(1-s-2*k)/(2*k)!)*_p((j)=&lt;s+j,0,2*k-2),
+<br>
+_s((j)=&lt;j**(-s),1,n-1)+n**(-s)/2+n**(1-s)/(s-1)+_s((k)=&lt;Tkn(k,n,s)=&gt;,1,m)
+<br>
+];
+<br>
+s=1/2+14.135i;
+<br>
+n0=max(20,round(abs(s-1/2)/3));
+<br>
+zeta_Euler_Maclaurin(n0,4,s)=&gt;;
+<br>
+zeta_Euler_Maclaurin_table_Bn(n0,14,s)=&gt;;
     </td>
   </tr>
   <tr>
