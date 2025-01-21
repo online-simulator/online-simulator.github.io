@@ -47442,7 +47442,7 @@ _Euler
 <span id="span-eqn-zeta_Euler_Maclaurin"></span>
 clear;
 <br>
-zeta_Euler_Maclaurin(n,m,s)=&lt;last[
+zeta_Euler_Maclaurin(s,n,m)=&lt;last[
 <br>
 Bn(n)=&lt;n==0|||-_s((k)=&lt;combin(n+1,k)*Bn(k)=&gt;,0,n-1)/(n+1),
 <br>
@@ -47452,7 +47452,7 @@ _s((j)=&lt;j**(-s),1,n-1)+n**(-s)/2+n**(1-s)/(s-1)+_s((k)=&lt;Tkn(k,n,s)=&gt;,1,
 <br>
 ];
 <br>
-zeta_Euler_Maclaurin_table_Bn(n,m,s)=&lt;last[
+zeta_Euler_Maclaurin_table_Bn(s,n,m)=&lt;last[
 <br>
 table_Bn={1/1,-1/2,1/6,,-1/30,,1/42,,-1/30,,5/66,,-691/2730,,7/6,,
 <br>
@@ -47466,11 +47466,11 @@ _s((j)=&lt;j**(-s),1,n-1)+n**(-s)/2+n**(1-s)/(s-1)+_s((k)=&lt;Tkn(k,n,s)=&gt;,1,
 <br>
 s=1/2+14.135i;
 <br>
-n0=max(20,round(abs(s-1/2)/3));
+n0=max(20,round(abs(s-1/2)));
 <br>
-zeta_Euler_Maclaurin(n0,4,s)=&gt;;
+zeta_Euler_Maclaurin(s,n0,4)=&gt;;
 <br>
-zeta_Euler_Maclaurin_table_Bn(n0,14,s)=&gt;;
+zeta_Euler_Maclaurin_table_Bn(s,n0,14)=&gt;;
     </td>
   </tr>
   <tr>
