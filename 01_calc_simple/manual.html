@@ -198,6 +198,20 @@ test case
 <br>
 　<span class="pF">-abs</span>：同上のSeki-Bernoulli数を<a href="#span-out-FN-interp">lookup-table</a>化（ζ関数の絶対値をplot）
 <br>
+　⇒t=[0,600]の零点の個数≒29+50+59+64+68+72（6等分割の目算）
+<br>
+　-x=1：同上の臨界線real(s)=1/2と境界線real(s)=1の比較
+<br>
+　⇒abs(ζ(境界線))&gt;0
+<br>
+　⇒極大点の位置に<a href="#span-out-approximation-linear">強い相関</a>あり（次のξ関数に変換して議論）
+<br>
+　-xi：<span class="run">Ver.2.701.98</span>以降、Euler-Maclaurinの和公式で記述のξ関数の計算結果（ξ関数のreal成分をplot）
+<br>
+　⇒後述のξ関数と零点の位置がほぼ一致を確認（nの違いを含めて縦軸の差異は1桁程度の相似形）
+<br>
+　⇒<span class="run">Ver.2.694.98</span>以降、<a href="#span-app-continuation">解析接続</a>の一意性をdouble-check
+<br>
 　-x：ζ関数の臨界領域x方向の単調性　⇔　関数等式
 <br>
 　⇒零点の個数：<a href="#span-app-continuation">解析接続</a>で最小化（対称性の2点⇒中点の1点）
