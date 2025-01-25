@@ -212,6 +212,8 @@ test case
 <br>
 　⇒t=[0,600]の零点の個数≒29+50+59+64+68+72（6等分割の目算）
 <br>
+　⇒<span class="run">Ver.2.708.100</span>以降、tableを最適化：Bn(n)　⇒　Bn(n)/n!
+<br>
 　<span class="pF">-x=1</span>：同上の臨界線real(s)=1/2と境界線real(s)=1の比較
 <br>
 　⇒abs(ζ(境界線))&gt;0
@@ -47494,19 +47496,21 @@ zeta_Euler_Maclaurin(s,n,m)=&lt;last[
 <br>
 Bn(n)=&lt;n==0|||-_s((k)=&lt;combin(n+1,k)*Bn(k)=&gt;,0,n-1)/(n+1),
 <br>
-Tkn(k,n,s)=&lt;(Bn(2*k)=&gt;*n**(1-s-2*k)/(2*k)!)*_p((j)=&lt;s+j,0,2*k-2),
+Tkn(k,n,s)=&lt;(Bn(2*k)=&gt;/(2*k)!)*n**(1-s-2*k)*_p((j)=&lt;s+j,0,2*k-2),
 <br>
 _s((j)=&lt;j**(-s),1,n-1)+n**(-s)/2+n**(1-s)/(s-1)+_s((k)=&lt;Tkn(k,n,s)=&gt;,1,m)
 <br>
 ];
 <br>
-zeta_Euler_Maclaurin_table_Bn(s,n,m)=&lt;last[
+zeta_Euler_Maclaurin_table(s,n,m)=&lt;last[
 <br>
 table_Bn={1/1,-1/2,1/6,,-1/30,,1/42,,-1/30,,5/66,,-691/2730,,7/6,,
 <br>
 -3617/510,,43867/798,,-174611/330,,854513/138,,-236364091/2730,,8553103/6,,-23749461029/870},
 <br>
-Tkn(k,n,s)=&lt;(table_Bn[2*k]*n**(1-s-2*k)/(2*k)!)*_p((j)=&lt;s+j,0,2*k-2),
+table=table_Bn/linspace(0,28,29).!,
+<br>
+Tkn(k,n,s)=&lt;table[2*k]*n**(1-s-2*k)*_p((j)=&lt;s+j,0,2*k-2),
 <br>
 _s((j)=&lt;j**(-s),1,n-1)+n**(-s)/2+n**(1-s)/(s-1)+_s((k)=&lt;Tkn(k,n,s)=&gt;,1,m)
 <br>
@@ -47518,7 +47522,7 @@ n0=max(20,round(abs(s-1/2)));
 <br>
 zeta_Euler_Maclaurin(s,n0,4)=&gt;;
 <br>
-zeta_Euler_Maclaurin_table_Bn(s,n0,14)=&gt;;
+zeta_Euler_Maclaurin_table(s,n0,14)=&gt;;
     </td>
   </tr>
   <tr>
