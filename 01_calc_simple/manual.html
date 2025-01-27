@@ -242,9 +242,13 @@ test case
 <br>
 　⇒<span class="run">Ver.2.694.98</span>以降、<a href="#span-app-continuation">解析接続</a>の一意性をdouble-check
 <br>
-　<span class="pF">-x</span>：<span class="run">Ver.2.706.99</span>以降、同上の臨界領域x方向のξ関数の計算結果（各real(ξ(s))=0の近傍）
+　<span class="pF">-f(x)</span>：<span class="run">Ver.2.706.99</span>以降、同上の臨界領域x方向のξ関数の計算結果（各real(ξ(s))=0の近傍）
 <br>
-　⇒関数形：任意tのf(x):=real(ξ(x+i*t))　⇒　f≠g, g(x)=0
+　⇒任意tの偶関数：f(x):=real(ξ(x+i*t)), f'(1/2)=0　⇒　f≠h, h(x)=0
+<br>
+　<span class="pF">-g(x)</span>：<span class="run">Ver.2.711.100</span>以降、同上の臨界領域x方向のξ関数の計算結果（各imag(ξ(s))=0の近傍）
+<br>
+　⇒任意tの奇関数：g(x):=imag(ξ(x+i*t)), g(1/2)=0　⇒　g≠h, h(x)=0
 <br>
 　-x：ζ関数の臨界領域x方向の単調性　⇔　関数等式
 <br>
@@ -3871,7 +3875,11 @@ AIのsingularityのlevel
 <br>
 　　<a href="#span-app-entropy">entropy最大</a>の定常解：零点の個数が最小化　⇔　臨界線に零点が顕現　⇒　対称軸に一般化
 <br>
-　　<span class="run">Ver.2.706.99</span>以降、臨界領域x方向の関数形：任意tのf(x):=real(ξ(x+i*t))　⇒　f≠g, g(x)=0
+　臨界領域x方向の関数形が以下を満足　⇔　非自明な零点のreal(s)=1/2（予想成立）
+<br>
+　　<span class="run">Ver.2.706.99</span>以降、任意tの偶関数：f(x):=real(ξ(x+i*t)), f'(1/2)=0　⇒　f≠h, h(x)=0
+<br>
+　　<span class="run">Ver.2.711.100</span>以降、任意tの奇関数：g(x):=imag(ξ(x+i*t)), g(1/2)=0　⇒　g≠h, h(x)=0
 <br>
 ・<a title="[spec]Number変換" href="../69_number/spec.html#span-Goldbach">Goldbach予想</a>の命題：自然数の集合Nの<a href="#span-app-characteristic">基本特性</a>を保持する最小構成の集合（2を含む）は素数の集合P
 <br>
