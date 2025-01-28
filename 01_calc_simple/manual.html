@@ -3923,7 +3923,7 @@ AIのsingularityのlevel
 <br>
 ・正：ε&gt;0
 <br>
-　<a href="#span-out-FNm-normalize">正規化</a>の理想範囲：(0,1)
+　<a href="#span-out-FNm-normalize">正規化</a>の理想区間：(0,1)
 <br>
 ・有限：<a href="#span-app-quality">ε:=dS/S</a>=O(1/f)
 <br>
@@ -3984,7 +3984,7 @@ f(x)
 <br>
 π(x):=Li(x)+O(sqrt(x)ln(x))
 <br>
-・Li(x) ：<span class="jF">素数の確率</span>を範囲[2,x]で積分（補正対数積分）
+・Li(x) ：<span class="jF">素数の確率</span>を区間[2,x]で積分（補正対数積分）
 <br>
 Li(x):=∫dt/ln(t)=li(x)-li(2)
 <br>
@@ -4059,7 +4059,7 @@ Li(x):=∫dt/ln(t)=li(x)-li(2)
 <br>
 1/ln(1e6) -> 0.07238241365054197
 <br>
-・<span class="jF">期待値</span>：[n,n+ln(n))の範囲に素数が1個
+・<span class="jF">期待値</span>：区間[n,n+ln(n))に素数が1個
 <br>
 n=1e2; (n,n+ln(n)) -> (100,104.60517018598809)
 <br>
@@ -4479,7 +4479,7 @@ substitution方式の変換
 <br>
 ・地球自転軸の傾き変化：約4.1万年
 <br>
-　傾き[deg]の範囲：[21.5,24.5]
+　傾き[deg]の区間：[21.5,24.5]
 <br>
 　現在の傾き[deg]：23.4（減少方向）
 <br>
@@ -5065,9 +5065,9 @@ Dyson球
 <br>
 ・|緯度|[deg]：spotの日射量に直接影響（主に<a href="#span-app-history">北半球の大陸氷床</a>）
 <br>
-　極圏の境界範囲：90-<a href="#span-app-period-motion">[24.5,21.5]</a>=[65.5,68.5]（<a href="#span-app-period-motion">地軸の傾き</a>減で極圏の日射減）
+　極圏の境界区間：90-<a href="#span-app-period-motion">[24.5,21.5]</a>=[65.5,68.5]（<a href="#span-app-period-motion">地軸の傾き</a>減で極圏の日射減）
 <br>
-　陸地面積率最大（約7割）の範囲：北緯60~70
+　陸地面積率最大（約7割）の区間：北緯[60,70)
 <br>
 ・陸地面積率:=陸地/(陸地+海洋)：全体に対する陸地の面積割合（自然の大循環に影響）
 <br>
@@ -5188,7 +5188,7 @@ Dyson球
 <br>
 　基準年：西暦2000年（<a href="#span-app-climate">温暖化</a>が優勢　⇒　<a href="#span-app-history">海水回帰</a>の融解rate&gt;&gt;湿度依存の降雪rate）
 <br>
-・平均気温の上昇量[℃]の範囲（想定）
+・平均気温の上昇量[℃]の区間（想定）
 <br>
 　<a href="#span-app-history">最終氷期⇒間氷期</a>：<a href="#span-app-gas-CO2">[7,10]</a>
 <br>
@@ -7922,7 +7922,7 @@ panel上段について記述する
 <br>
 ・l-checkboxはlegend表示を選択
 <br>
-・t入力欄に媒介変数の範囲下限t0と範囲上限t1の複素数値を入力
+・t入力欄に媒介変数の区間[t0,t1]を入力
 <br>
 ・<span class="run">Ver.2.34.18</span>以降、t-checkboxはlinear||logarithmicの軸scaleを選択
 <br>
@@ -7932,7 +7932,7 @@ panel上段について記述する
 <br>
 　<span class="run">Ver.2.444.90</span>以降、分割点の丸め方を最適化（<a href="#span-out-epsilon">Machine epsilon</a>程度の相違あり）
 <br>
-・媒介変数tの範囲等分割数Nを<del>選択</del><span class="run">Ver.2.149.37</span>以降、round入力
+・媒介変数tの区間分割数Nを<del>選択</del><span class="run">Ver.2.149.37</span>以降、round入力
 <br>
 　<span class="run">Ver.2.321.77</span>以降、上限値：1000　⇒　1024
 <br>
@@ -8921,7 +8921,7 @@ originX:originY:offsetR:<span class="clear">orderR:NrandR:NrandT:isMin:isRound:N
 <br>
 　trueの場合、gradation起点からplot点までの長さ空間で<a href="#span-out-interpolation-linear">線形補間</a>（<span class="clear">false同様の誤差あり</span>）
 <br>
-・Nrender=1~32767は周方向のrendering分割数（数値以外を指定時、tの範囲等分割数N）
+・Nrender=1~32767は周方向のrendering分割数（数値以外を指定時、媒介変数tの区間分割数N）
 <br>
 ・Ncycle=0~127は半径方向のrendering周期数
 <br>
@@ -8990,7 +8990,7 @@ png出力の特徴を列挙する
 <br>
 形状再現精度||gradation精度に関係する設定項目を列挙する
 <br>
-・媒介変数tの範囲等分割数N
+・媒介変数tの区間分割数N
 <br>
 ・周方向のrendering分割数Nrender
 <br>
@@ -9335,7 +9335,7 @@ config[0:0:0:1:0:0:false:false:2560:0:false:false:1]8:0:0:8
 <br>
 形状再現精度||blur精度に関係する設定項目を列挙する
 <br>
-・媒介変数tの範囲等分割数N
+・媒介変数tの区間分割数N
 <br>
 ・周方向のrendering分割数Nrender
 <br>
@@ -17975,7 +17975,7 @@ errr=abs(real(erra)/real(ansa))+abs(imag(erra)/imag(ansa))i; errr
 normc(errr) -> 2.6707272722211015e-13
 <br>
 <br>
-f(x)=x^4の積分範囲[0,1+i]における定積分の数値解
+f(x)=x^4の積分区間[0,1+i]における定積分の数値解
 <br>
 a=0; b=1+i; _ix(=&lt;{x^4},a,b) || ab=[0,1+i]; _ix(=&lt;{x^4},ab)
 <br>
@@ -19096,7 +19096,7 @@ semi-colon;区切りで行列の<a href="#span-out-FNm-last">最終要素</a>の
 詳細は<a href="#span-out-FNm-last">last行列関数</a>参照
 <br>
 <br>
-tの範囲下限t0と範囲上限t1の<a href="#span-out-storage">local storage</a>は独立
+媒介変数tの区間[t0,t1]の<a href="#span-out-storage">local storage</a>は独立
 <br>
 ・<a href="#span-out-storage">global storage</a>をreadonlyで共有する場合、shared storage checked
 <br>
@@ -23927,9 +23927,9 @@ spaceを初期化する行列関数の入力仕様と付随する留意事項に
 <br>
 引数(a,b,opt_Np1)の仕様を列挙する
 <br>
-・[a,b]：<a href="#span-out-com">複素数</a>valueの範囲
+・[a,b]：<a href="#span-out-com">複素数</a>valueの区間
 <br>
-・opt_Np1||50：範囲分割数N+1の離散点数
+・opt_Np1||50：区間分割数N+1の離散点数
 <br>
 <br>
 linspace(a,b,opt_Np1)関数：linear-scaleの初期化
@@ -23948,7 +23948,7 @@ linspace(0,5,6:0,5,6) -> (0,1,2,3,4,5:0,1,2,3,4,5)
 <br>
 linspace(0,5,6:0,10,11) -> (0,1,2,3,4,5:0,1,2,3,4,5,6,7,8,9,10)
 <br>
-・<a href="#span-out-reference-mat-size">行列size</a>=1の場合、範囲のleftを返す
+・<a href="#span-out-reference-mat-size">行列size</a>=1の場合、区間下端を返す
 <br>
 linspace([2,3],1) || linspace(2,3,1) -> 2
 <br>
@@ -30190,7 +30190,7 @@ clear; b=0; a=&lt;b=1; c=&lt;b=-1; a|||c,b -> (0,-1)
 <span id="span-out-FNh-SX"></span>
 総和高階関数
 <br>
-・展開式のdummy変数整数範囲[a,b]の総和を演算して返す
+・展開式のdummy変数整数区間[a,b]の総和を演算して返す
 <br>
 ・_sdummy<a href="#span-out-vars-symbol">変数名symbol</a>でcallする
 <br>
@@ -30201,9 +30201,9 @@ _sdummy<a href="#span-out-vars-symbol">変数名symbol</a>(=&lt;第1引数,第2�
 <br>
 ・第1引数: dummy変数の展開式を<a href="#span-out-call-by-equation">式渡し</a>||<a href="#span-out-call-by-symbol">symbol渡し</a>
 <br>
-・第2引数: dummy変数の範囲下限a（整数）を値渡し
+・第2引数: dummy変数の区間下端a（整数）を値渡し
 <br>
-・第3引数: dummy変数の範囲上限b（整数）を値渡し
+・第3引数: dummy変数の区間上端b（整数）を値渡し
 <br>
 option
 <br>
@@ -30218,7 +30218,7 @@ _sn(=&lt;{n},1,10) || 1+2+3+4+5+6+7+8+9+10 || (10+1)10/2 -> 55
 <br>
 eqn_n=&lt;n; _sn(=&lt;eqn_n,1,10) || _sn(=&lt;eqn_n=&gt;,1,10) -> 55
 <br>
-・範囲反転を単なる逆順の演算で定義する
+・区間反転を単なる逆順の演算で定義する
 <br>
 _Sn(=&lt;{n},10,1) || 10+9+8+7+6+5+4+3+2+1 -> 55
 <br>
@@ -30364,7 +30364,7 @@ N=0; _sn(=&lt;Pn,N,10) -> 99.99999999999999
 <span id="span-out-FNh-PX"></span>
 総乗・総積高階関数
 <br>
-・展開式のdummy変数整数範囲[a,b]の総乗・総積を演算して返す
+・展開式のdummy変数整数区間[a,b]の総乗・総積を演算して返す
 <br>
 ・_pdummy<a href="#span-out-vars-symbol">変数名symbol</a>でcallする
 <br>
@@ -30375,9 +30375,9 @@ _pdummy<a href="#span-out-vars-symbol">変数名symbol</a>(=&lt;第1引数,第2�
 <br>
 ・第1引数: dummy変数の展開式を<a href="#span-out-call-by-equation">式渡し</a>||<a href="#span-out-call-by-symbol">symbol渡し</a>
 <br>
-・第2引数: dummy変数の範囲下限a（整数）を値渡し
+・第2引数: dummy変数の区間下端a（整数）を値渡し
 <br>
-・第3引数: dummy変数の範囲上限b（整数）を値渡し
+・第3引数: dummy変数の区間上端b（整数）を値渡し
 <br>
 option
 <br>
@@ -30392,7 +30392,7 @@ _pn(=&lt;{n},1,10) || 1*2*3*4*5*6*7*8*9*10 -> 3628800
 <br>
 eqn_n=&lt;n; _pn(=&lt;eqn_n,1,10) || _pn(=&lt;eqn_n=&gt;,1,10) -> 3628800
 <br>
-・範囲反転を単なる逆順の演算で定義する
+・区間反転を単なる逆順の演算で定義する
 <br>
 _Pn(=&lt;{n},10,1) || 10*9*8*7*6*5*4*3*2*1 -> 3628800
 <br>
@@ -31020,11 +31020,11 @@ x -> (1.000000000000009+O(3e-5):0.9999999999999909+O(3e-5))
 <span id="span-out-FNh-IX"></span>
 積分高階関数
 <br>
-・連続関数のdummy変数積分範囲[a,b]における定積分を<a href="#span-out-fdm">有限差分法</a>で数値的に演算して返す
+・連続関数のdummy変数積分区間[a,b]における定積分を<a href="#span-out-fdm">有限差分法</a>で数値的に演算して返す
 <br>
 ・<a href="#span-out-error-numerical">数値誤差</a>O(dxI^4以上)を含み、演算結果に<a href="#span-out-error-numerical">目安の解析誤差</a>を表示する
 <br>
-・積分範囲の分割数の既定値NI=100
+・積分区間の分割数の既定値NI=100
 <br>
 ・積分の差分刻みdxI=(b-a)/NI
 <br>
@@ -31039,13 +31039,13 @@ _idummy<a href="#span-out-vars-symbol">変数名symbol</a>(=&lt;第1引数,第2�
 <br>
 ・第1引数: dummy変数の展開式を<a href="#span-out-call-by-equation">式渡し</a>||<a href="#span-out-call-by-symbol">symbol渡し</a>
 <br>
-・第2引数: dummy変数の積分下限aを値渡し
+・第2引数: dummy変数の積分下端aを値渡し
 <br>
-・第3引数: dummy変数の積分上限bを値渡し
+・第3引数: dummy変数の積分上端bを値渡し
 <br>
 option
 <br>
-・第4引数: 積分範囲の分割数NI（正の偶数）を値渡し[0||省略時、NI既定値]
+・第4引数: 積分区間の分割数NI（正の偶数）を値渡し[0||省略時、NI既定値]
 <br>
 <br>
 <a href="#span-out-error-numerical">数値誤差</a>に関する精度次数について記述する
@@ -31062,7 +31062,7 @@ option
 <br>
 test caseを列挙する
 <br>
-・f(x)=x^4の積分範囲[0,1+i]における定積分を示す
+・f(x)=x^4の積分区間[0,1+i]における定積分を示す
 <br>
 a=0; b=1+i; ab=[a,b]; f=&lt;{x^4} -> stored_eqn(f)
 <br>
@@ -31084,7 +31084,7 @@ _ix(=&lt;f,ab,1000)
 <br>
 -> -0.8000000000005332-0.800000000000533i+O(1e-12+1e-12i)
 <br>
-・積分範囲を反転
+・積分区間を反転
 <br>
 _ix(=&lt;f,[b,a]) || _ix(=&lt;f,b,a)
 <br>
@@ -32466,7 +32466,7 @@ y=f(x)=a*x+b
 <br>
 相関
 <br>
-・相関係数の範囲：[-1,1]
+・相関係数の区間：[-1,1]
 <br>
 ・強い：|相関係数|＞0.7
 <br>
@@ -32937,7 +32937,7 @@ r -> (2:-1:0:0:0:0)
 <br>
 B-spline曲線
 <br>
-・区間i=1~N-1の一様knotの2次曲線
+・i=[1,N-1]の区間で一様knotの2次曲線
 <br>
 Si(i_,t)=&lt;0.5*(t^2,t,1)*(1,-2,1:-2,2,0:1,1,0)*{(x[i_-1],y[i_-1]),(x[i_],y[i_]),(x[i_+1],y[i_+1])};
 <br>
@@ -32949,7 +32949,7 @@ y={1,1,3,2,2};
 <br>
 N=min(sizer(x),sizer(y))-1; N -> 4
 <br>
-・各区間の媒介変数t=0~1
+・各区間の媒介変数t=[0,1]
 <br>
 Si(1,0) -> (0,1)
 <br>
@@ -32969,7 +32969,7 @@ Si(3,0.5) -> (1.875,2.125)
 <br>
 Si(3,1) -> (2,2)
 <br>
-・重複する制御点の区間i=1||N-1は線形
+・重複する制御点のi=1||N-1の区間は線形
     </td>
   </tr>
   <tr>
@@ -33190,7 +33190,7 @@ f""(x)=(f"'(x+4h)-f"'(x-8h))/(16h)+O((8h)^2)
 <br>
 公式を導出する
 <br>
-・連続関数f(x)の積分範囲[a,b]をN等分割して差分刻みをhとする
+・連続関数f(x)の積分区間[a,b]をN等分割して差分刻みをhとする
 <br>
 h=(b-a)/N
 <br>
@@ -38754,7 +38754,7 @@ x=x-mdx
 <br>
 ・<span class="run">Ver.2.408.86</span>以降、収束計算のretry機能を追加
 <br>
-　近似解の列vector{x}の各要素初期値：乱数の係数倍=範囲[-1,1)の<a href="#span-out-FN-rand">乱数</a>*retry回数倍
+　近似解の列vector{x}の各要素初期値：乱数の係数倍=区間[-1,1)の<a href="#span-out-FN-rand">乱数</a>*retry回数倍
 <br>
 ・現状、不連続性の高いswitchingを含む<a href="#span-out-non-linear1">電気回路計算</a>等、収束可否が初期値より連立する方程式の列挙順序に依存
     </td>
@@ -41367,7 +41367,7 @@ Fourier級数の解法について記述する
 <br>
 ・<a href="#span-out-FNh-IX">積分高階関数</a>の精度に依存
 <br>
-・既定で4次精度の積分範囲100分割
+・既定で4次精度の積分区間の分割数=100
 <br>
 <br>
 Fourier級数
@@ -42765,7 +42765,7 @@ data.logo -> "makeLog=true"
 ・<a href="#span-out-FNmh-OX">orderT</a>: <a href="#span-out-fdm-differential">有限差分</a>による常微分の精度次数
 <br>
 <br>
-・<a href="#span-out-FNh-IX">NI</a>: <a href="#span-out-fdm-differential">有限差分</a>による積分範囲の分割数
+・<a href="#span-out-FNh-IX">NI</a>: <a href="#span-out-fdm-differential">有限差分</a>による積分区間の分割数
 <br>
 <br>
 ・<a href="#span-out-FNh-IX">orderI</a>: <a href="#span-out-fdm-differential">有限差分</a>による積分の精度次数
