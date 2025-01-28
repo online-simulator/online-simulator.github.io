@@ -161,10 +161,10 @@ My_entry.calc_graphing.prototype.output_axis = function(arr2d_vec, options_plot)
   var callback = (ed >= 0)?
     function(x){return x.toExponential(ed);}:
     function(x){return x;};
-  if(!(isNaN(xmin))) $._id("input-xmin").value = callback(xmin);
-  if(!(isNaN(ymin))) $._id("input-ymin").value = callback(ymin);
-  if(!(isNaN(xmax))) $._id("input-xmax").value = callback(xmax);
-  if(!(isNaN(ymax))) $._id("input-ymax").value = callback(ymax);
+  if(isFinite(xmin)) $._id("input-xmin").value = callback(xmin);  // Ver.2.713.101
+  if(isFinite(ymin)) $._id("input-ymin").value = callback(ymin);  // Ver.2.713.101
+  if(isFinite(xmax)) $._id("input-xmax").value = callback(xmax);  // Ver.2.713.101
+  if(isFinite(ymax)) $._id("input-ymax").value = callback(ymax);  // Ver.2.713.101
   return self;
 };
 /* -> Ver.2.39.18 */
