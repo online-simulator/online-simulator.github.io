@@ -248,9 +248,17 @@ test case
 <br>
 　⇒任意tの偶関数：f(x):=real(ξ(x+i*t)), f'(1/2)=0　⇒　f≠h, h(x)=0
 <br>
+　<span>-z</span>：同上のξ関数を<a href="#span-out-complex">複素数平面</a>にplot
+<br>
 　<span class="pF">-g(x)</span>：<span class="run">Ver.2.711.100</span>以降、同上の臨界領域x方向のξ関数の計算結果（各imag(ξ(s))=0の近傍）
 <br>
 　⇒任意tの奇関数：g(x):=imag(ξ(x+i*t)), g(1/2)=0　⇒　g≠h, h(x)=0
+<br>
+　<span class="jF">-z</span>：同上のξ関数を<a href="#span-out-complex">複素数平面</a>にplot
+<br>
+　⇒完備化の意義：ξ(1/2+i*t)=0近傍でopen　⇔　ξ'(1/2+i*t)=0近傍でclosed
+<br>
+　⇒<span class="run">Ver.2.711.100</span>以降、<a href="#span-app-continuation">解析接続</a>の一意性をtriple-check
 <br>
 　-x：ζ関数の臨界領域x方向の単調性　⇔　関数等式
 <br>
@@ -290,11 +298,11 @@ test case
 <br>
 　-7：<span class="run">Ver.2.691.98</span>以降、<span class="clear">複数個のimag(ξ(s))=0</span>を明示（gamma関数を微修正）
 <br>
-　-7-z：同上のξ関数を<a href="#span-out-complex">複素数平面</a>にplot（臨界線の極大点近傍@y=144でclose）
+　-7-z：同上のξ関数を<a href="#span-out-complex">複素数平面</a>にplot（臨界線の極大点近傍@y=144でclosed）
 <br>
 　-7'：<span class="run">Ver.2.694.98</span>以降<span class="clear">複数個のimag(ξ(s))=0</span>を明示（臨界線の極大点近傍を追加）
 <br>
-　-7'-z：同上のξ関数を<a href="#span-out-complex">複素数平面</a>にplot（臨界線の極大点近傍@y=144.04でclose）
+　-7'-z：同上のξ関数を<a href="#span-out-complex">複素数平面</a>にplot（臨界線の極大点近傍@y=144.04でclosed）
 <br>
 　-7"：<span class="run">Ver.2.694.98</span>以降、零点近傍でimag成分のr≒1を明示
 <br>
@@ -302,11 +310,11 @@ test case
 <br>
 　-8：<span class="run">Ver.2.694.98</span>以降、<span class="clear">複数個のimag(ξ(s))=0</span>を明示（臨界線の極小点近傍を追加）
 <br>
-　-8-z：同上のξ関数を<a href="#span-out-complex">複素数平面</a>にplot（臨界線の極小点近傍@y=146.5でclose）
+　-8-z：同上のξ関数を<a href="#span-out-complex">複素数平面</a>にplot（臨界線の極小点近傍@y=146.5でclosed）
 <br>
 　-9：<span class="run">Ver.2.694.98</span>以降、<span class="clear">複数個のimag(ξ(s))=0</span>を明示（臨界線の極小点近傍を追加）
 <br>
-　-9-z：同上のξ関数を<a href="#span-out-complex">複素数平面</a>にplot（臨界線の極小点近傍@y=447でclose）
+　-9-z：同上のξ関数を<a href="#span-out-complex">複素数平面</a>にplot（臨界線の極小点近傍@y=447でclosed）
 <br>
 　-9"：<span class="run">Ver.2.694.98</span>以降、零点近傍でimag成分のr≒1を明示
 <br>
@@ -322,13 +330,13 @@ test case
 <br>
 　-7-x=1：境界線real(s)=1に対する<a href="#span-app-continuation">解析接続</a>の一意性を明示
 <br>
-　⇒境界線real(s)=1のimag(ξ(s))=0　⇔　臨界線real(s)=1/2の極点近傍　⇔　臨界線の零点近傍でopen
+　⇒境界線real(s)=1のimag(ξ(s))=0　⇔　臨界線real(s)=1/2の極値点近傍　⇔　臨界線の零点近傍でopen
 <br>
 　-8：<span class="run">Ver.2.694.98</span>以降、臨界線の極小点近傍@y=146.5を明示
 <br>
 　-8-x=1：境界線real(s)=1に対する<a href="#span-app-continuation">解析接続</a>の一意性を明示
 <br>
-　⇒境界線real(s)=1のimag(ξ(s))=0　⇔　臨界線real(s)=1/2の極点近傍　⇔　臨界線の零点近傍でopen
+　⇒境界線real(s)=1のimag(ξ(s))=0　⇔　臨界線real(s)=1/2の極値点近傍　⇔　臨界線の零点近傍でopen
 <br>
 　-9：<span class="run">Ver.2.694.98</span>以降、臨界線の極小点近傍@y=447を明示
 <br>
@@ -3881,11 +3889,13 @@ AIのsingularityのlevel
 <br>
 　予想成立の必要十分条件：ξ関数の臨界領域x方向の関数形が以下を満足　⇔　非自明な零点のreal(s)=1/2
 <br>
-　　<span class="run">Ver.2.694.98</span>以降、<a href="#span-app-prime">素数定理</a>と<a href="#span-app-continuation">解析接続</a>の一意性：<a href="#span-out-complex">複素数平面</a>の<a href="#span-out-UI-graphing-testcase">零点近傍でopen</a>
+　　<span class="run">Ver.2.694.98</span>以降、<a href="#span-app-prime">素数定理</a>と<a href="#span-app-continuation">解析接続</a>の一意性：<a href="#span-out-complex">複素数平面</a>の<span class="jF">零点近傍でopen</span>　⇔　<span class="wF">極値点近傍でclosed</span>
 <br>
 　　<span class="run">Ver.2.706.99</span>以降、任意tの偶関数：f(x):=real(ξ(x+i*t)), f'(1/2)=0　⇒　f≠h, h(x)=0
 <br>
 　　<span class="run">Ver.2.711.100</span>以降、任意tの奇関数：g(x):=imag(ξ(x+i*t)), g(1/2)=0　⇒　g≠h, h(x)=0
+<br>
+　　⇒<a href="#span-out-complex">複素数平面</a>で完備化の意義：<span class="jF">ξ(1/2+i*t)=0近傍でopen</span>　⇔　<span class="wF">ξ'(1/2+i*t)=0近傍でclosed</span>（一般化も同様）
 <br>
 ・<a title="[spec]Number変換" href="../69_number/spec.html#span-Goldbach">Goldbach予想</a>の命題：自然数の集合Nの<a href="#span-app-characteristic">基本特性</a>を保持する最小構成の集合（2を含む）は素数の集合P
 <br>
