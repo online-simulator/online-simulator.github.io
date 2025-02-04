@@ -5,7 +5,7 @@
 // ECMAScript6
 const My_entry = {
   // major update . minor update . minor change . fatal bug-fix . minor bug-fix
-  VERSION: "online-simulator.github.io.6.450.571.20.120",
+  VERSION: "online-simulator.github.io.6.450.572.20.120",
   // major update. minor update/change. fatal/minor bug-fix
   Ver: {
     // inner
@@ -16,7 +16,7 @@ const My_entry = {
     cell: "0.11.3",
     wave: "1.79.14",
     pen: "1.91.13",
-    else: "0.71.8"
+    else: "0.72.8"
   },
   flag: {
     useES6: (Number("0b0") === 0 && Number("0o0") === 0),  // calc-Ver.2.147.37
