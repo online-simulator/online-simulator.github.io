@@ -799,6 +799,7 @@ My_entry.parser.prototype.switch_token = function(tokens, token, token_lower, to
     case "mod":
     case "fmod":
     case "quot":
+    case "fquot":
     // "FN3or4"
     // My defined
     case "star":

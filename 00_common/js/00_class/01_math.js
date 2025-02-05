@@ -275,17 +275,41 @@ My_entry.math.prototype.kdelta = function(i, j){
   return ((i === j)? 1: 0);
 };
 /* Ver.2.87.32 -> */
-My_entry.math.prototype.mod =
-My_entry.math.prototype.fmod = function(x, y){
+My_entry.math.prototype.mod = function(x, y){
   var self = this;
   if(isNaN(x) || isNaN(y)) return NaN;  // Ver.2.170.42
   return (x%y);
 //  return (x-self.int(x/y)*y);
 };
+/* Ver.2.721.101 */
+My_entry.math.prototype.fmod = function(x, y){
+  var self = this;
+  if(isNaN(x) || isNaN(y)) return NaN;  // Ver.2.170.42
+  return (x-self.fquot(x, y)*y);
+};
 My_entry.math.prototype.quot = function(x, y){
   var self = this;
   if(isNaN(x) || isNaN(y)) return NaN;  // Ver.2.170.42
   return self.int(x/y);
+};
+/* Ver.2.721.101 */
+My_entry.math.prototype.fquot = function(x, y){
+  var self = this;
+  if(isNaN(x) || isNaN(y)) return NaN;  // Ver.2.170.42
+  var _fquot = 0;
+  if(x === y){
+    _fquot = 1;
+  }
+  else if(x === -y){
+    _fquot = -1;
+  }
+  else{
+    _fquot = self.int(x/y);
+    if(x%y && x < 0){
+      _fquot += ((y < 0)? 1: -1);
+    }
+  }
+  return _fquot;
 };
 /* -> Ver.2.87.32 */
 /* Ver.2.167.40 -> */

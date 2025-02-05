@@ -415,6 +415,16 @@
       script += "\nclear;\n";
       script += "_t((t,x,v)=<{,},,=<{1,1,1},N=0,N);\n_t((t,x,v)=<{,},,/*omitted*/,N=0,N);\n_t((t,x,v)=<(,),,/*omitted*/,N=0,N);\n_t(=<{,},=<(t,x,v),/*omitted*/,N=0,N);\n_t(=<{,},=<{t,x,v},/*omitted*/,N=0,N);\nNewton((x0,x1)=<{,},,=<{1,1},N=0,N);\nNewton((x0,x1)=<{,},,/*omitted*/,N=0,N);\nNewton((x0,x1)=<(,),,/*omitted*/,N=0,N);\nNewton(=<{,},=<(x0,x1),/*omitted*/,N=0,N);\nNewton(=<{,},=<{x0,x1},/*omitted*/,N=0,N);";
       script += "\nclear;\n";
+      script += "check(x,y)=<(x,y,,x%y,x%%y,mod(x,y),quot(x,y),fmod(x,y),fquot(x,y),x%y+(x%%y)*y,mod(x,y)+quot(x,y)*y,fmod(x,y)+fquot(x,y)*y);";
+      script += "\n";
+      script += "x=5,y=5:check(x,y):check(-x,y):check(x,-y):check(-x,-y);";
+      script += "\n";
+      script += "x=10,y=5:check(x,y):check(-x,y):check(x,-y):check(-x,-y);";
+      script += "\n";
+      script += "x=1.25,y=5:check(x,y):check(-x,y):check(x,-y):check(-x,-y);";
+      script += "\n";
+      script += "x=11.25,y=5.25:check(x,y):check(-x,y):check(x,-y):check(-x,-y);";
+      script += "\nclear;\n";
       $._id("input").value = script;
       // test case
       var setVal = function(){

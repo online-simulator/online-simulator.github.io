@@ -6991,6 +6991,14 @@ clear; ($a,$b,3)=(1,2,=&lt;4); (a,b) -> <del>(1,2)</del>[MyErr]Invalid matching(
 　<a href="#span-out-FNm-init-space">space初期化行列関数</a>同様の最適化@<span class="run">Ver.2.228.55</span>：t0+(t1-t0)*(n/N)　⇒　t0+((t1-t0)/N)*n
 <br>
 　影響項目：<a href="#span-out-UI-graphing">t0/t1</a>||<a href="#span-out-plot2d">plot2d</a>
+<br>
+・<span class="run">Ver.2.721.101</span>以降、<a href="#span-out-FN-ope">mod関数</a>と冗長な<a href="#span-out-FN-ope">fmod関数</a>の仕様変更
+<br>
+　<a href="#span-out-prec-ope-arithmetic-mod">剰余演算子</a>と<a href="#span-out-FN-ope">mod関数</a>に同義　⇒　常に正の余りを返す
+<br>
+　影響項目：<a href="#span-out-FN-ope">fquot関数</a>を追加
+<br>
+　<a href="#span-eqn">strict-mode式変数list</a>への影響なし
     </td>
   </tr>
   <tr>
@@ -21524,9 +21532,13 @@ or(NaN) || or(0) -> NaN
 <br>
 <a href="#span-out-ope">実数演算</a>の演算子代替関数（operandが<a href="#span-out-ope">無次元</a>の<a href="#span-out-num">実数値</a>）
 <br>
-・left%right代替の剰余関数: mod(left, right) || fmod(left, right)
+・left%right代替の剰余関数: mod(left, right)
+<br>
+　<del>left%right代替の</del>常に正の余りを返すmodulo関数: fmod(left, right)　<span class="run">Ver.2.721.101</span>以降、<a href="#span-out-spec-changed-history">演算仕様変更</a>
 <br>
 ・<span class="condition">left%%right</span>代替の整数商関数: quot(left, right)
+<br>
+　fmod対応のfquot関数: fquot(left, right)　<span class="run">Ver.2.721.101</span>以降、追加
 <br>
 ・<span class="run">Ver.2.167.40</span>以降、left===rightを代替するstrict equal判定関数: seq(left, right)
 <br>
@@ -21571,9 +21583,33 @@ pow(i,i),power(i,i) -> (0.20787957635076193,0.20787957635076193)
 <br>
 5.2%3 -> 2.2
 <br>
+・<span class="run">Ver.2.721.101</span>以降、fmod関数は常に正の余りを返す
+<br>
 mod(5.2,3),fmod(5.2+i,3),fmod(5.2,3+i) -> (2.2,2.2,2.2)
 <br>
-quot(5.2,3),quot(5.2,2) -> (1,2)
+1%5,mod(1,5),fmod(1,5) -> (1,1,1)
+<br>
+-1%5,mod(-1,5),fmod(-1,5) -> (-1,-1,<del>-1</del>4)
+<br>
+1%(-5),mod(1,-5),fmod(1,-5) -> (1,1,1)
+<br>
+-1%(-5),mod(-1,-5),fmod(-1,-5) -> (-1,-1,<del>-1</del>4)
+<br>
+-7%5,mod(-7,5),fmod(-7,5) -> (-2,-2,<del>-2</del>3)
+<br>
+・<span class="run">Ver.2.721.101</span>以降、fquot関数を追加
+<br>
+quot(5.2,3),quot(5.2,2),fquot(5.2,3),fquot(5.2,2) -> (1,2,1,2)
+<br>
+1%%5,quot(1,5),fquot(1,5) -> (0,0,0)
+<br>
+-1%%5,quot(-1,5),fquot(-1,5) -> (0,0,-1)
+<br>
+1%%(-5),quot(1,-5),fquot(1,-5) -> (0,0,0)
+<br>
+-1%%(-5),quot(-1,-5),fquot(-1,-5) -> (0,0,1)
+<br>
+-7%%5,quot(-7,5),fquot(-7,5) -> (-1,-1,-2)
 <br>
 ceq(2+3i,3*i-(-2)) -> 1
 <br>
@@ -43405,6 +43441,7 @@ parser.js抜粋
     case "mod":
     case "fmod":
     case "quot":
+    <span class="jF">case "fquot":</span>
     // "FN3or4"
     // My defined
     case "star":
@@ -43694,6 +43731,7 @@ kdelta(NaN);
 mod(NaN);
 fmod(NaN);
 quot(NaN);
+<span class="jF">fquot(NaN);</span>
 star(NaN);
 poly(NaN);
 polygon(NaN);
