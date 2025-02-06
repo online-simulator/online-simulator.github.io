@@ -371,6 +371,10 @@ My_entry.draw_svg.prototype.lines = function(arr_vec, opt_lineWidth, opt_styleRG
     _svg += " stroke-linejoin="+self.quote("round");  // "round" || "bevel" || "miter"
     _svg += " points="+self.quote(points);
     _svg += "/>";
+    /* Ver.2.723.102 -> */
+    _svg += self.rn;
+    _svg += "<line />";
+    /* -> Ver.2.723.102 */
     _svg += self.rn;  // 1.0.0
   }
   return _svg;
