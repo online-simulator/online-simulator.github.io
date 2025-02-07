@@ -7455,13 +7455,13 @@ clear; last{a,1} -> <del>1</del>[MyErr]Undef var(a)
 <br>
 　影響項目：<a href="#span-out-UI-graphing">Graphing Calculator</a>||<a href="#span-out-FNm-init">初期化行列関数</a>
 <br>
-・<span class="clear">Ver.2.723.102</span>以降、svg出力のpolylineのmasking不具合を暫定対策
+・<span class="clear">Ver.2.723.102</span>以降、svg出力のpolylineのmasking不具合を暫定修正
 <br>
 　内容：line||polyline単体でblockの場合、意図しないmaskingが稀に発生（line消滅）
 <br>
 　前者：未遭遇
 <br>
-　後者の暫定対策：&lt;polyline points="" /&gt;　⇒　&lt;polyline points="" /&gt;&lt;line /&gt;
+　後者の対策：&lt;polyline points="" /&gt;　⇒　&lt;polyline points="" /&gt;&lt;line /&gt;
 <br>
 　再現条件の備考：&lt;polyline /&gt;の追加は効果なし
     </td>
