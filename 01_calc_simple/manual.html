@@ -178,9 +178,9 @@ test case
 <br>
 　-p：mod pで還元の巡回群の基点Gの基点<span class="clear">候補</span>の一覧（素数pの法で離散化）
 <br>
-　⇒離散対数問題（P≠NPの前提）：Gとd*Gの2点から256bitのdの逆算は困難（楕円曲線暗号の非対称性）
+　<span class="run">Ver.2.725.103</span>以降、y=p/2の線対称性の基点候補を追加
 <br>
-　⇒後述のy=p/2の線対称性：未考慮
+　⇒離散対数問題（P≠NPの前提）：Gとd*Gの2点から256bitのdの逆算は困難（楕円曲線暗号の非対称性）
 <br>
 　<span class="jF">-G</span>：O起点の巡回群要素Q=d*G=O+G+G+G+...
 <br>
@@ -188,17 +188,27 @@ test case
 <br>
 　⇒3位の巡回群：基点(8,3)⇒(4,7)⇒零元(0,0)
 <br>
+　-G-sym：<span class="run">Ver.2.725.103</span>以降、同上のy=p/2の線対称性の基点候補
+<br>
+　⇒3位の巡回群：基点(8,8)⇒(4,4)⇒零元(0,0)
+<br>
 　-G-2：O起点の巡回群要素Q=d*G=O+G+G+G+...
 <br>
 　⇒全経路履歴の分布：y=p/2の線対称性を明示（循環して零元回帰しない基点<span class="clear">候補</span>を含む）
 <br>
 　⇒p=17の場合、桁数不足（同上の基点<span class="clear">候補</span>を除く）
 <br>
-　⇒桁数不足の基点<span class="clear">候補</span>：(15,4)
+　⇒基点<span class="clear">候補</span>：(15,4)⇒(2,7)⇒桁数不足
+<br>
+　-G-2-sym：<span class="run">Ver.2.725.103</span>以降、同上のy=p/2の線対称性の基点候補
+<br>
+　⇒基点候補：(15,13)⇒(4,4)⇒(13,1)⇒(8,12)⇒(2,1)⇒桁数不足
 <br>
 　=G+：G起点の巡回群要素Q=d*G=G+G+G+...
 <br>
 　⇒O+G+G+G+...=G+G+G+...
+<br>
+　=G+-sym：<span class="run">Ver.2.725.103</span>以降、同上のy=p/2の線対称性の基点候補
 <br>
 ・<span class="wF">pi_(x)</span>：<a href="#span-app-prime">素数計数関数</a>と近似式の比較
 <br>
