@@ -180,7 +180,7 @@ test case
 <br>
 　<span class="run">Ver.2.725.103</span>以降、y=p/2の線対称性の基点候補を追加
 <br>
-　⇒離散対数問題（P≠NPの前提）：Gとd*Gの2点から256bitのdの逆算は困難（楕円曲線暗号の非対称性）
+　⇒離散対数問題（P≠NPの前提）：GとQ=d*Gの2点から離散対数dの逆算は困難（一方向性||非対称性）
 <br>
 　<span class="jF">-G</span>：O起点の巡回群要素Q=d*G=O+G+G+G+...
 <br>
@@ -198,7 +198,7 @@ test case
 <br>
 　⇒p=17の場合、桁数不足（同上の基点<span class="clear">候補</span>を除く）
 <br>
-　<span class="run">Ver.2.726.103</span>以降、<a href="#span-out-eqns">式変数</a>inv_modで桁数不足を対策（p進法の線形結合に変換）
+　<span class="run">Ver.2.726.103</span>以降、<a href="#span-out-eqns">式変数</a>inv_modで桁数不足を対策（p進法で1*v*v*...のmod pを演算）
 <br>
 　⇒<span class="run">Ver.2.726.103</span>以降、確定の基点<span class="clear">候補</span>：(15,4)<del>⇒(2,7)⇒桁数不足
 <br>
