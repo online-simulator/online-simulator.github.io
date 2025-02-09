@@ -174,7 +174,7 @@ test case
 <br>
 　-O：零元（無限遠点）
 <br>
-　<span class="clear">Ver.2.728.104</span>以降、零元の座標定義の致命的な不具合を修正：b=0の要素(0,0)と区別が必要
+　<span class="clear">Ver.2.728.104</span>以降、零元の座標定義を修正（b=0の要素(0,0)と区別が必須）
 <br>
 　⇒零元判定に最適な座標の定義：<span class="clear">(false,false)</span>
 <br>
@@ -188,49 +188,47 @@ test case
 <br>
 　<span class="jF">-G</span>：O起点の巡回群要素Q=d*G=O+G+G+G+...
 <br>
-　<span class="clear">Ver.2.728.104</span>以降、不成立の点を返す致命的な不具合を暫定修正：成立判定のisOKを追加
+　<span class="clear">Ver.2.728.104</span>以降、零元の座標定義と到達判定の致命的な不具合（巡回しない原因）を修正
+<br>
+　零元の座標定義：(0,0)　⇒　<span class="clear">(false,false)</span>
+<br>
+　零元の到達判定（実数⇒有限体）：isO=(x1===x2)&amp;&amp;<span class="clear">(y1===-y2)　⇒　(y1===p-y2)</span>
 <br>
 　⇒<a href="#span-out-float">倍精度</a>の目安（除法の制約）：p&lt;20
 <br>
-　⇒基点候補：(8,3)⇒(4,7)⇒(0,0)
+　⇒<span class="clear">Ver.2.728.104</span>以降、6位の基点：(6,1)||(8,3)
 <br>
 　-G-sym：<span class="run">Ver.2.725.103</span>以降、同上のy=p/2の線対称性の基点候補
 <br>
-　⇒基点候補：(8,8)⇒(4,4)⇒(0,0)
+　⇒<span class="clear">Ver.2.728.104</span>以降、6位の基点：(6,10)||(8,8)
 <br>
-　-G-bp：<span class="run">Ver.2.727.103</span>以降、同上の基点のみをd=[1,2p+1]で表示
+　-G-bp：<span class="run">Ver.2.727.103</span>以降、同上の基点のみをd=[1,2p+1]で表示（<span class="clear">Ver.2.728.104</span>以降、巡回を確認）
 <br>
 　-G-2：O起点の巡回群要素Q=d*G=O+G+G+G+...
 <br>
-　⇒全経路履歴の分布：y=p/2の線対称性を明示（循環して零元回帰しない基点<span class="clear">候補</span>を含む）
+　⇒全経路履歴の分布：y=p/2の線対称性を明示
 <br>
-　⇒p=17の場合、桁数不足（同上の基点<span class="clear">候補</span>を除く）
+　⇒p=17の場合、桁数不足
 <br>
 　<span class="run">Ver.2.726.103</span>以降、<a href="#span-out-eqns">式変数</a>inv_modで桁数不足を対策（p進法で1*v*v*...のmod pを演算）
 <br>
-　⇒<span class="run">Ver.2.726.103</span>以降、確定の基点<span class="clear">候補</span>：(15,4)<del>⇒(2,7)⇒桁数不足
-<br>
-p=17; y1=7; (2y1)**(p-2),MAX_SAFE_INTEGER -> (155568095557812220,9007199254740991)</del>
+　⇒<span class="clear">Ver.2.728.104</span>以降、18位の基点：(10,2)||(15,4)
 <br>
 　-G-2-sym：<span class="run">Ver.2.725.103</span>以降、同上のy=p/2の線対称性の基点候補
 <br>
-　⇒<span class="run">Ver.2.726.103</span>以降、確定の基点候補：(15,13)<del>⇒(4,4)⇒(13,1)⇒(8,12)⇒(2,1)⇒桁数不足
+　⇒<span class="clear">Ver.2.728.104</span>以降、18位の基点：(10,15)||(15,13)
 <br>
-p=17; x1=2; x2=15; (x2-x1)**(p-2),MAX_SAFE_INTEGER -> (51185893014090750,9007199254740991)</del>
-<br>
-　-G-2-bp：<span class="run">Ver.2.727.103</span>以降、同上の基点候補のみをd=[1,2p+1]で表示（循環を確認）
+　-G-2-bp：<span class="run">Ver.2.727.103</span>以降、同上の基点のみをd=[1,2p+1]で表示（<span class="clear">Ver.2.728.104</span>以降、巡回を確認）
 <br>
 　-G-3：O起点の巡回群要素Q=d*G=O+G+G+G+...
 <br>
-　⇒<span class="run">Ver.2.726.103</span>以降、確定の基点候補：(4,4)||(8,1)
+　⇒<span class="clear">Ver.2.728.104</span>以降、20位の基点：(4,4)||(8,1)
 <br>
 　-G-3-sym：同上のy=p/2の線対称性の基点候補
 <br>
-　⇒<span class="run">Ver.2.726.103</span>以降、確定の基点候補：(15,16)<del>⇒(4,1)⇒(0,6)⇒桁数不足
+　⇒<span class="clear">Ver.2.728.104</span>以降、20位の基点：(4,13)||(8,16)
 <br>
-p=17; x1=0; x2=15; (x2-x1)**(p-2),MAX_SAFE_INTEGER -> (437893890380859400,9007199254740991)</del>
-<br>
-　-G-3-bp：<span class="run">Ver.2.727.103</span>以降、同上の基点候補のみをd=[1,2p+1]で表示（循環を確認）
+　-G-3-bp：<span class="run">Ver.2.727.103</span>以降、同上の基点のみをd=[1,2p+1]で表示（<span class="clear">Ver.2.728.104</span>以降、巡回を確認）
 <br>
 　=G+：G起点の巡回群要素Q=d*G=G+G+G+...
 <br>
@@ -240,11 +238,13 @@ p=17; x1=0; x2=15; (x2-x1)**(p-2),MAX_SAFE_INTEGER -> (437893890380859400,900719
 <br>
 　-G-4：<span class="run">Ver.2.726.103</span>以降、桁数不足を対策して追加
 <br>
+　⇒<span class="clear">Ver.2.728.104</span>以降、12位の基点：(8,4)||(17,4)||(28,5)||(33,6)
+<br>
 　-G-4-sym：同上のy=p/2の線対称性の基点候補
 <br>
-　-G-4-bp：<span class="run">Ver.2.727.103</span>以降、同上の基点候補のみをd=[1,2p+1]で表示（循環を確認）
+　⇒<span class="clear">Ver.2.728.104</span>以降、12位の基点：(8,57)||(17,57)||(28,56)||(33,55)
 <br>
-　⇒確定の基点候補：(28,5)||(28,56)
+　-G-4-bp：<span class="run">Ver.2.727.103</span>以降、同上の基点のみをd=[1,2p+1]で表示（<span class="clear">Ver.2.728.104</span>以降、巡回を確認）
 <br>
 ・<span class="wF">pi_(x)</span>：<a href="#span-app-prime">素数計数関数</a>と近似式の比較
 <br>

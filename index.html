@@ -356,19 +356,21 @@ fatal bug-fix
     <td>
 [Calculator]
 <br>
-・[manual] updated for test case
+・[manual] updated_2 for test case
 <br>
 [Graphing Calculator]
 <br>
 ・test case-elliptic-O-buttons bug-fixed
 <br>
-　O={,}　⇒　{false,false} for (0,0)@b=0
+　零元の座標定義：O={,}　⇒　{false,false} for (0,0)@b=0
 <br>
-　==　⇒　===
+　座標比較の厳密化：==　⇒　===
 <br>
 ・test case-elliptic-G-buttons bug-fixed
 <br>
-　temporarily double-check added: isOK=(y3**2-yy(x3))%p===0
+　<del>temporarily double-check added: isOK=(y3**2-yy(x3))%p===0</del>
+<br>
+　零元の到達判定（実数⇒有限体）：isO=(x1===x2)&amp;&amp;(y1===-y2)　⇒　(y1===p-y2)
 <br>
 ・test case-elliptic-add-5-button added
     </td>
