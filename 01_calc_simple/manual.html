@@ -176,7 +176,7 @@ test case
 <br>
 　<span class="clear">Ver.2.728.104</span>以降、零元の座標定義を修正（b=0の要素(0,0)と区別が必須）
 <br>
-　⇒零元判定に最適な座標の定義：<span class="clear">(false,false)</span>
+　⇒零元の座標定義（実数）：<span class="clear">(false,false)</span>
 <br>
 　<span class="clear">Ver.2.724.103</span>以降、一部訂正：基点　⇒　基点候補
 <br>
@@ -196,7 +196,7 @@ test case
 <br>
 　<span class="clear">Ver.2.728.104</span>以降、零元の座標定義と到達判定の致命的な不具合（巡回しない原因）を修正
 <br>
-　零元の座標定義：(0,0)　⇒　<span class="clear">(false,false)</span>
+　零元の座標定義（有限体）：(0,0)　⇒　<span class="clear">(false,<del>false</del></span>p/2)　<span class="run">Ver.2.731.104</span>以降、plot点を区別
 <br>
 　零元の到達判定（実数⇒有限体）：isO=(x1===x2)&amp;&amp;<span class="clear">(y1===-y2)　⇒　(y1===p-y2)</span>
 <br>
