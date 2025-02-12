@@ -526,11 +526,13 @@ test case
 <br>
 　⇒前提：無衝突系の時間刻み一定で重力の分母が有限の補正操作あり　⇒　|2点間距離|&gt;r_epsを仮定
 <br>
-　-m1-r_eps：同上の質点m=7のr_eps依存性
+　-m1-r_eps：同上の質点m=7のr_eps依存性（時間刻み一定で連続性を比較）
 <br>
 　⇒条件：r_eps&lt;&lt;dr（補正項の物理的な根拠は未考慮）
 <br>
 　-3~5body-sym：2次元平面の対称解@r_eps=0（補正項なし）
+<br>
+　⇒重心位置：質点の有無で対称性をdouble-check
 <br>
 　⇒徐々に<a href="#span-out-error-numerical">数値誤差</a>が蓄積して計算が破綻（周回数に依存）
 <br>
