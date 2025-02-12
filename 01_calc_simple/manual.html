@@ -514,9 +514,13 @@ test case
 <br>
 　初期値の仮定：界面温度T0/T1等の値を現在基準値で固定（時間軸を移動の場合、不正確）
 <br>
-・pendulum：<span class="run">Ver.2.733.104</span>以降、理想状態の2重振り子（棒先端の質点系）
+・pendulum：<span class="run">Ver.2.733.104</span>以降、理想状態の2重振り子（単振り子）
 <br>
-　-_t-t||-w：角度||角速度
+　⇒初期値鋭敏性：chaosの場合、<a href="#span-out-error-numerical">数値誤差</a>程度の違いで時間経過の描像に大差あり
+<br>
+　-_t-t||-w：単振り子（腕先端の質点系）の角度||角速度
+<br>
+　-physical-_t-t||-w：物理振り子（腕中間の質点系）の角度||角速度
 <br>
 ・<span class="clear">3body</span>：<span class="run">Ver.2.732.104</span>以降、<a href="#span-out-complex">複素数平面</a>に表示の平面3体問題
 <br>
@@ -527,8 +531,6 @@ test case
 　-4~5body：4体以降、手動で項を追加（主に<a href="#span-out-FNh">高階関数</a>の引数の制約）
 <br>
 　-5body-_t5||_t2：<a href="#span-out-evolution">時間発展</a>の分岐を比較
-<br>
-　⇒初期値鋭敏性：chaosの場合、<a href="#span-out-error-numerical">数値誤差</a>程度の違いで時間経過の描像に大差あり
 <br>
 ・orbit<span class="selection">-kdrm=0.36</span>：地球と月の<a href="#span-app-orbit">軌道計算</a>結果（<a href="#span-app-period-motion">近地点移動周期</a>に相対位置の初期値を適合）
 <br>
