@@ -1209,9 +1209,16 @@ My_entry.operation.prototype.jacobian = function(data, rightArr, tagObj){
   /* Ver.2.237.56 -> */
   var isRow = true;  // default: hasArgs=true
   var get_names = function(argj){
-    var names_col = self.get_symbols_expanded(data, argj);
-    var names_row = self.get_symbols_expanded(data, argj, true);
-    isRow = (names_row.length > names_col.length);
+    /* Ver.2.735.105 -> */
+    if(argj){
+      var names_col = self.get_symbols_expanded(data, argj);
+      var names_row = self.get_symbols_expanded(data, argj, true);
+      isRow = (names_row.length > names_col.length);
+    }
+    else{
+      throw msgErr;
+    }
+    /* -> Ver.2.735.105 */
     return ((isRow)? names_row: names_col);
   };
   var get_arr_x = function(argj, len_i){  // Ver.2.233.56  // Ver.2.237.56
