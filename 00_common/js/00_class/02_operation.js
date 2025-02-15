@@ -1232,16 +1232,15 @@ My_entry.operation.prototype.jacobian = function(data, rightArr, tagObj){
     }
     var len_xi = _arr_x.length;
     var len_xj = _arr_x[len_xi-1].length;
-    if(len_xi === len_i){
-      isRow = false;
-    }
-    else if(len_xj === len_i){
-      isRow = true;
-      _arr_x = DATA.vec2arr(_arr_x[len_xi-1]);
-    }
-    else{
+    /* Ver.2.735.106 -> */
+    if(!(Math.min(len_xi, len_xj) === 1 && Math.max(len_xi, len_xj) === len_i)){
       throw msgErr;
     }
+    isRow = (len_xj === len_i);
+    if(isRow){
+      _arr_x = DATA.vec2arr(_arr_x[len_xi-1]);
+    }
+    /* -> Ver.2.735.106 */
     return _arr_x;
   };
   /* -> Ver.2.237.56 */
