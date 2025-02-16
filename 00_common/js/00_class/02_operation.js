@@ -1164,6 +1164,17 @@ My_entry.operation.prototype.FNmhX = function(data, rightArr, tagObj, len_j0, ms
   }
   return _tree;
 };
+/* Ver.2.735.107 -> */
+My_entry.operation.prototype.hasEqn_arg = function(arg){
+  return (arg && !(arg.com));
+};
+My_entry.operation.prototype.has0_arg = function(arg){
+  return (arg && arg.com && arg.com.r === 0 && arg.com.i === 0);
+};
+My_entry.operation.prototype.isUndef_arg = function(arg){
+  return (typeof arg === "undefined");
+};
+/* -> Ver.2.735.107 */
 My_entry.operation.prototype.jacobian = function(data, rightArr, tagObj){
   var self = this;
   var options = data.options;
@@ -1343,10 +1354,20 @@ else if(prop === "OX" || prop === "TX"){  // ODE  // Ver.2.23.11  // Ver.2.231.5
       names = args_eqn || get_names(args[1]);  // Ver.2.233.56  // Ver.2.237.56
     }
     else{
-      names = get_names(args[1]);  // Ver.2.233.56  // Ver.2.237.56
-      if(isTX){
-        name_arg = names[0];
+      /* Ver.2.735.107 -> */
+      var arg1 = args[1];
+      if(self.hasEqn_arg(arg1)){
+        names = get_names(arg1);  // Ver.2.233.56  // Ver.2.237.56
+        if(isTX){
+          name_arg = names[0];
+        }
       }
+      else if(self.has0_arg(arg1)){
+      }
+      else{
+        throw msgErr;
+      }
+      /* -> Ver.2.735.107 */
     }
     var name_var = name_arg || name_bar;
     if(!(name_var) || (name_arg && name_bar)) throw msgErr;
@@ -1361,12 +1382,17 @@ else if(prop === "OX" || prop === "TX"){  // ODE  // Ver.2.23.11  // Ver.2.231.5
     var arr_x = null;
     /* Ver.2.29.15 -> */
     var arg2 = args[2];  // Ver.2.233.56
-    if(arg2 && !(arg2.com)){  // Ver.2.233.56
+    /* Ver.2.735.107 -> */
+    if(self.hasEqn_arg(arg2)){  // Ver.2.233.56
       arr_x = get_arr_x(arg2, len_i);  // Ver.2.233.56  // Ver.2.237.56
     }
-    if(!(arr_x)){
+    else if(self.has0_arg(arg2)){
       arr_x = math_mat.zeros2d(len_i, 1);
     }
+    else{
+      throw msgErr;
+    }
+    /* -> Ver.2.735.107 */
     /* Ver.2.238.56 -> */
     var t0ini = null;
     if(isTX){
@@ -1596,12 +1622,17 @@ else{
     var arr_x = null;
     /* Ver.2.29.15 -> */
     var arg2 = args[2];  // Ver.2.233.56
-    if(arg2 && !(arg2.com)){  // Ver.2.233.56
+    /* Ver.2.735.107 -> */
+    if(self.hasEqn_arg(arg2)){  // Ver.2.233.56
       arr_x = get_arr_x(arg2, len_i);  // Ver.2.233.56  // Ver.2.237.56
     }
-    if(!(arr_x)){
+    else if(self.has0_arg(arg2) || self.isUndef_arg(arg2)){
       arr_x = math_mat.zeros2d(len_i, 1);
     }
+    else{
+      throw msgErr;
+    }
+    /* -> Ver.2.735.107 */
     var J = null;
     // x0
     var x0 = init_x0(arr_x, names, ids_buffer);  // Ver.2.233.56

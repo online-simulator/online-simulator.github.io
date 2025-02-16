@@ -7129,6 +7129,25 @@ clear; ($a,$b,3)=(1,2,=&lt;4); (a,b) -> <del>(1,2)</del>[MyErr]Invalid matching(
 　影響項目：<a href="#span-out-FN-ope">fquot関数</a>を追加
 <br>
 　<a href="#span-eqn">strict-mode式変数list</a>への影響なし
+<br>
+・<span class="clear">Ver.2.735.105~107</span>以降、<a href="#span-out-FNmh">高階行列関数</a>の引数判定を厳密化
+<br>
+　引数省略：引数不足の場合、error終了
+<br>
+_t(=&lt;1) -> <del>Cannot read properties of undefined</del>[MyErr]Invalid TX arguments
+<br>
+　引数の<a href="#span-out-FNm-size">行列size</a>比較：size不整合の場合、error終了
+<br>
+_o((t,x)=&lt;t,,=&lt;{,,},,1,4)  -> <del>8+O(1e+0)</del>[MyErr]Invalid OX arguments
+<br>
+　初期値省略：無次元の0以外の場合、error終了
+<br>
+_o((t,x)=&lt;t,,true,,1,4)  -> <del>8+O(1e+0)</del>[MyErr]Invalid OX arguments
+<br>
+_t((t,x)=&lt;t,,true,1,4)  -> <del>(4:8+O(1e+0))</del>[MyErr]Invalid TX arguments
+<br>
+Newton((x)=&lt;x+0,1,true) -> <del>0</del>[MyErr]Invalid newtonian arguments
+<br>
     </td>
   </tr>
   <tr>
@@ -39724,7 +39743,7 @@ infoLost[ i] 1+2.4652091778734548e-27i
 <br>
 <a href="#span-out-FNmh-EX">symbolic高階行列関数</a>を使用
 <br>
-・逆行列Ainvと未知変数ベクトルxを一般化して記述する
+・逆行列Ainvと未知変数vectorを一般化して記述する
 <br>
 Ainv=&lt;(x0,x1,x2:x3,x4,x5:x6,x7,x8) || _eAinv(=&lt;{x},3,3) -> 0
 <br>
