@@ -1391,8 +1391,8 @@ else if(prop === "OX" || prop === "TX"){  // ODE  // Ver.2.23.11  // Ver.2.231.5
       /* -> Ver.2.735.107 */
     }
     /* Ver.2.736.107 -> */
+    var name_var = name_arg || name_bar;
     if(!(isAuto_args)){
-      var name_var = name_arg || name_bar;
       if(!(name_var) || (name_arg && name_bar)) throw msgErr;
       if(!(names.length)) throw msgErr;
     }
