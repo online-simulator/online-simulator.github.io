@@ -411,6 +411,8 @@
       script += "\n";
       script += "x=11.25,y=5.25:check(x,y):check(-x,y):check(x,-y):check(-x,-y);";
       script += "\nclear;\n";
+      script += "dt=1e-1,Ndt=300,t=dt*Ndt:t,_o((t,x,v,a)=<{v,a,t},,=<{1,,1},,dt,Ndt).:t,_o(=<{__x__[1],__x__[2],__t__},,=<{1,,1},,dt,Ndt).:_t((t,x,v,a)=<{v,a,t},,=<{,1,,1},dt,Ndt).:_t(=<{__x__[1],__x__[2],__t__},,=<{,1,,1},dt,Ndt).;";
+      script += "\nclear;\n";
       $._id("input").value = script;
     });
   })();

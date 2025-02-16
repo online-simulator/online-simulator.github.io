@@ -1146,12 +1146,17 @@ My_entry.operation.prototype.FNmhX = function(data, rightArr, tagObj, len_j0, ms
       var name_var = obj.name_var;
       var names = obj.names;
       var buffer_vars = {};
-      buffer_vars[name_var] = self.restore_var(name_var, scopes, ids_buffer);  // Ver.2.31.17  // Ver.2.225.53  // Ver.2.256.59
-      names.forEach(function(name){
-        if(name){  // Ver.2.215.50
-          buffer_vars[name] = self.restore_var(name, scopes, ids_buffer);  // Ver.2.226.55
+      /* Ver.2.736.107 -> */
+      var vars2buffer = function(name){
+        if(name){
+          buffer_vars[name] = self.restore_var(name, scopes, ids_buffer);
         }
+      };
+      vars2buffer(name_var);  // Ver.2.31.17  // Ver.2.225.53  // Ver.2.256.59
+      names.forEach(function(name){
+        vars2buffer(name);  // Ver.2.215.50  // Ver.2.226.55
       });
+      /* -> Ver.2.736.107 */
       _tree = callback_FNmh(args, ids_buffer, name_var, names, tree_eqn);  // Ver.2.233.56
       self.store_buffer_sw("vars", buffer_vars, scopes, ids_buffer, true);  // Ver.2.256.59
     }
@@ -1188,20 +1193,27 @@ My_entry.operation.prototype.jacobian = function(data, rightArr, tagObj){
   var prop = tagObj.val;
   prop = (prop && prop.key)? prop.key: prop;  // Ver.2.233.56
   var msgErr = "Invalid "+prop+" arguments";  // Ver.2.233.56
+  /* Ver.2.736.107 -> */
+  var isAuto_args = false;
+  var name_t = "__t__";
+  var name_x = "__x__";
+  /* -> Ver.2.736.107 */
   /* Ver.2.21.10 -> */
   /* Ver.2.234.56 -> */
   var init_x0 = function(arr, names, ids_buffer){  // Ver.2.233.56
     var _x0 = [];
-    var len_i = names.length;  // Ver.2.233.56
+    var len_i = arr.length;  // Ver.2.233.56  // Ver.2.736.107
     for(var i=0; i<len_i; ++i){
       var name_var = names[i];
       var num = self.arr2obj_i(arr, i);
-      if(num.com){
-        self.store_var(name_var, DATA.num2tree(num), scopes, ids_buffer);  // Ver.2.31.17  // Ver.2.225.53
-      }
-      else{
+      /* Ver.2.736.107 -> */
+      if(!(num.com)){
         self.throw_tree(num);
       }
+      if(name_var){
+        self.store_var(name_var, DATA.num2tree(num), scopes, ids_buffer);  // Ver.2.31.17  // Ver.2.225.53
+      }
+      /* -> Ver.2.736.107 */
       _x0[i] = num;
     }
     return _x0;
@@ -1209,11 +1221,19 @@ My_entry.operation.prototype.jacobian = function(data, rightArr, tagObj){
   var update_x0 = function(names, ids_buffer){  // Ver.2.233.56  // Ver.2.234.56
     var _x0 = [];
     var len_i = names.length;  // Ver.2.233.56
-    for(var i=0; i<len_i; ++i){
-      var name_var = names[i];
-      var tree_var = self.restore_var(name_var, scopes, ids_buffer);  // Ver.2.31.17  // Ver.2.225.53
-      _x0[i] = self.arr2num(tree_var.mat.arr);
+    /* Ver.2.736.107 -> */
+    if(len_i){
+      for(var i=0; i<len_i; ++i){
+        var name_var = names[i];
+        var tree_var = self.restore_var(name_var, scopes, ids_buffer);  // Ver.2.31.17  // Ver.2.225.53
+        _x0[i] = self.arr2num(tree_var.mat.arr);
+      }
     }
+    else{
+      var tree_var = self.restore_var(name_x, scopes, ids_buffer);
+      _x0 = init_x0(tree_var.mat.arr, names, ids_buffer);
+    }
+    /* -> Ver.2.736.107 */
     return _x0;
   };
   /* -> Ver.2.234.56 */
@@ -1244,10 +1264,10 @@ My_entry.operation.prototype.jacobian = function(data, rightArr, tagObj){
     var len_xi = _arr_x.length;
     var len_xj = _arr_x[len_xi-1].length;
     /* Ver.2.735.106 -> */
-    if(!(Math.min(len_xi, len_xj) === 1 && Math.max(len_xi, len_xj) === len_i)){
+    if(len_i && !(Math.min(len_xi, len_xj) === 1 && Math.max(len_xi, len_xj) === len_i)){  // Ver.2.736.107
       throw msgErr;
     }
-    isRow = (len_xj === len_i);
+    isRow = (len_i)? (len_xj === len_i): (len_xi < len_xj);  // Ver.2.736.107
     if(isRow){
       _arr_x = DATA.vec2arr(_arr_x[len_xi-1]);
     }
@@ -1340,7 +1360,7 @@ else if(prop === "OX" || prop === "TX"){  // ODE  // Ver.2.23.11  // Ver.2.231.5
     /* Ver.2.27.15 -> */
     /* Ver.2.231.56 -> */
     var name_arg = "";
-    var names = null;
+    var names = [];  // Ver.2.736.107
     if(args_eqn){
       if(isTX){
         name_arg = args_eqn[0];
@@ -1363,16 +1383,21 @@ else if(prop === "OX" || prop === "TX"){  // ODE  // Ver.2.23.11  // Ver.2.231.5
         }
       }
       else if(self.has0_arg(arg1)){
+        isAuto_args = true;  // Ver.2.736.107
       }
       else{
         throw msgErr;
       }
       /* -> Ver.2.735.107 */
     }
-    var name_var = name_arg || name_bar;
-    if(!(name_var) || (name_arg && name_bar)) throw msgErr;
+    /* Ver.2.736.107 -> */
+    if(!(isAuto_args)){
+      var name_var = name_arg || name_bar;
+      if(!(name_var) || (name_arg && name_bar)) throw msgErr;
+      if(!(names.length)) throw msgErr;
+    }
+    /* -> Ver.2.736.107 */
     /* -> Ver.2.231.56 */
-    if(!(names.length)) throw msgErr;
     /* -> Ver.2.27.15 */
     /* -> Ver.2.238.56 */
     return {name_var: name_var, names: names};  // Ver.2.233.56
@@ -1403,7 +1428,7 @@ else if(prop === "OX" || prop === "TX"){  // ODE  // Ver.2.23.11  // Ver.2.231.5
       t0ini = args[3] || DATA.num(0, 0);  // Ver.2.234.56
     }
     var t0 = t0ini;  // Ver.2.234.56
-    len_i = names.length;  // tree_eqn change allowed
+    len_i = arr_x.length;  // tree_eqn change allowed  // Ver.2.736.107
     // dt
     var dt = args[(isTX)? 3: 4] || DATA.num(self.options.dxT, 0);
     /* Ver.2.29.15 -> */
@@ -1428,14 +1453,22 @@ else if(prop === "OX" || prop === "TX"){  // ODE  // Ver.2.23.11  // Ver.2.231.5
     var get_dt = function(kcr){
       return unit["BRm"](options, dt, DATA.num(kcr, 0));
     };
+    var sw_name_t = (isAuto_args)? name_t: name_var;  // Ver.2.736.107
     var store_t = function(dt){
       var t = (dt)? unit["BRa"](options, t0, dt): t0;
-      self.store_var(name_var, DATA.num2tree(t), scopes, ids_buffer);  // Ver.2.31.17  // Ver.2.225.53
+      self.store_var(sw_name_t, DATA.num2tree(t), scopes, ids_buffer);  // Ver.2.31.17  // Ver.2.225.53  // Ver.2.736.107
     };
     var store_x = function(x){
-      for(var i=0; i<len_i; ++i){
-        self.store_var(names[i], DATA.num2tree(x[i]), scopes, ids_buffer);  // Ver.2.31.17  // Ver.2.225.53
+      /* Ver.2.736.107 -> */
+      if(isAuto_args){
+        self.store_var(name_x, DATA.tree_mat(DATA.vec2arr(x, false)), scopes, ids_buffer);
       }
+      else{
+        for(var i=0; i<len_i; ++i){
+          self.store_var(names[i], DATA.num2tree(x[i]), scopes, ids_buffer);  // Ver.2.31.17  // Ver.2.225.53
+        }
+      }
+      /* -> Ver.2.736.107 */
     };
     var step_x = function(x, f, dt){
       var _x = [];
@@ -1592,11 +1625,23 @@ else if(prop === "OX" || prop === "TX"){  // ODE  // Ver.2.23.11  // Ver.2.231.5
     /* Ver.2.29.15 -> */
     var vec = x0;  // initialize
     for(var n=0; n<Niteration; ++n){
+      /* Ver.2.736.107 -> */
+      if(isAuto_args){
+        self.store_var(name_t, DATA.num2tree(t0), scopes, ids_buffer);
+        self.store_var(name_x, DATA.tree_mat(DATA.vec2arr(x0, false)), scopes, ids_buffer);
+      }
+      /* -> Ver.2.736.107 */
       vec = OX();
       // update
       t0 = unit["BRa"](options, t0ini, unit["BRm"](options, DATA.num(n+1, 0), dt));  // Ver.2.234.56 t0ini+Niteration*dt not returned
       x0 = update_x0(names, ids_buffer);  // Ver.2.233.56  // Ver.2.234.56
     }
+    /* Ver.2.736.107 -> */
+    if(isAuto_args){
+      self.del_scope_sw("vars", name_t, scopes, ids_buffer);
+      self.del_scope_sw("vars", name_x, scopes, ids_buffer);
+    }
+    /* -> Ver.2.736.107 */
     if(isTX){
       vec.unshift(t0);  // Ver.2.238.56 t0 returned
     }
@@ -2718,7 +2763,9 @@ My_entry.operation.prototype.URh = function(data, i0, tagName, tagObj, dot_prop)
         buffer_vars[name] = self.restore_var(name, scopes, ids_buffer);  // Ver.2.226.55
       }
     });
-    buffer_eqns[name_x] = self.tree_REe2SEe(self.restore_eqn(name_x, scopes, ids_buffer));  // Ver.2.257.59  // Ver.2.273.65
+    if(name_x){  // Ver.2.736.107
+      buffer_eqns[name_x] = self.tree_REe2SEe(self.restore_eqn(name_x, scopes, ids_buffer));  // Ver.2.257.59  // Ver.2.273.65
+    }
     var arr = leftArr;
     math_mat.fill_arr(null, arr, DATA.num(NaN, NaN));  // common reference
     var lens = math_mat.get_lens(arr);
