@@ -484,7 +484,9 @@ test case
 <br>
 　⇒tn多重化の対策：名前衝突回避tn(=&lt;sn_,n)=&lt;||<a href="#span-out-scope-vars-has1BT">単独scope</a>化tn(=&lt;sn,n)=&lt;last[,]
 <br>
-　⇒Seki：内接正131072=4*2**15角形の打切り3点に適用の結果、snの約11桁⇒tn(sn,n-2)の16桁以上
+　⇒4重加速の結果：n=[0,2*4]のsnの約4.6桁⇒tn(tn(tn(tn(sn,n))))の約16桁（加速の計算量次第）
+<br>
+　⇒Sekiの結果：n=[15,17]のsnの約10桁⇒tn(sn,n-2)の16桁以上（打切り3点に適用）
 <br>
 　-zeta：収束速さがlogの級数の場合、効果が低い（例えば、同上の漸化式len(2n)=f(len(n))に適用）
 <br>
