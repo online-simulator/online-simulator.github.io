@@ -417,7 +417,7 @@ local storage cleared
 pi
 3.141592653589793
 
-[step=(=<f)=<[=<(n)=<tn(=<f,n)=>]=>f,_r(=<step(=<f)=>,f(n)=<sn(n)=>,floor(nmax/2)),=<f(0)=>]=>
+[step=(=<f)=<[=<(n)=<tn(=<f,n)=>]=>f,(nmax)=<(_r(=<step(=<f)=>,f(n)=<sn(n)=>,floor(nmax/2)),=<f(0)=>)=>](nmax)=>
 infoLost[r ] 3.1415926535897922+3.1442260945408143e-22i
 
 delta_squared_process(=<sn,nmax)=>
@@ -1431,7 +1431,7 @@ clear
 local storage cleared
 
 [Pinv_y=(-0.999999427,-0.999936657,-0.997300203,-0.954499736,-0.682689492,0,0.682689492,0.954499736,0.997300203,0.999936657,0.999999427:-5,-4,-3,-2,-1,0,1,2,3,4,5),N=1,arr=[],_rn(=<arr.push(rand_table(=<Pinv_y)=>),,N),=<arr.]=>
-0.9504544147793231
+0.09646899794019406
 
 rand_table(csv)=<last[table=sort0(csv),ymin=min(table)[0],ymax=max(table)[0],y=ymin+(ymax-ymin)*rand(),x=interp(y:table),x]
 stored_eqn(rand_table)
@@ -3245,4 +3245,4 @@ center=true&drag=false&test-case=false&plot-only=false&relzooming=true&snap=true
 --------------------------------
 --------------------------------
 
-online-simulator.github.io.6.452.588.21.125 @ Tue Feb 18 2025 17:56:02 GMT+0900 (日本標準時) @ Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/132.0.0.0 Safari/537.36
+online-simulator.github.io.6.452.588.21.125 @ Wed Feb 19 2025 08:28:49 GMT+0900 (日本標準時) @ Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/132.0.0.0 Safari/537.36
