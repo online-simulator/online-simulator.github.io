@@ -417,7 +417,10 @@ local storage cleared
 pi
 3.141592653589793
 
-delta_squared_process(=<sn,8)=>
+[step=(=<f)=<[=<(n)=<tn(=<f,n)=>]=>f,_r(=<step(=<f)=>,f(n)=<sn(n)=>,floor(nmax/2)),=<f(0)=>]=>
+infoLost[r ] 3.1415926535897927
+
+delta_squared_process(=<sn,nmax)=>
 (
 1.2246467991473532e-16,2,2.82842712474619,3.0614674589207183,3.121445152258052,3.1365484905459393,3.140331156954753,3.141277250932773,3.141513801144301:
 infoLost[r ] 3.414213562373094,3.152681772392524,3.142231404453587,3.1416318132407617,3.14159508945922,3.1415928056513933,3.1415926630908313:
@@ -425,6 +428,9 @@ infoLost[r ] 3.141796445191483,3.141595317679803,3.1415926934489775,3.1415926542
 infoLost[r ] 3.1415926587564154,3.1415926536101635,3.141592653589873:
 infoLost[r ] 3.1415926535897927
 )
+
+nmax=8
+nmax=8
 
 delta_squared_process(=<sn,nmax)=<[arr_sn=[arr_sn=[],_s((n)=<arr_sn.push(sn(n)=>),,nmax),=<arr_sn]=>,step(arr)=<[arr_tn=[],len=sizec(arr),_s((n)=<arr_tn.push(tn((n)=<arr[][n],n)=>),,len-3),=<arr_tn]=>,_r(=<arr[sizer(arr)].push(=<step(=<arr[sizer(arr)-1])=>),arr=arr_sn,floor(nmax/2)),=<arr]=>
 stored_eqn(delta_squared_process)
@@ -1425,7 +1431,7 @@ clear
 local storage cleared
 
 [Pinv_y=(-0.999999427,-0.999936657,-0.997300203,-0.954499736,-0.682689492,0,0.682689492,0.954499736,0.997300203,0.999936657,0.999999427:-5,-4,-3,-2,-1,0,1,2,3,4,5),N=1,arr=[],_rn(=<arr.push(rand_table(=<Pinv_y)=>),,N),=<arr.]=>
--0.07810269610048315
+-0.05638928813940869
 
 rand_table(csv)=<last[table=sort0(csv),ymin=min(table)[0],ymax=max(table)[0],y=ymin+(ymax-ymin)*rand(),x=interp(y:table),x]
 stored_eqn(rand_table)
@@ -3239,4 +3245,4 @@ center=true&drag=false&test-case=false&plot-only=false&relzooming=true&snap=true
 --------------------------------
 --------------------------------
 
-online-simulator.github.io.6.452.588.21.125 @ Tue Feb 18 2025 16:22:41 GMT+0900 (日本標準時) @ Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/132.0.0.0 Safari/537.36
+online-simulator.github.io.6.452.588.21.125 @ Tue Feb 18 2025 17:54:47 GMT+0900 (日本標準時) @ Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/132.0.0.0 Safari/537.36
