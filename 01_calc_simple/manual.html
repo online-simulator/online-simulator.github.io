@@ -484,7 +484,7 @@ test case
 <br>
 　⇒tn多重化の対策：snの名前衝突回避tn(=&lt;sn_,n)=&lt;f(sn_)||<a href="#span-out-scope-vars-has1BT">単独scope</a>化tn(=&lt;sn,n)=&lt;last[,f(sn)]
 <br>
-　⇒4重加速の結果：n=[0,2*4]のsnの約4.6桁⇒tn(tn(tn(tn(sn,n))))の約16桁（手計算量sn9点⇒tn7+5+3+1点）
+　⇒4重加速の結果：n=[0,2*4]のsnの約4.6桁⇒tn(tn(tn(tn(sn,n))))の約16桁（手計算量<a href="#span-eqn-Seki_Aitken">sn9点⇒tn7+5+3+1点</a>）
 <br>
 　⇒Sekiの結果：n=[15,17]のsnの約10桁⇒tn(sn,n-2)の16桁以上（手計算量sn14点⇒tn1点）
 <br>
@@ -1568,6 +1568,8 @@ test case
 ・<a href="#span-eqn-FourierN">FourierN</a>
 <br>
 ・<a href="#span-eqn-zeta_Euler_Maclaurin">zeta_Euler-Maclaurin</a>
+<br>
+・<a href="#span-eqn-Seki_Aitken">Seki-Aitken</a>
 <br>
 ・<a href="#span-eqn-primes">primes</a>
 <br>
@@ -44270,7 +44272,7 @@ operand判定時、構文規則の先読み対策（operandを全走査する仕
 
 <div>
 <table>
-<caption><span id="span-eqn"><a href="#span-out-config-strict">strict-mode</a>式変数list</span><br><span class="run">Ver.2.219.50</span>以降、<a href="#span-out-spec-changed-history">演算仕様変更</a>||<a href="#span-out-ope-extended-history1">機能拡張</a>の<span class="jF">影響項目</span></caption>
+<caption><span id="span-eqn"><a href="#span-out-config-strict">strict-mode</a>式変数list</span><br><span class="run">Ver.2.219.50</span>以降、<a href="#span-out-spec-changed-history">演算仕様変更</a>||<a href="#span-out-ope-extended-history1">機能拡張</a>の<span class="jF">影響項目</span><br><span class="run">Ver.2.665.98</span>以降、coloring省略</caption>
 <thead>
   <tr>
     <th>
@@ -47858,6 +47860,51 @@ n0=max(20,round(abs(s-1/2)));
 zeta_Euler_Maclaurin(s,n0,4)=&gt;;
 <br>
 zeta_Euler_Maclaurin_table(s,n0,14)=&gt;;
+    </td>
+  </tr>
+  <tr>
+    <th>
+<a href="#span-index">
+目次
+</a>
+<br>
+Seki
+<br>
+-Aitken
+    </th>
+    <td>
+<span id="span-eqn-Seki_Aitken"></span>
+<a href="#span-out-scope-vars-has1BT">単独scope</a>||<a href="#span-out-eqns-re-call">再帰call</a>参照
+<br>
+clear;
+<br>
+tn_(=&lt;sn_,n)=&lt;sn_(n)=&gt;-(sn_(n+1)=&gt;-sn_(n)=&gt;)**2/(sn_(n+2)=&gt;-2*sn_(n+1)=&gt;+sn_(n)=&gt;);
+<br>
+tn(=&lt;sn,n)=&lt;last[,tn_(=&lt;sn,n)=&gt;];
+<br>
+sn(n)=&lt;last{
+<br>
+r=1,
+<br>
+calc_len_circumcircle(n,r)=&lt;[t=(2*pi/n)/2,x=r*sin(t),len=2*x*n,=&lt;len]=&gt;,
+<br>
+calc_len_circumcircle(2**n,r)=&gt;/(2*r)
+<br>
+};
+<br>
+delta_squared_process(=&lt;sn,nmax)=&lt;[
+<br>
+arr_sn=[arr_sn=[],_s((n)=&lt;arr_sn.push(sn(n)=&gt;),,nmax),=&lt;arr_sn]=&gt;,
+<br>
+step(arr)=&lt;[arr_tn=[],len=sizec(arr),_s((n)=&lt;arr_tn.push(tn((n)=&lt;arr[][n],n)=&gt;),,len-3),=&lt;arr_tn]=&gt;,
+<br>
+_r(=&lt;arr[sizer(arr)].push(=&lt;step(=&lt;arr[sizer(arr)-1])=&gt;),arr=arr_sn,floor(nmax/2)),
+<br>
+=&lt;arr]=&gt;;
+<br>
+delta_squared_process(=&lt;sn,8)=&gt;;
+<br>
+pi;
     </td>
   </tr>
   <tr>
