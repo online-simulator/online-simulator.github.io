@@ -1698,11 +1698,6 @@ else{
         }
       }
     };
-    /* Ver.2.739.107 -> */
-    if(isAuto_args){
-      store_x();
-    }
-    /* -> Ver.2.739.107 */
     /* -> Ver.2.740.107 */
     // x1
     var dx = [];
@@ -1714,6 +1709,8 @@ else{
     var f0 = [];
     var checkError = options.checkError && !(isNewtonian);  // Ver.2.323.78
     var step = function(){
+      // x0
+      store_x();  // Ver.2.740.107
       // x1
       for(var i=0; i<len_i; ++i){
         var x0ic = x0[i].com;
@@ -1784,7 +1781,6 @@ else{
           var mdxi = self.arr2obj_i(arr_mdx, i);
           x0[i] = unit["BRs"](options, x0[i], mdxi);
         }
-        store_x();  // Ver.2.740.107
         /* -> Ver.2.739.107 */
         // check convergence
         /* Ver.2.309.77 -> */
