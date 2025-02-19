@@ -1764,7 +1764,7 @@ else{
       // useRetry
       var arg7 = args[7];
       var useRetry = (arg7 && arg7.com)? arg7.com.r: self.options.useRetry;  // 0||not0
-      var x0_retry = x0;
+      var x0_retry = (useRetry)? self.entry.def.newClone(x0): null;  // Ver.2.740.108
       var counter_retry = 0;
       /* -> Ver.2.408.86 */
       _tree = DATA.tree_mat(DATA.vec2arr(x0, isRow));  // initialize
@@ -1796,17 +1796,16 @@ else{
             ++counter_retry;
             x0 = self.entry.def.newClone(x0_retry);
             for(var i=0; i<len_i; ++i){
-              var name_var = names[i];
               var num = x0[i];
-              var ncr = num.com.r;
-              var nci = num.com.i;
+              var ncr = num.com.r || 1;  // Ver.2.740.108
+              var nci = num.com.i || ((options.useComplex)? 1: 0);  // Ver.2.740.108
               if(ncr){
                 num.com.r = ncr*(Math.random()*2-1)*counter_retry;
               }
               if(nci){
                 num.com.i = nci*(Math.random()*2-1)*counter_retry;
               }
-              self.store_var(name_var, DATA.num2tree(num), scopes, ids_buffer);  // Ver.2.31.17  // Ver.2.225.53
+              x0[i] = num;  // Ver.2.740.108
             }
           }
           else{
@@ -1824,7 +1823,6 @@ else{
       if(arr_mdx){
         if(options.checkError && argN && argN.com){
           for(var i=0; i<len_i; ++i){
-            var name_var = names[i];
             var mdxi = self.arr2obj_i(arr_mdx, i);
             var x0ie = x0[i].err;
             x0ie.r = Math.max(Math.abs(mdxi.com.r), x0ie.r);
