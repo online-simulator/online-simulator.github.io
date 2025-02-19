@@ -1623,7 +1623,6 @@ else if(prop === "OX" || prop === "TX"){  // ODE  // Ver.2.23.11  // Ver.2.231.5
     }
     /* -> Ver.2.369.86 */
     /* Ver.2.29.15 -> */
-    var vec = x0;  // initialize
     for(var n=0; n<Niteration; ++n){
       /* Ver.2.736.107 -> */
       if(isAuto_args){
@@ -1631,10 +1630,9 @@ else if(prop === "OX" || prop === "TX"){  // ODE  // Ver.2.23.11  // Ver.2.231.5
         self.store_var(name_x, DATA.tree_mat(DATA.vec2arr(x0, false)), scopes, ids_buffer);
       }
       /* -> Ver.2.736.107 */
-      vec = OX();
+      x0 = OX();  // Ver.2.233.56  // Ver.2.234.56  // Ver.2.738.107
       // update
       t0 = unit["BRa"](options, t0ini, unit["BRm"](options, DATA.num(n+1, 0), dt));  // Ver.2.234.56 t0ini+Niteration*dt not returned
-      x0 = update_x0(names, ids_buffer);  // Ver.2.233.56  // Ver.2.234.56
     }
     /* Ver.2.736.107 -> */
     if(isAuto_args){
@@ -1643,9 +1641,9 @@ else if(prop === "OX" || prop === "TX"){  // ODE  // Ver.2.23.11  // Ver.2.231.5
     }
     /* -> Ver.2.736.107 */
     if(isTX){
-      vec.unshift(t0);  // Ver.2.238.56 t0 returned
+      x0.unshift(t0);  // Ver.2.238.56 t0 returned
     }
-    _tree = DATA.tree_mat(DATA.vec2arr(vec, isRow));  // Ver.2.237.56
+    _tree = DATA.tree_mat(DATA.vec2arr(x0, isRow));  // Ver.2.237.56
     /* -> Ver.2.29.15 */
     return _tree;
   };
