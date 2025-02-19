@@ -1604,14 +1604,13 @@ else if(prop === "OX" || prop === "TX"){  // ODE  // Ver.2.23.11  // Ver.2.231.5
       OX = OX_order5;
     }
     /* -> Ver.2.369.86 */
+    /* Ver.2.736.107 -> */
+    if(isAuto_args){
+      store_x(x0);  // Ver.2.740.107
+    }
+    /* -> Ver.2.736.107 */
     /* Ver.2.29.15 -> */
     for(var n=0; n<Niteration; ++n){
-      /* Ver.2.736.107 -> */
-      if(isAuto_args){
-        self.store_var(name_t, DATA.num2tree(t0), scopes, ids_buffer);
-        self.store_var(name_x, DATA.tree_mat(DATA.vec2arr(x0, false)), scopes, ids_buffer);
-      }
-      /* -> Ver.2.736.107 */
       x0 = OX();  // Ver.2.233.56  // Ver.2.234.56  // Ver.2.738.107
       // update
       t0 = unit["BRa"](options, t0ini, unit["BRm"](options, DATA.num(n+1, 0), dt));  // Ver.2.234.56 t0ini+Niteration*dt not returned
@@ -1681,6 +1680,30 @@ else{
     var J = null;
     // x0
     var x0 = init_x0(arr_x, names, ids_buffer);  // Ver.2.233.56
+    /* Ver.2.740.107 -> */
+    var store_x = function(j){
+      var hasJ = !(isNaN(j));
+      if(isAuto_args){
+        var arr = DATA.vec2arr(x0, false);
+        if(hasJ){
+          arr[j][0] = x1[j];
+        }
+        self.store_var(name_x, DATA.tree_mat(arr), scopes, ids_buffer);
+      }
+      else{
+        for(var i=0; i<len_i; ++i){
+          var name_var = names[i];
+          var num = (hasJ && i === j)? x1[i]: x0[i];
+          self.store_var(name_var, DATA.num2tree(num), scopes, ids_buffer);  // Ver.2.31.17  // Ver.2.225.53
+        }
+      }
+    };
+    /* Ver.2.739.107 -> */
+    if(isAuto_args){
+      store_x();
+    }
+    /* -> Ver.2.739.107 */
+    /* -> Ver.2.740.107 */
     // x1
     var dx = [];
     var x1 = [];
@@ -1691,11 +1714,6 @@ else{
     var f0 = [];
     var checkError = options.checkError && !(isNewtonian);  // Ver.2.323.78
     var step = function(){
-      /* Ver.2.739.107 -> */
-      if(isAuto_args){
-        self.store_var(name_x, DATA.tree_mat(DATA.vec2arr(x0, false)), scopes, ids_buffer);
-      }
-      /* -> Ver.2.739.107 */
       // x1
       for(var i=0; i<len_i; ++i){
         var x0ic = x0[i].com;
@@ -1718,20 +1736,7 @@ else{
       // J
       J = math_mat.init2d(len_i, len_i);
       for(var j=0; j<len_i; ++j){
-        /* Ver.2.739.107 -> */
-        if(isAuto_args){
-          var arr = DATA.vec2arr(x0, false);
-          arr[j][0] = x1[j];
-          self.store_var(name_x, DATA.tree_mat(arr), scopes, ids_buffer);
-        }
-        else{
-          for(var i=0; i<len_i; ++i){
-            var name_var = names[i];
-            var num = (i === j)? x1[i]: x0[i];
-            self.store_var(name_var, DATA.num2tree(num), scopes, ids_buffer);  // Ver.2.31.17  // Ver.2.225.53
-          }
-        }
-        /* -> Ver.2.739.107 */
+        store_x(j);  // Ver.2.740.107
         var tree = self.tree_eqn2tree(data, tree_eqn);
         var arr_f1 = tree.mat.arr;
         for(var i=0; i<len_i; ++i){
@@ -1779,17 +1784,7 @@ else{
           var mdxi = self.arr2obj_i(arr_mdx, i);
           x0[i] = unit["BRs"](options, x0[i], mdxi);
         }
-        // store x_next
-        if(isAuto_args){
-          var arr = DATA.vec2arr(x0, false);
-          self.store_var(name_x, DATA.tree_mat(arr), scopes, ids_buffer);
-        }
-        else{
-          for(var i=0; i<len_i; ++i){
-            var name_var = names[i];
-            self.store_var(name_var, DATA.num2tree(x0[i]), scopes, ids_buffer);  // Ver.2.31.17  // Ver.2.225.53
-          }
-        }
+        store_x();  // Ver.2.740.107
         /* -> Ver.2.739.107 */
         // check convergence
         /* Ver.2.309.77 -> */
