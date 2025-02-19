@@ -1218,24 +1218,6 @@ My_entry.operation.prototype.jacobian = function(data, rightArr, tagObj){
     }
     return _x0;
   };
-  var update_x0 = function(names, ids_buffer){  // Ver.2.233.56  // Ver.2.234.56
-    var _x0 = [];
-    var len_i = names.length;  // Ver.2.233.56
-    /* Ver.2.736.107 -> */
-    if(len_i){
-      for(var i=0; i<len_i; ++i){
-        var name_var = names[i];
-        var tree_var = self.restore_var(name_var, scopes, ids_buffer);  // Ver.2.31.17  // Ver.2.225.53
-        _x0[i] = self.arr2num(tree_var.mat.arr);
-      }
-    }
-    else{
-      var tree_var = self.restore_var(name_x, scopes, ids_buffer);
-      _x0 = init_x0(tree_var.mat.arr, names, ids_buffer);
-    }
-    /* -> Ver.2.736.107 */
-    return _x0;
-  };
   /* -> Ver.2.234.56 */
   /* Ver.2.237.56 -> */
   var isRow = true;  // default: hasArgs=true
@@ -1653,10 +1635,29 @@ else{
   var isNewtonian = (prop === "newtonian");
   var callback_names = function(args, args_eqn, name_arg, name_bar){  // Ver.2.233.56
     /* Ver.2.27.15 -> */
-    /* Ver.2.231.56 -> */
-    var names = args_eqn || get_names(args[1]);  // Ver.2.233.56  // Ver.2.237.56
-    /* -> Ver.2.231.56 */
-    if(!(names.length)) throw msgErr;
+    /* Ver.2.739.107 -> */
+    var names = [];  // Ver.2.736.107
+    if(args_eqn){
+      names = args_eqn;
+    }
+    else{
+      /* Ver.2.735.107 -> */
+      var arg1 = args[1];
+      if(self.hasEqn_arg(arg1)){
+        names = get_names(arg1);  // Ver.2.233.56  // Ver.2.237.56
+      }
+      else if(self.has0_arg(arg1)){
+        isAuto_args = true;  // Ver.2.736.107
+      }
+      else{
+        throw msgErr;
+      }
+      /* -> Ver.2.735.107 */
+    }
+    if(!(isAuto_args)){
+      if(!(names.length)) throw msgErr;
+    }
+    /* -> Ver.2.739.107 */
     /* -> Ver.2.27.15 */
     return {names: names};  // Ver.2.233.56
   };
@@ -1675,6 +1676,7 @@ else{
     else{
       throw msgErr;
     }
+    len_i = arr_x.length;  // Ver.2.739.107
     /* -> Ver.2.735.107 */
     var J = null;
     // x0
@@ -1689,6 +1691,11 @@ else{
     var f0 = [];
     var checkError = options.checkError && !(isNewtonian);  // Ver.2.323.78
     var step = function(){
+      /* Ver.2.739.107 -> */
+      if(isAuto_args){
+        self.store_var(name_x, DATA.tree_mat(DATA.vec2arr(x0, false)), scopes, ids_buffer);
+      }
+      /* -> Ver.2.739.107 */
       // x1
       for(var i=0; i<len_i; ++i){
         var x0ic = x0[i].com;
@@ -1711,11 +1718,20 @@ else{
       // J
       J = math_mat.init2d(len_i, len_i);
       for(var j=0; j<len_i; ++j){
-        for(var i=0; i<len_i; ++i){
-          var name_var = names[i];
-          var num = (i === j)? x1[i]: x0[i];
-          self.store_var(name_var, DATA.num2tree(num), scopes, ids_buffer);  // Ver.2.31.17  // Ver.2.225.53
+        /* Ver.2.739.107 -> */
+        if(isAuto_args){
+          var arr = DATA.vec2arr(x0, false);
+          arr[j][0] = x1[j];
+          self.store_var(name_x, DATA.tree_mat(arr), scopes, ids_buffer);
         }
+        else{
+          for(var i=0; i<len_i; ++i){
+            var name_var = names[i];
+            var num = (i === j)? x1[i]: x0[i];
+            self.store_var(name_var, DATA.num2tree(num), scopes, ids_buffer);  // Ver.2.31.17  // Ver.2.225.53
+          }
+        }
+        /* -> Ver.2.739.107 */
         var tree = self.tree_eqn2tree(data, tree_eqn);
         var arr_f1 = tree.mat.arr;
         for(var i=0; i<len_i; ++i){
@@ -1757,14 +1773,24 @@ else{
           J[i].push(f0[i]);
         }
         arr_mdx = math_mat.gaussian(options, J);
-        // store x_next
-        for(var i=0; i<len_i; ++i){
-          var name_var = names[i];
-          var mdxi = self.arr2obj_i(arr_mdx, i);
-          self.store_var(name_var, DATA.num2tree(unit["BRs"](options, x0[i], mdxi)), scopes, ids_buffer);  // Ver.2.31.17  // Ver.2.225.53
-        }
+        /* Ver.2.739.107 -> */
         // update
-        x0 = update_x0(names, ids_buffer);  // Ver.2.233.56  // Ver.2.234.56
+        for(var i=0; i<len_i; ++i){
+          var mdxi = self.arr2obj_i(arr_mdx, i);
+          x0[i] = unit["BRs"](options, x0[i], mdxi);
+        }
+        // store x_next
+        if(isAuto_args){
+          var arr = DATA.vec2arr(x0, false);
+          self.store_var(name_x, DATA.tree_mat(arr), scopes, ids_buffer);
+        }
+        else{
+          for(var i=0; i<len_i; ++i){
+            var name_var = names[i];
+            self.store_var(name_var, DATA.num2tree(x0[i]), scopes, ids_buffer);  // Ver.2.31.17  // Ver.2.225.53
+          }
+        }
+        /* -> Ver.2.739.107 */
         // check convergence
         /* Ver.2.309.77 -> */
         var normdx = math_mat.normc(options, arr_mdx);  // Ver.2.237.56
@@ -1822,6 +1848,11 @@ else{
     /* -> Ver.2.29.15 */
       _tree = DATA.tree_mat(J);
     }
+    /* Ver.2.739.107 -> */
+    if(isAuto_args){
+      self.del_scope_sw("vars", name_x, scopes, ids_buffer);
+    }
+    /* -> Ver.2.739.107 */
     return _tree;
   };
   _tree = self.FNmhX(data, rightArr, tagObj, 0, msgErr, callback_names, callback_FNmh);  // Ver.2.233.56  // Ver.2.234.56

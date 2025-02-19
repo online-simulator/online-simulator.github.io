@@ -1,6 +1,40 @@
 clear
 local storage cleared
 
+x0={0,1,2}i:f(x,y,z)=<{x**2+y,x+y**2,x+y+z}:g=<{__x__[0]**2+__x__[1],__x__[0]+__x__[1]**2,__x__[0]+__x__[1]+__x__[2]}:Jacobi(=<f,,=<{x0})-Jacobi(=<g,,=<{x0}):Newton(=<f,,=<{x0},,20)-Newton(=<g,,=<{x0},,20)
+(
+0:
+0:
+0:
+0+O(1e-5+1e-5i),0+O(1e-5+1e-5i),0+O(1e-5+2e-5i):
+0+O(1e-5+1e-5i),0+O(1e-5+1e-5i),0+O(1e-5+2e-5i):
+0+O(1e-5+1e-5i),0+O(1e-5+1e-5i),0+O(1e-5+2e-5i):
+infoLost[ i] 0+O(3e-4+2e-4i):
+infoLost[ i] 0+O(2e-7+6e-7i):
+infoLost[ i] 0+O(3e-4+2e-4i)
+)
+
+clear
+local storage cleared
+
+Newton(=<{__x__[0]**2+__x__[1]-12=1e-5**2+1e5-12,__x__[0]+__x__[1]=1e-5+1e5},,=<(,),false,20)
+(
+0.000010000000266175229:
+100000
+)
+
+Newton(=<__x__[0]**2+__x__[0]-12=0,,=<0,false,20)
+infoLost[r ] 3.0000000000000004+O(3e-16)
+
+Jacobi(=<{__x__[0]**2+__x__[1],__x__[0]+__x__[1]**2},,=<{1,2},false)
+(
+2.0000100000139294+O(1e-5),1.0000000000065512+O(2e-5):
+0.9999999999621422+O(1e-5),4.000020000027859+O(2e-5)
+)
+
+clear
+local storage cleared
+
 dt=1e-1,Ndt=300,t=dt*Ndt:t,_o((t,x,v,a)=<{v,a,t},,=<{1,,1},,dt,Ndt).:t,_o(=<{__x__[1],__x__[2],__t__},,=<{1,,1},,dt,Ndt).:_t((t,x,v,a)=<{v,a,t},,=<{,1,,1},dt,Ndt).:_t(=<{__x__[1],__x__[2],__t__},,=<{,1,,1},dt,Ndt).
 (
 0,0,0:
@@ -4552,4 +4586,4 @@ drag=false&sw=false&0x=false&useMatrix=true&useStrict=false&checkError=true&isRi
 --------------------------------
 --------------------------------
 
-online-simulator.github.io.6.453.588.21.125 @ Wed Feb 19 2025 13:06:43 GMT+0900 (日本標準時) @ Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/132.0.0.0 Safari/537.36
+online-simulator.github.io.6.454.588.21.125 @ Wed Feb 19 2025 14:32:14 GMT+0900 (日本標準時) @ Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/132.0.0.0 Safari/537.36

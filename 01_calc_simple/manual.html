@@ -7163,6 +7163,10 @@ Newton((x)=&lt;x+0,1,true) -> <del>0</del>[MyErr]Invalid newtonian arguments
 ・<span class="run">Ver.2.736.107</span>以降、<a href="#span-out-ans">予約変数</a>__t__||__x__を追加
 <br>
 　影響項目：<a href="#span-out-FNmh-OX">ODE高階行列関数</a>||<a href="#span-out-FNmh-TX">ODEt高階行列関数</a>
+<br>
+・<span class="run">Ver.2.739.107</span>以降、<a href="#span-out-ans">予約変数</a>__x__に追加の対応
+<br>
+　影響項目：<a href="#span-out-FNmh-jacobian">Jacobi高階行列関数</a>||<a href="#span-out-FNmh-newtonian">Newton高階行列関数</a>
     </td>
   </tr>
   <tr>
@@ -27512,6 +27516,8 @@ clear; _r(=&lt;arr.push(__n__),arr=[],10); arr -> (1,2,3,4,5,6,7,8,9,10)
 予約変数__x__　<span class="run">Ver.2.736.107</span>以降、追加
 <br>
 ・<a href="#span-out-FNmh-OX">ODE高階行列関数</a>||<a href="#span-out-FNmh-TX">ODEt高階行列関数</a>の未知変数vector（列vector形式）
+<br>
+・<a href="#span-out-FNmh-jacobian">Jacobi高階行列関数</a>||<a href="#span-out-FNmh-newtonian">Newton高階行列関数</a>の未知変数vector（列vector形式）　<span class="run">Ver.2.739.107</span>以降、追加
 <br>
 <br>
 <span class="run">Ver.2.158.38</span>以降、<a href="#span-out-num">実数値</a>の<a href="#span-out-UI-graphing-config-csv">csv-fileのread機能</a>を追加
