@@ -1,7 +1,7 @@
 clear
 local storage cleared
 
-x0={1,2,3}:f(x,y,z)=<{x+y=1+i,y+z=i+2,x*y*z=1*i*2}:g=<{__x__[0]+__x__[1]=1+i,__x__[1]+__x__[2]=i+2,__x__[0]*__x__[1]*__x__[2]=1*i*2}:Newton(=<f,,=<{x0},,20):Newton(=<g,,=<{x0},,20)
+x0={1,2,3}:f(x,y,z)=<{x+y=1+i,y+z=i+2,x*y*z=1*i*2}:g=<{last{x=__x__,x[0]}+x[1]=1+i,x[1]+x[2]=i+2,x[0]*x[1]*x[2]=1*i*2}:Newton(=<f,,=<{x0},,20):Newton(=<g,,=<{x0},,20)
 (
 0:
 0:
@@ -4618,4 +4618,4 @@ drag=false&sw=false&0x=false&useMatrix=true&useStrict=false&checkError=true&isRi
 --------------------------------
 --------------------------------
 
-online-simulator.github.io.6.454.588.21.125 @ Wed Feb 19 2025 18:26:56 GMT+0900 (日本標準時) @ Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/133.0.0.0 Safari/537.36
+online-simulator.github.io.6.454.588.21.125 @ Wed Feb 19 2025 20:33:16 GMT+0900 (日本標準時) @ Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/133.0.0.0 Safari/537.36
