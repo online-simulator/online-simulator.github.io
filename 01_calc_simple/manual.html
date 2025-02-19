@@ -478,7 +478,7 @@ test case
 <br>
 ・<span class="selection">rand_Pinv</span>：<a href="#span-out-FN-rand-else">確率分布に従う乱数生成</a>の実施例
 <br>
-・<span class="wF">Seki-Aitken</span>：Seki-AitkenのΔ2乗加速法
+・<span class="wF">Seki-Aitken</span>：<a href="#span-eqn-Seki_Aitken">Seki-Aitken</a>のΔ2乗加速法
 <br>
 　<span class="run">Ver.2.738.107</span>以降、snが単調変化の前提で多重加速tn(tn(sn))を追加
 <br>
@@ -29996,6 +29996,38 @@ N=10; prod_(n,A)=&lt;n&lt;1|||A*prod_(n-1,=&lt;A);
 <br>
 prod_(N,=&lt;(1,2:3,4)) -> (4783807,6972050:10458075,15241882)
 <br>
+・<a href="#span-eqn-Seki_Aitken">Seki-Aitken</a>のΔ2乗加速法
+<br>
+tn(=&lt;sn,n)=&lt;last[,sn(n)-(sn(n+1)-sn(n))**2/(sn(n+2)-2sn(n+1)+sn(n))];
+<br>
+sn(n)=&lt;sin(pi/2**n)*2**n;
+<br>
+n=0; sn(n) -> 1.2246467991473532e-16
+<br>
+n=8; sn(n) -> 3.141513801144301
+<br>
+n=17; sn(n) -> 3.141592653288993
+<br>
+n=27; sn(n) -> 3.1415926535897927
+<br>
+n=28; sn(n) -> 3.141592653589793
+<br>
+pi -> 3.141592653589793
+<br>
+n=0; tn(=&lt;sn,n) -> infoLost[r ] 3.414213562373094
+<br>
+n=8; tn(=&lt;sn,n) -> 3.141592653626903
+<br>
+n=15; tn(=&lt;sn,n) -> 3.1415926535897936
+<br>
+・指数時間の多重化
+<br>
+n=0; tn((n)=&lt;tn(=&lt;sn,n),n) -> infoLost[r ] 3.141796445191483
+<br>
+n=0; tn((n)=&lt;tn((n)=&lt;tn(=&lt;sn,n),n),n) -> infoLost[r ] 3.1415926587564154
+<br>
+n=0; tn((n)=&lt;tn((n)=&lt;tn((n)=&lt;tn(=&lt;sn,n),n),n),n) -> infoLost[r ] 3.1415926535897927
+<br>
 <br>
 留意事項を列挙する
 <br>
@@ -30182,13 +30214,15 @@ clear; a=1, f(x)=&lt;a*x,[(a)=&lt;{=&lt;f}](2)=&gt;g; g(3)=&gt; -> 3
 <br>
 clear; a=1, [f(x)=&lt;a*x,(a)=&lt;{=&lt;f}](2)=&gt;g; g(3)=&gt; -> <del>[MyErr]Invalid args.length=0(g)</del>6
 <br>
-clear; a=1, [f(x)=&lt;a*x,(a)=&lt;{=&lt;f}](2)=&gt;g; (g=&gt;)(3)=&gt; -> 6
+clear; a=1, [f(x)=&lt;a*x,(a)=&lt;{=&lt;f}](2)=&gt;g; g(3)=&gt; -> 6
 <br>
 clear; a=1, f(x)=&lt;a*x,[(a)==&lt;{=&lt;f}](2)=&gt;g; g(3)=&gt; -> 6
 <br>
 clear; a=1, [f(x)=&lt;a*x,(a)==&lt;{=&lt;f}](2)=&gt;g; g(3)=&gt; -> <del>[MyErr]Invalid args.length=0(g)</del>6
 <br>
-clear; a=1, [f(x)=&lt;a*x,(a)==&lt;{=&lt;f}](2)=&gt;g; (g=&gt;)(3)=&gt; -> 6
+clear; a=1, [f(x)=&lt;a*x,(a)=&lt;{=&lt;f}](2)=&gt;g; g(3)=&gt; -> 6
+<br>
+clear; a=1, [f(x)=&lt;a*x+b,(a,b)=&lt;{=&lt;f}](2,3)=&gt;g; g(3)=&gt; -> 9
 <br>
 <br>
 省略表記：末尾returnの式渡し記号{=&lt;}を省略
@@ -47878,7 +47912,7 @@ Seki-Aitken
     </th>
     <td>
 <span id="span-eqn-Seki_Aitken"></span>
-<a href="#span-out-scope-vars-has1BT">単独scope</a>||<a href="#span-out-eqns-call2eqn">式変数への式読出し</a>||<a href="#span-out-eqns-no-name">無名call</a>||<a href="#span-out-eqns-re-call">再帰call</a>参照
+<a href="#span-out-scope-vars-has1BT">単独scope</a>||<a href="#span-out-eqns-call2eqn">式変数への式読出し</a>||<a href="#span-out-eqns-re-call">再帰call</a>||<a href="#span-out-eqns-no-name">無名call</a>参照
 <br>
 clear;
 <br>
