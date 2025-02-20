@@ -307,7 +307,7 @@ My_entry.operation.prototype.prepare = function(data){
   self.useScopeWith = options.useScopeWith;  // Ver.2.213.47
   self.use$let = options.use$let;  // Ver.2.249.57
   self.useMutex = options.useMutex;  // Ver.2.250.57
-  self.useStatic = false;  // Ver.2.741.109
+  self.useStatic = 0;  // Ver.2.741.109
   self.options.useRetry = options.useRetry || self.config.params.useRetry;  // Ver.2.408.86
   self.options.isRelative_epsN = options.isRelative_epsN || self.config.params.isRelative_epsN;
   self.options.epsN = options.epsN || self.config.params.epsN;
@@ -4868,7 +4868,7 @@ My_entry.operation.prototype.REe = function(data, i0, tagName, tagObj){
   var isREe = tree_eqn[BT.REe];  // Ver.2.200.46
   var useStatic = options.useStaticScopes2dArray || (isREe && isREe.isConstant);
   if(useStatic){
-    self.useStatic = true;
+    self.useStatic++;
   }
   if(!(self.useStatic)){
     self.update_ids(tree_eqn, scopes);
@@ -4914,17 +4914,17 @@ My_entry.operation.prototype.REe = function(data, i0, tagName, tagObj){
     /* -> Ver.2.290.71 */
   }
   /* Ver.2.299.72 -> */
-  /* Ver.2.741.109 -> */
-  if(self.useStatic){
-    self.useStatic = false;
-  }
-  else{
-  /* -> Ver.2.741.109 */
+  if(!(self.useStatic)){  // Ver.2.741.109
     var hasNotObjRef = (Object.keys(buffer_eqns).length === 0);  // Ver.2.303.73
     if(hasNotObjRef && isClear){  // Ver.2.303.73 not optimized
       scopes.pop();
     }
   }
+  /* Ver.2.741.109 -> */
+  if(useStatic){
+    self.useStatic--;
+  }
+  /* -> Ver.2.741.109 */
   /* -> Ver.2.299.72 */
   /* -> Ver.2.256.59 */
   if(_tree){
