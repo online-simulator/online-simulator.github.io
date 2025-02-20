@@ -2100,7 +2100,9 @@ My_entry.operation.prototype.RX = function(data, rightArr, tagObj){
         RX(function(i){
           var _isBreak = false;  // Ver.2.271.62
           tree_dummy.mat.arr[0][0].com.r = i;  // Ver.2.381.86 change_scopes_directly
-          self.store_var(name_var, tree, scopes, ids_buffer);  // Ver.2.31.17  // Ver.2.225.53
+          if(name_var){  // Ver.2.741.110
+            self.store_var(name_var, tree, scopes, ids_buffer);  // Ver.2.31.17  // Ver.2.225.53
+          }
           tree = self.tree_eqn2tree(data, tree_eqn);  // deep-copy
           /* Ver.2.271.62 -> */
           if(tree_eqn_break){  // last to share static_scopes2d_array
