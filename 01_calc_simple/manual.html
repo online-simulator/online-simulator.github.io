@@ -18724,6 +18724,12 @@ const宣言
 <span id="span-out-const-vars"></span>
 const宣言について記述する
 <br>
+・<span class="clear">Ver.2.741.109</span>以降、memory確保の致命的な不具合を修正
+<br>
+　<a href="#span-out-eqns">式変数</a>の<a href="#span-out-eqns-call">式読出し</a>：常に動的に確保　⇒　const宣言の場合、静的に確保（<a href="#span-in-options">useStaticScopes2dArray</a>同様）
+<br>
+$make_f=&lt;[,=&lt;()=&lt;1]=&gt;; _r(=&lt;make_f(),,1e8) -> <del><span class="clear">out of memory</span></del>static memory
+<br>
 <br>
 <span class="run">Ver.2.249.57</span>以降、再代入と重複宣言を禁止するconst宣言を暫定追加（$開始のbeta版）
 <br>

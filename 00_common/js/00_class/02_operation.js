@@ -161,6 +161,7 @@ My_entry.operation.prototype.init = function(){
   self.useScopeWith = null;  // Ver.2.213.47
   self.use$let = null;  // Ver.2.249.57
   self.useMutex = null;  // Ver.2.250.57
+  self.useStatic = null;  // Ver.2.741.109
   self.arr_precedence = [];
   self.options = {};
   self.params = {};
@@ -306,6 +307,7 @@ My_entry.operation.prototype.prepare = function(data){
   self.useScopeWith = options.useScopeWith;  // Ver.2.213.47
   self.use$let = options.use$let;  // Ver.2.249.57
   self.useMutex = options.useMutex;  // Ver.2.250.57
+  self.useStatic = false;  // Ver.2.741.109
   self.options.useRetry = options.useRetry || self.config.params.useRetry;  // Ver.2.408.86
   self.options.isRelative_epsN = options.isRelative_epsN || self.config.params.isRelative_epsN;
   self.options.epsN = options.epsN || self.config.params.epsN;
@@ -4860,9 +4862,16 @@ My_entry.operation.prototype.REe = function(data, i0, tagName, tagObj){
     self.restore_eqn(name_eqn, scopes, ids, isREee):  // Ver.2.31.17  // Ver.2.204.46
     self.tree_SEe2REe_isREee(tree_eqn0);  // Ver.2.43.22  // Ver.2.272.63  // Ver.2.273.64
   if(!(tree_eqn)) throw "Undef eqn("+name_eqn+")";
-  if(!(options.useStaticScopes2dArray)){
+  /* Ver.2.741.109 -> */
+  var isREe = tree_eqn[BT.REe];  // Ver.2.200.46
+  var useStatic = options.useStaticScopes2dArray || (isREe && isREe.isConstant);
+  if(useStatic){
+    self.useStatic = true;
+  }
+  if(!(self.useStatic)){
     self.update_ids(tree_eqn, scopes);
   }
+  /* -> Ver.2.741.109 */
   /* -> Ver.2.299.72 */
   if(name_eqn && hasArgs){
     /* Ver.2.256.59 -> */
@@ -4884,7 +4893,6 @@ My_entry.operation.prototype.REe = function(data, i0, tagName, tagObj){
   }
   /* -> Ver.2.289.71 */
   if(tree_eqn){
-    var isREe = tree_eqn[BT.REe];  // Ver.2.200.46
     /* Ver.2.247.57 -> */
     var args_eqn = isREe && isREe.arg;  // Ver.2.287.70
     /* Ver.2.174.42 -> */
@@ -4904,7 +4912,12 @@ My_entry.operation.prototype.REe = function(data, i0, tagName, tagObj){
     /* -> Ver.2.290.71 */
   }
   /* Ver.2.299.72 -> */
-  if(!(options.useStaticScopes2dArray)){
+  /* Ver.2.741.109 -> */
+  if(self.useStatic){
+    self.useStatic = false;
+  }
+  else{
+  /* -> Ver.2.741.109 */
     var hasNotObjRef = (Object.keys(buffer_eqns).length === 0);  // Ver.2.303.73
     if(hasNotObjRef && isClear){  // Ver.2.303.73 not optimized
       scopes.pop();
