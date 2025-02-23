@@ -1298,6 +1298,7 @@ My_entry.calc_graphing.prototype.init_handlers = function(){
       case "select-grid-x-Ni":
       case "select-grid-y-Nj":
       case "select-kx-adjust":
+      case "select-marker-colors":  // Ver.2.744.110
       case "select-legend-kx":
       case "select-legend-ky":
       case "checkbox-plot-only":  // Ver.2.401.86

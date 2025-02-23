@@ -374,10 +374,7 @@ My_entry.draw_canvas.prototype.gradation = function(colors, arr_vec, opt_globalC
   var krandR0 = NrandR/255;
   var krandT0 = NrandT/255;
   var Ncolor = colors.length;
-  var arr_rgba = [];
-  colors.forEach(function(color, i){
-    arr_rgba[i] = self.color2rgba(color);
-  });
+  var arr_rgba = self.colors2arr_rgba(colors);  // Ver.2.744.110
 if(Ncycle){
   var gradLEN = self.make_gradLEN(arr_vec, vec0, isMin, isRound, Nrender);
   var krandR = self.make_krandR(krandR0, Ncycle);

@@ -53,6 +53,27 @@ My_entry.draw.prototype.lerp_rgba = function(rgba0, rgba1, k){
   };
   return {r: lerp(r0, r1, k), g: lerp(g0, g1, k), b: lerp(b0, b1, k), a: lerp(a0, a1, k)};  // 0~255
 };
+/* calc-Ver.2.744.110 -> */
+My_entry.draw.prototype.colors2arr_rgba = function(colors){
+  var self = this;
+  var _arr_rgba = [];
+  colors.forEach(function(color, i){
+    _arr_rgba[i] = self.color2rgba(color);
+  });
+  return _arr_rgba;
+};
+My_entry.draw.prototype.colors2rgba = function(colors, pn){
+  var self = this;
+  var arr_rgba = self.colors2arr_rgba(colors);
+  var len = arr_rgba.length-1;
+  var lenpn = len*pn;
+  var ik = Math.floor(lenpn);
+  var k = lenpn%1;
+  var rgba0 = arr_rgba[ik];
+  var rgba1 = arr_rgba[ik+1] || rgba0;
+  return self.lerp_rgba(rgba0, rgba1, k);
+};
+/* -> calc-Ver.2.744.110 */
 /* 1.34.8 */
 My_entry.draw.prototype.rgba2color_hex = function(rgba){
   var self = this;

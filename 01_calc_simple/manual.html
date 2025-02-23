@@ -8528,6 +8528,8 @@ red||#f00||#f00f||#ff0000||#ff0000ff||rgb(255,0,0)||rgba(255,0,0,1)
 <br>
 <span class="run">Ver.2.134.35</span>以降、legend番号Nlegend=j+1の<a href="#span-out-UI-graphing-config">marker-colors</a>のRGB既定値を示す（参考）
 <br>
+・<span class="run">Ver.2.744.110</span>以降、<a href="#span-out-UI-graphing-config">marker-colors</a>既定値を更新
+<br>
 <pre><code>
     var r255 = 0;
     var g255 = 0;
@@ -14288,7 +14290,17 @@ plot-configの設定項目を列挙する
 <br>
 ・余白の調整係数kx-adjを選択可
 <br>
-・<span class="run">Ver.2.134.35</span>以降、marker-colorsの後方互換性（red-green）を選択可
+・marker-colorsを選択可
+<br>
+　<span class="run">Ver.2.134.35</span>以降、rainbow/red-blue/red-greenの選択肢を追加
+<br>
+　<span class="run">Ver.2.744.110</span>以降、選択肢を24個追加（<a href="#span-out-UI-graphing-gradation">gradation</a>の補間に準拠）
+<br>
+　Ver.0：旧red-green
+<br>
+　Ver.1：旧red-blue
+<br>
+　rainbow：変更なし
 <br>
 ・legendのx位置を調整するlegend-kxを選択可
 <br>

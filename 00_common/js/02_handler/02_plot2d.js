@@ -625,38 +625,20 @@ My_entry.plot2d.prototype.run = function(arr2d_vec, options, toSVG, isFinal){
     strFontSize = def.get_number(strSize, strFontSize, fontSize);
     /* -> 0.6.0 */
     /* 1.48.8 -> */
-    var r255 = 0;
-    var g255 = 0;
-    var b255 = 0;
-    if(options["marker-colors"] === "rainbow"){
-      var pn = (len_j-j)/len_j;
-      if(pn < 1/6){
-        b255 = 255*pn*6;
-        r255 = 255;
-      }
-      else if(pn < 1/3){
-        b255 = 255;
-        r255 = 255*(1/3-pn)*6;
-      }
-      else if(pn < 1/2){
-        g255 = 255*(pn-1/3)*6;
-        b255 = 255;
-      }
-      else if(pn < 2/3){
-        g255 = 255;
-        b255 = 255*(2/3-pn)*6;
-      }
-      else if(pn < 5/6){
-        r255 = 255*(pn-2/3)*6;
-        g255 = 255;
-      }
-      else{
-        r255 = 255;
-        g255 = 255*(1-pn)*6;
-      }
+    /* Ver.2.744.110 -> */
+    var rgba = null;
+    var text_colors = options["marker-colors"];
+    if(text_colors === "Ver.0"){  // old
+      var g255 = (len_j > 1)? Math.floor(j*255/(len_j-1)): 0;
+      var r255 = Math.floor(255-g255)%256;
+      var b255 = Math.floor(g255<<1)%(256-1);
+      rgba = {r: r255, g: g255, b: b255, a: 255};
     }
-    else if(options["marker-colors"] === "red-blue"){
+    else if(text_colors === "Ver.1"){
       var pn = (len_j-j)/len_j;
+      var r255 = 0;
+      var g255 = 0;
+      var b255 = 0;
       if(pn < 1/3){
         g255 = 255*pn*3;
         b255 = 255;
@@ -669,14 +651,21 @@ My_entry.plot2d.prototype.run = function(arr2d_vec, options, toSVG, isFinal){
         r255 = 255;
         g255 = 255*(1-pn)*3;
       }
+      rgba = {r: r255, g: g255, b: b255, a: 255};
     }
-    else{  // old
-      g255 = (len_j > 1)? Math.floor(j*255/(len_j-1)): 0;
-      r255 = Math.floor(255-g255)%256;
-      b255 = Math.floor(g255<<1)%(256-1);
+    else{
+      var isRainbow = (text_colors === "rainbow");
+      if(isRainbow){
+        text_colors = "#f00:#ff0:#0f0:#0ff:#00f:#f0f:#f00";
+      }
+      var colors = text_colors.split(":");
+      var dlen_j = (isRainbow)? 0: -1;
+      var pn = j/(len_j+dlen_j || 1);  // /not0
+      rgba = plot.draw.colors2rgba(colors, pn);
     }
     arr_markerType[j] = markerType || markers[j%markers.length];
-    arr_styleRGBA[j] = styleRGBA || "rgb("+r255+","+g255+","+b255+")";
+    arr_styleRGBA[j] = styleRGBA || plot.draw.rgba2style(rgba);
+    /* -> Ver.2.744.110 */
     /* -> 1.48.8 */
     arr_markerSize[j] = markerSize;
     arr_markerLineWidth[j] = markerLineWidth;
