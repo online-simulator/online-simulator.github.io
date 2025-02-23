@@ -18803,6 +18803,16 @@ g(=&lt;f)=&lt;f=&gt;; g(=&lt;1)=&gt; -> <del>1</del>[MyErr]Invalid SEe-scope-con
 <br>
 g(=&lt;f)=&lt;[=&lt;f=&gt;]=&gt;; g(=&lt;1)=&gt; -> 1
 <br>
+・<a href="#span-out-scope-reference">scope参照</a>
+<br>
+clear; $a=2; f(?a)=&lt;a=3; f(?a) -> [MyErr]Invalid SEv-scope-const(a)
+<br>
+clear; $a=2; f(?a)=&lt;last[,a=3]; f(?a) -> [MyErr]Invalid SEv-scope-const(a)
+<br>
+clear; $a=2; f(a)=&lt;a=3; f(a) -> [MyErr]Invalid SEv-scope-const(a)
+<br>
+clear; $a=2; f(a)=&lt;last[,a=3]; f(a) -> 0
+<br>
 <br>
 <a href="#span-out-option8">$const宣言</a>（$開始のbeta版）
 <br>
