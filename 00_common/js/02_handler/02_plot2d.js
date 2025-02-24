@@ -469,12 +469,6 @@ My_entry.plot2d.prototype.run = function(arr2d_vec, options, toSVG, isFinal){
   /* 1.0.0 -> */
   var NUMMIN = self.config.default.NUMMIN;
   var NUMMAX = self.config.default.NUMMAX;
-  if(!(isAxis_z)){
-    gridLineWidth = 0;
-    isLegend = false;
-    isAxis_x = false;
-    isAxis_y = false;
-  }
   var tgxmin = self.trans(gxmin, isLog_x);
   var tgymin = self.trans(gymin, isLog_y);
   var tgxmax = self.trans(gxmax, isLog_x);
@@ -519,9 +513,7 @@ My_entry.plot2d.prototype.run = function(arr2d_vec, options, toSVG, isFinal){
   var plotconfig = "";
   inputZ = def.enter_name(inputZ, "plotconfig", false, 0, function(content){plotconfig = content;});
   var records_plotconfig = $.get_records(plotconfig, ",", 0, ["gridLineWidth", "fontSize", "Ni0", "Nj0", "kxAdjust", "legend_kx", "legend_ky"], true);
-  if(isAxis_z){
-    gridLineWidth = records_plotconfig.gridLineWidth || gridLineWidth;
-  }
+  gridLineWidth = records_plotconfig.gridLineWidth || gridLineWidth;
   fontSize = records_plotconfig.fontSize || fontSize;
   Ni0 = records_plotconfig.Ni0 || Ni0;
   Nj0 = records_plotconfig.Nj0 || Nj0;
@@ -537,13 +529,13 @@ My_entry.plot2d.prototype.run = function(arr2d_vec, options, toSVG, isFinal){
   var label_x = "";
   var label_y = "";
   var origin = "";
-  if(isAxis_z && inputZ){
+  if(inputZ){
     inputZ = def.enter_name(inputZ, "title", false, 0, function(content){title = content;});
     inputZ = def.enter_name(inputZ, "xlabel", false, 0, function(content){if(isAxis_x){label_x = content;}});
     inputZ = def.enter_name(inputZ, "ylabel", false, 0, function(content){if(isAxis_y){label_y = content;}});
     inputZ = def.enter_name(inputZ, "origin", false, 0, function(content){options._origin = content;});
     /* Ver.2.401.86 -> */
-    if(options["plot-only"]){
+    if(!(options["plot-all"])){  // Ver.2.746.111
       title = "";
     }
     /* -> Ver.2.401.86 */
@@ -831,12 +823,10 @@ My_entry.plot2d.prototype.run = function(arr2d_vec, options, toSVG, isFinal){
           _svg += ID_or_svg;
         }
         else{
-          if(isAxis_z){
-            if(!(options.oldPlot2d)){
-              plot.putID(ID_or_svg);
-              ID_or_svg = plot.mask(tgxmin_mask, tgymin_mask, tgxmax_mask, tgymax_mask, idName_mask);
-              plot.clear();
-            }
+          if(!(options.oldPlot2d)){
+            plot.putID(ID_or_svg);
+            ID_or_svg = plot.mask(tgxmin_mask, tgymin_mask, tgxmax_mask, tgymax_mask, idName_mask);
+            plot.clear();
           }
           if(options._arr_ID_plot){
             options._arr_ID_plot.push(ID_or_svg);
@@ -858,7 +848,6 @@ My_entry.plot2d.prototype.run = function(arr2d_vec, options, toSVG, isFinal){
       _svg += plot.draw.footer_group();
     }
   }
-if(isAxis_z){
   // plot lines
   if(!(options.oldPlot2d)){
     if(toSVG){
@@ -940,16 +929,6 @@ if(isAxis_z){
       /* -> calc-Ver.2.162.39 */
     }
   }
-}
-  /* 1.10.6 -> */
-else{
-  if(!(options.oldPlot2d)){
-    if(toSVG){
-      _svg += plot.draw.mask(0, 0, plot.px_w, plot.px_h, idName_mask);
-    }
-  }
-}
-  /* -> 1.10.6 */
   /* 0.6.0 -> */
   // legends
   if(isLegend){

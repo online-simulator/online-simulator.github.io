@@ -1434,7 +1434,7 @@ clear
 local storage cleared
 
 [Pinv_y=(-0.999999427,-0.999936657,-0.997300203,-0.954499736,-0.682689492,0,0.682689492,0.954499736,0.997300203,0.999936657,0.999999427:-5,-4,-3,-2,-1,0,1,2,3,4,5),N=1,arr=[],_rn(=<arr.push(rand_table(=<Pinv_y)=>),,N),=<arr.]=>
--1.4414365509316092
+0.28191667627470873
 
 rand_table(csv)=<last[table=sort0(csv),ymin=min(table)[0],ymax=max(table)[0],y=ymin+(ymax-ymin)*rand(),x=interp(y:table),x]
 stored_eqn(rand_table)
@@ -3244,8 +3244,8 @@ clear
 local storage cleared
 
 --------------------------------
-center=true&drag=false&test-case=false&plot-only=false&relzooming=true&snap=true&legend=true&axis-t=false&axis-x=true&log-x=false&imag-x=false&axis-y=true&log-y=false&imag-y=false&axis-z=true&axis-v=true&config-plot=false&useMatrix=true&useStrict=true&sharedStorage=false&checkError=true&equation-list=false&config=false&isRightAssociativityBR=false&isDIVprior2OMUL=false&useComma=false&use$let=false&useMutex=false&useWorker=true&plot2d-Ver=2&decDigit=1&roundDigit-y=0&roundDigit-x=0&n_thread=4&canvas-background=black&grid-line-width=0.5&marker-size=5&marker-line-width=0&plot-line-width=2&font-size=12&grid-x-Ni=0&grid-y-Nj=0&kx-adjust=2.5&marker-colors=red-blue&legend-kx=0.25&legend-ky=0.1&canvas-globalCompositeOperationLayer=source-over&canvas-globalCompositeOperation=source-over&useComplex=-1&expDigit=-1&useFunc=0&useScopeWith=0&N=0&matSizeMax=1024&depthMax=300&makeLog=2
+center=true&drag=false&test-case=false&plot-all=true&relzooming=true&snap=true&legend=true&axis-t=false&axis-x=true&log-x=false&imag-x=false&axis-y=true&log-y=false&imag-y=false&axis-z=true&axis-v=true&config-plot=false&useMatrix=true&useStrict=true&sharedStorage=false&checkError=true&equation-list=false&config=false&isRightAssociativityBR=false&isDIVprior2OMUL=false&useComma=false&use$let=false&useMutex=false&useWorker=true&plot2d-Ver=2&decDigit=1&roundDigit-y=0&roundDigit-x=0&n_thread=4&canvas-background=black&grid-line-width=0.5&marker-size=5&marker-line-width=0&plot-line-width=2&font-size=12&grid-x-Ni=0&grid-y-Nj=0&kx-adjust=2.5&marker-colors=Ver.1&legend-kx=0.25&legend-ky=0.1&canvas-globalCompositeOperationLayer=source-over&canvas-globalCompositeOperation=source-over&useComplex=-1&expDigit=-1&useFunc=0&useScopeWith=0&N=0&matSizeMax=1024&depthMax=300&makeLog=2
 --------------------------------
 --------------------------------
 
-online-simulator.github.io.6.455.589.22.126 @ Thu Feb 20 2025 17:35:47 GMT+0900 (日本標準時) @ Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/133.0.0.0 Safari/537.36
+online-simulator.github.io.6.458.592.22.128 @ Mon Feb 24 2025 22:03:57 GMT+0900 (日本標準時) @ Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/133.0.0.0 Safari/537.36

@@ -7592,6 +7592,12 @@ clear; last{a,1} -> <del>1</del>[MyErr]Undef var(a)
 　後者の対策：&lt;polyline points="" /&gt;　⇒　&lt;polyline points="" /&gt;&lt;line /&gt;
 <br>
 　再現条件の備考：&lt;polyline /&gt;の追加は効果なし
+<br>
+・<span class="run">Ver.2.746.111</span>以降、表示機能のcheckboxの仕様改善
+<br>
+　<a href="#span-out-UI-graphing">p-checkbox</a>：checkedで全表示
+<br>
+　<a href="#span-out-UI-graphing">z-checkbox</a>：checked時、<a href="#span-out-UI-graphing-z">z入力欄</a>を有効化
     </td>
   </tr>
   <tr>
@@ -8190,9 +8196,11 @@ panel上段について記述する
 <br>
 　・<span class="run">Ver.2.117.33</span>以降、pointing deviceに対応
 <br>
-・<span class="run">Ver.2.401.86</span>以降、p-checkboxは全labelの非表示を選択
+・<span class="run">Ver.2.401.86</span>以降、p-checkboxは全labelの<del>非</del>表示を選択
 <br>
-　<del>mask領域を無効化する場合、plot2d-Ver.0を選択</del>checked時、mask領域を無効化
+　<span class="run">Ver.2.746.111</span>以降、表示機能を反転（checkedで全表示）
+<br>
+　<del>mask領域を無効化する場合、plot2d-Ver.0を選択</del>unchecked時、mask領域を無効化
 <br>
 　<a href="#span-out-UI-graphing-gradation">gradation</a>/<a href="#span-out-UI-graphing-string-path">string-path</a>同様に、全体表示の保証を優先
 <br>
@@ -8260,7 +8268,11 @@ panel上段について記述する
 <br>
 　・y(t)のplot範囲のaxis最小値~最大値を入力可
 <br>
-・<span class="run">Ver.2.36.18</span>以降、z-checkboxは<a href="#span-out-UI-graphing-gradation">gradation</a>/<a href="#span-out-UI-graphing-string-path">string-path</a>以外の表示を選択
+・<span class="run">Ver.2.36.18</span>以降、z-checkboxは<a href="#span-out-UI-graphing-z">z入力欄</a>の表示を選択
+<br>
+　<del>unchecked時、<a href="#span-out-UI-graphing-gradation">gradation</a>/<a href="#span-out-UI-graphing-string-path">string-path</a>以外を非表示</del>
+<br>
+　<span class="run">Ver.2.746.111</span>以降、checked時、<a href="#span-out-UI-graphing-z">z入力欄</a>を有効化
 <br>
 　最終frameまでの特定項目を除く描画待ち時間||描画負荷を省略する場合、unchecked
 <br>

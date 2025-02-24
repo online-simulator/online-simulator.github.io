@@ -667,11 +667,13 @@ My_entry.calc_graphing.prototype.get_options = function(isPlot){
   if(isPlot){
     /* Ver.2.35.18 -> */
     _options.oldPlot2d = _options.oldPlot2d || (_options["plot2d-Ver"] === 0);  // Ver.2.190.44
-    if(_options.oldPlot2d){
-      _options["input-z"] = parser.remove_commentAndWspace(self.io.read_text(self.elems.z));
-    }
-    else{
-      _options["input-z"] = parser.remove_comment(self.io.read_text(self.elems.z));
+    if(_options["axis-z"]){  // Ver.2.746.111
+      if(_options.oldPlot2d){
+        _options["input-z"] = parser.remove_commentAndWspace(self.io.read_text(self.elems.z));
+      }
+      else{
+        _options["input-z"] = parser.remove_comment(self.io.read_text(self.elems.z));
+      }
     }
     /* -> Ver.2.35.18 */
     _options.expDigitX = $.selectNum_id("select-roundDigit-x") || _options.expDigit;  // Ver.2.601.94 URL-parameter disabled  // Ver.2.666.98
@@ -685,7 +687,7 @@ My_entry.calc_graphing.prototype.get_options = function(isPlot){
     _options.arr_y = self.arr_y;
     /* -> Ver.2.16.6 */
     /* Ver.2.401.86 -> */
-    if(_options["plot-only"]){
+    if(!(_options["plot-all"])){  // Ver.2.746.111
       _options["legend"] = false;
       _options["axis-x"] = false;
       _options["axis-y"] = false;
@@ -1301,7 +1303,7 @@ My_entry.calc_graphing.prototype.init_handlers = function(){
       case "select-marker-colors":  // Ver.2.744.110
       case "select-legend-kx":
       case "select-legend-ky":
-      case "checkbox-plot-only":  // Ver.2.401.86
+      case "checkbox-plot-all":  // Ver.2.401.86  // Ver.2.746.111
       case "checkbox-log-x":
       case "checkbox-log-y":
       case "checkbox-legend":
