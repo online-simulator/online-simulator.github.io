@@ -667,12 +667,14 @@ My_entry.plot2d.prototype.run = function(arr2d_vec, options, toSVG, isFinal){
     arr_styleRGBA[j] = styleRGBA || plot.draw.rgba2style(rgba);
     /* -> Ver.2.744.110 */
     /* -> 1.48.8 */
-    arr_markerSize[j] = markerSize;
-    arr_markerLineWidth[j] = markerLineWidth;
-    arr_plotLineWidth[j] = plotLineWidth;
+    /* Ver.2.744.111 -> */
+    arr_markerSize[j] = def.limit(markerSize, 0, NUMMAX, 0);
+    arr_markerLineWidth[j] = def.limit(markerLineWidth, 0, NUMMAX, 0);
+    arr_plotLineWidth[j] = def.limit(plotLineWidth, 0, NUMMAX, 0);
     arr_fillPath[j] = fillPath;
     arr_str[j] = str;
-    arr_strFontSize[j] = strFontSize;
+    arr_strFontSize[j] = def.limit(strFontSize, 0, NUMMAX, 0);
+    /* -> Ver.2.744.111 */
   }
   /* 1.15.7 -> */
   // transform
