@@ -234,7 +234,7 @@ My_entry.pen.prototype.update_plot2d = function(isFinal){  // fluid-Ver.1.23.0
       "legend-kx": 0.25,
       "legend-ky": 0.1,
       "marker-colors": "rainbow",  // fluid-Ver.1.51.1
-      "input-z": "ORIGIN{2,yellow,17}XLABEL{t}YLABEL{"+sw_plot+"}"
+      "input-z": "ORIGIN{2.5,gray,17}XLABEL{t}YLABEL{"+sw_plot+"}"  // fluid-Ver.1.51.1
     };
   /* -> fluid-Ver.1.22.0 */
     for(var prop in options_plot){
