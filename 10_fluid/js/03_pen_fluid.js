@@ -233,7 +233,7 @@ My_entry.pen.prototype.update_plot2d = function(isFinal){  // fluid-Ver.1.23.0
       "kx-adjust": 2.5,
       "legend-kx": 0.25,
       "legend-ky": 0.1,
-      "marker-colors": "red-blue",
+      "marker-colors": "rainbow",  // fluid-Ver.1.51.1
       "input-z": "ORIGIN{2,yellow,17}XLABEL{t}YLABEL{"+sw_plot+"}"
     };
   /* -> fluid-Ver.1.22.0 */
