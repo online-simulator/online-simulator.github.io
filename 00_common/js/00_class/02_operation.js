@@ -638,7 +638,7 @@ My_entry.operation.prototype.BTref = function(data, i0, tagName, tagObj){
   var ref0 = thisTree[tagName].ref;
   var isEmpty4ref = (tree.mat.arr.length === 0 && (ref0 || (leftTree && leftTree[tagName])));  // Ver.2.373.86 A[][0] || A[0][0][][]
   if(isEmpty4ref){
-    tree = DATA.tree_num(Math.E, 0);
+    tree = DATA.tree_num(null, 0);  // Ver.2.747.112
   }
   /* -> Ver.2.170.41 */
   var arr = tree.mat.arr;
@@ -647,14 +647,26 @@ My_entry.operation.prototype.BTref = function(data, i0, tagName, tagObj){
   var len_j = (arr0)? arr0.length: 0;  // Ver.2.170.41
   var isVal = (len_i === 1 && len_j === 1 && !(arr0[0][self.config.BT.SEe]));  // Ver.2.31.17
   /* Ver.1.4.3 */
-  if(isVal){  // [1,2:3,4][0][1,2:3,4][0] -> (1,2)
+  if(isVal){  // [1,2:3,4][0] -> (1,2)
     var ref = [];
     for(var j=0; j<len_j; ++j){
       /* Ver.1.5.3 */
       var num = arr0[j];
+      /* Ver.2.747.112 -> */
       if(num.com){
-        ref[j] = num.com.r;
+        var ncr = num.com.r;
+        var nci = num.com.i;
+        if(ncr%1){
+          throw "Invalid reference of array["+ncr+"]";
+        }
+        else if(nci){
+          throw "Invalid reference of array["+nci+"i"+"]";
+        }
+        else{
+          ref[j] = ncr;
+        }
       }
+      /* -> Ver.2.747.112 */
       else{
         self.throw_tree(num);
       }
@@ -3427,7 +3439,7 @@ My_entry.operation.prototype.restore_arr = function(arr, ref){
   var _arri = _arr;
   var arri = arr;
   var len_ref = ref.length;
-  if(len_ref === 2 && ref[0] === Math.E){  // Ver.2.79.31
+  if(len_ref === 2 && ref[0] === null){  // Ver.2.79.31  // Ver.2.747.112
     var tarr = math_mat.transpose(null, arr);
     /* Ver.2.78.31 -> */
     var j_ref = self.get_index_arr(ref[1], tarr.length, true);  // Ver.2.297.72
@@ -3461,8 +3473,8 @@ My_entry.operation.prototype.restore_arr = function(arr, ref){
     var _dj = ttarr[0].length;
     var _i = ref[0];
     var _j = ref[1];
-    var di = (ref[2] === Math.E)? _di: ref[2];  // Ver.2.373.86
-    var dj = (ref[3] === Math.E)? _dj: ref[3];  // Ver.2.373.86
+    var di = (ref[2] === null)? _di: ref[2];  // Ver.2.373.86  // Ver.2.747.112
+    var dj = (ref[3] === null)? _dj: ref[3];  // Ver.2.373.86  // Ver.2.747.112
     var _di2 = _di*2;
     var _dj2 = _dj*2;
     var hasArea0 = (_i%1 === 0 && _j%1 === 0 && di%1 === 0 && dj%1 === 0 && _di >= di && _dj >= dj && di > 0 && dj > 0);  // Ver.2.77.31  // Ver.2.79.32
@@ -3606,8 +3618,8 @@ My_entry.operation.prototype.store_arr_area = function(_arr, ref, arr){
   var _dj = _ttarr[0].length;
   var _i = ref[0];
   var _j = ref[1];
-  var di = (ref[2] === Math.E)? _di: ref[2];  // Ver.2.373.86
-  var dj = (ref[3] === Math.E)? _dj: ref[3];  // Ver.2.373.86
+  var di = (ref[2] === null)? _di: ref[2];  // Ver.2.373.86  // Ver.2.747.112
+  var dj = (ref[3] === null)? _dj: ref[3];  // Ver.2.373.86  // Ver.2.747.112
   var _di2 = _di*2;
   var _dj2 = _dj*2;
   /* Ver.2.78.31 -> */
@@ -4194,7 +4206,7 @@ My_entry.operation.prototype.get_tree_ref = function(name_var, tree, ref, scopes
   /* -> Ver.2.31.17 */
   if(tree_var){
     var len_ref = ref.length;
-    if(len_ref === 2 && ref[0] === Math.E){  // Ver.2.79.31
+    if(len_ref === 2 && ref[0] === null){  // Ver.2.79.31  // Ver.2.747.112
       self.store_arr_col(tree_var.mat.arr, ref, arr);  // Ver.2.277.65
     }
     else if(len_ref < 3){
