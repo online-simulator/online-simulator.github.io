@@ -6978,7 +6978,7 @@ ns(10000) -> 97876.06036044357
 <br>
 　<a href="#span-eqn">strict-mode式変数list</a>への影響なし
 <br>
-・<span class="run">Ver.2.210.46</span>以降、<a href="#span-out-scope-vars-has1BT">単独scope</a>の判定を厳密化（<a href="#span-eqn-scope_NG">scope_NG</a>のNG範囲を最小化）
+・<span class="run">Ver.2.210.46</span>以降、<a href="#span-out-scope-vars-has1BT">単独scope</a>の判定を厳格化（<a href="#span-eqn-scope_NG">scope_NG</a>のNG範囲を最小化）
 <br>
 　式の長さ制限あり　⇒　長さ制限なし（単独の<a href="#span-out-BT">括弧</a>を探索）
 <br>
@@ -7116,7 +7116,7 @@ clear; f=&lt;-1; f=1; [f=2,=&lt;f]=&gt;,[f=&lt;-2,=&lt;f]=&gt; -> (2,<del>1</del
 <br>
 　影響項目：<a href="#span-out-FNh-DX">微分高階関数</a>||<a href="#span-out-FNh-IX">積分高階関数</a>||<a href="#span-out-FNmh-OX">ODE高階行列関数</a>||<a href="#span-out-FNmh-TX">ODEt高階行列関数</a>
 <br>
-・<span class="run">Ver.2.373.86</span>以降、<a href="#span-out-FNm-size">行列size</a>指定のindexを厳密化
+・<span class="run">Ver.2.373.86</span>以降、<a href="#span-out-FNm-size">行列size</a>指定のindexを厳格化
 <br>
 　index：[0]　⇒　<a href="#span-out-mat-empty">空行列</a>[]（[0]指定の場合、初期化と異なり、size不正のerror終了）
 <br>
@@ -7126,7 +7126,7 @@ clear; f=&lt;-1; f=1; [f=2,=&lt;f]=&gt;,[f=&lt;-2,=&lt;f]=&gt; -> (2,<del>1</del
 <br>
 　影響項目：<a href="#span-out-FNh-RX">再帰高階関数</a>
 <br>
-・<span class="run">Ver.2.421.88</span>以降、<a href="#span-out-substitution-mat">行列への代入</a>の<a href="#span-out-FNm-size">行列size</a>比較を厳密化
+・<span class="run">Ver.2.421.88</span>以降、<a href="#span-out-substitution-mat">行列への代入</a>の<a href="#span-out-FNm-size">行列size</a>比較を厳格化
 <br>
 　<a href="#span-out-substitution-mat-row">行代入</a>：右辺の最終行を代入　⇒　1行の場合、代入可
 <br>
@@ -7136,7 +7136,7 @@ clear; f=&lt;-1; f=1; [f=2,=&lt;f]=&gt;,[f=&lt;-2,=&lt;f]=&gt; -> (2,<del>1</del
 <br>
 　影響項目：<a href="#span-out-substitution-mat-row">行代入</a>||<a href="#span-out-substitution-mat-col">列代入</a>||<a href="#span-out-substitution-mat-elem">要素代入</a>
 <br>
-・<span class="run">Ver.2.440.90</span>以降、<a href="#span-out-matching">行列要素pattern matching</a>の<a href="#span-out-FNm-size">行列size</a>比較を厳密化
+・<span class="run">Ver.2.440.90</span>以降、<a href="#span-out-matching">行列要素pattern matching</a>の<a href="#span-out-FNm-size">行列size</a>比較を厳格化
 <br>
 　<a href="#span-out-FNm-size">行列size</a>違いの比較可　⇒　比較不可
 <br>
@@ -7144,7 +7144,7 @@ clear; f=&lt;-1; f=1; [f=2,=&lt;f]=&gt;,[f=&lt;-2,=&lt;f]=&gt; -> (2,<del>1</del
 <br>
 clear; ($a,$b,$c)=(1,2); (a,b) -> <del>(1,2)</del>[MyErr]Invalid matching-size(LR)
 <br>
-・<span class="run">Ver.2.441.90</span>以降、<a href="#span-out-matching">行列要素pattern matching</a>の要素比較を厳密化
+・<span class="run">Ver.2.441.90</span>以降、<a href="#span-out-matching">行列要素pattern matching</a>の要素比較を厳格化
 <br>
 　代入に無関係の要素の比較可　⇒　比較不可
 <br>
@@ -7166,7 +7166,7 @@ clear; ($a,$b,3)=(1,2,=&lt;4); (a,b) -> <del>(1,2)</del>[MyErr]Invalid matching(
 <br>
 　<a href="#span-eqn">strict-mode式変数list</a>への影響なし
 <br>
-・<span class="clear">Ver.2.735.105~107</span>以降、<a href="#span-out-FNmh">高階行列関数</a>の引数判定を厳密化
+・<span class="clear">Ver.2.735.105~107</span>以降、<a href="#span-out-FNmh">高階行列関数</a>の引数判定を厳格化
 <br>
 　引数省略：引数不足の場合、error終了
 <br>
@@ -7426,11 +7426,11 @@ _r((n)=&lt;run(),run=&lt;n+1,3) -> 3
 <br>
 　⇒　<a href="#span-out-concatination">行列結合</a>を含む演算の高速化
 <br>
-・<span class="run">Ver.2.202.46</span>以降、<a href="#span-in-deep-copy">deep-copy</a>の適用対象を厳密化（<a href="#span-out-eqns-call">式読出し</a>由来を除外）
+・<span class="run">Ver.2.202.46</span>以降、<a href="#span-in-deep-copy">deep-copy</a>の適用対象を厳格化（<a href="#span-out-eqns-call">式読出し</a>由来を除外）
 <br>
 ・<span class="run">Ver.2.209.46</span>以降、<a href="#span-out-call-by-equation">式渡し</a>の実装を最適化
 <br>
-　<a href="#span-out-vars-symbol">式変数名symbol</a>を含む処理範囲の厳密化（<span class="clear">Ver.2.213.49</span>以降、処理範囲を訂正）
+　<a href="#span-out-vars-symbol">式変数名symbol</a>を含む処理範囲の厳格化（<span class="clear">Ver.2.213.49</span>以降、処理範囲を訂正）
 <br>
 <del>(0=&lt;3)=&gt; -> 3</del>
 <br>
@@ -7521,7 +7521,7 @@ pending項目を列挙する
 <br>
 　<span class="run">Ver.2.279.65</span>以降、冗長
 <br>
-　<span class="run">Ver.2.441.90</span>以降、<a href="#span-out-matching">行列要素pattern matching</a>の要素比較を厳密化
+　<span class="run">Ver.2.441.90</span>以降、<a href="#span-out-matching">行列要素pattern matching</a>の要素比較を厳格化
 <br>
 ・eqn表記　⇒　fn表記の変更
 <br>
@@ -25645,7 +25645,7 @@ area参照の入力仕様と付随する留意事項について記述する
 <br>
 ・<span class="clear">Ver.2.79.32</span>以降、参照行/列sizeが負の場合、<span class="clear">予期せぬerror終了</span>を修正
 <br>
-・<span class="run">Ver.2.373.86</span>以降、<a href="#span-out-FNm-size">行列size</a>指定のindexを厳密化
+・<span class="run">Ver.2.373.86</span>以降、<a href="#span-out-FNm-size">行列size</a>指定のindexを厳格化
 <br>
 　index：[0]　⇒　<a href="#span-out-mat-empty">空行列</a>[]（[0]指定の場合、初期化と異なり、size不正のerror終了）
 <br>
@@ -25797,7 +25797,7 @@ A0=(1,2,3,4,5:6:7,,8,:9); A0 ->
 <br>
 )
 <br>
-・<span class="run">Ver.2.373.86</span>以降、<a href="#span-out-FNm-size">行列size</a>指定のindexを厳密化（[0]　⇒　<a href="#span-out-mat-empty">空行列</a>[]）
+・<span class="run">Ver.2.373.86</span>以降、<a href="#span-out-FNm-size">行列size</a>指定のindexを厳格化（[0]　⇒　<a href="#span-out-mat-empty">空行列</a>[]）
 <br>
 A=A0; A[0][0]<span class="clear">[][]</span>=A; A ->
 <br>
@@ -26003,7 +26003,7 @@ A=A0; A[0.3][0][0] -> [MyErr]Invalid reference of array(band)
 <br>
 <span class="run">Ver.2.78.31</span>以降、行列の<a href="#span-out-reference-mat-row">行参照</a>と行代入の<span class="selection">反転機能</span>を追加
 <br>
-・<span class="run">Ver.2.421.88</span>以降、<a href="#span-out-substitution-mat">行列への代入</a>の<a href="#span-out-FNm-size">行列size</a>比較を厳密化
+・<span class="run">Ver.2.421.88</span>以降、<a href="#span-out-substitution-mat">行列への代入</a>の<a href="#span-out-FNm-size">行列size</a>比較を厳格化
 <br>
 A=(1,2:3,4); A[0]=A; A -> <del>(3,4:3,4)</del>[MyErr]Invalid store array<span class="run">[0]</span>
 <br>
@@ -26127,7 +26127,9 @@ A=(1,2:3,4); A[0]=(A:A(2,:,2)); A -> (6,8:3,4)
 <br>
 ・<span class="run">Ver.2.170.41</span>以降、列代入の[e]を<a href="#span-out-mat-empty">空行列</a>で代替可
 <br>
-・<span class="run">Ver.2.421.88</span>以降、<a href="#span-out-substitution-mat">行列への代入</a>の<a href="#span-out-FNm-size">行列size</a>比較を厳密化
+　<span class="clear">Ver.2.747.112</span>以降、列参照と列代入の[e]を廃止
+<br>
+・<span class="run">Ver.2.421.88</span>以降、<a href="#span-out-substitution-mat">行列への代入</a>の<a href="#span-out-FNm-size">行列size</a>比較を厳格化
 <br>
 A=(1,2:3,4); A[][0]=A; A -> <del>(2,4:2,4)</del>[MyErr]Invalid store array<span class="run">[][0]</span>
 <br>
@@ -26238,7 +26240,7 @@ A=(,:); A[1][1]=1; A -> [MyErr]Invalid reference of array
 <br>
 ・行列を代入した場合、<a href="#span-out-FNm-last">最終要素</a>を代入
 <br>
-・<span class="run">Ver.2.421.88</span>以降、<a href="#span-out-substitution-mat">行列への代入</a>の<a href="#span-out-FNm-size">行列size</a>比較を厳密化
+・<span class="run">Ver.2.421.88</span>以降、<a href="#span-out-substitution-mat">行列への代入</a>の<a href="#span-out-FNm-size">行列size</a>比較を厳格化
 <br>
 A=(1,2:3,4); A[0][0]=A; A -> <del>(4,2:3,4)</del>[MyErr]Invalid store array<span class="run">[0][0]</span>
 <br>
@@ -26329,7 +26331,7 @@ area代入の入力仕様と付随する留意事項について記述する
 <br>
 ・<span class="clear">Ver.2.79.32</span>以降、<a href="#span-out-reference-mat-area">参照行/列size</a>が負の場合、<span class="clear">error判定処理</span>を修正
 <br>
-・<span class="run">Ver.2.373.86</span>以降、<a href="#span-out-FNm-size">行列size</a>指定のindexを厳密化
+・<span class="run">Ver.2.373.86</span>以降、<a href="#span-out-FNm-size">行列size</a>指定のindexを厳格化
 <br>
 　index：[0]　⇒　<a href="#span-out-mat-empty">空行列</a>[]（[0]指定の場合、初期化と異なり、size不正のerror終了）
 <br>
@@ -26408,7 +26410,7 @@ A=(1,2:3,4:); A[0][<span class="selection">-1</span>]<span class="clear">[][]</s
 <br>
 <span class="selection">A=(1,2:3,4:); A[0][-3]<span class="clear">[][]</span>=A; A -> [MyErr]Invalid reference of array(area)</span>
 <br>
-・<span class="run">Ver.2.373.86</span>以降、<a href="#span-out-FNm-size">行列size</a>指定のindexを厳密化（[0]　⇒　<a href="#span-out-mat-empty">空行列</a>[]）
+・<span class="run">Ver.2.373.86</span>以降、<a href="#span-out-FNm-size">行列size</a>指定のindexを厳格化（[0]　⇒　<a href="#span-out-mat-empty">空行列</a>[]）
 <br>
 A=(1,2:3,4:); A[<span class="selection">-1</span>][<span class="selection">-1</span>]<span class="clear">[][]</span>=A[-1][-1][0][0]; A -> <del>(1,2:3,4:0,0)</del>[MyErr]Invalid reference of array(area)
 <br>
@@ -27732,7 +27734,7 @@ matching
 <br>
 ・<span class="run">Ver.2.350.86</span>以降、定義済み<a href="#span-out-substitution-mat">行列への代入</a>に対応
 <br>
-・<span class="run">Ver.2.440.90</span>以降、<a href="#span-out-FNm-size">行列size</a>比較を厳密化
+・<span class="run">Ver.2.440.90</span>以降、<a href="#span-out-FNm-size">行列size</a>比較を厳格化
 <br>
 clear; ($a,$b,$c)=(1,2); (a,b) -> <del>(1,2)</del>[MyErr]Invalid matching-size(LR)
 <br>
@@ -27889,7 +27891,7 @@ clear; A=zeros(2); ($A[0][0],$A[1][1])=(1,4); A -> (1,0:0,4)
 <br>
 clear; A=zeros(2); ($A[0],$A[1])=(=&lt;(1,1),=&lt;(2,2)); A -> (1,1:2,2)
 <br>
-・<span class="run">Ver.2.373.86</span>以降、<a href="#span-out-FNm-size">行列size</a>指定のindexを厳密化（[0]　⇒　<a href="#span-out-mat-empty">空行列</a>[]）
+・<span class="run">Ver.2.373.86</span>以降、<a href="#span-out-FNm-size">行列size</a>指定のindexを厳格化（[0]　⇒　<a href="#span-out-mat-empty">空行列</a>[]）
 <br>
 clear; A=(1,2:3,4); ($A[-1][-1][0][0])=(=&lt;A); A -> <del>(4,3:2,1)</del>[MyErr]Invalid reference of array(area)
 <br>
@@ -28190,7 +28192,7 @@ clear; a=1; [=&lt;[=&lt;[=&lt;3]=&gt;+1]=&gt;*a]=&gt; -> 4
 <br>
 <span class="run">Ver.2.32.17</span>以降、<a href="#span-out-eqns-args">式変数のarguments</a>を追加
 <br>
-・<span class="run">Ver.2.210.46</span>以降、単独scopeの判定を厳密化（<a href="#span-eqn-scope_NG">scope_NG</a>のNG範囲を最小化）
+・<span class="run">Ver.2.210.46</span>以降、単独scopeの判定を厳格化（<a href="#span-eqn-scope_NG">scope_NG</a>のNG範囲を最小化）
 <br>
 　式の長さ制限あり　⇒　長さ制限なし（単独の<a href="#span-out-BT">括弧</a>を探索）
 <br>
@@ -29970,7 +29972,7 @@ size(A) -> (3:4)
 <br>
 scope_NG1(x)=&lt;[x=x,x,last[x=x/*NG*/,x],x];
 <br>
-・<span class="run">Ver.2.210.46</span>以降、<a href="#span-out-scope-vars-has1BT">単独scope</a>の判定を厳密化（<a href="#span-eqn-scope_NG">scope_NG</a>のNG範囲を最小化）
+・<span class="run">Ver.2.210.46</span>以降、<a href="#span-out-scope-vars-has1BT">単独scope</a>の判定を厳格化（<a href="#span-eqn-scope_NG">scope_NG</a>のNG範囲を最小化）
 <br>
 clear;
 <br>
