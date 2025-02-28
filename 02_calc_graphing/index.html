@@ -576,6 +576,7 @@
       $._id("Fermat_little").onclick = function(){setVal("0", "12", "n=round(t),a=5,primes=(2,3,5,7,11,13,17,19,23,29,31,37,41,43,47,53,59,61,67,71,73,79,83,89,97,101),p=primes[][n],p;p;p;log_ex(MAX_SAFE_INTEGER,abs(a));", "a;mod4inv_mod(v,s)=<[expand_(arr)=<[arr%p,]+[,arr%%p],arr=_r((arr)=<expand_(=<arr*v),1,s),=<arr[][0]]=>,mod4inv_mod(a,p);a**p%p;a*t;", 12);$._id("input-z").value+="TITLE{Fermat's little theorem: a^p%p≡a, gcd(a,p)=1}XLABEL{p}::3:1.5:1.5::a=5;::::::mod4inv_mod;::::::a**p%p;::0::3::limit of double-precision;";};
       $._id("zeta_p").onclick = function(){setVal("1", "101", "n=round(t),n;", "s=1,zeta(s,n)=<_s((k)=<1/k**s,1,n),zeta(s,n);isPrime(n)=<[isPrime=n>1,kmax=sqrt(n),_rk(=<k+1,2,isPrime&&1e6,=<{k>kmax|||n%k==0&&&(isPrime=0)}),=<isPrime]=>,P(s,n)=<_s((k)=<isPrime(k)&&&1/k**s,1,n),zeta_ln1(s,n)=<_s((k)=<(1/k**s)/ln(k+1),1,n),zeta_ln(s,n)=<n>=2&&&_s((k)=<(1/k**s)/ln(k),2,n),P(s,n);zeta_ln1(s,n);zeta_ln(s,n);n>=2&&&_s((k)=<ln(k)*rand()<1&&&1/k**s,2,n);", 100);$._id("input-z").value+="TITLE{prime zeta function: P(s)}XLABEL{n}::0::::ζ(s),s=1,domain real(s)>1,harmonic-series@s=1;::::::P(s);::::::zeta_ln1(s);::::::zeta_ln(s);::::::double-check;";};
       $._id("Euler").onclick = function(){setVal("1", "101", "n=round(t),n;", "0.57721566490153286;harmonic_series(n)=<_s((k)=<1/k,1,n),harmonic_series(n)-ln(n);harmonic_series(n);ln(n);", 100);$._id("input-z").value+="TITLE{Euler-Mascheroni constant -> irrational number???}XLABEL{n}::0::::0.57721566490153286;::::::harmonic_series(n)-ln(n) -> 0.57721566490153286...;::::::harmonic_series(n);::::::ln(n);";};
+      $._id("divisor").onclick = function(){setVal("1", "16", "n=round(t),n;", "sigma(x,n)=<_s((d)=<n%d===0&&&d**x,1,n),sigma(0,n);sigma(1,n);sigma(2,n);sigma2(x,n)=<sigma(x,sigma(x,n)),sigma2(1,n);", 15);$._id("input-z").value+="PLOTCONFIG{,,15,10}TITLE{divisor function}XLABEL{n}::3:1.5:1.5::σ0(n);::::::σ1(n);::::::σ2(n);::::::σ1(σ1(n));";};
       $._id("phi_n").onclick = function(){setVal("1", "101", "n=t,n;", "n;_s((m)=<gcd(n,m)==1,1,n);", 100);$._id("input-z").value+="TITLE{Euler's totient function}XLABEL{n};";};
       $._id("penta").onclick = function(){setVal("1", "51", "N=round(t),N;", "q=-1/2,left_prod=_p((n)=<1-q**n,1,N),left_prod;right_sum=_s((n)=<(-1)**n*q**(n(3n-1)/2),-N,N),right_sum;", 50);$._id("input-z").value+="TITLE{Euler's pentagonal number theorem}XLABEL{N};";};
       $._id("res").onclick = function(){setVal("0", "1", "r=t,r;", "zc=0,n=10,f1(z)=<1/(z-0.5i),f2(z)=<1/(z+0.25),integral_C(=<f,z,r,n)=<_r((s)=<s+last[dt=2pi/n,t=(__n__-1)*dt,a=z+r*e**(i(t)),b=z+r*e**(i(t+dt)),_i(==<f,a,b)],,n),integral_C(=<f1,zc,r,n)/(2pi*i);integral_C(=<f2,zc,r,n)/(2pi*i);integral_C((z)=<f1(z)+f2(z),zc,r,n)/(2pi*i);", 10);$._id("input-z").value+="PLOTCONFIG{,,5,4}TITLE{Cauchy's residue theorem with integral path-C: regular n-sided polygon}XLABEL{radius of circumcircle from origin}YLABEL{sum of residues}::3:1.5:1.5::1/(z-0.5i) -> res1;::::::1/(z+0.25) -> res2;::::::1/(z-0.5i)+1/(z+0.25) -> res1+res2;";};
@@ -1380,8 +1381,10 @@
 <br>
   <button id="zeta_p">zeta_p</button>
   <button id="Euler">Euler</button>
+  <button id="divisor">divisor</button>
   <button id="phi_n">phi(n)</button>
   <button id="penta">penta</button>
+<br>
   <button id="res" class="wF">residue</button>
   <button id="res_gamma">-g</button>
   <button id="res_zeta">-1/z</button>
