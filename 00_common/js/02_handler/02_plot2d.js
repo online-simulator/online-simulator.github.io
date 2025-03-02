@@ -11,6 +11,8 @@ My_entry.plot2d.prototype.config = {
     msec_snapping: 300,
     NUMMIN: -32768,
     NUMMAX: 32767,
+    label_x: "x(t)",  // Ver.2.750.113
+    label_y: "y(t)",  // Ver.2.750.113
     px_w: 512,
     px_h: 256,
     gridLineColor: "gray",
@@ -531,8 +533,8 @@ My_entry.plot2d.prototype.run = function(arr2d_vec, options, toSVG, isFinal){
   var origin = "";
   if(inputZ){
     inputZ = def.enter_name(inputZ, "title", false, 0, function(content){title = content;});
-    inputZ = def.enter_name(inputZ, "xlabel", false, 0, function(content){if(isAxis_x){label_x = content;}});
-    inputZ = def.enter_name(inputZ, "ylabel", false, 0, function(content){if(isAxis_y){label_y = content;}});
+    inputZ = def.enter_name(inputZ, "xlabel", false, 0, function(content){label_x = content;});  // Ver.2.750.113
+    inputZ = def.enter_name(inputZ, "ylabel", false, 0, function(content){label_y = content;});  // Ver.2.750.113
     inputZ = def.enter_name(inputZ, "origin", false, 0, function(content){options._origin = content;});
     /* Ver.2.401.86 -> */
     if(!(options["plot-all"])){  // Ver.2.746.111
@@ -768,13 +770,13 @@ My_entry.plot2d.prototype.run = function(arr2d_vec, options, toSVG, isFinal){
     Nj = (isAxis_y)? Math.floor(self.config.default.Nj0/self.get_ky(fontSize)) || 1: self.config.default.Nj;
   }
   // labels
-  if(isAxis_x && !(label_x)){
-    label_x = "x(t)";
+  if(isAxis_x){  // Ver.2.750.113
+    label_x = (label_x)? label_x: self.config.default.label_x;  // Ver.2.750.113
     label_x = (isImag_x)? "imag("+label_x+")": label_x;
     label_x = (isLog_x)? "log10("+label_x+")": label_x;
   }
-  if(isAxis_y && !(label_y)){
-    label_y = "y(t)";
+  if(isAxis_y){  // Ver.2.750.113
+    label_y = (label_y)? label_y: self.config.default.label_y;  // Ver.2.750.113
     label_y = (isImag_y)? "imag("+label_y+")": label_y;
     label_y = (isLog_y)? "log10("+label_y+")": label_y;
   }

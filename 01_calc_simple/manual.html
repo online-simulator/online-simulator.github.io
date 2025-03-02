@@ -8325,9 +8325,13 @@ panel上段について記述する
 <br>
 　　<span class="clear">Ver.2.53.26</span>以降、unchecked時、<a href="#span-out-UI-graphing-z">z入力欄</a>の<a href="#span-out-UI-graphing-labels">y-label</a>特定項目が残存する不具合を修正
 <br>
-　・log-checkboxは対数表示を選択
+　・log-checkboxは対数表示を選択（通常の対数scaleとは異なり、<a href="#span-out-FN-log">常用対数</a>の数値に変換して表示）
 <br>
-　・i-checkboxは虚数表示を選択
+　　<span class="run">Ver.2.750.113</span>以降、checked時、軸labelの追加表示に対応（表示内容を明示）：log10(<a href="#span-out-UI-graphing-labels">axis-label</a>)
+<br>
+　・i-checkboxは虚数表示を選択（対数表示より優先）
+<br>
+　　<span class="run">Ver.2.750.113</span>以降、checked時、軸labelの追加表示に対応（表示内容を明示）：imag(<a href="#span-out-UI-graphing-labels">axis-label</a>)
 <br>
 　・y(t)のplot範囲のaxis最小値~最大値を入力可
 <br>
@@ -9069,6 +9073,8 @@ xlabel||XLABEL{x-label}
 <br>
 ・x-labelはx軸余白に表示するlabelの任意文字列で<a href="#span-out-UI-graphing-layer-grid">grid-layer</a>に描画
 <br>
+・省略時、軸labelの表示：x(t)
+<br>
 <br>
 <span class="run">Ver.2.37.18</span>以降、<a href="#span-out-UI-graphing-z">z入力欄</a>にy-labelを入力
 <br>
@@ -9077,6 +9083,15 @@ ylabel||YLABEL{y-label}
 ・任意位置に挿入可
 <br>
 ・y-labelはy軸余白に表示するlabelの任意文字列で<a href="#span-out-UI-graphing-layer-grid">grid-layer</a>に描画
+<br>
+・省略時、軸labelの表示：y(t)
+<br>
+<br>
+留意事項を列挙する
+<br>
+・<span class="run">Ver.2.750.113</span>以降、軸labelの追加表示を削除する場合、plot内容の要変更
+<br>
+　log10(imag(label))　⇒　labelの場合、z　⇒　log10(imag(z))
     </td>
   </tr>
   <tr>
