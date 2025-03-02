@@ -58,7 +58,7 @@ My_entry.operation.prototype.config = {
       ],
       [
         "BRpp",  // Binary operatoR ** -> pow(left, right)@Right-Associativity
-        "BRp",   // Binary operatoR ^  -> pow(left, right)
+        "BRp"    // Binary operatoR ^  -> pow(left, right)
       ],
       [
         "BRmo"   // omitted multiplication sign
