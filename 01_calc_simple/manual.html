@@ -516,46 +516,6 @@ test case
 <br>
 ・<span class="selection">rand_Pinv</span>：<a href="#span-out-FN-rand-else">確率分布に従う乱数生成</a>の実施例
 <br>
-・<span class="selection">gradation</span>：<a href="#span-out-UI-graphing-gradation">gradation特定項目仕様</a>の実施例
-<br>
-・<span class="selection">Kepler</span>：<a href="#span-out-ODE3">公転軌道</a>の実施例
-<br>
-・<span class="selection">baseball</span>：<a href="#span-app-baseball">野球</a>の実施例
-<br>
-・<span class="selection">circuit</span>：<a href="#span-app-369">「369の法則」</a>の実施例（三相交流）
-<br>
-・<span class="selection">switching</span>~-load：<a href="#span-out-non-linear1">電気回路</a>の実施例（昇圧用のswitching回路）
-<br>
-　<a href="#span-out-method-Newton">Newton法</a>の初期値：収束性改善のため、連立する方程式の列挙順序を調整
-<br>
-・seriRLC||paraRLC<span class="selection">-reso</span>：<a href="#span-app-vibration">共振</a>の実施例（電波受信用の<a href="#span-app-vibration">共振</a>回路）
-<br>
-・<span class="selection">EIS</span>：<a href="#span-out-simulation-EIS">EIS simulation</a>の実施例
-<br>
-・<span class="selection">cell0d</span>：<a href="#span-out-modelling-0D-cell">0D-cell simplified modelling</a>の実施例（<a title="[spec]Electrochemical 0D-cell" href="../20_cell/spec.html">[spec]Electrochemical 0D-cell</a>参照）
-<br>
-・Paris-span：未来予測の倍数と<a href="#span-app-factor">時定数</a>を除く、西暦4000年の根拠（単純平均の概算で経過時間の約20倍）
-<br>
-・<span class="clear">CO2</span>：<a href="#span-app-gas-CO2">二酸化炭素</a>と<a href="#span-app-history">地球史</a>の実施例（<a href="#span-app-history">Younger Dryas期</a>を基準に<a href="#span-app-period-activity-Milankovitch">Milankovitch cycle</a>を<a href="#span-out-series-Fourier">逆のこぎり波</a>で記述）
-<br>
-・<span class="clear">sea</span>：<a href="#span-out-modelling-0D-sea-level">0D-sea-level simplified modelling</a>||<a href="#span-out-evolution-method">陰||陽解法</a>の実施例（<a href="#span-app-climate">気候変動</a>の<a href="#span-app-sea">海面上昇</a>を<a href="#span-out-evolution-method">1次遅れ系</a>で記述）
-<br>
-　実測1点の最悪想定：寄与度換算で融解量を過大評価（rate換算の場合、krate1で基準年のrateを調整）
-<br>
-　寄与度の予想：<a href="#span-app-sea">Order(100年)の時定数</a>で西暦2039年以降に融解量が熱膨張量を逆転（徐々に顕現）
-<br>
-　<span class="clear">Tc=900</span>：同上の<a href="#span-out-approximation-linear">回帰直線</a>で<a href="#span-app-history">最終氷期⇒間氷期</a>の<a href="#span-app-sea">海面上昇</a>のdouble-check（<a href="#span-app-rate">温度上昇rate</a>一定を仮定）
-<br>
-　⇒氷期の形状因子<span class="clear">b</span>が10.5倍：定量性はないが、<span class="clear">b</span>=1に適合の場合、未来のlevelを過小評価の可能性あり
-<br>
-　-mod：<a href="#span-out-modelling-0D-sea-level">modelling詳細化</a>の実施例（Tc0を導入）
-<br>
-・<span class="selection">heat0d</span>~Toba：<a href="#span-out-modelling-0D-heat">0D-heat simplified modelling</a>||<a href="#span-out-evolution-method">陰解法</a>の実施例（<a href="#span-app-climate">気候変動</a>の<a href="#span-app-gas-CO2">平均気温の変化量</a>||<a href="#span-app-history">平均気温</a>）
-<br>
-・<span class="selection">heat1d</span>~-2.9B：<a href="#span-eqn-heat1d_evolution">heat1d_evolution</a>の実施例（<a href="#span-app-Dyson">地表の平均気温</a>||<a href="#span-app-history">全球凍結</a>）
-<br>
-　初期値の仮定：界面温度T0/T1等の値を現在基準値で固定（時間軸を移動の場合、不正確）
-<br>
 ・ODE-solver：mass-spring-damper system
 <br>
 　<span class="selection">-PID</span>||-out：systemの<a href="#span-app-rule">PID制御</a>（model-basedのdouble-check）
@@ -600,6 +560,44 @@ test case
 <br>
 　初期値の仮定：月の<a href="#span-out-ODE3">面積速度</a>vAmを保存のため、周方向成分一部の力を消去（不確定性の背反を排除）
 <br>
+・<span class="selection">Kepler</span>：<a href="#span-out-ODE3">公転軌道</a>の実施例
+<br>
+・<span class="selection">baseball</span>：<a href="#span-app-baseball">野球</a>の実施例
+<br>
+・<span class="selection">circuit</span>：<a href="#span-app-369">「369の法則」</a>の実施例（三相交流）
+<br>
+・<span class="selection">switching</span>~-load：<a href="#span-out-non-linear1">電気回路</a>の実施例（昇圧用のswitching回路）
+<br>
+　<a href="#span-out-method-Newton">Newton法</a>の初期値：収束性改善のため、連立する方程式の列挙順序を調整
+<br>
+・seriRLC||paraRLC<span class="selection">-reso</span>：<a href="#span-app-vibration">共振</a>の実施例（電波受信用の<a href="#span-app-vibration">共振</a>回路）
+<br>
+・<span class="selection">EIS</span>：<a href="#span-out-simulation-EIS">EIS simulation</a>の実施例
+<br>
+・<span class="selection">cell0d</span>：<a href="#span-out-modelling-0D-cell">0D-cell simplified modelling</a>の実施例（<a title="[spec]Electrochemical 0D-cell" href="../20_cell/spec.html">[spec]Electrochemical 0D-cell</a>参照）
+<br>
+・Paris-span：未来予測の倍数と<a href="#span-app-factor">時定数</a>を除く、西暦4000年の根拠（単純平均の概算で経過時間の約20倍）
+<br>
+・<span class="clear">CO2</span>：<a href="#span-app-gas-CO2">二酸化炭素</a>と<a href="#span-app-history">地球史</a>の実施例（<a href="#span-app-history">Younger Dryas期</a>を基準に<a href="#span-app-period-activity-Milankovitch">Milankovitch cycle</a>を<a href="#span-out-series-Fourier">逆のこぎり波</a>で記述）
+<br>
+・<span class="clear">sea</span>：<a href="#span-out-modelling-0D-sea-level">0D-sea-level simplified modelling</a>||<a href="#span-out-evolution-method">陰||陽解法</a>の実施例（<a href="#span-app-climate">気候変動</a>の<a href="#span-app-sea">海面上昇</a>を<a href="#span-out-evolution-method">1次遅れ系</a>で記述）
+<br>
+　実測1点の最悪想定：寄与度換算で融解量を過大評価（rate換算の場合、krate1で基準年のrateを調整）
+<br>
+　寄与度の予想：<a href="#span-app-sea">Order(100年)の時定数</a>で西暦2039年以降に融解量が熱膨張量を逆転（徐々に顕現）
+<br>
+　<span class="clear">Tc=900</span>：同上の<a href="#span-out-approximation-linear">回帰直線</a>で<a href="#span-app-history">最終氷期⇒間氷期</a>の<a href="#span-app-sea">海面上昇</a>のdouble-check（<a href="#span-app-rate">温度上昇rate</a>一定を仮定）
+<br>
+　⇒氷期の形状因子<span class="clear">b</span>が10.5倍：定量性はないが、<span class="clear">b</span>=1に適合の場合、未来のlevelを過小評価の可能性あり
+<br>
+　-mod：<a href="#span-out-modelling-0D-sea-level">modelling詳細化</a>の実施例（Tc0を導入）
+<br>
+・<span class="selection">heat0d</span>~Toba：<a href="#span-out-modelling-0D-heat">0D-heat simplified modelling</a>||<a href="#span-out-evolution-method">陰解法</a>の実施例（<a href="#span-app-climate">気候変動</a>の<a href="#span-app-gas-CO2">平均気温の変化量</a>||<a href="#span-app-history">平均気温</a>）
+<br>
+・<span class="selection">heat1d</span>~-2.9B：<a href="#span-eqn-heat1d_evolution">heat1d_evolution</a>の実施例（<a href="#span-app-Dyson">地表の平均気温</a>||<a href="#span-app-history">全球凍結</a>）
+<br>
+　初期値の仮定：界面温度T0/T1等の値を現在基準値で固定（時間軸を移動の場合、不正確）
+<br>
 ・<span class="selection">Friedmann</span>：<a href="#span-app-universe">物質優勢期</a>を想定のFriedmann方程式@P=0のparametric study（<a href="#span-ref-paper2">参考論文[2]</a>）
 <br>
 　-k=0：<a href="#span-app-flatness">時空の制約条件</a>からk=0を想定
@@ -619,6 +617,8 @@ test case
 ・Lévy<span class="jF">-l1</span>：回転対称性のfractal曲線（Iterated Function Systemで記述）
 <br>
 ・<span class="selection">rule90</span>：Sierpinski gasket（cellular automatonで記述）
+<br>
+・<span class="selection">gradation</span>：<a href="#span-out-UI-graphing-gradation">gradation特定項目仕様</a>の実施例
     </td>
   </tr>
 </tbody>
