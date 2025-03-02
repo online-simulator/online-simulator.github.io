@@ -143,6 +143,17 @@ My_entry.math_mat.prototype.zeros2d_arr = function(arr){
   }
   return _arr;
 };
+/* Ver.2.752.113 */
+My_entry.math_mat.prototype.get_Nelements = function(arr){
+  var self = this;
+  var _Nelements = 0;
+  var len_i = arr.length;
+  for(var i=0; i<len_i; ++i){
+    var len = (arr[i])? arr[i].length: 0;
+    _Nelements += len;
+  }
+  return _Nelements;
+};
 My_entry.math_mat.prototype.get_lens = function(arr){
   var self = this;
   var len_i = arr.length;

@@ -423,6 +423,8 @@
       script += "\nclear;\n";
       script += "x0={,,,}:\nf(w,x,y,z)=<{w*x=4,x+y=1+2,y+z=2+3,z+x=3+1}:\ng=<{last{x=__x__,x[0]}*x[1]=4,x[1]+x[2]=1+2,x[2]+x[3]=2+3,x[3]+x[1]=3+1}:\nround(Newton(=<f,,=<{x0},,20,,,false)):\nround(Newton(=<g,,=<{x0},,20,,,true));";
       script += "\nclear;\n";
+      script += "A=(1,2,3:4,5):#A,#(1,2,3:4,5),sizer(A),##A,##(1,2,3:4,5),sizec(A),###A:#A.,#(1,2,3:4,5).,sizer(A.),##A.,##(1,2,3:4,5).,sizec(A.),###A.:#A..,#(1,2,3:4,5)..,sizer(A..),##A..,##(1,2,3:4,5)..,sizec(A..),###A..;";
+      script += "\nclear;\n";
       $._id("input").value = script;
     });
   })();

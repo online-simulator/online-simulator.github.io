@@ -979,6 +979,8 @@ test case
 <br>
 　　　・<a href="#span-out-prec-ope-arithmetic-ite">iterator演算子</a>
 <br>
+　　　・<a href="#span-out-prec-ope-arithmetic-size">size演算子</a>
+<br>
 　　　・<a href="#span-out-prec-ope-arithmetic-mod">剰余・整数商演算子</a>
 <br>
 　　・<a href="#span-out-prec-ope-bit">bit演算子</a>
@@ -15180,9 +15182,11 @@ useMutex=true（上記以外）：mutex対象の宣言を禁止する
 <br>
 ・<span class="run">Ver.2.192.44</span>以降、<a href="#span-out-prec-ope-arithmetic-dot">dot演算子</a>を追加（URi,URfをURに統合）
 <br>
+・<span class="run">Ver.2.752.113</span>以降、<a href="#span-out-prec-ope">前置単項演算子</a>（PU）の<a href="#span-out-prec-ope-arithmetic-size">size演算子</a>を追加
+<br>
 precedence=
 <br>
-<span class="run">UR</span>,<span class="run">BRpp</span>,BRp,BRmo,BRdm,BRsa,
+<span class="run">UR</span>,<span class="run">PU</span>,<span class="run">BRpp</span>,BRp,BRmo,BRdm,BRsa,
 <br>
 <span class="run">PUbn</span>,BRbs,BRba,BRbx,BRbo,BRcn,BRrl,<span class="run">PUlN</span>,<span class="run">BRlA,BRlX,BRlO</span>
 <br>
@@ -16061,6 +16065,10 @@ precedence
 <br>
 　　<del>・</del>||<a href="#span-out-FN-fact">階乗</a>演算子 ! || !!...
 <br>
+　・<a href="#span-out-type-ope">前置単項演算子</a>　<span class="run">Ver.2.752.113</span>以降、追加
+<br>
+　　・<a href="#span-out-prec-ope-arithmetic-size">size演算子</a> # || ## || ###　<span class="run">Ver.2.752.113</span>以降、追加
+<br>
 　・<a href="#span-out-type-ope">中置2項演算子</a>
 <br>
 　　・べき乗演算子 **　<span class="run">Ver.2.87.32</span>以降、<a href="#span-out-associativity">右結合</a>固定に変更
@@ -16393,6 +16401,56 @@ clear; (1,2:3,4).map() -> [MyErr]Invalid .map(null)
 clear; (1,2:3,4).map(()=&lt;x*2) -> [MyErr]Invalid binary operation
 <br>
 clear; x=1; (1,2:3,4).map(()=&lt;x*2) -> [MyErr]Invalid binary operation
+    </td>
+  </tr>
+  <tr>
+    <th>
+<a href="#span-index">
+目次
+</a>
+<br>
+size演算子
+    </th>
+    <td>
+<span id="span-out-prec-ope-arithmetic-size"></span>
+size演算子と付随する留意事項について記述する
+<br>
+<br>
+<span class="run">Ver.2.752.113</span>以降、<a href="#span-out-FNm-size">size行列関数</a>を代替するsize演算子を追加
+<br>
+・#演算子：sizer(right)
+<br>
+・##演算子：sizec(right)
+<br>
+・###演算子：Nelements（<a href="#span-out-mat-blank">欠損要素</a>以外の要素数）
+<br>
+<br>
+size演算子
+<br>
+#(1,2,3:4,5) -> 2
+<br>
+##(1,2,3:4,5) -> 3
+<br>
+###(1,2,3:4,5) -> 5
+<br>
+#(1,2,3:4,5). || #((1,2,3:4,5).) || #trans(1,2,3:4,5) -> 3
+<br>
+A=(1,2,3:4,5); #A,#(1,2,3:4,5),sizer(A),##A,##(1,2,3:4,5),sizec(A),###A -> (2,2,2,3,3,3,5)
+<br>
+A=(1,2,3:4,5); #A.,#(1,2,3:4,5).,sizer(A.),##A.,##(1,2,3:4,5).,sizec(A.),###A. -> (3,3,3,2,2,2,6)
+<br>
+A=(1,2,3:4,5); #A..,#(1,2,3:4,5)..,sizer(A..),##A..,##(1,2,3:4,5)..,sizec(A..),###A.. -> (2,2,2,3,3,3,6)
+<br>
+#1,##2,###3 -> (1,1,1)
+<br>
+####1 -> [MyErr]Invalid ####
+<br>
+## -> [MyErr]Invalid #null
+<br>
+<br>
+留意事項を列挙する
+<br>
+・<a href="#span-out-type-ope">後置単項演算子</a>直後の<a href="#span-out-type-ope">前置単項演算子</a>の<a href="#span-out-prec-ope">演算子のprecedence</a>
     </td>
   </tr>
   <tr>
@@ -43362,6 +43420,8 @@ precedence
 <br>
 ・<span class="run">Ver.2.298.72</span>以降、<a href="#span-out-vars">変数</a>のprototype method代替の<a href="#span-out-prec-ope-arithmetic-method">method演算子</a>を追加（REv）
 <br>
+・<span class="run">Ver.2.752.113</span>以降、<a href="#span-out-prec-ope">前置単項演算子</a>（PU）の<a href="#span-out-prec-ope-arithmetic-size">size演算子</a>を追加
+<br>
 <br>
 配列要素の定義順で<a href="#span-out-prec">演算のprecedence</a>を動的に変更可能とする
 <br>
@@ -43412,9 +43472,11 @@ operation.js抜粋
     [
       [
         /* following post-Unary operatoR */
-        "UR"     //  . || ' -> transpose(left) || htranspose(left)
+        "UR",    //  . || ' -> transpose(left) || htranspose(left)
                  // post-Unary operatoR imaginary unit i
                  // factorial mark ! || !!... -> fact_m(left, m)
+        /* following Pre-Unary operator */
+        "PU"     // Pre-Unary operator # || ## || ### -> sizer(right) || sizec(right) || Nelements
       ],
       [
         "BRpp",  // Binary operatoR ** -> pow(left, right)@Right-Associativity

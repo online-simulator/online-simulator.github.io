@@ -1,6 +1,17 @@
 clear
 local storage cleared
 
+A=(1,2,3:4,5):#A,#(1,2,3:4,5),sizer(A),##A,##(1,2,3:4,5),sizec(A),###A:#A.,#(1,2,3:4,5).,sizer(A.),##A.,##(1,2,3:4,5).,sizec(A.),###A.:#A..,#(1,2,3:4,5)..,sizer(A..),##A..,##(1,2,3:4,5)..,sizec(A..),###A..
+(
+0:
+2,2,2,3,3,3,5:
+3,3,3,2,2,2,6:
+2,2,2,3,3,3,6
+)
+
+clear
+local storage cleared
+
 x0={,,,}:f(w,x,y,z)=<{w*x=4,x+y=1+2,y+z=2+3,z+x=3+1}:g=<{last{x=__x__,x[0]}*x[1]=4,x[1]+x[2]=1+2,x[2]+x[3]=2+3,x[3]+x[1]=3+1}:round(Newton(=<f,,=<{x0},,20,,,false)):round(Newton(=<g,,=<{x0},,20,,,true))
 (
 0:
@@ -4636,4 +4647,4 @@ drag=false&sw=false&0x=false&useMatrix=true&useStrict=false&checkError=true&isRi
 --------------------------------
 --------------------------------
 
-online-simulator.github.io.6.460.595.22.130 @ Sun Mar 02 2025 18:38:53 GMT+0900 (日本標準時) @ Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/133.0.0.0 Safari/537.36
+online-simulator.github.io.6.461.595.22.130 @ Sun Mar 02 2025 22:03:44 GMT+0900 (日本標準時) @ Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/133.0.0.0 Safari/537.36

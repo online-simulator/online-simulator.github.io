@@ -55,6 +55,10 @@ My_entry.parser.prototype.config = {
       {b: /!+/, a: function(str){
         return "UR"+","+str.length;
       }},
+      // size -> "PU"  // Ver.2.752.113
+      {b: /#+/, a: function(str){
+        return "PU"+","+str.length;
+      }},
       // ** -> ^
       {b: /[*]{2}/, a: "BRpp"},  // Ver.2.87.32
       {b: /[%]{1,2}/, a: "BRdm"},  // Ver.2.87.32
@@ -496,7 +500,6 @@ My_entry.parser.prototype.switch_token = function(tokens, token, token_lower, to
     // reserved word
     // token
     case "\\":
-    case "#":
     case "\"":
     case "`":
       throw "reserved token("+token+")";

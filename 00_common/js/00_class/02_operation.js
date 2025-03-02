@@ -52,9 +52,11 @@ My_entry.operation.prototype.config = {
     [
       [
         /* following post-Unary operatoR */
-        "UR"     //  . || ' -> transpose(left) || htranspose(left)
+        "UR",    //  . || ' -> transpose(left) || htranspose(left)
                  // post-Unary operatoR imaginary unit i
                  // factorial mark ! || !!... -> fact_m(left, m)
+        /* following Pre-Unary operator */
+        "PU"     // Pre-Unary operator # || ## || ### -> sizer(right) || sizec(right) || Nelements
       ],
       [
         "BRpp",  // Binary operatoR ** -> pow(left, right)@Right-Associativity
@@ -2981,6 +2983,43 @@ My_entry.operation.prototype.URif = function(data, i0, tagName, tagObj){  // Ver
   return self;
 };
 /* -> Ver.2.74.29 */
+/* Ver.2.752.113 */
+My_entry.operation.prototype.PU = function(data, i0, tagName, tagObj){
+  var self = this;
+  var trees = data.trees;
+  var options = data.options;
+  var math_mat = self.entry.math_mat;
+  var DATA = self.entry.DATA;
+  var is = i0;
+  var ie = i0+1;
+  var prop = tagObj.val;
+  var rightArr = self.get_tagVal(trees[ie], "mat", "arr");
+  if(rightArr && self.hasElem_arr(rightArr)){
+    var Np = Number(prop);
+    if(Np){
+      var len = 0;
+      if(Np === 1){
+        len = rightArr.length;
+      }
+      else if(Np === 2){
+        var lens = math_mat.get_lens(rightArr);
+        len = lens.j;
+      }
+      else if(Np === 3){
+        len = math_mat.get_Nelements(rightArr);
+      }
+      else{
+        throw "Invalid ####";
+      }
+      tree = DATA.tree_num(len, 0);
+    }
+  }
+  else{
+    throw "Invalid #null";
+  }
+  self.feedback2trees(data, is, ie, tree);
+  return self;
+};
 /* Ver.2.71.28 */
 My_entry.operation.prototype.PUbn =
 /* Ver.2.81.32 -> */
