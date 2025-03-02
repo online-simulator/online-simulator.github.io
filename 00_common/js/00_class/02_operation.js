@@ -54,7 +54,7 @@ My_entry.operation.prototype.config = {
         /* following post-Unary operatoR */
         "UR"     //  . || ' -> transpose(left) || htranspose(left)
                  // post-Unary operatoR imaginary unit i
-                 // factorial mark ! || !!... operand is only natural number
+                 // factorial mark ! || !!... -> fact_m(left, m)
       ],
       [
         "BRpp",  // Binary operatoR ** -> pow(left, right)@Right-Associativity
