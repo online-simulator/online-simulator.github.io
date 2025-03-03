@@ -254,11 +254,17 @@ test case
 <br>
 　-Np：<span class="run">Ver.2.747.111</span>以降、全affine点の個数（零元を含む全要素数）
 <br>
+　-Fp：LMFDB定義のFp(T):=1+k1*T+k2*p*T**2, T=p**(-s)　⇒　Euler積表示のL(s):=素数pのΠ1/Fp(T)
+<br>
+　⇒1次の係数k1：乗法的還元がbadの場合、false
+<br>
+　⇒2次の係数k2：加法的還元がbadの場合、false
+<br>
 　-Np<span class="wF">-BSD</span>：同上のNpを<a href="#span-out-FN-interp">lookup-table</a>化（線形時間でBSD予想のrankを評価）
 <br>
 　-je*4：<span class="run">Ver.2.753.113</span>以降、pのN数を増点（約4倍）
 <br>
-　-Np<span class="wF">-L</span>：同上のHasse-WeilのL関数（乗法的還元の仮定あり）を<a href="#span-out-complex">複素数平面</a>にplot
+　-Np<span class="wF">-L</span>：同上のHasse-WeilのL関数を<a href="#span-out-complex">複素数平面</a>にplot
 <br>
 　⇒BSD予想：s=1の零点の位数=rankの階数&gt;0を明示（厳密なplot点のzeros参照）
 <br>
