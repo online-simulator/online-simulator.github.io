@@ -157,7 +157,6 @@ My_entry.operation.prototype.init = function(){
   var self = this;
   new My_entry.original_main().setup_constructors.call(self);
   new My_entry.original_main().make_instances.call(self, ["$", "def", "math", "math_mat", "DATA", "unit"]);
-  My_entry.def.mix_in_props(My_entry.operation, My_entry.DATA, ["arr2num", "arr2args", "arr2obj_i"]);
   self.useStrict = null;
   self.useEmpty = null;
   self.useScopeWith = null;  // Ver.2.213.47
@@ -984,7 +983,7 @@ My_entry.operation.prototype.get_names = function(data, tree_BT, isRow){
     }
     var len_i = arr.length;
     for(var i=0; i<len_i; ++i){
-      var tree = self.arr2obj_i(arr, i);
+      var tree = DATA.arr2obj_i(arr, i);
       var name = self.get_name(tree);  // Ver.2.251.58
       if(name){
         _names.push(name);
@@ -1142,8 +1141,9 @@ My_entry.operation.prototype.FNmhX = function(data, rightArr, tagObj, len_j0, ms
   var self = this;
   var scopes = data.scopes;
   var ids = data.ids;
+  var DATA = self.entry.DATA;  // Ver.2.757.114
   var _tree = null;
-  var args = self.arr2args(rightArr);
+  var args = DATA.arr2args(rightArr);
   var len_j = args.length;
   if(len_j > len_j0){  // Ver.2.233.56
     /* Ver.2.225.53 -> */
@@ -1221,7 +1221,7 @@ My_entry.operation.prototype.jacobian = function(data, rightArr, tagObj){
     var len_i = arr.length;  // Ver.2.233.56  // Ver.2.736.107
     for(var i=0; i<len_i; ++i){
       var name_var = names[i];
-      var num = self.arr2obj_i(arr, i);
+      var num = DATA.arr2obj_i(arr, i);
       /* Ver.2.736.107 -> */
       if(!(num.com)){
         self.throw_tree(num);
@@ -1281,7 +1281,7 @@ My_entry.operation.prototype.jacobian = function(data, rightArr, tagObj){
     if(len_fi === len_i){
       isRow = false;  // Ver.2.237.56
       _get_f = function(arr_f, i){
-        return self.arr2obj_i(arr_f, i);
+        return DATA.arr2obj_i(arr_f, i);
       };
     }
     /* Ver.2.237.56 -> */
@@ -1794,7 +1794,7 @@ else{
         /* Ver.2.739.107 -> */
         // update
         for(var i=0; i<len_i; ++i){
-          var mdxi = self.arr2obj_i(arr_mdx, i);
+          var mdxi = DATA.arr2obj_i(arr_mdx, i);
           x0[i] = unit["BRs"](options, x0[i], mdxi);
         }
         /* -> Ver.2.739.107 */
@@ -1802,8 +1802,8 @@ else{
         /* Ver.2.309.77 -> */
         var normdx = math_mat.normc(options, arr_mdx);  // Ver.2.237.56
         /* Ver.2.271.62 -> */
-        var cr_norm = self.arr2num(normdx).com.r;
-        var epsn = (isRelative_epsN)? epsN*self.arr2num(math_mat.normc(options, DATA.vec2arr(x0))).com.r: epsN;  // Ver.2.237.56 x0: vectorc
+        var cr_norm = DATA.arr2num(normdx).com.r;
+        var epsn = (isRelative_epsN)? epsN*DATA.arr2num(math_mat.normc(options, DATA.vec2arr(x0))).com.r: epsN;  // Ver.2.237.56 x0: vectorc
         /* Ver.2.408.86 -> */
         var isBreak = false;
         if(isNaN(cr_norm)){
@@ -1839,7 +1839,7 @@ else{
       if(arr_mdx){
         if(options.checkError && argN && argN.com){
           for(var i=0; i<len_i; ++i){
-            var mdxi = self.arr2obj_i(arr_mdx, i);
+            var mdxi = DATA.arr2obj_i(arr_mdx, i);
             var x0ie = x0[i].err;
             x0ie.r = Math.max(Math.abs(mdxi.com.r), x0ie.r);
             x0ie.i = Math.max(Math.abs(mdxi.com.i), x0ie.i);
@@ -2031,8 +2031,9 @@ My_entry.operation.prototype.FNhX = function(data, rightArr, tagObj, len_j0, cal
   var self = this;
   var scopes = data.scopes;
   var ids = data.ids;
+  var DATA = self.entry.DATA;  // Ver.2.757.114
   var _tree = null;
-  var args = self.arr2args(rightArr);
+  var args = DATA.arr2args(rightArr);
   var len_j = args.length;
   if(len_j > len_j0){  // Ver.2.231.56
     /* Ver.2.225.53 -> */
@@ -2150,7 +2151,7 @@ My_entry.operation.prototype.DX = function(data, rightArr, tagObj){
     /* Ver.2.234.56 -> */
     if(!a){
       var tree_var = self.restore_var(name_var, scopes, ids_buffer);  // Ver.2.31.17  // Ver.2.225.53
-      a = (tree_var)? self.arr2num(tree_var.mat.arr): null;
+      a = (tree_var)? DATA.arr2num(tree_var.mat.arr): null;
     }
     /* -> Ver.2.234.56 */
     if(a && a.com){
@@ -2178,7 +2179,7 @@ My_entry.operation.prototype.DX = function(data, rightArr, tagObj){
       };
       var calc_f = function(x, cr, ci){
         self.store_var(name_var, DATA.num2tree(get_newX(x, cr, ci)), scopes, ids_buffer);  // Ver.2.31.17  // Ver.2.225.53
-        return self.arr2num(self.tree_eqn2tree(data, tree_eqn).mat.arr);
+        return DATA.arr2num(self.tree_eqn2tree(data, tree_eqn).mat.arr);
       };
       var DX_order2 = function(x, n){
         var xm0, xp0;
@@ -2301,7 +2302,7 @@ My_entry.operation.prototype.IX = function(data, rightArr, tagObj){
       /* -> Ver.2.369.86 */
       var calc_f = function(cr, ci){
         self.store_var(name_var, DATA.tree_num(cr, ci), scopes, ids_buffer);  // Ver.2.31.17  // Ver.2.225.53
-        return self.arr2num(self.tree_eqn2tree(data, tree_eqn).mat.arr);
+        return DATA.arr2num(self.tree_eqn2tree(data, tree_eqn).mat.arr);
       };
       var DI_order2 = function(){
         var sume = DATA.num(0, 0);
@@ -2815,7 +2816,7 @@ My_entry.operation.prototype.URh = function(data, i0, tagName, tagObj, dot_prop)
         _arr[i] = [];
       }
       callback = function(_arr, arr, arr_, i, j){
-        _arr[i][j] = self.arr2num(arr_);
+        _arr[i][j] = DATA.arr2num(arr_);
       };
     }
     else if(dot_prop === "filter"){
@@ -2953,7 +2954,7 @@ My_entry.operation.prototype.URif = function(data, i0, tagName, tagObj){  // Ver
       var len_i = leftArr.length;
       if(options.useComma){
         for(var i=0; i<len_i; ++i){
-          var left = self.arr2obj_i(leftArr, i);
+          var left = DATA.arr2obj_i(leftArr, i);
           arr[i] = [callback(left, right)];
         }
       }
@@ -2969,7 +2970,7 @@ My_entry.operation.prototype.URif = function(data, i0, tagName, tagObj){  // Ver
       tree = DATA.tree_mat(arr);
     }
     else{
-      var left = self.arr2num(leftArr);
+      var left = DATA.arr2num(leftArr);
       tree = DATA.num2tree(callback(left, right));
     }
   }
@@ -3046,7 +3047,7 @@ My_entry.operation.prototype.PUlN = function(data, i0, tagName, tagObj){
       var len_i = rightArr.length;
       if(options.useComma){
         for(var i=0; i<len_i; ++i){
-          var right = self.arr2obj_i(rightArr, i);
+          var right = DATA.arr2obj_i(rightArr, i);
           arr[i] = [callback(right)];
         }
       }
@@ -3062,7 +3063,7 @@ My_entry.operation.prototype.PUlN = function(data, i0, tagName, tagObj){
       tree = DATA.tree_mat(arr);
     }
     else{
-      var right = self.arr2num(rightArr);
+      var right = DATA.arr2num(rightArr);
       tree = DATA.num2tree(callback(right));
     }
     /* -> Ver.2.73.29 */
@@ -3114,8 +3115,8 @@ My_entry.operation.prototype.switch_unitBR = function(tagName, options, leftArr,
     _tree = DATA.tree_mat(math_mat[tagName](options, leftArr, rightArr));
   }
   else{
-    var left = self.arr2num(leftArr);
-    var right = self.arr2num(rightArr);
+    var left = DATA.arr2num(leftArr);
+    var right = DATA.arr2num(rightArr);
     _tree = DATA.num2tree(unit[tagName](options, left, right));
   }
   return _tree;
@@ -3166,8 +3167,8 @@ My_entry.operation.prototype.init_callbacks_mat = function(options){
           for(var i=0; i<len_i; ++i){
             il = (leftArr[i])? i: il;
             ir = (rightArr[i])? i: ir;
-            var left = self.arr2obj_i(leftArr, il);
-            var right = self.arr2obj_i(rightArr, ir);
+            var left = DATA.arr2obj_i(leftArr, il);
+            var right = DATA.arr2obj_i(rightArr, ir);
             arr[i] = [callback(left, right)];
           }
         }
@@ -3190,8 +3191,8 @@ My_entry.operation.prototype.init_callbacks_mat = function(options){
         _tree = DATA.tree_mat(arr);
       }
       else{
-        var left = self.arr2num(leftArr);
-        var right = self.arr2num(rightArr);
+        var left = DATA.arr2num(leftArr);
+        var right = DATA.arr2num(rightArr);
         _tree = DATA.num2tree(callback(left, right));
       }
       /* -> Ver.2.73.29 */
@@ -3693,12 +3694,13 @@ My_entry.operation.prototype.store_arr_area = function(_arr, ref, arr){
 My_entry.operation.prototype.store_arr_col = function(_arr, ref, arr){
   var self = this;
   var math_mat = self.entry.math_mat;
+  var DATA = self.entry.DATA;  // Ver.2.757.114
   var _tarr = math_mat.transpose(null, _arr);
   var tarr = math_mat.transpose(null, arr);
   /* Ver.2.421.88 -> */
   var tarr_stored = null;
   if(tarr.length === 1){
-    tarr_stored = self.arr2args(tarr);
+    tarr_stored = DATA.arr2args(tarr);
   }
   else{
     throw "Invalid store array[]["+ref[1]+"]";
@@ -3724,14 +3726,15 @@ My_entry.operation.prototype.store_arr_col = function(_arr, ref, arr){
 /* -> Ver.2.76.29 */
 My_entry.operation.prototype.store_arr = function(_arr, ref, arr){
   var self = this;
+  var DATA = self.entry.DATA;  // Ver.2.757.114
   var _arri = _arr;
   var len_ref = ref.length;
   var arr_stored = null;
   if(len_ref === 1 && arr.length === 1){  // Ver.2.421.88
-    arr_stored = self.arr2args(arr);
+    arr_stored = DATA.arr2args(arr);
   }
   else if(len_ref === 2 && self.has1elem_tag(arr, "com")){  // Ver.2.421.88
-    arr_stored = self.arr2num(arr);
+    arr_stored = DATA.arr2num(arr);
   }
   else{
     throw "Invalid store array["+ref.join("][")+"]";  // Ver.2.421.88
@@ -3854,7 +3857,7 @@ My_entry.operation.prototype.change_scopes_directly = function(data, i0, name, p
     if(dot_prop === "unshift" || dot_prop === "push"){
       var has1elem = (rightArr && rightArr.length === 1 && rightArr[0].length === 1);
       if(has1elem){
-        var args = self.arr2args(rightArr);
+        var args = DATA.arr2args(rightArr);
         arr = self.get_tagVal(self.tree_eqn2tree_AtREe(data, args[0]), "mat", "arr");
       }
       else{
@@ -4568,6 +4571,7 @@ My_entry.operation.prototype.replace_REv = function(trees, bas){
 };
 My_entry.operation.prototype.get_name_eqn_AtREe = function(trees, i0){  // Ver.2.272.63  // Ver.2.273.64
   var self = this;
+  var DATA = self.entry.DATA;  // Ver.2.757.114
   var BT = self.config.BT;
   /* Ver.2.273.64 -> */
   var name0 = self.config.symbol.anonymous;
@@ -4579,7 +4583,7 @@ My_entry.operation.prototype.get_name_eqn_AtREe = function(trees, i0){  // Ver.2
   var arr_eqn = (hasArgs)? arr2: arr1;
   var name_eqn = (hasArgs)? name2: name1;
   /* Ver.2.287.70 -> */
-  var tree_eqn_anonymous = (arr_eqn)? self.arr2num(arr_eqn): null;
+  var tree_eqn_anonymous = (arr_eqn)? DATA.arr2num(arr_eqn): null;
   if(tree_eqn_anonymous){
     // [f(x)=<x,f(1),[(x)=<x](1)=>]
     // a0=-1,make_f(a)=<[g(x)=<a0*x,==<==<g]==>f,make_f(a0)=>,f(3)=>
@@ -4816,7 +4820,7 @@ My_entry.operation.prototype.get_args_AtREe = function(data, name_eqn, tree_eqn,
   var isREe = tree_eqn[BT.REe];
   var args_eqn = isREe && isREe.arg;  // Ver.2.287.70
   var len_args_eqn = (args_eqn)? args_eqn.length: 0;
-  var args = self.arr2args(arr);
+  var args = DATA.arr2args(arr);
   var len_args = args.length;
   if(len_args_eqn === len_args){
     var ids0 = (self.useScopeWith)? null: self.get_ids0(tree_eqn);  // Ver.2.33.18  // Ver.2.213.47  // Ver.2.292.71

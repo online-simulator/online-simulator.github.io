@@ -10,7 +10,6 @@ My_entry.math_mat.prototype.init = function(){
   var self = this;
   new My_entry.original_main().setup_constructors.call(self);
   new My_entry.original_main().make_instances.call(self, ["solver_com", "DATA", "unit"]);
-  My_entry.def.mix_in_props(My_entry.math_mat, My_entry.DATA, ["arr2num", "arr2args"]);
   return self;
 };
 My_entry.math_mat.prototype.init2d = function(len_i, len_j){
@@ -65,26 +64,30 @@ My_entry.math_mat.prototype.fill_arr = function(options, _arr, opt_common_num){
 /* Ver.2.25.12 -> */
 My_entry.math_mat.prototype.vectorr = function(options, arr){
   var self = this;
-  var args = self.arr2args(arr);
+  var DATA = self.entry.DATA;  // Ver.2.757.114
+  var args = DATA.arr2args(arr);
   var num = args[0];
   return self.make_arr(options, null, num, function(m, n){return self.zeros2d(m, n);});  // Ver.2.185.44
 };
 My_entry.math_mat.prototype.vectorc = function(options, arr){
   var self = this;
-  var args = self.arr2args(arr);
+  var DATA = self.entry.DATA;  // Ver.2.757.114
+  var args = DATA.arr2args(arr);
   var num = args[0];
   return self.make_arr(options, num, null, function(m, n){return self.zeros2d(m, n);});  // Ver.2.185.44
 };
 /* -> Ver.2.25.12 */
 My_entry.math_mat.prototype.identity = function(options, arr){
   var self = this;
-  var args = self.arr2args(arr);
+  var DATA = self.entry.DATA;  // Ver.2.757.114
+  var args = DATA.arr2args(arr);
   var num = args[0];
   return self.make_arr(options, num, null, function(m, n){return self.Imat(m);});  // Ver.2.185.44
 };
 My_entry.math_mat.prototype.scalars = function(options, arr){
   var self = this;
-  var args = self.arr2args(arr);
+  var DATA = self.entry.DATA;  // Ver.2.757.114
+  var args = DATA.arr2args(arr);
   var num0 = args[0];
   var num1 = args[1];
   if(!(num1 && num1.com)) throw "Invalid Scalar";
@@ -92,14 +95,16 @@ My_entry.math_mat.prototype.scalars = function(options, arr){
 };
 My_entry.math_mat.prototype.zeros = function(options, arr){
   var self = this;
-  var args = self.arr2args(arr);
+  var DATA = self.entry.DATA;  // Ver.2.757.114
+  var args = DATA.arr2args(arr);
   var num0 = args[0];
   var num1 = args[1] || num0;  // Ver.2.185.44
   return self.make_arr(options, num0, num1, function(m, n){return self.zeros2d(m, n);});  // Ver.2.185.44
 };
 My_entry.math_mat.prototype.ones = function(options, arr){
   var self = this;
-  var args = self.arr2args(arr);
+  var DATA = self.entry.DATA;  // Ver.2.757.114
+  var args = DATA.arr2args(arr);
   var num0 = args[0];
   var num1 = args[1] || num0;  // Ver.2.185.44
   return self.make_arr(options, num0, num1, function(m, n){return self.ones2d(m, n);});  // Ver.2.185.44
@@ -433,7 +438,8 @@ My_entry.math_mat.prototype.first = function(options, arr){
 };
 My_entry.math_mat.prototype.last = function(options, arr){
   var self = this;
-  return [[self.arr2num(arr)]];
+  var DATA = self.entry.DATA;  // Ver.2.757.114
+  return [[DATA.arr2num(arr)]];
 };
 My_entry.math_mat.prototype.sizer = function(options, arr){
   var self = this;
@@ -1058,7 +1064,7 @@ My_entry.math_mat.prototype.ifft1d = function(options, arr){
 My_entry.math_mat.prototype.rotationx = function(options, arr){
   var self = this;
   var DATA = self.entry.DATA;
-  var args = self.arr2args(arr);
+  var args = DATA.arr2args(arr);
   var num = args[0];
   if(!(num.com)) throw "Invalid rotation matrix";
   var _arr = self.Imat(3);
@@ -1074,7 +1080,7 @@ My_entry.math_mat.prototype.rotationx = function(options, arr){
 My_entry.math_mat.prototype.rotationy = function(options, arr){
   var self = this;
   var DATA = self.entry.DATA;
-  var args = self.arr2args(arr);
+  var args = DATA.arr2args(arr);
   var num = args[0];
   if(!(num.com)) throw "Invalid rotation matrix";
   var _arr = self.Imat(3);
@@ -1090,7 +1096,7 @@ My_entry.math_mat.prototype.rotationy = function(options, arr){
 My_entry.math_mat.prototype.rotationz = function(options, arr){
   var self = this;
   var DATA = self.entry.DATA;
-  var args = self.arr2args(arr);
+  var args = DATA.arr2args(arr);
   var num = args[0];
   if(!(num.com)) throw "Invalid rotation matrix";
   var _arr = self.Imat(3);
