@@ -1031,12 +1031,7 @@ My_entry.calc_graphing.prototype.init_handlers = function(){
     var text_half = self.entry.reference.fullStr2half(text);
     switch(text_half){
       case "plot":
-        /* Ver.2.759.115 -> */
-        self.ts_plot = new Date();
-        if((self.worker_plot && self.worker_plot.handler.isLocked) || self.plot2d.isLocked){
-          $._id("checkbox-legend").onchange();
-        }
-        /* -> Ver.2.759.115 */
+        self.ts_plot = new Date();  // Ver.2.759.115
         /* Ver.2.10.4 */
         if(self.worker_plot && self.worker_plot.handler.isLocked) return false;
         if(self.plot2d.isLocked) return false;
