@@ -2994,26 +2994,25 @@ My_entry.operation.prototype.PU = function(data, i0, tagName, tagObj){
   var ie = i0+1;
   var prop = tagObj.val;
   var rightArr = self.get_tagVal(trees[ie], "mat", "arr");
-  if(rightArr && self.hasElem_arr(rightArr)){
+  /* Ver.2.756.114 -> */
+  if(rightArr){
     var Np = Number(prop);
-    if(Np){
-      var len = 0;
-      if(Np === 1){
-        len = rightArr.length;
-      }
-      else if(Np === 2){
-        var lens = math_mat.get_lens(rightArr);
-        len = lens.j;
-      }
-      else if(Np === 3){
-        len = math_mat.get_Nelements(rightArr);
-      }
-      else{
-        throw "Invalid ####";
-      }
-      tree = DATA.tree_num(len, 0);
+    if(Np === 1){
+      len = rightArr.length;
     }
+    else if(Np === 2){
+      var lens = math_mat.get_lens(rightArr);
+      len = lens.j;
+    }
+    else if(Np === 3){
+      len = math_mat.get_Nelements(rightArr);
+    }
+    else{
+      throw "Invalid ####";
+    }
+    tree = DATA.tree_num(len, 0);
   }
+  /* -> Ver.2.756.114 */
   else{
     throw "Invalid #null";
   }
