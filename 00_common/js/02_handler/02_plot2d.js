@@ -818,7 +818,6 @@ My_entry.plot2d.prototype.run = function(arr2d_vec, options, toSVG, isFinal){
       records.Nrender = def.limit(Math.floor(records.Nrender), 1, NUMMAX, options.N);
       records.Ncycle = def.limit(Math.floor(records.Ncycle), 0, 127, 0);
       var colors = (text || styleRGBA).split(":");
-      var hasRand = records.NrandR || records.NrandT;
       var ID_or_svg = plot.gradation(colors, arr2d_tvec[j], globalCompositeOperation, records);
       if(isFinal){
         if(toSVG){
@@ -835,7 +834,7 @@ My_entry.plot2d.prototype.run = function(arr2d_vec, options, toSVG, isFinal){
           }
         }
       }
-      else if(!(hasRand)){
+      else{  // Ver.2.759.115
         if(toSVG){
           _svg += ID_or_svg;
         }

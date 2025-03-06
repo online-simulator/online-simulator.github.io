@@ -841,7 +841,9 @@ test case
 <br>
 　・<a href="#span-out-spec-pending">pending</a>
 <br>
-　・<a href="#span-out-UI-graphing-changed-history">plot仕様変更履歴</a>
+　・<a href="#span-out-spec-plot-history">plot仕様変更履歴</a>
+<br>
+　・<a href="#span-out-spec-canvas-history">plot表示仕様変更履歴</a>
 <br>
 ・<a href="#span-out-development">開発環境</a>
 <br>
@@ -6883,7 +6885,9 @@ ns(10000) -> 97876.06036044357
 <br>
 ・<a href="#span-out-spec-pending">pending</a>
 <br>
-・<a href="#span-out-UI-graphing-changed-history">plot仕様変更履歴</a>
+・<a href="#span-out-spec-plot-history">plot仕様変更履歴</a>
+<br>
+・<a href="#span-out-spec-canvas-history">plot表示仕様変更履歴</a>
     </td>
   </tr>
   <tr>
@@ -7627,7 +7631,7 @@ plot仕様
 変更履歴
     </th>
     <td>
-<span id="span-out-UI-graphing-changed-history"></span>
+<span id="span-out-spec-plot-history"></span>
 <a href="#span-out-UI-graphing">Graphing Calculator</a>のplot仕様変更履歴を列挙する
 <br>
 ・<span class="run">Ver.2.33.17</span>以降、正式release
@@ -7683,12 +7687,31 @@ clear; last{a,1} -> <del>1</del>[MyErr]Undef var(a)
 　後者の対策：&lt;polyline points="" /&gt;　⇒　&lt;polyline points="" /&gt;&lt;line /&gt;
 <br>
 　再現条件の備考：&lt;polyline /&gt;の追加は効果なし
+    </td>
+  </tr>
+  <tr>
+    <th>
+<a href="#span-index">
+目次
+</a>
 <br>
-・<span class="run">Ver.2.746.111</span>以降、表示機能のcheckboxの仕様改善
+plot表示仕様
+<br>
+変更履歴
+    </th>
+    <td>
+<span id="span-out-spec-canvas-history"></span>
+<a href="#span-out-UI-graphing">Graphing Calculator</a>のplot表示仕様変更履歴を列挙する
+<br>
+・<span class="run">Ver.2.746.111</span>以降、checkboxの仕様改善
 <br>
 　<a href="#span-out-UI-graphing">p-checkbox</a>：checkedで全表示
 <br>
 　<a href="#span-out-UI-graphing">z-checkbox</a>：checked時、<a href="#span-out-UI-graphing-z">z入力欄</a>を有効化
+<br>
+・<span class="run">Ver.2.759.115</span>以降、自動描画refreshの頻度：最大10回　⇒　最短1秒間隔
+<br>
+　影響項目：<a href="#span-out-UI-graphing-gradation">gradation特定項目仕様</a>
     </td>
   </tr>
   <tr>
@@ -8302,6 +8325,10 @@ panel上段について記述する
 ・plot-buttonは演算&amp;描画実行を確定する
 <br>
 　<span class="run">Ver.2.360.86</span>以降、要素位置を微調整
+<br>
+　<span class="run">Ver.2.759.115</span>以降、実行中の場合、scaling維持で描画更新
+<br>
+　<span class="run">Ver.2.759.115</span>以降、自動描画refreshの頻度：最大10回　⇒　最短1秒間隔
 <br>
 ・stop-buttonは演算&amp;描画実行を中断する・軸scaleを初期化する
 <br>
@@ -9417,7 +9444,9 @@ png出力の特徴を列挙する
 <br>
 ・上記精度を上げ過ぎた場合、svg出力のfile sizeや<a href="#span-out-UI-graphing-post">post処理</a>の負荷が増大する
 <br>
-・<a href="#span-out-FN-rand">乱数</a>設定時、flickering防止のため、plot終了の最終frameまで逐次描画しない
+・<a href="#span-out-FN-rand">乱数</a>設定時、flickering防止のため、<del>plot終了の最終frameまで逐次描画しない</del>
+<br>
+　<span class="run">Ver.2.759.115</span>以降、自動描画refreshの頻度：最大10回　⇒　最短1秒間隔
 <br>
 ・drawImage()非同期出力のため、最終frameにlegend順を保証してgradationを合成する
     </td>
@@ -15057,7 +15086,7 @@ clear; a=2; [<span class="selection">(x)</span>=&lt;a]()<span class="clear">=&gt
 <br>
 clear; set_x=&lt;(x=1),x=0,set_x,x -> [MyErr]Invalid REv(set_x)
 <br>
-・<span class="clear">Ver.2.280.66</span>以降、<a href="#span-out-UI-graphing-changed-history">plot仕様変更</a>により、未定義の<a href="#span-out-vars">変数</a>を検知不能の致命的な不具合を修正
+・<span class="clear">Ver.2.280.66</span>以降、<a href="#span-out-spec-plot-history">plot仕様変更</a>により、未定義の<a href="#span-out-vars">変数</a>を検知不能の致命的な不具合を修正
 <br>
 clear; set_x=&lt;(x=1),x=0,set_x,x -> [MyErr]Undef var(set_x)
 <br>

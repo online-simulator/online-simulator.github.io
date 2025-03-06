@@ -9,6 +9,10 @@ My_entry.calc_graphing = function(){
 My_entry.def.mix_in(My_entry.calc_graphing, My_entry.original_main);
 
 My_entry.calc_graphing.prototype.config = {
+  /* Ver.2.759.115 */
+  PLOT: {
+    dts: 1000
+  },
   LOG: {
     sizeMax: 5000
   },
@@ -1027,6 +1031,12 @@ My_entry.calc_graphing.prototype.init_handlers = function(){
     var text_half = self.entry.reference.fullStr2half(text);
     switch(text_half){
       case "plot":
+        /* Ver.2.759.115 -> */
+        self.ts_plot = new Date();
+        if((self.worker_plot && self.worker_plot.handler.isLocked) || self.plot2d.isLocked){
+          $._id("checkbox-legend").onchange();
+        }
+        /* -> Ver.2.759.115 */
         /* Ver.2.10.4 */
         if(self.worker_plot && self.worker_plot.handler.isLocked) return false;
         if(self.plot2d.isLocked) return false;
@@ -1423,10 +1433,14 @@ My_entry.calc_graphing.prototype.set_callbacks_worker = function(){
     var len_in = self.worker_plot.arr_data_in.length;
     var len_out = Object.keys(self.worker_plot.arr_data_out).length;
     self.output_log_plot();
-    var dlen = Math.max(Math.floor(len_in*0.1), 1);
-    if(len_out < len_in && (len_out-1)%dlen === 0){
+    /* Ver.2.759.115 -> */
+    var ts = new Date();
+    var dts = ts-self.ts_plot;
+    if(len_out < len_in && dts > self.config.PLOT.dts){
       self.re_plot();
+      self.ts_plot = ts;
     }
+    /* -> Ver.2.759.115 */
     if(len_out === len_in){
       self.worker_plot.stop();
       self.re_plot(true);
