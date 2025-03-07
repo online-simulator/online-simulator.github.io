@@ -1431,7 +1431,7 @@ My_entry.calc_graphing.prototype.set_callbacks_worker = function(){
     /* Ver.2.759.115 -> */
     var ts = new Date();
     var dts = ts-self.ts_plot;
-    if(len_out < len_in && dts > self.config.PLOT.dts){
+    if(len_out < len_in && dts >= self.config.PLOT.dts){
       self.re_plot();
       self.ts_plot = ts;
     }
