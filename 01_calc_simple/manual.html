@@ -30242,9 +30242,9 @@ N=10; fibo_exp(n)=&lt;(n&lt;2&amp;&amp;&amp;{n,}|||{fibo_exp(n-1)+fibo_exp(n-2),
 <br>
 N=10; fibo_(n,a,b)=&lt;(n&lt;1&amp;&amp;&amp;{a,}|||n&lt;2&amp;&amp;&amp;{b,}|||{fibo_(n-1,b,a+b),})[0]; fibo_(N,0,1) -> 55
 <br>
-<span class="clear">・対数時間の一般項（再帰なし）</span>
+・<span class="clear">一般項（再帰なし）</span>
 <br>
-N=10; fibo_log(n)=&lt;last{sqrt5=sqrt(5),round((((1+sqrt5)/2)**n-((1-sqrt5)/2)**n)/sqrt5)}; fibo_log(N) -> 55
+N=10; fibo(n)=&lt;last{sqrt5=sqrt(5),round((((1+sqrt5)/2)**n-((1-sqrt5)/2)**n)/sqrt5)}; fibo(N) -> 55
 <br>
 ・<span class="run">Ver.2.196.46</span>以降、<a href="#span-out-prec-ope-conditional">条件演算子</a>代替の<a href="#span-out-prec-ope-logical-short-circuit-literal">論理演算子（literal）</a>を追加
 <br>
