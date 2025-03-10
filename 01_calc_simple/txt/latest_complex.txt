@@ -4367,7 +4367,7 @@ local storage cleared
 clear
 local storage cleared
 
-_rn(=<last{Pn=Pn*2,n+1},Pn=1,10,=<{Pn>100})/*reccursive function's break test case*/
+_rn(=<last{Pn=Pn*2,n+1},Pn=1,10,=<{Pn>100})/*recursive function's break test case*/
 7
 
 clear
@@ -4652,4 +4652,4 @@ drag=false&sw=false&0x=false&useMatrix=true&useStrict=false&checkError=true&isRi
 --------------------------------
 --------------------------------
 
-online-simulator.github.io.6.463.598.22.131 @ Thu Mar 06 2025 14:17:42 GMT+0900 (日本標準時) @ Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/133.0.0.0 Safari/537.36
+online-simulator.github.io.6.464.602.22.133 @ Mon Mar 10 2025 21:16:34 GMT+0900 (日本標準時) @ Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/133.0.0.0 Safari/537.36

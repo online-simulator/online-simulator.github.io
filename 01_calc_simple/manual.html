@@ -29191,7 +29191,7 @@ clear; a=1,(=&lt;(=&lt;(=&lt;3)=&gt;+1)=&gt;*a)=&gt; -> (0,4)
 <br>
 <del>循環参照の場合、error終了</del><span class="run">Ver.2.194.45</span>以降、<a href="#span-out-eqns-args">式変数のarguments</a>の<a href="#span-out-eqns-re-call">再帰call</a>に対応
 <br>
-・<a href="#span-out-FNh-RX">再帰高階関数</a>で代替のreccursive call非対応（<a href="#span-out-callstack">call stack</a>の独自実装なし）
+・<a href="#span-out-FNh-RX">再帰高階関数</a>で代替のrecursive call非対応（<a href="#span-out-callstack">call stack</a>の独自実装なし）
 <br>
 clear; a=&lt;a; a -> <del>[MyErr]Invalid circular(a)</del>Maximum call stack size exceeded
 <br>
@@ -42359,7 +42359,7 @@ f=&lt;last{V=1,E=0,k=1,I=exp(k*(V-E))-exp(-k*(V-E))}
 <br>
 ・<a href="#span-out-mat">行列</a>演算を含む<a href="#span-out-associativity">2項演算子のassociativity</a>は単なるfor-loopで結合順||演算順を保証する
 <br>
-・reccursive callを代替する<a href="#span-out-FNh-RX">再帰高階関数</a>||<a href="#span-out-eqns-re-call">再帰call</a>も同様に、独自の<a href="#span-out-callstack">call stack</a>を実装しない
+・recursive callを代替する<a href="#span-out-FNh-RX">再帰高階関数</a>||<a href="#span-out-eqns-re-call">再帰call</a>も同様に、独自の<a href="#span-out-callstack">call stack</a>を実装しない
 <br>
 <del>・一般的な言語と異なり、<a href="#span-in-scope-vars">static scopes2d array</a>を共有するため、</del>
 <br>
