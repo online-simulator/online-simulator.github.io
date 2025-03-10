@@ -7625,6 +7625,14 @@ $$=1 -> [MyErr]Invalid symbol
 <br>
 　単独要素の場合、無条件のerror終了
 <br>
+・<a href="#span-out-FNmh-OX">ODE高階行列関数</a>のadaptive実装
+<br>
+・<a href="#span-out-eqns-re-call">再帰call</a>のmemo化option
+<br>
+　String(引数)と結果のlistから短絡評価
+<br>
+・縦横のscaling固定plotの実装
+<br>
 <br>
 以降、closed
 <br>
@@ -8074,6 +8082,20 @@ f=(x)=&lt;x;
 g=(=&lt;h,x)=&lt;h(x)*x; || g=(=&lt;f,x)=&lt;[=&lt;f(x)*x]=&gt;;
 <br>
 g((x)=&lt;g((x)=&lt;f(x),2),2) -> 8
+<br>
+・複数分岐の<a href="#span-out-eqns-re-call">再帰call</a>（一般的に非推奨）
+<br>
+　ECMAScript6
+<br>
+fact_=(n)=&gt;n&lt;=1||n*fact_(n-1); fact_(10) -> 3628800
+<br>
+fibo_=(n)=&gt;n&lt;2&amp;&amp;n||fibo_(n-1)+fibo_(n-2); fibo_(10)  <span class="selection">// NG</span> -> -47
+<br>
+　本仕様（call後にcall前のlist値を復帰）
+<br>
+fact_=(n)=&lt;n&lt;=1|||n*fact_(n-1); fact_(10) -> 3628800
+<br>
+fibo_=(n)=&lt;n&lt;2&amp;&amp;n||||fibo_(n-1)+fibo_(n-2); fibo_(10) -> 55
 <br>
 <br>
 明確に冗長な仕様を列挙する
@@ -28401,15 +28423,21 @@ clear; a=1; [=&lt;[=&lt;[=&lt;3]=&gt;+1]=&gt;*a]=&gt; -> 4
 <br>
 単独scopeの場合、<a href="#span-out-eqns-args">式変数のarguments</a>は<a href="#span-out-BT-square">角括弧[]</a>の<a href="#span-out-bracket">scope</a>内に定義する
 <br>
-・一例を列挙する
+・<span class="condition">定義の範囲</span>
 <br>
-f(x)=&lt;[,x]
+f(x)=&lt;[<span class="condition">,x</span>]
 <br>
-f(x)=&lt;last[,x]
+f(x)=&lt;last[<span class="condition">,x</span>]
 <br>
-f(x)=&lt;[=&lt;x]=&gt;
+f(x)=&lt;[<span class="condition">=&lt;x</span>]=&gt;
 <br>
-f(x)=&lt;[=&lt;x*2]=&gt;x2
+f(x)=&lt;[<span class="condition">=&lt;x*2</span>]=&gt;x2
+<br>
+・<span class="run">Ver.2.210.46</span>以降、<span class="clear">不都合</span>が発生
+<br>
+fact_(n)=&lt;<span class="clear">n&lt;=1</span>|||last[<span class="condition">,n*fact_(n-1)</span>]; fact_(10) -> [MyErr]Invalid operation <span class="clear">n&lt;=number</span>
+<br>
+fact_(n)=&lt;last[<span class="condition">,n&lt;=1|||n*fact_(n-1)</span>]; fact_(10) -> 3628800
 <br>
 <br>
 test caseを列挙する
@@ -30242,9 +30270,19 @@ N=10; fibo_exp(n)=&lt;(n&lt;2&amp;&amp;&amp;{n,}|||{fibo_exp(n-1)+fibo_exp(n-2),
 <br>
 N=10; fibo_(n,a,b)=&lt;(n&lt;1&amp;&amp;&amp;{a,}|||n&lt;2&amp;&amp;&amp;{b,}|||{fibo_(n-1,b,a+b),})[0]; fibo_(N,0,1) -> 55
 <br>
+・対数時間の再帰call（<a href="#span-out-scope-vars-has1BT">単独scope</a>と<a href="#span-in-short-circuit">短絡評価</a>に<span class="condition">留意</span>）
+<br>
+N=10; fibo_log(n)=&lt;<span class="condition">[=&lt;</span>n&lt;2&amp;&amp;n||||last{q=n%%2,fq=fibo_log(q),
+<br>
+fq**2+(n%2<span class="condition">===0&&&</span>2fibo_log(q-1)*fq<span class="condition">||||</span>fibo_log(q+1)**2)}<span class="condition">]=&gt;</span>; fibo_log(N) -> 55
+<br>
 ・<span class="clear">一般項（再帰なし）</span>
 <br>
 N=10; fibo(n)=&lt;last{sqrt5=sqrt(5),round((((1+sqrt5)/2)**n-((1-sqrt5)/2)**n)/sqrt5)}; fibo(N) -> 55
+<br>
+・<a href="#span-out-mat">行列</a>演算
+<br>
+N=10; fibo(n)=&lt;first(_p((n)=&lt;(1,1:1,0),,n-2)); fibo(N) -> 55
 <br>
 ・<span class="run">Ver.2.196.46</span>以降、<a href="#span-out-prec-ope-conditional">条件演算子</a>代替の<a href="#span-out-prec-ope-logical-short-circuit-literal">論理演算子（literal）</a>を追加
 <br>
