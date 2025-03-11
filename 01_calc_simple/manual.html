@@ -17155,7 +17155,9 @@ i@@1 || 1@@1 -> 0
 <br>
 ・<span class="run">Ver.2.766.116</span>以降、<a href="#span-out-FN-ope">xnor/cxnor関数</a>を追加
 <br>
-~~(0@@false),xnor(0,false):~~(1@@i),cxnor(1,i) -> (true,true:true,true)
+~~(0@@false),not(xor(0,false)),xnor(0,false) -> (true,true,true)
+<br>
+~~(1@@i),cnot(cxor(1,i)),cxnor(1,i) -> (true,true,true)
 <br>
 <br>
 留意事項を列挙する
@@ -17224,7 +17226,9 @@ imag(0(1-i)||1(1-i)||2(1-i)||3(1-i)) -> -3
 <br>
 ・<span class="run">Ver.2.766.116</span>以降、<a href="#span-out-FN-ope">nor/cnor関数</a>を追加
 <br>
-~~(0||1),nor(0,1):~~(0||i),cnor(0,i) -> (false,false:false,false)
+~~(0||1),not(or(0,1)),nor(0,1) -> (false,false,false)
+<br>
+~~(0||i),cnot(cor(0,i)),cnor(0,i) -> (false,false,false)
 <br>
 <br>
 論理AND
@@ -17287,7 +17291,9 @@ imag(1(1-i)&amp;&amp;2(1-i)&amp;&amp;3(1-i)&amp;&amp;4(1-i)) -> -1
 <br>
 ・<span class="run">Ver.2.766.116</span>以降、<a href="#span-out-FN-ope">nand/cnand関数</a>を追加
 <br>
-~~(1&amp;&amp;2),nand(1,2):~~(1i&amp;&amp;2i),cnand(1i,2i) -> (false,false:false,false)
+~~(1&amp;&amp;2),not(and(1,2)),nand(1,2) -> (false,false,false)
+<br>
+~~(1i&amp;&amp;2i),cnot(cand(1i,2i)),cnand(1i,2i) -> (false,false,false)
 <br>
 <br>
 論理演算子は最下位の<a href="#span-out-prec-ope">演算子のprecedence</a>で<a href="#span-out-substitution">変数への代入</a>より優先する

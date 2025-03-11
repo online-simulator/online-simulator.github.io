@@ -427,7 +427,7 @@
       script += "\n";
       script += "###[],##[],#[],#();";
       script += "\nclear;\n";
-      script += "~~(0@@false),xnor(0,false):~~(1@@i),cxnor(1,i):~~(0||1),nor(0,1):~~(0||i),cnor(0,i):~~(1&&2),nand(1,2):~~(1i&&2i),cnand(1i,2i);";
+      script += "~~(0@@false),not(xor(0,false)),xnor(0,false):~~(1@@i),cnot(cxor(1,i)),cxnor(1,i):~~(0||1),not(or(0,1)),nor(0,1):~~(0||i),cnot(cor(0,i)),cnor(0,i):~~(1&&2),not(and(1,2)),nand(1,2):~~(1i&&2i),cnot(cand(1i,2i)),cnand(1i,2i);";
       script += "\nclear;\n";
       $._id("input").value = script;
     });
