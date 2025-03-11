@@ -65,6 +65,11 @@ My_entry.math_com.prototype.cand_RA = function(a, b){
   if(!(b)) return self.entry.DATA.com(NaN, NaN);  // Ver.2.170.42
   return ((self.isFalse(b))? b: a);
 };
+/* Ver.2.766.116 */
+My_entry.math_com.prototype.cnand = function(a, b){
+  var self = this;
+  return self.cnot(self.cand(a, b));
+};
 My_entry.math_com.prototype["@@"] =
 My_entry.math_com.prototype.cxor = function(a, b){
   var self = this;
@@ -73,6 +78,11 @@ My_entry.math_com.prototype.cxor = function(a, b){
   var hasB = (self.isFalse(b))? 0: 1;
   var sw = (hasA^hasB)? true: false;  // Ver.2.196.46
   return self.entry.DATA.com(sw, 0);  // Ver.2.196.46
+};
+/* Ver.2.766.116 */
+My_entry.math_com.prototype.cxnor = function(a, b){
+  var self = this;
+  return self.cnot(self.cxor(a, b));
 };
 My_entry.math_com.prototype.cor_LA =  // Ver.2.193.44
 My_entry.math_com.prototype.cor = function(a, b){
@@ -85,6 +95,11 @@ My_entry.math_com.prototype.cor_RA = function(a, b){
   var self = this;
   if(!(b)) return self.entry.DATA.com(NaN, NaN);  // Ver.2.170.42
   return ((self.isFalse(b))? a: b);
+};
+/* Ver.2.766.116 */
+My_entry.math_com.prototype.cnor = function(a, b){
+  var self = this;
+  return self.cnot(self.cor(a, b));
 };
 My_entry.math_com.prototype.cseq = function(a, b){
   var self = this;

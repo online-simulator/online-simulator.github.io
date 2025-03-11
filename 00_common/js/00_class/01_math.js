@@ -417,11 +417,21 @@ My_entry.math.prototype.and_RA = function(x, y){
   if(typeof y === "undefined") return NaN;  // Ver.2.170.42
   return (y&&x);
 };
+/* Ver.2.766.116 */
+My_entry.math.prototype.nand = function(x, y){
+  var self = this;
+  return self.not(self.and(x, y));
+};
 My_entry.math.prototype.xor =
 My_entry.math.prototype["@@"] = function(x, y){  // Ver.2.168.41
   var self = this;
   if(typeof y === "undefined") return NaN;  // Ver.2.170.42
   return ((((x)? 1: 0)^((y)? 1: 0))? true: false);  // Ver.2.196.46
+};
+/* Ver.2.766.116 */
+My_entry.math.prototype.xnor = function(x, y){
+  var self = this;
+  return self.not(self.xor(x, y));
 };
 My_entry.math.prototype.or_LA =  // Ver.2.193.44
 My_entry.math.prototype.or =
@@ -435,6 +445,11 @@ My_entry.math.prototype.or_RA = function(x, y){
   var self = this;
   if(typeof y === "undefined") return NaN;  // Ver.2.170.42
   return (y||x);
+};
+/* Ver.2.766.116 */
+My_entry.math.prototype.nor = function(x, y){
+  var self = this;
+  return self.not(self.or(x, y));
 };
 /* -> Ver.2.167.40 */
 My_entry.math.prototype.lcm = function(x, y){

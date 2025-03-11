@@ -560,8 +560,11 @@ My_entry.parser.prototype.switch_token = function(tokens, token, token_lower, to
     case "bitor":
     case "not":
     case "and":
+    case "nand":
     case "xor":
+    case "xnor":
     case "or":
+    case "nor":
     // complex number
     // relational
     case "cseq":
@@ -571,8 +574,11 @@ My_entry.parser.prototype.switch_token = function(tokens, token, token_lower, to
     // logical
     case "cnot":
     case "cand":
+    case "cnand":
     case "cxor":
+    case "cxnor":
     case "cor":
+    case "cnor":
       _tree = self.wrapper_useFunc(token, token_lower, token_upper, function(){return DATA.tree_tag("FN", token_lower);});
       break;
     // "FNmh"

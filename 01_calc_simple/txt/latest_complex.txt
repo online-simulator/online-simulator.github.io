@@ -1,6 +1,19 @@
 clear
 local storage cleared
 
+~~(0@@false),xnor(0,false):~~(1@@i),cxnor(1,i):~~(0||1),nor(0,1):~~(0||i),cnor(0,i):~~(1&&2),nand(1,2):~~(1i&&2i),cnand(1i,2i)
+(
+true,true:
+true,true:
+false,false:
+false,false:
+false,false:
+false,false
+)
+
+clear
+local storage cleared
+
 ###[],##[],#[],#()
 (
 0,0,0,0
@@ -4652,4 +4665,4 @@ drag=false&sw=false&0x=false&useMatrix=true&useStrict=false&checkError=true&isRi
 --------------------------------
 --------------------------------
 
-online-simulator.github.io.6.464.602.22.133 @ Mon Mar 10 2025 21:16:34 GMT+0900 (日本標準時) @ Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/133.0.0.0 Safari/537.36
+online-simulator.github.io.6.465.605.22.133 @ Tue Mar 11 2025 22:32:32 GMT+0900 (日本標準時) @ Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/134.0.0.0 Safari/537.36

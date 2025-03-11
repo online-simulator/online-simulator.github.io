@@ -17153,6 +17153,10 @@ i@@0 || 1@@0 -> 1
 <br>
 i@@1 || 1@@1 -> 0
 <br>
+・<span class="run">Ver.2.766.116</span>以降、<a href="#span-out-FN-ope">xnor/cxnor関数</a>を追加
+<br>
+~~(0@@false),xnor(0,false):~~(1@@i),cxnor(1,i) -> (true,true:true,true)
+<br>
 <br>
 留意事項を列挙する
 <br>
@@ -17218,6 +17222,10 @@ real(0(1-i)||1(1-i)||2(1-i)||3(1-i)) -> 3
 <br>
 imag(0(1-i)||1(1-i)||2(1-i)||3(1-i)) -> -3
 <br>
+・<span class="run">Ver.2.766.116</span>以降、<a href="#span-out-FN-ope">nor/cnor関数</a>を追加
+<br>
+~~(0||1),nor(0,1):~~(0||i),cnor(0,i) -> (false,false:false,false)
+<br>
 <br>
 論理AND
 <br>
@@ -17276,6 +17284,10 @@ imag(1(1-i)&amp;&amp;2(1-i)&amp;&amp;3(1-i)&amp;&amp;4(1-i)) -> -1
 1(1-i)&amp;&amp;2(1-i)||3(1-i)&amp;&amp;4(1-i) -> 3-3i
 <br>
 1(1-i)&amp;&amp;2(1-i)&amp;&amp;3(1-i)||4(1-i) -> 4-4i
+<br>
+・<span class="run">Ver.2.766.116</span>以降、<a href="#span-out-FN-ope">nand/cnand関数</a>を追加
+<br>
+~~(1&amp;&amp;2),nand(1,2):~~(1i&amp;&amp;2i),cnand(1i,2i) -> (false,false:false,false)
 <br>
 <br>
 論理演算子は最下位の<a href="#span-out-prec-ope">演算子のprecedence</a>で<a href="#span-out-substitution">変数への代入</a>より優先する
@@ -22026,9 +22038,15 @@ or(NaN) || or(0) -> NaN
 <br>
 ・<span class="clear">left&amp;&amp;right: cand(left, right)</span>
 <br>
+・cnot(cand(left, right)): cnand(left, right)　<span class="run">Ver.2.766.116</span>以降、追加
+<br>
 ・<span class="condition">left@@right</span>: cxor(left, right)
 <br>
+・cnot(cxor(left, right)): cxnor(left, right)　<span class="run">Ver.2.766.116</span>以降、追加
+<br>
 ・<span class="clear">left||right: cor(left, right)</span>
+<br>
+・cnot(cor(left, right)): cnor(left, right)　<span class="run">Ver.2.766.116</span>以降、追加
 <br>
 <br>
 <a href="#span-out-ope">実数演算</a>の演算子代替関数（operandが<a href="#span-out-ope">無次元</a>の<a href="#span-out-num">実数値</a>）
@@ -22071,9 +22089,15 @@ or(NaN) || or(0) -> NaN
 <br>
 ・<span class="clear">left&amp;&amp;right: and(left, right)</span>
 <br>
+・not(and(left, right)): nand(left, right)　<span class="run">Ver.2.766.116</span>以降、追加
+<br>
 ・(left?1:0)^(right?1:0)を表す<span class="condition">left@@right</span>: xor(left, right)
 <br>
+・not(xor(left, right)) || Kdelta(left, right): xnor(left, right)　<span class="run">Ver.2.766.116</span>以降、追加
+<br>
 ・<span class="clear">left||right: or(left, right)</span>
+<br>
+・not(or(left, right)): nor(left, right)　<span class="run">Ver.2.766.116</span>以降、追加
 <br>
 <br>
 test caseを列挙する
@@ -43725,6 +43749,8 @@ operation.js抜粋
 <br>
 ・<span class="run">Ver.2.390.86</span>以降、<a href="#span-out-command">命令文</a>と<a href="#span-out-prec-ope-arithmetic-method">method演算子</a>以外の全<a href="#span-out-RW">予約語</a>に対応（<a href="#span-out-FN0">定数</a>・<a href="#span-out-com">虚数単位</a>iを含む）
 <br>
+・<span class="run">Ver.2.766.116</span>以降、<a href="#span-out-FN-ope">nand/xnor/nor/cnand/cxnor/cnor関数</a>を追加
+<br>
 <br>
 parser.js抜粋
 <pre><code>
@@ -43792,8 +43818,11 @@ parser.js抜粋
     case "bitor":
     case "not":
     case "and":
+    <span class="jF">case "nand":</span>
     case "xor":
+    <span class="jF">case "xnor":</span>
     case "or":
+    <span class="jF">case "nor":</span>
     // complex number
     // relational
     case "cseq":
@@ -43803,8 +43832,11 @@ parser.js抜粋
     // logical
     case "cnot":
     case "cand":
+    <span class="jF">case "cnand":</span>
     case "cxor":
+    <span class="jF">case "cxnor":</span>
     case "cor":
+    <span class="jF">case "cnor":</span>
       _tree = self.wrapper_useFunc(token, token_lower, token_upper, function(){return DATA.tree_tag("FN", token_lower);});
       break;
     // "FNmh"
@@ -44132,16 +44164,22 @@ bitxor(NaN);
 bitor(NaN);
 not(NaN);  // 1
 and(NaN);
+<span class="jF">nand(NaN);  // true</span>
 xor(NaN);
+<span class="jF">xnor(NaN);  // true</span>
 or(NaN);
+<span class="jF">nor(NaN);  // true</span>
 cseq(NaN);
 csne(NaN);
 ceq(NaN);
 cne(NaN);
 cnot(NaN);  // 1
 cand(NaN);
+<span class="jF">cnand(NaN);  // true</span>
 cxor(NaN);
+<span class="jF">cxnor(NaN);  // true</span>
 cor(NaN);
+<span class="jF">cnor(NaN);  // true</span>
 
 // error
 jacobi(NaN);
