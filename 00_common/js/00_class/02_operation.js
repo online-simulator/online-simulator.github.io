@@ -639,7 +639,7 @@ My_entry.operation.prototype.BTref = function(data, i0, tagName, tagObj){
   var ref0 = thisTree[tagName].ref;
   var isEmpty4ref = (tree.mat.arr.length === 0 && (ref0 || (leftTree && leftTree[tagName])));  // Ver.2.373.86 A[][0] || A[0][0][][]
   if(isEmpty4ref){
-    tree = DATA.tree_num(null, 0);  // Ver.2.747.112
+    tree = DATA.tree_num(undefined, 0);  // Ver.2.747.112  // Ver.2.768.117
   }
   /* -> Ver.2.170.41 */
   var arr = tree.mat.arr;
@@ -3478,7 +3478,7 @@ My_entry.operation.prototype.restore_arr = function(arr, ref){
   var _arri = _arr;
   var arri = arr;
   var len_ref = ref.length;
-  if(len_ref === 2 && ref[0] === null){  // Ver.2.79.31  // Ver.2.747.112
+  if(len_ref === 2 && typeof ref[0] === "undefined"){  // Ver.2.79.31  // Ver.2.747.112  // Ver.2.768.117
     /* Ver.2.768.116 -> */
     if(arr.length === 1){
       var j_ref = self.get_index_arr(ref[1], arr[0].length, true);  // Ver.2.297.72
@@ -3520,8 +3520,8 @@ My_entry.operation.prototype.restore_arr = function(arr, ref){
     var _dj = ttarr[0].length;
     var _i = ref[0];
     var _j = ref[1];
-    var di = (ref[2] === null)? _di: ref[2];  // Ver.2.373.86  // Ver.2.747.112
-    var dj = (ref[3] === null)? _dj: ref[3];  // Ver.2.373.86  // Ver.2.747.112
+    var di = (typeof ref[2] === "undefined")? _di: ref[2];  // Ver.2.373.86  // Ver.2.747.112  // Ver.2.768.117
+    var dj = (typeof ref[3] === "undefined")? _dj: ref[3];  // Ver.2.373.86  // Ver.2.747.112  // Ver.2.768.117
     var _di2 = _di*2;
     var _dj2 = _dj*2;
     var hasArea0 = (_i%1 === 0 && _j%1 === 0 && di%1 === 0 && dj%1 === 0 && _di >= di && _dj >= dj && di > 0 && dj > 0);  // Ver.2.77.31  // Ver.2.79.32
@@ -3665,8 +3665,8 @@ My_entry.operation.prototype.store_arr_area = function(_arr, ref, arr){
   var _dj = _ttarr[0].length;
   var _i = ref[0];
   var _j = ref[1];
-  var di = (ref[2] === null)? _di: ref[2];  // Ver.2.373.86  // Ver.2.747.112
-  var dj = (ref[3] === null)? _dj: ref[3];  // Ver.2.373.86  // Ver.2.747.112
+  var di = (typeof ref[2] === "undefined")? _di: ref[2];  // Ver.2.373.86  // Ver.2.747.112  // Ver.2.768.117
+  var dj = (typeof ref[3] === "undefined")? _dj: ref[3];  // Ver.2.373.86  // Ver.2.747.112  // Ver.2.768.117
   var _di2 = _di*2;
   var _dj2 = _dj*2;
   /* Ver.2.78.31 -> */
@@ -4255,7 +4255,7 @@ My_entry.operation.prototype.get_tree_ref = function(name_var, tree, ref, scopes
   /* -> Ver.2.31.17 */
   if(tree_var){
     var len_ref = ref.length;
-    if(len_ref === 2 && ref[0] === null){  // Ver.2.79.31  // Ver.2.747.112
+    if(len_ref === 2 && typeof ref[0] === "undefined"){  // Ver.2.79.31  // Ver.2.747.112  // Ver.2.768.117
       self.store_arr_col(tree_var.mat.arr, ref, arr);  // Ver.2.277.65
     }
     else if(len_ref < 3){
