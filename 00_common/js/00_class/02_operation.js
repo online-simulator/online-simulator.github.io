@@ -3479,14 +3479,22 @@ My_entry.operation.prototype.restore_arr = function(arr, ref){
   var arri = arr;
   var len_ref = ref.length;
   if(len_ref === 2 && ref[0] === null){  // Ver.2.79.31  // Ver.2.747.112
-    var tarr = math_mat.transpose(null, arr);
-    /* Ver.2.78.31 -> */
-    var j_ref = self.get_index_arr(ref[1], tarr.length, true);  // Ver.2.297.72
-    var tarrj = tarr[j_ref];
-    /* -> Ver.2.78.31 */
-    for(var i=0, len_i=tarrj.length; i<len_i; ++i){
-      _arr[i] = [tarrj[i]];
+    /* Ver.2.768.116 -> */
+    if(arr.length === 1){
+      var j_ref = self.get_index_arr(ref[1], arr[0].length, true);  // Ver.2.297.72
+      _arr[0] = [arr[0][j_ref]];
     }
+    else{
+      var tarr = math_mat.transpose(null, arr);
+      /* Ver.2.78.31 -> */
+      var j_ref = self.get_index_arr(ref[1], tarr.length, true);  // Ver.2.297.72
+      var tarrj = tarr[j_ref];
+      /* -> Ver.2.78.31 */
+      for(var i=0, len_i=tarrj.length; i<len_i; ++i){
+        _arr[i] = [tarrj[i]];
+      }
+    }
+    /* -> Ver.2.768.116 */
   }
   /* Ver.2.79.32 -> */
   /* Ver.2.78.31 -> */
