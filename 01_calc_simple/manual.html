@@ -232,7 +232,7 @@ test case
 <br>
 　⇒接線の傾き：2y*y'=3x**2+a　⇒　y'=(3x**2+a)/(2y)
 <br>
-　⇒傾きの共通化（実数のみ）：k=(x1**2+x1*x2+x2**2+a)/(y1+y2)
+　⇒傾きの共通化（有限体を除く）：k=(x1**2+x1*x2+x2**2+a)/(y1+y2)
 <br>
 　⇒交点Rの係数比較：x**3-(k*x+c)**2+a*x+b=(x-x1)(x-x2)(x-x3)　⇒　-k**2=-(x1+x2)-x3
 <br>
@@ -244,11 +244,11 @@ test case
 <br>
 　<span class="clear">Ver.2.728.104</span>以降、零元の座標定義を修正（b=0の要素(0,0)と区別が必須）
 <br>
-　⇒零元の座標定義（実数）：<span class="clear">(false,false)</span>
+　⇒零元の座標定義（実数体）：<span class="clear">(false,false)</span>
 <br>
 　<span class="wF">-scalar</span>：scalar倍算
 <br>
-　-p：mod pで還元の巡回群の基点Gの基点<span class="clear">候補</span>の一覧（素数pの法で離散化）
+　-p：mod pで還元の有限体が作る巡回群の基点Gの基点<span class="clear">候補</span>（素数pの法で離散化）
 <br>
 　<span class="clear">Ver.2.724.103</span>以降、一部訂正：基点　⇒　基点候補
 <br>
@@ -256,7 +256,7 @@ test case
 <br>
 　⇒離散対数問題（P≠NPの前提）：GとQ=d*Gの2点から離散対数dの逆算は困難（一方向性||非対称性）
 <br>
-　-p-aff：<span class="clear">Ver.2.728.104</span>以降、isValidの全探索から同上の全affine点をplot
+　-aff：<span class="clear">Ver.2.728.104</span>以降、isValidの全探索から同上の全affine点をplot
 <br>
 　<span class="run">Ver.2.730.104</span>以降、探索の基点候補を全affine点に変更
 <br>
@@ -270,13 +270,13 @@ test case
 <br>
 　⇒2次の係数k2：<span class="clear">乗法的</span>還元がbadの場合、false　<span class="clear">Ver.2.757.115</span>以降、訂正
 <br>
-　-Np<span class="wF">-BSD</span>：同上のNpを<a href="#span-out-FN-interp">lookup-table</a>化（線形時間でBSD予想のrankを評価）
+　<span class="wF">-BSD</span>：同上のNpを<a href="#span-out-FN-interp">lookup-table</a>化（線形時間でBSD予想のrankを評価）
 <br>
 　-je*4：<span class="run">Ver.2.753.113</span>以降、pのN数を増点（約4倍）
 <br>
 　⇒a=-1,b=7：rank=1が不明確
 <br>
-　-Np<span class="wF">-L</span>：同上のHasse-WeilのL関数を<a href="#span-out-complex">複素数平面</a>にplot
+　<span class="wF">-L</span>：同上のHasse-WeilのL関数を<a href="#span-out-complex">複素数平面</a>にplot
 <br>
 　<span class="clear">Ver.2.755.114</span>以降、real(s)&le;3/2の場合、絶対収束の範囲外で不正確
 <br>
@@ -296,7 +296,7 @@ test case
 <br>
 　零元の座標定義（有限体）：(0,0)　⇒　<span class="clear">(false,<del>false</del></span>p/2)　<span class="run">Ver.2.731.104</span>以降、plot点を区別
 <br>
-　零元の到達判定（実数⇒有限体）：isO=(x1===x2)&amp;&amp;<span class="clear">(y1===-y2)　⇒　(y1===p-y2)</span>
+　零元の到達判定（実数体⇒有限体）：isO=(x1===x2)&amp;&amp;<span class="clear">(y1===-y2)　⇒　(y1===p-y2)</span>
 <br>
 　<span class="run">Ver.2.731.104</span>以降、次のinv内の判定を統合：(y1===p-y2)　⇒　(y1===p-y2||y1===0)
 <br>
