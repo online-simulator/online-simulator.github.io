@@ -7616,35 +7616,14 @@ pending
 <span id="span-out-spec-pending"></span>
 pending項目を列挙する
 <br>
-・<a href="#span-out-vars-symbol">symbol</a>明示記号の追加
 <br>
-・arr=arr|||[]の実装
+実装
+<br>
+・<a href="#span-out-vars-symbol">symbol</a>明示記号
+<br>
+・arr=arr|||[]
 <br>
 　undef宣言未実装
-<br>
-・<a href="#span-out-eqns">式変数</a>のcall記号省略時の挙動
-<br>
-　<del>自動実行　⇒　error終了</del>
-<br>
-　<span class="run">Ver.2.275.65</span>以降、<a href="#span-out-eqns">式変数</a>宣言@<a href="#span-out-config-strict">Non-strict-mode</a>の判別（callの場合、記号を明示）
-<br>
-・右代入の廃止
-<br>
-　<span class="run">Ver.2.279.65</span>以降、冗長
-<br>
-　<span class="run">Ver.2.441.90</span>以降、<a href="#span-out-matching">行列要素pattern matching</a>の要素比較を厳格化
-<br>
-・eqn表記　⇒　fn表記の変更
-<br>
-　参照と区別
-<br>
-・has($x)　⇔　has(x)||has(=&lt;x)の実装
-<br>
-　<span class="run">Ver.2.295.71</span>以降、error終了
-<br>
-has($x) -> <del>false</del>[MyErr]Invalid symbol($x)
-<br>
-$$=1 -> [MyErr]Invalid symbol
 <br>
 ・[0] -> 0の演算
 <br>
@@ -7656,10 +7635,48 @@ $$=1 -> [MyErr]Invalid symbol
 <br>
 　String(引数)と結果のlistから短絡評価
 <br>
-・縦横のscaling固定plotの実装
+・aspect比固定optionとscaling固定plot（round-off桁数との整合性を含む）
 <br>
 <br>
-以降、closed
+廃止
+<br>
+・右代入
+<br>
+　<span class="run">Ver.2.279.65</span>以降、冗長
+<br>
+　<span class="run">Ver.2.441.90</span>以降、<a href="#span-out-matching">行列要素pattern matching</a>の要素比較を厳格化
+<br>
+<br>
+仕様変更
+<br>
+・eqn表記　⇒　fn表記
+<br>
+　参照と区別
+<br>
+・<a href="#span-out-reference-mat-band">band参照</a>の返値
+<br>
+　返値の列vector：上詰め（<a href="#span-out-reference-mat-row">行index</a>の維持より転置の対称性を優先）
+<br>
+・plot区間の丸め方
+<br>
+　<a href="#span-out-float">浮動小数</a>を丸める場合、範囲外の可能性
+<br>
+<br>
+closed
+<br>
+・<a href="#span-out-eqns">式変数</a>のcall記号省略時の挙動
+<br>
+　<del>自動実行　⇒　error終了</del>
+<br>
+　<span class="run">Ver.2.275.65</span>以降、<a href="#span-out-eqns">式変数</a>宣言@<a href="#span-out-config-strict">Non-strict-mode</a>の判別（callの場合、記号を明示）
+<br>
+・has($x)　⇔　has(x)||has(=&lt;x)
+<br>
+　<span class="run">Ver.2.295.71</span>以降、error終了
+<br>
+has($x) -> <del>false</del>[MyErr]Invalid symbol($x)
+<br>
+$$=1 -> [MyErr]Invalid symbol
 <br>
 ・<span class="run">Ver.2.298.72</span>以降、<a href="#span-out-vars">変数</a>のprototype method代替の<a href="#span-out-prec-ope-arithmetic-method">method演算子</a>を追加
 <br>
