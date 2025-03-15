@@ -11,6 +11,7 @@ My_entry.plot2d.prototype.config = {
     msec_snapping: 300,
     NUMMIN: -32768,
     NUMMAX: 32767,
+    decDigit_grid: 13,  // Ver.2.770.117
     label_x: "x(t)",  // Ver.2.750.113
     label_y: "y(t)",  // Ver.2.750.113
     px_w: 512,
@@ -376,6 +377,7 @@ My_entry.plot2d.prototype.grid = function(options, tx0, ty0, tx1, ty1, Ni, Nj, i
     var tx = tx0+i*tdx;
     _svg += grid.line(tx, ty0, tx, ty1, lineWidth, styleRGBA, globalCompositeOperation);
     if(label_x){
+      tx = (expDigitX === -1)? self.entry.conv.dec2round_sw(tx, null, self.config.default.decDigit_grid): tx;  // Ver.2.770.117
       var val = self.entry.conv.num2not(tx, self.config.default.decDigit, expDigitX);  // Ver.2.666.98
       _svg += grid.axis(val, tx, ty0, fontSize, styleRGBA, globalCompositeOperation, false);
     }
@@ -384,6 +386,7 @@ My_entry.plot2d.prototype.grid = function(options, tx0, ty0, tx1, ty1, Ni, Nj, i
     var ty = ty0+j*tdy;
     _svg += grid.line(tx0, ty, tx1, ty, lineWidth, styleRGBA, globalCompositeOperation);
     if(label_y){
+      ty = (expDigitY === -1)? self.entry.conv.dec2round_sw(ty, null, self.config.default.decDigit_grid): ty;  // Ver.2.770.117
       var val = self.entry.conv.num2not(ty, self.config.default.decDigit, expDigitY);  // Ver.2.666.98
       _svg += grid.axis(val, tx0, ty, fontSize, styleRGBA, globalCompositeOperation, true);
     }
