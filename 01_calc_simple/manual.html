@@ -7633,12 +7633,31 @@ pending項目を列挙する
 <br>
 ・<a href="#span-out-eqns-re-call">再帰call</a>のmemo化option
 <br>
-　String(引数)と結果のlistから短絡評価
+　String(引数)と結果のlist優先の短絡評価
 <br>
-・aspect比固定optionとscaling固定plot（round-off桁数との整合性を含む）
+・<a href="#span-out-mat">行列</a>の厳密等価||不等価演算子
 <br>
 <br>
-廃止
+plot
+<br>
+・aspect比固定option（round-off桁数との整合性を含む）
+<br>
+・<a href="#span-out-UI-graphing">shared storage</a>の双方向化
+<br>
+・plot点数の間引き処理
+<br>
+<br>
+<a href="#span-out-debug">debugger</a>
+<br>
+・<a href="#span-out-mat-empty">空行列</a>のerror終了判定強化（<a href="#span-out-FNmh">高階行列関数</a>を含む）
+<br>
+<br>
+code整理
+<br>
+・比較判定対象のべた書き
+<br>
+<br>
+仕様廃止
 <br>
 ・右代入
 <br>
@@ -7656,10 +7675,6 @@ pending項目を列挙する
 ・<a href="#span-out-reference-mat-band">band参照</a>の返値
 <br>
 　返値の列vector：上詰め（<a href="#span-out-reference-mat-row">行index</a>の維持より転置の対称性を優先）
-<br>
-・plot区間の丸め方
-<br>
-　<a href="#span-out-float">浮動小数</a>を丸める場合、区間外で非表示の可能性
 <br>
 <br>
 closed
