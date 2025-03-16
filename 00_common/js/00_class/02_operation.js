@@ -1620,6 +1620,66 @@ else if(prop === "OX" || prop === "TX"){  // ODE  // Ver.2.23.11  // Ver.2.231.5
       store_x(x0);  // Ver.2.773.117
       t0 = step_t(n+1);  // Ver.2.773.117
     };
+    /* Ver.2.774.119 -> */
+    var calc_norm = function(fc_o5, fc_o4){
+      var arr_mdx = [];
+      for(var i=0; i<len_i; ++i){
+        arr_mdx[i] = [unit["BRs"](options, fc_o4[i], fc_o5[i])];
+      }
+      var normdx = math_mat.normc(options, arr_mdx);  // Ver.2.237.56
+      return DATA.arr2num(normdx).com.r;
+    };
+    var dt0 = dt;
+    var delta = 1e-2;
+    var hdelta = Math.sqrt(Math.pow(dt0.com.r, 2)+Math.pow(dt0.com.i, 2))*delta;
+    var adapt_step = function(){
+      var _kNdt = 1;
+      var cr_norm = null;
+      dt = get_dt(1/Ndt);
+      for(var n=0; n<Ndt; ++n){
+        var arr_f = update_arr_f();
+        var fc_o5 = combinate(arr_f, [16/135, 0, 6656/12825, 28561/56430, -9/50, 2/55]);
+        var fc_o4 = combinate(arr_f, [25/216, 0, 1408/2565, 2197/4104, -1/5, 0]);
+        cr_norm = calc_norm(fc_o5, fc_o4);
+        if(cr_norm >= hdelta){
+          _kNdt = 1;
+          break;
+        }
+        else{
+          x0 = step_x(x0, fc_o5, dt);
+          t0 = step_t(n+1, t0);
+        }
+      }
+      dt = dt0;
+      if(cr_norm <= hdelta/10){
+        _kNdt = -1;
+      }
+      return _kNdt;
+    };
+    // adaptive Runge-Kutta-Fehlberg method
+    var Ndt = 1;
+    var OX_order45 = function(n){
+      var t00 = t0;
+      var x00 = x0;
+      var kNdt = adapt_step();
+      if(kNdt === 1){
+        Ndt *= 2;
+        t0 = t00;
+        x0 = x00;
+        store_x(x0);
+        OX_order45(n);
+      }
+      else if(kNdt === -1){
+        Ndt /= 2;
+        Ndt = Math.max(1, Ndt);
+      }
+      if(options.checkError){
+        set_error(x0);
+      }
+      store_x(x0);
+      t0 = step_t(n+1);  // Ver.2.772.117
+    };
+    /* -> Ver.2.774.119 */
     /* -> Ver.2.773.117 */
     var OX = OX_order4;
     if(orderT === 2){
@@ -1628,6 +1688,11 @@ else if(prop === "OX" || prop === "TX"){  // ODE  // Ver.2.23.11  // Ver.2.231.5
     else if(orderT === 5){
       OX = OX_order5;
     }
+    /* Ver.2.774.119 -> */
+    else if(orderT === 45){
+      OX = OX_order45;
+    }
+    /* -> Ver.2.774.119 */
     /* -> Ver.2.369.86 */
     /* Ver.2.736.107 -> */
     if(isAuto_args){
