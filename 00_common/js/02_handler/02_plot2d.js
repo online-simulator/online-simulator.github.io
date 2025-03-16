@@ -377,8 +377,8 @@ My_entry.plot2d.prototype.grid = function(options, tx0, ty0, tx1, ty1, Ni, Nj, i
     var tx = tx0+i*tdx;
     _svg += grid.line(tx, ty0, tx, ty1, lineWidth, styleRGBA, globalCompositeOperation);
     if(label_x){
-      tx = (expDigitX === -1)? self.entry.conv.dec2round_sw(tx, null, self.config.default.decDigit_grid): tx;  // Ver.2.770.117
-      var val = self.entry.conv.num2not(tx, self.config.default.decDigit, expDigitX);  // Ver.2.666.98
+      var rtx = (expDigitX === -1)? self.entry.conv.dec2round_sw(tx, null, self.config.default.decDigit_grid): tx;  // Ver.2.770.117  // Ver.2.773.118
+      var val = self.entry.conv.num2not(rtx, self.config.default.decDigit, expDigitX);  // Ver.2.666.98  // Ver.2.773.118
       _svg += grid.axis(val, tx, ty0, fontSize, styleRGBA, globalCompositeOperation, false);
     }
   }
@@ -386,8 +386,8 @@ My_entry.plot2d.prototype.grid = function(options, tx0, ty0, tx1, ty1, Ni, Nj, i
     var ty = ty0+j*tdy;
     _svg += grid.line(tx0, ty, tx1, ty, lineWidth, styleRGBA, globalCompositeOperation);
     if(label_y){
-      ty = (expDigitY === -1)? self.entry.conv.dec2round_sw(ty, null, self.config.default.decDigit_grid): ty;  // Ver.2.770.117
-      var val = self.entry.conv.num2not(ty, self.config.default.decDigit, expDigitY);  // Ver.2.666.98
+      var rty = (expDigitY === -1)? self.entry.conv.dec2round_sw(ty, null, self.config.default.decDigit_grid): ty;  // Ver.2.770.117  // Ver.2.773.118
+      var val = self.entry.conv.num2not(rty, self.config.default.decDigit, expDigitY);  // Ver.2.666.98  // Ver.2.773.118
       _svg += grid.axis(val, tx0, ty, fontSize, styleRGBA, globalCompositeOperation, true);
     }
   }
