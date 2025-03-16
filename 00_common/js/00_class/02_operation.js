@@ -1432,9 +1432,15 @@ else if(prop === "OX" || prop === "TX"){  // ODE  // Ver.2.23.11  // Ver.2.231.5
     /* Ver.2.29.15 -> */
     // Niteration
     var argN = args[(isTX)? 4: 5];
-    /* -> Ver.2.238.56 */
     var Niteration = (argN && argN.com)? Math.round(argN.com.r): 1;  // 0 enabled  // Ver.2.205.46 floor -> round
+    /* Ver.2.774.119 -> */
+    // delta
+    var argD = args[(isTX)? 5: 6];
+    var delta = (argD && argD.com)? argD.com.r: 1e-3;
+    var hdelta = Math.sqrt(Math.pow(dt.com.r, 2)+Math.pow(dt.com.i, 2))*delta;
+    /* -> Ver.2.774.119 */
     /* -> Ver.2.29.15 */
+    /* -> Ver.2.238.56 */
     // orderT
     /* Ver.2.369.86 -> */
     var orderT = 4;
@@ -1630,8 +1636,6 @@ else if(prop === "OX" || prop === "TX"){  // ODE  // Ver.2.23.11  // Ver.2.231.5
       return DATA.arr2num(normdx).com.r;
     };
     var dt0 = dt;
-    var delta = 1e-2;
-    var hdelta = Math.sqrt(Math.pow(dt0.com.r, 2)+Math.pow(dt0.com.i, 2))*delta;
     var adapt_step = function(){
       var _kNdt = 1;
       var cr_norm = null;
