@@ -7621,6 +7621,8 @@ pending項目を列挙する
 <br>
 ・<a href="#span-out-vars-symbol">symbol</a>明示記号
 <br>
+・const代替記号（<a href="#span-out-call-by-name">name渡し</a>と重複の$記号から変更の可能性あり）
+<br>
 ・arr=arr|||[]
 <br>
 　undef宣言未実装
@@ -7672,6 +7674,8 @@ code整理
 <br>
 　参照と区別
 <br>
+・<a href="#span-out-option8">use$let</a>既定
+<br>
 ・<a href="#span-out-reference-mat-band">band参照</a>の返値
 <br>
 　返値の列vector：上詰め（<a href="#span-out-reference-mat-row">行index</a>の維持より転置の対称性を優先）
@@ -7702,6 +7706,8 @@ $$=1 -> [MyErr]Invalid symbol
 unshift：len=sizer(A),opt_i==-(len+1)&amp;&amp;&amp;(A=(val:A))||||last{is=(opt_i||0)%len,A[is]=(val,A[is])}
 <br>
 push：len=sizer(A),opt_i==len&amp;&amp;&amp;(A=(A:val))||||last{ie=(opt_i||len-1)%len,A[ie]=(A[ie],val)}</del>
+<br>
+・<a href="#span-out-FNh">高階関数</a>の引数順序<del>（代数学||for文準拠に変更等）</del>
     </td>
   </tr>
   <tr>
@@ -19109,10 +19115,6 @@ $make_f=&lt;[,=&lt;()=&lt;1]=&gt;; _r(=&lt;make_f(),,1e8) -> <del><span class="c
 <br>
 <br>
 <span class="run">Ver.2.249.57</span>以降、再代入と重複宣言を禁止するconst宣言を暫定追加（$開始のbeta版）
-<br>
-・const代替記号の検討保留（<a href="#span-out-call-by-name">name渡し</a>と重複の$記号から変更の可能性あり）
-<br>
-・既定でconst宣言に変更を検討保留（<a href="#span-out-option8">use$let</a>参照）
 <br>
 ・<span class="run">Ver.2.254.59</span>以降、<a href="#span-out-option8">$let宣言</a>の再代入の仕様変更（初回のみ、$あり　⇒　常時、$あり）
 <br>
@@ -42512,13 +42514,9 @@ f=&lt;last{V=1,E=0,k=1,I=exp(k*(V-E))-exp(-k*(V-E))}
 <br>
 ・<a href="#span-out-FNh">高階関数</a>をnestingする場合、致命的にthroughputが低下する（<a href="#span-out-FNh-DX">微分の多重化</a>||<a href="#span-out-interpolation-Lagrange">Lagrange補間</a>）
 <br>
-・その他、引数順序に可読性の問題があるが、<del>（代数学||for文準拠に修正する等、改善の余地あり）</del>
-<br>
 n=4,primes={2,3,5},eqn_k=&lt;<span class="clear">last{prime=primes[k],k+1}</span>;
 <br>
 _rk(=&lt;<span class="clear">eqn_k</span>,N=sizer(primes),N,=&lt;{n%prime==0}); prime -> 2
-<br>
-・<a href="#span-out-FNh">高階関数</a>の第1引数=&lt;<span class="clear">eqn</span>は必須であり、以降、option引数を含むため、修正保留とする
     </td>
   </tr>
   <tr>
