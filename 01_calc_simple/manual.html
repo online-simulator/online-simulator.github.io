@@ -7205,9 +7205,11 @@ clear; f=&lt;-1; f=1; [f=2,=&lt;f]=&gt;,[f=&lt;-2,=&lt;f]=&gt; -> (2,<del>1</del
 <br>
 　精度次数：固定　⇒　関数名直後の数字で指定可（<a href="#span-out-config">内部option</a>より優先）
 <br>
-　　_o()　⇒　_o||_o4||_o2||_o5()
+　<span class="run">Ver.2.774.119</span>以降、<span class="selection">adaptive実装</span>を追加
 <br>
-　　_t()　⇒　_t||_t4||_t2||_t5()
+　　_o()　⇒　_o||_o4||_o2||_o5<span class="selection">||_o45()</span>
+<br>
+　　_t()　⇒　_t||_t4||_t2||_t5<span class="selection">||_t45()</span>
 <br>
 　　_d()　⇒　_d||_d4||_d2()
 <br>
@@ -7631,8 +7633,6 @@ pending項目を列挙する
 <br>
 　単独要素の場合、無条件のerror終了
 <br>
-・<a href="#span-out-FNmh-OX">ODE高階行列関数</a>のadaptive実装
-<br>
 ・<a href="#span-out-eqns-re-call">再帰call</a>のmemo化option
 <br>
 　String(引数)と結果のlist優先の短絡評価
@@ -7708,6 +7708,8 @@ unshift：len=sizer(A),opt_i==-(len+1)&amp;&amp;&amp;(A=(val:A))||||last{is=(opt
 push：len=sizer(A),opt_i==len&amp;&amp;&amp;(A=(A:val))||||last{ie=(opt_i||len-1)%len,A[ie]=(A[ie],val)}</del>
 <br>
 ・<a href="#span-out-FNh">高階関数</a>の引数順序<del>（代数学||for文準拠に変更等）</del>
+<br>
+・<span class="run">Ver.2.774.119</span>以降、<a href="#span-out-FNmh-OX">ODE高階行列関数</a>のadaptive実装を追加
     </td>
   </tr>
   <tr>

@@ -420,6 +420,8 @@
       script += "dt=0.1(1+i),Ndt=10,t=dt*Ndt,f=<__t__:x=_o5(=<f,,=<0,,dt,Ndt):t,x[0]:x=_o5(=<f,,=<{x},t,dt,Ndt):2t,x[0]:x=_t5(=<f,,=<(,),dt,Ndt):x[0],x[1]:x=_t5(=<f,,=<{x},dt,Ndt):x[0],x[1];";
       script += "\n";
       script += "dt=0.1(1+i),Ndt=10,t=dt*Ndt,f=<__t__:x=_o2(=<f,,=<0,,dt,Ndt):t,x[0]:x=_o2(=<f,,=<{x},t,dt,Ndt):2t,x[0]:x=_t2(=<f,,=<(,),dt,Ndt):x[0],x[1]:x=_t2(=<f,,=<{x},dt,Ndt):x[0],x[1];";
+      script += "\n";
+      script += "dt=0.1(1+i),Ndt=10,t=dt*Ndt,f=<__t__:x=_o45(=<f,,=<0,,dt,Ndt):t,x[0]:x=_o45(=<f,,=<{x},t,dt,Ndt):2t,x[0]:x=_t45(=<f,,=<(,),dt,Ndt):x[0],x[1]:x=_t45(=<f,,=<{x},dt,Ndt):x[0],x[1];";
       script += "\nclear;\n";
       script += "Jacobi(=<{__x__[0]**2+__x__[1],__x__[0]+__x__[1]**2},,=<{1,2},false);\nNewton(=<__x__[0]**2+__x__[0]-12=0,,=<0,false,20);\nNewton(=<{__x__[0]**2+__x__[1]-12=1e-5**2+1e5-12,__x__[0]+__x__[1]=1e-5+1e5},,=<(,),false,20);";
       script += "\nclear;\n";

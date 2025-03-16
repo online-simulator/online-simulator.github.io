@@ -1447,7 +1447,7 @@ else if(prop === "OX" || prop === "TX"){  // ODE  // Ver.2.23.11  // Ver.2.231.5
     if(tagObj.val.order){
       orderT = tagObj.val.order;
     }
-    else if(options.orderT === 2 || options.orderT === 5){
+    else if(options.orderT === 2 || options.orderT === 5 || options.orderT === 45){  // Ver.2.774.119
       orderT = options.orderT;
     }
     /* -> Ver.2.369.86 */
@@ -1694,6 +1694,7 @@ else if(prop === "OX" || prop === "TX"){  // ODE  // Ver.2.23.11  // Ver.2.231.5
     }
     /* Ver.2.774.119 -> */
     else if(orderT === 45){
+      orderT = 5;
       OX = OX_order45;
     }
     /* -> Ver.2.774.119 */
