@@ -1456,6 +1456,12 @@ else if(prop === "OX" || prop === "TX"){  // ODE  // Ver.2.23.11  // Ver.2.231.5
       var t = (dt)? unit["BRa"](options, t0, dt): t0;
       self.store_var(sw_name_t, DATA.num2tree(t), scopes, ids_buffer);  // Ver.2.31.17  // Ver.2.225.53  // Ver.2.736.107
     };
+    /* Ver.2.773.117 -> */
+    var step_t = function(n, opt_t0){
+      var _t = unit["BRa"](options, opt_t0 || t0ini, unit["BRm"](options, DATA.num(n, 0), dt));
+      return _t;
+    };
+    /* -> Ver.2.773.117 */
     var store_x = function(x){
       /* Ver.2.736.107 -> */
       if(isAuto_args){
@@ -1529,8 +1535,7 @@ else if(prop === "OX" || prop === "TX"){  // ODE  // Ver.2.23.11  // Ver.2.231.5
       }
     };
     // improved Euler method
-    var OX_order2 = function(){
-      var _xc = null;
+    var OX_order2 = function(n){  // Ver.2.773.117
       // t0
       store_t();
       var f1 = calc_f();
@@ -1539,17 +1544,16 @@ else if(prop === "OX" || prop === "TX"){  // ODE  // Ver.2.23.11  // Ver.2.231.5
       store_x(x1);
       var f2 = calc_f();
       var fc = combinate([f1, f2], [0.5, 0.5]);
-      _xc = step_x(x0, fc, dt);
+      x0 = step_x(x0, fc, dt);  // Ver.2.773.117
       if(options.checkError){
-        set_error(_xc);
+        set_error(x0);  // Ver.2.773.117
       }
-      store_x(_xc);
-      return _xc;
+      store_x(x0);  // Ver.2.773.117
+      t0 = step_t(n+1);  // Ver.2.773.117
     };
     /* Ver.2.369.86 -> */
     // classical Runge-Kutta method
-    var OX_order4 = function(){
-      var _xc = null;
+    var OX_order4 = function(n){  // Ver.2.773.117
       var dtr2 = get_dt(0.5);
       var kcr_1r6 = 1/6;
       var kcr_1r3 = 1/3;
@@ -1569,16 +1573,15 @@ else if(prop === "OX" || prop === "TX"){  // ODE  // Ver.2.23.11  // Ver.2.231.5
       store_x(x3);
       var f4 = calc_f();              // f4=f(t3,x3)
       var fc = combinate([f1, f2, f3, f4], [kcr_1r6, kcr_1r3, kcr_1r3, kcr_1r6]);
-      _xc = step_x(x0, fc, dt);
+      x0 = step_x(x0, fc, dt);  // Ver.2.773.117
       if(options.checkError){
-        set_error(_xc);
+        set_error(x0);  // Ver.2.773.117
       }
-      store_x(_xc);
-      return _xc;
+      store_x(x0);  // Ver.2.773.117
+      t0 = step_t(n+1);  // Ver.2.773.117
     };
-    // Runge-Kutta-Fehlberg method
-    var OX_order5 = function(){
-      var _xc = null;
+    /* Ver.2.773.117 -> */
+    var update_arr_f = function(){
       var dtr2 = get_dt(0.5);
       var dtr4 = get_dt(0.25);
       // t0
@@ -1604,14 +1607,20 @@ else if(prop === "OX" || prop === "TX"){  // ODE  // Ver.2.23.11  // Ver.2.231.5
       store_t(dtr2);
       store_x(x5);
       var f6 = calc_f();
-      var fc = combinate([f1, f2, f3, f4, f5, f6], [16/135, 0, 6656/12825, 28561/56430, -9/50, 2/55]);
-      _xc = step_x(x0, fc, dt);
-      if(options.checkError){
-        set_error(_xc);
-      }
-      store_x(_xc);
-      return _xc;
+      return [f1, f2, f3, f4, f5, f6];
     };
+    // Runge-Kutta-Fehlberg method
+    var OX_order5 = function(n){  // Ver.2.773.117
+      var arr_f = update_arr_f();
+      var fc = combinate(arr_f, [16/135, 0, 6656/12825, 28561/56430, -9/50, 2/55]);
+      x0 = step_x(x0, fc, dt);  // Ver.2.773.117
+      if(options.checkError){
+        set_error(x0);  // Ver.2.773.117
+      }
+      store_x(x0);  // Ver.2.773.117
+      t0 = step_t(n+1);  // Ver.2.773.117
+    };
+    /* -> Ver.2.773.117 */
     var OX = OX_order4;
     if(orderT === 2){
       OX = OX_order2;
@@ -1627,9 +1636,7 @@ else if(prop === "OX" || prop === "TX"){  // ODE  // Ver.2.23.11  // Ver.2.231.5
     /* -> Ver.2.736.107 */
     /* Ver.2.29.15 -> */
     for(var n=0; n<Niteration; ++n){
-      x0 = OX();  // Ver.2.233.56  // Ver.2.234.56  // Ver.2.738.107
-      // update
-      t0 = unit["BRa"](options, t0ini, unit["BRm"](options, DATA.num(n+1, 0), dt));  // Ver.2.234.56 t0ini+Niteration*dt not returned
+      OX(n);  // Ver.2.233.56  // Ver.2.234.56 t0ini+Niteration*dt not returned  // Ver.2.738.107  // Ver.2.773.117
     }
     /* Ver.2.736.107 -> */
     if(isAuto_args){
