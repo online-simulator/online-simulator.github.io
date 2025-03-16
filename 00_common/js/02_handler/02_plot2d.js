@@ -778,11 +778,21 @@ My_entry.plot2d.prototype.run = function(arr2d_vec, options, toSVG, isFinal){
     label_x = (isImag_x)? "imag("+label_x+")": label_x;
     label_x = (isLog_x)? "log10("+label_x+")": label_x;
   }
+  /* Ver.2.773.119 -> */
+  else{
+    label_x = "";
+  }
+  /* -> Ver.2.773.119 */
   if(isAxis_y){  // Ver.2.750.113
     label_y = (label_y)? label_y: self.config.default.label_y;  // Ver.2.750.113
     label_y = (isImag_y)? "imag("+label_y+")": label_y;
     label_y = (isLog_y)? "log10("+label_y+")": label_y;
   }
+  /* Ver.2.773.119 -> */
+  else{
+    label_y = "";
+  }
+  /* -> Ver.2.773.119 */
   self.screen_xy = grid.plot2screen(tgxmin, tgymin, tgxmax, tgymax, Ni, Nj);
   /* -> 0.5.0 */
   _svg += self.grid(options, tgxmin, tgymin, tgxmax, tgymax, Ni, Nj, isLog_x, isLog_y, label_x, label_y, expDigitX, expDigitY, fontSize, gridLineWidth, gridLineColor, globalCompositeOperation);  // Ver.2.666.98
