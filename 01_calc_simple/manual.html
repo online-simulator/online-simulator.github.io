@@ -1281,7 +1281,7 @@ test case
 <br>
 　　　・<a href="#span-out-eqns-call2eqn">式変数への式読出し</a>
 <br>
-　　・<a href="#span-out-call-by-equation">式渡し</a>
+　　・<a href="#span-out-pass-by-equation">式渡し</a>
 <br>
 　　　・<a href="#span-out-eqns-no-name-short">直接式読出し</a>
 <br>
@@ -1295,9 +1295,9 @@ test case
 <br>
 　　・<a href="#span-out-eqns-args">arguments</a>
 <br>
-　　　・<a href="#span-out-call-by-symbol">symbol渡し</a>
+　　　・<a href="#span-out-pass-by-symbol">symbol渡し</a>
 <br>
-　　　・<a href="#span-out-call-by-name">name渡し</a>
+　　　・<a href="#span-out-pass-by-name">name渡し</a>
 <br>
 　　　・<a href="#span-out-eqns-re-use">scope付式変数の再利用</a>
 <br>
@@ -7083,7 +7083,7 @@ ns(10000) -> 97876.06036044357
 <br>
 　影響項目：<a href="#span-out-eqns-re-use">scope付式変数の再利用</a>||<a href="#span-eqn-scope_NG">scope_NG</a>
 <br>
-・<span class="run">Ver.2.219.50</span>以降、<a href="#span-out-call-by-equation">式渡し</a>記号=&lt;の仕様を変更して==&lt;を追加
+・<span class="run">Ver.2.219.50</span>以降、<a href="#span-out-pass-by-equation">式渡し</a>記号=&lt;の仕様を変更して==&lt;を追加
 <br>
 　元scopeを維持：=&lt;
 <br>
@@ -7535,7 +7535,7 @@ _r((n)=&lt;run(),run=&lt;n+1,3) -> 3
 <br>
 ・<span class="run">Ver.2.202.46</span>以降、<a href="#span-in-deep-copy">deep-copy</a>の適用対象を厳格化（<a href="#span-out-eqns-call">式読出し</a>由来を除外）
 <br>
-・<span class="run">Ver.2.209.46</span>以降、<a href="#span-out-call-by-equation">式渡し</a>の実装を最適化
+・<span class="run">Ver.2.209.46</span>以降、<a href="#span-out-pass-by-equation">式渡し</a>の実装を最適化
 <br>
 　<a href="#span-out-vars-symbol">式変数名symbol</a>を含む処理範囲の厳格化（<span class="clear">Ver.2.213.49</span>以降、処理範囲を訂正）
 <br>
@@ -7555,7 +7555,7 @@ _r((n)=&lt;run(),run=&lt;n+1,3) -> 3
 <br>
 ・<span class="run">Ver.2.230.56</span>以降、<a href="#span-out-vars-symbol">変数名symbol</a>の内部取得関数を最適化
 <br>
-　<span class="clear">Ver.2.251.58</span>以降、<a href="#span-out-call-by-symbol">symbol渡し</a>の判定を修正
+　<span class="clear">Ver.2.251.58</span>以降、<a href="#span-out-pass-by-symbol">symbol渡し</a>の判定を修正
 <br>
 clear; a=3,f(=&lt;g)=&lt;g(a)=&gt;,f((x)=&lt;<span class="clear">x</span>)=&gt; -> <del>[MyErr]Undef eqn(<span class="clear">x</span>)</del>(0,0,3)
 <br>
@@ -7621,7 +7621,7 @@ pending項目を列挙する
 <br>
 ・<a href="#span-out-vars-symbol">symbol</a>明示記号
 <br>
-・const代替記号（<a href="#span-out-call-by-name">name渡し</a>と重複の$記号から変更の可能性あり）
+・const代替記号（<a href="#span-out-pass-by-name">name渡し</a>と重複の$記号から変更の可能性あり）
 <br>
 ・arr=arr|||[]
 <br>
@@ -14980,7 +14980,7 @@ strict-modeは演算内容の入力規則に以下3点の制約条件を追加�
 <br>
 　omitted equation's arguments disabled
 <br>
-<del>・<a href="#span-out-call-by-equation">式渡し</a>の括弧{}省略不可
+<del>・<a href="#span-out-pass-by-equation">式渡し</a>の括弧{}省略不可
 <br>
 　omitted Pass-by-Equation's bracket({}) disabled</del><span class="run">Ver.2.28.15</span>以降、text modified
 <br>
@@ -16493,7 +16493,7 @@ iterator演算子と付随する留意事項について記述する
 <br>
 <span class="run">Ver.2.214.49</span>以降、Nativeの<a href="#span-out-FNh">高階関数</a>を代替するiterator演算子を追加
 <br>
-・<a href="#span-out-eqns-args">式変数のarguments</a>付の展開式を<a href="#span-out-call-by-equation">式渡し</a>||<a href="#span-out-call-by-symbol">symbol渡し</a>
+・<a href="#span-out-eqns-args">式変数のarguments</a>付の展開式を<a href="#span-out-pass-by-equation">式渡し</a>||<a href="#span-out-pass-by-symbol">symbol渡し</a>
 <br>
 ・<span class="run">Ver.2.217.50</span>以降、<a href="#span-out-num-NaN">欠損値</a>の場合、<a href="#span-out-literal">NaN</a>を返す
 <br>
@@ -17951,7 +17951,7 @@ x=2; y -> 2
 <br>
 x=-2; y -> 2
 <br>
-・<a href="#span-out-call-by-equation">式渡し</a>
+・<a href="#span-out-pass-by-equation">式渡し</a>
 <br>
 y=&lt;switch(x&lt;0,=&lt;-x:1,=&lt;{x});
 <br>
@@ -17983,7 +17983,7 @@ x=-2; (cp_mp) -> (1,2:1,-2)
 <br>
 x=-2; switch(cp_mp) -> 2
 <br>
-・<a href="#span-out-call-by-equation">式渡し</a>
+・<a href="#span-out-pass-by-equation">式渡し</a>
 <br>
 cp_m=&lt;(cond_m,=&lt;proc_m); cp_p=&lt;(cond_p,=&lt;proc_p);
 <br>
@@ -18729,7 +18729,7 @@ parse関数の役割はcompiler
 <br>
 ・<a href="#span-out-BT">括弧</a>のnestingによる構文を解析し、深さ方向に<a href="#span-in-tree">tree構造</a>を階層化する
 <br>
-・<span class="clear">Ver.2.228.56</span>以降、<a href="#span-out-call-by-equation">式渡し</a>も同様に、<a href="#span-out-BT">括弧</a>に変換して階層化
+・<span class="clear">Ver.2.228.56</span>以降、<a href="#span-out-pass-by-equation">式渡し</a>も同様に、<a href="#span-out-BT">括弧</a>に変換して階層化
 <br>
 ・入力dataの字句を解析してtagを付ける
 <br>
@@ -19381,7 +19381,7 @@ x=2; store; clear; x=3<span class="selection">/*independent local scope*/</span>
 参照透過性について記述する
 <br>
 <br>
-原則、参照透過性あり：実装関数の引数||<a href="#span-out-call-by-equation">式渡し</a>が同値||同義の場合、常に同じ結果を返す
+原則、参照透過性あり：実装関数の引数||<a href="#span-out-pass-by-equation">式渡し</a>が同値||同義の場合、常に同じ結果を返す
 <br>
 <del>一部、参照透過性なし：実装関数が作る<a href="#span-out-terms">scope変数</a>の再利用の可否を意識する負担あり
 <br>
@@ -19510,7 +19510,7 @@ local buffer
 <br>
 <a href="#span-out-flow">parse</a>段階で<a href="#span-out-BT">括弧</a>のnestingによる構文を解析し、深さ方向に<a href="#span-in-tree">tree構造</a>を階層化する
 <br>
-・<span class="clear">Ver.2.228.56</span>以降、<a href="#span-out-call-by-equation">式渡し</a>も同様に、<a href="#span-out-BT">括弧</a>に変換して階層化
+・<span class="clear">Ver.2.228.56</span>以降、<a href="#span-out-pass-by-equation">式渡し</a>も同様に、<a href="#span-out-BT">括弧</a>に変換して階層化
 <br>
 ・深さ0の0階層に<a href="#span-out-storage">local storage</a>を統合・共通化する（<a href="#span-out-command">命令文</a>を含む）
 <br>
@@ -19625,7 +19625,7 @@ scope継承について記述する
 <br>
 ・scope継承はcall時に実施（<a href="#span-out-substitution-equation">式代入</a>の継承を含む）
 <br>
-・<a href="#span-out-FNh">高階関数</a>||<a href="#span-out-FNmh">高階行列関数</a>の<a href="#span-out-call-by-equation">式渡し</a>は非対応（対応予定なし）
+・<a href="#span-out-FNh">高階関数</a>||<a href="#span-out-FNmh">高階行列関数</a>の<a href="#span-out-pass-by-equation">式渡し</a>は非対応（対応予定なし）
     </td>
   </tr>
   <tr>
@@ -27778,7 +27778,7 @@ escape記号と付随する留意事項について記述する
 <br>
 ・<span class="run">Ver.2.232.56</span>以降、symbol表記に統一
 <br>
-・<span class="run">Ver.2.246.57</span>以降、<a href="#span-out-call-by-name">name渡し</a>に対応
+・<span class="run">Ver.2.246.57</span>以降、<a href="#span-out-pass-by-name">name渡し</a>に対応
 <br>
 ・<span class="run">Ver.2.248.57</span>以降、$$開始の場合、<a href="#span-out-flow">parse</a>段階でerror終了
 <br>
@@ -27849,19 +27849,19 @@ symbol
 <br>
 ・<a href="#span-out-FNc">最上位関数</a>の引数に変数名を渡す場合
 <br>
-・<a href="#span-out-FNh">高階関数</a>の引数に変数名を<a href="#span-out-call-by-equation">式渡し</a>で渡す場合
+・<a href="#span-out-FNh">高階関数</a>の引数に変数名を<a href="#span-out-pass-by-equation">式渡し</a>で渡す場合
 <br>
-・<a href="#span-out-FNmh">高階行列関数</a>の引数に変数名を<a href="#span-out-call-by-equation">式渡し</a>で渡す場合
+・<a href="#span-out-FNmh">高階行列関数</a>の引数に変数名を<a href="#span-out-pass-by-equation">式渡し</a>で渡す場合
 <br>
 ・<a href="#span-out-FNmh-EX">symbolic高階行列関数</a>の代入する<a href="#span-out-eqns">式変数</a>に変数名を渡す場合
 <br>
 <br>
-変数名symbolの<a href="#span-out-call-by-equation">式渡し</a>が不要なcaseを列挙する
+変数名symbolの<a href="#span-out-pass-by-equation">式渡し</a>が不要なcaseを列挙する
 <br>
 ・<a href="#span-out-BT">括弧</a>より関数優先の場合
 <br>
 <br>
-変数名symbolの<a href="#span-out-call-by-equation">式渡し</a>（<a href="#span-out-FNh">高階関数</a>の引数）について
+変数名symbolの<a href="#span-out-pass-by-equation">式渡し</a>（<a href="#span-out-FNh">高階関数</a>の引数）について
 <br>
 ・単体で渡す場合、<a href="#span-out-FNm-last">最終要素</a>のsymbol名を参照
 <br>
@@ -27872,7 +27872,7 @@ symbol
 <br>
 ・<span class="run">Ver.2.232.56</span>以降、symbol表記に統一
 <br>
-・<span class="run">Ver.2.246.57</span>以降、<a href="#span-out-call-by-name">name渡し</a>に対応
+・<span class="run">Ver.2.246.57</span>以降、<a href="#span-out-pass-by-name">name渡し</a>に対応
 <br>
 ・<span class="run">Ver.2.248.57</span>以降、$$開始の場合、<a href="#span-out-flow">parse</a>段階でerror終了
 <br>
@@ -28114,7 +28114,7 @@ clear; c=&lt;(1,2); ($a,$b)=c; a,b -> (1,2)
 <br>
 ・<span class="run">Ver.2.232.56</span>以降、symbol表記に統一
 <br>
-・<span class="run">Ver.2.246.57</span>以降、<a href="#span-out-call-by-name">name渡し</a>に対応
+・<span class="run">Ver.2.246.57</span>以降、<a href="#span-out-pass-by-name">name渡し</a>に対応
 <br>
 clear; c=&lt;(1,2); c=($a,$b) -> <del>[MyErr]Invalid <del>REv</del>symbol($a)</del>[MyErr]Invalid REv($a)
 <br>
@@ -28329,7 +28329,7 @@ let a=()=&gt;b; (function(){let b=1; return a();})();  <span class="selection">/
 <br>
 clear; a=&lt;b; [b=1,=&lt;a=&gt;]=&gt; -> [MyErr]Invalid REv(b)
 <br>
-・<a href="#span-out-call-by-equation">式読出し</a>時の<a href="#span-out-bracket">階層</a>を継承する場合、<a href="#span-out-scope-inherited-call">式変数のscope継承call</a>を使用
+・<a href="#span-out-pass-by-equation">式読出し</a>時の<a href="#span-out-bracket">階層</a>を継承する場合、<a href="#span-out-scope-inherited-call">式変数のscope継承call</a>を使用
 <br>
 ・式読出し記号==&gt;
 <br>
@@ -28620,7 +28620,7 @@ clear; iproduct(L,R)=&lt;(L)(trans(R)); iproduct(=&lt;(1,2),=&lt;(3,4)) -> 11
 <br>
 式変数名=&lt;方程式||関数式||展開式
 <br>
-・<a href="#span-out-substitution-equation">式代入</a>記号=&lt;（<a href="#span-out-call-by-equation">式渡し</a>に流用するため、一般的な記号:=で代替不可）
+・<a href="#span-out-substitution-equation">式代入</a>記号=&lt;（<a href="#span-out-pass-by-equation">式渡し</a>に流用するため、一般的な記号:=で代替不可）
 <br>
 ・式変数への代入を以降、<a href="#span-out-substitution-equation">式代入</a>と呼ぶ
 <br>
@@ -28815,13 +28815,13 @@ clear; [a=1,b=2,v=&lt;{a,b},v=v=&gt;v,a=-1,b=-2,=&lt;v=&gt;]=&gt; -> (-1:-2)</de
 <br>
 　<a href="#span-out-eqns-no-name">無名call</a>はcall結果が解決済みの前提で非対応
 <br>
-　<a href="#span-out-call-by-symbol">symbol渡し</a>の前提で<a href="#span-out-ref-transparency">参照透過性</a>なし
+　<a href="#span-out-pass-by-symbol">symbol渡し</a>の前提で<a href="#span-out-ref-transparency">参照透過性</a>なし
 <br>
 ・<span class="run">Ver.2.211.46</span>以降、式読出しの仕様をfix
 <br>
 　<a href="#span-out-eqns-no-name">無名call</a>の式読出しに対応<del>（削除されるargumentsを除く）</del>
 <br>
-　<a href="#span-out-call-by-symbol">symbol渡し</a>の<a href="#span-out-ref-transparency">参照透過性</a>を確保
+　<a href="#span-out-pass-by-symbol">symbol渡し</a>の<a href="#span-out-ref-transparency">参照透過性</a>を確保
 <br>
 ・<span class="run">Ver.2.229.56</span>以降、<a href="#span-out-eqns-args">式変数のarguments</a>を<a href="#span-out-terms">scope変数</a>から削除しない仕様に変更
 <br>
@@ -28837,7 +28837,7 @@ clear; [a=1,b=2,v=&lt;{a,b},v=v=&gt;v,a=-1,b=-2,=&lt;v=&gt;]=&gt; -> (-1:-2)</de
 <br>
 ・<span class="run">Ver.2.253.59</span>以降、式変数の新規複製の仕様廃止
 <br>
-　式変数名=&lt;式変数名による新規複製は後方互換性（f=&lt;x等）のため、非対応（<a href="#span-out-call-by-symbol">symbol渡し</a>を除く）
+　式変数名=&lt;式変数名による新規複製は後方互換性（f=&lt;x等）のため、非対応（<a href="#span-out-pass-by-symbol">symbol渡し</a>を除く）
 <br>
 <br>
 <del>式変数の新規複製方法
@@ -28914,7 +28914,7 @@ clear; [f(x)=&lt;x,=&lt;f]=&gt; -> [MyErr]Invalid null=&gt;
 <br>
 clear; [f(x)=&lt;x,=&lt;f]=&gt;f; f(3)=&gt; -> 3
 <br>
-・<a href="#span-out-call-by-symbol">symbol渡し</a>
+・<a href="#span-out-pass-by-symbol">symbol渡し</a>
 <br>
 clear; (x=-1,g=&lt;x,=&lt;g)=&gt; -> -1
 <br>
@@ -29039,7 +29039,7 @@ clear; g(x)=&lt;a*x; a=1,[a=2,=&lt;(x)=&lt;[a=3,=&lt;g(x)==&gt;]=&gt;]=&gt;f; f(
 入力仕様
     </th>
     <td>
-<span id="span-out-call-by-equation"></span>
+<span id="span-out-pass-by-equation"></span>
 式渡しの入力仕様と付随する留意事項について記述する
 <br>
 <br>
@@ -29447,7 +29447,7 @@ scope
 式変数のscope継承callの入力仕様と付随する留意事項について記述する
 <br>
 <br>
-<a href="#span-out-bracket">直列scope内</a>の<a href="#span-out-eqns">式変数</a>をcallする際、<a href="#span-out-call-by-equation">式読出し</a>時の<a href="#span-out-bracket">階層</a>を継承する場合
+<a href="#span-out-bracket">直列scope内</a>の<a href="#span-out-eqns">式変数</a>をcallする際、<a href="#span-out-pass-by-equation">式読出し</a>時の<a href="#span-out-bracket">階層</a>を継承する場合
 <br>
 ・<a href="#span-out-eqns">式変数</a>のscope継承callと定義する
 <br>
@@ -29592,7 +29592,7 @@ let a=()=&gt;b; (function(){let b=1; return a();})();  <span class="selection">/
 <br>
 clear; a=&lt;b; [b=1,=&lt;a=&gt;]=&gt; -> [MyErr]Invalid REv(b)
 <br>
-・<a href="#span-out-scope-inherited-call">式変数のscope継承call</a>を使用して<a href="#span-out-call-by-equation">式読出し</a>時の<a href="#span-out-bracket">階層</a>を継承する
+・<a href="#span-out-scope-inherited-call">式変数のscope継承call</a>を使用して<a href="#span-out-pass-by-equation">式読出し</a>時の<a href="#span-out-bracket">階層</a>を継承する
 <br>
 clear; a=&lt;b; [b=1,=&lt;a==&gt;]=&gt; -> 1
 <br>
@@ -29623,13 +29623,13 @@ clear; a(B)=&lt;{B[0]=B[1],=&lt;B}=&gt;; B=(1,2:3,4); (B,a(=&lt;B)=&gt;,B) ->
 <br>
 ・定義元とcall先の<a href="#span-out-bracket">scope</a>が同一の場合
 <br>
-　・<a href="#span-out-call-by-symbol">symbol渡し</a>の場合、定義元とcall先のAは同一
+　・<a href="#span-out-pass-by-symbol">symbol渡し</a>の場合、定義元とcall先のAは同一
 <br>
 clear; add(A,B)=&lt;A+B; A=(1,2:3,4); add(=&lt;A,=&lt;A) -> (2,4:6,8)
 <br>
 　
 <del>
-・<a href="#span-out-call-by-equation">式渡し</a>の場合、A[1]のcall時、A=A[0]更新後のA=(1,2)を参照するため、error終了
+・<a href="#span-out-pass-by-equation">式渡し</a>の場合、A[1]のcall時、A=A[0]更新後のA=(1,2)を参照するため、error終了
 <br>
 clear; add(A,B)=&lt;A+B; A=(1,2:3,4); add(=&lt;A[0],=&lt;A[1]) -> [MyErr]Invalid reference of array
 <br>
@@ -29667,7 +29667,7 @@ clear; add(=&lt;A_,=&lt;B_)=&lt;[A_=&gt;+B_=&gt;]; A=&lt;(1,2:3,4); add(=&lt;A[0
 <br>
 <span class="run">Ver.2.33.18</span>以降、<a href="#span-out-eqns-args">定義元arguments</a>の<a href="#span-out-eqns">式変数</a>は宣言時の<a href="#span-out-bracket">階層</a>に依存する
 <br>
-・<span class="run">Ver.2.219.50</span>以降、<a href="#span-out-call-by-equation">式渡し</a>記号=&lt;の仕様を変更（元scopeを維持）
+・<span class="run">Ver.2.219.50</span>以降、<a href="#span-out-pass-by-equation">式渡し</a>記号=&lt;の仕様を変更（元scopeを維持）
 <br>
 ・通常callの場合
 <br>
@@ -29723,7 +29723,7 @@ clear; [conv(=&lt;a_)=&lt;last[b=4,a_=&gt;+b],[a=3,conv(=&lt;(a))==&gt;]] -> (0,
 <br>
 clear; [conv(=&lt;a_)=&lt;last[b=&lt;4,a_=&gt;+b=&gt;],[a=3,conv(=&lt;(a))==&gt;]] -> (0,0,7)
 <br>
-・<a href="#span-out-call-by-symbol">symbol渡し</a>で定義元<a href="#span-out-bracket">scope</a>を継承する場合
+・<a href="#span-out-pass-by-symbol">symbol渡し</a>で定義元<a href="#span-out-bracket">scope</a>を継承する場合
 <br>
 clear; conv(=&lt;a_)=&lt;(a=-1,=&lt;a+a_=&gt;)=&gt;*2; a=&lt;a; a=1; conv(=&lt;a)=&gt;,a -> (-4,-1)
 <br>
@@ -29731,7 +29731,7 @@ clear; conv(=&lt;a_)=&lt;[a=-1,=&lt;a+a_=&gt;]=&gt;*2; a=&lt;a; a=1; conv(=&lt;a
 <br>
 clear; conv(=&lt;a_)=&lt;[a=-1,=&lt;a+a_==&gt;]=&gt;*2; a=&lt;a; a=1; conv(=&lt;a)=&gt;,a -> (-4,1)
 <br>
-・<a href="#span-out-call-by-symbol">symbol渡し</a>を<a href="#span-out-scope-inherited-call">式変数のscope継承call</a>で代替する場合、nestingが必要
+・<a href="#span-out-pass-by-symbol">symbol渡し</a>を<a href="#span-out-scope-inherited-call">式変数のscope継承call</a>で代替する場合、nestingが必要
 <br>
 clear; conv(=&lt;a_)=&lt;[=&lt;a+a_=&gt;]=&gt;*2; a=&lt;-a; a=1; conv(=&lt;a)=&gt;,a -> (0,1)
 <br>
@@ -29790,7 +29790,7 @@ clear; add(a,b)=&lt;a+b; add(1,2)=&gt; || add(1,2) -> 3
 ・以降、<a href="#span-out-eqns">式変数</a>の定義元に対してcall先と区別する
 <br>
 <br>
-<a href="#span-out-mat">行列</a>の値渡しの場合、<a href="#span-out-call-by-equation">式渡し</a>を使用
+<a href="#span-out-mat">行列</a>の値渡しの場合、<a href="#span-out-pass-by-equation">式渡し</a>を使用
 <br>
 clear; add(A,B)=&lt;A+B; add((1,2:3,4),(5,6:7,8)) -> [MyErr]Invalid args.length=2(add)
 <br>
@@ -29799,7 +29799,7 @@ clear; add(A,B)=&lt;A+B; add(=&lt;(1,2:3,4),=&lt;(5,6:7,8))=&gt; -> (6,8:10,12)
 clear; add(A,B)=&lt;A+B; add(=&lt;(1,2:3,4),=&lt;(5,6:7,8)) -> (6,8:10,12)
 <br>
 <br>
-<a href="#span-out-vars">変数</a>・<a href="#span-out-eqns">式変数</a>の<a href="#span-out-call-by-equation">式渡し</a>の場合
+<a href="#span-out-vars">変数</a>・<a href="#span-out-eqns">式変数</a>の<a href="#span-out-pass-by-equation">式渡し</a>の場合
 <br>
 clear; add(=&lt;A_,=&lt;B_)=&lt;A_+B_;
 <br>
@@ -29820,7 +29820,7 @@ A=&lt;(1,2:3,4); B=&lt;(5,6:7,8); add(=&lt;[A=&gt;+A=&gt;],=&lt;[B=&gt;+B=&gt;])
 <br>
 定義元argumentsの<a href="#span-out-vars-symbol">式変数名symbol</a>をunderscoreでescapeする理由を列挙する
 <br>
-・<a href="#span-out-call-by-symbol">symbol渡し</a>で<a href="#span-out-eqns">式変数</a>Bの中身をcallする場合、問題なし
+・<a href="#span-out-pass-by-symbol">symbol渡し</a>で<a href="#span-out-eqns">式変数</a>Bの中身をcallする場合、問題なし
 <br>
 clear; add(A,=&lt;B)=&lt;A+B=&gt;; B=&lt;(3,4); add(=&lt;(1,2),=&lt;B) -> (4,6)
 <br>
@@ -29844,7 +29844,7 @@ clear; add(A,=&lt;B_)=&lt;[A+B_=&gt;]; B=&lt;(3,4); add(=&lt;(1,2),=&lt;B=&gt;) 
 <br>
 clear; add(A,=&lt;B_)=&lt;[A+B_=&gt;]; B=&lt;(3,4); add(=&lt;(1,2),=&lt;B) -> (4,6)
 <br>
-・定義元argumentsが<a href="#span-out-call-by-equation">式渡し</a>の場合、<a href="#span-out-vars-symbol">式変数名symbol</a>のみ判別する
+・定義元argumentsが<a href="#span-out-pass-by-equation">式渡し</a>の場合、<a href="#span-out-vars-symbol">式変数名symbol</a>のみ判別する
 <br>
 clear; add(A,=&lt;B_)=&lt;[A+B_=&gt;]; B=&lt;(3,4); B=(,); add(=&lt;(1,2),=&lt;B) -> (4,6)
 <br>
@@ -29877,7 +29877,7 @@ clear; add(A,=&lt;B_)=&lt;[A+B_=&gt;]; B=&lt;(3,4); add(=&lt;(1,2),=&lt;B=&gt;)=
 clear; add(A,=&lt;B_)=&lt;[A+B_=&gt;]; B=&lt;(3,4); add(=&lt;(1,2),=&lt;B)=&gt; -> (4,6)
 <br>
 <br>
-<a href="#span-out-call-by-equation">式渡し</a>の場合、<a href="#span-out-call-by-symbol">symbol渡し</a>と異なり、定義元<a href="#span-out-bracket">scope</a>に留意が必要
+<a href="#span-out-pass-by-equation">式渡し</a>の場合、<a href="#span-out-pass-by-symbol">symbol渡し</a>と異なり、定義元<a href="#span-out-bracket">scope</a>に留意が必要
 <br>
 ・次の場合、B=&gt;を定義元の<a href="#span-out-eqns">式変数</a>B_に継承する
 <br>
@@ -30068,11 +30068,11 @@ symbol渡し
 入力仕様
     </th>
     <td>
-<span id="span-out-call-by-symbol"></span>
+<span id="span-out-pass-by-symbol"></span>
 式変数のsymbol渡しの入力仕様と付随する留意事項について記述する
 <br>
 <br>
-<a href="#span-out-vars-symbol">変数名symbol</a>を<a href="#span-out-call-by-equation">式渡し</a>する場合、symbol渡しと定義する
+<a href="#span-out-vars-symbol">変数名symbol</a>を<a href="#span-out-pass-by-equation">式渡し</a>する場合、symbol渡しと定義する
 <br>
 ・<span class="clear">Ver.2.251.58</span>以降、symbol渡しの判定を修正
 <br>
@@ -30151,7 +30151,7 @@ clear; add(A,=&lt;B_)=&lt;[a=-1,=&lt;A+B_=&gt;]=&gt;; a=1; add(=&lt;(1,2),=&lt;{
 <br>
 clear; add(A,=&lt;B_)=&lt;[a=-1,=&lt;A+B_=&gt;]=&gt;; a=1; add(=&lt;(1,2),=&lt;{=&lt;(a,4)}=&gt;)=&gt; -> (0,6)
 <br>
-・<a href="#span-out-vars-symbol">変数名symbol</a>を<a href="#span-out-BT">括弧</a>で括った場合、<a href="#span-out-call-by-equation">式渡し</a>と判別される
+・<a href="#span-out-vars-symbol">変数名symbol</a>を<a href="#span-out-BT">括弧</a>で括った場合、<a href="#span-out-pass-by-equation">式渡し</a>と判別される
 <br>
 clear; add(A,=&lt;B_)=&lt;[a=-1,=&lt;A+B_=&gt;]=&gt;; B=&lt;(a,4); a=1; add(=&lt;(1,2),=&lt;(B))=&gt; -> (2,6)
 <br>
@@ -30169,7 +30169,7 @@ name渡し
 入力仕様
     </th>
     <td>
-<span id="span-out-call-by-name"></span>
+<span id="span-out-pass-by-name"></span>
 name渡しの入力仕様と付随する留意事項について記述する
 <br>
 <br>
@@ -30539,7 +30539,7 @@ test caseを列挙する
 <br>
 [(a)=&lt;[(b)=&lt;[(c)=&lt;[a=4,b=[a=5,=&lt;a]=&gt;,=&lt;a+b+c=4+5+3]=&gt;](3)=&gt;](2)=&gt;](1)=&gt; -> 0
 <br>
-・<a href="#span-out-call-by-equation">式渡し</a>
+・<a href="#span-out-pass-by-equation">式渡し</a>
 <br>
 clear; f(n)=&lt;n&lt;=1|||round(n)*f(n-1); [n=10,(=&lt;fn)=&lt;fn=&gt;](=&lt;f)=&gt; -> 3628800
 <br>
@@ -30568,7 +30568,7 @@ clear; f(x)=&lt;(1,2:3,x); f[1](5) -> (3,5)
 <br>
 ([(x)=&lt;(1,2:3,x)](5)=&gt;)[1] -> (3,5)
 <br>
-・<a href="#span-out-call-by-equation">式渡し</a>が不正の場合、error終了
+・<a href="#span-out-pass-by-equation">式渡し</a>が不正の場合、error終了
 <br>
 [(a,b)](1,2)=&gt; -> [MyErr]Invalid no-name equation
 <br>
@@ -30819,7 +30819,7 @@ switch({第1引数:=&lt;第2引数}:{第3引数:=&lt;第4引数}:...)
 <br>
 　・第奇数番引数: 0||not0の実数値を返す条件文を値渡し
 <br>
-　・第偶数番引数: 条件文成立時の展開式を<a href="#span-out-call-by-equation">式渡し</a>||<a href="#span-out-call-by-symbol">symbol渡し</a>
+　・第偶数番引数: 条件文成立時の展開式を<a href="#span-out-pass-by-equation">式渡し</a>||<a href="#span-out-pass-by-symbol">symbol渡し</a>
 <br>
 ・返値
 <br>
@@ -30865,7 +30865,7 @@ x=2; switch(ge(x,4),4:gt(x,3),3:gt(x,2),2:1,-x) -> -2
 <br>
 x=2; switch(0,4:0,3:0,2:1,-2) -> -2
 <br>
-・対の処理を<a href="#span-out-call-by-equation">式渡し</a>で記述する場合、条件文が成立したcaseのみ実行する
+・対の処理を<a href="#span-out-pass-by-equation">式渡し</a>で記述する場合、条件文が成立したcaseのみ実行する
 <br>
 x=2; switch(x&gt;=4,=&lt;4:x&gt;3,=&lt;3:x&gt;2,=&lt;2:1,=&lt;{-x}) -> -2
 <br>
@@ -30971,7 +30971,7 @@ clear; b=0; a=&lt;b=1; c=&lt;b=-1; a|||c,b -> (0,-1)
 <br>
 _sdummy<a href="#span-out-vars-symbol">変数名symbol</a>(=&lt;第1引数,第2引数,第3引数[,第4引数])
 <br>
-・第1引数: dummy変数の展開式を<a href="#span-out-call-by-equation">式渡し</a>||<a href="#span-out-call-by-symbol">symbol渡し</a>
+・第1引数: dummy変数の展開式を<a href="#span-out-pass-by-equation">式渡し</a>||<a href="#span-out-pass-by-symbol">symbol渡し</a>
 <br>
 ・第2引数: dummy変数の区間下端a（整数）を値渡し
 <br>
@@ -31145,7 +31145,7 @@ N=0; _sn(=&lt;Pn,N,10) -> 99.99999999999999
 <br>
 _pdummy<a href="#span-out-vars-symbol">変数名symbol</a>(=&lt;第1引数,第2引数,第3引数[,第4引数])
 <br>
-・第1引数: dummy変数の展開式を<a href="#span-out-call-by-equation">式渡し</a>||<a href="#span-out-call-by-symbol">symbol渡し</a>
+・第1引数: dummy変数の展開式を<a href="#span-out-pass-by-equation">式渡し</a>||<a href="#span-out-pass-by-symbol">symbol渡し</a>
 <br>
 ・第2引数: dummy変数の区間下端a（整数）を値渡し
 <br>
@@ -31260,9 +31260,9 @@ clear; _r(=&lt;arr.push(__n__),arr=[],10); arr -> (1,2,3,4,5,6,7,8,9,10)
 <br>
 _rdummy<a href="#span-out-vars-symbol">変数名symbol</a>(=&lt;第1引数,第2引数,第3引数[,=&lt;第4引数])
 <br>
-・第1引数: dummy変数の展開式を<a href="#span-out-call-by-equation">式渡し</a>||<a href="#span-out-call-by-symbol">symbol渡し</a>
+・第1引数: dummy変数の展開式を<a href="#span-out-pass-by-equation">式渡し</a>||<a href="#span-out-pass-by-symbol">symbol渡し</a>
 <br>
-・第2引数: dummy変数の初期値を値渡し||<span class="run">Ver.2.271.62</span>以降、<a href="#span-out-call-by-equation">式渡し</a>||<a href="#span-out-call-by-symbol">symbol渡し</a>
+・第2引数: dummy変数の初期値を値渡し||<span class="run">Ver.2.271.62</span>以降、<a href="#span-out-pass-by-equation">式渡し</a>||<a href="#span-out-pass-by-symbol">symbol渡し</a>
 <br>
 clear; A0=(1,2:3,4); _r((A)=&lt;A+A0,=&lt;A0,10) -> <del>[MyErr]Invalid RX arguments</del>(11,22:33,44)
 <br>
@@ -31272,7 +31272,7 @@ option
 <br>
 <span class="run">Ver.2.30.15</span>以降、第4引数追加
 <br>
-・第4引数: 再帰処理の反復後break条件（not0でbreak）を<a href="#span-out-call-by-equation">式渡し</a>||<a href="#span-out-call-by-symbol">symbol渡し</a>[省略時、break判定なし]
+・第4引数: 再帰処理の反復後break条件（not0でbreak）を<a href="#span-out-pass-by-equation">式渡し</a>||<a href="#span-out-pass-by-symbol">symbol渡し</a>[省略時、break判定なし]
 <br>
 　<a href="#span-in-scope-vars">static scopes2d array</a>を共有するため、引数指定のbreak判定は反復後に実施
 <br>
@@ -31472,7 +31472,7 @@ normc(mdx)/normc({x0,x1}) -> infoLost[ri] 3.6879601533907295e-16
 <br>
 _ddummy<a href="#span-out-vars-symbol">変数名symbol</a>(=&lt;第1引数[,第2引数[,第3引数[,第4引数]]])
 <br>
-・第1引数: dummy変数の展開式を<a href="#span-out-call-by-equation">式渡し</a>||<a href="#span-out-call-by-symbol">symbol渡し</a>
+・第1引数: dummy変数の展開式を<a href="#span-out-pass-by-equation">式渡し</a>||<a href="#span-out-pass-by-symbol">symbol渡し</a>
 <br>
 option
 <br>
@@ -31809,7 +31809,7 @@ x -> (1.000000000000009+O(3e-5):0.9999999999999909+O(3e-5))
 <br>
 _idummy<a href="#span-out-vars-symbol">変数名symbol</a>(=&lt;第1引数,第2引数,第3引数[,第4引数])
 <br>
-・第1引数: dummy変数の展開式を<a href="#span-out-call-by-equation">式渡し</a>||<a href="#span-out-call-by-symbol">symbol渡し</a>
+・第1引数: dummy変数の展開式を<a href="#span-out-pass-by-equation">式渡し</a>||<a href="#span-out-pass-by-symbol">symbol渡し</a>
 <br>
 ・第2引数: dummy変数の積分下端aを値渡し
 <br>
@@ -32036,13 +32036,13 @@ Jacobi高階行列関数
 <br>
 Jacobi(=&lt;第1引数,=&lt;第2引数[,=&lt;第3引数[,第4引数]])
 <br>
-・第1引数: 方程式||関数式の列vectorを<a href="#span-out-call-by-equation">式渡し</a>||<a href="#span-out-call-by-symbol">symbol渡し</a>
+・第1引数: 方程式||関数式の列vectorを<a href="#span-out-pass-by-equation">式渡し</a>||<a href="#span-out-pass-by-symbol">symbol渡し</a>
 <br>
-・第2引数: 未知<a href="#span-out-vars-symbol">変数名symbol</a>の列vectorを<a href="#span-out-call-by-equation">式渡し</a>||<a href="#span-out-call-by-symbol">symbol渡し</a>
+・第2引数: 未知<a href="#span-out-vars-symbol">変数名symbol</a>の列vectorを<a href="#span-out-pass-by-equation">式渡し</a>||<a href="#span-out-pass-by-symbol">symbol渡し</a>
 <br>
 option
 <br>
-・第3引数: 未知変数初期値の列vectorを<a href="#span-out-call-by-equation">式渡し</a>||<a href="#span-out-call-by-symbol">symbol渡し</a>[0||省略時、<a href="#span-out-FNm">zeros-vector</a>]
+・第3引数: 未知変数初期値の列vectorを<a href="#span-out-pass-by-equation">式渡し</a>||<a href="#span-out-pass-by-symbol">symbol渡し</a>[0||省略時、<a href="#span-out-FNm">zeros-vector</a>]
 <br>
 　第3引数は未知変数未定義時のみ有効
 <br>
@@ -32187,13 +32187,13 @@ Newton高階行列関数
 <br>
 Newton(=&lt;第1引数,=&lt;第2引数[,=&lt;第3引数[,第4引数[,第5引数[,第6引数[,第7引数[,第8引数]]]]]])
 <br>
-・第1引数: 方程式||関数式の列vectorを<a href="#span-out-call-by-equation">式渡し</a>||<a href="#span-out-call-by-symbol">symbol渡し</a>
+・第1引数: 方程式||関数式の列vectorを<a href="#span-out-pass-by-equation">式渡し</a>||<a href="#span-out-pass-by-symbol">symbol渡し</a>
 <br>
-・第2引数: 未知<a href="#span-out-vars-symbol">変数名symbol</a>の列vectorを<a href="#span-out-call-by-equation">式渡し</a>||<a href="#span-out-call-by-symbol">symbol渡し</a>
+・第2引数: 未知<a href="#span-out-vars-symbol">変数名symbol</a>の列vectorを<a href="#span-out-pass-by-equation">式渡し</a>||<a href="#span-out-pass-by-symbol">symbol渡し</a>
 <br>
 option
 <br>
-・第3引数: 未知変数初期値の列vectorを<a href="#span-out-call-by-equation">式渡し</a>||<a href="#span-out-call-by-symbol">symbol渡し</a>[0||省略時、<a href="#span-out-FNm">zeros-vector</a>]
+・第3引数: 未知変数初期値の列vectorを<a href="#span-out-pass-by-equation">式渡し</a>||<a href="#span-out-pass-by-symbol">symbol渡し</a>[0||省略時、<a href="#span-out-FNm">zeros-vector</a>]
 <br>
 　第3引数は未知変数未定義時のみ有効
 <br>
@@ -32225,7 +32225,7 @@ option
 <br>
 test caseを列挙する
 <br>
-・<a href="#span-out-call-by-symbol">symbol渡し</a>
+・<a href="#span-out-pass-by-symbol">symbol渡し</a>
 <br>
 clear;
 <br>
@@ -32237,7 +32237,7 @@ run=&lt;last(mdx=Newton(=&lt;f,=&lt;x,=&lt;x_initial),max(normc(f=&gt;),normc(md
 <br>
 _rn(=&lt;run,,3) -> infoLost[ri] 2.2204460494935903e-15
 <br>
-・<a href="#span-out-config-strict">strict-mode</a>で直接<a href="#span-out-call-by-equation">式渡し</a>する場合
+・<a href="#span-out-config-strict">strict-mode</a>で直接<a href="#span-out-pass-by-equation">式渡し</a>する場合
 <br>
 clear;
 <br>
@@ -32466,13 +32466,13 @@ ODE高階行列関数
 <br>
 _odummy<a href="#span-out-vars-symbol">変数名symbol</a>(=&lt;第1引数,=&lt;第2引数[,=&lt;第3引数[,第4引数[,第5引数[,第6引数]]]])
 <br>
-・第1引数: 1階常微分方程式右辺の関数式を<a href="#span-out-call-by-equation">式渡し</a>||<a href="#span-out-call-by-symbol">symbol渡し</a>
+・第1引数: 1階常微分方程式右辺の関数式を<a href="#span-out-pass-by-equation">式渡し</a>||<a href="#span-out-pass-by-symbol">symbol渡し</a>
 <br>
-・第2引数: 未知<a href="#span-out-vars-symbol">変数名symbol</a>の列vectorを<a href="#span-out-call-by-equation">式渡し</a>||<a href="#span-out-call-by-symbol">symbol渡し</a>
+・第2引数: 未知<a href="#span-out-vars-symbol">変数名symbol</a>の列vectorを<a href="#span-out-pass-by-equation">式渡し</a>||<a href="#span-out-pass-by-symbol">symbol渡し</a>
 <br>
 option
 <br>
-・第3引数: 未知変数初期値の列vectorを<a href="#span-out-call-by-equation">式渡し</a>||<a href="#span-out-call-by-symbol">symbol渡し</a>[0||省略時、<a href="#span-out-FNm">zeros-vector</a>]
+・第3引数: 未知変数初期値の列vectorを<a href="#span-out-pass-by-equation">式渡し</a>||<a href="#span-out-pass-by-symbol">symbol渡し</a>[0||省略時、<a href="#span-out-FNm">zeros-vector</a>]
 <br>
 　第3引数は未知変数未定義時のみ有効
 <br>
@@ -40687,7 +40687,7 @@ infoLost[ i] -0.04901921620544653+2.023423045158351i:
 )
 <br>
 <br>
-同じく引数の列vectorを直接<a href="#span-out-call-by-equation">式渡し</a>する場合
+同じく引数の列vectorを直接<a href="#span-out-pass-by-equation">式渡し</a>する場合
 <br>
 ・mdxのnormを返す<a href="#span-out-eqns">式変数</a>runを定義して反復6回目の近似解を示す
 <br>
@@ -42460,7 +42460,7 @@ f=&lt;last{V=1,E=0,k=1,I=exp(k*(V-E))-exp(-k*(V-E))}
 <br>
 ・<a href="#span-out-flow">parser</a>は複数種類の<a href="#span-out-BT">括弧</a>のnestingに対応し、再帰的に<a href="#span-in-tree">tree構造</a>を階層化する
 <br>
-・<span class="clear">Ver.2.228.56</span>以降、<a href="#span-out-call-by-equation">式渡し</a>も同様に、<a href="#span-out-BT">括弧</a>に変換して階層化する
+・<span class="clear">Ver.2.228.56</span>以降、<a href="#span-out-pass-by-equation">式渡し</a>も同様に、<a href="#span-out-BT">括弧</a>に変換して階層化する
 <br>
 ・以上の階層を<a href="#span-out-scope-vars">変数のscope</a>（<a href="#span-out-config">useScope</a>||<a href="#span-out-option6">useScopeWith</a>）に活用する
 <br>
@@ -42866,7 +42866,7 @@ clear; a(b)=&lt;last(b=-1,b); (b=1,a(b)=&gt;,b) -> (0,-1,1)
 <br>
 clear; a(b)=&lt;last[b=-1,b]; (b=1,a(b)=&gt;,b) -> (0,-1,1)
 <br>
-・<a href="#span-out-call-by-equation">式渡し</a>（参照渡しの代替）
+・<a href="#span-out-pass-by-equation">式渡し</a>（参照渡しの代替）
 <br>
 clear; a(=&lt;b_)=&lt;last(b=-1,b_=&gt;); (b=1,a(=&lt;b)=&gt;,b) -> [MyErr]Undef eqn(b)
 <br>
@@ -42937,7 +42937,7 @@ CAS
 <span id="span-out-special-eqns"></span>
 <a href="#span-out-eqns">式変数</a>について記述する
 <br>
-・<a href="#span-out-eqns">式変数</a>、<a href="#span-out-eqns-call">式読出し</a>、<a href="#span-out-call-by-equation">式渡し</a>、<a href="#span-out-substitution-equation">式代入</a>、<a href="#span-out-scope-inherited">scope継承</a>の仕様は呼び名含めて一般的でない
+・<a href="#span-out-eqns">式変数</a>、<a href="#span-out-eqns-call">式読出し</a>、<a href="#span-out-pass-by-equation">式渡し</a>、<a href="#span-out-substitution-equation">式代入</a>、<a href="#span-out-scope-inherited">scope継承</a>の仕様は呼び名含めて一般的でない
 <br>
 ・連立方程式をscript入力から解くため、独自に定義している
     </td>
@@ -43394,7 +43394,7 @@ arguments
     </th>
     <td>
 <span id="span-in-call-by-equation"></span>
-<a href="#span-out-call-by-equation">式渡し</a>の仕様は<a href="#span-out-BT">括弧</a>優先の<a href="#span-out-FNh">高階関数</a>の実装において必須
+<a href="#span-out-pass-by-equation">式渡し</a>の仕様は<a href="#span-out-BT">括弧</a>優先の<a href="#span-out-FNh">高階関数</a>の実装において必須
 <br>
 ・引数が値渡しの場合、関数call前に引数の演算を実行するが、
 <br>
@@ -43417,7 +43417,7 @@ arguments
 <br>
 ・<a href="#span-out-flow">operation</a>段階で<a href="#span-out-substitution-equation">式代入</a>時、<a href="#span-out-eqns-args">式変数のarguments</a>の<a href="#span-in-tree">arg</a>を追加
 <br>
-・<a href="#span-out-flow">operation</a>段階で<a href="#span-out-call-by-equation">式読出し</a>時、<a href="#span-out-BT">丸括弧()</a>に変換（BTe⇒BT1）
+・<a href="#span-out-flow">operation</a>段階で<a href="#span-out-pass-by-equation">式読出し</a>時、<a href="#span-out-BT">丸括弧()</a>に変換（BTe⇒BT1）
     </td>
   </tr>
   <tr>
@@ -45155,7 +45155,7 @@ has4test
     </th>
     <td>
 <span id="span-eqn-has4test"></span>
-<a href="#span-out-FNc">最上位関数</a>||<a href="#span-out-call-by-name">name渡し</a>||<span class="clear"><a href="#span-out-scope-inherited">scope継承</a></span>参照
+<a href="#span-out-FNc">最上位関数</a>||<a href="#span-out-pass-by-name">name渡し</a>||<span class="clear"><a href="#span-out-scope-inherited">scope継承</a></span>参照
 <br>
 clear;
 <br>
