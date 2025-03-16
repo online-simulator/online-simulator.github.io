@@ -98,6 +98,45 @@ Jacobi(=<{__x__[0]**2+__x__[1],__x__[0]+__x__[1]**2},,=<{1,2},false)
 clear
 local storage cleared
 
+dt=0.1(1+i),Ndt=10,t=dt*Ndt,f=<__t__:x=_o2(=<f,,=<0,,dt,Ndt):t,x[0]:x=_o2(=<f,,=<{x},t,dt,Ndt):2t,x[0]:x=_t2(=<f,,=<(,),dt,Ndt):x[0],x[1]:x=_t2(=<f,,=<{x},dt,Ndt):x[0],x[1]
+(
+0,0,0,0:
+0:
+1+i,1.0000000000000002i+O(1e-2+1e-2i):
+0:
+2+2i,4i+O(1e-2+1e-2i):
+0:
+1+i,1.0000000000000002i+O(1e-2+1e-2i):
+0:
+2+2i,4i+O(1e-2+1e-2i)
+)
+
+dt=0.1(1+i),Ndt=10,t=dt*Ndt,f=<__t__:x=_o5(=<f,,=<0,,dt,Ndt):t,x[0]:x=_o5(=<f,,=<{x},t,dt,Ndt):2t,x[0]:x=_t5(=<f,,=<(,),dt,Ndt):x[0],x[1]:x=_t5(=<f,,=<{x},dt,Ndt):x[0],x[1]
+(
+0,0,0,0:
+0:
+1+i,1.0000000000000002i+O(1e-5+1e-5i):
+0:
+2+2i,4i+O(1e-5+1e-5i):
+0:
+1+i,1.0000000000000002i+O(1e-5+1e-5i):
+0:
+2+2i,4i+O(1e-5+1e-5i)
+)
+
+dt=0.1(1+i),Ndt=10,t=dt*Ndt,f=<__t__:x=_o4(=<f,,=<0,,dt,Ndt):t,x[0]:x=_o4(=<f,,=<{x},t,dt,Ndt):2t,x[0]:x=_t4(=<f,,=<(,),dt,Ndt):x[0],x[1]:x=_t4(=<f,,=<{x},dt,Ndt):x[0],x[1]
+(
+0,0,0,0:
+0:
+1+i,i+O(1e-4+1e-4i):
+0:
+2+2i,4i+O(1e-4+1e-4i):
+0:
+1+i,i+O(1e-4+1e-4i):
+0:
+2+2i,4i+O(1e-4+1e-4i)
+)
+
 dt=0.1(1+i),Ndt=10,t=dt*Ndt,f=<__t__:x=_o(=<f,,=<0,,dt,Ndt):t,x[0]:x=_o(=<f,,=<{x},t,dt,Ndt):2t,x[0]:x=_t(=<f,,=<(,),dt,Ndt):x[0],x[1]:x=_t(=<f,,=<{x},dt,Ndt):x[0],x[1]
 (
 0,0,0,0:
@@ -4665,4 +4704,4 @@ drag=false&sw=false&0x=false&useMatrix=true&useStrict=false&checkError=true&isRi
 --------------------------------
 --------------------------------
 
-online-simulator.github.io.6.466.606.22.134 @ Thu Mar 13 2025 23:35:25 GMT+0900 (日本標準時) @ Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/134.0.0.0 Safari/537.36
+online-simulator.github.io.6.467.609.22.134 @ Sun Mar 16 2025 22:03:27 GMT+0900 (日本標準時) @ Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/134.0.0.0 Safari/537.36
