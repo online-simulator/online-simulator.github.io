@@ -14982,7 +14982,7 @@ strict-modeは演算内容の入力規則に以下3点の制約条件を追加�
 <br>
 <del>・<a href="#span-out-call-by-equation">式渡し</a>の括弧{}省略不可
 <br>
-　omitted Call-by-Equation's bracket({}) disabled</del><span class="run">Ver.2.28.15</span>以降、text modified
+　omitted Pass-by-Equation's bracket({}) disabled</del><span class="run">Ver.2.28.15</span>以降、text modified
 <br>
 ・<span class="run">Ver.2.275.65</span>以降、既定で<a href="#span-out-eqns">式変数</a>のcall記号省略不可（syntaxの曖昧さを低減）
 <br>
@@ -29063,9 +29063,9 @@ clear; g(x)=&lt;a*x; a=1,[a=2,=&lt;(x)=&lt;[a=3,=&lt;g(x)==&gt;]=&gt;]=&gt;f; f(
 <br>
 ・次の場合、<a href="#span-out-vars-symbol">式変数名symbol</a>と判別する
 <br>
-clear; _sn(=&lt;n,0,2) -> [MyErr]Invalid =&lt;Call-by-Equation
+clear; _sn(=&lt;n,0,2) -> [MyErr]Invalid =&lt;eqn
 <br>
-clear; n=1; _sn(=&lt;n,0,2) -> [MyErr]Invalid =&lt;Call-by-Equation
+clear; n=1; _sn(=&lt;n,0,2) -> [MyErr]Invalid =&lt;eqn
 <br>
 clear; n=&lt;n; _sn(=&lt;n,0,2) || 0+1+2 -> 3
 <br>
@@ -32107,9 +32107,9 @@ clear; Jacobi(=&lt;{x},=&lt;{x},=&lt;{1}) -> 1.0000000000032756-3.27557060222463
 <br>
 clear; Jacobi(=&lt;{x},=&lt;{x*x},=&lt;{1}) -> [MyErr]Invalid binary operation
 <br>
-clear; Jacobi(=&lt;{x},=&lt;x,=&lt;{1}) -> [MyErr]Invalid =&lt;Call-by-Equation
+clear; Jacobi(=&lt;{x},=&lt;x,=&lt;{1}) -> [MyErr]Invalid =&lt;eqn
 <br>
-clear; Jacobi(=&lt;x,=&lt;{x},=&lt;{1}) -> [MyErr]Invalid =&lt;Call-by-Equation
+clear; Jacobi(=&lt;x,=&lt;{x},=&lt;{1}) -> [MyErr]Invalid =&lt;eqn
 <br>
 clear; Jacobi(=&lt;{x},=&lt;{x},=&lt;{1,2}) -> [MyErr]Invalid J arguments
 <br>
@@ -32125,7 +32125,7 @@ clear; Jacobi(=&lt;{(x+i)**2},=&lt;{x},=&lt;{0}) -> 0.000009999976914767357+2.00
 <br>
 clear; Jacobi(=&lt;{(x+i)**2},=&lt;{x},1000) -> 0.000009999976914767357+2.000009999990017i
 <br>
-clear; Jacobi(=&lt;{(x+i)**2},1000,1000) -> [MyErr]Invalid =&lt;Call-by-Equation
+clear; Jacobi(=&lt;{(x+i)**2},1000,1000) -> [MyErr]Invalid jacobian arguments
 <br>
 clear; x=&lt;x; y=&lt;x*x; Jacobi(=&lt;{y},=&lt;x,=&lt;{1}) -> 2.0000100000065513+0.000009999993448815332i
 <br>
