@@ -1449,7 +1449,7 @@ else if(prop === "OX" || prop === "TX"){  // ODE  // Ver.2.23.11  // Ver.2.231.5
     if(tagObj.val.order){
       orderT = tagObj.val.order;
     }
-    else if(options.orderT === 2 || options.orderT === 5 || options.orderT === 45){  // Ver.2.774.119
+    else if(options.orderT === 2 || options.orderT === 5 || options.orderT === 45 || options.orderT === 3 || options.orderT === 23 || options.orderT === 1){  // Ver.2.774.119  // Ver.2.775.121
       orderT = options.orderT;
     }
     /* -> Ver.2.369.86 */
@@ -1542,6 +1542,20 @@ else if(prop === "OX" || prop === "TX"){  // ODE  // Ver.2.23.11  // Ver.2.231.5
         /* -> Ver.2.22.10 */
       }
     };
+    /* Ver.2.775.121 -> */
+    // Euler method
+    var OX_order1 = function(n){  // Ver.2.773.117
+      // t0
+      store_t();
+      var fc = calc_f();
+      x0 = step_x(x0, fc, dt);  // Ver.2.773.117
+      if(options.checkError){
+        set_error(x0);  // Ver.2.773.117
+      }
+      store_x(x0);  // Ver.2.773.117
+      t0 = step_t(n+1);  // Ver.2.773.117
+    };
+    /* -> Ver.2.775.121 */
     // improved Euler method
     var OX_order2 = function(n){  // Ver.2.773.117
       // t0
@@ -1628,6 +1642,38 @@ else if(prop === "OX" || prop === "TX"){  // ODE  // Ver.2.23.11  // Ver.2.231.5
       store_x(x0);  // Ver.2.773.117
       t0 = step_t(n+1);  // Ver.2.773.117
     };
+    /* Ver.2.775.121 -> */
+    var update_arr_f_o3 = function(){
+      var dtr2 = get_dt(0.5);
+      // t0
+      store_t();
+      var f1 = calc_f();
+      var x1 = step_x(x0, f1, dtr2);
+      store_t(dtr2);
+      store_x(x1);
+      var f2 = calc_f();
+      var x2 = step_x_sum(x0, [[f1, get_dt(0)], [f2, get_dt(3/4)]]);
+      store_t(get_dt(3/4));
+      store_x(x2);
+      var f3 = calc_f();
+      var x3 = step_x_sum(x0, [[f1, get_dt(2/9)], [f2, get_dt(1/3)], [f3, get_dt(4/9)]]);
+      store_t(dt);
+      store_x(x3);
+      var f4 = calc_f();
+      return [f1, f2, f3, f4];
+    };
+    // Bogacki-Shampine method
+    var OX_order3 = function(n){  // Ver.2.773.117
+      var arr_f = update_arr_f_o3();
+      var fc = combinate(arr_f, [2/9, 1/3, 4/9, 0]);
+      x0 = step_x(x0, fc, dt);  // Ver.2.773.117
+      if(options.checkError){
+        set_error(x0);  // Ver.2.773.117
+      }
+      store_x(x0);  // Ver.2.773.117
+      t0 = step_t(n+1);  // Ver.2.773.117
+    };
+    /* -> Ver.2.775.121 */
     /* Ver.2.774.119 -> */
     var calc_norm = function(fc_o5, fc_o4){
       var arr_mdx = [];
@@ -1638,6 +1684,8 @@ else if(prop === "OX" || prop === "TX"){  // ODE  // Ver.2.23.11  // Ver.2.231.5
       return DATA.arr2num(normdx).com.r;
     };
     var dt0 = dt;
+    var arr_o5 = null;
+    var arr_o4 = null;
     var adapt_step = function(){
       var _pNdt = 0;
       var cr_norm = null;
@@ -1645,8 +1693,8 @@ else if(prop === "OX" || prop === "TX"){  // ODE  // Ver.2.23.11  // Ver.2.231.5
       dt = get_dt(1/Ndt);
       for(var n=0; n<Ndt; ++n){
         var arr_f = update_arr_f();
-        var fc_o5 = combinate(arr_f, [16/135, 0, 6656/12825, 28561/56430, -9/50, 2/55]);
-        var fc_o4 = combinate(arr_f, [25/216, 0, 1408/2565, 2197/4104, -1/5, 0]);
+        var fc_o5 = combinate(arr_f, arr_o5);
+        var fc_o4 = combinate(arr_f, arr_o4);
         cr_norm = calc_norm(fc_o5, fc_o4);
         if(cr_norm >= hdelta){
           _pNdt = 1;
@@ -1663,7 +1711,7 @@ else if(prop === "OX" || prop === "TX"){  // ODE  // Ver.2.23.11  // Ver.2.231.5
       }
       return _pNdt;
     };
-    // adaptive Runge-Kutta-Fehlberg method
+    // adaptive method
     var Ndt = 1;
     var OX_order45 = function(n){
       var t00 = t0;
@@ -1697,9 +1745,26 @@ else if(prop === "OX" || prop === "TX"){  // ODE  // Ver.2.23.11  // Ver.2.231.5
     /* Ver.2.774.119 -> */
     else if(orderT === 45){
       orderT = 5;
+      arr_o5 = [16/135, 0, 6656/12825, 28561/56430, -9/50, 2/55];  // Ver.2.775.121
+      arr_o4 = [25/216, 0, 1408/2565, 2197/4104, -1/5, 0];  // Ver.2.775.121
       OX = OX_order45;
     }
     /* -> Ver.2.774.119 */
+    /* Ver.2.775.121 -> */
+    else if(orderT === 3){
+      OX = OX_order3;
+    }
+    else if(orderT === 23){
+      orderT = 3;
+      arr_o5 = [2/9, 1/3, 4/9, 0];
+      arr_o4 = [7/24, 1/4, 1/3, 1/8];
+      OX = OX_order45;
+      update_arr_f = update_arr_f_o3;
+    }
+    else if(orderT === 1){
+      OX = OX_order1;
+    }
+    /* -> Ver.2.775.121 */
     /* -> Ver.2.369.86 */
     /* Ver.2.736.107 -> */
     if(isAuto_args){

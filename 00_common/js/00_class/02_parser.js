@@ -349,12 +349,12 @@ My_entry.parser.prototype.compare2bs = function(token, token_lower, token_upper,
       var num = Number(mc1);
       if(num){
         if(key === "OX" || key === "TX"){
-          if(num === 2 || num === 4 || num === 5 || num === 45){  // Ver.2.774.119
+          if(num === 2 || num === 4 || num === 5 || num === 45 || num === 3 || num === 23 || num === 1){  // Ver.2.774.119  // Ver.2.775.121
             mc1 = "";
             obj["order"] = num;
           }
           else{
-            throw "Invalid order=4||2||5||45("+key+")";  // Ver.2.774.119
+            throw "Invalid order=4||2||5||45||3||23||1("+key+")";  // Ver.2.774.119  // Ver.2.775.121
           }
         }
         else if(key === "DX" || key === "IX"){
