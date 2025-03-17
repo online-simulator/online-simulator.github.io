@@ -588,7 +588,7 @@ test case
 <br>
 　-5body-_t5||_t2：<a href="#span-out-evolution">時間発展</a>の分岐を比較
 <br>
-　-5body<span class="wF">-_t45</span>：<span class="run">Ver.2.774.119</span>以降、adaptive solverを追加
+　-5body<span class="wF">-_t45</span>：<span class="run">Ver.2.774.119</span>以降、adaptive-step solverを追加
 <br>
 　<span class="clear">-N=5</span>~=13：<span class="run">Ver.2.736.107</span>以降、任意個数のN体simulation（強連成の方程式と一意対応の最短表記）
 <br>
@@ -7211,7 +7211,7 @@ clear; f=&lt;-1; f=1; [f=2,=&lt;f]=&gt;,[f=&lt;-2,=&lt;f]=&gt; -> (2,<del>1</del
 <br>
 　精度次数：固定　⇒　関数名直後の数字で指定可（<a href="#span-out-config">内部option</a>より優先）
 <br>
-　<span class="run">Ver.2.774.119</span>~<span class="run">2.775.121</span>以降、<a href="#span-out-FNmh-OX">ODE高階行列関数</a>の<span class="selection">adaptive solver</span>を追加
+　<span class="run">Ver.2.774.119</span>~<span class="run">2.775.121</span>以降、<a href="#span-out-FNmh-OX">ODE高階行列関数</a>の<span class="selection">adaptive-step solver</span>を追加
 <br>
 　　_o()　⇒　_o||_o4||_o2||_o5<span class="selection">||_o45||_o3||_o23||_o1()</span>
 <br>
@@ -7715,7 +7715,7 @@ push：len=sizer(A),opt_i==len&amp;&amp;&amp;(A=(A:val))||||last{ie=(opt_i||len-
 <br>
 ・<a href="#span-out-FNh">高階関数</a>の引数順序<del>（代数学||for文準拠に変更等）</del>
 <br>
-・<span class="run">Ver.2.774.119</span>以降、<a href="#span-out-FNmh-OX">ODE高階行列関数</a>のadaptive solverを追加
+・<span class="run">Ver.2.774.119</span>以降、<a href="#span-out-FNmh-OX">ODE高階行列関数</a>のadaptive-step solverを追加
     </td>
   </tr>
   <tr>
@@ -32494,7 +32494,7 @@ option
 <br>
 ・第6引数: 反復回数（正の整数）を値渡し[省略時、1]
 <br>
-<span class="run">Ver.2.774.119</span>以降、第7引数追加（adaptive solver用）
+<span class="run">Ver.2.774.119</span>以降、第7引数追加（adaptive-step solver用）
 <br>
 ・第7引数: norm比較判定対象|dt|δのδを値渡し[省略時、1e-3]
 <br>
