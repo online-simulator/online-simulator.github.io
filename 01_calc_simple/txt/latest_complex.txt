@@ -98,7 +98,7 @@ Jacobi(=<{__x__[0]**2+__x__[1],__x__[0]+__x__[1]**2},,=<{1,2},false)
 clear
 local storage cleared
 
-dt=0.1(1+i),Ndt=10,t=dt*Ndt,f=<__t__**5,g(t)=<t**6/6,d=1e-11:x=_o45(=<f,,=<0,,dt,Ndt,d):t,x[0]:x=_o45(=<f,,=<{x},t,dt,Ndt,d):2t,x[0]:x=_t45(=<f,,=<(,),dt,Ndt,d):x[0],x[1],g(x[0]):x=_t45(=<f,,=<{x},dt,Ndt,d):x[0],x[1],g(x[0])
+dt=0.1(1+i),Ndt=10,d=1e-11,t=dt*Ndt,f=<__t__**5,g(t)=<t**6/6:x=_o45(=<f,,=<0,,dt,Ndt,d):t,x[0]:x=_o45(=<f,,=<{x},t,dt,Ndt,d):2t,x[0]:x=_t45(=<f,,=<(,),dt,Ndt,d):x[0],x[1],g(x[0]):x=_t45(=<f,,=<{x},dt,Ndt,d):x[0],x[1],g(x[0])
 (
 0,0,0,0,0,0:
 0:
@@ -111,7 +111,7 @@ dt=0.1(1+i),Ndt=10,t=dt*Ndt,f=<__t__**5,g(t)=<t**6/6,d=1e-11:x=_o45(=<f,,=<0,,dt
 2+2i,-1.3366138056691368e-14-85.33333333333343i+O(1e-5+1e-5i),-1.5675479029086137e-14-85.33333333333341i
 )
 
-dt=0.1(1+i),Ndt=10,t=dt*Ndt,f=<__t__**5,g(t)=<t**6/6,d=1e-7:x=_o45(=<f,,=<0,,dt,Ndt,d):t,x[0]:x=_o45(=<f,,=<{x},t,dt,Ndt,d):2t,x[0]:x=_t45(=<f,,=<(,),dt,Ndt,d):x[0],x[1],g(x[0]):x=_t45(=<f,,=<{x},dt,Ndt,d):x[0],x[1],g(x[0])
+dt=0.1(1+i),Ndt=10,d=1e-7,t=dt*Ndt,f=<__t__**5,g(t)=<t**6/6:x=_o45(=<f,,=<0,,dt,Ndt,d):t,x[0]:x=_o45(=<f,,=<{x},t,dt,Ndt,d):2t,x[0]:x=_t45(=<f,,=<(,),dt,Ndt,d):x[0],x[1],g(x[0]):x=_t45(=<f,,=<{x},dt,Ndt,d):x[0],x[1],g(x[0])
 (
 0,0,0,0,0,0:
 0:
@@ -124,7 +124,7 @@ dt=0.1(1+i),Ndt=10,t=dt*Ndt,f=<__t__**5,g(t)=<t**6/6,d=1e-7:x=_o45(=<f,,=<0,,dt,
 2+2i,-1.2773587402511238e-14-85.33333333234363i+O(1e-5+1e-5i),-1.5675479029086137e-14-85.33333333333341i
 )
 
-dt=0.1(1+i),Ndt=10,t=dt*Ndt,f=<__t__**5,g(t)=<t**6/6,d=1e-3:x=_o45(=<f,,=<0,,dt,Ndt,d):t,x[0]:x=_o45(=<f,,=<{x},t,dt,Ndt,d):2t,x[0]:x=_t45(=<f,,=<(,),dt,Ndt,d):x[0],x[1],g(x[0]):x=_t45(=<f,,=<{x},dt,Ndt,d):x[0],x[1],g(x[0])
+dt=0.1(1+i),Ndt=10,d=1e-3,t=dt*Ndt,f=<__t__**5,g(t)=<t**6/6:x=_o45(=<f,,=<0,,dt,Ndt,d):t,x[0]:x=_o45(=<f,,=<{x},t,dt,Ndt,d):2t,x[0]:x=_t45(=<f,,=<(,),dt,Ndt,d):x[0],x[1],g(x[0]):x=_t45(=<f,,=<{x},dt,Ndt,d):x[0],x[1],g(x[0])
 (
 0,0,0,0,0,0:
 0:
@@ -4756,4 +4756,4 @@ drag=false&sw=false&0x=false&useMatrix=true&useStrict=false&checkError=true&isRi
 --------------------------------
 --------------------------------
 
-online-simulator.github.io.6.469.609.22.138 @ Mon Mar 17 2025 21:42:24 GMT+0900 (日本標準時) @ Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/134.0.0.0 Safari/537.36
+online-simulator.github.io.6.469.609.22.138 @ Tue Mar 18 2025 00:34:48 GMT+0900 (日本標準時) @ Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/134.0.0.0 Safari/537.36
