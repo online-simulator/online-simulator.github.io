@@ -1639,6 +1639,7 @@ else if(prop === "OX" || prop === "TX"){  // ODE  // Ver.2.23.11  // Ver.2.231.5
     var adapt_step = function(){
       var _pNdt = 0;
       var cr_norm = null;
+      var t00 = t0;  // Ver.2.774.120
       dt = get_dt(1/Ndt);
       for(var n=0; n<Ndt; ++n){
         var arr_f = update_arr_f();
@@ -1651,7 +1652,7 @@ else if(prop === "OX" || prop === "TX"){  // ODE  // Ver.2.23.11  // Ver.2.231.5
         }
         else{
           x0 = step_x(x0, fc_o5, dt);
-          t0 = step_t(n+1, t0);
+          t0 = step_t(n+1, t00);  // Ver.2.774.120
         }
       }
       dt = dt0;
