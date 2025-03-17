@@ -1637,7 +1637,7 @@ else if(prop === "OX" || prop === "TX"){  // ODE  // Ver.2.23.11  // Ver.2.231.5
     };
     var dt0 = dt;
     var adapt_step = function(){
-      var _kNdt = 1;
+      var _pNdt = 0;
       var cr_norm = null;
       dt = get_dt(1/Ndt);
       for(var n=0; n<Ndt; ++n){
@@ -1646,7 +1646,7 @@ else if(prop === "OX" || prop === "TX"){  // ODE  // Ver.2.23.11  // Ver.2.231.5
         var fc_o4 = combinate(arr_f, [25/216, 0, 1408/2565, 2197/4104, -1/5, 0]);
         cr_norm = calc_norm(fc_o5, fc_o4);
         if(cr_norm >= hdelta){
-          _kNdt = 1;
+          _pNdt = 1;
           break;
         }
         else{
@@ -1656,32 +1656,31 @@ else if(prop === "OX" || prop === "TX"){  // ODE  // Ver.2.23.11  // Ver.2.231.5
       }
       dt = dt0;
       if(cr_norm <= hdelta/10){
-        _kNdt = -1;
+        _pNdt = -1;
       }
-      return _kNdt;
+      return _pNdt;
     };
     // adaptive Runge-Kutta-Fehlberg method
     var Ndt = 1;
     var OX_order45 = function(n){
       var t00 = t0;
       var x00 = x0;
-      var kNdt = adapt_step();
-      if(kNdt === 1){
-        Ndt *= 2;
+      var pNdt = adapt_step();
+      Ndt *= Math.pow(2, pNdt);
+      Ndt = Math.max(1, Ndt);
+      if(pNdt === 1){
         t0 = t00;
         x0 = x00;
         store_x(x0);
         OX_order45(n);
       }
-      else if(kNdt === -1){
-        Ndt /= 2;
-        Ndt = Math.max(1, Ndt);
-      }
       if(options.checkError){
         set_error(x0);
       }
       store_x(x0);
-      t0 = step_t(n+1);  // Ver.2.772.117
+      if(Ndt%1 === 0){
+        t0 = step_t(n+1);  // Ver.2.773.117
+      }
     };
     /* -> Ver.2.774.119 */
     /* -> Ver.2.773.117 */
