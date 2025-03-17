@@ -1417,14 +1417,16 @@ else if(prop === "OX" || prop === "TX"){  // ODE  // Ver.2.23.11  // Ver.2.231.5
     }
     /* -> Ver.2.735.107 */
     /* Ver.2.238.56 -> */
-    var t0ini = null;
+    /* Ver.2.774.121 -> */
+    var t0ini = args[3] || DATA.num(0, 0);  // Ver.2.234.56
     if(isTX){
-      t0ini = (arr_x.shift())[0];
       names.shift();
+      var arr_x0 = arr_x.shift();
+      if(arr_x0){
+        t0ini = arr_x0[0];
+      }
     }
-    else{
-      t0ini = args[3] || DATA.num(0, 0);  // Ver.2.234.56
-    }
+    /* -> Ver.2.774.121 */
     var t0 = t0ini;  // Ver.2.234.56
     len_i = arr_x.length;  // tree_eqn change allowed  // Ver.2.736.107
     // dt
