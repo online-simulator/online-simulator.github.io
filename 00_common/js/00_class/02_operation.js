@@ -1449,7 +1449,7 @@ else if(prop === "OX" || prop === "TX"){  // ODE  // Ver.2.23.11  // Ver.2.231.5
     if(tagObj.val.order){
       orderT = tagObj.val.order;
     }
-    else if(options.orderT === 2 || options.orderT === 5 || options.orderT === 45 || options.orderT === 3 || options.orderT === 23 || options.orderT === 1){  // Ver.2.774.119  // Ver.2.775.121
+    else if(options.orderT === 2 || options.orderT === 5 || options.orderT === 45 || options.orderT === 3 || options.orderT === 23 || options.orderT === 1 || options.orderT === 12){  // Ver.2.774.119  // Ver.2.775.121
       orderT = options.orderT;
     }
     /* -> Ver.2.369.86 */
@@ -1543,6 +1543,17 @@ else if(prop === "OX" || prop === "TX"){  // ODE  // Ver.2.23.11  // Ver.2.231.5
       }
     };
     /* Ver.2.775.121 -> */
+    // Heun-Euler method
+    var update_arr_f_o1 = function(){
+      // t0
+      store_t();
+      var f1 = calc_f();
+      var x1 = step_x(x0, f1, dt);
+      store_t(dt);
+      store_x(x1);
+      var f2 = calc_f();
+      return [f1, f2];
+    };
     // Euler method
     var OX_order1 = function(n){  // Ver.2.773.117
       // t0
@@ -1603,6 +1614,7 @@ else if(prop === "OX" || prop === "TX"){  // ODE  // Ver.2.23.11  // Ver.2.231.5
       t0 = step_t(n+1);  // Ver.2.773.117
     };
     /* Ver.2.773.117 -> */
+    // Runge-Kutta-Fehlberg method
     var update_arr_f = function(){
       var dtr2 = get_dt(0.5);
       var dtr4 = get_dt(0.25);
@@ -1631,7 +1643,6 @@ else if(prop === "OX" || prop === "TX"){  // ODE  // Ver.2.23.11  // Ver.2.231.5
       var f6 = calc_f();
       return [f1, f2, f3, f4, f5, f6];
     };
-    // Runge-Kutta-Fehlberg method
     var OX_order5 = function(n){  // Ver.2.773.117
       var arr_f = update_arr_f();
       var fc = combinate(arr_f, [16/135, 0, 6656/12825, 28561/56430, -9/50, 2/55]);
@@ -1643,6 +1654,7 @@ else if(prop === "OX" || prop === "TX"){  // ODE  // Ver.2.23.11  // Ver.2.231.5
       t0 = step_t(n+1);  // Ver.2.773.117
     };
     /* Ver.2.775.121 -> */
+    // Bogacki-Shampine method
     var update_arr_f_o3 = function(){
       var dtr2 = get_dt(0.5);
       var dt3b4 = get_dt(3/4);
@@ -1663,7 +1675,6 @@ else if(prop === "OX" || prop === "TX"){  // ODE  // Ver.2.23.11  // Ver.2.231.5
       var f4 = calc_f();
       return [f1, f2, f3, f4];
     };
-    // Bogacki-Shampine method
     var OX_order3 = function(n){  // Ver.2.773.117
       var arr_f = update_arr_f_o3();
       var fc = combinate(arr_f, [2/9, 1/3, 4/9, 0]);
@@ -1745,7 +1756,6 @@ else if(prop === "OX" || prop === "TX"){  // ODE  // Ver.2.23.11  // Ver.2.231.5
     }
     /* Ver.2.774.119 -> */
     else if(orderT === 45){
-      orderT = 5;
       arr_o5 = [16/135, 0, 6656/12825, 28561/56430, -9/50, 2/55];  // Ver.2.775.121
       arr_o4 = [25/216, 0, 1408/2565, 2197/4104, -1/5, 0];  // Ver.2.775.121
       OX = OX_order45;
@@ -1756,7 +1766,6 @@ else if(prop === "OX" || prop === "TX"){  // ODE  // Ver.2.23.11  // Ver.2.231.5
       OX = OX_order3;
     }
     else if(orderT === 23){
-      orderT = 3;
       arr_o5 = [2/9, 1/3, 4/9, 0];
       arr_o4 = [7/24, 1/4, 1/3, 1/8];
       OX = OX_order45;
@@ -1764,6 +1773,15 @@ else if(prop === "OX" || prop === "TX"){  // ODE  // Ver.2.23.11  // Ver.2.231.5
     }
     else if(orderT === 1){
       OX = OX_order1;
+    }
+    else if(orderT === 12){
+      arr_o5 = [1/2, 1/2];
+      arr_o4 = [1, 0];
+      OX = OX_order45;
+      update_arr_f = update_arr_f_o1;
+    }
+    if(orderT === 45 || orderT === 23 || orderT === 12){
+      orderT = Number(String(orderT).charAt(1));
     }
     /* -> Ver.2.775.121 */
     /* -> Ver.2.369.86 */

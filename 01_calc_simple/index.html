@@ -438,6 +438,12 @@
       script += "dt=0.1(1+i),Ndt=10,d=1e-2,t=dt*Ndt,f=<__t__**5,g(t)=<t**6/6:x=_o23(=<f,,=<0,,dt,Ndt,d):t,x[0]:x=_o23(=<f,,=<{x},t,dt,Ndt,d):2t,x[0]:x=_t23(=<f,,=<(,),dt,Ndt,d):x[0],x[1],g(x[0]):x=_t23(=<f,,=<{x},dt,Ndt,d):x[0],x[1],g(x[0]);";
       script += "\n";
       script += "dt=0.1(1+i),Ndt=10,d=1e-3,t=dt*Ndt,f=<__t__**5,g(t)=<t**6/6:x=_o23(=<f,,=<0,,dt,Ndt,d):t,x[0]:x=_o23(=<f,,=<{x},t,dt,Ndt,d):2t,x[0]:x=_t23(=<f,,=<(,),dt,Ndt,d):x[0],x[1],g(x[0]):x=_t23(=<f,,=<{x},dt,Ndt,d):x[0],x[1],g(x[0]);";
+      script += "\n";
+      script += "dt=0.1(1+i),Ndt=10,d=1,t=dt*Ndt,f=<__t__**5,g(t)=<t**6/6:x=_o12(=<f,,=<0,,dt,Ndt,d):t,x[0]:x=_o12(=<f,,=<{x},t,dt,Ndt,d):2t,x[0]:x=_t12(=<f,,=<(,),dt,Ndt,d):x[0],x[1],g(x[0]):x=_t12(=<f,,=<{x},dt,Ndt,d):x[0],x[1],g(x[0]);";
+      script += "\n";
+      script += "dt=0.1(1+i),Ndt=10,d=1/2,t=dt*Ndt,f=<__t__**5,g(t)=<t**6/6:x=_o12(=<f,,=<0,,dt,Ndt,d):t,x[0]:x=_o12(=<f,,=<{x},t,dt,Ndt,d):2t,x[0]:x=_t12(=<f,,=<(,),dt,Ndt,d):x[0],x[1],g(x[0]):x=_t12(=<f,,=<{x},dt,Ndt,d):x[0],x[1],g(x[0]);";
+      script += "\n";
+      script += "dt=0.1(1+i),Ndt=10,d=1/4,t=dt*Ndt,f=<__t__**5,g(t)=<t**6/6:x=_o12(=<f,,=<0,,dt,Ndt,d):t,x[0]:x=_o12(=<f,,=<{x},t,dt,Ndt,d):2t,x[0]:x=_t12(=<f,,=<(,),dt,Ndt,d):x[0],x[1],g(x[0]):x=_t12(=<f,,=<{x},dt,Ndt,d):x[0],x[1],g(x[0]);";
       script += "\nclear;\n";
       script += "Jacobi(=<{__x__[0]**2+__x__[1],__x__[0]+__x__[1]**2},,=<{1,2},false);\nNewton(=<__x__[0]**2+__x__[0]-12=0,,=<0,false,20);\nNewton(=<{__x__[0]**2+__x__[1]-12=1e-5**2+1e5-12,__x__[0]+__x__[1]=1e-5+1e5},,=<(,),false,20);";
       script += "\nclear;\n";
