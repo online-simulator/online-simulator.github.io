@@ -1645,6 +1645,7 @@ else if(prop === "OX" || prop === "TX"){  // ODE  // Ver.2.23.11  // Ver.2.231.5
     /* Ver.2.775.121 -> */
     var update_arr_f_o3 = function(){
       var dtr2 = get_dt(0.5);
+      var dt3b4 = get_dt(3/4);
       // t0
       store_t();
       var f1 = calc_f();
@@ -1652,8 +1653,8 @@ else if(prop === "OX" || prop === "TX"){  // ODE  // Ver.2.23.11  // Ver.2.231.5
       store_t(dtr2);
       store_x(x1);
       var f2 = calc_f();
-      var x2 = step_x_sum(x0, [[f1, get_dt(0)], [f2, get_dt(3/4)]]);
-      store_t(get_dt(3/4));
+      var x2 = step_x(x0, f2, dt3b4);
+      store_t(dt3b4);
       store_x(x2);
       var f3 = calc_f();
       var x3 = step_x_sum(x0, [[f1, get_dt(2/9)], [f2, get_dt(1/3)], [f3, get_dt(4/9)]]);
