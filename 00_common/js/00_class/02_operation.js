@@ -1279,7 +1279,9 @@ My_entry.operation.prototype.jacobian = function(data, rightArr, tagObj){
     var len_fi = arr_f0.length;
     var len_fj = arr_f0[len_fi-1].length;
     if(len_fi === len_i){
-      isRow = false;  // Ver.2.237.56
+      if(len_fi > 1){  // Ver.2.776.123
+        isRow = false;  // Ver.2.237.56
+      }
       _get_f = function(arr_f, i){
         return DATA.arr2obj_i(arr_f, i);
       };
