@@ -1714,6 +1714,7 @@ else if(prop === "OX" || prop === "TX"){  // ODE  // Ver.2.23.11  // Ver.2.231.5
         }
         else{
           x0 = step_x(x0, fc_o5, dt);
+          store_x(x0);  // Ver.2.775.122
           t0 = step_t(n+1, t00);  // Ver.2.774.120
         }
       }

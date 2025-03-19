@@ -459,6 +459,8 @@
       script += "\nclear;\n";
       script += "~~(0@@false),not(xor(0,false)),xnor(0,false):~~(1@@i),cnot(cxor(1,i)),cxnor(1,i):~~(0||1),not(or(0,1)),nor(0,1):~~(0||i),cnot(cor(0,i)),cnor(0,i):~~(1&&2),not(and(1,2)),nand(1,2):~~(1i&&2i),cnot(cand(1i,2i)),cnand(1i,2i);";
       script += "\nclear;\n";
+      script += "dt_Ndt_d=[0.1,20,1e-6];\n_t45((t,x)=<t+x,,=<{,1},dt_Ndt_d):_t45((t,x)=<t+x,,=<(,1),dt_Ndt_d);\n_t45(=<__t__+__x__[0],,=<{,1},dt_Ndt_d):_t45(=<__t__+__x__[0],,=<(,1),dt_Ndt_d);";
+      script += "\nclear;\n";
       $._id("input").value = script;
     });
   })();

@@ -1,6 +1,30 @@
 clear
 local storage cleared
 
+_t45(=<__t__+__x__[0],,=<{,1},dt_Ndt_d):_t45(=<__t__+__x__[0],,=<(,1),dt_Ndt_d)
+(
+2:
+11.77811219057591+O(1e-5):
+2:
+11.77811219057591+O(1e-5)
+)
+
+_t45((t,x)=<t+x,,=<{,1},dt_Ndt_d):_t45((t,x)=<t+x,,=<(,1),dt_Ndt_d)
+(
+2:
+11.77811219057591+O(1e-5):
+2:
+11.77811219057591+O(1e-5)
+)
+
+dt_Ndt_d=[0.1,20,1e-6]
+dt_Ndt_d=(
+0.1,20,0.000001
+)
+
+clear
+local storage cleared
+
 ~~(0@@false),not(xor(0,false)),xnor(0,false):~~(1@@i),cnot(cxor(1,i)),cxnor(1,i):~~(0||1),not(or(0,1)),nor(0,1):~~(0||i),cnot(cor(0,i)),cnor(0,i):~~(1&&2),not(and(1,2)),nand(1,2):~~(1i&&2i),cnot(cand(1i,2i)),cnand(1i,2i)
 (
 true,true,true:
@@ -4860,4 +4884,4 @@ drag=false&sw=false&0x=false&useMatrix=true&useStrict=false&checkError=true&isRi
 --------------------------------
 --------------------------------
 
-online-simulator.github.io.6.470.609.22.138 @ Tue Mar 18 2025 22:15:43 GMT+0900 (日本標準時) @ Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/134.0.0.0 Safari/537.36
+online-simulator.github.io.6.470.609.22.139 @ Wed Mar 19 2025 14:08:51 GMT+0900 (日本標準時) @ Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/134.0.0.0 Safari/537.36
