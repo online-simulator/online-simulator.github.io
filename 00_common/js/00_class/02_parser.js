@@ -346,15 +346,15 @@ My_entry.parser.prototype.compare2bs = function(token, token_lower, token_upper,
       var _tree = null;
       /* Ver.2.369.86 -> */
       var obj = {key: key};
-      var num = Number(mc1);
-      if(num){
+      var num = (mc1 === "")? null: Number(mc1);  // Ver.2.777.123
+      if(num || num === 0){  // Ver.2.777.123
         if(key === "OX" || key === "TX"){
-          if(num === 2 || num === 4 || num === 5 || num === 45 || num === 3 || num === 23 || num === 1 || num === 12){  // Ver.2.774.119  // Ver.2.775.121
+          if(num === 2 || num === 4 || num === 5 || num === 45 || num === 3 || num === 23 || num === 1 || num === 12 || num === 0){  // Ver.2.774.119  // Ver.2.775.121  // Ver.2.777.123
             mc1 = "";
             obj["order"] = num;
           }
           else{
-            throw "Invalid order=4||2||5||45||3||23||1||12("+key+")";  // Ver.2.774.119  // Ver.2.775.121
+            throw "Invalid order=4||2||5||45||3||23||1||12||0("+key+")";  // Ver.2.774.119  // Ver.2.775.121  // Ver.2.777.123
           }
         }
         else if(key === "DX" || key === "IX"){

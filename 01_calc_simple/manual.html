@@ -7221,9 +7221,11 @@ clear; f=&lt;-1; f=1; [f=2,=&lt;f]=&gt;,[f=&lt;-2,=&lt;f]=&gt; -> (2,<del>1</del
 <br>
 　<span class="run">Ver.2.776.122</span>以降、<a href="#span-out-FNmh-OX">ODE高階行列関数</a>を任意のButcher-table入力で再実装（<a href="#span-out-epsilon">Machine epsilon</a>の後方互換性）
 <br>
-　　_o()　⇒　_o||_o4||_o2||_o5<span class="selection">||_o45||_o3||_o23||_o1()||_o12()</span>
+　<span class="run">Ver.2.777.123</span>以降、同上の<span class="condition">外部入力</span>に対応
 <br>
-　　_t()　⇒　_t||_t4||_t2||_t5<span class="selection">||_t45||_t3||_t23||_t1()||_t12()</span>
+　　_o()　⇒　_o||_o4||_o2||_o5<span class="selection">||_o45||_o3||_o23||_o1()||_o12</span><span class="condition">||_o0()</span>
+<br>
+　　_t()　⇒　_t||_t4||_t2||_t5<span class="selection">||_t45||_t3||_t23||_t1()||_t12</span><span class="condition">||_t0()</span>
 <br>
 　　_d()　⇒　_d||_d4||_d2()
 <br>
@@ -32484,7 +32486,7 @@ ODE高階行列関数
 ・未知変数の<a href="#span-out-terms">scope変数</a>を参照、上書きする
 <br>
 <br>
-_odummy<a href="#span-out-vars-symbol">変数名symbol</a>(=&lt;第1引数,=&lt;第2引数[,=&lt;第3引数[,第4引数[,第5引数[,第6引数[,第7引数]]]]])
+_odummy<a href="#span-out-vars-symbol">変数名symbol</a>(=&lt;第1引数,=&lt;第2引数[,=&lt;第3引数[,第4引数[,第5引数[,第6引数[,第7引数[,第8引数]]]]]])
 <br>
 ・第1引数: 1階常微分方程式右辺の関数式を<a href="#span-out-pass-by-equation">式渡し</a>||<a href="#span-out-pass-by-symbol">symbol渡し</a>
 <br>
@@ -32508,7 +32510,11 @@ option
 <br>
 <span class="run">Ver.2.774.119</span>以降、第7引数追加（adaptive-step solver用）
 <br>
-・第7引数: norm比較判定対象|dt|δのδを値渡し[省略時、1e-3]
+・第7引数: norm比較判定対象|dt|δのδを値渡し[0||省略時、1e-3]
+<br>
+<span class="run">Ver.2.777.123</span>以降、第8引数追加（_o0()指定で任意のButcher-tableを使用）
+<br>
+・第8引数: Butcher-tableの<a href="#span-out-mat">行列</a>を<a href="#span-out-pass-by-equation">式渡し</a>
 <br>
 <br>
 <a href="#span-out-error-numerical">数値誤差</a>に関する精度次数について記述する
@@ -32544,7 +32550,7 @@ ODEt高階行列関数
 ・<a href="#span-out-FNmh-OX">ODE高階行列関数</a>と異なり、dummy変数を未知変数vectorに含めて返す
 <br>
 <br>
-_t<a href="#span-out-vars-symbol">変数名symbol</a>(=&lt;第1引数,=&lt;第2引数[,=&lt;第3引数[,第4引数[,第5引数[,第6引数]]]])
+_t<a href="#span-out-vars-symbol">変数名symbol</a>(=&lt;第1引数,=&lt;第2引数[,=&lt;第3引数[,第4引数[,第5引数[,第6引数[,第7引数]]]]])
 <br>
 ・<a href="#span-out-FNmh-OX">ODE高階行列関数</a>の第4引数を削除
     </td>

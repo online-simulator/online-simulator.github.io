@@ -1437,21 +1437,22 @@ else if(prop === "OX" || prop === "TX"){  // ODE  // Ver.2.23.11  // Ver.2.231.5
     // Niteration
     var argN = args[(isTX)? 4: 5];
     var Niteration = (argN && argN.com)? Math.round(argN.com.r): 1;  // 0 enabled  // Ver.2.205.46 floor -> round
+    /* -> Ver.2.29.15 */
     /* Ver.2.774.119 -> */
     // delta
     var argD = args[(isTX)? 5: 6];
-    var delta = (argD && argD.com)? argD.com.r: 1e-3;
+    var delta = ((argD && argD.com)? argD.com.r: null) || 1e-3;  // Ver.2.777.123 not0
     var hdelta = Math.sqrt(Math.pow(dt.com.r, 2)+Math.pow(dt.com.i, 2))*delta;
     /* -> Ver.2.774.119 */
-    /* -> Ver.2.29.15 */
+    var argB = args[(isTX)? 6: 7];  // Ver.2.777.123
     /* -> Ver.2.238.56 */
     // orderT
     /* Ver.2.369.86 -> */
     var orderT = 4;
-    if(tagObj.val.order){
+    if(tagObj.val.order || tagObj.val.order === 0){  // Ver.2.777.123
       orderT = tagObj.val.order;
     }
-    else if(options.orderT === 2 || options.orderT === 5 || options.orderT === 45 || options.orderT === 3 || options.orderT === 23 || options.orderT === 1 || options.orderT === 12){  // Ver.2.774.119  // Ver.2.775.121
+    else if(options.orderT === 2 || options.orderT === 5 || options.orderT === 45 || options.orderT === 3 || options.orderT === 23 || options.orderT === 1 || options.orderT === 12 || options.orderT === 0){  // Ver.2.774.119  // Ver.2.775.121  // Ver.2.777.123
       orderT = options.orderT;
     }
     /* -> Ver.2.369.86 */
@@ -1672,6 +1673,19 @@ else if(prop === "OX" || prop === "TX"){  // ODE  // Ver.2.23.11  // Ver.2.231.5
     else if(orderT === 12){
       table = [[0], [1, 1], [1/2, 1/2], [1, 0]];
     }
+    /* Ver.2.777.123 -> */
+    else if(orderT === 0){
+      var tree_table = (argB)? self.tree_eqn2tree_AtREe(data, argB): null;
+      var arr = self.get_tagVal(tree_table, "mat", "arr");
+      if(arr){
+        table = DATA.arr2table(arr);
+        orderT = table[table.length-1].length;
+      }
+      else{
+        table.length = 0;
+      }
+    }
+    /* -> Ver.2.777.123 */
     if(!(table && table.length > 1)){
       throw msgErr+"(Butcher-table)";
     }

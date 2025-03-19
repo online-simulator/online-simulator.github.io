@@ -216,3 +216,17 @@ My_entry.DATA.prototype.arr2arri_NaN = function(_arr){
   }
   return _arr;
 };
+/* calc-Ver.2.777.123 */
+My_entry.DATA.prototype.arr2table = function(arr){
+  var self = this;
+  var _table = [];
+  var len_i = arr.length;
+  for(var i=0; i<len_i; ++i){
+    _table.push([]);
+    var len_j = arr[i].length;
+    for(var j=0; j<len_j; ++j){
+      _table[_table.length-1].push(arr[i][j].com.r);
+    }
+  }
+  return _table;
+};
