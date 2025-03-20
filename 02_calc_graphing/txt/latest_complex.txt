@@ -582,6 +582,48 @@ stored_eqn(DFT1d)
 clear
 local storage cleared
 
+ODE_fixed(t0,=<(x0,v0),=<table_Butcher)=>:(_t0(args,,=<table_Butcher).):(_t(args).)
+(
+1+i,0.009082041933643148+1.1899248519220138i,1.3865513945757815+1.1502841324490338i:
+1+i,0.009082041933643085+1.1899248519220138i+O(1e-4+1e-4i),1.3865513945757815+1.150284132449034i+O(1e-4+1e-4i):
+1+i,0.009082041933643085+1.1899248519220138i+O(1e-4+1e-4i),1.3865513945757815+1.150284132449034i+O(1e-4+1e-4i)
+)
+
+args=(=<f,,=<{t0,x0,v0},dt,Ndt)
+args=(
+$f,0,eqn,0.1+0.1i,10
+)
+
+($F,$m,$k,$c)=(1,1,1,0.4)
+stored_var(F) stored_var(m) stored_var(k) stored_var(c) 
+
+f(t,x,v)=<{v,t+(F-k*x-c*v)/m}
+stored_eqn(f)
+
+{$t0,$x0,$v0}={,,}
+stored_var(t0) stored_var(x0) stored_var(v0) 
+
+table_Butcher=(0:1/2,1/2:1/2,0,1/2:1,0,0,1:1/6,1/3,1/3,1/6)
+table_Butcher=(
+0:
+0.5,0.5:
+0.5,0,0.5:
+1,0,0,1:
+0.16666666666666666,0.3333333333333333,0.3333333333333333,0.16666666666666666
+)
+
+Ndt=10
+Ndt=10
+
+dt=0.1*(1+i)
+dt=0.1+0.1i
+
+ODE_fixed(t0,x0,table)=<[order=##table[-1],get_arr_f(t0,x0)=<[step_x_sum(i_)=<_r((x)=<x+dt*table[i_][__n__]*arr_f[__n__-1],=<x0,#arr_f),_r(=<arr_f[#arr_f].push(=<f(t0+dt*table[__n__-1][0],step_x_sum(__n__-1)=>)=>.),arr_f=[],order),=<arr_f]=>,x=_r((x)=<x+dt*table[-1]*get_arr_f(t0+dt*(__n__-1),=<x)=>,=<x0,Ndt),t=t0+dt*Ndt,=<(t,x)]=>
+stored_eqn(ODE_fixed)
+
+clear
+local storage cleared
+
 [cond_error=(has__(t_total)==0)&has__(z_x0),proc=<[args=(1,0.5,0,20+20i,0,1,1),=<ODE_RK4(args)=>]=>,=<switch(cond_error==0,=<proc:1,-999)]=>
 (
 2:
@@ -1434,7 +1476,7 @@ clear
 local storage cleared
 
 [Pinv_y=(-0.999999427,-0.999936657,-0.997300203,-0.954499736,-0.682689492,0,0.682689492,0.954499736,0.997300203,0.999936657,0.999999427:-5,-4,-3,-2,-1,0,1,2,3,4,5),N=1,arr=[],_rn(=<arr.push(rand_table(=<Pinv_y)=>),,N),=<arr.]=>
-2.698607806320215
+0.34950567827142304
 
 rand_table(csv)=<last[table=sort0(csv),ymin=min(table)[0],ymax=max(table)[0],y=ymin+(ymax-ymin)*rand(),x=interp(y:table),x]
 stored_eqn(rand_table)
@@ -3248,4 +3290,4 @@ center=true&drag=false&test-case=false&plot-all=true&relzooming=true&snap=true&l
 --------------------------------
 --------------------------------
 
-online-simulator.github.io.6.472.609.22.140 @ Thu Mar 20 2025 01:10:08 GMT+0900 (日本標準時) @ Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/134.0.0.0 Safari/537.36
+online-simulator.github.io.6.472.610.22.140 @ Fri Mar 21 2025 03:11:38 GMT+0900 (日本標準時) @ Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/134.0.0.0 Safari/537.36

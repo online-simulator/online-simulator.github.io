@@ -1623,6 +1623,8 @@ test case
 <br>
 ・<a href="#span-eqn-explicit-ODE_RK4">explicit ODE_RK4</a>
 <br>
+・<a href="#span-eqn-explicit-ODE_fixed">explicit ODE_fixed</a>
+<br>
 ・<a href="#span-eqn-DFT1d">DFT1d</a>
 <br>
 ・<a href="#span-eqn-DFT2d_xy">DFT2d_xy</a>
@@ -47958,6 +47960,59 @@ init=&gt;,run=&gt;,return=out=&gt;,scope2storage=&gt;,
 proc=&lt;[args=(1,0.5,0,20+20i<span class="selection">,0</span>,1,1),=&lt;ODE_RK4(args)=&gt;]=&gt;,
 <br>
 =&lt;switch(cond_error==0,=&lt;proc:1,-999/*error-code*/)]=&gt;;
+    </td>
+  </tr>
+  <tr>
+    <th>
+<a href="#span-index">
+目次
+</a>
+<br>
+explicit
+<br>
+ODE_fixed
+    </th>
+    <td>
+<span id="span-eqn-explicit-ODE_fixed"></span>
+<a href="#span-out-evolution">時間発展の解法</a>参照
+<br>
+・任意のButcher-tableに対する固定stepの陽的Runge-Kutta法（公式と一意対応の最短表記）
+<br>
+clear;
+<br>
+ODE_fixed(t0,x0,table)=&lt;[
+<br>
+order=##table[-1],
+<br>
+get_arr_f(t0,x0)=&lt;[
+<br>
+step_x_sum(i_)=&lt;_r((x)=&lt;x+dt*table[i_][__n__]*arr_f[__n__-1],=&lt;x0,#arr_f),
+<br>
+_r(=&lt;arr_f[#arr_f].push(=&lt;f(t0+dt*table[__n__-1][0],step_x_sum(__n__-1)=&gt;)=&gt;.),arr_f=[],order),
+<br>
+=&lt;arr_f]=&gt;,
+<br>
+x=_r((x)=&lt;x+dt*table[-1]*get_arr_f(t0+dt*(__n__-1),=&lt;x)=&gt;,=&lt;x0,Ndt),
+<br>
+t=t0+dt*Ndt,
+<br>
+=&lt;(t,x)]=&gt;;
+<br>
+dt=0.1*(1+i);
+<br>
+Ndt=10;
+<br>
+table_Butcher=(0:1/2,1/2:1/2,0,1/2:1,0,0,1:1/6,1/3,1/3,1/6);
+<br>
+{$t0,$x0,$v0}={,,};
+<br>
+f(t,x,v)=&lt;{v,t+(F-k*x-c*v)/m};
+<br>
+($F,$m,$k,$c)=(1,1,1,0.4);
+<br>
+args=(=&lt;f,,=&lt;{t0,x0,v0},dt,Ndt);
+<br>
+ODE_fixed(t0,=<(x0,v0),=&lt;table_Butcher)=&gt;:(_t0(args,,=&lt;table_Butcher).):(_t(args).);
     </td>
   </tr>
   <tr>
