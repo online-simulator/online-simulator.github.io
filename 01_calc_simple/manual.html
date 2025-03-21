@@ -1625,6 +1625,8 @@ test case
 <br>
 ・<a href="#span-eqn-explicit-ODE_fixed">explicit ODE_fixed</a>
 <br>
+・<a href="#span-eqn-explicit-ODE_adaptive">explicit ODE_adaptive</a>
+<br>
 ・<a href="#span-eqn-DFT1d">DFT1d</a>
 <br>
 ・<a href="#span-eqn-DFT2d_xy">DFT2d_xy</a>
@@ -47992,15 +47994,15 @@ _r(=&lt;arr_f[#arr_f].push(=&lt;f(t0+dt*table[__n__-1][0],step_x_sum(__n__-1)=&g
 <br>
 =&lt;arr_f]=&gt;,
 <br>
-x=_r((x)=&lt;x+dt*table[-1]*get_arr_f(t0+dt*(__n__-1),=&lt;x)=&gt;,=&lt;x0,Ndt),
+x=_r((x)=&lt;x+dt*table[-1]*get_arr_f(t0+dt*(__n__-1),=&lt;x)=&gt;,=&lt;x0,Niteration),
 <br>
-t=t0+dt*Ndt,
+t=t0+dt*Niteration,
 <br>
 =&lt;(t,x)]=&gt;;
 <br>
 dt=0.1*(1+i);
 <br>
-Ndt=10;
+Niteration=10;
 <br>
 table_Butcher=(0:1/2,1/2:1/2,0,1/2:1,0,0,1:1/6,1/3,1/3,1/6);
 <br>
@@ -48010,9 +48012,134 @@ f(t,x,v)=&lt;{v,t+(F-k*x-c*v)/m};
 <br>
 ($F,$m,$k,$c)=(1,1,1,0.4);
 <br>
-args=(=&lt;f,,=&lt;{t0,x0,v0},dt,Ndt);
+args=(=&lt;f,,=&lt;{t0,x0,v0},dt,Niteration);
 <br>
 ODE_fixed(t0,=<(x0,v0),=&lt;table_Butcher)=&gt;:(_t0(args,,=&lt;table_Butcher).):(_t(args).);
+    </td>
+  </tr>
+  <tr>
+    <th>
+<a href="#span-index">
+目次
+</a>
+<br>
+explicit
+<br>
+ODE_adaptive
+    </th>
+    <td>
+<span id="span-eqn-explicit-ODE_adaptive"></span>
+<a href="#span-out-evolution">時間発展の解法</a>参照
+<br>
+・任意のButcher-tableに対する適応stepの陽的Runge-Kutta法
+<br>
+clear;
+<br>
+ODE_adaptive(t0,x0,table)=&lt;[
+<br>
+dt0=dt,
+<br>
+t=t0,
+<br>
+order=##table[-1],
+<br>
+isAdaptive=eq(#table-order,2),
+<br>
+get_arr_f(dt,t0,x0)=&lt;[
+<br>
+step_x_sum(i_)=&lt;_r((x)=&lt;x+dt*table[i_][__n__]*arr_f[__n__-1],=&lt;x0,#arr_f),
+<br>
+_r(=&lt;arr_f[#arr_f].push(=&lt;f(t0+dt*table[__n__-1][0],step_x_sum(__n__-1)=&gt;)=&gt;.),arr_f=[],order),
+<br>
+=&lt;arr_f]=&gt;,
+<br>
+define_step_fixed=&lt;step(n)=&lt;(
+<br>
+arr_f=get_arr_f(dt,t,=&lt;x)=&gt;,
+<br>
+t=t+dt,
+<br>
+x=x+dt*table[-1]*arr_f,
+<br>
+=&lt;x)=&gt;,
+<br>
+define_step_adaptive=&lt;step(n)=&lt;(
+<br>
+pNdt=0,
+<br>
+t00=t,
+<br>
+x00=x,
+<br>
+dt=dt0/Ndt,
+<br>
+_r(=&lt;last{
+<br>
+arr_f=get_arr_f(dt,t,=&lt;x)=&gt;,
+<br>
+fc_o5=table[-2]*arr_f,
+<br>
+fc_o4=table[-1]*arr_f,
+<br>
+cr_norm=norm(fc_o4-fc_o5),
+<br>
+sw=cr_norm>=hdelta,
+<br>
+pNdt=sw&amp;&amp;1||0,
+<br>
+x=x+dt*fc_o5,
+<br>
+t=t+dt,
+<br>
+},sw=false,Ndt,=&lt;{sw}),
+<br>
+dt=dt0,
+<br>
+cr_norm<=hdelta/10&amp;&amp;&amp;(pNdt=-1),
+<br>
+Ndt=max(1,Ndt*2**pNdt),
+<br>
+pNdt===1&amp;&amp;&amp;(t=t00,x=x00,step(n)=&gt;),
+<br>
+=&lt;x)=&gt;,
+<br>
+Ndt=1,
+<br>
+hdelta=abs(dt)*delta,
+<br>
+isAdaptive&amp;&amp;&amp;define_step_adaptive=&gt;||||define_step_fixed=&gt;,
+<br>
+_r(=&lt;x=step(__n__)=&gt;,x=x0,Niteration),
+<br>
+Ndt%1===0&amp;&amp;&amp;(t=t0+dt*Niteration),
+<br>
+=&lt;(t,x)]=&gt;;
+<br>
+dt=0.1*(1+i);
+<br>
+delta=1e-7;
+<br>
+Niteration=10;
+<br>
+table_fixed=(0:1/2,1/2:1/2,0,1/2:1,0,0,1:1/6,1/3,1/3,1/6);
+<br>
+table_adaptive=(0:1/4,1/4:3/8,3/32,9/32:12/13,1932/2197,-7200/2197,7296/2197:
+<br>
+1,439/216,-8,3680/513,-845/4104:1/2,-8/27,2,-3544/2565,1859/4104,-11/40:
+<br>
+16/135,0,6656/12825,28561/56430,-9/50,2/55:25/216,0,1408/2565,2197/4104,-1/5,0);
+<br>
+{$t0,$x0,$v0}={,,};
+<br>
+f(t,x,v)=&lt;{v,t+(F-k*x-c*v)/m};
+<br>
+($F,$m,$k,$c)=(1,1,1,0.4);
+<br>
+args=(=&lt;f,,=&lt;{t0,x0,v0},dt,Niteration);
+<br>
+ODE_adaptive(t0,=&lt;(x0,v0),=&lt;table_fixed)=&gt;:(_t0(args,,=&lt;table_fixed).):(_t4(args).);
+<br>
+ODE_adaptive(t0,=&lt;(x0,v0),=&lt;table_adaptive)=&gt;:(_t0(args,delta,=&lt;table_adaptive).):(_t45(args,delta).);
     </td>
   </tr>
   <tr>
