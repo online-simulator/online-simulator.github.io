@@ -30393,7 +30393,7 @@ N=10; fibo_(n,a,b)=&lt;(n&lt;1&amp;&amp;&amp;{a,}|||n&lt;2&amp;&amp;&amp;{b,}|||
 <br>
 N=10; fibo_log(n)=&lt;<span class="condition">[=&lt;</span>n&lt;2&amp;&amp;n||||last{q=n%%2,fq=fibo_log(q),
 <br>
-fq**2+<span class="condition">(</span>n%2<span class="condition">===0&&&</span>2fibo_log(q-1)*fq<span class="condition">||||</span>fibo_log(q+1)**2<span class="condition">)</span>}<span class="condition">]=&gt;</span>; fibo_log(N) -> 55
+fq**2+<span class="condition">(</span>n%2<span class="condition">===0&amp;&amp;&amp;</span>2fibo_log(q-1)*fq<span class="condition">||||</span>fibo_log(q+1)**2<span class="condition">)</span>}<span class="condition">]=&gt;</span>; fibo_log(N) -> 55
 <br>
 ・<span class="clear">一般項（再帰なし）</span>
 <br>
