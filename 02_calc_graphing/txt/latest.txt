@@ -640,7 +640,7 @@ delta=1e-7
 dt=0.1*(1+i)
 dt=0.1+0.1i
 
-ODE_adaptive(t0,x0,table)=<[dt0=dt,t=t0,order=##table[-1],isAdaptive=eq(#table-order,2),get_arr_f(dt,t0,x0)=<[step_x_sum(i_)=<_r((x)=<x+dt*table[i_][__n__]*arr_f[__n__-1],=<x0,#arr_f),_r(=<arr_f[#arr_f].push(=<f(t0+dt*table[__n__-1][0],step_x_sum(__n__-1)=>)=>.),arr_f=[],order),=<arr_f]=>,define_step_fixed=<step(n)=<(arr_f=get_arr_f(dt,t,=<x)=>,x=x+dt*table[-1]*arr_f,t=t+dt,=<x)=>,define_step_adaptive=<step(n)=<(pNdt=0,t00=t,x00=x,dt=dt0/Ndt,_r(=<last{arr_f=get_arr_f(dt,t,=<x)=>,fc_o5=table[-2]*arr_f,fc_o4=table[-1]*arr_f,cr_norm=norm(fc_o4-fc_o5),sw=cr_norm>=hdelta,pNdt=sw&&1||0,x=x+dt*fc_o5,t=t+dt},sw=false,Ndt,=<{sw}),dt=dt0,cr_norm<=hdelta/10&&&(pNdt=-1),Ndt=max(1,Ndt*2**pNdt),pNdt===1&&&(t=t00,x=x00,step(n)=>),=<x)=>,Ndt=1,hdelta=abs(dt)*delta,isAdaptive&&&define_step_adaptive=>||||define_step_fixed=>,_r(=<x=step(__n__)=>,x=x0,Niteration),Ndt%1===0&&&(t=t0+dt*Niteration),=<(t,x)]=>
+ODE_adaptive(t0,x0,table)=<[dt0=dt,t=t0,x=x0,order=##table[-1],isAdaptive=eq(#table-order,2),get_arr_f(dt,t0,x0)=<[step_x_sum(i_)=<_r((x)=<x+dt*table[i_][__n__]*arr_f[__n__-1],=<x0,#arr_f),_r(=<arr_f[#arr_f].push(=<f(t0+dt*table[__n__-1][0],step_x_sum(__n__-1)=>)=>.),arr_f=[],order),=<arr_f]=>,define_step_fixed=<step(n)=<last{arr_f=get_arr_f(dt,t,=<x)=>,x=x+dt*table[-1]*arr_f,t=t+dt},define_step_adaptive=<step(n)=<last{pNdt=0,t00=t,x00=x,dt=dt0/Ndt,_r(=<last{arr_f=get_arr_f(dt,t,=<x)=>,fc_o5=table[-2]*arr_f,fc_o4=table[-1]*arr_f,cr_norm=norm(fc_o4-fc_o5),sw=cr_norm>=hdelta,pNdt=sw&&1||0,x=x+dt*fc_o5,t=t+dt},sw=false,Ndt,=<{sw}),dt=dt0,cr_norm<=hdelta/10&&&(pNdt=-1),Ndt=max(1,Ndt*2**pNdt),pNdt===1&&&(t=t00,x=x00,step(n)=>)},Ndt=1,hdelta=abs(dt)*delta,isAdaptive&&&define_step_adaptive=>||||define_step_fixed=>,_r(=<step(__n__)=>,,Niteration),Ndt%1===0&&&(t=t0+dt*Niteration),=<(t,x)]=>
 stored_eqn(ODE_adaptive)
 
 clear
@@ -1540,7 +1540,7 @@ clear
 local storage cleared
 
 [Pinv_y=(-0.999999427,-0.999936657,-0.997300203,-0.954499736,-0.682689492,0,0.682689492,0.954499736,0.997300203,0.999936657,0.999999427:-5,-4,-3,-2,-1,0,1,2,3,4,5),N=1,arr=[],_rn(=<arr.push(rand_table(=<Pinv_y)=>),,N),=<arr.]=>
--0.734800952410262
+0.5973696539797567
 
 rand_table(csv)=<last[table=sort0(csv),ymin=min(table)[0],ymax=max(table)[0],y=ymin+(ymax-ymin)*rand(),x=interp(y:table),x]
 stored_eqn(rand_table)
@@ -3354,4 +3354,4 @@ center=true&drag=false&test-case=false&plot-all=true&relzooming=true&snap=true&l
 --------------------------------
 --------------------------------
 
-online-simulator.github.io.6.472.611.22.140 @ Fri Mar 21 2025 18:05:40 GMT+0900 (日本標準時) @ Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/134.0.0.0 Safari/537.36
+online-simulator.github.io.6.472.611.22.140 @ Fri Mar 21 2025 21:59:49 GMT+0900 (日本標準時) @ Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/134.0.0.0 Safari/537.36
