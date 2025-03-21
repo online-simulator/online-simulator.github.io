@@ -606,6 +606,8 @@
       $._id("Takagi_Landsberg").onclick = function(){setVal("-1", "1", "x=t,N=1e2,w=1/2,s(x)=<last{t=abs(x)%1,t<0.5&&t||||1-t},T(x)=<_s((n)=<w**n*s(2**n*x),0,N),x;", "s(x);T(x);", 100);};
       $._id("Weierstrass").onclick = function(){setVal("-2", "2", "N=1e2,D=1.5,gamma=2,phi=0,W(t)=<_s((n)=<(1-e**(i(gamma**n)t))*e**(i(phi))/gamma**((2-D)*n),-N,N),t;", "W(t);", 100);};
       $._id("Dirichlet").onclick = function(){setVal("-2", "2", "k=t,DN(k,N)=<k%1==0&&(-1)**(k*(N-1))||||sin(N*pi*k)/(N*sin(pi*k)),k;", "DN(k,6);DN(k,12);DN(k,13);DN(k,101);", 100);};
+      $._id("Dirac").onclick = function(){setVal("-1", "1", "x=t,x;", "F(z)=<-1/(2pi*i*z),hyperfunction(x)=<F(x+eps*i)-F(x-eps*i),hyperfunction(x);", 100);$._id("input-z").value+="TITLE{Dirac's delta||impulse function}XLABEL{x}YLABEL{y}::3:1.5:1.5::y(0)→∞;";};
+      $._id("Heaviside").onclick = function(){setVal("-1", "1", "x=t,x;", "U(x)=<x<>0&&&(x+abs(x))/(2*abs(x)),U(x);H(x)=<(1+sign(x))/2,H(x);", 100);$._id("input-z").value+="TITLE{Heaviside step function: H(x)}XLABEL{x}::3:1.5:1.5::U(x),U(0)=0;::::::H(x),H(0)=0.5,CDF of Dirac's delta;";};
       $._id("Seki_Aitken1").onclick = function(){setVal("0", "20", "n=round(t),n;n;n;n;n;n;17;n;", "ans_correct=pi,get_log_errr(ans_numerical)=<-min(log10(MAX_SAFE_INTEGER),abs(log10(abs((ans_numerical-ans_correct)/(ans_correct||1))))),$tn(=<sn,n)=<last[,sn(n)-(sn(n+1)-sn(n))**2/(sn(n+2)-2sn(n+1)+sn(n))],calc_len_circumcircle(n,r)=<[t=(2pi/n)/2,x=r*sin(t),len=2x*n,=<len]=>,sn(n)=<last{r=1,calc_len_circumcircle(2**n,r)/(2*r)},get_log_errr(sn(n));get_log_errr(tn(=<sn,n));get_log_errr(tn((n)=<tn(=<sn,n),n));get_log_errr(tn((n)=<tn((n)=<tn(=<sn,n),n),n));get_log_errr(tn((n)=<tn((n)=<tn((n)=<tn(=<sn,n),n),n),n));get_log_errr(tn(=<sn,n-2));n&&&ans;n<17&&&get_log_errr(sn(n))||||-16;-log10(MAX_SAFE_INTEGER);", 10);$._id("input-z").value+="PLOTCONFIG{,,10,8}TITLE{Seki-Aitken's delta-squared process of algebraic equation about pi}XLABEL{n}YLABEL{log10|relative error|}::3:1.5:1.5::sn,len(2**n);::::::tn(sn,n);::::::tn(tn(sn,n));::::::tn(tn(tn(sn,n)));::::::tn(tn(tn(tn(sn,n))));::::::tn(sn,n-2);::0::::n=17 -> regular 131072=4*2**15-sided polygon;:pink:::3::Seki's hand calculation with len(2n)=f(len(n));:blue:::1.5::limit of double-precision;";};
       $._id("Seki_Aitken2").onclick = function(){setVal("0", "10", "n=round(t),n;", "$tn(=<sn,n)=<last[,sn(n)-(sn(n+1)-sn(n))**2/(sn(n+2)-2sn(n+1)+sn(n))],sn(n)=<_s((n)=<1/n!,0,n),sn(n);tn(=<sn,n);tn((n)=<tn(=<sn,n),n);e;", 10);$._id("input-z").value+="PLOTCONFIG{,,10}TITLE{Seki-Aitken's delta-squared process of series}XLABEL{n}YLABEL{e}::3:1.5:1.5::sn;::::::tn(sn);::::::tn(tn(sn));::0::::e;";};
       $._id("Seki_Aitken_zeta1").onclick = function(){setVal("1", "21", "n=round(t),n;", "s=2,$tn(=<sn,n)=<last[,sn(n)-(sn(n+1)-sn(n))**2/(sn(n+2)-2sn(n+1)+sn(n))],zeta(N)=<_s((n)=<1/n**s,1,N),sn(n)=<zeta(n),sn(n);tn(=<sn,n);tn((n)=<tn(=<sn,n),n);zeta_ac2(s,N)=<_s((n)=<(n*(n+1)/2)*((2n+3+s)/(n+1)**(s+2)-(2n-1-s)/n**(s+2)),1,N)/(s-1),sn(n)=<zeta_ac2(s,n),sn(n);tn(=<sn,n);tn((n)=<tn(=<sn,n),n);pi**2/6;", 20);$._id("input-z").value+="PLOTCONFIG{,,10}TITLE{Seki-Aitken's delta-squared process of log-rate series}XLABEL{n}YLABEL{ζ(2)}::3:1.5:1.5::sn,zeta(n),domain real(s)>1;::::::tn(sn);::::::tn(tn(sn));::::::sn,zeta_ac2(n),domain real(s)>-1;::::::tn(sn);::::::tn(tn(sn));::0::::pi**2/6;";};
@@ -1512,6 +1514,9 @@
   <button id="Takagi_Landsberg">Takagi-Landsberg</button>
   <button id="Weierstrass">Weierstrass</button>
   <button id="Dirichlet">Dirichlet</button>
+<br>
+  <button id="Dirac">Dirac</button>
+  <button id="Heaviside">Heaviside</button>
 <br>
   <button id="Seki_Aitken1" class="wF">Seki-Aitken</button>
   <button id="Seki_Aitken2">-e</button>
