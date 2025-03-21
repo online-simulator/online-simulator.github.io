@@ -1261,6 +1261,14 @@ My_entry.calc_graphing.prototype.init_handlers = function(){
         self.isCheckedError = false;  // Ver.2.33.17
         self.re_plot(true);
         break;
+      /* Ver.2.780.123 -> */
+      case "select-rows-x":
+        $.set_id("input-x", "rows", elem.value);
+        break;
+      case "select-rows-y":
+        $.set_id("input-y", "rows", elem.value);
+        break;
+      /* -> Ver.2.780.123 */
       /* Ver.2.43.20 */
       case "select-n_thread":
         self.worker_plot.set_n_thread($.selectNum_id(id));
