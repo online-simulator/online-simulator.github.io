@@ -648,13 +648,13 @@ test case
 <br>
 ・<span class="selection">Schrödinger</span>：1次元Schrödinger方程式のadaptive-stepの<a href="#span-out-evolution">時間発展</a>（時間と空間を強連成）
 <br>
-　空間Δ演算子の<a href="#span-out-error">離散化</a>：<a href="#span-out-fdm-differential">中心差分法</a>
+　空間Δ演算子の<a href="#span-out-error">離散化</a>：<a href="#span-out-fdm-differential">中心差分法</a>（境界条件を含む<a href="#span-out-reference-mat-area">area参照</a>と<a href="#span-out-ope-extended">拡張行列演算</a>で記述）
 <br>
 　初期値の仮定（<a href="#span-out-FNm-normalize">正規化</a>の操作なし）：ψ(x)=V(x)∝(x-xch)**2
 <br>
 　境界条件の仮定：flux∝ψ'(x)<del>=0</del><a href="#span-out-FN-interp2">線形外挿</a>（部分空間の確率として、成行きflux≠0を許容）
 <br>
-　<span class="jF">-abs</span>：波動関数ψの確率密度|ψ(x)|^2の干渉縞を明示
+　<span class="jF">-abs</span>：波動関数ψを確率振幅として確率密度|ψ(x)|^2の干渉縞を明示
 <br>
 　⇒安定性：V(x)のpotential極小点近傍　⇒　|ψ(x)|^2&gt;0
 <br>
