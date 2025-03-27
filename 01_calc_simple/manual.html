@@ -1545,6 +1545,8 @@ test case
 <br>
 ・<a href="#span-eqn-scope_NG">scope_NG</a>
 <br>
+・<a href="#span-eqn-short-circuit">short_circuit</a>
+<br>
 ・<a href="#span-eqn-matching">matching</a>
 <br>
 ・<a href="#span-eqn-scope2storage">scope2storage</a>
@@ -17875,7 +17877,7 @@ clear; (((b)=&lt;(((a)=&lt;[a,b])|||false)(1)=&gt;)|||false)(2)=&gt; -> (1,2)
 <br>
 ・可読性に難あり
 <br>
-・<a href="#span-out-substitution">変数への代入</a>は<a href="#span-out-BT">括弧</a>を明示する方が間違いが少ない
+・<a href="#span-out-special-substitution">代入処理</a>は<a href="#span-out-BT">括弧</a>を明示する方が間違いが少ない（<a href="#span-eqn-short-circuit">short_circuit</a>参照）
 <br>
 clear; a=&lt;b=1&amp;&amp;&amp;c=2; a=&gt; -> [MyErr]Invalid operation
 <br>
@@ -30882,7 +30884,7 @@ switch高階関数
 <br>
 ・引数の左から順に条件文を判定する
 <br>
-・条件文が成立した場合、対の処理を実行して終了する
+・条件文が成立の場合、対の処理を実行して終了する
 <br>
 ・条件文が不成立の場合、対の処理は実行されない
 <br>
@@ -30943,7 +30945,7 @@ x=2; switch(ge(x,4),4:gt(x,3),3:gt(x,2),2:1,-x) -> -2
 <br>
 x=2; switch(0,4:0,3:0,2:1,-2) -> -2
 <br>
-・対の処理を<a href="#span-out-pass-by-equation">式渡し</a>で記述する場合、条件文が成立したcaseのみ実行する
+・対の処理を<a href="#span-out-pass-by-equation">式渡し</a>で記述する場合、条件文が成立のcaseのみ実行する
 <br>
 x=2; switch(x&gt;=4,=&lt;4:x&gt;3,=&lt;3:x&gt;2,=&lt;2:1,=&lt;{-x}) -> -2
 <br>
@@ -45091,6 +45093,35 @@ check_all(1)=&gt;;
 <span class="jF">restore</span>;
 <br>
 check_all(-1)=&gt;;
+    </td>
+  </tr>
+  <tr>
+    <th>
+<a href="#span-index">
+目次
+</a>
+<br>
+short_
+<br>
+circuit
+    </th>
+    <td>
+<span id="span-eqn-short-circuit"></span>
+<a href="#span-out-prec-ope-logical-short-circuit">論理演算子（短絡評価）</a>||<a href="#span-out-prec-ope-logical-short-circuit-literal">論理演算子（literal）</a>||<a href="#span-out-FNh-switch">switch高階関数</a>参照
+<br>
+clear;
+<br>
+sw_var_NG1(sw)=&lt;[x=0,sw&amp;&amp;&amp;x=1||||x=-1,=&lt;x]=&gt;,sw_var_NG1(false)=&gt;,sw_var_NG1(true)=&gt;;
+<br>
+sw_var_OK1(sw)=&lt;[x=0,sw&amp;&amp;&amp;(x=1)||||(x=-1),=&lt;x]=&gt;,sw_var_OK1(false)=&gt;,sw_var_OK1(true)=&gt;;
+<br>
+sw_var_OK2(sw)=&lt;[x=0,switch(sw,=&lt;x=1:1,=&lt;x=-1),=&lt;x]=&gt;,sw_var_OK2(false)=&gt;,sw_var_OK2(true)=&gt;;
+<br>
+sw_eqn_NG1(sw)=&lt;[sw&amp;&amp;&amp;f=&lt;1||||f=&lt;-1,=&lt;f=&gt;]=&gt;,sw_eqn_NG1(false)=&gt;,sw_eqn_NG1(true)=&gt;;
+<br>
+sw_eqn_OK1(sw)=&lt;[sw&amp;&amp;&amp;(f=&lt;1)||||(f=&lt;-1),=&lt;f=&gt;]=&gt;,sw_eqn_OK1(false)=&gt;,sw_eqn_OK1(true)=&gt;;
+<br>
+sw_eqn_OK2(sw)=&lt;[switch(sw,=&lt;f=&lt;1:1,=&lt;f=&lt;-1),=&lt;f=&gt;]=&gt;,sw_eqn_OK2(false)=&gt;,sw_eqn_OK2(true)=&gt;;
     </td>
   </tr>
   <tr>

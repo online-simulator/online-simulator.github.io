@@ -1540,7 +1540,7 @@ clear
 local storage cleared
 
 [Pinv_y=(-0.999999427,-0.999936657,-0.997300203,-0.954499736,-0.682689492,0,0.682689492,0.954499736,0.997300203,0.999936657,0.999999427:-5,-4,-3,-2,-1,0,1,2,3,4,5),N=1,arr=[],_rn(=<arr.push(rand_table(=<Pinv_y)=>),,N),=<arr.]=>
--0.860575582711598
+-0.7639538609669669
 
 rand_table(csv)=<last[table=sort0(csv),ymin=min(table)[0],ymax=max(table)[0],y=ymin+(ymax-ymin)*rand(),x=interp(y:table),x]
 stored_eqn(rand_table)
@@ -3129,6 +3129,39 @@ local storage cleared
 clear
 local storage cleared
 
+sw_eqn_OK2(sw)=<[switch(sw,=<f=<1:1,=<f=<-1),=<f=>]=>,sw_eqn_OK2(false)=>,sw_eqn_OK2(true)=>
+(
+0,-1,1
+)
+
+sw_eqn_OK1(sw)=<[sw&&&(f=<1)||||(f=<-1),=<f=>]=>,sw_eqn_OK1(false)=>,sw_eqn_OK1(true)=>
+(
+0,-1,1
+)
+
+sw_eqn_NG1(sw)=<[sw&&&f=<1||||f=<-1,=<f=>]=>,sw_eqn_NG1(false)=>,sw_eqn_NG1(true)=>
+(
+0,1,1
+)
+
+sw_var_OK2(sw)=<[x=0,switch(sw,=<x=1:1,=<x=-1),=<x]=>,sw_var_OK2(false)=>,sw_var_OK2(true)=>
+(
+0,-1,1
+)
+
+sw_var_OK1(sw)=<[x=0,sw&&&(x=1)||||(x=-1),=<x]=>,sw_var_OK1(false)=>,sw_var_OK1(true)=>
+(
+0,-1,1
+)
+
+sw_var_NG1(sw)=<[x=0,sw&&&x=1||||x=-1,=<x]=>,sw_var_NG1(false)=>,sw_var_NG1(true)=>
+(
+0,0,0
+)
+
+clear
+local storage cleared
+
 check_all(-1)=>
 (
 0,-1,-1,-1:
@@ -3350,8 +3383,8 @@ clear
 local storage cleared
 
 --------------------------------
-center=true&drag=false&test-case=false&plot-all=true&relzooming=true&snap=true&legend=true&axis-t=false&axis-x=true&log-x=false&imag-x=false&axis-y=true&log-y=false&imag-y=false&axis-z=true&axis-v=true&config-plot=false&useMatrix=true&useStrict=true&sharedStorage=false&checkError=true&equation-list=false&config=false&isRightAssociativityBR=false&isDIVprior2OMUL=false&useComma=false&use$let=false&useMutex=false&useWorker=true&plot2d-Ver=2&decDigit=1&roundDigit-y=0&roundDigit-x=0&n_thread=4&canvas-background=black&grid-line-width=0.5&marker-size=5&marker-line-width=0&plot-line-width=2&font-size=12&grid-x-Ni=0&grid-y-Nj=0&kx-adjust=2.5&marker-colors=Ver.1&legend-kx=0.25&legend-ky=0.1&canvas-globalCompositeOperationLayer=source-over&canvas-globalCompositeOperation=source-over&useComplex=1&expDigit=-1&useFunc=0&useScopeWith=0&N=0&matSizeMax=1024&depthMax=300&makeLog=2
+center=true&drag=false&test-case=false&plot-all=true&relzooming=true&snap=true&legend=true&axis-t=false&axis-x=true&log-x=false&imag-x=false&axis-y=true&log-y=false&imag-y=false&axis-z=true&axis-v=true&config-plot=false&useMatrix=true&useStrict=true&sharedStorage=false&checkError=true&equation-list=false&config=false&isRightAssociativityBR=false&isDIVprior2OMUL=false&useComma=false&use$let=false&useMutex=false&useWorker=true&plot2d-Ver=2&decDigit=1&roundDigit-y=0&rows-y=5&roundDigit-x=0&rows-x=5&n_thread=4&canvas-background=black&grid-line-width=0.5&marker-size=5&marker-line-width=0&plot-line-width=2&font-size=12&grid-x-Ni=0&grid-y-Nj=0&kx-adjust=2.5&marker-colors=Ver.1&legend-kx=0.25&legend-ky=0.1&canvas-globalCompositeOperationLayer=source-over&canvas-globalCompositeOperation=source-over&useComplex=1&expDigit=-1&useFunc=0&useScopeWith=0&N=0&matSizeMax=1024&depthMax=300&makeLog=2
 --------------------------------
 --------------------------------
 
-online-simulator.github.io.6.472.611.22.140 @ Fri Mar 21 2025 22:58:06 GMT+0900 (日本標準時) @ Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/134.0.0.0 Safari/537.36
+online-simulator.github.io.6.473.614.22.140 @ Thu Mar 27 2025 18:35:17 GMT+0900 (日本標準時) @ Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/134.0.0.0 Safari/537.36
