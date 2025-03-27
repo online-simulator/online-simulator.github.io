@@ -650,7 +650,7 @@ test case
 <br>
 　空間Δ演算子の<a href="#span-out-error">離散化</a>：<a href="#span-out-fdm-differential">中心差分法</a>（境界条件を含む<a href="#span-out-reference-mat-area">area参照</a>と<a href="#span-out-ope-extended">拡張行列演算</a>で記述）
 <br>
-　初期値の仮定（<a href="#span-out-FNm-normalize">正規化</a>の操作なし）：ψ(x)=V(x)∝(x-xch)**2
+　初期値の仮定（<a href="#span-out-FNm-normalize">正規化</a>の操作なし）：ψ(x)=V(x) || ψ(x)∝sin(x)*W(x)
 <br>
 　境界条件の仮定：ψ"(x)=0相当の<a href="#span-out-FN-interp2">線形外挿</a>（部分空間の確率として、成行きflux∝ψ'(x)≠0を許容）
 <br>
@@ -659,6 +659,8 @@ test case
 　<span class="jF">-abs</span>：波動関数ψを確率振幅として確率密度|ψ(x)|^2の干渉縞を明示
 <br>
 　⇒安定性：V(x)のpotential極小点近傍　⇒　|ψ(x)|^2&gt;0
+<br>
+　<span class="jF">-V=0</span>：V(x)=0の波動関数ψの拡散と反射過程を明示
 <br>
 ・<span class="selection">Brown</span>：2次元Brown運動の軌跡（最も単純な記述）
 <br>
