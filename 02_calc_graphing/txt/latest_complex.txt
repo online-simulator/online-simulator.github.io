@@ -1540,7 +1540,7 @@ clear
 local storage cleared
 
 [Pinv_y=(-0.999999427,-0.999936657,-0.997300203,-0.954499736,-0.682689492,0,0.682689492,0.954499736,0.997300203,0.999936657,0.999999427:-5,-4,-3,-2,-1,0,1,2,3,4,5),N=1,arr=[],_rn(=<arr.push(rand_table(=<Pinv_y)=>),,N),=<arr.]=>
--0.7639538609669669
+-0.442410412050819
 
 rand_table(csv)=<last[table=sort0(csv),ymin=min(table)[0],ymax=max(table)[0],y=ymin+(ymax-ymin)*rand(),x=interp(y:table),x]
 stored_eqn(rand_table)
@@ -1550,7 +1550,7 @@ local storage cleared
 
 [(N)=<[tarr=linspace(0,N-1,N).,shuffle_FY(?tarr)=>,=<tarr.]=>](2)=>
 (
-1,0
+0,1
 )
 
 shuffle_FY(?tarr)=<last[len=sizer(tarr),switch_arr=(i1)=<last{i0=floor(rand()*(i1+1)),w=tarr[i1],tarr[i1]=tarr[i0],tarr[i0]=w},_s((i_)=<switch_arr(i_)=>,len-1,1)]
@@ -3129,7 +3129,12 @@ local storage cleared
 clear
 local storage cleared
 
-sw_eqn_OK2(sw)=<[switch(sw,=<f=<1:1,=<f=<-1),=<f=>]=>,sw_eqn_OK2(false)=>,sw_eqn_OK2(true)=>
+sw_eqn_OK3(sw)=<[switch(sw,=<f=<1:1,=<f=<-1),=<f=>]=>,sw_eqn_OK3(false)=>,sw_eqn_OK3(true)=>
+(
+0,-1,1
+)
+
+sw_eqn_OK2(sw)=<[sw&&&(,f=<1)|||(,f=<-1),=<f=>]=>,sw_eqn_OK2(false)=>,sw_eqn_OK2(true)=>
 (
 0,-1,1
 )
@@ -3139,12 +3144,27 @@ sw_eqn_OK1(sw)=<[sw&&&(f=<1)||||(f=<-1),=<f=>]=>,sw_eqn_OK1(false)=>,sw_eqn_OK1(
 0,-1,1
 )
 
+sw_eqn_NG3(sw)=<[sw&&(f=<1)||(f=<-1),=<f=>]=>,sw_eqn_NG3(false)=>,sw_eqn_NG3(true)=>
+(
+0,-1,-1
+)
+
+sw_eqn_NG2(sw)=<[sw&&&(f=<1)|||(f=<-1),=<f=>]=>,sw_eqn_NG2(false)=>,sw_eqn_NG2(true)=>
+(
+0,-1,-1
+)
+
 sw_eqn_NG1(sw)=<[sw&&&f=<1||||f=<-1,=<f=>]=>,sw_eqn_NG1(false)=>,sw_eqn_NG1(true)=>
 (
 0,1,1
 )
 
-sw_var_OK2(sw)=<[x=0,switch(sw,=<x=1:1,=<x=-1),=<x]=>,sw_var_OK2(false)=>,sw_var_OK2(true)=>
+sw_var_OK3(sw)=<[x=0,switch(sw,=<x=1:1,=<x=-1),=<x]=>,sw_var_OK3(false)=>,sw_var_OK3(true)=>
+(
+0,-1,1
+)
+
+sw_var_OK2(sw)=<[x=0,sw&&&(,x=1)|||(,x=-1),=<x]=>,sw_var_OK2(false)=>,sw_var_OK2(true)=>
 (
 0,-1,1
 )
@@ -3152,6 +3172,16 @@ sw_var_OK2(sw)=<[x=0,switch(sw,=<x=1:1,=<x=-1),=<x]=>,sw_var_OK2(false)=>,sw_var
 sw_var_OK1(sw)=<[x=0,sw&&&(x=1)||||(x=-1),=<x]=>,sw_var_OK1(false)=>,sw_var_OK1(true)=>
 (
 0,-1,1
+)
+
+sw_var_NG3(sw)=<[x=0,sw&&(x=1)||(x=-1),=<x]=>,sw_var_NG3(false)=>,sw_var_NG3(true)=>
+(
+0,-1,-1
+)
+
+sw_var_NG2(sw)=<[x=0,sw&&&(x=1)|||(x=-1),=<x]=>,sw_var_NG2(false)=>,sw_var_NG2(true)=>
+(
+0,-1,-1
 )
 
 sw_var_NG1(sw)=<[x=0,sw&&&x=1||||x=-1,=<x]=>,sw_var_NG1(false)=>,sw_var_NG1(true)=>
@@ -3387,4 +3417,4 @@ center=true&drag=false&test-case=false&plot-all=true&relzooming=true&snap=true&l
 --------------------------------
 --------------------------------
 
-online-simulator.github.io.6.473.614.22.140 @ Thu Mar 27 2025 18:35:17 GMT+0900 (日本標準時) @ Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/134.0.0.0 Safari/537.36
+online-simulator.github.io.6.473.615.22.140 @ Fri Mar 28 2025 19:24:16 GMT+0900 (日本標準時) @ Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/134.0.0.0 Safari/537.36
