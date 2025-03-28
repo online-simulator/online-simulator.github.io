@@ -8230,7 +8230,7 @@ g=(<span class="condition">=&lt;h</span>,x)=&lt;<span class="condition">h</span>
 <br>
 g((x)=&lt;g((x)=&lt;f(x),2),2) -> 8
 <br>
-・複数分岐の<a href="#span-out-eqns-re-call">再帰call</a>（一般的に非推奨）
+・複数分岐の<a href="#span-out-eqns-re-call">再帰call</a>（末尾再帰でない場合、一般的に非推奨）
 <br>
 　ECMAScript6
 <br>
@@ -15026,13 +15026,9 @@ size超過の対策候補を列挙する
 <br>
 ・設定で一時的に最大sizeを拡張||size最大のFirefoxで実行
 <br>
-・漸化式の末尾最適化を手動で実施
+・漸化式の手動最適化（<a href="#span-out-eqns-re-call">再帰call</a>　⇒　<a href="#span-out-FNh-RX">再帰高階関数</a>）
 <br>
-　例：<a href="#span-out-eqns-re-call">再帰call</a>　⇒　<a href="#span-out-FNh-RX">再帰高階関数</a>の反復処理
-<br>
-・構文の見直し
-<br>
-　例：<a href="#span-out-FNh-switch">switch高階関数</a>　⇒　<a href="#span-out-prec-ope-logical-short-circuit">論理演算子（短絡評価）</a>
+・構文の見直し（<a href="#span-out-FNh-switch">switch高階関数</a>　⇒　<a href="#span-out-prec-ope-logical-short-circuit">論理演算子（短絡評価）</a>）
     </td>
   </tr>
   <tr>
@@ -30797,7 +30793,7 @@ clear; ((x)=&lt;x:(x)=&lt;-x:(x)=&lt;x*x)=&gt;f || ((x)=&lt;x*x)=&gt;f; f(3)=&gt
 <br>
 clear; ((x)=&lt;x:(x)=&lt;-x:(x)=&lt;x*x)(3)=&gt;f || ((x)=&lt;x*x)(3)=&gt;f; f=&gt; -> 9
 <br>
-・別途、末尾<a href="#span-out-eqns-re-call">再帰call</a>の最適化は未対応（<a href="#span-out-callstack">call stack</a>に依存）
+・別途、末尾<a href="#span-out-eqns-re-call">再帰call</a>最適化は未対応（<a href="#span-out-callstack">call stack</a>に依存）
     </td>
   </tr>
   <tr>
