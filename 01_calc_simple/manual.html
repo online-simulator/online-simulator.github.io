@@ -8262,19 +8262,25 @@ g=(<span class="condition">=&lt;h</span>,x)=&lt;<span class="condition">h</span>
 <br>
 g((x)=&lt;g((x)=&lt;f(x),2),2) -> 8
 <br>
-・複数分岐の<a href="#span-out-eqns-re-call">再帰call</a>（末尾再帰でない場合、一般的に非推奨）
+・<a href="#span-out-prec-ope-logical-short-circuit">論理演算子（短絡評価）</a>
 <br>
 　ECMAScript6
 <br>
-fact_=(n)=&gt;n&lt;=1||n*fact_(n-1); fact_(10) -> 3628800
-<br>
 fibo_=(n)=&gt;n&lt;2&amp;&amp;n||fibo_(n-1)+fibo_(n-2); fibo_(10)  <span class="selection">// NG</span> -> -47
 <br>
-　本仕様（内部でcall前のlist値をcall後に復帰）
+　本仕様
 <br>
-fact_=(n)=&lt;n&lt;=1|||n*fact_(n-1); fact_(10) -> 3628800
+fibo_=(n)=&lt;n&lt;2&amp;&amp;n|||fibo_(n-1)+fibo_(n-2); fibo_(10)  <span class="selection">// NG</span> -> -47
 <br>
-fibo_=(n)=&lt;n&lt;2&amp;&amp;n||||fibo_(n-1)+fibo_(n-2); fibo_(10) -> 55
+・<a href="#span-out-type-ope">中置3項演算子</a>
+<br>
+　ECMAScript6
+<br>
+fibo_=(n)=&gt;((n&lt;2)? n: fibo_(n-1)+fibo_(n-2)); fibo_(10)  <span class="selection">// OK</span> -> 55
+<br>
+　本仕様（<a href="#span-out-prec-ope-logical-short-circuit-literal">論理演算子（literal）</a>で代替）
+<br>
+fibo_=(n)=&lt;n&lt;2&amp;&amp;n||||fibo_(n-1)+fibo_(n-2); fibo_(10)  <span class="selection">// OK</span> -> 55
 <br>
 <br>
 明確に冗長な仕様を列挙する
