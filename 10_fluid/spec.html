@@ -21,6 +21,16 @@
       <caption>更新履歴</caption>
       <tbody>
         <tr class="border">
+          <td class="border clear">
+Ver.1.52.2
+          </td>
+          <td class="border">
+・Ver.1.41.0の再修正（plot用のpmin/pmaxの初期化の不具合を修正）
+<br>
+　既知要素のp値を変更：0　⇒　空欄（未知要素を除く）
+          </td>
+        </tr>
+        <tr class="border">
           <td class="border run">
 Ver.1.52.1
           </td>
@@ -1789,6 +1799,8 @@ download-csv
 <span class="run">Ver.1.18.0追加</span>
 <br>
 <span class="jF">Ver.1.41.0修正</span>
+<br>
+<span class="condition">Ver.1.52.2再修正</span>
           </td>
           <td class="border">
 (u,v,p)のdownload機能
@@ -1800,7 +1812,7 @@ download-csv
 <br>
 ・<span class="jF">縦軸</span>: 要素中心のy座標
 <br>
-・<span class="jF">(u,v)指定要素のp値を変更：0　⇒　空欄</span>
+・<span class="jF"><span class="condition">既知</span>要素のp値を変更：0　⇒　空欄</span><span class="condition">（未知要素を除く）</span>
 <br>
 <br>
 <span class="clear">再downloadのbrowser-blockあり（保存file更新の許可が必要）</span>

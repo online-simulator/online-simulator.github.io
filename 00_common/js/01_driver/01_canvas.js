@@ -681,7 +681,7 @@ My_entry.canvas.prototype.make_uvp = function(options, opt_ID){  // fluid-Ver.1.
         v[i][j] = g/255;
         ud[i][j] = 0;
         vd[i][j] = 0;
-        p[i][j] = undefined;  // fluid-Ver.1.41.0
+        p[i][j] = (a)? undefined: 0;  // fluid-Ver.1.41.0  // fluid-Ver.1.52.2
         p0[i][j] = isP0;
         id[i][j] = a/255;
       }
