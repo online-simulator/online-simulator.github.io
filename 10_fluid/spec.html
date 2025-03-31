@@ -22,6 +22,14 @@
       <tbody>
         <tr class="border">
           <td class="border run">
+Ver.1.52.1
+          </td>
+          <td class="border">
+・tableを更新（流れ場を記述する方程式）
+          </td>
+        </tr>
+        <tr class="border">
+          <td class="border run">
 Ver.1.51.1
           </td>
           <td class="border">
@@ -396,27 +404,6 @@ scaleの異なる渦の大きさ
           </td>
           <td class="border">
 物体表面～後流で渦scaleが異なる
-          </td>
-        </tr>
-        <tr class="border">
-          <td class="border">
-random walk
-<br>
-<span class="run">Ver.1.39.0追加</span>
-<br>
-<span class="condition">Ver.1.46.1追記</span>
-          </td>
-          <td class="border">
-流体中の微粒子の軌跡表現
-          </td>
-          <td class="border">
-<span class="condition">2次元（3次元の投影でない）の場合、</span><a title="Graphing Calculator" href="../02_calc_graphing/index.html">Graphing Calculator-test case-Brown</a>参照
-<br>
-・均一な媒体中で不規則な軸対称の等速運動を想定（不連続）
-<br>
-・厳密には各軸独立の正規分布の変位を仮定（連続性を考慮）
-<br>
-・分子粘性大で1stepの拡散距離が減少
           </td>
         </tr>
         <tr class="border">
@@ -962,6 +949,11 @@ Ra&gt;臨界値: 対流による熱輸送（対流を形成）
           <th class="border">
 実装
           </th>
+          <th class="border">
+<a title="Graphing Calculator" href="../02_calc_graphing/index.html">Graphing Calculator</a><br><span class="clear"><a title="[manual]Calculator" href="../01_calc_simple/manual.html#span-out-UI-graphing-testcase">test case</a></span>
+<br>
+<span class="run">Ver.1.52.1追加</span>
+          </th>
         </tr>
       </thead>
       <tbody>
@@ -981,6 +973,8 @@ Navier-Stokes方程式
 <br>
 生成項（重力を含む外力項）
           </td>
+          <td class="border">
+          </td>
         </tr>
         <tr class="border">
           <td class="border">
@@ -991,6 +985,8 @@ Euler方程式
           </td>
           <td class="border">
 Re無限大
+          </td>
+          <td class="border">
           </td>
         </tr>
         <tr class="border">
@@ -1003,10 +999,12 @@ Stokes方程式
           <td class="border">
 Re≒0
           </td>
+          <td class="border">
+          </td>
         </tr>
         <tr class="border">
           <td class="border">
-Burgers方程式
+<span class="run">Bateman-</span>Burgers方程式
 <br>
 移流拡散方程式
           </td>
@@ -1015,6 +1013,11 @@ Burgers方程式
           </td>
           <td class="border">
 圧力分布なしの中間速度
+          </td>
+          <td class="border">
+<span class="wF">Bateman-Burgers</span>
+<br>
+<span class="wF">advection-diffusion</span>
           </td>
         </tr>
         <tr class="border">
@@ -1029,6 +1032,9 @@ Burgers方程式
           <td class="border">
 Re無限大の中間速度
           </td>
+          <td class="border">
+<span class="wF">advection</span>
+          </td>
         </tr>
         <tr class="border">
           <td class="border">
@@ -1041,6 +1047,41 @@ Re無限大の中間速度
           </td>
           <td class="border">
 Re≒0の中間速度
+          </td>
+          <td class="border">
+<span class="wF">diffusion</span>
+          </td>
+        </tr>
+        <tr class="border">
+          <td class="border">
+random walk
+<br>
+<span class="run">Ver.1.39.0追加</span>
+<br>
+<del><span class="condition">Ver.1.46.1追記</span></del>
+<br>
+<span class="run">Ver.1.52.1移植</span>
+          </td>
+          <td class="border">
+流体中の微粒子の軌跡表現
+          </td>
+          <td class="border">
+・均一な媒体中で
+<br>
+　不規則な軸対称の等速運動を想定
+<br>
+　（不連続）
+<br>
+・厳密には
+<br>
+　各軸独立の正規分布の変位を仮定
+<br>
+　（連続性を考慮）
+<br>
+・分子粘性大で1stepの拡散距離が減少
+          </td>
+          <td class="border">
+<span class="selection">Brown</span>
           </td>
         </tr>
       </tbody>
