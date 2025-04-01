@@ -115,6 +115,10 @@ My_entry.pen.prototype.update_arr2d_vec = function(){
     var t = uvp.t;
     var c = uvp.cmax;
     var q = uvp.qtotal;
+    /* fluid-Ver.1.53.2 -> */
+    uvp._i_plot = self.entry.def.limit(options.i_plot, 0, uvp.Ni-1, uvp.Ni-1);
+    uvp._j_plot = self.entry.def.limit(options.j_plot, 0, uvp.Nj-1, uvp.Nj-1);
+    /* -> fluid-Ver.1.53.2 */
     /* fluid-Ver.1.23.0 -> */
     uvp._arr_t = uvp._arr_t || [];
     uvp._arr_c = uvp._arr_c || [];
@@ -139,9 +143,7 @@ My_entry.pen.prototype.update_arr2d_vec = function(){
     ["uij", "vij", "pij"].forEach(function(sw_plot){
       var prop = "_arr_"+sw_plot;
       uvp[prop] = uvp[prop] || [];
-      var i_plot = self.entry.def.limit(options.i_plot, 0, uvp.Ni-1, uvp.Ni-1);
-      var j_plot = self.entry.def.limit(options.j_plot, 0, uvp.Nj-1, uvp.Nj-1);
-      uvp[prop].push([uvp[sw_plot.charAt(0)][i_plot][j_plot]]);
+      uvp[prop].push([uvp[sw_plot[0]][uvp._i_plot][uvp._j_plot]]);  // fluid-Ver.1.53.2
     });
     /* -> fluid-Ver.1.30.0 */
   }
@@ -207,7 +209,31 @@ My_entry.pen.prototype.update_plot2d = function(isFinal){  // fluid-Ver.1.23.0
     /* -> fluid-Ver.1.24.0 */
     var sw_plot = $._id("select-plot").value;
     var arr_plot = uvp["_arr_"+sw_plot];
-    var arr2d_vec = {x: uvp._arr_t, y: arr_plot, len_n: uvp._arr_t.length, len_j: 1, gxmin: Math.min.apply(Math, uvp._arr_t), gxmax: Math.max.apply(Math, uvp._arr_t), gymin: Math.min.apply(Math, arr_plot), gymax: Math.max.apply(Math, arr_plot)};
+    /* fluid-Ver.1.53.2 -> */
+    var label_x = "t";
+    var label_y = sw_plot;
+    var arr_x = uvp._arr_t;
+    var arr_y = arr_plot;
+    if(sw_plot === "uj" || sw_plot === "vj" || sw_plot === "pj"){
+      label_x = "x";
+      arr_x = [];
+      arr_y = [];
+      for(var i=0; i<uvp.Ni; ++i){
+        arr_x.push([uvp.dx*(i+0.5)]);
+        arr_y.push([uvp[sw_plot[0]][i][uvp._j_plot]]);
+      }
+    }
+    else if(sw_plot === "ui" || sw_plot === "vi" || sw_plot === "pi"){
+      label_x = "y";
+      arr_x = [];
+      arr_y = [];
+      for(var j=0; j<uvp.Nj; ++j){
+        arr_x.push([uvp.dy*(j+0.5)]);
+        arr_y.push([uvp[sw_plot[0]][uvp._i_plot][j]]);
+      }
+    }
+    var arr2d_vec = {x: arr_x, y: arr_y, len_n: arr_x.length, len_j: 1, gxmin: Math.min.apply(Math, arr_x), gxmax: Math.max.apply(Math, arr_x), gymin: Math.min.apply(Math, arr_y), gymax: Math.max.apply(Math, arr_y)};
+    /* -> fluid-Ver.1.53.2 */
     var options_plot = {
       decDigit: 1,
       expDigit: -1,
@@ -234,7 +260,7 @@ My_entry.pen.prototype.update_plot2d = function(isFinal){  // fluid-Ver.1.23.0
       "legend-kx": 0.25,
       "legend-ky": 0.1,
       "marker-colors": "rainbow",  // fluid-Ver.1.51.1
-      "input-z": "ORIGIN{2.5,gray,17}XLABEL{t}YLABEL{"+sw_plot+"}"  // fluid-Ver.1.51.1
+      "input-z": "ORIGIN{2.5,gray,17}XLABEL{"+label_x+"}YLABEL{"+label_y+"}"  // fluid-Ver.1.51.1  // fluid-Ver.1.53.2
     };
   /* -> fluid-Ver.1.22.0 */
     for(var prop in options_plot){
