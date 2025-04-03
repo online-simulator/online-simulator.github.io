@@ -4772,6 +4772,11 @@ My_entry.operation.prototype.restore_args_AtREe = function(data, name_eqn, args_
   /* Ver.2.276.65 -> */
   var set_type = function(name, tree){
     var sw_tree = self.switch_type_tree(data, tree);
+    /* Ver.2.791.125 -> */
+    if(!(sw_tree)){
+      throw "Invalid matching args."+name+"("+name_eqn+")";
+    }
+    /* -> Ver.2.791.125 */
     var isSEe_dynamic = sw_tree[BT.SEe];  // Ver.2.279.65
     if(isSEe_dynamic){
       set_eqn(name, null, null, sw_tree);
