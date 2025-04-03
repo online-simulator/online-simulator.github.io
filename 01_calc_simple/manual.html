@@ -7499,6 +7499,12 @@ A=(1,2:3,4); A[][] -> <del>(1:3)</del>[MyErr]Invalid reference of array[][undefi
 A=(1,2:3,4); A[][][] -> <del>(1,1,1:4,4,4)</del>[MyErr]Invalid reference of array(band)
 <br>
 A=(1,2:3,4); A[][][][] -> <del>(1,2:3,4)</del>[MyErr]Invalid reference of array(area)
+<br>
+・<span class="clear">Ver.2.791.126</span>以降、<a href="#span-out-pass-by-symbol">symbol渡し</a>||<a href="#span-out-pass-by-name">name渡し</a>の仕様修正
+<br>
+　重複宣言：可　⇒　不可
+<br>
+　影響項目：<a href="#span-out-eqns-args">式変数のarguments</a>
     </td>
   </tr>
   <tr>
@@ -29989,6 +29995,18 @@ let add=(a,b)=&gt;a+b; add(1,2)  <span class="selection">// ES6</span> -> 3
 clear; add(a,b)=&lt;a+b; add(1,2)=&gt; || add(1,2) -> 3
 <br>
 ・以降、<a href="#span-out-eqns">式変数</a>の定義元に対してcall先と区別する
+<br>
+・<span class="clear">Ver.2.791.126</span>以降、<a href="#span-out-pass-by-symbol">symbol渡し</a>||<a href="#span-out-pass-by-name">name渡し</a>の重複宣言を禁止
+<br>
+clear; f(x,x)=&lt;1 -> [MyErr]Invalid duplicate-args.x(f)
+<br>
+clear; f(x,=&lt;x)=&lt;1 -> [MyErr]Invalid duplicate-args.x(f)
+<br>
+clear; f(x,==&lt;x)=&lt;1 -> [MyErr]Invalid duplicate-args.x(f)
+<br>
+clear; f(x,?x)=&lt;1 -> [MyErr]Invalid duplicate-args.x(f)
+<br>
+clear; f(x,$x)=&lt;1 -> [MyErr]Invalid duplicate-args.x(f)
 <br>
 <br>
 <a href="#span-out-mat">行列</a>の値渡しの場合、<a href="#span-out-pass-by-equation">式渡し</a>を使用

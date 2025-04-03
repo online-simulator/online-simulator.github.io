@@ -119,6 +119,8 @@ My_entry.operation.prototype.config = {
   symbol: {
     const: "const ",  // Ver.2.296.72
     anonymous: "no-name",  // Ver.2.253.59
+    escape_mac: "$",  // Ver.2.791.126
+    escape_ref: "?",  // Ver.2.791.126
     escape_eqn1: "@",
     escape_eqn2: "@@"  // Ver.2.219.50
   },
@@ -5153,6 +5155,23 @@ My_entry.operation.prototype.isEmpty_tree = function(tree){
   var len = (arr)? arr.length: 0;
   return (len === 0);
 };
+/* Ver.2.791.126 */
+My_entry.operation.prototype.check_names = function(names, name_eqn){
+  var self = this;
+  var list_name = {};
+  if(names.length === 0) throw "Invalid args isFound("+name_eqn+")";  // Ver.2.252.59
+  for(var i=0, len=names.length; i<len; ++i){
+    var name = names[i];
+    name = name.replace(self.config.symbol.escape_eqn2, "");  // first
+    name = name.replace(self.config.symbol.escape_eqn1, "");
+    name = name.replace(self.config.symbol.escape_ref, "");
+    name = name.replace(self.config.symbol.escape_mac, "");
+    if(list_name[name]) throw "Invalid duplicate-args."+name+"("+name_eqn+")";
+    list_name[name] = true;
+  }
+  list_name = null;
+  return self;
+};
 My_entry.operation.prototype.BTe = function(data, i0, tagName, tagObj){  // Ver.2.213.47  // Ver.2.213.48  // Ver.2.228.56
   var self = this;
   var trees = data.trees;
@@ -5184,7 +5203,7 @@ My_entry.operation.prototype.BTe = function(data, i0, tagName, tagObj){  // Ver.
       var names = self.get_names(data, leftTree, true);  // NG: (x=1)=<x
       /* Ver.2.213.48 -> */
       if(names){
-        if(names.length === 0) throw "Invalid args isFound("+name_eqn+")";  // Ver.2.252.59
+        self.check_names(names, name_eqn);  // Ver.2.791.126
         isSEe.arg = names;  // Ver.2.249.57
       }
       /* -> Ver.2.213.48 */
