@@ -363,6 +363,8 @@ clear; f(x,==&lt;x)=&lt;1 -> [MyErr]Invalid duplicate-args.x(f)
 clear; f(x,?x)=&lt;1 -> [MyErr]Invalid duplicate-args.x(f)
 <br>
 clear; f(x,$x)=&lt;1 -> [MyErr]Invalid duplicate-args.x(f)
+<br>
+clear; ((1,2,3).map((x,j,j)=&lt;j)) -> [MyErr]Invalid duplicate-args.j(null)
     </td>
     <td>
 2025/4/4

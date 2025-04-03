@@ -30008,6 +30008,8 @@ clear; f(x,?x)=&lt;1 -> [MyErr]Invalid duplicate-args.x(f)
 <br>
 clear; f(x,$x)=&lt;1 -> [MyErr]Invalid duplicate-args.x(f)
 <br>
+clear; ((1,2,3).map((x,j,j)=&lt;j)) -> [MyErr]Invalid duplicate-args.j(null)
+<br>
 <br>
 <a href="#span-out-mat">行列</a>の値渡しの場合、<a href="#span-out-pass-by-equation">式渡し</a>を使用
 <br>
