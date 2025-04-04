@@ -419,7 +419,7 @@ My_entry.output_wave.prototype.encode_soundData_LE = function(params){  // Ver.1
         var gk = arr_gain_ft[k]/sum_gain_ft;
         arr_g.push(gi*gk);
         /* Ver.1.80.14 -> */
-        var phi = 0.5*Math.PI*(k%4);  // Ver.1.80.15
+        var phi = ((k+1)%4<2)? 0: Math.PI;  // Ver.1.80.15 k=0||3 -> 0
         arr_phi.push(phi);
         /* -> Ver.1.80.14 */
       }
