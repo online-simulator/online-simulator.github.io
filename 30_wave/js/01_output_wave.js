@@ -397,6 +397,7 @@ My_entry.output_wave.prototype.encode_soundData_LE = function(params){  // Ver.1
   var hasTio = (params.ti || params.to);  // Ver.1.74.14
   var arr_f = params.arr_f;
   var arr_g = params.arr_g_normalized;
+  var arr_phi = [];  // Ver.1.80.14
   if(overtone > 1){
     arr_f = [];
     arr_g = [];
@@ -417,18 +418,21 @@ My_entry.output_wave.prototype.encode_soundData_LE = function(params){  // Ver.1
       for(var k=0; k<overtone; ++k){
         var gk = arr_gain_ft[k]/sum_gain_ft;
         arr_g.push(gi*gk);
+        /* Ver.1.80.14 -> */
+        var phi = (hasRand_phi0)? Math.PI*2*Math.random(): 0;  // Ver.1.34.6
+        phi += 0.5*Math.PI*(k%4);
+        arr_phi.push(phi);
+        /* -> Ver.1.80.14 */
       }
       /* -> Ver.1.67.14 */
     }
   }
   /* -> Ver.1.64.14 */
-  var arr_phi = [];
   var arr_t0 = [];  // Ver.1.74.14
   var arr_t1 = [];  // Ver.1.74.14
   var t10 = 0;  // Ver.1.77.14
   var len_overlap = 0;  // Ver.1.77.14
   for(var i=0, len=arr_f.length; i<len; ++i){  // Ver.1.64.14
-    arr_phi[i] = (hasRand_phi0)? Math.PI*2*Math.random(): 0;  // Ver.1.34.6
     /* Ver.1.74.14 -> */
     if(hasTio){
       var k = Math.floor(i/overtone);
