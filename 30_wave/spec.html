@@ -33,11 +33,11 @@ Ver.1.80.15
 Ver.1.80.14
           </td>
           <td class="border">
-・output_wave.jsを更新
+・overtoneを更新
 <br>
-　overtone各音階の自然なgain調整の演算を追加
+　各音階の自然なgain調整の演算を追加
 <br>
-　overtone各音階の位相初期値を更新（mod 5-1の演算）
+　各音階の位相初期値を更新（mod 5-1の演算）
 <br>
 ・testcase-Yuyake_Koyake/_overtoneを更新（type/g1を削除・overtone=4　⇒　5）
 <br>
@@ -2167,6 +2167,8 @@ overtone
 <span class="run">Ver.1.64.14追加</span>
 <br>
 <span class="jF">Ver.1.67.14更新</span>
+<br>
+<span class="condition">Ver.1.80.14更新</span>
           </td>
           <td class="border">
 倍音の整数倍上限値
@@ -2190,6 +2192,12 @@ overtone
 ・単音/和音pageのmax係数の目安を改善<span class="jF">（gain和で単純換算のため、過小評価）
 <br>
 ・倍音のgainを厳密化（音質の劣化を改善：max係数の目安≒7.15　⇒　6.15）</span>
+<br>
+<span class="condition">・各音階の自然なgain調整の演算を追加
+<br>
+・各音階の位相初期値を更新（mod 5-1の演算）</span>
+<br>
+　<span class="condition">音色：sawtooth　⇒　↑sin↓triangle</span>
           </td>
         </tr>
         <tr class="border">
