@@ -410,6 +410,7 @@ My_entry.output_wave.prototype.encode_soundData_LE = function(params){  // Ver.1
         var ft = fi*(k+1);
         arr_f.push(ft);
         var gain_ft = self.get_gain_loglog(ft, params.f0, params.f1, params.g0, params.g1);
+        gain_ft /= Math.pow(k+1, 2);  // Ver.1.80.14
         arr_gain_ft[k] = gain_ft;
         sum_gain_ft += gain_ft;
       }
