@@ -706,7 +706,15 @@ test case
 <br>
 ・<span class="wF">Bateman-Burgers</span>：1次元のBateman-Burgers方程式
 <br>
-・<span class="selection">Brown</span>：2次元Brown運動の軌跡（3次元の投影でない最も単純な記述）
+・<span class="selection">Brown</span>：<span class="run">Ver.2.794.126</span>以降、2次元Brown運動の軌跡（spring項を導入のLangevin方程式で記述）
+<br>
+　⇒確率項の仮定：各軸独立の<a href="#span-out-FNspecial">正規分布</a>に従う<a href="#span-out-FN-rand-else">random</a>力（dt依存性は非厳密）
+<br>
+　⇒spring||damper項：係数大で拡散距離が減衰
+<br>
+・random-walk：2次元random-walkの軌跡（3次元の投影でない最も単純な記述）
+<br>
+　⇒自己相似性：1stepの拡散距離∝1/分子粘性係数
 <br>
 ・<span class="selection">DLA</span>：2次元の拡散律速凝集の上面図（原点の核成長を<a href="#span-out-com">複素数</a>演算で記述）
 <br>
@@ -1952,6 +1960,8 @@ en.m.wikipedia.org/wiki/項目を列挙する
 <br>
 ・Burgers'_equation
 <br>
+・Langevin_equation
+<br>
 ・Bose-Einstein statistics
 <br>
 ・Maxwell-Boltzmann_statistics
@@ -2160,6 +2170,8 @@ ja.m.wikipedia.org/wiki/項目を列挙する
 ・バーガース方程式
 <br>
 ・移流拡散方程式
+<br>
+・ランジュバン方程式
 <br>
 ・累積分布関数
 <br>

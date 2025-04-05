@@ -22,6 +22,14 @@
       <tbody>
         <tr class="border">
           <td class="border run">
+Ver.1.54.2
+          </td>
+          <td class="border">
+・tableを更新（流れ場を記述する方程式）
+          </td>
+        </tr>
+        <tr class="border">
+          <td class="border run">
 Ver.1.53.2
           </td>
           <td class="border">
@@ -1074,34 +1082,48 @@ Re≒0の中間速度
         </tr>
         <tr class="border">
           <td class="border">
-random walk
+Langevin方程式
+<br>
+<span class="run">Ver.1.54.2追加</span>
+          </td>
+          <td class="border">
+Brown運動を記述する確率微分方程式
+          </td>
+          <td class="border">
+・各軸独立の正規分布に従う
+<br>
+　random力を仮定
+<br>
+　（連続性を考慮）
+          </td>
+          <td class="border">
+<span class="selection">Brown</span>
+          </td>
+        </tr>
+        <tr class="border">
+          <td class="border">
+random-walk
 <br>
 <span class="run">Ver.1.39.0追加</span>
 <br>
 <del><span class="condition">Ver.1.46.1追記</span></del>
 <br>
 <span class="run">Ver.1.52.1移植</span>
+<br>
+<span class="run">Ver.1.54.2更新</span>
           </td>
           <td class="border">
 流体中の微粒子の軌跡表現
           </td>
           <td class="border">
-・均一な媒体中で
+・均一な媒体中で不規則な
 <br>
-　不規則な軸対称の等速運動を想定
+　軸対称の等速運動を想定
 <br>
 　（不連続）
-<br>
-・厳密には
-<br>
-　各軸独立の正規分布の変位を仮定
-<br>
-　（連続性を考慮）
-<br>
-・分子粘性大で1stepの拡散距離が減少
           </td>
           <td class="border">
-<span class="selection">Brown</span>
+random-walk
           </td>
         </tr>
       </tbody>
