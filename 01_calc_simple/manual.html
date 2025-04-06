@@ -552,6 +552,16 @@ test case
 <br>
 ・<span class="wF">ODE-solver</span>：mass-spring-damper system
 <br>
+　x：位置
+<br>
+　v：速度
+<br>
+　m：mass
+<br>
+　k：spring係数
+<br>
+　c：damper係数
+<br>
 　⇒以降、頻出の運動方程式の一般化（Stokesの抵抗則）：x'=v, v'=(F-k*x-c*v)/m
 <br>
 　<span class="selection">-PID</span>||-out：systemの操作量uを仮定の<a href="#span-app-rule">PID制御</a>（model-basedのdouble-check）
@@ -710,9 +720,13 @@ test case
 <br>
 ・<span class="selection">Langevin</span>：<span class="run">Ver.2.794.126</span>以降、1次元のLangevin方程式（確率微分方程式）
 <br>
+　⇒cの仮定：粒子sizeの影響（m相当）を含むdamper係数
+<br>
 ・<span class="selection">Brown</span>：<span class="run">Ver.2.794.126</span>以降、2次元Brown運動の軌跡（上記のLangevin方程式を<a href="#span-out-com">複素数</a>演算で記述）
 <br>
 　⇒確率項の仮定：各軸独立の力∝<a href="#span-out-FNspecial">標準正規分布</a>に従う<a href="#span-out-FN-rand-else">N(0,1)の乱数</a>
+<br>
+　⇒試行回数→∞：環境不変のwhite-noiseの場合、平均2乗変位∝step（等方性の等速運動に相当）
 <br>
 　+spring：spring項を導入
 <br>
@@ -720,7 +734,7 @@ test case
 <br>
 ・random-walk：2次元random-walkの軌跡（3次元の投影でない最も単純な記述）
 <br>
-　⇒自己相似性：1stepの拡散距離∝1/分子粘性係数（粒子sizeを未考慮）
+　⇒自己相似性：1stepの拡散距離∝1/分子粘性係数（粒子sizeの影響を未考慮）
 <br>
 ・<span class="selection">DLA</span>：2次元の拡散律速凝集の上面図（原点の核成長を<a href="#span-out-com">複素数</a>演算で記述）
 <br>
@@ -1967,6 +1981,8 @@ en.m.wikipedia.org/wiki/項目を列挙する
 ・Burgers'_equation
 <br>
 ・Langevin_equation
+<br>
+・Langevin_dynamics
 <br>
 ・Bose-Einstein statistics
 <br>
