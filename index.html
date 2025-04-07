@@ -338,6 +338,42 @@ Y/M/D
 <tbody>
   <tr>
     <th>
+6.475.631.22.146
+    </th>
+    <td class="types">
+Calculator
+    </td>
+    <td>
+2.797.127
+    </td>
+    <td class="clear">
+minor bug-fix
+    </td>
+    <td>
+[Calculator]
+<br>
+・Unexpected error bug-fixed about re-use of data.vars
+<br>
+make_f(a)=&lt;[aa=a*a,=&lt;(x)=&lt;aa*x]=&gt;;
+<br>
+list_f={make_f(1),make_f(2)};
+<br>
+(list_f[0])(2)=&gt; -> 2
+<br>
+(list_f[0])(2)=&gt; ->
+<br>
+<del>Cannot read properties of undefined</del>[MyErr]Invalid reference of scopes.vars.x
+<br>
+[Graphing Calculator]
+<br>
+・strict-mode equation-list-list added
+    </td>
+    <td>
+2025/4/8
+    </td>
+  </tr>
+  <tr>
+    <th>
 6.475.631.22.145
     </th>
     <td class="types">

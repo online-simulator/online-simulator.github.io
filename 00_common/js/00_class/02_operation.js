@@ -3473,6 +3473,11 @@ My_entry.operation.prototype.store_mutex = function(sw, name, tree, scopes, ids,
   var DATA = self.entry.DATA;  // Ver.2.284.67
   var scope0 = self.get_scope0(scopes, ids);
   var isEqn = (sw === "eqns");
+  /* Ver.2.797.127 -> */
+  if(!(scope0)){
+    throw "Invalid reference of scopes."+sw+"."+name;
+  }
+  /* -> Ver.2.797.127 */
   /* Ver.2.250.57 -> */
   if(self.useMutex){
     delete scope0[(isEqn)? "vars": "eqns"][name];
@@ -4239,7 +4244,9 @@ My_entry.operation.prototype.get_scope0 = function(scopes, opt_ids){
   if(scopes){
     var j = id0[0];
     var n = id0[1];
-    _scope = scopes[j][n];
+    if(scopes[j]){  // Ver.2.797.127
+      _scope = scopes[j][n];
+    }
   }
   return _scope;
 };
@@ -4261,7 +4268,7 @@ My_entry.operation.prototype.get_ids_RE = function(name, scopes, opt_ids){
     for(var i=0; i<len; ++i){
       var idi = ids[i];
       var scopei = self.get_scope0(scopes, [idi]);  // Ver.2.302.73
-      if(scopei.vars[name] || scopei.eqns[name]){
+      if(scopei && (scopei.vars[name] || scopei.eqns[name])){  // Ver.2.797.127
         _ids = [idi];
         break;
       }
@@ -4286,7 +4293,7 @@ My_entry.operation.prototype.get_scope_RE_sw = function(sw, name, scopes, opt_id
     for(var i=0; i<len; ++i){
       var idi = ids[i];
       var scopei = self.get_scope0(scopes, [idi]);  // Ver.2.302.73
-      if(scopei[sw][name]){
+      if(scopei && scopei[sw] && scopei[sw][name]){  // Ver.2.797.127
         _scope = scopei[sw];
         break;
       }
