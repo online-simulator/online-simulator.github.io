@@ -704,7 +704,9 @@ test case
 <br>
 　空間∇演算子の<a href="#span-out-error">離散化</a>：<a href="#span-out-fdm-differential">中心差分法</a>（境界条件を含む<a href="#span-out-reference-mat-area">area参照</a>と<a href="#span-out-ope-extended">拡張行列演算</a>で記述）
 <br>
-　⇒後述の数値粘性のschemeなし：非物理的な数値振動が顕著
+　⇒後述の数値粘性のschemeなし：格子size依存の非物理的な数値振動が顕著
+<br>
+　⇒<a href="#span-out-mat-product">行列積</a>の演算順序の交換関係：L*R=(R.*L.).
 <br>
 ・<span class="pF">wave-equation</span>：1次元の波動方程式（上記のSchrödinger方程式に同様の記述）
 <br>
@@ -33478,6 +33480,14 @@ R=(1+i,1);
 LpR -> (2,1-i:1+i,1)
 <br>
 L*R -> (2,1-i:1+i,1)
+<br>
+・積の演算順序の交換関係
+<br>
+rand_M(m,n)=&lt;zeros(m,n).map((x)=&lt;rand()+rand()i);
+<br>
+L=rand_M(3,2),R=rand_M(2,2);
+<br>
+L*R=(R.*L.). -> (0,0:0,0:0,0)
     </td>
   </tr>
   <tr>
