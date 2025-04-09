@@ -33483,11 +33483,13 @@ L*R -> (2,1-i:1+i,1)
 <br>
 ・積の演算順序の交換関係
 <br>
-rand_M(m,n)=&lt;zeros(m,n).map((x)=&lt;rand()+rand()i);
+rand_M(m,n)=&lt;zeros(m,n).map((x)=&lt;complex(rand(),rand())*10);
 <br>
 L=rand_M(3,2),R=rand_M(2,2);
 <br>
 L*R=(R.*L.). -> (0,0:0,0:0,0)
+<br>
+L*R=(R'*L')' -> (0,0:0,0:0,0)
     </td>
   </tr>
   <tr>
