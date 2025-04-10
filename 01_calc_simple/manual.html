@@ -708,9 +708,15 @@ test case
 <br>
 　⇒<a href="#span-out-mat-product">行列積</a>の演算順序の交換関係：L*R=(R.*L.).
 <br>
-　-flux=0||-mirror||-periodic：境界条件をextrapolationから変更
+　境界条件の仮定：ψ"(x)=0相当の<a href="#span-out-FN-interp2">線形外挿</a>（部分空間の確率として、成行きflux∝ψ'(x)≠0を許容）
+<br>
+　-flux=0||-mirror||<span class="jF">-periodic</span>：境界条件をextrapolationから変更（ψ'(x)=0相当||鏡像||周期境界条件）
 <br>
 　⇒対称性の破れの遷移状態：大差なし（周期境界条件を採用）
+<br>
+　<span class="jF">-ψ1||ψ4-abs</span>：同一の確率分布|ψ(x)|^2
+<br>
+　<span class="pF">-ψ2||ψ3-abs</span>：同一の確率分布|ψ(x)|^2
 <br>
 　<span class="clear">-V(x,t)-exp||cos(fV=0)</span>：波動関数の崩壊状態（expの場合、1次元の拘束条件で特異点を生成）
 <br>
