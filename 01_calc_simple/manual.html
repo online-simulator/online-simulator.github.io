@@ -712,6 +712,12 @@ test case
 <br>
 　<span class="clear">-fV=0.01,V0=0</span>：同上のdouble-check
 <br>
+・<span class="selection">Gross-Pitaevskii</span>：<span class="run">Ver.2.801.128</span>以降、1次元のGross-Pitaevskii方程式（理想Boson多体系の基底状態を記述）
+<br>
+　⇒Bose-Einstein凝縮：非線形な<span class="selection">Schrödinger</span>方程式でplot毎にt=0から<a href="#span-out-evolution">時間発展</a>のため、非常に重い（未最適化）
+<br>
+　<span class="pF">-V=0</span>：V(x)=0の波動関数ψ0(x)∝x**2の拡散と干渉過程を明示
+<br>
 ・<span class="selection">Dirac</span>：<span class="run">Ver.2.799.127</span>以降、1次元Dirac方程式のadaptive-stepの<a href="#span-out-evolution">時間発展</a>（波動関数ψ1~4の時間と空間を強連成）
 <br>
 　空間∇演算子の<a href="#span-out-error">離散化</a>：<a href="#span-out-fdm-differential">中心差分法</a>（境界条件を含む<a href="#span-out-reference-mat-area">area参照</a>と<a href="#span-out-ope-extended">拡張行列演算</a>で記述）
@@ -2254,6 +2260,8 @@ ja.m.wikipedia.org/wiki/項目を列挙する
 ・コーシー分布
 <br>
 ・ボース＝アインシュタイン凝縮
+<br>
+・グロス＝ピタエフスキー方程式
 <br>
 ・ボース分布関数
 <br>
