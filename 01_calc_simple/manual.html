@@ -728,6 +728,14 @@ test case
 <br>
 　<span class="pF">-V=0</span>：V(x)=0の波動関数ψ0(x)∝x**2の拡散と干渉過程を明示
 <br>
+・<span class="selection">(φ,A)</span>：<span class="run">Ver.2.803.128</span>以降、電磁場中の荷電粒子の<span class="selection">Schrödinger</span>方程式（実数の<a href="#span-app-quantum">4元potential</a>で記述）
+<br>
+　空間Δ||∇演算子の<a href="#span-out-error">離散化</a>：後述の<span class="wF">advection-diffusion</span>方程式に同様
+<br>
+　-fA=1~0：φ(t)=0, A(t)∝sin(2pi*fA*t)
+<br>
+　⇒位相変化の周波数fA=1→0.01→0：対称性　⇒　非対称性　⇒　対称性（無制約のV(x)の計算結果と異なる）
+<br>
 ・<span class="selection">Dirac</span>：<span class="run">Ver.2.799.127</span>以降、1次元Dirac方程式のadaptive-stepの<a href="#span-out-evolution">時間発展</a>（波動関数ψ1~4の時間と空間を強連成）
 <br>
 　空間∇演算子の<a href="#span-out-error">離散化</a>：<a href="#span-out-fdm-differential">中心差分法</a>（境界条件を含む<a href="#span-out-reference-mat-area">area参照</a>と<a href="#span-out-ope-extended">拡張行列演算</a>で記述）
@@ -1881,6 +1889,8 @@ fnorio.com
 slpr.sakura.ne.jp/qp/
 <br>
 ・弾道計算(BB弾)の理論
+<br>
+・電磁場中の荷電粒子に対する非相対論的シュレーディンガー方程式から双極子近似まで
 <br>
 <br>
 mathematica.site
