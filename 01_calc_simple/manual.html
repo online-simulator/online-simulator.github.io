@@ -1791,6 +1791,8 @@ test case
 <br>
 ・<a href="#span-eqn-residue">residue</a>
 <br>
+・<a href="#span-eqn-integral_DE_quadrature">integral_DE_quadrature</a>
+<br>
 ・<a href="#span-eqn-matrix_product">matrix_product</a>
 <br>
 ・<a href="#span-eqn-rotationxyz">rotationx/rotationy/rotationz-Right-Handed-System</a>
@@ -1918,6 +1920,10 @@ slpr.sakura.ne.jp/qp/
 <br>
 ・電磁場中の荷電粒子に対する非相対論的シュレーディンガー方程式から双極子近似まで
 <br>
+・最速・高精度の数値積分
+<br>
+・二重指数関数型数値積分
+<br>
 <br>
 mathematica.site
 <br>
@@ -1969,6 +1975,13 @@ developer.mozilla.org/ja/docs/
 ・Number
 <br>
 ・SVG要素リファレンス
+<br>
+<br>
+keisan.casio.jp
+<br>
+・二重指数関数型数値積分
+<br>
+・積分で求めるガンマ関数
     </td>
   </tr>
   <tr>
@@ -2186,6 +2199,8 @@ ja.m.wikipedia.org/wiki/項目を列挙する
 ・誤差
 <br>
 ・精度保証付き数値計算
+<br>
+・二重指数関数型数値積分公式
 <br>
 ・線形合同法
 <br>
@@ -3250,6 +3265,8 @@ domainを列挙する
 ・mathworks.com
 <br>
 ・wolframalpha.com
+<br>
+・keisan.casio.jp
 <br>
 ・oeis.org
 <br>
@@ -32331,7 +32348,7 @@ _dx(=&lt;{_ix(=&lt;{x^3},0,x)},1,2)
 <br>
 -> 7.999999999998895+5.517384388870678e-13i+O(4e-5+2e-5i)
 <br>
-・<a href="#span-out-error-numerical">目安の解析誤差</a>が当てにならない場合
+・<a href="#span-out-error-numerical">目安の解析誤差</a>が当てにならない場合（<a href="#span-eqn-integral_DE_quadrature">integral_DE_quadrature</a>参照）
 <br>
 _it(=&lt;sqrt(tan(t)),0,pi/4,1) -> <span class="clear">0.4</span>678848567030397+O(2e-2)
 <br>
@@ -47752,6 +47769,166 @@ clear;
 integral_C(=&lt;f,z,r,n)=&lt;_r((s)=&lt;s+last[dt=2*pi/n,t=(__n__-1)*dt,a=z+r*e**(i*t),b=z+r*e**(i*(t+dt)),_i(==&lt;f,a,b)],,n);
 <br>
 integral_C((z)=&lt;1/(z-0.5i),0,1,10)=&gt;;
+    </td>
+  </tr>
+  <tr>
+    <th>
+<a href="#span-index">
+目次
+</a>
+<br>
+integral_DE
+<br>
+_quadrature
+    </th>
+    <td>
+<span id="span-eqn-integral_DE_quadrature"></span>
+clear;
+<br>
+integral_DE_quadrature(==&lt;f,a,b,N,h,opt_type)=&lt;[
+<br>
+arr_x=[
+<br>
+(t)=&lt;tanh((pi/2)*sinh(t)),(t)=&lt;(pi/2)*cosh(t)/cosh((pi/2)*sinh(t))**2:
+<br>
+(t)=&lt;exp(t-exp(-t)),(t)=&lt;exp(t-exp(-t))*(1+exp(-t)):
+<br>
+(t)=&lt;exp((pi/2)*sinh(t)),(t)=&lt;exp((pi/2)*sinh(t))*(pi/2)*cosh(t):
+<br>
+(t)=&lt;sinh((pi/2)*sinh(t)),(t)=&lt;cosh((pi/2)*sinh(t))*(pi/2)*cosh(t)
+<br>
+],
+<br>
+isFinite_(x)=&lt;abs(x)&lt;inf,
+<br>
+isInfinite_(x)=&lt;x===inf,
+<br>
+hasInfinite_(x)=&lt;abs(x)===inf,
+<br>
+hasInf(fa,fb)=&lt;hasInfinite_(fa)=&gt;||hasInfinite_(fb)=&gt;,
+<br>
+isFF(a,b)=&lt;isFinite_(a)=&gt;&amp;&amp;isFinite_(b)=&gt;/*[a,b]*/,
+<br>
+isFI(a,b)=&lt;isFinite_(a)=&gt;&amp;&amp;isInfinite_(b)=&gt;/*[a,inf]*/,
+<br>
+isFIm(a,b)=&lt;isFinite_(b)=&gt;&amp;&amp;isInfinite_(a)=&gt;/*[inf,a]*/,
+<br>
+isIF(a,b)=&lt;isInfinite_(-a)=&gt;&amp;&amp;isFinite_(b)=&gt;/*[-inf,b]*/,
+<br>
+isIFm(a,b)=&lt;isInfinite_(-b)=&gt;&amp;&amp;isFinite_(a)=&gt;/*[b,-inf]*/,
+<br>
+isII(a,b)=&lt;isInfinite_(-a)=&gt;&amp;&amp;isInfinite_(b)=&gt;/*[-inf,inf]*/,
+<br>
+isIIm(a,b)=&lt;isInfinite_(-b)=&gt;&amp;&amp;isInfinite_(a)=&gt;/*[inf,-inf]*/,
+<br>
+hasMinus(a,b)=&lt;isFIm(a,b)=&gt;||isIFm(a,b)=&gt;||isIIm(a,b)=&gt;,
+<br>
+hasM=hasMinus(a,b)=&gt;,
+<br>
+hasM&amp;&amp;&amp;(w=a,a=b,b=w),
+<br>
+type=opt_type||0,
+<br>
+type=type|||isFI(a,b)=&gt;||isIF(a,b)=&gt;&amp;&amp;&amp;2|||isII(a,b)=&gt;&amp;&amp;&amp;3,
+<br>
+x=arr_x[type][0],
+<br>
+xd=arr_x[type][1],
+<br>
+abw=(isIF(a,b)=&gt;&amp;&amp;&amp;[-1,b,1]|||type===1||type===2&amp;&amp;&amp;[1,a,1]|||type===3&amp;&amp;&amp;[1,,1]|||[(b-a)/2,(b+a)/2,(b-a)/2]),
+<br>
+phi(t,a,b,w)=&lt;[y=f(a*x(t)=&gt;+b)=&gt;*xd(t)=&gt;*w,=&lt;isFinite_(y)=&gt;&amp;&amp;&amp;y]=&gt;,
+<br>
+S(a,N,h)=&lt;_s((k)=&lt;phi(k*h,abw)=&gt;,-N/2,N/2)*h,
+<br>
+=&lt;cne(a,b)&amp;&amp;&amp;(hasM&amp;&amp;-1||1)*S(a,N,h)=&gt;]=&gt;;
+<br>
+<br>
+z=1/2;
+<br>
+NI=100;
+<br>
+integral_DE_quadrature((x)=&lt;x**(z-1)*exp(-x),0,inf,NI,10/NI,2)=&gt;:
+<br>
+1.772453850905516027298;
+<br>
+integral_DE_quadrature((x)=&lt;x**(z-1)*exp(-x),0,inf,NI,10/NI,1)=&gt;:
+<br>
+1.772453850905516027298;
+<br>
+integral_DE_quadrature((x)=&lt;x**(z-1)*exp(-x),0,inf,NI,10/NI,0)=&gt;:
+<br>
+1.772453850905516027298;
+<br>
+integral_DE_quadrature((x)=&lt;x**(z-1)*exp(-x),0,inf,NI,10/NI,)=&gt;:
+<br>
+1.772453850905516027298;
+<br>
+integral_DE_quadrature((x)=&lt;x**(z-1)*exp(-x),inf,0,NI,10/NI,)=&gt;:
+<br>
+-1.772453850905516027298;
+<br>
+integral_DE_quadrature((x)=&lt;x**(z-1)*exp(-x),1,inf,NI,10/NI,)=&gt;:
+<br>
+0.2788055852806619764993;
+<br>
+NI=100;
+<br>
+integral_DE_quadrature((x)=&lt;1/(1+(sqrt(x))^3),1+i,inf,NI,10/NI,)=&gt;:
+<br>
+1.500781043410964539996-0.4383480058647808280315i;
+<br>
+integral_DE_quadrature((x)=&lt;1/(1+(sqrt(x))^3),inf,1+i,NI,10/NI,)=&gt;:
+<br>
+-1.500781043410964539996+0.4383480058647808280315i;
+<br>
+NI=1000;
+<br>
+integral_DE_quadrature((x)=&lt;1/(1-x^3),-inf,1+i,NI,10/NI,)=&gt;:
+<br>
+-0.01853195524822145602092-0.2259704060343700453459i;
+<br>
+integral_DE_quadrature((x)=&lt;1/(1-x^3),1+i,-inf,NI,10/NI,)=&gt;:
+<br>
+0.01853195524822145602092+0.2259704060343700453459i;
+<br>
+NI=1000;
+<br>
+integral_DE_quadrature((x)=&lt;1/(1+25*x^2),-inf,inf,NI,10/NI,)=&gt;:
+<br>
+0.6283185307179586476925;
+<br>
+integral_DE_quadrature((x)=&lt;1/(1+25*x^2),inf,-inf,NI,10/NI,)=&gt;:
+<br>
+-0.6283185307179586476925;
+<br>
+integral_DE_quadrature((x)=&lt;1/(1+25*x^2),inf,inf,NI,10/NI,)=&gt;:
+<br>
+NaN;
+<br>
+integral_DE_quadrature((x)=&lt;1/(1+25*x^2),-inf,-inf,NI,10/NI,)=&gt;:
+<br>
+NaN;
+<br>
+NI=100;
+<br>
+integral_DE_quadrature((x)=&lt;sqrt(tan(x)),0,pi/4,NI,10/NI,)=&gt;:
+<br>
+0.48749549439936104836;
+<br>
+NI=1000;
+<br>
+integral_DE_quadrature((x)=&lt;sin(1/sqrt(x))/sqrt(x),0,1,NI,10/NI,)=&gt;:
+<br>
+1.008134123813856743979;
+<br>
+NI=20;
+<br>
+globalS(==&lt;f)=&lt;integral_DE_quadrature(=&lt;f,0,1,NI,10/NI,)==&gt;;
+<br>
+globalS((z)=&lt;globalS((y)=&lt;globalS((x)=&lt;1/(1-x*y*z))==&gt;)==&gt;)==&gt;;
+<br>
+1.2020569031595942;
     </td>
   </tr>
   <tr>

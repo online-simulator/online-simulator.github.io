@@ -964,6 +964,141 @@ stored_eqn(LpR)
 clear
 local storage cleared
 
+1.2020569031595942
+1.2020569031595942
+
+globalS((z)=<globalS((y)=<globalS((x)=<1/(1-x*y*z))==>)==>)==>
+infoLost[r ] 1.2020710432994668
+
+globalS(==<f)=<integral_DE_quadrature(=<f,0,1,NI,10/NI,)==>
+stored_eqn(globalS)
+
+NI=20
+NI=20
+
+integral_DE_quadrature((x)=<sin(1/sqrt(x))/sqrt(x),0,1,NI,10/NI,)=>:1.008134123813856743979
+(
+infoLost[r ] 1.0050273943802346:
+1.0081341238138568
+)
+
+NI=1000
+NI=1000
+
+integral_DE_quadrature((x)=<sqrt(tan(x)),0,pi/4,NI,10/NI,)=>:0.48749549439936104836
+(
+infoLost[r ] 0.48749549439936124:
+0.4874954943993611
+)
+
+NI=100
+NI=100
+
+integral_DE_quadrature((x)=<1/(1+25*x^2),-inf,-inf,NI,10/NI,)=>:NaN
+(
+false:
+NaN
+)
+
+integral_DE_quadrature((x)=<1/(1+25*x^2),inf,inf,NI,10/NI,)=>:NaN
+(
+false:
+NaN
+)
+
+integral_DE_quadrature((x)=<1/(1+25*x^2),inf,-inf,NI,10/NI,)=>:-0.6283185307179586476925
+(
+infoLost[r ] -0.628318530717958-3.847341387443581e-17i:
+-0.6283185307179586
+)
+
+integral_DE_quadrature((x)=<1/(1+25*x^2),-inf,inf,NI,10/NI,)=>:0.6283185307179586476925
+(
+infoLost[r ] 0.628318530717958+3.847341387443581e-17i:
+0.6283185307179586
+)
+
+NI=1000
+NI=1000
+
+integral_DE_quadrature((x)=<1/(1-x^3),1+i,-inf,NI,10/NI,)=>:0.01853195524822145602092+0.2259704060343700453459i
+(
+infoLost[ri] 0.018531955248222647+0.22597040603436874i:
+0.018531955248221457+0.22597040603437005i
+)
+
+integral_DE_quadrature((x)=<1/(1-x^3),-inf,1+i,NI,10/NI,)=>:-0.01853195524822145602092-0.2259704060343700453459i
+(
+infoLost[ri] -0.018531955248222647-0.22597040603436874i:
+-0.018531955248221457-0.22597040603437005i
+)
+
+NI=1000
+NI=1000
+
+integral_DE_quadrature((x)=<1/(1+(sqrt(x))^3),inf,1+i,NI,10/NI,)=>:-1.500781043410964539996+0.4383480058647808280315i
+(
+infoLost[ri] -1.5007810434109645+0.438348005864781i:
+-1.5007810434109645+0.43834800586478084i
+)
+
+integral_DE_quadrature((x)=<1/(1+(sqrt(x))^3),1+i,inf,NI,10/NI,)=>:1.500781043410964539996-0.4383480058647808280315i
+(
+infoLost[ri] 1.5007810434109645-0.438348005864781i:
+1.5007810434109645-0.43834800586478084i
+)
+
+NI=100
+NI=100
+
+integral_DE_quadrature((x)=<x**(z-1)*exp(-x),1,inf,NI,10/NI,)=>:0.2788055852806619764993
+(
+infoLost[r ] 0.2788055852802575:
+0.27880558528066196
+)
+
+integral_DE_quadrature((x)=<x**(z-1)*exp(-x),inf,0,NI,10/NI,)=>:-1.772453850905516027298
+(
+infoLost[r ] -1.7724538509043866:
+-1.772453850905516
+)
+
+integral_DE_quadrature((x)=<x**(z-1)*exp(-x),0,inf,NI,10/NI,)=>:1.772453850905516027298
+(
+infoLost[r ] 1.7724538509043866:
+1.772453850905516
+)
+
+integral_DE_quadrature((x)=<x**(z-1)*exp(-x),0,inf,NI,10/NI,0)=>:1.772453850905516027298
+(
+infoLost[r ] 1.7724538509043866:
+1.772453850905516
+)
+
+integral_DE_quadrature((x)=<x**(z-1)*exp(-x),0,inf,NI,10/NI,1)=>:1.772453850905516027298
+(
+infoLost[r ] 1.7724538509055159:
+1.772453850905516
+)
+
+integral_DE_quadrature((x)=<x**(z-1)*exp(-x),0,inf,NI,10/NI,2)=>:1.772453850905516027298
+(
+infoLost[r ] 1.7724538509043866:
+1.772453850905516
+)
+
+NI=100
+NI=100
+
+z=1/2
+z=0.5
+
+integral_DE_quadrature(==<f,a,b,N,h,opt_type)=<[arr_x=[(t)=<tanh((pi/2)*sinh(t)),(t)=<(pi/2)*cosh(t)/cosh((pi/2)*sinh(t))**2:(t)=<exp(t-exp(-t)),(t)=<exp(t-exp(-t))*(1+exp(-t)):(t)=<exp((pi/2)*sinh(t)),(t)=<exp((pi/2)*sinh(t))*(pi/2)*cosh(t):(t)=<sinh((pi/2)*sinh(t)),(t)=<cosh((pi/2)*sinh(t))*(pi/2)*cosh(t)],isFinite_(x)=<abs(x)<inf,isInfinite_(x)=<x===inf,hasInfinite_(x)=<abs(x)===inf,hasInf(fa,fb)=<hasInfinite_(fa)=>||hasInfinite_(fb)=>,isFF(a,b)=<isFinite_(a)=>&&isFinite_(b)=>,isFI(a,b)=<isFinite_(a)=>&&isInfinite_(b)=>,isFIm(a,b)=<isFinite_(b)=>&&isInfinite_(a)=>,isIF(a,b)=<isInfinite_(-a)=>&&isFinite_(b)=>,isIFm(a,b)=<isInfinite_(-b)=>&&isFinite_(a)=>,isII(a,b)=<isInfinite_(-a)=>&&isInfinite_(b)=>,isIIm(a,b)=<isInfinite_(-b)=>&&isInfinite_(a)=>,hasMinus(a,b)=<isFIm(a,b)=>||isIFm(a,b)=>||isIIm(a,b)=>,hasM=hasMinus(a,b)=>,hasM&&&(w=a,a=b,b=w),type=opt_type||0,type=type|||isFI(a,b)=>||isIF(a,b)=>&&&2|||isII(a,b)=>&&&3,x=arr_x[type][0],xd=arr_x[type][1],abw=(isIF(a,b)=>&&&[-1,b,1]|||type===1||type===2&&&[1,a,1]|||type===3&&&[1,,1]|||[(b-a)/2,(b+a)/2,(b-a)/2]),phi(t,a,b,w)=<[y=f(a*x(t)=>+b)=>*xd(t)=>*w,=<isFinite_(y)=>&&&y]=>,S(a,N,h)=<_s((k)=<phi(k*h,abw)=>,-N/2,N/2)*h,=<cne(a,b)&&&(hasM&&-1||1)*S(a,N,h)=>]=>
+stored_eqn(integral_DE_quadrature)
+
+clear
+local storage cleared
+
 integral_C((z)=<1/(z-0.5i),0,1,10)=>
 infoLost[r ] 8.326672684688674e-17+6.283185307847671i+O(1e-9+1e-9i)
 
@@ -1540,7 +1675,7 @@ clear
 local storage cleared
 
 [Pinv_y=(-0.999999427,-0.999936657,-0.997300203,-0.954499736,-0.682689492,0,0.682689492,0.954499736,0.997300203,0.999936657,0.999999427:-5,-4,-3,-2,-1,0,1,2,3,4,5),N=1,arr=[],_rn(=<arr.push(rand_table(=<Pinv_y)=>),,N),=<arr.]=>
-0.19537524135499246
+-0.8253743470465948
 
 rand_table(csv)=<last[table=sort0(csv),ymin=min(table)[0],ymax=max(table)[0],y=ymin+(ymax-ymin)*rand(),x=interp(y:table),x]
 stored_eqn(rand_table)
@@ -3443,4 +3578,4 @@ center=true&drag=false&test-case=false&plot-all=true&relzooming=true&snap=true&l
 --------------------------------
 --------------------------------
 
-online-simulator.github.io.6.475.631.22.146 @ Tue Apr 08 2025 03:30:59 GMT+0900 (日本標準時) @ Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/135.0.0.0 Safari/537.36
+online-simulator.github.io.6.475.639.22.149 @ Sun Apr 20 2025 13:03:26 GMT+0900 (日本標準時) @ Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/135.0.0.0 Safari/537.36
