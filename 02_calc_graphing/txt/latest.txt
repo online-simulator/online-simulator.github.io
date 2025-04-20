@@ -1075,19 +1075,19 @@ infoLost[r ] 1.7724538509043866+O(6e-25):
 1.772453850905516
 )
 
-integral_DE_quadrature((x)=<x**(z-1)*exp(-x),0,inf,NI,10/NI,0)=>:1.772453850905516027298
+integral_DE_quadrature((x)=<x**(z-1)*exp(-x),0,inf,NI,10/NI,1)=>:1.772453850905516027298
 (
-infoLost[r ] 1.7724538509043866+O(6e-25):
+infoLost[r ] 0:
 1.772453850905516
 )
 
-integral_DE_quadrature((x)=<x**(z-1)*exp(-x),0,inf,NI,10/NI,1)=>:1.772453850905516027298
+integral_DE_quadrature((x)=<x**(z-1)*exp(-x),0,inf,NI,10/NI,2)=>:1.772453850905516027298
 (
 infoLost[r ] 1.7724538509055159+O(7e-33):
 1.772453850905516
 )
 
-integral_DE_quadrature((x)=<x**(z-1)*exp(-x),0,inf,NI,10/NI,2)=>:1.772453850905516027298
+integral_DE_quadrature((x)=<x**(z-1)*exp(-x),0,inf,NI,10/NI,3)=>:1.772453850905516027298
 (
 infoLost[r ] 1.7724538509043866+O(6e-25):
 1.772453850905516
@@ -1099,7 +1099,7 @@ NI=100
 z=1/2
 z=0.5
 
-integral_DE_quadrature(==<f,a,b,N,h,opt_type)=<[arr_x=[(t)=<tanh((pi/2)*sinh(t)),(t)=<(pi/2)*cosh(t)/cosh((pi/2)*sinh(t))**2:(t)=<exp(t-exp(-t)),(t)=<exp(t-exp(-t))*(1+exp(-t)):(t)=<exp((pi/2)*sinh(t)),(t)=<exp((pi/2)*sinh(t))*(pi/2)*cosh(t):(t)=<sinh((pi/2)*sinh(t)),(t)=<cosh((pi/2)*sinh(t))*(pi/2)*cosh(t)],isFinite_(x)=<abs(x)<inf,isInfinite_(x)=<x===inf,hasInfinite_(x)=<abs(x)===inf,hasInf(fa,fb)=<hasInfinite_(fa)=>||hasInfinite_(fb)=>,isFF(a,b)=<isFinite_(a)=>&&isFinite_(b)=>,isFI(a,b)=<isFinite_(a)=>&&isInfinite_(b)=>,isFIm(a,b)=<isFinite_(b)=>&&isInfinite_(a)=>,isIF(a,b)=<isInfinite_(-a)=>&&isFinite_(b)=>,isIFm(a,b)=<isInfinite_(-b)=>&&isFinite_(a)=>,isII(a,b)=<isInfinite_(-a)=>&&isInfinite_(b)=>,isIIm(a,b)=<isInfinite_(-b)=>&&isInfinite_(a)=>,hasMinus(a,b)=<isFIm(a,b)=>||isIFm(a,b)=>||isIIm(a,b)=>,hasM=hasMinus(a,b)=>,hasM&&&(w=a,a=b,b=w),type=opt_type||0,type=type|||isFI(a,b)=>||isIF(a,b)=>&&&2|||isII(a,b)=>&&&3,x=arr_x[type][0],xd=arr_x[type][1],abw=(isIF(a,b)=>&&&[-1,b,1]|||type===1||type===2&&&[1,a,1]|||type===3&&&[1,,1]|||[(b-a)/2,(b+a)/2,(b-a)/2]),phi(t,a,b,w)=<[y=f(a*x(t)=>+b)=>*xd(t)=>*w,=<isFinite_(y)=>&&&y]=>,S(a,N,h)=<_s((k)=<phi(k*h,abw)=>,-N/2,N/2)*h,err=(false===0)*(phi((-N/2)*h,abw)=>+phi((N/2)*h,abw)=>)*h,=<cne(a,b)&&&(hasM&&-1||1)*S(a,N,h)=>+err]=>
+integral_DE_quadrature(==<f,a,b,N,h,opt_type)=<[arr_x=[:(t)=<tanh((pi/2)*sinh(t)),(t)=<(pi/2)*cosh(t)/cosh((pi/2)*sinh(t))**2:(t)=<exp(t-exp(-t)),(t)=<exp(t-exp(-t))*(1+exp(-t)):(t)=<exp((pi/2)*sinh(t)),(t)=<exp((pi/2)*sinh(t))*(pi/2)*cosh(t):(t)=<sinh((pi/2)*sinh(t)),(t)=<cosh((pi/2)*sinh(t))*(pi/2)*cosh(t)],isFinite_(x)=<abs(x)<inf,isInfinite_(x)=<x===inf,hasInfinite_(x)=<abs(x)===inf,hasInf(fa,fb)=<hasInfinite_(fa)=>||hasInfinite_(fb)=>,isFF(a,b)=<isFinite_(a)=>&&isFinite_(b)=>,isFI(a,b)=<isFinite_(a)=>&&isInfinite_(b)=>,isFIm(a,b)=<isFinite_(b)=>&&isInfinite_(a)=>,isIF(a,b)=<isInfinite_(-a)=>&&isFinite_(b)=>,isIFm(a,b)=<isInfinite_(-b)=>&&isFinite_(a)=>,isII(a,b)=<isInfinite_(-a)=>&&isInfinite_(b)=>,isIIm(a,b)=<isInfinite_(-b)=>&&isInfinite_(a)=>,hasMinus(a,b)=<isFIm(a,b)=>||isIFm(a,b)=>||isIIm(a,b)=>,hasM=hasMinus(a,b)=>,hasM&&&(w=a,a=b,b=w),type=opt_type|||isFI(a,b)=>||isIF(a,b)=>&&&3|||isII(a,b)=>&&&4|||1,x=arr_x[type][0],xd=arr_x[type][1],abw=(isIF(a,b)=>&&&[-1,b,1]|||type===2||type===3&&&[1,a,1]|||type===4&&&[1,,1]|||[(b-a)/2,(b+a)/2,(b-a)/2]),phi(t,a,b,w)=<[y=f(a*x(t)=>+b)=>*xd(t)=>*w,=<isFinite_(y)=>&&&y]=>,S(a,N,h)=<_s((k)=<phi(k*h,abw)=>,-N/2,N/2)*h,err=(false===0)*(phi((-N/2)*h,abw)=>+phi((N/2)*h,abw)=>)*h,=<cne(a,b)&&&(hasM&&-1||1)*S(a,N,h)=>+err]=>
 stored_eqn(integral_DE_quadrature)
 
 clear
@@ -1681,7 +1681,7 @@ clear
 local storage cleared
 
 [Pinv_y=(-0.999999427,-0.999936657,-0.997300203,-0.954499736,-0.682689492,0,0.682689492,0.954499736,0.997300203,0.999936657,0.999999427:-5,-4,-3,-2,-1,0,1,2,3,4,5),N=1,arr=[],_rn(=<arr.push(rand_table(=<Pinv_y)=>),,N),=<arr.]=>
--1.5109235438912805
+0.6151849942765094
 
 rand_table(csv)=<last[table=sort0(csv),ymin=min(table)[0],ymax=max(table)[0],y=ymin+(ymax-ymin)*rand(),x=interp(y:table),x]
 stored_eqn(rand_table)
@@ -1691,7 +1691,7 @@ local storage cleared
 
 [(N)=<[tarr=linspace(0,N-1,N).,shuffle_FY(?tarr)=>,=<tarr.]=>](2)=>
 (
-1,0
+0,1
 )
 
 shuffle_FY(?tarr)=<last[len=sizer(tarr),switch_arr=(i1)=<last{i0=floor(rand()*(i1+1)),w=tarr[i1],tarr[i1]=tarr[i0],tarr[i0]=w},_s((i_)=<switch_arr(i_)=>,len-1,1)]
@@ -3584,4 +3584,4 @@ center=true&drag=false&test-case=false&plot-all=true&relzooming=true&snap=true&l
 --------------------------------
 --------------------------------
 
-online-simulator.github.io.6.476.639.22.149 @ Mon Apr 21 2025 03:59:45 GMT+0900 (日本標準時) @ Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/135.0.0.0 Safari/537.36
+online-simulator.github.io.6.476.639.22.149 @ Mon Apr 21 2025 04:36:37 GMT+0900 (日本標準時) @ Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/135.0.0.0 Safari/537.36
