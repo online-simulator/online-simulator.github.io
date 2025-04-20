@@ -554,6 +554,8 @@ test case
 <br>
 ・gamma<span class="jF">-ac</span>：gamma関数の<a href="#span-app-continuation">解析接続</a>（Eulerの無限乗積<del>を精度保証用の級数</del>で記述）
 <br>
+　<span class="run">Ver.2.805.130</span>以降、DE求積法を追加
+<br>
 　-inf：<span class="run">Ver.2.691.98</span>以降、n**z　⇒　(n+1)**z
 <br>
 ・<span class="wF">digamma</span>~-psi：gamma関数の対数微分のdigamma||psi関数（<a href="#span-out-FNh-DX">微分高階関数</a>の<a href="#span-out-error-numerical">数値解</a>と解析解の比較）
@@ -47841,7 +47843,9 @@ phi(t,a,b,w)=&lt;[y=f(a*x(t)=&gt;+b)=&gt;*xd(t)=&gt;*w,=&lt;isFinite_(y)=&gt;&am
 <br>
 S(a,N,h)=&lt;_s((k)=&lt;phi(k*h,abw)=&gt;,-N/2,N/2)*h,
 <br>
-=&lt;cne(a,b)&amp;&amp;&amp;(hasM&amp;&amp;-1||1)*S(a,N,h)=&gt;]=&gt;;
+err=(false===0)*(phi((-N/2)*h,abw)=&gt;+phi((N/2)*h,abw)=&gt;)*h,
+<br>
+=&lt;cne(a,b)&amp;&amp;&amp;(hasM&amp;&amp;-1||1)*S(a,N,h)=&gt;+err]=&gt;;
 <br>
 <br>
 z=1/2;
@@ -47924,7 +47928,7 @@ integral_DE_quadrature((x)=&lt;sin(1/sqrt(x))/sqrt(x),0,1,NI,10/NI,)=&gt;:
 <br>
 NI=20;
 <br>
-globalS(==&lt;f)=&lt;integral_DE_quadrature(=&lt;f,0,1,NI,10/NI,)==&gt;;
+globalS(=&lt;f)=&lt;integral_DE_quadrature(=&lt;f,0,1,NI,10/NI,)==&gt;;
 <br>
 globalS((z)=&lt;globalS((y)=&lt;globalS((x)=&lt;1/(1-x*y*z))==&gt;)==&gt;)==&gt;;
 <br>
