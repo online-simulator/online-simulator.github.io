@@ -985,6 +985,12 @@ infoLost[r ] 1.0050273943802346+O(1e-101):
 NI=1000
 NI=1000
 
+integral_DE_quadrature((x)=<sqrt(tan(x)),pi/4,0,NI,10/NI,)=>:-0.48749549439936104836
+(
+infoLost[r ] -0.487495494399361+O(1e-100):
+-0.4874954943993611
+)
+
 integral_DE_quadrature((x)=<sqrt(tan(x)),0,pi/4,NI,10/NI,)=>:0.48749549439936104836
 (
 infoLost[r ] 0.48749549439936124+O(1e-100):
@@ -1675,7 +1681,7 @@ clear
 local storage cleared
 
 [Pinv_y=(-0.999999427,-0.999936657,-0.997300203,-0.954499736,-0.682689492,0,0.682689492,0.954499736,0.997300203,0.999936657,0.999999427:-5,-4,-3,-2,-1,0,1,2,3,4,5),N=1,arr=[],_rn(=<arr.push(rand_table(=<Pinv_y)=>),,N),=<arr.]=>
--0.4052384031352667
+0.4439221385634389
 
 rand_table(csv)=<last[table=sort0(csv),ymin=min(table)[0],ymax=max(table)[0],y=ymin+(ymax-ymin)*rand(),x=interp(y:table),x]
 stored_eqn(rand_table)
@@ -3578,4 +3584,4 @@ center=true&drag=false&test-case=false&plot-all=true&relzooming=true&snap=true&l
 --------------------------------
 --------------------------------
 
-online-simulator.github.io.6.475.639.22.149 @ Sun Apr 20 2025 18:38:44 GMT+0900 (日本標準時) @ Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/135.0.0.0 Safari/537.36
+online-simulator.github.io.6.476.639.22.149 @ Mon Apr 21 2025 04:00:55 GMT+0900 (日本標準時) @ Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/135.0.0.0 Safari/537.36
