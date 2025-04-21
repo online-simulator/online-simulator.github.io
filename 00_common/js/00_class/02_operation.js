@@ -2347,6 +2347,7 @@ My_entry.operation.prototype.IX = function(data, rightArr, tagObj){
   var options = data.options;
   var scopes = data.scopes;
   var ids = data.ids;
+  var math = self.entry.math;  // Ver.2.806.130
   var DATA = self.entry.DATA;
   var unit = self.entry.unit;
   var callback_FNh = function(args, ids_buffer, name_var, tree_eqn){  // Ver.2.231.56  // Ver.2.234.56
@@ -2358,6 +2359,11 @@ My_entry.operation.prototype.IX = function(data, rightArr, tagObj){
       N = (N && N.com)? N.com.r: null;
       N = Math.abs(Math.round(N) || self.options.NI);  // N > 0  // Ver.2.29.15  // Ver.2.205.46 floor -> round
       N = (N%2)? N+1: N;
+      /* Ver.2.806.130 -> */
+      var type = args[4];
+      type = (type && type.com)? type.com.r: null;
+      type = type || 0;
+      /* -> Ver.2.806.130 */
       var acr = a.com.r;
       var aci = a.com.i;
       var bcr = b.com.r;
@@ -2371,7 +2377,7 @@ My_entry.operation.prototype.IX = function(data, rightArr, tagObj){
       var h0ci = h0.com.i;
       /* Ver.2.369.86 -> */
       var orderI = 4;
-      if(tagObj.val.order){
+      if(tagObj.val.order || tagObj.val.order === 0){  // Ver.2.806.130
         orderI = tagObj.val.order;
       }
       else if(options.orderI === 2 || options.orderI === 4){
@@ -2422,11 +2428,117 @@ My_entry.operation.prototype.IX = function(data, rightArr, tagObj){
         /* -> Ver.2.20.10 */
         return _sum;
       };
+      /* Ver.2.806.130 -> */
+      var DI_quadrature_DE = function(){
+        var _sum = DATA.num(0, 0);
+        var pih = Math.PI/2;
+        var Nh = Math.round(N/2);
+        var hq = 10/N;
+        var arr_x = [
+          [],
+          [function(t){return math.tanh(pih*math.sinh(t));}, function(t){return pih*math.cosh(t)/Math.pow(math.cosh(pih*math.sinh(t)), 2);}],
+          [function(t){return Math.exp(t-Math.exp(-t));}, function(t){return x(t)*(1+Math.exp(-t));}],
+          [function(t){return Math.exp(pih*math.sinh(t));}, function(t){return x(t)*pih*math.cosh(t);}],
+          [function(t){return math.sinh(pih*math.sinh(t));}, function(t){return math.cosh(pih*math.sinh(t))*pih*math.cosh(t);}]
+        ];
+        var fa = calc_f(acr, aci);
+        var fb = calc_f(bcr, bci);
+        var facr = fa.com.r;
+        var faci = fa.com.i;
+        var fbcr = fb.com.r;
+        var fbci = fb.com.i;
+        if((acr === bcr) && (aci === bci)){
+          if(!(isFinite(facr) && isFinite(faci))){
+            _sum.com.r = NaN;
+            _sum.com.i = NaN;
+          }
+        }
+        else{
+          var hasM = math.isFIm(acr, bcr) || math.isIFm(acr, bcr) || math.isIIm(acr, bcr);
+          if(hasM){
+            var wcr = acr;
+            var wci = aci;
+            acr = bcr;
+            aci = bci;
+            bcr = wcr;
+            bci = wci;
+          }
+          if(type === 0){
+            if(math.isInf(facr) || math.isInf(faci) || math.isInf(fbcr) || math.isInf(fbci)){
+              type = 3;
+            }
+            else if(math.isFI(acr, bcr) || math.isIF(acr, bcr)){
+              type = 3;
+            }
+            else if(math.isII(acr, bcr)){
+              type = 4;
+            }
+            else{
+              type = 1;
+            }
+          }
+          var aq = null;
+          var bq = null;
+          var wq = null;
+          if(math.isIF(acr, bcr)){
+            aq = DATA.num(-1, 0);
+            bq = DATA.num(bcr, bci);
+            wq = DATA.num(1, 0);
+          }
+          else if(type === 2 || type === 3){
+            aq = DATA.num(1, 0);
+            bq = DATA.num(acr, aci);
+            wq = aq;
+          }
+          else if(type === 4){
+            aq = DATA.num(1, 0);
+            bq = DATA.num(0, 0);
+            wq = aq;
+          }
+          else{
+            aq = DATA.num((bcr-acr)/2, (bci-aci)/2);
+            bq = DATA.num((bcr+acr)/2, (bci+aci)/2);
+            wq = aq;
+          }
+          var x = arr_x[type][0];
+          var xd = arr_x[type][1];
+          var err = 0;
+          for(var k=-Nh; k<=Nh; ++k){
+            var t = k*hq;
+            var axpb = unit["BRa"](options, unit["BRm"](options, aq, DATA.num(x(t), 0)), bq);
+            var phi = calc_f(axpb.com.r, axpb.com.i);
+            var y = unit["BRm"](options, unit["BRm"](options, phi, DATA.num(xd(t), 0)), wq);
+            var ycr = y.com.r;
+            var yci = y.com.i;
+            if(isFinite(ycr) && isFinite(yci)){
+              _sum = unit["BRa"](options, _sum, y);
+              if(k === -Nh || k === Nh){
+                err += ycr;
+              }
+            }
+          }
+          _sum = unit["BRm"](options, _sum, DATA.num(hq, 0));
+          if(hasM){
+            _sum.com.r = -_sum.com.r;
+            _sum.com.i = -_sum.com.i;
+          }
+          if(options.checkError){
+            _sum.err.r = Math.max(Math.abs(err*hq), _sum.err.r);
+          }
+        }
+        return _sum;
+      };
+      /* -> Ver.2.806.130 */
       /* Ver.2.369.86 -> */
       var DI = DI_order4;
       if(orderI === 2){
         DI = DI_order2;
       }
+      /* Ver.2.806.130 -> */
+      else if(orderI === 0){
+        DI = DI_quadrature_DE;
+      }
+      /* -> Ver.2.806.130 */
       /* -> Ver.2.369.86 */
       _tree = DATA.num2tree(DI());
     }

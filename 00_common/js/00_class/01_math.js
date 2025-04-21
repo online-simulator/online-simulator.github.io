@@ -32,12 +32,46 @@ My_entry.math.prototype.isInf = function(val){
 };
 /* -> Ver.2.189.44 */
 /* for CALC */
-/* 2.87.32 -> */
+/* Ver.2.806.130 -> */
+My_entry.math.prototype.isInfinite_ = function(x){
+  var self = this;
+  return (x === Number.POSITIVE_INFINITY);
+};
+My_entry.math.prototype.isFF = function(a, b){
+  var self = this;
+  return (isFinite(a) && isFinite(b));
+};
+My_entry.math.prototype.isFI = function(a, b){
+  var self = this;
+  return (isFinite(a) && self.isInfinite_(b));
+};
+My_entry.math.prototype.isFIm = function(a, b){
+  var self = this;
+  return (isFinite(b) && self.isInfinite_(a));
+};
+My_entry.math.prototype.isIF = function(a, b){
+  var self = this;
+  return (self.isInfinite_(-a) && isFinite(b));
+};
+My_entry.math.prototype.isIFm = function(a, b){
+  var self = this;
+  return (self.isInfinite_(-b) && isFinite(a));
+};
+My_entry.math.prototype.isII = function(a, b){
+  var self = this;
+  return (self.isInfinite_(-a) && self.isInfinite_(b));
+};
+My_entry.math.prototype.isIIm = function(a, b){
+  var self = this;
+  return (self.isInfinite_(-b) && self.isInfinite_(a));
+};
+/* -> Ver.2.806.130 */
+/* Ver.2.87.32 -> */
 My_entry.math.prototype.int = function(x){
   var self = this;
   return Math.floor((x >= 0 || x%1 === 0)? x: x+1);
 };
-/* -> 2.87.32 */
+/* -> Ver.2.87.32 */
 My_entry.math.prototype.sinh = function(x){
   var self = this;
   return 0.5*(Math.exp(x)-Math.exp(-x));

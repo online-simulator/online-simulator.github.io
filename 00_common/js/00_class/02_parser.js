@@ -358,12 +358,12 @@ My_entry.parser.prototype.compare2bs = function(token, token_lower, token_upper,
           }
         }
         else if(key === "DX" || key === "IX"){
-          if(num === 2 || num === 4){
+          if(num === 2 || num === 4 || num === 0){  // Ver.2.806.130
             mc1 = "";
             obj["order"] = num;
           }
           else{
-            throw "Invalid order="+((key === "DX")? "auto||4||2(": "4||2(")+key+")";
+            throw "Invalid order="+((key === "DX")? "auto||4||2(": "4||2||0(")+key+")";  // Ver.2.806.130
           }
         }
       }
