@@ -968,6 +968,21 @@ local storage cleared
 1.2020569031595942
 
 globalS((z)=<globalS((y)=<globalS((x)=<1/(1-x*y*z))==>)==>)==>
+1.1615148886593514+O(5e-2)
+
+globalS(=<f)=<(_t1((t,x)=<f(t)=>,,=<{,0},1/NI,NI))[1]
+stored_eqn(globalS)
+
+globalS((z)=<globalS((y)=<globalS((x)=<1/(1-x*y*z))==>)==>)==>
+infoLost[r ] Infinity
+
+globalS(=<f)=<_i(=<f,0,1,NI)
+stored_eqn(globalS)
+
+1.2020569031595942
+1.2020569031595942
+
+globalS((z)=<globalS((y)=<globalS((x)=<1/(1-x*y*z))==>)==>)==>
 infoLost[r ] 1.2020710432994668+O(2e-99)
 
 globalS(=<f)=<_i0(=<f,0,1,NI)
@@ -982,7 +997,7 @@ stored_eqn(globalS)
 NI=20
 NI=20
 
-integral_DE_quadrature((x)=<1/x,0,0,NI,10/NI,)=>:_i0((x)=<1/x,0,0,NI):NaN
+check((x)=<1/x,0,0,NI,)=>:NaN
 (
 NaN:
 NaN:
@@ -992,7 +1007,14 @@ NaN
 NI=100
 NI=100
 
-integral_DE_quadrature((x)=<sin(1/sqrt(x))/sqrt(x),0,1,NI,10/NI,)=>:_i0((x)=<sin(1/sqrt(x))/sqrt(x),0,1,NI):1.008134123813856743979
+check((x)=<sin(1/sqrt(x))/sqrt(x),1,0,NI,)=>:-1.008134123813856743979
+(
+-1.0050274103409738+O(1e-101):
+-1.0050276358687178+O(1e-101):
+-1.0081341238138568
+)
+
+check((x)=<sin(1/sqrt(x))/sqrt(x),0,1,NI,)=>:1.008134123813856743979
 (
 infoLost[r ] 1.0050274103409746+O(1e-101):
 infoLost[r ] 1.0050276358687185+O(1e-101):
@@ -1002,14 +1024,14 @@ infoLost[r ] 1.0050276358687185+O(1e-101):
 NI=1000
 NI=1000
 
-integral_DE_quadrature((x)=<sqrt(tan(x)),pi/4,0,NI,10/NI,)=>:_i0((x)=<sqrt(tan(x)),pi/4,0,NI):-0.48749549439936104836
+check((x)=<sqrt(tan(x)),pi/4,0,NI,)=>:-0.48749549439936104836
 (
 infoLost[r ] -0.487495494399361+O(1e-100):
 infoLost[r ] -0.487495494399361+O(1e-100):
 -0.4874954943993611
 )
 
-integral_DE_quadrature((x)=<sqrt(tan(x)),0,pi/4,NI,10/NI,)=>:_i0((x)=<sqrt(tan(x)),0,pi/4,NI):0.48749549439936104836
+check((x)=<sqrt(tan(x)),0,pi/4,NI,)=>:0.48749549439936104836
 (
 infoLost[r ] 0.48749549439936124+O(1e-100):
 infoLost[r ] 0.48749549439936113+O(1e-100):
@@ -1019,28 +1041,28 @@ infoLost[r ] 0.48749549439936113+O(1e-100):
 NI=100
 NI=100
 
-integral_DE_quadrature((x)=<1/(1+25*x^2),inf,inf,NI,10/NI,)=>:_i0((x)=<1/(1+25*x^2),inf,inf,NI):0
+check((x)=<1/(1+25*x^2),inf,inf,NI,)=>:0
 (
 0:
 0:
 0
 )
 
-integral_DE_quadrature((x)=<1/(1+25*x^2),-inf,-inf,NI,10/NI,)=>:_i0((x)=<1/(1+25*x^2),-inf,-inf,NI):0
+check((x)=<1/(1+25*x^2),-inf,-inf,NI,)=>:0
 (
 0:
 0:
 0
 )
 
-integral_DE_quadrature((x)=<1/(1+25*x^2),inf,-inf,NI,10/NI,)=>:_i0((x)=<1/(1+25*x^2),inf,-inf,NI):-0.6283185307179586476925
+check((x)=<1/(1+25*x^2),inf,-inf,NI,)=>:-0.6283185307179586476925
 (
 infoLost[r ] -0.6283185307179582+O(4e-52):
 infoLost[r ] -0.6283185307179581+O(4e-52):
 -0.6283185307179586
 )
 
-integral_DE_quadrature((x)=<1/(1+25*x^2),-inf,inf,NI,10/NI,)=>:_i0((x)=<1/(1+25*x^2),-inf,inf,NI):0.6283185307179586476925
+check((x)=<1/(1+25*x^2),-inf,inf,NI,)=>:0.6283185307179586476925
 (
 infoLost[r ] 0.6283185307179582+O(4e-52):
 infoLost[r ] 0.6283185307179581+O(4e-52):
@@ -1050,14 +1072,14 @@ infoLost[r ] 0.6283185307179581+O(4e-52):
 NI=1000
 NI=1000
 
-integral_DE_quadrature((x)=<1/(1-x^3),1+i,-inf,NI,10/NI,)=>:_i0((x)=<1/(1-x^3),1+i,-inf,NI):0.01853195524822145602092+0.2259704060343700453459i
+check((x)=<1/(1-x^3),1+i,-inf,NI,)=>:0.01853195524822145602092+0.2259704060343700453459i
 (
 infoLost[ri] 0.018531955248222754+0.22597040603436896i+O(6e-52):
 infoLost[ri] 0.018531955248222647+0.22597040603436874i+O(6e-52):
 0.018531955248221457+0.22597040603437005i
 )
 
-integral_DE_quadrature((x)=<1/(1-x^3),-inf,1+i,NI,10/NI,)=>:_i0((x)=<1/(1-x^3),-inf,1+i,NI):-0.01853195524822145602092-0.2259704060343700453459i
+check((x)=<1/(1-x^3),-inf,1+i,NI,)=>:-0.01853195524822145602092-0.2259704060343700453459i
 (
 infoLost[ri] -0.018531955248222754-0.22597040603436896i+O(6e-52):
 infoLost[ri] -0.018531955248222647-0.22597040603436874i+O(6e-52):
@@ -1067,14 +1089,14 @@ infoLost[ri] -0.018531955248222647-0.22597040603436874i+O(6e-52):
 NI=1000
 NI=1000
 
-integral_DE_quadrature((x)=<1/(1+(sqrt(x))^3),inf,1+i,NI,10/NI,)=>:_i0((x)=<1/(1+(sqrt(x))^3),inf,1+i,NI):-1.500781043410964539996+0.4383480058647808280315i
+check((x)=<1/(1+(sqrt(x))^3),inf,1+i,NI,)=>:-1.500781043410964539996+0.4383480058647808280315i
 (
 infoLost[ri] -1.5007810434109645+0.438348005864781i+O(6e-25):
 infoLost[ri] -1.5007810434109645+0.438348005864781i+O(6e-25):
 -1.5007810434109645+0.43834800586478084i
 )
 
-integral_DE_quadrature((x)=<1/(1+(sqrt(x))^3),1+i,inf,NI,10/NI,)=>:_i0((x)=<1/(1+(sqrt(x))^3),1+i,inf,NI):1.500781043410964539996-0.4383480058647808280315i
+check((x)=<1/(1+(sqrt(x))^3),1+i,inf,NI,)=>:1.500781043410964539996-0.4383480058647808280315i
 (
 infoLost[ri] 1.5007810434109645-0.438348005864781i+O(6e-25):
 infoLost[ri] 1.5007810434109645-0.438348005864781i+O(6e-25):
@@ -1084,21 +1106,21 @@ infoLost[ri] 1.5007810434109645-0.438348005864781i+O(6e-25):
 NI=100
 NI=100
 
-integral_DE_quadrature((x)=<x**(z-1)*exp(-x),1,inf,NI,10/NI,)=>:_i0((x)=<x**(z-1)*exp(-x),1,inf,NI):0.2788055852806619764993
+check((x)=<x**(z-1)*exp(-x),1,inf,NI,)=>:0.2788055852806619764993
 (
 infoLost[r ] 0.2788055852802575+O(1e-50):
 infoLost[r ] 0.2788055852802575+O(1e-50):
 0.27880558528066196
 )
 
-integral_DE_quadrature((x)=<x**(z-1)*exp(-x),inf,0,NI,10/NI,)=>:_i0((x)=<x**(z-1)*exp(-x),inf,0,NI):-1.772453850905516027298
+check((x)=<x**(z-1)*exp(-x),inf,0,NI,)=>:-1.772453850905516027298
 (
 infoLost[r ] -1.7724538509043866+O(6e-25):
 infoLost[r ] -1.7724538509043866+O(6e-25):
 -1.772453850905516
 )
 
-integral_DE_quadrature(args,10/NI,)=>:_i0(args,):_i0(args):1.772453850905516027298
+check(args,)=>:_i0(args):1.772453850905516027298
 (
 infoLost[r ] 1.7724538509043866+O(6e-25):
 infoLost[r ] 1.7724538509043866+O(6e-25):
@@ -1106,28 +1128,28 @@ infoLost[r ] 1.7724538509043866+O(6e-25):
 1.772453850905516
 )
 
-integral_DE_quadrature(args,10/NI,1)=>:_i0(args,1):1.772453850905516027298
+check(args,1)=>:1.772453850905516027298
 (
 infoLost[r ] 0:
 0:
 1.772453850905516
 )
 
-integral_DE_quadrature(args,10/NI,2)=>:_i0(args,2):1.772453850905516027298
+check(args,2)=>:1.772453850905516027298
 (
 infoLost[r ] 1.7724538509055159+O(7e-33):
 infoLost[r ] 1.7724538509055159+O(7e-33):
 1.772453850905516
 )
 
-integral_DE_quadrature(args,10/NI,3)=>:_i0(args,3):1.772453850905516027298
+check(args,3)=>:1.772453850905516027298
 (
 infoLost[r ] 1.7724538509043866+O(6e-25):
 infoLost[r ] 1.7724538509043866+O(6e-25):
 1.772453850905516
 )
 
-integral_DE_quadrature(args,10/NI,4)=>:_i0(args,4):1.772453850905516027298
+check(args,4)=>:1.772453850905516027298
 (
 infoLost[r ] 1.2063270495144227:
 infoLost[r ] 1.2063270495144225:
@@ -1145,8 +1167,151 @@ NI=100
 z=1/2
 z=0.5
 
+check(=<f,a,b,NI,type)=<(integral_DE_quadrature(=<f,a,b,NI,10/NI,type)=>:_i0(=<f,a,b,NI,type))
+stored_eqn(check)
+
 integral_DE_quadrature(==<f,a,b,N,h,opt_type)=<[arr_x=[:(t)=<tanh((pi/2)*sinh(t)),(t)=<(pi/2)*cosh(t)/cosh((pi/2)*sinh(t))**2:(t)=<exp(t-exp(-t)),(t)=<exp(t-exp(-t))*(1+exp(-t)):(t)=<exp((pi/2)*sinh(t)),(t)=<exp((pi/2)*sinh(t))*(pi/2)*cosh(t):(t)=<sinh((pi/2)*sinh(t)),(t)=<cosh((pi/2)*sinh(t))*(pi/2)*cosh(t)],isFinite_(x)=<abs(x)<inf,isInfinite_(x)=<x===inf,hasInfinite_(x)=<abs(x)===inf,hasInf(fa,fb)=<hasInfinite_(fa)=>||hasInfinite_(fb)=>,isFF(a,b)=<isFinite_(a)=>&&isFinite_(b)=>,isFI(a,b)=<isFinite_(a)=>&&isInfinite_(b)=>,isFIm(a,b)=<isFinite_(b)=>&&isInfinite_(a)=>,isIF(a,b)=<isInfinite_(-a)=>&&isFinite_(b)=>,isIFm(a,b)=<isInfinite_(-b)=>&&isFinite_(a)=>,isII(a,b)=<isInfinite_(-a)=>&&isInfinite_(b)=>,isIIm(a,b)=<isInfinite_(-b)=>&&isInfinite_(a)=>,hasMinus(a,b)=<isFIm(a,b)=>||isIFm(a,b)=>||isIIm(a,b)=>,hasM=hasMinus(a,b)=>,hasM&&&(w=a,a=b,b=w),type=opt_type|||hasInf(f(a)=>,f(b)=>)=>||isFI(a,b)=>||isIF(a,b)=>&&&3|||isII(a,b)=>&&&4|||1,x=arr_x[type][0],xd=arr_x[type][1],abw=(isIF(a,b)=>&&&[-1,b,1]|||type===2||type===3&&&[1,a,1]|||type===4&&&[1,,1]|||[(b-a)/2,(b+a)/2,(b-a)/2]),phi(t,a,b,w)=<[y=f(a*x(t)=>+b)=>*xd(t)=>*w,=<isFinite_(y)=>&&&y]=>,S(a,N,h)=<_s((k)=<phi(k*h,abw)=>,-N/2,N/2)*h,err=(false===0)*(phi((-N/2)*h,abw)=>+phi((N/2)*h,abw)=>)*h,=<cne(a,b)&&&(hasM&&-1||1)*S(a,N,h)=>+err||||isFinite_(f(a)=>)=>&&&0||||NaN+(NaN)i]=>
 stored_eqn(integral_DE_quadrature)
+
+clear
+local storage cleared
+
+check((x)=<pow(x,2)*exp(x),1+i,0,NI,)=>:2
+(
+infoLost[ri] 1.9999999999994544+4.547635382154817e-13i:
+1.9999999985172305+8.710643650822192e-9i+O(1e-8+1e-8i):
+infoLost[ri] 2-5.2147947305780067e-17i+O(1e-99):
+2
+)
+
+check((x)=<pow(x,2)*exp(x),0,1+i,NI,)=>:-2
+(
+-2.0000000000005467+4.547855148029356e-13i+O(1e-10+1e-10i):
+-1.999999998517231-8.710643650822192e-9i+O(1e-8+1e-8i):
+infoLost[ri] -2.000000000000001+5.015155297144277e-17i+O(1e-99):
+-2
+)
+
+check((x)=<sqrt(tan(x+eps*i)),pi/4+eps*i,0,NI,)=>:-0.48749549439936104836
+(
+infoLost[ i] -0.48749550484723747+7.601247113955404e-15i:
+-0.487438986559452-2.7585475953078785e-11i+O(4e-9+2e-71i):
+infoLost[ri] -0.487495494399361-4.4350592341867485e-16i+O(1e-100):
+-0.4874954943993611
+)
+
+check((x)=<sqrt(tan(x)),pi/4,eps,NI,)=>:-0.48749549439936104836
+(
+-0.48749550484723225:
+-0.48743898657087803+O(4e-9):
+infoLost[r ] -0.48749549439936096+O(1e-100):
+-0.4874954943993611
+)
+
+sqrt(tan(-1.1102230246251565e-16))
+NaN
+
+check((x)=<sqrt(tan(x)),pi/4,0,NI,)=>:-0.48749549439936104836
+(
+NaN:
+-0.487438986531867+O(4e-9):
+infoLost[r ] -0.487495494399361+O(1e-100):
+-0.4874954943993611
+)
+
+check((x)=<sqrt(tan(x)),0,pi/4,NI,)=>:0.48749549439936104836
+(
+0.4874954714281518+O(3e-11):
+0.487438986531867+O(4e-9):
+infoLost[r ] 0.48749549439936113+O(1e-100):
+0.4874954943993611
+)
+
+check((x)=<cosh(10*(x-0.2))**(-2)+cosh(100*(x-0.4))**(-4)+cosh(1000*(x-0.6))**(-6),0,1,NI,)=>:0.2108027355005492773756
+(
+infoLost[r ] 0.21080262405339478+O(1e-10):
+infoLost[r ] 0.21450864467266795+O(1e-8):
+infoLost[r ] 0.1965819226475792+O(9e-102):
+0.2108027355005493
+)
+
+check((x)=<1/(x**2+1.005),-1,1,NI,)=>:1.564396444069049773091
+(
+infoLost[r ] 1.5643964440690494+O(3e-9):
+1.5643964440809939+O(2e-7):
+infoLost[r ] 1.5643964440690792+O(3e-100):
+1.5643964440690499
+)
+
+check((x)=<cos(cos(x)+3*sin(x)+2*cos(2*x)+3*sin(2*x)+3*cos(3*x)),0,pi,NI,)=>:0.8386763233809618250439
+(
+infoLost[r ] 0.838676348408424+O(3e-8):
+infoLost[r ] 0.8386724234009028+O(1e-6):
+infoLost[r ] 0.8386525074925864+O(2e-100):
+0.8386763233809619
+)
+
+check((x)=<50*(sin(50*3.14159*x)/(50*3.14159*x))**2,eps,1,NI,)=>:0.4989872301695
+(
+0.4989869389186507+O(1e-10):
+0.4986496567259153+O(1e-8):
+infoLost[r ] 0.47845535595990374+O(7e-99):
+0.4989872301695
+)
+
+check((x)=<sqrt(50)*exp(-50*3.14159*x**2),0,10,NI,)=>:0.500000211166100039341
+(
+infoLost[r ] 0.49999529944230237+O(1e-5):
+infoLost[r ] 0.43257427369775214+O(1e-4):
+infoLost[r ] 0.4999341136905619+O(9e-99):
+0.5000002111661
+)
+
+check((x)=<sin(314.159*x)/(3.14159*x),0.1,1,NI,)=>:0.0090986452565692970698
+(
+0.0090986314194809+O(6e-11):
+0.026095361062273205+O(7e-9):
+infoLost[r ] -0.0532149487595143+O(2e-104):
+0.009098645256569298
+)
+
+check((x)=<2/(2+sin(31.4159*x)),0,1,NI,)=>:1.15470066904371304341
+(
+1.1547006690437396+O(1e-10):
+1.154702137651221+O(1e-8):
+infoLost[r ] 1.1512505379575928+O(3e-100):
+1.154700669043713
+)
+
+check((x)=<1/(x**4+x**2+0.9),-1,1,NI,)=>:1.58223296372967293312
+(
+infoLost[r ] 1.5822329637296684+O(3e-9):
+1.582232962812424+O(2e-7):
+infoLost[r ] 1.5822329637296706+O(2e-100):
+1.582232963729673
+)
+
+check((x)=<sqrt(x),0,1,NI,)=>:2/3
+(
+0.6666666336640303+O(1e-10):
+0.6665854820667237+O(1e-8):
+infoLost[r ] 0.6666666666666669+O(1e-100):
+0.6666666666666666
+)
+
+check((x)=<floor(min(x/0.3,1)),0,1,NI,)=>:0.7
+(
+0.7000000000000004+O(1e-10):
+0.7033333333333334+O(1e-8):
+infoLost[r ] 0.6888887393098645+O(1e-100):
+0.7
+)
+
+NI=100
+NI=100
+
+check(=<f,a,b,NI,type)=<((_t45((t,x)=<f(t)=>,,=<{a,0},(b-a)/NI,NI))[1]:_i(=<f,a,b,NI):_i0(=<f,a,b,NI,type))
+stored_eqn(check)
 
 clear
 local storage cleared
@@ -1727,7 +1892,7 @@ clear
 local storage cleared
 
 [Pinv_y=(-0.999999427,-0.999936657,-0.997300203,-0.954499736,-0.682689492,0,0.682689492,0.954499736,0.997300203,0.999936657,0.999999427:-5,-4,-3,-2,-1,0,1,2,3,4,5),N=1,arr=[],_rn(=<arr.push(rand_table(=<Pinv_y)=>),,N),=<arr.]=>
--1.262611537028798
+0.6025903906200236
 
 rand_table(csv)=<last[table=sort0(csv),ymin=min(table)[0],ymax=max(table)[0],y=ymin+(ymax-ymin)*rand(),x=interp(y:table),x]
 stored_eqn(rand_table)
@@ -3630,4 +3795,4 @@ center=true&drag=false&test-case=false&plot-all=true&relzooming=true&snap=true&l
 --------------------------------
 --------------------------------
 
-online-simulator.github.io.6.476.639.22.150 @ Tue Apr 22 2025 23:56:10 GMT+0900 (日本標準時) @ Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/135.0.0.0 Safari/537.36
+online-simulator.github.io.6.476.639.22.150 @ Wed Apr 23 2025 05:14:18 GMT+0900 (日本標準時) @ Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/135.0.0.0 Safari/537.36
