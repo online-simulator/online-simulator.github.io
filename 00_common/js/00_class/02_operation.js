@@ -2447,7 +2447,12 @@ My_entry.operation.prototype.IX = function(data, rightArr, tagObj){
         var faci = fa.com.i;
         var fbcr = fb.com.r;
         var fbci = fb.com.i;
-        if((acr === bcr) && (aci === bci)){
+        /* Ver.2.806.131 -> */
+        if(!(arr_x[type])){
+          throw "Invalid _i0(,,,,type)";
+        }
+        /* -> Ver.2.806.131 */
+        else if((acr === bcr) && (aci === bci)){
           if(!(isFinite(facr) && isFinite(faci))){
             _sum.com.r = NaN;
             _sum.com.i = NaN;
