@@ -152,6 +152,18 @@ test case
 <br>
 ・golden<span class="wF">-triangle</span>||-gnomon：黄金比の三角形（5回の回転対称性）とtruss構造
 <br>
+・<span class="wF">Kahaner</span>：<a href="#span-eqn-integral">integral</a>の<a href="#span-out-error">相対誤差</a>（<a href="#span-ref-docs2-integral">参考Docsの抜粋</a>＋α）
+<br>
+　⇒区間分割数：NI増で解析解に漸近
+<br>
+　⇒適用の目安
+<br>
+　・有界の任意関数（周期関数を含む）：adaptive-stepの<a href="#span-out-evolution">時間発展</a>　⇒　_o45()
+<br>
+　・端点の特異点あり（極を含む）：DE求積法　⇒　_i0()
+<br>
+　・低次の多項式：<a href="#span-out-fdm-integral">合成Simpson公式</a>　⇒　_i()
+<br>
 ・<span class="wF">Fourier</span>：周期関数f(x)のN次打切り<a href="#span-out-series-Fourier">Fourier級数</a>（部分和）
 <br>
 ・<span class="jF">mod</span>：N進法の線形結合（inv_mod用）
@@ -1936,6 +1948,7 @@ slpr.sakura.ne.jp/qp/
 <br>
 ・電磁場中の荷電粒子に対する非相対論的シュレーディンガー方程式から双極子近似まで
 <br>
+<span id="span-ref-docs2-integral"></span>
 ・最速・高精度の数値積分
 <br>
 ・二重指数関数型数値積分
@@ -47807,6 +47820,8 @@ integral
 <span id="span-eqn-integral"></span>
 <a href="#span-out-fdm-integral">積分の数値解法</a>||<a href="#span-out-evolution">時間発展の解法</a>参照
 <br>
+<span class="clear">・調整箇所</span>
+<br>
 clear;
 <br>
 check(=&lt;f,a,b,NI,type)=&lt;(_o45((t,x)=&lt;f(t)=&gt;,,,a,(b-a)/NI,NI):_i(=&lt;f,a,b,NI):_i0(=&lt;f,a,b,NI,type));
@@ -47825,9 +47840,9 @@ check((x)=&lt;sin(314.159*x)/(3.14159*x),0.1,1,NI,)=&gt;:0.009098645256569297069
 <br>
 check((x)=&lt;sqrt(50)*exp(-50*3.14159*x**2),0,10,NI,)=&gt;:0.500000211166100039341;
 <br>
-check((x)=&lt;50*(sin(50*3.14159*x)/(50*3.14159*x))**2,eps,1,NI,)=&gt;:0.4989872301695;
+check((x)=&lt;50*(sin(50*3.14159*x)/(50*3.14159*x))**2,<span class="clear">eps</span>,1,NI,)=&gt;:<span class="clear">0.4989872301695</span>;
 <br>
-check((x)=&lt;cos(cos(x)+3*sin(x)+2*cos(2*x)+3*sin(2*x)+3*cos(3*x)),0,pi,NI,)=&gt;:0.8386763233809618250439;
+check((x)=&lt;cos(cos(x)+3*sin(x)+2*cos(2*x)+3*sin(2*x)+3*cos(3*x)),0,<span class="clear">pi</span>,NI,)=&gt;:<span class="clear">0.8386763426944296</span>;
 <br>
 check((x)=&lt;1/(x**2+1.005),-1,1,NI,)=&gt;:1.564396444069049773091;
 <br>
@@ -47839,9 +47854,9 @@ check((x)=&lt;sqrt(tan(x)),pi/4,0,NI,)=&gt;:-0.48749549439936104836;
 <br>
 sqrt(tan(-1.1102230246251565e-16));
 <br>
-check((x)=&lt;sqrt(tan(x)),pi/4,eps,NI,)=&gt;:-0.48749549439936104836;
+check((x)=&lt;sqrt(tan(x)),pi/4,<span class="clear">eps</span>,NI,)=&gt;:-0.48749549439936104836;
 <br>
-check((x)=&lt;sqrt(tan(x+eps*i)),pi/4,0,NI,)=&gt;:-0.48749549439936104836;
+check((x)=&lt;sqrt(tan(x<span class="clear">+eps*i</span>)),pi/4,0,NI,)=&gt;:-0.48749549439936104836;
 <br>
 check((x)=&lt;pow(x,2)*exp(x),0,1+i,NI,)=&gt;:-2;
 <br>
@@ -47967,17 +47982,23 @@ check((x)=&lt;1/(1+25*x^2),-inf,-inf,NI,)=&gt;:0;
 <br>
 check((x)=&lt;1/(1+25*x^2),inf,inf,NI,)=&gt;:0;
 <br>
+NI=1000;
+<br>
+check((x)=&lt;sin(1/sqrt(x))/sqrt(x),0,1,NI,)=&gt;:1.008134123813856743979;
+<br>
+check((x)=&lt;sin(1/sqrt(x))/sqrt(x),1,0,NI,)=&gt;:-1.008134123813856743979;
+<br>
 NI=100;
 <br>
 check((x)=&lt;sqrt(tan(x)),0,pi/4,NI,)=&gt;:0.48749549439936104836;
 <br>
 check((x)=&lt;sqrt(tan(x)),pi/4,0,NI,)=&gt;:-0.48749549439936104836;
 <br>
-NI=1000;
+NI=100;
 <br>
-check((x)=&lt;sin(1/sqrt(x))/sqrt(x),0,1,NI,)=&gt;:1.008134123813856743979;
+check((x)=&lt;pow(x,2)*exp(x),0,1+i,NI,)=&gt;:-2;
 <br>
-check((x)=&lt;sin(1/sqrt(x))/sqrt(x),1,0,NI,)=&gt;:-1.008134123813856743979;
+check((x)=&lt;pow(x,2)*exp(x),1+i,0,NI,)=&gt;:2;
 <br>
 NI=100;
 <br>

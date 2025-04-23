@@ -1007,22 +1007,22 @@ NaN
 NI=100
 NI=100
 
-check((x)=<sin(1/sqrt(x))/sqrt(x),1,0,NI,)=>:-1.008134123813856743979
+check((x)=<pow(x,2)*exp(x),1+i,0,NI,)=>:2
 (
--1.0050274103409738+O(1e-101):
--1.0050276358687178+O(1e-101):
--1.0081341238138568
+infoLost[ri] 1.9999999999999998-5.0460859343162915e-17i+O(1e-99):
+infoLost[ri] 2-5.2147947305780067e-17i+O(1e-99):
+2
 )
 
-check((x)=<sin(1/sqrt(x))/sqrt(x),0,1,NI,)=>:1.008134123813856743979
+check((x)=<pow(x,2)*exp(x),0,1+i,NI,)=>:-2
 (
-infoLost[r ] 1.0050274103409746+O(1e-101):
-infoLost[r ] 1.0050276358687185+O(1e-101):
-1.0081341238138568
+infoLost[ri] -2.000000000000001+5.1392964789844994e-17i+O(1e-99):
+infoLost[ri] -2.000000000000001+5.015155297144277e-17i+O(1e-99):
+-2
 )
 
-NI=1000
-NI=1000
+NI=100
+NI=100
 
 check((x)=<sqrt(tan(x)),pi/4,0,NI,)=>:-0.48749549439936104836
 (
@@ -1040,6 +1040,23 @@ infoLost[r ] 0.48749549439936113+O(1e-100):
 
 NI=100
 NI=100
+
+check((x)=<sin(1/sqrt(x))/sqrt(x),1,0,NI,)=>:-1.008134123813856743979
+(
+-1.0050274103409738+O(1e-101):
+-1.0050276358687178+O(1e-101):
+-1.0081341238138568
+)
+
+check((x)=<sin(1/sqrt(x))/sqrt(x),0,1,NI,)=>:1.008134123813856743979
+(
+infoLost[r ] 1.0050274103409746+O(1e-101):
+infoLost[r ] 1.0050276358687185+O(1e-101):
+1.0081341238138568
+)
+
+NI=1000
+NI=1000
 
 check((x)=<1/(1+25*x^2),inf,inf,NI,)=>:0
 (
@@ -1243,12 +1260,12 @@ infoLost[r ] 1.5643964440690792+O(3e-100):
 1.5643964440690499
 )
 
-check((x)=<cos(cos(x)+3*sin(x)+2*cos(2*x)+3*sin(2*x)+3*cos(3*x)),0,pi,NI,)=>:0.8386763233809618250439
+check((x)=<cos(cos(x)+3*sin(x)+2*cos(2*x)+3*sin(2*x)+3*cos(3*x)),0,pi,NI,)=>:0.8386763426944296
 (
 infoLost[r ] 0.838676348408424+O(3e-8):
 infoLost[r ] 0.8386724234009028+O(1e-6):
 infoLost[r ] 0.8386525074925864+O(2e-100):
-0.8386763233809619
+0.8386763426944296
 )
 
 check((x)=<50*(sin(50*3.14159*x)/(50*3.14159*x))**2,eps,1,NI,)=>:0.4989872301695
@@ -1892,7 +1909,7 @@ clear
 local storage cleared
 
 [Pinv_y=(-0.999999427,-0.999936657,-0.997300203,-0.954499736,-0.682689492,0,0.682689492,0.954499736,0.997300203,0.999936657,0.999999427:-5,-4,-3,-2,-1,0,1,2,3,4,5),N=1,arr=[],_rn(=<arr.push(rand_table(=<Pinv_y)=>),,N),=<arr.]=>
-1.1341975948691159
+0.6762473228980962
 
 rand_table(csv)=<last[table=sort0(csv),ymin=min(table)[0],ymax=max(table)[0],y=ymin+(ymax-ymin)*rand(),x=interp(y:table),x]
 stored_eqn(rand_table)
@@ -1902,7 +1919,7 @@ local storage cleared
 
 [(N)=<[tarr=linspace(0,N-1,N).,shuffle_FY(?tarr)=>,=<tarr.]=>](2)=>
 (
-1,0
+0,1
 )
 
 shuffle_FY(?tarr)=<last[len=sizer(tarr),switch_arr=(i1)=<last{i0=floor(rand()*(i1+1)),w=tarr[i1],tarr[i1]=tarr[i0],tarr[i0]=w},_s((i_)=<switch_arr(i_)=>,len-1,1)]
@@ -3795,4 +3812,4 @@ center=true&drag=false&test-case=false&plot-all=true&relzooming=true&snap=true&l
 --------------------------------
 --------------------------------
 
-online-simulator.github.io.6.476.640.22.150 @ Wed Apr 23 2025 10:34:54 GMT+0900 (日本標準時) @ Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/135.0.0.0 Safari/537.36
+online-simulator.github.io.6.476.640.22.150 @ Wed Apr 23 2025 13:29:01 GMT+0900 (日本標準時) @ Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/135.0.0.0 Safari/537.36
