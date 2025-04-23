@@ -160,7 +160,7 @@ test case
 <br>
 　・有界の任意関数（周期関数を含む）：adaptive-stepの<a href="#span-out-evolution">時間発展</a>　⇒　_o45()
 <br>
-　・端点の特異点あり（極を含む）：DE求積法　⇒　_i0()
+　・端点の特異点あり（極を含む）：<a href="#span-eqn-integral_DE_quadrature">DE求積法</a>　⇒　_i0()
 <br>
 　・低次の多項式：<a href="#span-out-fdm-integral">合成Simpson公式</a>　⇒　_i()
 <br>
@@ -192,7 +192,7 @@ test case
 <br>
 ・Apéry：Apéryの定数　⇔　無理数のζ(3)
 <br>
-　3重積分：<span class="run">Ver.2.806.130</span>以降、DE求積法（端点の特異点を含む）
+　3重積分：<span class="run">Ver.2.806.130</span>以降、<a href="#span-eqn-integral_DE_quadrature">DE求積法</a>（端点の特異点を含む）
 <br>
 ・<span class="wF">residue</span>：<a href="#span-out-com">複素</a>線積分の留数定理（反時計回りの周回積分経路Cを正多角形で記述）
 <br>
@@ -570,7 +570,7 @@ test case
 <br>
 ・gamma<span class="jF">-ac</span>：gamma関数の<a href="#span-app-continuation">解析接続</a>（Eulerの無限乗積<del>を精度保証用の級数</del>で記述）
 <br>
-　<span class="run">Ver.2.805.130</span>~<span class="run">2.806.130</span>以降、DE求積法を追加
+　<span class="run">Ver.2.805.130</span>~<span class="run">2.806.130</span>以降、<a href="#span-eqn-integral_DE_quadrature">DE求積法</a>を追加
 <br>
 　-inf：<span class="run">Ver.2.691.98</span>以降、n**z　⇒　(n+1)**z
 <br>
@@ -586,7 +586,7 @@ test case
 <br>
 　⇒<a href="#span-out-method-Newton">Newton法</a>：反復回数20回以内で約10桁の一致
 <br>
-　⇒Bose-Einstein積分のDE求積法：ζ(s,α):=∫f(s,α)dx/Γ(s)（定義域real(s)&gt;1で積分表示のζ関数にαを導入）
+　⇒Bose-Einstein積分の<a href="#span-eqn-integral_DE_quadrature">DE求積法</a>：ζ(s,α):=∫f(s,α)dx/Γ(s)（定義域real(s)&gt;1で積分表示のζ関数にαを導入）
 <br>
 ・<span class="wF">Bose-Einstein</span>：Bose-Einstein分布　⇒　Eall(s)∝ζ(s)Γ(s)（前述のzeta関数×gamma関数）
 <br>
@@ -32385,7 +32385,7 @@ _dx(=&lt;{_ix(=&lt;{x^3},0,x)},1,2)
 <br>
 -> 7.999999999998895+5.517384388870678e-13i+O(4e-5+2e-5i)
 <br>
-・<a href="#span-out-error-numerical">目安の解析誤差</a>が当てにならない場合（<a href="#span-eqn-integral_DE_quadrature">integral_DE_quadrature</a>参照）
+・<a href="#span-out-error-numerical">目安の解析誤差</a>が当てにならないcase
 <br>
 _it(=&lt;sqrt(tan(t)),0,pi/4,1) -> <span class="clear">0.4</span>678848567030397+O(2e-2)
 <br>
@@ -32398,6 +32398,10 @@ _it(=&lt;sqrt(tan(t)),0,pi/4,1000) -> <span class="clear">0.48749</span>37074650
 _it(=&lt;sqrt(tan(t)),0,pi/4,10000) -> <span class="clear">0.4874954</span>3789153654+O(4e-17)
 <br>
 _it(=&lt;sqrt(tan(t)),0,pi/4,100000) -> <span class="clear">0.48749549</span>26124276+O(4e-21)
+<br>
+・<span class="run">Ver.2.806.130</span>以降、<a href="#span-eqn-integral_DE_quadrature">DE求積法</a>
+<br>
+_i0((t)=&lt;sqrt(tan(t)),0,pi/4) -> infoLost[r ] <span class="clear">0.48749549439936113</span>+O(1e-100)
 <br>
 1/sqrt(2)*(log(sqrt(2)-1)+pi/2) -> 0.48749549439936113
 <br>
