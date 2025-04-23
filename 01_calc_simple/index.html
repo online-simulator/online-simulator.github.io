@@ -467,7 +467,7 @@
       script += "\nclear;\n";
       script += "/*Dirac equations test case*/\nN=2*4;\npsi0=linspace(1,N,N).;\nx0={psi0,(psi0)i,-psi0,(-psi0)i};\nx=reshapec(x0:N,4);\n__x__=reshapec(x:N*4,1);\np={x[-3],x[-2],x,x[1],x[2]};\nalphaNp=p[2][0][N][]*trans((-1)*identity(4));\nVxp=x[][0]*x;";
       script += "\nclear;\n";
-      script += "check(=<f,a,b,NI,type)=<((_t45((t,x)=<f(t)=>,,=<{a,0},(b-a)/NI,NI))[1]:_i(=<f,a,b,NI):_i0(=<f,a,b,NI,type)):NI=100:check((x)=<floor(min(x/0.3,1)),0,1,NI,)=>:0.7;";
+      script += "check(=<f,a,b,NI,type)=<(_o45((t,x)=<f(t)=>,,=<{a},0,(b-a)/NI,NI):(_t45((t,x)=<f(t)=>,,=<{a,0},(b-a)/NI,NI))[1]:_i(=<f,a,b,NI):_i0(=<f,a,b,NI,type)):NI=100:check((x)=<floor(min(x/0.3,1)),0,1,NI,)=>:0.7;";
       script += "\nclear;\n";
       $._id("input").value = script;
     });

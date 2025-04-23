@@ -1,10 +1,11 @@
 clear
 local storage cleared
 
-check(=<f,a,b,NI,type)=<((_t45((t,x)=<f(t)=>,,=<{a,0},(b-a)/NI,NI))[1]:_i(=<f,a,b,NI):_i0(=<f,a,b,NI,type)):NI=100:check((x)=<floor(min(x/0.3,1)),0,1,NI,)=>:0.7
+check(=<f,a,b,NI,type)=<(_o45((t,x)=<f(t)=>,,=<{a},0,(b-a)/NI,NI):(_t45((t,x)=<f(t)=>,,=<{a,0},(b-a)/NI,NI))[1]:_i(=<f,a,b,NI):_i0(=<f,a,b,NI,type)):NI=100:check((x)=<floor(min(x/0.3,1)),0,1,NI,)=>:0.7
 (
 0:
 0:
+0.7000000000000004+O(1e-10):
 0.7000000000000004+O(1e-10):
 0.7033333333333334+O(1e-8):
 infoLost[r ] 0.6888887393098645+O(1e-100):
@@ -5104,4 +5105,4 @@ drag=false&sw=false&0x=false&useMatrix=true&useStrict=false&checkError=true&isRi
 --------------------------------
 --------------------------------
 
-online-simulator.github.io.6.476.640.22.150 @ Wed Apr 23 2025 05:47:41 GMT+0900 (日本標準時) @ Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/135.0.0.0 Safari/537.36
+online-simulator.github.io.6.476.640.22.150 @ Wed Apr 23 2025 10:30:20 GMT+0900 (日本標準時) @ Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/135.0.0.0 Safari/537.36

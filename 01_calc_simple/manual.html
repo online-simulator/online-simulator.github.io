@@ -47809,7 +47809,7 @@ integral
 <br>
 clear;
 <br>
-check(=&lt;f,a,b,NI,type)=&lt;((_t45((t,x)=&lt;f(t)=&gt;,,=&lt;{a,0},(b-a)/NI,NI))[1]:_i(=&lt;f,a,b,NI):_i0(=&lt;f,a,b,NI,type));
+check(=&lt;f,a,b,NI,type)=&lt;(_o45((t,x)=&lt;f(t)=&gt;,,,a,(b-a)/NI,NI):_i(=&lt;f,a,b,NI):_i0(=&lt;f,a,b,NI,type));
 <br>
 NI=100;
 <br>
@@ -47841,7 +47841,7 @@ sqrt(tan(-1.1102230246251565e-16));
 <br>
 check((x)=&lt;sqrt(tan(x)),pi/4,eps,NI,)=&gt;:-0.48749549439936104836;
 <br>
-check((x)=&lt;sqrt(tan(x+eps*i)),pi/4+eps*i,0,NI,)=&gt;:-0.48749549439936104836;
+check((x)=&lt;sqrt(tan(x+eps*i)),pi/4,0,NI,)=&gt;:-0.48749549439936104836;
 <br>
 check((x)=&lt;pow(x,2)*exp(x),0,1+i,NI,)=&gt;:-2;
 <br>
