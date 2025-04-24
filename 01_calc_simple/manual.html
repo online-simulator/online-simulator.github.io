@@ -164,7 +164,7 @@ test case
 <br>
 　・低次の多項式：<a href="#span-out-fdm-integral">合成Simpson公式</a>　⇒　_i()
 <br>
-・<span class="wF">Fourier</span>：周期関数f(x)のN次打切り<a href="#span-out-series-Fourier">Fourier級数</a>（部分和）
+・<span class="wF">Fourier</span>：周期関数f(x)の<a href="#span-out-com">複素</a><a href="#span-out-series-Fourier">Fourier多項式</a>（<span class="run">Ver.2.809.131</span>以降、omega導入の<a href="#span-eqn-FourierN">FourierN</a>参照）
 <br>
 ・<span class="jF">mod</span>：N進法の線形結合（inv_mod用）
 <br>
@@ -42676,11 +42676,11 @@ Fourier級数の解法について記述する
 <br>
 Fourier級数
 <br>
-・周期関数f(x)のN次打切りFourier級数FourierN
+・周期関数f(x)のN次打切り<a href="#span-out-com">複素</a>Fourier級数（部分和）
 <br>
-FourierN=&lt;_sn(=&lt;{cn*e^(i(n)x)},-N,N);
+FourierN_old=&lt;_sn(=&lt;{cn*e^(i(n)x)},-N,N)/*omega=1*/;
 <br>
-cn=&lt;_it(=&lt;{ft*e^(-i(n)t)},-pi,pi)/(2pi);
+cn=&lt;_it(=&lt;{ft*e^(-i(n)t)},-pi,pi)/(2pi)/*t=[-pi,pi]*/;
 <br>
 ・f(x)=e^(i(2.5)x)の場合
 <br>
@@ -42692,17 +42692,19 @@ x=2;
 <br>
 fx -> 0.28366218546322625-0.9589242746631385i
 <br>
-N=1; FourierN
+N=1; FourierN_old
 <br>
 -> infoLost[ri] 0.2534807789507349-0.1102612365002427i+O(2e-6+2e-6i)
 <br>
-N=3; FourierN
+N=3; FourierN_old
 <br>
 -> infoLost[ri] 0.3468103654284403-0.7325756973228494i+O(2e-6+2e-6i)
 <br>
-N=5; FourierN
+N=5; FourierN_old
 <br>
 -> infoLost[ri] 0.29934712994045387-1.0833440107828247i+O(2e-6+2e-6i)
+<br>
+・<a href="#span-out-com">複素</a>Fourier多項式FourierN（<span class="run">Ver.2.809.131</span>以降、omega導入の<a href="#span-eqn-FourierN">FourierN</a>参照）
 <br>
 ・三角波
 <br>
@@ -49288,17 +49290,81 @@ FourierN
 <span id="span-eqn-FourierN"></span>
 <a href="#span-out-series-Fourier">Fourier級数の解法</a>参照
 <br>
+・<span class="run">Ver.2.809.131</span>以降、omega導入と<span class="clear">積分区間の変更箇所</span>
+<br>
 clear;
 <br>
-FourierN(<span class="jF">=</span>=&lt;ft_,x,N)=&lt;last[
+FourierN_old(<span class="jF">=</span>=&lt;ft_,x,N)=&lt;last[
 <br>
-cn(n)=&lt;_it(=&lt;(ft_=&gt;)*e^(-i*(n)*t),-pi,pi)/(2*pi),
+NI=300,
 <br>
-_sn(=&lt;(cn(n)=&gt;)*e^(i*(n)*x),-N,N)
+cn(n)=&lt;_it(=&lt;(ft_=&gt;)*e^(-i*(n)*t),<span class="clear">[-pi,pi]/1</span>,NI)/(2*pi)/*t=[-pi,pi]*/,
+<br>
+_sn(=&lt;(cn(n)=&gt;)*e^(i*(n)*x),-N,N)/*omega=1*/
 <br>
 ];
 <br>
-last[ft=&lt;e^(i*(2.5)*t),FourierN(=&lt;ft,2,5)=&gt;];
+last[ft=&lt;e^(i*(2.5)*t),FourierN_old(=&lt;ft,2,5)=&gt;];
+<br>
+<br>
+FourierN_old(=&lt;f,x,omega,N)=&lt;last[
+<br>
+NI=300,
+<br>
+T=2*pi/omega,
+<br>
+ck(k)=&lt;_i((t)=&lt;(f(t)=&gt;)*e^(-i*(k*omega)*t),<span class="clear">[-pi,pi]/omega</span>,NI)/T,
+<br>
+_s((k)=&lt;(ck(k)=&gt;)*e^(i*(k*omega)*x),-N,N)
+<br>
+];
+<br>
+FourierN_old((t)=&lt;e^(i*(2.5)*t),2,1,5)=&gt;;
+<br>
+<br>
+FourierN(=&lt;f,x,omega,N)=&lt;last[
+<br>
+NI=300,
+<br>
+T=2*pi/omega,
+<br>
+ck(k)=&lt;_i((t)=&lt;(f(t)=&gt;)*e^(-i*(k*omega)*t),<span class="clear">[0,T]</span>,NI)/T,
+<br>
+_s((k)=&lt;(ck(k)=&gt;)*e^(i*(k*omega)*x),-N,N)
+<br>
+];
+<br>
+FourierN((t)=&lt;e^(i*(2.5)*t),2,1,5)=&gt;;
+<br>
+<br>
+FourierN(=&lt;f,x,omega,N)=&lt;last[
+<br>
+NI=300,
+<br>
+T=2*pi/omega,
+<br>
+ck(k)=&lt;_i0((t)=&lt;(f(t)=&gt;)*e^(-i*(k*omega)*t),<span class="clear">[0,T]</span>,NI)/T,
+<br>
+_s((k)=&lt;(ck(k)=&gt;)*e^(i*(k*omega)*x),-N,N)
+<br>
+];
+<br>
+FourierN((t)=&lt;e^(i*(2.5)*t),2,1,5)=&gt;;
+<br>
+<br>
+FourierN(=&lt;f,x,omega,N)=&lt;last[
+<br>
+NI=300,
+<br>
+T=2*pi/omega,
+<br>
+ck(k)=&lt;_o45((t,x)=&lt;(f(t)=&gt;)*e^(-i*(k*omega)*t),,,<span class="clear">dt=T/NI,dt</span>,NI)/T,
+<br>
+_s((k)=&lt;(ck(k)=&gt;)*e^(i*(k*omega)*x),-N,N)
+<br>
+];
+<br>
+FourierN((t)=&lt;e^(i*(2.5)*t),2,1,5)=&gt;;
     </td>
   </tr>
   <tr>
