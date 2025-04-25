@@ -18,7 +18,6 @@ My_entry.parser.prototype.config = {
     _bs: {
       /* Ver.2.21.10 -> */
       FNmh: {
-        EX: /^_e(.*)$/i,  // Ver.2.23.11
         OX: /^_o(.*)$/i,
         TX: /^_t(.*)$/i  // Ver.2.238.56
       },

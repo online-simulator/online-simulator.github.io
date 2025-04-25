@@ -908,21 +908,6 @@ My_entry.operation.prototype.get_symbol = function(obj, hasArgs){  // Ver.2.251.
   /* -> Ver.2.260.61 */
   return _symbol;
 };
-/* Ver.2.230.56 */
-My_entry.operation.prototype.get_symbols = function(data, tree, isRow){
-  var self = this;
-  var BT = self.config.BT;
-  var _names = [];
-  var isSEe = tree[BT.SEe];
-  var symbol = (isSEe)? self.get_symbol(isSEe, false): "";  // Ver.2.251.58 _e((f)=<x,1,1) -> x
-  if(symbol){
-    _names.push(symbol);
-  }
-  else{
-    _names = self.get_symbols_expanded(data, tree, isRow);  // Ver.2.233.56
-  }
-  return _names;
-};
 /* Ver.2.233.56 */
 My_entry.operation.prototype.get_symbols_expanded = function(data, tree, isRow){
   var self = this;
@@ -1316,46 +1301,7 @@ My_entry.operation.prototype.jacobian = function(data, rightArr, tagObj){
     return _get_f;
   };
 /* Ver.2.230.56 -> */
-if(prop === "EX"){  // symbolic
-  var callback_names = function(args, args_eqn, name_arg, name_bar){  // Ver.2.233.56
-    /* Ver.2.27.15 -> */
-    var names = self.get_symbols(data, args[0]);  // Ver.2.230.56  // Ver.2.231.56
-    if(!(names.length)) throw msgErr;
-    /* -> Ver.2.27.15 */
-    var name_var = names[names.length-1];
-    var name_eqn = name_arg || name_bar;
-    /* Ver.2.268.62 -> */
-    var num_escape = self.config.isEscaped_eqn(name_eqn);
-    if(num_escape){
-      name_eqn = name_eqn.substring(num_escape);
-    }
-    /* -> Ver.2.268.62 */
-    if(!(name_eqn) || (name_arg && name_bar) || (args_eqn && args_eqn.length !== 1)) throw msgErr;
-    self.check_symbol(name_var);  // Ver.2.294.72
-    self.check_symbol(name_eqn);  // Ver.2.294.72
-    var len_i = math_mat.num2size(options, args[1]);
-    var len_j = math_mat.num2size(options, args[2]);
-    var counter = 0;
-    var trees = [];
-    for(var i=0; i<len_i; ++i){
-      if(i){
-        trees.push(DATA.tree_tag("SRr", ":"));
-      }
-      for(var j=0; j<len_j; ++j){
-        if(j){
-          trees.push(DATA.tree_tag("SRt", ","));
-        }
-        trees.push(DATA.tree_tag("REv", name_var+String(counter++)));
-      }
-    }
-    var tree = self.inherit_ids_AtSEe(trees, ids);  // Ver.2.31.17
-    self.store_eqn(name_eqn, tree, scopes, ids);  // Ver.2.31.17
-    _tree = DATA.tree_num(0, 0);
-    return _tree;
-  };
-  _tree = self.FNmhX(data, rightArr, tagObj, 2, msgErr, callback_names, null);  // Ver.2.233.56
-}
-else if(prop === "OX" || prop === "TX"){  // ODE  // Ver.2.23.11  // Ver.2.231.56  // Ver.2.233.56  // Ver.2.238.56
+if(prop === "OX" || prop === "TX"){  // ODE  // Ver.2.23.11  // Ver.2.231.56  // Ver.2.233.56  // Ver.2.238.56
   var isTX = (prop === "TX");  // Ver.2.238.56
   var callback_names = function(args, args_eqn, name_arg, name_bar){  // Ver.2.233.56
     /* Ver.2.238.56 -> */

@@ -1535,19 +1535,6 @@ h=(x)=<x,f=(g)=<g(3),f(h)
 clear
 local storage cleared
 
-h(x)=<x,f(g)=<g(3),f(h):[[_e((A)=<x,1,1),x0=1,A(),f(A)=<[x0=2,A(),A==>],f(=<A):_e((A)=<x,1,1),x0=3,A(),f(A)=<[x0=4,A(),A==>],f(=<A):_e((A)=<x,1,2),x0=5,x1=6,A(),f(A)=<[x0=7,x1=8,A(),A==>],f(=<A):[f=<x,x=i,g(f)=<[x=2i,f(),f==>],g(f)]:[f=<-x,x=3i,g(f)=<[x=4i,f(),f==>],g(f)]]]/*Non-strict-mode*/
-(
-0,0,3:
-0,0,1,0,0,1,2:
-0,0,3,0,0,3,4:
-0,0,0,5,6,0,0,0,5,6,7,8:
-0,0,0,0,i,2i:
-0,0,0,0,-3i,-4i
-)
-
-clear
-local storage cleared
-
 _r(=<run,run()=<1,3),_r((n)=<run(),run=<1,3),_r(()=<run,run(n)=<n+1,3),_r((n)=<run(n)=>,run(n)=<n+1,3):_d((x)=<f(),1,f=<x):_d(()=<f,1,f(x)=<x):_d((x)=<f(x)=>,1,f(x)=<x)/*syntax restricted*/
 (
 1,1,3,3:
@@ -2625,15 +2612,6 @@ Jacobi(=<{x0**2+x1,x0+x1**2},=<{x0,x1},=<{1,2}):($x0,$x1)=(,):Jacobi(=<{x0**2+x1
 0.000010000000000000013+0.000010000000000000013i+O(1e-5+1e-5i),1+O(1e-5+1e-5i):
 1+O(1e-5+1e-5i),0.000010000000000000013+0.000010000000000000013i+O(1e-5+1e-5i):
 1,2
-)
-
-clear
-local storage cleared
-
-[(x=0:f=0),(_e((f)=<x,2,2):($x0,$x1,$x2,$x3)=(1,2,3,4)),f=>,(x:f)]
-(
-0,0,1,2,0:
-0,0,3,4,0
 )
 
 clear
@@ -5105,4 +5083,4 @@ drag=false&sw=false&0x=false&useMatrix=true&useStrict=false&checkError=true&isRi
 --------------------------------
 --------------------------------
 
-online-simulator.github.io.6.477.644.22.150 @ Sat Apr 26 2025 00:07:52 GMT+0900 (日本標準時) @ Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/135.0.0.0 Safari/537.36
+online-simulator.github.io.6.478.644.22.150 @ Sat Apr 26 2025 00:35:57 GMT+0900 (日本標準時) @ Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/135.0.0.0 Safari/537.36

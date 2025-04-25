@@ -7780,6 +7780,10 @@ A=(1,2:3,4); A[][][][] -> <del>(1,2:3,4)</del>[MyErr]Invalid reference of array(
 　dummy変数の<a href="#span-out-vars-symbol">変数名symbol</a>：関数名の一部　⇒　関数の引数
 <br>
 　影響項目：<a href="#span-out-FNh">高階関数</a>||<a href="#span-eqn">strict-mode式変数list</a>（未修正）
+<br>
+・<span class="run">Ver.2.813.131</span>以降、<a href="#span-out-FNmh-EX">symbolic高階行列関数</a>の仕様廃止（<span class="run">Ver.2.736.107</span>~<span class="run">2.739.107</span>以降、冗長）
+<br>
+　影響項目：<a href="#span-eqn">strict-mode式変数list</a>（未修正）
     </td>
   </tr>
   <tr>
@@ -33062,8 +33066,10 @@ _e(=&lt;第1引数,第2引数,第3引数)
 <br>
 ・<span class="run">Ver.2.736.107</span>~<span class="run">2.739.107</span>以降、廃止予定
 <br>
+・<span class="run">Ver.2.813.131</span>以降、本仕様を廃止
 <br>
-test caseを列挙する
+<br>
+<del>test caseを列挙する
 <br>
 ・f=&lt;(x0,x1:x2,x3)
 <br>
@@ -33128,7 +33134,7 @@ _ex(=&lt;{$x},2,2) -> [MyErr]Invalid <del>REv</del>symbol($x)
 clear; _ex(=&lt;x,1,4); ($x0,$x1:$x2,$x3)=identity2; x -> (1,0,0,1)
 <br>
 <br>
-応用例は<a href="#span-out-inverse">逆行列の解法</a>参照
+応用例は<a href="#span-out-inverse">逆行列の解法</a>参照</del>
     </td>
   </tr>
   <tr>
