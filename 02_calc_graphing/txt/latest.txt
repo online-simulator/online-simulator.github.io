@@ -474,32 +474,32 @@ local storage cleared
 FourierN((t)=<e^(i*(2.5)*t),2,1,5)=>
 0.2899899692761624-0.9219107527251331i+O(6e-10+6e-10i)
 
-FourierN(=<f,x,omega,N)=<last[NI=300,T=2*pi/omega,ck(k)=<_o45((t,x)=<(f(t)=>)*e^(-i*(k*omega)*t),,,dt=T/NI,dt,NI)/T,_s((k)=<(ck(k)=>)*e^(i*(k*omega)*x),-N,N)]
+FourierN(=<f,x,omega,N)=<last[isSym=false,NI=300,T=2*pi/omega,cn(n)=<_o45((t,x)=<(f(t)=>)*e^(-i*(n*omega)*t),,,isSym&&&[-T/2,T/NI]|||[dt=T/NI,dt],NI)/T,_s((n)=<(cn(n)=>)*e^(i*(n*omega)*x),-N,N)]
 stored_eqn(FourierN)
 
 FourierN((t)=<e^(i*(2.5)*t),2,1,5)=>
 infoLost[ri] 0.2899899693389987-0.9219107527348573i
 
-FourierN(=<f,x,omega,N)=<last[NI=300,T=2*pi/omega,ck(k)=<_i0((t)=<(f(t)=>)*e^(-i*(k*omega)*t),[0,T],NI)/T,_s((k)=<(ck(k)=>)*e^(i*(k*omega)*x),-N,N)]
+FourierN(=<f,x,omega,N)=<last[isSym=false,NI=300,T=2*pi/omega,cn(n)=<_i0((t)=<(f(t)=>)*e^(-i*(n*omega)*t),isSym&&&[-T,T]/2|||[0,T],NI)/T,_s((n)=<(cn(n)=>)*e^(i*(n*omega)*x),-N,N)]
 stored_eqn(FourierN)
 
 FourierN((t)=<e^(i*(2.5)*t),2,1,5)=>
 infoLost[ri] 0.2899899548296927-0.9219108496824987i+O(3e-8+3e-8i)
 
-FourierN(=<f,x,omega,N)=<last[NI=300,T=2*pi/omega,ck(k)=<_i((t)=<(f(t)=>)*e^(-i*(k*omega)*t),[0,T],NI)/T,_s((k)=<(ck(k)=>)*e^(i*(k*omega)*x),-N,N)]
+FourierN(=<f,x,omega,N)=<last[isSym=false,NI=300,T=2*pi/omega,cn(n)=<_i((t)=<(f(t)=>)*e^(-i*(n*omega)*t),isSym&&&[-T,T]/2|||[0,T],NI)/T,_s((n)=<(cn(n)=>)*e^(i*(n*omega)*x),-N,N)]
 stored_eqn(FourierN)
 
-FourierN_old((t)=<e^(i*(2.5)*t),2,1,5)=>
+FourierN_sym((t)=<e^(i*(2.5)*t),2,1,5)=>
 infoLost[ri] 0.2993437794247694-1.0833313140812981i+O(3e-8+3e-8i)
 
-FourierN_old(=<f,x,omega,N)=<last[NI=300,T=2*pi/omega,ck(k)=<_i((t)=<(f(t)=>)*e^(-i*(k*omega)*t),[-pi,pi]/omega,NI)/T,_s((k)=<(ck(k)=>)*e^(i*(k*omega)*x),-N,N)]
-stored_eqn(FourierN_old)
+FourierN_sym(=<f,x,omega,N)=<last[NI=300,T=2*pi/omega,cn(n)=<_i((t)=<(f(t)=>)*e^(-i*(n*omega)*t),[-pi,pi]/omega,NI)/T,_s((n)=<(cn(n)=>)*e^(i*(n*omega)*x),-N,N)]
+stored_eqn(FourierN_sym)
 
-last[ft=<e^(i*(2.5)*t),FourierN_old(=<ft,2,5)=>]
+last[ft=<e^(i*(2.5)*t),FourierN_sym(=<ft,2,5)=>]
 infoLost[ri] 0.2993437794247694-1.0833313140812981i+O(3e-8+3e-8i)
 
-FourierN_old(==<ft_,x,N)=<last[NI=300,cn(n)=<_it(=<(ft_=>)*e^(-i*(n)*t),[-pi,pi]/1,NI)/(2*pi),_sn(=<(cn(n)=>)*e^(i*(n)*x),-N,N)]
-stored_eqn(FourierN_old)
+FourierN_sym(==<ft_,x,N)=<last[NI=300,cn(n)=<_it(=<(ft_=>)*e^(-i*(n)*t),[-pi,pi]/1,NI)/(2*pi),_sn(=<(cn(n)=>)*e^(i*(n)*x),-N,N)]
+stored_eqn(FourierN_sym)
 
 clear
 local storage cleared
@@ -1933,7 +1933,7 @@ clear
 local storage cleared
 
 [Pinv_y=(-0.999999427,-0.999936657,-0.997300203,-0.954499736,-0.682689492,0,0.682689492,0.954499736,0.997300203,0.999936657,0.999999427:-5,-4,-3,-2,-1,0,1,2,3,4,5),N=1,arr=[],_rn(=<arr.push(rand_table(=<Pinv_y)=>),,N),=<arr.]=>
--0.9830359724428588
+-1.4150242026148856
 
 rand_table(csv)=<last[table=sort0(csv),ymin=min(table)[0],ymax=max(table)[0],y=ymin+(ymax-ymin)*rand(),x=interp(y:table),x]
 stored_eqn(rand_table)
@@ -3836,4 +3836,4 @@ center=true&drag=false&test-case=false&plot-all=true&relzooming=true&snap=true&l
 --------------------------------
 --------------------------------
 
-online-simulator.github.io.6.476.642.22.150 @ Thu Apr 24 2025 23:15:04 GMT+0900 (日本標準時) @ Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/135.0.0.0 Safari/537.36
+online-simulator.github.io.6.476.643.22.150 @ Fri Apr 25 2025 11:36:32 GMT+0900 (日本標準時) @ Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/135.0.0.0 Safari/537.36
