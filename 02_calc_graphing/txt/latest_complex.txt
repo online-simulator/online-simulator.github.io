@@ -1366,39 +1366,54 @@ stored_eqn(integral_C)
 clear
 local storage cleared
 
-[z=3*(1+i)/sqrt2,cSND(z)=>,cP_z(z)=>,cP_r(abs(z))=>]
+_r((arr)=<(arr:f(arr_integral[__n__-1])=>),=<[],#arr_integral)
 (
-0,0.00003928256069279494,0.9946076953403749+O(4e-7),0.9999779093904636+O(9e-6)
+0,0.00003928256069279494,0.9946076738694891+O(6e-6),0.999977907714616+O(1e-4):
+0,0.00003928256069279494,infoLost[r ] 0.9946076972947921,infoLost[r ] 0.9999779624499597:
+0,0.00003928256069279494,0.9946076968406206+O(3e-7),0.9999779097192454+O(2e-5)
 )
 
-cP_r(r)=<_it(=<_ir(=<cSND(r*e^(i*t))=>,0,r),0,2*pi)/sqrt(pi)
-stored_eqn(cP_r)
+f(==<integral_)=<[cP_z(z)=<integral_((y)=<integral_((x)=<cSND(x+(y)i)=>,0,real(z))=>*2,0,imag(z))=>*2,cP_r(r)=<integral_((t)=<integral_((r)=<cSND(r*e^(i*t))=>,0,r)=>,0,2*pi)=>/sqrt(pi),=<(z=3*(1+i)/sqrt2,cSND(z)=>,cP_z(z)=>,cP_r(abs(z))=>)]=>
+stored_eqn(f)
 
-cP_z(z)=<_iy(=<_ix(=<cSND(x+(y)i)=>,0,real(z))*2,0,imag(z))*2
-stored_eqn(cP_z)
+arr_integral=[(=<f,a,b)=<_i(=<f,a,b,NI):(=<f,a,b)=<_i0(=<f,a,b,NI):(=<f,a,b)=<_o45((t,x)=<f(t)=>,,,a,(b-a)/NI,NI)]
+arr_integral=(
+eqn(@f,a,b):
+eqn(@f,a,b):
+eqn(@f,a,b)
+)
 
 cSND(z)=<exp(-abs(z)^2)/pi
 stored_eqn(cSND)
 
+NI=50
+NI=50
+
 clear
 local storage cleared
 
-[x=3,SND(x)=>,P(x)=>,erf(x)=>,erfc(x)=>]
+_r((arr)=<(arr:f(arr_args[__n__-1])=>),=<[],#arr_args)
 (
-0,0.004431848411938011,0.9973002032188572+O(2e-6),0.9999779093904622+O(6e-6),0.000022090609537839256+O(6e-6)
+0,0.004431848411938011,0.9973002032188572+O(2e-6),0.9999779093904622+O(6e-6),0.000022090609537839256+O(6e-6):
+0,0.004431848411938011,infoLost[r ] 0.9973002039367396,infoLost[r ] 0.9999779095030017,infoLost[r ] 0.00002209049699830601:
+0,0.004431848411938011,0.9973002039378098+O(5e-8),0.9999779095097528+O(3e-7),0.000022090490247150818+O(3e-7)
 )
 
-erfc(x)=<1-erf(x)=>
-stored_eqn(erfc)
+f(=<P,=<erf,=<erfc)=<[x=3,SND(x)=>,P(x)=>,erf(x)=>,erfc(x)==>]
+stored_eqn(f)
 
-erf(x)=<_it(=<SND(t)=>,0,x*sqrt2)*2
-stored_eqn(erf)
-
-P(x)=<_it(=<SND(t)=>,0,x)*2
-stored_eqn(P)
+arr_args=[(x)=<_i((t)=<SND(t)=>,[0,x],NI)*2,(x)=<_i((t)=<SND(t)=>,[0,x*sqrt2],NI)*2,(x)=<1-erf(x)=>:(x)=<_i0((t)=<SND(t)=>,[0,x],NI)*2,(x)=<_i0((t)=<SND(t)=>,[0,x*sqrt2],NI)*2,(x)=<1-erf(x)=>:(x)=<_o45((t,x)=<SND(t)=>,,,[0,x/NI],NI)*2,(x)=<_o45((t,x)=<SND(t)=>,,,[0,x*sqrt2/NI],NI)*2,(x)=<1-erf(x)=>]
+arr_args=(
+eqn(x),eqn(x),eqn(x):
+eqn(x),eqn(x),eqn(x):
+eqn(x),eqn(x),eqn(x)
+)
 
 SND(t)=<exp(-t^2/2)/sqrt(2*pi)
 stored_eqn(SND)
+
+NI=100
+NI=100
 
 clear
 local storage cleared
@@ -1933,7 +1948,7 @@ clear
 local storage cleared
 
 [Pinv_y=(-0.999999427,-0.999936657,-0.997300203,-0.954499736,-0.682689492,0,0.682689492,0.954499736,0.997300203,0.999936657,0.999999427:-5,-4,-3,-2,-1,0,1,2,3,4,5),N=1,arr=[],_rn(=<arr.push(rand_table(=<Pinv_y)=>),,N),=<arr.]=>
-1.1990735424325498
+-0.10102233501454883
 
 rand_table(csv)=<last[table=sort0(csv),ymin=min(table)[0],ymax=max(table)[0],y=ymin+(ymax-ymin)*rand(),x=interp(y:table),x]
 stored_eqn(rand_table)
@@ -1943,7 +1958,7 @@ local storage cleared
 
 [(N)=<[tarr=linspace(0,N-1,N).,shuffle_FY(?tarr)=>,=<tarr.]=>](2)=>
 (
-1,0
+0,1
 )
 
 shuffle_FY(?tarr)=<last[len=sizer(tarr),switch_arr=(i1)=<last{i0=floor(rand()*(i1+1)),w=tarr[i1],tarr[i1]=tarr[i0],tarr[i0]=w},_s((i_)=<switch_arr(i_)=>,len-1,1)]
@@ -3836,4 +3851,4 @@ center=true&drag=false&test-case=false&plot-all=true&relzooming=true&snap=true&l
 --------------------------------
 --------------------------------
 
-online-simulator.github.io.6.476.643.22.150 @ Fri Apr 25 2025 20:26:53 GMT+0900 (日本標準時) @ Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/135.0.0.0 Safari/537.36
+online-simulator.github.io.6.476.644.22.150 @ Fri Apr 25 2025 21:24:39 GMT+0900 (日本標準時) @ Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/135.0.0.0 Safari/537.36
