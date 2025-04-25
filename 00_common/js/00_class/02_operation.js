@@ -2428,37 +2428,46 @@ My_entry.operation.prototype.IX = function(data, rightArr, tagObj){
               type = 1;
             }
           }
-          var aq = null;
-          var bq = null;
+          /* Ver.2.814.131 -> */
+          var aqcr = 0;
+          var aqci = 0;
+          var bqcr = 0;
+          var bqci = 0;
           var wq = null;
           if(math.isIF(acr, bcr)){
-            aq = DATA.num(-1, 0);
-            bq = DATA.num(bcr, bci);
-            wq = DATA.num(1, 0);
+            aqcr = -1;
+            bqcr = bcr;
+            bqci = bci;
           }
           else if(type === 2 || type === 3){
-            aq = DATA.num(1, 0);
-            bq = DATA.num(acr, aci);
-            wq = aq;
+            aqcr = 1;
+            bqcr = acr;
+            bqci = aci;
           }
           else if(type === 4){
-            aq = DATA.num(1, 0);
-            bq = DATA.num(0, 0);
-            wq = aq;
+            aqcr = 1;
           }
           else{
-            aq = DATA.num((bcr-acr)/2, (bci-aci)/2);
-            bq = DATA.num((bcr+acr)/2, (bci+aci)/2);
-            wq = aq;
+            aqcr = (bcr-acr)/2;
+            aqci = (bci-aci)/2;
+            bqcr = (bcr+acr)/2;
+            bqci = (bci+aci)/2;
+            wq = DATA.num(aqcr, aqci);
           }
+          /* -> Ver.2.814.131 */
           var x = arr_x[type][0];
           var xd = arr_x[type][1];
           var err = 0;
           for(var k=-Nh; k<=Nh; ++k){
             var t = k*hq;
-            var axpb = unit["BRa"](options, unit["BRm"](options, aq, DATA.num(x(t), 0)), bq);
-            var phi = calc_f(axpb.com.r, axpb.com.i);
-            var y = unit["BRm"](options, unit["BRm"](options, phi, DATA.num(xd(t), 0)), wq);
+            /* Ver.2.814.131 -> */
+            var xt = x(t);
+            var phi = calc_f(aqcr*xt+bqcr, aqci*xt+bqci);
+            var y = unit["BRm"](options, phi, DATA.num(xd(t), 0));
+            if(wq){
+              y = unit["BRm"](options, y, wq);
+            }
+            /* -> Ver.2.814.131 */
             var ycr = y.com.r;
             var yci = y.com.i;
             if(isFinite(ycr) && isFinite(yci)){
