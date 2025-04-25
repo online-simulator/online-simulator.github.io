@@ -357,15 +357,26 @@ My_entry.parser.prototype.compare2bs = function(token, token_lower, token_upper,
             throw "Invalid order=4||2||5||45||3||23||1||12||0("+key+")";  // Ver.2.774.119  // Ver.2.775.121  // Ver.2.777.123
           }
         }
-        else if(key === "DX" || key === "IX"){
-          if(num === 2 || num === 4 || num === 0){  // Ver.2.806.130
+        /* Ver.2.806.130 -> */
+        else if(key === "IX"){
+          if(num === 2 || num === 4 || num === 0){
             mc1 = "";
             obj["order"] = num;
           }
           else{
-            throw "Invalid order="+((key === "DX")? "auto||4||2(": "4||2||0(")+key+")";  // Ver.2.806.130
+            throw "Invalid order=4||2||0("+key+")";
           }
         }
+        else if(key === "DX"){
+          if(num === 2 || num === 4){
+            mc1 = "";
+            obj["order"] = num;
+          }
+          else{
+            throw "Invalid order=auto||4||2("+key+")";
+          }
+        }
+        /* -> Ver.2.806.130 */
       }
       /* Ver.2.231.56 -> */
       var name = (mc1)? self.check_varName(mc1, re): mc1;  // mc1="" enabled  // Ver.2.389.86
