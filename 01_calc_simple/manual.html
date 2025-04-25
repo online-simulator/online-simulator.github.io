@@ -7551,7 +7551,7 @@ ns(10000) -> 97876.06036044357
 <br>
 ・<span class="run">Ver.2.231.56</span>以降、<a href="#span-out-FNh">高階関数</a>||<a href="#span-out-FNmh">高階行列関数</a>の<a href="#span-out-ref-transparency">参照透過性</a>対策を実施
 <br>
-　dummy変数の<a href="#span-out-vars-symbol">変数名symbol</a>：関数名の一部　⇒　第1引数（旧仕様は廃止の可能性あり）
+　dummy変数の<a href="#span-out-vars-symbol">変数名symbol</a>：関数名の一部　⇒　関数の引数（<span class="run">Ver.2.812.131</span>以降、旧仕様廃止）
 <br>
 　<a href="#span-eqn">strict-mode式変数list</a>への影響なし
 <br>
@@ -7774,6 +7774,12 @@ A=(1,2:3,4); A[][][][] -> <del>(1,2:3,4)</del>[MyErr]Invalid reference of array(
 　重複宣言：可　⇒　不可
 <br>
 　影響項目：<a href="#span-out-eqns-args">式変数のarguments</a>
+<br>
+・<span class="run">Ver.2.812.131</span>以降、<a href="#span-out-FNh">高階関数</a>の旧仕様廃止
+<br>
+　dummy変数の<a href="#span-out-vars-symbol">変数名symbol</a>：関数名の一部　⇒　関数の引数
+<br>
+　影響項目：<a href="#span-out-FNh">高階関数</a>||<a href="#span-eqn">strict-mode式変数list</a>（未修正）
     </td>
   </tr>
   <tr>
@@ -19895,7 +19901,7 @@ x=2; store; clear; x=3<span class="selection">/*independent local scope*/</span>
 <br>
 ・<span class="run">Ver.2.231.56</span>以降、<a href="#span-out-FNh">高階関数</a>||<a href="#span-out-FNmh">高階行列関数</a>の<a href="#span-out-ref-transparency">参照透過性</a>対策を実施
 <br>
-　dummy変数の<a href="#span-out-vars-symbol">変数名symbol</a>：関数名の一部　⇒　第1引数（旧仕様は廃止の可能性あり）
+　dummy変数の<a href="#span-out-vars-symbol">変数名symbol</a>：関数名の一部　⇒　関数の引数（<span class="run">Ver.2.812.131</span>以降、旧仕様廃止）
 <br>
 ・<span class="run">Ver.2.234.56</span>以降、<a href="#span-out-FNh">高階関数</a>||<a href="#span-out-FNmh">高階行列関数</a>の<a href="#span-out-ref-transparency">参照透過性</a>対策を完了
 <br>
@@ -31458,12 +31464,12 @@ clear; b=0; a=&lt;b=1; c=&lt;b=-1; a|||c,b -> (0,-1)
 <br>
 ・展開式のdummy変数整数区間[a,b]の総和を演算して返す
 <br>
-・_sdummy<a href="#span-out-vars-symbol">変数名symbol</a>でcallする
+<del>・_sdummy<a href="#span-out-vars-symbol">変数名symbol</a>でcallする</del><span class="run">Ver.2.812.131</span>以降、旧仕様廃止
 <br>
 ・dummy変数は無次元で<a href="#span-out-terms">scope変数</a>から独立する
 <br>
 <br>
-_sdummy<a href="#span-out-vars-symbol">変数名symbol</a>(=&lt;第1引数,第2引数,第3引数[,第4引数])
+_s(=&lt;第1引数,第2引数,第3引数[,第4引数])
 <br>
 ・第1引数: dummy変数の展開式を<a href="#span-out-pass-by-equation">式渡し</a>||<a href="#span-out-pass-by-symbol">symbol渡し</a>
 <br>
@@ -31632,12 +31638,12 @@ N=0; _sn(=&lt;Pn,N,10) -> 99.99999999999999
 <br>
 ・展開式のdummy変数整数区間[a,b]の総乗・総積を演算して返す
 <br>
-・_pdummy<a href="#span-out-vars-symbol">変数名symbol</a>でcallする
+<del>・_pdummy<a href="#span-out-vars-symbol">変数名symbol</a>でcallする</del><span class="run">Ver.2.812.131</span>以降、旧仕様廃止
 <br>
 ・dummy変数は無次元で<a href="#span-out-terms">scope変数</a>から独立する
 <br>
 <br>
-_pdummy<a href="#span-out-vars-symbol">変数名symbol</a>(=&lt;第1引数,第2引数,第3引数[,第4引数])
+_p(=&lt;第1引数,第2引数,第3引数[,第4引数])
 <br>
 ・第1引数: dummy変数の展開式を<a href="#span-out-pass-by-equation">式渡し</a>||<a href="#span-out-pass-by-symbol">symbol渡し</a>
 <br>
@@ -31741,7 +31747,7 @@ x={0,1,2,3,4,5,6,7,8,9}; _pn(=&lt;x[n],1,9) -> 362880
 <br>
 ・最後の演算結果を返す
 <br>
-・_rdummy<a href="#span-out-vars-symbol">変数名symbol</a>でcallする
+<del>・_rdummy<a href="#span-out-vars-symbol">変数名symbol</a>でcallする</del><span class="run">Ver.2.812.131</span>以降、旧仕様廃止
 <br>
 ・dummy変数は無次元で<a href="#span-out-terms">scope変数</a>から独立する
 <br>
@@ -31752,7 +31758,7 @@ x={0,1,2,3,4,5,6,7,8,9}; _pn(=&lt;x[n],1,9) -> 362880
 clear; _r(=&lt;arr.push(__n__),arr=[],10); arr -> (1,2,3,4,5,6,7,8,9,10)
 <br>
 <br>
-_rdummy<a href="#span-out-vars-symbol">変数名symbol</a>(=&lt;第1引数,第2引数,第3引数[,=&lt;第4引数])
+_r(=&lt;第1引数,第2引数,第3引数[,=&lt;第4引数])
 <br>
 ・第1引数: dummy変数の展開式を<a href="#span-out-pass-by-equation">式渡し</a>||<a href="#span-out-pass-by-symbol">symbol渡し</a>
 <br>
@@ -31957,14 +31963,14 @@ normc(mdx)/normc({x0,x1}) -> infoLost[ri] 3.6879601533907295e-16
 <br>
 　<span class="clear">Ver.2.321.78</span>以降、dx=dxD((real(x)||1)+(imag(x)||1)i)
 <br>
-・_ddummy<a href="#span-out-vars-symbol">変数名symbol</a>でcallする
+<del>・_ddummy<a href="#span-out-vars-symbol">変数名symbol</a>でcallする</del><span class="run">Ver.2.812.131</span>以降、旧仕様廃止
 <br>
 ・dummy変数は無次元
 <br>
 ・dummy変数と同名の<a href="#span-out-terms">scope変数</a>を参照するが、上書きしない
 <br>
 <br>
-_ddummy<a href="#span-out-vars-symbol">変数名symbol</a>(=&lt;第1引数[,第2引数[,第3引数[,第4引数]]])
+_d(=&lt;第1引数[,第2引数[,第3引数[,第4引数]]])
 <br>
 ・第1引数: dummy変数の展開式を<a href="#span-out-pass-by-equation">式渡し</a>||<a href="#span-out-pass-by-symbol">symbol渡し</a>
 <br>
@@ -32294,14 +32300,14 @@ x -> (1.000000000000009+O(3e-5):0.9999999999999909+O(3e-5))
 <br>
 ・積分の差分刻みdxI=(b-a)/NI
 <br>
-・_idummy<a href="#span-out-vars-symbol">変数名symbol</a>でcallする
+<del>・_idummy<a href="#span-out-vars-symbol">変数名symbol</a>でcallする</del><span class="run">Ver.2.812.131</span>以降、旧仕様廃止
 <br>
 ・dummy変数は無次元
 <br>
 ・dummy変数と同名の<a href="#span-out-terms">scope変数</a>を参照するが、上書きしない
 <br>
 <br>
-_idummy<a href="#span-out-vars-symbol">変数名symbol</a>(=&lt;第1引数,第2引数,第3引数[,第4引数])
+_i(=&lt;第1引数,第2引数,第3引数[,第4引数])
 <br>
 ・第1引数: dummy変数の展開式を<a href="#span-out-pass-by-equation">式渡し</a>||<a href="#span-out-pass-by-symbol">symbol渡し</a>
 <br>
@@ -32953,7 +32959,7 @@ ODE高階行列関数
 <br>
 ・1階常微分の差分刻み実数値dxT既定値dxT=1e-3
 <br>
-・_odummy<a href="#span-out-vars-symbol">変数名symbol</a>でcallする
+<del>・_odummy<a href="#span-out-vars-symbol">変数名symbol</a>でcallする</del><span class="run">Ver.2.812.131</span>以降、旧仕様廃止
 <br>
 ・dummy変数は無次元
 <br>
@@ -32962,7 +32968,7 @@ ODE高階行列関数
 ・未知変数の<a href="#span-out-terms">scope変数</a>を参照、上書きする
 <br>
 <br>
-_odummy<a href="#span-out-vars-symbol">変数名symbol</a>(=&lt;第1引数,=&lt;第2引数[,=&lt;第3引数[,第4引数[,第5引数[,第6引数[,第7引数[,第8引数]]]]]])
+_o(=&lt;第1引数,=&lt;第2引数[,=&lt;第3引数[,第4引数[,第5引数[,第6引数[,第7引数[,第8引数]]]]]])
 <br>
 ・第1引数: 1階常微分方程式右辺の関数式を<a href="#span-out-pass-by-equation">式渡し</a>||<a href="#span-out-pass-by-symbol">symbol渡し</a>
 <br>
@@ -33049,7 +33055,12 @@ symbolic高階行列関数
 <br>
 ・未知<a href="#span-out-vars-symbol">変数名symbol</a>連番0~の<a href="#span-out-reference-mat-index">ij参照の行列</a>を<a href="#span-out-eqns">式変数</a>に<a href="#span-out-substitution-equation">式代入</a>して0を返す
 <br>
-・_e式<a href="#span-out-vars-symbol">変数名symbol</a>(=&lt;{未知<a href="#span-out-vars-symbol">変数名symbol</a>},m,n)でcallする
+<del>・_e式<a href="#span-out-vars-symbol">変数名symbol</a>(=&lt;{未知<a href="#span-out-vars-symbol">変数名symbol</a>},m,n)でcallする</del><span class="run">Ver.2.812.131</span>以降、旧仕様廃止
+<br>
+<br>
+_e(=&lt;第1引数,第2引数,第3引数)
+<br>
+・<span class="run">Ver.2.736.107</span>~<span class="run">2.739.107</span>以降、廃止予定
 <br>
 <br>
 test caseを列挙する
@@ -43484,7 +43495,7 @@ CAS
 <br>
 ・<span class="run">Ver.2.231.56</span>以降、<a href="#span-out-FNh">高階関数</a>||<a href="#span-out-FNmh">高階行列関数</a>の<a href="#span-out-ref-transparency">参照透過性</a>対策を実施
 <br>
-　dummy変数の<a href="#span-out-vars-symbol">変数名symbol</a>：関数名の一部　⇒　第1引数（旧仕様は廃止の可能性あり）
+　dummy変数の<a href="#span-out-vars-symbol">変数名symbol</a>：関数名の一部　⇒　関数の引数（<span class="run">Ver.2.812.131</span>以降、旧仕様廃止）
 <br>
 ・<span class="run">Ver.2.234.56</span>以降、<a href="#span-out-FNh">高階関数</a>||<a href="#span-out-FNmh">高階行列関数</a>の<a href="#span-out-ref-transparency">参照透過性</a>対策を完了
 <br>
