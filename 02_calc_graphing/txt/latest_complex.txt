@@ -1,30 +1,33 @@
 [cond_error=(has__(t_total)==0)&&has__(oldT),proc=<[s_1day=60*60*24,=<heat1d_evolution(s_1day*30,s_1day,0,1,1,1,20)=>]=>,=<switch(cond_error==0,=<proc:1,-999)]=>
 (
-5184000:
-24.6677857734883-1.0284754777738492e-8i+O(2e+1+1e-5i):
-21.838463719376588-1.030581295574315e-8i+O(2e+1+3e-6i):
-19.702529297360865-1.010520452282661e-8i+O(2e+1+1e-5i):
-18.166763696226205-9.820172417591978e-9i+O(2e+1+4e-6i):
-17.115457721295613-9.534798028634807e-9i+O(2e+1+1e-5i):
-16.429683516593983-9.291732496046069e-9i+O(2e+1+4e-6i):
-16.002159544508974-9.104790845320444e-9i+O(2e+1+1e-5i):
-15.745233051671379-8.970341172703367e-9i+O(2e+1+4e-6i):
-15.59223736168936-8.87598653219206e-9i+O(2e+1+1e-5i):
-15.494034945855057-8.80597746849282e-9i+O(2e+1+4e-6i):
-15.412804071520823-8.743664954848448e-9i+O(2e+1+1e-5i):
-15.31460165568469-8.671821204194061e-9i+O(2e+1+4e-6i):
-15.161605965696985-8.571765306171987e-9i+O(2e+1+1e-5i):
-14.904679472844078-8.421997167762768e-9i+O(1e+1+4e-6i):
-14.477155500720587-8.196574270263465e-9i+O(1e+1+1e-5i):
-13.79138129592854-7.863085234063822e-9i+O(1e+1+3e-6i):
-12.740075320801019-7.380776402743443e-9i+O(1e+1+1e-5i):
-11.204309719273603-6.7029826949192805e-9i+O(1e+1+3e-6i):
-9.068375296550709-5.7951999849689785e-9i+O(9e+0+1e-5i):
-6.239053241307512-4.684768200804035e-9i+O(6e+0+3e-4i)
+2592000:
+-8.890971412191002-2.3583163820235546e-13i:
+-11.73291776896485-2.2070000844871984e-13i:
+-13.89145624446626-1.9342738158268495e-13i:
+-15.455478518431953-1.5896889858297675e-13i:
+-16.53610550638455-1.2269396846213034e-13i:
+-17.248643699893993-8.898695629544411e-14i:
+-17.69834395256665-6.04606086112003e-14i:
+-17.972415703759054-3.78575462469186e-14i:
+-18.13828362203301-2.041812128303677e-14i:
+-18.246568450908423-6.4083751553799386e-15i:
+-18.33691983245461+6.4083751553257896e-15i:
+-18.44520466132901+2.0418121282968967e-14i:
+-18.611072579601192+3.7857546246849896e-14i:
+-18.885144330790872+6.046060861113387e-14i:
+-19.334844583452455+8.89869562952552e-14i:
+-20.047382776964252+1.2269396846209157e-13i:
+-21.12800976490915+1.5896889858291483e-13i:
+-22.69203203888427+1.9342738158252294e-13i:
+-24.850570514369316+2.207000084488257e-13i:
+-27.69251687114068+2.35831638202752e-13i
 )
 
-heat1d_evolution(t,dt,kalpha0,kalpha1,kalbedo,kabsorb,N)=<[out=<{t_total,newT},scope2storage=<last{add__(oldT),add__(t_total)},init=<last{I0=1367,sigma=5.670374419184429e-8,TK=273.15,T0=15,T1=-56.5,T0K=T0+TK,T1K=T1+TK,H1=11000,R0=6378136.6,R1=R0+H1,S0=pi*R0^2,S1=pi*R1^2,A0=S0*4,A1=S1*4,albedo0=0.3,e0=1,TeK=(I0*(1-albedo0)/(4*e0*sigma))**0.25,Te=TeK-TK,W0=S1*I0,Wee=A0*(e0*sigma*TeK**4),We0=A0*(e0*sigma*T0K**4),absorbh=1-W0*(1-albedo0)/We0,absorbhmax=0.5,absorb0=We0*absorbh/(W0*(1-albedo0)),absorb0max=We0*absorbhmax/(W0*(1-albedo0)),kh0=(absorbhmax-absorbh)/(absorb0max-absorb0),Te_th(a)=<(I0*(1-albedo0)/(2*(2-a)*e0*sigma))**0.25-TK,Te_th0=Te_th(absorbh*2)=>,Wea=We0*absorbh,Wet=We0*(1-absorbh),l=0.0241,rho=1.29,cp=1007,V=A1*H1,C=rho*cp*V,alpha10=-W0*(1-albedo0)*absorb0/(A1*(T1-T0)),alpha0=alpha10*kalpha0,alpha1=alpha10*kalpha1,albedo=albedo0*kalbedo,absorb=absorb0*kabsorb,absorbe=(1-albedo)*absorb,T=T0,flux0=alpha0*(T0-T),flux1=alpha1*(T1-T),W2=flux0*A0,W1=flux1*A1,W0a=W0*albedo,W0t=W0*(1-albedo)*(1-absorb),W0e=W0*(1-albedo)*absorb,(Wee-Wet),(Wea-W0e),(W0t+W0e-Wet),(W0a+W0t+W0e-W0),(W1+W0e+W2),dC=C/N,a0=alpha0*A1/dC,a1=alpha1*A1/dC,b=0,c=W0*(1-albedo)*absorb/C+a0*T0,d=alpha1*A1*(T1-T0)/C,_e((x)=<x,N,1),A=zeros(N,N),A[-1][0][1]=(-a1*dt,1+2*a1*dt,-a1*dt),A[0][0]=1+a1*dt+a0*dt,A[-1][-1]=1+a1*dt,switch(has__(t_total)==0,=<last{t_total=0,oldT=zeros(N,1)+Te}),newT=oldT},run=<last{step=<last{r=oldT+b*dt,r[0]=r[0]+c*dt,r[-1]=r[-1]+d*dt,x_solved=Newton(=<A*x=>=r,=<x),oldT=x_solved},evolution=<_rn(=<step,N=round(t/dt),N),evolution=>,newT=oldT,dT=newT-T0,t_total=t_total+N*dt},init=>,run=>,return=out=>,scope2storage=>,=<return]=>
+heat1d_evolution(t,dt,kalpha0,kalpha1,kalbedo,kabsorb,N)=<[out=<{t_total,newT},scope2storage=<last{add__(oldT),add__(t_total)},init=<last{I0=1367,sigma=5.670374419184429e-8,TK=273.15,T0=15,T1=-56.5,T0K=T0+TK,T1K=T1+TK,H1=11000,R0=6378136.6,R1=R0+H1,S0=pi*R0^2,S1=pi*R1^2,A0=S0*4,A1=S1*4,albedo0=0.3,e0=1,TeK=(I0*(1-albedo0)/(4*e0*sigma))**0.25,Te=TeK-TK,W0=S1*I0,Wee=A0*(e0*sigma*TeK**4),We0=A0*(e0*sigma*T0K**4),absorbh=1-W0*(1-albedo0)/We0,absorbhmax=0.5,absorb0=We0*absorbh/(W0*(1-albedo0)),absorb0max=We0*absorbhmax/(W0*(1-albedo0)),kh0=(absorbhmax-absorbh)/(absorb0max-absorb0),Te_th(a)=<(I0*(1-albedo0)/(2*(2-a)*e0*sigma))**0.25-TK,Te_th0=Te_th(absorbh*2)=>,Wea=We0*absorbh,Wet=We0*(1-absorbh),l=0.0241,rho=1.29,cp=1007,V=A1*H1,C=rho*cp*V,alpha10=-W0*(1-albedo0)*absorb0/(A1*(T1-T0)),alpha0=alpha10*kalpha0,alpha1=alpha10*kalpha1,albedo=albedo0*kalbedo,absorb=absorb0*kabsorb,absorbe=(1-albedo)*absorb,T=T0,flux0=alpha0*(T0-T),flux1=alpha1*(T1-T),W2=flux0*A0,W1=flux1*A1,W0a=W0*albedo,W0t=W0*(1-albedo)*(1-absorb),W0e=W0*(1-albedo)*absorb,(Wee-Wet),(Wea-W0e),(W0t+W0e-Wet),(W0a+W0t+W0e-W0),(W1+W0e+W2),dC=C/N,a0=alpha0*A1/dC,a1=alpha1*A1/dC,b=0,c=W0*(1-albedo)*absorb/C+a0*T0,d=alpha1*A1*(T1-T0)/C,A=zeros(N,N),A[-1][0][1]=(-a1*dt,1+2*a1*dt,-a1*dt),A[0][0]=1+a1*dt+a0*dt,A[-1][-1]=1+a1*dt,switch(has__(t_total)==0,=<last{t_total=0,oldT=zeros(N,1)+Te}),newT=oldT},run=<last{step=<last{r=oldT+b*dt,r[0]=r[0]+c*dt,r[-1]=r[-1]+d*dt,oldT=Newton(=<A*__x__=r,,=<{oldT})},evolution=<_r((n)=<step=>,N=round(t/dt),N),evolution=>,newT=oldT,dT=newT-T0,t_total=t_total+N*dt},init=>,run=>,return=out=>,scope2storage=>,=<return]=>
 stored_eqn(heat1d_evolution)
+
+clear
+local storage cleared
 
 [cond_error=(has__(t_total)==0)&&has__(oldT),proc=<[s_1day=60*60*24,=<heat0d_evolution(s_1day*30,s_1day,0,0.98,1,1)=>]=>,=<switch(cond_error==0,=<proc:1,-999)]=>
 (
@@ -32,8 +35,11 @@ stored_eqn(heat1d_evolution)
 0.4534194999132346+O(3e-13)
 )
 
-heat0d_evolution(t,dt,kalpha0,kalpha1,kalbedo,kabsorb)=<[out=<{t_total,dT},scope2storage=<last{add__(oldT),add__(t_total)},init=<last{I0=1367,sigma=5.670374419184429e-8,TK=273.15,T0=15,T1=-56.5,T0K=T0+TK,T1K=T1+TK,H1=11000,R0=6378136.6,R1=R0+H1,S0=pi*R0^2,S1=pi*R1^2,A0=S0*4,A1=S1*4,albedo0=0.3,e0=1,TeK=(I0*(1-albedo0)/(4*e0*sigma))**0.25,Te=TeK-TK,W0=S1*I0,Wee=A0*(e0*sigma*TeK**4),We0=A0*(e0*sigma*T0K**4),absorbh=1-W0*(1-albedo0)/We0,absorbhmax=0.5,absorb0=We0*absorbh/(W0*(1-albedo0)),absorb0max=We0*absorbhmax/(W0*(1-albedo0)),kh0=(absorbhmax-absorbh)/(absorb0max-absorb0),Te_th(a)=<(I0*(1-albedo0)/(2*(2-a)*e0*sigma))**0.25-TK,Te_th0=Te_th(absorbh*2)=>,Wea=We0*absorbh,Wet=We0*(1-absorbh),l=0.0241,rho=1.29,cp=1007,V=_ir(=<4*pi*r^2,R0,R0+H1),C=rho*cp*V,alpha10=-W0*(1-albedo0)*absorb0/(A1*(T1-T0)),alpha0=alpha10*kalpha0,alpha1=alpha10*kalpha1,albedo=albedo0*kalbedo,absorb=absorb0*kabsorb,absorbe=(1-albedo)*absorb,T=T0,flux0=alpha0*(T0-T),flux1=alpha1*(T1-T),W2=flux0*A0,W1=flux1*A1,W0a=W0*albedo,W0t=W0*(1-albedo)*(1-absorb),W0e=W0*(1-albedo)*absorb,(Wee-Wet),(Wea-W0e),(W0t+W0e-Wet),(W0a+W0t+W0e-W0),(W1+W0e+W2),a=(alpha1*A1+alpha0*A0)/C,b=(alpha1*A1*T1+W0*(1-albedo)*absorb+alpha0*A0*T0)/C,switch(has__(t_total)==0,=<last{t_total=0,oldT=T0}),newT=oldT},run=<last{step=<last{newT=(oldT+b*dt)/(1+a*dt),oldT=newT},evolution=<_rn(=<step,N=round(t/dt),N),evolution=>,dT=newT-T0,t_total=t_total+N*dt},init=>,run=>,return=out=>,scope2storage=>,=<return]=>
+heat0d_evolution(t,dt,kalpha0,kalpha1,kalbedo,kabsorb)=<[out=<{t_total,dT},scope2storage=<last{add__(oldT),add__(t_total)},init=<last{I0=1367,sigma=5.670374419184429e-8,TK=273.15,T0=15,T1=-56.5,T0K=T0+TK,T1K=T1+TK,H1=11000,R0=6378136.6,R1=R0+H1,S0=pi*R0^2,S1=pi*R1^2,A0=S0*4,A1=S1*4,albedo0=0.3,e0=1,TeK=(I0*(1-albedo0)/(4*e0*sigma))**0.25,Te=TeK-TK,W0=S1*I0,Wee=A0*(e0*sigma*TeK**4),We0=A0*(e0*sigma*T0K**4),absorbh=1-W0*(1-albedo0)/We0,absorbhmax=0.5,absorb0=We0*absorbh/(W0*(1-albedo0)),absorb0max=We0*absorbhmax/(W0*(1-albedo0)),kh0=(absorbhmax-absorbh)/(absorb0max-absorb0),Te_th(a)=<(I0*(1-albedo0)/(2*(2-a)*e0*sigma))**0.25-TK,Te_th0=Te_th(absorbh*2)=>,Wea=We0*absorbh,Wet=We0*(1-absorbh),l=0.0241,rho=1.29,cp=1007,V=_i((r)=<4*pi*r^2,R0,R0+H1),C=rho*cp*V,alpha10=-W0*(1-albedo0)*absorb0/(A1*(T1-T0)),alpha0=alpha10*kalpha0,alpha1=alpha10*kalpha1,albedo=albedo0*kalbedo,absorb=absorb0*kabsorb,absorbe=(1-albedo)*absorb,T=T0,flux0=alpha0*(T0-T),flux1=alpha1*(T1-T),W2=flux0*A0,W1=flux1*A1,W0a=W0*albedo,W0t=W0*(1-albedo)*(1-absorb),W0e=W0*(1-albedo)*absorb,(Wee-Wet),(Wea-W0e),(W0t+W0e-Wet),(W0a+W0t+W0e-W0),(W1+W0e+W2),a=(alpha1*A1+alpha0*A0)/C,b=(alpha1*A1*T1+W0*(1-albedo)*absorb+alpha0*A0*T0)/C,switch(has__(t_total)==0,=<last{t_total=0,oldT=T0}),newT=oldT},run=<last{step=<last{newT=(oldT+b*dt)/(1+a*dt),oldT=newT},evolution=<_r((n)=<step=>,N=round(t/dt),N),evolution=>,dT=newT-T0,t_total=t_total+N*dt},init=>,run=>,return=out=>,scope2storage=>,=<return]=>
 stored_eqn(heat0d_evolution)
+
+clear
+local storage cleared
 
 [isImplicit=1,=<plot2d_IV(0,1e-3,0.5,100,2,isImplicit)=>]=>
 (
@@ -240,10 +246,10 @@ stored_eqn(heat0d_evolution)
 4,-4.898587196589413e-19,infoLost[r ] -0.0008768489563688465
 )
 
-plot2d_IV(dT,dI,f,Nt,Nint,isImplicit)=<[out=<(xt,yt),scope2storage=<last{add__(xt),add__(yt)},init=<last{N=Nt*Nint,xt=zeros(N+1,1),yt=zeros(N+1,2)},run=<last{make_tIV(dT,dI,f,Nt,Nint,isImplicit)==>,_sn(=<last{xt[n]=tt[n],yt[n]=(tI[n],tV[n])},0,N)},init=>,run=>,return=out=>,scope2storage=>,=<return]=>
+plot2d_IV(dT,dI,f,Nt,Nint,isImplicit)=<[out=<(xt,yt),scope2storage=<last{add__(xt),add__(yt)},init=<last{N=Nt*Nint,xt=zeros(N+1,1),yt=zeros(N+1,2)},run=<last{make_tIV(dT,dI,f,Nt,Nint,isImplicit)==>,_s((n)=<last{xt[n]=tt[n],yt[n]=(tI[n],tV[n])},0,N)},init=>,run=>,return=out=>,scope2storage=>,=<return]=>
 stored_eqn(plot2d_IV)
 
-make_tIV(dT,dI,f,Nt,Nint,isImplicit)=<last{$TK=273.15,Tref=15+TK,T=Tref+dT,($Eact_R0,$Eact_a1,$Eact_a2)=(20,50,10)*1e3,$Rgas=8.31446261815324,ratio_factor(T,Tref,Eact)=<exp((1/Tref-1/T)*Eact/Rgas),ratio_R0=ratio_factor(T,Tref,Eact_R0)=>,ratio_a1=ratio_factor(T,Tref,Eact_a1)=>,ratio_a2=ratio_factor(T,Tref,Eact_a2)=>,L=1e-4,R0=0.5+0.5/ratio_R0,R1=2,C1=0.1,a1=1/(R1*C1),b1=1/C1,a2=0.01,b2=0.12,a1=a1*ratio_a1,a2=a2*ratio_a2,omega=2*pi*f,dt=1/(f*Nt),N=Nt*Nint,tt=zeros(N+1,1),tI=zeros(N+1,1),tV=zeros(N+1,1),oldV1=0,oldV2=0,_sn(=<last{t=n*dt,It=dI*sin(omega*t),dIt=dI*cos(omega*t)*omega,newV1=switch(isImplicit,(oldV1+b1*dt*It)/(1+a1*dt):1,(1-a1*dt)*oldV1+b1*dt*It),newV2=switch(isImplicit,(oldV2+b2*dt*It)/(1+a2*dt):1,(1-a2*dt)*oldV2+b2*dt*It),oldV1=newV1,oldV2=newV2,Vt=L*dIt+R0*It+newV1+newV2,tt[n]=t,tI[n]=It,tV[n]=Vt},0,N)}
+make_tIV(dT,dI,f,Nt,Nint,isImplicit)=<last{$TK=273.15,Tref=15+TK,T=Tref+dT,($Eact_R0,$Eact_a1,$Eact_a2)=(20,50,10)*1e3,$Rgas=8.31446261815324,ratio_factor(T,Tref,Eact)=<exp((1/Tref-1/T)*Eact/Rgas),ratio_R0=ratio_factor(T,Tref,Eact_R0)=>,ratio_a1=ratio_factor(T,Tref,Eact_a1)=>,ratio_a2=ratio_factor(T,Tref,Eact_a2)=>,L=1e-4,R0=0.5+0.5/ratio_R0,R1=2,C1=0.1,a1=1/(R1*C1),b1=1/C1,a2=0.01,b2=0.12,a1=a1*ratio_a1,a2=a2*ratio_a2,omega=2*pi*f,dt=1/(f*Nt),N=Nt*Nint,tt=zeros(N+1,1),tI=zeros(N+1,1),tV=zeros(N+1,1),oldV1=0,oldV2=0,_s((n)=<last{t=n*dt,It=dI*sin(omega*t),dIt=dI*cos(omega*t)*omega,newV1=switch(isImplicit,(oldV1+b1*dt*It)/(1+a1*dt):1,(1-a1*dt)*oldV1+b1*dt*It),newV2=switch(isImplicit,(oldV2+b2*dt*It)/(1+a2*dt):1,(1-a2*dt)*oldV2+b2*dt*It),oldV1=newV1,oldV2=newV2,Vt=L*dIt+R0*It+newV1+newV2,tt[n]=t,tI[n]=It,tV[n]=Vt},0,N)}
 stored_eqn(make_tIV)
 
 clear
@@ -264,19 +270,19 @@ infoLost[ri] 3.095161552636316,infoLost[ri] 0.6774520967840967:
 infoLost[ri] 3.71133683621205,infoLost[ri] 1.8234973547405817
 )
 
-plot2d_EIS_DFT(isBode,fZ)=<[out=<(xt,yt),scope2storage=<last{add__(xt),add__(yt)},init=<last{N=sizer(fZ),xt=zeros(N,1),yt=zeros(N,1)},run=<last{switch(isBode==0,=<_sn(=<last{Z=fZ[n][1],xt[n]=real(Z),yt[n]=-imag(Z)},0,N-1):isBode>0,=<_sn(=<last{f=fZ[n][0],Z=fZ[n][1],xt[n]=log10(f),yt[n]=abs(Z)},0,N-1):1,=<_sn(=<last{f=fZ[n][0],Z=fZ[n][1],xt[n]=log10(f),yt[n]=deg_atan2(imag(Z),real(Z))},0,N-1))},init=>,run=>,return=out=>,scope2storage=>,=<return]=>
+plot2d_EIS_DFT(isBode,fZ)=<[out=<(xt,yt),scope2storage=<last{add__(xt),add__(yt)},init=<last{N=sizer(fZ),xt=zeros(N,1),yt=zeros(N,1)},run=<last{switch(isBode==0,=<_s((n)=<last{Z=fZ[n][1],xt[n]=real(Z),yt[n]=-imag(Z)},0,N-1):isBode>0,=<_s((n)=<last{f=fZ[n][0],Z=fZ[n][1],xt[n]=log10(f),yt[n]=abs(Z)},0,N-1):1,=<_s((n)=<last{f=fZ[n][0],Z=fZ[n][1],xt[n]=log10(f),yt[n]=deg_atan2(imag(Z),real(Z))},0,N-1))},init=>,run=>,return=out=>,scope2storage=>,=<return]=>
 stored_eqn(plot2d_EIS_DFT)
 
-sweep_f(dT,dI,f0,f1,Nf,Nt,Nint,isImplicit)=<[out=<fZ,init=<last{fZ=zeros(Nf+1,2)},run=<last{calc_f(n)=<exp(log(f0)+(log(f1)-log(f0))*n/Nf),_sn(=<last{f=calc_f(n)=>,make_IV(dT,dI,f,Nt,Nint,isImplicit)==>,fZ[n]=(f,calc_Z(DFT_IV(=<tI,f,dt)=>,DFT_IV(=<tV,f,dt)=>)=>)},0,Nf)},init=>,run=>,return=out=>,=<return]=>
+sweep_f(dT,dI,f0,f1,Nf,Nt,Nint,isImplicit)=<[out=<fZ,init=<last{fZ=zeros(Nf+1,2)},run=<last{calc_f(n)=<exp(log(f0)+(log(f1)-log(f0))*n/Nf),_s((n)=<last{f=calc_f(n)=>,make_IV(dT,dI,f,Nt,Nint,isImplicit)==>,fZ[n]=(f,calc_Z(DFT_IV(=<tI,f,dt)=>,DFT_IV(=<tV,f,dt)=>)=>)},0,Nf)},init=>,run=>,return=out=>,=<return]=>
 stored_eqn(sweep_f)
 
 calc_Z(zI,zV)=<[out=<Z,init=<last{0},run=<last{Z=zV/zI},init=>,run=>,return=out=>,=<return]=>
 stored_eqn(calc_Z)
 
-DFT_IV(IV,f,dt)=<[out=<zIV,init=<last{N=sizer(IV)},run=<last{omega=2*pi*f,zIV=_sn(=<IV[n]*exp(-i*omega*n*dt),0,N-1)},init=>,run=>,return=out=>,=<return]=>
+DFT_IV(IV,f,dt)=<[out=<zIV,init=<last{N=sizer(IV)},run=<last{omega=2*pi*f,zIV=_s((n)=<IV[n]*exp(-i*omega*n*dt),0,N-1)},init=>,run=>,return=out=>,=<return]=>
 stored_eqn(DFT_IV)
 
-make_IV(dT,dI,f,Nt,Nint,isImplicit)=<last{$TK=273.15,Tref=15+TK,T=Tref+dT,($Eact_R0,$Eact_a1,$Eact_a2)=(20,50,10)*1e3,$Rgas=8.31446261815324,ratio_factor(T,Tref,Eact)=<exp((1/Tref-1/T)*Eact/Rgas),ratio_R0=ratio_factor(T,Tref,Eact_R0)=>,ratio_a1=ratio_factor(T,Tref,Eact_a1)=>,ratio_a2=ratio_factor(T,Tref,Eact_a2)=>,L=1e-4,R0=0.5+0.5/ratio_R0,R1=2,C1=0.1,a1=1/(R1*C1),b1=1/C1,a2=0.01,b2=0.12,a1=a1*ratio_a1,a2=a2*ratio_a2,omega=2*pi*f,dt=1/(f*Nt),N=Nt*Nint,tI=zeros(N+1,1),tV=zeros(N+1,1),oldV1=0,oldV2=0,_sn(=<last{t=n*dt,It=dI*sin(omega*t),dIt=dI*cos(omega*t)*omega,newV1=switch(isImplicit,(oldV1+b1*dt*It)/(1+a1*dt):1,(1-a1*dt)*oldV1+b1*dt*It),newV2=switch(isImplicit,(oldV2+b2*dt*It)/(1+a2*dt):1,(1-a2*dt)*oldV2+b2*dt*It),oldV1=newV1,oldV2=newV2,Vt=L*dIt+R0*It+newV1+newV2,tI[n]=It,tV[n]=Vt},0,N)}
+make_IV(dT,dI,f,Nt,Nint,isImplicit)=<last{$TK=273.15,Tref=15+TK,T=Tref+dT,($Eact_R0,$Eact_a1,$Eact_a2)=(20,50,10)*1e3,$Rgas=8.31446261815324,ratio_factor(T,Tref,Eact)=<exp((1/Tref-1/T)*Eact/Rgas),ratio_R0=ratio_factor(T,Tref,Eact_R0)=>,ratio_a1=ratio_factor(T,Tref,Eact_a1)=>,ratio_a2=ratio_factor(T,Tref,Eact_a2)=>,L=1e-4,R0=0.5+0.5/ratio_R0,R1=2,C1=0.1,a1=1/(R1*C1),b1=1/C1,a2=0.01,b2=0.12,a1=a1*ratio_a1,a2=a2*ratio_a2,omega=2*pi*f,dt=1/(f*Nt),N=Nt*Nint,tI=zeros(N+1,1),tV=zeros(N+1,1),oldV1=0,oldV2=0,_s((n)=<last{t=n*dt,It=dI*sin(omega*t),dIt=dI*cos(omega*t)*omega,newV1=switch(isImplicit,(oldV1+b1*dt*It)/(1+a1*dt):1,(1-a1*dt)*oldV1+b1*dt*It),newV2=switch(isImplicit,(oldV2+b2*dt*It)/(1+a2*dt):1,(1-a2*dt)*oldV2+b2*dt*It),oldV1=newV1,oldV2=newV2,Vt=L*dIt+R0*It+newV1+newV2,tI[n]=It,tV[n]=Vt},0,N)}
 stored_eqn(make_IV)
 
 clear
@@ -297,19 +303,19 @@ infoLost[ri] 3.0951852485694045,infoLost[ri] 0.6751534820650191:
 infoLost[ri] 3.7114598750937615,infoLost[ri] 1.811702692783572
 )
 
-plot2d_EIS(isBode,fZ)=<[out=<(xt,yt),scope2storage=<last{add__(xt),add__(yt)},init=<last{N=sizer(fZ),xt=zeros(N,1),yt=zeros(N,1)},run=<last{switch(isBode==0,=<_sn(=<last{Z=fZ[n][1],xt[n]=real(Z),yt[n]=-imag(Z)},0,N-1):isBode>0,=<_sn(=<last{f=fZ[n][0],Z=fZ[n][1],xt[n]=log10(f),yt[n]=abs(Z)},0,N-1):1,=<_sn(=<last{f=fZ[n][0],Z=fZ[n][1],xt[n]=log10(f),yt[n]=deg_atan2(imag(Z),real(Z))},0,N-1))},init=>,run=>,return=out=>,scope2storage=>,=<return]=>
+plot2d_EIS(isBode,fZ)=<[out=<(xt,yt),scope2storage=<last{add__(xt),add__(yt)},init=<last{N=sizer(fZ),xt=zeros(N,1),yt=zeros(N,1)},run=<last{switch(isBode==0,=<_s((n)=<last{Z=fZ[n][1],xt[n]=real(Z),yt[n]=-imag(Z)},0,N-1):isBode>0,=<_s((n)=<last{f=fZ[n][0],Z=fZ[n][1],xt[n]=log10(f),yt[n]=abs(Z)},0,N-1):1,=<_s((n)=<last{f=fZ[n][0],Z=fZ[n][1],xt[n]=log10(f),yt[n]=deg_atan2(imag(Z),real(Z))},0,N-1))},init=>,run=>,return=out=>,scope2storage=>,=<return]=>
 stored_eqn(plot2d_EIS)
 
-sweep_f(dT,dI,f0,f1,Nf,Nt,Nint,isImplicit)=<[out=<fZ,init=<last{fZ=zeros(Nf+1,2)},run=<last{calc_f(n)=<exp(log(f0)+(log(f1)-log(f0))*n/Nf),_sn(=<last{f=calc_f(n)=>,make_IV(dT,dI,f,Nt,Nint,isImplicit)==>,fZ[n]=(f,calc_Z(FT_IV(=<tI,f,dt)=>,FT_IV(=<tV,f,dt)=>)=>)},0,Nf)},init=>,run=>,return=out=>,=<return]=>
+sweep_f(dT,dI,f0,f1,Nf,Nt,Nint,isImplicit)=<[out=<fZ,init=<last{fZ=zeros(Nf+1,2)},run=<last{calc_f(n)=<exp(log(f0)+(log(f1)-log(f0))*n/Nf),_s((n)=<last{f=calc_f(n)=>,make_IV(dT,dI,f,Nt,Nint,isImplicit)==>,fZ[n]=(f,calc_Z(FT_IV(=<tI,f,dt)=>,FT_IV(=<tV,f,dt)=>)=>)},0,Nf)},init=>,run=>,return=out=>,=<return]=>
 stored_eqn(sweep_f)
 
 calc_Z(zI,zV)=<[out=<Z,init=<last{0},run=<last{Z=zV/zI},init=>,run=>,return=out=>,=<return]=>
 stored_eqn(calc_Z)
 
-FT_IV(IV,f,dt)=<[out=<zIV,init=<last{N=sizer(IV)},run=<last{omega=2*pi*f,calc_w(n)=<switch((n==0)|(n==N-1),1:n%2==0,2:1,4),calc_v(n,t,val)=<calc_w(n)=>*val*exp(-i*omega*t),zIV=_sn(=<calc_v(n,n*dt,IV[n])=>,0,N-1)*dt/3},init=>,run=>,return=out=>,=<return]=>
+FT_IV(IV,f,dt)=<[out=<zIV,init=<last{N=sizer(IV)},run=<last{omega=2*pi*f,calc_w(n)=<switch((n==0)|(n==N-1),1:n%2==0,2:1,4),calc_v(n,t,val)=<calc_w(n)=>*val*exp(-i*omega*t),zIV=_s((n)=<calc_v(n,n*dt,IV[n])=>,0,N-1)*dt/3},init=>,run=>,return=out=>,=<return]=>
 stored_eqn(FT_IV)
 
-make_IV(dT,dI,f,Nt,Nint,isImplicit)=<last{$TK=273.15,Tref=15+TK,T=Tref+dT,($Eact_R0,$Eact_a1,$Eact_a2)=(20,50,10)*1e3,$Rgas=8.31446261815324,ratio_factor(T,Tref,Eact)=<exp((1/Tref-1/T)*Eact/Rgas),ratio_R0=ratio_factor(T,Tref,Eact_R0)=>,ratio_a1=ratio_factor(T,Tref,Eact_a1)=>,ratio_a2=ratio_factor(T,Tref,Eact_a2)=>,L=1e-4,R0=0.5+0.5/ratio_R0,R1=2,C1=0.1,a1=1/(R1*C1),b1=1/C1,a2=0.01,b2=0.12,a1=a1*ratio_a1,a2=a2*ratio_a2,omega=2*pi*f,dt=1/(f*Nt),N=Nt*Nint,tI=zeros(N+1,1),tV=zeros(N+1,1),oldV1=0,oldV2=0,_sn(=<last{t=n*dt,It=dI*sin(omega*t),dIt=dI*cos(omega*t)*omega,newV1=switch(isImplicit,(oldV1+b1*dt*It)/(1+a1*dt):1,(1-a1*dt)*oldV1+b1*dt*It),newV2=switch(isImplicit,(oldV2+b2*dt*It)/(1+a2*dt):1,(1-a2*dt)*oldV2+b2*dt*It),oldV1=newV1,oldV2=newV2,Vt=L*dIt+R0*It+newV1+newV2,tI[n]=It,tV[n]=Vt},0,N)}
+make_IV(dT,dI,f,Nt,Nint,isImplicit)=<last{$TK=273.15,Tref=15+TK,T=Tref+dT,($Eact_R0,$Eact_a1,$Eact_a2)=(20,50,10)*1e3,$Rgas=8.31446261815324,ratio_factor(T,Tref,Eact)=<exp((1/Tref-1/T)*Eact/Rgas),ratio_R0=ratio_factor(T,Tref,Eact_R0)=>,ratio_a1=ratio_factor(T,Tref,Eact_a1)=>,ratio_a2=ratio_factor(T,Tref,Eact_a2)=>,L=1e-4,R0=0.5+0.5/ratio_R0,R1=2,C1=0.1,a1=1/(R1*C1),b1=1/C1,a2=0.01,b2=0.12,a1=a1*ratio_a1,a2=a2*ratio_a2,omega=2*pi*f,dt=1/(f*Nt),N=Nt*Nint,tI=zeros(N+1,1),tV=zeros(N+1,1),oldV1=0,oldV2=0,_s((n)=<last{t=n*dt,It=dI*sin(omega*t),dIt=dI*cos(omega*t)*omega,newV1=switch(isImplicit,(oldV1+b1*dt*It)/(1+a1*dt):1,(1-a1*dt)*oldV1+b1*dt*It),newV2=switch(isImplicit,(oldV2+b2*dt*It)/(1+a2*dt):1,(1-a2*dt)*oldV2+b2*dt*It),oldV1=newV1,oldV2=newV2,Vt=L*dIt+R0*It+newV1+newV2,tI[n]=It,tV[n]=Vt},0,N)}
 stored_eqn(make_IV)
 
 clear
@@ -375,7 +381,7 @@ Fermat(2,5)=>
 8.999999999999998
 )
 
-Fermat(n,z)=<[yns=zeros(z,1),zn(z)=<z**n,yn(z,x)=<zn(z)=>-zn(x)=>,_sx(=<yns[x]=yn(z,x)=>,0,z-1),=<yns]=>
+Fermat(n,z)=<[yns=zeros(z,1),zn(z)=<z**n,yn(z,x)=<zn(z)=>-zn(x)=>,_s((x)=<yns[x]=yn(z,x)=>,0,z-1),=<yns]=>
 stored_eqn(Fermat)
 
 clear
@@ -399,16 +405,16 @@ local storage cleared
 2,3,5,7,11,13,17,19,23,29,31,37,41,43,47,53,59,61,67,71,73,79,83,89,97
 )
 
-factorize(n,primes)=<[arr=[],_rk(=<last{prime=pickup_prime(n,=<primes)=>,arr.push(prime),n=n/prime},isPrime=n>1,isPrime&&1e6,=<{n<=1}),=<arr]=>
+factorize(n,primes)=<[arr=[],_r((k)=<last{prime=pickup_prime(n,=<primes)=>,arr.push(prime),n=n/prime},isPrime=n>1,isPrime&&1e6,=<{n<=1}),=<arr]=>
 stored_eqn(factorize)
 
-pickup_prime(n,primes)=<[_rk(=<last{prime=primes[k],k+1},N=sizer(primes),N,=<{n%prime==0}),=<prime]=>
+pickup_prime(n,primes)=<[_r((k)=<last{prime=primes[k],k+1},N=sizer(primes),N,=<{n%prime==0}),=<prime]=>
 stored_eqn(pickup_prime)
 
-listup_primes(n0,n1)=<[arr=[],_sn(=<isPrime(n)=>&&&arr.push(n),n0,n1),=<arr]=>
+listup_primes(n0,n1)=<[arr=[],_s((n)=<isPrime(n)=>&&&arr.push(n),n0,n1),=<arr]=>
 stored_eqn(listup_primes)
 
-isPrime(n)=<[isPrime=n>1,kmax=sqrt(n),_rk(=<k+1,2,isPrime&&1e6,=<{k>kmax|||n%k==0&&&(isPrime=0)}),=<isPrime]=>
+isPrime(n)=<[isPrime=n>1,kmax=sqrt(n),_r((k)=<k+1,2,isPrime&&1e6,=<{k>kmax|||n%k==0&&&(isPrime=0)}),=<isPrime]=>
 stored_eqn(isPrime)
 
 clear
@@ -498,7 +504,7 @@ stored_eqn(FourierN_sym)
 last[ft=<e^(i*(2.5)*t),FourierN_sym(=<ft,2,5)=>]
 infoLost[ri] 0.2993437794247694-1.0833313140812981i+O(3e-8+3e-8i)
 
-FourierN_sym(==<ft_,x,N)=<last[NI=300,cn(n)=<_i((t)=<(ft_=>)*e^(-i*(n)*t),[-pi,pi]/1,NI)/(2*pi),_sn(=<(cn(n)=>)*e^(i*(n)*x),-N,N)]
+FourierN_sym(==<ft_,x,N)=<last[NI=300,cn(n)=<_i((t)=<(ft_=>)*e^(-i*(n)*t),[-pi,pi]/1,NI)/(2*pi),_s((n)=<(cn(n)=>)*e^(i*(n)*x),-N,N)]
 stored_eqn(FourierN_sym)
 
 clear
@@ -507,7 +513,7 @@ local storage cleared
 last[f=<exp(x),TaylorN(=<f,0,2,5)=>]
 7.266666317607307+0.000058921777380024245i+O(4e+0+4e+0i)
 
-TaylorN(=<f_,a,x,N)=<_sn(=<_dx(=<f_,n,a)*(x-a)^n/n!,0,N)
+TaylorN(=<f_,a,x,N)=<_s((n)=<_d((x)=<f_=>,n,a)*(x-a)^n/n!,0,N)
 stored_eqn(TaylorN)
 
 clear
@@ -516,7 +522,7 @@ local storage cleared
 last[f=<exp(x),MaclaurinN(=<f,2,5)=>]
 7.266666317607307+0.000058921777380024245i+O(4e+0+4e+0i)
 
-MaclaurinN(=<f_,x,N)=<_sn(=<_dx(=<f_,n,0)*x^n/n!,0,N)
+MaclaurinN(=<f_,x,N)=<_s((n)=<_d((x)=<f_=>,n,0)*x^n/n!,0,N)
 stored_eqn(MaclaurinN)
 
 clear
@@ -530,7 +536,7 @@ local storage cleared
 4+4i,8+8i
 )
 
-DWT2d_yx(w)=<[out=<w,init=<last{N=sizer(w),M=sizec(w),W=zeros(N,M),p=round(log2(N)),q=round(log2(M))},run=<last{W_row(w,N)=<_st(=<last{a=w[2*t],b=w[2*t+1],W[t]=a+b,W[t+N2]=a-b},N2=N>>1,N2-1),W_col(w,N)=<_st(=<last{a=w[][2*t],b=w[][2*t+1],W[][t]=a+b,W[][t+N2]=a-b},N2=N>>1,N2-1),_rn(=<last{W_col(=<w,first{Nq,Nq=Nq>>1})=>,w=W},Nq=1<<q,q),_rn(=<last{w=W,W_row(=<w,first{Np,Np=Np>>1})=>},Np=1<<p,p),buffer=W,w_row(W,N2)=<_st(=<last{a=W[t],b=W[t+N2],w[2*t]=0.5*(a+b),w[2*t+1]=0.5*(a-b)},0,N2-1),w_col(W,N2)=<_st(=<last{a=W[][t],b=W[][t+N2],w[][2*t]=(a+b)*0.5,w[][2*t+1]=(a-b)*0.5},0,N2-1),w=W,_rn(=<last{w_col(=<W,first{Nq,Nq=Nq<<1})=>,W=w},Nq=1,q),_rn(=<last{W=w,w_row(=<W,first{Np,Np=Np<<1})=>},Np=1,p),W=buffer},init=>,run=>,return=out=>,=<return]=>
+DWT2d_yx(w)=<[out=<w,init=<last{N=sizer(w),M=sizec(w),W=zeros(N,M),p=round(log2(N)),q=round(log2(M))},run=<last{W_row(w,N)=<_s((t)=<last{a=w[2*t],b=w[2*t+1],W[t]=a+b,W[t+N2]=a-b},N2=N>>1,N2-1),W_col(w,N)=<_s((t)=<last{a=w[][2*t],b=w[][2*t+1],W[][t]=a+b,W[][t+N2]=a-b},N2=N>>1,N2-1),_r((n)=<last{W_col(=<w,first{Nq,Nq=Nq>>1})=>,w=W},Nq=1<<q,q),_r((n)=<last{w=W,W_row(=<w,first{Np,Np=Np>>1})=>},Np=1<<p,p),buffer=W,w_row(W,N2)=<_s((t)=<last{a=W[t],b=W[t+N2],w[2*t]=0.5*(a+b),w[2*t+1]=0.5*(a-b)},0,N2-1),w_col(W,N2)=<_s((t)=<last{a=W[][t],b=W[][t+N2],w[][2*t]=(a+b)*0.5,w[][2*t+1]=(a-b)*0.5},0,N2-1),w=W,_r((n)=<last{w_col(=<W,first{Nq,Nq=Nq<<1})=>,W=w},Nq=1,q),_r((n)=<last{W=w,w_row(=<W,first{Np,Np=Np<<1})=>},Np=1,p),W=buffer},init=>,run=>,return=out=>,=<return]=>
 stored_eqn(DWT2d_yx)
 
 clear
@@ -544,7 +550,7 @@ local storage cleared
 4+4i,8+8i
 )
 
-DWT2d_xy(w)=<[out=<w,init=<last{N=sizer(w),M=sizec(w),W=zeros(N,M),p=round(log2(N)),q=round(log2(M))},run=<last{W_row(w,N)=<_st(=<last{a=w[2*t],b=w[2*t+1],W[t]=a+b,W[t+N2]=a-b},N2=N>>1,N2-1),W_col(w,N)=<_st(=<last{a=w[][2*t],b=w[][2*t+1],W[][t]=a+b,W[][t+N2]=a-b},N2=N>>1,N2-1),_rn(=<last{W_row(=<w,first{Np,Np=Np>>1})=>,w=W},Np=1<<p,p),_rn(=<last{w=W,W_col(=<w,first{Nq,Nq=Nq>>1})=>},Nq=1<<q,q),buffer=W,w_row(W,N2)=<_st(=<last{a=W[t],b=W[t+N2],w[2*t]=0.5*(a+b),w[2*t+1]=0.5*(a-b)},0,N2-1),w_col(W,N2)=<_st(=<last{a=W[][t],b=W[][t+N2],w[][2*t]=(a+b)*0.5,w[][2*t+1]=(a-b)*0.5},0,N2-1),w=W,_rn(=<last{w_row(=<W,first{Np,Np=Np<<1})=>,W=w},Np=1,p),_rn(=<last{W=w,w_col(=<W,first{Nq,Nq=Nq<<1})=>},Nq=1,q),W=buffer},init=>,run=>,return=out=>,=<return]=>
+DWT2d_xy(w)=<[out=<w,init=<last{N=sizer(w),M=sizec(w),W=zeros(N,M),p=round(log2(N)),q=round(log2(M))},run=<last{W_row(w,N)=<_s((t)=<last{a=w[2*t],b=w[2*t+1],W[t]=a+b,W[t+N2]=a-b},N2=N>>1,N2-1),W_col(w,N)=<_s((t)=<last{a=w[][2*t],b=w[][2*t+1],W[][t]=a+b,W[][t+N2]=a-b},N2=N>>1,N2-1),_r((n)=<last{W_row(=<w,first{Np,Np=Np>>1})=>,w=W},Np=1<<p,p),_r((n)=<last{w=W,W_col(=<w,first{Nq,Nq=Nq>>1})=>},Nq=1<<q,q),buffer=W,w_row(W,N2)=<_s((t)=<last{a=W[t],b=W[t+N2],w[2*t]=0.5*(a+b),w[2*t+1]=0.5*(a-b)},0,N2-1),w_col(W,N2)=<_s((t)=<last{a=W[][t],b=W[][t+N2],w[][2*t]=(a+b)*0.5,w[][2*t+1]=(a-b)*0.5},0,N2-1),w=W,_r((n)=<last{w_row(=<W,first{Np,Np=Np<<1})=>,W=w},Np=1,p),_r((n)=<last{W=w,w_col(=<W,first{Nq,Nq=Nq<<1})=>},Nq=1,q),W=buffer},init=>,run=>,return=out=>,=<return]=>
 stored_eqn(DWT2d_xy)
 
 clear
@@ -558,7 +564,7 @@ local storage cleared
 4+4i
 )
 
-DWT1d(w)=<[out=<w,init=<last{N=sizer(w),W=zeros(N,1),p=round(log2(N))},run=<last{W(w,N)=<_st(=<last{a=w[2*t],b=w[2*t+1],W[t]=a+b,W[t+N2]=a-b},N2=N>>1,N2-1),_rn(=<last{W(=<w,first{Np,Np=Np>>1})=>,w=W},Np=1<<p,p),buffer=W,w(W,N2)=<_st(=<last{a=W[t],b=W[t+N2],w[2*t]=0.5*(a+b),w[2*t+1]=0.5*(a-b)},0,N2-1),_rn(=<last{w(=<W,first{Np,Np=Np<<1})=>,W=w},Np=1,p),W=buffer},init=>,run=>,return=out=>,=<return]=>
+DWT1d(w)=<[out=<w,init=<last{N=sizer(w),W=zeros(N,1),p=round(log2(N))},run=<last{W(w,N)=<_s((t)=<last{a=w[2*t],b=w[2*t+1],W[t]=a+b,W[t+N2]=a-b},N2=N>>1,N2-1),_r((n)=<last{W(=<w,first{Np,Np=Np>>1})=>,w=W},Np=1<<p,p),buffer=W,w(W,N2)=<_s((t)=<last{a=W[t],b=W[t+N2],w[2*t]=0.5*(a+b),w[2*t+1]=0.5*(a-b)},0,N2-1),_r((n)=<last{w(=<W,first{Np,Np=Np<<1})=>,W=w},Np=1,p),W=buffer},init=>,run=>,return=out=>,=<return]=>
 stored_eqn(DWT1d)
 
 clear
@@ -572,7 +578,7 @@ infoLost[ri] 3+2.999999999999999i,infoLost[ i] 6.999999999999999+6.9999999999999
 infoLost[ri] 4+3.999999999999999i,infoLost[ri] 8+8.000000000000002i
 )
 
-DFT2d_yx(f)=<[out=<f,init=<last{N=sizer(f),M=sizec(f),Nf=1,Ni=1/N,Mf=1,Mi=1/M,F=zeros(N,M)},run=<last{F(v,u)=<{_sx(=<{_sy(=<f[x][y]*e^(-i*v*y*2*pi/M),0,M-1)*Mf}*e^(-i*u*x*2*pi/N),0,N-1)*Nf},_su(=<_sv(=<F[u][v]=F(v,u)=>,0,M-1),0,N-1),f(y,x)=<{_su(=<{_sv(=<F[u][v]*e^(i*y*v*2*pi/M),0,M-1)*Mi}*e^(i*x*u*2*pi/N),0,N-1)*Ni},_sx(=<_sy(=<f[x][y]=f(y,x)=>,0,M-1),0,N-1)},init=>,run=>,return=out=>,=<return]=>
+DFT2d_yx(f)=<[out=<f,init=<last{N=sizer(f),M=sizec(f),Nf=1,Ni=1/N,Mf=1,Mi=1/M,F=zeros(N,M)},run=<last{F(v,u)=<{_s((x)=<{_s((y)=<f[x][y]*e^(-i*v*y*2*pi/M),0,M-1)*Mf}*e^(-i*u*x*2*pi/N),0,N-1)*Nf},_s((u)=<_s((v)=<F[u][v]=F(v,u)=>,0,M-1),0,N-1),f(y,x)=<{_s((u)=<{_s((v)=<F[u][v]*e^(i*y*v*2*pi/M),0,M-1)*Mi}*e^(i*x*u*2*pi/N),0,N-1)*Ni},_s((x)=<_s((y)=<f[x][y]=f(y,x)=>,0,M-1),0,N-1)},init=>,run=>,return=out=>,=<return]=>
 stored_eqn(DFT2d_yx)
 
 clear
@@ -586,7 +592,7 @@ infoLost[ri] 2.9999999999999996+2.999999999999999i,infoLost[ri] 6.99999999999999
 infoLost[ri] 4.000000000000001+3.9999999999999987i,infoLost[ri] 7.999999999999999+8i
 )
 
-DFT2d_xy(f)=<[out=<f,init=<last{N=sizer(f),M=sizec(f),Nf=1,Ni=1/N,Mf=1,Mi=1/M,F=zeros(N,M)},run=<last{F(u,v)=<{_sy(=<{_sx(=<f[x][y]*e^(-i*u*x*2*pi/N),0,N-1)*Nf}*e^(-i*v*y*2*pi/M),0,M-1)*Mf},_sv(=<_su(=<F[u][v]=F(u,v)=>,0,N-1),0,M-1),f(x,y)=<{_sv(=<{_su(=<F[u][v]*e^(i*x*u*2*pi/N),0,N-1)*Ni}*e^(i*y*v*2*pi/M),0,M-1)*Mi},_sy(=<_sx(=<f[x][y]=f(x,y)=>,0,N-1),0,M-1)},init=>,run=>,return=out=>,=<return]=>
+DFT2d_xy(f)=<[out=<f,init=<last{N=sizer(f),M=sizec(f),Nf=1,Ni=1/N,Mf=1,Mi=1/M,F=zeros(N,M)},run=<last{F(u,v)=<{_s((y)=<{_s((x)=<f[x][y]*e^(-i*u*x*2*pi/N),0,N-1)*Nf}*e^(-i*v*y*2*pi/M),0,M-1)*Mf},_s((v)=<_s((u)=<F[u][v]=F(u,v)=>,0,N-1),0,M-1),f(x,y)=<{_s((v)=<{_s((u)=<F[u][v]*e^(i*x*u*2*pi/N),0,N-1)*Ni}*e^(i*y*v*2*pi/M),0,M-1)*Mi},_s((y)=<_s((x)=<f[x][y]=f(x,y)=>,0,N-1),0,M-1)},init=>,run=>,return=out=>,=<return]=>
 stored_eqn(DFT2d_xy)
 
 clear
@@ -600,7 +606,7 @@ infoLost[ri] 3+2.9999999999999996i:
 infoLost[ri] 4+4i
 )
 
-DFT1d(f)=<[out=<f,init=<last{N=sizer(f),Nf=1,Ni=1/N,F=zeros(N,1)},run=<last{F(u)=<{_sx(=<f[x]*e^(-i*u*x*2*pi/N),0,N-1)*Nf},_su(=<F[u]=F(u)=>,0,N-1),f(x)=<{_su(=<F[u]*e^(i*x*u*2*pi/N),0,N-1)*Ni},_sx(=<f[x]=f(x)=>,0,N-1)},init=>,run=>,return=out=>,=<return]=>
+DFT1d(f)=<[out=<f,init=<last{N=sizer(f),Nf=1,Ni=1/N,F=zeros(N,1)},run=<last{F(u)=<{_s((x)=<f[x]*e^(-i*u*x*2*pi/N),0,N-1)*Nf},_s((u)=<F[u]=F(u)=>,0,N-1),f(x)=<{_s((u)=<F[u]*e^(i*x*u*2*pi/N),0,N-1)*Ni},_s((x)=<f[x]=f(x)=>,0,N-1)},init=>,run=>,return=out=>,=<return]=>
 stored_eqn(DFT1d)
 
 clear
@@ -729,7 +735,7 @@ stored_eqn(ODE_RK4)
 8.88888888888889+3.4444444444444438i+O(8e-7+7e-7i)
 )
 
-Euler_method(t,dt,z_x00,z_v00,z_u,m,kCdA_sphere,isImplicit)=<[out=<{t_total,x_solved},scope2storage=<last{add__(z_x0),add__(z_v0),add__(t_total)},init=<last{switch(has__(t_total)==0,=<last{t_total=0,z_x0=z_x00,z_v0=z_v00}),g=-9.8,z_a=0+g*i,x_initial=<{z_x0,z_v0},switch(isImplicit,=<f(z_x,z_v)=<{(z_x-z_x0)/dt=z_v,m*((z_v-z_v0)/dt)=m*z_a+kCdA_sphere*(z_u-z_v)}:1,=<f(z_x,z_v)=<{(z_x-z_x0)/dt=z_v0,m*((z_v-z_v0)/dt)=m*z_a+kCdA_sphere*(z_u-z_v0)}),orderT=1,epsN=max(eps*1e3,pow(dt,orderT)),isRelative_epsN=1,relative_epsN=(epsN,isRelative_epsN)},run=<last{args_Newton=(=<f,,=<x_initial,Nmax=1e3,Nmax,relative_epsN),step_iteration=<x_solved=Newton(args_Newton),step_post=<{$z_x0,$z_v0}=x_solved,step=<last{step_iteration=>,step_post=>},evolution=<_rn(=<step,N=round(t/dt),N),evolution=>,t_total=t_total+N*dt},init=>,run=>,return=out=>,scope2storage=>,=<return]=>
+Euler_method(t,dt,z_x00,z_v00,z_u,m,kCdA_sphere,isImplicit)=<[out=<{t_total,x_solved},scope2storage=<last{add__(z_x0),add__(z_v0),add__(t_total)},init=<last{switch(has__(t_total)==0,=<last{t_total=0,z_x0=z_x00,z_v0=z_v00}),g=-9.8,z_a=0+g*i,x_initial=<{z_x0,z_v0},switch(isImplicit,=<f(z_x,z_v)=<{(z_x-z_x0)/dt=z_v,m*((z_v-z_v0)/dt)=m*z_a+kCdA_sphere*(z_u-z_v)}:1,=<f(z_x,z_v)=<{(z_x-z_x0)/dt=z_v0,m*((z_v-z_v0)/dt)=m*z_a+kCdA_sphere*(z_u-z_v0)}),orderT=1,epsN=max(eps*1e3,pow(dt,orderT)),isRelative_epsN=1,relative_epsN=(epsN,isRelative_epsN)},run=<last{args_Newton=(=<f,,=<x_initial,Nmax=1e3,Nmax,relative_epsN),step_iteration=<x_solved=Newton(args_Newton),step_post=<{$z_x0,$z_v0}=x_solved,step=<last{step_iteration=>,step_post=>},evolution=<_r((n)=<step=>,N=round(t/dt),N),evolution=>,t_total=t_total+N*dt},init=>,run=>,return=out=>,scope2storage=>,=<return]=>
 stored_eqn(Euler_method)
 
 arr_sorted=sort0(arr),($xt,$yt)=(=<arr_sorted[0],=<arr_sorted[1])
@@ -790,22 +796,22 @@ global_base=0.8919053362520407
 global_n=1e3+1
 global_n=1001
 
-solvex_bisection(=<f_,x0,x1,N)=<[out=<x0,init=<last{epsf=1e-7,isBreak=<isNaN(x0)|||norm(y0)<epsf},run=<_rn(=<last{x=(x0+x1)/2,y=f_(x)=>,y0=f_(x0)=>,y1=f_(x1)=>,sign(y)==sign(y0)&&&(x0=x)||||sign(y)==sign(y1)&&&(x1=x),x0},,N,=<isBreak),init=>,run=>,return=out=>,=<return]=>
+solvex_bisection(=<f_,x0,x1,N)=<[out=<x0,init=<last{epsf=1e-7,isBreak=<isNaN(x0)|||norm(y0)<epsf},run=<_r((n)=<last{x=(x0+x1)/2,y=f_(x)=>,y0=f_(x0)=>,y1=f_(x1)=>,sign(y)==sign(y0)&&&(x0=x)||||sign(y)==sign(y1)&&&(x1=x),x0},,N,=<isBreak),init=>,run=>,return=out=>,=<return]=>
 stored_eqn(solvex_bisection)
 
-solvex_non_linear(==<f_,=<x_initial_)=<[out=<x_solved,init=<last{_e((x)=<x,sizer(x_initial_=>),1)},run=<last{x_solved=Newton(=<f_,,=<x_initial_,Nmax=1e3,Nmax,1e-10,1)},init=>,run=>,return=out=>,=<return]=>
+solvex_non_linear(==<f_,=<x_initial_)=<[out=<x_solved,init=<last{0},run=<last{x_solved=Newton(=<f_,,=<x_initial_,Nmax=1e3,Nmax,1e-10,1)},init=>,run=>,return=out=>,=<return]=>
 stored_eqn(solvex_non_linear)
 
 clear
 local storage cleared
 
-[f=<{x0^i-2*x1=3i,3*x0+exp(x1)=5i},=<solvex_non_linear(=<f,=<{1+i,1-i})=>]=>
+[f=<{__x__[0]^i-2*__x__[1]=3i,3*__x__[0]+exp(__x__[1])=5i},=<solvex_non_linear(=<f,=<{1+i,1-i})=>]=>
 (
 -0.049019216205446525+2.0234230451583515i+O(9e-14+1e-14i):
 0.07726186556052178-1.434248862158042i+O(5e-13+5e-13i)
 )
 
-solvex_non_linear(==<f_,=<x_initial_)=<[out=<x_solved,init=<last{_e((x)=<x,sizer(x_initial_=>),1)},run=<last{x_solved=Newton(=<f_,=<x,=<x_initial_,Nmax=1e3,Nmax,1e-10,1)},init=>,run=>,return=out=>,=<return]=>
+solvex_non_linear(==<f_,=<x_initial_)=<[out=<x_solved,init=<last{0},run=<last{x_solved=Newton(=<f_,,=<x_initial_,Nmax=1e3,Nmax,1e-10,1)},init=>,run=>,return=out=>,=<return]=>
 stored_eqn(solvex_non_linear)
 
 clear
@@ -818,7 +824,7 @@ infoLost[ri] 0.04999999999999999-3.688196100059626e-24i+O(2e-14+3e-14i),infoLost
 infoLost[ri] 1.6369179327698083e-24-0.5583333333333333i+O(1e-13+2e-13i),infoLost[ri] 0.05+1.4659244429541018e-25i+O(2e-14+9e-15i),infoLost[ri] -3.1762064399094643e-25+0.10833333333333334i+O(2e-14+5e-14i)
 )
 
-solveAinv(A)=<[out=<Ainv,init=<last{sizeA=size(A),_e((Ainv)=<x,sizeA,sizeA),_e((x)=<x,sizeA*sizeA,1)},run=<last{f=<(Ainv=>)*A=identity(sizeA),x_solved=Newton(=<f,=<x,,Nmax=1e3,Nmax,1e-10,1),Ainv=reshape(x_solved:sizeA,sizeA)},init=>,run=>,return=out=>,=<return]=>
+solveAinv(A)=<[out=<Ainv,init=<last{sizeA=size(A),x0=vectorc(sizeA*sizeA)},run=<last{f=<reshape(__x__:sizeA,sizeA)*A=identity(sizeA),x_solved=Newton(=<f,,=<{x0},Nmax=1e3,Nmax,1e-10,1),Ainv=reshape(x_solved:sizeA,sizeA)},init=>,run=>,return=out=>,=<return]=>
 stored_eqn(solveAinv)
 
 clear
@@ -868,7 +874,7 @@ i,2,3i:
 7i,8,9i
 )
 
-solvex_iteration(A,b)=<[out=<x_solved,init=<last{sizeA=size(A),sizerb=sizer(b),sizecb=sizec(b),isRow=sizerb<sizecb,isRow&&&_e((x)=<x,1,sizeA)||||_e((x)=<x,sizeA,1)},run=<last{isRow&&&(f=<(x=>)*A=b)||||(f=<A*(x=>)=b),x_solved=Newton(=<f,=<x,,Nmax=1e3,Nmax,1e-10,1)},init=>,run=>,return=out=>,=<return]=>
+solvex_iteration(A,b)=<[out=<x_solved,init=<last{sizeA=size(A),sizerb=sizer(b),sizecb=sizec(b),isRow=sizerb<sizecb},run=<last{isRow&&&(f=<(__x__.)*A=b)||||(f=<A*(__x__)=b),x_solved=Newton(=<f,,=<{b*0},Nmax=1e3,Nmax,1e-10,1)},init=>,run=>,return=out=>,=<return]=>
 stored_eqn(solvex_iteration)
 
 clear
@@ -881,7 +887,7 @@ local storage cleared
 -0.02500000000000001i
 )
 
-solvex_no_pivotting(A,b)=<[out=<x,init=<last{sizeA=size(A),x=zeros(sizeA,1)},run=<last{forward=<last{k=A[ir][ic]/A[ic][ic],A[ir]=A[ir]-k*A[ic],b[ir]=b[ir]-k*b[ic]},backward=<x[ir]=(b[ir]-A[ir]*x)/A[ir][ir],_sic(=<_sir(=<forward,ic+1,sizeA-1),0,sizeA-2),_sir(=<backward,sizeA-1,0)},init=>,run=>,return=out=>,=<return]=>
+solvex_no_pivotting(A,b)=<[out=<x,init=<last{sizeA=size(A),x=zeros(sizeA,1)},run=<last{forward=<last{k=A[ir][ic]/A[ic][ic],A[ir]=A[ir]-k*A[ic],b[ir]=b[ir]-k*b[ic]},backward=<x[ir]=(b[ir]-A[ir]*x)/A[ir][ir],_s((ic)=<_s((ir)=<forward=>,ic+1,sizeA-1),0,sizeA-2),_s((ir)=<backward=>,sizeA-1,0)},init=>,run=>,return=out=>,=<return]=>
 stored_eqn(solvex_no_pivotting)
 
 clear
@@ -894,7 +900,7 @@ local storage cleared
 -0.025000000000000005i
 )
 
-solvex_pivotting(A,b)=<[out=<x,init=<last{sizeA=size(A),x=zeros(sizeA,1)},run=<last{compare=<switch(abs(A[ir][ir])<abs(A[ir_comp][ir]),=<ir_pivot=ir_comp),proc=<{w=A[ir],A[ir]=A[ir_pivot],A[ir_pivot]=w,w=b[ir],b[ir]=b[ir_pivot],b[ir_pivot]=w},pivotting=<last{ir_pivot=ir,compare=>,switch(ir<>ir_pivot,=<proc)},forward=<last{k=A[ir][ic]/A[ic][ic],A[ir]=A[ir]-k*A[ic],b[ir]=b[ir]-k*b[ic]},backward=<x[ir]=(b[ir]-A[ir]*x)/A[ir][ir],_sir(=<_sir_comp(=<pivotting,ir+1,sizeA-1),0,sizeA-2),_sic(=<_sir(=<forward,ic+1,sizeA-1),0,sizeA-2),_sir(=<backward,sizeA-1,0)},init=>,run=>,return=out=>,=<return]=>
+solvex_pivotting(A,b)=<[out=<x,init=<last{sizeA=size(A),x=zeros(sizeA,1)},run=<last{compare=<switch(abs(A[ir][ir])<abs(A[ir_comp][ir]),=<ir_pivot=ir_comp),proc=<{w=A[ir],A[ir]=A[ir_pivot],A[ir_pivot]=w,w=b[ir],b[ir]=b[ir_pivot],b[ir_pivot]=w},pivotting=<last{ir_pivot=ir,compare=>,switch(ir<>ir_pivot,=<proc)},forward=<last{k=A[ir][ic]/A[ic][ic],A[ir]=A[ir]-k*A[ic],b[ir]=b[ir]-k*b[ic]},backward=<x[ir]=(b[ir]-A[ir]*x)/A[ir][ir],_s((ir)=<_s((ir_comp)=<pivotting=>,ir+1,sizeA-1),0,sizeA-2),_s((ic)=<_s((ir)=<forward=>,ic+1,sizeA-1),0,sizeA-2),_s((ir)=<backward=>,sizeA-1,0)},init=>,run=>,return=out=>,=<return]=>
 stored_eqn(solvex_pivotting)
 
 clear
@@ -921,7 +927,7 @@ infoLost[r ] 0:
 clear
 local storage cleared
 
-[rand_Ab=<last{N=5,A=zeros(N,N),b=vectorc(N),gen_rand=<rand()+rand()*i,_sir(=<last{_sic(=<A[ir][ic]=gen_rand=>,0,N-1),b[ir]=gen_rand=>},0,N-1)},rand_Ab=>,=<Gauss(A,b)-solvex_Gauss(=<A,=<b)=>]=>
+[rand_Ab=<last{N=5,A=zeros(N,N),b=vectorc(N),gen_rand=<rand()+rand()*i,_s((ir)=<last{_s((ic)=<A[ir][ic]=gen_rand=>,0,N-1),b[ir]=gen_rand=>},0,N-1)},rand_Ab=>,=<Gauss(A,b)-solvex_Gauss(=<A,=<b)=>]=>
 (
 0:
 0:
@@ -930,7 +936,7 @@ local storage cleared
 0
 )
 
-solvex_Gauss(A,b)=<[out=<x,init=<last{sizeA=size(A),x=zeros(sizeA,1)},run=<last{compare=<last{absA_comp=abs(A[ir_comp][ir]),switch(absA_pivot<absA_comp,=<last{ir_pivot=ir_comp,absA_pivot=absA_comp})},proc=<{w=A[ir],A[ir]=A[ir_pivot],A[ir_pivot]=w,w=b[ir],b[ir]=b[ir_pivot],b[ir_pivot]=w},pivotting=<last{ir_pivot=ir,absA_pivot=abs(A[ir][ir]),_sir_comp(=<compare,ir+1,sizeA-1),switch(ir<>ir_pivot,=<proc)},forward=<last{k=A[ir][ic]/A[ic][ic],A[ir]=A[ir]-k*A[ic],b[ir]=b[ir]-k*b[ic]},backward=<last{r=b[ir],_sic(=<r=r-A[ir][ic]*x[ic],ir+1,sizeA-1),x[ir]=r/A[ir][ir]},_sir(=<pivotting,0,sizeA-2),_sic(=<_sir(=<forward,ic+1,sizeA-1),0,sizeA-2),x[sizeA-1]=b[sizeA-1]/A[sizeA-1][sizeA-1],_sir(=<backward,sizeA-2,0)},init=>,run=>,return=out=>,=<return]=>
+solvex_Gauss(A,b)=<[out=<x,init=<last{sizeA=size(A),x=zeros(sizeA,1)},run=<last{compare=<last{absA_comp=abs(A[ir_comp][ir]),switch(absA_pivot<absA_comp,=<last{ir_pivot=ir_comp,absA_pivot=absA_comp})},proc=<{w=A[ir],A[ir]=A[ir_pivot],A[ir_pivot]=w,w=b[ir],b[ir]=b[ir_pivot],b[ir_pivot]=w},pivotting=<last{ir_pivot=ir,absA_pivot=abs(A[ir][ir]),_s((ir_comp)=<compare=>,ir+1,sizeA-1),switch(ir<>ir_pivot,=<proc)},forward=<last{k=A[ir][ic]/A[ic][ic],A[ir]=A[ir]-k*A[ic],b[ir]=b[ir]-k*b[ic]},backward=<last{r=b[ir],_s((ic)=<r=r-A[ir][ic]*x[ic],ir+1,sizeA-1),x[ir]=r/A[ir][ir]},_s((ir)=<pivotting=>,0,sizeA-2),_s((ic)=<_s((ir)=<forward=>,ic+1,sizeA-1),0,sizeA-2),x[sizeA-1]=b[sizeA-1]/A[sizeA-1][sizeA-1],_s((ir)=<backward=>,sizeA-2,0)},init=>,run=>,return=out=>,=<return]=>
 stored_eqn(solvex_Gauss)
 
 clear
@@ -982,7 +988,7 @@ local storage cleared
 6,12,0
 )
 
-LpR(L,R)=<[product=<LR[ir][ic]=ttL[ir]*(ttR.)[ic].,ttL=L..,ttR=R..,LR=zeros(sizer(ttL),sizec(ttR)),_sir(=<_sic(=<product,0,sizec(ttR)-1),0,sizer(ttL)-1),=<LR]=>
+LpR(L,R)=<[product=<LR[ir][ic]=ttL[ir]*(ttR.)[ic].,ttL=L..,ttR=R..,LR=zeros(sizer(ttL),sizec(ttR)),_s((ir)=<_s((ic)=<product=>,0,sizec(ttR)-1),0,sizer(ttL)-1),=<LR]=>
 stored_eqn(LpR)
 
 clear
@@ -1427,7 +1433,7 @@ plot2d_bspline(=<{0,1,2,3,2},=<{1,4,2,4,4}*(1+2i))=>
 2,1.5,2.5,2.5,4+8i,3+6i,3+6i,4+8i
 )
 
-plot2d_bspline(x,y)=<[out=<(xt,yt),scope2storage=<last{add__(xt),add__(yt)},init=<last{N=min(sizer(x),sizer(y))-1,M=N-1,xt=zeros(N+1,M),yt=zeros(N+1,M)},run=<last{_sm(=<_sn(=<last{($xnm,$ynm)=bspline2d(=<x,=<y,m,n/N)=>,xt[n][m-1]=xnm,yt[n][m-1]=ynm},0,N),1,M),xt=(x,xt),yt=(y,yt)},init=>,run=>,return=out=>,scope2storage=>,=<return]=>
+plot2d_bspline(x,y)=<[out=<(xt,yt),scope2storage=<last{add__(xt),add__(yt)},init=<last{N=min(sizer(x),sizer(y))-1,M=N-1,xt=zeros(N+1,M),yt=zeros(N+1,M)},run=<last{_s((m)=<_s((n)=<last{($xnm,$ynm)=bspline2d(=<x,=<y,m,n/N)=>,xt[n][m-1]=xnm,yt[n][m-1]=ynm},0,N),1,M),xt=(x,xt),yt=(y,yt)},init=>,run=>,return=out=>,scope2storage=>,=<return]=>
 stored_eqn(plot2d_bspline)
 
 bspline2d(x,y,i_,t)=<[out=<(xy),init=<last{Si(i_,t)=<0.5*(t^2,t,1)*(1,-2,1:-2,2,0:1,1,0)*{(x[i_-1],y[i_-1]),(x[i_],y[i_]),(x[i_+1],y[i_+1])}},run=<last{xy=Si(i_,t)=>},init=>,run=>,return=out=>,=<return]=>
@@ -1450,10 +1456,10 @@ plot2d_nspline(=<{0,1,2,3,4,5,6,7,8,9},=<{1,3,2,5,0,-3,-2,-5,-1,-1}*(1+2i))=>
 9,-1-2i
 )
 
-plot2d_nspline(x,y)=<[out=<(xt,yt),scope2storage=<last{add__(xt),add__(yt)},init=<last{N=min(sizer(x),sizer(y))-1,dx=x[1][0][N][1]-x,xt=(x+dx/2)[0][0][N][1],yt=zeros(N,1)},run=<last{u=nspline3d(=<x,=<y)=>,b=u[0][0][N][1],c=u[N][0][N][1],d=u[2*N][0][N][1],_si_(=<last{dxi=xt[i_]-x[i_],yt[i_]=y[i_]+b[i_]*dxi+c[i_]*dxi**2+d[i_]*dxi**3},0,N-1),yinterp=interp3(trans(xt):trans(x,y)),xt=(x,xt),yt=(y,yt,trans(yinterp))},init=>,run=>,return=out=>,scope2storage=>,=<return]=>
+plot2d_nspline(x,y)=<[out=<(xt,yt),scope2storage=<last{add__(xt),add__(yt)},init=<last{N=min(sizer(x),sizer(y))-1,dx=x[1][0][N][1]-x,xt=(x+dx/2)[0][0][N][1],yt=zeros(N,1)},run=<last{u=nspline3d(=<x,=<y)=>,b=u[0][0][N][1],c=u[N][0][N][1],d=u[2*N][0][N][1],_s((i_)=<last{dxi=xt[i_]-x[i_],yt[i_]=y[i_]+b[i_]*dxi+c[i_]*dxi**2+d[i_]*dxi**3},0,N-1),yinterp=interp3(trans(xt):trans(x,y)),xt=(x,xt),yt=(y,yt,trans(yinterp))},init=>,run=>,return=out=>,scope2storage=>,=<return]=>
 stored_eqn(plot2d_nspline)
 
-nspline3d(x,y)=<[out=<(u),init=<last{N=min(sizer(x),sizer(y))-1,dx=x[1][0][N][1]-x,dy=y[1][0][N][1]-y,r=vectorc(3*N),coo=zeros(3,10*N-4)},run=<last{_sj(=<last{n=j+1,j0=3*j,dxi=dx[j],dyi=dy[j],coo[0][j0][1][3]=(dxi,dxi**2,dxi**3),coo[1][j0][1][3]=(n,n,n),coo[2][j0][1][3]=(n,N+n,2*N+n),r[j]=dyi},0,N-1),_sj(=<last{n=j+1,j0=3*N+4*j,dxi=dx[j],coo[0][j0][1][4]=(1,-1,2*dxi,3*dxi**2),coo[1][j0][1][4]=(N+n,N+n,N+n,N+n),coo[2][j0][1][4]=(n,n+1,N+n,2*N+n)},0,N-2),_sj(=<last{n=j+1,j0=7*N+3*j-4,dxi=dx[j],coo[0][j0][1][3]=(1,-1,3*dxi),coo[1][j0][1][3]=(2*N+n-1,2*N+n-1,2*N+n-1),coo[2][j0][1][3]=(N+n,N+n+1,2*N+n)},0,N-2),j0=10*N-4-3,coo[0][j0][1][3]=(1,1,3*dx[N-1]),coo[1][j0][1][3]=(3*N-1,3*N,3*N),coo[2][j0][1][3]=(N+1,2*N,3*N),u=Gauss_coo(coo:trans(r))},init=>,run=>,return=out=>,=<return]=>
+nspline3d(x,y)=<[out=<(u),init=<last{N=min(sizer(x),sizer(y))-1,dx=x[1][0][N][1]-x,dy=y[1][0][N][1]-y,r=vectorc(3*N),coo=zeros(3,10*N-4)},run=<last{_s((j)=<last{n=j+1,j0=3*j,dxi=dx[j],dyi=dy[j],coo[0][j0][1][3]=(dxi,dxi**2,dxi**3),coo[1][j0][1][3]=(n,n,n),coo[2][j0][1][3]=(n,N+n,2*N+n),r[j]=dyi},0,N-1),_s((j)=<last{n=j+1,j0=3*N+4*j,dxi=dx[j],coo[0][j0][1][4]=(1,-1,2*dxi,3*dxi**2),coo[1][j0][1][4]=(N+n,N+n,N+n,N+n),coo[2][j0][1][4]=(n,n+1,N+n,2*N+n)},0,N-2),_s((j)=<last{n=j+1,j0=7*N+3*j-4,dxi=dx[j],coo[0][j0][1][3]=(1,-1,3*dxi),coo[1][j0][1][3]=(2*N+n-1,2*N+n-1,2*N+n-1),coo[2][j0][1][3]=(N+n,N+n+1,2*N+n)},0,N-2),j0=10*N-4-3,coo[0][j0][1][3]=(1,1,3*dx[N-1]),coo[1][j0][1][3]=(3*N-1,3*N,3*N),coo[2][j0][1][3]=(N+1,2*N,3*N),u=Gauss_coo(coo:trans(r))},init=>,run=>,return=out=>,=<return]=>
 stored_eqn(nspline3d)
 
 clear
@@ -1473,7 +1479,7 @@ plot2d_Lagrange(=<{0,1,2,3,4,5,6,7,8,9},=<{1,3,2,5,0,-3,-2,-5,-1,-1}*(1+2i))=>
 9,-1-2i
 )
 
-plot2d_Lagrange(x,y)=<[out=<(xt,yt),scope2storage=<last{add__(xt),add__(yt)},init=<last{N=min(sizer(x),sizer(y))-1,dx=x[1][0][N][1]-x,xt=(x+dx/2)[0][0][N][1],yt=zeros(N,1)},run=<last{ljx(j,x_)=<_pm(=<m==j&&&1|||(x_-x[m])/(x[j]-x[m]),0,N),Lkx(x_)=<_sj(=<y[j]*ljx(j,x_)=>,0,N),_si_(=<yt[i_]=Lkx(xt[i_])=>,0,N-1),yinterp=interp2(trans(xt):trans(x,y)),xt=(x,xt),yt=(y,yt,trans(yinterp))},init=>,run=>,return=out=>,scope2storage=>,=<return]=>
+plot2d_Lagrange(x,y)=<[out=<(xt,yt),scope2storage=<last{add__(xt),add__(yt)},init=<last{N=min(sizer(x),sizer(y))-1,dx=x[1][0][N][1]-x,xt=(x+dx/2)[0][0][N][1],yt=zeros(N,1)},run=<last{ljx(j,x_)=<_p((m)=<m==j&&&1|||(x_-x[m])/(x[j]-x[m]),0,N),Lkx(x_)=<_s((j)=<y[j]*ljx(j,x_)=>,0,N),_s((i_)=<yt[i_]=Lkx(xt[i_])=>,0,N-1),yinterp=interp2(trans(xt):trans(x,y)),xt=(x,xt),yt=(y,yt,trans(yinterp))},init=>,run=>,return=out=>,scope2storage=>,=<return]=>
 stored_eqn(plot2d_Lagrange)
 
 clear
@@ -1494,7 +1500,7 @@ plot2d_evolution(0,5,0.5,0,20+20i,0,1,1)=>
 19.86470649057239+O(6e-2),-19.40158732904714
 )
 
-plot2d_evolution(t0,t1,dt,z_x0,z_v0,z_u,m,kCdA_sphere)=<[out=<(xt,yt),scope2storage=<last{add__(xt),add__(yt)},init=<last{g=-9.8,z_a=0+g*i,t=0,x_initial=<{z_x0,z_v0},f(t,z_x,z_v)=<{z_v,z_a+(kCdA_sphere/m)*(z_u-z_v)},N=round((t1-t0)/dt),M=0,xt=zeros(N+1,M+1),yt=zeros(N+1,M+1)},run=<last{dtn=<n<=0&&0||||dt,x_next=x_initial=>,step=<last{dt0=dtn=>,x_next=_o(=<f,,=<{x_next},t,dt0),t=t+dt0},stepnm=<last{step=>,z_x=x_next[0],xt[n][mdummy]=real(z_x),yt[n][mdummy]=imag(z_x)},casesM=<_smdummy(=<stepnm,0,M),evolutionN=<_sn(=<casesM,0,N),evolutionN=>},init=>,run=>,return=out=>,scope2storage=>,=<return]=>
+plot2d_evolution(t0,t1,dt,z_x0,z_v0,z_u,m,kCdA_sphere)=<[out=<(xt,yt),scope2storage=<last{add__(xt),add__(yt)},init=<last{g=-9.8,z_a=0+g*i,t=0,x_initial=<{z_x0,z_v0},f(t,z_x,z_v)=<{z_v,z_a+(kCdA_sphere/m)*(z_u-z_v)},N=round((t1-t0)/dt),M=0,xt=zeros(N+1,M+1),yt=zeros(N+1,M+1)},run=<last{dtn=<n<=0&&0||||dt,x_next=x_initial=>,step=<last{dt0=dtn=>,x_next=_o(=<f,,=<{x_next},t,dt0),t=t+dt0},stepnm=<last{step=>,z_x=x_next[0],xt[n][mdummy]=real(z_x),yt[n][mdummy]=imag(z_x)},casesM=<_s((mdummy)=<stepnm=>,0,M),evolutionN=<_s((n)=<casesM=>,0,N),evolutionN=>},init=>,run=>,return=out=>,scope2storage=>,=<return]=>
 stored_eqn(plot2d_evolution)
 
 clear
@@ -1515,7 +1521,7 @@ plot2d_circle(0,2*pi,10,3)=>
 0,1,2,3,0,-2.4492935982947064e-16,-4.898587196589413e-16,-7.347880794884119e-16
 )
 
-plot2d_circle(t0,t1,N,M)=<[out=<(xt,yt),scope2storage=<last{add__(xt),add__(yt)},init=<last{tn=<t0+(t1-t0)*n/N,xt=zeros(N+1,M+1),yt=zeros(N+1,M+1)},run=<last{stepnm=<last{tn=tn=>,xt[n][m]=cos(tn)*m,yt[n][m]=sin(tn)*m},casesM=<_sm(=<stepnm,0,M),evolutionN=<_sn(=<casesM,0,N),evolutionN=>},init=>,run=>,return=out=>,scope2storage=>,=<return]=>
+plot2d_circle(t0,t1,N,M)=<[out=<(xt,yt),scope2storage=<last{add__(xt),add__(yt)},init=<last{tn=<t0+(t1-t0)*n/N,xt=zeros(N+1,M+1),yt=zeros(N+1,M+1)},run=<last{stepnm=<last{tn=tn=>,xt[n][m]=cos(tn)*m,yt[n][m]=sin(tn)*m},casesM=<_s((m)=<stepnm=>,0,M),evolutionN=<_s((n)=<casesM=>,0,N),evolutionN=>},init=>,run=>,return=out=>,scope2storage=>,=<return]=>
 stored_eqn(plot2d_circle)
 
 clear
@@ -1923,7 +1929,7 @@ x_long=(
 clear
 local storage cleared
 
-[isStrict=0,N=3,N2=int(N/2),filter=vectorc(N*N),Nbit=N-1,wmax=2**Nbit,calc_w(s2)=<switch(isStrict==0,round(wmax*exp(-0.5*s2)):1,exp(-0.5*s2)),_sir(=<{_sic(=<filter[(ir+N2)*N+(ic+N2)]=calc_w(ir**2+ic**2)=>,-N2,N2)},-N2,N2),=<trans(filter)]=>
+[isStrict=0,N=3,N2=int(N/2),filter=vectorc(N*N),Nbit=N-1,wmax=2**Nbit,calc_w(s2)=<switch(isStrict==0,round(wmax*exp(-0.5*s2)):1,exp(-0.5*s2)),_s((ir)=<{_s((ic)=<filter[(ir+N2)*N+(ic+N2)]=calc_w(ir**2+ic**2)=>,-N2,N2)},-N2,N2),=<trans(filter)]=>
 (
 1,2,1,2,4,2,1,2,1
 )
@@ -1931,7 +1937,7 @@ local storage cleared
 clear
 local storage cleared
 
-[isSquare=0,N=13,N2=int(N/2),filter=vectorc(N*N),x=1,y=2,k=3,rad=pi/4,rotz_LHS(psi)=<{rt=real(psi),=<(cos(rt),sin(rt),:-sin(rt),cos(rt),:,,1)}=>,Rz=rotz_LHS(rad)=>,isOutOfArea(x)=<switch(isSquare==0,x[0]**2+(x[1]*k)**2>N2**2:1,(x[0]**2>N2**2)|((x[1]*k)**2>N2**2)),calc_w(ir,ic)=<switch(isOutOfArea(=<Rz*{ic-x,ir-y,1})=>,0:1,1),_sir(=<{_sic(=<filter[(ir+N2)*N+(ic+N2)]=calc_w(ir,ic)=>,-N2,N2)},-N2,N2),=<trans(filter)]=>
+[isSquare=0,N=13,N2=int(N/2),filter=vectorc(N*N),x=1,y=2,k=3,rad=pi/4,rotz_LHS(psi)=<{rt=real(psi),=<(cos(rt),sin(rt),:-sin(rt),cos(rt),:,,1)}=>,Rz=rotz_LHS(rad)=>,isOutOfArea(x)=<switch(isSquare==0,x[0]**2+(x[1]*k)**2>N2**2:1,(x[0]**2>N2**2)|((x[1]*k)**2>N2**2)),calc_w(ir,ic)=<switch(isOutOfArea(=<Rz*{ic-x,ir-y,1})=>,0:1,1),_s((ir)=<{_s((ic)=<filter[(ir+N2)*N+(ic+N2)]=calc_w(ir,ic)=>,-N2,N2)},-N2,N2),=<trans(filter)]=>
 (
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,1,1,0,0,0,0,0,0,0,0,0,0,1,1,1,1,0,0,0,0,0,0,0,0,0,1,1,1,1,1,0,0,0,0,0,0,0,0,0,1,1,1,1,1,0,0,0,0,0,0,0,0,0,1,1,1,1,1,0,0,0,0,0,0,0,0,0,1,1,1,1,1,0,0,0,0,0,0,0,0,0,1,1,1,1,1,0,0,0,0,0,0,0,0,0,1,1,1,1,0,0,0,0,0,0,0,0,0,0,1,1,1,0
 )
@@ -1939,7 +1945,7 @@ local storage cleared
 clear
 local storage cleared
 
-[isSquare=0,N=3,N2=int(N/2),filter=vectorc(N*N),calc_w(s2)=<switch(isSquare==0,switch(s2>N2**2,0:1,1):1,1),_sir(=<{_sic(=<filter[(ir+N2)*N+(ic+N2)]=calc_w(ir**2+ic**2)=>,-N2,N2)},-N2,N2),=<trans(filter)]=>
+[isSquare=0,N=3,N2=int(N/2),filter=vectorc(N*N),calc_w(s2)=<switch(isSquare==0,switch(s2>N2**2,0:1,1):1,1),_s((ir)=<{_s((ic)=<filter[(ir+N2)*N+(ic+N2)]=calc_w(ir**2+ic**2)=>,-N2,N2)},-N2,N2),=<trans(filter)]=>
 (
 0,1,0,1,1,1,0,1,0
 )
@@ -1947,8 +1953,8 @@ local storage cleared
 clear
 local storage cleared
 
-[Pinv_y=(-0.999999427,-0.999936657,-0.997300203,-0.954499736,-0.682689492,0,0.682689492,0.954499736,0.997300203,0.999936657,0.999999427:-5,-4,-3,-2,-1,0,1,2,3,4,5),N=1,arr=[],_rn(=<arr.push(rand_table(=<Pinv_y)=>),,N),=<arr.]=>
--0.10102233501454883
+[Pinv_y=(-0.999999427,-0.999936657,-0.997300203,-0.954499736,-0.682689492,0,0.682689492,0.954499736,0.997300203,0.999936657,0.999999427:-5,-4,-3,-2,-1,0,1,2,3,4,5),N=1,arr=[],_r((n)=<arr.push(rand_table(=<Pinv_y)=>),,N),=<arr.]=>
+-0.7341200860413931
 
 rand_table(csv)=<last[table=sort0(csv),ymin=min(table)[0],ymax=max(table)[0],y=ymin+(ymax-ymin)*rand(),x=interp(y:table),x]
 stored_eqn(rand_table)
@@ -1997,7 +2003,7 @@ local storage cleared
 lcm_(a,b)=<a*(b/gcd_(a,b)=>)
 stored_eqn(lcm_)
 
-gcd_(a0,b0)=<last[a=a0,b=b0,_rn(=<last{ia=round(a),ib=round(b),a=ia<0||ib===0&&&ia|||ib,b=ia%(ib||1)},isBreak_a=<isNaN(a)|||a<0&&&~~(a=false),1e6,=<{isBreak_a=>|||b==0}),a]
+gcd_(a0,b0)=<last[a=a0,b=b0,_r((n)=<last{ia=round(a),ib=round(b),a=ia<0||ib===0&&&ia|||ib,b=ia%(ib||1)},isBreak_a=<isNaN(a)|||a<0&&&~~(a=false),1e6,=<{isBreak_a=>|||b==0}),a]
 stored_eqn(gcd_)
 
 clear
@@ -3851,4 +3857,4 @@ center=true&drag=false&test-case=false&plot-all=true&relzooming=true&snap=true&l
 --------------------------------
 --------------------------------
 
-online-simulator.github.io.6.476.644.22.150 @ Fri Apr 25 2025 21:24:39 GMT+0900 (日本標準時) @ Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/135.0.0.0 Safari/537.36
+online-simulator.github.io.6.479.645.22.150 @ Sat Apr 26 2025 18:04:42 GMT+0900 (日本標準時) @ Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/135.0.0.0 Safari/537.36

@@ -7779,11 +7779,11 @@ A=(1,2:3,4); A[][][][] -> <del>(1,2:3,4)</del>[MyErr]Invalid reference of array(
 <br>
 　dummy変数の<a href="#span-out-vars-symbol">変数名symbol</a>：関数名の一部　⇒　関数の引数
 <br>
-　影響項目：<a href="#span-out-FNh">高階関数</a>||<a href="#span-eqn">strict-mode式変数list</a>（未修正）
+　影響項目：<a href="#span-out-FNh">高階関数</a>||<a href="#span-eqn">strict-mode式変数list</a>
 <br>
 ・<span class="run">Ver.2.813.131</span>以降、<a href="#span-out-FNmh-EX">symbolic高階行列関数</a>の仕様廃止（<span class="run">Ver.2.736.107</span>~<span class="run">2.739.107</span>以降、冗長）
 <br>
-　影響項目：<a href="#span-eqn">strict-mode式変数list</a>（未修正）
+　影響項目：<a href="#span-eqn">strict-mode式変数list</a>（<span class="run">Ver.2.815.131</span>以降、<a href="#span-eqn-heat1d_evolution">heat1d_evolution</a>のみ、<a href="#span-out-error-numerical">数値解</a>を変更）
     </td>
   </tr>
   <tr>
@@ -47005,7 +47005,7 @@ clear;
 <br>
 gcd_(a0,b0)=&lt;last[
 <br>
-a=a0,b=b0,_rn(=&lt;last{ia=round(a),ib=round(b),a=ia&lt;0||ib===0&amp;&amp;&amp;ia|||ib,b=ia%(ib||1)},
+a=a0,b=b0,_r((n)=&lt;last{ia=round(a),ib=round(b),a=ia&lt;0||ib===0&amp;&amp;&amp;ia|||ib,b=ia%(ib||1)},
 <br>
 isBreak_a=&lt;isNaN(a)|||a&lt;0&amp;&amp;&amp;~~(a=false),1e6,=&lt;{isBreak_a=&gt;|||b==0}),a];
 <br>
@@ -47092,7 +47092,7 @@ x=interp(y:table),x];
 <br>
 ),
 <br>
-N=1,arr=[],_rn(=&lt;arr.push(rand_table(=&lt;Pinv_y)=&gt;),,N),=&lt;arr.]=&gt;;
+N=1,arr=[],_r((n)=&lt;arr.push(rand_table(=&lt;Pinv_y)=&gt;),,N),=&lt;arr.]=&gt;;
     </td>
   </tr>
   <tr>
@@ -47113,7 +47113,7 @@ clear;
 <br>
 calc_w(s2)=&lt;switch(isSquare==0,switch(s2&gt;N2**2,0:1,1):1,1),
 <br>
-_sir(=&lt;{_sic(=&lt;filter[(ir+N2)*N+(ic+N2)]=calc_w(ir**2+ic**2)=&gt;,-N2,N2)},-N2,N2),
+_s((ir)=&lt;{_s((ic)=&lt;filter[(ir+N2)*N+(ic+N2)]=calc_w(ir**2+ic**2)=&gt;,-N2,N2)},-N2,N2),
 <br>
 =&lt;trans(filter)]=&gt;;
     </td>
@@ -47152,7 +47152,7 @@ isSquare==0,x[0]**2+(x[1]*k)**2&gt;N2**2:
 <br>
 calc_w(ir,ic)=&lt;switch(isOutOfArea(=&lt;Rz*{ic-x,ir-y,1})=&gt;,0:1,1),
 <br>
-_sir(=&lt;{_sic(=&lt;filter[(ir+N2)*N+(ic+N2)]=calc_w(ir,ic)=&gt;,-N2,N2)},-N2,N2),
+_s((ir)=&lt;{_s((ic)=&lt;filter[(ir+N2)*N+(ic+N2)]=calc_w(ir,ic)=&gt;,-N2,N2)},-N2,N2),
 <br>
 =&lt;trans(filter)]=&gt;;
     </td>
@@ -47175,7 +47175,7 @@ clear;
 <br>
 calc_w(s2)=&lt;switch(isStrict==0,round(wmax*exp(-0.5*s2)):1,exp(-0.5*s2)),
 <br>
-_sir(=&lt;{_sic(=&lt;filter[(ir+N2)*N+(ic+N2)]=calc_w(ir**2+ic**2)=&gt;,-N2,N2)},-N2,N2),
+_s((ir)=&lt;{_s((ic)=&lt;filter[(ir+N2)*N+(ic+N2)]=calc_w(ir**2+ic**2)=&gt;,-N2,N2)},-N2,N2),
 <br>
 =&lt;trans(filter)]=&gt;;
     </td>
@@ -47412,9 +47412,9 @@ run=&lt;last{
 <br>
 stepnm=&lt;last{tn=tn=&gt;,xt[n][m]=cos(tn)*m,yt[n][m]=sin(tn)*m},
 <br>
-casesM=&lt;_sm(=&lt;stepnm,0,M),
+casesM=&lt;_s((m)=&lt;stepnm=&gt;,0,M),
 <br>
-evolutionN=&lt;_sn(=&lt;casesM,0,N),
+evolutionN=&lt;_s((n)=&lt;casesM=&gt;,0,N),
 <br>
 evolutionN=&gt;
 <br>
@@ -47476,9 +47476,9 @@ step=&lt;last{dt0=dtn=&gt;,<span class="jF">x_next=_o(=&lt;f,,=&lt;{x_next}</spa
 <br>
 stepnm=&lt;last{step=&gt;,<span class="jF">z_x=x_next[0],</span>xt[n][mdummy]=real(z_x),yt[n][mdummy]=imag(z_x)},
 <br>
-casesM=&lt;_smdummy(=&lt;stepnm,0,M)/*m-reserved*/,
+casesM=&lt;_s((mdummy)=&lt;stepnm=&gt;,0,M)/*m-reserved*/,
 <br>
-evolutionN=&lt;_sn(=&lt;casesM,0,N),
+evolutionN=&lt;_s((n)=&lt;casesM=&gt;,0,N),
 <br>
 evolutionN=&gt;
 <br>
@@ -47528,11 +47528,11 @@ yt=zeros(N,1)
 <div class="run">
 run=&lt;last{
 <br>
-ljx(j,x_)=&lt;_pm(=&lt;m==j&amp;&amp;&amp;1|||(x_-x[m])/(x[j]-x[m]),0,N),
+ljx(j,x_)=&lt;_p((m)=&lt;m==j&amp;&amp;&amp;1|||(x_-x[m])/(x[j]-x[m]),0,N),
 <br>
-Lkx(x_)=&lt;_sj(=&lt;y[j]*ljx(j,x_)=&gt;,0,N),
+Lkx(x_)=&lt;_s((j)=&lt;y[j]*ljx(j,x_)=&gt;,0,N),
 <br>
-_si_(=&lt;yt[i_]=Lkx(xt[i_])=&gt;,0,N-1),
+_s((i_)=&lt;yt[i_]=Lkx(xt[i_])=&gt;,0,N-1),
 <br>
 yinterp=interp2(trans(xt):trans(x,y)),
 <br>
@@ -47587,7 +47587,7 @@ coo=zeros(3,10*N-4)
 <div class="run">
 run=&lt;last{
 <br>
-_sj(=&lt;last{
+_s((j)=&lt;last{
 <br>
 n=j+1,j0=3*j,dxi=dx[j],dyi=dy[j],
 <br>
@@ -47601,7 +47601,7 @@ r[j]=dyi
 <br>
 },0,N-1),
 <br>
-_sj(=&lt;last{
+_s((j)=&lt;last{
 <br>
 n=j+1,j0=3*N+4*j,dxi=dx[j],
 <br>
@@ -47613,7 +47613,7 @@ coo[2][j0][1][4]=(n,n+1,N+n,2*N+n)
 <br>
 },0,N-2),
 <br>
-_sj(=&lt;last{
+_s((j)=&lt;last{
 <br>
 n=j+1,j0=7*N+3*j-4,dxi=dx[j],
 <br>
@@ -47670,7 +47670,7 @@ c=u[N][0][N][1],
 <br>
 d=u[2*N][0][N][1],
 <br>
-_si_(=&lt;last{
+_s((i_)=&lt;last{
 <br>
 dxi=xt[i_]-x[i_],
 <br>
@@ -47752,7 +47752,7 @@ yt=zeros(N+1,M)
 <div class="run">
 run=&lt;last{
 <br>
-_sm(=&lt;_sn(=&lt;last{
+_s((m)=&lt;_s((n)=&lt;last{
 <br>
 ($xnm,$ynm)=bspline2d(=&lt;x,=&lt;y,m,n/N)=&gt;,
 <br>
@@ -48109,7 +48109,7 @@ ttR=R..,
 <br>
 LR=zeros(sizer(ttL),sizec(ttR)),
 <br>
-_sir(=&lt;_sic(=&lt;product,0,sizec(ttR)-1),0,sizer(ttL)-1),
+_s((ir)=&lt;_s((ic)=&lt;product=&gt;,0,sizec(ttR)-1),0,sizer(ttL)-1),
 <br>
 =&lt;LR]=&gt;;
 <br>
@@ -48197,17 +48197,17 @@ proc=&lt;{w=A[ir],A[ir]=A[ir_pivot],A[ir_pivot]=w,w=b[ir],b[ir]=b[ir_pivot],b[ir
 <br>
 pivotting=&lt;last{ir_pivot=ir,absA_pivot=abs(A[ir][ir]),
 <br>
-_sir_comp(=&lt;compare,ir+1,sizeA-1),switch(ir&lt;&gt;ir_pivot,=&lt;proc)},
+_s((ir_comp)=&lt;compare=&gt;,ir+1,sizeA-1),switch(ir&lt;&gt;ir_pivot,=&lt;proc)},
 <br>
 forward=&lt;last{k=A[ir][ic]/A[ic][ic],A[ir]=A[ir]-k*A[ic],b[ir]=b[ir]-k*b[ic]},
 <br>
-backward=&lt;last{r=b[ir],_sic(=&lt;r=r-A[ir][ic]*x[ic],ir+1,sizeA-1),x[ir]=r/A[ir][ir]},
+backward=&lt;last{r=b[ir],_s((ic)=&lt;r=r-A[ir][ic]*x[ic],ir+1,sizeA-1),x[ir]=r/A[ir][ir]},
 <br>
-_sir(=&lt;pivotting,0,sizeA-2),
+_s((ir)=&lt;pivotting=&gt;,0,sizeA-2),
 <br>
-_sic(=&lt;_sir(=&lt;forward,ic+1,sizeA-1),0,sizeA-2),
+_s((ic)=&lt;_s((ir)=&lt;forward=&gt;,ic+1,sizeA-1),0,sizeA-2),
 <br>
-x[sizeA-1]=b[sizeA-1]/A[sizeA-1][sizeA-1],_sir(=&lt;backward,sizeA-2,0)
+x[sizeA-1]=b[sizeA-1]/A[sizeA-1][sizeA-1],_s((ir)=&lt;backward=&gt;,sizeA-2,0)
 <br>
 },
 </div>
@@ -48217,7 +48217,7 @@ init=&gt;,run=&gt;,return=out=&gt;,
 <br>
 [rand_Ab=&lt;last{N=5,A=zeros(N,N),b=vectorc(N),gen_rand=&lt;rand()+rand()*i,
 <br>
-_sir(=&lt;last{_sic(=&lt;A[ir][ic]=gen_rand=&gt;,0,N-1),b[ir]=gen_rand=&gt;},0,N-1)},
+_s((ir)=&lt;last{_s((ic)=&lt;A[ir][ic]=gen_rand=&gt;,0,N-1),b[ir]=gen_rand=&gt;},0,N-1)},
 <br>
 rand_Ab=&gt;,=&lt;/*optimized*/Gauss(A,b)-solvex_Gauss(=&lt;A,=&lt;b)=&gt;]=&gt;;
     </td>
@@ -48290,11 +48290,11 @@ forward=&lt;last{k=A[ir][ic]/A[ic][ic],A[ir]=A[ir]-k*A[ic],b[ir]=b[ir]-k*b[ic]},
 <br>
 backward=&lt;x[ir]=(b[ir]-A[ir]*x)/A[ir][ir],
 <br>
-_sir(=&lt;_sir_comp(=&lt;pivotting,ir+1,sizeA-1),0,sizeA-2),
+_s((ir)=&lt;_s((ir_comp)=&lt;pivotting=&gt;,ir+1,sizeA-1),0,sizeA-2),
 <br>
-_sic(=&lt;_sir(=&lt;forward,ic+1,sizeA-1),0,sizeA-2),
+_s((ic)=&lt;_s((ir)=&lt;forward=&gt;,ic+1,sizeA-1),0,sizeA-2),
 <br>
-_sir(=&lt;backward,sizeA-1,0)
+_s((ir)=&lt;backward=&gt;,sizeA-1,0)
 <br>
 },
 </div>
@@ -48334,9 +48334,9 @@ forward=&lt;last{k=A[ir][ic]/A[ic][ic],A[ir]=A[ir]-k*A[ic],b[ir]=b[ir]-k*b[ic]},
 <br>
 backward=&lt;x[ir]=(b[ir]-A[ir]*x)/A[ir][ir],
 <br>
-_sic(=&lt;_sir(=&lt;forward,ic+1,sizeA-1),0,sizeA-2),
+_s((ic)=&lt;_s((ir)=&lt;forward=&gt;,ic+1,sizeA-1),0,sizeA-2),
 <br>
-_sir(=&lt;backward,sizeA-1,0)
+_s((ir)=&lt;backward=&gt;,sizeA-1,0)
 <br>
 },
 </div>
@@ -48367,16 +48367,14 @@ solvex_iteration(A,b)=&lt;[
 <br>
 out=&lt;<span class="jF">x_solved</span>,
 <div class="condition">
-init=&lt;last{sizeA=size(A),<span class="jF">sizerb=sizer(b),sizecb=sizec(b),isRow=sizerb&lt;sizecb,</span>
-<br>
-isRow&amp;&amp;&amp;_e<span class="jF">((x)</span>=&lt;x,1,sizeA)||||_e<span class="jF">((x)</span>=&lt;x,sizeA,1)},
+init=&lt;last{sizeA=size(A),<span class="jF">sizerb=sizer(b),sizecb=sizec(b),isRow=sizerb&lt;sizecb},
 </div>
 <div class="run">
 run=&lt;last{
 <br>
-<span class="jF">isRow&amp;&amp;&amp;(f=&lt;(x=&gt;)*A=b)||||(f=&lt;A*(x=&gt;)=b),</span>
+<span class="jF">isRow&amp;&amp;&amp;(f=&lt;(__x__.)*A=b)||||(f=&lt;A*(__x__)=b),</span>
 <br>
-<span class="jF">x_solved=</span>Newton(=&lt;f,=&lt;x,,Nmax=1e3,Nmax,1e-10,1)
+<span class="jF">x_solved=</span>Newton(=&lt;f,,=&lt;{b*0},Nmax=1e3,Nmax,1e-10,1)
 <br>
 },
 </div>
@@ -48417,16 +48415,16 @@ solveAinv(A)=&lt;[
 <br>
 out=&lt;<span class="jF">Ainv</span>,
 <div class="condition">
-init=&lt;last{sizeA=size(A),_e<span class="jF">((Ainv)</span>=&lt;x,sizeA,sizeA),_e<span class="jF">((x)</span>=&lt;x,sizeA*sizeA,1)},
+init=&lt;last{sizeA=size(A),x0=vectorc(sizeA*sizeA)},
 </div>
 <div class="run">
 run=&lt;last{
 <br>
-f=&lt;(Ainv=&gt;)*A=identity(sizeA),
+f=&lt;reshape(__x__:sizeA,sizeA)*A=identity(sizeA),
 <br>
-<span class="jF">x_solved</span>=Newton(=&lt;f,=&lt;x,,Nmax=1e3,Nmax,1e-10,1),
+<span class="jF">x_solved</span>=Newton(=&lt;f,,=&lt;{x0},Nmax=1e3,Nmax,1e-10,1),
 <br>
-<span class="jF">Ainv=reshape(x_solved:sizeA,sizeA)/*Ainv=reshapec(x_solved:sizeA,sizeA).*/</span>
+<span class="jF">Ainv=reshape(x_solved:sizeA,sizeA)</span>
 <br>
 },
 </div>
@@ -48457,12 +48455,12 @@ solvex_non_linear(<span class="jF">=</span>=&lt;f_,=&lt;x_initial_)=&lt;[
 <br>
 out=&lt;<span class="jF">x_solved</span>,
 <div class="condition">
-init=&lt;last{_e<span class="jF">((x)</span>=&lt;x,sizer(x_initial_=&gt;),1)},
+init=&lt;last{0},
 </div>
 <div class="run">
 run=&lt;last{
 <br>
-<span class="jF">x_solved</span>=Newton(=&lt;f_,=&lt;x,=&lt;x_initial_,Nmax=1e3,Nmax,1e-10,1)
+<span class="jF">x_solved</span>=Newton(=&lt;f_,,=&lt;x_initial_,Nmax=1e3,Nmax,1e-10,1)
 <br>
 },
 </div>
@@ -48470,7 +48468,7 @@ init=&gt;,run=&gt;,return=out=&gt;,
 <br>
 =&lt;return]=&gt;;
 <br>
-[f=&lt;{x0^i-2*x1=3i,3*x0+exp(x1)=5i},=&lt;solvex_non_linear(=&lt;f,=&lt;{1+i,1-i})=&gt;]=&gt;;
+[f=&lt;{__x__[0]^i-2*__x__[1]=3i,3*__x__[0]+exp(__x__[1])=5i},=&lt;solvex_non_linear(=&lt;f,=&lt;{1+i,1-i})=&gt;]=&gt;;
     </td>
   </tr>
   <tr>
@@ -48493,7 +48491,7 @@ solvex_non_linear(<span class="jF">=</span>=&lt;f_,=&lt;x_initial_)=&lt;[
 <br>
 out=&lt;<span class="jF">x_solved</span>,
 <div class="condition">
-init=&lt;last{_e<span class="jF">((x)</span>=&lt;x,sizer(x_initial_=&gt;),1)},
+init=&lt;last{0},
 </div>
 <div class="run">
 run=&lt;last{
@@ -48513,7 +48511,7 @@ out=&lt;x0,
 init=&lt;last{epsf=1e-7,isBreak=&lt;isNaN(x0)|||norm(y0)&lt;epsf},
 </div>
 <div class="run">
-run=&lt;_rn(=&lt;last{
+run=&lt;_r((n)=&lt;last{
 <br>
 x=(x0+x1)/2,
 <br>
@@ -48672,7 +48670,7 @@ step_post=&lt;{$z_x0,$z_v0}=<span class="jF">x_solved</span>,
 <br>
 step=&lt;last{step_iteration=&gt;,step_post=&gt;},
 <br>
-evolution=&lt;_rn(=&lt;step,N=round(t/dt),N),
+evolution=&lt;_r((n)=&lt;step=&gt;,N=round(t/dt),N),
 <br>
 evolution=&gt;,
 <br>
@@ -48822,7 +48820,7 @@ f(t,x,v)=&lt;{v,t+(F-k*x-c*v)/m};
 <br>
 args=(=&lt;f,,=&lt;{t0,x0,v0},dt,Niteration);
 <br>
-ODE_fixed(t0,=<(x0,v0),=&lt;table_Butcher)=&gt;:(_t0(args,,=&lt;table_Butcher).):(_t(args).);
+ODE_fixed(t0,=&lt;(x0,v0),=&lt;table_Butcher)=&gt;:(_t0(args,,=&lt;table_Butcher).):(_t(args).);
     </td>
   </tr>
   <tr>
@@ -48975,13 +48973,13 @@ init=&lt;last{N=sizer(f),Nf=1,Ni=1/N,F=zeros(N,1)},
 <div class="run">
 run=&lt;last{
 <br>
-F(u)=&lt;{_sx(=&lt;f[x]*e^(-i*u*x*2*pi/N),0,N-1)*Nf},
+F(u)=&lt;{_s((x)=&lt;f[x]*e^(-i*u*x*2*pi/N),0,N-1)*Nf},
 <br>
-_su(=&lt;F[u]=F(u)=&gt;,0,N-1),
+_s((u)=&lt;F[u]=F(u)=&gt;,0,N-1),
 <br>
-f(x)=&lt;{_su(=&lt;F[u]*e^(i*x*u*2*pi/N),0,N-1)*Ni},
+f(x)=&lt;{_s((u)=&lt;F[u]*e^(i*x*u*2*pi/N),0,N-1)*Ni},
 <br>
-_sx(=&lt;f[x]=f(x)=&gt;,0,N-1)
+_s((x)=&lt;f[x]=f(x)=&gt;,0,N-1)
 <br>
 },
 </div>
@@ -49017,13 +49015,13 @@ init=&lt;last{N=sizer(f),M=sizec(f),Nf=1,Ni=1/N,Mf=1,Mi=1/M,F=zeros(N,M)},
 <div class="run">
 run=&lt;last{
 <br>
-F(u,v)=&lt;{_sy(=&lt;{_sx(=&lt;f[x][y]*e^(-i*u*x*2*pi/N),0,N-1)*Nf}*e^(-i*v*y*2*pi/M),0,M-1)*Mf},
+F(u,v)=&lt;{_s((y)=&lt;{_s((x)=&lt;f[x][y]*e^(-i*u*x*2*pi/N),0,N-1)*Nf}*e^(-i*v*y*2*pi/M),0,M-1)*Mf},
 <br>
-_sv(=&lt;_su(=&lt;F[u][v]=F(u,v)=&gt;,0,N-1),0,M-1),
+_s((v)=&lt;_s((u)=&lt;F[u][v]=F(u,v)=&gt;,0,N-1),0,M-1),
 <br>
-f(x,y)=&lt;{_sv(=&lt;{_su(=&lt;F[u][v]*e^(i*x*u*2*pi/N),0,N-1)*Ni}*e^(i*y*v*2*pi/M),0,M-1)*Mi},
+f(x,y)=&lt;{_s((v)=&lt;{_s((u)=&lt;F[u][v]*e^(i*x*u*2*pi/N),0,N-1)*Ni}*e^(i*y*v*2*pi/M),0,M-1)*Mi},
 <br>
-_sy(=&lt;_sx(=&lt;f[x][y]=f(x,y)=&gt;,0,N-1),0,M-1)
+_s((y)=&lt;_s((x)=&lt;f[x][y]=f(x,y)=&gt;,0,N-1),0,M-1)
 <br>
 },
 </div>
@@ -49059,13 +49057,13 @@ init=&lt;last{N=sizer(f),M=sizec(f),Nf=1,Ni=1/N,Mf=1,Mi=1/M,F=zeros(N,M)},
 <div class="run">
 run=&lt;last{
 <br>
-F(v,u)=&lt;{_sx(=&lt;{_sy(=&lt;f[x][y]*e^(-i*v*y*2*pi/M),0,M-1)*Mf}*e^(-i*u*x*2*pi/N),0,N-1)*Nf},
+F(v,u)=&lt;{_s((x)=&lt;{_s((y)=&lt;f[x][y]*e^(-i*v*y*2*pi/M),0,M-1)*Mf}*e^(-i*u*x*2*pi/N),0,N-1)*Nf},
 <br>
-_su(=&lt;_sv(=&lt;F[u][v]=F(v,u)=&gt;,0,M-1),0,N-1),
+_s((u)=&lt;_s((v)=&lt;F[u][v]=F(v,u)=&gt;,0,M-1),0,N-1),
 <br>
-f(y,x)=&lt;{_su(=&lt;{_sv(=&lt;F[u][v]*e^(i*y*v*2*pi/M),0,M-1)*Mi}*e^(i*x*u*2*pi/N),0,N-1)*Ni},
+f(y,x)=&lt;{_s((u)=&lt;{_s((v)=&lt;F[u][v]*e^(i*y*v*2*pi/M),0,M-1)*Mi}*e^(i*x*u*2*pi/N),0,N-1)*Ni},
 <br>
-_sx(=&lt;_sy(=&lt;f[x][y]=f(y,x)=&gt;,0,M-1),0,N-1)
+_s((x)=&lt;_s((y)=&lt;f[x][y]=f(y,x)=&gt;,0,M-1),0,N-1)
 <br>
 },
 </div>
@@ -49101,23 +49099,23 @@ init=&lt;last{N=sizer(w),W=zeros(N,1),p=round(log2(N))},
 <div class="run">
 run=&lt;last{
 <br>
-W(w,N)=&lt;_st(=&lt;last{
+W(w,N)=&lt;_s((t)=&lt;last{
 <br>
 a=w[2*t],b=w[2*t+1],W[t]=a+b,W[t+N2]=a-b
 <br>
 },N2=N&gt;&gt;1,N2-1),
 <br>
-_rn(=&lt;last{W(=&lt;w,first{Np,Np=Np&gt;&gt;1})=&gt;,w=W},Np=1&lt;&lt;p,p),
+_r((n)=&lt;last{W(=&lt;w,first{Np,Np=Np&gt;&gt;1})=&gt;,w=W},Np=1&lt;&lt;p,p),
 <br>
 buffer=W,
 <br>
-w(W,N2)=&lt;_st(=&lt;last{
+w(W,N2)=&lt;_s((t)=&lt;last{
 <br>
 a=W[t],b=W[t+N2],w[2*t]=<span class="selection">0.5*</span>(a+b),w[2*t+1]=<span class="selection">0.5*</span>(a-b)
 <br>
 },0,N2-1),
 <br>
-_rn(=&lt;last{w(=&lt;W,first{Np,Np=Np&lt;&lt;1})=&gt;,W=w},Np=1,p),
+_r((n)=&lt;last{w(=&lt;W,first{Np,Np=Np&lt;&lt;1})=&gt;,W=w},Np=1,p),
 <br>
 W=buffer
 <br>
@@ -49157,31 +49155,31 @@ p=round(log2(N)),q=round(log2(M))},
 <div class="run">
 run=&lt;last{
 <br>
-W_row(w,N)=&lt;_st(=&lt;last{
+W_row(w,N)=&lt;_s((t)=&lt;last{
 <br>
 a=w[2*t],b=w[2*t+1],W[t]=a+b,W[t+N2]=a-b
 <br>
 },N2=N&gt;&gt;1,N2-1),
 <br>
-W_col(w,N)=&lt;_st(=&lt;last{
+W_col(w,N)=&lt;_s((t)=&lt;last{
 <br>
 a=w[][2*t],b=w[][2*t+1],W[][t]=a+b,W[][t+N2]=a-b
 <br>
 },N2=N&gt;&gt;1,N2-1),
 <br>
-_rn(=&lt;last{W_row(=&lt;w,first{Np,Np=Np&gt;&gt;1})=&gt;,w=W},Np=1&lt;&lt;p,p),
+_r((n)=&lt;last{W_row(=&lt;w,first{Np,Np=Np&gt;&gt;1})=&gt;,w=W},Np=1&lt;&lt;p,p),
 <br>
-_rn(=&lt;last{w=W,W_col(=&lt;w,first{Nq,Nq=Nq&gt;&gt;1})=&gt;},Nq=1&lt;&lt;q,q),
+_r((n)=&lt;last{w=W,W_col(=&lt;w,first{Nq,Nq=Nq&gt;&gt;1})=&gt;},Nq=1&lt;&lt;q,q),
 <br>
 buffer=W,
 <br>
-w_row(W,N2)=&lt;_st(=&lt;last{
+w_row(W,N2)=&lt;_s((t)=&lt;last{
 <br>
 a=W[t],b=W[t+N2],w[2*t]=<span class="selection">0.5*</span>(a+b),w[2*t+1]=<span class="selection">0.5*</span>(a-b)
 <br>
 },0,N2-1),
 <br>
-w_col(W,N2)=&lt;_st(=&lt;last{
+w_col(W,N2)=&lt;_s((t)=&lt;last{
 <br>
 a=W[][t],b=W[][t+N2],w[][2*t]=(a+b)<span class="selection">*0.5</span>,w[][2*t+1]=(a-b)<span class="selection">*0.5</span>
 <br>
@@ -49189,9 +49187,9 @@ a=W[][t],b=W[][t+N2],w[][2*t]=(a+b)<span class="selection">*0.5</span>,w[][2*t+1
 <br>
 w=W,
 <br>
-_rn(=&lt;last{w_row(=&lt;W,first{Np,Np=Np&lt;&lt;1})=&gt;,W=w},Np=1,p),
+_r((n)=&lt;last{w_row(=&lt;W,first{Np,Np=Np&lt;&lt;1})=&gt;,W=w},Np=1,p),
 <br>
-_rn(=&lt;last{W=w,w_col(=&lt;W,first{Nq,Nq=Nq&lt;&lt;1})=&gt;},Nq=1,q),
+_r((n)=&lt;last{W=w,w_col(=&lt;W,first{Nq,Nq=Nq&lt;&lt;1})=&gt;},Nq=1,q),
 <br>
 W=buffer
 <br>
@@ -49231,31 +49229,31 @@ p=round(log2(N)),q=round(log2(M))},
 <div class="run">
 run=&lt;last{
 <br>
-W_row(w,N)=&lt;_st(=&lt;last{
+W_row(w,N)=&lt;_s((t)=&lt;last{
 <br>
 a=w[2*t],b=w[2*t+1],W[t]=a+b,W[t+N2]=a-b
 <br>
 },N2=N&gt;&gt;1,N2-1),
 <br>
-W_col(w,N)=&lt;_st(=&lt;last{
+W_col(w,N)=&lt;_s((t)=&lt;last{
 <br>
 a=w[][2*t],b=w[][2*t+1],W[][t]=a+b,W[][t+N2]=a-b
 <br>
 },N2=N&gt;&gt;1,N2-1),
 <br>
-_rn(=&lt;last{W_col(=&lt;w,first{Nq,Nq=Nq&gt;&gt;1})=&gt;,w=W},Nq=1&lt;&lt;q,q),
+_r((n)=&lt;last{W_col(=&lt;w,first{Nq,Nq=Nq&gt;&gt;1})=&gt;,w=W},Nq=1&lt;&lt;q,q),
 <br>
-_rn(=&lt;last{w=W,W_row(=&lt;w,first{Np,Np=Np&gt;&gt;1})=&gt;},Np=1&lt;&lt;p,p),
+_r((n)=&lt;last{w=W,W_row(=&lt;w,first{Np,Np=Np&gt;&gt;1})=&gt;},Np=1&lt;&lt;p,p),
 <br>
 buffer=W,
 <br>
-w_row(W,N2)=&lt;_st(=&lt;last{
+w_row(W,N2)=&lt;_s((t)=&lt;last{
 <br>
 a=W[t],b=W[t+N2],w[2*t]=<span class="selection">0.5*</span>(a+b),w[2*t+1]=<span class="selection">0.5*</span>(a-b)
 <br>
 },0,N2-1),
 <br>
-w_col(W,N2)=&lt;_st(=&lt;last{
+w_col(W,N2)=&lt;_s((t)=&lt;last{
 <br>
 a=W[][t],b=W[][t+N2],w[][2*t]=(a+b)<span class="selection">*0.5</span>,w[][2*t+1]=(a-b)<span class="selection">*0.5</span>
 <br>
@@ -49263,9 +49261,9 @@ a=W[][t],b=W[][t+N2],w[][2*t]=(a+b)<span class="selection">*0.5</span>,w[][2*t+1
 <br>
 w=W,
 <br>
-_rn(=&lt;last{w_col(=&lt;W,first{Nq,Nq=Nq&lt;&lt;1})=&gt;,W=w},Nq=1,q),
+_r((n)=&lt;last{w_col(=&lt;W,first{Nq,Nq=Nq&lt;&lt;1})=&gt;,W=w},Nq=1,q),
 <br>
-_rn(=&lt;last{W=w,w_row(=&lt;W,first{Np,Np=Np&lt;&lt;1})=&gt;},Np=1,p),
+_r((n)=&lt;last{W=w,w_row(=&lt;W,first{Np,Np=Np&lt;&lt;1})=&gt;},Np=1,p),
 <br>
 W=buffer
 <br>
@@ -49294,7 +49292,7 @@ MaclaurinN
 <br>
 clear;
 <br>
-MaclaurinN(=&lt;f_,x,N)=&lt;_sn(=&lt;_dx(=&lt;f_,n,0)*x^n/n!,0,N);
+MaclaurinN(=&lt;f_,x,N)=&lt;_s((n)=&lt;_d((x)=&lt;f_=&gt;,n,0)*x^n/n!,0,N);
 <br>
 last[f=&lt;exp(x),MaclaurinN(=&lt;f,2,5)=&gt;];
     </td>
@@ -49313,7 +49311,7 @@ TaylorN
 <br>
 clear;
 <br>
-TaylorN(=&lt;f_,a,x,N)=&lt;_sn(=&lt;_dx(=&lt;f_,n,a)*(x-a)^n/n!,0,N);
+TaylorN(=&lt;f_,a,x,N)=&lt;_s((n)=&lt;_d((x)=&lt;f_=&gt;,n,a)*(x-a)^n/n!,0,N);
 <br>
 last[f=&lt;exp(x),TaylorN(=&lt;f,0,2,5)=&gt;];
     </td>
@@ -49340,7 +49338,7 @@ NI=300,
 <br>
 cn(n)=&lt;_i((t)=&lt;(ft_=&gt;)*e^(-i*(n)*t),<span class="clear">[-pi,pi]/1</span>,NI)/(2*pi)/*t=[-pi,pi]*/,
 <br>
-_sn(=&lt;(cn(n)=&gt;)*e^(i*(n)*x),-N,N)/*omega=1*/
+_s((n)=&lt;(cn(n)=&gt;)*e^(i*(n)*x),-N,N)/*omega=1*/
 <br>
 ];
 <br>
@@ -49533,25 +49531,25 @@ clear;
 <br>
 isPrime(n)=&lt;[isPrime=n&gt;1,kmax=sqrt(n),
 <br>
-_rk(=&lt;k+1,2,isPrime&amp;&amp;1e6,=&lt;{k&gt;kmax|||n%k==0&amp;&amp;&amp;(isPrime=0)}),
+_r((k)=&lt;k+1,2,isPrime&amp;&amp;1e6,=&lt;{k&gt;kmax|||n%k==0&amp;&amp;&amp;(isPrime=0)}),
 <br>
 =&lt;isPrime]=&gt;;
 <br>
 listup_primes(n0,n1)=&lt;[arr=[],
 <br>
-_sn(=&lt;isPrime(n)=&gt;&amp;&amp;&amp;<span class="jF">arr.push(n)</span>,n0,n1),
+_s((n)=&lt;isPrime(n)=&gt;&amp;&amp;&amp;<span class="jF">arr.push(n)</span>,n0,n1),
 <br>
 =&lt;arr]=&gt;;
 <br>
 pickup_prime(n,primes)=&lt;[
 <br>
-_rk(=&lt;last{prime=primes[k],k+1},N=sizer(primes),N,=&lt;{n%prime==0}),
+_r((k)=&lt;last{prime=primes[k],k+1},N=sizer(primes),N,=&lt;{n%prime==0}),
 <br>
 =&lt;prime]=&gt;;
 <br>
 factorize(n,primes)=&lt;[arr=[],
 <br>
-_rk(=&lt;last{prime=pickup_prime(n,=&lt;primes)=&gt;,
+_r((k)=&lt;last{prime=pickup_prime(n,=&lt;primes)=&gt;,
 <br>
 <span class="jF">arr.push(prime)</span>,n=n/prime},isPrime=n&gt;1,isPrime&amp;&amp;1e6,=&lt;{n&lt;=1}),
 <br>
@@ -49601,7 +49599,7 @@ zn(z)=&lt;z**n,
 <br>
 yn(z,x)=&lt;zn(z)=&gt;-zn(x)=&gt;,
 <br>
-_sx(=&lt;yns[x]=yn(z,x)=&gt;,0,z-1),
+_s((x)=&lt;yns[x]=yn(z,x)=&gt;,0,z-1),
 <br>
 =&lt;yns]=&gt;;
 <br>
@@ -49708,7 +49706,7 @@ oldV1=0,
 <br>
 oldV2=0,
 <br>
-_sn(=&lt;last{
+_s((n)=&lt;last{
 <br>
 t=n*dt,
 <br>
@@ -49750,7 +49748,7 @@ calc_w(n)=&lt;switch((n==0)|(n==N-1),1:n%2==0,2:1,4),
 <br>
 calc_v(n,t,val)=&lt;calc_w(n)=&gt;*val*exp(-i*omega*t),
 <br>
-zIV=_sn(=&lt;calc_v(n,n*dt,IV[n])=&gt;,0,N-1)*dt/3
+zIV=_s((n)=&lt;calc_v(n,n*dt,IV[n])=&gt;,0,N-1)*dt/3
 <br>
 },
 </div>
@@ -49788,7 +49786,7 @@ run=&lt;last{
 <br>
 calc_f(n)=&lt;exp(log(f0)+(log(f1)-log(f0))*n/Nf),
 <br>
-_sn(=&lt;last{
+_s((n)=&lt;last{
 <br>
 f=calc_f(n)=&gt;,
 <br>
@@ -49820,7 +49818,7 @@ switch(
 <br>
 isBode==0/*Nyquist-plot(real(Z),-imag(Z))*/,
 <br>
-=&lt;_sn(=&lt;last{
+=&lt;_s((n)=&lt;last{
 <br>
 Z=fZ[n][1],
 <br>
@@ -49832,7 +49830,7 @@ yt[n]=-imag(Z)
 <br>
 isBode&gt;0/*Bode-plot(log10(f),|Z|)*/,
 <br>
-=&lt;_sn(=&lt;last{
+=&lt;_s((n)=&lt;last{
 <br>
 f=fZ[n][0],
 <br>
@@ -49846,7 +49844,7 @@ yt[n]=abs(Z)
 <br>
 1/*else-Bode-plot(log10(f),deg_phi)*/,
 <br>
-=&lt;_sn(=&lt;last{
+=&lt;_s((n)=&lt;last{
 <br>
 f=fZ[n][0],
 <br>
@@ -49935,7 +49933,7 @@ oldV1=0,
 <br>
 oldV2=0,
 <br>
-_sn(=&lt;last{
+_s((n)=&lt;last{
 <br>
 t=n*dt,
 <br>
@@ -49973,7 +49971,7 @@ run=&lt;last{
 <br>
 omega=2*pi*f,
 <br>
-zIV=_sn(=&lt;IV[n]*exp(-i*omega*n*dt),0,N-1)<span class="selection">/*(f*dt)=1/Nt*/</span>
+zIV=_s((n)=&lt;IV[n]*exp(-i*omega*n*dt),0,N-1)<span class="selection">/*(f*dt)=1/Nt*/</span>
 <br>
 },
 </div>
@@ -50011,7 +50009,7 @@ run=&lt;last{
 <br>
 calc_f(n)=&lt;exp(log(f0)+(log(f1)-log(f0))*n/Nf),
 <br>
-_sn(=&lt;last{
+_s((n)=&lt;last{
 <br>
 f=calc_f(n)=&gt;,
 <br>
@@ -50043,7 +50041,7 @@ switch(
 <br>
 isBode==0/*Nyquist-plot(real(Z),-imag(Z))*/,
 <br>
-=&lt;_sn(=&lt;last{
+=&lt;_s((n)=&lt;last{
 <br>
 Z=fZ[n][1],
 <br>
@@ -50055,7 +50053,7 @@ yt[n]=-imag(Z)
 <br>
 isBode&gt;0/*Bode-plot(log10(f),|Z|)*/,
 <br>
-=&lt;_sn(=&lt;last{
+=&lt;_s((n)=&lt;last{
 <br>
 f=fZ[n][0],
 <br>
@@ -50069,7 +50067,7 @@ yt[n]=abs(Z)
 <br>
 1/*else-Bode-plot(log10(f),deg_phi)*/,
 <br>
-=&lt;_sn(=&lt;last{
+=&lt;_s((n)=&lt;last{
 <br>
 f=fZ[n][0],
 <br>
@@ -50158,7 +50156,7 @@ oldV1=0,
 <br>
 oldV2=0,
 <br>
-_sn(=&lt;last{
+_s((n)=&lt;last{
 <br>
 t=n*dt,
 <br>
@@ -50200,7 +50198,7 @@ run=&lt;last{
 <br>
 make_tIV(dT,dI,f,Nt,Nint,isImplicit)==&gt;,
 <br>
-_sn(=&lt;last{xt[n]=tt[n],yt[n]=(tI[n],tV[n])},0,N)
+_s((n)=&lt;last{xt[n]=tt[n],yt[n]=(tI[n],tV[n])},0,N)
 <br>
 },
 </div>
@@ -50227,6 +50225,8 @@ _evolution
     <td>
 <span id="span-eqn-heat0d_evolution"></span>
 <a href="#span-out-simulation-0D-heat">0D-heat simulation</a>参照
+<br>
+clear;
 <br>
 heat0d_evolution(t,dt,kalpha0,kalpha1,kalbedo<span class="selection">,kabsorb</span>)=&lt;[
 <br>
@@ -50302,7 +50302,7 @@ rho=1.29,
 <br>
 cp=1007,
 <br>
-V=_ir(=&lt;4*pi*r^2,R0,R0+H1),
+V=_i((r)=&lt;4*pi*r^2,R0,R0+H1),
 <br>
 C=rho*cp*V,
 <br>
@@ -50359,7 +50359,7 @@ run=&lt;last{
 <br>
 step=&lt;last{newT=(oldT+b*dt)/(1+a*dt),oldT=newT},
 <br>
-evolution=&lt;_rn(=&lt;step,N=round(t/dt),N),
+evolution=&lt;_r((n)=&lt;step=&gt;,N=round(t/dt),N),
 <br>
 evolution=&gt;,
 <br>
@@ -50394,6 +50394,8 @@ _evolution
     </th>
     <td>
 <span id="span-eqn-heat1d_evolution"></span>
+clear;
+<br>
 heat1d_evolution(t,dt,kalpha0,kalpha1,kalbedo<span class="selection">,kabsorb</span>,N)=&lt;[
 <br>
 out=&lt;{t_total,newT},
@@ -50522,8 +50524,6 @@ c=W0*(1-albedo)<span class="selection">*absorb</span>/C+a0*T0,
 <br>
 d=alpha1*A1*(T1-T0)/C,
 <br>
-_e<span class="jF">((x)</span>=&lt;x,N,1),
-<br>
 A=zeros(N,N),
 <br>
 A[-1][0][1]=(-a1*dt,1+2*a1*dt,-a1*dt),
@@ -50549,13 +50549,11 @@ r[0]=r[0]+c*dt,
 <br>
 r[-1]=r[-1]+d*dt,
 <br>
-<span class="jF">x_solved</span>=Newton(=&lt;A*x=&gt;=r,=&lt;x),
-<br>
-oldT=<span class="jF">x_solved</span>
+<span class="jF">oldT</span>=Newton(=&lt;A*__x__=r,,=&lt;{oldT})
 <br>
 },
 <br>
-evolution=&lt;_rn(=&lt;step,N=round(t/dt),N),
+evolution=&lt;_r((n)=&lt;step=&gt;,N=round(t/dt),N),
 <br>
 evolution=&gt;,
 <br>
