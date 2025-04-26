@@ -1142,10 +1142,9 @@ My_entry.operation.prototype.FNmhX = function(data, rightArr, tagObj, len_j0, ms
     var tree_eqn = (callback_FNmh)? self.tree2tree_eqn(data, args[0]): args[0];
     var args_eqn = self.get_args(tree_eqn);
     var name_arg = (args_eqn)? args_eqn[args_eqn.length-1]: "";
-    var name_bar = tagObj.val.name;
     /* -> Ver.2.231.56 */
     if(callback_FNmh){
-      var obj = callback_names(args, args_eqn, name_arg, name_bar);  // Ver.2.233.56
+      var obj = callback_names(args, args_eqn, name_arg);  // Ver.2.233.56  // Ver.2.812.131
       var name_var = obj.name_var;
       var names = obj.names;
       var buffer_vars = {};
@@ -1164,7 +1163,7 @@ My_entry.operation.prototype.FNmhX = function(data, rightArr, tagObj, len_j0, ms
       self.store_buffer_sw("vars", buffer_vars, scopes, ids_buffer, true);  // Ver.2.256.59
     }
     else{
-      _tree = callback_names(args, args_eqn, name_arg, name_bar);  // Ver.2.233.56
+      _tree = callback_names(args, args_eqn, name_arg);  // Ver.2.233.56  // Ver.2.812.131
     }
   }
   else{
@@ -1303,7 +1302,7 @@ My_entry.operation.prototype.jacobian = function(data, rightArr, tagObj){
 /* Ver.2.230.56 -> */
 if(prop === "OX" || prop === "TX"){  // ODE  // Ver.2.23.11  // Ver.2.231.56  // Ver.2.233.56  // Ver.2.238.56
   var isTX = (prop === "TX");  // Ver.2.238.56
-  var callback_names = function(args, args_eqn, name_arg, name_bar){  // Ver.2.233.56
+  var callback_names = function(args, args_eqn, name_arg){  // Ver.2.233.56  // Ver.2.812.131
     /* Ver.2.238.56 -> */
     /* Ver.2.27.15 -> */
     /* Ver.2.231.56 -> */
@@ -1339,9 +1338,9 @@ if(prop === "OX" || prop === "TX"){  // ODE  // Ver.2.23.11  // Ver.2.231.56  //
       /* -> Ver.2.735.107 */
     }
     /* Ver.2.736.107 -> */
-    var name_var = name_arg || name_bar;
+    var name_var = name_arg;  // Ver.2.812.131
     if(!(isAuto_args)){
-      if(!(name_var) || (name_arg && name_bar)) throw msgErr;
+      if(!(name_var)) throw msgErr;  // Ver.2.812.131
       if(!(names.length)) throw msgErr;
     }
     /* -> Ver.2.736.107 */
@@ -1672,7 +1671,7 @@ if(prop === "OX" || prop === "TX"){  // ODE  // Ver.2.23.11  // Ver.2.231.56  //
 }
 else{
   var isNewtonian = (prop === "newtonian");
-  var callback_names = function(args, args_eqn, name_arg, name_bar){  // Ver.2.233.56
+  var callback_names = function(args, args_eqn, name_arg){  // Ver.2.233.56  // Ver.2.812.131
     /* Ver.2.27.15 -> */
     /* Ver.2.739.107 -> */
     var names = [];  // Ver.2.736.107
@@ -2069,15 +2068,13 @@ My_entry.operation.prototype.FNhX = function(data, rightArr, tagObj, len_j0, cal
     var tree_eqn = self.tree2tree_eqn(data, args[0]);
     var args_eqn = self.get_args(tree_eqn);
     var name_arg = (args_eqn)? args_eqn[args_eqn.length-1]: "";
-    var name_bar = tagObj.val.name;
-    var name_var = name_arg || name_bar;
+    var name_var = name_arg;  // Ver.2.812.131
     /* Ver.2.242.56 -> */
-    var hasBooking = (name_arg && name_bar);
     if(isRX){
-      if(hasBooking || (args_eqn && args_eqn.length > 1)) throw "Invalid RX(=<args.length<=1)";
+      if(args_eqn && args_eqn.length > 1) throw "Invalid RX(=<args.length<=1)";  // Ver.2.812.131
     }
     else{
-      if(!(name_var) || hasBooking || (args_eqn && args_eqn.length !== 1)) throw "Invalid FNh(=<args.length=1)";
+      if(!(name_var) || (args_eqn && args_eqn.length !== 1)) throw "Invalid FNh(=<args.length=1)";  // Ver.2.812.131
     }
     /* -> Ver.2.242.56 */
     /* -> Ver.2.231.56 */
