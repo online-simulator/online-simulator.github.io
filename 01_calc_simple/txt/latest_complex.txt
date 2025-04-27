@@ -1,7 +1,7 @@
 clear
 local storage cleared
 
-check(=<f,a,b,NI,type)=<(_o45((t,x)=<f(t)=>,,,a,(b-a)/NI,NI):(_t45((t,x)=<f(t)=>,,=<{a,0},(b-a)/NI,NI))[1]:_i(=<f,a,b,NI):_i0(=<f,a,b,NI,type)):NI=100:check((x)=<floor(min(x/0.3,1)),0,1,NI,)=>:0.7
+check(=<f,a,b,NI,type)=<(_o45((t,x)=<f(t)=>,,a,(b-a)/NI,NI):(_t45((t,x)=<f(t)=>,=<{a,0},(b-a)/NI,NI))[1]:_i(=<f,a,b,NI):_i0(=<f,a,b,NI,type)):NI=100:check((x)=<floor(min(x/0.3,1)),0,1,NI,)=>:0.7
 (
 0:
 0:
@@ -207,15 +207,15 @@ _t(args):_t4(args):_t0(args,=<(0:1/2,1/2:1/2,0,1/2:1,0,0,1:1/6,1/3,1/3,1/6))
 4+i,-13.106081350674064-15.237533168257i+O(1e-4+1e-4i)
 )
 
-args=((t,x)=<t*x,,=<(3,1),0.1(1+i),10,1e-1)
+args=((t,x)=<t*x,=<(3,1),0.1(1+i),10,1e-1)
 args=(
-eqn(t,x),0,eqn,0.1+0.1i,10,0.1
+eqn(t,x),eqn,0.1+0.1i,10,0.1
 )
 
 clear
 local storage cleared
 
-_t45(=<__t__+__x__[0],,=<{,1},dt_Ndt_d):_t45(=<__t__+__x__[0],,=<(,1),dt_Ndt_d).
+_t45(=<__t__+__x__[0],=<{,1},dt_Ndt_d):_t45(=<__t__+__x__[0],=<(,1),dt_Ndt_d).
 (
 2:
 11.77811219057591+O(1e-5):
@@ -223,7 +223,7 @@ _t45(=<__t__+__x__[0],,=<{,1},dt_Ndt_d):_t45(=<__t__+__x__[0],,=<(,1),dt_Ndt_d).
 11.77811219057591+O(1e-5)
 )
 
-_t45((t,x)=<t+x,,=<{,1},dt_Ndt_d):_t45((t,x)=<t+x,,=<(,1),dt_Ndt_d).
+_t45((t,x)=<t+x,=<{,1},dt_Ndt_d):_t45((t,x)=<t+x,=<(,1),dt_Ndt_d).
 (
 2:
 11.77811219057591+O(1e-5):
@@ -275,7 +275,7 @@ A=(1,2,3:4,5):#A,#(1,2,3:4,5),sizer(A),##A,##(1,2,3:4,5),sizec(A),###A:#A.,#(1,2
 clear
 local storage cleared
 
-x0={,,,}:f(w,x,y,z)=<{w*x=4,x+y=1+2,y+z=2+3,z+x=3+1}:g=<{last{x=__x__,x[0]}*x[1]=4,x[1]+x[2]=1+2,x[2]+x[3]=2+3,x[3]+x[1]=3+1}:round(Newton(=<f,,=<{x0},,20,,,false)):round(Newton(=<g,,=<{x0},,20,,,true))
+x0={,,,}:f(w,x,y,z)=<{w*x=4,x+y=1+2,y+z=2+3,z+x=3+1}:g=<{last{x=__x__,x[0]}*x[1]=4,x[1]+x[2]=1+2,x[2]+x[3]=2+3,x[3]+x[1]=3+1}:round(Newton(=<f,=<{x0},,20,,,false)):round(Newton(=<g,=<{x0},,20,,,true))
 (
 0:
 0:
@@ -293,7 +293,7 @@ infoLost[r ] 3
 clear
 local storage cleared
 
-x0={1,2,3}:f(x,y,z)=<{x+y=1+i,y+z=i+2,x*y*z=1*i*2}:g=<{last{x=__x__,x[0]}+x[1]=1+i,x[1]+x[2]=i+2,x[0]*x[1]*x[2]=1*i*2}:Newton(=<f,,=<{x0},,20):Newton(=<g,,=<{x0},,20)
+x0={1,2,3}:f(x,y,z)=<{x+y=1+i,y+z=i+2,x*y*z=1*i*2}:g=<{last{x=__x__,x[0]}+x[1]=1+i,x[1]+x[2]=i+2,x[0]*x[1]*x[2]=1*i*2}:Newton(=<f,=<{x0},,20):Newton(=<g,=<{x0},,20)
 (
 0:
 0:
@@ -309,7 +309,7 @@ infoLost[ri] 2+1.469627933292362e-17i+O(1e-28+1e-28i)
 clear
 local storage cleared
 
-x0={0,1,2}i:f(x,y,z)=<{x**2+y,x+y**2,x+y+z}:g=<{__x__[0]**2+__x__[1],__x__[0]+__x__[1]**2,__x__[0]+__x__[1]+__x__[2]}:Jacobi(=<f,,=<{x0})-Jacobi(=<g,,=<{x0}):Newton(=<f,,=<{x0},,20)-Newton(=<g,,=<{x0},,20)
+x0={0,1,2}i:f(x,y,z)=<{x**2+y,x+y**2,x+y+z}:g=<{__x__[0]**2+__x__[1],__x__[0]+__x__[1]**2,__x__[0]+__x__[1]+__x__[2]}:Jacobi(=<f,=<{x0})-Jacobi(=<g,=<{x0}):Newton(=<f,=<{x0},,20)-Newton(=<g,=<{x0},,20)
 (
 0:
 0:
@@ -325,16 +325,16 @@ infoLost[ i] 0+O(3e-4+2e-4i)
 clear
 local storage cleared
 
-Newton(=<{__x__[0]**2+__x__[1]-12=1e-5**2+1e5-12,__x__[0]+__x__[1]=1e-5+1e5},,=<(,),false,20)
+Newton(=<{__x__[0]**2+__x__[1]-12=1e-5**2+1e5-12,__x__[0]+__x__[1]=1e-5+1e5},=<(,),false,20)
 (
 0.000010000000266175229:
 100000
 )
 
-Newton(=<__x__[0]**2+__x__[0]-12=0,,=<0,false,20)
+Newton(=<__x__[0]**2+__x__[0]-12=0,=<0,false,20)
 infoLost[r ] 3.0000000000000004+O(3e-16)
 
-Jacobi(=<{__x__[0]**2+__x__[1],__x__[0]+__x__[1]**2},,=<{1,2},false)
+Jacobi(=<{__x__[0]**2+__x__[1],__x__[0]+__x__[1]**2},=<{1,2},false)
 (
 2.0000100000139294+O(1e-5),1.0000000000065512+O(2e-5):
 0.9999999999621422+O(1e-5),4.000020000027859+O(2e-5)
@@ -343,7 +343,7 @@ Jacobi(=<{__x__[0]**2+__x__[1],__x__[0]+__x__[1]**2},,=<{1,2},false)
 clear
 local storage cleared
 
-dt=0.1(1+i),Ndt=10,d=1/4,t=dt*Ndt,f=<__t__**5,g(t)=<t**6/6:x=_o12(=<f,,=<0,,dt,Ndt,d):t,x[0]:x=_o12(=<f,,=<{x},t,dt,Ndt,d):2t,x[0]:x=_t12(=<f,,=<(,),dt,Ndt,d).:x[0],x[1],g(x[0]):x=_t12(=<f,,=<{x},dt,Ndt,d):x[0],x[1],g(x[0])
+dt=0.1(1+i),Ndt=10,d=1/4,t=dt*Ndt,f=<__t__**5,g(t)=<t**6/6:x=_o12(=<f,=<0,,dt,Ndt,d):t,x[0]:x=_o12(=<f,=<{x},t,dt,Ndt,d):2t,x[0]:x=_t12(=<f,=<(,),dt,Ndt,d).:x[0],x[1],g(x[0]):x=_t12(=<f,=<{x},dt,Ndt,d):x[0],x[1],g(x[0])
 (
 0,0,0,0,0,0:
 0:
@@ -356,7 +356,7 @@ dt=0.1(1+i),Ndt=10,d=1/4,t=dt*Ndt,f=<__t__**5,g(t)=<t**6/6:x=_o12(=<f,,=<0,,dt,N
 2+2i,-1.3220247142289258e-14-85.33432712303232i+O(1e-2+1e-2i),-1.5675479029086137e-14-85.33333333333341i
 )
 
-dt=0.1(1+i),Ndt=10,d=1/2,t=dt*Ndt,f=<__t__**5,g(t)=<t**6/6:x=_o12(=<f,,=<0,,dt,Ndt,d):t,x[0]:x=_o12(=<f,,=<{x},t,dt,Ndt,d):2t,x[0]:x=_t12(=<f,,=<(,),dt,Ndt,d).:x[0],x[1],g(x[0]):x=_t12(=<f,,=<{x},dt,Ndt,d):x[0],x[1],g(x[0])
+dt=0.1(1+i),Ndt=10,d=1/2,t=dt*Ndt,f=<__t__**5,g(t)=<t**6/6:x=_o12(=<f,=<0,,dt,Ndt,d):t,x[0]:x=_o12(=<f,=<{x},t,dt,Ndt,d):2t,x[0]:x=_t12(=<f,=<(,),dt,Ndt,d).:x[0],x[1],g(x[0]):x=_t12(=<f,=<{x},dt,Ndt,d):x[0],x[1],g(x[0])
 (
 0,0,0,0,0,0:
 0:
@@ -369,7 +369,7 @@ dt=0.1(1+i),Ndt=10,d=1/2,t=dt*Ndt,f=<__t__**5,g(t)=<t**6/6:x=_o12(=<f,,=<0,,dt,N
 2+2i,-1.3306766475653601e-14-85.33576327119242i+O(1e-2+1e-2i),-1.5675479029086137e-14-85.33333333333341i
 )
 
-dt=0.1(1+i),Ndt=10,d=1,t=dt*Ndt,f=<__t__**5,g(t)=<t**6/6:x=_o12(=<f,,=<0,,dt,Ndt,d):t,x[0]:x=_o12(=<f,,=<{x},t,dt,Ndt,d):2t,x[0]:x=_t12(=<f,,=<(,),dt,Ndt,d).:x[0],x[1],g(x[0]):x=_t12(=<f,,=<{x},dt,Ndt,d):x[0],x[1],g(x[0])
+dt=0.1(1+i),Ndt=10,d=1,t=dt*Ndt,f=<__t__**5,g(t)=<t**6/6:x=_o12(=<f,=<0,,dt,Ndt,d):t,x[0]:x=_o12(=<f,=<{x},t,dt,Ndt,d):2t,x[0]:x=_t12(=<f,=<(,),dt,Ndt,d).:x[0],x[1],g(x[0]):x=_t12(=<f,=<{x},dt,Ndt,d):x[0],x[1],g(x[0])
 (
 0,0,0,0,0,0:
 0:
@@ -382,7 +382,7 @@ dt=0.1(1+i),Ndt=10,d=1,t=dt*Ndt,f=<__t__**5,g(t)=<t**6/6:x=_o12(=<f,,=<0,,dt,Ndt
 2+2i,-1.3365747073836812e-14-85.33852330892691i+O(1e-2+1e-2i),-1.5675479029086137e-14-85.33333333333341i
 )
 
-dt=0.1(1+i),Ndt=10,d=1e-3,t=dt*Ndt,f=<__t__**5,g(t)=<t**6/6:x=_o23(=<f,,=<0,,dt,Ndt,d):t,x[0]:x=_o23(=<f,,=<{x},t,dt,Ndt,d):2t,x[0]:x=_t23(=<f,,=<(,),dt,Ndt,d).:x[0],x[1],g(x[0]):x=_t23(=<f,,=<{x},dt,Ndt,d):x[0],x[1],g(x[0])
+dt=0.1(1+i),Ndt=10,d=1e-3,t=dt*Ndt,f=<__t__**5,g(t)=<t**6/6:x=_o23(=<f,=<0,,dt,Ndt,d):t,x[0]:x=_o23(=<f,=<{x},t,dt,Ndt,d):2t,x[0]:x=_t23(=<f,=<(,),dt,Ndt,d).:x[0],x[1],g(x[0]):x=_t23(=<f,=<{x},dt,Ndt,d):x[0],x[1],g(x[0])
 (
 0,0,0,0,0,0:
 0:
@@ -395,7 +395,7 @@ dt=0.1(1+i),Ndt=10,d=1e-3,t=dt*Ndt,f=<__t__**5,g(t)=<t**6/6:x=_o23(=<f,,=<0,,dt,
 2+2i,-1.3519642107743282e-14-85.33332717885969i+O(1e-3+1e-3i),-1.5675479029086137e-14-85.33333333333341i
 )
 
-dt=0.1(1+i),Ndt=10,d=1e-2,t=dt*Ndt,f=<__t__**5,g(t)=<t**6/6:x=_o23(=<f,,=<0,,dt,Ndt,d):t,x[0]:x=_o23(=<f,,=<{x},t,dt,Ndt,d):2t,x[0]:x=_t23(=<f,,=<(,),dt,Ndt,d).:x[0],x[1],g(x[0]):x=_t23(=<f,,=<{x},dt,Ndt,d):x[0],x[1],g(x[0])
+dt=0.1(1+i),Ndt=10,d=1e-2,t=dt*Ndt,f=<__t__**5,g(t)=<t**6/6:x=_o23(=<f,=<0,,dt,Ndt,d):t,x[0]:x=_o23(=<f,=<{x},t,dt,Ndt,d):2t,x[0]:x=_t23(=<f,=<(,),dt,Ndt,d).:x[0],x[1],g(x[0]):x=_t23(=<f,=<{x},dt,Ndt,d):x[0],x[1],g(x[0])
 (
 0,0,0,0,0,0:
 0:
@@ -408,7 +408,7 @@ dt=0.1(1+i),Ndt=10,d=1e-2,t=dt*Ndt,f=<__t__**5,g(t)=<t**6/6:x=_o23(=<f,,=<0,,dt,
 2+2i,-1.3419516037114246e-14-85.33328071509139i+O(1e-3+1e-3i),-1.5675479029086137e-14-85.33333333333341i
 )
 
-dt=0.1(1+i),Ndt=10,d=1e-1,t=dt*Ndt,f=<__t__**5,g(t)=<t**6/6:x=_o23(=<f,,=<0,,dt,Ndt,d):t,x[0]:x=_o23(=<f,,=<{x},t,dt,Ndt,d):2t,x[0]:x=_t23(=<f,,=<(,),dt,Ndt,d).:x[0],x[1],g(x[0]):x=_t23(=<f,,=<{x},dt,Ndt,d):x[0],x[1],g(x[0])
+dt=0.1(1+i),Ndt=10,d=1e-1,t=dt*Ndt,f=<__t__**5,g(t)=<t**6/6:x=_o23(=<f,=<0,,dt,Ndt,d):t,x[0]:x=_o23(=<f,=<{x},t,dt,Ndt,d):2t,x[0]:x=_t23(=<f,=<(,),dt,Ndt,d).:x[0],x[1],g(x[0]):x=_t23(=<f,=<{x},dt,Ndt,d):x[0],x[1],g(x[0])
 (
 0,0,0,0,0,0:
 0:
@@ -421,7 +421,7 @@ dt=0.1(1+i),Ndt=10,d=1e-1,t=dt*Ndt,f=<__t__**5,g(t)=<t**6/6:x=_o23(=<f,,=<0,,dt,
 2+2i,-1.308341336364374e-14-85.33288667689007i+O(1e-3+1e-3i),-1.5675479029086137e-14-85.33333333333341i
 )
 
-dt=0.1(1+i),Ndt=10,d=1e-11,t=dt*Ndt,f=<__t__**5,g(t)=<t**6/6:x=_o45(=<f,,=<0,,dt,Ndt,d):t,x[0]:x=_o45(=<f,,=<{x},t,dt,Ndt,d):2t,x[0]:x=_t45(=<f,,=<(,),dt,Ndt,d).:x[0],x[1],g(x[0]):x=_t45(=<f,,=<{x},dt,Ndt,d):x[0],x[1],g(x[0])
+dt=0.1(1+i),Ndt=10,d=1e-11,t=dt*Ndt,f=<__t__**5,g(t)=<t**6/6:x=_o45(=<f,=<0,,dt,Ndt,d):t,x[0]:x=_o45(=<f,=<{x},t,dt,Ndt,d):2t,x[0]:x=_t45(=<f,=<(,),dt,Ndt,d).:x[0],x[1],g(x[0]):x=_t45(=<f,=<{x},dt,Ndt,d):x[0],x[1],g(x[0])
 (
 0,0,0,0,0,0:
 0:
@@ -434,7 +434,7 @@ dt=0.1(1+i),Ndt=10,d=1e-11,t=dt*Ndt,f=<__t__**5,g(t)=<t**6/6:x=_o45(=<f,,=<0,,dt
 2+2i,-1.3366138056691368e-14-85.33333333333343i+O(1e-5+1e-5i),-1.5675479029086137e-14-85.33333333333341i
 )
 
-dt=0.1(1+i),Ndt=10,d=1e-7,t=dt*Ndt,f=<__t__**5,g(t)=<t**6/6:x=_o45(=<f,,=<0,,dt,Ndt,d):t,x[0]:x=_o45(=<f,,=<{x},t,dt,Ndt,d):2t,x[0]:x=_t45(=<f,,=<(,),dt,Ndt,d).:x[0],x[1],g(x[0]):x=_t45(=<f,,=<{x},dt,Ndt,d):x[0],x[1],g(x[0])
+dt=0.1(1+i),Ndt=10,d=1e-7,t=dt*Ndt,f=<__t__**5,g(t)=<t**6/6:x=_o45(=<f,=<0,,dt,Ndt,d):t,x[0]:x=_o45(=<f,=<{x},t,dt,Ndt,d):2t,x[0]:x=_t45(=<f,=<(,),dt,Ndt,d).:x[0],x[1],g(x[0]):x=_t45(=<f,=<{x},dt,Ndt,d):x[0],x[1],g(x[0])
 (
 0,0,0,0,0,0:
 0:
@@ -447,7 +447,7 @@ dt=0.1(1+i),Ndt=10,d=1e-7,t=dt*Ndt,f=<__t__**5,g(t)=<t**6/6:x=_o45(=<f,,=<0,,dt,
 2+2i,-1.2773587402511238e-14-85.33333333234363i+O(1e-5+1e-5i),-1.5675479029086137e-14-85.33333333333341i
 )
 
-dt=0.1(1+i),Ndt=10,d=1e-3,t=dt*Ndt,f=<__t__**5,g(t)=<t**6/6:x=_o45(=<f,,=<0,,dt,Ndt,d):t,x[0]:x=_o45(=<f,,=<{x},t,dt,Ndt,d):2t,x[0]:x=_t45(=<f,,=<(,),dt,Ndt,d).:x[0],x[1],g(x[0]):x=_t45(=<f,,=<{x},dt,Ndt,d):x[0],x[1],g(x[0])
+dt=0.1(1+i),Ndt=10,d=1e-3,t=dt*Ndt,f=<__t__**5,g(t)=<t**6/6:x=_o45(=<f,=<0,,dt,Ndt,d):t,x[0]:x=_o45(=<f,=<{x},t,dt,Ndt,d):2t,x[0]:x=_t45(=<f,=<(,),dt,Ndt,d).:x[0],x[1],g(x[0]):x=_t45(=<f,=<{x},dt,Ndt,d):x[0],x[1],g(x[0])
 (
 0,0,0,0,0,0:
 0:
@@ -460,7 +460,7 @@ dt=0.1(1+i),Ndt=10,d=1e-3,t=dt*Ndt,f=<__t__**5,g(t)=<t**6/6:x=_o45(=<f,,=<0,,dt,
 2+2i,-1.0911261903732755e-14-85.33333293589746i+O(1e-5+1e-5i),-1.5675479029086137e-14-85.33333333333341i
 )
 
-dt=0.1(1+i),Ndt=10,t=dt*Ndt,f=<__t__:x=_o45(=<f,,=<0,,dt,Ndt):t,x[0]:x=_o45(=<f,,=<{x},t,dt,Ndt):2t,x[0]:x=_t45(=<f,,=<(,),dt,Ndt).:x[0],x[1]:x=_t45(=<f,,=<{x},dt,Ndt):x[0],x[1]
+dt=0.1(1+i),Ndt=10,t=dt*Ndt,f=<__t__:x=_o45(=<f,=<0,,dt,Ndt):t,x[0]:x=_o45(=<f,=<{x},t,dt,Ndt):2t,x[0]:x=_t45(=<f,=<(,),dt,Ndt).:x[0],x[1]:x=_t45(=<f,=<{x},dt,Ndt):x[0],x[1]
 (
 0,0,0,0:
 0:
@@ -473,7 +473,7 @@ dt=0.1(1+i),Ndt=10,t=dt*Ndt,f=<__t__:x=_o45(=<f,,=<0,,dt,Ndt):t,x[0]:x=_o45(=<f,
 2+2i,4i+O(1e-5+1e-5i)
 )
 
-dt=0.1(1+i),Ndt=10,t=dt*Ndt,f=<__t__:x=_o3(=<f,,=<0,,dt,Ndt):t,x[0]:x=_o3(=<f,,=<{x},t,dt,Ndt):2t,x[0]:x=_t3(=<f,,=<(,),dt,Ndt).:x[0],x[1]:x=_t3(=<f,,=<{x},dt,Ndt):x[0],x[1]
+dt=0.1(1+i),Ndt=10,t=dt*Ndt,f=<__t__:x=_o3(=<f,=<0,,dt,Ndt):t,x[0]:x=_o3(=<f,=<{x},t,dt,Ndt):2t,x[0]:x=_t3(=<f,=<(,),dt,Ndt).:x[0],x[1]:x=_t3(=<f,=<{x},dt,Ndt):x[0],x[1]
 (
 0,0,0,0:
 0:
@@ -486,7 +486,7 @@ dt=0.1(1+i),Ndt=10,t=dt*Ndt,f=<__t__:x=_o3(=<f,,=<0,,dt,Ndt):t,x[0]:x=_o3(=<f,,=
 2+2i,4i+O(1e-3+1e-3i)
 )
 
-dt=0.1(1+i),Ndt=10,t=dt*Ndt,f=<__t__:x=_o2(=<f,,=<0,,dt,Ndt):t,x[0]:x=_o2(=<f,,=<{x},t,dt,Ndt):2t,x[0]:x=_t2(=<f,,=<(,),dt,Ndt).:x[0],x[1]:x=_t2(=<f,,=<{x},dt,Ndt):x[0],x[1]
+dt=0.1(1+i),Ndt=10,t=dt*Ndt,f=<__t__:x=_o2(=<f,=<0,,dt,Ndt):t,x[0]:x=_o2(=<f,=<{x},t,dt,Ndt):2t,x[0]:x=_t2(=<f,=<(,),dt,Ndt).:x[0],x[1]:x=_t2(=<f,=<{x},dt,Ndt):x[0],x[1]
 (
 0,0,0,0:
 0:
@@ -499,7 +499,7 @@ dt=0.1(1+i),Ndt=10,t=dt*Ndt,f=<__t__:x=_o2(=<f,,=<0,,dt,Ndt):t,x[0]:x=_o2(=<f,,=
 2+2i,4i+O(1e-2+1e-2i)
 )
 
-dt=0.1(1+i),Ndt=10,t=dt*Ndt,f=<__t__:x=_o1(=<f,,=<0,,dt,Ndt):t,x[0]:x=_o1(=<f,,=<{x},t,dt,Ndt):2t,x[0]:x=_t1(=<f,,=<(,),dt,Ndt).:x[0],x[1]:x=_t1(=<f,,=<{x},dt,Ndt):x[0],x[1]
+dt=0.1(1+i),Ndt=10,t=dt*Ndt,f=<__t__:x=_o1(=<f,=<0,,dt,Ndt):t,x[0]:x=_o1(=<f,=<{x},t,dt,Ndt):2t,x[0]:x=_t1(=<f,=<(,),dt,Ndt).:x[0],x[1]:x=_t1(=<f,=<{x},dt,Ndt):x[0],x[1]
 (
 0,0,0,0:
 0:
@@ -512,7 +512,7 @@ dt=0.1(1+i),Ndt=10,t=dt*Ndt,f=<__t__:x=_o1(=<f,,=<0,,dt,Ndt):t,x[0]:x=_o1(=<f,,=
 2+2i,3.8000000000000003i+O(1e-1+1e-1i)
 )
 
-dt=0.1(1+i),Ndt=10,t=dt*Ndt,f=<__t__:x=_o5(=<f,,=<0,,dt,Ndt):t,x[0]:x=_o5(=<f,,=<{x},t,dt,Ndt):2t,x[0]:x=_t5(=<f,,=<(,),dt,Ndt).:x[0],x[1]:x=_t5(=<f,,=<{x},dt,Ndt):x[0],x[1]
+dt=0.1(1+i),Ndt=10,t=dt*Ndt,f=<__t__:x=_o5(=<f,=<0,,dt,Ndt):t,x[0]:x=_o5(=<f,=<{x},t,dt,Ndt):2t,x[0]:x=_t5(=<f,=<(,),dt,Ndt).:x[0],x[1]:x=_t5(=<f,=<{x},dt,Ndt):x[0],x[1]
 (
 0,0,0,0:
 0:
@@ -525,7 +525,7 @@ dt=0.1(1+i),Ndt=10,t=dt*Ndt,f=<__t__:x=_o5(=<f,,=<0,,dt,Ndt):t,x[0]:x=_o5(=<f,,=
 2+2i,4i+O(1e-5+1e-5i)
 )
 
-dt=0.1(1+i),Ndt=10,t=dt*Ndt,f=<__t__:x=_o4(=<f,,=<0,,dt,Ndt):t,x[0]:x=_o4(=<f,,=<{x},t,dt,Ndt):2t,x[0]:x=_t4(=<f,,=<(,),dt,Ndt).:x[0],x[1]:x=_t4(=<f,,=<{x},dt,Ndt):x[0],x[1]
+dt=0.1(1+i),Ndt=10,t=dt*Ndt,f=<__t__:x=_o4(=<f,=<0,,dt,Ndt):t,x[0]:x=_o4(=<f,=<{x},t,dt,Ndt):2t,x[0]:x=_t4(=<f,=<(,),dt,Ndt).:x[0],x[1]:x=_t4(=<f,=<{x},dt,Ndt):x[0],x[1]
 (
 0,0,0,0:
 0:
@@ -538,7 +538,7 @@ dt=0.1(1+i),Ndt=10,t=dt*Ndt,f=<__t__:x=_o4(=<f,,=<0,,dt,Ndt):t,x[0]:x=_o4(=<f,,=
 2+2i,4i+O(1e-4+1e-4i)
 )
 
-dt=0.1(1+i),Ndt=10,t=dt*Ndt,f=<__t__:x=_o(=<f,,=<0,,dt,Ndt):t,x[0]:x=_o(=<f,,=<{x},t,dt,Ndt):2t,x[0]:x=_t(=<f,,=<(,),dt,Ndt).:x[0],x[1]:x=_t(=<f,,=<{x},dt,Ndt):x[0],x[1]
+dt=0.1(1+i),Ndt=10,t=dt*Ndt,f=<__t__:x=_o(=<f,=<0,,dt,Ndt):t,x[0]:x=_o(=<f,=<{x},t,dt,Ndt):2t,x[0]:x=_t(=<f,=<(,),dt,Ndt).:x[0],x[1]:x=_t(=<f,=<{x},dt,Ndt):x[0],x[1]
 (
 0,0,0,0:
 0:
@@ -554,7 +554,7 @@ dt=0.1(1+i),Ndt=10,t=dt*Ndt,f=<__t__:x=_o(=<f,,=<0,,dt,Ndt):t,x[0]:x=_o(=<f,,=<{
 clear
 local storage cleared
 
-dt=1e-1,Ndt=300,t=dt*Ndt:t,_o((t,x,v,a)=<{v,a,t},,=<{1,,1},,dt,Ndt).:t,_o(=<{__x__[1],__x__[2],__t__},,=<{1,,1},,dt,Ndt).:_t((t,x,v,a)=<{v,a,t},,=<{,1,,1},dt,Ndt).:_t(=<{__x__[1],__x__[2],__t__},,=<{,1,,1},dt,Ndt).
+dt=1e-1,Ndt=300,t=dt*Ndt:t,_o((t,x,v,a)=<{v,a,t},=<{1,,1},,dt,Ndt).:t,_o(=<{__x__[1],__x__[2],__t__},=<{1,,1},,dt,Ndt).:_t((t,x,v,a)=<{v,a,t},=<{,1,,1},dt,Ndt).:_t(=<{__x__[1],__x__[2],__t__},=<{,1,,1},dt,Ndt).
 (
 0,0,0:
 30,34201+O(1e-4),4530.000000000002+O(1e-4),451.00000000000006+O(1e-4):
@@ -608,56 +608,33 @@ stored_eqn(check)
 clear
 local storage cleared
 
-Newton(=<{,},=<{x0,x1},/*omitted*/,N=0,N)
-(
-0:
-0
-)
-
-Newton(=<{,},=<(x0,x1),/*omitted*/,N=0,N)
+Newton((x0,x1)=<(,),/*omitted*/,N=0,N)
 (
 0,0
 )
 
-Newton((x0,x1)=<(,),,/*omitted*/,N=0,N)
+Newton((x0,x1)=<{,},/*omitted*/,N=0,N)
 (
 0,0
 )
 
-Newton((x0,x1)=<{,},,/*omitted*/,N=0,N)
-(
-0,0
-)
-
-Newton((x0,x1)=<{,},,=<{1,1},N=0,N)
+Newton((x0,x1)=<{,},=<{1,1},N=0,N)
 (
 1:
 1
 )
 
-_t(=<{,},=<{t,x,v},/*omitted*/,N=0,N)
-(
-0:
-0:
-0
-)
-
-_t(=<{,},=<(t,x,v),/*omitted*/,N=0,N)
+_t((t,x,v)=<(,),/*omitted*/,N=0,N)
 (
 0,0,0
 )
 
-_t((t,x,v)=<(,),,/*omitted*/,N=0,N)
+_t((t,x,v)=<{,},/*omitted*/,N=0,N)
 (
 0,0,0
 )
 
-_t((t,x,v)=<{,},,/*omitted*/,N=0,N)
-(
-0,0,0
-)
-
-_t((t,x,v)=<{,},,=<{1,1,1},N=0,N)
+_t((t,x,v)=<{,},=<{1,1,1},N=0,N)
 (
 1:
 1:
@@ -667,16 +644,16 @@ _t((t,x,v)=<{,},,=<{1,1,1},N=0,N)
 clear
 local storage cleared
 
-Newton((x0,x1)=<{x0**2+x1-12=1e-5**2+1e5-12,x0+x1=1e-5+1e5},,,false,20)
+Newton((x0,x1)=<{x0**2+x1-12=1e-5**2+1e5-12,x0+x1=1e-5+1e5},,false,20)
 (
 0.000010000000266175229:
 100000
 )
 
-Newton((x)=<x**2+x-12=0,,,false,20)
+Newton((x)=<x**2+x-12=0,,false,20)
 infoLost[r ] 3.0000000000000004+O(3e-16)
 
-Jacobi((x0,x1)=<{x0**2+x1,x0+x1**2},,=<{1,2},false)
+Jacobi((x0,x1)=<{x0**2+x1,x0+x1**2},=<{1,2},false)
 (
 2.0000100000139294+O(1e-5),1.0000000000065512+O(2e-5):
 0.9999999999621422+O(1e-5),4.000020000027859+O(2e-5)
@@ -810,7 +787,7 @@ f(x)=<x**5,a=2,d1=1,d3=3
 0,0,0,0
 )
 
-(t,t**3/6,t**2/2):($t0,$x0,$v0)=_t((t,x,v)=<(v,t),,=<(,,),dt,N):(t0,x0,v0)::_t4((t,x,v)=<(v,t),,=<(,,),dt,N):_t5((t,x,v)=<(v,t),,=<(,,),dt,N):_t2((t,x,v)=<(v,t),,=<(,,),dt,N)
+(t,t**3/6,t**2/2):($t0,$x0,$v0)=_t((t,x,v)=<(v,t),=<(,,),dt,N):(t0,x0,v0)::_t4((t,x,v)=<(v,t),=<(,,),dt,N):_t5((t,x,v)=<(v,t),=<(,,),dt,N):_t2((t,x,v)=<(v,t),=<(,,),dt,N)
 (
 1,0.16666666666666666,0.5:
 0:
@@ -821,7 +798,7 @@ f(x)=<x**5,a=2,d1=1,d3=3
 1,0.16500000000000004+O(1e-2),0.5000000000000001+O(1e-2)
 )
 
-(t**3/6,t**2/2):($x0,$v0)=_o((t,x,v)=<{v,t},,=<{,},,dt,N).:(x0,v0)::_o4((t,x,v)=<{v,t},,=<{,},,dt,N).:_o5((t,x,v)=<{v,t},,=<{,},,dt,N).:_o2((t,x,v)=<{v,t},,=<{,},,dt,N).
+(t**3/6,t**2/2):($x0,$v0)=_o((t,x,v)=<{v,t},=<{,},,dt,N).:(x0,v0)::_o4((t,x,v)=<{v,t},=<{,},,dt,N).:_o5((t,x,v)=<{v,t},=<{,},,dt,N).:_o2((t,x,v)=<{v,t},=<{,},,dt,N).
 (
 0.16666666666666666,0.5:
 0:
@@ -2188,7 +2165,7 @@ vecr=sqrt2*(1,1):normr(vecr):(norm(vecr):euclidean(vecr))/*future:normr*/:normc(
 clear
 local storage cleared
 
-dt=0.1i,N=10,f(t,x0,x1)=<(x0+x1,t**2):tx_next=_t(=<f,,=<(1+i,1,i),dt,N):tx_next:step1(=<f):tx_next:step1(=<f):tx_next
+dt=0.1i,N=10,f(t,x0,x1)=<(x0+x1,t**2):tx_next=_t(=<f,=<(1+i,1,i),dt,N):tx_next:step1(=<f):tx_next:step1(=<f):tx_next
 (
 0,0,0:
 0:
@@ -2202,7 +2179,7 @@ dt=0.1i,N=10,f(t,x0,x1)=<(x0+x1,t**2):tx_next=_t(=<f,,=<(1+i,1,i),dt,N):tx_next:
 restore
 local storage restored
 
-dt=0.1,N=10,f(t,x0,x1)=<(t,t**2):tx_next=_t(=<f,,=<(1,,),dt,N):tx_next:step1(=<f):tx_next:step1(=<f):tx_next
+dt=0.1,N=10,f(t,x0,x1)=<(t,t**2):tx_next=_t(=<f,=<(1,,),dt,N):tx_next:step1(=<f):tx_next:step1(=<f):tx_next
 (
 0,0,0:
 0:
@@ -2216,7 +2193,7 @@ dt=0.1,N=10,f(t,x0,x1)=<(t,t**2):tx_next=_t(=<f,,=<(1,,),dt,N):tx_next:step1(=<f
 restore
 local storage restored
 
-dt=0.1,N=10,f(t,x0,x1)=<(t,t**2):tx_next=_t(=<f,,,dt,N):tx_next:step1(=<f):tx_next:step1((t,x0,x1)=<(t,t**2)):tx_next
+dt=0.1,N=10,f(t,x0,x1)=<(t,t**2):tx_next=_t(=<f,,dt,N):tx_next:step1(=<f):tx_next:step1((t,x0,x1)=<(t,t**2)):tx_next
 (
 0,0,0:
 0:
@@ -2230,23 +2207,9 @@ dt=0.1,N=10,f(t,x0,x1)=<(t,t**2):tx_next=_t(=<f,,,dt,N):tx_next:step1(=<f):tx_ne
 restore
 local storage restored
 
-dt=0.1,N=10,f(t,x0,x1)=<{t,t**2}:tx_next=_t(=<f,,,dt,N):tx_next.:step1(=<f):tx_next.:step1((t,x0,x1)=<{t,t**2}):tx_next.
+dt=0.1,N=10,f(t,x0,x1)=<{t,t**2}:tx_next=_t(=<f,,dt,N):tx_next.:step1(=<f):tx_next.:step1((t,x0,x1)=<{t,t**2}):tx_next.
 (
 0,0,0:
-0:
-1,0.5+O(1e-4),0.33333333333333337+O(1e-4):
-0:
-2,2+O(1e-4),2.6666666666666665+O(1e-4):
-0:
-3,4.5+O(1e-4),8.999999999999998+O(1e-4)
-)
-
-restore
-local storage restored
-
-dt=0.1,N=10,f=<{t,t**2},x=<(t,x0,x1):tx_next=_t(=<f,=<x,,dt,N):tx_next.:step0(=<f,=<x):tx_next.:step0(=<{t,t**2},=<(t,x0,x1)):tx_next.
-(
-0,0,0,0:
 0:
 1,0.5+O(1e-4),0.33333333333333337+O(1e-4):
 0:
@@ -2258,11 +2221,8 @@ dt=0.1,N=10,f=<{t,t**2},x=<(t,x0,x1):tx_next=_t(=<f,=<x,,dt,N):tx_next.:step0(=<
 store
 local storage stored
 
-step1(=<f)=<tx_next=_t(=<f,,=<{tx_next},dt,N)
+step1(=<f)=<tx_next=_t(=<f,=<{tx_next},dt,N)
 stored_eqn(step1)
-
-step0(=<f,=<x)=<tx_next=_t(=<f,=<x,=<{tx_next},dt,N)
-stored_eqn(step0)
 
 clear
 local storage cleared
@@ -2401,73 +2361,7 @@ N=8
 clear
 local storage cleared
 
-Newton(=<f,,=<{1},,20,1e-10,1)
-2.9999999999999996-1.378742947473326e-20i+O(1e+1+1e+0i)
-
-f(b)=<{_i((x)=<x^2,0,b,10)=3^3/3}/*integral equation*/
-stored_eqn(f)
-
-_R((n)=<run(),x_solved=x_initial=>,Niteration)
-(
-infoLost[r ] -0.049019216205446525+2.023423045158351i:
-infoLost[ri] 0.07726186556052178-1.434248862158042i
-)
-
-run=<(x_solved=Newton(=<f,,=<{x_solved}),=<x_solved)=>
-stored_eqn(run)
-
-x=>,x_initial=>
-(
-1+i,1+i:
-1-i,1-i
-)
-
-x_solved=Newton(=<f,,=<x_initial,,Niteration)
-x_solved=(
-infoLost[r ] -0.049019216205446525+2.023423045158351i+O(1e-18+6e-16i):
-infoLost[ri] 0.07726186556052178-1.434248862158042i+O(5e-18+2e-17i)
-)
-
-x=>,x_initial=>
-(
-1+i,1+i:
-1-i,1-i
-)
-
-f(x0,x1)=<{x0^i-2x1=3i,3x0+exp(x1)=5i}
-stored_eqn(f)
-
-x_solved=Newton(=<f,=<x,=<x_initial,,Niteration)
-x_solved=(
-infoLost[r ] -0.049019216205446525+2.023423045158351i+O(1e-18+6e-16i):
-infoLost[ri] 0.07726186556052178-1.434248862158042i+O(5e-18+2e-17i)
-)
-
-x=>,x_initial=>
-(
-1+i,1+i:
-1-i,1-i
-)
-
-f=<{x0^i-2x1=3i,3x0+exp(x1)=5i}/*non-linear equations*/
-stored_eqn(f)
-
-x=>x_initial
-0
-
-x=<{x0,x1}
-stored_eqn(x)
-
-{$x0,$x1}={1+i,1-i}
-stored_var(x0) stored_var(x1) 
-
-Niteration=6
-Niteration=6
-
-clear
-local storage cleared
-
-($x0,$x1)=(-1,-2),dt=0.1,N=10,t=N*dt:f(t,x0,x1)=<(t,t**2),x_next=_o(=<f,,,,dt,N):t,x_next:t0=t,x_next=_o((t,x0,x1)=<(t,t**2),,=<{x_next},t0,dt,N):t0+t,x_next:(x0,x1)
+($x0,$x1)=(-1,-2),dt=0.1,N=10,t=N*dt:f(t,x0,x1)=<(t,t**2),x_next=_o(=<f,,,dt,N):t,x_next:t0=t,x_next=_o((t,x0,x1)=<(t,t**2),=<{x_next},t0,dt,N):t0+t,x_next:(x0,x1)
 (
 0,0,0,0:
 0,0:
@@ -2480,7 +2374,7 @@ local storage cleared
 clear
 local storage cleared
 
-($x0,$x1)=(-1,-2),dt=0.1,N=10,t=N*dt:f(t,x0,x1)=<{t,t**2},x_next=_o(=<f,,,,dt,N):t,x_next.:t0=t,x_next=_o((t,x0,x1)=<{t,t**2},,=<{x_next},t0,dt,N):t0+t,x_next.:(x0,x1)
+($x0,$x1)=(-1,-2),dt=0.1,N=10,t=N*dt:f(t,x0,x1)=<{t,t**2},x_next=_o(=<f,,,dt,N):t,x_next.:t0=t,x_next=_o((t,x0,x1)=<{t,t**2},=<{x_next},t0,dt,N):t0+t,x_next.:(x0,x1)
 (
 0,0,0,0:
 0,0:
@@ -2493,20 +2387,7 @@ local storage cleared
 clear
 local storage cleared
 
-($x0,$x1)=(-1,-2),dt=0.1,N=10,t=N*dt:f(t)=<{t,t**2},x_next=_o(=<f,=<{x0,x1},,,dt,N):t,x_next.:t0=t,x_next=_o((t)=<{t,t**2},=<{x0,x1},=<{x_next},t0,dt,N):t0+t,x_next.:(x0,x1)
-(
-0,0,0,0:
-0,0:
-1,0.5+O(1e-4),0.33333333333333337+O(1e-4):
-0,0:
-2,2+O(1e-4),2.6666666666666665+O(1e-4):
--1,-2
-)
-
-clear
-local storage cleared
-
-x=-1,dt=0.1,N=10,t=N*dt:f(t,x)=<t,x_next=_o(=<f,,,,dt,N):t,x_next:t0=t,x_next=_o((t,x)=<t,,=<{x_next},t0,dt,N):t0+t,x_next:x
+x=-1,dt=0.1,N=10,t=N*dt:f(t,x)=<t,x_next=_o(=<f,,,dt,N):t,x_next:t0=t,x_next=_o((t,x)=<t,=<{x_next},t0,dt,N):t0+t,x_next:x
 (
 0,0,0,0:
 0,0:
@@ -2519,20 +2400,7 @@ x=-1,dt=0.1,N=10,t=N*dt:f(t,x)=<t,x_next=_o(=<f,,,,dt,N):t,x_next:t0=t,x_next=_o
 clear
 local storage cleared
 
-x=-1,dt=0.1,N=10,t=N*dt:f(t)=<t,x_next=_o(=<f,=<{x},,,dt,N):t,x_next:t0=t,x_next=_o((t)=<t,=<{x},=<{x_next},t0,dt,N):t0+t,x_next:x
-(
-0,0,0,0:
-0,0:
-1,0.5+O(1e-4):
-0,0:
-2,2+O(1e-4):
--1
-)
-
-clear
-local storage cleared
-
-(f=<(x00,x01:x10,x11)*(1,2:3,4)=identity(2):{$x00,$x01,$x10,$x11}=Newton(=<f,=<{x00,x01,x10,x11},,,20)),(1,2:3,4)(x00,x01:x10,x11)
+(f(x00,x01,x10,x11/*serialized*/)=<(x00,x01:x10,x11)*(1,2:3,4)=identity(2):($x00,$x01,$x10,$x11)=Newton(=<f,,,20)),(1,2:3,4)(x00,x01:x10,x11)
 (
 0,infoLost[r ] 0.9999999999999996+1.383118375869034e-209i+O(9e-16+4e-199i),infoLost[r ] 2.220446049250313e-16-6.91559187934517e-210i+O(4e-16+2e-199i):
 0,infoLost[r ] -8.881784197001252e-16+2.7662367517380646e-209i+O(2e-15+7e-199i),infoLost[r ] 1.0000000000000004-1.3831183758690323e-209i+O(9e-16+4e-199i)
@@ -2541,25 +2409,7 @@ local storage cleared
 clear
 local storage cleared
 
-(f=<(x00,x01:x10,x11)*(1,2:3,4)=identity(2):($x00,$x01,$x10,$x11)=Newton(=<f,=<(x00,x01,x10,x11),,,20)),(1,2:3,4)(x00,x01:x10,x11)
-(
-0,infoLost[r ] 0.9999999999999996+1.383118375869034e-209i+O(9e-16+4e-199i),infoLost[r ] 2.220446049250313e-16-6.91559187934517e-210i+O(4e-16+2e-199i):
-0,infoLost[r ] -8.881784197001252e-16+2.7662367517380646e-209i+O(2e-15+7e-199i),infoLost[r ] 1.0000000000000004-1.3831183758690323e-209i+O(9e-16+4e-199i)
-)
-
-clear
-local storage cleared
-
-(f(x00,x01,x10,x11/*serialized*/)=<(x00,x01:x10,x11)*(1,2:3,4)=identity(2):($x00,$x01,$x10,$x11)=Newton(=<f,,,,20)),(1,2:3,4)(x00,x01:x10,x11)
-(
-0,infoLost[r ] 0.9999999999999996+1.383118375869034e-209i+O(9e-16+4e-199i),infoLost[r ] 2.220446049250313e-16-6.91559187934517e-210i+O(4e-16+2e-199i):
-0,infoLost[r ] -8.881784197001252e-16+2.7662367517380646e-209i+O(2e-15+7e-199i),infoLost[r ] 1.0000000000000004-1.3831183758690323e-209i+O(9e-16+4e-199i)
-)
-
-clear
-local storage cleared
-
-x=-1,x_solved=Newton((x)=<x**2+x-12=0,,,,20),x_solved,x
+x=-1,x_solved=Newton((x)=<x**2+x-12=0,,,20),x_solved,x
 (
 0,0,infoLost[r ] 3.0000000000000004-9.550999834230917e-87i+O(3e-16+2e-81i),-1
 )
@@ -2567,7 +2417,7 @@ x=-1,x_solved=Newton((x)=<x**2+x-12=0,,,,20),x_solved,x
 clear
 local storage cleared
 
-x=-1,f(x)=<x**2+x-12=0,x_solved=Newton((x)=<f(x)=>,,,,20),x_solved,x
+x=-1,f(x)=<x**2+x-12=0,x_solved=Newton((x)=<f(x)=>,,,20),x_solved,x
 (
 0,0,0,infoLost[r ] 3.0000000000000004-9.550999834230917e-87i+O(3e-16+2e-81i),-1
 )
@@ -2575,7 +2425,7 @@ x=-1,f(x)=<x**2+x-12=0,x_solved=Newton((x)=<f(x)=>,,,,20),x_solved,x
 clear
 local storage cleared
 
-x=-1,f(x)=<x**2+x-12=0,x_solved=Newton(=<f,,,,20),x_solved,x
+x=-1,f(x)=<x**2+x-12=0,x_solved=Newton(=<f,,,20),x_solved,x
 (
 0,0,0,infoLost[r ] 3.0000000000000004-9.550999834230917e-87i+O(3e-16+2e-81i),-1
 )
@@ -2583,24 +2433,7 @@ x=-1,f(x)=<x**2+x-12=0,x_solved=Newton(=<f,,,,20),x_solved,x
 clear
 local storage cleared
 
-Jacobi((x0,x1)=<{x0**2+x1,x0+x1**2},,=<{1,2}):($x0,$x1)=(,):Jacobi((x0,x1)=<(x0**2+x1,x0+x1**2),,=<(1,2)):(x0,x1):($x0,$x1)=(1,2):Jacobi((x0,x1)=<(x0**2+x1,x0+x1**2)):(x0,x1)
-(
-2.0000100000065513+0.000009999993449073826i+O(1e-5+1e-5i),1.000000000005241-2.6204564817797063e-12i+O(2e-5+1e-5i):
-0.999999999981071+1.8928929719024988e-11i+O(1e-5+1e-5i),4.000019999986429+0.000010000006785034757i+O(2e-5+1e-5i):
-0:
-2.0000100000065513+0.000009999993449073826i+O(1e-5+1e-5i),1.000000000005241-2.6204564817797063e-12i+O(2e-5+1e-5i):
-0.999999999981071+1.8928929719024988e-11i+O(1e-5+1e-5i),4.000019999986429+0.000010000006785034757i+O(2e-5+1e-5i):
-0,0:
-0:
-0.000010000000000000013+0.000010000000000000013i+O(1e-5+1e-5i),1+O(1e-5+1e-5i):
-1+O(1e-5+1e-5i),0.000010000000000000013+0.000010000000000000013i+O(1e-5+1e-5i):
-1,2
-)
-
-clear
-local storage cleared
-
-Jacobi(=<{x0**2+x1,x0+x1**2},=<{x0,x1},=<{1,2}):($x0,$x1)=(,):Jacobi(=<{x0**2+x1,x0+x1**2},=<{x0,x1},=<{1,2}):(x0,x1):($x0,$x1)=(1,2):Jacobi(=<{x0**2+x1,x0+x1**2},=<{x0,x1}):(x0,x1)
+Jacobi((x0,x1)=<{x0**2+x1,x0+x1**2},=<{1,2}):($x0,$x1)=(,):Jacobi((x0,x1)=<(x0**2+x1,x0+x1**2),=<(1,2)):(x0,x1):($x0,$x1)=(1,2):Jacobi((x0,x1)=<(x0**2+x1,x0+x1**2)):(x0,x1)
 (
 2.0000100000065513+0.000009999993449073826i+O(1e-5+1e-5i),1.000000000005241-2.6204564817797063e-12i+O(2e-5+1e-5i):
 0.999999999981071+1.8928929719024988e-11i+O(1e-5+1e-5i),4.000019999986429+0.000010000006785034757i+O(2e-5+1e-5i):
@@ -4831,7 +4664,7 @@ local storage cleared
 clear
 local storage cleared
 
-_o((t)=<{t,i},=<{x,v},=<{,},1+i,0.1i)/*explicit ODE solver test case*/
+_o((t,x,v)=<{t,i},=<{,},1+i,0.1i)/*explicit ODE solver test case*/
 (
 -0.10499999999999998+0.09999999999999999i+O(1e-4i):
 -0.09999999999999999+O(1e-4i)
@@ -5083,4 +4916,4 @@ drag=false&sw=false&0x=false&useMatrix=true&useStrict=false&checkError=true&isRi
 --------------------------------
 --------------------------------
 
-online-simulator.github.io.6.479.645.22.151 @ Sun Apr 27 2025 13:12:29 GMT+0900 (日本標準時) @ Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/135.0.0.0 Safari/537.36
+online-simulator.github.io.6.480.645.22.151 @ Sun Apr 27 2025 15:11:56 GMT+0900 (日本標準時) @ Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/135.0.0.0 Safari/537.36

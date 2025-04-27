@@ -7801,6 +7801,10 @@ A=(1,2:3,4); A[][0] -> (1:3)
 ・<span class="run">Ver.2.813.131</span>以降、<a href="#span-out-FNmh-EX">symbolic高階行列関数</a>の仕様廃止（<span class="run">Ver.2.736.107</span>~<span class="run">2.739.107</span>以降、冗長）
 <br>
 　影響項目：<a href="#span-eqn">strict-mode式変数list</a>（<span class="run">Ver.2.815.131</span>以降、<a href="#span-eqn-heat1d_evolution">heat1d_evolution</a>のみ、<a href="#span-out-error-numerical">数値解</a>を変更）
+<br>
+・<span class="run">Ver.2.816.132</span>以降、<a href="#span-out-FNmh">高階行列関数</a>の第2引数を廃止（第1引数との重複を解消）
+<br>
+　影響項目：<a href="#span-out-FNmh">高階行列関数</a>||<a href="#span-eqn">strict-mode式変数list</a>
     </td>
   </tr>
   <tr>
@@ -32563,7 +32567,7 @@ Jacobi(=&lt;第1引数,=&lt;第2引数[,=&lt;第3引数[,第4引数]])
 <br>
 ・第1引数: 方程式||関数式の列vectorを<a href="#span-out-pass-by-equation">式渡し</a>||<a href="#span-out-pass-by-symbol">symbol渡し</a>
 <br>
-・第2引数: 未知<a href="#span-out-vars-symbol">変数名symbol</a>の列vectorを<a href="#span-out-pass-by-equation">式渡し</a>||<a href="#span-out-pass-by-symbol">symbol渡し</a>
+<del>・第2引数: 未知<a href="#span-out-vars-symbol">変数名symbol</a>の列vectorを<a href="#span-out-pass-by-equation">式渡し</a>||<a href="#span-out-pass-by-symbol">symbol渡し</a></del><span class="run">Ver.2.816.132</span>以降、廃止
 <br>
 option
 <br>
@@ -32714,7 +32718,7 @@ Newton(=&lt;第1引数,=&lt;第2引数[,=&lt;第3引数[,第4引数[,第5引数[
 <br>
 ・第1引数: 方程式||関数式の列vectorを<a href="#span-out-pass-by-equation">式渡し</a>||<a href="#span-out-pass-by-symbol">symbol渡し</a>
 <br>
-・第2引数: 未知<a href="#span-out-vars-symbol">変数名symbol</a>の列vectorを<a href="#span-out-pass-by-equation">式渡し</a>||<a href="#span-out-pass-by-symbol">symbol渡し</a>
+<del>・第2引数: 未知<a href="#span-out-vars-symbol">変数名symbol</a>の列vectorを<a href="#span-out-pass-by-equation">式渡し</a>||<a href="#span-out-pass-by-symbol">symbol渡し</a></del><span class="run">Ver.2.816.132</span>以降、廃止
 <br>
 option
 <br>
@@ -32993,7 +32997,7 @@ _o(=&lt;第1引数,=&lt;第2引数[,=&lt;第3引数[,第4引数[,第5引数[,第
 <br>
 ・第1引数: 1階常微分方程式右辺の関数式を<a href="#span-out-pass-by-equation">式渡し</a>||<a href="#span-out-pass-by-symbol">symbol渡し</a>
 <br>
-・第2引数: 未知<a href="#span-out-vars-symbol">変数名symbol</a>の列vectorを<a href="#span-out-pass-by-equation">式渡し</a>||<a href="#span-out-pass-by-symbol">symbol渡し</a>
+<del>・第2引数: 未知<a href="#span-out-vars-symbol">変数名symbol</a>の列vectorを<a href="#span-out-pass-by-equation">式渡し</a>||<a href="#span-out-pass-by-symbol">symbol渡し</a></del><span class="run">Ver.2.816.132</span>以降、廃止
 <br>
 option
 <br>
@@ -47489,7 +47493,7 @@ dtn=&lt;n&lt;=0&amp;&amp;0||||dt/*switch(n&lt;=0,0:1,dt)*/,
 <br>
 <span class="jF">x_next=x_initial=&gt;,</span>
 <br>
-step=&lt;last{dt0=dtn=&gt;,<span class="jF">x_next=_o(=&lt;f,,=&lt;{x_next}</span>,t,dt0)<span class="jF">,t=t+dt0</span>},
+step=&lt;last{dt0=dtn=&gt;,<span class="jF">x_next=_o(=&lt;f,=&lt;{x_next}</span>,t,dt0)<span class="jF">,t=t+dt0</span>},
 <br>
 stepnm=&lt;last{step=&gt;,<span class="jF">z_x=x_next[0],</span>xt[n][mdummy]=real(z_x),yt[n][mdummy]=imag(z_x)},
 <br>
@@ -47818,7 +47822,7 @@ arr_args=[
 <br>
 (x)=&lt;_i0((t)=&lt;SND(t)=&gt;,[0,x],NI)*2,(x)=&lt;_i0((t)=&lt;SND(t)=&gt;,[0,x*sqrt2],NI)*2,(x)=&lt;1-erf(x)=&gt;:
 <br>
-(x)=&lt;_o45((t,x)=&lt;SND(t)=&gt;,,,[0,x/NI],NI)*2,(x)=&lt;_o45((t,x)=&lt;SND(t)=&gt;,,,[0,x*sqrt2/NI],NI)*2,(x)=&lt;1-erf(x)=&gt;
+(x)=&lt;_o45((t,x)=&lt;SND(t)=&gt;,,[0,x/NI],NI)*2,(x)=&lt;_o45((t,x)=&lt;SND(t)=&gt;,,[0,x*sqrt2/NI],NI)*2,(x)=&lt;1-erf(x)=&gt;
 <br>
 ];
 <br>
@@ -47851,7 +47855,7 @@ arr_integral=[
 <br>
 (=&lt;f,a,b)=&lt;_i0(=&lt;f,a,b,NI):
 <br>
-(=&lt;f,a,b)=&lt;_o45((t,x)=&lt;f(t)=&gt;,,,a,(b-a)/NI,NI)
+(=&lt;f,a,b)=&lt;_o45((t,x)=&lt;f(t)=&gt;,,a,(b-a)/NI,NI)
 <br>
 ];
 <br>
@@ -47899,7 +47903,7 @@ integral
 <br>
 clear;
 <br>
-check(=&lt;f,a,b,NI,type)=&lt;(_o45((t,x)=&lt;f(t)=&gt;,,,a,(b-a)/NI,NI):_i(=&lt;f,a,b,NI):_i0(=&lt;f,a,b,NI,type));
+check(=&lt;f,a,b,NI,type)=&lt;(_o45((t,x)=&lt;f(t)=&gt;,,a,(b-a)/NI,NI):_i(=&lt;f,a,b,NI):_i0(=&lt;f,a,b,NI,type));
 <br>
 NI=100;
 <br>
@@ -48095,7 +48099,7 @@ globalS(=&lt;f)=&lt;_i(=&lt;f,0,1,NI);
 <br>
 globalS((z)=&lt;globalS((y)=&lt;globalS((x)=&lt;1/(1-x*y*z))==&gt;)==&gt;)==&gt;;
 <br>
-globalS(=&lt;f)=&lt;(_t1((t,x)=&lt;f(t)=&gt;,,=&lt;{,0},1/NI,NI))[1];
+globalS(=&lt;f)=&lt;(_t1((t,x)=&lt;f(t)=&gt;,=&lt;{,0},1/NI,NI))[1];
 <br>
 globalS((z)=&lt;globalS((y)=&lt;globalS((x)=&lt;1/(1-x*y*z))==&gt;)==&gt;)==&gt;;
 <br>
@@ -48391,7 +48395,7 @@ run=&lt;last{
 <br>
 <span class="jF">isRow&amp;&amp;&amp;(f=&lt;(__x__.)*A=b)||||(f=&lt;A*(__x__)=b),</span>
 <br>
-<span class="jF">x_solved=</span>Newton(=&lt;f,,=&lt;{b*0},Nmax=1e3,Nmax,1e-10,1)
+<span class="jF">x_solved=</span>Newton(=&lt;f,=&lt;{b*0},Nmax=1e3,Nmax,1e-10,1)
 <br>
 },
 </div>
@@ -48439,7 +48443,7 @@ run=&lt;last{
 <br>
 f=&lt;reshape(__x__:sizeA,sizeA)*A=identity(sizeA),
 <br>
-<span class="jF">x_solved</span>=Newton(=&lt;f,,=&lt;{x0},Nmax=1e3,Nmax,1e-10,1),
+<span class="jF">x_solved</span>=Newton(=&lt;f,=&lt;{x0},Nmax=1e3,Nmax,1e-10,1),
 <br>
 <span class="jF">Ainv=reshape(x_solved:sizeA,sizeA)</span>
 <br>
@@ -48477,7 +48481,7 @@ init=&lt;last{0},
 <div class="run">
 run=&lt;last{
 <br>
-<span class="jF">x_solved</span>=Newton(=&lt;f_,,=&lt;x_initial_,Nmax=1e3,Nmax,1e-10,1)
+<span class="jF">x_solved</span>=Newton(=&lt;f_,=&lt;x_initial_,Nmax=1e3,Nmax,1e-10,1)
 <br>
 },
 </div>
@@ -48513,7 +48517,7 @@ init=&lt;last{0},
 <div class="run">
 run=&lt;last{
 <br>
-<span class="jF">x_solved</span>=Newton(=&lt;f_<span class="jF">,,</span>=&lt;x_initial_,Nmax=1e3,Nmax,1e-10,1)
+<span class="jF">x_solved</span>=Newton(=&lt;f_<span class="jF">,</span>=&lt;x_initial_,Nmax=1e3,Nmax,1e-10,1)
 <br>
 },
 </div>
@@ -48611,7 +48615,7 @@ clear;
 <br>
 step<span class="jF">=</span>(<span class="jF">=</span>=&lt;f_,x0,<span class="jF">?</span>arr)=&lt;last[
 <br>
-solvex=&lt;Newton(=&lt;f_<span class="jF">,,</span>=&lt;{x0},Nmax=1e3,Nmax,eps),
+solvex=&lt;Newton(=&lt;f_<span class="jF">,</span>=&lt;{x0},Nmax=1e3,Nmax,eps),
 <br>
 <span class="jF">arr[0].push(x0)</span>,
 <br>
@@ -48679,7 +48683,7 @@ relative_epsN=(epsN,isRelative_epsN)/*(epsN,flag)*/
 <div class="run">
 run=&lt;last{
 <br>
-args_Newton=(=&lt;f<span class="jF">,,</span>=&lt;x_initial,Nmax=1e3,Nmax,relative_epsN)/*(args)*/,
+args_Newton=(=&lt;f<span class="jF">,</span>=&lt;x_initial,Nmax=1e3,Nmax,relative_epsN)/*(args)*/,
 <br>
 step_iteration=&lt;<span class="jF">x_solved</span>=Newton(args_Newton),
 <br>
@@ -48764,7 +48768,7 @@ run=&lt;last{
 <br>
 <span class="jF">x_next=x_initial=&gt;,</span>
 <br>
-stepN=&lt;last{N=round(t/dt),<span class="jF">x_next=_o(=&lt;f,,=&lt;{x_next}</span>,<span class="jF">t_total</span>,dt,N)},
+stepN=&lt;last{N=round(t/dt),<span class="jF">x_next=_o(=&lt;f,=&lt;{x_next}</span>,<span class="jF">t_total</span>,dt,N)},
 <br>
 <span class="jF">step_post=&lt;{$z_x0,$z_v0}=x_next,</span>
 <br>
@@ -48835,7 +48839,7 @@ f(t,x,v)=&lt;{v,t+(F-k*x-c*v)/m};
 <br>
 ($F,$m,$k,$c)=(1,1,1,0.4);
 <br>
-args=(=&lt;f,,=&lt;{t0,x0,v0},dt,Niteration);
+args=(=&lt;f,=&lt;{t0,x0,v0},dt,Niteration);
 <br>
 ODE_fixed(t0,=&lt;(x0,v0),=&lt;table_Butcher)=&gt;:(_t0(args,,=&lt;table_Butcher).):(_t(args).);
     </td>
@@ -48960,7 +48964,7 @@ f(t,x,v)=&lt;{v,t+(F-k*x-c*v)/m};
 <br>
 ($F,$m,$k,$c)=(1,1,1,0.4);
 <br>
-args=(=&lt;f,,=&lt;{t0,x0,v0},dt,Niteration);
+args=(=&lt;f,=&lt;{t0,x0,v0},dt,Niteration);
 <br>
 ODE_adaptive(t0,=&lt;(x0,v0),=&lt;table_fixed)=&gt;:(_t0(args,,=&lt;table_fixed).):(_t4(args).);
 <br>
@@ -49419,7 +49423,7 @@ NI=300,
 <br>
 T=2*pi/omega,
 <br>
-cn(n)=&lt;_o45((t,x)=&lt;(f(t)=&gt;)*e^(-i*(n*omega)*t),,,<span class="clear">isSym&amp;&amp;&amp;[-T/2,T/NI]|||[dt=T/NI,dt]</span>,NI)/T,
+cn(n)=&lt;_o45((t,x)=&lt;(f(t)=&gt;)*e^(-i*(n*omega)*t),,<span class="clear">isSym&amp;&amp;&amp;[-T/2,T/NI]|||[dt=T/NI,dt]</span>,NI)/T,
 <br>
 _s((n)=&lt;(cn(n)=&gt;)*e^(i*(n*omega)*x),-N,N)
 <br>
@@ -50566,7 +50570,7 @@ r[0]=r[0]+c*dt,
 <br>
 r[-1]=r[-1]+d*dt,
 <br>
-<span class="jF">oldT</span>=Newton(=&lt;A*__x__=r,,=&lt;{oldT})
+<span class="jF">oldT</span>=Newton(=&lt;A*__x__=r,=&lt;{oldT})
 <br>
 },
 <br>

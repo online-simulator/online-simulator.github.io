@@ -1333,21 +1333,7 @@ if(prop === "OX" || prop === "TX"){  // ODE  // Ver.2.23.11  // Ver.2.231.56  //
       names = args_eqn || get_names(args[1]);  // Ver.2.233.56  // Ver.2.237.56
     }
     else{
-      /* Ver.2.735.107 -> */
-      var arg1 = args[1];
-      if(self.hasEqn_arg(arg1)){
-        names = get_names(arg1);  // Ver.2.233.56  // Ver.2.237.56
-        if(isTX){
-          name_arg = names[0];
-        }
-      }
-      else if(self.has0_arg(arg1)){
-        isAuto_args = true;  // Ver.2.736.107
-      }
-      else{
-        throw msgErr;
-      }
-      /* -> Ver.2.735.107 */
+      isAuto_args = true;  // Ver.2.735.107  // Ver.2.736.107  // Ver.2.816.132
     }
     /* Ver.2.736.107 -> */
     var name_var = name_arg;  // Ver.2.812.131
@@ -1365,22 +1351,25 @@ if(prop === "OX" || prop === "TX"){  // ODE  // Ver.2.23.11  // Ver.2.231.56  //
     var len_i = names.length;
     var arr_x = null;
     /* Ver.2.29.15 -> */
-    var arg2 = args[2];  // Ver.2.233.56
+    /* Ver.2.816.132 -> */
+    var arg1 = args[1];  // Ver.2.233.56
     /* Ver.2.735.107 -> */
-    if(self.hasEqn_arg(arg2)){  // Ver.2.233.56
-      arr_x = get_arr_x(arg2, len_i);  // Ver.2.233.56  // Ver.2.237.56
+    if(self.hasEqn_arg(arg1)){  // Ver.2.233.56
+      arr_x = get_arr_x(arg1, len_i);  // Ver.2.233.56  // Ver.2.237.56
     }
-    else if(self.has0_arg(arg2)){
+    else if(self.has0_arg(arg1)){
       arr_x = math_mat.zeros2d(len_i, 1);
     }
     else{
       throw msgErr;
     }
     /* -> Ver.2.735.107 */
+    /* -> Ver.2.816.132 */
     /* Ver.2.238.56 -> */
     /* Ver.2.815.132 -> */
     // args
     var is = 3;
+    is -= 1;  // Ver.2.816.132
     var argI = args[is+0];
     var argT = args[is+1-isTX];
     var argN = args[is+2-isTX];
@@ -1699,18 +1688,7 @@ else{
       names = args_eqn;
     }
     else{
-      /* Ver.2.735.107 -> */
-      var arg1 = args[1];
-      if(self.hasEqn_arg(arg1)){
-        names = get_names(arg1);  // Ver.2.233.56  // Ver.2.237.56
-      }
-      else if(self.has0_arg(arg1)){
-        isAuto_args = true;  // Ver.2.736.107
-      }
-      else{
-        throw msgErr;
-      }
-      /* -> Ver.2.735.107 */
+      isAuto_args = true;  // Ver.2.735.107  // Ver.2.736.107  // Ver.2.816.132
     }
     if(!(isAuto_args)){
       if(!(names.length)) throw msgErr;
@@ -1723,20 +1701,23 @@ else{
     var len_i = names.length;
     var arr_x = null;
     /* Ver.2.29.15 -> */
-    var arg2 = args[2];  // Ver.2.233.56
+    /* Ver.2.816.132 -> */
+    var arg1 = args[1];  // Ver.2.233.56
     /* Ver.2.735.107 -> */
-    if(self.hasEqn_arg(arg2)){  // Ver.2.233.56
-      arr_x = get_arr_x(arg2, len_i);  // Ver.2.233.56  // Ver.2.237.56
+    if(self.hasEqn_arg(arg1)){  // Ver.2.233.56
+      arr_x = get_arr_x(arg1, len_i);  // Ver.2.233.56  // Ver.2.237.56
     }
-    else if(self.has0_arg(arg2) || self.isUndef_arg(arg2)){
+    else if(self.has0_arg(arg1) || self.isUndef_arg(arg1)){
       arr_x = math_mat.zeros2d(len_i, 1);
     }
     else{
       throw msgErr;
     }
+    /* -> Ver.2.816.132 */
     /* Ver.2.815.132 -> */
     // args
     var is = 3;
+    is -= 1;  // Ver.2.816.132
     var argH = args[is+0];
     var argN = args[is+1];
     var argE = args[is+2];
