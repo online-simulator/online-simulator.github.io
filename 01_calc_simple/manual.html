@@ -47927,6 +47927,10 @@ check((x)=&lt;1/(x**2+1.005),-1,1,NI,)=&gt;:1.564396444069049773091;
 <br>
 check((x)=&lt;cosh(10*(x-0.2))**(-2)+cosh(100*(x-0.4))**(-4)+cosh(1000*(x-0.6))**(-6),0,1,NI,)=&gt;:0.2108027355005492773756;
 <br>
+check((x)=&lt;exp(-x)/sqrt(x),0,1/2,NI,)=&gt;:1.2100356;
+<br>
+check((x)=&lt;exp(-x)/sqrt(x),1/2,inf,NI,)=&gt;:0.5624182315944;
+<br>
 check((x)=&lt;sqrt(tan(x)),0,pi/4,NI,)=&gt;:0.48749549439936104836;
 <br>
 check((x)=&lt;sqrt(tan(x)),pi/4,0,NI,)=&gt;:-0.48749549439936104836;
@@ -48066,6 +48070,12 @@ NI=1000;
 check((x)=&lt;sin(1/sqrt(x))/sqrt(x),0,1,NI,)=&gt;:1.008134123813856743979;
 <br>
 check((x)=&lt;sin(1/sqrt(x))/sqrt(x),1,0,NI,)=&gt;:-1.008134123813856743979;
+<br>
+NI=100;
+<br>
+check((x)=&lt;exp(-x)/sqrt(x),0,1/2,NI,)=&gt;:1.2100356;
+<br>
+check((x)=&lt;exp(-x)/sqrt(x),1/2,inf,NI,)=&gt;:0.5624182315944;
 <br>
 NI=100;
 <br>

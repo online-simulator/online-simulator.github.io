@@ -1071,6 +1071,23 @@ infoLost[r ] 0.48749549439936113+O(1e-100):
 NI=100
 NI=100
 
+check((x)=<exp(-x)/sqrt(x),1/2,inf,NI,)=>:0.5624182315944
+(
+infoLost[r ] 0.5624182315937307+O(2e-50):
+infoLost[r ] 0.5624182315937307+O(2e-50):
+0.5624182315944
+)
+
+check((x)=<exp(-x)/sqrt(x),0,1/2,NI,)=>:1.2100356
+(
+infoLost[r ] 1.2100356013394644+O(6e-101):
+infoLost[r ] 1.2100356029265327+O(6e-101):
+1.2100356
+)
+
+NI=100
+NI=100
+
 check((x)=<sin(1/sqrt(x))/sqrt(x),1,0,NI,)=>:-1.008134123813856743979
 (
 -1.0050273943802335+O(1e-101):
@@ -1272,6 +1289,22 @@ check((x)=<sqrt(tan(x)),0,pi/4,NI,)=>:0.48749549439936104836
 0.487438986531867+O(4e-9):
 infoLost[r ] 0.48749549439936113+O(1e-100):
 0.4874954943993611
+)
+
+check((x)=<exp(-x)/sqrt(x),1/2,inf,NI,)=>:0.5624182315944
+(
+infoLost[r ] NaN:
+NaN:
+infoLost[r ] 0.5624182315937307+O(2e-50):
+0.5624182315944
+)
+
+check((x)=<exp(-x)/sqrt(x),0,1/2,NI,)=>:1.2100356
+(
+NaN:
+NaN:
+infoLost[r ] 1.2100356029265327+O(6e-101):
+1.2100356
 )
 
 check((x)=<cosh(10*(x-0.2))**(-2)+cosh(100*(x-0.4))**(-4)+cosh(1000*(x-0.6))**(-6),0,1,NI,)=>:0.2108027355005492773756
@@ -1954,7 +1987,7 @@ clear
 local storage cleared
 
 [Pinv_y=(-0.999999427,-0.999936657,-0.997300203,-0.954499736,-0.682689492,0,0.682689492,0.954499736,0.997300203,0.999936657,0.999999427:-5,-4,-3,-2,-1,0,1,2,3,4,5),N=1,arr=[],_r((n)=<arr.push(rand_table(=<Pinv_y)=>),,N),=<arr.]=>
-0.4032810583795498
+-3.7140232167834366
 
 rand_table(csv)=<last[table=sort0(csv),ymin=min(table)[0],ymax=max(table)[0],y=ymin+(ymax-ymin)*rand(),x=interp(y:table),x]
 stored_eqn(rand_table)
@@ -3857,4 +3890,4 @@ center=true&drag=false&test-case=false&plot-all=true&relzooming=true&snap=true&l
 --------------------------------
 --------------------------------
 
-online-simulator.github.io.6.480.645.22.151 @ Sun Apr 27 2025 15:12:59 GMT+0900 (日本標準時) @ Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/135.0.0.0 Safari/537.36
+online-simulator.github.io.6.480.647.22.151 @ Sun Apr 27 2025 21:57:06 GMT+0900 (日本標準時) @ Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/135.0.0.0 Safari/537.36
