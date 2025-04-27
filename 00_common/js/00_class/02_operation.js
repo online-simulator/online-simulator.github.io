@@ -2400,22 +2400,23 @@ My_entry.operation.prototype.IX = function(data, rightArr, tagObj){
           [function(t){return Math.exp(pih*math.sinh(t));}, function(t){return x(t)*pih*math.cosh(t);}],
           [function(t){return math.sinh(pih*math.sinh(t));}, function(t){return math.cosh(pih*math.sinh(t))*pih*math.cosh(t);}]
         ];
-        var fa = calc_f(acr, aci);
-        var fb = calc_f(bcr, bci);
-        var facr = fa.com.r;
-        var faci = fa.com.i;
-        var fbcr = fb.com.r;
-        var fbci = fb.com.i;
         /* Ver.2.806.131 -> */
         if(!(arr_x[type])){
           throw "Invalid _i0(,,,,type)";
         }
         /* -> Ver.2.806.131 */
         else if((acr === bcr) && (aci === bci)){
-          if(!(isFinite(facr) && isFinite(faci))){
+          /* Ver.2.819.132 -> */
+          var fa = calc_f(acr, aci);
+          var facr = fa.com.r;
+          var faci = fa.com.i;
+          var isI_a = math.isInf(acr) || math.isInf(aci);
+          var isI_f = math.isInf(facr) || math.isInf(faci);
+          if(isI_a && isI_f){
             _sum.com.r = NaN;
             _sum.com.i = NaN;
           }
+          /* -> Ver.2.819.132 */
         }
         else{
           var hasM = math.isFIm(acr, bcr) || math.isIFm(acr, bcr) || math.isIIm(acr, bcr);
@@ -2428,10 +2429,7 @@ My_entry.operation.prototype.IX = function(data, rightArr, tagObj){
             bci = wci;
           }
           if(type === 0){
-            if(math.isInf(facr) || math.isInf(faci) || math.isInf(fbcr) || math.isInf(fbci)){
-              type = 3;
-            }
-            else if(math.isFI(acr, bcr) || math.isIF(acr, bcr)){
+            if(math.isFI(acr, bcr) || math.isIF(acr, bcr)){
               type = 3;
             }
             else if(math.isII(acr, bcr)){

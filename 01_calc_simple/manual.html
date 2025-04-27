@@ -22124,7 +22124,7 @@ val=true; val==1,val==true,val===1,val===true -> (1,1,0+O(1e+0),1)
 <br>
 ・<a href="#span-out-FNm-coo">座標形式行列関数</a>の欠損値=<a href="#span-out-prec-ope-arithmetic-ite">.filter演算子</a>の欠損値=NaN+(NaN)i
 <br>
-・<span class="run">Ver.2.806.130</span>以降、区間[∞,∞]の<a href="#span-out-limit">極限</a>が有限でない場合、<a href="#span-out-FNh-IX">積分</a>の欠損値=NaN+(NaN)i
+・<span class="run">Ver.2.819.132</span>以降、区間[∞,∞]の<a href="#span-out-limit">極限</a>が有限でない場合、<a href="#span-out-FNh-IX">積分</a>の欠損値=NaN+(NaN)i
     </td>
   </tr>
   <tr>
@@ -47931,6 +47931,8 @@ check((x)=&lt;exp(-x)/sqrt(x),0,1/2,NI,)=&gt;:1.2100356;
 <br>
 check((x)=&lt;exp(-x)/sqrt(x),1/2,inf,NI,)=&gt;:0.5624182315944;
 <br>
+check((x)=&lt;exp(-x)/sqrt(x),0,0,NI,)=&gt;:0;
+<br>
 check((x)=&lt;sqrt(tan(x)),0,pi/4,NI,)=&gt;:0.48749549439936104836;
 <br>
 check((x)=&lt;sqrt(tan(x)),pi/4,0,NI,)=&gt;:-0.48749549439936104836;
@@ -47958,6 +47960,8 @@ _quadrature
     </th>
     <td>
 <span id="span-eqn-integral_DE_quadrature"></span>
+・<span class="run">Ver.2.819.132</span>以降、<span class="selection">対応箇所</span>
+<br>
 clear;
 <br>
 integral_DE_quadrature(==&lt;f,a,b,N,h,opt_type)=&lt;[
@@ -47980,9 +47984,7 @@ isFinite_(x)=&lt;abs(x)&lt;inf,
 <br>
 isInfinite_(x)=&lt;x===inf,
 <br>
-hasInfinite_(x)=&lt;abs(x)===inf,
-<br>
-hasInf(fa,fb)=&lt;hasInfinite_(fa)=&gt;||hasInfinite_(fb)=&gt;,
+<span class="selection">isNaN_(x)=&lt;~~isFinite_(x)=&gt;&amp;&amp;&amp;~~isFinite_(f(x)=&gt;)=&gt;,</span>
 <br>
 isFF(a,b)=&lt;isFinite_(a)=&gt;&amp;&amp;isFinite_(b)=&gt;/*[a,b]*/,
 <br>
@@ -48004,7 +48006,7 @@ hasM=hasMinus(a,b)=&gt;,
 <br>
 hasM&amp;&amp;&amp;(w=a,a=b,b=w),
 <br>
-type=opt_type|||hasInf(f(a)=&gt;,f(b)=&gt;)=&gt;||isFI(a,b)=&gt;||isIF(a,b)=&gt;&amp;&amp;&amp;3|||isII(a,b)=&gt;&amp;&amp;&amp;4|||1,
+type=opt_type|||isFI(a,b)=&gt;||isIF(a,b)=&gt;&amp;&amp;&amp;3|||isII(a,b)=&gt;&amp;&amp;&amp;4|||1,
 <br>
 x=arr_x[type][0],
 <br>
@@ -48018,7 +48020,7 @@ S(a,N,h)=&lt;_s((k)=&lt;phi(k*h,abw)=&gt;,-N/2,N/2)*h,
 <br>
 err=(false===0)*(phi((-N/2)*h,abw)=&gt;+phi((N/2)*h,abw)=&gt;)*h,
 <br>
-=&lt;cne(a,b)&&&(hasM&&-1||1)*S(a,N,h)=&gt;+err||||isFinite_(f(a)=&gt;)=&gt;&&&0||||NaN+(NaN)i]=&gt;;
+=&lt;cne(a,b)&amp;&amp;&amp;(hasM&&-1||1)*S(a,N,h)=&gt;+err||||<span class="selection">~~isNaN_(a)=&gt;&amp;&amp;&amp;0</span>||||NaN+(NaN)i]=&gt;;
 <br>
 <br>
 check(=&lt;f,a,b,NI,type)=&lt;(integral_DE_quadrature(=&lt;f,a,b,NI,10/NI,type)=&gt;:_i0(=&lt;f,a,b,NI,type));
@@ -48073,9 +48075,11 @@ check((x)=&lt;sin(1/sqrt(x))/sqrt(x),1,0,NI,)=&gt;:-1.008134123813856743979;
 <br>
 NI=100;
 <br>
-check((x)=&lt;exp(-x)/sqrt(x),0,1/2,NI,)=&gt;:1.2100356;
+<span class="selection">check((x)=&lt;exp(-x)/sqrt(x),0,1/2,NI,)=&gt;:1.2100356;
 <br>
 check((x)=&lt;exp(-x)/sqrt(x),1/2,inf,NI,)=&gt;:0.5624182315944;
+<br>
+check((x)=&lt;exp(-x)/sqrt(x),0,0,NI,)=&gt;:0;</span>
 <br>
 NI=100;
 <br>
@@ -48091,7 +48095,7 @@ check((x)=&lt;pow(x,2)*exp(x),1+i,0,NI,)=&gt;:2;
 <br>
 NI=100;
 <br>
-check((x)=&lt;1/x,0,0,NI,)=&gt;:NaN;
+check((x)=&lt;1/x,0,0,NI,)=&gt;:<span class="selection">0</span>;
 <br>
 NI=20;
 <br>
