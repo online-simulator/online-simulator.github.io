@@ -48075,9 +48075,11 @@ check((x)=&lt;sin(1/sqrt(x))/sqrt(x),1,0,NI,)=&gt;:-1.008134123813856743979;
 <br>
 NI=100;
 <br>
-<span class="selection">check((x)=&lt;exp(-x)/sqrt(x),0,1/2,NI,)=&gt;:1.2100356;
+<span class="selection">check((x)=&lt;exp(-x)/sqrt(x),0,1/2,NI,)=&gt;:1.210035619311;
 <br>
 check((x)=&lt;exp(-x)/sqrt(x),1/2,inf,NI,)=&gt;:0.5624182315944;
+<br>
+check((x)=&lt;exp(-x)/sqrt(x),,inf,NI,)=&gt;:1.7724538509055;
 <br>
 check((x)=&lt;exp(-x)/sqrt(x),0,0,NI,)=&gt;:0;</span>
 <br>
@@ -48096,6 +48098,12 @@ check((x)=&lt;pow(x,2)*exp(x),1+i,0,NI,)=&gt;:2;
 NI=100;
 <br>
 check((x)=&lt;1/x,0,0,NI,)=&gt;:<span class="selection">0</span>;
+<br>
+<span class="selection">check((x)=&lt;1/x,inf,inf,NI,)=&gt;:0;
+<br>
+check((x)=&lt;x,inf,inf,NI,)=&gt;:NaN;
+<br>
+check((x)=&lt;x,-inf,-inf,NI,)=&gt;:NaN;</span>
 <br>
 NI=20;
 <br>

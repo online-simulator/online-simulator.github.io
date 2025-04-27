@@ -1027,6 +1027,27 @@ stored_eqn(globalS)
 NI=20
 NI=20
 
+check((x)=<x,-inf,-inf,NI,)=>:NaN
+(
+NaN:
+NaN:
+NaN
+)
+
+check((x)=<x,inf,inf,NI,)=>:NaN
+(
+NaN:
+NaN:
+NaN
+)
+
+check((x)=<1/x,inf,inf,NI,)=>:0
+(
+NaN:
+0:
+0
+)
+
 check((x)=<1/x,0,0,NI,)=>:0
 (
 0:
@@ -1078,6 +1099,13 @@ check((x)=<exp(-x)/sqrt(x),0,0,NI,)=>:0
 0
 )
 
+check((x)=<exp(-x)/sqrt(x),,inf,NI,)=>:1.7724538509055
+(
+infoLost[r ] 1.7724538509043866+O(6e-25):
+infoLost[r ] 1.7724538509043866+O(6e-25):
+1.7724538509055
+)
+
 check((x)=<exp(-x)/sqrt(x),1/2,inf,NI,)=>:0.5624182315944
 (
 infoLost[r ] 0.5624182315937307+O(2e-50):
@@ -1085,11 +1113,11 @@ infoLost[r ] 0.5624182315937307+O(2e-50):
 0.5624182315944
 )
 
-check((x)=<exp(-x)/sqrt(x),0,1/2,NI,)=>:1.2100356
+check((x)=<exp(-x)/sqrt(x),0,1/2,NI,)=>:1.210035619311
 (
 infoLost[r ] 1.2100356013394644+O(6e-101):
 infoLost[r ] 1.2100356029265327+O(6e-101):
-1.2100356
+1.210035619311
 )
 
 NI=100
@@ -2002,7 +2030,7 @@ clear
 local storage cleared
 
 [Pinv_y=(-0.999999427,-0.999936657,-0.997300203,-0.954499736,-0.682689492,0,0.682689492,0.954499736,0.997300203,0.999936657,0.999999427:-5,-4,-3,-2,-1,0,1,2,3,4,5),N=1,arr=[],_r((n)=<arr.push(rand_table(=<Pinv_y)=>),,N),=<arr.]=>
--0.8980174127543871
+-0.5505947481291973
 
 rand_table(csv)=<last[table=sort0(csv),ymin=min(table)[0],ymax=max(table)[0],y=ymin+(ymax-ymin)*rand(),x=interp(y:table),x]
 stored_eqn(rand_table)
@@ -3905,4 +3933,4 @@ center=true&drag=false&test-case=false&plot-all=true&relzooming=true&snap=true&l
 --------------------------------
 --------------------------------
 
-online-simulator.github.io.6.481.647.22.151 @ Sun Apr 27 2025 23:29:13 GMT+0900 (日本標準時) @ Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/135.0.0.0 Safari/537.36
+online-simulator.github.io.6.481.647.22.151 @ Mon Apr 28 2025 01:30:45 GMT+0900 (日本標準時) @ Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/135.0.0.0 Safari/537.36
