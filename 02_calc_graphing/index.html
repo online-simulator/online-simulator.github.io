@@ -590,7 +590,7 @@
       $._id("differentialo3").onclick = function(){setVal("-2", "2", "a=t,a;", "Ndash=3,f(x)=<exp(x),ans_correct=exp(a),get_log_errr(ans_numerical)=<log10(abs((ans_numerical-ans_correct)/ans_correct)),get_log_errr(_d(=<f,Ndash,a));get_log_errr(_d2(=<f,Ndash,a));get_log_errr(_d4(=<f,Ndash,a));", 10);$._id("input-z").value+="TITLE{_do(,Ndash) Ndash>2?o=2:o=4 error=Order(dx^o)}YLABEL{log10|relative error|}::7:2:::Ndash=3,_d(=<f,Ndash,a);::::::_d2(=<f,Ndash,a);::::::_d4(=<f,Ndash,a);";};
       $._id("calculus1").onclick = function(){setVal("-2(1+i)", "2(1+i)", "b=t,b;", "f(x)=<x^3,_i((x)=<_d((x)=<f(x),1,x),0,b);-b^3;", 10);};
       $._id("calculus2").onclick = function(){setVal("-2(1+i)", "2(1+i)", "b=t,b;", "f(x)=<x^3,_d((x)=<_i((x)=<f(x),0,x),1,b);-b^3;", 10);};
-      $._id("Maclaurin1").onclick = function(){setVal("-pi", "pi", "x=t,x;", "fx=<sin(x),fx();MaclaurinN=<_s((n)=<_dx(=<fx,n,0)x^n/n!,0,N),N=1,MaclaurinN();N=3,MaclaurinN();N=5,MaclaurinN();N=7,MaclaurinN();N=9,MaclaurinN();", 10);};
+      $._id("Maclaurin1").onclick = function(){setVal("-pi", "pi", "x=t,x;", "fx=<sin(x),fx();MaclaurinN=<_s((n)=<_d((x)=<fx(),n,0)x^n/n!,0,N),N=1,MaclaurinN();N=3,MaclaurinN();N=5,MaclaurinN();N=7,MaclaurinN();N=9,MaclaurinN();", 10);};
       $._id("Maclaurin2").onclick = function(){setVal("-pi", "pi", "x=t,x;", "fx=<cos(x)+i*sin(x),fx();MaclaurinN=<_s((n)=<_d((x)=<fx(),n,0)x^n/n!,0,N),N=1,MaclaurinN();N=3,MaclaurinN();N=5,MaclaurinN();N=7,MaclaurinN();N=9,MaclaurinN();", 10);};
       $._id("Maclaurin3").onclick = function(){setVal("-(1+i)pi/4", "(1+i)pi/4", "x=t,x;", "fx=<sqrt(2-exp(sin(x)^2*x)/cos(x)),fx();MaclaurinN=<_s((n)=<_d((x)=<fx(),n,0)x^n/n!,0,N),N=1,MaclaurinN();N=3,MaclaurinN();N=5,MaclaurinN();N=7,MaclaurinN();N=9,MaclaurinN();", 10);$._id("input-z").value+="TITLE{***** low accuracy *****};";};
       $._id("Maclaurin_ln").onclick = function(){setVal("-0.9", "1", "x=t,x;", "k=1,fx=<ln(1+x)**k/k!,fx();MaclaurinN=<_s((n)=<_d((x)=<fx(),n,0)x^n/n!,0,N),N=1,MaclaurinN();N=3,MaclaurinN();N=5,MaclaurinN();N=7,MaclaurinN();N=9,MaclaurinN();Snk1r(n,k)=<(n==0&&k==0)|||n>0&&&(n-1)*Snk1r(n-1,k)+Snk1r(n-1,k-1),Snk1f(n,k)=<(-1)**(n-k)*Snk1r(n,k),_s((n)=<Snk1f(n,k)*x**n/n!,k,N);_s((n)=<-(-x)**n/n,1,N);", 10);$._id("input-z").value+="TITLE{Newton-Mercator series}::3:1.5:1.5;";};
@@ -2177,7 +2177,7 @@
         <td rowspan="12">
 <hr>
   <label>
-　test case <span class="clear">under adjustment</span>　<input id="checkbox-test-case" type="checkbox">
+　test case　<input id="checkbox-test-case" type="checkbox">
   </label>
 <div id="div-test-case" class="condition input-500">
 <hr>
