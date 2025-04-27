@@ -1181,6 +1181,18 @@ My_entry.operation.prototype.has0_arg = function(arg){
 My_entry.operation.prototype.isUndef_arg = function(arg){
   return (typeof arg === "undefined");
 };
+/* Ver.2.815.132 */
+My_entry.operation.prototype.hasVars = function(){
+  var self = this;
+  var _hasVars = true;
+  for(var i=0, len=arguments.length; i<len; ++i){
+    var argi = arguments[i];
+    if(_hasVars && argi){
+      _hasVars = (argi.com)? true: false;
+    }
+  }
+  return _hasVars;
+};
 /* -> Ver.2.735.107 */
 My_entry.operation.prototype.jacobian = function(data, rightArr, tagObj){
   var self = this;
@@ -1366,32 +1378,40 @@ if(prop === "OX" || prop === "TX"){  // ODE  // Ver.2.23.11  // Ver.2.231.56  //
     }
     /* -> Ver.2.735.107 */
     /* Ver.2.238.56 -> */
+    /* Ver.2.815.132 -> */
+    // args
+    var is = 3;
+    var argI = args[is+0];
+    var argT = args[is+1-isTX];
+    var argN = args[is+2-isTX];
+    var argD = args[is+3-isTX];
+    var argB = args[is+4-isTX];  // Ver.2.777.123
+    if(!(self.hasVars(argI, argT, argN, argD))){
+      throw msgErr;
+    }
     /* Ver.2.774.121 -> */
-    var t0ini = args[3] || DATA.num(0, 0);  // Ver.2.234.56
     if(isTX){
       names.shift();
       var arr_x0 = arr_x.shift();
-      if(arr_x0){
-        t0ini = arr_x0[0];
-      }
+      argI = arr_x0 && arr_x0[0];
     }
-    /* -> Ver.2.774.121 */
-    var t0 = t0ini;  // Ver.2.234.56
     len_i = arr_x.length;  // tree_eqn change allowed  // Ver.2.736.107
+    // t0
+    var t0ini = (argI && argI.com)? argI: DATA.num(0, 0);  // Ver.2.234.56
+    /* -> Ver.2.774.121 */
+    /* -> Ver.2.815.132 */
+    var t0 = t0ini;  // Ver.2.234.56
     // dt
-    var dt = args[(isTX)? 3: 4] || DATA.num(self.options.dxT, 0);
+    var dt = (argT && argT.com)? argT: DATA.num(self.options.dxT, 0);  // Ver.2.815.132
     /* Ver.2.29.15 -> */
     // Niteration
-    var argN = args[(isTX)? 4: 5];
     var Niteration = (argN && argN.com)? Math.round(argN.com.r): 1;  // 0 enabled  // Ver.2.205.46 floor -> round
     /* -> Ver.2.29.15 */
     /* Ver.2.774.119 -> */
     // delta
-    var argD = args[(isTX)? 5: 6];
     var delta = ((argD && argD.com)? argD.com.r: null) || 1e-3;  // Ver.2.777.123 not0
     var hdelta = Math.sqrt(Math.pow(dt.com.r, 2)+Math.pow(dt.com.i, 2))*delta;
     /* -> Ver.2.774.119 */
-    var argB = args[(isTX)? 6: 7];  // Ver.2.777.123
     /* -> Ver.2.238.56 */
     // orderT
     /* Ver.2.369.86 -> */
@@ -1714,6 +1734,25 @@ else{
     else{
       throw msgErr;
     }
+    /* Ver.2.815.132 -> */
+    // args
+    var is = 3;
+    var argH = args[is+0];
+    var argN = args[is+1];
+    var argE = args[is+2];
+    var argF = args[is+3];
+    var argR = args[is+4];
+    if(isNewtonian){
+      if(!(self.hasVars(argH, argN, argE, argF, argR))){
+        throw msgErr;
+      }
+    }
+    else{
+      if(!(self.hasVars(argH))){
+        throw msgErr;
+      }
+    }
+    /* -> Ver.2.815.132 */
     len_i = arr_x.length;  // Ver.2.739.107
     /* -> Ver.2.735.107 */
     var J = null;
@@ -1755,7 +1794,7 @@ else{
         var x0ic = x0[i].com;
         /* Ver.2.321.78 -> */
         /* Ver.1.3.1 */
-        var hc = self.get_hc(options, x0[i], args[3], "dxJ");
+        var hc = self.get_hc(options, x0[i], argH, "dxJ");  // Ver.2.815.132
         var hcr = hc.r;
         var hci = hc.i;
         dx[i] = DATA.num(hcr, hci);
@@ -1791,18 +1830,14 @@ else{
     };
     if(isNewtonian){
       // Niteration
-      var argN = args[4];
       var Niteration = (argN && argN.com)? Math.round(argN.com.r): 1;  // 0 enabled  // Ver.2.205.46 floor -> round
       // epsN
-      var arg5 = args[5];
-      var epsN = (arg5 && arg5.com)? arg5.com.r: self.options.epsN;  // 0 enabled
+      var epsN = (argE && argE.com)? argE.com.r: self.options.epsN;  // 0 enabled  // Ver.2.815.132
       // isRelative_epsN
-      var arg6 = args[6];
-      var isRelative_epsN = (arg6 && arg6.com)? arg6.com.r: self.options.isRelative_epsN;  // 0||not0
+      var isRelative_epsN = (argF && argF.com)? argF.com.r: self.options.isRelative_epsN;  // 0||not0  // Ver.2.815.132
       /* Ver.2.408.86 -> */
       // useRetry
-      var arg7 = args[7];
-      var useRetry = (arg7 && arg7.com)? arg7.com.r: self.options.useRetry;  // 0||not0
+      var useRetry = (argR && argR.com)? argR.com.r: self.options.useRetry;  // 0||not0  // Ver.2.815.132
       var x0_retry = (useRetry)? self.entry.def.newClone(x0): null;  // Ver.2.740.108
       var counter_retry = 0;
       /* -> Ver.2.408.86 */
