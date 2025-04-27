@@ -47899,7 +47899,9 @@ integral
 <span id="span-eqn-integral"></span>
 <a href="#span-out-fdm-integral">積分の数値解法</a>||<a href="#span-out-evolution">時間発展の解法</a>参照
 <br>
-<span class="clear">・調整箇所</span>
+・<span class="clear">調整箇所</span>
+<br>
+・<span class="run">Ver.2.819.132</span>以降、<span class="selection">対応箇所</span>
 <br>
 clear;
 <br>
@@ -47927,11 +47929,13 @@ check((x)=&lt;1/(x**2+1.005),-1,1,NI,)=&gt;:1.564396444069049773091;
 <br>
 check((x)=&lt;cosh(10*(x-0.2))**(-2)+cosh(100*(x-0.4))**(-4)+cosh(1000*(x-0.6))**(-6),0,1,NI,)=&gt;:0.2108027355005492773756;
 <br>
-check((x)=&lt;exp(-x)/sqrt(x),0,1/2,NI,)=&gt;:1.2100356;
+<span class="selection">check((x)=&lt;exp(-x)/sqrt(x),0,1/2,NI,)=&gt;:1.210035619311;
 <br>
 check((x)=&lt;exp(-x)/sqrt(x),1/2,inf,NI,)=&gt;:0.5624182315944;
 <br>
-check((x)=&lt;exp(-x)/sqrt(x),0,0,NI,)=&gt;:0;
+check((x)=&lt;exp(-x)/sqrt(x),,inf,NI,)=&gt;:1.7724538509055;
+<br>
+check((x)=&lt;exp(-x)/sqrt(x),0,0,NI,)=&gt;:0;</span>
 <br>
 check((x)=&lt;sqrt(tan(x)),0,pi/4,NI,)=&gt;:0.48749549439936104836;
 <br>
@@ -47946,6 +47950,14 @@ check((x)=&lt;sqrt(tan(x<span class="clear">+eps*i</span>)),pi/4,0,NI,)=&gt;:-0.
 check((x)=&lt;pow(x,2)*exp(x),0,1+i,NI,)=&gt;:-2;
 <br>
 check((x)=&lt;pow(x,2)*exp(x),1+i,0,NI,)=&gt;:2;
+<br>
+check((x)=&lt;1/x,0,0,NI,)=&gt;:<span class="selection">0</span>;
+<br>
+<span class="selection">check((x)=&lt;1/x,inf,inf,NI,)=&gt;:0;
+<br>
+check((x)=&lt;x,inf,inf,NI,)=&gt;:NaN;
+<br>
+check((x)=&lt;x,-inf,-inf,NI,)=&gt;:NaN;</span>
     </td>
   </tr>
   <tr>

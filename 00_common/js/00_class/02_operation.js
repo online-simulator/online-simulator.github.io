@@ -2405,19 +2405,6 @@ My_entry.operation.prototype.IX = function(data, rightArr, tagObj){
           throw "Invalid _i0(,,,,type)";
         }
         /* -> Ver.2.806.131 */
-        else if((acr === bcr) && (aci === bci)){
-          /* Ver.2.819.132 -> */
-          var fa = calc_f(acr, aci);
-          var facr = fa.com.r;
-          var faci = fa.com.i;
-          var isI_a = math.isInf(acr) || math.isInf(aci);
-          var isI_f = math.isInf(facr) || math.isInf(faci);
-          if(isI_a && isI_f){
-            _sum.com.r = NaN;
-            _sum.com.i = NaN;
-          }
-          /* -> Ver.2.819.132 */
-        }
         else{
           var hasM = math.isFIm(acr, bcr) || math.isIFm(acr, bcr) || math.isIIm(acr, bcr);
           if(hasM){
@@ -2500,9 +2487,24 @@ My_entry.operation.prototype.IX = function(data, rightArr, tagObj){
         return _sum;
       };
       /* -> Ver.2.806.130 */
+      /* Ver.2.819.132 -> */
+      var DI_equal = function(){
+        var fa = calc_f(acr, aci);
+        var facr = fa.com.r;
+        var faci = fa.com.i;
+        var isI_a = math.isInf(acr) || math.isInf(aci);
+        var isI_f = math.isInf(facr) || math.isInf(faci);
+        return ((isI_a && isI_f)? DATA.num(NaN, NaN): DATA.num(0, 0));
+      };
+      /* -> Ver.2.819.132 */
       /* Ver.2.369.86 -> */
       var DI = DI_order4;
-      if(orderI === 2){
+      /* Ver.2.819.132 -> */
+      if(acr === bcr && aci === bci){
+        DI = DI_equal;
+      }
+      /* -> Ver.2.819.132 */
+      else if(orderI === 2){
         DI = DI_order2;
       }
       /* Ver.2.806.130 -> */
