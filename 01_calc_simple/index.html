@@ -449,6 +449,10 @@
       script += "\nclear;\n";
       script += "check(=<f,a,b,NI,type)=<(_o45((t,x)=<f(t)=>,,a,(b-a)/NI,NI):(_t45((t,x)=<f(t)=>,=<{a,0},(b-a)/NI,NI))[1]:_i(=<f,a,b,NI):_i0(=<f,a,b,NI,type)):NI=100:check((x)=<floor(min(x/0.3,1)),0,1,NI,)=>:0.7;";
       script += "\nclear;\n";
+      script += "args=((t,x)=<t,=<2,1,0):_o(args):_o45(args);";
+      script += "\n";
+      script += "args=((t,x)=<t,=<(1,2),0):_t(args):_t45(args);";
+      script += "\nclear;\n";
       $._id("input").value = script;
     });
   })();

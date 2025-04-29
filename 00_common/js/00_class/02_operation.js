@@ -1392,14 +1392,21 @@ if(prop === "OX" || prop === "TX"){  // ODE  // Ver.2.23.11  // Ver.2.231.56  //
     var t0 = t0ini;  // Ver.2.234.56
     // dt
     var dt = (argT && argT.com)? argT: DATA.num(self.options.dxT, 0);  // Ver.2.815.132
+    /* Ver.2.821.134 -> */
+    var dtcr = dt.com.r;
+    var dtci = dt.com.i;
     /* Ver.2.29.15 -> */
     // Niteration
     var Niteration = (argN && argN.com)? Math.round(argN.com.r): 1;  // 0 enabled  // Ver.2.205.46 floor -> round
+    if(dtcr === 0 && dtci === 0){
+      Niteration = 0;
+    }
     /* -> Ver.2.29.15 */
+    /* -> Ver.2.821.134 */
     /* Ver.2.774.119 -> */
     // delta
     var delta = ((argD && argD.com)? argD.com.r: null) || 1e-3;  // Ver.2.777.123 not0
-    var hdelta = Math.sqrt(Math.pow(dt.com.r, 2)+Math.pow(dt.com.i, 2))*delta;
+    var hdelta = Math.sqrt(Math.pow(dtcr, 2)+Math.pow(dtci, 2))*delta;  // Ver.2.821.134
     /* -> Ver.2.774.119 */
     /* -> Ver.2.238.56 */
     // orderT
@@ -1489,8 +1496,6 @@ if(prop === "OX" || prop === "TX"){  // ODE  // Ver.2.23.11  // Ver.2.231.56  //
       return _f;
     };
     var set_error = function(x){
-      var dtcr = dt.com.r;
-      var dtci = dt.com.i;
       var dtcrpo = Math.pow(dtcr, orderT);
       var dtcipo = Math.pow(dtci, orderT);
       for(var i=0; i<len_i; ++i){
