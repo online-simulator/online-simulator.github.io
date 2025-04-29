@@ -351,30 +351,37 @@ My_entry.canvas.prototype.change_scale = function(x0, y0, x1, y1){  // right-han
   self.dy = y1-y0;
   return self;
 };
+/* Ver.2.821.135 -> */
+My_entry.canvas.prototype.wrapper_isFinite = function(x){
+  var self = this;
+  if(!(isFinite(x))) throw "Invalid canvas-range isInf";
+  return x;
+};
 My_entry.canvas.prototype.xp2x = function(xp){
   var self = this;
-  return self.x0+xp*self.dx/self.px_w;
+  return self.wrapper_isFinite(self.x0+xp*self.dx/self.px_w);
 };
 My_entry.canvas.prototype.yp2y = function(yp){
   var self = this;
-  return self.y0+yp*self.dy/self.px_h;
+  return self.wrapper_isFinite(self.y0+yp*self.dy/self.px_h);
 };
 My_entry.canvas.prototype.myp2y = function(myp){  // left-handed system
   var self = this;
-  return self.y0+(self.px_h-myp)*self.dy/self.px_h;
+  return self.wrapper_isFinite(self.y0+(self.px_h-myp)*self.dy/self.px_h);
 };
 My_entry.canvas.prototype.x2xp = function(x){
   var self = this;
-  return (x-self.x0)*self.px_w/self.dx;
+  return self.wrapper_isFinite((x-self.x0)*self.px_w/self.dx);
 };
 My_entry.canvas.prototype.y2yp = function(y){
   var self = this;
-  return (y-self.y0)*self.px_h/self.dy;
+  return self.wrapper_isFinite((y-self.y0)*self.px_h/self.dy);
 };
 My_entry.canvas.prototype.y2myp = function(y){  // left-handed system
   var self = this;
-  return self.px_h-(y-self.y0)*self.px_h/self.dy;
+  return self.wrapper_isFinite(self.px_h-(y-self.y0)*self.px_h/self.dy);
 };
+/* -> Ver.2.821.135 */
 My_entry.canvas.prototype.x2fxp = function(x){
   var self = this;
   return Math.floor(self.x2xp(x));

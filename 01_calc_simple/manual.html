@@ -8284,6 +8284,10 @@ clear; last{a,1} -> <del>1</del>[MyErr]Undef var(a)
 　後者の対策：&lt;polyline points="" /&gt;　⇒　&lt;polyline points="" /&gt;&lt;line /&gt;
 <br>
 　再現条件の備考：&lt;polyline /&gt;の追加は効果なし
+<br>
+・<span class="clear">Ver.2.821.135</span>以降、plot座標から変換後のcanvas座標が無限大の場合、予期せぬerror終了を修正
+<br>
+　予期せぬerror終了　⇒　deadlockを解消
     </td>
   </tr>
   <tr>
