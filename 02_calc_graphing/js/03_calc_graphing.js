@@ -214,7 +214,6 @@ My_entry.calc_graphing.prototype.output_msgError_plot = function(e){
     }
     /* -> Ver.2.224.50 */
     self.isCheckedError = true;
-    self.plot2d.isLocked = false;  // Ver.2.821.135
     throw false;
   }
   /* -> Ver.2.25.14 */

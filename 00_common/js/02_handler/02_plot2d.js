@@ -438,6 +438,8 @@ My_entry.plot2d.prototype.run = function(arr2d_vec, options, toSVG, isFinal){
   var temp = self.objs.temp;
   var markers = plot.markers;
   var _svg = "";
+/* Ver.2.821.135 -> */
+try{
   var expDigit = options["expDigit"];
   var expDigitX = options["expDigitX"] || expDigit;  // Ver.2.666.98
   var expDigitY = options["expDigitY"] || expDigit;  // Ver.2.666.98
@@ -1036,6 +1038,11 @@ My_entry.plot2d.prototype.run = function(arr2d_vec, options, toSVG, isFinal){
   /* -> 1.15.7 */
   temp.attach(self.handlers);  // 0.4.0 moved from final()
   self.isLocked = false;
+}
+catch(e){
+  self.throw_msg(e);
+}
+/* -> Ver.2.821.135 */
   return _svg;
 };
 /* 1.0.0 */
