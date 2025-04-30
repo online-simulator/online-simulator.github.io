@@ -276,11 +276,11 @@ My_entry.pen.prototype.update_plot2d = function(isFinal){  // fluid-Ver.1.23.0
       _svg = "";
       _svg += temp.draw.header(options["plot-canvas-width"], options["plot-canvas-height"]);
       _svg += temp.draw.comment(My_entry.VERSION);
-      _svg += self.plot2d.final(arr2d_vec, options_plot, toSVG);
+      _svg += self.plot2d.run(arr2d_vec, options_plot, toSVG, true);  // fluid-Ver.1.55.2
       _svg += temp.draw.footer();
     }
     else{
-      _svg = self.plot2d[(isFinal)? "final": "run"](arr2d_vec, options_plot, toSVG);
+      _svg = self.plot2d.run(arr2d_vec, options_plot, toSVG, isFinal);  // fluid-Ver.1.55.2
     }
     temp.detach();
     /* -> fluid-Ver.1.23.0 */

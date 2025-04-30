@@ -380,6 +380,38 @@ self.workersを再宣言するhandler_worker.re_init直前に再度terminateを�
 なお、new Workerが重複宣言されないように留意する
           </td>
         </tr>
+        <tr class="border">
+          <td class="border">
+try~catch処理
+<br>
+<span class="clear">Ver.1.82.15追加</span>
+          </td>
+          <td class="border">
+擬似コードを以下に示す
+<br>
+<pre><code>
+var callback = function(){
+  try{
+    if(self.isLocked) return false;
+    self.isLocked = true;
+    main.run();
+    self.isLocked = false;
+  }
+  catch(e){
+    self.isLocked = false;
+    throw e;
+  }
+};
+setTimeout(callback, 50);
+</code></pre>
+<br>
+原則、上流側の実行文でcatchしてerror処理をswitchする（多用しない）
+<br>
+非同期処理の場合、callbackの中に記述する
+<br>
+なお、lock処理も同様に完結させる（別の処理からflagを操作しない）
+          </td>
+        </tr>
       </tbody>
     </table>
   </div>

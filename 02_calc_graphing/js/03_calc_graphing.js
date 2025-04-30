@@ -263,14 +263,11 @@ My_entry.calc_graphing.prototype.plot = function(arr_data_, options_plot, isFina
     else{
       self.output_axis(arr2d_vec, options_plot);
     }
-    if(toSVG){
-      self.entry.def.mix_over(self.constructors.draw, self.constructors.draw_svg);
-      _svg += self.plot2d.final(arr2d_vec, options_plot, toSVG);
-    }
-    else{
-      self.entry.def.mix_over(self.constructors.draw, self.constructors.draw_canvas);
+    /* Ver.2.821.135 -> */
+    self.entry.def.mix_over(self.constructors.draw, ((toSVG)? self.constructors.draw_svg: self.constructors.draw_canvas));
+    _svg += self.plot2d.run(arr2d_vec, options_plot, toSVG, isFinal);
+    if(!(toSVG)){
       if(isFinal){
-        self.plot2d.final(arr2d_vec, options_plot, toSVG);
         var options_calc = arr_data[0].options;
         /* Ver.2.25.12 -> */
         if(options_calc){
@@ -278,11 +275,9 @@ My_entry.calc_graphing.prototype.plot = function(arr_data_, options_plot, isFina
         }
         /* -> Ver.2.25.12 */
       }
-      else{
-        self.plot2d.run(arr2d_vec, options_plot);
-      }
       $._id("output-path").value = options_plot._path;  // Ver.2.437.90
     }
+    /* -> Ver.2.821.135 */
   }
   /* Ver.2.14.5 -> */
   else{

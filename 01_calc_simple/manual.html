@@ -8289,7 +8289,15 @@ clear; last{a,1} -> <del>1</del>[MyErr]Undef var(a)
 <br>
 ・<span class="clear">Ver.2.821.135</span>以降、plot座標から変換後のcanvas座標が無限大の場合、致命的な不具合を修正
 <br>
-　予期せぬerror終了からdeadlock　⇒　deadlockを解消
+　内容：canvas座標が無限大の場合、予期せぬerror終了からdeadlockが発生
+<br>
+　対策：
+<br>
+　・canvas座標が有限を保証するwrapper関数の追加
+<br>
+　・内部関数名の変更を伴うtry~catch処理の大幅修正
+<br>
+　・lock処理の見直し
     </td>
   </tr>
   <tr>

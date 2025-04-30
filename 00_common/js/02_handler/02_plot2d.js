@@ -253,12 +253,6 @@ My_entry.plot2d.prototype.init_handlers = function(){
   return self;
 };
 /* -> 1.0.0 */
-My_entry.plot2d.prototype.throw_msg = function(msg){
-  var self = this;
-  self.isLocked = false;
-  throw msg;
-  return self;
-};
 My_entry.plot2d.prototype.add = function(name){
   var self = this;
   var $ = self.entry.$;
@@ -426,7 +420,23 @@ My_entry.plot2d.prototype.change_scale = function(tgxmin, tgymin, tgxmax, tgymax
   temp.change_scale(tgxmin, tgymin, tgxmax, tgymax);  // 1.15.7
   return self;
 };
+/* Ver.2.821.135 */
 My_entry.plot2d.prototype.run = function(arr2d_vec, options, toSVG, isFinal){
+  var self = this;
+  var _svg = "";
+  try{
+    _svg = self.plot.apply(self, arguments);
+    if(!(toSVG) && isFinal){
+      self.draw.apply(self, arguments);
+    }
+  }
+  catch(e){
+    self.isLocked = false;
+    throw e;
+  }
+  return _svg;
+};
+My_entry.plot2d.prototype.plot = function(arr2d_vec, options, toSVG, isFinal){  // Ver.2.821.135
   var self = this;
   if(self.isLocked) return false;
   self.isLocked = true;
@@ -438,8 +448,6 @@ My_entry.plot2d.prototype.run = function(arr2d_vec, options, toSVG, isFinal){
   var temp = self.objs.temp;
   var markers = plot.markers;
   var _svg = "";
-/* Ver.2.821.135 -> */
-try{
   var expDigit = options["expDigit"];
   var expDigitX = options["expDigitX"] || expDigit;  // Ver.2.666.98
   var expDigitY = options["expDigitY"] || expDigit;  // Ver.2.666.98
@@ -482,7 +490,7 @@ try{
   var tgymax = self.trans(gymax, isLog_y);
   /* 1.0.2 -> */
   if(!(isFinite(tgxmin)) || !(isFinite(tgymin)) || !(isFinite(tgxmax)) || !(isFinite(tgymax))){
-    self.throw_msg("Invalid plot2d isInf");
+    throw "Invalid plot2d isInf";  // Ver.2.821.135
   }
   if(!(toSVG)){
     self.init_canvas(true);
@@ -814,6 +822,7 @@ try{
       _svg += plot.draw.header_group(null, plot.draw.use_mask(idName_mask));
     }
   }
+  options._arr_ID_plot = [];  // Ver.2.821.135
   for(var j=0; j<len_j; ++j){
     var styleRGBA = arr_styleRGBA[j];
     var gradation = arr_gradation[j];
@@ -1038,15 +1047,10 @@ try{
   /* -> 1.15.7 */
   temp.attach(self.handlers);  // 0.4.0 moved from final()
   self.isLocked = false;
-}
-catch(e){
-  self.throw_msg(e);
-}
-/* -> Ver.2.821.135 */
   return _svg;
 };
 /* 1.0.0 */
-My_entry.plot2d.prototype.final = function(arr2d_vec, options, toSVG){
+My_entry.plot2d.prototype.draw = function(arr2d_vec, options){  // Ver.2.821.135
   var self = this;
   var $ = self.entry.$;
   var conv = self.entry.conv;
@@ -1063,12 +1067,9 @@ My_entry.plot2d.prototype.final = function(arr2d_vec, options, toSVG){
   var isLog_y = options["log-y"];
   var NUMMIN = self.config.default.NUMMIN;
   var NUMMAX = self.config.default.NUMMAX;
-  options._arr_ID_plot = [];
   /* 1.0.1 -> */
-  var _svg = self.run(arr2d_vec, options, toSVG, true) || "";
   var arr2d_tvec = options._arr2d_tvec;
   var len_j = (arr2d_tvec)? arr2d_tvec.length: 0;
-  if(!(toSVG)){
     if(self.isLocked) return false;
     self.isLocked = true;
   /* -> 1.0.1 */
@@ -1254,6 +1255,5 @@ My_entry.plot2d.prototype.final = function(arr2d_vec, options, toSVG){
     temp.clear();  // 1.15.7
     all.clear();
     all.draw_base64s(arr_base64_plot.reverse(), callback0, options["canvas-globalCompositeOperationLayer"]);
-  }
-  return _svg;
+  return self;  // Ver.2.821.135
 };
