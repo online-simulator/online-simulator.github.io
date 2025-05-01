@@ -1259,6 +1259,12 @@ My_entry.operation.prototype.jacobian = function(data, rightArr, tagObj){
   };
   var get_arr_x = function(argj, len_i){  // Ver.2.233.56  // Ver.2.237.56
     var _arr_x = null;
+    /* Ver.2.823.137 -> */
+    var arg = self.get_args(argj);
+    if(arg && arg.length){
+      throw msgErr;
+    }
+    /* -> Ver.2.823.137 */
     var tree = self.tree_eqn2tree(data, self.tree2tree_eqn(data, argj));  // Ver.2.233.56
     if(tree.mat){
       _arr_x = tree.mat.arr;
