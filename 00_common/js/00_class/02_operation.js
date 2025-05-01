@@ -2154,11 +2154,19 @@ My_entry.operation.prototype.RX = function(data, rightArr, tagObj){
     var _tree = null;
     var tree = self.tree_eqn2tree_AtREe(data, args[1]);  // Ver.2.271.62
     var b = args[2];
+    /* Ver.2.823.137 -> */
+    var arg3 = args[3];
+    var tree_eqn_break = (arg3)? self.tree2tree_eqn(data, arg3): null;
+    if(tree_eqn_break){
+      var arg = self.get_args(tree_eqn_break);
+      if(arg && arg.length){
+        tree = null;
+      }
+    }
+    /* -> Ver.2.823.137 */
     if(tree && b.com){  // Ver.2.271.62
       var br = Math.round(b.com.r);  // Ver.2.205.46 floor -> round
       /* Ver.2.30.15 -> */
-      var arg3 = args[3];
-      var tree_eqn_break = (arg3)? self.tree2tree_eqn(data, arg3): null;
       var RX = (tree_eqn_break)?
         function(callback){
           for(var i=1; i<=br; ++i){  // i=1

@@ -7946,6 +7946,14 @@ clear; [()=&lt;1]=&gt;$f -> 0
 　影響項目：<a href="#span-out-eqns-args">式変数のarguments</a>
 <br>
 　<span class="clear">Ver.2.823.136</span>~<span class="clear">2.823.137</span>以降、<a href="#span-out-FNmh">高階行列関数</a>の第2引数のerror処理を強化
+<br>
+f(x,y)=&lt;{,}; Newton(=&lt;f,=&lt;{1,2:3}) -> <del>(NaN:NaN)</del>[MyErr]Invalid newtonian arguments
+<br>
+f(x,y)=&lt;{,}; Newton(=&lt;f,(x)=&lt;{1,2:3}) -> <del>(NaN:NaN)</del>[MyErr]Invalid newtonian arguments
+<br>
+　<span class="clear">Ver.2.823.137</span>以降、<a href="#span-out-FNh-RX">再帰高階関数</a>の第4引数のerror処理を強化
+<br>
+_r((n)=&lt;n+1,,10,(x)=&lt;false) -> <del>10</del>[MyErr]Invalid RX arguments
     </td>
   </tr>
   <tr>
