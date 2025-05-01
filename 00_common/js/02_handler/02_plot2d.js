@@ -448,6 +448,7 @@ My_entry.plot2d.prototype.plot = function(arr2d_vec, options, toSVG, isFinal){  
   var temp = self.objs.temp;
   var markers = plot.markers;
   var _svg = "";
+  var numLastLegend = options["last-legend"];  // Ver.2.822.135
   var expDigit = options["expDigit"];
   var expDigitX = options["expDigitX"] || expDigit;  // Ver.2.666.98
   var expDigitY = options["expDigitY"] || expDigit;  // Ver.2.666.98
@@ -699,7 +700,8 @@ My_entry.plot2d.prototype.plot = function(arr2d_vec, options, toSVG, isFinal){  
   // make arr2d_tvec
   var hasNaN = false;
   var arr2d_tvec = new Array(len_j);
-  for(var j=0; j<len_j; ++j){
+  var js = Math.max(0, len_j-Math.round(numLastLegend))%len_j;  // Ver.2.822.135
+  for(var j=js; j<len_j; ++j){  // Ver.2.822.135
     arr2d_tvec[j] = new Array(len_n);
     for(var n=0; n<len_n; ++n){
       var x = arr2d_tx[n][j];
@@ -823,7 +825,7 @@ My_entry.plot2d.prototype.plot = function(arr2d_vec, options, toSVG, isFinal){  
     }
   }
   options._arr_ID_plot = [];  // Ver.2.821.135
-  for(var j=0; j<len_j; ++j){
+  for(var j=js; j<len_j; ++j){  // Ver.2.822.135
     var styleRGBA = arr_styleRGBA[j];
     var gradation = arr_gradation[j];
     if(gradation){
@@ -897,7 +899,7 @@ My_entry.plot2d.prototype.plot = function(arr2d_vec, options, toSVG, isFinal){  
     }
   };
   /* -> calc-Ver.2.162.39 */
-  for(var j=0; j<len_j; ++j){
+  for(var j=js; j<len_j; ++j){  // Ver.2.822.135
     var styleRGBA = arr_styleRGBA[j];
     var plotLineWidth = arr_plotLineWidth[j];
     var fillPath = arr_fillPath[j];
@@ -933,7 +935,7 @@ My_entry.plot2d.prototype.plot = function(arr2d_vec, options, toSVG, isFinal){  
     }
   }
   // plot markers
-  for(var j=0; j<len_j; ++j){
+  for(var j=js; j<len_j; ++j){  // Ver.2.822.135
     var markerType = arr_markerType[j];
     var styleRGBA = arr_styleRGBA[j];
     var markerSize = arr_markerSize[j];
@@ -965,7 +967,7 @@ My_entry.plot2d.prototype.plot = function(arr2d_vec, options, toSVG, isFinal){  
     var kh = self.config.default.kh;
     var xp = self.px_w*legend_kx;
     var yp = self.px_h*legend_ky;
-    for(var j=0; j<len_j; ++j){
+    for(var j=js; j<len_j; ++j){  // Ver.2.822.135
       var markerType = arr_markerType[j];
       var styleRGBA = arr_styleRGBA[j];
       var markerSize = arr_markerSize[j];
@@ -1014,7 +1016,7 @@ My_entry.plot2d.prototype.plot = function(arr2d_vec, options, toSVG, isFinal){  
   }
   /* -> 1.10.6 */
   // string with SVG-path
-  for(var j=0; j<len_j; ++j){
+  for(var j=js; j<len_j; ++j){  // Ver.2.822.135
     var styleRGBA = arr_styleRGBA[j];
     var strFontSize = arr_strFontSize[j];
     var strPath = arr_strPath[j];

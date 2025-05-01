@@ -675,6 +675,7 @@ My_entry.calc_graphing.prototype.get_options = function(isPlot){
       }
     }
     /* -> Ver.2.35.18 */
+    _options["last-legend"] = $.inputVal_id("input-last-legend");  // Ver.2.822.135
     _options.expDigitX = $.selectNum_id("select-roundDigit-x") || _options.expDigit;  // Ver.2.601.94 URL-parameter disabled  // Ver.2.666.98
     _options.expDigitY = $.selectNum_id("select-roundDigit-y") || _options.expDigit;  // Ver.2.666.98
     _options["bg-color"] = $.inputVal_id("input-bg-color");
@@ -1320,6 +1321,7 @@ My_entry.calc_graphing.prototype.init_handlers = function(){
       case "checkbox-axis-z":
       /* Ver.2.105.33 -> */
       case "checkbox-axis-v":
+      case "input-last-legend":  // Ver.2.822.135
       case "input-vx":
       case "input-vy":
       case "input-vz":
