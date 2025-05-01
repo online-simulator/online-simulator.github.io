@@ -1266,8 +1266,11 @@ My_entry.operation.prototype.jacobian = function(data, rightArr, tagObj){
     else{
       throw msgErr;
     }
-    var len_xi = _arr_x.length;
-    var len_xj = _arr_x[len_xi-1].length;
+    /* Ver.2.823.136 -> */
+    var lens = math_mat.get_lens(_arr_x);
+    var len_xi = lens.i;
+    var len_xj = lens.j;
+    /* -> Ver.2.823.136 */
     /* Ver.2.735.106 -> */
     if(len_i && !(Math.min(len_xi, len_xj) === 1 && Math.max(len_xi, len_xj) === len_i)){  // Ver.2.736.107
       throw msgErr;
