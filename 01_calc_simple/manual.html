@@ -7951,9 +7951,13 @@ f(x,y)=&lt;{,}; Newton(=&lt;f,=&lt;{1,2:3}) -> <del>(NaN:NaN)</del>[MyErr]Invali
 <br>
 f(x,y)=&lt;{,}; Newton(=&lt;f,(x)=&lt;{1,2:3}) -> <del>(NaN:NaN)</del>[MyErr]Invalid newtonian arguments
 <br>
+f(x,y)=&lt;{,}; g(x)=&lt;{1,2:3}; Newton(=&lt;f,=&lt;g) -> [MyErr]Invalid newtonian arguments
+<br>
 　<span class="clear">Ver.2.823.137</span>以降、<a href="#span-out-FNh-RX">再帰高階関数</a>の第4引数のerror処理を強化
 <br>
 _r((n)=&lt;n+1,,10,(x)=&lt;false) -> <del>10</del>[MyErr]Invalid RX arguments
+<br>
+h(x)=&lt;false; _r((n)=&lt;n+1,,10,=&lt;h) -> <del>10</del>[MyErr]Invalid RX arguments
     </td>
   </tr>
   <tr>
