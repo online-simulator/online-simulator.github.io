@@ -968,18 +968,27 @@ My_entry.operation.prototype.get_names = function(data, tree_BT, isRow){
     if(isRow){
       arr = math_mat.transpose(data.options, arr);
     }
+    /* Ver.2.823.135 -> */
+    var isBreak = false;
     var len_i = arr.length;
-    for(var i=0; i<len_i; ++i){
-      var tree = DATA.arr2obj_i(arr, i);
-      var name = self.get_name(tree);  // Ver.2.251.58
-      if(name){
-        _names.push(name);
+    var len_j = arr[0].length;  // fixed by transpose
+    for(var j=0; j<len_j; ++j){
+      for(var i=0; i<len_i; ++i){
+        var name = self.get_name(arr[i][j]);  // Ver.2.251.58
+        if(name){
+          _names.push(name);  // serialize
+        }
+        else{
+          _names.length = 0;
+          isBreak = true;
+          break;
+        }
       }
-      else{
-        _names = [];
+      if(isBreak){
         break;
       }
     }
+    /* -> Ver.2.823.135 */
   }
   return _names;
 };

@@ -453,6 +453,8 @@
       script += "\n";
       script += "args=((t,x)=<t,=<(1,2),0):_t(args):_t45(args);";
       script += "\nclear;\n";
+      script += "m2x2=(1,2:3,4),ab=[1,###m2x2],f(a,b:c,d)=<(a,b,c,d),g(a,=<b:$c,?d)=<(a,b,c,d):g(1,=<2,$ab,?f):f(m2x2):f(reshape(m2x2:ab)):f(reshaper(m2x2:ab)):f(reshapec(m2x2:ab));";
+      script += "\nclear;\n";
       $._id("input").value = script;
     });
   })();

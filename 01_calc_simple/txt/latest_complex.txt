@@ -1,6 +1,19 @@
 clear
 local storage cleared
 
+m2x2=(1,2:3,4),ab=[1,###m2x2],f(a,b:c,d)=<(a,b,c,d),g(a,=<b:$c,?d)=<(a,b,c,d):g(1,=<2,$ab,?f):f(m2x2):f(reshape(m2x2:ab)):f(reshaper(m2x2:ab)):f(reshapec(m2x2:ab))
+(
+0,0,0,0:
+1,eqn,1,4,eqn(a,b,c,d):
+1,2,3,4:
+1,2,3,4:
+1,2,3,4:
+1,3,2,4
+)
+
+clear
+local storage cleared
+
 args=((t,x)=<t,=<(1,2),0):_t(args):_t45(args)
 (
 0:
@@ -1227,7 +1240,7 @@ local storage cleared
 $x,eqn():
 eqn,eqn():
 eqn(x),eqn(x,y):
-eqn(y),eqn(x,y,z)
+eqn(x,y),eqn(x,y,z)
 )
 
 clear
@@ -4933,4 +4946,4 @@ drag=false&sw=false&0x=false&useMatrix=true&useStrict=false&checkError=true&isRi
 --------------------------------
 --------------------------------
 
-online-simulator.github.io.6.483.650.23.153 @ Thu May 01 2025 08:38:36 GMT+0900 (日本標準時) @ Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/135.0.0.0 Safari/537.36
+online-simulator.github.io.6.484.650.23.153 @ Thu May 01 2025 19:45:22 GMT+0900 (日本標準時) @ Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/135.0.0.0 Safari/537.36

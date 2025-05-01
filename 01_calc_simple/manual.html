@@ -7934,6 +7934,14 @@ clear; [()=&lt;1]=&gt;$f -> 0
 ・<span class="run">Ver.2.303.73</span>以降、<a href="#span-out-terms">scope変数</a>の<a href="#span-out-scope-reference">scope参照</a>の仕様追加（未最適化）
 <br>
 　参照渡し記号：?symbol
+<br>
+・<span class="run">Ver.2.823.135</span>以降、<a href="#span-out-eqns-args">式変数のarguments</a>の直列化に対応
+<br>
+　定義元とcall先の対応関係：最終行vector　⇒　<a href="#span-out-FNm-reshape">reshaper行列関数</a>で直列化の行vector
+<br>
+　補足：直列化≠<a href="#span-out-matching">行列要素pattern matching</a>
+<br>
+　影響項目：<a href="#span-out-eqns-args">式変数のarguments</a>
     </td>
   </tr>
   <tr>
@@ -30337,6 +30345,14 @@ clear; f(x,?x)=&lt;1 -> [MyErr]Invalid duplicate-args.x(f)
 clear; f(x,$x)=&lt;1 -> [MyErr]Invalid duplicate-args.x(f)
 <br>
 clear; ((1,2,3).map((x,j,j)=&lt;j)) -> [MyErr]Invalid duplicate-args.j(null)
+<br>
+・<span class="run">Ver.2.823.135</span>以降、<a href="#span-out-eqns-args">式変数のarguments</a>の直列化に対応
+<br>
+m2x2=(1,2:3,4),ab=[1,###m2x2],f(a,b:c,d)=&lt;(a,b,c,d),g(a,=&lt;b:$c,?d)=&lt;(a,b,c,d);
+<br>
+g(1,=&lt;2,$ab,?f) -> (1,eqn,1,4,eqn(a,b,c,d))
+<br>
+f(m2x2):f(reshape(m2x2:ab)):f(reshaper(m2x2:ab)):f(reshapec(m2x2:ab)) -> (1,2,3,4:1,2,3,4:1,2,3,4:1,3,2,4)
 <br>
 <br>
 <a href="#span-out-mat">行列</a>の値渡しの場合、<a href="#span-out-pass-by-equation">式渡し</a>を使用

@@ -175,10 +175,21 @@ My_entry.DATA.prototype.out2num = function(out){
   var tree = (out.length)? out[out.length-1][0]: null;
   return self.tree2num(tree);
 };
+/* Ver.2.823.135 */
 My_entry.DATA.prototype.arr2args = function(arr){
   var self = this;
-  var arri = arr[arr.length-1];
-  return arri;
+  var _arri = null;
+  var len_i = arr.length;
+  if(len_i === 1){
+    _arri = arr[0];
+  }
+  else{
+    _arri = [];
+    for(var i=0; i<len_i; ++i){
+      _arri.push.apply(_arri, arr[i]);  // serialize
+    }
+  }
+  return _arri;
 };
 My_entry.DATA.prototype.arr2obj_i = function(arr, i){
   var self = this;
