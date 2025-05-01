@@ -1839,6 +1839,8 @@ test case
 <br>
 ・<a href="#span-eqn-rotationxyz_LHS">rotationx/rotationy/rotationz-Left-Handed-System</a>
 <br>
+・<a href="#span-eqn-quaternion">quaternion</a>
+<br>
 ・<a href="#span-eqn-solvex_Gauss">solvex_Gauss</a>
 <br>
 ・<a href="#span-eqn-solvex_Gauss_coo">solvex_Gauss_coo</a>
@@ -48267,6 +48269,73 @@ roty_LHS(theta)=&lt;[rt=real(theta),=&lt;(cos(rt),,-sin(rt):,1,:sin(rt),,cos(rt)
 rotz_LHS(psi)=&lt;[rt=real(psi),=&lt;(cos(rt),sin(rt),:-sin(rt),cos(rt),:,,1)]=&gt;;
 <br>
 [t=pi/4,=&lt;[rotx_LHS(t)=&gt;,roty_LHS(t)=&gt;,rotz_LHS(t)=&gt;]]=&gt;;
+    </td>
+  </tr>
+  <tr>
+    <th>
+<a href="#span-index">
+目次
+</a>
+<br>
+quaternion
+    </th>
+    <td>
+<span id="span-eqn-quaternion"></span>
+clear;
+<br>
+q2m_(a,b,c,d)=&lt;(a+(b)i,c+(d)i:-c+(d)i,a-(b)i);
+<br>
+m2q_(a,b:c,d)=&lt;((a+d)/2,(a-d)/2i,(b-c)/2,(b+c)/2i);
+<br>
+qmul_(q1,q2)=&lt;m2q_(q2m_(q1)=&gt;*q2m_(q2)=&gt;)=&gt;;
+<br>
+qnorm_(q)=&lt;sqrt(sum(q*q));
+<br>
+qnormalize_(q)=&lt;q/qnorm_(=&lt;q)=&gt;;
+<br>
+qconjugate_(q)=&lt;[cq=-q,cq[][0]=-cq[][0],=&lt;cq]=&gt;;
+<br>
+i4=identity(4);
+<br>
+check_table=&lt;[
+<br>
+arr=[],
+<br>
+_s((m)=&lt;_s((n)=&lt;arr=(arr:qmul_(=&lt;i4[m-1],=&lt;i4[n-1])=&gt;),1,4),1,4),
+<br>
+=&lt;arr]=&gt;;
+<br>
+check_table=&gt;;
+<br>
+_r((arr)=&lt;(arr,qnorm_(=&lt;i4[__n__-1])=&gt;),=&lt;[],#i4);
+<br>
+qnormalize_(=&lt;i4[0]*3)=&gt;;
+<br>
+q1=(1,2,3,4);
+<br>
+q2=(-1,2,-3,4);
+<br>
+q1_times_q2=qmul_(=&lt;q1,=&lt;q2)=&gt;;
+<br>
+conj_q1_times_q2=qconjugate_(=&lt;q1_times_q2)=&gt;;
+<br>
+=qmul_(=&lt;qconjugate_(=&lt;q2)=&gt;,=&lt;qconjugate_(=&lt;q1)=&gt;)=&gt;;
+<br>
+nq1=qnormalize_(=&lt;q1)=&gt;;
+<br>
+norm_nq1=qnorm_(=&lt;nq1)=&gt;;
+<br>
+cq1=qconjugate_(=&lt;q1)=&gt;;
+<br>
+=m2q_(q2m_(q1)=&gt;')=&gt;;
+<br>
+q1_times_cq1=qmul_(=&lt;q1,=&lt;cq1)=&gt;;
+<br>
+cq1_times_q1=qmul_(=&lt;cq1,=&lt;q1)=&gt;;
+<br>
+norm_q1=qnorm_(=&lt;q1)=&gt;;
+<br>
+=sqrt(q1_times_cq1[][0]);
     </td>
   </tr>
   <tr>
