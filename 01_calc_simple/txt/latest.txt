@@ -1,6 +1,24 @@
 clear
 local storage cleared
 
+h(a:b,c)=<(a,b,c):h(1,2,3):h(1,2:3):h(1:2,3):h(1:2:3)
+(
+0:
+1,2,3:
+1,2,3:
+1,2,3:
+1,2,3
+)
+
+h(a,b:c)=<(a,b,c):h(1,2,3):h(1,2:3):h(1:2,3):h(1:2:3)
+(
+0:
+1,2,3:
+1,2,3:
+1,2,3:
+1,2,3
+)
+
 m2x2=(1,2:3,4),ab=[1,###m2x2],f(a,b:c,d)=<(a,b,c,d),g(a,=<b:$c,?d)=<(a,b,c,d):g(1,=<2,$ab,?f):f(m2x2):f(reshape(m2x2:ab)):f(reshaper(m2x2:ab)):f(reshapec(m2x2:ab))
 (
 0,0,0,0:
@@ -4946,4 +4964,4 @@ drag=false&sw=false&0x=false&useMatrix=true&useStrict=false&checkError=true&isRi
 --------------------------------
 --------------------------------
 
-online-simulator.github.io.6.484.650.23.155 @ Fri May 02 2025 00:14:17 GMT+0900 (日本標準時) @ Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/135.0.0.0 Safari/537.36
+online-simulator.github.io.6.484.651.23.156 @ Fri May 02 2025 22:31:38 GMT+0900 (日本標準時) @ Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/136.0.0.0 Safari/537.36

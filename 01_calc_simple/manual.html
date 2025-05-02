@@ -1789,6 +1789,8 @@ test case
 <br>
 ・<a href="#span-eqn-arr_ext">arr_ext</a>
 <br>
+・<a href="#span-eqn-reshapez">reshapez</a>
+<br>
 ・<a href="#span-eqn-Rump">Rump</a>
 <br>
 ・<a href="#span-eqn-Fibonacci">Fibonacci</a>
@@ -7942,6 +7944,12 @@ clear; [()=&lt;1]=&gt;$f -> 0
 　参照渡し記号：?symbol
 <br>
 ・<span class="run">Ver.2.823.135</span>以降、<a href="#span-out-eqns-args">式変数のarguments</a>の直列化に対応
+<br>
+　<span class="clear">Ver.2.824.138</span>以降、列方向の<a href="#span-out-mat-blank">欠損要素</a>に対応
+<br>
+h(a,b:c)=&lt;(a,b,c); h(1,2,3):h(1,2:3):h(1:2,3):h(1:2:3) -> (1,2,3:1,2,3:1,2,3:1,2,3)
+<br>
+h(a:b,c)=&lt;(a,b,c); h(1,2,3):h(1,2:3):h(1:2,3):h(1:2:3) -> (1,2,3:1,2,3:1,2,3:1,2,3)
 <br>
 　定義元とcall先の対応関係：最終行vector　⇒　<a href="#span-out-FNm-reshape">reshaper行列関数</a>で直列化の行vector
 <br>
@@ -46925,6 +46933,57 @@ tA_lazy=[=&lt;1,=&lt;[2,3].,=&lt;[4,=&lt;[5,=&lt;x].].].;
 ((((tA_lazy[2])=&gt;)[1])=&gt;)[1];
 <br>
 ((((([=&lt;1,=&lt;[2,3].,=&lt;[4,=&lt;[5,=&lt;x].].].)[2])=&gt;)[1])=&gt;)[1];
+    </td>
+  </tr>
+  <tr>
+    <th>
+<a href="#span-index">
+目次
+</a>
+<br>
+reshapez
+    </th>
+    <td>
+<span id="span-eqn-reshapez"></span>
+<a href="#span-out-FNm-reshape">reshape行列関数</a>参照
+<br>
+・3次元の未知変数vectorとz-x平面を相互変換する関数（行vectorで記述）
+<br>
+clear;
+<br>
+reshapez_(x:ab,c)=&lt;[
+<br>
+arr=[],
+<br>
+push_arr(dj)=&lt;_r(=&lt;arr.push(x[][(__n__-1)*ab+dj]),,c),
+<br>
+_r(=&lt;push_arr(__n__-1)=&gt;,,ab),
+<br>
+=&lt;arr]=&gt;;
+<br>
+($a,$b,$c)=(2,3,4);
+<br>
+N=a*b*c;
+<br>
+x0=linspace(1,N,N);
+<br>
+x1=reshapez_(=&lt;x0:a*b,c)=&gt;;
+<br>
+x0=reshapez_(=&lt;x1:c,a*b)=&gt;;
+<br>
+x1y=reshapec(x1:c*a,b);
+<br>
+mn=[c,a];
+<br>
+x1y0=reshapec(x1y[][0]:mn);
+<br>
+x1y1=reshapec(x1y[][1]:mn);
+<br>
+x1y2=reshapec(x1y[][2]:mn);
+<br>
+mn=[1,c*a];
+<br>
+x1=(reshapec(x1y0:mn),reshapec(x1y1:mn),reshapec(x1y2:mn));
     </td>
   </tr>
   <tr>

@@ -965,30 +965,49 @@ My_entry.operation.prototype.get_names = function(data, tree_BT, isRow){
     var tree = self.tree_BT2tree(data, tree_BT);
     var arr = self.get_tagVal(tree, "mat", "arr");
   /* -> Ver.2.230.56 */
-    if(isRow){
-      arr = math_mat.transpose(data.options, arr);
-    }
+    /* Ver.2.824.138 -> */
     /* Ver.2.823.135 -> */
     var isBreak = false;
     var len_i = arr.length;
-    var len_j = arr[0].length;  // fixed by transpose
-    for(var j=0; j<len_j; ++j){
+    if(isRow){
       for(var i=0; i<len_i; ++i){
-        var name = self.get_name(arr[i][j]);  // Ver.2.251.58
-        if(name){
-          _names.push(name);  // serialize
+        for(var j=0, len_j=arr[i].length; j<len_j; ++j){
+          var name = self.get_name(arr[i][j]);  // Ver.2.251.58
+          if(name){
+            _names.push(name);  // serialize
+          }
+          else{
+            _names.length = 0;
+            isBreak = true;
+            break;
+          }
         }
-        else{
-          _names.length = 0;
-          isBreak = true;
+        if(isBreak){
           break;
         }
       }
-      if(isBreak){
-        break;
+    }
+    else{
+      var len_j = arr[0].length;  // fixed by transpose
+      for(var j=0; j<len_j; ++j){
+        for(var i=0; i<len_i; ++i){
+          var name = self.get_name(arr[i][j]);  // Ver.2.251.58
+          if(name){
+            _names.push(name);  // serialize
+          }
+          else{
+            _names.length = 0;
+            isBreak = true;
+            break;
+          }
+        }
+        if(isBreak){
+          break;
+        }
       }
     }
     /* -> Ver.2.823.135 */
+    /* -> Ver.2.824.138 */
   }
   return _names;
 };
