@@ -3284,6 +3284,8 @@ ja.m.wikipedia.org/wiki/項目を列挙する
 <br>
 jsme.or.jp/jsme-medwiki/検索項目を列挙する
 <br>
+・ニュートン・ラプソン法
+<br>
 ・エントロピー条件
 <br>
 ・ボーズ・アインシュタイン統計
@@ -40115,7 +40117,7 @@ Newton法について記述する
 <br>
 {df[i]}={0-f[i]}
 <br>
-・A*x=bの連立線形方程式に一般化されたNewton法が導出される
+・A*x=bの連立線形方程式に一般化されたNewton-Raphson法が導出される
 <br>
 ・ここで、<a href="#span-out-type-ope">前置単項</a>の符号は<a href="#span-out-FNm">Scalar倍</a>||<a href="#span-out-FNm">zeros行列</a>との差||和で定義される
 <br>
@@ -40131,9 +40133,9 @@ b={-f[i]}
 <br>
 ・求解して得られたdx（解の修正vector）から近似解を修正する
 <br>
-・f||dxが<a href="#span-out-FNm">zeros-vector</a>に収束するまで近似解の修正を反復する
+・f||dxのnormが許容誤差範囲内に収束するまで近似解の修正を反復する
 <br>
-・fが線形の場合、即座に解付近に飛ぶため、収束が速い（本来、反復1回で厳密解に収束）
+・fが線形の場合、反復1回で厳密解が得られる
 <br>
 <br>
 上記の反復1回の処理をまとめた<a href="#span-out-FNmh-newtonian">Newton高階行列関数</a>について記述する
@@ -40146,7 +40148,7 @@ x={-dx[j]}
 <br>
 b={f[i]}
 <br>
-・ここで、Jacobi行列Aは解析的に陰の前提で<a href="#span-out-FNmh-jacobian">Jacobi高階行列関数</a>から得る
+・ここで、Jacobi行列Aは解析的に陰の前提で<a href="#span-out-FNmh-jacobian">Jacobi高階行列関数</a>から得る（secant法）
 <br>
 ・最後に、符号付の解の修正vectorをmdxとして近似解のvectorを一度に修正する
 <br>
@@ -40159,7 +40161,7 @@ x=x-mdx
 <br>
 ・<span class="run">Ver.2.408.86</span>以降、収束計算のretry機能を追加
 <br>
-　近似解の列vector{x}の各要素初期値：乱数の係数倍=区間[-1,1)の<a href="#span-out-FN-rand">乱数</a>*retry回数倍
+　近似解の列vector{x}の各要素初期値の係数倍：区間[-1,1)の<a href="#span-out-FN-rand">乱数</a>*retry回数
 <br>
 ・現状、不連続性の高いswitchingを含む<a href="#span-out-non-linear1">電気回路計算</a>等、収束可否が初期値より連立する方程式の列挙順序に依存
     </td>
