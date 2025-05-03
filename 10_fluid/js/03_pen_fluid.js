@@ -235,6 +235,7 @@ My_entry.pen.prototype.update_plot2d = function(isFinal){  // fluid-Ver.1.23.0
     var arr2d_vec = {x: arr_x, y: arr_y, len_n: arr_x.length, len_j: 1, gxmin: Math.min.apply(Math, arr_x), gxmax: Math.max.apply(Math, arr_x), gymin: Math.min.apply(Math, arr_y), gymax: Math.max.apply(Math, arr_y)};
     /* -> fluid-Ver.1.53.2 */
     var options_plot = {
+      "last-legend": 0,  // fluid-Ver.1.55.3
       decDigit: 1,
       expDigit: -1,
       "marker-size": 0,
