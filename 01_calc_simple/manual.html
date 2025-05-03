@@ -718,7 +718,17 @@ test case
 <br>
 　-quality：<a href="#span-app-universe">現宇宙</a>の<a href="#span-app-quality">系のquality</a>の概算（観測可能範囲）
 <br>
-・<span class="selection">Schrödinger</span>：1次元Schrödinger方程式のadaptive-stepの<a href="#span-out-evolution">時間発展</a>（波動関数ψの時間と空間を強連成）
+・<span class="selection">Schrödinger2d</span>：<span class="run">Ver.2.826.139</span>以降、同下の1次元Schrödinger方程式を2次元化
+<br>
+　2次元化の仮定：等間隔の等分割（<a href="#span-out-fdm-differential">有限差分</a>の係数krと演算子Lpを共通化）
+<br>
+　3次元化の補足：<a href="#span-eqn-reshapez">reshapez</a>参照
+<br>
+　potential energyの仮定：y方向のcenterに対して対称性
+<br>
+　-side：y方向の両端でside1=side2の結果を確認
+<br>
+・<span class="selection">Schrödinger1d</span>：1次元Schrödinger方程式のadaptive-stepの<a href="#span-out-evolution">時間発展</a>（波動関数ψの時間と空間を強連成）
 <br>
 　空間Δ演算子の<a href="#span-out-error">離散化</a>：<a href="#span-out-fdm-differential">中心差分法</a>（境界条件を含む<a href="#span-out-reference-mat-area">area参照</a>と<a href="#span-out-ope-extended">拡張行列演算</a>で記述）
 <br>

@@ -1,6 +1,39 @@
 clear
 local storage cleared
 
+reshapec(x:Nx*Ny,1),reshaper(x.:Ny*Nx,1)
+(
+1,1:
+2,2:
+3,3:
+4,4:
+5,5:
+6,6
+)
+
+x=reshapec(__x__:Nx,Ny)
+x=(
+1,4:
+2,5:
+3,6
+)
+
+__x__=linspace(1,Nx*Ny,Nx*Ny).
+__x__=(
+1:
+2:
+3:
+4:
+5:
+6
+)
+
+/*Schrödinger2d equations test case*/($Nx,$Ny)=(3,2)
+stored_var(Nx) stored_var(Ny) 
+
+clear
+local storage cleared
+
 h(a:b,c)=<(a,b,c):h(1,2,3):h(1,2:3):h(1:2,3):h(1:2:3)
 (
 0:
@@ -4964,4 +4997,4 @@ drag=false&sw=false&0x=false&useMatrix=true&useStrict=false&checkError=true&isRi
 --------------------------------
 --------------------------------
 
-online-simulator.github.io.6.485.651.23.157 @ Sat May 03 2025 22:22:56 GMT+0900 (日本標準時) @ Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/136.0.0.0 Safari/537.36
+online-simulator.github.io.6.485.652.23.157 @ Sun May 04 2025 03:20:55 GMT+0900 (日本標準時) @ Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/136.0.0.0 Safari/537.36
