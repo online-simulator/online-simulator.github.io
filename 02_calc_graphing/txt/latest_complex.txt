@@ -2191,7 +2191,7 @@ clear
 local storage cleared
 
 [Pinv_y=(-0.999999427,-0.999936657,-0.997300203,-0.954499736,-0.682689492,0,0.682689492,0.954499736,0.997300203,0.999936657,0.999999427:-5,-4,-3,-2,-1,0,1,2,3,4,5),N=1,arr=[],_r((n)=<arr.push(rand_table(=<Pinv_y)=>),,N),=<arr.]=>
--0.5801215797275918
+-2.377227833070923
 
 rand_table(csv)=<last[table=sort0(csv),ymin=min(table)[0],ymax=max(table)[0],y=ymin+(ymax-ymin)*rand(),x=interp(y:table),x]
 stored_eqn(rand_table)
@@ -2368,7 +2368,12 @@ stored_var(a) stored_var(b) stored_var(ans_correct)
 clear
 local storage cleared
 
-x1=trans(reshapez_(=<x0.:a*b)=>)
+=trans(reshapez(trans(x0):a*b))
+(
+1,7,13,19,2,8,14,20,3,9,15,21,4,10,16,22,5,11,17,23,6,12,18,24
+)
+
+x1=trans(reshapez_(=<trans(x0):a*b)=>)
 x1=(
 1,7,13,19,2,8,14,20,3,9,15,21,4,10,16,22,5,11,17,23,6,12,18,24
 )
@@ -2417,9 +2422,19 @@ x1y=(
 20,22,24
 )
 
+=reshapez(x1:c)
+(
+1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24
+)
+
 x0=reshapez_(=<x1:c)=>
 x0=(
 1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24
+)
+
+=reshapez(x0:a*b)
+(
+1,7,13,19,2,8,14,20,3,9,15,21,4,10,16,22,5,11,17,23,6,12,18,24
 )
 
 x1=reshapez_(=<x0:a*b)=>
@@ -4170,4 +4185,4 @@ center=true&drag=false&test-case=false&plot-all=true&relzooming=true&snap=true&l
 --------------------------------
 --------------------------------
 
-online-simulator.github.io.6.484.651.23.156 @ Sat May 03 2025 09:56:23 GMT+0900 (日本標準時) @ Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/136.0.0.0 Safari/537.36
+online-simulator.github.io.6.485.651.23.157 @ Sat May 03 2025 22:24:49 GMT+0900 (日本標準時) @ Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/136.0.0.0 Safari/537.36

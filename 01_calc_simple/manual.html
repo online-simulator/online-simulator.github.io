@@ -7597,9 +7597,9 @@ _t(=&lt;{__t__},,=&lt;{,},1,1) -> (1:0.5+O(1e+0))
 <br>
 _t(=&lt;{__t__},,=&lt;(,),1,1) -> <del>(1:0.5+O(1e+0))</del>(1,0.5+O(1e+0))
 <br>
-・<span class="run">Ver.2.240.56</span>以降、<a href="#span-out-FNm">行列関数</a>の既定形式の仕様変更
+・<span class="run">Ver.2.240.56</span>以降、<a href="#span-out-FNm">行列関数</a>の既定形式の仕様変更（一般的な言語に準拠）
 <br>
-　列vector形式　⇒　行vector形式（一般的な言語に準拠）
+　reshape：reshapec　⇒　reshaper（列vector形式　⇒　行vector形式）
 <br>
 　影響項目：<a href="#span-out-FNm-reshape">reshape行列関数</a>||<a href="#span-out-FNm-norm">norm行列関数</a>||<a href="#span-out-FNm-normalize">正規化行列関数</a>||<a href="#span-eqn-solveAinv">solveAinv</a>
 <br>
@@ -25604,9 +25604,13 @@ reshape
 reshape行列関数の入力仕様と付随する留意事項について記述する
 <br>
 <br>
-<span class="run">Ver.2.234.56</span>以降、追加
+<span class="run">Ver.2.234.56</span>以降、reshaper/reshape/reshapec行列関数を追加
 <br>
-・<span class="run">Ver.2.240.56</span>以降、既定形式の仕様変更（列vector形式　⇒　行vector形式）
+・<span class="run">Ver.2.240.56</span>以降、既定形式の仕様変更
+<br>
+　reshape：reshapec　⇒　reshaper（列vector形式　⇒　行vector形式）
+<br>
+・<span class="run">Ver.2.825.139</span>以降、reshapez行列関数を追加
     </td>
   </tr>
   <tr>
@@ -44420,7 +44424,7 @@ operation.js抜粋
 <br>
 ・<span class="run">Ver.2.230.56</span>以降、下記switch文を関数化
 <br>
-・<span class="run">Ver.2.234.56</span>以降、<a href="#span-out-FNm-reshape">reshaper/reshapec行列関数</a>を追加
+・<span class="run">Ver.2.234.56</span>以降、<a href="#span-out-FNm-reshape">reshaper/reshape/reshapec行列関数</a>を追加
 <br>
 ・<span class="run">Ver.2.243.56</span>以降、<a href="#span-out-FNc">hasVs/hasEs最上位関数</a>を追加
 <br>
@@ -44444,6 +44448,8 @@ operation.js抜粋
 ・<span class="run">Ver.2.390.86</span>以降、<a href="#span-out-command">命令文</a>と<a href="#span-out-prec-ope-arithmetic-method">method演算子</a>以外の全<a href="#span-out-RW">予約語</a>に対応（<a href="#span-out-FN0">定数</a>・<a href="#span-out-com">虚数単位</a>iを含む）
 <br>
 ・<span class="run">Ver.2.766.116</span>以降、<a href="#span-out-FN-ope">nand/xnor/nor/cnand/cxnor/cnor関数</a>を追加
+<br>
+・<span class="run">Ver.2.825.139</span>以降、<a href="#span-out-FNm-reshape">reshapez行列関数</a>を追加
 <br>
 <br>
 parser.js抜粋
@@ -44604,6 +44610,7 @@ parser.js抜粋
     // Matlab defined
     // Python defined
     <span class="jF">case "linspace":</span>
+    <span class="jF">case "reshapez":</span>
     // "FNm3"
     <span class="jF">case "reshaper":</span>
     <span class="jF">case "reshape":</span>
@@ -44945,6 +44952,7 @@ gaussian_coo(NaN);
 gauss(NaN);
 gaussian(NaN);
 <span class="jF">linspace(NaN);</span>
+<span class="jF">reshapez(NaN);</span>
 <span class="jF">reshaper(NaN);</span>
 <span class="jF">reshape(NaN);</span>
 <span class="jF">reshapec(NaN);</span>
@@ -46977,7 +46985,11 @@ x0=linspace(1,N,N);
 <br>
 x1=reshapez_(=&lt;x0:a*b)=&gt;;
 <br>
+=reshapez(x0:a*b);
+<br>
 x0=reshapez_(=&lt;x1:c)=&gt;;
+<br>
+=reshapez(x1:c);
 <br>
 x1y=reshapec(x1:c*a,b);
 <br>
@@ -46991,7 +47003,9 @@ x1y2=get_x1yj(2)=&gt;;
 <br>
 x1=_r((arr)=&lt;(arr,reshapec(get_x1yj(__n__-1)=&gt;:[1,c*a])),=&lt;[],b);
 <br>
-x1=trans(reshapez_(=&lt;x0.:a*b)=&gt;);
+x1=trans(reshapez_(=&lt;trans(x0):a*b)=&gt;);
+<br>
+=trans(reshapez(trans(x0):a*b));
     </td>
   </tr>
   <tr>

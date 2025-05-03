@@ -466,6 +466,52 @@ My_entry.math_mat.prototype.sizec = function(options, arr){
   return [[DATA.num(lens.j, 0)]];
 };
 /* Ver.2.234.56 -> */
+/* Ver.2.825.139 */
+My_entry.math_mat.prototype.reshapez = function(options, arr){
+  var self = this;
+  var DATA = self.entry.DATA;
+  var lens = self.get_lens(arr.slice(0, arr.length-1));
+  var len_i0 = lens.i;
+  var len_j0 = lens.j;
+  var len_je = arr[len_i0].length;
+  var len_min = Math.min(len_i0, len_j0);
+  var len_max = Math.max(len_i0, len_j0);
+  if(len_je !== 1 || len_min !== 1) throw "Invalid reshapez length";
+  var arr0_je = arr[len_i0][0];
+  var ab = (arr0_je && arr0_je.com)? Math.round(arr0_je.com.r): -1;
+  var N = len_max;
+  var isRow = (len_i0 < len_j0);
+  var c = N/ab;
+  if(c%1 !== 0) throw "Invalid reshapez size";
+  var num_NaN = DATA.num(NaN, NaN);  // common reference
+  var elems = [];
+  var get_elem = (isRow)?
+    function(n){
+      return arr[0][n];
+    }:
+    function(n){
+      return arr[n][0];
+    };
+  var feedback2_arr = (isRow)?
+    function(){
+      for(var j=0; j<N; ++j){
+        _arr[0][j] = elems[j] || num_NaN;
+      }
+    }:
+    function(){
+      for(var i=0; i<N; ++i){
+        _arr[i][0] = elems[i] || num_NaN;
+      }
+    };
+  for(var dj=0; dj<ab; ++dj){
+    for(var nm1=0; nm1<c; ++nm1){
+      elems.push(get_elem(nm1*ab+dj));
+    }
+  }
+  var _arr = self.init2d(len_i0, len_j0);
+  feedback2_arr();
+  return _arr;
+};
 My_entry.math_mat.prototype.reshape =  // Ver.2.240.56
 My_entry.math_mat.prototype.reshaper = function(options, arr){
   var self = this;

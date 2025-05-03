@@ -661,6 +661,7 @@ My_entry.parser.prototype.switch_token = function(tokens, token, token_lower, to
     // Matlab defined
     // Python defined
     case "linspace":
+    case "reshapez":
     // "FNm3"
     case "reshaper":
     case "reshape":
