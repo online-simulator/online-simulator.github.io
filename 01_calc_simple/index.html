@@ -459,7 +459,7 @@
       script += "\n";
       script += "h(a:b,c)=<(a,b,c):h(1,2,3):h(1,2:3):h(1:2,3):h(1:2:3);";
       script += "\nclear;\n";
-      script += "/*Schrödinger2d equations test case*/\n($Nx,$Ny)=(3,2);\n__x__=linspace(1,Nx*Ny,Nx*Ny).;\nx=reshapec(__x__:Nx,Ny);\nreshapec(x:Nx*Ny,1),reshaper(x.:Ny*Nx,1);";
+      script += "/*Schrödinger2d equations test case*/\n($Nx,$Ny)=(3,2);\n__x__=linspace(1,Nx*Ny,Nx*Ny).;\nxy=reshapec(__x__:Nx,Ny);\nreshapec(xy:Nx*Ny,1),reshaper(xy.:Ny*Nx,1);";
       script += "\nclear;\n";
       $._id("input").value = script;
     });

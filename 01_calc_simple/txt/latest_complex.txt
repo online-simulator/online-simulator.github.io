@@ -1,7 +1,7 @@
 clear
 local storage cleared
 
-reshapec(x:Nx*Ny,1),reshaper(x.:Ny*Nx,1)
+reshapec(xy:Nx*Ny,1),reshaper(xy.:Ny*Nx,1)
 (
 1,1:
 2,2:
@@ -11,8 +11,8 @@ reshapec(x:Nx*Ny,1),reshaper(x.:Ny*Nx,1)
 6,6
 )
 
-x=reshapec(__x__:Nx,Ny)
-x=(
+xy=reshapec(__x__:Nx,Ny)
+xy=(
 1,4:
 2,5:
 3,6
@@ -4997,4 +4997,4 @@ drag=false&sw=false&0x=false&useMatrix=true&useStrict=false&checkError=true&isRi
 --------------------------------
 --------------------------------
 
-online-simulator.github.io.6.485.652.23.157 @ Sun May 04 2025 03:20:55 GMT+0900 (日本標準時) @ Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/136.0.0.0 Safari/537.36
+online-simulator.github.io.6.485.652.23.157 @ Mon May 05 2025 15:50:37 GMT+0900 (日本標準時) @ Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/136.0.0.0 Safari/537.36
