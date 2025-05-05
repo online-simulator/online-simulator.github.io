@@ -1,6 +1,76 @@
 clear
 local storage cleared
 
+tarr_z=(isY&&&xy.||||xy)[][round((N-1)*kijout)]
+tarr_z=(
+-1:
+0:
+1
+)
+
+xy=reshapec(Vxyz[N*N*round((N-1)*kkout)][0][N*N][]:N,N)
+xy=(
+-1,-2,-3:
+0,0,0:
+1,2,3
+)
+
+Vxyz=_r((arr)=<(arr:_r((arr)=<(arr:Vx*kn(__n__)),=<[],N)*kn(__n__)),=<[],N)
+Vxyz=(
+-1:
+0:
+1:
+-2:
+0:
+2:
+-3:
+0:
+3:
+-2:
+0:
+2:
+-4:
+0:
+4:
+-6:
+0:
+6:
+-3:
+0:
+3:
+-6:
+0:
+6:
+-9:
+0:
+9
+)
+
+kn(n)=<n
+stored_eqn(kn)
+
+N=#Vx
+N=3
+
+Vx={-1,0,1}
+Vx=(
+-1:
+0:
+1
+)
+
+isY=false
+isY=false
+
+kijout=0
+kijout=0
+
+/*Schrödinger3d equations test case*/kkout=0
+kkout=0
+
+clear
+local storage cleared
+
 reshapec(xy:Nx*Ny,1),reshaper(xy.:Ny*Nx,1)
 (
 1,1:
@@ -4997,4 +5067,4 @@ drag=false&sw=false&0x=false&useMatrix=true&useStrict=false&checkError=true&isRi
 --------------------------------
 --------------------------------
 
-online-simulator.github.io.6.486.652.23.157 @ Mon May 05 2025 16:14:49 GMT+0900 (日本標準時) @ Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/136.0.0.0 Safari/537.36
+online-simulator.github.io.6.486.652.23.157 @ Tue May 06 2025 01:36:58 GMT+0900 (日本標準時) @ Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/136.0.0.0 Safari/537.36
