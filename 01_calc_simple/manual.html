@@ -1501,9 +1501,9 @@ test case
 <br>
 　　　・<a href="#span-out-substitution-mat-band">band代入</a>
 <br>
-　　・<a href="#span-out-concatination">行列結合</a>
+　　・<a href="#span-out-concatenation">行列結合</a>
 <br>
-　　　・<a href="#span-out-concatination-irregular">irregular行列</a>
+　　　・<a href="#span-out-concatenation-irregular">irregular行列</a>
 <br>
 　・<a href="#span-out-FNmspecial-spec">特殊仕様行列関数</a>
 <br>
@@ -7473,7 +7473,7 @@ ns(10000) -> 97876.06036044357
 <br>
 　ECMAScript6対応環境の場合、2進数と8進数の<a href="#span-out-RW">接頭辞</a>を追加
 <br>
-・<span class="run">Ver.2.156.38</span>以降、<a href="#span-out-concatination-irregular">irregular行列</a>の<a href="#span-out-concatination">行列結合</a>の<span class="clear">仕様変更</span>
+・<span class="run">Ver.2.156.38</span>以降、<a href="#span-out-concatenation-irregular">irregular行列</a>の<a href="#span-out-concatenation">行列結合</a>の<span class="clear">仕様変更</span>
 <br>
 　列方向の<a href="#span-out-mat-blank">欠損要素</a>を自動で埋める　⇒　<a href="#span-out-mat-blank">欠損要素</a>を埋めない（<span class="clear">挙動を明確化</span>）
 <br>
@@ -7988,6 +7988,12 @@ f(x,y)=&lt;{,}; g(x)=&lt;{1,2:3}; Newton(=&lt;f,=&lt;g) -> [MyErr]Invalid newton
 _r((n)=&lt;n+1,,10,(x)=&lt;false) -> <del>10</del>[MyErr]Invalid RX arguments
 <br>
 h(x)=&lt;false; _r((n)=&lt;n+1,,10,=&lt;h) -> <del>10</del>[MyErr]Invalid RX arguments
+<br>
+・<span class="run">Ver.2.829.139</span>以降、<a href="#span-out-prec-ope-arithmetic-method">method演算子</a>のunshift/push()を拡張（<a href="#span-out-concatenation">行列結合</a>より高速）
+<br>
+　第1引数：行vector　⇒　任意<a href="#span-out-mat">行列</a>
+<br>
+　影響項目：<a href="#span-out-prec-ope-arithmetic-method">method演算子</a>
     </td>
   </tr>
   <tr>
@@ -8029,7 +8035,7 @@ h(x)=&lt;false; _r((n)=&lt;n+1,,10,=&lt;h) -> <del>10</del>[MyErr]Invalid RX arg
 <span id="span-out-spec-limited-history"></span>
 制限追加履歴を列挙する
 <br>
-・<span class="clear">Ver.2.144.36</span>以降、<a href="#span-out-flow">operation</a>段階の<a href="#span-out-concatination">行列結合</a>を含む<a href="#span-in-options">depthMax</a>制限を追加（browser crashの2重対策）
+・<span class="clear">Ver.2.144.36</span>以降、<a href="#span-out-flow">operation</a>段階の<a href="#span-out-concatenation">行列結合</a>を含む<a href="#span-in-options">depthMax</a>制限を追加（browser crashの2重対策）
 <br>
 ・<span class="run">Ver.2.272.63</span>以降、<a href="#span-out-BT-empty">空括弧</a>の判別を厳格化
 <br>
@@ -8082,7 +8088,7 @@ _r((n)=&lt;run(),run=&lt;n+1,3) -> 3
 <br>
 ・<span class="run">Ver.2.142.36</span>以降、<a href="#span-out-flow">parse</a>段階で<a href="#span-out-num">実数値</a>の大規模<a href="#span-out-csv-format">csv-format</a>入力に対応
 <br>
-・<span class="run">Ver.2.156.38</span>以降、<a href="#span-out-flow">operation</a>段階の<a href="#span-out-concatination">行列結合</a>のnestingを最適化
+・<span class="run">Ver.2.156.38</span>以降、<a href="#span-out-flow">operation</a>段階の<a href="#span-out-concatenation">行列結合</a>のnestingを最適化
 <br>
 　<a href="#span-out-SR">区切り文字</a>間に<a href="#span-out-BT">括弧</a>が存在しない場合、部分的にsliceして結合（nestingの多重化を事前に回避）
 <br>
@@ -8092,11 +8098,11 @@ _r((n)=&lt;run(),run=&lt;n+1,3) -> 3
 <br>
 ・<span class="run">Ver.2.160.38</span>以降、<a href="#span-in-deep-copy">deep-copy</a>の適用対象を最適化
 <br>
-　適用対象：<a href="#span-out-concatination">行列結合</a>由来を含む全nesting　⇒　<a href="#span-out-FNh">高階関数</a>||<a href="#span-out-FNmh">高階行列関数</a>の反復処理由来のnesting
+　適用対象：<a href="#span-out-concatenation">行列結合</a>由来を含む全nesting　⇒　<a href="#span-out-FNh">高階関数</a>||<a href="#span-out-FNmh">高階行列関数</a>の反復処理由来のnesting
 <br>
 　⇒　動的memory使用量の低減
 <br>
-　⇒　<a href="#span-out-concatination">行列結合</a>を含む演算の高速化
+　⇒　<a href="#span-out-concatenation">行列結合</a>を含む演算の高速化
 <br>
 ・<span class="run">Ver.2.202.46</span>以降、<a href="#span-in-deep-copy">deep-copy</a>の適用対象を厳格化（<a href="#span-out-eqns-call">式読出し</a>由来を除外）
 <br>
@@ -8262,7 +8268,7 @@ $$=1 -> [MyErr]Invalid symbol
 <br>
 ・<span class="run">Ver.2.298.72</span>以降、<a href="#span-out-vars">変数</a>のprototype method代替の<a href="#span-out-prec-ope-arithmetic-method">method演算子</a>を追加
 <br>
-<del>　<a href="#span-out-prec-ope-arithmetic-dot">dot演算子</a>を<a href="#span-out-terms">scope変数</a>の直接edit関数に拡張（<a href="#span-out-array">行列操作</a>||<a href="#span-out-concatination">行列結合</a>の高速化）
+<del>　<a href="#span-out-prec-ope-arithmetic-dot">dot演算子</a>を<a href="#span-out-terms">scope変数</a>の直接edit関数に拡張（<a href="#span-out-array">行列操作</a>||<a href="#span-out-concatenation">行列結合</a>の高速化）
 <br>
 　A.unshift/push(val,opt_i)
 <br>
@@ -16606,6 +16612,10 @@ clear; $A=(1,2:3,4); A.push(5); A -> <del>(1,2:3,4,5)</del>[MyErr]Invalid const 
 <br>
 ・<span class="run">Ver.2.372.86</span>以降、flip()を追加（in-placeのreverse処理）
 <br>
+・<span class="run">Ver.2.829.139</span>以降、unshift/push()を拡張（<a href="#span-out-concatenation">行列結合</a>より高速）
+<br>
+　第1引数：行vector　⇒　任意<a href="#span-out-mat">行列</a>
+<br>
 <br>
 .unshift()演算子
 <br>
@@ -20895,11 +20905,11 @@ Out of Memory
 <br>
 ・<span class="run">Ver.2.140.36</span>以降、演算実行の<a href="#span-out-UI-graphing">cancel-button</a>を追加
 <br>
-・<span class="clear">Ver.2.144.36</span>以降、<a href="#span-out-flow">operation</a>段階の<a href="#span-out-concatination">行列結合</a>を含む<a href="#span-in-options">depthMax</a>制限を追加（browser crashの2重対策）
+・<span class="clear">Ver.2.144.36</span>以降、<a href="#span-out-flow">operation</a>段階の<a href="#span-out-concatenation">行列結合</a>を含む<a href="#span-in-options">depthMax</a>制限を追加（browser crashの2重対策）
 <br>
 <a href="#span-out-num">実数値</a>以外を含む大規模csv -> [MyErr]Nesting depthMax over
 <br>
-・<span class="run">Ver.2.156.38</span>以降、<a href="#span-out-concatination">行列結合</a>の最適化を実施
+・<span class="run">Ver.2.156.38</span>以降、<a href="#span-out-concatenation">行列結合</a>の最適化を実施
 <br>
 <br>
 csv-formatを次に示す
@@ -21000,7 +21010,7 @@ x0=(<span class="condition">1,2,3</span>); x1=(<span class="condition">,,</span>
 <br>
 ・要素が<a href="#span-out-num">実数値</a>以外を含む場合、<a href="#span-out-BT">括弧</a>内の要素数上限=Order(<del>100</del><span class="run">1000</span>)
 <br>
-　<span class="run">Ver.2.156.38</span>以降、<a href="#span-out-flow">operation</a>段階で<a href="#span-out-concatination">行列結合</a>のnestingを削減する最適化を実施
+　<span class="run">Ver.2.156.38</span>以降、<a href="#span-out-flow">operation</a>段階で<a href="#span-out-concatenation">行列結合</a>のnestingを削減する最適化を実施
     </td>
   </tr>
   <tr>
@@ -21727,7 +21737,7 @@ associativity
 <br>
 vectorを括る丸括弧()と波括弧{}は互いに<a href="#span-out-FNm-trans">転置の関係</a>で<a href="#span-out-BT">括弧</a>のassociativityが存在する
 <br>
-・<a href="#span-out-concatination">行列結合</a>の逐次、<a href="#span-out-BT">括弧</a>の種類を判別
+・<a href="#span-out-concatenation">行列結合</a>の逐次、<a href="#span-out-BT">括弧</a>の種類を判別
 <br>
 <br>
 1重列挙の場合、外側に<a href="#span-out-BT">括弧</a>のassociativityは存在しない
@@ -21821,7 +21831,7 @@ x=(1,2); y={3,4}; trans(trans((x:y))) -> (1,2:3,0:4,0)
 <br>
 ・Right-Associativity（右から左を参照）
 <br>
-・<span class="clear">Ver.2.158.38</span>以降、<a href="#span-out-concatination">行列結合</a>用の<a href="#span-out-mat-empty">空行列</a>に流用
+・<span class="clear">Ver.2.158.38</span>以降、<a href="#span-out-concatenation">行列結合</a>用の<a href="#span-out-mat-empty">空行列</a>に流用
 <br>
 [] -> []
 <br>
@@ -22955,7 +22965,7 @@ rand,rand -> (0.31204941180294865,0.4245907180242292)
 <br>
 A=0; _rn(=&lt;A=(A,rand),,2); A -> (0,0.12740820474199377,0.7111903938956377)
 <br>
-・<span class="clear">Ver.2.158.38</span>以降、<a href="#span-out-concatination">行列結合</a>用の<a href="#span-out-mat-empty">空行列</a>を追加
+・<span class="clear">Ver.2.158.38</span>以降、<a href="#span-out-concatenation">行列結合</a>用の<a href="#span-out-mat-empty">空行列</a>を追加
 <br>
 A=[]; _rn(=&lt;A=(A,rand),,2); A -> (0.3371037693804637,0.6437029689436904)
     </td>
@@ -24827,7 +24837,7 @@ trans({1,2,3:}) -> (1,2,3:0,0,0)
 空行列の入力仕様と付随する留意事項について記述する
 <br>
 <br>
-<span class="clear">Ver.2.158.38</span>以降、<a href="#span-out-concatination">行列結合</a>用の空行列を追加
+<span class="clear">Ver.2.158.38</span>以降、<a href="#span-out-concatenation">行列結合</a>用の空行列を追加
 <br>
 ・<span class="run">Ver.2.170.41</span>以降、<a href="#span-out-reference-mat-col">列参照</a>と<a href="#span-out-substitution-mat-col">列代入</a>の[e]を空行列で代替可
 <br>
@@ -24862,7 +24872,7 @@ sizec(vecr) -> 5
 <br>
 留意事項を列挙する
 <br>
-・<a href="#span-out-concatination">行列結合</a>の前提
+・<a href="#span-out-concatenation">行列結合</a>の前提
 <br>
 [],[] -> []
 <br>
@@ -24969,7 +24979,7 @@ identity4 -> (1,0,0,0:0,1,0,0:0,0,1,0:0,0,0,1)
 <br>
 ・引数が<a href="#span-out-mat">行列</a>単体の場合
 <br>
-・<a href="#span-out-mat-blank">欠損要素</a>なしの前提で複数の引数を<a href="#span-out-concatination">行列結合</a>する場合
+・<a href="#span-out-mat-blank">欠損要素</a>なしの前提で複数の引数を<a href="#span-out-concatenation">行列結合</a>する場合
     </td>
   </tr>
   <tr>
@@ -25429,7 +25439,7 @@ A=(1,2:3,(,:,4),5); A ->
 <br>
 )
 <br>
-・<span class="run">Ver.2.156.38</span>以降、<a href="#span-out-concatination-irregular">irregular行列</a>の<a href="#span-out-concatination">行列結合</a>の<span class="clear">仕様変更</span>
+・<span class="run">Ver.2.156.38</span>以降、<a href="#span-out-concatenation-irregular">irregular行列</a>の<a href="#span-out-concatenation">行列結合</a>の<span class="clear">仕様変更</span>
 <br>
 last(A) -> 4
 <br>
@@ -25458,7 +25468,7 @@ last{{1,2}:{3,4}} -> 4
 <br>
 )
 <br>
-・<span class="run">Ver.2.156.38</span>以降、<a href="#span-out-concatination-irregular">irregular行列</a>の<a href="#span-out-concatination">行列結合</a>の<span class="clear">仕様変更</span>
+・<span class="run">Ver.2.156.38</span>以降、<a href="#span-out-concatenation-irregular">irregular行列</a>の<a href="#span-out-concatenation">行列結合</a>の<span class="clear">仕様変更</span>
 <br>
 last(1,(2:3),4) -> 3
 <br>
@@ -27629,7 +27639,7 @@ A=A0; A[0][0][0]=(1,2) -> [MyErr]Invalid store array(band)
 入力仕様
     </th>
     <td>
-<span id="span-out-concatination"></span>
+<span id="span-out-concatenation"></span>
 行列結合の入力仕様と付随する留意事項について記述する
 <br>
 <br>
@@ -27692,10 +27702,10 @@ irregular
 入力仕様
     </th>
     <td>
-<span id="span-out-concatination-irregular"></span>
+<span id="span-out-concatenation-irregular"></span>
 irregular行列の入力仕様と付随する留意事項について記述する
 <br>
-・<span class="run">Ver.2.156.38</span>以降、<a href="#span-out-concatination">行列結合</a>で<a href="#span-out-mat-blank">欠損要素</a>を埋めない（<span class="clear">挙動を明確化</span>）
+・<span class="run">Ver.2.156.38</span>以降、<a href="#span-out-concatenation">行列結合</a>で<a href="#span-out-mat-blank">欠損要素</a>を埋めない（<span class="clear">挙動を明確化</span>）
 <br>
 <br>
 列指定のirregular行列
@@ -30865,7 +30875,7 @@ A=(1,2:3,last_tt(=&lt;(,:,4)),5); last_tt(=&lt;A) -> 5
 <br>
 A4=(,:,4); A=(1,2:3,last_tt(=&lt;A4),5); last_tt(=&lt;A) -> 5
 <br>
-・<span class="run">Ver.2.156.38</span>以降、<a href="#span-out-concatination-irregular">irregular行列</a>の<a href="#span-out-concatination">行列結合</a>の<span class="clear">仕様変更</span>
+・<span class="run">Ver.2.156.38</span>以降、<a href="#span-out-concatenation-irregular">irregular行列</a>の<a href="#span-out-concatenation">行列結合</a>の<span class="clear">仕様変更</span>
 <br>
 A4=(,:,4); A=(1,2:3,A4,5) ->
 <br>
@@ -45779,7 +45789,7 @@ list
     </th>
     <td>
 <span id="span-eqn-list"></span>
-<a href="#span-out-concatination">行列結合</a>参照（<a href="#span-out-prec-ope-arithmetic-method">method演算子</a>非対応）
+<a href="#span-out-concatenation">行列結合</a>参照（<a href="#span-out-prec-ope-arithmetic-method">method演算子</a>非対応）
 <br>
 clear;
 <br>

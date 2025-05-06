@@ -4946,7 +4946,7 @@ ttA=(
 5,0
 )
 
-A=(1,{2,(3,{4,5})})/*concatination test case*/
+A=(1,{2,(3,{4,5})})/*concatenation test case*/
 A=(
 1,2:
 3,4:
@@ -5095,4 +5095,4 @@ drag=false&sw=false&0x=false&useMatrix=true&useStrict=false&checkError=true&isRi
 --------------------------------
 --------------------------------
 
-online-simulator.github.io.6.486.652.23.157 @ Tue May 06 2025 12:42:51 GMT+0900 (日本標準時) @ Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/136.0.0.0 Safari/537.36
+online-simulator.github.io.6.487.653.23.157 @ Tue May 06 2025 20:29:18 GMT+0900 (日本標準時) @ Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/136.0.0.0 Safari/537.36

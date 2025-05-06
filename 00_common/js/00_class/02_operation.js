@@ -3664,7 +3664,7 @@ My_entry.operation.prototype.restore_var = function(name, scopes, ids){
   var vars = self.get_scope_RE_sw("vars", name, scopes, ids);
   if(vars){
     var tree = vars[name];
-    _tree = (tree)? self.entry.def.newClone(tree): null;  // separate from trees  // clone for concatination x=2;(x,2x:3x,4x)
+    _tree = (tree)? self.entry.def.newClone(tree): null;  // separate from trees  // clone for concatenation x=2;(x,2x:3x,4x)
   }
   return _tree;
 };
@@ -4079,8 +4079,10 @@ My_entry.operation.prototype.change_scopes_directly = function(data, i0, name, p
   var arr = null;
   var scope = self.get_scope0_RE_sw("vars", name, scopes, ids);  // Ver.2.301.73 first
   if(scope){
+    var len_i = 0;  // Ver.2.829.139
     var dot_prop = prop.substring(1);
-    if(dot_prop === "unshift" || dot_prop === "push"){
+    var hasArgs = (dot_prop === "unshift" || dot_prop === "push");  // Ver.2.829.139
+    if(hasArgs){  // Ver.2.829.139
       var has1elem = (rightArr && rightArr.length === 1 && rightArr[0].length === 1);
       if(has1elem){
         var args = DATA.arr2args(rightArr);
@@ -4089,10 +4091,7 @@ My_entry.operation.prototype.change_scopes_directly = function(data, i0, name, p
       else{
         throw "Invalid "+name+"[]"+prop+"(x||=<(,))";
       }
-      var len_i = arr && arr.length;
-      if(len_i !== 1){
-        throw "Invalid "+dot_prop+"(sizer(arr)=1)";  // Ver.2.300.72
-      }
+      len_i = arr && arr.length;  // Ver.2.829.139
     }
     else{
       if(!(rightArr && rightArr.length === 0)){
@@ -4118,50 +4117,35 @@ My_entry.operation.prototype.change_scopes_directly = function(data, i0, name, p
         i0 = ref[0];
         j0 = ref[1];
       }
-      if(dot_prop === "unshift"){
-        switch(i0){
-          case -(len_i0+1):
-            arr0.unshift([]);
-            i0 = 0;
-            break;
-          default:
-            if(len_i0 === 0){
-              arr0.push([]);
-              len_i0 = arr0.length;
-            }
-            if(typeof i0 === "undefined"){
-              i0 = 0;
-            }
-            else{
-              i0 = self.get_index_arr(i0, len_i0);
-            }
-            break;
+      /* Ver.2.829.139 -> */
+      if(hasArgs){
+        if(dot_prop === "unshift" && i0 === -(len_i0+1)){
+          arr0.unshift([]);
+          i0 = 0;
         }
-        var arri = arr0[i0];
-        arri.unshift.apply(arri, arr[0]);
-      }
-      else if(dot_prop === "push"){
-        switch(i0){
-          case len_i0:
+        else if(dot_prop === "push" && i0 === len_i0){
+          arr0.push([]);
+          i0 = arr0.length-1;
+        }
+        else{
+          if(len_i0 === 0){
             arr0.push([]);
-            i0 = arr0.length-1;
-            break;
-          default:
-            if(len_i0 === 0){
-              arr0.push([]);
-              len_i0 = arr0.length;
-            }
-            if(typeof i0 === "undefined"){
-              i0 = len_i0-1;
-            }
-            else{
-              i0 = self.get_index_arr(i0, len_i0);
-            }
-            break;
+            len_i0 = arr0.length;
+          }
+          if(typeof i0 === "undefined"){
+            i0 = (dot_prop === "unshift")? 0: len_i0-1;
+          }
+          else{
+            i0 = self.get_index_arr(i0, len_i0);
+          }
         }
-        var arri = arr0[i0];
-        arri.push.apply(arri, arr[0]);
+        for(var i=0; i<len_i; ++i){
+          var arri = arr0[i0+i] || [];
+          arri[dot_prop].apply(arri, arr[i]);
+          arr0[i0+i] = arri;
+        }
       }
+      /* -> Ver.2.829.139 */
       else if(dot_prop === "shift"){
         if(len_i0){
           if(typeof i0 === "undefined"){
