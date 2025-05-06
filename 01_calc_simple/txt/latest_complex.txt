@@ -60,7 +60,7 @@ __x__,Lpxy,Lpz,Lpxy+Lpz
 728.9999999999995,1457.999999999999,728.9999999999995,2186.9999999999986
 )
 
-__x__=_r((arr)=<(arr:_r((arr)=<(arr:Vx*kn(__n__**2)),=<[],N)*kn(__n__**3)),=<[],N),Lpxy=[arr=[],_r(=<arr[#arr].push(=<step_xy(=<reshapec(__x__[N*N*(__n__-1)][0][N*N][]:N,N))),,N),=<arr]=>,Lpz=reshapez([arr=[],_r(=<arr[#arr].push(=<step_z(=<(reshapez(__x__:N*N))[N*N*(__n__-1)][0][N*N][])),,N),=<arr]=>:N)
+__x__=_r((arr)=<(arr:_r((arr)=<(arr:Vx*kn(__n__**2)),=<[],N)*kn(__n__**3)),=<[],N),Lpxy=[arr=[],_r(=<arr[#arr].push(step_xy(=<reshapec(__x__[N*N*(__n__-1)][0][N*N][]:N,N))),,N),=<arr]=>,Lpz=reshapez([arr=[],_r(=<arr[#arr].push(step_z(=<(reshapez(__x__:N*N))[N*N*(__n__-1)][0][N*N][])),,N),=<arr]=>:N)
 (
 0,0,0
 )
@@ -844,7 +844,7 @@ Jacobi((x0,x1)=<{x0**2+x1,x0+x1**2},=<{1,2},false)
 clear
 local storage cleared
 
-__n__=-1:_r(=<__n__+2,5,10,=<__n__>5),=6+2:_r((__n__)=<__n__+2,5,10,=<__n__>5),=7+2:_r(=<arr.push(__n__),arr=[],10,=<__n__>4):arr:_r(=<arr[sizer(arr)].push(=<[_r(=<arr.push(__n__),arr=[],__n__),=<__n__*arr]=>*__n__),arr=[],10):arr:_r(=<arr[sizer(arr)].push(=<[n=__n__,_r(=<arr.push(n*__n__),arr=[],n),=<arr]=>*__n__),arr=[],10):arr:__n__
+__n__=-1:_r(=<__n__+2,5,10,=<__n__>5),=6+2:_r((__n__)=<__n__+2,5,10,=<__n__>5),=7+2:_r(=<arr.push(__n__),arr=[],10,=<__n__>4):arr:_r(=<arr[sizer(arr)].push([_r(=<arr.push(__n__),arr=[],__n__),=<__n__*arr]=>*__n__),arr=[],10):arr:_r(=<arr[sizer(arr)].push([n=__n__,_r(=<arr.push(n*__n__),arr=[],n),=<arr]=>*__n__),arr=[],10):arr:__n__
 (
 0:
 8,8:
@@ -1239,20 +1239,20 @@ show_A(=<A.shift())
 restore
 local storage restored
 
-show_A(=<A[2].push(=<(-7,-8)))
+show_A(=<A[2].push(-7,-8))
 (
 1,2,-2:
 3,4,-1,-3,-4,-5,-6:
 -7,-8
 )
 
-show_A(=<A[-1].push(=<(-5,-6)))
+show_A(=<A[-1].push(-5,-6))
 (
 1,2,-2:
 3,4,-1,-3,-4,-5,-6
 )
 
-show_A(=<A[1].push(=<(-3,-4)))
+show_A(=<A[1].push(-3,-4))
 (
 1,2,-2:
 3,4,-1,-3,-4
@@ -1273,20 +1273,20 @@ show_A(=<A.push(-1))
 restore
 local storage restored
 
-show_A(=<A[-3].unshift(=<(-7,-8)))
+show_A(=<A[-3].unshift(-7,-8))
 (
 -7,-8:
 -2,-1,1,2:
 -5,-6,-3,-4,3,4
 )
 
-show_A(=<A[-1].unshift(=<(-5,-6)))
+show_A(=<A[-1].unshift(-5,-6))
 (
 -2,-1,1,2:
 -5,-6,-3,-4,3,4
 )
 
-show_A(=<A[1].unshift(=<(-3,-4)))
+show_A(=<A[1].unshift(-3,-4))
 (
 -2,-1,1,2:
 -3,-4,3,4
@@ -1307,7 +1307,7 @@ show_A(=<A.unshift(-1))
 restore
 local storage restored
 
-A.unshift(=<(-1,-2)),A.push(=<(-3,-4)),A[1].shift(),A[0].pop(),A[1].shift(),A[0].pop(),A[1].shift(),A[0].pop(),A[1].shift(),A[0].pop()
+A.unshift(-1,-2),A.push(-3,-4),A[1].shift(),A[0].pop(),A[1].shift(),A[0].pop(),A[1].shift(),A[0].pop(),A[1].shift(),A[0].pop()
 (
 NaN,NaN,3,2,4,1,-3,-2,-4,-1
 )
@@ -5098,4 +5098,4 @@ drag=false&sw=false&0x=false&useMatrix=true&useStrict=false&checkError=true&isRi
 --------------------------------
 --------------------------------
 
-online-simulator.github.io.6.487.653.23.157 @ Tue May 06 2025 20:53:15 GMT+0900 (日本標準時) @ Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/136.0.0.0 Safari/537.36
+online-simulator.github.io.6.488.653.23.157 @ Tue May 06 2025 23:47:57 GMT+0900 (日本標準時) @ Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/136.0.0.0 Safari/537.36

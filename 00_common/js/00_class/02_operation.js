@@ -4076,24 +4076,11 @@ My_entry.operation.prototype.change_scopes_directly = function(data, i0, name, p
   var _tree = DATA.tree_num(NaN, NaN);
   var rightTree = trees[i0+2];
   var rightArr = self.get_tagVal(rightTree, "mat", "arr");
-  var arr = null;
   var scope = self.get_scope0_RE_sw("vars", name, scopes, ids);  // Ver.2.301.73 first
   if(scope){
-    var len_i = 0;  // Ver.2.829.139
     var dot_prop = prop.substring(1);
     var hasArgs = (dot_prop === "unshift" || dot_prop === "push");  // Ver.2.829.139
-    if(hasArgs){  // Ver.2.829.139
-      var has1elem = (rightArr && rightArr.length === 1 && rightArr[0].length === 1);
-      if(has1elem){
-        var args = DATA.arr2args(rightArr);
-        arr = self.get_tagVal(self.tree_eqn2tree_AtREe(data, args[0]), "mat", "arr");
-      }
-      else{
-        throw "Invalid "+name+"[]"+prop+"(x||=<(,))";
-      }
-      len_i = arr && arr.length;  // Ver.2.829.139
-    }
-    else{
+    if(!(hasArgs)){  // Ver.2.829.139  // Ver.2.830.139
       if(!(rightArr && rightArr.length === 0)){
         throw "Invalid "+dot_prop+"()";
       }
@@ -4119,30 +4106,34 @@ My_entry.operation.prototype.change_scopes_directly = function(data, i0, name, p
       }
       /* Ver.2.829.139 -> */
       if(hasArgs){
-        if(dot_prop === "unshift" && i0 === -(len_i0+1)){
-          arr0.unshift([]);
-          i0 = 0;
-        }
-        else if(dot_prop === "push" && i0 === len_i0){
-          arr0.push([]);
-          i0 = arr0.length-1;
-        }
-        else{
-          if(len_i0 === 0){
-            arr0.push([]);
-            len_i0 = arr0.length;
+        var arr = rightArr;  // Ver.2.830.139
+        var len_i = arr && arr.length;  // Ver.2.830.139
+        if(len_i){  // Ver.2.830.139
+          if(dot_prop === "unshift" && i0 === -(len_i0+1)){
+            arr0.unshift([]);
+            i0 = 0;
           }
-          if(typeof i0 === "undefined"){
-            i0 = (dot_prop === "unshift")? 0: len_i0-1;
+          else if(dot_prop === "push" && i0 === len_i0){
+            arr0.push([]);
+            i0 = arr0.length-1;
           }
           else{
-            i0 = self.get_index_arr(i0, len_i0);
+            if(len_i0 === 0){
+              arr0.push([]);
+              len_i0 = arr0.length;
+            }
+            if(typeof i0 === "undefined"){
+              i0 = (dot_prop === "unshift")? 0: len_i0-1;
+            }
+            else{
+              i0 = self.get_index_arr(i0, len_i0);
+            }
           }
-        }
-        for(var i=0; i<len_i; ++i){
-          var arri = arr0[i0+i] || [];
-          arri[dot_prop].apply(arri, arr[i]);
-          arr0[i0+i] = arri;
+          for(var i=0; i<len_i; ++i){
+            var arri = arr0[i0+i] || [];
+            arri[dot_prop].apply(arri, arr[i]);
+            arr0[i0+i] = arri;
+          }
         }
       }
       /* -> Ver.2.829.139 */
