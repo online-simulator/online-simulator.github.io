@@ -29,44 +29,47 @@ xy=(
 3,12,27
 )
 
-__x__,Lpxy,Lpzx
+__x__,Lpxy,Lpz,Lpxy+Lpz
 (
-1,1,1:
-2,2,2:
-3,3,3:
-4,4,4:
-8,8,8:
-12,12,12:
-9,9,9:
-18,18,18:
-27,27,27:
-8,8,8:
-16,16,16:
-24,24,24:
-32,32,32:
-64,64,64:
-96,96,96:
-72,72,72:
-144,144,144:
-216,216,216:
-27,27,27:
-54,54,54:
-81,81,81:
-108,108,108:
-216,216,216:
-324,324,324:
-243,243,243:
-486,486,486:
-729,729,729
+1,2,1,3:
+2,4,2,6:
+3,6,3,9:
+4,8,4,12:
+8,16,8,24:
+12,24,12,36:
+9,18,9,27:
+18,36,18,54:
+27,54,27,81:
+8,16,8,24:
+16,32,16,48:
+24,48,24,72:
+32,64,32,96:
+64,128,64,192:
+96,192,96,288:
+72,144,72,216:
+144,288,144,432:
+216,432,216,648:
+27,54,27,81:
+54,108,54,162:
+81,162,81,243:
+108,216,108,324:
+216,432,216,648:
+324,648,324,972:
+243,486,243,729:
+486,972,486,1458:
+729,1458,729,2187
 )
 
-__x__=_r((arr)=<(arr:_r((arr)=<(arr:Vx*kn(__n__**2)),=<[],N)*kn(__n__**3)),=<[],N),Lpxy=_r((arr)=<(arr:step(=<__x__,__n__)),=<[],N),Lpzx=reshapez(_r((arr)=<(arr:step(=<reshapez(__x__:N*N),__n__)),=<[],N):N)
+__x__=_r((arr)=<(arr:_r((arr)=<(arr:Vx*kn(__n__**2)),=<[],N)*kn(__n__**3)),=<[],N),Lpxy=[arr=[],_r(=<arr[#arr].push(=<step_xy(=<reshapec(__x__[N*N*(__n__-1)][0][N*N][]:N,N))),,N),=<arr]=>,Lpz=reshapez([arr=[],_r(=<arr[#arr].push(=<step_z(=<(reshapez(__x__:N*N))[N*N*(__n__-1)][0][N*N][])),,N),=<arr]=>:N)
 (
 0,0,0
 )
 
-step(xy,n)=<reshapec(Lp(=<make_p(=<reshapec(xy[N*N*(n-1)][0][N*N][]:N,N))):N*N,1)
-stored_eqn(step)
+step_z(z)=<reshapec(Lp(=<make_p(=<reshapec(z:N,N))):N*N,1)
+stored_eqn(step_z)
+
+step_xy(xy)=<reshapec(Lp(=<make_p(=<xy)):N*N,1)+reshaper(Lp(=<make_p(=<xy.)):N*N,1)
+stored_eqn(step_xy)
 
 Lp(x)=<x
 stored_eqn(Lp)
@@ -5095,4 +5098,4 @@ drag=false&sw=false&0x=false&useMatrix=true&useStrict=false&checkError=true&isRi
 --------------------------------
 --------------------------------
 
-online-simulator.github.io.6.487.653.23.157 @ Tue May 06 2025 20:28:50 GMT+0900 (日本標準時) @ Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/136.0.0.0 Safari/537.36
+online-simulator.github.io.6.487.653.23.157 @ Tue May 06 2025 20:52:41 GMT+0900 (日本標準時) @ Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/136.0.0.0 Safari/537.36
