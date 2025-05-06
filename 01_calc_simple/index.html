@@ -461,7 +461,7 @@
       script += "\nclear;\n";
       script += "/*Schrödinger2d equations test case*/\n($Nx,$Ny)=(3,2);\n__x__=linspace(1,Nx*Ny,Nx*Ny).;\nxy=reshapec(__x__:Nx,Ny);\nreshapec(xy:Nx*Ny,1),reshaper(xy.:Ny*Nx,1);";
       script += "\nclear;\n";
-      script += "/*Schrödinger3d equations test case*/\nkkout=0;\nkijout=0;\nisY=false;\nVx={-1,0,1};\nN=#Vx;\nkn(n)=<n;\nVxyz=_r((arr)=<(arr:_r((arr)=<(arr:Vx*kn(__n__)),=<[],N)*kn(__n__)),=<[],N);\nxy=reshapec(Vxyz[N*N*round((N-1)*kkout)][0][N*N][]:N,N);\ntarr_z=(isY&&&xy.||||xy)[][round((N-1)*kijout)];";
+      script += "/*Schrödinger3d equations test case*/\nkkout=0;\nkijout=0;\nisY=false;\nVx={1,2,3};\nN=#Vx;\nkn(n)=<n;\nmake_p(x)=<x;\nLp(x)=<x;\nstep(xy,n)=<reshapec(Lp(=<make_p(=<reshapec(xy[N*N*(n-1)][0][N*N][]:N,N))):N*N,1);\n__x__=_r((arr)=<(arr:_r((arr)=<(arr:Vx*kn(__n__**2)),=<[],N)*kn(__n__**3)),=<[],N),Lpxy=_r((arr)=<(arr:step(=<__x__,__n__)),=<[],N),Lpzx=reshapez(_r((arr)=<(arr:step(=<reshapez(__x__:N*N),__n__)),=<[],N):N);\n__x__,Lpxy,Lpzx;\nxy=reshapec(__x__[N*N*round((N-1)*kkout)][0][N*N][]:N,N);\ntarr_z=(isY&&&xy.||||xy)[][round((N-1)*kijout)];\nzx=reshapec((reshapez(__x__:N*N))[N*N*round((N-1)*kijout)][0][N*N][]:N,N);\ntarr_z=zx[][round((N-1)*kkout)];";
       script += "\nclear;\n";
       $._id("input").value = script;
     });
