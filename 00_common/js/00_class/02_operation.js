@@ -5124,7 +5124,7 @@ My_entry.operation.prototype.REe = function(data, i0, tagName, tagObj){
   /* Ver.2.299.72 -> */
   var tree_eqn = (name_eqn)?
     self.restore_eqn(name_eqn, scopes, ids, isREee):  // Ver.2.31.17  // Ver.2.204.46
-    self.tree_SEe2REe_isREee(tree_eqn0);  // Ver.2.43.22  // Ver.2.272.63  // Ver.2.273.64
+    self.tree_SEe2REe_isREee(tree_eqn0, ids, isREee);  // Ver.2.43.22  // Ver.2.272.63  // Ver.2.273.64  // Ver.2.830.140
   if(!(tree_eqn)) throw "Undef eqn("+name_eqn+")";
   /* Ver.2.741.109 -> */
   var isREe = tree_eqn[BT.REe];  // Ver.2.200.46

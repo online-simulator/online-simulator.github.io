@@ -338,6 +338,44 @@ Y/M/D
 <tbody>
   <tr>
     <th>
+6.488.653.23.158
+    </th>
+    <td class="types">
+Calculator
+    </td>
+    <td>
+2.830.140
+    </td>
+    <td class="clear">
+minor bug-fix
+    </td>
+    <td>
+[Calculator]
+<br>
+・operation.js anonymous equations call==&gt; bug-fixed
+<br>
+clear; f=&lt;a=1; [f==&gt;,hass(a)],hass(a) -> (0,true,false)
+<br>
+clear; arr_f=(()=&lt;a=1); [(arr_f[0])==&gt;,hass(a)],hass(a) -> <del>(0,false,true)</del>(0,true,false)
+<br>
+clear; [g(x)=&lt;x,=&lt;g]=&gt;f; f(2) -> 2
+<br>
+clear; [g(x)=&lt;x,=&lt;g]==&gt;f -> <del>0</del>[MyErr]Undef var(g)
+<br>
+・test case updated
+<br>
+[Graphing Calculator]
+<br>
+・strict-mode equation-list-template modified with a result change
+<br>
+・strict-mode equation-list-push updated
+    </td>
+    <td>
+2025/5/7
+    </td>
+  </tr>
+  <tr>
+    <th>
 6.488.653.23.157
     </th>
     <td class="types">

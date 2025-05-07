@@ -467,6 +467,8 @@
       script += "\nclear;\n";
       script += "arr_f=(()=<a=1):[f=arr_f[0],f==>,hass(a)],hass(a):[(arr_f)==>,hass(a)],hass(a);";
       script += "\nclear;\n";
+      script += "arr_f=[()=<a=1]:[f=arr_f[0],f==>,hass(a)],hass(a):[(arr_f)==>,hass(a)],hass(a);";
+      script += "\nclear;\n";
       $._id("input").value = script;
     });
   })();
