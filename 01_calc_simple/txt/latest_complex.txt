@@ -1,6 +1,26 @@
 clear
 local storage cleared
 
+arr_f=(()=<a=1):[f=arr_f[0],f==>,hass(a)],hass(a):[(arr_f)==>,hass(a)],hass(a)
+(
+0:
+0,0,true,false:
+0,false,true
+)
+
+clear
+local storage cleared
+
+f=<a=1:[f==>,hass(a)],hass(a):[(f/*Non-strict-mode*/)==>,hass(a)],hass(a)
+(
+0:
+0,true,false:
+0,false,true
+)
+
+clear
+local storage cleared
+
 tarr_z=zx[][round((N-1)*kkout)]
 tarr_z=(
 1:
@@ -5098,4 +5118,4 @@ drag=false&sw=false&0x=false&useMatrix=true&useStrict=false&checkError=true&isRi
 --------------------------------
 --------------------------------
 
-online-simulator.github.io.6.488.653.23.157 @ Tue May 06 2025 23:47:57 GMT+0900 (日本標準時) @ Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/136.0.0.0 Safari/537.36
+online-simulator.github.io.6.488.653.23.157 @ Wed May 07 2025 17:39:38 GMT+0900 (日本標準時) @ Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/136.0.0.0 Safari/537.36

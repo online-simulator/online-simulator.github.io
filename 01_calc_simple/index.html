@@ -463,6 +463,10 @@
       script += "\nclear;\n";
       script += "/*Schrödinger3d equations test case*/\nkkout=0;\nkijout=0;\nisY=false;\nVx={1,2,3};\nN=#Vx;\nkn(n)=<n;\nmake_p(x)=<x;\nLp(x)=<x;\nstep_xy(xy)=<reshapec(Lp(=<make_p(=<xy)):N*N,1)+reshaper(Lp(=<make_p(=<xy.)):N*N,1);\nstep_z(z)=<reshapec(Lp(=<make_p(=<reshapec(z:N,N))):N*N,1);\n__x__=_r((arr)=<(arr:_r((arr)=<(arr:Vx*kn(__n__**2)),=<[],N)*kn(__n__**3)),=<[],N),Lpxy=[arr=[],_r(=<arr[#arr].push(step_xy(=<reshapec(__x__[N*N*(__n__-1)][0][N*N][]:N,N))),,N),=<arr]=>,Lpz=reshapez([arr=[],_r(=<arr[#arr].push(step_z(=<(reshapez(__x__:N*N))[N*N*(__n__-1)][0][N*N][])),,N),=<arr]=>:N);\n__x__,Lpxy,Lpz,Lpxy+Lpz;\nxy=reshapec(__x__[N*N*round((N-1)*kkout)][0][N*N][]:N,N);\ntarr_z=(isY&&&xy.||||xy)[][round((N-1)*kijout)];\nzx=reshapec((reshapez(__x__:N*N))[N*N*round((N-1)*kijout)][0][N*N][]:N,N);\ntarr_z=zx[][round((N-1)*kkout)];";
       script += "\nclear;\n";
+      script += "f=<a=1:[f==>,hass(a)],hass(a):[(f/*Non-strict-mode*/)==>,hass(a)],hass(a);";
+      script += "\nclear;\n";
+      script += "arr_f=(()=<a=1):[f=arr_f[0],f==>,hass(a)],hass(a):[(arr_f)==>,hass(a)],hass(a);";
+      script += "\nclear;\n";
       $._id("input").value = script;
     });
   })();
