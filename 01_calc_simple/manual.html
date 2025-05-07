@@ -1805,6 +1805,8 @@ test case
 <br>
 ・<a href="#span-eqn-counter">counter</a>
 <br>
+・<a href="#span-eqn-push">push</a>
+<br>
 ・<a href="#span-eqn-map">map</a>
 <br>
 ・<a href="#span-eqn-arr_ext">arr_ext</a>
@@ -7854,7 +7856,7 @@ A=(1,2:3,4); A[][0] -> (1:3)
 <br>
 ・<span class="run">Ver.2.830.139</span>以降、<a href="#span-out-prec-ope-arithmetic-method">method演算子</a>のunshift/push()の<a href="#span-in-pass-by-equation">遅延評価</a>を廃止（<span class="run">Ver.2.829.139</span>以降、無駄仕様）
 <br>
-　<a href="#span-in-pass-by-equation">遅延評価</a>：あり　⇒　なし
+　引数の<a href="#span-in-pass-by-equation">遅延評価</a>：あり　⇒　なし（<a href="#span-out-pass-by-equation">式渡し</a>の判別）
 <br>
 　影響項目：<a href="#span-out-prec-ope-arithmetic-method">method演算子</a>||<a href="#span-eqn">strict-mode式変数list</a>
     </td>
@@ -7999,7 +8001,7 @@ h(x)=&lt;false; _r((n)=&lt;n+1,,10,=&lt;h) -> <del>10</del>[MyErr]Invalid RX arg
 <br>
 ・<span class="run">Ver.2.829.139</span>以降、<a href="#span-out-prec-ope-arithmetic-method">method演算子</a>のunshift/push()を拡張（<a href="#span-out-concatenation">行列結合</a>より高速）
 <br>
-　第1引数：行vector　⇒　任意<a href="#span-out-mat">行列</a>
+　第1引数：行vector　⇒　<a href="#span-out-mat">行列</a>
 <br>
 　影響項目：<a href="#span-out-prec-ope-arithmetic-method">method演算子</a>
     </td>
@@ -16622,11 +16624,11 @@ clear; $A=(1,2:3,4); A.push(5); A -> <del>(1,2:3,4,5)</del>[MyErr]Invalid const 
 <br>
 ・<span class="run">Ver.2.829.139</span>以降、unshift/push()を拡張（<a href="#span-out-concatenation">行列結合</a>より高速）
 <br>
-　第1引数：行vector　⇒　任意<a href="#span-out-mat">行列</a>
+　第1引数：行vector　⇒　<a href="#span-out-mat">行列</a>
 <br>
 ・<span class="run">Ver.2.830.139</span>以降、unshift/push()の<a href="#span-in-pass-by-equation">遅延評価</a>を廃止
 <br>
-　<a href="#span-in-pass-by-equation">遅延評価</a>：あり　⇒　なし
+　引数の<a href="#span-in-pass-by-equation">遅延評価</a>：あり　⇒　なし（<a href="#span-out-pass-by-equation">式渡し</a>の判別）
 <br>
 <br>
 .unshift()演算子
@@ -46641,6 +46643,77 @@ count1=&gt;,count1=&gt;,count1=&gt;,count0=&gt;,count0=&gt;,count0=&gt;:
 c0
 <br>
 ];
+    </td>
+  </tr>
+  <tr>
+    <th>
+<a href="#span-index">
+目次
+</a>
+<br>
+push
+    </th>
+    <td>
+<span id="span-eqn-push"></span>
+<a href="#span-out-prec-ope-arithmetic-method">method演算子</a>参照
+<br>
+clear;
+<br>
+A=(1,2:3,4:);
+<br>
+B={-1:-2,-3};
+<br>
+C=(A,5);
+<br>
+v=(1,2);
+<br>
+f(x)=&lt;x;
+<br>
+g(x)=&lt;x*x;
+<br>
+N=3;
+<br>
+arr_f=(
+<br>
+()=&lt;_r(=&lt;arr.unshift(B),arr=A,N):
+<br>
+()=&lt;_r(=&lt;arr[-1].unshift(B),arr=A,N):
+<br>
+()=&lt;_r(=&lt;arr[-#arr-1].unshift(B),arr=A,N):
+<br>
+()=&lt;_r(=&lt;arr.push(B),arr=A,N):
+<br>
+()=&lt;_r(=&lt;arr[-1].push(B),arr=A,N):
+<br>
+()=&lt;_r(=&lt;arr[#arr].push(C),arr=[],N):
+<br>
+()=&lt;_r(=&lt;arr[__n__-1].push(C),arr=[],N):
+<br>
+()=&lt;_r(=&lt;arr[__n__].push(C),arr=A,N)
+<br>
+);
+<br>
+check(n)=&lt;[(arr_f[n-1])==&gt;,=&lt;arr]=&gt;;
+<br>
+check(1)=&gt;;
+<br>
+check(2)=&gt;;
+<br>
+check(3)=&gt;;
+<br>
+check(4)=&gt;;
+<br>
+check(5)=&gt;;
+<br>
+check(6)=&gt;;
+<br>
+check(7)=&gt;;
+<br>
+check(8)=&gt;;
+<br>
+v.push(=&lt;f),((v)[][2]=&gt;)(3)=&gt;;
+<br>
+v.push(=&lt;g),((v.)[3]=&gt;)(3)=&gt;;
     </td>
   </tr>
   <tr>
