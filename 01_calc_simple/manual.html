@@ -8212,6 +8212,8 @@ pending項目を列挙する
 <br>
 ・const代替記号（<a href="#span-out-pass-by-name">name渡し</a>と重複の$記号から変更の可能性あり）
 <br>
+・<a href="#span-out-scope-vars">scope</a>不定の<a href="#span-out-eqns-args">式変数のarguments</a>の<a href="#span-out-option8">use$let</a>対応（<a href="#span-out-pass-by-name">name渡し</a>||<a href="#span-out-scope-reference">scope参照</a>を除く）
+<br>
 ・arr=arr|||[]
 <br>
 　undef宣言未実装
@@ -8228,6 +8230,10 @@ pending項目を列挙する
 <br>
 <br>
 plot
+<br>
+・vz入力欄：tarr_z
+<br>
+　absolute||argument||vectorの選択肢を追加
 <br>
 ・aspect比固定option（round-off桁数との整合性を含む）
 <br>
@@ -16281,11 +16287,11 @@ checked選択：mutex対象の宣言を禁止する
 <br>
 clear; f=&lt;2,f=1,f,f=&gt; -> <del>[MyErr]Invalid SEv-scope-mutex(f)</del>[MyErr]Undef eqn(f)
 <br>
-clear; f=1,f=&lt;2,f,f=&gt; -> <del>[MyErr]Invalid SEe-scope-mutex(f)</del>(0,0,eqn,2)
+clear; f=1,f=&lt;2,f/*<a href="#span-out-config-strict">Non-strict-mode</a>*/,f=&gt; -> <del>[MyErr]Invalid SEe-scope-mutex(f)</del>(0,0,eqn,2)
 <br>
 clear; f=1,[f=&lt;2,f,f=&gt;] -> (0,0,1,2)
 <br>
-clear; [f=1,f=&lt;2,f,f=&gt;] -> <del>[MyErr]Invalid SEe-scope-mutex(f)</del>(0,0,eqn,2)
+clear; [f=1,f=&lt;2,f/*<a href="#span-out-config-strict">Non-strict-mode</a>*/,f=&gt;] -> <del>[MyErr]Invalid SEe-scope-mutex(f)</del>(0,0,eqn,2)
 <br>
 clear; [f=1,[f=&lt;2,f,f=&gt;]] -> (0,0,1,2)
     </td>
@@ -16622,7 +16628,7 @@ method
 <br>
 ・<span class="clear">Ver.2.301.73</span>以降、致命的な不具合を修正（<a href="#span-out-const-vars">const宣言</a>の<a href="#span-out-vars">変数</a>の操作不可）
 <br>
-　参照ではなく、<a href="#span-out-mat">行列</a>iterableの<a href="#span-out-const-vars">const宣言</a>
+　<a href="#span-out-const-vars">const宣言</a>：参照　⇒　<a href="#span-out-mat">行列</a>iterable
 <br>
 clear; $A=1; A.pop(); A -> <del>()</del>[MyErr]Invalid const var(A.pop)
 <br>
@@ -19791,6 +19797,18 @@ clear; $a=2; f(a)=&lt;a=3; f(a) -> [MyErr]Invalid SEv-scope-const(a)
 <br>
 clear; $a=2; f(a)=&lt;last[,a=3]; f(a) -> 0
 <br>
+・<span class="run">Ver.2.298.72</span>~<span class="run">2.372.86</span>以降、<a href="#span-out-prec-ope-arithmetic-method">method演算子</a>
+<br>
+clear; $A=(1,2:3,4); A.unshift(5); A -> [MyErr]Invalid const var(A.unshift)
+<br>
+clear; $A=(1,2:3,4); A.push(5); A -> [MyErr]Invalid const var(A.push)
+<br>
+clear; $A=(1,2:3,4); A.shift(); A -> [MyErr]Invalid const var(A.shift)
+<br>
+clear; $A=(1,2:3,4); A.pop(); A -> [MyErr]Invalid const var(A.pop)
+<br>
+clear; $A=(1,2:3,4); A.flip(); A -> [MyErr]Invalid const var(A.flip)
+<br>
 <br>
 <a href="#span-out-option8">$const宣言</a>（$開始のbeta版）
 <br>
@@ -19933,6 +19951,10 @@ clear; (f=&lt;0,[f=&lt;1,[f=&lt;2,[f=&lt;3,f],f],f],f) -> (0,0,0,0,3,2,1,0)
 留意事項を列挙する
 <br>
 ・<a href="#span-out-vars">変数</a>の場合、参照ではなく、<a href="#span-out-mat">行列</a>iterableのconst宣言として定義する
+<br>
+clear; $A=(1,2:3,4); A[1][1]=-1; A -> [MyErr]Invalid SEv-scope-const(A)
+<br>
+clear; $A=(1,2:3,4); A.push(5); A -> [MyErr]Invalid const var(A.push)
     </td>
   </tr>
   <tr>
