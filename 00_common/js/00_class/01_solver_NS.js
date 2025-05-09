@@ -51,8 +51,8 @@ My_entry.solver_NS.prototype.FS2d = function(options, uvp){
   var hasP0 = uvp.hasP0;
   var i_unknowns = uvp.i_unknowns;
   var j_unknowns = uvp.j_unknowns;
-  var i_p0 = i_unknowns[i_unknowns.length-1];
-  var j_p0 = j_unknowns[j_unknowns.length-1];
+  var i_p0 = Math.max.apply(Math, i_unknowns);  // fluid-Ver.1.56.2
+  var j_p0 = Math.max.apply(Math, j_unknowns);  // fluid-Ver.1.56.2
   var Ni = uvp.Ni;
   var Nj = uvp.Nj;
   var len0 = uvp.len0;
@@ -613,6 +613,22 @@ My_entry.solver_NS.prototype.FS2d = function(options, uvp){
     }
     return _uCmax;
   };
+  /* fluid-Ver.1.56.2 -> */
+  var shuffle_FY = function(){
+    for(var nu1=len0-1; nu1>0; --nu1){
+      var nu0 = Math.floor(Math.random()*(nu1+1));
+      var wi = i_unknowns[nu1];
+      var wj = j_unknowns[nu1];
+      i_unknowns[nu1] = i_unknowns[nu0];
+      j_unknowns[nu1] = j_unknowns[nu0];
+      i_unknowns[nu0] = wi;
+      j_unknowns[nu0] = wj;
+    }
+  };
+  if(uvp.t === false){
+    shuffle_FY();
+  }
+  /* -> fluid-Ver.1.56.2 */
   var c = [];
   var b = [];
   var aA = [];
@@ -648,20 +664,29 @@ My_entry.solver_NS.prototype.FS2d = function(options, uvp){
     var ts_sol0 = new Date();  // fluid-Ver.1.33.0
     solver.gaussian_lil(options, {b: b, aA: aA, mA: mA, nA: nA, x: x});  // fluid-Ver.1.4.0
     var ts_sol1 = new Date();  // fluid-Ver.1.33.0
+    /* fluid-Ver.1.56.2 -> */
+    var isBreak = false;
     for(var nu=0; nu<len0; ++nu){
       var i = i_unknowns[nu];
       var j = j_unknowns[nu];
       var iu = id[i][j]-1;
-      u[i][j] = x[iu];
-      v[i][j] = x[iu+len0];
-      p[i][j] = x[iu+len1];
+      isBreak = isNaN(x[iu]);
+      if(isBreak){
+        break;
+      }
+      else{
+        u[i][j] = x[iu];
+        v[i][j] = x[iu+len0];
+        p[i][j] = x[iu+len1];
+      }
     }
-    uvp.t += dt;
+    uvp.t = (isBreak)? false: uvp.t+dt;
     uvp.qtotal = eval_qtotal();  // fluid-Ver.1.3.0
-    uvp.cmax = Math.max.apply(Math, c);
+    uvp.cmax = (isBreak)? 0: Math.max.apply(Math, c);
     uvp.msec_int = ts_int1-ts_int0;  // fluid-Ver.1.33.0
     uvp.msec_sol = ts_sol1-ts_sol0;  // fluid-Ver.1.33.0
-    if(isNaN(uvp.cmax)) break;
+    if(isBreak) break;
+    /* -> fluid-Ver.1.56.2 */
   }
   return self;
 };

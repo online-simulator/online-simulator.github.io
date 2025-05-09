@@ -22,6 +22,18 @@
       <tbody>
         <tr class="border">
           <td class="border run">
+Ver.1.56.2
+          </td>
+          <td class="border">
+・解がNaNの場合、<a title="[manual]Calculator" href="../01_calc_simple/manual.html#span-out-method-Newton">内部仕様の対策</a>を追加
+<br>
+　連立方程式の列挙順序：昇順　⇒　Fisher-Yates shuffle
+<br>
+・?testcase=-27更新
+          </td>
+        </tr>
+        <tr class="border">
+          <td class="border run">
 Ver.1.55.2
           </td>
           <td class="border">
@@ -862,6 +874,8 @@ solver
         <tr class="border">
           <td class="border">
 解がNaN時の対策
+<br>
+<span class="selection">Ver.1.56.2更新</span>
           </td>
           <td class="border">
 領域を見直す
@@ -871,6 +885,13 @@ solver
 ・助走区間不足の場合、領域を広げる
 <br>
 ・p=0指定の未知要素が複数存在する場合、領域を広げて結合する
+<br>
+<br>
+<span class="selection"><a title="[manual]Calculator" href="../01_calc_simple/manual.html#span-out-method-Newton">内部仕様の対策</a>を追加
+<br>
+・連立方程式の列挙順序：昇順　⇒　Fisher-Yates shuffle
+<br>
+・試行回数最大値：nmax</span>
           </td>
         </tr>
         <tr class="border">
@@ -1232,6 +1253,8 @@ testcase
 <span class="pF">Ver.1.53.2更新</span>
 <br>
 <span class="wF">Ver.1.55.2更新</span>
+<br>
+<span class="wF">Ver.1.56.2更新</span>
           </td>
           <td class="border">
 test case
@@ -1337,11 +1360,15 @@ test case
 <br>
 <span class="wF">26: 蛇行流（圧力指定、解像度不足）</span>
 <br>
-<span class="wF">|27|: 合流の少ない単純な迷路</span>
+<span class="wF">27: 合流の少ない単純な迷路</span>
 <br>
 ・流路の流れやすさで流出入の圧力差が減少
 <br>
-<span class="wF">・複雑な流路の場合、妥当な初期値が不定で収束困難</span>
+<span class="wF">-27: 合流を伴う多少複雑な迷路</span>
+<br>
+<span class="wF">・妥当な初期値：不定で収束困難</span>
+<br>
+<span class="wF">・連立方程式の列挙順序：数回のFisher-Yates shuffleで収束</span>
 <br>
 <span class="wF">28: Bénard対流2cells模擬（水平方向）</span>
 <br>
@@ -1541,11 +1568,14 @@ p=0指定の未知要素@b=255
         <tr class="border">
           <td class="border">
 t
+<br>
+<span class="selection">Ver.1.56.2更新</span>
           </td>
           <td class="border">
 無次元時間
           </td>
           <td class="border">
+<span class="selection">解がNaNの場合、false</span>
           </td>
         </tr>
         <tr class="border">
