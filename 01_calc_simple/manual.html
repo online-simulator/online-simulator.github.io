@@ -7817,19 +7817,19 @@ A=(1,2:3,4); A[][][][] -> <del>(1,2:3,4)</del>[MyErr]Invalid reference of array(
 <br>
 　<a href="#span-out-pass-by-symbol">symbol渡し</a>の自動展開：なし　⇒　あり
 <br>
-clear; f(x)=&lt;d=x,[($a)=(=&lt;f/*<a href="#span-out-config-strict">Non-strict-mode</a>*/),b=(=&lt;f),c=[],c.push(=&lt;f),[a,b,c]]
+clear; f(x)=&lt;d=x:[($a)=(=&lt;f/*<a href="#span-out-config-strict">Non-strict-mode</a>*/),b=(=&lt;f),c=[],c.push(=&lt;f),[a,b,c]]
 <br>
--> <del>(0,0,0,0,NaN,eqn(x),$f,$f)</del>(0,0,0,0,NaN,eqn(x),eqn(x),eqn(x))
+-> <del>(0:0,0,0,NaN,eqn(x),$f,$f)</del>(0:0,0,0,NaN,eqn(x),eqn(x),eqn(x))
 <br>
 clear; c=[],c.push(=&lt;f) -> [MyErr]Undef eqn(f)
 <br>
 　影響項目：<a href="#span-out-vars-rule1">変数への代入規則</a>||<a href="#span-eqn-push">push</a>
 <br>
-clear; f(x)=&lt;d=x,[($a)=(==&lt;f/*<a href="#span-out-config-strict">Non-strict-mode</a>*/),(a)(1)=&gt;,hass(d)],hass(d) -> (0,0,0,false,true)
+clear; f(x)=&lt;d=x:[($a)=(==&lt;f/*<a href="#span-out-config-strict">Non-strict-mode</a>*/),(a)(1)=&gt;,hass(d)],hass(d) -> (0:0,0,false,true)
 <br>
-clear; f(x)=&lt;d=x,[b=(==&lt;f),(b)(1)=&gt;,hass(d)],hass(d) -> (0,0,0,true,false)
+clear; f(x)=&lt;d=x:[b=(==&lt;f),(b)(1)=&gt;,hass(d)],hass(d) -> (0:0,0,true,false)
 <br>
-clear; f(x)=&lt;d=x,[c=[],c.push(==&lt;f),(c)(1)=&gt;,hass(d)],hass(d) -> (0,0,NaN,0,true,false)
+clear; f(x)=&lt;d=x:[c=[],c.push(==&lt;f),(c)(1)=&gt;,hass(d)],hass(d) -> (0:0,NaN,0,true,false)
     </td>
   </tr>
   <tr>
@@ -28326,9 +28326,9 @@ x=2; x=2x; x -> 4
 <br>
 　<a href="#span-out-pass-by-symbol">symbol渡し</a>の自動展開：なし　⇒　あり
 <br>
-clear; f(x)=&lt;d=x,[($a)=(=&lt;f/*<a href="#span-out-config-strict">Non-strict-mode</a>*/),b=(=&lt;f),c=[],c.push(=&lt;f),[a,b,c]]
+clear; f(x)=&lt;d=x:[($a)=(=&lt;f/*<a href="#span-out-config-strict">Non-strict-mode</a>*/),b=(=&lt;f),c=[],c.push(=&lt;f),[a,b,c]]
 <br>
--> <del>(0,0,0,0,NaN,eqn(x),$f,$f)</del>(0,0,0,0,NaN,eqn(x),eqn(x),eqn(x))
+-> <del>(0:0,0,0,NaN,eqn(x),$f,$f)</del>(0:0,0,0,NaN,eqn(x),eqn(x),eqn(x))
 <br>
 clear; c=[],c.push(=&lt;f) -> [MyErr]Undef eqn(f)
 <br>
