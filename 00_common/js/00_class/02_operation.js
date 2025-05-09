@@ -1864,6 +1864,29 @@ else{
       var x0_retry = (useRetry)? self.entry.def.newClone(x0): null;  // Ver.2.740.108
       var counter_retry = 0;
       /* -> Ver.2.408.86 */
+      /* Ver.2.834.140 -> */
+      var reset_x0 = function(){
+        for(var i=0; i<len_i; ++i){
+          var num = x0[i];
+          var ncr = num.com.r || 1;  // Ver.2.740.108
+          var nci = num.com.i || ((options.useComplex)? 1: 0);  // Ver.2.740.108
+          if(ncr){
+            num.com.r = ncr*(Math.random()*2-1)*counter_retry;
+          }
+          if(nci){
+            num.com.i = nci*(Math.random()*2-1)*counter_retry;
+          }
+        }
+      };
+      var shuffle_FY = function(){
+        for(var i1=len_i-1; i1>0; --i1){
+          var i0 = Math.floor(Math.random()*(i1+1));
+          var w = J[i1];
+          J[i1] = J[i0];
+          J[i0] = w;
+        }
+      };
+      /* -> Ver.2.834.140 */
       _tree = DATA.tree_mat(DATA.vec2arr(x0, isRow));  // initialize
       var arr_mdx = null;
       for(var n=0; n<Niteration; ++n){
@@ -1871,6 +1894,11 @@ else{
         for(var i=0; i<len_i; ++i){
           J[i].push(f0[i]);
         }
+        /* Ver.2.834.140 -> */
+        if(counter_retry){
+          shuffle_FY();
+        }
+        /* -> Ver.2.834.140 */
         arr_mdx = math_mat.gaussian(options, J);
         /* Ver.2.739.107 -> */
         // update
@@ -1892,18 +1920,7 @@ else{
           if(useRetry && !(isLast_iteration)){  // Ver.2.410.86
             ++counter_retry;
             x0 = self.entry.def.newClone(x0_retry);
-            for(var i=0; i<len_i; ++i){
-              var num = x0[i];
-              var ncr = num.com.r || 1;  // Ver.2.740.108
-              var nci = num.com.i || ((options.useComplex)? 1: 0);  // Ver.2.740.108
-              if(ncr){
-                num.com.r = ncr*(Math.random()*2-1)*counter_retry;
-              }
-              if(nci){
-                num.com.i = nci*(Math.random()*2-1)*counter_retry;
-              }
-              x0[i] = num;  // Ver.2.740.108
-            }
+            reset_x0();  // Ver.2.834.140
           }
           else{
             isBreak = true;
