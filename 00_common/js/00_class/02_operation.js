@@ -2119,9 +2119,10 @@ My_entry.operation.prototype.tree2tree_eqn_AtSEe = function(tree, scopes){
   if(name){
     var ids = isSEe.ids;
     var eqns = self.get_scope_RE_sw("eqns", name, scopes, ids);
-    _tree = eqns && self.entry.def.newClone(eqns[name]);
+    _tree = eqns && eqns[name];
     if(_tree){
       if(isSEe.isSEee){
+        _tree = self.entry.def.newClone(_tree);
         self.inherit_ids_sw(BT.SEe, _tree, ids);
       }
     }
