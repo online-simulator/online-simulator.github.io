@@ -17,7 +17,7 @@ f(x)=<d=x,[b=(==<f),(b)(1)=>,hass(d)],hass(d)
 clear
 local storage cleared
 
-f(x)=<d=x,[($a)=(==<f),(a)(1)=>,hass(d)],hass(d)
+f(x)=<d=x,[($a)=(==<f/*Non-strict-mode*/),(a)(1)=>,hass(d)],hass(d)
 (
 0,0,0,false,true
 )
@@ -25,7 +25,7 @@ f(x)=<d=x,[($a)=(==<f),(a)(1)=>,hass(d)],hass(d)
 clear
 local storage cleared
 
-f(x)=<d=x,[($a)=(=<f),b=(=<f),c=[],c.push(=<f),[a,b,c]]
+f(x)=<d=x,[($a)=(=<f/*Non-strict-mode*/),b=(=<f),c=[],c.push(=<f),[a,b,c]]
 (
 0,0,0,0,NaN,eqn(x),eqn(x),eqn(x)
 )
@@ -5160,4 +5160,4 @@ drag=false&sw=false&0x=false&useMatrix=true&useStrict=false&checkError=true&isRi
 --------------------------------
 --------------------------------
 
-online-simulator.github.io.6.489.655.23.158 @ Fri May 09 2025 09:16:06 GMT+0900 (日本標準時) @ Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/136.0.0.0 Safari/537.36
+online-simulator.github.io.6.489.655.23.158 @ Fri May 09 2025 10:53:07 GMT+0900 (日本標準時) @ Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/136.0.0.0 Safari/537.36
