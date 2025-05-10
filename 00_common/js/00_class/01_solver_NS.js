@@ -666,22 +666,21 @@ My_entry.solver_NS.prototype.FS2d = function(options, uvp){
     solver.gaussian_lil(options, {b: b, aA: aA, mA: mA, nA: nA, x: x});  // fluid-Ver.1.4.0
     var ts_sol1 = new Date();  // fluid-Ver.1.33.0
     /* fluid-Ver.1.56.2 -> */
-    var isBreak = false;
-    for(var nu=0; nu<len0; ++nu){
-      var i = i_unknowns[nu];
-      var j = j_unknowns[nu];
-      var iu = id[i][j]-1;
-      isBreak = isNaN(x[iu]);
-      if(isBreak){
-        break;
-      }
-      else{
+    var isBreak = isNaN(Math.max.apply(Math, x));
+    if(isBreak){
+      uvp.t = false;
+    }
+    else{
+      uvp.t += dt;
+      for(var nu=0; nu<len0; ++nu){
+        var i = i_unknowns[nu];
+        var j = j_unknowns[nu];
+        var iu = id[i][j]-1;
         u[i][j] = x[iu];
         v[i][j] = x[iu+len0];
         p[i][j] = x[iu+len1];
       }
     }
-    uvp.t = (isBreak)? false: uvp.t+dt;
     uvp.qtotal = eval_qtotal();  // fluid-Ver.1.3.0
     uvp.cmax = (isBreak)? 0: Math.max.apply(Math, c);
     uvp.msec_int = ts_int1-ts_int0;  // fluid-Ver.1.33.0
