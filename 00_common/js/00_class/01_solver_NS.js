@@ -614,15 +614,16 @@ My_entry.solver_NS.prototype.FS2d = function(options, uvp){
     return _uCmax;
   };
   /* fluid-Ver.1.56.2 -> */
+  var switch_arr = function(arr, i, j){
+    var w = arr[i];
+    arr[i] = arr[j];
+    arr[j] = w;
+  };
   var shuffle_FY = function(){
-    for(var nu1=len0-1; nu1>0; --nu1){
-      var nu0 = Math.floor(Math.random()*(nu1+1));
-      var wi = i_unknowns[nu1];
-      var wj = j_unknowns[nu1];
-      i_unknowns[nu1] = i_unknowns[nu0];
-      j_unknowns[nu1] = j_unknowns[nu0];
-      i_unknowns[nu0] = wi;
-      j_unknowns[nu0] = wj;
+    for(var i1=len0-1; i1>0; --i1){
+      var i0 = Math.floor(Math.random()*(i1+1));
+      switch_arr(i_unknowns, i1, i0);
+      switch_arr(j_unknowns, i1, i0);
     }
   };
   if(uvp.t === false){
