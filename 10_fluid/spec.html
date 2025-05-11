@@ -29,7 +29,9 @@ Ver.1.56.2
 <br>
 　連立方程式の列挙順序：昇順　⇒　Fisher-Yates shuffle
 <br>
-・?testcase=-27更新
+・?testcase=27.1||27.2||27.3追加
+<br>
+・?testcase link-maze-complex/-multi/-hardを追加表示
           </td>
         </tr>
         <tr class="border">
@@ -1360,17 +1362,17 @@ test case
 <br>
 <span class="wF">26: 蛇行流（圧力指定、解像度不足）</span>
 <br>
-<span class="wF">27: 合流の少ない単純な迷路</span>
+<span class="wF">|27|: 合流の少ない単純な迷路</span>
 <br>
 ・流路の流れやすさで流出入の圧力差が減少
 <br>
 <span class="wF">・流出経路の確率＝流量／全流量</span>
 <br>
-<span class="wF">-27: 合流を伴う多少複雑な迷路</span>
+<span class="wF">27.1||27.2||27.3: 合流を伴う多少複雑な迷路</span>
 <br>
 <span class="wF">・妥当な初期値：不定で収束困難</span>
 <br>
-<span class="wF">・連立方程式の列挙順序：数回のFisher-Yates shuffleで収束</span>
+<span class="wF">・連立方程式の列挙順序：Fisher-Yates shuffleの試行を反復で収束改善</span>
 <br>
 <span class="wF">28: Bénard対流2cells模擬（水平方向）</span>
 <br>

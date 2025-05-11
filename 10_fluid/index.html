@@ -102,8 +102,12 @@
           $._id("input-Re").value = "1e-3";
           $._id("input-Ndt").value = 10;
         }
-        else if(options.testcase === -27){
+        else if(options.testcase === 27.1 || options.testcase === 27.2){
           $._id("input-canvas-width").value = 640;
+        }
+        else if(options.testcase === 27.3){
+          $._id("input-canvas-width").value = 480;
+          $._id("input-canvas-height").value = 480;
         }
         else if(options.testcase === 29 || options.testcase === 30 || options.testcase === 31){
           $._id("input-Re").value = "1e-3";
