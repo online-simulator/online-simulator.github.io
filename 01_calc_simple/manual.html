@@ -1111,6 +1111,8 @@ test case
 <br>
 　・<a href="#span-out-spec-changed-history">演算仕様変更履歴</a>
 <br>
+　・<a href="#span-out-spec-default-history">既定値変更履歴</a>
+<br>
 　・<a href="#span-out-spec-deprecated-history">仕様廃止履歴</a>
 <br>
 　・<a href="#span-out-ope-extended-history1">機能拡張履歴</a>
@@ -7407,6 +7409,8 @@ ns(10000) -> 97876.06036044357
 <br>
 ・<a href="#span-out-spec-changed-history">演算仕様変更履歴</a>
 <br>
+・<a href="#span-out-spec-default-history">既定値変更履歴</a>
+<br>
 ・<a href="#span-out-spec-deprecated-history">仕様廃止履歴</a>
 <br>
 ・<a href="#span-out-ope-extended-history1">機能拡張履歴</a>
@@ -7673,16 +7677,6 @@ clear; f=&lt;-1; f=1; [f=2,=&lt;f]=&gt;,[f=&lt;-2,=&lt;f]=&gt; -> (2,<del>1</del
 <br>
 　　　　　　||<a href="#span-eqn-scope_NG">scope_NG</a>||<a href="#span-eqn-curried">curried</a>||<a href="#span-eqn-counter">counter</a>
 <br>
-・<span class="clear">Ver.2.321.78</span>以降、差分刻みの仕様修正（修正量ではなく、絶対値　⇒　微分位置の相対値）
-<br>
-　微分位置xでの差分刻みdx既定値：max(1,abs(x))dx(1+i)　⇒　dx((real(x)||1)+(imag(x)||1)i)
-<br>
-　影響項目：<a href="#span-out-FNh-DX">微分高階関数</a>||<a href="#span-out-FNmh-jacobian">Jacobi高階行列関数</a>||<a href="#span-out-FNmh-newtonian">Newton高階行列関数</a>
-<br>
-　　　　　　||<a href="#span-eqn-solvex_iteration">solvex_iteration</a>||<a href="#span-eqn-solveAinv">solveAinv</a>||<a href="#span-eqn-solvex_non_linear">solvex_non_linear</a>||<a href="#span-eqn-solvex_bisection">solvex_bisection</a>
-<br>
-　　　　　　||<a href="#span-eqn-implicit-Euler_method">implicit Euler_method</a>||<a href="#span-eqn-explicit-Euler_method">explicit Euler_method</a>
-<br>
 ・<span class="clear">Ver.2.343.83</span>以降、<a href="#span-out-scope-reference">scope参照</a>の仕様修正
 <br>
 　<a href="#span-out-vars">変数</a>への代入時に右辺の参照を削除しない　⇒　削除する
@@ -7830,6 +7824,43 @@ clear; f(x)=&lt;d=x:[($a)=(==&lt;f/*<a href="#span-out-config-strict">Non-strict
 clear; f(x)=&lt;d=x:[b=(==&lt;f),(b)(1)=&gt;,hass(d)],hass(d) -> (0:0,0,true,false)
 <br>
 clear; f(x)=&lt;d=x:[c=[],c.push(==&lt;f),(c)(1)=&gt;,hass(d)],hass(d) -> (0:0,NaN,0,true,false)
+    </td>
+  </tr>
+  <tr>
+    <th>
+<a href="#span-index">
+目次
+</a>
+<br>
+既定値
+<br>
+変更履歴
+    </th>
+    <td>
+<span id="span-out-spec-default-history"></span>
+既定値の変更履歴を列挙する
+<br>
+・<span class="clear">Ver.2.321.78</span>以降、差分刻みの仕様修正（修正量ではなく、絶対値　⇒　微分位置の相対値）
+<br>
+　微分位置xでの差分刻みdx既定値：max(1,abs(x))dx(1+i)　⇒　dx((real(x)||1)+(imag(x)||1)i)
+<br>
+　影響項目：<a href="#span-out-FNh-DX">微分高階関数</a>||<a href="#span-out-FNmh-jacobian">Jacobi高階行列関数</a>||<a href="#span-out-FNmh-newtonian">Newton高階行列関数</a>
+<br>
+　　　　　　||<a href="#span-eqn-solvex_iteration">solvex_iteration</a>||<a href="#span-eqn-solveAinv">solveAinv</a>||<a href="#span-eqn-solvex_non_linear">solvex_non_linear</a>||<a href="#span-eqn-solvex_bisection">solvex_bisection</a>
+<br>
+　　　　　　||<a href="#span-eqn-implicit-Euler_method">implicit Euler_method</a>||<a href="#span-eqn-explicit-Euler_method">explicit Euler_method</a>
+<br>
+・<span class="clear">Ver.2.835.141</span>以降、空間の差分刻みの<a href="#span-in-options">内部option</a>既定値を修正（<a href="#span-out-float">浮動小数点演算</a>用）
+<br>
+　epsN：1e-16　⇒　<a href="#span-out-epsilon">Machine epsilon</a>
+<br>
+　dxJ：1e-5　⇒　2^(-16)
+<br>
+　dxD：1e-3　⇒　2^(-10)
+<br>
+Newton((x)=&lt;2x+1=0) -> <del>-0.5000000000011378+1.137793394920403e-12i</del>-0.5
+<br>
+　影響項目：<a href="#span-out-FNh-DX">微分高階関数</a>||<a href="#span-out-FNmh-jacobian">Jacobi高階行列関数</a>||<a href="#span-out-FNmh-newtonian">Newton高階行列関数</a>||<a href="#span-out-method-Newton">Newton法</a>||<a href="#span-eqn">strict-mode式変数list</a>
     </td>
   </tr>
   <tr>
@@ -32178,7 +32209,7 @@ normc(mdx)/normc({x0,x1}) -> infoLost[ri] 3.6879601533907295e-16
 <br>
 ・<a href="#span-out-error-numerical">数値誤差</a>O(dx^4以上)を含み、演算結果に<a href="#span-out-error-numerical">目安の解析誤差</a>を表示する
 <br>
-・1階微分の差分刻み実数値dxD既定値dxD=1e-3
+・1階微分の差分刻み実数値dxD既定値dxD=<del>1e-3</del><span class="clear">Ver.2.835.141</span>以降、2^(-10)
 <br>
 ・微分位置xでの差分刻みdx既定値<del>dx=max(1,abs(x))dxD(1+i)</del>
 <br>
@@ -32754,7 +32785,7 @@ Jacobi高階行列関数
 <br>
 　<span class="run">Ver.2.323.78</span>以降、演算結果に<a href="#span-out-error-numerical">目安の解析誤差</a>を表示する
 <br>
-・1階偏微分の差分刻み実数値dxJ既定値dxJ=1e-5
+・1階偏微分の差分刻み実数値dxJ既定値dxJ=<del>1e-5</del><span class="clear">Ver.2.835.141</span>以降、2^(-16)
 <br>
 ・微分位置xでの差分刻みdx既定値<del>dx=dxJ(1+i)</del>
 <br>
@@ -32909,7 +32940,7 @@ Newton高階行列関数
 <br>
 ・返値は符号付の解の修正vector（以降、残差と呼ぶ）
 <br>
-・絶対誤差の残差norm収束判定実数値epsN既定値epsN=1e-16
+・絶対誤差の残差norm収束判定実数値epsN既定値epsN=<del>1e-16</del><span class="clear">Ver.2.835.141</span>以降、<a href="#span-out-epsilon">Machine epsilon</a>
 <br>
 　<span class="run">Ver.2.309.77</span>以降、判定対象の残差normが<a href="#span-out-literal">NaN</a>の場合、無条件にbreak
 <br>
@@ -40274,6 +40305,12 @@ b={-f[i]}
 ・f||dxのnormが許容誤差範囲内に収束するまで近似解の修正を反復する
 <br>
 ・fが線形の場合、反復1回で厳密解が得られる
+<br>
+Newton((x,y)=&lt;(2x+y+2=0,2x-3y=2)) -> (-0.5,-1)
+<br>
+Newton((x,y)=&lt;(2x+y+1=0,y)) -> (-0.5,0)
+<br>
+Newton((x)=&lt;2x+1=0) -> -0.5
 <br>
 <br>
 上記の反復1回の処理をまとめた<a href="#span-out-FNmh-newtonian">Newton高階行列関数</a>について記述する

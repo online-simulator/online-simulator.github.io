@@ -1,26 +1,26 @@
 [cond_error=(has__(t_total)==0)&&has__(oldT),proc=<[s_1day=60*60*24,=<heat1d_evolution(s_1day*30,s_1day,0,1,1,1,20)=>]=>,=<switch(cond_error==0,=<proc:1,-999)]=>
 (
 2592000:
--8.890971412191002-2.3583163820235546e-13i:
--11.73291776896485-2.2070000844871984e-13i:
--13.89145624446626-1.9342738158268495e-13i:
--15.455478518431953-1.5896889858297675e-13i:
--16.53610550638455-1.2269396846213034e-13i:
--17.248643699893993-8.898695629544411e-14i:
--17.69834395256665-6.04606086112003e-14i:
--17.972415703759054-3.78575462469186e-14i:
--18.13828362203301-2.041812128303677e-14i:
--18.246568450908423-6.4083751553799386e-15i:
--18.33691983245461+6.4083751553257896e-15i:
--18.44520466132901+2.0418121282968967e-14i:
--18.611072579601192+3.7857546246849896e-14i:
--18.885144330790872+6.046060861113387e-14i:
--19.334844583452455+8.89869562952552e-14i:
--20.047382776964252+1.2269396846209157e-13i:
--21.12800976490915+1.5896889858291483e-13i:
--22.69203203888427+1.9342738158252294e-13i:
--24.850570514369316+2.207000084488257e-13i:
--27.69251687114068+2.35831638202752e-13i
+-8.890971412222243-7.911444546699531e-14i:
+-11.732917768997492-7.433668693285062e-14i:
+-13.891456244487443-6.566855653916243e-14i:
+-15.455478518451473-5.460897831061137e-14i:
+-16.536105506396407-4.28399207798522e-14i:
+-17.24864369990049-3.1821133325036847e-14i:
+-17.698343952569545-2.2544260064983544e-14i:
+-17.97241570376086-1.5487526540252618e-14i:
+-18.13828362203452-1.0723426772671475e-14i:
+-18.246568450909038-8.089819015509679e-15i:
+-18.336919832455674-7.341853705979857e-15i:
+-18.445204661331058-8.236480935195991e-15i:
+-18.61107257960521-1.054036863228034e-14i:
+-18.88514433079803-1.3984162248000664e-14i:
+-19.33484458346408-1.8206900581958784e-14i:
+-20.047382776969823-2.273879193412967e-14i:
+-21.128009764916733-2.705068479978933e-14i:
+-22.69203203888547-3.065534454279743e-14i:
+-24.850570514371693-3.32026888733577e-14i:
+-27.69251687114507-3.4508250427934696e-14i
 )
 
 heat1d_evolution(t,dt,kalpha0,kalpha1,kalbedo,kabsorb,N)=<[out=<{t_total,newT},scope2storage=<last{add__(oldT),add__(t_total)},init=<last{I0=1367,sigma=5.670374419184429e-8,TK=273.15,T0=15,T1=-56.5,T0K=T0+TK,T1K=T1+TK,H1=11000,R0=6378136.6,R1=R0+H1,S0=pi*R0^2,S1=pi*R1^2,A0=S0*4,A1=S1*4,albedo0=0.3,e0=1,TeK=(I0*(1-albedo0)/(4*e0*sigma))**0.25,Te=TeK-TK,W0=S1*I0,Wee=A0*(e0*sigma*TeK**4),We0=A0*(e0*sigma*T0K**4),absorbh=1-W0*(1-albedo0)/We0,absorbhmax=0.5,absorb0=We0*absorbh/(W0*(1-albedo0)),absorb0max=We0*absorbhmax/(W0*(1-albedo0)),kh0=(absorbhmax-absorbh)/(absorb0max-absorb0),Te_th(a)=<(I0*(1-albedo0)/(2*(2-a)*e0*sigma))**0.25-TK,Te_th0=Te_th(absorbh*2)=>,Wea=We0*absorbh,Wet=We0*(1-absorbh),l=0.0241,rho=1.29,cp=1007,V=A1*H1,C=rho*cp*V,alpha10=-W0*(1-albedo0)*absorb0/(A1*(T1-T0)),alpha0=alpha10*kalpha0,alpha1=alpha10*kalpha1,albedo=albedo0*kalbedo,absorb=absorb0*kabsorb,absorbe=(1-albedo)*absorb,T=T0,flux0=alpha0*(T0-T),flux1=alpha1*(T1-T),W2=flux0*A0,W1=flux1*A1,W0a=W0*albedo,W0t=W0*(1-albedo)*(1-absorb),W0e=W0*(1-albedo)*absorb,(Wee-Wet),(Wea-W0e),(W0t+W0e-Wet),(W0a+W0t+W0e-W0),(W1+W0e+W2),dC=C/N,a0=alpha0*A1/dC,a1=alpha1*A1/dC,b=0,c=W0*(1-albedo)*absorb/C+a0*T0,d=alpha1*A1*(T1-T0)/C,A=zeros(N,N),A[-1][0][1]=(-a1*dt,1+2*a1*dt,-a1*dt),A[0][0]=1+a1*dt+a0*dt,A[-1][-1]=1+a1*dt,switch(has__(t_total)==0,=<last{t_total=0,oldT=zeros(N,1)+Te}),newT=oldT},run=<last{step=<last{r=oldT+b*dt,r[0]=r[0]+c*dt,r[-1]=r[-1]+d*dt,oldT=Newton(=<A*__x__=r,=<{oldT})},evolution=<_r((n)=<step=>,N=round(t/dt),N),evolution=>,newT=oldT,dT=newT-T0,t_total=t_total+N*dt},init=>,run=>,return=out=>,scope2storage=>,=<return]=>
@@ -511,7 +511,7 @@ clear
 local storage cleared
 
 last[f=<exp(x),TaylorN(=<f,0,2,5)=>]
-7.266666317607307+0.000058921777380024245i+O(4e+0+4e+0i)
+7.266666985820033+0.00005548361471841505i+O(4e+0+4e+0i)
 
 TaylorN(=<f_,a,x,N)=<_s((n)=<_d((x)=<f_=>,n,a)*(x-a)^n/n!,0,N)
 stored_eqn(TaylorN)
@@ -520,7 +520,7 @@ clear
 local storage cleared
 
 last[f=<exp(x),MaclaurinN(=<f,2,5)=>]
-7.266666317607307+0.000058921777380024245i+O(4e+0+4e+0i)
+7.266666985820033+0.00005548361471841505i+O(4e+0+4e+0i)
 
 MaclaurinN(=<f_,x,N)=<_s((n)=<_d((x)=<f_=>,n,0)*x^n/n!,0,N)
 stored_eqn(MaclaurinN)
@@ -721,8 +721,8 @@ local storage cleared
 [cond_error=(has__(t_total)==0)&has__(z_x0),proc=<[args=(1,0.5,0,20+20i,0,1,1),=<ODE_RK4(args)=>]=>,=<switch(cond_error==0,=<proc:1,-999)]=>
 (
 2:
-16.727370273919753+5.323781708140431i+O(6e-2+3e-5i):
-3.2726297260802473-4.9237817081404325i+O(6e-2+7e-7i)
+infoLost[ri] 16.727370273919753+5.323781708140432i+O(6e-2+5e-11i):
+infoLost[ri] 3.2726297260802473-4.923781708140432i+O(6e-2+3e-11i)
 )
 
 ODE_RK4(t,dt,z_x00,z_v00,z_u,m,kCdA_sphere)=<[out=<{t_total,x_next},scope2storage=<last{add__(z_x0),add__(z_v0),add__(t_total)},init=<last{switch(has__(t_total)==0,=<last{t_total=0,z_x0=z_x00,z_v0=z_v00}),g=-9.8,z_a=0+g*i,x_initial=<{z_x0,z_v0},f(t,z_x,z_v)=<{z_v,z_a+(kCdA_sphere/m)*(z_u-z_v)}},run=<last{x_next=x_initial=>,stepN=<last{N=round(t/dt),x_next=_o(=<f,=<{x_next},t_total,dt,N)},step_post=<{$z_x0,$z_v0}=x_next,evolution=<last{stepN=>,step_post=>},evolution=>,t_total=t_total+N*dt},init=>,run=>,return=out=>,scope2storage=>,=<return]=>
@@ -731,8 +731,8 @@ stored_eqn(ODE_RK4)
 [cond_error=(has__(t_total)==0)&has__(z_x0),proc=<[args=(1,0.5,0,20+20i,0,1,1),=<Euler_method(args,1)=>]=>,=<switch(cond_error==0,=<proc:1,-999)]=>
 (
 1:
-11.111111111111112+6.755555555555555i+O(3e-5+3e-5i):
-8.88888888888889+3.4444444444444438i+O(8e-7+7e-7i)
+infoLost[ri] 11.11111111111111+6.7555555555555555i+O(2e-11+5e-11i):
+infoLost[ri] 8.88888888888889+3.444444444444444i+O(2e-11+3e-11i)
 )
 
 Euler_method(t,dt,z_x00,z_v00,z_u,m,kCdA_sphere,isImplicit)=<[out=<{t_total,x_solved},scope2storage=<last{add__(z_x0),add__(z_v0),add__(t_total)},init=<last{switch(has__(t_total)==0,=<last{t_total=0,z_x0=z_x00,z_v0=z_v00}),g=-9.8,z_a=0+g*i,x_initial=<{z_x0,z_v0},switch(isImplicit,=<f(z_x,z_v)=<{(z_x-z_x0)/dt=z_v,m*((z_v-z_v0)/dt)=m*z_a+kCdA_sphere*(z_u-z_v)}:1,=<f(z_x,z_v)=<{(z_x-z_x0)/dt=z_v0,m*((z_v-z_v0)/dt)=m*z_a+kCdA_sphere*(z_u-z_v0)}),orderT=1,epsN=max(eps*1e3,pow(dt,orderT)),isRelative_epsN=1,relative_epsN=(epsN,isRelative_epsN)},run=<last{args_Newton=(=<f,=<x_initial,Nmax=1e3,Nmax,relative_epsN),step_iteration=<x_solved=Newton(args_Newton),step_post=<{$z_x0,$z_v0}=x_solved,step=<last{step_iteration=>,step_post=>},evolution=<_r((n)=<step=>,N=round(t/dt),N),evolution=>,t_total=t_total+N*dt},init=>,run=>,return=out=>,scope2storage=>,=<return]=>
@@ -759,11 +759,11 @@ local storage cleared
 
 [N=1e2,a=0,b=100,f(x0)=<1-global_n*pow(global_base,x0),=<{solvex_non_linear(=<f,=<{0})=>,solvex_bisection(=<f,a,b,N)=>,solvex_bisection(=<f,b,a,N)=>,solvex_bisection(=<f,a,a,N)=>,solvex_non_linear((x0)=<1-global_n*pow(global_base,x0),=<{0})=>,solvex_bisection((x0)=<1-global_n*pow(global_base,x0),a,b,N)=>,solvex_bisection((x0)=<1-global_n*pow(global_base,x0),b,a,N)=>,solvex_bisection((x0)=<1-global_n*pow(global_base,x0),a,a,N)=>}]=>
 (
-60.39370629335314+2.9411635530711223e-19i+O(2e-9+9e-15i):
+60.393706293353056+1.132358463016199e-18i+O(3e-9+2e-14i):
 60.39370596408844:
 60.39370633661747:
 0:
-60.39370629335314+2.9411635530711223e-19i+O(2e-9+9e-15i):
+60.393706293353056+1.132358463016199e-18i+O(3e-9+2e-14i):
 60.39370596408844:
 60.39370633661747:
 0
@@ -774,11 +774,11 @@ local storage restored
 
 [N=1e2,a=0,b=100,=<{solvex_non_linear(=<f,=<{0})=>,solvex_bisection(=<f,a,b,N)=>,solvex_bisection(=<f,b,a,N)=>,solvex_bisection(=<f,a,a,N)=>,solvex_non_linear((x0)=<1-global_n*pow(global_base,x0),=<{0})=>,solvex_bisection((x0)=<1-global_n*pow(global_base,x0),a,b,N)=>,solvex_bisection((x0)=<1-global_n*pow(global_base,x0),b,a,N)=>,solvex_bisection((x0)=<1-global_n*pow(global_base,x0),a,a,N)=>}]=>
 (
-60.39370629335314+2.9411635530711223e-19i+O(2e-9+9e-15i):
+60.393706293353056+1.132358463016199e-18i+O(3e-9+2e-14i):
 60.39370596408844:
 60.39370633661747:
 0:
-60.39370629335314+2.9411635530711223e-19i+O(2e-9+9e-15i):
+60.393706293353056+1.132358463016199e-18i+O(3e-9+2e-14i):
 60.39370596408844:
 60.39370633661747:
 0
@@ -807,8 +807,8 @@ local storage cleared
 
 [f=<{__x__[0]^i-2*__x__[1]=3i,3*__x__[0]+exp(__x__[1])=5i},=<solvex_non_linear(=<f,=<{1+i,1-i})=>]=>
 (
--0.049019216205446525+2.0234230451583515i+O(9e-14+1e-14i):
-0.07726186556052178-1.434248862158042i+O(5e-13+5e-13i)
+-0.049019216205446525+2.023423045158351i+O(1e-13+1e-14i):
+0.07726186556052177-1.434248862158042i+O(8e-13+7e-13i)
 )
 
 solvex_non_linear(==<f_,=<x_initial_)=<[out=<x_solved,init=<last{0},run=<last{x_solved=Newton(=<f_,=<x_initial_,Nmax=1e3,Nmax,1e-10,1)},init=>,run=>,return=out=>,=<return]=>
@@ -819,9 +819,9 @@ local storage cleared
 
 [A=(i,2,3i:4,5i,6:7i,8,9i),=<solveAinv(=<A)=>]=>
 (
-infoLost[ri] 5.317785830564293e-23+0.7749999999999999i+O(2e-12+2e-12i),infoLost[ri] 0.05000000000000002+6.0263419578112546e-24i+O(1e-13+1e-13i),infoLost[ri] -9.528127070523535e-24-0.22499999999999998i+O(6e-13+5e-13i):
-infoLost[ri] 0.04999999999999999-3.688196100059626e-24i+O(2e-14+3e-14i),infoLost[ri] 8.412223366659617e-25-0.09999999999999999i+O(6e-14+5e-14i),infoLost[ri] 0.049999999999999996+1.4478090411266065e-24i+O(3e-14+3e-14i):
-infoLost[ri] 1.6369179327698083e-24-0.5583333333333333i+O(1e-13+2e-13i),infoLost[ri] 0.05+1.4659244429541018e-25i+O(2e-14+9e-15i),infoLost[ri] -3.1762064399094643e-25+0.10833333333333334i+O(2e-14+5e-14i)
+1.4950585913490835e-28+0.7750000000000001i+O(1e-28+2e-16i),0.05000000000000001+4.7170059985371765e-29i+O(1e-17+5e-29i),4.8520014862484576e-29-0.22500000000000003i+O(5e-29+5e-17i):
+infoLost[r ] 0.05000000000000003+1.4583165305713852e-29i+O(6e-18+1e-29i),infoLost[ i] 7.998049558849233e-30-0.1i+O(8e-30+1e-17i),infoLost[r ] 0.049999999999999996+1.352977926124157e-30i+O(6e-18+1e-30i):
+3.0238365251322815e-28-0.5583333333333331i+O(3e-28+8e-17i),0.04999999999999999+4.2632832766742794e-29i+O(6e-18+4e-29i),-7.115335679114822e-29+0.1083333333333333i+O(7e-29+3e-17i)
 )
 
 solveAinv(A)=<[out=<Ainv,init=<last{sizeA=size(A),x0=vectorc(sizeA*sizeA)},run=<last{f=<reshape(__x__:sizeA,sizeA)*A=identity(sizeA),x_solved=Newton(=<f,=<{x0},Nmax=1e3,Nmax,1e-10,1),Ainv=reshape(x_solved:sizeA,sizeA)},init=>,run=>,return=out=>,=<return]=>
@@ -832,20 +832,20 @@ local storage cleared
 
 double_check=(norm((tb)-(xr*tA)):normc({b}-{A*xc}))
 double_check=(
-4.44089209850079e-16+O(3e-12+3e-12i):
-4.44089209850079e-16+O(3e-12+3e-12i)
+0:
+0
 )
 
 xc=solvex_iteration(=<A,=<b)=>
 xc=(
-4.4721723785555095e-23-0.024999999999999946i+O(7e-14+6e-14i):
-0.45+1.0172493901457024e-23i+O(4e-13+3e-13i):
--3.582646510941055e-23-0.02500000000000001i+O(7e-14+6e-14i)
+-0.024999999999999984i:
+0.45:
+-0.025000000000000005i
 )
 
 xr=solvex_iteration(=<tA,=<tb)=>
 xr=(
-4.4721723785555095e-23-0.024999999999999946i+O(7e-14+6e-14i),0.45+1.0172493901457024e-23i+O(4e-13+3e-13i),-3.582646510941055e-23-0.02500000000000001i+O(7e-14+6e-14i)
+-0.024999999999999984i,0.45,-0.025000000000000005i
 )
 
 tb=b.
@@ -2191,7 +2191,7 @@ clear
 local storage cleared
 
 [Pinv_y=(-0.999999427,-0.999936657,-0.997300203,-0.954499736,-0.682689492,0,0.682689492,0.954499736,0.997300203,0.999936657,0.999999427:-5,-4,-3,-2,-1,0,1,2,3,4,5),N=1,arr=[],_r((n)=<arr.push(rand_table(=<Pinv_y)=>),,N),=<arr.]=>
--0.3984207292369979
+-0.5643127157832477
 
 rand_table(csv)=<last[table=sort0(csv),ymin=min(table)[0],ymax=max(table)[0],y=ymin+(ymax-ymin)*rand(),x=interp(y:table),x]
 stored_eqn(rand_table)
@@ -2201,7 +2201,7 @@ local storage cleared
 
 [(N)=<[tarr=linspace(0,N-1,N).,shuffle_FY(?tarr)=>,=<tarr.]=>](2)=>
 (
-1,0
+0,1
 )
 
 shuffle_FY(?tarr)=<last[len=sizer(tarr),switch_arr=(i1)=<last{i0=floor(rand()*(i1+1)),w=tarr[i1],tarr[i1]=tarr[i0],tarr[i0]=w},_s((i_)=<switch_arr(i_)=>,len-1,1)]
@@ -4373,4 +4373,4 @@ center=true&drag=false&test-case=false&plot-all=true&relzooming=true&snap=true&l
 --------------------------------
 --------------------------------
 
-online-simulator.github.io.6.491.655.23.158 @ Sat May 10 2025 06:59:08 GMT+0900 (日本標準時) @ Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/136.0.0.0 Safari/537.36
+online-simulator.github.io.6.491.656.23.159 @ Mon May 12 2025 14:15:21 GMT+0900 (日本標準時) @ Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/136.0.0.0 Safari/537.36

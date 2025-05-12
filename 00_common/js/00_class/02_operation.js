@@ -108,10 +108,10 @@ My_entry.operation.prototype.config = {
   params: {
     useRetry: false,  // Ver.2.408.86
     isRelative_epsN: false,
-    epsN: 1e-16,
+    epsN: Number.EPSILON,  // Ver.2.835.141
     dxT: 1e-3,
-    dxJ: 1e-5,
-    dxD: 1e-3,
+    dxJ: Math.pow(2, -16),  // Ver.2.835.141
+    dxD: Math.pow(2, -10),  // Ver.2.835.141
     NI: 100
   },
   /* Ver.2.245.57 -> */
