@@ -15,6 +15,7 @@ My_entry.solver_NS.prototype.init = function(){
 My_entry.solver_NS.prototype.FS2d = function(options, uvp){
   var self = this;
   var solver = self.entry.solver;
+  var math = solver.entry.math;  // fluid-Ver.1.57.2
   var Re = options.Re || 0;
   /* fluid-Ver.1.27.0 -> */
   var sx = options.sx;
@@ -614,20 +615,8 @@ My_entry.solver_NS.prototype.FS2d = function(options, uvp){
     return _uCmax;
   };
   /* fluid-Ver.1.56.2 -> */
-  var switch_arr = function(arr, i, j){
-    var w = arr[i];
-    arr[i] = arr[j];
-    arr[j] = w;
-  };
-  var shuffle_FY = function(){
-    for(var i1=len0-1; i1>0; --i1){
-      var i0 = Math.floor(Math.random()*(i1+1));
-      switch_arr(i_unknowns, i1, i0);
-      switch_arr(j_unknowns, i1, i0);
-    }
-  };
   if(uvp.t === false){
-    shuffle_FY();
+    math.shuffle_FY(i_unknowns, j_unknowns);  // fluid-Ver.1.57.2
   }
   /* -> fluid-Ver.1.56.2 */
   var c = [];
@@ -680,11 +669,13 @@ My_entry.solver_NS.prototype.FS2d = function(options, uvp){
         v[i][j] = x[iu+len0];
         p[i][j] = x[iu+len1];
       }
+    /* fluid-Ver.1.57.2 -> */
+      uvp.qtotal = eval_qtotal();  // fluid-Ver.1.3.0
+      uvp.cmax = Math.max.apply(Math, c);
     }
-    uvp.qtotal = eval_qtotal();  // fluid-Ver.1.3.0
-    uvp.cmax = (isBreak)? 0: Math.max.apply(Math, c);
     uvp.msec_int = ts_int1-ts_int0;  // fluid-Ver.1.33.0
     uvp.msec_sol = ts_sol1-ts_sol0;  // fluid-Ver.1.33.0
+    /* -> fluid-Ver.1.57.2 */
     if(isBreak) break;
     /* -> fluid-Ver.1.56.2 */
   }

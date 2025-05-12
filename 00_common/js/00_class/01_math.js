@@ -526,6 +526,19 @@ My_entry.math.prototype.switch_arr = function(_arr, i, j){
   _arr[j] = w;
   return _arr;
 };
+/* Ver.2.836.141 */
+My_entry.math.prototype.shuffle_FY = function(){
+  var self = this;
+  var len = arguments.length;
+  var len0 = arguments[0].length;
+  for(var i1=len0-1; i1>0; --i1){
+    var i0 = Math.floor(Math.random()*(i1+1));
+    for(var i=0; i<len; ++i){
+      self.switch_arr(arguments[i], i1, i0);
+    }
+  }
+  return self;
+};
 My_entry.math.prototype.u = function(n, t){
   var self = this;
   return (Math.abs(t-n)-Math.abs(t-(n+1))+1)*0.5;

@@ -1227,6 +1227,7 @@ My_entry.operation.prototype.jacobian = function(data, rightArr, tagObj){
   var options = data.options;
   var scopes = data.scopes;
   var ids = data.ids;
+  var math = self.entry.math;  // Ver.2.836.141
   var math_mat = self.entry.math_mat;
   var DATA = self.entry.DATA;
   var unit = self.entry.unit;
@@ -1878,14 +1879,6 @@ else{
           }
         }
       };
-      var shuffle_FY = function(){
-        for(var i1=len_i-1; i1>0; --i1){
-          var i0 = Math.floor(Math.random()*(i1+1));
-          var w = J[i1];
-          J[i1] = J[i0];
-          J[i0] = w;
-        }
-      };
       /* -> Ver.2.834.140 */
       _tree = DATA.tree_mat(DATA.vec2arr(x0, isRow));  // initialize
       var arr_mdx = null;
@@ -1896,7 +1889,7 @@ else{
         }
         /* Ver.2.834.140 -> */
         if(counter_retry){
-          shuffle_FY();
+          math.shuffle_FY(J);  // Ver.2.836.141
         }
         /* -> Ver.2.834.140 */
         arr_mdx = math_mat.gaussian(options, J);
