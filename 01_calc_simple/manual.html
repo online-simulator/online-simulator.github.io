@@ -7850,7 +7850,9 @@ clear; f(x)=&lt;d=x:[c=[],c.push(==&lt;f),(c)(1)=&gt;,hass(d)],hass(d) -> (0:0,N
 <br>
 　　　　　　||<a href="#span-eqn-implicit-Euler_method">implicit Euler_method</a>||<a href="#span-eqn-explicit-Euler_method">explicit Euler_method</a>
 <br>
-・<span class="clear">Ver.2.835.141</span>以降、空間の差分刻みの<a href="#span-in-options">内部option</a>既定値を修正（<a href="#span-out-float">浮動小数点演算</a>用）
+・<span class="clear">Ver.2.835.141</span>以降、空間の差分刻みの<a href="#span-in-options">内部option</a>既定値を修正
+<br>
+　<a href="#span-out-float">浮動小数点演算</a>：10進形式　⇒　2進形式
 <br>
 　epsN：1e-16　⇒　<a href="#span-out-epsilon">Machine epsilon</a>
 <br>
@@ -32217,7 +32219,7 @@ normc(mdx)/normc({x0,x1}) -> infoLost[ri] 3.6879601533907295e-16
 <br>
 ・dummy変数は無次元
 <br>
-・dummy変数と同名の<a href="#span-out-terms">scope変数</a>を参照するが、上書きしない
+・dummy変数と同名の<a href="#span-out-terms">scope変数</a>を参照するが、上書きしない（第3引数省略時のみ）
 <br>
 <br>
 _d(=&lt;第1引数[,第2引数[,第3引数[,第4引数]]])
@@ -32791,7 +32793,7 @@ Jacobi高階行列関数
 <br>
 　<span class="run">Ver.2.404.86</span>以降、<a href="#span-out-literal">false</a>指定の場合、実数の相対値dx=dxD(real(x)||1)
 <br>
-・未知変数の<a href="#span-out-terms">scope変数</a>を参照するが、上書きしない
+<del>・未知変数の<a href="#span-out-terms">scope変数</a>を参照するが、上書きしない</del><span class="clear">Ver.2.835.141</span>以降、削除して訂正
 <br>
 <br>
 Jacobi(=&lt;第1引数,=&lt;第2引数[,=&lt;第3引数[,第4引数]])
@@ -32804,7 +32806,7 @@ option
 <br>
 ・第3引数: 未知変数初期値の列vectorを<a href="#span-out-pass-by-equation">式渡し</a>||<a href="#span-out-pass-by-symbol">symbol渡し</a>[0||省略時、<a href="#span-out-FNm">zeros-vector</a>]
 <br>
-　第3引数は未知変数未定義時のみ有効
+　<del>第3引数は未知変数未定義時のみ有効</del><span class="clear">Ver.2.835.141</span>以降、削除して訂正（引数のみ有効）
 <br>
 ・第4引数: 偏微分の差分刻みdxを値渡し[0||省略時、dx既定値]
 <br>
