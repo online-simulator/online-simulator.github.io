@@ -483,13 +483,13 @@
       script += "\nclear;\n";
       script += "arr_f=[()=<a=1]:[f=arr_f[0],f==>,hass(a)],hass(a):[(arr_f)==>,hass(a)],hass(a);";
       script += "\nclear;\n";
-      script += "f(x)=<d=x:[($a)=(=<f/*Non-strict-mode*/),b=(=<f),c=[],c.push(=<f),[a,b,c]];";
+      script += "[f(x)=<d=x:[($a)=(=<f/*Non-strict-mode*/),b=(=<f),c=[],c.push(=<f),[a,b,c]]];";
       script += "\nclear;\n";
-      script += "f(x)=<d=x:[($a)=(=<f/*Non-strict-mode*/),(a)(1)=>,hass(d)],hass(d):[($a)=(==<f/*Non-strict-mode*/),(a)(1)=>,hass(d)],hass(d):[($a)=(=<f/*Non-strict-mode*/),(a)(1)==>,hass(d)],hass(d):[($a)=(==<f/*Non-strict-mode*/),(a)(1)==>,hass(d)],hass(d);";
+      script += "[f(x)=<d=x:[($a)=(=<f/*Non-strict-mode*/),(a)(1)=>,hass(d)],hass(d)]:[f(x)=<d=x:[($a)=(==<f/*Non-strict-mode*/),(a)(1)=>,hass(d)],hass(d)]:[f(x)=<d=x:[($a)=(=<f/*Non-strict-mode*/),(a)(1)==>,hass(d)],hass(d)]:[f(x)=<d=x:[($a)=(==<f/*Non-strict-mode*/),(a)(1)==>,hass(d)],hass(d)];";
       script += "\nclear;\n";
-      script += "f(x)=<d=x:[b=(=<f),(b)(1)=>,hass(d)],hass(d):[b=(==<f),(b)(1)=>,hass(d)],hass(d):[b=(=<f),(b)(1)==>,hass(d)],hass(d):[b=(==<f),(b)(1)==>,hass(d)],hass(d);";
+      script += "[f(x)=<d=x:[b=(=<f),(b)(1)=>,hass(d)],hass(d)]:[f(x)=<d=x:[b=(==<f),(b)(1)=>,hass(d)],hass(d)]:[f(x)=<d=x:[b=(=<f),(b)(1)==>,hass(d)],hass(d)]:[f(x)=<d=x:[b=(==<f),(b)(1)==>,hass(d)],hass(d)];";
       script += "\nclear;\n";
-      script += "f(x)=<d=x:[c=[],c.push(=<f),(c)(1)=>,hass(d)],hass(d):[c=[],c.push(==<f),(c)(1)=>,hass(d)],hass(d):[c=[],c.push(=<f),(c)(1)==>,hass(d)],hass(d):[c=[],c.push(==<f),(c)(1)==>,hass(d)],hass(d);";
+      script += "[f(x)=<d=x:[c=[],c.push(=<f),(c)(1)=>,hass(d)],hass(d)]:[f(x)=<d=x:[c=[],c.push(==<f),(c)(1)=>,hass(d)],hass(d)]:[f(x)=<d=x:[c=[],c.push(=<f),(c)(1)==>,hass(d)],hass(d)]:[f(x)=<d=x:[c=[],c.push(==<f),(c)(1)==>,hass(d)],hass(d)];";
       script += "\nclear;\n";
       $._id("input").value = script;
       // test case

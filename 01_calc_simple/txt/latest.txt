@@ -1,43 +1,52 @@
 clear
 local storage cleared
 
-f(x)=<d=x:[c=[],c.push(=<f),(c)(1)=>,hass(d)],hass(d):[c=[],c.push(==<f),(c)(1)=>,hass(d)],hass(d):[c=[],c.push(=<f),(c)(1)==>,hass(d)],hass(d):[c=[],c.push(==<f),(c)(1)==>,hass(d)],hass(d)
+[f(x)=<d=x:[c=[],c.push(=<f),(c)(1)=>,hass(d)],hass(d)]:[f(x)=<d=x:[c=[],c.push(==<f),(c)(1)=>,hass(d)],hass(d)]:[f(x)=<d=x:[c=[],c.push(=<f),(c)(1)==>,hass(d)],hass(d)]:[f(x)=<d=x:[c=[],c.push(==<f),(c)(1)==>,hass(d)],hass(d)]
 (
 0:
 0,NaN,0,false,true:
-0,NaN,0,true,true:
-0,NaN,0,true,true:
-0,NaN,0,true,true
+0:
+0,NaN,0,true,false:
+0:
+0,NaN,0,true,false:
+0:
+0,NaN,0,true,false
 )
 
 clear
 local storage cleared
 
-f(x)=<d=x:[b=(=<f),(b)(1)=>,hass(d)],hass(d):[b=(==<f),(b)(1)=>,hass(d)],hass(d):[b=(=<f),(b)(1)==>,hass(d)],hass(d):[b=(==<f),(b)(1)==>,hass(d)],hass(d)
+[f(x)=<d=x:[b=(=<f),(b)(1)=>,hass(d)],hass(d)]:[f(x)=<d=x:[b=(==<f),(b)(1)=>,hass(d)],hass(d)]:[f(x)=<d=x:[b=(=<f),(b)(1)==>,hass(d)],hass(d)]:[f(x)=<d=x:[b=(==<f),(b)(1)==>,hass(d)],hass(d)]
 (
 0:
 0,0,false,true:
-0,0,true,true:
-0,0,true,true:
-0,0,true,true
+0:
+0,0,true,false:
+0:
+0,0,true,false:
+0:
+0,0,true,false
 )
 
 clear
 local storage cleared
 
-f(x)=<d=x:[($a)=(=<f/*Non-strict-mode*/),(a)(1)=>,hass(d)],hass(d):[($a)=(==<f/*Non-strict-mode*/),(a)(1)=>,hass(d)],hass(d):[($a)=(=<f/*Non-strict-mode*/),(a)(1)==>,hass(d)],hass(d):[($a)=(==<f/*Non-strict-mode*/),(a)(1)==>,hass(d)],hass(d)
+[f(x)=<d=x:[($a)=(=<f/*Non-strict-mode*/),(a)(1)=>,hass(d)],hass(d)]:[f(x)=<d=x:[($a)=(==<f/*Non-strict-mode*/),(a)(1)=>,hass(d)],hass(d)]:[f(x)=<d=x:[($a)=(=<f/*Non-strict-mode*/),(a)(1)==>,hass(d)],hass(d)]:[f(x)=<d=x:[($a)=(==<f/*Non-strict-mode*/),(a)(1)==>,hass(d)],hass(d)]
 (
 0:
 0,0,false,true:
+0:
 0,0,false,true:
-0,0,true,true:
-0,0,true,true
+0:
+0,0,true,false:
+0:
+0,0,true,false
 )
 
 clear
 local storage cleared
 
-f(x)=<d=x:[($a)=(=<f/*Non-strict-mode*/),b=(=<f),c=[],c.push(=<f),[a,b,c]]
+[f(x)=<d=x:[($a)=(=<f/*Non-strict-mode*/),b=(=<f),c=[],c.push(=<f),[a,b,c]]]
 (
 0:
 0,0,0,NaN,eqn(x),eqn(x),eqn(x)
@@ -5173,4 +5182,4 @@ drag=false&sw=false&0x=false&useMatrix=true&useStrict=false&checkError=true&isRi
 --------------------------------
 --------------------------------
 
-online-simulator.github.io.6.493.656.23.159 @ Tue May 13 2025 03:41:59 GMT+0900 (日本標準時) @ Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/136.0.0.0 Safari/537.36
+online-simulator.github.io.6.493.657.23.159 @ Tue May 13 2025 22:41:12 GMT+0900 (日本標準時) @ Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/136.0.0.0 Safari/537.36
