@@ -668,10 +668,10 @@ My_entry.calc_graphing.prototype.get_options = function(isPlot){
     _options.oldPlot2d = _options.oldPlot2d || (_options["plot2d-Ver"] === 0);  // Ver.2.190.44
     if(_options["axis-z"]){  // Ver.2.746.111
       if(_options.oldPlot2d){
-        _options["input-z"] = parser.remove_commentAndWspace(self.io.read_text(self.elems.z));
+        _options["input-z"] = self.entry.def.remove_commentAndWspace(self.io.read_text(self.elems.z));  // Ver.2.837.143
       }
       else{
-        _options["input-z"] = parser.remove_comment(self.io.read_text(self.elems.z));
+        _options["input-z"] = self.entry.def.remove_comment(self.io.read_text(self.elems.z));  // Ver.2.837.143
       }
     }
     /* -> Ver.2.35.18 */
@@ -766,8 +766,8 @@ My_entry.calc_graphing.prototype.init_handlers = function(){
   var parser = self.entry.parser;
   var get_inputs_plot = function(){
     var input = "";
-    var x = parser.remove_commentAndWspace(self.io.read_text(self.elems.x));
-    var y = parser.remove_commentAndWspace(self.io.read_text(self.elems.y));
+    var x = self.entry.def.remove_commentAndWspace(self.io.read_text(self.elems.x));  // Ver.2.837.143
+    var y = self.entry.def.remove_commentAndWspace(self.io.read_text(self.elems.y));  // Ver.2.837.143
     /* Ver.2.43.21 -> */
     var arr_x = x.split(";").filter(Boolean);
     var arr_y = y.split(";").filter(Boolean);

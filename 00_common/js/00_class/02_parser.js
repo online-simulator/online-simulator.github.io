@@ -173,29 +173,6 @@ My_entry.parser.prototype.script2arr = function(script){
   var self = this;
   return script.split(";").filter(function(arg){return !(arg === "");});  // semi-colon; removed
 };
-My_entry.parser.prototype.replace_series = function(str, bas){
-  var self = this;
-  var _str = str;
-  bas.forEach(function(ba){
-    _str = _str.replace(ba.b, ba.a);
-  });
-  return _str;
-};
-My_entry.parser.prototype.remove_comment = function(script){
-  var self = this;
-  var bas = [];
-  bas.push({b: /\/\*[\s\S]*?\*\//g, a: ""});
-  bas.push({b: /[\/]{2}.*$/gm,      a: ""});
-  return self.replace_series(script, bas);
-};
-My_entry.parser.prototype.remove_commentAndWspace = function(script){
-  var self = this;
-  var bas = [];
-  bas.push({b: /\/\*[\s\S]*?\*\//g, a: ""});
-  bas.push({b: /[\/]{2}.*$/gm,      a: ""});
-  bas.push({b: /\s/g,               a: ""});
-  return self.replace_series(script, bas);
-};
 My_entry.parser.prototype.check_syntax = function(sentence){
   var self = this;
   self.config.SYNTAX.pairs.forEach(function(pair, i){
@@ -1126,7 +1103,7 @@ My_entry.parser.prototype.script2objs2d = function(data){
     self.hasTag = {};  // Ver.2.286.67
     self.init_id_tree(data);  // Ver.2.264.62
     data.in = String(data.in);  // Ver.2.30.15
-    var script = self.remove_commentAndWspace(self.entry.reference.fullStr2half(data.in));
+    var script = self.entry.def.remove_commentAndWspace(self.entry.reference.fullStr2half(data.in));  // Ver.2.837.143
     var arr_sentence = self.script2arr(script);
     var scope0 = DATA.scope(data.vars, data.eqns);
     if(arr_sentence && arr_sentence.length){
@@ -1487,7 +1464,7 @@ My_entry.parser.prototype.make_logh = function(data){
   var len_in = arr_in.length;
   var len_out = arr_out.length;
   if(!(len_in === len_out)){
-    arr_in = self.script2arr(self.remove_commentAndWspace(str_in));
+    arr_in = self.script2arr(self.entry.def.remove_commentAndWspace(str_in));  // Ver.2.837.143
   }
   for(var i=len_out-1; i>=0; --i){
     var str_in = arr_in[i];

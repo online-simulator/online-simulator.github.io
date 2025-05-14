@@ -271,3 +271,49 @@ My_entry.def.prototype.enter_name = function(input, name, isLongest, opt_i, opt_
   }
   return _input;
 };
+/* calc-Ver.2.837.143 moved from parser.js -> */
+My_entry.def.prototype.replace_series = function(str, bas){
+  var self = this;
+  var _str = str;
+  bas.forEach(function(ba){
+    _str = _str.replace(ba.b, ba.a);
+  });
+  return _str;
+};
+My_entry.def.prototype.remove_comment = function(script, opt_a){
+  var self = this;
+  var bas = [];
+  var a = opt_a || "";
+  bas.push({b: /[\/]{2}.*$/gm,      a: a});  // calc-Ver.2.837.143
+  bas.push({b: /\/\*[\s\S]*?\*\//g, a: a});
+  return self.replace_series(script, bas);
+};
+My_entry.def.prototype.remove_commentAndWspace = function(script, opt_a){
+  var self = this;
+  var bas = [];
+  var a = opt_a || "";
+  bas.push({b: /[\/]{2}.*$/gm,      a: a});  // calc-Ver.2.837.143
+  bas.push({b: /\/\*[\s\S]*?\*\//g, a: a});
+  bas.push({b: /\s/g,               a: a});
+  return self.replace_series(script, bas);
+};
+/* -> calc-Ver.2.837.143 */
+/* calc-Ver.2.837.143 -> */
+My_entry.def.prototype.str2ccc = function(str, opt_c){
+  var self = this;
+  var _str = "";
+  var c = opt_c || "\n";
+  for(var i=0, len=str.length; i<len; ++i){
+    _str += c;
+  }
+  return _str;
+};
+My_entry.def.prototype.replace_comment = function(script, opt_c){
+  var self = this;
+  return self.remove_comment(script, function(str){return self.str2ccc(str, opt_c);});
+};
+My_entry.def.prototype.replace_commentAndWspace = function(script, opt_c){
+  var self = this;
+  return self.remove_commentAndWspace(script, function(str){return self.str2ccc(str, opt_c);});
+};
+/* -> calc-Ver.2.837.143 */
