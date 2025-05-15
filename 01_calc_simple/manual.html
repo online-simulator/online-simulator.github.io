@@ -8304,6 +8304,10 @@ code整理
 <br>
 ・比較判定対象のべた書き
 <br>
+・error処理
+<br>
+・<a href="#span-out-log-error">error-log</a>の内容
+<br>
 <br>
 仕様廃止
 <br>
@@ -8312,6 +8316,10 @@ code整理
 　<span class="run">Ver.2.279.65</span>以降、冗長
 <br>
 　<span class="run">Ver.2.441.90</span>以降、<a href="#span-out-matching">行列要素pattern matching</a>の要素比較を厳格化
+<br>
+・<a href="#span-out-FNh-DX">微分高階関数</a>の第3引数の省略（<a href="#span-out-ref-transparency">参照透過性</a>の問題あり）
+<br>
+・<a href="#span-out-FNspecial-spec">特殊仕様関数</a>（関数名に引数の一部を含む仕様）
 <br>
 <br>
 仕様変更
@@ -8325,6 +8333,11 @@ code整理
 ・<a href="#span-out-reference-mat-band">band参照</a>の返値
 <br>
 　返値の列vector：上詰め（<a href="#span-out-reference-mat-row">行index</a>の維持より転置の対称性を優先）
+<br>
+<br>
+仕様拡張
+<br>
+・Gauss(A,b)の行vector入出力に対応（<a href="#span-out-FNmh">高階行列関数</a>と異なり、代数学に準拠）
 <br>
 <br>
 closed
