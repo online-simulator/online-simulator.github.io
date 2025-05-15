@@ -342,21 +342,31 @@ Y/M/D
 <tbody>
   <tr>
     <th>
-6.493.658.23.161
+6.493.658.24.161
     </th>
     <td class="types">
 Calculator
     </td>
     <td>
-2.837.143
+2.837.144
     </td>
     <td class="clear">
 minor bug-fix
+<br>
+fatal bug-fix
     </td>
     <td>
 [Calculator]
 <br>
-・def.js/parser.js bug-fixed for comments
+・def.js/parser.js bug-fixed_2 to replace line and block comments
+<br>
+　regular expression：serial　⇒　parallel
+<br>
+clear;2*<span class="selection">/*//2*/</span>
+<br>
+3<span class="selection">/*4*/</span> -> <del>[MyErr]Invalid operation number*</del>6
+<br>
+・def.js/parser.js/io.js arranged/improved_2 for debugger
 <br>
 clear;<span class="selection">// /*</span>
 <br>
@@ -364,11 +374,19 @@ clear;<span class="selection">// /*</span>
 <br>
 2 -> <del>2</del>[MyErr]Invalid operation <span class="clear">*/</span>
 <br>
-・def.js/parser.js/io.js arranged/improved for debugger
+<del>clear;1;2<span class="selection">//;;</span>
+<br>
+2<span class="selection">/**<span class="condition">//*;;</span>
+<br>
+<br>
+;;/*/</span>;;<span class="condition">/*/;;*/</span>;;3;
+<br>
+<br>
+;4;<span class="clear">x</span>;6;</del>
 <br>
 clear;1;2<span class="selection">//;;</span>
 <br>
-2<span class="selection">/**<span class="condition">//*;;</span>
+2<span class="condition">/**/</span><span class="selection">/*;;
 <br>
 <br>
 ;;/*/</span>;;<span class="condition">/*/;;*/</span>;;3;

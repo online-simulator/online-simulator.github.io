@@ -284,18 +284,15 @@ My_entry.def.prototype.remove_comment = function(script, opt_a){
   var self = this;
   var bas = [];
   var a = opt_a || "";
-  bas.push({b: /[\/]{2}.*$/gm,      a: a});  // calc-Ver.2.837.143
-  bas.push({b: /\/\*[\s\S]*?\*\//g, a: a});
-  return self.replace_series(script, bas);
+  var re = new RegExp(["[\/]{2}.*", "\/\\*[\\s\\S]*?\\*\/"].join("|"), "g");  // calc-Ver.2.837.144
+  return script.replace(re, a);  // calc-Ver.2.837.144
 };
 My_entry.def.prototype.remove_commentAndWspace = function(script, opt_a){
   var self = this;
   var bas = [];
   var a = opt_a || "";
-  bas.push({b: /[\/]{2}.*$/gm,      a: a});  // calc-Ver.2.837.143
-  bas.push({b: /\/\*[\s\S]*?\*\//g, a: a});
-  bas.push({b: /\s/g,               a: a});
-  return self.replace_series(script, bas);
+  var re = new RegExp(["[\/]{2}.*", "\/\\*[\\s\\S]*?\\*\/", "\\s"].join("|"), "g");  // calc-Ver.2.837.144
+  return script.replace(re, a);  // calc-Ver.2.837.144
 };
 /* -> calc-Ver.2.837.143 */
 /* calc-Ver.2.837.143 -> */
