@@ -45,7 +45,7 @@
         $._id("textarea-input").value = script;
       }
       else if(options.testcase === "calc2"){
-        var script = "line comment\n // line comment\n // line comment /**/\n // line comment /* */\n\nblock comment\n /* block comment */\n /* block comment // */\n /* // block comment */\n /* // block comment // */\n /* // block\n comment // */";
+        var script = "// /**/\n\n/**/ //\n\n/*//*/\n\n/*/\n/*/\n\nline comment\n // line comment\n // line comment /**/\n // line comment /* */\n\nblock comment\n /* block comment */\n /* block comment // */\n /* // block comment */\n /* // block comment // */\n /* // block\n comment // */";
         $._id("input-pattern").value = "([\/]{2}.*)|(\/\\*[\\s\\S]*?\\*\/)";
         $._id("input-string").value = " $1_$2 ";
         $._id("textarea-input").value = script;
