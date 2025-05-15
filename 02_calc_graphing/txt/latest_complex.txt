@@ -817,6 +817,29 @@ stored_eqn(solvex_non_linear)
 clear
 local storage cleared
 
+[y=(b[1]-t*b[0])/(k-t),x=b[0]-y,=<(x,y)]=>:Gauss(A,b).:Newton((x,y)=<{x+y=b[0],t*x+k*y=b[1]}).:Newton((x,y)=<A*{x,y}=b).:Newton((x,y)=<((x,y)*A.).=b).:Newton((x,y)=<(x,y)*A.=b.):Newton(=<A*__x__=b,=<{,}).
+(
+40,60:
+40,60:
+40,60:
+40,60:
+40,60:
+40,60:
+40,60
+)
+
+A=(1,1:t,k)
+A=(
+1,1:
+2,4
+)
+
+($t,$k,$b)=(2,4,=<{100,320})
+stored_var(t) stored_var(k) stored_var(b) 
+
+clear
+local storage cleared
+
 [A=(i,2,3i:4,5i,6:7i,8,9i),=<solveAinv(=<A)=>]=>
 (
 1.4950585913490835e-28+0.7750000000000001i+O(1e-28+2e-16i),0.05000000000000001+4.7170059985371765e-29i+O(1e-17+5e-29i),4.8520014862484576e-29-0.22500000000000003i+O(5e-29+5e-17i):
@@ -2191,7 +2214,7 @@ clear
 local storage cleared
 
 [Pinv_y=(-0.999999427,-0.999936657,-0.997300203,-0.954499736,-0.682689492,0,0.682689492,0.954499736,0.997300203,0.999936657,0.999999427:-5,-4,-3,-2,-1,0,1,2,3,4,5),N=1,arr=[],_r((n)=<arr.push(rand_table(=<Pinv_y)=>),,N),=<arr.]=>
-0.41401287646782187
+1.0628631344127948
 
 rand_table(csv)=<last[table=sort0(csv),ymin=min(table)[0],ymax=max(table)[0],y=ymin+(ymax-ymin)*rand(),x=interp(y:table),x]
 stored_eqn(rand_table)
@@ -4373,4 +4396,4 @@ center=true&drag=false&test-case=false&plot-all=true&relzooming=true&snap=true&l
 --------------------------------
 --------------------------------
 
-online-simulator.github.io.6.493.659.24.162 @ Thu May 15 2025 17:25:29 GMT+0900 (日本標準時) @ Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/136.0.0.0 Safari/537.36
+online-simulator.github.io.6.493.661.24.162 @ Thu May 15 2025 19:00:37 GMT+0900 (日本標準時) @ Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/136.0.0.0 Safari/537.36

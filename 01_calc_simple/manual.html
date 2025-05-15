@@ -1889,6 +1889,8 @@ test case
 <br>
 ・<a href="#span-eqn-solveAinv">solveAinv</a>
 <br>
+・<a href="#span-eqn-solvex_linear">solvex_linear</a>
+<br>
 ・<a href="#span-eqn-solvex_non_linear">solvex_non_linear</a>
 <br>
 ・<a href="#span-eqn-solvex_bisection">solvex_bisection</a>
@@ -49069,6 +49071,41 @@ init=&gt;,run=&gt;,return=out=&gt;,
 =&lt;return]=&gt;;
 <br>
 [A=(i,2,3i:4,5i,6:7i,8,9i),=&lt;solveAinv(=&lt;A)=&gt;]=&gt;;
+    </td>
+  </tr>
+  <tr>
+    <th>
+<a href="#span-index">
+目次
+</a>
+<br>
+solvex
+<br>
+_linear
+    </th>
+    <td>
+<span id="span-eqn-solvex_linear"></span>
+<a href="#span-out-method-Gauss">Gaussの消去法</a>||<a href="#span-out-linear">連立線形方程式の解法</a>参照
+<br>
+clear;
+<br>
+($t,$k,$b)=(2,4,=&lt;{100,320});
+<br>
+A=(1,1:t,k);
+<br>
+[y=(b[1]-t*b[0])/(k-t),x=b[0]-y,=&lt;(x,y)]=&gt;:
+<br>
+Gauss(A,b).:
+<br>
+Newton((x,y)=&lt;{x+y=b[0],t*x+k*y=b[1]}).:
+<br>
+Newton((x,y)=&lt;A*{x,y}=b).:
+<br>
+Newton((x,y)=&lt;((x,y)*A.).=b).:
+<br>
+Newton((x,y)=&lt;(x,y)*A.=b.):
+<br>
+Newton(=&lt;A*__x__=b,=&lt;{,}).;
     </td>
   </tr>
   <tr>
