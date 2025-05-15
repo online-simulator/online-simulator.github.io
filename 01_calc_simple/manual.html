@@ -20609,6 +20609,14 @@ plot2d('t0','t1','xt','yt','N')
 <br>
 plot2d('t0','t1','xt','yt','N','z')
 <br>
+・<span class="clear">Ver.2.837.145</span>以降、<a href="#span-out-spaces">改行文字</a>に対応（<a href="#span-out-comment">line comment</a>を含む場合、実行不能を修正）
+<br>
+plot2d('t0','t1','xt
+<br>
+<span class="selection">// line comment</span>
+<br>
+','yt','N','z')
+<br>
 ・<span class="run">Ver.2.25.12</span>以降、第5引数Nにsingle quotation mark<span class="condition">（tokenの区切り文字）</span>を付与
 <br>
 ・<span class="run">Ver.2.27.14</span>以降、第6引数zと<a href="#span-out-comment">comment文</a>入力に対応<span class="condition">（commandの改行不可）</span>
@@ -20626,6 +20634,10 @@ plot2d('-5','5','t;','SND<span class="condition">(t)</span>=&lt;exp(-t^2/2)/sqrt
 ・<a href="#span-out-comment">comment文</a>入力の一例を示す
 <br>
 plot2d('1e-3(1+i)<span class="selection">/*t0*/</span>','1e2(1+i)<span class="selection">/*t1*/</span>','x=t,x<span class="selection">/*xt*/</span>;','x;2x;3x;4x;5x;6x;7x;8x;9x;10x<span class="selection">/*yt*/</span>;','10','circle<span class="selection">/*marker*/</span>;')
+<br>
+・<span class="clear">Ver.2.837.145</span>以降、plot終了の<a href="#span-out-log">log表示</a>を追加
+<br>
+-> plot2d-from-log finished
     </td>
   </tr>
   <tr>
@@ -20677,6 +20689,20 @@ plot2d{<span class="condition">xt,yt</span>}
 plot2d(<span class="condition">xt, yt</span>)
 <br>
 plot2d{<span class="condition">xt, yt</span>}
+<br>
+・<span class="clear">Ver.2.837.145</span>以降、<a href="#span-out-spaces">改行文字</a>に対応
+<br>
+plot2d(<span class="condition">xt,
+<br>
+yt</span>)
+<br>
+plot2d{<span class="condition">xt,
+<br>
+yt</span>}
+<br>
+・plot終了の<a href="#span-out-log">log表示</a>
+<br>
+-> plot2d-from-arr finished
 <br>
 ・circleを描く時系列data作成の一例を示す
 <br>

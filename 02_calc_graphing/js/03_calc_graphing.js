@@ -942,11 +942,13 @@ My_entry.calc_graphing.prototype.init_handlers = function(){
           if(self.plot2d.isLocked) return false;
           /* -> Ver.2.25.14 */
           try{
-            var tokens_quotation = command.match(/\'.*?\'/g);
+            var re_sS = self.entry.def.get_re_sS({s: "\'", e: "\'"});  // Ver.2.837.145
+            var tokens_quotation = command.match(re_sS);  // Ver.2.837.145
             var tokens_comma = command.replace(/\s/g, "").split(",");  // Ver.2.176.44 white spaces removed
           /* -> Ver.2.34.18 */
             if(tokens_quotation && tokens_quotation.length > 3){
               plot2d_from_log(tokens_quotation);
+              self.io.write_text(self.elems.o, "plot2d-from-log finished");  // Ver.2.837.145
             }
             else if(tokens_comma && tokens_comma.length === 2){
               plot2d_from_arr(tokens_comma, isRowVector);  // Ver.2.175.42

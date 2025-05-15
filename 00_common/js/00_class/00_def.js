@@ -14,6 +14,14 @@ My_entry.def.prototype.config = {
 };
 My_entry.def.prototype.init = function(){
   var self = this;
+  /* calc-Ver.2.837.145 -> */
+  self.str_s = "\\s";
+  self.str_sS = "[\\s\\S]*";
+  self.comments = {
+    line: "[\/]{2}.*",
+    block: self.make_str_sS({s: "\/\\*", e: "\\*\/"})
+  }
+  /* -> calc-Ver.2.837.145 */
   return self;
 };
 
@@ -226,6 +234,16 @@ My_entry.def.prototype.get_number = function(){
   }
   return _num;
 };
+/* calc-Ver.2.837.145 -> */
+My_entry.def.prototype.make_str_sS = function(pairs, isLongest){
+  var self = this;
+  return (pairs.s+self.str_sS+((isLongest)? "": "?")+pairs.e);
+};
+My_entry.def.prototype.get_re_sS = function(pairs, isLongest){
+  var self = this;
+  return new RegExp(self.make_str_sS.apply(self, arguments), "g");
+};
+/* -> calc-Ver.2.837.145 */
 My_entry.def.prototype.get_title = function(input, title, isLongest, opt_i){
   var self = this;
   var pairs = [
@@ -233,9 +251,8 @@ My_entry.def.prototype.get_title = function(input, title, isLongest, opt_i){
     {s: "\\(", e: "\\)"},
     {s: "\\[", e: "\\]"}
   ];
-  var pat = (isLongest)? "(.*)": "(.*?)";
   var pair = pairs[opt_i || 0];
-  var re = new RegExp(title+pair.s+pat+pair.e, "i");  // single
+  var re = new RegExp(self.make_str_sS({s: title+pair.s+"\(", e: "\)"+pair.e}, isLongest), "i");  // single  // calc-Ver.2.837.145
   var mc = input.match(re);
   return ((mc && mc.length === 2)? mc[1]: null);  // if(mc && mc.length)
 };
@@ -246,9 +263,8 @@ My_entry.def.prototype.remove_title = function(input, title, isLongest, opt_i){
     {s: "\\(", e: "\\)"},
     {s: "\\[", e: "\\]"}
   ];
-  var pat = (isLongest)? "(.*)": "(.*?)";
   var pair = pairs[opt_i || 0];
-  var re = new RegExp(title+pair.s+pat+pair.e, "gi");  // all
+  var re = new RegExp(self.make_str_sS({s: title+pair.s+"\(", e: "\)"+pair.e}, isLongest), "gi");  // all  // calc-Ver.2.837.145
   return input.replace(re, "");
 };
 My_entry.def.prototype.get_command = function(input, command, isLongest){
@@ -284,14 +300,14 @@ My_entry.def.prototype.remove_comment = function(script, opt_a){
   var self = this;
   var bas = [];
   var a = opt_a || "";
-  var re = new RegExp(["[\/]{2}.*", "\/\\*[\\s\\S]*?\\*\/"].join("|"), "g");  // calc-Ver.2.837.144
+  var re = new RegExp([self.comments.line, self.comments.block].join("|"), "g");  // calc-Ver.2.837.144  // calc-Ver.2.837.145
   return script.replace(re, a);  // calc-Ver.2.837.144
 };
 My_entry.def.prototype.remove_commentAndWspace = function(script, opt_a){
   var self = this;
   var bas = [];
   var a = opt_a || "";
-  var re = new RegExp(["[\/]{2}.*", "\/\\*[\\s\\S]*?\\*\/", "\\s"].join("|"), "g");  // calc-Ver.2.837.144
+  var re = new RegExp([self.comments.line, self.comments.block, self.str_s].join("|"), "g");  // calc-Ver.2.837.144  // calc-Ver.2.837.145
   return script.replace(re, a);  // calc-Ver.2.837.144
 };
 /* -> calc-Ver.2.837.143 */
