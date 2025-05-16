@@ -32890,13 +32890,7 @@ Jacobi
 <span id="span-out-FNmh-jacobian"></span>
 Jacobi高階行列関数
 <br>
-・Jacobi行列を<a href="#span-out-fdm">有限差分法</a>で数値的に演算して返す
-<br>
-・数値的安定性・収束性を最優先
-<br>
-　Newton法で偏微分の精度は重視しない
-<br>
-　<del>微分位置に応じて差分刻みは可変しない</del><span class="clear">Ver.2.321.78</span>以降、初期値依存性を改善のため、削除
+・Jacobi行列を<a href="#span-out-fdm">有限差分法</a>で数値的に演算して返す（<a href="#span-out-method-Newton">Newton法</a>参照）
 <br>
 ・1次精度の<a href="#span-out-error-numerical">数値誤差</a>O(dx)を含む<del>が、<a href="#span-out-error-numerical">目安の解析誤差</a>を評価・表示しない</del>
 <br>
@@ -32906,9 +32900,11 @@ Jacobi高階行列関数
 <br>
 ・微分位置xでの差分刻みdx既定値<del>dx=dxJ(1+i)</del>
 <br>
-　<span class="clear">Ver.2.321.78</span>以降、dx=dxD((real(x)||1)+(imag(x)||1)i)
+　<span class="clear">Ver.2.321.78</span>以降、微分位置に応じて差分刻みを可変（<a href="#span-out-error">情報落ち</a>の対策と<a href="#span-out-FNmh-newtonian">Newton高階行列関数</a>の反復過程の改善）
 <br>
-　<span class="run">Ver.2.404.86</span>以降、<a href="#span-out-literal">false</a>指定の場合、実数の相対値dx=dxD(real(x)||1)
+　<span class="clear">Ver.2.321.78</span>以降、dx=dx<span class="clear">J</span>((real(x)||1)+(imag(x)||1)i)<span class="clear">Ver.2.840.146</span>以降、訂正
+<br>
+　<span class="run">Ver.2.404.86</span>以降、<a href="#span-out-literal">false</a>指定の場合、実数の相対値dx=dx<span class="clear">J</span>(real(x)||1)<span class="clear">Ver.2.840.146</span>以降、訂正
 <br>
 <del>・未知変数の<a href="#span-out-terms">scope変数</a>を参照するが、上書きしない</del><span class="clear">Ver.2.835.141</span>以降、削除して訂正
 <br>
