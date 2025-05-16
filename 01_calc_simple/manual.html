@@ -908,19 +908,21 @@ test case
 <br>
 ・<span class="selection">Penrose</span>：Penroseの非周期tilingの1種（菱形のpairを作る再帰的な<a href="#span-out-com">複素数</a>演算で記述）
 <br>
+　<span class="run">Ver.2.840.145</span>以降、高速化（1setの入力を複製　⇒　1setの出力を複製）
+<br>
 　-rotation：大域的な5回の回転対称性（黄金triangle起源）
 <br>
-　⇒入力：1setの初期値v0×5
+　+mirror：<span class="run">Ver.2.840.145</span>以降、原点の頂点を変更
 <br>
 　-gnomon-mirror：大域的な鏡映対称性（黄金gnomon起源）
 <br>
-　⇒入力：1setの初期値v0×2
+　+rotation：<span class="run">Ver.2.840.145</span>以降、原点の頂点を変更
 <br>
-　-variant：<span class="run">Ver.2.840.145</span>以降、平面充填の相補的な対称性の変種tiling（黄金triangle+gnomon起源）
+　<span class="jF">-complement</span>：<span class="run">Ver.2.840.145</span>以降、平面充填の相補的な対称性（黄金triangle+gnomon起源）
 <br>
-　⇒triangleの先端@step=5：上記の非周期tilingの規則性を失う
+　-variant：同上の変種tiling（triangleの先端で規則性なし）
 <br>
-　⇒以上の高速化：1setの出力arr_z0×5回の<a href="#span-out-prec-ope-arithmetic-method">push</a>
+　-pattern：同上の規則的なpattern
 <br>
 ・<span class="jF">pinwheel</span>~-Z：回転対称性の平面充填曲線||fractal（再帰的な<a href="#span-out-com">複素</a><a href="#span-out-mat">行列</a>演算で記述）
 <br>
