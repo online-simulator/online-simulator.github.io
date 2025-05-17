@@ -26241,7 +26241,7 @@ clear; num0=_dx(=&lt;{1},1,); mcA=coo2mat(mat2coo(1,2,num0:3,4:5,,)); mcA ->
 mat2coo(NaN) || mat2coo(0) -> (NaN:NaN:NaN)
 <br>
 <br>
-COO形式の<a href="#span-out-linear">Gaussの消去法</a>
+COO形式の<a href="#span-out-method-Gauss">Gaussの消去法</a>
 <br>
 aA=(1,2,3);
 <br>
@@ -40434,7 +40434,7 @@ Newton((x)=&lt;2x+1=0) -> -0.5
 <br>
 上記の反復1回の処理をまとめた<a href="#span-out-FNmh-newtonian">Newton高階行列関数</a>について記述する
 <br>
-・<a href="#span-out-FNm">Scalar倍</a>の符号位置を変えて次の連立線形方程式を<a href="#span-out-linear">Gaussの消去法</a>で解く
+・<a href="#span-out-FNm">Scalar倍</a>の符号位置を変えて次の連立線形方程式を<a href="#span-out-method-Gauss">Gaussの消去法</a>で解く
 <br>
 A=(df[i]/dx[j])
 <br>
@@ -40459,7 +40459,7 @@ x=x-mdx
 <br>
 　<span class="run">Ver.2.834.140</span>~<span class="run">2.836.141</span>以降、連立方程式の列挙順序：昇順　⇒　Fisher-Yates shuffle
 <br>
-・現状、収束可否が初期値より連立方程式の列挙順序に依存
+・現状、収束可否が初期値より連立方程式の列挙順序に依存（完全選択法の<a href="#span-out-method-Gauss">pivot選択</a>は未実装）
 <br>
 　<a href="#span-out-non-linear1">電気回路計算</a>：<a href="#span-out-UI-graphing-testcase"><span class="selection">switching</span>回路</a>
 <br>
@@ -40481,7 +40481,15 @@ Gauss
 Gaussの消去法について記述する
 <br>
 <br>
-pivot選択（scalingなしの部分選択法）の前処理付きで実装する
+実装
+<br>
+・前処理（scalingを含む）：なし
+<br>
+・pivot選択：部分選択法
+<br>
+・前進消去
+<br>
+・後退代入
 <br>
 ・<span class="run">Ver.2.124.34</span>以降、<a href="#span-out-FNm-coo">座標形式</a>に対応
 <br>
