@@ -16216,7 +16216,7 @@ checked選択：右結合
 <br>
 ・<a href="#span-out-type-ope">前置単項演算子</a>の符号は同種の<a href="#span-out-type-ope">中置2項演算子</a>と区別しない
 <br>
-・符号の左側には0||<a href="#span-out-FNm">zeros行列</a>が存在すると仮定して結合する
+・符号の左側には0||<a href="#span-out-FNm-init">zeros行列</a>が存在すると仮定して結合する
 <br>
 <br>
 詳細は<a href="#span-out-special-sign">特殊仕様</a>参照
@@ -24901,11 +24901,11 @@ transpose({1,2:3,4}) || trans({1,2:3,4}) || trans{1,2:3,4} -> (1,2:3,4)
 <br>
 k=1; (k,:,k) -> (1,0:0,1)
 <br>
-・<a href="#span-out-FNm">Scalar行列</a>
+・<a href="#span-out-FNm-init">scalar行列</a>
 <br>
 k=-3; (k,:,k) -> (-3,0:0,-3)
 <br>
-・左右可換の<a href="#span-out-FNm">Scalar倍</a>（同sizeの<a href="#span-out-FNm">Scalar行列</a>との積）
+・左右可換の<a href="#span-out-FNm-init">scalar倍</a>（同sizeの<a href="#span-out-FNm-init">scalar行列</a>との積）
 <br>
 k=-3; (k,:,k)(1,2:3,4) || (1,2:3,4)(k,:,k) -> (-3,-6:-9,-12)
 <br>
@@ -25292,19 +25292,19 @@ identity(100) -> (1,0,0,...,0,0,0,...
 (A=identity(100),A2=A*A) -> (0,0)
 <br>
 <br>
-Scalar行列
+scalar行列
 <br>
 scalars(2,-3) -> (-3,0:0,-3)
 <br>
 scalars(3,i) -> (i,0,0:0,i,0:0,0,i)
 <br>
-Scalars(4,3-5i) -> (3-5i,0,0,0:0,3-5i,0,0:0,0,3-5i,0:0,0,0,3-5i)
+scalars(4,3-5i) -> (3-5i,0,0,0:0,3-5i,0,0:0,0,3-5i,0:0,0,0,3-5i)
 <br>
 ・<span class="run">Ver.2.185.44</span>以降、<a href="#span-out-reference-mat-size">行列size</a>=0の場合、<a href="#span-out-mat-empty">空行列</a>を返す
 <br>
 scalars(0,1) -> []
 <br>
-・任意size行列AのScalar倍
+・任意size行列Aのscalar倍
 <br>
 ・<span class="run">Ver.2.88.32</span>以降、<span class="condition">定義できない<a href="#span-out-prec-ope">乗算||減算||加算</a></span>を<a href="#span-out-ope-extended">拡張行列演算</a>に追加
 <br>
@@ -26004,7 +26004,7 @@ vr=(1,i,-i); (1/normc(trans(vr)))vr ->
 <br>
 (0.5773502691896258,0.5773502691896258i,-0.5773502691896258i)
 <br>
-・<a href="#span-out-FNm">zeros-vector</a>の場合、不定として<a href="#span-out-literal">NaN</a>を返す
+・<a href="#span-out-FNm-init">zeros-vector</a>の場合、不定として<a href="#span-out-literal">NaN</a>を返す
 <br>
 normalizer(0,0,0)  <span class="selection">// NG</span> -> (NaN,NaN,NaN)
 <br>
@@ -26053,7 +26053,7 @@ vc={1,i,-i}; vc(1/normc(vc)) ->
 <br>
 vr=(1,i,-i); normalizec(vr)  <span class="selection">// NG</span> -> (1,i,-i)
 <br>
-・<a href="#span-out-FNm">zeros-vector</a>の場合、不定として<a href="#span-out-literal">NaN</a>を返す
+・<a href="#span-out-FNm-init">zeros-vector</a>の場合、不定として<a href="#span-out-literal">NaN</a>を返す
 <br>
 normalizec({0,0,0})  <span class="selection">// NG</span> -> (NaN:NaN:NaN)
 <br>
@@ -32925,7 +32925,7 @@ Jacobi(=&lt;第1引数,=&lt;第2引数[,=&lt;第3引数[,第4引数]])
 <br>
 option
 <br>
-・第3引数: 未知変数初期値の列vectorを<a href="#span-out-pass-by-equation">式渡し</a>||<a href="#span-out-pass-by-symbol">symbol渡し</a>[0||省略時、<a href="#span-out-FNm">zeros-vector</a>]
+・第3引数: 未知変数初期値の列vectorを<a href="#span-out-pass-by-equation">式渡し</a>||<a href="#span-out-pass-by-symbol">symbol渡し</a>[0||省略時、<a href="#span-out-FNm-init">zeros-vector</a>]
 <br>
 　<del>第3引数は未知変数未定義時のみ有効</del><span class="clear">Ver.2.835.141</span>以降、削除して訂正（引数のみ有効）
 <br>
@@ -33076,7 +33076,7 @@ Newton(=&lt;第1引数,=&lt;第2引数[,=&lt;第3引数[,第4引数[,第5引数[
 <br>
 option
 <br>
-・第3引数: 未知変数初期値の列vectorを<a href="#span-out-pass-by-equation">式渡し</a>||<a href="#span-out-pass-by-symbol">symbol渡し</a>[0||省略時、<a href="#span-out-FNm">zeros-vector</a>]
+・第3引数: 未知変数初期値の列vectorを<a href="#span-out-pass-by-equation">式渡し</a>||<a href="#span-out-pass-by-symbol">symbol渡し</a>[0||省略時、<a href="#span-out-FNm-init">zeros-vector</a>]
 <br>
 　第3引数は未知変数未定義時のみ有効
 <br>
@@ -33143,7 +33143,7 @@ last(mdx=Newton(=&lt;{x0+2*x1=5,3*x0+4*x1=6},=&lt;{x0,x1},=&lt;{0,0}),normc(mdx)
 <br>
 <span class="run">Ver.2.29.15</span>以降
 <br>
-・第3引数0の場合、<a href="#span-out-FNm">zeros-vector</a>
+・第3引数0の場合、<a href="#span-out-FNm-init">zeros-vector</a>
 <br>
 ・第4引数0の場合、偏微分の差分刻みdx=dx既定値
 <br>
@@ -33229,7 +33229,7 @@ camax(trans(mdx))  <span class="selection">// |both-part|</span> -> 1.4645424641
 <br>
 ・未知変数の初期化が必要
 <br>
-・<a href="#span-out-FNm">zeros-vector</a>で初期化の場合、反復2回以上が確定する
+・<a href="#span-out-FNm-init">zeros-vector</a>で初期化の場合、反復2回以上が確定する
 <br>
 clear;
 <br>
@@ -33357,7 +33357,7 @@ _o(=&lt;第1引数,=&lt;第2引数[,=&lt;第3引数[,第4引数[,第5引数[,第
 <br>
 option
 <br>
-・第3引数: 未知変数初期値の列vectorを<a href="#span-out-pass-by-equation">式渡し</a>||<a href="#span-out-pass-by-symbol">symbol渡し</a>[0||省略時、<a href="#span-out-FNm">zeros-vector</a>]
+・第3引数: 未知変数初期値の列vectorを<a href="#span-out-pass-by-equation">式渡し</a>||<a href="#span-out-pass-by-symbol">symbol渡し</a>[0||省略時、<a href="#span-out-FNm-init">zeros-vector</a>]
 <br>
 　第3引数は未知変数未定義時のみ有効
 <br>
@@ -40409,7 +40409,7 @@ Newton法について記述する
 <br>
 ・<a href="#span-out-linear">連立線形方程式</a>A*x=bに一般化されたNewton-Raphson法が導出される
 <br>
-・ここで、<a href="#span-out-type-ope">前置単項</a>の符号は<a href="#span-out-FNm">Scalar倍</a>||<a href="#span-out-FNm">zeros行列</a>との差||和で定義される
+・ここで、<a href="#span-out-type-ope">前置単項</a>の符号は<a href="#span-out-FNm-init">scalar倍</a>||<a href="#span-out-FNm-init">zeros行列</a>との差||和で定義される
 <br>
 (df[i]/dx[j]){dx[j]}={-f[i]}
 <br>
@@ -40436,7 +40436,7 @@ Newton((x)=&lt;2x+1=0) -> -0.5
 <br>
 上記の反復1回の処理をまとめた<a href="#span-out-FNmh-newtonian">Newton高階行列関数</a>について記述する
 <br>
-・<a href="#span-out-FNm">Scalar倍</a>の符号位置を変えて次の<a href="#span-out-linear">連立線形方程式</a>を<a href="#span-out-method-Gauss">Gaussの消去法</a>で解く
+・<a href="#span-out-FNm-init">scalar倍</a>の符号位置を変えて次の<a href="#span-out-linear">連立線形方程式</a>を<a href="#span-out-method-Gauss">Gaussの消去法</a>で解く
 <br>
 A=(df[i]/dx[j])
 <br>
@@ -40956,7 +40956,7 @@ backward; x[ir] -> NaN
 <br>
 ・解が不定の場合、得られる近似解は初期値によって大きく異なる
 <br>
-・初期値が<a href="#span-out-FNm">zeros-vector</a>の場合
+・初期値が<a href="#span-out-FNm-init">zeros-vector</a>の場合
 <br>
 clear;
 <br>
@@ -41390,7 +41390,7 @@ A=(i,2i,3i:4i,5i,6i:7i,8i,9i);
 <br>
 ・行列式が0に漸近するため、逆行列を解く過程で発散する
 <br>
-・初期値が<a href="#span-out-FNm">zeros-vector</a>の場合
+・初期値が<a href="#span-out-FNm-init">zeros-vector</a>の場合
 <br>
 clear;
 <br>
@@ -43929,7 +43929,7 @@ CAS
 <br>
 <a href="#span-out-option1">RA選択</a>時　+3-5+7-9 || (0+(3-(5+(7-9)))) -> 0
 <br>
-・<a href="#span-out-mat">行列</a>も同様に、単項の符号は<a href="#span-out-FNm">Scalar倍</a>||<a href="#span-out-FNm">zeros行列</a>との差||和として扱う
+・<a href="#span-out-mat">行列</a>も同様に、単項の符号は<a href="#span-out-FNm-init">scalar倍</a>||<a href="#span-out-FNm-init">zeros行列</a>との差||和として扱う
 <br>
 -(1,2:3,4) || (-1,:,-1)(1,2:3,4) || (,:,)-(1,2:3,4) -> (-1,-2:-3,-4)
 <br>
@@ -43972,7 +43972,7 @@ equal記号=の仕様を列挙する
 <br>
 <span class="condition">(1,2:3,4)=(,) || =(,)-(1,2:3,4) -> (-1,-2:-3,-4)</span>
 <br>
-・単項の場合、符号同様に左辺には0||<a href="#span-out-FNm">zeros行列</a>が存在すると仮定する
+・単項の場合、符号同様に左辺には0||<a href="#span-out-FNm-init">zeros行列</a>が存在すると仮定する
 <br>
 =8 || 0=8 || =8-0 -> 8
 <br>

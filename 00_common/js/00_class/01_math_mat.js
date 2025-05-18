@@ -90,7 +90,7 @@ My_entry.math_mat.prototype.scalars = function(options, arr){
   var args = DATA.arr2args(arr);
   var num0 = args[0];
   var num1 = args[1];
-  if(!(num1 && num1.com)) throw "Invalid Scalar";
+  if(!(num1 && num1.com)) throw "Invalid scalar";  // Ver.2.842.146
   return self.make_arr(options, num0, null, function(m, n){return self.Imat_num(m, num1);});  // Ver.2.185.44
 };
 My_entry.math_mat.prototype.zeros = function(options, arr){
