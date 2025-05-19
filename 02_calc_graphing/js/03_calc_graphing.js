@@ -134,24 +134,28 @@ My_entry.calc_graphing.prototype.get_axis_zooming = function(rate, options_plot)
   var self = this;
   var $ = self.entry.$;
   var isRelative = options_plot.relzooming;
+  /* Ver.2.842.147 -> */
+  var isLog_x = (options_plot["log-x"])? true: false;
+  var isLog_y = (options_plot["log-y"])? true: false;
   var xmin = $.inputNum_id("input-xmin");
   var ymin = $.inputNum_id("input-ymin");
   var xmax = $.inputNum_id("input-xmax");
   var ymax = $.inputNum_id("input-ymax");
-  if(isRelative){
-    var xc = (xmin+xmax)/2;
-    var yc = (ymin+ymax)/2;
-    xmin = xc+(xmin-xc)*rate;
-    ymin = yc+(ymin-yc)*rate;
-    xmax = xc+(xmax-xc)*rate;
-    ymax = yc+(ymax-yc)*rate;
-  }
-  else{
-    xmin *= rate;
-    ymin *= rate;
-    xmax *= rate;
-    ymax *= rate;
-  }
+  var txmin = self.plot2d.trans(xmin, isLog_x);
+  var tymin = self.plot2d.trans(ymin, isLog_y);
+  var txmax = self.plot2d.trans(xmax, isLog_x);
+  var tymax = self.plot2d.trans(ymax, isLog_y);
+  var txc = (isRelative)? (txmin+txmax)/2: 0;
+  var tyc = (isRelative)? (tymin+tymax)/2: 0;
+  txmin = txc+(txmin-txc)*rate;
+  tymin = tyc+(tymin-tyc)*rate;
+  txmax = txc+(txmax-txc)*rate;
+  tymax = tyc+(tymax-tyc)*rate;
+  xmin = self.plot2d.trans_rev(txmin, isLog_x);
+  ymin = self.plot2d.trans_rev(tymin, isLog_y);
+  xmax = self.plot2d.trans_rev(txmax, isLog_x);
+  ymax = self.plot2d.trans_rev(tymax, isLog_y);
+  /* -> Ver.2.842.147 */
   return {xmin: xmin, ymin: ymin, xmax: xmax, ymax: ymax};
 };
 My_entry.calc_graphing.prototype.output_axis = function(arr2d_vec, options_plot){
