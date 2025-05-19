@@ -29,6 +29,7 @@ My_entry.canvas.prototype.init = function(elem){
     };
   });
   self.onevents = ["onmousedown", "onmousemove", "onmouseup"];
+  self.onevents_sub = ["onwheel"];  // calc-Ver.2.843.147
   self.touch = {
     onmousedown: "ontouchstart",
     onmousemove: "ontouchmove",
@@ -46,6 +47,10 @@ My_entry.canvas.prototype.attach = function(handlers){
   var self = this;
   self.onevents.forEach(function(onevent){
     self.elem[self.point[onevent]] = self.elem[self.touch[onevent]] = self.elem[onevent] = handlers[onevent];
+  });
+  /* calc-Ver.2.843.147 */
+  self.onevents_sub.forEach(function(onevent){
+    self.elem[onevent] = handlers[onevent];
   });
   return self;
 };
@@ -78,6 +83,10 @@ My_entry.canvas.prototype.detach = function(){
   var self = this;
   self.onevents.forEach(function(onevent){
     self.elem[self.point[onevent]] = self.elem[self.touch[onevent]] = self.elem[onevent] = null;
+  });
+  /* calc-Ver.2.843.147 */
+  self.onevents_sub.forEach(function(onevent){
+    self.elem[onevent] = null;
   });
   return self;
 };
@@ -423,6 +432,11 @@ My_entry.canvas.prototype.line = function(x0, y0, x1, y1, opt_lineWidth, opt_sty
 My_entry.canvas.prototype.xy2xyp = function(x, y){
   var self = this;
   return {x: self.x2xp(x), y: self.y2myp(y)};
+};
+/* calc-Ver.2.843.147 */
+My_entry.canvas.prototype.xyp2xy = function(xp, yp){
+  var self = this;
+  return {x: self.xp2x(xp), y: self.myp2y(yp)};
 };
 My_entry.canvas.prototype.arr_vec2arr_vecp = function(arr_vec){
   var self = this;

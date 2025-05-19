@@ -130,7 +130,7 @@ My_entry.calc_graphing.prototype.output_log_plot = function(isFinal){
   return self;
 };
 /* Ver.2.39.18 -> */
-My_entry.calc_graphing.prototype.get_axis_zooming = function(rate, options_plot){
+My_entry.calc_graphing.prototype.get_axis_zooming = function(rate, opt_txy, options_plot){  // Ver.2.843.147
   var self = this;
   var $ = self.entry.$;
   var isRelative = options_plot.relzooming;
@@ -147,6 +147,12 @@ My_entry.calc_graphing.prototype.get_axis_zooming = function(rate, options_plot)
   var tymax = self.plot2d.trans(ymax, isLog_y);
   var txc = (isRelative)? (txmin+txmax)/2: 0;
   var tyc = (isRelative)? (tymin+tymax)/2: 0;
+  /* Ver.2.843.147 -> */
+  if(isRelative && opt_txy){
+    txc = opt_txy.x;
+    tyc = opt_txy.y;
+  }
+  /* -> Ver.2.843.147 */
   txmin = txc+(txmin-txc)*rate;
   tymin = tyc+(tymin-tyc)*rate;
   txmax = txc+(txmax-txc)*rate;
@@ -1216,8 +1222,11 @@ My_entry.calc_graphing.prototype.init_handlers = function(){
       case "x 2":
       case "x10":
         var options_plot = self.get_options(true);
-        var rate = 1/Number(text_half.replace(/x/, ""));
-        self.output_axis(self.get_axis_zooming(rate, options_plot), options_plot);
+        /* Ver.2.843.147 -> */
+        var rate = (e && e._rate) || 1/Number(text_half.replace(/x/, ""));
+        var txy = (e && e._txy);
+        self.output_axis(self.get_axis_zooming(rate, txy, options_plot), options_plot);
+        /* -> Ver.2.843.147 */
         $._id("input-xmin").onchange();
         break;
       /* -> Ver.2.39.18 */

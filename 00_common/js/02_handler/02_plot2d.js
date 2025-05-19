@@ -9,6 +9,7 @@ My_entry.plot2d = function(id, opt_px_w, opt_px_h, opt_px_b){
 My_entry.plot2d.prototype.config = {
   default: {
     msec_snapping: 300,
+    base_zooming: 2,  // calc-Ver.2.843.147
     NUMMIN: -32768,
     NUMMAX: 32767,
     decDigit_grid: 13,  // Ver.2.770.117
@@ -107,6 +108,11 @@ My_entry.plot2d.prototype.init_flags = function(){
   return self;
 };
 /* 1.0.0 -> */
+/* calc-Ver.2.843.147 */
+My_entry.plot2d.prototype.isSnapping = function(){
+  var self = this;
+  return (self.entry.$._id("checkbox-snap").checked || self.sw_snap > 0);
+};
 My_entry.plot2d.prototype.vec2vec_snapped = function(vec){
   var self = this;
   var _vec = vec;
@@ -206,7 +212,7 @@ My_entry.plot2d.prototype.init_handlers = function(){
         vec1 = self.vec1 = temp.get_offset(e);
       }
       vec0 = vec2 || vec0;
-      var isSnapped = (self.entry.$._id("checkbox-snap").checked || self.sw_snap > 0);
+      var isSnapped = self.isSnapping();  // calc-Ver.2.843.147
       if(isSnapped){
         vec0 = self.vec2vec_snapped(vec0);
         vec1 = self.vec2vec_snapped(vec1);
@@ -222,7 +228,7 @@ My_entry.plot2d.prototype.init_handlers = function(){
     /* 1.0.1 -> */
     var vec0 = self.vec2 || self.vec0;
     var vec1 = self.vec1 || self.vec0;
-    var isSnapped = (self.entry.$._id("checkbox-snap").checked || self.sw_snap > 0);
+    var isSnapped = self.isSnapping();  // calc-Ver.2.843.147
     if(isSnapped){
       vec0 = self.vec2vec_snapped(vec0);
       vec1 = self.vec2vec_snapped(vec1);
@@ -248,6 +254,19 @@ My_entry.plot2d.prototype.init_handlers = function(){
     /* -> 1.0.1 */
     self.isDragging = false;
     self.sw_snap = 0;
+  };
+  /* calc-Ver.2.843.147 */
+  handlers.onwheel = function(e){
+    e.preventDefault();
+    e.stopPropagation();
+    var vec0 = temp.get_offset(e);
+    var isSnapped = self.isSnapping();
+    if(isSnapped){
+      vec0 = self.vec2vec_snapped(vec0);
+    }
+    e._txy = grid.xyp2xy(vec0.x, vec0.y);
+    e._rate = Math.pow(self.config.default.base_zooming, (e.deltaY > 0)? 1: -1);
+    self.entry.$._id("zooming").onclick(e);
   };
   self.entry.$.bind_objs(self, self.handlers);
   return self;
