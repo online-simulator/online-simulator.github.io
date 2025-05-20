@@ -257,16 +257,18 @@ My_entry.plot2d.prototype.init_handlers = function(){
   };
   /* calc-Ver.2.843.147 */
   handlers.onwheel = function(e){
-    e.preventDefault();
-    e.stopPropagation();
-    var vec0 = temp.get_offset(e);
-    var isSnapped = self.isSnapping();
-    if(isSnapped){
-      vec0 = self.vec2vec_snapped(vec0);
+    if(self.entry.$._id("checkbox-wheel").checked){
+      e.preventDefault();
+      e.stopPropagation();
+      var vec0 = temp.get_offset(e);
+      var isSnapped = self.isSnapping();
+      if(isSnapped){
+        vec0 = self.vec2vec_snapped(vec0);
+      }
+      e._txy = grid.xyp2xy(vec0.x, vec0.y);
+      e._rate = Math.pow(self.config.default.base_zooming, ((e.deltaY > 0)? 1: -1));
+      self.entry.$._id("zooming").onclick(e);
     }
-    e._txy = grid.xyp2xy(vec0.x, vec0.y);
-    e._rate = Math.pow(self.config.default.base_zooming, (e.deltaY > 0)? 1: -1);
-    self.entry.$._id("zooming").onclick(e);
   };
   self.entry.$.bind_objs(self, self.handlers);
   return self;
