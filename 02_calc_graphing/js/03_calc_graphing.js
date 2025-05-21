@@ -532,18 +532,22 @@ My_entry.calc_graphing.prototype.arr_data2csv = function(arr_data, options_plot)
     var name_x = $._id("input-vx").value;
     var name_y = $._id("input-vy").value;
     var hasName_v = (options_plot["axis-v"] && name_x && name_y);  // Ver.2.328.80
+    /* Ver.2.843.151 -> */
+    var options_calc = arr_data[0].options;
+    var log_command_options_stamp = "";
+    if(options_calc){
+      log_command_options_stamp += dq+options_calc.plot2d+dq+ca;  // for Excel
+      log_command_options_stamp += dq+options_calc.logo+dq+ca;
+    }
+    log_command_options_stamp += dq+self.io.getter.stamp()+dq+rn;
+    /* -> Ver.2.843.151 */
   if(hasName_v){  // Ver.2.328.80
     var len_n = arr_data.length;
     // stamp
     for(var n=0; n<len_n; ++n){
       _csv += name_x+n+ca+name_y+n+ca;
     }
-    var options_calc = arr_data[0].options;
-    if(options_calc){
-      _csv += dq+options_calc.plot2d+dq+ca;
-      _csv += dq+options_calc.logo+dq+ca;
-    }
-    _csv += dq+self.io.getter.stamp()+dq+rn;
+    _csv += log_command_options_stamp;  // Ver.2.843.151
     // (x,y)
     /* Ver.2.337.82 -> */
     len_j = arr_data.length;
@@ -612,16 +616,7 @@ My_entry.calc_graphing.prototype.arr_data2csv = function(arr_data, options_plot)
       _csv += (yj)? dq+yj+dq+ca: "";
     }
     // stamp
-    var options_calc = arr_data[0].options;
-    /* Ver.2.25.12 -> */
-    /* Ver.2.10.4 -> */
-    if(options_calc){
-      _csv += dq+options_calc.plot2d+dq+ca;
-      _csv += dq+options_calc.logo+dq+ca;
-    }
-    /* -> Ver.2.10.4 */
-    /* -> Ver.2.25.12 */
-    _csv += dq+self.io.getter.stamp()+dq+rn;
+    _csv += log_command_options_stamp;  // Ver.2.10.4  // Ver.2.25.12  // Ver.2.843.151
     // (x,y)
     var arr2d_vec = self.arr_data2arr2d_vec(arr_data, options_plot);
     var len_n = arr2d_vec.len_n;
