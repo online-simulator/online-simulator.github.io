@@ -1309,6 +1309,7 @@ My_entry.operation.prototype.jacobian = function(data, rightArr, tagObj){
     return _arr_x;
   };
   /* -> Ver.2.237.56 */
+  var isDefined_x0 = false;  // Ver.2.843.149
   var make_get_f_from_arr_f0 = function(arr_f0, len_i, i0, j0){
     var _get_f = null;
     /* Ver.1.5.3 -> f<={A(x)=b} */
@@ -1316,6 +1317,7 @@ My_entry.operation.prototype.jacobian = function(data, rightArr, tagObj){
     var len_fj = arr_f0[len_fi-1].length;
     if(len_fi === len_i){
       if(len_fi > 1){  // Ver.2.776.123
+        if(isDefined_x0 && isRow === true) throw msgErr+"(RC)";  // Ver.2.843.149
         isRow = false;  // Ver.2.237.56
       }
       _get_f = function(arr_f, i){
@@ -1324,6 +1326,7 @@ My_entry.operation.prototype.jacobian = function(data, rightArr, tagObj){
     }
     /* Ver.2.237.56 -> */
     else if(len_fj === len_i){
+      if(isDefined_x0 && isRow === false) throw msgErr+"(RC)";  // Ver.2.843.149
       isRow = true;
       _get_f = function(arr_f, i){
         return arr_f[len_fi-1][i];
@@ -1393,6 +1396,7 @@ if(prop === "OX" || prop === "TX"){  // ODE  // Ver.2.23.11  // Ver.2.231.56  //
     var arg1 = args[1];  // Ver.2.233.56
     /* Ver.2.735.107 -> */
     if(self.hasEqn_arg(arg1)){  // Ver.2.233.56
+      isDefined_x0 = true;  // Ver.2.843.149
       arr_x = get_arr_x(arg1, len_i);  // Ver.2.233.56  // Ver.2.237.56
     }
     else if(self.has0_arg(arg1)){
@@ -1748,6 +1752,7 @@ else{
     var arg1 = args[1];  // Ver.2.233.56
     /* Ver.2.735.107 -> */
     if(self.hasEqn_arg(arg1)){  // Ver.2.233.56
+      isDefined_x0 = true;  // Ver.2.843.149
       arr_x = get_arr_x(arg1, len_i);  // Ver.2.233.56  // Ver.2.237.56
     }
     else if(self.has0_arg(arg1) || self.isUndef_arg(arg1)){

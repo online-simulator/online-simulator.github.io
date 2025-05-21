@@ -1131,23 +1131,23 @@ test case
 <br>
 　・<a href="#span-out-spec-changed-history">演算仕様変更履歴</a>
 <br>
-　・<a href="#span-out-spec-default-history">既定値変更履歴</a>
+　・<a href="#span-out-spec-default-history">演算既定値変更履歴</a>
 <br>
-　・<a href="#span-out-spec-deprecated-history">仕様廃止履歴</a>
+　・<a href="#span-out-spec-deprecated-history">演算仕様廃止履歴</a>
+<br>
+　・<a href="#span-out-spec-stricter-history">演算仕様厳格化履歴</a>
 <br>
 　・<a href="#span-out-ope-extended-history1">機能拡張履歴</a>
 <br>
 　・<a href="#span-out-ope-extended-history2">拡張行列演算拡張履歴</a>
 <br>
-　・<a href="#span-out-spec-limited-history">制限追加履歴</a>
-<br>
-　・<a href="#span-out-spec-optimized-history">最適化履歴</a>
-<br>
-　・<a href="#span-out-spec-pending">pending</a>
+　・<a href="#span-out-spec-optimized-history">演算最適化履歴</a>
 <br>
 　・<a href="#span-out-spec-plot-history">plot仕様変更履歴</a>
 <br>
 　・<a href="#span-out-spec-canvas-history">plot表示仕様変更履歴</a>
+<br>
+　・<a href="#span-out-spec-pending">pending</a>
 <br>
 ・<a href="#span-out-development">開発環境</a>
 <br>
@@ -7443,23 +7443,23 @@ ns(10000) -> 97876.06036044357
 <br>
 ・<a href="#span-out-spec-changed-history">演算仕様変更履歴</a>
 <br>
-・<a href="#span-out-spec-default-history">既定値変更履歴</a>
+・<a href="#span-out-spec-default-history">演算既定値変更履歴</a>
 <br>
-・<a href="#span-out-spec-deprecated-history">仕様廃止履歴</a>
+・<a href="#span-out-spec-deprecated-history">演算仕様廃止履歴</a>
+<br>
+・<a href="#span-out-spec-stricter-history">演算仕様厳格化履歴</a>
 <br>
 ・<a href="#span-out-ope-extended-history1">機能拡張履歴</a>
 <br>
 ・<a href="#span-out-ope-extended-history2">拡張行列演算拡張履歴</a>
 <br>
-・<a href="#span-out-spec-limited-history">制限追加履歴</a>
-<br>
-・<a href="#span-out-spec-optimized-history">最適化履歴</a>
-<br>
-・<a href="#span-out-spec-pending">pending</a>
+・<a href="#span-out-spec-optimized-history">演算最適化履歴</a>
 <br>
 ・<a href="#span-out-spec-plot-history">plot仕様変更履歴</a>
 <br>
 ・<a href="#span-out-spec-canvas-history">plot表示仕様変更履歴</a>
+<br>
+・<a href="#span-out-spec-pending">pending</a>
     </td>
   </tr>
   <tr>
@@ -7474,7 +7474,7 @@ ns(10000) -> 97876.06036044357
     </th>
     <td>
 <span id="span-out-spec-changed-history"></span>
-演算仕様変更履歴について記述する
+演算仕様の変更履歴について記述する
 <br>
 <br>
 演算結果の後方互換性を失う仕様変更/影響項目を列挙する
@@ -7611,12 +7611,6 @@ ns(10000) -> 97876.06036044357
 <br>
 　<a href="#span-eqn">strict-mode式変数list</a>への影響なし
 <br>
-・<span class="run">Ver.2.210.46</span>以降、<a href="#span-out-scope-vars-has1BT">単独scope</a>の判定を厳格化（<a href="#span-eqn-scope_NG">scope_NG</a>のNG範囲を最小化）
-<br>
-　式の長さ制限あり　⇒　長さ制限なし（単独の<a href="#span-out-BT">括弧</a>を探索）
-<br>
-　影響項目：<a href="#span-out-eqns-re-use">scope付式変数の再利用</a>||<a href="#span-eqn-scope_NG">scope_NG</a>
-<br>
 ・<span class="run">Ver.2.219.50</span>以降、<a href="#span-out-pass-by-equation">式渡し</a>記号=&lt;の仕様を変更して==&lt;を追加
 <br>
 　元scopeを維持：=&lt;
@@ -7741,41 +7735,9 @@ clear; f=&lt;-1; f=1; [f=2,=&lt;f]=&gt;,[f=&lt;-2,=&lt;f]=&gt; -> (2,<del>1</del
 <br>
 　影響項目：<a href="#span-out-FNh-DX">微分高階関数</a>||<a href="#span-out-FNh-IX">積分高階関数</a>||<a href="#span-out-FNmh-OX">ODE高階行列関数</a>||<a href="#span-out-FNmh-TX">ODEt高階行列関数</a>
 <br>
-・<span class="run">Ver.2.373.86</span>以降、<a href="#span-out-FNm-size">行列size</a>指定のindexを厳格化
-<br>
-　index：[0]　⇒　<a href="#span-out-mat-empty">空行列</a>[]（[0]指定の場合、初期化と異なり、size不正のerror終了）
-<br>
-　影響項目：<a href="#span-out-reference-mat-area">area参照</a>||<a href="#span-out-substitution-mat-area">area代入</a>
-<br>
 ・<span class="run">Ver.2.381.86</span>以降、繰り返し回数=1~のdummy変数を一時的に保持する<a href="#span-out-ans">予約変数</a>__n__を追加
 <br>
 　影響項目：<a href="#span-out-FNh-RX">再帰高階関数</a>
-<br>
-・<span class="run">Ver.2.421.88</span>以降、<a href="#span-out-substitution-mat">行列への代入</a>の<a href="#span-out-FNm-size">行列size</a>比較を厳格化
-<br>
-　<a href="#span-out-substitution-mat-row">行代入</a>：右辺の最終行を代入　⇒　1行の場合、代入可
-<br>
-　<a href="#span-out-substitution-mat-col">列代入</a>：右辺の最終列を代入　⇒　1列の場合、代入可
-<br>
-　<a href="#span-out-substitution-mat-elem">要素代入</a>：右辺の<a href="#span-out-FNm-last">最終要素</a>を代入　⇒　1要素の場合、代入可
-<br>
-　影響項目：<a href="#span-out-substitution-mat-row">行代入</a>||<a href="#span-out-substitution-mat-col">列代入</a>||<a href="#span-out-substitution-mat-elem">要素代入</a>
-<br>
-・<span class="run">Ver.2.440.90</span>以降、<a href="#span-out-matching">行列要素pattern matching</a>の<a href="#span-out-FNm-size">行列size</a>比較を厳格化
-<br>
-　<a href="#span-out-FNm-size">行列size</a>違いの比較可　⇒　比較不可
-<br>
-　影響項目：<a href="#span-out-matching">行列要素pattern matching</a>
-<br>
-clear; ($a,$b,$c)=(1,2); (a,b) -> <del>(1,2)</del>[MyErr]Invalid matching-size(LR)
-<br>
-・<span class="run">Ver.2.441.90</span>以降、<a href="#span-out-matching">行列要素pattern matching</a>の要素比較を厳格化
-<br>
-　代入に無関係の要素の比較可　⇒　比較不可
-<br>
-　影響項目：<a href="#span-out-matching">行列要素pattern matching</a>
-<br>
-clear; ($a,$b,3)=(1,2,=&lt;4); (a,b) -> <del>(1,2)</del>[MyErr]Invalid matching(LR)
 <br>
 ・<span class="run">Ver.2.444.90</span>以降、<a href="#span-out-UI-graphing">Graphing Calculator</a>の<a href="#span-out-UI-graphing">t0/t1</a>分割点の丸め方を最適化（<a href="#span-out-epsilon">Machine epsilon</a>程度の相違あり）
 <br>
@@ -7791,28 +7753,6 @@ clear; ($a,$b,3)=(1,2,=&lt;4); (a,b) -> <del>(1,2)</del>[MyErr]Invalid matching(
 <br>
 　<a href="#span-eqn">strict-mode式変数list</a>への影響なし
 <br>
-・<span class="clear">Ver.2.735.105~107</span>以降、<a href="#span-out-FNmh">高階行列関数</a>の引数判定を厳格化
-<br>
-　引数省略：引数不足の場合、error終了
-<br>
-_t(=&lt;1) -> <del>Cannot read properties of undefined</del>[MyErr]Invalid TX arguments
-<br>
-　<span class="clear">Ver.2.774.121</span>以降、<a href="#span-out-FNmh-TX">ODEt高階行列関数</a>の引数判定を追加修正
-<br>
-_t(=&lt;1,,,1,1) -> <del>Cannot read properties of undefined</del>[MyErr]Invalid TX arguments
-<br>
-　引数の<a href="#span-out-FNm-size">行列size</a>比較：size不整合の場合、error終了
-<br>
-_o((t,x)=&lt;t,,=&lt;{,,},,1,4)  -> <del>8+O(1e+0)</del>[MyErr]Invalid OX arguments
-<br>
-　初期値省略：無次元の0以外の場合、error終了
-<br>
-_o((t,x)=&lt;t,,true,,1,4)  -> <del>8+O(1e+0)</del>[MyErr]Invalid OX arguments
-<br>
-_t((t,x)=&lt;t,,true,1,4)  -> <del>(4:8+O(1e+0))</del>[MyErr]Invalid TX arguments
-<br>
-Newton((x)=&lt;x+0,1,true) -> <del>0</del>[MyErr]Invalid newtonian arguments
-<br>
 ・<span class="run">Ver.2.736.107</span>以降、<a href="#span-out-ans">予約変数</a>__t__||__x__を追加
 <br>
 　影響項目：<a href="#span-out-FNmh-OX">ODE高階行列関数</a>||<a href="#span-out-FNmh-TX">ODEt高階行列関数</a>
@@ -7820,20 +7760,6 @@ Newton((x)=&lt;x+0,1,true) -> <del>0</del>[MyErr]Invalid newtonian arguments
 ・<span class="run">Ver.2.739.107</span>以降、<a href="#span-out-ans">予約変数</a>__x__に追加の対応
 <br>
 　影響項目：<a href="#span-out-FNmh-jacobian">Jacobi高階行列関数</a>||<a href="#span-out-FNmh-newtonian">Newton高階行列関数</a>
-<br>
-・<span class="clear">Ver.2.747.112</span>以降、<a href="#span-out-reference-mat-index">行列index</a>の判別を厳格化
-<br>
-A=(1,2:3,4); A[i] -> <del>(1,2)</del>[MyErr]Invalid reference of array[1i]
-<br>
-　影響項目：<a href="#span-out-reference-mat">行列への参照</a>||<a href="#span-out-substitution-mat">行列への代入</a>
-<br>
-　内部判定値：Math.E　⇒　null　⇒　undefined　<span class="clear">Ver.2.768.117</span>以降、error終了を復帰
-<br>
-A=(1,2:3,4); A[][] -> <del>(1:3)</del>[MyErr]Invalid reference of array[][undefined]
-<br>
-A=(1,2:3,4); A[][][] -> <del>(1,1,1:4,4,4)</del>[MyErr]Invalid reference of array(band)
-<br>
-A=(1,2:3,4); A[][][][] -> <del>(1,2:3,4)</del>[MyErr]Invalid reference of array(area)
 <br>
 ・<span class="clear">Ver.2.791.126</span>以降、<a href="#span-out-pass-by-symbol">symbol渡し</a>||<a href="#span-out-pass-by-name">name渡し</a>の仕様修正
 <br>
@@ -7866,13 +7792,13 @@ clear; f(x)=&lt;d=x:[c=[],c.push(==&lt;f),(c)(1)=&gt;,hass(d)],hass(d) -> (0:0,N
 目次
 </a>
 <br>
-既定値
+演算既定値
 <br>
 変更履歴
     </th>
     <td>
 <span id="span-out-spec-default-history"></span>
-既定値の変更履歴を列挙する
+演算既定値の変更履歴を列挙する
 <br>
 ・<span class="clear">Ver.2.321.78</span>以降、差分刻みの仕様修正（修正量ではなく、絶対値　⇒　微分位置の相対値）
 <br>
@@ -7905,11 +7831,13 @@ Newton((x)=&lt;2x+1=0) -> <del>-0.5000000000011378+1.137793394920403e-12i</del>-
 目次
 </a>
 <br>
-仕様廃止履歴
+演算仕様
+<br>
+廃止履歴
     </th>
     <td>
 <span id="span-out-spec-deprecated-history"></span>
-仕様の廃止履歴を列挙する
+演算仕様の廃止履歴を列挙する
 <br>
 ・<span class="clear">Ver.2.203.46</span>以降、<a href="#span-out-eqns-call2var">変数への式読出し</a>の仕様を廃止して<a href="#span-out-eqns-call2eqn">式変数への式読出し</a>を追加
 <br>
@@ -7954,6 +7882,151 @@ A=(1,2:3,4); A[][0] -> (1:3)
 　引数の<a href="#span-in-pass-by-equation">遅延評価</a>：あり　⇒　なし（<a href="#span-out-pass-by-equation">式渡し</a>の判別）
 <br>
 　影響項目：<a href="#span-out-prec-ope-arithmetic-method">method演算子</a>||<a href="#span-eqn">strict-mode式変数list</a>
+    </td>
+  </tr>
+  <tr>
+    <th>
+<a href="#span-index">
+目次
+</a>
+<br>
+演算仕様
+<br>
+厳格化履歴
+    </th>
+    <td>
+<span id="span-out-spec-stricter-history"></span>
+演算仕様の厳格化履歴を列挙する
+<br>
+・<span class="run">Ver.2.210.46</span>以降、<a href="#span-out-scope-vars-has1BT">単独scope</a>の判定を厳格化（<a href="#span-eqn-scope_NG">scope_NG</a>のNG範囲を最小化）
+<br>
+　式の長さ制限あり　⇒　長さ制限なし（単独の<a href="#span-out-BT">括弧</a>を探索）
+<br>
+　影響項目：<a href="#span-out-eqns-re-use">scope付式変数の再利用</a>||<a href="#span-eqn-scope_NG">scope_NG</a>
+<br>
+・<span class="run">Ver.2.272.63</span>以降、<a href="#span-out-BT-empty">空括弧</a>の判別を厳格化
+<br>
+　無条件に削除　⇒　定数<a href="#span-out-BT">()</a>のみ削除・<a href="#span-out-BT">波括弧{}</a>禁止
+<br>
+・<span class="run">Ver.2.272.63</span>以降、引数0個の関数callを厳格化
+<br>
+　<a href="#span-out-BT">丸括弧()</a>の省略可　⇒　省略不可
+<br>
+　影響項目：<a href="#span-out-FN-rand">乱数関数</a>||<a href="#span-eqn-random">random</a>||<a href="#span-eqn-magic">magic-square</a>
+<br>
+・<span class="run">Ver.2.275.65</span>以降、既定で<a href="#span-out-eqns">式変数</a>のcall記号省略不可（syntaxの問題を解消）
+<br>
+　call記号：=&gt;　⇔　関数callの<a href="#span-out-BT">丸括弧()</a>
+<br>
+　記号省略：自動実行　⇒　<a href="#span-out-eqns">式変数</a>宣言@<a href="#span-out-config-strict">Non-strict-mode</a>の判別（callの場合、記号を明示）
+<br>
+last{set_x=&lt;(x=1),x=0,set_x,x} -> <del>1</del>0
+<br>
+last{set_x=&lt;(x=1),x=0,set_x(),x} -> 1
+<br>
+　syntaxの問題：下記<span class="clear"><a href="#span-out-eqns-args">arguments</a></span>無効で実行可能　⇒　error終了
+<br>
+_r((n)=&lt;run,run<span class="clear">(n,n)</span>=&lt;n+1,3) -> <del>3</del>[MyErr]Invalid BTe([object Object],[object Object],[object Object])
+<br>
+_r((n)=&lt;run(),run(n,n)=&lt;n+1,3) -> [MyErr]Invalid args.length=2(run)
+<br>
+_r((n)=&lt;run(),run=&lt;n+1,3) -> 3
+<br>
+　影響項目：<a href="#span-out-config-strict">Non-strict-mode</a>||<a href="#span-out-FNh">高階関数</a>||<a href="#span-out-FNmh">高階行列関数</a>
+<br>
+・<span class="run">Ver.2.290.71</span>以降、<a href="#span-out-BT">丸括弧()</a>の判別を厳格化
+<br>
+=&lt;x,()=&lt;x -> ($x,<del>$x</del>eqn())
+<br>
+=&lt;x+1,()=&lt;x+1 -> (eqn,eqn())
+<br>
+(x)=&lt;x,(x,y)=&lt;x+y -> (eqn(x),eqn(x,y))
+<br>
+{x,y}=&lt;x+y,{(x,(y,z))}=&lt;x+y+z -> (eqn(y),eqn(x,y,z))
+<br>
+・<span class="run">Ver.2.301.72</span>以降、<a href="#span-out-vars-escape">escape記号</a>を<a href="#span-out-RW">予約語</a>に追加
+<br>
+　$記号：<a href="#span-out-vars-symbol">変数名symbol</a>の一部に使用可　⇒　使用不可
+<br>
+　影響項目：<a href="#span-out-vars-rule2">変数の命名規則</a>
+<br>
+・<span class="run">Ver.2.373.86</span>以降、<a href="#span-out-FNm-size">行列size</a>指定のindexを厳格化
+<br>
+　index：[0]　⇒　<a href="#span-out-mat-empty">空行列</a>[]（[0]指定の場合、初期化と異なり、size不正のerror終了）
+<br>
+　影響項目：<a href="#span-out-reference-mat-area">area参照</a>||<a href="#span-out-substitution-mat-area">area代入</a>
+<br>
+・<span class="run">Ver.2.421.88</span>以降、<a href="#span-out-substitution-mat">行列への代入</a>の<a href="#span-out-FNm-size">行列size</a>比較を厳格化
+<br>
+　<a href="#span-out-substitution-mat-row">行代入</a>：右辺の最終行を代入　⇒　1行の場合、代入可
+<br>
+　<a href="#span-out-substitution-mat-col">列代入</a>：右辺の最終列を代入　⇒　1列の場合、代入可
+<br>
+　<a href="#span-out-substitution-mat-elem">要素代入</a>：右辺の<a href="#span-out-FNm-last">最終要素</a>を代入　⇒　1要素の場合、代入可
+<br>
+　影響項目：<a href="#span-out-substitution-mat-row">行代入</a>||<a href="#span-out-substitution-mat-col">列代入</a>||<a href="#span-out-substitution-mat-elem">要素代入</a>
+<br>
+・<span class="run">Ver.2.440.90</span>以降、<a href="#span-out-matching">行列要素pattern matching</a>の<a href="#span-out-FNm-size">行列size</a>比較を厳格化
+<br>
+　<a href="#span-out-FNm-size">行列size</a>違いの比較可　⇒　比較不可
+<br>
+　影響項目：<a href="#span-out-matching">行列要素pattern matching</a>
+<br>
+clear; ($a,$b,$c)=(1,2); (a,b) -> <del>(1,2)</del>[MyErr]Invalid matching-size(LR)
+<br>
+・<span class="run">Ver.2.441.90</span>以降、<a href="#span-out-matching">行列要素pattern matching</a>の要素比較を厳格化
+<br>
+　代入に無関係の要素の比較可　⇒　比較不可
+<br>
+　影響項目：<a href="#span-out-matching">行列要素pattern matching</a>
+<br>
+clear; ($a,$b,3)=(1,2,=&lt;4); (a,b) -> <del>(1,2)</del>[MyErr]Invalid matching(LR)
+<br>
+・<span class="clear">Ver.2.735.105~107</span>以降、<a href="#span-out-FNmh">高階行列関数</a>の引数判定を厳格化
+<br>
+　引数省略：引数不足の場合、error終了
+<br>
+_t(=&lt;1) -> <del>Cannot read properties of undefined</del>[MyErr]Invalid TX arguments
+<br>
+　<span class="clear">Ver.2.774.121</span>以降、<a href="#span-out-FNmh-TX">ODEt高階行列関数</a>の引数判定を追加修正
+<br>
+_t(=&lt;1,,,1,1) -> <del>Cannot read properties of undefined</del>[MyErr]Invalid TX arguments
+<br>
+　引数の<a href="#span-out-FNm-size">行列size</a>比較：size不整合の場合、error終了
+<br>
+_o((t,x)=&lt;t,,=&lt;{,,},,1,4)  -> <del>8+O(1e+0)</del>[MyErr]Invalid OX arguments
+<br>
+　初期値省略：無次元の0以外の場合、error終了
+<br>
+_o((t,x)=&lt;t,,true,,1,4)  -> <del>8+O(1e+0)</del>[MyErr]Invalid OX arguments
+<br>
+_t((t,x)=&lt;t,,true,1,4)  -> <del>(4:8+O(1e+0))</del>[MyErr]Invalid TX arguments
+<br>
+Newton((x)=&lt;x+0,1,true) -> <del>0</del>[MyErr]Invalid newtonian arguments
+<br>
+　<span class="clear">Ver.2.843.149</span>以降、size不整合の判定を厳格化
+<br>
+_o((t,x,y)=&lt;(,),=&lt;{,},1,1) || _o((t,x,y)=&lt;{,},=&lt;(,),1,1) -> [MyErr]Invalid OX arguments(RC)
+<br>
+_t((t,x,y)=&lt;(,),=&lt;{,,},1,1) || _t((t,x,y)=&lt;{,},=&lt;(,,),1,1) -> [MyErr]Invalid TX arguments(RC)
+<br>
+Jacobi((x,y)=&lt;(x,y),=&lt;{,})|| Jacobi((x,y)=&lt;{x,y},=&lt;(,)) -> [MyErr]Invalid jacobian arguments(RC)
+<br>
+Newton((x,y)=&lt;(x,y),=&lt;{,})|| Newton((x,y)=&lt;{x,y},=&lt;(,)) -> [MyErr]Invalid newtonian arguments(RC)
+<br>
+・<span class="clear">Ver.2.747.112</span>以降、<a href="#span-out-reference-mat-index">行列index</a>の判別を厳格化
+<br>
+A=(1,2:3,4); A[i] -> <del>(1,2)</del>[MyErr]Invalid reference of array[1i]
+<br>
+　影響項目：<a href="#span-out-reference-mat">行列への参照</a>||<a href="#span-out-substitution-mat">行列への代入</a>
+<br>
+　内部判定値：Math.E　⇒　null　⇒　undefined　<span class="clear">Ver.2.768.117</span>以降、error終了を復帰
+<br>
+A=(1,2:3,4); A[][] -> <del>(1:3)</del>[MyErr]Invalid reference of array[][undefined]
+<br>
+A=(1,2:3,4); A[][][] -> <del>(1,1,1:4,4,4)</del>[MyErr]Invalid reference of array(band)
+<br>
+A=(1,2:3,4); A[][][][] -> <del>(1,2:3,4)</del>[MyErr]Invalid reference of array(area)
     </td>
   </tr>
   <tr>
@@ -8040,16 +8113,6 @@ f(=&lt;(=&lt;1,=&lt;2:=&lt;3,=&lt;4)) -> <del>[MyErr]Invalid .map(f)</del>(1,2:3
 <br>
 =&lt;x -> [MyErr]Invalid BTe([object Object])
 <br>
-・<span class="run">Ver.2.290.71</span>以降、<a href="#span-out-BT">丸括弧()</a>の判別を厳格化
-<br>
-=&lt;x,()=&lt;x -> ($x,<del>$x</del>eqn())
-<br>
-=&lt;x+1,()=&lt;x+1 -> (eqn,eqn())
-<br>
-(x)=&lt;x,(x,y)=&lt;x+y -> (eqn(x),eqn(x,y))
-<br>
-{x,y}=&lt;x+y,{(x,(y,z))}=&lt;x+y+z -> (eqn(y),eqn(x,y,z))
-<br>
 ・<span class="run">Ver.2.296.72</span>以降、<a href="#span-out-const-vars">const宣言</a>の<a href="#span-out-log">log表示</a>に対応（右代入を除く）
 <br>
 clear; $a=1 -> const a=1
@@ -8134,64 +8197,17 @@ h(x)=&lt;false; _r((n)=&lt;n+1,,10,=&lt;h) -> <del>10</del>[MyErr]Invalid RX arg
 目次
 </a>
 <br>
-制限追加履歴
-    </th>
-    <td>
-<span id="span-out-spec-limited-history"></span>
-制限追加履歴を列挙する
-<br>
-・<span class="clear">Ver.2.144.36</span>以降、<a href="#span-out-flow">operation</a>段階の<a href="#span-out-concatenation">行列結合</a>を含む<a href="#span-in-options">depthMax</a>制限を追加（browser crashの2重対策）
-<br>
-・<span class="run">Ver.2.272.63</span>以降、<a href="#span-out-BT-empty">空括弧</a>の判別を厳格化
-<br>
-　無条件に削除　⇒　定数<a href="#span-out-BT">()</a>のみ削除・<a href="#span-out-BT">波括弧{}</a>禁止
-<br>
-・<span class="run">Ver.2.272.63</span>以降、引数0個の関数callを厳格化
-<br>
-　<a href="#span-out-BT">丸括弧()</a>の省略可　⇒　省略不可
-<br>
-　影響項目：<a href="#span-out-FN-rand">乱数関数</a>||<a href="#span-eqn-random">random</a>||<a href="#span-eqn-magic">magic-square</a>
-<br>
-・<span class="run">Ver.2.275.65</span>以降、既定で<a href="#span-out-eqns">式変数</a>のcall記号省略不可（syntaxの問題を解消）
-<br>
-　call記号：=&gt;　⇔　関数callの<a href="#span-out-BT">丸括弧()</a>
-<br>
-　記号省略：自動実行　⇒　<a href="#span-out-eqns">式変数</a>宣言@<a href="#span-out-config-strict">Non-strict-mode</a>の判別（callの場合、記号を明示）
-<br>
-last{set_x=&lt;(x=1),x=0,set_x,x} -> <del>1</del>0
-<br>
-last{set_x=&lt;(x=1),x=0,set_x(),x} -> 1
-<br>
-　syntaxの問題：下記<span class="clear"><a href="#span-out-eqns-args">arguments</a></span>無効で実行可能　⇒　error終了
-<br>
-_r((n)=&lt;run,run<span class="clear">(n,n)</span>=&lt;n+1,3) -> <del>3</del>[MyErr]Invalid BTe([object Object],[object Object],[object Object])
-<br>
-_r((n)=&lt;run(),run(n,n)=&lt;n+1,3) -> [MyErr]Invalid args.length=2(run)
-<br>
-_r((n)=&lt;run(),run=&lt;n+1,3) -> 3
-<br>
-　影響項目：<a href="#span-out-config-strict">Non-strict-mode</a>||<a href="#span-out-FNh">高階関数</a>||<a href="#span-out-FNmh">高階行列関数</a>
-<br>
-・<span class="run">Ver.2.301.72</span>以降、<a href="#span-out-vars-escape">escape記号</a>を<a href="#span-out-RW">予約語</a>に追加
-<br>
-　$記号：<a href="#span-out-vars-symbol">変数名symbol</a>の一部に使用可　⇒　使用不可
-<br>
-　影響項目：<a href="#span-out-vars-rule2">変数の命名規則</a>
-    </td>
-  </tr>
-  <tr>
-    <th>
-<a href="#span-index">
-目次
-</a>
+演算
 <br>
 最適化履歴
     </th>
     <td>
 <span id="span-out-spec-optimized-history"></span>
-最適化履歴を列挙する
+演算の最適化履歴を列挙する
 <br>
 ・<span class="run">Ver.2.142.36</span>以降、<a href="#span-out-flow">parse</a>段階で<a href="#span-out-num">実数値</a>の大規模<a href="#span-out-csv-format">csv-format</a>入力に対応
+<br>
+・<span class="clear">Ver.2.144.36</span>以降、<a href="#span-out-flow">operation</a>段階の<a href="#span-out-concatenation">行列結合</a>を含む<a href="#span-in-options">depthMax</a>制限を追加（browser crashの2重対策）
 <br>
 ・<span class="run">Ver.2.156.38</span>以降、<a href="#span-out-flow">operation</a>段階の<a href="#span-out-concatenation">行列結合</a>のnestingを最適化
 <br>
@@ -8278,6 +8294,118 @@ clear; f(3,x)=&lt;x -> [MyErr]Invalid args isFound(f)
 ・<span class="run">Ver.2.768.116</span>以降、行vectorの<a href="#span-out-reference-mat-col">列参照</a>を最適化
 <br>
 　転置処理：あり　⇒　なし
+    </td>
+  </tr>
+  <tr>
+    <th>
+<a href="#span-index">
+目次
+</a>
+<br>
+plot仕様
+<br>
+変更履歴
+    </th>
+    <td>
+<span id="span-out-spec-plot-history"></span>
+<a href="#span-out-UI-graphing">Graphing Calculator</a>のplot仕様変更履歴を列挙する
+<br>
+・<span class="run">Ver.2.33.17</span>以降、正式release
+<br>
+　後方互換性のため、<a href="#span-in-options">内部option</a>を追加
+<br>
+・<span class="run">Ver.2.86.32</span>以降、plot範囲を微調整
+<br>
+・<span class="run">Ver.2.190.44</span>以降、plot範囲の自動調整機能を削除して<a href="#span-out-UI-graphing">plot2d-Ver</a>の選択肢を追加
+<br>
+　Ver.0：<span class="run">Ver.2.33.17</span>以前の仕様（<a href="#span-in-options">oldPlot2d=true</a>）
+<br>
+　Ver.1：<span class="run">Ver.2.33.17</span>~<span class="run">2.190.44</span>の仕様
+<br>
+　Ver.2：<span class="run">Ver.2.190.44</span>~の仕様
+<br>
+・<span class="run">Ver.2.277.65</span>以降、<a href="#span-out-eqns">式変数</a>宣言の<a href="#span-out-flow">parser-post</a>処理を変更
+<br>
+　error終了　⇒　BTe（BrackeTeqn）の<a href="#span-out-log">log表示</a>
+<br>
+・<span class="run">Ver.2.279.65</span>以降、<a href="#span-out-BT-empty">空括弧</a>のplot値を変更
+<br>
+　0　⇒　<a href="#span-out-num-NaN">欠損値</a>
+<br>
+・<span class="run">Ver.2.279.65</span>以降、数値以外の要素（<a href="#span-out-eqns">式変数</a>宣言を含む）が残存する場合、plotの挙動を変更
+<br>
+　error終了　⇒　<a href="#span-out-num-NaN">欠損値</a>に変換
+<br>
+・<span class="clear">Ver.2.280.66</span>以降、上記変更により、未定義の<a href="#span-out-vars">変数</a>を検知不能の致命的な不具合を修正
+<br>
+　検知段階：<del><a href="#span-out-flow">parser-post</a></del><span class="run">Ver.2.279.65</span>以降、削除　⇒　<a href="#span-out-flow">operation</a>（<a href="#span-out-vars-symbol">symbol</a>取得処理を除外して対策）
+<br>
+clear; last{a,1} -> <del>1</del>[MyErr]Undef var(a)
+<br>
+　影響項目：<a href="#span-out-FNm-size">size行列関数</a>
+<br>
+・<span class="run">Ver.2.319.77</span>以降、<a href="#span-out-UI-graphing-v">v入力仕様</a>の仕様変更
+<br>
+　vx入力：legend1番で共通　⇒　各legendで独立（vy入力に準拠）
+<br>
+・<span class="run">Ver.2.321.77</span>以降、<a href="#span-in-options">matSizeMax</a>の既定値を変更
+<br>
+　<a href="#span-in-options">matSizeMax</a>既定値：1000　⇒　1024
+<br>
+　影響項目：<a href="#span-out-UI-graphing">Graphing Calculator</a>||<a href="#span-out-FNm-init">初期化行列関数</a>
+<br>
+・<span class="clear">Ver.2.723.102</span>以降、svg出力のpolylineのmasking不具合を暫定修正
+<br>
+　内容：line||polyline単体でblockの場合、意図しないmaskingが稀に発生（line消滅）
+<br>
+　前者：未遭遇
+<br>
+　後者の対策：&lt;polyline points="" /&gt;　⇒　&lt;polyline points="" /&gt;&lt;line /&gt;
+<br>
+　再現条件の備考：&lt;polyline /&gt;の追加は効果なし
+<br>
+・<span class="clear">Ver.2.821.135</span>以降、plot座標から変換後のcanvas座標が無限大の場合、致命的な不具合を修正
+<br>
+　内容：canvas座標が無限大の場合、予期せぬerror終了からdeadlockが発生
+<br>
+　対策：
+<br>
+　・canvas座標が有限を保証するwrapper関数の追加
+<br>
+　・内部関数名の変更を伴うtry~catch処理の大幅修正
+<br>
+　・lock処理の見直し
+    </td>
+  </tr>
+  <tr>
+    <th>
+<a href="#span-index">
+目次
+</a>
+<br>
+plot表示仕様
+<br>
+変更履歴
+    </th>
+    <td>
+<span id="span-out-spec-canvas-history"></span>
+<a href="#span-out-UI-graphing">Graphing Calculator</a>のplot表示仕様変更履歴を列挙する
+<br>
+・<span class="run">Ver.2.746.111</span>以降、checkboxの仕様改善
+<br>
+　<a href="#span-out-UI-graphing">p-checkbox</a>：checkedで全表示
+<br>
+　<a href="#span-out-UI-graphing">z-checkbox</a>：checked時、<a href="#span-out-UI-graphing-z">z入力欄</a>を有効化
+<br>
+・<span class="run">Ver.2.759.115</span>以降、自動描画refreshの頻度を変更
+<br>
+　refresh頻度：最大10回　⇒　最短1秒間隔
+<br>
+　影響項目：<a href="#span-out-UI-graphing-gradation">gradation特定項目仕様</a>
+<br>
+・<span class="run">Ver.2.770.117</span>~<span class="clear">2.773.118</span>以降、<a href="#span-out-UI-graphing-layer-grid">grid-layer</a>の数字label表示を改善
+<br>
+　丸め方：なし　⇒　整数以外の場合、<a href="#span-out-epsilon">Machine epsilon</a>を丸める
     </td>
   </tr>
   <tr>
@@ -8403,118 +8531,6 @@ push：len=sizer(A),opt_i==len&amp;&amp;&amp;(A=(A:val))||||last{ie=(opt_i||len-
 ・<a href="#span-out-FNh">高階関数</a>の引数順序<del>（代数学||for文準拠に変更等）</del>
 <br>
 ・<span class="run">Ver.2.774.119</span>以降、<a href="#span-out-FNmh-OX">ODE高階行列関数</a>のadaptive-step solverを追加
-    </td>
-  </tr>
-  <tr>
-    <th>
-<a href="#span-index">
-目次
-</a>
-<br>
-plot仕様
-<br>
-変更履歴
-    </th>
-    <td>
-<span id="span-out-spec-plot-history"></span>
-<a href="#span-out-UI-graphing">Graphing Calculator</a>のplot仕様変更履歴を列挙する
-<br>
-・<span class="run">Ver.2.33.17</span>以降、正式release
-<br>
-　後方互換性のため、<a href="#span-in-options">内部option</a>を追加
-<br>
-・<span class="run">Ver.2.86.32</span>以降、plot範囲を微調整
-<br>
-・<span class="run">Ver.2.190.44</span>以降、plot範囲の自動調整機能を削除して<a href="#span-out-UI-graphing">plot2d-Ver</a>の選択肢を追加
-<br>
-　Ver.0：<span class="run">Ver.2.33.17</span>以前の仕様（<a href="#span-in-options">oldPlot2d=true</a>）
-<br>
-　Ver.1：<span class="run">Ver.2.33.17</span>~<span class="run">2.190.44</span>の仕様
-<br>
-　Ver.2：<span class="run">Ver.2.190.44</span>~の仕様
-<br>
-・<span class="run">Ver.2.277.65</span>以降、<a href="#span-out-eqns">式変数</a>宣言の<a href="#span-out-flow">parser-post</a>処理を変更
-<br>
-　error終了　⇒　BTe（BrackeTeqn）の<a href="#span-out-log">log表示</a>
-<br>
-・<span class="run">Ver.2.279.65</span>以降、<a href="#span-out-BT-empty">空括弧</a>のplot値を変更
-<br>
-　0　⇒　<a href="#span-out-num-NaN">欠損値</a>
-<br>
-・<span class="run">Ver.2.279.65</span>以降、数値以外の要素（<a href="#span-out-eqns">式変数</a>宣言を含む）が残存する場合、plotの挙動を変更
-<br>
-　error終了　⇒　<a href="#span-out-num-NaN">欠損値</a>に変換
-<br>
-・<span class="clear">Ver.2.280.66</span>以降、上記変更により、未定義の<a href="#span-out-vars">変数</a>を検知不能の致命的な不具合を修正
-<br>
-　検知段階：<del><a href="#span-out-flow">parser-post</a></del><span class="run">Ver.2.279.65</span>以降、削除　⇒　<a href="#span-out-flow">operation</a>（<a href="#span-out-vars-symbol">symbol</a>取得処理を除外して対策）
-<br>
-clear; last{a,1} -> <del>1</del>[MyErr]Undef var(a)
-<br>
-　影響項目：<a href="#span-out-FNm-size">size行列関数</a>
-<br>
-・<span class="run">Ver.2.319.77</span>以降、<a href="#span-out-UI-graphing-v">v入力仕様</a>の仕様変更
-<br>
-　vx入力：legend1番で共通　⇒　各legendで独立（vy入力に準拠）
-<br>
-・<span class="run">Ver.2.321.77</span>以降、<a href="#span-in-options">matSizeMax</a>の既定値を変更
-<br>
-　<a href="#span-in-options">matSizeMax</a>既定値：1000　⇒　1024
-<br>
-　影響項目：<a href="#span-out-UI-graphing">Graphing Calculator</a>||<a href="#span-out-FNm-init">初期化行列関数</a>
-<br>
-・<span class="clear">Ver.2.723.102</span>以降、svg出力のpolylineのmasking不具合を暫定修正
-<br>
-　内容：line||polyline単体でblockの場合、意図しないmaskingが稀に発生（line消滅）
-<br>
-　前者：未遭遇
-<br>
-　後者の対策：&lt;polyline points="" /&gt;　⇒　&lt;polyline points="" /&gt;&lt;line /&gt;
-<br>
-　再現条件の備考：&lt;polyline /&gt;の追加は効果なし
-<br>
-・<span class="clear">Ver.2.821.135</span>以降、plot座標から変換後のcanvas座標が無限大の場合、致命的な不具合を修正
-<br>
-　内容：canvas座標が無限大の場合、予期せぬerror終了からdeadlockが発生
-<br>
-　対策：
-<br>
-　・canvas座標が有限を保証するwrapper関数の追加
-<br>
-　・内部関数名の変更を伴うtry~catch処理の大幅修正
-<br>
-　・lock処理の見直し
-    </td>
-  </tr>
-  <tr>
-    <th>
-<a href="#span-index">
-目次
-</a>
-<br>
-plot表示仕様
-<br>
-変更履歴
-    </th>
-    <td>
-<span id="span-out-spec-canvas-history"></span>
-<a href="#span-out-UI-graphing">Graphing Calculator</a>のplot表示仕様変更履歴を列挙する
-<br>
-・<span class="run">Ver.2.746.111</span>以降、checkboxの仕様改善
-<br>
-　<a href="#span-out-UI-graphing">p-checkbox</a>：checkedで全表示
-<br>
-　<a href="#span-out-UI-graphing">z-checkbox</a>：checked時、<a href="#span-out-UI-graphing-z">z入力欄</a>を有効化
-<br>
-・<span class="run">Ver.2.759.115</span>以降、自動描画refreshの頻度を変更
-<br>
-　refresh頻度：最大10回　⇒　最短1秒間隔
-<br>
-　影響項目：<a href="#span-out-UI-graphing-gradation">gradation特定項目仕様</a>
-<br>
-・<span class="run">Ver.2.770.117</span>~<span class="clear">2.773.118</span>以降、<a href="#span-out-UI-graphing-layer-grid">grid-layer</a>の数字label表示を改善
-<br>
-　丸め方：なし　⇒　整数以外の場合、<a href="#span-out-epsilon">Machine epsilon</a>を丸める
     </td>
   </tr>
   <tr>

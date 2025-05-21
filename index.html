@@ -342,6 +342,44 @@ Y/M/D
 <tbody>
   <tr>
     <th>
+6.495.663.24.166
+    </th>
+    <td class="types">
+Calculator
+    </td>
+    <td>
+2.843.149
+    </td>
+    <td class="clear">
+minor bug-fix
+    </td>
+    <td>
+[Calculator]
+<br>
+・_o/_t()/Newton/Jacobian() bug-fixed about declaration
+<br>
+_o((t,x,y)=&lt;(,),=&lt;{,},1,1) || _o((t,x,y)=&lt;{,},=&lt;(,),1,1) -> [MyErr]Invalid OX arguments(RC)
+<br>
+_t((t,x,y)=&lt;(,),=&lt;{,,},1,1) || _t((t,x,y)=&lt;{,},=&lt;(,,),1,1) -> [MyErr]Invalid TX arguments(RC)
+<br>
+Jacobi((x,y)=&lt;(x,y),=&lt;{,})|| Jacobi((x,y)=&lt;{x,y},=&lt;(,))
+<br>
+-> [MyErr]Invalid jacobian arguments(RC)
+<br>
+Newton((x,y)=&lt;(x,y),=&lt;{,})|| Newton((x,y)=&lt;{x,y},=&lt;(,))
+<br>
+-> [MyErr]Invalid newtonian arguments(RC)
+<br>
+・test case arranged
+<br>
+・[manual] updated about 演算厳格化履歴
+    </td>
+    <td>
+2025/5/21
+    </td>
+  </tr>
+  <tr>
+    <th>
 6.495.663.24.165
     </th>
     <td class="types">
