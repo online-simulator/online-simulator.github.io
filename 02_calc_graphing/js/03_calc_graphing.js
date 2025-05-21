@@ -242,6 +242,7 @@ My_entry.calc_graphing.prototype.plot = function(arr_data_, options_plot, isFina
   var toSVG = (isFinal === "SVG");
   var arr_data = arr_data_;
   if(arr_data && arr_data.length){
+    var options_calc = arr_data[0].options;  // Ver.2.843.152
     /* Ver.2.105.33 -> */
     var name_x = $._id("input-vx").value;
     var name_y = $._id("input-vy").value;
@@ -282,7 +283,6 @@ My_entry.calc_graphing.prototype.plot = function(arr_data_, options_plot, isFina
     _svg += self.plot2d.run(arr2d_vec, options_plot, toSVG, isFinal);
     if(!(toSVG)){
       if(isFinal){
-        var options_calc = arr_data[0].options;
         /* Ver.2.25.12 -> */
         if(options_calc){
           self.output_logh(options_calc.plot2d+"\n", options_calc.logo);  // Ver.2.10.4
