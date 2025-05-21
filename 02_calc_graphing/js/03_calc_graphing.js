@@ -11,7 +11,11 @@ My_entry.def.mix_in(My_entry.calc_graphing, My_entry.original_main);
 My_entry.calc_graphing.prototype.config = {
   /* Ver.2.759.115 */
   PLOT: {
-    dts: 1000
+    dts: 1000,
+    /* Ver.2.843.151 */
+    command: {
+      delimiter: "[\"]{1,2}"
+    }
   },
   LOG: {
     sizeMax: 5000
@@ -490,23 +494,24 @@ My_entry.calc_graphing.prototype.make_log_plot2d = function(){
   var self = this;
   var $ = self.entry.$;
   var ds = My_entry.$.config.DELIMITER;
-  var sq = ds.sq;
+  /* Ver.2.843.151 -> */
   var dq = ds.dq;
   var ca = ds.ca;
   var rn = ds.rn;
   var _log = "";
   _log += "plot2d(";
-  _log += sq+$.inputVal_id("input-t0")+sq+ca;
-  _log += sq+$.inputVal_id("input-t1")+sq+ca;
-  _log += sq+$.inputVal_id("input-x")+sq+ca;
-  _log += sq+$.inputVal_id("input-y")+sq+ca;
+  _log += dq+dq+$.inputVal_id("input-t0")+dq+dq+ca;
+  _log += dq+dq+$.inputVal_id("input-t1")+dq+dq+ca;
+  _log += dq+dq+$.inputVal_id("input-x")+dq+dq+ca;
+  _log += dq+dq+$.inputVal_id("input-y")+dq+dq+ca;
   /* Ver.2.843.150 -> */
-  _log += sq+$.inputNum_id("input-N")+sq+ca;  // Ver.2.25.12  // Ver.2.149.37
-  _log += sq+$.inputVal_id("input-z")+sq+ca;  // Ver.2.27.14
-  _log += sq+$.inputVal_id("input-vx")+sq+ca;
-  _log += sq+$.inputVal_id("input-vy")+sq+ca;
-  _log += sq+$.inputVal_id("input-vz")+sq;  // last
+  _log += dq+dq+$.inputNum_id("input-N")+dq+dq+ca;  // Ver.2.25.12  // Ver.2.149.37
+  _log += dq+dq+$.inputVal_id("input-z")+dq+dq+ca;  // Ver.2.27.14
+  _log += dq+dq+$.inputVal_id("input-vx")+dq+dq+ca;
+  _log += dq+dq+$.inputVal_id("input-vy")+dq+dq+ca;
+  _log += dq+dq+$.inputVal_id("input-vz")+dq+dq;  // last
   /* -> Ver.2.843.150 */
+  /* -> Ver.2.843.151 */
   _log += ")";
   return _log;
 };
@@ -824,7 +829,7 @@ My_entry.calc_graphing.prototype.init_handlers = function(){
   };
   /* Ver.2.25.12 -> */
   var plot2d_from_log = function(tokens){
-    var re = /\'/g;
+    var re = new RegExp(self.config.PLOT.command.delimiter, "g");  // Ver.2.843.151
     /* Ver.2.843.150 -> */
     var get_value = function(token){
       return ((token)? token.replace(re, ""): "");
@@ -949,7 +954,7 @@ My_entry.calc_graphing.prototype.init_handlers = function(){
           if(self.plot2d.isLocked) return false;
           /* -> Ver.2.25.14 */
           try{
-            var re_sS = self.entry.def.get_re_sS({s: "\'", e: "\'"});  // Ver.2.837.145
+            var re_sS = self.entry.def.get_re_sS({s: self.config.PLOT.command.delimiter, e: self.config.PLOT.command.delimiter});  // Ver.2.837.145  // Ver.2.843.151
             var tokens_quotation = command.match(re_sS);  // Ver.2.837.145
             var tokens_comma = command.replace(/\s/g, "").split(",");  // Ver.2.176.44 white spaces removed
           /* -> Ver.2.34.18 */

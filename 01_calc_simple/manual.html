@@ -8375,6 +8375,12 @@ clear; last{a,1} -> <del>1</del>[MyErr]Undef var(a)
 　・内部関数名の変更を伴うtry~catch処理の大幅修正
 <br>
 　・lock処理の見直し
+<br>
+・<span class="clear">Ver.2.843.151</span>以降、<a href="#span-out-plot2d-command-from-log">plot2d-from-log</a>の<a href="#span-out-SR">区切り文字</a>と<a href="#span-out-prec-ope-arithmetic-dot">dot演算子</a>の記号衝突を訂正
+<br>
+　tokenの区切り文字：'　⇒　["]{1,2}
+<br>
+　影響項目：<a href="#span-out-plot2d-command-from-log">plot2d-from-log</a>||<a href="#span-out-prec-ope-arithmetic-dot">dot演算子</a>
     </td>
   </tr>
   <tr>
@@ -20635,7 +20641,7 @@ Graphing Calculator's plot2d-commandの入力仕様について記述する
 <br>
 以下2種類のplot2d-commandは操作panel中段のtext入力欄から実行する
 <br>
-<a href="#span-out-plot2d-command-from-log">plot2d('t0','t1','xt','yt')</a>
+<a href="#span-out-plot2d-command-from-log">plot2d("t0","t1","xt","yt")</a> || <a href="#span-out-plot2d-command-from-log">plot2d(""t0"",""t1"",""xt"",""yt"")</a>　<span class="clear">Ver.2.843.151</span>以降、<a href="#span-out-spec-plot-history">仕様訂正</a>
 <br>
 <a href="#span-out-plot2d-command-from-arr">plot2d(xt,yt)</a>
 <br>
@@ -20669,22 +20675,26 @@ csv/history-txtに記録されるlogからplot2d-commandを実行する
 <br>
 ・<span class="run">Ver.2.810.131</span>以降、<span class="condition">更新箇所</span>
 <br>
+・<span class="clear">Ver.2.843.151</span>以降、<a href="#span-out-plot2d-command-from-log">plot2d-from-log</a>の<a href="#span-out-SR">区切り文字</a>と<a href="#span-out-prec-ope-arithmetic-dot">dot演算子</a>の記号衝突を訂正
+<br>
+　tokenの区切り文字：'　⇒　["]{1,2}
+<br>
 <br>
 plot2d-from-logのformatを次に示す
 <br>
-plot2d('t0','t1','xt','yt')
+plot2d("t0","t1","xt","yt") || plot2d(""t0"",""t1"",""xt"",""yt"")
 <br>
-plot2d('t0','t1','xt','yt','N')
+plot2d("t0","t1","xt","yt","N") || plot2d(""t0"",""t1"",""xt"",""yt"",""N"")
 <br>
-plot2d('t0','t1','xt','yt','N','z')
+plot2d("t0","t1","xt","yt","N","z") || plot2d(""t0"",""t1"",""xt"",""yt"",""N"",""z"")
 <br>
 ・<span class="clear">Ver.2.837.145</span>以降、<a href="#span-out-spaces">改行文字</a>に対応（<a href="#span-out-comment">line comment</a>を含む場合、実行不能を修正）
 <br>
-plot2d('t0','t1','xt
+plot2d("t0","t1","xt
 <br>
 <span class="selection">// line comment</span>
 <br>
-','yt','N','z')
+","yt","N","z")
 <br>
 ・<span class="run">Ver.2.25.12</span>以降、第5引数Nにsingle quotation mark<span class="condition">（tokenの区切り文字）</span>を付与
 <br>
@@ -20694,21 +20704,27 @@ plot2d('t0','t1','xt
 <br>
 ・plot2d-commandの一例を示す
 <br>
-plot2d('-5','5','t;','SND<span class="condition">(t)</span>=&lt;exp(-t^2/2)/sqrt(2pi),SND<span class="condition">(t)</span>;')
+plot2d("-5","5","t;","SND<span class="condition">(t)</span>=&lt;exp(-t^2/2)/sqrt(2pi),SND<span class="condition">(t)</span>;")
 <br>
-plot2d('-5','5','t;','SND<span class="condition">(t)</span>=&lt;exp(-t^2/2)/sqrt(2pi),SND<span class="condition">(t)</span>;','50')
+plot2d("-5","5","t;","SND<span class="condition">(t)</span>=&lt;exp(-t^2/2)/sqrt(2pi),SND<span class="condition">(t)</span>;","50")
 <br>
-plot2d('-5','5','t;','SND<span class="condition">(t)</span>=&lt;exp(-t^2/2)/sqrt(2pi),SND<span class="condition">(t)</span>;','50','circle')
+plot2d("-5","5","t;","SND<span class="condition">(t)</span>=&lt;exp(-t^2/2)/sqrt(2pi),SND<span class="condition">(t)</span>;","50","circle")
 <br>
 　<span class="clear">Ver.2.843.150</span>以降、<a href="#span-out-UI-graphing-v">v入力欄</a>をcommandに追加
 <br>
-plot2d('-5','5','t;','SND<span class="condition">(t)</span>=&lt;exp(-t^2/2)/sqrt(2pi),SND<span class="condition">(t)</span>;','50','circle','','','')
+plot2d("-5","5","t;","SND<span class="condition">(t)</span>=&lt;exp(-t^2/2)/sqrt(2pi),SND<span class="condition">(t)</span>;","50","circle","","","")
 <br>
 ・N入力値は<del>select値が存在するcaseのみ有効</del><span class="run">Ver.2.149.37</span>以降、数値のみ有効
 <br>
 ・<a href="#span-out-comment">comment文</a>入力の一例を示す
 <br>
-plot2d('1e-3(1+i)<span class="selection">/*t0*/</span>','1e2(1+i)<span class="selection">/*t1*/</span>','x=t,x<span class="selection">/*xt*/</span>;','x;2x;3x;4x;5x;6x;7x;8x;9x;10x<span class="selection">/*yt*/</span>;','10','circle<span class="selection">/*marker*/</span>;')
+plot2d("1e-3(1+i)<span class="selection">/*t0*/</span>","1e2(1+i)<span class="selection">/*t1*/</span>","x=t,x<span class="selection">/*xt*/</span>;","x;2x;3x;4x;5x;6x;7x;8x;9x;10x<span class="selection">/*yt*/</span>;","10","circle<span class="selection">/*marker*/</span>;")
+<br>
+plot2d("1e-3(1+i)<span class="selection">/*t0*/</span>","1e2(1+i)<span class="selection">/*t1*/</span>","x=t,x
+<br>
+<span class="selection">// xt</span>
+<br>
+;","x;2x;3x;4x;5x;6x;7x;8x;9x;10x<span class="selection">/*yt*/</span>;","10","circle<span class="selection">/*marker*/</span>;")
 <br>
 ・<span class="clear">Ver.2.837.145</span>以降、plot終了の<a href="#span-out-log">log表示</a>を追加
 <br>
