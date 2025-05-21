@@ -500,17 +500,13 @@ My_entry.calc_graphing.prototype.make_log_plot2d = function(){
   _log += sq+$.inputVal_id("input-t1")+sq+ca;
   _log += sq+$.inputVal_id("input-x")+sq+ca;
   _log += sq+$.inputVal_id("input-y")+sq+ca;
-  /* Ver.2.25.12 -> */
-/*
-  _log += $.selectVal_id("select-N");
-  _log += sq+$.selectVal_id("select-N")+sq;
-*/
-  _log += sq+$.inputNum_id("input-N")+sq;  // Ver.2.149.37
-  /* -> Ver.2.25.12 */
-  /* Ver.2.27.14 -> */
-  var inputZ = $.inputVal_id("input-z");
-  _log += (inputZ)? ca+sq+inputZ+sq: "";
-  /* -> Ver.2.27.14 */
+  /* Ver.2.843.150 -> */
+  _log += sq+$.inputNum_id("input-N")+sq+ca;  // Ver.2.25.12  // Ver.2.149.37
+  _log += sq+$.inputVal_id("input-z")+sq+ca;  // Ver.2.27.14
+  _log += sq+$.inputVal_id("input-vx")+sq+ca;
+  _log += sq+$.inputVal_id("input-vy")+sq+ca;
+  _log += sq+$.inputVal_id("input-vz")+sq;  // last
+  /* -> Ver.2.843.150 */
   _log += ")";
   return _log;
 };
@@ -829,24 +825,25 @@ My_entry.calc_graphing.prototype.init_handlers = function(){
   /* Ver.2.25.12 -> */
   var plot2d_from_log = function(tokens){
     var re = /\'/g;
-    $._id("input-t0").value = tokens[0].replace(re, "");
-    $._id("input-t1").value = tokens[1].replace(re, "");
-    $._id("input-x").value = tokens[2].replace(re, "");
-    $._id("input-y").value = tokens[3].replace(re, "");
-    if(tokens[4]){
-      /* Ver.2.149.37 -> */
-//      $.set_selectVal_id("select-N", tokens[4].replace(re, ""));
-      var num = tokens[4].replace(re, "");
-      if(!(isNaN(num))){
-        $._id("input-N").value = num;
-      }
-      /* -> Ver.2.149.37 */
+    /* Ver.2.843.150 -> */
+    var get_value = function(token){
+      return ((token)? token.replace(re, ""): "");
+    };
+    $._id("input-t0").value = get_value(tokens[0]);
+    $._id("input-t1").value = get_value(tokens[1]);
+    $._id("input-x").value = get_value(tokens[2]);
+    $._id("input-y").value = get_value(tokens[3]);
+    /* Ver.2.149.37 -> */
+    var num = get_value(tokens[4]);
+    if(!(isNaN(num))){
+      $._id("input-N").value = num;
     }
-    /* Ver.2.27.14 -> */
-    if(tokens[5]){
-      $._id("input-z").value = tokens[5].replace(re, "");
-    }
-    /* -> Ver.2.27.14 */
+    /* -> Ver.2.149.37 */
+    $._id("input-z").value = get_value(tokens[5]);  // Ver.2.27.14
+    $._id("input-vx").value = get_value(tokens[6]);
+    $._id("input-vy").value = get_value(tokens[7]);
+    $._id("input-vz").value = get_value(tokens[8]);
+    /* -> Ver.2.843.150 */
     $._id("button-plot").onclick();
   };
   var plot2d_from_arr = function(tokens, isRowVector){  // Ver.2.175.42

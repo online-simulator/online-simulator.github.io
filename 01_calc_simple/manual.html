@@ -20688,7 +20688,9 @@ plot2d('t0','t1','xt
 <br>
 ・<span class="run">Ver.2.25.12</span>以降、第5引数Nにsingle quotation mark<span class="condition">（tokenの区切り文字）</span>を付与
 <br>
-・<span class="run">Ver.2.27.14</span>以降、第6引数zと<a href="#span-out-comment">comment文</a>入力に対応<span class="condition">（commandの改行不可）</span>
+・<span class="run">Ver.2.27.14</span>以降、第6引数zと<a href="#span-out-comment">comment文</a>入力に対応<del><span class="condition">（commandの改行不可）</span></del>
+<br>
+　<span class="clear">Ver.2.837.145</span>以降、<a href="#span-out-spaces">改行文字</a>に対応
 <br>
 ・plot2d-commandの一例を示す
 <br>
@@ -20698,7 +20700,11 @@ plot2d('-5','5','t;','SND<span class="condition">(t)</span>=&lt;exp(-t^2/2)/sqrt
 <br>
 plot2d('-5','5','t;','SND<span class="condition">(t)</span>=&lt;exp(-t^2/2)/sqrt(2pi),SND<span class="condition">(t)</span>;','50','circle')
 <br>
-・N入力値はselect値が存在するcaseのみ有効
+　<span class="clear">Ver.2.843.150</span>以降、<a href="#span-out-UI-graphing-v">v入力欄</a>をcommandに追加
+<br>
+plot2d('-5','5','t;','SND<span class="condition">(t)</span>=&lt;exp(-t^2/2)/sqrt(2pi),SND<span class="condition">(t)</span>;','50','circle','','','')
+<br>
+・N入力値は<del>select値が存在するcaseのみ有効</del><span class="run">Ver.2.149.37</span>以降、数値のみ有効
 <br>
 ・<a href="#span-out-comment">comment文</a>入力の一例を示す
 <br>
