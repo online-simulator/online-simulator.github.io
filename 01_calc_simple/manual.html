@@ -46533,7 +46533,9 @@ args
     </th>
     <td>
 <span id="span-eqn-args"></span>
-<a href="#span-out-matching">行列要素pattern matching</a>||<a href="#span-out-const-vars">const宣言</a>||<a href="#span-out-scope-vars-has1BT">単独scope</a>||<a href="#span-out-eqns-call2eqn">式変数への式読出し</a>||<a href="#span-out-eqns-args">式変数のarguments</a>||<a href="#span-out-eqns-no-name">無名call</a>参照
+<a href="#span-out-matching">行列要素pattern matching</a>||<a href="#span-out-const-vars">const宣言</a>||<a href="#span-out-scope-vars-has1BT">単独scope</a>||<a href="#span-out-eqns-call2eqn">式変数への式読出し</a>||<a href="#span-out-eqns-args">式変数のarguments</a>||<a href="#span-out-eqns-no-name">無名call</a>
+<br>
+||<a href="#span-out-FNmh-newtonian">Newton高階行列関数</a>参照
 <br>
 clear;
 <br>
@@ -46658,6 +46660,36 @@ compose_x(x)=&gt;,compose_A(x)=&gt;,pipe_A(x)=&gt;:
 compose_pipe_A(=&lt;A)=&gt;,compose_nest_A(=&lt;A)=&gt;,
 <br>
 compose_A(=&lt;A)=&gt;,pipe_A(=&lt;A)=&gt;;
+<br>
+clear;
+<br>
+h=false;
+<br>
+Nmax=20;
+<br>
+f(x)=&lt;(x-1)**4=0;
+<br>
+g(x)=&lt;(x-1)*(x-2)*(x-3)*(x-4)*(x-5)*(x-6)=0;
+<br>
+x0=1.1;
+<br>
+args_f=(=&lt;f,=&lt;{x0});
+<br>
+args_g=(=&lt;g,=&lt;{x0});
+<br>
+Newton(args_f):Newton(=&lt;f,=&lt;{x0});
+<br>
+Newton(args_g):Newton(=&lt;g,=&lt;{x0});
+<br>
+make_args(=&lt;f,x0)=&lt;[=&lt;f,=&lt;{x0},h,Nmax];
+<br>
+call_f(x0)=&lt;Newton(make_args(=&lt;f,x0)=&gt;);
+<br>
+call_g(x0)=&lt;Newton(make_args(=&lt;g,x0)=&gt;);
+<br>
+call_f(1)=&gt;,call_f(2)=&gt;;
+<br>
+call_g(1)=&gt;,call_g(2)=&gt;,call_g(3)=&gt;,call_g(4)=&gt;,call_g(5)=&gt;,call_g(6)=&gt;,call_g(7)=&gt;;
     </td>
   </tr>
   <tr>
