@@ -51,7 +51,7 @@
         $._id("textarea-input").value = script;
       }
       else if(options.testcase === "calc3"){
-        var script = "plot2d-from-log\n\n plot2d('t0','t1','xt','yt')  // deprecated for ' of Hermitian transpose\n\n plot2d(\"t0\",\"t1\",\"xt\",\"yt\")  // calc-Ver.2.843.151~ command-log copied in Excel\n\n plot2d(\"\"t0\"\",\"\"t1\"\",\"\"xt\"\",\"\"yt\"\")  // calc-Ver.2.843.151~ command-log for Excel";
+        var script = "plot2d-from-log\n\n plot2d('t0','t1','xt','yt')  // deprecated for ' of Hermitian transpose\n\n plot2d(\"t0\",\"t1\",\"xt\",\"yt\")  // calc-Ver.2.843.151~ command-log copied in history-txt or Excel\n\n plot2d(\"\"t0\"\",\"\"t1\"\",\"\"xt\"\",\"\"yt\"\")  // calc-Ver.2.843.151~ command-log for Excel";
         $._id("input-pattern").value = "\'([\\s\\S]*?)\'|[\"]{1,2}([\\s\\S]*?)[\"]{1,2}";
         $._id("input-string").value = " $1_$2 ";
         $._id("textarea-input").value = script;
