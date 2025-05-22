@@ -834,7 +834,7 @@ My_entry.calc_graphing.prototype.init_handlers = function(){
     var re = new RegExp(self.config.PLOT.command.delimiter12, "g");  // Ver.2.843.151
     /* Ver.2.843.150 -> */
     var get_value = function(token){
-      var _token = token.replace(re, "");  // Ver.2.843.151
+      var _token = (token)? token.replace(re, ""): "";  // Ver.2.843.151
       return ((_token === self.config.PLOT.command.empty)? "": _token);  // Ver.2.843.151
     };
     $._id("input-t0").value = get_value(tokens[0]);
