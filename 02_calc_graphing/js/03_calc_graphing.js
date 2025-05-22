@@ -14,7 +14,10 @@ My_entry.calc_graphing.prototype.config = {
     dts: 1000,
     /* Ver.2.843.151 */
     command: {
-      delimiter: "[\"]{1,2}"
+      empty: " ",
+      delimiter1: "\"",
+      delimiter2: "\"\"",
+      delimiter12: "[\"]{1,2}"
     }
   },
   LOG: {
@@ -498,18 +501,21 @@ My_entry.calc_graphing.prototype.make_log_plot2d = function(){
   var dq = ds.dq;
   var ca = ds.ca;
   var rn = ds.rn;
+  var get_value = function(id){
+    return ($.inputVal_id(id) || self.config.PLOT.command.empty);
+  };
   var _log = "";
   _log += "plot2d(";
-  _log += dq+dq+$.inputVal_id("input-t0")+dq+dq+ca;
-  _log += dq+dq+$.inputVal_id("input-t1")+dq+dq+ca;
-  _log += dq+dq+$.inputVal_id("input-x")+dq+dq+ca;
-  _log += dq+dq+$.inputVal_id("input-y")+dq+dq+ca;
+  _log += dq+get_value("input-t0")+dq+ca;
+  _log += dq+get_value("input-t1")+dq+ca;
+  _log += dq+get_value("input-x")+dq+ca;
+  _log += dq+get_value("input-y")+dq+ca;
   /* Ver.2.843.150 -> */
-  _log += dq+dq+$.inputNum_id("input-N")+dq+dq+ca;  // Ver.2.25.12  // Ver.2.149.37
-  _log += dq+dq+$.inputVal_id("input-z")+dq+dq+ca;  // Ver.2.27.14
-  _log += dq+dq+$.inputVal_id("input-vx")+dq+dq+ca;
-  _log += dq+dq+$.inputVal_id("input-vy")+dq+dq+ca;
-  _log += dq+dq+$.inputVal_id("input-vz")+dq+dq;  // last
+  _log += dq+get_value("input-N")+dq+ca;  // Ver.2.25.12  // Ver.2.149.37
+  _log += dq+get_value("input-z")+dq+ca;  // Ver.2.27.14
+  _log += dq+get_value("input-vx")+dq+ca;
+  _log += dq+get_value("input-vy")+dq+ca;
+  _log += dq+get_value("input-vz")+dq;  // last
   /* -> Ver.2.843.150 */
   /* -> Ver.2.843.151 */
   _log += ")";
@@ -536,7 +542,8 @@ My_entry.calc_graphing.prototype.arr_data2csv = function(arr_data, options_plot)
     var options_calc = arr_data[0].options;
     var log_command_options_stamp = "";
     if(options_calc){
-      log_command_options_stamp += dq+options_calc.plot2d+dq+ca;  // for Excel
+      var re = new RegExp(self.config.PLOT.command.delimiter1, "g");
+      log_command_options_stamp += dq+options_calc.plot2d.replace(re, self.config.PLOT.command.delimiter2)+dq+ca;  // for Excel
       log_command_options_stamp += dq+options_calc.logo+dq+ca;
     }
     log_command_options_stamp += dq+self.io.getter.stamp()+dq+rn;
@@ -824,10 +831,11 @@ My_entry.calc_graphing.prototype.init_handlers = function(){
   };
   /* Ver.2.25.12 -> */
   var plot2d_from_log = function(tokens){
-    var re = new RegExp(self.config.PLOT.command.delimiter, "g");  // Ver.2.843.151
+    var re = new RegExp(self.config.PLOT.command.delimiter12, "g");  // Ver.2.843.151
     /* Ver.2.843.150 -> */
     var get_value = function(token){
-      return ((token)? token.replace(re, ""): "");
+      var _token = token.replace(re, "");  // Ver.2.843.151
+      return ((_token === self.config.PLOT.command.empty)? "": _token);  // Ver.2.843.151
     };
     $._id("input-t0").value = get_value(tokens[0]);
     $._id("input-t1").value = get_value(tokens[1]);
@@ -949,7 +957,7 @@ My_entry.calc_graphing.prototype.init_handlers = function(){
           if(self.plot2d.isLocked) return false;
           /* -> Ver.2.25.14 */
           try{
-            var re_sS = self.entry.def.get_re_sS({s: self.config.PLOT.command.delimiter, e: self.config.PLOT.command.delimiter});  // Ver.2.837.145  // Ver.2.843.151
+            var re_sS = self.entry.def.get_re_sS({s: self.config.PLOT.command.delimiter12, e: self.config.PLOT.command.delimiter12});  // Ver.2.837.145  // Ver.2.843.151
             var tokens_quotation = command.match(re_sS);  // Ver.2.837.145
             var tokens_comma = command.replace(/\s/g, "").split(",");  // Ver.2.176.44 white spaces removed
           /* -> Ver.2.34.18 */
