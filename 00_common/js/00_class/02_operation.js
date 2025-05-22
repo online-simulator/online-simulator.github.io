@@ -1784,7 +1784,8 @@ else{
     /* -> Ver.2.815.132 */
     len_i = arr_x.length;  // Ver.2.739.107
     /* -> Ver.2.735.107 */
-    var J = null;
+    var len_j = (isNewtonian)? len_i+1: len_i;  // Ver.2.844.152
+    var J = math_mat.init2d(len_i, len_j);  // Ver.2.844.152
     // x0
     var x0 = init_x0(arr_x, names, ids_buffer);  // Ver.2.233.56
     /* Ver.2.740.107 -> */
@@ -1818,9 +1819,9 @@ else{
     var step = function(){
       // x0
       store_x();  // Ver.2.740.107
-      // x1
+      /* Ver.2.844.152 -> */
+      // dx
       for(var i=0; i<len_i; ++i){
-        var x0ic = x0[i].com;
         /* Ver.2.321.78 -> */
         /* Ver.1.3.1 */
         var hc = self.get_hc(options, x0[i], argH, "dxJ");  // Ver.2.815.132
@@ -1828,8 +1829,14 @@ else{
         var hci = hc.i;
         dx[i] = DATA.num(hcr, hci);
         /* -> Ver.2.321.78 */
-        x1[i] = DATA.num(x0ic.r+hcr, x0ic.i+hci);
       }
+      // x1
+      for(var i=0; i<len_i; ++i){
+        var x0ic = x0[i].com;
+        var dxic = dx[i].com;
+        x1[i] = DATA.num(x0ic.r+dxic.r, x0ic.i+dxic.i);
+      }
+      /* -> Ver.2.844.152 */
       // f0
       var tree = self.tree_eqn2tree(data, tree_eqn);
       var arr_f = tree.mat.arr;
@@ -1838,7 +1845,6 @@ else{
         f0[i] = get_f(arr_f, i);
       }
       // J
-      J = math_mat.init2d(len_i, len_i);
       for(var j=0; j<len_i; ++j){
         store_x(j);  // Ver.2.740.107
         var tree = self.tree_eqn2tree(data, tree_eqn);
@@ -1885,12 +1891,11 @@ else{
         }
       };
       /* -> Ver.2.834.140 */
-      _tree = DATA.tree_mat(DATA.vec2arr(x0, isRow));  // initialize
       var arr_mdx = null;
       for(var n=0; n<Niteration; ++n){
         step();
         for(var i=0; i<len_i; ++i){
-          J[i].push(f0[i]);
+          J[i][len_i] = f0[i];  // Ver.2.844.152
         }
         /* Ver.2.834.140 -> */
         if(counter_retry){
@@ -1941,8 +1946,8 @@ else{
             x0ie.i = Math.max(Math.abs(mdxi.com.i), x0ie.i);
           }
         }
-        _tree = DATA.tree_mat(DATA.vec2arr(x0, isRow));  // Ver.2.234.56  // Ver.2.237.56
       }
+      _tree = DATA.tree_mat(DATA.vec2arr(x0, isRow));  // Ver.2.234.56  // Ver.2.237.56  // Ver.2.844.152
     }
     else{
       step();

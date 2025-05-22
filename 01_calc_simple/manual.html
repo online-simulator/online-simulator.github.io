@@ -8294,6 +8294,12 @@ clear; f(3,x)=&lt;x -> [MyErr]Invalid args isFound(f)
 ・<span class="run">Ver.2.768.116</span>以降、行vectorの<a href="#span-out-reference-mat-col">列参照</a>を最適化
 <br>
 　転置処理：あり　⇒　なし
+<br>
+・<span class="run">Ver.2.844.152</span>以降、<a href="#span-out-FNmh-newtonian">Newton高階行列関数</a>の最適化
+<br>
+　Jacobi行列の配列初期化：反復の毎step　⇒　反復前（最初のみ）
+<br>
+　treeの代入：反復の前後　⇒　反復後（最後のみ）
     </td>
   </tr>
   <tr>
