@@ -583,6 +583,18 @@ My_entry.math_mat.prototype.calc_norm = function(options, vec){
   }
   return self.sqrt_iproduct(options, vec0, vec1);
 };
+/* Ver.2.845.152 -> */
+My_entry.math_mat.prototype.arr2norm = function(options, arr){
+  var self = this;
+  var DATA = self.entry.DATA;
+  return DATA.arr2num(self.normc(options, arr)).com.r;
+};
+My_entry.math_mat.prototype.vec2norm = function(options, vec){
+  var self = this;
+  var DATA = self.entry.DATA;
+  return self.arr2norm(options, DATA.vec2arr(vec));
+};
+/* -> Ver.2.845.152 */
 My_entry.math_mat.prototype.euclidean =  // Ver.2.240.56
 My_entry.math_mat.prototype.norm =  // Ver.2.240.56
 My_entry.math_mat.prototype.normr = function(options, arr){

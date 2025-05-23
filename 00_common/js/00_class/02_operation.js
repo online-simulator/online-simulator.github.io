@@ -1572,12 +1572,11 @@ if(prop === "OX" || prop === "TX"){  // ODE  // Ver.2.23.11  // Ver.2.231.56  //
     /* Ver.2.775.121 -> */
     /* Ver.2.774.119 -> */
     var calc_norm = function(fc_o5, fc_o4){
-      var arr_mdx = [];
+      var vec_df = [];  // Ver.2.845.152
       for(var i=0; i<len_i; ++i){
-        arr_mdx[i] = [unit["BRs"](options, fc_o4[i], fc_o5[i])];
+        vec_df[i] = unit["BRs"](options, fc_o4[i], fc_o5[i]);  // Ver.2.845.152
       }
-      var normdx = math_mat.normc(options, arr_mdx);  // Ver.2.237.56
-      return DATA.arr2num(normdx).com.r;
+      return math_mat.vec2norm(options, vec_df);  // Ver.2.237.56  // Ver.2.845.152
     };
     var dt0 = dt;
     var adapt_step = function(table){
@@ -1912,10 +1911,9 @@ else{
         /* -> Ver.2.739.107 */
         // check convergence
         /* Ver.2.309.77 -> */
-        var normdx = math_mat.normc(options, arr_mdx);  // Ver.2.237.56
         /* Ver.2.271.62 -> */
-        var cr_norm = DATA.arr2num(normdx).com.r;
-        var epsn = (isRelative_epsN)? epsN*DATA.arr2num(math_mat.normc(options, DATA.vec2arr(x0))).com.r: epsN;  // Ver.2.237.56 x0: vectorc
+        var cr_norm = math_mat.arr2norm(options, arr_mdx);  // Ver.2.237.56  // Ver.2.845.152
+        var epsn = (isRelative_epsN)? epsN*math_mat.vec2norm(options, x0): epsN;  // Ver.2.237.56 x0: vectorc  // Ver.2.845.152
         /* Ver.2.408.86 -> */
         var isBreak = false;
         if(isNaN(cr_norm)){
