@@ -44751,6 +44751,8 @@ precedence
 <br>
 ・<span class="run">Ver.2.752.113</span>以降、<a href="#span-out-prec-ope">前置単項演算子</a>（PU）の<a href="#span-out-prec-ope-arithmetic-size">size演算子</a>を追加
 <br>
+・<span class="run">Ver.2.847.153</span>以降、<a href="#span-out-prec-ope-relational">厳密全要素比較演算子</a>を追加（BRrl）
+<br>
 <br>
 配列要素の定義順で<a href="#span-out-prec">演算のprecedence</a>を動的に変更可能とする
 <br>
@@ -44829,7 +44831,7 @@ operation.js抜粋
       ],
       [
         "BRcn",  // Binary operatoR comparison &lt; || &lt;= || &gt;= || &gt;
-        "BRrl",  // Binary operatoR relational === || == || &lt;&gt; || &lt;&lt;&gt;&gt;
+        "BRrl",  // Binary operatoR relational ==== || === || == || &lt;&gt; || &lt;&lt;&gt;&gt; || &lt;&lt;&lt;&gt;&gt;&gt;
         "PUlN",  // Pre-Unary operator logical NOT ~~
         "BRlA",  // Binary operatoR logical    AND &amp;&amp;
         "BRlX",  // Binary operatoR logical    XOR @@

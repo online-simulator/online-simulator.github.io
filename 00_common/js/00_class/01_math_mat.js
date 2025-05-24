@@ -148,6 +148,17 @@ My_entry.math_mat.prototype.zeros2d_arr = function(arr){
   }
   return _arr;
 };
+/* Ver.2.847.153 */
+My_entry.math_mat.prototype.check_size = function(options, left, right){
+  var self = this;
+  var _isEqual = (left.length === right.length);
+  if(_isEqual){
+    for(var i=0, len_i=left.length; i<len_i; ++i){
+      _isEqual = _isEqual && (left[i].length === right[i].length);
+    }
+  }
+  return _isEqual;
+};
 /* Ver.2.752.113 */
 My_entry.math_mat.prototype.get_Nelements = function(arr){
   var self = this;

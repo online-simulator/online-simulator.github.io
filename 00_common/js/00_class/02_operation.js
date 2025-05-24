@@ -80,7 +80,7 @@ My_entry.operation.prototype.config = {
       ],
       [
         "BRcn",  // Binary operatoR comparison < || <= || >= || >
-        "BRrl",  // Binary operatoR relational === || == || <> || <<>>
+        "BRrl",  // Binary operatoR relational ==== || === || == || <> || <<>> || <<<>>>
         "PUlN",  // Pre-Unary operator logical NOT ~~
         "BRlA",  // Binary operatoR logical    AND &&
         "BRlX",  // Binary operatoR logical    XOR @@
@@ -3473,6 +3473,22 @@ My_entry.operation.prototype.init_callbacks_mat = function(options){
     }
     return _tree;
   };
+  /* Ver.2.847.153 */
+  self.callbacks_mat.BRrl_mat = function(tagName, tagObj, leftArr, rightArr){
+    var prop = tagObj.val;
+    var isEqual = math_mat.check_size(options, leftArr, rightArr);
+    if(isEqual){
+      var len_i = leftArr.length;
+      for(var i=0; i<len_i; ++i){
+        for(var j=0, len_j=leftArr[i].length; j<len_j; ++j){
+          isEqual = unit["FN"]("===", options, leftArr[i][j], rightArr[i][j]).com.r;
+          if(!(isEqual)) break;
+        }
+        if(!(isEqual)) break;
+      }
+    }
+    return DATA.num2tree(DATA.num((prop === "====")? isEqual: !(isEqual), 0));
+  };
   self.callbacks_mat.BRlX =  // Ver.2.168.41
   self.callbacks_mat.BRbs =
   self.callbacks_mat.BRba =
@@ -3480,11 +3496,11 @@ My_entry.operation.prototype.init_callbacks_mat = function(options){
   self.callbacks_mat.BRbo =
   self.callbacks_mat.BRcn =
   self.callbacks_mat.BRrl = function(tagName, tagObj, leftArr, rightArr){
+    var prop = tagObj.val;  // Ver.2.847.153
     var callback = function(left, right){
-      var prop = tagObj.val;
       return unit["FN"](prop, options, left, right);
     };
-    return self.callbacks_mat.BRelse(tagName, tagObj, leftArr, rightArr, callback);
+    return self.callbacks_mat[(prop === "====" || prop === "<<<>>>")? "BRrl_mat": "BRelse"](tagName, tagObj, leftArr, rightArr, callback);  // Ver.2.847.153
   };
   self.callbacks_mat.BRp =
   self.callbacks_mat.BRr =

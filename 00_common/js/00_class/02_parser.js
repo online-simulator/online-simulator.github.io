@@ -62,11 +62,11 @@ My_entry.parser.prototype.config = {
       {b: /[*]{2}/, a: "BRpp"},  // Ver.2.87.32
       {b: /[%]{1,2}/, a: "BRdm"},  // Ver.2.87.32
       // check prior to bit shift
-      {b: /<<>>/, a: "BRrl"},  // Ver.2.225.52
+      {b: /<<>>|<<<>>>/, a: "BRrl"},  // Ver.2.225.52  // Ver.2.847.153
       // bit shift
       {b: /[<]{2}|[>]{2,3}/, a: "BRbs"},
       // relational operator check first
-      {b: /[=]{2,3}/, a: "BRrl"},  // Ver.2.167.40
+      {b: /[=]{2,4}/, a: "BRrl"},  // Ver.2.167.40  // Ver.2.847.153
       {b: /<>/, a: "BRrl"},
       // comparison operator check second
       {b: /<[=]{0,1}/, a: "BRcn"},
