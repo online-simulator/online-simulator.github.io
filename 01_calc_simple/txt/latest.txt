@@ -1,6 +1,31 @@
 clear
 local storage cleared
 
+compare_mat(=<A,=<A),compare_mat(=<A,=<B),compare_mat(=<A,=<-B),compare_mat(=<A..,=<-B):A====A,A====B,A====-B,A..====-B:A<<<>>>A,A<<<>>>B,A<<<>>>-B,A..<<<>>>-B
+(
+true,false,false,true:
+true,false,false,true:
+false,true,true,false
+)
+
+compare_mat(A,B)=<#A===#B&&&_r((b)=<b&&&##A[__n__-1]===##B[__n__-1],true,#A)&&&prod(prod(A===B).)===1
+stored_eqn(compare_mat)
+
+B=-A
+B=(
+-1,-2:
+-3i,0
+)
+
+A=(1,2:3i)
+A=(
+1,2:
+3i
+)
+
+clear
+local storage cleared
+
 [f(x)=<d=x:[c=[],c.push(=<f),(c)(1)=>,hass(d)],hass(d)]:[f(x)=<d=x:[c=[],c.push(==<f),(c)(1)=>,hass(d)],hass(d)]:[f(x)=<d=x:[c=[],c.push(=<f),(c)(1)==>,hass(d)],hass(d)]:[f(x)=<d=x:[c=[],c.push(==<f),(c)(1)==>,hass(d)],hass(d)]
 (
 0:
@@ -5182,4 +5207,4 @@ drag=false&sw=false&0x=false&useMatrix=true&useStrict=false&checkError=true&isRi
 --------------------------------
 --------------------------------
 
-online-simulator.github.io.6.499.664.25.169 @ Sat May 24 2025 17:55:17 GMT+0900 (日本標準時) @ Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/136.0.0.0 Safari/537.36
+online-simulator.github.io.6.499.664.25.169 @ Sat May 24 2025 20:57:45 GMT+0900 (日本標準時) @ Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/136.0.0.0 Safari/537.36

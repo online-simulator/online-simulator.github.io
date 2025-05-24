@@ -491,6 +491,8 @@
       script += "\nclear;\n";
       script += "[f(x)=<d=x:[c=[],c.push(=<f),(c)(1)=>,hass(d)],hass(d)]:[f(x)=<d=x:[c=[],c.push(==<f),(c)(1)=>,hass(d)],hass(d)]:[f(x)=<d=x:[c=[],c.push(=<f),(c)(1)==>,hass(d)],hass(d)]:[f(x)=<d=x:[c=[],c.push(==<f),(c)(1)==>,hass(d)],hass(d)];";
       script += "\nclear;\n";
+      script += "A=(1,2:3i);\nB=-A;\ncompare_mat(A,B)=<#A===#B&&&_r((b)=<b&&&##A[__n__-1]===##B[__n__-1],true,#A)&&&prod(prod(A===B).)===1;\ncompare_mat(=<A,=<A),compare_mat(=<A,=<B),compare_mat(=<A,=<-B),compare_mat(=<A..,=<-B):\nA====A,A====B,A====-B,A..====-B:\nA<<<>>>A,A<<<>>>B,A<<<>>>-B,A..<<<>>>-B;";
+      script += "\nclear;\n";
       $._id("input").value = script;
       // test case
       var setVal = function(){

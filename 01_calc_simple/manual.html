@@ -8481,8 +8481,6 @@ pending項目を列挙する
 <br>
 　String(引数)と結果のlist優先の短絡評価
 <br>
-・<a href="#span-out-mat">行列</a>の厳密等価||不等価演算子
-<br>
 <br>
 plot
 <br>
@@ -8571,6 +8569,8 @@ push：len=sizer(A),opt_i==len&amp;&amp;&amp;(A=(A:val))||||last{ie=(opt_i||len-
 ・<a href="#span-out-FNh">高階関数</a>の引数順序<del>（代数学||for文準拠に変更等）</del>
 <br>
 ・<span class="run">Ver.2.774.119</span>以降、<a href="#span-out-FNmh-OX">ODE高階行列関数</a>のadaptive-step solverを追加
+<br>
+・<span class="run">Ver.2.847.153</span>以降、<a href="#span-out-mat">行列</a>の<a href="#span-out-prec-ope-relational">厳密等価||不等価演算子</a>を追加
     </td>
   </tr>
   <tr>
@@ -17191,6 +17191,10 @@ precedence
 <br>
 　　　||厳密不等価演算子 &lt;&lt;&gt;&gt;　<span class="run">Ver.2.225.52</span>以降、追加
 <br>
+　　　||<a href="#span-out-mat">行列</a>の厳密等価演算子 ====　<span class="run">Ver.2.847.153</span>以降、追加
+<br>
+　　　||<a href="#span-out-mat">行列</a>の厳密不等価演算子 &lt;&lt;&lt;&gt;&gt;&gt　<span class="run">Ver.2.847.153</span>以降、追加
+<br>
 ・<a href="#span-out-prec-ope-logical">論理演算子</a>　<span class="run">Ver.2.59.26</span>以降、追加
 <br>
 　・<a href="#span-out-type-ope">前置単項演算子</a>
@@ -17912,6 +17916,10 @@ i===0 -> 1
 <br>
 i===false -> 0+O(1e+0)
 <br>
+・<span class="run">Ver.2.847.153</span>以降、<a href="#span-out-mat">行列</a>の厳密等価演算子を追加
+<br>
+A=(1,2:3i); B=-A; A====A,A====B,A====-B,A..====-B -> (true,false,false,true)
+<br>
 <br>
 不等価演算子
 <br>
@@ -17936,6 +17944,10 @@ false&lt;&lt;&gt;&gt;false -> false
 false&lt;&lt;&gt;&gt;0 -> true+O(1e+0)
 <br>
 true&lt;&lt;&gt;&gt;1 -> true+O(1e+0)
+<br>
+・<span class="run">Ver.2.847.153</span>以降、<a href="#span-out-mat">行列</a>の厳密不等価演算子を追加
+<br>
+A=(1,2:3i); B=-A; A&lt;&lt;&lt;&gt;&gt;&gt;A,A&lt;&lt;&lt;&gt;&gt;&gt;B,A&lt;&lt;&lt;&gt;&gt;&gt;-B,A..&lt;&lt;&lt;&gt;&gt;&gt;-B -> (false,true,true,false)
 <br>
 ・<a href="#span-out-prec-ope-logical-not">論理NOT演算子</a>||<a href="#span-out-FN-ope">関数</a>を使用
 <br>
@@ -44751,7 +44763,7 @@ precedence
 <br>
 ・<span class="run">Ver.2.752.113</span>以降、<a href="#span-out-prec-ope">前置単項演算子</a>（PU）の<a href="#span-out-prec-ope-arithmetic-size">size演算子</a>を追加
 <br>
-・<span class="run">Ver.2.847.153</span>以降、<a href="#span-out-prec-ope-relational">厳密全要素比較演算子</a>を追加（BRrl）
+・<span class="run">Ver.2.847.153</span>以降、<a href="#span-out-mat">行列</a>の<a href="#span-out-prec-ope-relational">厳密等価||不等価演算子</a>を追加（BRrl）
 <br>
 <br>
 配列要素の定義順で<a href="#span-out-prec">演算のprecedence</a>を動的に変更可能とする
