@@ -1207,6 +1207,8 @@ test case
 <br>
 　　・<a href="#span-out-UI-graphing-color">color入力仕様</a>
 <br>
+　　・<a href="#span-out-UI-graphing-colors">colors入力仕様</a>
+<br>
 　　・<a href="#span-out-UI-graphing-z">z入力仕様</a>
 <br>
 　　　・<a href="#span-out-UI-graphing-legend">legend-dataset</a>
@@ -1214,6 +1216,8 @@ test case
 　　　・<a href="#span-out-UI-graphing-bgcolor">bgcolor特定項目仕様</a>
 <br>
 　　　・<a href="#span-out-UI-graphing-gdcolor">gdcolor特定項目仕様</a>
+<br>
+　　　・<a href="#span-out-UI-graphing-mrcolors">mrcolors特定項目仕様</a>
 <br>
 　　　・<a href="#span-out-UI-graphing-plotconfig">plotconfig特定項目仕様</a>
 <br>
@@ -9555,8 +9559,6 @@ red||#f00||#f00f||#ff0000||#ff0000ff||rgb(255,0,0)||rgba(255,0,0,1)
 <br>
 <span class="run">Ver.2.134.35</span>以降、legend番号Nlegend=j+1の<a href="#span-out-UI-graphing-config">marker-colors</a>のRGB既定値を示す（参考）
 <br>
-・<span class="run">Ver.2.744.110</span>以降、<a href="#span-out-UI-graphing-config">marker-colors</a>のformatを更新
-<br>
 <pre><code>
     var r255 = 0;
     var g255 = 0;
@@ -9610,11 +9612,38 @@ red||#f00||#f00f||#ff0000||#ff0000ff||rgb(255,0,0)||rgba(255,0,0,1)
     }
 </code></pre>
 <br>
+留意事項を列挙する
 <br>
-color-dataset入力の一例（7色<a href="#span-app-optics">rainbow</a>の<a href="#span-out-UI-graphing-gradation">gradation-colors</a>）を示す
+・未定義の場合、透明黒色
 <br>
-・上記<a href="#span-out-UI-graphing-config">marker-colors</a>のrainbow選択時、pn=[1/7,7/7]のRGB値をround出力
-
+・rgba()入力のRGBA指定値≒picker値で数%以内の誤差が存在する可能性あり（詳細は未検証）
+    </td>
+  </tr>
+  <tr>
+    <th>
+<a href="#span-index">
+目次
+</a>
+<br>
+colors
+<br>
+入力仕様
+    </th>
+    <td>
+<span id="span-out-UI-graphing-colors"></span>
+colors入力仕様について記述する
+<br>
+・<span class="run">Ver.2.36.18</span>以降、<a href="#span-out-UI-graphing-gradation">gradation-colors</a>に適用
+<br>
+・<span class="run">Ver.2.744.110</span>以降、<a href="#span-out-UI-graphing-config">marker-colors</a>に適用
+<br>
+・<span class="run">Ver.2.846.153</span>以降、<a href="#span-out-UI-graphing-mrcolors">mrcolors</a>に適用
+<br>
+<br>
+color-datasetの一例：7色<a href="#span-app-optics">rainbow</a>
+<br>
+・<a href="#span-out-UI-graphing-config">marker-colors</a>のrainbow選択時、<a href="#span-out-UI-graphing-color">color</a>のpn=[1/7,7/7]のRGB値をround出力
+<br>
 rgb(255,0,219):rgb(73,0,255):rgb(0,146,255):rgb(0,255,146):rgb(73,255,0):rgb(255,219,0):rgb(255,0,0)
 <br>
 ・Newton説（音階<a href="#span-app-analogy">analogy</a>による）
@@ -9638,11 +9667,6 @@ violet:blue:cyan:green:yellow:orange:red
 #ee82ee00:#ee82eecc:#0000ffcc:#00ffffcc:#00ff00cc:#ffff00cc:#ffa500cc:#ff0000cc:#ff000000
 <br>
 ・6色の場合、短波長側のindigo||cyanを消去
-<br>
-<br>
-留意事項を列挙する
-<br>
-・rgba()入力のRGBA指定値≒picker値で数%以内の誤差が存在する可能性あり（詳細は未検証）
     </td>
   </tr>
   <tr>
@@ -9693,6 +9717,17 @@ gdcolor||GDCOLOR{<a href="#span-out-UI-graphing-color">color</a>}
 ・任意位置に挿入可
 <br>
 ・<a href="#span-out-UI-graphing-layer-grid">grid-layer</a>に<a href="#span-out-UI-graphing-color">color</a>指定値を適用
+<br>
+<br>
+<span class="run">Ver.2.846.153</span>以降、<a href="#span-out-UI-graphing-mrcolors">mrcolors</a>を追加
+<br>
+mrcolors||MRCOLORS{<a href="#span-out-UI-graphing-colors">colors</a>}
+<br>
+・任意位置に挿入可
+<br>
+・<a href="#span-out-UI-graphing-config">marker-colors</a>に<a href="#span-out-UI-graphing-colors">colors</a>指定値を適用
+<br>
+・colorsは<a href="#span-out-UI-graphing-colors">color-dataset</a>をcolon:区切りで入力
 <br>
 <br>
 <span class="run">Ver.2.92.32</span>以降、<a href="#span-out-UI-graphing-plotconfig">plotconfig</a>を追加
@@ -9746,6 +9781,11 @@ origin||ORIGIN{args}
 lineWidth,<a href="#span-out-UI-graphing-color">color</a>,labelSize
 <br>
 <br>
+以上、設定機能（UI設定値||既定値を上書き）
+<br>
+以下、描画機能
+<br>
+<br>
 <span class="run">Ver.2.34.18</span>以降、<a href="#span-out-UI-graphing-string-path">string-path</a>を追加
 <br>
 string||STRING{config[]string-path}
@@ -9768,13 +9808,13 @@ shadowOffsetX:shadowOffsetY:shadowBlur:deg0
 <br>
 <span class="run">Ver.2.36.18</span>以降、<a href="#span-out-UI-graphing-gradation">gradation</a>を追加
 <br>
-gradation||GRADATION{config[]colors}
+gradation||GRADATION{config[]<a href="#span-out-UI-graphing-colors">colors</a>}
 <br>
 ・各<a href="#span-out-UI-graphing-legend">legend-dataset</a>の任意位置に挿入可
 <br>
 ・gradationは<a href="#span-out-UI-graphing-layer-plot">plot-layer</a>に描画
 <br>
-・colorsは<a href="#span-out-UI-graphing-color">color-dataset</a>をcolon:区切りで入力（省略時、<a href="#span-out-UI-graphing-legend">legend-dataset</a>のmarkerColor）
+・colorsは<a href="#span-out-UI-graphing-colors">color-dataset</a>をcolon:区切りで入力（省略時、<a href="#span-out-UI-graphing-legend">legend-dataset</a>のmarkerColor）
 <br>
 ・config[]内datasetは設定値をcolon:区切りで入力（省略不可）
 <br>
@@ -9942,6 +9982,32 @@ gdcolor||GDCOLOR{<a href="#span-out-UI-graphing-color">color</a>}
 ・任意位置に挿入可
 <br>
 ・<a href="#span-out-UI-graphing-layer-grid">grid-layer</a>に<a href="#span-out-UI-graphing-color">color</a>指定値を適用
+    </td>
+  </tr>
+  <tr>
+    <th>
+<a href="#span-index">
+目次
+</a>
+<br>
+mrcolors
+<br>
+特定項目仕様
+    </th>
+    <td>
+<span id="span-out-UI-graphing-mrcolors"></span>
+mrcolors特定項目仕様について記述する
+<br>
+<br>
+<span class="run">Ver.2.846.153</span>以降、<a href="#span-out-UI-graphing-z">z入力欄</a>にmrcolorsを入力
+<br>
+mrcolors||MRCOLORS{<a href="#span-out-UI-graphing-colors">colors</a>}
+<br>
+・任意位置に挿入可
+<br>
+・<a href="#span-out-UI-graphing-config">marker-colors</a>に<a href="#span-out-UI-graphing-colors">colors</a>指定値を適用
+<br>
+・colorsは<a href="#span-out-UI-graphing-colors">color-dataset</a>をcolon:区切りで入力
     </td>
   </tr>
   <tr>
@@ -10203,7 +10269,7 @@ gradation特定項目仕様と付随する留意事項について記述する
 <br>
 <a href="#span-out-UI-graphing-z">z入力欄</a>にgradationを入力
 <br>
-gradation||GRADATION{config[]colors}
+gradation||GRADATION{config[]<a href="#span-out-UI-graphing-colors">colors</a>}
 <br>
 ・各<a href="#span-out-UI-graphing-legend">legend-dataset</a>の任意位置に挿入可
 <br>
@@ -10211,7 +10277,7 @@ gradation||GRADATION{config[]colors}
 <br>
 ・gradation起点からplot-lineまでの半径方向に生成
 <br>
-・colorsは<a href="#span-out-UI-graphing-color">color-dataset</a>をcolon:区切りで入力（省略時、<a href="#span-out-UI-graphing-legend">legend-dataset</a>のmarkerColor）
+・colorsは<a href="#span-out-UI-graphing-colors">color-dataset</a>をcolon:区切りで入力（省略時、<a href="#span-out-UI-graphing-legend">legend-dataset</a>のmarkerColor）
 <br>
 ・config[]内datasetは設定値をcolon:区切りで入力（省略不可）
 <br>

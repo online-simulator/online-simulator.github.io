@@ -493,6 +493,7 @@ My_entry.plot2d.prototype.plot = function(arr2d_vec, options, toSVG, isFinal){  
   var Ni0 = options["grid-x-Ni"];
   var Nj0 = options["grid-y-Nj"];
   var kxAdjust = options["kx-adjust"];
+  var markerColors = options["marker-colors"];  // Ver.2.846.153
   var legend_kx = options["legend-kx"];
   var legend_ky = options["legend-ky"];
   var arr2d_x = arr2d_vec.x;
@@ -545,6 +546,7 @@ My_entry.plot2d.prototype.plot = function(arr2d_vec, options, toSVG, isFinal){  
   /* 1.17.7 -> */
   inputZ = def.enter_name(inputZ, "bgcolor", false, 0, function(content){backgroundColor = content;});
   inputZ = def.enter_name(inputZ, "gdcolor", false, 0, function(content){gridLineColor = content;});
+  inputZ = def.enter_name(inputZ, "mrcolors", false, 0, function(content){markerColors = content;});  // Ver.2.846.153
   /* -> 1.17.7 */
   /* 1.22.7 -> */
   var plotconfig = "";
@@ -656,14 +658,13 @@ My_entry.plot2d.prototype.plot = function(arr2d_vec, options, toSVG, isFinal){  
     /* 1.48.8 -> */
     /* Ver.2.744.110 -> */
     var rgba = null;
-    var text_colors = options["marker-colors"];
-    if(text_colors === "Ver.0"){  // old
+    if(markerColors === "Ver.0"){  // old  // Ver.2.846.153
       var g255 = (len_j > 1)? Math.floor(j*255/(len_j-1)): 0;
       var r255 = Math.floor(255-g255)%256;
       var b255 = Math.floor(g255<<1)%(256-1);
       rgba = {r: r255, g: g255, b: b255, a: 255};
     }
-    else if(text_colors === "Ver.1"){
+    else if(markerColors === "Ver.1"){  // Ver.2.846.153
       var pn = (len_j-j)/len_j;
       var r255 = 0;
       var g255 = 0;
@@ -683,10 +684,8 @@ My_entry.plot2d.prototype.plot = function(arr2d_vec, options, toSVG, isFinal){  
       rgba = {r: r255, g: g255, b: b255, a: 255};
     }
     else{
-      var isRainbow = (text_colors === "rainbow");
-      if(isRainbow){
-        text_colors = "#f00:#ff0:#0f0:#0ff:#00f:#f0f:#f00";
-      }
+      var isRainbow = (markerColors === "rainbow");  // Ver.2.846.153
+      var text_colors = (isRainbow)? "#f00:#ff0:#0f0:#0ff:#00f:#f0f:#f00": markerColors;  // Ver.2.846.153
       var colors = text_colors.split(":");
       var dlen_j = (isRainbow)? 0: -1;
       var pn = j/(len_j+dlen_j || 1);  // /not0
