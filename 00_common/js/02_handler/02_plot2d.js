@@ -18,7 +18,7 @@ My_entry.plot2d.prototype.config = {
     px_w: 512,
     px_h: 256,
     gridLineColor: "gray",
-    selectedLineColor: "rgb(7, 135, 200)",
+    selectedLineColor: "rgba(255, 128, 128, 0.75)",  // Ver.2.846.153
     Ni: 10,
     Nj: 10,
     Ni0: 6,
@@ -218,7 +218,7 @@ My_entry.plot2d.prototype.init_handlers = function(){
         vec1 = self.vec2vec_snapped(vec1);
         self.sw_snap = 2;
       }
-      temp.draw.rectangle(vec0, vec1, 3, self.config.default.selectedLineColor, null);
+      temp.draw.rectangle(vec0, vec1, 3, self.config.default.selectedLineColor, null, true);  // Ver.2.846.153
     }
   };
   handlers.onmouseup = function(e){  // always
