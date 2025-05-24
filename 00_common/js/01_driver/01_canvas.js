@@ -363,7 +363,7 @@ My_entry.canvas.prototype.change_scale = function(x0, y0, x1, y1){  // right-han
 /* Ver.2.821.135 -> */
 My_entry.canvas.prototype.wrapper_isFinite = function(x){
   var self = this;
-  if(!(isFinite(x))) throw "Invalid canvas-range isInf";
+  if(Math.abs(x) === Number.POSITIVE_INFINITY) throw "Invalid canvas-range isInf";  // Ver.2.847.155
   return x;
 };
 My_entry.canvas.prototype.xp2x = function(xp){

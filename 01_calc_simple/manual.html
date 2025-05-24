@@ -8408,6 +8408,8 @@ clear; last{a,1} -> <del>1</del>[MyErr]Undef var(a)
 <br>
 　・canvas座標が有限を保証するwrapper関数の追加
 <br>
+　　<span class="clear">Ver.2.847.155</span>以降、Infinity判定の厳密化：!(isFinite(x))　⇒　Math.abs(x) === Number.POSITIVE_INFINITY
+<br>
 　・内部関数名の変更を伴うtry~catch処理の大幅修正
 <br>
 　・lock処理の見直し
