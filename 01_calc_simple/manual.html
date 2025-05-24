@@ -292,13 +292,15 @@ test case
 <br>
 　⇒対称性の保存：y=p/2の線対称性のpairで全経路履歴を明示
 <br>
-　-Np：<span class="run">Ver.2.747.111</span>以降、全affine点の個数（零元を含む全要素数）
+　-Np：<span class="run">Ver.2.747.111</span>以降、全affine点の個数<span class="clear">+1</span>（零元を含む全要素数）　<span class="clear">Ver.2.847.154</span>以降、修正
+<br>
+　-ap：<span class="clear">Ver.2.847.154</span>以降、ap:=p+1-Np
 <br>
 　-Fp：LMFDB定義のFp(T):=1+k1*T+k2*p*T**2, T=p**(-s)　⇒　Euler積表示のL(s):=素数pのΠ1/Fp(T)
 <br>
-　⇒1次の係数k1：<span class="clear">加法的</span>還元がbadの場合、false　<span class="clear">Ver.2.757.115</span>以降、訂正
+　⇒1次の係数k1：<span class="clear">加法的</span>還元の場合、false　<span class="clear">Ver.2.757.115</span>~<span class="clear">Ver.2.847.154</span>以降、訂正
 <br>
-　⇒2次の係数k2：<span class="clear">乗法的</span>還元がbadの場合、false　<span class="clear">Ver.2.757.115</span>以降、訂正
+　⇒2次の係数k2：<span class="clear">乗法的</span>還元の場合、false　<span class="clear">Ver.2.757.115</span>~<span class="clear">Ver.2.847.154</span>以降、訂正
 <br>
 　<span class="wF">-BSD</span>：同上のNpを<a href="#span-out-FN-interp">lookup-table</a>化（線形時間でBSD予想のrankを評価）
 <br>
