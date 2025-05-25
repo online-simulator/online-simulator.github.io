@@ -547,6 +547,17 @@ My_entry.plot2d.prototype.plot = function(arr2d_vec, options, toSVG, isFinal){  
   inputZ = def.enter_name(inputZ, "bgcolor", false, 0, function(content){backgroundColor = content;});
   inputZ = def.enter_name(inputZ, "gdcolor", false, 0, function(content){gridLineColor = content;});
   inputZ = def.enter_name(inputZ, "mrcolors", false, 0, function(content){markerColors = content;});  // Ver.2.846.153
+  /* Ver.2.848.155 -> */
+  inputZ = def.enter_name(inputZ, "composites", false, 0, function(content){
+    var sc = content.split(",");
+    if(sc[0]){
+      globalCompositeOperation = options._composite0 = sc[0];
+    }
+    if(sc[1]){
+      options._composite1 = sc[1];
+    }
+  });
+  /* -> Ver.2.848.155 */
   /* -> 1.17.7 */
   /* 1.22.7 -> */
   var plotconfig = "";
@@ -1261,7 +1272,7 @@ My_entry.plot2d.prototype.draw = function(arr2d_vec, options){  // Ver.2.821.135
           self.init_canvas(false);  // here for flickering-proof
           self.isLocked = false;
         };
-        all.draw_base64s(arr_base64_grid_plot.reverse(), callback2, options["canvas-globalCompositeOperation"]);
+        all.draw_base64s(arr_base64_grid_plot.reverse(), callback2, options._composite1 || options["canvas-globalCompositeOperation"]);  // Ver.2.848.155
       };
       /* 1.10.6 -> */
       all.clear();
@@ -1276,6 +1287,6 @@ My_entry.plot2d.prototype.draw = function(arr2d_vec, options){  // Ver.2.821.135
     };
     temp.clear();  // 1.15.7
     all.clear();
-    all.draw_base64s(arr_base64_plot.reverse(), callback0, options["canvas-globalCompositeOperationLayer"]);
+    all.draw_base64s(arr_base64_plot.reverse(), callback0, options._composite0 || options["canvas-globalCompositeOperationLayer"]);  // Ver.2.848.155
   return self;  // Ver.2.821.135
 };

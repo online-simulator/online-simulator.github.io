@@ -1223,6 +1223,8 @@ test case
 <br>
 　　　・<a href="#span-out-UI-graphing-mrcolors">mrcolors特定項目仕様</a>
 <br>
+　　　・<a href="#span-out-UI-graphing-composites">composites特定項目仕様</a>
+<br>
 　　　・<a href="#span-out-UI-graphing-plotconfig">plotconfig特定項目仕様</a>
 <br>
 　　　・<a href="#span-out-UI-graphing-title">graph-title特定項目仕様</a>
@@ -9745,6 +9747,19 @@ mrcolors||MRCOLORS{<a href="#span-out-UI-graphing-colors">colors</a>}
 ・colorsは<a href="#span-out-UI-graphing-colors">color-dataset</a>をcolon:区切りで入力
 <br>
 <br>
+<span class="run">Ver.2.848.155</span>以降、<a href="#span-out-UI-graphing-composites">composites</a>を入力
+<br>
+composites||COMPOSITES{composite0,composite1}
+<br>
+・任意位置に挿入可
+<br>
+・compositeをcomma,区切りで入力
+<br>
+・<a href="#span-out-UI-graphing-config">canvas-globalCompositeOperationLayer</a>にcomposite0を適用
+<br>
+・<a href="#span-out-UI-graphing-config">canvas-globalCompositeOperation</a>にcomposite1を適用
+<br>
+<br>
 <span class="run">Ver.2.92.32</span>以降、<a href="#span-out-UI-graphing-plotconfig">plotconfig</a>を追加
 <br>
 plotconfig||PLOTCONFIG{args}
@@ -10023,6 +10038,34 @@ mrcolors||MRCOLORS{<a href="#span-out-UI-graphing-colors">colors</a>}
 ・<a href="#span-out-UI-graphing-config">marker-colors</a>に<a href="#span-out-UI-graphing-colors">colors</a>指定値を適用
 <br>
 ・colorsは<a href="#span-out-UI-graphing-colors">color-dataset</a>をcolon:区切りで入力
+    </td>
+  </tr>
+  <tr>
+    <th>
+<a href="#span-index">
+目次
+</a>
+<br>
+composites
+<br>
+特定項目仕様
+    </th>
+    <td>
+<span id="span-out-UI-graphing-composites"></span>
+composites特定項目仕様について記述する
+<br>
+<br>
+<span class="run">Ver.2.848.155</span>以降、<a href="#span-out-UI-graphing-z">z入力欄</a>にcompositesを入力
+<br>
+composites||COMPOSITES{composite0,composite1}
+<br>
+・任意位置に挿入可
+<br>
+・compositeをcomma,区切りで入力
+<br>
+・<a href="#span-out-UI-graphing-config">canvas-globalCompositeOperationLayer</a>にcomposite0を適用
+<br>
+・<a href="#span-out-UI-graphing-config">canvas-globalCompositeOperation</a>にcomposite1を適用
     </td>
   </tr>
   <tr>
