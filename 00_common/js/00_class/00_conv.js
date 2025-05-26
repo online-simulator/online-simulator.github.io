@@ -320,6 +320,17 @@ My_entry.conv.prototype.csv2arr = function(text, opt_callback, opt_i0){
         for(var j=0; j<len_j; ++j){
           var csv_ij = sc_linei[j];
           var num_ij = (csv_ij === "")? NaN: Number(csv_ij);  // calc-Ver.2.162.39
+          /* calc-Ver.2.848.156 -> */
+          if(isNaN(num_ij)){
+            var csv_ij_lower = csv_ij.toLowerCase();
+            if(csv_ij_lower === "false"){
+              num_ij = false;
+            }
+            else if(csv_ij_lower === "true"){
+              num_ij = true;
+            }
+          }
+          /* -> calc-Ver.2.848.156 */
           _arr[j] = _arr[j] || [];
           _arr[j][ii] = callback(num_ij);
         }
