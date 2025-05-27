@@ -8505,16 +8505,14 @@ pending項目を列挙する
 <br>
 　単独要素の場合、無条件のerror終了
 <br>
-・<a href="#span-out-eqns-re-call">再帰call</a>のmemo化option
-<br>
-　String(引数)と結果のlist優先の短絡評価
+・__args__
 <br>
 <br>
 plot
 <br>
 ・vz入力欄：tarr_z
 <br>
-　absolute||argument||vectorの選択肢を追加
+　absolute||argument||vector||contourの選択肢を追加
 <br>
 ・aspect比固定option（round-off桁数との整合性を含む）
 <br>
@@ -8537,6 +8535,20 @@ code整理
 ・<a href="#span-out-log-error">error-log</a>の内容
 <br>
 <br>
+最適化
+<br>
+・<a href="#span-out-non-linear">非線形方程式の解法</a>
+<br>
+<br>
+高速化
+<br>
+・<a href="#span-out-eqns-re-call">再帰call</a>の<a href="#span-in-prec">tag名</a>
+<br>
+・<a href="#span-out-eqns-re-call">再帰call</a>のmemo化option
+<br>
+　String(引数)と結果のlist優先の短絡評価
+<br>
+<br>
 仕様廃止
 <br>
 ・右代入
@@ -8548,6 +8560,19 @@ code整理
 ・<a href="#span-out-FNh-DX">微分高階関数</a>の第3引数の省略（<a href="#span-out-ref-transparency">参照透過性</a>の問題あり）
 <br>
 ・<a href="#span-out-FNspecial-spec">特殊仕様関数</a>（関数名に引数の一部を含む仕様）
+<br>
+<br>
+仕様見直し
+<br>
+・<a href="#span-out-mat-blank">欠損要素</a>
+<br>
+-(1,2:3) -> (-1,-2:-3,0)
+<br>
+・<a href="#span-out-mat-empty">空行列</a>
+<br>
+[]+[] -> []
+<br>
+・<a href="#span-out-FNmh">高階行列関数</a>の引数=0で省略判定（初期値の数値入力不可）
 <br>
 <br>
 仕様変更
