@@ -174,10 +174,24 @@ My_entry.calc_graphing.prototype.get_axis_zooming = function(rate, opt_txy, opti
 My_entry.calc_graphing.prototype.output_axis = function(arr2d_vec, options_plot){
   var self = this;
   var $ = self.entry.$;
+  /* Ver.2.852.157 -> */
+  var conv = self.entry.conv;
+  var isRelative = options_plot.relzooming;
   var xmin = arr2d_vec.xmin;
   var xmax = arr2d_vec.xmax;
   var ymin = arr2d_vec.ymin;
   var ymax = arr2d_vec.ymax;
+  if(!(isRelative)){
+    var gxmin = Math.min(xmin, xmax);
+    var gymin = Math.min(ymin, ymax);
+    var gxmax = Math.max(xmin, xmax);
+    var gymax = Math.max(ymin, ymax);
+    xmin = conv.dec2round_sw(gxmin, null, 0);
+    ymin = conv.dec2round_sw(gymin, null, 0);
+    xmax = conv.dec2round_sw(gxmax, "ceil", 0);
+    ymax = conv.dec2round_sw(gymax, "ceil", 0);
+  }
+  /* -> Ver.2.852.157 */
   var ed = options_plot.expDigit;
   var callback = (ed >= 0)?
     function(x){return x.toExponential(ed);}:
@@ -275,12 +289,12 @@ My_entry.calc_graphing.prototype.plot = function(arr_data_, options_plot, isFina
     }
     /* -> Ver.2.105.33 */
     var arr2d_vec = self.arr_data2arr2d_vec(arr_data, options_plot);
-    if(self.plot2d.isChanged){
-      self.input_axis(arr2d_vec);
-    }
-    else{
+    /* Ver.2.852.157 -> */
+    if(!(self.plot2d.isChanged)){
       self.output_axis(arr2d_vec, options_plot);
     }
+    self.input_axis(arr2d_vec);
+    /* -> Ver.2.852.157 */
     /* Ver.2.821.135 -> */
     self.entry.def.mix_over(self.constructors.draw, ((toSVG)? self.constructors.draw_svg: self.constructors.draw_canvas));
     _svg += self.plot2d.run(arr2d_vec, options_plot, toSVG, isFinal);
@@ -1310,6 +1324,7 @@ My_entry.calc_graphing.prototype.init_handlers = function(){
         self.isCheckedError = false;  // Ver.2.33.17
         self.re_plot(true);
         break;
+      case "checkbox-relzooming":  // Ver.2.852.157
       case "checkbox-imag-x":
       case "checkbox-imag-y":
         self.plot2d.init_flags();

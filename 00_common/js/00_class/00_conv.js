@@ -31,7 +31,7 @@ My_entry.conv.prototype.arr_str2arr_num = function(arr_str, num_NaN, num_min, nu
 My_entry.conv.prototype.dec2round_sw = function(dec, sw, opt_digit){
   var self = this;
   var _dec = Number(dec);
-  var digit = Number(opt_digit || 1);
+  var digit = (typeof opt_digit === "undefined")? 1: Number(opt_digit);  // calc-Ver.2.852.157
   var mc = (_dec%1 === 0 || isNaN(_dec))? null: _dec.toExponential(digit+1).split("e");  // Ver.2.770.117
   if(mc && mc.length === 2){
     _dec = Math[sw || "floor"](Number(mc[0])*Math.pow(10, digit))*Math.pow(10, Number(mc[1])-digit);
@@ -71,10 +71,11 @@ My_entry.conv.prototype.base2img = function(base64, opt_callback){
   _img.src = base64;
   return _img;
 };
-My_entry.conv.prototype.num2not = function(num, decDigit, expDigit){
+My_entry.conv.prototype.num2not = function(num, decDigit, opt_expDigit){  // calc-Ver.2.852.157
   var self = this;
   /* calc-Ver.2.601.94 -> */
   var _not = null;
+  var expDigit = opt_expDigit || 0;  // calc-Ver.2.852.157
   var isDecimal = (expDigit === -1);
   var isRound = (expDigit < -1);
   if(isRound){
