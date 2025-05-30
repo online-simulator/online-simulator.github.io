@@ -312,15 +312,24 @@ My_entry.conv.prototype.csv2arr = function(text, opt_callback, opt_i0){
   if(sc_line && sc_line.length){
     var len_j = 0;
     var len_i = sc_line.length;
-    for(var i=i0, ii=0; i<len_i; ++i){
+    /* calc-Ver.2.852.158 -> */
+    if(sc_line[len_i-1].replace(/\s/g, "") === ""){
+      len_i -= 1;
+    }
+    for(var i=i0; i<len_i; ++i){
       var linei = sc_line[i];
-      var hasLine = (linei !== "");
-      if(hasLine){
-        var sc_linei = linei.split(",");
-        len_j = (ii === 0)? sc_linei.length: len_j;
-        for(var j=0; j<len_j; ++j){
-          var csv_ij = sc_linei[j];
-          var num_ij = (csv_ij === "")? NaN: Number(csv_ij);  // calc-Ver.2.162.39
+      var sc_linei = linei.split(",");
+      len_j = Math.max(len_j, sc_linei.length);
+    }
+    for(var i=i0; i<len_i; ++i){
+      var linei = sc_line[i];
+      var sc_linei = linei.split(",");
+      for(var j=0; j<len_j; ++j){
+        var num_ij = NaN;
+        var csv_ij = sc_linei[j];
+        var isEmpty = (typeof csv_ij === "undefined") || csv_ij.replace(/\s/g, "") === "";
+        if(!(isEmpty)){
+          num_ij = Number(csv_ij);
           /* calc-Ver.2.848.156 -> */
           if(isNaN(num_ij)){
             var csv_ij_lower = csv_ij.toLowerCase();
@@ -332,12 +341,12 @@ My_entry.conv.prototype.csv2arr = function(text, opt_callback, opt_i0){
             }
           }
           /* -> calc-Ver.2.848.156 */
-          _arr[j] = _arr[j] || [];
-          _arr[j][ii] = callback(num_ij);
         }
-        ii++;
+        _arr[j] = _arr[j] || [];
+        _arr[j][i-i0] = callback(num_ij);
       }
     }
+    /* -> calc-Ver.2.852.158 */
   }
   return _arr;
 };
