@@ -20505,6 +20505,8 @@ x=2; store; clear; x=3<span class="selection">/*independent local scope*/</span>
 ・<span class="run">Ver.2.857.158</span>以降、<a href="#span-out-FNh-DX">微分高階関数</a>の対策を完了
 <br>
 　<a href="#span-out-terms">scope変数</a>を参照する　⇒　<a href="#span-out-terms">scope変数</a>から独立する（引数のみ有効）
+<br>
+・以上より、<span class="clear">Ver.2.835.141</span>~<span class="clear">2.857.159</span>以降、<a href="#span-out-FNh">高階関数</a>||<a href="#span-out-FNmh">高階行列関数</a>の関連項目を一括削除
     </td>
   </tr>
   <tr>
@@ -32162,8 +32164,6 @@ clear; b=0; a=&lt;b=1; c=&lt;b=-1; a|||c,b -> (0,-1)
 <br>
 <del>・_sdummy<a href="#span-out-vars-symbol">変数名symbol</a>でcallする</del><span class="run">Ver.2.812.131</span>以降、旧仕様廃止
 <br>
-・dummy変数は無次元で<a href="#span-out-terms">scope変数</a>から独立する
-<br>
 <br>
 _s(=&lt;第1引数,第2引数,第3引数[,第4引数])
 <br>
@@ -32336,8 +32336,6 @@ N=0; _sn(=&lt;Pn,N,10) -> 99.99999999999999
 <br>
 <del>・_pdummy<a href="#span-out-vars-symbol">変数名symbol</a>でcallする</del><span class="run">Ver.2.812.131</span>以降、旧仕様廃止
 <br>
-・dummy変数は無次元で<a href="#span-out-terms">scope変数</a>から独立する
-<br>
 <br>
 _p(=&lt;第1引数,第2引数,第3引数[,第4引数])
 <br>
@@ -32444,8 +32442,6 @@ x={0,1,2,3,4,5,6,7,8,9}; _pn(=&lt;x[n],1,9) -> 362880
 ・最後の演算結果を返す
 <br>
 <del>・_rdummy<a href="#span-out-vars-symbol">変数名symbol</a>でcallする</del><span class="run">Ver.2.812.131</span>以降、旧仕様廃止
-<br>
-・dummy変数は無次元で<a href="#span-out-terms">scope変数</a>から独立する
 <br>
 ・<span class="run">Ver.2.242.56</span>以降、再帰高階関数のみ、dummy<a href="#span-out-vars-symbol">変数名symbol</a>を省略可（while文の代替）
 <br>
@@ -32661,10 +32657,6 @@ normc(mdx)/normc({x0,x1}) -> infoLost[ri] 3.6879601533907295e-16
 <br>
 <del>・_ddummy<a href="#span-out-vars-symbol">変数名symbol</a>でcallする</del><span class="run">Ver.2.812.131</span>以降、旧仕様廃止
 <br>
-・dummy変数は無次元
-<br>
-<del>・dummy変数と同名の<a href="#span-out-terms">scope変数</a>を参照するが、上書きしない（第3引数省略時のみ）</del><span class="run">Ver.2.857.158</span>以降、廃止
-<br>
 <br>
 _d(=&lt;第1引数,第2引数[,第3引数[,第4引数]])　<span class="run">Ver.2.857.158</span>以降、第2引数の省略不可
 <br>
@@ -32672,7 +32664,7 @@ _d(=&lt;第1引数,第2引数[,第3引数[,第4引数]])　<span class="run">Ver
 <br>
 option
 <br>
-・第2引数: 微分位置aを値渡し<del>[省略時、<a href="#span-out-terms">scope変数</a>を参照]</del>　<span class="run">Ver.2.857.158</span>以降、第2と第3の引数順序の交換
+・第2引数: 微分位置aを値渡し　<span class="run">Ver.2.857.158</span>以降、第2と第3の引数順序の交換
 <br>
 ・第3引数: 微分階数Ndash（正の整数）を値渡し[省略時、1]　<span class="run">Ver.2.857.158</span>以降、厳密に判定
 <br>
@@ -32998,10 +32990,6 @@ x -> (1.000000000000009+O(3e-5):0.9999999999999909+O(3e-5))
 <br>
 <del>・_idummy<a href="#span-out-vars-symbol">変数名symbol</a>でcallする</del><span class="run">Ver.2.812.131</span>以降、旧仕様廃止
 <br>
-・dummy変数は無次元
-<br>
-・dummy変数と同名の<a href="#span-out-terms">scope変数</a>を参照するが、上書きしない
-<br>
 <br>
 _i(=&lt;第1引数,第2引数,第3引数[,第4引数])
 <br>
@@ -33233,8 +33221,6 @@ Jacobi高階行列関数
 <br>
 　<span class="run">Ver.2.404.86</span>以降、<a href="#span-out-literal">false</a>指定の場合、実数の相対値dx=dx<span class="clear">J</span>(real(x)||1)　<span class="clear">Ver.2.840.146</span>以降、訂正
 <br>
-<del>・未知変数の<a href="#span-out-terms">scope変数</a>を参照するが、上書きしない</del><span class="clear">Ver.2.835.141</span>以降、削除して訂正
-<br>
 <br>
 Jacobi(=&lt;第1引数,=&lt;第2引数[,=&lt;第3引数[,第4引数]])
 <br>
@@ -33245,8 +33231,6 @@ Jacobi(=&lt;第1引数,=&lt;第2引数[,=&lt;第3引数[,第4引数]])
 option
 <br>
 ・第3引数: 未知変数初期値の列vectorを<a href="#span-out-pass-by-equation">式渡し</a>||<a href="#span-out-pass-by-symbol">symbol渡し</a>[0||省略時、<a href="#span-out-FNm-init">zeros-vector</a>]
-<br>
-　<del>第3引数は未知変数未定義時のみ有効</del><span class="clear">Ver.2.835.141</span>以降、削除して訂正（引数のみ有効）
 <br>
 ・第4引数: 偏微分の差分刻みdxを値渡し[0||省略時、dx既定値]
 <br>
@@ -33286,19 +33270,6 @@ clear; a=1e10; h=max(1,abs(a))1e-5(1+i); Jacobi(=&lt;{2x^2},=&lt;{x},=&lt;{a},h)
 ・<a href="#span-out-error">情報落ち</a>の対策が必要
 <br>
 ・1階偏微分の解析解=4xからx=1e10周辺の傾き4e10を返す
-<br>
-<br>
-未知変数の<a href="#span-out-terms">scope変数</a>を参照するが、上書きしない
-<br>
-clear;
-<br>
-x=1;
-<br>
-Jacobi(=&lt;{2x^2},=&lt;{x})
-<br>
--> 4.0000200000131025+0.000019999986898147652i
-<br>
-x -> 1
 <br>
 <br>
 test caseを列挙する
@@ -33384,8 +33355,6 @@ Newton高階行列関数
 <br>
 　<span class="run">Ver.2.309.77</span>以降、判定対象の残差normが<a href="#span-out-literal">NaN</a>の場合、無条件にbreak
 <br>
-・未知変数の<a href="#span-out-terms">scope変数</a>を参照、上書きする
-<br>
 <br>
 Newton(=&lt;第1引数,=&lt;第2引数[,=&lt;第3引数[,第4引数[,第5引数[,第6引数[,第7引数[,第8引数]]]]]])
 <br>
@@ -33396,8 +33365,6 @@ Newton(=&lt;第1引数,=&lt;第2引数[,=&lt;第3引数[,第4引数[,第5引数[
 option
 <br>
 ・第3引数: 未知変数初期値の列vectorを<a href="#span-out-pass-by-equation">式渡し</a>||<a href="#span-out-pass-by-symbol">symbol渡し</a>[0||省略時、<a href="#span-out-FNm-init">zeros-vector</a>]
-<br>
-　第3引数は未知変数未定義時のみ有効
 <br>
 ・第4引数: 偏微分の差分刻みdxを値渡し[0||省略時、dx既定値]
 <br>
@@ -33661,12 +33628,6 @@ ODE高階行列関数
 <br>
 <del>・_odummy<a href="#span-out-vars-symbol">変数名symbol</a>でcallする</del><span class="run">Ver.2.812.131</span>以降、旧仕様廃止
 <br>
-・dummy変数は無次元
-<br>
-・dummy変数と同名の<a href="#span-out-terms">scope変数</a>を参照、上書きする
-<br>
-・未知変数の<a href="#span-out-terms">scope変数</a>を参照、上書きする
-<br>
 <br>
 _o(=&lt;第1引数,=&lt;第2引数[,=&lt;第3引数[,第4引数[,第5引数[,第6引数[,第7引数[,第8引数]]]]]])
 <br>
@@ -33678,11 +33639,7 @@ option
 <br>
 ・第3引数: 未知変数初期値の列vectorを<a href="#span-out-pass-by-equation">式渡し</a>||<a href="#span-out-pass-by-symbol">symbol渡し</a>[0||省略時、<a href="#span-out-FNm-init">zeros-vector</a>]
 <br>
-　第3引数は未知変数未定義時のみ有効
-<br>
 ・第4引数: dummy変数初期値t0を値渡し[省略時、0]
-<br>
-　第4引数はdummy変数と同名の<a href="#span-out-terms">scope変数</a>未定義時のみ有効
 <br>
 ・第5引数: 常微分の差分刻みdtを値渡し[省略時、dxT既定値]
 <br>
