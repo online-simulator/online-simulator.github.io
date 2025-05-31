@@ -1057,7 +1057,7 @@ a**6/6:_i(=<f,0,a):_i4(=<f,0,a):_i2(=<f,0,a)
 10.669333280000004+O(4e-4)
 )
 
-5*4*3*a**2:_d(=<f,d3,a):_d2(=<f,d3,a):_d4(=<f,d3,a)
+5*4*3*a**2:_d(=<f,a,d3):_d2(=<f,a,d3):_d4(=<f,a,d3)
 (
 240:
 240.00120162646226+0.0016021885121972445i+O(3e-2+6e-3i):
@@ -1065,7 +1065,7 @@ a**6/6:_i(=<f,0,a):_i4(=<f,0,a):_i2(=<f,0,a)
 239.9999999830167+8.584239468392399e-8i+O(2e-7+1e-8i)
 )
 
-5*a**4:_d(=<f,d1,a):_d4(=<f,d1,a):_d2(=<f,d1,a)
+5*a**4:_d(=<f,a,d1):_d4(=<f,a,d1):_d2(=<f,a,d1)
 (
 79.99999999999999:
 80.00000000002476-8.693253524446239e-11i+O(1e-11+9e-13i):
@@ -1803,7 +1803,7 @@ h=(x)=<x,f=(g)=<g(3),f(h)
 clear
 local storage cleared
 
-_r(=<run,run()=<1,3),_r((n)=<run(),run=<1,3),_r(()=<run,run(n)=<n+1,3),_r((n)=<run(n)=>,run(n)=<n+1,3):_d((x)=<f(),1,f=<x):_d(()=<f,1,f(x)=<x):_d((x)=<f(x)=>,1,f(x)=<x)/*syntax restricted*/
+_r(=<run,run()=<1,3),_r((n)=<run(),run=<1,3),_r(()=<run,run(n)=<n+1,3),_r((n)=<run(n)=>,run(n)=<n+1,3):_d((x)=<f(),f=<x):_d(()=<f,f(x)=<x):_d((x)=<f(x)=>,f(x)=<x)/*syntax restricted*/
 (
 1,1,3,3:
 1+O(9e-13+9e-13i):
@@ -2761,7 +2761,7 @@ f(x)=<x+n,a=1,b=3:x=1,n=1,_p(=<f,a,b),_p((x)=<x+n,a,b),x:[x=2,n=2,_p((x)=<f(x)=>
 clear
 local storage cleared
 
-f(x)=<x**n,a=1:x=1,n=2,_d(=<f,1,a),_d((x)=<x**n,1,a),x:[x=2,n=3,_d((x)=<f(x)=>,1,a),_d((x)=<f(x)==>,1,a),_d((x)=<x**n,1,a),x]
+f(x)=<x**n,a=1:x=1,n=2,_d(=<f,a),_d((x)=<x**n,a),x:[x=2,n=3,_d((x)=<f(x)=>,a),_d((x)=<f(x)==>,a),_d((x)=<x**n,a),x]
 (
 0,0:
 0,0,1.9999999999999243+7.559385216558844e-14i+O(9e-13+9e-13i),1.9999999999999243+7.559385216558844e-14i+O(9e-13+9e-13i),1:
@@ -5029,7 +5029,7 @@ x=2
 f(x)=<exp(x)
 stored_eqn(f)
 
-TaylorN=<_s((n)=<_d(=<f,n,a)(x-a)^n/n!,0,N)/*Taylor series*/
+TaylorN=<_s((n)=<_d(=<f,a,n)(x-a)^n/n!,0,N)/*Taylor series*/
 stored_eqn(TaylorN)
 
 clear
@@ -5207,4 +5207,4 @@ drag=false&sw=false&0x=false&useMatrix=true&useStrict=false&checkError=true&isRi
 --------------------------------
 --------------------------------
 
-online-simulator.github.io.6.499.664.25.169 @ Sat May 24 2025 20:37:08 GMT+0900 (日本標準時) @ Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/136.0.0.0 Safari/537.36
+online-simulator.github.io.6.502.671.25.174 @ Sat May 31 2025 11:53:52 GMT+0900 (日本標準時) @ Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/136.0.0.0 Safari/537.36

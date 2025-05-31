@@ -7721,16 +7721,6 @@ ns(10000) -> 97876.06036044357
 <br>
 　<a href="#span-eqn">strict-mode式変数list</a>への影響なし
 <br>
-・<span class="run">Ver.2.234.56</span>以降、<a href="#span-out-FNh">高階関数</a>||<a href="#span-out-FNmh">高階行列関数</a>の<a href="#span-out-ref-transparency">参照透過性</a>対策を完了
-<br>
-　<a href="#span-out-terms">scope変数</a>を参照、上書きする　⇒　<a href="#span-out-terms">scope変数</a>から独立する（引数のみ有効）
-<br>
-　影響項目：<a href="#span-eqn-plot2d_evolution">plot2d_evolution</a>||<a href="#span-eqn-solvex_iteration">solvex_iteration</a>||<a href="#span-eqn-solveAinv">solveAinv</a>||<a href="#span-eqn-solvex_non_linear">solvex_non_linear</a>||<a href="#span-eqn-solvex_bisection">solvex_bisection</a>
-<br>
-　　　　　　||<a href="#span-eqn-implicit-Euler_method">implicit Euler_method</a>||<a href="#span-eqn-explicit-Euler_method">explicit Euler_method</a>||<a href="#span-eqn-explicit-ODE_RK4">explicit ODE_RK4</a>||<a href="#span-eqn-heat1d_evolution">heat1d_evolution</a>
-<br>
-　<a href="#span-eqn-heat1d_evolution">heat1d_evolution</a>のみ、<a href="#span-out-method-Newton">Newton法</a>の初期値を<a href="#span-out-terms">scope変数</a>から継承しないため、演算結果が変わる
-<br>
 ・<span class="run">Ver.2.237.56</span>以降、<a href="#span-out-FNmh-jacobian">Jacobi高階行列関数</a>||<a href="#span-out-FNmh-newtonian">Newton高階行列関数</a>||<a href="#span-out-FNmh-OX">ODE高階行列関数</a>の第1引数を拡張
 <br>
 　列vector形式のみ　⇒　行||列vector形式を自動判別
@@ -7864,6 +7854,12 @@ clear; f(x)=&lt;d=x:[($a)=(==&lt;f/*<a href="#span-out-config-strict">Non-strict
 clear; f(x)=&lt;d=x:[b=(==&lt;f),(b)(1)=&gt;,hass(d)],hass(d) -> (0:0,0,true,false)
 <br>
 clear; f(x)=&lt;d=x:[c=[],c.push(==&lt;f),(c)(1)=&gt;,hass(d)],hass(d) -> (0:0,NaN,0,true,false)
+<br>
+・<span class="run">Ver.2.857.158</span>以降、<a href="#span-out-FNh-DX">微分高階関数</a>の第2と第3の引数順序の交換と仕様変更
+<br>
+　第2引数の省略：可　⇒　不可
+<br>
+　影響項目：<a href="#span-out-FNh-DX">微分高階関数</a>||<a href="#span-eqn-MaclaurinN">MaclaurinN</a>||<a href="#span-eqn-TaylorN">TaylorN</a>
     </td>
   </tr>
   <tr>
@@ -7925,6 +7921,16 @@ Newton((x)=&lt;2x+1=0) -> <del>-0.5000000000011378+1.137793394920403e-12i</del>-
 <br>
 　影響項目：<a href="#span-out-config-strict">strict-mode</a>||<a href="#span-out-plot2d-command-from-arr">plot2d-from-arr</a>||<a href="#span-eqn-plot2d_circle">plot2d_circle</a>||<a href="#span-out-eqns-call">式読出し</a>||<a href="#span-out-special-substitution">代入処理</a>
 <br>
+・<span class="run">Ver.2.234.56</span>以降、<a href="#span-out-FNh">高階関数</a>||<a href="#span-out-FNmh">高階行列関数</a>の<a href="#span-out-ref-transparency">参照透過性</a>対策を完了
+<br>
+　<a href="#span-out-terms">scope変数</a>を参照、上書きする　⇒　<a href="#span-out-terms">scope変数</a>から独立する（引数のみ有効）
+<br>
+　影響項目：<a href="#span-eqn-plot2d_evolution">plot2d_evolution</a>||<a href="#span-eqn-solvex_iteration">solvex_iteration</a>||<a href="#span-eqn-solveAinv">solveAinv</a>||<a href="#span-eqn-solvex_non_linear">solvex_non_linear</a>||<a href="#span-eqn-solvex_bisection">solvex_bisection</a>
+<br>
+　　　　　　||<a href="#span-eqn-implicit-Euler_method">implicit Euler_method</a>||<a href="#span-eqn-explicit-Euler_method">explicit Euler_method</a>||<a href="#span-eqn-explicit-ODE_RK4">explicit ODE_RK4</a>||<a href="#span-eqn-heat1d_evolution">heat1d_evolution</a>
+<br>
+　<a href="#span-eqn-heat1d_evolution">heat1d_evolution</a>のみ、<a href="#span-out-method-Newton">Newton法</a>の初期値を<a href="#span-out-terms">scope変数</a>から継承しないため、演算結果が変わる
+<br>
 ・<span class="run">Ver.2.253.59</span>以降、<a href="#span-out-eqns-omitted-args">引数省略call</a>の仕様廃止（<a href="#span-out-eqns-args">式変数のarguments</a>の判別を厳格化）
 <br>
 　影響項目：<a href="#span-out-config-strict">strict-mode</a>
@@ -7962,6 +7968,12 @@ A=(1,2:3,4); A[][0] -> (1:3)
 　引数の<a href="#span-in-pass-by-equation">遅延評価</a>：あり　⇒　なし（<a href="#span-out-pass-by-equation">式渡し</a>の判別）
 <br>
 　影響項目：<a href="#span-out-prec-ope-arithmetic-method">method演算子</a>||<a href="#span-eqn">strict-mode式変数list</a>
+<br>
+・<span class="run">Ver.2.857.158</span>以降、<a href="#span-out-FNh-DX">微分高階関数</a>の<a href="#span-out-ref-transparency">参照透過性</a>対策を完了
+<br>
+　<a href="#span-out-terms">scope変数</a>を参照する　⇒　<a href="#span-out-terms">scope変数</a>から独立する（引数のみ有効）
+<br>
+　影響項目：<a href="#span-eqn-MaclaurinN">MaclaurinN</a>||<a href="#span-eqn-TaylorN">TaylorN</a>
     </td>
   </tr>
   <tr>
@@ -8583,8 +8595,6 @@ code整理
 <br>
 　<span class="run">Ver.2.441.90</span>以降、<a href="#span-out-matching">行列要素pattern matching</a>の要素比較を厳格化
 <br>
-・<a href="#span-out-FNh-DX">微分高階関数</a>の第3引数の省略（<a href="#span-out-ref-transparency">参照透過性</a>の問題あり）
-<br>
 ・<a href="#span-out-FNspecial-spec">特殊仕様関数</a>（関数名に引数の一部を含む仕様）
 <br>
 <br>
@@ -8650,6 +8660,8 @@ push：len=sizer(A),opt_i==len&amp;&amp;&amp;(A=(A:val))||||last{ie=(opt_i||len-
 ・<span class="run">Ver.2.774.119</span>以降、<a href="#span-out-FNmh-OX">ODE高階行列関数</a>のadaptive-step solverを追加
 <br>
 ・<span class="run">Ver.2.847.153</span>以降、<a href="#span-out-mat">行列</a>の<a href="#span-out-prec-ope-relational">厳密等価||不等価演算子</a>を追加
+<br>
+・<span class="run">Ver.2.857.158</span>以降、<a href="#span-out-FNh-DX">微分高階関数</a>の第2引数の省略不可（<a href="#span-out-ref-transparency">参照透過性</a>の問題を解消）
     </td>
   </tr>
   <tr>
@@ -20463,9 +20475,9 @@ x=2; store; clear; x=3<span class="selection">/*independent local scope*/</span>
 ・<a href="#span-out-FNmh-OX">ODE高階行列関数</a>||<a href="#span-eqn-explicit-ODE_RK4">explicit ODE_RK4</a></del><span class="run">Ver.2.234.56</span>以降、対策完了
 <br>
 <br>
-引数省略時、<a href="#span-out-terms">scope変数</a>を参照する実装関数を列挙する
+<del>引数省略時、<a href="#span-out-terms">scope変数</a>を参照する実装関数を列挙する
 <br>
-・<a href="#span-out-FNh-DX">微分高階関数</a>
+・<a href="#span-out-FNh-DX">微分高階関数</a></del><span class="run">Ver.2.857.158</span>以降、対策完了
 <br>
 <br>
 暫定対策を列挙する
@@ -20482,13 +20494,17 @@ x=2; store; clear; x=3<span class="selection">/*independent local scope*/</span>
 <br>
 　上書き不可の仕様を維持（<a href="#span-out-eqns-re-call">再帰call</a>の参照透過性を維持）
 <br>
-・<span class="run">Ver.2.231.56</span>以降、<a href="#span-out-FNh">高階関数</a>||<a href="#span-out-FNmh">高階行列関数</a>の<a href="#span-out-ref-transparency">参照透過性</a>対策を実施
+・<span class="run">Ver.2.231.56</span>以降、<a href="#span-out-FNh">高階関数</a>||<a href="#span-out-FNmh">高階行列関数</a>の対策を実施
 <br>
 　dummy変数の<a href="#span-out-vars-symbol">変数名symbol</a>：関数名の一部　⇒　関数の引数（<span class="run">Ver.2.812.131</span>以降、旧仕様廃止）
 <br>
-・<span class="run">Ver.2.234.56</span>以降、<a href="#span-out-FNh">高階関数</a>||<a href="#span-out-FNmh">高階行列関数</a>の<a href="#span-out-ref-transparency">参照透過性</a>対策を完了
+・<span class="run">Ver.2.234.56</span>以降、<a href="#span-out-FNh">高階関数</a>||<a href="#span-out-FNmh">高階行列関数</a>の対策を完了
 <br>
 　<a href="#span-out-terms">scope変数</a>を参照、上書きする　⇒　<a href="#span-out-terms">scope変数</a>から独立する（引数のみ有効）
+<br>
+・<span class="run">Ver.2.857.158</span>以降、<a href="#span-out-FNh-DX">微分高階関数</a>の対策を完了
+<br>
+　<a href="#span-out-terms">scope変数</a>を参照する　⇒　<a href="#span-out-terms">scope変数</a>から独立する（引数のみ有効）
     </td>
   </tr>
   <tr>
@@ -32647,18 +32663,18 @@ normc(mdx)/normc({x0,x1}) -> infoLost[ri] 3.6879601533907295e-16
 <br>
 ・dummy変数は無次元
 <br>
-・dummy変数と同名の<a href="#span-out-terms">scope変数</a>を参照するが、上書きしない（第3引数省略時のみ）
+<del>・dummy変数と同名の<a href="#span-out-terms">scope変数</a>を参照するが、上書きしない（第3引数省略時のみ）</del><span class="run">Ver.2.857.158</span>以降、廃止
 <br>
 <br>
-_d(=&lt;第1引数[,第2引数[,第3引数[,第4引数]]])
+_d(=&lt;第1引数,第2引数[,第3引数[,第4引数]])　<span class="run">Ver.2.857.158</span>以降、第2引数の省略不可
 <br>
 ・第1引数: dummy変数の展開式を<a href="#span-out-pass-by-equation">式渡し</a>||<a href="#span-out-pass-by-symbol">symbol渡し</a>
 <br>
 option
 <br>
-・第2引数: 微分階数Ndash（正の整数）を値渡し[省略時、1]
+・第2引数: 微分位置aを値渡し<del>[省略時、<a href="#span-out-terms">scope変数</a>を参照]</del>　<span class="run">Ver.2.857.158</span>以降、第2と第3の引数順序の交換
 <br>
-・第3引数: 微分位置aを値渡し[省略時、<a href="#span-out-terms">scope変数</a>を参照]
+・第3引数: 微分階数Ndash（正の整数）を値渡し[省略時、1]　<span class="run">Ver.2.857.158</span>以降、厳密に判定
 <br>
 ・第4引数: 1階微分の差分刻みdx0を値渡し[0||省略時、dx既定値]
 <br>
@@ -44212,6 +44228,10 @@ CAS
 ・<span class="run">Ver.2.234.56</span>以降、<a href="#span-out-FNh">高階関数</a>||<a href="#span-out-FNmh">高階行列関数</a>の<a href="#span-out-ref-transparency">参照透過性</a>対策を完了
 <br>
 　<a href="#span-out-terms">scope変数</a>を参照、上書きする　⇒　<a href="#span-out-terms">scope変数</a>から独立する（引数のみ有効）
+<br>
+・<span class="run">Ver.2.857.158</span>以降、<a href="#span-out-FNh-DX">微分高階関数</a>の<a href="#span-out-ref-transparency">参照透過性</a>対策を完了
+<br>
+　<a href="#span-out-terms">scope変数</a>を参照する　⇒　<a href="#span-out-terms">scope変数</a>から独立する（引数のみ有効）
     </td>
   </tr>
   <tr>
@@ -50330,7 +50350,7 @@ MaclaurinN
 <br>
 clear;
 <br>
-MaclaurinN(=&lt;f_,x,N)=&lt;_s((n)=&lt;_d((x)=&lt;f_=&gt;,n,0)*x^n/n!,0,N);
+MaclaurinN(=&lt;f_,x,N)=&lt;_s((n)=&lt;_d((x)=&lt;f_=&gt;,0,n)*x^n/n!,0,N);
 <br>
 last[f=&lt;exp(x),MaclaurinN(=&lt;f,2,5)=&gt;];
     </td>
@@ -50349,7 +50369,7 @@ TaylorN
 <br>
 clear;
 <br>
-TaylorN(=&lt;f_,a,x,N)=&lt;_s((n)=&lt;_d((x)=&lt;f_=&gt;,n,a)*(x-a)^n/n!,0,N);
+TaylorN(=&lt;f_,a,x,N)=&lt;_s((n)=&lt;_d((x)=&lt;f_=&gt;,a,n)*(x-a)^n/n!,0,N);
 <br>
 last[f=&lt;exp(x),TaylorN(=&lt;f,0,2,5)=&gt;];
     </td>

@@ -2294,17 +2294,13 @@ My_entry.operation.prototype.DX = function(data, rightArr, tagObj){
   var unit = self.entry.unit;
   var callback_FNh = function(args, ids_buffer, name_var, tree_eqn){  // Ver.2.231.56  // Ver.2.234.56
     var _tree = null;
+    /* Ver.2.857.158 -> */
     /* Ver.1.3.1 */
-    var a = args[2];
-    /* Ver.2.234.56 -> */
-    if(!a){
-      var tree_var = self.restore_var(name_var, scopes, ids_buffer);  // Ver.2.31.17  // Ver.2.225.53
-      a = (tree_var)? DATA.arr2num(tree_var.mat.arr): null;
-    }
-    /* -> Ver.2.234.56 */
-    if(a && a.com){
-      var nthd = args[1];
-      nthd = (nthd && nthd.com)? Math.abs(Math.round(nthd.com.r)): 1;  // nthd >= 0  // Ver.2.205.46 floor -> round
+    var a = args[1];
+    var nd = args[2] || DATA.num(1, 0);
+    if(a && a.com && nd && nd.com && (nd.com.r >= 0 && nd.com.r%1 === 0 && nd.com.i === 0)){
+      var nthd = nd.com.r;
+    /* -> Ver.2.857.158 */
       var h0c = self.get_hc(options, a, args[3], "dxD");
       var h0cr = h0c.r;
       var h0ci = h0c.i;
