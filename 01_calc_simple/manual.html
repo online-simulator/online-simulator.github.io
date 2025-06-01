@@ -252,13 +252,19 @@ test case
 <br>
 　<span class="wF">-little</span>：Fermatの小定理（inv_mod用）
 <br>
-・elliptic：楕円曲線y**2=x**3+a*x+b
+・Frey-Hellegouarch：Frey-Hellegouarch曲線y**2=x(x-a)(x+b)
 <br>
-　-q：互いに素でa+b=cと以下を満たすFrey-Hellegouarch曲線y**2=x(x-a)(x+b)の<a href="#span-app-quality">quality</a>
+　Szpiro：互いに素でa+b=cと以下を満たす曲線の<a href="#span-app-quality">quality</a>
+<br>
+　⇒判別式：D=16*(a*b*c)**2
 <br>
 　⇒極小判別式：<span class="run">Ver.2.851.156</span>以降、Dmin=(a*b*c/2)**2（<a href="#span-ref-docs10-abc">参考DocsのSzpiro予想</a>）
 <br>
 　⇒導手：f=rad(a*b*c/16)
+<br>
+・Weierstrass-form：Weierstrass標準形の楕円曲線y**2=x**3+a*x+b
+<br>
+・elliptic：非特異な楕円曲線（nodeとcuspを除く）
 <br>
 　<span class="wF">-add</span>：加法（傾きkを条件分岐の最短表記）
 <br>
