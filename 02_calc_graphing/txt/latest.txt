@@ -480,7 +480,7 @@ local storage cleared
 FourierN((t)=<e^(i*(2.5)*t),2,1,5)=>
 0.2899899692761624-0.9219107527251331i+O(6e-10+6e-10i)
 
-FourierN(=<f,x,omega,N)=<last[isSym=false,NI=300,T=2*pi/omega,cn(n)=<_o45((t,x)=<(f(t)=>)*e^(-i*(n*omega)*t),,isSym&&&[-T/2,T/NI]|||[dt=T/NI,dt],NI)/T,_s((n)=<(cn(n)=>)*e^(i*(n*omega)*x),-N,N)]
+FourierN(=<f,x,omega,N)=<last[isSym=false,NI=300,T=2*pi/omega,cn(n)=<_o45((t,x)=<(f(t)=>)*e^(-i*(n*omega)*t),,isSym&&&[-T,T]/2|||[0,T],NI)/T,_s((n)=<(cn(n)=>)*e^(i*(n*omega)*x),-N,N)]
 stored_eqn(FourierN)
 
 FourierN((t)=<e^(i*(2.5)*t),2,1,5)=>
@@ -626,9 +626,9 @@ ODE_adaptive(t0,=<(x0,v0),=<table_fixed)=>:(_t0(args,,=<table_fixed).):(_t4(args
 1+i,0.009082041933643085+1.1899248519220138i+O(1e-4+1e-4i),1.3865513945757815+1.150284132449034i+O(1e-4+1e-4i)
 )
 
-args=(=<f,=<{t0,x0,v0},dt,Niteration)
+args=(=<f,=<{t0,x0,v0},t0+dt*Niteration,Niteration)
 args=(
-eqn(t,x,v),eqn,0.1+0.1i,10
+eqn(t,x,v),eqn,1+i,10
 )
 
 ($F,$m,$k,$c)=(1,1,1,0.4)
@@ -670,7 +670,7 @@ Niteration=10
 dt=0.1*(1+i)
 dt=0.1+0.1i
 
-ODE_adaptive(t0,x0,table)=<[dt0=dt,t=t0,x=x0,order=##table[-1],isAdaptive=eq(#table-order,2),get_arr_f(dt,t0,x0)=<[step_x_sum(i_)=<_r((x)=<x+dt*table[i_][__n__]*arr_f[__n__-1],=<x0,#arr_f),_r(=<arr_f[#arr_f].push(f(t0+dt*table[__n__-1][0],step_x_sum(__n__-1)=>)=>.),arr_f=[],order),=<arr_f]=>,define_step_fixed=<step(n)=<last{arr_f=get_arr_f(dt,t,=<x)=>,x=x+dt*table[-1]*arr_f,t=t+dt},define_step_adaptive=<step(n)=<last{pNdt=0,t00=t,x00=x,dt=dt0/Ndt,_r(=<last{arr_f=get_arr_f(dt,t,=<x)=>,fc_o5=table[-2]*arr_f,fc_o4=table[-1]*arr_f,cr_norm=norm(fc_o4-fc_o5),sw=cr_norm>=hdelta,pNdt=sw&&1||0,x=x+dt*fc_o5,t=t+dt},sw=false,Ndt,=<{sw}),dt=dt0,cr_norm<=hdelta/10&&&(pNdt=-1),Ndt=max(1,Ndt*2**pNdt),pNdt===1&&&(t=t00,x=x00,step(n)=>)},Ndt=1,hdelta=abs(dt)*delta,isAdaptive&&&define_step_adaptive=>||||define_step_fixed=>,_r(=<step(__n__)=>,,Niteration),Ndt%1===0&&&(t=t0+dt*Niteration),=<(t,x)]=>
+ODE_adaptive(t0,x0,table)=<[dt0=dt,t=t0,x=x0,order=##table[-1],isAdaptive=eq(#table-order,2),get_arr_f(dt,t0,x0)=<[stage_x_sum(i_)=<_r((x)=<x+dt*table[i_][__n__]*arr_f[__n__-1],=<x0,#arr_f),_r(=<arr_f[#arr_f].push(f(t0+dt*table[__n__-1][0],stage_x_sum(__n__-1)=>)=>.),arr_f=[],order),=<arr_f]=>,define_step_fixed=<step(n)=<last{arr_f=get_arr_f(dt,t,=<x)=>,x=x+dt*table[-1]*arr_f,t=t+dt},define_step_adaptive=<step(n)=<last{pNdt=0,t00=t,x00=x,dt=dt0/Ndt,_r(=<last{arr_f=get_arr_f(dt,t,=<x)=>,fc_o5=table[-2]*arr_f,fc_o4=table[-1]*arr_f,cr_norm=norm(fc_o4-fc_o5),sw=cr_norm>=hdelta,pNdt=sw&&1||0,x=x+dt*fc_o5,t=t+dt},sw=false,Ndt,=<{sw}),dt=dt0,cr_norm<=hdelta/10&&&(pNdt=-1),Ndt=max(1,Ndt*2**pNdt),pNdt===1&&&(t=t00,x=x00,step(n)=>)},Ndt=1,hdelta=abs(dt)*delta,isAdaptive&&&define_step_adaptive=>||||define_step_fixed=>,_r(=<step(__n__)=>,,Niteration),Ndt%1===0&&&(t=t0+dt*Niteration),=<(t,x)]=>
 stored_eqn(ODE_adaptive)
 
 clear
@@ -683,9 +683,9 @@ ODE_fixed(t0,=<(x0,v0),=<table_Butcher)=>:(_t0(args,,=<table_Butcher).):(_t(args
 1+i,0.009082041933643085+1.1899248519220138i+O(1e-4+1e-4i),1.3865513945757815+1.150284132449034i+O(1e-4+1e-4i)
 )
 
-args=(=<f,=<{t0,x0,v0},dt,Niteration)
+args=(=<f,=<{t0,x0,v0},t0+dt*Niteration,Niteration)
 args=(
-eqn(t,x,v),eqn,0.1+0.1i,10
+eqn(t,x,v),eqn,1+i,10
 )
 
 ($F,$m,$k,$c)=(1,1,1,0.4)
@@ -712,7 +712,7 @@ Niteration=10
 dt=0.1*(1+i)
 dt=0.1+0.1i
 
-ODE_fixed(t0,x0,table)=<[order=##table[-1],get_arr_f(t0,x0)=<[step_x_sum(i_)=<_r((x)=<x+dt*table[i_][__n__]*arr_f[__n__-1],=<x0,#arr_f),_r(=<arr_f[#arr_f].push(f(t0+dt*table[__n__-1][0],step_x_sum(__n__-1)=>)=>.),arr_f=[],order),=<arr_f]=>,x=_r((x)=<x+dt*table[-1]*get_arr_f(t0+dt*(__n__-1),=<x)=>,=<x0,Niteration),t=t0+dt*Niteration,=<(t,x)]=>
+ODE_fixed(t0,x0,table)=<[order=##table[-1],get_arr_f(t0,x0)=<[stage_x_sum(i_)=<_r((x)=<x+dt*table[i_][__n__]*arr_f[__n__-1],=<x0,#arr_f),_r(=<arr_f[#arr_f].push(f(t0+dt*table[__n__-1][0],stage_x_sum(__n__-1)=>)=>.),arr_f=[],order),=<arr_f]=>,x=_r((x)=<x+dt*table[-1]*get_arr_f(t0+dt*(__n__-1),=<x)=>,=<x0,Niteration),t=t0+dt*Niteration,=<(t,x)]=>
 stored_eqn(ODE_fixed)
 
 clear
@@ -725,7 +725,7 @@ infoLost[ri] 16.727370273919753+5.323781708140432i+O(6e-2+5e-11i):
 infoLost[ri] 3.2726297260802473-4.923781708140432i+O(6e-2+3e-11i)
 )
 
-ODE_RK4(t,dt,z_x00,z_v00,z_u,m,kCdA_sphere)=<[out=<{t_total,x_next},scope2storage=<last{add__(z_x0),add__(z_v0),add__(t_total)},init=<last{switch(has__(t_total)==0,=<last{t_total=0,z_x0=z_x00,z_v0=z_v00}),g=-9.8,z_a=0+g*i,x_initial=<{z_x0,z_v0},f(t,z_x,z_v)=<{z_v,z_a+(kCdA_sphere/m)*(z_u-z_v)}},run=<last{x_next=x_initial=>,stepN=<last{N=round(t/dt),x_next=_o(=<f,=<{x_next},t_total,dt,N)},step_post=<{$z_x0,$z_v0}=x_next,evolution=<last{stepN=>,step_post=>},evolution=>,t_total=t_total+N*dt},init=>,run=>,return=out=>,scope2storage=>,=<return]=>
+ODE_RK4(t,dt,z_x00,z_v00,z_u,m,kCdA_sphere)=<[out=<{t_total,x_next},scope2storage=<last{add__(z_x0),add__(z_v0),add__(t_total)},init=<last{switch(has__(t_total)==0,=<last{t_total=0,z_x0=z_x00,z_v0=z_v00}),g=-9.8,z_a=0+g*i,x_initial=<{z_x0,z_v0},f(t,z_x,z_v)=<{z_v,z_a+(kCdA_sphere/m)*(z_u-z_v)}},run=<last{x_next=x_initial=>,stepN=<last{N=round(t/dt),x_next=_o(=<f,=<{x_next},t_total+[,dt*N],N)},step_post=<{$z_x0,$z_v0}=x_next,evolution=<last{stepN=>,step_post=>},evolution=>,t_total=t_total+N*dt},init=>,run=>,return=out=>,scope2storage=>,=<return]=>
 stored_eqn(ODE_RK4)
 
 [cond_error=(has__(t_total)==0)&has__(z_x0),proc=<[args=(1,0.5,0,20+20i,0,1,1),=<Euler_method(args,1)=>]=>,=<switch(cond_error==0,=<proc:1,-999)]=>
@@ -1145,7 +1145,13 @@ local storage cleared
 globalS((z)=<globalS((y)=<globalS((x)=<1/(1-x*y*z))==>)==>)==>
 1.1615148886593514+O(5e-2)
 
-globalS(=<f)=<(_t1((t,x)=<f(t)=>,=<{,0},1/NI,NI))[1]
+globalS(=<f)=<_o1((t,x)=<f(t)=>,,0,1,NI)
+stored_eqn(globalS)
+
+globalS((z)=<globalS((y)=<globalS((x)=<1/(1-x*y*z))==>)==>)==>
+1.1615148886593514+O(5e-2)
+
+globalS(=<f)=<(_t1((t,x)=<f(t)=>,=<{0,},1,NI))[1]
 stored_eqn(globalS)
 
 globalS((z)=<globalS((y)=<globalS((x)=<1/(1-x*y*z))==>)==>)==>
@@ -1422,7 +1428,7 @@ local storage cleared
 
 check((x)=<x,-inf,-inf,NI,)=>:NaN
 (
-infoLost[r ] NaN:
+NaN:
 NaN:
 NaN:
 NaN
@@ -1430,7 +1436,7 @@ NaN
 
 check((x)=<x,inf,inf,NI,)=>:NaN
 (
-infoLost[r ] NaN:
+NaN:
 NaN:
 NaN:
 NaN
@@ -1438,7 +1444,7 @@ NaN
 
 check((x)=<1/x,inf,inf,NI,)=>:0
 (
-infoLost[r ] NaN:
+NaN:
 0:
 0:
 0
@@ -1618,7 +1624,7 @@ infoLost[r ] 0.6888887393098645+O(1e-100):
 NI=100
 NI=100
 
-check(=<f,a,b,NI,type)=<(_o45((t,x)=<f(t)=>,,a,(b-a)/NI,NI):_i(=<f,a,b,NI):_i0(=<f,a,b,NI,type))
+check(=<f,a,b,NI,type)=<(_o45((t,x)=<f(t)=>,,a,b,NI):_i(=<f,a,b,NI):_i0(=<f,a,b,NI,type))
 stored_eqn(check)
 
 clear
@@ -1643,7 +1649,7 @@ _r((arr)=<(arr:f(arr_integral[__n__-1])=>),=<[],#arr_integral)
 f(==<integral_)=<[cP_z(z)=<integral_((y)=<integral_((x)=<cSND(x+(y)i)=>,0,real(z))=>*2,0,imag(z))=>*2,cP_r(r)=<integral_((t)=<integral_((r)=<cSND(r*e^(i*t))=>,0,r)=>,0,2*pi)=>/sqrt(pi),=<(z=3*(1+i)/sqrt2,cSND(z)=>,cP_z(z)=>,cP_r(abs(z))=>)]=>
 stored_eqn(f)
 
-arr_integral=[(=<f,a,b)=<_i(=<f,a,b,NI):(=<f,a,b)=<_i0(=<f,a,b,NI):(=<f,a,b)=<_o45((t,x)=<f(t)=>,,a,(b-a)/NI,NI)]
+arr_integral=[(=<f,a,b)=<_i(=<f,a,b,NI):(=<f,a,b)=<_i0(=<f,a,b,NI):(=<f,a,b)=<_o45((t,x)=<f(t)=>,,a,b,NI)]
 arr_integral=(
 eqn(@f,a,b):
 eqn(@f,a,b):
@@ -1669,7 +1675,7 @@ _r((arr)=<(arr:f(arr_args[__n__-1])=>),=<[],#arr_args)
 f(=<P,=<erf,=<erfc)=<[x=3,SND(x)=>,P(x)=>,erf(x)=>,erfc(x)==>]
 stored_eqn(f)
 
-arr_args=[(x)=<_i((t)=<SND(t)=>,[0,x],NI)*2,(x)=<_i((t)=<SND(t)=>,[0,x*sqrt2],NI)*2,(x)=<1-erf(x)=>:(x)=<_i0((t)=<SND(t)=>,[0,x],NI)*2,(x)=<_i0((t)=<SND(t)=>,[0,x*sqrt2],NI)*2,(x)=<1-erf(x)=>:(x)=<_o45((t,x)=<SND(t)=>,,[0,x/NI],NI)*2,(x)=<_o45((t,x)=<SND(t)=>,,[0,x*sqrt2/NI],NI)*2,(x)=<1-erf(x)=>]
+arr_args=[(x)=<_i((t)=<SND(t)=>,[0,x],NI)*2,(x)=<_i((t)=<SND(t)=>,[0,x*sqrt2],NI)*2,(x)=<1-erf(x)=>:(x)=<_i0((t)=<SND(t)=>,[0,x],NI)*2,(x)=<_i0((t)=<SND(t)=>,[0,x*sqrt2],NI)*2,(x)=<1-erf(x)=>:(x)=<_o45((t,x)=<SND(t)=>,,[0,x],NI)*2,(x)=<_o45((t,x)=<SND(t)=>,,[0,x*sqrt2],NI)*2,(x)=<1-erf(x)=>]
 arr_args=(
 eqn(x),eqn(x),eqn(x):
 eqn(x),eqn(x),eqn(x):
@@ -1749,19 +1755,19 @@ local storage cleared
 plot2d_evolution(0,5,0.5,0,20+20i,0,1,1)=>
 (
 0,0:
-7.864583333333332+O(6e-2),6.818229166666667:
-12.636583116319443+O(6e-2),9.028508843315972:
-15.532093401308412+O(6e-2),8.442819167949535:
-17.289004589856408+O(6e-2),6.160616838886046:
-18.355047055824333+O(6e-2),2.849020113178252:
-19.001890531268412+O(6e-2),-1.0871831084100707:
-19.394376285899845+O(6e-2),-5.402379334009235:
-19.63252519430902+O(6e-2),-9.947537460479563:
-19.77702700592188+O(6e-2),-14.6322297611764:
-19.86470649057239+O(6e-2),-19.40158732904714
+7.869386805715609+O(6e-10),6.825386340516261:
+12.642411176532667+O(6e-10),9.037192653033685:
+15.537396796996385+O(6e-10),8.450721227524628:
+17.293294335239434+O(6e-10),6.167008559506749:
+18.358300027500555+O(6e-10),2.853867040975824:
+19.004258632627085+O(6e-10),-1.0836546373856322:
+19.39605233154257+O(6e-10),-5.399882026001574:
+19.633687222217652+O(6e-10),-9.945806038895704:
+19.777820069229925+O(6e-10),-14.631048096847419:
+19.86524106001476+O(6e-10),-19.400790820578006
 )
 
-plot2d_evolution(t0,t1,dt,z_x0,z_v0,z_u,m,kCdA_sphere)=<[out=<(xt,yt),scope2storage=<last{add__(xt),add__(yt)},init=<last{g=-9.8,z_a=0+g*i,t=0,x_initial=<{z_x0,z_v0},f(t,z_x,z_v)=<{z_v,z_a+(kCdA_sphere/m)*(z_u-z_v)},N=round((t1-t0)/dt),M=0,xt=zeros(N+1,M+1),yt=zeros(N+1,M+1)},run=<last{dtn=<n<=0&&0||||dt,x_next=x_initial=>,step=<last{dt0=dtn=>,x_next=_o(=<f,=<{x_next},t,dt0),t=t+dt0},stepnm=<last{step=>,z_x=x_next[0],xt[n][mdummy]=real(z_x),yt[n][mdummy]=imag(z_x)},casesM=<_s((mdummy)=<stepnm=>,0,M),evolutionN=<_s((n)=<casesM=>,0,N),evolutionN=>},init=>,run=>,return=out=>,scope2storage=>,=<return]=>
+plot2d_evolution(t0,t1,dt,z_x0,z_v0,z_u,m,kCdA_sphere)=<[out=<(xt,yt),scope2storage=<last{add__(xt),add__(yt)},init=<last{g=-9.8,z_a=0+g*i,t=0,x_initial=<{z_x0,z_v0},f(t,z_x,z_v)=<{z_v,z_a+(kCdA_sphere/m)*(z_u-z_v)},N=round((t1-t0)/dt),M=0,xt=zeros(N+1,M+1),yt=zeros(N+1,M+1)},run=<last{dtn=<n<=0&&0||||dt,x_next=x_initial=>,step=<last{dt0=dtn=>,x_next=_o(=<f,=<{x_next},t+[,dt0]),t=t+dt0},stepnm=<last{step=>,z_x=x_next[0],xt[n][mdummy]=real(z_x),yt[n][mdummy]=imag(z_x)},casesM=<_s((mdummy)=<stepnm=>,0,M),evolutionN=<_s((n)=<casesM=>,0,N),evolutionN=>},init=>,run=>,return=out=>,scope2storage=>,=<return]=>
 stored_eqn(plot2d_evolution)
 
 clear
@@ -2215,7 +2221,7 @@ clear
 local storage cleared
 
 [Pinv_y=(-0.999999427,-0.999936657,-0.997300203,-0.954499736,-0.682689492,0,0.682689492,0.954499736,0.997300203,0.999936657,0.999999427:-5,-4,-3,-2,-1,0,1,2,3,4,5),N=1,arr=[],_r((n)=<arr.push(rand_table(=<Pinv_y)=>),,N),=<arr.]=>
--1.5137634829804822
+0.07628472492692955
 
 rand_table(csv)=<last[table=sort0(csv),ymin=min(table)[0],ymax=max(table)[0],y=ymin+(ymax-ymin)*rand(),x=interp(y:table),x]
 stored_eqn(rand_table)
@@ -4456,4 +4462,4 @@ center=true&wheel=true&drag=false&test-case=false&plot-all=true&relzooming=true&
 --------------------------------
 --------------------------------
 
-online-simulator.github.io.6.502.671.25.174 @ Sat May 31 2025 11:41:51 GMT+0900 (日本標準時) @ Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/136.0.0.0 Safari/537.36
+online-simulator.github.io.6.503.672.25.175 @ Sun Jun 01 2025 20:05:05 GMT+0900 (日本標準時) @ Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/136.0.0.0 Safari/537.36

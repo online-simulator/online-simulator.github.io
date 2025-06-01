@@ -109,7 +109,6 @@ My_entry.operation.prototype.config = {
     useRetry: false,  // Ver.2.408.86
     isRelative_epsN: false,
     epsN: Number.EPSILON,  // Ver.2.835.141
-    dxT: 1e-3,
     dxJ: Math.pow(2, -16),  // Ver.2.835.141
     dxD: Math.pow(2, -10),  // Ver.2.835.141
     NI: 100
@@ -314,7 +313,6 @@ My_entry.operation.prototype.prepare = function(data){
   self.options.useRetry = options.useRetry || self.config.params.useRetry;  // Ver.2.408.86
   self.options.isRelative_epsN = options.isRelative_epsN || self.config.params.isRelative_epsN;
   self.options.epsN = options.epsN || self.config.params.epsN;
-  self.options.dxT = options.dxT || self.config.params.dxT;
   self.options.dxJ = options.dxJ || self.config.params.dxJ;
   self.options.dxD = options.dxD || self.config.params.dxD;
   self.options.NI = options.NI || self.config.params.NI;
@@ -1428,23 +1426,28 @@ if(prop === "OX" || prop === "TX"){  // ODE  // Ver.2.23.11  // Ver.2.231.56  //
     }
     len_i = arr_x.length;  // tree_eqn change allowed  // Ver.2.736.107
     // t0
-    var t0ini = (argI && argI.com)? argI: DATA.num(0, 0);  // Ver.2.234.56
+    var t0ini = (argI && argI.com)? argI: null;  // Ver.2.234.56  // Ver.2.858.159
     /* -> Ver.2.774.121 */
     /* -> Ver.2.815.132 */
     var t0 = t0ini;  // Ver.2.234.56
-    // dt
-    var dt = (argT && argT.com)? argT: DATA.num(self.options.dxT, 0);  // Ver.2.815.132
-    /* Ver.2.821.134 -> */
-    var dtcr = dt.com.r;
-    var dtci = dt.com.i;
-    /* Ver.2.29.15 -> */
+    /* Ver.2.858.159 -> */
+    // t1
+    var t1 = (argT && argT.com)? argT: null;
+    if(!(t0 && t1)) throw msgErr+"(timespan)";
     // Niteration
-    var Niteration = (argN && argN.com)? Math.round(argN.com.r): 1;  // 0 enabled  // Ver.2.205.46 floor -> round
+    var Niteration = (argN && argN.com)? Math.round(argN.com.r): self.options.NI;  // 0 enabled  // Ver.2.29.15  // Ver.2.205.46 floor -> round  // Ver.2.858.159
+    // dt
+    var dt = DATA.num(0, 0);  // Ver.2.815.132
+    var dtcr = 0;  // Ver.2.821.134
+    var dtci = 0;  // Ver.2.821.134
+    if(Niteration){
+      dtcr = dt.com.r = (t1.com.r-t0.com.r)/Niteration;
+      dtci = dt.com.i = (t1.com.i-t0.com.i)/Niteration;
+    }
     if(dtcr === 0 && dtci === 0){
       Niteration = 0;
     }
-    /* -> Ver.2.29.15 */
-    /* -> Ver.2.821.134 */
+    /* -> Ver.2.858.159 */
     /* Ver.2.774.119 -> */
     // delta
     var delta = ((argD && argD.com)? argD.com.r: null) || 1e-3;  // Ver.2.777.123 not0
@@ -1473,7 +1476,7 @@ if(prop === "OX" || prop === "TX"){  // ODE  // Ver.2.23.11  // Ver.2.231.56  //
       self.store_var(sw_name_t, DATA.num2tree(t), scopes, ids_buffer);  // Ver.2.31.17  // Ver.2.225.53  // Ver.2.736.107
     };
     /* Ver.2.773.117 -> */
-    var step_t = function(n, opt_t0){
+    var stage_t = function(n, opt_t0){  // Ver.2.858.159
       var _t = unit["BRa"](options, opt_t0 || t0ini, unit["BRm"](options, DATA.num(n, 0), dt));
       return _t;
     };
@@ -1490,7 +1493,7 @@ if(prop === "OX" || prop === "TX"){  // ODE  // Ver.2.23.11  // Ver.2.231.56  //
       }
       /* -> Ver.2.736.107 */
     };
-    var step_x = function(x, f, dt){
+    var stage_x = function(x, f, dt){  // Ver.2.858.159
       var _x = [];
       for(var i=0; i<len_i; ++i){
         _x[i] = unit["BRa"](options, x[i], unit["BRm"](options, f[i], dt));
@@ -1498,7 +1501,7 @@ if(prop === "OX" || prop === "TX"){  // ODE  // Ver.2.23.11  // Ver.2.231.56  //
       return _x;
     };
     /* Ver.2.369.86 */
-    var step_x_sum = function(x, arr2d){
+    var stage_x_sum = function(x, arr2d){  // Ver.2.858.159
       var _x = [];
       for(var i=0; i<len_i; ++i){
         _x[i] = x[i];
@@ -1561,7 +1564,7 @@ if(prop === "OX" || prop === "TX"){  // ODE  // Ver.2.23.11  // Ver.2.231.56  //
           arr_ft.push([_arr_f[j], get_dt(tablei[j+1])]);
         }
         if(arr_ft.length){
-          x = step_x_sum(x0, arr_ft);
+          x = stage_x_sum(x0, arr_ft);  // Ver.2.858.159
         }
         store_t(get_dt(tablei[0]));
         store_x(x);
@@ -1597,8 +1600,8 @@ if(prop === "OX" || prop === "TX"){  // ODE  // Ver.2.23.11  // Ver.2.231.56  //
           break;
         }
         else{
-          x0 = step_x(x0, fc_o5, dt);
-          t0 = step_t(n+1, t00);  // Ver.2.774.120
+          x0 = stage_x(x0, fc_o5, dt);  // Ver.2.858.159
+          t0 = stage_t(n+1, t00);  // Ver.2.774.120  // Ver.2.858.159
         }
       }
       dt = dt0;
@@ -1629,7 +1632,7 @@ if(prop === "OX" || prop === "TX"){  // ODE  // Ver.2.23.11  // Ver.2.231.56  //
       var isAdaptive = (len_t === len_s+2);
       if(isFixed){
         var fc = combinate(get_arr_f(table), table[len_t-1]);
-        x0 = step_x(x0, fc, dt);  // Ver.2.773.117
+        x0 = stage_x(x0, fc, dt);  // Ver.2.773.117  // Ver.2.858.159
       }
       else if(isAdaptive){
         OX_adaptive(table);
@@ -1642,7 +1645,7 @@ if(prop === "OX" || prop === "TX"){  // ODE  // Ver.2.23.11  // Ver.2.231.56  //
       }
       store_x(x0);
       if(Ndt%1 === 0){
-        t0 = step_t(n+1);  // Ver.2.773.117
+        t0 = stage_t(n+1);  // Ver.2.773.117  // Ver.2.858.159
       }
     };
     /* -> Ver.2.775.121 */
@@ -2421,9 +2424,8 @@ My_entry.operation.prototype.IX = function(data, rightArr, tagObj){
     var a = args[1];
     var b = args[2];
     if(a.com && b.com){
-      var N = args[3];
-      N = (N && N.com)? N.com.r: null;
-      N = Math.abs(Math.round(N) || self.options.NI);  // N > 0  // Ver.2.29.15  // Ver.2.205.46 floor -> round
+      var arg3 = args[3];  // Ver.2.858.159
+      var N = (arg3 && arg3.com)? Math.round(arg3.com.r): self.options.NI;  // Ver.2.29.15  // Ver.2.205.46 floor -> round  // Ver.2.858.159 0 enabled
       N = (N%2)? N+1: N;
       /* Ver.2.806.130 -> */
       var type = args[4];
@@ -2620,7 +2622,7 @@ My_entry.operation.prototype.IX = function(data, rightArr, tagObj){
       }
       /* -> Ver.2.806.130 */
       /* -> Ver.2.369.86 */
-      _tree = DATA.num2tree(DI());
+      _tree = DATA.num2tree((N)? DI(): DATA.num(0, 0));  // Ver.2.858.159
     }
     return _tree;
   };

@@ -7866,6 +7866,18 @@ clear; f(x)=&lt;d=x:[c=[],c.push(==&lt;f),(c)(1)=&gt;,hass(d)],hass(d) -> (0:0,N
 　第2引数の省略：可　⇒　不可
 <br>
 　影響項目：<a href="#span-out-FNh-DX">微分高階関数</a>||<a href="#span-eqn-MaclaurinN">MaclaurinN</a>||<a href="#span-eqn-TaylorN">TaylorN</a>
+<br>
+・<span class="run">Ver.2.858.159</span>以降、<a href="#span-out-FNh-IX">積分高階関数</a>の仕様変更
+<br>
+　N=0の返値：N=100の演算結果　⇒　初期値0
+<br>
+・<span class="run">Ver.2.858.159</span>以降、<a href="#span-out-FNmh-OX">ODE高階行列関数</a>||<a href="#span-out-FNmh-TX">ODEt高階行列関数</a>の引数の仕様変更（<a href="#span-out-FNh-IX">積分高階関数</a>に準拠）
+<br>
+　第4||3引数：時間刻み　⇒　dummy変数終了値（省略不可）
+<br>
+　第5||4引数：省略時、1　⇒　<a href="#span-out-FNh-IX">NI既定値</a>
+<br>
+　影響項目：<a href="#span-out-FNmh-OX">ODE高階行列関数</a>||<a href="#span-out-FNmh-TX">ODEt高階行列関数</a>||<a href="#span-eqn">strict-mode式変数list</a>
     </td>
   </tr>
   <tr>
@@ -7905,6 +7917,8 @@ clear; f(x)=&lt;d=x:[c=[],c.push(==&lt;f),(c)(1)=&gt;,hass(d)],hass(d) -> (0:0,N
 Newton((x)=&lt;2x+1=0) -> <del>-0.5000000000011378+1.137793394920403e-12i</del>-0.5
 <br>
 　影響項目：<a href="#span-out-FNh-DX">微分高階関数</a>||<a href="#span-out-FNmh-jacobian">Jacobi高階行列関数</a>||<a href="#span-out-FNmh-newtonian">Newton高階行列関数</a>||<a href="#span-out-method-Newton">Newton法</a>||<a href="#span-eqn">strict-mode式変数list</a>
+<br>
+・<span class="run">Ver.2.858.159</span>以降、<a href="#span-out-FNmh-OX">dxT</a>を廃止
     </td>
   </tr>
   <tr>
@@ -32996,6 +33010,8 @@ x -> (1.000000000000009+O(3e-5):0.9999999999999909+O(3e-5))
 <br>
 <del>・_idummy<a href="#span-out-vars-symbol">変数名symbol</a>でcallする</del><span class="run">Ver.2.812.131</span>以降、旧仕様廃止
 <br>
+・<span class="run">Ver.2.858.159</span>以降、NI=0の場合、初期値0を返す
+<br>
 <br>
 _i(=&lt;第1引数,第2引数,第3引数[,第4引数])
 <br>
@@ -33007,7 +33023,7 @@ _i(=&lt;第1引数,第2引数,第3引数[,第4引数])
 <br>
 option
 <br>
-・第4引数: 積分区間の分割数NI（正の偶数）を値渡し[0||省略時、NI既定値]
+・第4引数: 積分区間の分割数NI（正の偶数）を値渡し[省略時、NI既定値]
 <br>
 <br>
 <a href="#span-out-error-numerical">数値誤差</a>に関する精度次数について記述する
@@ -33630,12 +33646,12 @@ ODE高階行列関数
 <br>
 ・<a href="#span-out-error-numerical">数値誤差</a>O(dt^4以上)を含み、演算結果に<a href="#span-out-error-numerical">目安の解析誤差</a>を表示する
 <br>
-・1階常微分の差分刻み実数値dxT既定値dxT=1e-3
+<del>・1階常微分の差分刻み実数値dxT既定値dxT=1e-3</del><span class="run">Ver.2.858.159</span>以降、廃止
 <br>
 <del>・_odummy<a href="#span-out-vars-symbol">変数名symbol</a>でcallする</del><span class="run">Ver.2.812.131</span>以降、旧仕様廃止
 <br>
 <br>
-_o(=&lt;第1引数,=&lt;第2引数[,=&lt;第3引数[,第4引数[,第5引数[,第6引数[,第7引数[,第8引数]]]]]])
+_o(=&lt;第1引数,=&lt;第2引数,=&lt;第3引数,第4引数,第5引数[,第6引数[,第7引数[,第8引数]]])　<span class="run">Ver.2.858.159</span>以降、更新
 <br>
 ・第1引数: 1階常微分方程式右辺の関数式を<a href="#span-out-pass-by-equation">式渡し</a>||<a href="#span-out-pass-by-symbol">symbol渡し</a>
 <br>
@@ -33645,15 +33661,19 @@ option
 <br>
 ・第3引数: 未知変数初期値の列vectorを<a href="#span-out-pass-by-equation">式渡し</a>||<a href="#span-out-pass-by-symbol">symbol渡し</a>[0||省略時、<a href="#span-out-FNm-init">zeros-vector</a>]
 <br>
-・第4引数: dummy変数初期値t0を値渡し[省略時、0]
+・第4引数: dummy変数初期値t0を値渡し　<span class="run">Ver.2.858.159</span>以降、省略不可
 <br>
-・第5引数: 常微分の差分刻みdtを値渡し[省略時、dxT既定値]
+・第5引数: <del>常微分の差分刻みdtを値渡し[省略時、dxT既定値]</del>
+<br>
+　<span class="run">Ver.2.858.159</span>以降、dummy変数終了値t1を値渡し
+<br>
+　<span class="run">Ver.2.858.159</span>以降、dt=(t1-t0)/反復回数
 <br>
 　<span class="clear">Ver.2.821.134</span>以降、dt=0の場合、初期値を返す（adaptive-stepの場合、無限loopの可能性を排除）
 <br>
 <span class="run">Ver.2.29.15</span>以降、第6引数追加
 <br>
-・第6引数: 反復回数（正の整数）を値渡し[省略時、1]
+・第6引数: 反復回数（正の整数）を値渡し[省略時、<a href="#span-out-FNh-IX">NI既定値</a>]　<span class="run">Ver.2.858.159</span>以降、<a href="#span-out-spec-changed-history">演算仕様変更</a>
 <br>
 <span class="run">Ver.2.774.119</span>以降、第7引数追加（adaptive-step solver用）
 <br>
@@ -44770,7 +44790,7 @@ data.logo -> "makeLog=true"
 ・<a href="#span-out-FNh-DX">orderD</a>: <a href="#span-out-fdm-differential">有限差分</a>による微分の精度次数
 <br>
 <br>
-・<a href="#span-out-FNmh-OX">dxT</a>: <a href="#span-out-fdm-differential">有限差分</a>による1階常微分の差分刻み実数値
+<del>・<a href="#span-out-FNmh-OX">dxT</a>: <a href="#span-out-fdm-differential">有限差分</a>による1階常微分の差分刻み実数値</del><span class="run">Ver.2.858.159</span>以降、廃止
 <br>
 <br>
 ・<a href="#span-out-FNmh-OX">orderT</a>: <a href="#span-out-fdm-differential">有限差分</a>による常微分の精度次数
@@ -48355,7 +48375,7 @@ dtn=&lt;n&lt;=0&amp;&amp;0||||dt/*switch(n&lt;=0,0:1,dt)*/,
 <br>
 <span class="jF">x_next=x_initial=&gt;,</span>
 <br>
-step=&lt;last{dt0=dtn=&gt;,<span class="jF">x_next=_o(=&lt;f,=&lt;{x_next}</span>,t,dt0)<span class="jF">,t=t+dt0</span>},
+step=&lt;last{dt0=dtn=&gt;,<span class="jF">x_next=_o(=&lt;f,=&lt;{x_next}</span>,t+[,dt0])<span class="jF">,t=t+dt0</span>},
 <br>
 stepnm=&lt;last{step=&gt;,<span class="jF">z_x=x_next[0],</span>xt[n][mdummy]=real(z_x),yt[n][mdummy]=imag(z_x)},
 <br>
@@ -48684,7 +48704,7 @@ arr_args=[
 <br>
 (x)=&lt;_i0((t)=&lt;SND(t)=&gt;,[0,x],NI)*2,(x)=&lt;_i0((t)=&lt;SND(t)=&gt;,[0,x*sqrt2],NI)*2,(x)=&lt;1-erf(x)=&gt;:
 <br>
-(x)=&lt;_o45((t,x)=&lt;SND(t)=&gt;,,[0,x/NI],NI)*2,(x)=&lt;_o45((t,x)=&lt;SND(t)=&gt;,,[0,x*sqrt2/NI],NI)*2,(x)=&lt;1-erf(x)=&gt;
+(x)=&lt;_o45((t,x)=&lt;SND(t)=&gt;,,[0,x],NI)*2,(x)=&lt;_o45((t,x)=&lt;SND(t)=&gt;,,[0,x*sqrt2],NI)*2,(x)=&lt;1-erf(x)=&gt;
 <br>
 ];
 <br>
@@ -48717,7 +48737,7 @@ arr_integral=[
 <br>
 (=&lt;f,a,b)=&lt;_i0(=&lt;f,a,b,NI):
 <br>
-(=&lt;f,a,b)=&lt;_o45((t,x)=&lt;f(t)=&gt;,,a,(b-a)/NI,NI)
+(=&lt;f,a,b)=&lt;_o45((t,x)=&lt;f(t)=&gt;,,a,b,NI)
 <br>
 ];
 <br>
@@ -48767,7 +48787,7 @@ integral
 <br>
 clear;
 <br>
-check(=&lt;f,a,b,NI,type)=&lt;(_o45((t,x)=&lt;f(t)=&gt;,,a,(b-a)/NI,NI):_i(=&lt;f,a,b,NI):_i0(=&lt;f,a,b,NI,type));
+check(=&lt;f,a,b,NI,type)=&lt;(_o45((t,x)=&lt;f(t)=&gt;,,a,b,NI):_i(=&lt;f,a,b,NI):_i0(=&lt;f,a,b,NI,type));
 <br>
 NI=100;
 <br>
@@ -48995,7 +49015,11 @@ globalS(=&lt;f)=&lt;_i(=&lt;f,0,1,NI);
 <br>
 globalS((z)=&lt;globalS((y)=&lt;globalS((x)=&lt;1/(1-x*y*z))==&gt;)==&gt;)==&gt;;
 <br>
-globalS(=&lt;f)=&lt;(_t1((t,x)=&lt;f(t)=&gt;,=&lt;{,0},1/NI,NI))[1];
+globalS(=&lt;f)=&lt;(_t1((t,x)=&lt;f(t)=&gt;,=&lt;{0,},1,NI))[1];
+<br>
+globalS((z)=&lt;globalS((y)=&lt;globalS((x)=&lt;1/(1-x*y*z))==&gt;)==&gt;)==&gt;;
+<br>
+globalS(=&lt;f)=&lt;_o1((t,x)=&lt;f(t)=&gt;,,0,1,NI);
 <br>
 globalS((z)=&lt;globalS((y)=&lt;globalS((x)=&lt;1/(1-x*y*z))==&gt;)==&gt;)==&gt;;
 <br>
@@ -49768,7 +49792,7 @@ run=&lt;last{
 <br>
 <span class="jF">x_next=x_initial=&gt;,</span>
 <br>
-stepN=&lt;last{N=round(t/dt),<span class="jF">x_next=_o(=&lt;f,=&lt;{x_next}</span>,<span class="jF">t_total</span>,dt,N)},
+stepN=&lt;last{N=round(t/dt),<span class="jF">x_next=_o(=&lt;f,=&lt;{x_next}</span>,<span class="jF">t_total</span>+[,dt*N],N)},
 <br>
 <span class="jF">step_post=&lt;{$z_x0,$z_v0}=x_next,</span>
 <br>
@@ -49805,7 +49829,7 @@ ODE_fixed
 <span id="span-eqn-explicit-ODE_fixed"></span>
 <a href="#span-out-evolution">時間発展の解法</a>参照
 <br>
-・任意のButcher-tableに対する固定stepの陽的Runge-Kutta法（公式と一意対応の最短表記）
+・任意stageのButcher-tableに対する固定stepの陽的Runge-Kutta法（公式と一意対応の最短表記）
 <br>
 clear;
 <br>
@@ -49815,9 +49839,9 @@ order=##table[-1],
 <br>
 get_arr_f(t0,x0)=&lt;[
 <br>
-step_x_sum(i_)=&lt;_r((x)=&lt;x+dt*table[i_][__n__]*arr_f[__n__-1],=&lt;x0,#arr_f),
+stage_x_sum(i_)=&lt;_r((x)=&lt;x+dt*table[i_][__n__]*arr_f[__n__-1],=&lt;x0,#arr_f),
 <br>
-_r(=&lt;arr_f[#arr_f].push(f(t0+dt*table[__n__-1][0],step_x_sum(__n__-1)=&gt;)=&gt;.),arr_f=[],order),
+_r(=&lt;arr_f[#arr_f].push(f(t0+dt*table[__n__-1][0],stage_x_sum(__n__-1)=&gt;)=&gt;.),arr_f=[],order),
 <br>
 =&lt;arr_f]=&gt;,
 <br>
@@ -49839,7 +49863,7 @@ f(t,x,v)=&lt;{v,t+(F-k*x-c*v)/m};
 <br>
 ($F,$m,$k,$c)=(1,1,1,0.4);
 <br>
-args=(=&lt;f,=&lt;{t0,x0,v0},dt,Niteration);
+args=(=&lt;f,=&lt;{t0,x0,v0},t0+dt*Niteration,Niteration);
 <br>
 ODE_fixed(t0,=&lt;(x0,v0),=&lt;table_Butcher)=&gt;:(_t0(args,,=&lt;table_Butcher).):(_t(args).);
     </td>
@@ -49858,7 +49882,7 @@ ODE_adaptive
 <span id="span-eqn-explicit-ODE_adaptive"></span>
 <a href="#span-out-evolution">時間発展の解法</a>参照
 <br>
-・任意のButcher-tableに対する適応stepの陽的Runge-Kutta法
+・任意stageのButcher-tableに対する適応stepの陽的Runge-Kutta法
 <br>
 clear;
 <br>
@@ -49876,9 +49900,9 @@ isAdaptive=eq(#table-order,2),
 <br>
 get_arr_f(dt,t0,x0)=&lt;[
 <br>
-step_x_sum(i_)=&lt;_r((x)=&lt;x+dt*table[i_][__n__]*arr_f[__n__-1],=&lt;x0,#arr_f),
+stage_x_sum(i_)=&lt;_r((x)=&lt;x+dt*table[i_][__n__]*arr_f[__n__-1],=&lt;x0,#arr_f),
 <br>
-_r(=&lt;arr_f[#arr_f].push(f(t0+dt*table[__n__-1][0],step_x_sum(__n__-1)=&gt;)=&gt;.),arr_f=[],order),
+_r(=&lt;arr_f[#arr_f].push(f(t0+dt*table[__n__-1][0],stage_x_sum(__n__-1)=&gt;)=&gt;.),arr_f=[],order),
 <br>
 =&lt;arr_f]=&gt;,
 <br>
@@ -49964,7 +49988,7 @@ f(t,x,v)=&lt;{v,t+(F-k*x-c*v)/m};
 <br>
 ($F,$m,$k,$c)=(1,1,1,0.4);
 <br>
-args=(=&lt;f,=&lt;{t0,x0,v0},dt,Niteration);
+args=(=&lt;f,=&lt;{t0,x0,v0},t0+dt*Niteration,Niteration);
 <br>
 ODE_adaptive(t0,=&lt;(x0,v0),=&lt;table_fixed)=&gt;:(_t0(args,,=&lt;table_fixed).):(_t4(args).);
 <br>
@@ -50423,7 +50447,7 @@ NI=300,
 <br>
 T=2*pi/omega,
 <br>
-cn(n)=&lt;_o45((t,x)=&lt;(f(t)=&gt;)*e^(-i*(n*omega)*t),,<span class="clear">isSym&amp;&amp;&amp;[-T/2,T/NI]|||[dt=T/NI,dt]</span>,NI)/T,
+cn(n)=&lt;_o45((t,x)=&lt;(f(t)=&gt;)*e^(-i*(n*omega)*t),,<span class="clear">isSym&amp;&amp;&amp;[-T,T]/2|||[0,T]</span>,NI)/T,
 <br>
 _s((n)=&lt;(cn(n)=&gt;)*e^(i*(n*omega)*x),-N,N)
 <br>
