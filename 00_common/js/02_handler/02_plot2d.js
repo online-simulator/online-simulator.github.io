@@ -649,7 +649,12 @@ My_entry.plot2d.prototype.plot = function(arr2d_vec, options, toSVG, isFinal){  
       fill = arr_config[5];
       str = arr_config[6];
       strSize = arr_config[7];
-      type = (type === "none" || def.hasElem_arr(markers, type))? type: null;  // 1.0.0
+      /* Ver.2.859.159 -> */
+      if(!(type === "none" || def.hasElem_arr(markers, type))){  // 1.0.0
+        str = str || type;
+        type = null;  // 1.0.0
+      }
+      /* -> Ver.2.859.159 */
     }
     /* 0.1.0 -> */
     markerType = type || markerType;
