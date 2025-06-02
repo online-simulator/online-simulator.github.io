@@ -716,6 +716,7 @@
       $._id("Bessel_Na").onclick = function(){setVal("2", "20", "z=t,Na(a,z)=<_i0((t)=<sin(z*sin(t)-a*t),,pi)/pi-_i0((t)=<exp(-z*sinh(t))*(exp(a*t)+exp(-a*t*cos(a*pi))),,inf)/pi,z;", "Na(0,z);Na(1,z);Na(2,z);Na(3,z);", 40);$._id("input-z").value+="TITLE{Schläfli's integral expression}XLABEL{real(z)}YLABEL{Na(z)}::3:1.5:1.5::a=0,domain real(z)>0;::::::1;::::::2;::::::3;";};
       $._id("Bessel_Ia").onclick = function(){setVal("0", "4", "x=t,Ia(a,x)=<_i0((t)=<exp(x*cos(t))*cos(a*t),,pi)/pi-(sin(a*pi)/pi)*_i0((t)=<exp(-a*t-x*cosh(t)),,inf),x;", "Ia(0,x);Ia(1,x);Ia(2,x);Ia(3,x);", 40);$._id("input-z").value+="TITLE{modified Bessel functions of first kind}XLABEL{x}YLABEL{Ia(x)}::3:1.5:1.5::a=0,domain real(x)>0;::::::1;::::::2;::::::3;";};
       $._id("Bessel_Ka").onclick = function(){setVal("1", "5", "x=t,Ka(a,x)=<_i0((t)=<exp(-x*cosh(t))*cosh(a*t),,inf),x;", "Ka(0,x);Ka(1,x);Ka(2,x);Ka(3,x);", 40);$._id("input-z").value+="TITLE{modified Bessel functions of second kind}XLABEL{x}YLABEL{Ka(x)}::3:1.5:1.5::a=0,domain real(x)>0;::::::1;::::::2;::::::3;";};
+      $._id("Bessel_Ia_t45").onclick = function(){setVal("-4", "4", "z=t,NI=100,t0=eps,Ia(a,x)=<_i0((t)=<exp(x*cos(t))*cos(a*t),,pi)/pi-(sin(a*pi)/pi)*_i0((t)=<exp(-a*t-x*cosh(t)),,inf),f(a)=<_t45((t,x,v)=<{v,-v/t+(1+(a/t)**2)*x},=<{t0,Ia(a,t0),_d((x)=<Ia(a,x),t0)},t0+z,NI),yt1=f(0),yt1[0];", "yt1[1];", 20);$._id("input-z").value+="TITLE{complex modified Bessel functions of first kind}XLABEL{real(z)}YLABEL{Ia(z)}::3:1.5:1.5::a=0;";};
       $._id("Bessel_jn").onclick = function(){setVal("0.1", "20", "x=t,Ja(a,x)=<_i0((t)=<cos(a*t-x*sin(t)),,pi)/pi-(sin(a*pi)/pi)*_i0((t)=<exp(-a*t-x*sinh(t)),,inf),jn(n,x)=<sqrt(pi/(2*x))*Ja(n+1/2,x),x;", "jn(0,x);jn(1,x);jn(2,x);jn(3,x);", 40);$._id("input-z").value+="TITLE{spherical Bessel functions of first kind}XLABEL{x}YLABEL{jn(x)}::3:1.5:1.5::n=0,integer,domain real(x)>0;::::::1;::::::2;::::::3;";};
       $._id("Bessel_jn_Pn").onclick = function(){setVal("0.1", "20", "z=t,Pn(x,n)=<_d((x)=<(x**2-1)**n,x,n)/(2**n*(n)!),jn(n,z)=<_i0((z)=<exp(i*z*t)*Pn(z,n),-1,1)/(2*i**n),z;", "jn(0,z);jn(1,z);jn(2,z);jn(3,z);", 40);$._id("input-z").value+="TITLE{Whittaker's integral expression}XLABEL{real(z)}YLABEL{jn(z)}::3:1.5:1.5::n=0,integer;::::::1;::::::2;::::::3;";};
       $._id("Bessel_yn").onclick = function(){setVal("2", "20", "x=t,Ja(a,x)=<_i0((t)=<cos(a*t-x*sin(t)),,pi)/pi-(sin(a*pi)/pi)*_i0((t)=<exp(-a*t-x*sinh(t)),,inf),Ya(a,x)=<(Ja(a,x)*cos(a*pi)-Ja(-a,x))/sin(a*pi),yn(n,x)=<sqrt(pi/(2*x))*Ya(n+1/2,x),x;", "yn(0,x);yn(1,x);yn(2,x);yn(3,x);", 40);$._id("input-z").value+="TITLE{spherical Bessel functions of second kind}XLABEL{x}YLABEL{yn(x)}::3:1.5:1.5::n=0,integer,domain real(x)>0;::::::1;::::::2;::::::3;";};
@@ -2707,6 +2708,7 @@
   <button id="Bessel_Na">-Schläfli</button>
   <button id="Bessel_Ia">Ia</button>
   <button id="Bessel_Ka">Ka</button>
+  <button id="Bessel_Ia_t45">-_t45</button>
   <button id="Bessel_jn">jn</button>
   <button id="Bessel_jn_Pn">-Whittaker</button>
   <button id="Bessel_yn">yn</button>
