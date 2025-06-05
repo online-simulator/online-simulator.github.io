@@ -479,7 +479,9 @@
       script += "\nclear;\n";
       script += "A=(1,2:3i);\nB=-A;\ncompare_mat(A,B)=<#A===#B&&&_r((b)=<b&&&##A[__n__-1]===##B[__n__-1],true,#A)&&&prod(prod(A===B).)===1;\ncompare_mat(=<A,=<A),compare_mat(=<A,=<B),compare_mat(=<A,=<-B),compare_mat(=<A..,=<-B):\nA====A,A====B,A====-B,A..====-B:\nA<<<>>>A,A<<<>>>B,A<<<>>>-B,A..<<<>>>-B;";
       script += "\nclear;\n";
-      script += "f(x)=<abs(x),ab=[-1,1]:_i(=<f,ab,),_o((t,x)=<f(x),,ab,):_i(=<f,ab,8),_o((t,x)=<f(t),,ab,8);";
+      script += "f(x)=<abs(x),ab=[-1,1]:_i(=<f,ab,),_o((t,x)=<f(t),,ab,):_i(=<f,ab,8),_o((t,x)=<f(t),,ab,8);";
+      script += "\nclear;\n";
+      script += "f(x)=<x**2,ab=[2,5]:_i(=<f,ab,100),_o((t,x)=<f(t),,ab,100):_i(=<f,ab,128),_o((t,x)=<f(t),,ab,128):_i(=<f,ab),_o((t,x)=<f(t),,ab);";
       script += "\nclear;\n";
       $._id("input").value = script;
     });

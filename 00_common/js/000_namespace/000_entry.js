@@ -5,13 +5,13 @@
 // ECMAScript6
 const My_entry = {
   // major update . minor update . minor change . fatal bug-fix . minor bug-fix
-  VERSION: "online-simulator.github.io.6.504.677.25.175",
+  VERSION: "online-simulator.github.io.6.504.677.25.176",
   // major update. minor update/change. fatal/minor bug-fix
   Ver: {
     // inner
     plot: "2.69.17",
     // outer
-    calc: "2.864.159",
+    calc: "2.864.160",
     fluid: "1.59.2",
     cell: "0.11.3",
     wave: "1.82.15",

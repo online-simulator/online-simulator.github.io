@@ -111,7 +111,7 @@ My_entry.operation.prototype.config = {
     epsN: Number.EPSILON,  // Ver.2.835.141
     dxJ: Math.pow(2, -16),  // Ver.2.835.141
     dxD: Math.pow(2, -10),  // Ver.2.835.141
-    NI: 100
+    NI: Math.pow(2, 7)  // Ver.2.864.160
   },
   /* Ver.2.245.57 -> */
   /* Ver.2.32.17 */

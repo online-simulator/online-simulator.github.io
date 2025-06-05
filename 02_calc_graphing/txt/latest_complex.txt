@@ -32,7 +32,7 @@ local storage cleared
 [cond_error=(has__(t_total)==0)&&has__(oldT),proc=<[s_1day=60*60*24,=<heat0d_evolution(s_1day*30,s_1day,0,0.98,1,1)=>]=>,=<switch(cond_error==0,=<proc:1,-999)]=>
 (
 2592000:
-0.4534194999132346+O(3e-13)
+0.4534194999132346+O(1e-13)
 )
 
 heat0d_evolution(t,dt,kalpha0,kalpha1,kalbedo,kabsorb)=<[out=<{t_total,dT},scope2storage=<last{add__(oldT),add__(t_total)},init=<last{I0=1367,sigma=5.670374419184429e-8,TK=273.15,T0=15,T1=-56.5,T0K=T0+TK,T1K=T1+TK,H1=11000,R0=6378136.6,R1=R0+H1,S0=pi*R0^2,S1=pi*R1^2,A0=S0*4,A1=S1*4,albedo0=0.3,e0=1,TeK=(I0*(1-albedo0)/(4*e0*sigma))**0.25,Te=TeK-TK,W0=S1*I0,Wee=A0*(e0*sigma*TeK**4),We0=A0*(e0*sigma*T0K**4),absorbh=1-W0*(1-albedo0)/We0,absorbhmax=0.5,absorb0=We0*absorbh/(W0*(1-albedo0)),absorb0max=We0*absorbhmax/(W0*(1-albedo0)),kh0=(absorbhmax-absorbh)/(absorb0max-absorb0),Te_th(a)=<(I0*(1-albedo0)/(2*(2-a)*e0*sigma))**0.25-TK,Te_th0=Te_th(absorbh*2)=>,Wea=We0*absorbh,Wet=We0*(1-absorbh),l=0.0241,rho=1.29,cp=1007,V=_i((r)=<4*pi*r^2,R0,R0+H1),C=rho*cp*V,alpha10=-W0*(1-albedo0)*absorb0/(A1*(T1-T0)),alpha0=alpha10*kalpha0,alpha1=alpha10*kalpha1,albedo=albedo0*kalbedo,absorb=absorb0*kabsorb,absorbe=(1-albedo)*absorb,T=T0,flux0=alpha0*(T0-T),flux1=alpha1*(T1-T),W2=flux0*A0,W1=flux1*A1,W0a=W0*albedo,W0t=W0*(1-albedo)*(1-absorb),W0e=W0*(1-albedo)*absorb,(Wee-Wet),(Wea-W0e),(W0t+W0e-Wet),(W0a+W0t+W0e-W0),(W1+W0e+W2),a=(alpha1*A1+alpha0*A0)/C,b=(alpha1*A1*T1+W0*(1-albedo)*absorb+alpha0*A0*T0)/C,switch(has__(t_total)==0,=<last{t_total=0,oldT=T0}),newT=oldT},run=<last{step=<last{newT=(oldT+b*dt)/(1+a*dt),oldT=newT},evolution=<_r((n)=<step=>,N=round(t/dt),N),evolution=>,dT=newT-T0,t_total=t_total+N*dt},init=>,run=>,return=out=>,scope2storage=>,=<return]=>
@@ -1631,7 +1631,7 @@ clear
 local storage cleared
 
 integral_C((z)=<1/(z-0.5i),0,1,10)=>
-infoLost[r ] 8.326672684688674e-17+6.283185307847671i+O(1e-9+1e-9i)
+infoLost[r ] -5.551115123125783e-17+6.28318530742849i+O(5e-10+4e-10i)
 
 integral_C(=<f,z,r,n)=<_r((s)=<s+last[dt=2*pi/n,t=(__n__-1)*dt,a=z+r*e**(i*t),b=z+r*e**(i*(t+dt)),_i(==<f,a,b)],,n)
 stored_eqn(integral_C)
@@ -1755,16 +1755,16 @@ local storage cleared
 plot2d_evolution(0,5,0.5,0,20+20i,0,1,1)=>
 (
 0,0:
-7.869386805715609+O(6e-10),6.825386340516261:
-12.642411176532667+O(6e-10),9.037192653033685:
-15.537396796996385+O(6e-10),8.450721227524628:
-17.293294335239434+O(6e-10),6.167008559506749:
-18.358300027500555+O(6e-10),2.853867040975824:
-19.004258632627085+O(6e-10),-1.0836546373856322:
-19.39605233154257+O(6e-10),-5.399882026001574:
-19.633687222217652+O(6e-10),-9.945806038895704:
-19.777820069229925+O(6e-10),-14.631048096847419:
-19.86524106001476+O(6e-10),-19.400790820578006
+7.869386805735531+O(2e-10),6.825386340545934:
+12.642411176556832+O(2e-10),9.037192653069676:
+15.537396797018381+O(2e-10),8.450721227557374:
+17.293294335257226+O(2e-10),6.167008559533234:
+18.358300027514034+O(2e-10),2.853867040995907:
+19.004258632636912+O(2e-10),-1.0836546373710145:
+19.39605233154952+O(2e-10),-5.3998820259912295:
+19.633687222222452+O(2e-10),-9.945806038888538:
+19.777820069233208+O(2e-10),-14.631048096842525:
+19.86524106001697+O(2e-10),-19.400790820574706
 )
 
 plot2d_evolution(t0,t1,dt,z_x0,z_v0,z_u,m,kCdA_sphere)=<[out=<(xt,yt),scope2storage=<last{add__(xt),add__(yt)},init=<last{g=-9.8,z_a=0+g*i,t=0,x_initial=<{z_x0,z_v0},f(t,z_x,z_v)=<{z_v,z_a+(kCdA_sphere/m)*(z_u-z_v)},N=round((t1-t0)/dt),M=0,xt=zeros(N+1,M+1),yt=zeros(N+1,M+1)},run=<last{dtn=<n<=0&&0||||dt,x_next=x_initial=>,step=<last{dt0=dtn=>,x_next=_o(=<f,=<{x_next},t+[,dt0]),t=t+dt0},stepnm=<last{step=>,z_x=x_next[0],xt[n][mdummy]=real(z_x),yt[n][mdummy]=imag(z_x)},casesM=<_s((mdummy)=<stepnm=>,0,M),evolutionN=<_s((n)=<casesM=>,0,N),evolutionN=>},init=>,run=>,return=out=>,scope2storage=>,=<return]=>
@@ -2221,7 +2221,7 @@ clear
 local storage cleared
 
 [Pinv_y=(-0.999999427,-0.999936657,-0.997300203,-0.954499736,-0.682689492,0,0.682689492,0.954499736,0.997300203,0.999936657,0.999999427:-5,-4,-3,-2,-1,0,1,2,3,4,5),N=1,arr=[],_r((n)=<arr.push(rand_table(=<Pinv_y)=>),,N),=<arr.]=>
--2.5525990715470837
+-1.35063170917726
 
 rand_table(csv)=<last[table=sort0(csv),ymin=min(table)[0],ymax=max(table)[0],y=ymin+(ymax-ymin)*rand(),x=interp(y:table),x]
 stored_eqn(rand_table)
@@ -2231,7 +2231,7 @@ local storage cleared
 
 [(N)=<[tarr=linspace(0,N-1,N).,shuffle_FY(?tarr)=>,=<tarr.]=>](2)=>
 (
-1,0
+0,1
 )
 
 shuffle_FY(?tarr)=<last[len=sizer(tarr),switch_arr=(i1)=<last{i0=floor(rand()*(i1+1)),w=tarr[i1],tarr[i1]=tarr[i0],tarr[i0]=w},_s((i_)=<switch_arr(i_)=>,len-1,1)]
@@ -4462,4 +4462,4 @@ center=true&wheel=true&drag=false&test-case=false&plot-all=true&relzooming=true&
 --------------------------------
 --------------------------------
 
-online-simulator.github.io.6.503.672.25.175 @ Sun Jun 01 2025 20:18:45 GMT+0900 (日本標準時) @ Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/136.0.0.0 Safari/537.36
+online-simulator.github.io.6.504.677.25.176 @ Thu Jun 05 2025 18:56:35 GMT+0900 (日本標準時) @ Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/137.0.0.0 Safari/537.36

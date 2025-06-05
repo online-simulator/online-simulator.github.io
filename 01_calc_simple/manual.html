@@ -7910,7 +7910,7 @@ clear; f(x)=&lt;d=x:[c=[],c.push(==&lt;f),(c)(1)=&gt;,hass(d)],hass(d) -> (0:0,N
 <br>
 　　　　　　||<a href="#span-eqn-implicit-Euler_method">implicit Euler_method</a>||<a href="#span-eqn-explicit-Euler_method">explicit Euler_method</a>
 <br>
-・<span class="clear">Ver.2.835.141</span>以降、空間の差分刻みの<a href="#span-in-options">内部option</a>既定値を修正
+・<span class="clear">Ver.2.835.141</span>以降、差分刻みの<a href="#span-in-options">内部option</a>既定値を修正
 <br>
 　<a href="#span-out-float">浮動小数点演算</a>：10進形式　⇒　2進形式
 <br>
@@ -7925,6 +7925,18 @@ Newton((x)=&lt;2x+1=0) -> <del>-0.5000000000011378+1.137793394920403e-12i</del>-
 　影響項目：<a href="#span-out-FNh-DX">微分高階関数</a>||<a href="#span-out-FNmh-jacobian">Jacobi高階行列関数</a>||<a href="#span-out-FNmh-newtonian">Newton高階行列関数</a>||<a href="#span-out-method-Newton">Newton法</a>||<a href="#span-eqn">strict-mode式変数list</a>
 <br>
 ・<span class="run">Ver.2.858.159</span>以降、<a href="#span-out-FNmh-OX">dxT</a>を廃止
+<br>
+・<span class="clear">Ver.2.864.160</span>以降、分割数の<a href="#span-in-options">内部option</a>既定値を修正
+<br>
+　<a href="#span-out-float">浮動小数点演算</a>：10進形式　⇒　2進形式
+<br>
+　NI：100　⇒　2^7
+<br>
+_i((x)=&lt;x**2,0,3) -> <del>8.999999999999998+O(8e-7)</del>9+O(3e-7)
+<br>
+　影響項目：<a href="#span-out-FNh-IX">積分高階関数</a>||<a href="#span-out-FNmh-OX">ODE高階行列関数</a>||<a href="#span-out-FNmh-TX">ODEt高階行列関数</a>
+<br>
+　　　　　　||<a href="#span-eqn-plot2d_evolution">plot2d_evolution</a>||<a href="#span-eqn-residue">residue</a>||<a href="#span-eqn-heat1d_evolution">heat1d_evolution</a>
     </td>
   </tr>
   <tr>
@@ -33012,7 +33024,7 @@ x -> (1.000000000000009+O(3e-5):0.9999999999999909+O(3e-5))
 <br>
 ・<a href="#span-out-error-numerical">数値誤差</a>O(dxI^4以上)を含み、演算結果に<a href="#span-out-error-numerical">目安の解析誤差</a>を表示する
 <br>
-・積分区間の分割数の既定値NI=100
+・積分区間の分割数の既定値NI=<del>100</del><span class="clear">Ver.2.864.160</span>以降、2^7
 <br>
 ・積分の差分刻みdxI=(b-a)/NI
 <br>

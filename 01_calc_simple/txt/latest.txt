@@ -1,7 +1,18 @@
 clear
 local storage cleared
 
-f(x)=<abs(x),ab=[-1,1]:_i(=<f,ab,),_o((t,x)=<f(x),,ab,):_i(=<f,ab,8),_o((t,x)=<f(t),,ab,8)
+f(x)=<x**2,ab=[2,5]:_i(=<f,ab,100),_o((t,x)=<f(t),,ab,100):_i(=<f,ab,128),_o((t,x)=<f(t),,ab,128):_i(=<f,ab),_o((t,x)=<f(t),,ab)
+(
+0,0:
+39.00000000000001+O(8e-7),38.99999999999998+O(8e-7):
+39+O(3e-7),39+O(3e-7):
+39+O(3e-7),39+O(3e-7)
+)
+
+clear
+local storage cleared
+
+f(x)=<abs(x),ab=[-1,1]:_i(=<f,ab,),_o((t,x)=<f(t),,ab,):_i(=<f,ab,8),_o((t,x)=<f(t),,ab,8)
 (
 0,0:
 0,0:
@@ -1062,9 +1073,9 @@ local storage cleared
 a**6/6:_i(=<f,0,a):_i4(=<f,0,a):_i2(=<f,0,a)
 (
 10.666666666666666:
-10.666666880000001+O(2e-7):
-10.666666880000001+O(2e-7):
-10.669333280000002+O(4e-4)
+10.666666746139526+O(6e-8):
+10.666666746139526+O(6e-8):
+10.668294250965118+O(2e-4)
 )
 
 5*4*3*a**2:_d(=<f,a,d3):_d2(=<f,a,d3):_d4(=<f,a,d3)
@@ -2784,8 +2795,8 @@ local storage cleared
 f(x)=<x+n,a=1,b=3:x=1,n=1,_i(=<f,a,b),_i((x)=<x+n,a,b),x:[x=2,n=2,_i((x)=<f(x)=>,a,b),_i((x)=<f(x)==>,a,b),_i((x)=<x+n,a,b),x]
 (
 0,0,0:
-0,0,6+O(2e-7),6+O(2e-7),1:
-0,0,6+O(2e-7),8+O(2e-7),8+O(2e-7),2
+0,0,6+O(6e-8),6+O(6e-8),1:
+0,0,6+O(6e-8),8+O(6e-8),8+O(6e-8),2
 )
 
 clear
@@ -4967,8 +4978,8 @@ local storage cleared
 
 _o((t,x,v)=<{t,i},=<{,},1+i+[,0.1i])/*explicit ODE solver test case*/
 (
--0.10500000000000008+0.10000000000000007i+O(1e-12i):
--0.10000000000000007+O(1e-12i)
+-0.10500000000000011+0.09999999999999978i+O(4e-13i):
+-0.09999999999999978+O(4e-13i)
 )
 
 clear
@@ -4985,7 +4996,7 @@ local storage cleared
 
 N=3,FourierN()
 (
-0,infoLost[ri] 0.3468103654284402-0.7325756973228494i+O(2e-6+2e-6i)
+0,infoLost[r ] 0.34681361245399606-0.7325767094949531i+O(9e-7+8e-7i)
 )
 
 fx()
@@ -5217,4 +5228,4 @@ drag=false&sw=false&0x=false&useMatrix=true&useStrict=false&checkError=true&isRi
 --------------------------------
 --------------------------------
 
-online-simulator.github.io.6.503.672.25.175 @ Sun Jun 01 2025 20:32:06 GMT+0900 (日本標準時) @ Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/136.0.0.0 Safari/537.36
+online-simulator.github.io.6.504.677.25.176 @ Thu Jun 05 2025 18:52:26 GMT+0900 (日本標準時) @ Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/137.0.0.0 Safari/537.36
