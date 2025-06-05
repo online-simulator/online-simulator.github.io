@@ -1357,25 +1357,17 @@ if(prop === "OX" || prop === "TX"){  // ODE  // Ver.2.23.11  // Ver.2.231.56  //
     /* Ver.2.238.56 -> */
     /* Ver.2.27.15 -> */
     /* Ver.2.231.56 -> */
-    var name_arg = "";
+    var name_var = "";  // Ver.2.812.131  // Ver.2.864.161
     var names = [];  // Ver.2.736.107
     if(args_eqn){
-      if(isTX){
-        name_arg = args_eqn[0];
-      }
-      else{
-        name_arg = args_eqn.shift();
-        if(args_eqn.length === 0){
-          args_eqn = null;
-        }
-      }
-      names = args_eqn || get_names(args[1]);  // Ver.2.233.56  // Ver.2.237.56
+      name_var = (isTX)? args_eqn[0]: args_eqn.shift();  // Ver.2.864.161
+      names = args_eqn;  // Ver.2.233.56  // Ver.2.237.56  // Ver.2.864.161
     }
     else{
+      name_var = name_t;  // Ver.2.864.161
       isAuto_args = true;  // Ver.2.735.107  // Ver.2.736.107  // Ver.2.816.132
     }
     /* Ver.2.736.107 -> */
-    var name_var = name_arg;  // Ver.2.812.131
     if(!(isAuto_args)){
       if(!(name_var)) throw msgErr;  // Ver.2.812.131
       if(!(names.length)) throw msgErr;
@@ -1470,10 +1462,9 @@ if(prop === "OX" || prop === "TX"){  // ODE  // Ver.2.23.11  // Ver.2.231.56  //
     var get_dt = function(kcr){
       return unit["BRm"](options, dt, DATA.num(kcr, 0));
     };
-    var sw_name_t = (isAuto_args)? name_t: name_var;  // Ver.2.736.107
     var store_t = function(dt){
       var t = (dt)? unit["BRa"](options, t0, dt): t0;
-      self.store_var(sw_name_t, DATA.num2tree(t), scopes, ids_buffer);  // Ver.2.31.17  // Ver.2.225.53  // Ver.2.736.107
+      self.store_var(name_var, DATA.num2tree(t), scopes, ids_buffer);  // Ver.2.31.17  // Ver.2.225.53  // Ver.2.736.107  // Ver.2.864.161
     };
     /* Ver.2.773.117 -> */
     var stage_t = function(n, opt_t0){  // Ver.2.858.159
