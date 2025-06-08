@@ -17617,7 +17617,7 @@ clear; A=(1,2:3,4); A.map((x)=&lt;x*2) -> (2,4:6,8)
 <br>
 clear; A=(1,2:3,4); A.map((x,i_,j_,self_cloned)=&lt;self_cloned[i_][j_]*2) -> (2,4:6,8)
 <br>
-・self_clonedは参照非共有
+・self_clonedは<a href="#span-out-development-problems-share">参照非共有</a>
 <br>
 clear; A=(1,2:3,4); A.map((x,i_,j_)=&lt;A[i_][j_]*2) -> (2,4:6,8)
 <br>
@@ -26224,6 +26224,11 @@ reshape行列関数の入力仕様と付随する留意事項について記述�
 　reshape：reshapec　⇒　reshaper（列vector形式　⇒　行vector形式）
 <br>
 ・<span class="run">Ver.2.825.139</span>以降、reshapez行列関数を追加
+<br>
+<br>
+留意事項を列挙する
+<br>
+・行列要素の参照を再配置して返す（<a href="#span-out-development-problems-share">参照非共有</a>）
     </td>
   </tr>
   <tr>
@@ -44048,6 +44053,8 @@ before: x=1,(y=&lt;(1/0))||2,x||y=&gt; -> (0,2,1)
 ・<a href="#span-out-substitution-equation">式変数への式代入</a>
 <br>
 ・<span class="clear">Ver.2.203.46</span>以降、<a href="#span-out-eqns-call2eqn">式変数への式読出し</a>
+<br>
+・<span class="run">Ver.2.234.56</span>以降、<a href="#span-out-FNm-reshape">reshape行列関数</a>
     </td>
   </tr>
   <tr>
