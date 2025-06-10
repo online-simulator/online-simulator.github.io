@@ -39,14 +39,18 @@ Byte Order指定の実装方法
 <br>
 　⇒　代わりにDataViewを使用する
 <br>
-・binary文字列のcode-point・符号位置 &lt; 256
+・1Byte文字の符号位置：uint8 code-point&lt;256
+<br>
+　⇔　8bitのLatin-1（7bitのASCII文字の拡張）
+<br>
+・1Byte文字列：1Byte文字の文字列
           </td>
         </tr>
         <tr class="border">
           <td class="border">
 文字列　⇒
 <br>
-binary文字列
+1Byte文字列
           </td>
           <td class="border">
 実装手順と実装codeを以下に示す
@@ -69,7 +73,7 @@ JavaScript文字列で扱うUTF-16 code-unitをArrayBufferに代入する
 BE/LEを指定して直列化したArrayBufferからuint8のDataViewを作る
   </li>
   <li>
-直列化した順番にuint8 code-pointをbinary文字列に変換する
+直列化した順番にuint8 code-pointを1Byte文字に変換する
   </li>
 </ul>
 <pre><code>
@@ -93,7 +97,7 @@ My_entry.conv.prototype.str2binary = function(str, isLE){
         </tr>
         <tr class="border">
           <td class="border">
-binary文字列
+1Byte文字列
 <br>
 ⇒　文字列
           </td>
@@ -109,7 +113,7 @@ ArrayBufferを操作するDataViewを作る
   <li>
 DataViewを介して
 <br>
-binary文字列をuint8 code-pointに変換してArrayBufferに代入する
+1Byte文字をuint8 code-pointに変換してArrayBufferに代入する
   </li>
   <li>
 さらにDataViewを介して
