@@ -119,6 +119,19 @@ My_entry.conv.prototype.buffer2binary = function(buffer){
   });
   return _binary;
 };
+/* else-Ver.0.76.8 -> */
+My_entry.conv.prototype.str2base = function(str){
+  var self = this;
+  var arrb_uint8 = new TextEncoder().encode(str);
+  return ((window.btoa)? btoa(self.arrb_uint8_2binary(arrb_uint8)): "");
+};
+My_entry.conv.prototype.base2str = function(base64){
+  var self = this;
+  var binary = (window.atob)? atob(base64): "";
+  var arrb_uint8 = self.binary2arrb_uint8(binary);
+  return new TextDecoder().decode(arrb_uint8);
+};
+/* -> else-Ver.0.76.8 */
 My_entry.conv.prototype.base2binary = function(base64){
   var self = this;
   var arr_data = base64.split(",");

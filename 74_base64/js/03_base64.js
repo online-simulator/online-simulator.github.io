@@ -17,7 +17,7 @@ My_entry.test_base64.prototype.init_elems = function(){
   var self = this;
   self.entry.$.setup_elems_readonly$("textarea");
   self.entry.$.setup_elems$_tag("button", self.handlers, "onclick");
-  self.arr_sw_out = ["BE", "LE", "native"];
+  self.arr_sw_out = ["BE", "LE", "blob", "native"];  // Ver.0.76.8
   return self;
 };
 My_entry.test_base64.prototype.init_handlers = function(){
@@ -40,6 +40,7 @@ My_entry.test_base64.prototype.init_handlers = function(){
         break;
       case "postset_BE":
       case "postset_LE":
+      case "postset_blob":  // Ver.0.76.8
       case "postset_native":
         self.postset_sw(elem.id.split("_")[1]);
         break;
@@ -72,15 +73,19 @@ My_entry.test_base64.prototype.str2base64_sw = function(sw){
   try{
     switch(sw){
       case "BE":
-        input = self.entry.conv.str2binary(input);
+        output = btoa(self.entry.conv.str2binary(input));
         break;
       case "LE":
-        input = self.entry.conv.str2binary(input, true);
+        output = btoa(self.entry.conv.str2binary(input, true));
+        break;
+      // Ver.0.76.8
+      case "blob":
+        output = self.entry.conv.str2base(input);
         break;
       default:
+        output = btoa(input);
         break;
     }
-    output = btoa(input);
   }
   catch(e){
     output = e.message;
@@ -100,15 +105,19 @@ My_entry.test_base64.prototype.base64_2str_sw = function(sw){
   var input = self.entry.$._id("textarea-input").value;
   var output = "";
   try{
-    output = atob(input);
     switch(sw){
       case "BE":
-        output = self.entry.conv.binary2str(output);
+        output = self.entry.conv.binary2str(atob(input));
         break;
       case "LE":
-        output = self.entry.conv.binary2str(output, true);
+        output = self.entry.conv.binary2str(atob(input), true);
+        break;
+      // Ver.0.76.8
+      case "blob":
+        output = self.entry.conv.base2str(input);
         break;
       default:
+        output = atob(input);
         break;
     }
   }
