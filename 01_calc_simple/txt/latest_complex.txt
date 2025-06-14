@@ -610,12 +610,12 @@ x0={1,2,3}:f(x,y,z)=<{x+y=1+i,y+z=i+2,x*y*z=1*i*2}:g=<{last{x=__x__,x[0]}+x[1]=1
 0:
 0:
 0:
-infoLost[ri] 1+6.8474291387389865e-18i+O(3e-28+5e-28i):
-infoLost[ri] 3.377926102931965e-17+i+O(3e-28+5e-28i):
-infoLost[ri] 2+5.386366378116133e-17i+O(3e-28+5e-28i):
-infoLost[ri] 1+6.8474291387389865e-18i+O(3e-28+5e-28i):
-infoLost[ri] 3.377926102931965e-17+i+O(3e-28+5e-28i):
-infoLost[ri] 2+5.386366378116133e-17i+O(3e-28+5e-28i)
+infoLost[ri] 1-1.1782377061149296e-17i+O(1e-16+3e-17i):
+infoLost[ri] 1.9164136338935964e-17+i+O(2e-17+3e-17i):
+infoLost[ri] 2+6.189302680118883e-17i+O(2e-17+3e-17i):
+infoLost[ri] 1-1.1782377061149296e-17i+O(1e-16+3e-17i):
+infoLost[ri] 1.9164136338935964e-17+i+O(2e-17+3e-17i):
+infoLost[ri] 2+6.189302680118883e-17i+O(2e-17+3e-17i)
 )
 
 clear
@@ -5228,4 +5228,4 @@ drag=false&sw=false&0x=false&useMatrix=true&useStrict=false&checkError=true&isRi
 --------------------------------
 --------------------------------
 
-online-simulator.github.io.6.504.677.25.177 @ Fri Jun 06 2025 06:25:51 GMT+0900 (日本標準時) @ Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/137.0.0.0 Safari/537.36
+online-simulator.github.io.6.505.685.26.179 @ Sat Jun 14 2025 19:10:31 GMT+0900 (日本標準時) @ Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/137.0.0.0 Safari/537.36

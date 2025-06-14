@@ -15,36 +15,32 @@ My_entry.solver_com.prototype.init = function(){
 My_entry.solver_com.prototype.gaussian = function(options, obj_Axb){
   var self = this;
   obj_Axb.N = obj_Axb.A.length;
-  self.gaussian_pre(options, obj_Axb);
   self.gaussian_forward(options, obj_Axb);
   self.gaussian_backward(options, obj_Axb);
   return self;
 };
-My_entry.solver_com.prototype.gaussian_pre = function(options, obj_Axb){
+My_entry.solver_com.prototype.gaussian_pre = function(options, obj_Axb, i){  // Ver.2.871.164
   var self = this;
   var math = self.entry.math;
   var math_com = self.entry.math_com;
   var N = obj_Axb.N;
   var A = obj_Axb.A;
   var b = obj_Axb.b;
-  var abs_pivot = 0;
-  var abs_non_pivot = 0;
-  var i_switch = 0;
-  for(var i=0; i<N-1; ++i){
-    i_switch = i;
-    abs_pivot = math_com.absolute_com(A[i][i].com);
-    for(var ii=i+1; ii<N; ++ii){
-      abs_non_pivot = math_com.absolute_com(A[ii][i].com);
-      if(abs_pivot < abs_non_pivot){
-        abs_pivot = abs_non_pivot;
-        i_switch = ii;
-      }
-    }
-    if(i !== i_switch){
-      math.switch_arr(A, i, i_switch);
-      math.switch_arr(b, i, i_switch);
+  /* Ver.2.871.164 -> */
+  var i_switch = i;
+  var abs_pivot = math_com.absolute_com(A[i][i].com);
+  for(var ii=i+1; ii<N; ++ii){
+    var abs_non_pivot = math_com.absolute_com(A[ii][i].com);
+    if(abs_pivot < abs_non_pivot){
+      abs_pivot = abs_non_pivot;
+      i_switch = ii;
     }
   }
+  if(i_switch !== i){
+    math.switch_arr(A, i, i_switch);
+    math.switch_arr(b, i, i_switch);
+  }
+  /* -> Ver.2.871.164 */
   return self;
 };
 My_entry.solver_com.prototype.gaussian_forward = function(options, obj_Axb){
@@ -55,13 +51,14 @@ My_entry.solver_com.prototype.gaussian_forward = function(options, obj_Axb){
   var A = obj_Axb.A;
   var b = obj_Axb.b;
   for(var i=0; i<N-1; ++i){
+    self.gaussian_pre(options, obj_Axb, i);  // Ver.2.871.164
     for(var ii=i+1; ii<N; ++ii){
       var w = unit["BRd"](options, A[ii][i], A[i][i]);
       A[ii][i] = DATA.num(0, 0);
       for(j=i+1; j<N; ++j){
-        A[ii][j] = unit["BRs"](options, A[ii][j], unit["BRm"](options, w, A[i][j]));  // 1.47.8
+        A[ii][j] = unit["BRs"](options, A[ii][j], unit["BRm"](options, w, A[i][j]));  // Ver.1.47.8
       }
-      b[ii][0] = unit["BRs"](options, b[ii][0], unit["BRm"](options, w, b[i][0]));  // 1.47.8
+      b[ii][0] = unit["BRs"](options, b[ii][0], unit["BRm"](options, w, b[i][0]));  // Ver.1.47.8
     }
   }
   return self;
@@ -96,7 +93,6 @@ My_entry.solver_com.prototype.gaussian_coo = function(options, obj_Axb){
   var self = this;
   obj_Axb.N = obj_Axb.b.length;
   try{
-    self.gaussian_coo_pre(options, obj_Axb);
     self.gaussian_coo_forward(options, obj_Axb);
     self.gaussian_coo_backward(options, obj_Axb);
   }
@@ -120,7 +116,7 @@ My_entry.solver_com.prototype.get_jn = function(arr_n, n0, opt_isChecked){
   if(opt_isChecked && j === len_j) throw false;
   return _jn;
 };
-My_entry.solver_com.prototype.gaussian_coo_pre = function(options, obj_Axb){
+My_entry.solver_com.prototype.gaussian_coo_pre = function(options, obj_Axb, i){  // Ver.2.871.164
   var self = this;
   var math = self.entry.math;
   var math_com = self.entry.math_com;
@@ -129,39 +125,36 @@ My_entry.solver_com.prototype.gaussian_coo_pre = function(options, obj_Axb){
   var m2arr_n = obj_Axb.m2arr_n;
   var m2A = obj_Axb.m2A;
   var b = obj_Axb.b;
-  var abs_pivot = 0;
-  var abs_non_pivot = 0;
-  var i_switch = 0;
-  for(var i=0; i<N-1; ++i){
-    var m0 = i+1;
-    var n0 = i+1;
-    i_switch = i;
-    var aA0 = m2A[m0];
-    /* Ver.2.128.35 -> */
-    var jn0 = self.get_jn(m2arr_n[m0], n0);
-    var num_pivot = (jn0 === -1)? DATA.num(0, 0): aA0[jn0];  // pivot=0 allowed
-    /* -> Ver.2.128.35 */
-    abs_pivot = math_com.absolute_com(num_pivot.com);
-    for(var ii=i+1; ii<N; ++ii){
-      var m = ii+1;
-      var jn = self.get_jn(m2arr_n[m], n0);
-      if(jn !== -1){
-        var aA = m2A[m];
-        var num_non_pivot = aA[jn];
-        abs_non_pivot = math_com.absolute_com(num_non_pivot.com);
-        if(abs_pivot < abs_non_pivot){
-          abs_pivot = abs_non_pivot;
-          i_switch = ii;
-        }
+  /* Ver.2.871.164 -> */
+  var i_switch = i;
+  var m0 = i+1;
+  var n0 = i+1;
+  var aA0 = m2A[m0];
+  /* Ver.2.128.35 -> */
+  var jn0 = self.get_jn(m2arr_n[m0], n0);
+  var num_pivot = (jn0 === -1)? DATA.num(0, 0): aA0[jn0];  // pivot=0 allowed
+  /* -> Ver.2.128.35 */
+  var abs_pivot = math_com.absolute_com(num_pivot.com);
+  for(var ii=i+1; ii<N; ++ii){
+    var m = ii+1;
+    var jn = self.get_jn(m2arr_n[m], n0);
+    if(jn !== -1){
+      var aA = m2A[m];
+      var num_non_pivot = aA[jn];
+      var abs_non_pivot = math_com.absolute_com(num_non_pivot.com);
+      if(abs_pivot < abs_non_pivot){
+        abs_pivot = abs_non_pivot;
+        i_switch = ii;
       }
     }
-    if(i !== i_switch){
-      var m_switch = i_switch+1;
-      math.switch_arr(m2arr_n, m0, m_switch);
-      math.switch_arr(m2A, m0, m_switch);
-      math.switch_arr(b, i, i_switch);
-    }
   }
+  if(i_switch !== i){
+    var m_switch = i_switch+1;
+    math.switch_arr(m2arr_n, m0, m_switch);
+    math.switch_arr(m2A, m0, m_switch);
+    math.switch_arr(b, i, i_switch);
+  }
+  /* -> Ver.2.871.164 */
   return self;
 };
 My_entry.solver_com.prototype.gaussian_coo_forward = function(options, obj_Axb){
@@ -173,6 +166,7 @@ My_entry.solver_com.prototype.gaussian_coo_forward = function(options, obj_Axb){
   var m2A = obj_Axb.m2A;
   var b = obj_Axb.b;
   for(var i=0; i<N-1; ++i){
+    self.gaussian_coo_pre(options, obj_Axb, i);  // Ver.2.871.164
     var m0 = i+1;
     var n0 = i+1;
     var aA0 = m2A[m0];
@@ -249,7 +243,6 @@ My_entry.solver_com.prototype.gaussian_lil = function(options, obj_Axb){
   obj_Axb.N = obj_Axb.b.length;
   try{
     self.gaussian_lil_init(options, obj_Axb);
-    self.gaussian_lil_pre(options, obj_Axb);
     self.gaussian_lil_forward(options, obj_Axb);
     self.gaussian_lil_backward(options, obj_Axb);
   }
@@ -276,7 +269,7 @@ My_entry.solver_com.prototype.gaussian_lil_init = function(options, obj_Axb){
   obj_Axb.mnA = mnA;
   return self;
 };
-My_entry.solver_com.prototype.gaussian_lil_pre = function(options, obj_Axb){
+My_entry.solver_com.prototype.gaussian_lil_pre = function(options, obj_Axb, i){  // Ver.2.871.164
   var self = this;
   var math = self.entry.math;
   var math_com = self.entry.math_com;
@@ -284,32 +277,29 @@ My_entry.solver_com.prototype.gaussian_lil_pre = function(options, obj_Axb){
   var N = obj_Axb.N;
   var mnA = obj_Axb.mnA;
   var b = obj_Axb.b;
-  var abs_pivot = 0;
-  var abs_non_pivot = 0;
-  var i_switch = 0;
-  for(var i=0; i<N-1; ++i){
-    var m0 = i+1;
-    var n0 = i+1;
-    var aA0 = mnA[m0];
-    i_switch = i;
-    var num_pivot = aA0[n0] || self.NUM0;  // pivot=0 allowed
-    abs_pivot = math_com.absolute_com(num_pivot.com);
-    for(var ii=i+1; ii<N; ++ii){
-      var m = ii+1;
-      var aA = mnA[m];
-      var num_non_pivot = aA[n0] || self.NUM0;
-      abs_non_pivot = math_com.absolute_com(num_non_pivot.com);
-      if(abs_pivot < abs_non_pivot){
-        abs_pivot = abs_non_pivot;
-        i_switch = ii;
-      }
-    }
-    if(i !== i_switch){
-      var m_switch = i_switch+1;
-      math.switch_arr(mnA, m0, m_switch);
-      math.switch_arr(b, i, i_switch);
+  /* Ver.2.871.164 -> */
+  var i_switch = i;
+  var m0 = i+1;
+  var n0 = i+1;
+  var aA0 = mnA[m0];
+  var num_pivot = aA0[n0] || self.NUM0;  // pivot=0 allowed
+  var abs_pivot = math_com.absolute_com(num_pivot.com);
+  for(var ii=i+1; ii<N; ++ii){
+    var m = ii+1;
+    var aA = mnA[m];
+    var num_non_pivot = aA[n0] || self.NUM0;
+    var abs_non_pivot = math_com.absolute_com(num_non_pivot.com);
+    if(abs_pivot < abs_non_pivot){
+      abs_pivot = abs_non_pivot;
+      i_switch = ii;
     }
   }
+  if(i_switch !== i){
+    var m_switch = i_switch+1;
+    math.switch_arr(mnA, m0, m_switch);
+    math.switch_arr(b, i, i_switch);
+  }
+  /* -> Ver.2.871.164 */
   return self;
 };
 My_entry.solver_com.prototype.gaussian_lil_forward = function(options, obj_Axb){
@@ -320,6 +310,7 @@ My_entry.solver_com.prototype.gaussian_lil_forward = function(options, obj_Axb){
   var mnA = obj_Axb.mnA;
   var b = obj_Axb.b;
   for(var i=0; i<N-1; ++i){
+    self.gaussian_lil_pre(options, obj_Axb, i);  // Ver.2.871.164
     var m0 = i+1;
     var n0 = i+1;
     var aA0 = mnA[m0];
