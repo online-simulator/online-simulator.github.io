@@ -728,7 +728,7 @@ test case
 <br>
 ・<span class="selection">switching</span>~-load：<a href="#span-out-non-linear1">電気回路</a>の実施例（昇圧用のswitching回路）
 <br>
-　<del><a href="#span-out-method-Newton">Newton法</a>：収束性改善のため、連立方程式の列挙順序を調整</del><span class="clear">Ver.2.871.164</span>以降、<a href="#span-out-method-Gauss">Gaussの消去法</a>の修正
+　<del><a href="#span-out-method-Newton">Newton法</a>：収束性改善のため、連立方程式の列挙順序を調整</del><span class="clear">Ver.2.871.164</span>以降、<a href="#span-out-method-Gauss">pivot選択</a>の処理順を訂正
 <br>
 ・seriRLC||paraRLC<span class="selection">-reso</span>：<a href="#span-app-vibration">共振</a>の実施例（電波受信用の<a href="#span-app-vibration">共振</a>回路）
 <br>
@@ -7909,13 +7909,11 @@ clear; f(x)=&lt;d=x:[c=[],c.push(==&lt;f),(c)(1)=&gt;,hass(d)],hass(d) -> (0:0,N
 <br>
 　影響項目：<a href="#span-out-FNmh-OX">ODE高階行列関数</a>||<a href="#span-out-FNmh-TX">ODEt高階行列関数</a>||<a href="#span-eqn">strict-mode式変数list</a>
 <br>
-・<span class="clear">Ver.2.871.164</span>以降、<a href="#span-out-method-Gauss">Gaussの消去法</a>のpivot選択の処理順を修正
+・<span class="clear">Ver.2.871.164</span>以降、<a href="#span-out-method-Gauss">Gaussの消去法</a>のpivot選択の処理順の致命的な不具合を修正
 <br>
 　処理順：前進消去の直前　⇒　前進消去の各step
 <br>
-　目的：<a href="#span-out-FNmh-newtonian">Newton高階行列関数</a>の収束計算の改善
-<br>
-　効果：<a href="#span-out-non-linear1">電気回路計算</a>のretry頻度の低減
+　効果：<a href="#span-out-FNmh-newtonian">Newton高階行列関数</a>のretry機能の問題を解消
 <br>
 　影響項目：<a href="#span-out-FNmh-newtonian">Newton高階行列関数</a>||<a href="#span-eqn-solvex_Gauss">solvex_Gauss</a>||<a href="#span-eqn-solvex_pivotting">solvex_pivotting</a>
     </td>
@@ -33477,6 +33475,8 @@ option
 <br>
 　<span class="run">Ver.2.834.140</span>~<span class="run">2.836.141</span>以降、連立方程式の列挙順序：昇順　⇒　Fisher-Yates shuffle
 <br>
+　<span class="clear">Ver.2.871.164</span>以降、<a href="#span-out-method-Gauss">pivot選択</a>の処理順を訂正（retry機能の問題を解消）
+<br>
 <br>
 応用例は<a href="#span-out-linear">連立方程式の解法</a>参照
 <br>
@@ -40830,7 +40830,7 @@ x=x-mdx
 <br>
 　連立方程式の列挙順序：昇順　⇒　Fisher-Yates shuffle（<span class="clear">Ver.2.840.146</span>以降、次の暫定対策）
 <br>
-・現状、収束可否が初期値より連立方程式の列挙順序に依存（変数消去の順序を最適化する<a href="#span-out-method-Gauss">完全pivot選択</a>は未実装）
+<del>・現状、収束可否が初期値より連立方程式の列挙順序に依存</del><span class="clear">Ver.2.871.164</span>以降、<a href="#span-out-method-Gauss">pivot選択</a>の処理順を訂正
 <br>
 　<a href="#span-out-non-linear1">電気回路計算</a>：<a href="#span-out-UI-graphing-testcase"><span class="selection">switching</span>回路</a>
 <br>
@@ -42085,7 +42085,7 @@ exp(ans) -> 6.123233995736766e-17+i+O(1e-15+9e-16i)
 <br>
 ・状態を独立可能な場合、各状態の連立方程式を定義して切替える
 <br>
-・複雑な回路の場合、変数消去の順序（<a href="#span-out-linear">直接法</a>の場合、<a href="#span-out-method-Gauss">完全pivot選択</a>等）が問題になる可能性がある
+<del>・複雑な回路の場合、変数消去の順序が問題になる可能性がある</del><span class="clear">Ver.2.871.164</span>以降、<a href="#span-out-method-Gauss">pivot選択</a>の処理順を訂正
     </td>
   </tr>
   <tr>
