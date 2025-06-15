@@ -22,6 +22,16 @@
       <tbody>
         <tr class="border">
           <td class="border run">
+Ver.0.12.3
+          </td>
+          <td class="border">
+・spec追記
+<br>
+・spec更新
+          </td>
+        </tr>
+        <tr class="border">
+          <td class="border run">
 Ver.0.11.3
           </td>
           <td class="border">
@@ -181,6 +191,8 @@ Ver.0.1.0
 前提
 <br>
 <span class="run">Ver.0.10.3追記</span>
+<br>
+<span class="condition">Ver.0.12.3追記</span>
           </td>
           <td class="border">
 ・端子間の充電電流<span class="selection">の符号</span>を正
@@ -188,6 +200,8 @@ Ver.0.1.0
 ・初回充電||過充放電時に発生する副反応<span class="run">（不可逆な性能低下の要因）</span>は未考慮
 <br>
 <span class="selection">・通常反応のcapacitance成分（電気二重層||圧電効果）を考慮</span>
+<br>
+<span class="condition">・ばらつきの均等化（活物質間のSOC等）は未考慮</span>
           </td>
         </tr>
         <tr class="border">
@@ -195,9 +209,13 @@ Ver.0.1.0
 備考
 <br>
 <span class="jF">Ver.0.11.3追記</span>
+<br>
+<span class="condition">Ver.0.12.3更新</span>
           </td>
           <td class="border">
-・時間scaleの異なる拡散現象の時間発展は通常、弱連成
+<span class="condition">・時定数：反応&lt;&lt;capacitance成分&lt;拡散&lt;&lt;ばらつきの均等化</span>
+<br>
+　<span class="condition">通常使用範囲内：反応と拡散は弱連成（順次処理の時間発展が一般的）</span>
 <br>
 <span class="jF">・単極電位が金属電位より低い場合（psmpe&lt;0）、金属析出の副反応が発生</span>
 <br>
