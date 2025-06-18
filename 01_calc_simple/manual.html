@@ -23642,7 +23642,7 @@ A=[]; _rn(=&lt;A=(A,rand),,2); A -> (0.3371037693804637,0.6437029689436904)
 <br>
 SND(t)=&lt;exp(-t^2/2)/sqrt(2*pi);
 <br>
-P(x,N)=&lt;_it(=&lt;SND(t)=&gt;,0,x,N)*2;
+P(x,N)=&lt;_i((t)=&lt;SND(t)=&gt;,0,x,N)*2;
 <br>
 P(5,10000) -> 0.9999994266968594+O(1e-13)
 <br>
@@ -25171,7 +25171,7 @@ P(x)=&lt;_i((t)=&lt;SND(t),0,x)*2;
 <br>
 P(x)=&lt;_i0((t)=&lt;SND(t),0,x)*2;
 <br>
-P(x)=&lt;_o45((t,x)=&lt;SND(t),,,NI=100,x/NI,NI)*2;
+P(x)=&lt;_o45((t,x)=&lt;SND(t),,NI=100,x,NI)*2;
 <br>
 ・誤差関数erf(x)
 <br>
