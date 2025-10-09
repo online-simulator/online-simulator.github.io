@@ -2395,6 +2395,14 @@ en.m.wikipedia.org/wiki/項目を列挙する
 <br>
 ・1977_in_film
 <br>
+・C/2025_R2_(SWAN)
+<br>
+・C/2025_A6_(Lemmon)
+<br>
+・Comet_ATLAS
+<br>
+・Pan-STARRS
+<br>
 <br>
 ja.m.wikipedia.org/wiki/項目を列挙する
 <br>
@@ -3053,6 +3061,10 @@ ja.m.wikipedia.org/wiki/項目を列挙する
 ・スイングバイ
 <br>
 ・彗星
+<br>
+・周期彗星
+<br>
+・非周期彗星
 <br>
 ・オウムアムア
 <br>
@@ -5856,7 +5868,7 @@ d=1e7; calc_magnitude(d) -> 17.9
 <br>
 　powered swing-by：<a href="#span-app-gravity">重力</a>assistに推力を併用
 <br>
-・flyby：<a href="#span-app-object">天体</a>近くを通過すること（尾の<a href="#span-app-jet">jet</a>を伴う<a href="#span-app-astronomy">彗星</a>等）　<span class="clear">Ver.2.874.165</span>以降、追記
+・flyby：<a href="#span-app-object">天体</a>近くを通過すること（<a href="#span-app-jet">jet</a>を伴う<a href="#span-app-astronomy">彗星</a>等）　<span class="clear">Ver.2.874.165</span>以降、追記
     </td>
   </tr>
   <tr>
@@ -5893,11 +5905,125 @@ d=1e7; calc_magnitude(d) -> 17.9
 既知の天体の解釈について記述する
 <br>
 <br>
-恒星間天体（太陽系外から飛来の双曲線軌道）
+分類符号
 <br>
-・1I/ʻOumuamua：観測史上初@2017/10/19
+・C：非周期彗星（長周期彗星を含む）
 <br>
-・2I/Borisov：2番目@2019/8/30
+・P：周期彗星
+<br>
+・I：恒星間天体
+<br>
+・X：不明確な軌道
+<br>
+・D：消滅/分裂彗星
+<br>
+<table>
+  <caption>西暦2025年基準</caption>
+  <thead>
+    <tr>
+      <th>正式名称</th>
+      <th>発見日</th>
+      <th>近日点</th>
+      <th>最接近</th>
+      <th>距離[au]</th>
+      <th>予想最大等級</th>
+      <th><a href="#span-app-period-motion">周期</a>[年]</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>1I/ʻOumuamua</th>
+      <td>2017/10/19</td>
+      <td>2017/09/09</td>
+      <td>2017/10/07</td>
+      <td>0.16</td>
+      <td>19.7</td>
+    </tr>
+    <tr>
+      <th>2I/Borisov</th>
+      <td>2019/08/30</td>
+      <td>2019/12/08</td>
+      <td>2019/12/28</td>
+      <td>1.93</td>
+      <td>15</td>
+    </tr>
+    <tr>
+      <th>3I/ATLAS (2025 N1)</th>
+      <td>2025/07/01</td>
+      <td>10/29</td>
+      <td>12/19</td>
+      <td>1.32</td>
+      <td>12</td>
+    </tr>
+    <tr>
+      <th>C/2025 R2 (SWAN)</th>
+      <td>09/11</td>
+      <td>09/12</td>
+      <td>10/20</td>
+      <td>0.26</td>
+      <td>4~7</td>
+      <td>約650</td>
+    </tr>
+    <tr>
+      <th>C/2025 A6 (Lemmon)</th>
+      <td>01/03</td>
+      <td>11/08</td>
+      <td>10/21</td>
+      <td>0.60</td>
+      <td>3~4</td>
+      <td>約1350</td>
+    </tr>
+    <tr>
+      <th>C/2025 K1 (ATLAS)</th>
+      <td>05/25</td>
+      <td>10/08</td>
+      <td>11/24</td>
+      <td>1.13</td>
+      <td>&ge;10</td>
+      <td>約2900</td>
+    </tr>
+    <tr>
+      <th>C/2025 R3 (PanSTARRS)</th>
+      <td>09/08</td>
+      <td>2026/04/19</td>
+      <td>2026/04/26</td>
+      <td>0.49</td>
+      <td></td>
+      <td>約10000以上</td>
+    </tr>
+  </tbody>
+</table>
+<br>
+<br>
+定義
+<br>
+・E：天体の力学的energy　⇔　E:=Ep+Ek
+<br>
+　Ep：重力potential energy
+<br>
+　Ek：運動energy
+<br>
+<br>
+太陽系内天体（太陽の重力に拘束状態）
+<br>
+・惑星・準惑星・小惑星・衛星（楕円軌道　⇔　E&lt;0）
+<br>
+・<a href="#span-app-astronomy">彗星</a>
+<br>
+　周期彗星：軌道離心率＜1（楕円軌道　⇔　E&lt;0）
+<br>
+　非周期彗星：軌道離心率≧1（放物線||双曲線軌道　⇔　E&ge;0）
+<br>
+　長周期彗星：<a href="#span-app-period-motion">公転周期</a>≧200年
+<br>
+　短周期彗星：<a href="#span-app-period-motion">公転周期</a>＜200年
+<br>
+<br>
+恒星間天体（太陽系外から飛来の双曲線軌道　⇔　E&gt;0）
+<br>
+・1I/ʻOumuamua：観測史上初@2017/10/19（未解明の非重力的な加速現象を観測）
+<br>
+・2I/Borisov：2番目@2019/8/30（彗星の非重力的な加速現象と近日点通過後に核の分裂を観測）
 <br>
 ・3I/ATLAS：3番目@2025/7/1（以下、火星最接近@2025/10/3以前の推定値を参照）
 <br>
