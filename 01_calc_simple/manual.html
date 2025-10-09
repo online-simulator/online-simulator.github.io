@@ -1051,6 +1051,8 @@ test case
 <br>
 ・<a href="#span-ref-wiki">参考Wikipedia</a>
 <br>
+・<a href="#span-ref-astro-dic">参考天文学辞典</a>
+<br>
 ・<a href="#span-ref-jsme-medwiki">参考JSME-MED</a>
 <br>
 ・<a href="#span-ref-git">参考GitHub</a>
@@ -3074,6 +3076,12 @@ ja.m.wikipedia.org/wiki/項目を列挙する
 <br>
 ・Wow!_シグナル
 <br>
+・三十六進法
+<br>
+・21cm線
+<br>
+・空中線電力
+<br>
 ・ボイジャー計画
 <br>
 ・ボイジャーのゴールデンレコード
@@ -3485,6 +3493,24 @@ ja.m.wikipedia.org/wiki/項目を列挙する
 ・フラクタル
 <br>
 ・ボディマス指数
+    </td>
+  </tr>
+  <tr>
+    <th>
+参考天文学辞典
+    </th>
+    <td>
+<span id="span-ref-astro-dic"></span>
+参考天文学辞典について記述する
+<br>
+<br>
+astro-dic.jp/項目を列挙する
+<br>
+・neutral-atomic-hydrogen
+<br>
+・ecliptic
+<br>
+・galactic-plane
     </td>
   </tr>
   <tr>
@@ -5979,7 +6005,7 @@ d=1e7; calc_magnitude(d) -> 17.9
       <td>10/08</td>
       <td>11/24</td>
       <td>1.13</td>
-      <td>&ge;10</td>
+      <td>10~</td>
       <td>約2900</td>
     </tr>
     <tr>
@@ -5989,7 +6015,7 @@ d=1e7; calc_magnitude(d) -> 17.9
       <td>2026/04/26</td>
       <td>0.49</td>
       <td></td>
-      <td>約10000以上</td>
+      <td>約10000~</td>
     </tr>
   </tbody>
 </table>
@@ -6047,15 +6073,29 @@ d=5e3; rho=0.5e3; vol=(4pi/3)*(d/2)**3; m=rho*vol; m -> 32724923474893.676[kg]
 <br>
 　撮像の可視光：当初の赤色化（反射光）⇒急激な増光（活発化）⇒青緑色に変化（蛍光発光が優勢）
 <br>
-　<a href="#span-app-orbit">軌道計算</a>：火星⇒<a href="#span-app-earth">反地球</a>⇒金星⇒木星（「いて座」方向から逆行誘導で各1[au]以内を通過の予測）
+　<a href="#span-app-orbit">軌道計算</a>：火星⇒<a href="#span-app-earth">反地球</a>⇒金星⇒木星（「いて座」方向から逆行誘導で各1[au]以内のmulti-<a href="#span-app-orbit">flyby</a>）
+<br>
+　180°-軌道傾斜角（逆行側）≦5°（月同等）：立体角の幾何学的確率≒0.19%（極めて<a href="#span-app-entropy">稀な事象</a>）
+<br>
+(cos_deg(175)-cos_deg(180))/2 -> 0.0019026509541272274（銀河面に対する黄道面の傾き≒60°等を未考慮）
 <br>
 　1977年：<em>Star Wars</em>⇒"Wow! signal"@8/15⇔Voyager 2号@8/20⇒1号打上げ⇒『未知との遭遇』（黄金盤＋映画公開）
 <br>
 　Voyagerのゴールデンレコード（黄金盤）：55の言語の挨拶「こんにちは、お元気ですか？」等を収録のanalog音盤
 <br>
-　Wow! signal：観測window≒72秒間の単発で強力な電波信号（「いて座」方向の固定点源らしき強度記録「6EQUJ5」）
+　Wow! signal：観測window≒72秒間の単発で強力な水素線周波数≒1420.4MHzの電波信号
 <br>
-58e3*60*60*24*365.2422*12*4/149597870700 -> 587.2709403926029[au]（≒0.01[光年]のsignal発信源？）
+　・<a href="#span-app-vibration">周波数</a>：1420.4556±0.005MHz＝水素線周波数＋青方偏移（約10.5[km/s]で接近相当）
+<br>
+eta=1420.4556/1420.40575; ee=eta*eta; c=299792458; v=c*(1-ee)/(1+ee); v -> -10521.21324172012[m/s]
+<br>
+　・「6EQUJ5」：「いて座」方向の固定点源らしき信号強度S/N比（背景noise標準偏差×<a href="#span-app-369">36進数</a>）の凸型波形の記録
+<br>
+r=58e3*60*60*24*365.2422*12*4; r/149597870700 -> 587.2709403926029[au]（≒0.01[光年]のsignal発信源？）
+<br>
+Snu=250e-26; dnu=[1,10e3]; F=Snu*dnu; A=4*pi*r^2; Ptx=F*A; Ptx
+<br>
+-> (242481.00291029946,2424810029.1029944)[W]（帯域幅dnu次第でkW~GW級の送信機出力×gain相当）
     </td>
   </tr>
   <tr>
