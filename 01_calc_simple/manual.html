@@ -2407,6 +2407,8 @@ en.m.wikipedia.org/wiki/項目を列挙する
 <br>
 ・Comet_ATLAS
 <br>
+・Comet_Encke
+<br>
 ・Pan-STARRS
 <br>
 <br>
@@ -2832,6 +2834,8 @@ ja.m.wikipedia.org/wiki/項目を列挙する
 <br>
 ・磁気嵐
 <br>
+・磁気リコネクション
+<br>
 ・オーロラ
 <br>
 ・太陽定数
@@ -3073,6 +3077,8 @@ ja.m.wikipedia.org/wiki/項目を列挙する
 ・超新星
 <br>
 ・彗星
+<br>
+・エンケ彗星
 <br>
 ・周期彗星
 <br>
@@ -6120,6 +6126,26 @@ d=1e7; calc_magnitude(d) -> 17.9
       <td class="clear">90.370°直交</td>
       <td>約86000</td>
     </tr>
+    <tr>
+      <th>2P/Encke (2007)</th>
+      <td>1786/01/17</td>
+      <td>2007/04/24</td>
+      <td>2007/05/29</td>
+      <td>0.34</td>
+      <td>8~9</td>
+      <td>11.774°</td>
+      <td>約3.3</td>
+    </tr>
+    <tr>
+      <th>311P/PanSTARRS</th>
+      <td>2013/07/06</td>
+      <td>2024/09/16</td>
+      <td>2024/09/15</td>
+      <td>2.05</td>
+      <td>21</td>
+      <td>1.171°</td>
+      <td>約3.2</td>
+    </tr>
   </tbody>
 </table>
 <br>
@@ -6188,11 +6214,43 @@ d=5e3; rho=0.5e3; vol=(4pi/3)*(d/2)**3; m=rho*vol; m -> 32724923474893.676[kg]
 <br>
 　太陽合の特異性：近日点近傍で黄道面と交差（黄道面と銀河面の交角≒60°と星間の重力<a href="#span-out-UI-graphing-testcase">random-walk</a>を考慮）
 <br>
-　180°-軌道傾斜角（逆行側）≦5°（月同等）：立体角の幾何学的確率≒0.19%（極めて<a href="#span-app-entropy">稀な事象</a>）
+　180°-軌道傾斜角（逆行側）≦5°（月同等）：立体角の幾何学的確率≒0.19%（非常に<a href="#span-app-entropy">稀な事象</a>）
 <br>
 (cos_deg(175)-cos_deg(180))/2 -> 0.0019026509541272274
 <br>
-　<a href="#span-app-flare">CME</a>の直撃：太陽から突発放出の予測経路と交差（偶然の一致？　⇒　確証なし@9月下旬）
+　<a href="#span-app-flare">CME</a>直撃event発生@9/24~25：太陽から突発放出の予測経路と交差（impact確率を下記）
+<br>
+　・既知の影響：磁場反転⇒磁気再結合⇒tail切断event（例えば、Encke彗星@2007/4/20）
+<br>
+　・磁場∝1/距離：Encke彗星の約24%相当（主要因）
+<br>
+(0.34/1.4) -> 0.24285714285714288
+<br>
+　・動圧∝1/距離**2：Encke彗星の約6%相当（希薄な影響）
+<br>
+(0.34/1.4)**2 -> 0.05897959183673471
+<br>
+　・極大期の半角（円錐の広がりの半開き角度） α=45°の立体角：Ω≒1.84[sr]
+<br>
+alpha_deg=45; Omega=2pi(1-cos_deg(alpha_deg)); Omega -> 1.84030236902122
+<br>
+　・偏在の緯度範囲±40°（50°≦極角||天頂角≦130°）の立体角
+<br>
+Omega_AR=2pi(cos_deg(50)-cos_deg(130)); Omega_AR -> 8.077507329639102
+<br>
+　・活動領域と方向一致の確率：P_dir≒9.4%
+<br>
+Omega_sphere=4pi; P_dir=(Omega/Omega_sphere)*(Omega_AR/Omega_sphere); P_dir -> 0.09413406600724783
+<br>
+　・軌道上で断面積の比率（中心円／盤面全体）：P_geo≒0.00048%
+<br>
+r2orbit=1.4*149597870700; P_geo(r)=&lt;pi*r**2/(r2orbit**2*Omega);
+<br>
+d_core=5e3; P_geo(d_core/2) -> 2.43239336115562e-16
+<br>
+d_coma=70e7; P_geo(d_coma/2) -> 0.0000047674909878650156
+<br>
+　・impact確率：P_dir×P_geo≒9.4%×0.00048%≒4.5e-7（極めて<a href="#span-app-entropy">稀な事象</a>）
 <br>
 　1977年：<em>Star Wars</em>⇒"Wow! signal"@8/15⇔Voyager 2号@8/20⇒1号打上げ⇒『未知との遭遇』（黄金盤＋映画公開）
 <br>
