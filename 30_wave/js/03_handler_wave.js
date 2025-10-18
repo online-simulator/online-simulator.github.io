@@ -43,6 +43,7 @@ My_entry.handler_wave.prototype.init = function(){
   self.regex.type = /type=\[(.*?):(.*?)\]/g;  // Ver.1.71.14
   self.regex.table = /\[(.*?):(.*?)\]/;  // Ver.1.71.14
   self.msec_60BPM = 1000;  // Ver.1.19.4
+  self.Hz_standard = 440;  // Ver.1.83.15
   self.notes = {C: 0, D: 2, E: 4, F: 5, G: 7, A: 9, B: 11};
   self.params = {};
   if(self.isScriptMode){
@@ -479,7 +480,7 @@ My_entry.handler_wave.prototype.make_params = function(){
     /* -> Ver.1.52.11 */
     params.pitch = $.inputNum_id("input-pitch");  // Ver.1.64.14
     params.tempo = def.limit(params.tempo, 0, Number.MAX_VALUE, 1);  // Ver.1.19.4
-    params.pitch = def.limit(params.pitch, -16, 16, 0);
+    params.pitch = def.limit(params.pitch, 0, Number.MAX_VALUE, self.Hz_standard);  // Ver.1.83.15
     params.maxAmp = $.checkbox_id("checkbox-maxAmp");  // Ver.1.45.11
     /* Ver.1.29.4 -> */
     params.dfreq = $.inputNum_id("input-dfreq");  // Ver.1.64.14

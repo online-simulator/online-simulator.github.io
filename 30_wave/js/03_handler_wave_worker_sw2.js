@@ -317,7 +317,7 @@ My_entry.handler_wave.prototype.str2freq = function(str){
     throw new Error(self.waveo.config.ERROR.title+"Invalid frequency-"+str);
   }
   /* -> Ver.1.65.14 */
-  var kpitch = Math.pow(2, self.params.pitch || 0);  // Ver.1.17.4
+  var kpitch = (self.params.pitch/self.Hz_standard) || 1;  // Ver.1.17.4  // Ver.1.83.15
   _freq *= kpitch;  // Ver.1.17.4
   return _freq;
 };

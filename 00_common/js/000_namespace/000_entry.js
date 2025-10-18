@@ -5,7 +5,7 @@
 // ECMAScript6
 const My_entry = {
   // major update . minor update . minor change . fatal bug-fix . minor bug-fix
-  VERSION: "online-simulator.github.io.6.505.693.26.181",
+  VERSION: "online-simulator.github.io.6.506.693.26.181",
   // major update. minor update/change. fatal/minor bug-fix
   Ver: {
     // inner
@@ -14,7 +14,7 @@ const My_entry = {
     calc: "2.875.166",
     fluid: "1.61.2",
     cell: "0.13.3",
-    wave: "1.82.15",
+    wave: "1.83.15",
     pen: "1.91.13",
     else: "0.76.8"
   },

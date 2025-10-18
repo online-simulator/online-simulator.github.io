@@ -96,7 +96,7 @@
           var script_ver1 = "$sheet($chord1; :r$2; $chord2; :r$3; $chord3; r; $chordset4)\n\n$1(:::0.5:0.5:1:0.5:order_d=0.1:order_a=2)\n$e1(:::0.5:0.5:0.5:0.25:order_d=0.1:order_a=2)\n$e2(:::0.5:0.5:0.25:0.125:order_d=0.1:order_a=2)\n$2(::amplitude1=0)\n$3(::duty0=0.25:duty1=0.5)\n\n$chordset4($chord4-1; $chord4-2; $chord4-3)\n\n$chord1($C; $D; $E; $F; $E; $D; $C)\n$chord2($E; $F; $G; $A; $G; $F; $E)\n$chord3($C; :r; $C; :r; $C; :r; $C)\n$chord4-1(b2:$C; b2:$C; b2:$D; b2:$D)\n$chord4-2(b2:$E; b2:$E; b2:$F; b2:$F)\n$chord4-3(b2:$E; b2:r; 3b4:$D; 1b4:r; b:$C)\n\n$A([A4,A5,A6])$C([C4,C5,C6])$D([D4,D5,D6])$E([E4,E5,E6])$F([F4,F5,F6])$G([G4,G5,G6])\n\n{01.0b:r$1; $sheet;}{07.0b:r$1; $sheet;}{13.0b:r$1; $sheet;}{19.0b:r$1; $sheet;}\n{01.5b:r$e1; $sheet;}{07.5b:r$e1; $sheet;}{13.5b:r$e1; $sheet;}{19.5b:r$e1; $sheet;}\n{02.0b:r$e2; $sheet;}{08.0b:r$e2; $sheet;}{14.0b:r$e2; $sheet;}{20.0b:r$e2; $sheet;}\n";
           var script_ver2 = "$sheet($chord1; $2; $chord2; $3; $chord3; $chordset4)\n\n$1(duty0=0.5:duty1=0.5:amplitude0=1:amplitude1=0.5:order_d=0.1:order_a=2)\n$e1(duty0=0.5:duty1=0.5:amplitude0=0.5:amplitude1=0.25:order_d=0.1:order_a=2)\n$e2(duty0=0.5:duty1=0.5:amplitude0=0.25:amplitude1=0.125:order_d=0.1:order_a=2)\n$2(amplitude1=0)\n$3(duty0=0.25:duty1=0.5)\n\n$chordset4($chord4-1; $chord4-2; $chord4-3)\n\n$chord1($C; $D; $E; $F; $E; $D; $C; r)\n$chord2($E; $F; $G; $A; $G; $F; $E; r)\n$chord3($C; :r; $C; :r; $C; :r; $C; r)\n$chord4-1(b2:$C; b2:$C; b2:$D; b2:$D)\n$chord4-2(b2:$E; b2:$E; b2:$F; b2:$F)\n$chord4-3(b2:$E; b2:r; 3b4:$D; 1b4:r; b:$C)\n\n$A([A4,A5,A6])$C([C4,C5,C6])$D([D4,D5,D6])$E([E4,E5,E6])$F([F4,F5,F6])$G([G4,G5,G6])\n\n{01.0b:r; $1; $sheet;}{07.0b:r; $1; $sheet;}{13.0b:r; $1; $sheet;}{19.0b:r; $1; $sheet;}\n{01.5b:r; $e1; $sheet;}{07.5b:r; $e1; $sheet;}{13.5b:r; $e1; $sheet;}{19.5b:r; $e1; $sheet;}\n{02.0b:r; $e2; $sheet;}{08.0b:r; $e2; $sheet;}{14.0b:r; $e2; $sheet;}{20.0b:r; $e2; $sheet;}\n";
           script = (options.tVer === 1)? script_ver1: script_ver2;
-          $._id("input-pitch").value = 1;
+          $._id("input-pitch").value = 880;
         }
         else if(options.testcase === "Froschgesang_overtone"){
           var script_ver1 = "$sheet($chord1; :r$2; $chord2; :r$3; $chord3; r; $chordset4)\n\n$1(:::0.5:0.5:1:0.5:order_d=0.1:order_a=2)\n$e1(:::0.5:0.5:0.5:0.25:order_d=0.1:order_a=2)\n$e2(:::0.5:0.5:0.25:0.125:order_d=0.1:order_a=2)\n$2(::amplitude1=0)\n$3(::duty0=0.25:duty1=0.5)\n\n$chordset4($chord4-1; $chord4-2; $chord4-3)\n\n$chord1($C; $D; $E; $F; $E; $D; $C)\n$chord2($E; $F; $G; $A; $G; $F; $E)\n$chord3($C; :r; $C; :r; $C; :r; $C)\n$chord4-1(b2:$C; b2:$C; b2:$D; b2:$D)\n$chord4-2(b2:$E; b2:$E; b2:$F; b2:$F)\n$chord4-3(b2:$E; b2:r; 3b4:$D; 1b4:r; b:$C)\n\n$A(A4)$C(C4)$D(D4)$E(E4)$F(F4)$G(G4)\n\n{01.0b:r$1; $sheet;}{07.0b:r$1; $sheet;}{13.0b:r$1; $sheet;}{19.0b:r$1; $sheet;}\n{01.5b:r$e1; $sheet;}{07.5b:r$e1; $sheet;}{13.5b:r$e1; $sheet;}{19.5b:r$e1; $sheet;}\n{02.0b:r$e2; $sheet;}{08.0b:r$e2; $sheet;}{14.0b:r$e2; $sheet;}{20.0b:r$e2; $sheet;}\n";
@@ -105,9 +105,17 @@
           $._id("input-overtone").value = 5;
           $._id("input-s_stereo").value = 75;
         }
+        else if(options.testcase === "Froschgesang_overtone_60BPM"){
+          var script_ver1 = "";
+          var script_ver2 = "$sheet($chord1; $2; $chord2; $3; $chord3; $chordset4)\n\n$1(duty0=0.5:duty1=0.5:amplitude0=1:amplitude1=0.2:order_d=0.1:order_a=2)\n$e1(duty0=0.5:duty1=0.5:amplitude0=0.5:amplitude1=0.1:order_d=0.1:order_a=2)\n$e2(duty0=0.5:duty1=0.5:amplitude0=0.25:amplitude1=0.05:order_d=0.1:order_a=2)\n$e3(duty0=0.5:duty1=0.5:amplitude0=0.125:amplitude1=0.025:order_d=0.1:order_a=2)\n$2(amplitude1=0)\n$3(duty0=0.25:duty1=0.5)\n\n$chordset4($chord4-1; $chord4-2; $chord4-3)\n\n$chord1($C; $D; $E; $F; $E; $D; $C; r)\n$chord2($E; $F; $G; $A; $G; $F; $E; r)\n$chord3($C; :r; $C; :r; $C; :r; $C; r)\n$chord4-1(b2:$C; b2:$C; b2:$D; b2:$D)\n$chord4-2(b2:$E; b2:$E; b2:$F; b2:$F)\n$chord4-3(b2:$E; b2:r; 3b4:$D; 1b4:r; b:$C)\n\n$A(A4)$C(C4)$D(D4)$E(E4)$F(F4)$G(G4)\n\n{01.0b:r; $1; $sheet;}{07.0b:r; $1; $sheet;}{13.0b:r; $1; $sheet;}{19.0b:r; $1; $sheet;}\n{01.25b:r; $e1; $sheet;}{07.25b:r; $e1; $sheet;}{13.25b:r; $e1; $sheet;}{19.25b:r; $e1; $sheet;}\n{01.50b:r; $e2; $sheet;}{07.50b:r; $e2; $sheet;}{13.50b:r; $e2; $sheet;}{19.50b:r; $e2; $sheet;}\n{01.75b:r; $e3; $sheet;}{07.75b:r; $e3; $sheet;}{13.75b:r; $e3; $sheet;}{19.75b:r; $e3; $sheet;}\n";
+          script = (options.tVer === 1)? script_ver1: script_ver2;
+          $._id("input-overtone").value = 5;
+          $._id("input-BPM").value = 60;
+          $._id("input-s_stereo").value = 75;
+        }
         else if(options.testcase === "Froschgesang100"){
           $._id("input-BPM").value /= 4;
-          $._id("input-pitch").value = 1;
+          $._id("input-pitch").value = 880;
           $.set_selectVal_id("select-fileSizeMax", 20);
         }
         else if(options.testcase === "Froschgesang100_overtone"){
@@ -345,7 +353,7 @@ tempo：
 pitch：
     </td>
     <td>
-frequency*2^<input id="input-pitch" type="number" step="1" min="-16" max="16" value="0">
+frequency*<input id="input-pitch" type="number" step="1" min="0" max="48000" value="440">[Hz]/440[Hz]
 <span class="clear right">乗算</span>
     </td>
   </tr>
