@@ -2836,6 +2836,8 @@ ja.m.wikipedia.org/wiki/項目を列挙する
 <br>
 ・コロナ質量放出
 <br>
+・コロナグラフ
+<br>
 ・磁気嵐
 <br>
 ・磁気リコネクション
@@ -5633,7 +5635,7 @@ substitution方式の変換
 <br>
 　傾き[deg]の区間：[21.5,24.5]
 <br>
-　現在の傾き[deg]：23.4（減少方向）
+　現在の傾き[deg]：<a href="#span-app-period-motion">23.4</a>（減少方向）
 <br>
 ・地球の近日点移動周期：360*60**2/11.45≒113188年（近日点移動が1周して回帰する周期）
 <br>
@@ -6228,7 +6230,7 @@ d=1e7; calc_magnitude(d) -> 17.9
 <br>
 　ATLAS彗星@近日点~近地点：南東の低空@未明
 <br>
-　<a href="#span-app-knowns-ATLAS">3I/ATLAS</a>@太陽合：不可視（天体-太陽-地球が一直線に配列）
+　<a href="#span-app-knowns-ATLAS">3I/ATLAS</a>@太陽合：不可視（天体-太陽-月-地球が一直線に配列）
 <br>
 <br>
 定義
@@ -6281,9 +6283,9 @@ d=1e7; calc_magnitude(d) -> 17.9
 <br>
 3I/ATLAS
 <br>
-・以下、<span class="selection">火星最接近@10/3以前の推定値を参照</span>
+・以下、<span class="selection">火星最接近@10/3以前の推定値</span>と<span class="clear">観測結果</span>を参照
 <br>
-　遭遇時期：第25<a href="#span-app-period-activity">太陽活動周期</a>の極大期（<span class="selection">予測より<a href="#span-app-flare">太陽活動</a>が活発に推移</span>@2525）
+　遭遇時期：第25<a href="#span-app-period-activity">太陽活動周期</a>の極大期（<span class="clear">予測より<a href="#span-app-flare">太陽活動</a>が活発に推移</span>@2525）
 <br>
 　印象：高活動性で太陽系と真逆の啓示（特異な<span class="selection">逆行軌道</span>||物理的な<span class="selection">逆尾</span>||構造と<span class="selection">組成の反転</span>||逆因果律の示唆）
 <br>
@@ -6343,23 +6345,27 @@ d=5e3; rho=0.5e3; vol=(4pi/3)*(d/2)**3; m=rho*vol; m -> 32724923474893.676[kg]
 <br>
 　・尾の形態：微弱⇒物理的な<span class="selection">逆尾</span>（太陽側の<a href="#span-app-jet">jet</a>が優勢）⇒<span class="selection">通常の尾</span>＋見かけ上の反尾（太陽光の放射圧が優勢）
 <br>
-　・今後：⇒2.64（<span class="selection">Fe初検出</span>）⇒2.4（火星最接近）⇒1.8（合開始）⇒1.36（近日点）⇒1.8（合終了⇒近地点）
+　・今後：⇒2.64（<span class="selection">Fe初検出</span>）⇒2.4（火星最接近）⇒1.4（太陽合）⇒1.36（近日点）⇒1.8（近地点）
 <br>
 　<span class="selection"><a href="#span-app-orbit">軌道計算</a></span>：火星⇒<a href="#span-app-earth">反地球</a>⇒金星⇒木星（「いて座」方向から逆行誘導で各1[au]以内のmulti-<a href="#span-app-orbit">flyby</a>）
 <br>
-　太陽合（天体-太陽-地球）の期間：10月中旬~11月下旬（太陽光に隠れて地球から天体観測不可）
+　太陽合（天体-太陽-地球）：10月中旬~11月上旬（太陽光に隠れて地球から天体観測困難）
 <br>
-　太陽合の前後：観測windowの短縮で観測困難（太陽-天体-観測者の位相角≒0　⇒　尾が視線方向の可能性）
+　・<span class="clear">coronagraph観測：近日点に接近中の軌道と太陽の大規模な<a href="#span-app-flare">CME</a>を確認</span>
+<br>
+　　幾何学的な補正要素：太陽の赤道面と地球の黄道面の交角≒7.25°＋静止軌道に影響の黄道傾斜角≒<a href="#span-app-period-motion">23.4</a>°
+<br>
+　・前後の期間：観測windowの短縮で観測困難（太陽-天体-観測者の位相角≒0　⇒　尾が視線方向の可能性）
 <br>
 　太陽合の特異性：<span class="selection">近日点近傍で黄道面と交差</span>（黄道面と銀河面の交角≒60°と星間の重力<a href="#span-out-UI-graphing-testcase">random-walk</a>を考慮）
 <br>
-　180°-軌道傾斜角（逆行側）≦5°（月相当）：<span class="selection">立体角の幾何学的確率≒0.19%</span>（非常に<a href="#span-app-entropy">稀な事象</a>）
+　・180°-軌道傾斜角（逆行側）≦5°（月相当）：<span class="selection">立体角の幾何学的確率≒0.19%</span>（非常に<a href="#span-app-entropy">稀な事象</a>）
 <br>
 (cos_deg(175)-cos_deg(180))/2 || (cos_deg(0)-cos_deg(5))/2 -> 0.0019026509541272274（黄道面に水平方向）
 <br>
 (cos_deg(87.5)-cos_deg(92.5))/2 -> 0.04361938736533606（垂直方向の方が高確率　⇔　直交方向で極大化）
 <br>
-　<span class="selection"><a href="#span-app-flare">CME</a>直撃event発生@9/24~25：太陽から突発放出の予測経路と交差</span>（impact確率を下記）
+　<span class="clear"><a href="#span-app-flare">CME</a>直撃event発生</span><span class="selection">@9/24~25：太陽から突発放出の予測経路と交差</span>（impact確率を下記）
 <br>
 　・既知の影響：磁場反転⇒磁気再結合⇒plasma-tail切断event（例えば、Encke彗星@2007/4/20）
 <br>
@@ -6803,9 +6809,9 @@ Dyson球
 <br>
 　albedo加味の最大値：I0=1367; I0*(1-0.3) -> 956.9
 <br>
-　夏至の正午@北緯30[deg]：I0=1367; I0*(1-0.3)*cos(deg2rad(30-<a href="#span-app-period-motion">23.4</a>)) -> 950.5583994030193
+　夏至の正午@北緯30[deg]：I0=1367; I0*(1-0.3)*cos_deg(30-<a href="#span-app-period-motion">23.4</a>) -> 950.5583994030193
 <br>
-　冬至の正午@北緯30[deg]：I0=1367; I0*(1-0.3)*cos(deg2rad(30+<a href="#span-app-period-motion">23.4</a>)) -> 570.5275828545979
+　冬至の正午@北緯30[deg]：I0=1367; I0*(1-0.3)*cos_deg(30+<a href="#span-app-period-motion">23.4</a>) -> 570.5275828545979
 <br>
 ・|緯度|[deg]：spotの日射量に直接影響（主に<a href="#span-app-history">北半球の大陸氷床</a>）
 <br>
