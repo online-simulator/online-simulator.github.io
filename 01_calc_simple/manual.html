@@ -616,7 +616,7 @@ test case
 <br>
 ・<span class="wF">digamma</span>~-psi：gamma関数の対数微分のdigamma||psi関数（<a href="#span-out-FNh-DX">微分高階関数</a>の<a href="#span-out-error-numerical">数値解</a>と解析解の比較）
 <br>
-・<span class="selection">Planck</span>：Planckの法則の分光放射輝度（波長）
+・<span class="selection">Planck</span>：Planckの法則の分光放射輝度（<a href="#span-app-optics">波長</a>）
 <br>
 　-frequency：分光放射輝度（周波数）
 <br>
@@ -2417,6 +2417,10 @@ en.m.wikipedia.org/wiki/項目を列挙する
 <br>
 ・Pan-STARRS
 <br>
+・Lists_of_telescopes
+<br>
+・DarkSky_International
+<br>
 <br>
 ja.m.wikipedia.org/wiki/項目を列挙する
 <br>
@@ -3012,6 +3016,8 @@ ja.m.wikipedia.org/wiki/項目を列挙する
 <br>
 ・安息角
 <br>
+・星空保護区
+<br>
 ・太陽系
 <br>
 ・水星
@@ -3091,6 +3097,8 @@ ja.m.wikipedia.org/wiki/項目を列挙する
 ・彗星
 <br>
 ・エンケ彗星
+<br>
+・紫金山・アトラス彗星
 <br>
 ・周期彗星
 <br>
@@ -3313,6 +3321,8 @@ ja.m.wikipedia.org/wiki/項目を列挙する
 ・タキオン
 <br>
 ・不確定性原理
+<br>
+・波長
 <br>
 ・光子
 <br>
@@ -3562,7 +3572,15 @@ astro-dic.jp/項目を列挙する
 <br>
 ・neutral-atomic-hydrogen
 <br>
+・outburst
+<br>
 ・multiple-coulomb-scattering
+<br>
+・segmented-mirror
+<br>
+・segmented-mirror-telescope
+<br>
+・spatial-resolution
 <br>
 ・ecliptic
 <br>
@@ -3928,7 +3946,7 @@ D=5　<span class="jF">32</span>　<span class="selection">80　80　40</span>�
 <br>
 ・<a href="#span-app-universe">宇宙</a>論的赤方偏移：Hubble膨張に由来
 <br>
-　波長：λ
+　<a href="#span-app-optics">波長</a>：λ
 <br>
 　scale比：r=観測λ/元λ=a(現在)/a(過去)
 <br>
@@ -4513,6 +4531,11 @@ realityの解釈について記述する
     <td>
 <span id="span-app-optics"></span>
 光学の解釈について記述する
+<br>
+<br>
+波長
+<br>
+・長さ：gamma線＜X線＜紫外線＜可視光線＜赤外線（近＜中＜遠）＜電波
 <br>
 <br>
 空の現象
@@ -6280,7 +6303,7 @@ d=1e7; calc_magnitude(d) -> 17.9
 <br>
 　長周期彗星：<a href="#span-app-period-motion">公転周期</a>≧200年
 <br>
-　・<a href="#span-app-knowns-Tsuchinshan">Tsuchinshan-ATLAS</a>
+　・<a href="#span-app-knowns-Tsuchinshan">紫金山・ATLAS彗星</a>
 <br>
 　短周期彗星：<a href="#span-app-period-motion">公転周期</a>＜200年
 <br>
@@ -6313,7 +6336,406 @@ Tsuchinshan-ATLASの解釈について記述する
 <br>
 <a href="#span-app-knowns">Tsuchinshan-ATLAS</a>
 <br>
-・<a href="#span-app-knowns">太陽系内彗星</a>：<a href="#span-app-astronomy">彗星</a>活動cycleの全processを網羅的に観測
+・紫金山・ATLAS彗星
+<br>
+　経緯：紫金山天文台で発見⇒追跡困難⇒ATLASで再発見（小惑星地球衝突最終警報system）
+<br>
+　<a href="#span-app-knowns">太陽系内彗星</a>：<a href="#span-app-astronomy">彗星</a>活動cycleの全processを網羅的に観測
+<br>
+　観測網：以下の一覧（惑星探査機を含む）
+<br>
+<table>
+  <caption>1. 宇宙baseの観測機器（Space-based Assets）</caption>
+  <thead>
+    <tr>
+      <th>分類</th>
+      <th>機器</th>
+      <th>運用</th>
+      <th>場所</th>
+      <th><a href="#span-app-optics">波長</a></th>
+      <th>IFOV<br>[秒角/pixel]</th>
+      <th>内容</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td rowspan="2">Station</td>
+      <td>ISS<br>International Space Station (HDEV/JEM)</td>
+      <td>NASA<br>ESA<br>Roscosmos<br>JAXA<br>CSA</td>
+      <td>地球低軌道</td>
+      <td>可視光線</td>
+      <td>約1.2~16.5</td>
+      <td>撮像</td>
+    </tr>
+    <tr>
+      <td>TSS<br>Tiangong Space Station (CSST)</td>
+      <td>CNSA</td>
+      <td>地球低軌道</td>
+      <td>可視光線</td>
+      <td>約0.074</td>
+      <td>撮像</td>
+    </tr>
+    <tr>
+      <td rowspan="4">Coronagraph</td>
+      <td>SOHO - LASCO C3 / C2<br>SOlar and Heliospheric Observatory<br>Large Angle and Spectrometric COronagraph</td>
+      <td>ESA<br>NASA</td>
+      <td>太陽-地球系<br>Lagrange点L1</td>
+      <td>可視光線</td>
+      <td>11.45</td>
+      <td>太陽近傍の観測<br>・outburst<br>・非重力加速度</td>
+    </tr>
+    <tr>
+      <td>GOES-19 - CCOR-1<br>Geostationary Operational Environmental Satellite<br>Compact CORonagraph</td>
+      <td>NOAA</td>
+      <td>対地同期軌道</td>
+      <td>可視光線</td>
+      <td>49.9</td>
+      <td>太陽近傍の観測<br>・青白いplasma-tail<br>・非重力加速度</td>
+    </tr>
+    <tr>
+      <td>STEREO-A - SECCHI COR2 / HI1 / HI2<br>Solar TErrestrial RElations Observatory - Ahead<br>Sun-Earth Connection Coronal and Heliospheric Investigation<br>CORonagraph / Heliospheric Imager</td>
+      <td>NASA</td>
+      <td>太陽先行軌道<br>地球軌道内側</td>
+      <td>可視光線</td>
+      <td>約15.0</td>
+      <td>太陽の観測<br>・<a href="#span-app-interaction">電磁相互作用</a><br>・非重力加速度</td>
+    </tr>
+    <tr>
+      <td>PUNCH<br>Polarimeter to UNify the Corona and Heliosphere (WFI)</td>
+      <td>NASA</td>
+      <td>2024/10~<br>地球低軌道</td>
+      <td>可視光線</td>
+      <td>約35.1</td>
+      <td>太陽の観測<br>・<a href="#span-app-interaction">電磁相互作用</a></td>
+    </tr>
+    <tr>
+      <td>紫外線<br>X線望遠鏡</td>
+      <td>Swift - UVOT<br>UltraViolet/Optical Telescope</td>
+      <td>NASA</td>
+      <td>地球低軌道</td>
+      <td>紫外線<br>可視光線</td>
+      <td>0.50</td>
+      <td>紫外線観測<br>・水蒸気由来のOH</td>
+    </tr>
+    <tr>
+      <td rowspan="4">宇宙望遠鏡</td>
+      <td>HST<br>Hubble Space Telescope (ACS/WFC他)</td>
+      <td>NASA<br>ESA</td>
+      <td>地球低軌道</td>
+      <td>紫外線<br>可視光線<br>近赤外線</td>
+      <td>0.03~0.13</td>
+      <td>撮像<br>・核のsize</td>
+    </tr>
+    <tr>
+      <td>JWST<br>James Webb Space Telescope (NIRCam)</td>
+      <td>NASA<br>ESA<br>CSA</td>
+      <td>太陽-地球系<br>Lagrange点L2</td>
+      <td>近赤外線<br>中赤外線</td>
+      <td>0.03~0.06</td>
+      <td>分光観測<br>・CO2が豊富</td>
+    </tr>
+    <tr>
+      <td>SPHEREx<br>Spectro-Photometer for the History of the universe, <br>Epoch of Reionization, and ices Explorer</td>
+      <td>NASA<br>Caltech</td>
+      <td>地球低軌道~<br>太陽同期軌道</td>
+      <td>近赤外線</td>
+      <td>約6.0</td>
+      <td>分光観測<br>・CO2噴出の規模</td>
+    </tr>
+    <tr>
+      <td>NEOWISE<br>Near-Earth Object Wide-field Infrared Survey Explorer</td>
+      <td>NASA</td>
+      <td>~2024/09<br>地球低軌道</td>
+      <td>赤外線</td>
+      <td>約5.8</td>
+      <td>測光観測<br>・化学組成<br>・CO2噴出の規模</td>
+    </tr>
+    <tr>
+      <td>系外惑星探査機</td>
+      <td>TESS<br>Transiting Exoplanet Survey Satellite</td>
+      <td>NASA</td>
+      <td>高楕円軌道</td>
+      <td>可視光線<br>近赤外線</td>
+      <td>約21.0</td>
+      <td>撮像<br>・発見前のarchive画像<br>・光度曲線</td>
+    </tr>
+  </tbody>
+</table>
+<br>
+<table>
+  <caption>2. 惑星探査機・深宇宙探査機（Planetary Probes &amp; Deep Space Missions）</caption>
+  <thead>
+    <tr>
+      <th>分類</th>
+      <th>探査機</th>
+      <th>運用</th>
+      <th>場所</th>
+      <th>検出</th>
+      <th>IFOV<br>[秒角/pixel]</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td rowspan="5">火星周回機</td>
+      <td>ExoMars TGO<br>Trace Gas Orbiter (CaSSIS)</td>
+      <td>ESA</td>
+      <td>火星周回軌道</td>
+      <td>○</td>
+      <td>約2.34</td>
+    </tr>
+    <tr>
+      <td>Mars Express (HRSC)</td>
+      <td>ESA</td>
+      <td>火星周回軌道</td>
+      <td>△</td>
+      <td>約8.25</td>
+    </tr>
+    <tr>
+      <td>MRO<br>Mars Reconnaissance Orbiter (HiRISE)</td>
+      <td>NASA</td>
+      <td>火星周回軌道</td>
+      <td>○</td>
+      <td>約0.21</td>
+    </tr>
+    <tr>
+      <td>Tianwen-1 (HiRIC)</td>
+      <td>CNSA</td>
+      <td>火星周回軌道</td>
+      <td>△</td>
+      <td>約2.22</td>
+    </tr>
+    <tr>
+      <td>Hope Probe (EXI)</td>
+      <td>UAE</td>
+      <td>火星周回軌道</td>
+      <td>△</td>
+      <td>約20.6</td>
+    </tr>
+    <tr>
+      <td rowspan="2">火星rover</td>
+      <td>Curiosity Rover (Mastcam-Z)</td>
+      <td>NASA</td>
+      <td>火星表面</td>
+      <td>△</td>
+      <td>約15.2~64.0</td>
+    </tr>
+    <tr>
+      <td>Perseverance Rover (Mastcam-Z)</td>
+      <td>NASA</td>
+      <td>火星表面</td>
+      <td>△</td>
+      <td>約13.9~58.4</td>
+    </tr>
+    <tr>
+      <td rowspan="5">深宇宙探査機</td>
+      <td>Europa Clipper (EIS/NAC)</td>
+      <td>NASA</td>
+      <td>Jupiter系へ</td>
+      <td></td>
+      <td>約2.06</td>
+    </tr>
+    <tr>
+      <td>JUICE<br>JUpiter ICy moons Explorer (JANUS)</td>
+      <td>ESA</td>
+      <td>Jupiter系へ</td>
+      <td></td>
+      <td>約3.09</td>
+    </tr>
+    <tr>
+      <td>Lucy (L'LORRI)</td>
+      <td>NASA</td>
+      <td>小惑星Trojan群へ</td>
+      <td></td>
+      <td>約1.03</td>
+    </tr>
+    <tr>
+      <td>Psyche (Multi-spectral Imager)</td>
+      <td>NASA</td>
+      <td>小惑星Psycheへ</td>
+      <td></td>
+      <td>約10.3</td>
+    </tr>
+    <tr>
+      <td>Hayabusa2 (ONC-T)</td>
+      <td>JAXA</td>
+      <td>小惑星1998 KY26へ</td>
+      <td>○</td>
+      <td>約1.03</td>
+    </tr>
+    <tr>
+      <td>太陽探査機</td>
+      <td>Parker Solar Probe (WISPR)</td>
+      <td>NASA</td>
+      <td>太陽近傍</td>
+      <td>○</td>
+      <td>-</td>
+    </tr>
+  </tbody>
+</table>
+<br>
+<table>
+  <caption>3. 地上望遠鏡（Major Ground-based Telescopes）</caption>
+  <thead>
+    <tr>
+      <th>分類</th>
+      <th>機器</th>
+      <th>運用/場所<br><span class="condition">"International Dark Sky Places"</span></th>
+      <th><a href="#span-app-optics">波長</a></th>
+      <th>口径[m]<br><span class="jF">分割鏡</span></th>
+      <th>IFOV<br>[秒角/pixel]</th>
+      <th>内容</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td rowspan="3">光学望遠鏡群<br>掃天system</td>
+      <td>中国科学院<br>紫金山天文台<br>地球近傍天体望遠鏡</td>
+      <td>Zijinshan Astronomical Observatory, China</td>
+      <td>可視光線</td>
+      <td>1.20<br>1.04</td>
+      <td>約1.0</td>
+      <td>全天survey<br>・発見<br>・初期軌道<br>・非重力加速度</td>
+    </tr>
+    <tr>
+      <td>ATLAS<br>Asteroid Terrestrial-impact Last Alert System</td>
+      <td>NASA, Hawaii, Chile, South Africa</td>
+      <td>可視光線</td>
+      <td>0.5</td>
+      <td>約1.85</td>
+      <td>全天survey<br>・再発見<br>・初期軌道<br>・非重力加速度</td>
+    </tr>
+    <tr>
+      <td>ZTF<br>Zwicky Transient Facility</td>
+      <td>Caltech<br>California Institute of Technology, Palomar Mountain, California, USA</td>
+      <td>可視光線</td>
+      <td>1.2</td>
+      <td>約1.0</td>
+      <td>全天survey<br>・初期軌道<br>・非重力加速度<br>前駆体観測</td>
+    </tr>
+    <tr>
+      <td rowspan="12">光学<br>赤外線望遠鏡</td>
+      <td>GTC<br>GranTeCan<br>Gran Telescopio Canarias</td>
+      <td>IAC<br>Institute of Astrophysics of the Canary Islands, <span class="condition">La Palma</span>, Canary Islands, Spain</td>
+      <td>可視光線<br>赤外線</td>
+      <td class="jF">10.4</td>
+      <td>0.01~0.08</td>
+      <td>高解像度撮像<br>分光観測</td>
+    </tr>
+    <tr>
+      <td>Keck Telescope</td>
+      <td>CARA<br>California Association for Research in Astronomy, Hawaii</td>
+      <td>可視光線<br>赤外線</td>
+      <td class="jF">10.0</td>
+      <td>0.01~0.05</td>
+      <td>高解像度撮像<br>分光観測</td>
+    </tr>
+    <tr>
+      <td>VLT<br>Very Large Telescope</td>
+      <td>ESO<br>European Southern Observatory, Chile</td>
+      <td>可視光線<br>赤外線</td>
+      <td>8.2</td>
+      <td>0.01~0.08</td>
+      <td>高解像度撮像<br>偏光観測<br>分光観測</td>
+    </tr>
+    <tr>
+      <td>国立天文台<br>Subaru Telescope</td>
+      <td>NAOJ<br>National Astronomical Observatory of Japan, Hawaii</td>
+      <td>可視光線<br>赤外線</td>
+      <td>8.2</td>
+      <td>0.005~0.2</td>
+      <td>高解像度撮像<br>高感度撮像<br>分光観測</td>
+    </tr>
+    <tr>
+      <td>Gemini South Telescope</td>
+      <td>NOIRLab/AURA<br>National Optical-Infrared Astronomy Research Laboratory/Association of Universities for Research in Astronomy, Chile</td>
+      <td>可視光線<br>赤外線</td>
+      <td>8.1</td>
+      <td>0.01~0.08</td>
+      <td>高解像度撮像<br>追跡観測</td>
+    </tr>
+    <tr>
+      <td>Gemini North Telescope</td>
+      <td>NOIRLab/AURA<br>National Optical-Infrared Astronomy Research Laboratory/Association of Universities for Research in Astronomy, Hawaii</td>
+      <td>可視光線<br>赤外線</td>
+      <td>8.1</td>
+      <td>0.01~0.08</td>
+      <td>高解像度撮像<br>追跡観測</td>
+    </tr>
+    <tr>
+      <td>TAO<br>The University of Tokyo Atacama Observatory</td>
+      <td>Tokyo University, Chile</td>
+      <td>可視光線<br>赤外線</td>
+      <td>6.5</td>
+      <td>0.03~0.1</td>
+      <td>高精度観測<br>追跡観測</td>
+    </tr>
+    <tr>
+      <td>BTA-6</td>
+      <td>SAO RAS<br>Special Astrophysical Observatory of the Russian Academy of Science, Russia</td>
+      <td>可視光線<br>赤外線</td>
+      <td>6.0</td>
+      <td>0.1~0.3</td>
+      <td></td>
+    </tr>
+    <tr>
+      <td>LDT<br>Lowell Discovery Telescope</td>
+      <td>Lowell Observatory, <span class="condition">Flagstaff</span>, Arizona, USA</td>
+      <td>可視光線<br>近赤外線</td>
+      <td>4.3</td>
+      <td>0.1~0.2</td>
+      <td>高感度撮像<br>追跡観測<br>・近日点付近<br>・outburst</td>
+    </tr>
+    <tr>
+      <td>京都大学<br>花山天文台<br>岡山天文台<br>せいめい望遠鏡</td>
+      <td>Kyoto University, 京都府京都市山科区<br>Kyoto University, 岡山県浅口市鴨方町</td>
+      <td>可視光線<br>赤外線</td>
+      <td class="jF">3.8</td>
+      <td>0.2~0.3</td>
+      <td>高速度撮像<br>偏光観測<br>分光観測</td>
+    </tr>
+    <tr>
+      <td>CFHT<br>Canada-France-Hawaii Telescope</td>
+      <td>International Collaboration, Hawaii</td>
+      <td>可視光線<br>赤外線</td>
+      <td>3.58</td>
+      <td>0.1~0.3</td>
+      <td>高感度撮像<br>分光観測</td>
+    </tr>
+    <tr>
+      <td>NOT<br>Nordic Optical Telescope</td>
+      <td>NOTSA<br>Nordic Optical Telescope Scientific Association, <span class="condition">La Palma</span>, Canary Islands, Spain</td>
+      <td>可視光線<br>赤外線</td>
+      <td>2.56</td>
+      <td>0.1~0.3</td>
+      <td>高感度撮像</td>
+    </tr>
+    <tr>
+      <td rowspan="3">光学望遠鏡</td>
+      <td>Teide Observatory</td>
+      <td>IAC<br>Institute of Astrophysics of the Canary Islands, <span class="condition">Tenerife</span>, Canary Islands, Spain</td>
+      <td>可視光線</td>
+      <td>2.0</td>
+      <td>0.1~0.5</td>
+      <td>撮像<br>・尾の長さ</td>
+    </tr>
+    <tr>
+      <td>Rozhen Observatory</td>
+      <td>BAS<br>Bulgarian Academy of Sciences, Bulgaria</td>
+      <td>可視光線</td>
+      <td>2.0</td>
+      <td>0.1~0.5</td>
+      <td>偏光観測</td>
+    </tr>
+    <tr>
+      <td>美星天文台</td>
+      <td>Ibara City, 岡山県井原市<span class="condition">美星町</span></td>
+      <td>可視光線</td>
+      <td>1.01</td>
+      <td>0.5~1.0</td>
+      <td>撮像</td>
+    </tr>
+  </tbody>
+</table>
     </td>
   </tr>
   <tr>
@@ -6333,7 +6755,7 @@ Tsuchinshan-ATLASの解釈について記述する
 <br>
 <a href="#span-app-knowns">3I/ATLAS</a>
 <br>
-・以下、<span class="selection">火星最接近@10/03以前の推定値</span>と<span class="clear">観測結果</span>を参照
+・以下、<span class="selection">火星最接近@10/03以前の推定値</span>と<span class="clear">近日点通過後@11/06以前の観測結果</span>を参照
 <br>
 　遭遇時期：第25<a href="#span-app-period-activity">太陽活動周期</a>の極大期（<span class="clear">予測より<a href="#span-app-flare">太陽活動</a>が活発に推移</span>@2525）
 <br>
@@ -6343,9 +6765,484 @@ Tsuchinshan-ATLASの解釈について記述する
 <br>
 　・観測bias∝1/感度：明るさ||速度||時空間のwindow||幾何学的な経路に依存（発見自体が非常に<a href="#span-app-entropy">稀な事象</a>）
 <br>
-　・前例：<a href="#span-app-knowns">太陽系内彗星</a>の<a href="#span-app-knowns-Tsuchinshan">Tsuchinshan-ATLAS</a>（2023/01/09発見~2年弱の期間の全processを網羅的に観測）
+　・前例：<a href="#span-app-knowns">太陽系内彗星</a>の<a href="#span-app-knowns-Tsuchinshan">紫金山・ATLAS彗星</a>（2023/01/09発見~2年弱の期間の全processを網羅的に観測）
 <br>
 　・異例：木星周回機Junoからの観測（来年の予定）
+<br>
+　要検証：非重力加速度による軌道vectorの経路変化と質量収支の整合性（撮像の時空間分布を含む）
+<br>
+　観測網：以下の一覧（比較的短期間で深宇宙探査機の予定を含む）
+<br>
+<table>
+  <caption>1. 宇宙baseの観測機器（Space-based Assets）</caption>
+  <thead>
+    <tr>
+      <th>分類</th>
+      <th>機器</th>
+      <th>運用</th>
+      <th>場所</th>
+      <th><a href="#span-app-optics">波長</a></th>
+      <th>IFOV<br>[秒角/pixel]</th>
+      <th class="clear">内容</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td rowspan="2">Station</td>
+      <td>ISS<br>International Space Station (HDEV/JEM)</td>
+      <td>NASA<br>ESA<br>Roscosmos<br>JAXA<br>CSA</td>
+      <td>地球低軌道</td>
+      <td>可視光線</td>
+      <td>約1.2~16.5</td>
+      <td>撮像</td>
+    </tr>
+    <tr>
+      <td>TSS<br>Tiangong Space Station (CSST)</td>
+      <td>CNSA</td>
+      <td>地球低軌道</td>
+      <td>可視光線</td>
+      <td>約0.074</td>
+      <td>撮像</td>
+    </tr>
+    <tr>
+      <td rowspan="4">Coronagraph</td>
+      <td>SOHO - LASCO C3 / C2<br>SOlar and Heliospheric Observatory<br>Large Angle and Spectrometric COronagraph</td>
+      <td>ESA<br>NASA</td>
+      <td>太陽-地球系<br>Lagrange点L1</td>
+      <td>可視光線</td>
+      <td>11.45</td>
+      <td>太陽近傍の観測<br>・outburst<br>・非重力加速度</td>
+    </tr>
+    <tr>
+      <td>GOES-19 - CCOR-1<br>Geostationary Operational Environmental Satellite<br>Compact CORonagraph</td>
+      <td>NOAA</td>
+      <td>対地同期軌道</td>
+      <td>可視光線</td>
+      <td>49.9</td>
+      <td>太陽近傍の観測<br>・太陽より青い<br>・非重力加速度</td>
+    </tr>
+    <tr>
+      <td>STEREO-A - SECCHI COR2 / HI1 / HI2<br>Solar TErrestrial RElations Observatory - Ahead<br>Sun-Earth Connection Coronal and Heliospheric Investigation<br>CORonagraph / Heliospheric Imager</td>
+      <td>NASA</td>
+      <td>太陽先行軌道<br>地球軌道内側</td>
+      <td>可視光線</td>
+      <td>約15.0</td>
+      <td>太陽の観測<br>・<a href="#span-app-interaction">電磁相互作用</a><br>・非重力加速度</td>
+    </tr>
+    <tr>
+      <td>PUNCH<br>Polarimeter to UNify the Corona and Heliosphere (WFI)</td>
+      <td>NASA</td>
+      <td>2024/10~<br>地球低軌道</td>
+      <td>可視光線</td>
+      <td>約35.1</td>
+      <td>太陽の観測<br>・<a href="#span-app-interaction">電磁相互作用</a></td>
+    </tr>
+    <tr>
+      <td>紫外線<br>X線望遠鏡</td>
+      <td>Swift - UVOT<br>UltraViolet/Optical Telescope</td>
+      <td>NASA</td>
+      <td>地球低軌道</td>
+      <td>紫外線<br>可視光線</td>
+      <td>0.50</td>
+      <td>紫外線観測<br>・水蒸気由来のOH</td>
+    </tr>
+    <tr>
+      <td rowspan="3">宇宙望遠鏡</td>
+      <td>HST<br>Hubble Space Telescope (ACS/WFC他)</td>
+      <td>NASA<br>ESA</td>
+      <td>地球低軌道</td>
+      <td>紫外線<br>可視光線<br>近赤外線</td>
+      <td>0.03~0.13</td>
+      <td>撮像<br>・核のsize</td>
+    </tr>
+    <tr>
+      <td>JWST<br>James Webb Space Telescope (NIRCam)</td>
+      <td>NASA<br>ESA<br>CSA</td>
+      <td>太陽-地球系<br>Lagrange点L2</td>
+      <td>近赤外線<br>中赤外線</td>
+      <td>0.03~0.06</td>
+      <td>分光観測<br>・CO2が豊富</td>
+    </tr>
+    <tr>
+      <td>SPHEREx<br>Spectro-Photometer for the History of the universe, <br>Epoch of Reionization, and ices Explorer</td>
+      <td>NASA<br>Caltech</td>
+      <td>地球低軌道~<br>太陽同期軌道</td>
+      <td>近赤外線</td>
+      <td>約6.0</td>
+      <td>分光観測<br>・CO2噴出の規模</td>
+    </tr>
+    <tr>
+      <td>系外惑星探査機</td>
+      <td>TESS<br>Transiting Exoplanet Survey Satellite</td>
+      <td>NASA</td>
+      <td>高楕円軌道</td>
+      <td>可視光線<br>近赤外線</td>
+      <td>約21.0</td>
+      <td>撮像<br>・発見前のarchive画像<br>・光度曲線</td>
+    </tr>
+  </tbody>
+</table>
+<br>
+<table>
+  <caption>2. 惑星探査機・深宇宙探査機（Planetary Probes &amp; Deep Space Missions）</caption>
+  <thead>
+    <tr>
+      <th>分類</th>
+      <th>探査機</th>
+      <th>運用</th>
+      <th>場所</th>
+      <th class="clear">検出</th>
+      <th>IFOV<br>[秒角/pixel]</th>
+      <th>IFOV換算<br>画像分解能[km/pixel]<br>get_reso(IFOV,d)=&lt;<br>IFOV*d*2pi/(60*60*360);</th>
+      <th>公称値から単純換算<br>画像分解能[km/pixel]<br>calc_reso(Rn,Dn,d)=&lt;<br>last{IFOV=Rn/Dn,IFOV*d};</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td rowspan="5">火星周回機</td>
+      <td>ExoMars TGO<br>Trace Gas Orbiter (CaSSIS)</td>
+      <td>ESA</td>
+      <td>火星周回軌道</td>
+      <td>○</td>
+      <td>約2.34</td>
+      <td>約340<br>=get_reso(IFOV,3e7)</td>
+      <td>約345<br>=calc_reso(4.6e-3,400,3e7)</td>
+    </tr>
+    <tr>
+      <td>Mars Express (HRSC)</td>
+      <td>ESA</td>
+      <td>火星周回軌道</td>
+      <td>×</td>
+      <td>約8.25</td>
+      <td>約1200<br>=get_reso(IFOV,3e7)</td>
+      <td>約1500<br>=calc_reso(12.5e-3,250,3e7)</td>
+    </tr>
+    <tr>
+      <td>MRO<br>Mars Reconnaissance Orbiter (HiRISE)</td>
+      <td>NASA</td>
+      <td>火星周回軌道</td>
+      <td></td>
+      <td>約0.21</td>
+      <td>約31<br>=get_reso(IFOV,3e7)</td>
+      <td>約30<br>=calc_reso(0.3e-3,300,3e7)</td>
+    </tr>
+    <tr>
+      <td>Tianwen-1 (HiRIC)</td>
+      <td>CNSA</td>
+      <td>火星周回軌道</td>
+      <td>○</td>
+      <td>約2.22</td>
+      <td>約322<br>=get_reso(IFOV,3e7)</td>
+      <td>約56.6<br>=calc_reso(0.5e-3,265,3e7)</td>
+    </tr>
+    <tr>
+      <td>Hope Probe (EXI)</td>
+      <td>UAE</td>
+      <td>火星周回軌道</td>
+      <td></td>
+      <td>約20.6</td>
+      <td>約3000<br>=get_reso(IFOV,3e7)</td>
+      <td>約2250<br>=calc_reso(1.5,20000,3e7)</td>
+    </tr>
+    <tr>
+      <td rowspan="2">火星rover</td>
+      <td>Curiosity Rover (Mastcam-Z)</td>
+      <td>NASA</td>
+      <td>火星表面</td>
+      <td></td>
+      <td>約15.2~64.0</td>
+      <td>約2210~9310<br>=get_reso(IFOV,3e7)</td>
+      <td>約111000<br>=calc_reso(7.4e-6,2e-3,3e7)</td>
+    </tr>
+    <tr>
+      <td>Perseverance Rover (Mastcam-Z)</td>
+      <td>NASA</td>
+      <td>火星表面</td>
+      <td></td>
+      <td>約13.9~58.4</td>
+      <td>約2020~8490<br>=get_reso(IFOV,3e7)</td>
+      <td>約105000<br>=calc_reso(7e-6,2e-3,3e7)</td>
+    </tr>
+    <tr>
+      <td rowspan="5">深宇宙探査機</td>
+      <td>Europa Clipper (EIS/NAC)</td>
+      <td>NASA</td>
+      <td>Jupiter系へ</td>
+      <td></td>
+      <td>約2.06</td>
+      <td></td>
+      <td></td>
+    </tr>
+    <tr>
+      <td>JUICE<br>JUpiter ICy moons Explorer (JANUS)</td>
+      <td>ESA</td>
+      <td>Jupiter系へ</td>
+      <td></td>
+      <td>約3.09</td>
+      <td></td>
+      <td></td>
+    </tr>
+    <tr>
+      <td>Juno (JunoCam)</td>
+      <td>NASA</td>
+      <td>木星周回軌道</td>
+      <td></td>
+      <td>約17.2</td>
+      <td></td>
+      <td></td>
+    </tr>
+    <tr>
+      <td>Psyche (Multi-spectral Imager)</td>
+      <td>NASA</td>
+      <td>小惑星Psycheへ</td>
+      <td></td>
+      <td>約10.3</td>
+      <td></td>
+      <td></td>
+    </tr>
+    <tr>
+      <td>Hayabusa2 (ONC-T)</td>
+      <td>JAXA</td>
+      <td>小惑星1998 KY26へ</td>
+      <td></td>
+      <td>約1.03</td>
+      <td></td>
+      <td></td>
+    </tr>
+    <tr>
+      <td rowspan="2">太陽探査機</td>
+      <td>Parker Solar Probe (WISPR)</td>
+      <td>NASA</td>
+      <td>太陽近傍</td>
+      <td></td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+    </tr>
+    <tr>
+      <td>Solar Orbiter (EUI/PHI)</td>
+      <td>ESA</td>
+      <td>太陽近傍</td>
+      <td></td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+    </tr>
+  </tbody>
+</table>
+<br>
+<table>
+  <caption>3. 地上望遠鏡・観測ネットワーク（Major Ground-based Telescopes &amp; Networks）</caption>
+  <thead>
+    <tr>
+      <th>分類</th>
+      <th>機器/network</th>
+      <th>運用/場所<br><span class="condition">"International Dark Sky Places"</span></th>
+      <th><a href="#span-app-optics">波長</a></th>
+      <th>口径[m]<br><span class="jF">分割鏡</span></th>
+      <th>IFOV<br>[秒角/pixel]</th>
+      <th class="clear">内容</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td rowspan="3">光学望遠鏡群<br>掃天system</td>
+      <td>ATLAS<br>Asteroid Terrestrial-impact Last Alert System</td>
+      <td>NASA, Hawaii, Chile, South Africa</td>
+      <td>可視光線</td>
+      <td>0.5</td>
+      <td>約1.85</td>
+      <td>全天survey<br>・発見<br>・初期軌道<br>・非重力加速度</td>
+    </tr>
+    <tr>
+      <td>ZTF<br>Zwicky Transient Facility</td>
+      <td>Caltech<br>California Institute of Technology, Palomar Mountain, California, USA</td>
+      <td>可視光線</td>
+      <td>1.2</td>
+      <td>約1.0</td>
+      <td>全天survey<br>・初期軌道<br>・非重力加速度<br>前駆体観測</td>
+    </tr>
+    <tr>
+      <td>中国科学院<br>紫金山天文台<br>地球近傍天体望遠鏡</td>
+      <td>Zijinshan Astronomical Observatory, China</td>
+      <td>可視光線</td>
+      <td>1.20<br>1.04</td>
+      <td>約1.0</td>
+      <td>掃天観測</td>
+    </tr>
+    <tr>
+      <td rowspan="3">電波望遠鏡</td>
+      <td>RATAN-600</td>
+      <td>SAO RAS<br>Special Astrophysical Observatory of the Russian Academy of Science, Russia</td>
+      <td>電波</td>
+      <td>600</td>
+      <td>60~540</td>
+      <td></td>
+    </tr>
+    <tr>
+      <td>Arecibo Observatory</td>
+      <td>NSF<br>National Science Foundation, Puerto Rico</td>
+      <td>電波</td>
+      <td>305</td>
+      <td>60~540</td>
+      <td></td>
+    </tr>
+    <tr>
+      <td>ALMA<br>Atacama Large Millimeter Array</td>
+      <td>International Collaboration, Chile</td>
+      <td>電波</td>
+      <td>12<br>7</td>
+      <td>0.005~0.1</td>
+      <td>電波干渉計<br>・超高分解能<br>・非重力加速度</td>
+    </tr>
+    <tr>
+      <td>赤外線望遠鏡</td>
+      <td>IRTF<br>NASA Infrared Telescope Facility</td>
+      <td>NASA, Hawaii</td>
+      <td>近赤外線<br>中赤外線</td>
+      <td>3.0</td>
+      <td>0.1~0.2</td>
+      <td>近赤外線観測<br>・red visible slope</td>
+    </tr>
+    <tr>
+      <td rowspan="12">光学<br>赤外線望遠鏡</td>
+      <td>GTC<br>GranTeCan<br>Gran Telescopio Canarias</td>
+      <td>IAC<br>Institute of Astrophysics of the Canary Islands, <span class="condition">La Palma</span>, Canary Islands, Spain</td>
+      <td>可視光線<br>赤外線</td>
+      <td class="jF">10.4</td>
+      <td>0.01~0.08</td>
+      <td>高解像度撮像<br>分光観測</td>
+    </tr>
+    <tr>
+      <td>Keck Telescope</td>
+      <td>CARA<br>California Association for Research in Astronomy, Hawaii</td>
+      <td>可視光線<br>赤外線</td>
+      <td class="jF">10.0</td>
+      <td>0.01~0.05</td>
+      <td>高解像度撮像<br>・anti-tail<br>分光観測<br>・Ni</td>
+    </tr>
+    <tr>
+      <td>Vera C. Rubin Observatory</td>
+      <td>NOIRLab/AURA<br>National Optical-Infrared Astronomy Research Laboratory/Association of Universities for Research in Astronomy, Chile</td>
+      <td>可視光線<br>赤外線</td>
+      <td>8.4</td>
+      <td>約0.20</td>
+      <td>高解像度撮像<br>超広視野撮像<br>・発見前のarchive画像<br>・光度曲線</td>
+    </tr>
+    <tr>
+      <td>VLT<br>Very Large Telescope</td>
+      <td>ESO<br>European Southern Observatory, Chile</td>
+      <td>可視光線<br>赤外線</td>
+      <td>8.2</td>
+      <td>0.01~0.08</td>
+      <td>高解像度撮像<br>偏光観測<br>分光観測</td>
+    </tr>
+    <tr>
+      <td>国立天文台<br>Subaru Telescope</td>
+      <td>NAOJ<br>National Astronomical Observatory of Japan, Hawaii</td>
+      <td>可視光線<br>赤外線</td>
+      <td>8.2</td>
+      <td>0.005~0.2</td>
+      <td>高解像度撮像<br>高感度撮像<br>分光観測</td>
+    </tr>
+    <tr>
+      <td>Gemini South Telescope</td>
+      <td>NOIRLab/AURA<br>National Optical-Infrared Astronomy Research Laboratory/Association of Universities for Research in Astronomy, Chile</td>
+      <td>可視光線<br>赤外線</td>
+      <td>8.1</td>
+      <td>0.01~0.08</td>
+      <td>高解像度撮像<br>追跡観測</td>
+    </tr>
+    <tr>
+      <td>Gemini North Telescope</td>
+      <td>NOIRLab/AURA<br>National Optical-Infrared Astronomy Research Laboratory/Association of Universities for Research in Astronomy, Hawaii</td>
+      <td>可視光線<br>赤外線</td>
+      <td>8.1</td>
+      <td>0.01~0.08</td>
+      <td>高解像度撮像<br>追跡観測</td>
+    </tr>
+    <tr>
+      <td>BTA-6</td>
+      <td>SAO RAS<br>Special Astrophysical Observatory of the Russian Academy of Science, Russia</td>
+      <td>可視光線<br>赤外線</td>
+      <td>6.0</td>
+      <td>0.1~0.3</td>
+      <td></td>
+    </tr>
+    <tr>
+      <td>LDT<br>Lowell Discovery Telescope</td>
+      <td>Lowell Observatory, <span class="condition">Flagstaff</span>, Arizona, USA</td>
+      <td>可視光線<br>近赤外線</td>
+      <td>4.3</td>
+      <td>0.1~0.2</td>
+      <td>高感度撮像<br>追跡観測<br>・近日点通過後</td>
+    </tr>
+    <tr>
+      <td>京都大学<br>花山天文台<br>岡山天文台<br>せいめい望遠鏡</td>
+      <td>Kyoto University, 京都府京都市山科区<br>Kyoto University, 岡山県浅口市鴨方町</td>
+      <td>可視光線<br>赤外線</td>
+      <td class="jF">3.8</td>
+      <td>0.2~0.3</td>
+      <td>掩（えん）蔽観測</td>
+    </tr>
+    <tr>
+      <td>CFHT<br>Canada-France-Hawaii Telescope</td>
+      <td>International Collaboration, Hawaii</td>
+      <td>可視光線<br>赤外線</td>
+      <td>3.58</td>
+      <td>0.1~0.3</td>
+      <td>高感度撮像<br>・初期軌道<br>分光観測</td>
+    </tr>
+    <tr>
+      <td>NOT<br>Nordic Optical Telescope</td>
+      <td>NOTSA<br>Nordic Optical Telescope Scientific Association, <span class="condition">La Palma</span>, Canary Islands, Spain</td>
+      <td>可視光線<br>赤外線</td>
+      <td>2.56</td>
+      <td>0.1~0.3</td>
+      <td>高感度撮像</td>
+    </tr>
+    <tr>
+      <td rowspan="4">光学望遠鏡</td>
+      <td>Teide Observatory</td>
+      <td>IAC<br>Institute of Astrophysics of the Canary Islands, <span class="condition">Tenerife</span>, Canary Islands, Spain</td>
+      <td>可視光線</td>
+      <td>2.0</td>
+      <td>0.1~0.5</td>
+      <td>撮像<br>・尾の長さ</td>
+    </tr>
+    <tr>
+      <td>東京大学<br>木曽観測所<br>トモエゴゼン</td>
+      <td>Tokyo University, 長野県木曽郡木曽町</td>
+      <td>可視光線</td>
+      <td>1.05</td>
+      <td>約1.0</td>
+      <td>高速動画撮像</td>
+    </tr>
+    <tr>
+      <td>美星天文台</td>
+      <td>Ibara City, 岡山県井原市<span class="condition">美星町</span></td>
+      <td>可視光線</td>
+      <td>1.01</td>
+      <td>0.5~1.0</td>
+      <td>撮像</td>
+    </tr>
+    <tr>
+      <td>R. Naves Observatory</td>
+      <td>R. Naves, Begur, Spain</td>
+      <td>可視光線</td>
+      <td></td>
+      <td></td>
+      <td>撮像<br>・近日点通過後<br>・明るい核<br>　一部分裂？<br>　数割消失？<br>・希薄な尾<br>　合の影響？<br>　<a href="#span-app-knowns">休眠？絶滅？</a></td>
+    </tr>
+    <tr>
+      <td>Network</td>
+      <td>IAWN<br>International Asteroid Warning Network</td>
+      <td>UN<br>United Nations, Worldwide</td>
+      <td colspan="3"><a href="#span-out-UI-graphing-testcase">相補</a><br>・空間分解能<br>　IFOV∝<a href="#span-app-optics">波長</a>/口径<br>・解像度∝1/IFOV<br>・集光力∝口径**2</td>
+      <td>第9回<br>特別観測campaign<br>11/27~2026/01/27</td>
+    </tr>
+  </tbody>
+</table>
 <br>
 　起源：太陽系より<span class="selection">始原的な環境</span>（重金属が豊富な10~130[K]以下の極低温環境）
 <br>
@@ -10659,7 +11556,7 @@ violet:blue:cyan:green:yellow:orange:red
 <br>
 #ee82ee00:#ee82eecc:#0000ffcc:#00ffffcc:#00ff00cc:#ffff00cc:#ffa500cc:#ff0000cc:#ff000000
 <br>
-・6色の場合、短波長側のindigo||cyanを消去
+・6色の場合、短<a href="#span-app-optics">波長</a>側のindigo||cyanを消去
     </td>
   </tr>
   <tr>
