@@ -2417,6 +2417,12 @@ en.m.wikipedia.org/wiki/項目を列挙する
 <br>
 ・Pan-STARRS
 <br>
+・Comet
+<br>
+・Extinct_comet
+<br>
+・Lists_of_comets
+<br>
 ・Lists_of_telescopes
 <br>
 ・DarkSky_International
@@ -3096,6 +3102,14 @@ ja.m.wikipedia.org/wiki/項目を列挙する
 <br>
 ・彗星
 <br>
+・大彗星
+<br>
+・マンクス
+<br>
+・サングレーザー
+<br>
+・クロイツ群
+<br>
 ・エンケ彗星
 <br>
 ・紫金山・アトラス彗星
@@ -3103,6 +3117,8 @@ ja.m.wikipedia.org/wiki/項目を列挙する
 ・周期彗星
 <br>
 ・非周期彗星
+<br>
+・ハレー型彗星
 <br>
 ・核_(彗星)
 <br>
@@ -3207,6 +3223,8 @@ ja.m.wikipedia.org/wiki/項目を列挙する
 ・潮汐力
 <br>
 ・自転と公転の同期
+<br>
+・ヤルコフスキー・オキーフ・ラジエフスキー・パダック効果
 <br>
 ・摂動_(天文学)
 <br>
@@ -5573,11 +5591,21 @@ substitution方式の変換
 <br>
 ・aurora現象：磁気嵐による<a href="#span-app-atmosphere">電離層</a>大気の<a href="#span-app-light">発光</a>現象
 <br>
-・彗星~小惑星：<a href="#span-app-object">天体</a>とのnear-missで<a href="#span-app-orbit">摂動</a>が発生
+・<a href="#span-app-orbit">摂動</a>：<a href="#span-app-object">天体</a>軌道の乱れ
 <br>
-・<a href="#span-app-meteorite">隕石</a>（小惑星の破片）：超音速で<a href="#span-app-atmosphere">大気圏</a>に突入し、<a href="#span-app-wave">衝撃波</a>を伴い地表に到達する岩石||金属
+　惑星：主に<a href="#span-app-gravity">重力</a>（<a href="#span-app-object">天体</a>との<a href="#span-app-interaction">相互作用</a>）
 <br>
-・流星（小惑星の塵）：<a href="#span-app-atmosphere">大気圏</a>で燃え尽きるsizeの小石（圧縮空気の<a href="#span-app-entropy">熱変換</a>の温度&gt;&gt;1000℃）
+　<a href="#span-app-knowns">小惑星</a>：<a href="#span-app-gravity">重力</a>||YORP効果（太陽光の吸収による加熱⇒反作用による熱放射⇒回転速度||自転軸の変化）
+<br>
+　<a href="#span-app-knowns">彗星</a>：<a href="#span-app-gravity">重力</a>||rocket効果（outgassing-<a href="#span-app-jet">jet</a>）
+<br>
+・<a href="#span-app-knowns">流星</a>：超音速で<a href="#span-app-atmosphere">大気圏</a>に突入⇒大気の<a href="#span-app-entropy">断熱圧縮</a>⇒燃焼と気化（ablation）⇒自発発光
+<br>
+　<a href="#span-app-meteorite">隕石</a>：<a href="#span-app-wave">衝撃波</a>を伴い地表に到達
+<br>
+　火球：金星より明るい流星（表面が数千℃超）
+<br>
+　流星群：<a href="#span-app-knowns">彗星</a>のdust-tail||<a href="#span-app-knowns">小惑星</a>のdust-trailの痕跡
     </td>
   </tr>
   <tr>
@@ -6012,7 +6040,7 @@ d=1e7; calc_magnitude(d) -> 17.9
 <br>
 　powered swing-by：<a href="#span-app-gravity">重力</a>assistに推力を併用
 <br>
-・flyby：<a href="#span-app-object">天体</a>近くを通過すること（<a href="#span-app-jet">jet</a>を伴う<a href="#span-app-astronomy">彗星</a>等）　<span class="clear">Ver.2.874.165</span>以降、追記
+・flyby：<a href="#span-app-object">天体</a>近くを通過すること（outgassing-<a href="#span-app-jet">jet</a>を伴う<a href="#span-app-astronomy">彗星</a>等）　<span class="clear">Ver.2.874.165</span>以降、追記
     </td>
   </tr>
   <tr>
@@ -6072,198 +6100,649 @@ d=1e7; calc_magnitude(d) -> 17.9
 ・D：消滅/分裂彗星
 <br>
 <table>
-  <caption>西暦2025年基準</caption>
-  <thead>
-    <tr>
-      <th>正式名称</th>
-      <th>発見日[UTC]</th>
-      <th>近日点</th>
-      <th>近地点</th>
-      <th>近日点<br>距離[au]</th>
-      <th>近地点<br>距離[au]</th>
-      <th>予想<br>最大等級</th>
-      <th>軌道傾斜角i</th>
-      <th><a href="#span-app-period-motion">周期</a>T[年]</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <th>1I/ʻOumuamua</th>
-      <td>2017/10/19</td>
-      <td>2017/09/09</td>
-      <td>2017/10/07</td>
-      <td>0.255</td>
-      <td>0.16</td>
-      <td>19.7</td>
-      <td>122.687°</td>
-      <td></td>
-    </tr>
-    <tr>
-      <th>2I/Borisov</th>
-      <td>2019/08/30</td>
-      <td>2019/12/08</td>
-      <td>2019/12/28</td>
-      <td>2.007</td>
-      <td>1.93</td>
-      <td>15</td>
-      <td>44.053°</td>
-      <td></td>
-    </tr>
-    <tr>
-      <th><a href="#span-app-knowns-ATLAS">3I/ATLAS</a> (2025 N1)</th>
-      <td>2025/07/01</td>
-      <td>10/29</td>
-      <td>12/19</td>
-      <td>1.356</td>
-      <td>1.8</td>
-      <td>12</td>
-      <td class="clear">175.113°逆行</td>
-      <td></td>
-    </tr>
-    <tr>
-      <th>↑恒星間天体</th>
-      <td></td>
-      <td></td>
-      <td></td>
-      <td></td>
-      <td></td>
-      <td></td>
-      <td>random</td>
-      <td></td>
-    </tr>
-    <tr>
-      <th>惑星</th>
-      <td></td>
-      <td></td>
-      <td></td>
-      <td></td>
-      <td></td>
-      <td></td>
-      <td>~7.0°</td>
-      <td></td>
-    </tr>
-    <tr>
-      <th>↓彗星</th>
-      <td></td>
-      <td></td>
-      <td></td>
-      <td></td>
-      <td></td>
-      <td></td>
-      <td>~Oortの雲<br>≒黄道面@T→0<br>random@T→∞</td>
-      <td>iと<a href="#span-out-approximation-linear">相関</a></td>
-    </tr>
-    <tr>
-      <th>C/2025 R2 (SWAN)</th>
-      <td>09/11<br>太陽合⇒衝</td>
-      <td>09/12</td>
-      <td>10/20</td>
-      <td>0.505</td>
-      <td>0.26</td>
-      <td>4~7</td>
-      <td class="jF">4.47°順行</td>
-      <td>約650<br>約20000~</td>
-    </tr>
-    <tr>
-      <th>C/2025 A6 (Lemmon)<br>tail切断@10月前後</th>
-      <td>01/03</td>
-      <td>11/08</td>
-      <td>10/21</td>
-      <td>0.672</td>
-      <td>0.60</td>
-      <td>3~4</td>
-      <td>143.663°</td>
-      <td>約1350</td>
-    </tr>
-    <tr>
-      <th>C/2025 K1 (ATLAS)</th>
-      <td>05/25</td>
-      <td>10/08</td>
-      <td>11/24</td>
-      <td>1.050</td>
-      <td>1.13</td>
-      <td>10~</td>
-      <td>147.865°</td>
-      <td>約2900</td>
-    </tr>
-    <tr>
-      <th>C/2025 R3 (PanSTARRS)</th>
-      <td>09/08</td>
-      <td>2026/04/19</td>
-      <td>2026/04/26</td>
-      <td>0.669</td>
-      <td>0.49</td>
-      <td></td>
-      <td>約125°</td>
-      <td>約10000~</td>
-    </tr>
-    <tr>
-      <th>C/2025 F2 (SWAN)</th>
-      <td>03/22</td>
-      <td>05/01<br>崩壊</td>
-      <td>05/01</td>
-      <td>1.488</td>
-      <td>0.96</td>
-      <td>8~9</td>
-      <td class="clear">90.370°直交</td>
-      <td>約86000</td>
-    </tr>
-    <tr>
-      <th>2P/Encke (2007)<br><a href="#span-app-flare">CME</a>直撃@4/20</th>
-      <td>1786/01/17</td>
-      <td>2007/04/24</td>
-      <td>2007/05/29</td>
-      <td>0.336</td>
-      <td>0.34</td>
-      <td>8~9</td>
-      <td>11.774°</td>
-      <td>約3.3</td>
-    </tr>
-    <tr>
-      <th>C/2020 F3 (NEOWISE)</th>
-      <td>2020/03/27</td>
-      <td>2020/07/03</td>
-      <td>2020/07/23</td>
-      <td>0.295</td>
-      <td>0.692</td>
-      <td>0.5~1.0</td>
-      <td>128.93°</td>
-      <td>約6800</td>
-    </tr>
-    <tr>
-      <th>C/2023 A3<br>(<a href="#span-app-knowns-Tsuchinshan">Tsuchinshan-ATLAS</a>)</th>
-      <td>2023/01/09</td>
-      <td>2024/09/27</td>
-      <td>2024/10/12</td>
-      <td>0.391</td>
-      <td>0.472</td>
-      <td>0.2~-0.5</td>
-      <td>70.363°</td>
-      <td>約27000</td>
-    </tr>
-    <tr>
-      <th>↓小惑星</th>
-      <td></td>
-      <td></td>
-      <td></td>
-      <td></td>
-      <td></td>
-      <td></td>
-      <td>~小惑星帯<br>≒黄道面@T→0</td>
-      <td></td>
-    </tr>
-    <tr>
-      <th>311P/PanSTARRS</th>
-      <td>2013/07/06</td>
-      <td>2024/09/16</td>
-      <td>2024/09/15</td>
-      <td>2.270</td>
-      <td>2.05</td>
-      <td>21</td>
-      <td>1.171°</td>
-      <td>約3.2</td>
-    </tr>
-  </tbody>
+  <caption>西暦2025年基準</caption>
+  <thead>
+    <tr>
+      <th>正式名称</th>
+      <th>登録日[UTC]</th>
+      <th>近日点</th>
+      <th>近地点</th>
+      <th>近日点<br>距離[au]</th>
+      <th>近地点<br>距離[au]</th>
+      <th>予想<br>最大等級</th>
+      <th>軌道傾斜角i<br>地球基準</th>
+      <th><a href="#span-app-period-motion">周期</a>T[年]</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th class="selection">恒星</th>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+    </tr>
+    <tr>
+      <th>Sun</th>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td>自転軸傾斜角<br>≒7.25°</td>
+      <td></td>
+    </tr>
+    <tr>
+      <th class="selection">惑星</th>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+    </tr>
+    <tr>
+      <th>Mercury</th>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td>0.307</td>
+      <td>0.467</td>
+      <td></td>
+      <td>7.01°</td>
+      <td>0.241</td>
+    </tr>
+    <tr>
+      <th>Venus</th>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td>0.718</td>
+      <td>0.728</td>
+      <td></td>
+      <td>3.39°</td>
+      <td>0.615</td>
+    </tr>
+    <tr>
+      <th>Earth</th>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td>0.983</td>
+      <td>1.017</td>
+      <td></td>
+      <td>0.00°</td>
+      <td>1.000</td>
+    </tr>
+    <tr>
+      <th>Mars</th>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td>1.381</td>
+      <td>1.666</td>
+      <td></td>
+      <td>1.85°</td>
+      <td>1.881</td>
+    </tr>
+    <tr>
+      <th>Jupiter</th>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td>4.95</td>
+      <td>5.45</td>
+      <td></td>
+      <td>1.31°</td>
+      <td>11.86</td>
+    </tr>
+    <tr>
+      <th>Saturn</th>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td>9.02</td>
+      <td>10.05</td>
+      <td></td>
+      <td>2.48°</td>
+      <td>29.46</td>
+    </tr>
+    <tr>
+      <th>Uranus</th>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td>18.28</td>
+      <td>20.06</td>
+      <td></td>
+      <td>0.77°</td>
+      <td>84.02</td>
+    </tr>
+    <tr>
+      <th>Neptune</th>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td>29.81</td>
+      <td>30.33</td>
+      <td></td>
+      <td>1.77°</td>
+      <td>164.8</td>
+    </tr>
+    <tr>
+      <th class="selection">準惑星</th>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+    </tr>
+    <tr>
+      <th>Pluto</th>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td>29.66</td>
+      <td>49.31</td>
+      <td></td>
+      <td>17.1°</td>
+      <td>247.8</td>
+    </tr>
+    <tr>
+      <th>Ceres</th>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td>2.559</td>
+      <td>2.980</td>
+      <td></td>
+      <td>10.59°</td>
+      <td>4.61</td>
+    </tr>
+    <tr>
+      <th>Eris</th>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td>38.5</td>
+      <td>97.5</td>
+      <td></td>
+      <td>44.0°</td>
+      <td>560.8</td>
+    </tr>
+    <tr>
+      <th>Makemake</th>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td>37.9</td>
+      <td>52.8</td>
+      <td></td>
+      <td>29.0°</td>
+      <td>305.4</td>
+    </tr>
+    <tr>
+      <th>Haumea</th>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td>34.5</td>
+      <td>51.5</td>
+      <td></td>
+      <td>28.2°</td>
+      <td>282.3</td>
+    </tr>
+    <tr>
+      <th class="selection">準惑星候補天体</th>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+    </tr>
+    <tr>
+      <th>Sedna</th>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td>76.0</td>
+      <td>937</td>
+      <td></td>
+      <td>11.9°</td>
+      <td>11400</td>
+    </tr>
+    <tr>
+      <th>Quaoar</th>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td>41.9</td>
+      <td>45.8</td>
+      <td></td>
+      <td>7.98°</td>
+      <td>286</td>
+    </tr>
+    <tr>
+      <th>Orcus</th>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td>30.2</td>
+      <td>48.0</td>
+      <td></td>
+      <td>20.6°</td>
+      <td>247.5</td>
+    </tr>
+    <tr>
+      <th class="selection">恒星間天体</th>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td>random</td>
+      <td></td>
+    </tr>
+    <tr>
+      <th>1I/ʻOumuamua</th>
+      <td>2017/10/19</td>
+      <td>2017/09/09</td>
+      <td>2017/10/07</td>
+      <td>0.255</td>
+      <td>0.16</td>
+      <td>19.7</td>
+      <td>122.687°</td>
+      <td></td>
+    </tr>
+    <tr>
+      <th>2I/Borisov</th>
+      <td>2019/08/30</td>
+      <td>2019/12/08</td>
+      <td>2019/12/28</td>
+      <td>2.007</td>
+      <td>1.93</td>
+      <td>15</td>
+      <td>44.053°</td>
+      <td></td>
+    </tr>
+    <tr>
+      <th><a href="#span-app-knowns-ATLAS">3I/ATLAS</a> (2025 N1)<br><span class="condition"><a href="#span-app-flare">CME</a>直撃@9/24~25</span></th>
+      <td>2025/07/01</td>
+      <td>10/29</td>
+      <td>12/19</td>
+      <td>1.356</td>
+      <td>1.8</td>
+      <td>12</td>
+      <td class="clear">175.113°逆行</td>
+      <td></td>
+    </tr>
+    <tr>
+      <th class="selection">彗星</th>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td>~Oortの雲<br>≒黄道面@T→0<br>random@T→∞</td>
+      <td>iと<a href="#span-out-approximation-linear">相関</a></td>
+    </tr>
+    <tr>
+      <th>C/2025 R2 (SWAN)</th>
+      <td>09/11<br><span class="condition">太陽合⇒衝</span></td>
+      <td>09/12<br><span class="condition">発見の遅れ</span></td>
+      <td>10/20</td>
+      <td>0.505</td>
+      <td>0.26</td>
+      <td>4~7</td>
+      <td class="jF">4.47°順行</td>
+      <td>約650<br>約20000~</td>
+    </tr>
+    <tr>
+      <th>C/2025 A6 (Lemmon)<br><span class="condition">tail切断@10月前後</span></th>
+      <td>01/03</td>
+      <td>11/08</td>
+      <td>10/21</td>
+      <td>0.672</td>
+      <td>0.60</td>
+      <td>3~4</td>
+      <td>143.663°</td>
+      <td>約1350</td>
+    </tr>
+    <tr>
+      <th>C/2025 K1 (ATLAS)</th>
+      <td>05/25</td>
+      <td>10/08</td>
+      <td>11/24</td>
+      <td>1.050</td>
+      <td>1.13</td>
+      <td>10~</td>
+      <td>147.865°</td>
+      <td>約2900</td>
+    </tr>
+    <tr>
+      <th>C/2025 R3 (PanSTARRS)</th>
+      <td>09/08</td>
+      <td>2026/04/19</td>
+      <td>2026/04/26</td>
+      <td>0.669</td>
+      <td>0.49</td>
+      <td></td>
+      <td>約125°</td>
+      <td>約10000~</td>
+    </tr>
+    <tr>
+      <th>C/2025 F2 (SWAN)</th>
+      <td>03/22</td>
+      <td>05/01<br><span class="condition">崩壊</span></td>
+      <td>05/01<br><span class="condition">偶然の同期</span></td>
+      <td>1.488</td>
+      <td>0.96</td>
+      <td>8~9</td>
+      <td class="clear">90.370°直交</td>
+      <td>約86000</td>
+    </tr>
+    <tr>
+      <th>C/2023 A3<br>(<a href="#span-app-knowns-Tsuchinshan">Tsuchinshan-ATLAS</a>)<br><span class="condition">大彗星の兆候</span></th>
+      <td>2023/01/09</td>
+      <td>2024/09/27</td>
+      <td>2024/10/12</td>
+      <td>0.391</td>
+      <td>0.472</td>
+      <td>0.2~-0.5</td>
+      <td>70.363°</td>
+      <td>約27000</td>
+    </tr>
+    <tr>
+      <th>C/2022 E3 (ZTF)<br><span class="condition">緑色のcoma</span></th>
+      <td>2022/03/02</td>
+      <td>2023/01/12</td>
+      <td>2023/02/01</td>
+      <td>1.11</td>
+      <td>0.28</td>
+      <td>5</td>
+      <td>109°</td>
+      <td>約50000</td>
+    </tr>
+    <tr>
+      <th>C/2020 F3 (NEOWISE)</th>
+      <td>2020/03/27</td>
+      <td>2020/07/03</td>
+      <td>2020/07/23</td>
+      <td>0.295</td>
+      <td>0.692</td>
+      <td>0.5~1.0</td>
+      <td>128.93°</td>
+      <td>約6800</td>
+    </tr>
+    <tr>
+      <th>C/2019 Y4 (ATLAS)</th>
+      <td>2019/12/28</td>
+      <td>2020/05/31<br><span class="condition">崩壊⇒消滅</span></td>
+      <td>2020/05/23</td>
+      <td>0.253</td>
+      <td>0.77</td>
+      <td>8</td>
+      <td>45.28°</td>
+      <td>約5500</td>
+    </tr>
+    <tr>
+      <th>C/2014 Q2 (Lovejoy)<br><span class="condition">淡い緑色のcoma</span></th>
+      <td>2014/08/16</td>
+      <td>2015/01/30</td>
+      <td>2015/01/07</td>
+      <td>1.29</td>
+      <td>0.46</td>
+      <td>4</td>
+      <td>80.3°</td>
+      <td>約14000</td>
+    </tr>
+    <tr>
+      <th>C/2011 L4 (PanSTARRS)</th>
+      <td>2011/06/06</td>
+      <td>2013/03/10</td>
+      <td>2013/03/05</td>
+      <td>0.302</td>
+      <td>1.09</td>
+      <td>1~2</td>
+      <td>50.6°</td>
+      <td>約80000</td>
+    </tr>
+    <tr>
+      <th>C/2006 P1 (McNaught)<br><span class="condition">扇状のcoma</span></th>
+      <td>2006/08/07</td>
+      <td>2007/01/15</td>
+      <td>2007/01/13</td>
+      <td>0.170</td>
+      <td>0.82</td>
+      <td>-5.5</td>
+      <td>77.5°</td>
+      <td>約92600</td>
+    </tr>
+    <tr>
+      <th>C/1996 B2 (Hyakutake)<br><span class="condition">青い尾</span></th>
+      <td>1996/01/30</td>
+      <td>1996/05/01</td>
+      <td>1996/03/25</td>
+      <td>0.230</td>
+      <td>0.101</td>
+      <td>0~-1</td>
+      <td>124.9°</td>
+      <td>約70000</td>
+    </tr>
+    <tr>
+      <th>C/1995 O1 (Hale-Bopp)<br><span class="condition">大彗星</span></th>
+      <td>1995/07/23</td>
+      <td>1997/04/01</td>
+      <td>1997/03/22</td>
+      <td>0.914</td>
+      <td>1.315</td>
+      <td>-1~-2</td>
+      <td>89.4°</td>
+      <td>約2500</td>
+    </tr>
+    <tr>
+      <th>D/1993 F2 (SL9)</th>
+      <td>1993/03/27</td>
+      <td>1994/07/07<br><span class="condition">分裂⇒</span></td>
+      <td>1994/07/16<br><span class="condition">木星衝突</span></td>
+      <td>5.42</td>
+      <td>4.20</td>
+      <td>12</td>
+      <td>94.52°</td>
+      <td></td>
+    </tr>
+    <tr>
+      <th>46P/Wirtanen<br><span class="condition">緑色のcoma</span></th>
+      <td>1948/01/17</td>
+      <td>2018/12/12</td>
+      <td>2018/12/16</td>
+      <td>1.06</td>
+      <td>0.077</td>
+      <td>3~4</td>
+      <td>11.7°</td>
+      <td>5.4</td>
+    </tr>
+    <tr>
+      <th>73P/Schwassmann-Wachmann<br><span class="condition">分裂@1995<br>再分裂@2006</span></th>
+      <td>1930/05/02</td>
+      <td>2022/03/15</td>
+      <td>2022/05/31</td>
+      <td>0.945</td>
+      <td>0.08</td>
+      <td>6</td>
+      <td>11.33°</td>
+      <td>5.36</td>
+    </tr>
+    <tr>
+      <th>17P/Holmes<br><span class="condition">大増光@2007</span></th>
+      <td>1892/11/06</td>
+      <td>2007/05/11</td>
+      <td>2007/11/02</td>
+      <td>2.05</td>
+      <td>1.64</td>
+      <td>2.8</td>
+      <td>19.1°</td>
+      <td>6.88</td>
+    </tr>
+    <tr>
+      <th>12P/Pons–Brooks<br><span class="condition">複数のoutburst@2023~2024<br>多極状のcoma</span></th>
+      <td>1812/07/12<br>1883/09/02</td>
+      <td>2024/04/21</td>
+      <td>2024/06/02</td>
+      <td>0.781</td>
+      <td>1.55</td>
+      <td>4~5</td>
+      <td>74.21°</td>
+      <td>71.3</td>
+    </tr>
+    <tr>
+      <th>2P/Encke (2007)<br><span class="condition"><a href="#span-app-flare">CME</a>直撃@4/20</span></th>
+      <td>1786/01/17</td>
+      <td>2007/04/24</td>
+      <td>2007/05/29</td>
+      <td>0.336</td>
+      <td>0.34</td>
+      <td>8~9</td>
+      <td>11.774°</td>
+      <td>約3.3</td>
+    </tr>
+    <tr>
+      <th>1P/Halley</th>
+      <td>紀元前<br>240頃</td>
+      <td>1986/02/09</td>
+      <td>1986/04/11</td>
+      <td>0.587</td>
+      <td>0.41</td>
+      <td>2~6</td>
+      <td>162.26°</td>
+      <td>約76</td>
+    </tr>
+    <tr>
+      <th class="selection">"Manx"</th>
+      <td></td>
+      <td>低活動性</td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td>random</td>
+      <td></td>
+    </tr>
+    <tr>
+      <th>C/2025 V1 (Borisov)<br><span class="condition"><a href="#span-app-knowns-ATLAS">3I/ATLAS</a>と中間で交差@11/08</span></th>
+      <td>11/02~04</td>
+      <td>11/16<br><span class="condition">直前の発見</span></td>
+      <td>11/11</td>
+      <td>0.463</td>
+      <td>0.689</td>
+      <td>10.5</td>
+      <td>112.724°</td>
+      <td>双曲線</td>
+    </tr>
+    <tr>
+      <th>C/2014 S3 (PanSTARRS)<br><span class="condition">岩石質彗星</span></th>
+      <td>2014/09/10</td>
+      <td>2017/08/27</td>
+      <td>2017/09/03</td>
+      <td>2.025</td>
+      <td>1.08</td>
+      <td>23</td>
+      <td>61.733°</td>
+      <td>約750000</td>
+    </tr>
+    <tr>
+      <th>P/2013 R3 (Catalina-PanSTARRS)</th>
+      <td>2013/09/15</td>
+      <td>2014/01/14<br><span class="condition">YORP効果<br>の多重分裂</span></td>
+      <td>2013/11/02</td>
+      <td>2.333</td>
+      <td>1.23</td>
+      <td>15~16</td>
+      <td>2.016°</td>
+      <td>5.16</td>
+    </tr>
+    <tr>
+      <th>P/2010 R2 (La Sagra)<br><span class="condition">小惑星帯彗星</span></th>
+      <td>2010/09/09</td>
+      <td>2010/11/22</td>
+      <td>2011/01/06</td>
+      <td>2.677</td>
+      <td>1.75</td>
+      <td>15.5~16</td>
+      <td>21.821°</td>
+      <td>5.6</td>
+    </tr>
+    <tr>
+      <th class="selection">Sungrazer</th>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td>&le;0.01</td>
+      <td></td>
+      <td></td>
+      <td>主にKreutz群<br>random</td>
+      <td></td>
+    </tr>
+    <tr>
+      <th>C/2012 S1 (ISON)</th>
+      <td>2012/09/21</td>
+      <td>2013/11/28<br><span class="condition">崩壊⇒消滅</span></td>
+      <td>2013/12/26</td>
+      <td>0.012</td>
+      <td>0.42</td>
+      <td>-(5~6)</td>
+      <td>62.394°</td>
+      <td>約1e6</td>
+    </tr>
+    <tr>
+      <th>C/1843 D1<br><span class="condition">大彗星</span></th>
+      <td>1843/02/05</td>
+      <td>1843/02/27</td>
+      <td>1843/03/06</td>
+      <td>0.0055</td>
+      <td>0.84</td>
+      <td>-(6~10)</td>
+      <td>144.17°</td>
+      <td>約600</td>
+    </tr>
+    <tr>
+      <th class="selection">小惑星</th>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td>~小惑星帯<br>≒黄道面@T→0</td>
+      <td></td>
+    </tr>
+    <tr>
+      <th>311P/PanSTARRS</th>
+      <td>2013/07/06</td>
+      <td>2024/09/16</td>
+      <td>2024/09/15</td>
+      <td>2.270</td>
+      <td>2.05</td>
+      <td>21</td>
+      <td>1.171°</td>
+      <td>約3.2</td>
+    </tr>
+  </tbody>
 </table>
 10/21前後の天体show（非常に<a href="#span-app-entropy">稀な事象</a>）
 <br>
@@ -6295,11 +6774,32 @@ d=1e7; calc_magnitude(d) -> 17.9
 　Ek：運動energy
 <br>
 <br>
-太陽系内天体（太陽の<a href="#span-app-gravity">重力</a>に拘束状態）
+太陽系小天体
+<br>
+・小惑星：岩石と金属（主にFe-Ni合金）の凝集体
+<br>
+・彗星：氷と岩石||塵の凝集体
+<br>
+　休眠（活動休止）：表面に不活性な塵が堆積（一時的な表面の不活性化）
+<br>
+　絶滅（活動停止）：outgassingの活動性を消失（「燃え尽きた」小惑星遷移天体）
+<br>
+　"Manx"（尾のない猫）：低活動性で希薄な尾（小惑星に近い組成）
+<br>
+　・"Rock from the Oort Cloud"
+<br>
+　・"Rock from the Kuiper Belt"
+<br>
+　・周回数後半の周期彗星
+<br>
+・流星物質：小惑星の破片||彗星の塵（dust-trailの痕跡を含む）
+<br>
+<br>
+太陽系天体（太陽の<a href="#span-app-gravity">重力</a>に拘束状態）
 <br>
 ・惑星・準惑星・小惑星・衛星（楕円軌道　⇔　E&lt;0）
 <br>
-・<a href="#span-app-astronomy">彗星</a>
+・彗星
 <br>
 　周期彗星：軌道離心率＜1（楕円軌道　⇔　E&lt;0）
 <br>
@@ -6310,6 +6810,10 @@ d=1e7; calc_magnitude(d) -> 17.9
 　・<a href="#span-app-knowns-Tsuchinshan">紫金山・ATLAS彗星</a>
 <br>
 　短周期彗星：<a href="#span-app-period-motion">公転周期</a>＜200年
+<br>
+　・木星族：<a href="#span-app-period-motion">公転周期</a>≦20年
+<br>
+　・Halley型：20年＜<a href="#span-app-period-motion">公転周期</a>＜200年
 <br>
 <br>
 恒星間天体（太陽系外から飛来の双曲線軌道　⇔　E&gt;0）
@@ -6714,7 +7218,7 @@ Tsuchinshan-ATLASの解釈について記述する
       <td>高感度撮像</td>
     </tr>
     <tr>
-      <td rowspan="3">光学望遠鏡</td>
+      <td rowspan="4">光学望遠鏡</td>
       <td>Teide Observatory</td>
       <td>IAC<br>Institute of Astrophysics of the Canary Islands, <span class="condition">Tenerife</span>, Canary Islands, Spain</td>
       <td>可視光線</td>
@@ -6737,6 +7241,14 @@ Tsuchinshan-ATLASの解釈について記述する
       <td>1.01</td>
       <td>0.5~1.0</td>
       <td>撮像</td>
+    </tr>
+    <tr>
+      <td>MARGO Observatory<br>HGB-650</td>
+      <td>Gennady Borisov, Crimean Peninsula</td>
+      <td>可視光線</td>
+      <td>0.65</td>
+      <td></td>
+      <td>追跡観測<br>・軌道parameter</td>
     </tr>
   </tbody>
 </table>
