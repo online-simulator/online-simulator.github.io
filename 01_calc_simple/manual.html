@@ -3226,6 +3226,8 @@ ja.m.wikipedia.org/wiki/項目を列挙する
 <br>
 ・ヤルコフスキー・オキーフ・ラジエフスキー・パダック効果
 <br>
+・ヤルコフスキー効果
+<br>
 ・摂動_(天文学)
 <br>
 ・章動
@@ -5597,7 +5599,7 @@ substitution方式の変換
 <br>
 　<a href="#span-app-knowns">小惑星</a>：<a href="#span-app-gravity">重力</a>||YORP効果（太陽光の吸収による加熱⇒反作用による熱放射⇒回転速度||自転軸の変化）
 <br>
-　<a href="#span-app-knowns">彗星</a>：<a href="#span-app-gravity">重力</a>||rocket効果（outgassing-<a href="#span-app-jet">jet</a>）
+　<a href="#span-app-knowns">彗星</a>：<a href="#span-app-gravity">重力</a>||<a href="#span-app-knowns-ATLAS">rocket効果</a>（outgassing-<a href="#span-app-jet">jet</a>）
 <br>
 ・<a href="#span-app-knowns">流星</a>：超音速で<a href="#span-app-atmosphere">大気圏</a>に突入⇒大気の<a href="#span-app-entropy">断熱圧縮</a>⇒燃焼と気化（ablation）⇒自発発光
 <br>
@@ -7294,6 +7296,18 @@ deg_non_g=4/(60*60); deg_non_g -> 0.0011111111111111111（逸脱の角度[deg]�
 a_non_g=2.5e-5; T_perihelion=18.5*60*60*24; v_gas=300; a_non_g*T_perihelion/v_gas -> 0.1332（質量損失率）
 <br>
 　・<span class="clear">近日点通過後：希薄な尾（太陽合の直後）</span>　⇒　徐々に幾何学的な視認性が回復（離脱過程）
+<br>
+　・主要因：<a href="#span-app-astronomy">rocket効果</a>&gt;&gt;&gt;&gt;&gt;&gt;放射圧&gt;動圧&ge;不均一熱放射のYarkovsky効果
+<br>
+r=0.35; d=5e3; rho=0.5e3; vol=(4pi/3)*(d/2)**3; m=rho*vol; A=pi*(d/2)**2;
+<br>
+F_rocket=m*a_non_g; F_rocket -> 818123086.872342
+<br>
+P_wind=4e-8; F_wind=P_wind*A; F_wind*[1,50] -> (0.7853981633974483,39.269908169872416)
+<br>
+P_radiation=4.5e-6*(1/r)**2; F_radiation=P_radiation*A; F_radiation -> 721.2840276099015
+<br>
+F_Yarkovsky=F_radiation*1e-3; F_Yarkovsky -> 0.7212840276099015
 <br>
 　観測網：以下の一覧（比較的短期間で深宇宙探査機の予定を含む）
 <br>
