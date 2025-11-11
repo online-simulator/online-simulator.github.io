@@ -3118,6 +3118,10 @@ ja.m.wikipedia.org/wiki/項目を列挙する
 <br>
 ・非周期彗星
 <br>
+・ヘール・ボップ彗星
+<br>
+・ハレー彗星
+<br>
 ・ハレー型彗星
 <br>
 ・核_(彗星)
@@ -3603,6 +3607,8 @@ astro-dic.jp/項目を列挙する
 ・segmented-mirror-telescope
 <br>
 ・spatial-resolution
+<br>
+・diffraction-spike
 <br>
 ・expression-of-angle
 <br>
@@ -5607,7 +5613,7 @@ substitution方式の変換
 <br>
 　火球：金星より明るい流星（表面が数千℃超）
 <br>
-　流星群：<a href="#span-app-knowns">彗星</a>のdust-tail||<a href="#span-app-knowns">小惑星</a>のdust-trailの痕跡
+　流星群：<a href="#span-app-knowns">彗星</a>||<a href="#span-app-knowns">小惑星</a>の<a href="#span-app-knowns">dust-trail</a>の痕跡
     </td>
   </tr>
   <tr>
@@ -6425,7 +6431,7 @@ d=1e7; calc_magnitude(d) -> 17.9
       <td></td>
       <td></td>
       <td></td>
-      <td></td>
+      <td class="run">&le;0の大彗星</td>
       <td>~Oortの雲<br>≒黄道面@T→0<br>random@T→∞</td>
       <td>iと<a href="#span-out-approximation-linear">相関</a></td>
       <td></td>
@@ -6563,7 +6569,31 @@ d=1e7; calc_magnitude(d) -> 17.9
       <td>0.9999</td>
     </tr>
     <tr>
-      <th>C/2011 L4 (PanSTARRS)</th>
+      <th>C/2014 UN271 (Bernardinelli-Bernstein)<br><span class="condition">最大級約130kmの核</span></th>
+      <td>2014/08/10</td>
+      <td>2031/01/21</td>
+      <td>2033/08/29</td>
+      <td>10.95</td>
+      <td>10.96</td>
+      <td>16</td>
+      <td class="clear">95.46°直交</td>
+      <td>放物線</td>
+      <td>0.999908</td>
+    </tr>
+    <tr>
+      <th>C/2013 US10 (Catalina)<br><span class="condition">ray||kink||knot</span></th>
+      <td>2013/10/31</td>
+      <td>2015/11/15</td>
+      <td>2016/01/17</td>
+      <td>0.822</td>
+      <td>0.720</td>
+      <td>6</td>
+      <td>151.0°</td>
+      <td>放物線</td>
+      <td>1.0000</td>
+    </tr>
+    <tr>
+      <th>C/2011 L4 (PanSTARRS)<br><span class="condition">anti-tail</span></th>
       <td>2011/06/06</td>
       <td>2013/03/10</td>
       <td>2013/03/05</td>
@@ -6581,10 +6611,22 @@ d=1e7; calc_magnitude(d) -> 17.9
       <td>2007/01/13</td>
       <td>0.170</td>
       <td>0.82</td>
-      <td>-5.5</td>
+      <td class="run">-5.5</td>
       <td>77.5°</td>
       <td>約92600</td>
       <td>0.99999</td>
+    </tr>
+    <tr>
+      <th>C/2004 Q2 (Machholz)<br><span class="condition">緑色のcoma</span><br><span class="condition">ray</span></th>
+      <td>2004/08/27</td>
+      <td>2005/01/24</td>
+      <td>2005/01/05</td>
+      <td>1.20</td>
+      <td>0.346</td>
+      <td>3.5</td>
+      <td>38.6°</td>
+      <td>約115000</td>
+      <td>0.99986</td>
     </tr>
     <tr>
       <th>C/1996 B2 (Hyakutake)<br><span class="condition">青い尾</span></th>
@@ -6599,28 +6641,88 @@ d=1e7; calc_magnitude(d) -> 17.9
       <td>0.99999</td>
     </tr>
     <tr>
-      <th>C/1995 O1 (Hale-Bopp)<br><span class="condition">大彗星</span></th>
+      <th>C/1995 O1 (Hale-Bopp)<br><span class="condition">複数本の<a href="#span/app/jet">jet</a>構造<br>spiral-<a href="#span/app/jet">jet</a><br>肉眼で約1.5年間</span></th>
       <td>1995/07/23</td>
       <td>1997/04/01</td>
       <td>1997/03/22</td>
       <td>0.914</td>
       <td>1.315</td>
-      <td>-1~-2</td>
-      <td>89.4°</td>
+      <td class="run">-1~-2</td>
+      <td class="clear">89.4°直交</td>
       <td>約2530</td>
       <td>0.9994</td>
     </tr>
     <tr>
-      <th>D/1993 F2 (SL9)</th>
+      <th>D/1993 F2 (Shoemaker-Levy 9)<br><span class="condition">「真珠の首飾り」</span></th>
       <td>1993/03/27</td>
       <td>1994/07/07<br><span class="condition">分裂⇒</span></td>
       <td>1994/07/16<br><span class="condition">木星衝突</span></td>
       <td>5.42</td>
       <td>4.20</td>
       <td>12</td>
-      <td>94.52°</td>
+      <td class="clear">94.52°直交</td>
       <td></td>
       <td>0.998</td>
+    </tr>
+    <tr>
+      <th>C/1973 E1 (Kohoutek)<br><span class="condition">kink||knot</span></th>
+      <td>1973/03/07</td>
+      <td>1973/12/28</td>
+      <td>1974/01/15</td>
+      <td>0.142</td>
+      <td>0.817</td>
+      <td>-3</td>
+      <td>14.3°</td>
+      <td>約75000</td>
+      <td>0.99996</td>
+    </tr>
+    <tr>
+      <th>C/1969 Y1 (Bennett)<br><span class="condition">大kink</span></th>
+      <td>1969/12/28</td>
+      <td>1970/03/20</td>
+      <td>1970/03/26</td>
+      <td>0.537</td>
+      <td>0.697</td>
+      <td class="run">0</td>
+      <td class="clear">90.0°直交</td>
+      <td>約1700</td>
+      <td>0.99616</td>
+    </tr>
+    <tr>
+      <th>67P/Churyumov-Gerasimenko<br><span class="condition">outgassing-<a href="#span/app/jet">jet</a>@2015</span></th>
+      <td>1969/10/22</td>
+      <td>2027/01/22</td>
+      <td>2027/02/17</td>
+      <td>1.24</td>
+      <td>1.23</td>
+      <td>9</td>
+      <td>7.13°</td>
+      <td>6.45</td>
+      <td>0.630</td>
+    </tr>
+    <tr>
+      <th>C/1961 T1 (Seki-Lines)<br><span class="condition">ray</span></th>
+      <td>1962/01/29</td>
+      <td>1962/04/11</td>
+      <td>1962/04/20</td>
+      <td>0.380</td>
+      <td>0.444</td>
+      <td>3</td>
+      <td>68.3°</td>
+      <td>約1000</td>
+      <td>0.9989</td>
+    </tr>
+    <tr>
+      <th>C/1957 P1 (Arend-Roland)<br><span class="condition">anti-tail<br>ray</span></th>
+      <td>1957/04/08</td>
+      <td>1957/04/08</td>
+      <td>1957/04/22</td>
+      <td>0.316</td>
+      <td>0.552</td>
+      <td class="run">-1</td>
+      <td>140.0°</td>
+      <td>約50000</td>
+      <td>0.99974</td>
     </tr>
     <tr>
       <th>46P/Wirtanen<br><span class="condition">緑色のcoma</span></th>
@@ -6659,7 +6761,19 @@ d=1e7; calc_magnitude(d) -> 17.9
       <td>0.432</td>
     </tr>
     <tr>
-      <th>12P/Pons–Brooks<br><span class="condition">複数のoutburst@2023~2024<br>多極状のcoma</span></th>
+      <th>C/1858 L1 (Donati)</th>
+      <td>1858/06/02</td>
+      <td>1858/09/30</td>
+      <td>1858/10/18</td>
+      <td>0.579</td>
+      <td>0.54</td>
+      <td class="run">-1</td>
+      <td>117.02°</td>
+      <td>約2000</td>
+      <td>0.997</td>
+    </tr>
+    <tr>
+      <th>12P/Pons-Brooks<br><span class="condition">複数のoutburst@2023~2024<br>多極状のcoma</span></th>
       <td>1812/07/12<br>1883/09/02</td>
       <td>2024/04/21</td>
       <td>2024/06/02</td>
@@ -6669,6 +6783,18 @@ d=1e7; calc_magnitude(d) -> 17.9
       <td>74.21°</td>
       <td>71.3</td>
       <td>0.954</td>
+    </tr>
+    <tr>
+      <th>C/1811 F1<br><span class="condition">肉眼で約0.8年間</span></th>
+      <td>1811/03/25</td>
+      <td>1811/09/12</td>
+      <td>1811/10/16</td>
+      <td>1.035</td>
+      <td>1.15</td>
+      <td class="run">0</td>
+      <td>106.9°</td>
+      <td>約3065</td>
+      <td>0.995</td>
     </tr>
     <tr>
       <th>2P/Encke (2007)<br><span class="condition"><a href="#span-app-flare">CME</a>直撃@4/20</span></th>
@@ -6683,7 +6809,19 @@ d=1e7; calc_magnitude(d) -> 17.9
       <td>0.847</td>
     </tr>
     <tr>
-      <th>1P/Halley</th>
+      <th>C/1230 X1 (Fujiwara)<br><span class="condition">『明月記』@1230</span></th>
+      <td>1230/12/04</td>
+      <td>1231/01/24</td>
+      <td>1231/01/29</td>
+      <td>0.793</td>
+      <td>0.80</td>
+      <td class="run">0~1</td>
+      <td>133.5°</td>
+      <td>約5000</td>
+      <td>0.9996</td>
+    </tr>
+    <tr>
+      <th>1P/Halley<br><span class="condition">helix||kink||knot||DE<br>『日本書紀』@684</span></th>
       <td>紀元前<br>240頃</td>
       <td>1986/02/09</td>
       <td>1986/04/11</td>
@@ -6779,13 +6917,37 @@ d=1e7; calc_magnitude(d) -> 17.9
       <td>1.00000</td>
     </tr>
     <tr>
-      <th>C/1843 D1<br><span class="condition">大彗星</span></th>
+      <th>C/1910 A1<br><span class="condition">肉眼で約0.7年間</span></th>
+      <td>1910/01/07</td>
+      <td>1910/01/17</td>
+      <td>1910/02/16</td>
+      <td>0.129</td>
+      <td>0.31</td>
+      <td class="run">-5</td>
+      <td>138.9°</td>
+      <td>約13000</td>
+      <td>0.9999</td>
+    </tr>
+    <tr>
+      <th>C/1882 R1</th>
+      <td>1882/09/01</td>
+      <td>1882/09/17</td>
+      <td>1882/10/07</td>
+      <td>0.008</td>
+      <td>1.70</td>
+      <td class="run">-6</td>
+      <td>141.9°</td>
+      <td>約772</td>
+      <td>0.9999</td>
+    </tr>
+    <tr>
+      <th>C/1843 D1</th>
       <td>1843/02/05</td>
       <td>1843/02/27</td>
       <td>1843/03/06</td>
       <td>0.0055</td>
       <td>0.84</td>
-      <td>-(6~10)</td>
+      <td class="run">-(6~10)</td>
       <td>144.17°</td>
       <td>約600</td>
       <td>0.99991</td>
@@ -6852,6 +7014,10 @@ d=1e7; calc_magnitude(d) -> 17.9
 <br>
 ・彗星：氷と岩石||塵の凝集体
 <br>
+　大彗星：0等級を上回る明るさ（目視限界は約6等級で観測上の目安）
+<br>
+　Sungrazer：太陽に「超接近」する軌道（大彗星の候補天体）
+<br>
 　休眠（活動休止）：表面に不活性な塵が堆積（一時的な表面の不活性化）
 <br>
 　絶滅（活動停止）：outgassingの活動性を消失（「燃え尽きた」小惑星遷移天体）
@@ -6864,7 +7030,29 @@ d=1e7; calc_magnitude(d) -> 17.9
 <br>
 　・周回数後半の周期彗星
 <br>
-・流星物質：小惑星の破片||彗星の塵（dust-trailの痕跡を含む）
+　tail：尾の形態
+<br>
+　・dust-trail：断片の痕跡（outgassing-<a href="#span-app-jet">jet</a>に伴う破片dust）
+<br>
+　　anti-tail：見かけ上の反尾（軌道方向≒太陽方向に投影の接近過程より離脱過程で顕著）
+<br>
+　・dust-tail：塵粒子の痕跡（微細化を伴う）
+<br>
+　　spiral-<a href="#span-app-jet">jet</a>：核の自転による螺旋構造（自転軸方向≒太陽方向で顕著）
+<br>
+　・plasma-tail：ionの痕跡（太陽からの紫外線吸収で電離の昇華gas）
+<br>
+　　ray：筋状の構造
+<br>
+　　helix：螺旋状に捩れる||巻付く構造
+<br>
+　　kink：急激に折れ曲がる現象
+<br>
+　　knot：部分的な輝度の増減
+<br>
+　　DE：Disconnection Event
+<br>
+・流星物質：小惑星||彗星の断片（dust-trailの痕跡を含む）
 <br>
 <br>
 太陽系天体（太陽の<a href="#span-app-gravity">重力</a>に拘束状態）
@@ -6970,7 +7158,7 @@ Tsuchinshan-ATLASの解釈について記述する
       <td>対地同期軌道</td>
       <td>可視光線</td>
       <td>49.9</td>
-      <td>太陽近傍の観測<br>・青白いplasma-tail<br>・非重力加速度</td>
+      <td>太陽近傍の観測<br>・青白い<a href="#span-app-knowns">plasma-tail</a><br>・非重力加速度</td>
     </tr>
     <tr>
       <td>STEREO-A - SECCHI COR2 / HI1 / HI2<br>Solar TErrestrial RElations Observatory - Ahead<br>Sun-Earth Connection Coronal and Heliospheric Investigation<br>CORonagraph / Heliospheric Imager</td>
@@ -7343,9 +7531,13 @@ Tsuchinshan-ATLASの解釈について記述する
 <br>
 <a href="#span-app-knowns">3I/ATLAS</a>
 <br>
-・以下、<span class="selection">火星最接近@10/03以前の推定値</span>と<span class="clear">近日点通過後@11/06以前の観測結果</span>を参照
+・以下、<span class="selection">火星最接近@10/03以前の推定値</span>と<span class="clear">近日点通過後@11/17以前の観測結果</span>を参照
 <br>
 　遭遇時期：第25<a href="#span-app-period-activity">太陽活動周期</a>の極大期（<span class="clear">予測より<a href="#span-app-flare">太陽活動</a>が活発に推移</span>@2525）
+<br>
+　・黒点相対数の極大値（月平均換算）@第21⇒22⇒23⇒24⇒25途中：164⇒158⇒180⇒116⇒180↑
+<br>
+　・X-classの<a href="#span-app-flare">太陽flare</a>発生回数@第21⇒22⇒23⇒24⇒25途中：90⇒95⇒130↑⇒50↓⇒50↑
 <br>
 　印象：高活動性で太陽系と真逆の啓示（特異な<span class="selection">逆行軌道</span>||物理的な<span class="selection">逆尾</span>||構造と<span class="selection">組成の反転</span>||逆因果律の示唆）
 <br>
@@ -7359,19 +7551,35 @@ Tsuchinshan-ATLASの解釈について記述する
 <br>
 　要検証：非重力加速度による軌道vectorの経路変化と質量収支の整合性（撮像の時空間分布を含む）
 <br>
-　・<span class="clear">近日点付近：太陽側優勢のoutgassing-<a href="#span-app-jet">jet</a>による約4秒角の経路逸脱　⇔　約13%の質量損失</span>（高活動性を示唆）
+　・<span class="clear">質量損失rate@2au~近日点：180~405kg/s</span>（光度曲線から換算のgas成分が主体）
 <br>
-deg_non_g=4/(60*60); deg_non_g -> 0.0011111111111111111（逸脱の角度[deg]）
+　・<span class="clear">質量損失割合</span>：未確定
 <br>
-a_non_g=2.5e-5; T_perihelion=18.5*60*60*24; v_gas=300; a_non_g*T_perihelion/v_gas -> 0.1332（質量損失率）
+m_rate=(180+405)/2; T_perihelion=18.5*60*60*24; dm=m_rate*T_perihelion; dm -> 467532000[kg]
+<br>
+d=5e3; rho=0.5e3; vol=(4pi/3)*(d/2)**3; m=rho*vol; m -> 32724923474893.676[kg]
+<br>
+dm/m -> 0.000014286725539898884（分裂なし）
+<br>
+a_non_g=2.5e-5; v_gas=300; a_non_g*T_perihelion/v_gas -> 0.1332（分裂あり）
+<br>
+　・<span class="clear">|非重力加速度|@近日点：約5e-7m/s^2</span>
+<br>
+a_non_g=5e-7; v_gas=1000; m*a_non_g/v_gas -> 16362.461737446838[kg/s]（<a href="#span-app-knowns">破片dust</a>を含む質量損失rate）
+<br>
+ans/405 -> 40.401140092461326（magnitudeから換算の実効係数下限）
+<br>
+　・<span class="clear">近日点付近：太陽側優勢のoutgassing-<a href="#span-app-jet">jet</a>による約4秒角の経路逸脱（主に動径方向）</span>
+<br>
+deg_non_g=4/(60*60); deg_non_g -> 0.0011111111111111111[deg]
 <br>
 　・<span class="clear">近日点通過後：希薄な尾（太陽合の直後）</span>　⇒　徐々に幾何学的な視認性が回復（離脱過程）
 <br>
-　・主要因：<a href="#span-app-astronomy">rocket効果</a>&gt;&gt;&gt;&gt;&gt;&gt;放射圧&gt;動圧&ge;不均一熱放射のYarkovsky効果
+　・主要因：<a href="#span-app-astronomy">rocket効果</a>&gt;&gt;&gt;&gt;&gt;放射圧&gt;動圧&ge;不均一熱放射のYarkovsky効果
 <br>
 r=0.35; d=5e3; rho=0.5e3; vol=(4pi/3)*(d/2)**3; m=rho*vol; A=pi*(d/2)**2;
 <br>
-F_rocket=m*a_non_g; F_rocket -> 818123086.872342
+a_non_g=5e-7; F_rocket=m*a_non_g; F_rocket -> 16362461.737446837
 <br>
 P_wind=4e-8; F_wind=P_wind*A; F_wind*[1,50] -> (0.7853981633974483,39.269908169872416)
 <br>
@@ -7379,7 +7587,63 @@ P_radiation=4.5e-6*(1/r)**2; F_radiation=P_radiation*A; F_radiation -> 721.28402
 <br>
 F_Yarkovsky=F_radiation*1e-3; F_Yarkovsky -> 0.7212840276099015
 <br>
+　検証結果（不確定）：<a href="#span-app-knowns">太陽系内彗星</a>と対照的（≠常時真逆）
+<br>
+　・<a href="#span-app-analogy">analogy</a>：「汚れた雪だるま」の<a href="#span-app-astronomy">彗星</a>　⇔　<a href="#span-out-modelling-0D-diffusion">porous電極活物質</a>
+<br>
+　・<span class="clear">星間旅行：宇宙線曝露による核表層の不活性化　⇔　Order(0.1~10m)のcrust形成</span>
+<br>
+　　crust：不揮発性の<span class="selection">古い有機物</span>への変質層（氷＋活性な有機物⇒tarのような暗い高分子炭素）
+<br>
+　　crustの厚さ：観測される<a href="#span-app-astronomy">彗星</a>活動の規模に影響（日心距離依存で小惑星の誤認を含む）
+<br>
+　・初期のoutgassing：揮発性物質の減少（dust-mantle化）　⇒　熱伝導性の低下（深層の熱保護＋内圧上昇に寄与）
+<br>
+　・<span class="clear">近日点±18.5日：通常のH2O＋豊富なCO2の爆発的な昇華　⇒　outburst</span>
+<br>
+　・<span class="clear">近日点付近：質量損失割合≒0.0014%×実効係数</span>区間[40,40*7*3]　⇒　核[表層,深層？]の連続はく離（<span class="clear">≠分裂</span>）
+<br>
+　　<span class="clear">蛍光発光の成分</span>：CO2のion化gasのCO+（青色）&gt;&gt;中性分子C2（青緑色）
+<br>
+　・<span class="clear">近日点通過後：希薄な尾　⇒　7本の<a href="#span-app-jet">jet</a>構造　⇒　正反のtail構造</span>（自転による幾何学的な変化？）
+<br>
+　　<span class="clear">約95万kmの<a href="#span-app-knowns">anti-tail</a></span>（逆尾＋反尾）：太陽側の高圧<a href="#span-app-jet">jet</a>＋<a href="#span-app-knowns">破片dust</a>の累積的な分散（低β値の断片の滞留？技術的？）
+<br>
+　　・低β値の断片：軌道上に留まりやすい　⇒　軌道方向に分布（≒太陽方向に投影　⇒　見かけ上の反尾）
+<br>
+　　・<a href="#span-app-knowns">dust-trail</a>の長さ：日心速力と<a href="#span-out-approximation-linear">正の相関</a>　⇒　通常より長い（＋高圧<a href="#span-app-jet">jet</a>の影響）
+<br>
+　　・高β値の塵粒子：指向性の<a href="#span-app-jet">jet</a>中心に追従しやすい　⇔　<a href="#span-app-jet">jet</a>追従性∝β値（後述）
+<br>
+　　<span class="clear">約285万kmの<a href="#span-app-knowns">tail</a></span>（通常の尾）：放射圧で反太陽側に加速（主に高β値の塵粒子）
+<br>
+　　・高β値の塵粒子：反太陽側に流されやすい　⇒　太陽の反対方向に分布
+<br>
+　　・<a href="#span-app-knowns">dust-tail</a>の直線性∝1/曲率：日心速力と<a href="#span-out-approximation-linear">正の相関</a>　⇒　通常より直線的
+<br>
+　　<span class="clear"><a href="#span-app-jet">jet</a>構造：活性spotの偏在化</span>（強力な指向性）　⇒　塵の微細化（衝突破砕）と高追従性（<span class="clear">自転を含む螺旋</span>）
+<br>
+　　・<a href="#span-app-knowns">Hale-Bopp彗星</a>：<a href="#span-app-knowns">spiral-jet</a>
+<br>
+　　・<a href="#span-app-knowns">Halley彗星</a>：<a href="#span-app-knowns">helix</a>
+<br>
+　　・<a href="#span-app-knowns">311P/PanSTARRS小惑星帯彗星</a>：6本の<a href="#span-app-knowns">tail</a>構造（<span class="selection">高速自転による表面崩壊に由来</span>）
+<br>
+　　　核の直径：<span class="selection">約0.4km</span>
+<br>
+　　　核の自転周期：<span class="selection">5.4h以上（<a href="#span-app-astronomy">YORP効果</a>による「分裂限界」相当）</span>
+<br>
+　　　放出event：<span class="selection">高速自転による遠心力と熱応力の<a href="#span-app-interaction">相互作用</a>　⇒　表面物質の間欠的な崩壊　⇒　放出</span>（<span class="clear">計9回</span>）
+<br>
+　　・<span class="clear"><a href="#span-app-knowns">3I/ATLAS</a>：複数本の<a href="#span-app-knowns">tail</a>構造</span>（自転を伴うoutgassing-<a href="#span-app-jet">jet</a>に由来？技術的？）
+<br>
+　　・<a href="#span-app-knowns">1I/ʻOumuamua</a>：以上の仮説（非重力的な加速現象　⇔　通常のoutgassing-<a href="#span-app-jet">jet</a>の範囲内で微弱？技術的？）
+<br>
 　観測網：以下の一覧（比較的短期間で深宇宙探査機の予定を含む）
+<br>
+　・最接近時の光学的な最高解像度：Order(10km/pixel)　⇒　核表面の解像困難
+<br>
+　　不可視で不可解な矛盾の内包：multi-<a href="#span-app-orbit">flyby</a>@2525（偶然？必然？意図的？技術的？）
 <br>
 <table>
   <caption>1. 宇宙baseの観測機器（Space-based Assets）</caption>
@@ -7427,7 +7691,7 @@ F_Yarkovsky=F_radiation*1e-3; F_Yarkovsky -> 0.7212840276099015
       <td>対地同期軌道</td>
       <td>可視光線</td>
       <td>49.9</td>
-      <td>太陽近傍の観測<br>・太陽より青い<br>・非重力加速度</td>
+      <td>太陽近傍の観測<br>・太陽より青い<br>・非重力加速度<br>・分裂なし</td>
     </tr>
     <tr>
       <td>STEREO-A - SECCHI COR2 / HI1 / HI2<br>Solar TErrestrial RElations Observatory - Ahead<br>Sun-Earth Connection Coronal and Heliospheric Investigation<br>CORonagraph / Heliospheric Imager</td>
@@ -7529,7 +7793,7 @@ F_Yarkovsky=F_radiation*1e-3; F_Yarkovsky -> 0.7212840276099015
       <td>MRO<br>Mars Reconnaissance Orbiter (HiRISE)</td>
       <td>NASA</td>
       <td>火星周回軌道</td>
-      <td></td>
+      <td>○</td>
       <td>約0.21</td>
       <td>約31<br>=get_reso(IFOV,3e7)</td>
       <td>約30<br>=calc_reso(0.3e-3,300,3e7)</td>
@@ -7679,7 +7943,7 @@ F_Yarkovsky=F_radiation*1e-3; F_Yarkovsky -> 0.7212840276099015
       <td>掃天観測</td>
     </tr>
     <tr>
-      <td rowspan="3">電波望遠鏡</td>
+      <td rowspan="4">電波望遠鏡</td>
       <td>RATAN-600</td>
       <td>SAO RAS<br>Special Astrophysical Observatory of the Russian Academy of Science, Russia</td>
       <td>電波</td>
@@ -7694,6 +7958,14 @@ F_Yarkovsky=F_radiation*1e-3; F_Yarkovsky -> 0.7212840276099015
       <td>305</td>
       <td>60~540</td>
       <td></td>
+    </tr>
+    <tr>
+      <td>SARAO<br>South African Radio Astronomy Observatory<br>MeerKAT</td>
+      <td>NRF<br>National Research Foundation, South Africa</td>
+      <td>電波</td>
+      <td>13.5</td>
+      <td></td>
+      <td>電波干渉計<br>・電波信号の初検出@11/08<br>・OH-radical吸収線</td>
     </tr>
     <tr>
       <td>ALMA<br>Atacama Large Millimeter Array</td>
@@ -7727,7 +7999,7 @@ F_Yarkovsky=F_radiation*1e-3; F_Yarkovsky -> 0.7212840276099015
       <td>可視光線<br>赤外線</td>
       <td class="jF">10.0</td>
       <td>0.01~0.05</td>
-      <td>高解像度撮像<br>・anti-tail<br>分光観測<br>・Ni</td>
+      <td>高解像度撮像<br>・<a href="#span-app-knowns">anti-tail</a><br>分光観測<br>・Ni</td>
     </tr>
     <tr>
       <td>Vera C. Rubin Observatory</td>
@@ -7807,10 +8079,10 @@ F_Yarkovsky=F_radiation*1e-3; F_Yarkovsky -> 0.7212840276099015
       <td>可視光線<br>赤外線</td>
       <td>2.56</td>
       <td>0.1~0.3</td>
-      <td>高感度撮像</td>
+      <td>高感度撮像<br>撮像@11/11<br>・明確な分裂なし<br>・太陽側の<a href="#span-app-jet">jet</a>構造</td>
     </tr>
     <tr>
-      <td rowspan="4">光学望遠鏡</td>
+      <td rowspan="9">光学望遠鏡</td>
       <td>Teide Observatory</td>
       <td>IAC<br>Institute of Astrophysics of the Canary Islands, <span class="condition">Tenerife</span>, Canary Islands, Spain</td>
       <td>可視光線</td>
@@ -7840,7 +8112,47 @@ F_Yarkovsky=F_radiation*1e-3; F_Yarkovsky -> 0.7212840276099015
       <td>可視光線</td>
       <td></td>
       <td></td>
-      <td>撮像<br>・近日点通過後<br>・明るい核<br>　一部分裂？<br>　数割消失？<br>・希薄な尾<br>　合の影響？<br>　<a href="#span-app-knowns">休眠？絶滅？</a></td>
+      <td>撮像@11/05<br>・近日点通過後<br>・明るい核<br>　一部分裂？<br>　数割消失？<br>・希薄な尾<br>　合の影響？<br>　<a href="#span-app-knowns">休眠？絶滅？</a></td>
+    </tr>
+    <tr>
+      <td>Team</td>
+      <td>Michael Jäger, Gerald Rhemann, Ernesto Prosperi</td>
+      <td>可視光線</td>
+      <td></td>
+      <td></td>
+      <td>撮像@11/08<br>・深層の露出？<br>・7本の<a href="#span-app-jet">jet</a>構造<br>　comaの回折spikeなし</td>
+    </tr>
+    <tr>
+      <td>Team</td>
+      <td>Frank Niebling, Michael Buchner</td>
+      <td>可視光線</td>
+      <td></td>
+      <td></td>
+      <td>撮像@11/09<br>・自転の影響？<br>・正反の<a href="#span-app-knowns">tail</a>構造</td>
+    </tr>
+    <tr>
+      <td>Akin Observatory (MPC-O51)</td>
+      <td>Teerasak Thaluang, Rayong, Thailand</td>
+      <td>可視光線</td>
+      <td></td>
+      <td></td>
+      <td>撮像@11/15<br>・<a href="#span-app-knowns">anti-tail</a><br>・3本の<a href="#span-app-knowns">tail</a>構造</td>
+    </tr>
+    <tr>
+      <td>Chuck's Astrophotography<br>Celestron RASA 8-inch<br>ZWO ASI533MC</td>
+      <td>Starfront Observatories, Texas, USA</td>
+      <td>可視光線</td>
+      <td>0.203</td>
+      <td>約1.94</td>
+      <td>YouTube@11/14<br>・<a href="#span-app-knowns">anti-tail</a><br>・<a href="#span-app-knowns">spiral-dust-tail</a><br>・<a href="#span-app-knowns">plasma-tail</a></td>
+    </tr>
+    <tr>
+      <td>Ray's Astrophotography<br>Celestron RASA 11-inch<br>ZWO ASI294MC Pro</td>
+      <td>Starfront Observatories, Texas, USA</td>
+      <td>可視光線</td>
+      <td>0.279</td>
+      <td>約1.54</td>
+      <td>YouTube@11/17<br>・spinning</td>
     </tr>
     <tr>
       <td>Network</td>
@@ -7856,7 +8168,7 @@ F_Yarkovsky=F_radiation*1e-3; F_Yarkovsky -> 0.7212840276099015
 <br>
 　年齢：<span class="selection">約70億年</span>（例えば、超新星爆発のdustを含む原始惑星系円盤の外縁部に由来）
 <br>
-　核の質量：<span class="selection">約330億ton以上（非重力加速度が極小　⇔　高軌道安定性）</span>
+　核の初期質量：<span class="selection">約330億ton以上（非重力加速度が極小　⇔　高軌道安定性）</span>
 <br>
 d=5e3; rho=0.5e3; vol=(4pi/3)*(d/2)**3; m=rho*vol; m -> 32724923474893.676[kg]
 <br>
@@ -7884,11 +8196,11 @@ d=5e3; rho=0.5e3; vol=(4pi/3)*(d/2)**3; m=rho*vol; m -> 32724923474893.676[kg]
 <br>
 　・hot-spot移動の時間遅れ（1日程度）：核の自転と熱慣性に依存（内部圧||地質||熱伝導を含む）
 <br>
-　・外向きのplasma-tail：一部ion化の電離gas（H2O+等）　⇔　超音速の<a href="#span-app-astronomy">太陽風</a>plasmaの動圧と磁場（Lorentz力）
+　・外向きの<a href="#span-app-knowns">plasma-tail</a>：一部ion化の電離gas（H2O+等）　⇔　超音速の<a href="#span-app-astronomy">太陽風</a>plasmaの動圧と磁場（Lorentz力）
 <br>
 　　狭義の<a href="#span-app-interaction">電磁相互作用</a>：<a href="#span-app-astronomy">太陽風</a>の動圧∝1/日心距離**2
 <br>
-　・内外向きのdust-tail：塵粒子（主に中性）　⇔　太陽光の放射圧（光速の光子との運動量交換）
+　・内外向きの<a href="#span-app-knowns">dust-tail</a>：塵粒子（主に中性）　⇔　太陽光の放射圧（光速の光子との運動量交換）
 <br>
 　　広義の<a href="#span-app-interaction">電磁相互作用</a>：太陽光の放射圧∝1/日心距離**2
 <br>
@@ -7914,7 +8226,7 @@ d=5e3; rho=0.5e3; vol=(4pi/3)*(d/2)**3; m=rho*vol; m -> 32724923474893.676[kg]
 <br>
 　　質量慣性∝size**3：極大⇒大⇒極小
 <br>
-　　主体成分：<span class="selection">古い有機物</span>⇒未昇華の氷と有機物の混合⇒微細な無機物と有機物の破片dust（氷のgas化）
+　　主体成分：<span class="selection">古い有機物</span>⇒未昇華の氷と有機物の混合⇒微細な無機物と有機物の<a href="#span-app-knowns">破片dust</a>（氷のgas化）
 <br>
 　・可視光の特徴：<span class="selection">赤色化</span>（有機塵の反射光が優勢）⇒<span class="selection">急激な増光</span>⇒<span class="selection">青緑色</span>（gasの蛍光発光が優勢）
 <br>
@@ -7942,7 +8254,7 @@ d=5e3; rho=0.5e3; vol=(4pi/3)*(d/2)**3; m=rho*vol; m -> 32724923474893.676[kg]
 <br>
 　<span class="clear"><a href="#span-app-flare">CME</a>直撃event発生</span><span class="selection">@9/24~25：太陽から突発放出の予測経路と交差</span>（impact確率を下記）
 <br>
-　・既知の影響：磁場反転⇒磁気再結合⇒plasma-tail切断event（例えば、Encke彗星@2007/4/20）
+　・既知の影響：磁場反転⇒磁気再結合⇒<a href="#span-app-knowns">plasma-tail</a>切断event（例えば、Encke彗星@2007/4/20）
 <br>
 　・磁場∝1/日心距離：Encke彗星の約24%相当（主要因）
 <br>
@@ -8987,6 +9299,8 @@ jet
 ・jet雲：jet<a href="#span-app-plane">飛行機</a>engine後流に発生（高温の排気gasが凝縮）
 <br>
 ・筒内直接噴射式内燃機関：液滴群との運動量交換でgas噴流のjetを形成（噴射圧力||RPM等に依存）
+<br>
+　Bernoulliの定理：|噴射速度|∝√（噴射圧力－雰囲気圧力）
 <br>
 <br>
 実施例
