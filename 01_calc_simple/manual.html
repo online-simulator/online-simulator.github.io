@@ -6845,7 +6845,7 @@ d=1e7; calc_magnitude(d) -> 17.9
       <td>0.995</td>
     </tr>
     <tr>
-      <th>2P/Encke (2007)<br><span class="condition"><a href="#span-app-flare">CME</a>直撃@4/20</span></th>
+      <th>2P/Encke (2007)<br><span class="condition">逆行自転<br><a href="#span-app-flare">CME</a>直撃@4/20</span></th>
       <td>1786/01/17</td>
       <td>2007/04/24</td>
       <td>2007/05/29</td>
@@ -7082,7 +7082,7 @@ d=1e7; calc_magnitude(d) -> 17.9
 <br>
 　・dust-trail：断片の痕跡（outgassing-<a href="#span-app-jet">jet</a>に伴う破片dust）
 <br>
-　　anti-tail：見かけ上の反尾（軌道方向≒太陽方向に投影の接近過程より離脱過程で顕著）
+　　anti-tail：見かけ上の反尾（軌道方向≒太陽方向に投影の接近より離脱過程で顕著）
 <br>
 　・dust-tail：塵粒子の痕跡（微細化を伴う）
 <br>
@@ -7242,7 +7242,7 @@ Tsuchinshan-ATLASの解釈について記述する
       <td>地球低軌道</td>
       <td>紫外線<br>可視光線<br>近赤外線</td>
       <td>0.03~0.13</td>
-      <td>撮像<br>・核のsize</td>
+      <td>撮像<br>・核の直径</td>
     </tr>
     <tr>
       <td>JWST<br>James Webb Space Telescope (NIRCam)</td>
@@ -7601,7 +7601,7 @@ Tsuchinshan-ATLASの解釈について記述する
 <br>
 　要検証：非重力加速度による軌道vectorの経路変化と質量収支の整合性（撮像の時空間分布を含む）
 <br>
-　・<span class="clear">質量損失rate@2au~近日点：180~405kg/s</span>（光度曲線から換算のgas成分が主体）
+　・<span class="clear">質量損失rate下限@2au~近日点：180~405kg/s</span>（光度曲線から換算の中β値の塵粒子による散乱が主体）
 <br>
 　・<span class="clear">質量損失割合</span>：未確定
 <br>
@@ -7615,11 +7615,17 @@ a_non_g=2.5e-5; v_gas=300; a_non_g*T_perihelion/v_gas -> 0.1332（分裂あり�
 <br>
 　・<span class="clear">|非重力加速度|@近日点：約5e-7m/s^2</span>
 <br>
-a_non_g=5e-7; v_gas=1000; m*a_non_g/v_gas -> 16362.461737446838[kg/s]（<a href="#span-app-knowns">破片dust</a>を含む質量損失rate）
+a_non_g=5e-7; v_gas=1000; m*a_non_g/v_gas -> 16362.461737446838[kg/s]（gas成分の質量損失rate）
 <br>
 ans/405 -> 40.401140092461326（magnitudeから換算の実効係数下限）
 <br>
-　・<span class="clear">近日点付近：太陽側優勢のoutgassing-<a href="#span-app-jet">jet</a>による約4秒角の経路逸脱（主に動径方向）</span>
+　・<a href="#span-app-jet">jet</a>の推力：vector和をscalar実効値に換算（単一の近似式を適用）
+<br>
+　　複数：推力vector＝－Σ質量損失rate×<a href="#span-app-jet">噴射速度</a>vector（より厳密には面積分）
+<br>
+　　単一：|推力|＝全質量損失rate×平均<a href="#span-app-jet">|噴射速度|</a>×実効係数（方向を含む）
+<br>
+　・<span class="clear">近日点付近：太陽側優勢のoutgassing-<a href="#span-app-jet">jet</a>による約4秒角の経路逸脱</span>（動径方向の外向き＋順行自転相当）
 <br>
 deg_non_g=4/(60*60); deg_non_g -> 0.0011111111111111111[deg]
 <br>
@@ -7651,7 +7657,7 @@ F_Yarkovsky=F_radiation*1e-3; F_Yarkovsky -> 0.7212840276099015
 <br>
 　・<span class="clear">近日点±18.5日：通常のH2O＋豊富なCO2の爆発的な昇華　⇒　outburst</span>
 <br>
-　・<span class="clear">近日点付近：質量損失割合≒0.0014%×実効係数</span>区間[40,40*7*3]　⇒　核[表層,深層？]の連続はく離（<span class="clear">≠分裂</span>）
+　・<span class="clear">近日点付近：質量損失割合≒0.0014%×実効係数</span>区間[40,40*7*3*2]　⇒　核[表層,深層？]の連続はく離（<span class="clear">≠分裂</span>）
 <br>
 　　<span class="clear">蛍光発光の成分</span>：CO2のion化gasのCO+（青色）&gt;&gt;中性分子C2（青緑色）
 <br>
@@ -7677,13 +7683,15 @@ F_Yarkovsky=F_radiation*1e-3; F_Yarkovsky -> 0.7212840276099015
 <br>
 　　・<a href="#span-app-knowns">Halley彗星</a>：<a href="#span-app-knowns">helix</a>
 <br>
+　　・<a href="#span-app-knowns">C/2011 L4 (PanSTARRS)彗星</a>：Order(100万km)の<a href="#span-app-knowns">anti-tail</a>（<span class="selection">数週間で広範囲に分散の低β値の断片に由来</span>）
+<br>
 　　・<a href="#span-app-knowns">311P/PanSTARRS小惑星帯彗星</a>：6本の<a href="#span-app-knowns">tail</a>構造（<span class="selection">高速自転による表面崩壊に由来</span>）
 <br>
 　　　核の直径：<span class="selection">約0.4km</span>
 <br>
 　　　核の自転周期：<span class="selection">5.4h以上（<a href="#span-app-astronomy">YORP効果</a>による「分裂限界」相当）</span>
 <br>
-　　　放出event：<span class="selection">高速自転による遠心力と熱応力の<a href="#span-app-interaction">相互作用</a>　⇒　表面物質の間欠的な崩壊　⇒　放出</span>（<span class="clear">計9回</span>）
+　　　放出event：<span class="selection">高速自転による遠心力と熱応力の<a href="#span-app-interaction">相互作用</a>　⇒　表面物質の間欠的な崩壊と放出</span>（<span class="clear">計9回</span>）
 <br>
 　　・<span class="clear"><a href="#span-app-knowns">3I/ATLAS</a>：複数本の<a href="#span-app-knowns">tail</a>構造</span>（自転を伴うoutgassing-<a href="#span-app-jet">jet</a>に由来？技術的？）
 <br>
@@ -7775,7 +7783,7 @@ F_Yarkovsky=F_radiation*1e-3; F_Yarkovsky -> 0.7212840276099015
       <td>地球低軌道</td>
       <td>紫外線<br>可視光線<br>近赤外線</td>
       <td>0.03~0.13</td>
-      <td>撮像<br>・核のsize</td>
+      <td>撮像<br>・核の直径</td>
     </tr>
     <tr>
       <td>JWST<br>James Webb Space Telescope (NIRCam)</td>
@@ -8032,7 +8040,7 @@ F_Yarkovsky=F_radiation*1e-3; F_Yarkovsky -> 0.7212840276099015
       <td>近赤外線<br>中赤外線</td>
       <td>3.0</td>
       <td>0.1~0.2</td>
-      <td>近赤外線観測<br>・red visible slope</td>
+      <td>近赤外線観測<br>・red visible slope<br>・塵の粒径</td>
     </tr>
     <tr>
       <td rowspan="12">光学<br>赤外線望遠鏡</td>
@@ -8228,6 +8236,12 @@ d=5e3; rho=0.5e3; vol=(4pi/3)*(d/2)**3; m=rho*vol; m -> 32724923474893.676[kg]
 <br>
 　核の自転周期：<span class="selection">16.16~16.79h</span>
 <br>
+　核の自転方向：<span class="selection">順行自転</span>（公転方向と自転方向の符号　⇒　<a href="#span-app-astronomy">rocket効果</a>の寄与）
+<br>
+　・順行自転：同一　⇒　進行方向の加速
+<br>
+　・逆行自転：反対　⇒　進行方向の減速
+<br>
 　核の日心速力：<span class="selection">58~68.3km/s</span>（近日点@10/29で最大）
 <br>
 　・初速要因：約220km/sで銀河中心を公転の太陽系に対する放出eventの相対速度（<a href="#span-app-orbit">swing-by</a>を含む）
@@ -8258,7 +8272,15 @@ d=5e3; rho=0.5e3; vol=(4pi/3)*(d/2)**3; m=rho*vol; m -> 32724923474893.676[kg]
 <br>
 　　Syndyne曲線（等斥力線）：物理特性β値の違い
 <br>
-　　β値：β＝放射圧による斥力／太陽の重力による引力　⇔　β∝1/(粒子密度*size)
+　　β値：β＝放射圧による斥力／太陽の重力による引力　⇔　β∝1/(粒子密度*粒径)
+<br>
+　　・高β値（β＞0.1）：sub~数μm
+<br>
+　　・中β値（0.01≦β≦0.1）：数~数十μm
+<br>
+　　・低β値（β＜0.01）：数十μm~mm
+<br>
+　　・β≒0：cm~
 <br>
 　時系列の日心距離[au]：4.5（発見）⇒3.8（活発化）⇒3.2~2.7（水雪線）
 <br>
@@ -8268,13 +8290,13 @@ d=5e3; rho=0.5e3; vol=(4pi/3)*(d/2)**3; m=rho*vol; m -> 32724923474893.676[kg]
 <br>
 　　塵の微細化：弱結合のはく離（限定的）⇒せん断と衝突破砕⇒高速はく離と衝突破砕の激化
 <br>
-　・塵粒子size：大⇒中⇒小
+　・塵の粒径：大⇒中⇒小
 <br>
-　　β値∝1/size：小⇒中⇒大
+　　β値∝1/粒径：小⇒中⇒大
 <br>
-　　<a href="#span-app-jet">jet</a>追従性　⇔　「運動量交換の時定数」の逆数∝1/size：小⇒中⇒大（<a href="#span-ref-paper4">参考論文[4]</a>）
+　　<a href="#span-app-jet">jet</a>追従性　⇔　「運動量交換の時定数」の逆数∝1/粒径：小⇒中⇒大（<a href="#span-ref-paper4">参考論文[4]</a>）
 <br>
-　　質量慣性∝size**3：極大⇒大⇒極小
+　　質量慣性∝粒径**3：極大⇒大⇒極小
 <br>
 　　主体成分：<span class="selection">古い有機物</span>⇒未昇華の氷と有機物の混合⇒微細な無機物と有機物の<a href="#span-app-knowns">破片dust</a>（氷のgas化）
 <br>
@@ -8304,7 +8326,7 @@ d=5e3; rho=0.5e3; vol=(4pi/3)*(d/2)**3; m=rho*vol; m -> 32724923474893.676[kg]
 <br>
 　<span class="clear"><a href="#span-app-flare">CME</a>直撃event発生</span><span class="selection">@9/24~25：太陽から突発放出の予測経路と交差</span>（impact確率を下記）
 <br>
-　・既知の影響：磁場反転⇒磁気再結合⇒<a href="#span-app-knowns">plasma-tail</a>切断event（例えば、Encke彗星@2007/4/20）
+　・既知の影響：磁場反転⇒磁気再結合⇒<a href="#span-app-knowns">plasma-tail</a>切断event（例えば、<a href="#span-app-knowns">2P/Encke彗星</a>@2007/4/20）
 <br>
 　・磁場∝1/日心距離：Encke彗星の約24%相当（主要因）
 <br>
