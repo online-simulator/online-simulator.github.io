@@ -3068,6 +3068,10 @@ ja.m.wikipedia.org/wiki/項目を列挙する
 <br>
 ・ダイソン球
 <br>
+・フェルミのパラドックス
+<br>
+・パンスペルミア説
+<br>
 ・宇宙文明
 <br>
 ・プラズマ宇宙論
@@ -6569,6 +6573,18 @@ d=1e7; calc_magnitude(d) -> 17.9
       <td>0.9996</td>
     </tr>
     <tr>
+      <th>C/2016 R2 (PanSTARRS)<br><span class="condition">豊富なCOとN2<br>青色のcoma</span></th>
+      <td>2016/09/07</td>
+      <td>2018/05/09</td>
+      <td>2018/01/05</td>
+      <td>2.60</td>
+      <td>1.70</td>
+      <td>10.5</td>
+      <td>55.08°</td>
+      <td>約20000</td>
+      <td>0.99998</td>
+    </tr>
+    <tr>
       <th>C/2014 Q2 (Lovejoy)<br><span class="condition">淡い緑色のcoma</span></th>
       <td>2014/08/16</td>
       <td>2015/01/30</td>
@@ -7076,7 +7092,7 @@ d=1e7; calc_magnitude(d) -> 17.9
 <br>
 　・"Rock from the Oort Cloud"
 <br>
-　　周回数終盤の非周期彗星（小惑星遷移　⇒　絶滅）
+　　周回数終盤の長周期彗星（小惑星遷移　⇒　絶滅）
 <br>
 　tail：尾の形態
 <br>
@@ -7088,7 +7104,9 @@ d=1e7; calc_magnitude(d) -> 17.9
 <br>
 　　spiral-<a href="#span-app-jet">jet</a>：核の自転による螺旋構造（自転軸方向≒太陽方向で顕著）
 <br>
-　・plasma-tail：ionの痕跡（太陽からの紫外線吸収で電離の昇華gas）
+　・plasma-tail：ionの痕跡（太陽からの紫外線と<a href="#span-app-astronomy">太陽風</a>衝突で電離の昇華gas）
+<br>
+　　ion：H2O+||H3O+||CO+||CO2+||HCO+||N2+
 <br>
 　　ray：筋状の構造
 <br>
@@ -7250,7 +7268,7 @@ Tsuchinshan-ATLASの解釈について記述する
       <td>太陽-地球系<br>Lagrange点L2</td>
       <td>近赤外線<br>中赤外線</td>
       <td>0.03~0.06</td>
-      <td>分光観測<br>・CO2が豊富</td>
+      <td>分光観測</td>
     </tr>
     <tr>
       <td>SPHEREx<br>Spectro-Photometer for the History of the universe, <br>Epoch of Reionization, and ices Explorer</td>
@@ -7258,7 +7276,7 @@ Tsuchinshan-ATLASの解釈について記述する
       <td>地球低軌道~<br>太陽同期軌道</td>
       <td>近赤外線</td>
       <td>約6.0</td>
-      <td>分光観測<br>・CO2噴出の規模</td>
+      <td>分光観測</td>
     </tr>
     <tr>
       <td>NEOWISE<br>Near-Earth Object Wide-field Infrared Survey Explorer</td>
@@ -7266,7 +7284,7 @@ Tsuchinshan-ATLASの解釈について記述する
       <td>~2024/09<br>地球低軌道</td>
       <td>赤外線</td>
       <td>約5.8</td>
-      <td>測光観測<br>・化学組成<br>・CO2噴出の規模</td>
+      <td>測光観測</td>
     </tr>
     <tr>
       <td>系外惑星探査機</td>
@@ -7603,6 +7621,10 @@ Tsuchinshan-ATLASの解釈について記述する
 <br>
 　・<span class="clear">質量損失rate下限@2au~近日点：180~405kg/s</span>（光度曲線から換算の中β値の塵粒子による散乱が主体）
 <br>
+　　塵の反射を含む散乱光：全<a href="#span-app-optics">波長</a>領域（連続spectrum）
+<br>
+　　gasの蛍光発光：非常に狭い<a href="#span-app-optics">波長</a>領域（輝線）
+<br>
 　・<span class="clear">質量損失割合</span>：未確定
 <br>
 m_rate=(180+405)/2; T_perihelion=18.5*60*60*24; dm=m_rate*T_perihelion; dm -> 467532000[kg]
@@ -7614,6 +7636,8 @@ dm/m -> 0.000014286725539898884（分裂なし）
 a_non_g=2.5e-5; v_gas=300; a_non_g*T_perihelion/v_gas -> 0.1332（分裂あり）
 <br>
 　・<span class="clear">|非重力加速度|@近日点：約5e-7m/s^2</span>
+<br>
+　　<span class="clear">OH分子の|熱拡散速度|：約800m/s</span>（＜局所的な<a href="#span-app-jet">|噴射速度|</a>v_gas）
 <br>
 a_non_g=5e-7; v_gas=1000; m*a_non_g/v_gas -> 16362.461737446838[kg/s]（gas成分の質量損失rate）
 <br>
@@ -7649,17 +7673,43 @@ F_Yarkovsky=F_radiation*1e-3; F_Yarkovsky -> 0.7212840276099015
 <br>
 　・<span class="clear">星間旅行：宇宙線曝露による核表層の不活性化　⇔　Order(0.1~10m)のcrust形成</span>
 <br>
-　　crust：不揮発性の<span class="selection">古い有機物</span>への変質層（氷＋活性な有機物⇒tarのような暗い高分子炭素）
+　　crust：不揮発性の<span class="selection">古い有機物</span>（Tholin）への変質層
+<br>
+　　・重合反応：氷＋活性な有機物→Tholin（tarのような暗い高分子炭素化合物）　⇒　<span class="selection">当初の赤色化</span>
+<br>
+　　・分解反応：H2O＋宇宙線→H＋OH　⇒　<span class="selection">表層：H2OよりCO2が豊富</span>
+<br>
+　　・再結合反応：CO＋O→CO2　⇒　<span class="selection">深層：CO2よりCOが豊富</span>（太陽系外縁部に同様）
 <br>
 　　crustの厚さ：観測される<a href="#span-app-astronomy">彗星</a>活動の規模に影響（日心距離依存で小惑星の誤認を含む）
 <br>
 　・初期のoutgassing：揮発性物質の減少（dust-mantle化）　⇒　熱伝導性の低下（深層の熱保護＋内圧上昇に寄与）
 <br>
-　・<span class="clear">近日点±18.5日：通常のH2O＋豊富なCO2の爆発的な昇華　⇒　outburst</span>
+　・<span class="clear">近日点±18.5日：通常のH2O＋豊富なCO2＋COの爆発的な昇華　⇒　outburst</span>
 <br>
 　・<span class="clear">近日点付近：質量損失割合≒0.0014%×実効係数</span>区間[40,40*7*3*2]　⇒　核[表層,深層？]の連続はく離（<span class="clear">≠分裂</span>）
 <br>
-　　<span class="clear">蛍光発光の成分</span>：CO2のion化gasのCO+（青色）&gt;&gt;中性分子C2（青緑色）
+　　<span class="clear">蛍光発光</span>（hν吸収⇒励起⇒基底状態）：光電離のCO+（青色）&gt;&gt;光解離のC2（緑色）&gt;光解離のNH2（赤色）
+<br>
+　　・CO2＋hν→CO2+＋e-（光電離）
+<br>
+　　　CO2＋hν→<span class="condition">CO</span>＋O（光解離）
+<br>
+　　　CO2＋hν→O＋CO+＋e-（解離性光電離）
+<br>
+　　　CO2＋hν→O2＋C+＋e-（解離性光電離）
+<br>
+　　・<span class="condition">CO</span>＋hν→CO+＋e-（光電離）　⇒　<span class="clear">太陽より青い</span>（深層の露出？）
+<br>
+　　・H2O＋hν→H＋OH（光解離）　⇒　<span class="clear">恒星間天体の電波信号を初検出</span>
+<br>
+　　　H2O＋hν→H2O+＋e-（光電離）
+<br>
+　　　H2O＋hν→H＋OH+＋e-（解離性光電離）
+<br>
+　　・C2H2＋hν→C2H＋H　⇒　C2H＋hν→C2＋H（多段階の光解離）
+<br>
+　　・NH3＋hν→NH2+H（光解離）
 <br>
 　・<span class="clear">近日点通過後：希薄な尾　⇒　7本の<a href="#span-app-jet">jet</a>構造　⇒　正反のtail構造</span>（自転による幾何学的な変化？）
 <br>
@@ -7679,11 +7729,13 @@ F_Yarkovsky=F_radiation*1e-3; F_Yarkovsky -> 0.7212840276099015
 <br>
 　　<span class="clear"><a href="#span-app-jet">jet</a>構造：活性spotの偏在化</span>（強力な指向性）　⇒　塵の微細化（衝突破砕）と高追従性（<span class="clear">自転を含む螺旋</span>）
 <br>
-　　・<a href="#span-app-knowns">Hale-Bopp彗星</a>：<a href="#span-app-knowns">spiral-jet</a>
+　　・<a href="#span-app-knowns">Hale-Bopp長周期彗星</a>：<a href="#span-app-knowns">spiral-jet</a>
 <br>
-　　・<a href="#span-app-knowns">Halley彗星</a>：<a href="#span-app-knowns">helix</a>
+　　・<a href="#span-app-knowns">Halley短周期彗星</a>：<a href="#span-app-knowns">helix</a>
 <br>
-　　・<a href="#span-app-knowns">C/2011 L4 (PanSTARRS)彗星</a>：Order(100万km)の<a href="#span-app-knowns">anti-tail</a>（<span class="selection">数週間で広範囲に分散の低β値の断片に由来</span>）
+　　・<a href="#span-app-knowns">C/2011 L4 (PanSTARRS)長周期彗星</a>：Order(100万km)の<a href="#span-app-knowns">anti-tail</a>（<span class="selection">数週間で広範囲に分散の低β値の断片に由来</span>）
+<br>
+　　　核の日心速力@近日点0.3~0.9au：<span class="selection">76.7~44.4km/s</span>（近日点通過の約2月後の観測）
 <br>
 　　・<a href="#span-app-knowns">311P/PanSTARRS小惑星帯彗星</a>：6本の<a href="#span-app-knowns">tail</a>構造（<span class="selection">高速自転による表面崩壊に由来</span>）
 <br>
@@ -7691,7 +7743,11 @@ F_Yarkovsky=F_radiation*1e-3; F_Yarkovsky -> 0.7212840276099015
 <br>
 　　　核の自転周期：<span class="selection">5.4h以上（<a href="#span-app-astronomy">YORP効果</a>による「分裂限界」相当）</span>
 <br>
-　　　放出event：<span class="selection">高速自転による遠心力と熱応力の<a href="#span-app-interaction">相互作用</a>　⇒　表面物質の間欠的な崩壊と放出</span>（<span class="clear">計9回</span>）
+　　　放出event：<span class="selection">高速自転による潮汐力と熱応力の<a href="#span-app-interaction">相互作用</a>　⇒　表面物質の間欠的な崩壊と放出</span>（計9回）
+<br>
+　　・<a href="#span-app-knowns">D/1993 F2 (Shoemaker-Levy 9)消滅彗星</a>：20個以上の破片に分裂（<span class="selection"><a href="#span-app-knowns">木星</a>の潮汐力による崩壊に由来</span>）
+<br>
+　　・<a href="#span-app-knowns">C/2016 R2 (PanSTARRS)長周期彗星</a>：H2OよりCOとN2が豊富（<span class="selection">外縁部の最も始原的な環境に由来</span>）
 <br>
 　　・<span class="clear"><a href="#span-app-knowns">3I/ATLAS</a>：複数本の<a href="#span-app-knowns">tail</a>構造</span>（自転を伴うoutgassing-<a href="#span-app-jet">jet</a>に由来？技術的？）
 <br>
@@ -8260,7 +8316,7 @@ d=5e3; rho=0.5e3; vol=(4pi/3)*(d/2)**3; m=rho*vol; m -> 32724923474893.676[kg]
 <br>
 　・hot-spot移動の時間遅れ（1日程度）：核の自転と熱慣性に依存（内部圧||地質||熱伝導を含む）
 <br>
-　・外向きの<a href="#span-app-knowns">plasma-tail</a>：一部ion化の電離gas（H2O+等）　⇔　超音速の<a href="#span-app-astronomy">太陽風</a>plasmaの動圧と磁場（Lorentz力）
+　・外向きの<a href="#span-app-knowns">plasma-tail</a>：一部ion化の電離gas　⇔　超音速の<a href="#span-app-astronomy">太陽風</a>plasmaの動圧と磁場（Lorentz力）
 <br>
 　　狭義の<a href="#span-app-interaction">電磁相互作用</a>：<a href="#span-app-astronomy">太陽風</a>の動圧∝1/日心距離**2
 <br>
@@ -8284,7 +8340,17 @@ d=5e3; rho=0.5e3; vol=(4pi/3)*(d/2)**3; m=rho*vol; m -> 32724923474893.676[kg]
 <br>
 　時系列の日心距離[au]：4.5（発見）⇒3.8（活発化）⇒3.2~2.7（水雪線）
 <br>
-　・昇華物質：超揮発性物質（CO等）⇒＋<a href="#span-app-gas-CO2">二酸化炭素</a>⇒＋水氷
+　・昇華物質：超揮発性物質（CO等）⇒＋高揮発性物質（CO2等）⇒＋水氷
+<br>
+　　CO：約25K@35au（<a href="#span-app-knowns">海王星</a>軌道以遠）
+<br>
+　　CH4：約30K@20au（<a href="#span-app-knowns">天王星</a>軌道付近）
+<br>
+　　CO2：約80K@5au（<a href="#span-app-knowns">木星</a>軌道付近）
+<br>
+　　CH3​OH：約100K@4au（小惑星帯外縁）
+<br>
+　　H2​O：約150K@3au（水雪線）
 <br>
 　・<a href="#span-app-jet">jet</a>強度：極小⇒中⇒大
 <br>
@@ -8360,7 +8426,7 @@ d_coma=70e7; P_geo(d_coma/2) -> 0.0000047674909878650156
 <br>
 　<span class="selection"><a href="#span-app-knowns-reference">「人工物説」</a></span>：「偶然の重なり」では説明困難の仮説（解釈の余地が残る）
 <br>
-　・「自然物」||「漂流物」：multi-<a href="#span-app-orbit">flyby</a>（受動的な自己調整||擬態||意図的な誘導||偽装等）
+　・「生命体」||「自然物」||「漂流物」：multi-<a href="#span-app-orbit">flyby</a>（自己組織化||受動的な自己調整||擬態||意図的な誘導||偽装等）
 <br>
 　・「無人機」||「有人船」：特異な<a href="#span-app-period-activity">太陽活動周期</a>のmulti-<a href="#span-app-orbit">flyby</a>（帰還||探査||偵察||観察||補給||maintenance等）
 <br>
@@ -8371,6 +8437,10 @@ d_coma=70e7; P_geo(d_coma/2) -> 0.0000047674909878650156
 　　「伝承の星」：赤⇒青緑の変色＋稀有な<a href="#span-app-knowns">同時天体show</a>（<a href="#span-app-earth">大転換の示唆？</a>）
 <br>
 　「宇宙の物語」：以上を内包する"doramatic romance"（~超古代~1977~2025~年に渡る<a href="#span-app-spacetime">時空</a>超越のanalog応答）
+<br>
+　・「惑星の種」||「生命の種」||「Panspermia説」：宇宙規模の循環
+<br>
+　　「Fermi paradox」：「rare Earth仮説」||「暗黒森林理論」
 <br>
 　・「螺旋的循環」の弁証論：命題「正」と「反」の矛盾をはらむ対立⇒真理の統「合」⇒torus表面の網羅
 <br>
