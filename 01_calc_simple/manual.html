@@ -7312,7 +7312,7 @@ Tsuchinshan-ATLASの解釈について記述する
   </thead>
   <tbody>
     <tr>
-      <td rowspan="5">火星周回機</td>
+      <td rowspan="6">火星周回機</td>
       <td>ExoMars TGO<br>Trace Gas Orbiter (CaSSIS)</td>
       <td>ESA</td>
       <td>火星周回軌道</td>
@@ -7334,6 +7334,13 @@ Tsuchinshan-ATLASの解釈について記述する
       <td>約0.21</td>
     </tr>
     <tr>
+      <td>MAVEN<br>Mars Atmosphere and Volatile EvolutioN (IUVS)</td>
+      <td>NASA</td>
+      <td>火星周回軌道</td>
+      <td></td>
+      <td>約108</td>
+    </tr>
+    <tr>
       <td>Tianwen-1 (HiRIC)</td>
       <td>CNSA</td>
       <td>火星周回軌道</td>
@@ -7349,7 +7356,7 @@ Tsuchinshan-ATLASの解釈について記述する
     </tr>
     <tr>
       <td rowspan="2">火星rover</td>
-      <td>Curiosity Rover (Mastcam-Z)</td>
+      <td>Curiosity Rover (Mastcam)</td>
       <td>NASA</td>
       <td>火星表面</td>
       <td>△</td>
@@ -7685,7 +7692,7 @@ F_Yarkovsky=F_radiation*1e-3; F_Yarkovsky -> 0.7212840276099015
 <br>
 　・初期のoutgassing：揮発性物質の減少（dust-mantle化）　⇒　熱伝導性の低下（深層の熱保護＋内圧上昇に寄与）
 <br>
-　・<span class="clear">近日点±18.5日：通常のH2O＋豊富なCO2＋COの爆発的な昇華　⇒　outburst</span>
+　・<span class="clear">近日点@10/29±18.5日：通常のH2O＋豊富なCO2＋COの爆発的な昇華　⇒　outburst</span>
 <br>
 　・<span class="clear">近日点付近：質量損失割合≒0.0014%×実効係数</span>区間[40,40*7*3*2]　⇒　核[表層,深層？]の連続はく離（<span class="clear">≠分裂</span>）
 <br>
@@ -7699,9 +7706,9 @@ F_Yarkovsky=F_radiation*1e-3; F_Yarkovsky -> 0.7212840276099015
 <br>
 　　　CO2＋hν→O2＋C+＋e-（解離性光電離）
 <br>
-　　・<span class="condition">CO</span>＋hν→CO+＋e-（光電離）　⇒　<span class="clear">太陽より青い</span>（深層の露出？）
+　　・<span class="condition">CO</span>＋hν→CO+＋e-（光電離）　⇒　<span class="clear">太陽より青い@10/28</span>（深層の露出？）
 <br>
-　　・H2O＋hν→H＋OH（光解離）　⇒　<span class="clear">恒星間天体の電波信号を初検出</span>
+　　・H2O＋hν→H＋OH（光解離）　⇒　<span class="clear">恒星間天体の電波信号を初検出@10/24</span>
 <br>
 　　　H2O＋hν→H2O+＋e-（光電離）
 <br>
@@ -7711,7 +7718,9 @@ F_Yarkovsky=F_radiation*1e-3; F_Yarkovsky -> 0.7212840276099015
 <br>
 　　・NH3＋hν→NH2+H（光解離）
 <br>
-　・<span class="clear">近日点通過後：希薄な尾　⇒　7本の<a href="#span-app-jet">jet</a>構造　⇒　正反のtail構造</span>（自転による幾何学的な変化？）
+　・<span class="clear">近日点通過後@11/05~09：希薄な尾　⇒　7本の<a href="#span-app-jet">jet</a>構造　⇒　正反のtail構造</span>（自転による幾何学的な変化？）
+<br>
+　　太陽-天体-観測者の位相角：10~15°
 <br>
 　　<span class="clear">約95万kmの<a href="#span-app-knowns">anti-tail</a></span>（逆尾＋反尾）：太陽側の高圧<a href="#span-app-jet">jet</a>＋<a href="#span-app-knowns">破片dust</a>の累積的な分散（低β値の断片の滞留？技術的？）
 <br>
@@ -7755,7 +7764,23 @@ F_Yarkovsky=F_radiation*1e-3; F_Yarkovsky -> 0.7212840276099015
 <br>
 　観測網：以下の一覧（比較的短期間で深宇宙探査機の予定を含む）
 <br>
+　・望遠鏡画像：主に総露光時間が<a href="#span-app-knowns">tail</a>構造</span>の濃淡に影響
+<br>
+　　性能：口径||集光力||空間分解能||焦点距離||感度
+<br>
+　　S/N比：Signal/Noise∝√露光時間
+<br>
+　　・環境：seeing||透明度
+<br>
+　　・ぶれ低減：天体の追尾
+<br>
+　　後処理：画像処理（校正を含む<a href="#span-out-UI-graphing-filter-list">filter一覧</a>）
+<br>
+　　・stacking：総露光時間＝露光時間×stack枚数
+<br>
 　・最接近時の光学的な最高解像度：Order(10km/pixel)　⇒　核表面の解像困難
+<br>
+　　<span class="clear">HiRISE@10/2："3I/ATLAS looks like fuzzy white ball" with coma</span>
 <br>
 　　不可視で不可解な矛盾の内包：multi-<a href="#span-app-orbit">flyby</a>@2525（偶然？必然？意図的？技術的？）
 <br>
@@ -7813,7 +7838,7 @@ F_Yarkovsky=F_radiation*1e-3; F_Yarkovsky -> 0.7212840276099015
       <td>太陽先行軌道<br>地球軌道内側</td>
       <td>可視光線</td>
       <td>約15.0</td>
-      <td>太陽の観測<br>・<a href="#span-app-interaction">電磁相互作用</a><br>・非重力加速度</td>
+      <td>太陽の観測<br>・<a href="#span-app-interaction">電磁相互作用</a><br>・非重力加速度<br>撮像<br>・fuzzy orb</td>
     </tr>
     <tr>
       <td>PUNCH<br>Polarimeter to UNify the Corona and Heliosphere (WFI)</td>
@@ -7821,7 +7846,7 @@ F_Yarkovsky=F_radiation*1e-3; F_Yarkovsky -> 0.7212840276099015
       <td>2024/10~<br>地球低軌道</td>
       <td>可視光線</td>
       <td>約35.1</td>
-      <td>太陽の観測<br>・<a href="#span-app-interaction">電磁相互作用</a></td>
+      <td>太陽の観測<br>・<a href="#span-app-interaction">電磁相互作用</a><br>撮像<br>・short tail</td>
     </tr>
     <tr>
       <td>紫外線<br>X線望遠鏡</td>
@@ -7885,7 +7910,7 @@ F_Yarkovsky=F_radiation*1e-3; F_Yarkovsky -> 0.7212840276099015
   </thead>
   <tbody>
     <tr>
-      <td rowspan="5">火星周回機</td>
+      <td rowspan="6">火星周回機</td>
       <td>ExoMars TGO<br>Trace Gas Orbiter (CaSSIS)</td>
       <td>ESA</td>
       <td>火星周回軌道</td>
@@ -7913,6 +7938,15 @@ F_Yarkovsky=F_radiation*1e-3; F_Yarkovsky -> 0.7212840276099015
       <td>約30<br>=calc_reso(0.3e-3,300,3e7)</td>
     </tr>
     <tr>
+      <td>MAVEN<br>Mars Atmosphere and Volatile EvolutioN (IUVS)</td>
+      <td>NASA</td>
+      <td>火星周回軌道</td>
+      <td>○</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+    </tr>
+    <tr>
       <td>Tianwen-1 (HiRIC)</td>
       <td>CNSA</td>
       <td>火星周回軌道</td>
@@ -7932,10 +7966,10 @@ F_Yarkovsky=F_radiation*1e-3; F_Yarkovsky -> 0.7212840276099015
     </tr>
     <tr>
       <td rowspan="2">火星rover</td>
-      <td>Curiosity Rover (Mastcam-Z)</td>
+      <td>Curiosity Rover (Mastcam)</td>
       <td>NASA</td>
       <td>火星表面</td>
-      <td></td>
+      <td>×</td>
       <td>約15.2~64.0</td>
       <td>約2210~9310<br>=get_reso(IFOV,3e7)</td>
       <td>約111000<br>=calc_reso(7.4e-6,2e-3,3e7)</td>
@@ -7944,13 +7978,13 @@ F_Yarkovsky=F_radiation*1e-3; F_Yarkovsky -> 0.7212840276099015
       <td>Perseverance Rover (Mastcam-Z)</td>
       <td>NASA</td>
       <td>火星表面</td>
-      <td></td>
+      <td>○</td>
       <td>約13.9~58.4</td>
       <td>約2020~8490<br>=get_reso(IFOV,3e7)</td>
       <td>約105000<br>=calc_reso(7e-6,2e-3,3e7)</td>
     </tr>
     <tr>
-      <td rowspan="5">深宇宙探査機</td>
+      <td rowspan="6">深宇宙探査機</td>
       <td>Europa Clipper (EIS/NAC)</td>
       <td>NASA</td>
       <td>Jupiter系へ</td>
@@ -7969,6 +8003,15 @@ F_Yarkovsky=F_radiation*1e-3; F_Yarkovsky -> 0.7212840276099015
       <td></td>
     </tr>
     <tr>
+      <td>Lucy (L'LORRI)</td>
+      <td>NASA</td>
+      <td>小惑星Trojan群へ</td>
+      <td>○</td>
+      <td>約1.03</td>
+      <td></td>
+      <td></td>
+    </tr>
+    <tr>
       <td>Juno (JunoCam)</td>
       <td>NASA</td>
       <td>木星周回軌道</td>
@@ -7981,7 +8024,7 @@ F_Yarkovsky=F_radiation*1e-3; F_Yarkovsky -> 0.7212840276099015
       <td>Psyche (Multi-spectral Imager)</td>
       <td>NASA</td>
       <td>小惑星Psycheへ</td>
-      <td></td>
+      <td>○</td>
       <td>約10.3</td>
       <td></td>
       <td></td>
@@ -8292,7 +8335,7 @@ d=5e3; rho=0.5e3; vol=(4pi/3)*(d/2)**3; m=rho*vol; m -> 32724923474893.676[kg]
 <br>
 　核の自転周期：<span class="selection">16.16~16.79h</span>
 <br>
-　核の自転方向：<span class="selection">順行自転</span>（公転方向と自転方向の符号　⇒　<a href="#span-app-astronomy">rocket効果</a>の寄与）
+　核の自転方向：<span class="selection">順行自転</span>（公転方向と自転方向の符号　⇒　<a href="#span-app-astronomy">rocket効果</a>に対する変動分の影響）
 <br>
 　・順行自転：同一　⇒　進行方向の加速
 <br>
