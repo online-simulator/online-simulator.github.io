@@ -7682,9 +7682,11 @@ dm/m -> 0.000014286725539898884（分裂なし）
 <br>
 a_non_g=2.5e-5; v_gas=300; a_non_g*T_perihelion/v_gas -> 0.1332（分裂あり）
 <br>
-　・<span class="clear">|非重力加速度|@近日点：約5e-7m/s^2（動径:接線:法線方向の比率≒2:1:0）</span>
+　・<span class="clear">|非重力加速度|@近日点：約5e-7m/s^2</span>
 <br>
-　　<span class="clear">OH分子の|熱拡散速度|：約800m/s</span>（＜局所的な<a href="#span-app-jet">|噴射速度|</a>v_gas）
+　　Marsden形式<span class="clear">3成分：動径:接線:法線方向の比率≒2:1:0</span>（動径方向の外向き＋順行自転相当）
+<br>
+　・<span class="clear">OH分子の|熱拡散速度|：約800m/s</span>（＜局所的な<a href="#span-app-jet">|噴射速度|</a>v_gas）
 <br>
 a_non_g=5e-7; v_gas=1000; m*a_non_g/v_gas -> 16362.461737446838[kg/s]（gas成分の質量損失rate）
 <br>
@@ -7696,7 +7698,7 @@ ans/405 -> 40.401140092461326（magnitudeから換算の実効係数下限）
 <br>
 　　単一：|推力|＝全質量損失rate×平均<a href="#span-app-jet">|噴射速度|</a>×実効係数（方向を含む）
 <br>
-　・<span class="clear">近日点付近：太陽側優勢のoutgassing-<a href="#span-app-jet">jet</a>による約4秒角の経路逸脱</span>（動径方向の外向き＋順行自転相当）
+　・<span class="clear">近日点付近：太陽側優勢のoutgassing-<a href="#span-app-jet">jet</a>による約4秒角の経路逸脱</span>
 <br>
 deg_non_g=4/(60*60); deg_non_g -> 0.0011111111111111111[deg]
 <br>
@@ -7816,9 +7818,13 @@ F_Yarkovsky=F_radiation*1e-3; F_Yarkovsky -> 0.7212840276099015
 <br>
 　　・ぶれ低減：天体の追尾
 <br>
-　　後処理：画像処理（校正を含む<a href="#span-out-UI-graphing-filter-list">filter一覧</a>）
+　　後処理：<a href="#span-out-UI-graphing-filter-list">画像処理</a>（校正を含む）
 <br>
 　　・stacking：総露光時間＝露光時間×stack枚数
+<br>
+　　　＋位置合わせ：対象天体||背景天体基準（遥か彼方遠方）　⇒　一方が棒状に流れる天体の追尾に相当
+<br>
+　　・masking合成：対象天体＋背景天体
 <br>
 　・最接近時の光学的な最高解像度：Order(10km/pixel)　⇒　核表面の解像困難
 <br>
@@ -8283,7 +8289,7 @@ F_Yarkovsky=F_radiation*1e-3; F_Yarkovsky -> 0.7212840276099015
       <td>高感度撮像<br>撮像@11/11<br>・明確な分裂なし<br>・太陽側の<a href="#span-app-jet">jet</a>構造</td>
     </tr>
     <tr>
-      <td rowspan="10">光学望遠鏡</td>
+      <td rowspan="11">光学望遠鏡</td>
       <td>Teide Observatory</td>
       <td>IAC<br>Institute of Astrophysics of the Canary Islands, <span class="condition">Tenerife</span>, Canary Islands, Spain</td>
       <td>可視光線</td>
@@ -8354,6 +8360,14 @@ F_Yarkovsky=F_radiation*1e-3; F_Yarkovsky -> 0.7212840276099015
       <td>0.279</td>
       <td>約1.54</td>
       <td>YouTube@11/17<br>・spinning</td>
+    </tr>
+    <tr>
+      <td>Logan's Astro</td>
+      <td>PixelSkiesAstro, Granada, Andalucia, Spain</td>
+      <td>可視光線</td>
+      <td></td>
+      <td></td>
+      <td>YouTube@11/20<br>・正反の<a href="#span-app-knowns">tail</a>構造<br>・<a href="#span-out-UI-graphing-filter-list">画像処理</a></td>
     </tr>
     <tr>
       <td>Individual<br>Askar 71F<br>ZWO ASI533MC Pro</td>
