@@ -2568,6 +2568,8 @@ ja.m.wikipedia.org/wiki/項目を列挙する
 <br>
 ・素数計数関数
 <br>
+・確率の公理
+<br>
 ・数学上の未解決問題
 <br>
 ・ポアンカレ予想
@@ -5040,9 +5042,13 @@ AIのsingularityのlevel
 <br>
 ・<span class="clear">証明不能</span>：<a href="#span-app-analogy">確率||前提の証明</a>に帰着||回帰する問題
 <br>
-　自己矛盾：<a href="#span-app-quality">quality</a>上限が存在する「確率的な確信」が「決定論的な証明」に至らないdilemma
+　自己矛盾：統計的に確からしい「確率論の確信」が「決定論の証明」に至らないdilemma
 <br>
-・統計的な結論：<span class="clear">証明不能</span>の代替
+・Kolmogorovの公理：「確率の公理」
+<br>
+・「確率論の確信」：「確率の公理」＋「論理的推論」（自己矛盾を内包）
+<br>
+・「決定論の証明」：「数論の公理」＋「構造的必然性」 (例えば、<span class="condition">次の不等式</span>の厳密な証明）
 <br>
 ・<a title="[spec]Number変換" href="../69_number/spec.html#span-Collatz">Collatz予想</a>　⇔　<a href="#span-app-entropy">entropy増大則</a>
 <br>
@@ -7838,6 +7844,8 @@ Roche_limit(71492,1.33,0.5) -> 241698.79501289243[km]（＞最接近距離≒936
 <br>
 　観測網：以下の一覧（比較的短期間で深宇宙探査機の予定を含む）
 <br>
+　・<a href="#span-app-astronomy">彗星</a>活動の規模∝質量損失rate：日心距離に依存　⇒　近日点付近で最大化（特徴を捉えやすい）
+<br>
 　・望遠鏡画像：主に総露光時間が<a href="#span-app-knowns">tail</a>構造</span>の濃淡に影響
 <br>
 　　性能：口径||集光力||空間分解能||焦点距離||感度
@@ -7870,11 +7878,11 @@ Roche_limit(71492,1.33,0.5) -> 241698.79501289243[km]（＞最接近距離≒936
 <br>
 　　<a href="#span-app-orbit">軌道計算</a>：<span class="clear">約4秒角の経路逸脱</span>の補正<span class="selection">前</span><span class="clear">後</span>で<a href="#span-app-knowns">木星</a>のHill球境界と交差が判明@11/22
 <br>
-　　・<a href="#span-app-knowns">木星</a>最接近距離：<span class="clear">5344.5万km</span>＜Hill球代表半径≒5350万km＜<span class="selection">5377万km</span>（<a href="#span-app-orbit">swing-by</a>効果の軌道修正？）
+　　・<a href="#span-app-knowns">木星</a>最接近距離：<span class="clear">5344.5万km</span>＜Hill球代表半径≒5350万km＜<span class="selection">5377万km</span>
 <br>
-　　　補正量：-32.5万km　⇒　Order(10万km)でHill球の<a href="#span-out-error-numerical">数値誤差</a>の範囲内
+　　　補正量：-32.5万km　⇒　Order(10万km)でHill球の<a href="#span-out-error-numerical">数値誤差</a>の範囲内（<a href="#span-app-orbit">swing-by</a>効果の軌道修正？）
 <br>
-　　　軌道投入要件：|相対速度|＜|脱出速度|　⇒　|相対速度|≒66km/s＞|脱出速度|≒2.2km/s（目安）
+　　　軌道投入要件：|相対速度|＜|脱出速度|　⇒　|相対速度|≒66km/s＞|脱出速度|≒2.2km/s（約30倍）
 <br>
 escape_velocity(r,mp)=&lt;last{G=6.67430e-11,sqrt(2*G*mp/r)};
 <br>
