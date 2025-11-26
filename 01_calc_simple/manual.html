@@ -1148,6 +1148,8 @@ test case
 <br>
 　・<a href="#span-app-orbit">軌道計算</a>
 <br>
+　・<a href="#span-app-telescope">天体観測</a>
+<br>
 　・<a href="#span-app-object">天体</a>
 <br>
 　　・<a href="#span-app-knowns">既知の天体</a>
@@ -2173,6 +2175,8 @@ avi-loeb.medium.com
 ・New Questions and Answers About 3I/ATLAS
 <br>
 ・An Extraordinary New Anomaly of 3I/ATLAS
+<br>
+・Images of 3I/ATLAS on November 22—24, 2025
     </td>
   </tr>
   <tr>
@@ -6050,6 +6054,98 @@ d=1e7; calc_magnitude(d) -> 17.9
 目次
 </a>
 <br>
+天体観測
+<br>
+の解釈
+    </th>
+    <td>
+<span id="span-app-telescope"></span>
+天体観測の解釈について記述する
+<br>
+<br>
+環境要因
+<br>
+・seeing：大気の揺らぎ（主に気流）
+<br>
+・透明度：「霞」の程度（天気を含む）
+<br>
+・人工光："Bortle Dark-Sky Scale"のclass数≦3（"International Dark Sky Places"の目安）
+<br>
+<br>
+望遠鏡
+<br>
+・種類：屈折式||反射式||複合式
+<br>
+　屈折式：対物lens＋接眼lens
+<br>
+　反射式：主鏡（＋副鏡）＋接眼lens
+<br>
+　複合式：屈折式＋反射式
+<br>
+・性能：口径＋焦点距離（＋感度）
+<br>
+　口径：集光と解像能力
+<br>
+　・集光力∝口径**2
+<br>
+　・空間分解能：理論限界値∝観測する光の平均<a href="#span-app-optics">波長</a>/口径
+<br>
+　・瞬間視野角：IFOV≒空間分解能（理論限界値に対する実現値）
+<br>
+　・解像度∝1/IFOV
+<br>
+　焦点距離：視野∝1/倍率
+<br>
+　・F値（口径比）：焦点距離/口径
+<br>
+　・視野角（実視界）：見掛視界/倍率
+<br>
+　　見掛視界：接眼lens単体の視界
+<br>
+　・倍率（焦点距離の比率）：望遠鏡/接眼lens
+<br>
+　感度：光の検出⇒記録能力（目視||camera||sensor）
+<br>
+　・S/N比：Signal/Noise∝√（量子効率×露光時間）
+<br>
+　　量子効率：出力信号の電子数/入力信号の光子数（物理的な変換効率）
+<br>
+　・ISO感度：出力信号のgain（noiseを含む増幅率）
+<br>
+<br>
+天体観測
+<br>
+・準備：主に天体追尾
+<br>
+　水平出し：機材の安定化
+<br>
+　極軸合わせ：自転軸の同期
+<br>
+・撮影：S/N比の改善（hard/softの機能）
+<br>
+　補償光学：seeingの改善
+<br>
+　filtering：人工光の軽減
+<br>
+　天体追尾：ぶれの低減（自転を含む）
+<br>
+・後処理：<a href="#span-out-UI-graphing-filter-list">画像処理</a>
+<br>
+　校正：noise除去
+<br>
+　stacking：総露光時間＝露光時間×stack枚数　⇒　S/N比∝√露光時間
+<br>
+　＋位置合わせ：対象天体||背景天体基準（遥か彼方遠方）　⇒　一方が棒状に流れる天体の追尾に相当
+<br>
+　masking合成：対象天体＋背景天体
+    </td>
+  </tr>
+  <tr>
+    <th>
+<a href="#span-index">
+目次
+</a>
+<br>
 軌道計算
 <br>
 の解釈
@@ -6707,6 +6803,18 @@ d=1e7; calc_magnitude(d) -> 17.9
       <td>0.260</td>
     </tr>
     <tr>
+      <th>266P/Christensen (2016)<br><span class="condition">H1検出@電波観測</span></th>
+      <td>2006/11/27</td>
+      <td>2016/01/08</td>
+      <td>2016/01/28</td>
+      <td>2.321</td>
+      <td>1.545</td>
+      <td>17</td>
+      <td>10.15°</td>
+      <td>約6.63</td>
+      <td>0.575</td>
+    </tr>
+    <tr>
       <th>C/2004 Q2 (Machholz)<br><span class="condition">緑色のcoma</span><br><span class="condition">ray</span></th>
       <td>2004/08/27</td>
       <td>2005/01/24</td>
@@ -6839,6 +6947,18 @@ d=1e7; calc_magnitude(d) -> 17.9
       <td>0.543</td>
     </tr>
     <tr>
+      <th>C/1991 (A2 Metcalf-Brewington)<br><span class="condition">Kiuchi氏の再発見<br><a href="#span-app-astronomy">摂動</a>加味の<a href="#span-app-rule">経験則</a></span></th>
+      <td>1906/10/28<BR>1991/01/07</td>
+      <td>1991/01/29</td>
+      <td>1991/02/09</td>
+      <td>1.513</td>
+      <td>0.67</td>
+      <td>9</td>
+      <td>35.7°</td>
+      <td>約82</td>
+      <td>0.970</td>
+    </tr>
+    <tr>
       <th>17P/Holmes<br><span class="condition">大増光@2007</span></th>
       <td>1892/11/06</td>
       <td>2007/05/11</td>
@@ -6849,6 +6969,18 @@ d=1e7; calc_magnitude(d) -> 17.9
       <td>19.1°</td>
       <td>6.88</td>
       <td>0.432</td>
+    </tr>
+    <tr>
+      <th>109P/Swift-Tuttle<br><span class="condition">Kiuchi氏の再発見<br><a href="#span-app-astronomy">摂動</a>加味の<a href="#span-app-rule">経験則</a></span></th>
+      <td>1862/07/15<br>1992/09/26</td>
+      <td>1992/12/12</td>
+      <td>1992/12/30</td>
+      <td>0.96</td>
+      <td>1.14</td>
+      <td>4.5</td>
+      <td>113.43°</td>
+      <td>約134</td>
+      <td>0.96</td>
     </tr>
     <tr>
       <th>C/1858 L1 (Donati)</th>
@@ -7118,7 +7250,7 @@ d=1e7; calc_magnitude(d) -> 17.9
 </table>
 10/21前後の天体show（非常に<a href="#span-app-entropy">稀な事象</a>）
 <br>
-・新月@太陽合：不可視（天体観測に最適）
+・新月@太陽合：不可視（<a href="#span-app-telescope">天体観測</a>に最適）
 <br>
 ・肉眼
 <br>
@@ -7267,7 +7399,7 @@ Tsuchinshan-ATLASの解釈について記述する
       <th>運用</th>
       <th>場所</th>
       <th><a href="#span-app-optics">波長</a></th>
-      <th>IFOV<br>[秒角/pixel]</th>
+      <th><a href="#span-app-telescope">IFOV</a><br>[秒角/pixel]</th>
       <th>内容</th>
     </tr>
   </thead>
@@ -7385,7 +7517,7 @@ Tsuchinshan-ATLASの解釈について記述する
       <th>運用</th>
       <th>場所</th>
       <th>検出</th>
-      <th>IFOV<br>[秒角/pixel]</th>
+      <th><a href="#span-app-telescope">IFOV</a><br>[秒角/pixel]</th>
     </tr>
   </thead>
   <tbody>
@@ -7500,10 +7632,10 @@ Tsuchinshan-ATLASの解釈について記述する
     <tr>
       <th>分類</th>
       <th>機器</th>
-      <th>運用/場所<br><span class="condition">"International Dark Sky Places"</span></th>
+      <th>運用/場所<br><span class="condition"><a href="#span-app-telescope">"International Dark Sky Places"</a></span></th>
       <th><a href="#span-app-optics">波長</a></th>
       <th>口径[m]<br><span class="jF">分割鏡</span></th>
-      <th>IFOV<br>[秒角/pixel]</th>
+      <th><a href="#span-app-telescope">IFOV</a><br>[秒角/pixel]</th>
       <th>内容</th>
     </tr>
   </thead>
@@ -7684,7 +7816,7 @@ Tsuchinshan-ATLASの解釈について記述する
 <br>
 <a href="#span-app-knowns">3I/ATLAS</a>
 <br>
-・以下、<span class="selection">火星最接近@10/03以前の推定値</span>と<span class="clear">近日点通過後@11/22以前の観測結果</span>を参照
+・以下、<span class="selection">火星最接近@10/03以前の推定値</span>と<span class="clear">近日点通過後@11/24以前の観測結果</span>を参照
 <br>
 　遭遇時期：第25<a href="#span-app-period-activity">太陽活動周期</a>の極大期（<span class="clear">予測より<a href="#span-app-flare">太陽活動</a>が活発に推移</span>@2525）
 <br>
@@ -7778,7 +7910,7 @@ F_Yarkovsky=F_radiation*1e-3; F_Yarkovsky -> 0.7212840276099015
 <br>
 　・初期のoutgassing：揮発性物質の減少（dust-mantle化）　⇒　熱伝導性の低下（深層の熱保護＋内圧上昇に寄与）
 <br>
-　・<span class="clear">近日点±18.5日：通常のH2O＋COと豊富なCO2の爆発的な昇華　⇒　outburst@10/29</span>
+　・<span class="clear">近日点±18.5日：通常のH2O＋COと豊富なCO2の爆発的な昇華　⇒　outburst@10/29　⇒　収束@11/09</span>
 <br>
 　　<span class="clear">質量損失割合：0.0014%×実効係数</span>区間[40,40*7*3*2]　⇒　核[表層,深層？]の連続はく離（<span class="clear">≠分裂</span>）
 <br>
@@ -7806,9 +7938,11 @@ F_Yarkovsky=F_radiation*1e-3; F_Yarkovsky -> 0.7212840276099015
 <br>
 　　・NH3＋hν→NH2+H（光解離）
 <br>
-　・<span class="clear">近日点通過後@11/05~09：希薄な尾　⇒　7本の<a href="#span-app-jet">jet</a>構造　⇒　正反のtail構造</span>（自転による幾何学的な変化？）
+　・<span class="clear">近日点通過後@11/05~09：希薄な尾　⇒　7本の<a href="#span-app-jet">jet</a>構造　⇒　正反の<a href="#span-app-knowns">tail</a>構造</span>（自転による幾何学的な変化？）
 <br>
 　　太陽-天体-観測者の位相角：10~15°
+<br>
+　・<span class="clear">outburstの収束@11/09：正反の<a href="#span-app-knowns">tail</a>構造</span>
 <br>
 　　<span class="clear">約95万kmの<a href="#span-app-knowns">anti-tail</a></span>（逆尾＋反尾）：太陽側の高圧<a href="#span-app-jet">jet</a>＋<a href="#span-app-knowns">破片dust</a>の累積的な分散（低β値の断片の滞留？技術的？）
 <br>
@@ -7858,23 +7992,7 @@ Roche_limit(71492,1.33,0.5) -> 241698.79501289243[km]（＞最接近距離≒936
 <br>
 　・<a href="#span-app-astronomy">彗星</a>活動の規模∝質量損失rate：近日点付近で最大（特徴を捉えやすい）
 <br>
-　・望遠鏡画像：主に総露光時間が<a href="#span-app-knowns">tail</a>構造</span>の濃淡に影響
-<br>
-　　性能：口径||集光力||空間分解能||焦点距離||感度
-<br>
-　　S/N比：Signal/Noise∝√露光時間
-<br>
-　　・環境：seeing||透明度
-<br>
-　　・ぶれ低減：天体の追尾
-<br>
-　　後処理：<a href="#span-out-UI-graphing-filter-list">画像処理</a>（校正を含む）
-<br>
-　　・stacking：総露光時間＝露光時間×stack枚数
-<br>
-　　　＋位置合わせ：対象天体||背景天体基準（遥か彼方遠方）　⇒　一方が棒状に流れる天体の追尾に相当
-<br>
-　　・masking合成：対象天体＋背景天体
+　　望遠鏡画像：主に<a href="#span-app-telescope">総露光時間</a>が<a href="#span-app-knowns">tail</a>構造</span>の濃淡に影響（加工次第）
 <br>
 　・最接近時の光学的な最高解像度：Order(10km/pixel)　⇒　核表面の解像困難
 <br>
@@ -7921,7 +8039,7 @@ Hill_radius(227920000,6.4171e23,1.9884e30) -> 1083977.752539231[km]（<a href="#
       <th>運用</th>
       <th>場所</th>
       <th><a href="#span-app-optics">波長</a></th>
-      <th>IFOV<br>[秒角/pixel]</th>
+      <th><a href="#span-app-telescope">IFOV</a><br>[秒角/pixel]</th>
       <th class="clear">内容</th>
     </tr>
   </thead>
@@ -8031,8 +8149,8 @@ Hill_radius(227920000,6.4171e23,1.9884e30) -> 1083977.752539231[km]（<a href="#
       <th>運用</th>
       <th>場所</th>
       <th class="clear">検出</th>
-      <th>IFOV<br>[秒角/pixel]</th>
-      <th>IFOV換算<br>画像分解能[km/pixel]<br>get_reso(IFOV,d)=&lt;<br>IFOV*d*2pi/(60*60*360);</th>
+      <th><a href="#span-app-telescope">IFOV</a><br>[秒角/pixel]</th>
+      <th><a href="#span-app-telescope">IFOV</a>換算<br>画像分解能[km/pixel]<br>get_reso(IFOV,d)=&lt;<br>IFOV*d*2pi/(60*60*360);</th>
       <th>公称値から単純換算<br>画像分解能[km/pixel]<br>calc_reso(Rn,Dn,d)=&lt;<br>last{IFOV=Rn/Dn,IFOV*d};</th>
     </tr>
   </thead>
@@ -8194,10 +8312,10 @@ Hill_radius(227920000,6.4171e23,1.9884e30) -> 1083977.752539231[km]（<a href="#
     <tr>
       <th>分類</th>
       <th>機器/network</th>
-      <th>運用/場所<br><span class="condition">"International Dark Sky Places"</span></th>
+      <th>運用/場所<br><span class="condition"><a href="#span-app-telescope">"International Dark Sky Places"</a></span></th>
       <th><a href="#span-app-optics">波長</a></th>
       <th>口径[m]<br><span class="jF">分割鏡</span></th>
-      <th>IFOV<br>[秒角/pixel]</th>
+      <th><a href="#span-app-telescope">IFOV</a><br>[秒角/pixel]</th>
       <th class="clear">内容</th>
     </tr>
   </thead>
@@ -8367,7 +8485,7 @@ Hill_radius(227920000,6.4171e23,1.9884e30) -> 1083977.752539231[km]（<a href="#
       <td>高感度撮像<br>撮像@11/11<br>・明確な分裂なし<br>・太陽側の<a href="#span-app-jet">jet</a>構造</td>
     </tr>
     <tr>
-      <td rowspan="11">光学望遠鏡</td>
+      <td rowspan="12">光学望遠鏡</td>
       <td>Teide Observatory</td>
       <td>IAC<br>Institute of Astrophysics of the Canary Islands, <span class="condition">Tenerife</span>, Canary Islands, Spain</td>
       <td>可視光線</td>
@@ -8456,10 +8574,18 @@ Hill_radius(227920000,6.4171e23,1.9884e30) -> 1083977.752539231[km]（<a href="#
       <td>@zwoastro@11/21<br>・正反の<a href="#span-app-knowns">tail</a>構造</td>
     </tr>
     <tr>
+      <td>Individual<br>Astrophysics<br>CCD</td>
+      <td>Mitsunori Tsumura</td>
+      <td>可視光線</td>
+      <td>0.5</td>
+      <td></td>
+      <td>撮像@11/22<br>・正反の<a href="#span-app-knowns">tail</a>構造</td>
+    </tr>
+    <tr>
       <td>Network</td>
       <td>IAWN<br>International Asteroid Warning Network</td>
       <td>UN<br>United Nations, Worldwide</td>
-      <td colspan="3"><a href="#span-out-UI-graphing-testcase">相補</a><br>・空間分解能<br>　IFOV∝<a href="#span-app-optics">波長</a>/口径<br>・解像度∝1/IFOV<br>・集光力∝口径**2</td>
+      <td colspan="3"><a href="#span-out-UI-graphing-testcase">相補</a></td>
       <td>第9回<br>特別観測campaign<br>11/27~2026/01/27</td>
     </tr>
   </tbody>
@@ -8561,7 +8687,7 @@ d=5e3; rho=0.5e3; vol=(4pi/3)*(d/2)**3; m=rho*vol; m -> 32724923474893.676[kg]
 <br>
 　<span class="selection"><a href="#span-app-orbit">軌道計算</a></span>：火星⇒<a href="#span-app-earth">反地球</a>⇒金星⇒木星（「いて座」方向から逆行誘導で各1[au]以内のmulti-<a href="#span-app-orbit">flyby</a>）
 <br>
-　太陽合（天体-太陽-地球）：10月中旬~11月上旬（太陽光に隠れて地球から天体観測困難）
+　太陽合（天体-太陽-地球）：10月中旬~11月上旬（太陽光に隠れて地球から<a href="#span-app-telescope">天体観測</a>困難）
 <br>
 　・<span class="clear">coronagraph観測：近日点に接近中の軌道と太陽の大規模な<a href="#span-app-flare">CME</a>を確認</span>
 <br>
@@ -8856,7 +8982,7 @@ Snu=250e-26; dnu=[1,10e3]; F=Snu*dnu; A=4*pi*r^2; Ptx=F*A; Ptx
 <br>
 仮説上の天体
 <br>
-・直接観測不可の場合、間接的な観測結果と<a href="#span-app-orbit">軌道計算</a>の整合性次第
+・<a href="#span-app-telescope">直接観測</a>不可の場合、間接的な観測結果と<a href="#span-app-orbit">軌道計算</a>の整合性次第
 <br>
 ・惑星X：外縁天体の観測結果と<a href="#span-app-orbit">軌道計算</a>の矛盾を解消するための仮定（未知の惑星）
 <br>
@@ -9960,7 +10086,7 @@ pyramidの解釈について記述する
 <br>
 　王の墓||祭壇||叡智の神殿（複数の位置関係で星座を表現）
 <br>
-　天体観測（春分の日等、光と影の演出あり）
+　<a href="#span-app-telescope">天体観測</a>（春分の日等、光と影の演出あり）
 <br>
 ・一部
 <br>
