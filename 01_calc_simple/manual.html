@@ -3139,6 +3139,10 @@ ja.m.wikipedia.org/wiki/項目を列挙する
 <br>
 ・超新星
 <br>
+・金属カルボニル
+<br>
+・カルボニル基
+<br>
 ・彗星
 <br>
 ・大彗星
@@ -3178,6 +3182,8 @@ ja.m.wikipedia.org/wiki/項目を列挙する
 ・3I/ATLAS
 <br>
 ・小惑星地球衝突最終警報システム
+<br>
+・ファルネーゼのアトラス
 <br>
 ・Wow!_シグナル
 <br>
@@ -3666,6 +3672,8 @@ astro-dic.jp/項目を列挙する
 ・ecliptic-coordinate-system
 <br>
 ・galactic-plane
+<br>
+・galactic-halo
     </td>
   </tr>
   <tr>
@@ -6573,7 +6581,7 @@ d=1e7; calc_magnitude(d) -> 17.9
       <td></td>
       <td></td>
       <td></td>
-      <td>random</td>
+      <td>円盤厚さH<br>~銀河halo<br>≒銀河面@H→0<br>random@H→∞</td>
       <td></td>
       <td></td>
     </tr>
@@ -6602,7 +6610,7 @@ d=1e7; calc_magnitude(d) -> 17.9
       <td>約3.6</td>
     </tr>
     <tr>
-      <th><a href="#span-app-knowns-ATLAS">3I/ATLAS</a> (2025 N1)<br><span class="condition"><a href="#span-app-flare">CME</a>直撃@9/24~25</span></th>
+      <th><a href="#span-app-knowns-ATLAS">3I/ATLAS</a> (2025 N1)<br><span class="condition"><a href="#span-app-flare">CME</a>直撃@09/24~25</span></th>
       <td>2025/07/01</td>
       <td>10/29</td>
       <td>12/19</td>
@@ -7431,11 +7439,9 @@ Tsuchinshan
 Tsuchinshan-ATLASの解釈について記述する
 <br>
 <br>
-<a href="#span-app-knowns">Tsuchinshan-ATLAS</a>
+<a href="#span-app-knowns">Tsuchinshan-ATLAS</a>：紫金山・ATLAS彗星
 <br>
-・紫金山・ATLAS彗星
-<br>
-　経緯：紫金山天文台で発見⇒追跡困難⇒ATLASで再発見（小惑星地球衝突最終警報system）
+・経緯：紫金山天文台で発見⇒追跡困難⇒ATLASで再発見（小惑星地球衝突最終警報system）
 <br>
 　<a href="#span-app-knowns">太陽系内彗星</a>：<a href="#span-app-astronomy">彗星</a>活動cycleの全processを網羅的に観測
 <br>
@@ -7865,7 +7871,7 @@ Tsuchinshan-ATLASの解釈について記述する
 3I/ATLASの解釈について記述する
 <br>
 <br>
-<a href="#span-app-knowns">3I/ATLAS</a>
+<a href="#span-app-knowns">3I/ATLAS</a>：3番目の恒星間天体
 <br>
 ・以下、<span class="selection">火星最接近@10/03以前の推定値</span>と<span class="clear">近日点通過後@11/27以前の観測結果</span>を参照
 <br>
@@ -7875,11 +7881,13 @@ Tsuchinshan-ATLASの解釈について記述する
 <br>
 　・X-classの<a href="#span-app-flare">太陽flare</a>発生回数@第21⇒22⇒23⇒24⇒25途中：90⇒95⇒130↑⇒50↓⇒50↑
 <br>
-　・異例：<span class="clear"><a href="#span-app-flare">CME</a>直撃event発生</span>@9/24~25
+　・異例：<span class="clear"><a href="#span-app-flare">CME</a>直撃event発生</span>@09/24~25
 　<br>
 　　Order(<a href="#span-app-period-activity">11年周期</a>)に1度の頻度：地球の大規模な<a href="#span-app-flare">CME</a>直撃event@2024/05/10~11@11/12~13
 　<br>
-　　約15年に1度の頻度：「<a href="#span-app-knowns">土星</a>の環の消失」の<a href="#span-ref-image1">環平面通過event</a>@03/23@05/06@11/25
+　　約5年に1度のExpo 2025 Osaka：<em>The Farnese Atlas</em>@Italy館@04/13~10/13
+　<br>
+　　約15年に1度の「<a href="#span-app-knowns">土星</a>の環の消失」：<a href="#span-ref-image1">環平面通過event</a>@03/23@05/06@11/25
 　<br>
 　　<a href="#span-app-history">約1.2万年前</a>に1度の頻度：Hayli-Gubbi火山の大規模噴火@Ethiopia@11/23
 <br>
@@ -8092,6 +8100,10 @@ escape_velocity(r,mp)=&lt;last{G=6.67430e-11,sqrt(2*G*mp/r)};
 escape_velocity(5344.5e7,1.8986e27) -> 2177.614788498567[m/s]
 <br>
 escape_velocity(5377e7,1.8986e27) -> 2171.0237761395288[m/s]
+<br>
+　　　|相対速度|相当の<a href="#span-app-gravity">重力</a>捕獲距離：約5.8万km
+<br>
+calc_r(ve,mp)=&lt;last{G=6.67430e-11,2*G*mp/ve**2}; calc_r(66e3,1.8986e27) -> 58181019.191919185[m]
 <br>
 　　・Hill球：主星に対する副星の<a href="#span-app-gravity">重力</a>圏（例えば、太陽-惑星-天体の円制限<a href="#span-out-UI-graphing-testcase">3体問題</a>の単純化）
 <br>
@@ -8747,6 +8759,12 @@ d=5e3; rho=0.5e3; vol=(4pi/3)*(d/2)**3; m=rho*vol; m -> 32724923474893.676[kg]
 <br>
 　　H2​O：約150K@3au（水雪線）
 <br>
+　　<span class="selection">Ni(CO)4</span>：約43℃（carbonyl化合物の揮発性＋光解離　⇒　分光観測でspectrum検出の可能性）
+<br>
+　　<span class="selection">Fe(CO)5</span>：約103℃（核表面の最高温度相当　⇒　検出困難の可能性）
+<br>
+　　Fe-Ni合金：1000℃以上（難揮発性　⇒　dustのsample採取で検出）
+<br>
 　・<a href="#span-app-jet">jet</a>強度：極小⇒中⇒大
 <br>
 　　塵の微細化：弱結合のはく離（限定的）⇒せん断と衝突破砕⇒高速はく離と衝突破砕の激化
@@ -8769,6 +8787,12 @@ d=5e3; rho=0.5e3; vol=(4pi/3)*(d/2)**3; m=rho*vol; m -> 32724923474893.676[kg]
 <br>
 　<span class="selection"><a href="#span-app-orbit">軌道計算</a></span>：火星⇒<a href="#span-app-earth">反地球</a>⇒金星⇒木星（「いて座」方向から逆行誘導で各1[au]以内のmulti-<a href="#span-app-orbit">flyby</a>）
 <br>
+　軌道傾斜角：<span class="selection">175.11°</span>（≒黄道面）
+<br>
+　・放出event：黄道面と銀河面の交角≒60°　⇒　薄い円盤より厚い円盤に近い可能性（起源の補強）
+<br>
+　・不確定要素：星間の重力<a href="#span-out-UI-graphing-testcase">random-walk</a>
+<br>
 　太陽合（天体-太陽-地球）：10月中旬~11月上旬（太陽光に隠れて地球から<a href="#span-app-telescope">天体観測</a>困難）
 <br>
 　・<span class="clear">coronagraph観測：近日点に接近中の軌道と太陽の大規模な<a href="#span-app-flare">CME</a>を確認</span>
@@ -8777,7 +8801,7 @@ d=5e3; rho=0.5e3; vol=(4pi/3)*(d/2)**3; m=rho*vol; m -> 32724923474893.676[kg]
 <br>
 　・前後の期間：観測windowの短縮で観測困難（太陽-天体-観測者の位相角≒0　⇒　尾が視線方向の可能性）
 <br>
-　太陽合の特異性：<span class="selection">近日点近傍で黄道面と交差</span>（黄道面と銀河面の交角≒60°と星間の重力<a href="#span-out-UI-graphing-testcase">random-walk</a>を考慮）
+　太陽合の特異性：<span class="selection">近日点近傍で黄道面と交差</span>
 <br>
 　・180°-軌道傾斜角（逆行側）≦5°（月相当）：<span class="selection">立体角の幾何学的確率≒0.19%</span>（非常に<a href="#span-app-entropy">稀な事象</a>）
 <br>
@@ -8785,7 +8809,7 @@ d=5e3; rho=0.5e3; vol=(4pi/3)*(d/2)**3; m=rho*vol; m -> 32724923474893.676[kg]
 <br>
 (cos_deg(87.5)-cos_deg(92.5))/2 -> 0.04361938736533606（垂直方向の方が高確率　⇔　直交方向で極大化）
 <br>
-　<span class="clear"><a href="#span-app-flare">CME</a>直撃event発生</span><span class="selection">@9/24~25：太陽から突発放出の予測経路と交差</span>（impact確率を下記）
+　<span class="clear"><a href="#span-app-flare">CME</a>直撃event発生</span><span class="selection">@09/24~25：太陽から突発放出の予測経路と交差</span>（impact確率を下記）
 <br>
 　・既知の影響：磁場反転⇒磁気再結合⇒<a href="#span-app-knowns">plasma-tail</a>切断event（例えば、<a href="#span-app-knowns">2P/Encke彗星</a>@2007/4/20）
 <br>
