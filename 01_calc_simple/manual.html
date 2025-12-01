@@ -1148,9 +1148,11 @@ test case
 <br>
 　・<a href="#span-app-meteorite">隕石</a>
 <br>
-　・<a href="#span-app-orbit">軌道計算</a>
-<br>
 　・<a href="#span-app-telescope">天体観測</a>
+<br>
+　・<a href="#span-app-astrodynamics">天体力学</a>
+<br>
+　　・<a href="#span-app-orbit">軌道計算</a>
 <br>
 　・<a href="#span-app-object">天体</a>
 <br>
@@ -3141,6 +3143,8 @@ ja.m.wikipedia.org/wiki/項目を列挙する
 <br>
 ・金属カルボニル
 <br>
+・硫化カルボニル
+<br>
 ・カルボニル基
 <br>
 ・彗星
@@ -3242,6 +3246,10 @@ ja.m.wikipedia.org/wiki/項目を列挙する
 ・平均近点角
 <br>
 ・離心近点角
+<br>
+・赤道傾斜角
+<br>
+・黄道傾斜角
 <br>
 ・軌道傾斜角
 <br>
@@ -5690,22 +5698,6 @@ substitution方式の変換
 <br>
 ・aurora現象：磁気嵐による<a href="#span-app-atmosphere">電離層</a>大気の<a href="#span-app-light">発光</a>現象
 <br>
-・<a href="#span-app-orbit">摂動</a>：<a href="#span-app-object">天体</a>軌道の乱れ
-<br>
-　惑星：主に<a href="#span-app-gravity">重力</a>（<a href="#span-app-object">天体</a>との<a href="#span-app-interaction">相互作用</a>）
-<br>
-　<a href="#span-app-knowns">小惑星</a>：<a href="#span-app-gravity">重力</a>||YORP効果||Yarkovsky効果
-<br>
-　<a href="#span-app-knowns">彗星</a>：<a href="#span-app-gravity">重力</a>||<a href="#span-app-knowns-ATLAS">rocket効果</a>
-<br>
-・効果：太陽光の吸収による加熱（作用）
-<br>
-　YORP効果：不均一な熱放射（反作用）⇒回転速度||自転軸の変化（結果）
-<br>
-　Yarkovsky効果：不均一な熱放射（反作用）⇒軌道の変化（結果）
-<br>
-　<a href="#span-app-knowns-ATLAS">rocket効果</a>：outgassing-<a href="#span-app-jet">jet</a>（反作用）⇒軌道の変化（結果）
-<br>
 ・<a href="#span-app-knowns">流星</a>：超音速で<a href="#span-app-atmosphere">大気圏</a>に突入⇒大気の<a href="#span-app-entropy">断熱圧縮</a>⇒燃焼と気化（ablation）⇒自発発光
 <br>
 　<a href="#span-app-meteorite">隕石</a>：<a href="#span-app-wave">衝撃波</a>を伴い地表に到達
@@ -6205,6 +6197,73 @@ d=1e7; calc_magnitude(d) -> 17.9
 目次
 </a>
 <br>
+天体力学
+<br>
+の解釈
+    </th>
+    <td>
+<span id="span-app-astrodynamics"></span>
+天体力学の解釈について記述する
+<br>
+<br>
+定義
+<br>
+・公転面：天体の公転面（公転の基準面）
+<br>
+・黄道面：地球の公転面
+<br>
+　北黄極：黄道面の北極（上面図の視点）
+<br>
+　軌道傾斜角：公転面と黄道面の交角
+<br>
+・赤道面：天体の赤道面（自転の基準面）
+<br>
+　赤道傾斜角：公転面基準
+<br>
+　黄道傾斜角：黄道面基準
+<br>
+<br>
+自転：天体の回転
+<br>
+・太陽系：北黄極基準
+<br>
+　順行：反時計回り
+<br>
+　逆行：時計回り
+<br>
+・一般系：運動基準（公転方向と自転方向の符号　⇒　<a href="#span-app-knowns-ATLAS">rocket効果</a>に対する変動分の影響）
+<br>
+　「順行」：同一　⇒　進行方向の加速
+<br>
+　「逆行」：反対　⇒　進行方向の減速
+<br>
+・潮汐固定：自転と公転が同期する現象（回転減衰の<a href="#span-out-limit">極限</a>状態）
+<br>
+<br>
+効果：太陽光の吸収による加熱（作用）
+<br>
+・YORP効果：不均一な熱放射（反作用）⇒回転速度||自転軸の変化（結果）
+<br>
+・Yarkovsky効果：不均一な熱放射（反作用）⇒軌道の変化（結果）
+<br>
+・<a href="#span-app-knowns-ATLAS">rocket効果</a>：outgassing-<a href="#span-app-jet">jet</a>（反作用）⇒軌道の変化（結果）
+<br>
+<br>
+<a href="#span-app-orbit">摂動</a>：<a href="#span-app-object">天体</a>軌道の乱れ
+<br>
+・惑星：主に<a href="#span-app-gravity">重力</a>（<a href="#span-app-object">天体</a>との<a href="#span-app-interaction">相互作用</a>）
+<br>
+・<a href="#span-app-knowns">小惑星</a>：<a href="#span-app-gravity">重力</a>||YORP効果||Yarkovsky効果
+<br>
+・<a href="#span-app-knowns">彗星</a>：<a href="#span-app-gravity">重力</a>||<a href="#span-app-knowns-ATLAS">rocket効果</a>
+    </td>
+  </tr>
+  <tr>
+    <th>
+<a href="#span-index">
+目次
+</a>
+<br>
 軌道計算
 <br>
 の解釈
@@ -6218,15 +6277,15 @@ d=1e7; calc_magnitude(d) -> 17.9
 <br>
 ・本来、地球の衛星である月の運動方程式を連成する
 <br>
-・また、別の<a href="#span-app-object">天体</a>の接近は地球の<a href="#span-out-ODE3">公転軌道</a>||地軸に多少の<a href="#span-app-astronomy">摂動</a>||章動を与える
+・また、別の<a href="#span-app-object">天体</a>の接近は地球の<a href="#span-out-ODE3">公転軌道</a>||地軸に多少の<a href="#span-app-astrodynamics">摂動</a>||章動を与える
 <br>
 ・さらに、潮汐力で地球全体が変形するため、地殻||海面が追加の影響を受ける
 <br>
 潮汐力∝<a href="#span-app-object">天体</a>の質量／接近距離の3乗
 <br>
-・月の場合、潮汐力の影響が大きく、楕円体の長軸を地球に向けて潮汐固定（自転と公転が同期する現象）する
+・月の場合、潮汐力の影響が大きく、楕円体の長軸を地球に向けて<a href="#span-app-astrodynamics">潮汐固定</a>する
 <br>
-・より厳密には<a href="#span-app-gravity">重力</a>場と電磁場を含む系全体の<a href="#span-app-interaction">相互作用</a>によって<a href="#span-app-astronomy">摂動</a>||章動が生じる
+・より厳密には<a href="#span-app-gravity">重力</a>場と電磁場を含む系全体の<a href="#span-app-interaction">相互作用</a>によって<a href="#span-app-astrodynamics">摂動</a>||章動が生じる
 <br>
 ・例えば、太陽系が通過する宇宙空間のplasma等、大域的なenergy密度の変化が影響する
 <br>
@@ -6245,7 +6304,7 @@ d=1e7; calc_magnitude(d) -> 17.9
 <br>
 　powered swing-by：<a href="#span-app-gravity">重力</a>assistに推力を併用
 <br>
-・flyby：<a href="#span-app-object">天体</a>近くを通過すること（outgassing-<a href="#span-app-jet">jet</a>を伴う<a href="#span-app-astronomy">彗星</a>等）　<span class="clear">Ver.2.874.165</span>以降、追記
+・flyby：<a href="#span-app-object">天体</a>近くを通過すること（outgassing-<a href="#span-app-jet">jet</a>を伴う<a href="#span-app-knowns">彗星</a>等）　<span class="clear">Ver.2.874.165</span>以降、追記
     </td>
   </tr>
   <tr>
@@ -6315,7 +6374,7 @@ d=1e7; calc_magnitude(d) -> 17.9
       <th>近日点<br>距離[au]</th>
       <th>近地点<br>距離[au]</th>
       <th>予想<br>最大等級</th>
-      <th>軌道傾斜角i<br>地球基準</th>
+      <th><a href="#span-app-astrodynamics">軌道傾斜角</a>i</th>
       <th><a href="#span-app-period-motion">周期</a>T[年]</th>
       <th>離心率</th>
     </tr>
@@ -6334,14 +6393,14 @@ d=1e7; calc_magnitude(d) -> 17.9
       <td></td>
     </tr>
     <tr>
-      <th>Sun</th>
+      <th>Sun<br><span class="condition"><a href="#span-app-astrodynamics">赤道傾斜角</a>ε≒7.25°</span></th>
       <td></td>
       <td></td>
       <td></td>
       <td></td>
       <td></td>
       <td></td>
-      <td>自転軸傾斜角<br>≒7.25°</td>
+      <td></td>
       <td></td>
       <td>0</td>
     </tr>
@@ -6353,7 +6412,7 @@ d=1e7; calc_magnitude(d) -> 17.9
       <td></td>
       <td></td>
       <td></td>
-      <td>≒黄道面</td>
+      <td>≒<a href="#span-app-astrodynamics">黄道面</a></td>
       <td></td>
       <td></td>
     </tr>
@@ -6370,7 +6429,7 @@ d=1e7; calc_magnitude(d) -> 17.9
       <td>0.2056</td>
     </tr>
     <tr>
-      <th>Venus</th>
+      <th>Venus<br><span class="condition"><a href="#span-app-astrodynamics">逆行自転</a>@ε≒177°</span></th>
       <td></td>
       <td></td>
       <td></td>
@@ -6382,7 +6441,7 @@ d=1e7; calc_magnitude(d) -> 17.9
       <td>0.0068</td>
     </tr>
     <tr>
-      <th>Earth</th>
+      <th>Earth<br><span class="condition"><a href="#span-app-astrodynamics">順行自転</a>@ε≒<a href="#span-app-period-motion">23.4</a>°</span></th>
       <td></td>
       <td></td>
       <td></td>
@@ -6430,7 +6489,7 @@ d=1e7; calc_magnitude(d) -> 17.9
       <td>0.0542</td>
     </tr>
     <tr>
-      <th>Uranus</th>
+      <th>Uranus<br><span class="condition"><a href="#span-app-astrodynamics">逆行自転</a>寄り@ε≒98°</span></th>
       <td></td>
       <td></td>
       <td></td>
@@ -6461,7 +6520,7 @@ d=1e7; calc_magnitude(d) -> 17.9
       <td></td>
       <td></td>
       <td></td>
-      <td>≠黄道面</td>
+      <td>≠<a href="#span-app-astrodynamics">黄道面</a></td>
       <td></td>
       <td></td>
     </tr>
@@ -6533,7 +6592,7 @@ d=1e7; calc_magnitude(d) -> 17.9
       <td></td>
       <td></td>
       <td></td>
-      <td>≠黄道面</td>
+      <td>≠<a href="#span-app-astrodynamics">黄道面</a></td>
       <td></td>
       <td></td>
     </tr>
@@ -6629,7 +6688,7 @@ d=1e7; calc_magnitude(d) -> 17.9
       <td></td>
       <td></td>
       <td class="run">&le;0の大彗星</td>
-      <td>~Oortの雲<br>≒黄道面@T→0<br>random@T→∞</td>
+      <td>~Oortの雲<br>≒<a href="#span-app-astrodynamics">黄道面</a>@T→0<br>random@T→∞</td>
       <td>iと<a href="#span-out-approximation-linear">相関</a></td>
       <td></td>
     </tr>
@@ -6816,7 +6875,7 @@ d=1e7; calc_magnitude(d) -> 17.9
     <tr>
       <th>P/2013 R3 (Catalina-PanSTARRS)</th>
       <td>2013/09/15</td>
-      <td>2014/01/14<br><span class="condition"><a href="#span-app-astronomy">YORP効果</a><br>の多重分裂</span></td>
+      <td>2014/01/14<br><span class="condition"><a href="#span-app-astrodynamics">YORP効果</a><br>の多重分裂</span></td>
       <td>2013/11/02</td>
       <td>2.333</td>
       <td>1.23</td>
@@ -7006,7 +7065,7 @@ d=1e7; calc_magnitude(d) -> 17.9
       <td>0.543</td>
     </tr>
     <tr>
-      <th>C/1991 (A2 Metcalf-Brewington)<br><span class="condition">Kiuchi氏の再発見<br><a href="#span-app-astronomy">摂動</a>加味の<a href="#span-app-rule">経験則</a></span></th>
+      <th>C/1991 (A2 Metcalf-Brewington)<br><span class="condition">Kiuchi氏の再発見<br><a href="#span-app-astrodynamics">摂動</a>加味の<a href="#span-app-rule">経験則</a></span></th>
       <td>1906/10/28<BR>1991/01/07</td>
       <td>1991/01/29</td>
       <td>1991/02/09</td>
@@ -7030,7 +7089,7 @@ d=1e7; calc_magnitude(d) -> 17.9
       <td>0.432</td>
     </tr>
     <tr>
-      <th>109P/Swift-Tuttle<br><span class="condition">Kiuchi氏の再発見<br><a href="#span-app-astronomy">摂動</a>加味の<a href="#span-app-rule">経験則</a></span></th>
+      <th>109P/Swift-Tuttle<br><span class="condition">Kiuchi氏の再発見<br><a href="#span-app-astrodynamics">摂動</a>加味の<a href="#span-app-rule">経験則</a></span></th>
       <td>1862/07/15<br>1992/09/26</td>
       <td>1992/12/12</td>
       <td>1992/12/30</td>
@@ -7078,7 +7137,7 @@ d=1e7; calc_magnitude(d) -> 17.9
       <td>0.995</td>
     </tr>
     <tr>
-      <th>2P/Encke (2007)<br><span class="condition"><a href="#span-app-knowns-ATLAS">「逆行自転」</a><br><a href="#span-app-flare">CME</a>直撃@4/20</span></th>
+      <th>2P/Encke (2007)<br><span class="condition"><a href="#span-app-flare">CME</a>直撃@4/20</span></th>
       <td>1786/01/17</td>
       <td>2007/04/24</td>
       <td>2007/05/29</td>
@@ -7253,7 +7312,7 @@ d=1e7; calc_magnitude(d) -> 17.9
       <td></td>
       <td></td>
       <td></td>
-      <td>~小惑星帯<br>≒黄道面@T→0</td>
+      <td>~小惑星帯<br>≒<a href="#span-app-astrodynamics">黄道面</a>@T→0</td>
       <td></td>
       <td></td>
     </tr>
@@ -7443,7 +7502,7 @@ Tsuchinshan-ATLASの解釈について記述する
 <br>
 ・経緯：紫金山天文台で発見⇒追跡困難⇒ATLASで再発見（小惑星地球衝突最終警報system）
 <br>
-　<a href="#span-app-knowns">太陽系内彗星</a>：<a href="#span-app-astronomy">彗星</a>活動cycleの全processを網羅的に観測
+　<a href="#span-app-knowns">太陽系内彗星</a>：<a href="#span-app-knowns">彗星</a>活動cycleの全processを網羅的に観測
 <br>
 　観測網：以下の一覧（惑星探査機を含む）
 <br>
@@ -7923,7 +7982,7 @@ a_non_g=2.5e-5; v_gas=300; a_non_g*T_perihelion/v_gas -> 0.1332（分裂あり�
 <br>
 　・<span class="clear">|非重力加速度|@近日点：Order(<span class="jF">5e-7m/s^2</span>)</span>
 <br>
-　　Marsden形式<span class="clear">3成分@11/27：動径:接線:法線方向の比率≒3:2:0</span>（動径方向の外向き＋「順行自転」相当）
+　　Marsden形式<span class="clear">3成分@11/27：動径:接線:法線方向の比率≒3:2:0</span>（動径方向の外向き＋<a href="#span-app-astrodynamics">「順行自転」</a>相当）
 <br>
 A1=7.67705176269127e-8; A2=5.097390576407114e-8; A3=-3.581097723791005e-9;
 <br>
@@ -7947,7 +8006,7 @@ deg_non_g=4/(60*60); deg_non_g -> 0.0011111111111111111[deg]
 <br>
 　・<span class="clear">近日点通過後：希薄な尾（太陽合の直後）</span>　⇒　徐々に幾何学的な視認性が回復（離脱過程）
 <br>
-　・主要因：<a href="#span-app-astronomy">rocket効果</a>&gt;&gt;&gt;&gt;&gt;放射圧&gt;動圧&gt;<a href="#span-app-astronomy">Yarkovsky効果</a>
+　・主要因：<a href="#span-app-astrodynamics">rocket効果</a>&gt;&gt;&gt;&gt;&gt;放射圧&gt;動圧&gt;<a href="#span-app-astrodynamics">Yarkovsky効果</a>
 <br>
 <span class="jF">d=5e3</span>; rho=0.5e3; vol=(4pi/3)*(d/2)**3; m=rho*vol; A=pi*(d/2)**2;
 <br>
@@ -7963,7 +8022,7 @@ F_Yarkovsky=F_radiation*1e-3; F_Yarkovsky -> 0.04805327865567048
 <br>
 　・<a href="#span-app-analogy">analogy</a>：構造と状況の既視感
 <br>
-　　構造：「汚れた雪だるま」の<a href="#span-app-astronomy">彗星</a>　⇔　<a href="#span-out-modelling-0D-diffusion">porous電極活物質</a>（表層の不活性化）
+　　構造：「汚れた雪だるま」の<a href="#span-app-knowns">彗星</a>　⇔　<a href="#span-out-modelling-0D-diffusion">porous電極活物質</a>（表層の不活性化）
 <br>
 　　状況：正反の<a href="#span-app-knowns">tail</a>構造</span>　⇔　「<a href="#span-app-knowns">土星</a>の環の消失」（輪⇒扇⇒edge-onの「二極化」）
 <br>
@@ -7977,7 +8036,7 @@ F_Yarkovsky=F_radiation*1e-3; F_Yarkovsky -> 0.04805327865567048
 <br>
 　　・再結合反応：CO＋O→CO2　⇒　<span class="selection">深層：CO2よりH2O＋COが豊富</span>（太陽系外縁部に同様？起源次第）
 <br>
-　　crustの厚さ：観測される<a href="#span-app-astronomy">彗星</a>活動の規模に影響（日心距離依存で小惑星の誤認を含む）
+　　crustの厚さ：観測される<a href="#span-app-knowns">彗星</a>活動の規模に影響（日心距離依存で小惑星の誤認を含む）
 <br>
 　・初期のoutgassing：揮発性物質の減少（dust-mantle化）　⇒　熱伝導性の低下（深層の熱保護＋内圧上昇に寄与）
 <br>
@@ -7985,17 +8044,17 @@ F_Yarkovsky=F_radiation*1e-3; F_Yarkovsky -> 0.04805327865567048
 <br>
 　　<span class="clear">質量損失割合：0.0014%×実効係数</span>区間[40,40*7*3*2]　⇒　核[表層,深層？]の連続はく離（<span class="clear">≠分裂</span>）
 <br>
-　　<span class="clear">蛍光発光</span>（hν吸収⇒励起⇒基底状態）：光電離のCO+（青色）&gt;光解離のC2（緑色）&gt;&gt;光解離のNH2（赤色）
+　　<span class="clear">蛍光発光</span>（hν吸収⇒励起⇒基底状態）：光電離のCO+（青色）&gt;光解離のCN（青色）&gt;C2（緑色）&gt;&gt;NH2（赤色）
 <br>
 　　・CO2＋hν→CO2+＋e-（光電離）
 <br>
-　　　CO2＋hν→<span class="condition">CO</span>＋O（光解離）
+　　　CO2＋hν→<span class="condition">CO</span>＋O（光解離）　⇒　<span class="clear">H2OよりCO2が豊富@JWST@08/06</span>
 <br>
 　　　CO2＋hν→O＋CO+＋e-（解離性光電離）
 <br>
 　　　CO2＋hν→O2＋C+＋e-（解離性光電離）
 <br>
-　　・<span class="condition">CO</span>＋hν→CO+＋e-（光電離）　⇒　<span class="clear">太陽より青い@10/28</span>（豊富なCO2の光解離が優勢？深層の露出？）
+　　・<span class="condition">CO</span>＋hν→CO+＋e-（光電離）　⇒　<span class="clear">太陽より青い@10/28</span>（豊富なCO2由来？深層露出のCO由来？）
 <br>
 　　・H2O＋hν→H＋OH（光解離）　⇒　<span class="clear">恒星間天体の電波信号を初検出@10/24</span>（H2O分光観測の補強）
 <br>
@@ -8005,6 +8064,10 @@ F_Yarkovsky=F_radiation*1e-3; F_Yarkovsky -> 0.04805327865567048
 <br>
 　　　H2O＋hν→H＋OH+＋e-（解離性光電離）
 <br>
+　　・COS＋hν→CO＋S（光解離）　⇒　以降、<a href="#span-app-knowns">太陽系内彗星</a>同程度以下の寄与
+<br>
+　　・HCN＋hν→CN＋H（光解離）　⇒　<span class="clear">枯渇気味のC2よりCNが豊富@08/19速報</span>（comaの青色成分＞緑色成分）
+<br>
 　　・C2H2＋hν→C2H＋H　⇒　C2H＋hν→C2＋H（多段階の光解離）
 <br>
 　　・NH3＋hν→NH2+H（光解離）
@@ -8013,11 +8076,15 @@ F_Yarkovsky=F_radiation*1e-3; F_Yarkovsky -> 0.04805327865567048
 <br>
 　　太陽-天体-観測者の位相角：10~15°（≒太陽合）
 <br>
-　　軌道傾斜角：175.11°（≒黄道面）
+　　<a href="#span-app-astrodynamics">軌道傾斜角</a>：175.11°（≒<a href="#span-app-astrodynamics">黄道面</a>）
 <br>
 　　＋非重力加速度：法線方向のA3成分≒0（≒edge-on）
 <br>
-　・収束判定条件：北黄極視点の上面図が「正反合」の扇状　⇔　地球視点の側面図が「正反」のedge-on
+　　地上の観測window：夜明け前の東の低空↑
+<br>
+　　<a href="#span-app-astrodynamics">北黄極</a>視点の公転と自転：時計回り（地球は反時計回り）
+<br>
+　・収束判定条件：<a href="#span-app-astrodynamics">北黄極</a>視点の上面図が「正反合」の扇状　⇔　地球視点の側面図が「正反」のedge-on
 <br>
 　　<img src="img/20251129_01.png">　<img src="img/20251129_02.png">
 <br>
@@ -8051,7 +8118,7 @@ F_Yarkovsky=F_radiation*1e-3; F_Yarkovsky -> 0.04805327865567048
 <br>
 　　　核の直径：<span class="selection">約0.4km</span>
 <br>
-　　　核の自転周期：<span class="selection">5.4h以上（<a href="#span-app-astronomy">YORP効果</a>による「分裂限界」相当）</span>
+　　　核の自転周期：<span class="selection">5.4h以上（<a href="#span-app-astrodynamics">YORP効果</a>による「分裂限界」相当）</span>
 <br>
 　　　放出event：<span class="selection">高速自転による潮汐力と熱応力の<a href="#span-app-interaction">相互作用</a>　⇒　表面物質の間欠的な崩壊と放出</span>（計9回）
 <br>
@@ -8069,7 +8136,7 @@ Roche_limit(71492,1.33,0.5) -> 241698.79501289243[km]（＞最接近距離≒936
 <br>
 　観測網：以下の一覧（比較的短期間で深宇宙探査機の予定を含む）
 <br>
-　・<a href="#span-app-astronomy">彗星</a>活動の規模∝質量損失rate：近日点付近で最大（特徴を捉えやすい）
+　・<a href="#span-app-knowns">彗星</a>活動の規模∝質量損失rate：近日点付近で最大（特徴を捉えやすい）
 <br>
 　　望遠鏡画像：主に<a href="#span-app-telescope">総露光時間</a>が<a href="#span-app-knowns">tail</a>構造</span>の濃淡に影響（加工次第）
 <br>
@@ -8699,11 +8766,7 @@ d=5e3; rho=0.5e3; vol=(4pi/3)*(d/2)**3; m=rho*vol; m -> 32724923474893.676[kg]
 <br>
 　核の自転周期：<span class="selection">16.16~16.79h</span>
 <br>
-　核の自転方向：<span class="selection">「順行自転」</span>（公転方向と自転方向の符号　⇒　<a href="#span-app-astronomy">rocket効果</a>に対する変動分の影響）
-<br>
-　・「順行自転」：同一　⇒　進行方向の加速
-<br>
-　・「逆行自転」：反対　⇒　進行方向の減速
+　核の自転方向：<span class="selection"><a href="#span-app-astrodynamics">「順行自転」</a></span>相当（進行方向の加速に寄与）
 <br>
 　核の日心速力：<span class="selection">58~68.3km/s</span>（近日点@10/29で最大）
 <br>
@@ -8711,7 +8774,7 @@ d=5e3; rho=0.5e3; vol=(4pi/3)*(d/2)**3; m=rho*vol; m -> 32724923474893.676[kg]
 <br>
 　comaの直径：<span class="selection">~70万km超</span>（近日点付近で最大）
 <br>
-　comaのgas成分：<span class="selection">水より<a href="#span-app-gas-CO2">二酸化炭素</a>、FeよりNiが優勢</span>（核表層の多孔質構造||化学組成と揮発性に依存）
+　comaのgas成分：<span class="selection">水より<a href="#span-app-gas-CO2">二酸化炭素</a>、FeよりNiが豊富</span>（核表層の多孔質構造||化学組成と揮発性に依存）
 <br>
 　<span class="selection">極端な負の偏光特性</span>：核表層が高多孔質で弱結合の凝集体の可能性（comaの塵粒子の多重散乱を示唆）
 <br>
@@ -8787,9 +8850,9 @@ d=5e3; rho=0.5e3; vol=(4pi/3)*(d/2)**3; m=rho*vol; m -> 32724923474893.676[kg]
 <br>
 　<span class="selection"><a href="#span-app-orbit">軌道計算</a></span>：火星⇒<a href="#span-app-earth">反地球</a>⇒金星⇒木星（「いて座」方向から逆行誘導で各1[au]以内のmulti-<a href="#span-app-orbit">flyby</a>）
 <br>
-　軌道傾斜角：<span class="selection">175.11°</span>（≒黄道面）
+　<a href="#span-app-astrodynamics">軌道傾斜角</a>：<span class="selection">175.11°</span>（≒<a href="#span-app-astrodynamics">黄道面</a>）
 <br>
-　・放出event：黄道面と銀河面の交角≒60°　⇒　薄い円盤より厚い円盤に近い可能性（起源の補強）
+　・放出event：<a href="#span-app-astrodynamics">黄道面</a>と銀河面の交角≒60°　⇒　薄い円盤より厚い円盤に近い可能性（起源の補強）
 <br>
 　・不確定要素：星間の重力<a href="#span-out-UI-graphing-testcase">random-walk</a>
 <br>
@@ -8797,15 +8860,15 @@ d=5e3; rho=0.5e3; vol=(4pi/3)*(d/2)**3; m=rho*vol; m -> 32724923474893.676[kg]
 <br>
 　・<span class="clear">coronagraph観測：近日点に接近中の軌道と太陽の大規模な<a href="#span-app-flare">CME</a>を確認</span>
 <br>
-　　幾何学的な補正要素：太陽の赤道面と地球の黄道面の交角≒7.25°＋静止軌道に影響の黄道傾斜角≒<a href="#span-app-period-motion">23.4</a>°
+　　幾何学的な補正要素：太陽の<a href="#span-app-astrodynamics">赤道傾斜角</a>≒7.25°＋地球の<a href="#span-app-astrodynamics">赤道傾斜角</a>≒<a href="#span-app-period-motion">23.4</a>°（静止軌道に影響）
 <br>
 　・前後の期間：観測windowの短縮で観測困難（太陽-天体-観測者の位相角≒0　⇒　尾が視線方向の可能性）
 <br>
-　太陽合の特異性：<span class="selection">近日点近傍で黄道面と交差</span>
+　太陽合の特異性：<span class="selection">近日点近傍で<a href="#span-app-astrodynamics">黄道面</a>と交差</span>
 <br>
-　・180°-軌道傾斜角（逆行側）≦5°（月相当）：<span class="selection">立体角の幾何学的確率≒0.19%</span>（非常に<a href="#span-app-entropy">稀な事象</a>）
+　・180°-<a href="#span-app-astrodynamics">軌道傾斜角</a>（逆行側）≦5°（月相当）：<span class="selection">立体角の幾何学的確率≒0.19%</span>（非常に<a href="#span-app-entropy">稀な事象</a>）
 <br>
-(cos_deg(175)-cos_deg(180))/2 || (cos_deg(0)-cos_deg(5))/2 -> 0.0019026509541272274（黄道面に水平方向）
+(cos_deg(175)-cos_deg(180))/2 || (cos_deg(0)-cos_deg(5))/2 -> 0.0019026509541272274（<a href="#span-app-astrodynamics">黄道面</a>に水平方向）
 <br>
 (cos_deg(87.5)-cos_deg(92.5))/2 -> 0.04361938736533606（垂直方向の方が高確率　⇔　直交方向で極大化）
 <br>
@@ -43077,7 +43140,7 @@ m3_s2m=G*(m+mm)/(4*pi^2)=10221279754278.992[m^3/s^2]
 <br>
 <a href="#span-app-period-motion">公転周期</a>Tm=sqrt(am^3/m3_s2m)=2357336.516077939[s]
 <br>
-軌道傾斜角im=5.1454[deg]
+<a href="#span-app-astrodynamics">軌道傾斜角</a>im=5.1454[deg]
 <br>
 <br>
 解法を列挙する
