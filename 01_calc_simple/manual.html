@@ -7426,13 +7426,13 @@ d=1e7; calc_magnitude(d) -> 17.9
 <br>
 　・dust-trail：断片の痕跡（outgassing-<a href="#span-app-jet">jet</a>に伴う破片dust）
 <br>
-　　anti-tail：見かけ上の反尾（軌道方向≒太陽方向に投影の接近より離脱過程で顕著）
+　　anti-tail：見かけ上の「反尾」（軌道方向≒太陽方向に投影の接近より離脱過程で顕著）
 <br>
-　・dust-tail：塵粒子の痕跡（微細化を伴う）
+　・dust-tail：塵粒子の痕跡の「塵尾」（微細化を伴う）
 <br>
 　　spiral-<a href="#span-app-jet">jet</a>：核の自転による螺旋構造（自転軸方向≒太陽方向で顕著）
 <br>
-　・plasma-tail：ionの痕跡（太陽からの紫外線と<a href="#span-app-astronomy">太陽風</a>衝突で電離の昇華gas）
+　・plasma-tail：ionの痕跡の「主尾」（太陽からの紫外線と<a href="#span-app-astronomy">太陽風</a>衝突で電離の昇華gas）
 <br>
 　　ion：H2O+||H3O+||CO+||CO2+||HCO+||N2+
 <br>
@@ -7932,7 +7932,7 @@ Tsuchinshan-ATLASの解釈について記述する
 <br>
 <a href="#span-app-knowns">3I/ATLAS</a>：3番目の恒星間天体
 <br>
-・以下、<span class="selection">火星最接近@10/03以前の推定値</span>と<span class="clear">近日点通過後@11/27以前の観測結果</span>を参照
+・以下、<span class="selection">火星最接近@10/03以前の推定値</span>と<span class="clear">近日点通過後@11/28以前の観測結果</span>を参照
 <br>
 　遭遇時期：第25<a href="#span-app-period-activity">太陽活動周期</a>の極大期（<span class="clear">予測より<a href="#span-app-flare">太陽活動</a>が活発に推移</span>@2525）
 <br>
@@ -7945,6 +7945,8 @@ Tsuchinshan-ATLASの解釈について記述する
 　　Order(<a href="#span-app-period-activity">11年周期</a>)に1度の頻度：地球の大規模な<a href="#span-app-flare">CME</a>直撃event@2024/05/10~11@11/12~13
 　<br>
 　　約5年に1度のExpo 2025 Osaka：<em>The Farnese Atlas</em>@Italy館@04/13~10/13
+　<br>
+　　・西暦2025年：戦後80年＝令和7年（＝平成36年＝昭和100年＝<a href="#span-app-quantum">量子力学</a>100年＝<a href="#span-app-quantum">量子仮説</a>125年）
 　<br>
 　　約15年に1度の「<a href="#span-app-knowns">土星</a>の環の消失」：<a href="#span-ref-image1">環平面通過event</a>@03/23@05/06@11/25
 　<br>
@@ -7964,9 +7966,9 @@ Tsuchinshan-ATLASの解釈について記述する
 <br>
 　・内容：質量損失割合下限の概算（<span class="jF">model-basedの推定値</span>）
 <br>
-　・<span class="clear">質量損失rate下限@2au~近日点：180~405kg/s</span>（光度曲線から換算の中β値の塵粒子による散乱が主体）
+　・<span class="clear">質量損失rate下限@2au~近日点：180~405kg/s</span>（光度曲線から換算）
 <br>
-　　塵の反射を含む散乱光：全<a href="#span-app-optics">波長</a>領域（連続spectrum）
+　　塵の散乱光（乱反射を含む）：全<a href="#span-app-optics">波長</a>領域（連続spectrum）　⇒　中β値の塵粒子が主体
 <br>
 　　gasの蛍光発光：非常に狭い<a href="#span-app-optics">波長</a>領域（輝線spectrum）
 <br>
@@ -8076,13 +8078,21 @@ F_Yarkovsky=F_radiation*1e-3; F_Yarkovsky -> 0.04805327865567048
 <br>
 　　太陽-天体-観測者の位相角：10~15°（≒太陽合）
 <br>
+　　・地上の観測window：夜明け前の東の低空↑
+<br>
 　　<a href="#span-app-astrodynamics">軌道傾斜角</a>：175.11°（≒<a href="#span-app-astrodynamics">黄道面</a>）
 <br>
 　　＋非重力加速度：法線方向のA3成分≒0（≒edge-on）
 <br>
-　　地上の観測window：夜明け前の東の低空↑
-<br>
 　　<a href="#span-app-astrodynamics">北黄極</a>視点の公転と自転：時計回り（地球は反時計回り）
+<br>
+　　ionの<a href="#span-app-knowns">plasma-tail</a>（主尾）：反太陽方向の細長い一本線（青白い色の蛍光発光）
+<br>
+　　塵の<a href="#span-app-knowns">dust-tail</a>（逆尾＋反尾＋塵尾＋螺旋）：太陽側の軌道方向から反太陽方向まで扇状に分散（青緑色の散乱光）
+<br>
+　　・粒径分布@太陽側の軌道方向⇒反太陽方向：大⇒小　⇔　低β値⇒高β値
+<br>
+　　　観測bias：中β値の散乱光が主体　⇒　扇の両端部分は検出困難の可能性（stackingのnoise相当）
 <br>
 　・収束判定条件：<a href="#span-app-astrodynamics">北黄極</a>視点の上面図が「正反合」の扇状　⇔　地球視点の側面図が「正反」のedge-on
 <br>
@@ -8646,7 +8656,7 @@ Hill_radius(227920000,6.4171e23,1.9884e30) -> 1083977.752539231[km]（<a href="#
       <td>高感度撮像<br>撮像@11/11<br>・明確な分裂なし<br>・太陽側の<a href="#span-app-jet">jet</a>構造</td>
     </tr>
     <tr>
-      <td rowspan="12">光学望遠鏡</td>
+      <td rowspan="13">光学望遠鏡</td>
       <td>Teide Observatory</td>
       <td>IAC<br>Institute of Astrophysics of the Canary Islands, <span class="condition">Tenerife</span>, Canary Islands, Spain</td>
       <td>可視光線</td>
@@ -8741,6 +8751,14 @@ Hill_radius(227920000,6.4171e23,1.9884e30) -> 1083977.752539231[km]（<a href="#
       <td>0.5</td>
       <td></td>
       <td>撮像@11/22<br>・正反の<a href="#span-app-knowns">tail</a>構造</td>
+    </tr>
+    <tr>
+      <td>Educational<br>50cm反射望遠鏡<br>ZWO ASI183MM Pro</td>
+      <td>Mie University, 三重県津市栗真町屋町</td>
+      <td>可視光線</td>
+      <td>0.5</td>
+      <td></td>
+      <td>撮像@11/28<br>・正反の<a href="#span-app-knowns">tail</a>構造</td>
     </tr>
     <tr>
       <td>Network</td>
