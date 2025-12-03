@@ -616,6 +616,16 @@ test case
 <br>
 ・<span class="wF">digamma</span>~-psi：gamma関数の対数微分のdigamma||psi関数（<a href="#span-out-FNh-DX">微分高階関数</a>の<a href="#span-out-error-numerical">数値解</a>と解析解の比較）
 <br>
+・<span class="selection">Nukiyama-Tanasawa</span>：一般化gamma分布の特殊なNukiyama-Tanasawa分布（<a href="#span-ref-paper4">参考論文[4]</a>）
+<br>
+・Rosin-Rammler：Weibull分布の特殊なRosin-Rammler分布
+<br>
+　特性粒径d：d＜粒径の体積割合が1/e≒36.8%
+<br>
+　Sauter平均粒径d32（表面積重視）：d32/d＝Γ(1+0/均等数)/Γ(1+(-1)/均等数)∝体積/表面積
+<br>
+　DeBrouckere平均粒径d43（体積重視）：d43/d＝Γ(1+4/均等数)/Γ(1+3/均等数)∝個数分布の4次/3次moment
+<br>
 ・<span class="selection">Planck</span>：Planckの法則の分光放射輝度（<a href="#span-app-optics">波長</a>）
 <br>
 　-frequency：分光放射輝度（周波数）
@@ -3826,6 +3836,12 @@ title/発行元(発行年)を列挙する
 4. 噴霧流動場に形成される渦構造の可視化と噴霧の先端到達距離に関する研究
 <br>
 　第13章　噴霧の先端到達距離に関する理論の体系化（2008年度 博士論文）
+<br>
+　第7章　噴霧のサブモデル（校正の指摘）
+<br>
+　・Equation (7.3.7)：exp(-β　⇒　exp(-B
+<br>
+　・Figure 7.3.3：<a href="#span-out-UI-graphing-testcase">Nukiyama-Tanasawa分布</a>(2)の再現不可
     </td>
   </tr>
 </tbody>
@@ -8134,7 +8150,7 @@ F_Yarkovsky=F_radiation*1e-3; F_Yarkovsky -> 0.04805327865567048
 <br>
 　　塵の<a href="#span-app-knowns">dust-tail</a>（逆尾＋反尾＋塵尾＋螺旋）：太陽側の軌道方向から反太陽方向まで扇状に分散（青緑色の散乱光）
 <br>
-　　・粒径分布@太陽側の軌道方向⇒反太陽方向：大⇒小　⇔　低β値⇒高β値
+　　・粒径分布@太陽側の軌道方向⇒反太陽方向：大⇒小　⇔　低β値⇒高β値（例えば、<a href="#span-out-UI-graphing-testcase">一般化gamma分布</a>）
 <br>
 　　　観測bias：中β値の散乱光が主体　⇒　扇の両端部分は検出困難の可能性（stackingのnoise相当）
 <br>
