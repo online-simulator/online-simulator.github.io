@@ -640,6 +640,18 @@ test case
 <br>
 　<span class="clear">-d32_old</span>：d32_old/d＝Γ(1+0/均等数)/Γ(1+(-1)/均等数)∝球形の体積/表面積（<a href="#span-ref-paper4">参考論文[4]</a>）
 <br>
+・<span class="wF">power-law</span>：べき乗則（自然のfractal）
+<br>
+　d：粒径
+<br>
+　α：べき指数
+<br>
+　個数基準の数密度：fN∝d**α　⇒　log(fN)∝log(d)
+<br>
+　最小粒径：dmin（物理的な個数が有限）
+<br>
+　代表粒径：d32（散乱||揮発現象の表面積重視）
+<br>
 ・<span class="selection">Planck</span>：Planckの法則の分光放射輝度（<a href="#span-app-optics">波長</a>）
 <br>
 　-frequency：分光放射輝度（周波数）
@@ -8166,7 +8178,9 @@ F_Yarkovsky=F_radiation*1e-3; F_Yarkovsky -> 0.04805327865567048
 <br>
 　　塵の<a href="#span-app-knowns">dust-tail</a>（逆尾＋反尾＋塵尾＋螺旋）：太陽側の軌道方向から反太陽方向まで扇状に分散（青緑色の散乱光）
 <br>
-　　・粒径分布@太陽側の軌道方向⇒反太陽方向：大⇒小　⇔　低β値⇒高β値（例えば、<a href="#span-out-UI-graphing-testcase">一般化gamma分布</a>）
+　　・粒径分布@太陽側の軌道方向⇒反太陽方向：大⇒小　⇔　低β値⇒高β値
+<br>
+　　　個数基準の<a href="#span-out-UI-graphing-testcase">べき乗則</a>：数密度∝1/粒径**(3+<span class="selection">fractal次元≒0.7</span>)
 <br>
 　　　観測bias：中β値の散乱光が主体　⇒　扇の両端部分は検出困難の可能性（stackingのnoise相当）
 <br>
@@ -18159,7 +18173,7 @@ tone-curveの仕様を列挙する
 <br>
 hsvrgba[slope,offset||0,gamma||1,threshold||th=0~255||0]
 <br>
-・べき乗則のgamma値を拡張して連続的なtone-curveに一般化する定義式を次に示す
+・<a href="#span-out-UI-graphing-testcase">べき乗則</a>のgamma値を拡張して連続的なtone-curveに一般化する定義式を次に示す
 <br>
 t=hsvrgba
 <br>
