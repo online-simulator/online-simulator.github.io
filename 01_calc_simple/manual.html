@@ -616,15 +616,29 @@ test case
 <br>
 ・<span class="wF">digamma</span>~-psi：gamma関数の対数微分のdigamma||psi関数（<a href="#span-out-FNh-DX">微分高階関数</a>の<a href="#span-out-error-numerical">数値解</a>と解析解の比較）
 <br>
-・<span class="selection">Nukiyama-Tanasawa</span>：一般化gamma分布の特殊なNukiyama-Tanasawa分布（<a href="#span-ref-paper4">参考論文[4]</a>）
+・<span class="selection">Nukiyama-Tanasawa</span>：一般化gamma分布の特殊なNukiyama-Tanasawa分布
 <br>
-・Rosin-Rammler：Weibull分布の特殊なRosin-Rammler分布
+　fV：体積基準（d32/dの<a href="#span-out-FNm-normalize">正規化</a>）
 <br>
-　特性粒径d：d＜粒径の体積割合が1/e≒36.8%
+　fN：個数基準（d32/dの<a href="#span-out-FNm-normalize">正規化</a>）
 <br>
-　Sauter平均粒径d32（表面積重視）：d32/d＝Γ(1+0/均等数)/Γ(1+(-1)/均等数)∝体積/表面積
+　d：特性粒径（粒径≧dの体積割合が1/e≒36.8%）
 <br>
-　DeBrouckere平均粒径d43（体積重視）：d43/d＝Γ(1+4/均等数)/Γ(1+3/均等数)∝個数分布の4次/3次moment
+　d32：Sauter平均粒径（表面積重視）
+<br>
+　d43：DeBrouckere平均粒径（体積重視）
+<br>
+・<span class="selection">Rosin-Rammler</span>：Weibull分布の特殊なRosin-Rammler分布（体積基準）
+<br>
+　fV：体積基準（d32/dの<a href="#span-out-FNm-normalize">正規化</a>）
+<br>
+　fN：球形の個数換算（d32/dの未<a href="#span-out-FNm-normalize">正規化</a>）
+<br>
+　d32：d32/d＝Γ(1+3/均等数)/Γ(1+2/均等数)∝個数分布の3次/2次moment
+<br>
+　d43：d43/d＝Γ(1+4/均等数)/Γ(1+3/均等数)∝個数分布の4次/3次moment
+<br>
+　<span class="clear">-d32_old</span>：d32_old/d＝Γ(1+0/均等数)/Γ(1+(-1)/均等数)∝球形の体積/表面積（<a href="#span-ref-paper4">参考論文[4]</a>）
 <br>
 ・<span class="selection">Planck</span>：Planckの法則の分光放射輝度（<a href="#span-app-optics">波長</a>）
 <br>
@@ -3839,9 +3853,11 @@ title/発行元(発行年)を列挙する
 <br>
 　第7章　噴霧のサブモデル（校正の指摘）
 <br>
+　・Equation (7.3.2)：<a href="#span-out-UI-graphing-testcase">d32のmoment次数</a>の定義
+<br>
 　・Equation (7.3.7)：exp(-β　⇒　exp(-B
 <br>
-　・Figure 7.3.3：<a href="#span-out-UI-graphing-testcase">Nukiyama-Tanasawa分布</a>(2)の再現不可
+　・Figure 7.3.3：<a href="#span-out-UI-graphing-testcase">Nukiyama-Tanasawa分布</a>(2)の再現性
     </td>
   </tr>
 </tbody>
