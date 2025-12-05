@@ -6252,7 +6252,7 @@ d=1e7; calc_magnitude(d) -> 17.9
 <br>
 　補償光学：seeingの改善
 <br>
-　filtering：人工光の軽減
+　filter：光害cut||band-pass（色選択を含む）
 <br>
 　天体追尾：ぶれの低減（自転を含む）
 <br>
@@ -6265,6 +6265,8 @@ d=1e7; calc_magnitude(d) -> 17.9
 　＋位置合わせ：対象天体||背景天体基準（遥か彼方遠方）　⇒　一方が棒状に流れる天体の追尾に相当
 <br>
 　masking合成：対象天体＋背景天体
+<br>
+　強調：色||輪郭
     </td>
   </tr>
   <tr>
@@ -8020,7 +8022,7 @@ Tsuchinshan-ATLASの解釈について記述する
 <br>
 <a href="#span-app-knowns">3I/ATLAS</a>：3番目の恒星間天体
 <br>
-・以下、<span class="selection">火星最接近@10/03以前の推定値</span>と<span class="clear">近日点通過後@11/28以前の観測結果</span>を参照
+・以下、<span class="selection">火星最接近@10/03以前の推定値</span>と<span class="clear">近日点通過後@11/29以前の観測結果</span>を参照
 <br>
 　遭遇時期：第25<a href="#span-app-period-activity">太陽活動周期</a>の極大期（<span class="clear">予測より<a href="#span-app-flare">太陽活動</a>が活発に推移</span>@2525）
 <br>
@@ -8158,7 +8160,9 @@ F_Yarkovsky=F_radiation*1e-3; F_Yarkovsky -> 0.04805327865567048
 <br>
 　　・HCN＋hν→CN＋H（光解離）　⇒　<span class="clear">枯渇気味のC2よりCNが豊富@08/19速報</span>（comaの青色成分＞緑色成分）
 <br>
-　　・C2H2＋hν→C2H＋H　⇒　C2H＋hν→C2＋H（多段階の光解離）
+　　・C2H2＋hν→C2H＋H　⇒　C2H＋hν→C2＋H（多段階の光解離）　⇒　<span class="clear">緑色成分の急増@10/31~11/04</span>
+<br>
+　　　緑色成分：色覚の感度peakの<a href="#span-app-optics">波長</a>帯（青色成分より強調されやすい）
 <br>
 　　・NH3＋hν→NH2+H（光解離）
 <br>
@@ -8174,15 +8178,15 @@ F_Yarkovsky=F_radiation*1e-3; F_Yarkovsky -> 0.04805327865567048
 <br>
 　　<a href="#span-app-astrodynamics">北黄極</a>視点の公転と自転：時計回り（地球は反時計回り）
 <br>
-　　ionの<a href="#span-app-knowns">plasma-tail</a>（主尾）：反太陽方向の細長い一本線（青白い色の蛍光発光）
+　　ionの<a href="#span-app-knowns">plasma-tail</a>（主尾）：反太陽方向の細長い一本線（青白い色）
 <br>
-　　塵の<a href="#span-app-knowns">dust-tail</a>（逆尾＋反尾＋塵尾＋螺旋）：太陽側の軌道方向から反太陽方向まで扇状に分散（青緑色の散乱光）
+　　塵の<a href="#span-app-knowns">dust-tail</a>（逆尾＋反尾＋塵尾＋螺旋）：太陽側の軌道方向から反太陽方向まで扇状に分散（青緑色）
 <br>
 　　・粒径分布@太陽側の軌道方向⇒反太陽方向：大⇒小　⇔　低β値⇒高β値
 <br>
 　　　個数基準の<a href="#span-out-UI-graphing-testcase">べき乗則</a>：数密度∝1/粒径**(3+<span class="selection">fractal次元≒0.7</span>)
 <br>
-　　　観測bias：中β値の散乱光が主体　⇒　扇の両端部分は検出困難の可能性（stackingのnoise相当）
+　　　観測bias：中β値の<span class="selection">多重？散乱</span>が主体　⇒　扇の両端部分は検出困難の可能性（stackingのnoise相当）
 <br>
 　・収束判定条件：<a href="#span-app-astrodynamics">北黄極</a>視点の上面図が「正反合」の扇状　⇔　地球視点の側面図が「正反」のedge-on
 <br>
@@ -8495,7 +8499,7 @@ Hill_radius(227920000,6.4171e23,1.9884e30) -> 1083977.752539231[km]（<a href="#
       <td>JUICE<br>JUpiter ICy moons Explorer (JANUS)</td>
       <td>ESA</td>
       <td>Jupiter系へ</td>
-      <td></td>
+      <td>○</td>
       <td>約3.09</td>
       <td></td>
       <td></td>
@@ -8746,7 +8750,7 @@ Hill_radius(227920000,6.4171e23,1.9884e30) -> 1083977.752539231[km]（<a href="#
       <td>高感度撮像<br>撮像@11/11<br>・明確な分裂なし<br>・太陽側の<a href="#span-app-jet">jet</a>構造</td>
     </tr>
     <tr>
-      <td rowspan="13">光学望遠鏡</td>
+      <td rowspan="14">光学望遠鏡</td>
       <td>Teide Observatory</td>
       <td>IAC<br>Institute of Astrophysics of the Canary Islands, <span class="condition">Tenerife</span>, Canary Islands, Spain</td>
       <td>可視光線</td>
@@ -8849,6 +8853,14 @@ Hill_radius(227920000,6.4171e23,1.9884e30) -> 1083977.752539231[km]（<a href="#
       <td>0.5</td>
       <td></td>
       <td>撮像@11/28<br>・正反の<a href="#span-app-knowns">tail</a>構造</td>
+    </tr>
+    <tr>
+      <td>神山天文台<br>荒木望遠鏡</td>
+      <td>Kyoto Sangyo University, 京都市北区上賀茂本山</td>
+      <td>可視光線</td>
+      <td>1.3</td>
+      <td></td>
+      <td>分光観測@11/29<br>・CN＞C2＞NH2</td>
     </tr>
     <tr>
       <td>Network</td>
