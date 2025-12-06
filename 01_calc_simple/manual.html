@@ -6262,7 +6262,7 @@ d=1e7; calc_magnitude(d) -> 17.9
 <br>
 　stacking：総露光時間＝露光時間×stack枚数　⇒　S/N比∝√露光時間
 <br>
-　＋位置合わせ：対象天体||背景天体基準（遥か彼方遠方）　⇒　一方が棒状に流れる天体の追尾に相当
+　＋位置合わせ：対象天体||背景天体基準（遥か彼方遠方）　⇒　一方が筋状に流れる天体の追尾に相当
 <br>
 　masking合成：対象天体＋背景天体
 <br>
@@ -6301,7 +6301,7 @@ d=1e7; calc_magnitude(d) -> 17.9
 　黄道傾斜角：黄道面基準
 <br>
 <br>
-自転：天体の回転
+天体の回転：公転と自転
 <br>
 ・太陽系：北黄極基準
 <br>
@@ -8060,7 +8060,7 @@ Tsuchinshan-ATLASの解釈について記述する
 <br>
 　　塵の散乱光（乱反射を含む）：全<a href="#span-app-optics">波長</a>領域（連続spectrum）　⇒　中β値の塵粒子が主体
 <br>
-　　gasの蛍光発光：非常に狭い<a href="#span-app-optics">波長</a>領域（輝線spectrum）
+　　gasの蛍光発光：非常に狭い<a href="#span-app-optics">波長</a>領域（輝線spectrum）　⇒　希薄な影響（淡い着色）
 <br>
 　・<span class="clear">質量損失割合</span>：分裂なし相当
 <br>
@@ -8186,7 +8186,7 @@ F_Yarkovsky=F_radiation*1e-3; F_Yarkovsky -> 0.04805327865567048
 <br>
 　　　個数基準の<a href="#span-out-UI-graphing-testcase">べき乗則</a>：数密度∝1/粒径**(3+<span class="selection">fractal次元≒0.7</span>)
 <br>
-　　　観測bias：中β値の<span class="selection">多重？散乱</span>が主体　⇒　扇の両端部分は検出困難の可能性（stackingのnoise相当）
+　　　観測bias：中β値の塵粒子が主体　⇒　扇の両端部分は検出困難の可能性（<a href="#span-app-telescope">stacking</a>のnoise相当）
 <br>
 　・収束判定条件：<a href="#span-app-astrodynamics">北黄極</a>視点の上面図が「正反合」の扇状　⇔　地球視点の側面図が「正反」のedge-on
 <br>
@@ -8897,6 +8897,8 @@ d=5e3; rho=0.5e3; vol=(4pi/3)*(d/2)**3; m=rho*vol; m -> 32724923474893.676[kg]
 　comaのgas成分：<span class="selection">水より<a href="#span-app-gas-CO2">二酸化炭素</a>、FeよりNiが豊富</span>（核表層の多孔質構造||化学組成と揮発性に依存）
 <br>
 　<span class="selection">極端な負の偏光特性</span>：核表層が高多孔質で弱結合の凝集体の可能性（comaの塵粒子の多重散乱を示唆）
+<br>
+　・塵粒子の空隙率：空隙率に対する太陽光の偏光度が下凸の下限付近？
 <br>
 　物理的な<span class="selection">逆尾</span>：太陽光の放射圧より太陽側の<a href="#span-app-jet">jet</a>が優勢（水雪線より遠方での高活動性と低β値を示唆）
 <br>
