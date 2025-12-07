@@ -3703,6 +3703,8 @@ astro-dic.jp/項目を列挙する
 <br>
 ・neutral-atomic-hydrogen
 <br>
+・charge-exchange-reaction
+<br>
 ・outburst
 <br>
 ・multiple-coulomb-scattering
@@ -7023,7 +7025,19 @@ d=1e7; calc_magnitude(d) -> 17.9
       <td>0.99986</td>
     </tr>
     <tr>
-      <th>C/1996 B2 (Hyakutake)<br><span class="condition">青い尾</span></th>
+      <th>C/1999 S4 (LINEAR)<br><span class="condition">X線検出@Chandra<br><a href="#span-app-knowns-ATLAS">荷電交換反応</a>の解明</span></th>
+      <td>1999/09/27</td>
+      <td>2000/07/26</td>
+      <td>2000/07/22</td>
+      <td>0.77</td>
+      <td>0.37</td>
+      <td>5.5</td>
+      <td>150.8°</td>
+      <td>放物線</td>
+      <td>1.000</td>
+    </tr>
+    <tr>
+      <th>C/1996 B2 (Hyakutake)<br><span class="condition">X線初検出@ROSAT<br>青い尾</span></th>
       <td>1996/01/30</td>
       <td>1996/05/01</td>
       <td>1996/03/25</td>
@@ -8052,7 +8066,7 @@ Tsuchinshan-ATLASの解釈について記述する
 <br>
 　・異例：木星周回機Junoからの観測（来年の予定）
 <br>
-　・超異例：木星探査機JUICEの補完的なrendezvous観測@太陽合（約0.43[au]の最接近距離@11/04）
+　・超異例：木星探査機JUICEの補完的なrendezvous観測@太陽合（<span class="clear">約0.43[au]の最接近距離@11/04</span>）
 <br>
 　要検証：非重力加速度による軌道vectorの経路変化と質量収支の整合性（撮像の時空間分布を含む）
 <br>
@@ -8138,6 +8152,8 @@ F_Yarkovsky=F_radiation*1e-3; F_Yarkovsky -> 0.04805327865567048
 <br>
 　　<span class="clear">質量損失割合：0.0014%×実効係数</span>区間[40,40*7*3*2]　⇒　核[表層,深層？]の連続はく離（<span class="clear">≠分裂</span>）
 <br>
+　　荷電交換反応（e-捕獲⇒励起⇒基底状態）：<a href="#span-app-astronomy">太陽風</a>の高価数酸素のK殻遷移による<span class="clear">X線検出@XRISM@11/26</span>
+<br>
 　　<span class="clear">蛍光発光</span>（hν吸収⇒励起⇒基底状態）：光電離のCO+（青色）&gt;光解離のCN（青色）&gt;C2（緑色）&gt;&gt;NH2（赤色）
 <br>
 　　・CO2＋hν→CO2+＋e-（光電離）
@@ -8162,6 +8178,8 @@ F_Yarkovsky=F_radiation*1e-3; F_Yarkovsky -> 0.04805327865567048
 <br>
 　　・HCN＋hν→CN＋H（光解離）　⇒　<span class="clear">枯渇気味のC2よりCNが豊富@08/19速報</span>（comaの青色成分＞緑色成分）
 <br>
+　　　生命の前駆体（主な有機物）：<span class="clear">HCNよりCH3OHが圧倒的に豊富@ALMA@11/25</span>（起源の補強）
+<br>
 　　・C2H2＋hν→C2H＋H　⇒　C2H＋hν→C2＋H（多段階の光解離）　⇒　<span class="clear">緑色成分の急増@10/31~11/04</span>
 <br>
 　　　緑色成分：色覚の感度peakの<a href="#span-app-optics">波長</a>帯（青色成分より強調されやすい）
@@ -8174,11 +8192,11 @@ F_Yarkovsky=F_radiation*1e-3; F_Yarkovsky -> 0.04805327865567048
 <br>
 　　・地上の観測window：夜明け前の東の低空↑
 <br>
-　　<a href="#span-app-astrodynamics">軌道傾斜角</a>：175.11°（≒<a href="#span-app-astrodynamics">黄道面</a>）
+　　＋<a href="#span-app-astrodynamics">軌道傾斜角</a>：175.11°（≒<a href="#span-app-astrodynamics">黄道面</a>）
 <br>
 　　＋非重力加速度：法線方向のA3成分≒0（≒edge-on）
 <br>
-　　<a href="#span-app-astrodynamics">北黄極</a>視点の公転と自転：時計回り（地球は反時計回り）
+　　⇒View from Earth：反尾の顕在化（太陽側の軌道方向）　⇔　主尾の潜在化（視線方向≒反太陽方向）
 <br>
 　　ionの<a href="#span-app-knowns">plasma-tail</a>（主尾）：反太陽方向の細長い一本線（青白い色）
 <br>
@@ -8191,6 +8209,8 @@ F_Yarkovsky=F_radiation*1e-3; F_Yarkovsky -> 0.04805327865567048
 　　　観測bias：中β値の塵粒子が主体　⇒　扇の両端部分は検出困難の可能性（<a href="#span-app-telescope">stacking</a>のnoise相当）
 <br>
 　　coma（gasと塵の混合）の直径：10~18万km≒<a href="#span-app-knowns">土星</a>~<a href="#span-app-knowns">木星</a>（≠見掛size）＞<span class="clear">約8万km@HST@11/30</span>
+<br>
+　　<a href="#span-app-astrodynamics">北黄極</a>視点の公転と自転：時計回り（地球は反時計回り）
 <br>
 　・収束判定条件：<a href="#span-app-astrodynamics">北黄極</a>視点の上面図が「正反合」の扇状　⇔　地球視点の側面図が「正反」のedge-on
 <br>
@@ -8364,7 +8384,7 @@ Hill_radius(227920000,6.4171e23,1.9884e30) -> 1083977.752539231[km]（<a href="#
       <td>紫外線観測<br>・水蒸気由来のOH</td>
     </tr>
     <tr>
-      <td rowspan="3">宇宙望遠鏡</td>
+      <td rowspan="4">宇宙望遠鏡</td>
       <td>HST<br>Hubble Space Telescope (ACS/WFC他)</td>
       <td>NASA<br>ESA</td>
       <td>地球低軌道</td>
@@ -8387,6 +8407,14 @@ Hill_radius(227920000,6.4171e23,1.9884e30) -> 1083977.752539231[km]（<a href="#
       <td>近赤外線</td>
       <td>約6.0</td>
       <td>分光観測<br>・CO2噴出の規模</td>
+    </tr>
+    <tr>
+      <td>XRISM<br>X-Ray Imaging and Spectroscopy Mission (Resolve)</td>
+      <td>JAXA</td>
+      <td>地球低軌道</td>
+      <td>X線</td>
+      <td>約30</td>
+      <td>X線観測<br>・1Iより明瞭</td>
     </tr>
     <tr>
       <td>系外惑星探査機</td>
