@@ -830,6 +830,8 @@ test case
 <br>
 ・<span class="selection">Schrödinger1d</span>：1次元Schrödinger方程式のadaptive-stepの<a href="#span-out-evolution">時間発展</a>（波動関数ψの時間と空間を強連成）
 <br>
+　<span class="clear">Ver.2.875.167</span>以降、訂正：波動関数の収縮（collapse）　⇒　<a href="#span-app-quantum">動的局在化</a>（localization）
+<br>
 　空間Δ演算子の<a href="#span-out-error">離散化</a>：<a href="#span-out-fdm-differential">中心差分法</a>（境界条件を含む<a href="#span-out-reference-mat-area">area参照</a>と<a href="#span-out-ope-extended">拡張行列演算</a>で記述）
 <br>
 　⇒補足：強連成の式が単体の場合、<a href="#span-out-mat">行列</a>演算が不要で<a href="#span-eqn-reshapez">次元拡張</a>が容易（演算cost最小の最短表記）
@@ -866,17 +868,17 @@ test case
 <br>
 　<span class="pF">-periodic</span>：<span class="run">Ver.2.790.124</span>以降、周期境界条件を適用
 <br>
-　⇒V(x)の<a href="#span-out-com">虚数</a>の有無（exp||cos）：<a href="#span-app-quantum">波動関数の収縮</a>の程度に影響
+　⇒V(x)の<a href="#span-out-com">虚数</a>の有無（exp||cos）：<a href="#span-app-quantum">動的局在化</a>の程度に影響
 <br>
 　<span class="pF">-V(x,t)</span>：<span class="run">Ver.2.790.124</span>以降、時間依存のpotentialを適用
 <br>
-　⇒V(x,t)の<a href="#span-out-com">虚数</a>の有無（exp||cos）：<a href="#span-app-quantum">波動関数の収縮</a>の程度に影響（以下、同じ解釈）
+　⇒V(x,t)の<a href="#span-out-com">虚数</a>の有無（exp||cos）：<a href="#span-app-quantum">動的局在化</a>の程度に影響（以下、同じ解釈）
 <br>
-　⇒位相変化の周波数応答fV→0：対称性の乱れと<a href="#span-app-quantum">波動関数の収縮</a>→崩壊（初期状態ψ0に依存しない）
+　⇒位相変化の周波数応答fV→0：対称性の乱れ　⇒　<a href="#span-app-quantum">動的局在化</a>（初期状態ψ0に依存しない）
 <br>
-　<span class="clear">-fV=-1 -> breaking</span>：対称性の破れの遷移状態（<a href="#span-app-quantum">量子もつれ</a>に関係の可能性）
+　<span class="clear">-fV=-1 -> breaking</span>：対称性の破れの遷移状態
 <br>
-　<span class="clear">-fV=-0.01 -> collapse</span>：波動関数の崩壊状態（expの場合、1次元の拘束条件で特異点を生成）
+　<span class="clear">-fV=-0.01 -> localization</span>：<a href="#span-app-quantum">動的局在化</a>（expの場合、1次元の拘束条件で特異点を生成）
 <br>
 　-fV=0.01,V0=0：同上のdouble-check
 <br>
@@ -902,7 +904,7 @@ test case
 <br>
 　<span class="pF">-A(x,t)</span>-fA=1~0：A(x,t)の空間依存性を仮定（周期境界条件）
 <br>
-　⇒位相変化の周波数応答fA→0：対称性の乱れと<a href="#span-app-quantum">波動関数の収縮</a>（初期状態ψ0に依存しない）
+　⇒位相変化の周波数応答fA→0：対称性の乱れ　⇒　<a href="#span-app-quantum">動的局在化</a>（初期状態ψ0に依存しない）
 <br>
 ・<span class="selection">Dirac</span>：<span class="run">Ver.2.799.127</span>以降、1次元Dirac方程式のadaptive-stepの<a href="#span-out-evolution">時間発展</a>（波動関数ψ1~4の時間と空間を強連成）
 <br>
@@ -938,7 +940,7 @@ test case
 <br>
 　⇒表現の任意性（4成分の上下半分でspin状態を区別）：|ψ1|=Weyl表現の|ψ2|, |ψ2|=Weyl表現の|ψ1|
 <br>
-　<span class="clear">-V(x,t)-exp||cos(fV=0)</span>：波動関数の崩壊状態（expの場合、1次元の拘束条件で特異点を生成）
+　<span class="clear">-V(x,t)-exp||cos(fV=0)</span>：<a href="#span-app-quantum">動的局在化</a>（expの場合、1次元の拘束条件で特異点を生成）
 <br>
 　⇒相対論のFermion：非相対論のBoson同様の解釈（<span class="selection">Schrödinger1d</span>参照）
 <br>
@@ -5074,7 +5076,11 @@ energy要素
 <br>
 　・標準解釈：「観測」行為に伴う公理（道具主義的な要請）
 <br>
-　・客観的収縮理論：自然発生のrandom-process（ψ-ontic方程式の修正||<a href="#span-out-UI-graphing-testcase">potential変動</a>）
+　・客観的収縮理論：自然発生のrandom-process（ψ-ontic方程式の修正||potential変動）
+<br>
+　　決定論の<a href="#span-out-UI-graphing-testcase">動的局在化</a>：見かけ上の収縮（unitary）≠真の収縮（非unitary）
+<br>
+　・QBism：観測者の主観的な情報の更新（個人的なψ-epistemic）
 <br>
 　決定論：波動関数の収縮を否定　⇒　「観測」外でも客観的に実在
 <br>
