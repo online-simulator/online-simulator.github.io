@@ -4586,8 +4586,6 @@ calc_len_incircle(3000,1) -> 6.283187603941828
 ・風車||水車　⇔　coil||磁石||逆圧電
 <br>
 ・超流動　⇔　超伝導
-<br>
-※圧電効果は機械的なstressと電界を相互変換（石英||ceramic等）
     </td>
   </tr>
   <tr>
@@ -6110,7 +6108,24 @@ Milankovitch cycleの<a href="#span-app-factor">日射</a>変動周期と地球�
 <br>
 ・宇宙飛行士の被ばく
 <br>
-・以上の2次被害||災害（地震||火山活動との間接的な因果関係は不明）
+・以上の2次被害||災害
+<br>
+<br>
+天地の<a href="#span-app-interaction">相互作用</a>：地震||火山活動との因果関係は未解明（trigger候補）
+<br>
+・宇宙天気（天）：<a href="#span-app-atmosphere">電離層</a>の変動
+<br>
+　月：<a href="#span-app-orbit">潮汐力</a>の変動（合||衝で最大）
+<br>
+・地球起源（地）：微弱な電磁波||gas放出||<a href="#span-app-vibration">振動</a>の音波||重力波
+<br>
+　大気電場：断層面||magma||噴煙の摩擦帯電||岩石破壊の電荷分離
+<br>
+　地電流：地質の圧電効果（応力　⇔　電界）
+<br>
+・前兆検知：天地の時空間分布の<a href="#span-out-approximation-linear">相関</a>次第（AIのpattern学習を含む）
+<br>
+　前震：震源の位置と頻度（本震の統計を含む）
     </td>
   </tr>
   <tr>
@@ -8196,7 +8211,7 @@ F_Yarkovsky=F_radiation*1e-3; F_Yarkovsky -> 0.04805327865567048
 <br>
 　　太陽-天体-観測者の位相角：10°前後（≒太陽合）
 <br>
-　　・地上の観測window：夜明け前の東の低空↑
+　　・地上の観測window：夜明け前の東の低空↑（逆行軌道の離脱過程）
 <br>
 　　＋<a href="#span-app-astrodynamics">軌道傾斜角</a>：175.11°（≒<a href="#span-app-astrodynamics">黄道面</a>）
 <br>
@@ -8261,6 +8276,14 @@ F_Yarkovsky=F_radiation*1e-3; F_Yarkovsky -> 0.04805327865567048
 Roche_limit(Rp,rhop,rhoc)=&lt;Rp*(2.44*pow(rhop/rhoc,1/3));
 <br>
 Roche_limit(71492,1.33,0.5) -> 241698.79501289243[km]（＞最接近距離≒93600[km]）
+<br>
+　　　|脱出速度|：Hill球半径&gt;&gt;Roche限界
+<br>
+escape_velocity(r,mp)=&lt;last{G=6.67430e-11,sqrt(2*G*mp/r)};
+<br>
+escape_velocity(241698.79501289243e3,1.8986e27) -> 32381.529281098563[m/s]
+<br>
+escape_velocity(93600e3,1.8986e27) -> 52035.133553510015[m/s]
 <br>
 　　・<a href="#span-app-knowns">C/2016 R2 (PanSTARRS)長周期彗星</a>：H2OよりCOとN2が豊富（<span class="selection">外縁部の最も始原的な環境に由来</span>）
 <br>
