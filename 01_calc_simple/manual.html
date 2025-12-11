@@ -8097,7 +8097,7 @@ Tsuchinshan-ATLASの解釈について記述する
 <br>
 　・内容：質量損失割合下限の概算（<span class="jF">model-basedの推定値</span>）
 <br>
-　・<span class="clear">質量損失rate下限@2au~近日点：180~405kg/s</span>（光度曲線から換算）
+　・<span class="clear">質量損失rate下限：180~405kg/s@2au~近日点</span>（光度曲線から換算）
 <br>
 　　塵の散乱光（乱反射を含む）：全<a href="#span-app-optics">波長</a>領域（連続spectrum）　⇒　中β値の塵粒子が主体
 <br>
@@ -8169,7 +8169,11 @@ F_Yarkovsky=F_radiation*1e-3; F_Yarkovsky -> 0.04805327865567048
 <br>
 　　・再結合反応：CO＋O→CO2　⇒　<span class="selection">深層：CO2よりH2O＋COが豊富</span>（太陽系外縁部に同様？起源次第）
 <br>
-　　crustの厚さ：観測される<a href="#span-app-knowns">彗星</a>活動の規模に影響（日心距離依存で小惑星の誤認を含む）
+　　crust厚さ：観測される<a href="#span-app-knowns">彗星</a>活動の規模に影響
+<br>
+　　・<a href="#span-app-knowns">彗星</a>活動の規模：<a href="#span-app-knowns">彗星</a>の活動度∝明るさ∝昇華率∝質量損失rate∝1/日心距離**光度係数
+<br>
+　　・<a href="#span-out-UI-graphing-testcase">べき乗則</a>の<span class="clear">光度係数：3.8±0.3@10/21</span>（通常、4~6）（活動度∝入射<a href="#span-app-energy">energy</a>の理想的な場合、2）
 <br>
 　・初期のoutgassing：揮発性物質の減少（dust-mantle化）　⇒　熱伝導性の低下（深層の熱保護＋内圧上昇に寄与）
 <br>
@@ -8216,6 +8220,8 @@ F_Yarkovsky=F_radiation*1e-3; F_Yarkovsky -> 0.04805327865567048
 　　太陽-天体-観測者の位相角：10°前後（≒太陽合）
 <br>
 　　・地上の観測window：夜明け前の東の低空↑（逆行軌道の離脱過程）
+<br>
+　　　等級∝log(1/明るさ)：9~15等級@10/29~12/19（徐々に観測困難）
 <br>
 　　＋<a href="#span-app-astrodynamics">軌道傾斜角</a>：175.11°（≒<a href="#span-app-astrodynamics">黄道面</a>）
 <br>
@@ -8267,7 +8273,7 @@ F_Yarkovsky=F_radiation*1e-3; F_Yarkovsky -> 0.04805327865567048
 <br>
 　　・<a href="#span-app-knowns">C/2011 L4 (PanSTARRS)長周期彗星</a>：Order(100万km)の<a href="#span-app-knowns">anti-tail</a>（<span class="selection">数週間で広範囲に分散の低β値の断片に由来</span>）
 <br>
-　　　核の日心速力@近日点0.3~0.9au：<span class="selection">76.7~44.4km/s</span>（近日点通過の約2月後の観測）
+　　　核の日心速力：<span class="selection">76.7~44.4km/s@近日点0.3~0.9au</span>（近日点通過の約2月後の観測）
 <br>
 　　・<a href="#span-app-knowns">311P/PanSTARRS小惑星帯彗星</a>：6本の<a href="#span-app-knowns">tail</a>構造（<span class="selection">高速自転による表面崩壊に由来</span>）
 <br>
@@ -8299,7 +8305,7 @@ escape_velocity(93600e3,1.8986e27) -> 52035.133553510015[m/s]
 <br>
 　観測網：以下の一覧（比較的短期間で深宇宙探査機の予定を含む）
 <br>
-　・<a href="#span-app-knowns">彗星</a>活動の規模∝質量損失rate：近日点付近で最大（特徴を捉えやすい）
+　・<a href="#span-app-knowns">彗星</a>の活動度∝昇華率：近日点付近で最大（特徴を捉えやすい）
 <br>
 　　望遠鏡画像：主に<a href="#span-app-telescope">総露光時間</a>が<a href="#span-app-knowns">tail</a>構造</span>の濃淡に影響（加工次第）
 <br>
