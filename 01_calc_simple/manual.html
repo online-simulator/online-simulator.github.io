@@ -3465,6 +3465,8 @@ ja.m.wikipedia.org/wiki/項目を列挙する
 <br>
 ・チンダル現象
 <br>
+・レンズフレア
+<br>
 ・格子振動
 <br>
 ・ホログラフィー
@@ -6287,6 +6289,30 @@ d=1e7; calc_magnitude(d) -> 17.9
 <br>
 　天体追尾：ぶれの低減（自転を含む）
 <br>
+　光芒対策（回折を除く）：lens-hood
+<br>
+・光芒：<a href="#span-app-optics">光学</a>現象
+<br>
+　自然：薄明光線（大気中の散乱と遠近法）
+<br>
+　構造：回折spike（点光源⇒sensor表面の不要な回折）
+<br>
+　・反射望遠鏡：副鏡支持架
+<br>
+　・camera：絞り羽根
+<br>
+　撮像：artifact（点光源⇒sensor表面の不要な反射||散乱）
+<br>
+　・lens-flare：画面全体のcontrast低下（不要な散乱）
+<br>
+　・lens-ghost：光源の虚像（不要な反射）
+<br>
+　digital処理：artifact
+<br>
+　・A/D変換：量子化noise
+<br>
+　・圧縮：block単位の平滑化noise
+<br>
 ・後処理：<a href="#span-out-UI-graphing-filter-list">画像処理</a>
 <br>
 　校正：noise除去
@@ -8156,7 +8182,7 @@ a_non_g=2.5e-5; v_gas=300; a_non_g*T_perihelion/v_gas -> 0.1332（分裂あり�
 <br>
 　・<span class="clear">|非重力加速度|@近日点：Order(<span class="jF">5e-7m/s^2</span>)</span>
 <br>
-　　Marsden形式<span class="clear">3成分@11/27：動径:接線:法線方向の比率≒3:2:0</span>（動径方向の外向き＋<a href="#span-app-astrodynamics">「順行自転」</a>相当）
+　　Marsden形式<span class="clear">RTN3成分@11/27：動径:接線:法線方向の比率≒3:2:0</span>（動径方向の外向き＋<a href="#span-app-astrodynamics">「順行自転」</a>相当）
 <br>
 A1=7.67705176269127e-8; A2=5.097390576407114e-8; A3=-3.581097723791005e-9;
 <br>
@@ -8266,7 +8292,7 @@ F_Yarkovsky=F_radiation*1e-3; F_Yarkovsky -> 0.04805327865567048
 <br>
 　　＋<a href="#span-app-astrodynamics">軌道傾斜角</a>：<span class="selection">175.11°</span>（≒<a href="#span-app-astrodynamics">黄道面</a>）
 <br>
-　　＋非重力加速度：法線方向のA3成分≒0（≒edge-on）
+　　＋<span class="clear">非重力加速度：法線方向のA3成分≒0</span>（≒edge-on）
 <br>
 　　⇒View from Earth：反尾の顕在化（太陽側の軌道方向）　⇔　主尾の潜在化（視線方向≒反太陽方向）
 <br>
@@ -8283,6 +8309,16 @@ F_Yarkovsky=F_radiation*1e-3; F_Yarkovsky -> 0.04805327865567048
 　　　観測bias：<a href="#span-app-commet">中β値</a>の塵粒子が主体　⇒　扇の両端部分は検出困難の可能性（<a href="#span-app-telescope">stacking</a>のnoise相当）
 <br>
 　　coma（gasと塵の混合）の直径：10~18万km≒<a href="#span-app-knowns">土星</a>~<a href="#span-app-knowns">木星</a>（≠見掛size）＞<span class="clear">約8万km@HST@11/30</span>
+<br>
+　　・検出直径：塵（流体駆動）＜OH（H2Oの光解離）＜CN（HCNの光解離）＜CO2（熱拡散）
+<br>
+　　　塵：<span class="clear">約8万km</span>（可視光線観測@HST）
+<br>
+　　　OH：<span class="selection">塵とCNの中間</span>（紫外線観測@Swift＋電波観測@SARAO）
+<br>
+　　　CN：<span class="clear">約18万km</span>（電波観測@ALMA+JCMT）
+<br>
+　　　CO2：<span class="selection">~70万km超</span>（赤外線観測@JWST+SPHEREx）
 <br>
 　　<a href="#span-app-astrodynamics">北黄極</a>視点の公転と自転：時計回り（地球は反時計回り）
 <br>
@@ -8731,7 +8767,7 @@ Hill_radius(227920000,6.4171e23,1.9884e30) -> 1083977.752539231[km]（<a href="#
       <td>掃天観測</td>
     </tr>
     <tr>
-      <td rowspan="4">電波望遠鏡</td>
+      <td rowspan="5">電波望遠鏡</td>
       <td>RATAN-600</td>
       <td>SAO RAS<br>Special Astrophysical Observatory of the Russian Academy of Science, Russia</td>
       <td>電波</td>
@@ -8762,6 +8798,14 @@ Hill_radius(227920000,6.4171e23,1.9884e30) -> 1083977.752539231[km]（<a href="#
       <td>12<br>7</td>
       <td>0.005~0.1</td>
       <td>電波干渉計<br>・超高分解能<br>・非重力加速度</td>
+    </tr>
+    <tr>
+      <td>JCMT<br>James Clerk Maxwell Telescope</td>
+      <td>EAO<br>East Asian Observatory, Hawaii</td>
+      <td>電波</td>
+      <td>15</td>
+      <td>2</td>
+      <td>電波望遠鏡<br>・HCN検出</td>
     </tr>
     <tr>
       <td>赤外線望遠鏡</td>
@@ -8908,7 +8952,7 @@ Hill_radius(227920000,6.4171e23,1.9884e30) -> 1083977.752539231[km]（<a href="#
       <td>可視光線</td>
       <td></td>
       <td></td>
-      <td>撮像@11/08<br>・深層の露出？<br>・7本の<a href="#span-app-jet">jet</a>構造<br>　comaの回折spikeなし</td>
+      <td>撮像@11/08<br>・深層の露出？<br>・7本の<a href="#span-app-jet">jet</a>構造</td>
     </tr>
     <tr>
       <td>Team</td>
@@ -9012,7 +9056,7 @@ d=5e3; rho=0.5e3; vol=(4pi/3)*(d/2)**3; m=rho*vol; m -> 32724923474893.676[kg]
 <br>
 　・初速要因：約220km/sで銀河中心を公転の太陽系に対する放出eventの相対速度（<a href="#span-app-orbit">swing-by</a>を含む）
 <br>
-　comaの直径：<span class="selection">~70万km超</span>（近日点付近で最大）
+　CO2のcoma直径（赤外線観測@JWST）：<span class="selection">~70万km超</span>（近日点付近で最大）
 <br>
 　comaのgas成分：<span class="selection">水より<a href="#span-app-gas-CO2">二酸化炭素</a>、FeよりNiが豊富</span>（核表層の多孔質構造||化学組成と揮発性に依存）
 <br>
