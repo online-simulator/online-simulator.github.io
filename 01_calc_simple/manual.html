@@ -2227,6 +2227,14 @@ avi-loeb.medium.com
 ・First X-Ray Detection of 3I/ATLAS
 <br>
 ・3I/ATLAS is Green After Perihelion
+<br>
+・The Anti-Tail of 3I/ATLAS is Larger Than the Distance to the Moon
+<br>
+・The Anti-Tail of 3I/ATLAS Wobbled Before Perihelion
+<br>
+・A 14th Anomaly of 3I/ATLAS
+<br>
+　Alignment of Its Rotation Axis with the Sunward Direction at Large Distances
     </td>
   </tr>
   <tr>
@@ -2277,6 +2285,11 @@ science.nasa.gov/solar-system/comets
 ssd.jpl.nasa.gov/tools
 <br>
 ・sbdb_lookup.html
+<br>
+<br>
+swpc.noaa.gov/products
+<br>
+・real-time-solar-wind
     </td>
   </tr>
   <tr>
@@ -3835,6 +3848,11 @@ domainを列挙する
     <td>
 <span id="span-ref-image"></span>
 参考映像について記述する
+<br>
+<br>
+viewer
+<br>
+・theskylive.com
 <br>
 <br>
 天体写真
@@ -6394,9 +6412,11 @@ d=1e7; calc_magnitude(d) -> 17.9
 <br>
 　「逆行」：反対　⇒　進行方向の減速
 <br>
-・潮汐固定：自転と公転が同期する現象（回転減衰の<a href="#span-out-limit">極限</a>状態）
+・潮汐lock：自転と公転が同期する現象（回転減衰の<a href="#span-out-limit">極限</a>状態）
 <br>
 　潮汐力∝質量/距離**3：<a href="#span-app-gravity">万有引力</a>＋遠心力の不均一分布に伴う相対的な力（例えば、地球-月の系）
+<br>
+・熱的lock：自転軸方向が太陽方向に同期する現象
 <br>
 <br>
 効果：太陽光の吸収による加熱（作用）
@@ -6440,7 +6460,7 @@ d=1e7; calc_magnitude(d) -> 17.9
 <br>
 ・さらに、<a href="#span-app-astrodynamics">潮汐力</a>で地球全体が変形するため、地殻||海面が追加の影響を受ける
 <br>
-・月の場合、<a href="#span-app-astrodynamics">潮汐力</a>の影響が大きく、楕円体の長軸を地球に向けて<a href="#span-app-astrodynamics">潮汐固定</a>する
+・月の場合、<a href="#span-app-astrodynamics">潮汐力</a>の影響が大きく、楕円体の長軸を地球に向けて<a href="#span-app-astrodynamics">潮汐lock</a>する
 <br>
 ・より厳密には<a href="#span-app-gravity">重力</a>場と電磁場を含む系全体の<a href="#span-app-interaction">相互作用</a>によって<a href="#span-app-astrodynamics">摂動</a>||章動が生じる
 <br>
@@ -8152,7 +8172,7 @@ Tsuchinshan-ATLASの解釈について記述する
 <br>
 <a href="#span-app-knowns">3I/ATLAS</a>：3番目に発見@07/01の恒星間天体
 <br>
-・以下、<span class="selection">火星最接近@10/03以前の推定値</span>と<span class="clear">近日点通過後@11/30以前の観測結果</span>を参照
+・以下、<span class="selection">火星最接近@10/03以前の推定値</span>と<span class="clear">近日点通過後@12/15以前の観測結果</span>を参照
 <br>
 　遭遇時期：第25<a href="#span-app-period-activity">太陽活動周期</a>の極大期（<span class="clear">予測より<a href="#span-app-flare">太陽活動</a>が活発に推移</span>@2525）
 <br>
@@ -8372,6 +8392,16 @@ F_Yarkovsky=F_radiation*1e-3; F_Yarkovsky -> 0.04805327865567048
 <br>
 　　<span class="clear"><a href="#span-app-jet">jet</a>構造：活性spotの偏在化</span>（強力な指向性）　⇒　塵の微細化（<a href="#span-app-flare">衝突破砕</a>）と高追従性（<span class="clear">自転を含む螺旋</span>）
 <br>
+　　・物理的な<span class="selection">逆尾</span>：活性spotとhot-spotの同期に由来の可能性（次の前例あり）
+<br>
+　　　<span class="clear">発見直後~近日点通過前：<a href="#span-app-astrodynamics">熱的lock</a>に近い状態を継続（自転軸方向≒太陽方向）</span>
+<br>
+　　　・<span class="clear">自転軸方向と太陽方向の交角≦8°：立体角の幾何学的確率≒0.5%</span>
+<br>
+(cos_deg(0)-cos_deg(8))/2 -> 0.004865965629214819
+<br>
+　　　近日点通過後：夜側の活性spotが活発化＋<a href="#span-app-commet">破片dust</a>の残像（離脱過程の太陽側の軌道方向で顕著）
+<br>
 　　・<a href="#span-app-knowns">McNaught長周期彗星</a>：<a href="#span-app-commet">striation</a>（<span class="selection">核の自転と活性spotに由来</span>）
 <br>
 　　　縞模様の密部分：活性spotとhot-spotの同期区間（活性spotの法線方向≒太陽方向）の強力なoutgassing-<a href="#span-app-jet">jet</a>
@@ -8413,6 +8443,12 @@ escape_velocity(93600e3,1.8986e27) -> 52035.133553510015[m/s]
 　　・<span class="clear"><a href="#span-app-knowns">3I/ATLAS</a>：複数本の<a href="#span-app-commet">tail</a>構造</span>（自転を伴うoutgassing-<a href="#span-app-jet">jet</a>に由来？技術的？）
 <br>
 　　・<a href="#span-app-knowns">1I/ʻOumuamua</a>：以上の仮説（非重力的な加速現象　⇔　通常のoutgassing-<a href="#span-app-jet">jet</a>の範囲内で微弱？技術的？）
+<br>
+　・平面位相角：10/21太陽合（負⇒正）／12/01（正）＼2026/01/22（正⇒負）＼2026/03/16木星最接近（負）
+<br>
+　　離脱過程の最中@12/15：活動度の減少傾向＋主尾の潜在化傾向＋<span class="clear">約50万kmの<a href="#span-app-commet">anti-tail</a></span>
+<br>
+len=50e4; v=66; sec=len/v; sec/(60*60) -> 2.1043771043771042[h]（≒<a href="#span-app-telescope">総露光時間</a>の移動距離相当に投影の残像）
 <br>
 　観測網：以下の一覧（比較的短期間で深宇宙探査機の予定を含む）
 <br>
