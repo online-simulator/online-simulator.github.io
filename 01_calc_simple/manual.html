@@ -2214,6 +2214,10 @@ butsuri.it-chiba.ac.jp/~yasutake/matter/onodera_abc-conjecture.pdf
 <br>
 avi-loeb.medium.com
 <br>
+・Is the 0.2% Outlier-Fraction of Meteorites from an Interstellar Origin?
+<br>
+・Is the Interstellar Object 3I/ATLAS Alien Technology?
+<br>
 ・Was the "Wow! Signal" Emitted from 3I/ATLAS?
 <br>
 ・New Questions and Answers About 3I/ATLAS
@@ -3302,6 +3306,8 @@ ja.m.wikipedia.org/wiki/項目を列挙する
 <br>
 ・円錐曲線
 <br>
+・立体角
+<br>
 ・真近点角
 <br>
 ・平均近点角
@@ -3757,6 +3763,10 @@ astro-dic.jp/項目を列挙する
 ・galactic-plane
 <br>
 ・galactic-halo
+<br>
+・hill-radius
+<br>
+・roche-limit
     </td>
   </tr>
   <tr>
@@ -6397,6 +6407,16 @@ d=1e7; calc_magnitude(d) -> 17.9
 <br>
 　黄道傾斜角：黄道面基準
 <br>
+・天頂角||極角：極軸に対する半角（円錐の広がりの半開き角度）
+<br>
+・立体角：幾何学的確率の基準
+<br>
+・Hill球：主星に対する副星の<a href="#span-app-gravity">重力</a>圏の「Hill半径」
+<br>
+　単純化：太陽-惑星-天体の円制限<a href="#span-out-UI-graphing-testcase">3体問題</a>
+<br>
+・Roche限界：潮汐力による破壊限界の「潮汐半径」
+<br>
 <br>
 天体の回転：公転と自転
 <br>
@@ -8202,6 +8222,8 @@ Tsuchinshan-ATLASの解釈について記述する
 <br>
 　・観測bias∝1/感度：明るさ||速度||時空間のwindow||幾何学的な経路に依存（発見自体が非常に<a href="#span-app-entropy">稀な事象</a>）
 <br>
+　　<span class="selection">CNEOS Fireball Catalog：飛来天体に占める恒星間天体の割合≒0.2%</span>
+<br>
 　・前例：<a href="#span-app-commet">太陽系内彗星</a>の<a href="#span-app-knowns-Tsuchinshan">紫金山・ATLAS彗星</a>（2023/01/09発見~2年弱の期間の全processを網羅的に観測）
 <br>
 　・異例：木星周回機Junoからの観測（来年の予定）
@@ -8396,7 +8418,7 @@ F_Yarkovsky=F_radiation*1e-3; F_Yarkovsky -> 0.04805327865567048
 <br>
 　　　<span class="clear">発見直後~近日点通過前：<a href="#span-app-astrodynamics">熱的lock</a>に近い状態を継続（自転軸方向≒太陽方向）</span>
 <br>
-　　　・<span class="clear">自転軸方向と太陽方向の交角≦8°：立体角の幾何学的確率≒0.5%</span>
+　　　・<span class="clear">自転軸方向と太陽方向の交角≦8°：<a href="#span-app-astrodynamics">立体角</a>の幾何学的確率≒0.5%</span>（<a href="#span-app-astrodynamics">天頂角</a>≦8°の球帽）（非常に<a href="#span-app-entropy">稀な事象</a>）
 <br>
 (cos_deg(0)-cos_deg(8))/2 -> 0.004865965629214819
 <br>
@@ -8424,13 +8446,13 @@ F_Yarkovsky=F_radiation*1e-3; F_Yarkovsky -> 0.04805327865567048
 <br>
 　　　放出event：<span class="selection">高速自転による<a href="#span-app-astrodynamics">潮汐力</a>と熱応力の<a href="#span-app-interaction">相互作用</a>　⇒　表面物質の間欠的な崩壊と放出</span>（計9回）
 <br>
-　　・<a href="#span-app-knowns">D/1993 F2 (Shoemaker-Levy 9)消滅彗星</a>：21個以上の破片に分裂（<span class="selection"><a href="#span-app-knowns">木星</a>の<a href="#span-app-astrodynamics">潮汐力</a>のRoche限界突破に由来</span>）
+　　・<a href="#span-app-knowns">D/1993 F2 (Shoemaker-Levy 9)消滅彗星</a>：21個以上の破片に分裂（<span class="selection"><a href="#span-app-knowns">木星</a>の<a href="#span-app-astrodynamics">潮汐力</a>の<a href="#span-app-astrodynamics">Roche限界</a>突破に由来</span>）
 <br>
 Roche_limit(Rp,rhop,rhoc)=&lt;Rp*(2.44*pow(rhop/rhoc,1/3));
 <br>
 Roche_limit(71492,1.33,0.5) -> 241698.79501289243[km]（＞最接近距離≒93600[km]）
 <br>
-　　　|脱出速度|：Hill球半径&gt;&gt;Roche限界
+　　　|脱出速度|：<a href="#span-app-astrodynamics">Hill球</a>半径&gt;&gt;<a href="#span-app-astrodynamics">Roche限界</a>
 <br>
 escape_velocity(r,mp)=&lt;last{G=6.67430e-11,sqrt(2*G*mp/r)};
 <br>
@@ -8470,11 +8492,11 @@ len=50e4; v=66; sec=len/v; sec/(60*60) -> 2.1043771043771042[h]（≒<a href="#s
 <br>
 　　<a href="#span-app-earth">反地球</a>：次の影響なし（空想）
 <br>
-　　<a href="#span-app-orbit">軌道計算</a>：<span class="clear">約4秒角の経路逸脱</span>の補正<span class="selection">前</span><span class="clear">後</span>で<a href="#span-app-knowns">木星</a>のHill球境界と交差が判明@11/22
+　　<a href="#span-app-orbit">軌道計算</a>：<span class="clear">約4秒角の経路逸脱</span>の補正<span class="selection">前</span><span class="clear">後</span>で<a href="#span-app-knowns">木星</a>の<a href="#span-app-astrodynamics">Hill球</a>境界と交差が判明@11/22
 <br>
-　　・<a href="#span-app-knowns">木星</a>最接近距離：<span class="clear">5344.5万km</span>＜Hill球代表半径≒5350万km＜<span class="selection">5377万km</span>
+　　・<a href="#span-app-knowns">木星</a>最接近距離@2026/03/16：<span class="clear">5344.5万km</span>＜<a href="#span-app-astrodynamics">Hill球</a>代表半径≒5350万km＜<span class="selection">5377万km</span>
 <br>
-　　　補正量：-32.5万km　⇒　Order(10万km)でHill球の<a href="#span-out-error-numerical">数値誤差</a>の範囲内（<a href="#span-app-orbit">swing-by</a>効果の軌道修正？）
+　　　補正量：-32.5万km　⇒　Order(10万km)で<a href="#span-app-astrodynamics">Hill球</a>の<a href="#span-out-error-numerical">数値誤差</a>の範囲内（<a href="#span-app-orbit">swing-by</a>効果の軌道修正？）
 <br>
 　　　軌道投入要件：|相対速度|＜|脱出速度|　⇒　|相対速度|≒66km/s＞|脱出速度|≒2.2km/s（約30倍）
 <br>
@@ -8488,7 +8510,7 @@ escape_velocity(5377e7,1.8986e27) -> 2171.0237761395288[m/s]
 <br>
 calc_r(ve,mp)=&lt;last{G=6.67430e-11,2*G*mp/ve**2}; calc_r(66e3,1.8986e27) -> 58181019.191919185[m]
 <br>
-　　・Hill球：主星に対する副星の<a href="#span-app-gravity">重力</a>圏（例えば、太陽-惑星-天体の円制限<a href="#span-out-UI-graphing-testcase">3体問題</a>の単純化）
+　　・<a href="#span-app-astrodynamics">Hill球</a>：惑星の影響範囲
 <br>
 Hill_radius(a,mp,ms)=&lt;a*pow(mp/(3ms),1/3);
 <br>
@@ -8496,7 +8518,7 @@ Hill_radius(778412010,1.8986e27,1.9884e30) -> 53147032.09345227[km]（<a href="#
 <br>
 Hill_radius(227920000,6.4171e23,1.9884e30) -> 1083977.752539231[km]（<a href="#span-app-knowns">火星</a>の公称値から単純換算）
 <br>
-　　・<a href="#span-app-knowns">火星</a>最接近距離：<span class="selection">2897万km</span>＞Hill球代表半径≒104万km（約28倍）
+　　・<a href="#span-app-knowns">火星</a>最接近距離：<span class="selection">2897万km</span>＞<a href="#span-app-astrodynamics">Hill球</a>代表半径≒104万km（約28倍）
 <br>
 <table>
   <caption>1. 宇宙baseの観測機器（Space-based Assets）</caption>
@@ -9188,6 +9210,12 @@ d=5e3; rho=0.5e3; vol=(4pi/3)*(d/2)**3; m=rho*vol; m -> 32724923474893.676[kg]
 <br>
 　<span class="selection"><a href="#span-app-orbit">軌道計算</a></span>：火星⇒<a href="#span-app-earth">反地球</a>⇒金星⇒木星（「いて座」方向から逆行誘導で各1[au]以内のmulti-<a href="#span-app-orbit">flyby</a>）
 <br>
+　・軌道面と<a href="#span-app-astrodynamics">黄道面</a>の極軸の交角≦5°：<span class="selection"><a href="#span-app-astrodynamics">立体角</a>の幾何学的確率≒0.19%</span>（<a href="#span-app-astrodynamics">天頂角</a>≦5°の球帽）（非常に<a href="#span-app-entropy">稀な事象</a>）
+<br>
+(cos_deg(175)-cos_deg(180))/2 || (cos_deg(0)-cos_deg(5))/2 -> 0.0019026509541272274
+<br>
+　・複数天体の整列（<a href="#span-app-astrodynamics">Hill球</a>~1[au]の近傍通過）：<span class="selection">力学的な累積確率＜0.005%</span>
+<br>
 　<a href="#span-app-astrodynamics">軌道傾斜角</a>：<span class="selection">175.11°</span>（≒<a href="#span-app-astrodynamics">黄道面</a>）
 <br>
 　・放出event：<a href="#span-app-astrodynamics">黄道面</a>と銀河面の交角≒60°　⇒　薄い円盤より厚い円盤に近い可能性（起源の補強）
@@ -9196,19 +9224,13 @@ d=5e3; rho=0.5e3; vol=(4pi/3)*(d/2)**3; m=rho*vol; m -> 32724923474893.676[kg]
 <br>
 　太陽合（天体-太陽-地球）：10月中旬~11月上旬（太陽光に隠れて地球から<a href="#span-app-telescope">天体観測</a>困難）
 <br>
+　・特異性：<span class="selection"><a href="#span-app-astrodynamics">黄道面</a>通過event≒近日点@10/29</span>
+<br>
 　・<span class="clear">coronagraph観測：近日点に接近中の軌道と太陽の大規模な<a href="#span-app-flare">CME</a>を確認</span>
 <br>
 　　幾何学的な補正要素：太陽の<a href="#span-app-astrodynamics">赤道傾斜角</a>≒7.25°＋地球の<a href="#span-app-astrodynamics">赤道傾斜角</a>≒<a href="#span-app-period-motion">23.4</a>°（静止軌道に影響）
 <br>
 　・前後の期間：観測windowの短縮で観測困難（太陽-天体-観測者の位相角≒0　⇒　尾が視線方向の可能性）
-<br>
-　太陽合の特異性：<span class="selection"><a href="#span-app-astrodynamics">黄道面</a>通過event≒近日点@10/29</span>
-<br>
-　・180°-<a href="#span-app-astrodynamics">軌道傾斜角</a>（逆行側）≦5°（月相当）：<span class="selection">立体角の幾何学的確率≒0.19%</span>（非常に<a href="#span-app-entropy">稀な事象</a>）
-<br>
-(cos_deg(175)-cos_deg(180))/2 || (cos_deg(0)-cos_deg(5))/2 -> 0.0019026509541272274（<a href="#span-app-astrodynamics">黄道面</a>に水平方向）
-<br>
-(cos_deg(87.5)-cos_deg(92.5))/2 -> 0.04361938736533606（垂直方向の方が高確率　⇔　直交方向で極大化）
 <br>
 　<span class="clear"><a href="#span-app-flare">CME</a>直撃event発生</span><span class="selection">@09/24~25：太陽から突発放出の予測経路と交差</span>（impact確率を下記）
 <br>
@@ -9222,11 +9244,11 @@ d=5e3; rho=0.5e3; vol=(4pi/3)*(d/2)**3; m=rho*vol; m -> 32724923474893.676[kg]
 <br>
 (0.34/1.4)**2 -> 0.05897959183673471
 <br>
-　・極大期の半角（円錐の広がりの半開き角度） α=45°の立体角：Ω≒1.84[sr]
+　・極大期のα=45°（<a href="#span-app-astrodynamics">天頂角</a>≦45°の球帽）の<a href="#span-app-astrodynamics">立体角</a>：Ω≒1.84[sr]
 <br>
 alpha_deg=45; Omega=2pi(1-cos_deg(alpha_deg)); Omega -> 1.84030236902122
 <br>
-　・偏在の緯度範囲±40°（50°≦極角||天頂角≦130°）の立体角
+　・偏在の緯度範囲±40°（50°≦<a href="#span-app-astrodynamics">天頂角</a>≦130°の帯状）の<a href="#span-app-astrodynamics">立体角</a>
 <br>
 lat=40; Omega_AR=2pi(cos_deg(90-lat)-cos_deg(90+lat)); Omega_AR -> 8.077507329639102
 <br>
@@ -9280,7 +9302,7 @@ eta=1420.4556/1420.40575; ee=eta*eta; c=299792458; v=c*(1-ee)/(1+ee); v -> -1052
 <br>
 　・「6EQUJ5」：「いて座」方向の固定点源らしき信号強度S/N比（背景noise標準偏差×<a href="#span-app-369">36進数</a>）の凸型波形の記録
 <br>
-　・<span class="selection">「いて座」：方向一致（発信源方向の半角α=9°範囲内で交差）の確率≒0.6%</span>（非常に<a href="#span-app-entropy">稀な事象</a>）
+　・<span class="selection">「いて座」方向の一致：<a href="#span-app-astrodynamics">立体角</a>の幾何学的確率≒0.6%</span>（<a href="#span-app-astrodynamics">天頂角</a>≦9°の球帽）（非常に<a href="#span-app-entropy">稀な事象</a>）
 <br>
 alpha_deg=9; Omega=2pi(1-cos_deg(alpha_deg)); Omega_sphere=4pi; Omega/Omega_sphere
 <br>
