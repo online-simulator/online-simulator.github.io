@@ -6438,6 +6438,12 @@ d=1e7; calc_magnitude(d) -> 17.9
 <br>
 ・熱的lock：自転軸方向が太陽方向に同期する現象
 <br>
+・自転限界：<a href="#span-app-gravity">重力</a>＝遠心力の状態の自転周期（一般的な<a href="#span-app-commet">彗星</a>の場合、約4.7[h]）
+<br>
+period_critical_rotation(rho)=&lt;last{G=6.67430e-11,sqrt(3pi/(G*rho))};
+<br>
+period_critical_rotation(0.5e3)/(60*60) -> 4.668154259921848[h]
+<br>
 <br>
 効果：太陽光の吸収による加熱（作用）
 <br>
@@ -7669,7 +7675,7 @@ tail（尾の形態）
       <td>1.108</td>
     </tr>
     <tr>
-      <th>(3200) Phaethon<br><span class="condition">小惑星遷移天体</span></th>
+      <th>(3200) Phaethon<br><span class="condition">小惑星遷移天体<br>約3.6hの<a href="#span-app-astrodynamics">自転周期</a></span></th>
       <td>1983/10/11</td>
       <td>-</td>
       <td>-</td>
@@ -8240,13 +8246,17 @@ Tsuchinshan-ATLASの解釈について記述する
 <br>
 　　gasの蛍光発光：非常に狭い<a href="#span-app-optics">波長</a>領域（輝線spectrum）　⇒　希薄な影響（淡い着色）
 <br>
+　・<span class="jF">核の質量</span>：<span class="clear">48.5±2.2Tg@12/10</span>（予測の33000Tgより3桁小さい）
+<br>
+　・<span class="jF">核の直径</span>：<span class="clear">約570m@12/10</span>（予測の下限に近い）
+<br>
 　・<span class="clear">質量損失割合</span>：分裂なし相当
 <br>
 m_rate=(180+405)/2; T_perihelion=<span class="jF">18.5</span>*60*60*24; dm=m_rate*T_perihelion; dm -> 467532000[kg]
 <br>
-<span class="jF">d=5e3</span>; rho=0.5e3; vol=(4pi/3)*(d/2)**3; m=rho*vol; m -> 32724923474893.676[kg]
+<span class="jF">d=570.0649908033095</span>; rho=0.5e3; vol=(4pi/3)*(d/2)**3; m=rho*vol; m -> 48499999999.99994[kg]
 <br>
-dm/m -> 0.000014286725539898884（分裂なし）
+dm/m -> 0.009639835051546404（分裂なし）
 <br>
 a_non_g=2.5e-5; v_gas=300; a_non_g*T_perihelion/v_gas -> 0.1332（分裂あり）
 <br>
@@ -8260,9 +8270,9 @@ sqrt(A1**2+A2**2+A3**2)*149597870700/(60*60*24)**2 -> 0.0000018481274287716393[m
 <br>
 　・<span class="clear">OH分子の|熱拡散速度|：約800m/s</span>（＜局所的な<a href="#span-app-jet">|噴射速度|</a>v_gas）
 <br>
-<span class="jF">a_non_g=5e-7</span>; <span class="jF">v_gas=1000</span>; m*a_non_g/v_gas -> 16362.461737446838[kg/s]（gas成分の質量損失rate）
+<span class="jF">a_non_g=5e-7</span>; <span class="jF">v_gas=1000</span>; m*a_non_g/v_gas -> 24.249999999999968[kg/s]（gas成分の質量損失rate）
 <br>
-ans/405 -> 40.401140092461326（magnitudeから換算の実効係数下限）
+ans/405 -> 0.05987654320987647（magnitudeから換算の実効係数下限）
 <br>
 　・<a href="#span-app-jet">jet</a>の推力：vector和をscalar実効値に換算（単一の近似式を適用）
 <br>
@@ -8278,17 +8288,17 @@ deg_non_g=4/(60*60); deg_non_g -> 0.0011111111111111111[deg]
 <br>
 　・主要因：<a href="#span-app-astrodynamics">rocket効果</a>&gt;&gt;&gt;&gt;&gt;放射圧&gt;動圧&gt;<a href="#span-app-astrodynamics">Yarkovsky効果</a>
 <br>
-<span class="jF">d=5e3</span>; rho=0.5e3; vol=(4pi/3)*(d/2)**3; m=rho*vol; A=pi*(d/2)**2;
+<span class="jF">d=570.0649908033095</span>; rho=0.5e3; vol=(4pi/3)*(d/2)**3; m=rho*vol; A=pi*(d/2)**2;
 <br>
-<span class="jF">a_non_g=5e-7</span>; F_rocket=m*a_non_g; F_rocket -> 16362461.737446837
+<span class="jF">a_non_g=5e-7</span>; F_rocket=m*a_non_g; F_rocket -> 24249.999999999967
 <br>
-P_wind=4e-8; F_wind=P_wind*A; F_wind*[1,50] -> (0.7853981633974483,39.269908169872416)
+P_wind=4e-8; F_wind=P_wind*A; F_wind*[1,50] -> (0.010209362254992568,0.5104681127496284)
 <br>
-r=1.356; P_radiation=4.5e-6*(1/r)**2; F_radiation=P_radiation*A; F_radiation -> 48.05327865567048
+r=1.356; P_radiation=4.5e-6*(1/r)**2; F_radiation=P_radiation*A; F_radiation -> 0.6246428272936756
 <br>
-F_Yarkovsky=F_radiation*1e-3; F_Yarkovsky -> 0.04805327865567048
+F_Yarkovsky=F_radiation*1e-3; F_Yarkovsky -> 0.0006246428272936756
 <br>
-　検証結果（<span class="jF">不確定</span>）：<a href="#span-app-commet">太陽系内彗星</a>と対照的（≠常時真逆）
+　検証結果：<a href="#span-app-commet">太陽系内彗星</a>と対照的（≠常時真逆）
 <br>
 　・<a href="#span-app-analogy">analogy</a>：構造と状況の既視感
 <br>
@@ -8316,7 +8326,15 @@ F_Yarkovsky=F_radiation*1e-3; F_Yarkovsky -> 0.04805327865567048
 <br>
 　・<span class="clear">近日点±18.5日：通常のH2O＋COと豊富なCO2の爆発的な昇華　⇒　outburst@10/29　⇒　収束@11/09</span>
 <br>
-　　<span class="clear">質量損失割合：0.0014%×実効係数</span>区間[40,40*7*3*2]　⇒　核[表層,深層？]の連続はく離（<span class="clear">≠分裂</span>）
+　　<span class="clear">質量損失割合：0.96%×実効係数</span>区間[0.06,0.06*7*3*2]　⇒　核[表層,深層]の連続はく離（<span class="clear">≠分裂</span>）＋<a href="#span-app-commet">破片dust</a>
+<br>
+　　・<span class="clear">近日点を生還の要因：<a href="#span-app-astrodynamics">自転限界</a>より緩やかな自転||CO2昇華の冷却効果||核の芯の存在（重心を支える構造）</span>
+<br>
+<span class="jF">d=570.0649908033095</span>; vol=(4pi/3)*(d/2)**3; vol -> 96999999.99999988
+<br>
+r_crust=[2,10]; vol_crust=vol-(4pi/3)*(d/2-r_crust)**3; vol_crust -> (2027578.6654227376,9855368.647762075)
+<br>
+vol_crust/vol -> (0.02090287283940969,0.10160173863672255)
 <br>
 　　荷電交換反応（e-捕獲⇒励起⇒基底状態）：<a href="#span-app-astronomy">太陽風</a>の高価数酸素のK殻遷移による<span class="clear">X線検出@XRISM@11/26</span>
 <br>
@@ -8442,7 +8460,7 @@ F_Yarkovsky=F_radiation*1e-3; F_Yarkovsky -> 0.04805327865567048
 <br>
 　　　核の直径：<span class="selection">約0.4km</span>
 <br>
-　　　核の自転周期：<span class="selection">5.4h以上（<a href="#span-app-astrodynamics">YORP効果</a>による「分裂限界」相当）</span>
+　　　核の自転周期：<span class="selection">5.4h以上（<a href="#span-app-astrodynamics">YORP効果</a>で<a href="#span-app-astrodynamics">自転限界</a>に到達）</span>
 <br>
 　　　放出event：<span class="selection">高速自転による<a href="#span-app-astrodynamics">潮汐力</a>と熱応力の<a href="#span-app-interaction">相互作用</a>　⇒　表面物質の間欠的な崩壊と放出</span>（計9回）
 <br>
