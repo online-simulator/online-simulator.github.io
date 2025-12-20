@@ -2214,6 +2214,8 @@ butsuri.it-chiba.ac.jp/~yasutake/matter/onodera_abc-conjecture.pdf
 <br>
 avi-loeb.medium.com
 <br>
+・ʻOumuamua Was Not a Hydrogen-Water Iceberg
+<br>
 ・Is the 0.2% Outlier-Fraction of Meteorites from an Interstellar Origin?
 <br>
 ・Is the Interstellar Object 3I/ATLAS Alien Technology?
@@ -2239,6 +2241,8 @@ avi-loeb.medium.com
 ・A 14th Anomaly of 3I/ATLAS
 <br>
 　Alignment of Its Rotation Axis with the Sunward Direction at Large Distances
+<br>
+・Europa Clipper Observed 3I/ATLAS Near Perihelion
     </td>
   </tr>
   <tr>
@@ -6444,7 +6448,7 @@ d=1e7; calc_magnitude(d) -> 17.9
 <br>
 period_critical_rotation(rho)=&lt;last{G=6.67430e-11,sqrt(3pi/(G*rho))};
 <br>
-period_critical_rotation(0.5e3)/(60*60) -> 4.668154259921848[h]
+period_critical_rotation(0.5e3)/(60*60) -> 4.668154259921848
 <br>
 <br>
 効果：太陽光の吸収による加熱（作用）
@@ -7689,7 +7693,7 @@ tail（尾の形態）
       <td>1.108</td>
     </tr>
     <tr>
-      <th>(3200) Phaethon<br><span class="condition">小惑星遷移天体<br>約3.6hの<a href="#span-app-astrodynamics">自転周期</a></span></th>
+      <th>(3200) Phaethon<br><span class="condition">小惑星遷移天体<br><a href="#span-app-astrodynamics">自転周期</a>≒3.6h</span></th>
       <td>1983/10/11</td>
       <td>-</td>
       <td>-</td>
@@ -8248,7 +8252,9 @@ Tsuchinshan-ATLASの解釈について記述する
 <br>
 　・異例：木星周回機Junoからの観測（来年の予定）
 <br>
-　・超異例：木星探査機JUICEの補完的なrendezvous観測@太陽合（<span class="clear">約0.43[au]の最接近距離@11/04</span>）
+　・超異例：木星探査機JUICEの補完的なrendezvous観測@太陽合<span class="clear">@0.43au上流@11/04</span>
+<br>
+　・超々異例：木星探査機Europa Clipperの補完的なrendezvous観測@太陽合<span class="clear">@1.1au下流@11/06</span>
 <br>
 　要検証：非重力加速度による軌道vectorの経路変化と質量収支の整合性（撮像の時空間分布を含む）
 <br>
@@ -8498,7 +8504,11 @@ escape_velocity(93600e3,1.8986e27) -> 52035.133553510015[m/s]
 <br>
 　　・<span class="clear"><a href="#span-app-knowns">3I/ATLAS</a>：複数本の<a href="#span-app-commet">tail</a>構造</span>（自転を伴うoutgassing-<a href="#span-app-jet">jet</a>に由来？技術的？）
 <br>
-　　・<a href="#span-app-knowns">1I/ʻOumuamua</a>：以上の仮説（非重力的な加速現象　⇔　通常のoutgassing-<a href="#span-app-jet">jet</a>の範囲内で微弱？技術的？）
+　　　<span class="clear">|非重力加速度|@近日点：Order(<span class="jF">5e-7m/s^2</span>)</span>
+<br>
+　　・<a href="#span-app-knowns">1I/ʻOumuamua</a>：未解明の非重力的な加速現象（自転周期≒8.1[h]＋不可視の水素氷説||solar-sail説）
+<br>
+　　　<span class="selection">|非重力加速度|@1au：4.9e-6m/s^2</span>＞高活動性のOrder(1e-7m/s^2)＞低活動性のOrder(1e-8m/s^2)
 <br>
 　・上面位相角：10/21太陽合（負⇒正）／12/01（正）＼2026/01/22（正⇒負）＼2026/03/16木星最接近（負）
 <br>
@@ -8780,7 +8790,7 @@ Hill_radius(227920000,6.4171e23,1.9884e30) -> 1083977.752539231[km]（<a href="#
       <td>Europa Clipper (EIS/NAC)</td>
       <td>NASA</td>
       <td>Jupiter系へ</td>
-      <td></td>
+      <td>○</td>
       <td>約2.06</td>
       <td></td>
       <td></td>
@@ -9258,11 +9268,17 @@ d=5e3; rho=0.5e3; vol=(4pi/3)*(d/2)**3; m=rho*vol; m -> 32724923474893.676[kg]
 <br>
 　<span class="selection"><a href="#span-app-orbit">軌道計算</a></span>：火星⇒<a href="#span-app-earth">反地球</a>⇒金星⇒木星（「いて座」方向から逆行誘導で各1[au]以内のmulti-<a href="#span-app-orbit">flyby</a>）
 <br>
+　・複数天体の整列（<a href="#span-app-astrodynamics">Hill球</a>~1[au]の近傍通過）：<span class="selection">力学的な累積確率＜0.005%</span>
+<br>
 　・軌道面と<a href="#span-app-astrodynamics">黄道面</a>の極軸の交角≦5°：<span class="selection"><a href="#span-app-astrodynamics">立体角</a>の幾何学的確率≒0.19%</span>（<a href="#span-app-astrodynamics">天頂角</a>≦5°の球帽）（非常に<a href="#span-app-entropy">稀な事象</a>）
 <br>
-(cos_deg(175)-cos_deg(180))/2 || (cos_deg(0)-cos_deg(5))/2 -> 0.0019026509541272274
+(cos_deg(0)-cos_deg(5))/2 || (cos_deg(175)-cos_deg(180))/2
 <br>
-　・複数天体の整列（<a href="#span-app-astrodynamics">Hill球</a>~1[au]の近傍通過）：<span class="selection">力学的な累積確率＜0.005%</span>
+-> 0.0019026509541272274（<a href="#span-app-astrodynamics">黄道面</a>に水平方向で順行||逆行の確率）
+<br>
+(cos_deg(87.5)-cos_deg(92.5))/2
+<br>
+-> 0.04361938736533606（垂直方向の方が高確率　⇔　直交で極大化）
 <br>
 　<a href="#span-app-astrodynamics">軌道傾斜角</a>：<span class="selection">175.11°</span>（≒<a href="#span-app-astrodynamics">黄道面</a>）
 <br>
@@ -10375,7 +10391,7 @@ jet
 <br>
 ・ozone層：10~50km
 <br>
-・磁気圏：1000~60000（太陽側）~1000000（反対側）km
+・磁気圏：1000~60000（太陽側）~1000000（反太陽側）km
 <br>
 ・plasma圏：800~20000km
 <br>
