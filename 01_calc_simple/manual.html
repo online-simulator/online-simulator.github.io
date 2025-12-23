@@ -2247,6 +2247,8 @@ avi-loeb.medium.com
 　Alignment of Its Rotation Axis with the Sunward Direction at Large Distances
 <br>
 ・Europa Clipper Observed 3I/ATLAS Near Perihelion
+<br>
+・Will Material from 3I/ATLAS Arrive on Earth?
     </td>
   </tr>
   <tr>
@@ -3374,6 +3376,8 @@ ja.m.wikipedia.org/wiki/項目を列挙する
 ・ヤルコフスキー・オキーフ・ラジエフスキー・パダック効果
 <br>
 ・ヤルコフスキー効果
+<br>
+・ポインティング・ロバートソン効果
 <br>
 ・摂動_(天文学)
 <br>
@@ -6555,11 +6559,15 @@ period_critical_rotation(0.5e3)/(60*60) -> 4.668154259921848
 <br>
 効果：太陽光の吸収による加熱（作用）
 <br>
-・YORP効果：不均一な熱放射（反作用）⇒回転速度||自転軸の変化（結果）
+・YORP効果：不均一な温度分布⇒異方性の熱放射（反作用）⇒回転速度||自転軸の変化（結果）
 <br>
-・Yarkovsky効果：不均一な熱放射（反作用）⇒軌道の変化（結果）
+・Yarkovsky効果：不均一な温度分布⇒異方性の熱放射（反作用）⇒軌道の変化（結果）
 <br>
 ・<a href="#span-app-knowns-ATLAS">rocket効果</a>：outgassing-<a href="#span-app-jet">jet</a>（反作用）⇒軌道の変化（結果）
+<br>
+・Poynting-Robertson効果：放射圧（主な作用）⇒運動の減衰効果（反作用）⇒軌道の変化（結果）
+<br>
+　抗力：入射角による光の収差＋異方性のDoppler効果（特殊相対性理論の<a href="#span-app-redshift">運動学的偏移</a>）
 <br>
 <br>
 <a href="#span-app-orbit">摂動</a>：<a href="#span-app-object">天体</a>軌道の乱れ
@@ -8366,6 +8374,18 @@ Tsuchinshan-ATLASの解釈について記述する
 <br>
 　・超々異例：木星探査機Europa Clipperの補完的なrendezvous観測@太陽合<span class="clear">@1.1au下流@11/06</span>
 <br>
+　通過点：最接近距離
+<br>
+　・太陽の<span class="selection">近日点@10/29：2億292万km</span>≒1.356au
+<br>
+　・地球の<span class="selection">近地点@12/19：2億6891万km</span>≒1.8au
+<br>
+　既知の影響：<span class="selection">地球<a href="#span-app-astrodynamics">MOID</a>≒5475万km</span>≒0.366au&gt;&gt;coma半径＋<a href="#span-app-commet">dust-tail</a>長（直近の交差なし）
+<br>
+dr=0.366; dr*149597870700 -> 54752820676.2[m]（dr≒1.356-1）
+<br>
+　・<a href="#span-app-commet">低β値</a>の<a href="#span-app-commet">dust-trail</a>：Order(1~10万年)で太陽に落下（<a href="#span-app-astrodynamics">Poynting-Robertson効果</a>の螺旋軌道と交差で<a href="#span-app-astronomy">流星群</a>）
+<br>
 　要検証：非重力加速度による軌道vectorの経路変化と質量収支の整合性（撮像の時空間分布を含む）
 <br>
 　・内容：質量損失割合下限の概算（<span class="jF">model-basedの推定値</span>）
@@ -8678,7 +8698,7 @@ Hill_radius(227920000,6.4171e23,1.9884e30) -> 1083977.752539231[km]（<a href="#
 <br>
 　　・<a href="#span-app-knowns">火星</a>最接近距離@10/03：<span class="selection">2897万km</span>&gt;&gt;<a href="#span-app-astrodynamics">Hill球</a>代表半径≒104万km（約28倍）
 <br>
-　　・<a href="#span-app-earth">反地球</a>最接近距離@10/21太陽合：5475万km&gt;<span class="selection">Earth <a href="#span-app-astrodynamics">MOID</a>≒2857万km</span>（約2倍）
+　　・<a href="#span-app-earth">反地球</a>最接近距離@10/21太陽合：5500万km≒<span class="selection">地球<a href="#span-app-astrodynamics">MOID</a>≒5475万km</span>（等倍）
 <br>
 　　・<a href="#span-app-knowns">太陽</a>最接近距離@10/29：<span class="selection">2億292万km</span>&lt;&lt;&lt;&lt;&lt;<a href="#span-app-astrodynamics">Hill球</a>代表半径≒2~30兆km（約1e-5倍）
 <br>
