@@ -6771,11 +6771,25 @@ tail（尾の形態）
 <br>
 原理
 <br>
+・活動の規模：活動度∝明るさ∝昇華率∝質量損失rate∝1/日心距離**光度係数
+<br>
+　光度係数：4~6（活動度∝入射<a href="#span-app-energy">energy</a>の理想的な場合、2）
+<br>
+・外向きのplasma-tail：一部ion化の電離gas　⇔　超音速の<a href="#span-app-astronomy">太陽風</a>plasmaの動圧と磁場（Lorentz力）
+<br>
+　狭義の<a href="#span-app-interaction">電磁相互作用</a>：<a href="#span-app-astronomy">太陽風</a>の動圧∝1/日心距離**2
+<br>
+・内外向きのdust-tail：塵粒子（主に中性）　⇔　太陽光の放射圧（光速の光子との運動量交換）
+<br>
+　広義の<a href="#span-app-interaction">電磁相互作用</a>：太陽光の放射圧∝1/日心距離**2
+<br>
+・粒径分布（個数基準の<a href="#span-out-UI-graphing-testcase">べき乗則</a>）：数密度∝1/粒径**(3+<span class="selection">fractal次元≒0.7</span>)
+<br>
 ・Synchrone線（同時放出線）：放出時刻の違い
 <br>
 ・Syndyne曲線（等斥力線）：物理特性β値の違い
 <br>
-・β値∝1/粒径
+・β値：β＝放射圧による斥力／太陽の重力による引力∝1/(粒子密度*粒径)
 <br>
 　高β値（β＞0.1）：sub~数μm
 <br>
@@ -6784,6 +6798,25 @@ tail（尾の形態）
 　低β値（β＜0.01）：数十μm~mm
 <br>
 　β≒0：cm~
+<br>
+<br>
+既知の影響
+<br>
+・ion化の電離gas（plasma）：<a href="#span-app-astronomy">太陽風</a>で反太陽方向に分散して拡散（近日点＞1auで到達なし）
+<br>
+　到達の仮定：<a href="#span-app-atmosphere">磁気圏</a>との<a href="#span-app-interaction">相互作用</a>
+<br>
+・中性gas：慣性維持で放射状に拡散（Haser-model）
+<br>
+　到達の仮定：<a href="#span-app-atmosphere">大気圏</a>より極めて希薄
+<br>
+・高β値の塵粒子：太陽光の放射圧で反太陽方向に分散して拡散（近日点＞1auで到達なし）
+<br>
+　到達の仮定：<a href="#span-app-atmosphere">大気圏</a>との<a href="#span-app-interaction">相互作用</a>
+<br>
+・低β値の<a href="#span-app-commet">dust-trail</a>：Order(1~10万年)で太陽に落下（<a href="#span-app-astrodynamics">Poynting-Robertson効果</a>の螺旋軌道）
+<br>
+　到達の仮定：<a href="#span-app-commet">dust-trail</a>分布の粗密による<a href="#span-app-meteorite">衝突</a>確率で<a href="#span-app-astronomy">流星群</a>
     </td>
   </tr>
   <tr>
@@ -8380,17 +8413,9 @@ Tsuchinshan-ATLASの解釈について記述する
 <br>
 　・地球の<span class="selection">近地点@12/19：2億6891万km</span>≒1.8au
 <br>
-　既知の影響：<span class="selection">地球<a href="#span-app-astrodynamics">MOID</a>≒5475万km</span>≒0.366au&gt;&gt;coma半径＋<a href="#span-app-commet">dust-tail</a>長（直近の交差なし）
+　<a href="#span-app-commet">既知の影響</a>：<span class="selection">地球<a href="#span-app-astrodynamics">MOID</a>≒5475万km</span>≒0.366au&gt;&gt;coma半径＋<a href="#span-app-commet">dust-tail</a>長（直近の交差なし）
 <br>
 dr=0.366; dr*149597870700 -> 54752820676.2[m]（dr≒1.356-1）
-<br>
-　・gas＋<a href="#span-app-commet">高β値</a>の塵粒子：<a href="#span-app-jet">jet</a>を含む慣性の喪失　⇒　反太陽方向に拡散（近日点＞1auで到達なし）
-<br>
-　　到達の仮定：<a href="#span-app-atmosphere">磁気圏</a>＋<a href="#span-app-atmosphere">大気圏</a>との<a href="#span-app-interaction">相互作用</a>
-<br>
-　・<a href="#span-app-commet">低β値</a>の<a href="#span-app-commet">dust-trail</a>：Order(1~10万年)で太陽に落下（<a href="#span-app-astrodynamics">Poynting-Robertson効果</a>の螺旋軌道と交差で<a href="#span-app-astronomy">流星群</a>）
-<br>
-　　到達の仮定：<a href="#span-app-commet">dust-trail</a>分布の粗密（<a href="#span-app-meteorite">隕石</a>を含む）
 <br>
 　要検証：非重力加速度による軌道vectorの経路変化と質量収支の整合性（撮像の時空間分布を含む）
 <br>
@@ -8472,11 +8497,9 @@ F_Yarkovsky=F_radiation*1e-3; F_Yarkovsky -> 0.0006246428272936756
 <br>
 　　・再結合反応：CO＋O→CO2　⇒　<span class="selection">深層：CO2よりH2O＋COが豊富</span>（太陽系外縁部に同様？起源次第）
 <br>
-　　crust厚さ：観測される<a href="#span-app-commet">彗星</a>活動の規模に影響
+　　crust厚さ：観測される<a href="#span-app-commet">彗星</a>の<a href="#span-app-commet">活動度</a>に影響
 <br>
-　　・<a href="#span-app-commet">彗星</a>活動の規模：<a href="#span-app-commet">彗星</a>の活動度∝明るさ∝昇華率∝質量損失rate∝1/日心距離**光度係数
-<br>
-　　・<a href="#span-out-UI-graphing-testcase">べき乗則</a>の<span class="clear">光度係数：3.8±0.3@10/21</span>（通常、4~6）（活動度∝入射<a href="#span-app-energy">energy</a>の理想的な場合、2）
+　　・<a href="#span-out-UI-graphing-testcase">べき乗則</a>の<span class="clear"><a href="#span-app-commet">光度係数</a>：3.8±0.3@10/21</span>
 <br>
 　・初期のoutgassing：揮発性物質の減少（dust-mantle化）　⇒　熱伝導性の低下（深層の熱保護＋内圧上昇に寄与）
 <br>
@@ -8548,9 +8571,7 @@ vol_crust/vol -> (0.02090287283940969,0.10160173863672255)
 <br>
 　　塵の<a href="#span-app-commet">dust-tail</a>（逆尾＋反尾＋塵尾＋螺旋）：太陽側の軌道方向から反太陽方向まで扇状に分散（青緑色）
 <br>
-　　・粒径分布@太陽側の軌道方向⇒反太陽方向：極大⇒極小　⇔　最<a href="#span-app-commet">低β値</a>⇒最<a href="#span-app-commet">高β値</a>
-<br>
-　　　個数基準の<a href="#span-out-UI-graphing-testcase">べき乗則</a>：数密度∝1/粒径**(3+<span class="selection">fractal次元≒0.7</span>)
+　　・<a href="#span-app-commet">粒径分布</a>@太陽側の軌道方向⇒反太陽方向：極大⇒極小　⇔　最<a href="#span-app-commet">低β値</a>⇒最<a href="#span-app-commet">高β値</a>
 <br>
 　　　観測bias：<a href="#span-app-commet">中β値</a>の塵粒子が主体　⇒　扇の両端部分は検出困難の可能性（<a href="#span-app-telescope">stacking</a>のnoise相当）
 <br>
@@ -8648,13 +8669,13 @@ escape_velocity(93600e3,1.8986e27) -> 52035.133553510015[m/s]
 <br>
 　・上面位相角：10/21太陽合（負⇒正）／12/01（正）＼2026/01/22（正⇒負）＼2026/03/16木星最接近（負）
 <br>
-　　離脱過程の最中@12/15：活動度の減少傾向＋主尾の潜在化傾向＋<span class="clear">約50万kmの<a href="#span-app-commet">anti-tail</a></span>
+　　離脱過程の最中@12/15：<a href="#span-app-commet">活動度</a>の減少傾向＋主尾の潜在化傾向＋<span class="clear">約50万kmの<a href="#span-app-commet">anti-tail</a></span>
 <br>
 len=50e4; v=66; sec=len/v; sec/(60*60) -> 2.1043771043771042[h]（≒<a href="#span-app-telescope">総露光時間</a>の移動距離相当に投影の残像）
 <br>
 　観測網：以下の一覧（比較的短期間で深宇宙探査機の予定を含む）
 <br>
-　・<a href="#span-app-commet">彗星</a>の活動度∝昇華率：近日点付近で最大（特徴を捉えやすい）
+　・<a href="#span-app-commet">彗星</a>の<a href="#span-app-commet">活動度</a>∝昇華率：近日点付近で最大（特徴を捉えやすい）
 <br>
 　　望遠鏡画像：主に<a href="#span-app-telescope">総露光時間</a>が<a href="#span-app-commet">tail</a>構造</span>の濃淡に影響（加工次第）
 <br>
@@ -9351,16 +9372,6 @@ d=5e3; rho=0.5e3; vol=(4pi/3)*(d/2)**3; m=rho*vol; m -> 32724923474893.676[kg]
 　・outgassing-<a href="#span-app-jet">jet</a>の非対称性：<a href="#span-app-factor">太陽放射</a>の加熱で太陽側が活発（昼夜の温度差に起因）
 <br>
 　・hot-spot移動の時間遅れ（1日程度）：核の自転と熱慣性に依存（内部圧||地質||熱伝導を含む）
-<br>
-　・外向きの<a href="#span-app-commet">plasma-tail</a>：一部ion化の電離gas　⇔　超音速の<a href="#span-app-astronomy">太陽風</a>plasmaの動圧と磁場（Lorentz力）
-<br>
-　　狭義の<a href="#span-app-interaction">電磁相互作用</a>：<a href="#span-app-astronomy">太陽風</a>の動圧∝1/日心距離**2
-<br>
-　・内外向きの<a href="#span-app-commet">dust-tail</a>：塵粒子（主に中性）　⇔　太陽光の放射圧（光速の光子との運動量交換）
-<br>
-　　広義の<a href="#span-app-interaction">電磁相互作用</a>：太陽光の放射圧∝1/日心距離**2
-<br>
-　　<a href="#span-app-commet">β値</a>：β＝放射圧による斥力／太陽の重力による引力　⇔　β∝1/(粒子密度*粒径)
 <br>
 　時系列の日心距離[au]：4.5（発見）⇒3.8（活発化）⇒3.2~2.7（水雪線）
 <br>
