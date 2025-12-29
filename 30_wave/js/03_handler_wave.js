@@ -10,7 +10,7 @@ My_entry.def.mix_in(My_entry.handler_wave, My_entry.original_main);
 
 My_entry.handler_wave.prototype.init = function(){
   var self = this;
-  self.init_main.call(self, ["reference", "$", "def"]);  // Ver.1.47.11
+  self.init_main.call(self, ["$", "def"]);  // Ver.1.47.11  // Ver.1.84.15
   self.init_worker();
   self.isSingle = (self.entry.$._id("input-freq"))? true: false;
   self.isScriptMode = (self.entry.$._id("textarea-script"))? true: false;
@@ -43,8 +43,219 @@ My_entry.handler_wave.prototype.init = function(){
   self.regex.type = /type=\[(.*?):(.*?)\]/g;  // Ver.1.71.14
   self.regex.table = /\[(.*?):(.*?)\]/;  // Ver.1.71.14
   self.msec_60BPM = 1000;  // Ver.1.19.4
-  self.Hz_standard = 440;  // Ver.1.83.15
-  self.notes = {C: 0, D: 2, E: 4, F: 5, G: 7, A: 9, B: 11};
+  /* Ver.1.84.15 -> */
+  self.notes = ["C", "Cs", "D", "Ds", "E", "F", "Fs", "G", "Gs", "A", "As", "B"];
+  self.tunings = ["Equal", "PureMajor", "PureMinor", "Pythagorean", "MeanTone", "Young2", "Schnittger", "WerckMeister3", "KirnBerger3"];
+  self.ratios = {
+    "Equal": {
+      "Cf": Math.pow(2, -1/12),
+      "C":  Math.pow(2, 0/12),
+      "Cs": Math.pow(2, 1/12),
+      "Df": Math.pow(2, 1/12),
+      "D":  Math.pow(2, 2/12),
+      "Ds": Math.pow(2, 3/12),
+      "Ef": Math.pow(2, 3/12),
+      "E":  Math.pow(2, 4/12),
+      "Es": Math.pow(2, 5/12),
+      "Ff": Math.pow(2, 4/12),
+      "F":  Math.pow(2, 5/12),
+      "Fs": Math.pow(2, 6/12),
+      "Gf": Math.pow(2, 6/12),
+      "G":  Math.pow(2, 7/12),
+      "Gs": Math.pow(2, 8/12),
+      "Af": Math.pow(2, 8/12),
+      "A":  Math.pow(2, 9/12),
+      "As": Math.pow(2, 10/12),
+      "Bf": Math.pow(2, 10/12),
+      "B":  Math.pow(2, 11/12),
+      "Bs": Math.pow(2, 12/12)
+    },
+    "PureMajor": {
+      "Cf": 24/25,
+      "C":  1/1,
+      "Cs": 25/24,
+      "Df": 16/15,
+      "D":  9/8,
+      "Ds": 75/64,
+      "Ef": 6/5,
+      "E":  5/4,
+      "Es": 125/96,
+      "Ff": 32/25,
+      "F":  4/3,
+      "Fs": 25/18,
+      "Gf": 64/45,
+      "G":  3/2,
+      "Gs": 25/16,
+      "Af": 8/5,
+      "A":  5/3,
+      "As": 125/72,
+      "Bf": 16/9,
+      "B":  15/8,
+      "Bs": 125/64
+    },
+    "PureMinor": {
+      "Cf": 24/25,
+      "C":  1/1,
+      "Cs": 25/24,
+      "Df": 16/15,
+      "D":  10/9,
+      "Ds": 75/64,
+      "Ef": 6/5,
+      "E":  5/4,
+      "Es": 125/96,
+      "Ff": 32/25,
+      "F":  4/3,
+      "Fs": 25/18,
+      "Gf": 64/45,
+      "G":  3/2,
+      "Gs": 25/16,
+      "Af": 8/5,
+      "A":  5/3,
+      "As": 125/72,
+      "Bf": 16/9,
+      "B":  15/8,
+      "Bs": 125/64
+    },
+    "Pythagorean": {
+      "Cf": 2048/2187,
+      "C":  1/1,
+      "Cs": 2187/2048,
+      "Df": 256/243,
+      "D":  9/8,
+      "Ds": 19683/16384,
+      "Ef": 32/27,
+      "E":  81/64,
+      "Es": 177147/131072,
+      "Ff": 8192/6561,
+      "F":  4/3,
+      "Fs": 729/512,
+      "Gf": 1024/729,
+      "G":  3/2,
+      "Gs": 6561/4096,
+      "Af": 128/81,
+      "A":  27/16,
+      "As": 59049/32768,
+      "Bf": 16/9,
+      "B":  243/128,
+      "Bs": 2*531441/524288
+    },
+    "MeanTone": {
+      "Cf": 24/25,
+      "C":  1/1,
+      "Cs": 25/24,
+      "Df": 1.0669,
+      "D":  Math.sqrt(5)/2,
+      "Ds": 1.1718,
+      "Ef": 1.1963,
+      "E":  5/4,
+      "Es": 1.3020,
+      "Ff": 1.28,
+      "F":  Math.pow(5, 0.75)/2.5,
+      "Fs": 1.3975,
+      "Gf": 1.4311,
+      "G":  Math.pow(5, 0.25),
+      "Gs": 1.5625,
+      "Af": 1.6,
+      "A":  Math.pow(5, 0.75)/2,
+      "As": 1.7469,
+      "Bf": 1.7888,
+      "B":  (5/4)*Math.pow(5, 0.25),
+      "Bs": 1.9531
+    },
+    "Young2": {
+      "Cf": Math.pow(2, -1/12),
+      "C":  Math.pow(2, 0/12),
+      "Cs": Math.pow(2, 1/12)*Math.pow(81/80, 1/12),
+      "Df": Math.pow(2, 1/12),
+      "D":  Math.pow(2, 2/12),
+      "Ds": Math.pow(2, 3/12),
+      "Ef": Math.pow(2, 3/12),
+      "E":  (81/64)/Math.pow(81/80, 0.5),
+      "Es": Math.pow(2, 5/12),
+      "Ff": Math.pow(2, 4/12),
+      "F":  Math.pow(2, 5/12),
+      "Fs": Math.pow(2, 6/12),
+      "Gf": Math.pow(2, 6/12),
+      "G":  (3/2)/Math.pow(81/80, 1/6),
+      "Gs": Math.pow(2, 8/12),
+      "Af": Math.pow(2, 8/12),
+      "A":  Math.pow(2, 9/12),
+      "As": Math.pow(2, 10/12),
+      "Bf": Math.pow(2, 10/12),
+      "B":  Math.pow(2, 11/12),
+      "Bs": Math.pow(2, 12/12)
+    },
+    "Schnittger": {
+      "Cf": 243/256,
+      "C":  1/1,
+      "Cs": 256/243,
+      "Df": 256/243,
+      "D":  (9/8)/Math.pow(81/80, 0.5),
+      "Ds": 32/27,
+      "Ef": 32/27,
+      "E":  (81/64)/Math.pow(81/80, 1.0),
+      "Es": 4/3,
+      "Ff": 1.28,
+      "F":  4/3,
+      "Fs": (1024/729)/Math.pow(81/80, 0.5),
+      "Gf": 1024/729,
+      "G":  (3/2)/Math.pow(81/80, 0.25),
+      "Gs": 128/81,
+      "Af": 128/81,
+      "A":  (27/16)/Math.pow(81/80, 0.75),
+      "As": 16/9,
+      "Bf": 16/9,
+      "B":  (243/128)/Math.pow(81/80, 0.75),
+      "Bs": 2/1
+    },
+    "WerckMeister3": {
+      "Cf": 243/256,
+      "C":  1/1,
+      "Cs": 256/243,
+      "Df": 256/243,
+      "D":  (9/8)/Math.pow(81/80, 0.5),
+      "Ds": 32/27,
+      "Ef": 32/27,
+      "E":  (81/64)/Math.pow(81/80, 0.75),
+      "F":  4/3,
+      "Fs": 1024/729,
+      "Ff": (1024/729)/(25/24),
+      "Es": 4/3,
+      "Gf": 1024/729,
+      "G":  (3/2)/Math.pow(81/80, 0.25),
+      "Gs": 128/81,
+      "Af": 128/81,
+      "A":  (27/16)/Math.pow(81/80, 0.75),
+      "As": 16/9,
+      "Bf": 16/9,
+      "B":  (243/128)/Math.pow(81/80, 0.75),
+      "Bs": 2/1
+    },
+    "KirnBerger3": {
+      "Cf": 24/25,
+      "C":  1/1,
+      "Cs": 25/24,
+      "Df": 16/15,
+      "D":  9/8,
+      "Ds": 75/64,
+      "Ef": 1.201,
+      "E":  5/4,
+      "Es": 1.302,
+      "Ff": 1.28,
+      "F":  4/3,
+      "Fs": (1024/729)/Math.pow(81/80, 0.5),
+      "Gf": 1.422,
+      "G":  (3/2)/Math.pow(81/80, 0.25),
+      "Gs": 1.562,
+      "Af": 1.6,
+      "A":  (27/16)/Math.pow(81/80, 0.5),
+      "As": 1.74,
+      "Bf": 1.777,
+      "B":  15/8,
+      "Bs": 2/1
+    }
+  };
+  /* -> Ver.1.84.15 */
   self.params = {};
   if(self.isScriptMode){
     self.set_n_thread_worker(self.entry.$.selectNum_id("select-n_thread"));
@@ -92,7 +303,9 @@ My_entry.handler_wave.prototype.init = function(){
       "f_vib",  // Ver.1.56.11
       "overtone",  // Ver.1.64.14
       "ti",  // Ver.1.74.14
-      "to"  // Ver.1.74.14
+      "to",  // Ver.1.74.14
+      "A4",  // Ver.1.84.15
+      "tuning"  // Ver.1.84.15
     ];
     self.hasProp = {};
     for(var n=0, len_n=self.props0.length; n<len_n; ++n){
@@ -289,7 +502,7 @@ My_entry.handler_wave.prototype.init_handlers = function(){
     var self = this;
     var id = elem.id;
     self.handlers.onbeforeunload();
-    if(self.isSingle && elem.tagName.toUpperCase() === "SELECT"){
+    if(self.isSingle && (elem.tagName.toUpperCase() === "SELECT" || elem.id === "input-A4")){  // Ver.1.84.15
       self.output_freq();
     }
     self.waveo = new self.constructors.output_wave();
@@ -325,21 +538,33 @@ My_entry.handler_wave.prototype.output_time = function(sec){
   self.elem_time.value = sec;
   return self;
 };
+/* Ver.1.84.15 */
 /* Ver.1.44.11 */
-My_entry.handler_wave.prototype.calc_freq = function(octave, note){
+My_entry.handler_wave.prototype.calc_freq = function(octave, note, A4, tuning){
   var self = this;
   var octave = octave;
   var note = note;
-  if(self.isSingle){
-    octave = self.entry.$.selectNum_id("select-octave");
-    note = self.entry.$.selectNum_id("select-note");
+  if(!(isNaN(note)) && note >= 0){
+    var num = Number(note);
+    octave += Math.floor(num/12);
+    num = num%12;
+    note = self.notes[String(num)];
   }
-  return self.entry.reference.calc_freq(octave, note);
+  var tuning = tuning;
+  if(!(isNaN(tuning))){
+    var num = Number(tuning);
+    tuning = self.tunings[num];
+  }
+  var ratios = self.ratios[tuning] || self.ratios["Equal"];
+  var ratio = ratios[note];
+  var freq_A4 = A4;
+  var freq_C4 = freq_A4/ratios["A"];
+  var _freq = freq_C4*Math.pow(2, octave-4)*ratio;
+  return _freq;
 };
 My_entry.handler_wave.prototype.output_freq = function(){
   var self = this;
-  var freq = self.calc_freq();
-  self.entry.$._id("input-freq").value = freq.toFixed(2);
+  self.entry.$._id("input-freq").value = (self.get_freq()).toFixed(3);  // Ver.1.84.15
   return self;
 };
 /* Ver.1.35.6 */
@@ -372,11 +597,21 @@ My_entry.handler_wave.prototype.get_fileName = function(){
   _name += "sec";
   return _name;
 };
+/* Ver.1.84.15 */
+My_entry.handler_wave.prototype.get_freq = function(){
+  var self = this;
+  var octave = self.entry.$.selectNum_id("select-octave");
+  var note = self.entry.$.selectVal_id("select-note");
+  var A4 = self.entry.$.inputNum_id("input-A4");
+  var tuning = self.entry.$.selectVal_id("select-tuning");
+  var _freq = self.calc_freq(octave, note, A4, tuning);
+  return _freq;
+};
 My_entry.handler_wave.prototype.get_freqs = function(){
   var self = this;
   var _arr_f = [];
   if(self.isSingle){
-    var freq = self.entry.$.inputNum_id("input-freq") || self.calc_freq();
+    var freq = self.entry.$.inputNum_id("input-freq") || self.get_freq();  // Ver.1.84.15
     if(isNaN(freq)){
       self.output_freq();
     }
@@ -389,7 +624,9 @@ My_entry.handler_wave.prototype.get_freqs = function(){
       if(mc && elem.checked){
         var doctave = Number(mc[1]);
         var note = Number(mc[2]);  // Ver.1.44.11
-        _arr_f.push(self.calc_freq(octave0+doctave, note));  // Ver.1.44.11
+        var A4 = self.entry.$.inputNum_id("input-A4");  // Ver.1.84.15
+        var tuning = self.entry.$.selectVal_id("select-tuning");  // Ver.1.84.15
+        _arr_f.push(self.calc_freq(octave0+doctave, note, A4, tuning));  // Ver.1.44.11  // Ver.1.84.15
       }
     });
   }
@@ -417,6 +654,10 @@ My_entry.handler_wave.prototype.make_params = function(){
   params.duty0 = $.inputNum_id("input-duty");  // Ver.1.64.14
   params.duty1 = params.duty0;
   /* -> Ver.1.16.4 */
+  /* Ver.1.84.15 -> */
+  params.A4 = $.inputNum_id("input-A4");
+  params.tuning = $.selectVal_id("select-tuning");
+  /* -> Ver.1.84.15 */
   /* Ver.1.35.6 -> */
   params.kampli = $.inputNum_id("input-amplitude");  // Ver.1.64.14  // Ver.1.75.14
   params.amplitude0 = 1;  // Ver.1.75.14
@@ -480,7 +721,7 @@ My_entry.handler_wave.prototype.make_params = function(){
     /* -> Ver.1.52.11 */
     params.pitch = $.inputNum_id("input-pitch");  // Ver.1.64.14
     params.tempo = def.limit(params.tempo, 0, Number.MAX_VALUE, 1);  // Ver.1.19.4
-    params.pitch = def.limit(params.pitch, 0, Number.MAX_VALUE, self.Hz_standard);  // Ver.1.83.15
+    params.pitch = def.limit(params.pitch, -16, 16, 0);  // Ver.1.83.15  // Ver.1.84.15
     params.maxAmp = $.checkbox_id("checkbox-maxAmp");  // Ver.1.45.11
     /* Ver.1.29.4 -> */
     params.dfreq = $.inputNum_id("input-dfreq");  // Ver.1.64.14

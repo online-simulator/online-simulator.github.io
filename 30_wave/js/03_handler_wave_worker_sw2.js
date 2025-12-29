@@ -269,7 +269,7 @@ My_entry.handler_wave.prototype.str2sec = function(str){
   _sec *= ktempo;  // Ver.1.17.4
   return _sec;
 };
-My_entry.handler_wave.prototype.str2freq = function(str){
+My_entry.handler_wave.prototype.str2freq = function(str, A4, tuning){  // Ver.1.84.15
   var self = this;
   var _freq = null;
   var mc_oc = str.match(self.regex.oc);
@@ -280,27 +280,26 @@ My_entry.handler_wave.prototype.str2freq = function(str){
   if(mc_oc){
     var octave = Number(mc_oc[1]);
     var note = Number(mc_oc[2]);  // Ver.1.44.11
-    _freq = self.calc_freq(octave, note);  // Ver.1.44.11
+    _freq = self.calc_freq(octave, note, A4, tuning);  // Ver.1.44.11  // Ver.1.84.15
   }
   /* Ver.1.13.4 -> */
   else if(mc_nc){
     var octave = -1;
     var note = Number(mc_nc[1]);
-    _freq = self.calc_freq(octave, note);
+    _freq = self.calc_freq(octave, note, A4, tuning);  // Ver.1.84.15
   }
   /* -> Ver.1.13.4 */
   /* Ver.1.14.4 -> */
   else if(mc_sn && mc_sn[1]){
     var octave = Number(mc_sn[2]);
-    var note = self.notes[mc_sn[1]];
+    var note = mc_sn[1];
     var sw_sf = mc_sn[3];
-    if(sw_sf === "s"){
-      note += 1;
+    /* Ver.1.84.15 -> */
+    if(sw_sf){
+      note += sw_sf;
     }
-    else if(sw_sf === "f"){
-      note += -1;
-    }
-    _freq = self.calc_freq(octave, note);
+    /* -> Ver.1.84.15 */
+    _freq = self.calc_freq(octave, note, A4, tuning);  // Ver.1.84.15
   }
   /* -> Ver.1.14.4 */
   else if(mc_f){
@@ -317,11 +316,11 @@ My_entry.handler_wave.prototype.str2freq = function(str){
     throw new Error(self.waveo.config.ERROR.title+"Invalid frequency-"+str);
   }
   /* -> Ver.1.65.14 */
-  var kpitch = (self.params.pitch/self.Hz_standard) || 1;  // Ver.1.17.4  // Ver.1.83.15
+  var kpitch = Math.pow(2, self.params.pitch || 0);  // Ver.1.17.4  // Ver.1.83.15  // Ver.1.84.15
   _freq *= kpitch;  // Ver.1.17.4
   return _freq;
 };
-My_entry.handler_wave.prototype.str2arr_f = function(str){
+My_entry.handler_wave.prototype.str2arr_f = function(str, A4, tuning){  // Ver.1.84.15
   var self = this;
   var _arr_f = [0];
   var mcl = str.match(self.regex.ml);
@@ -329,12 +328,12 @@ My_entry.handler_wave.prototype.str2arr_f = function(str){
   if(mcl){
     var arr_f = mcl[0].replace(self.regex.rl, "").split(",");
     arr_f.forEach(function(str, k){
-      arr_f[k] = self.str2freq(str);
+      arr_f[k] = self.str2freq(str, A4, tuning);  // Ver.1.84.15
     });
     f_isFound = arr_f;
   }
   else{
-    f_isFound = [self.str2freq(str)];
+    f_isFound = [self.str2freq(str, A4, tuning)];  // Ver.1.84.15
   }
   if(f_isFound){
     _arr_f = f_isFound;
@@ -547,7 +546,6 @@ My_entry.handler_wave.prototype.input2arr = function(input){
           params[prop] = self.params[prop];
         }
         params.sec = self.str2sec(arr_token[0]);  // Ver.1.73.14
-        params.arr_f = self.str2arr_f(arr_token[1]);  // Ver.1.73.14
         /* Ver.1.20.4 -> */
         var command = arr_token[2];
         /* Ver.1.70.14 -> */
@@ -556,6 +554,7 @@ My_entry.handler_wave.prototype.input2arr = function(input){
         }
         /* -> Ver.1.70.14 */
         self.make_params_extended(tokens, params0, params);  // Ver.1.69.14  // Ver.1.71.14
+        params.arr_f = self.str2arr_f(arr_token[1], params.A4, params.tuning);  // Ver.1.73.14  // Ver.1.84.15
         /* -> Ver.1.20.4 */
         params.gain_band = 1/len_band;  // Ver.1.73.14
         _arr_input[i].push(params);

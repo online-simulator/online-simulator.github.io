@@ -186,18 +186,47 @@ frequency[Hz]：
     </td>
     <td>
 <select id="select-note">
-  <option value="0">C（ド）</option>
-  <option value="1">C＃/D♭</option>
-  <option value="2">D（レ）</option>
-  <option value="3">D＃/E♭</option>
-  <option value="4">E（ミ）</option>
-  <option value="5">F（ファ）</option>
-  <option value="6">F＃/G♭</option>
-  <option value="7">G（ソ）</option>
-  <option value="8">G＃/A♭</option>
-  <option value="9" selected="selected">A（ラ）</option>
-  <option value="10">A＃/B♭</option>
-  <option value="11">B（シ）</option>
+  <option value="Cf">C♭</option>
+  <option value="C">C（ド）</option>
+  <option value="Cs">C＃</option>
+  <option value="Df">D♭</option>
+  <option value="D">D（レ）</option>
+  <option value="Ds">D＃</option>
+  <option value="Ef">E♭</option>
+  <option value="E">E（ミ）</option>
+  <option value="Es">E＃</option>
+  <option value="Ff">F♭</option>
+  <option value="F">F（ファ）</option>
+  <option value="Fs">F＃</option>
+  <option value="Gf">G♭</option>
+  <option value="G">G（ソ）</option>
+  <option value="Gs">G＃</option>
+  <option value="Af">A♭</option>
+  <option value="A" selected="selected">A（ラ）</option>
+  <option value="As">A＃</option>
+  <option value="Bf">B♭</option>
+  <option value="B">B（シ）</option>
+  <option value="Bs">B＃</option>
+</select>
+    </td>
+  </tr>
+  <tr>
+    <td>
+↑tuning：
+    </td>
+    <td>
+A4: <input id="input-A4" type="number" step="1" min="0" max="48000" value="440">[Hz]
+<br>
+<select id="select-tuning">
+  <option value="0">0: 平均律</option>
+  <option value="1">1: 純正律［長調］</option>
+  <option value="2">2: 純正律［短調］</option>
+  <option value="3">3: ピタゴラス音律</option>
+  <option value="4">4: 中全音律（1/4コンマ）</option>
+  <option value="5">5: ヤング第2番（1/6コンマ）</option>
+  <option value="6">6: シュニットガー調律</option>
+  <option value="7">7: ヴェルクマイスター第3番</option>
+  <option value="8">8: キルンベルガー第3番</option>
 </select>
     </td>
   </tr>

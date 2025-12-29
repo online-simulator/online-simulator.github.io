@@ -291,6 +291,28 @@ wave-duty：
 <span class="clear right">dataset優先</span>
     </td>
   </tr>
+  <tr>
+    <td>
+tuning：
+    </td>
+    <td>
+A4: <input id="input-A4" type="number" step="1" min="0" max="48000" value="440">[Hz]
+<span class="clear right">dataset優先</span>
+<br>
+<select id="select-tuning">
+  <option value="0">0: 平均律</option>
+  <option value="1">1: 純正律［長調］</option>
+  <option value="2">2: 純正律［短調］</option>
+  <option value="3">3: ピタゴラス音律</option>
+  <option value="4">4: 中全音律（1/4コンマ）</option>
+  <option value="5">5: ヤング第2番（1/6コンマ）</option>
+  <option value="6">6: シュニットガー調律</option>
+  <option value="7">7: ヴェルクマイスター第3番</option>
+  <option value="8">8: キルンベルガー第3番</option>
+</select>
+<span class="clear right">dataset優先</span>
+    </td>
+  </tr>
   <tr class="border">
     <td>
 sweep-rate：
@@ -353,7 +375,7 @@ tempo：
 pitch：
     </td>
     <td>
-frequency*<input id="input-pitch" type="number" step="1" min="0" max="48000" value="440">[Hz]/440[Hz]
+frequency*2^<input id="input-pitch" type="number" step="1" min="-16" max="16" value="0">
 <span class="clear right">乗算</span>
     </td>
   </tr>
@@ -847,7 +869,7 @@ msec:<span class="run">[Hz0,Hz1,...]||Hz||r||0</span>　<span class="run">requir
 <br>
 :command:type:duty0:duty1:amplitude0:amplitude1:w0:p0:w1:p1:f0:g0:f1:g1
 <br>
-:rate:order<span class="clear">:order_d:order_a</span>:order_fade:f_vib:overtone<span class="clear">:ti:to</span>;　<span class="clear">script only</span>
+:rate:order<span class="clear">:order_d:order_a</span>:order_fade:f_vib:overtone<span class="clear">:ti:to</span>:A4:tuning;　<span class="clear">script only</span>
 <br>
 command; type=?; type=?:duty0=?:...;
 <br>
