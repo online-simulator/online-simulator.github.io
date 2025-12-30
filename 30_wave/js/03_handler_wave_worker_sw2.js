@@ -269,9 +269,9 @@ My_entry.handler_wave.prototype.str2sec = function(str){
   _sec *= ktempo;  // Ver.1.17.4
   return _sec;
 };
-My_entry.handler_wave.prototype.str2freq = function(str, A4, tuning){  // Ver.1.84.15
+My_entry.handler_wave.prototype.str2freq = function(str, A4, tune, mode){  // Ver.1.84.15
   var self = this;
-  var _freq = self.calc_freq(str, A4, tuning);  // Ver.1.44.11  // Ver.1.84.15
+  var _freq = self.calc_freq(str, A4, tune, mode);  // Ver.1.44.11  // Ver.1.84.15
   /* Ver.1.65.14 -> */
   if(isNaN(_freq)){
     throw new Error(self.waveo.config.ERROR.title+"Invalid frequency-"+str);
@@ -281,7 +281,7 @@ My_entry.handler_wave.prototype.str2freq = function(str, A4, tuning){  // Ver.1.
   _freq *= kpitch;  // Ver.1.17.4
   return _freq;
 };
-My_entry.handler_wave.prototype.str2arr_f = function(str, A4, tuning){  // Ver.1.84.15
+My_entry.handler_wave.prototype.str2arr_f = function(str, A4, tune, mode){  // Ver.1.84.15
   var self = this;
   var _arr_f = [0];
   var mcl = str.match(self.regex.ml);
@@ -289,12 +289,12 @@ My_entry.handler_wave.prototype.str2arr_f = function(str, A4, tuning){  // Ver.1
   if(mcl){
     var arr_f = mcl[0].replace(self.regex.rl, "").split(",");
     arr_f.forEach(function(str, k){
-      arr_f[k] = self.str2freq(str, A4, tuning);  // Ver.1.84.15
+      arr_f[k] = self.str2freq(str, A4, tune, mode);  // Ver.1.84.15
     });
     f_isFound = arr_f;
   }
   else{
-    f_isFound = [self.str2freq(str, A4, tuning)];  // Ver.1.84.15
+    f_isFound = [self.str2freq(str, A4, tune, mode)];  // Ver.1.84.15
   }
   if(f_isFound){
     _arr_f = f_isFound;
@@ -515,7 +515,7 @@ My_entry.handler_wave.prototype.input2arr = function(input){
         }
         /* -> Ver.1.70.14 */
         self.make_params_extended(tokens, params0, params);  // Ver.1.69.14  // Ver.1.71.14
-        params.arr_f = self.str2arr_f(arr_token[1], params.A4, params.tuning);  // Ver.1.73.14  // Ver.1.84.15
+        params.arr_f = self.str2arr_f(arr_token[1], params.A4, params.tune, params.mode);  // Ver.1.73.14  // Ver.1.84.15
         /* -> Ver.1.20.4 */
         params.gain_band = 1/len_band;  // Ver.1.73.14
         _arr_input[i].push(params);

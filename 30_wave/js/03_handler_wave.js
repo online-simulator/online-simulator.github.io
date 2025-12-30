@@ -48,7 +48,16 @@ My_entry.handler_wave.prototype.init = function(){
   /* Ver.1.84.15 -> */
   self.notes_s = ["C", "C#", "D", "D#", "E", "F", "F#", "G", "G#", "A", "A#", "B"];
   self.notes_f = ["C", "Db", "D", "Eb", "E", "F", "Gb", "G", "Ab", "A", "Bb", "B"];
-  self.tunings = ["Equal", "PureMajor", "PureMinor", "Pythagorean", "MeanTone", "Young2", "Schnittger", "WerckMeister3", "KirnBerger3"];
+  self.tunes = ["Equal", "Pure", "Pythagorean", "MeanTone", "Young2", "Schnittger", "WerckMeister3", "KirnBerger3"];
+  self.modes = ["Major", "Minor", "Aeolian", "Dorian", "Phrygian", "Mixolydian", "Lydian"];
+  self.rules = {
+    "Major": [],
+    "Minor": ["E", "A", "B"],
+    "Aeolian": ["E", "A", "B"],
+    "Dorian": ["E", "B"],
+    "Phrygian": ["D", "E", "A", "B"],
+    "Mixolydian": ["B"]
+  };
   self.ratios = {
     "Equal": {
       "base": {
@@ -62,7 +71,7 @@ My_entry.handler_wave.prototype.init = function(){
       },
       "sharp": Math.pow(2, 1/12)
     },
-    "PureMajor": {
+    "Pure": {
       "base": {
         "C": 1/1,
         "D": 9/8,
@@ -71,18 +80,6 @@ My_entry.handler_wave.prototype.init = function(){
         "G": 3/2,
         "A": 5/3,
         "B": 15/8
-      },
-      "sharp": 25/24
-    },
-    "PureMinor": {
-      "base": {
-        "C": 1/1,
-        "D": 9/8,
-        "E": 6/5,
-        "F": 4/3,
-        "G": 3/2,
-        "A": 8/5,
-        "B": 9/5
       },
       "sharp": 25/24
     },
@@ -209,7 +206,8 @@ My_entry.handler_wave.prototype.init = function(){
       "ti",  // Ver.1.74.14
       "to",  // Ver.1.74.14
       "A4",  // Ver.1.84.15
-      "tuning"  // Ver.1.84.15
+      "tune",  // Ver.1.84.15
+      "mode"  // Ver.1.84.15
     ];
     self.hasProp = {};
     for(var n=0, len_n=self.props0.length; n<len_n; ++n){
@@ -442,13 +440,13 @@ My_entry.handler_wave.prototype.output_time = function(sec){
   self.elem_time.value = sec;
   return self;
 };
-/* Ver.1.84.15 */
+/* Ver.1.84.15 -> */
 My_entry.handler_wave.prototype.make_str = function(octave, note){
   var self = this;
   return note.substring(0, 1)+octave+note.substring(1);  // A4# || A4## || A4##...
 };
 /* Ver.1.44.11 */
-My_entry.handler_wave.prototype.calc_freq = function(str, A4, tuning, opt_octave0, opt_sw_sharp2flat){
+My_entry.handler_wave.prototype.calc_freq = function(str, A4, tune, mode, opt_octave0, opt_sw_sharp2flat){
   var self = this;
   var _freq = NaN;
   var octave = 4;
@@ -497,18 +495,35 @@ My_entry.handler_wave.prototype.calc_freq = function(str, A4, tuning, opt_octave
       num = num%12;
       set_alteration(self.make_str(octave, (opt_sw_sharp2flat)? self.notes_f[num]: self.notes_s[num]));
     }
-    var tuning = tuning;
-    if(!(isNaN(tuning))){
-      var num = Number(tuning);
-      tuning = self.tunings[num];
+    var tune = tune;
+    if(!(isNaN(tune))){
+      var num = Number(tune);
+      tune = self.tunes[num];
     }
-    var ratios = self.ratios[tuning] || self.ratios["Equal"];
+    var mode = mode;
+    if(!(isNaN(mode))){
+      var num = Number(mode);
+      mode = self.modes[num];
+    }
+    var rules = self.rules[mode] || self.rules[self.modes[0]];
+    var ratios = self.ratios[tune] || self.ratios[self.tunes[0]];
+    var s = ratios.sharp;
+    var ratio = ratios.base[note];
+    ratio *= Math.pow(s, alteration);
+    if(rules && rules.indexOf(note) !== -1){
+      ratio /= s;
+    }
+    if(mode === "Lydian" && note === "F"){
+      ratio *= s;
+    }
     var freq_A4 = A4;
     var freq_C4 = freq_A4/ratios.base["A"];
-    _freq = freq_C4*Math.pow(2, (opt_octave0 || 0)+octave-4)*ratios.base[note]*Math.pow(ratios.sharp, alteration);
+    var doctave = (opt_octave0 || 0)+octave-4;
+    _freq = freq_C4*Math.pow(2, doctave)*ratio;
   }
   return _freq;
 };
+/* -> Ver.1.84.15 */
 My_entry.handler_wave.prototype.output_freq = function(){
   var self = this;
   self.entry.$._id("input-freq").value = (self.get_freq()).toFixed(3);  // Ver.1.84.15
@@ -551,8 +566,9 @@ My_entry.handler_wave.prototype.get_freq = function(){
   var note = self.entry.$.selectVal_id("select-note");
   var str = self.make_str(octave, note);
   var A4 = self.entry.$.inputNum_id("input-A4");
-  var tuning = self.entry.$.selectVal_id("select-tuning");
-  var _freq = self.calc_freq(str, A4, tuning);
+  var tune = self.entry.$.selectNum_id("select-tune");
+  var mode = self.entry.$.selectNum_id("select-mode");
+  var _freq = self.calc_freq(str, A4, tune, mode);
   return _freq;
 };
 My_entry.handler_wave.prototype.get_freqs = function(){
@@ -570,12 +586,13 @@ My_entry.handler_wave.prototype.get_freqs = function(){
     /* Ver.1.84.15 -> */
     var sw_sharp2flat = self.entry.$.checkbox_id("checkbox-sharp2flat");
     var A4 = self.entry.$.inputNum_id("input-A4");
-    var tuning = self.entry.$.selectVal_id("select-tuning");
+    var tune = self.entry.$.selectNum_id("select-tune");
+    var mode = self.entry.$.selectNum_id("select-mode");
     self.entry.$.arr("input[type='checkbox']").forEach(function(elem){
       var str = elem.id;  // Ver.1.84.15
       var mc = str.match(self.regex.oc);
       if(mc && elem.checked){
-        _arr_f.push(self.calc_freq(str, A4, tuning, octave0, sw_sharp2flat));  // Ver.1.44.11
+        _arr_f.push(self.calc_freq(str, A4, tune, mode, octave0, sw_sharp2flat));  // Ver.1.44.11
       }
     });
     /* -> Ver.1.84.15 */
@@ -606,7 +623,8 @@ My_entry.handler_wave.prototype.make_params = function(){
   /* -> Ver.1.16.4 */
   /* Ver.1.84.15 -> */
   params.A4 = $.inputNum_id("input-A4");
-  params.tuning = $.selectVal_id("select-tuning");
+  params.tune = $.selectNum_id("select-tune");
+  params.mode = $.selectNum_id("select-mode");
   /* -> Ver.1.84.15 */
   /* Ver.1.35.6 -> */
   params.kampli = $.inputNum_id("input-amplitude");  // Ver.1.64.14  // Ver.1.75.14

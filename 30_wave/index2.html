@@ -296,20 +296,36 @@ wave-duty：
 tuning：
     </td>
     <td>
-A4: <input id="input-A4" type="number" step="1" min="0" max="48000" value="440">[Hz]
+<label for="input-A4">A4:
+  <input id="input-A4" type="number" step="1" min="0" max="48000" value="440">[Hz]
+</label>
 <span class="clear right">dataset優先</span>
 <br>
-<select id="select-tuning">
-  <option value="0">0: 平均律</option>
-  <option value="1">1: 純正律［長調］</option>
-  <option value="2">2: 純正律［短調］</option>
-  <option value="3">3: ピタゴラス音律</option>
-  <option value="4">4: 中全音律（1/4コンマ）</option>
-  <option value="5">5: ヤング第2番（1/6コンマ）</option>
-  <option value="6">6: シュニットガー調律</option>
-  <option value="7">7: ヴェルクマイスター第3番</option>
-  <option value="8">8: キルンベルガー第3番</option>
-</select>
+<label for="select-tune">tune:
+  <select id="select-tune">
+    <option value="0">0: 平均律</option>
+    <option value="1">1: 純正律</option>
+    <option value="2">2: ピタゴラス音律</option>
+    <option value="3">3: 中全音律（1/4コンマ）</option>
+    <option value="4">4: ヤング第2番（1/6コンマ）</option>
+    <option value="5">5: シュニットガー調律</option>
+    <option value="6">6: ヴェルクマイスター第3番</option>
+    <option value="7">7: キルンベルガー第3番</option>
+  </select>
+</label>
+<span class="clear right">dataset優先</span>
+<br>
+<label for="select-mode">mode:
+  <select id="select-mode">
+    <option value="0">0: Major</option>
+    <option value="1">1: Minor</option>
+    <option value="2">2: Aeolian</option>
+    <option value="3">3: Dorian</option>
+    <option value="4">4: Phrygian</option>
+    <option value="5">5: Mixolydian</option>
+    <option value="6">6: Lydian</option>
+  </select>
+</label>
 <span class="clear right">dataset優先</span>
     </td>
   </tr>
