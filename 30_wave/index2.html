@@ -185,6 +185,20 @@
         $.set_id("input-fileName", "readOnly", true);
         $.hide("#wrapper-fileName", true, true);
       }
+      else if(options.testcase === "Auld_Lang_Syne_overtone_pure"){
+        var script_ver1 = "";
+        var script_ver2 = "$sheet($chord1; $chord2; $chord3; $chord2:$last)\n\n$chord1(C4; 3b2:F4; b2:F4; F4; A4; 3b2:G4; b2:F4; G4; A4; F4; F4; A4; C5; 3b:D5)\n$chord2($chordc; A4; 3b2:F4; b2:D4; D4; C4; 3b:F4)\n$chord3($chordc; D5; 3b2:C5; b2:A4; A4; C5; 3b:D5)\n$chordc(D5; 3b2:C5; b2:A4; A4; F4; 3b2:G4; b2:F4; G4)\n\n$1(amplitude0=1:amplitude1=0.4:$common)\n$e1(amplitude0=0.5:amplitude1=0.2:$common)\n$e2(amplitude0=0.25:amplitude1=0.1:$common)\n$e3(amplitude0=0.125:amplitude1=0.05:$common)\n$common(rate=1:order_a=0.75:overtone=5:tune=1)\n$last(:amplitude1=0)\n\n{1.00b:r; $1; $sheet;}\n{1.25b:r; $e1; $sheet;}\n{1.50b:r; $e2; $sheet;}\n{1.75b:r; $e3; $sheet;}\n";
+        script = (options.tVer === 1)? script_ver1: script_ver2;
+        $._id("input-A4").value = 432;
+        $._id("input-BPM").value = (2349/20)/2;
+        $.set_selectVal_id("select-fileSizeMax", 20);
+        $.set_id("checkbox-maxAmp", "checked", "checked");
+        $.set_id("checkbox-autoDfreq", "checked", "checked");
+        $._id("input-s_stereo").value = 75;
+        $._id("input-fileName").value = options.testcase;
+        $.set_id("input-fileName", "readOnly", true);
+        $.hide("#wrapper-fileName", true, true);
+      }
       $._id("textarea-script").value = script;
       new My_entry.handler_wave().onload(e);
       $._id("select-MIDI-octave").onchange =
