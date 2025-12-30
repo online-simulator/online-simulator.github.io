@@ -271,46 +271,7 @@ My_entry.handler_wave.prototype.str2sec = function(str){
 };
 My_entry.handler_wave.prototype.str2freq = function(str, A4, tuning){  // Ver.1.84.15
   var self = this;
-  var _freq = null;
-  var mc_oc = str.match(self.regex.oc);
-  var mc_nc = str.match(self.regex.nc);  // Ver.1.13.4
-  var mc_sn = str.match(self.regex.sn);  // Ver.1.14.4
-  var mc_f = str.match(self.regex.freq);
-  var mc_r = str.match(self.regex.rest);
-  if(mc_oc){
-    var octave = Number(mc_oc[1]);
-    var note = Number(mc_oc[2]);  // Ver.1.44.11
-    _freq = self.calc_freq(octave, note, A4, tuning);  // Ver.1.44.11  // Ver.1.84.15
-  }
-  /* Ver.1.13.4 -> */
-  else if(mc_nc){
-    var octave = -1;
-    var note = Number(mc_nc[1]);
-    _freq = self.calc_freq(octave, note, A4, tuning);  // Ver.1.84.15
-  }
-  /* -> Ver.1.13.4 */
-  /* Ver.1.14.4 -> */
-  else if(mc_sn && mc_sn[1]){
-    var octave = Number(mc_sn[2]);
-    var note = mc_sn[1];
-    var sw_sf = mc_sn[3];
-    /* Ver.1.84.15 -> */
-    if(sw_sf){
-      note += sw_sf;
-    }
-    /* -> Ver.1.84.15 */
-    _freq = self.calc_freq(octave, note, A4, tuning);  // Ver.1.84.15
-  }
-  /* -> Ver.1.14.4 */
-  else if(mc_f){
-    _freq = Number(mc_f[1]);
-  }
-  else if(mc_r){
-    _freq = 0;
-  }
-  else{
-    _freq = Number(str);
-  }
+  var _freq = self.calc_freq(str, A4, tuning);  // Ver.1.44.11  // Ver.1.84.15
   /* Ver.1.65.14 -> */
   if(isNaN(_freq)){
     throw new Error(self.waveo.config.ERROR.title+"Invalid frequency-"+str);
