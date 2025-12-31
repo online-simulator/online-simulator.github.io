@@ -46,114 +46,184 @@ My_entry.handler_wave.prototype.init = function(){
   self.regex.table = /\[(.*?):(.*?)\]/;  // Ver.1.71.14
   self.msec_60BPM = 1000;  // Ver.1.19.4
   /* Ver.1.84.15 -> */
-  self.notes_s = ["C", "C#", "D", "D#", "E", "F", "F#", "G", "G#", "A", "A#", "B"];
-  self.notes_f = ["C", "Db", "D", "Eb", "E", "F", "Gb", "G", "Ab", "A", "Bb", "B"];
+  self.notes_sharp = ["C", "C#", "D", "D#", "E", "F", "F#", "G", "G#", "A", "A#", "B"];
+  self.notes_flat = ["C", "Db", "D", "Eb", "E", "F", "Gb", "G", "Ab", "A", "Bb", "B"];
   self.tunes = ["Equal", "Pure", "Pythagorean", "MeanTone", "Young2", "Schnittger", "WerckMeister3", "KirnBerger3"];
-  self.modes = ["Major", "Minor", "Aeolian", "Dorian", "Phrygian", "Mixolydian", "Lydian"];
+  self.modes = ["Major", "Ionian", "Dorian", "Phrygian", "Lydian", "Mixolydian", "Minor", "Aeolian", "Locrian", "HarmonicMinor", "MelodicMinor"];
+  self.get_degree = function(root, note){
+    var note2index = {
+      C: 0,
+      "C#": 1,
+      Db: 1,
+      D: 2,
+      "D#": 3,
+      Eb: 3,
+      E: 4,
+      F: 5,
+      "F#": 6,
+      Gb: 6,
+      G: 7,
+      "G#": 8,
+      Ab: 8,
+      A: 9,
+      "A#": 10,
+      Bb: 10,
+      B: 11
+    };
+    var steps2degree = {
+      0: 1,
+      2: 2,
+      4: 3,
+      5: 4,
+      7: 5,
+      9: 6,
+      11: 7
+    };
+    var steps = (note2index[note]-note2index[root]+12)%12;
+    return (steps2degree[steps] || null);
+  };
   self.rules = {
-    "Major": [],
-    "Minor": ["E", "A", "B"],
-    "Aeolian": ["E", "A", "B"],
-    "Dorian": ["E", "B"],
-    "Phrygian": ["D", "E", "A", "B"],
-    "Mixolydian": ["B"]
+    Major: {
+      degrees: [],
+      alterations: []
+    },
+    Ionian: {
+      degrees: [],
+      alterations: []
+    },
+    Dorian: {
+      degrees: [3, 7],
+      alterations: [-1, -1]
+    },
+    Phrygian: {
+      degrees: [2, 3, 6, 7],
+      alterations: [-1, -1, -1, -1]
+    },
+    Lydian: {
+      degrees: [4],
+      alterations: [1]
+    },
+    Mixolydian: {
+      degrees: [7],
+      alterations: [-1]
+    },
+    Minor: {
+      degrees: [3, 6, 7],
+      alterations: [-1, -1, -1]
+    },
+    Aeolian: {
+      degrees: [3, 6, 7],
+      alterations: [-1, -1, -1]
+    },
+    Locrian: {
+      degrees: [2, 3, 5, 6, 7],
+      alterations: [-1, -1, -1, -1, -1]
+    },
+    HarmonicMinor: {
+      degrees: [3, 6],
+      alterations: [-1, -1]
+    },
+    MelodicMinor: {
+      degrees: [3],
+      alterations: [-1]
+    }
   };
   self.ratios = {
-    "Equal": {
-      "base": {
-        "C": Math.pow(2, 0/12),
-        "D": Math.pow(2, 2/12),
-        "E": Math.pow(2, 4/12),
-        "F": Math.pow(2, 5/12),
-        "G": Math.pow(2, 7/12),
-        "A": Math.pow(2, 9/12),
-        "B": Math.pow(2, 11/12)
+    Equal: {
+      base: {
+        C: Math.pow(2, 0/12),
+        D: Math.pow(2, 2/12),
+        E: Math.pow(2, 4/12),
+        F: Math.pow(2, 5/12),
+        G: Math.pow(2, 7/12),
+        A: Math.pow(2, 9/12),
+        B: Math.pow(2, 11/12)
       },
-      "sharp": Math.pow(2, 1/12)
+      sharp: Math.pow(2, 1/12)
     },
-    "Pure": {
-      "base": {
-        "C": 1/1,
-        "D": 9/8,
-        "E": 5/4,
-        "F": 4/3,
-        "G": 3/2,
-        "A": 5/3,
-        "B": 15/8
+    Pure: {
+      base: {
+        C: 1/1,
+        D: 9/8,
+        E: 5/4,
+        F: 4/3,
+        G: 3/2,
+        A: 5/3,
+        B: 15/8
       },
-      "sharp": 25/24
+      sharp: 25/24
     },
-    "Pythagorean": {
-      "base": {
-        "C": 1/1,
-        "D": 9/8,
-        "E": 81/64,
-        "F": 4/3,
-        "G": 3/2,
-        "A": 27/16,
-        "B": 243/128
+    Pythagorean: {
+      base: {
+        C: 1/1,
+        D: 9/8,
+        E: 81/64,
+        F: 4/3,
+        G: 3/2,
+        A: 27/16,
+        B: 243/128
       },
-      "sharp": 2187/2048
+      sharp: 2187/2048
     },
-    "MeanTone": {
-      "base": {
-        "C": 1/1,
-        "D": Math.sqrt(5)/2,
-        "E": 5/4,
-        "F": Math.pow(5, 0.75)/2.5,
-        "G": Math.pow(5, 0.25),
-        "A": Math.pow(5, 0.75)/2,
-        "B": (5/4)*Math.pow(5, 0.25)
+    MeanTone: {
+      base: {
+        C: 1/1,
+        D: Math.sqrt(5)/2,
+        E: 5/4,
+        F: Math.pow(5, 0.75)/2.5,
+        G: Math.pow(5, 0.25),
+        A: Math.pow(5, 0.75)/2,
+        B: (5/4)*Math.pow(5, 0.25)
       },
-      "sharp": 25/24
+      sharp: 25/24
     },
-    "Young2": {
-      "base": {
-        "C": 1/1,
-        "D": Math.pow(2, 2/12),
-        "E": (81/64)/Math.pow(81/80, 0.5),
-        "F": Math.pow(2, 5/12),
-        "G": (3/2)/Math.pow(81/80, 1/6),
-        "A": Math.pow(2, 9/12),
-        "B": Math.pow(2, 11/12)
+    Young2: {
+      base: {
+        C: 1/1,
+        D: Math.pow(2, 2/12),
+        E: (81/64)/Math.pow(81/80, 0.5),
+        F: Math.pow(2, 5/12),
+        G: (3/2)/Math.pow(81/80, 1/6),
+        A: Math.pow(2, 9/12),
+        B: Math.pow(2, 11/12)
       },
-      "sharp": Math.pow(2, 1/12)*Math.pow(81/80, 1/12)
+      sharp: Math.pow(2, 1/12)*Math.pow(81/80, 1/12)
     },
-    "Schnittger": {
-      "base": {
-        "C": 1/1,
-        "D": (9/8)/Math.pow(81/80, 0.5),
-        "E": (81/64)/Math.pow(81/80, 1.0),
-        "F": 4/3,
-        "G": (3/2)/Math.pow(81/80, 0.25),
-        "A": (27/16)/Math.pow(81/80, 0.75),
-        "B": (243/128)/Math.pow(81/80, 0.75)
+    Schnittger: {
+      base: {
+        C: 1/1,
+        D: (9/8)/Math.pow(81/80, 0.5),
+        E: (81/64)/Math.pow(81/80, 1.0),
+        F: 4/3,
+        G: (3/2)/Math.pow(81/80, 0.25),
+        A: (27/16)/Math.pow(81/80, 0.75),
+        B: (243/128)/Math.pow(81/80, 0.75)
       },
-      "sharp": 256/243
+      sharp: 256/243
     },
-    "WerckMeister3": {
-      "base": {
-        "C": 1/1,
-        "D": (9/8)/Math.pow(81/80, 0.5),
-        "E": (81/64)/Math.pow(81/80, 0.75),
-        "F": 4/3,
-        "G": (3/2)/Math.pow(81/80, 0.25),
-        "A": (27/16)/Math.pow(81/80, 0.75),
-        "B": (243/128)/Math.pow(81/80, 0.75)
+    WerckMeister3: {
+      base: {
+        C: 1/1,
+        D: (9/8)/Math.pow(81/80, 0.5),
+        E: (81/64)/Math.pow(81/80, 0.75),
+        F: 4/3,
+        G: (3/2)/Math.pow(81/80, 0.25),
+        A: (27/16)/Math.pow(81/80, 0.75),
+        B: (243/128)/Math.pow(81/80, 0.75)
       },
-      "sharp": 256/243
+      sharp: 256/243
     },
-    "KirnBerger3": {
-      "base": {
-        "C": 1/1,
-        "D": 9/8,
-        "E": 5/4,
-        "F": 4/3,
-        "G": (3/2)/Math.pow(81/80, 0.25),
-        "A": (27/16)/Math.pow(81/80, 0.5),
-        "B": 15/8
+    KirnBerger3: {
+      base: {
+        C: 1/1,
+        D: 9/8,
+        E: 5/4,
+        F: 4/3,
+        G: (3/2)/Math.pow(81/80, 0.25),
+        A: (27/16)/Math.pow(81/80, 0.5),
+        B: 15/8
       },
-      "sharp": 25/24
+      sharp: 25/24
     }
   };
   /* -> Ver.1.84.15 */
@@ -207,6 +277,7 @@ My_entry.handler_wave.prototype.init = function(){
       "to",  // Ver.1.74.14
       "A4",  // Ver.1.84.15
       "tune",  // Ver.1.84.15
+      "root",  // Ver.1.84.15
       "mode"  // Ver.1.84.15
     ];
     self.hasProp = {};
@@ -446,7 +517,7 @@ My_entry.handler_wave.prototype.make_str = function(octave, note){
   return note.substring(0, 1)+octave+note.substring(1);  // A4# || A4## || A4##...
 };
 /* Ver.1.44.11 */
-My_entry.handler_wave.prototype.calc_freq = function(str, A4, tune, mode, opt_octave0, opt_sw_sharp2flat){
+My_entry.handler_wave.prototype.calc_freq = function(str, A4, tune, root, mode, opt_octave0, opt_sw_sharp2flat){
   var self = this;
   var _freq = NaN;
   var octave = 4;
@@ -493,7 +564,7 @@ My_entry.handler_wave.prototype.calc_freq = function(str, A4, tune, mode, opt_oc
       var num = Number(note);
       octave += Math.floor(num/12);
       num = num%12;
-      set_alteration(self.make_str(octave, (opt_sw_sharp2flat)? self.notes_f[num]: self.notes_s[num]));
+      set_alteration(self.make_str(octave, (opt_sw_sharp2flat)? self.notes_flat[num]: self.notes_sharp[num]));
     }
     var tune = tune;
     if(!(isNaN(tune))){
@@ -510,11 +581,12 @@ My_entry.handler_wave.prototype.calc_freq = function(str, A4, tune, mode, opt_oc
     var s = ratios.sharp;
     var ratio = ratios.base[note];
     ratio *= Math.pow(s, alteration);
-    if(rules && rules.indexOf(note) !== -1){
-      ratio /= s;
-    }
-    if(mode === "Lydian" && note === "F"){
-      ratio *= s;
+    if (rules && rules.degrees){
+      var degree = self.get_degree(root, note);
+      var i = rules.degrees.indexOf(degree);
+      if(i !== -1){
+        ratio *= Math.pow(s, rules.alterations[i]);
+      }
     }
     var freq_A4 = A4;
     var freq_C4 = freq_A4/ratios.base["A"];
@@ -560,15 +632,24 @@ My_entry.handler_wave.prototype.get_fileName = function(){
   return _name;
 };
 /* Ver.1.84.15 */
-My_entry.handler_wave.prototype.get_freq = function(){
+My_entry.handler_wave.prototype.get_freq = function(str){
   var self = this;
-  var octave = self.entry.$.selectNum_id("select-octave");
-  var note = self.entry.$.selectVal_id("select-note");
-  var str = self.make_str(octave, note);
+  var _freq = null;
   var A4 = self.entry.$.inputNum_id("input-A4");
   var tune = self.entry.$.selectNum_id("select-tune");
+  var root = self.entry.$.selectVal_id("select-root");
   var mode = self.entry.$.selectNum_id("select-mode");
-  var _freq = self.calc_freq(str, A4, tune, mode);
+  if(str){
+    var octave0 = self.entry.$.selectNum_id("select-octave");
+    var sw_sharp2flat = self.entry.$.checkbox_id("checkbox-sharp2flat");
+    _freq = self.calc_freq(str, A4, tune, root, mode, octave0, sw_sharp2flat)
+  }
+  else{
+    var octave = self.entry.$.selectNum_id("select-octave");
+    var note = self.entry.$.selectVal_id("select-note");
+    var str = self.make_str(octave, note);
+    _freq = self.calc_freq(str, A4, tune, root, mode);
+  }
   return _freq;
 };
 My_entry.handler_wave.prototype.get_freqs = function(){
@@ -582,20 +663,15 @@ My_entry.handler_wave.prototype.get_freqs = function(){
     _arr_f.push(self.waveo.entry.math_wave.get_limit(freq, 0, 48000));  // Ver.1.47.11
   }
   else{
-    var octave0 = self.entry.$.selectNum_id("select-octave");
-    /* Ver.1.84.15 -> */
-    var sw_sharp2flat = self.entry.$.checkbox_id("checkbox-sharp2flat");
-    var A4 = self.entry.$.inputNum_id("input-A4");
-    var tune = self.entry.$.selectNum_id("select-tune");
-    var mode = self.entry.$.selectNum_id("select-mode");
     self.entry.$.arr("input[type='checkbox']").forEach(function(elem){
-      var str = elem.id;  // Ver.1.84.15
+      /* Ver.1.84.15 -> */
+      var str = elem.id;
       var mc = str.match(self.regex.oc);
       if(mc && elem.checked){
-        _arr_f.push(self.calc_freq(str, A4, tune, mode, octave0, sw_sharp2flat));  // Ver.1.44.11
+        _arr_f.push(self.get_freq(str));  // Ver.1.44.11
       }
+      /* -> Ver.1.84.15 */
     });
-    /* -> Ver.1.84.15 */
   }
   return _arr_f;
 };
@@ -624,6 +700,7 @@ My_entry.handler_wave.prototype.make_params = function(){
   /* Ver.1.84.15 -> */
   params.A4 = $.inputNum_id("input-A4");
   params.tune = $.selectNum_id("select-tune");
+  params.root = $.selectVal_id("select-root");
   params.mode = $.selectNum_id("select-mode");
   /* -> Ver.1.84.15 */
   /* Ver.1.35.6 -> */
