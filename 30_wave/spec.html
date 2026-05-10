@@ -21,6 +21,18 @@
       <caption><span id="span-history">演奏機能の更新履歴</span></caption>
       <tbody>
         <tr class="border">
+          <td class="border clear">
+Ver.1.84.16
+          </td>
+          <td class="border">
+・Ver.1.84.15の不備を修正
+<br>
+　macro()内の#入力対応
+<br>
+　rootの数値入力対応（文字入力不可）
+          </td>
+        </tr>
+        <tr class="border">
           <td class="border run">
 Ver.1.84.15
           </td>
@@ -1007,6 +1019,8 @@ macro機能
 <span class="wF">Ver.1.43.11追加</span>
 <br>
 <span class="wF">Ver.1.65.14追加</span>
+<br>
+<span class="wF">Ver.1.84.16追加</span>
           </td>
           <td class="border">
 {}外に定義
@@ -1015,7 +1029,7 @@ macro機能
 <span id="span-macro"></span>
 入力textの前方からmacro定義順に{}内のtext置換
 <br>
-・macro定義のformat：$<span class="condition">[0-9a-zA-Z<span class="jF">_-</span>]+</span>(<span class="selection">[0-9a-zA-Z<span class="jF">_-<span class="clear">+</span><span class="wF">=</span></span>.,:;[]$<span class="wF">\s</span>]+</span>)
+・macro定義のformat：$<span class="condition">[0-9a-zA-Z<span class="jF">_-</span>]+</span>(<span class="selection">[0-9a-zA-Z<span class="jF">_-<span class="clear">+</span><span class="wF">=</span></span>.,:;[]$<span class="wF">#</span>]<span class="wF">\s</span>]+</span>)
 <br>
 　0-9a-zA-Z<span class="jF">_</span>部分は\wで短縮可
 <br>
@@ -1234,6 +1248,8 @@ r
 <span class="jF">Ver.1.71.14更新</span>
 <br>
 <span class="wF">Ver.1.75.14更新</span>
+<br>
+<span class="wF">Ver.1.84.15追加</span>
           </td>
           <td class="border">
 拡張設定値を列挙
@@ -1261,7 +1277,7 @@ r
 <br>
 <span class="jF">:rate=0~:order=0~</span><span class="selection">:order_d=0~:order_a=0~</span>
 <br>
-<span class="wF">:order_fade=floor(-2~3):f_vib:overtone=floor(0~24):ti=0~:to=0~</span>;
+<span class="wF">:order_fade=floor(-2~3):f_vib:overtone=floor(0~24):ti=0~:to=0~:A4=0~:tune=0~:root=0~:mode=0~</span>;
 <br>
 <br>
 <span class="wF">
