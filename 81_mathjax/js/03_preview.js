@@ -59,9 +59,10 @@ My_entry.test_mathjax.prototype.clear = function(){
 };
 My_entry.test_mathjax.prototype.preview = function(){
   var self = this;
-  self.entry.$._id("p-output").textContent = self.entry.$._id("textarea-input").value;
-  if(typeof MathJax !== "undefined"){
-    MathJax.Hub.Queue(["Typeset", MathJax.Hub, "p-output"]);
+  var elem_o = self.entry.$._id("p-output");
+  elem_o.textContent = self.entry.$._id("textarea-input").value;
+  if(typeof MathJax !== "undefined" && typeof MathJax.typeset === "function"){
+    MathJax.typeset([elem_o]);
   }
   return self;
 };
