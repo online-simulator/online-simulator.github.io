@@ -60,9 +60,10 @@ My_entry.test_mathjax.prototype.clear = function(){
 My_entry.test_mathjax.prototype.preview = function(){
   var self = this;
   var elem_o = self.entry.$._id("p-output");
-  elem_o.textContent = self.entry.$._id("textarea-input").value;
   if(typeof MathJax !== "undefined" && typeof MathJax.typeset === "function"){
-    MathJax.typeset([elem_o]);
+    MathJax.typesetClear([elem_o]);
+    elem_o.innerHTML = self.entry.$._id("textarea-input").value;
+    MathJax.typesetPromise([elem_o]);
   }
   return self;
 };

@@ -45,21 +45,44 @@
 <div>
 <table><tbody>
 <tr><td>
-American Mathematical Society提供
+American Mathematical Society提供のMathJaxをCDN経由で読み込み
 <br>
-MathJaxをCDN経由で読み込み
-<br>
-MathMLまたはLaTeXで記述された入力欄の数式を出力欄に表示
+LaTeXまたはMathMLで記述された入力欄の数式を出力欄に表示
 </td></tr>
 <tr><td class="text-center">
-  <label for="textarea-input">入力欄</label>
+  <span>入力欄</span>
 　
   <button id="clear" class="clear">Clear</button>
 <br>
-  <textarea id="textarea-input" rows="5">\(\mathrm{e}^{\mathrm{i}\theta}=\cos\theta+\mathrm{i}\sin\theta\)</textarea>
+  <textarea id="textarea-input" class="input-800" rows="11">\(\mathit{E}=\mathit{m}\mathit{c}^2\)
+
+$$\mathrm{i}\hbar\frac{\partial}{\partial\mathit{t}}\psi=\hat{\mathit{H}}\psi$$
+
+$\oint\boldsymbol{E}\cdot\mathrm{d}\boldsymbol{S}=\frac{Q}{\varepsilon_0}$
+
+$$\zeta(s)=\sum_{n=1}^{\infty}\frac{1}{n^s}=\frac{1}{1^s}+\frac{1}{2^s}+\frac{1}{3^s}+\cdots$$
+
+$$\mathrm{e}^{\mathrm{i}\theta}=\cos\theta+\mathrm{i}\sin\theta$$
+
+<math xmlns="http://w3.org" display="block">
+  <msup>
+    <mi mathvariant="normal">e</mi>
+    <mrow>
+      <mi mathvariant="normal">i</mi>
+      <mi>θ</mi>
+    </mrow>
+  </msup>
+  <mo>=</mo>
+  <mi>cos</mi>
+  <mi>θ</mi>
+  <mo>+</mo>
+  <mi mathvariant="normal">i</mi>
+  <mi>sin</mi>
+  <mi>θ</mi>
+</math></textarea>
 </td></tr>
 <tr><td class="text-center">
-  <label for="p-output">出力欄</label>
+  <span>出力欄</span>
 　
   <button id="preview" class="run">変換実行</button>
 <br>
