@@ -255,6 +255,38 @@ My_entry.draw.prototype.hsv2rgb = function(arr, opt_k, opt_isConical){
   return [r*k, g*k, b*k];
 };
 /* -> 1.3.4 */
+/* calc-Ver.2.878.167 -> */
+My_entry.draw.prototype.hue2r = function(p, q, t){
+  var self = this;
+  var _r = p;
+  t = Math.max(0, t-Math.floor(t));  // [0,1)
+  if(t < 1/6){
+    _r = p+(q-p)*6*t;
+  }
+  else if(t < 1/2){
+    _r = q;
+  }
+  else if(t < 2/3){
+    _r = p+(q-p)*(2/3-t)*6;
+  }
+  return _r;
+};
+My_entry.draw.prototype.hsl2rgb = function(h, s, l, opt_k){
+  var self = this;
+  var k = opt_k || 1;
+  var r = l;
+  var g = l;
+  var b = l;
+  if(s !== 0){
+    var q = (l < 0.5)? l*(1+s): l+s-l*s;
+    var p = 2*l-q;
+    r = self.hue2r(p, q, h+1/3);
+    g = self.hue2r(p, q, h);
+    b = self.hue2r(p, q, h-1/3);
+  }
+  return [r*k, g*k, b*k];
+};
+/* -> calc-Ver.2.878.167 */
 /* 0.6.0 -> */
 My_entry.draw.prototype.hex2dec = function(hex_8bit){
   var self = this;

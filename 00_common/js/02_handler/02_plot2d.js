@@ -699,6 +699,19 @@ My_entry.plot2d.prototype.plot = function(arr2d_vec, options, toSVG, isFinal){  
       }
       rgba = {r: r255, g: g255, b: b255, a: 255};
     }
+    /* Ver.2.878.167 -> */
+    else if(markerColors.indexOf("H*") !== -1){  // as string
+      var h = j/len_j;  // [0,1)
+      var s = 1.0;
+      var l = 0.5;
+      var kh = Number(markerColors.replace("H\*", ""));  // as re
+      var rgb = plot.draw.hsl2rgb(h*kh, s, l, 255);
+      var r255 = rgb[0];
+      var g255 = rgb[1];
+      var b255 = rgb[2];
+      rgba = {r: r255, g: g255, b: b255, a: 255};
+    }
+    /* -> Ver.2.878.167 */
     else{
       var isRainbow = (markerColors === "rainbow");  // Ver.2.846.153
       var text_colors = (isRainbow)? "#f00:#ff0:#0f0:#0ff:#00f:#f0f:#f00": markerColors;  // Ver.2.846.153
