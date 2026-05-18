@@ -538,19 +538,34 @@
       $._id("finv3").onclick = function(){setVal("-1", "1", "x=t,x;", "f(x)=<x**2,f(x);x;sqrt(x);finv(x,x0)=<ge(x,0)&&&Newton((y)=<f(y)=x,=<{x0},Nmax=1e3,Nmax)||||NaN,finv(x,x);finv(x,-x);", 20);$._id("input-z").value+="TITLE{inverse function}:::2:::x**2;::::::x;::::::sqrt(x);::::::finv+(x);::::::finv-(x);";};
       $._id("sigmoid").onclick = function(){setVal("-2", "2", "x=t,x;", "Gudermannian_fn(x)=<asin(tanh(x)),Gudermannian_fn(x);zeta(x,a,b)=<(1+exp(-a*x))**(-1)+b,zeta(x,3,-0.5);sin(atan(x));atan(x);tanh(x);", 10);};
       $._id("clothoid").onclick = function(){setVal("0", "2pi", "_i((t)=<cos(t**2/2),0,t);", "_i((t)=<sin(t**2/2),0,t);", 50);$._id("input-z").value+="::3:1.5:1.5;";};
+      $._id("trochoid").onclick = function(){setVal("0", "4pi", "f(r,d)=<r*t-d*sin(t)+(r-d*cos(t))i,z1=f(0.5,1),z2=f(1,1),z3=f(2,1),real(z1);real(z2);real(z3);", "imag(z1);imag(z2);imag(z3);", 100);$._id("input-z").value+="TITLE{trochoid}r<d::0;r=d;r>d;";};
+      $._id("epitrochoid").onclick = function(){setVal("0", "2pi", "f(N,r,d)=<(N+r)*cos(t)-d*cos((N/r+1)*t)+((N+r)*sin(t)-d*sin((N/r+1)*t))i,z1=f(3,1,1),z2=f(5,1,1),z3=f(7,1,1),real(z1);real(z2);real(z3);", "imag(z1);imag(z2);imag(z3);", 1024);$._id("input-z").value+="TITLE{epitrochoid}N=3::0;5;7;";};
+      $._id("hypotrochoid").onclick = function(){setVal("0", "4pi", "f(N,r,d)=<(N-r)*cos(t)+d*cos((N/r-1)*t)+((N-r)*sin(t)-d*sin((N/r-1)*t))i,z1=f(3,2,1),z2=f(5,2,1),z3=f(7,2,1),real(z1);real(z2);real(z3);", "imag(z1);imag(z2);imag(z3);", 1024);$._id("input-z").value+="TITLE{hypotrochoid}N=3::0;5;7;";};
       $._id("cycloid").onclick = function(){setVal("0", "2pi", "rm=1,rc=3,x1=rm*(t-sin(t)),x2=(rc+rm)cos(t)-rm*cos((rc+rm)t/rm),x3=(rc-rm)cos(t)+rm*cos((rc-rm)t/rm),x1;x2;x3;", "y1=rm*(1-cos(t)),y2=(rc+rm)sin(t)-rm*sin((rc+rm)t/rm),y3=(rc-rm)sin(t)-rm*sin((rc-rm)t/rm),y1;y2;y3;", 100);$._id("input-z").value+="::0::::cycloid;::::::epicycloid;::::::hypocycloid;";};
+      $._id("astroid").onclick = function(){setVal("0", "2pi", "f(r)=<r*(cos(t)**3+i*sin(t)**3),z1=f(1),z2=f(2),z3=f(3),real(z1);real(z2);real(z3);", "imag(z1);imag(z2);imag(z3);", 1024);$._id("input-z").value+="TITLE{astroid}r=1::0;2;3;";};
+      $._id("cardioid").onclick = function(){setVal("0", "2pi", "f(r)=<r*((2*cos(t)-cos(2t))+i*(2*sin(t)-sin(2t))),z1=f(1),z2=f(2),z3=f(3),real(z1);real(z2);real(z3);", "imag(z1);imag(z2);imag(z3);", 1024);$._id("input-z").value+="TITLE{cardioid}r=1::0;2;3;";};
+      $._id("deltoid").onclick = function(){setVal("0", "2pi", "f(r)=<r*(((2/3)*cos(t)+(1/3)*cos(2t))+i*((2/3)*sin(t)-(1/3)*sin(2t))),z1=f(1),z2=f(2),z3=f(3),real(z1);real(z2);real(z3);", "imag(z1);imag(z2);imag(z3);", 1024);$._id("input-z").value+="TITLE{deltoid}r=1::0;2;3;";};
       $._id("catenary").onclick = function(){setVal("-3", "3", "x=t,a=1,x;", "a*(e^(x/a)+e^(-x/a))/2;a+x**2/(2a);", 100);$._id("input-z").value+="::0::::catenary curve;";};
+      $._id("Gielis").onclick = function(){setVal("0", "2pi", "f(m,a,b,n1,n2,n3)=<pcomp((abs(cos(m*t/4)/a)**n2+abs(sin(m*t/4)/b)**n3)**(-1/n1),t),z1=f(3,1,1,0.5,1.5,1.5),z2=f(6,1,1,0.5,1.5,1.5),z3=f(12,1,1,0.5,1.5,1.5),real(z1);real(z2);real(z3);", "imag(z1);imag(z2);imag(z3);", 1024);$._id("input-z").value+="TITLE{Gielis superformula}m=3::0;6;12;";};
       $._id("Fay1").onclick = function(){setVal("0", "12pi", "k=4,r=exp(cos(t))-2cos(k*t)-sin(t/12)**5,r*sin(t);", "r*cos(t);", 1024);$._id("input-z").value+="TITLE{butterfly curve}::0;";};
       $._id("Fay2").onclick = function(){setVal("0", "12pi", "k=8,r=exp(cos(t))-2cos(k*t)-sin(t/12)**5,r*sin(t);", "r*cos(t);", 1024);$._id("input-z").value+="TITLE{butterfly curve}::0;";};
       $._id("Lissajous").onclick = function(){setVal("0", "2pi", "cos(3t);", "sin(2t+pi/3);", 100);};
       $._id("rose").onclick = function(){setVal("0", "2pi", "sin(2t)cos(t);sin(4t)cos(t);sin(6t)cos(t);sin(6t)cos(5t);", "sin(2t)sin(t);sin(4t)sin(t);sin(6t)sin(t);sin(6t)sin(5t);", 100);};
       $._id("heart").onclick = function(){setVal("0", "2pi", "pow(sin(t),3);pow(sin(t),5);", "y=7cos(t)-4cos(2t)-2cos(3t),y/7;", 50);};
+      $._id("cherry1").onclick = function(){setVal("0", "2pi", "f(N,a,b)=<pcomp(1/(a+b*cos(asin(sin(t*N/2))/(N/2))),t),z1=f(5,0.5,-0.4),z2=f(7,0.5,-0.4),z3=f(9,0.5,-0.4),real(z1);real(z2);real(z3);", "imag(z1);imag(z2);imag(z3);", 1024);$._id("input-z").value+="TITLE{polar cherry-blossom formula}GRADATION{config[0:0:0:1:0:0:false:false:25600:1]#e31c5f:white}N=5::0;7;9;";};
+      $._id("cherry2").onclick = function(){setVal("0", "2pi", "f(N,a,b,c,d,p)=<pcomp(1/(a-b*cos(asin(sin(t*N/2))/(N/2))+(c-d*abs(sin(t*N/2)))**p),t),z1=f(5,1,0.4,1,1.5,3),z2=f(8,1,0.4,1,2,4),r=random()*0.3,real(z1);real(z2)*r;", "imag(z1);imag(z2)*r;", 1024);$._id("input-z").value+="TITLE{polar clover formula}GRADATION{config[0:0:0:1:0:0:false:false:25600:1]#e31c5f:white}::0::0;GRADATION{config[0:0:0:1:0:0:false:false:25600:1]yellow:white};";};
+      $._id("clover1").onclick = function(){setVal("0", "2pi", "f(N,a,b,c,d,p)=<pcomp(1/(a-b*cos(asin(sin(t*N/2))/(N/2))+(c-d*abs(sin(t*N/2)))**p),t),z1=f(3,1,0.4,1,1,4),z2=f(4,1,0.4,1,1,4),z3=f(5,1,0.4,1,1,4),real(z1);real(z2);real(z3);", "imag(z1);imag(z2);imag(z3);", 1024);$._id("input-z").value+="TITLE{polar clover formula}GRADATION{config[0:0:0:1:0:0:false:false:25600:1]#4caf50:#253026}N=3::0;4;5;";};
+      $._id("clover2").onclick = function(){setVal("0", "2pi", "f(N,a,b,c,d,p)=<pcomp(1/(a-b*cos(asin(sin(t*N/2))/(N/2))+(c-d*abs(sin(t*N/2)))**p),t),z1=f(5,1,0.4,1,1,4),real(z1);", "imag(z1);", 1024);$._id("input-z").value+="TITLE{polar clover formula}GRADATION{config[0:0:0:1:0:0:false:false:25600:1]green:#4caf50:white:#4caf50:green:#253026:green}::0::0;";};
+      $._id("polar1").onclick = function(){setVal("0", "2pi", "f(N)=<pcomp(cos(pi/N)/(cos(asin(sin(t*N/2))/(N/2))),t),z1=f(5),z2=f(7),z3=f(9),real(z1);real(z2);real(z3);", "imag(z1);imag(z2);imag(z3);", 1024);$._id("input-z").value+="TITLE{polar polygon formula}GRADATION{config[0:0:0:1:0:0:false:false:25600:1]green:#000}N=5::0;7;9;";};
+      $._id("polar2").onclick = function(){setVal("0", "4pi", "f(N)=<pcomp(cos(2pi/N)/(cos(asin(sin(t*N/4))/(N/4))),t),z1=f(5),z2=f(7),z3=f(9),real(z1);real(z2);real(z3);", "imag(z1);imag(z2);imag(z3);", 1024);$._id("input-z").value+="TITLE{polar star-polygon formula}GRADATION{config[0:0:0:1:0:0:false:false:25600:1]green:#000}N=5::0;7;9;";};
+      $._id("polar3").onclick = function(){setVal("0", "2pi", "f(N)=<last{kr=cos(2pi/N)/cos(pi/N),pcomp(1/(cos(abs(mod(t+pi/N,2pi/N)-pi/N))+((1/kr-cos(pi/N))/sin(pi/N))*sin(abs(mod(t+pi/N,2pi/N)-pi/N))),t)},z1=f(5),z2=f(7),z3=f(9),real(z1);real(z2);real(z3);", "imag(z1);imag(z2);imag(z3);", 1024);$._id("input-z").value+="TITLE{polar star-polygon formula}GRADATION{config[0:0:0:1:0:0:false:false:25600:1]green:#000}N=5::0;7;9;";};
       $._id("polygon").onclick = function(){setVal("0", "2pi", "N=5,poly(t,N,0);poly(t,N,1);", "poly(t,N,1);poly(t,N,0);", 50);};
-      $._id("star1").onclick = function(){setVal("0", "2pi", "N=5,star(t,N,0);kr=0.5,star(t,N,0,kr);$GR=(1+sqrt(5))/2,star(t,N,0,1/GR);", "star(t,N,1);star(t,N,1,kr);star(t,N,1,1/GR);", 50);};
+      $._id("star1").onclick = function(){setVal("0", "2pi", "N=5,kr=cos(2pi/N)/cos(pi/N),star(t,N,0);star(t,N,0,kr);star(t,N,0,0.5);$GR=(1+sqrt(5))/2,star(t,N,0,1/GR);", "star(t,N,1);star(t,N,1,kr);star(t,N,1,0.5);star(t,N,1,1/GR);", 50);};
       $._id("star2").onclick = function(){setVal("0", "2pi", "x=t,N=11,z0=<star(x,N,1)+star(x,N,0)i,z1=<poly(x,N,1)+poly(x,N,0)i,t=-2pi/(3N),real(z0()*e^(i(t)));real(z0()*e^(i(2t)));real(z0()*e^(i(3t)));real(z1());", "imag(z0()*e^(i(t)));imag(z0()*e^(i(2t)));imag(z0()*e^(i(3t)));imag(z1());", 100);};
       $._id("star3").onclick = function(){setVal("0", "2pi", "x=t,N=11,kr=0.5,z0=<star(x,N,1,kr)+star(x,N,0,kr)i,z1=<poly(x,N,1)+poly(x,N,0)i,t=-2pi/(3N),real(z0()*e^(i(t)));real(z0()*e^(i(2t)));real(z0()*e^(i(3t)));real(z1());", "imag(z0()*e^(i(t)));imag(z0()*e^(i(2t)));imag(z0()*e^(i(3t)));imag(z1());", 100);};
       $._id("star4").onclick = function(){setVal("0", "2pi", "N2=N/2,kr=0.5,star(t,N2,0,kr);", "star(t,N2,1,kr);", 26);$._id("input-z").value+="TITLE{Fibonacci sequence[0,1,1,2,3,5,8,13,21,34,55,89,144,...]}noneGRADATION{config[0:0:0:1:0:0:false:false:25600:10]#00000000:#000000ff:#ffffffff:#ffffff00};";};
       $._id("star4_golden").onclick = function(){setVal("0", "2pi", "N2=N/2,$GR=(1+sqrt(5))/2,star(t,N2,0,1/GR);", "star(t,N2,1,1/GR);", 26);$._id("input-z").value+="TITLE{Fibonacci sequence[0,1,1,2,3,5,8,13,21,34,55,89,144,...]}noneGRADATION{config[0:0:0:1:0:0:false:false:25600:10]#00000000:#000000ff:#ffffffff:#ffffff00};";};
+      $._id("star5").onclick = function(){setVal("0", "2pi", "N=5,kr=cos(2pi/N)/cos(pi/N),star(t,N,0,kr);", "star(t,N,1,kr);", 1024);$._id("input-z").value+="TITLE{Fibonacci sequence[0,1,1,2,3,5,8,13,21,34,55,89,144,...]}noneGRADATION{config[0:0:0:1:0:0:false:false:25600:10]#00000000:#000000ff:#ffffffff:#ffffff00};";};
       $._id("rt2").onclick = function(){setVal("0", "10", "Nexpo=t,Nexpo;", "2;f0=sqrt(2),f0**f0**f0**f0**f0**f0**f0**f0**f0**f0**f0;f(n)=<f0**(n<1|||f(n-1)),f(Nexpo);", 10);};
       $._id("rt2_x").onclick = function(){setVal("0", "sqrt(2)", "x=t,x;", "f0=x,f(n)=<f0**(n<1|||f(n-1)),f(0);f(1);f(2);f(9);f(10);", 20);};
       $._id("fraction").onclick = function(){setVal("0", "20", "n=round(t),step=n+1,make_cf(r)=<[arr=[],cf(r)=<last{arr.push(int(r)),len=sizec(arr),(len>N||r%1==0||1-abs(r%1)<2eps)&&r||||int(r)+1/cf(1/(r-int(r)))},cf(r),=<arr]=>,get_int_part(r,n)=<[arr=make_cf(r),len=sizec(arr),=<n<len&&&abs(calc_cf(=<arr)-r)>2eps&&&arr[][n]||||NaN]=>,calc_cf(arr)=<[len=sizec(arr),f(n)=<arr[][n]+(n<len-1&&&1/f(n+1)),=<f(0)]=>,step;", "r=sqrt(2),N=n,get_int_part(r,n);r;calc_cf(=<make_cf(r));calc_cf(=<[1,2,2,2])=1+1/(2+1/(2+1/(2)));", 20);$._id("input-z").value+="PLOTCONFIG{,,10}TITLE{continued fraction}XLABEL{step}::3:1.5:1.5::integer part expanded by make_cf;::::::sqrt(2);::::::calc_cf(make_cf);::::::calc_cf(=<[1,2,2,2])=1+1/(2+1/(2+1/(2)));";};
@@ -2525,14 +2540,30 @@
   <button id="finv3">-3</button>
   <button id="sigmoid">sigmoid</button>
   <button id="clothoid">clothoid</button>
+<br>
+  <button id="trochoid">trochoid</button>
+  <button id="epitrochoid">-epi</button>
+  <button id="hypotrochoid">-hypo</button>
   <button id="cycloid">cycloid</button>
+  <button id="astroid">-asteroid</button>
+  <button id="cardioid">-cardioid</button>
+  <button id="deltoid">-deltoid</button>
   <button id="catenary">catenary</button>
 <br>
+  <button id="Gielis" class="selection">Gielis</button>
   <button id="Fay1">Fay</button>
   <button id="Fay2">-2</button>
   <button id="Lissajous">Lissajous</button>
   <button id="rose">rose</button>
   <button id="heart">heart</button>
+<br>
+  <button id="cherry1">cherry</button>
+  <button id="cherry2">-2</button>
+  <button id="clover1">clover</button>
+  <button id="clover2">-2</button>
+  <button id="polar1">polar</button>
+  <button id="polar2">-2</button>
+  <button id="polar3">-3</button>
 <br>
   <button id="polygon">poly</button>
   <button id="star1">star</button>
@@ -2540,6 +2571,7 @@
   <button id="star3">-3</button>
   <button id="star4">-4</button>
   <button id="star4_golden">-golden</button>
+  <button id="star5">-5</button>
 <br>
   <button id="rt2">root2</button>
   <button id="rt2_x">-x</button>
