@@ -441,6 +441,44 @@ My_entry.plot2d.prototype.change_scale = function(tgxmin, tgymin, tgxmax, tgymax
   temp.change_scale(tgxmin, tgymin, tgxmax, tgymax);  // 1.15.7
   return self;
 };
+/* Ver.2.881.167 */
+My_entry.plot2d.prototype.fix_range = function(xmin, xmax){
+  var self = this;
+  var decDigit = self.config.default.decDigit_grid;
+  var N = 5;
+  if(xmin > xmax){
+    var w = xmin;
+    xmin = xmax;
+    xmax = w;
+  }
+  if(xmin === xmax){
+    xmin -= 1;
+    xmax += 1;
+    N = 2;
+  }
+  else{
+    var dx = (xmax-xmin)/N;
+    var decn = Math.pow(10, Math.floor(Math.log(dx)/Math.LN10));
+    var dxn = dx/decn;
+    if(dxn <= 1){
+      dxn = 1;
+    }
+    else if(dxn <= 2){
+      dxn = 2;
+    }
+    else if(dxn <= 5){
+      dxn = 5;
+    }
+    else{
+      dxn = 10;
+    }
+    dx = parseFloat((decn*dxn).toPrecision(decDigit));
+    xmin = parseFloat((Math.floor(xmin/dx)*dx).toPrecision(decDigit));
+    xmax = parseFloat((Math.ceil(xmax/dx)*dx).toPrecision(decDigit));
+    N = Math.round((xmax-xmin)/dx);
+  }
+  return {xmin: xmin, xmax: xmax, N: N};
+};
 /* Ver.2.821.135 */
 My_entry.plot2d.prototype.run = function(arr2d_vec, options, toSVG, isFinal){
   var self = this;

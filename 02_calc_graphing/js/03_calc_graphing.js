@@ -291,6 +291,32 @@ My_entry.calc_graphing.prototype.plot = function(arr_data_, options_plot, isFina
     var arr2d_vec = self.arr_data2arr2d_vec(arr_data, options_plot);
     /* Ver.2.852.157 -> */
     if(!(self.plot2d.isChanged)){
+      /* Ver.2.881.167 -> */
+      var ver_plot = options_plot["plot2d-Ver"];
+      if(ver_plot === 3){
+        if(!(options_plot["log-x"])){
+          var xa = self.plot2d.fix_range(arr2d_vec.xmin, arr2d_vec.xmax);
+          arr2d_vec.xmin = xa.xmin;
+          arr2d_vec.xmax = xa.xmax;
+          options_plot["grid-x-Ni"] = xa.N;
+        }
+        if(!(options_plot["log-y"])){
+          var ya = self.plot2d.fix_range(arr2d_vec.ymin, arr2d_vec.ymax);
+          arr2d_vec.ymin = ya.xmin;
+          arr2d_vec.ymax = ya.xmax;
+          options_plot["grid-y-Nj"] = ya.N;
+        }
+        if(isFinal){
+          if(xa){
+            $.set_selectVal_id("select-grid-x-Ni", xa.N);
+          }
+          if(ya){
+            $.set_selectVal_id("select-grid-y-Nj", ya.N);
+          }
+          self.plot2d.isChanged = true;
+        }
+      }
+      /* -> Ver.2.881.167 */
       self.output_axis(arr2d_vec, options_plot);
     }
     self.input_axis(arr2d_vec);
