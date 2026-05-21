@@ -445,6 +445,7 @@ My_entry.plot2d.prototype.change_scale = function(tgxmin, tgymin, tgxmax, tgymax
 My_entry.plot2d.prototype.fix_range = function(xmin, xmax){
   var self = this;
   var decDigit = self.config.default.decDigit_grid;
+  var eps = Math.pow(10, -decDigit);
   var N = 5;
   if(xmin > xmax){
     var w = xmin;
@@ -473,8 +474,8 @@ My_entry.plot2d.prototype.fix_range = function(xmin, xmax){
       dxn = 10;
     }
     dx = parseFloat((decn*dxn).toPrecision(decDigit));
-    xmin = parseFloat((Math.floor(xmin/dx)*dx).toPrecision(decDigit));
-    xmax = parseFloat((Math.ceil(xmax/dx)*dx).toPrecision(decDigit));
+    xmin = parseFloat((Math.floor((xmin/dx)+eps)*dx).toPrecision(decDigit));
+    xmax = parseFloat((Math.ceil((xmax/dx)-eps)*dx).toPrecision(decDigit));
     N = Math.round((xmax-xmin)/dx);
   }
   return {xmin: xmin, xmax: xmax, N: N};
