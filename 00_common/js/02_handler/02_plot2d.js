@@ -425,16 +425,19 @@ My_entry.plot2d.prototype.change_scale = function(tgxmin, tgymin, tgxmax, tgymax
   var plot = self.objs.plot;
   var all = self.objs.all;
   var temp = self.objs.temp;
-  var tgdx = (tgxmax-tgxmin)*0.125 || 1;
-  var tgdy = (tgymax-tgymin)*0.125 || 1;
+  /* Ver.2.882.167 -> */
+  var arr_k = [0.125, 0.125, kxAdjust, 3.0, 1.0, kyAdjust];
+  var tgdx = (tgxmax-tgxmin)*arr_k[0] || 1;
+  var tgdy = (tgymax-tgymin)*arr_k[1] || 1;
   /* 0.5.0 -> */
   var kx = self.get_kx(fontSize);
   var ky = self.get_ky(fontSize);
-  tgxmin -= (isAxis_y)? tgdx*kxAdjust*kx: tgdx;
-  tgymin -= (isAxis_x)? tgdy*3.0*ky: tgdy;
-  tgxmax += (isAxis_y)? tgdx*1.0*kx: tgdx;
-  tgymax += (isAxis_x)? tgdy*kyAdjust*ky: tgdy;
+  tgxmin -= tgdx*((isAxis_y)? arr_k[2]*kx: 1);
+  tgymin -= tgdy*((isAxis_x)? arr_k[3]*ky: 1);
+  tgxmax += tgdx*((isAxis_y)? arr_k[4]*kx: 1);
+  tgymax += tgdy*((isAxis_x)? arr_k[5]*ky: 1);
   /* -> 0.5.0 */
+  /* -> Ver.2.882.167 */
   grid.change_scale(tgxmin, tgymin, tgxmax, tgymax);
   plot.change_scale(tgxmin, tgymin, tgxmax, tgymax);
   all.change_scale(tgxmin, tgymin, tgxmax, tgymax);  // 1.2.3
