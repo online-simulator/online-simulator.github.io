@@ -546,6 +546,9 @@
       $._id("astroid").onclick = function(){setVal("0", "2pi", "f(r)=<r*(cos(t)**3+i*sin(t)**3),z1=f(1),z2=f(2),z3=f(3),real(z1);real(z2);real(z3);", "imag(z1);imag(z2);imag(z3);", 1024);$._id("input-z").value+="TITLE{astroid}r=1::0;2;3;";};
       $._id("cardioid").onclick = function(){setVal("0", "2pi", "f(r)=<r*((2*cos(t)-cos(2t))+i*(2*sin(t)-sin(2t))),z1=f(1),z2=f(2),z3=f(3),real(z1);real(z2);real(z3);", "imag(z1);imag(z2);imag(z3);", 1024);$._id("input-z").value+="TITLE{cardioid}r=1::0;2;3;";};
       $._id("deltoid").onclick = function(){setVal("0", "2pi", "f(r)=<r*(((2/3)*cos(t)+(1/3)*cos(2t))+i*((2/3)*sin(t)-(1/3)*sin(2t))),z1=f(1),z2=f(2),z3=f(3),real(z1);real(z2);real(z3);", "imag(z1);imag(z2);imag(z3);", 1024);$._id("input-z").value+="TITLE{deltoid}r=1::0;2;3;";};
+      $._id("crystal1").onclick = function(){setVal("1", "6", "depth=t,N=5,scale=1/(2cos(pi/N)),arr_z=[],step(z,depth)=<switch(depth===0,=<arr_z.push(z*(1-scale)/scale):1,=<_r(=<step((z+e**(i*2pi*(__n__-1)/N))*scale,depth-1),,N)),step(0,depth);", "tarr_z=arr_z.,tarr_x=real(tarr_z),tarr_y=imag(tarr_z);", 5);$._id("input-z").value+="TITLE{IFS of quasi-crystal}circle::1.5::0::depth=1,N=5;2;3;4;5;6;";$._id("input-vx").value="tarr_x";$._id("input-vy").value="tarr_y";};
+      $._id("crystal2").onclick = function(){setVal("1", "4", "depth=t,N=6,scale=1/(2cos(pi/N)),arr_z=[],step(z,depth)=<switch(depth===0,=<arr_z.push(z*(1-scale)/scale):1,=<_r(=<step((z+e**(i*2pi*(__n__-1)/N))*scale,depth-1),,N)),step(0,depth);", "tarr_z=arr_z.,tarr_x=real(tarr_z),tarr_y=imag(tarr_z);", 3);$._id("input-z").value+="TITLE{IFS of quasi-crystal}circle::1.5::0::depth=1,N=6;2;3;4;";$._id("input-vx").value="tarr_x";$._id("input-vy").value="tarr_y";};
+      $._id("crystal3").onclick = function(){setVal("1", "4", "depth=t,N=7,scale=1/(2cos(pi/N)),arr_z=[],step(z,depth)=<switch(depth===0,=<arr_z.push(z*(1-scale)/scale):1,=<_r(=<step((z+e**(i*2pi*(__n__-1)/N))*scale,depth-1),,N)),step(0,depth);", "tarr_z=arr_z.,tarr_x=real(tarr_z),tarr_y=imag(tarr_z);", 3);$._id("input-z").value+="TITLE{IFS of quasi-crystal}circle::1.5::0::depth=1,N=7;2;3;4;";$._id("input-vx").value="tarr_x";$._id("input-vy").value="tarr_y";};
       $._id("Erdos1").onclick = function(){setVal("1", "1", "base=[1,i],p=[-4,-3,-2,-1,0,1,2,3,4],arr_z=[],vec=[],f=<last{x=vec[][0],y=vec[][1],arr_z.push(comp(x,y))},g=<_s((n)=<last{vec.push(p[][n]),step($vec,depth+1),vec.pop()},,##p-1),step($vec,depth)=<switch(depth===##base,=<f:1,=<g),step($vec,0);", "tarr_z=arr_z.,tarr_x=real(tarr_z),tarr_y=imag(tarr_z);", "0");$._id("input-z").value+="TITLE{Erdős' unit-distance conjecture}2D Cartesian grid::3::0;";$._id("input-vx").value="tarr_x";$._id("input-vy").value="tarr_y";};
       $._id("Erdos2").onclick = function(){setVal("1", "1", "base=[pi/3,pi/5,pi*sqrt(2)],p=[-4,-3,-2,-1,0,1,2,3,4],arr_z=[],vec=[],f=<last{r=0,t=0,_s((n)=<last{r=max(r,abs(vec[][n])),t=t+vec[][n]*base[][n]},,##base-1),arr_z.push(pcomp(r,t))},g=<_s((n)=<last{vec.push(p[][n]),step($vec,depth+1),vec.pop()},,##p-1),step($vec,depth)=<switch(depth===##base,=<f:1,=<g),step($vec,0);", "tarr_z=arr_z.,tarr_x=real(tarr_z),tarr_y=imag(tarr_z);", "0");$._id("input-z").value+="TITLE{Erdős' unit-distance conjecture}3D Chebyshev-induced lattice::3::0;";$._id("input-vx").value="tarr_x";$._id("input-vy").value="tarr_y";};
       $._id("Erdos3").onclick = function(){setVal("1", "1", "base=[pi/3,pi/5,pi*sqrt(2),pi*sqrt(3),pi*sqrt(5)],p=[-1,0,1],arr_z=[],vec=[],f=<last{r=0,t=0,_s((n)=<last{r=max(r,abs(vec[][n])),t=t+vec[][n]*base[][n]},,##base-1),arr_z.push(pcomp(r,t))},g=<_s((n)=<last{vec.push(p[][n]),step($vec,depth+1),vec.pop()},,##p-1),step($vec,depth)=<switch(depth===##base,=<f:1,=<g),step($vec,0);", "tarr_z=arr_z.,tarr_x=real(tarr_z),tarr_y=imag(tarr_z);", "0");$._id("input-z").value+="TITLE{Erdős' unit-distance conjecture}5D Chebyshev-induced lattice::3::0;";$._id("input-vx").value="tarr_x";$._id("input-vy").value="tarr_y";};
@@ -2555,10 +2558,14 @@
   <button id="cardioid">-cardioid</button>
   <button id="deltoid">-deltoid</button>
 <br>
+  <button id="crystal1" class="wF">crystal</button>
+  <button id="crystal2">-2</button>
+  <button id="crystal3">-3</button>
   <button id="Erdos1" class="selection">Erdős</button>
   <button id="Erdos2">-2</button>
   <button id="Erdos3">-3</button>
   <button id="Erdos4">-4</button>
+<br>
   <button id="Gielis" class="selection">Gielis</button>
   <button id="Fay1">Fay</button>
   <button id="Fay2">-2</button>
