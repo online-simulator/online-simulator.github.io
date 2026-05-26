@@ -1358,6 +1358,11 @@ My_entry.calc_graphing.prototype.init_handlers = function(){
         self.re_plot(true);
         break;
       case "select-plot2d-Ver":  // Ver.2.190.44
+        $.set_selectVal_id("select-grid-x-Ni", 0);  // Ver.2.885.168
+        $.set_selectVal_id("select-grid-y-Nj", 0);  // Ver.2.885.168
+        self.isCheckedError = false;  // Ver.2.33.17
+        self.re_plot(true);
+        break;
       case "select-decDigit":
       case "select-grid-line-width":
       case "select-marker-size":
