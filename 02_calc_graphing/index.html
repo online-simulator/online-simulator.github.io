@@ -560,6 +560,7 @@
       $._id("Erdos2").onclick = function(){setVal("1", "1", "R=4,base=[pi/3,pi/5,pi*sqrt(2)],arr_z=[],N=##base,vec=vectorc(N),f=<arr_z.push(pcomp(max(abs(vec).),base*vec)),g=<_s((n)=<last{vec[depth]=n,step(depth+1)},-R,R),step(depth)=<switch(depth===N,=<f:1,=<g),step(0);", "tarr_z=arr_z.,tarr_x=real(tarr_z),tarr_y=imag(tarr_z);", "0");$._id("input-z").value+="TITLE{Erdős' unit-distance conjecture -> OpenAI's disproof}3D Chebyshev-induced lattice::3::0;";$._id("input-vx").value="tarr_x";$._id("input-vy").value="tarr_y";};
       $._id("Erdos3").onclick = function(){setVal("1", "1", "R=1,base=[pi/3,pi/5,pi*sqrt(2),pi*sqrt(3),pi*sqrt(5)],arr_z=[],N=##base,vec=vectorc(N),f=<arr_z.push(pcomp(max(abs(vec).),base*vec)),g=<_s((n)=<last{vec[depth]=n,step(depth+1)},-R,R),step(depth)=<switch(depth===N,=<f:1,=<g),step(0);", "tarr_z=arr_z.,tarr_x=real(tarr_z),tarr_y=imag(tarr_z);", "0");$._id("input-z").value+="TITLE{Erdős' unit-distance conjecture -> OpenAI's disproof}5D Chebyshev-induced lattice::3::0;";$._id("input-vx").value="tarr_x";$._id("input-vy").value="tarr_y";};
       $._id("Erdos4").onclick = function(){setVal("1", "1", "R=1,base=[pi/3,pi/5,pi*sqrt(2),pi*sqrt(3),pi*sqrt(5)],arr_z=[],N=##base,vec=vectorc(N),f=<arr_z.push(pcomp(sum(abs(vec).),base*vec)),g=<_s((n)=<last{vec[depth]=n,step(depth+1)},-R,R),step(depth)=<switch(depth===N,=<f:1,=<g),step(0);", "tarr_z=arr_z.,tarr_x=real(tarr_z),tarr_y=imag(tarr_z);", "0");$._id("input-z").value+="TITLE{Erdős' unit-distance conjecture -> OpenAI's disproof}5D Manhattan-induced lattice::3::0;";$._id("input-vx").value="tarr_x";$._id("input-vy").value="tarr_y";};
+      $._id("Erdos5").onclick = function(){setVal("1", "1", "R=3,base=[pi/3,pi/5,pi*sqrt(2)],arr_z=[],pairs=[],N=##base,vec=vectorc(N),f=<last{z=pcomp(max(abs(vec).),base*vec),_r(=<abs(abs(z-arr_z[][__n__-1])-1)<100eps&&&pairs.push(z,arr_z[][__n__-1],(1+i)NaN),,##arr_z),arr_z.push(z)},g=<_s((n)=<last{vec[depth]=n,step(depth+1)},-R,R),step(depth)=<switch(depth===N,=<f:1,=<g),step(0);", "tarr_z=(reshapec(arr_z:arr_z*(1+i)NaN:1,2*##arr_z),pairs).,tarr_x=real(tarr_z),tarr_y=imag(tarr_z);", "0");$._id("input-z").value+="TITLE{Erdős' unit-distance conjecture -> OpenAI's disproof}3D Chebyshev-induced lattice::3;";$._id("input-vx").value="tarr_x";$._id("input-vy").value="tarr_y";};
       $._id("Gielis").onclick = function(){setVal("0", "2pi", "f(m,a,b,n1,n2,n3)=<pcomp((abs(cos(m*t/4)/a)**n2+abs(sin(m*t/4)/b)**n3)**(-1/n1),t),z1=f(3,1,1,0.5,1.5,1.5),z2=f(6,1,1,0.5,1.5,1.5),z3=f(12,1,1,0.5,1.5,1.5),real(z1);real(z2);real(z3);", "imag(z1);imag(z2);imag(z3);", 1024);$._id("input-z").value+="TITLE{Gielis superformula}m=3::0;6;12;";};
       $._id("Fay1").onclick = function(){setVal("0", "12pi", "k=4,r=exp(cos(t))-2cos(k*t)-sin(t/12)**5,r*sin(t);", "r*cos(t);", 1024);$._id("input-z").value+="TITLE{butterfly curve}::0;";};
       $._id("Fay2").onclick = function(){setVal("0", "12pi", "k=8,r=exp(cos(t))-2cos(k*t)-sin(t/12)**5,r*sin(t);", "r*cos(t);", 1024);$._id("input-z").value+="TITLE{butterfly curve}::0;";};
@@ -2580,6 +2581,8 @@
   <button id="Erdos2">-2</button>
   <button id="Erdos3">-3</button>
   <button id="Erdos4">-4</button>
+  <button id="Erdos5">-pairs</button>
+<br>
   <button id="Gielis" class="selection">Gielis</button>
   <button id="Fay1">Fay</button>
   <button id="Fay2">-2</button>
