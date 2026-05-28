@@ -21,6 +21,22 @@
       <caption>更新履歴</caption>
       <tbody>
         <tr class="border">
+          <td class="border clear">
+Ver.0.13.4
+          </td>
+          <td class="border">
+・Cの単位換算と既定値の訂正（次元解析）
+<br>
+　capacitance電流の単位換算：C　⇒　as*C
+<br>
+　既定値：C=1[A/cm^3]（単位不整合）　⇒　C=3e-4[A/cm^2]（i0同様の標準単位）
+<br>
+・ce時間発展式の修正
+<br>
+　source項：jLi（総電流）　⇒　jLiR（反応成分のみ）
+          </td>
+        </tr>
+        <tr class="border">
           <td class="border run">
 Ver.0.13.3
           </td>
@@ -640,11 +656,13 @@ reference values
 <span class="clear">Ver.0.1.1変更</span>
 <br>
 <span class="jF">Ver.0.3.2変更</span>
+<br>
+<span class="sF">Ver.0.13.4訂正</span>
           </td>
           <td class="border">
-F/cm^2
+F/cm^<span class="sF">2</span>
 <br>
-F/cm^2
+F/cm^<span class="sF">2</span>
 <br>
 Ohm*cm^2
 <br>
@@ -663,9 +681,9 @@ cm^2/s
 cm^2/s
           </td>
           <td class="border">
-C2=<span class="clear">1</span>;
+C2=<span class="sF">3e-4</span>;
 <br>
-C1=<span class="clear">1</span>;
+C1=<span class="sF">3e-4</span>;
 <br>
 R0ref=1;
 <br>
@@ -1036,11 +1054,13 @@ psmpe1=U1(cse1/csmax1)=&gt;+eta1+<span class="selection">Rf1</span>*jLi1R/as1
 <del class="selection">double-layer </del>capacitance
 <br>
 <span class="selection">Ver.0.3.1削除</span>
+<br>
+<span class="sF">Ver.0.13.4修正</span>
           </td>
           <td class="border">
-jLi2C=C2*(psmpe2-<span class="jF">psmpe20</span>)/dt
+jLi2C=<span class="sF">as2*</span>C2*(psmpe2-<span class="jF">psmpe20</span>)/dt
 <br>
-jLi1C=C1*(psmpe1-<span class="jF">psmpe10</span>)/dt
+jLi1C=<span class="sF">as1*</span>C1*(psmpe1-<span class="jF">psmpe10</span>)/dt
           </td>
         </tr>
         <tr class="border">
@@ -1114,15 +1134,17 @@ ce
 <span class="condition">Ver.0.2.1更新</span>
 <br>
 <span class="wF">Ver.0.8.3修正</span>
+<br>
+<span class="sF">Ver.0.13.4修正</span>
           </td>
           <td class="border">
-epse2*(<span class="run">ce2</span>-<span class="jF">ce20</span>)/dt=<span class="condition">(</span><span class="selection">De</span><span class="condition">/lee2)</span>*(ces-<span class="run">ce2</span>)<span class="wF">/L2</span>+jLi2*(1-t0)/<span class="clear">(n*F)</span>
+epse2*(<span class="run">ce2</span>-<span class="jF">ce20</span>)/dt=<span class="condition">(</span><span class="selection">De</span><span class="condition">/lee2)</span>*(ces-<span class="run">ce2</span>)<span class="wF">/L2</span>+<span class="sF">jLi2R</span>*(1-t0)/<span class="clear">(n*F)</span>
 <br>
-epse1*(<span class="run">ce1</span>-<span class="jF">ce10</span>)/dt=<span class="condition">(</span><span class="selection">De</span><span class="condition">/lee1)</span>*(<span class="clear">ces-<span class="run">ce1</span></span>)<span class="wF">/L1</span>+jLi1*(1-t0)/<span class="clear">(n*F)</span>
+epse1*(<span class="run">ce1</span>-<span class="jF">ce10</span>)/dt=<span class="condition">(</span><span class="selection">De</span><span class="condition">/lee1)</span>*(<span class="clear">ces-<span class="run">ce1</span></span>)<span class="wF">/L1</span>+<span class="sF">jLi1R</span>*(1-t0)/<span class="clear">(n*F)</span>
 <hr>
-epse2*(<span class="run">ce2</span>-<span class="jF">ce20</span>)/dt=<span class="condition">(</span>Deref*ratio_factor(T,EDe)=&gt;<span class="condition">/lee2)</span>*((ce0*(epse2*L2+epses*Ls+epse1*L1)-(<span class="run">ce2</span>*epse2*L2+ce1*epse1*L1))/(epses*Ls)-<span class="run">ce2</span>)<span class="wF">/L2</span>-(It/L2)*(1-t0)/<span class="clear">(n*F)</span>;
+epse2*(<span class="run">ce2</span>-<span class="jF">ce20</span>)/dt=<span class="condition">(</span>Deref*ratio_factor(T,EDe)=&gt;<span class="condition">/lee2)</span>*((ce0*(epse2*L2+epses*Ls+epse1*L1)-(<span class="run">ce2</span>*epse2*L2+ce1*epse1*L1))/(epses*Ls)-<span class="run">ce2</span>)<span class="wF">/L2</span><span class="sF">+jLi2R</span>*(1-t0)/<span class="clear">(n*F)</span>;
 <br>
-epse1*(<span class="run">ce1</span>-<span class="jF">ce10</span>)/dt=<span class="condition">(</span>Deref*ratio_factor(T,EDe)=&gt;<span class="condition">/lee1)</span>*(<span class="clear">(ce0*(epse2*L2+epses*Ls+epse1*L1)-(ce2*epse2*L2+<span class="run">ce1</span>*epse1*L1))/(epses*Ls)-<span class="run">ce1</span></span>)<span class="wF">/L1</span>+(It/L1)*(1-t0)/<span class="clear">(n*F)</span>;
+epse1*(<span class="run">ce1</span>-<span class="jF">ce10</span>)/dt=<span class="condition">(</span>Deref*ratio_factor(T,EDe)=&gt;<span class="condition">/lee1)</span>*(<span class="clear">(ce0*(epse2*L2+epses*Ls+epse1*L1)-(ce2*epse2*L2+<span class="run">ce1</span>*epse1*L1))/(epses*Ls)-<span class="run">ce1</span></span>)<span class="wF">/L1</span>+<span class="sF">jLi1R</span>*(1-t0)/<span class="clear">(n*F)</span>;
           </td>
         </tr>
         <tr class="border">
