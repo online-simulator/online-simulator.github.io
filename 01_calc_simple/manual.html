@@ -2133,7 +2133,9 @@ test case
 <br>
 ・<a href="#span-eqn-FourierN">FourierN</a>
 <br>
-・<a href="#span-eqn-zeta_Euler_Maclaurin">zeta_Euler-Maclaurin</a>
+・<a href="#span-eqn-gamma_Euler_Maclaurin">gamma_EM</a>
+<br>
+・<a href="#span-eqn-zeta_Euler_Maclaurin">zeta_EM</a>
 <br>
 ・<a href="#span-eqn-Seki_Aitken">Seki-Aitken</a>
 <br>
@@ -23746,6 +23748,8 @@ a=0; b=a/a; c=1/a; isNaN(a),isNaN(b),isNaN(c) -> (false,true,false+O(1e+0))
 <br>
 　・桁落ち（丸め誤差を含む同符号の2つの近い数値の差を取る場合）
 <br>
+　・桁あふれ（[MIN_VALUE,MAX_VALUE]の範囲外に到達の場合）
+<br>
 　・Rumpの例題の要求桁数＞10進数で37桁（<a href="#span-eqn-Rump">Rump</a>参照）
 <br>
 ・数値誤差: 数学的な近似由来の誤差
@@ -23823,6 +23827,8 @@ ans*0 -> infoLost[r ] 0
 <br>
 <br>
 桁落ちは判定困難で評価にかかる<a href="#span-out-ope">演算量</a>を見積もれないため、評価しない
+<br>
+・Σe**(i*t)のt→∞で発生
 <br>
 ・整数演算を一例に示す
 <br>
@@ -54698,27 +54704,58 @@ FourierN((t)=&lt;e^(i*(2.5)*t),2,1,5)=&gt;;
 目次
 </a>
 <br>
-zeta
+gamma_EM
+    </th>
+    <td>
+<span id="span-eqn-gamma_Euler_Maclaurin"></span>
+clear;
 <br>
-_Euler
+gamma_ac(z,n)=&lt;exp((z+n+0.5)*ln(z+n+1)-(n+0.5)*ln(n)-ln(z)-z-1-_s((k)=&lt;ln(1+z/k),1,n));
 <br>
--Maclaurin
+ln_gamma_EM(s,m)=&lt;last[
+<br>
+table_Bn={1/1,-1/2,1/6,,-1/30,,1/42,,-1/30,,5/66,,-691/2730,,7/6,,
+<br>
+-3617/510,,43867/798,,-174611/330,,854513/138,,-236364091/2730,,8553103/6,,-23749461029/870},
+<br>
+N=real(s)&lt;7&amp;&amp;&amp;floor(8-real(s)),
+<br>
+sN=s+N,
+<br>
+(sN-0.5)*ln(sN)-sN+0.5*ln(2*pi)+_s((k)=&lt;table_Bn[2*k]/(2*k*(2*k-1)*sN**(2*k-1)),1,m)-(N&gt;0&amp;&amp;&amp;_s((j)=&lt;ln(s+j),0,N-1))
+<br>
+];
+<br>
+(gamma_ac(i,20)=&gt;:gamma_ac(0,20)=&gt;:gamma_ac(1,20)=&gt;:gamma_ac(10,20)=&gt;);
+<br>
+exp(ln_gamma_EM(i,14)=&gt;:ln_gamma_EM(0,14)=&gt;:ln_gamma_EM(1,14)=&gt;:ln_gamma_EM(10,14)=&gt;);
+    </td>
+  </tr>
+  <tr>
+    <th>
+<a href="#span-index">
+目次
+</a>
+<br>
+zeta_<span class="selection">EM</span>
     </th>
     <td>
 <span id="span-eqn-zeta_Euler_Maclaurin"></span>
+・<span class="run">Ver.2.893.170</span>以降、<span class="selection">変更箇所</span>（漸近級数の<a href="#span-out-error">桁あふれ</a>対策と臨界線のn0目安）
+<br>
 clear;
 <br>
-zeta_Euler_Maclaurin(s,n,m)=&lt;last[
+zeta_<span class="selection">EM_right</span>(s,n,m)=&lt;last[
 <br>
 Bn(n)=&lt;n==0|||-_s((k)=&lt;combin(n+1,k)*Bn(k)=&gt;,0,n-1)/(n+1),
 <br>
-Tkn(k,n,s)=&lt;(Bn(2*k)=&gt;/(2*k)!)*n**(1-s-2*k)*_p((j)=&lt;s+j,0,2*k-2),
+Tkn(k,n,s)=&lt;(Bn(2*k)=&gt;/(2*k)!)*n**(1-s-2*k)*<span class="selection">exp(_s((j)=&lt;ln(s+j),0,2*k-2))</span>,
 <br>
 _s((j)=&lt;j**(-s),1,n-1)+n**(-s)/2+n**(1-s)/(s-1)+_s((k)=&lt;Tkn(k,n,s)=&gt;,1,m)
 <br>
 ];
 <br>
-zeta_Euler_Maclaurin_table(s,n,m)=&lt;last[
+zeta_<span class="selection">EM</span>(s,n,m)=&lt;last[
 <br>
 table_Bn={1/1,-1/2,1/6,,-1/30,,1/42,,-1/30,,5/66,,-691/2730,,7/6,,
 <br>
@@ -54726,7 +54763,7 @@ table_Bn={1/1,-1/2,1/6,,-1/30,,1/42,,-1/30,,5/66,,-691/2730,,7/6,,
 <br>
 table=table_Bn/linspace(0,28,29).!,
 <br>
-Tkn(k,n,s)=&lt;table[2*k]*n**(1-s-2*k)*_p((j)=&lt;s+j,0,2*k-2),
+Tkn(k,n,s)=&lt;table[2*k]*n**(1-s-2*k)*<span class="selection">exp(_s((j)=&lt;ln(s+j),0,2*k-2))</span>,
 <br>
 _s((j)=&lt;j**(-s),1,n-1)+n**(-s)/2+n**(1-s)/(s-1)+_s((k)=&lt;Tkn(k,n,s)=&gt;,1,m)
 <br>
@@ -54734,11 +54771,11 @@ _s((j)=&lt;j**(-s),1,n-1)+n**(-s)/2+n**(1-s)/(s-1)+_s((k)=&lt;Tkn(k,n,s)=&gt;,1,
 <br>
 s=1/2+14.135i;
 <br>
-n0=max(20,round(abs(s-1/2)));
+n0=<span class="selection">floor(abs(imag(s))*0.5)+20</span>;
 <br>
-zeta_Euler_Maclaurin(s,n0,4)=&gt;;
+zeta_<span class="selection">EM_right</span>(s,n0,4)=&gt;;
 <br>
-zeta_Euler_Maclaurin_table(s,n0,14)=&gt;;
+zeta_<span class="selection">EM</span>(s,n0,14)=&gt;;
     </td>
   </tr>
   <tr>
