@@ -456,23 +456,48 @@ stored_eqn(tn_)
 clear
 local storage cleared
 
-zeta_Euler_Maclaurin_table(s,n0,14)=>
-infoLost[ri] -0.000034251569351289105+0.00021530419858080993i
+zeta_EM(s,n0,14)=>
+infoLost[ri] -0.00003425156935078777+0.00021530419857852551i
 
-zeta_Euler_Maclaurin(s,n0,4)=>
--0.000034251883250050255+0.00021530403032802051i
+zeta_EM_right(s,n0,4)=>
+-0.00003425155241316199+0.00021530418698545873i
 
-n0=max(20,round(abs(s-1/2)))
-n0=20
+n0=floor(abs(imag(s))*0.5)+20
+n0=27
 
 s=1/2+14.135i
 s=0.5+14.135i
 
-zeta_Euler_Maclaurin_table(s,n,m)=<last[table_Bn={1/1,-1/2,1/6,,-1/30,,1/42,,-1/30,,5/66,,-691/2730,,7/6,,-3617/510,,43867/798,,-174611/330,,854513/138,,-236364091/2730,,8553103/6,,-23749461029/870},table=table_Bn/linspace(0,28,29).!,Tkn(k,n,s)=<table[2*k]*n**(1-s-2*k)*_p((j)=<s+j,0,2*k-2),_s((j)=<j**(-s),1,n-1)+n**(-s)/2+n**(1-s)/(s-1)+_s((k)=<Tkn(k,n,s)=>,1,m)]
-stored_eqn(zeta_Euler_Maclaurin_table)
+zeta_EM(s,n,m)=<last[table_Bn={1/1,-1/2,1/6,,-1/30,,1/42,,-1/30,,5/66,,-691/2730,,7/6,,-3617/510,,43867/798,,-174611/330,,854513/138,,-236364091/2730,,8553103/6,,-23749461029/870},table=table_Bn/linspace(0,28,29).!,Tkn(k,n,s)=<table[2*k]*n**(1-s-2*k)*exp(_s((j)=<ln(s+j),0,2*k-2)),_s((j)=<j**(-s),1,n-1)+n**(-s)/2+n**(1-s)/(s-1)+_s((k)=<Tkn(k,n,s)=>,1,m)]
+stored_eqn(zeta_EM)
 
-zeta_Euler_Maclaurin(s,n,m)=<last[Bn(n)=<n==0|||-_s((k)=<combin(n+1,k)*Bn(k)=>,0,n-1)/(n+1),Tkn(k,n,s)=<(Bn(2*k)=>/(2*k)!)*n**(1-s-2*k)*_p((j)=<s+j,0,2*k-2),_s((j)=<j**(-s),1,n-1)+n**(-s)/2+n**(1-s)/(s-1)+_s((k)=<Tkn(k,n,s)=>,1,m)]
-stored_eqn(zeta_Euler_Maclaurin)
+zeta_EM_right(s,n,m)=<last[Bn(n)=<n==0|||-_s((k)=<combin(n+1,k)*Bn(k)=>,0,n-1)/(n+1),Tkn(k,n,s)=<(Bn(2*k)=>/(2*k)!)*n**(1-s-2*k)*exp(_s((j)=<ln(s+j),0,2*k-2)),_s((j)=<j**(-s),1,n-1)+n**(-s)/2+n**(1-s)/(s-1)+_s((k)=<Tkn(k,n,s)=>,1,m)]
+stored_eqn(zeta_EM_right)
+
+clear
+local storage cleared
+
+exp(ln_gamma_EM(i,14)=>:ln_gamma_EM(0,14)=>:ln_gamma_EM(1,14)=>:ln_gamma_EM(10,14)=>)
+(
+infoLost[ri] -0.15494982830181078-0.4980156681183554i:
+infoLost[r ] Infinity:
+infoLost[r ] 0.9999999999999982:
+infoLost[r ] 362880.00000000047
+)
+
+(gamma_ac(i,20)=>:gamma_ac(0,20)=>:gamma_ac(1,20)=>:gamma_ac(10,20)=>)
+(
+-0.1548880634140651-0.49814814147301184i:
+infoLost[r ] Infinity:
+1.000378773340066:
+363416.82072194666
+)
+
+ln_gamma_EM(s,m)=<last[table_Bn={1/1,-1/2,1/6,,-1/30,,1/42,,-1/30,,5/66,,-691/2730,,7/6,,-3617/510,,43867/798,,-174611/330,,854513/138,,-236364091/2730,,8553103/6,,-23749461029/870},N=real(s)<7&&&floor(8-real(s)),sN=s+N,(sN-0.5)*ln(sN)-sN+0.5*ln(2*pi)+_s((k)=<table_Bn[2*k]/(2*k*(2*k-1)*sN**(2*k-1)),1,m)-(N>0&&&_s((j)=<ln(s+j),0,N-1))]
+stored_eqn(ln_gamma_EM)
+
+gamma_ac(z,n)=<exp((z+n+0.5)*ln(z+n+1)-(n+0.5)*ln(n)-ln(z)-z-1-_s((k)=<ln(1+z/k),1,n))
+stored_eqn(gamma_ac)
 
 clear
 local storage cleared
@@ -1211,7 +1236,7 @@ NI=100
 
 check((x)=<pow(x,2)*exp(x),1+i,0,NI,)=>:2
 (
-infoLost[ri] 1.9999999999999998-5.0460859343162915e-17i+O(1e-99):
+infoLost[ri] 1.9999999999999998-5.254252751433508e-17i+O(1e-99):
 infoLost[ri] 2-5.2147947305780067e-17i+O(1e-99):
 2
 )
@@ -2221,7 +2246,7 @@ clear
 local storage cleared
 
 [Pinv_y=(-0.999999427,-0.999936657,-0.997300203,-0.954499736,-0.682689492,0,0.682689492,0.954499736,0.997300203,0.999936657,0.999999427:-5,-4,-3,-2,-1,0,1,2,3,4,5),N=1,arr=[],_r((n)=<arr.push(rand_table(=<Pinv_y)=>),,N),=<arr.]=>
-0.3786240052607164
+0.4312475357285868
 
 rand_table(csv)=<last[table=sort0(csv),ymin=min(table)[0],ymax=max(table)[0],y=ymin+(ymax-ymin)*rand(),x=interp(y:table),x]
 stored_eqn(rand_table)
@@ -4458,8 +4483,8 @@ clear
 local storage cleared
 
 --------------------------------
-center=true&wheel=true&drag=false&test-case=false&plot-all=true&relzooming=true&snap=true&legend=true&axis-t=false&axis-x=true&log-x=false&imag-x=false&axis-y=true&log-y=false&imag-y=false&axis-z=true&axis-v=true&config-plot=false&useMatrix=true&useStrict=true&sharedStorage=false&checkError=true&equation-list=false&config=false&isRightAssociativityBR=false&isDIVprior2OMUL=false&useComma=false&use$let=false&useMutex=false&useWorker=true&plot2d-Ver=2&decDigit=1&roundDigit-y=0&rows-y=5&roundDigit-x=0&rows-x=5&n_thread=4&canvas-background=black&grid-line-width=0.5&marker-size=5&marker-line-width=0&plot-line-width=2&font-size=12&grid-x-Ni=0&grid-y-Nj=0&kx-adjust=2.5&marker-colors=Ver.1&legend-kx=0.25&legend-ky=0.1&canvas-globalCompositeOperationLayer=source-over&canvas-globalCompositeOperation=source-over&useComplex=-1&expDigit=-1&useFunc=0&useScopeWith=0&N=0&matSizeMax=1024&depthMax=300&makeLog=2
+center=true&wheel=true&drag=false&test-case=false&plot-all=true&relzooming=true&snap=true&legend=true&axis-t=false&axis-x=true&log-x=false&imag-x=false&axis-y=true&log-y=false&imag-y=false&axis-z=true&axis-v=true&config-plot=false&useMatrix=true&useStrict=true&sharedStorage=false&checkError=true&equation-list=false&config=false&isRightAssociativityBR=false&isDIVprior2OMUL=false&useComma=false&use$let=false&useMutex=false&useWorker=true&plot2d-Ver=3&decDigit=1&roundDigit-y=0&rows-y=5&roundDigit-x=0&rows-x=5&n_thread=4&canvas-background=black&grid-line-width=0.5&marker-size=5&marker-line-width=0&plot-line-width=2&font-size=12&grid-x-Ni=0&grid-y-Nj=0&kx-adjust=2&marker-colors=Ver.1&legend-kx=0.25&legend-ky=0.1&canvas-globalCompositeOperationLayer=source-over&canvas-globalCompositeOperation=source-over&useComplex=-1&expDigit=-1&useFunc=0&useScopeWith=0&N=0&matSizeMax=1024&depthMax=300&makeLog=2
 --------------------------------
 --------------------------------
 
-online-simulator.github.io.6.505.685.26.179 @ Sat Jun 14 2025 18:29:58 GMT+0900 (日本標準時) @ Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/137.0.0.0 Safari/537.36
+online-simulator.github.io.6.512.712.26.188 @ Tue Jun 02 2026 05:18:27 GMT+0900 (日本標準時) @ Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/148.0.0.0 Safari/537.36
