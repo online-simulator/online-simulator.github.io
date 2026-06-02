@@ -499,6 +499,8 @@
       script += "\n";
       script += "check(-1.5(1+i)):check(-0.2(1+i)):check(0.2(1+i)):check(1.5(1+i)):check(NaN);";
       script += "\nclear;\n";
+      script += "ans_correct=0;\nget_log_errr(ans_numerical)=<log10(min(1/eps,max(eps,abs((ans_numerical-ans_correct)/(ans_correct||1)))));\nget_log_errr(0),get_log_errr(-1e0),get_log_errr(1e1),get_log_errr(-1e2),get_log_errr(eps),get_log_errr(-100eps),get_log_errr(inf),get_log_errr(-inf),get_log_errr(NaN);";
+      script += "\nclear;\n";
       $._id("input").value = script;
     });
   })();

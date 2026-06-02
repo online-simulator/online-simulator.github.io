@@ -1,6 +1,20 @@
 clear
 local storage cleared
 
+get_log_errr(0),get_log_errr(-1e0),get_log_errr(1e1),get_log_errr(-1e2),get_log_errr(eps),get_log_errr(-100eps),get_log_errr(inf),get_log_errr(-inf),get_log_errr(NaN)
+(
+-15.65355977452702,0,1,2,-15.65355977452702,-13.653559774527022,NaN,NaN,NaN
+)
+
+get_log_errr(ans_numerical)=<log10(min(1/eps,max(eps,abs((ans_numerical-ans_correct)/(ans_correct||1)))))
+stored_eqn(get_log_errr)
+
+ans_correct=0
+ans_correct=0
+
+clear
+local storage cleared
+
 check(-1.5(1+i)):check(-0.2(1+i)):check(0.2(1+i)):check(1.5(1+i)):check(NaN)
 (
 -1,-2,-1,-1:
@@ -5322,4 +5336,4 @@ drag=false&sw=false&0x=false&useMatrix=true&useStrict=false&checkError=true&isRi
 --------------------------------
 --------------------------------
 
-online-simulator.github.io.6.512.712.26.188 @ Tue Jun 02 2026 05:05:40 GMT+0900 (日本標準時) @ Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/148.0.0.0 Safari/537.36
+online-simulator.github.io.6.512.712.26.189 @ Tue Jun 02 2026 21:59:20 GMT+0900 (日本標準時) @ Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/148.0.0.0 Safari/537.36
