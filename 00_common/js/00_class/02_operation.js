@@ -1164,7 +1164,6 @@ My_entry.operation.prototype.FNmhX = function(data, rightArr, tagObj, len_j0, ms
     var ids_buffer = [id0];
     /* -> Ver.2.225.53 */
     /* Ver.2.231.56 -> */
-    var tree_eqn = null;
     var tree_eqn = (callback_FNmh)? self.tree2tree_eqn(data, args[0]): args[0];
     var args_eqn = self.get_args(tree_eqn);
     var name_arg = (args_eqn)? args_eqn[args_eqn.length-1]: "";
@@ -2177,7 +2176,6 @@ My_entry.operation.prototype.FNhX = function(data, rightArr, tagObj, len_j0, cal
     var ids_buffer = [id0];
     /* -> Ver.2.225.53 */
     /* Ver.2.231.56 -> */
-    var tree_eqn = null;
     var tree_eqn = self.tree2tree_eqn(data, args[0]);
     var args_eqn = self.get_args(tree_eqn);
     var name_arg = (args_eqn)? args_eqn[args_eqn.length-1]: "";
@@ -3034,8 +3032,14 @@ My_entry.operation.prototype.URh = function(data, i0, tagName, tagObj, dot_prop)
   var leftTree = trees[is];
   var rightTree = trees[ie];
   var leftArr = self.get_tagVal(leftTree, "mat", "arr");
-  var tree_eqn = self.tree2tree_eqn(data, rightTree);  // Ver.2.229.56  // Ver.2.231.56
-  var args_eqn = self.get_args(tree_eqn);  // Ver.2.251.57
+  /* Ver.2.893.172 -> */
+  var tree_eqn = null;
+  var args_eqn = null;
+  if(rightTree){
+    tree_eqn = self.tree2tree_eqn(data, rightTree);  // Ver.2.229.56  // Ver.2.231.56
+    args_eqn = self.get_args(tree_eqn);  // Ver.2.251.57
+  }
+  /* -> Ver.2.893.172 */
   if(leftArr && self.hasElem_arr(leftArr) && args_eqn){  // Ver.2.286.69
     /* Ver.2.226.55 -> */
     var id0 = (ids || self.config.ids0)[0];
@@ -4145,13 +4149,21 @@ My_entry.operation.prototype.change_scopes_directly = function(data, i0, name, p
   var rightArr = self.get_tagVal(rightTree, "mat", "arr");
   var scope = self.get_scope0_RE_sw("vars", name, scopes, ids);  // Ver.2.301.73 first
   if(scope){
+    /* Ver.2.893.172 -> */
     var dot_prop = prop.substring(1);
+    if(!(rightArr)) throw "Invalid "+dot_prop+"()";
     var hasArgs = (dot_prop === "unshift" || dot_prop === "push");  // Ver.2.829.139
-    if(!(hasArgs)){  // Ver.2.829.139  // Ver.2.830.139
-      if(!(rightArr && rightArr.length === 0)){
+    if(hasArgs){
+      if(rightArr.length === 0){
         throw "Invalid "+dot_prop+"()";
       }
     }
+    else{  // Ver.2.829.139  // Ver.2.830.139
+      if(rightArr.length !== 0){
+        throw "Invalid "+dot_prop+"()";
+      }
+    }
+    /* -> Ver.2.893.172 */
     if(ref && ref.length !== 1){
       throw "Invalid "+dot_prop+"(ref.length<=1)";
     }
