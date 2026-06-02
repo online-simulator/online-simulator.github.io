@@ -2147,6 +2147,8 @@ test case
 <br>
 ・<a href="#span-eqn-FourierN">FourierN</a>
 <br>
+・<a href="#span-eqn-fact_m">fact_m</a>
+<br>
 ・<a href="#span-eqn-gamma_Euler_Maclaurin">gamma_EM</a>
 <br>
 ・<a href="#span-eqn-zeta_Euler_Maclaurin">zeta_EM</a>
@@ -54718,6 +54720,37 @@ _s((n)=&lt;(cn(n)=&gt;)*e^(i*(n*omega)*x),-N,N)
 ];
 <br>
 FourierN((t)=&lt;e^(i*(2.5)*t),2,1,5)=&gt;;
+    </td>
+  </tr>
+  <tr>
+    <th>
+<a href="#span-index">
+目次
+</a>
+<br>
+fact_m
+    </th>
+    <td>
+<span id="span-eqn-fact_m"></span>
+clear;
+<br>
+ln_gamma_EM(s,m)=&lt;last[
+<br>
+table_Bn={1/1,-1/2,1/6,,-1/30,,1/42,,-1/30,,5/66,,-691/2730,,7/6,,
+<br>
+-3617/510,,43867/798,,-174611/330,,854513/138,,-236364091/2730,,8553103/6,,-23749461029/870},
+<br>
+N=real(s)&lt;7&amp;&amp;&amp;floor(8-real(s)),
+<br>
+sN=s+N,
+<br>
+(sN-0.5)*ln(sN)-sN+0.5*ln(2*pi)+_s((k)=&lt;table_Bn[2*k]/(2*k*(2*k-1)*sN**(2*k-1)),1,m)-(N&gt;0&amp;&amp;&amp;_s((j)=&lt;ln(s+j),0,N-1))
+<br>
+];
+<br>
+fact_m(z,k)=&lt;last{r=z-k*floor((real(z)-1)/k),k**((z-r)/k+1)*exp(ln_gamma_EM(z/k+1,14)=&gt;)/exp(ln_gamma_EM(r/k,14)=&gt;)};
+<br>
+fact_m(-10.2+10.8i,3)=&gt;:fact_m(-4.5-4.5i,3)=&gt;:fact_m(7,3)=&gt;:fact_m(10+i,3)=&gt;;
     </td>
   </tr>
   <tr>
