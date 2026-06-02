@@ -21323,6 +21323,10 @@ clear; $A=(1,2:3,4); A.push(5); A -> <del>(1,2:3,4,5)</del>[MyErr]Invalid const 
 <br>
 　引数の<a href="#span-in-pass-by-equation">遅延評価</a>：あり　⇒　なし（<a href="#span-out-pass-by-equation">式渡し</a>の判別）
 <br>
+・<span class="clear">Ver.2.893.172</span>以降、不具合を修正
+<br>
+a=1; a.push -> <del>NaN</del>[MyErr]Invalid push()
+<br>
 <br>
 .unshift()演算子
 <br>
@@ -21824,6 +21828,10 @@ iterator演算子と付随する留意事項について記述する
 clear; A=[(x)=&lt;x,(x)=&lt;-x,(x)=&lt;x*x]; A.map((f)=&lt;f(3)) -> (3,-3,9)
 <br>
 clear; [(x)=&lt;x,(x)=&lt;-x,(x)=&lt;x*x].map((f)=&lt;f(3)) -> (3,-3,9)
+<br>
+・<span class="clear">Ver.2.893.172</span>以降、予期せぬerror終了を修正
+<br>
+1.map -> <del>Cannot read properties of undefined</del>[MyErr]Invalid .map(null)
 <br>
 <br>
 .map()演算子
