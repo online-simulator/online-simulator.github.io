@@ -1443,8 +1443,8 @@ infoLost[r ] 1.7724538509043866+O(6e-25):
 
 check(args,4)=>:1.772453850905516027298
 (
-infoLost[r ] 1.2063270495144227:
-infoLost[r ] 1.2063270495144225:
+infoLost[ri] 1.4572639281514849e+105-2.3798926011419605e+121i:
+infoLost[ri] 2.6930694183795524e+223-4.398116126632711e+239i:
 1.772453850905516
 )
 
@@ -1533,11 +1533,11 @@ infoLost[r ] -0.48749549439936096+O(1e-100):
 )
 
 sqrt(tan(-1.1102230246251565e-16))
-NaN
+6.451875390376847e-25+1.0536712127723509e-8i
 
 check((x)=<sqrt(tan(x)),pi/4,0,NI,)=>:-0.48749549439936104836
 (
-NaN:
+infoLost[r ] -0.487495504847244+4.625878868628556e-15i:
 -0.487438986531867+O(4e-9):
 infoLost[r ] -0.487495494399361+O(1e-100):
 -0.4874954943993611
@@ -2263,7 +2263,7 @@ clear
 local storage cleared
 
 [Pinv_y=(-0.999999427,-0.999936657,-0.997300203,-0.954499736,-0.682689492,0,0.682689492,0.954499736,0.997300203,0.999936657,0.999999427:-5,-4,-3,-2,-1,0,1,2,3,4,5),N=1,arr=[],_r((n)=<arr.push(rand_table(=<Pinv_y)=>),,N),=<arr.]=>
--1.4405610503387631
+0.08886211921888906
 
 rand_table(csv)=<last[table=sort0(csv),ymin=min(table)[0],ymax=max(table)[0],y=ymin+(ymax-ymin)*rand(),x=interp(y:table),x]
 stored_eqn(rand_table)
@@ -4504,4 +4504,4 @@ center=true&wheel=true&drag=false&test-case=false&plot-all=true&relzooming=true&
 --------------------------------
 --------------------------------
 
-online-simulator.github.io.6.512.713.26.190 @ Tue Jun 02 2026 23:08:39 GMT+0900 (日本標準時) @ Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/148.0.0.0 Safari/537.36
+online-simulator.github.io.6.512.713.26.191 @ Wed Jun 03 2026 01:00:32 GMT+0900 (日本標準時) @ Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/148.0.0.0 Safari/537.36

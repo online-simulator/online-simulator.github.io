@@ -72,7 +72,32 @@ My_entry.unit.prototype.FN = function(prop, options){
     var _com = null;
     /* Ver.2.189.44 common useComplex@FN_call -> */
     if(useComplex && cmath[prop]){
-      useComplex = (useComplex === -1)? self.get_hasImag.apply(self, arguments): useComplex;  // Ver.2.184.44
+      /* Ver.2.894.173 -> */
+      if(useComplex === -1){  // Ver.2.184.44
+        useComplex = self.get_hasImag.apply(self, arguments);
+        if(!(useComplex) && arguments.length){
+          var arg0 = arguments[0];
+          var arg1 = arguments[1];
+          switch(prop){
+            case "log":
+            case "log2":
+            case "log10":
+            case "sqrt":
+              if(arg0.r < 0){
+                useComplex = true;
+              }
+              break;
+            case "pow":
+              if(arg0.r < 0 && arg1 && arg1.r%1){
+                useComplex = true;
+              }
+              break;
+            default:
+              break;
+          }
+        }
+      }
+      /* -> Ver.2.894.173 */
     }
     else{
       useComplex = false;

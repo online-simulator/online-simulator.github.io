@@ -50,7 +50,7 @@ local storage cleared
 
 check(-1):check(0):check(1):check(i):check(-i):check(NaN)
 (
-NaN,NaN,NaN,NaN,NaN,NaN,NaN,NaN,NaN:
+3.141592653589793i,3.141592653589793i,1.3643763538418412i,4.532360141827193i,6.123233995736766e-17+i,6.123233995736766e-17+i,6.123233995736766e-17+i,6.123233995736766e-17+i,6.123233995736766e-17+i:
 -Infinity,-Infinity,-Infinity,-Infinity,0,0,0,0,0:
 0,0,0,0,1,1,1,1,1:
 1.5707963267948966i,1.5707963267948966i,0.6821881769209206i,2.2661800709135966i,0.7071067811865476+0.7071067811865475i,0.7071067811865476+0.7071067811865475i,0.7071067811865476+0.7071067811865475i,0.7071067811865476+0.7071067811865475i,0.7071067811865476+0.7071067811865475i:
@@ -66,12 +66,12 @@ local storage cleared
 
 check(-100):check(-3):check(-2):check(-1.5):check(-1):check(-0.5):check(0):check(0.5):check(1):check(1.5):check(2):check(3):check(100):check(i):check(100i):check(1/2+100i):check(-1/2-100i):check(-100i):check(-100-100i):check(NaN)
 (
-NaN,infoLost[r ] -1.7136385665606948e-143,infoLost[r ] NaN:
-NaN,infoLost[r ] -1425169488222643.8,NaN:
-NaN,infoLost[r ] 6413262697001897,NaN:
-NaN,infoLost[r ] 2.3632718012073552,NaN:
-infoLost[r ] NaN,infoLost[r ] -25653050788007596,NaN:
-NaN,infoLost[r ] -3.5449077018110375,NaN:
+2.318571348048376e-172-6.7677411152809096e-158i,infoLost[r ] -1.7136385665606948e-143,infoLost[r ] 4.454909579257652e+124-4.715265048903466e+113i:
+infoLost[r ] -Infinity-Infinityi,infoLost[r ] -1425169488222643.8,infoLost[r ] 0.008333333333368387+1.224340637447566e-14i:
+infoLost[r ] Infinity+Infinityi,infoLost[r ] 6413262697001897,infoLost[r ] 1.5187850976872141e-13+4.0821559971578437e-16i:
+2.363019393058954+5.787728272065538e-16i,infoLost[r ] 2.3632718012073552,infoLost[ri] -0.025485201889755338+6.846126321158944e-17i:
+infoLost[r ] -Infinity-Infinityi,infoLost[r ] -25653050788007596,infoLost[r ] -0.08333333333333333+1.020538999289461e-17i:
+-3.5452678871730647-4.3417009701463937e-16i,infoLost[r ] -3.5449077018110375,infoLost[ri] -0.20788622497734957+1.1409616504274508e-18i:
 infoLost[r ] Infinity,infoLost[r ] Infinity,infoLost[r ] -0.5:
 1.7729690540800236,infoLost[r ] 1.7724538509055134,infoLost[r ] -1.4603545088095873:
 1.000378773340066,infoLost[r ] 0.9999999999999982,infoLost[r ] Infinity:
@@ -3709,10 +3709,10 @@ local storage cleared
 (eps,MIN_VALUE:1/0,2**3,2^3,(-1)**0.5,(-1)^0.5:sqrt(-1),sqrt(2),sqrt(4),sqrt(i):pow(-1,0.5),pow(2,2),pow(2,4),pow(i,4),pow(2,i):log(-1),log(2),log(4),log(i):sqrt(-1+eps*i),sqrt(-1+MIN_VALUE*i):pow(-1+(eps)i,0.5),pow(-1+(MIN_VALUE)i,0.5):log(-1+i*eps),log(-1-i*eps):pow(2+MIN_VALUE*i,3):complex(2,false)**3:imag(NaN*(1+2i)),2.2%2,NaN&NaN)
 (
 2.220446049250313e-16,5e-324:
-Infinity,8,8,NaN,NaN:
-NaN,1.4142135623730951,2,0.7071067811865476+0.7071067811865475i:
-NaN,4,16,1-2.4492935982947064e-16i,0.7692389013639721+0.6389612763136348i:
-NaN,0.6931471805599453,1.3862943611198906,1.5707963267948966i:
+Infinity,8,8,6.123233995736766e-17+i,6.123233995736766e-17+i:
+6.123233995736766e-17+i,1.4142135623730951,2,0.7071067811865476+0.7071067811865475i:
+6.123233995736766e-17+i,4,16,1-2.4492935982947064e-16i,0.7692389013639721+0.6389612763136348i:
+3.141592653589793i,0.6931471805599453,1.3862943611198906,1.5707963267948966i:
 6.123233995736766e-17+i,6.123233995736766e-17+i:
 6.123233995736766e-17+i,6.123233995736766e-17+i:
 3.141592653589793i,-3.141592653589793i:
@@ -4626,9 +4626,9 @@ local storage cleared
 
 log(-1)-log(1/(-1)):log(-1)-log(1/(1-2)):log(-1/2)-log(1/(-2))/*not (2*pi)i*/
 (
-NaN:
-NaN:
-NaN
+0:
+0:
+0
 )
 
 clear
@@ -4656,7 +4656,7 @@ NaN:
 0:
 NaN:
 0:
-NaN:
+infoLost[r ] NaN:
 0
 )
 
@@ -4693,9 +4693,9 @@ NaN:
 1.1:
 1.1:
 1.1:
-NaN:
+1.1+1.2858791391047223e-17i:
 1.1:
-NaN:
+infoLost[r ] 1.1:
 1.1
 )
 
@@ -5023,7 +5023,7 @@ local storage cleared
 
 [add(a,b)=<a+b,c=sqrt(-1)+1,d=add(c,-c)=>||add(1*c,2*c)=>&&add(3*c,4*c)=>,0||d|d||d&d&&0/*logical operator test case*/]
 (
-0,0,0,0
+0,0,0,infoLost[r ] 7
 )
 
 clear
@@ -5336,4 +5336,4 @@ drag=false&sw=false&0x=false&useMatrix=true&useStrict=false&checkError=true&isRi
 --------------------------------
 --------------------------------
 
-online-simulator.github.io.6.512.712.26.190 @ Tue Jun 02 2026 22:04:20 GMT+0900 (日本標準時) @ Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/148.0.0.0 Safari/537.36
+online-simulator.github.io.6.512.713.26.191 @ Wed Jun 03 2026 00:58:37 GMT+0900 (日本標準時) @ Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/148.0.0.0 Safari/537.36
