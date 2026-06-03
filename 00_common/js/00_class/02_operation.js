@@ -2490,7 +2490,11 @@ My_entry.operation.prototype.IX = function(data, rightArr, tagObj){
         var _sum = DATA.num(0, 0);
         var pih = Math.PI/2;
         var Nh = Math.round(N/2);
-        var hq = 10/N;
+        /* Ver.2.895.174 -> */
+        var itype = Math.floor(type);
+        var hq = (5+Math.round((type-itype)*100))/Nh;
+        type = itype;
+        /* -> Ver.2.895.174 */
         var arr_x = [
           [],
           [function(t){return math.tanh(pih*math.sinh(t));}, function(t){return pih*math.cosh(t)/Math.pow(math.cosh(pih*math.sinh(t)), 2);}],

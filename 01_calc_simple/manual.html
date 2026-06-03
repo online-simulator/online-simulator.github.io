@@ -460,6 +460,10 @@ test case
 <br>
 　<span class="run">Ver.2.703.98</span>以降、Möbius関数を追加
 <br>
+　<span class="run">Ver.2.820.132</span>以降、Bose-Einstein積分を追加
+<br>
+　<span class="run">Ver.2.895.174</span>以降、定義域real(s)&gt;0のFermi-Dirac積分を追加（交代級数相当）
+<br>
 ・zeta<span class="wF">-ac</span>：Riemann zeta関数の<a href="#span-app-continuation">解析接続</a>（Dirichlet級数と関数等式で記述）
 <br>
 ・eta-ac：Dirichlet eta関数の<a href="#span-app-continuation">解析接続</a>（Riemann zeta関数で記述）
@@ -481,6 +485,10 @@ test case
 　-ex：<span class="run">Ver.2.720.101</span>以降、同上の完備関数のplot範囲を拡張（相似形を確認）
 <br>
 ・<span class="wF">Riemann</span>：<a href="#span-app-unsolved">Riemann予想</a>の非自明な零点の計算結果（ζ関数の実部と虚部をplot）
+<br>
+　<span class="run">Ver.2.895.174</span>以降、定義域real(s)&gt;0のFermi-Dirac積分を追加（交代級数相当）
+<br>
+　⇒積分表示：<a href="#span-out-fdm-integral">数値積分</a>によるdouble精度限界を確認（<a href="#span-eqn-integral_DE_quadrature">DE求積法</a>）
 <br>
 　-z：同上のζ関数を<a href="#span-out-complex">複素数平面</a>にplot
 <br>
@@ -12511,6 +12519,10 @@ h(x)=&lt;false; _r((n)=&lt;n+1,,10,=&lt;h) -> <del>10</del>[MyErr]Invalid RX arg
 　第1引数：行vector　⇒　<a href="#span-out-mat">行列</a>
 <br>
 　影響項目：<a href="#span-out-prec-ope-arithmetic-method">method演算子</a>
+<br>
+・<span class="run">Ver.2.895.174</span>以降、<a href="#span-eqn-integral_DE_quadrature">DE求積法</a>の第5引数hを_i0(,,,,type)に統合
+<br>
+　内部tの±積分区間：5　⇒　5+round((type-floor(type))*100)
     </td>
   </tr>
   <tr>

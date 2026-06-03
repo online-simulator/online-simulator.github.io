@@ -1,6 +1,29 @@
 clear
 local storage cleared
 
+zeta_i0(s,1e3):zetaFD_i0(s,1e2):zetaFD_i0(s,1e3):zetaFD_i0(s,1e4)
+(
+infoLost[ri] 15443463875763.44-26890888172100.344i:
+infoLost[ri] -0.08584948288212069-0.5733715157370594i:
+infoLost[ri] 1.544894597378039-0.1153362459748198i:
+infoLost[ri] 1.5448952214106786-0.1153364652741779i
+)
+
+s=1/2+10i
+s=0.5+10i
+
+zeta_i0(s,NI)=<_i0((x)=<x**(s-1)/(exp(x)-1),,inf,NI)/gamma_i0(s,NI)
+stored_eqn(zeta_i0)
+
+zetaFD_i0(s,NI)=<_i0((x)=<x**(s-1)/(exp(x)+1),,inf,NI)/(gamma_i0(s,NI)*(1-2**(1-s)))
+stored_eqn(zetaFD_i0)
+
+gamma_i0(s,NI)=<_i0((x)=<x**(s-1)*exp(-x),,inf,NI)
+stored_eqn(gamma_i0)
+
+clear
+local storage cleared
+
 get_log_errr(0),get_log_errr(-1e0),get_log_errr(1e1),get_log_errr(-1e2),get_log_errr(eps),get_log_errr(-100eps),get_log_errr(inf),get_log_errr(-inf),get_log_errr(NaN)
 (
 -15.653559774527022,0,1,2,-15.653559774527022,-13.653559774527022,15.653559774527022,15.653559774527022,NaN
@@ -5336,4 +5359,4 @@ drag=false&sw=false&0x=false&useMatrix=true&useStrict=false&checkError=true&isRi
 --------------------------------
 --------------------------------
 
-online-simulator.github.io.6.512.713.26.192 @ Wed Jun 03 2026 20:47:05 GMT+0900 (日本標準時) @ Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/148.0.0.0 Safari/537.36
+online-simulator.github.io.6.513.713.26.192 @ Wed Jun 03 2026 23:38:30 GMT+0900 (日本標準時) @ Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/148.0.0.0 Safari/537.36
