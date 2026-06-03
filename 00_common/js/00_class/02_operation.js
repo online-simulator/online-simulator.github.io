@@ -2494,8 +2494,8 @@ My_entry.operation.prototype.IX = function(data, rightArr, tagObj){
         var arr_x = [
           [],
           [function(t){return math.tanh(pih*math.sinh(t));}, function(t){return pih*math.cosh(t)/Math.pow(math.cosh(pih*math.sinh(t)), 2);}],
-          [function(t){return Math.exp(t-Math.exp(-t));}, function(t){return x(t)*(1+Math.exp(-t));}],
-          [function(t){return Math.exp(pih*math.sinh(t));}, function(t){return x(t)*pih*math.cosh(t);}],
+          [function(t){return Math.exp(t-Math.exp(-t));}, function(t){return Math.exp(t-Math.exp(-t))*(1+Math.exp(-t));}],  // Ver.2.894.174
+          [function(t){return Math.exp(pih*math.sinh(t));}, function(t){return Math.exp(pih*math.sinh(t))*pih*math.cosh(t);}],  // Ver.2.894.174
           [function(t){return math.sinh(pih*math.sinh(t));}, function(t){return math.cosh(pih*math.sinh(t))*pih*math.cosh(t);}]
         ];
         /* Ver.2.806.131 -> */
