@@ -353,6 +353,36 @@ Y/M/D
 <tbody>
   <tr>
     <th>
+6.513.713.26.193
+    </th>
+    <td class="types">
+Calculator
+    </td>
+    <td>
+2.895.175
+    </td>
+    <td class="clear">
+minor bug-fix
+<br>
+2.149.38~
+    </td>
+    <td>
+[Calculator]
+<br>
+・math_com.js self.absolute_com/argument_com() modified
+<br>
+　argument：Math.atan2(y || 0, x || 0)　⇒　Math.atan2(y, x)
+<br>
+　absolute：abs(a)　⇒　Math.hypot(a.r, a.i)
+<br>
+abs(-(inf-0)/1) -> <del>NaN</del>Infinity
+    </td>
+    <td>
+2026/6/4
+    </td>
+  </tr>
+  <tr>
+    <th>
 6.513.713.26.192
     </th>
     <td class="types">

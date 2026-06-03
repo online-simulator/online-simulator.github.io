@@ -36,14 +36,34 @@ My_entry.math_com.prototype.isnan = function(com){
   var self = this;
   return self.entry.DATA.com(self.isNaN(com), 0);
 };
+/* 2.895.175 */
 My_entry.math_com.prototype.absolute_com = function(a){
   var self = this;
-  return Math.sqrt(a.r*a.r+a.i*a.i);
+  var _aval = 0;
+  if(typeof Math.hypot === "function"){
+    _aval = Math.hypot(a.r, a.i);
+  }
+  else{
+    var aar = Math.abs(a.r);
+    var aai = Math.abs(a.i);
+    if (aar === 0 && aai === 0){
+      _aval = 0;
+    }
+    else if(aar >= aai){
+      var ir = a.i/a.r;
+      _aval = aar*Math.sqrt(1+ir*ir);
+    }
+    else{
+      var ri = a.r/a.i;
+      _aval = aai*Math.sqrt(1+ri*ri);
+    }
+  }
+  return _aval;
 };
 My_entry.math_com.prototype.argument_com = function(a){
   var self = this;
   if(self.isNaN(a)) return NaN;  // Ver.2.170.42
-  return Math.atan2(a.i || 0, a.r || 0);  // Ver.2.149.38 || 0
+  return Math.atan2(a.i, a.r);  // Ver.2.149.38 || 0  // 2.895.175 || 0 deleted
 };
 //
 /* Ver.2.168.41 -> */

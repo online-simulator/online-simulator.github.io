@@ -12111,6 +12111,14 @@ pow(-1,0.5) -> <del>NaN</del>6.123233995736766e-17+i
 pow(-8,1/3) -> <del>NaN</del>1+1.732050807568877i
 <br>
 (-8)**(1/3) -> <del>NaN</del>1+1.732050807568877i
+<br>
+・<span class="clear">Ver.2.895.175</span>以降、<a href="#span-out-com">複素数</a>演算の共通処理を修正
+<br>
+　偏角（-0の符号復帰）：Math.atan2(y || 0, x || 0)　⇒　Math.atan2(y, x)
+<br>
+　絶対値（<a href="#span-out-error">桁あふれ</a>対策）：abs(a)　⇒　Math.hypot(a.r, a.i)
+<br>
+abs(-(inf-0)/1) -> <del>NaN</del>Infinity
     </td>
   </tr>
   <tr>
@@ -50064,11 +50072,9 @@ ln(-1) -> <del>NaN</del>3.141592653589793i　<span class="clear">Ver.2.894.173</
 <br>
 ln(-0.5) -> <del>NaN</del>-0.6931471805599453+3.141592653589793i　<span class="clear">Ver.2.894.173</span>以降、不具合を解消
 <br>
-・<a href="#span-out-FN-log">log関数</a>からcallする偏角算出の<a href="#span-in-FN-atan2">atan2関数</a>を修正
+<del>・<a href="#span-out-FN-log">log関数</a>からcallする偏角算出の<a href="#span-in-FN-atan2">atan2関数</a>を修正</del><span class="clear">Ver.2.895.175</span>以降、取消し
 <br>
-<del>Math.atan2(y, x)</del>
-<br>
-Math.atan2(y || 0, x || 0)
+Math.atan2(y, x)
     </td>
   </tr>
   <tr>
