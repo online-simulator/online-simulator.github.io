@@ -12119,6 +12119,18 @@ pow(-8,1/3) -> <del>NaN</del>1+1.732050807568877i
 　絶対値（<a href="#span-out-error">桁あふれ</a>対策）：abs(a)　⇒　Math.hypot(a.r, a.i)
 <br>
 abs(-(inf-0)/1) -> <del>NaN</del>Infinity
+<br>
+・<span class="clear">Ver.2.896.176</span>以降、<a href="#span-out-FN-fact">組合せ関数</a>の仕様修正
+<br>
+　logic：順列/階乗　⇒　逐次乗除算（<a href="#span-out-error">桁あふれ</a>対策）
+<br>
+combin(300,200) -> <del>NaN</del>4.158251463258561e+81
+<br>
+combin(2000,1000) -> <del>NaN</del>Infinity
+<br>
+combin(1000,998) -> <del>NaN</del>499500
+<br>
+　影響項目：<a href="#span-out-FN-fact">組合せ関数</a>
     </td>
   </tr>
   <tr>
@@ -27934,6 +27946,14 @@ x=interp(y:table); x -> 0.2128604699061138
 <br>
 ・順列||組合せ関数の引数不足による無限loopを修正
 <br>
+・<span class="clear">Ver.2.896.176</span>以降、無限大のbreak処理を追加
+<br>
+fact(inf) -> <del>inf-loop</del>false
+<br>
+permut(inf,inf) -> <del>1</del>false
+<br>
+combin(inf,inf) -> <del>inf-loop</del>false
+<br>
 <br>
 階乗の仕様を列挙する
 <br>
@@ -28137,6 +28157,14 @@ combin(1e3,1e3) || Infinity/Infinity -> NaN
 <del>combin(NaN,1) -> 1</del>
 <br>
 combin(NaN,1) -> NaN
+<br>
+・<span class="clear">Ver.2.896.176</span>以降、逐次乗除算に仕様修正（<a href="#span-out-error">桁あふれ</a>対策）
+<br>
+combin(300,200) -> <del>NaN</del>4.158251463258561e+81
+<br>
+combin(2000,1000) -> <del>NaN</del>Infinity
+<br>
+combin(1000,998) -> <del>NaN</del>499500
     </td>
   </tr>
   <tr>

@@ -229,51 +229,54 @@ My_entry.math.prototype.fact_m = function(left, right){
   if(n <= m) return n;           // 3!!! -> 3
   return self.fact_m(n-m, m)*n;
 };
+My_entry.math.prototype.permut =
+My_entry.math.prototype.permutation = function(n, k){
+  var self = this;
+  return self.fact_k(n, k);
+};
+My_entry.math.prototype.combin =
+My_entry.math.prototype.combination = function(n, r){
+  var self = this;
+  var permut = self.permut(n, r);
+  if(permut === false) return false;
+  return permut/(self.fact(r) || 1);  // || not0
+};
 */
 My_entry.math.prototype.fact = function(left){
   var self = this;
   if(isNaN(left)) return NaN;  // Ver.2.170.42
-  var _fact = 1;
   var n = Math.round(left);  // Ver.2.205.46 floor -> round
-  if(n < 0){
-    _fact = false;  // Ver.2.170.42
-  }
-  else{
-    for(var i=n; i>0; --i){
-      _fact *= i;
-    }
+  if(n < 0 || !(isFinite(n))) return false;  // Ver.2.170.42  // Ver.2.896.176
+  var _fact = 1;
+  for(var i=n; i>0; --i){
+    _fact *= i;
+    if(_fact === Infinity) break;  // Ver.2.896.176
   }
   return _fact;
 };
 My_entry.math.prototype.fact_k = function(left, right){
   var self = this;
   if(isNaN(left) || isNaN(right)) return NaN;  // Ver.2.170.42
-  var _fact = 1;
   var n = Math.round(left);  // Ver.2.205.46 floor -> round
   var k = Math.round(right);  // Ver.2.205.46 floor -> round
-  if(n < 0 || k < 0 || n < k){
-    _fact = false;  // Ver.2.170.42
-  }
-  else{
-    for(var i=n; i>n-k; --i){
-      _fact *= i;
-    }
+  if(n < 0 || k < 0 || n < k || !(isFinite(n)) || !(isFinite(k))) return false;  // Ver.2.170.42  // Ver.2.896.176
+  var _fact = 1;
+  for(var i=n; i>n-k; --i){
+    _fact *= i;
+    if(_fact === Infinity) break;  // Ver.2.896.176
   }
   return _fact;
 };
 My_entry.math.prototype.fact_m = function(left, right){
   var self = this;
   if(isNaN(left) || isNaN(right)) return NaN;  // Ver.2.170.42
-  var _fact = 1;
   var n = Math.round(left);  // Ver.2.205.46 floor -> round
   var m = Math.round(right);  // Ver.2.205.46 floor -> round
-  if(n < 0 || m <= 0){
-    _fact = false;  // Ver.2.170.42
-  }
-  else{
-    for(var i=n; i>0; i-=m){
-      _fact *= i;
-    }
+  if(n < 0 || m <= 0 || !(isFinite(n)) || !(isFinite(m))) return false;  // Ver.2.170.42  // Ver.2.896.176
+  var _fact = 1;
+  for(var i=n; i>0; i-=m){
+    _fact *= i;
+    if(_fact === Infinity) break;  // Ver.2.896.176
   }
   return _fact;
 };
@@ -282,13 +285,26 @@ My_entry.math.prototype.permutation = function(n, k){
   var self = this;
   return self.fact_k(n, k);
 };
+/* Ver.2.896.176 */
 /* Ver.2.170.42 */
 My_entry.math.prototype.combin =
 My_entry.math.prototype.combination = function(n, r){
   var self = this;
-  var permut = self.permut(n, r);
-  if(permut === false) return false;
-  return permut/(self.fact(r) || 1);  // || not0
+  if(isNaN(n) || isNaN(r)) return NaN;
+  var n = Math.round(n);
+  var r = Math.round(r);
+  if(n < 0 || r < 0 || n < r || !(isFinite(n)) || !(isFinite(r))) return false;
+  if(r === 0 || n === r) return 1;
+  var _combin = 1;
+  if(r > n-r){
+    r = n-r;
+  }
+  for(var i=1; i<=r; ++i){
+    _combin *= n-r+i;
+    _combin /= i;
+    if(_combin === Infinity) break;
+  }
+  return _combin;
 };
 /* -> Ver.2.69.28 */
 My_entry.math.prototype.deg_atan2 = function(y, x){

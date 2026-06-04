@@ -353,6 +353,46 @@ Y/M/D
 <tbody>
   <tr>
     <th>
+6.513.714.27.193
+    </th>
+    <td class="types">
+Calculator
+    </td>
+    <td>
+2.896.176
+    </td>
+    <td class="clear">
+fatal bug-fix
+<br>
+2.69.28~
+    </td>
+    <td>
+[Calculator]
+<br>
+・fact/permutation/combination() infinity-check added
+<br>
+fact(inf) -> <del>inf-loop</del>false
+<br>
+permut(inf,inf) -> <del>1</del>false
+<br>
+combin(inf,inf) -> <del>inf-loop</del>false
+<br>
+・combination() spec-modified
+<br>
+combin(300,200) -> <del>NaN</del>4.158251463258561e+81
+<br>
+combin(2000,1000) -> <del>NaN</del>Infinity
+<br>
+combin(1000,998) -> <del>NaN</del>499500
+<br>
+・test case updated
+    </td>
+    <td>
+2026/6/4
+    </td>
+  </tr>
+  <tr>
+    <th>
 6.513.714.26.193
     </th>
     <td class="types">

@@ -3,9 +3,9 @@ local storage cleared
 
 combin(300,200):combin(2000,1000):combin(1000,998)
 (
-NaN:
-NaN:
-NaN
+4.158251463258561e+81:
+Infinity:
+499500
 )
 
 clear
@@ -224,6 +224,34 @@ check((x)=<deg_atan2(x))
 -135,-135,-135,-135,-135,-135,-135,-135,NaN:
 0,0,-180+O(2e+2),-180+O(2e+2),45,0,-135,-135,NaN:
 45,45,45,45,45,45,45,45,45
+)
+
+check((x)=<permutation(x))
+(
+false,false,false,false,false,false,false,false,NaN:
+1,1,1,1,false,1,false,false,NaN:
+1,1,1,1,false,false,1,false,false
+)
+
+check((x)=<permut(x))
+(
+false,false,false,false,false,false,false,false,NaN:
+1,1,1,1,false,1,false,false,NaN:
+1,1,1,1,false,false,1,false,false
+)
+
+check((x)=<combination(x))
+(
+false,false,false,false,false,false,false,false,NaN:
+1,1,1,1,false,1,false,false,NaN:
+1,1,1,1,false,false,1,false,false
+)
+
+check((x)=<combin(x))
+(
+false,false,false,false,false,false,false,false,NaN:
+1,1,1,1,false,1,false,false,NaN:
+1,1,1,1,false,false,1,false,false
 )
 
 check((x)=<imul(x))
@@ -6040,4 +6068,4 @@ drag=false&sw=false&0x=false&useMatrix=true&useStrict=false&checkError=true&isRi
 --------------------------------
 --------------------------------
 
-online-simulator.github.io.6.513.714.26.193 @ Thu Jun 04 2026 19:05:05 GMT+0900 (日本標準時) @ Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/148.0.0.0 Safari/537.36
+online-simulator.github.io.6.513.714.27.193 @ Thu Jun 04 2026 21:08:47 GMT+0900 (日本標準時) @ Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/148.0.0.0 Safari/537.36
