@@ -621,12 +621,14 @@ My_entry.math.prototype.star2 = function(t, N, isX, kr){
 };
 My_entry.math.prototype.star = function(t, N, isX, kr){
   var self = this;
+  if(Array.prototype.some.call(arguments, function(x){return (isNaN(x) || !(isFinite(x)));})) return NaN;  // Ver.2.896.177
   var star = (typeof kr === "undefined")? self.star1: self.star2;
   return star.apply(self, arguments);
 };
 My_entry.math.prototype.poly =
 My_entry.math.prototype.polygon = function(t, N, isX){
   var self = this;
+  if(Array.prototype.some.call(arguments, function(x){return (isNaN(x) || !(isFinite(x)));})) return NaN;  // Ver.2.896.177
   var _val = null;
   var t = t;
   var N = N || 5;
