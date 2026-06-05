@@ -642,7 +642,7 @@ check((x)=<sinh(x))
 check((x)=<log(x))
 (
 3.141592653589793i,-3.141592653589793i+O(6e+0i),3.141592653589793i,-3.141592653589793i+O(6e+0i),Infinity+3.141592653589793i,Infinity+3.141592653589793i,Infinity-1.5707963267948966i,Infinity-2.356194490192345i,Infinity:
--Infinity,-Infinity,-Infinity+3.141592653589793i+O(NaN),-Infinity-3.141592653589793i+O(NaN),Infinity-0.7853981633974483i,Infinity-1.5707963267948966i,Infinity+3.141592653589793i,Infinity+2.356194490192345i,NaN:
+-Infinity,-Infinity-3.141592653589793i+O(NaN),-Infinity,-Infinity-3.141592653589793i+O(NaN),Infinity-0.7853981633974483i,Infinity-1.5707963267948966i,Infinity+3.141592653589793i,Infinity+2.356194490192345i,NaN:
 0,0,0,0,Infinity,Infinity,Infinity+1.5707963267948966i,Infinity+0.7853981633974483i,Infinity
 )
 
@@ -6089,4 +6089,4 @@ drag=false&sw=false&0x=false&useMatrix=true&useStrict=false&checkError=true&isRi
 --------------------------------
 --------------------------------
 
-online-simulator.github.io.6.513.714.28.193 @ Thu Jun 04 2026 22:24:11 GMT+0900 (日本標準時) @ Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/148.0.0.0 Safari/537.36
+online-simulator.github.io.6.513.715.28.194 @ Fri Jun 05 2026 22:06:43 GMT+0900 (日本標準時) @ Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/148.0.0.0 Safari/537.36

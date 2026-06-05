@@ -273,6 +273,7 @@ My_entry.math_com.prototype.div1 = function(a, k){
 My_entry.math_com.prototype.ln =
 My_entry.math_com.prototype.log = function(a){
   var self = this;
+  if(a.r === 0 && a.i === 0) return self.entry.DATA.com(-Infinity, (1/a.i === -Infinity)? -Math.PI: 0);  // Ver.2.898.177
   return self.entry.DATA.com(Math.log(self.absolute_com(a)), self.argument_com(a));
 };
 My_entry.math_com.prototype.log2 = function(a){
