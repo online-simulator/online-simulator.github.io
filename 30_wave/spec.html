@@ -21,6 +21,48 @@
       <caption><span id="span-history">演奏機能の更新履歴</span></caption>
       <tbody>
         <tr class="border">
+          <td class="border clear">
+Ver.1.85.17
+          </td>
+          <td class="border">
+・Ver.1.84.15以降の致命的な不具合を修正（周波数変調logicの訂正）
+<br>
+　C基準からA4換算の調律tune：_freq = freq_C4*　⇒　A4*Math.pow(2, doctave)*(ratio_corr/ratio_base)
+<br>
+　調律後（仮）の旋法mode：_freq *= 旋法補正値（譜面の線上に変化記号を後付け配置）
+<br>
+　note入力のlogic整理：o4c9 || n69 || A4　⇒　octave=4、幹音=A、変化量=0
+<br>
+　table追加：tuningによる追従型のintervals（固定型を含むlogicの共通化）
+<br>
+　table修正
+<br>
+　・MeanToneのF：Math.pow(5, 0.75)/2.5　⇒　2/Math.pow(5, 0.25)
+<br>
+　・Schnittger：Syntonic Comma　⇒　Pythagorean Commaの刷新
+<br>
+　・WerckMeister3：Syntonic Comma　⇒　Pythagorean Commaの刷新
+<br>
+　・KirnBerger3のDのSyntonic Comma：0　⇒　0.5
+<br>
+　　KirnBerger3のAのSyntonic Comma：0.5　⇒　0.75
+<br>
+・modeを有効化
+<br>
+　基準：scriptの実音　⇒　naturalの幹音
+<br>
+　文字note2index数値の参照：rootの数値と文字の型混同を解消
+<br>
+・error判定を復帰
+<br>
+[MyErr]Invalid frequency-R||440#||f440b||Af4|||Ab4||As4||A#4
+<br>
+・?full-linksを更新
+<br>
+　Auld_Lang_Syne：leftのdelayなし　⇒　1拍あり
+          </td>
+        </tr>
+        <tr class="border">
           <td class="border run">
 Ver.1.85.16
           </td>
@@ -48,6 +90,8 @@ Ver.1.84.15
 ・Ver.1.83.15の更新を取消し
 <br>
 　入力：基準pitch　⇒　2^指数
+<br>
+・tuning項目を追加（周波数変調用）
           </td>
         </tr>
         <tr class="border">
