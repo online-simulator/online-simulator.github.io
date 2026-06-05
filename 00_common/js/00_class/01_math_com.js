@@ -259,12 +259,16 @@ My_entry.math_com.prototype.mul1 = function(a, k){
   var self = this;
   return self.entry.DATA.com(a.r*k, a.i*k);
 };
+/* Ver.2.898.178 */
 My_entry.math_com.prototype.div = function(a, b){
   var self = this;
-  var w = b.r*b.r+b.i*b.i;
-  var cr = (a.r*b.r+a.i*b.i)/w;
-  var ci = (a.i*b.r-a.r*b.i)/w;
-  return self.entry.DATA.com(cr, ci);
+  var bmax = Math.max(Math.abs(b.r), Math.abs(b.i));
+  var br_scaled = b.r/bmax;
+  var bi_scaled = b.i/bmax;
+  var w_scaled = br_scaled*br_scaled+bi_scaled*bi_scaled;
+  var cr_scaled = ((a.r*br_scaled+a.i*bi_scaled)/bmax)/w_scaled;
+  var ci_scaled = ((a.i*br_scaled-a.r*bi_scaled)/bmax)/w_scaled;
+  return self.entry.DATA.com(cr_scaled, ci_scaled);
 };
 My_entry.math_com.prototype.div1 = function(a, k){
   var self = this;

@@ -507,6 +507,8 @@
       script += "\nclear;\n";
       script += "combin(300,200):combin(2000,1000):combin(1000,998);";
       script += "\nclear;\n";
+      script += "comp(pinf,ninf)*(0-0i),comp(inf,NaN)*(1+i),comp(pinf,ninf)/comp(pinf,ninf),comp(inf,NaN)/comp(inf,NaN),comp(inf,NaN)/comp(0,0),comp(inf,NaN)/0,1/0,1/(-0),0/0;";
+      script += "\nclear;\n";
       $._id("input").value = script;
     });
   })();
