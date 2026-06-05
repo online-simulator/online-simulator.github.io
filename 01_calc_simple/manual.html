@@ -2161,6 +2161,8 @@ test case
 <br>
 ・<a href="#span-eqn-zeta_Euler_Maclaurin">zeta_EM</a>
 <br>
+・<a href="#span-eqn-xi_Euler_Maclaurin">xi_EM</a>
+<br>
 ・<a href="#span-eqn-Seki_Aitken">Seki-Aitken</a>
 <br>
 ・<a href="#span-eqn-primes">primes</a>
@@ -54821,6 +54823,8 @@ gamma_EM
     </th>
     <td>
 <span id="span-eqn-gamma_Euler_Maclaurin"></span>
+・<span class="run">Ver.2.897.177</span>以降、<span class="condition">追加箇所</span>
+<br>
 clear;
 <br>
 gamma_ac(z,n)=&lt;exp((z+n+0.5)*ln(z+n+1)-(n+0.5)*ln(n)-ln(z)-z-1-_s((k)=&lt;ln(1+z/k),1,n));
@@ -54839,9 +54843,13 @@ sN=s+N,
 <br>
 ];
 <br>
-(gamma_ac(i,20)=&gt;:gamma_ac(0,20)=&gt;:gamma_ac(1,20)=&gt;:gamma_ac(10,20)=&gt;);
+<span class="condition">gamma_EM_full(s,m)=&lt;real(s)&gt;=0&&&exp(ln_gamma_EM(s,m)=&gt;)||||pi/(sin(pi*s)*exp(ln_gamma_EM(1-s,m)=&gt;));</span>
 <br>
-exp(ln_gamma_EM(i,14)=&gt;:ln_gamma_EM(0,14)=&gt;:ln_gamma_EM(1,14)=&gt;:ln_gamma_EM(10,14)=&gt;);
+(gamma_ac(i,20)=&gt;:gamma_ac(0,20)=&gt;:gamma_ac(10,20)=&gt;:gamma_ac(<span class="condition">-10+10i</span>,20)=&gt;);
+<br>
+exp(ln_gamma_EM(i,14)=&gt;:ln_gamma_EM(0,14)=&gt;:ln_gamma_EM(10,14)=&gt;:ln_gamma_EM(<span class="condition">-10+10i</span>,14)=&gt;);
+<br>
+<span class="condition">(gamma_EM_full(i,14)=&gt;:gamma_EM_full(0,14)=&gt;:gamma_EM_full(10,14)=&gt;:gamma_EM_full(-10+10i,14)=&gt;);</span>
     </td>
   </tr>
   <tr>
@@ -54855,6 +54863,8 @@ zeta_<span class="selection">EM</span>
     <td>
 <span id="span-eqn-zeta_Euler_Maclaurin"></span>
 ・<span class="run">Ver.2.893.170</span>以降、<span class="selection">変更箇所</span>（漸近級数の<a href="#span-out-error">桁あふれ</a>対策と臨界線のn0目安）
+<br>
+・<span class="run">Ver.2.897.177</span>以降、<span class="condition">追加箇所</span>
 <br>
 clear;
 <br>
@@ -54882,6 +54892,10 @@ _s((j)=&lt;j**(-s),1,n-1)+n**(-s)/2+n**(1-s)/(s-1)+_s((k)=&lt;Tkn(k,n,s)=&gt;,1,
 <br>
 ];
 <br>
+<span class="condition">//zeta_EM_full(s,n,m)=&lt;real(s)&gt;=0&&&zeta_EM(s,n,m)=&gt;||||2**s*pi**(s-1)*sin(pi*s/2)*exp(ln_gamma_EM(1-s,m)=&gt;)*zeta_EM(1-s,n,m)=&gt;;</span>
+<br>
+<span class="condition">zeta_EM_full(s,n,m)=&lt;real(s)&gt;=0&&&zeta_EM(s,n,m)=&gt;||||exp(s*ln(2)+(s-1)*ln(pi)+ln(sin(pi*s/2))+ln_gamma_EM(1-s,m)=&gt;)*zeta_EM(1-s,n,m)=&gt;;</span>
+<br>
 s=1/2+14.135i;
 <br>
 n0=<span class="selection">floor(abs(imag(s))*0.5)+20</span>;
@@ -54889,6 +54903,57 @@ n0=<span class="selection">floor(abs(imag(s))*0.5)+20</span>;
 zeta_<span class="selection">EM_right</span>(s,n0,4)=&gt;;
 <br>
 zeta_<span class="selection">EM</span>(s,n0,14)=&gt;;
+<br>
+<span class="condition">zeta_EM_full(s,n0,14)=&gt;;</span>
+    </td>
+  </tr>
+  <tr>
+    <th>
+<a href="#span-index">
+目次
+</a>
+<br>
+xi_EM
+    </th>
+    <td>
+<span id="span-eqn-xi_Euler_Maclaurin"></span>
+clear;
+<br>
+ln_gamma_EM(s,m)=&lt;last[
+<br>
+table_Bn={1/1,-1/2,1/6,,-1/30,,1/42,,-1/30,,5/66,,-691/2730,,7/6,,
+<br>
+-3617/510,,43867/798,,-174611/330,,854513/138,,-236364091/2730,,8553103/6,,-23749461029/870},
+<br>
+N=real(s)&lt;7&amp;&amp;&amp;floor(8-real(s)),
+<br>
+sN=s+N,
+<br>
+(sN-0.5)*ln(sN)-sN+0.5*ln(2*pi)+_s((k)=&lt;table_Bn[2*k]/(2*k*(2*k-1)*sN**(2*k-1)),1,m)-(N&gt;0&amp;&amp;&amp;_s((j)=&lt;ln(s+j),0,N-1))
+<br>
+];
+<br>
+zeta_EM(s,n,m)=&lt;last[
+<br>
+table_Bn={1/1,-1/2,1/6,,-1/30,,1/42,,-1/30,,5/66,,-691/2730,,7/6,,
+<br>
+-3617/510,,43867/798,,-174611/330,,854513/138,,-236364091/2730,,8553103/6,,-23749461029/870},
+<br>
+table=table_Bn/linspace(0,28,29).!,
+<br>
+Tkn(k,n,s)=&lt;table[2*k]*n**(1-s-2*k)*exp(_s((j)=&lt;ln(s+j),0,2*k-2)),
+<br>
+_s((j)=&lt;j**(-s),1,n-1)+n**(-s)/2+n**(1-s)/(s-1)+_s((k)=&lt;Tkn(k,n,s)=&gt;,1,m)
+<br>
+];
+<br>
+zeta_EM_full(s,n,m)=&lt;real(s)&gt;=0&&&zeta_EM(s,n,m)=&gt;||||exp(s*ln(2)+(s-1)*ln(pi)+ln(sin(pi*s/2))+ln_gamma_EM(1-s,m)=&gt;)*zeta_EM(1-s,n,m)=&gt;;
+<br>
+//xi_EM_full(s,n,m)=&lt;real(s)&gt;=0.5&&&(0.5*s*(s-1)*pi**(-s/2)*exp(ln_gamma_EM(s/2,m)=&gt;)*zeta_EM_full(s,n,m)=&gt;)||||xi_EM_full(1-s,n,m)=&gt;;
+<br>
+xi_EM_full(s,n,m)=&lt;real(s)&gt;=0.5&&&exp(ln(s)+ln(s-1)-ln(2)-(s/2)*ln(pi)+ln_gamma_EM(s/2,m)=&gt;)*zeta_EM_full(s,n,m)=&gt;||||xi_EM_full(1-s,n,m)=&gt;;
+<br>
+(xi_EM_full(-10+10i,100,14)=&gt;:xi_EM_full(1/2+10i,100,14)=&gt;:xi_EM_full(1+10i,100,14)=&gt;);
     </td>
   </tr>
   <tr>

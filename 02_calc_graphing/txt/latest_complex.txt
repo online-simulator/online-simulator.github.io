@@ -456,6 +456,31 @@ stored_eqn(tn_)
 clear
 local storage cleared
 
+(xi_EM_full(-10+10i,100,14)=>:xi_EM_full(1/2+10i,100,14)=>:xi_EM_full(1+10i,100,14)=>)
+(
+infoLost[ri] -0.22775992514555193+1.1126879845016333i:
+infoLost[ri] 0.03796785031093557+2.701831813833877e-16i:
+infoLost[ri] 0.03681114934525782+0.011186263339317416i
+)
+
+xi_EM_full(s,n,m)=<real(s)>=0.5&&&exp(ln(s)+ln(s-1)-ln(2)-(s/2)*ln(pi)+ln_gamma_EM(s/2,m)=>)*zeta_EM_full(s,n,m)=>||||xi_EM_full(1-s,n,m)=>
+stored_eqn(xi_EM_full)
+
+zeta_EM_full(s,n,m)=<real(s)>=0&&&zeta_EM(s,n,m)=>||||exp(s*ln(2)+(s-1)*ln(pi)+ln(sin(pi*s/2))+ln_gamma_EM(1-s,m)=>)*zeta_EM(1-s,n,m)=>
+stored_eqn(zeta_EM_full)
+
+zeta_EM(s,n,m)=<last[table_Bn={1/1,-1/2,1/6,,-1/30,,1/42,,-1/30,,5/66,,-691/2730,,7/6,,-3617/510,,43867/798,,-174611/330,,854513/138,,-236364091/2730,,8553103/6,,-23749461029/870},table=table_Bn/linspace(0,28,29).!,Tkn(k,n,s)=<table[2*k]*n**(1-s-2*k)*exp(_s((j)=<ln(s+j),0,2*k-2)),_s((j)=<j**(-s),1,n-1)+n**(-s)/2+n**(1-s)/(s-1)+_s((k)=<Tkn(k,n,s)=>,1,m)]
+stored_eqn(zeta_EM)
+
+ln_gamma_EM(s,m)=<last[table_Bn={1/1,-1/2,1/6,,-1/30,,1/42,,-1/30,,5/66,,-691/2730,,7/6,,-3617/510,,43867/798,,-174611/330,,854513/138,,-236364091/2730,,8553103/6,,-23749461029/870},N=real(s)<7&&&floor(8-real(s)),sN=s+N,(sN-0.5)*ln(sN)-sN+0.5*ln(2*pi)+_s((k)=<table_Bn[2*k]/(2*k*(2*k-1)*sN**(2*k-1)),1,m)-(N>0&&&_s((j)=<ln(s+j),0,N-1))]
+stored_eqn(ln_gamma_EM)
+
+clear
+local storage cleared
+
+zeta_EM_full(s,n0,14)=>
+infoLost[ri] -0.00003425156935078777+0.00021530419857852551i
+
 zeta_EM(s,n0,14)=>
 infoLost[ri] -0.00003425156935078777+0.00021530419857852551i
 
@@ -468,6 +493,9 @@ n0=27
 s=1/2+14.135i
 s=0.5+14.135i
 
+zeta_EM_full(s,n,m)=<real(s)>=0&&&zeta_EM(s,n,m)=>||||exp(s*ln(2)+(s-1)*ln(pi)+ln(sin(pi*s/2))+ln_gamma_EM(1-s,m)=>)*zeta_EM(1-s,n,m)=>
+stored_eqn(zeta_EM_full)
+
 zeta_EM(s,n,m)=<last[table_Bn={1/1,-1/2,1/6,,-1/30,,1/42,,-1/30,,5/66,,-691/2730,,7/6,,-3617/510,,43867/798,,-174611/330,,854513/138,,-236364091/2730,,8553103/6,,-23749461029/870},table=table_Bn/linspace(0,28,29).!,Tkn(k,n,s)=<table[2*k]*n**(1-s-2*k)*exp(_s((j)=<ln(s+j),0,2*k-2)),_s((j)=<j**(-s),1,n-1)+n**(-s)/2+n**(1-s)/(s-1)+_s((k)=<Tkn(k,n,s)=>,1,m)]
 stored_eqn(zeta_EM)
 
@@ -477,21 +505,32 @@ stored_eqn(zeta_EM_right)
 clear
 local storage cleared
 
-exp(ln_gamma_EM(i,14)=>:ln_gamma_EM(0,14)=>:ln_gamma_EM(1,14)=>:ln_gamma_EM(10,14)=>)
+(gamma_EM_full(i,14)=>:gamma_EM_full(0,14)=>:gamma_EM_full(10,14)=>:gamma_EM_full(-10+10i,14)=>)
+(
+infoLost[ri] -0.1549498283018105-0.49801566811835457i:
+infoLost[r ] NaN:
+infoLost[r ] 362880.00000000047:
+infoLost[ri] -1.0375550648232994e-18-2.463385953567902e-18i
+)
+
+exp(ln_gamma_EM(i,14)=>:ln_gamma_EM(0,14)=>:ln_gamma_EM(10,14)=>:ln_gamma_EM(-10+10i,14)=>)
 (
 infoLost[ri] -0.1549498283018105-0.49801566811835457i:
 infoLost[r ] Infinity:
-infoLost[r ] 0.9999999999999982:
-infoLost[r ] 362880.00000000047
+infoLost[r ] 362880.00000000047:
+infoLost[ri] -1.0375550648232869e-18-2.4633859535679093e-18i
 )
 
-(gamma_ac(i,20)=>:gamma_ac(0,20)=>:gamma_ac(1,20)=>:gamma_ac(10,20)=>)
+(gamma_ac(i,20)=>:gamma_ac(0,20)=>:gamma_ac(10,20)=>:gamma_ac(-10+10i,20)=>)
 (
 -0.1548880634140651-0.49814814147301184i:
 infoLost[r ] Infinity:
-1.000378773340066:
-363416.82072194666
+363416.82072194666:
+-1.0282791061068837e-18-2.467324498159515e-18i
 )
+
+gamma_EM_full(s,m)=<real(s)>=0&&&exp(ln_gamma_EM(s,m)=>)||||pi/(sin(pi*s)*exp(ln_gamma_EM(1-s,m)=>))
+stored_eqn(gamma_EM_full)
 
 ln_gamma_EM(s,m)=<last[table_Bn={1/1,-1/2,1/6,,-1/30,,1/42,,-1/30,,5/66,,-691/2730,,7/6,,-3617/510,,43867/798,,-174611/330,,854513/138,,-236364091/2730,,8553103/6,,-23749461029/870},N=real(s)<7&&&floor(8-real(s)),sN=s+N,(sN-0.5)*ln(sN)-sN+0.5*ln(2*pi)+_s((k)=<table_Bn[2*k]/(2*k*(2*k-1)*sN**(2*k-1)),1,m)-(N>0&&&_s((j)=<ln(s+j),0,N-1))]
 stored_eqn(ln_gamma_EM)
@@ -2263,7 +2302,7 @@ clear
 local storage cleared
 
 [Pinv_y=(-0.999999427,-0.999936657,-0.997300203,-0.954499736,-0.682689492,0,0.682689492,0.954499736,0.997300203,0.999936657,0.999999427:-5,-4,-3,-2,-1,0,1,2,3,4,5),N=1,arr=[],_r((n)=<arr.push(rand_table(=<Pinv_y)=>),,N),=<arr.]=>
-1.119080425619007
+1.7648183779743531
 
 rand_table(csv)=<last[table=sort0(csv),ymin=min(table)[0],ymax=max(table)[0],y=ymin+(ymax-ymin)*rand(),x=interp(y:table),x]
 stored_eqn(rand_table)
@@ -4504,4 +4543,4 @@ center=true&wheel=true&drag=false&test-case=false&plot-all=true&relzooming=true&
 --------------------------------
 --------------------------------
 
-online-simulator.github.io.6.513.714.27.193 @ Thu Jun 04 2026 21:18:26 GMT+0900 (日本標準時) @ Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/148.0.0.0 Safari/537.36
+online-simulator.github.io.6.513.714.28.193 @ Fri Jun 05 2026 20:23:27 GMT+0900 (日本標準時) @ Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/148.0.0.0 Safari/537.36
