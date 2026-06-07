@@ -437,22 +437,23 @@ My_entry.handler_wave.prototype.input2arr = function(input){
   var _arr_input = [];
   /* Ver.1.41.9 -> */
   var input_ = (My_entry.flag.hasFlagS)? input: input.replace(self.regex.s, "");  // Ver.1.43.11
-  var macros = input_.replace(self.regex.mb, "");
-  if(macros){
-    var mc_macros = macros.match(self.regex.macros);
-    if(mc_macros && mc_macros.length){
-      for(var i=0, len=mc_macros.length; i<len; ++i){
-        var macro = mc_macros[i];
-        var mc_macro = macro.match(self.regex.macro);
-        if(mc_macro && mc_macro[1]){
-          var tag = mc_macro[1];  // Ver.1.43.11
-          var dataset = mc_macro[2] || "";
-          var re = self.regex.make_tag(tag);  // Ver.1.43.11
-          input_ = input_.replace(re, dataset);
-        }
-      }
+  /* Ver.1.85.19 -> */
+  var dict = {};
+  input_ = input_.replace(self.regex.macros, function(match, tag, content){
+    dict[tag] = content;
+    return "";
+  });
+  for(var i=0; i<self.regex.macro_depthMax; ++i){
+    var isChanged = false;
+    var input_prev = input_;
+    for(var tag in dict){
+      input_ = input_.replace(self.regex.make_tag(tag), dict[tag]);
+      isChanged = isChanged || (input_ !== input_prev);
     }
+    if(!(isChanged)) break;
   }
+  dict = null;
+  /* -> Ver.1.85.19 */
   /* Ver.1.43.11 -> */
   var mcb_ = input_.match(self.regex.mb);
   if(mcb_ && mcb_.length){
@@ -461,7 +462,8 @@ My_entry.handler_wave.prototype.input2arr = function(input){
       script_original += str+"\n\n";
     });
     self.output_script(script_original);
-    if(script_original.match(self.regex.macro_prifix)) throw new Error(self.waveo.config.ERROR.title+"Invalid macro remained");  // Ver.1.42.10
+    var mc_invalid = script_original.match(self.regex.macro);  // Ver.1.85.19
+    if(mc_invalid) throw new Error(self.waveo.config.ERROR.title+"Invalid macro remained: "+mc_invalid[0]);  // Ver.1.42.10  // Ver.1.85.19
   }
   var mcb = input_.replace(self.regex.s, "").match(self.regex.mb);
   /* -> Ver.1.43.11 */

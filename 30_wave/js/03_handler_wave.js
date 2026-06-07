@@ -21,7 +21,8 @@ My_entry.handler_wave.prototype.init = function(){
   self.fileName_default = (self.isScriptMode)? "made_by_script": "download";  // Ver.1.68.14
   self.regex = {};
   self.regex.s = /\s/g;
-  self.regex.macro_prifix = /\$/;  // Ver.1.42.10
+  self.regex.macro_prifix = "\\$";  // Ver.1.42.10  // Ver.1.85.19
+  self.regex.macro_depthMax = 100;  // Ver.1.85.19
   /* Ver.1.43.11 -> */
   /* Ver.1.85.18 -> */
   self.regex.macro_chars = "0-9a-zA-Z_\\-";
@@ -30,8 +31,8 @@ My_entry.handler_wave.prototype.init = function(){
     return (new RegExp(tag_escaped+"(?!["+self.regex.macro_chars+"])", "gm"));
   };
   var sw_flag = (My_entry.flag.hasFlagS)? "s": "";
-  self.regex.macros = new RegExp("\\$["+self.regex.macro_chars+"]+\\([0-9a-zA-Z_\\-\\+\\=.,:;\\[\\]\\$#\\s]+?\\)", "g"+sw_flag);  // Ver.1.41.9  // Ver.1.42.10  // Ver.1.42.11  // Ver.1.65.14  // Ver.1.84.16
-  self.regex.macro = new RegExp("^(\\$["+self.regex.macro_chars+"]+)\\((.*)?\\)$", sw_flag);  // Ver.1.41.9  // Ver.1.42.10
+  self.regex.macros = new RegExp("("+self.regex.macro_prifix+"["+self.regex.macro_chars+"]+)\\(([0-9a-zA-Z_\\-\\+\\=.,:;\\[\\]\\$#\\s\\x20]*?)\\)", "g"+sw_flag);  // Ver.1.41.9  // Ver.1.42.10  // Ver.1.42.11  // Ver.1.65.14  // Ver.1.84.16  // Ver.1.85.19
+  self.regex.macro = new RegExp(self.regex.macro_prifix+"["+self.regex.macro_chars+"]+");  // Ver.1.41.9  // Ver.1.42.10  // Ver.1.85.19
   /* -> Ver.1.85.18 */
   self.regex.mb = new RegExp("\\{.*?\\}", "g"+sw_flag);
   self.regex.ml = new RegExp("\\[.*?\\]", "g"+sw_flag);
