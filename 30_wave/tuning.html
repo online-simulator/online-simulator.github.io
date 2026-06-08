@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+
+<html lang="ja">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="description" content="[test]tuning">
+  <meta name="author" content="online-simulator.github.io">
+  <noscript>JavaScript is not enabled on browser.</noscript>
+  <link rel="stylesheet" type="text/css" href="../00_common/css/common.css">
+  <link rel="stylesheet" type="text/css" href="../00_common/css/color.css">
+  <link rel="stylesheet" type="text/css" href="../00_common/css/size.css">
+  <link rel="stylesheet" type="text/css" href="css/common.css">
+  <link rel="stylesheet" type="text/css" href="css/color.css">
+  <link rel="stylesheet" type="text/css" href="css/size.css">
+  <script type="text/javascript" src="../00_common/js/000_namespace/000_entry.js"></script>
+  <script type="text/javascript" src="../00_common/js/00_class/000_reference.js"></script>
+  <script type="text/javascript" src="../00_common/js/00_class/00_$.js"></script>
+  <script type="text/javascript" src="../00_common/js/00_class/00_conv.js"></script>
+  <script type="text/javascript" src="../00_common/js/00_class/00_def.js"></script>
+  <script type="text/javascript" src="../00_common/js/00_class/01_math_wave.js"></script>
+  <script type="text/javascript" src="../00_common/js/01_driver/01_browser.js"></script>
+  <script type="text/javascript" src="../00_common/js/01_driver/01_io.js"></script>
+  <script type="text/javascript" src="../00_common/js/01_driver/01_link.js"></script>
+  <script type="text/javascript" src="../00_common/js/02_handler/02_handler_baseview.js"></script>
+  <script type="text/javascript" src="../00_common/js/02_handler/02_handler_link.js"></script>
+  <script type="text/javascript" src="../00_common/js/02_handler/02_handler_worker.js"></script>
+  <script type="text/javascript" src="js/for_importScripts.js"></script>
+  <script type="text/javascript" src="js/01_output_wave.js"></script>
+  <script type="text/javascript" src="../00_common/js/03_original/03_original_main.js"></script>
+  <script type="text/javascript" src="js/03_handler_wave.js"></script>
+  <script type="text/javascript" src="../00_common/js/03_original/03_original_worker.js"></script>
+  <script type="text/javascript" src="js/03_handler_wave_worker_sw0or1.js"></script>
+</head>
+
+<body>
+
+<script type="text/javascript">
+  (function(){
+    var $ = new My_entry.$();
+    $.onload(function(e){
+      var options = $.get_urlParams();
+      var wave = new My_entry.handler_wave();
+      document.querySelectorAll("table.tuning").forEach(function(table){
+        table.querySelectorAll("tbody tr").forEach(function(tr){
+          var cells = tr.querySelectorAll("td");
+          if(cells.length < 8) return;
+          var A4   = parseFloat(cells[2].textContent);
+          var tune = parseInt(cells[3].textContent, 10);
+          var root = cells[4].textContent.trim();
+          var mode = parseInt(cells[5].textContent, 10);
+          var note = cells[6].textContent.trim();
+          try{
+            var freq = wave.calc_freq(note, A4, tune, root, mode);
+            cells[8].innerHTML = "<strong>"+((isNaN(freq))? freq: freq.toFixed(3))+"</strong>";
+          }
+          catch(error){
+            cells[8].textContent = "error";
+          }
+        });
+      });
+    });
+  })();
+</script>
+
+  <div class="absolute">
+
+<hr>
+<div class="run">Ver.1.86.19：12音階・固定マップ方式</div>
+<div class="condition">初期仕様：「rootからの相対距離でルール（mode）もコード（chord）も定義する」<br>・C基準A4換算の調律tune：_freq = A4*Math.pow(2, doctave)*(ratio_corr/ratio_base)<br>・natural基準の旋法mode：_freq *= 旋法補正値<br>　調律後（仮）：譜面の線上に変化記号を後付け配置（A4のshiftを含む）</div>
+<table class="tuning"><thead><tr><th>No.</th><th>テスト内容</th><th>A4[Hz]</th><th>tune</th><th>root</th><th>mode</th><th>入力音</th><th>周波数期待値[Hz]</th><th>テスト結果[Hz]</th></tr></thead><tbody><tr><td>0</td><td>Minor：第3音(E)の自動下落</td><td>440</td><td>0</td><td>C</td><td>6</td><td><strong>E4</strong></td><td><strong>311.127</strong></td><td></td></tr><tr><td>0</td><td>Minor：第6音(A)の自動下落</td><td>440</td><td>0</td><td>C</td><td>6</td><td><strong>A4</strong></td><td><strong>415.305</strong></td><td></td></tr><tr><td>0</td><td>Minor：第7音(B)の自動下落</td><td>440</td><td>0</td><td>C</td><td>6</td><td><strong>B4</strong></td><td><strong>466.164</strong></td><td></td></tr><tr><td>1</td><td>基準ピッチ強制一致</td><td>442</td><td>1</td><td>D</td><td>0</td><td><strong>A4</strong></td><td><strong>442.000</strong></td><td></td></tr><tr><td>2</td><td>純正律：A4基準でのE4</td><td>440</td><td>1</td><td>C</td><td>0</td><td><strong>E4</strong></td><td><strong>330.000</strong></td><td></td></tr><tr><td>3</td><td>Locrian：第2音(D)の自動下落</td><td>440</td><td>0</td><td>C</td><td>8</td><td><strong>D4</strong></td><td><strong>277.183</strong></td><td></td></tr><tr><td>4</td><td>中全音律：1/4コンマ純正3度</td><td>440</td><td>3</td><td>C</td><td>0</td><td><strong>E4</strong></td><td><strong>328.977</strong></td><td></td></tr><tr><td>5</td><td>オクターブ・異名同音計算</td><td>440</td><td>0</td><td>C</td><td>0</td><td><strong>B3#</strong></td><td><strong>261.626</strong></td><td></td></tr><tr><td>6</td><td>ピタゴラス：完全5度比率</td><td>432</td><td>2</td><td>D</td><td>0</td><td><strong>E5</strong></td><td><strong>648.000</strong></td><td></td></tr><tr><td>7</td><td>中全音律：3度の連鎖(G4#)</td><td>440</td><td>3</td><td>C</td><td>0</td><td><strong>G4#</strong></td><td><strong>411.221</strong></td><td></td></tr><tr><td>8</td><td>Lydian：第4音(F)の自動上昇</td><td>440</td><td>0</td><td>C</td><td>4</td><td><strong>F4</strong></td><td><strong>369.994</strong></td><td></td></tr><tr><td>9</td><td>Dorian：第3音(E)の自動下落</td><td>440</td><td>0</td><td>C</td><td>2</td><td><strong>E4</strong></td><td><strong>311.127</strong></td><td></td></tr><tr><td>10</td><td>モードと臨時記号の合算(F#)</td><td>440</td><td>0</td><td>C</td><td>4</td><td><strong>F4#</strong></td><td><strong>391.995</strong></td><td></td></tr><tr><td>11</td><td>WerckMeister3：不等分律の個性</td><td>440</td><td>6</td><td>C</td><td>0</td><td><strong>D4</strong></td><td><strong>295.661</strong></td><td></td></tr><tr><td>12</td><td>KirnBerger3：A4基準でのG4</td><td>440</td><td>7</td><td>C</td><td>0</td><td><strong>G4</strong></td><td><strong>393.548</strong></td><td></td></tr></tbody></table>
+<hr>
+
+  </div>
+
+</body>
+
+</html>
