@@ -1,1 +1,8 @@
 @charset "UTF-8";
+
+table.tuning{
+  width: 100%;
+  border-collapse: collapse;
+  text-align: center;
+  font-family: sans-serif;
+}
