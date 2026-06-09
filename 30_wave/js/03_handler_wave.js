@@ -54,7 +54,7 @@ My_entry.handler_wave.prototype.init = function(){
   self.notes_sharp = ["C", "C#", "D", "D#", "E", "F", "F#", "G", "G#", "A", "A#", "B"];
   self.notes_flat = ["C", "Db", "D", "Eb", "E", "F", "Gb", "G", "Ab", "A", "Bb", "B"];
   self.tunes = ["Equal", "Pure", "Pythagorean", "MeanTone", "Young2", "Schnittger", "WerckMeister3", "KirnBerger3"];
-  self.modes = ["Major", "Ionian", "Dorian", "Phrygian", "Lydian", "Mixolydian", "Minor", "Aeolian", "Locrian", "HarmonicMinor", "MelodicMinor"];
+  self.modes = ["Major", "Ionian", "Dorian", "Phrygian", "Lydian", "Mixolydian", "Minor", "Aeolian", "Locrian", "HarmonicMinor", "MelodicMinor", "Bayati", "Rast"];  // Ver.1.87.19
   self.rules = {
     Major: {
       degrees: [],
@@ -99,7 +99,9 @@ My_entry.handler_wave.prototype.init = function(){
     MelodicMinor: {
       degrees: [3],
       alterations: [-1]
-    }
+    },
+    Bayati: {degrees: [2, 3, 6, 7], alterations: [-0.5, -1, -1, -1]},  // Ver.1.87.19
+    Rast:   {degrees: [3, 7], alterations: [-0.5, -0.5]}  // Ver.1.87.19
   };
   /* Ver.1.85.17 -> */
   var PC = 531441/524288;  // Pythagorean Comma
