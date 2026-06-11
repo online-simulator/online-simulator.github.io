@@ -10,6 +10,16 @@ My_entry.conv.prototype.init = function(){
   var self = this;
   return self;
 };
+/* else-Ver.0.81.9 */
+My_entry.conv.prototype.str2json = function(str){
+  var self = this;
+  var _json_parsed = null;
+  var str_trim = str.trim();
+  if(str_trim.indexOf("{") === 0 && str_trim.lastIndexOf("}") === str_trim.length-1){
+    _json_parsed = JSON.parse(str_trim);
+  }
+  return _json_parsed;
+};
 My_entry.conv.prototype.arr_str2arr_num = function(arr_str, num_NaN, num_min, num_max){
   var self = this;
   var _arr_num = [];

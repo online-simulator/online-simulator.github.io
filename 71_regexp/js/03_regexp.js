@@ -10,7 +10,7 @@ My_entry.def.mix_in(My_entry.test_regexp, My_entry.original_main);
 
 My_entry.test_regexp.prototype.init = function(){
   var self = this;
-  self.init_main.call(self, ["$"]);
+  self.init_main.call(self, ["$", "conv"]);  // Ver.0.81.9
   /* Ver.0.24.4 -> */
   self.regex = {};
   self.regex.s = /\s/g;
@@ -89,14 +89,30 @@ My_entry.test_regexp.prototype.postset = function(){
   self.elem_input.value = self.elem_output.value;
   return self;
 };
+/* Ver.0.81.9 */
 My_entry.test_regexp.prototype.replace = function(){
   var self = this;
   var output = "";
   try{
-    var re = new RegExp(self.entry.$._id("input-pattern").value, self.entry.$._id("select-flag").value);
+    var pattern = self.entry.$._id("input-pattern").value;
+    var flag = self.entry.$._id("select-flag").value;
     var str = self.entry.$._id("input-string").value;
     var text = self.elem_input.value;
-    output = text.replace(re, str);
+    var json_parsed = self.entry.conv.str2json(str);
+    if(json_parsed === null){
+      var re = new RegExp(pattern, flag);
+      output = text.replace(re, str);
+    }
+    else{
+      var keys = Object.keys(json_parsed).map(function(key){
+        return key.replace(/[-\/\\^$*+?.()|[\]{}]/g, "\\$&");
+      });
+      var re = new RegExp(keys.join("|"), flag);
+      output = text.replace(re, function(match){
+        return ((json_parsed.hasOwnProperty(match))? json_parsed[match]: match);
+      });
+      self.entry.$._id("input-pattern").value = re.source;
+    }
   }
   catch(e){
     output = e.message;
@@ -139,13 +155,27 @@ My_entry.test_regexp.prototype.macro = function(){
   self.elem_output.value = output;
   return self;
 };
+/* Ver.0.81.9 */
 My_entry.test_regexp.prototype.output_command = function(){
   var self = this;
   var command = "";
   try{
-    var re = new RegExp(self.entry.$._id("input-pattern").value, self.entry.$._id("select-flag").value);
+    var pattern = self.entry.$._id("input-pattern").value;
+    var flag = self.entry.$._id("select-flag").value;
     var str = self.entry.$._id("input-string").value;
-    command = "out=text.replace("+re+",\""+str+"\")\;";
+    var json_parsed = self.entry.conv.str2json(str);
+    if(json_parsed === null){
+      var re = new RegExp(pattern, flag);
+      command = "out=text.replace("+re+",\""+((str)? JSON.stringify(str): "")+"\");";
+    }
+    else{
+      var keys = Object.keys(json_parsed).map(function(key){
+        return key.replace(/[-\/\\^$*+?.()|[\]{}]/g, "\\$&");
+      });
+      pattern = keys.join("|");
+      command = "out=text.replace(/"+pattern+"/"+flag+",k=>("+JSON.stringify(json_parsed)+"[k]||k));";
+      self.entry.$._id("input-pattern").value = pattern;
+    }
   }
   catch(e){
     command = e.message;
