@@ -83,6 +83,16 @@
         $._id("input-string").value = "tagName";
         $._id("textarea-input").value = script;
       }
+      else if(options.testcase === "JSON" || options.testcase === "JSON0"){
+        var script = "// 一括置換のJSON形式（置換pattern連動）\n\nりんご\nみかん\nすもも";
+        $._id("input-string").value = "{\"りんご\":\"Apple\",\"みかん\":\"Orange\"}";
+        $._id("textarea-input").value = script;
+      }
+      else if(options.testcase === "JSON1"){
+        var script = "// syntax\n\ntry {} catch (e) {}\n\ntry{}catch(e){}\n\nif () {} else if () {} else {}\n\nif(){}else if(){}else{}\n\n  if(){}\n  else if()\n  {\n  }else\n  {\n  }\n\nfor () {}\n\nwhile () {}\n\n() ? true : false ;\n\nx = 0 - 1 + ( 2 / 3 ) % ( 4 * 5 ) ;\n\nx = { 0:0, 1 :1, 2 : 2, 3: 3 } ; \n\nx = [ 0 , 1, 2 ,3 ] ; \n\n x = ( 0 ) ; ";
+        $._id("input-string").value = "{\"} cat\":\"}\\ncat\",\"} el\":\"}\\nel\",\"}cat\":\"}\\ncat\",\"}el\":\"}\\nel\",\"try {\":\"try{\",\"ch (\":\"ch(\",\"if (\":\"if(\",\"se {\":\"se{\",\"or (\":\"or(\",\"le (\":\"le(\",\") {\":\"){\",\"} \":\"}\",\"( \":\"(\",\" )\":\")\",\"[ \":\"[\",\" ]\":\"]\",\" ?\":\"?\",\" :\":\":\",\" ;\":\";\",\"; \":\";\",\" ,\":\",\",\" - \":\"-\",\" + \":\"+\",\" / \":\"/\",\" % \":\"%\",\" * \":\"*\",\"'\":\"\\\"\"}";
+        $._id("textarea-input").value = script;
+      }
       new My_entry.test_regexp().onload(e);
     });
   })();
