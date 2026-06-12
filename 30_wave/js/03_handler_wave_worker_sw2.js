@@ -437,6 +437,7 @@ My_entry.handler_wave.prototype.input2arr = function(input){
   var _arr_input = [];
   /* Ver.1.41.9 -> */
   var input_ = (My_entry.flag.hasFlagS)? input: input.replace(self.regex.s, "");  // Ver.1.43.11
+  input_ = self.entry.def.remove_comments(input_);  // Ver.1.89.19
   /* Ver.1.85.19 -> */
   var dict = {};
   input_ = input_.replace(self.regex.macros, function(match, tag, content){
