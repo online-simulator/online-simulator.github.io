@@ -18,6 +18,7 @@ My_entry.def.prototype.init = function(){
   self.str_s = "\\s";
   self.str_sS = "[\\s\\S]*";
   self.comments = {
+    "#": "^[ \\t]*#.*$",  // wave-Ver.1.89.19
     line: "[\/]{2}.*",
     block: self.make_str_sS({s: "\/\\*", e: "\\*\/"})
   }
@@ -296,16 +297,21 @@ My_entry.def.prototype.replace_series = function(str, bas){
   });
   return _str;
 };
+/* wave-Ver.1.89.19 */
+My_entry.def.prototype.remove_comments = function(script, opt_a){
+  var self = this;
+  var a = opt_a || "";
+  var re = new RegExp([self.comments["#"], self.comments.line, self.comments.block].join("|"), "gm");
+  return script.replace(re, a);  // calc-Ver.2.837.144
+};
 My_entry.def.prototype.remove_comment = function(script, opt_a){
   var self = this;
-  var bas = [];
   var a = opt_a || "";
   var re = new RegExp([self.comments.line, self.comments.block].join("|"), "g");  // calc-Ver.2.837.144  // calc-Ver.2.837.145
   return script.replace(re, a);  // calc-Ver.2.837.144
 };
 My_entry.def.prototype.remove_commentAndWspace = function(script, opt_a){
   var self = this;
-  var bas = [];
   var a = opt_a || "";
   var re = new RegExp([self.comments.line, self.comments.block, self.str_s].join("|"), "g");  // calc-Ver.2.837.144  // calc-Ver.2.837.145
   return script.replace(re, a);  // calc-Ver.2.837.144

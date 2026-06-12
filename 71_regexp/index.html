@@ -83,6 +83,19 @@
         $._id("input-string").value = "tagName";
         $._id("textarea-input").value = script;
       }
+      else if(options.testcase === "wave3"){
+        var script = "// 否定先読み\n\n{channel;{N;G}}dataset1;dataset2;dataset3;\n\n{channel;(O;K)}dataset1;dataset2;dataset3;\n\n{channel;[O;K]}dataset1;dataset2;dataset3;";
+        $._id("input-pattern").value = "\;(?![^\\{]\*\\})";
+        $._id("input-string").value = "__split__";
+        $._id("textarea-input").value = script;
+      }
+      else if(options.testcase === "wave4"){
+        var script = "# line comment with flag-gm\n\n  # line comment\n\n  $r1(A4#)  # line comment disabled\n\n  $r2(B4#)  // line comment\n\n  { A4#/* block comment */ }";
+        $.set_selectVal_id("select-flag", "gm");
+        $._id("input-pattern").value = "^[ \\t]*#.*$|([\/]{2}.*)|(\/\\*[\\s\\S]*?\\*\/)";
+        $._id("input-string").value = "";
+        $._id("textarea-input").value = script;
+      }
       else if(options.testcase === "JSON" || options.testcase === "JSON0"){
         var script = "// 一括置換のJSON形式（置換pattern連動）\n\nりんご\nみかん\nすもも";
         $._id("input-string").value = "{\"りんご\":\"Apple\",\"みかん\":\"Orange\"}";
