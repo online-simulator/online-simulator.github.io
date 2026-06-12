@@ -51,6 +51,7 @@ My_entry.handler_wave.prototype.init = function(){
   self.regex.table = /\[(.*?):(.*?)\]/;  // Ver.1.71.14
   self.msec_60BPM = 1000;  // Ver.1.19.4
   /* Ver.1.84.15 -> */
+  self.note2index = {C: 0, "C#": 1, Db: 1, D: 2, "D#": 3, Eb: 3, E: 4, F: 5, "F#": 6, Gb: 6, G: 7, "G#": 8, Ab: 8, A: 9, "A#": 10, Bb: 10, B: 11};  // Ver.1.90.19
   self.notes_sharp = ["C", "C#", "D", "D#", "E", "F", "F#", "G", "G#", "A", "A#", "B"];
   self.notes_flat = ["C", "Db", "D", "Eb", "E", "F", "Gb", "G", "Ab", "A", "Bb", "B"];
   self.tunes = ["Equal", "Pure", "Pythagorean", "MeanTone", "Young2", "Schnittger", "WerckMeister3", "KirnBerger3"];
@@ -103,45 +104,55 @@ My_entry.handler_wave.prototype.init = function(){
     Bayati: {degrees: [2, 3, 6, 7], alterations: [-0.5, -1, -1, -1]},  // Ver.1.87.19
     Rast:   {degrees: [3, 7], alterations: [-0.5, -0.5]}  // Ver.1.87.19
   };
-  /* Ver.1.85.17 -> */
-  var PC = 531441/524288;  // Pythagorean Comma
-  var SC = 81/80;          // Syntonic Comma
-  self.ratios = {
-    Equal: {
-      intervals: [1/1, Math.pow(2,1/12), Math.pow(2,2/12), Math.pow(2,3/12), Math.pow(2,4/12), Math.pow(2,5/12), Math.pow(2,6/12), Math.pow(2,7/12), Math.pow(2,8/12), Math.pow(2,9/12), Math.pow(2,10/12), Math.pow(2,11/12)],
-      base:      {C: 1/1, D: Math.pow(2,2/12), E: Math.pow(2,4/12), F: Math.pow(2,5/12), G: Math.pow(2,7/12), A: Math.pow(2,9/12), B: Math.pow(2,11/12)}
-    },
-    Pure: {
-      intervals: [1/1, 25/24, 9/8, 6/5, 5/4, 4/3, 45/32, 3/2, 25/16, 5/3, 9/5, 15/8],
-      base:      {C: 1/1, D: 9/8, E: 5/4, F: 4/3, G: 3/2, A: 5/3, B: 15/8}
-    },
-    Pythagorean: {
-      intervals: [1/1, 2187/2048, 9/8, 32/27, 81/64, 4/3, 729/512, 3/2, 128/81, 27/16, 16/9, 243/128],
-      base:      {C: 1/1, D: 9/8, E: 81/64, F: 4/3, G: 3/2, A: 27/16, B: 243/128}
-    },
-    MeanTone: {
-      intervals: [1/1, Math.pow(5,1.75)/16, Math.sqrt(5)/2, 4/Math.pow(5,0.75), 5/4, 2/Math.pow(5,0.25), Math.pow(5,1.5)/8, Math.pow(5,0.25), 25/16, Math.pow(5,0.75)/2, 4/Math.sqrt(5), Math.pow(5,1.25)/4],
-      base:      {C: 1/1, D: Math.sqrt(5)/2, E: 5/4, F: 2/Math.pow(5,0.25), G: Math.pow(5,0.25), A: Math.pow(5,0.75)/2, B: (5/4)*Math.pow(5,0.25)},
-      sharp: 25/24
-    },
-    Young2: {
-      intervals: [1/1, Math.pow(2, 1/12)*Math.pow(SC, 1/12), Math.pow(2, 2/12), Math.pow(2, 3/12), (81/64)/Math.pow(SC, 0.5), Math.pow(2, 5/12), Math.pow(2, 6/12), (3/2)/Math.pow(SC, 1/6), Math.pow(2, 8/12), Math.pow(2, 9/12), Math.pow(2, 10/12), Math.pow(2, 11/12)],
-      base:      {C: 1/1, D: Math.pow(2,2/12), E: (81/64)/Math.pow(SC, 0.5), F: Math.pow(2,5/12), G: (3/2)/Math.pow(SC, 1/6), A: Math.pow(2,9/12), B: Math.pow(2,11/12)}
-    },
-    Schnittger:  {
-      intervals: [1/1, Math.pow(2, 1/12), (9/8)/Math.pow(PC, 1/3), Math.pow(2, 3/12), (81/64)/Math.pow(PC, 2/3), 4/3, Math.pow(2, 6/12), (3/2)/Math.pow(PC, 1/6), Math.pow(2, 8/12), (27/16)/Math.pow(PC, 1/2), Math.pow(2, 10/12), Math.pow(2, 11/12)],
-      base:      {C: 1/1, D: (9/8)/Math.pow(PC, 1/3), E: (81/64)/Math.pow(PC, 2/3), F: 4/3, G: (3/2)/Math.pow(PC, 1/6), A: (27/16)/Math.pow(PC, 1/2), B: Math.pow(2, 11/12)}
-    },
-    WerckMeister3: {
-      intervals: [1/1, 256/243, Math.pow(2, 2/12)/Math.pow(PC, 1/4), 32/27, Math.pow(2, 4/12)/Math.pow(PC, 1/2), 4/3, 1024/729, Math.pow(2, 7/12)/Math.pow(PC, 1/4), 128/81, Math.pow(2, 9/12)/Math.pow(PC, 3/4), 16/9, 243/128],
-      base:      {C: 1/1, D: Math.pow(2, 2/12)/Math.pow(PC, 1/4), E: Math.pow(2, 4/12)/Math.pow(PC, 1/2), F: 4/3, G: Math.pow(2, 7/12)/Math.pow(PC, 1/4), A: Math.pow(2, 9/12)/Math.pow(PC, 3/4), B: 243/128}
-    },
-    KirnBerger3: {
-      intervals: [1/1, 25/24, (9/8)/Math.pow(SC, 0.5), 6/5, 5/4, 4/3, 45/32, (3/2)/Math.pow(SC, 0.25), 25/16, (27/16)/Math.pow(SC, 0.75), 9/5, 15/8],
-      base:      {C: 1/1, D: (9/8)/Math.pow(SC, 0.5), E: 5/4, F: 4/3, G: (3/2)/Math.pow(SC, 0.25), A: (27/16)/Math.pow(SC, 0.75), B: 15/8}
-    }
+  /* Ver.1.90.19 -> */
+  var PC = 1200*Math.LOG2E*Math.log(531441/524288);  // cents of Pythagorean Comma
+  var SC = 1200*Math.LOG2E*Math.log(81/80);          // cents of Syntonic Comma
+  self.centsDeviation = {
+    Young2:        [0, -2, -3, -1, -4, -1, -3, -2, -2, -4, -1, -3].map(function(v){return v*(PC/12);}),
+    WerckMeister3: [0, -5, -4, -3, -5, -1, -6, -2, -4, -6, -2, -4].map(function(v){return v*(PC/12);}),
+    Schnittger:    [0, -2, -6, -2, -8, 0, -4, -3, -2, -7, -2, -4].map(function(v){return v*(PC/24);}),
+    KirnBerger3:   [[0, 0], [3, -9], [-2, 0], [-3, 0], [4, -12], [-1, 0], [3, -9], [-1, 0], [-4, 0], [-4, 0], [-2, 0], [-6, 0]].map(function(v){return v[0]*(PC/12)+v[1]*(SC/12);})
   };
-  /* -> Ver.1.85.17 */
+  /* Ver.1.85.17 */
+  self.get_ratio = function(tune, root, idx_stem, alteration){
+    var _ratio = 1;
+    var alt_int = Math.floor(alteration);
+    var alt_frac = alteration-alt_int;
+    var semitone = (idx_stem+alt_int+12*11)%12;  // |alteration| < 128(MIDI) < 12*11
+    var stem2fifth = {
+      0: 0,   // C
+      2: 2,   // D
+      4: 4,   // E
+      5: -1,  // F
+      7: 1,   // G
+      9: 3,   // A
+      11: 5   // B
+    };
+    if(tune === "Equal"){
+      _ratio = Math.pow(2, (idx_stem+alteration)/12);
+    }
+    else if(tune === "Pure"){
+      _ratio = [1/1, 25/24, 9/8, 6/5, 5/4, 4/3, 45/32, 3/2, 25/16, 5/3, 9/5, 15/8][semitone];
+      _ratio *= Math.pow(2, alt_frac/12);
+    }
+    else if(tune === "Pythagorean"){
+      _ratio = Math.pow(3/2, stem2fifth[idx_stem]+7*alteration);
+    }
+    else if(tune === "MeanTone"){
+      _ratio = Math.pow(Math.pow(5, 0.25), stem2fifth[idx_stem]+7*alteration);
+    }
+    else{
+      if(self.centsDeviation[tune]){
+        _ratio = Math.pow(2, (idx_stem+alt_int)/12);
+        _ratio *= Math.pow(2, self.centsDeviation[tune][semitone]/1200);
+        _ratio *= Math.pow(2, alt_frac/12);
+      }
+    }
+    while(_ratio < 1) _ratio *= 2;
+    while(_ratio >= 2) _ratio /= 2;
+    return _ratio;  // [1, 2)
+  };
+  /* -> Ver.1.90.19 */
   /* -> Ver.1.84.15 */
   self.params = {};
   if(self.isScriptMode){
@@ -434,13 +445,12 @@ My_entry.handler_wave.prototype.make_str = function(octave, note){
 };
 /* Ver.1.85.17 */
 /* Ver.1.44.11 */
-My_entry.handler_wave.prototype.calc_freq = function(str, A4, tune, root, mode, opt_octave0, opt_sw_sharp2flat){
+My_entry.handler_wave.prototype.calc_freq = function(str, A4, tune, root, mode, opt_octave0, opt_sw_sharp2flat, opt_lockPitch){  // Ver.1.90.19
   var self = this;
   var _freq = NaN;
   var str_stem = NaN;
   var octave = 4;
   var alteration = 0;
-  var note2index = {C: 0, "C#": 1, Db: 1, D: 2, "D#": 3, Eb: 3, E: 4, F: 5, "F#": 6, Gb: 6, G: 7, "G#": 8, Ab: 8, A: 9, "A#": 10, Bb: 10, B: 11};
   var mc_oc = str.match(self.regex.oc);
   var mc_nc = str.match(self.regex.nc);  // Ver.1.13.4
   var mc_sn = str.match(self.regex.sn);  // Ver.1.14.4
@@ -452,7 +462,16 @@ My_entry.handler_wave.prototype.calc_freq = function(str, A4, tune, root, mode, 
     var num = (mc_oc)? Number(mc_oc[2]): Number(mc_nc[1]);  // num >= 0
     octave += Math.floor(num/12);
     var idx_note = num%12;
-    var str_note = self["notes_"+((opt_sw_sharp2flat)? "flat": "sharp")][idx_note];  // Ver.1.44.11
+    /* Ver.1.90.19 -> */
+    var useFlat = opt_sw_sharp2flat;
+    if(typeof useFlat === "undefined" || useFlat === null){
+      var idx_root = (isNaN(root))? self.note2index[root]: Number(root)%12;
+      var idx_corr = (idx_note-idx_root+12*2)%12;
+      var isFlatKey = [1, 3, 5, 6, 8, 10].indexOf(idx_root) !== -1 || (typeof root === "string" && root.indexOf("b") !== -1);  // [Db, Eb, F, Gb, Ab, Bb]
+      useFlat = [1, 3, 8, 10].indexOf(idx_corr) !== -1 || isFlatKey;  // [Db, Eb, Ab, Bb]
+    }
+    var str_note = self["notes_"+((useFlat)? "flat": "sharp")][idx_note];  // Ver.1.44.11
+    /* -> Ver.1.90.19 */
     str_stem = str_note.charAt(0);
     var sf = str_note.charAt(1);
     if(sf){
@@ -480,31 +499,43 @@ My_entry.handler_wave.prototype.calc_freq = function(str, A4, tune, root, mode, 
   else{
     _freq = Number(str);
   }
+  /* Ver.1.90.19 -> */
   if(isNaN(_freq) && typeof str_stem === "string"){
+    var char2diatonic = {C: 0, D: 1, E: 2, F: 3, G: 4, A: 5, B: 6};
+    var str_base = "A";
+    var idx_base = 9;
     var str_tune = (isNaN(tune))? tune: self.tunes[Number(tune)];
     var str_root = (isNaN(root))? root: self.notes_sharp[Number(root)%12];
     var str_mode = (isNaN(mode))? mode: self.modes[Number(mode)];
-    var ratios = self.ratios[str_tune] || self.ratios[self.tunes[0]];
     var rules = self.rules[str_mode] || self.rules[self.modes[0]];
-    var idx_A = 9;
-    var idx_root = note2index[str_root];
-    var idx_stem = note2index[str_stem];
-    var idx_base = (idx_A-idx_root+12*2)%12;  // A from root
-    var idx_corr = (idx_stem-idx_root+alteration+12*11)%12;  // |alteration| < 128(MIDI) < 12*11
-    var idx_mode = (idx_stem-idx_root+12*2)%12;  // mode from natural
-    var doctave = (opt_octave0 || 0)+octave-4;
-    doctave += Math.floor((idx_stem-idx_root+alteration)/12);
-    var ratio_base = ratios.base[str_root]*ratios.intervals[idx_base];
-    var ratio_corr = ratios.base[str_root]*ratios.intervals[idx_corr];
-    _freq = A4*Math.pow(2, doctave)*(ratio_corr/ratio_base);
+    var idx_stem = self.note2index[str_stem];
+    var alteration_mode_corr = 0;
+    var alteration_mode_base = 0;
     if(rules && rules.degrees){
-      var semitones2degree = [1, 2, 2, 3, 3, 4, 4, 5, 6, 6, 7, 7];
-      var i = rules.degrees.indexOf(semitones2degree[idx_mode]);
-      if(i !== -1){
-        _freq *= Math.pow(ratios.sharp || ratios.intervals[1] || Math.pow(2, 1/12), rules.alterations[i]);  // place an accidental on a line
+      var d_root = char2diatonic[str_root.charAt(0)];
+      var d_stem = char2diatonic[str_stem];
+      var degree_corr = ((d_stem-d_root+7)%7)+1;
+      var i_corr = rules.degrees.indexOf(degree_corr);
+      if(i_corr !== -1){
+        alteration_mode_corr = rules.alterations[i_corr];
+      }
+      if(opt_lockPitch){
+        var d_base = char2diatonic[str_base];
+        var degree_base = ((d_base-d_root+7)%7)+1;
+        var i_base = rules.degrees.indexOf(degree_base);
+        if(i_base !== -1){
+          alteration_mode_base = rules.alterations[i_base];
+        }
       }
     }
+    var alteration_total_corr = alteration+alteration_mode_corr;
+    var doctave = (opt_octave0 || 0)+octave-4;
+    doctave += Math.floor((idx_stem+alteration_total_corr)/12);
+    var ratio_corr = self.get_ratio(str_tune, str_root, idx_stem, alteration_total_corr);
+    var ratio_base = self.get_ratio(str_tune, str_root, idx_base, alteration_mode_base);
+    _freq = A4*Math.pow(2, doctave)*(ratio_corr/ratio_base);
   }
+  /* -> Ver.1.90.19 */
   return _freq;
 };
 /* -> Ver.1.84.15 */
