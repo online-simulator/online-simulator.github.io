@@ -115,39 +115,46 @@ My_entry.handler_wave.prototype.init = function(){
   };
   /* Ver.1.85.17 */
   self.get_ratio = function(tune, root, idx_stem, alteration){
-    var _ratio = 1;
-    var alt_int = Math.floor(alteration);
-    var alt_frac = alteration-alt_int;
-    var idx_root = (isNaN(root))? self.note2index[root]: Number(root)%12;
-    if(typeof idx_root === "undefined" || isNaN(idx_root)) idx_root = 0;
+    var isFixedTemperament = ["Equal", "Young2", "WerckMeister3", "Schnittger", "KirnBerger3"].indexOf(tune) !== -1;
+    var idx_root = 0;
+    if(!(isFixedTemperament)){
+      idx_root = (isNaN(root))? self.note2index[root]: Number(root)%12;
+      if(typeof idx_root === "undefined" || isNaN(idx_root)) idx_root = 0;
+    }
     var stem2fifth = {0: 0, 2: 2, 4: 4, 5: -1, 7: 1, 9: 3, 11: 5};  // C, D, E, F, G, A, B
     var calc_ratio_from_root = function(idx, alt){
-      var semitones = (idx-idx_root+Math.floor(alt)+12*11)%12;  // |alteration| < 128(MIDI) < 12*11
+      var alt_int = Math.floor(alt);  // |alteration| < 128(MIDI) < 12*11
+      var alt_frac = alt-alt_int;
       if(tune === "Equal"){
         return Math.pow(2, (idx+alt)/12);
       }
       else if(tune === "Pure"){
+        var semitones_from_root = (idx-idx_root+alt_int+12*11)%12;
         var pureTable = [1/1, 25/24, 9/8, 6/5, 5/4, 4/3, 45/32, 3/2, 25/16, 5/3, 9/5, 15/8];
-        return pureTable[semitones];
+        var _r = pureTable[semitones_from_root];
+        _r *= Math.pow(2, alt_frac/12);
+        return _r;
       }
       else if(tune === "Pythagorean" || tune === "MeanTone"){
         var base = (tune === "Pythagorean")? 1.5: Math.pow(5, 0.25);
         var root_fifth = stem2fifth[idx_root] || 0;
-        var target_fifth = (stem2fifth[idx] || 0)+7*Math.floor(alt);
+        var target_fifth = (stem2fifth[idx] || 0)+7*alt;
         return Math.pow(base, target_fifth-root_fifth);
       }
       else{
         if(self.centsDeviation[tune]){
-          var r = Math.pow(2, semitones/12);
-          r *= Math.pow(2, self.centsDeviation[tune][semitones]/1200);
-          return r;
+          var semitones_from_C = (idx+alt_int+12*11)%12;
+          var _r = Math.pow(2, (idx+alt_int)/12);
+          _r *= Math.pow(2, self.centsDeviation[tune][semitones_from_C]/1200);
+          _r *= Math.pow(2, alt_frac/12);
+          return _r;
         }
       }
       return 1;
     };
-    var ratio_target = calc_ratio_from_root(idx_stem, alt_int);
+    var ratio_target = calc_ratio_from_root(idx_stem, alteration);
     var ratio_C      = calc_ratio_from_root(0, 0);
-    _ratio = (ratio_target/ratio_C)*Math.pow(2, alt_frac/12);
+    var _ratio = ratio_target/ratio_C;
     while(_ratio < 1) _ratio *= 2;
     while(_ratio >= 2) _ratio /= 2;
     return _ratio;  // [1, 2)
