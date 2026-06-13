@@ -50,8 +50,9 @@
           var root = cells[4].textContent.trim();
           var mode = parseInt(cells[5].textContent, 10);
           var note = cells[6].textContent.trim();
+          var lockPitch = table.classList.contains("lockPitch");
           try{
-            var freq = wave.calc_freq(note, A4, tune, root, mode);
+            var freq = wave.calc_freq(note, A4, tune, root, mode, lockPitch);
             cells[8].innerHTML = "<strong>"+((isNaN(freq))? freq: freq.toFixed(3))+"</strong>";
           }
           catch(error){
@@ -165,6 +166,94 @@
     <tr><td>73</td><td>Young2の調性固有個性：C主調からF#主調（五度圏の真裏）へ楽曲が転調した際、固定鍵盤としての各音のうなりの美しさが仕様通り維持されているかの検証（D4音）</td><td>440</td><td>4</td><td>F#</td><td>0</td><td><strong>D4</strong></td><td><strong>293.997</strong></td><td></td></tr>
     <tr><td>74</td><td>超高音域の最大変位：平均律・HarmonicMinor旋法における、最高オクターブかつトリプルシャープ（B9###）でのNaN/Infinity未発生・符号維持検証</td><td>440</td><td>0</td><td>C</td><td>9</td><td><strong>B9###</strong></td><td><strong>18794.545</strong></td><td></td></tr>
     <tr><td>75</td><td>完全消音の絶対性：すべての音律(tune=1~7)、すべての主音(root)、すべての旋法(mode)において、入力「r」が例外を投げず、いかなる時も「0.000」を返すかの最終防壁テスト</td><td>442</td><td>7</td><td>A###</td><td>12</td><td><strong>r</strong></td><td><strong>0.000</strong></td><td></td></tr>
+  </tbody>
+</table>
+
+<div class="run">Ver.1.91.19：基準ピッチ強制固定の適用</div>
+<div class="condition">旋法modeからA4の独立：lockPitch = true</div>
+<table class="tuning lockPitch">
+  <thead>
+    <tr><th>No.</th><th>テスト内容</th><th>A4[Hz]</th><th>tune</th><th>root</th><th>mode</th><th>入力音</th><th>周波数期待値[Hz]</th><th>テスト結果[Hz]</th></tr>
+  </thead>
+  <tbody>
+    <tr><td>0</td><td>Minor：第3音(E)の自動下落</td><td>440</td><td>0</td><td>C</td><td>6</td><td><strong>E4</strong></td><td><strong>329.628</strong></td><td></td></tr>
+    <tr><td>0</td><td>Minor：第6音(A)の自動下落</td><td>440</td><td>0</td><td>C</td><td>6</td><td><strong>A4</strong></td><td><strong>440.000</strong></td><td></td></tr>
+    <tr><td>0</td><td>Minor：第7音(B)の自動下落</td><td>440</td><td>0</td><td>C</td><td>6</td><td><strong>B4</strong></td><td><strong>493.883</strong></td><td></td></tr>
+    <tr><td>1</td><td>基準ピッチ強制一致</td><td>442</td><td>1</td><td>D</td><td>0</td><td><strong>A4</strong></td><td><strong>442.000</strong></td><td></td></tr>
+    <tr><td>2</td><td>純正律：A4基準でのE4</td><td>440</td><td>1</td><td>C</td><td>0</td><td><strong>E4</strong></td><td><strong>330.000</strong></td><td></td></tr>
+    <tr><td>3</td><td>Locrian：第2音(D)の自動下落</td><td>440</td><td>0</td><td>C</td><td>8</td><td><strong>D4</strong></td><td><strong>293.665</strong></td><td></td></tr>
+    <tr><td>4</td><td>中全音律：1/4コンマ純正3度</td><td>440</td><td>3</td><td>C</td><td>0</td><td><strong>E4</strong></td><td><strong>328.977</strong></td><td></td></tr>
+    <tr><td>5</td><td>オクターブ・異名同音計算</td><td>440</td><td>0</td><td>C</td><td>0</td><td><strong>B3#</strong></td><td><strong>261.626</strong></td><td></td></tr>
+    <tr><td>6</td><td>ピタゴラス：完全5度比率</td><td>432</td><td>2</td><td>D</td><td>0</td><td><strong>E5</strong></td><td><strong>648.000</strong></td><td></td></tr>
+    <tr><td>7</td><td>中全音律：3度の連鎖(G4#)</td><td>440</td><td>3</td><td>C</td><td>0</td><td><strong>G4#</strong></td><td><strong>411.221</strong></td><td></td></tr>
+    <tr><td>8</td><td>Lydian：第4音(F)の自動上昇</td><td>440</td><td>0</td><td>C</td><td>4</td><td><strong>F4</strong></td><td><strong>369.994</strong></td><td></td></tr>
+    <tr><td>9</td><td>Dorian：第3音(E)の自動下落</td><td>440</td><td>0</td><td>C</td><td>2</td><td><strong>E4</strong></td><td><strong>311.127</strong></td><td></td></tr>
+    <tr><td>10</td><td>モードと臨時記号の合算(F#)</td><td>440</td><td>0</td><td>C</td><td>4</td><td><strong>F4#</strong></td><td><strong>391.995</strong></td><td></td></tr>
+    <tr><td>11</td><td>WerckMeister3：不等分律の個性</td><td>440</td><td>6</td><td>C</td><td>0</td><td><strong>D4</strong></td><td><strong>294.329</strong></td><td></td></tr>
+    <tr><td>12</td><td>KirnBerger3：A4基準でのG4</td><td>440</td><td>7</td><td>C</td><td>0</td><td><strong>G4</strong></td><td><strong>393.326</strong></td><td></td></tr>
+    <tr><td>13</td><td>Bayati：第2音(E)微分音</td><td>440</td><td>0</td><td>D</td><td>11</td><td><strong>E4</strong></td><td><strong>320.244</strong></td><td></td></tr>
+    <tr><td>14</td><td>Rast：第3音(F)微分音</td><td>440</td><td>0</td><td>D</td><td>12</td><td><strong>F4</strong></td><td><strong>339.286</strong></td><td></td></tr>
+    <tr><td>15</td><td>中全音律：異名同音(G4#vsA4bの弾き分け)</td><td>440</td><td>3</td><td>C</td><td>0</td><td><strong>A4b</strong></td><td><strong>421.090</strong></td><td></td></tr>
+    <tr><td>16</td><td>ピタゴラス：重変奏(F5bb)の五度圏追従</td><td>432</td><td>2</td><td>D</td><td>0</td><td><strong>F5bb</strong></td><td><strong>598.647</strong></td><td></td></tr>
+    <tr><td>17</td><td>純正律：フラット入力(B4b)の比率マッピング</td><td>440</td><td>1</td><td>C</td><td>0</td><td><strong>B4b</strong></td><td><strong>475.200</strong></td><td></td></tr>
+    <tr><td>18</td><td>Phrygian：第2音(D)の自動下落(Db)</td><td>440</td><td>0</td><td>C</td><td>3</td><td><strong>D4</strong></td><td><strong>293.665</strong></td><td></td></tr>
+    <tr><td>19</td><td>Bayati：微分音モード下でのフラット臨時記号(E4b)</td><td>440</td><td>0</td><td>D</td><td>11</td><td><strong>E4b</strong></td><td><strong>302.270</strong></td><td></td></tr>
+    <tr><td>20</td><td>Rast：第7音(C)の自動下落とフラット合算(C4b)</td><td>440</td><td>0</td><td>D</td><td>12</td><td><strong>C4b</strong></td><td><strong>239.912</strong></td><td></td></tr>
+    <tr><td>21</td><td>Bayati：ナチュラル(E)に臨時記号(#)が付いても幹音基準で旋法補正が適用されるか</td><td>440</td><td>0</td><td>D</td><td>11</td><td><strong>E4#</strong></td><td><strong>339.286</strong></td><td></td></tr>
+    <tr><td>22</td><td>Dorian：幹音(E)へのフラット付与時、幹音基準の自動下落と臨時記号が重複合算されるか</td><td>440</td><td>0</td><td>C</td><td>2</td><td><strong>E4b</strong></td><td><strong>293.665</strong></td><td></td></tr>
+    <tr><td>23</td><td>Lydian：自動上昇対象のFにフラットが付いた際、プラマイゼロで純粋なF4になるか</td><td>440</td><td>0</td><td>C</td><td>4</td><td><strong>F4b</strong></td><td><strong>349.228</strong></td><td></td></tr>
+    <tr><td>24</td><td>中全音律・Bayati：不等分律下におけるナチュラル基準の四分音シフト</td><td>440</td><td>3</td><td>D</td><td>11</td><td><strong>E4</strong></td><td><strong>321.830</strong></td><td></td></tr>
+    <tr><td>25</td><td>中全音律：ウルフの5度(G4#とD5#の極端な濁り)</td><td>440</td><td>3</td><td>C</td><td>0</td><td><strong>D5#</strong></td><td><strong>614.919</strong></td><td></td></tr>
+    <tr><td>26</td><td>ピタゴラス：重嬰奏(C4##)によるC基準オクターブ繰り上がり</td><td>440</td><td>2</td><td>C</td><td>0</td><td><strong>C4##</strong></td><td><strong>297.335</strong></td><td></td></tr>
+    <tr><td>27</td><td>Rast：微分音旋法下でのダブルフラット臨時記号(F4bb)の合算</td><td>440</td><td>0</td><td>D</td><td>12</td><td><strong>F4bb</strong></td><td><strong>302.270</strong></td><td></td></tr>
+    <tr><td>28</td><td>純正律：D-A間の伝統的なウルフ5度(D4に対するA4の比率歪み)</td><td>440</td><td>1</td><td>C</td><td>0</td><td><strong>D4</strong></td><td><strong>297.000</strong></td><td></td></tr>
+    <tr><td>29</td><td>KirnBerger3：固有のセント沈み込みが適用されたF4#</td><td>440</td><td>7</td><td>C</td><td>0</td><td><strong>F4#</strong></td><td><strong>369.472</strong></td><td></td></tr>
+    <tr><td>30</td><td>中全音律：トリプルシャープ(C4###)による巨大な五度圏シフトとオクターブ跨ぎ</td><td>440</td><td>3</td><td>C</td><td>0</td><td><strong>C4###</strong></td><td><strong>300.253</strong></td><td></td></tr>
+    <tr><td>31</td><td>ピタゴラス：トリプルフラット(B4bbb)による大幅なC基準オクターブ繰り下げ</td><td>440</td><td>2</td><td>C</td><td>0</td><td><strong>B4bbb</strong></td><td><strong>406.489</strong></td><td></td></tr>
+    <tr><td>32</td><td>Bayati：自動四分音下落(-0.5)へのダブルフラット臨時記号(-2)の極端な合算</td><td>440</td><td>0</td><td>D</td><td>11</td><td><strong>E4bb</strong></td><td><strong>285.305</strong></td><td></td></tr>
+    <tr><td>33</td><td>極端な調：B Major(Root=11)におけるDorian旋法の自動補正追従</td><td>440</td><td>0</td><td>B</td><td>2</td><td><strong>D4</strong></td><td><strong>293.665</strong></td><td></td></tr>
+    <tr><td>34</td><td>WerckMeister3：ウェル・テンペラメントにおけるD4#とE4bの等価統合</td><td>440</td><td>6</td><td>C</td><td>0</td><td><strong>E4b</strong></td><td><strong>312.183</strong></td><td></td></tr>
+    <tr><td>35</td><td>中全音律：4重変奏(C4bbbb)による超低域五度圏追従とオクターブ繰り下げ</td><td>440</td><td>3</td><td>C</td><td>0</td><td><strong>C4bbbb</strong></td><td><strong>220.773</strong></td><td></td></tr>
+    <tr><td>36</td><td>ピタゴラス：Bayati微分音旋法下でのシャープ臨時記号(E4#)の小数五度圏処理</td><td>440</td><td>2</td><td>D</td><td>11</td><td><strong>E4#</strong></td><td><strong>341.015</strong></td><td></td></tr>
+    <tr><td>37</td><td>平均律：超低音域エッジケース(C0b)でのオクターブ・周波数破綻検証</td><td>440</td><td>0</td><td>C</td><td>0</td><td><strong>C0b</strong></td><td><strong>15.434</strong></td><td></td></tr>
+    <tr><td>38</td><td>平均律：Rast旋法(D主調)でのオクターブ境界Cへの微分音臨時記号合算(C4#)</td><td>440</td><td>0</td><td>D</td><td>12</td><td><strong>C4#</strong></td><td><strong>269.292</strong></td><td></td></tr>
+    <tr><td>39</td><td>中全音律：異名同音調(派生音Root=F#)における主音へのダブルフラット入力(F4#bb)</td><td>440</td><td>3</td><td>F#</td><td>0</td><td><strong>F4#bb</strong></td><td><strong>336.872</strong></td><td></td></tr>
+    <tr><td>40</td><td>Young2：古典調律による個性（C主調Mixolydian第7音の自動下落）</td><td>440</td><td>4</td><td>C</td><td>5</td><td><strong>B4</strong></td><td><strong>467.746</strong></td><td></td></tr>
+    <tr><td>41</td><td>Schnittger：北独オルガン調律の再現（C主調HarmonicMinor第6音の自動下落）</td><td>440</td><td>5</td><td>C</td><td>9</td><td><strong>A4</strong></td><td><strong>440.000</strong></td><td></td></tr>
+    <tr><td>42</td><td>MelodicMinor：旋法に基づく自動変位補正（C主調MelodicMinor第3音の自動下落）</td><td>440</td><td>0</td><td>C</td><td>10</td><td><strong>E4</strong></td><td><strong>311.127</strong></td><td></td></tr>
+    <tr><td>43</td><td>変化記号主音の追従：Root=C#下におけるMajor旋法の主音周波数検証</td><td>440</td><td>0</td><td>C#</td><td>0</td><td><strong>C4#</strong></td><td><strong>277.183</strong></td><td></td></tr>
+    <tr><td>44</td><td>変化記号主音の追従：Root=Db下におけるDorian旋法の第3音自動下落補正</td><td>440</td><td>0</td><td>Db</td><td>2</td><td><strong>F4</strong></td><td><strong>329.628</strong></td><td></td></tr>
+    <tr><td>45</td><td>Young2：基準ピッチ強制一致（opt_lockPitch=1による旋法補正の相殺）</td><td>442</td><td>4</td><td>F</td><td>0</td><td><strong>A4</strong></td><td><strong>442.000</strong></td><td></td></tr>
+    <tr><td>46</td><td>Schnittger：古典調律と微分音マカームの併用（D主調Bayati第2音の四分音下落）</td><td>440</td><td>5</td><td>D</td><td>11</td><td><strong>E4</strong></td><td><strong>321.149</strong></td><td></td></tr>
+    <tr><td>47</td><td>HarmonicMinor：Root=G#下における第6音(E)の自動下落度数計算の追従</td><td>440</td><td>0</td><td>G#</td><td>9</td><td><strong>E4</strong></td><td><strong>311.127</strong></td><td></td></tr>
+    <tr><td>48</td><td>ピタゴラス：極端なフラット主音(Root=Cb)での多重五度圏計算シフト</td><td>440</td><td>2</td><td>Cb</td><td>0</td><td><strong>C4</strong></td><td><strong>260.741</strong></td><td></td></tr>
+    <tr><td>49</td><td>中全音律：Root=A#での第3音(D#)自動上昇における異名同音ウルフ回避検証</td><td>440</td><td>3</td><td>A#</td><td>0</td><td><strong>D4#</strong></td><td><strong>307.459</strong></td><td></td></tr>
+    <tr><td>50</td><td>微分音マカームの極限：Bayatiの自動下落にトリプルシャープ(E4###)が重複した小数五度圏処理</td><td>440</td><td>0</td><td>D</td><td>11</td><td><strong>E4###</strong></td><td><strong>380.836</strong></td><td></td></tr>
+    <tr><td>51</td><td>Rastの極限：自動下落かつダブルフラット臨時記号(F4bb)への分数調律(Schnittger)の検証</td><td>440</td><td>5</td><td>D</td><td>12</td><td><strong>F4bb</strong></td><td><strong>302.441</strong></td><td></td></tr>
+    <tr><td>52</td><td>超高音域限界ケース：トリプルシャープ付き最高音(G9###)でのオクターブ・周波数オーバーフロー検証</td><td>440</td><td>0</td><td>C</td><td>0</td><td><strong>G9###</strong></td><td><strong>14917.240</strong></td><td></td></tr>
+    <tr><td>53</td><td>超低音域限界ケース：オクターブ文字表記マイナス(C-1)での周波数アンダーフロー・符号維持検証</td><td>440</td><td>0</td><td>C</td><td>0</td><td><strong>C-1</strong></td><td><strong>8.176</strong></td><td></td></tr>
+    <tr><td>54</td><td>極端な多重変化主音：Root=F###(五度圏+21)におけるDorian旋法の第3音自動下落判定</td><td>440</td><td>0</td><td>F###</td><td>2</td><td><strong>A4</strong></td><td><strong>440.000</strong></td><td></td></tr>
+    <tr><td>55</td><td>極端な多重変化主音：Root=Ebbb(五度圏-21)におけるLydian旋法の第4音自動上昇判定</td><td>440</td><td>0</td><td>Ebbb</td><td>4</td><td><strong>A4</strong></td><td><strong>440.000</strong></td><td></td></tr>
+    <tr><td>56</td><td>中全音律の極限：Root=F###下での3度の連鎖によるウルフの特異点シフトの追従</td><td>440</td><td>3</td><td>F###</td><td>0</td><td><strong>A4#</strong></td><td><strong>459.759</strong></td><td></td></tr>
+    <tr><td>57</td><td>正規表現パース（mc_oc）：マイナスオクターブ表記(o-2c9)が仕様通りo-1c0(8.175Hz)を下回るA-2(6.875Hz)として正しく計算されるか</td><td>440</td><td>0</td><td>C</td><td>0</td><td><strong>o-2c9</strong></td><td><strong>6.875</strong></td><td></td></tr>
+    <tr><td>58</td><td>正規表現パース（mc_oc）：オクターブ0表記(o+0c0)における床関数・ゼロ跨ぎ挙動</td><td>440</td><td>0</td><td>C</td><td>0</td><td><strong>o+0c0</strong></td><td><strong>16.352</strong></td><td></td></tr>
+    <tr><td>59</td><td>正規表現パース（mc_nc）：ノートナンバー単体入力(n69)が正しくA4(基準ピッチ)に強制一致するか</td><td>442</td><td>0</td><td>C</td><td>0</td><td><strong>n69</strong></td><td><strong>442.000</strong></td><td></td></tr>
+    <tr><td>60</td><td>休符処理（mc_r）：入力文字「r」時に例外を投げず、周波数0(消音)を数学的に返すか</td><td>440</td><td>0</td><td>C</td><td>0</td><td><strong>r</strong></td><td><strong>0.000</strong></td><td></td></tr>
+    <tr><td>61</td><td>不正入力・フォールバック：空文字または数値を成さない異常入力時にNaNを返して安全に破綻するか</td><td>440</td><td>0</td><td>C</td><td>0</td><td><strong>invalid_string</strong></td><td><strong>NaN</strong></td><td></td></tr>
+    <tr><td>62</td><td>異名同音の超極端ケース：C4b...とB3#...が五度圏の反対側から衝突した際の中全音律比率</td><td>440</td><td>3</td><td>C</td><td>0</td><td><strong>C4bbbbb</strong></td><td><strong>211.284</strong></td><td></td></tr>
+    <tr><td>63</td><td>純正律ウルフの極限：可動式純正律（Root=G#）下における、A4(短2度)基準でのC4(長3度)の完璧な比率マッピング</td><td>440</td><td>1</td><td>G#</td><td>0</td><td><strong>C4</strong></td><td><strong>264.000</strong></td><td></td></tr>
+    <tr><td>64</td><td>古典調律の極限：Schnittger下におけるF4#の正確な分数比PC傾斜デビエーション計算の追従</td><td>440</td><td>5</td><td>C</td><td>0</td><td><strong>F4#</strong></td><td><strong>370.622</strong></td><td></td></tr>
+    <tr><td>65</td><td>固定式調律の完全検証：KirnBerger3(固定式)下でRoot=F#に変更しても、絶対鍵盤位置C(C4)の個性が維持されるか</td><td>440</td><td>7</td><td>F#</td><td>0</td><td><strong>C4</strong></td><td><strong>262.810</strong></td><td></td></tr>
+    <tr><td>66</td><td>可動式ミーントーンのウルフ追従：ストレートC基準化によるウルフ5度圏の絶対位置の完全安定化の追従検証</td><td>440</td><td>3</td><td>D</td><td>0</td><td><strong>G4#</strong></td><td><strong>411.221</strong></td><td></td></tr>
+    <tr><td>67</td><td>ピタゴラス律のウルフ追従：極端なフラット主調下における、五度圏の絶対ステップに基づいたピタゴラスコンマの正確な抽出</td><td>440</td><td>2</td><td>Gb</td><td>0</td><td><strong>B4#</strong></td><td><strong>528.596</strong></td><td></td></tr>
+    <tr><td>68</td><td>古典調律とマカームの極限：WerckMeister3(固定式)下で、Rast旋法(D主調)の第3音(F4)が受ける固定鍵盤比率と四分音の複合加算</td><td>440</td><td>6</td><td>D</td><td>12</td><td><strong>F4</strong></td><td><strong>339.670</strong></td><td></td></tr>
+    <tr><td>69</td><td>純正律の多重変化：可動式純正律（Root=A）下における、ダブルシャープ付き音（F4##）の整数比マッピングの破綻なき追従</td><td>440</td><td>1</td><td>A</td><td>0</td><td><strong>F4##</strong></td><td><strong>396.000</strong></td><td></td></tr>
+    <tr><td>70</td><td>五度圏の限界突破：ピタゴラス律における5重嬰奏（C4#####）の指数計算とC基準オクターブ正規化の完全な処理</td><td>440</td><td>2</td><td>C</td><td>0</td><td><strong>C4#####</strong></td><td><strong>362.079</strong></td><td></td></tr>
+    <tr><td>71</td><td>五度圏の限界突破：中全音律における5重変奏（B4bbbbb）での、うなり縮小の累積による正確な周波数収束</td><td>440</td><td>3</td><td>C</td><td>0</td><td><strong>B4bbbbb</strong></td><td><strong>394.930</strong></td><td></td></tr>
+    <tr><td>72</td><td>オクターブ境界のエッジケース：Bayati旋法(E主調)でオクターブが切り替わる瞬間（C4b）の四分音処理と床関数の整合性</td><td>440</td><td>0</td><td>E</td><td>11</td><td><strong>C4b</strong></td><td><strong>233.082</strong></td><td></td></tr>
+    <tr><td>73</td><td>Young2の調性固有個性：C主調からF#主調へ楽曲が転調した際、固定鍵盤としての各音のうなりの美しさが仕様通り維持されているかの検証（D4音）</td><td>440</td><td>4</td><td>F#</td><td>0</td><td><strong>D4</strong></td><td><strong>293.997</strong></td><td></td></tr>
+    <tr><td>74</td><td>超高音域の最大変位：平均律・HarmonicMinor旋法における、最高オクターブかつトリプルシャープ（B9###）での周波数オーバーフロー検証</td><td>440</td><td>0</td><td>C</td><td>9</td><td><strong>B9###</strong></td><td><strong>19912.127</strong></td><td></td></tr>
+    <tr><td>75</td><td>完全消音の絶対性：すべての音律、すべての主音、すべての旋法において、入力「r」がいかなる時も例外を投げず「0.000」を返すかの最終防壁</td><td>442</td><td>7</td><td>A###</td><td>12</td><td><strong>r</strong></td><td><strong>0.000</strong></td><td></td></tr>
   </tbody>
 </table>
 <hr>
