@@ -409,7 +409,7 @@ My_entry.handler_wave.prototype.init_handlers = function(){
     var self = this;
     var id = elem.id;
     self.handlers.onbeforeunload();
-    if(self.isSingle && (elem.tagName.toUpperCase() === "SELECT" || elem.id === "input-A4")){  // Ver.1.84.15
+    if(self.isSingle && (elem.tagName.toUpperCase() === "SELECT" || elem.id === "input-A4" || elem.id === "checkbox-lockPitch")){  // Ver.1.84.15  // Ver.1.91.19
       self.output_freq();
     }
     self.waveo = new self.constructors.output_wave();
@@ -452,7 +452,7 @@ My_entry.handler_wave.prototype.make_str = function(octave, note){
 };
 /* Ver.1.85.17 */
 /* Ver.1.44.11 */
-My_entry.handler_wave.prototype.calc_freq = function(str, A4, tune, root, mode, opt_octave0, opt_sw_sharp2flat, opt_lockPitch){  // Ver.1.90.19
+My_entry.handler_wave.prototype.calc_freq = function(str, A4, tune, root, mode, opt_lockPitch, opt_octave0, opt_sw_sharp2flat){  // Ver.1.90.19  // Ver.1.91.19
   var self = this;
   var _freq = NaN;
   var str_stem = NaN;
@@ -589,16 +589,17 @@ My_entry.handler_wave.prototype.get_freq = function(str){
   var tune = self.entry.$.selectNum_id("select-tune");
   var root = self.entry.$.selectVal_id("select-root");
   var mode = self.entry.$.selectNum_id("select-mode");
+  var lockPitch = self.entry.$.checkbox_id("checkbox-lockPitch");  // Ver.1.91.19
   if(str){
     var octave0 = self.entry.$.selectNum_id("select-octave");
     var sw_sharp2flat = self.entry.$.checkbox_id("checkbox-sharp2flat");
-    _freq = self.calc_freq(str, A4, tune, root, mode, octave0, sw_sharp2flat)
+    _freq = self.calc_freq(str, A4, tune, root, mode, lockPitch, octave0, sw_sharp2flat);  // Ver.1.91.19
   }
   else{
     var octave = self.entry.$.selectNum_id("select-octave");
     var note = self.entry.$.selectVal_id("select-note");
     var str = self.make_str(octave, note);
-    _freq = self.calc_freq(str, A4, tune, root, mode);
+    _freq = self.calc_freq(str, A4, tune, root, mode, lockPitch);  // Ver.1.91.19
   }
   return _freq;
 };
@@ -652,6 +653,7 @@ My_entry.handler_wave.prototype.make_params = function(){
   params.tune = $.selectNum_id("select-tune");
   params.root = $.selectVal_id("select-root");
   params.mode = $.selectNum_id("select-mode");
+  params.lockPitch = $.checkbox_id("checkbox-lockPitch");  // Ver.1.91.19
   /* -> Ver.1.84.15 */
   /* Ver.1.35.6 -> */
   params.kampli = $.inputNum_id("input-amplitude");  // Ver.1.64.14  // Ver.1.75.14

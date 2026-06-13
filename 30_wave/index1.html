@@ -80,7 +80,9 @@ MIDI-基準octave数
 </label>
     </td>
     <td class="border clear" colspan="21">
-MIDI-相対note数0~11
+<label>＃→♭:
+  <input id="checkbox-sharp2flat" type="checkbox">
+</label>
     </td>
     <td class="border clear" colspan="21">
 <button id="uncheck" class="selection">uncheck-all</button>
@@ -329,8 +331,9 @@ tuning：
 <label for="input-A4">A4:
   <input id="input-A4" type="number" step="1" min="0" max="48000" value="440">[Hz]
 </label>
-<label class="right">＃→♭:
-  <input id="checkbox-sharp2flat" type="checkbox">
+←
+<label>lockPitch:
+  <input id="checkbox-lockPitch" type="checkbox" checked="checked">
 </label>
 <br>
 <label for="select-tune">tune:
