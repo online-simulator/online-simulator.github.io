@@ -54,8 +54,8 @@ My_entry.handler_wave.prototype.init = function(){
   self.note2index = {C: 0, "C#": 1, Db: 1, D: 2, "D#": 3, Eb: 3, E: 4, F: 5, "F#": 6, Gb: 6, G: 7, "G#": 8, Ab: 8, A: 9, "A#": 10, Bb: 10, B: 11};  // Ver.1.90.19
   self.notes_sharp = ["C", "C#", "D", "D#", "E", "F", "F#", "G", "G#", "A", "A#", "B"];
   self.notes_flat = ["C", "Db", "D", "Eb", "E", "F", "Gb", "G", "Ab", "A", "Bb", "B"];
-  self.tunes = ["Equal", "Pure", "Pythagorean", "MeanTone", "Young2", "Schnittger", "WerckMeister3", "KirnBerger3"];
-  self.modes = ["Major", "Ionian", "Dorian", "Phrygian", "Lydian", "Mixolydian", "Minor", "Aeolian", "Locrian", "HarmonicMinor", "MelodicMinor", "Bayati", "Rast"];  // Ver.1.87.19
+  self.tunes = ["Equal", "Pure", "Pythagorean", "MeanTone", "Young2", "Schnittger", "WerckMeister3", "KirnBerger3", "Vallotti", "PureMinor", "WerckMeister4", "WerckMeister5"];  // Ver.1.92.19
+  self.modes = ["Major", "Ionian", "Dorian", "Phrygian", "Lydian", "Mixolydian", "Minor", "Aeolian", "Locrian", "HarmonicMinor", "MelodicMinor", "Bayati", "Rast", "Saba", "PhrygianDominant"];  // Ver.1.87.19  // Ver.1.92.19
   self.rules = {
     Major: {
       degrees: [],
@@ -102,7 +102,9 @@ My_entry.handler_wave.prototype.init = function(){
       alterations: [-1]
     },
     Bayati: {degrees: [2, 3, 6, 7], alterations: [-0.5, -1, -1, -1]},  // Ver.1.87.19
-    Rast:   {degrees: [3, 7], alterations: [-0.5, -0.5]}  // Ver.1.87.19
+    Rast:   {degrees: [3, 7], alterations: [-0.5, -0.5]},  // Ver.1.87.19
+    Saba:   {degrees: [2, 3, 4, 6, 7], alterations: [-0.5, -1, -1, -1, -1]},  // Ver.1.92.19
+    PhrygianDominant: {degrees: [2, 6, 7], alterations: [-1, -1, -1]}  // Ver.1.92.19
   };
   /* Ver.1.90.19 -> */
   var PC = 1200*Math.LOG2E*Math.log(531441/524288);  // cents of Pythagorean Comma
@@ -110,14 +112,17 @@ My_entry.handler_wave.prototype.init = function(){
   self.centsDeviation = {
     Young2:        [0, -2, -3, -1, -4, -1, -3, -2, -2, -4, -1, -3].map(function(v){return v*(PC/12);}),
     WerckMeister3: [0, -5, -4, -3, -5, -1, -6, -2, -4, -6, -2, -4].map(function(v){return v*(PC/12);}),
+    WerckMeister4: [0, -4, -2, -4, -4, 2, -4, -2, -4, -4, -2, -2].map(function(v){return v*(PC/12);}),  // Ver.1.92.19
+    WerckMeister5: [0, -2, -2, -2, -4, 2, -2, -2, -2, -4, 0, -2].map(function(v){return v*(PC/12);}),  // Ver.1.92.19
+    Vallotti:      [0, -2, -4, -2, -6, 2, -4, -2, -2, -6, 0, -4].map(function(v){return v*(PC/12);}),  // Ver.1.92.19
     Schnittger:    [0, -2, -6, -2, -8, 0, -4, -3, -2, -7, -2, -4].map(function(v){return v*(PC/24);}),
     KirnBerger3:   [[0, 0], [3, -9], [-2, 0], [-3, 0], [4, -12], [-1, 0], [3, -9], [-1, 0], [-4, 0], [-4, 0], [-2, 0], [-6, 0]].map(function(v){return v[0]*(PC/12)+v[1]*(SC/12);})
   };
   /* Ver.1.85.17 */
   self.get_ratio = function(tune, root, idx_stem, alteration){
-    var isFixedTemperament = ["Equal", "Young2", "WerckMeister3", "Schnittger", "KirnBerger3"].indexOf(tune) !== -1;
+    var isMovableTemperament = ["Pure", "PureMinor", "Pythagorean", "MeanTone"].indexOf(tune) !== -1;  // Ver.1.92.19
     var idx_root = 0;
-    if(!(isFixedTemperament)){
+    if(isMovableTemperament){  // Ver.1.92.19
       idx_root = (isNaN(root))? self.note2index[root]: Number(root)%12;
       if(typeof idx_root === "undefined" || isNaN(idx_root)) idx_root = 0;
     }
@@ -128,9 +133,11 @@ My_entry.handler_wave.prototype.init = function(){
       if(tune === "Equal"){
         return Math.pow(2, (idx+alt)/12);
       }
-      else if(tune === "Pure"){
+      else if(tune === "Pure" || tune === "PureMinor"){  // Ver.1.92.19
         var semitones_from_root = (idx-idx_root+alt_int+12*11)%12;
-        var pureTable = [1/1, 25/24, 9/8, 6/5, 5/4, 4/3, 45/32, 3/2, 25/16, 5/3, 9/5, 15/8];
+        var pureTable = (tune === "Pure")?
+          [1/1, 25/24, 9/8, 6/5, 5/4, 4/3, 45/32, 3/2, 25/16, 5/3, 9/5, 15/8]:
+          [1/1, 25/24, 9/8, 6/5, 5/4, 4/3, 45/32, 3/2, 8/5,  5/3, 9/5, 15/8];  // Ver.1.92.19
         var _r = pureTable[semitones_from_root];
         _r *= Math.pow(2, alt_frac/12);
         return _r;

@@ -51,9 +51,10 @@
           var mode = parseInt(cells[5].textContent, 10);
           var note = cells[6].textContent.trim();
           var lockPitch = table.classList.contains("lockPitch");
+          var expected = parseFloat(cells[7].textContent);
           try{
             var freq = wave.calc_freq(note, A4, tune, root, mode, lockPitch);
-            cells[8].innerHTML = "<strong>"+((isNaN(freq))? freq: freq.toFixed(3))+"</strong>";
+            cells[8].innerHTML = "<strong"+((expected.toFixed(3) === freq.toFixed(3))? "": " class='clear'")+">"+((isNaN(freq))? freq: freq.toFixed(3))+"</strong>";
           }
           catch(error){
             cells[8].textContent = "error";
@@ -254,6 +255,54 @@
     <tr><td>73</td><td>Young2の調性固有個性：C主調からF#主調へ楽曲が転調した際、固定鍵盤としての各音のうなりの美しさが仕様通り維持されているかの検証（D4音）</td><td>440</td><td>4</td><td>F#</td><td>0</td><td><strong>D4</strong></td><td><strong>293.997</strong></td><td></td></tr>
     <tr><td>74</td><td>超高音域の最大変位：平均律・HarmonicMinor旋法における、最高オクターブかつトリプルシャープ（B9###）での周波数オーバーフロー検証</td><td>440</td><td>0</td><td>C</td><td>9</td><td><strong>B9###</strong></td><td><strong>19912.127</strong></td><td></td></tr>
     <tr><td>75</td><td>完全消音の絶対性：すべての音律、すべての主音、すべての旋法において、入力「r」がいかなる時も例外を投げず「0.000」を返すかの最終防壁</td><td>442</td><td>7</td><td>A###</td><td>12</td><td><strong>r</strong></td><td><strong>0.000</strong></td><td></td></tr>
+  </tbody>
+</table>
+
+<div class="run">Ver.1.92.19：tuneとmodeの追加</div>
+<div class="condition">lockPitch = false</div>
+<table class="tuning">
+  <thead>
+    <tr><th>No.</th><th>テスト内容</th><th>A4[Hz]</th><th>tune</th><th>root</th><th>mode</th><th>入力音</th><th>周波数期待値[Hz]</th><th>テスト結果[Hz]</th></tr>
+  </thead>
+  <tbody>
+    <tr><td>76</td><td>新古典調律の検証：Vallotti(固定式)下における、ハ長調(Root=C)での完全な5度デビエーションの傾斜追従検証（D4音）</td><td>440</td><td>8</td><td>C</td><td>0</td><td><strong>D4</strong></td><td><strong>294.329</strong></td><td></td></tr>
+    <tr><td>77</td><td>新古典調律の検証：WerckMeister4(固定式)下における、独自のG#-D#5度拡大仕様に基づくD4#の特異な歪み計算</td><td>440</td><td>10</td><td>C</td><td>0</td><td><strong>D4#</strong></td><td><strong>311.127</strong></td><td></td></tr>
+    <tr><td>78</td><td>新古典調律の検証：WerckMeister5(固定式)下における、なだらかな調性個性を反映したF4#のセント補正計算の連動追従</td><td>440</td><td>11</td><td>C</td><td>0</td><td><strong>F4#</strong></td><td><strong>370.831</strong></td><td></td></tr>
+    <tr><td>79</td><td>短調用純正律の検証：PureMinor(可動式)下において、短3度(Eb)・短6度(Ab)が長調派生ではなく「純粋な短調有理数比(6/5, 8/5)」へ美しくマッピングされているかの検証（C主調でのAb4）</td><td>440</td><td>9</td><td>C</td><td>0</td><td><strong>A4b</strong></td><td><strong>422.400</strong></td><td></td></tr>
+    <tr><td>80</td><td>短調用純正律のウルフ検証：PureMinor(可動式、Root=D)下において、マイナー楽曲の主要和音（Im, Vm）の濁りが完璧に消滅する数理シフトの追従（F4音）</td><td>440</td><td>9</td><td>D</td><td>0</td><td><strong>F4</strong></td><td><strong>352.000</strong></td><td></td></tr>
+    <tr><td>81</td><td>新マカーム旋法の検証：Saba旋法(C主調)における、新定義に基づく自動変位補正の同時多発処理検証（E4音）</td><td>440</td><td>0</td><td>C</td><td>13</td><td><strong>E4</strong></td><td><strong>311.127</strong></td><td></td></tr>
+    <tr><td>82</td><td>新マカーム旋法の検証：Saba旋法(C主調)における、第4音(F)のフラット自動下落補正がもたらす新たな周波数ステップ検証（F4音）</td><td>440</td><td>0</td><td>C</td><td>13</td><td><strong>F4</strong></td><td><strong>329.628</strong></td><td></td></tr>
+    <tr><td>83</td><td>新エキゾチック旋法の検証：PhrygianDominant旋法(C主調)の新定義下における周波数生成（E4音）</td><td>440</td><td>0</td><td>C</td><td>14</td><td><strong>E4</strong></td><td><strong>329.628</strong></td><td></td></tr>
+    <tr><td>84</td><td>新調律×新旋法の複合：Vallotti(固定式)下において、Saba旋法(D主調)の新定義に基づく高度な乗算追従（E4音）</td><td>440</td><td>8</td><td>D</td><td>13</td><td><strong>E4</strong></td><td><strong>321.694</strong></td><td></td></tr>
+    <tr><td>85</td><td>新調律×新旋法の複合：WerckMeister4(固定式)下において、PhrygianDominant旋法(E主調)の新定義に基づく五度圏外判定（G4##音）</td><td>440</td><td>10</td><td>E</td><td>14</td><td><strong>G4##</strong></td><td><strong>440.000</strong></td><td></td></tr>
+    <tr><td>86</td><td>短調純正律×新マカーム：PureMinor(可動式、Root=G)下における、Saba旋法の新定義半音数シフトと短調専用比率配列のハイブリッドマッピング（B4音）</td><td>440</td><td>9</td><td>G</td><td>13</td><td><strong>B4</strong></td><td><strong>469.333</strong></td><td></td></tr>
+    <tr><td>87</td><td>ピタゴラス律×新マカーム：Pythagorean(可動式、Root=F)下における、Saba旋法新定義がもたらす累積指数計算（D5音）</td><td>440</td><td>2</td><td>F</td><td>13</td><td><strong>D5</strong></td><td><strong>549.380</strong></td><td></td></tr>
+    <tr><td>88</td><td>中全音律×新エキゾチック：MeanTone(可動式、Root=A)下における、PhrygianDominant旋法新定義の増2度収束検証（C5音）</td><td>440</td><td>3</td><td>A</td><td>14</td><td><strong>C5</strong></td><td><strong>526.363</strong></td><td></td></tr>
+    <tr><td>89</td><td>超低音域×新音律限界ケース：WerckMeister5(固定式)下における、最低オクターブの変位音（C-1#）でのデビエーション・床関数の破綻なき符号維持検証</td><td>440</td><td>11</td><td>C</td><td>0</td><td><strong>C-1#</strong></td><td><strong>8.682</strong></td><td></td></tr>
+    <tr><td>90</td><td>完全消音の絶対防壁（新音律版）：追加された Vallotti や PureMinor などのすべての新音律下においても、入力「r」が例外なく完璧に「0.000」を返すかの最終防衛検証</td><td>444</td><td>9</td><td>G###</td><td>14</td><td><strong>r</strong></td><td><strong>0.000</strong></td><td></td></tr>
+  </tbody>
+</table>
+<div class="condition">lockPitch = true</div>
+<table class="tuning lockPitch">
+  <thead>
+    <tr><th>No.</th><th>テスト内容</th><th>A4[Hz]</th><th>tune</th><th>root</th><th>mode</th><th>入力音</th><th>周波数期待値[Hz]</th><th>テスト結果[Hz]</th></tr>
+  </thead>
+  <tbody>
+    <tr><td>76</td><td>新古典調律の検証：Vallotti(固定式)下における、ハ長調(Root=C)での完全な5度デビエーションの傾斜追従検証（D4音）</td><td>440</td><td>8</td><td>C</td><td>0</td><td><strong>D4</strong></td><td><strong>294.329</strong></td><td></td></tr>
+    <tr><td>77</td><td>新古典調律の検証：WerckMeister4(固定式)下における、独自のG#-D#5度拡大仕様に基づくD4#の特異な歪み計算</td><td>440</td><td>10</td><td>C</td><td>0</td><td><strong>D4#</strong></td><td><strong>311.127</strong></td><td></td></tr>
+    <tr><td>78</td><td>新古典調律の検証：WerckMeister5(固定式)下における、なだらかな調性個性を反映したF4#のセント補正計算の連動追従</td><td>440</td><td>11</td><td>C</td><td>0</td><td><strong>F4#</strong></td><td><strong>370.831</strong></td><td></td></tr>
+    <tr><td>79</td><td>短調用純正律の検証：PureMinor(可動式)下において、短3度(Eb)・短6度(Ab)が長調派生ではなく「純粋な短調有理数比(6/5, 8/5)」へ美しくマッピングされているかの検証（C主調でのAb4）</td><td>440</td><td>9</td><td>C</td><td>0</td><td><strong>A4b</strong></td><td><strong>422.400</strong></td><td></td></tr>
+    <tr><td>80</td><td>短調用純正律のウルフ検証：PureMinor(可動式、Root=D)下において、マイナー楽曲の主要和音（Im, Vm）の濁りが完璧に消滅する数理シフトの追従（F4音）</td><td>440</td><td>9</td><td>D</td><td>0</td><td><strong>F4</strong></td><td><strong>352.000</strong></td><td></td></tr>
+    <tr><td>81</td><td>新マカーム旋法の検証（ロック有効）：Saba旋法(C主調)下で、新定義に基づくピッチロック相殺とオクターブ下のE4への連動復元検証</td><td>440</td><td>0</td><td>C</td><td>13</td><td><strong>E4</strong></td><td><strong>329.628</strong></td><td></td></tr>
+    <tr><td>82</td><td>新マカーム旋法の検証（ロック有効）：Saba旋法(C主調)下で、新定義に基づくピッチロック発動時の第4音(F4)の周波数収束検証</td><td>440</td><td>0</td><td>C</td><td>13</td><td><strong>F4</strong></td><td><strong>349.228</strong></td><td></td></tr>
+    <tr><td>83</td><td>新エキゾチック旋法の検証（ロック有効）：PhrygianDominant旋法(C主調)の新定義下におけるピッチロック周波数検証（E4音）</td><td>440</td><td>0</td><td>C</td><td>14</td><td><strong>E4</strong></td><td><strong>349.228</strong></td><td></td></tr>
+    <tr><td>84</td><td>新調律×新旋法の複合（ロック有効）：Vallotti(固定式)・Saba旋法(D主調)下において、新定義のA4補正が打ち消され、固定調律本来の個性がD4上に復元されるか</td><td>440</td><td>8</td><td>D</td><td>13</td><td><strong>E4</strong></td><td><strong>321.694</strong></td><td></td></tr>
+    <tr><td>85</td><td>新調律×新旋法の複合（ロック有効）：WerckMeister4(固定式)・PhrygianDominant旋法(E主調)下において、新定義に基づく分子・分母の高度な整理追従検証</td><td>440</td><td>10</td><td>E</td><td>14</td><td><strong>G4##</strong></td><td><strong>440.000</strong></td><td></td></tr>
+    <tr><td>86</td><td>短調純正律×新マカーム（ロック有効）：PureMinor(可動式、Root=G)下における、Saba旋法新定義適用時のピッチロックと短調専用配列の数理連動</td><td>440</td><td>9</td><td>G</td><td>13</td><td><strong>B4</strong></td><td><strong>492.450</strong></td><td></td></tr>
+    <tr><td>87</td><td>ピタゴラス律×新マカーム（ロック有効）：Pythagorean(可動式、Root=F)下における、Saba旋法新定義かつピッチロック有効時の5度圏インデックス連動検証</td><td>440</td><td>2</td><td>F</td><td>13</td><td><strong>D5</strong></td><td><strong>586.667</strong></td><td></td></tr>
+    <tr><td>88</td><td>中全音律×新エキゾチック（ロック有効）：MeanTone(可動式、Root=A)下における、PhrygianDominant旋法新定義かつピッチロック発動時の実測検証</td><td>440</td><td>3</td><td>A</td><td>14</td><td><strong>C5</strong></td><td><strong>526.363</strong></td><td></td></tr>
+    <tr><td>89</td><td>超低音域×新音律限界ケース：WerckMeister5(固定式)下における、最低オクターブの変位音（C-1#）でのデビエーション・床関数の破綻なき符号維持検証</td><td>440</td><td>11</td><td>C</td><td>0</td><td><strong>C-1#</strong></td><td><strong>8.682</strong></td><td></td></tr>
+    <tr><td>90</td><td>完全消音の絶対防壁（新音律版）：追加された Vallotti や PureMinor などのすべての新音律下においても、入力「r」が例外なく完璧に「0.000」を返すかの最終防衛検証</td><td>444</td><td>9</td><td>G###</td><td>14</td><td><strong>r</strong></td><td><strong>0.000</strong></td><td></td></tr>
   </tbody>
 </table>
 <hr>
