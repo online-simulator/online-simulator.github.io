@@ -347,6 +347,55 @@
     <tr><td>101</td><td>純正律：Ab主調の完全5度(Eb)</td><td>440</td><td>1</td><td>Ab</td><td>0</td><td><strong>E4b</strong></td><td><strong>316.800</strong></td><td></td></tr>
   </tbody>
 </table>
+
+<div class="clear">Ver.1.94.19~1.94.21：No.56の未定義root対応・note||rootのnatural記号nの追加</div>
+<div class="selection">・note：_freq算出ratioの分子のみ、alteration_mode = 0</div>
+<div class="selection">・root：_freq算出ratioの分母・分子のalteration_mode = 0（mode旋法無効化）</div>
+<div class="selection">・base：_freq算出ratioの分母のみ、alteration_mode = 0（内部変数のため、No.113の不一致あり）</div>
+<div class="condition">lockPitch = false</div>
+<table class="tuning">
+  <thead>
+    <tr><th>No.</th><th>テスト内容</th><th>A4[Hz]</th><th>tune</th><th>root</th><th>mode</th><th>入力音</th><th>周波数期待値[Hz]</th><th>テスト結果[Hz]</th></tr>
+  </thead>
+  <tbody>
+    <tr><td>102</td><td>マイナーキー補正のキャンセル検証：D Minor(Root=D)下における第3音(F)へのナチュラル指定（F4n音）</td><td>432</td><td>9</td><td>D</td><td>6</td><td><strong>F4n</strong></td><td><strong>345.600</strong></td><td></td></tr>
+    <tr><td>103</td><td>マイナーキー補正のキャンセル検証：D Minor(Root=D)下における第6音(B)へのナチュラル指定（B3n音）</td><td>432</td><td>9</td><td>D</td><td>6</td><td><strong>B3n</strong></td><td><strong>240.000</strong></td><td></td></tr>
+    <tr><td>104</td><td>ナチュラルと変位記号の併用検証：D Minor下でモード補正を無視し、純粋な#のみを適用（F4n#音）</td><td>432</td><td>9</td><td>D</td><td>6</td><td><strong>F4n#</strong></td><td><strong>360.000</strong></td><td></td></tr>
+    <tr><td>105</td><td>基準音ロック時の相殺検証：A4がモード補正されるC Minor下で、入力音Aにナチュラルを指定（A4n音）</td><td>432</td><td>1</td><td>C</td><td>6</td><td><strong>A4n</strong></td><td><strong>432.000</strong></td><td></td></tr>
+    <tr><td>106</td><td>Rootへのナチュラル指定検証：主音にDnを指定し、モードに依存しない基準周波数での算出（D4音）</td><td>432</td><td>1</td><td>Dn</td><td>0</td><td><strong>D4</strong></td><td><strong>288.000</strong></td><td></td></tr>
+    <tr><td>107</td><td>エッジケース検証：オクターブ跨ぎの合算処理（D Minor下でB#にナチュラル指定し、次オクターブへ繰り上がる挙動）</td><td>432</td><td>9</td><td>D</td><td>6</td><td><strong>B4n#</strong></td><td><strong>518.400</strong></td><td></td></tr>
+    <tr><td>108</td><td>エッジケース検証：微分音モードにおける解除（Bayati下で1/4音下がるE音をナチュラルで本来のピッチへ戻す検証）</td><td>432</td><td>1</td><td>D</td><td>11</td><td><strong>E4n</strong></td><td><strong>324.000</strong></td><td></td></tr>
+    <tr><td>109</td><td>エッジケース検証：冗長な記号の解析（記号が重なったC4n###nnにおいて、nが優先されシャープが無視されるかの検証）</td><td>432</td><td>1</td><td>C</td><td>0</td><td><strong>C4n###nn</strong></td><td><strong>311.040</strong></td><td></td></tr>
+    <tr><td>110</td><td>エッジケース検証：複雑なRoot表記の解析（Root="F#b"のように打ち消し合う記号下で、幹音Fが正しく抽出されるかの検証）</td><td>432</td><td>1</td><td>F#b</td><td>0</td><td><strong>F4</strong></td><td><strong>345.600</strong></td><td></td></tr>
+    <tr><td>111</td><td>回帰テスト：lockPitch=true 下で Root にナチュラル（Dn）を指定した際、分子・分母のモード補正が同時キャンセルされピッチが狂わないかの検証（D4音）</td><td>432</td><td>1</td><td>Dn</td><td>6</td><td><strong>D4</strong></td><td><strong>288.000</strong></td><td></td></tr>
+    <tr><td>112</td><td>回帰テスト：lockPitch=true 下で Root にナチュラル（Dn）を指定し、入力音にもナチュラル（F4n）を指定した二重キャンセル検証</td><td>432</td><td>1</td><td>Dn</td><td>6</td><td><strong>F4n</strong></td><td><strong>345.600</strong></td><td></td></tr>
+    <tr><td>113</td><td>基準音ナチュラル検証：基準音 A4 自体にナチュラルが明示（A4n）された場合、lockPitch=true 下で base 側の自動補正が正常にシャットアウトされるかの検証</td><td>432</td><td>1</td><td>C</td><td>6</td><td><strong>C4</strong></td><td><strong>259.200</strong></td><td></td></tr>
+    <tr><td>114</td><td>中全音律（MeanTone）検証：ルートのナチュラル（Dn）により五度圏のウルフ移動を固定し、純粋なピッチ比が算出されるかの検証</td><td>432</td><td>3</td><td>Dn</td><td>6</td><td><strong>F4</strong></td><td><strong>345.600</strong></td><td></td></tr>
+    <tr><td>115</td><td>ピタゴラス音律（Pythagorean）エッジケース：複雑な微分音キー（Bayati）下で Root にナチュラルを適用した際の完全フラット化検証</td><td>432</td><td>2</td><td>Dn</td><td>11</td><td><strong>E4</strong></td><td><strong>324.000</strong></td><td></td></tr>
+  </tbody>
+</table>
+<div class="condition">lockPitch = true</div>
+<table class="tuning lockPitch">
+  <thead>
+    <tr><th>No.</th><th>テスト内容</th><th>A4[Hz]</th><th>tune</th><th>root</th><th>mode</th><th>入力音</th><th>周波数期待値[Hz]</th><th>テスト結果[Hz]</th></tr>
+  </thead>
+  <tbody>
+    <tr><td>102</td><td>マイナーキー補正のキャンセル検証：D Minor(Root=D)下における第3音(F)へのナチュラル指定（F4n音）</td><td>432</td><td>9</td><td>D</td><td>6</td><td><strong>F4n</strong></td><td><strong>345.600</strong></td><td></td></tr>
+    <tr><td>103</td><td>マイナーキー補正のキャンセル検証：D Minor(Root=D)下における第6音(B)へのナチュラル指定（B3n音）</td><td>432</td><td>9</td><td>D</td><td>6</td><td><strong>B3n</strong></td><td><strong>240.000</strong></td><td></td></tr>
+    <tr><td>104</td><td>ナチュラルと変位記号の併用検証：D Minor下でモード補正を無視し、純粋な#のみを適用（F4n#音）</td><td>432</td><td>9</td><td>D</td><td>6</td><td><strong>F4n#</strong></td><td><strong>360.000</strong></td><td></td></tr>
+    <tr><td>105</td><td>基準音ロック時の相殺検証：A4がモード補正されるC Minor下で、入力音Aにナチュラルを指定（A4n音）</td><td>432</td><td>1</td><td>C</td><td>6</td><td><strong>A4n</strong></td><td><strong>460.800</strong></td><td></td></tr>
+    <tr><td>106</td><td>Rootへのナチュラル指定検証：主音にDnを指定し、モードに依存しない基準周波数での算出（D4音）</td><td>432</td><td>1</td><td>Dn</td><td>0</td><td><strong>D4</strong></td><td><strong>288.000</strong></td><td></td></tr>
+    <tr><td>107</td><td>エッジケース検証：オクターブ跨ぎの合算処理（D Minor下でB#にナチュラル指定し、次オクターブへ繰り上がる挙動）</td><td>432</td><td>9</td><td>D</td><td>6</td><td><strong>B4n#</strong></td><td><strong>518.400</strong></td><td></td></tr>
+    <tr><td>108</td><td>エッジケース検証：微分音モードにおける解除（Bayati下で1/4音下がるE音をナチュラルで本来のピッチへ戻す検証）</td><td>432</td><td>1</td><td>D</td><td>11</td><td><strong>E4n</strong></td><td><strong>324.000</strong></td><td></td></tr>
+    <tr><td>109</td><td>エッジケース検証：冗長な記号の解析（記号が重なったC4n###nnにおいて、nが優先されシャープが無視されるかの検証）</td><td>432</td><td>1</td><td>C</td><td>0</td><td><strong>C4n###nn</strong></td><td><strong>311.040</strong></td><td></td></tr>
+    <tr><td>110</td><td>エッジケース検証：複雑なRoot表記の解析（Root="F#b"のように打ち消し合う記号下で、幹音Fが正しく抽出されるかの検証）</td><td>432</td><td>1</td><td>F#b</td><td>0</td><td><strong>F4</strong></td><td><strong>	345.600</strong></td><td></td></tr>
+    <tr><td>111</td><td>回帰テスト：lockPitch=true 下で Root にナチュラル（Dn）を指定した際、分子・分母のモード補正が同時キャンセルされピッチが狂わないかの検証（D4音）</td><td>432</td><td>1</td><td>Dn</td><td>6</td><td><strong>D4</strong></td><td><strong>288.000</strong></td><td></td></tr>
+    <tr><td>112</td><td>回帰テスト：lockPitch=true 下で Root にナチュラル（Dn）を指定し、入力音にもナチュラル（F4n）を指定した二重キャンセル検証</td><td>432</td><td>1</td><td>Dn</td><td>6</td><td><strong>F4n</strong></td><td><strong>345.600</strong></td><td></td></tr>
+    <tr><td>113</td><td>基準音ナチュラル検証：基準音 A4 自体にナチュラルが明示（A4n）された場合、lockPitch=true 下で base 側の自動補正が正常にシャットアウトされるかの検証</td><td>432</td><td>1</td><td>C</td><td>6</td><td><strong>C4</strong></td><td><strong>259.200</strong></td><td></td></tr>
+    <tr><td>114</td><td>中全音律（MeanTone）検証：ルートのナチュラル（Dn）により五度圏のウルフ移動を固定し、純粋なピッチ比が算出されるかの検証</td><td>432</td><td>3</td><td>Dn</td><td>6</td><td><strong>F4</strong></td><td><strong>345.600</strong></td><td></td></tr>
+    <tr><td>115</td><td>ピタゴラス音律（Pythagorean）エッジケース：複雑な微分音キー（Bayati）下で Root にナチュラルを適用した際の完全フラット化検証</td><td>432</td><td>2</td><td>Dn</td><td>11</td><td><strong>E4</strong></td><td><strong>324.000</strong></td><td></td></tr>
+  </tbody>
+</table>
 <hr>
 
   </div>
