@@ -52,7 +52,7 @@ My_entry.handler_wave.prototype.init = function(){
   self.regex.table = /\[(.*?):(.*?)\]/;  // Ver.1.71.14
   self.msec_60BPM = 1000;  // Ver.1.19.4
   /* Ver.1.84.15 -> */
-  self.note2index = {C: 0, "C#": 1, Db: 1, D: 2, "D#": 3, Eb: 3, E: 4, F: 5, "F#": 6, Gb: 6, G: 7, "G#": 8, Ab: 8, A: 9, "A#": 10, Bb: 10, B: 11};  // Ver.1.90.19
+  self.note2index = {C: 0, "C#": 1, Db: 1, D: 2, "D#": 3, Eb: 3, E: 4, F: 5, "F#": 6, Gb: 6, G: 7, "G#": 8, Ab: 8, A: 9, "A#": 10, Bb: 10, B: 11, "Cb": 11, "B#": 0};  // Ver.1.90.19  // Ver.1.94.20
   self.notes_sharp = ["C", "C#", "D", "D#", "E", "F", "F#", "G", "G#", "A", "A#", "B"];
   self.notes_flat = ["C", "Db", "D", "Eb", "E", "F", "Gb", "G", "Ab", "A", "Bb", "B"];
   self.tunes = ["Equal", "Pure", "Pythagorean", "MeanTone", "Young2", "Schnittger", "WerckMeister3", "KirnBerger3", "Vallotti", "PureMinor", "WerckMeister4", "WerckMeister5"];  // Ver.1.92.19
@@ -127,17 +127,16 @@ My_entry.handler_wave.prototype.init = function(){
     Schnittger:    [0, -2, -6, -2, -8, 0, -4, -3, -2, -7, -2, -4].map(function(v){return v*(cents_PC/(edo*2));}),
     KirnBerger3:   [[0, 0], [3, -9], [-2, 0], [-3, 0], [4, -12], [-1, 0], [3, -9], [-1, 0], [-4, 0], [-4, 0], [-2, 0], [-6, 0]].map(function(v){return v[0]*(cents_PC/edo)+v[1]*(cents_SC/edo);})
   };
+  /* Ver.1.94.20 */
+  self.stem2fifth = function(idx, alt){
+    var fifth_step = Math.round(self.edo*Math.LOG2E*Math.log(1.5));
+    var cents_offsets = [0, -5, 2, -3, 4, -1, 6, 1, -4, 3, -2, 5];  // [C, Db, D, Eb, E, F, Gb, G, Ab, A, Bb, B]
+    return cents_offsets[idx]+fifth_step*alt;
+  };
   /* Ver.1.85.17 */
-  self.get_ratio_from_C = function(tune, root, idx_stem, alteration){
+  self.get_ratio_from_C = function(tune, idx_root, idx_stem, alteration){  // Ver.1.94.20
     var edo = self.edo;
     var octaves = self.octaves;
-    var isMovableTemperament = ["Pure", "PureMinor", "Pythagorean", "MeanTone"].indexOf(tune) !== -1;  // Ver.1.92.19
-    var idx_root = 0;
-    if(isMovableTemperament){  // Ver.1.92.19
-      idx_root = (isNaN(root))? self.note2index[root]: Number(root)%edo;
-      if(typeof idx_root === "undefined" || isNaN(idx_root)) idx_root = 0;
-    }
-    var stem2fifth = {0: 0, 2: 2, 4: 4, 5: -1, 7: 1, 9: 3, 11: 5};  // C, D, E, F, G, A, B
     var calc_ratio_from_root = function(idx, alt){
       var alt_int = Math.floor(alt);  // |alteration| < 128(MIDI) < octaves*edo
       var alt_frac = alt-alt_int;
@@ -155,8 +154,8 @@ My_entry.handler_wave.prototype.init = function(){
       }
       else if(tune === "Pythagorean" || tune === "MeanTone"){
         var base = (tune === "Pythagorean")? 1.5: Math.pow(5, 0.25);
-        var root_fifth = stem2fifth[idx_root] || 0;
-        var target_fifth = (stem2fifth[idx] || 0)+7*alt;
+        var root_fifth = self.stem2fifth(idx_root, 0);  // Ver.1.94.20
+        var target_fifth = self.stem2fifth(idx, alt);  // Ver.1.94.20
         return Math.pow(base, target_fifth-root_fifth);
       }
       else{
@@ -485,6 +484,7 @@ My_entry.handler_wave.prototype.calc_freq = function(str, A4, tune, root, mode, 
   var mc_sn = str.match(self.regex.sn);  // Ver.1.14.4
   var mc_f = str.match(self.regex.freq);
   var mc_r = str.match(self.regex.rest);
+  var idx_root = (isNaN(root))? self.note2index[root]: Number(root)%edo;  // Ver.1.94.20
   /* Ver.1.13.4 -> */
   if(mc_oc || mc_nc){  // o4c9 || n69 -> A4
     octave = (mc_oc)? Number(mc_oc[1]): -1;
@@ -494,7 +494,6 @@ My_entry.handler_wave.prototype.calc_freq = function(str, A4, tune, root, mode, 
     var idx_note = num%edo;
     var useFlat = opt_sw_sharp2flat;
     if(typeof useFlat === "undefined" || useFlat === null){
-      var idx_root = (isNaN(root))? self.note2index[root]: Number(root)%edo;
       var idx_corr = (idx_note-idx_root+edo)%edo;
       var isFlatKey = [1, 3, 5, 6, 8, 10].indexOf(idx_root) !== -1 || (typeof root === "string" && root.indexOf("b") !== -1);  // [Db, Eb, F, Gb, Ab, Bb]
       useFlat = [1, 3, 8, 10].indexOf(idx_corr) !== -1 || isFlatKey;  // [Db, Eb, Ab, Bb]
@@ -562,8 +561,8 @@ My_entry.handler_wave.prototype.calc_freq = function(str, A4, tune, root, mode, 
     var alteration_total = alteration+alteration_mode_corr;
     var doctave = (opt_octave0 || 0)+octave-4;
     doctave += Math.floor((idx_stem+alteration_total)/edo);
-    var ratio_note_from_C = self.get_ratio_from_C(str_tune, str_root, idx_stem, alteration_total);
-    var ratio_base_from_C = self.get_ratio_from_C(str_tune, str_root, idx_base, alteration_mode_base);
+    var ratio_note_from_C = self.get_ratio_from_C(str_tune, idx_root, idx_stem, alteration_total);  // Ver.1.94.20
+    var ratio_base_from_C = self.get_ratio_from_C(str_tune, idx_root, idx_base, alteration_mode_base);  // Ver.1.94.20
     _freq = freq_base*Math.pow(2, doctave)*(ratio_note_from_C/ratio_base_from_C);
   }
   /* -> Ver.1.90.19 */
