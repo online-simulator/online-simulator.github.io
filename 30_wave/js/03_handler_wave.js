@@ -106,40 +106,50 @@ My_entry.handler_wave.prototype.init = function(){
     Saba:   {degrees: [2, 3, 4, 6, 7], alterations: [-0.5, -1, -1, -1, -1]},  // Ver.1.92.19
     PhrygianDominant: {degrees: [2, 6, 7], alterations: [-1, -1, -1]}  // Ver.1.92.19
   };
+  /* Ver.1.93.19 -> */
   /* Ver.1.90.19 -> */
-  var PC = 1200*Math.LOG2E*Math.log(531441/524288);  // cents of Pythagorean Comma
-  var SC = 1200*Math.LOG2E*Math.log(81/80);          // cents of Syntonic Comma
-  self.centsDeviation = {
-    Young2:        [0, -2, -3, -1, -4, -1, -3, -2, -2, -4, -1, -3].map(function(v){return v*(PC/12);}),
-    WerckMeister3: [0, -5, -4, -3, -5, -1, -6, -2, -4, -6, -2, -4].map(function(v){return v*(PC/12);}),
-    WerckMeister4: [0, -4, -2, -4, -4, 2, -4, -2, -4, -4, -2, -2].map(function(v){return v*(PC/12);}),  // Ver.1.92.19
-    WerckMeister5: [0, -2, -2, -2, -4, 2, -2, -2, -2, -4, 0, -2].map(function(v){return v*(PC/12);}),  // Ver.1.92.19
-    Vallotti:      [0, -2, -4, -2, -6, 2, -4, -2, -2, -6, 0, -4].map(function(v){return v*(PC/12);}),  // Ver.1.92.19
-    Schnittger:    [0, -2, -6, -2, -8, 0, -4, -3, -2, -7, -2, -4].map(function(v){return v*(PC/24);}),
-    KirnBerger3:   [[0, 0], [3, -9], [-2, 0], [-3, 0], [4, -12], [-1, 0], [3, -9], [-1, 0], [-4, 0], [-4, 0], [-2, 0], [-6, 0]].map(function(v){return v[0]*(PC/12)+v[1]*(SC/12);})
+  self.str_base = "A";
+  self.edo = 12;
+  self.octaves = 11;
+  self.cents_in_octave = 1200;
+  var PC = 531441/524288;  // Pythagorean Comma
+  var SC = 81/80;          // Syntonic Comma
+  var cents_PC = self.cents_in_octave*Math.LOG2E*Math.log(PC);  // cents of PC
+  var cents_SC = self.cents_in_octave*Math.LOG2E*Math.log(SC);  // cents of SC
+  var edo = self.edo;
+  self.cents_deviation = {
+    Young2:        [0, -2, -3, -1, -4, -1, -3, -2, -2, -4, -1, -3].map(function(v){return v*(cents_PC/edo);}),
+    WerckMeister3: [0, -5, -4, -3, -5, -1, -6, -2, -4, -6, -2, -4].map(function(v){return v*(cents_PC/edo);}),
+    WerckMeister4: [0, -4, -2, -4, -4, 2, -4, -2, -4, -4, -2, -2].map(function(v){return v*(cents_PC/edo);}),  // Ver.1.92.19
+    WerckMeister5: [0, -2, -2, -2, -4, 2, -2, -2, -2, -4, 0, -2].map(function(v){return v*(cents_PC/edo);}),  // Ver.1.92.19
+    Vallotti:      [0, -2, -4, -2, -6, 2, -4, -2, -2, -6, 0, -4].map(function(v){return v*(cents_PC/edo);}),  // Ver.1.92.19
+    Schnittger:    [0, -2, -6, -2, -8, 0, -4, -3, -2, -7, -2, -4].map(function(v){return v*(cents_PC/(edo*2));}),
+    KirnBerger3:   [[0, 0], [3, -9], [-2, 0], [-3, 0], [4, -12], [-1, 0], [3, -9], [-1, 0], [-4, 0], [-4, 0], [-2, 0], [-6, 0]].map(function(v){return v[0]*(cents_PC/edo)+v[1]*(cents_SC/edo);})
   };
   /* Ver.1.85.17 */
-  self.get_ratio = function(tune, root, idx_stem, alteration){
+  self.get_ratio_from_C = function(tune, root, idx_stem, alteration){
+    var edo = self.edo;
+    var octaves = self.octaves;
     var isMovableTemperament = ["Pure", "PureMinor", "Pythagorean", "MeanTone"].indexOf(tune) !== -1;  // Ver.1.92.19
     var idx_root = 0;
     if(isMovableTemperament){  // Ver.1.92.19
-      idx_root = (isNaN(root))? self.note2index[root]: Number(root)%12;
+      idx_root = (isNaN(root))? self.note2index[root]: Number(root)%edo;
       if(typeof idx_root === "undefined" || isNaN(idx_root)) idx_root = 0;
     }
     var stem2fifth = {0: 0, 2: 2, 4: 4, 5: -1, 7: 1, 9: 3, 11: 5};  // C, D, E, F, G, A, B
     var calc_ratio_from_root = function(idx, alt){
-      var alt_int = Math.floor(alt);  // |alteration| < 128(MIDI) < 12*11
+      var alt_int = Math.floor(alt);  // |alteration| < 128(MIDI) < octaves*edo
       var alt_frac = alt-alt_int;
       if(tune === "Equal"){
-        return Math.pow(2, (idx+alt)/12);
+        return Math.pow(2, (idx+alt)/edo);
       }
       else if(tune === "Pure" || tune === "PureMinor"){  // Ver.1.92.19
-        var semitones_from_root = (idx-idx_root+alt_int+12*11)%12;
+        var semitones_from_root = (idx-idx_root+alt_int+octaves*edo)%edo;
         var pureTable = (tune === "Pure")?
           [1/1, 25/24, 9/8, 6/5, 5/4, 4/3, 45/32, 3/2, 25/16, 5/3, 9/5, 15/8]:
           [1/1, 25/24, 9/8, 6/5, 5/4, 4/3, 45/32, 3/2, 8/5,  5/3, 9/5, 15/8];  // Ver.1.92.19
         var _r = pureTable[semitones_from_root];
-        _r *= Math.pow(2, alt_frac/12);
+        _r *= Math.pow(2, alt_frac/edo);
         return _r;
       }
       else if(tune === "Pythagorean" || tune === "MeanTone"){
@@ -149,11 +159,11 @@ My_entry.handler_wave.prototype.init = function(){
         return Math.pow(base, target_fifth-root_fifth);
       }
       else{
-        if(self.centsDeviation[tune]){
-          var semitones_from_C = (idx+alt_int+12*11)%12;
-          var _r = Math.pow(2, (idx+alt_int)/12);
-          _r *= Math.pow(2, self.centsDeviation[tune][semitones_from_C]/1200);
-          _r *= Math.pow(2, alt_frac/12);
+        if(self.cents_deviation[tune]){
+          var semitones_from_C = (idx+alt_int+octaves*edo)%edo;
+          var _r = Math.pow(2, (idx+alt_int)/edo);
+          _r *= Math.pow(2, self.cents_deviation[tune][semitones_from_C]/self.cents_in_octave);
+          _r *= Math.pow(2, alt_frac/edo);
           return _r;
         }
       }
@@ -167,6 +177,7 @@ My_entry.handler_wave.prototype.init = function(){
     return _ratio;  // [1, 2)
   };
   /* -> Ver.1.90.19 */
+  /* -> Ver.1.93.19 */
   /* -> Ver.1.84.15 */
   self.params = {};
   if(self.isScriptMode){
@@ -457,11 +468,13 @@ My_entry.handler_wave.prototype.make_str = function(octave, note){
   var self = this;
   return note.substring(0, 1)+octave+note.substring(1);  // A4# || A4## || A4##...
 };
+/* Ver.1.93.19 */
 /* Ver.1.85.17 */
 /* Ver.1.44.11 */
 My_entry.handler_wave.prototype.calc_freq = function(str, A4, tune, root, mode, opt_lockPitch, opt_octave0, opt_sw_sharp2flat){  // Ver.1.90.19  // Ver.1.91.19
   var self = this;
   var _freq = NaN;
+  var edo = self.edo;
   var str_stem = NaN;
   var octave = 4;
   var alteration = 0;
@@ -474,13 +487,13 @@ My_entry.handler_wave.prototype.calc_freq = function(str, A4, tune, root, mode, 
   if(mc_oc || mc_nc){  // o4c9 || n69 -> A4
     octave = (mc_oc)? Number(mc_oc[1]): -1;
     var num = (mc_oc)? Number(mc_oc[2]): Number(mc_nc[1]);  // num >= 0
-    octave += Math.floor(num/12);
-    var idx_note = num%12;
     /* Ver.1.90.19 -> */
+    octave += Math.floor(num/edo);
+    var idx_note = num%edo;
     var useFlat = opt_sw_sharp2flat;
     if(typeof useFlat === "undefined" || useFlat === null){
-      var idx_root = (isNaN(root))? self.note2index[root]: Number(root)%12;
-      var idx_corr = (idx_note-idx_root+12*2)%12;
+      var idx_root = (isNaN(root))? self.note2index[root]: Number(root)%edo;
+      var idx_corr = (idx_note-idx_root+edo)%edo;
       var isFlatKey = [1, 3, 5, 6, 8, 10].indexOf(idx_root) !== -1 || (typeof root === "string" && root.indexOf("b") !== -1);  // [Db, Eb, F, Gb, Ab, Bb]
       useFlat = [1, 3, 8, 10].indexOf(idx_corr) !== -1 || isFlatKey;  // [Db, Eb, Ab, Bb]
     }
@@ -516,12 +529,13 @@ My_entry.handler_wave.prototype.calc_freq = function(str, A4, tune, root, mode, 
   /* Ver.1.90.19 -> */
   if(isNaN(_freq) && typeof str_stem === "string"){
     var char2diatonic = {C: 0, D: 1, E: 2, F: 3, G: 4, A: 5, B: 6};
-    var str_base = "A";
-    var idx_base = 9;
+    var freq_base = A4;
+    var str_base = self.str_base;
     var str_tune = (isNaN(tune))? tune: self.tunes[Number(tune)];
-    var str_root = (isNaN(root))? root: self.notes_sharp[Number(root)%12];
+    var str_root = (isNaN(root))? root: self.notes_sharp[Number(root)%edo];
     var str_mode = (isNaN(mode))? mode: self.modes[Number(mode)];
     var rules = self.rules[str_mode] || self.rules[self.modes[0]];
+    var idx_base = self.note2index[str_base];
     var idx_stem = self.note2index[str_stem];
     var alteration_mode_corr = 0;
     var alteration_mode_base = 0;
@@ -542,12 +556,12 @@ My_entry.handler_wave.prototype.calc_freq = function(str, A4, tune, root, mode, 
         }
       }
     }
-    var alteration_total_corr = alteration+alteration_mode_corr;
+    var alteration_total = alteration+alteration_mode_corr;
     var doctave = (opt_octave0 || 0)+octave-4;
-    doctave += Math.floor((idx_stem+alteration_total_corr)/12);
-    var ratio_corr = self.get_ratio(str_tune, str_root, idx_stem, alteration_total_corr);
-    var ratio_base = self.get_ratio(str_tune, str_root, idx_base, alteration_mode_base);
-    _freq = A4*Math.pow(2, doctave)*(ratio_corr/ratio_base);
+    doctave += Math.floor((idx_stem+alteration_total)/edo);
+    var ratio_note_from_C = self.get_ratio_from_C(str_tune, str_root, idx_stem, alteration_total);
+    var ratio_base_from_C = self.get_ratio_from_C(str_tune, str_root, idx_base, alteration_mode_base);
+    _freq = freq_base*Math.pow(2, doctave)*(ratio_note_from_C/ratio_base_from_C);
   }
   /* -> Ver.1.90.19 */
   return _freq;
