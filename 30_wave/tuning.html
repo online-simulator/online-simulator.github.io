@@ -305,6 +305,50 @@
     <tr><td>90</td><td>完全消音の絶対防壁（新音律版）：追加された Vallotti や PureMinor などのすべての新音律下においても、入力「r」が例外なく完璧に「0.000」を返すかの最終防衛検証</td><td>444</td><td>9</td><td>G###</td><td>14</td><td><strong>r</strong></td><td><strong>0.000</strong></td><td></td></tr>
   </tbody>
 </table>
+
+<div class="clear">Ver.1.94.20：stem2fifthのフォールバック一時解除　⇒　幹音から派生音まで拡張して対策</div>
+<div class="selection">・平均的な12音律マッピングの場合、ピタゴラスと中全音律はrootに依存しない実質、固定型（現時点、追従型は純正律のみ）</div>
+<div class="selection">　合唱・管弦楽：転調に伴う数Hzオーダーの基準ピッチシフトを許容（追従型の期待値）</div>
+<div class="selection">　鍵盤楽器：基準ピッチは不変（固定型の期待値）</div>
+<div class="selection">・同上を含むroot追従型の明示的な実装でroot未定義の場合、NaNを返す（No.56参照）</div>
+<div class="condition">lockPitch = false</div>
+<table class="tuning">
+  <thead>
+    <tr><th>No.</th><th>テスト内容</th><th>A4[Hz]</th><th>tune</th><th>root</th><th>mode</th><th>入力音</th><th>周波数期待値[Hz]</th><th>テスト結果[Hz]</th></tr>
+  </thead>
+  <tbody>
+    <tr><td>91</td><td>追従性検証：C主調の中全音律(E4)</td><td>440</td><td>3</td><td>C</td><td>0</td><td><strong>E4</strong></td><td><strong>328.977</strong></td><td></td></tr>
+    <tr><td>92</td><td>追従性検証：A主調の中全音律(E4)</td><td>440</td><td>3</td><td>A</td><td>0</td><td><strong>E4</strong></td><td><strong>328.163</strong></td><td></td></tr>
+    <tr><td>93</td><td>追従性検証：C主調の純正律(E4)</td><td>440</td><td>1</td><td>C</td><td>0</td><td><strong>E4</strong></td><td><strong>330.000</strong></td><td></td></tr>
+    <tr><td>94</td><td>追従性検証：B主調の純正律(E4)</td><td>440</td><td>1</td><td>B</td><td>0</td><td><strong>E4</strong></td><td><strong>325.926</strong></td><td></td></tr>
+    <tr><td>95</td><td>追従性検証：D主調のピタゴラス(A4)</td><td>440</td><td>2</td><td>D</td><td>0</td><td><strong>A4</strong></td><td><strong>440.000</strong></td><td></td></tr>
+    <tr><td>96</td><td>追従性検証：E主調のピタゴラス(A4)</td><td>440</td><td>2</td><td>E</td><td>0</td><td><strong>A4</strong></td><td><strong>434.079</strong></td><td></td></tr>
+    <tr><td>97</td><td>中全音律：E主調での純正3度(G#)</td><td>440</td><td>3</td><td>E</td><td>0</td><td><strong>G4#</strong></td><td><strong>411.221</strong></td><td></td></tr>
+    <tr><td>98</td><td>中全音律：Bb主調での純正3度(D)</td><td>440</td><td>3</td><td>Bb</td><td>0</td><td><strong>D4</strong></td><td><strong>294.246</strong></td><td></td></tr>
+    <tr><td>99</td><td>中全音律：ウルフの移動(F#上の5度)</td><td>440</td><td>3</td><td>F#</td><td>0</td><td><strong>C5#</strong></td><td><strong>550.000</strong></td><td></td></tr>
+    <tr><td>100</td><td>ピタゴラス：F#主調の導音(E#)</td><td>440</td><td>2</td><td>F#</td><td>0</td><td><strong>E4#</strong></td><td><strong>352.397</strong></td><td></td></tr>
+    <tr><td>101</td><td>純正律：Ab主調の完全5度(Eb)</td><td>440</td><td>1</td><td>Ab</td><td>0</td><td><strong>E4b</strong></td><td><strong>316.800</strong></td><td></td></tr>
+  </tbody>
+</table>
+<div class="condition">lockPitch = true</div>
+<table class="tuning lockPitch">
+  <thead>
+    <tr><th>No.</th><th>テスト内容</th><th>A4[Hz]</th><th>tune</th><th>root</th><th>mode</th><th>入力音</th><th>周波数期待値[Hz]</th><th>テスト結果[Hz]</th></tr>
+  </thead>
+  <tbody>
+    <tr><td>91</td><td>追従性検証：C主調の中全音律(E4)</td><td>440</td><td>3</td><td>C</td><td>0</td><td><strong>E4</strong></td><td><strong>328.977</strong></td><td></td></tr>
+    <tr><td>92</td><td>追従性検証：A主調の中全音律(E4)</td><td>440</td><td>3</td><td>A</td><td>0</td><td><strong>E4</strong></td><td><strong>328.163</strong></td><td></td></tr>
+    <tr><td>93</td><td>追従性検証：C主調の純正律(E4)</td><td>440</td><td>1</td><td>C</td><td>0</td><td><strong>E4</strong></td><td><strong>330.000</strong></td><td></td></tr>
+    <tr><td>94</td><td>追従性検証：B主調の純正律(E4)</td><td>440</td><td>1</td><td>B</td><td>0</td><td><strong>E4</strong></td><td><strong>325.926</strong></td><td></td></tr>
+    <tr><td>95</td><td>追従性検証：D主調のピタゴラス(A4)</td><td>440</td><td>2</td><td>D</td><td>0</td><td><strong>A4</strong></td><td><strong>440.000</strong></td><td></td></tr>
+    <tr><td>96</td><td>追従性検証：E主調のピタゴラス(A4)</td><td>440</td><td>2</td><td>E</td><td>0</td><td><strong>A4</strong></td><td><strong>434.079</strong></td><td></td></tr>
+    <tr><td>97</td><td>中全音律：E主調での純正3度(G#)</td><td>440</td><td>3</td><td>E</td><td>0</td><td><strong>G4#</strong></td><td><strong>411.221</strong></td><td></td></tr>
+    <tr><td>98</td><td>中全音律：Bb主調での純正3度(D)</td><td>440</td><td>3</td><td>Bb</td><td>0</td><td><strong>D4</strong></td><td><strong>294.246</strong></td><td></td></tr>
+    <tr><td>99</td><td>中全音律：ウルフの移動(F#上の5度)</td><td>440</td><td>3</td><td>F#</td><td>0</td><td><strong>C5#</strong></td><td><strong>550.000</strong></td><td></td></tr>
+    <tr><td>100</td><td>ピタゴラス：F#主調の導音(E#)</td><td>440</td><td>2</td><td>F#</td><td>0</td><td><strong>E4#</strong></td><td><strong>352.397</strong></td><td></td></tr>
+    <tr><td>101</td><td>純正律：Ab主調の完全5度(Eb)</td><td>440</td><td>1</td><td>Ab</td><td>0</td><td><strong>E4b</strong></td><td><strong>316.800</strong></td><td></td></tr>
+  </tbody>
+</table>
 <hr>
 
   </div>
