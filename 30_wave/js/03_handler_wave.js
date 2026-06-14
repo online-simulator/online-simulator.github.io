@@ -42,9 +42,10 @@ My_entry.handler_wave.prototype.init = function(){
   self.regex.qn = /^(.*)?b(.*)?$/;  // Ver.1.19.4
   self.regex.oc = /^o([+-]?\d+)c(\d+)$/;  // Ver.1.13.4
   self.regex.nc = /^n(\d+)$/;  // Ver.1.13.4
-  self.regex.sn = /^([A-G]?)([+-]?\d+)([sf#b]*)$/;  // Ver.1.14.4  // Ver.1.84.15
+  self.regex.sn = /^([A-G]?)([+-]?\d+)([sf#bn]*)$/;  // Ver.1.14.4  // Ver.1.84.15  // Ver.1.94.19
   self.regex.sharp = /s|#/g;  // Ver.1.84.15
   self.regex.flat = /f|b/g;  // Ver.1.84.15
+  self.regex.natural = /n/g;  // Ver.1.94.19
   self.regex.freq = /^f(.*)/;  // Ver.1.19.4
   self.regex.rest = /^r$/;  // Ver.1.65.14
   self.regex.type = /type=\[(.*?):(.*?)\]/g;  // Ver.1.71.14
@@ -478,6 +479,7 @@ My_entry.handler_wave.prototype.calc_freq = function(str, A4, tune, root, mode, 
   var str_stem = NaN;
   var octave = 4;
   var alteration = 0;
+  var isNatural_note = false;  // Ver.1.94.19
   var mc_oc = str.match(self.regex.oc);
   var mc_nc = str.match(self.regex.nc);  // Ver.1.13.4
   var mc_sn = str.match(self.regex.sn);  // Ver.1.14.4
@@ -500,9 +502,9 @@ My_entry.handler_wave.prototype.calc_freq = function(str, A4, tune, root, mode, 
     var str_note = self["notes_"+((useFlat)? "flat": "sharp")][idx_note];  // Ver.1.44.11
     /* -> Ver.1.90.19 */
     str_stem = str_note.charAt(0);
-    var sf = str_note.charAt(1);
-    if(sf){
-      alteration = (sf === "#")? 1: -1;
+    var char_sf = str_note.charAt(1);  // Ver.1.94.19
+    if(char_sf){
+      alteration = (char_sf === "#")? 1: -1;
     }
     else{
       alteration = 0;
@@ -513,8 +515,9 @@ My_entry.handler_wave.prototype.calc_freq = function(str, A4, tune, root, mode, 
   else if(mc_sn && mc_sn[1]){  // A4 || A4# || A4## || A4###... || A4bbb...
     octave = Number(mc_sn[2]);
     str_stem = mc_sn[1];
-    var sn = mc_sn[3];
-    alteration = (sn.match(self.regex.sharp) || []).length-(sn.match(self.regex.flat) || []).length;
+    var str_sfn = mc_sn[3];  // Ver.1.94.19
+    alteration = (str_sfn.match(self.regex.sharp) || []).length-(str_sfn.match(self.regex.flat) || []).length;
+    isNatural_note = !!(str_sfn.match(self.regex.natural));  // Ver.1.94.19
   }
   /* -> Ver.1.14.4 */
   else if(mc_f){
@@ -540,11 +543,11 @@ My_entry.handler_wave.prototype.calc_freq = function(str, A4, tune, root, mode, 
     var alteration_mode_corr = 0;
     var alteration_mode_base = 0;
     if(rules && rules.degrees){
-      var d_root = char2diatonic[str_root.charAt(0)];
+      var d_root = char2diatonic[str_root.charAt(0)];  // natural root  // Ver.1.94.19
       var d_stem = char2diatonic[str_stem];
       var degree_corr = ((d_stem-d_root+7)%7)+1;
       var i_corr = rules.degrees.indexOf(degree_corr);
-      if(i_corr !== -1){
+      if(i_corr !== -1 && !(isNatural_note)){  // Ver.1.94.19
         alteration_mode_corr = rules.alterations[i_corr];
       }
       if(opt_lockPitch){
