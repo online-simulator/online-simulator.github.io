@@ -471,6 +471,27 @@ My_entry.handler_wave.prototype.make_str = function(octave, note){
   return note.substring(0, 1)+octave+note.substring(1);  // A4# || A4## || A4##...
 };
 /* Ver.1.94.21 -> */
+My_entry.handler_wave.prototype.str_oc_nc2str_note = function(str_oc_nc, root, opt_sw_sharp2flat){
+  var self = this;
+  var edo = self.edo;
+  var mc_oc = str_oc_nc.match(self.regex.oc);
+  var mc_nc = str_oc_nc.match(self.regex.nc);  // Ver.1.13.4
+  var octave = (mc_oc)? Number(mc_oc[1]): -1;
+  var num = (mc_oc)? Number(mc_oc[2]): Number(mc_nc[1]);  // num >= 0
+  /* Ver.1.90.19 -> */
+  octave += Math.floor(num/edo);
+  var idx_note = num%edo;
+  var useFlat = opt_sw_sharp2flat;
+  if(useFlat === undefined || useFlat === null){
+    var idx_root = (isNaN(root))? self.note2index[root]: Number(root)%edo;  // Ver.1.94.20
+    var idx_note_from_root = (idx_note-idx_root+edo)%edo;
+    var isFlatKey = [1, 3, 5, 6, 8, 10].indexOf(idx_root) !== -1 || (typeof root === "string" && root.indexOf("b") !== -1);  // [Db, Eb, F, Gb, Ab, Bb]
+    useFlat = [1, 3, 8, 10].indexOf(idx_note_from_root) !== -1 || isFlatKey;  // [Db, Eb, Ab, Bb]
+  }
+  var str_note = self["notes_"+((useFlat)? "flat": "sharp")][idx_note];  // Ver.1.44.11
+  /* -> Ver.1.90.19 */
+  return self.make_str(octave, str_note);
+};
 My_entry.handler_wave.prototype.str_note_or_root2obj = function(str_note_or_root){
   var self = this;
   var mc = str_note_or_root.match(self.regex.sn);
@@ -493,33 +514,13 @@ My_entry.handler_wave.prototype.calc_freq = function(str, A4, tune, root, mode, 
   var fifth_step = self.fifth_step;
   var mc_oc = str.match(self.regex.oc);
   var mc_nc = str.match(self.regex.nc);  // Ver.1.13.4
+  if(mc_oc || mc_nc) str = self.str_oc_nc2str_note(str, root, opt_sw_sharp2flat);  // Ver.1.13.4  // o4c9 || n69 -> A4
   var mc_sn = str.match(self.regex.sn);  // Ver.1.14.4
   var mc_f = str.match(self.regex.freq);
   var mc_r = str.match(self.regex.rest);
   var isNote = false;
-  /* Ver.1.13.4 -> */
-  if(mc_oc || mc_nc){  // o4c9 || n69 -> A4
-    var octave = (mc_oc)? Number(mc_oc[1]): -1;
-    var num = (mc_oc)? Number(mc_oc[2]): Number(mc_nc[1]);  // num >= 0
-    /* Ver.1.90.19 -> */
-    octave += Math.floor(num/edo);
-    var idx_note = num%edo;
-    var useFlat = opt_sw_sharp2flat;
-    if(useFlat === undefined || useFlat === null){
-      var idx_root = (isNaN(root))? self.note2index[root]: Number(root)%edo;  // Ver.1.94.20
-      var idx_note_from_root = (idx_note-idx_root+edo)%edo;
-      var isFlatKey = [1, 3, 5, 6, 8, 10].indexOf(idx_root) !== -1 || (typeof root === "string" && root.indexOf("b") !== -1);  // [Db, Eb, F, Gb, Ab, Bb]
-      useFlat = [1, 3, 8, 10].indexOf(idx_note_from_root) !== -1 || isFlatKey;  // [Db, Eb, Ab, Bb]
-    }
-    var str_note = self["notes_"+((useFlat)? "flat": "sharp")][idx_note];  // Ver.1.44.11
-    /* -> Ver.1.90.19 */
-    str = self.make_str(octave, str_note);
-    mc_sn = str.match(self.regex.sn);
-    isNote = (mc_sn[2] !== undefined);
-  }
-  /* -> Ver.1.13.4 */
   /* Ver.1.14.4 -> */
-  else if(mc_sn && mc_sn[1]){  // A4 || A4# || A4## || A4###... || A4bbb... || A4n#b
+  if(mc_sn && mc_sn[1]){  // A4 || A4# || A4## || A4###... || A4bbb... || A4n#b
     isNote = (mc_sn[2] !== undefined);
   }
   /* -> Ver.1.14.4 */
