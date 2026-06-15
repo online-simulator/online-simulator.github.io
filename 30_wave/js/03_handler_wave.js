@@ -140,7 +140,7 @@ My_entry.handler_wave.prototype.init = function(){
     var edo = self.edo;
     var octaves = self.octaves;
     var calc_ratio_from_root = function(idx, alt){
-      var alt_int = Math.floor(alt);  // |alteration| < 128(MIDI) < octaves*edo
+      var alt_int = Math.floor(alt);  // |alteration| < 128(MIDI) < octaves*edo  // floor standardized for doctave
       var alt_frac = alt-alt_int;
       if(str_tune === "Equal"){
         return Math.pow(2, (idx+alt)/edo);
@@ -560,9 +560,10 @@ My_entry.handler_wave.prototype.calc_freq = function(str, A4, tune, root, mode, 
         }
       }
     }
+    var semitones_note = obj_note.idx+obj_note.oct*edo+Math.floor(obj_note.alt);
+    var semitones_base = obj_base.idx+obj_base.oct*edo+Math.floor(obj_base.alt);
     var doctave = opt_octave0 || 0;
-    doctave += obj_note.oct-obj_base.oct;
-    doctave += Math.floor((obj_note.idx+obj_note.alt)/edo)-Math.floor((obj_base.idx+obj_base.alt)/edo);
+    doctave += Math.floor(semitones_note/edo)-Math.floor(semitones_base/edo);
     var ratio_note_from_C = self.get_ratio_from_C(str_tune, obj_root, obj_note);  // Ver.1.94.20
     var ratio_base_from_C = self.get_ratio_from_C(str_tune, obj_root, obj_base);  // Ver.1.94.20
     _freq = freq_base*Math.pow(2, doctave);

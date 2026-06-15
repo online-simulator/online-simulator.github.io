@@ -31,6 +31,12 @@ Ver.1.94.21
 <br>
 　objectの管理：self.str_note_or_root2obj()
 <br>
+・音律上のratioと分離のoctave計算を修正
+<br>
+　octave計算：baseは基準octave=4のみ考慮　⇒　baseに対するnoteのfloor(絶対的な半音数/edo)差で換算
+<br>
+　octaveまたぎの対策：丸め方をfloorで統一
+<br>
 ・rootのnatural記号に対応（n指定時、mode旋法無効化）
 <br>
 　base：内部変数のnatural記号に対応
