@@ -501,8 +501,8 @@ My_entry.handler_wave.prototype.str_note_or_root2obj = function(str_note_or_root
   var octave = (mc[2] !== undefined)? Number(mc[2]): null;
   var str_sfn = mc[3] || "";
   var alteration = (str_sfn.match(self.regex.sharp) || []).length-(str_sfn.match(self.regex.flat) || []).length;
-  var hasNatural = !!(str_sfn.match(self.regex.natural));
-  return {str: str_stem, idx: idx_stem, oct: octave, alt: alteration, hasN: hasNatural};
+  var num_natural = (str_sfn.match(self.regex.natural) || []).length;  // Ver.1.95.21
+  return {str: str_stem, idx: idx_stem, oct: octave, alt: alteration, numN: num_natural};  // Ver.1.95.21
 };
 /* Ver.1.93.19 */
 /* Ver.1.85.17 */
@@ -543,20 +543,20 @@ My_entry.handler_wave.prototype.calc_freq = function(str, A4, tune, root, mode, 
     var obj_root = self.str_note_or_root2obj(str_root);
     var obj_note = self.str_note_or_root2obj(str);
     var obj_base = self.str_note_or_root2obj(self.str_base);
-    var rules = self.rules[str_mode] || self.rules[self.modes[0]];
+    var rules = (obj_root.numN || obj_note.numN >= 2)? null: self.rules[str_mode] || self.rules[self.modes[0]];  // Ver.1.95.21
     if(rules && rules.degrees){
       var d_stem_root = char2diatonic[obj_root.str];  // natural root  // Ver.1.94.19
       var d_stem_note = char2diatonic[obj_note.str];
       var degree_note_from_root = ((d_stem_note-d_stem_root+fifth_step)%fifth_step)+1;
       var i_note = rules.degrees.indexOf(degree_note_from_root);
-      if(i_note !== -1 && !(obj_note.hasN) && !(obj_root.hasN)){  // Ver.1.94.19
+      if(i_note !== -1 && !(obj_note.numN)){  // Ver.1.94.19  // Ver.1.95.21
         obj_note.alt += rules.alterations[i_note];
       }
       if(opt_lockPitch){
         var d_stem_base = char2diatonic[obj_base.str];
         var degree_base_from_root = ((d_stem_base-d_stem_root+fifth_step)%fifth_step)+1;
         var i_base = rules.degrees.indexOf(degree_base_from_root);
-        if(i_base !== -1 && !(obj_base.hasN) && !(obj_root.hasN)){
+        if(i_base !== -1 && !(obj_base.numN)){  // Ver.1.95.21
           obj_base.alt += rules.alterations[i_base];
         }
       }
