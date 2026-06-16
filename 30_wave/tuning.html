@@ -352,8 +352,10 @@
 
 <div class="clear">Ver.1.94.19~1.94.21：No.56の未定義root対応・note||rootのnatural記号nの追加</div>
 <div class="selection">・note：_freq算出ratioの分子のみ、alteration_mode = 0</div>
-<div class="selection">・root：_freq算出ratioの分母・分子のalteration_mode = 0（mode旋法無効化）</div>
-<div class="selection">・base：_freq算出ratioの分母のみ、alteration_mode = 0（内部変数のため、No.113の不一致あり）</div>
+<div class="selection">・root：_freq算出ratioの分母・分子のalteration_mode = 0（旋法mode無効化）</div>
+<div class="selection">・base：_freq算出ratioの分母のみ、alteration_mode = 0（内部変数のため、No.113以降の不一致あり）</div>
+<div class="condition">_freqの定義：_freq = freq_base*Math.pow(2, doctave)*(ratio_note_from_C/ratio_base_from_C)</div>
+<div class="condition">・ratioの(分子)/(分母)：(ratio_note_altered_from_C/ratio_base_pure_from_C)/(ratio_base_altered_from_C/ratio_base_pure_from_C)</div>
 <div class="condition">lockPitch = false</div>
 <table class="tuning">
   <thead>
@@ -374,6 +376,26 @@
     <tr><td>113</td><td>基準音ナチュラル検証：基準音 A4 自体にナチュラルが明示（A4n）された場合、lockPitch=true 下で base 側の自動補正が正常にシャットアウトされるかの検証</td><td>432</td><td>1</td><td>C</td><td>6</td><td><strong>C4</strong></td><td><strong>259.200</strong></td><td></td></tr>
     <tr><td>114</td><td>中全音律（MeanTone）検証：ルートのナチュラル（Dn）により五度圏のウルフ移動を固定し、純粋なピッチ比が算出されるかの検証</td><td>432</td><td>3</td><td>Dn</td><td>6</td><td><strong>F4</strong></td><td><strong>345.600</strong></td><td></td></tr>
     <tr><td>115</td><td>ピタゴラス音律（Pythagorean）エッジケース：複雑な微分音キー（Bayati）下で Root にナチュラルを適用した際の完全フラット化検証</td><td>432</td><td>2</td><td>Dn</td><td>11</td><td><strong>E4</strong></td><td><strong>324.000</strong></td><td></td></tr>
+    <tr><td>116a</td><td>基準音B4bシフト検証(lockPitch=false)：平均律下で基準音をB4bに変更し、入力音B4bがそのまま引数A4(442Hz)として処理されるかの検証</td><td>442</td><td>0</td><td>C</td><td>0</td><td><strong>B4b</strong></td><td><strong>442.000</strong></td><td></td></tr>
+    <tr><td>117a</td><td>基準音B4bシフト時の音高逆算(lockPitch=false)：平均律下で基準音B4b(=442Hz)から、半音下の入力音A4の周波数が正しく逆算されるかの検証</td><td>442</td><td>0</td><td>C</td><td>0</td><td><strong>A4</strong></td><td><strong>417.192</strong></td><td></td></tr>
+    <tr><td>118a</td><td>基準音B4b時の純正律検証(lockPitch=false)：PureMinor・Root=D下において、入力音C4のみがモード補正（♭化）され、基準音B4bは無補正のギャップから算出される検証</td><td>432</td><td>9</td><td>D</td><td>6</td><td><strong>C4</strong></td><td><strong>225.000</strong></td><td></td></tr>
+    <tr><td>119a</td><td>基準音B4b時のロックピッチ補正検証(lockPitch=false)：C Minor下において入力音B4bのみが第7音補正（さらに♭化）され、比率が5/3と9/5に分かれる挙動の検証</td><td>432</td><td>1</td><td>C</td><td>6</td><td><strong>B4b</strong></td><td><strong>400.000</strong></td><td></td></tr>
+    <tr><td>120a</td><td>基準音B4b時のロックピッチ相殺検証(lockPitch=false)：C Minor下において、入力音B4bnのモード補正のみがキャンセルされ、基準音B4bと比率が一致(1)する挙動の検証</td><td>432</td><td>1</td><td>C</td><td>6</td><td><strong>B4bn</strong></td><td><strong>432.000</strong></td><td></td></tr>
+    <tr><td>121a</td><td>基準音B4b＋Bayati検証(lockPitch=false)：Bayati(Root=D)下で、入力音B4bのみが第6音補正（さらに♭化）され、純粋な長調テーブルと微分音指数の合成比率から算出される検証</td><td>432</td><td>1</td><td>D</td><td>11</td><td><strong>B4b</strong></td><td><strong>414.720</strong></td><td></td></tr>
+    <tr><td>122a</td><td>基準音B4b＋Bayati解除検証(lockPitch=false)：入力音B4bnがモード補正を拒否(alt=-1を維持)し、補正なしの基準音B4bと比率が一致(1)して432Hzを返す検証</td><td>432</td><td>1</td><td>D</td><td>11</td><td><strong>B4bn</strong></td><td><strong>432.000</strong></td><td></td></tr>
+    <tr><td>123a</td><td>中全音律基準音シフト(lockPitch=false)：MeanTone・Root=Dn・D Minor下で、主音起点で計算される入力音D4と基準音B4bの間の中全音律比率から逆算される検証</td><td>432</td><td>3</td><td>Dn</td><td>6</td><td><strong>D4</strong></td><td><strong>270.000</strong></td><td></td></tr>
+    <tr><td>124a</td><td>ピタゴラス音律基準音シフト(lockPitch=false)：Pythagorean・Root=Dn・Bayati下で、主音Dから見た入力音E4と基準音B4bの純粋な五度圏累乗比からピッチが算出される検証</td><td>432</td><td>2</td><td>Dn</td><td>11</td><td><strong>E4</strong></td><td><strong>307.547</strong></td><td></td></tr>
+    <tr><td>125a</td><td>基準音B4b時の冗長記号検証(lockPitch=false)：入力音B4bの単音に対し、str_base側に複雑な冗長記号が含まれてもパースが狂わず一致(1)して432Hzを返す検証</td><td>432</td><td>1</td><td>C</td><td>0</td><td><strong>B4b</strong></td><td><strong>432.000</strong></td><td></td></tr>
+    <tr><td>126a</td><td>重変位検証(lockPitch=false)：C Major下で入力音にダブルシャープを指定（C4##）。平均律下で基準音B4bから2半音上がった実数ピッチが正しく算出されるかの検証</td><td>442</td><td>0</td><td>C</td><td>0</td><td><strong>C4##</strong></td><td><strong>278.443</strong></td><td></td></tr>
+    <tr><td>127a</td><td>重変位検証(lockPitch=false)：C Major下で入力音にダブルフラットを指定（D4bb）。実質C4と同音になり、基準音B4bから正確な平均律の逆算ピッチが得られるかの検証</td><td>442</td><td>0</td><td>C</td><td>0</td><td><strong>D4bb</strong></td><td><strong>248.064</strong></td><td></td></tr>
+    <tr><td>128a</td><td>旋法重力＋重変位(lockPitch=false)：D Minor下で、第3音Fにダブルシャープを指定（F4##）。モード補正(-1)と相殺して実質F4#の純正比率として正しく計算されるかの検証</td><td>432</td><td>1</td><td>D</td><td>6</td><td><strong>F4##</strong></td><td><strong>345.600</strong></td><td></td></tr>
+    <tr><td>129a</td><td>古典音律での重変位(lockPitch=false)：中全音律（MeanTone）・Root=Dn・D Minor下において、ダブルシャープ入力（C4##）が主音D起点の正確なステップ比率で算出される検証</td><td>432</td><td>3</td><td>Dn</td><td>6</td><td><strong>C4##</strong></td><td><strong>263.672</strong></td><td></td></tr>
+    <tr><td>130a</td><td>微分音モードでの重変位(lockPitch=false)：Bayati下で、本来1/4音下がる第2音Eにダブルシャープを指定（E4##）。微分音固有の端数インデックスが維持され、極めて精密な合成ピッチを返す検証</td><td>432</td><td>1</td><td>D</td><td>11</td><td><strong>E4##</strong></td><td><strong>341.498</strong></td><td></td></tr>
+    <tr><td>131a</td><td>最大変化量検証(lockPitch=false)：平均律下で基準音をB4bbに変更。入力音B4bbがそのまま引数A4(432Hz)となり、分子・分母が一致してジャスト432.000Hzを返すかの検証</td><td>432</td><td>0</td><td>C</td><td>0</td><td><strong>B4bb</strong></td><td><strong>432.000</strong></td><td></td></tr>
+    <tr><td>132a</td><td>最大変化量・音高逆算(lockPitch=false)：平均律下で基準音B4bb(=432Hz)から、正確なオクターブ跨ぎ計算を経て、実質1音上の入力音C5の周波数を正確に逆算する検証</td><td>432</td><td>0</td><td>C</td><td>0</td><td><strong>C5</strong></td><td><strong>513.737</strong></td><td></td></tr>
+    <tr><td>133a</td><td>最大変化量＋純正律(lockPitch=false)：PureMinor・Root=D下において、入力音C4のみが第7音補正(♭化)され、ダブルフラット状態の基準音B4bb(比率3/2)との間の正しい純正比率を弾き出す検証</td><td>432</td><td>9</td><td>D</td><td>6</td><td><strong>C4</strong></td><td><strong>240.000</strong></td><td></td></tr>
+    <tr><td>134a</td><td>最大変化量＋中全音律(lockPitch=false)：MeanTone・Root=Dn・D Minor下において、主音Dから見た正確な中全音律のステップ関係に基づき、破綻のない古典ピッチを逆算する検証</td><td>432</td><td>3</td><td>Dn</td><td>6</td><td><strong>D4</strong></td><td><strong>282.125</strong></td><td></td></tr>
+    <tr><td>135a</td><td>最大変化量＋微分音(lockPitch=false)：Bayati下で、入力音E4##にダブルシャープ、基準音B4bbにダブルフラットが指定された、最大級に変位記号が衝突する空間での正しい微分音合成ピッチの検証</td><td>432</td><td>1</td><td>D</td><td>11</td><td><strong>E4##</strong></td><td><strong>355.727</strong></td><td></td></tr>
   </tbody>
 </table>
 <div class="condition">lockPitch = true</div>
@@ -396,6 +418,26 @@
     <tr><td>113</td><td>基準音ナチュラル検証：基準音 A4 自体にナチュラルが明示（A4n）された場合、lockPitch=true 下で base 側の自動補正が正常にシャットアウトされるかの検証</td><td>432</td><td>1</td><td>C</td><td>6</td><td><strong>C4</strong></td><td><strong>259.200</strong></td><td></td></tr>
     <tr><td>114</td><td>中全音律（MeanTone）検証：ルートのナチュラル（Dn）により五度圏のウルフ移動を固定し、純粋なピッチ比が算出されるかの検証</td><td>432</td><td>3</td><td>Dn</td><td>6</td><td><strong>F4</strong></td><td><strong>345.600</strong></td><td></td></tr>
     <tr><td>115</td><td>ピタゴラス音律（Pythagorean）エッジケース：複雑な微分音キー（Bayati）下で Root にナチュラルを適用した際の完全フラット化検証</td><td>432</td><td>2</td><td>Dn</td><td>11</td><td><strong>E4</strong></td><td><strong>324.000</strong></td><td></td></tr>
+    <tr><td>116b</td><td>基準音B4bシフト検証(lockPitch=true)：平均律下（補正なし）で、入力音と基準音が一致し、動的factorが1となり442Hzを返す検証</td><td>442</td><td>0</td><td>C</td><td>0</td><td><strong>B4b</strong></td><td><strong>442.000</strong></td><td></td></tr>
+    <tr><td>117b</td><td>基準音B4bシフト時の音高逆算(lockPitch=true)：平均律下で基準音が固定され、入力音A4が半音下がった空間のピッチを正しく維持するかの検証</td><td>442</td><td>0</td><td>C</td><td>0</td><td><strong>A4</strong></td><td><strong>417.192</strong></td><td></td></tr>
+    <tr><td>118b</td><td>基準音B4b時の純正律検証(lockPitch=true)：PureMinor・Root=D下において、動的factorによる補正が行われ、入力音C4と基準音の相対関係が正しく相殺・維持される検証</td><td>432</td><td>9</td><td>D</td><td>6</td><td><strong>C4</strong></td><td><strong>240.000</strong></td><td></td></tr>
+    <tr><td>119b</td><td>基準音B4b時のロックピッチ補正検証(lockPitch=true)：C Minor下において入力音と基準音B4bが同時に補正（相殺）され、ベースピッチを維持する挙動の検証</td><td>432</td><td>1</td><td>C</td><td>6</td><td><strong>B4b</strong></td><td><strong>432.000</strong></td><td></td></tr>
+    <tr><td>120b</td><td>基準音B4b時のロックピッチ相殺検証(lockPitch=true)：C Minor下において、入力音B4bnはモード補正を拒否し、基準音B4bのみがさらに補正される挙動の検証</td><td>432</td><td>1</td><td>C</td><td>6</td><td><strong>B4bn</strong></td><td><strong>466.560</strong></td><td></td></tr>
+    <tr><td>121b</td><td>基準音B4b＋Bayati検証(lockPitch=true)：Bayati下で入力音B4bを鳴らした際、動的factorが分子の重力補正を完璧に相殺し、ジャスト432Hzを返す検証</td><td>432</td><td>1</td><td>D</td><td>11</td><td><strong>B4b</strong></td><td><strong>432.000</strong></td><td></td></tr>
+    <tr><td>122b</td><td>基準音B4b＋Bayati解除検証(lockPitch=true)：入力音B4bnは補正を拒否するが、動的factorの介入によって、基準音B4b単体を基準とした純粋な純正律ピッチが弾き出される検証</td><td>432</td><td>1</td><td>D</td><td>11</td><td><strong>B4bn</strong></td><td><strong>450.000</strong></td><td></td></tr>
+    <tr><td>123b</td><td>中全音律基準音シフト(lockPitch=true)：D Minor下で動的factorが適用され、主音Dを固定アンカーとした中全音律の相対関係が完璧に維持・補正される検証</td><td>432</td><td>3</td><td>Dn</td><td>6</td><td><strong>D4</strong></td><td><strong>270.000</strong></td><td></td></tr>
+    <tr><td>124b</td><td>ピタゴラス音律基準音シフト(lockPitch=true)：基準音B4bがBayatiモード補正で受ける移動分が動的factorで完璧に相対相殺され、主音アンカーによるピタゴラスピッチをキープする検証</td><td>432</td><td>2</td><td>Dn</td><td>11</td><td><strong>E4</strong></td><td><strong>307.547</strong></td><td></td></tr>
+    <tr><td>125b</td><td>基準音B4b時の冗長記号検証(lockPitch=true)：lockPitchが有効でも、無補正モード(Major)下であれば動的factorが1となり、分子・分母が完全に一致して432Hzを返す検証</td><td>432</td><td>1</td><td>C</td><td>0</td><td><strong>B4b</strong></td><td><strong>432.000</strong></td><td></td></tr>
+    <tr><td>126b</td><td>重変位検証(lockPitch=true)：C Major（無補正モード）下において、動的factor=1となり、分子・分母の平均律関係から126aと完全に同一のピッチをキープする検証</td><td>442</td><td>0</td><td>C</td><td>0</td><td><strong>C4##</strong></td><td><strong>278.443</strong></td><td></td></tr>
+    <tr><td>127b</td><td>重変位検証(lockPitch=true)：C Major下において、基準音の固定を維持しつつ、D4bb（実質C4）のフラット方向への正確な平均律ピッチをキープする検証</td><td>442</td><td>0</td><td>C</td><td>0</td><td><strong>D4bb</strong></td><td><strong>248.064</strong></td><td></td></tr>
+    <tr><td>128b</td><td>旋法重力＋重変位(lockPitch=true)：D Minor下において、基準音B4b（第6音）が受けるマイナー補正分を動的factorが相殺。入力音F4##に対して完璧な相対和声ピッチへとシフトする検証</td><td>432</td><td>1</td><td>D</td><td>6</td><td><strong>F4##</strong></td><td><strong>360.000</strong></td><td></td></tr>
+    <tr><td>129b</td><td>古典音律での重変位(lockPitch=true)：MeanTone・Root=Dn下において、動的factorが基準音のウルフ移動分を完全に中和し、主音Dアンカーに基づく絶対的な中全音律ピッチに収束する検証</td><td>432</td><td>3</td><td>Dn</td><td>6</td><td><strong>C4##</strong></td><td><strong>263.672</strong></td><td></td></tr>
+    <tr><td>130b</td><td>微分音モードでの重変位(lockPitch=true)：Bayati下において、基準音B4b（第6音）が受ける旋法補正分を動的factorが相殺。入力音E4##に対して完璧な相対微分音ピッチへと補正される検証</td><td>432</td><td>1</td><td>D</td><td>11</td><td><strong>E4##</strong></td><td><strong>355.727</strong></td><td></td></tr>
+    <tr><td>131b</td><td>最大変化量検証(lockPitch=true)：平均律（無補正）下で動的factor=1となり、分子・分母の補正空間が完全に相殺して確実にベースピッチ432.000Hzを返す検証</td><td>432</td><td>0</td><td>C</td><td>0</td><td><strong>B4bb</strong></td><td><strong>432.000</strong></td><td></td></tr>
+    <tr><td>132b</td><td>最大変化量・音高逆算(lockPitch=true)：平均律下で基準音の絶対空間がロックされ、C5への跳躍が132aと完全に同一の正確な平均律ピッチをキープする検証</td><td>432</td><td>0</td><td>C</td><td>0</td><td><strong>C5</strong></td><td><strong>513.737</strong></td><td></td></tr>
+    <tr><td>133b</td><td>最大変化量＋純正律(lockPitch=true)：PureMinor・Root=D下において、動的factorが基準音側の累積補正(alt=-3)分を数学的に相殺し、入力音C4に対して正しい相対和声ピッチを弾き出す検証</td><td>432</td><td>9</td><td>D</td><td>6</td><td><strong>C4</strong></td><td><strong>256.000</strong></td><td></td></tr>
+    <tr><td>134b</td><td>最大変化量＋中全音律(lockPitch=true)：MeanTone・Root=Dn下において、動的factorが基準音のウルフ移動分を中和し、主音Dアンカーを基準とした強固な古典ピッチをキープする検証</td><td>432</td><td>3</td><td>Dn</td><td>6</td><td><strong>D4</strong></td><td><strong>282.125</strong></td><td></td></tr>
+    <tr><td>135b</td><td>最大変化量＋微分音(lockPitch=true)：Bayati下において、基準音B4bbが受ける極端な旋法補正分を動的factorが除算補正。分子のE4##に対して完璧な相対微分音ピッチへ導く検証</td><td>432</td><td>1</td><td>D</td><td>11</td><td><strong>E4##</strong></td><td><strong>379.442</strong></td><td></td></tr>
   </tbody>
 </table>
 <hr>
