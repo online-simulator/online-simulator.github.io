@@ -56,6 +56,12 @@
         $._id("input-string").value = " $1_$2_$3 ";
         $._id("textarea-input").value = script;
       }
+      else if(options.testcase === "calc4"){
+        var script = "// (後読み抽出)(最短マッチ)(先読み抽出)\n\nTITLE{;{;}};\n\nTITLE{;(;)};\n\nTITLE{;[;]};\n\nTITLE{{;[;]}};";
+        $._id("input-pattern").value = "(?<=\\{)([\\s\\S]\*?)(?=\\})";
+        $._id("input-string").value = "__$1__";
+        $._id("textarea-input").value = script;
+      }
       else if(options.testcase === "math"){
         var script = "$f$te$f$xt$f$\n$式$ テキ$式$ スト$式$ \n $ff$te $ff$xt $ff$\n $式式$ テキ $式式$ スト $式式$ \n\n$$f$$te$$f$$xt$$f$$\n$$式$$ テキ$$式$$ スト$$式$$ \n $$ff$$te $$ff$$xt $$ff$$\n $$式式$$ テキ $$式式$$ スト $$式式$$ \n";
         $._id("input-pattern").value = "(?<!\\\$)(\\\$.+?\\\$)(?!\\\$)";
