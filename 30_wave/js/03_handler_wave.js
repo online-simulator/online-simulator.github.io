@@ -56,13 +56,9 @@ My_entry.handler_wave.prototype.init = function(){
   self.notes_sharp = ["C", "C#", "D", "D#", "E", "F", "F#", "G", "G#", "A", "A#", "B"];
   self.notes_flat = ["C", "Db", "D", "Eb", "E", "F", "Gb", "G", "Ab", "A", "Bb", "B"];
   self.tunes = ["Equal", "Pure", "Pythagorean", "MeanTone", "Young2", "Schnittger", "WerckMeister3", "KirnBerger3", "Vallotti", "PureMinor", "WerckMeister4", "WerckMeister5"];  // Ver.1.92.19
-  self.modes = ["Major", "Ionian", "Dorian", "Phrygian", "Lydian", "Mixolydian", "Minor", "Aeolian", "Locrian", "HarmonicMinor", "MelodicMinor", "Bayati", "Rast", "Saba", "PhrygianDominant"];  // Ver.1.87.19  // Ver.1.92.19
-  self.rules = {
+  self.modes = ["Major", "Ionian", "Dorian", "Phrygian", "Lydian", "Mixolydian", "Minor", "Aeolian", "Locrian", "HarmonicMinor", "MelodicMinor", "Bayati", "Rast", "Saba", "PhrygianDominant", "Hijaz", "Sikah", "Marva", "Miyakobushi", "Ryukyu"];  // Ver.1.87.19  // Ver.1.92.19  // Ver.1.96.21
+  self.rules = {  // common rules by relative degrees from root or C  // Ver.1.96.21
     Major: {
-      degrees: [],
-      alterations: []
-    },
-    Ionian: {
       degrees: [],
       alterations: []
     },
@@ -86,10 +82,6 @@ My_entry.handler_wave.prototype.init = function(){
       degrees: [3, 6, 7],
       alterations: [-1, -1, -1]
     },
-    Aeolian: {
-      degrees: [3, 6, 7],
-      alterations: [-1, -1, -1]
-    },
     Locrian: {
       degrees: [2, 3, 5, 6, 7],
       alterations: [-1, -1, -1, -1, -1]
@@ -104,14 +96,22 @@ My_entry.handler_wave.prototype.init = function(){
     },
     Bayati: {degrees: [2, 3, 6, 7], alterations: [-0.5, -1, -1, -1]},  // Ver.1.87.19
     Rast:   {degrees: [3, 7], alterations: [-0.5, -0.5]},  // Ver.1.87.19
-    Saba:   {degrees: [2, 3, 4, 6, 7], alterations: [-0.5, -1, -1, -1, -1]},  // Ver.1.92.19
-    PhrygianDominant: {degrees: [2, 6, 7], alterations: [-1, -1, -1]}  // Ver.1.92.19
+    Saba:   {degrees: [2, 3, 4, 6, 7, 8], alterations: [-0.5, -1, -1, -1, -1, -1]},  // Ver.1.92.19  // Ver.1.96.21
+    PhrygianDominant: {degrees: [2, 6, 7], alterations: [-1, -1, -1]},  // Ver.1.92.19
+    Sikah:  {degrees: [3, 4, 6, 7, 8], alterations: [-0.5, -1, -1, -0.5, -1]},  // Ver.1.96.21
+    Marva:  {degrees: [2, 4, 5], alterations: [-1, 1, null]},  // Ver.1.96.21
+    Miyakobushi:      {degrees: [2, 3, 7], alterations: [-1, null, null]},  // Ver.1.96.21
+    Ryukyu: {degrees: [2, 6], alterations: [null, null]}  // Ver.1.96.21
   };
+  self.rules["Ionian"] = self.rules["Major"];
+  self.rules["Aeolian"] = self.rules["Minor"];
+  self.rules["Hijaz"] = self.rules["PhrygianDominant"];  // Ver.1.96.21
   /* Ver.1.93.19 -> */
   /* Ver.1.90.19 -> */
   self.str_base = "A4";  // Ver.1.94.21
   self.pitch_base = 440;  // Ver.1.94.21
   self.edo = 12;
+  self.octave0 = -1;  // Ver.1.96.21
   self.octaves = 11;
   self.cents_in_octave = 1200;
   var PC = 531441/524288;  // Pythagorean Comma
@@ -128,13 +128,16 @@ My_entry.handler_wave.prototype.init = function(){
     Schnittger:    [0, -2, -6, -2, -8, 0, -4, -3, -2, -7, -2, -4].map(function(v){return v*(cents_PC/(edo*2));}),
     KirnBerger3:   [[0, 0], [3, -9], [-2, 0], [-3, 0], [4, -12], [-1, 0], [3, -9], [-1, 0], [-4, 0], [-4, 0], [-2, 0], [-6, 0]].map(function(v){return v[0]*(cents_PC/edo)+v[1]*(cents_SC/edo);})
   };
+  /* Ver.1.96.21 -> */
   /* Ver.1.94.20 -> */
+  self.fifth_step0 = 1;
   self.fifth_steps = Math.round(self.edo*Math.LOG2E*Math.log(1.5));
   self.stem2fifth = function(idx, alt){
     var offsets_fifth = [0, -5, 2, -3, 4, -1, 6, 1, -4, 3, -2, 5];  // [C, Db, D, Eb, E, F, Gb, G, Ab, A, Bb, B]
     return offsets_fifth[idx]+self.fifth_steps*alt;
   };
   /* -> Ver.1.94.20 */
+  /* -> Ver.1.96.21 */
   /* Ver.1.85.17 */
   self.get_ratio_from_C = function(str_tune, obj_root, obj_note){  // Ver.1.94.20  // Ver.1.94.21
     var edo = self.edo;
@@ -496,14 +499,49 @@ My_entry.handler_wave.prototype.str_note_or_root2obj = function(str_note_or_root
   var self = this;
   var mc = str_note_or_root.match(self.regex.sn);
   if(!(mc)) return false;
+  var octave0 = self.octave0;
   var str_stem = mc[1];
   var idx_stem = self.note2index[str_stem];
-  var octave = (mc[2] !== undefined)? Number(mc[2]): null;
+  var octave = (mc[2] !== undefined)? Number(mc[2]): octave0;  // Ver.1.96.21
   var str_sfn = mc[3] || "";
   var alteration = (str_sfn.match(self.regex.sharp) || []).length-(str_sfn.match(self.regex.flat) || []).length;
   var num_natural = (str_sfn.match(self.regex.natural) || []).length;  // Ver.1.95.21
   return {str: str_stem, idx: idx_stem, oct: octave, alt: alteration, numN: num_natural};  // Ver.1.95.21
 };
+/* Ver.1.96.21 -> */
+My_entry.handler_wave.prototype.get_alt_mode = function(rules, obj_root, obj_note){
+  var self = this;
+  var octave0 = self.octave0;
+  var octaves = self.octaves;
+  var fifth_step0 = self.fifth_step0;
+  var fifth_steps = self.fifth_steps;
+  var char2diatonic = {C: 0, D: 1, E: 2, F: 3, G: 4, A: 5, B: 6};
+  var d_stem_root = char2diatonic[obj_root.str];  // natural root  // Ver.1.94.19
+  var d_stem_note = char2diatonic[obj_note.str];
+  var degree_note_from_root = (d_stem_note-d_stem_root)+(obj_note.oct-obj_root.oct)*fifth_steps+fifth_step0;
+  var i_note = rules.degrees.indexOf(degree_note_from_root);
+  if(i_note === -1 && (degree_note_from_root < fifth_step0 || degree_note_from_root > fifth_step0+fifth_steps-1)){
+    var degree_base = ((degree_note_from_root-fifth_step0)%fifth_steps+octaves*fifth_steps)%fifth_steps+fifth_step0;
+    for(var doctave=octaves; doctave>=0; --doctave){
+      i_note = rules.degrees.indexOf((octave0+doctave-obj_root.oct)*fifth_steps+degree_base);  // for higher notes
+      if(i_note !== -1) break;
+    }
+  }
+  var _alt_mode = (i_note === -1 || obj_note.numN)? 0: rules.alterations[i_note];  // Ver.1.94.19  // Ver.1.95.21
+  if(_alt_mode === undefined || _alt_mode === null) _alt_mode = NaN;  // for skip
+  return _alt_mode;
+};
+My_entry.handler_wave.prototype.get_ratio_altered_from_C = function(str_tune, obj_root, obj_note){
+  var self = this;
+  var edo = self.edo;
+  var octave0 = self.octave0;
+  var semitones_from_base = obj_note.idx+Math.floor(obj_note.alt)+(obj_note.oct-octave0)*edo;
+  var doctave = Math.floor(semitones_from_base/edo);
+  var _ratio = self.get_ratio_from_C(str_tune, obj_root, obj_note);  // Ver.1.94.20
+  _ratio *= Math.pow(2, doctave);
+  return _ratio;
+};
+/* -> Ver.1.96.21 */
 /* Ver.1.93.19 */
 /* Ver.1.85.17 */
 /* Ver.1.44.11 */
@@ -511,7 +549,6 @@ My_entry.handler_wave.prototype.calc_freq = function(str, A4, tune, root, mode, 
   var self = this;
   var _freq = NaN;
   var edo = self.edo;
-  var fifth_step = self.fifth_step;
   var mc_oc = str.match(self.regex.oc);
   var mc_nc = str.match(self.regex.nc);  // Ver.1.13.4
   if(mc_oc || mc_nc) str = self.str_oc_nc2str_note(str, root, opt_sw_sharp2flat);  // Ver.1.13.4  // o4c9 || n69 -> A4
@@ -535,8 +572,6 @@ My_entry.handler_wave.prototype.calc_freq = function(str, A4, tune, root, mode, 
   }
   /* Ver.1.90.19 -> */
   if(isNote){
-    var char2diatonic = {C: 0, D: 1, E: 2, F: 3, G: 4, A: 5, B: 6};
-    var freq_base = A4;
     var str_tune = (isNaN(tune))? tune: self.tunes[Number(tune)];
     var str_root = (isNaN(root))? root: self.notes_sharp[Number(root)%edo];
     var str_mode = (isNaN(mode))? mode: self.modes[Number(mode)];
@@ -544,31 +579,18 @@ My_entry.handler_wave.prototype.calc_freq = function(str, A4, tune, root, mode, 
     var obj_note = self.str_note_or_root2obj(str);
     var obj_base = self.str_note_or_root2obj(self.str_base);
     var rules = (obj_root.numN || obj_note.numN >= 2)? null: self.rules[str_mode] || self.rules[self.modes[0]];  // Ver.1.95.21
-    if(rules && rules.degrees){
-      var d_stem_root = char2diatonic[obj_root.str];  // natural root  // Ver.1.94.19
-      var d_stem_note = char2diatonic[obj_note.str];
-      var degree_note_from_root = ((d_stem_note-d_stem_root+fifth_step)%fifth_step)+1;
-      var i_note = rules.degrees.indexOf(degree_note_from_root);
-      if(i_note !== -1 && !(obj_note.numN)){  // Ver.1.94.19  // Ver.1.95.21
-        obj_note.alt += rules.alterations[i_note];
-      }
-      if(opt_lockPitch){
-        var d_stem_base = char2diatonic[obj_base.str];
-        var degree_base_from_root = ((d_stem_base-d_stem_root+fifth_step)%fifth_step)+1;
-        var i_base = rules.degrees.indexOf(degree_base_from_root);
-        if(i_base !== -1 && !(obj_base.numN)){  // Ver.1.95.21
-          obj_base.alt += rules.alterations[i_base];
-        }
-      }
+    /* Ver.1.96.21 -> */
+    if(rules){
+      obj_note.alt += self.get_alt_mode(rules, obj_root, obj_note);
+      if(isNaN(obj_note.alt)) return 0;  // skip
+      if(opt_lockPitch) obj_base.alt += self.get_alt_mode(rules, obj_root, obj_base) || 0;  // || 0 for base
     }
-    var semitones_note = obj_note.idx+obj_note.oct*edo+Math.floor(obj_note.alt);
-    var semitones_base = obj_base.idx+obj_base.oct*edo+Math.floor(obj_base.alt);
     var doctave = opt_octave0 || 0;
-    doctave += Math.floor(semitones_note/edo)-Math.floor(semitones_base/edo);
-    var ratio_note_from_C = self.get_ratio_from_C(str_tune, obj_root, obj_note);  // Ver.1.94.20
-    var ratio_base_from_C = self.get_ratio_from_C(str_tune, obj_root, obj_base);  // Ver.1.94.20
-    _freq = freq_base*Math.pow(2, doctave);
-    _freq *= ratio_note_from_C/ratio_base_from_C;  // (ratio_note_altered_from_C/ratio_base_pure_from_C)/(ratio_base_altered_from_C/ratio_base_pure_from_C)
+    var freq_base = A4;
+    _freq = freq_base;
+    _freq *= Math.pow(2, doctave);
+    _freq *= self.get_ratio_altered_from_C(str_tune, obj_root, obj_note)/self.get_ratio_altered_from_C(str_tune, obj_root, obj_base);  // (ratio_note_altered_from_C/ratio_base_pure_from_C)/(ratio_base_altered_from_C/ratio_base_pure_from_C)
+    /* -> Ver.1.96.21 */
   }
   /* -> Ver.1.90.19 */
   return _freq;

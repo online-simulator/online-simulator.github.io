@@ -752,6 +752,76 @@
     <tr><td>3#b</td><td>MeanTone：Bayati：第2音(A)の自動下落＋シャープ＋フラット</td><td>440</td><td>3</td><td>G</td><td>11</td><td><strong>A4#b</strong></td><td><strong>440.000</strong></td><td></td></tr>
   </tbody>
 </table>
+
+<div class="run">Ver.1.96.21：8度||消音を含む旋法modeを追加</div>
+<div class="selection">・8度：1オクターブ以上に適用（ルートオクターブ未指定の場合、オクターブの一番上から下にindexを探索）</div>
+<div class="selection">・消音：幹音に対する変化記号は無効（ルートを含むナチュラル指定で復帰）</div>
+<div class="condition">lockPitch = false</div>
+<table class="tuning">
+  <thead>
+    <tr><th>No.</th><th>テスト内容</th><th>A4[Hz]</th><th>tune</th><th>root</th><th>mode</th><th>入力音</th><th>周波数期待値[Hz]</th><th>テスト結果[Hz]</th></tr>
+  </thead>
+  <tbody>
+    <tr><td>16</td><td>Sikah：ルートオクターブ指定の第1音(D)</td><td>440</td><td>3</td><td>D4</td><td>16</td><td><strong>D4</strong></td><td><strong>294.246</strong></td><td></td></tr>
+    <tr><td>16n</td><td>Sikah：同上の第1音(D)のナチュラル</td><td>440</td><td>3</td><td>D4</td><td>16</td><td><strong>D4n</strong></td><td><strong>294.246</strong></td><td></td></tr>
+    <tr><td>16nn</td><td>Sikah：同上の第1音(D)のダブルナチュラル</td><td>440</td><td>3</td><td>D4</td><td>16</td><td><strong>D4nn</strong></td><td><strong>294.246</strong></td><td></td></tr>
+    <tr><td>16</td><td>Sikah：同上の第8音(D)の自動下落</td><td>440</td><td>3</td><td>D4</td><td>16</td><td><strong>D5</strong></td><td><strong>563.200</strong></td><td></td></tr>
+    <tr><td>16n</td><td>Sikah：同上の第8音(D)のナチュラル</td><td>440</td><td>3</td><td>D4</td><td>16</td><td><strong>D5n</strong></td><td><strong>588.491</strong></td><td></td></tr>
+    <tr><td>16nn</td><td>Sikah：同上の第8音(D)のダブルナチュラル</td><td>440</td><td>3</td><td>D4</td><td>16</td><td><strong>D5nn</strong></td><td><strong>588.491</strong></td><td></td></tr>
+    <tr><td>16nn#</td><td>Sikah：同上の第8音(D)のダブルナチュラル＋シャープ</td><td>440</td><td>3</td><td>D4</td><td>16</td><td><strong>D5nn#</strong></td><td><strong>614.919</strong></td><td></td></tr>
+    <tr><td>16b</td><td>Sikah：同上の第8音(D)の自動下落＋フラット</td><td>440</td><td>3</td><td>D4</td><td>16</td><td><strong>D5b</strong></td><td><strong>538.995</strong></td><td></td></tr>
+    <tr><td>16bb</td><td>Sikah：同上の第8音(D)の自動下落＋ダブルフラット</td><td>440</td><td>3</td><td>D4</td><td>16</td><td><strong>D5bb</strong></td><td><strong>515.831</strong></td><td></td></tr>
+    <tr><td>16#</td><td>Sikah：同上の第8音(D)の自動下落＋シャープ</td><td>440</td><td>3</td><td>D4</td><td>16</td><td><strong>D5#</strong></td><td><strong>588.491</strong></td><td></td></tr>
+    <tr><td>16##</td><td>Sikah：同上の第8音(D)の自動下落＋ダブルシャープ</td><td>440</td><td>3</td><td>D4</td><td>16</td><td><strong>D5##</strong></td><td><strong>614.919</strong></td><td></td></tr>
+    <tr><td>16#b</td><td>Sikah：同上の第8音(D)の自動下落＋シャープ＋フラット</td><td>440</td><td>3</td><td>D4</td><td>16</td><td><strong>D5#b</strong></td><td><strong>563.200</strong></td><td></td></tr>
+    <tr><td>19</td><td>Ryukyu：ルートオクターブ指定の第1音(B)</td><td>440</td><td>6</td><td>B4</td><td>19</td><td><strong>B4</strong></td><td><strong>495.000</strong></td><td></td></tr>
+    <tr><td>19n</td><td>Ryukyu：同上の第1音(B)のナチュラル</td><td>440</td><td>6</td><td>B4</td><td>19</td><td><strong>B4n</strong></td><td><strong>495.000</strong></td><td></td></tr>
+    <tr><td>19nn</td><td>Ryukyu：同上の第1音(B)のダブルナチュラル</td><td>440</td><td>6</td><td>B4</td><td>19</td><td><strong>B4nn</strong></td><td><strong>495.000</strong></td><td></td></tr>
+    <tr><td>19</td><td>Ryukyu：同上の第2音(C)の消音</td><td>440</td><td>6</td><td>B4</td><td>19</td><td><strong>C4</strong></td><td><strong>0.000</strong></td><td></td></tr>
+    <tr><td>19n</td><td>Ryukyu：同上の第2音(C)のナチュラル</td><td>440</td><td>6</td><td>B4</td><td>19</td><td><strong>C4n</strong></td><td><strong>263.404</strong></td><td></td></tr>
+    <tr><td>19nn</td><td>Ryukyu：同上の第2音(C)のダブルナチュラル</td><td>440</td><td>6</td><td>B4</td><td>19</td><td><strong>C4nn</strong></td><td><strong>263.404</strong></td><td></td></tr>
+    <tr><td>19nn#</td><td>Ryukyu：同上の第2音(C)のダブルナチュラル＋シャープ</td><td>440</td><td>6</td><td>B4</td><td>19</td><td><strong>C4nn#</strong></td><td><strong>277.496</strong></td><td></td></tr>
+    <tr><td>19b</td><td>Ryukyu：同上の第2音(C)のフラット</td><td>440</td><td>6</td><td>B4</td><td>19</td><td><strong>C4b</strong></td><td><strong>0.000</strong></td><td></td></tr>
+    <tr><td>19bb</td><td>Ryukyu：同上の第2音(C)のダブルフラット</td><td>440</td><td>6</td><td>B4</td><td>19</td><td><strong>C4bb</strong></td><td><strong>0.000</strong></td><td></td></tr>
+    <tr><td>19#</td><td>Ryukyu：同上の第2音(C)のシャープ</td><td>440</td><td>6</td><td>B4</td><td>19</td><td><strong>C4#</strong></td><td><strong>0.000</strong></td><td></td></tr>
+    <tr><td>19##</td><td>Ryukyu：同上の第2音(C)のダブルシャープ</td><td>440</td><td>6</td><td>B4</td><td>19</td><td><strong>C4##</strong></td><td><strong>0.000</strong></td><td></td></tr>
+    <tr><td>19#b</td><td>Ryukyu：同上の第2音(C)のシャープ＋フラット</td><td>440</td><td>6</td><td>B4</td><td>19</td><td><strong>C4#b</strong></td><td><strong>0.000</strong></td><td></td></tr>
+    <tr><td>19#b</td><td>Ryukyu：同上のルートナチュラル</td><td>440</td><td>6</td><td>B4n</td><td>19</td><td><strong>C4#b</strong></td><td><strong>263.404</strong></td><td></td></tr>
+  </tbody>
+</table>
+<div class="condition">lockPitch = true</div>
+<table class="tuning lockPitch">
+  <thead>
+    <tr><th>No.</th><th>テスト内容</th><th>A4[Hz]</th><th>tune</th><th>root</th><th>mode</th><th>入力音</th><th>周波数期待値[Hz]</th><th>テスト結果[Hz]</th></tr>
+  </thead>
+  <tbody>
+    <tr><td>16</td><td>Sikah：ルートオクターブ指定の第1音(D)</td><td>440</td><td>3</td><td>D4</td><td>16</td><td><strong>D4</strong></td><td><strong>294.246</strong></td><td></td></tr>
+    <tr><td>16n</td><td>Sikah：同上の第1音(D)のナチュラル</td><td>440</td><td>3</td><td>D4</td><td>16</td><td><strong>D4n</strong></td><td><strong>294.246</strong></td><td></td></tr>
+    <tr><td>16nn</td><td>Sikah：同上の第1音(D)のダブルナチュラル</td><td>440</td><td>3</td><td>D4</td><td>16</td><td><strong>D4nn</strong></td><td><strong>294.246</strong></td><td></td></tr>
+    <tr><td>16</td><td>Sikah：同上の第8音(D)の自動下落</td><td>440</td><td>3</td><td>D4</td><td>16</td><td><strong>D5</strong></td><td><strong>563.200</strong></td><td></td></tr>
+    <tr><td>16n</td><td>Sikah：同上の第8音(D)のナチュラル</td><td>440</td><td>3</td><td>D4</td><td>16</td><td><strong>D5n</strong></td><td><strong>588.491</strong></td><td></td></tr>
+    <tr><td>16nn</td><td>Sikah：同上の第8音(D)のダブルナチュラル</td><td>440</td><td>3</td><td>D4</td><td>16</td><td><strong>D5nn</strong></td><td><strong>588.491</strong></td><td></td></tr>
+    <tr><td>16nn#</td><td>Sikah：同上の第8音(D)のダブルナチュラル＋シャープ</td><td>440</td><td>3</td><td>D4</td><td>16</td><td><strong>D5nn#</strong></td><td><strong>614.919</strong></td><td></td></tr>
+    <tr><td>16b</td><td>Sikah：同上の第8音(D)の自動下落＋フラット</td><td>440</td><td>3</td><td>D4</td><td>16</td><td><strong>D5b</strong></td><td><strong>538.995</strong></td><td></td></tr>
+    <tr><td>16bb</td><td>Sikah：同上の第8音(D)の自動下落＋ダブルフラット</td><td>440</td><td>3</td><td>D4</td><td>16</td><td><strong>D5bb</strong></td><td><strong>515.831</strong></td><td></td></tr>
+    <tr><td>16#</td><td>Sikah：同上の第8音(D)の自動下落＋シャープ</td><td>440</td><td>3</td><td>D4</td><td>16</td><td><strong>D5#</strong></td><td><strong>588.491</strong></td><td></td></tr>
+    <tr><td>16##</td><td>Sikah：同上の第8音(D)の自動下落＋ダブルシャープ</td><td>440</td><td>3</td><td>D4</td><td>16</td><td><strong>D5##</strong></td><td><strong>614.919</strong></td><td></td></tr>
+    <tr><td>16#b</td><td>Sikah：同上の第8音(D)の自動下落＋シャープ＋フラット</td><td>440</td><td>3</td><td>D4</td><td>16</td><td><strong>D5#b</strong></td><td><strong>563.200</strong></td><td></td></tr>
+    <tr><td>19</td><td>Ryukyu：ルートオクターブ指定の第1音(B)</td><td>440</td><td>6</td><td>B4</td><td>19</td><td><strong>B4</strong></td><td><strong>495.000</strong></td><td></td></tr>
+    <tr><td>19n</td><td>Ryukyu：同上の第1音(B)のナチュラル</td><td>440</td><td>6</td><td>B4</td><td>19</td><td><strong>B4n</strong></td><td><strong>495.000</strong></td><td></td></tr>
+    <tr><td>19nn</td><td>Ryukyu：同上の第1音(B)のダブルナチュラル</td><td>440</td><td>6</td><td>B4</td><td>19</td><td><strong>B4nn</strong></td><td><strong>495.000</strong></td><td></td></tr>
+    <tr><td>19</td><td>Ryukyu：同上の第2音(C)の消音</td><td>440</td><td>6</td><td>B4</td><td>19</td><td><strong>C4</strong></td><td><strong>0.000</strong></td><td></td></tr>
+    <tr><td>19n</td><td>Ryukyu：同上の第2音(C)のナチュラル</td><td>440</td><td>6</td><td>B4</td><td>19</td><td><strong>C4n</strong></td><td><strong>263.404</strong></td><td></td></tr>
+    <tr><td>19nn</td><td>Ryukyu：同上の第2音(C)のダブルナチュラル</td><td>440</td><td>6</td><td>B4</td><td>19</td><td><strong>C4nn</strong></td><td><strong>263.404</strong></td><td></td></tr>
+    <tr><td>19nn#</td><td>Ryukyu：同上の第2音(C)のダブルナチュラル＋シャープ</td><td>440</td><td>6</td><td>B4</td><td>19</td><td><strong>C4nn#</strong></td><td><strong>277.496</strong></td><td></td></tr>
+    <tr><td>19b</td><td>Ryukyu：同上の第2音(C)のフラット</td><td>440</td><td>6</td><td>B4</td><td>19</td><td><strong>C4b</strong></td><td><strong>0.000</strong></td><td></td></tr>
+    <tr><td>19bb</td><td>Ryukyu：同上の第2音(C)のダブルフラット</td><td>440</td><td>6</td><td>B4</td><td>19</td><td><strong>C4bb</strong></td><td><strong>0.000</strong></td><td></td></tr>
+    <tr><td>19#</td><td>Ryukyu：同上の第2音(C)のシャープ</td><td>440</td><td>6</td><td>B4</td><td>19</td><td><strong>C4#</strong></td><td><strong>0.000</strong></td><td></td></tr>
+    <tr><td>19##</td><td>Ryukyu：同上の第2音(C)のダブルシャープ</td><td>440</td><td>6</td><td>B4</td><td>19</td><td><strong>C4##</strong></td><td><strong>0.000</strong></td><td></td></tr>
+    <tr><td>19#b</td><td>Ryukyu：同上の第2音(C)のシャープ＋フラット</td><td>440</td><td>6</td><td>B4</td><td>19</td><td><strong>C4#b</strong></td><td><strong>0.000</strong></td><td></td></tr>
+    <tr><td>19#b</td><td>Ryukyu：同上のルートナチュラル</td><td>440</td><td>6</td><td>B4n</td><td>19</td><td><strong>C4#b</strong></td><td><strong>263.404</strong></td><td></td></tr>
+  </tbody>
+</table>
 <hr>
 
   </div>
