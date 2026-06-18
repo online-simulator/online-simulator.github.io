@@ -377,15 +377,30 @@ My_entry.handler_wave.prototype.make_params_extended = function(tokens, params0,
     }
   };
   /* Ver.1.71.14 -> */
+  /* Ver.1.97.21 -> */
   var n0 = 3;
-  var mc_type = tokens_.match(self.regex.type);
-  if(mc_type && mc_type.length){
-    var token = mc_type[mc_type.length-1];
-    var mc = token.match(self.regex.table);
-    store("type", self.make_table(mc[1], mc[2]));
-    tokens_ = tokens_.replace(self.regex.type, "");
-    n0 = 4;
+  for(var prop in self.tables.ranges){
+    var re= new RegExp(prop+"="+self.regex.table);
+    var mc = tokens_.match(re);
+    if(mc && mc.length){
+      var table = self.entry.def.parse2table(mc[1], 2);
+      try{
+        var size = null;
+        if(prop === "tune"){
+          size = (table && table[0].length === 1)? 1: self.edo;
+        }
+        self.entry.def.val2num_table(table, self.tables.ranges[prop], size);
+      }
+      catch(e){
+        e.message += "@"+prop;
+        throw e;
+      }
+      store(prop, table);
+      tokens_ = tokens_.replace(re, "");
+      if(prop === "type") n0 = 4;
+    }
   }
+  /* -> Ver.1.97.21 */
   var arr_token = tokens_.split(":");
   /* -> Ver.1.71.14 */
   /* Ver.1.70.14 -> */
@@ -480,9 +495,9 @@ My_entry.handler_wave.prototype.input2arr = function(input){
     /* Ver.1.20.4 -> */
     var params0 = {};
     /* -> Ver.1.20.4 */
-    var arr_data = str.replace(self.regex.rb, "").split(";");
+    var arr_data = self.entry.def.split_outside_all_pairs(str.replace(self.regex.rb, ""), ";");  // Ver.1.97.21
     arr_data.forEach(function(tokens, j){
-      var arr_token = tokens.split(":");
+      var arr_token = self.entry.def.split_outside_all_pairs(tokens, ":");  // Ver.1.97.21
       /* Ver.1.44.11 -> */
       var token0 = arr_token[0];
       /* Ver.1.70.14 -> */

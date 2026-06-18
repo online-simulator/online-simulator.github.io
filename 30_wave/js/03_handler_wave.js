@@ -48,16 +48,16 @@ My_entry.handler_wave.prototype.init = function(){
   self.regex.natural = /n/g;  // Ver.1.94.19
   self.regex.freq = /^f(.*)/;  // Ver.1.19.4
   self.regex.rest = /^r$/;  // Ver.1.65.14
-  self.regex.type = /type=\[(.*?):(.*?)\]/g;  // Ver.1.71.14
-  self.regex.table = /\[(.*?):(.*?)\]/;  // Ver.1.71.14
+  self.regex.table = "\\[(.*?)\\]";  // Ver.1.71.14  // Ver.1.97.21
   self.msec_60BPM = 1000;  // Ver.1.19.4
   /* Ver.1.84.15 -> */
-  self.note2index = {C: 0, "C#": 1, Db: 1, D: 2, "D#": 3, Eb: 3, E: 4, "E#": 5, Fb: 4, F: 5, "F#": 6, Gb: 6, G: 7, "G#": 8, Ab: 8, A: 9, "A#": 10, Bb: 10, B: 11, "B#": 0, "Cb": 11};  // Ver.1.90.19  // Ver.1.94.20
-  self.notes_sharp = ["C", "C#", "D", "D#", "E", "F", "F#", "G", "G#", "A", "A#", "B"];
-  self.notes_flat = ["C", "Db", "D", "Eb", "E", "F", "Gb", "G", "Ab", "A", "Bb", "B"];
-  self.tunes = ["Equal", "Pure", "Pythagorean", "MeanTone", "Young2", "Schnittger", "WerckMeister3", "KirnBerger3", "Vallotti", "PureMinor", "WerckMeister4", "WerckMeister5"];  // Ver.1.92.19
-  self.modes = ["Major", "Ionian", "Dorian", "Phrygian", "Lydian", "Mixolydian", "Minor", "Aeolian", "Locrian", "HarmonicMinor", "MelodicMinor", "Bayati", "Rast", "Saba", "PhrygianDominant", "Hijaz", "Sikah", "Marva", "Miyakobushi", "Ryukyu"];  // Ver.1.87.19  // Ver.1.92.19  // Ver.1.96.21
-  self.rules = {  // common rules by relative degrees from root or C  // Ver.1.96.21
+  self.tables = {};  // Ver.1.97.21
+  self.tables.note2index = {C: 0, "C#": 1, Db: 1, D: 2, "D#": 3, Eb: 3, E: 4, "E#": 5, Fb: 4, F: 5, "F#": 6, Gb: 6, G: 7, "G#": 8, Ab: 8, A: 9, "A#": 10, Bb: 10, B: 11, "B#": 0, "Cb": 11};  // Ver.1.90.19  // Ver.1.94.20
+  self.tables.notes_sharp = ["C", "C#", "D", "D#", "E", "F", "F#", "G", "G#", "A", "A#", "B"];
+  self.tables.notes_flat = ["C", "Db", "D", "Eb", "E", "F", "Gb", "G", "Ab", "A", "Bb", "B"];
+  self.tables.tunes = ["Equal", "Pure", "Pythagorean", "MeanTone", "Young2", "Schnittger", "WerckMeister3", "KirnBerger3", "Vallotti", "PureMinor", "WerckMeister4", "WerckMeister5"];  // Ver.1.92.19
+  self.tables.modes = ["Major", "Ionian", "Dorian", "Phrygian", "Lydian", "Mixolydian", "Minor", "Aeolian", "Locrian", "HarmonicMinor", "MelodicMinor", "Bayati", "Rast", "Saba", "PhrygianDominant", "Hijaz", "Sikah", "Marva", "Miyakobushi", "Ryukyu"];  // Ver.1.87.19  // Ver.1.92.19  // Ver.1.96.21
+  self.tables.rules = {  // common rules by relative degrees from root or C  // Ver.1.96.21
     Major: {
       degrees: [],
       alterations: []
@@ -103,9 +103,9 @@ My_entry.handler_wave.prototype.init = function(){
     Miyakobushi:      {degrees: [2, 3, 7], alterations: [-1, null, null]},  // Ver.1.96.21
     Ryukyu: {degrees: [2, 6], alterations: [null, null]}  // Ver.1.96.21
   };
-  self.rules["Ionian"] = self.rules["Major"];
-  self.rules["Aeolian"] = self.rules["Minor"];
-  self.rules["Hijaz"] = self.rules["PhrygianDominant"];  // Ver.1.96.21
+  self.tables.rules["Ionian"] = self.tables.rules["Major"];
+  self.tables.rules["Aeolian"] = self.tables.rules["Minor"];
+  self.tables.rules["Hijaz"] = self.tables.rules["PhrygianDominant"];  // Ver.1.96.21
   /* Ver.1.93.19 -> */
   /* Ver.1.90.19 -> */
   self.str_base = "A4";  // Ver.1.94.21
@@ -119,7 +119,7 @@ My_entry.handler_wave.prototype.init = function(){
   var cents_PC = self.cents_in_octave*Math.LOG2E*Math.log(PC);  // cents of PC
   var cents_SC = self.cents_in_octave*Math.LOG2E*Math.log(SC);  // cents of SC
   var edo = self.edo;
-  self.cents_deviation = {
+  self.tables.cents_deviation = {
     Young2:        [0, -2, -3, -1, -4, -1, -3, -2, -2, -4, -1, -3].map(function(v){return v*(cents_PC/edo);}),
     WerckMeister3: [0, -5, -4, -3, -5, -1, -6, -2, -4, -6, -2, -4].map(function(v){return v*(cents_PC/edo);}),
     WerckMeister4: [0, -4, -2, -4, -4, 2, -4, -2, -4, -4, -2, -2].map(function(v){return v*(cents_PC/edo);}),  // Ver.1.92.19
@@ -128,55 +128,110 @@ My_entry.handler_wave.prototype.init = function(){
     Schnittger:    [0, -2, -6, -2, -8, 0, -4, -3, -2, -7, -2, -4].map(function(v){return v*(cents_PC/(edo*2));}),
     KirnBerger3:   [[0, 0], [3, -9], [-2, 0], [-3, 0], [4, -12], [-1, 0], [3, -9], [-1, 0], [-4, 0], [-4, 0], [-2, 0], [-6, 0]].map(function(v){return v[0]*(cents_PC/edo)+v[1]*(cents_SC/edo);})
   };
+  /* Ver.1.97.21 -> */
   /* Ver.1.96.21 -> */
   /* Ver.1.94.20 -> */
-  self.fifth_step0 = 1;
-  self.fifth_steps = Math.round(self.edo*Math.LOG2E*Math.log(1.5));
-  self.stem2fifth = function(idx, alt){
+  self.tables.bases_fifth = {
+    Pythagorean: (3/2),                    // 1.5
+    MeanTone: Math.pow(5, 1/4),            // 1.4953487812212205
+    MeanTone1_6: (3/2)/Math.pow(SC, 1/6),  // 1.4968975827619544
+    MeanTone2_9: (3/2)/Math.pow(SC, 2/9),  // 1.4958648702633985
+    Equal12: Math.pow(2, 7/12),            // 1.4983070768766815
+    Equal19: Math.pow(2, 11/19),           // 1.4937589616544857
+    Equal31: Math.pow(2, 18/31),           // 1.4955178823482085
+    Equal43: Math.pow(2, 25/43),           // 1.4962957394862462
+    Equal53: Math.pow(2, 31/53)            // 1.4999409030781112
+  };
+  self.step0_fifth = 1;
+  self.calc_steps_fifth = function(str_tune){
+    var base_fifth = self.tables.bases_fifth[str_tune || "Pythagorean"] || (3/2);
+    return Math.round(self.edo*Math.LOG2E*Math.log(base_fifth));
+  };
+  self.tables.stem2fifth = function(str_tune, idx, alt){
     var offsets_fifth = [0, -5, 2, -3, 4, -1, 6, 1, -4, 3, -2, 5];  // [C, Db, D, Eb, E, F, Gb, G, Ab, A, Bb, B]
-    return offsets_fifth[idx]+self.fifth_steps*alt;
+    return offsets_fifth[idx]+self.calc_steps_fifth(str_tune)*alt;
+  };
+  var str_defined = "defined_";
+  self.tables.str_defined = str_defined;
+  self.tables.ratios_interval = {
+    Pure: [1/1, 25/24, 9/8, 6/5, 5/4, 4/3, 45/32, 3/2, 25/16, 5/3, 9/5, 15/8],
+    PureMinor: [1/1, 25/24, 9/8, 6/5, 5/4, 4/3, 45/32, 3/2, 8/5,  5/3, 9/5, 15/8]  // Ver.1.92.19
+  };
+  var semitones = (self.octaves-1)*self.edo;
+  var steps = (self.octaves-1)*self.calc_steps_fifth();
+  var cents = (self.octaves-1)*self.cents_in_octave;
+  self.tables.ranges = {type: [[0, 1], [-1, 1]], tune: [[-cents, cents]], mode: [[-steps, steps], [-semitones, semitones]]};
+  self.tables.initiate_tune = function(tune){
+    var _tune = tune;
+    if(Array.isArray(tune)){
+      var table = tune;
+      if(table[0].length === 1){
+        self.tables.bases_fifth[str_defined] = table[0][0];
+      }
+      else if(table[0][0]){
+        self.tables.ratios_interval[str_defined] = table[0];
+      }
+      else{
+        self.tables.cents_deviation[str_defined] = table[0];
+      }
+      _tune = str_defined;
+    }
+    return _tune;
+  };
+  self.tables.initiate_mode = function(mode){
+    var _mode = mode;
+    if(Array.isArray(mode)){
+      var table = mode;
+      self.tables.rules[str_defined] = {degrees: table[0], alterations: table[1]};
+      _mode = str_defined;
+    }
+    return _mode;
+  };
+  self.tables.terminate = function(){
+    delete self.tables.rules[str_defined];
+    delete self.tables.ratios_interval[str_defined];
+    delete self.tables.bases_fifth[str_defined];
+    delete self.tables.cents_deviation[str_defined];
   };
   /* -> Ver.1.94.20 */
   /* -> Ver.1.96.21 */
+  /* -> Ver.1.97.21 */
   /* Ver.1.85.17 */
   self.get_ratio_from_C = function(str_tune, obj_root, obj_note){  // Ver.1.94.20  // Ver.1.94.21
     var edo = self.edo;
     var octaves = self.octaves;
+    var tables = self.tables;  // Ver.1.97.21
     var calc_ratio_from_root = function(idx, alt){
       var alt_int = Math.floor(alt);  // |alteration| < 128(MIDI) < octaves*edo  // floor standardized for doctave
       var alt_frac = alt-alt_int;
       if(str_tune === "Equal"){
         return Math.pow(2, (idx+alt)/edo);
       }
-      else if(str_tune === "Pure" || str_tune === "PureMinor"){  // Ver.1.92.19
+      else if(tables.ratios_interval[str_tune]){  // Ver.1.92.19  // Ver.1.97.21
         var semitones_from_root = (idx+alt_int-(obj_root.idx+obj_root.alt)+octaves*edo)%edo;  // Ver.1.94.21
-        var pureTable = (str_tune === "Pure")?
-          [1/1, 25/24, 9/8, 6/5, 5/4, 4/3, 45/32, 3/2, 25/16, 5/3, 9/5, 15/8]:
-          [1/1, 25/24, 9/8, 6/5, 5/4, 4/3, 45/32, 3/2, 8/5,  5/3, 9/5, 15/8];  // Ver.1.92.19
-        var _r = pureTable[semitones_from_root];
+        var _r = tables.ratios_interval[str_tune][semitones_from_root];
         _r *= Math.pow(2, alt_frac/edo);
         return _r;
       }
-      else if(str_tune === "Pythagorean" || str_tune === "MeanTone"){
-        var base = (str_tune === "Pythagorean")? 1.5: Math.pow(5, 0.25);
-        var root_fifth = self.stem2fifth(obj_root.idx, obj_root.alt);  // Ver.1.94.20  // Ver.1.94.21
-        var target_fifth = self.stem2fifth(idx, alt);  // Ver.1.94.20
+      else if(tables.bases_fifth[str_tune]){  // Ver.1.97.21
+        var base = tables.bases_fifth[str_tune];
+        var root_fifth = self.tables.stem2fifth(str_tune, obj_root.idx, obj_root.alt);  // Ver.1.94.20  // Ver.1.94.21
+        var target_fifth = self.tables.stem2fifth(str_tune, idx, alt);  // Ver.1.94.20
         return Math.pow(base, target_fifth-root_fifth);
       }
-      else{
-        if(self.cents_deviation[str_tune]){
-          var semitones_from_C = (idx+alt_int+octaves*edo)%edo;
-          var _r = Math.pow(2, (idx+alt_int)/edo);
-          _r *= Math.pow(2, self.cents_deviation[str_tune][semitones_from_C]/self.cents_in_octave);
-          _r *= Math.pow(2, alt_frac/edo);
-          return _r;
-        }
+      else if(tables.cents_deviation[str_tune]){  // Ver.1.97.21
+        var semitones_from_C = (idx+alt_int+octaves*edo)%edo;
+        var _r = Math.pow(2, (idx+alt_int)/edo);
+        _r *= Math.pow(2, tables.cents_deviation[str_tune][semitones_from_C]/self.cents_in_octave);
+        _r *= Math.pow(2, alt_frac/edo);
+        return _r;
       }
-      return 1;
+      return NaN;  // Ver.1.97.21 error
     };
     var ratio_target = calc_ratio_from_root(obj_note.idx, obj_note.alt);  // Ver.1.94.21
     var ratio_C      = calc_ratio_from_root(0, 0);
     var _ratio = ratio_target/ratio_C;
+    if(isNaN(_ratio) || !(isFinite(_ratio)) || _ratio/2 < Number.EPSILON) return NaN;  // Ver.1.97.21 for table_defined
     while(_ratio < 1) _ratio *= 2;
     while(_ratio >= 2) _ratio /= 2;
     return _ratio;  // [1, 2)
@@ -486,12 +541,12 @@ My_entry.handler_wave.prototype.str_oc_nc2str_note = function(str_oc_nc, root, o
   var idx_note = num%edo;
   var useFlat = opt_sw_sharp2flat;
   if(useFlat === undefined || useFlat === null){
-    var idx_root = (isNaN(root))? self.note2index[root]: Number(root)%edo;  // Ver.1.94.20
+    var idx_root = (isNaN(root))? self.tables.note2index[root]: Number(root)%edo;  // Ver.1.94.20
     var idx_note_from_root = (idx_note-idx_root+edo)%edo;
     var isFlatKey = [1, 3, 5, 6, 8, 10].indexOf(idx_root) !== -1 || (typeof root === "string" && root.indexOf("b") !== -1);  // [Db, Eb, F, Gb, Ab, Bb]
     useFlat = [1, 3, 8, 10].indexOf(idx_note_from_root) !== -1 || isFlatKey;  // [Db, Eb, Ab, Bb]
   }
-  var str_note = self["notes_"+((useFlat)? "flat": "sharp")][idx_note];  // Ver.1.44.11
+  var str_note = self.tables["notes_"+((useFlat)? "flat": "sharp")][idx_note];  // Ver.1.44.11
   /* -> Ver.1.90.19 */
   return self.make_str(octave, str_note);
 };
@@ -501,7 +556,7 @@ My_entry.handler_wave.prototype.str_note_or_root2obj = function(str_note_or_root
   if(!(mc)) return false;
   var octave0 = self.octave0;
   var str_stem = mc[1];
-  var idx_stem = self.note2index[str_stem];
+  var idx_stem = self.tables.note2index[str_stem];
   var octave = (mc[2] !== undefined)? Number(mc[2]): octave0;  // Ver.1.96.21
   var str_sfn = mc[3] || "";
   var alteration = (str_sfn.match(self.regex.sharp) || []).length-(str_sfn.match(self.regex.flat) || []).length;
@@ -509,21 +564,21 @@ My_entry.handler_wave.prototype.str_note_or_root2obj = function(str_note_or_root
   return {str: str_stem, idx: idx_stem, oct: octave, alt: alteration, numN: num_natural};  // Ver.1.95.21
 };
 /* Ver.1.96.21 -> */
-My_entry.handler_wave.prototype.get_alt_mode = function(rules, obj_root, obj_note){
+My_entry.handler_wave.prototype.get_alt_mode = function(str_tune, rules, obj_root, obj_note){  // Ver.1.97.21
   var self = this;
   var octave0 = self.octave0;
   var octaves = self.octaves;
-  var fifth_step0 = self.fifth_step0;
-  var fifth_steps = self.fifth_steps;
+  var step0_fifth = self.step0_fifth;  // Ver.1.97.21
+  var steps_fifth = self.calc_steps_fifth(str_tune);  // Ver.1.97.21
   var char2diatonic = {C: 0, D: 1, E: 2, F: 3, G: 4, A: 5, B: 6};
   var d_stem_root = char2diatonic[obj_root.str];  // natural root  // Ver.1.94.19
   var d_stem_note = char2diatonic[obj_note.str];
-  var degree_note_from_root = (d_stem_note-d_stem_root)+(obj_note.oct-obj_root.oct)*fifth_steps+fifth_step0;
+  var degree_note_from_root = (d_stem_note-d_stem_root)+(obj_note.oct-obj_root.oct)*steps_fifth+step0_fifth;
   var i_note = rules.degrees.indexOf(degree_note_from_root);
-  if(i_note === -1 && (degree_note_from_root < fifth_step0 || degree_note_from_root > fifth_step0+fifth_steps-1)){
-    var degree_base = ((degree_note_from_root-fifth_step0)%fifth_steps+octaves*fifth_steps)%fifth_steps+fifth_step0;
+  if(i_note === -1 && (degree_note_from_root < step0_fifth || degree_note_from_root > step0_fifth+steps_fifth-1)){
+    var degree_base = ((degree_note_from_root-step0_fifth)%steps_fifth+octaves*steps_fifth)%steps_fifth+step0_fifth;
     for(var doctave=octaves; doctave>=0; --doctave){
-      i_note = rules.degrees.indexOf((octave0+doctave-obj_root.oct)*fifth_steps+degree_base);  // for higher notes
+      i_note = rules.degrees.indexOf((octave0+doctave-obj_root.oct)*steps_fifth+degree_base);  // for higher notes
       if(i_note !== -1) break;
     }
   }
@@ -572,18 +627,20 @@ My_entry.handler_wave.prototype.calc_freq = function(str, A4, tune, root, mode, 
   }
   /* Ver.1.90.19 -> */
   if(isNote){
-    var str_tune = (isNaN(tune))? tune: self.tunes[Number(tune)];
-    var str_root = (isNaN(root))? root: self.notes_sharp[Number(root)%edo];
-    var str_mode = (isNaN(mode))? mode: self.modes[Number(mode)];
+    var tune = self.tables.initiate_tune(tune);  // Ver.1.97.21
+    var mode = self.tables.initiate_mode(mode);  // Ver.1.97.21
+    var str_tune = (isNaN(tune))? tune: self.tables.tunes[Number(tune)];
+    var str_root = (isNaN(root))? root: self.tables.notes_sharp[Number(root)%edo];
+    var str_mode = (isNaN(mode))? mode: self.tables.modes[Number(mode)];
     var obj_root = self.str_note_or_root2obj(str_root);
     var obj_note = self.str_note_or_root2obj(str);
     var obj_base = self.str_note_or_root2obj(self.str_base);
-    var rules = (obj_root.numN || obj_note.numN >= 2)? null: self.rules[str_mode] || self.rules[self.modes[0]];  // Ver.1.95.21
+    var rules = (obj_root.numN || obj_note.numN >= 2)? null: self.tables.rules[str_mode] || self.tables.rules[self.tables.modes[0]];  // Ver.1.95.21
     /* Ver.1.96.21 -> */
     if(rules){
-      obj_note.alt += self.get_alt_mode(rules, obj_root, obj_note);
+      obj_note.alt += self.get_alt_mode(str_tune, rules, obj_root, obj_note);  // Ver.1.97.21
       if(isNaN(obj_note.alt)) return 0;  // skip
-      if(opt_lockPitch) obj_base.alt += self.get_alt_mode(rules, obj_root, obj_base) || 0;  // || 0 for base
+      if(opt_lockPitch) obj_base.alt += self.get_alt_mode(str_tune, rules, obj_root, obj_base) || 0;  // || 0 for base  // Ver.1.97.21
     }
     var doctave = opt_octave0 || 0;
     var freq_base = A4;
@@ -591,6 +648,7 @@ My_entry.handler_wave.prototype.calc_freq = function(str, A4, tune, root, mode, 
     _freq *= Math.pow(2, doctave);
     _freq *= self.get_ratio_altered_from_C(str_tune, obj_root, obj_note)/self.get_ratio_altered_from_C(str_tune, obj_root, obj_base);  // (ratio_note_altered_from_C/ratio_base_pure_from_C)/(ratio_base_altered_from_C/ratio_base_pure_from_C)
     /* -> Ver.1.96.21 */
+    self.tables.terminate();  // Ver.1.97.21
   }
   /* -> Ver.1.90.19 */
   return _freq;

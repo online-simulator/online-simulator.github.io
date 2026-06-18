@@ -365,6 +365,10 @@ My_entry.$.prototype.val2literal = function(val){
   }
   return _val;
 };
+My_entry.$.prototype.val2num_literal = function(val){
+  var self = this;
+  return ((isNaN(Number(val)))? self.val2literal(val): Number(val));
+};
 My_entry.$.prototype.get_urlParam = function(key_comp, opt_isForced, opt_search){
   var self = this;
   var _val = "";
@@ -380,7 +384,7 @@ My_entry.$.prototype.get_urlParam = function(key_comp, opt_isForced, opt_search)
       var val = arr[1];
       if(key && (val || opt_isForced)){
         if(key.toUpperCase() === key_comp.toUpperCase()){
-          _val = (isNaN(Number(val)))? self.val2literal(val): Number(val);
+          _val = self.val2num_literal(val);
           break;
         }
       }
@@ -402,7 +406,7 @@ My_entry.$.prototype.get_urlParams = function(opt_obj, opt_isForced, opt_search)
       var key = arr[0];
       var val = arr[1];
       if(key && (val || opt_isForced)){
-        _obj[key] = (isNaN(Number(val)))? self.val2literal(val): Number(val);
+        _obj[key] = self.val2num_literal(val);
       }
     }
   }
@@ -465,7 +469,7 @@ My_entry.$.prototype.get_records = function(input, separator, val0, props, isNum
         _obj[prop] = val0;
       }
       else{
-        var val1 = (isNaN(Number(val)))? self.val2literal(val): Number(val);
+        var val1 = self.val2num_literal(val);
         if(isNumber && isNaN(val1)){
           var num = (isNaN(val0))? 0: Number(val0);
           val1 = num;

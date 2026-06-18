@@ -17,6 +17,12 @@ My_entry.def.prototype.init = function(){
   /* calc-Ver.2.837.145 -> */
   self.str_s = "\\s";
   self.str_sS = "[\\s\\S]*";
+  /* wave-Ver.1.97.21 */
+  self.pairs = [
+    {s: "\\{", e: "\\}"},
+    {s: "\\(", e: "\\)"},
+    {s: "\\[", e: "\\]"}
+  ];
   self.comments = {
     "#": "^[ \\t]*#.*$",  // wave-Ver.1.89.19
     line: "[\/]{2}.*",
@@ -236,22 +242,87 @@ My_entry.def.prototype.get_number = function(){
   return _num;
 };
 /* calc-Ver.2.837.145 -> */
-My_entry.def.prototype.make_str_sS = function(pairs, isLongest){
+My_entry.def.prototype.make_str_sS = function(pair, isLongest){
   var self = this;
-  return (pairs.s+self.str_sS+((isLongest)? "": "?")+pairs.e);
+  return (pair.s+self.str_sS+((isLongest)? "": "?")+pair.e);
 };
-My_entry.def.prototype.get_re_sS = function(pairs, isLongest){
+My_entry.def.prototype.get_re_sS = function(pair, isLongest){
   var self = this;
   return new RegExp(self.make_str_sS.apply(self, arguments), "g");
 };
 /* -> calc-Ver.2.837.145 */
+/* wave-Ver.1.97.21 -> */
+My_entry.def.prototype.split_outside_pair = function(input, separator, opt_i){
+  var self = this;
+  var pairs = self.pairs;
+  var pair = pairs[opt_i || 0];
+  var separator_escaped = separator.replace(/[-\/\\^$*+?.()|[\]{}]/g, "\\$&");
+  var pattern = separator_escaped+"(?![^"+pair.s+"]*"+pair.e+")";
+  var re = new RegExp(pattern);
+  return input.split(re);
+};
+My_entry.def.prototype.split_outside_all_pairs = function(input, separator){
+  var self = this;
+  var _arr = [];
+  var is = 0;
+  var cnt_brace = 0;
+  var cnt_paren = 0;
+  var cnt_bracket = 0;
+  var len_separator = separator.length;
+  for (var i=0; i<input.length; ++i){
+    var char = input.charAt(i);
+    if(char === "{"){ cnt_brace++;}
+    else if(char === "}"){cnt_brace--;}
+    else if(char === "("){cnt_paren++;}
+    else if(char === ")"){cnt_paren--;}
+    else if(char === "["){cnt_bracket++;}
+    else if(char === "]"){cnt_bracket--;}
+    else if(cnt_brace === 0 && cnt_paren === 0 && cnt_bracket === 0 && input.substring(i, i+len_separator) === separator){
+      _arr.push(input.substring(is, i));
+      is = i+len_separator;
+      i += len_separator-1;
+    }
+  }
+  _arr.push(input.substring(is));
+  return _arr;
+};
+My_entry.def.prototype.parse2table = function(input, opt_i, opt_sep_row, opt_sep_col){
+  var self = this;
+  var pairs = self.pairs;
+  var pair = pairs[opt_i || 0];
+  var pattern = self.make_str_sS({s: "^"+pair.s+"(", e: ")"+pair.e+"$"}, true);
+  var re = new RegExp(pattern);
+  var mc = input.match(re);
+  var inner = (mc)? mc[1]: input;
+  var rows = self.split_outside_all_pairs(inner, opt_sep_row || ":");
+  var _table = rows.map(function(row){
+    return self.split_outside_all_pairs(row, opt_sep_col || ",");
+  });
+  return _table;
+};
+My_entry.def.prototype.val2num_table = function(table, ranges, opt_size){
+  var self = this;
+  var len0 = table && table[0] && table[0].length;
+  if(!(len0) || table.length !== ranges.length) throw new Error(self.config.ERROR.title+"Invalid table-size");
+  var size = opt_size || len0;
+  var set_val2num_i = function(i, xmin, xmax){
+    var leni = table[i] && table[i].length;
+    if(leni !== size) throw new Error(self.config.ERROR.title+"Invalid table["+i+"]-size="+leni);
+    table[i].forEach(function(val, j){
+      var x = (val === "null")? null: Number(val);
+      if(isNaN(x) || (!(isNaN(xmin)) && x < xmin) || (!(isNaN(xmax)) && x > xmax)) throw new Error(self.config.ERROR.title+"Invalid table["+i+"]["+j+"]="+val);
+      table[i][j] = x;
+    });
+  };
+  for(var i=0, len=ranges.length; i<len; ++i){
+    set_val2num_i(i, ranges[i][0], ranges[i][1]);
+  }
+  return self;
+};
+/* -> wave-Ver.1.97.21 */
 My_entry.def.prototype.get_title = function(input, title, isLongest, opt_i){
   var self = this;
-  var pairs = [
-    {s: "\\{", e: "\\}"},
-    {s: "\\(", e: "\\)"},
-    {s: "\\[", e: "\\]"}
-  ];
+  var pairs = self.pairs;
   var pair = pairs[opt_i || 0];
   var re = new RegExp(self.make_str_sS({s: title+pair.s+"\(", e: "\)"+pair.e}, isLongest), "i");  // single  // calc-Ver.2.837.145
   var mc = input.match(re);
@@ -259,11 +330,7 @@ My_entry.def.prototype.get_title = function(input, title, isLongest, opt_i){
 };
 My_entry.def.prototype.remove_title = function(input, title, isLongest, opt_i){
   var self = this;
-  var pairs = [
-    {s: "\\{", e: "\\}"},
-    {s: "\\(", e: "\\)"},
-    {s: "\\[", e: "\\]"}
-  ];
+  var pairs = self.pairs;
   var pair = pairs[opt_i || 0];
   var re = new RegExp(self.make_str_sS({s: title+pair.s+"\(", e: "\)"+pair.e}, isLongest), "gi");  // all  // calc-Ver.2.837.145
   return input.replace(re, "");
