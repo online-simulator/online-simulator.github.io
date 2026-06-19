@@ -308,6 +308,7 @@
 
 <div class="clear">Ver.1.94.20：stem2fifthのフォールバック一時解除　⇒　幹音から派生音まで拡張して対策</div>
 <div class="selection">・平均的な12音律マッピングの場合、ピタゴラスと中全音律はrootに依存しない実質、固定型（現時点、追従型は純正律のみ）</div>
+<div class="run">Ver.1.97~98.21：調律tuneと旋法modeのtableとroot文字列のscript入力に対応（以下の微調整を担保）</div>
 <div class="selection">　合唱・管弦楽：転調に伴う数Hzオーダーの基準ピッチシフトを許容（追従型の期待値）</div>
 <div class="selection">　鍵盤楽器：基準ピッチは不変（固定型の期待値）</div>
 <div class="selection">・同上を含むroot追従型の明示的な実装でroot未定義の場合、NaNを返す（No.56参照）</div>
@@ -820,6 +821,67 @@
     <tr><td>19##</td><td>Ryukyu：同上の第2音(C)のダブルシャープ</td><td>440</td><td>6</td><td>B4</td><td>19</td><td><strong>C4##</strong></td><td><strong>0.000</strong></td><td></td></tr>
     <tr><td>19#b</td><td>Ryukyu：同上の第2音(C)のシャープ＋フラット</td><td>440</td><td>6</td><td>B4</td><td>19</td><td><strong>C4#b</strong></td><td><strong>0.000</strong></td><td></td></tr>
     <tr><td>19#b</td><td>Ryukyu：同上のルートナチュラル</td><td>440</td><td>6</td><td>B4n</td><td>19</td><td><strong>C4#b</strong></td><td><strong>263.404</strong></td><td></td></tr>
+  </tbody>
+</table>
+
+<div class="run">Ver.1.97~98.21：調律tuneと旋法modeのtableとroot文字列のscript入力に対応（変化量の明示的な任意性を担保）</div>
+<div class="selection">・table入力：2オクターブ以上の自動下落を無効化する場合、degree=1+2*7=15以上のalteration_mode=0</div>
+<div class="condition">lockPitch = false</div>
+<table class="tuning">
+  <thead>
+    <tr><th>No.</th><th>テスト内容</th><th>A4[Hz]</th><th>tune</th><th>root</th><th>mode</th><th>入力音</th><th>周波数期待値[Hz]</th><th>テスト結果[Hz]</th></tr>
+  </thead>
+  <tbody>
+    <tr><td>16</td><td>Sikah：ルートオクターブ指定の第1音(D)</td><td>440</td><td>3</td><td>D4</td><td>16</td><td><strong>D4</strong></td><td><strong>294.246</strong></td><td></td></tr>
+    <tr><td>16n</td><td>Sikah：同上の第1音(D)のナチュラル</td><td>440</td><td>3</td><td>D4</td><td>16</td><td><strong>D4n</strong></td><td><strong>294.246</strong></td><td></td></tr>
+    <tr><td>16nn</td><td>Sikah：同上の第1音(D)のダブルナチュラル</td><td>440</td><td>3</td><td>D4</td><td>16</td><td><strong>D4nn</strong></td><td><strong>294.246</strong></td><td></td></tr>
+    <tr><td>16</td><td>Sikah：同上の第8音(D)の自動下落</td><td>440</td><td>3</td><td>D4</td><td>16</td><td><strong>D5</strong></td><td><strong>563.200</strong></td><td></td></tr>
+    <tr><td>16n</td><td>Sikah：同上の第8音(D)のナチュラル</td><td>440</td><td>3</td><td>D4</td><td>16</td><td><strong>D5n</strong></td><td><strong>588.491</strong></td><td></td></tr>
+    <tr><td>16nn</td><td>Sikah：同上の第8音(D)のダブルナチュラル</td><td>440</td><td>3</td><td>D4</td><td>16</td><td><strong>D5nn</strong></td><td><strong>588.491</strong></td><td></td></tr>
+    <tr><td>16nn#</td><td>Sikah：同上の第8音(D)のダブルナチュラル＋シャープ</td><td>440</td><td>3</td><td>D4</td><td>16</td><td><strong>D5nn#</strong></td><td><strong>614.919</strong></td><td></td></tr>
+    <tr><td>16b</td><td>Sikah：同上の第8音(D)の自動下落＋フラット</td><td>440</td><td>3</td><td>D4</td><td>16</td><td><strong>D5b</strong></td><td><strong>538.995</strong></td><td></td></tr>
+    <tr><td>16bb</td><td>Sikah：同上の第8音(D)の自動下落＋ダブルフラット</td><td>440</td><td>3</td><td>D4</td><td>16</td><td><strong>D5bb</strong></td><td><strong>515.831</strong></td><td></td></tr>
+    <tr><td>16#</td><td>Sikah：同上の第8音(D)の自動下落＋シャープ</td><td>440</td><td>3</td><td>D4</td><td>16</td><td><strong>D5#</strong></td><td><strong>588.491</strong></td><td></td></tr>
+    <tr><td>16##</td><td>Sikah：同上の第8音(D)の自動下落＋ダブルシャープ</td><td>440</td><td>3</td><td>D4</td><td>16</td><td><strong>D5##</strong></td><td><strong>614.919</strong></td><td></td></tr>
+    <tr><td>16#b</td><td>Sikah：同上の第8音(D)の自動下落＋シャープ＋フラット</td><td>440</td><td>3</td><td>D4</td><td>16</td><td><strong>D5#b</strong></td><td><strong>563.200</strong></td><td></td></tr>
+    <tr><td>16</td><td>Sikah：同上の第15音(D)の自動下落</td><td>440</td><td>3</td><td>D4</td><td>16</td><td><strong>D6</strong></td><td><strong>1126.400</strong></td><td></td></tr>
+    <tr><td>16n</td><td>Sikah：同上の第15音(D)のナチュラル</td><td>440</td><td>3</td><td>D4</td><td>16</td><td><strong>D6n</strong></td><td><strong>1176.983</strong></td><td></td></tr>
+    <tr><td>16nn</td><td>Sikah：同上の第15音(D)のダブルナチュラル</td><td>440</td><td>3</td><td>D4</td><td>16</td><td><strong>D6nn</strong></td><td><strong>1176.983</strong></td><td></td></tr>
+    <tr><td>16nn#</td><td>Sikah：同上の第15音(D)のダブルナチュラル＋シャープ</td><td>440</td><td>3</td><td>D4</td><td>16</td><td><strong>D6nn#</strong></td><td><strong>1229.837</strong></td><td></td></tr>
+    <tr><td>16b</td><td>Sikah：同上の第15音(D)の自動下落＋フラット</td><td>440</td><td>3</td><td>D4</td><td>16</td><td><strong>D6b</strong></td><td><strong>1077.991</strong></td><td></td></tr>
+    <tr><td>16bb</td><td>Sikah：同上の第15音(D)の自動下落＋ダブルフラット</td><td>440</td><td>3</td><td>D4</td><td>16</td><td><strong>D6bb</strong></td><td><strong>1031.662</strong></td><td></td></tr>
+    <tr><td>16#</td><td>Sikah：同上の第15音(D)の自動下落＋シャープ</td><td>440</td><td>3</td><td>D4</td><td>16</td><td><strong>D6#</strong></td><td><strong>1176.983</strong></td><td></td></tr>
+    <tr><td>16##</td><td>Sikah：同上の第15音(D)の自動下落＋ダブルシャープ</td><td>440</td><td>3</td><td>D4</td><td>16</td><td><strong>D6##</strong></td><td><strong>1229.837</strong></td><td></td></tr>
+    <tr><td>16#b</td><td>Sikah：同上の第15音(D)の自動下落＋シャープ＋フラット</td><td>440</td><td>3</td><td>D4</td><td>16</td><td><strong>D6#b</strong></td><td><strong>1126.400</strong></td><td></td></tr>
+  </tbody>
+</table>
+<div class="condition">lockPitch = true</div>
+<table class="tuning lockPitch">
+  <thead>
+    <tr><th>No.</th><th>テスト内容</th><th>A4[Hz]</th><th>tune</th><th>root</th><th>mode</th><th>入力音</th><th>周波数期待値[Hz]</th><th>テスト結果[Hz]</th></tr>
+  </thead>
+  <tbody>
+    <tr><td>16</td><td>Sikah：ルートオクターブ指定の第1音(D)</td><td>440</td><td>3</td><td>D4</td><td>16</td><td><strong>D4</strong></td><td><strong>294.246</strong></td><td></td></tr>
+    <tr><td>16n</td><td>Sikah：同上の第1音(D)のナチュラル</td><td>440</td><td>3</td><td>D4</td><td>16</td><td><strong>D4n</strong></td><td><strong>294.246</strong></td><td></td></tr>
+    <tr><td>16nn</td><td>Sikah：同上の第1音(D)のダブルナチュラル</td><td>440</td><td>3</td><td>D4</td><td>16</td><td><strong>D4nn</strong></td><td><strong>294.246</strong></td><td></td></tr>
+    <tr><td>16</td><td>Sikah：同上の第8音(D)の自動下落</td><td>440</td><td>3</td><td>D4</td><td>16</td><td><strong>D5</strong></td><td><strong>563.200</strong></td><td></td></tr>
+    <tr><td>16n</td><td>Sikah：同上の第8音(D)のナチュラル</td><td>440</td><td>3</td><td>D4</td><td>16</td><td><strong>D5n</strong></td><td><strong>588.491</strong></td><td></td></tr>
+    <tr><td>16nn</td><td>Sikah：同上の第8音(D)のダブルナチュラル</td><td>440</td><td>3</td><td>D4</td><td>16</td><td><strong>D5nn</strong></td><td><strong>588.491</strong></td><td></td></tr>
+    <tr><td>16nn#</td><td>Sikah：同上の第8音(D)のダブルナチュラル＋シャープ</td><td>440</td><td>3</td><td>D4</td><td>16</td><td><strong>D5nn#</strong></td><td><strong>614.919</strong></td><td></td></tr>
+    <tr><td>16b</td><td>Sikah：同上の第8音(D)の自動下落＋フラット</td><td>440</td><td>3</td><td>D4</td><td>16</td><td><strong>D5b</strong></td><td><strong>538.995</strong></td><td></td></tr>
+    <tr><td>16bb</td><td>Sikah：同上の第8音(D)の自動下落＋ダブルフラット</td><td>440</td><td>3</td><td>D4</td><td>16</td><td><strong>D5bb</strong></td><td><strong>515.831</strong></td><td></td></tr>
+    <tr><td>16#</td><td>Sikah：同上の第8音(D)の自動下落＋シャープ</td><td>440</td><td>3</td><td>D4</td><td>16</td><td><strong>D5#</strong></td><td><strong>588.491</strong></td><td></td></tr>
+    <tr><td>16##</td><td>Sikah：同上の第8音(D)の自動下落＋ダブルシャープ</td><td>440</td><td>3</td><td>D4</td><td>16</td><td><strong>D5##</strong></td><td><strong>614.919</strong></td><td></td></tr>
+    <tr><td>16#b</td><td>Sikah：同上の第8音(D)の自動下落＋シャープ＋フラット</td><td>440</td><td>3</td><td>D4</td><td>16</td><td><strong>D5#b</strong></td><td><strong>563.200</strong></td><td></td></tr>
+    <tr><td>16</td><td>Sikah：同上の第15音(D)の自動下落</td><td>440</td><td>3</td><td>D4</td><td>16</td><td><strong>D6</strong></td><td><strong>1126.400</strong></td><td></td></tr>
+    <tr><td>16n</td><td>Sikah：同上の第15音(D)のナチュラル</td><td>440</td><td>3</td><td>D4</td><td>16</td><td><strong>D6n</strong></td><td><strong>1176.983</strong></td><td></td></tr>
+    <tr><td>16nn</td><td>Sikah：同上の第15音(D)のダブルナチュラル</td><td>440</td><td>3</td><td>D4</td><td>16</td><td><strong>D6nn</strong></td><td><strong>1176.983</strong></td><td></td></tr>
+    <tr><td>16nn#</td><td>Sikah：同上の第15音(D)のダブルナチュラル＋シャープ</td><td>440</td><td>3</td><td>D4</td><td>16</td><td><strong>D6nn#</strong></td><td><strong>1229.837</strong></td><td></td></tr>
+    <tr><td>16b</td><td>Sikah：同上の第15音(D)の自動下落＋フラット</td><td>440</td><td>3</td><td>D4</td><td>16</td><td><strong>D6b</strong></td><td><strong>1077.991</strong></td><td></td></tr>
+    <tr><td>16bb</td><td>Sikah：同上の第15音(D)の自動下落＋ダブルフラット</td><td>440</td><td>3</td><td>D4</td><td>16</td><td><strong>D6bb</strong></td><td><strong>1031.662</strong></td><td></td></tr>
+    <tr><td>16#</td><td>Sikah：同上の第15音(D)の自動下落＋シャープ</td><td>440</td><td>3</td><td>D4</td><td>16</td><td><strong>D6#</strong></td><td><strong>1176.983</strong></td><td></td></tr>
+    <tr><td>16##</td><td>Sikah：同上の第15音(D)の自動下落＋ダブルシャープ</td><td>440</td><td>3</td><td>D4</td><td>16</td><td><strong>D6##</strong></td><td><strong>1229.837</strong></td><td></td></tr>
+    <tr><td>16#b</td><td>Sikah：同上の第15音(D)の自動下落＋シャープ＋フラット</td><td>440</td><td>3</td><td>D4</td><td>16</td><td><strong>D6#b</strong></td><td><strong>1126.400</strong></td><td></td></tr>
   </tbody>
 </table>
 <hr>

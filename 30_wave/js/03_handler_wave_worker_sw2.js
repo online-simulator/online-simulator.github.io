@@ -419,7 +419,12 @@ My_entry.handler_wave.prototype.make_params_extended = function(tokens, params0,
       if(sc && sc.length === 2){
         var prop = sc[0];
         var token = sc[1];
-        set_params(prop, token);
+        if(prop === "root" && token.match(self.regex.sn)){  // Ver.1.98.21
+          store(prop, token);
+        }
+        else{
+          set_params(prop, token);
+        }
       }
       /* Ver.1.69.14 -> */
       else if(sc && sc.length > 2 || !(hasDataset_base)){  // Ver.1.70.14
