@@ -24113,7 +24113,7 @@ main関数　⇔　parse関数　⇔　operation関数
 parse関数とoperation関数の役割分担を示す
 <br>
 <br>
-parse関数の役割はcompiler
+parse関数の役割は字句解析と構文解析（compilerの前処理）
 <br>
 ・<a href="#span-out-BT">括弧</a>のnestingによる構文を解析し、深さ方向に<a href="#span-in-tree">tree構造</a>を階層化する
 <br>
@@ -47983,6 +47983,13 @@ f=&lt;last{V=1,E=0,k=1,I=exp(k*(V-E))-exp(-k*(V-E))}
 　・<a href="#span-out-special-equal">equal記号</a>・<a href="#span-out-special-substitution">代入処理</a>（可読性・その他）
 <br>
 ・未最適化（実用性・消費電力・その他）
+<br>
+<br>
+<span class="clear">Ver.2.899.178</span>以降、既存の対策
+<br>
+・<a href="#span-in-deep-copy">deep-copy</a>：compiler介在の多層管理（2~N分木の抽象構文木）
+<br>
+・reshape依存のmatrix：tensor移行（多次元配列の直列化＋軸labelのrank対応）
     </td>
   </tr>
   <tr>
