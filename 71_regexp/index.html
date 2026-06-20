@@ -102,6 +102,12 @@
         $._id("input-string").value = "";
         $._id("textarea-input").value = script;
       }
+      else if(options.testcase === "wave5"){
+        var script = "// chord format\n// root[relative float alterations from root]@inversion\n\nC4##[0,-1,2] -> root=C4##:[C4##,C4#,D4##]\n\n:C4##[0,7,4]@-1: -> [C4##,G4##,E3##]\n\n:C4##[0,4,7]@-3: -> [C3##,E3##,G3##]\n\n:C4##[0,4,7]@-2: -> [C4##,E3##,G3##]\n\n:C4##[0,4,7]@-1: -> [C4##,E4##,G3##]\n\n:C4##[0,4,7]@0: -> [C4##,E4##,G4##]\n\n:C4##[0,4,7]@+1: -> [C5##,E4##,G4##]\n\n:C4##[0,4,7]@+2: -> [C5##,E5##,G4##]\n\n:C4##[0,4,7]@+3: -> [C5##,E5##,G5##]\n\n{D4##[];Db[];D[];4[];[];D4#;[C4,E4,G4];}";
+        $._id("input-pattern").value = "([A-G][+-]?\\d+?[sf#bn]*)\\[(.*?)\\](?:@(.*))?";
+        $._id("input-string").value = " $1_$2_$3 ";
+        $._id("textarea-input").value = script;
+      }
       else if(options.testcase === "JSON" || options.testcase === "JSON0"){
         var script = "// 一括置換のJSON形式（置換pattern連動）\n\nりんご\nみかん\nすもも";
         $._id("input-string").value = "{\"りんご\":\"Apple\",\"みかん\":\"Orange\"}";
