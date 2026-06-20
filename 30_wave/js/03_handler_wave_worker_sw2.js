@@ -271,7 +271,7 @@ My_entry.handler_wave.prototype.str2sec = function(str){
 };
 My_entry.handler_wave.prototype.str2freq = function(params){  // Ver.1.84.15  // Ver.1.91.19  // Ver.1.100.21
   var self = this;
-  var _freq = self.calc_freq({base: params.base, root: params.root, note: params.note}, params.A4, params.tune, params.mode, params.lockPitch);  // Ver.1.44.11  // Ver.1.84.15  // Ver.1.91.19  // Ver.1.100.21
+  var _freq = self.calc_freq({base: params.base, root: params.root, note: params.note, alt_chord: params.alt_chord}, params.A4, params.tune, params.mode, params.lockPitch);  // Ver.1.44.11  // Ver.1.84.15  // Ver.1.91.19  // Ver.1.100.21  // Ver.1.101.21
   /* Ver.1.65.14 -> */
   if(isNaN(_freq)){
     throw new Error(self.waveo.config.ERROR.title+"Invalid frequency-"+params.note);  // Ver.1.100.21
@@ -286,15 +286,33 @@ My_entry.handler_wave.prototype.str2arr_f = function(params){  // Ver.1.84.15  /
   var _arr_f = [0];
   var str = params.note;  // Ver.1.100.21
   var mcl = str.match(self.regex.ml);
+  /* Ver.1.101.21 -> */
+  var mcc = str.match(self.regex.chord);
+  var isChord = !!(mcc && mcc[1] && mcc[2]);
   var f_isFound = false;
-  if(mcl){
+  if(isChord){
+    f_isFound = [];
+    var str_root = mcc[1];
+    var inversion = (mcc[3] === undefined)? 0: Number(mcc[3]);
+    var arr_num = mcc[2].split(",").map(Number);
+    if(mcc[3] === "" || isNaN(inversion) || Math.abs(inversion) > self.octaves*arr_num.length) throw new Error(self.waveo.config.ERROR.title+"Invalid chord-"+str);
+    var arr_alt = arr_num.map(function(x, i){return x+self.edo*Math.floor((inversion-i-1)/arr_num.length+1);});
+    arr_alt.forEach(function(alt, k){
+      params.root = str_root;
+      params.note = str_root;
+      params.alt_chord = alt;
+      f_isFound[k] = self.str2freq(params);
+    });
+  }
+  else if(mcl){
+    f_isFound = [];
     var arr_f = mcl[0].replace(self.regex.rl, "").split(",");
     arr_f.forEach(function(str, k){
       params.note = str;  // Ver.1.100.21
-      arr_f[k] = self.str2freq(params);  // Ver.1.84.15  // Ver.1.91.19
+      f_isFound[k] = self.str2freq(params);  // Ver.1.84.15  // Ver.1.91.19
     });
-    f_isFound = arr_f;
   }
+  /* -> Ver.1.101.21 */
   else{
     f_isFound = [self.str2freq(params)];  // Ver.1.84.15  // Ver.1.91.19
   }

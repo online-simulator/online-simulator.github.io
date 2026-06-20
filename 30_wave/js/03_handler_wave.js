@@ -25,24 +25,25 @@ My_entry.handler_wave.prototype.init = function(){
   self.regex.macro_depthMax = 100;  // Ver.1.85.19
   /* Ver.1.43.11 -> */
   /* Ver.1.85.18 -> */
-  self.regex.macro_chars = "0-9a-zA-Z_\\-";
+  self.regex.macro_chars = "0-9a-zA-Z_#\\-";  // Ver.1.101.21 #
   self.regex.make_tag = function(tag){
     var tag_escaped = tag.replace(/[^a-zA-Z0-9\s]/g, "\\$&");
     return (new RegExp(tag_escaped+"(?!["+self.regex.macro_chars+"])", "gm"));
   };
   var sw_flag = (My_entry.flag.hasFlagS)? "s": "";
-  self.regex.macros = new RegExp("("+self.regex.macro_prifix+"["+self.regex.macro_chars+"]+)\\(([0-9a-zA-Z_\\-\\+\\=.,:;\\[\\]\\$#\\s\\x20]*?)\\)", "g"+sw_flag);  // Ver.1.41.9  // Ver.1.42.10  // Ver.1.42.11  // Ver.1.65.14  // Ver.1.84.16  // Ver.1.85.19
+  self.regex.macros = new RegExp("("+self.regex.macro_prifix+"["+self.regex.macro_chars+"]+)\\(([0-9a-zA-Z_\\-\\+\\=.,:;\\[\\]\\$#@\\s\\x20]*?)\\)", "g"+sw_flag);  // Ver.1.41.9  // Ver.1.42.10  // Ver.1.42.11  // Ver.1.65.14  // Ver.1.84.16 #  // Ver.1.85.19  // Ver.1.101.21 @
   self.regex.macro = new RegExp(self.regex.macro_prifix+"["+self.regex.macro_chars+"]+");  // Ver.1.41.9  // Ver.1.42.10  // Ver.1.85.19
   /* -> Ver.1.85.18 */
   self.regex.mb = new RegExp("\\{.*?\\}", "g"+sw_flag);
-  self.regex.ml = new RegExp("\\[.*?\\]", "g"+sw_flag);
+  self.regex.ml = new RegExp("^\\[.*?\\]$", "g"+sw_flag);  // Ver.1.101.21
   /* -> Ver.1.43.11 */
   self.regex.rb = /\{|\}/g;
   self.regex.rl = /\[|\]/g;
   self.regex.qn = /^(.*)?b(.*)?$/;  // Ver.1.19.4
   self.regex.oc = /^o([+-]?\d+)c(\d+)$/;  // Ver.1.13.4
   self.regex.nc = /^n(\d+)$/;  // Ver.1.13.4
-  self.regex.sn = /^([A-G]?)([+-]?\d+)?([sf#bn]*)$/;  // Ver.1.14.4  // Ver.1.84.15  // Ver.1.94.19  // Ver.1.94.21
+  self.regex.sn = /^([A-G])([+-]?\d+)?([sf#bn]*)$/;  // Ver.1.14.4  // Ver.1.84.15  // Ver.1.94.19  // Ver.1.94.21  // Ver.1.101.21
+  self.regex.chord = /^([A-G][+-]?\d+?[sf#bn]*)\[(.*?)\](?:@(.*))?$/;  // Ver.1.101.21
   self.regex.sharp = /s|#/g;  // Ver.1.84.15
   self.regex.flat = /f|b/g;  // Ver.1.84.15
   self.regex.natural = /n/g;  // Ver.1.94.19
@@ -637,6 +638,7 @@ My_entry.handler_wave.prototype.calc_freq = function(notes, freq_base, tune, mod
     var obj_base = self.str_note_or_root2obj(str_base);
     var obj_root = self.str_note_or_root2obj(str_root);
     var obj_note = self.str_note_or_root2obj(str_note);
+    obj_note.alt += notes.alt_chord || 0;  // Ver.1.101.21
     var rules = (obj_root.numN || obj_note.numN >= 2)? null: self.tables.rules[str_mode] || self.tables.rules[self.tables.modes[0]];  // Ver.1.95.21
     /* Ver.1.96.21 -> */
     if(rules){
