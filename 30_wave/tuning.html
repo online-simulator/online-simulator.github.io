@@ -45,6 +45,7 @@
         table.querySelectorAll("tbody tr").forEach(function(tr){
           var cells = tr.querySelectorAll("td");
           if(cells.length < 8) return;
+          var No   = parseInt(cells[0].textContent.substring(0, 3));
           var A4   = parseFloat(cells[2].textContent);
           var tune = parseInt(cells[3].textContent, 10);
           var root = cells[4].textContent.trim();
@@ -52,8 +53,18 @@
           var note = cells[6].textContent.trim();
           var lockPitch = table.classList.contains("lockPitch");
           var expected = parseFloat(cells[7].textContent);
+          var base = "A4";
+          if(No === 113){
+            base = "A4n";
+          }
+          else if(No >= 116 && No <= 130){
+            base = "B4b";
+          }
+          else if(No >= 131 && No <= 135){
+            base = "B4bb";
+          }
           try{
-            var freq = wave.calc_freq(note, A4, tune, root, mode, lockPitch);
+            var freq = wave.calc_freq({base: base, root: root, note: note}, A4, tune, mode, lockPitch);
             cells[8].innerHTML = "<strong"+((expected.toFixed(3) === freq.toFixed(3))? "": " class='clear'")+">"+((isNaN(freq))? freq: freq.toFixed(3))+"</strong>";
           }
           catch(error){
@@ -355,6 +366,7 @@
 <div class="selection">・note：_freq算出ratioの分子のみ、alteration_mode = 0</div>
 <div class="selection">・root：_freq算出ratioの分母・分子のalteration_mode = 0（旋法mode無効化）</div>
 <div class="selection">・base：_freq算出ratioの分母のみ、alteration_mode = 0（内部変数のため、No.113以降の不一致あり）</div>
+<div class="run">Ver.1.100.21：base文字列のscript入力に対応（設定を反映して期待値と結果の表示上の不一致を解消）</div>
 <div class="condition">_freqの定義：_freq = freq_base*Math.pow(2, doctave)*(ratio_note_from_C/ratio_base_from_C)</div>
 <div class="condition">・ratioの(分子)/(分母)：(ratio_note_altered_from_C/ratio_base_pure_from_C)/(ratio_base_altered_from_C/ratio_base_pure_from_C)</div>
 <div class="condition">lockPitch = false</div>
@@ -446,6 +458,7 @@
 <div class="selection">・note：ダブルナチュラルnn以上の場合、旋法mode無効化</div>
 <div class="selection">　四分音：ナチュラルの変化量＜半音の変化量</div>
 <div class="selection">・lockPitch=true：ナチュラル≠ダブルナチュラルを許容</div>
+<div class="run">Ver.1.100.21：base文字列のscript入力に対応（ナチュラル＝ダブルナチュラルの任意baseを担保）</div>
 <div class="selection">　平均律・ピタゴラス・中全音律：ナチュラルなし＝ダブルナチュラル（完全線形）</div>
 <div class="selection">　純正律：ナチュラルなし≠ダブルナチュラル（非線形テーブル参照）</div>
 <div class="selection">　古典調律：ナチュラルなし≒ダブルナチュラル（平均律ベース＋非均等補正）</div>

@@ -600,20 +600,23 @@ My_entry.handler_wave.prototype.get_ratio_altered_from_C = function(str_tune, ob
 /* Ver.1.93.19 */
 /* Ver.1.85.17 */
 /* Ver.1.44.11 */
-My_entry.handler_wave.prototype.calc_freq = function(str, A4, tune, root, mode, opt_lockPitch, opt_octave0, opt_sw_sharp2flat){  // Ver.1.90.19  // Ver.1.91.19
+My_entry.handler_wave.prototype.calc_freq = function(notes, freq_base, tune, mode, opt_lockPitch, opt_octave0, opt_sw_sharp2flat){  // Ver.1.90.19  // Ver.1.91.19  // Ver.1.100.21
   var self = this;
   var _freq = NaN;
   var edo = self.edo;
-  var mc_oc = str.match(self.regex.oc);
-  var mc_nc = str.match(self.regex.nc);  // Ver.1.13.4
-  if(mc_oc || mc_nc) str = self.str_oc_nc2str_note(str, root, opt_sw_sharp2flat);  // Ver.1.13.4  // o4c9 || n69 -> A4
-  var mc_sn = str.match(self.regex.sn);  // Ver.1.14.4
-  var mc_f = str.match(self.regex.freq);
-  var mc_r = str.match(self.regex.rest);
+  var str_base = notes.base;  // Ver.1.100.21
+  var str_root = (isNaN(notes.root))? notes.root: self.tables.notes_sharp[notes.root];  // Ver.1.100.21
+  var str_note = notes.note;  // Ver.1.100.21
+  var mc_oc = str_note.match(self.regex.oc);
+  var mc_nc = str_note.match(self.regex.nc);  // Ver.1.13.4
+  if(mc_oc || mc_nc) str_note = self.str_oc_nc2str_note(str_note, notes.root, opt_sw_sharp2flat);  // Ver.1.13.4  // o4c9 || n69 -> A4  // Ver.1.100.21
+  var mc_sn = str_note.match(self.regex.sn);  // Ver.1.14.4
+  var mc_f = str_note.match(self.regex.freq);
+  var mc_r = str_note.match(self.regex.rest);
   var isNote = false;
   /* Ver.1.14.4 -> */
-  if(mc_sn && mc_sn[1]){  // A4 || A4# || A4## || A4###... || A4bbb... || A4n#b
-    isNote = (mc_sn[2] !== undefined);
+  if(mc_sn && mc_sn[1]){  // A4 || A4# || A4## || A4###... || A4bbb... || A4n#b  // Ver.1.100.21 || A
+    isNote = true;
   }
   /* -> Ver.1.14.4 */
   else if(mc_f){
@@ -623,18 +626,17 @@ My_entry.handler_wave.prototype.calc_freq = function(str, A4, tune, root, mode, 
     _freq = 0;
   }
   else{
-    _freq = Number(str);
+    _freq = Number(str_note);
   }
   /* Ver.1.90.19 -> */
-  if(isNote){
+  if(str_base && str_root && isNote){  // Ver.1.100.21
     var tune = self.tables.initiate_tune(tune);  // Ver.1.97.21
     var mode = self.tables.initiate_mode(mode);  // Ver.1.97.21
     var str_tune = (isNaN(tune))? tune: self.tables.tunes[Number(tune)];
-    var str_root = (isNaN(root))? root: self.tables.notes_sharp[Number(root)%edo];
     var str_mode = (isNaN(mode))? mode: self.tables.modes[Number(mode)];
+    var obj_base = self.str_note_or_root2obj(str_base);
     var obj_root = self.str_note_or_root2obj(str_root);
-    var obj_note = self.str_note_or_root2obj(str);
-    var obj_base = self.str_note_or_root2obj(self.str_base);
+    var obj_note = self.str_note_or_root2obj(str_note);
     var rules = (obj_root.numN || obj_note.numN >= 2)? null: self.tables.rules[str_mode] || self.tables.rules[self.tables.modes[0]];  // Ver.1.95.21
     /* Ver.1.96.21 -> */
     if(rules){
@@ -643,7 +645,6 @@ My_entry.handler_wave.prototype.calc_freq = function(str, A4, tune, root, mode, 
       if(opt_lockPitch) obj_base.alt += self.get_alt_mode(str_tune, rules, obj_root, obj_base) || 0;  // || 0 for base  // Ver.1.97.21
     }
     var doctave = opt_octave0 || 0;
-    var freq_base = A4;
     _freq = freq_base;
     _freq *= Math.pow(2, doctave);
     _freq *= self.get_ratio_altered_from_C(str_tune, obj_root, obj_note)/self.get_ratio_altered_from_C(str_tune, obj_root, obj_base);  // (ratio_note_altered_from_C/ratio_base_pure_from_C)/(ratio_base_altered_from_C/ratio_base_pure_from_C)
@@ -702,13 +703,13 @@ My_entry.handler_wave.prototype.get_freq = function(str){
   if(str){
     var octave0 = self.entry.$.selectNum_id("select-octave");
     var sw_sharp2flat = self.entry.$.checkbox_id("checkbox-sharp2flat");
-    _freq = self.calc_freq(str, A4, tune, root, mode, lockPitch, octave0, sw_sharp2flat);  // Ver.1.91.19
+    _freq = self.calc_freq({root: root, note: str}, A4, tune, mode, lockPitch, octave0, sw_sharp2flat);  // Ver.1.91.19  // Ver.1.100.21
   }
   else{
     var octave = self.entry.$.selectNum_id("select-octave");
     var note = self.entry.$.selectVal_id("select-note");
     var str = self.make_str(octave, note);
-    _freq = self.calc_freq(str, A4, tune, root, mode, lockPitch);  // Ver.1.91.19
+    _freq = self.calc_freq({root: root, note: str}, A4, tune, mode, lockPitch);  // Ver.1.91.19  // Ver.1.100.21
   }
   return _freq;
 };
