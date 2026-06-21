@@ -296,7 +296,15 @@ My_entry.handler_wave.prototype.str2arr_f = function(params){  // Ver.1.84.15  /
     var inversion = (mcc[3] === undefined)? 0: Number(mcc[3]);
     var arr_num = mcc[2].split(",").map(Number);
     if(mcc[3] === "" || isNaN(inversion) || Math.abs(inversion) > self.octaves*arr_num.length) throw new Error(self.waveo.config.ERROR.title+"Invalid chord-"+str);
-    var arr_alt = arr_num.map(function(x, i){return x+self.edo*Math.floor((inversion-i-1)/arr_num.length+1);});
+    var inv_int = Math.floor(inversion);
+    var inv_frac = inversion-inv_int;  // [0,1)
+    var arr_alt = arr_num.map(function(x, i){
+      var calc_offset = function(inv){return Math.floor((inv-i-1)/arr_num.length+1);};
+      var offset0 = calc_offset(inv_int);
+      var offset1 = calc_offset(inv_int+1);
+      var offset = offset0+(offset1-offset0)*inv_frac;
+      return x+self.edo*offset;
+    });
     arr_alt.forEach(function(alt, k){
       if(isNaN(alt)) throw new Error(self.waveo.config.ERROR.title+"Invalid chord-"+str);
       params.root = str_root;
