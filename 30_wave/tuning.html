@@ -41,6 +41,7 @@
     $.onload(function(e){
       var options = $.get_urlParams();
       var wave = new My_entry.handler_wave();
+    var run = function(){
       document.querySelectorAll("table.tuning").forEach(function(table){
         table.querySelectorAll("tbody tr").forEach(function(tr){
           var cells = tr.querySelectorAll("td");
@@ -65,14 +66,24 @@
             base = "B4bb";
           }
           try{
-            var freq = wave.calc_freq({base: base, root: root, note: note}, A4, tune, mode, {lockPitch: lockPitch, useEqual_interpolation: useEqual_interpolation});
-            cells[8].innerHTML = "<strong"+((expected.toFixed(3) === freq.toFixed(3))? "": " class='clear'")+">"+((isNaN(freq))? freq: freq.toFixed(3))+"</strong>";
+            var result = cells[8].textContent;
+            var freq = Number(result) || wave.calc_freq({base: base, root: root, note: note}, A4, tune, mode, {lockPitch: lockPitch, useEqual_interpolation: useEqual_interpolation});
+            var isMatched = (expected.toFixed(3) === freq.toFixed(3));
+            tr.hidden = !!($._id("checkbox-unmatched").checked && isMatched);
+            if(result === ""){
+              cells[8].innerHTML = "<strong"+((isMatched)? "": " class='clear'")+">"+((isNaN(freq))? freq: freq.toFixed(3))+"</strong>";
+            }
           }
-          catch(error){
+          catch(e){
             cells[8].textContent = "error";
           }
         });
       });
+    };
+      run();
+      $._id("checkbox-unmatched").onchange = function(){
+        run();
+      };
     });
   })();
 </script>
@@ -80,6 +91,12 @@
   <div class="absolute">
 
 <hr>
+<div class="jF">
+  <label>unmatched:
+    <input id="checkbox-unmatched" type="checkbox">
+  </label>
+</div>
+
 <div class="run">Ver.1.86.19：12音階・固定マップ方式</div>
 <div class="condition">初期仕様：「rootからの相対距離でルール（mode）もコード（chord）も定義する」<br>・C基準A4換算の調律tune：_freq = A4*Math.pow(2, doctave)*(ratio_corr/ratio_base)<br>・natural基準の旋法mode：_freq *= 旋法補正値<br>　調律後（仮）：譜面の線上に変化記号を後付け配置（A4のshiftを含む）</div>
 <table class="tuning"><thead><tr><th>No.</th><th>テスト内容</th><th>A4[Hz]</th><th>tune</th><th>root</th><th>mode</th><th>入力音</th><th>周波数期待値[Hz]</th><th>テスト結果[Hz]</th></tr></thead><tbody><tr><td>0</td><td>Minor：第3音(E)の自動下落</td><td>440</td><td>0</td><td>C</td><td>6</td><td><strong>E4</strong></td><td><strong>311.127</strong></td><td></td></tr><tr><td>0</td><td>Minor：第6音(A)の自動下落</td><td>440</td><td>0</td><td>C</td><td>6</td><td><strong>A4</strong></td><td><strong>415.305</strong></td><td></td></tr><tr><td>0</td><td>Minor：第7音(B)の自動下落</td><td>440</td><td>0</td><td>C</td><td>6</td><td><strong>B4</strong></td><td><strong>466.164</strong></td><td></td></tr><tr><td>1</td><td>基準ピッチ強制一致</td><td>442</td><td>1</td><td>D</td><td>0</td><td><strong>A4</strong></td><td><strong>442.000</strong></td><td></td></tr><tr><td>2</td><td>純正律：A4基準でのE4</td><td>440</td><td>1</td><td>C</td><td>0</td><td><strong>E4</strong></td><td><strong>330.000</strong></td><td></td></tr><tr><td>3</td><td>Locrian：第2音(D)の自動下落</td><td>440</td><td>0</td><td>C</td><td>8</td><td><strong>D4</strong></td><td><strong>277.183</strong></td><td></td></tr><tr><td>4</td><td>中全音律：1/4コンマ純正3度</td><td>440</td><td>3</td><td>C</td><td>0</td><td><strong>E4</strong></td><td><strong>328.977</strong></td><td></td></tr><tr><td>5</td><td>オクターブ・異名同音計算</td><td>440</td><td>0</td><td>C</td><td>0</td><td><strong>B3#</strong></td><td><strong>261.626</strong></td><td></td></tr><tr><td>6</td><td>ピタゴラス：完全5度比率</td><td>432</td><td>2</td><td>D</td><td>0</td><td><strong>E5</strong></td><td><strong>648.000</strong></td><td></td></tr><tr><td>7</td><td>中全音律：3度の連鎖(G4#)</td><td>440</td><td>3</td><td>C</td><td>0</td><td><strong>G4#</strong></td><td><strong>411.221</strong></td><td></td></tr><tr><td>8</td><td>Lydian：第4音(F)の自動上昇</td><td>440</td><td>0</td><td>C</td><td>4</td><td><strong>F4</strong></td><td><strong>369.994</strong></td><td></td></tr><tr><td>9</td><td>Dorian：第3音(E)の自動下落</td><td>440</td><td>0</td><td>C</td><td>2</td><td><strong>E4</strong></td><td><strong>311.127</strong></td><td></td></tr><tr><td>10</td><td>モードと臨時記号の合算(F#)</td><td>440</td><td>0</td><td>C</td><td>4</td><td><strong>F4#</strong></td><td><strong>391.995</strong></td><td></td></tr><tr><td>11</td><td>WerckMeister3：不等分律の個性</td><td>440</td><td>6</td><td>C</td><td>0</td><td><strong>D4</strong></td><td><strong>295.661</strong></td><td></td></tr><tr><td>12</td><td>KirnBerger3：A4基準でのG4</td><td>440</td><td>7</td><td>C</td><td>0</td><td><strong>G4</strong></td><td><strong>393.548</strong></td><td></td></tr></tbody></table>
@@ -896,6 +913,158 @@
     <tr><td>16#</td><td>Sikah：同上の第15音(D)の自動下落＋シャープ</td><td>440</td><td>3</td><td>D4</td><td>16</td><td><strong>D6#</strong></td><td><strong>1176.983</strong></td><td></td></tr>
     <tr><td>16##</td><td>Sikah：同上の第15音(D)の自動下落＋ダブルシャープ</td><td>440</td><td>3</td><td>D4</td><td>16</td><td><strong>D6##</strong></td><td><strong>1229.837</strong></td><td></td></tr>
     <tr><td>16#b</td><td>Sikah：同上の第15音(D)の自動下落＋シャープ＋フラット</td><td>440</td><td>3</td><td>D4</td><td>16</td><td><strong>D6#b</strong></td><td><strong>1126.400</strong></td><td></td></tr>
+  </tbody>
+</table>
+
+<div class="clear">Ver.1.101.22：微分音の補間logicを訂正（対数補間と平均律補間の混在を解消）</div>
+<div class="selection">・useEqual_interpolation = false：対数補間（マッピング連続性の保証）</div>
+<div class="selection">・useEqual_interpolation = true：平均律補間（調律優先）</div>
+<div class="condition">lockPitch = false</div>
+<div class="condition">useEqual_interpolation = false</div>
+<table class="tuning">
+  <thead>
+    <tr><th>No.</th><th>テスト内容</th><th>A4[Hz]</th><th>tune</th><th>root</th><th>mode</th><th>入力音</th><th>周波数期待値[Hz]</th><th>テスト結果[Hz]</th></tr>
+  </thead>
+  <tbody>
+    <tr><td>11</td><td>WerckMeister3：不等分律の個性</td><td>440</td><td>6</td><td>C</td><td>0</td><td><strong>D4</strong></td><td><strong>294.329</strong></td><td></td></tr>
+    <tr><td>12</td><td>KirnBerger3：A4基準でのG4</td><td>440</td><td>7</td><td>C</td><td>0</td><td><strong>G4</strong></td><td><strong>393.326</strong></td><td></td></tr>
+    <tr><td>15</td><td>中全音律：異名同音(G4#vsA4bの弾き分け)</td><td>440</td><td>3</td><td>C</td><td>0</td><td><strong>A4b</strong></td><td><strong>421.090</strong></td><td></td></tr>
+    <tr><td>16</td><td>ピタゴラス：重変奏(F5bb)の五度圏追従</td><td>432</td><td>2</td><td>D</td><td>0</td><td><strong>F5bb</strong></td><td><strong>598.647</strong></td><td></td></tr>
+    <tr><td>19</td><td>Bayati：微分音モード下でのフラット臨時記号(E4b)</td><td>440</td><td>0</td><td>D</td><td>11</td><td><strong>E4b</strong></td><td><strong>302.270</strong></td><td></td></tr>
+    <tr><td>20</td><td>Rast：第7音(C)の自動下落とフラット合算(C4b)</td><td>440</td><td>0</td><td>D</td><td>12</td><td><strong>C4b</strong></td><td><strong>239.912</strong></td><td></td></tr>
+    <tr><td>24</td><td>中全音律・Bayati：不等分律下におけるナチュラル基準の四分音シフト</td><td>440</td><td>3</td><td>D</td><td>11</td><td><strong>E4</strong></td><td><strong>328.977</strong></td><td></td></tr>
+    <tr><td>25</td><td>中全音律：ウルフの5度(G4#とD5#の極端な濁り)</td><td>440</td><td>3</td><td>C</td><td>0</td><td><strong>D5#</strong></td><td><strong>614.919</strong></td><td></td></tr>
+    <tr><td>26</td><td>ピタゴラス：重嬰奏(C4##)によるC基準オクターブ繰り上がり</td><td>440</td><td>2</td><td>C</td><td>0</td><td><strong>C4##</strong></td><td><strong>297.335</strong></td><td></td></tr>
+    <tr><td>28</td><td>純正律：D-A間の伝統的なウルフ5度(D4に対するA4の比率歪み)</td><td>440</td><td>1</td><td>C</td><td>0</td><td><strong>D4</strong></td><td><strong>297.000</strong></td><td></td></tr>
+    <tr><td>29</td><td>KirnBerger3：固有のセント沈み込みが適用されたF4#</td><td>440</td><td>7</td><td>C</td><td>0</td><td><strong>F4#</strong></td><td><strong>369.472</strong></td><td></td></tr>
+    <tr><td>30</td><td>中全音律：トリプルシャープ(C4###)による巨大な五度圏シフトとオクターブ跨ぎ</td><td>440</td><td>3</td><td>C</td><td>0</td><td><strong>C4###</strong></td><td><strong>300.253</strong></td><td></td></tr>
+    <tr><td>32</td><td>Bayati：自動四分音下落(-0.5)へのダブルフラット臨時記号(-2)の極端な合算</td><td>440</td><td>0</td><td>D</td><td>11</td><td><strong>E4bb</strong></td><td><strong>285.305</strong></td><td></td></tr>
+    <tr><td>34</td><td>WerckMeister3：ウェル・テンペラメントにおけるD4#とE4bの等価統合</td><td>440</td><td>6</td><td>C</td><td>0</td><td><strong>E4b</strong></td><td><strong>312.183</strong></td><td></td></tr>
+    <tr><td>86</td><td>短調純正律×新マカーム（ロック有効）：PureMinor(可動式、Root=G)下における、Saba旋法新定義適用時のピッチロックと短調専用配列の数理連動</td><td>440</td><td>9</td><td>G</td><td>13</td><td><strong>B4</strong></td><td><strong>469.333</strong></td><td></td></tr>
+    <tr><td>92</td><td>追従性検証：A主調の中全音律(E4)</td><td>440</td><td>3</td><td>A</td><td>0</td><td><strong>E4</strong></td><td><strong>328.977</strong></td><td></td></tr>
+    <tr><td>96</td><td>追従性検証：E主調のピタゴラス(A4)</td><td>440</td><td>2</td><td>E</td><td>0</td><td><strong>A4</strong></td><td><strong>440.000</strong></td><td></td></tr>
+    <tr><td>130a</td><td>微分音モードでの重変位(lockPitch=false)：Bayati下で、本来1/4音下がる第2音Eにダブルシャープを指定（E4##）。微分音固有の端数インデックスが維持され、極めて精密な合成ピッチを返す検証</td><td>432</td><td>1</td><td>D</td><td>11</td><td><strong>E4##</strong></td><td><strong>338.617</strong></td><td></td></tr>
+    <tr><td>135a</td><td>最大変化量＋微分音(lockPitch=false)：Bayati下で、入力音E4##にダブルシャープ、基準音B4bbにダブルフラットが指定された、最大級に変位記号が衝突する空間での正しい微分音合成ピッチの検証</td><td>432</td><td>1</td><td>D</td><td>11</td><td><strong>E4##</strong></td><td><strong>352.727</strong></td><td></td></tr>
+    <tr><td>1</td><td>Pure：Bayati：第2音(A)の自動下落</td><td>440</td><td>1</td><td>G</td><td>11</td><td><strong>A4</strong></td><td><strong>423.390</strong></td><td></td></tr>
+    <tr><td>1n</td><td>Pure：Bayati：第2音(A)のナチュラル（分母の変化無効化）</td><td>440</td><td>1</td><td>G</td><td>11</td><td><strong>A4n</strong></td><td><strong>440.000</strong></td><td></td></tr>
+    <tr><td>1nn</td><td>Pure：Bayati：第2音(A)のダブルナチュラル（旋法mode無効化）</td><td>440</td><td>1</td><td>G</td><td>11</td><td><strong>A4nn</strong></td><td><strong>440.000</strong></td><td></td></tr>
+    <tr><td>1nn#</td><td>Pure：Bayati：第2音(A)のダブルナチュラル＋シャープ</td><td>440</td><td>1</td><td>G</td><td>11</td><td><strong>A4nn#</strong></td><td><strong>469.333</strong></td><td></td></tr>
+    <tr><td>1b</td><td>Pure：Bayati：第2音(A)の自動下落＋フラット</td><td>440</td><td>1</td><td>G</td><td>11</td><td><strong>A4b</strong></td><td><strong>399.176</strong></td><td></td></tr>
+    <tr><td>1bb</td><td>Pure：Bayati：第2音(A)の自動下落＋ダブルフラット</td><td>440</td><td>1</td><td>G</td><td>11</td><td><strong>A4bb</strong></td><td><strong>378.692</strong></td><td></td></tr>
+    <tr><td>1#</td><td>Pure：Bayati：第2音(A)の自動下落＋シャープ</td><td>440</td><td>1</td><td>G</td><td>11</td><td><strong>A4#</strong></td><td><strong>454.430</strong></td><td></td></tr>
+    <tr><td>1##</td><td>Pure：Bayati：第2音(A)の自動下落＋ダブルシャープ</td><td>440</td><td>1</td><td>G</td><td>11</td><td><strong>A4##</strong></td><td><strong>479.011</strong></td><td></td></tr>
+    <tr><td>1#b</td><td>Pure：Bayati：第2音(A)の自動下落＋シャープ＋フラット</td><td>440</td><td>1</td><td>G</td><td>11</td><td><strong>A4#b</strong></td><td><strong>423.390</strong></td><td></td></tr>
+  </tbody>
+</table>
+<div class="condition">lockPitch = true</div>
+<div class="condition">useEqual_interpolation = false</div>
+<table class="tuning lockPitch">
+  <thead>
+    <tr><th>No.</th><th>テスト内容</th><th>A4[Hz]</th><th>tune</th><th>root</th><th>mode</th><th>入力音</th><th>周波数期待値[Hz]</th><th>テスト結果[Hz]</th></tr>
+  </thead>
+  <tbody>
+    <tr><td>11</td><td>WerckMeister3：不等分律の個性</td><td>440</td><td>6</td><td>C</td><td>0</td><td><strong>D4</strong></td><td><strong>294.329</strong></td><td></td></tr>
+    <tr><td>12</td><td>KirnBerger3：A4基準でのG4</td><td>440</td><td>7</td><td>C</td><td>0</td><td><strong>G4</strong></td><td><strong>393.326</strong></td><td></td></tr>
+    <tr><td>15</td><td>中全音律：異名同音(G4#vsA4bの弾き分け)</td><td>440</td><td>3</td><td>C</td><td>0</td><td><strong>A4b</strong></td><td><strong>421.090</strong></td><td></td></tr>
+    <tr><td>16</td><td>ピタゴラス：重変奏(F5bb)の五度圏追従</td><td>432</td><td>2</td><td>D</td><td>0</td><td><strong>F5bb</strong></td><td><strong>598.647</strong></td><td></td></tr>
+    <tr><td>19</td><td>Bayati：微分音モード下でのフラット臨時記号(E4b)</td><td>440</td><td>0</td><td>D</td><td>11</td><td><strong>E4b</strong></td><td><strong>302.270</strong></td><td></td></tr>
+    <tr><td>20</td><td>Rast：第7音(C)の自動下落とフラット合算(C4b)</td><td>440</td><td>0</td><td>D</td><td>12</td><td><strong>C4b</strong></td><td><strong>239.912</strong></td><td></td></tr>
+    <tr><td>24</td><td>中全音律・Bayati：不等分律下におけるナチュラル基準の四分音シフト</td><td>440</td><td>3</td><td>D</td><td>11</td><td><strong>E4</strong></td><td><strong>328.977</strong></td><td></td></tr>
+    <tr><td>25</td><td>中全音律：ウルフの5度(G4#とD5#の極端な濁り)</td><td>440</td><td>3</td><td>C</td><td>0</td><td><strong>D5#</strong></td><td><strong>614.919</strong></td><td></td></tr>
+    <tr><td>26</td><td>ピタゴラス：重嬰奏(C4##)によるC基準オクターブ繰り上がり</td><td>440</td><td>2</td><td>C</td><td>0</td><td><strong>C4##</strong></td><td><strong>297.335</strong></td><td></td></tr>
+    <tr><td>28</td><td>純正律：D-A間の伝統的なウルフ5度(D4に対するA4の比率歪み)</td><td>440</td><td>1</td><td>C</td><td>0</td><td><strong>D4</strong></td><td><strong>297.000</strong></td><td></td></tr>
+    <tr><td>29</td><td>KirnBerger3：固有のセント沈み込みが適用されたF4#</td><td>440</td><td>7</td><td>C</td><td>0</td><td><strong>F4#</strong></td><td><strong>369.472</strong></td><td></td></tr>
+    <tr><td>30</td><td>中全音律：トリプルシャープ(C4###)による巨大な五度圏シフトとオクターブ跨ぎ</td><td>440</td><td>3</td><td>C</td><td>0</td><td><strong>C4###</strong></td><td><strong>300.253</strong></td><td></td></tr>
+    <tr><td>32</td><td>Bayati：自動四分音下落(-0.5)へのダブルフラット臨時記号(-2)の極端な合算</td><td>440</td><td>0</td><td>D</td><td>11</td><td><strong>E4bb</strong></td><td><strong>285.305</strong></td><td></td></tr>
+    <tr><td>34</td><td>WerckMeister3：ウェル・テンペラメントにおけるD4#とE4bの等価統合</td><td>440</td><td>6</td><td>C</td><td>0</td><td><strong>E4b</strong></td><td><strong>312.183</strong></td><td></td></tr>
+    <tr><td>86</td><td>短調純正律×新マカーム（ロック有効）：PureMinor(可動式、Root=G)下における、Saba旋法新定義適用時のピッチロックと短調専用配列の数理連動</td><td>440</td><td>9</td><td>G</td><td>13</td><td><strong>B4</strong></td><td><strong>487.746</strong></td><td></td></tr>
+    <tr><td>92</td><td>追従性検証：A主調の中全音律(E4)</td><td>440</td><td>3</td><td>A</td><td>0</td><td><strong>E4</strong></td><td><strong>328.977</strong></td><td></td></tr>
+    <tr><td>96</td><td>追従性検証：E主調のピタゴラス(A4)</td><td>440</td><td>2</td><td>E</td><td>0</td><td><strong>A4</strong></td><td><strong>440.000</strong></td><td></td></tr>
+    <tr><td>130b</td><td>微分音モードでの重変位(lockPitch=true)：Bayati下において、基準音B4b（第6音）が受ける旋法補正分を動的factorが相殺。入力音E4##に対して完璧な相対微分音ピッチへと補正される検証</td><td>432</td><td>1</td><td>D</td><td>11</td><td><strong>E4##</strong></td><td><strong>352.727</strong></td><td></td></tr>
+    <tr><td>135b</td><td>最大変化量＋微分音(lockPitch=true)：Bayati下において、基準音B4bbが受ける極端な旋法補正分を動的factorが除算補正。分子のE4##に対して完璧な相対微分音ピッチへ導く検証</td><td>432</td><td>1</td><td>D</td><td>11</td><td><strong>E4##</strong></td><td><strong>376.242</strong></td><td></td></tr>
+    <tr><td>1</td><td>Pure：Bayati：第2音(A)の自動下落</td><td>440</td><td>1</td><td>G</td><td>11</td><td><strong>A4</strong></td><td><strong>440.000</strong></td><td></td></tr>
+    <tr><td>1n</td><td>Pure：Bayati：第2音(A)のナチュラル（分母の変化無効化）</td><td>440</td><td>1</td><td>G</td><td>11</td><td><strong>A4n</strong></td><td><strong>457.261</strong></td><td></td></tr>
+    <tr><td>1nn</td><td>Pure：Bayati：第2音(A)のダブルナチュラル（旋法mode無効化）</td><td>440</td><td>1</td><td>G</td><td>11</td><td><strong>A4nn</strong></td><td><strong>440.000</strong></td><td></td></tr>
+    <tr><td>1nn#</td><td>Pure：Bayati：第2音(A)のダブルナチュラル＋シャープ</td><td>440</td><td>1</td><td>G</td><td>11</td><td><strong>A4nn#</strong></td><td><strong>469.333</strong></td><td></td></tr>
+    <tr><td>1b</td><td>Pure：Bayati：第2音(A)の自動下落＋フラット</td><td>440</td><td>1</td><td>G</td><td>11</td><td><strong>A4b</strong></td><td><strong>414.836</strong></td><td></td></tr>
+    <tr><td>1bb</td><td>Pure：Bayati：第2音(A)の自動下落＋ダブルフラット</td><td>440</td><td>1</td><td>G</td><td>11</td><td><strong>A4bb</strong></td><td><strong>393.548</strong></td><td></td></tr>
+    <tr><td>1#</td><td>Pure：Bayati：第2音(A)の自動下落＋シャープ</td><td>440</td><td>1</td><td>G</td><td>11</td><td><strong>A4#</strong></td><td><strong>472.258</strong></td><td></td></tr>
+    <tr><td>1##</td><td>Pure：Bayati：第2音(A)の自動下落＋ダブルシャープ</td><td>440</td><td>1</td><td>G</td><td>11</td><td><strong>A4##</strong></td><td><strong>497.803</strong></td><td></td></tr>
+    <tr><td>1#b</td><td>Pure：Bayati：第2音(A)の自動下落＋シャープ＋フラット</td><td>440</td><td>1</td><td>G</td><td>11</td><td><strong>A4#b</strong></td><td><strong>440.000</strong></td><td></td></tr>
+  </tbody>
+</table>
+<div class="condition">lockPitch = false</div>
+<div class="condition">useEqual_interpolation = true</div>
+<table class="tuning useEqual_interpolation">
+  <thead>
+    <tr><th>No.</th><th>テスト内容</th><th>A4[Hz]</th><th>tune</th><th>root</th><th>mode</th><th>入力音</th><th>周波数期待値[Hz]</th><th>テスト結果[Hz]</th></tr>
+  </thead>
+  <tbody>
+    <tr><td>11</td><td>WerckMeister3：不等分律の個性</td><td>440</td><td>6</td><td>C</td><td>0</td><td><strong>D4</strong></td><td><strong>294.329</strong></td><td></td></tr>
+    <tr><td>12</td><td>KirnBerger3：A4基準でのG4</td><td>440</td><td>7</td><td>C</td><td>0</td><td><strong>G4</strong></td><td><strong>393.326</strong></td><td></td></tr>
+    <tr><td>15</td><td>中全音律：異名同音(G4#vsA4bの弾き分け)</td><td>440</td><td>3</td><td>C</td><td>0</td><td><strong>A4b</strong></td><td><strong>421.090</strong></td><td></td></tr>
+    <tr><td>16</td><td>ピタゴラス：重変奏(F5bb)の五度圏追従</td><td>432</td><td>2</td><td>D</td><td>0</td><td><strong>F5bb</strong></td><td><strong>598.647</strong></td><td></td></tr>
+    <tr><td>19</td><td>Bayati：微分音モード下でのフラット臨時記号(E4b)</td><td>440</td><td>0</td><td>D</td><td>11</td><td><strong>E4b</strong></td><td><strong>302.270</strong></td><td></td></tr>
+    <tr><td>20</td><td>Rast：第7音(C)の自動下落とフラット合算(C4b)</td><td>440</td><td>0</td><td>D</td><td>12</td><td><strong>C4b</strong></td><td><strong>239.912</strong></td><td></td></tr>
+    <tr><td>24</td><td>中全音律・Bayati：不等分律下におけるナチュラル基準の四分音シフト</td><td>440</td><td>3</td><td>D</td><td>11</td><td><strong>E4</strong></td><td><strong>331.260</strong></td><td></td></tr>
+    <tr><td>25</td><td>中全音律：ウルフの5度(G4#とD5#の極端な濁り)</td><td>440</td><td>3</td><td>C</td><td>0</td><td><strong>D5#</strong></td><td><strong>614.919</strong></td><td></td></tr>
+    <tr><td>26</td><td>ピタゴラス：重嬰奏(C4##)によるC基準オクターブ繰り上がり</td><td>440</td><td>2</td><td>C</td><td>0</td><td><strong>C4##</strong></td><td><strong>297.335</strong></td><td></td></tr>
+    <tr><td>28</td><td>純正律：D-A間の伝統的なウルフ5度(D4に対するA4の比率歪み)</td><td>440</td><td>1</td><td>C</td><td>0</td><td><strong>D4</strong></td><td><strong>297.000</strong></td><td></td></tr>
+    <tr><td>29</td><td>KirnBerger3：固有のセント沈み込みが適用されたF4#</td><td>440</td><td>7</td><td>C</td><td>0</td><td><strong>F4#</strong></td><td><strong>369.472</strong></td><td></td></tr>
+    <tr><td>30</td><td>中全音律：トリプルシャープ(C4###)による巨大な五度圏シフトとオクターブ跨ぎ</td><td>440</td><td>3</td><td>C</td><td>0</td><td><strong>C4###</strong></td><td><strong>300.253</strong></td><td></td></tr>
+    <tr><td>32</td><td>Bayati：自動四分音下落(-0.5)へのダブルフラット臨時記号(-2)の極端な合算</td><td>440</td><td>0</td><td>D</td><td>11</td><td><strong>E4bb</strong></td><td><strong>285.305</strong></td><td></td></tr>
+    <tr><td>34</td><td>WerckMeister3：ウェル・テンペラメントにおけるD4#とE4bの等価統合</td><td>440</td><td>6</td><td>C</td><td>0</td><td><strong>E4b</strong></td><td><strong>312.183</strong></td><td></td></tr>
+    <tr><td>86</td><td>短調純正律×新マカーム（ロック有効）：PureMinor(可動式、Root=G)下における、Saba旋法新定義適用時のピッチロックと短調専用配列の数理連動</td><td>440</td><td>9</td><td>G</td><td>13</td><td><strong>B4</strong></td><td><strong>469.333</strong></td><td></td></tr>
+    <tr><td>92</td><td>追従性検証：A主調の中全音律(E4)</td><td>440</td><td>3</td><td>A</td><td>0</td><td><strong>E4</strong></td><td><strong>328.977</strong></td><td></td></tr>
+    <tr><td>96</td><td>追従性検証：E主調のピタゴラス(A4)</td><td>440</td><td>2</td><td>E</td><td>0</td><td><strong>A4</strong></td><td><strong>440.000</strong></td><td></td></tr>
+    <tr><td>130b</td><td>微分音モードでの重変位(lockPitch=true)：Bayati下において、基準音B4b（第6音）が受ける旋法補正分を動的factorが相殺。入力音E4##に対して完璧な相対微分音ピッチへと補正される検証</td><td>432</td><td>1</td><td>D</td><td>11</td><td><strong>E4##</strong></td><td><strong>341.498</strong></td><td></td></tr>
+    <tr><td>135b</td><td>最大変化量＋微分音(lockPitch=true)：Bayati下において、基準音B4bbが受ける極端な旋法補正分を動的factorが除算補正。分子のE4##に対して完璧な相対微分音ピッチへ導く検証</td><td>432</td><td>1</td><td>D</td><td>11</td><td><strong>E4##</strong></td><td><strong>355.727</strong></td><td></td></tr>
+    <tr><td>1</td><td>Pure：Bayati：第2音(A)の自動下落</td><td>440</td><td>1</td><td>G</td><td>11</td><td><strong>A4</strong></td><td><strong>419.345</strong></td><td></td></tr>
+    <tr><td>1n</td><td>Pure：Bayati：第2音(A)のナチュラル（分母の変化無効化）</td><td>440</td><td>1</td><td>G</td><td>11</td><td><strong>A4n</strong></td><td><strong>440.000</strong></td><td></td></tr>
+    <tr><td>1nn</td><td>Pure：Bayati：第2音(A)のダブルナチュラル（旋法mode無効化）</td><td>440</td><td>1</td><td>G</td><td>11</td><td><strong>A4nn</strong></td><td><strong>440.000</strong></td><td></td></tr>
+    <tr><td>1nn#</td><td>Pure：Bayati：第2音(A)のダブルナチュラル＋シャープ</td><td>440</td><td>1</td><td>G</td><td>11</td><td><strong>A4nn#</strong></td><td><strong>469.333</strong></td><td></td></tr>
+    <tr><td>1b</td><td>Pure：Bayati：第2音(A)の自動下落＋フラット</td><td>440</td><td>1</td><td>G</td><td>11</td><td><strong>A4b</strong></td><td><strong>402.572</strong></td><td></td></tr>
+    <tr><td>1bb</td><td>Pure：Bayati：第2音(A)の自動下落＋ダブルフラット</td><td>440</td><td>1</td><td>G</td><td>11</td><td><strong>A4bb</strong></td><td><strong>377.411</strong></td><td></td></tr>
+    <tr><td>1#</td><td>Pure：Bayati：第2音(A)の自動下落＋シャープ</td><td>440</td><td>1</td><td>G</td><td>11</td><td><strong>A4#</strong></td><td><strong>452.893</strong></td><td></td></tr>
+    <tr><td>1##</td><td>Pure：Bayati：第2音(A)の自動下落＋ダブルシャープ</td><td>440</td><td>1</td><td>G</td><td>11</td><td><strong>A4##</strong></td><td><strong>483.086</strong></td><td></td></tr>
+    <tr><td>1#b</td><td>Pure：Bayati：第2音(A)の自動下落＋シャープ＋フラット</td><td>440</td><td>1</td><td>G</td><td>11</td><td><strong>A4#b</strong></td><td><strong>419.345</strong></td><td></td></tr>
+  </tbody>
+</table>
+<div class="condition">lockPitch = true</div>
+<div class="condition">useEqual_interpolation = true</div>
+<table class="tuning lockPitch useEqual_interpolation">
+  <thead>
+    <tr><th>No.</th><th>テスト内容</th><th>A4[Hz]</th><th>tune</th><th>root</th><th>mode</th><th>入力音</th><th>周波数期待値[Hz]</th><th>テスト結果[Hz]</th></tr>
+  </thead>
+  <tbody>
+    <tr><td>11</td><td>WerckMeister3：不等分律の個性</td><td>440</td><td>6</td><td>C</td><td>0</td><td><strong>D4</strong></td><td><strong>294.329</strong></td><td></td></tr>
+    <tr><td>12</td><td>KirnBerger3：A4基準でのG4</td><td>440</td><td>7</td><td>C</td><td>0</td><td><strong>G4</strong></td><td><strong>393.326</strong></td><td></td></tr>
+    <tr><td>15</td><td>中全音律：異名同音(G4#vsA4bの弾き分け)</td><td>440</td><td>3</td><td>C</td><td>0</td><td><strong>A4b</strong></td><td><strong>421.090</strong></td><td></td></tr>
+    <tr><td>16</td><td>ピタゴラス：重変奏(F5bb)の五度圏追従</td><td>432</td><td>2</td><td>D</td><td>0</td><td><strong>F5bb</strong></td><td><strong>598.647</strong></td><td></td></tr>
+    <tr><td>19</td><td>Bayati：微分音モード下でのフラット臨時記号(E4b)</td><td>440</td><td>0</td><td>D</td><td>11</td><td><strong>E4b</strong></td><td><strong>302.270</strong></td><td></td></tr>
+    <tr><td>20</td><td>Rast：第7音(C)の自動下落とフラット合算(C4b)</td><td>440</td><td>0</td><td>D</td><td>12</td><td><strong>C4b</strong></td><td><strong>239.912</strong></td><td></td></tr>
+    <tr><td>24</td><td>中全音律・Bayati：不等分律下におけるナチュラル基準の四分音シフト</td><td>440</td><td>3</td><td>D</td><td>11</td><td><strong>E4</strong></td><td><strong>331.260</strong></td><td></td></tr>
+    <tr><td>25</td><td>中全音律：ウルフの5度(G4#とD5#の極端な濁り)</td><td>440</td><td>3</td><td>C</td><td>0</td><td><strong>D5#</strong></td><td><strong>614.919</strong></td><td></td></tr>
+    <tr><td>26</td><td>ピタゴラス：重嬰奏(C4##)によるC基準オクターブ繰り上がり</td><td>440</td><td>2</td><td>C</td><td>0</td><td><strong>C4##</strong></td><td><strong>297.335</strong></td><td></td></tr>
+    <tr><td>28</td><td>純正律：D-A間の伝統的なウルフ5度(D4に対するA4の比率歪み)</td><td>440</td><td>1</td><td>C</td><td>0</td><td><strong>D4</strong></td><td><strong>297.000</strong></td><td></td></tr>
+    <tr><td>29</td><td>KirnBerger3：固有のセント沈み込みが適用されたF4#</td><td>440</td><td>7</td><td>C</td><td>0</td><td><strong>F4#</strong></td><td><strong>369.472</strong></td><td></td></tr>
+    <tr><td>30</td><td>中全音律：トリプルシャープ(C4###)による巨大な五度圏シフトとオクターブ跨ぎ</td><td>440</td><td>3</td><td>C</td><td>0</td><td><strong>C4###</strong></td><td><strong>300.253</strong></td><td></td></tr>
+    <tr><td>32</td><td>Bayati：自動四分音下落(-0.5)へのダブルフラット臨時記号(-2)の極端な合算</td><td>440</td><td>0</td><td>D</td><td>11</td><td><strong>E4bb</strong></td><td><strong>285.305</strong></td><td></td></tr>
+    <tr><td>34</td><td>WerckMeister3：ウェル・テンペラメントにおけるD4#とE4bの等価統合</td><td>440</td><td>6</td><td>C</td><td>0</td><td><strong>E4b</strong></td><td><strong>312.183</strong></td><td></td></tr>
+    <tr><td>86</td><td>短調純正律×新マカーム（ロック有効）：PureMinor(可動式、Root=G)下における、Saba旋法新定義適用時のピッチロックと短調専用配列の数理連動</td><td>440</td><td>9</td><td>G</td><td>13</td><td><strong>B4</strong></td><td><strong>492.450</strong></td><td></td></tr>
+    <tr><td>92</td><td>追従性検証：A主調の中全音律(E4)</td><td>440</td><td>3</td><td>A</td><td>0</td><td><strong>E4</strong></td><td><strong>328.977</strong></td><td></td></tr>
+    <tr><td>96</td><td>追従性検証：E主調のピタゴラス(A4)</td><td>440</td><td>2</td><td>E</td><td>0</td><td><strong>A4</strong></td><td><strong>440.000</strong></td><td></td></tr>
+    <tr><td>130c</td><td>微分音モードでの重変位(lockPitch=false)：Bayati下で、本来1/4音下がる第2音Eにダブルシャープを指定（E4##）。微分音固有の端数インデックスが維持され、極めて精密な合成ピッチを返す検証</td><td>432</td><td>1</td><td>D</td><td>11</td><td><strong>E4##</strong></td><td><strong>355.727</strong></td><td></td></tr>
+    <tr><td>135c</td><td>最大変化量＋微分音(lockPitch=false)：Bayati下で、入力音E4##にダブルシャープ、基準音B4bbにダブルフラットが指定された、最大級に変位記号が衝突する空間での正しい微分音合成ピッチの検証</td><td>432</td><td>1</td><td>D</td><td>11</td><td><strong>E4##</strong></td><td><strong>379.442</strong></td><td></td></tr>
+    <tr><td>1</td><td>Pure：Bayati：第2音(A)の自動下落</td><td>440</td><td>1</td><td>G</td><td>11</td><td><strong>A4</strong></td><td><strong>440.000</strong></td><td></td></tr>
+    <tr><td>1n</td><td>Pure：Bayati：第2音(A)のナチュラル（分母の変化無効化）</td><td>440</td><td>1</td><td>G</td><td>11</td><td><strong>A4n</strong></td><td><strong>461.672</strong></td><td></td></tr>
+    <tr><td>1nn</td><td>Pure：Bayati：第2音(A)のダブルナチュラル（旋法mode無効化）</td><td>440</td><td>1</td><td>G</td><td>11</td><td><strong>A4nn</strong></td><td><strong>440.000</strong></td><td></td></tr>
+    <tr><td>1nn#</td><td>Pure：Bayati：第2音(A)のダブルナチュラル＋シャープ</td><td>440</td><td>1</td><td>G</td><td>11</td><td><strong>A4nn#</strong></td><td><strong>469.333</strong></td><td></td></tr>
+    <tr><td>1b</td><td>Pure：Bayati：第2音(A)の自動下落＋フラット</td><td>440</td><td>1</td><td>G</td><td>11</td><td><strong>A4b</strong></td><td><strong>422.400</strong></td><td></td></tr>
+    <tr><td>1bb</td><td>Pure：Bayati：第2音(A)の自動下落＋ダブルフラット</td><td>440</td><td>1</td><td>G</td><td>11</td><td><strong>A4bb</strong></td><td><strong>396.000</strong></td><td></td></tr>
+    <tr><td>1#</td><td>Pure：Bayati：第2音(A)の自動下落＋シャープ</td><td>440</td><td>1</td><td>G</td><td>11</td><td><strong>A4#</strong></td><td><strong>475.200</strong></td><td></td></tr>
+    <tr><td>1##</td><td>Pure：Bayati：第2音(A)の自動下落＋ダブルシャープ</td><td>440</td><td>1</td><td>G</td><td>11</td><td><strong>A4##</strong></td><td><strong>506.880</strong></td><td></td></tr>
+    <tr><td>1#b</td><td>Pure：Bayati：第2音(A)の自動下落＋シャープ＋フラット</td><td>440</td><td>1</td><td>G</td><td>11</td><td><strong>A4#b</strong></td><td><strong>440.000</strong></td><td></td></tr>
   </tbody>
 </table>
 <hr>
