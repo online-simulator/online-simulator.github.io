@@ -494,7 +494,7 @@ My_entry.handler_wave.prototype.init_handlers = function(){
     var self = this;
     var id = elem.id;
     self.handlers.onbeforeunload();
-    if(self.isSingle && (elem.tagName.toUpperCase() === "SELECT" || elem.id === "input-A4" || elem.id === "checkbox-lockPitch")){  // Ver.1.84.15  // Ver.1.91.19
+    if(self.isSingle && (elem.tagName.toUpperCase() === "SELECT" || elem.id === "input-A4" || elem.id === "checkbox-lockPitch" || elem.id === "checkbox-useEqual_interpolation")){  // Ver.1.84.15  // Ver.1.91.19  // Ver.1.101.22
       self.output_freq();
     }
     self.waveo = new self.constructors.output_wave();
@@ -607,7 +607,7 @@ My_entry.handler_wave.prototype.get_ratio_altered_from_C = function(str_tune, ob
 /* Ver.1.93.19 */
 /* Ver.1.85.17 */
 /* Ver.1.44.11 */
-My_entry.handler_wave.prototype.calc_freq = function(notes, freq_base, tune, mode, opt_lockPitch, opt_octave0, opt_sw_sharp2flat){  // Ver.1.90.19  // Ver.1.91.19  // Ver.1.100.21
+My_entry.handler_wave.prototype.calc_freq = function(notes, freq_base, tune, mode, options){  // Ver.1.90.19  // Ver.1.91.19  // Ver.1.100.21  // Ver.1.101.22
   var self = this;
   var _freq = NaN;
   var edo = self.edo;
@@ -616,7 +616,7 @@ My_entry.handler_wave.prototype.calc_freq = function(notes, freq_base, tune, mod
   var str_note = notes.note;  // Ver.1.100.21
   var mc_oc = str_note.match(self.regex.oc);
   var mc_nc = str_note.match(self.regex.nc);  // Ver.1.13.4
-  if(mc_oc || mc_nc) str_note = self.str_oc_nc2str_note(str_note, notes.root, opt_sw_sharp2flat);  // Ver.1.13.4  // o4c9 || n69 -> A4  // Ver.1.100.21
+  if(mc_oc || mc_nc) str_note = self.str_oc_nc2str_note(str_note, notes.root, options.sw_sharp2flat);  // Ver.1.13.4  // o4c9 || n69 -> A4  // Ver.1.100.21  // Ver.1.101.22
   var mc_sn = str_note.match(self.regex.sn);  // Ver.1.14.4
   var mc_f = str_note.match(self.regex.freq);
   var mc_r = str_note.match(self.regex.rest);
@@ -644,16 +644,16 @@ My_entry.handler_wave.prototype.calc_freq = function(notes, freq_base, tune, mod
     var obj_base = self.str_note_or_root2obj(str_base);
     var obj_root = self.str_note_or_root2obj(str_root);
     var obj_note = self.str_note_or_root2obj(str_note);
-    var useEqual_interpolation = notes.useEqual_interpolation;  // Ver.1.101.22
+    var useEqual_interpolation = options.useEqual_interpolation;  // Ver.1.101.22
     obj_note.alt += notes.alt_chord || 0;  // Ver.1.101.21
     var rules = (obj_root.numN || obj_note.numN >= 2)? null: self.tables.rules[str_mode] || self.tables.rules[self.tables.modes[0]];  // Ver.1.95.21
     /* Ver.1.96.21 -> */
     if(rules){
       obj_note.alt += self.get_alt_mode(str_tune, rules, obj_root, obj_note);  // Ver.1.97.21
       if(isNaN(obj_note.alt)) return 0;  // skip
-      if(opt_lockPitch) obj_base.alt += self.get_alt_mode(str_tune, rules, obj_root, obj_base) || 0;  // || 0 for base  // Ver.1.97.21
+      if(options.lockPitch) obj_base.alt += self.get_alt_mode(str_tune, rules, obj_root, obj_base) || 0;  // || 0 for base  // Ver.1.97.21  // Ver.1.101.22
     }
-    var doctave = opt_octave0 || 0;
+    var doctave = options.octave0 || 0;  // Ver.1.101.22
     _freq = freq_base;
     _freq *= Math.pow(2, doctave);
     _freq *= self.get_ratio_altered_from_C(str_tune, obj_root, obj_note, useEqual_interpolation)/self.get_ratio_altered_from_C(str_tune, obj_root, obj_base, useEqual_interpolation);  // (ratio_note_altered_from_C/ratio_base_pure_from_C)/(ratio_base_altered_from_C/ratio_base_pure_from_C)  // Ver.1.101.22
@@ -709,16 +709,17 @@ My_entry.handler_wave.prototype.get_freq = function(str){
   var root = self.entry.$.selectVal_id("select-root");
   var mode = self.entry.$.selectNum_id("select-mode");
   var lockPitch = self.entry.$.checkbox_id("checkbox-lockPitch");  // Ver.1.91.19
+  var useEqual_interpolation = self.entry.$.checkbox_id("checkbox-useEqual_interpolation");  // Ver.1.101.22
   if(str){
     var octave0 = self.entry.$.selectNum_id("select-octave");
     var sw_sharp2flat = self.entry.$.checkbox_id("checkbox-sharp2flat");
-    _freq = self.calc_freq({root: root, note: str}, A4, tune, mode, lockPitch, octave0, sw_sharp2flat);  // Ver.1.91.19  // Ver.1.100.21
+    _freq = self.calc_freq({root: root, note: str}, A4, tune, mode, {lockPitch: lockPitch, useEqual_interpolation: useEqual_interpolation, octave0: octave0, sw_sharp2flat: sw_sharp2flat});  // Ver.1.91.19  // Ver.1.100.21  // Ver.1.101.22
   }
   else{
     var octave = self.entry.$.selectNum_id("select-octave");
     var note = self.entry.$.selectVal_id("select-note");
     var str = self.make_str(octave, note);
-    _freq = self.calc_freq({root: root, note: str}, A4, tune, mode, lockPitch);  // Ver.1.91.19  // Ver.1.100.21
+    _freq = self.calc_freq({root: root, note: str}, A4, tune, mode, {lockPitch: lockPitch, useEqual_interpolation: useEqual_interpolation});  // Ver.1.91.19  // Ver.1.100.21  // Ver.1.101.22
   }
   return _freq;
 };
@@ -773,6 +774,7 @@ My_entry.handler_wave.prototype.make_params = function(){
   params.root = $.selectVal_id("select-root");
   params.mode = $.selectNum_id("select-mode");
   params.lockPitch = $.checkbox_id("checkbox-lockPitch");  // Ver.1.91.19
+  params.useEqual_interpolation = $.checkbox_id("checkbox-useEqual_interpolation");  // Ver.1.101.22
   /* -> Ver.1.84.15 */
   /* Ver.1.35.6 -> */
   params.kampli = $.inputNum_id("input-amplitude");  // Ver.1.64.14  // Ver.1.75.14
