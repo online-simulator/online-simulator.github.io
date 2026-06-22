@@ -271,7 +271,7 @@ My_entry.handler_wave.prototype.str2sec = function(str){
 };
 My_entry.handler_wave.prototype.str2freq = function(params){  // Ver.1.84.15  // Ver.1.91.19  // Ver.1.100.21
   var self = this;
-  var _freq = self.calc_freq({base: params.base, root: params.root, note: params.note, alt_chord: params.alt_chord}, params.A4, params.tune, params.mode, params.lockPitch);  // Ver.1.44.11  // Ver.1.84.15  // Ver.1.91.19  // Ver.1.100.21  // Ver.1.101.21
+  var _freq = self.calc_freq({base: params.base, root: params.root, note: params.note, alt_chord: params.alt_chord}, params.A4, params.tune, params.mode, {lockPitch: params.lockPitch, useEqual_interpolation: params.useEqual_interpolation});  // Ver.1.44.11  // Ver.1.84.15  // Ver.1.91.19  // Ver.1.100.21  // Ver.1.101.21  // Ver.1.101.22
   /* Ver.1.65.14 -> */
   if(isNaN(_freq)){
     throw new Error(self.waveo.config.ERROR.title+"Invalid frequency-"+params.note);  // Ver.1.100.21

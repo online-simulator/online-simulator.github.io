@@ -52,6 +52,7 @@
           var mode = parseInt(cells[5].textContent, 10);
           var note = cells[6].textContent.trim();
           var lockPitch = table.classList.contains("lockPitch");
+          var useEqual_interpolation = table.classList.contains("useEqual_interpolation");
           var expected = parseFloat(cells[7].textContent);
           var base = "A4";
           if(No === 113){
@@ -64,7 +65,7 @@
             base = "B4bb";
           }
           try{
-            var freq = wave.calc_freq({base: base, root: root, note: note}, A4, tune, mode, lockPitch);
+            var freq = wave.calc_freq({base: base, root: root, note: note}, A4, tune, mode, {lockPitch: lockPitch, useEqual_interpolation: useEqual_interpolation});
             cells[8].innerHTML = "<strong"+((expected.toFixed(3) === freq.toFixed(3))? "": " class='clear'")+">"+((isNaN(freq))? freq: freq.toFixed(3))+"</strong>";
           }
           catch(error){
