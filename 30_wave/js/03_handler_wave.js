@@ -198,36 +198,42 @@ My_entry.handler_wave.prototype.init = function(){
   /* -> Ver.1.96.21 */
   /* -> Ver.1.97.21 */
   /* Ver.1.85.17 */
-  self.get_ratio_from_C = function(str_tune, obj_root, obj_note){  // Ver.1.94.20  // Ver.1.94.21
+  self.get_ratio_from_C = function(str_tune, obj_root, obj_note, useEqual_interpolation){  // Ver.1.94.20  // Ver.1.94.21  // Ver.1.101.22
+    var isLog_interpolation = !(useEqual_interpolation);  // ln(r/r0)=alt_frac*ln(r1/r0)  // Ver.1.101.22 for Pure microtones with float inversion
     var edo = self.edo;
     var octaves = self.octaves;
     var tables = self.tables;  // Ver.1.97.21
     var calc_ratio_from_root = function(idx, alt){
       var alt_int = Math.floor(alt);  // |alteration| < 128(MIDI) < octaves*edo  // floor standardized for doctave
       var alt_frac = alt-alt_int;
+      /* Ver.1.101.22 -> */
+      var r0 = Math.pow(2, (idx+alt_int+0)/edo);
+      var r1 = Math.pow(2, (idx+alt_int+1)/edo);
       if(str_tune === "Equal"){
-        return Math.pow(2, (idx+alt)/edo);
+        r0 *= 1;
+        r1 *= 1;
       }
       else if(tables.ratios_interval[str_tune]){  // Ver.1.92.19  // Ver.1.97.21
         var semitones_from_root = (idx+alt_int-(obj_root.idx+obj_root.alt)+octaves*edo)%edo;  // Ver.1.94.21
-        var _r = tables.ratios_interval[str_tune][semitones_from_root];
-        _r *= Math.pow(2, alt_frac/edo);
-        return _r;
+        r0 = tables.ratios_interval[str_tune][(semitones_from_root+0)%edo];
+        r1 = tables.ratios_interval[str_tune][(semitones_from_root+1)%edo];
+        if((semitones_from_root+1)%edo === 0) r1 *= 2;
       }
       else if(tables.bases_fifth[str_tune]){  // Ver.1.97.21
         var base = tables.bases_fifth[str_tune];
         var root_fifth = self.tables.stem2fifth(str_tune, obj_root.idx, obj_root.alt);  // Ver.1.94.20  // Ver.1.94.21
-        var target_fifth = self.tables.stem2fifth(str_tune, idx, alt);  // Ver.1.94.20
-        return Math.pow(base, target_fifth-root_fifth);
+        r0 = Math.pow(base, self.tables.stem2fifth(str_tune, idx, alt+0)-root_fifth);
+        r1 = Math.pow(base, self.tables.stem2fifth(str_tune, idx, alt+1)-root_fifth);
       }
       else if(tables.cents_deviation[str_tune]){  // Ver.1.97.21
         var semitones_from_C = (idx+alt_int+octaves*edo)%edo;
-        var _r = Math.pow(2, (idx+alt_int)/edo);
-        _r *= Math.pow(2, tables.cents_deviation[str_tune][semitones_from_C]/self.cents_in_octave);
-        _r *= Math.pow(2, alt_frac/edo);
-        return _r;
+        r0 *= Math.pow(2, tables.cents_deviation[str_tune][(semitones_from_C+0)%edo]/self.cents_in_octave);
+        r1 *= Math.pow(2, tables.cents_deviation[str_tune][(semitones_from_C+1)%edo]/self.cents_in_octave);
       }
-      return NaN;  // Ver.1.97.21 error
+      else return NaN;  // Ver.1.97.21 error
+      var base = (isLog_interpolation)? (r1/r0): Math.pow(2, 1/edo);
+      return r0*Math.pow(base, alt_frac);
+      /* -> Ver.1.101.22 */
     };
     var ratio_target = calc_ratio_from_root(obj_note.idx, obj_note.alt);  // Ver.1.94.21
     var ratio_C      = calc_ratio_from_root(0, 0);
@@ -587,13 +593,13 @@ My_entry.handler_wave.prototype.get_alt_mode = function(str_tune, rules, obj_roo
   if(_alt_mode === undefined || _alt_mode === null) _alt_mode = NaN;  // for skip
   return _alt_mode;
 };
-My_entry.handler_wave.prototype.get_ratio_altered_from_C = function(str_tune, obj_root, obj_note){
+My_entry.handler_wave.prototype.get_ratio_altered_from_C = function(str_tune, obj_root, obj_note, useEqual_interpolation){  // Ver.1.101.22
   var self = this;
   var edo = self.edo;
   var octave0 = self.octave0;
   var semitones_from_base = obj_note.idx+Math.floor(obj_note.alt)+(obj_note.oct-octave0)*edo;
   var doctave = Math.floor(semitones_from_base/edo);
-  var _ratio = self.get_ratio_from_C(str_tune, obj_root, obj_note);  // Ver.1.94.20
+  var _ratio = self.get_ratio_from_C(str_tune, obj_root, obj_note, useEqual_interpolation);  // Ver.1.94.20  // Ver.1.101.22
   _ratio *= Math.pow(2, doctave);
   return _ratio;
 };
@@ -638,6 +644,7 @@ My_entry.handler_wave.prototype.calc_freq = function(notes, freq_base, tune, mod
     var obj_base = self.str_note_or_root2obj(str_base);
     var obj_root = self.str_note_or_root2obj(str_root);
     var obj_note = self.str_note_or_root2obj(str_note);
+    var useEqual_interpolation = notes.useEqual_interpolation;  // Ver.1.101.22
     obj_note.alt += notes.alt_chord || 0;  // Ver.1.101.21
     var rules = (obj_root.numN || obj_note.numN >= 2)? null: self.tables.rules[str_mode] || self.tables.rules[self.tables.modes[0]];  // Ver.1.95.21
     /* Ver.1.96.21 -> */
@@ -649,7 +656,7 @@ My_entry.handler_wave.prototype.calc_freq = function(notes, freq_base, tune, mod
     var doctave = opt_octave0 || 0;
     _freq = freq_base;
     _freq *= Math.pow(2, doctave);
-    _freq *= self.get_ratio_altered_from_C(str_tune, obj_root, obj_note)/self.get_ratio_altered_from_C(str_tune, obj_root, obj_base);  // (ratio_note_altered_from_C/ratio_base_pure_from_C)/(ratio_base_altered_from_C/ratio_base_pure_from_C)
+    _freq *= self.get_ratio_altered_from_C(str_tune, obj_root, obj_note, useEqual_interpolation)/self.get_ratio_altered_from_C(str_tune, obj_root, obj_base, useEqual_interpolation);  // (ratio_note_altered_from_C/ratio_base_pure_from_C)/(ratio_base_altered_from_C/ratio_base_pure_from_C)  // Ver.1.101.22
     /* -> Ver.1.96.21 */
     self.tables.terminate();  // Ver.1.97.21
   }
