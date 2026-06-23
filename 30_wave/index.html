@@ -161,28 +161,7 @@ frequency[Hz]：
   </tr>
   <tr>
     <td>
-↑MIDI-octave：
-    </td>
-    <td>
-<select id="select-octave">
-  <option>-1</option>
-  <option>0</option>
-  <option>1</option>
-  <option>2</option>
-  <option>3</option>
-  <option selected="selected">4</option>
-  <option>5</option>
-  <option>6</option>
-  <option>7</option>
-  <option>8</option>
-  <option>9</option>
-  <option>10</option>
-</select>
-    </td>
-  </tr>
-  <tr>
-    <td>
-↑MIDI-note：
+↑note name：
     </td>
     <td>
 <select id="select-note">
@@ -208,6 +187,41 @@ frequency[Hz]：
   <option value="B">B（シ）</option>
   <option value="Bs">B＃</option>
 </select>
+<select id="select-octave">
+  <option>-1</option>
+  <option>0</option>
+  <option>1</option>
+  <option>2</option>
+  <option>3</option>
+  <option selected="selected">4</option>
+  <option>5</option>
+  <option>6</option>
+  <option>7</option>
+  <option>8</option>
+  <option>9</option>
+  <option>10</option>
+</select>
+<label for="input-note">
+  <input id="input-note" class="input-100">
+</label>
+    </td>
+  </tr>
+  <tr>
+    <td>
+↑base：
+    </td>
+    <td>
+<label for="input-base">
+  <input id="input-base" class="input-100" value="A4">
+</label>
+=
+<label for="input-A4">
+  <input id="input-A4" type="number" step="1" min="0" max="48000" value="440">[Hz]
+</label>
+<br>
+<label>lockPitch:
+  <input id="checkbox-lockPitch" type="checkbox" checked="checked">
+</label>
     </td>
   </tr>
   <tr>
@@ -215,14 +229,6 @@ frequency[Hz]：
 ↑tuning：
     </td>
     <td>
-<label for="input-A4">A4:
-  <input id="input-A4" type="number" step="1" min="0" max="48000" value="440">[Hz]
-</label>
-←
-<label>lockPitch:
-  <input id="checkbox-lockPitch" type="checkbox" checked="checked">
-</label>
-<br>
 <label for="select-tune">tune:
   <select id="select-tune">
     <option value="0">0: Equal</option>
@@ -264,6 +270,9 @@ frequency[Hz]：
     <option>B#</option>
     <option>Cb</option>
   </select>
+</label>
+<label for="input-root">
+  <input id="input-root" class="input-100">
 </label>
 <br>
 <label for="select-mode">mode:

@@ -381,18 +381,28 @@ wave-duty：
   </tr>
   <tr>
     <td>
-tuning：
+base：
     </td>
     <td>
-<label for="input-A4">A4:
-  <input id="input-A4" type="number" step="1" min="0" max="48000" value="440">[Hz]
+<label for="input-base">
+  <input id="input-base" class="input-100" value="A4">
 </label>
-←
-<label>lockPitch:
-  <input id="checkbox-lockPitch" type="checkbox" checked="checked">
+=
+<label for="input-A4">
+  <input id="input-A4" type="number" step="1" min="0" max="48000" value="440">[Hz]
 </label>
 <span class="clear right">dataset優先</span>
 <br>
+<label>lockPitch:
+  <input id="checkbox-lockPitch" type="checkbox" checked="checked">
+</label>
+    </td>
+  </tr>
+  <tr>
+    <td>
+tuning：
+    </td>
+    <td>
 <label for="select-tune">tune:
   <select id="select-tune">
     <option value="0">0: Equal</option>
@@ -413,28 +423,31 @@ tuning：
 <br>
 <label for="select-root">root:
   <select id="select-root">
-    <option value="0">0: C</option>
-    <option value="1">1: C#</option>
-    <option value="1">1: Db</option>
-    <option value="2">2: D</option>
-    <option value="3">3: D#</option>
-    <option value="3">3: Eb</option>
-    <option value="4">4: E</option>
-    <option value="5">5: E#</option>
-    <option value="4">4: Fb</option>
-    <option value="5">5: F</option>
-    <option value="6">6: F#</option>
-    <option value="6">6: Gb</option>
-    <option value="7">7: G</option>
-    <option value="8">8: G#</option>
-    <option value="8">8: Ab</option>
-    <option value="9">9: A</option>
-    <option value="10">10: A#</option>
-    <option value="10">10: Bb</option>
-    <option value="11">11: B</option>
-    <option value="0">0: B#</option>
-    <option value="11">11: Cb</option>
+    <option value="C">0: C</option>
+    <option value="C#">1: C#</option>
+    <option value="Db">1: Db</option>
+    <option value="D">2: D</option>
+    <option value="D#">3: D#</option>
+    <option value="Eb">3: Eb</option>
+    <option value="E">4: E</option>
+    <option value="E#">5: E#</option>
+    <option value="Fb">4: Fb</option>
+    <option value="F">5: F</option>
+    <option value="F#">6: F#</option>
+    <option value="Gb">6: Gb</option>
+    <option value="G">7: G</option>
+    <option value="G#">8: G#</option>
+    <option value="Ab">8: Ab</option>
+    <option value="A">9: A</option>
+    <option value="A#">10: A#</option>
+    <option value="Bb">10: Bb</option>
+    <option value="B">11: B</option>
+    <option value="B#">0: B#</option>
+    <option value="Cb">11: Cb</option>
   </select>
+</label>
+<label for="input-root">
+  <input id="input-root" class="input-100">
 </label>
 <span class="clear right">dataset優先</span>
 <br>
