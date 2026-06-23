@@ -203,38 +203,37 @@ My_entry.handler_wave.prototype.init = function(){
     var edo = self.edo;
     var octaves = self.octaves;
     var tables = self.tables;  // Ver.1.97.21
+    /* Ver.1.101.22 -> */
+    var idx_root = obj_root.idx;
+    var alt_root = obj_root.alt;
+    var alt_root_int = Math.floor(alt_root);
+    var alt_root_frac = alt_root-alt_root_int;
     var calc_ratio_from_root = function(idx, alt){
       var alt_int = Math.floor(alt);  // |alteration| < 128(MIDI) < octaves*edo  // floor standardized for doctave
       var alt_frac = alt-alt_int;
-      /* Ver.1.101.22 -> */
-      var r0 = Math.pow(2, (idx+alt_int+0)/edo);
-      var r1 = Math.pow(2, (idx+alt_int+1)/edo);
+      var get_ratio = null;
       if(str_tune === "Equal"){
-        r0 *= 1;
-        r1 *= 1;
+        get_ratio = function(i){return Math.pow(2, (idx+alt_int+i)/edo);};
       }
       else if(tables.ratios_interval[str_tune]){  // Ver.1.92.19  // Ver.1.97.21
-        var semitones_from_root = (idx+alt_int-(obj_root.idx+obj_root.alt)+octaves*edo)%edo;  // Ver.1.94.21
-        r0 = tables.ratios_interval[str_tune][(semitones_from_root+0)%edo];
-        r1 = tables.ratios_interval[str_tune][(semitones_from_root+1)%edo];
-        if((semitones_from_root+1)%edo === 0) r1 *= 2;
+        var semitones_from_root = (idx+alt_int-(idx_root+alt_root_int)+octaves*edo)%edo;  // Ver.1.94.21
+        get_ratio = function(i){return tables.ratios_interval[str_tune][(semitones_from_root+i)%edo]*((i && (semitones_from_root+i)%edo === 0)? 2: 1);};
       }
       else if(tables.bases_fifth[str_tune]){  // Ver.1.97.21
         var base = tables.bases_fifth[str_tune];
-        var root_fifth = self.tables.stem2fifth(str_tune, obj_root.idx, obj_root.alt);  // Ver.1.94.20  // Ver.1.94.21
-        r0 = Math.pow(base, self.tables.stem2fifth(str_tune, idx, alt+0)-root_fifth);
-        r1 = Math.pow(base, self.tables.stem2fifth(str_tune, idx, alt+1)-root_fifth);
+        var root_fifth = self.tables.stem2fifth(str_tune, idx_root, alt_root);  // Ver.1.94.20  // Ver.1.94.21
+        get_ratio = function(i){return Math.pow(base, self.tables.stem2fifth(str_tune, idx, alt+i)-root_fifth);};
       }
       else if(tables.cents_deviation[str_tune]){  // Ver.1.97.21
         var semitones_from_C = (idx+alt_int+octaves*edo)%edo;
-        r0 *= Math.pow(2, tables.cents_deviation[str_tune][(semitones_from_C+0)%edo]/self.cents_in_octave);
-        r1 *= Math.pow(2, tables.cents_deviation[str_tune][(semitones_from_C+1)%edo]/self.cents_in_octave);
+        get_ratio = function(i){return Math.pow(2, (idx+alt_int+i)/edo)*Math.pow(2, tables.cents_deviation[str_tune][(semitones_from_C+i)%edo]/self.cents_in_octave);};
       }
       else return NaN;  // Ver.1.97.21 error
-      var base = (isLog_interpolation)? (r1/r0): Math.pow(2, 1/edo);
-      return r0*Math.pow(base, alt_frac);
-      /* -> Ver.1.101.22 */
+      var r0 = get_ratio(0);
+      var base = (isLog_interpolation)? (get_ratio(1)/r0): Math.pow(2, 1/edo);
+      return r0*Math.pow(base, alt_frac-alt_root_frac);
     };
+    /* -> Ver.1.101.22 */
     var ratio_target = calc_ratio_from_root(obj_note.idx, obj_note.alt);  // Ver.1.94.21
     var ratio_C      = calc_ratio_from_root(0, 0);
     var _ratio = ratio_target/ratio_C;
