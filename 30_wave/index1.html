@@ -325,17 +325,27 @@ wave-duty：
   </tr>
   <tr>
     <td>
-tuning：
+base：
     </td>
     <td>
-<label for="input-A4">A4:
+<label for="input-base">
+  <input id="input-base" class="input-100" value="A4">
+</label>
+=
+<label for="input-A4">
   <input id="input-A4" type="number" step="1" min="0" max="48000" value="440">[Hz]
 </label>
-←
+<br>
 <label>lockPitch:
   <input id="checkbox-lockPitch" type="checkbox" checked="checked">
 </label>
-<br>
+    </td>
+  </tr>
+  <tr>
+    <td>
+tuning：
+    </td>
+    <td>
 <label for="select-tune">tune:
   <select id="select-tune">
     <option value="0">0: Equal</option>
@@ -377,6 +387,9 @@ tuning：
     <option>B#</option>
     <option>Cb</option>
   </select>
+</label>
+<label for="input-root">
+  <input id="input-root" class="input-100">
 </label>
 <br>
 <label for="select-mode">mode:

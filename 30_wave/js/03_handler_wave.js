@@ -44,6 +44,7 @@ My_entry.handler_wave.prototype.init = function(){
   self.regex.nc = /^n(\d+)$/;  // Ver.1.13.4
   self.regex.sn = /^([A-G])([+-]?\d+)?([sf#bn]*)$/;  // Ver.1.14.4  // Ver.1.84.15  // Ver.1.94.19  // Ver.1.94.21  // Ver.1.101.21
   self.regex.chord = /^([A-G][+-]?\d+?[sf#bn]*)\[(.*?)\](?:@(.*))?$/;  // Ver.1.101.21
+  self.regex.notes = /^([A-G])(-3|-2|-1|[0-9]|10|11|12)?([sf#bn]*)$/;  // Ver.1.102.22
   self.regex.sharp = /s|#/g;  // Ver.1.84.15
   self.regex.flat = /f|b/g;  // Ver.1.84.15
   self.regex.natural = /n/g;  // Ver.1.94.19
@@ -112,8 +113,8 @@ My_entry.handler_wave.prototype.init = function(){
   self.str_base = "A4";  // Ver.1.94.21
   self.pitch_base = 440;  // Ver.1.94.21
   self.edo = 12;
-  self.octave0 = -1;  // Ver.1.96.21
-  self.octaves = 11;
+  self.octave0 = -3;  // Ver.1.96.21  // Ver.1.102.22
+  self.octaves = 2+11+2;  // Ver.1.102.22 [-1,10] -> [-3,12]
   self.cents_in_octave = 1200;
   var PC = 531441/524288;  // Pythagorean Comma
   var SC = 81/80;          // Syntonic Comma
@@ -493,8 +494,9 @@ My_entry.handler_wave.prototype.init_handlers = function(){
     var self = this;
     var id = elem.id;
     self.handlers.onbeforeunload();
-    if(self.isSingle && (elem.tagName.toUpperCase() === "SELECT" || elem.id === "input-A4" || elem.id === "checkbox-lockPitch" || elem.id === "checkbox-useEqual_interpolation")){  // Ver.1.84.15  // Ver.1.91.19  // Ver.1.101.22
-      self.output_freq();
+    if(elem.tagName.toUpperCase() === "SELECT" || elem.id === "input-note" || elem.id === "input-root" || elem.id === "input-base" || elem.id === "input-A4" || elem.id === "checkbox-lockPitch" || elem.id === "checkbox-useEqual_interpolation"){  // Ver.1.84.15  // Ver.1.91.19  // Ver.1.102.22
+      self.check_notes();  // Ver.1.102.22
+      if(self.isSingle) self.output_freq();
     }
     self.waveo = new self.constructors.output_wave();
     self.make_params();
@@ -517,6 +519,40 @@ My_entry.handler_wave.prototype.init_handlers = function(){
     }
     return self;
   };
+  return self;
+};
+/* Ver.1.102.22 */
+My_entry.handler_wave.prototype.check_notes = function(){
+  var self = this;
+  var $ = self.entry.$;
+  var elem_lockPitch = $._id("checkbox-lockPitch").parentElement;
+  var elem_useEqual_interpolation = $._id("checkbox-useEqual_interpolation").parentElement;
+  elem_lockPitch.classList.remove("clear");
+  elem_useEqual_interpolation.classList.remove("clear");
+  Object.keys(self.tables.note2index).forEach(function(key){
+    var ans0 = self.get_freq(key, {lockPitch: true})/self.get_freq(key, {lockPitch: false});
+    var ans1 = self.get_freq(key, {lockPitch: false, useEqual_interpolation: true})/self.get_freq(key, {lockPitch: false, useEqual_interpolation: false});
+    var ans2 = self.get_freq(key, {lockPitch: true, useEqual_interpolation: true})/self.get_freq(key, {lockPitch: true, useEqual_interpolation: false});
+    var unmatch = function(ans){return (Math.abs(ans-1) > Number.EPSILON*1e8);};
+    if(unmatch(ans0)) elem_lockPitch.classList.add("clear");
+    if(unmatch(ans1)) elem_useEqual_interpolation.classList.add("clear");
+    if(unmatch(ans2)) elem_useEqual_interpolation.classList.add("clear");
+  });
+  var check = function(type, str){
+    var elem = $._id("input-"+type);
+    if(elem){
+      var input = $.inputVal_id("input-"+type);
+      var hasInput = input.match(self.regex.notes);
+      elem.classList.remove("selection");
+      elem.classList.remove("clear");
+      if(input !== (str || "")){
+        elem.classList.add((hasInput)? "selection": "clear");
+      }
+    }
+  };
+  check("base", self.str_base);
+  check("root");
+  check("note");
   return self;
 };
 My_entry.handler_wave.prototype.output_log = function(log){
@@ -666,7 +702,8 @@ My_entry.handler_wave.prototype.calc_freq = function(notes, freq_base, tune, mod
 /* -> Ver.1.84.15 */
 My_entry.handler_wave.prototype.output_freq = function(){
   var self = this;
-  self.entry.$._id("input-freq").value = (self.get_freq()).toFixed(3);  // Ver.1.84.15
+  var freq = self.get_freq();
+  self.entry.$._id("input-freq").value = (isNaN(freq))? "": freq.toFixed(3);  // Ver.1.84.15  // Ver.1.102.22
   return self;
 };
 /* Ver.1.35.6 */
@@ -700,26 +737,39 @@ My_entry.handler_wave.prototype.get_fileName = function(){
   return _name;
 };
 /* Ver.1.84.15 */
-My_entry.handler_wave.prototype.get_freq = function(str){
+My_entry.handler_wave.prototype.get_freq = function(str_note, options){  // Ver.1.102.22
   var self = this;
   var _freq = null;
-  var A4 = self.entry.$.inputNum_id("input-A4");
-  var tune = self.entry.$.selectNum_id("select-tune");
-  var root = self.entry.$.selectVal_id("select-root");
-  var mode = self.entry.$.selectNum_id("select-mode");
-  var lockPitch = self.entry.$.checkbox_id("checkbox-lockPitch");  // Ver.1.91.19
-  var useEqual_interpolation = self.entry.$.checkbox_id("checkbox-useEqual_interpolation");  // Ver.1.101.22
-  if(str){
-    var octave0 = self.entry.$.selectNum_id("select-octave");
-    var sw_sharp2flat = self.entry.$.checkbox_id("checkbox-sharp2flat");
-    _freq = self.calc_freq({root: root, note: str}, A4, tune, mode, {lockPitch: lockPitch, useEqual_interpolation: useEqual_interpolation, octave0: octave0, sw_sharp2flat: sw_sharp2flat});  // Ver.1.91.19  // Ver.1.100.21  // Ver.1.101.22
+  var $ = self.entry.$;  // Ver.1.102.22
+  var str_base = $.inputVal_id("input-base");  // Ver.1.102.22
+  var A4 = $.inputNum_id("input-A4");
+  var tune = $.selectNum_id("select-tune");
+  var str_root = $.inputVal_id("input-root") || $.selectVal_id("select-root");  // Ver.1.102.22
+  var mode = $.selectNum_id("select-mode");
+  var lockPitch = $.checkbox_id("checkbox-lockPitch");  // Ver.1.91.19
+  var useEqual_interpolation = $.checkbox_id("checkbox-useEqual_interpolation");  // Ver.1.101.22
+  /* Ver.1.102.22 -> */
+  var octave0 = null;
+  var sw_sharp2flat = null;
+  var hasNotes = str_base.match(self.regex.notes) && str_root.match(self.regex.notes);
+  if(str_note){
+    if(str_note.match(self.regex.oc)){
+      octave0 = $.selectNum_id("select-octave");
+      sw_sharp2flat = $.checkbox_id("checkbox-sharp2flat");
+    }
+    else{
+      hasNotes = hasNotes && str_note.match(self.regex.notes);
+    }
   }
   else{
-    var octave = self.entry.$.selectNum_id("select-octave");
-    var note = self.entry.$.selectVal_id("select-note");
-    var str = self.make_str(octave, note);
-    _freq = self.calc_freq({root: root, note: str}, A4, tune, mode, {lockPitch: lockPitch, useEqual_interpolation: useEqual_interpolation});  // Ver.1.91.19  // Ver.1.100.21  // Ver.1.101.22
+    var octave = $.selectNum_id("select-octave");
+    var note = $.selectVal_id("select-note");
+    str_note = $.inputVal_id("input-note") || self.make_str(octave, note);
+    hasNotes = hasNotes && str_note.match(self.regex.notes);
   }
+  if(!(hasNotes)) return NaN;
+  _freq = self.calc_freq({base: str_base, root: str_root, note: str_note}, A4, tune, mode, options || {lockPitch: lockPitch, useEqual_interpolation: useEqual_interpolation, octave0: octave0, sw_sharp2flat: sw_sharp2flat});  // Ver.1.91.19  // Ver.1.100.21  // Ver.1.101.22
+  /* -> Ver.1.102.22 */
   return _freq;
 };
 My_entry.handler_wave.prototype.get_freqs = function(){
@@ -768,9 +818,10 @@ My_entry.handler_wave.prototype.make_params = function(){
   params.duty1 = params.duty0;
   /* -> Ver.1.16.4 */
   /* Ver.1.84.15 -> */
+  params.base = $.inputVal_id("input-base");  // Ver.1.102.22
   params.A4 = $.inputNum_id("input-A4");
   params.tune = $.selectNum_id("select-tune");
-  params.root = $.selectVal_id("select-root");
+  params.root = $.inputVal_id("input-root") || $.selectVal_id("select-root");  // Ver.1.102.22
   params.mode = $.selectNum_id("select-mode");
   params.lockPitch = $.checkbox_id("checkbox-lockPitch");  // Ver.1.91.19
   params.useEqual_interpolation = $.checkbox_id("checkbox-useEqual_interpolation");  // Ver.1.101.22
