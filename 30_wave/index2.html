@@ -567,7 +567,34 @@ amplitude*<input id="input-amplitude" class="input-50" type="number" step="0.1" 
 <span class="clear right">乗算</span>
     </td>
   </tr>
-  <tr class="border">
+  <tr>
+    <td>
+blend：
+    </td>
+    <td>
+<label for="select-blend">
+  <select id="select-blend">
+    <option value="0">SYNC (Crossfade)</option>
+    <option value="1">SYNC (Crossfade-Inv)</option>
+    <option value="2" selected="selected">CIRC (Circular)</option>
+    <option value="3">CIRC (Circular-Inv)</option>
+    <option value="4">CIRC (Anti-Phase)</option>
+    <option value="5">CIRC (Anti-Phase-Inv)</option>
+    <option value="6">PAN (Standard)</option>
+    <option value="7">PAN (Standard-Inv)</option>
+    <option value="8">PAN (Phase-Shift)</option>
+    <option value="9">PAN (Phase-Shift-Inv)</option>
+    <option value="10">WIDE (Mid/Side)</option>
+    <option value="11">WIDE (Mid/Side-Inv)</option>
+    <option value="12">MONO (Mid)</option>
+    <option value="13">MONO (Mid-Inv)</option>
+    <option value="14">MONO (Side)</option>
+    <option value="15">MONO (Side-Inv)</option>
+  </select>
+</label>
+    </td>
+  </tr>
+  <tr>
     <td>
 Δf[Hz]：
 <br>

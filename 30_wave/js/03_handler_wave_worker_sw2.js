@@ -102,6 +102,62 @@ My_entry.handler_wave.prototype.composite_binary_soundData_LE = function(arr_buf
     var is = is0;
     var di = 0;
     var s_random = data.s_random || 0;
+    /* Ver.1.104.22 -> */
+    var blend = data.blend;
+    var isInv = blend%2;
+    var kampli_blend = (blend >= 2 && blend <= 5)? 1/Math.sqrt(2): (blend >= 12)? 1/2: 1;
+    var pih = Math.PI/2;
+    var blenders = {  // s0=1@s_stereo=0 -> newVal0 = val0
+      0: function(ampVal0, ampVal1, s0, s1, _amps_){
+        _amps_.val0 = s0*ampVal0+(1-s0)*ampVal1;  // Ver.1.37.8
+        _amps_.val1 = s1*ampVal1+(1-s1)*ampVal0;  // Ver.1.37.8
+      },
+      // conservation law against time
+      2: function(ampVal0, ampVal1, s0, s1, _amps_){
+        var angle0 = s0*pih;
+        var angle1 = s1*pih;
+        _amps_.val0 = ampVal0*Math.sin(angle0)+ampVal1*Math.cos(angle0);
+        _amps_.val1 = ampVal1*Math.sin(angle1)+ampVal0*Math.cos(angle1);
+      },
+      4: function(ampVal0, ampVal1, s0, s1, _amps_){
+        var angle0 = s0*pih;
+        var angle1 = s1*pih;
+        _amps_.val0 = ampVal0*Math.sin(angle0)+ampVal1*Math.cos(angle0);
+        _amps_.val1 = ampVal1*Math.sin(angle1)-ampVal0*Math.cos(angle1);
+      },
+      6: function(ampVal0, ampVal1, s0, s1, _amps_){
+        var angle0 = s0*pih;
+        var angle1 = s1*pih;
+        _amps_.val0 = ampVal0*Math.cos(angle0);
+        _amps_.val1 = ampVal1*Math.sin(angle1);
+      },
+      8: function(ampVal0, ampVal1, s0, s1, _amps_){
+        var angle0 = s0*pih;
+        var angle1 = s1*pih;
+        _amps_.val0 = ampVal0*Math.sin(angle0);
+        _amps_.val1 = ampVal1*Math.cos(angle1);
+      },
+      10: function(ampVal0, ampVal1, s0, s1, _amps_){
+        var mid = (ampVal0+ampVal1)/2;
+        var side = (ampVal0-ampVal1)/2;
+        _amps_.val0 = s0*mid+s1*side;
+        _amps_.val1 = s0*mid-s1*side;
+      },
+      12: function(ampVal0, ampVal1, s0, s1, _amps_){
+        var mid = (ampVal0+ampVal1)/2;
+        _amps_.val0 = s0*mid+s1*mid;
+        _amps_.val1 = _amps_.val0;
+      },
+      14: function(ampVal0, ampVal1, s0, s1, _amps_){
+        var side = (ampVal0-ampVal1)/2;
+        _amps_.val0 = s0*side+s1*side;
+        _amps_.val1 = _amps_.val0;
+      }
+    };
+    var step = 2;
+    var blender = blenders[Math.floor(blend/step)*step];
+    var _amps_ = {val0: 0, val1: 0};
+    /* -> Ver.1.104.22 */
     for(var i=is0, len=number_samples_perChannel_max; i<len; ++i){
       if(s_random && i-is >= di){
         var base = 2;
@@ -114,24 +170,26 @@ My_entry.handler_wave.prototype.composite_binary_soundData_LE = function(arr_buf
         is = i;
       }
       var dt = (i-is)/samples_perSecond;
+      /* Ver.1.104.22 -> */
       /* Ver.1.33.6 -> */
-      var sint = Math.sin(omega*dt);
-      var s = 1+amp_sin*(sint-1);  // [0,1]
+      var theta = omega*dt;
+      var sint = Math.sin(theta);
+      var cost = Math.cos(theta);
+      var s0 = 1+amp_sin*(sint-1);  // [0,1]
+      var s1 = (isInv)? 1+amp_sin*(cost-1): s0;
       /* -> Ver.1.33.6 */
       var i0 = (i*number_channels+0)*Bytes_perSample;
       var i1 = (i*number_channels+1)*Bytes_perSample;
       var val0 = newGetter(i0, isLE);
-      var val1 = (isStereo)? newGetter(i1, isLE): val_offset;  // Ver.1.36.7
+      var val1 = (isStereo)? newGetter(i1, isLE): val0; // Ver.1.36.7
       /* Ver.1.45.11 -> */
-      val0 = val_offset+(val0-val_offset)*kampli_post;
-      val1 = val_offset+(val1-val_offset)*kampli_post;
+      var ampVal0 = (val0-val_offset)*kampli_post*kampli_blend;
+      var ampVal1 = (val1-val_offset)*kampli_post*kampli_blend;
       /* -> Ver.1.45.11 */
-      var newVal0 = s*val0+(1-s)*val1;  // Ver.1.37.8 s=1@s_stereo=0
-      newSetter(i0, newVal0, isLE);
-      if(isStereo){
-        var newVal1 = s*val1+(1-s)*val0;  // Ver.1.37.8 s=1@s_stereo=0
-        newSetter(i1, newVal1, isLE);
-      }
+      blender(ampVal0, ampVal1, s0, s1, _amps_);
+      newSetter(i0, _amps_.val0, isLE);
+      if(isStereo) newSetter(i1, _amps_.val1, isLE);
+      /* -> Ver.1.104.22 */
     }
   }
   /* -> Ver.1.32.6 */
