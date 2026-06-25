@@ -892,6 +892,7 @@ My_entry.handler_wave.prototype.make_params = function(){
     params.pitch = def.limit(params.pitch, -16, 16, 0);  // Ver.1.83.15  // Ver.1.84.15
     params.maxAmp = $.checkbox_id("checkbox-maxAmp");  // Ver.1.45.11
     /* Ver.1.29.4 -> */
+    params.blend = $.selectNum_id("select-blend");  // Ver.1.104.22
     params.dfreq = $.inputNum_id("input-dfreq");  // Ver.1.64.14
     params.dfreq = def.limit(params.dfreq, -Number.MAX_VALUE, Number.MAX_VALUE, 0);
     /* Ver.1.32.6 -> */
