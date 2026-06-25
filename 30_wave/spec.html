@@ -22,6 +22,26 @@
       <tbody>
         <tr class="border">
           <td class="border run">
+Ver.1.103.22
+          </td>
+          <td class="border">
+・encode処理の改善（memory効率と波形data保証、mobile版の動作保証）
+<br>
+　self.binary2buffer/buffer2binary()：forEach()　⇒　for()
+<br>
+　self.get_binary_soundData_LE()：_binary += binary　⇒　arrb_uint8.set()
+<br>
+　self.make_base64()：callback追加
+<br>
+・以下の検討を保留（?full=Froschgesang@Byte数/sample=3の互換性を維持）
+<br>
+　通信data：binary　⇒　buffer
+<br>
+　Base64変換：window.btoa(binary)　⇒　new Blob([buffer])
+          </td>
+        </tr>
+        <tr class="border">
+          <td class="border run">
 Ver.1.102.22
           </td>
           <td class="border">

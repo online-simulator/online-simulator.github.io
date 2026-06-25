@@ -2,7 +2,7 @@
 
 My_entry.def.mix_in(My_entry.handler_wave, My_entry.original_worker);
 
-My_entry.handler_wave.prototype.composite_binary_soundData_LE = function(arr_binary, arr_number_samples, data){
+My_entry.handler_wave.prototype.composite_binary_soundData_LE = function(arr_buffer, arr_number_samples, data){  // Ver.1.103.22
   var self = this;
   var isLE = true;
   var samples_perSecond = data.samples_perSecond;  // Ver.1.29.4
@@ -36,13 +36,12 @@ My_entry.handler_wave.prototype.composite_binary_soundData_LE = function(arr_bin
     newSetter(i*Bytes_perSample, val_offset, isLE);
   }
   /* Ver.1.29.4 -> */
-  var hasCh2 = (arr_binary.length > 1)? true: false;
+  var hasCh2 = (arr_buffer.length > 1)? true: false;  // Ver.1.103.22
   var isStereo = (number_channels === 2);
   var isNotExist_ch2 = !(hasCh2) && isStereo;
   /* Ver.1.35.6 -> */
   var aval_max = 0;
-  arr_binary.forEach(function(binary, i){
-    var buffer = self.waveo.binary2buffer(binary);
+  arr_buffer.forEach(function(buffer, i){  // Ver.1.103.22
     var view = new DataView(buffer, 0);
     /* Ver.1.48.11 -> */
     var getter = (view["get"+Prop])?
@@ -154,7 +153,7 @@ My_entry.handler_wave.prototype.set_callbacks_worker = function(){
       len_out += Object.keys(self.arr_data_out[i]).length;
     });
     if(len_out === len_in){
-      var arr_binary = new Array(data.len_i);
+      var arr_buffer = new Array(data.len_i);  // Ver.1.103.22
       var arr_number_samples = new Array(data.len_i);
       var i0 = null;
       var j0 = null;
@@ -172,23 +171,15 @@ My_entry.handler_wave.prototype.set_callbacks_worker = function(){
           }
         });
         arr_number_samples[i] = number_samples_perChannel;
-        arr_binary[i] = binary;
+        arr_buffer[i] = self.waveo.binary2buffer(binary);  // Ver.1.103.22
       });
     /* Ver.1.40.9 -> */
       var log = "";
     try{
       var data0 = self.arr_data_out[i0][j0];
-      var number_samples = data0.number_samples_perChannel_max;
-      var binary_header = self.waveo.get_binary_header(number_samples);
-      var binary_soundData_LE = self.composite_binary_soundData_LE(arr_binary, arr_number_samples, data0);
-      var binary = binary_header+binary_soundData_LE;
-      var buffer = self.waveo.binary2buffer(binary);
-      self.handler_link.link.set_url(buffer);
-      var base64 = (window.btoa)? "data:audio/wav;base64,"+btoa(binary): "";
-      var isIE = self.handler_link.browser.sws.isIE;
-      if(!(isIE)){
-        self.waveo.play_base64(base64, data.volume);
-      }
+      data0.out = self.composite_binary_soundData_LE(arr_buffer, arr_number_samples, data0);  // Ver.1.103.22
+      data0.number_samples = data0.number_samples_perChannel_max;  // Ver.1.103.22
+      self.waveo.make_base64(data0, function(buffer){self.handler_link.link.set_url(buffer);});  // Ver.1.103.22
     }
     catch(e){
       log = e.message;
