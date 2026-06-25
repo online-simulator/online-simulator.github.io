@@ -11,16 +11,7 @@ My_entry.handler_wave.prototype.set_callbacks_worker = function(){
     var len_in = self.arr_data_in.length;
     var len_out = Object.keys(self.arr_data_out).length;
     if(len_out === len_in){
-      var binary_header = self.waveo.get_binary_header(data.number_samples);
-      var binary_soundData_LE = data.out;
-      var binary = binary_header+binary_soundData_LE;
-      var buffer = self.waveo.binary2buffer(binary);
-      self.handler_link.link.set_url(buffer);
-      var base64 = (window.btoa)? "data:audio/wav;base64,"+btoa(binary): "";
-      var isIE = self.handler_link.browser.sws.isIE;
-      if(!(isIE)){
-        self.waveo.play_base64(base64, data.volume);
-      }
+      self.waveo.make_base64(data, function(buffer){self.handler_link.link.set_url(buffer);});  // Ver.1.103.22
       self.stop_worker();
       self.output_amplitude_max(data._amplitude_max);  // Ver.1.35.6  // Ver.1.64.14
       self.output_log();
