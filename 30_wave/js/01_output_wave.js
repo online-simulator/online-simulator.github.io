@@ -316,13 +316,13 @@ My_entry.output_wave.prototype.check_limit = function(_params){
     _params[prop] = def.limit(_params[prop], 0, 1, 0);
   });
   if(typeof _params.f0 === "undefined"){
-    _params.f0 = 800;
-    _params.f1 = 4800;
+    _params.f0 = 440*2;  // Ver.1.106.23
+    _params.f1 = _params.f0*10;  // Ver.1.106.23
     _params.g0 = 1;
-    _params.g1 = 0.3;
+    _params.g1 = _params.g0/10;  // Ver.1.106.23
   }
   ["f0", "f1"].forEach(function(prop){
-    _params[prop] = def.limit(_params[prop], 0, Number.MAX_VALUE, 800);
+    _params[prop] = def.limit(_params[prop], 0, Number.MAX_VALUE, 440*2);  // Ver.1.106.23
   });
   ["g0", "g1"].forEach(function(prop){
     _params[prop] = def.limit(_params[prop], 0, 1, 1);

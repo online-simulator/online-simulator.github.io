@@ -4,6 +4,7 @@ My_entry.def.mix_in(My_entry.handler_wave, My_entry.original_worker);
 
 My_entry.handler_wave.prototype.composite_binary_soundData_LE = function(data){  // Ver.1.103.22  // Ver.1.105.22
   var self = this;
+  var pi2 = Math.PI*2;  // Ver.1.106.23
   var isLE = true;
   var samples_perSecond = data.samples_perSecond;  // Ver.1.29.4
   var number_samples_perChannel_max = self.scripts.number_samples_perChannel_max;  // Ver.1.105.22
@@ -39,6 +40,11 @@ My_entry.handler_wave.prototype.composite_binary_soundData_LE = function(data){ 
   var hasCh2 = (self.scripts.arr_buffer.length > 1);  // Ver.1.103.22  // Ver.1.105.22
   var isStereo = (number_channels === 2);
   var isNotExist_ch2 = !(hasCh2) && isStereo;
+  /* Ver.1.106.23 -> */
+  var order_filter = data.order_filter;
+  var fc = data.fc;
+  var wr = 1/(1+pi2*fc/samples_perSecond);
+  /* -> Ver.1.106.23 */
   /* Ver.1.35.6 -> */
   var aval_max = 0;
   self.scripts.arr_buffer.forEach(function(buffer, i){  // Ver.1.103.22  // Ver.1.105.22
@@ -55,8 +61,12 @@ My_entry.handler_wave.prototype.composite_binary_soundData_LE = function(data){ 
     var j_offset = i%number_channels;
     /* Ver.1.18.4 -> */
     var gain_channeli = self.scripts.arr_gain_channel[i];  // Ver.1.106.22
-    var wr = data.wr;
-    var oldAmp = 0;  // Ver.1.106.22
+    /* Ver.1.106.23 -> */
+    var oldAmps = new Array(order_filter);  // Ver.1.106.22
+    for(var k=0; k<order_filter; ++k){
+      oldAmps[k] = 0;
+    }
+    /* -> Ver.1.106.23 */
     for(var j=0, len=self.scripts.arr_number_samples[i]; j<len; ++j){  // Ver.1.105.22
       var j_new = (j*number_channels+j_offset)*Bytes_perSample;
       var j_out = j*Bytes_perSample;
@@ -64,8 +74,13 @@ My_entry.handler_wave.prototype.composite_binary_soundData_LE = function(data){ 
       var ampVal0 = newGetter(j_new, isLE)-val_offset;
       var ampVali = getter(j_out, isLE)-val_offset;
       var nowAmp = ampVal0+ampVali*gain_channeli;  // sum_channel[0,i-1]+channel[i]
-      var newAmp = wr*oldAmp+(1-wr)*nowAmp;  // wr first
-      oldAmp = newAmp;
+      /* Ver.1.106.23 -> */
+      var newAmp = nowAmp;
+      for(var k=0; k<order_filter; ++k){
+        newAmp = wr*oldAmps[k]+(1-wr)*nowAmp;  // wr first
+        oldAmps[k] = nowAmp = newAmp;
+      }
+      /* -> Ver.1.106.23 */
       /* Ver.1.40.9 -> */
       var aval = Math.abs(newAmp);
       if(aval > val_amplitude){
@@ -101,7 +116,6 @@ My_entry.handler_wave.prototype.composite_binary_soundData_LE = function(data){ 
     var amp_sin = (dfreq)? s_stereo/2: 0;
   /* -> Ver.1.45.11 */
     /* -> Ver.1.33.6 */
-    var pi2 = Math.PI*2;
     var freq0 = dfreq;
     var omega = pi2*freq0;
     var is0 = 0;

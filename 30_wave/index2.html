@@ -121,7 +121,6 @@
           var script_ver1 = "$sheet($chord1; :r$2; $chord2; :r$3; $chord3; r; $chordset4)\n\n$1(:::0.5:0.5:1:0.5:order_d=0.1:order_a=2)\n$e1(:::0.5:0.5:0.5:0.25:order_d=0.1:order_a=2)\n$e2(:::0.5:0.5:0.25:0.125:order_d=0.1:order_a=2)\n$2(::amplitude1=0)\n$3(::duty0=0.25:duty1=0.5)\n\n$chordset4($chord4-1; $chord4-2; $chord4-3)\n\n$chord1($C; $D; $E; $F; $E; $D; $C)\n$chord2($E; $F; $G; $A; $G; $F; $E)\n$chord3($C; :r; $C; :r; $C; :r; $C)\n$chord4-1(b2:$C; b2:$C; b2:$D; b2:$D)\n$chord4-2(b2:$E; b2:$E; b2:$F; b2:$F)\n$chord4-3(b2:$E; b2:r; 3b4:$D; 1b4:r; b:$C)\n\n$A([A4,A5,A6])$C([C4,C5,C6])$D([D4,D5,D6])$E([E4,E5,E6])$F([F4,F5,F6])$G([G4,G5,G6])\n\n{01.0b:r$1; $sheet;}{07.0b:r$1; $sheet;}{13.0b:r$1; $sheet;}{19.0b:r$1; $sheet;}\n{01.5b:r$e1; $sheet;}{07.5b:r$e1; $sheet;}{13.5b:r$e1; $sheet;}{19.5b:r$e1; $sheet;}\n{02.0b:r$e2; $sheet;}{08.0b:r$e2; $sheet;}{14.0b:r$e2; $sheet;}{20.0b:r$e2; $sheet;}\n";
           var script_ver2 = "$sheet($chord1; $2; $chord2; $3; $chord3; $chordset4)\n\n$1(duty0=0.5:duty1=0.5:amplitude0=1:amplitude1=0.5:order_d=0.1:order_a=2)\n$e1(duty0=0.5:duty1=0.5:amplitude0=0.5:amplitude1=0.25:order_d=0.1:order_a=2)\n$e2(duty0=0.5:duty1=0.5:amplitude0=0.25:amplitude1=0.125:order_d=0.1:order_a=2)\n$2(amplitude1=0)\n$3(duty0=0.25:duty1=0.5)\n\n$chordset4($chord4-1; $chord4-2; $chord4-3)\n\n$chord1($C; $D; $E; $F; $E; $D; $C; r)\n$chord2($E; $F; $G; $A; $G; $F; $E; r)\n$chord3($C; :r; $C; :r; $C; :r; $C; r)\n$chord4-1(b2:$C; b2:$C; b2:$D; b2:$D)\n$chord4-2(b2:$E; b2:$E; b2:$F; b2:$F)\n$chord4-3(b2:$E; b2:r; 3b4:$D; 1b4:r; b:$C)\n\n$A([A4,A5,A6])$C([C4,C5,C6])$D([D4,D5,D6])$E([E4,E5,E6])$F([F4,F5,F6])$G([G4,G5,G6])\n\n{01.0b:r; $1; $sheet;}{07.0b:r; $1; $sheet;}{13.0b:r; $1; $sheet;}{19.0b:r; $1; $sheet;}\n{01.5b:r; $e1; $sheet;}{07.5b:r; $e1; $sheet;}{13.5b:r; $e1; $sheet;}{19.5b:r; $e1; $sheet;}\n{02.0b:r; $e2; $sheet;}{08.0b:r; $e2; $sheet;}{14.0b:r; $e2; $sheet;}{20.0b:r; $e2; $sheet;}\n";
           script = (options.tVer === 1)? script_ver1: script_ver2;
-          $._id("input-pitch").value = 880;
         }
         else if(options.testcase === "Froschgesang_overtone"){
           var script_ver1 = "$sheet($chord1; :r$2; $chord2; :r$3; $chord3; r; $chordset4)\n\n$1(:::0.5:0.5:1:0.5:order_d=0.1:order_a=2)\n$e1(:::0.5:0.5:0.5:0.25:order_d=0.1:order_a=2)\n$e2(:::0.5:0.5:0.25:0.125:order_d=0.1:order_a=2)\n$2(::amplitude1=0)\n$3(::duty0=0.25:duty1=0.5)\n\n$chordset4($chord4-1; $chord4-2; $chord4-3)\n\n$chord1($C; $D; $E; $F; $E; $D; $C)\n$chord2($E; $F; $G; $A; $G; $F; $E)\n$chord3($C; :r; $C; :r; $C; :r; $C)\n$chord4-1(b2:$C; b2:$C; b2:$D; b2:$D)\n$chord4-2(b2:$E; b2:$E; b2:$F; b2:$F)\n$chord4-3(b2:$E; b2:r; 3b4:$D; 1b4:r; b:$C)\n\n$A(A4)$C(C4)$D(D4)$E(E4)$F(F4)$G(G4)\n\n{01.0b:r$1; $sheet;}{07.0b:r$1; $sheet;}{13.0b:r$1; $sheet;}{19.0b:r$1; $sheet;}\n{01.5b:r$e1; $sheet;}{07.5b:r$e1; $sheet;}{13.5b:r$e1; $sheet;}{19.5b:r$e1; $sheet;}\n{02.0b:r$e2; $sheet;}{08.0b:r$e2; $sheet;}{14.0b:r$e2; $sheet;}{20.0b:r$e2; $sheet;}\n";
@@ -140,7 +139,6 @@
         }
         else if(options.testcase === "Froschgesang100"){
           $._id("input-BPM").value /= 4;
-          $._id("input-pitch").value = 880;
           $.set_selectVal_id("select-fileSizeMax", 20);
         }
         else if(options.testcase === "Froschgesang100_overtone"){
@@ -509,7 +507,9 @@ sweep-order：
 f_vibrato[Hz]：
     </td>
     <td>
+  <label>f_vib:
 <input id="input-f_vib" type="number" step="1" value="0">
+  </label>
 <span class="clear right">dataset優先</span>
     </td>
   </tr>
@@ -722,21 +722,23 @@ option:
   </tr>
   <tr class="border">
     <td>
-amplitude-fade:
+amplitude-
 <br>
-  <label>fade-order:
-<select id="select-order-fade">
-  <option value="0">1.</option>
-  <option>1</option>
-  <option selected="selected">2</option>
-  <option value="3">cos</option>
-  <option value="-1">old1</option>
-  <option value="-2">old2</option>
-</select>
-  </label>
+fade-in/out:
     </td>
     <td>
-  <label>in-weight:
+  <label>order_fade:
+<select id="select-order-fade">
+  <option value="0">0: 1.</option>
+  <option>1</option>
+  <option selected="selected">2</option>
+  <option value="3">3: cos</option>
+  <option value="-1">-1: old1</option>
+  <option value="-2">-2: old2</option>
+</select>
+  </label>
+<br>
+  <label>weight w0:
 <select id="select-w0">
   <option>0</option>
   <option>0.1</option>
@@ -778,7 +780,7 @@ amplitude-fade:
   <option>0.999</option>
 </select>
   </label>
-  <label>out-weight:
+  <label>w1:
 <select id="select-w1">
   <option>0</option>
   <option>0.1</option>
@@ -820,8 +822,9 @@ amplitude-fade:
   <option>0.999</option>
 </select>
   </label>
+<span class="clear right">dataset優先</span>
 <br>
-  <label>in-range:
+  <label>range p0:
 <select id="select-p0">
   <option>0</option>
   <option>0.0001</option>
@@ -874,7 +877,7 @@ amplitude-fade:
   <option>1</option>
 </select>
   </label>
-  <label>out-range:
+  <label>p1:
 <select id="select-p1">
   <option>0</option>
   <option>0.0001</option>
@@ -931,16 +934,6 @@ amplitude-fade:
   </tr>
   <tr class="border">
     <td>
-raw-value fade:
-    </td>
-    <td>
-  <label>old-weight:
-<input id="input-wr" type="number" step="0.005" min="0" max="1" value="0">
-  </label>
-    </td>
-  </tr>
-  <tr class="border">
-    <td>
 出力調整log-log
 <br>
 filter gain:
@@ -949,16 +942,32 @@ filter gain:
   <label>f0[Hz]:
 <select id="select-f0">
   <option>2</option>
+  <option>5</option>
+  <option>10</option>
   <option>20</option>
+  <option>50</option>
+  <option>100</option>
   <option>200</option>
+  <option>220</option>
+  <option>300</option>
   <option>400</option>
+  <option>440</option>
+  <option>500</option>
   <option>600</option>
-  <option selected="selected">800</option>
+  <option>660</option>
+  <option>700</option>
+  <option>800</option>
+  <option selected="selected">880</option>
+  <option>900</option>
+  <option>990</option>
   <option>1000</option>
+  <option>1100</option>
 </select>
   </label>
   <label>g0:
 <select id="select-g0">
+  <option>0.00001</option>
+  <option>0.0001</option>
   <option>0.001</option>
   <option>0.01</option>
   <option>0.1</option>
@@ -973,34 +982,73 @@ filter gain:
   <option selected="selected">1</option>
 </select>
   </label>
+<span class="clear right">dataset優先</span>
 <br>
   <label>f1[Hz]:
 <select id="select-f1">
   <option>1200</option>
-  <option>2400</option>
-  <option>3600</option>
-  <option selected="selected">4800</option>
+  <option>2000</option>
+  <option>2200</option>
+  <option>3000</option>
+  <option>3400</option>
+  <option>4000</option>
+  <option>4400</option>
+  <option>4800</option>
+  <option>5000</option>
   <option>6000</option>
-  <option>7200</option>
-  <option>8400</option>
-  <option>9600</option>
+  <option>6600</option>
+  <option>7000</option>
+  <option>8000</option>
+  <option selected="selected">8800</option>
+  <option>9000</option>
+  <option>9900</option>
 </select>
   </label>
   <label>g1:
-<select id="select-g1">
+<select id="select-g1" class="clear">
+  <option>0.00001</option>
+  <option>0.0001</option>
   <option>0.001</option>
   <option>0.01</option>
   <option>0.1</option>
   <option>0.2</option>
-  <option selected="selected">0.3</option>
+  <option>0.3</option>
   <option>0.4</option>
   <option>0.5</option>
   <option>0.6</option>
   <option>0.7</option>
   <option>0.8</option>
   <option>0.9</option>
-  <option>1</option>
+  <option selected="selected">1</option>
 </select>
+  </label>
+    </td>
+  </tr>
+  <tr class="border">
+    <td>
+raw-value
+<br>
+Low Pass Filter:
+    </td>
+    <td>
+  <label>order_filter:
+<select id="select-order-filter">
+  <option value="0">0: 0dB/dec</option>
+  <option value="1">1: -20dB/dec</option>
+  <option value="2">2: -40dB/dec</option>
+  <option value="3" selected="selected">3: -60dB/dec</option>
+  <option value="4">4: -80dB/dec</option>
+  <option value="5">5: -100dB/dec</option>
+  <option value="6">6: -120dB/dec</option>
+  <option value="7">7: -140dB/dec</option>
+  <option value="8">8: -160dB/dec</option>
+  <option value="9">9: -180dB/dec</option>
+  <option value="10">10: -200dB/dec</option>
+</select>
+  </label>
+<br>
+  <label>cut-off fc[Hz]:
+<input id="input-fc" class="clear" type="number" step="100" min="0" max="48000" value="7860.906913441086">
   </label>
     </td>
   </tr>
