@@ -14,6 +14,7 @@ My_entry.handler_wave.prototype.init = function(){
   self.init_worker();
   self.isSingle = (self.entry.$._id("input-freq"))? true: false;
   self.isScriptMode = (self.entry.$._id("textarea-script"))? true: false;
+  self.scripts = {};  // Ver.1.105.22
   self.text_log = "finished SAVE-OK 保存可能";
   self.text_link = "download-wav@double-click";  // Ver.1.23.4
   self.pre_maxAmp = "auto-";  // Ver.1.45.11

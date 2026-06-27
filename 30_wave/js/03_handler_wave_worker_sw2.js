@@ -2,11 +2,11 @@
 
 My_entry.def.mix_in(My_entry.handler_wave, My_entry.original_worker);
 
-My_entry.handler_wave.prototype.composite_binary_soundData_LE = function(arr_buffer, arr_number_samples, data){  // Ver.1.103.22
+My_entry.handler_wave.prototype.composite_binary_soundData_LE = function(data){  // Ver.1.103.22  // Ver.1.105.22
   var self = this;
   var isLE = true;
   var samples_perSecond = data.samples_perSecond;  // Ver.1.29.4
-  var number_samples_perChannel_max = data.number_samples_perChannel_max;
+  var number_samples_perChannel_max = self.scripts.number_samples_perChannel_max;  // Ver.1.105.22
   var number_channels = self.waveo.number_channels;  // from waveo
   var Bytes_perSample = data.Bytes_perSample;
   var val_amplitude = self.waveo.arr_amplitude[Bytes_perSample];  // Ver.1.36.6
@@ -32,16 +32,16 @@ My_entry.handler_wave.prototype.composite_binary_soundData_LE = function(arr_buf
     };
   /* -> Ver.1.48.11 */
   // substitute val_offset
-  for(var i=0, len=number_samples_perChannel_max*number_channels; i<len; ++i){
+  for(var i=0, len=self.scripts.number_samples_perChannel_max*number_channels; i<len; ++i){  // Ver.1.105.22
     newSetter(i*Bytes_perSample, val_offset, isLE);
   }
   /* Ver.1.29.4 -> */
-  var hasCh2 = (arr_buffer.length > 1)? true: false;  // Ver.1.103.22
+  var hasCh2 = (self.scripts.arr_buffer.length > 1);  // Ver.1.103.22  // Ver.1.105.22
   var isStereo = (number_channels === 2);
   var isNotExist_ch2 = !(hasCh2) && isStereo;
   /* Ver.1.35.6 -> */
   var aval_max = 0;
-  arr_buffer.forEach(function(buffer, i){  // Ver.1.103.22
+  self.scripts.arr_buffer.forEach(function(buffer, i){  // Ver.1.103.22  // Ver.1.105.22
     var view = new DataView(buffer, 0);
     /* Ver.1.48.11 -> */
     var getter = (view["get"+Prop])?
@@ -56,7 +56,7 @@ My_entry.handler_wave.prototype.composite_binary_soundData_LE = function(arr_buf
     /* Ver.1.18.4 -> */
     var wr = data.wr;
     var oldVal = val_offset;
-    for(var j=0, len=arr_number_samples[i]; j<len; ++j){
+    for(var j=0, len=self.scripts.arr_number_samples[i]; j<len; ++j){  // Ver.1.105.22
       var j_new = (j*number_channels+j_offset)*Bytes_perSample;
       var j_out = j*Bytes_perSample;
       var nowVal = newGetter(j_new, isLE)+getter(j_out, isLE)-val_offset;
@@ -201,42 +201,26 @@ My_entry.handler_wave.prototype.set_callbacks_worker = function(){
   self.callbacks_worker.onmessage = function(e){
     var self = this;
     var data = e.data;
-    if(!(self.arr_data_out[data.i])){
-      self.arr_data_out[data.i] = new Array(data.len_j);
-    }
-    self.arr_data_out[data.i][data.j] = data;
+    self.arr_data_out[data.i] = data;  // Ver.1.105.22
     var len_in = self.arr_data_in.length;
-    var len_out = 0;
-    self.arr_data_out.forEach(function(arr_data_j, i){
-      len_out += Object.keys(self.arr_data_out[i]).length;
-    });
+    var len_out = Object.keys(self.arr_data_out).length;  // Ver.1.105.22
     if(len_out === len_in){
-      var arr_buffer = new Array(data.len_i);  // Ver.1.103.22
-      var arr_number_samples = new Array(data.len_i);
-      var i0 = null;
-      var j0 = null;
-      self.arr_data_out.forEach(function(arr_data_j, i){
+      /* Ver.1.105.22 -> */
+      self.scripts.arr_ids.forEach(function(params_perChannel, i){
         var binary = "";
-        var number_samples_perChannel = null;
-        self.arr_data_out[i].forEach(function(data_j, j){
-          binary += data_j.out;
-          if(data_j.number_samples_perChannel_max){
-            i0 = i;
-            j0 = j;
-          }
-          if(data_j.number_samples_perChannel){
-            number_samples_perChannel = data_j.number_samples_perChannel;
-          }
+        params_perChannel.forEach(function(params_perTime, j){
+          var id = self.scripts.arr_ids[i][j];
+          binary += self.arr_data_out[id].out;
         });
-        arr_number_samples[i] = number_samples_perChannel;
-        arr_buffer[i] = self.waveo.binary2buffer(binary);  // Ver.1.103.22
+        self.scripts.arr_buffer[i] = self.waveo.binary2buffer(binary);  // Ver.1.103.22
       });
+      /* -> Ver.1.105.22 */
     /* Ver.1.40.9 -> */
       var log = "";
     try{
-      var data0 = self.arr_data_out[i0][j0];
-      data0.out = self.composite_binary_soundData_LE(arr_buffer, arr_number_samples, data0);  // Ver.1.103.22
-      data0.number_samples = data0.number_samples_perChannel_max;  // Ver.1.103.22
+      var data0 = self.arr_data_out[0];  // Ver.1.105.22
+      data0.out = self.composite_binary_soundData_LE(data0);  // Ver.1.103.22  // Ver.1.105.22
+      data0.number_samples = self.scripts.number_samples_perChannel_max;  // Ver.1.103.22  // Ver.1.105.22
       self.waveo.make_base64(data0, function(buffer){self.handler_link.link.set_url(buffer);});  // Ver.1.103.22
     }
     catch(e){
@@ -634,50 +618,57 @@ My_entry.handler_wave.prototype.input2arr = function(input){
   });
   return _arr_input;
 };
-My_entry.handler_wave.prototype.check_script = function(input){
+/* Ver.1.105.22 -> */
+My_entry.handler_wave.prototype.update_scripts = function(param0){
   var self = this;
-  var arr_input = self.input2arr(input);
-  var len_i = arr_input.length;
-  var number_samples_perChannel_max = 0;
-  var _arr_params = [];
-  var counter = 0;
-  arr_input.forEach(function(params_perChannel, i){
-    var number_samples_perChannel = 0;
-    var len_j = params_perChannel.length;
-    var counter_j0 = counter;
-    params_perChannel.forEach(function(params_perTime, j){
-      params_perTime.isScript = true;
-      params_perTime.i = i;
-      params_perTime.j = j;
-      params_perTime.len_i = len_i;
-      params_perTime.len_j = len_j;
-      params_perTime.number_samples = self.waveo.get_number_samples(params_perTime.sec);
-      params_perTime.number_channels = 1;
-      _arr_params[counter++] = self.waveo.check_params(params_perTime);
-      number_samples_perChannel += params_perTime.number_samples;
-    });
-    number_samples_perChannel_max = Math.max(number_samples_perChannel_max, number_samples_perChannel);
-    if(len_j){
-      _arr_params[counter_j0].number_samples_perChannel = number_samples_perChannel;
-    }
-  });
+  self.scripts.number_samples_perChannel_max = Math.max.apply(Math, self.scripts.arr_number_samples);
   /* Ver.1.30.5 -> */
   var fileSizeMax = 0;
   var sec = null;
-  var params_all = {};
-  var param0 = _arr_params[0];
   if(param0){
-    param0.number_samples_perChannel_max = number_samples_perChannel_max;
     fileSizeMax = param0.fileSizeMax;
-    sec = number_samples_perChannel_max/param0.samples_perSecond;
+    sec = self.scripts.number_samples_perChannel_max/param0.samples_perSecond;
     self.output_time(sec);
     self.output_fileSize(sec);
   }
-  params_all.fileSizeMax = fileSizeMax;
   /* -> Ver.1.30.5 */
-  params_all.sec = sec;
-  params_all.number_samples = number_samples_perChannel_max;
-  params_all.arr_f = [];
-  self.waveo.check_error(params_all);
+  self.waveo.check_error({fileSizeMax: fileSizeMax, sec: sec, number_samples: self.scripts.number_samples_perChannel_max, arr_f: []});
+  return self;
+};
+My_entry.handler_wave.prototype.check_script = function(input){
+  var self = this;
+  var _arr_params = [];
+  var arr_input = self.input2arr(input);
+  var len_i = arr_input.length;
+  self.scripts.arr_ids = new Array(len_i);
+  self.scripts.arr_number_samples = new Array(len_i);
+  self.scripts.arr_buffer = new Array(len_i);
+  var counter = 0;
+  var memo = {};
+  arr_input.forEach(function(params_perChannel, i){
+    var number_samples_perChannel = 0;
+    var len_j = params_perChannel.length;
+    self.scripts.arr_ids[i] = new Array(len_j);
+    params_perChannel.forEach(function(params_perTime, j){
+      var number_samples = self.waveo.get_number_samples(params_perTime.sec);
+      params_perTime.isScript = true;
+      params_perTime.number_samples = number_samples;
+      params_perTime.number_channels = 1;
+      var params = self.waveo.check_params(params_perTime);
+      var json = JSON.stringify(params);
+      if(memo[json] === undefined){
+        self.scripts.arr_ids[i][j] = memo[json] = counter++;
+        _arr_params.push(params);
+      }
+      else{
+        self.scripts.arr_ids[i][j] = memo[json];
+      }
+      number_samples_perChannel += number_samples;
+    });
+    self.scripts.arr_number_samples[i] = number_samples_perChannel;
+  });
+  memo = null;
+  self.update_scripts(_arr_params[0]);
   return _arr_params;
 };
+/* -> Ver.1.105.22 */
