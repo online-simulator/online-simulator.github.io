@@ -35,7 +35,8 @@ My_entry.handler_wave.prototype.init = function(){
   self.regex.macros = new RegExp("("+self.regex.macro_prifix+"["+self.regex.macro_chars+"]+)\\(([0-9a-zA-Z_\\-\\+\\=.,:;\\[\\]\\$#@\\s\\x20]*?)\\)", "g"+sw_flag);  // Ver.1.41.9  // Ver.1.42.10  // Ver.1.42.11  // Ver.1.65.14  // Ver.1.84.16 #  // Ver.1.85.19  // Ver.1.101.21 @
   self.regex.macro = new RegExp(self.regex.macro_prifix+"["+self.regex.macro_chars+"]+");  // Ver.1.41.9  // Ver.1.42.10  // Ver.1.85.19
   /* -> Ver.1.85.18 */
-  self.regex.mb = new RegExp("\\{.*?\\}", "g"+sw_flag);
+  self.regex.gain_channel = "*";  // Ver.1.106.22
+  self.regex.mb = new RegExp("\\{.*?\\}"+"(?:[ \\t]*\\"+self.regex.gain_channel+"[ \\t]*\\d+(?:\\.\\d+)?)?", "g"+sw_flag);  // Ver.1.106.22
   self.regex.ml = new RegExp("^\\[.*?\\]$", "g"+sw_flag);  // Ver.1.101.21
   /* -> Ver.1.43.11 */
   self.regex.rb = /\{|\}/g;
