@@ -54,26 +54,32 @@ My_entry.handler_wave.prototype.composite_binary_soundData_LE = function(data){ 
     /* -> Ver.1.48.11 */
     var j_offset = i%number_channels;
     /* Ver.1.18.4 -> */
+    var gain_channeli = self.scripts.arr_gain_channel[i];  // Ver.1.106.22
     var wr = data.wr;
-    var oldVal = val_offset;
+    var oldAmp = 0;  // Ver.1.106.22
     for(var j=0, len=self.scripts.arr_number_samples[i]; j<len; ++j){  // Ver.1.105.22
       var j_new = (j*number_channels+j_offset)*Bytes_perSample;
       var j_out = j*Bytes_perSample;
-      var nowVal = newGetter(j_new, isLE)+getter(j_out, isLE)-val_offset;
-      var newVal = wr*oldVal+(1-wr)*nowVal;  // wr first
-      oldVal = newVal;
-      newSetter(j_new, newVal, isLE);
+      /* Ver.1.106.22 -> */
+      var ampVal0 = newGetter(j_new, isLE)-val_offset;
+      var ampVali = getter(j_out, isLE)-val_offset;
+      var nowAmp = ampVal0+ampVali*gain_channeli;  // sum_channel[0,i-1]+channel[i]
+      var newAmp = wr*oldAmp+(1-wr)*nowAmp;  // wr first
+      oldAmp = newAmp;
       /* Ver.1.40.9 -> */
-      var aval = Math.abs(newVal-val_offset);
+      var aval = Math.abs(newAmp);
       if(aval > val_amplitude){
         data._amplitude_max = "overflow";
         throw new Error(self.waveo.config.ERROR.title+"stopped by over-flow@post");  // Ver.1.41.10
       }
       aval_max = Math.max(aval_max, aval);
       /* -> Ver.1.40.9 */
+      var newVal = val_offset+newAmp;
+      newSetter(j_new, newVal, isLE);
       if(isNotExist_ch2){
         newSetter(j_new+Bytes_perSample, newVal, isLE);
       }
+      /* -> Ver.1.106.22 */
     }
     /* -> Ver.1.18.4 */
   });
@@ -551,14 +557,25 @@ My_entry.handler_wave.prototype.input2arr = function(input){
   if(!(mcb)) throw new Error(self.waveo.config.ERROR.title+"Invalid dataset");
   var number_channels = self.waveo.number_channels;  // from waveo
   /* Ver.1.4.2 */
-  var len_band = Math.max(mcb.length/number_channels, 1);
+  /* Ver.1.106.22 -> */
+  var len_i = mcb.length;
+  self.scripts.arr_gain_channel = new Array(len_i);
+  var len_band = Math.max(len_i/number_channels, 1);
+  /* -> Ver.1.106.22 */
   mcb.forEach(function(str, i){
     // include empty channel {}
     _arr_input[i] = [];
     /* Ver.1.20.4 -> */
     var params0 = {};
     /* -> Ver.1.20.4 */
-    var arr_data = self.entry.def.split_outside_all_pairs(str.replace(self.regex.rb, ""), ";");  // Ver.1.97.21
+    /* Ver.1.106.22 -> */
+    var sc = str.split(self.regex.gain_channel);
+    var str_channel = sc[0];
+    var gain = Number(sc[1] || 1);
+    if(isNaN(gain) || gain < 0 || gain > 1) throw new Error(self.waveo.config.ERROR.title+"Invalid {channel}"+self.regex.gain_channel+gain);
+    self.scripts.arr_gain_channel[i] = gain;
+    var arr_data = self.entry.def.split_outside_all_pairs(str_channel.replace(self.regex.rb, ""), ";");  // Ver.1.97.21
+    /* -> Ver.1.106.22 */
     arr_data.forEach(function(tokens, j){
       var arr_token = self.entry.def.split_outside_all_pairs(tokens, ":");  // Ver.1.97.21
       /* Ver.1.44.11 -> */
