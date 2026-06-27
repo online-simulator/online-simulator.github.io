@@ -21,6 +21,44 @@
       <caption><span id="span-history">演奏機能の更新履歴</span></caption>
       <tbody>
         <tr class="border">
+          <td class="border clear">
+Ver.1.106.23
+          </td>
+          <td class="border">
+・Ver.1.84.15の致命的な不備（pitch入力値の削除忘れ）を訂正して対策
+<br>
+　?testcase=Froschgesang-echo/Froschgesang100のfrequency*：2^16　⇒　2^0
+<br>
+　対策：生値fadeの重みwr　⇒　order_filter=1次LPFのcut-off周波数fc=4000[Hz]（重複のg1無効化・赤色状態で有効）
+<br>
+n=3; 10*log10((1/10)**(2*n)) -> -60[dB/decade]
+<br>
+　n次の補正係数：後者の簡易的な実装済み
+<br>
+n=3; freq_std=[3400,4000]; freq_std/sqrt((10**(n/10))**(1/n)-1) -> (6681.770876424923,7860.906913441086)[Hz]
+<br>
+n=3; freq_std=[3400,4000]; freq_std/sqrt(pow(2,1/n)-1) -> (6668.961200782106,7845.836706802478)[Hz]
+<br>
+　効果：超高音の強減衰と生値合成で残留の不自然な電子音の改善（sample数/secに依存しない）
+<br>
+・項目名とdataset名との対応関係を見直し（f_vibrato/amplitude-fade）
+<br>
+・amplitude-fade-in/outの項目を整理（dataset優先の表記を追加）
+<br>
+・select-f0/f1/g1を更新（dataset優先の表記を追加）
+<br>
+　f0/f1：800/4800　⇒　880/8800
+<br>
+　g1：0.3　⇒　1
+<br>
+・<a title="[test]play-buttons" href="../30_wave/buttons.html">[test]play-buttons</a>を更新
+<br>
+　f0/f1：800/4800　⇒　880/8800
+<br>
+　g1：0.3　⇒　0.1（1次LPFの-20[dB/decade]相当）
+          </td>
+        </tr>
+        <tr class="border">
           <td class="border run">
 Ver.1.106.22
           </td>
@@ -3152,6 +3190,8 @@ raw-value fade
 <span class="run">Ver.1.18.4復帰</span>
 <br>
 <span class="condition">Ver.1.66.14更新</span>
+<br>
+<span class="clear">Ver.1.106.23更新</span>
           </td>
           <td class="border">
 dataset間click noise対策用
@@ -3168,8 +3208,10 @@ old-weight：前回値の重み
 <br>
 <span class="condition">・default：0.005　⇒　0</span>
 <br>
+<span class="clear">・物理的なcut-off周波数fcから換算w=1/(1+2pi*fc*dt_sampling)</span>
 <br>
-重み平均：newVal = w*oldVal+(1-w)*nowVal
+<br>
+重み平均：newVal = w*oldVal+(1-w)*nowVal<span class="clear">（order_filter=n次の場合、n段化）</span>
           </td>
         </tr>
         <tr class="border">

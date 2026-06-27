@@ -841,6 +841,7 @@ My_entry.handler_wave.prototype.make_params = function(){
   params.g0 = $.selectNum_id("select-g0");
   params.f1 = $.selectNum_id("select-f1");
   params.g1 = $.selectNum_id("select-g1");
+  $._id("select-g1").classList[(params.g1 !== params.g0)? "add": "remove"]("clear");  // Ver.1.106.23
   /* Ver.1.24.4 -> */
   var base0 = 2;
   var expo0 = $.inputNum_id("input-rate");  // Ver.1.64.14
@@ -907,10 +908,15 @@ My_entry.handler_wave.prototype.make_params = function(){
     params.s_stereo = def.limit(params.s_stereo, 0, 100, 0);
     /* -> Ver.1.33.6 */
     /* -> Ver.1.29.4 */
+    /* Ver.1.106.23 -> */
     /* Ver.1.18.4 -> */
-    params.wr = $.inputNum_id("input-wr");  // Ver.1.64.14
-    params.wr = def.limit(params.wr, 0, 1, 0);
+    params.order_filter = $.selectNum_id("select-order-filter");
+    params.order_filter = def.limit(params.order_filter, 0, 10, 3);
+    params.fc = $.inputNum_id("input-fc");  // Ver.1.64.14
+    params.fc = def.limit(params.fc, 0, params.samples_perSecond, 0);
     /* -> Ver.1.18.4 */
+    $._id("input-fc").classList[(params.order_filter)? "add": "remove"]("clear");
+    /* -> Ver.1.106.23 */
     params.ver_script = $.selectNum_id("select-script-Ver");  // Ver.1.70.14
   }
   /* -> Ver.1.17.4 */

@@ -326,7 +326,9 @@ sweep-order：
 f_vibrato[Hz]：
     </td>
     <td>
+  <label>f_vib:
 <input id="input-f_vib" type="number" step="1" value="0">
+  </label>
     </td>
   </tr>
   <tr class="border">
@@ -432,9 +434,12 @@ option:
   </tr>
   <tr class="border">
     <td>
-amplitude-fade:
+amplitude-
 <br>
-  <label>fade-order:
+fade-in/out:
+    </td>
+    <td>
+  <label>order_fade:
 <select id="select-order-fade">
   <option value="0">1.</option>
   <option>1</option>
@@ -444,9 +449,8 @@ amplitude-fade:
   <option value="-2">old2</option>
 </select>
   </label>
-    </td>
-    <td>
-  <label>in-weight:
+<br>
+  <label>weight w0:
 <select id="select-w0">
   <option>0</option>
   <option>0.1</option>
@@ -488,7 +492,7 @@ amplitude-fade:
   <option>0.999</option>
 </select>
   </label>
-  <label>out-weight:
+  <label>w1:
 <select id="select-w1">
   <option>0</option>
   <option>0.1</option>
@@ -531,7 +535,7 @@ amplitude-fade:
 </select>
   </label>
 <br>
-  <label>in-range:
+  <label>range p0:
 <select id="select-p0">
   <option>0</option>
   <option>0.0001</option>
@@ -584,7 +588,7 @@ amplitude-fade:
   <option>1</option>
 </select>
   </label>
-  <label>out-range:
+  <label>p1:
 <select id="select-p1">
   <option>0</option>
   <option>0.0001</option>
@@ -649,16 +653,32 @@ filter gain:
   <label>f0[Hz]:
 <select id="select-f0">
   <option>2</option>
+  <option>5</option>
+  <option>10</option>
   <option>20</option>
+  <option>50</option>
+  <option>100</option>
   <option>200</option>
+  <option>220</option>
+  <option>300</option>
   <option>400</option>
+  <option>440</option>
+  <option>500</option>
   <option>600</option>
-  <option selected="selected">800</option>
+  <option>660</option>
+  <option>700</option>
+  <option>800</option>
+  <option selected="selected">880</option>
+  <option>900</option>
+  <option>990</option>
   <option>1000</option>
+  <option>1100</option>
 </select>
   </label>
   <label>g0:
 <select id="select-g0">
+  <option>0.00001</option>
+  <option>0.0001</option>
   <option>0.001</option>
   <option>0.01</option>
   <option>0.1</option>
@@ -677,22 +697,32 @@ filter gain:
   <label>f1[Hz]:
 <select id="select-f1">
   <option>1200</option>
-  <option>2400</option>
-  <option>3600</option>
-  <option selected="selected">4800</option>
+  <option>2000</option>
+  <option>2200</option>
+  <option>3000</option>
+  <option>3400</option>
+  <option>4000</option>
+  <option>4400</option>
+  <option>4800</option>
+  <option>5000</option>
   <option>6000</option>
-  <option>7200</option>
-  <option>8400</option>
-  <option>9600</option>
+  <option>6600</option>
+  <option>7000</option>
+  <option>8000</option>
+  <option selected="selected">8800</option>
+  <option>9000</option>
+  <option>9900</option>
 </select>
   </label>
   <label>g1:
 <select id="select-g1">
+  <option>0.00001</option>
+  <option>0.0001</option>
   <option>0.001</option>
   <option>0.01</option>
-  <option>0.1</option>
+  <option selected="selected">0.1</option>
   <option>0.2</option>
-  <option selected="selected">0.3</option>
+  <option>0.3</option>
   <option>0.4</option>
   <option>0.5</option>
   <option>0.6</option>
