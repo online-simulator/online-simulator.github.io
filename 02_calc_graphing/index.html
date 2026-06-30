@@ -1045,6 +1045,7 @@
       $._id("fade_o1.").onclick = function(){setVal("0", "0.005", "t;", "w=0.97/*old-weight*/,rate0=16000,rate1=44100,fade_o1(samples_perSecond,oldVal,nowVal)=<last[_r((n)=<last{newVal=w*oldVal+(1-w)*nowVal,oldVal=newVal},newVal=oldVal,t*samples_perSecond),newVal],fade_o1(rate0,0,1);fade_o1(rate0,1,0);fade_o1(rate1,0,1);fade_o1(rate1,1,0);", 10);$._id("input-z").value+="BGCOLOR{white}GDCOLOR{black}TITLE{fade-in/out@order=1 weighted average}XLABEL{elapsed time[sec]}YLABEL{amplitude gain}::::::in@rate=16000;::::::out;::::::in@rate=44100;::::::out;";};
       $._id("fade_o1").onclick = function(){setVal("0", "1", "t;1-t;", "w=0.97/*parameter for time constant*/,a=pow(2,2*w-1),fade_o1(x,a)=<pow(x,a),fade=fade_o1(t,a),fade;", 10);$._id("input-z").value+="BGCOLOR{white}GDCOLOR{black}TITLE{fade-in/out@order=1 normalized curve fitting}XLABEL{elapsed time}YLABEL{amplitude gain}::::::in;::::::out;";};
       $._id("fade_o2").onclick = function(){setVal("0", "1", "t;1-t;t;t;", "w=0.97/*parameter for inflection point*/,a=10,b=-1+(w-0.5),fade_o2(x,a,b)=<(1+exp(-a*(x-0.5)))**b,fade=fade_o2(t,a,b),fade0=fade_o2(0,a,b),fade1=fade_o2(1,a,b),fade_scaled=(fade-fade0)/(fade1-fade0),fade_scaled;fade_scaled;cos_o2(t)=<(cos(pi*t)+1)/2,cos_o2(1-t);cos_o2(t);", 10);$._id("input-z").value+="BGCOLOR{white}GDCOLOR{black}TITLE{fade-in/out@order=2 normalized curve fitting}XLABEL{elapsed time}YLABEL{amplitude gain}::::::in;::::::out;::::::cos_o2(1-t);::::::cos_o2(t);";};
+      $._id("ADSR").onclick = function(){setVal("0", "6", "t;", "BPM=60,tb=t1/3,a=[(tpeak)=<1/tpeak](tb*60/BPM)=>,b=[(tpeak)=<Newton((b)=<(b-a)*tpeak-ln(b/a),=<1e3)](5e-1)=>,V(t)=<exp(-a*t)-exp(-b*t),V(t);[(amp0,amp1)=<exp(ln(amp0)+(ln(amp1)-ln(amp0))*t/tb)](1,1/e)=>;", 100);$._id("input-z").value+="BGCOLOR{white}GDCOLOR{black}TITLE{Atack-Decay-Sustain-Release: ADSR-model of sound envelope}XLABEL{elapsed time[sec]}YLABEL{amplitude gain}exp(-a*t)-exp(-b*t);log-interpolation;";};
       $._id("EM").onclick = function(){setVal("0", "5", "M=t,EM(M)=<pow(10,1.5*M+4.8),M;", "EM(M);", 10);$._id("input-z").value+="TITLE{energy against magnitude}XLABEL{M}YLABEL{E[J]};";};
       $._id("ME").onclick = function(){setVal("1e1", "1e4", "d=t,ME(d,rho,vel)=<last{vol=(4pi/3)*(d/2)**3,Et=0.5*rho*vol*vel**2,(log10(Et)-4.8)/1.5},d;", "rho=2e3,ME(d,rho,10e3);ME(d,rho,20e3);ME(d,rho,40e3);ME(d,rho,80e3);rho=3e3,ME(d,rho,80e3);12;", 10, true);$._id("input-z").value+="TITLE{impact energy -> magnitude}XLABEL{diameter[m]}YLABEL{M}::::::10[km/s],2[g/cm^3];::::::20[km/s];::::::40[km/s];::::::80[km/s];::::::80[km/s],3[g/cm^3];::0::::M=12;";};
       $._id("stress").onclick = function(){setVal("0", "H=146.6,H", "h=t,$g=-9.8,rho=2500,L=230.3,H=t1,S(h)=<(L*h/H)^2,V(h)=<_i((h)=<S(h),0,h)/*V(h)=<L^2*H/3*/,m(h)=<rho*V(h),F(h)=<m(h)g,s(h)=<F(h)/(S(h)||1),h;", "s(h)/1e6;", 10);$._id("input-z").value+="XLABEL{depth[m]}YLABEL{vertical stress[MPa]};";};
@@ -3140,6 +3141,7 @@
   <button id="fade_o1.">fade_o1.</button>
   <button id="fade_o1">_o1</button>
   <button id="fade_o2">_o2</button>
+  <button id="ADSR">ADSR</button>
 <br>
   <button id="EM">E(M)</button>
   <button id="ME">M(E)</button>
