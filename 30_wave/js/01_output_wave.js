@@ -368,7 +368,7 @@ My_entry.output_wave.prototype.check_arr_params = function(_arr_params){
   });
   return _arr_params;
 };
-My_entry.output_wave.prototype.get_binary_soundData_LE = function(params){
+My_entry.output_wave.prototype.get_buffer_soundData_LE = function(params){  // Ver.1.108.23
   var self = this;
   var params = self.check_params(params);
   return self.encode_soundData_LE(params);  // Ver.1.25.4
@@ -679,15 +679,15 @@ My_entry.output_wave.prototype.encode_soundData_LE = function(params){  // Ver.1
     }
   }
   /* -> Ver.1.25.4 */
-  return self.buffer2binary(arrb_uint8.buffer);  // Ver.1.103.22
+  return arrb_uint8.buffer;  // Ver.1.103.22  // Ver.1.108.23
 };
 /* Ver.1.103.22 */
 My_entry.output_wave.prototype.make_base64 = function(params, callback){
   var self = this;
   var data = params;
   var binary_header = self.get_binary_header(params.number_samples);
-  var binary_soundData_LE = data.out || self.get_binary_soundData_LE(params);
-  var binary = binary_header+binary_soundData_LE;
+  var buffer_soundData_LE = data.out || self.get_buffer_soundData_LE(params);  // Ver.1.108.23
+  var binary = binary_header+self.buffer2binary(buffer_soundData_LE);  // Ver.1.108.23
   if(callback) callback(self.binary2buffer(binary));
   var volume = params.volume;
   if(window.btoa && !(isNaN(volume))) self.play_base64("data:audio/wav;base64,"+btoa(binary), volume);
