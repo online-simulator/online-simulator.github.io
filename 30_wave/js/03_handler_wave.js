@@ -837,6 +837,8 @@ My_entry.handler_wave.prototype.make_params = function(){
   params.p0 = $.selectNum_id("select-p0");
   params.w1 = $.selectNum_id("select-w1");
   params.p1 = $.selectNum_id("select-p1");
+  $._id("select-w0").classList[(params.w0 && params.p0)? "add": "remove"]("selection");  // Ver.1.109.24
+  $._id("select-w1").classList[(params.w1 && params.p1)? "add": "remove"]("selection");  // Ver.1.109.24
   params.f0 = $.selectNum_id("select-f0");
   params.g0 = $.selectNum_id("select-g0");
   params.f1 = $.selectNum_id("select-f1");
@@ -861,6 +863,7 @@ My_entry.handler_wave.prototype.make_params = function(){
   /* Ver.1.38.8 -> */
   params.order_fade = $.selectNum_id("select-order-fade");
   /* -> Ver.1.38.8 */
+  $._id("select-order-fade").classList[((params.w0 && params.p0) || (params.w1 && params.p1))? "add": "remove"]("selection");  // Ver.1.109.24
   params.f_vib = $.inputNum_id("input-f_vib");  // Ver.1.57.12  // Ver.1.64.14
   params.overtone = $.inputNum_id("input-overtone");  // Ver.1.64.14
   params.ti = 0;  // Ver.1.74.14
