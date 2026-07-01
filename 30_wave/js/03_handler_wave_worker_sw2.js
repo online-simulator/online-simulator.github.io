@@ -77,14 +77,16 @@ My_entry.handler_wave.prototype.composite_buffer_soundData_LE = function(data){ 
       /* Ver.1.106.22 -> */
       var ampVal0 = newGetter(n_new, isLE)-val_offset;
       var ampVali = outGetter(n_out, isLE)-val_offset;
-      var nowAmp = ampVal0+ampVali*gain_channeli;  // sum_channel[0,i-1]+channel[i]
+      /* Ver.1.108.24 -> */
+      ampVali *= gain_channeli;
       /* Ver.1.106.23 -> */
-      var newAmp = nowAmp;
       for(var k=0; k<order_filter; ++k){
-        newAmp = wr*oldAmps[k]+(1-wr)*nowAmp;  // wr first
-        oldAmps[k] = nowAmp = newAmp;
+        ampVali = wr*oldAmps[k]+(1-wr)*ampVali;  // wr first
+        oldAmps[k] = ampVali;
       }
       /* -> Ver.1.106.23 */
+      var newAmp = ampVal0+ampVali;  // sum_channel[0,i-1]+channel[i]
+      /* -> Ver.1.108.24 */
       /* Ver.1.40.9 -> */
       var aval = Math.abs(newAmp);
       if(aval > val_amplitude){
