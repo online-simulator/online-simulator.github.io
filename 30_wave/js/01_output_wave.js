@@ -331,7 +331,7 @@ My_entry.output_wave.prototype.check_limit = function(_params){
     _params[prop] = def.limit(_params[prop], 0, Number.MAX_VALUE, 1);
   });
   ["order_fade"].forEach(function(prop){
-    _params[prop] = def.limit(Math.floor(_params[prop]), -2, 3, 2);  // Ver.1.49.11
+    _params[prop] = def.limit(_params[prop], -2, 3, 3);  // Ver.1.49.11  // Ver.1.109.24
   });
   /* Ver.1.56.11 -> */
   ["f_vib"].forEach(function(prop){
@@ -380,6 +380,19 @@ My_entry.output_wave.prototype.encode_soundData_LE = function(params){  // Ver.1
   var Bytes_perSample = params.Bytes_perSample;
   var number_samples = params.number_samples;
   var number_channels = params.number_channels;
+  /* Ver.1.109.24 -> */
+  var amplitude0 = params.amplitude0;
+  var amplitude1 = params.amplitude1;
+  var order_a = params.order_a;
+  var order_fade = params.order_fade;
+  var isFade_time = (order_fade >= 0);
+  var useADSR = (amplitude0 && amplitude1 && order_fade%1 > 0);
+  amplitude0 *= 1;
+  amplitude1 *= (useADSR)? order_fade%1: 1;
+  var useFade = (params.p0 || params.p1) && ((useADSR)? 3: order_fade%1 === 0 && Math.abs(order_fade));
+  var ksamples = (params.isScript && useADSR)? 2: 1;
+  number_samples = Math.floor(number_samples*ksamples);
+  /* -> Ver.1.109.24 */
   var arrb_uint8 = new Uint8Array(Bytes_perSample*number_samples*number_channels);
   var offset_Byte = 0;
   /* -> Ver.1.103.22 */
@@ -486,7 +499,6 @@ My_entry.output_wave.prototype.encode_soundData_LE = function(params){  // Ver.1
   var p1 = params.p1 || 0;
   var oldAmp = 0;
   /* Ver.1.40.8 -> */
-  var isFade_time = (params.order_fade >= 0);
   var sw_fade = (isFade_time)? self.samples_perSecond: number_samples;
   var dns0 = Math.floor(sw_fade*p0);
   var dns1 = Math.floor(sw_fade*p1);
@@ -495,7 +507,6 @@ My_entry.output_wave.prototype.encode_soundData_LE = function(params){  // Ver.1
   dns1 = Math.min(dns1, number_samples-1-dns0);
   var ns_in = dns0;
   var ns_out = number_samples-1-dns1;
-  var useFade = (params.p0 || params.p1);
   var get_newAmp = function(ns){
     return amplitude;
   };
@@ -509,17 +520,22 @@ My_entry.output_wave.prototype.encode_soundData_LE = function(params){  // Ver.1
     }
     return _gaint;
   };
+  /* Ver.1.109.24 -> */
   /* Ver.1.75.14 */
   var interp_f = function(dt, f0, f1, order){
-    var prop = Math.pow(dt, order);
+    var prop = Math.pow(Math.min(1, dt), order);
     return f0+(f1-f0)*prop;
   };
+  var get_amp = function(dt, amp0, amp1, order){
+    return ((useADSR)? amp0*Math.exp(Math.log(amp1/amp0)*dt): interp_f(dt, amp0, amp1, order));
+  };
+  /* -> Ver.1.109.24 */
   /* Ver.1.56.11 -> */
   var useVib = params.f_vib;
   var dkf_vib = (Math.pow(2, 1/12)-1)/2;
   var omega_vib = Math.PI*2*params.f_vib;
   /* -> Ver.1.56.11 */
-  if(useFade && params.order_fade === 0){  // Ver.1.39.8
+  if(useFade === 0){  // Ver.1.39.8
     get_newAmp = function(ns){
       var _newAmp = amplitude;
       var isIn = (ns < ns_in);
@@ -534,7 +550,7 @@ My_entry.output_wave.prototype.encode_soundData_LE = function(params){  // Ver.1
       return _newAmp;
     };
   }
-  else if(useFade && Math.abs(params.order_fade) === 2){  // Ver.1.40.8
+  else if(useFade === 2){  // Ver.1.40.8
     var fade_o2 = function(x, a, b){
       return Math.pow(1+Math.exp(-a*(x-0.5)), b);
     };
@@ -563,7 +579,7 @@ My_entry.output_wave.prototype.encode_soundData_LE = function(params){  // Ver.1
     };
   }
   /* Ver.1.39.8 -> */
-  else if(useFade && Math.abs(params.order_fade) === 1){  // Ver.1.40.8
+  else if(useFade === 1){  // Ver.1.40.8
     var fade_o1 = function(x, a){
       return Math.pow(x, a);
     };
@@ -588,7 +604,7 @@ My_entry.output_wave.prototype.encode_soundData_LE = function(params){  // Ver.1
   }
   /* -> Ver.1.39.8 */
   /* Ver.1.49.11 -> */
-  else if(useFade && params.order_fade === 3){
+  else if(useFade === 3){
     var pi = Math.PI;
     var fade_o2 = function(x){
       return (Math.cos(pi*x)+1)/2;
@@ -616,8 +632,9 @@ My_entry.output_wave.prototype.encode_soundData_LE = function(params){  // Ver.1
     var t = ns*seconds_perSample;
     /* Ver.1.20.4 -> */
     var dt = ns/number_samples;
+    dt *= ksamples;  // Ver.1.109.24
     /* Ver.1.31.6 -> */
-    var kamplitude = interp_f(dt, params.amplitude0, params.amplitude1, params.order_a);  // Ver.1.75.14
+    var kamplitude = get_amp(dt, amplitude0, amplitude1, order_a);  // Ver.1.75.14  // Ver.1.109.24
     var duty = interp_f(dt, params.duty0, params.duty1, params.order_d);  // Ver.1.75.14
     /* -> Ver.1.31.6 */
     /* -> Ver.1.20.4 */
@@ -640,7 +657,7 @@ My_entry.output_wave.prototype.encode_soundData_LE = function(params){  // Ver.1
         if(t >= t0i && t <= t1i){
           dti = (t-t0i)/(t1i-t0i || 1);  // || not0
           duty = interp_f(dti, params.duty0, params.duty1, params.order_d);
-          kamplitude = interp_f(dti, params.amplitude0, params.amplitude1, params.order_a);
+          kamplitude = get_amp(dti, amplitude0, amplitude1, order_a);  // Ver.1.75.14  // Ver.1.109.24
           if(t-t0i < p0){
             kamplitude *= (t-t0i)/p0;  // /not0
           }

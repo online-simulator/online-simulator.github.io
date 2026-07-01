@@ -21,6 +21,16 @@
       <caption><span id="span-history">演奏機能の更新履歴</span></caption>
       <tbody>
         <tr class="border">
+          <td class="border run">
+Ver.1.109.24
+          </td>
+          <td class="border">
+・order_fadeを更新（ADSR-modelの適用）
+<br>
+　ADSR適用条件：amplitude0 &amp;&amp; amplitude1 &amp;&amp; order_fade%1 &gt; 0
+          </td>
+        </tr>
+        <tr class="border">
           <td class="border clear">
 Ver.1.108.24
           </td>
@@ -3182,9 +3192,11 @@ fade-order
 <span class="selection">Ver.1.40.8変更</span>
 <br>
 <span class="wF">Ver.1.49.11追加</span>
+<br>
+<span class="jF">Ver.1.109.24更新</span>
           </td>
           <td class="border">
-filter遅れの次数
+filterの次数
           </td>
           <td class="border">
 <span class="condition">order_fade=0||1.</span>：1次遅れ系（<span class="selection">p0/p1指定時間の区間で</span>重み平均の逐次処理）
@@ -3203,8 +3215,10 @@ filter遅れの次数
 <br>
 ・低負荷の直線||<span class="wF">cos</span>近似で十分の可能性あり
 <br>
+　<span class="jF">既定値：対称性cos＋ADSR関数形（amplitude0とamplitude1*order_fade%1の2点の対数補間）</span>
 <br>
-詳細は<a title="Graphing Calculator" href="../02_calc_graphing/index.html">Graphing Calculator-test case-fade</a>参照
+<br>
+詳細は<a title="Graphing Calculator" href="../02_calc_graphing/index.html">Graphing Calculator-test case-fade</a>||<a title="Graphing Calculator" href="../02_calc_graphing/index.html">Graphing Calculator-test case-ADSR</a>参照
           </td>
         </tr>
         <tr class="border">
