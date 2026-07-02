@@ -16,21 +16,8 @@ My_entry.handler_wave.prototype.composite_buffer_soundData_LE = function(data){ 
   var newBuffer = new ArrayBuffer(Bytes_perSample*number_samples_perChannel_max*number_channels);
   var newView = new DataView(newBuffer, 0);
   /* Ver.1.48.11 -> */
-  var handler_view = self.handler_view;
-  var newSetter = (newView["set"+Prop])?
-    function(){
-      return newView["set"+Prop].apply(newView, arguments);
-    }:
-    function(){
-      return handler_view.setInt8n(newView, Bytes_perSample, arguments[0], arguments[1], arguments[2]);
-    };
-  var newGetter = (newView["get"+Prop])?
-    function(){
-      return newView["get"+Prop].apply(newView, arguments);
-    }:
-    function(){
-      return handler_view.getInt8n(newView, Bytes_perSample, arguments[0], arguments[1]);
-    };
+  var newSetter = self.waveo.handler_baseview.make_setget("set"+Prop, newView, Bytes_perSample);  // Ver.1.110.24
+  var newGetter = self.waveo.handler_baseview.make_setget("get"+Prop, newView, Bytes_perSample);  // Ver.1.110.24
   /* -> Ver.1.48.11 */
   // substitute val_offset
   for(var i=0, len=self.scripts.number_samples_perChannel_max*number_channels; i<len; ++i){  // Ver.1.105.22
@@ -60,15 +47,7 @@ My_entry.handler_wave.prototype.composite_buffer_soundData_LE = function(data){ 
     /* -> Ver.1.106.23 */
   buffers.forEach(function(buffer, j){
     var outView = new DataView(buffer.out, 0);
-    /* Ver.1.48.11 -> */
-    var outGetter = (outView["get"+Prop])?
-      function(){
-        return outView["get"+Prop].apply(outView, arguments);
-      }:
-      function(){
-        return handler_view.getInt8n(outView, Bytes_perSample, arguments[0], arguments[1]);
-      };
-    /* -> Ver.1.48.11 */
+    var outGetter = self.waveo.handler_baseview.make_setget("get"+Prop, outView, Bytes_perSample);  // Ver.1.48.11  // Ver.1.110.24
     /* Ver.1.18.4 -> */
     var ns = buffer.ns;
     var ne = buffer.ne;
