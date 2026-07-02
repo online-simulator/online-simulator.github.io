@@ -66,6 +66,16 @@ My_entry.handler_baseview.prototype.get_offset = function(n){
   }
   return self.val2dec(hex);
 };
+/* wave-Ver.1.110.24 */
+My_entry.handler_baseview.prototype.make_setget = function(setgetProp, n, view){
+  var self = this;
+  var isSet = setgetProp.match("set");
+  var isUnsigned = setgetProp.match("Uint");
+  var methodName = ((isSet)? "set": "get")+((isUnsigned)? "Uint8n": "Int8n");
+  return (view[setgetProp])?
+    function(){return view[setgetProp].apply(view, arguments);}:
+    function(){return self[methodName](view, n, arguments[0], arguments[1], arguments[2]);};
+};
 My_entry.handler_baseview.prototype.make_view = function(Prop, n){
   var self = this;
   self.arr_buffer[n] = new ArrayBuffer(n);
@@ -73,22 +83,9 @@ My_entry.handler_baseview.prototype.make_view = function(Prop, n){
   self.offset[n] = self.get_offset(n);
   self.offset0 = self.val2dec(0);
   var view = self.arr_view[n];
-  var isUnsigned = (Prop === "Uint");
   var Prop = (Prop || "Int")+String(n*8);
-  self.set[n] = (view["set"+Prop])?
-    function(){
-      return view["set"+Prop].apply(view, arguments);
-    }:
-    function(){
-      return self[(isUnsigned)? "setUint8n": "setInt8n"](view, n, arguments[0], arguments[1], arguments[2]);
-    };
-  self.get[n] = (view["get"+Prop])?
-    function(){
-      return view["get"+Prop].apply(view, arguments);
-    }:
-    function(){
-      return self[(isUnsigned)? "getUint8n": "getInt8n"](view, n, arguments[0], arguments[1]);
-    };
+  self.set[n] = self.make_setget("set"+Prop, n, view);
+  self.get[n] = self.make_setget("get"+Prop, n, view);
   return self;
 };
 /*
