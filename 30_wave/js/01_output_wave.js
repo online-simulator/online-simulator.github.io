@@ -15,7 +15,7 @@ dependency files:
   <script type="text/javascript" src="js/01_output_wave.js"></script>
 
 Native method used:
-  window.btoa()
+  new Blob()
   new Audio()
 
 ex. of use:
@@ -74,6 +74,7 @@ My_entry.output_wave.prototype.init = function(Bytes_perSample, samples_perSecon
   self.arr_buffer = self.handler_baseview.arr_buffer;
   self.arr_viewset = self.handler_baseview.set;
   self.title_error = My_entry.output_wave.config.ERROR.title;
+  self.src = null;  // Ver.1.110.25
   self.audio = null;
   self.number_samples = 0;
   self.Bytes_subChunk2 = 0;
@@ -702,16 +703,21 @@ My_entry.output_wave.prototype.encode_soundData_LE = function(params){  // Ver.1
   /* -> Ver.1.25.4 */
   return arrb_uint8.buffer;  // Ver.1.103.22  // Ver.1.108.23
 };
+/* Ver.1.110.25 */
 /* Ver.1.103.22 */
-My_entry.output_wave.prototype.make_base64 = function(params, callback){
+My_entry.output_wave.prototype.make_blob = function(params, callback){
   var self = this;
   var data = params;
-  var binary_header = self.get_binary_header(params.number_samples);
+  var buffer_header = self.binary2buffer(self.get_binary_header(params.number_samples));
   var buffer_soundData_LE = data.out || self.get_buffer_soundData_LE(params);  // Ver.1.108.23
-  var binary = binary_header+self.buffer2binary(buffer_soundData_LE);  // Ver.1.108.23
-  if(callback) callback(self.binary2buffer(binary));
+  var blob = new Blob([buffer_header, buffer_soundData_LE], {type: "audio/wav"});
+  var url = (callback)? callback(blob): null;
+  if(window.URL){
+    URL.revokeObjectURL(self.src);
+    self.src = url || URL.createObjectURL(blob);  // single
+  }
   var volume = params.volume;
-  if(window.btoa && !(isNaN(volume))) self.play_base64("data:audio/wav;base64,"+btoa(binary), volume);
+  if(!(isNaN(volume))) self.play_blob(volume);
   return self;
 };
 My_entry.output_wave.prototype.get_number_samples = function(sec){
@@ -726,16 +732,18 @@ My_entry.output_wave.prototype.output_sound = function(params, volume){
   params.Bytes_perSample = self.Bytes_perSample;  // Ver.1.103.22
   params.number_channels = self.number_channels;
   params.volume = (volume === undefined)? 0.5: volume;  // Ver.1.103.22 for play-buttons
-  self.make_base64(params);  // Ver.1.103.22
+  self.make_blob(params);  // Ver.1.103.22  // Ver.1.110.25
   return self;
 };
-My_entry.output_wave.prototype.play_base64 = function(base64, volume){
+/* Ver.1.110.25 */
+My_entry.output_wave.prototype.play_blob = function(volume){
   var self = this;
   if(self.audio) return false;
-  if(base64){
-    if(isNaN(volume) || volume < 0) throw new Error(self.title_error+"volume is invalid");
-    self.audio = new Audio(base64);
+  if(isNaN(volume) || volume < 0) throw new Error(self.title_error+"volume is invalid");
+  if(self.src){
+    self.audio = new Audio();
     self.audio.volume = Math.min(1, volume);
+    self.audio.src = self.src;
     self.audio.play();
 //    self.audio.onloadeddata = function(){
 //    };

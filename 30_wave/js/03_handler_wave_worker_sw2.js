@@ -241,7 +241,7 @@ My_entry.handler_wave.prototype.set_callbacks_worker = function(){
       self.update_scripts(data0);  // Ver.1.108.23
       data0.out = self.composite_buffer_soundData_LE(data0);  // Ver.1.103.22  // Ver.1.105.22  // Ver.1.108.23
       data0.number_samples = self.scripts.number_samples_perChannel_max;  // Ver.1.103.22  // Ver.1.105.22
-      self.waveo.make_base64(data0, function(buffer){self.handler_link.link.set_url(buffer);});  // Ver.1.103.22
+      self.waveo.make_blob(data0, function(blob){return self.handler_link.link.set_blob(blob);});  // Ver.1.103.22  // Ver.1.110.25
     }
     catch(e){
       log = e.message;

@@ -56,20 +56,6 @@ My_entry.conv.prototype.n2dec = function(val, n){
   var self = this;
   return parseInt(val, parseInt(n));
 };
-My_entry.conv.prototype.blob2url = function(blob){
-  var self = this;
-  var _url = null;
-  var URL = window.URL || window.webkitURL;
-  if(URL){
-    _url = URL.createObjectURL(blob);
-  }
-  return _url;
-};
-My_entry.conv.prototype.text2url = function(text){
-  var self = this;
-  var blob = new Blob([text], {type: "text/plain"});
-  return self.blob2url(blob);
-};
 My_entry.conv.prototype.base2img = function(base64, opt_callback){
   var self = this;
   var _img = new Image();
@@ -164,10 +150,6 @@ My_entry.conv.prototype.base2blob = function(base64){
   var buffer = self.base2buffer(base64);
   var _blob = new Blob([buffer], {type: type});
   return _blob;
-};
-My_entry.conv.prototype.base2url = function(base64){
-  var self = this;
-  return self.blob2url(self.base2blob(base64));
 };
 My_entry.conv.prototype.str2code_utf16 = function(str, n, isLE){
   var self = this;

@@ -13,15 +13,6 @@ My_entry.reference.prototype.init = function(){
   return self;
 };
 
-// developer.mozilla.org about WebWorkers
-// to
-My_entry.reference.prototype.fn2url = function(fn){
-  var self = this;
-  var str_fn = "("+fn.toString()+")()";
-  var blob = new Blob([str_fn], {type: "application/javascript"});
-  return self.entry.conv.blob2url(blob);
-};
-
 // polygon-planet-log.blogspot.com/2012/02/javascript_25.html
 // [\\#`] added
 // \/% -> \\/%

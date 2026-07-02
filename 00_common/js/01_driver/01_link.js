@@ -20,9 +20,22 @@ My_entry.link.prototype.init = function(id, name, ext){
 };
 My_entry.link.prototype.clear_url = function(){
   var self = this;
-  self.blob = null;
-  self.url = undefined;
+  if(self.url){
+    URL.revokeObjectURL(self.url);  // wave-Ver.1.110.25
+    self.blob = null;
+    self.url = undefined;
+  }
   return self;
+};
+/* wave-Ver.1.110.25 */
+My_entry.link.prototype.set_blob = function(blob){
+  var self = this;
+  self.clear_url();
+  if(window.URL){
+    self.blob = blob;
+    self.url = URL.createObjectURL(self.blob);
+  }
+  return self.url;  // single
 };
 My_entry.link.prototype.set_url = function(content){
   var self = this;
@@ -85,8 +98,7 @@ My_entry.link.prototype.set_url = function(content){
       self.name += self.ext;
     }
     if(content){
-      self.blob = new Blob([content], {type: self.type});
-      self.url = self.entry.conv.blob2url(self.blob);
+      self.set_blob(new Blob([content], {type: self.type}));
     }
   }
   return self;

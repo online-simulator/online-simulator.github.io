@@ -21,6 +21,16 @@
       <caption><span id="span-history">演奏機能の更新履歴</span></caption>
       <tbody>
         <tr class="border">
+          <td class="border clear">
+Ver.1.110.25
+          </td>
+          <td class="border">
+・download-linkのpage-session内blobのmemory-leak対策を実施（link.js等の共通基盤の統廃合を含む）
+<br>
+　play：window.btoa(binary)　⇒　new Blob([buffer])（file size制限の緩和）
+          </td>
+        </tr>
+        <tr class="border">
           <td class="border run">
 Ver.1.110.24
           </td>

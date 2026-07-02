@@ -11,7 +11,7 @@ My_entry.handler_wave.prototype.set_callbacks_worker = function(){
     var len_in = self.arr_data_in.length;
     var len_out = Object.keys(self.arr_data_out).length;
     if(len_out === len_in){
-      self.waveo.make_base64(data, function(buffer){self.handler_link.link.set_url(buffer);});  // Ver.1.103.22
+      self.waveo.make_blob(data, function(blob){return self.handler_link.link.set_blob(blob);});  // Ver.1.103.22  // Ver.1.110.25
       self.stop_worker();
       self.output_amplitude_max(data._amplitude_max);  // Ver.1.35.6  // Ver.1.64.14
       self.output_log();
