@@ -288,7 +288,7 @@ My_entry.calc_simple.prototype.set_callbacks_worker = function(){
     self.io.write_text(self.elems.o, msg);
     var mc = msg.match(/j=(\d+)/);
     if(mc && mc.length){
-      $.set_id("checkbox-sw", "checked", "checked").onchange();
+      $.set_id("checkbox-sw", "checked", true).onchange();  // Ver.2.901.178
       var je = Number(mc[1]);
       self.io.set_selection_elem(self.elems.i, je, ";");
     }

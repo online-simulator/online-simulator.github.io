@@ -44,7 +44,7 @@
       var isLabel = false;
       if(options.imageb4 || options.brush2 || options.spray3 || options.rainbow5 || options.snow6 || options.crayon || options.crayon2 || options.stamp4){
         $._id("input-RGB").value = "#44aa44";
-        $.set_id("checkbox-sync", "checked", "checked");
+        $.set_id("checkbox-sync", "checked", true);
       }
       if(options.image || options.imageb || options.imageb2 || options.imageb3 || options.imageb4){
         $._id("input-W").value = 50;
@@ -52,7 +52,7 @@
           $._id("input-freq").value = 3;
         }
         else if(options.imageb3 || options.imageb4){
-          $.set_id("checkbox-random", "checked", "checked");
+          $.set_id("checkbox-random", "checked", true);
         }
       }
       else if(options.brush || options.brush2){
@@ -62,7 +62,7 @@
         $._id("input-W").value = 100;
         $._id("input-clip").value = 2;
         if(options.spray2){
-          $.set_id("checkbox-random", "checked", "checked");
+          $.set_id("checkbox-random", "checked", true);
         }
         if(options.spray || options.spray2){
           $.set_selectVal_id("select-compositeLayer", "lighter");
@@ -87,7 +87,7 @@
           $._id("input-freq").value = 2;
         }
         else{
-          $.set_id("checkbox-random", "checked", "checked");
+          $.set_id("checkbox-random", "checked", true);
         }
         $.set_selectVal_id("select-compositeLayer", "lighter");
       }
@@ -101,15 +101,15 @@
           if(options.snow5 || options.snow6){
             $.set_selectVal_id("select-cap", "star2");
           }
-          $.set_id("checkbox-random", "checked", "checked");
+          $.set_id("checkbox-random", "checked", true);
         }
         $.set_selectVal_id("select-compositeLayer", "lighter");
       }
       else if(options.crayon || options.crayon2){
-        $.set_id("checkbox-fade_w", "checked", null);
+        $.set_id("checkbox-fade_w", "checked", false);
         $._id("input-W").value = 100;
         $._id("input-clip").value = 0.5;
-        $.set_id("checkbox-random", "checked", "checked");
+        $.set_id("checkbox-random", "checked", true);
         if(options.crayon){
           $.set_selectVal_id("select-compositeLayer", "multiply");
         }
@@ -119,7 +119,7 @@
         $._id("input-A").value = 100;
         $._id("input-clip").value = 2;
         $._id("input-df").value = 30;
-        $.set_id("checkbox-random", "checked", "checked");
+        $.set_id("checkbox-random", "checked", true);
         $.set_selectVal_id("select-compositeLayer", "lighter");
       }
       else if(options.stamp2 || options.stamp3 || options.stamp4 || options.stamp5 || options.stamp6){
@@ -134,7 +134,7 @@
         }
         $._id("input-df").value = 5;
         if(options.stamp3 || options.stamp4 || options.stamp5 || options.stamp6){
-          $.set_id("checkbox-random", "checked", "checked");
+          $.set_id("checkbox-random", "checked", true);
         }
       }
       else if(options.pen3d){
@@ -153,11 +153,11 @@
           $._id("input-freq").value = 3;
         }
         else if(options.pen3d4){
-          $.set_id("checkbox-random", "checked", "checked");
+          $.set_id("checkbox-random", "checked", true);
         }
       }
       else if(options.dot){
-        $.set_id("checkbox-auto-config", "checked", null);
+        $.set_id("checkbox-auto-config", "checked", false);
         $._id("input-W").value = 2;
         $._id("input-A").value = 100;
         $._id("input-w_th").value = 0;
@@ -169,13 +169,13 @@
         $._id("input-grid-width").value = 16;
         $._id("input-grid-height").value = 16;
         $.set_selectVal_id("select-mosaic", "RGBA");
-        $.set_id("checkbox-with-svg", "checked", "checked");
+        $.set_id("checkbox-with-svg", "checked", true);
         $._id("input-second-url-parameters").value = "";
         $._id("input-third-url-parameters").value = "";
         $.hide("#div-dot", true, true);
       }
       else if(options.wb){
-        $.set_id("checkbox-auto-config", "checked", null);
+        $.set_id("checkbox-auto-config", "checked", false);
         $._id("input-stabi").value = 0;
         $._id("input-A").value = 100;
         $.set_selectVal_id("select-bgcolor", "white");
@@ -185,7 +185,7 @@
         $._id("input-in").value = 99;
         $._id("input-out").value = 99;
         $._id("input-sh").value = 0;
-        $.set_id("checkbox-pressure", "checked", "checked");
+        $.set_id("checkbox-pressure", "checked", true);
       }
       else if(options.label){
         isLabel = true;

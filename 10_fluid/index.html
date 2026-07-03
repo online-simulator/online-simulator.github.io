@@ -54,7 +54,7 @@
       if(options.sim === "fluid"){
         $._id("input-W").value = 2;
         $._id("input-A").value = 100;
-        $.set_id("checkbox-auto-config", "checked", null);
+        $.set_id("checkbox-auto-config", "checked", false);
         $._id("input-w_th").value = 0;
         $._id("input-len_th").value = 99;
         $._id("input-dlen").value = 99;
@@ -150,7 +150,7 @@
           $._id("input-canvas-width").value = 480;
         }
         $.set_selectVal_id("select-mosaic", "RGBA");
-        $.set_id("checkbox-with-svg", "checked", "checked");
+        $.set_id("checkbox-with-svg", "checked", true);
         $._id("input-second-url-parameters").value = "";
         $._id("input-third-url-parameters").value = "";
         $.hide("#div-dot", true, true);

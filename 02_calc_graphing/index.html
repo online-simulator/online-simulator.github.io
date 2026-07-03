@@ -541,7 +541,7 @@
         $._id("input-vy").value = "";
         $._id("input-vz").value = "";
         $._id("input-N").value = arguments[4] || 10;
-        $.set_id("checkbox-axis-t", "checked", ((arguments[5])? "checked": null));
+        $.set_id("checkbox-axis-t", "checked", !!(arguments[5]));
       };
       $._id("ax").onclick = function(){setVal("1e-3(1+i)", "1e2(1+i)", "x=t,x;", "x;2x;3x;4x;5x;6x;7x;8x;9x;10x;");};
       $._id("pow1").onclick = function(){setVal("-1", "1", "x=t,x;", "x;x^2;x^3;x^4;x^5;", 30);};
