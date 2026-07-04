@@ -134,29 +134,17 @@ My_entry.math_wave.prototype.get_rms = function(len, fn, opt_freq, opt_table){  
   _rms = Math.sqrt(_rms/len);
   return _rms;
 };
-My_entry.math_wave.prototype.getY_linear_baseE = function(x, x0, x1, y0, y1, isLogE_x, isLogE_y){
+/* Ver.1.112.26 */
+My_entry.math_wave.prototype.getY_linear_baseE = function(x, x0, x1, y0, y1, isLog_x, isLog_y){
   var self = this;
-  var x = (isLogE_x)? Math.log(x) : x;
-  var x0 = (isLogE_x)? Math.log(x0): x0;
-  var x1 = (isLogE_x)? Math.log(x1): x1;
-  var y0 = (isLogE_y)? Math.log(y0): y0;
-  var y1 = (isLogE_y)? Math.log(y1): y1;
+  var x = (isLog_x)? Math.log(x): x;
+  var x0 = (isLog_x)? Math.log(x0): x0;
+  var x1 = (isLog_x)? Math.log(x1): x1;
+  var y0 = (isLog_y)? Math.log(y0): y0;
+  var y1 = (isLog_y)? Math.log(y1): y1;
   var slop = (y1-y0)/(x1-x0);
   var _y = y0+(x-x0)*slop;
-  _y = (isLogE_y)? Math.pow(Math.E, _y): _y;
-  return _y;
-};
-My_entry.math_wave.prototype.getY_linear_base10 = function(x, x0, x1, y0, y1, isLog10_x, isLog10_y){
-  var self = this;
-  // IE not supported
-  var x = (isLog10_x)? Math.log10(x) : x;
-  var x0 = (isLog10_x)? Math.log10(x0): x0;
-  var x1 = (isLog10_x)? Math.log10(x1): x1;
-  var y0 = (isLog10_y)? Math.log10(y0): y0;
-  var y1 = (isLog10_y)? Math.log10(y1): y1;
-  var slop = (y1-y0)/(x1-x0);
-  var _y = y0+(x-x0)*slop;
-  _y = (isLog10_y)? Math.pow(10, _y): _y;
+  _y = (isLog_y)? Math.pow(Math.E, _y): _y;
   return _y;
 };
 My_entry.math_wave.prototype.get_limit = function(num, num_min, num_max){

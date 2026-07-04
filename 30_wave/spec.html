@@ -21,6 +21,22 @@
       <caption><span id="span-history">演奏機能の更新履歴</span></caption>
       <tbody>
         <tr class="border">
+          <td class="border clear">
+Ver.1.112.26
+          </td>
+          <td class="border">
+・log-log filter gainの致命的な不具合を修正（Byte数/sec=3のoverflowを解消）
+<br>
+　gain(f=0)：NaN　⇒　0
+<br>
+・以下の高速化の検討を保留（ES2015のfloat32に移行して対応）
+<br>
+　任意Byte数に拡張のDataView：16進数文字列操作　⇒　bit演算＋算術演算
+<br>
+　要点：2の補数・桁あふれ処理・ビットシフト・符号拡張・ビットマスク・IEEE 754・バイトオーダー
+          </td>
+        </tr>
+        <tr class="border">
           <td class="border run">
 Ver.1.112.25
           </td>

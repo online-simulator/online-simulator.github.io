@@ -220,7 +220,7 @@ My_entry.output_wave.prototype.normalize_gains = function(arr_g, gain_type, gain
 My_entry.output_wave.prototype.get_gain_loglog = function(f, f0, f1, g0, g1){
   var self = this;
   var _gain = 1;
-  _gain = self.entry.math_wave.getY_linear_baseE(f, f0, f1, g0, g1, true, true);
+  _gain = (f)? self.entry.math_wave.getY_linear_baseE(f, f0, f1, g0, g1, true, true): 0;  // Ver.1.112.26
   _gain = self.entry.math_wave.get_limit(_gain, g0, g1);
   return _gain;
 };
