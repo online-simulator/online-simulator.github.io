@@ -2,6 +2,7 @@
 
 My_entry.def.mix_in(My_entry.handler_wave, My_entry.original_worker);
 
+/* Ver.2.112.26 */
 My_entry.handler_wave.prototype.composite_buffer_soundData_LE = function(data){  // Ver.1.103.22  // Ver.1.105.22  // Ver.1.108.23
   var self = this;
   var pi2 = Math.PI*2;  // Ver.1.106.23
@@ -10,19 +11,8 @@ My_entry.handler_wave.prototype.composite_buffer_soundData_LE = function(data){ 
   var number_samples_perChannel_max = self.scripts.number_samples_perChannel_max;  // Ver.1.105.22
   var number_channels = self.waveo.number_channels;  // from waveo
   var Bytes_perSample = data.Bytes_perSample;
-  var val_amplitude = self.waveo.arr_amplitude[Bytes_perSample];  // Ver.1.36.6
-  var val_offset = self.waveo.arr_offset[Bytes_perSample];
-  var Prop = self.waveo.arr_prop_baseview[Bytes_perSample]+String(Bytes_perSample*8);
-  var newBuffer = new ArrayBuffer(Bytes_perSample*number_samples_perChannel_max*number_channels);
-  var newView = new DataView(newBuffer, 0);
-  /* Ver.1.48.11 -> */
-  var newSetter = self.waveo.handler_baseview.make_setget("set"+Prop, newView, Bytes_perSample);  // Ver.1.110.24
-  var newGetter = self.waveo.handler_baseview.make_setget("get"+Prop, newView, Bytes_perSample);  // Ver.1.110.24
-  /* -> Ver.1.48.11 */
-  // substitute val_offset
-  for(var i=0, len=self.scripts.number_samples_perChannel_max*number_channels; i<len; ++i){  // Ver.1.105.22
-    newSetter(i*Bytes_perSample, val_offset, isLE);
-  }
+  var total_samples = number_samples_perChannel_max*number_channels;
+  var _arrb_float32 = new Float32Array(total_samples);
   /* Ver.1.29.4 -> */
   var hasCh2 = (self.scripts.arr_buffers.length > 1);  // Ver.1.103.22  // Ver.1.105.22  // Ver.1.108.23
   var isStereo = (number_channels === 2);
@@ -35,7 +25,6 @@ My_entry.handler_wave.prototype.composite_buffer_soundData_LE = function(data){ 
   /* -> Ver.1.106.23 */
   /* Ver.1.35.6 -> */
   /* Ver.1.108.23 -> */
-  var aval_max = 0;
   self.scripts.arr_buffers.forEach(function(buffers, i){  // Ver.1.103.22  // Ver.1.105.22
     var n_offset = i%number_channels;
     var gain_channeli = self.scripts.arr_gain_channel[i];  // Ver.1.106.22
@@ -46,17 +35,14 @@ My_entry.handler_wave.prototype.composite_buffer_soundData_LE = function(data){ 
     }
     /* -> Ver.1.106.23 */
   buffers.forEach(function(buffer, j){
-    var outView = new DataView(buffer.out, 0);
-    var outGetter = self.waveo.handler_baseview.make_setget("get"+Prop, outView, Bytes_perSample);  // Ver.1.48.11  // Ver.1.110.24
+    var outView = new Float32Array(buffer.out);  // Ver.1.48.11  // Ver.1.110.24
     /* Ver.1.18.4 -> */
     var ns = buffer.ns;
     var ne = buffer.ne;
     for(var n=ns; n<=ne; ++n){  // Ver.1.105.22
-      var n_new = (n*number_channels+n_offset)*Bytes_perSample;
-      var n_out = (n-ns)*Bytes_perSample;
+      var n_out = n-ns;
       /* Ver.1.106.22 -> */
-      var ampVal0 = newGetter(n_new, isLE)-val_offset;
-      var ampVali = outGetter(n_out, isLE)-val_offset;
+      var ampVali = outView[n_out];
       /* Ver.1.108.24 -> */
       ampVali *= gain_channeli;
       /* Ver.1.106.23 -> */
@@ -64,20 +50,11 @@ My_entry.handler_wave.prototype.composite_buffer_soundData_LE = function(data){ 
         oldAmps[k] = ampVali = wr*oldAmps[k]+(1-wr)*ampVali;  // wr first
       }
       /* -> Ver.1.106.23 */
-      var newAmp = ampVal0+ampVali;  // sum_channel[0,i-1]+channel[i]
       /* -> Ver.1.108.24 */
-      /* Ver.1.40.9 -> */
-      var aval = Math.abs(newAmp);
-      if(aval > val_amplitude){
-        data._amplitude_max = "overflow";
-        throw new Error(self.waveo.config.ERROR.title+"stopped by over-flow@post");  // Ver.1.41.10
-      }
-      aval_max = Math.max(aval_max, aval);
-      /* -> Ver.1.40.9 */
-      var newVal = val_offset+newAmp;
-      newSetter(n_new, newVal, isLE);
+      var n_new = n*number_channels+n_offset;
+      _arrb_float32[n_new] += ampVali;  // sum_channel[0,i-1]+channel[i]
       if(isNotExist_ch2){
-        newSetter(n_new+Bytes_perSample, newVal, isLE);
+        _arrb_float32[n_new+1] += ampVali;
       }
       /* -> Ver.1.106.22 */
     }
@@ -85,19 +62,11 @@ My_entry.handler_wave.prototype.composite_buffer_soundData_LE = function(data){ 
   });
   });
   /* -> Ver.1.108.23 */
-  /* Ver.1.45.11 -> */
-  var maxAmp = data.maxAmp;
-  var iaval_max = Math.ceil(aval_max);
-  var isMax_amp = (iaval_max === val_amplitude);
-  var kampli_post0 = (isMax_amp)? 1: (val_amplitude-1)/iaval_max;  // /0
-  var kampli_post = (maxAmp && iaval_max)? kampli_post0: 1;
-  var kampli_max = (iaval_max)? data.kampli*kampli_post0: null;  // Ver.1.75.14
-  var log_amplitude_max = (isMax_amp)? self.post_maxAmp.eq+String(kampli_max): self.post_maxAmp.simeq+String(Math.floor(kampli_max*100)/100);
-  data._amplitude_max = (maxAmp && kampli_max)? log_amplitude_max: kampli_max;  // Ver.1.36.6
   /* -> Ver.1.35.6 */
+  /* Ver.1.45.11 -> */
   var dfreq = data.dfreq;
   /* Ver.1.32.6 -> */
-  if(dfreq || maxAmp){
+  if(dfreq){
     /* Ver.1.33.6 -> */
     var s_stereo = (isStereo)? data.s_stereo/100: 1;
     var amp_sin = (dfreq)? s_stereo/2: 0;
@@ -185,23 +154,37 @@ My_entry.handler_wave.prototype.composite_buffer_soundData_LE = function(data){ 
       var s0 = 1+amp_sin*(sint-1);  // [0,1]
       var s1 = (isInv)? 1+amp_sin*(cost-1): s0;
       /* -> Ver.1.33.6 */
-      var i0 = (i*number_channels+0)*Bytes_perSample;
-      var i1 = (i*number_channels+1)*Bytes_perSample;
-      var val0 = newGetter(i0, isLE);
-      var val1 = (isStereo)? newGetter(i1, isLE): val0; // Ver.1.36.7
+      var i0 = i*number_channels+0;
+      var i1 = (isStereo)? i*number_channels+1: i0;
       /* Ver.1.45.11 -> */
-      var ampVal0 = (val0-val_offset)*kampli_post*kampli_blend;
-      var ampVal1 = (val1-val_offset)*kampli_post*kampli_blend;
+      var ampVal0 = _arrb_float32[i0];
+      var ampVal1 = _arrb_float32[i1];
       /* -> Ver.1.45.11 */
       blender(ampVal0, ampVal1, s0, s1, _amps_);
-      newSetter(i0, _amps_.val0, isLE);
-      if(isStereo) newSetter(i1, _amps_.val1, isLE);
+      _arrb_float32[i0] = _amps_.val0*kampli_blend;
+      if(isStereo) _arrb_float32[i1] = _amps_.val1*kampli_blend;
       /* -> Ver.1.104.22 */
+    }
+  }
+  var maxAmp = data.maxAmp;
+  var aval_max = 0;
+  for(var i=0; i<total_samples; ++i){
+    var val = _arrb_float32[i];
+    var aval = (val < 0)? -val: val;  // abs
+    if(aval > aval_max) aval_max = aval;
+  }
+  var kampli_post0 = 1/(aval_max || 1);  // Ver.2.112.26
+  var kampli_post = (maxAmp)? kampli_post0: 1;
+  var kampli_max = data.kampli*kampli_post0;  // Ver.1.75.14
+  data._amplitude_max = (maxAmp)? self.post_maxAmp[(kampli_post0 === 1.0)? "eq": "simeq"]+String(kampli_max): kampli_max;  // Ver.1.36.6
+  if(maxAmp && kampli_post !== 1){
+    for(var i=0; i<total_samples; ++i){
+      _arrb_float32[i] *= kampli_post;
     }
   }
   /* -> Ver.1.32.6 */
   /* -> Ver.1.29.4 */
-  return newBuffer;  // Ver.1.108.23
+  return _arrb_float32;  // Ver.1.108.23  // Ver.2.112.26
 };
 My_entry.handler_wave.prototype.set_callbacks_worker = function(){
   var self = this;
@@ -223,7 +206,7 @@ My_entry.handler_wave.prototype.set_callbacks_worker = function(){
           var data_id = self.arr_data_out[id];
           var out = data_id.out;
           var len_ADS = data_id.number_samples;
-          var len_ADSR = out.byteLength/data_id.Bytes_perSample;
+          var len_ADSR = out.byteLength/4;  // Ver.2.112.26
           var ns = sum_len_ADS;
           var ne = ns+len_ADSR-1;
           self.scripts.arr_buffers[i][j] = {ns: ns, ne: ne, out: out};
@@ -249,7 +232,7 @@ My_entry.handler_wave.prototype.set_callbacks_worker = function(){
       self.handler_link.link.clear_url();
     }
       self.stop_worker();
-      self.output_amplitude_max(data0._amplitude_max);  // Ver.1.35.6
+      self.output_amplitude_max(data0);  // Ver.1.35.6  // Ver.2.112.26
       self.output_log(log);
     /* -> Ver.1.40.9 */
     }

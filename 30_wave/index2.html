@@ -108,19 +108,15 @@
       }
       else if(options.testcase === "chord"){
         script = "// chord format\n// root[relative float alterations from root]@inversion\n\n$cdef1([ 0, 3.5, 7 ])\n$major([0,4,7])$minor([0,3,7])$sus4([0,5,7])$aug([0,4,8])$dim([0,3,6])$5([0,7])$5oct([0,7,12])  // Triad\n$6([0,4,7,9])$maj7([0,4,7,11])$maj9([0,4,7,11,14])$maj13([0,4,7,11,14,21])$add9([0,4,7,14])$lyd([0,4,7,11,18])$lydadd9([0,4,7,11,14,18])  // Major Extensions & Lydian\n$m6([0,3,7,9])$m7([0,3,7,10])$m9([0,3,7,10,14])$m11([0,3,7,10,14,17])$mm7([0,3,7,11])$madd9([0,3,7,14])  // Minor Extensions\n$7([0,4,7,10])$9([0,4,7,10,14])$7sus4([0,5,7,10])$7b9([0,4,7,10,13])$7#9([0,4,7,10,15])$7b13([0,4,7,10,20])$7alt([0,4,10,13,15,20])  // Dominant / Altered\n$m7b5([0,3,6,10])$dim7([0,3,6,9])$whole([0,2,4,6])$cluster([0,1,2,3])  // Diminished / Half-Dim & Special\n\n{\ntune=1;\nr;C4$cdef1@-4;C4$cdef1@-3;C4$cdef1@-2;C4$cdef1@-1;C4$cdef1;C4$cdef1@0;C4$cdef1@+1;C4$cdef1@+2;C4$cdef1@+3;C4$cdef1@+4;\nr;C4$major@-3;C4$major@-2;C4$major@-1;C4$major;C4$major@+1;C4$major@+2;C4$major@+3;\nr;C4$minor@-3;C4$minor@-2;C4$minor@-1;C4$minor;C4$minor@+1;C4$minor@+2;C4$minor@+3;\nr;C4$sus4@-3;C4$sus4@-2;C4$sus4@-1;C4$sus4;C4$sus4@+1;C4$sus4@+2;C4$sus4@+3;\nr;C4$aug@-3;C4$aug@-2;C4$aug@-1;C4$aug;C4$aug@+1;C4$aug@+2;C4$aug@+3;\nr;C4$dim@-3;C4$dim@-2;C4$dim@-1;C4$dim;C4$dim@+1;C4$dim@+2;C4$dim@+3;\nr;C4$5@-2;C4$5@-1;C4$5;C4$5@+1;C4$5@+2;\nr;C4$5oct@-3;C4$5oct@-2;C4$5oct@-1;C4$5oct;C4$5oct@+1;C4$5oct@+2;C4$5oct@+3;\nr;C4$6@-4;C4$6@-3;C4$6@-2;C4$6@-1;C4$6;C4$6@+1;C4$6@+2;C4$6@+3;C4$6@+4;\nr;C4$maj7@-4;C4$maj7@-3;C4$maj7@-2;C4$maj7@-1;C4$maj7;C4$maj7@+1;C4$maj7@+2;C4$maj7@+3;C4$maj7@+4;\nr;C4$add9@-4;C4$add9@-3;C4$add9@-2;C4$add9@-1;C4$add9;C4$add9@+1;C4$add9@+2;C4$add9@+3;C4$add9@+4;\nr;C4$lyd@-4;C4$lyd@-3;C4$lyd@-2;C4$lyd@-1;C4$lyd;C4$lyd@+1;C4$lyd@+2;C4$lyd@+3;C4$lyd@+4;\nr;C4$maj9@-5;C4$maj9@-4;C4$maj9@-3;C4$maj9@-2;C4$maj9@-1;C4$maj9;C4$maj9@+1;C4$maj9@+2;C4$maj9@+3;C4$maj9@+4;C4$maj9@+5;\nr;C4$lydadd9@-5;C4$lydadd9@-4;C4$lydadd9@-3;C4$lydadd9@-2;C4$lydadd9@-1;C4$lydadd9;C4$lydadd9@+1;C4$lydadd9@+2;C4$lydadd9@+3;C4$lydadd9@+4;C4$lydadd9@+5;\nr;C4$maj13@-6;C4$maj13@-5;C4$maj13@-4;C4$maj13@-3;C4$maj13@-2;C4$maj13@-1;C4$maj13;C4$maj13@+1;C4$maj13@+2;C4$maj13@+3;C4$maj13@+4;C4$maj13@+5;C4$maj13@+6;\nr;C4$m6@-4;C4$m6@-3;C4$m6@-2;C4$m6@-1;C4$m6;C4$m6@+1;C4$m6@+2;C4$m6@+3;C4$m6@+4;\nr;C4$m7@-4;C4$m7@-3;C4$m7@-2;C4$m7@-1;C4$m7;C4$m7@+1;C4$m7@+2;C4$m7@+3;C4$m7@+4;\nr;C4$mm7@-4;C4$mm7@-3;C4$mm7@-2;C4$mm7@-1;C4$mm7;C4$mm7@+1;C4$mm7@+2;C4$mm7@+3;C4$mm7@+4;\nr;C4$madd9@-4;C4$madd9@-3;C4$madd9@-2;C4$madd9@-1;C4$madd9;C4$madd9@+1;C4$madd9@+2;C4$madd9@+3;C4$madd9@+4;\nr;C4$m9@-5;C4$m9@-4;C4$m9@-3;C4$m9@-2;C4$m9@-1;C4$m9;C4$m9@+1;C4$m9@+2;C4$m9@+3;C4$m9@+4;C4$m9@+5;\nr;C4$m11@-5;C4$m11@-4;C4$m11@-3;C4$m11@-2;C4$m11@-1;C4$m11;C4$m11@+1;C4$m11@+2;C4$m11@+3;C4$m11@+4;C4$m11@+5;\nr;C4$7@-4;C4$7@-3;C4$7@-2;C4$7@-1;C4$7;C4$7@+1;C4$7@+2;C4$7@+3;C4$7@+4;\nr;C4$7sus4@-4;C4$7sus4@-3;C4$7sus4@-2;C4$7sus4@-1;C4$7sus4;C4$7sus4@+1;C4$7sus4@+2;C4$7sus4@+3;C4$7sus4@+4;\nr;C4$9@-5;C4$9@-4;C4$9@-3;C4$9@-2;C4$9@-1;C4$9;C4$9@+1;C4$9@+2;C4$9@+3;C4$9@+4;C4$9@+5;\nr;C4$7b9@-5;C4$7b9@-4;C4$7b9@-3;C4$7b9@-2;C4$7b9@-1;C4$7b9;C4$7b9@+1;C4$7b9@+2;C4$7b9@+3;C4$7b9@+4;C4$7b9@+5;\nr;C4$7#9@-5;C4$7#9@-4;C4$7#9@-3;C4$7#9@-2;C4$7#9@-1;C4$7#9;C4$7#9@+1;C4$7#9@+2;C4$7#9@+3;C4$7#9@+4;C4$7#9@+5;\nr;C4$7b13@-5;C4$7b13@-4;C4$7b13@-3;C4$7b13@-2;C4$7b13@-1;C4$7b13;C4$7b13@+1;C4$7b13@+2;C4$7b13@+3;C4$7b13@+4;C4$7b13@+5;\nr;C4$7alt@-5;C4$7alt@-4;C4$7alt@-3;C4$7alt@-2;C4$7alt@-1;C4$7alt;C4$7alt@+1;C4$7alt@+2;C4$7alt@+3;C4$7alt@+4;C4$7alt@+5;\nr;C4$m7b5@-4;C4$m7b5@-3;C4$m7b5@-2;C4$m7b5@-1;C4$m7b5;C4$m7b5@+1;C4$m7b5@+2;C4$m7b5@+3;C4$m7b5@+4;\nr;C4$dim7@-4;C4$dim7@-3;C4$dim7@-2;C4$dim7@-1;C4$dim7;C4$dim7@+1;C4$dim7@+2;C4$dim7@+3;C4$dim7@+4;\nr;C4$whole@-4;C4$whole@-3;C4$whole@-2;C4$whole@-1;C4$whole;C4$whole@+1;C4$whole@+2;C4$whole@+3;C4$whole@+4;\nr;C4$cluster@-4;C4$cluster@-3;C4$cluster@-2;C4$cluster@-1;C4$cluster;C4$cluster@+1;C4$cluster@+2;C4$cluster@+3;C4$cluster@+4;\n}\n";
-        $.set_selectVal_id("select-fileSizeMax", 30);
       }
       else if(options.testcase === "chord_cdef"){
         script = "// chord format\n// root[relative float alterations from root]@inversion\n\n$cdef1([ 0, 3.5, 7 ])\n$major([0,4,7])$minor([0,3,7])$sus4([0,5,7])$aug([0,4,8])$dim([0,3,6])$5([0,7])$5oct([0,7,12])  // Triad\n$6([0,4,7,9])$maj7([0,4,7,11])$maj9([0,4,7,11,14])$maj13([0,4,7,11,14,21])$add9([0,4,7,14])$lyd([0,4,7,11,18])$lydadd9([0,4,7,11,14,18])  // Major Extensions & Lydian\n$m6([0,3,7,9])$m7([0,3,7,10])$m9([0,3,7,10,14])$m11([0,3,7,10,14,17])$mm7([0,3,7,11])$madd9([0,3,7,14])  // Minor Extensions\n$7([0,4,7,10])$9([0,4,7,10,14])$7sus4([0,5,7,10])$7b9([0,4,7,10,13])$7#9([0,4,7,10,15])$7b13([0,4,7,10,20])$7alt([0,4,10,13,15,20])  // Dominant / Altered\n$m7b5([0,3,6,10])$dim7([0,3,6,9])$whole([0,2,4,6])$cluster([0,1,2,3])  // Diminished / Half-Dim & Special\n\n{\ntune=2;\nr;C4$cdef1@-3;C4$cdef1@-2.9;C4$cdef1@-2.8;C4$cdef1@-2.7;C4$cdef1@-2.6;C4$cdef1@-2.5;C4$cdef1@-2.4;C4$cdef1@-2.3;C4$cdef1@-2.2;C4$cdef1@-2.1;C4$cdef1@-2;C4$cdef1@-1.9;C4$cdef1@-1.8;C4$cdef1@-1.7;C4$cdef1@-1.6;C4$cdef1@-1.5;C4$cdef1@-1.4;C4$cdef1@-1.3;C4$cdef1@-1.2;C4$cdef1@-1.1;C4$cdef1@-1;C4$cdef1@-0.9;C4$cdef1@-0.8;C4$cdef1@-0.7;C4$cdef1@-0.6;C4$cdef1@-0.5;C4$cdef1@-0.4;C4$cdef1@-0.3;C4$cdef1@-0.2;C4$cdef1@-0.1;C4$cdef1@0;C4$cdef1@+0.1;C4$cdef1@+0.2;C4$cdef1@+0.3;C4$cdef1@+0.4;C4$cdef1@+0.5;C4$cdef1@+0.6;C4$cdef1@+0.7;C4$cdef1@+0.8;C4$cdef1@+0.9;C4$cdef1@+1;C4$cdef1@+1.1;C4$cdef1@+1.2;C4$cdef1@+1.3;C4$cdef1@+1.4;C4$cdef1@+1.5;C4$cdef1@+1.6;C4$cdef1@+1.7;C4$cdef1@+1.8;C4$cdef1@+1.9;C4$cdef1@+2;C4$cdef1@+2.1;C4$cdef1@+2.2;C4$cdef1@+2.3;C4$cdef1@+2.4;C4$cdef1@+2.5;C4$cdef1@+2.6;C4$cdef1@+2.7;C4$cdef1@+2.8;C4$cdef1@+2.9;C4$cdef1@+3;\n}\n";
-        $.set_selectVal_id("select-fileSizeMax", 30);
       }
       else if(options.testcase === "chord_tune"){
         script = "// chord format\n// root[relative float alterations from root]@inversion\n\n$cdef1([ 0, 3.5, 7 ])\n$major([0,4,7])$minor([0,3,7])$sus4([0,5,7])$aug([0,4,8])$dim([0,3,6])$5([0,7])$5oct([0,7,12])  // Triad\n$6([0,4,7,9])$maj7([0,4,7,11])$maj9([0,4,7,11,14])$maj13([0,4,7,11,14,21])$add9([0,4,7,14])$lyd([0,4,7,11,18])$lydadd9([0,4,7,11,14,18])  // Major Extensions & Lydian\n$m6([0,3,7,9])$m7([0,3,7,10])$m9([0,3,7,10,14])$m11([0,3,7,10,14,17])$mm7([0,3,7,11])$madd9([0,3,7,14])  // Minor Extensions\n$7([0,4,7,10])$9([0,4,7,10,14])$7sus4([0,5,7,10])$7b9([0,4,7,10,13])$7#9([0,4,7,10,15])$7b13([0,4,7,10,20])$7alt([0,4,10,13,15,20])  // Dominant / Altered\n$m7b5([0,3,6,10])$dim7([0,3,6,9])$whole([0,2,4,6])$cluster([0,1,2,3])  // Diminished / Half-Dim & Special\n\n{\ntune=0;$test;\ntune=1;$test;\ntune=2;$test;\ntune=3;$test;\ntune=[1.45];$test;\ntune=[1.55];$test;\ntune=4;$test;\ntune=5;$test;\n}\n\n$test(r;C4$cdef1@1;C4$cdef1@+1.1;C4$cdef1@+1.2;C4$cdef1@+1.3;C4$cdef1@+1.4;C4$cdef1@+1.5;C4$cdef1@+1.6;C4$cdef1@+1.7;C4$cdef1@+1.8;C4$cdef1@+1.9;C4$cdef1@+2)\n";
-        $.set_selectVal_id("select-fileSizeMax", 30);
       }
       else if(options.testcase === "chord_progression"){
         script = "// chord format\n// root[relative float alterations from root]@inversion\n\n$cdef1([ 0, 3.5, 7 ])\n$major([0,4,7])$minor([0,3,7])$sus4([0,5,7])$aug([0,4,8])$dim([0,3,6])$5([0,7])$5oct([0,7,12])  // Triad\n$6([0,4,7,9])$maj7([0,4,7,11])$maj9([0,4,7,11,14])$maj13([0,4,7,11,14,21])$add9([0,4,7,14])$lyd([0,4,7,11,18])$lydadd9([0,4,7,11,14,18])  // Major Extensions & Lydian\n$m6([0,3,7,9])$m7([0,3,7,10])$m9([0,3,7,10,14])$m11([0,3,7,10,14,17])$mm7([0,3,7,11])$madd9([0,3,7,14])  // Minor Extensions\n$7([0,4,7,10])$9([0,4,7,10,14])$7sus4([0,5,7,10])$7b9([0,4,7,10,13])$7#9([0,4,7,10,15])$7b13([0,4,7,10,20])$7alt([0,4,10,13,15,20])  // Dominant / Altered\n$m7b5([0,3,6,10])$dim7([0,3,6,9])$whole([0,2,4,6])$cluster([0,1,2,3])  // Diminished / Half-Dim & Special\n\n$typedef3([0,0.015625,0.03125,0.046875,0.0625,0.078125,0.09375,0.109375,0.125,0.140625,0.15625,0.171875,0.1875,0.203125,0.21875,0.234375,0.25,0.265625,0.28125,0.296875,0.3125,0.328125,0.34375,0.359375,0.375,0.390625,0.40625,0.421875,0.4375,0.453125,0.46875,0.484375,0.5,0.515625,0.53125,0.546875,0.5625,0.578125,0.59375,0.609375,0.625,0.640625,0.65625,0.671875,0.6875,0.703125,0.71875,0.734375,0.75,0.765625,0.78125,0.796875,0.8125,0.828125,0.84375,0.859375,0.875,0.890625,0.90625,0.921875,0.9375,0.953125,0.96875,0.984375,1:\n0,0.0009,0.0074,0.0245,0.056,0.1048,0.1715,0.2553,0.3536,0.4619,0.5748,0.6859,0.7886,0.8763,0.9435,0.9856,1,0.9856,0.9435,0.8763,0.7886,0.6859,0.5748,0.4619,0.3536,0.2553,0.1715,0.1048,0.056,0.0245,0.0074,0.0009,0,-0.0009,-0.0074,-0.0245,-0.056,-0.1048,-0.1715,-0.2553,-0.3536,-0.4619,-0.5748,-0.6859,-0.7886,-0.8763,-0.9435,-0.9856,-1,-0.9856,-0.9435,-0.8763,-0.7886,-0.6859,-0.5748,-0.4619,-0.3536,-0.2553,-0.1715,-0.1048,-0.056,-0.0245,-0.0074,-0.0009,-0])\n\n{\ntype=$typedef3;$progress;\n}\n\n$progress(\nr;$odo_pass;\nr;$komuro;\nr;$komuro_bass;\nr;$baki_drop;\nr;$baki_line;\nr;$just_major;\nr;$IV_maj7_start;\nr;$jttou;\nr;$jttou_vibe;\nr;$shibuya;\nr;$shibuya_ext;\nr;$pop_jazz;\nr;$jazz_turn;\nr;$neosoul;\nr;$neosoul_loop;\nr;$minor_251;\nr;$backdoor;\nr;$canon;\nr;$pop_tear;\nr;$sentimental;\nr;$sub_dominat_minor;\nr;$tears_drop;\nr;$royal_road;\nr;$lydian_air;\nr;$epic_minor;\nr;$ichiyoushi;\nr;$pop_classic;\nr;$rock_riff;\nr;$rock_heavy;\nr;$club_vibe;\nr;$sus4_vibe;\nr;$line_cliche;\nr;$whole_tone\n)\n\n$b9([0,13])\n$9th([0,14])\n$#9([0,15])\n$b11([0,16])\n$11th([0,17])\n$#11([0,18])\n$b13([0,20])\n$13th([0,21])\n$#13([0,22])\n\n$odo_pass(F4$maj7;G4$7@-1;G4#$dim7;A4$m7)\n$komuro(A4$minor;F4$major@+1;G4$major@-1;C4$major)\n$komuro_bass(A4$minor;F4$major@+1;G4$major@-1;E4$7@-1)\n$baki_drop(A4$minor;G4$major@-1;F4$major;E4$7@-1)\n$baki_line(A4$minor;A4$mm7@-1;A4$m7@-2;F4#$m7b5)\n$just_major(F4$maj7;G4$7@-1;C4$maj7;A4$m7)\n$IV_maj7_start(F4$maj7;F4$maj7;C4$maj7;C4$maj7)\n\n$jttou(F4$maj7;E4$7@-1;A4$m7;G4$m7@-1;C4$7@+1)\n$jttou_vibe(F4$maj9;E4$7b9@-1;A4$m9;G4$9@-1;C4$9)\n$shibuya(F4$maj7;E4$7@-1;A4$m7;D4$7)\n$shibuya_ext(F4$maj7;E4$7@-1;A4$m7;D4$9)\n$pop_jazz(D4$m7;G4$7@-1;C4$maj7;A4$7@-1)\n$jazz_turn(D4$m7;G4$7@-1;E4$m7@-1;A4$7@-1)\n$neosoul(F4$maj9;E4$7b9@-1;A4$m9;G4$9@-1;C4$9)\n$neosoul_loop(D4$m9;G4$9@-1;C4$maj9;F4$maj9)\n$minor_251(B3$m7b5;E4$7b9@-1;A4$m9;A4$m9)\n$backdoor(F4$maj7;B3$b9@-1;C4$maj7;C4$maj7)\n\n$canon(C4$major;G4$major@-1;A4$minor;E4$minor@-1;F4$major;C4$major@+1;F4$major;G4$major@-1)\n$pop_tear(C4$major;E4$7@-1;A4$minor;F4$major@+1)\n$sentimental(A4$minor;D4$7;G4$major;C4$major@+1)\n$sub_dominat_minor(F4$major;F4$m6;C4$major;C4$major)\n$tears_drop(C4$major;G4$major@-1;A4$minor;F4$m6)\n$royal_road(F4$maj7;G4$7@-1;E4$7@-1;A4$m7)\n$lydian_air(F4$lyd;F4$lyd;C4$major;C4$major)\n$epic_minor(A4$minor;F4$major@+1;C4$major;G4$major@-1)\n\n$ichiyoushi(F4$major;G4$major@-1;C4$major;A4$minor)\n$pop_classic(C4$major;G4$major@-1;A4$minor;F4$major@+1)\n$rock_riff(A4$5;G4$5;F4$5;G4$5)\n$rock_heavy(A4$5;C4$5;G4$5;D4$5)\n$club_vibe(A4$m7;D4$9)\n$sus4_vibe(C4$major;C4$sus4;C4$major;C4$sus4)\n$line_cliche(C4$major;C4$aug@-1;C4$6@-2;C4$7@-3)\n$whole_tone(C4$whole;D4$whole;E4$whole;F4#$whole)\n";
-        $.set_selectVal_id("select-fileSizeMax", 30);
       }
       else if(options.testcase === "chord_articulation"){
         script = "$amp00(amplitude0=0.0:amplitude1=0.0)\n$amp01(amplitude0=0.1:amplitude1=0.1)\n$amp02(amplitude0=0.2:amplitude1=0.2)\n$amp03(amplitude0=0.3:amplitude1=0.3)\n$amp04(amplitude0=0.4:amplitude1=0.4)\n$amp05(amplitude0=0.5:amplitude1=0.5)\n$amp06(amplitude0=0.6:amplitude1=0.6)\n$amp07(amplitude0=0.7:amplitude1=0.7)\n$amp08(amplitude0=0.8:amplitude1=0.8)\n$amp09(amplitude0=0.9:amplitude1=0.9)\n$amp10(amplitude0=1.0:amplitude1=1.0)\n\n$ch($amp08)\n$f(:$amp10)\n$mf(:$amp08)\n$mp(:$amp06)\n$p(:$amp04)\n$staccato(:order_fade=0.05)\n$legato_(:order_fade=0.6:w1=0.01)\n$_legato()\n\n{\n$ch:type=1;\nr; 4b:A4;\nr; b:A4$f; b:A4$mf; b:A4$mp; b:A4$p;\nr; 0.5b:A4$p; 0.5b:A4$p; 0.5b:A4$p; 0.5b:A4$p; 1b:A4$p$staccato; 1b:A4$f$staccato;\nr; 2b:A4$legato_; 2b:A4$_legato;\n}*0.8\n";
@@ -152,7 +148,6 @@
         }
         else if(options.testcase === "Froschgesang100"){
           $._id("input-BPM").value /= 4;
-          $.set_selectVal_id("select-fileSizeMax", 20);
         }
         else if(options.testcase === "Froschgesang100_overtone"){
           var script_ver1 = "$1(:::0.5:0.5:1:0.5:order_d=0.1:order_a=2)\n$2(::amplitude1=0)\n$3(::duty0=0.25:duty1=0.5)\n\n$chordset4(\n$chord4-1;\n$chord4-2;\n$chord4-3)\n\n$chord1($C; $D; $E; $F; $E; $D; $C)\n$chord2($E; $F; $G; $A; $G; $F; $E)\n$chord3($C; :r; $C; :r; $C; :r; $C)\n$chord4-1(b2:$C; b2:$C; b2:$D; b2:$D)\n$chord4-2(b2:$E; b2:$E; b2:$F; b2:$F)\n$chord4-3(b2:$E; b2:r; 3b4:$D; 1b4:r; b:$C)\n\n$A(A4)$C(C4)$D(D4)$E(E4)$F(F4)$G(G4)\n\n{01b:r$1; $chord1; :r$2; $chord2; :r$3; $chord3; r; $chordset4;}\n{07b:r$1; $chord1; :r$2; $chord2; :r$3; $chord3; 0; $chordset4;}\n{13b:r$1; $chord1; :r$2; $chord2; :r$3; $chord3; r; $chordset4;}\n{19b:r$1; $chord1; :r$2; $chord2; :r$3; $chord3; 0; $chordset4;}\n";
@@ -161,7 +156,6 @@
           $._id("input-overtone").value = 5;
           $._id("input-BPM").value /= 4;
           $._id("input-s_stereo").value = 75;
-          $.set_selectVal_id("select-fileSizeMax", 20);
         }
         $._id("input-rate").value = 1;
         $._id("input-order").value = -9;
@@ -176,7 +170,6 @@
         var script_ver2 = "$sheet($1; $chord1; $chord2; $chord3; $chord4)\n\n$chord1(2b1:G4; G4; A4; G4; G4; G4; E4; C4; C4; D4; E4; 3b:D4; r)\n$chord2(2b1:E4; E4; G4; A4; C5; C5; A4; G4; G4; A4; G4; 3b:C5; r)\n$chord3(3b2:C5; 1b2:D5; C5; A4; C5; C5; G4; G4; A4; G4; A4; G4; 3b:E4; r)\n$chord4(1b1:G4; E4; D4; C4; D4; D4; C4; D4; E4; G4; A4; G4; 4b:C5)\n\n$1($common)\n$common()\n\n{1.0b:r; $sheet;}*1\n{1.5b:r; $sheet;}*0.5\n{2.0b:r; $sheet;}*0.25\n{2.5b:r; $sheet;}*0.125\n";
         script = (options.tVer === 1)? script_ver1: script_ver2;
         $._id("input-BPM").value = 140;
-        $.set_selectVal_id("select-fileSizeMax", 20);
         $.set_id("checkbox-maxAmp", "checked", true);
         $.set_id("checkbox-autoDfreq", "checked", true);
         $._id("input-fileName").value = options.testcase;
@@ -188,7 +181,6 @@
         var script_ver2 = "$sheet($1; $chord1; $chord2; $chord3; $chord4)\n\n$chord1(2b1:G4; G4; A4; G4; G4; G4; E4; C4; C4; D4; E4; 3b:D4; r)\n$chord2(2b1:E4; E4; G4; A4; C5; C5; A4; G4; G4; A4; G4; 3b:C5; r)\n$chord3(3b2:C5; 1b2:D5; C5; A4; C5; C5; G4; G4; A4; G4; A4; G4; 3b:E4; r)\n$chord4(1b1:G4; E4; D4; C4; D4; D4; C4; D4; E4; G4; A4; G4; 4b:C5)\n\n$1($common)\n$common(overtone=5)\n\n{1.0b:r; $sheet;}*1\n{1.5b:r; $sheet;}*0.5\n{2.0b:r; $sheet;}*0.25\n{2.5b:r; $sheet;}*0.125\n";
         script = (options.tVer === 1)? script_ver1: script_ver2;
         $._id("input-BPM").value = 60;
-        $.set_selectVal_id("select-fileSizeMax", 20);
         $.set_id("checkbox-maxAmp", "checked", true);
         $.set_id("checkbox-autoDfreq", "checked", true);
         $._id("input-s_stereo").value = 75;
@@ -201,7 +193,6 @@
         var script_ver2 = "$sheet($1; $chord1; $chord2; $chord3; $chord2)\n\n$chord1(C4; 3b2:F4; b2:F4; F4; A4; 3b2:G4; b2:F4; G4; A4; F4; F4; A4; C5; 3b:D5)\n$chord2($chordc; A4; 3b2:F4; b2:D4; D4; C4; 3b:F4)\n$chord3($chordc; D5; 3b2:C5; b2:A4; A4; C5; 3b:D5)\n$chordc(D5; 3b2:C5; b2:A4; A4; F4; 3b2:G4; b2:F4; G4)\n\n$1($common)\n$common()\n\n{1.00b:r; $sheet;}*1\n{1.25b:r; $sheet;}*0.5\n{1.50b:r; $sheet;}*0.25\n{1.75b:r; $sheet;}*0.125\n";
         script = (options.tVer === 1)? script_ver1: script_ver2;
         $._id("input-BPM").value = 60;
-        $.set_selectVal_id("select-fileSizeMax", 20);
         $.set_id("checkbox-maxAmp", "checked", true);
         $.set_id("checkbox-autoDfreq", "checked", true);
         $._id("input-fileName").value = options.testcase;
@@ -213,7 +204,6 @@
         var script_ver2 = "$sheet($1; $chord1; $chord2; $chord3; $chord2)\n\n$chord1(C4; 3b2:F4; b2:F4; F4; A4; 3b2:G4; b2:F4; G4; A4; F4; F4; A4; C5; 3b:D5)\n$chord2($chordc; A4; 3b2:F4; b2:D4; D4; C4; 3b:F4)\n$chord3($chordc; D5; 3b2:C5; b2:A4; A4; C5; 3b:D5)\n$chordc(D5; 3b2:C5; b2:A4; A4; F4; 3b2:G4; b2:F4; G4)\n\n$1($common)\n$common(overtone=5)\n\n{1.00b:r; $sheet;}*1\n{1.25b:r; $sheet;}*0.5\n{1.50b:r; $sheet;}*0.25\n{1.75b:r; $sheet;}*0.125\n";
         script = (options.tVer === 1)? script_ver1: script_ver2;
         $._id("input-BPM").value = 60;
-        $.set_selectVal_id("select-fileSizeMax", 20);
         $.set_id("checkbox-maxAmp", "checked", true);
         $.set_id("checkbox-autoDfreq", "checked", true);
         $._id("input-s_stereo").value = 75;
@@ -227,7 +217,6 @@
         script = (options.tVer === 1)? script_ver1: script_ver2;
         $._id("input-A4").value = 432;
         $._id("input-BPM").value = (2349/20)/2;
-        $.set_selectVal_id("select-fileSizeMax", 20);
         $.set_id("checkbox-maxAmp", "checked", true);
         $.set_id("checkbox-autoDfreq", "checked", true);
         $._id("input-s_stereo").value = 75;
@@ -285,7 +274,6 @@
         }
         script = (options.tVer === 1)? script_ver1: script_ver2;
         $._id("input-BPM").value = BPM;
-        $.set_selectVal_id("select-fileSizeMax", 40);
         $.set_id("checkbox-maxAmp", "checked", true);
         $.set_id("checkbox-autoDfreq", "checked", (BPM < 120));
         $._id("input-s_stereo").value = 75;
@@ -319,10 +307,11 @@ Byte数/sample：
     </td>
     <td>
 <select id="select-Bytes_perSample">
-  <option value="1">1: 低音質</option>
-  <option value="2" selected="selected">2: 中音質</option>
-  <option value="3">3: 高音質</option>
-  <option value="4">4: 超高音質</option>
+  <option value="1">1: uint8（低音質）</option>
+  <option value="2">2: int16（中音質）</option>
+  <option value="3">3: int24（高音質）</option>
+  <option value="4">4: int32（超高音質）</option>
+  <option value="-4" selected="selected">4: float32（ハイレゾ）</option>
 </select>
     </td>
   </tr>
@@ -659,11 +648,6 @@ link:
 &lt;
   <label>
 <select id="select-fileSizeMax">
-  <option>10</option>
-  <option>20</option>
-  <option>30</option>
-  <option>40</option>
-  <option>50</option>
   <option>100</option>
   <option>200</option>
   <option>300</option>
@@ -675,6 +659,8 @@ link:
   <option>900</option>
   <option>1000</option>
   <option>1024</option>
+  <option>2048</option>
+  <option>4096</option>
 </select>
   </label>
 <div id="wrapper-link"></div>

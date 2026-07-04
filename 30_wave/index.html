@@ -73,10 +73,11 @@ Byte数/sample：
     </td>
     <td>
 <select id="select-Bytes_perSample">
-  <option value="1">1: 低音質</option>
-  <option value="2" selected="selected">2: 中音質</option>
-  <option value="3">3: 高音質</option>
-  <option value="4">4: 超高音質</option>
+  <option value="1">1: uint8（低音質）</option>
+  <option value="2">2: int16（中音質）</option>
+  <option value="3">3: int24（高音質）</option>
+  <option value="4">4: int32（超高音質）</option>
+  <option value="-4" selected="selected">4: float32（ハイレゾ）</option>
 </select>
     </td>
   </tr>
@@ -385,11 +386,6 @@ link:
 &lt;
   <label>
 <select id="select-fileSizeMax">
-  <option>10</option>
-  <option>20</option>
-  <option>30</option>
-  <option>40</option>
-  <option>50</option>
   <option>100</option>
   <option>200</option>
   <option>300</option>
@@ -401,6 +397,8 @@ link:
   <option>900</option>
   <option>1000</option>
   <option>1024</option>
+  <option>2048</option>
+  <option>4096</option>
 </select>
   </label>
 <div id="wrapper-link"></div>

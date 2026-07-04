@@ -21,6 +21,32 @@
       <caption><span id="span-history">演奏機能の更新履歴</span></caption>
       <tbody>
         <tr class="border">
+          <td class="border run">
+Ver.2.112.26
+          </td>
+          <td class="border">
+・ES2015のfloat32に移行（S/N比の最大化・Byte数/sec=3の高速化）
+<br>
+　生成：Byte数/sample依存　⇒　float32（amplitudeの未正規化）
+<br>
+　合成：Byte数/sample依存　⇒　float32
+<br>
+　出力：Byte数/sample依存　⇒　float32（trunc処理の正規化）　⇒　Byte数×Uint8（offset込みの共通化）
+<br>
+　・Bytes数/sec：int16　⇒　float32（無変換の最速）
+<br>
+　　file size制限[MB]：10~1024　⇒　100~4096
+<br>
+　・振幅超過：overflowのerror終了　⇒　clipping（音割れを許容）
+<br>
+　　max係数：blendと同時に適用　⇒　blend後に適用（厳密化）
+<br>
+　　目安：auto-max解除の緑色状態　⇒　max係数超過の赤色状態（音割れ発生）
+<br>
+・生成＋合成の直列化は保留（memo化を含む並列化の恩恵∝生成中の演算cost）
+          </td>
+        </tr>
+        <tr class="border">
           <td class="border clear">
 Ver.1.112.26
           </td>

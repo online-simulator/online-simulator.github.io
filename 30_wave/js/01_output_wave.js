@@ -55,24 +55,19 @@ My_entry.output_wave.prototype.config = {
     title: "[MyErr]"
   }
 };
-My_entry.output_wave.prototype.init = function(Bytes_perSample, samples_perSecond, number_channels){
+My_entry.output_wave.prototype.init = function(Bytes_perSample, samples_perSecond, number_channels, isFloat){  // Ver.2.112.26
   var self = this;
   new My_entry.original_main().setup_constructors.call(self);
   new My_entry.original_main().make_instances.call(self, ["def", "math_wave"]);  // Ver.1.47.11
   /* Ver.1.46.11 -> */
   /* Ver.1.48.11 -> */
-  self.arr_prop_baseview4header = [, "Uint",   "Int",          ,       "Uint"];
-  self.arr_prop_baseview        = [, "Uint",   "Int",     "Int",        "Int"];
-  self.arr_amplitude            = [,  128-1, 32768-1, 8388608-1, 2147483648-1];
-  self.arr_offset               = [,    128,       0,         0,            0];
+  self.arr_amplitude = [, 128-1, 32768-1, 8388608-1, 2147483648-1];
+  self.arr_offset    = [,   128,       0,         0,            0];
   /* -> Ver.1.48.11 */
-  self.handler_baseview4header = new self.constructors.handler_baseview(self.arr_prop_baseview4header);
+  self.handler_baseview4header = new self.constructors.handler_baseview([, "Uint", "Int", , "Uint"]);  // Ver.2.112.26
   self.arr_buffer4header = self.handler_baseview4header.arr_buffer;
   self.arr_viewset4header = self.handler_baseview4header.set;
   /* -> Ver.1.46.11 */
-  self.handler_baseview = new self.constructors.handler_baseview(self.arr_prop_baseview);
-  self.arr_buffer = self.handler_baseview.arr_buffer;
-  self.arr_viewset = self.handler_baseview.set;
   self.title_error = My_entry.output_wave.config.ERROR.title;
   self.src = null;  // Ver.1.110.25
   self.audio = null;
@@ -83,6 +78,8 @@ My_entry.output_wave.prototype.init = function(Bytes_perSample, samples_perSecon
   self.Bytes_subChunk1   = 2+2+4+4+2+2;
   self.Bytes_perSample   = Bytes_perSample || 2 || 1;
   self.bits_perSample    = self.Bytes_perSample*8;
+  self.isFloat           = isFloat;  // Ver.2.112.26
+  self.id_format         = (self.isFloat)? 3: 1;  // Ver.2.112.26
   self.amplitude         = self.arr_amplitude[self.Bytes_perSample];
   self.offset            = self.arr_offset[self.Bytes_perSample];
   self.samples_perSecond = samples_perSecond || 44100 || 48000 || 96000;
@@ -127,18 +124,6 @@ My_entry.output_wave.prototype.int2binary4header_BE = function(n, dec){
 My_entry.output_wave.prototype.int2binary4header_LE = function(n, dec){
   var self = this;
   return self.int2binary4header_BE.call(self, n, dec, true);
-};
-My_entry.output_wave.prototype.int2binary_BE = function(n, dec){
-  var self = this;
-  var isLE_default = false;
-  var isLE = arguments[2] || isLE_default;
-  var idec = Math.floor(dec);
-  self.arr_viewset[n](0, idec, isLE);
-  return self.buffer2binary(self.arr_buffer[n]);
-};
-My_entry.output_wave.prototype.int2binary_LE = function(n, dec){
-  var self = this;
-  return self.int2binary_BE.call(self, n, dec, true);
 };
 My_entry.output_wave.prototype.str2binary4header_BE = function(n, bstr){
   var self = this;
@@ -374,6 +359,37 @@ My_entry.output_wave.prototype.get_buffer_soundData_LE = function(params){  // V
   var params = self.check_params(params);
   return self.encode_soundData_LE(params);  // Ver.1.25.4
 };
+/* Ver.2.112.26 */
+My_entry.output_wave.prototype.arrb_float32_to_buffer = function(arrb_float32){
+  var self = this;
+  var Bytes_perSample = self.Bytes_perSample;
+  var isFloat = self.isFloat;
+  var amplitude = self.amplitude;
+  var offset = self.offset;
+  var total_samples = arrb_float32.length;
+  var _outBuffer = new ArrayBuffer(Bytes_perSample*total_samples);
+  var outView = new DataView(_outBuffer);
+  var clip = function(num, num_min, num_max){return Math.min(num_max, Math.max(num_min, num));};
+  var isLE = true;
+  var set_view = (isFloat)?
+    function(offset_Byte, f32){
+      outView.setFloat32(offset_Byte, f32, isLE);
+    }:
+    function(offset_Byte, f32){
+      var int8n = offset;
+      int8n += Math.trunc(f32*amplitude);  // Ver.2.112.26 ES2015
+      for(var n=0; n<Bytes_perSample; ++n){
+        outView.setUint8(offset_Byte+n, (int8n >> 8*n) & 0xFF);
+      }
+    };
+  var offset_Byte = 0;
+  for(var i=0; i<total_samples; ++i){
+    var f32_normalized = clip(arrb_float32[i], -1.0, +1.0);  // [-1,1]
+    set_view(offset_Byte, f32_normalized);
+    offset_Byte += Bytes_perSample;
+  }
+  return _outBuffer;
+};
 My_entry.output_wave.prototype.encode_soundData_LE = function(params){  // Ver.1.25.4
   var self = this;
   var math_wave = self.entry.math_wave;  // Ver.1.56.12
@@ -412,11 +428,9 @@ My_entry.output_wave.prototype.encode_soundData_LE = function(params){  // Ver.1
   var ns_in = dns0;
   var ns_out = number_samples-1-dns1;
   /* -> Ver.1.109.24 */
-  var arrb_uint8 = new Uint8Array(Bytes_perSample*number_samples*number_channels);
-  var offset_Byte = 0;
+  var _arrb_float32 = new Float32Array(number_samples*number_channels);  // Ver.2.112.26 ES2015
   /* -> Ver.1.103.22 */
-  var amplitude = self.amplitude;
-  var offset = self.offset;
+  var amplitude = 1;  // Ver.2.112.26
   var seconds_perSample = 1/self.samples_perSecond;
   var tend = number_samples*seconds_perSample;  // Ver.1.74.14
   /* Ver.1.16.4 -> */
@@ -692,16 +706,12 @@ My_entry.output_wave.prototype.encode_soundData_LE = function(params){  // Ver.1
       /* -> Ver.1.56.12 */
     });
     val *= get_newAmp(ns);
-    if(val > amplitude) throw new Error(self.title_error+"stopped by over-flow@stream");  // Ver.1.41.10
-    val += offset;
-    var binary_perChannel = self.int2binary_LE(Bytes_perSample, val);
     for(var nc=0; nc<number_channels; ++nc){
-      arrb_uint8.set(new Uint8Array(self.arr_buffer[Bytes_perSample]), offset_Byte);  // Ver.1.103.22
-      offset_Byte += Bytes_perSample;  // Ver.1.103.22
+      _arrb_float32[ns*number_channels+nc] = val;  // Ver.2.112.26
     }
   }
   /* -> Ver.1.25.4 */
-  return arrb_uint8.buffer;  // Ver.1.103.22  // Ver.1.108.23
+  return _arrb_float32;  // Ver.1.103.22  // Ver.1.108.23  // Ver.2.112.26
 };
 /* Ver.1.110.25 */
 /* Ver.1.103.22 */
@@ -709,7 +719,7 @@ My_entry.output_wave.prototype.make_blob = function(params, callback){
   var self = this;
   var data = params;
   var buffer_header = self.binary2buffer(self.get_binary_header(params.number_samples));
-  var buffer_soundData_LE = data.out || self.get_buffer_soundData_LE(params);  // Ver.1.108.23
+  var buffer_soundData_LE = self.arrb_float32_to_buffer(data.out || self.get_buffer_soundData_LE(params));  // Ver.1.108.23  // Ver.2.112.26
   var blob = new Blob([buffer_header, buffer_soundData_LE], {type: "audio/wav"});
   var url = (callback)? callback(blob): null;
   if(window.URL){

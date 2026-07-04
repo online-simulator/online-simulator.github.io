@@ -501,9 +501,9 @@ My_entry.handler_wave.prototype.init_handlers = function(){
     }
     self.waveo = new self.constructors.output_wave();
     self.make_params();
-    self.waveo.init(self.params.Bytes_perSample, self.params.samples_perSecond, self.params.number_channels);
+    self.waveo.init(self.params.Bytes_perSample, self.params.samples_perSecond, self.params.number_channels, self.params.isFloat);  // Ver.2.112.26
     self.update_number_samples();  // Ver.1.59.13
-    self.output_amplitude_max((self.params.maxAmp)? self.pre_maxAmp: "");  // Ver.1.35.6  // Ver.1.45.11  // Ver.1.64.14
+    self.output_amplitude_max({_amplitude_max: (self.params.maxAmp)? self.pre_maxAmp: ""});  // Ver.1.35.6  // Ver.1.45.11  // Ver.1.64.14  // Ver.2.112.26
     if(self.isScriptMode){
       self.output_time("");
     }
@@ -707,10 +707,16 @@ My_entry.handler_wave.prototype.output_freq = function(){
   self.entry.$._id("input-freq").value = (isNaN(freq))? "": freq.toFixed(3);  // Ver.1.84.15  // Ver.1.102.22
   return self;
 };
+/* Ver.2.112.26 */
 /* Ver.1.35.6 */
-My_entry.handler_wave.prototype.output_amplitude_max = function(amplitude){
+My_entry.handler_wave.prototype.output_amplitude_max = function(data){
   var self = this;
-  self.entry.$._id("input-amplitude_max").value = amplitude;
+  var amplitude = data.kampli;
+  var amplitude_max = data._amplitude_max;
+  var isClear = (amplitude && amplitude_max && amplitude > amplitude_max);
+  if(isClear) self.entry.$._id("input-amplitude").classList["remove"]("selection");
+  self.entry.$._id("input-amplitude").classList[(isClear)? "add": "remove"]("clear");
+  self.entry.$._id("input-amplitude_max").value = amplitude_max;
   return self;
 };
 My_entry.handler_wave.prototype.output_fileSize = function(sec){
@@ -809,7 +815,11 @@ My_entry.handler_wave.prototype.make_params = function(){
   var $ = self.entry.$;
   var def = self.entry.def;
   var params = self.params;
-  params.Bytes_perSample = $.selectNum_id("select-Bytes_perSample");
+  /* Ver.2.112.26 -> */
+  var Bytes_perSample = $.selectNum_id("select-Bytes_perSample");
+  params.Bytes_perSample = Math.abs(Bytes_perSample);
+  params.isFloat = (Bytes_perSample < 0);
+  /* -> Ver.2.112.26 */
   params.samples_perSecond = $.selectNum_id("select-samples_perSecond");
   params.number_channels = $.selectNum_id("select-number_channels");
   params.type = $.selectVal_id("select-type");
@@ -896,6 +906,7 @@ My_entry.handler_wave.prototype.make_params = function(){
     params.tempo = def.limit(params.tempo, 0, Number.MAX_VALUE, 1);  // Ver.1.19.4
     params.pitch = def.limit(params.pitch, -16, 16, 0);  // Ver.1.83.15  // Ver.1.84.15
     params.maxAmp = $.checkbox_id("checkbox-maxAmp");  // Ver.1.45.11
+    $._id("input-amplitude").classList[(!(params.maxAmp))? "add": "remove"]("selection");  // Ver.2.112.26
     /* Ver.1.29.4 -> */
     params.blend = $.selectNum_id("select-blend");  // Ver.1.104.22
     params.dfreq = $.inputNum_id("input-dfreq");  // Ver.1.64.14
