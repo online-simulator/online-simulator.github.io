@@ -53,14 +53,12 @@
         script_ver1 = "{4b:[C4,D4,E4,F4,G4,A4,B4,C5,D5,E5,F5,G5,A5,B5,C6,D6,E6,F6,G6,A6,B6,C7,D7,E7,F7,G7,A7,B7,C8]::amplitude1=0.5:ti=1b9}";
         script_ver2 = "{4b:[C4,D4,E4,F4,G4,A4,B4,C5,D5,E5,F5,G5,A5,B5,C6,D6,E6,F6,G6,A6,B6,C7,D7,E7,F7,G7,A7,B7,C8]::ti=1b9}";
         script = (options.tVer === 1)? script_ver1: script_ver2;
-        $.set_id("checkbox-maxAmp", "checked", true);
       }
       else if(options.testcase === "glissando1_duty0"){
         script_ver1 = "{4b:[C4,D4,E4,F4,G4,A4,B4,C5,D5,E5,F5,G5,A5,B5,C6,D6,E6,F6,G6,A6,B6,C7,D7,E7,F7,G7,A7,B7,C8]::duty0=0:amplitude1=0.5:ti=1b9}";
         script_ver2 = "{4b:[C4,D4,E4,F4,G4,A4,B4,C5,D5,E5,F5,G5,A5,B5,C6,D6,E6,F6,G6,A6,B6,C7,D7,E7,F7,G7,A7,B7,C8]::duty0=0:ti=1b9}";
         script = (options.tVer === 1)? script_ver1: script_ver2;
         $._id("input-BPM").value = 30;
-        $.set_id("checkbox-maxAmp", "checked", true);
       }
       else if(options.testcase === "glissando1_echo"){
         script_ver1 = "$4b(4b:$glissando:ti=1b09)\n$2b(2b:$glissando:ti=1b18)\n$1b(1b:$glissando:ti=1b36)\n$glissando([C4,D4,E4,F4,G4,A4,B4,C5,D5,E5,F5,G5,A5,B5,C6,D6,E6,F6,G6,A6,B6,C7,D7,E7,F7,G7,A7,B7,C8])\n\n{amplitude0=1.000:amplitude1=0.500; $4b;}\n{amplitude0=0.500:amplitude1=0.250; $2b; $2b; $2b;}\n{amplitude0=0.250:amplitude1=0.125; $1b; $1b; $1b; $1b; $1b; $1b; $1b;}\n";
@@ -68,13 +66,11 @@
         script = (options.tVer === 1)? script_ver1: script_ver2;
         $.set_selectVal_id("select-number_channels", 1);
         $._id("input-BPM").value = 30;
-        $.set_id("checkbox-maxAmp", "checked", true);
       }
       else if(options.testcase === "glissando2"){
         script_ver1 = "{4b:[C4,D4,E4,F4,G4,A4,B4,C5,D5,E5,F5,G5,A5,B5,C6,D6,E6,F6,G6,A6,B6,C7,D7,E7,F7,G7,A7,B7,C8]::amplitude1=0.5:overtone=3:ti=1b15:to=1b15}";
         script_ver2 = "{4b:[C4,D4,E4,F4,G4,A4,B4,C5,D5,E5,F5,G5,A5,B5,C6,D6,E6,F6,G6,A6,B6,C7,D7,E7,F7,G7,A7,B7,C8]::overtone=3:ti=1b15:to=1b15}";
         script = (options.tVer === 1)? script_ver1: script_ver2;
-        $.set_id("checkbox-maxAmp", "checked", true);
       }
       else if(options.testcase === 0){
         script = "{\n:r;:C4;:D4;:E4;:F4;:G4;:A4;:B4;:C5;\n}\n{\n0;C4;D4;E4;F4;G4;A4;B4;C5;\n}";
@@ -159,7 +155,6 @@
         }
         $._id("input-rate").value = 1;
         $._id("input-order").value = -9;
-        $.set_id("checkbox-maxAmp", "checked", true);
         $.set_id("checkbox-autoDfreq", "checked", true);
         $._id("input-fileName").value = options.testcase;
         $.set_id("input-fileName", "readOnly", true);
@@ -170,7 +165,6 @@
         var script_ver2 = "$sheet($1; $chord1; $chord2; $chord3; $chord4)\n\n$chord1(2b1:G4; G4; A4; G4; G4; G4; E4; C4; C4; D4; E4; 3b:D4; r)\n$chord2(2b1:E4; E4; G4; A4; C5; C5; A4; G4; G4; A4; G4; 3b:C5; r)\n$chord3(3b2:C5; 1b2:D5; C5; A4; C5; C5; G4; G4; A4; G4; A4; G4; 3b:E4; r)\n$chord4(1b1:G4; E4; D4; C4; D4; D4; C4; D4; E4; G4; A4; G4; 4b:C5)\n\n$1($common)\n$common()\n\n{1.0b:r; $sheet;}*1\n{1.5b:r; $sheet;}*0.5\n{2.0b:r; $sheet;}*0.25\n{2.5b:r; $sheet;}*0.125\n";
         script = (options.tVer === 1)? script_ver1: script_ver2;
         $._id("input-BPM").value = 140;
-        $.set_id("checkbox-maxAmp", "checked", true);
         $.set_id("checkbox-autoDfreq", "checked", true);
         $._id("input-fileName").value = options.testcase;
         $.set_id("input-fileName", "readOnly", true);
@@ -181,7 +175,6 @@
         var script_ver2 = "$sheet($1; $chord1; $chord2; $chord3; $chord4)\n\n$chord1(2b1:G4; G4; A4; G4; G4; G4; E4; C4; C4; D4; E4; 3b:D4; r)\n$chord2(2b1:E4; E4; G4; A4; C5; C5; A4; G4; G4; A4; G4; 3b:C5; r)\n$chord3(3b2:C5; 1b2:D5; C5; A4; C5; C5; G4; G4; A4; G4; A4; G4; 3b:E4; r)\n$chord4(1b1:G4; E4; D4; C4; D4; D4; C4; D4; E4; G4; A4; G4; 4b:C5)\n\n$1($common)\n$common(overtone=5)\n\n{1.0b:r; $sheet;}*1\n{1.5b:r; $sheet;}*0.5\n{2.0b:r; $sheet;}*0.25\n{2.5b:r; $sheet;}*0.125\n";
         script = (options.tVer === 1)? script_ver1: script_ver2;
         $._id("input-BPM").value = 60;
-        $.set_id("checkbox-maxAmp", "checked", true);
         $.set_id("checkbox-autoDfreq", "checked", true);
         $._id("input-s_stereo").value = 75;
         $._id("input-fileName").value = options.testcase;
@@ -193,7 +186,6 @@
         var script_ver2 = "$sheet($1; $chord1; $chord2; $chord3; $chord2)\n\n$chord1(C4; 3b2:F4; b2:F4; F4; A4; 3b2:G4; b2:F4; G4; A4; F4; F4; A4; C5; 3b:D5)\n$chord2($chordc; A4; 3b2:F4; b2:D4; D4; C4; 3b:F4)\n$chord3($chordc; D5; 3b2:C5; b2:A4; A4; C5; 3b:D5)\n$chordc(D5; 3b2:C5; b2:A4; A4; F4; 3b2:G4; b2:F4; G4)\n\n$1($common)\n$common()\n\n{1.00b:r; $sheet;}*1\n{1.25b:r; $sheet;}*0.5\n{1.50b:r; $sheet;}*0.25\n{1.75b:r; $sheet;}*0.125\n";
         script = (options.tVer === 1)? script_ver1: script_ver2;
         $._id("input-BPM").value = 60;
-        $.set_id("checkbox-maxAmp", "checked", true);
         $.set_id("checkbox-autoDfreq", "checked", true);
         $._id("input-fileName").value = options.testcase;
         $.set_id("input-fileName", "readOnly", true);
@@ -204,7 +196,6 @@
         var script_ver2 = "$sheet($1; $chord1; $chord2; $chord3; $chord2)\n\n$chord1(C4; 3b2:F4; b2:F4; F4; A4; 3b2:G4; b2:F4; G4; A4; F4; F4; A4; C5; 3b:D5)\n$chord2($chordc; A4; 3b2:F4; b2:D4; D4; C4; 3b:F4)\n$chord3($chordc; D5; 3b2:C5; b2:A4; A4; C5; 3b:D5)\n$chordc(D5; 3b2:C5; b2:A4; A4; F4; 3b2:G4; b2:F4; G4)\n\n$1($common)\n$common(overtone=5)\n\n{1.00b:r; $sheet;}*1\n{1.25b:r; $sheet;}*0.5\n{1.50b:r; $sheet;}*0.25\n{1.75b:r; $sheet;}*0.125\n";
         script = (options.tVer === 1)? script_ver1: script_ver2;
         $._id("input-BPM").value = 60;
-        $.set_id("checkbox-maxAmp", "checked", true);
         $.set_id("checkbox-autoDfreq", "checked", true);
         $._id("input-s_stereo").value = 75;
         $._id("input-fileName").value = options.testcase;
@@ -217,7 +208,6 @@
         script = (options.tVer === 1)? script_ver1: script_ver2;
         $._id("input-A4").value = 432;
         $._id("input-BPM").value = (2349/20)/2;
-        $.set_id("checkbox-maxAmp", "checked", true);
         $.set_id("checkbox-autoDfreq", "checked", true);
         $._id("input-s_stereo").value = 75;
         $._id("input-fileName").value = options.testcase;
@@ -274,7 +264,6 @@
         }
         script = (options.tVer === 1)? script_ver1: script_ver2;
         $._id("input-BPM").value = BPM;
-        $.set_id("checkbox-maxAmp", "checked", true);
         $.set_id("checkbox-autoDfreq", "checked", (BPM < 120));
         $._id("input-s_stereo").value = 75;
         $._id("input-fileName").value = options.full;
@@ -568,7 +557,7 @@ amplitude*<input id="input-amplitude" class="input-50" type="number" step="0.1" 
 &lt;
 <input id="input-amplitude_max" class="input-50" readonly="readonly">
   <label>max:
-    <input id="checkbox-maxAmp" type="checkbox">
+    <input id="checkbox-maxAmp" type="checkbox" checked="checked">
   </label>
 　
 <span class="clear right">乗算</span>

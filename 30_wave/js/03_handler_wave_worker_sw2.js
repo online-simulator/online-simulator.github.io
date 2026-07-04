@@ -27,7 +27,6 @@ My_entry.handler_wave.prototype.composite_buffer_soundData_LE = function(data){ 
   /* Ver.1.108.23 -> */
   self.scripts.arr_buffers.forEach(function(buffers, i){  // Ver.1.103.22  // Ver.1.105.22
     var n_offset = i%number_channels;
-    var gain_channeli = self.scripts.arr_gain_channel[i];  // Ver.1.106.22
     /* Ver.1.106.23 -> */
     var oldAmps = new Array(order_filter);  // Ver.1.106.22
     for(var k=0; k<order_filter; ++k){
@@ -44,7 +43,6 @@ My_entry.handler_wave.prototype.composite_buffer_soundData_LE = function(data){ 
       /* Ver.1.106.22 -> */
       var ampVali = outView[n_out];
       /* Ver.1.108.24 -> */
-      ampVali *= gain_channeli;
       /* Ver.1.106.23 -> */
       for(var k=0; k<order_filter; ++k){
         oldAmps[k] = ampVali = wr*oldAmps[k]+(1-wr)*ampVali;  // wr first
@@ -568,7 +566,6 @@ My_entry.handler_wave.prototype.input2arr = function(input){
   /* Ver.1.4.2 */
   /* Ver.1.106.22 -> */
   var len_i = mcb.length;
-  self.scripts.arr_gain_channel = new Array(len_i);
   var len_band = Math.max(len_i/number_channels, 1);
   /* -> Ver.1.106.22 */
   mcb.forEach(function(str, i){
@@ -582,7 +579,6 @@ My_entry.handler_wave.prototype.input2arr = function(input){
     var str_channel = sc[0];
     var gain = Number(sc[1] || 1);
     if(isNaN(gain) || gain < 0 || gain > 1) throw new Error(self.waveo.config.ERROR.title+"Invalid {channel}"+self.regex.gain_channel+gain);
-    self.scripts.arr_gain_channel[i] = gain;
     var arr_data = self.entry.def.split_outside_all_pairs(str_channel.replace(self.regex.rb, ""), ";");  // Ver.1.97.21
     /* -> Ver.1.106.22 */
     arr_data.forEach(function(tokens, j){
@@ -625,7 +621,7 @@ My_entry.handler_wave.prototype.input2arr = function(input){
         params.note = arr_token[1];  // Ver.1.100.21
         params.arr_f = self.str2arr_f(params);  // Ver.1.73.14  // Ver.1.84.15  // Ver.1.91.19  // Ver.1.100.21
         /* -> Ver.1.20.4 */
-        params.gain_band = 1/len_band;  // Ver.1.73.14
+        params.gain_band = gain/len_band;  // Ver.1.73.14  // Ver.2.113.26
         _arr_input[i].push(params);
       }
     });
