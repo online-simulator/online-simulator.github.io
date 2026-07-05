@@ -80,6 +80,21 @@ My_entry.test_waveplot.prototype.reset = function(){
   self.isLocked = false;
   return self;
 };
+/* Ver.2.114.26 */
+My_entry.test_waveplot.prototype.set_Prop = function(){
+  var self = this;
+  var params = self.params;
+  if(params){
+    if(params.Bytes_perSample > 0){
+      params.Prop = (params.Bytes_perSample === 1)? "Uint8": "Int"+String(params.Bytes_perSample*8);  // Ver.1.46.11
+    }
+    else{
+      params.Bytes_perSample = Math.abs(params.Bytes_perSample);
+      params.Prop = "Float32";
+    }
+  }
+  return self;
+};
 My_entry.test_waveplot.prototype.update = function(){
   var self = this;
   var $ = self.entry.$;
@@ -87,6 +102,7 @@ My_entry.test_waveplot.prototype.update = function(){
   if(params){
     params.Bytes_header = self.entry.def.limit($.inputInt_id("input-Bytes_header"), 0, params.Bytes_file, 0);  // Ver.1.49.11
     params.Bytes_perSample = $.selectNum_id("select-Bytes_perSample");
+    self.set_Prop();  // Ver.2.114.26
     params.number_channels = $.selectNum_id("select-number_channels");
     params.Bytes_data = params.Bytes_file-params.Bytes_header;
     params.is = null;
@@ -129,7 +145,7 @@ My_entry.test_waveplot.prototype.output = function(){  // Ver.1.51.11
   var params = self.params;
   var buffer = self.buffer;
   if(params && buffer && params.Nsmax){
-    var Prop = (params.Bytes_perSample === 1)? "Uint8": "Int"+String(params.Bytes_perSample*8);  // Ver.1.46.11
+    var Prop = params.Prop;  // Ver.1.46.11  // Ver.2.114.26
     var Bytes_header = params.Bytes_header;
     var Bytes_perSample = params.Bytes_perSample;
     var number_channels = params.number_channels;
@@ -230,8 +246,9 @@ My_entry.test_waveplot.prototype.read_file = function(elem){
       params.Bytes_perSample = 2;
       params.number_channels = 2;
     }
+    self.set_Prop();  // Ver.2.114.26
     $._id("input-Bytes_header").value = params.Bytes_header;
-    $.set_selectVal_id("select-Bytes_perSample", params.Bytes_perSample);
+    $.set_selectVal_id("select-Bytes_perSample", params.Bytes_perSample*((params.id_format === 1)? 1: -1));  // Ver.2.114.26
     $.set_selectVal_id("select-number_channels", params.number_channels);
     self.params = params;
     self.buffer = buffer;
