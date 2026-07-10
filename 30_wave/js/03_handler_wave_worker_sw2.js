@@ -284,14 +284,14 @@ My_entry.handler_wave.prototype.make_table = function(token0, token1){
   return _table;
 };
 /* Ver.1.73.14 -> */
-My_entry.handler_wave.prototype.str2sec = function(str){
+My_entry.handler_wave.prototype.str2sec = function(str, params0){  // Ver.2.117.26
   var self = this;
-  var msec = (str === "")? self.msec_60BPM: Number(str);
+  var msec = (str === "")? self.msec_BPM0: Number(str);  // Ver.2.117.26
   var mct = str.match(self.regex.qn);
   if(mct && mct.length){
     var nume = Number(mct[1] || 1);
     var deno = Number(mct[2] || 1);
-    msec = (deno)? self.msec_60BPM*nume/deno: 0;
+    msec = (deno)? self.msec_BPM0*nume/deno: 0;  // Ver.2.117.26
   }
   /* Ver.1.65.14 -> */
   if(isNaN(msec)){
@@ -299,7 +299,7 @@ My_entry.handler_wave.prototype.str2sec = function(str){
   }
   /* -> Ver.1.65.14 */
   var _sec = msec/1000;
-  var ktempo = self.params.tempo || 0;  // Ver.1.17.4
+  var ktempo = self.calc_tempo(params0.BPM || self.params.BPM) || 0;  // Ver.1.17.4  // Ver.2.117.26
   _sec *= ktempo;  // Ver.1.17.4
   return _sec;
 };
@@ -378,7 +378,7 @@ My_entry.handler_wave.prototype.make_params_extended = function(tokens, params0,
   var get_num = function(prop, token, isTime){  // Ver.1.74.14
     var _num = NaN;
     if(token){
-      var num = (isTime)? self.str2sec(token): Number(token);  // Ver.1.74.14
+      var num = (isTime)? self.str2sec(token, params0): Number(token);  // Ver.1.74.14  // Ver.2.117.26
       if(isNaN(num)){
         var sc = token.split("=");
         if(sc.length > 1){
@@ -586,7 +586,7 @@ My_entry.handler_wave.prototype.update_arr_token = function(arr_token, tokens, _
   var has1elem = (arr_token.length === 1 && token0 !== "");
   var hasChord = token0.match(self.regex.sn) || token0.match(self.regex.chord);
   var hasTime = token0.match(self.regex.qn) && !(hasChord);
-  var b1 = String(self.msec_60BPM);
+  var b1 = String(self.msec_BPM0);  // Ver.2.117.26
   var f0 = String(0);
   if(has1elem){
     if(self.isClear_command(token0, false)){
@@ -613,7 +613,7 @@ My_entry.handler_wave.prototype.update_params = function(arr_token, tokens, _par
   for(var prop in self.params){
     params[prop] = self.params[prop];
   }
-  params.sec = self.str2sec(arr_token[0]);  // Ver.1.73.14
+  params.sec = self.str2sec(arr_token[0], _params0);  // Ver.1.73.14  // Ver.2.117.26
   /* Ver.1.20.4 -> */
   var command = arr_token[2];
   /* Ver.1.70.14 -> */

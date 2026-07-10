@@ -54,7 +54,8 @@ My_entry.handler_wave.prototype.init = function(){
   self.regex.freq = /^f(.*)/;  // Ver.1.19.4
   self.regex.rest = /^r$/;  // Ver.1.65.14
   self.regex.table = "\\[(.*?)\\]";  // Ver.1.71.14  // Ver.1.97.21
-  self.msec_60BPM = 1000;  // Ver.1.19.4
+  self.BPM0 = 60;  // Ver.2.117.26
+  self.msec_BPM0 = 1000;  // Ver.1.19.4  // Ver.2.117.26
   /* Ver.1.84.15 -> */
   self.tables = {};  // Ver.1.97.21
   self.tables.note2index = {C: 0, "C#": 1, Db: 1, D: 2, "D#": 3, Eb: 3, E: 4, "E#": 5, Fb: 4, F: 5, "F#": 6, Gb: 6, G: 7, "G#": 8, Ab: 8, A: 9, "A#": 10, Bb: 10, B: 11, "B#": 0, "Cb": 11};  // Ver.1.90.19  // Ver.1.94.20
@@ -300,7 +301,8 @@ My_entry.handler_wave.prototype.init = function(){
       "A4",  // Ver.1.84.15
       "tune",  // Ver.1.84.15
       "root",  // Ver.1.84.15
-      "mode"  // Ver.1.84.15
+      "mode",  // Ver.1.84.15
+      "BPM"  // Ver.2.117.26
     ];
     self.hasProp = {};
     for(var n=0, len_n=self.props0.length; n<len_n; ++n){
@@ -810,6 +812,11 @@ My_entry.handler_wave.prototype.update_number_samples = function(){
   }
   return self;
 };
+/* Ver.2.117.26 */
+My_entry.handler_wave.prototype.calc_tempo = function(BPM){
+  var self = this;
+  return self.BPM0/BPM;
+};
 /* Ver.1.47.11 */
 My_entry.handler_wave.prototype.make_params = function(){
   var self = this;
@@ -894,9 +901,12 @@ My_entry.handler_wave.prototype.make_params = function(){
   /* Ver.1.17.4 -> */
   if(self.isScriptMode){
     /* Ver.1.52.11 -> */
-    var tempo = 60/$.inputNum_id("input-BPM");  // Ver.1.64.14
+    /* Ver.2.117.26 -> */
+    params.BPM = $.inputNum_id("input-BPM");
+    params.BPM = def.limit(params.BPM, 0, Number.MAX_VALUE, self.BPM0);  // Ver.1.19.4
+    var tempo = self.calc_tempo(params.BPM);  // Ver.1.64.14
+    /* -> Ver.2.117.26 */
     $._id("input-tempo").value = tempo;
-    params.tempo = tempo;
     var isAutoDfreq = $.checkbox_id("checkbox-autoDfreq");
     $.set_id("input-dfreq", "readOnly", isAutoDfreq);
     if(isAutoDfreq){
@@ -904,7 +914,6 @@ My_entry.handler_wave.prototype.make_params = function(){
     }
     /* -> Ver.1.52.11 */
     params.pitch = $.inputNum_id("input-pitch");  // Ver.1.64.14
-    params.tempo = def.limit(params.tempo, 0, Number.MAX_VALUE, 1);  // Ver.1.19.4
     params.pitch = def.limit(params.pitch, -16, 16, 0);  // Ver.1.83.15  // Ver.1.84.15
     params.maxAmp = $.checkbox_id("checkbox-maxAmp");  // Ver.1.45.11
     $._id("input-amplitude").classList[(!(params.maxAmp))? "add": "remove"]("selection");  // Ver.2.112.26
