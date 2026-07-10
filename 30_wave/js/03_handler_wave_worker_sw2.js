@@ -523,111 +523,143 @@ My_entry.handler_wave.prototype.isClear_command = function(command, checkError){
   /* -> Ver.1.65.14 */
   return _isClear;
 };
-My_entry.handler_wave.prototype.input2arr = function(input){
+/* Ver.2.116.26 -> */
+My_entry.handler_wave.prototype.apply_macro = function(input){
   var self = this;
-  var _arr_input = [];
-  /* Ver.1.41.9 -> */
-  var input_ = (My_entry.flag.hasFlagS)? input: input.replace(self.regex.s, "");  // Ver.1.43.11
-  input_ = self.entry.def.remove_comments(input_);  // Ver.1.89.19
   /* Ver.1.85.19 -> */
   var dict = {};
-  input_ = input_.replace(self.regex.macros, function(match, tag, content){
+  var _input = input.replace(self.regex.macros, function(match, tag, content){
     dict[tag] = content;
     return "";
   });
   for(var i=0; i<self.regex.macro_depthMax; ++i){
     var isChanged = false;
-    var input_prev = input_;
+    var input_prev = _input;
     for(var tag in dict){
-      input_ = input_.replace(self.regex.make_tag(tag), dict[tag]);
-      isChanged = isChanged || (input_ !== input_prev);
+      _input = _input.replace(self.regex.make_tag(tag), dict[tag]);
+      isChanged = isChanged || (_input !== input_prev);
     }
     if(!(isChanged)) break;
   }
   dict = null;
   /* -> Ver.1.85.19 */
+  return _input;
+};
+My_entry.handler_wave.prototype.script_original2channels = function(input){
+  var self = this;
   /* Ver.1.43.11 -> */
-  var mcb_ = input_.match(self.regex.mb);
-  if(mcb_ && mcb_.length){
+  var mcb = input.match(self.regex.mb);
+  if(mcb && mcb.length){
     var script_original = "";
-    mcb_.forEach(function(str, i){
+    mcb.forEach(function(str, i){
       script_original += str+"\n\n";
     });
     self.output_script(script_original);
     var mc_invalid = script_original.match(self.regex.macro);  // Ver.1.85.19
     if(mc_invalid) throw new Error(self.waveo.config.ERROR.title+"Invalid macro remained: "+mc_invalid[0]);  // Ver.1.42.10  // Ver.1.85.19
   }
-  var mcb = input_.replace(self.regex.s, "").match(self.regex.mb);
+  var _mcb = input.replace(self.regex.s, "").match(self.regex.mb);
   /* -> Ver.1.43.11 */
+  /* Ver.1.4.2 */
+  if(!(_mcb)) throw new Error(self.waveo.config.ERROR.title+"Invalid dataset");
+  return _mcb;
+};
+My_entry.handler_wave.prototype.str2channel = function(str){
+  var self = this;
+  /* Ver.1.106.22 -> */
+  var sc = str.split(self.regex.gain_channel);
+  var str_channel = sc[0];
+  var gain = Number(sc[1] || 1);
+  if(isNaN(gain) || gain < 0 || gain > 1) throw new Error(self.waveo.config.ERROR.title+"Invalid {channel}"+self.regex.gain_channel+gain);
+  /* -> Ver.1.106.22 */
+  return {str: str_channel, gain: gain};
+};
+My_entry.handler_wave.prototype.update_arr_token = function(arr_token, tokens, _params0){
+  var self = this;
+  var token0 = arr_token[0];
+  var token1 = arr_token[1];
+  var hasOnlyDataset_ext = token0.match("=");
+  if(hasOnlyDataset_ext){
+    self.make_params_extended(tokens, _params0);  // Ver.1.71.14
+    arr_token.length = 0;
+  }
+  var has1elem = (arr_token.length === 1 && token0 !== "");
+  var hasChord = token0.match(self.regex.sn) || token0.match(self.regex.chord);
+  var hasTime = token0.match(self.regex.qn) && !(hasChord);
+  var b1 = String(self.msec_60BPM);
+  var f0 = String(0);
+  if(has1elem){
+    if(self.isClear_command(token0, false)){
+      _params0 = {};
+    }
+    else if(hasTime){
+      arr_token.push(f0);
+    }
+    else{
+      arr_token.unshift(b1);
+    }
+  }
+  else{
+    hasTime = hasTime || !(isNaN(Number(token0)));
+    var hasChord = (hasTime)? token1: token0;
+    if(!(hasTime) && hasChord){
+      arr_token.unshift(b1);
+    }
+  }
+  return _params0;
+};
+My_entry.handler_wave.prototype.update_params = function(arr_token, tokens, _params0, params){
+  var self = this;
+  for(var prop in self.params){
+    params[prop] = self.params[prop];
+  }
+  params.sec = self.str2sec(arr_token[0]);  // Ver.1.73.14
+  /* Ver.1.20.4 -> */
+  var command = arr_token[2];
+  /* Ver.1.70.14 -> */
+  if(self.isClear_command(command, true)){
+    _params0 = {};
+  }
+  /* -> Ver.1.70.14 */
+  self.make_params_extended(tokens, _params0, params);  // Ver.1.69.14  // Ver.1.71.14
+  params.note = arr_token[1];  // Ver.1.100.21
+  params.arr_f = self.str2arr_f(params);  // Ver.1.73.14  // Ver.1.84.15  // Ver.1.91.19  // Ver.1.100.21
+  /* -> Ver.1.20.4 */
+  return _params0;
+};
+My_entry.handler_wave.prototype.input2arr = function(input){
+  var self = this;
+  var _arr_input = [];
+  /* Ver.1.41.9 -> */
+  var input_ = (My_entry.flag.hasFlagS)? input: input.replace(self.regex.s, "");  // Ver.1.43.11
+  input_ = self.entry.def.remove_comments(input_);  // Ver.1.89.19
+  input_ = self.apply_macro(input_);
+  var channels = self.script_original2channels(input_);
   /* -> Ver.1.41.9 */
   /* Ver.1.4.2 */
-  if(!(mcb)) throw new Error(self.waveo.config.ERROR.title+"Invalid dataset");
-  var number_channels = self.waveo.number_channels;  // from waveo
-  /* Ver.1.4.2 */
-  /* Ver.1.106.22 -> */
-  var len_i = mcb.length;
-  var len_band = Math.max(len_i/number_channels, 1);
-  /* -> Ver.1.106.22 */
-  mcb.forEach(function(str, i){
-    // include empty channel {}
+  var len_band = Math.max(channels.length/self.waveo.number_channels, 1);  // from waveo  // Ver.1.106.22
+  channels.forEach(function(str, i){  // include empty channel {}
     _arr_input[i] = [];
-    /* Ver.1.20.4 -> */
-    var params0 = {};
-    /* -> Ver.1.20.4 */
-    /* Ver.1.106.22 -> */
-    var sc = str.split(self.regex.gain_channel);
-    var str_channel = sc[0];
-    var gain = Number(sc[1] || 1);
-    if(isNaN(gain) || gain < 0 || gain > 1) throw new Error(self.waveo.config.ERROR.title+"Invalid {channel}"+self.regex.gain_channel+gain);
-    var arr_data = self.entry.def.split_outside_all_pairs(str_channel.replace(self.regex.rb, ""), ";");  // Ver.1.97.21
-    /* -> Ver.1.106.22 */
+    var params0 = {};  // Ver.1.20.4
+    var channel = self.str2channel(str);
+    var arr_data = self.entry.def.split_outside_all_pairs(channel.str.replace(self.regex.rb, ""), ";");  // Ver.1.97.21
     arr_data.forEach(function(tokens, j){
       var arr_token = self.entry.def.split_outside_all_pairs(tokens, ":");  // Ver.1.97.21
       /* Ver.1.44.11 -> */
-      var token0 = arr_token[0];
-      /* Ver.1.70.14 -> */
-      var hasOnlyDataset_ext = token0.match("=");
-      if(hasOnlyDataset_ext){
-        self.make_params_extended(tokens, params0);  // Ver.1.71.14
-        arr_token.length = 0;
-      }
-      var has1elem = (arr_token.length === 1 && token0 !== "");
-      if(has1elem){
-        if(self.isClear_command(token0, false)){
-          params0 = {};
-        }
-        else{
-          arr_token[0] = String(self.msec_60BPM);
-          arr_token[1] = (token0.match(self.regex.rest))? String(0): token0;
-        }
-      }
-      var hasDataset_base = (arr_token.length > 1);
-      /* -> Ver.1.70.14 */
+      params0 = self.update_arr_token(arr_token, tokens, params0);
+      var hasDataset_base = (arr_token.length > 1);  // Ver.1.70.14
       /* -> Ver.1.44.11 */
       if(hasDataset_base){
         var params = {};
-        for(var prop in self.params){
-          params[prop] = self.params[prop];
-        }
-        params.sec = self.str2sec(arr_token[0]);  // Ver.1.73.14
-        /* Ver.1.20.4 -> */
-        var command = arr_token[2];
-        /* Ver.1.70.14 -> */
-        if(self.isClear_command(command, true)){
-          params0 = {};
-        }
-        /* -> Ver.1.70.14 */
-        self.make_params_extended(tokens, params0, params);  // Ver.1.69.14  // Ver.1.71.14
-        params.note = arr_token[1];  // Ver.1.100.21
-        params.arr_f = self.str2arr_f(params);  // Ver.1.73.14  // Ver.1.84.15  // Ver.1.91.19  // Ver.1.100.21
-        /* -> Ver.1.20.4 */
-        params.gain_band = gain/len_band;  // Ver.1.73.14  // Ver.2.113.26
+        params0 = self.update_params(arr_token, tokens, params0, params);
+        params.gain_band = channel.gain/len_band;  // Ver.1.73.14  // Ver.2.113.26
         _arr_input[i].push(params);
       }
     });
   });
   return _arr_input;
 };
+/* -> Ver.2.116.26 */
 /* Ver.1.105.22 -> */
 My_entry.handler_wave.prototype.update_scripts = function(param0){
   var self = this;

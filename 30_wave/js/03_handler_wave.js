@@ -22,6 +22,7 @@ My_entry.handler_wave.prototype.init = function(){
   self.fileName_default = (self.isScriptMode)? "made_by_script": "download";  // Ver.1.68.14
   self.regex = {};
   self.regex.s = /\s/g;
+  self.regex.beat = "b";  // Ver.2.116.26
   self.regex.macro_prifix = "\\$";  // Ver.1.42.10  // Ver.1.85.19
   self.regex.macro_depthMax = 100;  // Ver.1.85.19
   /* Ver.1.43.11 -> */
@@ -41,7 +42,7 @@ My_entry.handler_wave.prototype.init = function(){
   /* -> Ver.1.43.11 */
   self.regex.rb = /\{|\}/g;
   self.regex.rl = /\[|\]/g;
-  self.regex.qn = /^(.*)?b(.*)?$/;  // Ver.1.19.4
+  self.regex.qn = new RegExp("^(.*)?"+self.regex.beat+"(.*)?$");  // Ver.1.19.4  // Ver.2.116.26
   self.regex.oc = /^o([+-]?\d+)c(\d+)$/;  // Ver.1.13.4
   self.regex.nc = /^n(\d+)$/;  // Ver.1.13.4
   self.regex.sn = /^([A-G])([+-]?\d+)?([sf#bn]*)$/;  // Ver.1.14.4  // Ver.1.84.15  // Ver.1.94.19  // Ver.1.94.21  // Ver.1.101.21
