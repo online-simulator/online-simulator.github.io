@@ -403,3 +403,18 @@ My_entry.def.prototype.replace_commentAndWspace = function(script, opt_c){
   return self.remove_commentAndWspace(script, function(str){return self.str2ccc(str, opt_c);});
 };
 /* -> calc-Ver.2.837.143 */
+/* wave-Ver.2.118.27 -> */
+My_entry.def.prototype.get_decDigit = function(num, n){
+  var self = this;
+  var str_num = String(num);
+  var sc = str_num.split(".");
+  return (sc[1])? Number(sc[1].charAt(n-1)): 0;
+};
+My_entry.def.prototype.get_nines = function(num){
+  var self = this;
+  var str_num = String(num);
+  var sc = str_num.split(".");
+  var mc = (sc[1])? sc[1].match(/^9+$/): null;
+  return (mc)? mc[0].length: 0;
+};
+/* -> wave-Ver.2.118.27 */

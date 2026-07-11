@@ -165,7 +165,7 @@ Generator
 <br>
 ?testcase=<a title="音源wave PCM生成（演奏）" href="30_wave/index2.html?testcase=glissando2">glissando2</a>
 <br>
-?testcase=<a title="音源wave PCM生成（演奏）" href="30_wave/index2.html?testcase=0">0</a>||<a title="音源wave PCM生成（演奏）" href="30_wave/index2.html?testcase=duty0">duty0</a>||<a title="音源wave PCM生成（演奏）" href="30_wave/index2.html?testcase=duty1">duty1</a>
+?testcase=<a title="音源wave PCM生成（演奏）" href="30_wave/index2.html?testcase=0">0</a>||<a title="音源wave PCM生成（演奏）" href="30_wave/index2.html?testcase=duty0">duty0</a>||<a title="音源wave PCM生成（演奏）" href="30_wave/index2.html?testcase=duty1">duty1</a>+<a title="音源wave PCM生成（演奏）" href="30_wave/index2.html?testcase=duty1_vibrato">vibrato</a>
 <br>
 ?testcase=<a title="音源wave PCM生成（演奏）" href="30_wave/index2.html?testcase=1">1</a>-<a title="音源wave PCM生成（演奏）" href="30_wave/index2.html?testcase=1&tVer=1">Ver.1</a>
 <br>
@@ -373,6 +373,36 @@ Y/M/D
   </tr>
 </thead>
 <tbody>
+  <tr>
+    <th>
+7.542.730.32.201
+    </th>
+    <td class="types">
+Generator
+    </td>
+    <td>
+2.118.27
+    </td>
+    <td class="clear">
+minor bug-fix
+<br>
+1.80.15~
+    </td>
+    <td>
+[音源wave PCM生成]
+<br>
+・math_wave.js self.normalize_t/phi() modified for duty+vibrato
+<br>
+・math_wave.js self.table() updated order=1　⇒　3 for isEqual_dx
+<br>
+・f_vib updated
+<br>
+・testcase-duty1+vibrato added
+    </td>
+    <td>
+2026/7/12
+    </td>
+  </tr>
   <tr>
     <th>
 7.542.730.32.200

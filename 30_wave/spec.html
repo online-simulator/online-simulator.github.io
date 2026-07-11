@@ -21,6 +21,30 @@
       <caption><span id="span-history">演奏機能の更新履歴</span></caption>
       <tbody>
         <tr class="border">
+          <td class="border clear">
+Ver.2.118.27
+          </td>
+          <td class="border">
+・vibrato中のt_dutyの連続性の不備を修正（phiの剰余演算の厳密化を含む）
+<br>
+　t_duty：t*freqの重複あり　⇒　重複なし（同期的なphiの進捗のみ）
+<br>
+・table補間を更新（等分割の場合、3次Hermit補間）
+<br>
+・f_vibを更新
+<br>
+　小数点以下の有効桁数：無制限　⇒　trunc(2桁)（符号の対称性を考慮）
+<br>
+　平均律の深度：半音/2　⇒　全音*小数点以下3桁目/12（0の場合、後方互換性を維持）
+<br>
+・for_url.jsに更新の00_def.jsを追加（要refresh）
+<br>
+・math_waveの高速化の検討は保留（tとphiの任意性を担保）
+<br>
+・testcase-duty1+vibratoを追加
+          </td>
+        </tr>
+        <tr class="border">
           <td class="border run">
 Ver.2.118.26
           </td>

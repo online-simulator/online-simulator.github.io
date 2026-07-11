@@ -392,6 +392,7 @@ My_entry.output_wave.prototype.arrb_float32_to_buffer = function(arrb_float32){
 };
 My_entry.output_wave.prototype.encode_soundData_LE = function(params){  // Ver.1.25.4
   var self = this;
+  var def = self.entry.def;  // Ver.2.118.27
   var math_wave = self.entry.math_wave;  // Ver.1.56.12
   /* Ver.1.103.22 -> */
   var Bytes_perSample = params.Bytes_perSample;
@@ -406,11 +407,19 @@ My_entry.output_wave.prototype.encode_soundData_LE = function(params){  // Ver.1
   var w1 = params.w1;
   var p0 = params.p0;
   var p1 = params.p1;
+  /* Ver.2.118.27 -> */
   /* Ver.1.56.11 -> */
-  var useVib = params.f_vib;
+  var pi2 = Math.PI*2;
+  var f_vib0 = params.f_vib;
+  var f_vib = Math.trunc(f_vib0*1e2)/1e2;  // Ver.2.118.27 ES2015
   var dkf_vib = (Math.pow(2, 1/12)-1)/2;
-  var omega_vib = Math.PI*2*params.f_vib;
+  var omega_vib = pi2*f_vib;
+  var depth_vib = def.get_decDigit(f_vib0, 3);
+  if(depth_vib){
+    dkf_vib = (Math.pow(2, 2/12)-1)*depth_vib/12;
+  }
   /* -> Ver.1.56.11 */
+  /* -> Ver.2.118.27 */
   /* Ver.1.40.8 -> */
   var isFade_time = (order_fade >= 0);
   var sw_fade = (isFade_time)? self.samples_perSecond: number_samples;
@@ -450,6 +459,7 @@ My_entry.output_wave.prototype.encode_soundData_LE = function(params){  // Ver.1
   var hasTio = (params.ti || params.to);  // Ver.1.74.14
   var arr_f = params.arr_f;
   var arr_g = params.arr_g_normalized;
+  var arr_duty = [];  // Ver.2.118.27
   var arr_phi = [];  // Ver.1.80.14
   if(overtone > 1){
     arr_f = [];
@@ -485,10 +495,11 @@ My_entry.output_wave.prototype.encode_soundData_LE = function(params){  // Ver.1
   var t10 = 0;  // Ver.1.77.14
   var len_overlap = 0;  // Ver.1.77.14
   for(var i=0, len=arr_f.length; i<len; ++i){  // Ver.1.64.14
+    arr_duty[i] = params.duty0;  // Ver.2.118.27
     /* Ver.1.80.15 -> */
-    var phii = arr_phi[i] || 0;
-    phii += (hasRand_phi0)? Math.PI*2*Math.random(): 0;  // Ver.1.34.6
-    arr_phi[i] = phii;
+    var phii0 = arr_phi[i] || 0;  // Ver.2.118.27
+    phii0 += (hasRand_phi0)? pi2*Math.random(): 0;  // Ver.1.34.6
+    arr_phi[i] = phii0;
     /* -> Ver.1.80.15 */
     /* Ver.1.74.14 -> */
     if(hasTio){
@@ -657,16 +668,13 @@ My_entry.output_wave.prototype.encode_soundData_LE = function(params){  // Ver.1
     var duty = interp_f(dt, params.duty0, params.duty1, params.order_d);  // Ver.1.75.14
     /* -> Ver.1.31.6 */
     /* -> Ver.1.20.4 */
-    /* Ver.1.24.4 -> */
-    /* Ver.1.26.4 -> */
-    var kdf = (useVib)? Math.sin(omega_vib*t)*dkf_vib: 0;  // Ver.1.56.11
-    /* -> Ver.1.26.4 */
-    /* -> Ver.1.24.4 */
     var val = 0;
     // composite waves
-    arr_f.forEach(function(f, i){  // Ver.1.64.14
+    for(var i=0, len=arr_f.length; i<len; ++i){  // Ver.1.64.14
+      var fi = arr_f[i];  // Ver.2.118.27
+      var dutyi = arr_duty[i];  // Ver.2.118.27
       /* Ver.1.75.14 -> */
-      var f0 = f;
+      var f0 = fi;
       var f1 = f0*params.rate;
       /* Ver.1.74.14 -> */
       var dti = dt;
@@ -691,7 +699,8 @@ My_entry.output_wave.prototype.encode_soundData_LE = function(params){  // Ver.1
       }
       var ft = interp_f(dti, f0, f1, params.order);
       /* Ver.1.56.11 -> */
-      if(useVib){
+      if(f_vib){  // Ver.2.118.27
+        var kdf = Math.sin(omega_vib*t)*dkf_vib;  // Ver.1.24.4  // Ver.1.26.4
         var dft = kdf*ft;
         ft += dft;
       }
@@ -701,10 +710,16 @@ My_entry.output_wave.prototype.encode_soundData_LE = function(params){  // Ver.1
       /* -> Ver.1.75.14 */
       /* Ver.1.56.12 -> */
       var phii = arr_phi[i];
-      val += gaint*func_t(ft, seconds_perSample, phii, duty, table);  // gain first  // Ver.1.16.4  // Ver.1.25.4  // Ver.1.71.14
-      arr_phi[i] = math_wave.normalize_phi(ft, seconds_perSample, phii);
+      val += gaint*func_t(ft, 0, phii, dutyi, table);  // gain first  // Ver.1.16.4  // Ver.1.25.4  // Ver.1.71.14  // Ver.2.118.27 0, phii, dutyi
+      /* Ver.2.118.27 -> */
+      var phi_next = math_wave.normalize_phi(ft, seconds_perSample, phii);
+      if(phi_next < phii){
+        arr_duty[i] = duty;
+      }
+      arr_phi[i] = phi_next;
+      /* -> Ver.2.118.27 */
       /* -> Ver.1.56.12 */
-    });
+    }
     val *= get_newAmp(ns);
     for(var nc=0; nc<number_channels; ++nc){
       _arrb_float32[ns*number_channels+nc] = val;  // Ver.2.112.26
