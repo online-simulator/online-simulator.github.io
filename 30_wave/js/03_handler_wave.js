@@ -506,7 +506,7 @@ My_entry.handler_wave.prototype.init_handlers = function(){
     self.make_params();
     self.waveo.init(self.params.Bytes_perSample, self.params.samples_perSecond, self.params.number_channels, self.params.isFloat);  // Ver.2.112.26
     self.update_number_samples();  // Ver.1.59.13
-    self.output_amplitude_max({_amplitude_max: (self.params.maxAmp)? self.pre_maxAmp: ""});  // Ver.1.35.6  // Ver.1.45.11  // Ver.1.64.14  // Ver.2.112.26
+    self.output_amplitude_max({_amplitude_max: (self.params.maxAmp)? self.pre_maxAmp: "", maxAmp: self.params.maxAmp});  // Ver.1.35.6  // Ver.1.45.11  // Ver.1.64.14  // Ver.2.112.26  // Ver.2.118.26
     if(self.isScriptMode){
       self.output_time("");
     }
@@ -525,33 +525,40 @@ My_entry.handler_wave.prototype.init_handlers = function(){
   };
   return self;
 };
+/* Ver.2.118.26 */
+My_entry.handler_wave.prototype.update_class = function(id, isSelection, isClear, opt_elem){
+  var self = this;
+  var elem = opt_elem || self.entry.$._id(id);
+  var isBoolean = function(flag){return (flag === false || flag === true);};
+  if(isBoolean(isSelection) || isBoolean(isClear)){
+    elem.classList.remove("selection");
+    elem.classList.remove("clear");
+  }
+  if(isClear) elem.classList.add("clear");
+  else if(isSelection) elem.classList.add("selection");
+  return self;
+};
 /* Ver.1.102.22 */
 My_entry.handler_wave.prototype.check_notes = function(){
   var self = this;
   var $ = self.entry.$;
   var elem_lockPitch = $._id("checkbox-lockPitch").parentElement;
   var elem_useEqual_interpolation = $._id("checkbox-useEqual_interpolation").parentElement;
-  elem_lockPitch.classList.remove("clear");
-  elem_useEqual_interpolation.classList.remove("clear");
   Object.keys(self.tables.note2index).forEach(function(key){
     var ans0 = self.get_freq(key, {lockPitch: true})/self.get_freq(key, {lockPitch: false});
     var ans1 = self.get_freq(key, {lockPitch: false, useEqual_interpolation: true})/self.get_freq(key, {lockPitch: false, useEqual_interpolation: false});
     var ans2 = self.get_freq(key, {lockPitch: true, useEqual_interpolation: true})/self.get_freq(key, {lockPitch: true, useEqual_interpolation: false});
     var unmatch = function(ans){return (Math.abs(ans-1) > Number.EPSILON*1e8);};
-    if(unmatch(ans0)) elem_lockPitch.classList.add("clear");
-    if(unmatch(ans1)) elem_useEqual_interpolation.classList.add("clear");
-    if(unmatch(ans2)) elem_useEqual_interpolation.classList.add("clear");
+    self.update_class(null, null, unmatch(ans0), elem_lockPitch);  // Ver.2.118.26
+    self.update_class(null, null, unmatch(ans1) || unmatch(ans2), elem_useEqual_interpolation);  // Ver.2.118.26
   });
   var check = function(type, str){
     var elem = $._id("input-"+type);
     if(elem){
       var input = $.inputVal_id("input-"+type);
       var hasInput = input.match(self.regex.notes);
-      elem.classList.remove("selection");
-      elem.classList.remove("clear");
-      if(input !== (str || "")){
-        elem.classList.add((hasInput)? "selection": "clear");
-      }
+      var isChanged = (input !== (str || ""));
+      self.update_class("input-"+type, isChanged, isChanged && !(hasInput));  // Ver.2.118.26
     }
   };
   check("base", self.str_base);
@@ -717,8 +724,7 @@ My_entry.handler_wave.prototype.output_amplitude_max = function(data){
   var amplitude = data.kampli;
   var amplitude_max = data._amplitude_max;
   var isClear = (amplitude && amplitude_max && amplitude > amplitude_max);
-  if(isClear) self.entry.$._id("input-amplitude").classList["remove"]("selection");
-  self.entry.$._id("input-amplitude").classList[(isClear)? "add": "remove"]("clear");
+  self.update_class("input-amplitude", (data.maxAmp)? false: null, isClear);  // Ver.2.118.26
   self.entry.$._id("input-amplitude_max").value = amplitude_max;
   return self;
 };
@@ -854,13 +860,10 @@ My_entry.handler_wave.prototype.make_params = function(){
   params.p0 = $.selectNum_id("select-p0");
   params.w1 = $.selectNum_id("select-w1");
   params.p1 = $.selectNum_id("select-p1");
-  $._id("select-w0").classList[(params.w0 && params.p0)? "add": "remove"]("selection");  // Ver.1.109.24
-  $._id("select-w1").classList[(params.w1 && params.p1)? "add": "remove"]("selection");  // Ver.1.109.24
   params.f0 = $.selectNum_id("select-f0");
   params.g0 = $.selectNum_id("select-g0");
   params.f1 = $.selectNum_id("select-f1");
   params.g1 = $.selectNum_id("select-g1");
-  $._id("select-g1").classList[(params.g1 !== params.g0)? "add": "remove"]("clear");  // Ver.1.106.23
   /* Ver.1.24.4 -> */
   var base0 = 2;
   var expo0 = $.inputNum_id("input-rate");  // Ver.1.64.14
@@ -880,7 +883,6 @@ My_entry.handler_wave.prototype.make_params = function(){
   /* Ver.1.38.8 -> */
   params.order_fade = $.selectNum_id("select-order-fade");
   /* -> Ver.1.38.8 */
-  $._id("select-order-fade").classList[((params.w0 && params.p0) || (params.w1 && params.p1))? "add": "remove"]("selection");  // Ver.1.109.24
   params.f_vib = $.inputNum_id("input-f_vib");  // Ver.1.57.12  // Ver.1.64.14
   params.overtone = $.inputNum_id("input-overtone");  // Ver.1.64.14
   params.ti = 0;  // Ver.1.74.14
@@ -916,11 +918,9 @@ My_entry.handler_wave.prototype.make_params = function(){
     params.pitch = $.inputNum_id("input-pitch");  // Ver.1.64.14
     params.pitch = def.limit(params.pitch, -16, 16, 0);  // Ver.1.83.15  // Ver.1.84.15
     params.maxAmp = $.checkbox_id("checkbox-maxAmp");  // Ver.1.45.11
-    $._id("input-amplitude").classList[(!(params.maxAmp))? "add": "remove"]("selection");  // Ver.2.112.26
     /* Ver.1.29.4 -> */
     params.blend = $.selectNum_id("select-blend");  // Ver.1.104.22
     params.dfreq = $.inputNum_id("input-dfreq");  // Ver.1.64.14
-    $._id("select-blend").classList[(params.dfreq)? "add": "remove"]("selection");  // Ver.1.104.22
     params.dfreq = def.limit(params.dfreq, -Number.MAX_VALUE, Number.MAX_VALUE, 0);
     /* Ver.1.32.6 -> */
     params.s_random = $.inputNum_id("input-s_random");  // Ver.1.64.14
@@ -938,7 +938,6 @@ My_entry.handler_wave.prototype.make_params = function(){
     params.fc = $.inputNum_id("input-fc");  // Ver.1.64.14
     params.fc = def.limit(params.fc, 0, params.samples_perSecond, 0);
     /* -> Ver.1.18.4 */
-    $._id("input-fc").classList[(params.order_filter)? "add": "remove"]("clear");
     /* -> Ver.1.106.23 */
     params.ver_script = $.selectNum_id("select-script-Ver");  // Ver.1.70.14
   }
@@ -949,5 +948,33 @@ My_entry.handler_wave.prototype.make_params = function(){
     params.amplitude0 *= params.kampli;  // Ver.1.75.14
     params.amplitude1 *= params.kampli;  // Ver.1.75.14
   }
+  /* Ver.2.118.26 -> */
+  self.update_class("select-Bytes_perSample", Bytes_perSample > 0, Bytes_perSample === 1);
+  self.update_class("select-samples_perSecond", params.samples_perSecond > 44100, params.samples_perSecond < 44100);
+  self.update_class("select-number_channels", null, params.number_channels === 1);
+  self.update_class("select-type", $._id("select-type").selectedIndex%8 === 1, $._id("select-type").selectedIndex%8 > 1);
+  self.update_class("input-duty", params.duty0 !== 0.5);
+  self.update_class("input-A4", params.A4 !== self.pitch_base);
+  self.update_class("select-root", !($.inputVal_id("input-root")) && $._id("select-root").selectedIndex !== 0);
+  self.update_class("select-tune", !!(params.tune));
+  self.update_class("select-mode", !!(params.mode));
+  self.update_class("input-rate", !!(expo0));
+  self.update_class("input-order", !!(expo0) && !!(expo1));
+  self.update_class("input-f_vib", !!(params.f_vib));
+  self.update_class("input-overtone", !!(params.overtone));
+  self.update_class("input-time", params.sec !== 1);
+  self.update_class("select-w0", !!(params.w0 && params.p0));  // Ver.1.109.24
+  self.update_class("select-w1", !!(params.w1 && params.p1));  // Ver.1.109.24
+  self.update_class("select-order-fade", !!((params.w0 && params.p0) || (params.w1 && params.p1)));  // Ver.1.109.24
+  self.update_class("select-g1", null, params.g1 !== params.g0);  // Ver.1.106.23
+  if(self.isScriptMode){
+    self.update_class("input-BPM", params.BPM !== self.BPM0*2);
+    self.update_class("input-pitch", !!(params.pitch));
+    self.update_class("input-amplitude", !(params.maxAmp));  // Ver.2.112.26
+    self.update_class("select-blend", !!(params.dfreq));  // Ver.1.104.22
+    self.update_class("select-order-filter", params.order_filter !== 3, params.order_filter === 0);
+    self.update_class("input-fc", null, !!(params.order_filter));  // Ver.1.106.23
+  }
+  /* -> Ver.2.118.26 */
   return self;
 };
