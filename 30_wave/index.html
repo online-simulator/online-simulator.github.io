@@ -735,7 +735,7 @@ filter gain:
   <option>0.0001</option>
   <option>0.001</option>
   <option>0.01</option>
-  <option selected="selected">0.1</option>
+  <option>0.1</option>
   <option>0.2</option>
   <option>0.3</option>
   <option>0.4</option>
@@ -744,8 +744,34 @@ filter gain:
   <option>0.7</option>
   <option>0.8</option>
   <option>0.9</option>
-  <option>1</option>
+  <option selected="selected">1</option>
 </select>
+  </label>
+    </td>
+  </tr>
+  <tr class="border">
+    <td>
+Low Pass Filter:
+    </td>
+    <td>
+  <label>order_filter:
+<select id="select-order-filter">
+  <option value="0">0: 0dB/dec</option>
+  <option value="1">1: -20dB/dec</option>
+  <option value="2">2: -40dB/dec</option>
+  <option value="3" selected="selected">3: -60dB/dec</option>
+  <option value="4">4: -80dB/dec</option>
+  <option value="5">5: -100dB/dec</option>
+  <option value="6">6: -120dB/dec</option>
+  <option value="7">7: -140dB/dec</option>
+  <option value="8">8: -160dB/dec</option>
+  <option value="9">9: -180dB/dec</option>
+  <option value="10">10: -200dB/dec</option>
+</select>
+  </label>
+<br>
+  <label>cut-off fc[Hz]:
+<input id="input-fc" type="number" step="100" min="0" max="48000" value="4000">
   </label>
     </td>
   </tr>

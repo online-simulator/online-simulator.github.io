@@ -87,6 +87,8 @@ My_entry.output_wave.prototype.init = function(Bytes_perSample, samples_perSecon
   self.Bytes_perBlock    = self.Bytes_perSample*self.number_channels;
   self.Bytes_perSecond   = self.Bytes_perBlock*self.samples_perSecond;
   self.ba_type = {b: /_rand$/, a: ""};  // Ver.1.34.6
+  self.fc0 = 440*2;  // Ver.2.120.27
+  self.dfc1 = 1e4;  // Ver.2.120.27
   return self;
 };
 /* Ver.1.103.22 -> */
@@ -302,13 +304,13 @@ My_entry.output_wave.prototype.check_limit = function(_params){
     _params[prop] = def.limit(_params[prop], 0, 1, 0);
   });
   if(typeof _params.f0 === "undefined"){
-    _params.f0 = 440*2;  // Ver.1.106.23
+    _params.f0 = self.fc0;  // Ver.1.106.23  // Ver.2.120.27
     _params.f1 = _params.f0*10;  // Ver.1.106.23
     _params.g0 = 1;
     _params.g1 = _params.g0/10;  // Ver.1.106.23
   }
   ["f0", "f1"].forEach(function(prop){
-    _params[prop] = def.limit(_params[prop], 0, Number.MAX_VALUE, 440*2);  // Ver.1.106.23
+    _params[prop] = def.limit(_params[prop], 0, Number.MAX_VALUE, self.fc0);  // Ver.1.106.23  // Ver.2.120.27
   });
   ["g0", "g1"].forEach(function(prop){
     _params[prop] = def.limit(_params[prop], 0, 1, 1);
@@ -334,6 +336,11 @@ My_entry.output_wave.prototype.check_limit = function(_params){
     _params[prop] = def.limit(_params[prop], 0, Number.MAX_VALUE, 0);
   });
   /* -> Ver.1.74.14 */
+  /* Ver.2.120.27 -> */
+  ["order_filter"].forEach(function(prop){
+    _params[prop] = def.limit(_params[prop], 0, 10.99, 0);
+  });
+  /* -> Ver.2.120.27 */
   return _params;
 };
 My_entry.output_wave.prototype.check_params = function(_params){
@@ -431,7 +438,7 @@ My_entry.output_wave.prototype.encode_soundData_LE = function(params){  // Ver.1
   amplitude1 *= (useADSR)? order_fade%1: 1;
   var useFade = (params.p0 || params.p1) && ((useADSR)? 3: order_fade%1 === 0 && Math.abs(order_fade));
   var hasOutside = (params.isScript && useADSR);
-  var ksamples = (hasOutside)? Math.max(1, Math.min(w0/Math.log(amplitude0/amplitude1), w1)*10)+dns1/number_samples: 1;
+  var ksamples = (hasOutside)? Math.max(1, Math.min(w0/Math.log(amplitude0/amplitude1), w1*((w1 === 1)? 10: 1))*10)+dns1/number_samples: 1;  // Ver.2.120.27
   number_samples = Math.floor(number_samples*ksamples);
   dns1 = Math.min(dns1, number_samples-1-dns0);
   var ns_in = dns0;
@@ -442,6 +449,36 @@ My_entry.output_wave.prototype.encode_soundData_LE = function(params){  // Ver.1
   var amplitude = 1;  // Ver.2.112.26
   var seconds_perSample = 1/self.samples_perSecond;
   var tend = number_samples*seconds_perSample;  // Ver.1.74.14
+  /* Ver.2.120.27 -> */
+  /* Ver.1.106.23 -> */
+  var order_filter0 = params.order_filter;
+  var order_filter = Math.floor(order_filter0);
+  var fc = params.fc;
+  var kfc_order = 1/Math.sqrt(Math.pow(2, 1/order_filter)-1);
+  var fc0 = fc;
+  var fc1 = fc;
+  var alpha = 0;
+  var velocity = def.get_decDigit(order_filter0, 1)/10;
+  var attack = def.get_decDigit(order_filter0, 2)/10;
+  var decay = def.get_decDigit(order_filter0, 3)/10;
+  var useDecay = !!(order_filter && velocity);
+  if(useDecay){
+    var decay_base = 1;
+    alpha = decay_base/((0.5+velocity)*(decay || Number.EPSILON));
+    fc1 += self.dfc1*Math.pow(velocity, 2);
+    fc0 = Math.min(fc0, self.fc0);
+  }
+  var get_wr = function(t){
+    var fc = (t < attack)? fc1*t/attack: fc0+(fc1-fc0)*Math.exp(-alpha*(t-attack));
+    return 1/(1+pi2*fc*kfc_order*seconds_perSample);
+  };
+  var wr = get_wr(0);
+  var oldAmps = new Array(order_filter);  // Ver.1.106.22
+  for(var k=0; k<order_filter; ++k){
+    oldAmps[k] = 0;
+  }
+  /* -> Ver.1.106.23 */
+  /* -> Ver.2.120.27 */
   /* Ver.1.16.4 -> */
   var fn = math_wave[params.type];  // Ver.1.25.4  // Ver.1.34.6  // Ver.1.46.11  // Ver.1.56.12  // Ver.1.71.14
   var table = params._table;  // Ver.1.71.14
@@ -721,6 +758,12 @@ My_entry.output_wave.prototype.encode_soundData_LE = function(params){  // Ver.1
       /* -> Ver.1.56.12 */
     }
     val *= get_newAmp(ns);
+    /* Ver.2.120.27 -> */
+    if(useDecay) wr = get_wr(t);
+    for(var k=0; k<order_filter; ++k){
+      oldAmps[k] = val = wr*oldAmps[k]+(1-wr)*val;  // wr first  // Ver.1.106.23  // Ver.1.108.24
+    }
+    /* -> Ver.2.120.27 */
     for(var nc=0; nc<number_channels; ++nc){
       _arrb_float32[ns*number_channels+nc] = val;  // Ver.2.112.26
     }

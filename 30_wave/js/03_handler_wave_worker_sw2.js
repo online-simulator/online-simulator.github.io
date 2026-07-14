@@ -17,22 +17,10 @@ My_entry.handler_wave.prototype.composite_buffer_soundData_LE = function(data){ 
   var hasCh2 = (self.scripts.arr_buffers.length > 1);  // Ver.1.103.22  // Ver.1.105.22  // Ver.1.108.23
   var isStereo = (number_channels === 2);
   var isNotExist_ch2 = !(hasCh2) && isStereo;
-  /* Ver.1.106.23 -> */
-  var order_filter = data.order_filter;
-  var fc = data.fc;
-  var kfc_order = 1/Math.sqrt(Math.pow(2, 1/order_filter)-1);
-  var wr = 1/(1+pi2*fc*kfc_order/samples_perSecond);
-  /* -> Ver.1.106.23 */
   /* Ver.1.35.6 -> */
   /* Ver.1.108.23 -> */
   self.scripts.arr_buffers.forEach(function(buffers, i){  // Ver.1.103.22  // Ver.1.105.22
     var n_offset = i%number_channels;
-    /* Ver.1.106.23 -> */
-    var oldAmps = new Array(order_filter);  // Ver.1.106.22
-    for(var k=0; k<order_filter; ++k){
-      oldAmps[k] = 0;
-    }
-    /* -> Ver.1.106.23 */
   buffers.forEach(function(buffer, j){
     var outView = new Float32Array(buffer.out);  // Ver.1.48.11  // Ver.1.110.24
     /* Ver.1.18.4 -> */
@@ -40,21 +28,12 @@ My_entry.handler_wave.prototype.composite_buffer_soundData_LE = function(data){ 
     var ne = buffer.ne;
     for(var n=ns; n<=ne; ++n){  // Ver.1.105.22
       var n_out = n-ns;
-      /* Ver.1.106.22 -> */
       var ampVali = outView[n_out];
-      /* Ver.1.108.24 -> */
-      /* Ver.1.106.23 -> */
-      for(var k=0; k<order_filter; ++k){
-        oldAmps[k] = ampVali = wr*oldAmps[k]+(1-wr)*ampVali;  // wr first
-      }
-      /* -> Ver.1.106.23 */
-      /* -> Ver.1.108.24 */
       var n_new = n*number_channels+n_offset;
       _arrb_float32[n_new] += ampVali;  // sum_channel[0,i-1]+channel[i]
       if(isNotExist_ch2){
         _arrb_float32[n_new+1] += ampVali;
       }
-      /* -> Ver.1.106.22 */
     }
     /* -> Ver.1.18.4 */
   });

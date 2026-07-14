@@ -302,7 +302,8 @@ My_entry.handler_wave.prototype.init = function(){
       "tune",  // Ver.1.84.15
       "root",  // Ver.1.84.15
       "mode",  // Ver.1.84.15
-      "BPM"  // Ver.2.117.26
+      "BPM",  // Ver.2.117.26
+      "order_filter"  // Ver.2.120.27
     ];
     self.hasProp = {};
     for(var n=0, len_n=self.props0.length; n<len_n; ++n){
@@ -900,6 +901,13 @@ My_entry.handler_wave.prototype.make_params = function(){
   }
   params.volume = volume;
   params.fileSizeMax = $.selectNum_id("select-fileSizeMax");
+  /* Ver.1.106.23 -> */
+  /* Ver.1.18.4 -> */
+  params.order_filter = $.selectNum_id("select-order-filter");
+  params.fc = $.inputNum_id("input-fc");  // Ver.1.64.14
+  params.fc = def.limit(params.fc, 0, params.samples_perSecond, 0);
+  /* -> Ver.1.18.4 */
+  /* -> Ver.1.106.23 */
   /* Ver.1.17.4 -> */
   if(self.isScriptMode){
     /* Ver.1.52.11 -> */
@@ -931,14 +939,6 @@ My_entry.handler_wave.prototype.make_params = function(){
     params.s_stereo = def.limit(params.s_stereo, 0, 100, 0);
     /* -> Ver.1.33.6 */
     /* -> Ver.1.29.4 */
-    /* Ver.1.106.23 -> */
-    /* Ver.1.18.4 -> */
-    params.order_filter = $.selectNum_id("select-order-filter");
-    params.order_filter = def.limit(params.order_filter, 0, 10, 3);
-    params.fc = $.inputNum_id("input-fc");  // Ver.1.64.14
-    params.fc = def.limit(params.fc, 0, params.samples_perSecond, 0);
-    /* -> Ver.1.18.4 */
-    /* -> Ver.1.106.23 */
     params.ver_script = $.selectNum_id("select-script-Ver");  // Ver.1.70.14
   }
   /* -> Ver.1.17.4 */
@@ -967,13 +967,13 @@ My_entry.handler_wave.prototype.make_params = function(){
   self.update_class("select-w1", !!(params.w1 && params.p1));  // Ver.1.109.24
   self.update_class("select-order-fade", !!((params.w0 && params.p0) || (params.w1 && params.p1)));  // Ver.1.109.24
   self.update_class("select-g1", null, params.g1 !== params.g0);  // Ver.1.106.23
+  self.update_class("select-order-filter", params.order_filter !== 3, params.order_filter === 0);
+  self.update_class("input-fc", null, !!(params.order_filter));  // Ver.1.106.23
   if(self.isScriptMode){
     self.update_class("input-BPM", params.BPM !== self.BPM0*2);
     self.update_class("input-pitch", !!(params.pitch));
     self.update_class("input-amplitude", !(params.maxAmp));  // Ver.2.112.26
     self.update_class("select-blend", !!(params.dfreq));  // Ver.1.104.22
-    self.update_class("select-order-filter", params.order_filter !== 3, params.order_filter === 0);
-    self.update_class("input-fc", null, !!(params.order_filter));  // Ver.1.106.23
   }
   /* -> Ver.2.118.26 */
   return self;

@@ -21,6 +21,38 @@
       <caption><span id="span-history">演奏機能の更新履歴</span></caption>
       <tbody>
         <tr class="border">
+          <td class="border run">
+Ver.2.120.27
+          </td>
+          <td class="border">
+・Low Pass Filterを更新（楽器依存のvelocityとatack/decayの追加）
+<br>
+　適用：post処理（演奏のみ）　⇒　encode処理（単音||和音を含む）
+<br>
+・拡張datasetにorder_filetrの項目を追加
+<br>
+　filter次数：floor(order_filter)
+<br>
+　velocity：order_filterの小数点以下1桁目/10（fc初期値の増分∝velocity**2・fcの減衰係数∝1/(0.5+velocity)）
+<br>
+　attack長：order_filterの小数点以下2桁目/10（立上がりのfc∝t/attack）
+<br>
+　decay長：order_filterの小数点以下3桁目/10（fcの減衰係数∝1/decay）
+<br>
+・ADSR長を更新（w1=1の場合、w0の目標値まで延長を確定）
+<br>
+w0=0.7; 1/e**(w0*10) -> 0.0009118819655545165（振幅減衰の目標）
+<br>
+order_fade=0.7; -w0*10/log(order_fade) -> 19.6257127643999（延長の倍率）
+<br>
+・testcase-ADSRを追加
+<br>
+・?full-linksを更新（orchestraの一例を追加）
+<br>
+　楽器table：ADSRの要調整（本来、dutyとovertoneを内包）
+          </td>
+        </tr>
+        <tr class="border">
           <td class="border">
 Ver.2.119.27
           </td>
