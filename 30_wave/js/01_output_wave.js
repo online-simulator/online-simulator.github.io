@@ -437,7 +437,7 @@ My_entry.output_wave.prototype.encode_soundData_LE = function(params){  // Ver.1
   amplitude0 *= 1;
   amplitude1 *= (useADSR)? order_fade%1: 1;
   var useFade = (params.p0 || params.p1) && ((useADSR)? 3: order_fade%1 === 0 && Math.abs(order_fade));
-  var hasOutside = (params.isScript && useADSR);
+  var hasOutside = (params.isScript && !(params.isRest) && useADSR);  // Ver.2.121.27
   var ksamples = (hasOutside)? Math.max(1, Math.min(w0/Math.log(amplitude0/amplitude1), w1*((w1 === 1)? 10: 1))*10)+dns1/number_samples: 1;  // Ver.2.120.27
   number_samples = Math.floor(number_samples*ksamples);
   dns1 = Math.min(dns1, number_samples-1-dns0);
@@ -445,6 +445,7 @@ My_entry.output_wave.prototype.encode_soundData_LE = function(params){  // Ver.1
   var ns_out = number_samples-1-dns1;
   /* -> Ver.1.109.24 */
   var _arrb_float32 = new Float32Array(number_samples*number_channels);  // Ver.2.112.26 ES2015
+  if(params.isRest) return _arrb_float32;  // Ver.2.121.27
   /* -> Ver.1.103.22 */
   var amplitude = 1;  // Ver.2.112.26
   var seconds_perSample = 1/self.samples_perSecond;

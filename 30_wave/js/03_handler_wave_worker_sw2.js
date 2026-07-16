@@ -21,22 +21,25 @@ My_entry.handler_wave.prototype.composite_buffer_soundData_LE = function(data){ 
   /* Ver.1.108.23 -> */
   self.scripts.arr_buffers.forEach(function(buffers, i){  // Ver.1.103.22  // Ver.1.105.22
     var n_offset = i%number_channels;
-  buffers.forEach(function(buffer, j){
-    var outView = new Float32Array(buffer.out);  // Ver.1.48.11  // Ver.1.110.24
-    /* Ver.1.18.4 -> */
-    var ns = buffer.ns;
-    var ne = buffer.ne;
-    for(var n=ns; n<=ne; ++n){  // Ver.1.105.22
-      var n_out = n-ns;
-      var ampVali = outView[n_out];
-      var n_new = n*number_channels+n_offset;
-      _arrb_float32[n_new] += ampVali;  // sum_channel[0,i-1]+channel[i]
-      if(isNotExist_ch2){
-        _arrb_float32[n_new+1] += ampVali;
+    buffers.forEach(function(buffer, j){
+      var out = buffer.out;  // Ver.2.121.27
+      if(out){
+        var outView = new Float32Array(out);  // Ver.1.48.11  // Ver.1.110.24
+        /* Ver.1.18.4 -> */
+        var ns = buffer.ns;
+        var ne = buffer.ne;
+        for(var n=ns; n<=ne; ++n){  // Ver.1.105.22
+          var n_out = n-ns;
+          var ampVali = outView[n_out];
+          var n_new = n*number_channels+n_offset;
+          _arrb_float32[n_new] += ampVali;  // sum_channel[0,i-1]+channel[i]
+          if(isNotExist_ch2){
+            _arrb_float32[n_new+1] += ampVali;
+          }
+        }
+        /* -> Ver.1.18.4 */
       }
-    }
-    /* -> Ver.1.18.4 */
-  });
+    });
   });
   /* -> Ver.1.108.23 */
   /* -> Ver.1.35.6 */
@@ -186,7 +189,7 @@ My_entry.handler_wave.prototype.set_callbacks_worker = function(){
           var len_ADSR = out.byteLength/4;  // Ver.2.112.26
           var ns = sum_len_ADS;
           var ne = ns+len_ADSR-1;
-          self.scripts.arr_buffers[i][j] = {ns: ns, ne: ne, out: out};
+          self.scripts.arr_buffers[i][j] = {ns: ns, ne: ne, out: (data_id.isRest)? null: out};  // Ver.2.121.27
           sum_len_ADS += len_ADS;
           sum_len_ADSR = Math.max(sum_len_ADSR, ne+1);
         });
@@ -632,6 +635,7 @@ My_entry.handler_wave.prototype.input2arr = function(input){
         var params = {};
         params0 = self.update_params(arr_token, tokens, params0, params);
         params.gain_band = channel.gain/len_band;  // Ver.1.73.14  // Ver.2.113.26
+        params.isRest = (params.arr_f.length === 1 && params.arr_f[0] === 0);  // Ver.2.121.27
         _arr_input[i].push(params);
       }
     });
