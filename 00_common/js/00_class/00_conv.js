@@ -44,7 +44,18 @@ My_entry.conv.prototype.dec2round_sw = function(dec, sw, opt_digit){
   var digit = (typeof opt_digit === "undefined")? 1: Number(opt_digit);  // calc-Ver.2.852.157
   var mc = (_dec%1 === 0 || isNaN(_dec))? null: _dec.toExponential(digit+1).split("e");  // Ver.2.770.117
   if(mc && mc.length === 2){
-    _dec = Math[sw || "floor"](Number(mc[0])*Math.pow(10, digit))*Math.pow(10, Number(mc[1])-digit);
+    /* calc-Ver.2.903.179 -> */
+    var num_shifted = Number(mc[0]+"e"+(Number(mc[1])+digit));
+    var num_rounded = Math[sw || "floor"](num_shifted);
+    var str_rounded = String(num_rounded);
+    if(str_rounded.indexOf("e") !== -1){
+      var parts = str_rounded.split("e");
+      _dec = Number(parts[0]+"e"+(Number(parts[1])-digit));
+    }
+    else{
+      _dec = Number(str_rounded+"e"+(-digit));
+    }
+    /* -> calc-Ver.2.903.179 */
   }
   return _dec;
 };
