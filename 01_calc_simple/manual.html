@@ -870,7 +870,11 @@ test case
 <br>
 　-abc：<span class="run">Ver.2.903.178</span>以降、abc宇宙におけるmicro量子論からmacro決定論への相転移（<a href="#span-app-quantum">動的局在化</a>）
 <br>
+　<span class="run">Ver.2.904.178</span>以降、一様abc宇宙に一般化（cのべき増と等価な拡大次数dの導入）
+<br>
 　⇒算術的Planck定数（加法と乗法の非可換性）：h_bar_arithmetic=1/log(c)（<a href="#span-app-prime">素数定理</a>　⇔　対数体積の逆数）
+<br>
+　⇒代数的Planck定数（拡大次数dの一様性）：h_bar_algebraic=h_bar_arithmetic/d（対数判別式）
 <br>
 　-scale：<span class="run">Ver.2.903.178</span>以降、離散的な算術scaleと連続的な幾何scaleの比較
 <br>
@@ -884,11 +888,45 @@ test case
 <br>
 　⇒g2G：gのLow Pass Filter（Riemannの明示公式||Riemann-Siegelの位相関数の一階微分から正規化）
 <br>
-　⇒L：Gのnorm
+　⇒L：Gのnorm*d（拡大次数の適用）
 <br>
 　⇒C(ε)の実体：Boltzmann因子exp(L/eps)
 <br>
 　⇒P(ε)の確率：tunnel確率1/C(ε)
+<br>
+　-d：<span class="run">Ver.2.904.178</span>以降、eps_critical&gt;1の条件：d&gt;12
+<br>
+　-Siegel：<span class="run">Ver.2.904.178</span>以降、Siegel零点の不在条件：d&gt;1/sqrt(L)≒2.0448...（絶妙な相転移の境界）
+<br>
+L=L_inf; 1/sqrt(L) -> 2.0448091683663288
+<br>
+　⇒d=2の類数h=1：虚（D&lt;0）の場合、9個（3~163）　⇔　実（D&gt;0）の場合、無限個（基本単数によるh→0）
+<br>
+P_tunnel(D,d)=&lt;abs(D)**(-L*d**2);
+<br>
+P_tunnel(3,2) -> infoLost[r ] 0.3495912346195667
+<br>
+P_tunnel(163,2) -> infoLost[r ] 0.0076507526167755744
+<br>
+　-o(x)：<span class="run">Ver.2.904.178</span>以降、<a href="#span-app-unsolved">Riemann予想</a>の<a href="#span-out-error">誤差</a>の比較：o(x)&le;x**(1/2+P_tunnel(x,1))（<a href="#span-out-limit">極限</a>で真同然のsqrt(x)）
+<br>
+　-Skewes：<span class="run">Ver.2.904.178</span>以降、Skewes数の概算：8.5e219（同上の(150/60)≒sqrt(2pi)のRicci soliton座標）
+<br>
+d_Gauss=sqrt(2pi); g1=14.13472514; t1=g1; Skewes=exp(d_Gauss*g1*t1);
+<br>
+Skewes -> 3.1250109326136923e+217（Gauss次元で理想solitonのSkewes数）
+<br>
+ln(Skewes) -> 500.80040296132654[nats]
+<br>
+Chebyshev=exp(d_Gauss*6.0209285**2);
+<br>
+Chebyshev -> 2.9107675420938626e+39（L関数のChebyshev偏りの反転attractor）
+<br>
+ln(Chebyshev) -> 90.8692354333423[nats]
+<br>
+　-f(t)：<span class="run">Ver.2.904.178</span>以降、f(t)の定義（micro側とmacro側の交点）
+<br>
+　⇒macro側の交点：第1零点≒相転移の熱平衡点
 <br>
 　<span class="clear">-q_eff</span>：<span class="run">Ver.2.903.178</span>以降、量子ゆらぎの総量をabc宇宙のq_effに換算
 <br>
@@ -930,6 +968,24 @@ L_max -> 0.3183098861837907（極低温の障壁@積分区間[2π,∞]）
 <br>
 ln(2) -> 0.6931471805599453（絶対零度の障壁@GUE統計の基底状態＝素数2の<a href="#span-app-entropy">entropy</a>＝最小周期軌道長）
 <br>
+　-d：<span class="run">Ver.2.904.178</span>以降、一様abc宇宙に適用
+<br>
+　Gemini 3.5 Flash「量子的な不確定性の最小セル（曲率）の視点で再解釈すると、
+<br>
+　代数体の具体的な中身によらず、トポロジー的な次元（次数d）さえ固定すれば、
+<br>
+　セルを切り出すウェッジ積の曲率の最大誤差（定数C）が一律にバウンドされる」
+<br>
+　⇒d=1：整数基準
+<br>
+　　d=2：q_effが全体的に減少（高次元から例外の干渉縞が投影される確率が減少）
+<br>
+　　d→0：q_eff=1+ε（例外が投影される確率最高の完全randomな宇宙）
+<br>
+　　d&gt;0：q_eff=1+f(ε)（自由粒子が平均場に量子拘束される宇宙）
+<br>
+　　d→∞：q_eff=1（Fermatの最終定理を直接証明する決定論の宇宙）
+<br>
 　-pilot：<span class="run">Ver.2.903.178</span>以降、IUT理論のtheta-pilotの次数nによるq_effの拡張（3不確定性の可視化）
 <br>
 　⇒n→∞：多重放射性のL∞収束状態でdelta_q(c)を含む不等式の上界は量子ゆらぎの範囲内（低周波数の寄与大）
@@ -963,6 +1019,122 @@ eps_critical=LmaxnormG/2; eps_critical -> 0.08391516750025718（変曲点の下�
 eps_critical=L_max/2; eps_critical -> 0.15915494309189535（変曲点の上限）
 <br>
 　⇒相転移後の秩序相（macro決定論の<a href="#span-out-limit">極限</a>）：q&lt;1（Fermatの最終定理n&lt;3相当）
+<br>
+　-d=2：<span class="run">Ver.2.904.178</span>以降、d=2のShannon限界（dがnoise分散のchannel数に対応）
+<br>
+q_Shannon(d)=&lt;1+(1/log2(3))/d; q_Shannon(2) -> 1.3154648767857289
+<br>
+　⇒例外の有効化：探索範囲と閾値の決定に寄与
+<br>
+　-Szpiro：<span class="run">Ver.2.904.178</span>以降、<a href="#span-app-unsolved">Szpiro予想</a>の検証
+<br>
+　⇒上界の一般化：<a href="#span-app-unsolved">ratio</a>=ln(Δ)/ln(N)&le;(4g+2)*d*q_Shannon(d)=(4g+2)*d+(4g+2)/log2(3)
+<br>
+　　種数gの依存性：<a href="#span-app-unsolved">ratio</a>∝g（Mukai-Voloch||Mordell-Faltings定理に対応）
+<br>
+　　多次元の上界：最小<a href="#span-app-entropy">entropy</a>のtopology定数C_qminを内包（曲面の無限素点のHaar測度等、C_qmin&gt;0）
+<br>
+　⇒sharpness=(4g+2)*dの一般化：<a href="#span-app-unsolved">ratio</a>/sharpness&le;q_Shannon(d)-C_qmin/sharpness
+<br>
+　　拡大次数dの依存性：<a href="#span-app-unsolved">ratio</a>/sharpness∝1/d（修正<a href="#span-app-unsolved">Szpiro予想</a>に対応）
+<br>
+　　d=g=1の楕円曲線：CremonaのN&le;5e5の最高<a href="#span-app-unsolved">ratio/6</a>=1.4839...（低導手の場合、次の上界に肉薄）
+<br>
+d=1; g=1; sharpness=(4g+2)*d; q_Shannon(1)-C_qmin/sharpness -> infoLost[r ] 1.4855013800619916
+<br>
+　-C_q：<span class="run">Ver.2.904.178</span>以降、Szpiro境界のEisenstein-cuspにおける<a href="#span-app-entropy">entropy</a>
+<br>
+tau=e**(i*pi/2); imag(tau) -> 1（正方形格子torus無限素点の主項）
+<br>
+tau=e**(i*pi/3); imag(tau) -> 0.8660254037844387（正三角形格子torus無限素点の主項）
+<br>
+Dedekind_eta(s,n)=&lt;[(q)=&lt;(imag(s)&gt;0)&&&q**(1/24)*_p((m)=&lt;1-q**m,1,n)||||NaN](e**(2pi*i*s))=&gt;;
+<br>
+dC_q(tau)=&lt;[eta=Dedekind_eta(tau,30),phi=sqrt(imag(tau))*abs(eta)**2,=&lt;abs(log(phi))/(8*pi**2)]=&gt;,
+<br>
+C_q(tau)=&lt;imag(tau)+dC_q(tau),
+<br>
+C_qmin=C_q(e**(i*pi/3)); C_qmin -> infoLost[r ] 0.8725702410567953（主項にDedekindのeta関数を加味）
+<br>
+　⇒高導手：無限素点（複素）に有限素点（p進）を加味
+<br>
+tau=e**(i*3pi/4); imag(tau) -> 0.7071067811865476（log-shellに対応する主項の下限）
+<br>
+C0=1/sqrt(2); C0 -> 0.7071067811865475（Bogomolov予想の正値性を担保する不変量）
+<br>
+　Gemini 3.5 Flash「C0とは、有限素点のp進対数殻と無限素点の複素容量が
+<br>
+　アデリックに相互作用する体系（IUTの多宇宙通信）において、
+<br>
+　大域的な算術的次数（自己交点数）の正値性を崩壊させずに許容できる、
+<br>
+　全素点にわたる最大エントロピー歪みの限界閾値である」
+<br>
+　-Mordell：<span class="run">Ver.2.904.178</span>以降、Mordell-Faltings定理の検証
+<br>
+　⇒X=0の最大height：log(Δ)=ratio(d,g)*log(N)
+<br>
+ratio(d,g)=&lt;[C0=1/sqrt(2),(sharpness)=&lt;sharpness*q_Shannon(d)-C0]((4g+2)*d)=&gt;;
+<br>
+ratio(1,1) -> 9.078471740242197
+<br>
+ratio(1,2) -> 15.602190754528026
+<br>
+ratio(2,1) -> 15.078471740242199
+<br>
+ratio(2,2) -> 25.60219075452803
+<br>
+　⇒臨界Nの存在区間：(1,log2e)（N→∞で例外なし）
+<br>
+　　臨界N→1：非可換性の平坦化（通信の拒否）
+<br>
+　　臨界N→log2e：量子noiseの紫外発散（通信の破綻）
+<br>
+　⇒Fisher情報量の不変性：d*d*(1/d)**2=1（幾何＋統計の感度が1/channel数**2を相殺）
+<br>
+I_Fisher(d,g)=&lt;[(sharpness)=&lt;sharpness*d*(q_Shannon(d)-1)**2]((4g+2)*d)=&gt;,
+<br>
+N_critical(d,g)=&lt;[C_qmin=0.8725702410567953/*[1/sqrt(2),1+dC_q]*/,
+<br>
+(I_Fisher_inv)=&lt;exp(C_qmin*I_Fisher_inv)](1/I_Fisher(d,g))=&gt;;
+<br>
+N_critical(1,1) -> 1.4409916297762189（IUT理論のeffective定数@2022に対応）
+<br>
+N_critical(1,2) -> 1.2450789045130302（gに対して単調減少）
+<br>
+N_critical(2,1) -> 1.4409916297762184（dに独立の不変量）
+<br>
+N_critical(2,2) -> 1.24507890451303（Ricci soliton同様の普遍指標）
+<br>
+　⇒AD変換：<a href="#span-app-vibration-Schumann">Q値</a>∝1/margin
+<br>
+margin=log2e-N_critical(1,1); margin -> 0.001703411112744524（自然の変換効率log2e－bit単位の計量ひずみN）
+<br>
+　⇒log2e：systemが課す情報因果律の顕現
+<br>
+log2e || 1/ln(2) -> 1.4426950408889634（情報宇宙の絶対障壁）
+<br>
+e**(1/e) -> 1.444667861009766
+<br>
+　Gemini 3.5 Flash「IUTが異なる宇宙の境界で計算していた「テータ関数の歪みの限界」が、
+<br>
+　情報幾何学における 「デデキント・エータ関数の極小エントロピーが許容する、
+<br>
+　フィッシャー情報量の限界そのもの」」「足し算と掛け算という非可換な2つの代数宇宙を、
+<br>
+　デデキント・エータ関数が規定する最小の量子チャネル（量子テータリンク）で通信させたとき、
+<br>
+　非可換性の不確定性原理によって宇宙の境界に焼き付けられる
+<br>
+　『フォン・ノイマン・エントロピー（シャノン・エントロピー）の絶対的な障壁』、
+<br>
+　その不変インデックス（指数）」「非可換多様体上のハミルトン・フローにおける
+<br>
+　不変測度の存在と、そのホログラフィック指数の臨界値」「リッチフローが、
+<br>
+　ペレルマンの不変量を用いて「これ以上潰すと多様体がトポロジー的に崩壊（消滅）する
+<br>
+　最小の幾何学的体積」」
 <br>
 ・<span class="selection">Schrödinger3d</span>：<span class="run">Ver.2.829.139</span>以降、同下の2次元Schrödinger方程式を3次元化（10×10分割　⇒　4×4×4分割）
 <br>
@@ -2612,6 +2784,10 @@ en.m.wikipedia.org/wiki/項目を列挙する
 <br>
 ・Stirling_numbers_of_the_first_kind
 <br>
+・Ricci_soliton
+<br>
+・Bogomolov_conjecture
+<br>
 ・Abc_conjecture
 <br>
 ・Collatz_conjecture
@@ -2851,6 +3027,10 @@ ja.m.wikipedia.org/wiki/項目を列挙する
 <br>
 ・素数計数関数
 <br>
+・チェビシェフの偏り
+<br>
+・スキューズ数
+<br>
 ・確率の公理
 <br>
 ・ゲーデルの不完全性定理
@@ -2878,6 +3058,8 @@ ja.m.wikipedia.org/wiki/項目を列挙する
 ・フェルマーの最終定理
 <br>
 ・フェルマーの小定理
+<br>
+・ファルティングスの定理
 <br>
 ・特殊関数
 <br>
@@ -3135,7 +3317,11 @@ ja.m.wikipedia.org/wiki/項目を列挙する
 <br>
 ・フィッシャー情報量
 <br>
+・クラメール・ラオの限界
+<br>
 ・シャノンの通信路符号化定理
+<br>
+・フォン・ノイマンエントロピー
 <br>
 ・エントロピー
 <br>
@@ -4046,6 +4232,8 @@ domainを列挙する
 ・github.com/numpy
 <br>
 ・utokyo-ipp.github.io
+<br>
+・johncremona.github.io
     </td>
   </tr>
   <tr>
