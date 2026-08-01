@@ -1060,7 +1060,7 @@ C_qmin=C_q(e**(i*pi/3)); C_qmin -> infoLost[r ] 0.8725702410567953（主項にDe
 <br>
 tau=e**(i*3pi/4); imag(tau) -> 0.7071067811865476（log-shellに対応する主項の下限）
 <br>
-C0=1/sqrt(2); C0 -> 0.7071067811865475（Bogomolov予想の正値性を担保する不変量）
+C0_digital=1/sqrt(2); C0_digital -> 0.7071067811865475（Bogomolov予想の正値性を担保する不変量）
 <br>
 　Gemini 3.5 Flash「C0とは、有限素点のp進対数殻と無限素点の複素容量が
 <br>
@@ -1074,7 +1074,7 @@ C0=1/sqrt(2); C0 -> 0.7071067811865475（Bogomolov予想の正値性を担保す
 <br>
 　⇒X=0の最大height：log(Δ)=ratio(d,g)*log(N)
 <br>
-ratio(d,g)=&lt;[C0=1/sqrt(2),(sharpness)=&lt;sharpness*q_Shannon(d)-C0]((4g+2)*d)=&gt;;
+ratio(d,g)=&lt;[C0_digital=1/sqrt(2),(sharpness)=&lt;sharpness*q_Shannon(d)-C0_digital]((4g+2)*d)=&gt;;
 <br>
 ratio(1,1) -> 9.078471740242197
 <br>
@@ -1110,6 +1110,8 @@ N_critical(2,2) -> 1.24507890451303（Ricci soliton同様の普遍指標）
 <br>
 margin=log2e-N_critical(1,1); margin -> 0.001703411112744524（自然の変換効率log2e－bit単位の計量ひずみN）
 <br>
+tc=(pi/(12*margin))/(8pi**2); fc=1/tc; fc -> 0.5137366884327754（≒pi/6のcut-off）
+<br>
 　⇒log2e：systemが課す情報因果律の顕現
 <br>
 log2e || 1/ln(2) -> 1.4426950408889634（情報宇宙の絶対障壁）
@@ -1135,6 +1137,8 @@ e**(1/e) -> 1.444667861009766
 　ペレルマンの不変量を用いて「これ以上潰すと多様体がトポロジー的に崩壊（消滅）する
 <br>
 　最小の幾何学的体積」」
+<br>
+　<span class="jF">-AD</span>~-P≠NP：<span class="run">Ver.2.905.178</span>以降、AD変換のZPE/10からP≠NPに至る情報因果律の検証（<a href="#span-app-universe">時空連続体</a>の必然性）
 <br>
 ・<span class="selection">Schrödinger3d</span>：<span class="run">Ver.2.829.139</span>以降、同下の2次元Schrödinger方程式を3次元化（10×10分割　⇒　4×4×4分割）
 <br>
@@ -2900,6 +2904,8 @@ en.m.wikipedia.org/wiki/項目を列挙する
 <br>
 ・DarkSky_International
 <br>
+・Weakly_interacting_massive_particles
+<br>
 <br>
 ja.m.wikipedia.org/wiki/項目を列挙する
 <br>
@@ -3039,6 +3045,8 @@ ja.m.wikipedia.org/wiki/項目を列挙する
 <br>
 ・ポアンカレ予想
 <br>
+・P≠NP予想
+<br>
 ・リーマン予想
 <br>
 ・バーチ・スウィンナートン＝ダイアー予想
@@ -3123,6 +3131,8 @@ ja.m.wikipedia.org/wiki/項目を列挙する
 <br>
 ・ライプニッツの公式
 <br>
+・ガウス・ボンネの定理
+<br>
 ・ガウス積分
 <br>
 ・オイラー積分
@@ -3130,6 +3140,8 @@ ja.m.wikipedia.org/wiki/項目を列挙する
 ・ハッセ・ヴェイユのゼータ函数
 <br>
 ・リーマンゼータ関数
+<br>
+・ランベルトのW関数
 <br>
 ・ベルヌーイ数
 <br>
@@ -3321,9 +3333,13 @@ ja.m.wikipedia.org/wiki/項目を列挙する
 <br>
 ・シャノンの通信路符号化定理
 <br>
+・シャノン＝ハートレーの定理
+<br>
 ・フォン・ノイマンエントロピー
 <br>
 ・エントロピー
+<br>
+・ランダウアーの原理
 <br>
 ・熱力学第二法則
 <br>
@@ -3961,11 +3977,11 @@ ja.m.wikipedia.org/wiki/項目を列挙する
 <br>
 ・光年
 <br>
-・Weakly_interacting_massive_particles
-<br>
 ・暗黒物質
 <br>
 ・ダークエネルギー
+<br>
+・エネルギー等配分の法則
 <br>
 ・基本相互作用
 <br>
@@ -3978,6 +3994,8 @@ ja.m.wikipedia.org/wiki/項目を列挙する
 ・大統一理論
 <br>
 ・統一場理論
+<br>
+・M理論
 <br>
 ・超弦理論
 <br>
@@ -55612,6 +55630,8 @@ xi_EM
     </th>
     <td>
 <span id="span-eqn-xi_Euler_Maclaurin"></span>
+・<span class="run">Ver.2.905.179</span>以降、<span class="selection">追加箇所</span>
+<br>
 clear;
 <br>
 ln_gamma_EM(s,m)=&lt;last[
@@ -55649,6 +55669,10 @@ zeta_EM_full(s,n,m)=&lt;real(s)&gt;=0&amp;&amp;&amp;zeta_EM(s,n,m)=&gt;||||exp(s
 xi_EM_full(s,n,m)=&lt;real(s)&gt;=0.5&amp;&amp;&amp;exp(ln(s)+ln(s-1)-ln(2)-(s/2)*ln(pi)+ln_gamma_EM(s/2,m)=&gt;)*zeta_EM_full(s,n,m)=&gt;||||xi_EM_full(1-s,n,m)=&gt;;
 <br>
 (xi_EM_full(-10+10i,100,14)=&gt;:xi_EM_full(1/2+10i,100,14)=&gt;:xi_EM_full(1+10i,100,14)=&gt;);
+<br>
+<span class="selection">xi_Adelic_Haar_measure(s)=&lt;xi_EM_full(s,100,14)=&gt;/(0.5*s*(s-1));</span>
+<br>
+<span class="selection">(xi_Adelic_Haar_measure(log2e)=&gt;,xi_Adelic_Haar_measure(2)=&gt;);</span>
     </td>
   </tr>
   <tr>
