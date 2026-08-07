@@ -2441,6 +2441,8 @@ e**(1/e) -> 1.444667861009766
 <br>
 ・<a href="#span-eqn-xi_Euler_Maclaurin">xi_EM</a>
 <br>
+・<a href="#span-eqn-spacetime">spacetime</a>
+<br>
 ・<a href="#span-eqn-Seki_Aitken">Seki-Aitken</a>
 <br>
 ・<a href="#span-eqn-primes">primes</a>
@@ -55673,6 +55675,133 @@ xi_EM_full(s,n,m)=&lt;real(s)&gt;=0.5&amp;&amp;&amp;exp(ln(s)+ln(s-1)-ln(2)-(s/2
 <span class="selection">xi_Adelic_Haar_measure(s)=&lt;xi_EM_full(s,100,14)=&gt;/(0.5*s*(s-1));</span>
 <br>
 <span class="selection">(xi_Adelic_Haar_measure(log2e)=&gt;,xi_Adelic_Haar_measure(2)=&gt;);</span>
+    </td>
+  </tr>
+  <tr>
+    <th>
+<a href="#span-index">
+目次
+</a>
+<br>
+spacetime
+    </th>
+    <td>
+<span id="span-eqn-spacetime"></span>
+clear;
+<br>
+W(x,x0)=&lt;[f(x)=&lt;x*e^x,=&lt;ge(x,-1/e)&amp;&amp;&amp;Newton((y)=&lt;f(y)=&gt;=x,=&lt;{x0},Nmax=1e3,Nmax)||||NaN]=&gt;;
+<br>
+ln_gamma_EM(s,m)=&lt;last[
+<br>
+table_Bn={1/1,-1/2,1/6,,-1/30,,1/42,,-1/30,,5/66,,-691/2730,,7/6,,
+<br>
+-3617/510,,43867/798,,-174611/330,,854513/138,,-236364091/2730,,8553103/6,,-23749461029/870},
+<br>
+N=real(s)&lt;7&amp;&amp;&amp;floor(8-real(s)),
+<br>
+sN=s+N,
+<br>
+(sN-0.5)*ln(sN)-sN+0.5*ln(2*pi)+_s((k)=&lt;table_Bn[2*k]/(2*k*(2*k-1)*sN**(2*k-1)),1,m)-(N&gt;0&amp;&amp;&amp;_s((j)=&lt;ln(s+j),0,N-1))
+<br>
+];
+<br>
+gamma_EM_full(s,m)=&lt;real(s)&gt;=0&amp;&amp;&amp;exp(ln_gamma_EM(s,m)=&gt;)||||pi/(sin(pi*s)*exp(ln_gamma_EM(1-s,m)=&gt;));
+<br>
+zeta_EM(s,n,m)=&lt;last[
+<br>
+table_Bn={1/1,-1/2,1/6,,-1/30,,1/42,,-1/30,,5/66,,-691/2730,,7/6,,
+<br>
+-3617/510,,43867/798,,-174611/330,,854513/138,,-236364091/2730,,8553103/6,,-23749461029/870},
+<br>
+table=table_Bn/linspace(0,28,29).!,
+<br>
+Tkn(k,n,s)=&lt;table[2*k]*n**(1-s-2*k)*exp(_s((j)=&lt;ln(s+j),0,2*k-2)),
+<br>
+_s((j)=&lt;j**(-s),1,n-1)+n**(-s)/2+n**(1-s)/(s-1)+_s((k)=&lt;Tkn(k,n,s)=&gt;,1,m)
+<br>
+];
+<br>
+zeta_EM_full(s,n,m)=&lt;real(s)&gt;=0&amp;&amp;&amp;zeta_EM(s,n,m)=&gt;||||exp(s*ln(2)+(s-1)*ln(pi)+ln(sin(pi*s/2))+ln_gamma_EM(1-s,m)=&gt;)*zeta_EM(1-s,n,m)=&gt;;
+<br>
+xi_EM_full(s,n,m)=&lt;real(s)&gt;=0.5&amp;&amp;&amp;exp(ln(s)+ln(s-1)-ln(2)-(s/2)*ln(pi)+ln_gamma_EM(s/2,m)=&gt;)*zeta_EM_full(s,n,m)=&gt;||||xi_EM_full(1-s,n,m)=&gt;;
+<br>
+xi_Adelic_Haar_measure(s)=&lt;xi_EM_full(s,100,14)=&gt;/(0.5*s*(s-1));
+<br>
+<br>
+sharpness(d,g)=&lt;(4*g+2)*d;
+<br>
+q_Shannon(d)=&lt;1+(1/log2(3))/d;
+<br>
+capa_eff(s,d,g)=&lt;sharpness(d,g)=&gt;*log2(1+q_Shannon(d)=&gt;/xi_Adelic_Haar_measure(s)=&gt;);
+<br>
+dS(s,d,g)=&lt;capa_eff(s,d,g)=&gt;-capa_eff(2,d,g)=&gt;;
+<br>
+dS_margin(d,g)=&lt;dS(log2e,d,g)=&gt;/sharpness(d,g)=&gt;;
+<br>
+Nsol(s,d,g)=&lt;exp(-dS(s,d,g)=&gt;);
+<br>
+loss_digital(s,d,g)=&lt;log10(Nsol(s,d,g)=&gt;)/ln(10);
+<br>
+log2_Dn(s,d,g)=&lt;capa_eff(s,d,g)=&gt;-loss_digital(s,d,g)=&gt;;
+<br>
+alpha(s,d,g)=&lt;log2_Dn(s,d,g)=&gt;/sharpness(d,g)=&gt;;
+<br>
+<br>
+g=1;
+<br>
+s=log2e;
+<br>
+alpha(s,0,g)=&gt;;alpha(s,1,g)=&gt;;alpha(s,2,g)=&gt;;alpha(s,3,g)=&gt;;alpha(s,4,g)=&gt;;
+<br>
+alpha(s,5,g)=&gt;;alpha(s,6,g)=&gt;;alpha(s,7,g)=&gt;;alpha(s,8,g)=&gt;;alpha(s,9,g)=&gt;;
+<br>
+alpha(s,10,g)=&gt;;alpha(s,11,g)=&gt;;alpha(s,12,g)=&gt;;alpha(s,24,g)=&gt;;alpha(s,36,g)=&gt;;
+<br>
+alpha_SVP=(1+1/ln10**2)*log2(1+1/xi_Adelic_Haar_measure(log2e)=&gt;)-(1/ln10**2)*log2(1+1/xi_Adelic_Haar_measure(2)=&gt;);
+<br>
+=(1+1/ln10**2)*log2(1+pi**(log2e/2)/(gamma_EM_full(log2e/2,14)=&gt;*zeta_EM_full(log2e,100,14)=&gt;))-(1/ln10**2)*log2(1+6/pi);
+<br>
+alpha_SPP=log2(2*pi/e)/2;
+<br>
+=(1+log2(gamma_EM_full(1/2,14)=&gt;**2/(e*gamma_EM_full(1,14)=&gt;)))/2;
+<br>
+<br>
+dS_margin0=log2(xi_Adelic_Haar_measure(2)=&gt;/xi_Adelic_Haar_measure(log2e)=&gt;);
+<br>
+=dS_margin(eps,0)=&gt;;
+<br>
+dS0=log2(1+1/xi_Adelic_Haar_measure(log2e)=&gt;)-log2(1+1/xi_Adelic_Haar_measure(2)=&gt;);
+<br>
+=dS_margin(1e100,0)=&gt;;
+<br>
+ZPE=-dS0*ln2;
+<br>
+gamma_Euler_Mascheroni=0.57721566490153286;
+<br>
+superstring=(alpha_SPP-alpha_SVP,=ZPE/(1+3+6));
+<br>
+capa0=-dS0/(1+dS0);
+<br>
+<br>
+n=9-6;
+<br>
+x=-alpha_SPP/n;
+<br>
+h_SPP=W(x,-2)=&gt;/x;
+<br>
+x=-alpha_SVP/n;
+<br>
+h_SVP=W(x,-2)=&gt;/x;
+<br>
+c=299792458;
+<br>
+h=6.62607015e-34;
+<br>
+G=6.67430e-11;
+<br>
+tp=sqrt((h/(2*pi))*G/c**5);
+<br>
+tend_inflation=tp*exp(ceil(h_SVP));
     </td>
   </tr>
   <tr>

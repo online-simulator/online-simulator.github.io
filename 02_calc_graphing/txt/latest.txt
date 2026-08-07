@@ -456,6 +456,176 @@ stored_eqn(tn_)
 clear
 local storage cleared
 
+tend_inflation=tp*exp(ceil(h_SVP))
+tend_inflation=infoLost[r ] 1.7624078298815739e-37
+
+tp=sqrt((h/(2*pi))*G/c**5)
+tp=5.391246448313605e-44
+
+G=6.67430e-11
+G=6.6743e-11
+
+h=6.62607015e-34
+h=6.62607015e-34
+
+c=299792458
+c=299792458
+
+h_SVP=W(x,-2)=>/x
+h_SVP=infoLost[r ] 14.788734933437249+2.5e-323i+O(4e-15)
+
+x=-alpha_SVP/n
+x=infoLost[r ] -0.18215660432921746
+
+h_SPP=W(x,-2)=>/x
+h_SPP=infoLost[r ] 12.560767729405429+1.73e-322i+O(4e-15+4e-322i)
+
+x=-alpha_SPP/n
+x=-0.2014668480972259
+
+n=9-6
+n=3
+
+capa0=-dS0/(1+dS0)
+capa0=infoLost[r ] 5.122695142400784
+
+superstring=(alpha_SPP-alpha_SVP,=ZPE/(1+3+6))
+superstring=(
+infoLost[r ] 0.05793073130402526,infoLost[r ] 0.057993769283618546
+)
+
+gamma_Euler_Mascheroni=0.57721566490153286
+gamma_Euler_Mascheroni=0.5772156649015329
+
+ZPE=-dS0*ln2
+ZPE=infoLost[r ] 0.5799376928361855
+
+=dS_margin(1e100,0)=>
+infoLost[r ] -0.8366732334793517
+
+dS0=log2(1+1/xi_Adelic_Haar_measure(log2e)=>)-log2(1+1/xi_Adelic_Haar_measure(2)=>)
+dS0=infoLost[r ] -0.8366732334793517
+
+=dS_margin(eps,0)=>
+infoLost[r ] -1.6015846393730797
+
+dS_margin0=log2(xi_Adelic_Haar_measure(2)=>/xi_Adelic_Haar_measure(log2e)=>)
+dS_margin0=infoLost[r ] -1.601584639373075
+
+=(1+log2(gamma_EM_full(1/2,14)=>**2/(e*gamma_EM_full(1,14)=>)))/2
+infoLost[r ] 0.604400544291677
+
+alpha_SPP=log2(2*pi/e)/2
+alpha_SPP=0.6044005442916777
+
+=(1+1/ln10**2)*log2(1+pi**(log2e/2)/(gamma_EM_full(log2e/2,14)=>*zeta_EM_full(log2e,100,14)=>))-(1/ln10**2)*log2(1+6/pi)
+infoLost[r ] 0.5464698129876533
+
+alpha_SVP=(1+1/ln10**2)*log2(1+1/xi_Adelic_Haar_measure(log2e)=>)-(1/ln10**2)*log2(1+1/xi_Adelic_Haar_measure(2)=>)
+alpha_SVP=infoLost[r ] 0.5464698129876524
+
+alpha(s,36,g)=>
+infoLost[r ] 0.5549266172070758
+
+alpha(s,24,g)=>
+infoLost[r ] 0.5591391284668297
+
+alpha(s,12,g)=>
+infoLost[r ] 0.571713465439116
+
+alpha(s,11,g)=>
+infoLost[r ] 0.5739895695394359
+
+alpha(s,10,g)=>
+infoLost[r ] 0.5767167938322494
+
+alpha(s,9,g)=>
+infoLost[r ] 0.5800440053622361
+
+alpha(s,8,g)=>
+infoLost[r ] 0.5841936653788219
+
+alpha(s,7,g)=>
+infoLost[r ] 0.5895137190873521
+
+alpha(s,6,g)=>
+infoLost[r ] 0.5965805952646657
+
+alpha(s,5,g)=>
+infoLost[r ] 0.606423581055983
+
+alpha(s,4,g)=>
+infoLost[r ] 0.6210782156897084
+
+alpha(s,3,g)=>
+infoLost[r ] 0.6452136247047902
+
+alpha(s,2,g)=>
+infoLost[r ] 0.6924278365287647
+
+alpha(s,1,g)=>
+infoLost[r ] 0.8261629401947822
+
+alpha(s,0,g)=>
+infoLost[r ] NaN
+
+s=log2e
+s=1.4426950408889634
+
+g=1
+g=1
+
+alpha(s,d,g)=<log2_Dn(s,d,g)=>/sharpness(d,g)=>
+stored_eqn(alpha)
+
+log2_Dn(s,d,g)=<capa_eff(s,d,g)=>-loss_digital(s,d,g)=>
+stored_eqn(log2_Dn)
+
+loss_digital(s,d,g)=<log10(Nsol(s,d,g)=>)/ln(10)
+stored_eqn(loss_digital)
+
+Nsol(s,d,g)=<exp(-dS(s,d,g)=>)
+stored_eqn(Nsol)
+
+dS_margin(d,g)=<dS(log2e,d,g)=>/sharpness(d,g)=>
+stored_eqn(dS_margin)
+
+dS(s,d,g)=<capa_eff(s,d,g)=>-capa_eff(2,d,g)=>
+stored_eqn(dS)
+
+capa_eff(s,d,g)=<sharpness(d,g)=>*log2(1+q_Shannon(d)=>/xi_Adelic_Haar_measure(s)=>)
+stored_eqn(capa_eff)
+
+q_Shannon(d)=<1+(1/log2(3))/d
+stored_eqn(q_Shannon)
+
+sharpness(d,g)=<(4*g+2)*d
+stored_eqn(sharpness)
+
+xi_Adelic_Haar_measure(s)=<xi_EM_full(s,100,14)=>/(0.5*s*(s-1))
+stored_eqn(xi_Adelic_Haar_measure)
+
+xi_EM_full(s,n,m)=<real(s)>=0.5&&&exp(ln(s)+ln(s-1)-ln(2)-(s/2)*ln(pi)+ln_gamma_EM(s/2,m)=>)*zeta_EM_full(s,n,m)=>||||xi_EM_full(1-s,n,m)=>
+stored_eqn(xi_EM_full)
+
+zeta_EM_full(s,n,m)=<real(s)>=0&&&zeta_EM(s,n,m)=>||||exp(s*ln(2)+(s-1)*ln(pi)+ln(sin(pi*s/2))+ln_gamma_EM(1-s,m)=>)*zeta_EM(1-s,n,m)=>
+stored_eqn(zeta_EM_full)
+
+zeta_EM(s,n,m)=<last[table_Bn={1/1,-1/2,1/6,,-1/30,,1/42,,-1/30,,5/66,,-691/2730,,7/6,,-3617/510,,43867/798,,-174611/330,,854513/138,,-236364091/2730,,8553103/6,,-23749461029/870},table=table_Bn/linspace(0,28,29).!,Tkn(k,n,s)=<table[2*k]*n**(1-s-2*k)*exp(_s((j)=<ln(s+j),0,2*k-2)),_s((j)=<j**(-s),1,n-1)+n**(-s)/2+n**(1-s)/(s-1)+_s((k)=<Tkn(k,n,s)=>,1,m)]
+stored_eqn(zeta_EM)
+
+gamma_EM_full(s,m)=<real(s)>=0&&&exp(ln_gamma_EM(s,m)=>)||||pi/(sin(pi*s)*exp(ln_gamma_EM(1-s,m)=>))
+stored_eqn(gamma_EM_full)
+
+ln_gamma_EM(s,m)=<last[table_Bn={1/1,-1/2,1/6,,-1/30,,1/42,,-1/30,,5/66,,-691/2730,,7/6,,-3617/510,,43867/798,,-174611/330,,854513/138,,-236364091/2730,,8553103/6,,-23749461029/870},N=real(s)<7&&&floor(8-real(s)),sN=s+N,(sN-0.5)*ln(sN)-sN+0.5*ln(2*pi)+_s((k)=<table_Bn[2*k]/(2*k*(2*k-1)*sN**(2*k-1)),1,m)-(N>0&&&_s((j)=<ln(s+j),0,N-1))]
+stored_eqn(ln_gamma_EM)
+
+W(x,x0)=<[f(x)=<x*e^x,=<ge(x,-1/e)&&&Newton((y)=<f(y)=>=x,=<{x0},Nmax=1e3,Nmax)||||NaN]=>
+stored_eqn(W)
+
+clear
+local storage cleared
+
 (xi_Adelic_Haar_measure(log2e)=>,xi_Adelic_Haar_measure(2)=>)
 (
 infoLost[r ] 1.5889990565733654,infoLost[r ] 0.5235987755982978
@@ -2581,7 +2751,7 @@ clear
 local storage cleared
 
 [Pinv_y=(-0.999999427,-0.999936657,-0.997300203,-0.954499736,-0.682689492,0,0.682689492,0.954499736,0.997300203,0.999936657,0.999999427:-5,-4,-3,-2,-1,0,1,2,3,4,5),N=1,arr=[],_r((n)=<arr.push(rand_table(=<Pinv_y)=>),,N),=<arr.]=>
-0.4551162000234843
+0.5258899590566767
 
 rand_table(csv)=<last[table=sort0(csv),ymin=min(table)[0],ymax=max(table)[0],y=ymin+(ymax-ymin)*rand(),x=interp(y:table),x]
 stored_eqn(rand_table)
@@ -2591,7 +2761,7 @@ local storage cleared
 
 [(N)=<[tarr=linspace(0,N-1,N).,shuffle_FY(?tarr)=>,=<tarr.]=>](2)=>
 (
-0,1
+1,0
 )
 
 shuffle_FY(?tarr)=<last[len=sizer(tarr),switch_arr=(i1)=<last{i0=floor(rand()*(i1+1)),w=tarr[i1],tarr[i1]=tarr[i0],tarr[i0]=w},_s((i_)=<switch_arr(i_)=>,len-1,1)]
@@ -4822,4 +4992,4 @@ center=true&wheel=true&drag=false&test-case=false&plot-all=true&relzooming=true&
 --------------------------------
 --------------------------------
 
-online-simulator.github.io.7.544.735.32.202 @ Mon Aug 03 2026 01:28:14 GMT+0900 (日本標準時) @ Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/150.0.0.0 Safari/537.36
+online-simulator.github.io.7.544.736.32.202 @ Fri Aug 07 2026 22:08:58 GMT+0900 (日本標準時) @ Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/151.0.0.0 Safari/537.36
