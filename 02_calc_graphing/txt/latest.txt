@@ -492,6 +492,15 @@ v_bulk_eV=infoLost[r ] 1609262877137114400
 sin2_eff=sin2_Weinberg/total_channels
 sin2_eff=infoLost[r ] 0.00013232094127260113
 
+T_CMB_bulk=T_CMB_dipole*V_macro_scale
+T_CMB_bulk=infoLost[r ] 2.7963222034814206
+
+T_CMB_dipole=(X_temperature/X_gravity)/(d_Boson*C_radiation_geometry)
+T_CMB_dipole=infoLost[r ] 0.0027963222034814205
+
+X_temperature=Tp*delta_g*ratio_AD/10**M_noise
+X_temperature=infoLost[r ] 2.8556823104326877e-43
+
 X_gravity_real_world=X_gravity*total_channels*pi**2
 X_gravity_real_world=infoLost[r ] 1.5418630740067446e-40
 
@@ -555,29 +564,112 @@ m_Majorana_eV=infoLost[r ] 1.2929691097900541e+26
 E_Planck_eV=Ep/e_charge
 E_Planck_eV=1.2208901285838957e+28
 
+Tp=Ep/kB
+Tp=1.4167841621573426e+32
+
 Ep=sqrt((h/(2*pi))*c**5/G)
 Ep=1956081636.698373
 
+C_radiation_geometry=FSC_inv_U1_strict*pi-(N_dimension_spacetime*log10(V_macro_scale))
+C_radiation_geometry=infoLost[r ] 418.3662014185751
+
+kB=1.380649e-23
+kB=1.380649e-23
+
 e_charge=1.602176634e-19
 e_charge=1.602176634e-19
 
-H0_Hubble_apparent=67.40*(1+ratio_M*ratio_AD/pi)
-H0_Hubble_apparent=infoLost[r ] 74.02949227945223
+r_pgw_observed_Bmode=r_pgw_bare-r_pgw_noise_sink
+r_pgw_observed_Bmode=infoLost[r ] 0.0007993953206186057
 
-r_primordial_gravitational_wave=(1-M_macro/M_max)*12/(N_max_efolds+ratio_AD)**2
+r_pgw_noise_sink=S_lens_noise*(1-Lambda_sink)/d_Boson
+r_pgw_noise_sink=infoLost[r ] 0.000989336178062429
+
+Lambda_sink=Omega_dark_energy_pure*(1-delta_g)
+Lambda_sink=infoLost[r ] 0.14200861493691425
+
+S_lens_noise=(N_dimension_spinor/k_baryon)*delta_g
+S_lens_noise=infoLost[r ] 0.02767401711353134
+
+r_pgw_bare=r_primordial_gravitational_wave
+r_pgw_bare=infoLost[r ] 0.0017887314986810346
+
+r_primordial_gravitational_wave=(1-ratio_M)*12/(N_max_efolds+ratio_AD)**2
 r_primordial_gravitational_wave=infoLost[r ] 0.0017887314986810346
 
 ns_CMB=1-ratio_AD*M_macro*(delta_g/ZPE)*N_dimension_spinor/sharpness_GUT
 ns_CMB=infoLost[r ] 0.9658637694414296
 
-k_dark_energy=(1-k_baryon*0.048-k_dark_matter*0.26)/(1-0.048-0.26)
-k_dark_energy=infoLost[r ] 0.7800168565021348
+l3_BAO=lm_superfluid_BAO(2,3,3)=>
+l3_BAO=infoLost[r ] 762.7640554887785
 
-k_dark_matter=isAsymmetric_parity_SU2&&&(1-ratio_AD)*(1-ratio_M)/0.26
-k_dark_matter=infoLost[r ] 0.5816152452121585
+l2_BAO=lm_superfluid_BAO(2,3,2)=>
+l2_BAO=infoLost[r ] 486.8609186369323
 
-k_baryon=ratio_AD*ratio_M/0.048
-k_baryon=infoLost[r ] 6.437674407195031
+l1_BAO=lm_superfluid_BAO(2,3,1)=>
+l1_BAO=infoLost[r ] 210.95778178508613
+
+lm_superfluid_BAO(d,g,m)=<lm_overtone_BAO(d,g,m)=>+phim_BAO(m)=>*d_Boson
+stored_eqn(lm_superfluid_BAO)
+
+lm_overtone_BAO(d,g,m)=<(-log10_Nsol_derivative(d,g)=>*d_Boson*ratio_AD*c_BAO)*m
+stored_eqn(lm_overtone_BAO)
+
+phim_BAO(m)=<(m-1)*k_baryon/(ratio_AD*pi)
+stored_eqn(phim_BAO)
+
+Omega_dark_energy_pure=k_dark_energy_pure/k_total
+Omega_dark_energy_pure=infoLost[r ] 0.14239622142943414
+
+Omega_dark_matter=k_dark_matter/k_total
+Omega_dark_matter=infoLost[r ] 0.485539997528993
+
+Omega_baryon=k_baryon/k_total
+Omega_baryon=infoLost[r ] 0.3720637810415728
+
+k_dark_energy_pure=k_total-k_baryon-k_dark_matter
+k_dark_energy_pure=infoLost[r ] 2.4092474978030367
+
+k_dark_matter=(capa_dark_matter*scale_factor_DM)/(omega_normalization*pi)
+k_dark_matter=infoLost[r ] 8.21500747974354
+
+k_baryon=capa_baryon/omega_normalization
+k_baryon=infoLost[r ] 6.2950668528923215
+
+k_total=capa_total*omega_normalization
+k_total=16.9193218304389
+
+scale_factor_DM=(N_dimension_spinor/d_Boson)*pi
+scale_factor_DM=8.377580409572781
+
+omega_normalization=d_Boson*pi/total_channels
+omega_normalization=0.04908738521234052
+
+capa_dark_matter=isAsymmetric_parity_SU2&&&(1-ratio_AD)*(1-ratio_M)
+capa_dark_matter=infoLost[r ] 0.1512199637551612
+
+capa_baryon=ratio_AD*ratio_M
+capa_baryon=infoLost[r ] 0.3090083715453615
+
+capa_total=(total_channels/sharpness_GUT)*(d_Boson*pi)
+capa_total=344.6775939938516
+
+CECC_allocation=CECC_channel/total_channels
+CECC_allocation=(
+infoLost[r ] 0.033203125:
+0.046875:
+infoLost[r ] 0.919921875
+)
+
+CECC_channel={floor(M_macro),M_noise,total_channels-floor(M_macro)-M_noise}
+CECC_channel=(
+infoLost[r ] 51:
+72:
+infoLost[r ] 1413
+)
+
+H0_Hubble_apparent=67.40*(1+ratio_M*ratio_AD/pi)
+H0_Hubble_apparent=infoLost[r ] 74.02949227945223
 
 ratio_M=M_macro/M_max
 ratio_M=infoLost[r ] 0.4173079180971393
@@ -777,11 +869,15 @@ infoLost[r ] 0.05793073130402526:
 infoLost[r ] 0.057993769283618546
 )
 
-superfluid={(alpha_SPP+alpha_SVP)/2,=gamma_Euler_Mascheroni}
+superfluid={(alpha_SPP+alpha_SVP)/2,=gamma_Euler_Mascheroni,=c_BAO}
 superfluid=(
 infoLost[r ] 0.575435178639665:
-0.5772156649015329
+0.5772156649015329:
+0.5773502691896258
 )
+
+c_BAO=1/sqrt(3)
+c_BAO=0.5773502691896258
 
 gamma_Euler_Mascheroni=0.57721566490153286
 gamma_Euler_Mascheroni=0.5772156649015329
@@ -870,7 +966,10 @@ stored_eqn(alpha)
 log2_Dn(s,d,g)=<capa_eff(s,d,g)=>-loss_digital(s,d,g)=>
 stored_eqn(log2_Dn)
 
-loss_digital(s,d,g)=<log10(Nsol(s,d,g)=>)/ln(10)
+log10_Nsol_derivative(d,g)=<(loss_digital(log2e,d,g)=>-loss_digital(2,d,g)=>)*ln10/(log2e-2)
+stored_eqn(log10_Nsol_derivative)
+
+loss_digital(s,d,g)=<log10(Nsol(s,d,g)=>)/ln10
 stored_eqn(loss_digital)
 
 Nsol(s,d,g)=<exp(-dS(s,d,g)=>)
@@ -3040,7 +3139,7 @@ clear
 local storage cleared
 
 [Pinv_y=(-0.999999427,-0.999936657,-0.997300203,-0.954499736,-0.682689492,0,0.682689492,0.954499736,0.997300203,0.999936657,0.999999427:-5,-4,-3,-2,-1,0,1,2,3,4,5),N=1,arr=[],_r((n)=<arr.push(rand_table(=<Pinv_y)=>),,N),=<arr.]=>
-0.14852149391421848
+-1.0700135303534606
 
 rand_table(csv)=<last[table=sort0(csv),ymin=min(table)[0],ymax=max(table)[0],y=ymin+(ymax-ymin)*rand(),x=interp(y:table),x]
 stored_eqn(rand_table)
@@ -3050,7 +3149,7 @@ local storage cleared
 
 [(N)=<[tarr=linspace(0,N-1,N).,shuffle_FY(?tarr)=>,=<tarr.]=>](2)=>
 (
-1,0
+0,1
 )
 
 shuffle_FY(?tarr)=<last[len=sizer(tarr),switch_arr=(i1)=<last{i0=floor(rand()*(i1+1)),w=tarr[i1],tarr[i1]=tarr[i0],tarr[i0]=w},_s((i_)=<switch_arr(i_)=>,len-1,1)]
@@ -5281,4 +5380,4 @@ center=true&wheel=true&drag=false&test-case=false&plot-all=true&relzooming=true&
 --------------------------------
 --------------------------------
 
-online-simulator.github.io.7.544.736.32.202 @ Sun Aug 09 2026 20:35:00 GMT+0900 (日本標準時) @ Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/151.0.0.0 Safari/537.36
+online-simulator.github.io.7.544.736.32.202 @ Mon Aug 10 2026 20:55:54 GMT+0900 (日本標準時) @ Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/151.0.0.0 Safari/537.36
