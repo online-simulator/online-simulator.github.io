@@ -645,14 +645,20 @@ scale_factor_DM=8.37758040957278
 omega_normalization=d_Boson*pi/total_channels
 omega_normalization=0.04908738521234053
 
+H0_Hubble_apparent=67.40*(1+capa_baryon/pi)
+H0_Hubble_apparent=infoLost[r ] 74.02949227945223
+
 capa_dark_matter=isAsymmetric_parity_SU2&&&(1-ratio_AD)*(1-ratio_M)
 capa_dark_matter=infoLost[r ] 0.1512199637551612
 
-capa_baryon=ratio_AD*ratio_M
+capa_baryon=ratio_M*ratio_AD
 capa_baryon=infoLost[r ] 0.3090083715453615
 
-capa_total=(total_channels/sharpness_GUT)*(d_Boson*pi)
-capa_total=344.6775939938515
+capa_total=(total_channels/sharpness_GUT)*d_Boson*pi
+capa_total=344.67759399385153
+
+ratio_M=M_macro/M_max
+ratio_M=infoLost[r ] 0.4173079180971393
 
 CECC_allocation=CECC_channel/total_channels
 CECC_allocation=(
@@ -667,12 +673,6 @@ infoLost[r ] 51:
 72:
 infoLost[r ] 1412.9999999999995
 )
-
-H0_Hubble_apparent=67.40*(1+ratio_M*ratio_AD/pi)
-H0_Hubble_apparent=infoLost[r ] 74.02949227945223
-
-ratio_M=M_macro/M_max
-ratio_M=infoLost[r ] 0.4173079180971393
 
 isCompleted_flatness=M_flatness>M_macro
 isCompleted_flatness=infoLost[r ] true
@@ -3139,7 +3139,7 @@ clear
 local storage cleared
 
 [Pinv_y=(-0.999999427,-0.999936657,-0.997300203,-0.954499736,-0.682689492,0,0.682689492,0.954499736,0.997300203,0.999936657,0.999999427:-5,-4,-3,-2,-1,0,1,2,3,4,5),N=1,arr=[],_r((n)=<arr.push(rand_table(=<Pinv_y)=>),,N),=<arr.]=>
--1.5195852747398164
+0.11850892291919607
 
 rand_table(csv)=<last[table=sort0(csv),ymin=min(table)[0],ymax=max(table)[0],y=ymin+(ymax-ymin)*rand(),x=interp(y:table),x]
 stored_eqn(rand_table)
@@ -5380,4 +5380,4 @@ center=true&wheel=true&drag=false&test-case=false&plot-all=true&relzooming=true&
 --------------------------------
 --------------------------------
 
-online-simulator.github.io.7.544.736.32.202 @ Mon Aug 10 2026 21:08:32 GMT+0900 (日本標準時) @ Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/151.0.0.0 Safari/537.36
+online-simulator.github.io.7.544.736.32.202 @ Mon Aug 10 2026 22:16:41 GMT+0900 (日本標準時) @ Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/151.0.0.0 Safari/537.36
