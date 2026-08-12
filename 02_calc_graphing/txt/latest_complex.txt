@@ -495,17 +495,17 @@ sin2_eff=infoLost[r ] 0.00013232094127260118
 T_CMB_bulk=T_CMB_dipole*V_macro_scale
 T_CMB_bulk=infoLost[r ] 2.796322203481748
 
-T_CMB_dipole=(X_temperature/X_gravity)/(d_Boson*C_radiation_geometry)
+T_CMB_dipole=(X_temperature/X_gravity_platform)/(d_Boson*C_radiation_geometry)
 T_CMB_dipole=infoLost[r ] 0.002796322203481746
 
 X_temperature=Tp*delta_g*ratio_AD/10**M_noise
 X_temperature=infoLost[r ] 2.85568231043238e-43
 
-X_gravity_real_world=X_gravity*total_channels*pi**2
+X_gravity_real_world=X_gravity_platform*total_channels*pi**2
 X_gravity_real_world=infoLost[r ] 1.5418630740063929e-40
 
-X_gravity=alpha_SPP**symmetry_SVP_Klein*delta_g**sqrt(S_spacetime)
-X_gravity=infoLost[r ] 1.017079372869409e-44
+X_gravity_platform=alpha_SPP**symmetry_SVP_Klein*delta_g**sqrt(S_spacetime)
+X_gravity_platform=infoLost[r ] 1.017079372869409e-44
 
 dm_nu_real_world_eV2=dm_nu13_eV2*V_macro_scale
 dm_nu_real_world_eV2=infoLost[r ] 0.0035378055414243812
@@ -579,11 +579,11 @@ kB=1.380649e-23
 e_charge=1.602176634e-19
 e_charge=1.602176634e-19
 
-r_pgw_observed_Bmode=r_pgw_bare-r_pgw_noise_sink
-r_pgw_observed_Bmode=infoLost[r ] 0.000799395320618686
+r_PGW_observed_Bmode_strict=r_PGW_bare-r_PGW_noise_sink
+r_PGW_observed_Bmode_strict=infoLost[r ] 0.000799395320618686
 
-r_pgw_noise_sink=S_lens_noise*(1-Lambda_sink)/d_Boson
-r_pgw_noise_sink=infoLost[r ] 0.0009893361780623476
+r_PGW_noise_sink=S_lens_noise*(1-Lambda_sink)/d_Boson
+r_PGW_noise_sink=infoLost[r ] 0.0009893361780623476
 
 Lambda_sink=Omega_dark_energy_pure*(1-delta_g)
 Lambda_sink=infoLost[r ] 0.1420086149369147
@@ -591,14 +591,32 @@ Lambda_sink=infoLost[r ] 0.1420086149369147
 S_lens_noise=(N_dimension_spinor/k_baryon)*delta_g
 S_lens_noise=infoLost[r ] 0.027674017113529077
 
-r_pgw_bare=r_primordial_gravitational_wave
-r_pgw_bare=infoLost[r ] 0.0017887314986810335
+r_PGW_observed_Bmode_simple=fraction_right_handed*ratio_M*r_PGW_bare*pi
+r_PGW_observed_Bmode_simple=infoLost[r ] 0.0007816825156333768
 
-r_primordial_gravitational_wave=(1-ratio_M)*12/(N_max_efolds+ratio_AD)**2
-r_primordial_gravitational_wave=infoLost[r ] 0.0017887314986810335
+r_PGW_bare=(1-ratio_M)*12/(N_max_efolds+ratio_AD)**2
+r_PGW_bare=infoLost[r ] 0.0017887314986810335
+
+eta_CMB_observed=eta_CMB_bare*C0_digital*cos_Weinberg/(V_macro_scale**(1/3)*pi/symmetry_SPP_Leech)
+eta_CMB_observed=infoLost[r ] 2.4725006110048663e-10
+
+eta_CMB_bare=mass_suppression_neutrino_noise**n*fraction_right_handed*delta_g
+eta_CMB_bare=infoLost[r ] 1.0255518537553847e-9
 
 ns_CMB=1-ratio_AD*M_macro*(delta_g/ZPE)*N_dimension_spinor/sharpness_GUT
 ns_CMB=infoLost[r ] 0.9658637694414324
+
+scale_high_frequency_fractal_plateau=scale_low_frequency_lm_lt_2000*(k_dark_matter/k_total)*(1-ratio_M)
+scale_high_frequency_fractal_plateau=infoLost[r ] 0.005410510558336226
+
+scale_low_frequency_lm_lt_2000=sin(beta_rad_CMB*4)/2
+scale_low_frequency_lm_lt_2000=infoLost[r ] 0.019123796803239175
+
+beta_deg_CMB=rad2deg(beta_rad_CMB)
+beta_deg_CMB=infoLost[r ] 0.547990085109832
+
+beta_rad_CMB=asymmetry_chiral_parity_SU2*delta_g*sqrt(V_macro_scale)/n
+beta_rad_CMB=infoLost[r ] 0.009564231253450522
 
 l3_BAO=lm_superfluid_BAO(2,3,3)=>
 l3_BAO=infoLost[r ] 762.7640554887784
@@ -630,7 +648,7 @@ Omega_baryon=infoLost[r ] 0.37206378104157267
 k_dark_energy_pure=k_total-k_baryon-k_dark_matter
 k_dark_energy_pure=infoLost[r ] 2.409247497803044
 
-k_dark_matter=(capa_dark_matter*scale_factor_DM)/(omega_normalization*pi)
+k_dark_matter=capa_complementary_dark_matter*scale_factor_DM/(omega_normalization*pi)
 k_dark_matter=infoLost[r ] 8.215007479743537
 
 k_baryon=capa_baryon/omega_normalization
@@ -648,8 +666,8 @@ omega_normalization=0.04908738521234053
 H0_Hubble_apparent=67.40*(1+capa_baryon/pi)
 H0_Hubble_apparent=infoLost[r ] 74.02949227945223
 
-capa_dark_matter=isAsymmetric_parity_SU2&&&(1-ratio_AD)*(1-ratio_M)
-capa_dark_matter=infoLost[r ] 0.1512199637551612
+capa_complementary_dark_matter=isAsymmetric_parity_SU2&&&(1-ratio_AD)*(1-ratio_M)
+capa_complementary_dark_matter=infoLost[r ] 0.1512199637551612
 
 capa_baryon=ratio_M*ratio_AD
 capa_baryon=infoLost[r ] 0.3090083715453615
@@ -674,6 +692,9 @@ infoLost[r ] 51:
 infoLost[r ] 1412.9999999999995
 )
 
+hasCECC=abs(1-number_blocks*N_dimension_superspace/total_channels)<eps
+hasCECC=true
+
 isCompleted_flatness=M_flatness>M_macro
 isCompleted_flatness=infoLost[r ] true
 
@@ -689,7 +710,28 @@ M_noise=72
 N_max_efolds=M_max/2
 N_max_efolds=infoLost[r ] 61.78220215801985
 
-isAsymmetric_parity_SU2=symmetry_spin_quaternion*N_dimension_spacetime>=symmetry_SPP_Leech
+number_blocks=1/mass_suppression_neutrino_noise
+number_blocks=95.99999999999996
+
+mass_suppression_neutrino_noise=(1-asymmetry_chiral_parity_SU2)/N_dimension_spinor
+mass_suppression_neutrino_noise=0.010416666666666671
+
+fraction_left_handed_neutrino=1
+fraction_left_handed_neutrino=1
+
+hasTrinity=abs(1-fraction_right_handed*3)<eps
+hasTrinity=true
+
+fraction_right_handed=1-fraction_left_handed
+fraction_right_handed=0.33333333333333337
+
+fraction_left_handed=(1+asymmetry_chiral_parity_SU2)/2
+fraction_left_handed=0.6666666666666666
+
+asymmetry_chiral_parity_SU2=(N_dimension_superspace-N_dimension_superspace/2)/(N_dimension_superspace+N_dimension_superspace/2)
+asymmetry_chiral_parity_SU2=0.3333333333333333
+
+isAsymmetric_parity_SU2=N_dimension_superspace>=symmetry_SPP_Leech
 isAsymmetric_parity_SU2=true
 
 isBoson_gcd=gcd(sharpness_GUT,total_channels,symmetry_SVP_Klein)===d_Boson
@@ -703,6 +745,9 @@ N_dimension_spinor=63.99999999999998
 
 S_spacetime=N_dimension_spacetime*2
 S_spacetime=8
+
+N_dimension_superspace=symmetry_spin_quaternion*N_dimension_spacetime
+N_dimension_superspace=16
 
 N_dimension_spacetime=1+3
 N_dimension_spacetime=4
@@ -850,6 +895,21 @@ stored_eqn(dS_P)
 
 n=9-6
 n=3
+
+w_future=w_CPL(2)=>
+w_future=infoLost[r ] -0.999992590563923
+
+w_now=w_CPL(1)=>
+w_now=infoLost[r ] -1
+
+w_recombination=w_CPL(1/1e3)=>
+w_recombination=infoLost[r ] -1.000007402026641
+
+w_initial=w_CPL(0)=>
+w_initial=infoLost[r ] -1.0000074094360771
+
+w_CPL(a)=<-1-delta_g**2*(1-a)
+stored_eqn(w_CPL)
 
 dark_energy_by_capa0=ZPE/capa0
 dark_energy_by_capa0=infoLost[r ] 0.11320948772376002
@@ -3139,7 +3199,7 @@ clear
 local storage cleared
 
 [Pinv_y=(-0.999999427,-0.999936657,-0.997300203,-0.954499736,-0.682689492,0,0.682689492,0.954499736,0.997300203,0.999936657,0.999999427:-5,-4,-3,-2,-1,0,1,2,3,4,5),N=1,arr=[],_r((n)=<arr.push(rand_table(=<Pinv_y)=>),,N),=<arr.]=>
-0.11850892291919607
+0.9439020393587804
 
 rand_table(csv)=<last[table=sort0(csv),ymin=min(table)[0],ymax=max(table)[0],y=ymin+(ymax-ymin)*rand(),x=interp(y:table),x]
 stored_eqn(rand_table)
@@ -3149,7 +3209,7 @@ local storage cleared
 
 [(N)=<[tarr=linspace(0,N-1,N).,shuffle_FY(?tarr)=>,=<tarr.]=>](2)=>
 (
-0,1
+1,0
 )
 
 shuffle_FY(?tarr)=<last[len=sizer(tarr),switch_arr=(i1)=<last{i0=floor(rand()*(i1+1)),w=tarr[i1],tarr[i1]=tarr[i0],tarr[i0]=w},_s((i_)=<switch_arr(i_)=>,len-1,1)]
@@ -5380,4 +5440,4 @@ center=true&wheel=true&drag=false&test-case=false&plot-all=true&relzooming=true&
 --------------------------------
 --------------------------------
 
-online-simulator.github.io.7.544.736.32.202 @ Mon Aug 10 2026 22:16:41 GMT+0900 (日本標準時) @ Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/151.0.0.0 Safari/537.36
+online-simulator.github.io.7.544.736.32.202 @ Wed Aug 12 2026 13:34:45 GMT+0900 (日本標準時) @ Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/151.0.0.0 Safari/537.36
