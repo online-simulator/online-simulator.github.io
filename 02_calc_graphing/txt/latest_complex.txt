@@ -737,6 +737,11 @@ k_total=16.9193218304389
 scale_factor_DM=(N_dimension_spinor/d_Boson)*pi
 scale_factor_DM=8.37758040957278
 
+gluon=(omega_normalization,=alphas_Mz)
+gluon=(
+0.04908738521234053,infoLost[r ] 0.04891856713931213
+)
+
 omega_normalization=d_Boson*pi/total_channels
 omega_normalization=0.04908738521234053
 
@@ -752,9 +757,6 @@ H0_Hubble_standard=infoLost[r ] 20.094007246146262
 H0_bulk_factor=(M_max-log10(symmetry_SVP_Klein*d_Boson))/10**N_spin_Fermion
 H0_bulk_factor=infoLost[r ] 1.1995888379260218
 
-unit_pc=149597870700/deg2rad(1/(60*60))
-unit_pc=30856775814913670
-
 capa_complementary_dark_matter=isAsymmetric_parity_SU2&&&(1-ratio_AD)*(1-ratio_M)
 capa_complementary_dark_matter=infoLost[r ] 0.1512199637551612
 
@@ -766,6 +768,21 @@ capa_total=344.67759399385153
 
 ratio_M=M_macro/M_max
 ratio_M=infoLost[r ] 0.4173079180971393
+
+Lambda_QCD_MeV=10**(M_macro-alphas_Low_E)/ratio_AD**2
+Lambda_QCD_MeV=infoLost[r ] 817.9920589857211
+
+alphas_Low_E=alphas_inv_bareSU3*ratio_AD*delta_g*V_macro_scale
+alphas_Low_E=infoLost[r ] 48.91262798816584
+
+alphas_Mz=1/(alphas_inv_bareSU3-(-dS0*total_channels/sharpness_GUT))
+alphas_Mz=infoLost[r ] 0.04891856713931213
+
+alphas_GUT=1/alphas_inv_bareSU3
+alphas_GUT=infoLost[r ] 0.041208347637694855
+
+alphas_inv_bareSU3=FSC_inv_final*pi*(1-delta_g**2)/symmetry_SPP_Leech
+alphas_inv_bareSU3=infoLost[r ] 24.266927875682686
 
 CECC_allocation=CECC_channel/total_channels
 CECC_allocation=(
@@ -783,6 +800,18 @@ infoLost[r ] 1412.9999999999995
 
 hasCECC=abs(1-number_blocks*N_dimension_superspace/total_channels)<eps
 hasCECC=true
+
+diameter_supervoid_billion_ly=diameter_causal_billion_ly*(dend_inflation/M_max)*alpha_SVP
+diameter_supervoid_billion_ly=infoLost[r ] 1.8253819529237334
+
+diameter_causal_billion_ly=age_billion_year*2
+diameter_causal_billion_ly=infoLost[r ] 27.51627852099571
+
+age_billion_year=(age_sec/unit_year)/1e9
+age_billion_year=infoLost[r ] 13.758139260497854
+
+age_sec=tp*sqrt(10**M_max)*(ratio_AD/(FSC_inv_U1_strict*sin2_Weinberg))*(1/(1+delta_g**2))*N_superstring_sectors
+age_sec=infoLost[r ] 434173855527087100
 
 isCompleted_flatness=M_flatness>M_macro
 isCompleted_flatness=infoLost[r ] true
@@ -895,6 +924,12 @@ FSC_inv_final=92.69352340840221
 FSC_inv(ratio_alpha,ratio_dalpha)=<symmetry_SVP_Klein*(ratio_AD*ratio_alpha)**2*ratio_dalpha+gamma_Euler_Mascheroni
 stored_eqn(FSC_inv)
 
+isN_eq_3d_only_valid_CECC=n===g&&&ratio_AD===alpha_Kepler
+isN_eq_3d_only_valid_CECC=true
+
+alpha_Kepler=(pi/6)/(1/sqrt(2))
+alpha_Kepler=0.740480489693061
+
 ratio_AD=C0_analog/C0_digital
 ratio_AD=0.740480489693061
 
@@ -942,6 +977,12 @@ d_Boson=24
 
 V_macro_scale=10**n
 V_macro_scale=1000.0000000000007
+
+unit_pc=149597870700/deg2rad(1/(60*60))
+unit_pc=30856775814913670
+
+unit_year=60*60*24*365.25
+unit_year=31557600
 
 Tp=Ep/kB
 Tp=1.4167841621573376e+32
@@ -3318,7 +3359,7 @@ clear
 local storage cleared
 
 [Pinv_y=(-0.999999427,-0.999936657,-0.997300203,-0.954499736,-0.682689492,0,0.682689492,0.954499736,0.997300203,0.999936657,0.999999427:-5,-4,-3,-2,-1,0,1,2,3,4,5),N=1,arr=[],_r((n)=<arr.push(rand_table(=<Pinv_y)=>),,N),=<arr.]=>
--0.8627824536468189
+1.8305097720528092
 
 rand_table(csv)=<last[table=sort0(csv),ymin=min(table)[0],ymax=max(table)[0],y=ymin+(ymax-ymin)*rand(),x=interp(y:table),x]
 stored_eqn(rand_table)
@@ -3328,7 +3369,7 @@ local storage cleared
 
 [(N)=<[tarr=linspace(0,N-1,N).,shuffle_FY(?tarr)=>,=<tarr.]=>](2)=>
 (
-0,1
+1,0
 )
 
 shuffle_FY(?tarr)=<last[len=sizer(tarr),switch_arr=(i1)=<last{i0=floor(rand()*(i1+1)),w=tarr[i1],tarr[i1]=tarr[i0],tarr[i0]=w},_s((i_)=<switch_arr(i_)=>,len-1,1)]
@@ -5559,4 +5600,4 @@ center=true&wheel=true&drag=false&test-case=false&plot-all=true&relzooming=true&
 --------------------------------
 --------------------------------
 
-online-simulator.github.io.7.544.736.32.202 @ Thu Aug 13 2026 13:14:30 GMT+0900 (日本標準時) @ Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/151.0.0.0 Safari/537.36
+online-simulator.github.io.7.544.736.32.202 @ Thu Aug 13 2026 23:43:43 GMT+0900 (日本標準時) @ Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/151.0.0.0 Safari/537.36
