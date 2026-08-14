@@ -624,46 +624,126 @@ stored_eqn(lm_overtone_BAO)
 phim_BAO(m)=<(m-1)*k_baryon/(ratio_AD*pi)
 stored_eqn(phim_BAO)
 
-T_CMB_bulk=Tp*(Omega_radiation(0)=>*(total_channels/sharpness_GUT))**(1/N_dimension_spacetime)*10**(-M_max/N_dimension_spacetime)
+T_CMB_bulk=Tp*(Omega_radiation(0)=>*ratio_channel)**(1/N_dimension_spacetime)*10**(-M_max/N_dimension_spacetime)
 T_CMB_bulk=infoLost[r ] 2.6123929017012544
+
+delta_epsilon_per_cycle=delta_epsilon_bare*(delta_g/(1+log(total_channels)))*ratio_M
+delta_epsilon_per_cycle=infoLost[r ] 3.6960703632905422e-9
+
+delta_epsilon_bare=1/(total_channels*d_Boson)
+delta_epsilon_bare=0.00002712673611111111
+
+asymmetry_history=(lifespan_positive_half_cycle-lifespan_negative_half_cycle)/(2*lifespan_positive_half_cycle)
+asymmetry_history=infoLost[r ] 0.13035640340431465+2.906837019180613e-24i+O(1e-15+7e-19i)
+
+progress_cycle=age_billion_year/lifecycle_this_universe_billion_year
+progress_cycle=infoLost[r ] 0.4059875345239103+1.3570382157699482e-24i+O(6e-16+3e-19i)
+
+lifecycle_this_universe_billion_year=lifespan_positive_half_cycle+lifespan_negative_half_cycle
+lifecycle_this_universe_billion_year=infoLost[r ] 33.88808298420178-1.1327299426243035e-22i+O(5e-14+3e-17i)
+
+lifespan_negative_half_cycle=-(time_future_phantom_billion_year(z_singularity_ac)=>-time_future_phantom_billion_year(z_physical_limit)=>)
+lifespan_negative_half_cycle=infoLost[r ] 14.404191469988156-1.1327299426243035e-22i+O(5e-14+3e-17i)
+
+lifespan_positive_half_cycle=age_billion_year+time_future_physical_limit_billion_year
+lifespan_positive_half_cycle=infoLost[r ] 19.483891514213624
+
+Omega_singularity_of_analytic_continuation_with_gamma_Euler_Mascheroni=calc_Omega(z_singularity_ac)=>
+Omega_singularity_of_analytic_continuation_with_gamma_Euler_Mascheroni=(
+infoLost[r ] -20.129943723704024+1.1327299426243035e-22i+O(5e-14+3e-17i),infoLost[ri] -14.981694219702055+5.383244373818997e-13i+O(3e-12+2e-25i),infoLost[ri] -81.87043638478775+2.941780546227699e-12i+O(1e-11+1e-24i),infoLost[ri] 97.81509408210356-3.4787696461810157e-12i+O(2e-11+1e-24i),infoLost[ri] 0.03703652238626952-1.335337428583137e-15i+O(6e-15+5e-28i)
+)
+
+Omega_future_in_sink_with_noise_accumulated=calc_Omega(z_physical_limit*2)=>
+Omega_future_in_sink_with_noise_accumulated=(
+infoLost[r ] -18.39048500106781+9.042233793640703e-23i+O(5e-14+3e-17i),infoLost[r ] -0.13027733718249687,infoLost[r ] -0.711926320866484,infoLost[r ] 1.8419546849451454,infoLost[r ] 0.0002489731038354599
+)
+
+Omega_future_start_of_negative_half_cycle=calc_Omega(z_physical_limit-1e-3)=>
+Omega_future_start_of_negative_half_cycle=(
+infoLost[r ] -6.126246268105386+2.8594053923647996e-24i+O(2e-15+9e-19i),infoLost[r ] -7.071668610738534e-11,infoLost[r ] -3.8644534232209385e-10,infoLost[r ] 1.0000000004571619,infoLost[r ] 1.3514670482132963e-16
+)
+
+Omega_future_physical_limit=calc_Omega(z_physical_limit)=>
+Omega_future_physical_limit=(
+infoLost[r ] -5.72575225371587,infoLost[r ] 0,infoLost[r ] 0,infoLost[r ] 1,infoLost[r ] 0
+)
+
+Omega_future_end_of_positive_half_cycle=calc_Omega(z_physical_limit+1e-3)=>
+Omega_future_end_of_positive_half_cycle=(
+infoLost[r ] -5.720026501462153,infoLost[r ] 7.07155246457998e-11,infoLost[r ] 3.864389952851394e-10,infoLost[r ] 0.9999999995428452,infoLost[r ] 1.3514448515135297e-16
+)
+
+Omega_future=calc_Omega(-0.3)=>
+Omega_future=(
+infoLost[r ] -1.7177256761147608,infoLost[r ] 0.02096938815619199,infoLost[r ] 0.11459137624179729,infoLost[r ] 0.8644111833740684,infoLost[r ] 0.00002805222794218546
+)
 
 Omega_now=calc_Omega(0)=>
 Omega_now=(
-infoLost[r ] 0.04852974666087283,infoLost[r ] 0.26520041582105325,infoLost[r ] 0.6861770922876617,infoLost[r ] 0.00009274523041241118
+infoLost[r ] 0,infoLost[r ] 0.04852974666087283,infoLost[r ] 0.26520041582105325,infoLost[r ] 0.6861770922876617,infoLost[r ] 0.00009274523041241118
 )
 
 Omega_matter_eq_dark_energy=calc_Omega(0.3)=>
 Omega_matter_eq_dark_energy=(
-infoLost[r ] 0.0775018207973446,infoLost[r ] 0.4235240551732746,infoLost[r ] 0.49878157611519736,infoLost[r ] 0.00019254791418341197
+infoLost[r ] 3.8518430065438976,infoLost[r ] 0.0775018207973446,infoLost[r ] 0.4235240551732746,infoLost[r ] 0.49878157611519736,infoLost[r ] 0.00019254791418341197
 )
 
 Omega_dRdt_transition=calc_Omega(0.65)=>
 Omega_dRdt_transition=(
-infoLost[r ] 0.10399941337938279,infoLost[r ] 0.5683253998025687,infoLost[r ] 0.32734724379622215,infoLost[r ] 0.00032794302182634577
+infoLost[r ] 6.408155404938549,infoLost[r ] 0.10399941337938279,infoLost[r ] 0.5683253998025687,infoLost[r ] 0.32734724379622215,infoLost[r ] 0.00032794302182634577
 )
 
 Omega_cosmic_noon=calc_Omega(2)=>
 Omega_cosmic_noon=(
-infoLost[r ] 0.14297724288003366,infoLost[r ] 0.7813274717814216,infoLost[r ] 0.07487555363291878,infoLost[r ] 0.0008197317056261036
+infoLost[r ] 10.28085440870045,infoLost[r ] 0.14297724288003366,infoLost[r ] 0.7813274717814216,infoLost[r ] 0.07487555363291878,infoLost[r ] 0.0008197317056261036
 )
 
 Omega_reionization=calc_Omega(7)=>
 Omega_reionization=(
-infoLost[r ] 0.1536663454514623,infoLost[r ] 0.839740190613566,infoLost[r ] 0.00424408911294831,infoLost[r ] 0.002349374822023473
+infoLost[r ] 12.739641932197515,infoLost[r ] 0.1536663454514623,infoLost[r ] 0.839740190613566,infoLost[r ] 0.00424408911294831,infoLost[r ] 0.002349374822023473
 )
 
 Omega_recombination=calc_Omega(1090)=>
 Omega_recombination=(
-infoLost[r ] 0.1169630458490142,infoLost[r ] 0.6391677379157701,infoLost[r ] 1.3045404243571777e-9,infoLost[r ] 0.24386921493067534
+infoLost[r ] 13.75597437598063,infoLost[r ] 0.1169630458490142,infoLost[r ] 0.6391677379157701,infoLost[r ] 1.3045404243571777e-9,infoLost[r ] 0.24386921493067534
 )
 
 Omega_matter_eq_radiation=calc_Omega(3400)=>
 Omega_matter_eq_radiation=(
-infoLost[r ] 0.07713459515697545,infoLost[r ] 0.42151727790310656,infoLost[r ] 2.989519189985313e-11,infoLost[r ] 0.5013481269100227
+infoLost[r ] 13.757617756709235,infoLost[r ] 0.07713459515697545,infoLost[r ] 0.42151727790310656,infoLost[r ] 2.989519189985313e-11,infoLost[r ] 0.5013481269100227
 )
 
-calc_Omega(z)=<(Omega_baryon(z)=>,Omega_dark_matter(z)=>,Omega_dark_energy(z)=>,Omega_radiation(z)=>)
+Omega_cyclic_bounce_singularity_to_inflaton=calc_Omega(z_cyclic_bounce)=>
+Omega_cyclic_bounce_singularity_to_inflaton=(
+infoLost[r ] 13.758139105785423,infoLost[r ] 0.00010941388084283456+O(4e-19),infoLost[r ] 0.0005979138300243709+O(2e-18),infoLost[r ] 0.5317600088187804-1.7e-322i+O(2e-15),infoLost[r ] 0.4675326634703524+1.7e-322i+O(2e-15)
+)
+
+calc_Omega(z)=<(time_past_billion_year(z)=>,Omega_baryon(z)=>,Omega_dark_matter(z)=>,Omega_dark_energy(z)=>,Omega_radiation(z)=>)
 stored_eqn(calc_Omega)
+
+time_past_billion_year(z)=<z<-1&&&time_future_phantom_billion_year(z)=>||||age_billion_year*(z>=0&&&(1-1/(1+z)**(n*ratio_M))||||ratio_M*(1-delta_g)*z)
+stored_eqn(time_past_billion_year)
+
+time_future_phantom_billion_year(z)=<-time_future_physical_limit_billion_year-(age_billion_year*(h0_SVP-1)*Phi_CECC_act-time_future_physical_limit_billion_year)*sqrt((-z-1)/(-z_singularity_ac-1))
+stored_eqn(time_future_phantom_billion_year)
+
+time_future_physical_limit_billion_year=age_billion_year*ratio_M*(1-delta_g)
+time_future_physical_limit_billion_year=infoLost[r ] 5.725752253715869
+
+z_singularity_ac=-1-exp(h0_SVP-1)
+z_singularity_ac=infoLost[r ] -2.2935574214200525+1.8735768769124338e-24i+O(9e-16+5e-19i)
+
+z_physical_limit=-1
+z_physical_limit=-1
+
+z_cyclic_bounce=exp(dend_min_reheating)/(1+ratio_AD)
+z_cyclic_bounce=infoLost[r ] 2235917.528319582-3.3140703e-317i+O(4e-9)
+
+Phi_CECC_act=Phi_CECC_raw*(N_superstring_sectors/asymmetry_chiral_parity_SU2)/2
+Phi_CECC_act=infoLost[r ] 5.6843508264549065
+
+Phi_CECC_raw=ratio_M*ratio_channel*(1-delta_g)*(1-sin2_Weinberg)/2
+Phi_CECC_raw=infoLost[r ] 0.7579134435273208
 
 Omega_radiation(z)=<K_radiation(z)=>/K_total_dynamic(z)=>
 stored_eqn(Omega_radiation)
@@ -713,7 +793,7 @@ P_radiation_bulk=infoLost[r ] 0.0007644402602017878
 P_dark_energy=(N_max_efolds/ratio_M)*exp(-a_dark_energy*ZPE)
 P_dark_energy=infoLost[r ] 36.94427268263466
 
-a_dark_energy=((total_channels/sharpness_GUT)*ratio_AD*(1-delta_g**2))*(1+delta_g**2)*C0_digital
+a_dark_energy=(ratio_channel*ratio_AD*(1-delta_g**2))*(1+delta_g**2)*C0_digital
 a_dark_energy=infoLost[r ] 2.393594402603673
 
 P_dark_matter=N_dimension_superstring*alpha_SVP
@@ -748,7 +828,7 @@ omega_normalization=0.04908738521234052
 H0_Hubble_observed=H0_Hubble_bulk*(1+capa_baryon/pi)
 H0_Hubble_observed=infoLost[r ] 74.7096991072511
 
-H0_Hubble_bulk=H0_Hubble_standard*(total_channels/sharpness_GUT)*ratio_AD
+H0_Hubble_bulk=H0_Hubble_standard*ratio_channel*ratio_AD
 H0_Hubble_bulk=infoLost[r ] 68.01929291667409
 
 H0_Hubble_standard=H0_bulk_factor*unit_pc*10**n/(tp*sqrt(10**M_max/pi))
@@ -763,7 +843,7 @@ capa_complementary_dark_matter=infoLost[r ] 0.1512199637551612
 capa_baryon=ratio_M*ratio_AD
 capa_baryon=infoLost[r ] 0.3090083715453615
 
-capa_total=(total_channels/sharpness_GUT)*d_Boson*pi
+capa_total=ratio_channel*d_Boson*pi
 capa_total=344.6775939938516
 
 ratio_M=M_macro/M_max
@@ -775,7 +855,7 @@ Lambda_QCD_MeV=infoLost[r ] 817.9920589782662
 alphas_Low_E=alphas_inv_bareSU3*ratio_AD*delta_g*V_macro_scale
 alphas_Low_E=infoLost[r ] 48.912627988169795
 
-alphas_Mz=1/(alphas_inv_bareSU3-(-dS0*total_channels/sharpness_GUT))
+alphas_Mz=1/(alphas_inv_bareSU3-(-dS0*ratio_channel))
 alphas_Mz=infoLost[r ] 0.04891856713931214
 
 alphas_GUT=1/alphas_inv_bareSU3
@@ -858,6 +938,9 @@ isAsymmetric_parity_SU2=true
 isBoson_gcd=gcd(sharpness_GUT,total_channels,symmetry_SVP_Klein)===d_Boson
 isBoson_gcd=true
 
+ratio_channel=total_channels/sharpness_GUT
+ratio_channel=4.571428571428571
+
 total_channels=d_Boson*N_dimension_spinor
 total_channels=1536
 
@@ -884,6 +967,12 @@ log10_cosmological_constant_of_ZPE=infoLost[r ] 120.59861454462077
 
 log10_S_Hubble_kB=M_max
 log10_S_Hubble_kB=infoLost[r ] 123.5644043160397
+
+sin2_Weinberg_final=sin2_Weinberg_d(M_max)=>
+sin2_Weinberg_final=infoLost[r ] 0.20294263766903375
+
+sin2_Weinberg_d(d)=<sin2_Weinberg*(1-(d/M_max)*alpha_SVP*delta_g)
+stored_eqn(sin2_Weinberg_d)
 
 M_max=FSC_inv_log10_Nsol(d_Boson)=>
 M_max=infoLost[r ] 123.5644043160397
@@ -1011,6 +1100,9 @@ h_Weil=12.25
 tend_inflation=tp*exp(dend_inflation)
 tend_inflation=infoLost[r ] 1.7624078298815739e-37
 
+dend_min_reheating=log(2*exp(dend_inflation)-exp(h_SVP))
+dend_min_reheating=infoLost[r ] 15.174323447606504-1.5e-323i+O(2e-15)
+
 dend_inflation=ceil(h_SVP)
 dend_inflation=infoLost[r ] 15
 
@@ -1026,20 +1118,20 @@ h=6.62607015e-34
 c=299792458
 c=299792458
 
-h_SVP=W_Lambert(x,x0_Newton_method)=>/x
+h_SVP=calc_h(-alpha_SVP/n,-2)=>
 h_SVP=infoLost[r ] 14.788734933437249+2.5e-323i+O(4e-15)
 
-x=-alpha_SVP/n
-x=infoLost[r ] -0.18215660432921746
-
-h_SPP=W_Lambert(x,x0_Newton_method)=>/x
+h_SPP=calc_h(-alpha_SPP/n,-2)=>
 h_SPP=infoLost[r ] 12.560767729405429+1.73e-322i+O(4e-15+4e-322i)
 
-x=-alpha_SPP/n
-x=-0.2014668480972259
+h0_SVP=calc_h(-alpha_SVP/n,0)=>
+h0_SVP=infoLost[r ] 1.2573961139431784-1.4483909611493262e-24i+O(7e-16+4e-19i)
 
-x0_Newton_method=-2
-x0_Newton_method=-2
+h0_SPP=calc_h(-alpha_SPP/n,0)=>
+h0_SPP=infoLost[r ] 1.2991947885015154+7.200211838820238e-29i+O(2e-23i)
+
+calc_h(x,x0)=<W_Lambert(x,x0)=>/x
+stored_eqn(calc_h)
 
 dS_NP(d,a)=<ZPE*exp(d*a)
 stored_eqn(dS_NP)
@@ -1228,7 +1320,7 @@ stored_eqn(gamma_EM_full)
 ln_gamma_EM(s,m)=<last[table_Bn={1/1,-1/2,1/6,,-1/30,,1/42,,-1/30,,5/66,,-691/2730,,7/6,,-3617/510,,43867/798,,-174611/330,,854513/138,,-236364091/2730,,8553103/6,,-23749461029/870},N=real(s)<7&&&floor(8-real(s)),sN=s+N,(sN-0.5)*ln(sN)-sN+0.5*ln(2*pi)+_s((k)=<table_Bn[2*k]/(2*k*(2*k-1)*sN**(2*k-1)),1,m)-(N>0&&&_s((j)=<ln(s+j),0,N-1))]
 stored_eqn(ln_gamma_EM)
 
-W_Lambert(x,x0)=<[f(x)=<x*e^x,=<ge(x,-1/e)&&&Newton((y)=<f(y)=>=x,=<{x0},Nmax=1e3,Nmax)||||NaN]=>
+W_Lambert(x,x0_Newton_method)=<[f(x)=<x*e^x,=<ge(x,-1/e)&&&Newton((y)=<f(y)=>=x,=<{x0_Newton_method},Nmax=1e3,Nmax)||||NaN]=>
 stored_eqn(W_Lambert)
 
 clear
@@ -3359,7 +3451,7 @@ clear
 local storage cleared
 
 [Pinv_y=(-0.999999427,-0.999936657,-0.997300203,-0.954499736,-0.682689492,0,0.682689492,0.954499736,0.997300203,0.999936657,0.999999427:-5,-4,-3,-2,-1,0,1,2,3,4,5),N=1,arr=[],_r((n)=<arr.push(rand_table(=<Pinv_y)=>),,N),=<arr.]=>
--1.8618816737653003
+0.12056841864189581
 
 rand_table(csv)=<last[table=sort0(csv),ymin=min(table)[0],ymax=max(table)[0],y=ymin+(ymax-ymin)*rand(),x=interp(y:table),x]
 stored_eqn(rand_table)
@@ -5600,4 +5692,4 @@ center=true&wheel=true&drag=false&test-case=false&plot-all=true&relzooming=true&
 --------------------------------
 --------------------------------
 
-online-simulator.github.io.7.544.736.32.202 @ Thu Aug 13 2026 23:40:04 GMT+0900 (日本標準時) @ Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/151.0.0.0 Safari/537.36
+online-simulator.github.io.7.544.736.32.202 @ Sat Aug 15 2026 00:20:32 GMT+0900 (日本標準時) @ Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/151.0.0.0 Safari/537.36
