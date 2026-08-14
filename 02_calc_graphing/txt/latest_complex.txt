@@ -627,11 +627,38 @@ stored_eqn(phim_BAO)
 T_CMB_bulk=Tp*(Omega_radiation(0)=>*ratio_channel)**(1/N_dimension_spacetime)*10**(-M_max/N_dimension_spacetime)
 T_CMB_bulk=infoLost[r ] 2.6123929017012304
 
+FSC_inv_U1_final=FSC_inv_U1_asymmetry(asymmetry_history_limit)=>
+FSC_inv_U1_final=infoLost[r ] 135.88165415029616
+
+FSC_inv_U1_now=FSC_inv_U1_asymmetry(asymmetry_history)=>
+FSC_inv_U1_now=infoLost[r ] 136.9905849400832+O(2e-15)
+
+FSC_inv_U1_initial=FSC_inv_U1_asymmetry(0)=>
+FSC_inv_U1_initial=infoLost[r ] 137.38165415029616
+
+FSC_inv_U1_asymmetry(asymmetry)=<FSC_inv_U1_full-real(asymmetry)*n
+stored_eqn(FSC_inv_U1_asymmetry)
+
+progress_cycles=N_cycle_now/N_cycle_max
+progress_cycles=infoLost[r ] 0.2607128068086277+5.81366217015823e-24i+O(2e-15+1e-18i)
+
+N_cycle_remain=N_cycle_max-N_cycle_now
+N_cycle_remain=infoLost[r ] 100009891.65872627-7.864652994569763e-16i+O(2e-7+2e-10i)
+
+N_cycle_now=asymmetry_history/delta_epsilon_per_cycle
+N_cycle_now=infoLost[r ] 35268918.22705198+7.864652994569763e-16i+O(2e-7+2e-10i)
+
+N_cycle_max=asymmetry_history_limit/delta_epsilon_per_cycle
+N_cycle_max=infoLost[r ] 135278809.88577825
+
 delta_epsilon_per_cycle=delta_epsilon_bare*(delta_g/(1+log(total_channels)))*ratio_M
 delta_epsilon_per_cycle=infoLost[r ] 3.6960703632902424e-9
 
 delta_epsilon_bare=1/(total_channels*d_Boson)
 delta_epsilon_bare=0.000027126736111111123
+
+asymmetry_history_limit=(lifespan_positive_half_cycle-0)/(2*lifespan_positive_half_cycle)
+asymmetry_history_limit=infoLost[r ] 0.5
 
 asymmetry_history=(lifespan_positive_half_cycle-lifespan_negative_half_cycle)/(2*lifespan_positive_half_cycle)
 asymmetry_history=infoLost[r ] 0.13035640340431387+2.9068310850791154e-24i+O(8e-16+7e-19i)
@@ -819,7 +846,7 @@ scale_factor_DM=8.37758040957278
 
 gluon=(omega_normalization,=alphas_Mz)
 gluon=(
-0.04908738521234053,infoLost[r ] 0.04891856713931213
+0.04908738521234053,infoLost[r ] 0.04891856713931212
 )
 
 omega_normalization=d_Boson*pi/total_channels
@@ -856,13 +883,13 @@ alphas_Low_E=alphas_inv_bareSU3*ratio_AD*delta_g*V_macro_scale
 alphas_Low_E=infoLost[r ] 48.91262798816584
 
 alphas_Mz=1/(alphas_inv_bareSU3-(-dS0*ratio_channel))
-alphas_Mz=infoLost[r ] 0.04891856713931213
+alphas_Mz=infoLost[r ] 0.04891856713931212
 
 alphas_GUT=1/alphas_inv_bareSU3
-alphas_GUT=infoLost[r ] 0.041208347637694855
+alphas_GUT=infoLost[r ] 0.04120834763769485
 
-alphas_inv_bareSU3=FSC_inv_final*pi*(1-delta_g**2)/symmetry_SPP_Leech
-alphas_inv_bareSU3=infoLost[r ] 24.266927875682686
+alphas_inv_bareSU3=FSC_inv_bareSU3*pi*(1-delta_g**2)
+alphas_inv_bareSU3=infoLost[r ] 24.26692787568269
 
 CECC_allocation=CECC_channel/total_channels
 CECC_allocation=(
@@ -986,14 +1013,23 @@ stored_eqn(FSC_inv_log10_Nsol)
 cos_Weinberg=sqrt(1-sin2_Weinberg)
 cos_Weinberg=infoLost[r ] 0.8926113567534779
 
-sin2_Weinberg=FSC_inv_bareSU2/(FSC_inv_bareU1+FSC_inv_bareSU2)
+sin2_Weinberg=FSC_inv_SU2/(FSC_inv_bareU1+FSC_inv_SU2)
 sin2_Weinberg=infoLost[r ] 0.20324496579471535
 
-FSC_inv_bareSU3=FSC_inv_final/symmetry_SPP_Leech+gamma_Euler_Mascheroni
-FSC_inv_bareSU3=8.301675948935051
+sin2_Weinberg_bare=FSC_inv_bareSU2/(FSC_inv_bareU1+FSC_inv_bareSU2)
+sin2_Weinberg_bare=infoLost[r ] 0.19999999999999998
 
-FSC_inv_bareSU2=FSC_inv_bareU1/symmetry_spin_quaternion+gamma_Euler_Mascheroni
-FSC_inv_bareSU2=infoLost[r ] 28.922629202475573
+FSC_inv_SU3=FSC_inv_bareSU3+gamma_Euler_Mascheroni
+FSC_inv_SU3=8.301675948935051
+
+FSC_inv_bareSU3=FSC_inv_equilibrium/symmetry_SPP_Leech
+FSC_inv_bareSU3=7.724460284033518
+
+FSC_inv_SU2=FSC_inv_bareSU2+gamma_Euler_Mascheroni
+FSC_inv_SU2=infoLost[r ] 28.922629202475573
+
+FSC_inv_bareSU2=FSC_inv_bareU1/symmetry_spin_quaternion
+FSC_inv_bareSU2=infoLost[r ] 28.34541353757404
 
 FSC_inv_U1_full=FSC_inv_bareU1+d_Boson
 FSC_inv_U1_full=infoLost[r ] 137.38165415029616
@@ -1007,8 +1043,8 @@ FSC_inv_U1_about=infoLost[r ] 138.3096349303457
 FSC_inv_bareU1=FSC_inv(alpha_SPP/alpha_SVP,superstring[1]/superstring[0])=>
 FSC_inv_bareU1=infoLost[r ] 113.38165415029616
 
-FSC_inv_final=FSC_inv(1,1)=>
-FSC_inv_final=92.69352340840221
+FSC_inv_equilibrium=FSC_inv(1,1)=>
+FSC_inv_equilibrium=92.69352340840221
 
 FSC_inv(ratio_alpha,ratio_dalpha)=<symmetry_SVP_Klein*(ratio_AD*ratio_alpha)**2*ratio_dalpha+gamma_Euler_Mascheroni
 stored_eqn(FSC_inv)
@@ -1221,56 +1257,62 @@ infoLost[r ] 0.5464698129876533
 alpha_SVP=(1+1/ln10**2)*log2(1+1/xi_Adelic_Haar_measure(log2e)=>)-(1/ln10**2)*log2(1+1/xi_Adelic_Haar_measure(2)=>)
 alpha_SVP=infoLost[r ] 0.5464698129876527
 
-alpha(s,36,g)=>
+alpha(s,48,3)=>
+infoLost[r ] 0.552816394512132
+
+alpha(s,48,2)=>
+infoLost[r ] 0.5528163945121319
+
+alpha(s,48,1)=>
+infoLost[r ] 0.552816394512132
+
+alpha(s,36,1)=>
 infoLost[r ] 0.5549266172070757
 
-alpha(s,24,g)=>
+alpha(s,24,1)=>
 infoLost[r ] 0.5591391284668297
 
-alpha(s,12,g)=>
+alpha(s,12,1)=>
 infoLost[r ] 0.571713465439116
 
-alpha(s,11,g)=>
+alpha(s,11,1)=>
 infoLost[r ] 0.5739895695394358
 
-alpha(s,10,g)=>
+alpha(s,10,1)=>
 infoLost[r ] 0.5767167938322492
 
-alpha(s,9,g)=>
+alpha(s,9,1)=>
 infoLost[r ] 0.580044005362236
 
-alpha(s,8,g)=>
+alpha(s,8,1)=>
 infoLost[r ] 0.5841936653788219
 
-alpha(s,7,g)=>
+alpha(s,7,1)=>
 infoLost[r ] 0.589513719087352
 
-alpha(s,6,g)=>
+alpha(s,6,1)=>
 infoLost[r ] 0.5965805952646657
 
-alpha(s,5,g)=>
+alpha(s,5,1)=>
 infoLost[r ] 0.606423581055983
 
-alpha(s,4,g)=>
+alpha(s,4,1)=>
 infoLost[r ] 0.6210782156897084
 
-alpha(s,3,g)=>
+alpha(s,3,1)=>
 infoLost[r ] 0.6452136247047903
 
-alpha(s,2,g)=>
+alpha(s,2,1)=>
 infoLost[r ] 0.6924278365287644
 
-alpha(s,1,g)=>
+alpha(s,1,1)=>
 infoLost[r ] 0.8261629401947824
 
-alpha(s,0,g)=>
+alpha(s,0,1)=>
 infoLost[r ] NaN
 
 s=log2e
 s=1.4426950408889634
-
-g=1
-g=1
 
 alpha(s,d,g)=<log2_Dn(s,d,g)=>/sharpness(d,g)=>
 stored_eqn(alpha)
@@ -3451,7 +3493,7 @@ clear
 local storage cleared
 
 [Pinv_y=(-0.999999427,-0.999936657,-0.997300203,-0.954499736,-0.682689492,0,0.682689492,0.954499736,0.997300203,0.999936657,0.999999427:-5,-4,-3,-2,-1,0,1,2,3,4,5),N=1,arr=[],_r((n)=<arr.push(rand_table(=<Pinv_y)=>),,N),=<arr.]=>
-0.7795028093174589
+-0.2843610865001063
 
 rand_table(csv)=<last[table=sort0(csv),ymin=min(table)[0],ymax=max(table)[0],y=ymin+(ymax-ymin)*rand(),x=interp(y:table),x]
 stored_eqn(rand_table)
@@ -3461,7 +3503,7 @@ local storage cleared
 
 [(N)=<[tarr=linspace(0,N-1,N).,shuffle_FY(?tarr)=>,=<tarr.]=>](2)=>
 (
-1,0
+0,1
 )
 
 shuffle_FY(?tarr)=<last[len=sizer(tarr),switch_arr=(i1)=<last{i0=floor(rand()*(i1+1)),w=tarr[i1],tarr[i1]=tarr[i0],tarr[i0]=w},_s((i_)=<switch_arr(i_)=>,len-1,1)]
@@ -5692,4 +5734,4 @@ center=true&wheel=true&drag=false&test-case=false&plot-all=true&relzooming=true&
 --------------------------------
 --------------------------------
 
-online-simulator.github.io.7.544.736.32.202 @ Sat Aug 15 2026 00:25:29 GMT+0900 (日本標準時) @ Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/151.0.0.0 Safari/537.36
+online-simulator.github.io.7.544.736.32.202 @ Sat Aug 15 2026 07:39:12 GMT+0900 (日本標準時) @ Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/151.0.0.0 Safari/537.36
