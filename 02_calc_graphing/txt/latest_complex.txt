@@ -669,13 +669,13 @@ progress_cycle=infoLost[r ] 0.40598753452390984+1.3570354454727272e-24i+O(3e-16+
 lifecycle_this_universe_billion_year=lifespan_positive_half_cycle+lifespan_negative_half_cycle
 lifecycle_this_universe_billion_year=infoLost[r ] 33.88808298420206-1.1327276302365154e-22i+O(3e-14+3e-17i)
 
-lifespan_negative_half_cycle=-(time_future_phantom_billion_year(z_singularity_ac)=>-time_future_phantom_billion_year(z_physical_limit)=>)
+lifespan_negative_half_cycle=-(time_future_phantom_billion_year(z_singularity_ac_W0)=>-time_future_phantom_billion_year(z_physical_limit)=>)
 lifespan_negative_half_cycle=infoLost[r ] 14.404191469988291-1.1327276302365154e-22i+O(3e-14+3e-17i)
 
 lifespan_positive_half_cycle=age_billion_year+time_future_physical_limit_billion_year
 lifespan_positive_half_cycle=infoLost[r ] 19.483891514213767
 
-Omega_singularity_of_analytic_continuation_with_gamma_Euler_Mascheroni=calc_Omega(z_singularity_ac)=>
+Omega_singularity_of_analytic_continuation_with_gamma_Euler_Mascheroni=calc_Omega(z_singularity_ac_W0)=>
 Omega_singularity_of_analytic_continuation_with_gamma_Euler_Mascheroni=(
 infoLost[r ] -20.1299437237042+1.1327276302365154e-22i+O(3e-14+3e-17i),infoLost[ri] -14.981694219697852+5.383244373815994e-13i+O(2e-12+1e-25i),infoLost[ri] -81.87043638476482+2.9417805462260603e-12i+O(1e-11+7e-25i),infoLost[ri] 97.81509408207641-3.478769646179077e-12i+O(1e-11+9e-25i),infoLost[ri] 0.03703652238625902-1.3353374285823897e-15i+O(5e-15+3e-28i)
 )
@@ -740,8 +740,8 @@ Omega_matter_eq_radiation=(
 infoLost[r ] 13.757617756709333,infoLost[r ] 0.0771345951569755,infoLost[r ] 0.4215172779031071,infoLost[r ] 2.989519189985335e-11,infoLost[r ] 0.5013481269100222
 )
 
-Omega_cyclic_bounce_singularity_to_inflaton=calc_Omega(z_cyclic_bounce)=>
-Omega_cyclic_bounce_singularity_to_inflaton=(
+Omega_cyclic_bounce_singularity_to_inflation=calc_Omega(z_cyclic_bounce_Wm1)=>
+Omega_cyclic_bounce_singularity_to_inflation=(
 infoLost[r ] 13.75813910578552-8.364445521994923e-38i+O(1e-32i),infoLost[ri] 0.00010941388084281555+1.1954895615215327e-33i+O(6e-30i),infoLost[ri] 0.0005979138300242674+6.532989571133629e-33i+O(3e-29i),infoLost[ri] 0.5317600088188603-4.9142288675231044e-30i+O(5e-26i),infoLost[ri] 0.4675326634702728+4.90650038839045e-30i+O(5e-26i)
 )
 
@@ -751,20 +751,20 @@ stored_eqn(calc_Omega)
 time_past_billion_year(z)=<z<-1&&&time_future_phantom_billion_year(z)=>||||age_billion_year*(z>=0&&&(1-1/(1+z)**(n*ratio_M))||||ratio_M*(1-delta_g)*z)
 stored_eqn(time_past_billion_year)
 
-time_future_phantom_billion_year(z)=<-time_future_physical_limit_billion_year-(age_billion_year*(h0_SVP-1)*Phi_CECC_act-time_future_physical_limit_billion_year)*sqrt((-z-1)/(-z_singularity_ac-1))
+time_future_phantom_billion_year(z)=<-time_future_physical_limit_billion_year-(age_billion_year*(h0_SVP-1)*Phi_CECC_act-time_future_physical_limit_billion_year)*sqrt((-z-1)/(-z_singularity_ac_W0-1))
 stored_eqn(time_future_phantom_billion_year)
 
 time_future_physical_limit_billion_year=age_billion_year*ratio_M*(1-delta_g)
 time_future_physical_limit_billion_year=infoLost[r ] 5.725752253715911
 
-z_singularity_ac=-1-exp(h0_SVP-1)
-z_singularity_ac=infoLost[r ] -2.293557421420053+1.8735730521381947e-24i+O(7e-16+5e-19i)
+z_singularity_ac_W0=-1-exp(h0_SVP-1)
+z_singularity_ac_W0=infoLost[r ] -2.293557421420053+1.8735730521381947e-24i+O(7e-16+5e-19i)
 
 z_physical_limit=-1
 z_physical_limit=-1
 
-z_cyclic_bounce=exp(dend_min_reheating)/(1+ratio_AD)
-z_cyclic_bounce=infoLost[r ] 2235917.5283195972-9.655845595891664e-25i+O(1e-19i)
+z_cyclic_bounce_Wm1=exp(dend_min_reheating)/(1+ratio_AD)
+z_cyclic_bounce_Wm1=infoLost[r ] 2235917.5283195972-9.655845595891664e-25i+O(1e-19i)
 
 Phi_CECC_act=Phi_CECC_raw*(N_superstring_sectors/asymmetry_chiral_parity_SU2)/2
 Phi_CECC_act=infoLost[r ] 5.684350826454906
@@ -820,7 +820,7 @@ P_radiation_bulk=infoLost[r ] 0.000764440260201785
 P_dark_energy=(N_max_efolds/ratio_M)*exp(-a_dark_energy*ZPE)
 P_dark_energy=infoLost[r ] 36.94427268263469
 
-a_dark_energy=(ratio_channel*ratio_AD*(1-delta_g**2))*(1+delta_g**2)*C0_digital
+a_dark_energy=ratio_channel*ratio_AD*(1-delta_g**2)*(1+delta_g**2)*C0_digital
 a_dark_energy=infoLost[r ] 2.3935944026036724
 
 P_dark_matter=N_dimension_superstring*alpha_SVP
@@ -849,7 +849,7 @@ gluon=(
 0.04908738521234053,infoLost[r ] 0.04891856713931212
 )
 
-omega_normalization=d_Boson*pi/total_channels
+omega_normalization=(d_Boson/total_channels)*pi
 omega_normalization=0.04908738521234053
 
 H0_Hubble_observed=H0_Hubble_bulk*(1+capa_baryon/pi)
@@ -864,7 +864,7 @@ H0_Hubble_standard=infoLost[r ] 20.094007246146262
 H0_bulk_factor=(M_max-log10(symmetry_SVP_Klein*d_Boson))/10**N_spin_Fermion
 H0_bulk_factor=infoLost[r ] 1.1995888379260218
 
-capa_complementary_dark_matter=isAsymmetric_parity_SU2&&&(1-ratio_AD)*(1-ratio_M)
+capa_complementary_dark_matter=isAsymmetric_parity_SU2&&&(1-ratio_M)*(1-ratio_AD)
 capa_complementary_dark_matter=infoLost[r ] 0.1512199637551612
 
 capa_baryon=ratio_M*ratio_AD
@@ -885,21 +885,29 @@ alphas_Low_E=infoLost[r ] 48.91262798816584
 alphas_Mz=1/(alphas_inv_bareSU3-(-dS0*ratio_channel))
 alphas_Mz=infoLost[r ] 0.04891856713931212
 
+dual_holographic=(alphas_GUT*N_superstring_sectors,=geometric_chiral_fraction_dS5,=sin2_Weinberg_dual_holographic)
+dual_holographic=(
+infoLost[r ] 0.20604173818847424,0.2,infoLost[r ] 0.2
+)
+
 alphas_GUT=1/alphas_inv_bareSU3
 alphas_GUT=infoLost[r ] 0.04120834763769485
 
 alphas_inv_bareSU3=FSC_inv_bareSU3*pi*(1-delta_g**2)
 alphas_inv_bareSU3=infoLost[r ] 24.26692787568269
 
-CECC_allocation=CECC_channel/total_channels
-CECC_allocation=(
-infoLost[r ] 0.03320312500000001:
-0.046875000000000014:
-infoLost[r ] 0.919921875
+CECC_channel_manifold={1/4,3/4,N_superstring_sectors}*CECC_rank_target
+CECC_channel_manifold=(
+63.99999999999998:
+191.99999999999994:
+1279.9999999999995
 )
 
-CECC_channel={floor(M_macro),M_noise,total_channels-floor(M_macro)-M_noise}
-CECC_channel=(
+CECC_rank_target=total_channels/(1/4+3/4+N_superstring_sectors)
+CECC_rank_target=255.99999999999991
+
+CECC_channel_original={floor(M_macro),M_noise,total_channels-floor(M_macro)-M_noise}
+CECC_channel_original=(
 infoLost[r ] 51:
 72:
 infoLost[r ] 1412.9999999999995
@@ -1010,8 +1018,23 @@ M24=infoLost[r ] 123.5644043160397
 M12=FSC_inv_log10_Nsol(symmetry_SPP_Leech)=>
 M12=infoLost[r ] 124.99968234648806
 
+M6=FSC_inv_log10_Nsol(6)=>
+M6=infoLost[r ] 127.7585742076468
+
+M5=FSC_inv_log10_Nsol(5)=>
+M5=infoLost[r ] 128.822516203323
+
+M4=FSC_inv_log10_Nsol(4)=>
+M4=infoLost[r ] 130.37816968415217
+
+M3=FSC_inv_log10_Nsol(3)=>
+M3=infoLost[r ] 132.86894694471664
+
 M2=FSC_inv_log10_Nsol(2)=>
 M2=infoLost[r ] 137.5008773776705
+
+M1=FSC_inv_log10_Nsol(1)=>
+M1=infoLost[r ] 149.1227514912276
 
 FSC_inv_log10_Nsol(d)=<log10(Nsol(log2e,d,3)=>)*d_Boson/d
 stored_eqn(FSC_inv_log10_Nsol)
@@ -1028,11 +1051,14 @@ cos2_Weinberg=infoLost[r ] 0.7967550342052847
 sin2_Weinberg=FSC_inv_SU2/(FSC_inv_U1+FSC_inv_SU2)
 sin2_Weinberg=infoLost[r ] 0.20324496579471535
 
-cos2_Weinberg_bare=1-sin2_Weinberg_bare
-cos2_Weinberg_bare=infoLost[r ] 0.8
+cos2_Weinberg_dual_holographic=1-sin2_Weinberg_dual_holographic
+cos2_Weinberg_dual_holographic=infoLost[r ] 0.8
 
-sin2_Weinberg_bare=FSC_inv_bareSU2_bare/(FSC_inv_bareU1+FSC_inv_bareSU2_bare)
-sin2_Weinberg_bare=infoLost[r ] 0.2
+sin2_Weinberg_dual_holographic=FSC_inv_bareSU2_bare/(FSC_inv_bareU1+FSC_inv_bareSU2_bare)
+sin2_Weinberg_dual_holographic=infoLost[r ] 0.2
+
+geometric_chiral_fraction_dS5=1/(1+symmetry_spin_quaternion)
+geometric_chiral_fraction_dS5=0.2
 
 FSC_inv_U1_full=FSC_inv_U1+d_Boson
 FSC_inv_U1_full=infoLost[r ] 137.38165415029616
@@ -1061,7 +1087,7 @@ FSC_inv_bareSU2=infoLost[r ] 28.34541353757404
 FSC_inv_bareSU2_bare=FSC_inv_bareU1/symmetry_spin_quaternion
 FSC_inv_bareSU2_bare=infoLost[r ] 28.201109621348657
 
-FSC_inv_U1=FSC_inv_bareU1+gamma_Euler_Mascheroni
+FSC_inv_U1=FSC_inv(alpha_SPP/alpha_SVP,superstring[1]/superstring[0])=>
 FSC_inv_U1=infoLost[r ] 113.38165415029616
 
 FSC_inv_bareU1=FSC_inv_bare(alpha_SPP/alpha_SVP,superstring[1]/superstring[0])=>
@@ -1343,6 +1369,18 @@ infoLost[r ] NaN
 
 s=log2e
 s=1.4426950408889634
+
+log10_Nsol_derivative23=log10_Nsol_derivative(2,3)=>
+log10_Nsol_derivative23=infoLost[r ] -20.560388456647935
+
+log10_Nsol_derivative22=log10_Nsol_derivative(2,2)=>
+log10_Nsol_derivative22=infoLost[r ] -14.685991754748526
+
+log10_Nsol_derivative21=log10_Nsol_derivative(2,1)=>
+log10_Nsol_derivative21=infoLost[r ] -8.811595052849116
+
+log10_Nsol_derivative11=log10_Nsol_derivative(1,1)=>
+log10_Nsol_derivative11=infoLost[r ] -4.778185144587079
 
 alpha(s,d,g)=<log2_Dn(s,d,g)=>/sharpness(d,g)=>
 stored_eqn(alpha)
@@ -3523,7 +3561,7 @@ clear
 local storage cleared
 
 [Pinv_y=(-0.999999427,-0.999936657,-0.997300203,-0.954499736,-0.682689492,0,0.682689492,0.954499736,0.997300203,0.999936657,0.999999427:-5,-4,-3,-2,-1,0,1,2,3,4,5),N=1,arr=[],_r((n)=<arr.push(rand_table(=<Pinv_y)=>),,N),=<arr.]=>
--0.3024764724226977
+-1.4503513724839419
 
 rand_table(csv)=<last[table=sort0(csv),ymin=min(table)[0],ymax=max(table)[0],y=ymin+(ymax-ymin)*rand(),x=interp(y:table),x]
 stored_eqn(rand_table)
@@ -3533,7 +3571,7 @@ local storage cleared
 
 [(N)=<[tarr=linspace(0,N-1,N).,shuffle_FY(?tarr)=>,=<tarr.]=>](2)=>
 (
-1,0
+0,1
 )
 
 shuffle_FY(?tarr)=<last[len=sizer(tarr),switch_arr=(i1)=<last{i0=floor(rand()*(i1+1)),w=tarr[i1],tarr[i1]=tarr[i0],tarr[i0]=w},_s((i_)=<switch_arr(i_)=>,len-1,1)]
@@ -5764,4 +5802,4 @@ center=true&wheel=true&drag=false&test-case=false&plot-all=true&relzooming=true&
 --------------------------------
 --------------------------------
 
-online-simulator.github.io.7.544.736.32.202 @ Sat Aug 15 2026 13:10:19 GMT+0900 (日本標準時) @ Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/151.0.0.0 Safari/537.36
+online-simulator.github.io.7.544.736.32.202 @ Sun Aug 16 2026 23:10:09 GMT+0900 (日本標準時) @ Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/151.0.0.0 Safari/537.36

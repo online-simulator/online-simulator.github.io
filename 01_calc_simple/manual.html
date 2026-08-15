@@ -866,6 +866,12 @@ test case
 <br>
 　⇒基準scale[m^3]：1　⇒　1.616e-35**3　<span class="clear">Ver.2.890.170</span>以降、基準scaleを修正
 <br>
+　-phalf：<span class="run">Ver.2.906.179</span>以降、正の半周期の<a href="#span-app-redshift">赤方偏移</a>z=(-1,z_Wm1)の密度parameter（inflaton場への跳躍）
+<br>
+　<span class="sF">→nhalf</span>：<span class="run">Ver.2.906.179</span>以降、負の半周期のz=(z_W0,-1]の密度parameter（鏡像宇宙の特異点の可視化）
+<br>
+　⇒<a href="#span-app-continuation">解析接続</a>：W関数による特異点からinflaton場への接続を含む1cycleの再現性を確認（CECCの実証）
+<br>
 　-Collatz：<span class="run">Ver.2.903.178</span>以降、Collatz宇宙における時間反復で生じる論理的散逸（<a href="#span-app-entropy">entropy増大則</a>）
 <br>
 　-abc：<span class="run">Ver.2.903.178</span>以降、abc宇宙におけるmicro量子論からmacro決定論への相転移（<a href="#span-app-quantum">動的局在化</a>）
@@ -4012,6 +4018,8 @@ ja.m.wikipedia.org/wiki/項目を列挙する
 ・隠れた変数理論
 <br>
 ・共形サイクリック宇宙論
+<br>
+・サイクリック宇宙論
 <br>
 ・多元宇宙論
 <br>
@@ -55761,6 +55769,15 @@ log2_Dn(s,d,g)=&lt;capa_eff(s,d,g)=&gt;-loss_digital(s,d,g)=&gt;;
 alpha(s,d,g)=&lt;log2_Dn(s,d,g)=&gt;/sharpness(d,g)=&gt;;
 <br>
 <br>
+log10_Nsol_derivative11=log10_Nsol_derivative(1,1)=&gt;;
+<br>
+log10_Nsol_derivative21=log10_Nsol_derivative(2,1)=&gt;;
+<br>
+log10_Nsol_derivative22=log10_Nsol_derivative(2,2)=&gt;;
+<br>
+log10_Nsol_derivative23=log10_Nsol_derivative(2,3)=&gt;;
+<br>
+<br>
 s=log2e;
 <br>
 alpha(s,0,1)=&gt;;alpha(s,1,1)=&gt;;alpha(s,2,1)=&gt;;alpha(s,3,1)=&gt;;alpha(s,4,1)=&gt;;
@@ -55917,7 +55934,7 @@ FSC_inv_equilibrium=FSC_inv(1,1)=&gt;;
 <br>
 FSC_inv_bareU1=FSC_inv_bare(alpha_SPP/alpha_SVP,superstring[1]/superstring[0])=&gt;;
 <br>
-FSC_inv_U1=FSC_inv_bareU1+gamma_Euler_Mascheroni;
+FSC_inv_U1=FSC_inv(alpha_SPP/alpha_SVP,superstring[1]/superstring[0])=&gt;;
 <br>
 FSC_inv_bareSU2_bare=FSC_inv_bareU1/symmetry_spin_quaternion;
 <br>
@@ -55937,9 +55954,11 @@ FSC_inv_U1_strict=FSC_inv_U1+2*pi*delta_d_strict*log2e;
 <br>
 FSC_inv_U1_full=FSC_inv_U1+d_Boson;
 <br>
-sin2_Weinberg_bare=FSC_inv_bareSU2_bare/(FSC_inv_bareU1+FSC_inv_bareSU2_bare);
+geometric_chiral_fraction_dS5=1/(1+symmetry_spin_quaternion);
 <br>
-cos2_Weinberg_bare=1-sin2_Weinberg_bare;
+sin2_Weinberg_dual_holographic=FSC_inv_bareSU2_bare/(FSC_inv_bareU1+FSC_inv_bareSU2_bare);
+<br>
+cos2_Weinberg_dual_holographic=1-sin2_Weinberg_dual_holographic;
 <br>
 sin2_Weinberg=FSC_inv_SU2/(FSC_inv_U1+FSC_inv_SU2);
 <br>
@@ -55951,7 +55970,17 @@ cos_Weinberg=sqrt(cos2_Weinberg);
 <br>
 FSC_inv_log10_Nsol(d)=&lt;log10(Nsol(log2e,d,3)=&gt;)*d_Boson/d;
 <br>
+M1=FSC_inv_log10_Nsol(1)=&gt;;
+<br>
 M2=FSC_inv_log10_Nsol(2)=&gt;;
+<br>
+M3=FSC_inv_log10_Nsol(3)=&gt;;
+<br>
+M4=FSC_inv_log10_Nsol(4)=&gt;;
+<br>
+M5=FSC_inv_log10_Nsol(5)=&gt;;
+<br>
+M6=FSC_inv_log10_Nsol(6)=&gt;;
 <br>
 M12=FSC_inv_log10_Nsol(symmetry_SPP_Leech)=&gt;;
 <br>
@@ -56025,14 +56054,18 @@ diameter_supervoid_billion_ly=diameter_causal_billion_ly*(dend_inflation/M_max)*
 <br>
 hasCECC=abs(1-number_blocks*N_dimension_superspace/total_channels)&lt;eps;
 <br>
-CECC_channel={floor(M_macro),M_noise,total_channels-floor(M_macro)-M_noise};
+CECC_channel_original={floor(M_macro),M_noise,total_channels-floor(M_macro)-M_noise};
 <br>
-CECC_allocation=CECC_channel/total_channels;
+CECC_rank_target=total_channels/(1/4+3/4+N_superstring_sectors);
+<br>
+CECC_channel_manifold={1/4,3/4,N_superstring_sectors}*CECC_rank_target;
 <br>
 <br>
 alphas_inv_bareSU3=FSC_inv_bareSU3*pi*(1-delta_g**2);
 <br>
 alphas_GUT=1/alphas_inv_bareSU3;
+<br>
+dual_holographic=(alphas_GUT*N_superstring_sectors,=geometric_chiral_fraction_dS5,=sin2_Weinberg_dual_holographic);
 <br>
 alphas_Mz=1/(alphas_inv_bareSU3-(-dS0*ratio_channel));
 <br>
@@ -56047,7 +56080,7 @@ capa_total=ratio_channel*d_Boson*pi;
 <br>
 capa_baryon=ratio_M*ratio_AD;
 <br>
-capa_complementary_dark_matter=isAsymmetric_parity_SU2&amp;&amp;&amp;(1-ratio_AD)*(1-ratio_M);
+capa_complementary_dark_matter=isAsymmetric_parity_SU2&amp;&amp;&amp;(1-ratio_M)*(1-ratio_AD);
 <br>
 H0_bulk_factor=(M_max-log10(symmetry_SVP_Klein*d_Boson))/10**N_spin_Fermion;
 <br>
@@ -56057,7 +56090,7 @@ H0_Hubble_bulk=H0_Hubble_standard*ratio_channel*ratio_AD;
 <br>
 H0_Hubble_observed=H0_Hubble_bulk*(1+capa_baryon/pi);
 <br>
-omega_normalization=d_Boson*pi/total_channels;
+omega_normalization=(d_Boson/total_channels)*pi;
 <br>
 gluon=(omega_normalization,=alphas_Mz);
 <br>
@@ -56075,7 +56108,7 @@ P_baryon=1.0;
 <br>
 P_dark_matter=N_dimension_superstring*alpha_SVP;
 <br>
-a_dark_energy=(ratio_channel*ratio_AD*(1-delta_g**2))*(1+delta_g**2)*C0_digital;
+a_dark_energy=ratio_channel*ratio_AD*(1-delta_g**2)*(1+delta_g**2)*C0_digital;
 <br>
 P_dark_energy=(N_max_efolds/ratio_M)*exp(-a_dark_energy*ZPE);
 <br>
@@ -56113,21 +56146,21 @@ Phi_CECC_raw=ratio_M*ratio_channel*(1-delta_g)*cos2_Weinberg/2;
 <br>
 Phi_CECC_act=Phi_CECC_raw*(N_superstring_sectors/asymmetry_chiral_parity_SU2)/2;
 <br>
-z_cyclic_bounce=exp(dend_min_reheating)/(1+ratio_AD);
+z_cyclic_bounce_Wm1=exp(dend_min_reheating)/(1+ratio_AD);
 <br>
 z_physical_limit=-1;
 <br>
-z_singularity_ac=-1-exp(h0_SVP-1);
+z_singularity_ac_W0=-1-exp(h0_SVP-1);
 <br>
 time_future_physical_limit_billion_year=age_billion_year*ratio_M*(1-delta_g);
 <br>
-time_future_phantom_billion_year(z)=&lt;-time_future_physical_limit_billion_year-(age_billion_year*(h0_SVP-1)*Phi_CECC_act-time_future_physical_limit_billion_year)*sqrt((-z-1)/(-z_singularity_ac-1));
+time_future_phantom_billion_year(z)=&lt;-time_future_physical_limit_billion_year-(age_billion_year*(h0_SVP-1)*Phi_CECC_act-time_future_physical_limit_billion_year)*sqrt((-z-1)/(-z_singularity_ac_W0-1));
 <br>
 time_past_billion_year(z)=&lt;z&lt;-1&amp;&amp;&amp;time_future_phantom_billion_year(z)=&gt;||||age_billion_year*(z&gt;=0&amp;&amp;&amp;(1-1/(1+z)**(n*ratio_M))||||ratio_M*(1-delta_g)*z);
 <br>
 calc_Omega(z)=&lt;(time_past_billion_year(z)=&gt;,Omega_baryon(z)=&gt;,Omega_dark_matter(z)=&gt;,Omega_dark_energy(z)=&gt;,Omega_radiation(z)=&gt;);
 <br>
-Omega_cyclic_bounce_singularity_to_inflaton=calc_Omega(z_cyclic_bounce)=&gt;;
+Omega_cyclic_bounce_singularity_to_inflation=calc_Omega(z_cyclic_bounce_Wm1)=&gt;;
 <br>
 Omega_matter_eq_radiation=calc_Omega(3400)=&gt;;
 <br>
@@ -56153,12 +56186,12 @@ Omega_future_start_of_negative_half_cycle=calc_Omega(z_physical_limit-1e-3)=&gt;
 <br>
 Omega_future_in_sink_with_noise_accumulated=calc_Omega(z_physical_limit*2)=&gt;;
 <br>
-Omega_singularity_of_analytic_continuation_with_gamma_Euler_Mascheroni=calc_Omega(z_singularity_ac)=&gt;;
+Omega_singularity_of_analytic_continuation_with_gamma_Euler_Mascheroni=calc_Omega(z_singularity_ac_W0)=&gt;;
 <br>
 <br>
 lifespan_positive_half_cycle=age_billion_year+time_future_physical_limit_billion_year;
 <br>
-lifespan_negative_half_cycle=-(time_future_phantom_billion_year(z_singularity_ac)=&gt;-time_future_phantom_billion_year(z_physical_limit)=&gt;);
+lifespan_negative_half_cycle=-(time_future_phantom_billion_year(z_singularity_ac_W0)=&gt;-time_future_phantom_billion_year(z_physical_limit)=&gt;);
 <br>
 lifecycle_this_universe_billion_year=lifespan_positive_half_cycle+lifespan_negative_half_cycle;
 <br>
