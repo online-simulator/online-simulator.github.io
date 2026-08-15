@@ -474,7 +474,7 @@ m_Z_Boson_physicalGeV=infoLost[r ] 97.54310772487702
 m_W_Boson_physicalGeV=m_electroweak_envelopeGeV*cos_Weinberg*2*ratio_AD*(1+delta_g)*(1-sin2_eff)/pi
 m_W_Boson_physicalGeV=infoLost[r ] 87.06808572825312
 
-m_electroweak_envelopeGeV=(m_Higgs_physicalGeV/ratio_AD)*(1+asin(sqrt(sin2_Weinberg))**2)
+m_electroweak_envelopeGeV=(m_Higgs_physicalGeV/ratio_AD)*(1+asin(sin_Weinberg)**2)
 m_electroweak_envelopeGeV=infoLost[r ] 206.3857744436966
 
 m_Higgs_physicalGeV=m_Higgs_bareGeV*sqrt(pi)
@@ -769,7 +769,7 @@ z_cyclic_bounce=infoLost[r ] 2235917.5283195972-9.655845595891664e-25i+O(1e-19i)
 Phi_CECC_act=Phi_CECC_raw*(N_superstring_sectors/asymmetry_chiral_parity_SU2)/2
 Phi_CECC_act=infoLost[r ] 5.684350826454906
 
-Phi_CECC_raw=ratio_M*ratio_channel*(1-delta_g)*(1-sin2_Weinberg)/2
+Phi_CECC_raw=ratio_M*ratio_channel*(1-delta_g)*cos2_Weinberg/2
 Phi_CECC_raw=infoLost[r ] 0.7579134435273207
 
 Omega_radiation(z)=<K_radiation(z)=>/K_total_dynamic(z)=>
@@ -1001,53 +1001,83 @@ sin2_Weinberg_final=infoLost[r ] 0.20294263766903378
 sin2_Weinberg_d(d)=<sin2_Weinberg*(1-(d/M_max)*alpha_SVP*delta_g)
 stored_eqn(sin2_Weinberg_d)
 
-M_max=FSC_inv_log10_Nsol(d_Boson)=>
+M_max=M24
 M_max=infoLost[r ] 123.5644043160397
 
-FSC_inv_log10_Nsol(2)=>
-infoLost[r ] 137.5008773776705
+M24=FSC_inv_log10_Nsol(d_Boson)=>
+M24=infoLost[r ] 123.5644043160397
+
+M12=FSC_inv_log10_Nsol(symmetry_SPP_Leech)=>
+M12=infoLost[r ] 124.99968234648806
+
+M2=FSC_inv_log10_Nsol(2)=>
+M2=infoLost[r ] 137.5008773776705
 
 FSC_inv_log10_Nsol(d)=<log10(Nsol(log2e,d,3)=>)*d_Boson/d
 stored_eqn(FSC_inv_log10_Nsol)
 
-cos_Weinberg=sqrt(1-sin2_Weinberg)
+cos_Weinberg=sqrt(cos2_Weinberg)
 cos_Weinberg=infoLost[r ] 0.8926113567534779
 
-sin2_Weinberg=FSC_inv_SU2/(FSC_inv_bareU1+FSC_inv_SU2)
+sin_Weinberg=sqrt(sin2_Weinberg)
+sin_Weinberg=infoLost[r ] 0.4508269798877562
+
+cos2_Weinberg=1-sin2_Weinberg
+cos2_Weinberg=infoLost[r ] 0.7967550342052847
+
+sin2_Weinberg=FSC_inv_SU2/(FSC_inv_U1+FSC_inv_SU2)
 sin2_Weinberg=infoLost[r ] 0.20324496579471535
 
-sin2_Weinberg_bare=FSC_inv_bareSU2/(FSC_inv_bareU1+FSC_inv_bareSU2)
-sin2_Weinberg_bare=infoLost[r ] 0.19999999999999998
+cos2_Weinberg_bare=1-sin2_Weinberg_bare
+cos2_Weinberg_bare=infoLost[r ] 0.8
+
+sin2_Weinberg_bare=FSC_inv_bareSU2_bare/(FSC_inv_bareU1+FSC_inv_bareSU2_bare)
+sin2_Weinberg_bare=infoLost[r ] 0.2
+
+FSC_inv_U1_full=FSC_inv_U1+d_Boson
+FSC_inv_U1_full=infoLost[r ] 137.38165415029616
+
+FSC_inv_U1_strict=FSC_inv_U1+2*pi*delta_d_strict*log2e
+FSC_inv_U1_strict=infoLost[r ] 136.98981659089745
+
+FSC_inv_U1_about=FSC_inv_U1+2*pi*delta_d_about*log2e
+FSC_inv_U1_about=infoLost[r ] 138.3096349303457
 
 FSC_inv_SU3=FSC_inv_bareSU3+gamma_Euler_Mascheroni
 FSC_inv_SU3=8.301675948935051
 
-FSC_inv_bareSU3=FSC_inv_equilibrium/symmetry_SPP_Leech
-FSC_inv_bareSU3=7.724460284033518
-
 FSC_inv_SU2=FSC_inv_bareSU2+gamma_Euler_Mascheroni
 FSC_inv_SU2=infoLost[r ] 28.922629202475573
 
-FSC_inv_bareSU2=FSC_inv_bareU1/symmetry_spin_quaternion
+FSC_inv_bareSU3=FSC_inv_equilibrium/symmetry_SPP_Leech
+FSC_inv_bareSU3=7.724460284033518
+
+FSC_inv_bareSU3_bare=FSC_inv_equilibrium_bare/symmetry_SPP_Leech
+FSC_inv_bareSU3_bare=7.676358978625057
+
+FSC_inv_bareSU2=FSC_inv_U1/symmetry_spin_quaternion
 FSC_inv_bareSU2=infoLost[r ] 28.34541353757404
 
-FSC_inv_U1_full=FSC_inv_bareU1+d_Boson
-FSC_inv_U1_full=infoLost[r ] 137.38165415029616
+FSC_inv_bareSU2_bare=FSC_inv_bareU1/symmetry_spin_quaternion
+FSC_inv_bareSU2_bare=infoLost[r ] 28.201109621348657
 
-FSC_inv_U1_strict=FSC_inv_bareU1+2*pi*delta_d_strict*log2e
-FSC_inv_U1_strict=infoLost[r ] 136.98981659089745
+FSC_inv_U1=FSC_inv_bareU1+gamma_Euler_Mascheroni
+FSC_inv_U1=infoLost[r ] 113.38165415029616
 
-FSC_inv_U1_about=FSC_inv_bareU1+2*pi*delta_d_about*log2e
-FSC_inv_U1_about=infoLost[r ] 138.3096349303457
-
-FSC_inv_bareU1=FSC_inv(alpha_SPP/alpha_SVP,superstring[1]/superstring[0])=>
-FSC_inv_bareU1=infoLost[r ] 113.38165415029616
+FSC_inv_bareU1=FSC_inv_bare(alpha_SPP/alpha_SVP,superstring[1]/superstring[0])=>
+FSC_inv_bareU1=infoLost[r ] 112.80443848539463
 
 FSC_inv_equilibrium=FSC_inv(1,1)=>
 FSC_inv_equilibrium=92.69352340840221
 
-FSC_inv(ratio_alpha,ratio_dalpha)=<symmetry_SVP_Klein*(ratio_AD*ratio_alpha)**2*ratio_dalpha+gamma_Euler_Mascheroni
+FSC_inv_equilibrium_bare=FSC_inv_bare(1,1)=>
+FSC_inv_equilibrium_bare=92.11630774350068
+
+FSC_inv(ratio_alpha,ratio_dalpha)=<FSC_inv_bare(ratio_alpha,ratio_dalpha)=>+gamma_Euler_Mascheroni
 stored_eqn(FSC_inv)
+
+FSC_inv_bare(ratio_alpha,ratio_dalpha)=<symmetry_SVP_Klein*(ratio_AD*ratio_alpha)**2*ratio_dalpha
+stored_eqn(FSC_inv_bare)
 
 isN_eq_3d_only_valid_CECC=n===g&&&ratio_AD===alpha_Kepler
 isN_eq_3d_only_valid_CECC=true
@@ -3493,7 +3523,7 @@ clear
 local storage cleared
 
 [Pinv_y=(-0.999999427,-0.999936657,-0.997300203,-0.954499736,-0.682689492,0,0.682689492,0.954499736,0.997300203,0.999936657,0.999999427:-5,-4,-3,-2,-1,0,1,2,3,4,5),N=1,arr=[],_r((n)=<arr.push(rand_table(=<Pinv_y)=>),,N),=<arr.]=>
--0.2843610865001063
+-0.3024764724226977
 
 rand_table(csv)=<last[table=sort0(csv),ymin=min(table)[0],ymax=max(table)[0],y=ymin+(ymax-ymin)*rand(),x=interp(y:table),x]
 stored_eqn(rand_table)
@@ -3503,7 +3533,7 @@ local storage cleared
 
 [(N)=<[tarr=linspace(0,N-1,N).,shuffle_FY(?tarr)=>,=<tarr.]=>](2)=>
 (
-0,1
+1,0
 )
 
 shuffle_FY(?tarr)=<last[len=sizer(tarr),switch_arr=(i1)=<last{i0=floor(rand()*(i1+1)),w=tarr[i1],tarr[i1]=tarr[i0],tarr[i0]=w},_s((i_)=<switch_arr(i_)=>,len-1,1)]
@@ -5734,4 +5764,4 @@ center=true&wheel=true&drag=false&test-case=false&plot-all=true&relzooming=true&
 --------------------------------
 --------------------------------
 
-online-simulator.github.io.7.544.736.32.202 @ Sat Aug 15 2026 07:39:12 GMT+0900 (日本標準時) @ Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/151.0.0.0 Safari/537.36
+online-simulator.github.io.7.544.736.32.202 @ Sat Aug 15 2026 13:10:19 GMT+0900 (日本標準時) @ Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/151.0.0.0 Safari/537.36
