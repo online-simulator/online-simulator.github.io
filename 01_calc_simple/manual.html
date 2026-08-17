@@ -868,6 +868,8 @@ test case
 <br>
 　-phalf：<span class="run">Ver.2.906.179</span>以降、正の半周期の<a href="#span-app-redshift">赤方偏移</a>z=(-1,z_Wm1)の密度parameter（inflaton場への跳躍）
 <br>
+　⇒<a href="#span-app-universe">放射⇒物質優勢期</a>：余剰次元の境界で物質と反物質の対消滅の打切りによる移行を確認（超弦理論の実証）
+<br>
 　<span class="sF">→nhalf</span>：<span class="run">Ver.2.906.179</span>以降、負の半周期のz=(z_W0,-1]の密度parameter（鏡像宇宙の特異点の可視化）
 <br>
 　⇒<a href="#span-app-continuation">解析接続</a>：W関数による特異点からinflaton場への接続を含む1cycleの再現性を確認（CECCの実証）
@@ -56076,7 +56078,7 @@ Lambda_QCD_MeV=10**(M_macro-alphas_Low_E)/ratio_AD**2;
 <br>
 ratio_M=M_macro/M_max;
 <br>
-capa_total=ratio_channel*d_Boson*pi;
+capa_total_inflaton=ratio_channel*d_Boson*pi;
 <br>
 capa_baryon=ratio_M*ratio_AD;
 <br>
@@ -56096,7 +56098,7 @@ gluon=(omega_normalization,=alphas_Mz);
 <br>
 scale_factor_DM=(N_dimension_spinor/d_Boson)*pi;
 <br>
-k_total=capa_total*omega_normalization;
+k_total=capa_total_inflaton*omega_normalization;
 <br>
 k_baryon=capa_baryon/omega_normalization;
 <br>
@@ -56107,6 +56109,10 @@ k_dark_energy_pure=k_total-k_baryon-k_dark_matter;
 P_baryon=1.0;
 <br>
 P_dark_matter=N_dimension_superstring*alpha_SVP;
+<br>
+isAnti_eq_dark_matter=isHalf_parity&amp;&amp;&amp;P_dark_matter===N_dimension_superstring*alpha_SVP;
+<br>
+isAxion_eq_topological_defect=isAnti_eq_dark_matter&amp;&amp;&amp;delta_g&gt;0;
 <br>
 a_dark_energy=ratio_channel*ratio_AD*(1-delta_g**2)*(1+delta_g**2)*C0_digital;
 <br>
@@ -56193,13 +56199,13 @@ lifespan_positive_half_cycle=age_billion_year+time_future_physical_limit_billion
 <br>
 lifespan_negative_half_cycle=-(time_future_phantom_billion_year(z_singularity_ac_W0)=&gt;-time_future_phantom_billion_year(z_physical_limit)=&gt;);
 <br>
-lifecycle_this_universe_billion_year=lifespan_positive_half_cycle+lifespan_negative_half_cycle;
+lifecycle_this_universe_billion_year=(2*lifespan_positive_half_cycle,lifespan_positive_half_cycle+lifespan_negative_half_cycle);
 <br>
 progress_cycle=age_billion_year/lifecycle_this_universe_billion_year;
 <br>
-asymmetry_history=(lifespan_positive_half_cycle-lifespan_negative_half_cycle)/(2*lifespan_positive_half_cycle);
+asymmetry_history=(lifespan_positive_half_cycle-lifespan_negative_half_cycle)/lifecycle_this_universe_billion_year;
 <br>
-asymmetry_history_limit=(lifespan_positive_half_cycle-0)/(2*lifespan_positive_half_cycle);
+asymmetry_history_limit=[0.5,1.0];
 <br>
 delta_epsilon_bare=1/(total_channels*d_Boson);
 <br>
@@ -56217,9 +56223,9 @@ FSC_inv_U1_asymmetry(asymmetry)=&lt;FSC_inv_U1_full-real(asymmetry)*n;
 <br>
 FSC_inv_U1_initial=FSC_inv_U1_asymmetry(0)=&gt;;
 <br>
-FSC_inv_U1_now=FSC_inv_U1_asymmetry(asymmetry_history)=&gt;;
+FSC_inv_U1_now=FSC_inv_U1_asymmetry(asymmetry_history[][0])=&gt;;
 <br>
-FSC_inv_U1_final=FSC_inv_U1_asymmetry(asymmetry_history_limit)=&gt;;
+FSC_inv_U1_final=FSC_inv_U1_asymmetry(asymmetry_history_limit[][1])=&gt;;
 <br>
 <br>
 T_CMB_bulk=Tp*(Omega_radiation(0)=&gt;*ratio_channel)**(1/N_dimension_spacetime)*10**(-M_max/N_dimension_spacetime);
@@ -56249,6 +56255,20 @@ ns_CMB=1-ratio_AD*M_macro*(delta_g/ZPE)*N_dimension_spinor/sharpness_GUT;
 eta_CMB_bare=mass_suppression_neutrino_noise**n*fraction_right_handed*delta_g;
 <br>
 eta_CMB_observed=eta_CMB_bare*C0_digital*cos_Weinberg/(V_macro_scale**(1/3)*pi/symmetry_SPP_Leech);
+<br>
+isNeutrino_eq_noise=mass_suppression_neutrino_noise**n*fraction_right_handed*delta_g===eta_CMB_bare;
+<br>
+isSterile_neutrino_eq_anchor=abs(fraction_right_handed-asymmetry_chiral_parity_SU2)&lt;eps&amp;&amp;&amp;isNeutrino_eq_noise;
+<br>
+z_recombination_CECC=(capa_baryon/(eta_CMB_observed*total_channels*V_macro_scale))/ratio_AD;
+<br>
+modulation_factor_electroweak=Omega_baryon(0)=&gt;/(capa_baryon/(k_total*omega_normalization));
+<br>
+isBaryon_eq_truncation_residual=Omega_baryon(0)=&gt;/(capa_baryon/(k_total*omega_normalization))===modulation_factor_electroweak;
+<br>
+isBaryon_eq_truncation_residual=(capa_baryon/(eta_CMB_observed*total_channels*V_macro_scale))/ratio_AD===z_recombination_CECC;
+<br>
+isUnified_anti_matter=isAnti_eq_dark_matter&amp;&amp;&amp;isNeutrino_eq_noise&amp;&amp;&amp;isBaryon_eq_truncation_residual;
 <br>
 // CMB B-mode Primordial-Gravitational-Wave(PGW) Entropy Absorption Model via CECC
 <br>
