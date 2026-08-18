@@ -456,14 +456,172 @@ stored_eqn(tn_)
 clear
 local storage cleared
 
+theta_Cabibbo_observed_deg=rad2deg(theta_Cabibbo_bulk*projection(g*N_superstring_sectors)=>)
+theta_Cabibbo_observed_deg=infoLost[r ] 14.529414295558684
+
+theta_Cabibbo_bulk=theta12_bulk
+theta_Cabibbo_bulk=infoLost[r ] 0.7880373756255822+1.1102230246251564e-16i
+
+theta_observed_deg=rad2deg({theta12_bulk*projection(g)=>,theta23_bulk,theta13_bulk,delta_observed})
+theta_observed_deg=(
+infoLost[r ] 35.990276256413175:
+infoLost[r ] 45.151215721911385:
+infoLost[r ] 5.933057081231796:
+infoLost[r ] -107.59982007281559
+)
+
+theta_bulk_deg=rad2deg({theta12_bulk,theta23_bulk,theta13_bulk,delta_bulk})
+theta_bulk_deg=(
+infoLost[r ] 45.151215721911385:
+infoLost[r ] 45.151215721911385:
+infoLost[r ] 5.933057081231796:
+infoLost[r ] -14.346642676375412
+)
+
+projection(n)=<k_projection**n
+stored_eqn(projection)
+
+k_projection=cos(theta12_observed)*sin(theta12_observed)/(cos(theta23_bulk)*sin(theta23_bulk))
+k_projection=infoLost[r ] 0.927196771205951+5.433635282293473e-19i
+
+theta12_observed=deg2rad(34.0)
+theta12_observed=0.5934119456780721
+
+delta_observed=delta_bulk/(fraction_left_handed*sin2_CECC)
+delta_observed=infoLost[r ] -1.8779711348241168
+
+delta_bulk=asin(sin_delta_bulk)
+delta_bulk=infoLost[r ] -0.25039615130988224
+
+sin_delta_bulk=J_CP_bulk/(cos(theta12_bulk)*sin(theta12_bulk)*cos(theta23_bulk)*sin(theta23_bulk)*cos(theta13_bulk)**2*sin(theta13_bulk))
+sin_delta_bulk=infoLost[r ] -0.24778777575622882-2.9042128762353358e-19i
+
+J_CP_bulk=imag(U_cyclic[0][0]*U_cyclic[1][1]*U_cyclic[0][1]'*U_cyclic[1][0]')
+J_CP_bulk=infoLost[r ] -0.006334641127013856
+
+theta13_bulk=asin(absU_cyclic[0][2])
+theta13_bulk=infoLost[r ] 0.10355138077625951
+
+theta23_bulk=atan(absU_cyclic[1][2]/absU_cyclic[2][2])
+theta23_bulk=infoLost[r ] 0.7880373756255822+1.1102230246251564e-16i
+
+theta12_bulk=atan(absU_cyclic[0][1]/absU_cyclic[0][0])
+theta12_bulk=infoLost[r ] 0.7880373756255822+1.1102230246251564e-16i
+
+scale_attenuation25=scale_attenuation(25)=>
+scale_attenuation25=infoLost[r ] 1
+
+scale_attenuation15=scale_attenuation(15)=>
+scale_attenuation15=infoLost[r ] 0.9847968390897311
+
+scale_attenuation5=scale_attenuation(5)=>
+scale_attenuation5=infoLost[r ] 0.9075323003298643
+
+scale_attenuation4=scale_attenuation(4)=>
+scale_attenuation4=infoLost[r ] 0.8801473446215335
+
+scale_attenuation3=scale_attenuation(3)=>
+scale_attenuation3=infoLost[r ] 0.8363297316259665
+
+scale_attenuation2=scale_attenuation(2)=>
+scale_attenuation2=infoLost[r ] 0.7551302057893379
+
+scale_attenuation1=scale_attenuation(1)=>
+scale_attenuation1=infoLost[r ] 0.5558463549727681
+
+scale_attenuation(l)=<exp(factor_Shannon_shield*d_Boson*max(0,d_Boson-l)/l)
+stored_eqn(scale_attenuation)
+
+factor_Shannon_shield=capacity_leak*cos(phase_gap)
+factor_Shannon_shield=infoLost[r ] -0.0010638829037998504
+
+capacity_leak=1-abs(trace_U)/2
+capacity_leak=infoLost[r ] -0.005135165481328308
+
+phase_gap=arg(det_U)
+phase_gap=infoLost[r ] 1.3621089109629334
+
+det_U=det_(=<U_cyclic)=>
+det_U=infoLost[r ] 0.20717597274482713+0.9783036932963276i
+
+trace_U=trace_(=<U_cyclic)=>
+trace_U=infoLost[r ] -0.7106820197314412+1.8804568249175908i
+
+absU_cyclic=U_cyclic.map((x)=<abs(x))
+absU_cyclic=(
+infoLost[r ] 0.5025675827406642,infoLost[r ] 0.5052273736886661,infoLost[r ] 0.10336641831970186,infoLost[r ] 0.6938922893487254:
+infoLost[r ] 0.6938922893487255,infoLost[r ] 0.5025675827406642,infoLost[r ] 0.5052273736886661,infoLost[r ] 0.10336641831970184:
+infoLost[r ] 0.10336641831970185,infoLost[r ] 0.6938922893487255,infoLost[r ] 0.5025675827406642,infoLost[r ] 0.5052273736886661:
+infoLost[r ] 0.505227373688666,infoLost[r ] 0.10336641831970188,infoLost[r ] 0.6938922893487255,infoLost[r ] 0.5025675827406642
+)
+
+isUnitary_U_cyclic_ones=(norm(U_cyclic),norm(U_cyclic.))
+isUnitary_U_cyclic_ones=(
+infoLost[r ] 1,infoLost[r ] 1:
+infoLost[r ] 1,infoLost[r ] 1:
+infoLost[r ] 1,infoLost[r ] 1:
+infoLost[r ] 1,infoLost[r ] 1
+)
+
+U_cyclic=V*U*V'
+U_cyclic=(
+infoLost[r ] -0.1776705049328603+0.4701142062293977i,infoLost[r ] 0.24599682803761172+0.4412938473622544i,infoLost[r ] 0.0969519239421884-0.03584607203239584i,infoLost[r ] 0.6360554857026246-0.27734442183900765i:
+infoLost[r ] 0.6360554857026248-0.27734442183900754i,infoLost[r ] -0.1776705049328603+0.4701142062293977i,infoLost[r ] 0.2459968280376117+0.4412938473622544i,infoLost[r ] 0.09695192394218838-0.035846072032395815i:
+infoLost[r ] 0.0969519239421884-0.03584607203239577i,infoLost[r ] 0.6360554857026248-0.27734442183900754i,infoLost[r ] -0.1776705049328603+0.4701142062293977i,infoLost[r ] 0.24599682803761175+0.4412938473622544i:
+infoLost[r ] 0.24599682803761155+0.4412938473622545i,infoLost[r ] 0.09695192394218843-0.0358460720323958i,infoLost[r ] 0.6360554857026248-0.27734442183900754i,infoLost[r ] -0.1776705049328603+0.4701142062293977i
+)
+
+U=zeros(N),_s((n)=<U[n][n]=exp(i*probability2psi_Fisher(CECC_allocation[n])=>),,N-1):V=zeros(N),_s((r)=<_s((c)=<V[r][c]=exp(-i*2*pi*r*c/N)/sqrt(N),,N-1),,N-1)
+(
+0,0:
+0,0
+)
+
+probability2psi_Fisher(probability)=<sqrt(probability)*pi
+stored_eqn(probability2psi_Fisher)
+
+N=g+1
+N=4
+
+CECC_allocation={CECC_channel_manifold,U33_channel}/total_channels
+CECC_allocation=(
+0.041666666666666664:
+0.125:
+0.8333333333333333:
+infoLost[r ] 0.9274157396360844
+)
+
+hasExtra_dimension_folded=(U33_channel,=CECC_channel_original[2])
+hasExtra_dimension_folded=(
+infoLost[r ] 1424.5105760810252,infoLost[r ] 1412.9999999999995
+)
+
+U33_channel=(ratio_M*ratio_AD*total_channels+sin2_CECC)*g
+U33_channel=infoLost[r ] 1424.5105760810252
+
+sin2_CECC=geometric_chiral_fraction_dS5
+sin2_CECC=0.2
+
+trace_(A)=<sum((A[0][0][0].)[0])
+stored_eqn(trace_)
+
+det_(A)=<[n=size(A),submatrix_j(A,j)=<(j===0&&&[]|||A[0][0][][j],j===n-1&&&[]|||A[0][j+1][][n-1-j])[1][0][n-1][],sum_det(n)=<_s((j)=<(1-2*((j+n-1)%2))*A[0][j]*det_(=<submatrix_j(=<A,j)=>)=>,,n-1),=<n===1&&&A[0][0]||||sum_det(n)=>]=>
+stored_eqn(det_)
+
 m_Z_Boson_macro=m_Z_Boson_physicalGeV-shift_GeV-drag_GeV
-m_Z_Boson_macro=infoLost[r ] 91.02430085592553
+m_Z_Boson_macro=(
+infoLost[r ] 90.8598485020112,infoLost[r ] 92.49583261998265
+)
 
 m_W_Boson_macro=m_W_Boson_physicalGeV-shift_GeV-drag_GeV
-m_W_Boson_macro=infoLost[r ] 80.54927885930164
+m_W_Boson_macro=(
+infoLost[r ] 80.38482650538731,infoLost[r ] 82.02081062335876
+)
 
-drag_GeV=(4.580+4.907)/2
-drag_GeV=4.7435
+drag_GeV=(Lambda_QCD_MeV/1e3)*(N_dimension_superstring-(1,1+3))*fraction_left_handed
+drag_GeV=(
+infoLost[r ] 4.907952353914327,infoLost[r ] 3.2719682359428846
+)
 
 shift_GeV=(ratio_M/ratio_AD)*pi*(1+delta_g)
 shift_GeV=infoLost[r ] 1.7753068689514868
@@ -600,8 +758,8 @@ modulation_factor_electroweak=infoLost[r ] 0.13043394475274173
 z_recombination_CECC=(capa_baryon/(eta_CMB_observed*total_channels*V_macro_scale))/ratio_AD
 z_recombination_CECC=infoLost[r ] 1098.826189574695
 
-isSterile_neutrino_eq_anchor=abs(fraction_right_handed-asymmetry_chiral_parity_SU2)<eps&&&isNeutrino_eq_noise
-isSterile_neutrino_eq_anchor=infoLost[r ] true
+isSterile_neutrino_eq_anchor=isNeutrino_eq_noise&&&abs(fraction_right_handed-asymmetry_chiral_parity_SU2)<eps
+isSterile_neutrino_eq_anchor=true
 
 isNeutrino_eq_noise=mass_suppression_neutrino_noise**n*fraction_right_handed*delta_g===eta_CMB_bare
 isNeutrino_eq_noise=infoLost[r ] true
@@ -657,7 +815,7 @@ FSC_inv_U1_now=infoLost[r ] 136.9905849400832+O(2e-15)
 FSC_inv_U1_initial=FSC_inv_U1_asymmetry(0)=>
 FSC_inv_U1_initial=infoLost[r ] 137.38165415029616
 
-FSC_inv_U1_asymmetry(asymmetry)=<FSC_inv_U1_full-real(asymmetry)*n
+FSC_inv_U1_asymmetry(asymmetry)=<FSC_inv_U1_full-real(asymmetry)*N_generation
 stored_eqn(FSC_inv_U1_asymmetry)
 
 progress_cycles=N_cycle_now/N_cycle_max
@@ -939,15 +1097,34 @@ alphas_GUT=infoLost[r ] 0.04120834763769485
 alphas_inv_bareSU3=FSC_inv_bareSU3*pi*(1-delta_g**2)
 alphas_inv_bareSU3=infoLost[r ] 24.26692787568269
 
-CECC_channel_manifold={1/4,3/4,N_superstring_sectors}*CECC_rank_target
+isD_Boson_total_by_CECC_channel0=(total_channels/CECC_channel_manifold[0])===d_Boson
+isD_Boson_total_by_CECC_channel0=true
+
+isN_dimension_spinor_CECC_channel0=CECC_channel_manifold[0]===N_dimension_spinor
+isN_dimension_spinor_CECC_channel0=true
+
+isGeneration_eq_3=N_generation===N_trinity_SU2&&&CECC_channel_manifold[2]/CECC_rank_target-N_spin_Fermion===g
+isGeneration_eq_3=true
+
+N_generation=CECC_channel_manifold[1]/N_dimension_spinor
+N_generation=3
+
+CECC_channel_manifold=CECC_ratio*CECC_rank_target
 CECC_channel_manifold=(
 63.99999999999998:
 191.99999999999994:
 1279.9999999999995
 )
 
-CECC_rank_target=total_channels/(1/4+3/4+N_superstring_sectors)
+CECC_rank_target=total_channels/(sum(CECC_ratio.))
 CECC_rank_target=255.99999999999991
+
+CECC_ratio={1/4,3/4,N_superstring_sectors}
+CECC_ratio=(
+0.25:
+0.75:
+5
+)
 
 CECC_channel_original={floor(M_macro),M_noise,total_channels-floor(M_macro)-M_noise}
 CECC_channel_original=(
@@ -3604,7 +3781,7 @@ clear
 local storage cleared
 
 [Pinv_y=(-0.999999427,-0.999936657,-0.997300203,-0.954499736,-0.682689492,0,0.682689492,0.954499736,0.997300203,0.999936657,0.999999427:-5,-4,-3,-2,-1,0,1,2,3,4,5),N=1,arr=[],_r((n)=<arr.push(rand_table(=<Pinv_y)=>),,N),=<arr.]=>
-0.11153080819502732
+-1.3718359743760977
 
 rand_table(csv)=<last[table=sort0(csv),ymin=min(table)[0],ymax=max(table)[0],y=ymin+(ymax-ymin)*rand(),x=interp(y:table),x]
 stored_eqn(rand_table)
@@ -5845,4 +6022,4 @@ center=true&wheel=true&drag=false&test-case=false&plot-all=true&relzooming=true&
 --------------------------------
 --------------------------------
 
-online-simulator.github.io.7.544.736.32.202 @ Mon Aug 17 2026 16:54:17 GMT+0900 (日本標準時) @ Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/151.0.0.0 Safari/537.36
+online-simulator.github.io.7.544.736.32.202 @ Wed Aug 19 2026 16:29:01 GMT+0900 (日本標準時) @ Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/151.0.0.0 Safari/537.36
