@@ -549,17 +549,14 @@ mass_Top_MeV=infoLost[r ] 4.565427417051695
 v_mass_scale_NU=(1/E_base)*(leak_unitarity_quark**2)*mass_unit_MeV*1e6
 v_mass_scale_NU=infoLost[r ] 45.4789190049722+O(1e-14)
 
-v_mass_scale_DQ=mass_unit_MeV*sin(phi_zeta)*R_DQ_fraction
+v_mass_scale_DQ=mass_unit_MeV*sin(theta_g1_Selberg)*R_DQ_fraction
 v_mass_scale_DQ=infoLost[r ] 0.8740172191854169
 
-v_mass_scale_UQ=mass_unit_MeV*cos(phi_zeta)*R_UQ_fraction
+v_mass_scale_UQ=mass_unit_MeV*cos(theta_g1_Selberg)*R_UQ_fraction
 v_mass_scale_UQ=infoLost[r ] 0.11318003238578946
 
 E_base=abs(E_returned_Cauchy)
 E_base=infoLost[r ] 3.535506007362842+O(1e-15)
-
-phi_zeta=deg2rad(theta_g1_deg)
-phi_zeta=infoLost[r ] 1.2803142859792611
 
 mass_unit_MeV=(v_Higgs_GeV*1e3)*shield_transmission
 mass_unit_MeV=infoLost[r ] 239854.5825344343
@@ -588,19 +585,29 @@ E_returned_Cauchy=infoLost[ri] 3.5355060073628426i+O(1e-15i)
 residue_singularity=ZPE*rigidity_norm*shield_transmission/(kappa_reboot/V_macro_scale)
 residue_singularity=infoLost[r ] 1.1253865148057745+O(4e-16)
 
-theta_g1_deg=rad2deg(arg(g1))
-theta_g1_deg=infoLost[r ] 73.35660503691717
+theta_g1_Selberg_deg=rad2deg(theta_g1_Selberg)
+theta_g1_Selberg_deg=infoLost[r ] 73.35660503691717
 
-g3=get_zero_point_Selberg_zeta_function(3)=>
-g3=infoLost[r ] 0.5+5.013896518090892i
+theta_g1_Selberg=arg(complex(1/2,g1_Selberg))
+theta_g1_Selberg=infoLost[r ] 1.2803142859792611
 
-g2=get_zero_point_Selberg_zeta_function(2)=>
-g2=infoLost[r ] 0.5+3.3432425514796287i
+g3_Selberg=get_zero_point_Selberg_zeta_function(3)=>
+g3_Selberg=infoLost[r ] 5.013896518090892
 
-g1=get_zero_point_Selberg_zeta_function(1)=>
-g1=infoLost[r ] 0.5+1.672588584868366i
+g2_Selberg=get_zero_point_Selberg_zeta_function(2)=>
+g2_Selberg=infoLost[r ] 3.3432425514796287
 
-get_zero_point_Selberg_zeta_function(k)=<complex(1/2,-chiral_shift+imag_step_Planck_cell*k)
+Skewes_number_Selberg=calc_Skewes_number(g1_Selberg,=<calc_Ricci_soliton(g1_Selberg,2)=>)=>
+Skewes_number_Selberg=(
+infoLost[ri] -12.385936709478267-12.796423339287578i+O(1e-14+1e-14i):
+infoLost[ri] -12.385936709478266+12.796423339287587i+O(1e-14+4e-15i):
+infoLost[r ] 1110.3431407411358
+)
+
+g1_Selberg=get_zero_point_Selberg_zeta_function(1)=>
+g1_Selberg=infoLost[r ] 1.672588584868366
+
+get_zero_point_Selberg_zeta_function(k)=<-chiral_shift+imag_step_Planck_cell*k
 stored_eqn(get_zero_point_Selberg_zeta_function)
 
 isShannon_limit_nearly_eq_Planck_cell=(imag_step_Planck_cell,=q_Shannon_limit)
@@ -1134,7 +1141,7 @@ S_lens_noise=infoLost[r ] 0.02767401711353134
 r_PGW_observed_Bmode_simple=fraction_right_handed*ratio_M*r_PGW_bare*pi
 r_PGW_observed_Bmode_simple=infoLost[r ] 0.0007816825156333773
 
-r_PGW_bare=(1-ratio_M)*12/(N_max_efolds+ratio_AD)**2
+r_PGW_bare=(1-ratio_M)*symmetry_SPP_Leech/(N_max_efolds+ratio_AD)**2
 r_PGW_bare=infoLost[r ] 0.0017887314986810346
 
 isUnified_anti_matter=isAnti_eq_dark_matter&&&isNeutrino_eq_noise&&&isBaryon_eq_truncation_residual
@@ -1681,7 +1688,7 @@ FSC_inv_U1_strict=FSC_inv_U1+2*pi*delta_d_strict*log2e
 FSC_inv_U1_strict=infoLost[r ] 136.98981659089696
 
 FSC_inv_U1_about=FSC_inv_U1+2*pi*delta_d_about*log2e
-FSC_inv_U1_about=infoLost[r ] 138.30963493034523
+FSC_inv_U1_about=infoLost[r ] 138.47304326700169
 
 FSC_inv_SU3=FSC_inv_bareSU3+gamma_Euler_Mascheroni
 FSC_inv_SU3=8.301675948935051
@@ -1721,9 +1728,6 @@ stored_eqn(FSC_inv_bare)
 
 isN_eq_3d_only_valid_CECC=n===g&&&ratio_AD===alpha_Kepler
 isN_eq_3d_only_valid_CECC=true
-
-alpha_Kepler=(pi/6)/(1/sqrt(2))
-alpha_Kepler=0.740480489693061
 
 isN_Leech_by_quaternion=n===symmetry_SPP_Leech/symmetry_spin_quaternion
 isN_Leech_by_quaternion=true
@@ -1770,13 +1774,22 @@ delta_d_strict=2.6044005442916776
 N_spin_Fermion=2
 N_spin_Fermion=2
 
+delta_d_about=dend_inflation-h_Shannon
+delta_d_about=infoLost[r ] 2.7680268482140704
+
 delta_d_about=dend_inflation-h_Weil
 delta_d_about=infoLost[r ] 2.75
 
 h_Weil=12.25
 h_Weil=12.25
 
-isFirst_zero_point_nealy_eq_dend_inflation=(dend_inflation,=zero_points_Riemann_zeta_function[0])
+h_Shannon=dend_inflation*prob_Shannon_limit_from_entropic_capacity
+h_Shannon=infoLost[r ] 12.23197315178593
+
+h_5_by_6=dend_inflation*prob_5_by_6_conjecture_from_deterministic_scheduling
+h_5_by_6=infoLost[r ] 12.499999999999998
+
+isFirst_zero_point_nealy_eq_dend_inflation=(dend_inflation,=g1_Riemann)
 isFirst_zero_point_nealy_eq_dend_inflation=(
 infoLost[r ] 15,14.13472514
 )
@@ -1977,30 +1990,171 @@ infoLost[r ] 0.8261629401947822
 alpha(log2e,0,1)=>
 infoLost[r ] NaN
 
-isInformation_causality1=(q_Shannon_limit,[=xi_Adelic_Haar_measure(log2e)=>,xi_Adelic_Haar_measure(2)=>])
-isInformation_causality1=(
-1.6309297535714575,infoLost[r ] 1.5889990565733654,infoLost[r ] 0.5235987755982978
+isInformation_causality4={fc,=pi/6,=C0_analog}
+isInformation_causality4=(
+infoLost[r ] 0.5137366884327754:
+0.5235987755982988:
+0.5235987755982988
 )
 
-isInformation_causality0=(q_Shannon_limit,[=q_eff(1,LmaxnormG)=>,q_eff(1,L2normG)=>,q_eff(1,L_inf)=>])
+fc=1/tc
+fc=infoLost[r ] 0.5137366884327754
+
+tc=(pi/(12*margin))/(8*pi**2)
+tc=infoLost[r ] 1.9465224550160858
+
+margin=log2e-critical_N11
+margin=infoLost[r ] 0.001703411112744524
+
+isInformation_causality3={log2e,[=critical_N11,=critical_N21,critical_N22,critical_N23]}
+isInformation_causality3=(
+1.4426950408889634:
+infoLost[r ] 1.4409916297762189,infoLost[r ] 1.4409916297762184,infoLost[r ] 1.24507890451303,infoLost[r ] 1.1694933799540457
+)
+
+critical_N23=N_critical(2,3)=>
+critical_N23=infoLost[r ] 1.1694933799540457
+
+critical_N22=N_critical(2,2)=>
+critical_N22=infoLost[r ] 1.24507890451303
+
+critical_N21=N_critical(2,1)=>
+critical_N21=infoLost[r ] 1.4409916297762184
+
+critical_N12=N_critical(1,2)=>
+critical_N12=infoLost[r ] 1.2450789045130302
+
+critical_N11=N_critical(1,1)=>
+critical_N11=infoLost[r ] 1.4409916297762189
+
+N_critical(d,g)=<exp(C_qmin/I_Fisher(d,g)=>)
+stored_eqn(N_critical)
+
+I_Fisher(d,g)=<sharpness(d,g)=>*d*(q_Shannon(d)=>-1)**2
+stored_eqn(I_Fisher)
+
+C_qmin_limit=imag(e**(i*3*pi/4))
+C_qmin_limit=0.7071067811865476
+
+C_qmin=C_q(e**(i*2*pi/3))=>
+C_qmin=infoLost[r ] 0.8725702410567953
+
+C_qmax=C_q(e**(i*pi/2))=>
+C_qmax=infoLost[r ] 1.0066788915627616
+
+C_qmin=C_q(e**(i*pi/3))=>
+C_qmin=infoLost[r ] 0.8725702410567951
+
+C_q(tau)=<imag(tau)+dC_q(tau)=>
+stored_eqn(C_q)
+
+dC_q(tau)=<[eta=Dedekind_eta(tau,30)=>,phi=sqrt(imag(tau))*abs(eta)**2,=<abs(log(phi))/(8*pi**2)]=>
+stored_eqn(dC_q)
+
+Dedekind_eta(s,n)=<[(q)=<(imag(s)>0)&&&q**(1/24)*_p((m)=<1-q**m,1,n)||||NaN](e**(2*pi*i*s))=>
+stored_eqn(Dedekind_eta)
+
+Skewes_number_Dirichlet=calc_Skewes_number(g1_Dirichlet,=<calc_Ricci_soliton(g1_Dirichlet,20)=>)=>
+Skewes_number_Dirichlet=(
+infoLost[r ] 1354362988.4356909:
+infoLost[r ] 1.4987720265442672e+31:
+2.910767542093904e+39
+)
+
+g1_Dirichlet=6.0209285
+g1_Dirichlet=6.0209285
+
+Skewes_number_Riemann=calc_Skewes_number(g1_Riemann,=<calc_Ricci_soliton(g1_Riemann,20)=>)=>
+Skewes_number_Riemann=(
+infoLost[r ] 129866721982638700:
+infoLost[r ] 8.52663492310632e+219+O(1e+207):
+3.1250109326136923e+217
+)
+
+calc_Skewes_number(gn,t1)=<exp(d_Gauss*gn*t1)
+stored_eqn(calc_Skewes_number)
+
+calc_Ricci_soliton(gn,t0)=<[f(t)=<_i0((D)=<P_tunnel(D,1)=>,,t)=gn*ln(t)/sqrt(t),t1_micro=Newton(=<f,=<1,false,20),t1_macro=Newton(=<f,=<{t0},false,20),t1_fractal=gn,=<{t1_micro,t1_macro,t1_fractal}]=>
+stored_eqn(calc_Ricci_soliton)
+
+error_term_Riemann=[(x)=<{o_tunnel(x)=>,=sqrt(x),=o_Schoenfeld(x)=>/d_Gauss}/60](1e28)=>
+error_term_Riemann=(
+infoLost[r ] 1666688276653.37:
+1666666666666.6667:
+1705660828692.0342
+)
+
+o_Schoenfeld(x)=<sqrt(x)*ln(x)/(8*pi)
+stored_eqn(o_Schoenfeld)
+
+isInformation_causality2=[(d)=<{1,[DP_tunnel(1,d)=>,DP_tunnel(1e100,d)=>]}](3)=>
+isInformation_causality2=(
+1:
+infoLost[r ] 1,infoLost[r ] 5.663460779775904e-116
+)
+
+isNo_Seigel_zero_condition_d_gt_d_critical={1,[=DP_tunnel(eps,d_critical)=>,=DP_tunnel(1e100,d_critical)=>]}
+isNo_Seigel_zero_condition_d_gt_d_critical=(
+1:
+infoLost[r ] 0.999999999999996,infoLost[r ] 1.0000000000000255
+)
+
+isInformation_causality1={q_Shannon_limit,[=xi_Adelic_Haar_measure(log2e)=>,xi_Adelic_Haar_measure(2)=>]}
+isInformation_causality1=(
+1.6309297535714575:
+infoLost[r ] 1.5889990565733654,infoLost[r ] 0.5235987755982978
+)
+
+isInformation_causality0={q_Shannon_limit,[=q_eff(1,LmaxnormG)=>,q_eff(1,L2normG)=>,q_eff(1,L_inf)=>]}
 isInformation_causality0=(
-1.6309297535714575,infoLost[r ] 1.6157997742440147,infoLost[r ] 1.527375220063047,infoLost[r ] 1.529233058817957
+1.6309297535714575:
+infoLost[r ] 1.6157997742440147,infoLost[r ] 1.527375220063047,infoLost[r ] 1.529233058817957
 )
 
 q_eff(eps_,L)=<[U_barrier(eps_)=<L/eps_,C_Boltzmann(eps_)=<exp(U_barrier(eps_)=>),P_tunnel(eps_)=<1/C_Boltzmann(eps_)=>,int_P(eps_)=<_i0((t)=<P_tunnel(t)=>,0,eps_),=<1+int_P(eps_)=>]=>
 stored_eqn(q_eff)
 
-L_inf=sqrt(2*pi*_i0((t)=<ln(t/(2*pi))/(t*ln(t))**2,zero_points_Riemann_zeta_function[0],inf))
+o_tunnel(x)=<x**(1/2+P_tunnel(x,1)=>)
+stored_eqn(o_tunnel)
+
+DP_tunnel(D,d)=<D*P_tunnel(D,d)=>
+stored_eqn(DP_tunnel)
+
+P_tunnel(D,d)=<abs(D)**(-L_inf*d**2)
+stored_eqn(P_tunnel)
+
+d_Gauss=sqrt(2*pi)
+d_Gauss=2.5066282746310002
+
+d_critical=1/sqrt(L_inf)
+d_critical=infoLost[r ] 2.0448091683663288
+
+eps_critical=L_inf/2
+eps_critical=infoLost[r ] 0.11958162116816135
+
+L_inf=sqrt(2*pi*_i0((t)=<ln(t/(2*pi))/(t*ln(t))**2,g1_Riemann,inf))
+L_inf=infoLost[r ] 0.2391632423363227
+
+L_inf=sqrt(_i0((t)=<ln(t/(2*pi))*(g2G_LPF(t)=>**2/(2*pi)),g1_Riemann,inf))
 L_inf=infoLost[r ] 0.2391632423363227
 
 L2normG=norm(g2G_LPF(=<zero_points_Riemann_zeta_function)=>.)
 L2normG=0.2408896161727352
 
-LmaxnormG=norm(g2G_LPF(zero_points_Riemann_zeta_function[0])=>.)
+LmaxnormG=norm(g2G_LPF(g1_Riemann)=>.)
 LmaxnormG=0.16783033500051436
 
 g2G_LPF(g)=<2*pi/(g*ln(g))
 stored_eqn(g2G_LPF)
+
+g3_Riemann=zero_points_Riemann_zeta_function[2]
+g3_Riemann=25.01085758
+
+g2_Riemann=zero_points_Riemann_zeta_function[1]
+g2_Riemann=21.02203964
+
+g1_Riemann=zero_points_Riemann_zeta_function[0]
+g1_Riemann=14.13472514
 
 zero_points_Riemann_zeta_function={14.13472514,21.02203964,25.01085758,30.42487613,32.93506159,37.58617816,40.91871901,43.32707328,48.00515088,49.77383248}
 zero_points_Riemann_zeta_function=(
@@ -2016,17 +2170,50 @@ zero_points_Riemann_zeta_function=(
 49.77383248
 )
 
-log10_Nsol_Szpiro_derivative23=log10_Nsol_Szpiro_derivative(2,3)=>
-log10_Nsol_Szpiro_derivative23=infoLost[r ] -20.56038845664794
+digital_loss_derivative23=log10_Nsol_Szpiro_derivative(2,3)=>
+digital_loss_derivative23=infoLost[r ] -20.56038845664794
 
-log10_Nsol_Szpiro_derivative22=log10_Nsol_Szpiro_derivative(2,2)=>
-log10_Nsol_Szpiro_derivative22=infoLost[r ] -14.685991754748526
+digital_loss_derivative22=log10_Nsol_Szpiro_derivative(2,2)=>
+digital_loss_derivative22=infoLost[r ] -14.685991754748526
 
-log10_Nsol_Szpiro_derivative21=log10_Nsol_Szpiro_derivative(2,1)=>
-log10_Nsol_Szpiro_derivative21=infoLost[r ] -8.811595052849116
+digital_loss_derivative21=log10_Nsol_Szpiro_derivative(2,1)=>
+digital_loss_derivative21=infoLost[r ] -8.811595052849116
 
-log10_Nsol_Szpiro_derivative11=log10_Nsol_Szpiro_derivative(1,1)=>
-log10_Nsol_Szpiro_derivative11=infoLost[r ] -4.77818514458708
+digital_loss_derivative12=log10_Nsol_Szpiro_derivative(1,2)=>
+digital_loss_derivative12=infoLost[r ] -7.9636419076451315
+
+digital_loss_derivative11=log10_Nsol_Szpiro_derivative(1,1)=>
+digital_loss_derivative11=infoLost[r ] -4.77818514458708
+
+digital_loss23=loss_digital(log2e,2,3)=>
+digital_loss23=infoLost[r ] 4.976322691831498
+
+digital_loss22=loss_digital(log2e,2,2)=>
+digital_loss22=infoLost[r ] 3.5545162084510693
+
+digital_loss21=loss_digital(log2e,2,1)=>
+digital_loss21=infoLost[r ] 2.1327097250706415
+
+digital_loss12=loss_digital(log2e,1,2)=>
+digital_loss12=infoLost[r ] 1.9274758362758948
+
+digital_loss11=loss_digital(log2e,1,1)=>
+digital_loss11=infoLost[r ] 1.156485501765537
+
+effective_capacity23=capa_eff_Shannon_Hartley(log2e,2,3)=>
+effective_capacity23=infoLost[r ] 24.364302114636907
+
+effective_capacity22=capa_eff_Shannon_Hartley(log2e,2,2)=>
+effective_capacity22=infoLost[r ] 17.403072939026362
+
+effective_capacity21=capa_eff_Shannon_Hartley(log2e,2,1)=>
+effective_capacity21=infoLost[r ] 10.441843763415818
+
+effective_capacity12=capa_eff_Shannon_Hartley(log2e,1,2)=>
+effective_capacity12=infoLost[r ] 10.189105238223718
+
+effective_capacity11_Szpiro_conjecture=capa_eff_Shannon_Hartley(log2e,1,1)=>
+effective_capacity11_Szpiro_conjecture=infoLost[r ] 6.11346314293423
 
 quality23=quality_Shannon(2,3)=>
 quality23=1.2902110631719237
@@ -2100,6 +2287,12 @@ stored_eqn(q_Shannon)
 sharpness(d,g)=<(4*g+2)*d
 stored_eqn(sharpness)
 
+isAlpha_Kepler_eq_ratio_AD=ratio_AD===alpha_Kepler
+isAlpha_Kepler_eq_ratio_AD=true
+
+alpha_Kepler=(pi/6)/(1/sqrt(2))
+alpha_Kepler=0.740480489693061
+
 ratio_AD=C0_analog/C0_digital
 ratio_AD=0.740480489693061
 
@@ -2108,6 +2301,56 @@ C0_digital=0.7071067811865475
 
 C0_analog=pi/6
 C0_analog=0.5235987755982988
+
+prob_Shannon_limit_from_entropic_capacity=q_Shannon_strict_limit/q_topological_limit
+prob_Shannon_limit_from_entropic_capacity=0.8154648767857287
+
+prob_5_by_6_conjecture_from_deterministic_scheduling=sum(1/b_pair_Catalan_conjecture)
+prob_5_by_6_conjecture_from_deterministic_scheduling=0.8333333333333333
+
+q_topological_limit=2
+q_topological_limit=2
+
+q_Shannon_strict_limit=q_Shannon_strict(1)=>
+q_Shannon_strict_limit=1.6309297535714573
+
+q_Shannon_strict(d)=<q_Diophantus(d,b_pair_Catalan_conjecture,3,2)=>
+stored_eqn(q_Shannon_strict)
+
+q_Diophantus227=q_Diophantus(2,2,7,3,2)=>
+q_Diophantus227=1.0081572755488029
+
+q_Diophantus225=q_Diophantus(2,2,5,3,2)=>
+q_Diophantus225=1.0258002791737006
+
+q_Diophantus223=q_Diophantus(2,b_pair_Catalan_conjecture,3,2)=>
+q_Diophantus223=1.3154648767857287
+
+q_Diophantus123=q_Diophantus(1,b_pair_Catalan_conjecture,3,2)=>
+q_Diophantus123=1.6309297535714573
+
+q_Diophantus123=q_Diophantus(1,b_pair_Catalan_conjecture,1,1)=>
+q_Diophantus123=1.6309297535714573
+
+q_Diophantus(d,a,b,x,y)=<1+((1-sqrt(I_Fisher_inv(a,b,x,y)=>))*log_ex(a,b)+0/log(a+b))/d
+stored_eqn(q_Diophantus)
+
+I_Fisher_inv(a,b,x,y)=<NS_ratio_power(a,b,x,y)=>
+stored_eqn(I_Fisher_inv)
+
+NS_ratio_power(a,b,x,y)=<NS_ratio_amplitude(a,b,x,y)=>**2
+stored_eqn(NS_ratio_power)
+
+NS_ratio_amplitude(a,b,x,y)=<log(noise_lattice(a,b,x,y)=>)/log(b**y)
+stored_eqn(NS_ratio_amplitude)
+
+noise_lattice(a,b,x,y)=<abs(a**x-b**y)
+stored_eqn(noise_lattice)
+
+b_pair_Catalan_conjecture=[2,3]
+b_pair_Catalan_conjecture=(
+2,3
+)
 
 xi_Adelic_Haar_measure(s)=<xi_EM_full(s,100,14)=>/(0.5*s*(s-1))
 stored_eqn(xi_Adelic_Haar_measure)
@@ -4258,7 +4501,7 @@ clear
 local storage cleared
 
 [Pinv_y=(-0.999999427,-0.999936657,-0.997300203,-0.954499736,-0.682689492,0,0.682689492,0.954499736,0.997300203,0.999936657,0.999999427:-5,-4,-3,-2,-1,0,1,2,3,4,5),N=1,arr=[],_r((n)=<arr.push(rand_table(=<Pinv_y)=>),,N),=<arr.]=>
--0.356040330692028
+-0.3754437487367319
 
 rand_table(csv)=<last[table=sort0(csv),ymin=min(table)[0],ymax=max(table)[0],y=ymin+(ymax-ymin)*rand(),x=interp(y:table),x]
 stored_eqn(rand_table)
@@ -4268,7 +4511,7 @@ local storage cleared
 
 [(N)=<[tarr=linspace(0,N-1,N).,shuffle_FY(?tarr)=>,=<tarr.]=>](2)=>
 (
-0,1
+1,0
 )
 
 shuffle_FY(?tarr)=<last[len=sizer(tarr),switch_arr=(i1)=<last{i0=floor(rand()*(i1+1)),w=tarr[i1],tarr[i1]=tarr[i0],tarr[i0]=w},_s((i_)=<switch_arr(i_)=>,len-1,1)]
@@ -6499,4 +6742,4 @@ center=true&wheel=true&drag=false&test-case=false&plot-all=true&relzooming=true&
 --------------------------------
 --------------------------------
 
-online-simulator.github.io.7.544.736.32.202 @ Thu Aug 20 2026 17:14:37 GMT+0900 (日本標準時) @ Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/151.0.0.0 Safari/537.36
+online-simulator.github.io.7.544.736.32.202 @ Fri Aug 21 2026 19:51:02 GMT+0900 (日本標準時) @ Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/151.0.0.0 Safari/537.36
