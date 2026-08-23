@@ -1909,6 +1909,9 @@ c_BAO=0.5773502691896258
 gamma_Euler_Mascheroni=0.57721566490153286
 gamma_Euler_Mascheroni=0.5772156649015329
 
+ZPE_gamma=-(log2(1+1/xi_Adelic_Haar_measure_dynamic(log2e,kappa_gamma)=>)-log2(1+1/xi_Adelic_Haar_measure_dynamic(2,kappa_gamma)=>))*ln2
+ZPE_gamma=infoLost[r ] 0.5771765700770617
+
 ZPE=-dS0*ln2
 ZPE=infoLost[r ] 0.5799376928361852
 
@@ -1923,6 +1926,16 @@ infoLost[r ] -1.6015846393730868
 
 dS_margin0=log2(xi_Adelic_Haar_measure(2)=>/xi_Adelic_Haar_measure(log2e)=>)
 dS_margin0=infoLost[r ] -1.601584639373075
+
+isInformation_causality5={q_Shannon_limit,[=xi_Adelic_Haar_measure(log2e)=>,xi_Adelic_Haar_measure(2)=>],[=xi_Adelic_Haar_measure_dynamic(log2e,kappa_gamma)=>,xi_Adelic_Haar_measure_dynamic(2,kappa_gamma)=>]}
+isInformation_causality5=(
+1.6309297535714573:
+infoLost[r ] 1.5889990565733654,infoLost[r ] 0.5235987755982978:
+infoLost[r ] 1.5924563387460775,infoLost[r ] 0.5264813402493067
+)
+
+kappa_gamma=sqrt(alpha_SPP/alpha_SVP)
+kappa_gamma=infoLost[r ] 1.0516696361520868
 
 =(1+log2(gamma_EM_full(1/2,14)=>**2/(e*gamma_EM_full(1,14)=>)))/2
 infoLost[r ] 0.604400544291677
@@ -2352,6 +2365,9 @@ b_pair_Catalan_conjecture=(
 2,3
 )
 
+xi_Adelic_Haar_measure_dynamic(s,kappa)=<xi_EM_full(1/2+(s-1/2)*kappa,100,14)=>/(0.5*s*(s-1))
+stored_eqn(xi_Adelic_Haar_measure_dynamic)
+
 xi_Adelic_Haar_measure(s)=<xi_EM_full(s,100,14)=>/(0.5*s*(s-1))
 stored_eqn(xi_Adelic_Haar_measure)
 
@@ -2372,6 +2388,9 @@ stored_eqn(ln_gamma_EM)
 
 W_Lambert(x,x0_Newton_method)=<[f(x)=<x*e^x,=<ge(x,-1/e)&&&Newton((y)=<f(y)=>=x,=<{x0_Newton_method},Nmax=1e3,Nmax)||||NaN]=>
 stored_eqn(W_Lambert)
+
+x_branch=-1/e
+x_branch=-0.36787944117144233
 
 clear
 local storage cleared
@@ -4501,7 +4520,7 @@ clear
 local storage cleared
 
 [Pinv_y=(-0.999999427,-0.999936657,-0.997300203,-0.954499736,-0.682689492,0,0.682689492,0.954499736,0.997300203,0.999936657,0.999999427:-5,-4,-3,-2,-1,0,1,2,3,4,5),N=1,arr=[],_r((n)=<arr.push(rand_table(=<Pinv_y)=>),,N),=<arr.]=>
-1.7022446546436316
+-0.2663620072165467
 
 rand_table(csv)=<last[table=sort0(csv),ymin=min(table)[0],ymax=max(table)[0],y=ymin+(ymax-ymin)*rand(),x=interp(y:table),x]
 stored_eqn(rand_table)
@@ -6742,4 +6761,4 @@ center=true&wheel=true&drag=false&test-case=false&plot-all=true&relzooming=true&
 --------------------------------
 --------------------------------
 
-online-simulator.github.io.7.544.736.32.202 @ Fri Aug 21 2026 19:55:28 GMT+0900 (日本標準時) @ Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/151.0.0.0 Safari/537.36
+online-simulator.github.io.7.544.736.32.202 @ Sun Aug 23 2026 10:55:43 GMT+0900 (日本標準時) @ Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/151.0.0.0 Safari/537.36

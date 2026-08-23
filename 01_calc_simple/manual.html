@@ -55711,6 +55711,8 @@ spacetime
 <span id="span-eqn-spacetime"></span>
 clear;
 <br>
+x_branch=-1/e;
+<br>
 W_Lambert(x,x0_Newton_method)=&lt;[f(x)=&lt;x*e^x,=&lt;ge(x,-1/e)&amp;&amp;&amp;Newton((y)=&lt;f(y)=&gt;=x,=&lt;{x0_Newton_method},Nmax=1e3,Nmax)||||NaN]=&gt;;
 <br>
 ln_gamma_EM(s,m)=&lt;last[
@@ -55748,6 +55750,8 @@ zeta_EM_full(s,n,m)=&lt;real(s)&gt;=0&amp;&amp;&amp;zeta_EM(s,n,m)=&gt;||||exp(s
 xi_EM_full(s,n,m)=&lt;real(s)&gt;=0.5&amp;&amp;&amp;exp(ln(s)+ln(s-1)-ln(2)-(s/2)*ln(pi)+ln_gamma_EM(s/2,m)=&gt;)*zeta_EM_full(s,n,m)=&gt;||||xi_EM_full(1-s,n,m)=&gt;;
 <br>
 xi_Adelic_Haar_measure(s)=&lt;xi_EM_full(s,100,14)=&gt;/(0.5*s*(s-1));
+<br>
+xi_Adelic_Haar_measure_dynamic(s,kappa)=&lt;xi_EM_full(1/2+(s-1/2)*kappa,100,14)=&gt;/(0.5*s*(s-1));
 <br>
 <br>
 b_pair_Catalan_conjecture=[2,3];
@@ -56004,6 +56008,10 @@ alpha_SPP=log2(2*pi/e)/2;
 <br>
 =(1+log2(gamma_EM_full(1/2,14)=&gt;**2/(e*gamma_EM_full(1,14)=&gt;)))/2;
 <br>
+kappa_gamma=sqrt(alpha_SPP/alpha_SVP);
+<br>
+isInformation_causality5={q_Shannon_limit,[=xi_Adelic_Haar_measure(log2e)=&gt;,xi_Adelic_Haar_measure(2)=&gt;],[=xi_Adelic_Haar_measure_dynamic(log2e,kappa_gamma)=&gt;,xi_Adelic_Haar_measure_dynamic(2,kappa_gamma)=&gt;]};
+<br>
 <br>
 dS_margin0=log2(xi_Adelic_Haar_measure(2)=&gt;/xi_Adelic_Haar_measure(log2e)=&gt;);
 <br>
@@ -56014,6 +56022,8 @@ dS0=log2(1+1/xi_Adelic_Haar_measure(log2e)=&gt;)-log2(1+1/xi_Adelic_Haar_measure
 =dS_margin(1e100,0)=&gt;;
 <br>
 ZPE=-dS0*ln2;
+<br>
+ZPE_gamma=-(log2(1+1/xi_Adelic_Haar_measure_dynamic(log2e,kappa_gamma)=&gt;)-log2(1+1/xi_Adelic_Haar_measure_dynamic(2,kappa_gamma)=&gt;))*ln2;
 <br>
 gamma_Euler_Mascheroni=0.57721566490153286;
 <br>
