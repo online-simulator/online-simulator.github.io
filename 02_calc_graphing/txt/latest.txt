@@ -1909,7 +1909,7 @@ c_BAO=0.5773502691896258
 gamma_Euler_Mascheroni=0.57721566490153286
 gamma_Euler_Mascheroni=0.5772156649015329
 
-ZPE_gamma=-(log2(1+1/xi_Adelic_Haar_measure_dynamic(log2e,kappa_gamma)=>)-log2(1+1/xi_Adelic_Haar_measure_dynamic(2,kappa_gamma)=>))*ln2
+ZPE_gamma=-(log2(1+1/xi_adelic_Haar_measure_dynamic(log2e,kappa_gamma)=>)-log2(1+1/xi_adelic_Haar_measure_dynamic(2,kappa_gamma)=>))*ln2
 ZPE_gamma=infoLost[r ] 0.5771765700770618
 
 ZPE=-dS0*ln2
@@ -1918,16 +1918,16 @@ ZPE=infoLost[r ] 0.5799376928361855
 =dS_margin(1e100,0)=>
 infoLost[r ] -0.8366732334793517
 
-dS0=log2(1+1/xi_Adelic_Haar_measure(log2e)=>)-log2(1+1/xi_Adelic_Haar_measure(2)=>)
+dS0=log2(1+1/xi_adelic_Haar_measure(log2e)=>)-log2(1+1/xi_adelic_Haar_measure(2)=>)
 dS0=infoLost[r ] -0.8366732334793517
 
 =dS_margin(eps,0)=>
 infoLost[r ] -1.6015846393730797
 
-dS_margin0=log2(xi_Adelic_Haar_measure(2)=>/xi_Adelic_Haar_measure(log2e)=>)
+dS_margin0=log2(xi_adelic_Haar_measure(2)=>/xi_adelic_Haar_measure(log2e)=>)
 dS_margin0=infoLost[r ] -1.601584639373075
 
-isInformation_causality5={q_Shannon_limit,[=xi_Adelic_Haar_measure(log2e)=>,xi_Adelic_Haar_measure(2)=>],[=xi_Adelic_Haar_measure_dynamic(log2e,kappa_gamma)=>,xi_Adelic_Haar_measure_dynamic(2,kappa_gamma)=>]}
+isInformation_causality5={q_Shannon_limit,[=xi_adelic_Haar_measure(log2e)=>,xi_adelic_Haar_measure(2)=>],[=xi_adelic_Haar_measure_dynamic(log2e,kappa_gamma)=>,xi_adelic_Haar_measure_dynamic(2,kappa_gamma)=>]}
 isInformation_causality5=(
 1.6309297535714575:
 infoLost[r ] 1.5889990565733654,infoLost[r ] 0.5235987755982978:
@@ -1946,7 +1946,7 @@ alpha_SPP=0.6044005442916777
 =(1+1/ln10**2)*log2(1+pi**(log2e/2)/(gamma_EM_full(log2e/2,14)=>*zeta_EM_full(log2e,100,14)=>))-(1/ln10**2)*log2(1+6/pi)
 infoLost[r ] 0.5464698129876533
 
-alpha_SVP=(1+1/ln10**2)*log2(1+1/xi_Adelic_Haar_measure(log2e)=>)-(1/ln10**2)*log2(1+1/xi_Adelic_Haar_measure(2)=>)
+alpha_SVP=(1+1/ln10**2)*log2(1+1/xi_adelic_Haar_measure(log2e)=>)-(1/ln10**2)*log2(1+1/xi_adelic_Haar_measure(2)=>)
 alpha_SVP=infoLost[r ] 0.5464698129876524
 
 alpha(log2e,48,3)=>
@@ -2112,7 +2112,7 @@ isNo_Seigel_zero_condition_d_gt_d_critical=(
 infoLost[r ] 0.999999999999996,infoLost[r ] 1.0000000000000255
 )
 
-isInformation_causality1={q_Shannon_limit,[=xi_Adelic_Haar_measure(log2e)=>,xi_Adelic_Haar_measure(2)=>]}
+isInformation_causality1={q_Shannon_limit,[=xi_adelic_Haar_measure(log2e)=>,xi_adelic_Haar_measure(2)=>]}
 isInformation_causality1=(
 1.6309297535714575:
 infoLost[r ] 1.5889990565733654,infoLost[r ] 0.5235987755982978
@@ -2282,7 +2282,7 @@ stored_eqn(dS_margin)
 dS(s,d,g)=<capa_eff_Shannon_Hartley(s,d,g)=>-capa_eff_Shannon_Hartley(2,d,g)=>
 stored_eqn(dS)
 
-capa_eff_Shannon_Hartley(s,d,g)=<sharpness(d,g)=>*log2(1+q_Shannon(d)=>/xi_Adelic_Haar_measure(s)=>)
+capa_eff_Shannon_Hartley(s,d,g)=<sharpness(d,g)=>*log2(1+q_Shannon(d)=>/xi_adelic_Haar_measure(s)=>)
 stored_eqn(capa_eff_Shannon_Hartley)
 
 quality_Shannon(d,g)=<q_Shannon(d)=>-C0_digital/sharpness(d,g)=>
@@ -2365,11 +2365,11 @@ b_pair_Catalan_conjecture=(
 2,3
 )
 
-xi_Adelic_Haar_measure_dynamic(s,kappa)=<xi_EM_full(1/2+(s-1/2)*kappa,100,14)=>/(0.5*s*(s-1))
-stored_eqn(xi_Adelic_Haar_measure_dynamic)
+xi_adelic_Haar_measure_dynamic(s,kappa)=<xi_EM_full(1/2+(s-1/2)*kappa,100,14)=>/(0.5*s*(s-1))
+stored_eqn(xi_adelic_Haar_measure_dynamic)
 
-xi_Adelic_Haar_measure(s)=<xi_EM_full(s,100,14)=>/(0.5*s*(s-1))
-stored_eqn(xi_Adelic_Haar_measure)
+xi_adelic_Haar_measure(s)=<xi_EM_full(s,100,14)=>/(0.5*s*(s-1))
+stored_eqn(xi_adelic_Haar_measure)
 
 xi_EM_full(s,n,m)=<real(s)>=0.5&&&exp(ln(s)+ln(s-1)-ln(2)-(s/2)*ln(pi)+ln_gamma_EM(s/2,m)=>)*zeta_EM_full(s,n,m)=>||||xi_EM_full(1-s,n,m)=>
 stored_eqn(xi_EM_full)
@@ -2395,13 +2395,13 @@ x_branch=-0.36787944117144233
 clear
 local storage cleared
 
-(xi_Adelic_Haar_measure(log2e)=>,xi_Adelic_Haar_measure(2)=>)
+(xi_adelic_Haar_measure(log2e)=>,xi_adelic_Haar_measure(2)=>)
 (
 infoLost[r ] 1.5889990565733654,infoLost[r ] 0.5235987755982978
 )
 
-xi_Adelic_Haar_measure(s)=<xi_EM_full(s,100,14)=>/(0.5*s*(s-1))
-stored_eqn(xi_Adelic_Haar_measure)
+xi_adelic_Haar_measure(s)=<xi_EM_full(s,100,14)=>/(0.5*s*(s-1))
+stored_eqn(xi_adelic_Haar_measure)
 
 (xi_EM_full(-10+10i,100,14)=>:xi_EM_full(1/2+10i,100,14)=>:xi_EM_full(1+10i,100,14)=>)
 (
@@ -4520,7 +4520,7 @@ clear
 local storage cleared
 
 [Pinv_y=(-0.999999427,-0.999936657,-0.997300203,-0.954499736,-0.682689492,0,0.682689492,0.954499736,0.997300203,0.999936657,0.999999427:-5,-4,-3,-2,-1,0,1,2,3,4,5),N=1,arr=[],_r((n)=<arr.push(rand_table(=<Pinv_y)=>),,N),=<arr.]=>
-0.33560697872296463
+0.32097008685543615
 
 rand_table(csv)=<last[table=sort0(csv),ymin=min(table)[0],ymax=max(table)[0],y=ymin+(ymax-ymin)*rand(),x=interp(y:table),x]
 stored_eqn(rand_table)
@@ -4530,7 +4530,7 @@ local storage cleared
 
 [(N)=<[tarr=linspace(0,N-1,N).,shuffle_FY(?tarr)=>,=<tarr.]=>](2)=>
 (
-1,0
+0,1
 )
 
 shuffle_FY(?tarr)=<last[len=sizer(tarr),switch_arr=(i1)=<last{i0=floor(rand()*(i1+1)),w=tarr[i1],tarr[i1]=tarr[i0],tarr[i0]=w},_s((i_)=<switch_arr(i_)=>,len-1,1)]
@@ -6761,4 +6761,4 @@ center=true&wheel=true&drag=false&test-case=false&plot-all=true&relzooming=true&
 --------------------------------
 --------------------------------
 
-online-simulator.github.io.7.544.736.32.202 @ Sun Aug 23 2026 10:46:36 GMT+0900 (日本標準時) @ Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/151.0.0.0 Safari/537.36
+online-simulator.github.io.7.544.736.32.202 @ Mon Aug 24 2026 02:07:05 GMT+0900 (日本標準時) @ Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/151.0.0.0 Safari/537.36

@@ -55656,6 +55656,8 @@ xi_EM
 <span id="span-eqn-xi_Euler_Maclaurin"></span>
 ・<span class="run">Ver.2.905.179</span>以降、<span class="selection">追加箇所</span>
 <br>
+・<span class="run">Ver.2.906.179</span>以降、<span class="condition">調整箇所</span>
+<br>
 clear;
 <br>
 ln_gamma_EM(s,m)=&lt;last[
@@ -55694,9 +55696,9 @@ xi_EM_full(s,n,m)=&lt;real(s)&gt;=0.5&amp;&amp;&amp;exp(ln(s)+ln(s-1)-ln(2)-(s/2
 <br>
 (xi_EM_full(-10+10i,100,14)=&gt;:xi_EM_full(1/2+10i,100,14)=&gt;:xi_EM_full(1+10i,100,14)=&gt;);
 <br>
-<span class="selection">xi_Adelic_Haar_measure(s)=&lt;xi_EM_full(s,100,14)=&gt;/(0.5*s*(s-1));</span>
+<span class="selection">xi_<span class="condition">a</span>delic_Haar_measure(s)=&lt;xi_EM_full(s,100,14)=&gt;/(0.5*s*(s-1));</span>
 <br>
-<span class="selection">(xi_Adelic_Haar_measure(log2e)=&gt;,xi_Adelic_Haar_measure(2)=&gt;);</span>
+<span class="selection">(xi_<span class="condition">a</span>delic_Haar_measure(log2e)=&gt;,xi_<span class="condition">a</span>delic_Haar_measure(2)=&gt;);</span>
     </td>
   </tr>
   <tr>
@@ -55749,9 +55751,9 @@ zeta_EM_full(s,n,m)=&lt;real(s)&gt;=0&amp;&amp;&amp;zeta_EM(s,n,m)=&gt;||||exp(s
 <br>
 xi_EM_full(s,n,m)=&lt;real(s)&gt;=0.5&amp;&amp;&amp;exp(ln(s)+ln(s-1)-ln(2)-(s/2)*ln(pi)+ln_gamma_EM(s/2,m)=&gt;)*zeta_EM_full(s,n,m)=&gt;||||xi_EM_full(1-s,n,m)=&gt;;
 <br>
-xi_Adelic_Haar_measure(s)=&lt;xi_EM_full(s,100,14)=&gt;/(0.5*s*(s-1));
+xi_adelic_Haar_measure(s)=&lt;xi_EM_full(s,100,14)=&gt;/(0.5*s*(s-1));
 <br>
-xi_Adelic_Haar_measure_dynamic(s,kappa)=&lt;xi_EM_full(1/2+(s-1/2)*kappa,100,14)=&gt;/(0.5*s*(s-1));
+xi_adelic_Haar_measure_dynamic(s,kappa)=&lt;xi_EM_full(1/2+(s-1/2)*kappa,100,14)=&gt;/(0.5*s*(s-1));
 <br>
 <br>
 b_pair_Catalan_conjecture=[2,3];
@@ -55807,7 +55809,7 @@ ratio_Shannon(d,g)=&lt;sharpness(d,g)=&gt;*q_Shannon(d)=&gt;-C0_digital;
 <br>
 quality_Shannon(d,g)=&lt;q_Shannon(d)=&gt;-C0_digital/sharpness(d,g)=&gt;;
 <br>
-capa_eff_Shannon_Hartley(s,d,g)=&lt;sharpness(d,g)=&gt;*log2(1+q_Shannon(d)=&gt;/xi_Adelic_Haar_measure(s)=&gt;);
+capa_eff_Shannon_Hartley(s,d,g)=&lt;sharpness(d,g)=&gt;*log2(1+q_Shannon(d)=&gt;/xi_adelic_Haar_measure(s)=&gt;);
 <br>
 dS(s,d,g)=&lt;capa_eff_Shannon_Hartley(s,d,g)=&gt;-capa_eff_Shannon_Hartley(2,d,g)=&gt;;
 <br>
@@ -55921,7 +55923,7 @@ int_P(eps_)=&lt;_i0((t)=&lt;P_tunnel(t)=&gt;,0,eps_),
 <br>
 isInformation_causality0={q_Shannon_limit,[=q_eff(1,LmaxnormG)=&gt;,q_eff(1,L2normG)=&gt;,q_eff(1,L_inf)=&gt;]};
 <br>
-isInformation_causality1={q_Shannon_limit,[=xi_Adelic_Haar_measure(log2e)=&gt;,xi_Adelic_Haar_measure(2)=&gt;]};
+isInformation_causality1={q_Shannon_limit,[=xi_adelic_Haar_measure(log2e)=&gt;,xi_adelic_Haar_measure(2)=&gt;]};
 <br>
 isNo_Seigel_zero_condition_d_gt_d_critical={1,[=DP_tunnel(eps,d_critical)=&gt;,=DP_tunnel(1e100,d_critical)=&gt;]};
 <br>
@@ -56000,7 +56002,7 @@ alpha(log2e,10,1)=&gt;;alpha(log2e,11,1)=&gt;;alpha(log2e,12,1)=&gt;;alpha(log2e
 <br>
 alpha(log2e,48,1)=&gt;;alpha(log2e,48,2)=&gt;;alpha(log2e,48,3)=&gt;;
 <br>
-alpha_SVP=(1+1/ln10**2)*log2(1+1/xi_Adelic_Haar_measure(log2e)=&gt;)-(1/ln10**2)*log2(1+1/xi_Adelic_Haar_measure(2)=&gt;);
+alpha_SVP=(1+1/ln10**2)*log2(1+1/xi_adelic_Haar_measure(log2e)=&gt;)-(1/ln10**2)*log2(1+1/xi_adelic_Haar_measure(2)=&gt;);
 <br>
 =(1+1/ln10**2)*log2(1+pi**(log2e/2)/(gamma_EM_full(log2e/2,14)=&gt;*zeta_EM_full(log2e,100,14)=&gt;))-(1/ln10**2)*log2(1+6/pi);
 <br>
@@ -56010,20 +56012,20 @@ alpha_SPP=log2(2*pi/e)/2;
 <br>
 kappa_gamma=sqrt(alpha_SPP/alpha_SVP);
 <br>
-isInformation_causality5={q_Shannon_limit,[=xi_Adelic_Haar_measure(log2e)=&gt;,xi_Adelic_Haar_measure(2)=&gt;],[=xi_Adelic_Haar_measure_dynamic(log2e,kappa_gamma)=&gt;,xi_Adelic_Haar_measure_dynamic(2,kappa_gamma)=&gt;]};
+isInformation_causality5={q_Shannon_limit,[=xi_adelic_Haar_measure(log2e)=&gt;,xi_adelic_Haar_measure(2)=&gt;],[=xi_adelic_Haar_measure_dynamic(log2e,kappa_gamma)=&gt;,xi_adelic_Haar_measure_dynamic(2,kappa_gamma)=&gt;]};
 <br>
 <br>
-dS_margin0=log2(xi_Adelic_Haar_measure(2)=&gt;/xi_Adelic_Haar_measure(log2e)=&gt;);
+dS_margin0=log2(xi_adelic_Haar_measure(2)=&gt;/xi_adelic_Haar_measure(log2e)=&gt;);
 <br>
 =dS_margin(eps,0)=&gt;;
 <br>
-dS0=log2(1+1/xi_Adelic_Haar_measure(log2e)=&gt;)-log2(1+1/xi_Adelic_Haar_measure(2)=&gt;);
+dS0=log2(1+1/xi_adelic_Haar_measure(log2e)=&gt;)-log2(1+1/xi_adelic_Haar_measure(2)=&gt;);
 <br>
 =dS_margin(1e100,0)=&gt;;
 <br>
 ZPE=-dS0*ln2;
 <br>
-ZPE_gamma=-(log2(1+1/xi_Adelic_Haar_measure_dynamic(log2e,kappa_gamma)=&gt;)-log2(1+1/xi_Adelic_Haar_measure_dynamic(2,kappa_gamma)=&gt;))*ln2;
+ZPE_gamma=-(log2(1+1/xi_adelic_Haar_measure_dynamic(log2e,kappa_gamma)=&gt;)-log2(1+1/xi_adelic_Haar_measure_dynamic(2,kappa_gamma)=&gt;))*ln2;
 <br>
 gamma_Euler_Mascheroni=0.57721566490153286;
 <br>
