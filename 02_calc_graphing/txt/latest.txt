@@ -1657,7 +1657,7 @@ M2=infoLost[r ] 137.50087737767052
 M1=FSC_inv_log10_Nsol_Szpiro(1)=>
 M1=infoLost[r ] 149.12275149122763
 
-FSC_inv_log10_Nsol_Szpiro(d)=<log10(Nsol_Szpiro_packable_cells_from_Kleinian_quartic(log2e,d,3)=>)*d_Boson/d
+FSC_inv_log10_Nsol_Szpiro(d)=<log10(Nsol_Szpiro_packable_cells_from_Kleinian_quartic(x_digital,d,3)=>)*d_Boson/d
 stored_eqn(FSC_inv_log10_Nsol_Szpiro)
 
 cos_Weinberg=sqrt(cos2_Weinberg)
@@ -1684,10 +1684,10 @@ geometric_chiral_fraction_dS5=0.2
 FSC_inv_U1_full=FSC_inv_U1+d_Boson
 FSC_inv_U1_full=infoLost[r ] 137.38165415029567
 
-FSC_inv_U1_strict=FSC_inv_U1+2*pi*delta_d_strict*log2e
+FSC_inv_U1_strict=FSC_inv_U1+2*pi*delta_d_strict*x_digital
 FSC_inv_U1_strict=infoLost[r ] 136.98981659089696
 
-FSC_inv_U1_about=FSC_inv_U1+2*pi*delta_d_about*log2e
+FSC_inv_U1_about=FSC_inv_U1+2*pi*delta_d_about*x_digital
 FSC_inv_U1_about=infoLost[r ] 138.47304326700169
 
 FSC_inv_SU3=FSC_inv_bareSU3+gamma_Euler_Mascheroni
@@ -1909,7 +1909,7 @@ c_BAO=0.5773502691896258
 gamma_Euler_Mascheroni=0.57721566490153286
 gamma_Euler_Mascheroni=0.5772156649015329
 
-ZPE_gamma=-(log2(1+1/xi_adelic_Haar_measure_dynamic(log2e,kappa_gamma)=>)-log2(1+1/xi_adelic_Haar_measure_dynamic(2,kappa_gamma)=>))*ln2
+ZPE_gamma=-(log2(1+1/xi_adelic_Haar_measure_dynamic(x_digital,kappa_gamma)=>)-log2(1+1/xi_adelic_Haar_measure_dynamic(x_analog,kappa_gamma)=>))*ln2
 ZPE_gamma=infoLost[r ] 0.5771765700770618
 
 ZPE=-dS0*ln2
@@ -1918,19 +1918,24 @@ ZPE=infoLost[r ] 0.5799376928361855
 =dS_margin(1e100,0)=>
 infoLost[r ] -0.8366732334793517
 
-dS0=log2(1+1/xi_adelic_Haar_measure(log2e)=>)-log2(1+1/xi_adelic_Haar_measure(2)=>)
+dS0=log2(1+1/xi_adelic_Haar_measure(x_digital)=>)-log2(1+1/xi_adelic_Haar_measure(x_analog)=>)
 dS0=infoLost[r ] -0.8366732334793517
 
 =dS_margin(eps,0)=>
 infoLost[r ] -1.6015846393730797
 
-dS_margin0=log2(xi_adelic_Haar_measure(2)=>/xi_adelic_Haar_measure(log2e)=>)
+dS_margin0=log2(xi_adelic_Haar_measure(x_analog)=>/xi_adelic_Haar_measure(x_digital)=>)
 dS_margin0=infoLost[r ] -1.601584639373075
 
-isInformation_causality5={q_Shannon_limit,[=xi_adelic_Haar_measure(log2e)=>,xi_adelic_Haar_measure(2)=>],[=xi_adelic_Haar_measure_dynamic(log2e,kappa_gamma)=>,xi_adelic_Haar_measure_dynamic(2,kappa_gamma)=>]}
+isInformation_causality5={q_Shannon_limit,xi_interval,xi_interval_dynamic}
 isInformation_causality5=(
 1.6309297535714575:
 infoLost[r ] 1.5889990565733654,infoLost[r ] 0.5235987755982978:
+infoLost[r ] 1.592456338746078,infoLost[r ] 0.5264813402493068
+)
+
+xi_interval_dynamic=[xi_adelic_Haar_measure_dynamic(x_digital,kappa_gamma)=>,xi_adelic_Haar_measure_dynamic(x_analog,kappa_gamma)=>]
+xi_interval_dynamic=(
 infoLost[r ] 1.592456338746078,infoLost[r ] 0.5264813402493068
 )
 
@@ -1943,64 +1948,64 @@ infoLost[r ] 0.604400544291677
 alpha_SPP=log2(2*pi/e)/2
 alpha_SPP=0.6044005442916777
 
-=(1+1/ln10**2)*log2(1+pi**(log2e/2)/(gamma_EM_full(log2e/2,14)=>*zeta_EM_full(log2e,100,14)=>))-(1/ln10**2)*log2(1+6/pi)
+=(1+1/ln10**2)*log2(1+pi**(x_digital/x_analog)/(gamma_EM_full(x_digital/x_analog,14)=>*zeta_EM_full(x_digital,100,14)=>))-(1/ln10**2)*log2(1+6/pi)
 infoLost[r ] 0.5464698129876533
 
-alpha_SVP=(1+1/ln10**2)*log2(1+1/xi_adelic_Haar_measure(log2e)=>)-(1/ln10**2)*log2(1+1/xi_adelic_Haar_measure(2)=>)
+alpha_SVP=(1+1/ln10**2)*log2(1+1/xi_adelic_Haar_measure(x_digital)=>)-(1/ln10**2)*log2(1+1/xi_adelic_Haar_measure(x_analog)=>)
 alpha_SVP=infoLost[r ] 0.5464698129876524
 
-alpha(log2e,48,3)=>
+alpha(x_digital,48,3)=>
 infoLost[r ] 0.552816394512132
 
-alpha(log2e,48,2)=>
+alpha(x_digital,48,2)=>
 infoLost[r ] 0.5528163945121319
 
-alpha(log2e,48,1)=>
+alpha(x_digital,48,1)=>
 infoLost[r ] 0.5528163945121319
 
-alpha(log2e,36,1)=>
+alpha(x_digital,36,1)=>
 infoLost[r ] 0.5549266172070758
 
-alpha(log2e,24,1)=>
+alpha(x_digital,24,1)=>
 infoLost[r ] 0.5591391284668297
 
-alpha(log2e,12,1)=>
+alpha(x_digital,12,1)=>
 infoLost[r ] 0.571713465439116
 
-alpha(log2e,11,1)=>
+alpha(x_digital,11,1)=>
 infoLost[r ] 0.5739895695394359
 
-alpha(log2e,10,1)=>
+alpha(x_digital,10,1)=>
 infoLost[r ] 0.5767167938322494
 
-alpha(log2e,9,1)=>
+alpha(x_digital,9,1)=>
 infoLost[r ] 0.5800440053622361
 
-alpha(log2e,8,1)=>
+alpha(x_digital,8,1)=>
 infoLost[r ] 0.5841936653788219
 
-alpha(log2e,7,1)=>
+alpha(x_digital,7,1)=>
 infoLost[r ] 0.5895137190873521
 
-alpha(log2e,6,1)=>
+alpha(x_digital,6,1)=>
 infoLost[r ] 0.5965805952646657
 
-alpha(log2e,5,1)=>
+alpha(x_digital,5,1)=>
 infoLost[r ] 0.606423581055983
 
-alpha(log2e,4,1)=>
+alpha(x_digital,4,1)=>
 infoLost[r ] 0.6210782156897084
 
-alpha(log2e,3,1)=>
+alpha(x_digital,3,1)=>
 infoLost[r ] 0.6452136247047902
 
-alpha(log2e,2,1)=>
+alpha(x_digital,2,1)=>
 infoLost[r ] 0.6924278365287647
 
-alpha(log2e,1,1)=>
+alpha(x_digital,1,1)=>
 infoLost[r ] 0.8261629401947822
 
-alpha(log2e,0,1)=>
+alpha(x_digital,0,1)=>
 infoLost[r ] NaN
 
 isInformation_causality4={fc,=pi/6,=C0_analog}
@@ -2016,10 +2021,10 @@ fc=infoLost[r ] 0.5137366884327754
 tc=(pi/(12*margin))/(8*pi**2)
 tc=infoLost[r ] 1.9465224550160858
 
-margin=log2e-critical_N11
+margin=x_digital-critical_N11
 margin=infoLost[r ] 0.001703411112744524
 
-isInformation_causality3={log2e,[=critical_N11,=critical_N21,critical_N22,critical_N23]}
+isInformation_causality3={x_digital,[=critical_N11,=critical_N21,critical_N22,critical_N23]}
 isInformation_causality3=(
 1.4426950408889634:
 infoLost[r ] 1.4409916297762189,infoLost[r ] 1.4409916297762184,infoLost[r ] 1.24507890451303,infoLost[r ] 1.1694933799540457
@@ -2112,7 +2117,7 @@ isNo_Seigel_zero_condition_d_gt_d_critical=(
 infoLost[r ] 0.999999999999996,infoLost[r ] 1.0000000000000255
 )
 
-isInformation_causality1={q_Shannon_limit,[=xi_adelic_Haar_measure(log2e)=>,xi_adelic_Haar_measure(2)=>]}
+isInformation_causality1={q_Shannon_limit,xi_interval}
 isInformation_causality1=(
 1.6309297535714575:
 infoLost[r ] 1.5889990565733654,infoLost[r ] 0.5235987755982978
@@ -2198,34 +2203,34 @@ digital_loss_derivative12=infoLost[r ] -7.9636419076451315
 digital_loss_derivative11=log10_Nsol_Szpiro_derivative(1,1)=>
 digital_loss_derivative11=infoLost[r ] -4.77818514458708
 
-digital_loss23=loss_digital(log2e,2,3)=>
+digital_loss23=loss_digital(x_digital,2,3)=>
 digital_loss23=infoLost[r ] 4.976322691831498
 
-digital_loss22=loss_digital(log2e,2,2)=>
+digital_loss22=loss_digital(x_digital,2,2)=>
 digital_loss22=infoLost[r ] 3.5545162084510693
 
-digital_loss21=loss_digital(log2e,2,1)=>
+digital_loss21=loss_digital(x_digital,2,1)=>
 digital_loss21=infoLost[r ] 2.1327097250706415
 
-digital_loss12=loss_digital(log2e,1,2)=>
+digital_loss12=loss_digital(x_digital,1,2)=>
 digital_loss12=infoLost[r ] 1.9274758362758948
 
-digital_loss11=loss_digital(log2e,1,1)=>
+digital_loss11=loss_digital(x_digital,1,1)=>
 digital_loss11=infoLost[r ] 1.156485501765537
 
-effective_capacity23=capa_eff_Shannon_Hartley(log2e,2,3)=>
+effective_capacity23=capa_eff_Shannon_Hartley(x_digital,2,3)=>
 effective_capacity23=infoLost[r ] 24.364302114636907
 
-effective_capacity22=capa_eff_Shannon_Hartley(log2e,2,2)=>
+effective_capacity22=capa_eff_Shannon_Hartley(x_digital,2,2)=>
 effective_capacity22=infoLost[r ] 17.403072939026362
 
-effective_capacity21=capa_eff_Shannon_Hartley(log2e,2,1)=>
+effective_capacity21=capa_eff_Shannon_Hartley(x_digital,2,1)=>
 effective_capacity21=infoLost[r ] 10.441843763415818
 
-effective_capacity12=capa_eff_Shannon_Hartley(log2e,1,2)=>
+effective_capacity12=capa_eff_Shannon_Hartley(x_digital,1,2)=>
 effective_capacity12=infoLost[r ] 10.189105238223718
 
-effective_capacity11_Szpiro_conjecture=capa_eff_Shannon_Hartley(log2e,1,1)=>
+effective_capacity11_Szpiro_conjecture=capa_eff_Shannon_Hartley(x_digital,1,1)=>
 effective_capacity11_Szpiro_conjecture=infoLost[r ] 6.11346314293423
 
 quality23=quality_Shannon(2,3)=>
@@ -2267,7 +2272,7 @@ stored_eqn(alpha)
 log2_Dn(s,d,g)=<capa_eff_Shannon_Hartley(s,d,g)=>-loss_digital(s,d,g)=>
 stored_eqn(log2_Dn)
 
-log10_Nsol_Szpiro_derivative(d,g)=<(loss_digital(log2e,d,g)=>-loss_digital(2,d,g)=>)*ln10/(log2e-2)
+log10_Nsol_Szpiro_derivative(d,g)=<(loss_digital(x_digital,d,g)=>-loss_digital(x_analog,d,g)=>)*ln10/(x_digital-x_analog)
 stored_eqn(log10_Nsol_Szpiro_derivative)
 
 loss_digital(s,d,g)=<log10(Nsol_Szpiro_packable_cells_from_Kleinian_quartic(s,d,g)=>)/ln10
@@ -2276,10 +2281,10 @@ stored_eqn(loss_digital)
 Nsol_Szpiro_packable_cells_from_Kleinian_quartic(s,d,g)=<exp(-dS(s,d,g)=>)
 stored_eqn(Nsol_Szpiro_packable_cells_from_Kleinian_quartic)
 
-dS_margin(d,g)=<dS(log2e,d,g)=>/sharpness(d,g)=>
+dS_margin(d,g)=<dS(x_digital,d,g)=>/sharpness(d,g)=>
 stored_eqn(dS_margin)
 
-dS(s,d,g)=<capa_eff_Shannon_Hartley(s,d,g)=>-capa_eff_Shannon_Hartley(2,d,g)=>
+dS(s,d,g)=<capa_eff_Shannon_Hartley(s,d,g)=>-capa_eff_Shannon_Hartley(x_analog,d,g)=>
 stored_eqn(dS)
 
 capa_eff_Shannon_Hartley(s,d,g)=<sharpness(d,g)=>*log2(1+q_Shannon(d)=>/xi_adelic_Haar_measure(s)=>)
@@ -2299,21 +2304,6 @@ stored_eqn(q_Shannon)
 
 sharpness(d,g)=<(4*g+2)*d
 stored_eqn(sharpness)
-
-isAlpha_Kepler_eq_ratio_AD=ratio_AD===alpha_Kepler
-isAlpha_Kepler_eq_ratio_AD=true
-
-alpha_Kepler=(pi/6)/(1/sqrt(2))
-alpha_Kepler=0.740480489693061
-
-ratio_AD=C0_analog/C0_digital
-ratio_AD=0.740480489693061
-
-C0_digital=1/sqrt(2)
-C0_digital=0.7071067811865475
-
-C0_analog=pi/6
-C0_analog=0.5235987755982988
 
 prob_Shannon_limit_from_entropic_capacity=q_Shannon_strict_limit/q_topological_limit
 prob_Shannon_limit_from_entropic_capacity=0.8154648767857287
@@ -2364,6 +2354,55 @@ b_pair_Catalan_conjecture=[2,3]
 b_pair_Catalan_conjecture=(
 2,3
 )
+
+isAlpha_Kepler_eq_ratio_AD=ratio_AD===alpha_Kepler
+isAlpha_Kepler_eq_ratio_AD=true
+
+alpha_Kepler=(pi/6)/(1/sqrt(2))
+alpha_Kepler=0.740480489693061
+
+ratio_AD=C0_analog/C0_digital
+ratio_AD=0.740480489693061
+
+C0_digital=1/sqrt(2)
+C0_digital=0.7071067811865475
+
+C0_analog=pi/6
+C0_analog=0.5235987755982988
+
+isStable_AD_converter=xi_interval_d2[][0]>0&&&xi_interval_d2[][1]>0
+isStable_AD_converter=infoLost[ri] true
+
+xi_interval_d2=[_d((x)=<xi_adelic_Haar_measure(x)=>,x_digital,2),_d((x)=<xi_adelic_Haar_measure(x)=>,x_analog,2)]
+xi_interval_d2=(
+infoLost[ri] 22.38685761864926-6.947706861410409e-7i+O(7e-10+3e-10i),infoLost[ri] 1.7505408777712088-8.859414180051317e-9i+O(2e-9+9e-10i)
+)
+
+xi_interval_d1=[_d((x)=<xi_adelic_Haar_measure(x)=>,x_digital,1),_d((x)=<xi_adelic_Haar_measure(x)=>,x_analog,1)]
+xi_interval_d1=(
+infoLost[ri] -4.621665218414818+3.0135602727850694e-9i+O(4e-12+9e-13i),infoLost[ri] -0.7492351691579742+8.582491754320168e-11i+O(1e-11+9e-13i)
+)
+
+xi_interval_d0=[_d((x)=<xi_adelic_Haar_measure(x)=>,x_digital,0),_d((x)=<xi_adelic_Haar_measure(x)=>,x_analog,0)]
+xi_interval_d0=(
+infoLost[r ] 1.5889990565733654,infoLost[r ] 0.5235987755982978
+)
+
+xi_interval=[xi_adelic_Haar_measure(x_digital)=>,xi_adelic_Haar_measure(x_analog)=>]
+xi_interval=(
+infoLost[r ] 1.5889990565733654,infoLost[r ] 0.5235987755982978
+)
+
+x_interval=[x_digital,x_analog]
+x_interval=(
+1.4426950408889634,2
+)
+
+x_digital=log2e
+x_digital=1.4426950408889634
+
+x_analog=2
+x_analog=2
 
 xi_adelic_Haar_measure_dynamic(s,kappa)=<xi_EM_full(1/2+(s-1/2)*kappa,100,14)=>/(0.5*s*(s-1))
 stored_eqn(xi_adelic_Haar_measure_dynamic)
@@ -4520,7 +4559,7 @@ clear
 local storage cleared
 
 [Pinv_y=(-0.999999427,-0.999936657,-0.997300203,-0.954499736,-0.682689492,0,0.682689492,0.954499736,0.997300203,0.999936657,0.999999427:-5,-4,-3,-2,-1,0,1,2,3,4,5),N=1,arr=[],_r((n)=<arr.push(rand_table(=<Pinv_y)=>),,N),=<arr.]=>
-0.32097008685543615
+0.5591808926406067
 
 rand_table(csv)=<last[table=sort0(csv),ymin=min(table)[0],ymax=max(table)[0],y=ymin+(ymax-ymin)*rand(),x=interp(y:table),x]
 stored_eqn(rand_table)
@@ -4530,7 +4569,7 @@ local storage cleared
 
 [(N)=<[tarr=linspace(0,N-1,N).,shuffle_FY(?tarr)=>,=<tarr.]=>](2)=>
 (
-0,1
+1,0
 )
 
 shuffle_FY(?tarr)=<last[len=sizer(tarr),switch_arr=(i1)=<last{i0=floor(rand()*(i1+1)),w=tarr[i1],tarr[i1]=tarr[i0],tarr[i0]=w},_s((i_)=<switch_arr(i_)=>,len-1,1)]
@@ -6761,4 +6800,4 @@ center=true&wheel=true&drag=false&test-case=false&plot-all=true&relzooming=true&
 --------------------------------
 --------------------------------
 
-online-simulator.github.io.7.544.736.32.202 @ Mon Aug 24 2026 02:07:05 GMT+0900 (日本標準時) @ Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/151.0.0.0 Safari/537.36
+online-simulator.github.io.7.544.736.32.202 @ Mon Aug 24 2026 04:51:08 GMT+0900 (日本標準時) @ Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/151.0.0.0 Safari/537.36
