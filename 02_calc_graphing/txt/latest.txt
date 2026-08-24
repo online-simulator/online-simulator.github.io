@@ -1878,6 +1878,9 @@ stored_eqn(w_CPL_a)
 dark_energy_by_capa0=ZPE/capa0
 dark_energy_by_capa0=infoLost[r ] 0.11320948772375979
 
+entropy_space=capa0*delta_g
+entropy_space=infoLost[r ] 0.013944119278324079
+
 capa0=-dS0/(1+dS0)
 capa0=infoLost[r ] 5.122695142400784
 
@@ -2018,11 +2021,11 @@ infoLost[r ] 0.5137366884327754:
 fc=1/tc
 fc=infoLost[r ] 0.5137366884327754
 
-tc=(pi/(12*margin))/(8*pi**2)
+tc=(pi/(12*N_margin))/(8*pi**2)
 tc=infoLost[r ] 1.9465224550160858
 
-margin=x_digital-critical_N11
-margin=infoLost[r ] 0.001703411112744524
+N_margin=x_digital-critical_N11
+N_margin=infoLost[r ] 0.001703411112744524
 
 isInformation_causality3={x_digital,[=critical_N11,=critical_N21,critical_N22,critical_N23]}
 isInformation_causality3=(
@@ -2188,6 +2191,21 @@ zero_points_Riemann_zeta_function=(
 49.77383248
 )
 
+effective_capacity_margin23=log2_Dn(x_digital,2,3)=>
+effective_capacity_margin23=infoLost[r ] 19.387979422805408
+
+effective_capacity_margin22=log2_Dn(x_digital,2,2)=>
+effective_capacity_margin22=infoLost[r ] 13.848556730575293
+
+effective_capacity_margin21=log2_Dn(x_digital,2,1)=>
+effective_capacity_margin21=infoLost[r ] 8.309134038345176
+
+effective_capacity_margin12=log2_Dn(x_digital,1,2)=>
+effective_capacity_margin12=infoLost[r ] 8.261629401947824
+
+effective_capacity_margin11=log2_Dn(x_digital,1,1)=>
+effective_capacity_margin11=infoLost[r ] 4.956977641168693
+
 digital_loss_derivative23=log10_Nsol_Szpiro_derivative(2,3)=>
 digital_loss_derivative23=infoLost[r ] -20.56038845664794
 
@@ -2305,6 +2323,110 @@ stored_eqn(q_Shannon)
 sharpness(d,g)=<(4*g+2)*d
 stored_eqn(sharpness)
 
+n_transition2digital_loss_derivative=round(Newton((n)=<L_max(n)=>=L_transition,=<1,false,20))
+n_transition2digital_loss_derivative=infoLost[r ] 76760758184313
+
+L_transition=L_random_walk_Collatz(xy_transition_12edo)=>
+L_transition=31
+
+L_max(n)=<kL_max*(log2(n)+1)
+stored_eqn(L_max)
+
+L_random_walk_Collatz(x,y)=<x+y
+stored_eqn(L_random_walk_Collatz)
+
+kL_max=(qmax-qmax_ep)*qmax_ep
+kL_max=infoLost[r ] 0.6578188727500515
+
+qmax=[(m)=<(2**m-1)/2**(m-1)](log2(1e100)+1)=>
+qmax=infoLost[r ] 2
+
+qmax_ep=log2(3)
+qmax_ep=1.584962500721156
+
+qmax_equilibrium_point_Collatz_conjecture=log2_3
+qmax_equilibrium_point_Collatz_conjecture=1.5849625007211563
+
+bases_fifth=Pure_fifth/{pow(Syntonic_Comma,1/6),pow(Pythagorean_Comma,1/12),pow(Mercator_Comma,1/53)}
+bases_fifth=(
+1.4968975827619544:
+1.4983070768766817:
+1.4999409030781112
+)
+
+Pure_fifth=3/2
+Pure_fifth=1.5
+
+cents_in_comma=cents_in_octave*log2({Syntonic_Comma,Pythagorean_Comma,Mercator_Comma})
+cents_in_comma=(
+21.50628959671478:
+23.460010384649014:
+3.6150458655331397
+)
+
+cents_in_octave=1200
+cents_in_octave=1200
+
+Mercator_Comma=calc_comma(log2_3_xy_via_equal_temperament[6])=>
+Mercator_Comma=1.0020903140410862
+
+=calc_comma(xy_transition_12edo)=>
+1.0136432647705078
+
+Pythagorean_Comma=531441/524288
+Pythagorean_Comma=1.0136432647705078
+
+=Pythagorean_Major3rd/Pure_Major3rd
+1.0125
+
+Syntonic_Comma=81/80
+Syntonic_Comma=1.0125
+
+Pythagorean_Major3rd=calc_comma(log2_3_xy_via_equal_temperament[2])=>**2
+Pythagorean_Major3rd=1.265625
+
+Pure_Major3rd=[Pure=[1/1,25/24,9/8,6/5,5/4,4/3,45/32,3/2,25/16,5/3,9/5,15/8],(j)=<Pure[][j]](4)=>
+Pure_Major3rd=1.25
+
+noise_lattice_transition_12edo_eq_entropy_space=[(x,y)=<x*log(3)-y*log(2)](xy_transition_12edo)=>
+noise_lattice_transition_12edo_eq_entropy_space=0.013551033378355726
+
+xy_transition_12edo=log2_3_xy_via_equal_temperament[4]
+xy_transition_12edo=(
+12,19
+)
+
+log2_3_xy_via_equal_temperament=get_best_approximations_Diophantus(log2_3,9)=>
+log2_3_xy_via_equal_temperament=(
+1,1:
+1,2:
+2,3:
+5,8:
+12,19:
+41,65:
+53,84:
+306,485:
+665,1054:
+15601,24727
+)
+
+log2_3_continued_fraction=make_cf(log2_3,14)=>
+log2_3_continued_fraction=(
+1,1,1,2,2,3,1,5,2,23,2,2,1,1,55
+)
+
+get_best_approximations_Diophantus(r,n)=<[arr=make_cf(r,n)=>,_s((n)=<A=(A:(_r((A)=<A*(,1:1,arr[][__n__]),=<(,1:1,arr[][0]),n))[][1].),A=[],n),=<{A}]=>
+stored_eqn(get_best_approximations_Diophantus)
+
+make_cf(r,n)=<[arr=[],cf(r)=<last{arr.push(int(r)),len=sizec(arr),(len>n||r%1==0||1-abs(r%1)<2*eps)&&r||||int(r)+1/cf(1/(r-int(r)))=>},cf(r)=>,=<arr]=>
+stored_eqn(make_cf)
+
+calc_comma(x,y)=<3**x/2**y
+stored_eqn(calc_comma)
+
+log2_3=log_ex(reverse(b_pair_Catalan_conjecture))
+log2_3=1.5849625007211563
+
 prob_Shannon_limit_from_entropic_capacity=q_Shannon_strict_limit/q_topological_limit
 prob_Shannon_limit_from_entropic_capacity=0.8154648767857287
 
@@ -2364,11 +2486,11 @@ alpha_Kepler=0.740480489693061
 ratio_AD=C0_analog/C0_digital
 ratio_AD=0.740480489693061
 
-C0_digital=1/sqrt(2)
-C0_digital=0.7071067811865475
-
 C0_analog=pi/6
 C0_analog=0.5235987755982988
+
+C0_digital=1/sqrt(2)
+C0_digital=0.7071067811865475
 
 isStable_AD_converter=xi_interval_d2[][0]>0&&&xi_interval_d2[][1]>0
 isStable_AD_converter=infoLost[ri] true
@@ -2398,11 +2520,17 @@ x_interval=(
 1.4426950408889634,2
 )
 
+x_analog=2
+x_analog=2
+
 x_digital=log2e
 x_digital=1.4426950408889634
 
-x_analog=2
-x_analog=2
+x_e_power_1_by_e=calc_W(e)=>
+x_e_power_1_by_e=infoLost[r ] 1.444667861009766+O(9e-17)
+
+calc_W(y)=<Newton((x)=<x**y=y,,false,1e3,0)
+stored_eqn(calc_W)
 
 xi_adelic_Haar_measure_dynamic(s,kappa)=<xi_EM_full(1/2+(s-1/2)*kappa,100,14)=>/(0.5*s*(s-1))
 stored_eqn(xi_adelic_Haar_measure_dynamic)
@@ -4559,7 +4687,7 @@ clear
 local storage cleared
 
 [Pinv_y=(-0.999999427,-0.999936657,-0.997300203,-0.954499736,-0.682689492,0,0.682689492,0.954499736,0.997300203,0.999936657,0.999999427:-5,-4,-3,-2,-1,0,1,2,3,4,5),N=1,arr=[],_r((n)=<arr.push(rand_table(=<Pinv_y)=>),,N),=<arr.]=>
-0.5591808926406067
+1.7509513863317354
 
 rand_table(csv)=<last[table=sort0(csv),ymin=min(table)[0],ymax=max(table)[0],y=ymin+(ymax-ymin)*rand(),x=interp(y:table),x]
 stored_eqn(rand_table)
@@ -6800,4 +6928,4 @@ center=true&wheel=true&drag=false&test-case=false&plot-all=true&relzooming=true&
 --------------------------------
 --------------------------------
 
-online-simulator.github.io.7.544.736.32.202 @ Mon Aug 24 2026 04:51:08 GMT+0900 (日本標準時) @ Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/151.0.0.0 Safari/537.36
+online-simulator.github.io.7.544.736.32.202 @ Tue Aug 25 2026 15:42:42 GMT+0900 (日本標準時) @ Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/151.0.0.0 Safari/537.36

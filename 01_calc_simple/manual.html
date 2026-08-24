@@ -1114,17 +1114,17 @@ N_critical(2,1) -> 1.4409916297762184（dに独立の不変量）
 <br>
 N_critical(2,2) -> 1.24507890451303（Ricci soliton同様の普遍指標）
 <br>
-　⇒AD変換：<a href="#span-app-vibration-Schumann">Q値</a>∝1/margin
+　⇒AD変換：<a href="#span-app-vibration-Schumann">Q値</a>∝1/N_margin
 <br>
-margin=log2e-N_critical(1,1); margin -> 0.001703411112744524（自然の変換効率log2e－bit単位の計量ひずみN）
+N_margin=log2e-N_critical(1,1); N_margin -> 0.001703411112744524（自然の変換効率log2e－bit単位の計量ひずみN）
 <br>
-tc=(pi/(12*margin))/(8pi**2); fc=1/tc; fc -> 0.5137366884327754（≒pi/6のcut-off）
+tc=(pi/(12*N_margin))/(8pi**2); fc=1/tc; fc -> 0.5137366884327754（≒pi/6のcut-off）
 <br>
 　⇒log2e：systemが課す情報因果律の顕現
 <br>
 log2e || 1/ln(2) -> 1.4426950408889634（情報宇宙の絶対障壁）
 <br>
-e**(1/e) -> 1.444667861009766
+calc_W(y)=&lt;Newton((x)=&lt;x**y=y,,false,1e3,0); calc_W(e) || e**(1/e) -> 1.444667861009766
 <br>
 　Gemini 3.5 Flash「IUTが異なる宇宙の境界で計算していた「テータ関数の歪みの限界」が、
 <br>
@@ -55756,9 +55756,14 @@ xi_adelic_Haar_measure(s)=&lt;xi_EM_full(s,100,14)=&gt;/(0.5*s*(s-1));
 xi_adelic_Haar_measure_dynamic(s,kappa)=&lt;xi_EM_full(1/2+(s-1/2)*kappa,100,14)=&gt;/(0.5*s*(s-1));
 <br>
 <br>
-x_analog=2;
+calc_W(y)=&lt;Newton((x)=&lt;x**y=y,,false,1e3,0);
+<br>
+x_e_power_1_by_e=calc_W(e)=&gt;;
+<br>
 <br>
 x_digital=log2e;
+<br>
+x_analog=2;
 <br>
 x_interval=[x_digital,x_analog];
 <br>
@@ -55773,9 +55778,9 @@ xi_interval_d2=[_d((x)=&lt;xi_adelic_Haar_measure(x)=&gt;,x_digital,2),_d((x)=&l
 isStable_AD_converter=xi_interval_d2[][0]&gt;0&amp;&amp;&amp;xi_interval_d2[][1]&gt;0;
 <br>
 <br>
-C0_analog=pi/6;
-<br>
 C0_digital=1/sqrt(2);
+<br>
+C0_analog=pi/6;
 <br>
 ratio_AD=C0_analog/C0_digital;
 <br>
@@ -55815,6 +55820,62 @@ q_topological_limit=2;
 prob_5_by_6_conjecture_from_deterministic_scheduling=sum(1/b_pair_Catalan_conjecture);
 <br>
 prob_Shannon_limit_from_entropic_capacity=q_Shannon_strict_limit/q_topological_limit;
+<br>
+<br>
+log2_3=log_ex(reverse(b_pair_Catalan_conjecture));
+<br>
+calc_comma(x,y)=&lt;3**x/2**y;
+<br>
+make_cf(r,n)=&lt;[arr=[],cf(r)=&lt;last{arr.push(int(r)),len=sizec(arr),(len&gt;n||r%1==0||1-abs(r%1)&lt;2*eps)&amp;&amp;r||||int(r)+1/cf(1/(r-int(r)))=&gt;},cf(r)=&gt;,=&lt;arr]=&gt;;
+<br>
+get_best_approximations_Diophantus(r,n)=&lt;[arr=make_cf(r,n)=&gt;,_s((n)=&lt;A=(A:(_r((A)=&lt;A*(,1:1,arr[][__n__]),=&lt;(,1:1,arr[][0]),n))[][1].),A=[],n),=&lt;{A}]=&gt;;
+<br>
+log2_3_continued_fraction=make_cf(log2_3,14)=&gt;;
+<br>
+log2_3_xy_via_equal_temperament=get_best_approximations_Diophantus(log2_3,9)=&gt;;
+<br>
+xy_transition_12edo=log2_3_xy_via_equal_temperament[4];
+<br>
+noise_lattice_transition_12edo_eq_entropy_space=[(x,y)=&lt;x*log(3)-y*log(2)](xy_transition_12edo)=&gt;;
+<br>
+Pure_Major3rd=[Pure=[1/1,25/24,9/8,6/5,5/4,4/3,45/32,3/2,25/16,5/3,9/5,15/8],(j)=&lt;Pure[][j]](4)=&gt;;
+<br>
+Pythagorean_Major3rd=calc_comma(log2_3_xy_via_equal_temperament[2])=&gt;**2;
+<br>
+Syntonic_Comma=81/80;
+<br>
+=Pythagorean_Major3rd/Pure_Major3rd;
+<br>
+Pythagorean_Comma=531441/524288;
+<br>
+=calc_comma(xy_transition_12edo)=&gt;;
+<br>
+Mercator_Comma=calc_comma(log2_3_xy_via_equal_temperament[6])=&gt;;
+<br>
+cents_in_octave=1200;
+<br>
+cents_in_comma=cents_in_octave*log2({Syntonic_Comma,Pythagorean_Comma,Mercator_Comma});
+<br>
+Pure_fifth=3/2;
+<br>
+bases_fifth=Pure_fifth/{pow(Syntonic_Comma,1/6),pow(Pythagorean_Comma,1/12),pow(Mercator_Comma,1/53)};
+<br>
+<br>
+qmax_equilibrium_point_Collatz_conjecture=log2_3;
+<br>
+qmax_ep=log2(3);
+<br>
+qmax=[(m)=&lt;(2**m-1)/2**(m-1)](log2(1e100)+1)=&gt;;
+<br>
+kL_max=(qmax-qmax_ep)*qmax_ep;
+<br>
+L_random_walk_Collatz(x,y)=&lt;x+y;
+<br>
+L_max(n)=&lt;kL_max*(log2(n)+1);
+<br>
+L_transition=L_random_walk_Collatz(xy_transition_12edo)=&gt;;
+<br>
+n_transition2digital_loss_derivative=round(Newton((n)=&lt;L_max(n)=&gt;=L_transition,=&lt;1,false,20));
 <br>
 <br>
 sharpness(d,g)=&lt;(4*g+2)*d;
@@ -55895,6 +55956,16 @@ digital_loss_derivative21=log10_Nsol_Szpiro_derivative(2,1)=&gt;;
 digital_loss_derivative22=log10_Nsol_Szpiro_derivative(2,2)=&gt;;
 <br>
 digital_loss_derivative23=log10_Nsol_Szpiro_derivative(2,3)=&gt;;
+<br>
+effective_capacity_margin11=log2_Dn(x_digital,1,1)=&gt;;
+<br>
+effective_capacity_margin12=log2_Dn(x_digital,1,2)=&gt;;
+<br>
+effective_capacity_margin21=log2_Dn(x_digital,2,1)=&gt;;
+<br>
+effective_capacity_margin22=log2_Dn(x_digital,2,2)=&gt;;
+<br>
+effective_capacity_margin23=log2_Dn(x_digital,2,3)=&gt;;
 <br>
 <br>
 zero_points_Riemann_zeta_function={14.13472514,21.02203964,25.01085758,30.42487613,32.93506159,37.58617816,40.91871901,43.32707328,48.00515088,49.77383248};
@@ -56003,9 +56074,9 @@ critical_N23=N_critical(2,3)=&gt;;
 <br>
 isInformation_causality3={x_digital,[=critical_N11,=critical_N21,critical_N22,critical_N23]};
 <br>
-margin=x_digital-critical_N11;
+N_margin=x_digital-critical_N11;
 <br>
-tc=(pi/(12*margin))/(8*pi**2);
+tc=(pi/(12*N_margin))/(8*pi**2);
 <br>
 fc=1/tc;
 <br>
@@ -56027,6 +56098,7 @@ alpha_SVP=(1+1/ln10**2)*log2(1+1/xi_adelic_Haar_measure(x_digital)=&gt;)-(1/ln10
 alpha_SPP=log2(2*pi/e)/2;
 <br>
 =(1+log2(gamma_EM_full(1/2,14)=&gt;**2/(e*gamma_EM_full(1,14)=&gt;)))/2;
+<br>
 <br>
 kappa_gamma=sqrt(alpha_SPP/alpha_SVP);
 <br>
@@ -56062,6 +56134,8 @@ delta_a=superstring[1]-superstring[0];
 delta_g=ZPE-gamma_Euler_Mascheroni;
 <br>
 capa0=-dS0/(1+dS0);
+<br>
+entropy_space=capa0*delta_g;
 <br>
 dark_energy_by_capa0=ZPE/capa0;
 <br>
