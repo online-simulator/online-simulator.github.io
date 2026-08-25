@@ -456,6 +456,60 @@ stored_eqn(tn_)
 clear
 local storage cleared
 
+polarized_Hawking_flux_l24=calc_polarized_Hawking_flux(24)=>
+polarized_Hawking_flux_l24=(
+24,infoLost[r ] 2.6123225680508995+O(9e-16),infoLost[r ] 0.6666666666666666,infoLost[r ] 0.33333333333333337,infoLost[r ] 0.33333333333333326
+)
+
+polarized_Hawking_flux_l12=calc_polarized_Hawking_flux(12)=>
+polarized_Hawking_flux_l12=(
+12,infoLost[r ] 2.546465982591118+O(9e-16),infoLost[r ] 0.7371834090614229,infoLost[r ] 0.2628165909385771,infoLost[r ] 0.47436681812284576
+)
+
+polarized_Hawking_flux_l1=calc_polarized_Hawking_flux(1)=>
+polarized_Hawking_flux_l1=(
+1,infoLost[r ] 1.4520499774642321+O(4e-16),infoLost[r ] 0.7955742815213814,infoLost[r ] 0.20442571847861857,infoLost[r ] 0.5911485630427629
+)
+
+calc_polarized_Hawking_flux(l_mode)=<[N_spin_photon=N_spin_Fermion,rigidity_polarization=rigidity_norm/N_spin_photon,A_l=scale_attenuation(l_mode)=>,T_emitted=T_CMB_bulk_from_residue*A_l,bias_dynamic=asymmetry_chiral_parity_SU2*rigidity_polarization*max(0,d_Boson-l_mode)/d_Boson,flux_left_polarized=fraction_left_handed*(1+bias_dynamic)*A_l,flux_right_polarized=fraction_right_handed*(1-bias_dynamic)*A_l,ratio_left_polarized=flux_left_polarized/(flux_left_polarized+flux_right_polarized),ratio_right_polarized=1-ratio_left_polarized,degree_polarization=abs(ratio_left_polarized-ratio_right_polarized),=<(l_mode,T_emitted,ratio_left_polarized,ratio_right_polarized,degree_polarization)]=>
+stored_eqn(calc_polarized_Hawking_flux)
+
+P_pop_observed=1-(1-P_pop_raw)**(1/N_parallel_port)
+P_pop_observed=infoLost[r ] 0.19693133231717674
+
+P_pop_raw=exp(-2*pi*V_Remnant_barrier*imag_step_Planck_cell*factor_leak_correction)
+P_pop_raw=infoLost[r ] 0.9655649122322235
+
+factor_leak_correction=1+abs(factor_Shannon_shield)*fraction_left_handed
+factor_leak_correction=infoLost[r ] 1.0007092552691998
+
+V_Remnant_barrier=abs(chiral_shift)/ZPE
+V_Remnant_barrier=infoLost[r ] 0.0033359070827798645
+
+N_parallel_port=total_channels/(N_spin_Fermion/geometric_chiral_fraction_dS5)**2
+N_parallel_port=15.36
+
+mass_ratio_Top2Up_bare=motif_Top2Up_bare/R_now**2
+mass_ratio_Top2Up_bare=infoLost[r ] 117448997.92376266
+
+motif_Top2Up_bare=(d_Boson*N_superstring_sectors)**N_dimension_spacetime
+motif_Top2Up_bare=207360000
+
+FSC_now=FSC_inv_U1_M_theory(0)=>
+FSC_now=infoLost[r ] 137.03600153559597
+
+FSC_inv_U1_M_theory(z)=<FSC_inv_U1*R_M_theory(z)=>**fraction_left_handed
+stored_eqn(FSC_inv_U1_M_theory)
+
+R_now=R_M_theory(0)=>
+R_now=infoLost[r ] 1.3287333460078679
+
+R_M_theory(z)=<(x_digital/ZPE)*(1+delta_g*w_CPL_z(z)=>)*factor_R_now
+stored_eqn(R_M_theory)
+
+factor_R_now=0.535585
+factor_R_now=0.535585
+
 entropy_flux_singularity_of_analytic_continuation_with_gamma_Euler_Mascheroni=calc_dynamic_entropy_flux(z_singularity_ac_W0)=>
 entropy_flux_singularity_of_analytic_continuation_with_gamma_Euler_Mascheroni=infoLost[r ] 0.14448980911115755+2.908357130590182e-25i+O(3e-17+7e-20i)
 
@@ -845,7 +899,7 @@ stored_eqn(get_M_L)
 A_L(P)=<lambda_F**P
 stored_eqn(A_L)
 
-scale_L(P)=<1-{scale_attenuation1,scale_attenuation2,scale_attenuation3}**P
+scale_L(P)=<1-{scale_attenuation_l1,scale_attenuation_l2,scale_attenuation_l3}**P
 stored_eqn(scale_L)
 
 lambda_F=theta13_bulk
@@ -903,28 +957,28 @@ theta23_bulk=infoLost[r ] 0.7880373756255823
 theta12_bulk=atan(absU_cyclic[0][1]/absU_cyclic[0][0])
 theta12_bulk=infoLost[r ] 0.7880373756255824
 
-scale_attenuation25=scale_attenuation(25)=>
-scale_attenuation25=infoLost[r ] 1
+scale_attenuation_l25=scale_attenuation(25)=>
+scale_attenuation_l25=infoLost[r ] 1
 
-scale_attenuation15=scale_attenuation(15)=>
-scale_attenuation15=infoLost[r ] 0.9847968390897318
+scale_attenuation_l15=scale_attenuation(15)=>
+scale_attenuation_l15=infoLost[r ] 0.9847968390897318
 
-scale_attenuation5=scale_attenuation(5)=>
-scale_attenuation5=infoLost[r ] 0.9075323003298683
+scale_attenuation_l5=scale_attenuation(5)=>
+scale_attenuation_l5=infoLost[r ] 0.9075323003298683
 
-scale_attenuation4=scale_attenuation(4)=>
-scale_attenuation4=infoLost[r ] 0.8801473446215387
+scale_attenuation_l4=scale_attenuation(4)=>
+scale_attenuation_l4=infoLost[r ] 0.8801473446215387
 
-scale_attenuation3=scale_attenuation(3)=>
-scale_attenuation3=infoLost[r ] 0.8363297316259732
+scale_attenuation_l3=scale_attenuation(3)=>
+scale_attenuation_l3=infoLost[r ] 0.8363297316259732
 
-scale_attenuation2=scale_attenuation(2)=>
-scale_attenuation2=infoLost[r ] 0.7551302057893475
+scale_attenuation_l2=scale_attenuation(2)=>
+scale_attenuation_l2=infoLost[r ] 0.7551302057893475
 
-scale_attenuation1=scale_attenuation(1)=>
-scale_attenuation1=infoLost[r ] 0.5558463549727829
+scale_attenuation_l1=scale_attenuation(1)=>
+scale_attenuation_l1=infoLost[r ] 0.5558463549727829
 
-scale_attenuation(l)=<exp(factor_Shannon_shield*d_Boson*max(0,d_Boson-l)/l)
+scale_attenuation(l_mode)=<exp(factor_Shannon_shield*d_Boson*max(0,d_Boson-l_mode)/l_mode)
 stored_eqn(scale_attenuation)
 
 leak_unitarity_quark=abs(capacity_leak)*(1-shield_transmission)*sin2_CECC
@@ -4687,7 +4741,7 @@ clear
 local storage cleared
 
 [Pinv_y=(-0.999999427,-0.999936657,-0.997300203,-0.954499736,-0.682689492,0,0.682689492,0.954499736,0.997300203,0.999936657,0.999999427:-5,-4,-3,-2,-1,0,1,2,3,4,5),N=1,arr=[],_r((n)=<arr.push(rand_table(=<Pinv_y)=>),,N),=<arr.]=>
-1.7509513863317354
+-0.3203758297334586
 
 rand_table(csv)=<last[table=sort0(csv),ymin=min(table)[0],ymax=max(table)[0],y=ymin+(ymax-ymin)*rand(),x=interp(y:table),x]
 stored_eqn(rand_table)
@@ -4697,7 +4751,7 @@ local storage cleared
 
 [(N)=<[tarr=linspace(0,N-1,N).,shuffle_FY(?tarr)=>,=<tarr.]=>](2)=>
 (
-1,0
+0,1
 )
 
 shuffle_FY(?tarr)=<last[len=sizer(tarr),switch_arr=(i1)=<last{i0=floor(rand()*(i1+1)),w=tarr[i1],tarr[i1]=tarr[i0],tarr[i0]=w},_s((i_)=<switch_arr(i_)=>,len-1,1)]
@@ -6928,4 +6982,4 @@ center=true&wheel=true&drag=false&test-case=false&plot-all=true&relzooming=true&
 --------------------------------
 --------------------------------
 
-online-simulator.github.io.7.544.736.32.202 @ Tue Aug 25 2026 15:42:42 GMT+0900 (日本標準時) @ Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/151.0.0.0 Safari/537.36
+online-simulator.github.io.7.544.736.32.202 @ Tue Aug 25 2026 22:23:47 GMT+0900 (日本標準時) @ Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/151.0.0.0 Safari/537.36
