@@ -2404,7 +2404,7 @@ qmax_equilibrium_point_Collatz_conjecture=1.5849625007211563
 bases_fifth=Pure_fifth/{pow(Syntonic_Comma,1/6),pow(Pythagorean_Comma,1/12),pow(Mercator_Comma,1/53)}
 bases_fifth=(
 1.4968975827619544:
-1.4983070768766817:
+1.4983070768766813:
 1.499940903078111
 )
 
@@ -2413,8 +2413,8 @@ Pure_fifth=1.5
 
 cents_in_comma=cents_in_octave*log2({Syntonic_Comma,Pythagorean_Comma,Mercator_Comma})
 cents_in_comma=(
-21.50628959671478:
-23.46001038464901:
+21.506289596715916:
+23.46001038464977:
 3.61504586553851
 )
 
@@ -2424,31 +2424,25 @@ cents_in_octave=1200
 Mercator_Comma=calc_comma(log2_3_xy_via_equal_temperament[6])=>
 Mercator_Comma=1.0020903140410893
 
-=calc_comma(xy_transition_12edo)=>
-1.0136432647705083
+noise_lattice_transition_12edo_eq_entropy_space=log(Pythagorean_Comma)
+noise_lattice_transition_12edo_eq_entropy_space=0.013551033378355856
 
-Pythagorean_Comma=531441/524288
-Pythagorean_Comma=1.0136432647705078
+Pythagorean_Comma=calc_comma(xy_transition_12edo)=>
+Pythagorean_Comma=1.0136432647705083
 
-=Pythagorean_Major3rd/Pure_Major3rd
-1.0125000000000006
+xy_transition_12edo=log2_3_xy_via_equal_temperament[4]
+xy_transition_12edo=(
+12,19
+)
 
-Syntonic_Comma=81/80
-Syntonic_Comma=1.0125
+Syntonic_Comma=Pythagorean_Major3rd/Pure_Major3rd
+Syntonic_Comma=1.0125000000000006
 
 Pythagorean_Major3rd=calc_comma(log2_3_xy_via_equal_temperament[2])=>**2
 Pythagorean_Major3rd=1.2656250000000009
 
 Pure_Major3rd=[Pure=[1/1,25/24,9/8,6/5,5/4,4/3,45/32,3/2,25/16,5/3,9/5,15/8],(j)=<Pure[][j]](4)=>
 Pure_Major3rd=1.25
-
-noise_lattice_transition_12edo_eq_entropy_space=[(x,y)=<x*log(3)-y*log(2)](xy_transition_12edo)=>
-noise_lattice_transition_12edo_eq_entropy_space=0.013551033378355726
-
-xy_transition_12edo=log2_3_xy_via_equal_temperament[4]
-xy_transition_12edo=(
-12,19
-)
 
 log2_3_xy_via_equal_temperament=get_best_approximations_Diophantus(log2_3,9)=>
 log2_3_xy_via_equal_temperament=(
@@ -4741,7 +4735,7 @@ clear
 local storage cleared
 
 [Pinv_y=(-0.999999427,-0.999936657,-0.997300203,-0.954499736,-0.682689492,0,0.682689492,0.954499736,0.997300203,0.999936657,0.999999427:-5,-4,-3,-2,-1,0,1,2,3,4,5),N=1,arr=[],_r((n)=<arr.push(rand_table(=<Pinv_y)=>),,N),=<arr.]=>
-0.9520954280284116
+1.3895414053533948
 
 rand_table(csv)=<last[table=sort0(csv),ymin=min(table)[0],ymax=max(table)[0],y=ymin+(ymax-ymin)*rand(),x=interp(y:table),x]
 stored_eqn(rand_table)
@@ -6982,4 +6976,4 @@ center=true&wheel=true&drag=false&test-case=false&plot-all=true&relzooming=true&
 --------------------------------
 --------------------------------
 
-online-simulator.github.io.7.544.736.32.202 @ Tue Aug 25 2026 22:30:02 GMT+0900 (日本標準時) @ Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/151.0.0.0 Safari/537.36
+online-simulator.github.io.7.544.736.32.202 @ Wed Aug 26 2026 20:49:33 GMT+0900 (日本標準時) @ Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/151.0.0.0 Safari/537.36
