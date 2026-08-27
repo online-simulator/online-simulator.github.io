@@ -1741,6 +1741,12 @@ infoLost[r ] 1413
 hasCECC=abs(1-number_blocks*N_dimension_superspace/total_channels)<eps
 hasCECC=true
 
+diameter_giantring_billion_ly=diameter_bigring_billion_ly*N_spin_Fermion
+diameter_giantring_billion_ly=infoLost[r ] 2.908764520678895
+
+diameter_bigring_billion_ly=diameter_supervoid_billion_ly*cos2_Weinberg
+diameter_bigring_billion_ly=infoLost[r ] 1.4543822603394474
+
 diameter_supervoid_billion_ly=diameter_causal_billion_ly*(dend_inflation/M_max)*alpha_SVP
 diameter_supervoid_billion_ly=infoLost[r ] 1.8253819529237194
 
@@ -2527,17 +2533,32 @@ stored_eqn(q_Shannon)
 sharpness(d,g)=<(4*g+2)*d
 stored_eqn(sharpness)
 
-n_transition2digital_loss_derivative=round(Newton((n)=<L_max(n)=>=L_transition,=<1,false,20))
-n_transition2digital_loss_derivative=infoLost[r ] 76760758184313
+scale_multiverse=n_transition_53edo
+scale_multiverse=infoLost[r ] 2.4699361594231497e+62
 
-L_transition=L_random_walk_Collatz(xy_transition_12edo)=>
-L_transition=31
+scale_universe=n_transition2digital_loss_derivative_12edo
+scale_universe=infoLost[r ] 76760758184313
 
-L_max(n)=<kL_max*(log2(n)+1)
-stored_eqn(L_max)
+n_transition_53edo=calc_n_transition(L_transition_53edo)=>
+n_transition_53edo=infoLost[r ] 2.4699361594231497e+62
+
+n_transition2digital_loss_derivative_12edo=calc_n_transition(L_transition_12edo)=>
+n_transition2digital_loss_derivative_12edo=infoLost[r ] 76760758184313
+
+calc_n_transition(L)=<round(Newton((n)=<L_max(n)=>=L,=<1,false,200))
+stored_eqn(calc_n_transition)
+
+L_transition_53edo=L_random_walk_Collatz(xy_transition_53edo)=>
+L_transition_53edo=137
+
+L_transition_12edo=L_random_walk_Collatz(xy_transition_12edo)=>
+L_transition_12edo=31
 
 L_random_walk_Collatz(x,y)=<x+y
 stored_eqn(L_random_walk_Collatz)
+
+L_max(n)=<kL_max*(log2(n)+1)
+stored_eqn(L_max)
 
 kL_max=(qmax-qmax_ep)*qmax_ep
 kL_max=infoLost[r ] 0.6578188727500515
@@ -2571,7 +2592,7 @@ cents_in_comma=(
 cents_in_octave=1200
 cents_in_octave=1200
 
-Mercator_Comma=calc_comma(log2_3_xy_via_equal_temperament[6])=>
+Mercator_Comma=calc_comma(xy_transition_53edo)=>
 Mercator_Comma=1.0020903140410862
 
 noise_lattice_transition_12edo_eq_entropy_space=log(Pythagorean_Comma)
@@ -2579,11 +2600,6 @@ noise_lattice_transition_12edo_eq_entropy_space=0.013551033378355417
 
 Pythagorean_Comma=calc_comma(xy_transition_12edo)=>
 Pythagorean_Comma=1.0136432647705078
-
-xy_transition_12edo=log2_3_xy_via_equal_temperament[4]
-xy_transition_12edo=(
-12,19
-)
 
 Syntonic_Comma=Pythagorean_Major3rd/Pure_Major3rd
 Syntonic_Comma=1.0125
@@ -2593,6 +2609,16 @@ Pythagorean_Major3rd=1.265625
 
 Pure_Major3rd=[Pure=[1/1,25/24,9/8,6/5,5/4,4/3,45/32,3/2,25/16,5/3,9/5,15/8],(j)=<Pure[][j]](4)=>
 Pure_Major3rd=1.25
+
+xy_transition_53edo=log2_3_xy_via_equal_temperament[6]
+xy_transition_53edo=(
+53,84
+)
+
+xy_transition_12edo=log2_3_xy_via_equal_temperament[4]
+xy_transition_12edo=(
+12,19
+)
 
 log2_3_xy_via_equal_temperament=get_best_approximations_Diophantus(log2_3,9)=>
 log2_3_xy_via_equal_temperament=(
@@ -4885,7 +4911,7 @@ clear
 local storage cleared
 
 [Pinv_y=(-0.999999427,-0.999936657,-0.997300203,-0.954499736,-0.682689492,0,0.682689492,0.954499736,0.997300203,0.999936657,0.999999427:-5,-4,-3,-2,-1,0,1,2,3,4,5),N=1,arr=[],_r((n)=<arr.push(rand_table(=<Pinv_y)=>),,N),=<arr.]=>
--0.4667780487939006
+-0.049060551727493795
 
 rand_table(csv)=<last[table=sort0(csv),ymin=min(table)[0],ymax=max(table)[0],y=ymin+(ymax-ymin)*rand(),x=interp(y:table),x]
 stored_eqn(rand_table)
@@ -7126,4 +7152,4 @@ center=true&wheel=true&drag=false&test-case=false&plot-all=true&relzooming=true&
 --------------------------------
 --------------------------------
 
-online-simulator.github.io.7.544.736.32.202 @ Thu Aug 27 2026 12:09:31 GMT+0900 (日本標準時) @ Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/151.0.0.0 Safari/537.36
+online-simulator.github.io.7.544.736.32.202 @ Fri Aug 28 2026 05:20:31 GMT+0900 (日本標準時) @ Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/151.0.0.0 Safari/537.36
