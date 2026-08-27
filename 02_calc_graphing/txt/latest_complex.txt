@@ -456,6 +456,156 @@ stored_eqn(tn_)
 clear
 local storage cleared
 
+C_GG_l48=C_GG(d_Boson+sigma3)=>
+C_GG_l48=infoLost[r ] 1.4130952055180985e-34
+
+C_GG_l40=C_GG(d_Boson+sigma2)=>
+C_GG_l40=infoLost[r ] 7.746707771229623e-21
+
+C_GG_l32=C_GG(d_Boson+sigma1)=>
+C_GG_l32=infoLost[r ] 3.0982541080886272e-12
+
+C_GG_l24_JWST_LRD=C_GG(d_Boson)=>
+C_GG_l24_JWST_LRD=infoLost[r ] 4.5897399175301405e-7
+
+C_GG_l16=C_GG(d_Boson-sigma1)=>
+C_GG_l16=infoLost[r ] 0.00035629309293014506+6.341375779181089e-20i
+
+C_GG_l8=C_GG(d_Boson-sigma2)=>
+C_GG_l8=infoLost[r ] 0.00605154382386826+3.3201296906624885e-18i
+
+C_GG_l3=C_GG(3)=>
+C_GG_l3=infoLost[r ] 0.005827771751213433+5.016169150647456e-18i
+
+C_GG_l2=C_GG(2)=>
+C_GG_l2=infoLost[r ] 0.004831609204319294+4.519489826290566e-18i
+
+C_GG_l1=C_GG(1)=>
+C_GG_l1=infoLost[r ] 0.003757662613342155+3.816362101847494e-18i
+
+C_betaH0_l48=C_betaH0(d_Boson+sigma3)=>
+C_betaH0_l48=infoLost[r ] 2.3164818087922446e-7
+
+C_betaH0_l40=C_betaH0(d_Boson+sigma2)=>
+C_betaH0_l40=infoLost[r ] 0.000010779201195685454
+
+C_betaH0_l32=C_betaH0(d_Boson+sigma1)=>
+C_betaH0_l32=infoLost[r ] 0.00011417034049527984
+
+C_betaH0_l24_Simons_observatory=C_betaH0(d_Boson)=>
+C_betaH0_l24_Simons_observatory=infoLost[r ] 0.0002784016810425667
+
+C_betaH0_l16=C_betaH0(d_Boson-sigma1)=>
+C_betaH0_l16=infoLost[r ] 0.00015825470594037076+2.90709178619821e-20i
+
+C_betaH0_l8=C_betaH0(d_Boson-sigma2)=>
+C_betaH0_l8=infoLost[r ] 0.000022394757210421145+1.645540064125462e-20i
+
+C_betaH0_l3=C_betaH0(3)=>
+C_betaH0_l3=infoLost[r ] 0.0000035445822712977758+4.486687143260018e-21i
+
+C_betaH0_l2=C_betaH0(2)=>
+C_betaH0_l2=infoLost[r ] 0.0000023110888571855056+3.210584776417299e-21i
+
+C_betaH0_l1=C_betaH0(1)=>
+C_betaH0_l1=infoLost[r ] 0.0000013469867845814806+2.0452252398948303e-21i
+
+C_betabeta_l48=C_betabeta(d_Boson+sigma3)=>
+C_betabeta_l48=infoLost[r ] 1.0432911237179073e-8
+
+C_betabeta_l40=C_betabeta(d_Boson+sigma2)=>
+C_betabeta_l40=infoLost[r ] 1.522118523517126e-7
+
+C_betabeta_l32=C_betabeta(d_Boson+sigma1)=>
+C_betabeta_l32=infoLost[r ] 8.501556817416993e-7
+
+C_betabeta_l24_Planck_ACT=C_betabeta(d_Boson)=>
+C_betabeta_l24_Planck_ACT=infoLost[r ] 0.0000018596923038201213
+
+C_betabeta_l16=C_betabeta(d_Boson-sigma1)=>
+C_betabeta_l16=infoLost[r ] 0.0000016334473311122898+2.0003960456224526e-22i
+
+C_betabeta_l8=C_betabeta(d_Boson-sigma2)=>
+C_betabeta_l8=infoLost[r ] 6.570040273337166e-7+3.218391516404625e-22i
+
+C_betabeta_l3=C_betabeta(3)=>
+C_betabeta_l3=infoLost[r ] 2.963383943999475e-7+2.5006757965525855e-22i
+
+C_betabeta_l2=C_betabeta(2)=>
+C_betabeta_l2=infoLost[r ] 2.466508939584781e-7+2.284330472685193e-22i
+
+C_betabeta_l1=C_betabeta(1)=>
+C_betabeta_l1=infoLost[r ] 1.692541725031494e-7+1.7132704865079541e-22i
+
+C_GG(l_mode)=<(P_dark_matter/N_dimension_M_theory)**2*C_betabeta(l_mode)=>**((l_mode*(l_mode+1))/(d_Boson*(d_Boson+1)))*GD_CECC(l_mode)=>
+stored_eqn(C_GG)
+
+C_betaH0(l_mode)=<delta_H0_Hubble*R_GUT*sqrt(C_betabeta(l_mode)=>)*GD_CECC(l_mode)=>
+stored_eqn(C_betaH0)
+
+C_betabeta(l_mode)=<(beta_observed*scale_attenuation(l_mode)=>)**2*((2*l_mode+1)/(l_mode*(l_mode+1)))*GD_CECC(l_mode)=>
+stored_eqn(C_betabeta)
+
+GD_CECC(l_mode)=<exp(-((l_mode-d_Boson)/sigma_CECC)**2/2)
+stored_eqn(GD_CECC)
+
+delta_H0_Hubble=H0_Hubble_observed-H0_Hubble_bulk
+delta_H0_Hubble=infoLost[r ] 6.690406190576937
+
+R_GUT=alphas_GUT*ratio_AD
+R_GUT=infoLost[r ] 0.030513977438202174
+
+all_sky_deg_sigma3=[all_sky_deg(d_Boson+sigma3)=>,all_sky_deg(d_Boson-sigma3)=>]
+all_sky_deg_sigma3=(
+3.75,NaN
+)
+
+all_sky_deg_sigma2=[all_sky_deg(d_Boson+sigma2)=>,all_sky_deg(d_Boson-sigma2)=>]
+all_sky_deg_sigma2=(
+4.5,22.5
+)
+
+all_sky_deg_sigma1=[all_sky_deg(d_Boson+sigma1)=>,all_sky_deg(d_Boson-sigma1)=>]
+all_sky_deg_sigma1=(
+5.625,11.25
+)
+
+all_sky_deg_peak_l24=all_sky_deg(d_Boson)=>
+all_sky_deg_peak_l24=7.5
+
+all_sky_deg(l_mode)=<rad2deg(2*pi)/(2*l_mode)
+stored_eqn(all_sky_deg)
+
+sigma3=sigma_CECC*3
+sigma3=24
+
+sigma2=sigma_CECC*2
+sigma2=16
+
+sigma1=sigma_CECC*1
+sigma1=8
+
+sigma_CECC=d_Boson/N_generation
+sigma_CECC=8
+
+beta_observed_deg=rad2deg(beta_observed)
+beta_observed_deg=infoLost[r ] 0.2734140100029661
+
+beta_observed=beta_bulk*N_dimension_M_theory
+beta_observed=infoLost[r ] 0.00477197469563247
+
+beta_bulk_deg=rad2deg(beta_bulk)
+beta_bulk_deg=infoLost[r ] 0.024855819091178736
+
+beta_bulk=leak_unitarity_quark*degree_polarization_l24*fraction_left_handed*d_Boson*pi
+beta_bulk=infoLost[r ] 0.0004338158814211336
+
+degree_polarization_l24=polarized_Hawking_flux_l24[][4]
+degree_polarization_l24=infoLost[r ] 0.33333333333333326
+
+N_dimension_M_theory=N_dimension_superstring+1
+N_dimension_M_theory=11
+
 polarized_Hawking_flux_l24=calc_polarized_Hawking_flux(24)=>
 polarized_Hawking_flux_l24=(
 24,infoLost[r ] 2.6123225680510185-7.82597659323115e-19i+O(9e-16+3e-34i),infoLost[r ] 0.6666666666666666,infoLost[r ] 0.33333333333333337,infoLost[r ] 0.33333333333333326
@@ -4735,7 +4885,7 @@ clear
 local storage cleared
 
 [Pinv_y=(-0.999999427,-0.999936657,-0.997300203,-0.954499736,-0.682689492,0,0.682689492,0.954499736,0.997300203,0.999936657,0.999999427:-5,-4,-3,-2,-1,0,1,2,3,4,5),N=1,arr=[],_r((n)=<arr.push(rand_table(=<Pinv_y)=>),,N),=<arr.]=>
-1.3895414053533948
+-2.8314076878424226
 
 rand_table(csv)=<last[table=sort0(csv),ymin=min(table)[0],ymax=max(table)[0],y=ymin+(ymax-ymin)*rand(),x=interp(y:table),x]
 stored_eqn(rand_table)
@@ -4745,7 +4895,7 @@ local storage cleared
 
 [(N)=<[tarr=linspace(0,N-1,N).,shuffle_FY(?tarr)=>,=<tarr.]=>](2)=>
 (
-0,1
+1,0
 )
 
 shuffle_FY(?tarr)=<last[len=sizer(tarr),switch_arr=(i1)=<last{i0=floor(rand()*(i1+1)),w=tarr[i1],tarr[i1]=tarr[i0],tarr[i0]=w},_s((i_)=<switch_arr(i_)=>,len-1,1)]
@@ -6976,4 +7126,4 @@ center=true&wheel=true&drag=false&test-case=false&plot-all=true&relzooming=true&
 --------------------------------
 --------------------------------
 
-online-simulator.github.io.7.544.736.32.202 @ Wed Aug 26 2026 20:49:33 GMT+0900 (日本標準時) @ Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/151.0.0.0 Safari/537.36
+online-simulator.github.io.7.544.736.32.202 @ Thu Aug 27 2026 12:14:16 GMT+0900 (日本標準時) @ Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/151.0.0.0 Safari/537.36
