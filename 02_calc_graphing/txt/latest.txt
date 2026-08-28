@@ -2533,12 +2533,15 @@ stored_eqn(q_Shannon)
 sharpness(d,g)=<(4*g+2)*d
 stored_eqn(sharpness)
 
-isFSC_inv_137_eq_maxPrime_L_random_walk_53edo=max(primes_L_random_walk)===137
-isFSC_inv_137_eq_maxPrime_L_random_walk_53edo=true
+edo10781274_FSC_inv_ZPE_eq_gamma_Euler_Mascheroni=max(primes_L_random_walk)
+edo10781274_FSC_inv_ZPE_eq_gamma_Euler_Mascheroni=27869189
+
+edo53_FSC_inv_ZPE_gt_gamma_Euler_Mascheroni=max(primes_L_random_walk[0][0][][##primes_L_random_walk-1])
+edo53_FSC_inv_ZPE_gt_gamma_Euler_Mascheroni=137
 
 primes_L_random_walk=L_random_walk.filter0((n)=<isPrime(n)=>)
 primes_L_random_walk=(
-2,3,5,13,31,137
+2,3,5,13,31,137,27869189
 )
 
 L_random_walk=L_random_walk_Collatz(=<log2_3_xy_via_equal_temperament[][0],=<log2_3_xy_via_equal_temperament[][1])=>
@@ -2552,17 +2555,30 @@ L_random_walk=(
 137:
 791:
 1719:
-40328
+40328:
+82375:
+205078:
+287453:
+492531:
+27376658:
+27869189:
+138853414
 )
 
 isPrime(n)=<[isPrime=n>1,kmax=sqrt(n),_r((k)=<k+1,2,isPrime&&1e6,=<{k>kmax|||n%k==0&&&(isPrime=0)}),=<isPrime===true]=>
 stored_eqn(isPrime)
+
+scale_metaverse_10781274edo=n_limit_10781274edo
+scale_metaverse_10781274edo=infoLost[r ] NaN
 
 scale_multiverse_53edo=n_transition_53edo
 scale_multiverse_53edo=infoLost[r ] 2.4699361594231497e+62
 
 scale_universe_12edo=n_transition2digital_loss_derivative_12edo
 scale_universe_12edo=infoLost[r ] 76760758184313
+
+n_limit_10781274edo=calc_n_transition(L_limit_10781274edo)=>
+n_limit_10781274edo=infoLost[r ] NaN
 
 n_transition_53edo=calc_n_transition(L_transition_53edo)=>
 n_transition_53edo=infoLost[r ] 2.4699361594231497e+62
@@ -2572,6 +2588,9 @@ n_transition2digital_loss_derivative_12edo=infoLost[r ] 76760758184313
 
 calc_n_transition(L)=<round(Newton((n)=<L_max(n)=>=L,=<1,false,200))
 stored_eqn(calc_n_transition)
+
+L_limit_10781274edo=L_random_walk_Collatz(xy_limit_10781274edo)=>
+L_limit_10781274edo=27869189
 
 L_transition_53edo=L_random_walk_Collatz(xy_transition_53edo)=>
 L_transition_53edo=137
@@ -2597,25 +2616,30 @@ qmax_ep=1.584962500721156
 qmax_equilibrium_point_Collatz_conjecture=log2_3
 qmax_equilibrium_point_Collatz_conjecture=1.5849625007211563
 
-bases_fifth=Pure_fifth/{pow(Syntonic_Comma,1/6),pow(Pythagorean_Comma,1/12),pow(Mercator_Comma,1/53)}
+bases_fifth=Pure_fifth/{pow(Syntonic_Comma,1/6),pow(Pythagorean_Comma,1/12),pow(Mercator_Comma,1/53),pow(meta_Comma,1/10781274)}
 bases_fifth=(
 1.4968975827619544:
 1.4983070768766817:
-1.4999409030781112
+1.4999409030781112:
+NaN
 )
 
 Pure_fifth=3/2
 Pure_fifth=1.5
 
-cents_in_comma=cents_in_octave*log2({Syntonic_Comma,Pythagorean_Comma,Mercator_Comma})
+cents_in_comma=cents_in_octave*log2({Syntonic_Comma,Pythagorean_Comma,Mercator_Comma,meta_Comma})
 cents_in_comma=(
 21.50628959671478:
 23.460010384649014:
-3.6150458655331397
+3.6150458655331397:
+NaN
 )
 
 cents_in_octave=1200
 cents_in_octave=1200
+
+meta_Comma=calc_comma(xy_limit_10781274edo)=>
+meta_Comma=NaN
 
 Mercator_Comma=calc_comma(xy_transition_53edo)=>
 Mercator_Comma=1.0020903140410862
@@ -2635,6 +2659,11 @@ Pythagorean_Major3rd=1.265625
 Pure_Major3rd=[Pure=[1/1,25/24,9/8,6/5,5/4,4/3,45/32,3/2,25/16,5/3,9/5,15/8],(j)=<Pure[][j]](4)=>
 Pure_Major3rd=1.25
 
+xy_limit_10781274edo=log2_3_xy_via_equal_temperament[16-1]
+xy_limit_10781274edo=(
+10781274,17087915
+)
+
 xy_transition_53edo=log2_3_xy_via_equal_temperament[6]
 xy_transition_53edo=(
 53,84
@@ -2645,7 +2674,7 @@ xy_transition_12edo=(
 12,19
 )
 
-log2_3_xy_via_equal_temperament=get_best_approximations_Diophantus(log2_3,9)=>
+log2_3_xy_via_equal_temperament=get_best_approximations_Diophantus(log2_3,16)=>
 log2_3_xy_via_equal_temperament=(
 1,1:
 1,2:
@@ -2656,12 +2685,19 @@ log2_3_xy_via_equal_temperament=(
 53,84:
 306,485:
 665,1054:
-15601,24727
+15601,24727:
+31867,50508:
+79335,125743:
+111202,176251:
+190537,301994:
+10590737,16785921:
+10781274,17087915:
+53715833,85137581
 )
 
-log2_3_continued_fraction=make_cf(log2_3,14)=>
+log2_3_continued_fraction=make_cf(log2_3,16)=>
 log2_3_continued_fraction=(
-1,1,1,2,2,3,1,5,2,23,2,2,1,1,55
+1,1,1,2,2,3,1,5,2,23,2,2,1,1,55,1,4
 )
 
 get_best_approximations_Diophantus(r,n)=<[arr=make_cf(r,n)=>,_s((n)=<A=(A:(_r((A)=<A*(,1:1,arr[][__n__]),=<(,1:1,arr[][0]),n))[][1].),A=[],n),=<{A}]=>
@@ -4936,7 +4972,7 @@ clear
 local storage cleared
 
 [Pinv_y=(-0.999999427,-0.999936657,-0.997300203,-0.954499736,-0.682689492,0,0.682689492,0.954499736,0.997300203,0.999936657,0.999999427:-5,-4,-3,-2,-1,0,1,2,3,4,5),N=1,arr=[],_r((n)=<arr.push(rand_table(=<Pinv_y)=>),,N),=<arr.]=>
-1.843506659509379
+0.059044160363159015
 
 rand_table(csv)=<last[table=sort0(csv),ymin=min(table)[0],ymax=max(table)[0],y=ymin+(ymax-ymin)*rand(),x=interp(y:table),x]
 stored_eqn(rand_table)
@@ -7177,4 +7213,4 @@ center=true&wheel=true&drag=false&test-case=false&plot-all=true&relzooming=true&
 --------------------------------
 --------------------------------
 
-online-simulator.github.io.7.544.736.32.202 @ Fri Aug 28 2026 11:56:41 GMT+0900 (日本標準時) @ Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/151.0.0.0 Safari/537.36
+online-simulator.github.io.7.544.736.32.202 @ Fri Aug 28 2026 23:41:28 GMT+0900 (日本標準時) @ Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/151.0.0.0 Safari/537.36
