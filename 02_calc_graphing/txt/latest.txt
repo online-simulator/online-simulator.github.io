@@ -2533,11 +2533,36 @@ stored_eqn(q_Shannon)
 sharpness(d,g)=<(4*g+2)*d
 stored_eqn(sharpness)
 
-scale_multiverse=n_transition_53edo
-scale_multiverse=infoLost[r ] 2.4699361594231497e+62
+isFSC_inv_137_eq_maxPrime_L_random_walk_53edo=max(primes_L_random_walk)===137
+isFSC_inv_137_eq_maxPrime_L_random_walk_53edo=true
 
-scale_universe=n_transition2digital_loss_derivative_12edo
-scale_universe=infoLost[r ] 76760758184313
+primes_L_random_walk=L_random_walk.filter0((n)=<isPrime(n)=>)
+primes_L_random_walk=(
+2,3,5,13,31,137
+)
+
+L_random_walk=L_random_walk_Collatz(=<log2_3_xy_via_equal_temperament[][0],=<log2_3_xy_via_equal_temperament[][1])=>
+L_random_walk=(
+2:
+3:
+5:
+13:
+31:
+106:
+137:
+791:
+1719:
+40328
+)
+
+isPrime(n)=<[isPrime=n>1,kmax=sqrt(n),_r((k)=<k+1,2,isPrime&&1e6,=<{k>kmax|||n%k==0&&&(isPrime=0)}),=<isPrime===true]=>
+stored_eqn(isPrime)
+
+scale_multiverse_53edo=n_transition_53edo
+scale_multiverse_53edo=infoLost[r ] 2.4699361594231497e+62
+
+scale_universe_12edo=n_transition2digital_loss_derivative_12edo
+scale_universe_12edo=infoLost[r ] 76760758184313
 
 n_transition_53edo=calc_n_transition(L_transition_53edo)=>
 n_transition_53edo=infoLost[r ] 2.4699361594231497e+62
@@ -4911,7 +4936,7 @@ clear
 local storage cleared
 
 [Pinv_y=(-0.999999427,-0.999936657,-0.997300203,-0.954499736,-0.682689492,0,0.682689492,0.954499736,0.997300203,0.999936657,0.999999427:-5,-4,-3,-2,-1,0,1,2,3,4,5),N=1,arr=[],_r((n)=<arr.push(rand_table(=<Pinv_y)=>),,N),=<arr.]=>
--0.049060551727493795
+1.843506659509379
 
 rand_table(csv)=<last[table=sort0(csv),ymin=min(table)[0],ymax=max(table)[0],y=ymin+(ymax-ymin)*rand(),x=interp(y:table),x]
 stored_eqn(rand_table)
@@ -4921,7 +4946,7 @@ local storage cleared
 
 [(N)=<[tarr=linspace(0,N-1,N).,shuffle_FY(?tarr)=>,=<tarr.]=>](2)=>
 (
-1,0
+0,1
 )
 
 shuffle_FY(?tarr)=<last[len=sizer(tarr),switch_arr=(i1)=<last{i0=floor(rand()*(i1+1)),w=tarr[i1],tarr[i1]=tarr[i0],tarr[i0]=w},_s((i_)=<switch_arr(i_)=>,len-1,1)]
@@ -7152,4 +7177,4 @@ center=true&wheel=true&drag=false&test-case=false&plot-all=true&relzooming=true&
 --------------------------------
 --------------------------------
 
-online-simulator.github.io.7.544.736.32.202 @ Fri Aug 28 2026 05:20:31 GMT+0900 (日本標準時) @ Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/151.0.0.0 Safari/537.36
+online-simulator.github.io.7.544.736.32.202 @ Fri Aug 28 2026 11:56:41 GMT+0900 (日本標準時) @ Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/151.0.0.0 Safari/537.36
