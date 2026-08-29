@@ -2568,26 +2568,29 @@ L_random_walk=(
 isPrime(n)=<[isPrime=n>1,kmax=sqrt(n),_r((k)=<k+1,2,isPrime&&1e6,=<{k>kmax|||n%k==0&&&(isPrime=0)}),=<isPrime===true]=>
 stored_eqn(isPrime)
 
-scale_metaverse_10781274edo=n_limit_10781274edo
-scale_metaverse_10781274edo=infoLost[r ] Infinity
+log2_scale_metaverse_10781274edo=calc_log2n_transition(L_limit_10781274edo)=>
+log2_scale_metaverse_10781274edo=infoLost[r ] 42366051.654419824
 
-scale_multiverse_53edo=n_transition_53edo
-scale_multiverse_53edo=infoLost[r ] 2.4699361594202833e+62
+log2_scale_multiverse_53edo=calc_log2n_transition(L_transition_53edo)=>
+log2_scale_multiverse_53edo=infoLost[r ] 207.26401563588794
 
-scale_universe_12edo=n_transition2digital_loss_derivative_12edo
-scale_universe_12edo=infoLost[r ] 76760758184293
+log2_scale_universe_12edo=calc_log2n_transition(L_transition_12edo)=>
+log2_scale_universe_12edo=infoLost[r ] 46.12543419498194
 
 n_limit_10781274edo=calc_n_transition(L_limit_10781274edo)=>
 n_limit_10781274edo=infoLost[r ] Infinity
 
 n_transition_53edo=calc_n_transition(L_transition_53edo)=>
-n_transition_53edo=infoLost[r ] 2.4699361594202833e+62
+n_transition_53edo=infoLost[r ] 2.4699361594202942e+62
 
 n_transition2digital_loss_derivative_12edo=calc_n_transition(L_transition_12edo)=>
 n_transition2digital_loss_derivative_12edo=infoLost[r ] 76760758184293
 
-calc_n_transition(L)=<round(Newton((n)=<L_max(n)=>=L,=<1,false,200))
+calc_n_transition(L)=<round(2**calc_log2n_transition(L)=>)
 stored_eqn(calc_n_transition)
+
+calc_log2n_transition(L)=<Newton((log2n)=<L_max(log2n)=>=L,,false,20)
+stored_eqn(calc_log2n_transition)
 
 L_limit_10781274edo=L_random_walk_Collatz(xy_limit_10781274edo)=>
 L_limit_10781274edo=27869189
@@ -2601,7 +2604,7 @@ L_transition_12edo=31
 L_random_walk_Collatz(x,y)=<x+y
 stored_eqn(L_random_walk_Collatz)
 
-L_max(n)=<kL_max*(log2(n)+1)
+L_max(log2n)=<kL_max*(log2n+1)
 stored_eqn(L_max)
 
 kL_max=(qmax-qmax_ep)*qmax_ep
@@ -2621,7 +2624,7 @@ bases_fifth=(
 1.4968975827619544:
 1.4983070768766813:
 1.499940903078111:
-NaN
+1.5000000000000016
 )
 
 Pure_fifth=3/2
@@ -2630,25 +2633,25 @@ Pure_fifth=1.5
 cents_in_comma=cents_in_octave*log2({Syntonic_Comma,Pythagorean_Comma,Mercator_Comma,meta_Comma})
 cents_in_comma=(
 21.506289596715916:
-23.46001038464977:
-3.61504586553851:
-NaN
+23.460010384649394:
+3.6150458655381263:
+-0.000019348048137976026
 )
 
 cents_in_octave=1200
 cents_in_octave=1200
 
 meta_Comma=calc_comma(xy_limit_10781274edo)=>
-meta_Comma=NaN
+meta_Comma=0.9999999888241292
 
 Mercator_Comma=calc_comma(xy_transition_53edo)=>
-Mercator_Comma=1.0020903140410893
+Mercator_Comma=1.002090314041089
 
 noise_lattice_transition_12edo_eq_entropy_space=log(Pythagorean_Comma)
-noise_lattice_transition_12edo_eq_entropy_space=0.013551033378355856
+noise_lattice_transition_12edo_eq_entropy_space=0.013551033378355637
 
 Pythagorean_Comma=calc_comma(xy_transition_12edo)=>
-Pythagorean_Comma=1.0136432647705083
+Pythagorean_Comma=1.013643264770508
 
 Syntonic_Comma=Pythagorean_Major3rd/Pure_Major3rd
 Syntonic_Comma=1.0125000000000006
@@ -2706,7 +2709,7 @@ stored_eqn(get_best_approximations_Diophantus)
 make_cf(r,n)=<[arr=[],cf(r)=<last{arr.push(int(r)),len=sizec(arr),(len>n||r%1==0||1-abs(r%1)<2*eps)&&r||||int(r)+1/cf(1/(r-int(r)))=>},cf(r)=>,=<arr]=>
 stored_eqn(make_cf)
 
-calc_comma(x,y)=<3**x/2**y
+calc_comma(x,y)=<exp(x*log(3)-y*log(2))
 stored_eqn(calc_comma)
 
 log2_3=log_ex(reverse(b_pair_Catalan_conjecture))
@@ -4972,7 +4975,7 @@ clear
 local storage cleared
 
 [Pinv_y=(-0.999999427,-0.999936657,-0.997300203,-0.954499736,-0.682689492,0,0.682689492,0.954499736,0.997300203,0.999936657,0.999999427:-5,-4,-3,-2,-1,0,1,2,3,4,5),N=1,arr=[],_r((n)=<arr.push(rand_table(=<Pinv_y)=>),,N),=<arr.]=>
--0.32423836680837304
+1.9316404756105992
 
 rand_table(csv)=<last[table=sort0(csv),ymin=min(table)[0],ymax=max(table)[0],y=ymin+(ymax-ymin)*rand(),x=interp(y:table),x]
 stored_eqn(rand_table)
@@ -4982,7 +4985,7 @@ local storage cleared
 
 [(N)=<[tarr=linspace(0,N-1,N).,shuffle_FY(?tarr)=>,=<tarr.]=>](2)=>
 (
-1,0
+0,1
 )
 
 shuffle_FY(?tarr)=<last[len=sizer(tarr),switch_arr=(i1)=<last{i0=floor(rand()*(i1+1)),w=tarr[i1],tarr[i1]=tarr[i0],tarr[i0]=w},_s((i_)=<switch_arr(i_)=>,len-1,1)]
@@ -7213,4 +7216,4 @@ center=true&wheel=true&drag=false&test-case=false&plot-all=true&relzooming=true&
 --------------------------------
 --------------------------------
 
-online-simulator.github.io.7.544.736.32.202 @ Fri Aug 28 2026 23:47:44 GMT+0900 (日本標準時) @ Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/151.0.0.0 Safari/537.36
+online-simulator.github.io.7.544.736.32.202 @ Sat Aug 29 2026 17:53:43 GMT+0900 (日本標準時) @ Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/151.0.0.0 Safari/537.36

@@ -55824,7 +55824,7 @@ prob_Shannon_limit_from_entropic_capacity=q_Shannon_strict_limit/q_topological_l
 <br>
 log2_3=log_ex(reverse(b_pair_Catalan_conjecture));
 <br>
-calc_comma(x,y)=&lt;3**x/2**y;
+calc_comma(x,y)=&lt;exp(x*log(3)-y*log(2));
 <br>
 make_cf(r,n)=&lt;[arr=[],cf(r)=&lt;last{arr.push(int(r)),len=sizec(arr),(len&gt;n||r%1==0||1-abs(r%1)&lt;2*eps)&amp;&amp;r||||int(r)+1/cf(1/(r-int(r)))=&gt;},cf(r)=&gt;,=&lt;arr]=&gt;;
 <br>
@@ -55871,7 +55871,7 @@ qmax=[(m)=&lt;(2**m-1)/2**(m-1)](log2(1e100)+1)=&gt;;
 <br>
 kL_max=(qmax-qmax_ep)*qmax_ep;
 <br>
-L_max(n)=&lt;kL_max*(log2(n)+1);
+L_max(log2n)=&lt;kL_max*(log2n+1);
 <br>
 L_random_walk_Collatz(x,y)=&lt;x+y;
 <br>
@@ -55881,7 +55881,9 @@ L_transition_53edo=L_random_walk_Collatz(xy_transition_53edo)=&gt;;
 <br>
 L_limit_10781274edo=L_random_walk_Collatz(xy_limit_10781274edo)=&gt;;
 <br>
-calc_n_transition(L)=&lt;round(Newton((n)=&lt;L_max(n)=&gt;=L,=&lt;1,false,200));
+calc_log2n_transition(L)=&lt;Newton((log2n)=&lt;L_max(log2n)=&gt;=L,,false,20);
+<br>
+calc_n_transition(L)=&lt;round(2**calc_log2n_transition(L)=&gt;);
 <br>
 n_transition2digital_loss_derivative_12edo=calc_n_transition(L_transition_12edo)=&gt;;
 <br>
@@ -55889,11 +55891,11 @@ n_transition_53edo=calc_n_transition(L_transition_53edo)=&gt;;
 <br>
 n_limit_10781274edo=calc_n_transition(L_limit_10781274edo)=&gt;;
 <br>
-scale_universe_12edo=n_transition2digital_loss_derivative_12edo;
+log2_scale_universe_12edo=calc_log2n_transition(L_transition_12edo)=&gt;;
 <br>
-scale_multiverse_53edo=n_transition_53edo;
+log2_scale_multiverse_53edo=calc_log2n_transition(L_transition_53edo)=&gt;;
 <br>
-scale_metaverse_10781274edo=n_limit_10781274edo;
+log2_scale_metaverse_10781274edo=calc_log2n_transition(L_limit_10781274edo)=&gt;;
 <br>
 <br>
 isPrime(n)=&lt;[isPrime=n&gt;1,kmax=sqrt(n),_r((k)=&lt;k+1,2,isPrime&amp;&amp;1e6,=&lt;{k&gt;kmax|||n%k==0&amp;&amp;&amp;(isPrime=0)}),=&lt;isPrime===true]=&gt;;
