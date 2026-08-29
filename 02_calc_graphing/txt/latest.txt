@@ -603,9 +603,6 @@ beta_bulk=infoLost[r ] 0.0004338158814210957
 degree_polarization_l24=polarized_Hawking_flux_l24[][4]
 degree_polarization_l24=infoLost[r ] 0.33333333333333326
 
-N_dimension_M_theory=N_dimension_superstring+1
-N_dimension_M_theory=11
-
 polarized_Hawking_flux_l24=calc_polarized_Hawking_flux(24)=>
 polarized_Hawking_flux_l24=(
 24,infoLost[r ] 2.6123225680508995+O(9e-16),infoLost[r ] 0.6666666666666666,infoLost[r ] 0.33333333333333337,infoLost[r ] 0.33333333333333326
@@ -1711,6 +1708,9 @@ isN_dimension_spinor_CECC_channel0=true
 isGeneration_eq_3=N_generation===N_trinity_SU2&&&CECC_channel_manifold[2]/CECC_rank_target-N_spin_Fermion===g
 isGeneration_eq_3=true
 
+N_generation_Atiyah_Singer_index_theorem=(fraction_left_handed-fraction_right_handed)*N_transverse_dimension_M_theory
+N_generation_Atiyah_Singer_index_theorem=2.999999999999999
+
 N_generation=CECC_channel_manifold[1]/N_dimension_spinor
 N_generation=3
 
@@ -1795,6 +1795,15 @@ fraction_right_handed=0.33333333333333337
 fraction_left_handed=(1+asymmetry_chiral_parity_SU2)/2
 fraction_left_handed=0.6666666666666666
 
+J_CP_max_Jarlskog_invariant=N_trinity_SU2/sqrt(order_image_J_homomorphism_B12_denominator)
+J_CP_max_Jarlskog_invariant=0.011720180773462385
+
+theta_Cabibbo_bare_deg=rad2deg(theta_Cabibbo_bare)
+theta_Cabibbo_bare_deg=infoLost[r ] 11.341742858382432
+
+theta_Cabibbo_bare=asin(asymmetry_chiral_parity_SU2*ratio_AD*cos2_Weinberg)
+theta_Cabibbo_bare=infoLost[r ] 0.19795075579332638
+
 asymmetry_chiral_parity_SU2=(N_dimension_superspace-N_dimension_superspace/2)/(N_dimension_superspace+N_dimension_superspace/2)
 asymmetry_chiral_parity_SU2=0.3333333333333333
 
@@ -1810,6 +1819,9 @@ ratio_channel=4.571428571428571
 total_channels=d_Boson*N_dimension_spinor
 total_channels=1536
 
+hasM_theory=N_transverse_dimension_M_theory===g*N_trinity_SU2
+hasM_theory=true
+
 N_trinity_SU2=3
 N_trinity_SU2=3
 
@@ -1818,6 +1830,15 @@ N_dimension_spinor=64
 
 S_spacetime=N_dimension_spacetime*2
 S_spacetime=8
+
+N_transverse_dimension_superstring=N_dimension_superstring-(1+1)
+N_transverse_dimension_superstring=8
+
+N_transverse_dimension_M_theory=N_dimension_M_theory-(1+1)
+N_transverse_dimension_M_theory=9
+
+N_dimension_M_theory=N_dimension_superstring+1
+N_dimension_M_theory=11
 
 N_superstring_sectors=N_dimension_superstring/2
 N_superstring_sectors=5
@@ -1891,6 +1912,9 @@ sin2_Weinberg_dual_holographic=infoLost[r ] 0.2
 geometric_chiral_fraction_dS5=1/(1+symmetry_spin_quaternion)
 geometric_chiral_fraction_dS5=0.2
 
+FSC_inv_U1_from_limit_Todd_function_Atiyah2018=FSC_inv_U1+integral_Todd_class_along_fiber_Boson
+FSC_inv_U1_from_limit_Todd_function_Atiyah2018=infoLost[r ] 137.38165415029567
+
 FSC_inv_U1_full=FSC_inv_U1+d_Boson
 FSC_inv_U1_full=infoLost[r ] 137.38165415029567
 
@@ -1906,16 +1930,16 @@ FSC_inv_SU3=8.301675948935051
 FSC_inv_SU2=FSC_inv_bareSU2+gamma_Euler_Mascheroni
 FSC_inv_SU2=infoLost[r ] 28.922629202475452
 
-FSC_inv_bareSU3=FSC_inv_equilibrium/symmetry_SPP_Leech
+FSC_inv_bareSU3=FSC_inv_equilibrium/homotopy_pi5_SU3
 FSC_inv_bareSU3=7.724460284033518
 
-FSC_inv_bareSU3_bare=FSC_inv_equilibrium_bare/symmetry_SPP_Leech
+FSC_inv_bareSU3_bare=FSC_inv_equilibrium_bare/homotopy_pi5_SU3
 FSC_inv_bareSU3_bare=7.676358978625057
 
-FSC_inv_bareSU2=FSC_inv_U1/symmetry_spin_quaternion
+FSC_inv_bareSU2=FSC_inv_U1/homotopy_pi4_SU2
 FSC_inv_bareSU2=infoLost[r ] 28.34541353757392
 
-FSC_inv_bareSU2_bare=FSC_inv_bareU1/symmetry_spin_quaternion
+FSC_inv_bareSU2_bare=FSC_inv_bareU1/homotopy_pi4_SU2
 FSC_inv_bareSU2_bare=infoLost[r ] 28.201109621348536
 
 FSC_inv_U1=FSC_inv(alpha_SPP/alpha_SVP,superstring[1]/superstring[0])=>
@@ -1936,7 +1960,56 @@ stored_eqn(FSC_inv)
 FSC_inv_bare(ratio_alpha,ratio_dalpha)=<symmetry_SVP_Klein*(ratio_AD*ratio_alpha)**2*ratio_dalpha
 stored_eqn(FSC_inv_bare)
 
-isN_eq_3d_only_valid_CECC=n===g&&&ratio_AD===alpha_Kepler
+primes_L_random_walk_Collatz_conjecture=primes_L_random_walk
+primes_L_random_walk_Collatz_conjecture=(
+2,3,5,13,31,137,27869189
+)
+
+primes_cyclic_group_Riemann_hypothesis_Atiyah2018=(primes_order_image_J_homomorphism_B12_denominator,irregular_prime_Todd_obstruction_B12_numerator)
+primes_cyclic_group_Riemann_hypothesis_Atiyah2018=(
+2,2,2,2,3,3,5,7,13,691
+)
+
+primes_order_image_J_homomorphism_B12_denominator=factorize(order_image_J_homomorphism_B12_denominator,=<trans(primes))=>
+primes_order_image_J_homomorphism_B12_denominator=(
+2,2,2,2,3,3,5,7,13
+)
+
+order_image_J_homomorphism_B12_denominator=order_image_J_homomorphism(symmetry_SPP_Leech/2)=>
+order_image_J_homomorphism_B12_denominator=65520
+
+irregular_prime_Todd_obstruction_B12_numerator=camax(Bn_numerators)
+irregular_prime_Todd_obstruction_B12_numerator=691
+
+Bn_numerators=[arr=[],_s((n)=<arr.push(Bn_numerator(n)=>),,symmetry_SPP_Leech),=<arr]=>
+Bn_numerators=(
+1,-1,1,0,-1,-0,1,0,-1,0,5,-0,-691
+)
+
+integral_Todd_class_along_fiber_Boson=d_Boson
+integral_Todd_class_along_fiber_Boson=24
+
+order_image_J_homomorphism(m)=<Bn_denominator(2*m)=>*(4*m)
+stored_eqn(order_image_J_homomorphism)
+
+Bn_numerator(n)=<round(Bn(n)=>*Bn_denominator(n)=>)
+stored_eqn(Bn_numerator)
+
+Bn_denominator(n)=<_p((p)=<isPrime(p)=>&&&n%(p-1)===0&&&p|||1,1,n+1)
+stored_eqn(Bn_denominator)
+
+Bn(n)=<n==0|||-_s((k)=<combin(n+1,k)*Bn(k)=>,0,n-1)/(n+1)
+stored_eqn(Bn)
+
+is168_irreducible_representations_order=sum(trans(irreducible_representations_Kleinian_quartic_symmetry_168.**2))===symmetry_SVP_Klein
+is168_irreducible_representations_order=true
+
+irreducible_representations_Kleinian_quartic_symmetry_168=(1,3,3,6,7,8)
+irreducible_representations_Kleinian_quartic_symmetry_168=(
+1,3,3,6,7,8
+)
+
+isN_eq_3d_only_valid_CECC=n===g&&&ratio_AD===alpha_Kepler&&&n*g===N_dimension_superstring-1
 isN_eq_3d_only_valid_CECC=true
 
 isN_Leech_by_quaternion=n===symmetry_SPP_Leech/symmetry_spin_quaternion
@@ -1944,6 +2017,12 @@ isN_Leech_by_quaternion=true
 
 isHalf_parity=(sharpness_GUT/symmetry_SVP_Klein)===2
 isHalf_parity=true
+
+homotopy_pi5_SU3=symmetry_SPP_Leech
+homotopy_pi5_SU3=12
+
+homotopy_pi4_SU2=symmetry_spin_quaternion
+homotopy_pi4_SU2=4
 
 symmetry_spin_quaternion=N_spin_Fermion*2
 symmetry_spin_quaternion=4
@@ -2565,9 +2644,6 @@ L_random_walk=(
 138853414
 )
 
-isPrime(n)=<[isPrime=n>1,kmax=sqrt(n),_r((k)=<k+1,2,isPrime&&1e6,=<{k>kmax|||n%k==0&&&(isPrime=0)}),=<isPrime===true]=>
-stored_eqn(isPrime)
-
 log2_scale_metaverse_10781274edo=calc_log2n_transition(L_limit_10781274edo)=>
 log2_scale_metaverse_10781274edo=infoLost[r ] 42366051.65442017
 
@@ -2780,8 +2856,25 @@ C0_analog=0.5235987755982988
 C0_digital=1/sqrt(2)
 C0_digital=0.7071067811865475
 
-isStable_AD_converter=xi_interval_d2[][0]>0&&&xi_interval_d2[][1]>0
-isStable_AD_converter=infoLost[ri] true
+factorize(n,primes)=<[arr=[],_r((k)=<last{prime=pickup_prime(n,=<primes)=>,arr.push(prime),n=n/prime},isPrime=n>1,isPrime&&1e6,=<{n<=1}),=<arr]=>
+stored_eqn(factorize)
+
+pickup_prime(n,primes)=<[_r((k)=<last{prime=primes[k],k+1},N=sizer(primes),N,=<{n%prime==0}),=<prime]=>
+stored_eqn(pickup_prime)
+
+primes=listup_primes(0,100)=>
+primes=(
+2,3,5,7,11,13,17,19,23,29,31,37,41,43,47,53,59,61,67,71,73,79,83,89,97
+)
+
+listup_primes(n0,n1)=<[arr=[],_s((n)=<isPrime(n)=>&&&arr.push(n),n0,n1),=<arr]=>
+stored_eqn(listup_primes)
+
+isPrime(n)=<[isPrime=n>1,kmax=sqrt(n),_r((k)=<k+1,2,isPrime&&1e6,=<{k>kmax|||n%k==0&&&(isPrime=0)}),=<isPrime===true]=>
+stored_eqn(isPrime)
+
+isStable_AD_converter_Riemann_hypothesis=xi_interval_d2[][0]>0&&&xi_interval_d2[][1]>0
+isStable_AD_converter_Riemann_hypothesis=infoLost[ri] true
 
 xi_interval_d2=[_d((x)=<xi_adelic_Haar_measure(x)=>,x_digital,2),_d((x)=<xi_adelic_Haar_measure(x)=>,x_analog,2)]
 xi_interval_d2=(
@@ -4975,7 +5068,7 @@ clear
 local storage cleared
 
 [Pinv_y=(-0.999999427,-0.999936657,-0.997300203,-0.954499736,-0.682689492,0,0.682689492,0.954499736,0.997300203,0.999936657,0.999999427:-5,-4,-3,-2,-1,0,1,2,3,4,5),N=1,arr=[],_r((n)=<arr.push(rand_table(=<Pinv_y)=>),,N),=<arr.]=>
--0.25185439411459654
+-0.9239808036830952
 
 rand_table(csv)=<last[table=sort0(csv),ymin=min(table)[0],ymax=max(table)[0],y=ymin+(ymax-ymin)*rand(),x=interp(y:table),x]
 stored_eqn(rand_table)
@@ -7216,4 +7309,4 @@ center=true&wheel=true&drag=false&test-case=false&plot-all=true&relzooming=true&
 --------------------------------
 --------------------------------
 
-online-simulator.github.io.7.544.736.32.202 @ Sat Aug 29 2026 17:49:33 GMT+0900 (日本標準時) @ Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/151.0.0.0 Safari/537.36
+online-simulator.github.io.7.544.736.32.202 @ Sun Aug 30 2026 02:31:12 GMT+0900 (日本標準時) @ Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/151.0.0.0 Safari/537.36
