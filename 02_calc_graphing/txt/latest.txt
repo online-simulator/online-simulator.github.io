@@ -597,7 +597,7 @@ beta_observed=infoLost[r ] 0.004771974695632053
 beta_bulk_deg=rad2deg(beta_bulk)
 beta_bulk_deg=infoLost[r ] 0.024855819091176568
 
-beta_bulk=leak_unitarity_quark*degree_polarization_l24*fraction_left_handed*d_Boson*pi
+beta_bulk=leak_unitarity_Quark*degree_polarization_l24*fraction_left_handed*d_Boson*pi
 beta_bulk=infoLost[r ] 0.0004338158814210957
 
 degree_polarization_l24=polarized_Hawking_flux_l24[][4]
@@ -747,7 +747,7 @@ mass_Charm_MeV=infoLost[r ] 3.8954353506836807
 mass_Top_MeV=abs(trace_(=<{M_L_UQ_complex})=>)*v_mass_scale_UQ
 mass_Top_MeV=infoLost[r ] 4.565427417051695
 
-v_mass_scale_NU=(1/E_base)*(leak_unitarity_quark**2)*mass_unit_MeV*1e6
+v_mass_scale_NU=(1/E_base)*(leak_unitarity_Quark**2)*mass_unit_MeV*1e6
 v_mass_scale_NU=infoLost[r ] 45.4789190049722+O(1e-14)
 
 v_mass_scale_DQ=mass_unit_MeV*sin(theta_g1_Selberg)*R_DQ_fraction
@@ -861,7 +861,7 @@ PMNS_theta23_estimated_deg=infoLost[r ] 44.599235808751054
 PMNS_theta23_estimated=pi/4+capacity_leak*phase_gap
 PMNS_theta23_estimated=infoLost[r ] 0.778403508736062
 
-unitarity_triangle_closure=1-leak_unitarity_quark
+unitarity_triangle_closure=1-leak_unitarity_Quark
 unitarity_triangle_closure=infoLost[r ] 0.99997410852178
 
 PMNS_equality_2_by_3=(g**g*abs(det_(=<{M_L_Koide_2_by_3})=>))/(abs(trace_(=<{M_L_Koide_2_by_3})=>)**3)
@@ -976,7 +976,7 @@ infoLost[r ] 0.11742192156036468,infoLost[r ] 1.1339483904524152,infoLost[r ] 1.
 infoLost[r ] 0.004630525873245979,infoLost[r ] 0.431835684035148,infoLost[r ] 40.27232826481996
 )
 
-scale_Koide_transition=1-sin2_CECC*(1+leak_unitarity_quark)
+scale_Koide_transition=1-sin2_CECC*(1+leak_unitarity_Quark)
 scale_Koide_transition=infoLost[r ] 0.799994821704356
 
 P_L_DQ_defect=P_L_DQ_shifted.map((x)=<min(T_DQ,x))
@@ -1128,8 +1128,8 @@ scale_attenuation_l1=infoLost[r ] 0.5558463549727829
 scale_attenuation(l_mode)=<exp(factor_Shannon_shield*d_Boson*max(0,d_Boson-l_mode)/l_mode)
 stored_eqn(scale_attenuation)
 
-leak_unitarity_quark=abs(capacity_leak)*(1-shield_transmission)*sin2_CECC
-leak_unitarity_quark=infoLost[r ] 0.000025891478219975596
+leak_unitarity_Quark=abs(capacity_leak)*(1-shield_transmission)*sin2_CECC
+leak_unitarity_Quark=infoLost[r ] 0.000025891478219975596
 
 shield_transmission=exp(factor_Shannon_shield*d_Boson)
 shield_transmission=infoLost[r ] 0.9747900254489176
@@ -1246,8 +1246,8 @@ m_Higgs_bareGeV=infoLost[r ] 70.747159417475
 v_Higgs_GeV=(v_bulk_eV*2*C0_digital/(2**d_Boson*ratio_AD**2*(1+2*delta_g)))/1e9
 v_Higgs_GeV=infoLost[r ] 246.05769065391766
 
-v_bulk_eV=E_Planck_eV*sin2_eff**2*pi/(ratio_M*V_macro_scale)
-v_bulk_eV=infoLost[r ] 1609262877137114400
+v_bulk_eV=Ep_eV*sin2_eff**2*pi/(ratio_M*V_macro_scale)
+v_bulk_eV=infoLost[r ] 1609262877137114000
 
 sin2_eff=sin2_Weinberg/total_channels
 sin2_eff=infoLost[r ] 0.00013232094127260113
@@ -1258,7 +1258,7 @@ T_CMB_bulk=infoLost[r ] 2.7963222034814206
 T_CMB_dipole=(X_temperature/X_gravity_platform)/(d_Boson*C_radiation_geometry)
 T_CMB_dipole=infoLost[r ] 0.0027963222034814205
 
-X_temperature=Tp*delta_g*ratio_AD/10**M_noise
+X_temperature=Tp_K*delta_g*ratio_AD/10**M_noise
 X_temperature=infoLost[r ] 2.8556823104326877e-43
 
 X_gravity_real_world=X_gravity_platform*total_channels*pi**2
@@ -1268,61 +1268,58 @@ X_gravity_platform=alpha_SPP**symmetry_SVP_Klein*delta_g**sqrt(S_spacetime)
 X_gravity_platform=infoLost[r ] 1.0170793728696407e-44
 
 dm_nu_real_world_eV2=dm_nu13_eV2*V_macro_scale
-dm_nu_real_world_eV2=infoLost[r ] 0.003537805541461205
+dm_nu_real_world_eV2=infoLost[r ] 0.003537805541461212
 
 dm_nu13_eV2=m_nu1_real_world_eV**2-m_nu3_real_world_eV**2
-dm_nu13_eV2=infoLost[r ] 0.000003537805541461205
+dm_nu13_eV2=infoLost[r ] 0.000003537805541461212
 
-m_nu3_real_world_eV=m_neutrino_real_world_eV(3)=>
+m_nu3_real_world_eV=m_Neutrino_real_world_eV(3)=>
 m_nu3_real_world_eV=infoLost[r ] 0.002669750737911979
 
-m_nu2_real_world_eV=m_neutrino_real_world_eV(2)=>
+m_nu2_real_world_eV=m_Neutrino_real_world_eV(2)=>
 m_nu2_real_world_eV=infoLost[r ] 0.0029527684069047895
 
-m_nu1_real_world_eV=m_neutrino_real_world_eV(1)=>
-m_nu1_real_world_eV=infoLost[r ] 0.0032657885026502807
+m_nu1_real_world_eV=m_Neutrino_real_world_eV(1)=>
+m_nu1_real_world_eV=infoLost[r ] 0.0032657885026502816
 
-m_neutrino_real_world_eV(g)=<delta_g*E_bit_eV*ratio_noise_neutrino(g)=>*total_channels*V_macro_scale
-stored_eqn(m_neutrino_real_world_eV)
+m_Neutrino_real_world_eV(g)=<delta_g*E_bit_eV*ratio_noise_Neutrino(g)=>*total_channels*V_macro_scale
+stored_eqn(m_Neutrino_real_world_eV)
 
-ratio_noise_neutrino(3)=>
-infoLost[r ] 6.385382559332957e-7
+ratio_noise_Neutrino(3)=>
+infoLost[r ] 6.385382559332958e-7
 
-ratio_noise_neutrino(2)=>
-infoLost[r ] 7.062290729787536e-7
+ratio_noise_Neutrino(2)=>
+infoLost[r ] 7.062290729787537e-7
 
-ratio_noise_neutrino(1)=>
-infoLost[r ] 7.81095727446175e-7
+ratio_noise_Neutrino(1)=>
+infoLost[r ] 7.810957274461752e-7
 
-ratio_noise_neutrino(g)=<m_neutrino_final_eV(g)=>/E_Planck_eV
-stored_eqn(ratio_noise_neutrino)
+ratio_noise_Neutrino(g)=<m_Neutrino_final_eV(g)=>/Ep_eV
+stored_eqn(ratio_noise_Neutrino)
 
 E_bit_eV=1.0
 E_bit_eV=1
 
-m_neutrino_final_eV(3)=>
+m_Neutrino_final_eV(3)=>
 infoLost[r ] 7.795850533921379e+21
 
-m_neutrino_final_eV(2)=>
+m_Neutrino_final_eV(2)=>
 infoLost[r ] 8.622281037187159e+21
 
-m_neutrino_final_eV(1)=>
+m_Neutrino_final_eV(1)=>
 infoLost[r ] 9.536320631180922e+21
 
-m_neutrino_final_eV(g)=<m_neutrino_upper_limit*(alpha_SVP/alpha_SPP)**g
-stored_eqn(m_neutrino_final_eV)
+m_Neutrino_final_eV(g)=<m_Neutrino_upper_limit*(alpha_SVP/alpha_SPP)**g
+stored_eqn(m_Neutrino_final_eV)
 
-m_neutrino_upper_limit=m_Dirac_eV**2/m_Majorana_eV
-m_neutrino_upper_limit=infoLost[r ] 1.0547256670069602e+22
+m_Neutrino_upper_limit=m_Dirac_eV**2/m_Majorana_eV
+m_Neutrino_upper_limit=infoLost[r ] 1.0547256670069602e+22
 
-m_Dirac_eV=E_Planck_eV*(delta_g/(2*pi))*alpha_SPP**n
-m_Dirac_eV=infoLost[r ] 1.1677875263688641e+24
+m_Dirac_eV=Ep_eV*(delta_g/(2*pi))*alpha_SPP**n
+m_Dirac_eV=infoLost[r ] 1.167787526368864e+24
 
-m_Majorana_eV=E_Planck_eV*delta_a*symmetry_SVP_Klein
-m_Majorana_eV=infoLost[r ] 1.2929691097900541e+26
-
-E_Planck_eV=Ep/e_charge
-E_Planck_eV=1.2208901285838957e+28
+m_Majorana_eV=Ep_eV*delta_a*symmetry_SVP_Klein
+m_Majorana_eV=infoLost[r ] 1.292969109790054e+26
 
 C_radiation_geometry=FSC_inv_U1_strict*pi-(N_dimension_spacetime*log10(V_macro_scale))
 C_radiation_geometry=infoLost[r ] 418.3662014185751
@@ -1360,16 +1357,16 @@ modulation_factor_electroweak=infoLost[r ] 0.13043394475274206
 z_recombination_CECC=(capa_baryon/(eta_CMB_observed*total_channels*V_macro_scale))/ratio_AD
 z_recombination_CECC=infoLost[r ] 1098.826189574605
 
-isSterile_neutrino_eq_anchor=isNeutrino_eq_noise&&&abs(fraction_right_handed-asymmetry_chiral_parity_SU2)<eps
-isSterile_neutrino_eq_anchor=true
+isSterile_Neutrino_eq_anchor=isNeutrino_eq_noise&&&abs(fraction_right_handed-asymmetry_chiral_parity_SU2)<eps
+isSterile_Neutrino_eq_anchor=true
 
-isNeutrino_eq_noise=mass_suppression_neutrino_noise**n*fraction_right_handed*delta_g===eta_CMB_bare
+isNeutrino_eq_noise=mass_suppression_Neutrino_noise**n*fraction_right_handed*delta_g===eta_CMB_bare
 isNeutrino_eq_noise=infoLost[r ] true
 
 eta_CMB_observed=eta_CMB_bare*C0_digital*cos_Weinberg/(V_macro_scale**(1/3)*pi/symmetry_SPP_Leech)
 eta_CMB_observed=infoLost[r ] 2.47250061100507e-10
 
-eta_CMB_bare=mass_suppression_neutrino_noise**n*fraction_right_handed*delta_g
+eta_CMB_bare=mass_suppression_Neutrino_noise**n*fraction_right_handed*delta_g
 eta_CMB_bare=infoLost[r ] 1.0255518537554684e-9
 
 ns_CMB=1-ratio_AD*M_macro*(delta_g/ZPE)*N_dimension_spinor/sharpness_GUT
@@ -1405,8 +1402,8 @@ stored_eqn(lm_overtone_BAO)
 phim_BAO(m)=<(m-1)*k_baryon/(ratio_AD*pi)
 stored_eqn(phim_BAO)
 
-T_CMB_bulk=Tp*(Omega_radiation(0)=>*ratio_channel)**(1/N_dimension_spacetime)*10**(-M_max/N_dimension_spacetime)
-T_CMB_bulk=infoLost[r ] 2.6123929017012544
+T_CMB_bulk=Tp_K*(Omega_radiation(0)=>*ratio_channel)**(1/N_dimension_spacetime)*10**(-M_max/N_dimension_spacetime)
+T_CMB_bulk=infoLost[r ] 2.612392901701254
 
 FSC_inv_U1_final=FSC_inv_U1_asymmetry(asymmetry_history_limit[][1])=>
 FSC_inv_U1_final=infoLost[r ] 134.38165415029567
@@ -1471,6 +1468,191 @@ lifespan_negative_half_cycle=infoLost[r ] 14.404191469988156-1.1327299426243035e
 
 lifespan_positive_half_cycle=age_billion_year+time_future_physical_limit_billion_year
 lifespan_positive_half_cycle=infoLost[r ] 19.483891514213624
+
+r_complex_conjugate_interference_M31_kpc=(780:=[r_shell_standing_wave_kpc[1][0],r_shell_standing_wave_kpc[2][0]]*2)
+r_complex_conjugate_interference_M31_kpc=(
+780:
+infoLost[r ] 673.7408401398624,infoLost[r ] 960.1993244456283
+)
+
+r_dissonance_Leo1_kpc=(250:=mean(r_shell_standing_wave_kpc[0][0],r_shell_standing_wave_kpc[1][0]))
+r_dissonance_Leo1_kpc=(
+250:
+infoLost[r ] 253.1422631409505
+)
+
+r_resonance_LMC2SMC_kpc=(50,61:=r_shell_standing_wave_kpc[0][0]/[pi,3,sqrt(8)])
+r_resonance_LMC2SMC_kpc=(
+50,61:
+infoLost[r ] 53.92618486626074,infoLost[r ] 56.471368737323274,infoLost[r ] 59.89693166557093
+)
+
+isFractal_wavelength={lambda_dB_kpc,=mean(r_shell_standing_wave_kpc[0])}
+isFractal_wavelength=(
+infoLost[r ] 169.70774423254426:
+infoLost[r ] 169.70876747181
+)
+
+r_shell_standing_wave_kpc=(find_r_cutoff(100)=>,find_r_cutoff(21)=>:find_r_cutoff(11)=>,find_r_cutoff(233)=>:find_r_cutoff(400)=>)
+r_shell_standing_wave_kpc=(
+infoLost[r ] 169.41410621196982+O(9e-16),infoLost[r ] 170.00342873165022+O(2e-14):
+infoLost[r ] 336.8704200699312+O(6e-15),infoLost[r ] 342.1673133768582+O(5e-15):
+infoLost[r ] 480.0996622228142+O(2e-14)
+)
+
+find_r_cutoff(r0)=<Newton((r_kpc)=<rho_Axion(r_kpc)=>=probability_error_pixel,=<{r0},false,20)
+stored_eqn(find_r_cutoff)
+
+probability_error_pixel=N_margin/total_channels
+probability_error_pixel=infoLost[r ] 0.000001108991609859716
+
+M_galactic_halo_BEC_solarmass=M_Axion_inf_kpc3*rho_fuzzy_dark_matter
+M_galactic_halo_BEC_solarmass=infoLost[r ] 998196753357.4764
+
+M_Axion_inf_kpc3=lambda_dB_kpc**3*(1-exp(-pi**2))/sqrt(pi)
+M_Axion_inf_kpc3=infoLost[r ] 2757449.594910156
+
+M_Axion_r1ep5_kpc3=M_Axion_kpc3(1e+5)=>
+M_Axion_r1ep5_kpc3=infoLost[r ] 2757449.5949103087
+
+M_Axion_r1ep4_kpc3=M_Axion_kpc3(1e+4)=>
+M_Axion_r1ep4_kpc3=infoLost[r ] 2757449.5949101583
+
+M_Axion_r1ep3_kpc3=M_Axion_kpc3(1e+3)=>
+M_Axion_r1ep3_kpc3=infoLost[r ] 2757449.594910157
+
+M_Axion_r1ep2_kpc3=M_Axion_kpc3(1e+2)=>
+M_Axion_r1ep2_kpc3=infoLost[r ] 1766106.001510673
+
+M_Axion_r1ep1_kpc3=M_Axion_kpc3(1e+1)=>
+M_Axion_r1ep1_kpc3=infoLost[r ] 4151.530158877402
+
+M_Axion_r1ep0_kpc3=M_Axion_kpc3(1e+0)=>
+M_Axion_r1ep0_kpc3=infoLost[r ] 4.18841587007931
+
+M_Axion_r1em1_kpc3=M_Axion_kpc3(1e-1)=>
+M_Axion_r1em1_kpc3=infoLost[r ] 0.00418878646126536
+
+M_Axion_r1em2_kpc3=M_Axion_kpc3(1e-2)=>
+M_Axion_r1em2_kpc3=infoLost[r ] 0.000004188790167351159
+
+M_Axion_r1em3_kpc3=M_Axion_kpc3(1e-3)=>
+M_Axion_r1em3_kpc3=infoLost[r ] 4.188790204412036e-9
+
+M_Axion_r1em4_kpc3=M_Axion_kpc3(1e-4)=>
+M_Axion_r1em4_kpc3=infoLost[r ] 4.188790204782646e-12
+
+M_Axion_r1em5_kpc3=M_Axion_kpc3(1e-5)=>
+M_Axion_r1em5_kpc3=infoLost[r ] 4.18879020478636e-15
+
+M_Axion_kpc3(r_kpc)=<4*pi*_i0((t)=<t**2*rho_Axion(t)=>,,r_kpc,1e3)
+stored_eqn(M_Axion_kpc3)
+
+rho_Axion(r_kpc)=<j0_spherical_Bessel(pi*r_kpc/lambda_dB_kpc)=>**2*exp(-(r_kpc/lambda_dB_kpc)**2)
+stored_eqn(rho_Axion)
+
+j0_spherical_Bessel(x)=<sin(x)/x
+stored_eqn(j0_spherical_Bessel)
+
+lambda_dB_kpc=mean(wavelength_galactic_halo_BEC_kpc)
+lambda_dB_kpc=infoLost[r ] 169.70774423254426
+
+wavelength_galactic_halo_BEC_kpc=wavelength_deBroglie_m/unit_kpc
+wavelength_galactic_halo_BEC_kpc=(
+infoLost[r ] 188.90470988173072,infoLost[r ] 150.51077858335776
+)
+
+wavelength_deBroglie_m=h/(m_Axion_kg*v_galactic_dark_matter_mps)
+wavelength_deBroglie_m=(
+infoLost[r ] 5.828990283201872e+21,infoLost[r ] 4.64427735247478e+21
+)
+
+v_galactic_dark_matter_mps=100e3
+v_galactic_dark_matter_mps=100000
+
+rho_fuzzy_dark_matter=3.62e5
+rho_fuzzy_dark_matter=362000
+
+lifetime_NeutralinoNLSP_sec=decaylength_NeutralinoNLSP_m/c
+lifetime_NeutralinoNLSP_sec=infoLost[r ] 2.004184208202014e-85
+
+decaylength_NeutralinoNLSP_m=hbc_eVm/Gamma_NeutralinoNLSP2GravitinoLSP_photon_eV
+decaylength_NeutralinoNLSP_m=infoLost[r ] 6.008393100616655e-77
+
+Gamma_NeutralinoNLSP2GravitinoLSP_photon_eV=1**2*1e12**5/(16*pi*F_SUGRA_eff_SUSY_breaking_eV2**2)
+Gamma_NeutralinoNLSP2GravitinoLSP_photon_eV=infoLost[r ] 3.2841889196472576e+69
+
+horizon_bulk_quantum_eV=10**floor(log10({m_Hubble_dark_energy_eV,m_Axion_eV,m_GravitinoLSP_eV}))
+horizon_bulk_quantum_eV=(
+infoLost[r ] 1e-43:
+infoLost[r ] 1e-25:
+infoLost[r ] 1e-16
+)
+
+m_GravitinoLSP_eV=m_soft_eV*motif_UV2IR
+m_GravitinoLSP_eV=(
+infoLost[r ] 1.2933494802143022e-16,infoLost[r ] 1.6232711745641375e-16
+)
+
+isHeld_Higgs_mass={m_soft_eV,m_geometric_mean_eV}
+isHeld_Higgs_mass=(
+infoLost[r ] 2.015925248752144e-34:
+infoLost[r ] 7.961098106948127e-34,infoLost[r ] 8.918885074354739e-34
+)
+
+m_geometric_mean_eV=sqrt(m_Axion_eV.*m_Hubble_dark_energy_eV).
+m_geometric_mean_eV=(
+infoLost[r ] 7.961098106948127e-34,infoLost[r ] 8.918885074354739e-34
+)
+
+m_soft_eV=F_SUGRA_eff_SUSY_breaking_eV2/Ep_eV
+m_soft_eV=infoLost[r ] 2.015925248752144e-34
+
+F_SUGRA_eff_SUSY_breaking_eV2=sqrt(rho_dark_energy_eV4)
+F_SUGRA_eff_SUSY_breaking_eV2=infoLost[r ] 0.0000024612232361645267
+
+rho_dark_energy_eV4=Ep_eV**4/10**M_max
+rho_dark_energy_eV4=infoLost[r ] 6.057619818236185e-12
+
+motif_UV2IR=m_Axion_eV/m_Hubble_dark_energy_eV
+motif_UV2IR=(
+infoLost[r ] 641566189527555300,infoLost[r ] 805223891892291600
+)
+
+m_Hubble_dark_energy_eV=Ep_eV*(10**M_max)**(-alpha_SVP)*delta_g
+m_Hubble_dark_energy_eV=infoLost[r ] 9.939218580487335e-43
+
+m_Axion_eV=E_Axion_J/e_charge
+m_Axion_eV=(
+infoLost[r ] 6.376666591564737e-25,infoLost[r ] 8.00329626774819e-25
+)
+
+m_Axion_kg=E_Axion_J/c**2
+m_Axion_kg=(
+infoLost[r ] 1.136744071969921e-60,infoLost[r ] 1.426717150402137e-60
+)
+
+E_Axion_J=h*nu_Axion
+E_Axion_J=(
+infoLost[r ] 1.0216546215813443e-43,infoLost[r ] 1.2822694275165557e-43
+)
+
+nu_Axion=[1,1/cos2_Weinberg]*mu_Axion/(2*pi*tp_sec)
+nu_Axion=(
+infoLost[r ] 1.5418711218765836e-10,infoLost[r ] 1.93518842766335e-10
+)
+
+mu_Axion=mu_Axion_bare*FSC_inv_U1_strict/10**M_macro
+mu_Axion=infoLost[r ] 5.222965148355324e-53
+
+mu_Axion_bare=fc*delta_g
+mu_Axion_bare=infoLost[r ] 0.0013984056169699306
+
+isAxion_eq_topological_standing_wave=isAnti_eq_dark_matter&&&delta_g>0
+isAxion_eq_topological_standing_wave=infoLost[r ] true
+
+isAnti_eq_dark_matter=isHalf_parity&&&P_dark_matter===N_dimension_superstring*alpha_SVP
+isAnti_eq_dark_matter=infoLost[r ] true
 
 Omega_singularity_of_analytic_continuation_with_gamma_Euler_Mascheroni=calc_Omega(z_singularity_ac_W0)=>
 Omega_singularity_of_analytic_continuation_with_gamma_Euler_Mascheroni=(
@@ -1620,12 +1802,6 @@ P_dark_energy=infoLost[r ] 36.94427268263466
 a_dark_energy=ratio_channel*ratio_AD*(1-delta_g**2)*(1+delta_g**2)*C0_digital
 a_dark_energy=infoLost[r ] 2.393594402603673
 
-isAxion_eq_topological_defect=isAnti_eq_dark_matter&&&delta_g>0
-isAxion_eq_topological_defect=infoLost[r ] true
-
-isAnti_eq_dark_matter=isHalf_parity&&&P_dark_matter===N_dimension_superstring*alpha_SVP
-isAnti_eq_dark_matter=infoLost[r ] true
-
 P_dark_matter=N_dimension_superstring*alpha_SVP
 P_dark_matter=infoLost[r ] 5.464698129876524
 
@@ -1647,8 +1823,8 @@ k_total=16.9193218304389
 scale_factor_DM=(N_dimension_spinor/d_Boson)*pi
 scale_factor_DM=8.377580409572781
 
-gluon=(omega_normalization,=alphas_Mz)
-gluon=(
+Gluon=(omega_normalization,=alphas_Mz)
+Gluon=(
 0.04908738521234052,infoLost[r ] 0.04891856713931213
 )
 
@@ -1661,7 +1837,7 @@ H0_Hubble_observed=infoLost[r ] 74.7096991072511
 H0_Hubble_bulk=H0_Hubble_standard*ratio_channel*ratio_AD
 H0_Hubble_bulk=infoLost[r ] 68.01929291667409
 
-H0_Hubble_standard=H0_bulk_factor*unit_pc*10**n/(tp*sqrt(10**M_max/pi))
+H0_Hubble_standard=H0_bulk_factor*unit_pc*10**n/(tp_sec*sqrt(10**M_max/pi))
 H0_Hubble_standard=infoLost[r ] 20.094007246146475
 
 H0_bulk_factor=(M_max-log10(symmetry_SVP_Klein*d_Boson))/10**N_spin_Fermion
@@ -1756,7 +1932,7 @@ diameter_causal_billion_ly=infoLost[r ] 27.516278520995513
 age_billion_year=(age_sec/unit_year)/1e9
 age_billion_year=infoLost[r ] 13.758139260497757
 
-age_sec=tp*sqrt(10**M_max)*(ratio_AD/(FSC_inv_U1_strict*sin2_Weinberg))*(1/(1+delta_g**2))*N_superstring_sectors
+age_sec=tp_sec*sqrt(10**M_max)*(ratio_AD/(FSC_inv_U1_strict*sin2_Weinberg))*(1/(1+delta_g**2))*N_superstring_sectors
 age_sec=infoLost[r ] 434173855527084000
 
 isCompleted_flatness=M_flatness>M_macro
@@ -1774,14 +1950,14 @@ M_noise=72
 N_max_efolds=M_max/2
 N_max_efolds=infoLost[r ] 61.78220215801985
 
-number_blocks=1/mass_suppression_neutrino_noise
+number_blocks=1/mass_suppression_Neutrino_noise
 number_blocks=95.99999999999999
 
-mass_suppression_neutrino_noise=(1-asymmetry_chiral_parity_SU2)/N_dimension_spinor
-mass_suppression_neutrino_noise=0.010416666666666668
+mass_suppression_Neutrino_noise=(1-asymmetry_chiral_parity_SU2)/N_dimension_spinor
+mass_suppression_Neutrino_noise=0.010416666666666668
 
-fraction_left_handed_neutrino=1
-fraction_left_handed_neutrino=1
+fraction_left_handed_Neutrino=1
+fraction_left_handed_Neutrino=1
 
 hasTrinity1_SU2=(N_superstring_sectors-(hasTrinity0_SU2&&&N_trinity_SU2))===N_spin_Fermion
 hasTrinity1_SU2=true
@@ -1960,11 +2136,11 @@ stored_eqn(FSC_inv)
 FSC_inv_bare(ratio_alpha,ratio_dalpha)=<symmetry_SVP_Klein*(ratio_AD*ratio_alpha)**2*ratio_dalpha
 stored_eqn(FSC_inv_bare)
 
-edo53_FSC_inv_ZPE_gt_gamma_Euler_Mascheroni=max(primes_L_random_walk_Collatz_conjecture[0][0][][##primes_L_random_walk_Collatz_conjecture-1])
-edo53_FSC_inv_ZPE_gt_gamma_Euler_Mascheroni=137
+edo53_FSC_inv_ZPE_gt_gamma_Euler_Mascheroni_as_false_vacuum=max(primes_L_random_walk_Collatz_conjecture[0][0][][##primes_L_random_walk_Collatz_conjecture-1])
+edo53_FSC_inv_ZPE_gt_gamma_Euler_Mascheroni_as_false_vacuum=137
 
-edo10781274_FSC_inv_ZPE_eq_gamma_Euler_Mascheroni=max(primes_L_random_walk_Collatz_conjecture)
-edo10781274_FSC_inv_ZPE_eq_gamma_Euler_Mascheroni=27869189
+edo10781274_FSC_inv_ZPE_eq_gamma_Euler_Mascheroni_as_true_vacuum=max(primes_L_random_walk_Collatz_conjecture)
+edo10781274_FSC_inv_ZPE_eq_gamma_Euler_Mascheroni_as_true_vacuum=27869189
 
 primes_L_random_walk_Collatz_conjecture=L_random_walk.filter0((n)=<isPrime(n)=>)
 primes_L_random_walk_Collatz_conjecture=(
@@ -2078,10 +2254,10 @@ delta_d_about=infoLost[r ] 2.75
 h_Weil=12.25
 h_Weil=12.25
 
-h_Shannon=dend_inflation*prob_Shannon_limit_from_entropic_capacity
+h_Shannon=dend_inflation*probability_Shannon_limit_from_entropic_capacity
 h_Shannon=infoLost[r ] 12.23197315178593
 
-h_5_by_6=dend_inflation*prob_5_by_6_conjecture_from_deterministic_scheduling
+h_5_by_6=dend_inflation*probability_5_by_6_conjecture_from_deterministic_scheduling
 h_5_by_6=infoLost[r ] 12.499999999999998
 
 isFirst_zero_point_nealy_eq_dend_inflation=(dend_inflation,=g1_Riemann)
@@ -2089,7 +2265,7 @@ isFirst_zero_point_nealy_eq_dend_inflation=(
 infoLost[r ] 15,14.13472514
 )
 
-tend_inflation=tp*exp(dend_inflation)
+tend_inflation=tp_sec*exp(dend_inflation)
 tend_inflation=infoLost[r ] 1.7624078298815739e-37
 
 dend_min_reheating=log(2*exp(dend_inflation)-exp(h_SVP))
@@ -2122,20 +2298,41 @@ stored_eqn(dS_P)
 n=9-6
 n=3
 
+unit_kpc=unit_pc*1e3
+unit_kpc=30856775814913670000
+
 unit_pc=149597870700/deg2rad(1/(60*60))
 unit_pc=30856775814913670
 
 unit_year=60*60*24*365.25
 unit_year=31557600
 
-Tp=Ep/kB
-Tp=1.4167841621573426e+32
+Ap_m2=lp_m**2
+Ap_m2=2.612280303974872e-70
 
-Ep=sqrt((h/(2*pi))*c**5/G)
-Ep=1956081636.698373
+Tp_K=Ep_J/kB
+Tp_K=1.4167841621573425e+32
 
-tp=sqrt((h/(2*pi))*G/c**5)
-tp=5.391246448313605e-44
+Ep_eV=Ep_J/e_charge
+Ep_eV=1.2208901285838954e+28
+
+Ep_J=mp_kg*c**2
+Ep_J=1956081636.6983728
+
+mp_kg=sqrt(hb*c/G)
+mp_kg=2.1764343427178984e-8
+
+lp_m=sqrt(hb*G/c**3)
+lp_m=1.6162550244237053e-35
+
+tp_sec=sqrt(hb*G/c**5)
+tp_sec=5.391246448313605e-44
+
+hbc_eVm=hbc_Jm/e_charge
+hbc_eVm=1.973269804593025e-7
+
+hbc_Jm=hb*c
+hbc_Jm=3.1615267734966903e-26
 
 kB=1.380649e-23
 kB=1.380649e-23
@@ -2145,6 +2342,9 @@ e_charge=1.602176634e-19
 
 G=6.67430e-11
 G=6.6743e-11
+
+hb=h/(2*pi)
+hb=1.0545718176461565e-34
 
 h=6.62607015e-34
 h=6.62607015e-34
@@ -2786,11 +2986,11 @@ stored_eqn(calc_comma)
 log2_3=log_ex(reverse(b_pair_Catalan_conjecture))
 log2_3=1.5849625007211563
 
-prob_Shannon_limit_from_entropic_capacity=q_Shannon_strict_limit/q_topological_limit
-prob_Shannon_limit_from_entropic_capacity=0.8154648767857287
+probability_Shannon_limit_from_entropic_capacity=q_Shannon_strict_limit/q_topological_limit
+probability_Shannon_limit_from_entropic_capacity=0.8154648767857287
 
-prob_5_by_6_conjecture_from_deterministic_scheduling=sum(1/b_pair_Catalan_conjecture)
-prob_5_by_6_conjecture_from_deterministic_scheduling=0.8333333333333333
+probability_5_by_6_conjecture_from_deterministic_scheduling=sum(1/b_pair_Catalan_conjecture)
+probability_5_by_6_conjecture_from_deterministic_scheduling=0.8333333333333333
 
 q_topological_limit=2
 q_topological_limit=2
@@ -5063,7 +5263,7 @@ clear
 local storage cleared
 
 [Pinv_y=(-0.999999427,-0.999936657,-0.997300203,-0.954499736,-0.682689492,0,0.682689492,0.954499736,0.997300203,0.999936657,0.999999427:-5,-4,-3,-2,-1,0,1,2,3,4,5),N=1,arr=[],_r((n)=<arr.push(rand_table(=<Pinv_y)=>),,N),=<arr.]=>
--0.2096451655998911
+0.1903312879365269
 
 rand_table(csv)=<last[table=sort0(csv),ymin=min(table)[0],ymax=max(table)[0],y=ymin+(ymax-ymin)*rand(),x=interp(y:table),x]
 stored_eqn(rand_table)
@@ -7304,4 +7504,4 @@ center=true&wheel=true&drag=false&test-case=false&plot-all=true&relzooming=true&
 --------------------------------
 --------------------------------
 
-online-simulator.github.io.7.544.736.32.202 @ Sun Aug 30 2026 17:08:57 GMT+0900 (日本標準時) @ Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/151.0.0.0 Safari/537.36
+online-simulator.github.io.7.544.736.32.202 @ Mon Aug 31 2026 07:01:02 GMT+0900 (日本標準時) @ Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/151.0.0.0 Safari/537.36
