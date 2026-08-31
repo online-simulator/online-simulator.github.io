@@ -772,6 +772,10 @@ test case
 <br>
 　-r_bulge*2：r_bulgeのparametric study
 <br>
+　<span class="sF">-Milky</span>~-20kpc：<span class="run">Ver.2.906.179</span>以降、天の川銀河の回転曲線
+<br>
+　⇒Axion：fuzzy暗黒物質のhalo定在波（回転曲線を平坦化するde Broglie波）
+<br>
 ・<span class="clear">3body</span>：<span class="run">Ver.2.732.104</span>以降、<a href="#span-out-complex">複素数平面</a>に表示の平面3体問題
 <br>
 　⇒前提：無衝突系の時間刻み一定で重力の分母が有限の補正操作あり　⇒　|2点間距離|&gt;r_epsを仮定
@@ -4232,6 +4236,8 @@ astro-dic.jp/項目を列挙する
 ・roche-limit
 <br>
 ・standard-cosmological-model
+<br>
+・rotation-curve
     </td>
   </tr>
   <tr>
@@ -56217,11 +56223,11 @@ Tp_K=Ep_J/kB;
 <br>
 Ap_m2=lp_m**2;
 <br>
-unit_year=60*60*24*365.25;
+year2sec=60*60*24*365.25;
 <br>
-unit_pc=149597870700/deg2rad(1/(60*60));
+pc2m=149597870700/deg2rad(1/(60*60));
 <br>
-unit_kpc=unit_pc*1e3;
+kpc2m=pc2m*1e3;
 <br>
 <br>
 n=9-6;
@@ -56461,7 +56467,7 @@ isCompleted_flatness=M_flatness&gt;M_macro;
 <br>
 age_sec=tp_sec*sqrt(10**M_max)*(ratio_AD/(FSC_inv_U1_strict*sin2_Weinberg))*(1/(1+delta_g**2))*N_superstring_sectors;
 <br>
-age_billion_year=(age_sec/unit_year)/1e9;
+age_billion_year=(age_sec/year2sec)/1e9;
 <br>
 diameter_causal_billion_ly=age_billion_year*2;
 <br>
@@ -56516,7 +56522,7 @@ capa_complementary_dark_matter=isAsymmetric_parity_SU2&amp;&amp;&amp;(1-ratio_M)
 <br>
 H0_bulk_factor=(M_max-log10(symmetry_SVP_Klein*d_Boson))/10**N_spin_Fermion;
 <br>
-H0_Hubble_standard=H0_bulk_factor*unit_pc*10**n/(tp_sec*sqrt(10**M_max/pi));
+H0_Hubble_standard=H0_bulk_factor*pc2m*10**n/(tp_sec*sqrt(10**M_max/pi));
 <br>
 H0_Hubble_bulk=H0_Hubble_standard*ratio_channel*ratio_AD;
 <br>
@@ -56668,7 +56674,7 @@ v_galactic_dark_matter_mps=100e3;
 <br>
 wavelength_deBroglie_m=h/(m_Axion_kg*v_galactic_dark_matter_mps);
 <br>
-wavelength_galactic_halo_BEC_kpc=wavelength_deBroglie_m/unit_kpc;
+wavelength_galactic_halo_BEC_kpc=wavelength_deBroglie_m/kpc2m;
 <br>
 lambda_dB_kpc=mean(wavelength_galactic_halo_BEC_kpc);
 <br>
@@ -56703,6 +56709,55 @@ M_Axion_r1ep5_kpc3=M_Axion_kpc3(1e+5)=&gt;;
 M_Axion_inf_kpc3=lambda_dB_kpc**3*(1-exp(-pi**2))/sqrt(pi);
 <br>
 M_galactic_halo_BEC_solarmass=M_Axion_inf_kpc3*rho_fuzzy_dark_matter;
+<br>
+M_disk_solarmass=mean(500,600)*1e8*1.3**2;
+<br>
+M_bulge_solarmass=M_disk_solarmass*0.26;
+<br>
+M_bulge(r_kpc)=&lt;M_bulge_solarmass*(r_kpc/(r_kpc+0.2))**2;
+<br>
+M_sphere(r_kpc)=&lt;M_disk_solarmass*(1-(1+r_kpc/3)*exp(-r_kpc/3));
+<br>
+M_disk(r_kpc)=&lt;M_disk_solarmass*r_kpc**3/(r_kpc**2+(3.5+0.3)**2)**1.5;
+<br>
+M_Axion(r_kpc)=&lt;M_Axion_kpc3(r_kpc)=&gt;*rho_fuzzy_dark_matter;
+<br>
+M_sun_kg=1.98847e30;
+<br>
+M_total_kg(r_kpc)=&lt;(M_bulge(r_kpc)=&gt;+M_disk(r_kpc)=&gt;+M_Axion(r_kpc)=&gt;)*M_sun_kg;
+<br>
+v_galaxy_rotation(r_kpc)=&lt;sqrt(G*M_total_kg(r_kpc)=&gt;/(r_kpc*kpc2m));
+<br>
+v_galaxy_rotation_r1em3=v_galaxy_rotation(1e-3)=&gt;;
+<br>
+v_galaxy_rotation_r1em2=v_galaxy_rotation(1e-2)=&gt;;
+<br>
+v_galaxy_rotation_r1em1=v_galaxy_rotation(1e-1)=&gt;;
+<br>
+v_galaxy_rotation_r1=v_galaxy_rotation(1)=&gt;;
+<br>
+v_galaxy_rotation_r2=v_galaxy_rotation(2)=&gt;;
+<br>
+v_galaxy_rotation_r4=v_galaxy_rotation(4)=&gt;;
+<br>
+v_galaxy_rotation_r8_solar_system=v_galaxy_rotation(8)=&gt;;
+<br>
+v_galaxy_rotation_r16=v_galaxy_rotation(16)=&gt;;
+<br>
+v_galaxy_rotation_r32=v_galaxy_rotation(32)=&gt;;
+<br>
+v_galaxy_rotation_r64=v_galaxy_rotation(64)=&gt;;
+<br>
+v_galaxy_rotation_r128=v_galaxy_rotation(128)=&gt;;
+<br>
+v_galaxy_rotation_rldB=v_galaxy_rotation(lambda_dB_kpc)=&gt;;
+<br>
+v_galaxy_rotation_r256=v_galaxy_rotation(256)=&gt;;
+<br>
+v_galaxy_rotation_r512=v_galaxy_rotation(512)=&gt;;
+<br>
+v_galaxy_rotation_r1024=v_galaxy_rotation(1024)=&gt;;
+<br>
 <br>
 probability_error_pixel=N_margin/total_channels;
 <br>
