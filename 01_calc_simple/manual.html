@@ -56670,6 +56670,8 @@ lifetime_NeutralinoNLSP_sec=decaylength_NeutralinoNLSP_m/c;
 <br>
 rho_fuzzy_dark_matter=3.62e5;
 <br>
+rho_soliton_core=rho_fuzzy_dark_matter*2.5e3;
+<br>
 v_galactic_dark_matter_mps=100e3;
 <br>
 wavelength_deBroglie_m=h/(m_Axion_kg*v_galactic_dark_matter_mps);
@@ -56710,7 +56712,11 @@ M_Axion_inf_kpc3=lambda_dB_kpc**3*(1-exp(-pi**2))/sqrt(pi);
 <br>
 M_galactic_halo_BEC_solarmass=M_Axion_inf_kpc3*rho_fuzzy_dark_matter;
 <br>
-M_disk_solarmass=mean(500,600)*1e8*1.3**2;
+rho_soliton(r_kpc)=&lt;1/(1+0.1*(r_kpc/1)**2)**8;
+<br>
+M_soliton_kpc3(r_kpc)=&lt;4*pi*_i0((t)=&lt;t**2*rho_soliton(t)=&gt;,,r_kpc,1e3);
+<br>
+M_disk_solarmass=mean(500,600)*1e8;
 <br>
 M_bulge_solarmass=M_disk_solarmass*0.26;
 <br>
@@ -56720,11 +56726,13 @@ M_sphere(r_kpc)=&lt;M_disk_solarmass*(1-(1+r_kpc/3)*exp(-r_kpc/3));
 <br>
 M_disk(r_kpc)=&lt;M_disk_solarmass*r_kpc**3/(r_kpc**2+(3.5+0.3)**2)**1.5;
 <br>
+M_soliton(r_kpc)=&lt;M_soliton_kpc3(r_kpc)=&gt;*rho_soliton_core;
+<br>
 M_Axion(r_kpc)=&lt;M_Axion_kpc3(r_kpc)=&gt;*rho_fuzzy_dark_matter;
 <br>
 M_sun_kg=1.98847e30;
 <br>
-M_total_kg(r_kpc)=&lt;(M_bulge(r_kpc)=&gt;+M_disk(r_kpc)=&gt;+M_Axion(r_kpc)=&gt;)*M_sun_kg;
+M_total_kg(r_kpc)=&lt;(M_bulge(r_kpc)=&gt;+M_disk(r_kpc)=&gt;+M_soliton(r_kpc)=&gt;+M_Axion(r_kpc)=&gt;)*M_sun_kg;
 <br>
 v_galaxy_rotation(r_kpc)=&lt;sqrt(G*M_total_kg(r_kpc)=&gt;/(r_kpc*kpc2m));
 <br>

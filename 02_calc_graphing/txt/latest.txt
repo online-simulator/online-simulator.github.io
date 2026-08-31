@@ -1507,54 +1507,54 @@ probability_error_pixel=N_margin/total_channels
 probability_error_pixel=infoLost[r ] 0.000001108991609859716
 
 v_galaxy_rotation_r1024=v_galaxy_rotation(1024)=>
-v_galaxy_rotation_r1024=infoLost[r ] 68443.69543323971
+v_galaxy_rotation_r1024=infoLost[r ] 67245.43711809823
 
 v_galaxy_rotation_r512=v_galaxy_rotation(512)=>
-v_galaxy_rotation_r512=infoLost[r ] 96792.87873672525
+v_galaxy_rotation_r512=infoLost[r ] 95098.53950037892
 
 v_galaxy_rotation_r256=v_galaxy_rotation(256)=>
-v_galaxy_rotation_r256=infoLost[r ] 134410.2219846388
+v_galaxy_rotation_r256=infoLost[r ] 131970.2115356768
 
 v_galaxy_rotation_rldB=v_galaxy_rotation(lambda_dB_kpc)=>
-v_galaxy_rotation_rldB=infoLost[r ] 157598.01142229897
+v_galaxy_rotation_rldB=infoLost[r ] 154457.99072426997
 
 v_galaxy_rotation_r128=v_galaxy_rotation(128)=>
-v_galaxy_rotation_r128=infoLost[r ] 176767.8169031879
+v_galaxy_rotation_r128=infoLost[r ] 173056.9209139671
 
 v_galaxy_rotation_r64=v_galaxy_rotation(64)=>
-v_galaxy_rotation_r64=infoLost[r ] 162563.92180262887
+v_galaxy_rotation_r64=infoLost[r ] 154411.20247026908
 
 v_galaxy_rotation_r32=v_galaxy_rotation(32)=>
-v_galaxy_rotation_r32=infoLost[r ] 146755.6331123333
+v_galaxy_rotation_r32=infoLost[r ] 128281.47977316688
 
 v_galaxy_rotation_r16=v_galaxy_rotation(16)=>
-v_galaxy_rotation_r16=infoLost[r ] 176014.34491233525
+v_galaxy_rotation_r16=infoLost[r ] 146441.60406358415
 
 v_galaxy_rotation_r8_solar_system=v_galaxy_rotation(8)=>
-v_galaxy_rotation_r8_solar_system=infoLost[r ] 222736.37087487525
+v_galaxy_rotation_r8_solar_system=infoLost[r ] 185523.932931023
 
 v_galaxy_rotation_r4=v_galaxy_rotation(4)=>
-v_galaxy_rotation_r4=infoLost[r ] 248517.85210792068
+v_galaxy_rotation_r4=infoLost[r ] 215235.82685804472
 
 v_galaxy_rotation_r2=v_galaxy_rotation(2)=>
-v_galaxy_rotation_r2=infoLost[r ] 251342.04815623898
+v_galaxy_rotation_r2=infoLost[r ] 229928.20208820206
 
 v_galaxy_rotation_r1=v_galaxy_rotation(1)=>
-v_galaxy_rotation_r1=infoLost[r ] 280675.8782390844
+v_galaxy_rotation_r1=infoLost[r ] 238916.14167761724
 
 v_galaxy_rotation_r1em1=v_galaxy_rotation(1e-1)=>
-v_galaxy_rotation_r1em1=infoLost[r ] 339949.298476814
+v_galaxy_rotation_r1em1=infoLost[r ] 261809.58874600392
 
 v_galaxy_rotation_r1em2=v_galaxy_rotation(1e-2)=>
-v_galaxy_rotation_r1em2=infoLost[r ] 153527.40354960854
+v_galaxy_rotation_r1em2=infoLost[r ] 118104.90634041626
 
 v_galaxy_rotation_r1em3=v_galaxy_rotation(1e-3)=>
-v_galaxy_rotation_r1em3=infoLost[r ] 50722.77902884077
+v_galaxy_rotation_r1em3=infoLost[r ] 39017.731303406035
 
 v_galaxy_rotation(r_kpc)=<sqrt(G*M_total_kg(r_kpc)=>/(r_kpc*kpc2m))
 stored_eqn(v_galaxy_rotation)
 
-M_total_kg(r_kpc)=<(M_bulge(r_kpc)=>+M_disk(r_kpc)=>+M_Axion(r_kpc)=>)*M_sun_kg
+M_total_kg(r_kpc)=<(M_bulge(r_kpc)=>+M_disk(r_kpc)=>+M_soliton(r_kpc)=>+M_Axion(r_kpc)=>)*M_sun_kg
 stored_eqn(M_total_kg)
 
 M_sun_kg=1.98847e30
@@ -1562,6 +1562,9 @@ M_sun_kg=1.98847e+30
 
 M_Axion(r_kpc)=<M_Axion_kpc3(r_kpc)=>*rho_fuzzy_dark_matter
 stored_eqn(M_Axion)
+
+M_soliton(r_kpc)=<M_soliton_kpc3(r_kpc)=>*rho_soliton_core
+stored_eqn(M_soliton)
 
 M_disk(r_kpc)=<M_disk_solarmass*r_kpc**3/(r_kpc**2+(3.5+0.3)**2)**1.5
 stored_eqn(M_disk)
@@ -1573,10 +1576,16 @@ M_bulge(r_kpc)=<M_bulge_solarmass*(r_kpc/(r_kpc+0.2))**2
 stored_eqn(M_bulge)
 
 M_bulge_solarmass=M_disk_solarmass*0.26
-M_bulge_solarmass=24167000000.000004
+M_bulge_solarmass=14300000000
 
-M_disk_solarmass=mean(500,600)*1e8*1.3**2
-M_disk_solarmass=92950000000.00002
+M_disk_solarmass=mean(500,600)*1e8
+M_disk_solarmass=55000000000
+
+M_soliton_kpc3(r_kpc)=<4*pi*_i0((t)=<t**2*rho_soliton(t)=>,,r_kpc,1e3)
+stored_eqn(M_soliton_kpc3)
+
+rho_soliton(r_kpc)=<1/(1+0.1*(r_kpc/1)**2)**8
+stored_eqn(rho_soliton)
 
 M_galactic_halo_BEC_solarmass=M_Axion_inf_kpc3*rho_fuzzy_dark_matter
 M_galactic_halo_BEC_solarmass=infoLost[r ] 998196753357.4764
@@ -1641,6 +1650,9 @@ infoLost[r ] 5.828990283201872e+21,infoLost[r ] 4.64427735247478e+21
 
 v_galactic_dark_matter_mps=100e3
 v_galactic_dark_matter_mps=100000
+
+rho_soliton_core=rho_fuzzy_dark_matter*2.5e3
+rho_soliton_core=905000000
 
 rho_fuzzy_dark_matter=3.62e5
 rho_fuzzy_dark_matter=362000
@@ -5335,7 +5347,7 @@ clear
 local storage cleared
 
 [Pinv_y=(-0.999999427,-0.999936657,-0.997300203,-0.954499736,-0.682689492,0,0.682689492,0.954499736,0.997300203,0.999936657,0.999999427:-5,-4,-3,-2,-1,0,1,2,3,4,5),N=1,arr=[],_r((n)=<arr.push(rand_table(=<Pinv_y)=>),,N),=<arr.]=>
-0.5628318560037968
+0.9773100350032311
 
 rand_table(csv)=<last[table=sort0(csv),ymin=min(table)[0],ymax=max(table)[0],y=ymin+(ymax-ymin)*rand(),x=interp(y:table),x]
 stored_eqn(rand_table)
@@ -5345,7 +5357,7 @@ local storage cleared
 
 [(N)=<[tarr=linspace(0,N-1,N).,shuffle_FY(?tarr)=>,=<tarr.]=>](2)=>
 (
-1,0
+0,1
 )
 
 shuffle_FY(?tarr)=<last[len=sizer(tarr),switch_arr=(i1)=<last{i0=floor(rand()*(i1+1)),w=tarr[i1],tarr[i1]=tarr[i0],tarr[i0]=w},_s((i_)=<switch_arr(i_)=>,len-1,1)]
@@ -7576,4 +7588,4 @@ center=true&wheel=true&drag=false&test-case=false&plot-all=true&relzooming=true&
 --------------------------------
 --------------------------------
 
-online-simulator.github.io.7.544.736.32.202 @ Mon Aug 31 2026 23:06:10 GMT+0900 (日本標準時) @ Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/151.0.0.0 Safari/537.36
+online-simulator.github.io.7.544.736.32.202 @ Tue Sep 01 2026 04:35:22 GMT+0900 (日本標準時) @ Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/151.0.0.0 Safari/537.36
