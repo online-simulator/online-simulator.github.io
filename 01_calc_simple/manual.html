@@ -776,6 +776,12 @@ test case
 <br>
 　⇒Axion：fuzzy暗黒物質のhalo定在波（回転曲線を平坦化するde Broglie波）
 <br>
+　⇒質量階層性[eV]の10進桁数：-(43→34→25→16)（horizonDE→breakingSUSY→bulkDM→quantum）
+<br>
+-43+9*(0,1,2,3) -> (-43,-34,-25,-16)（Higgs質量のscale[TeV]）
+<br>
+　⇒prompt decay：NeutralinoNLSP→GravitinoLSP+promptPhoton（Planck scale以下の即時崩壊）
+<br>
 ・<span class="clear">3body</span>：<span class="run">Ver.2.732.104</span>以降、<a href="#span-out-complex">複素数平面</a>に表示の平面3体問題
 <br>
 　⇒前提：無衝突系の時間刻み一定で重力の分母が有限の補正操作あり　⇒　|2点間距離|&gt;r_epsを仮定
@@ -3995,6 +4001,8 @@ ja.m.wikipedia.org/wiki/項目を列挙する
 <br>
 ・光年
 <br>
+・アクシオン
+<br>
 ・暗黒物質
 <br>
 ・ダークエネルギー
@@ -4066,6 +4074,10 @@ ja.m.wikipedia.org/wiki/項目を列挙する
 ・対称性の破れ
 <br>
 ・対称性
+<br>
+・超対称性
+<br>
+・階層性問題
 <br>
 ・ベルの不等式
 <br>
@@ -56659,11 +56671,13 @@ isHeld_Higgs_mass={m_soft_eV,m_geometric_mean_eV};
 <br>
 m_GravitinoLSP_eV=m_soft_eV*motif_UV2IR;
 <br>
-horizon_bulk_quantum_eV=10**floor(log10({m_Hubble_dark_energy_eV,m_Axion_eV,m_GravitinoLSP_eV}));
+horizonDE_breakingSUSY_bulkDM_quantum_eV=10**floor(log10({m_Hubble_dark_energy_eV,m_soft_eV,m_Axion_eV,m_GravitinoLSP_eV}));
 <br>
-Gamma_NeutralinoNLSP2GravitinoLSP_photon_eV=1**2*1e12**5/(16*pi*F_SUGRA_eff_SUSY_breaking_eV2**2);
+horizonDE_breakingSUSY_bulkDM_quantum_decDigit=-43+N_transverse_dimension_M_theory*(0,1,2,3);
 <br>
-decaylength_NeutralinoNLSP_m=hbc_eVm/Gamma_NeutralinoNLSP2GravitinoLSP_photon_eV;
+Gamma_NeutralinoNLSP2GravitinoLSP_promptPhoton_eV=1**2*1e12**5/(16*pi*F_SUGRA_eff_SUSY_breaking_eV2**2);
+<br>
+decaylength_NeutralinoNLSP_m=hbc_eVm/Gamma_NeutralinoNLSP2GravitinoLSP_promptPhoton_eV;
 <br>
 lifetime_NeutralinoNLSP_sec=decaylength_NeutralinoNLSP_m/c;
 <br>

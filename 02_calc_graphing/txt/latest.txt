@@ -1660,15 +1660,21 @@ rho_fuzzy_dark_matter=362000
 lifetime_NeutralinoNLSP_sec=decaylength_NeutralinoNLSP_m/c
 lifetime_NeutralinoNLSP_sec=infoLost[r ] 2.004184208202014e-85
 
-decaylength_NeutralinoNLSP_m=hbc_eVm/Gamma_NeutralinoNLSP2GravitinoLSP_photon_eV
+decaylength_NeutralinoNLSP_m=hbc_eVm/Gamma_NeutralinoNLSP2GravitinoLSP_promptPhoton_eV
 decaylength_NeutralinoNLSP_m=infoLost[r ] 6.008393100616655e-77
 
-Gamma_NeutralinoNLSP2GravitinoLSP_photon_eV=1**2*1e12**5/(16*pi*F_SUGRA_eff_SUSY_breaking_eV2**2)
-Gamma_NeutralinoNLSP2GravitinoLSP_photon_eV=infoLost[r ] 3.2841889196472576e+69
+Gamma_NeutralinoNLSP2GravitinoLSP_promptPhoton_eV=1**2*1e12**5/(16*pi*F_SUGRA_eff_SUSY_breaking_eV2**2)
+Gamma_NeutralinoNLSP2GravitinoLSP_promptPhoton_eV=infoLost[r ] 3.2841889196472576e+69
 
-horizon_bulk_quantum_eV=10**floor(log10({m_Hubble_dark_energy_eV,m_Axion_eV,m_GravitinoLSP_eV}))
-horizon_bulk_quantum_eV=(
+horizonDE_breakingSUSY_bulkDM_quantum_decDigit=-43+N_transverse_dimension_M_theory*(0,1,2,3)
+horizonDE_breakingSUSY_bulkDM_quantum_decDigit=(
+-43,-34,-25,-16
+)
+
+horizonDE_breakingSUSY_bulkDM_quantum_eV=10**floor(log10({m_Hubble_dark_energy_eV,m_soft_eV,m_Axion_eV,m_GravitinoLSP_eV}))
+horizonDE_breakingSUSY_bulkDM_quantum_eV=(
 infoLost[r ] 1e-43:
+infoLost[r ] 1e-34:
 infoLost[r ] 1e-25:
 infoLost[r ] 1e-16
 )
@@ -5347,7 +5353,7 @@ clear
 local storage cleared
 
 [Pinv_y=(-0.999999427,-0.999936657,-0.997300203,-0.954499736,-0.682689492,0,0.682689492,0.954499736,0.997300203,0.999936657,0.999999427:-5,-4,-3,-2,-1,0,1,2,3,4,5),N=1,arr=[],_r((n)=<arr.push(rand_table(=<Pinv_y)=>),,N),=<arr.]=>
-0.9773100350032311
+0.5149760887677579
 
 rand_table(csv)=<last[table=sort0(csv),ymin=min(table)[0],ymax=max(table)[0],y=ymin+(ymax-ymin)*rand(),x=interp(y:table),x]
 stored_eqn(rand_table)
@@ -5357,7 +5363,7 @@ local storage cleared
 
 [(N)=<[tarr=linspace(0,N-1,N).,shuffle_FY(?tarr)=>,=<tarr.]=>](2)=>
 (
-0,1
+1,0
 )
 
 shuffle_FY(?tarr)=<last[len=sizer(tarr),switch_arr=(i1)=<last{i0=floor(rand()*(i1+1)),w=tarr[i1],tarr[i1]=tarr[i0],tarr[i0]=w},_s((i_)=<switch_arr(i_)=>,len-1,1)]
@@ -7588,4 +7594,4 @@ center=true&wheel=true&drag=false&test-case=false&plot-all=true&relzooming=true&
 --------------------------------
 --------------------------------
 
-online-simulator.github.io.7.544.736.32.202 @ Tue Sep 01 2026 04:35:22 GMT+0900 (日本標準時) @ Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/151.0.0.0 Safari/537.36
+online-simulator.github.io.7.544.736.32.202 @ Tue Sep 01 2026 10:11:29 GMT+0900 (日本標準時) @ Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/151.0.0.0 Safari/537.36
