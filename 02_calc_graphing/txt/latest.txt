@@ -1635,7 +1635,7 @@ stored_eqn(rho_Axion)
 j0_spherical_Bessel(x)=<sin(x)/x
 stored_eqn(j0_spherical_Bessel)
 
-lambda_dB_kpc=mean(wavelength_galactic_halo_BEC_kpc)
+lambda_dB_kpc=mean(wavelength_galactic_halo_BEC_kpc)*factor_lambda2fix_M_halo
 lambda_dB_kpc=infoLost[r ] 169.70774423254426
 
 wavelength_galactic_halo_BEC_kpc=wavelength_deBroglie_m/kpc2m
@@ -1651,11 +1651,20 @@ infoLost[r ] 5.828990283201872e+21,infoLost[r ] 4.64427735247478e+21
 v_galactic_dark_matter_mps=100e3
 v_galactic_dark_matter_mps=100000
 
-rho_soliton_core=rho_fuzzy_dark_matter*2.5e3
+rho_soliton_core=rho_fuzzy_dark_matter0*2.5e3
 rho_soliton_core=905000000
 
-rho_fuzzy_dark_matter=3.62e5
+rho_fuzzy_dark_matter=rho_fuzzy_dark_matter0*factor_rho2vary_M_halo/factor_lambda2fix_M_halo**3
 rho_fuzzy_dark_matter=362000
+
+rho_fuzzy_dark_matter0=3.62e5
+rho_fuzzy_dark_matter0=362000
+
+factor_rho2vary_M_halo=1
+factor_rho2vary_M_halo=1
+
+factor_lambda2fix_M_halo=1
+factor_lambda2fix_M_halo=1
 
 lifetime_NeutralinoNLSP_sec=decaylength_NeutralinoNLSP_m/c
 lifetime_NeutralinoNLSP_sec=infoLost[r ] 2.004184208202014e-85
@@ -5353,7 +5362,7 @@ clear
 local storage cleared
 
 [Pinv_y=(-0.999999427,-0.999936657,-0.997300203,-0.954499736,-0.682689492,0,0.682689492,0.954499736,0.997300203,0.999936657,0.999999427:-5,-4,-3,-2,-1,0,1,2,3,4,5),N=1,arr=[],_r((n)=<arr.push(rand_table(=<Pinv_y)=>),,N),=<arr.]=>
-0.5149760887677579
+-0.2592465185125262
 
 rand_table(csv)=<last[table=sort0(csv),ymin=min(table)[0],ymax=max(table)[0],y=ymin+(ymax-ymin)*rand(),x=interp(y:table),x]
 stored_eqn(rand_table)
@@ -7594,4 +7603,4 @@ center=true&wheel=true&drag=false&test-case=false&plot-all=true&relzooming=true&
 --------------------------------
 --------------------------------
 
-online-simulator.github.io.7.544.736.32.202 @ Tue Sep 01 2026 10:11:29 GMT+0900 (日本標準時) @ Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/151.0.0.0 Safari/537.36
+online-simulator.github.io.7.544.736.32.202 @ Tue Sep 01 2026 22:20:36 GMT+0900 (日本標準時) @ Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/152.0.0.0 Safari/537.36

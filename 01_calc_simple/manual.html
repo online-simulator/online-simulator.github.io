@@ -772,7 +772,7 @@ test case
 <br>
 　-r_bulge*2：r_bulgeのparametric study
 <br>
-　<span class="sF">-Milky</span>~-20kpc：<span class="run">Ver.2.906.179</span>以降、天の川銀河の回転曲線
+　<span class="sF">-Milky</span>：<span class="run">Ver.2.906.179</span>以降、天の川銀河の回転曲線
 <br>
 　⇒Axion：fuzzy暗黒物質のhalo定在波（回転曲線を平坦化するde Broglie波）
 <br>
@@ -781,6 +781,30 @@ test case
 -43+9*(0,1,2,3) -> (-43,-34,-25,-16)（Higgs質量のscale[TeV]）
 <br>
 　⇒prompt decay：NeutralinoNLSP→GravitinoLSP+promptPhoton（Planck scale以下の即時崩壊）
+<br>
+　-20kpc：太陽系近傍の回転曲線（可視領域の平坦性）
+<br>
+　⇒未適合：可視物質の質量が妥当な場合、暗黒物質が不足（v=200~240@r=8の実測に対する185.5の計算）
+<br>
+　-M_halo/5：M31干渉過小評価scenario（可視領域⇒halo不可視領域の急減衰⇒平坦性）
+<br>
+　⇒仮定：rho_fuzzy_dark_matter/5（M_halo≒1兆太陽質量/5）
+<br>
+　+lambda_dB/5：M31干渉過小評価scenarioの追加調整（連続的な平坦性の確保）
+<br>
+　⇒追加調整：factor_lambda2fix_M_halo=1/5（M_halo固定でlambda_dB/5）
+<br>
+　-M31：<span class="run">Ver.2.906.179</span>以降、Andromeda銀河の回転曲線
+<br>
+　⇒仮定：factor_lambda2fix_M_halo=1/2（M_halo固定でlambda_dB/2）
+<br>
+　-DMDG：<span class="run">Ver.2.906.179</span>以降、暗黒物質欠乏銀河の回転曲線
+<br>
+　⇒仮定：(rho_fuzzy_dark_matter,rho_soliton_core)/100（暗黒物質の質量/100）
+<br>
+　-SLAB：<span class="run">Ver.2.906.179</span>以降、理論上の超巨大black holeの回転曲線
+<br>
+　⇒仮定：factor_lambda2fix_M_halo=1/1e6（M_halo固定で亜光速相当のlambda_dB≒169.7/1e6）
 <br>
 ・<span class="clear">3body</span>：<span class="run">Ver.2.732.104</span>以降、<a href="#span-out-complex">複素数平面</a>に表示の平面3体問題
 <br>
@@ -56682,9 +56706,15 @@ decaylength_NeutralinoNLSP_m=hbc_eVm/Gamma_NeutralinoNLSP2GravitinoLSP_promptPho
 lifetime_NeutralinoNLSP_sec=decaylength_NeutralinoNLSP_m/c;
 <br>
 <br>
-rho_fuzzy_dark_matter=3.62e5;
+factor_lambda2fix_M_halo=1;
 <br>
-rho_soliton_core=rho_fuzzy_dark_matter*2.5e3;
+factor_rho2vary_M_halo=1;
+<br>
+rho_fuzzy_dark_matter0=3.62e5;
+<br>
+rho_fuzzy_dark_matter=rho_fuzzy_dark_matter0*factor_rho2vary_M_halo/factor_lambda2fix_M_halo**3;
+<br>
+rho_soliton_core=rho_fuzzy_dark_matter0*2.5e3;
 <br>
 v_galactic_dark_matter_mps=100e3;
 <br>
@@ -56692,7 +56722,7 @@ wavelength_deBroglie_m=h/(m_Axion_kg*v_galactic_dark_matter_mps);
 <br>
 wavelength_galactic_halo_BEC_kpc=wavelength_deBroglie_m/kpc2m;
 <br>
-lambda_dB_kpc=mean(wavelength_galactic_halo_BEC_kpc);
+lambda_dB_kpc=mean(wavelength_galactic_halo_BEC_kpc)*factor_lambda2fix_M_halo;
 <br>
 j0_spherical_Bessel(x)=&lt;sin(x)/x;
 <br>
