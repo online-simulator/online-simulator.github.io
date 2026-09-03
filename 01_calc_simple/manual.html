@@ -776,11 +776,13 @@ test case
 <br>
 　⇒Axion：fuzzy暗黒物質のhalo定在波（回転曲線を平坦化するde Broglie波）
 <br>
-　⇒質量階層性[eV]の10進桁数：-(43→34→25→16)（horizonDE→breakingSUSY→bulkDM→quantum）
+　⇒質量階層性[eV]の10進桁数：-7±36（24*3=9*8=72桁）
 <br>
--43+9*(0,1,2,3) -> (-43,-34,-25,-16)（Higgs質量のscale[TeV]）
+-52+9*linspace(1,9,9) -> (-43,-34,-25,-16,-7,2,11,20,29)（Higgs質量[TeV]）
 <br>
-　⇒prompt decay：NeutralinoNLSP→GravitinoLSP+promptPhoton（Planck scale以下の即時崩壊）
+　　horizonDE→breakingSUSY→bulkDM→quantumLSP：-(43→34→25→16)
+<br>
+　　prompt decay：NeutralinoNLSP→GravitinoLSP+promptPhoton（Planck scale以下の即時崩壊）
 <br>
 　-20kpc：太陽系近傍の回転曲線（可視領域の平坦性）
 <br>
@@ -3259,7 +3261,13 @@ ja.m.wikipedia.org/wiki/項目を列挙する
 <br>
 ・楕円曲線
 <br>
+・モンスター群
+<br>
+・モンストラス・ムーンシャイン
+<br>
 ・J-不変量
+<br>
+・ガウス整数
 <br>
 ・楕円曲線暗号
 <br>
@@ -56307,7 +56315,7 @@ delta_d_strict=N_spin_Fermion+alpha_SPP;
 <br>
 V_macro_scale=10**n;
 <br>
-d_Boson=24;
+d_Boson=26-(1+1);
 <br>
 g=3;
 <br>
@@ -56334,10 +56342,6 @@ isN_Leech_by_quaternion=n===symmetry_SPP_Leech/symmetry_spin_quaternion;
 <br>
 isN_eq_3d_only_valid_CECC=n===g&amp;&amp;&amp;ratio_AD===alpha_Kepler&amp;&amp;&amp;n*g===N_dimension_superstring-1;
 <br>
-irreducible_representations_Kleinian_quartic_symmetry_168=(1,3,3,6,7,8);
-<br>
-is168_irreducible_representations_order=sum(trans(irreducible_representations_Kleinian_quartic_symmetry_168.**2))===symmetry_SVP_Klein;
-<br>
 <br>
 N_dimension_spacetime=1+3;
 <br>
@@ -56356,11 +56360,69 @@ S_spacetime=N_dimension_spacetime*2;
 N_dimension_spinor=S_spacetime**2;
 <br>
 <br>
+primes_Kleinian_quartic=factorize(symmetry_SVP_Klein,=&lt;trans(primes))=&gt;;
+<br>
+order_Kleinian_quartic=prod(primes_Kleinian_quartic);
+<br>
+irreducible_representations_Kleinian_quartic_symmetry168=(1,3,3,6,7,8);
+<br>
+is168=(sharpness_GUT/2,d_Boson*7,sum(trans(irreducible_representations_Kleinian_quartic_symmetry168.**2)));
+<br>
+primes_monster_group=(2,3,5,7,11,13,17,19,23,29,31,41,47,59,71);
+<br>
+exponents_monster_group=(46,20,9,6,2,3,1,1,1,1,1,1,1,1,1);
+<br>
+order_monster_group=prod(primes_monster_group**exponents_monster_group);
+<br>
+irreducible_representations_monster_group=(1,196883,21296876,842609326,18538750076,19360062527,293553734298);
+<br>
+<br>
+sigma(x,n)=&lt;n&gt;0&amp;&amp;&amp;_s((d)=&lt;n%d===0&amp;&amp;&amp;d**x,1,n);
+<br>
+Ramanujan_tau(n)=&lt;n^4*sigma(1,n)=&gt;-24*_s((k)=&lt;(35*k^4-52*k^3*n+18*k^2*n^2)*sigma(1,k)=&gt;*sigma(1,n-k)=&gt;,1,n-1);
+<br>
+E4(k)=&lt;k===0|||240*sigma(3,k)=&gt;;
+<br>
+An(n)=&lt;_s((i_)=&lt;_s((j)=&lt;E4(i_)=&gt;*E4(j)=&gt;*E4(n-i_-j)=&gt;,0,n-i_),0,n);
+<br>
+jn(n)=&lt;An(n+1)=&gt;-Ramanujan_tau(n+2)=&gt;-744*Ramanujan_tau(n+1)=&gt;-(n&gt;1&amp;&amp;&amp;_s((k)=&lt;jn(k)=&gt;*Ramanujan_tau(n+1-k)=&gt;,1,n-1));
+<br>
+j_invariants=(jn(1)=&gt;,jn(2)=&gt;,jn(3)=&gt;,jn(4)=&gt;,jn(5)=&gt;);
+<br>
+eta_div(n)=&lt;Ramanujan_tau(n+1)=&gt;-(n&gt;=2&amp;&amp;&amp;_s((m)=&lt;eta_div(n-2*m+2)=&gt;*Ramanujan_tau(m)=&gt;,2,n/2+1));
+<br>
+eta_mul(n)=&lt;((n+1)%2===0&amp;&amp;&amp;Ramanujan_tau((n+1)/2)=&gt;)-(n&gt;=1&amp;&amp;&amp;_s((k)=&lt;eta_mul(n-k)=&gt;*Ramanujan_tau(k+1)=&gt;,1,n));
+<br>
+t2a(n)=&lt;eta_div(n+1)=&gt;+4096*eta_mul(n)=&gt;;
+<br>
+t2a_invariants=(t2a(1)=&gt;,t2a(2)=&gt;,t2a(3)=&gt;,t2a(4)=&gt;,t2a(5)=&gt;);
+<br>
+r_monster={,irreducible_representations_monster_group.};
+<br>
+q1_Klein=r_monster[1]+r_monster[2];
+<br>
+q2_Klein=r_monster[1]+r_monster[2]+r_monster[3];
+<br>
+q3_Klein=2*(r_monster[1]+r_monster[2])+r_monster[3]+r_monster[4];
+<br>
+q4_Klein=3*(r_monster[1]+r_monster[2])+r_monster[3]+2*r_monster[4]+r_monster[5];
+<br>
+q5_Klein=5*(r_monster[1]+r_monster[2])+2*r_monster[3]+3*r_monster[4]+2*r_monster[5]+r_monster[7];
+<br>
+<br>
 Bn(n)=&lt;n==0|||-_s((k)=&lt;combin(n+1,k)*Bn(k)=&gt;,0,n-1)/(n+1);
 <br>
 Bn_denominator(n)=&lt;_p((p)=&lt;isPrime(p)=&gt;&amp;&amp;&amp;n%(p-1)===0&amp;&amp;&amp;p|||1,1,n+1);
 <br>
 Bn_numerator(n)=&lt;round(Bn(n)=&gt;*Bn_denominator(n)=&gt;);
+<br>
+B12=Bn(symmetry_SPP_Leech)=&gt;;
+<br>
+N_lattice_SPP_Leech(m)=&lt;(sigma(symmetry_SPP_Leech-1,m)=&gt;-Ramanujan_tau(m)=&gt;)*(-d_Boson/B12);
+<br>
+N_kissing_SPP_Leech=round(N_lattice_SPP_Leech(2)=&gt;);
+<br>
+q1_SPP_Leech=N_kissing_SPP_Leech+symmetry_SPP_Leech*(1+d_Boson/symmetry_SPP_Leech+d_Boson);
 <br>
 order_image_J_homomorphism(m)=&lt;Bn_denominator(2*m)=&gt;*(4*m);
 <br>
@@ -56378,9 +56440,23 @@ primes_cyclic_group_Riemann_hypothesis_Atiyah2018=(primes_order_image_J_homomorp
 <br>
 primes_L_random_walk_Collatz_conjecture=L_random_walk.filter0((n)=&lt;isPrime(n)=&gt;);
 <br>
+ab_27869189=(625,5242);
+<br>
+primes_4np1_Gaussian_integer_ring=sum(((1,2):(2,3):(4,11):ab_27869189)**2).;
+<br>
+Euler_irregular_primes_edo12L_edo53L_691=(L_transition_12edo,L_transition_53edo,irregular_prime_Todd_obstruction_B12_numerator);
+<br>
+regular_prime_edo53L_B137_numerator=L_transition_53edo;
+<br>
+irregular_prime_edo10781274L_B22581552_numerator=L_limit_10781274edo;
+<br>
 edo10781274_FSC_inv_ZPE_eq_gamma_Euler_Mascheroni_as_true_vacuum=max(primes_L_random_walk_Collatz_conjecture);
 <br>
 edo53_FSC_inv_ZPE_gt_gamma_Euler_Mascheroni_as_false_vacuum=max(primes_L_random_walk_Collatz_conjecture[0][0][][##primes_L_random_walk_Collatz_conjecture-1]);
+<br>
+is137=(symmetry_SVP_Klein-[symmetry_SPP_Leech+symmetry_spin_quaternion*g+7,31],sum((N_dimension_spacetime,N_dimension_M_theory)**2));
+<br>
+extended_binary_Golay_code_4in24=(reverse(ab_27869189),xy_limit_10781274edo)/sqrt(S_spacetime);
 <br>
 <br>
 FSC_inv_bare(ratio_alpha,ratio_dalpha)=&lt;symmetry_SVP_Klein*(alpha_Kepler*ratio_alpha)**2*ratio_dalpha;
@@ -56696,9 +56772,9 @@ isHeld_Higgs_mass={m_soft_eV,m_geometric_mean_eV};
 <br>
 m_GravitinoLSP_eV=m_soft_eV*motif_UV2IR;
 <br>
-horizonDE_breakingSUSY_bulkDM_quantum_eV=10**floor(log10({m_Hubble_dark_energy_eV,m_soft_eV,m_Axion_eV,m_GravitinoLSP_eV}));
+horizonDE_breakingSUSY_bulkDM_quantumLSP_eV=10**floor(log10({m_Hubble_dark_energy_eV,m_soft_eV,m_Axion_eV,m_GravitinoLSP_eV}));
 <br>
-horizonDE_breakingSUSY_bulkDM_quantum_decDigit=-43+N_transverse_dimension_M_theory*(0,1,2,3);
+mass_hierarchy_eV_decDigit72_eq_36times2_eq_24times3_eq_9times8=-52+N_transverse_dimension_M_theory*linspace(1,9,9);
 <br>
 Gamma_NeutralinoNLSP2GravitinoLSP_promptPhoton_eV=1**2*1e12**5/(16*pi*F_SUGRA_eff_SUSY_breaking_eV2**2);
 <br>
