@@ -2410,17 +2410,11 @@ N_transverse_dimension_superstring=8
 N_transverse_dimension_M_theory=N_dimension_M_theory-(1+1)
 N_transverse_dimension_M_theory=9
 
-N_dimension_M_theory=N_dimension_superstring+1
-N_dimension_M_theory=11
-
 N_superstring_sectors=N_dimension_superstring/2
 N_superstring_sectors=5
 
 N_dimension_superspace=symmetry_spin_quaternion*N_dimension_spacetime
 N_dimension_superspace=16
-
-N_dimension_spacetime=1+3
-N_dimension_spacetime=4
 
 isN_eq_3d_only_valid_CECC=n===g&&&ratio_AD===alpha_Kepler&&&n*g===N_dimension_superstring-1
 isN_eq_3d_only_valid_CECC=true
@@ -2622,9 +2616,6 @@ infoLost[r ] 0.05793073130402526:
 infoLost[r ] 0.057993769283618546
 )
 
-N_dimension_superstring=(1+3+6)
-N_dimension_superstring=10
-
 superfluid={(alpha_SPP+alpha_SVP)/2,=gamma_Euler_Mascheroni,=c_BAO}
 superfluid=(
 infoLost[r ] 0.575435178639665:
@@ -2634,9 +2625,6 @@ infoLost[r ] 0.575435178639665:
 
 c_BAO=1/sqrt(3)
 c_BAO=0.5773502691896258
-
-gamma_Euler_Mascheroni=0.57721566490153286
-gamma_Euler_Mascheroni=0.5772156649015329
 
 ZPE_gamma=-(log2(1+1/xi_adelic_Haar_measure_dynamic(x_digital,kappa_gamma)=>)-log2(1+1/xi_adelic_Haar_measure_dynamic(x_analog,kappa_gamma)=>))*ln2
 ZPE_gamma=infoLost[r ] 0.5771765700770618
@@ -2670,12 +2658,6 @@ infoLost[r ] 1.592456338746078,infoLost[r ] 0.5264813402493068
 
 kappa_gamma=sqrt(alpha_SPP/alpha_SVP)
 kappa_gamma=infoLost[r ] 1.051669636152087
-
-=(1+log2(gamma_EM_full(1/2,14)=>**2/(e*gamma_EM_full(1,14)=>)))/2
-infoLost[r ] 0.604400544291677
-
-alpha_SPP=log2(2*pi/e)/2
-alpha_SPP=0.6044005442916777
 
 =(1+1/ln10**2)*log2(1+pi**(x_digital/x_analog)/(gamma_EM_full(x_digital/x_analog,14)=>*zeta_EM_full(x_digital,100,14)=>))-(1/ln10**2)*log2(1+6/pi)
 infoLost[r ] 0.5464698129876533
@@ -3338,6 +3320,217 @@ x_e_power_1_by_e=infoLost[r ] 1.444667861009766+O(9e-17)
 
 calc_W(y)=<Newton((x)=<x**y=y,,false,1e3,0)
 stored_eqn(calc_W)
+
+holographic_height={y_saddle_point_strict,=y_saddle_point_Klein,=L4_spacetime}
+holographic_height=(
+2.2913:
+infoLost[r ] 2.2426959384769276:
+2.2401985250169707
+)
+
+L4_raw=7*sqrt(7)*pi**4/720
+L4_raw=2.505613350263547
+
+L4_spacetime=23*pi**4/(378*sqrt(7))
+L4_spacetime=2.2401985250169707
+
+L4_positive=L_function(4,=<chi7,1e4)=>
+L4_positive=infoLost[r ] 1.0519941275959674
+
+L_function(s,=<chi,N)=<_s((n)=<chi(n)=>/n**s,1,N)
+stored_eqn(L_function)
+
+chi7(n)=<n%7===0&&&0||||(n%7===1|||n%7===2|||n%7===4)&&&1|||-1
+stored_eqn(chi7)
+
+y_Chowla_Selberg=sqrt(7)/2
+y_Chowla_Selberg=1.3228756555322954
+
+y_saddle_point_Klein=y_D_Klein*(49/45)**0.25/2
+y_saddle_point_Klein=infoLost[r ] 2.2426959384769276
+
+y_D_Klein=sqrt(7*G_EM(1/7)=>*G_EM(2/7)=>*G_EM(4/7)=>/(G_EM(3/7)=>*G_EM(5/7)=>*G_EM(6/7)=>))/2
+y_D_Klein=infoLost[r ] 4.390909647527695
+
+D_Klein=-7
+D_Klein=-7
+
+E4d_saddle_point_IRarea_as_false_vacuum=E4d_Ramanujan_Serre(s_saddle_point_IRarea_as_false_vacuum,50)=>
+E4d_saddle_point_IRarea_as_false_vacuum=infoLost[ri] -3.1034229434231084e-10-0.0008394728880252377i
+
+E4d_cusp_point_IRarea_as_true_vacuum=E4d_Ramanujan_Serre(s_cusp_point_IRarea_as_true_vacuum,50)=>
+E4d_cusp_point_IRarea_as_true_vacuum=infoLost[r ] -0.00000500624882983754i
+
+E4d_rho_point_UVarea_as_true_vacuum=E4d_Ramanujan_Serre(s_rho_point_UVarea_as_true_vacuum,50)=>
+E4d_rho_point_UVarea_as_true_vacuum=infoLost[ri] -0.00001428708341267527-6.0350861208101625i
+
+E4d_rho_point=E4d_Ramanujan_Serre(s_rho_point,50)=>
+E4d_rho_point=infoLost[ri] -0.00016102975385775024-6.03517855348671i
+
+E4d_local_max_UVarea_from_D_Gauss_ab_80=E4d_Ramanujan_Serre(s_local_max_UVarea_from_D_Gauss_ab_80,50)=>
+E4d_local_max_UVarea_from_D_Gauss_ab_80=infoLost[ri] 0.00026817521234164644+4096.000284845192i
+
+E4d_inflection_point_UVarea_from_D_Gauss_ab_97=E4d_Ramanujan_Serre(s_inflection_point_UVarea_from_D_Gauss_ab_97,50)=>
+E4d_inflection_point_UVarea_from_D_Gauss_ab_97=infoLost[ri] 509.73571375904936-512.4285614093839i
+
+E4d_local_min_UVarea_from_D_Gauss_ab_116=E4d_Ramanujan_Serre(s_local_min_UVarea_from_D_Gauss_ab_116,50)=>
+E4d_local_min_UVarea_from_D_Gauss_ab_116=infoLost[ri] -0.00010917599896006091+317.4022238081932i
+
+E4d_inflection_point_UVarea_from_D_Gauss_ab_137=E4d_Ramanujan_Serre(s_inflection_point_UVarea_from_D_Gauss_ab_137,50)=>
+E4d_inflection_point_UVarea_from_D_Gauss_ab_137=infoLost[ri] -509.7363864398253-512.4279617874192i
+
+E4d_local_max_UVarea_from_D_Gauss_ab_160=E4d_Ramanujan_Serre(s_local_max_UVarea_from_D_Gauss_ab_160,50)=>
+E4d_local_max_UVarea_from_D_Gauss_ab_160=infoLost[ri] 0.00034170507496151544+4096.004521066583i
+
+E4d_Ramanujan_Serre(s,N)=<(2*pi*i/3)*(E2_Lambert(s,N)=>*E2k(s,2,N)=>-E2k(s,3,N)=>)
+stored_eqn(E4d_Ramanujan_Serre)
+
+E2_Lambert(s,N)=<1-24*_s((n)=<[(qn)=<(n*qn)/(1-qn)](exp(2*pi*i*s*n))=>,1,N)
+stored_eqn(E2_Lambert)
+
+s_saddle_point_IRarea_as_false_vacuum=x_base+i*y_saddle_point_strict
+s_saddle_point_IRarea_as_false_vacuum=2.5+2.2913i
+
+y_saddle_point_strict=2.2913
+y_saddle_point_strict=2.2913
+
+s_cusp_point_IRarea_as_true_vacuum=x_base+1e100i
+s_cusp_point_IRarea_as_true_vacuum=2.5+1e+100i
+
+s_rho_point_UVarea_as_true_vacuum=s_rho_point+1+2
+s_rho_point_UVarea_as_true_vacuum=2.5+0.8660254037844387i
+
+s_rho_point=e**(i*(2*pi/3))
+s_rho_point=-0.4999999999999998+0.8660254037844387i
+
+s_local_max_UVarea_from_D_Gauss_ab_80=(8+i)/4
+s_local_max_UVarea_from_D_Gauss_ab_80=2+0.25i
+
+s_inflection_point_UVarea_from_D_Gauss_ab_97=(9+i)/4
+s_inflection_point_UVarea_from_D_Gauss_ab_97=2.25+0.25i
+
+s_local_min_UVarea_from_D_Gauss_ab_116=(10+i)/4
+s_local_min_UVarea_from_D_Gauss_ab_116=2.5+0.25i
+
+s_inflection_point_UVarea_from_D_Gauss_ab_137=(11+i)/4
+s_inflection_point_UVarea_from_D_Gauss_ab_137=2.75+0.25i
+
+s_local_max_UVarea_from_D_Gauss_ab_160=(12+i)/4
+s_local_max_UVarea_from_D_Gauss_ab_160=3+0.25i
+
+ab_norm=(N_dimension_superstring+[2,1,0,-1,-2])**2+N_dimension_spacetime**2
+ab_norm=(
+160,137,116,97,80
+)
+
+D_Gauss=-4
+D_Gauss=-4
+
+holographic_ZPE_coupled={alpha_SPP,=ZPE_decoupled_M_theory*kappaW_inv_M_theory,=ZPE_decoupled_F_theory*kappaW_inv_F_theory}
+holographic_ZPE_coupled=(
+0.6044005442916777:
+infoLost[ri] 0.6044005442916786+1.0603040079800312e-26i+O(3e-1+5e-2i):
+infoLost[ri] 0.6044005442916779+1.066982773901842e-34i+O(8e-2+2e-3i)
+)
+
+kappaW_inv_F_theory=calc_kappaW_inv(x_holographic_F_theory)=>
+kappaW_inv_F_theory=infoLost[ri] 0.632419716711331+1.1164466180249339e-34i+O(8e-2+2e-3i)
+
+kappaW_inv_M_theory=calc_kappaW_inv(x_holographic_M_theory)=>
+kappaW_inv_M_theory=infoLost[ri] 0.8180030904757603+1.4350284154491656e-26i+O(4e-1+7e-2i)
+
+x_holographic_F_theory=calc_x_holographic(x_branch+1e-3,ZPE_decoupled_F_theory)=>
+x_holographic_F_theory=infoLost[ri] -0.3583778280229907+2.379274167553578e-26i+O(3e-3+4e-4i)
+
+x_holographic_M_theory=calc_x_holographic(x_branch+1e-3,ZPE_decoupled_M_theory)=>
+x_holographic_M_theory=infoLost[ri] -0.36602935932292346+3.5773974143635904e-25i+O(1e-4+2e-5i)
+
+calc_x_holographic(x0,ZPE)=<Newton((x)=<calc_kappaW_inv(x)=>=alpha_SPP/ZPE,=<{x0},false,20)
+stored_eqn(calc_x_holographic)
+
+calc_kappaW_inv(x)=<W_Lambert(x,0)=>/W_Lambert(x,-2)=>
+stored_eqn(calc_kappaW_inv)
+
+ZPE_decoupled_F_theory=calc_nonlinear_ZPE_decoupled(N_dimension_superstring+[0,2])=>
+ZPE_decoupled_F_theory=infoLost[r ] 0.9556952895691541
+
+ZPE_decoupled_M_theory=calc_nonlinear_ZPE_decoupled(N_dimension_superstring+[0,1])=>
+ZPE_decoupled_M_theory=infoLost[r ] 0.7388731794890311
+
+calc_nonlinear_ZPE_decoupled(n0,n1)=<ZPE_superstring_CFT_le_alpha_SPP*calc_kappaG(n0,n1)=>
+stored_eqn(calc_nonlinear_ZPE_decoupled)
+
+kappaG_F_theory=calc_kappaG(N_dimension_superstring+[0,2])=>
+kappaG_F_theory=infoLost[r ] 1.5915494309189537
+
+kappaG_M_theory=calc_kappaG(N_dimension_superstring+[0,1])=>
+kappaG_M_theory=infoLost[r ] 1.2304687500000004
+
+calc_kappaG(n0,n1)=<(G_EM(n1/2)=>/pi**(n1/2))/(G_EM(n0/2)=>/pi**(n0/2))
+stored_eqn(calc_kappaG)
+
+ZPE_superstring_CFT_le_alpha_SPP=ZPE_spacetime*x_base
+ZPE_superstring_CFT_le_alpha_SPP=0.6004810601561648
+
+ZPE_spacetime=intVinf
+ZPE_spacetime=0.2401924240624659
+
+intVinf=0.2401924240624659
+intVinf=0.2401924240624659
+
+intV9=integral_V_Haar_measure(9)=>
+intV9=infoLost[ri] 0.2596334859610002+O(4e-100)
+
+intV5=integral_V_Haar_measure(5)=>
+intV5=infoLost[ri] 0.35441911601863163+O(3e-100)
+
+integral_V_Haar_measure(N)=<_i0((x)=<_i0((y)=<V2k(x+i*y,2,N)=>/y**2,sqrt(1-x**2),inf,N),[-1,1]/2,N)
+stored_eqn(integral_V_Haar_measure)
+
+V2k(s,k,N)=<abs(E2k(s,k,N)=>)**2/imag(s)**4
+stored_eqn(V2k)
+
+E2k(s,k,N)=<Eisenstein_G2k(s,k,N)=>/(2*zeta_EM_full(2*k,100,14)=>)
+stored_eqn(E2k)
+
+Eisenstein_G2k(s,k,N)=<(k>1&&imag(s)>0)&&&_s((n)=<_s((m)=<~~(m===0&&n===0)&&&(m+n*s)**(-2*k),-N,N),-N,N)||||NaN
+stored_eqn(Eisenstein_G2k)
+
+ZPE_geometry=integral_V_Poincare_metric(50)=>
+ZPE_geometry=infoLost[r ] 0.2566001196409604+O(2e-100)
+
+integral_V_Poincare_metric(N)=<_i0((x)=<_i0((y)=<V_geometry(y)=>/y**2,sqrt(1-x**2),inf,N),1/2*[-1,1],N)
+stored_eqn(integral_V_Poincare_metric)
+
+V_geometry(y)=<1/y**4
+stored_eqn(V_geometry)
+
+x_base=N_dimension_superstring/N_dimension_spacetime
+x_base=2.5
+
+N_dimension_F_theory=N_dimension_superstring+2
+N_dimension_F_theory=12
+
+N_dimension_M_theory=N_dimension_superstring+1
+N_dimension_M_theory=11
+
+N_dimension_superstring=(1+3+6)
+N_dimension_superstring=10
+
+N_dimension_spacetime=1+3
+N_dimension_spacetime=4
+
+gamma_Euler_Mascheroni=0.57721566490153286
+gamma_Euler_Mascheroni=0.5772156649015329
+
+=(1+log2(G_EM(1/2)=>**2/(e*G_EM(1)=>)))/2
+infoLost[r ] 0.604400544291677
+
+alpha_SPP=log2(2*pi/e)/2
+alpha_SPP=0.6044005442916777
+
+G_EM(s)=<gamma_EM_full(s,14)=>
+stored_eqn(G_EM)
 
 xi_adelic_Haar_measure_dynamic(s,kappa)=<xi_EM_full(1/2+(s-1/2)*kappa,100,14)=>/(0.5*s*(s-1))
 stored_eqn(xi_adelic_Haar_measure_dynamic)
@@ -5494,7 +5687,7 @@ clear
 local storage cleared
 
 [Pinv_y=(-0.999999427,-0.999936657,-0.997300203,-0.954499736,-0.682689492,0,0.682689492,0.954499736,0.997300203,0.999936657,0.999999427:-5,-4,-3,-2,-1,0,1,2,3,4,5),N=1,arr=[],_r((n)=<arr.push(rand_table(=<Pinv_y)=>),,N),=<arr.]=>
-0.2713934711261655
+0.8829076959215059
 
 rand_table(csv)=<last[table=sort0(csv),ymin=min(table)[0],ymax=max(table)[0],y=ymin+(ymax-ymin)*rand(),x=interp(y:table),x]
 stored_eqn(rand_table)
@@ -7735,4 +7928,4 @@ center=true&wheel=true&drag=false&test-case=false&plot-all=true&relzooming=true&
 --------------------------------
 --------------------------------
 
-online-simulator.github.io.7.544.736.32.202 @ Thu Sep 03 2026 20:06:09 GMT+0900 (日本標準時) @ Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/152.0.0.0 Safari/537.36
+online-simulator.github.io.7.544.737.32.202 @ Sun Sep 06 2026 19:10:48 GMT+0900 (日本標準時) @ Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/152.0.0.0 Safari/537.36
