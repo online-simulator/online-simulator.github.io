@@ -3305,7 +3305,7 @@ calc_W(y)=<Newton((x)=<x**y=y,,false,1e3,0)
 stored_eqn(calc_W)
 
 FSC_inv_now=FSC_inv_loop0+FSC_inv_loop1+FSC_inv_loop2+FSC_inv_loop3
-FSC_inv_now=infoLost[ri] 137.0359992138166
+FSC_inv_now=infoLost[ri] 137.03327817635034
 
 FSC_inv_loop3=-alpha_SPP*gamma_Euler_Mascheroni/(topological_factor_Klein+alpha_SPP/N_dimension_F_theory)
 FSC_inv_loop3=-0.019327555368045164
@@ -3317,9 +3317,9 @@ FSC_inv_loop1=ln(2*pi/gamma_Euler_Mascheroni)
 FSC_inv_loop1=2.38741637939099
 
 FSC_inv_loop0=factor_central_charge_CFT*geometric_degrees_spacetime/V4_saddle_point_IRarea_as_false_vacuum
-FSC_inv_loop0=infoLost[ri] 128.38472508261407
+FSC_inv_loop0=infoLost[ri] 128.3820040451478
 
-topological_factor_Klein=(2*g_Klein+1)+N_dimension_M_theory
+topological_factor_Klein=(2*g_Klein_X7+1)+N_dimension_M_theory
 topological_factor_Klein=18
 
 geometric_degrees_spacetime=N_dimension_superstring/N_dimension_spacetime+alpha_SPP
@@ -3329,11 +3329,11 @@ factor_central_charge_CFT=3/2
 factor_central_charge_CFT=1.5
 
 V4_saddle_point_IRarea_as_false_vacuum=V2k(s_saddle_point_IRarea_as_false_vacuum,2,250)=>
-V4_saddle_point_IRarea_as_false_vacuum=infoLost[ri] 0.0362706763864708
+V4_saddle_point_IRarea_as_false_vacuum=infoLost[ri] 0.03627144513805798
 
-holographic_height={y_saddle_point_strict,=y_saddle_point_Klein,=L4_spacetime}
+holographic_height={y_saddle_point,=y_D_Klein_mod,=L4_spacetime}
 holographic_height=(
-2.2913:
+2.2912878474779204:
 infoLost[r ] 2.2426959384769276:
 2.2401985250169707
 )
@@ -3353,68 +3353,92 @@ stored_eqn(L_function)
 chi7(n)=<n%7===0&&&0||||(n%7===1|||n%7===2|||n%7===4)&&&1|||-1
 stored_eqn(chi7)
 
-y_Chowla_Selberg=sqrt(7)/2
-y_Chowla_Selberg=1.3228756555322954
+E4d_D_Klein_mod=E4d_Ramanujan_Serre(s_D_Klein_mod,50)=>
+E4d_D_Klein_mod=infoLost[ri] -9.093903660481393e-8-0.8927636080628415i
 
-y_saddle_point_Klein=y_D_Klein*(49/45)**0.25/2
-y_saddle_point_Klein=infoLost[r ] 2.2426959384769276
+E4d_D_Klein=E4d_Ramanujan_Serre(s_D_Klein,50)=>
+E4d_D_Klein=infoLost[ri] 5.290723284869987e-7-0.45548624124092474i
+
+E4d_Chowla_Selberg=E4d_Ramanujan_Serre(s_Chowla_Selberg,50)=>
+E4d_Chowla_Selberg=infoLost[ri] -0.0000021210644490067526-1.791640490571599i
+
+s_D_Klein_mod=x_base+i*y_D_Klein_mod
+s_D_Klein_mod=infoLost[r ] 2.5+2.2426959384769276i
+
+s_D_Klein=x_base+i*y_D_Klein
+s_D_Klein=infoLost[r ] 2.5+4.390909647527695i
+
+s_Chowla_Selberg=x_base+i*y_Chowla_Selberg
+s_Chowla_Selberg=2.5+1.3228756555322954i
+
+y_D_Klein_mod=y_D_Klein*(49/45)**0.25/2
+y_D_Klein_mod=infoLost[r ] 2.2426959384769276
 
 y_D_Klein=sqrt(7*G_EM(1/7)=>*G_EM(2/7)=>*G_EM(4/7)=>/(G_EM(3/7)=>*G_EM(5/7)=>*G_EM(6/7)=>))/2
 y_D_Klein=infoLost[r ] 4.390909647527695
 
-D_Klein=-(2*g_Klein+1)
-D_Klein=-7
-
-g_Klein=(4-1)*(4-2)/2
-g_Klein=3
+y_Chowla_Selberg=sqrt(7)/2
+y_Chowla_Selberg=1.3228756555322954
 
 E4d_saddle_point_IRarea_as_false_vacuum=E4d_Ramanujan_Serre(s_saddle_point_IRarea_as_false_vacuum,50)=>
-E4d_saddle_point_IRarea_as_false_vacuum=infoLost[ri] -3.1034229434231084e-10-0.0008394728880252377i
+E4d_saddle_point_IRarea_as_false_vacuum=infoLost[ri] -2.379355851555838e-10-0.8735955381895496i
 
 E4d_cusp_point_IRarea_as_true_vacuum=E4d_Ramanujan_Serre(s_cusp_point_IRarea_as_true_vacuum,50)=>
 E4d_cusp_point_IRarea_as_true_vacuum=infoLost[r ] -0.00000500624882983754i
 
-E4d_rho_point_UVarea_as_true_vacuum=E4d_Ramanujan_Serre(s_rho_point_UVarea_as_true_vacuum,50)=>
-E4d_rho_point_UVarea_as_true_vacuum=infoLost[ri] -0.00001428708341267527-6.0350861208101625i
+E4d_omega_point3_UVarea_as_true_vacuum=E4d_Ramanujan_Serre(s_omega_point3_UVarea_as_true_vacuum,50)=>
+E4d_omega_point3_UVarea_as_true_vacuum=infoLost[ri] 4.0084928387357345e-10-6.035085569352492i
 
-E4d_rho_point=E4d_Ramanujan_Serre(s_rho_point,50)=>
-E4d_rho_point=infoLost[ri] -0.00016102975385775024-6.03517855348671i
+E4d_omega_point3=E4d_Ramanujan_Serre(s_omega_point3,50)=>
+E4d_omega_point3=infoLost[ri] 3.5442271462331932e-15-6.03508558291497i
 
 E4d_local_max_UVarea_from_D_Gauss_ab_80=E4d_Ramanujan_Serre(s_local_max_UVarea_from_D_Gauss_ab_80,50)=>
-E4d_local_max_UVarea_from_D_Gauss_ab_80=infoLost[ri] 0.00026817521234164644+4096.000284845192i
+E4d_local_max_UVarea_from_D_Gauss_ab_80=infoLost[ri] 0.00039070611185254675+2048.000437862904i
 
 E4d_inflection_point_UVarea_from_D_Gauss_ab_97=E4d_Ramanujan_Serre(s_inflection_point_UVarea_from_D_Gauss_ab_97,50)=>
-E4d_inflection_point_UVarea_from_D_Gauss_ab_97=infoLost[ri] 509.73571375904936-512.4285614093839i
+E4d_inflection_point_UVarea_from_D_Gauss_ab_97=infoLost[ri] 509.73577265524216+0.00006518831653899461i
 
 E4d_local_min_UVarea_from_D_Gauss_ab_116=E4d_Ramanujan_Serre(s_local_min_UVarea_from_D_Gauss_ab_116,50)=>
-E4d_local_min_UVarea_from_D_Gauss_ab_116=infoLost[ri] -0.00010917599896006091+317.4022238081932i
+E4d_local_min_UVarea_from_D_Gauss_ab_116=infoLost[ri] 0.000004130679067841554+245.81148831916113i
 
 E4d_inflection_point_UVarea_from_D_Gauss_ab_137=E4d_Ramanujan_Serre(s_inflection_point_UVarea_from_D_Gauss_ab_137,50)=>
-E4d_inflection_point_UVarea_from_D_Gauss_ab_137=infoLost[ri] -509.7363864398253-512.4279617874192i
+E4d_inflection_point_UVarea_from_D_Gauss_ab_137=infoLost[ri] -509.73641435601434+0.00006877609929174322i
 
 E4d_local_max_UVarea_from_D_Gauss_ab_160=E4d_Ramanujan_Serre(s_local_max_UVarea_from_D_Gauss_ab_160,50)=>
-E4d_local_max_UVarea_from_D_Gauss_ab_160=infoLost[ri] 0.00034170507496151544+4096.004521066583i
+E4d_local_max_UVarea_from_D_Gauss_ab_160=infoLost[ri] 0.0005117020358108752+2048.00666687358i
 
-E4d_Ramanujan_Serre(s,N)=<(2*pi*i/3)*(E2_Lambert(s,N)=>*E2k(s,2,N)=>-E2k(s,3,N)=>)
+E4d_Ramanujan_Serre(s,N)=<i*(2*pi/3)*(E2_Lambert_mod(s,N)=>*E2k(s,2,N)=>-E2k(s,3,N)=>)
 stored_eqn(E4d_Ramanujan_Serre)
+
+E2_Lambert_mod(s,N)=<E2_Lambert(s,N)=>-3/(pi*imag(s))
+stored_eqn(E2_Lambert_mod)
 
 E2_Lambert(s,N)=<1-24*_s((n)=<[(qn)=<(n*qn)/(1-qn)](exp(2*pi*i*s*n))=>,1,N)
 stored_eqn(E2_Lambert)
 
-s_saddle_point_IRarea_as_false_vacuum=x_base+i*y_saddle_point_strict
-s_saddle_point_IRarea_as_false_vacuum=2.5+2.2913i
+=[(p,q)=<(p+q)/(p-q)+i*sqrt(p*q/(p-q))](pq_only)=>
+2.5+2.29128784747792i
 
-y_saddle_point_strict=2.2913
-y_saddle_point_strict=2.2913
+=Newton((x)=<2*x**2-10*x+23,,,50)
+infoLost[ri] 2.5+2.2912878474779204i+O(8e-16+4e-16i)
+
+s_saddle_point_IRarea_as_false_vacuum=x_base+i*y_saddle_point
+s_saddle_point_IRarea_as_false_vacuum=2.5+2.2912878474779204i
+
+y_saddle_point=y_omega_point3*sqrt(abs(D_Klein))
+y_saddle_point=2.2912878474779204
+
+y_omega_point3=imag(s_omega_point3)
+y_omega_point3=0.8660254037844387
 
 s_cusp_point_IRarea_as_true_vacuum=x_base+1e100i
 s_cusp_point_IRarea_as_true_vacuum=2.5+1e+100i
 
-s_rho_point_UVarea_as_true_vacuum=s_rho_point+1+2
-s_rho_point_UVarea_as_true_vacuum=2.5+0.8660254037844387i
+s_omega_point3_UVarea_as_true_vacuum=s_omega_point3+1+2
+s_omega_point3_UVarea_as_true_vacuum=2.5+0.8660254037844387i
 
-s_rho_point=e**(i*(2*pi/3))
-s_rho_point=-0.4999999999999998+0.8660254037844387i
+s_omega_point3=e**(i*(2*pi/3))
+s_omega_point3=-0.4999999999999998+0.8660254037844387i
 
 s_local_max_UVarea_from_D_Gauss_ab_80=(8+i)/4
 s_local_max_UVarea_from_D_Gauss_ab_80=2+0.25i
@@ -3436,8 +3460,19 @@ ab_norm=(
 160,137,116,97,80
 )
 
+pq_only=(7,3)
+pq_only=(
+7,3
+)
+
 D_Gauss=-4
 D_Gauss=-4
+
+D_Klein=-(2*g_Klein_X7+1)
+D_Klein=-7
+
+g_Klein_X7=(4-1)*(4-2)/2
+g_Klein_X7=3
 
 [30,33,34,35,39,40,41,43,45,48,64].map((n)=<calc_genus_X0(n)=>)
 (
@@ -5740,7 +5775,7 @@ clear
 local storage cleared
 
 [Pinv_y=(-0.999999427,-0.999936657,-0.997300203,-0.954499736,-0.682689492,0,0.682689492,0.954499736,0.997300203,0.999936657,0.999999427:-5,-4,-3,-2,-1,0,1,2,3,4,5),N=1,arr=[],_r((n)=<arr.push(rand_table(=<Pinv_y)=>),,N),=<arr.]=>
--0.42779543504003203
+-0.507174409225174
 
 rand_table(csv)=<last[table=sort0(csv),ymin=min(table)[0],ymax=max(table)[0],y=ymin+(ymax-ymin)*rand(),x=interp(y:table),x]
 stored_eqn(rand_table)
@@ -7981,4 +8016,4 @@ center=true&wheel=true&drag=false&test-case=false&plot-all=true&relzooming=true&
 --------------------------------
 --------------------------------
 
-online-simulator.github.io.7.544.737.32.202 @ Mon Sep 07 2026 13:32:05 GMT+0900 (日本標準時) @ Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/152.0.0.0 Safari/537.36
+online-simulator.github.io.7.544.737.32.202 @ Tue Sep 08 2026 01:37:55 GMT+0900 (日本標準時) @ Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/152.0.0.0 Safari/537.36

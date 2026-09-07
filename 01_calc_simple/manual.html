@@ -440,9 +440,43 @@ test case
 <br>
 　-G-5~-9：<span class="run">Ver.2.730.104</span>以降、以上の不具合を修正後に追加
 <br>
-・<span class="sF">vacuum</span>：<span class="run">Ver.2.907.179</span>以降、真空
+・<span class="sF">vacuum</span>：<span class="run">Ver.2.907.179</span>以降、真空（Eisenstein級数のpotential）
 <br>
-　⇒falseの真空の鞍点近傍：s=10/4+2.2913i
+　⇒potential：V4(s)=|E4(s)|**2/imag(s)**4
+<br>
+　　tunnel障壁のheight上界（谷位置）：4/10&gt;4/11=0.3636363636363636...（次元比）
+<br>
+　　linear換算：次元&le;10（超弦理論以内）
+<br>
+x_base=10/4; x_base -> 2.5（基準の半整数）
+<br>
+integral_V_Haar_measure(N)=&lt;_i0((x)=&lt;_i0((y)=&lt;V2k(x+i*y,2,N)=&gt;/y**2,sqrt(1-x**2),inf,N),[-1,1]/2,N);
+<br>
+ZPE_spacetime=0.2401924240624659; ZPE_spacetime -> 0.2401924240624659（上のHaar測度のq展開）
+<br>
+ZPE_superstring=ZPE_spacetime*x_base; ZPE_superstring -> 0.6004810601561648（下の球充填の上界）
+<br>
+alpha_SPP=log2(2*pi/e)/2; alpha_SPP -> 0.6044005442916777
+<br>
+　⇒trueの真空：相転移のω点@s→s-2（1の原始3乗根）　⇔　無限遠のcusp点@imag(s)→∞
+<br>
+s_omega_point3=e**(i*(2pi/3));
+<br>
+y_omega_point3=imag(s_omega_point3); y_omega_point3 -> 0.8660254037844387
+<br>
+　⇒falseの真空：s=10/4+i*sqrt(7*3/4)=(7+3)/(7-3)+i*sqrt(7*3/(7-3))（ω点に対する高widthの写像）
+<br>
+Newton((x)=&lt;2x**2-10x+23,,,50) -> infoLost[ri] 2.5+2.2912878474779204i+O(8e-16+4e-16i)
+<br>
+D_Klein=-7; y_saddle_point=y_omega_point3*sqrt(abs(D_Klein));
+<br>
+y_saddle_point -> 2.2912878474779204（Klein曲線X(7)に対応）
+<br>
+　⇒saddle点：(p+q)/(p-q)が半整数になる最小の「いとこ素数」(p,q)=(7,3)
+<br>
+pq_only=(7,3); [(p,q)=&lt;(p+q)/(p-q)+i*sqrt(p*q/(p-q))](pq_only)=&gt; -> 2.5+2.29128784747792i
+<br>
+　　real(V4')=0@real(V4")&gt;0：V4≒(4/11)/10=0.03636363636363636（≒tunnel障壁のheight/10）
 <br>
 ・Eisenstein：Eisenstein級数を<a href="#span-out-complex">複素数平面</a>にplot
 <br>
@@ -55929,7 +55963,13 @@ cusps=cusps0(n)=&gt;,
 [30,33,34,35,39,40,41,43,45,48,64].map((n)=&lt;calc_genus_X0(n)=&gt;);
 <br>
 <br>
+g_Klein_X7=(4-1)*(4-2)/2;
+<br>
+D_Klein=-(2*g_Klein_X7+1);
+<br>
 D_Gauss=-4;
+<br>
+pq_only=(7,3);
 <br>
 ab_norm=(N_dimension_superstring+[2,1,0,-1,-2])**2+N_dimension_spacetime**2;
 <br>
@@ -55943,19 +55983,27 @@ s_inflection_point_UVarea_from_D_Gauss_ab_97=(9+i)/4;
 <br>
 s_local_max_UVarea_from_D_Gauss_ab_80=(8+i)/4;
 <br>
-s_rho_point=e**(i*(2*pi/3));
+s_omega_point3=e**(i*(2*pi/3));
 <br>
-s_rho_point_UVarea_as_true_vacuum=s_rho_point+1+2;
+s_omega_point3_UVarea_as_true_vacuum=s_omega_point3+1+2;
 <br>
 s_cusp_point_IRarea_as_true_vacuum=x_base+1e100i;
 <br>
-y_saddle_point_strict=2.2913;
+y_omega_point3=imag(s_omega_point3);
 <br>
-s_saddle_point_IRarea_as_false_vacuum=x_base+i*y_saddle_point_strict;
+y_saddle_point=y_omega_point3*sqrt(abs(D_Klein));
+<br>
+s_saddle_point_IRarea_as_false_vacuum=x_base+i*y_saddle_point;
+<br>
+=Newton((x)=&lt;2*x**2-10*x+23,,,50);
+<br>
+=[(p,q)=&lt;(p+q)/(p-q)+i*sqrt(p*q/(p-q))](pq_only)=&gt;;
 <br>
 E2_Lambert(s,N)=&lt;1-24*_s((n)=&lt;[(qn)=&lt;(n*qn)/(1-qn)](exp(2*pi*i*s*n))=&gt;,1,N);
 <br>
-E4d_Ramanujan_Serre(s,N)=&lt;(2*pi*i/3)*(E2_Lambert(s,N)=&gt;*E2k(s,2,N)=&gt;-E2k(s,3,N)=&gt;);
+E2_Lambert_mod(s,N)=&lt;E2_Lambert(s,N)=&gt;-3/(pi*imag(s));
+<br>
+E4d_Ramanujan_Serre(s,N)=&lt;i*(2*pi/3)*(E2_Lambert_mod(s,N)=&gt;*E2k(s,2,N)=&gt;-E2k(s,3,N)=&gt;);
 <br>
 E4d_local_max_UVarea_from_D_Gauss_ab_160=E4d_Ramanujan_Serre(s_local_max_UVarea_from_D_Gauss_ab_160,50)=&gt;;
 <br>
@@ -55967,24 +56015,33 @@ E4d_inflection_point_UVarea_from_D_Gauss_ab_97=E4d_Ramanujan_Serre(s_inflection_
 <br>
 E4d_local_max_UVarea_from_D_Gauss_ab_80=E4d_Ramanujan_Serre(s_local_max_UVarea_from_D_Gauss_ab_80,50)=&gt;;
 <br>
-E4d_rho_point=E4d_Ramanujan_Serre(s_rho_point,50)=&gt;;
+E4d_omega_point3=E4d_Ramanujan_Serre(s_omega_point3,50)=&gt;;
 <br>
-E4d_rho_point_UVarea_as_true_vacuum=E4d_Ramanujan_Serre(s_rho_point_UVarea_as_true_vacuum,50)=&gt;;
+E4d_omega_point3_UVarea_as_true_vacuum=E4d_Ramanujan_Serre(s_omega_point3_UVarea_as_true_vacuum,50)=&gt;;
 <br>
 E4d_cusp_point_IRarea_as_true_vacuum=E4d_Ramanujan_Serre(s_cusp_point_IRarea_as_true_vacuum,50)=&gt;;
 <br>
 E4d_saddle_point_IRarea_as_false_vacuum=E4d_Ramanujan_Serre(s_saddle_point_IRarea_as_false_vacuum,50)=&gt;;
 <br>
 <br>
-g_Klein=(4-1)*(4-2)/2;
-<br>
-D_Klein=-(2*g_Klein+1);
+y_Chowla_Selberg=sqrt(7)/2;
 <br>
 y_D_Klein=sqrt(7*G_EM(1/7)=&gt;*G_EM(2/7)=&gt;*G_EM(4/7)=&gt;/(G_EM(3/7)=&gt;*G_EM(5/7)=&gt;*G_EM(6/7)=&gt;))/2;
 <br>
-y_saddle_point_Klein=y_D_Klein*(49/45)**0.25/2;
+y_D_Klein_mod=y_D_Klein*(49/45)**0.25/2;
 <br>
-y_Chowla_Selberg=sqrt(7)/2;
+s_Chowla_Selberg=x_base+i*y_Chowla_Selberg;
+<br>
+s_D_Klein=x_base+i*y_D_Klein;
+<br>
+s_D_Klein_mod=x_base+i*y_D_Klein_mod;
+<br>
+E4d_Chowla_Selberg=E4d_Ramanujan_Serre(s_Chowla_Selberg,50)=&gt;;
+<br>
+E4d_D_Klein=E4d_Ramanujan_Serre(s_D_Klein,50)=&gt;;
+<br>
+E4d_D_Klein_mod=E4d_Ramanujan_Serre(s_D_Klein_mod,50)=&gt;;
+<br>
 <br>
 chi7(n)=&lt;n%7===0&amp;&amp;&amp;0||||(n%7===1|||n%7===2|||n%7===4)&amp;&amp;&amp;1|||-1;
 <br>
@@ -55996,7 +56053,7 @@ L4_spacetime=23*pi**4/(378*sqrt(7));
 <br>
 L4_raw=7*sqrt(7)*pi**4/720;
 <br>
-holographic_height={y_saddle_point_strict,=y_saddle_point_Klein,=L4_spacetime};
+holographic_height={y_saddle_point,=y_D_Klein_mod,=L4_spacetime};
 <br>
 <br>
 V4_saddle_point_IRarea_as_false_vacuum=V2k(s_saddle_point_IRarea_as_false_vacuum,2,250)=&gt;;
@@ -56005,7 +56062,7 @@ factor_central_charge_CFT=3/2;
 <br>
 geometric_degrees_spacetime=N_dimension_superstring/N_dimension_spacetime+alpha_SPP;
 <br>
-topological_factor_Klein=(2*g_Klein+1)+N_dimension_M_theory;
+topological_factor_Klein=(2*g_Klein_X7+1)+N_dimension_M_theory;
 <br>
 FSC_inv_loop0=factor_central_charge_CFT*geometric_degrees_spacetime/V4_saddle_point_IRarea_as_false_vacuum;
 <br>
