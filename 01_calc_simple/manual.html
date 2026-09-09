@@ -504,6 +504,10 @@ pq_only=(7,3); [(p,q)=&lt;(p+q)/(p-q)+i*sqrt(p*q/(p-q))](pq_only)=&gt; -> 2.5+2.
 <br>
 　⇒τ(1)：演算都合上、約数関数σ(0):=0
 <br>
+・genus-X0：<span class="run">Ver.2.908.179</span>以降、modular曲線X0の種数（group：Γ0）
+<br>
+・genus-X：<span class="run">Ver.2.908.179</span>以降、modular曲線Xの種数（group：Γ）
+<br>
 ・<span class="selection">Klein-j</span>：<span class="run">Ver.2.907.179</span>以降、j-不変量（monster群のt1a）
 <br>
 ・McKay-Thompson-t2a：<span class="run">Ver.2.907.179</span>以降、McKay-Thompson級数の係数（monster群のt2a）
@@ -1132,13 +1136,13 @@ q_Shannon(d)=&lt;1+(1/log2(3))/d; q_Shannon(2) -> 1.3154648767857289
 <br>
 　　多次元の上界：最小<a href="#span-app-entropy">entropy</a>のtopology定数C_qminを内包（曲面の無限素点のHaar測度等、C_qmin&gt;0）
 <br>
-　⇒sharpness=(4g+2)*dの一般化：<a href="#span-app-unsolved">ratio</a>/sharpness&le;q_Shannon(d)-C_qmin/sharpness
+　⇒sharpness=2*(2g+1)*dの一般化：<a href="#span-app-unsolved">ratio</a>/sharpness&le;q_Shannon(d)-C_qmin/sharpness
 <br>
 　　拡大次数dの依存性：<a href="#span-app-unsolved">ratio</a>/sharpness∝1/d（修正<a href="#span-app-unsolved">Szpiro予想</a>に対応）
 <br>
 　　d=g=1の楕円曲線：CremonaのN&le;5e5の最高<a href="#span-app-unsolved">ratio/6</a>=1.4839...（低導手の場合、次の上界に肉薄）
 <br>
-d=1; g=1; sharpness=(4g+2)*d; q_Shannon(1)-C_qmin/sharpness -> infoLost[r ] 1.4855013800619916
+d=1; g=1; sharpness=2*(2g+1)*d; q_Shannon(1)-C_qmin/sharpness -> infoLost[r ] 1.4855013800619916
 <br>
 　-C_q：<span class="run">Ver.2.904.178</span>以降、Szpiro境界のEisenstein-cuspにおける<a href="#span-app-entropy">entropy</a>
 <br>
@@ -1172,7 +1176,7 @@ C0_digital=1/sqrt(2); C0_digital -> 0.7071067811865475（Bogomolov予想の正�
 <br>
 　⇒X=0の最大height：log(Δ)=ratio(d,g)*log(N)
 <br>
-ratio(d,g)=&lt;[C0_digital=1/sqrt(2),(sharpness)=&lt;sharpness*q_Shannon(d)-C0_digital]((4g+2)*d)=&gt;;
+ratio(d,g)=&lt;[C0_digital=1/sqrt(2),(sharpness)=&lt;sharpness*q_Shannon(d)-C0_digital](2*(2g+1)*d)=&gt;;
 <br>
 ratio(1,1) -> 9.078471740242197
 <br>
@@ -1190,7 +1194,7 @@ ratio(2,2) -> 25.60219075452803
 <br>
 　⇒Fisher情報量の不変性：d*d*(1/d)**2=1（幾何＋統計の感度が1/channel数**2を相殺）
 <br>
-I_Fisher(d,g)=&lt;[(sharpness)=&lt;sharpness*d*(q_Shannon(d)-1)**2]((4g+2)*d)=&gt;,
+I_Fisher(d,g)=&lt;[(sharpness)=&lt;sharpness*d*(q_Shannon(d)-1)**2](2*(2g+1)*d)=&gt;,
 <br>
 N_critical(d,g)=&lt;[C_qmin=0.8725702410567953/*[1/sqrt(2),1+dC_q]*/,
 <br>
@@ -3334,6 +3338,8 @@ ja.m.wikipedia.org/wiki/項目を列挙する
 ・ラマヌジャンのタウ函数
 <br>
 ・モジュラー形式
+<br>
+・モジュラー曲線
 <br>
 ・双曲線関数
 <br>
@@ -56229,7 +56235,7 @@ log2_scale_multiverse_53edo=calc_log2n_transition(L_transition_53edo)=&gt;;
 log2_scale_metaverse_10781274edo=calc_log2n_transition(L_limit_10781274edo)=&gt;;
 <br>
 <br>
-sharpness(d,g)=&lt;(4*g+2)*d;
+sharpness(d,g)=&lt;2*(2*g+1)*d;
 <br>
 q_Shannon(d)=&lt;1+(1/log2(3))/d;
 <br>
