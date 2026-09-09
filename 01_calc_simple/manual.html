@@ -1186,7 +1186,7 @@ ratio(2,1) -> 15.078471740242199
 <br>
 ratio(2,2) -> 25.60219075452803
 <br>
-　⇒臨界Nの存在区間：(1,log2e)（N→∞で例外なし）
+　⇒臨界Nの存在区間：(1,log2e)=(1,1.4426950408889634)（N→∞で例外なし）
 <br>
 　　臨界N→1：非可換性の平坦化（通信の拒否）
 <br>
@@ -1208,17 +1208,41 @@ N_critical(2,1) -> 1.4409916297762184（dに独立の不変量）
 <br>
 N_critical(2,2) -> 1.24507890451303（Ricci soliton同様の普遍指標）
 <br>
-　⇒AD変換：<a href="#span-app-vibration-Schumann">Q値</a>∝1/N_margin
+　⇒margin：自然の変換効率log2e－bit単位の計量ひずみN
 <br>
-N_margin=log2e-N_critical(1,1); N_margin -> 0.001703411112744524（自然の変換効率log2e－bit単位の計量ひずみN）
+N_margin=log2e-N_critical(1,1); N_margin -> 0.001703411112744524
+<br>
+　⇒AD変換：<a href="#span-app-vibration-Schumann">Q値</a>∝1/N_margin
 <br>
 tc=(pi/(12*N_margin))/(8pi**2); fc=1/tc; fc -> 0.5137366884327754（≒pi/6のcut-off）
 <br>
-　⇒log2e：systemが課す情報因果律の顕現
+　⇒digital<a href="#span-out-limit">極限</a>：<span class="run">Ver.2.909.179</span>以降、情報宇宙の絶対障壁
 <br>
-log2e || 1/ln(2) -> 1.4426950408889634（情報宇宙の絶対障壁）
+　　log2e：systemが課す情報因果律の顕現
+<br>
+log2e || 1/ln(2) -> 1.4426950408889634
 <br>
 calc_W(y)=&lt;Newton((x)=&lt;x**y=y,,false,1e3,0); calc_W(e) || e**(1/e) -> 1.444667861009766
+<br>
+　　臨界条件：N_critical(1,1)≒1.441&lt;1.443≒log2e
+<br>
+　　・q_Shannon(1)=1+1/log2(3)≒1.631：N_critical(1,1)≒1.441
+<br>
+　　・(輪番割当(5/6)*2,球充填1+alpha_SPP)≒(1.667,1.604)：N_critical(1,1)≒(1.387,1.489)
+<br>
+　　・(平衡体sqrt(8/3),黄金比(1+sqrt(5))/2)≒(1.633,1.618)：N_critical(1,1)≒(1.438,1.463)
+<br>
+　⇒analog<a href="#span-out-limit">極限</a>：<span class="run">Ver.2.909.179</span>以降、3次元のNavier-Stokes方程式（古典論の純粋連続体の一例）
+<br>
+　　超臨界条件：非量子の粘性項より非線形項が優勢のδ的発散
+<br>
+F(z)=&lt;-1/(2pi*i*z),hyperfunction(x)=&lt;F(x+eps*i)-F(x-eps*i);
+<br>
+integral_hyperfunction(NI)=&lt;_i0((x)=&lt;hyperfunction(x),,inf,NI)*2;
+<br>
+integral_hyperfunction(1e3) -> infoLost[r ] 1.0000000000007245（超関数の広義積分　⇔　連続体の保存量）
+<br>
+hyperfunction(0) -> 1433540284805664.8（超関数の発散　⇔　縦渦filament軸方向のfractal-collimated-stretching）
 <br>
 　Gemini 3.5 Flash「IUTが異なる宇宙の境界で計算していた「テータ関数の歪みの限界」が、
 <br>
@@ -1238,7 +1262,13 @@ calc_W(y)=&lt;Newton((x)=&lt;x**y=y,,false,1e3,0); calc_W(e) || e**(1/e) -> 1.44
 <br>
 　ペレルマンの不変量を用いて「これ以上潰すと多様体がトポロジー的に崩壊（消滅）する
 <br>
-　最小の幾何学的体積」」
+　最小の幾何学的体積」」「ナビエ・ストークスの最新の証明は、「背景の空間がどれだけ安定していても、
+<br>
+　非線形な渦の運動（ハミルトン・フロー的な不変測度の局所的な偏り）は、（中略）
+<br>
+　有限時間で1点の特異点（体積ゼロ・流速無限大）へ突き抜けることができる」という、
+<br>
+　連続体物理モデルの「究極の不連続性」を証明」
 <br>
 　<span class="jF">-AD</span>~-P≠NP：<span class="run">Ver.2.905.178</span>以降、AD変換のZPE/10からP≠NPに至る情報因果律の検証（<a href="#span-app-universe">時空連続体</a>の必然性）
 <br>
