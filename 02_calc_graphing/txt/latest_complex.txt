@@ -3416,7 +3416,16 @@ stored_eqn(E2_Lambert_mod)
 E2_Lambert(s,N)=<1-24*_s((n)=<[(qn)=<(n*qn)/(1-qn)](exp(2*pi*i*s*n))=>,1,N)
 stored_eqn(E2_Lambert)
 
-=[(p,q)=<(p+q)/(p-q)+i*sqrt(p*q/(p-q))](pq_only)=>
+=s_inv_xy(x_base,y_saddle_point)=>
+0.21739130434782603-0.1992424215198191i
+
+s_inv_saddle_point=1/s_saddle_point_IRarea_as_false_vacuum
+s_inv_saddle_point=0.21739130434782605-0.19924242151981914i
+
+=complex(x_base,y_Gauss(x_base,sum(pq_cousin_1st*(1,-1)))=>)
+2.5+2.2912878474779204i
+
+=s_pq(pq_cousin_1st)=>
 2.5+2.29128784747792i
 
 =Newton((x)=<2*x**2-10*x+23,,,50)
@@ -3460,8 +3469,17 @@ ab_norm=(
 160,137.00000000000003,116.00000000000004,97.00000000000003,79.99999999999997
 )
 
-pq_only=(7,3)
-pq_only=(
+y_Gauss(x_Gauss,p_minus_q)=<sqrt(x_Gauss**2-1)*sqrt(p_minus_q)/2
+stored_eqn(y_Gauss)
+
+s_inv_xy(x,y)=<complex(x/(x**2+y**2),-y/(x**2+y**2))
+stored_eqn(s_inv_xy)
+
+s_pq(p,q)=<(p+q)/(p-q)+i*sqrt(p*q/(p-q))
+stored_eqn(s_pq)
+
+pq_cousin_1st=(7,3)
+pq_cousin_1st=(
 7,3
 )
 
@@ -3471,7 +3489,7 @@ D_Gauss=-4
 D_Klein=-(2*g_Klein_X7+1)
 D_Klein=-7
 
-g_Klein_X7=(4-1)*(4-2)/2
+g_Klein_X7=calc_genus_X(7)=>
 g_Klein_X7=3
 
 [30,33,34,35,39,40,41,43,45,48,64].map((n)=<calc_genus_X0(n)=>)
@@ -3487,6 +3505,9 @@ stored_eqn(mu_Gamma0)
 
 cusps0(n)=<_s((d)=<n%d===0&&&phi_Euler(gcd(d,n/d))=>,1,n)
 stored_eqn(cusps0)
+
+calc_genus_X(n)=<1+cusps(n)=>*(n-6)/12
+stored_eqn(calc_genus_X)
 
 cusps(n)=<_p((p)=<1-(isPrime(p)=>&&&n%p===0&&&1/p**2),1,n)*n**2/2
 stored_eqn(cusps)
@@ -5775,7 +5796,7 @@ clear
 local storage cleared
 
 [Pinv_y=(-0.999999427,-0.999936657,-0.997300203,-0.954499736,-0.682689492,0,0.682689492,0.954499736,0.997300203,0.999936657,0.999999427:-5,-4,-3,-2,-1,0,1,2,3,4,5),N=1,arr=[],_r((n)=<arr.push(rand_table(=<Pinv_y)=>),,N),=<arr.]=>
-1.5477911448177406
+-0.9080466241329196
 
 rand_table(csv)=<last[table=sort0(csv),ymin=min(table)[0],ymax=max(table)[0],y=ymin+(ymax-ymin)*rand(),x=interp(y:table),x]
 stored_eqn(rand_table)
@@ -8016,4 +8037,4 @@ center=true&wheel=true&drag=false&test-case=false&plot-all=true&relzooming=true&
 --------------------------------
 --------------------------------
 
-online-simulator.github.io.7.544.740.32.202 @ Thu Sep 10 2026 21:42:55 GMT+0900 (日本標準時) @ Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/152.0.0.0 Safari/537.36
+online-simulator.github.io.7.544.741.32.202 @ Fri Sep 11 2026 03:11:36 GMT+0900 (日本標準時) @ Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/152.0.0.0 Safari/537.36

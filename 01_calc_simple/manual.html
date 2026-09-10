@@ -472,9 +472,11 @@ D_Klein=-7; y_saddle_point=y_omega_point3*sqrt(abs(D_Klein));
 <br>
 y_saddle_point -> 2.2912878474779204（Klein曲線X(7)に対応）
 <br>
-　⇒saddle点：(p+q)/(p-q)が半整数になる最小の「いとこ素数」(p,q)=(7,3)
+　⇒saddle点：(p+q)/(p-q)が半整数になる基底の「いとこ素数」(p,q)=(7,3)
 <br>
-pq_only=(7,3); [(p,q)=&lt;(p+q)/(p-q)+i*sqrt(p*q/(p-q))](pq_only)=&gt; -> 2.5+2.29128784747792i
+pq_cousin_1st=(7,3);
+<br>
+s_pq(p,q)=&lt;(p+q)/(p-q)+i*sqrt(p*q/(p-q)); s_pq(pq_cousin_1st) -> 2.5+2.29128784747792i
 <br>
 　　real(V4')=0@real(V4")&gt;0：V4≒(4/11)/10=0.03636363636363636（≒tunnel障壁のheight/10）
 <br>
@@ -491,6 +493,30 @@ pq_only=(7,3); [(p,q)=&lt;(p+q)/(p-q)+i*sqrt(p*q/(p-q))](pq_only)=&gt; -> 2.5+2.
 　-ZPE4：<span class="run">Ver.2.910.179</span>以降、ZPE_spacetime
 <br>
 　<span class="sF">-ZPE10</span>：<span class="run">Ver.2.910.179</span>以降、ZPE_superstring（線形な等分配の上界）
+<br>
+　-s_pq：<span class="run">Ver.2.911.179</span>以降、双曲線のs_pqと直角双曲線上のsaddle点
+<br>
+　<span class="jF">-1/s_pq</span>：<span class="run">Ver.2.911.179</span>以降、変形lemniscate曲線の1/s_pq（原点回帰への写像）
+<br>
+　⇒p-q=2||4：素数pairが無限個（原点からの距離rの状態密度∝1/(r*log(r))**2）
+<br>
+　　状態密度：数密度×密度関数∝(1/r**2)×(1/log(r)**2)
+<br>
+　-modular-X：<span class="run">Ver.2.911.179</span>以降、modular曲線Xの対応関係（上の数密度の保証）
+<br>
+　⇒判別式：|D|*3/4=p*q/(p-q)（虚部√内の比較）
+<br>
+absD_pq(p,q)=&lt;2*(2/3)*p*q/(p-q);
+<br>
+absDmin2=absD_pq(5,3)=&gt; -> 10（X(10)の<a href="#span-app-unsolved">双子素数</a>@p-q=2）
+<br>
+absDmin4=absD_pq(7,3)=&gt; -> 7（X(7)の「いとこ素数」@p-q=4）
+<br>
+absDmin6=absD_pq(11,5)=&gt; -> 12.222222222222221（原始3乗根の相転移@p-q=6）
+<br>
+absDmin8=absD_pq(11,3)=&gt; -> 5.5
+<br>
+absDmin10=absD_pq(13,3)=&gt; -> 5.2
 <br>
 ・Eisenstein：Eisenstein級数を<a href="#span-out-complex">複素数平面</a>にplot
 <br>
@@ -3350,6 +3376,8 @@ ja.m.wikipedia.org/wiki/項目を列挙する
 ・クロソイド曲線
 <br>
 ・カテナリー曲線
+<br>
+・レムニスケート
 <br>
 ・楕円曲線
 <br>
@@ -55992,6 +56020,8 @@ phi_Euler(n)=&lt;_s((m)=&lt;gcd(n,m)==1,1,n);
 <br>
 cusps(n)=&lt;_p((p)=&lt;1-(isPrime(p)=&gt;&amp;&amp;&amp;n%p===0&amp;&amp;&amp;1/p**2),1,n)*n**2/2;
 <br>
+calc_genus_X(n)=&lt;1+cusps(n)=&gt;*(n-6)/12;
+<br>
 cusps0(n)=&lt;_s((d)=&lt;n%d===0&amp;&amp;&amp;phi_Euler(gcd(d,n/d))=&gt;,1,n);
 <br>
 mu_Gamma0(n)=&lt;_p((p)=&lt;1+(isPrime(p)=&gt;&amp;&amp;&amp;n%p===0&amp;&amp;&amp;1/p),1,n)*n;
@@ -56013,13 +56043,19 @@ cusps=cusps0(n)=&gt;,
 [30,33,34,35,39,40,41,43,45,48,64].map((n)=&lt;calc_genus_X0(n)=&gt;);
 <br>
 <br>
-g_Klein_X7=(4-1)*(4-2)/2;
+g_Klein_X7=calc_genus_X(7)=&gt;;
 <br>
 D_Klein=-(2*g_Klein_X7+1);
 <br>
 D_Gauss=-4;
 <br>
-pq_only=(7,3);
+pq_cousin_1st=(7,3);
+<br>
+s_pq(p,q)=&lt;(p+q)/(p-q)+i*sqrt(p*q/(p-q));
+<br>
+s_inv_xy(x,y)=&lt;complex(x/(x**2+y**2),-y/(x**2+y**2));
+<br>
+y_Gauss(x_Gauss,p_minus_q)=&lt;sqrt(x_Gauss**2-1)*sqrt(p_minus_q)/2;
 <br>
 ab_norm=(N_dimension_superstring+[2,1,0,-1,-2])**2+N_dimension_spacetime**2;
 <br>
@@ -56047,7 +56083,13 @@ s_saddle_point_IRarea_as_false_vacuum=x_base+i*y_saddle_point;
 <br>
 =Newton((x)=&lt;2*x**2-10*x+23,,,50);
 <br>
-=[(p,q)=&lt;(p+q)/(p-q)+i*sqrt(p*q/(p-q))](pq_only)=&gt;;
+=s_pq(pq_cousin_1st)=&gt;;
+<br>
+=complex(x_base,y_Gauss(x_base,sum(pq_cousin_1st*(1,-1)))=&gt;);
+<br>
+s_inv_saddle_point=1/s_saddle_point_IRarea_as_false_vacuum;
+<br>
+=s_inv_xy(x_base,y_saddle_point)=&gt;;
 <br>
 E2_Lambert(s,N)=&lt;1-24*_s((n)=&lt;[(qn)=&lt;(n*qn)/(1-qn)](exp(2*pi*i*s*n))=&gt;,1,N);
 <br>
