@@ -450,7 +450,7 @@ test case
 <br>
 x_base=10/4; x_base -> 2.5（基準の半整数）
 <br>
-integral_V_Haar_measure(N)=&lt;_i0((x)=&lt;_i0((y)=&lt;V2k(x+i*y,2,N)=&gt;/y**2,sqrt(1-x**2),inf,N),[-1,1]/2,N);
+integral_V4_Haar_measure(N)=&lt;_i0((x)=&lt;_i0((y)=&lt;V2k(x+i*y,2,N)=&gt;/y**2,sqrt(1-x**2),inf,N),[-1,1]/2,N);
 <br>
 ZPE_spacetime=0.2401924240624659; ZPE_spacetime -> 0.2401924240624659（上のHaar測度のq展開）
 <br>
@@ -487,6 +487,10 @@ pq_only=(7,3); [(p,q)=&lt;(p+q)/(p-q)+i*sqrt(p*q/(p-q))](pq_only)=&gt; -> 2.5+2.
 　⇒共変微分：E4'(s)=i*(2pi/3)*(E2(s)*E4(s)-E6(s))（Ramanujanの微分方程式に由来）
 <br>
 　-imag(E4')：Ramanujan-Serre共変微分E4'のimag変化（半整数位置で縦軸方向に単調増加を確認）
+<br>
+　-ZPE4：<span class="run">Ver.2.910.179</span>以降、ZPE_spacetime
+<br>
+　<span class="sF">-ZPE10</span>：<span class="run">Ver.2.910.179</span>以降、ZPE_superstring（線形な等分配の上界）
 <br>
 ・Eisenstein：Eisenstein級数を<a href="#span-out-complex">複素数平面</a>にplot
 <br>
@@ -55932,11 +55936,11 @@ E2k(s,k,N)=&lt;Eisenstein_G2k(s,k,N)=&gt;/(2*zeta_EM_full(2*k,100,14)=&gt;);
 <br>
 V2k(s,k,N)=&lt;abs(E2k(s,k,N)=&gt;)**2/imag(s)**4;
 <br>
-integral_V_Haar_measure(N)=&lt;_i0((x)=&lt;_i0((y)=&lt;V2k(x+i*y,2,N)=&gt;/y**2,sqrt(1-x**2),inf,N),[-1,1]/2,N);
+integral_V4_Haar_measure(N)=&lt;_i0((x)=&lt;_i0((y)=&lt;V2k(x+i*y,2,N)=&gt;/y**2,sqrt(1-x**2),inf,N),[-1,1]/2,N);
 <br>
-intV5=integral_V_Haar_measure(5)=&gt;;
+intV5=integral_V4_Haar_measure(5)=&gt;;
 <br>
-intV9=integral_V_Haar_measure(9)=&gt;;
+intV9=integral_V4_Haar_measure(9)=&gt;;
 <br>
 intVinf=0.2401924240624659;
 <br>

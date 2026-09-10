@@ -3566,14 +3566,14 @@ ZPE_spacetime=0.2401924240624659
 intVinf=0.2401924240624659
 intVinf=0.2401924240624659
 
-intV9=integral_V_Haar_measure(9)=>
+intV9=integral_V4_Haar_measure(9)=>
 intV9=infoLost[ri] 0.2596334859610002-1.0690841646935831e-18i+O(4e-100)
 
-intV5=integral_V_Haar_measure(5)=>
+intV5=integral_V4_Haar_measure(5)=>
 intV5=infoLost[ri] 0.35441911601863163-1.2063675736921711e-20i+O(3e-100)
 
-integral_V_Haar_measure(N)=<_i0((x)=<_i0((y)=<V2k(x+i*y,2,N)=>/y**2,sqrt(1-x**2),inf,N),[-1,1]/2,N)
-stored_eqn(integral_V_Haar_measure)
+integral_V4_Haar_measure(N)=<_i0((x)=<_i0((y)=<V2k(x+i*y,2,N)=>/y**2,sqrt(1-x**2),inf,N),[-1,1]/2,N)
+stored_eqn(integral_V4_Haar_measure)
 
 V2k(s,k,N)=<abs(E2k(s,k,N)=>)**2/imag(s)**4
 stored_eqn(V2k)
@@ -5775,7 +5775,7 @@ clear
 local storage cleared
 
 [Pinv_y=(-0.999999427,-0.999936657,-0.997300203,-0.954499736,-0.682689492,0,0.682689492,0.954499736,0.997300203,0.999936657,0.999999427:-5,-4,-3,-2,-1,0,1,2,3,4,5),N=1,arr=[],_r((n)=<arr.push(rand_table(=<Pinv_y)=>),,N),=<arr.]=>
--0.6739094565743842
+1.5477911448177406
 
 rand_table(csv)=<last[table=sort0(csv),ymin=min(table)[0],ymax=max(table)[0],y=ymin+(ymax-ymin)*rand(),x=interp(y:table),x]
 stored_eqn(rand_table)
@@ -5785,7 +5785,7 @@ local storage cleared
 
 [(N)=<[tarr=linspace(0,N-1,N).,shuffle_FY(?tarr)=>,=<tarr.]=>](2)=>
 (
-0,1
+1,0
 )
 
 shuffle_FY(?tarr)=<last[len=sizer(tarr),switch_arr=(i1)=<last{i0=floor(rand()*(i1+1)),w=tarr[i1],tarr[i1]=tarr[i0],tarr[i0]=w},_s((i_)=<switch_arr(i_)=>,len-1,1)]
@@ -8016,4 +8016,4 @@ center=true&wheel=true&drag=false&test-case=false&plot-all=true&relzooming=true&
 --------------------------------
 --------------------------------
 
-online-simulator.github.io.7.544.738.32.202 @ Wed Sep 09 2026 09:00:36 GMT+0900 (日本標準時) @ Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/152.0.0.0 Safari/537.36
+online-simulator.github.io.7.544.740.32.202 @ Thu Sep 10 2026 21:42:55 GMT+0900 (日本標準時) @ Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/152.0.0.0 Safari/537.36
