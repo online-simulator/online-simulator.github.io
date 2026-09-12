@@ -518,6 +518,18 @@ absDmin8=absD_pq(11,3)=&gt; -> 5.5
 <br>
 absDmin10=absD_pq(13,3)=&gt; -> 5.2
 <br>
+・<span class="selection">Hardy-Littlewood⇒Polignac</span>：<span class="run">Ver.2.911.179</span>以降、Hardy-Littlewood⇒Polignac予想の局所weight
+<br>
+　⇒任意のp-q：素数pairが無限個（lemniscate分岐の2葉⇒多葉の相転移を含む透過率が有限：Cn/C2&ge;1）
+<br>
+　⇒局所weight：C2と透過率ratioの統合（Cnの一般化）
+<br>
+isPrimitiveRoot_X(p)=&lt;p_minus_q%p===0;
+<br>
+switch_weight(p)=&lt;isPrimitiveRoot_X(p)&amp;&amp;&amp;weight_baseline2crystalline(p)|||weight_baseline2cusp(p);
+<br>
+C2_unified(n)=&lt;_p((p)=&lt;switch_weight(p),3,max(3,p-q-1));
+<br>
 ・Eisenstein：Eisenstein級数を<a href="#span-out-complex">複素数平面</a>にplot
 <br>
 　⇒<a href="#span-out-FNh-SX">総和</a>順序の仮定：低次の項から昇順（絶対収束の場合、可換）
@@ -2964,6 +2976,8 @@ en.m.wikipedia.org/wiki/項目を列挙する
 <br>
 ・Goldbach's_conjecture
 <br>
+・Polignac's_conjecture
+<br>
 ・Mertens_conjecture
 <br>
 ・Bisection_method
@@ -3226,6 +3240,8 @@ ja.m.wikipedia.org/wiki/項目を列挙する
 ・コラッツの問題
 <br>
 ・ゴールドバッハの予想
+<br>
+・ハーディ・リトルウッド予想
 <br>
 ・谷山-志村予想
 <br>
