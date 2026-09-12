@@ -3492,6 +3492,21 @@ D_Klein=-7
 g_Klein_X7=calc_genus_X(7)=>
 g_Klein_X7=3
 
+absDmin_p_minus_q_2_4_6_8_10={calc_absD_pq(2)=>,calc_absD_pq(4)=>,calc_absD_pq(6)=>,calc_absD_pq(8)=>,calc_absD_pq(10)=>}
+absDmin_p_minus_q_2_4_6_8_10=(
+10:
+6.999999999999999:
+12.222222222222221:
+5.5:
+5.2
+)
+
+calc_absD_pq(p_minus_q)=<absD_pq((::5,3::7,3::11,5::11,3::13,3)[p_minus_q])=>
+stored_eqn(calc_absD_pq)
+
+absD_pq(p,q)=<2*(2/3)*p*q/(p-q)
+stored_eqn(absD_pq)
+
 [30,33,34,35,39,40,41,43,45,48,64].map((n)=<calc_genus_X0(n)=>)
 (
 3,2.9999999999999996,3,2.9999999999999996,3,3,3,3,3,3,3
@@ -3511,6 +3526,39 @@ stored_eqn(calc_genus_X)
 
 cusps(n)=<_p((p)=<1-(isPrime(p)=>&&&n%p===0&&&1/p**2),1,n)*n**2/2
 stored_eqn(cusps)
+
+C10_Hardy_Littlewood2Polignac=calc_local_weight(10,1e2)=>
+C10_Hardy_Littlewood2Polignac=0.8818361127295801
+
+C8_Hardy_Littlewood2Polignac=calc_local_weight(8,1e2)=>
+C8_Hardy_Littlewood2Polignac=0.6613770845471849
+
+C6_Hardy_Littlewood2Polignac=calc_local_weight(6,1e2)=>
+C6_Hardy_Littlewood2Polignac=1.3227541690943698
+
+C4_Hardy_Littlewood2Polignac=calc_local_weight(4,1e2)=>
+C4_Hardy_Littlewood2Polignac=0.6613770845471849
+
+C2_Hardy_Littlewood2Polignac=calc_local_weight(2,1e2)=>
+C2_Hardy_Littlewood2Polignac=0.6613770845471849
+
+C2_Hardy_Littlewood=C2(1e2)=>*ratio_transmission(2,1e2)=>
+C2_Hardy_Littlewood=0.6613770845471849
+
+calc_local_weight(p_minus_q,N)=<[isPrimitiveRoot_X(p)=<p_minus_q%p===0,switch_weight(p)=<isPrimitiveRoot_X(p)=>&&&weight_baseline2crystalline(p)=>|||weight_baseline2cusp(p)=>,C2_unified(n)=<_p((p)=<switch_weight(p)=>,3,n),=<C2_unified(N)=>]=>
+stored_eqn(calc_local_weight)
+
+C2(n)=<_p((p)=<weight_baseline2cusp(p)=>,3,n)
+stored_eqn(C2)
+
+ratio_transmission(p_minus_q,n)=<_p((p)=<p_minus_q%p===0&&&weight_baseline2crystalline(p)=>/weight_baseline2cusp(p)=>|||1,3,n)
+stored_eqn(ratio_transmission)
+
+weight_baseline2cusp(p)=<1-(isPrime(p)=>&&&1/(p-1)**2)
+stored_eqn(weight_baseline2cusp)
+
+weight_baseline2crystalline(p)=<1+(isPrime(p)=>&&&1/(p-1))
+stored_eqn(weight_baseline2crystalline)
 
 phi_Euler(n)=<_s((m)=<gcd(n,m)==1,1,n)
 stored_eqn(phi_Euler)
@@ -5796,7 +5844,7 @@ clear
 local storage cleared
 
 [Pinv_y=(-0.999999427,-0.999936657,-0.997300203,-0.954499736,-0.682689492,0,0.682689492,0.954499736,0.997300203,0.999936657,0.999999427:-5,-4,-3,-2,-1,0,1,2,3,4,5),N=1,arr=[],_r((n)=<arr.push(rand_table(=<Pinv_y)=>),,N),=<arr.]=>
--0.9080466241329196
+-0.8403521882692626
 
 rand_table(csv)=<last[table=sort0(csv),ymin=min(table)[0],ymax=max(table)[0],y=ymin+(ymax-ymin)*rand(),x=interp(y:table),x]
 stored_eqn(rand_table)
@@ -5806,7 +5854,7 @@ local storage cleared
 
 [(N)=<[tarr=linspace(0,N-1,N).,shuffle_FY(?tarr)=>,=<tarr.]=>](2)=>
 (
-1,0
+0,1
 )
 
 shuffle_FY(?tarr)=<last[len=sizer(tarr),switch_arr=(i1)=<last{i0=floor(rand()*(i1+1)),w=tarr[i1],tarr[i1]=tarr[i0],tarr[i0]=w},_s((i_)=<switch_arr(i_)=>,len-1,1)]
@@ -8037,4 +8085,4 @@ center=true&wheel=true&drag=false&test-case=false&plot-all=true&relzooming=true&
 --------------------------------
 --------------------------------
 
-online-simulator.github.io.7.544.741.32.202 @ Fri Sep 11 2026 03:11:36 GMT+0900 (日本標準時) @ Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/152.0.0.0 Safari/537.36
+online-simulator.github.io.7.544.741.32.202 @ Sat Sep 12 2026 17:23:51 GMT+0900 (日本標準時) @ Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/152.0.0.0 Safari/537.36
