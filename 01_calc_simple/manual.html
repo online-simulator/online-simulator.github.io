@@ -55982,7 +55982,11 @@ ZPE_geometry=integral_V_Poincare_metric(50)=&gt;;
 <br>
 Eisenstein_G2k(s,k,N)=&lt;(k&gt;1&amp;&amp;imag(s)&gt;0)&amp;&amp;&amp;_s((n)=&lt;_s((m)=&lt;~~(m===0&amp;&amp;n===0)&amp;&amp;&amp;(m+n*s)**(-2*k),-N,N),-N,N)||||NaN;
 <br>
-E2k(s,k,N)=&lt;Eisenstein_G2k(s,k,N)=&gt;/(2*zeta_EM_full(2*k,100,14)=&gt;);
+E2_Lambert(s,N)=&lt;1-24*_s((n)=&lt;[(qn)=&lt;(n*qn)/(1-qn)](exp(2*pi*i*s*n))=&gt;,1,N);
+<br>
+E2_Lambert_mod(s,N)=&lt;E2_Lambert(s,N)=&gt;-3/(pi*imag(s));
+<br>
+E2k(s,k,N)=&lt;k===1&amp;&amp;&amp;E2_Lambert_mod(s,N)=&gt;||||Eisenstein_G2k(s,k,N)=&gt;/(2*zeta_EM_full(2*k,100,14)=&gt;);
 <br>
 V2k(s,k,N)=&lt;abs(E2k(s,k,N)=&gt;)**2/imag(s)**4;
 <br>
@@ -56151,11 +56155,7 @@ s_inv_saddle_point=1/s_saddle_point_IRarea_as_false_vacuum;
 <br>
 =s_inv_xy(x_base,y_saddle_point)=&gt;;
 <br>
-E2_Lambert(s,N)=&lt;1-24*_s((n)=&lt;[(qn)=&lt;(n*qn)/(1-qn)](exp(2*pi*i*s*n))=&gt;,1,N);
-<br>
-E2_Lambert_mod(s,N)=&lt;E2_Lambert(s,N)=&gt;-3/(pi*imag(s));
-<br>
-E4d_Ramanujan_Serre(s,N)=&lt;i*(2*pi/3)*(E2_Lambert_mod(s,N)=&gt;*E2k(s,2,N)=&gt;-E2k(s,3,N)=&gt;);
+E4d_Ramanujan_Serre(s,N)=&lt;i*(2*pi/3)*(E2k(s,1,N)=&gt;*E2k(s,2,N)=&gt;-E2k(s,3,N)=&gt;);
 <br>
 E4d_local_max_UVarea_from_D_Gauss_ab_160=E4d_Ramanujan_Serre(s_local_max_UVarea_from_D_Gauss_ab_160,50)=&gt;;
 <br>

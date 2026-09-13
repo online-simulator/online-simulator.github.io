@@ -3407,14 +3407,8 @@ E4d_inflection_point_UVarea_from_D_Gauss_ab_137=infoLost[ri] -509.73641435601434
 E4d_local_max_UVarea_from_D_Gauss_ab_160=E4d_Ramanujan_Serre(s_local_max_UVarea_from_D_Gauss_ab_160,50)=>
 E4d_local_max_UVarea_from_D_Gauss_ab_160=infoLost[ri] 0.0005117020358108752+2048.00666687358i
 
-E4d_Ramanujan_Serre(s,N)=<i*(2*pi/3)*(E2_Lambert_mod(s,N)=>*E2k(s,2,N)=>-E2k(s,3,N)=>)
+E4d_Ramanujan_Serre(s,N)=<i*(2*pi/3)*(E2k(s,1,N)=>*E2k(s,2,N)=>-E2k(s,3,N)=>)
 stored_eqn(E4d_Ramanujan_Serre)
-
-E2_Lambert_mod(s,N)=<E2_Lambert(s,N)=>-3/(pi*imag(s))
-stored_eqn(E2_Lambert_mod)
-
-E2_Lambert(s,N)=<1-24*_s((n)=<[(qn)=<(n*qn)/(1-qn)](exp(2*pi*i*s*n))=>,1,N)
-stored_eqn(E2_Lambert)
 
 =s_inv_xy(x_base,y_saddle_point)=>
 0.21739130434782605-0.19924242151981914i
@@ -3647,8 +3641,14 @@ stored_eqn(integral_V4_Haar_measure)
 V2k(s,k,N)=<abs(E2k(s,k,N)=>)**2/imag(s)**4
 stored_eqn(V2k)
 
-E2k(s,k,N)=<Eisenstein_G2k(s,k,N)=>/(2*zeta_EM_full(2*k,100,14)=>)
+E2k(s,k,N)=<k===1&&&E2_Lambert_mod(s,N)=>||||Eisenstein_G2k(s,k,N)=>/(2*zeta_EM_full(2*k,100,14)=>)
 stored_eqn(E2k)
+
+E2_Lambert_mod(s,N)=<E2_Lambert(s,N)=>-3/(pi*imag(s))
+stored_eqn(E2_Lambert_mod)
+
+E2_Lambert(s,N)=<1-24*_s((n)=<[(qn)=<(n*qn)/(1-qn)](exp(2*pi*i*s*n))=>,1,N)
+stored_eqn(E2_Lambert)
 
 Eisenstein_G2k(s,k,N)=<(k>1&&imag(s)>0)&&&_s((n)=<_s((m)=<~~(m===0&&n===0)&&&(m+n*s)**(-2*k),-N,N),-N,N)||||NaN
 stored_eqn(Eisenstein_G2k)
@@ -5844,7 +5844,7 @@ clear
 local storage cleared
 
 [Pinv_y=(-0.999999427,-0.999936657,-0.997300203,-0.954499736,-0.682689492,0,0.682689492,0.954499736,0.997300203,0.999936657,0.999999427:-5,-4,-3,-2,-1,0,1,2,3,4,5),N=1,arr=[],_r((n)=<arr.push(rand_table(=<Pinv_y)=>),,N),=<arr.]=>
-1.4184406727359664
+0.6474548956085107
 
 rand_table(csv)=<last[table=sort0(csv),ymin=min(table)[0],ymax=max(table)[0],y=ymin+(ymax-ymin)*rand(),x=interp(y:table),x]
 stored_eqn(rand_table)
@@ -5854,7 +5854,7 @@ local storage cleared
 
 [(N)=<[tarr=linspace(0,N-1,N).,shuffle_FY(?tarr)=>,=<tarr.]=>](2)=>
 (
-0,1
+1,0
 )
 
 shuffle_FY(?tarr)=<last[len=sizer(tarr),switch_arr=(i1)=<last{i0=floor(rand()*(i1+1)),w=tarr[i1],tarr[i1]=tarr[i0],tarr[i0]=w},_s((i_)=<switch_arr(i_)=>,len-1,1)]
@@ -8085,4 +8085,4 @@ center=true&wheel=true&drag=false&test-case=false&plot-all=true&relzooming=true&
 --------------------------------
 --------------------------------
 
-online-simulator.github.io.7.544.741.32.202 @ Sat Sep 12 2026 17:02:48 GMT+0900 (日本標準時) @ Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/152.0.0.0 Safari/537.36
+online-simulator.github.io.7.544.743.32.202 @ Mon Sep 14 2026 03:35:58 GMT+0900 (日本標準時) @ Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/152.0.0.0 Safari/537.36
