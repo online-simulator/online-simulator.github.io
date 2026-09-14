@@ -3521,6 +3521,26 @@ stored_eqn(calc_genus_X)
 cusps(n)=<_p((p)=<1-(isPrime(p)=>&&&n%p===0&&&1/p**2),1,n)*n**2/2
 stored_eqn(cusps)
 
+pin_by_x4Polignac={1/ln(x_Polignac),pin_by_x(x_Polignac,30)=>,=pin_Mertens3rd_by_x(x_Polignac,30,false)=>,=pin_Mertens3rd_by_x(x_Polignac,30,true)=>/[1,kC_BSD(x_Polignac,1/ln(x_Polignac))=>]}
+pin_by_x4Polignac=(
+0.29401410379520604:
+0.3044035013231691:
+0.30441433960705067:
+0.3043694063356944,0.21237027987443496
+)
+
+x_Polignac=30
+x_Polignac=30
+
+kC_BSD(x,r)=<ln(x)**r
+stored_eqn(kC_BSD)
+
+pin_Mertens3rd_by_x(x,kN,useZeta2)=<[p_minus_q=round(x/2)*2,N=(p_minus_q-1)*kN,gamma_Euler_Mascheroni=0.57721566490153286,e_power_g=e**gamma_Euler_Mascheroni,Zeta2=pi**2/6,isPrimitiveRoot_X(p)=<p_minus_q%p===0,w(p)=<1-(isPrimitiveRoot_X(p)=>|||2)/p,nu(p)=<(isPrimitiveRoot_X(p)=>|||(p-2)/(p-1))*p/(p+1),switch_weight(p)=<useZeta2&&&nu(p)=>|||w(p)=>,pin_unified(n)=<_p((p)=<isPrime(p)=>&&&switch_weight(p)=>|||1,2,n),=<pin_unified(N)=>*4*e_power_g**2/(useZeta2&&&Zeta2|||1)]=>
+stored_eqn(pin_Mertens3rd_by_x)
+
+pin_by_x(x,kN)=<2*calc_local_weight(round(x/2)*2,(round(x/2)*2-1)*kN)=>/ln(x)**2
+stored_eqn(pin_by_x)
+
 C10_Hardy_Littlewood2Polignac=calc_local_weight(10,1e2)=>
 C10_Hardy_Littlewood2Polignac=0.8818361127295801
 
@@ -5844,7 +5864,7 @@ clear
 local storage cleared
 
 [Pinv_y=(-0.999999427,-0.999936657,-0.997300203,-0.954499736,-0.682689492,0,0.682689492,0.954499736,0.997300203,0.999936657,0.999999427:-5,-4,-3,-2,-1,0,1,2,3,4,5),N=1,arr=[],_r((n)=<arr.push(rand_table(=<Pinv_y)=>),,N),=<arr.]=>
--0.17468128742433486
+2.4715248969931323
 
 rand_table(csv)=<last[table=sort0(csv),ymin=min(table)[0],ymax=max(table)[0],y=ymin+(ymax-ymin)*rand(),x=interp(y:table),x]
 stored_eqn(rand_table)
@@ -5854,7 +5874,7 @@ local storage cleared
 
 [(N)=<[tarr=linspace(0,N-1,N).,shuffle_FY(?tarr)=>,=<tarr.]=>](2)=>
 (
-1,0
+0,1
 )
 
 shuffle_FY(?tarr)=<last[len=sizer(tarr),switch_arr=(i1)=<last{i0=floor(rand()*(i1+1)),w=tarr[i1],tarr[i1]=tarr[i0],tarr[i0]=w},_s((i_)=<switch_arr(i_)=>,len-1,1)]
@@ -8085,4 +8105,4 @@ center=true&wheel=true&drag=false&test-case=false&plot-all=true&relzooming=true&
 --------------------------------
 --------------------------------
 
-online-simulator.github.io.7.544.743.32.202 @ Mon Sep 14 2026 04:10:13 GMT+0900 (日本標準時) @ Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/152.0.0.0 Safari/537.36
+online-simulator.github.io.7.544.744.32.202 @ Tue Sep 15 2026 00:06:32 GMT+0900 (日本標準時) @ Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/152.0.0.0 Safari/537.36
