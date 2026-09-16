@@ -442,6 +442,8 @@ test case
 <br>
 ・<span class="sF">vacuum</span>：<span class="run">Ver.2.907.179</span>以降、真空（Eisenstein級数のpotential）
 <br>
+　<span class="clear">2.916.180</span>以降、Eisenstein<a href="#span-out-FNh-SX">2重級数</a>　⇒　q展開のLambert級数（収束性改善）
+<br>
 　⇒potential：V4(s)=|E4(s)|**2/imag(s)**4
 <br>
 　　tunnel障壁のheight上界（谷位置）：4/10&gt;4/11=0.3636363636363636...（次元比）
@@ -484,9 +486,13 @@ s_pq(p,q)=&lt;(p+q)/(p-q)+i*sqrt(p*q/(p-q)); s_pq(pq_cousin_1st) -> 2.5+2.291287
 <br>
 　⇒整数→四半整数→半整数→四半整数→整数：山→変曲点近傍→谷→変曲点近傍→山
 <br>
-　-real(E4')：Ramanujan-Serre共変微分E4'のreal変化（<a href="#span-out-UI-graphing">x10-button</a>の6桁拡大からsaddle点を特定）
+　-real(E4')：Ramanujan-Serre共変微分E4'のreal変化
 <br>
 　⇒共変微分：E4'(s)=i*(2pi/3)*(E2(s)*E4(s)-E6(s))（Ramanujanの微分方程式に由来）
+<br>
+　<span class="clear">-spurious-residual</span>：<span class="clear">Ver.2.916.180</span>以降、同上の訂正
+<br>
+　⇒幻影：<a href="#span-out-UI-graphing">x10-button</a>の6桁拡大からsaddle点を特定（Eisenstein<a href="#span-out-FNh-SX">2重級数</a>→0収束の残差）
 <br>
 　-imag(E4')：Ramanujan-Serre共変微分E4'のimag変化（半整数位置で縦軸方向に単調増加を確認）
 <br>
@@ -56008,21 +56014,21 @@ integral_V_Poincare_metric(N)=&lt;_i0((x)=&lt;_i0((y)=&lt;V_geometry(y)=&gt;/y**
 <br>
 ZPE_geometry=integral_V_Poincare_metric(50)=&gt;;
 <br>
-Eisenstein_G2k(s,k,N)=&lt;(k&gt;1&amp;&amp;imag(s)&gt;0)&amp;&amp;&amp;_s((n)=&lt;_s((m)=&lt;~~(m===0&amp;&amp;n===0)&amp;&amp;&amp;(m+n*s)**(-2*k),-N,N),-N,N)||||NaN;
+E2k_Lambert(s,k,N)=&lt;[
 <br>
-E2_Lambert(s,N)=&lt;1-24*_s((n)=&lt;[(qn)=&lt;(n*qn)/(1-qn)](exp(2*pi*i*s*n))=&gt;,1,N);
+table_Bn={1/1,-1/2,1/6,,-1/30,,1/42,,-1/30,,5/66,,-691/2730,,7/6,,-3617/510,,43867/798,,-174611/330,,854513/138,,-236364091/2730,,8553103/6,,-23749461029/870},
 <br>
-E2_Lambert_mod(s,N)=&lt;E2_Lambert(s,N)=&gt;-3/(pi*imag(s));
+factor_Bn=-4*k/table_Bn[2*k],term_mod=k===1&&&-3/(pi*imag(s)),series_q=_s((n)=&lt;n**(2*k-1)*[(qn)=&lt;qn/(1-qn)](exp(2*pi*i*s*n))=&gt;,1,N),
 <br>
-E2k(s,k,N)=&lt;k===1&amp;&amp;&amp;E2_Lambert_mod(s,N)=&gt;||||Eisenstein_G2k(s,k,N)=&gt;/(2*zeta_EM_full(2*k,100,14)=&gt;);
+=&lt;1+factor_Bn*series_q+term_mod]=&gt;;
 <br>
-V2k(s,k,N)=&lt;abs(E2k(s,k,N)=&gt;)**2/imag(s)**4;
+V2k(s,k,N)=&lt;abs(E2k_Lambert(s,k,N)=&gt;)**2/imag(s)**4;
 <br>
 integral_V4_Haar_measure(N)=&lt;_i0((x)=&lt;_i0((y)=&lt;V2k(x+i*y,2,N)=&gt;/y**2,sqrt(1-x**2),inf,N),[-1,1]/2,N);
 <br>
-intV5=integral_V4_Haar_measure(5)=&gt;;
+intV25=integral_V4_Haar_measure(25)=&gt;;
 <br>
-intV9=integral_V4_Haar_measure(9)=&gt;;
+intV50=integral_V4_Haar_measure(50)=&gt;;
 <br>
 intVinf=0.2401924240624659;
 <br>
@@ -56209,7 +56215,7 @@ s_inv_saddle_point=1/s_saddle_point_IRarea_as_false_vacuum;
 <br>
 =s_inv_xy(x_base,y_saddle_point)=&gt;;
 <br>
-E4d_Ramanujan_Serre(s,N)=&lt;i*(2*pi/3)*(E2k(s,1,N)=&gt;*E2k(s,2,N)=&gt;-E2k(s,3,N)=&gt;);
+E4d_Ramanujan_Serre(s,N)=&lt;i*(2*pi/3)*(E2k_Lambert(s,1,N)=&gt;*E2k_Lambert(s,2,N)=&gt;-E2k_Lambert(s,3,N)=&gt;);
 <br>
 E4d_local_max_UVarea_from_D_Gauss_ab_160=E4d_Ramanujan_Serre(s_local_max_UVarea_from_D_Gauss_ab_160,50)=&gt;;
 <br>
