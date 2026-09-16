@@ -3305,7 +3305,7 @@ calc_W(y)=<Newton((x)=<x**y=y,,false,1e3,0)
 stored_eqn(calc_W)
 
 FSC_inv_now=FSC_inv_loop0+FSC_inv_loop1+FSC_inv_loop2+FSC_inv_loop3
-FSC_inv_now=infoLost[ri] 137.03327817635034
+FSC_inv_now=infoLost[ri] 137.03329738187153
 
 FSC_inv_loop3=-alpha_SPP*gamma_Euler_Mascheroni/(topological_factor_Klein+alpha_SPP/N_dimension_F_theory)
 FSC_inv_loop3=-0.019327555368045164
@@ -3317,7 +3317,7 @@ FSC_inv_loop1=ln(2*pi/gamma_Euler_Mascheroni)
 FSC_inv_loop1=2.38741637939099
 
 FSC_inv_loop0=factor_central_charge_CFT*geometric_degrees_spacetime/V4_saddle_point_IRarea_as_false_vacuum
-FSC_inv_loop0=infoLost[ri] 128.3820040451478
+FSC_inv_loop0=infoLost[ri] 128.382023250669
 
 topological_factor_Klein=(2*g_Klein_X7+1)+N_dimension_M_theory
 topological_factor_Klein=18
@@ -3329,7 +3329,7 @@ factor_central_charge_CFT=3/2
 factor_central_charge_CFT=1.5
 
 V4_saddle_point_IRarea_as_false_vacuum=V2k(s_saddle_point_IRarea_as_false_vacuum,2,250)=>
-V4_saddle_point_IRarea_as_false_vacuum=infoLost[ri] 0.03627144513805798
+V4_saddle_point_IRarea_as_false_vacuum=infoLost[ri] 0.03627143971197113
 
 holographic_height={y_saddle_point,=y_D_Klein_mod,=L4_spacetime}
 holographic_height=(
@@ -3354,13 +3354,13 @@ chi7(n)=<n%7===0&&&0||||(n%7===1|||n%7===2|||n%7===4)&&&1|||-1
 stored_eqn(chi7)
 
 E4d_D_Klein_mod=E4d_Ramanujan_Serre(s_D_Klein_mod,50)=>
-E4d_D_Klein_mod=infoLost[ri] -9.093903612991144e-8-0.8927636080628415i
+E4d_D_Klein_mod=infoLost[ri] -6.013375276631955e-19-0.8927659150337821i
 
 E4d_D_Klein=E4d_Ramanujan_Serre(s_D_Klein,50)=>
-E4d_D_Klein=infoLost[ri] 5.290723288550505e-7-0.45548624124092474i
+E4d_D_Klein=infoLost[ri] -8.93269708690344e-25-0.4554864861616201i
 
 E4d_Chowla_Selberg=E4d_Ramanujan_Serre(s_Chowla_Selberg,50)=>
-E4d_Chowla_Selberg=infoLost[ri] -0.0000021210644483829835-1.791640490571599i
+E4d_Chowla_Selberg=infoLost[ri] -1.7045231228288893e-16-1.7916419328816748i
 
 s_D_Klein_mod=x_base+i*y_D_Klein_mod
 s_D_Klein_mod=infoLost[r ] 2.5+2.2426959384769276i
@@ -3381,33 +3381,33 @@ y_Chowla_Selberg=sqrt(7)/2
 y_Chowla_Selberg=1.3228756555322954
 
 E4d_saddle_point_IRarea_as_false_vacuum=E4d_Ramanujan_Serre(s_saddle_point_IRarea_as_false_vacuum,50)=>
-E4d_saddle_point_IRarea_as_false_vacuum=infoLost[ri] -2.3793511487518425e-10-0.8735955381895496i
+E4d_saddle_point_IRarea_as_false_vacuum=infoLost[ri] -4.446795740215383e-19-0.8735977857005475i
 
 E4d_cusp_point_IRarea_as_true_vacuum=E4d_Ramanujan_Serre(s_cusp_point_IRarea_as_true_vacuum,50)=>
-E4d_cusp_point_IRarea_as_true_vacuum=infoLost[r ] 2.564906518534443e-16-0.00000500624882983754i
+E4d_cusp_point_IRarea_as_true_vacuum=infoLost[r ] 0
 
 E4d_omega_point3_UVarea_as_true_vacuum=E4d_Ramanujan_Serre(s_omega_point3_UVarea_as_true_vacuum,50)=>
-E4d_omega_point3_UVarea_as_true_vacuum=infoLost[ri] 4.0085005334185996e-10-6.035085569352492i
+E4d_omega_point3_UVarea_as_true_vacuum=infoLost[ri] -2.1115321032793222e-15-6.035085568841249i
 
 E4d_omega_point3=E4d_Ramanujan_Serre(s_omega_point3,50)=>
-E4d_omega_point3=infoLost[ri] 4.313695422488015e-15-6.03508558291497i
+E4d_omega_point3=infoLost[ri] 4.831088381396817e-15-6.035085568841249i
 
 E4d_local_max_UVarea_from_D_Gauss_ab_80=E4d_Ramanujan_Serre(s_local_max_UVarea_from_D_Gauss_ab_80,50)=>
-E4d_local_max_UVarea_from_D_Gauss_ab_80=infoLost[ri] 0.00039070611185956176+2048.000437862904i
+E4d_local_max_UVarea_from_D_Gauss_ab_80=infoLost[ri] 3.897374161225526e-12+2047.9999308603094i
 
 E4d_inflection_point_UVarea_from_D_Gauss_ab_97=E4d_Ramanujan_Serre(s_inflection_point_UVarea_from_D_Gauss_ab_97,50)=>
-E4d_inflection_point_UVarea_from_D_Gauss_ab_97=infoLost[ri] 509.73577265524216+0.0000651883165407905i
+E4d_inflection_point_UVarea_from_D_Gauss_ab_97=infoLost[ri] 509.73586941080066-4.573781729680974e-12i
 
 E4d_local_min_UVarea_from_D_Gauss_ab_116=E4d_Ramanujan_Serre(s_local_min_UVarea_from_D_Gauss_ab_116,50)=>
-E4d_local_min_UVarea_from_D_Gauss_ab_116=infoLost[ri] 0.000004130679068795024+245.81148831916113i
+E4d_local_min_UVarea_from_D_Gauss_ab_116=infoLost[ri] 7.176704867208992e-13+245.81148148830766i
 
 E4d_inflection_point_UVarea_from_D_Gauss_ab_137=E4d_Ramanujan_Serre(s_inflection_point_UVarea_from_D_Gauss_ab_137,50)=>
-E4d_inflection_point_UVarea_from_D_Gauss_ab_137=infoLost[ri] -509.73641435601434+0.00006877609928994734i
+E4d_inflection_point_UVarea_from_D_Gauss_ab_137=infoLost[ri] -509.73586941080254+2.5579449531254793e-12i
 
 E4d_local_max_UVarea_from_D_Gauss_ab_160=E4d_Ramanujan_Serre(s_local_max_UVarea_from_D_Gauss_ab_160,50)=>
-E4d_local_max_UVarea_from_D_Gauss_ab_160=infoLost[ri] 0.0005117020358178902+2048.00666687358i
+E4d_local_max_UVarea_from_D_Gauss_ab_160=infoLost[ri] 1.1185405554686748e-11+2047.9999308603094i
 
-E4d_Ramanujan_Serre(s,N)=<i*(2*pi/3)*(E2k(s,1,N)=>*E2k(s,2,N)=>-E2k(s,3,N)=>)
+E4d_Ramanujan_Serre(s,N)=<i*(2*pi/3)*(E2k_Lambert(s,1,N)=>*E2k_Lambert(s,2,N)=>-E2k_Lambert(s,3,N)=>)
 stored_eqn(E4d_Ramanujan_Serre)
 
 =s_inv_xy(x_base,y_saddle_point)=>
@@ -3649,29 +3649,20 @@ ZPE_spacetime=0.2401924240624659
 intVinf=0.2401924240624659
 intVinf=0.2401924240624659
 
-intV9=integral_V4_Haar_measure(9)=>
-intV9=infoLost[ri] 0.2596334859610002-1.0690841646935831e-18i+O(4e-100)
+intV50=integral_V4_Haar_measure(50)=>
+intV50=infoLost[ri] 0.24019242404281768-1.9013885683648423e-18i+O(8e-101)
 
-intV5=integral_V4_Haar_measure(5)=>
-intV5=infoLost[ri] 0.35441911601863163-1.2063675736921711e-20i+O(3e-100)
+intV25=integral_V4_Haar_measure(25)=>
+intV25=infoLost[ri] 0.24019810210486428-1.9024393606940243e-18i+O(2e-100)
 
 integral_V4_Haar_measure(N)=<_i0((x)=<_i0((y)=<V2k(x+i*y,2,N)=>/y**2,sqrt(1-x**2),inf,N),[-1,1]/2,N)
 stored_eqn(integral_V4_Haar_measure)
 
-V2k(s,k,N)=<abs(E2k(s,k,N)=>)**2/imag(s)**4
+V2k(s,k,N)=<abs(E2k_Lambert(s,k,N)=>)**2/imag(s)**4
 stored_eqn(V2k)
 
-E2k(s,k,N)=<k===1&&&E2_Lambert_mod(s,N)=>||||Eisenstein_G2k(s,k,N)=>/(2*zeta_EM_full(2*k,100,14)=>)
-stored_eqn(E2k)
-
-E2_Lambert_mod(s,N)=<E2_Lambert(s,N)=>-3/(pi*imag(s))
-stored_eqn(E2_Lambert_mod)
-
-E2_Lambert(s,N)=<1-24*_s((n)=<[(qn)=<(n*qn)/(1-qn)](exp(2*pi*i*s*n))=>,1,N)
-stored_eqn(E2_Lambert)
-
-Eisenstein_G2k(s,k,N)=<(k>1&&imag(s)>0)&&&_s((n)=<_s((m)=<~~(m===0&&n===0)&&&(m+n*s)**(-2*k),-N,N),-N,N)||||NaN
-stored_eqn(Eisenstein_G2k)
+E2k_Lambert(s,k,N)=<[table_Bn={1/1,-1/2,1/6,,-1/30,,1/42,,-1/30,,5/66,,-691/2730,,7/6,,-3617/510,,43867/798,,-174611/330,,854513/138,,-236364091/2730,,8553103/6,,-23749461029/870},factor_Bn=-4*k/table_Bn[2*k],term_mod=k===1&&&-3/(pi*imag(s)),series_q=_s((n)=<n**(2*k-1)*[(qn)=<qn/(1-qn)](exp(2*pi*i*s*n))=>,1,N),=<1+factor_Bn*series_q+term_mod]=>
+stored_eqn(E2k_Lambert)
 
 ZPE_geometry=integral_V_Poincare_metric(50)=>
 ZPE_geometry=infoLost[ri] 0.25660011964096036-9.4273354561985e-18i+O(2e-100)
@@ -5864,7 +5855,7 @@ clear
 local storage cleared
 
 [Pinv_y=(-0.999999427,-0.999936657,-0.997300203,-0.954499736,-0.682689492,0,0.682689492,0.954499736,0.997300203,0.999936657,0.999999427:-5,-4,-3,-2,-1,0,1,2,3,4,5),N=1,arr=[],_r((n)=<arr.push(rand_table(=<Pinv_y)=>),,N),=<arr.]=>
-2.4715248969931323
+-0.006968826702613118
 
 rand_table(csv)=<last[table=sort0(csv),ymin=min(table)[0],ymax=max(table)[0],y=ymin+(ymax-ymin)*rand(),x=interp(y:table),x]
 stored_eqn(rand_table)
@@ -8105,4 +8096,4 @@ center=true&wheel=true&drag=false&test-case=false&plot-all=true&relzooming=true&
 --------------------------------
 --------------------------------
 
-online-simulator.github.io.7.544.744.32.202 @ Tue Sep 15 2026 00:06:32 GMT+0900 (日本標準時) @ Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/152.0.0.0 Safari/537.36
+online-simulator.github.io.7.544.746.33.202 @ Wed Sep 16 2026 10:49:48 GMT+0900 (日本標準時) @ Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/152.0.0.0 Safari/537.36
