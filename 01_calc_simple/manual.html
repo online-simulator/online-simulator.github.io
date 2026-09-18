@@ -56473,9 +56473,11 @@ dS_margin(d,g)=&lt;dS(x_digital,d,g)=&gt;/sharpness(d,g)=&gt;;
 <br>
 Nsol_Szpiro_packable_cells_from_Kleinian_quartic(s,d,g)=&lt;exp(-dS(s,d,g)=&gt;);
 <br>
-loss_digital(s,d,g)=&lt;log10(Nsol_Szpiro_packable_cells_from_Kleinian_quartic(s,d,g)=&gt;)/ln10;
+log10_Nsol_Szpiro(s,d,g)=&lt;log10(Nsol_Szpiro_packable_cells_from_Kleinian_quartic(s,d,g)=&gt;);
 <br>
-log10_Nsol_Szpiro_derivative(d,g)=&lt;(loss_digital(x_digital,d,g)=&gt;-loss_digital(x_analog,d,g)=&gt;)*ln10/(x_digital-x_analog);
+loss_digital(s,d,g)=&lt;log10_Nsol_Szpiro(s,d,g)=&gt;/ln10;
+<br>
+log10_Nsol_Szpiro_derivative(d,g)=&lt;(log10_Nsol_Szpiro(x_digital,d,g)=&gt;-log10_Nsol_Szpiro(x_analog,d,g)=&gt;)/(x_digital-x_analog);
 <br>
 log2_Dn(s,d,g)=&lt;capa_eff_Shannon_Hartley(s,d,g)=&gt;-loss_digital(s,d,g)=&gt;;
 <br>
@@ -56825,6 +56827,8 @@ isHalf_parity=(sharpness_GUT/symmetry_SVP_Klein)===2;
 isN_Leech_by_quaternion=n===symmetry_SPP_Leech/symmetry_spin_quaternion;
 <br>
 isN_eq_3d_only_valid_CECC=n===g&amp;&amp;&amp;ratio_AD===alpha_Kepler&amp;&amp;&amp;n*g===N_dimension_superstring-1;
+<br>
+ln168_gt_capa0={ln(symmetry_SVP_Klein),capa0};
 <br>
 <br>
 N_dimension_superspace=symmetry_spin_quaternion*N_dimension_spacetime;
