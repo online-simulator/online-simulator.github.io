@@ -2480,10 +2480,10 @@ delta_d_about=dend_inflation-h_Shannon
 delta_d_about=infoLost[r ] 2.7680268482140775
 
 delta_d_about=dend_inflation-h_Weil
-delta_d_about=infoLost[r ] 2.75
+delta_d_about=infoLost[r ] 2.7497190998055068
 
-h_Weil=12.25
-h_Weil=12.25
+h_Weil=ln(209040)
+h_Weil=12.250280900194493
 
 h_Shannon=dend_inflation*probability_Shannon_limit_from_entropic_capacity
 h_Shannon=infoLost[r ] 12.231973151785922
@@ -5864,7 +5864,7 @@ clear
 local storage cleared
 
 [Pinv_y=(-0.999999427,-0.999936657,-0.997300203,-0.954499736,-0.682689492,0,0.682689492,0.954499736,0.997300203,0.999936657,0.999999427:-5,-4,-3,-2,-1,0,1,2,3,4,5),N=1,arr=[],_r((n)=<arr.push(rand_table(=<Pinv_y)=>),,N),=<arr.]=>
--1.0229633853227633
+0.9105880171198311
 
 rand_table(csv)=<last[table=sort0(csv),ymin=min(table)[0],ymax=max(table)[0],y=ymin+(ymax-ymin)*rand(),x=interp(y:table),x]
 stored_eqn(rand_table)
@@ -5874,7 +5874,7 @@ local storage cleared
 
 [(N)=<[tarr=linspace(0,N-1,N).,shuffle_FY(?tarr)=>,=<tarr.]=>](2)=>
 (
-1,0
+0,1
 )
 
 shuffle_FY(?tarr)=<last[len=sizer(tarr),switch_arr=(i1)=<last{i0=floor(rand()*(i1+1)),w=tarr[i1],tarr[i1]=tarr[i0],tarr[i0]=w},_s((i_)=<switch_arr(i_)=>,len-1,1)]
@@ -8105,4 +8105,4 @@ center=true&wheel=true&drag=false&test-case=false&plot-all=true&relzooming=true&
 --------------------------------
 --------------------------------
 
-online-simulator.github.io.7.544.747.33.202 @ Fri Sep 18 2026 22:40:56 GMT+0900 (日本標準時) @ Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/152.0.0.0 Safari/537.36
+online-simulator.github.io.7.544.748.33.202 @ Sat Sep 19 2026 13:17:08 GMT+0900 (日本標準時) @ Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/153.0.0.0 Safari/537.36
