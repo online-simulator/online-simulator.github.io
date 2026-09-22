@@ -2079,6 +2079,18 @@ theta_Cabibbo_bare_deg=infoLost[r ] 11.341742858382432
 theta_Cabibbo_bare=asin(asymmetry_chiral_parity_SU2*alpha_Kepler*cos2_Weinberg)
 theta_Cabibbo_bare=infoLost[r ] 0.19795075579332638
 
+m_X_reheating_eV=g2_eff*Ep_eV/(1.66*sqrt(228.75)*K_Boltzmann)
+m_X_reheating_eV=infoLost[r ] 7.492701591685326e+21+O(1e+6)
+
+K_Boltzmann=calc_K_Boltzmann(g2_eff,asin(1),asymmetry_chiral_parity_SU2/N_dimension_superspace**2,1e-9)=>
+K_Boltzmann=infoLost[r ] 410.9886026074009+O(4e-14)
+
+g2_eff=1/(N_dimension_spacetime*pi)**2
+g2_eff=0.006332573977646111
+
+calc_K_Boltzmann(B_by_A,delta,theta,eta_observed)=<[P_by_A(theta)=<abs(1+B_by_A*exp(i*(delta+theta))),P=P_by_A(-theta)=>,cP=P_by_A(theta)=>,A_CP=(P-cP)/(P+cP),=<Newton((K)=<0.3/(K*ln(K))=eta_observed/A_CP,=<10,false,20)]=>
+stored_eqn(calc_K_Boltzmann)
+
 asymmetry_chiral_parity_SU2=(N_dimension_superspace-N_dimension_superspace/2)/(N_dimension_superspace+N_dimension_superspace/2)
 asymmetry_chiral_parity_SU2=0.3333333333333333
 
@@ -2443,9 +2455,6 @@ symmetry_spin_quaternion=4
 symmetry_SPP_Leech=d_Boson/N_spin_Fermion
 symmetry_SPP_Leech=12
 
-symmetry_SVP_Klein=84*(g-1)
-symmetry_SVP_Klein=168
-
 proton_by_electron={dS_NP(dend_inflation+1,alpha_SVP)=>+sharpness_GUT/10+log10(V_macro_scale),2*1836}
 proton_by_electron=(
 infoLost[r ] 3672.756151912133:
@@ -2461,7 +2470,7 @@ infoLost[r ] 2105.298597200119:
 sharpness_GUT=sharpness(d_Boson,g)=>
 sharpness_GUT=336
 
-g=3
+g=g_Klein_X7
 g=3
 
 d_Boson=26-(1+1)
@@ -3491,6 +3500,9 @@ D_Gauss=-4
 
 D_Klein=-(2*g_Klein_X7+1)
 D_Klein=-7
+
+symmetry_SVP_Klein=84*(g_Klein_X7-1)
+symmetry_SVP_Klein=168
 
 g_Klein_X7=calc_genus_X(7)=>
 g_Klein_X7=3
@@ -5864,7 +5876,7 @@ clear
 local storage cleared
 
 [Pinv_y=(-0.999999427,-0.999936657,-0.997300203,-0.954499736,-0.682689492,0,0.682689492,0.954499736,0.997300203,0.999936657,0.999999427:-5,-4,-3,-2,-1,0,1,2,3,4,5),N=1,arr=[],_r((n)=<arr.push(rand_table(=<Pinv_y)=>),,N),=<arr.]=>
--0.5270710485912511
+0.32900365229652184
 
 rand_table(csv)=<last[table=sort0(csv),ymin=min(table)[0],ymax=max(table)[0],y=ymin+(ymax-ymin)*rand(),x=interp(y:table),x]
 stored_eqn(rand_table)
@@ -8105,4 +8117,4 @@ center=true&wheel=true&drag=false&test-case=false&plot-all=true&relzooming=true&
 --------------------------------
 --------------------------------
 
-online-simulator.github.io.7.544.748.33.202 @ Sat Sep 19 2026 12:44:32 GMT+0900 (日本標準時) @ Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/153.0.0.0 Safari/537.36
+online-simulator.github.io.7.544.749.33.202 @ Tue Sep 22 2026 21:23:47 GMT+0900 (日本標準時) @ Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/153.0.0.0 Safari/537.36

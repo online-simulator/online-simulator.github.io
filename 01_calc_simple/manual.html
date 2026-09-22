@@ -1318,7 +1318,9 @@ calc_W(y)=&lt;Newton((x)=&lt;x**y=y,,false,1e3,0); calc_W(e) || e**(1/e) -> 1.44
 <br>
 　⇒analog<a href="#span-out-limit">極限</a>：<span class="run">Ver.2.909.179</span>以降、3次元のNavier-Stokes方程式（古典論の純粋連続体の一例）
 <br>
-　　超臨界条件：非量子の粘性項より非線形項が優勢のδ的発散
+　　超臨界条件：非量子の粘性項より非線形項が優勢の有限時間爆発→δ的発散（先読み外力assist≠自発的）
+<br>
+　　仮定：非圧縮性の乱流場と<a href="#span-app-paradox">無矛盾</a>で<a href="#span-app-reality">非現実</a>の滑らかな外力f(t,x,y,z)
 <br>
 F(z)=&lt;-1/(2pi*i*z),hyperfunction(x)=&lt;F(x+eps*i)-F(x-eps*i);
 <br>
@@ -1378,7 +1380,7 @@ hyperfunction(0) -> 1433540284805664.8（超関数の発散　⇔　縦渦filame
 <br>
 　　暗黒物質：残存foldの位相欠陥　⇒　Axionの定在波（局所weightの励起）
 <br>
-　　<a href="#span-app-interaction">弱い相互作用</a>：(16-8)/(16+8)=1/3（fold）　⇒　CP対称性の破れ（複素位相の極小歪み）
+　　<a href="#span-app-interaction">弱い相互作用</a>：(16-8)/(16+8)=1/3（fold）　⇒　CP対称性の破れ（A_CP≒1e-5で強washoutのK≒400）
 <br>
 　　離散的な有限性：光速度不変の原理||特異点の解消||<a href="#span-app-redshift">重力赤方偏移</a>||時間の進み具合∝1/局所weight
 <br>
@@ -1398,7 +1400,7 @@ hyperfunction(0) -> 1433540284805664.8（超関数の発散　⇔　縦渦filame
 <br>
 　　零点energy：ZPE→γ+0（もつれを解く順方向のcycle）
 <br>
-　　真空崩壊（逆方向false→true）：非現実的な相転移（もつれを破る逆方向の原点回帰）
+　　真空崩壊（逆方向false→true）：非自発的な相転移（もつれを破る逆方向の原点回帰）
 <br>
 ・<span class="selection">Schrödinger3d</span>：<span class="run">Ver.2.829.139</span>以降、同下の2次元Schrödinger方程式を3次元化（10×10分割　⇒　4×4×4分割）
 <br>
@@ -4365,6 +4367,8 @@ ja.m.wikipedia.org/wiki/項目を列挙する
 <br>
 ・対称性の破れ
 <br>
+・自発的対称性の破れ
+<br>
 ・パリティ_(物理学)
 <br>
 ・対称性
@@ -4544,6 +4548,8 @@ astro-dic.jp/項目を列挙する
 ・standard-cosmological-model
 <br>
 ・lambda-cdm-model
+<br>
+・spontaneous-symmetry-breaking
 <br>
 ・hubble-constant
 <br>
@@ -5611,7 +5617,7 @@ paradoxの解釈について記述する
 <br>
 system（公理系）
 <br>
-・内側：解決＋<a href="#span-app-unsolved">未解決</a>
+・内側：解決＋<a href="#span-app-unsolved">未解決</a>（公理⇒予想の証明⇒定理）
 <br>
 ・境界：決定不能
 <br>
@@ -56279,6 +56285,8 @@ absDmin_p_minus_q_2_4_6_8_10={calc_absD_pq(2)=&gt;,calc_absD_pq(4)=&gt;,calc_abs
 <br>
 g_Klein_X7=calc_genus_X(7)=&gt;;
 <br>
+symmetry_SVP_Klein=84*(g_Klein_X7-1);
+<br>
 D_Klein=-(2*g_Klein_X7+1);
 <br>
 D_Gauss=-4;
@@ -56889,7 +56897,7 @@ V_macro_scale=10**n;
 <br>
 d_Boson=26-(1+1);
 <br>
-g=3;
+g=g_Klein_X7;
 <br>
 sharpness_GUT=sharpness(d_Boson,g)=&gt;;
 <br>
@@ -56897,8 +56905,6 @@ P_NP_overflow={dS_NP(dend_inflation,alpha_SVP)=&gt;,2*pi*sharpness_GUT};
 <br>
 proton_by_electron={dS_NP(dend_inflation+1,alpha_SVP)=&gt;+sharpness_GUT/10+log10(V_macro_scale),2*1836};
 <br>
-<br>
-symmetry_SVP_Klein=84*(g-1);
 <br>
 symmetry_SPP_Leech=d_Boson/N_spin_Fermion;
 <br>
@@ -57117,6 +57123,19 @@ isBoson_gcd=gcd(sharpness_GUT,total_channels,symmetry_SVP_Klein)===d_Boson;
 isAsymmetric_parity_SU2=N_dimension_superspace&gt;=symmetry_SPP_Leech;
 <br>
 asymmetry_chiral_parity_SU2=(N_dimension_superspace-N_dimension_superspace/2)/(N_dimension_superspace+N_dimension_superspace/2);
+<br>
+calc_K_Boltzmann(B_by_A,delta,theta,eta_observed)=&lt;[
+<br>
+P_by_A(theta)=&lt;abs(1+B_by_A*exp(i*(delta+theta))),P=P_by_A(-theta)=&gt;,cP=P_by_A(theta)=&gt;,A_CP=(P-cP)/(P+cP),
+<br>
+=&lt;Newton((K)=&lt;0.3/(K*ln(K))=eta_observed/A_CP,=&lt;10,false,20)]=&gt;;
+<br>
+g2_eff=1/(N_dimension_spacetime*pi)**2;
+<br>
+K_Boltzmann=calc_K_Boltzmann(g2_eff,asin(1),asymmetry_chiral_parity_SU2/N_dimension_superspace**2,1e-9)=&gt;;
+<br>
+m_X_reheating_eV=g2_eff*Ep_eV/(1.66*sqrt(228.75)*K_Boltzmann);
+<br>
 <br>
 theta_Cabibbo_bare=asin(asymmetry_chiral_parity_SU2*alpha_Kepler*cos2_Weinberg);
 <br>
