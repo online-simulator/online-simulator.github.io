@@ -3007,6 +3007,33 @@ quality11_Szpiro_conjecture=1.5130786233736997
 quality11_abc_conjecture=q_Shannon_limit
 quality11_abc_conjecture=1.6309297535714575
 
+K112=calc_K(1,1,2)=>
+K112=infoLost[r ] 4.017958759501828
+
+K111=calc_K(1,1,1)=>
+K111=infoLost[r ] 4.778185144587081
+
+K101=calc_K(1,0,1)=>
+K101=infoLost[r ] 1.5927283815290267
+
+calc_K(d,g,k)=<[delta_noise(n)=<ln(n)*_p((p)=<1+(isPrime(p)=>&&&n%p===0&&&1/p),1,n),K(d,g)=<-sharpness(d,g)=>*C_K*bits(d)=>,K_noise(d,g,k)=<K(d,g)=>*exp(-delta_noise(k)=>/sharpness(d,g)=>),=<K_noise(d,g,k)=>]=>
+stored_eqn(calc_K)
+
+bits(d)=<log2((1+q_Shannon(d)=>/xi_digital)/(1+q_Shannon(d)=>/xi_analog))
+stored_eqn(bits)
+
+C_K=log10(e)/(x_analog-x_digital)
+C_K=0.7792761840770264
+
+S_total_curvature_Klein=2*pi*abs(chi_Euler(g_Klein_X7)=>)
+S_total_curvature_Klein=25.132741228718345
+
+V_analog_Klein=ln(symmetry_SVP_Klein+2*pi)
+V_analog_Klein=5.160681478034134
+
+chi_Euler(g)=<2*(1-g)
+stored_eqn(chi_Euler)
+
 alpha(s,d,g)=<log2_Dn(s,d,g)=>/sharpness(d,g)=>
 stored_eqn(alpha)
 
@@ -3300,7 +3327,7 @@ xi_interval_d0=(
 infoLost[r ] 1.5889990565733654,infoLost[r ] 0.5235987755982978
 )
 
-xi_interval=[xi_adelic_Haar_measure(x_digital)=>,xi_adelic_Haar_measure(x_analog)=>]
+xi_interval=[xi_digital,xi_analog]
 xi_interval=(
 infoLost[r ] 1.5889990565733654,infoLost[r ] 0.5235987755982978
 )
@@ -3309,6 +3336,12 @@ x_interval=[x_digital,x_analog]
 x_interval=(
 1.4426950408889634,2
 )
+
+xi_analog=xi_adelic_Haar_measure(x_analog)=>
+xi_analog=infoLost[r ] 0.5235987755982978
+
+xi_digital=xi_adelic_Haar_measure(x_digital)=>
+xi_digital=infoLost[r ] 1.5889990565733654
 
 x_analog=2
 x_analog=2
@@ -5876,7 +5909,7 @@ clear
 local storage cleared
 
 [Pinv_y=(-0.999999427,-0.999936657,-0.997300203,-0.954499736,-0.682689492,0,0.682689492,0.954499736,0.997300203,0.999936657,0.999999427:-5,-4,-3,-2,-1,0,1,2,3,4,5),N=1,arr=[],_r((n)=<arr.push(rand_table(=<Pinv_y)=>),,N),=<arr.]=>
-0.32900365229652184
+-0.6487038910444666
 
 rand_table(csv)=<last[table=sort0(csv),ymin=min(table)[0],ymax=max(table)[0],y=ymin+(ymax-ymin)*rand(),x=interp(y:table),x]
 stored_eqn(rand_table)
@@ -5886,7 +5919,7 @@ local storage cleared
 
 [(N)=<[tarr=linspace(0,N-1,N).,shuffle_FY(?tarr)=>,=<tarr.]=>](2)=>
 (
-1,0
+0,1
 )
 
 shuffle_FY(?tarr)=<last[len=sizer(tarr),switch_arr=(i1)=<last{i0=floor(rand()*(i1+1)),w=tarr[i1],tarr[i1]=tarr[i0],tarr[i0]=w},_s((i_)=<switch_arr(i_)=>,len-1,1)]
@@ -8117,4 +8150,4 @@ center=true&wheel=true&drag=false&test-case=false&plot-all=true&relzooming=true&
 --------------------------------
 --------------------------------
 
-online-simulator.github.io.7.544.749.33.202 @ Tue Sep 22 2026 21:23:47 GMT+0900 (日本標準時) @ Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/153.0.0.0 Safari/537.36
+online-simulator.github.io.7.544.749.33.202 @ Thu Sep 24 2026 07:06:46 GMT+0900 (日本標準時) @ Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/154.0.0.0 Safari/537.36
