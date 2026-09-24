@@ -1382,7 +1382,11 @@ hyperfunction(0) -> 1433540284805664.8（超関数の発散　⇔　縦渦filame
 <br>
 　　<a href="#span-app-interaction">弱い相互作用</a>：(16-8)/(16+8)=1/3（fold）　⇒　CP対称性の破れ（A_CP≒1e-5で強washoutのK≒400）
 <br>
-　　離散的な有限性：光速度不変の原理||特異点の解消||<a href="#span-app-redshift">重力赤方偏移</a>||時間の進み具合∝1/局所weight
+　⇒離散的な有限性：光速度不変の原理||特異点の解消||<a href="#span-app-redshift">重力赤方偏移</a>||時間の進み具合∝1/局所weight
+<br>
+　　<a href="#span-app-quantum">素粒子</a>の種類数（次の<span class="jF">Pythagoras素数</span>=137の風車）：27-7-3=1+(27-1)/2+3=17（±3の双対性）
+<br>
+　　巡回群（<span class="clear">不規則素数</span>の閉包）：random-walk{2,3,5,13,31,<span class="jF">137</span>,<span class="clear">27869189</span>}・GUE統計{2,3,5,7,<span class="jF">13</span>,<span class="clear">691</span>}
 <br>
 　⇒量子もつれEPR=ER：素数pairの<a href="#span-app-quantum">多体もつれ</a>（Bost-Connes系）　⇔　多体問題のstabilizer（高次のGUE統計）
 <br>
@@ -1394,7 +1398,9 @@ hyperfunction(0) -> 1433540284805664.8（超関数の発散　⇔　縦渦filame
 <br>
 　　微細構造定数の逆数：z=11+(11-7)i; z*z'+(imag(z)/real(z))/10 -> 137.03636363636363（≒168-24-7）
 <br>
-　⇒falseの真空：trueの真空と高width障壁のsaddle点（complexで動的な真空）
+　⇒falseの真空：trueの真空の原点→高width障壁のsaddle点（complexで動的な真空）
+<br>
+　　x*x+4yz=137の風車(x,y,z)：基底の不動点(1,1,34)→励起の平方和(11,2,2)（奇→偶の自発的対称性の破れ）
 <br>
 　　<a href="#span-app-entropy">時間の矢</a>：bounce点→saddle点→cusp点の収束過程（不可逆なpotential勾配）
 <br>
@@ -3314,6 +3320,10 @@ ja.m.wikipedia.org/wiki/項目を列挙する
 ・素数定理
 <br>
 ・素数計数関数
+<br>
+・ピタゴラス素数
+<br>
+・二個の平方数の和
 <br>
 ・チェビシェフの偏り
 <br>
@@ -56290,6 +56300,62 @@ symmetry_SVP_Klein=84*(g_Klein_X7-1);
 D_Klein=-(2*g_Klein_X7+1);
 <br>
 D_Gauss=-4;
+<br>
+prime_Pythagorean_137=round(D_Gauss**2+(D_Gauss+D_Klein)**2);
+<br>
+D_sqrt137_M2F_theory=sqrt(prime_Pythagorean_137);
+<br>
+<br>
+prime2arr_xyz(prime_4np1)=&lt;[arr=[],push_xyz(x)=&lt;last{yz=(prime_4np1-x*x)/4,yz%1===0&amp;&amp;&amp;_s((y)=&lt;(yz/y)%1===0&amp;&amp;&amp;arr[#arr].push(x,y,yz/y),1,yz)},_s((x)=&lt;push_xyz(x)=&gt;,1,floor(sqrt(prime_4np1))),=&lt;arr]=&gt;;
+<br>
+arr_xyz=prime2arr_xyz(prime_Pythagorean_137)=&gt;;
+<br>
+area_Zagier(x,y,z)=&lt;switch(x&lt;y-z,1:x&gt;2*y,3:1,2);
+<br>
+f_Zagier(x,y,z)=&lt;{(x+2*z,z,y-x-z),(2*y-x,y,x-y+z),(x-2*y,x-y+z,y)}[area_Zagier(x,y,z)=&gt;-1];
+<br>
+mu_area1(x,y,z)=&lt;x**3/sqrt(y*z);
+<br>
+_s((n)=&lt;arr_xyz[n].push(false,area_Zagier(f_Zagier(arr_xyz[n])=&gt;)=&gt;,NaN,f_Zagier(arr_xyz[n])=&gt;,true,area_Zagier(f_Zagier(f_Zagier(arr_xyz[n])=&gt;)=&gt;)=&gt;,NaN,f_Zagier(f_Zagier(arr_xyz[n])=&gt;)=&gt;,NaN,mu_area1(arr_xyz[n])=&gt;),,#arr_xyz-1);
+<br>
+N_windmill=#arr_xyz;
+<br>
+N_windmill_fixed_point=1;
+<br>
+N_windmill_area2=sum(arr_xyz[][4].===2);
+<br>
+N_windmill_area3to1=N_windmill-N_windmill_area2;
+<br>
+N_windmill_pair=(N_windmill-N_windmill_fixed_point)/2;
+<br>
+N_windmill_area2_EPR_eq_ER_pair=(N_windmill_area2-N_windmill_fixed_point)/2;
+<br>
+N_particle=(N_windmill-N_windmill_area2-g_Klein_X7,N_windmill_fixed_point+N_windmill_pair+g_Klein_X7);
+<br>
+Omega_baryon_windmill=(N_windmill_fixed_point+N_windmill_area2_EPR_eq_ER_pair)/(N_windmill*pi);
+<br>
+Omega_dark_matter_windmill=N_windmill_area2/N_windmill;
+<br>
+idx_x_eq_y=((arr_xyz[][0]===arr_xyz[][1]).filter((x)=&lt;x))[1];
+<br>
+idx_y_eq_z=((arr_xyz[][1]===arr_xyz[][2]).filter((x)=&lt;x))[1];
+<br>
+xyz_fixed_point_as_true_vacuum=arr_xyz[idx_x_eq_y];
+<br>
+xyz_square_number_as_false_vacuum=arr_xyz[idx_y_eq_z];
+<br>
+xyz_Photon=arr_xyz[1]; xyz_Gluon=arr_xyz[6]; xyz_Higgs=arr_xyz[13];
+<br>
+xyz_Up=arr_xyz[2]; xyz_Down=arr_xyz[3]; xyz_Electron=arr_xyz[9]; xyz_Neutrino_e=arr_xyz[8];
+<br>
+xyz_Charm=arr_xyz[7]; xyz_Strange=arr_xyz[15]; xyz_Muon=arr_xyz[19]; xyz_Neutrino_mu=arr_xyz[23];
+<br>
+xyz_Top=arr_xyz[18]; xyz_Bottom=arr_xyz[14]; xyz_Tau=arr_xyz[16]; xyz_Neutrino_tau=arr_xyz[20];
+<br>
+mu_Gluon=xyz_Gluon[][##xyz_Gluon-1];
+<br>
+alphas_SU3_windmill=mu_Gluon/(Omega_dark_matter_windmill*N_windmill);
+<br>
 <br>
 pq_cousin_1st=(7,3);
 <br>
