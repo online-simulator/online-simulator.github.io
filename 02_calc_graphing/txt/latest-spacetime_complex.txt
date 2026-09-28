@@ -2841,6 +2841,26 @@ b_pair_Catalan_conjecture=(
 2,3
 )
 
+J_CP_Jarlskog_invariant_bare=sin(theta23_saddle_point)*cos(theta23_saddle_point)/(N_windmill**4*Omega_baryon_windmill)
+J_CP_Jarlskog_invariant_bare=0.00001987560736835418
+
+theta_CP_deg=rad2deg(theta_CP)
+theta_CP_deg=227.494270987778
+
+theta_CP=3*pi/2-theta23_saddle_point
+theta_CP=3.9705240581609393
+
+theta23_saddle_point_deg=rad2deg(theta23_saddle_point)
+theta23_saddle_point_deg=42.50572901222198
+
+=(1-Omega_dark_matter_windmill,alpha_Kepler)
+(
+0.7407407407407407,0.740480489693061
+)
+
+theta23_saddle_point=arg(s_saddle_point_IRarea_as_false_vacuum)
+theta23_saddle_point=0.7418649222237506
+
 isAlpha_Kepler_eq_ratio_AD=ratio_AD===alpha_Kepler
 isAlpha_Kepler_eq_ratio_AD=true
 
@@ -2977,6 +2997,99 @@ y_D_Klein=infoLost[r ] 4.390909647527695
 
 y_Chowla_Selberg=sqrt(7)/2
 y_Chowla_Selberg=1.3228756555322954
+
+Chern_saddle_point_IRarea_as_false_vacuum=eval_Chern_number(s_saddle_point_IRarea_as_false_vacuum,25,1e2)=>
+Chern_saddle_point_IRarea_as_false_vacuum=(
+infoLost[ri] 0.8735977857005475,infoLost[ri] 2.7579714257451042e-9+O(1e-28),infoLost[ri] 0.3196833330461798+O(1e-28),infoLost[ri] -0.4851491612888237
+)
+
+Chern_cusp_point_IRarea_as_true_vacuum=eval_Chern_number(s_cusp_point_IRarea_as_true_vacuum,25,1e2)=>
+Chern_cusp_point_IRarea_as_true_vacuum=(
+infoLost[r ] 0,infoLost[r ] 0+O(1e-28),infoLost[ri] 0.3188156021590357+O(1e-28),infoLost[ri] 0
+)
+
+Chern_omega_point3_UVarea_as_true_vacuum=eval_Chern_number(s_omega_point3_UVarea_as_true_vacuum,25,1e2)=>
+Chern_omega_point3_UVarea_as_true_vacuum=(
+infoLost[ri] 6.035085568841249,infoLost[ri] 0.14511594105311973+O(1e-28),infoLost[ri] 0.32082233554960504+O(1e-28),infoLost[ri] -0.5000003442774494
+)
+
+Chern_omega_point3=eval_Chern_number(s_omega_point3,25,1e2)=>
+Chern_omega_point3=(
+infoLost[ri] 6.035085568841249,infoLost[ri] 0.14511594144629122+O(1e-28),infoLost[r ] 32870381.673177086+O(1e-28),infoLost[ri] -136163.6966365868
+)
+
+Chern_local_max_UVarea_from_D_Gauss_ab_80=eval_Chern_number(s_local_max_UVarea_from_D_Gauss_ab_80,25,1e2)=>
+Chern_local_max_UVarea_from_D_Gauss_ab_80=(
+infoLost[r ] 2047.9999308298986,infoLost[ri] -771.7172682900072+O(1e-28),infoLost[ri] 0.5000038063214992+O(1e-28),infoLost[ri] 0.49996651171610734
+)
+
+Chern_inflection_point_UVarea_from_D_Gauss_ab_97=eval_Chern_number(s_inflection_point_UVarea_from_D_Gauss_ab_97,25,1e2)=>
+Chern_inflection_point_UVarea_from_D_Gauss_ab_97=(
+infoLost[ri] 509.7358694054303,infoLost[ri] 402.26365582392754+O(1e-28),infoLost[ri] 0.38923328217939834+O(1e-28),infoLost[ri] -0.49999491929830436
+)
+
+Chern_local_min_UVarea_from_D_Gauss_ab_116=eval_Chern_number(s_local_min_UVarea_from_D_Gauss_ab_116,25,1e2)=>
+Chern_local_min_UVarea_from_D_Gauss_ab_116=(
+infoLost[r ] 245.81148146994423,infoLost[ri] -162.62882111300775+O(1e-28),infoLost[ri] 0.32000000751060875+O(1e-28),infoLost[ri] 0.4999977137679724
+)
+
+Chern_inflection_point_UVarea_from_D_Gauss_ab_137=eval_Chern_number(s_inflection_point_UVarea_from_D_Gauss_ab_137,25,1e2)=>
+Chern_inflection_point_UVarea_from_D_Gauss_ab_137=(
+infoLost[ri] 509.73586940543197,infoLost[ri] 402.2636559438316+O(1e-28),infoLost[ri] 0.2647232906031564+O(1e-28),infoLost[ri] -0.5000037604875478
+)
+
+Chern_local_max_UVarea_from_D_Gauss_ab_160=eval_Chern_number(s_local_max_UVarea_from_D_Gauss_ab_160,25,1e2)=>
+Chern_local_max_UVarea_from_D_Gauss_ab_160=(
+infoLost[r ] 2047.9999308298986,infoLost[ri] -771.7172697476793+O(1e-28),infoLost[ri] 0.2222222231229587+O(1e-28),infoLost[ri] 0.4998997340050805
+)
+
+eval_Chern_number(s0,N,NI)=<[x0=real(s0),y0=imag(s0),V0=abs(E4d_Ramanujan_Serre(s0,N)=>),h=1e-7,a=_d4((x)=<real(E4d_Ramanujan_Serre(x+i*y0,N)=>),s0,1,h),d=_d4((y)=<imag(E4d_Ramanujan_Serre(x0+i*y,N)=>),s0,1,h),vec(x1,x2)=<(a,d,1)*(x1,x2,V0),Omega=_i0((x1)=<_i0((x2)=<-V0*a*d/(2*norm(vec(x1,x2)=>)**3),-inf,inf,NI),-inf,inf,NI)/(2*pi),=<(V0,a,d,Omega)]=>
+stored_eqn(eval_Chern_number)
+
+a_bounce_Planck=1/eps_geometry**(1/4)
+a_bounce_Planck=infoLost[ri] 1.9474870786707252
+
+deSitter0123_Hubble_tension=[solve_deSitter(0,0,1)=>,solve_deSitter(0,1,1)=>,solve_deSitter(0,2,1)=>,solve_deSitter(0,3,1)=>].
+deSitter0123_Hubble_tension=(
+0,infoLost[ri] 1.0799312730384838,1,infoLost[ri] 0.7457543988965172,infoLost[ri] 0.1801167992422912,infoLost[ri] 0.8500305238018763:
+1,infoLost[ri] 0.905065375597749+O(1e+0),infoLost[ri] 2.6149691209053043+O(1e+0),infoLost[ri] 0.8939032374253026+O(1e+0),infoLost[ri] 0.14634872579975294+O(1e+0),infoLost[ri] 0.7916571170415034+O(1e+0):
+2,infoLost[ri] 0.8597714312797314,infoLost[ri] 6.313517915289953,infoLost[ri] 1.0498816010168182,infoLost[ri] 0.16574382990992487,infoLost[ri] 0.7242793763961327:
+3,infoLost[ri] 0.8131869271024053,infoLost[ri] 14.582664996693639,infoLost[ri] 1.2248040408814564,infoLost[ri] 0.18368501248978011,infoLost[ri] 0.6443062016271159
+)
+
+solve_deSitter(t0,t1,dt)=<[NI=round((t1-t0)/dt),K=-wa,rho0=exp(-3*K),Omega_m0=0.3,Omega_DE0=1-Omega_m0,a0=1,X0=2*sqrt(3*K),Xd0=sqrt(Omega_DE0*K),V(X)=<(1-X**2/24)*rho0*exp(-X**2/4+3*K),Vd(X)=<(-X*7/12+X**3/48)*rho0*exp(-X**2/4+3*K),rho_m(a)=<Omega_m0*a**(-3),H0=sqrt(rho_m(a0)=>+0.5*Xd0**2+V(X0)=>),x0={t0,H0,a0,X0,Xd0},f(t,H,a,X,Xd)=<{-1.5*(rho_m(a)=>+Xd**2),H*a,Xd,-3*H*Xd-Vd(X)=>},{$t0,$H0,$a0,$X0,$Xd0}=_t45(=<f,=<{x0},t1,NI,1e-5),=<{t0,H0,a0,X0,Xd0,V(X0)=>}]=>
+stored_eqn(solve_deSitter)
+
+wa=(-1-w0)/(1-0)
+wa=infoLost[ri] -0.046345801956125476
+
+w0=(2/3)*eps_geometry-1
+w0=infoLost[ri] -0.9536541980438745
+
+eps_geometry=absE4d_saddle_point/(4*pi)
+eps_geometry=infoLost[ri] 0.0695187029341882
+
+absE4d_saddle_point=abs(E4d_Ramanujan_Serre(s_saddle_point_IRarea_as_false_vacuum,50)=>)
+absE4d_saddle_point=infoLost[ri] 0.8735977857005475
+
+delta_leak=E6_topological_invariant-N_dimension_folded
+delta_leak=(
+infoLost[ri] 0.03508556884124925,infoLost[ri] 0.03508556884124925+4.831088381396817e-15i
+)
+
+E6_topological_invariant=(-imag(E4d_omega_point3),=(2*pi/3)*E2k_Lambert(s_omega_point3,3,50)=>)
+E6_topological_invariant=(
+infoLost[ri] 6.035085568841249,infoLost[ri] 6.035085568841249+4.831088381396817e-15i
+)
+
+absE2_term_mod_UVIRmixing_DE=abs(E2_term_mod(=<{s_omega_point3_UVarea_as_true_vacuum,s_saddle_point_IRarea_as_false_vacuum})=>)
+absE2_term_mod_UVIRmixing_DE=(
+1.102657790843584:
+0.4167654708257139
+)
+
+E2_term_mod(s)=<-3/(pi*imag(s))
+stored_eqn(E2_term_mod)
 
 E4d_saddle_point_IRarea_as_false_vacuum=E4d_Ramanujan_Serre(s_saddle_point_IRarea_as_false_vacuum,50)=>
 E4d_saddle_point_IRarea_as_false_vacuum=infoLost[ri] -4.446795740215383e-19-0.8735977857005475i
@@ -3200,6 +3313,17 @@ N_windmill_fixed_point=1
 
 N_windmill=#arr_xyz
 N_windmill=27
+
+primes4FSC_inv_Planck2cusp=[(x)=<1+8*x^2+4*x*sqrt(1+4*x^2)](=<{0,1,2,e,3,4,5})=>
+primes4FSC_inv_Planck2cusp=(
+1:
+17.94427190999916:
+65.98484500494129:
+120.21657926268753:
+145.99315036357865:
+257.9961239727768:
+401.9975124224178
+)
 
 _s((n)=<arr_xyz[n].push(false,area_Zagier(f_Zagier(arr_xyz[n])=>)=>,NaN,f_Zagier(arr_xyz[n])=>,true,area_Zagier(f_Zagier(f_Zagier(arr_xyz[n])=>)=>)=>,NaN,f_Zagier(f_Zagier(arr_xyz[n])=>)=>,NaN,mu_3d(arr_xyz[n])=>,NaN,mu_3d(f_Zagier(arr_xyz[n])=>)=>),,#arr_xyz-1)
 NaN
@@ -3455,6 +3579,9 @@ stored_eqn(V_geometry)
 x_base=N_dimension_superstring/N_dimension_spacetime
 x_base=2.5
 
+N_dimension_folded=6
+N_dimension_folded=6
+
 N_dimension_F_theory=N_dimension_superstring+2
 N_dimension_F_theory=12
 
@@ -3514,4 +3641,4 @@ center=true&wheel=true&drag=false&test-case=false&plot-all=true&relzooming=true&
 --------------------------------
 --------------------------------
 
-online-simulator.github.io.7.544.751.33.202 @ Fri Sep 25 2026 04:20:31 GMT+0900 (日本標準時) @ Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/154.0.0.0 Safari/537.36
+online-simulator.github.io.7.544.752.33.202 @ Thu Oct 01 2026 11:44:16 GMT+0900 (日本標準時) @ Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/154.0.0.0 Safari/537.36

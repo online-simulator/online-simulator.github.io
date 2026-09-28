@@ -512,7 +512,7 @@ Newton((x)=&lt;2x**2-10x+23,,,50) -> infoLost[ri] 2.5+2.2912878474779204i+O(8e-1
 <br>
 D_Klein=-7; y_saddle_point=y_omega_point3*sqrt(abs(D_Klein));
 <br>
-y_saddle_point -> 2.2912878474779204（Klein曲線X(7)に対応）
+y_saddle_point -> 2.2912878474779204（Klein曲線X(7)*X(3)次元のsqrt(7*3)で最速収束）
 <br>
 　⇒saddle点：(p+q)/(p-q)が半整数になる基底の「いとこ素数」(p,q)=(7,3)
 <br>
@@ -538,19 +538,59 @@ s_pq(p,q)=&lt;(p+q)/(p-q)+i*sqrt(p*q/(p-q)); s_pq(pq_cousin_1st) -> 2.5+2.291287
 <br>
 　<span class="clear">-|D|</span>：判別式に対する収束速さ（real(E4')=0@|D_Klein|=7のsaddle点を特定）
 <br>
-　⇒収束速さ：格子点の対称性の射影（上の残差に投影）
+　⇒摂動論の収束速さ：格子点の対称性の射影（上の残差に投影）
+<br>
+　⇒Stokes線@s→s-2：虚数乗法のCM点に対応のD=-84（<a href="#span-ref-arxiv6">参考arxiv[6]</a>）
+<br>
+Newton((x)=&lt;2x**2-2x+11,,,50) -> infoLost[ri] 0.4999999999999997+2.29128784747792i+O(2e-16+3e-22i)
 <br>
 　-imag(E4')：Ramanujan-Serre共変微分E4'のimag変化（半整数位置で縦軸方向に単調増加を確認）
 <br>
 　-E4'→0@cusp：<span class="clear">Ver.2.916.180</span>以降、Ramanujan-Serre共変微分E4'を<a href="#span-out-complex">複素数平面</a>にplot（cusp点で原点回帰）
 <br>
-　-ZPE4：<span class="run">Ver.2.910.179</span>以降、ZPE_spacetime
+　<span class="sF">-darkE</span>：<span class="run">Ver.2.922.180</span>以降、正則な準modular⇒非正則な実解析的modular形式（調和Maass形式）のE4'
+<br>
+　⇒<a href="#span-app-entropy">時間の矢</a>：ω点→saddle点→cusp点（E4=0で交差のω点から単調増加を確認）（同上のdouble-check）
+<br>
+　⇒暗黒energy：saddle点のimag(非正則E4')=-0.8735977857005477&lt;&lt;&lt;imag(正則E4')≒0（<a href="#span-app-divergence">発散系</a>の抑止）
+<br>
+　　<a href="#span-out-com">純虚数</a>＋実部の符号反転：<a href="#span-app-universe">負の圧力</a>＋chiral渦（topology非対称性の源泉）
+<br>
+　-V(a)~-H(a)：de Sitter空間のFriedmann/Klein-Gordon方程式（物質慣性＋spring項を導入）
+<br>
+　⇒quintessence：bounce点X=0で変化率V'=0の最大値V=1（比例係数rho0の<a href="#span-out-FNm-normalize">正規化</a>）
+<br>
+　　<a href="#span-app-universe">scale因子</a>a≒1→17261→21461→22732：V&gt;0→V&lt;0→V'=0→V'&gt;0（現在~未来のbounce）
+<br>
+　-past：Friedmann方程式の<a href="#span-app-universe">scale因子</a>a→0における膨張速度H'→-∞（過去のbounce）
+<br>
+　<span class="clear">-Hubble-tension</span>：Hubble定数の緊張H(a=1)≒73/67.5（重力場&lt;quintessenceの影響を確認）
+<br>
+　<span class="sF">-BH</span>：black holeのT-duality（microの収縮　⇔　macroの膨張）（multiverseの入れ子構造）
+<br>
+　⇒周期性：E4/E6の2/3回対称性（Seki-Bernoulli数を内包）とa→1/aのmodular対称性（全bitの保存）
+<br>
+　⇒holographicの<a href="#span-app-eps">実数ε</a>：saddle点の|E4'|/4pi（次の幾何学的な<a href="#span-app-astrodynamics">立体角</a>）
+<br>
+absE4d_saddle_point=0.8735977857005477;
+<br>
+eps_geometry=absE4d_saddle_point/(4*pi); eps_geometry -> 0.06951870293418823
+<br>
+a_bounce_Planck=1/eps_geometry**(1/4); a_bounce_Planck -> 1.9474870786707248（Planck-scaleのbounce）
+<br>
+　<span class="selection">Chern</span>：real(s)=2.5でimag(s)&gt;1/2の有限時間軸上で同相の-1/2（chiral渦とparity非対称性）
+<br>
+　⇒<a href="#span-app-astrodynamics">立体角</a>：2pi/4pi（<a href="#span-out-FNm-normalize">正規化</a>の分母がL2-norm**nのn=3次元射影の半球面）
+<br>
+　⇒N次元のfold：(N-N/2)/(N+N/2)=1/3（種数g=3=n次元のtrinity）
+<br>
+　-ZPE4：<span class="run">Ver.2.910.179</span>以降、ZPE_spacetime（対生成と対消滅の弦<a href="#span-app-vibration">振動</a>基底の仮想的な<a href="#span-app-entropy">平衡状態</a>）
 <br>
 　<span class="sF">-ZPE10</span>：<span class="run">Ver.2.910.179</span>以降、ZPE_superstring（線形な等分配の上界）
 <br>
 　-s_pq：<span class="run">Ver.2.911.179</span>以降、双曲線のs_pqと直角双曲線上のsaddle点
 <br>
-　<span class="jF">-1/s_pq</span>：<span class="run">Ver.2.911.179</span>以降、変形lemniscate曲線の1/s_pq（原点回帰への写像）
+　<span class="jF">-1/s_pq</span>：<span class="run">Ver.2.911.179</span>以降、変形lemniscate曲線の1/s_pq（modular変換s→-1/sによる原点回帰への写像）
 <br>
 　⇒p-q=2||4：素数pairが無限個（modular対称性のfractal状態密度の帰結）
 <br>
@@ -602,9 +642,9 @@ Cn_unified(n)=&lt;_p((p)=&lt;switch_weight(p),3,max(3,p-q-1));
 <br>
 　-cusp：<span class="run">Ver.2.913.179</span>以降、|q|→0@imag(s)→∞のcusp（1への収束を確認）
 <br>
-　-E2：<span class="run">Ver.2.913.179</span>以降、正則な準modular⇒非正則な実解析的modular形式の修正
+　-E2：<span class="run">Ver.2.913.179</span>以降、正則な準modular⇒非正則な実解析的modular形式（調和Maass形式）の補正
 <br>
-　⇒E2(e**(i*(2*pi/3)))：2*sqrt(3)/pi　⇒　0（ω点のoffsetを原点に写像の変換）
+　⇒E2(e**(i*(2*pi/3)))：2*sqrt(3)/pi　⇒　0（ω点のoffsetを原点に写像のmodular変換対称性を回復）
 <br>
 　-ra：real analytic Eisenstein級数を<a href="#span-out-complex">複素数平面</a>にplot（s=1の極を除く）
 <br>
@@ -1412,7 +1452,7 @@ hyperfunction(0) -> 1433540284805664.8（超関数の発散　⇔　縦渦filame
 <br>
 　　w_CPL勾配＋W_Lambert関数：inflaton場~未来の特異点z=-1±1.3の<a href="#span-app-continuation">解析接続</a>（ΛCDM延長のcyclic bounce）
 <br>
-　　Hubble膨張率：H0_bulk=const.（重力場を介する見かけ上の変動　⇒　w_CPL勾配の有限時間でz=-1到達）
+　　Hubble膨張率：H0_bulk＋saddle点で<a href="#span-out-com">純虚数</a>のE4'＋重力場介在の相対変動（w_CPL勾配の有限時間でz=-1到達）
 <br>
 　⇒<a href="#span-app-gravity">重力</a>と<a href="#span-app-quantum">素粒子</a>：格子点の局所weightの普遍的な階層性（確率密度の重力∝素数pairの透過率）
 <br>
@@ -3082,6 +3122,10 @@ en.m.wikipedia.org/wiki/項目を列挙する
 <br>
 ・Almost_holomorphic_modular_form
 <br>
+・Mock_modular_form
+<br>
+・Calabi-Yau_manifold
+<br>
 ・Birch_and_Swinnerton-Dyer_conjecture
 <br>
 ・Hasse-Weil_zeta_function
@@ -3577,6 +3621,8 @@ ja.m.wikipedia.org/wiki/項目を列挙する
 <br>
 ・J-不変量
 <br>
+・虚数乗法
+<br>
 ・ガウス整数
 <br>
 ・デデキントのイータ関数
@@ -3586,6 +3632,8 @@ ja.m.wikipedia.org/wiki/項目を列挙する
 ・ヤコビの楕円関数
 <br>
 ・ラマヌジャンのタウ函数
+<br>
+・マース形式
 <br>
 ・モジュラー形式
 <br>
@@ -3645,6 +3693,8 @@ ja.m.wikipedia.org/wiki/項目を列挙する
 <br>
 ・超球面
 <br>
+・チャーン類
+<br>
 ・L-system
 <br>
 ・ヒルベルト曲線
@@ -3670,6 +3720,8 @@ ja.m.wikipedia.org/wiki/項目を列挙する
 ・アイゼンシュタイン級数
 <br>
 ・実解析的アイゼンシュタイン級数
+<br>
+・カラビ・ヤウ多様体
 <br>
 ・三角波_(波形)
 <br>
@@ -4155,6 +4207,8 @@ ja.m.wikipedia.org/wiki/項目を列挙する
 <br>
 ・ポインティング・ロバートソン効果
 <br>
+・摂動
+<br>
 ・摂動_(天文学)
 <br>
 ・章動
@@ -4273,6 +4327,12 @@ ja.m.wikipedia.org/wiki/項目を列挙する
 <br>
 ・ミンコフスキー空間
 <br>
+・ド・ジッター空間
+<br>
+・ド・ジッター宇宙
+<br>
+・クインテッセンス_(宇宙論)
+<br>
 ・時間の遅れ
 <br>
 ・タキオン
@@ -4380,6 +4440,8 @@ ja.m.wikipedia.org/wiki/項目を列挙する
 ・量子重力理論
 <br>
 ・隠れた変数理論
+<br>
+・ハートル＝ホーキングの境界条件
 <br>
 ・共形サイクリック宇宙論
 <br>
@@ -4613,6 +4675,12 @@ astro-dic.jp/項目を列挙する
 <br>
 ・hubble-constant
 <br>
+・hubble-tension
+<br>
+・de-sitter-universe
+<br>
+・no-boundary-hypothesis
+<br>
 ・rotation-curve
     </td>
   </tr>
@@ -4767,6 +4835,9 @@ arxiv.org/linkを列挙する
 <br>
 <span id="span-ref-arxiv5"></span>
 5. abs/2001.10047
+<br>
+<span id="span-ref-arxiv6"></span>
+6. pdf/2402.09981
     </td>
   </tr>
   <tr>
@@ -28019,6 +28090,8 @@ clear; x(t)=&lt;-t; x=-999; f=&lt;x(1)=&gt;x+1; f; x -> -1
 (-1)i || -(1)i || -1(i) || -(i) -> -i
 <br>
 (i)i || i(i) || i*i -> -1
+<br>
+・純虚数
 <br>
 3i/2 -> 1.5i
 <br>
@@ -56190,6 +56263,8 @@ N_dimension_M_theory=N_dimension_superstring+1;
 <br>
 N_dimension_F_theory=N_dimension_superstring+2;
 <br>
+N_dimension_folded=6;
+<br>
 x_base=N_dimension_superstring/N_dimension_spacetime;
 <br>
 <br>
@@ -56377,6 +56452,8 @@ mu_3d(x,y,z)=&lt;x**3/sqrt(y*z);
 <br>
 _s((n)=&lt;arr_xyz[n].push(false,area_Zagier(f_Zagier(arr_xyz[n])=&gt;)=&gt;,NaN,f_Zagier(arr_xyz[n])=&gt;,true,area_Zagier(f_Zagier(f_Zagier(arr_xyz[n])=&gt;)=&gt;)=&gt;,NaN,f_Zagier(f_Zagier(arr_xyz[n])=&gt;)=&gt;,NaN,mu_3d(arr_xyz[n])=&gt;,NaN,mu_3d(f_Zagier(arr_xyz[n])=&gt;)=&gt;),,#arr_xyz-1);
 <br>
+primes4FSC_inv_Planck2cusp=[(x)=&lt;1+8*x^2+4*x*sqrt(1+4*x^2)](=&lt;{0,1,2,e,3,4,5})=&gt;;
+<br>
 N_windmill=#arr_xyz;
 <br>
 N_windmill_fixed_point=1;
@@ -56479,6 +56556,74 @@ E4d_cusp_point_IRarea_as_true_vacuum=E4d_Ramanujan_Serre(s_cusp_point_IRarea_as_
 E4d_saddle_point_IRarea_as_false_vacuum=E4d_Ramanujan_Serre(s_saddle_point_IRarea_as_false_vacuum,50)=&gt;;
 <br>
 <br>
+E2_term_mod(s)=&lt;-3/(pi*imag(s));
+<br>
+absE2_term_mod_UVIRmixing_DE=abs(E2_term_mod(=&lt;{s_omega_point3_UVarea_as_true_vacuum,s_saddle_point_IRarea_as_false_vacuum})=&gt;);
+<br>
+E6_topological_invariant=(-imag(E4d_omega_point3),=(2*pi/3)*E2k_Lambert(s_omega_point3,3,50)=&gt;);
+<br>
+delta_leak=E6_topological_invariant-N_dimension_folded;
+<br>
+absE4d_saddle_point=abs(E4d_Ramanujan_Serre(s_saddle_point_IRarea_as_false_vacuum,50)=&gt;);
+<br>
+eps_geometry=absE4d_saddle_point/(4*pi);
+<br>
+w0=(2/3)*eps_geometry-1;
+<br>
+wa=(-1-w0)/(1-0);
+<br>
+solve_deSitter(t0,t1,dt)=&lt;[
+<br>
+NI=round((t1-t0)/dt),
+<br>
+K=-wa,rho0=exp(-3*K),Omega_m0=0.3,Omega_DE0=1-Omega_m0,
+<br>
+a0=1,X0=2*sqrt(3*K),Xd0=sqrt(Omega_DE0*K),
+<br>
+V(X)=&lt;(1-X**2/24)*rho0*exp(-X**2/4+3*K),Vd(X)=&lt;(-X*7/12+X**3/48)*rho0*exp(-X**2/4+3*K),
+<br>
+rho_m(a)=&lt;Omega_m0*a**(-3),H0=sqrt(rho_m(a0)=&gt;+0.5*Xd0**2+V(X0)=&gt;),x0={t0,H0,a0,X0,Xd0},
+<br>
+f(t,H,a,X,Xd)=&lt;{-1.5*(rho_m(a)=>+Xd**2),H*a,Xd,-3*H*Xd-Vd(X)=>},
+<br>
+{$t0,$H0,$a0,$X0,$Xd0}=_t45(=&lt;f,=&lt;{x0},t1,NI,1e-5),
+<br>
+=&lt;{t0,H0,a0,X0,Xd0,V(X0)=&gt;}]=&gt;;
+<br>
+deSitter0123_Hubble_tension=[solve_deSitter(0,0,1)=&gt;,solve_deSitter(0,1,1)=&gt;,solve_deSitter(0,2,1)=&gt;,solve_deSitter(0,3,1)=&gt;].;
+<br>
+a_bounce_Planck=1/eps_geometry**(1/4);
+<br>
+<br>
+eval_Chern_number(s0,N,NI)=&lt;[
+<br>
+x0=real(s0),y0=imag(s0),V0=abs(E4d_Ramanujan_Serre(s0,N)=&gt;),h=1e-7,
+<br>
+a=_d4((x)=&lt;real(E4d_Ramanujan_Serre(x+i*y0,N)=&gt;),s0,1,h),d=_d4((y)=&lt;imag(E4d_Ramanujan_Serre(x0+i*y,N)=&gt;),s0,1,h),vec(x1,x2)=&lt;(a,d,1)*(x1,x2,V0),
+<br>
+Omega=_i0((x1)=&lt;_i0((x2)=&lt;-V0*a*d/(2*norm(vec(x1,x2)=&gt;)**3),-inf,inf,NI),-inf,inf,NI)/(2*pi),
+<br>
+=&lt;(V0,a,d,Omega)]=&gt;;
+<br>
+Chern_local_max_UVarea_from_D_Gauss_ab_160=eval_Chern_number(s_local_max_UVarea_from_D_Gauss_ab_160,25,1e2)=&gt;;
+<br>
+Chern_inflection_point_UVarea_from_D_Gauss_ab_137=eval_Chern_number(s_inflection_point_UVarea_from_D_Gauss_ab_137,25,1e2)=&gt;;
+<br>
+Chern_local_min_UVarea_from_D_Gauss_ab_116=eval_Chern_number(s_local_min_UVarea_from_D_Gauss_ab_116,25,1e2)=&gt;;
+<br>
+Chern_inflection_point_UVarea_from_D_Gauss_ab_97=eval_Chern_number(s_inflection_point_UVarea_from_D_Gauss_ab_97,25,1e2)=&gt;;
+<br>
+Chern_local_max_UVarea_from_D_Gauss_ab_80=eval_Chern_number(s_local_max_UVarea_from_D_Gauss_ab_80,25,1e2)=&gt;;
+<br>
+Chern_omega_point3=eval_Chern_number(s_omega_point3,25,1e2)=&gt;;
+<br>
+Chern_omega_point3_UVarea_as_true_vacuum=eval_Chern_number(s_omega_point3_UVarea_as_true_vacuum,25,1e2)=&gt;;
+<br>
+Chern_cusp_point_IRarea_as_true_vacuum=eval_Chern_number(s_cusp_point_IRarea_as_true_vacuum,25,1e2)=&gt;;
+<br>
+Chern_saddle_point_IRarea_as_false_vacuum=eval_Chern_number(s_saddle_point_IRarea_as_false_vacuum,25,1e2)=&gt;;
+<br>
+<br>
 y_Chowla_Selberg=sqrt(7)/2;
 <br>
 y_D_Klein=sqrt(7*G_EM(1/7)=&gt;*G_EM(2/7)=&gt;*G_EM(4/7)=&gt;/(G_EM(3/7)=&gt;*G_EM(5/7)=&gt;*G_EM(6/7)=&gt;))/2;
@@ -56565,6 +56710,19 @@ ratio_AD=C0_analog/C0_digital;
 alpha_Kepler=(pi/6)/(1/sqrt(2));
 <br>
 isAlpha_Kepler_eq_ratio_AD=ratio_AD===alpha_Kepler;
+<br>
+<br>
+theta23_saddle_point=arg(s_saddle_point_IRarea_as_false_vacuum);
+<br>
+=(1-Omega_dark_matter_windmill,alpha_Kepler);
+<br>
+theta23_saddle_point_deg=rad2deg(theta23_saddle_point);
+<br>
+theta_CP=3*pi/2-theta23_saddle_point;
+<br>
+theta_CP_deg=rad2deg(theta_CP);
+<br>
+J_CP_Jarlskog_invariant_bare=sin(theta23_saddle_point)*cos(theta23_saddle_point)/(N_windmill**4*Omega_baryon_windmill);
 <br>
 <br>
 b_pair_Catalan_conjecture=[2,3];
