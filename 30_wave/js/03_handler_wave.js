@@ -441,17 +441,19 @@ My_entry.handler_wave.prototype.init_handlers = function(){
         self.elem_top.onchange();
         break;
       case "random":
-        var make_sheet = function(){
+        var input_roots = $.inputVal_id("input-roots");
+        var input_chords = $.inputVal_id("input-chords");
+        var len = $.inputNum_id("input-N");
+        var prob_rest0 = $.inputNum_id("input-prob_rest");
+        var prob_init0 = $.inputNum_id("input-prob_init");
+        var w = $.inputNum_id("input-w");
+        var make_sheet_v1 = function(){
           var _script = "";
           var note0 = 60;
           var Nnote = 12;
           var init_note = function(){
             return Math.floor(note0+Math.random()*Nnote*2);
           };
-          var len = $.inputNum_id("input-N");
-          var prob_rest0 = $.inputNum_id("input-prob_rest");
-          var prob_init0 = $.inputNum_id("input-prob_init");
-          var w = $.inputNum_id("input-w");
           var prob_rest = prob_rest0;
           var prob_init = prob_init0;
           var note = init_note();
@@ -486,9 +488,133 @@ My_entry.handler_wave.prototype.init_handlers = function(){
           }
           return _script;
         };
-        $._id("textarea-script").value = "";
-        $._id("textarea-script").value += "$sheet("+make_sheet()+")\n\n";
-        $._id("textarea-script").value += "{b::::::1:0;$sheet;}\n\n";
+        var make_sheet_v2 = function(){
+          var roots = [["G3", "A3", "B3", "C4", "D4", "E4", "F4#"], ["E3", "F3#", "G3", "A3", "B3", "C4", "D4#"], ["C3", "D3", "E3", "F3#", "G3", "A3", "B3"]][Number(input_roots)];
+          roots = roots || input_roots.split(",").map(function(str){return str.trim();});
+          var chords = JSON.parse('{'+input_chords+'}');
+          var names = Object.keys(chords);
+          var len_roots = roots.length;
+          var len_names = names.length;
+          var idx_root = 0;
+          var idx_name = 0;
+          var str_root = "";
+          var didx_root0 = 0;
+          var cur_inv = 0;
+          var arr_alt = null;
+          var arr_alt0 = null;
+          var right_phrases = [];
+          var left_phrases = [];
+          var average = function(a, b, w){return w*a+(1-w)*b};
+          var calc_inversion = function(inv0, alts0, alts){
+            var f = function(a, b){return a+b;};
+            var d_center = alts.reduce(f, 0)/alts.length-alts0.reduce(f, 0)/alts0.length;
+            var d_min = Infinity;
+            var inv1 = 0;
+            for(var inv=-2; inv<=2; inv+=1/4){
+              var d = Math.abs(d_center+inv*12);
+              if(d < d_min){
+                d_min = d;
+                inv1 = inv;
+              }
+            }
+            return average(inv0, inv1, 0.5);
+          };
+          var make_left = function(num_b){
+            var isRest = (Math.random() < prob_rest0);
+            if(!(isRest)){
+              if(Math.random() < prob_init0){
+                idx_root = Math.floor(len_roots*Math.random());
+                idx_name = Math.floor(len_names*Math.random());
+                didx_root0 = 0;
+                cur_inv = 0.0;
+                arr_alt0 = null;
+              }
+              else{
+                didx_root0 = average(didx_root0, (Math.random() < 0.5)? 1: -1, w);
+                idx_root += Math.round(didx_root0);
+                idx_root = (idx_root%roots.length+roots.length)%len_roots;
+                if(Math.random() < 0.5){
+                  idx_name = (idx_name+1)%len_names;
+                }
+              }
+            }
+            str_root = roots[idx_root];
+            var str_name = names[idx_name];
+            arr_alt = chords[str_name];
+            if(!(isRest)){
+              cur_inv = calc_inversion(cur_inv, arr_alt0 || arr_alt, arr_alt);
+              arr_alt0 = arr_alt;
+            }
+            var str_beat = num_b+"b";
+            var str_inv = ((cur_inv >= 0)? "+": "")+cur_inv.toFixed(4);
+            var str_chord = str_root+str_name+"@"+str_inv;
+            return str_beat+((isRest)? "": ":"+str_chord);
+          };
+          var make_right = function(num_b){
+            var isRest = (Math.random() < prob_rest0);
+            var str_beat = num_b+"b";
+            var str_chord = str_root;
+            if(!(isRest)){
+              if(Math.random() < 0.5){
+                str_chord += "[";
+                str_chord += arr_alt[Math.floor(Math.random()*arr_alt.length)];
+                str_chord += "]";
+              }
+            }
+            return str_beat+((isRest)? "": ":"+str_chord);
+          };
+          var make_beat = function(b0, b1, b2, r1, r2){
+            var _b = b0;
+            var r = Math.random();
+            if(r < r1)     {_b = b1;}
+            else if(r < r2){_b = b2;}
+            return _b;
+          };
+          for(var i=0; i<len; ++i){
+            var left_beats = make_beat(1, 2, 4, 0.6, 0.9);
+            left_phrases.push(make_left(left_beats));
+            var right_beats = 0;
+            var right_beat0 = null;
+            while(right_beats < left_beats){
+              var right_beat = right_beat0 || make_beat(1.5, 0.5, 1, 0.5, 0.9);
+              if(right_beats+right_beat > left_beats){
+                right_beat = left_beats-right_beats;
+                right_beat0 = null;
+              }
+              else{
+                right_beat0 = (right_beat === 1.5)? 0.5: null;
+              }
+              right_phrases.push(make_right(right_beat));
+              right_beats += right_beat;
+            }
+          }
+          var right = "$right("+right_phrases.join(";")+")";
+          var left = "$left("+left_phrases.join(";")+")";
+          return {right: right, left: left};
+        };
+        try{
+          var script = "";
+          if($.selectNum_id("select-script-Ver") === 1){
+            var sheet = make_sheet_v1();
+            script += "$sheet("+sheet+")\n\n";
+            script += "{b::::::1:0;$sheet;}\n\n";
+          }
+          else{
+            var sheets = make_sheet_v2();
+            var macros = "";
+            var chords = JSON.parse('{'+input_chords+'}');
+            var names = Object.keys(chords);
+            names.forEach(function(name){macros += name+"(["+String(chords[name])+"])";});
+            script += macros+"\n\n";
+            script += "$common(type=1)\n\n";
+            script += "{$common; $right;}*0.4\n";
+            script += "{$common; $left;}*1\n\n";
+            script += sheets.right+"\n\n";
+            script += sheets.left+"\n";
+          }
+          $._id("textarea-script").value = script;
+        }
+        catch(e){}
         break;
       default:
         break;
