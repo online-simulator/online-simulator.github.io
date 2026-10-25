@@ -13940,6 +13940,8 @@ online-test
 <span id="span-out-system-test"></span>
 実機mobile端末のonline-test手順について記述する
 <br>
+・<span class="clear">Ver.2.923.181</span>以降、local環境のupgrade（別途、<a href="#span-out-spec-Python">Python</a>のcertifiを含む）
+<br>
 <br>
 <span class="run">Ver.2.37.18</span>以降、実機online-testのcommit前実施に対応
 <br>
@@ -13950,11 +13952,27 @@ online-test
 <br>
 実機online-testのcommit前実施準備を以下に示す
 <br>
-・localhost Apache HTTP ServerのDocumentRootのaccess制限を設定する
+・localhost Apache HTTP Serverのaccess制限を設定する（httpd.conf）
 <br>
-　Require all denied
+　<span class="clear">localhost限定</span>：Listen 127.0.0.1:80
 <br>
-　Require ip 192.168.
+　DocumentRootのDirectory制限：Require all denied
+<br>
+　<span class="clear">html限定</span>のhtdocs制限：Options <del>Indexes FollowSymLinks Includes ExecCGI</del>None
+<br>
+　<span class="clear">拡張無効化</span>：#ScriptAlias　#AddType　#AddHandler
+<br>
+　<span class="clear">PHP無効化</span>：#LoadModule php_module
+<br>
+　<span class="clear">Perl無効化</span>：#LoadModule perl_module
+<br>
+　<span class="clear">CGI無効化</span>：#LoadModule cgi_module
+<br>
+・同<span class="clear">file制限の二重化</span>を設定する（httpd.conf）
+<br>
+<pre><code>&lt;FilesMatch "\.(?!htm$|html$|css$|js$|jpg$|jpeg$|png$|gif$|svg$|ico$)[^.]+$"&gt;
+    Require all denied
+&lt;/FilesMatch&gt;</code></pre>
 <br>
 ・localhost Apache HTTP Serverを再起動して設定変更を反映する
 <br>
@@ -13963,7 +13981,7 @@ online-test
 <br>
 ・localhostのWi-Fi接続先propertyのnetwork profileを確認する
 <br>
-・localhost Firewallの設定でApache HTTP Serverのprivate||publicを許可する
+・localhost Firewallの設定でApache HTTP Serverの<del>private||publicを許可する</del><span class="clear">Ver.2.923.181</span>以降、削除
 <br>
 ・localhostと実機を同一のWi-Fiに接続する
 <br>
