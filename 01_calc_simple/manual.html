@@ -536,13 +536,21 @@ s_pq(p,q)=&lt;(p+q)/(p-q)+i*sqrt(p*q/(p-q)); s_pq(pq_cousin_1st) -> 2.5+2.291287
 <br>
 　<span class="sF">-convergence-speed</span>：<span class="clear">Ver.2.916.180</span>以降、Eisenstein<a href="#span-out-FNh-SX">2重級数</a>の収束速さ（true&lt;falseのsaddle点を確定）
 <br>
-　<span class="clear">-|D|</span>：判別式に対する収束速さ（real(E4')=0@|D_Klein|=7のsaddle点を特定）
+　<span class="clear">-|D|</span>~-q：判別式に対する収束速さ（real(E4')=0@|D_Klein|=7のsaddle点を特定）
 <br>
 　⇒摂動論の収束速さ：格子点近傍の対称性の射影（上の残差に投影）
 <br>
-　⇒Stokes線@s→s-2：虚数乗法のCM点に対応のD=-84（<a href="#span-ref-arxiv6">参考arxiv[6]</a>）
+　　Stokes線@s→s-2：虚数乗法のCM点に対応（<a href="#span-ref-arxiv6">参考arxiv[6]</a>）
+<br>
+　　漸近展開の最適打切り：D=-3*7*4=-84（以上の恣意的な四角形範囲で打切りの類数分岐点）
 <br>
 Newton((x)=&lt;2x**2-2x+11,,,50) -> infoLost[ri] 0.4999999999999997+2.29128784747792i+O(2e-16+3e-22i)
+<br>
+　　非摂動のtunnel効果：D=-163（q展開の自然な円形範囲で打切りの上限値）
+<br>
+exp(sqrt(163)*pi) -> 262537412640768260（≒Ramanujan定数）
+<br>
+　⇒準<a href="#span-app-unsolved">Riemann予想</a>：Siegel零点を含む不在証明の手法（OpenAIのcommit@2026/10/06）
 <br>
 　-imag(E4')：Ramanujan-Serre共変微分E4'のimag変化（半整数位置で縦軸方向に単調増加を確認）
 <br>
@@ -555,6 +563,8 @@ Newton((x)=&lt;2x**2-2x+11,,,50) -> infoLost[ri] 0.4999999999999997+2.2912878474
 　⇒調和Maass形式：saddle点のimag(非正則E4')=-0.8735977857005477&lt;&lt;&lt;imag(正則E4')≒0（<a href="#span-app-divergence">発散系</a>の抑止）
 <br>
 　　<a href="#span-out-com">純虚数</a>＋実部の符号反転：<a href="#span-app-universe">負の圧力</a>＋chiral渦（topology非対称性の源泉から回転を伴う宇宙膨張）
+<br>
+　　Chern数：後述の-1/2（topology不変性の獲得）
 <br>
 　-V(a)~-H(a)：de Sitter空間のFriedmann/Klein-Gordon方程式（物質慣性＋V場のspring項を導入）
 <br>
@@ -3433,6 +3443,8 @@ ja.m.wikipedia.org/wiki/項目を列挙する
 <br>
 ・スターリング数
 <br>
+・ヘーグナー数
+<br>
 ・アペリーの定数
 <br>
 ・アペリーの定理
@@ -4375,6 +4387,8 @@ ja.m.wikipedia.org/wiki/項目を列挙する
 <br>
 ・クインテッセンス_(宇宙論)
 <br>
+・カロロン
+<br>
 ・虚時間
 <br>
 ・時間の遅れ
@@ -4776,6 +4790,8 @@ jsme.or.jp/jsme-medwiki/検索項目を列挙する
 <br>
 <br>
 domainを列挙する
+<br>
+・github.com/openai/math
 <br>
 ・github.com/numpy
 <br>
