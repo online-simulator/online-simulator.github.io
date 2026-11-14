@@ -103,7 +103,7 @@
         $._id("textarea-input").value = script;
       }
       else if(options.testcase === "wave5"){
-        var script = "// chord format\n// root[relative float alterations from root]@inversion\n\nC4##[0,-1,2] -> root=C4##:[C4##,C4#,D4##]\n\n:C4##[0,7,4]@-1: -> [C4##,G4##,E3##]\n\n:C4##[0,4,7]@-3: -> [C3##,E3##,G3##]\n\n:C4##[0,4,7]@-2: -> [C4##,E3##,G3##]\n\n:C4##[0,4,7]@-1: -> [C4##,E4##,G3##]\n\n:C4##[0,4,7]@0: -> [C4##,E4##,G4##]\n\n:C4##[0,4,7]@+1: -> [C5##,E4##,G4##]\n\n:C4##[0,4,7]@+2: -> [C5##,E5##,G4##]\n\n:C4##[0,4,7]@+3: -> [C5##,E5##,G5##]\n\n{D4##[];Db[];D[];4[];[];D4#;[C4,E4,G4];}";
+        var script = "// chord format\n// root[relative float alterations from root]@inversion\n\nC4##[0,-1,2] -> root=C4##:[C4##,C4#,D4##]\n\n:C4##[0,7,4]@-1: -> [C4##,G4##,E3##]\n:C4##[0,4,7]@-3: -> [C3##,E3##,G3##]\n:C4##[0,4,7]@-2: -> [C4##,E3##,G3##]\n:C4##[0,4,7]@-1: -> [C4##,E4##,G3##]\n:C4##[0,4,7]@0:  -> [C4##,E4##,G4##]\n:C4##[0,4,7]@+1: -> [C5##,E4##,G4##]\n:C4##[0,4,7]@+2: -> [C5##,E5##,G4##]\n:C4##[0,4,7]@+3: -> [C5##,E5##,G5##]\n:C4bb[0,4,7]@+3: -> [C5bb,E5bb,G5bb]\n\n{D4##[];Db[];D[];4[];[];D4#;[C4,E4,G4];}";
         $._id("input-pattern").value = "([A-G][+-]?\\d+?[sf#bn]*)\\[(.*?)\\](?:@(.*))?";
         $._id("input-string").value = " $1_$2_$3 ";
         $._id("textarea-input").value = script;
@@ -116,6 +116,18 @@
       else if(options.testcase === "JSON1"){
         var script = "// syntax\n\ntry {} catch (e) {}\n\ntry{}catch(e){}\n\nif () {} else if () {} else {}\n\nif(){}else if(){}else{}\n\n  if(){}\n  else if()\n  {\n  }else\n  {\n  }\n\nfor () {}\n\nwhile () {}\n\n() ? true : false ;\n\nx = 0 - 1 + ( 2 / 3 ) % ( 4 * 5 ) ;\n\nx = { 0:0, 1 :1, 2 : 2, 3: 3 } ; \n\nx = [ 0 , 1, 2 ,3 ] ; \n\n x = ( 0 ) ; ";
         $._id("input-string").value = "{\"} cat\":\"}\\ncat\",\"} el\":\"}\\nel\",\"}cat\":\"}\\ncat\",\"}el\":\"}\\nel\",\"try {\":\"try{\",\"ch (\":\"ch(\",\"if (\":\"if(\",\"se {\":\"se{\",\"or (\":\"or(\",\"le (\":\"le(\",\") {\":\"){\",\"} \":\"}\",\"( \":\"(\",\" )\":\")\",\"[ \":\"[\",\" ]\":\"]\",\" ?\":\"?\",\" :\":\":\",\" ;\":\";\",\"; \":\";\",\" ,\":\",\",\" - \":\"-\",\" + \":\"+\",\" / \":\"/\",\" % \":\"%\",\" * \":\"*\",\"'\":\"\\\"\"}";
+        $._id("textarea-input").value = script;
+      }
+      else if(options.testcase === "memo" || options.testcase === "memo0"){
+        var script = "";
+        $._id("input-pattern").value = "\\n";
+        $._id("input-string").value = "\\n";
+        $._id("textarea-input").value = script;
+      }
+      else if(options.testcase === "memo1"){
+        var script = " ;\n\n; \n\n;)\n\n;}\n\n1;\n\n2;3; 4;  5;   6;";
+        $._id("input-pattern").value = ";([^)}\\s])";
+        $._id("input-string").value = "; $1";
         $._id("textarea-input").value = script;
       }
       new My_entry.test_regexp().onload(e);
