@@ -567,7 +567,7 @@ My_entry.handler_wave.prototype.update_arr_token = function(arr_token, tokens, _
   }
   var has1elem = (arr_token.length === 1 && token0 !== "");
   var hasChord = token0.match(self.regex.sn) || token0.match(self.regex.chord);
-  var hasTime = token0.match(self.regex.qn) && !(hasChord);
+  var hasTime = !(hasChord) && token0.match(self.regex.qn) && !(token0.match(self.regex.rl));  // Ver.2.123.28
   var b1 = String(self.msec_BPM0);  // Ver.2.117.26
   var f0 = String(0);
   if(has1elem){

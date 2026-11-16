@@ -21,6 +21,22 @@
       <caption><span id="span-history">演奏機能の更新履歴</span></caption>
       <tbody>
         <tr class="border">
+          <td class="border clear">
+Ver.2.123.28
+          </td>
+          <td class="border">
+・時間の判定条件を修正（記号bの重複由来）
+<br>
+{1b:[C4b]} -> {C4b}
+<br>
+{[C4b]} -> <del>{0}</del>{C4b}
+<br>
+・?testcase link-Ver.2を追加・spec追記
+<br>
+・Ver.2.120.27の誤字を修正
+          </td>
+        </tr>
+        <tr class="border">
           <td class="border">
 Ver.2.123.27
           </td>
@@ -57,7 +73,7 @@ Ver.2.120.27
 <br>
 　適用：post処理（演奏のみ）　⇒　encode処理（単音||和音を含む）
 <br>
-・拡張datasetにorder_filetrの項目を追加
+・拡張datasetにorder_filterの項目を追加
 <br>
 　filter次数：floor(order_filter)
 <br>
@@ -2719,6 +2735,8 @@ testcase
 <span class="wF">Ver.1.68.14更新</span>
 <br>
 <span class="wF">Ver.1.76.14更新</span>
+<br>
+<span class="sF">Ver.2.123.28更新</span>
           </td>
           <td class="border">
 test case
@@ -2731,6 +2749,8 @@ test case
 <span class="wF">duty1：1octaveの1ch出力（duty1=0・order_d=2）</span>
 <br>
 1：1octaveのstereo出力（左右の差あり・Δf=0）
+<br>
+<span class="sF">2：script-Ver.2</span>
 <br>
 Froschgesang：かえるの合唱（25秒・Δf=<span class="jF"><del>10</del>7.73...</span><span class="condition">・fade-inを有効化</span><span class="selection">・fade-outを有効化</span>）
 <br>
