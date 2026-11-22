@@ -78,6 +78,9 @@
         script_ver2 = "{4b:[C4,D4,E4,F4,G4,A4,B4,C5,D5,E5,F5,G5,A5,B5,C6,D6,E6,F6,G6,A6,B6,C7,D7,E7,F7,G7,A7,B7,C8]::overtone=3:ti=1b15:to=1b15}";
         script = (options.tVer === 1)? script_ver1: script_ver2;
       }
+      else if(options.testcase === "glissando2_chord"){
+        script = "$glissando([C4,D4,E4,F4,G4,A4,B4,C5,D5,E5,F5,G5,A5,B5,C6,D6,E6,F6,G6,A6,B6,C7,D7,E7,F7,G7,A7,B7,C8])\n$glissando_chord(C4[0,2,4,5,7,9,11,12,14,16,17,19,21,23,24,26,28,29,31,33,35,36,38,40,41,43,45,47,48])\n\n$ti0(:ti=1b9)$ti1($ti0:order_fade=0.2)$ti2($ti0:order_fade=2)\n$to0(:to=1b9)$to1($to0:order_fade=0.2)$to2($to0:order_fade=2)\n$tio0($ti0$to0)$tio1($tio0:order_fade=0.2)$tio2($tio0:order_fade=2)\n\n{\novertone=3;\n00b; 4b:$glissando_chord:$ti2;  4b; 4b:$glissando:$ti1;  4b; 4b:$glissando:$ti0;\n12b; 4b:$glissando_chord:$to2;  4b; 4b:$glissando:$to1;  4b; 4b:$glissando:$to0;\n12b; 4b:$glissando_chord:$tio2; 4b; 4b:$glissando:$tio1; 4b; 4b:$glissando:$tio0;\n}\n";
+      }
       else if(options.testcase === 0){
         script = "{\n:r;:C4;:D4;:E4;:F4;:G4;:A4;:B4;:C5;\n}\n{\n0;C4;D4;E4;F4;G4;A4;B4;C5;\n}";
       }
