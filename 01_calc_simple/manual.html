@@ -164,15 +164,11 @@ test case
 <br>
 　⇒準結晶の応用：成長軸の高次元化による等方性の電場分散（<a href="#span-out-modelling-0D-diffusion">porous電極活物質</a>の界面制御等）
 <br>
-・<span class="selection">Erdős</span>：<span class="run">Ver.2.883.167</span>以降、Erdősの平面単位距離問題（2次元正方格子基準が単位距離pair数の最適配置の予想）
+・<span class="selection">Erdős</span>：<span class="run">Ver.2.883.167</span>以降、Erdősの<a href="#span-app-proof">平面単位距離問題</a>
 <br>
-　-2~4：高次元格子の<a href="#span-out-complex">複素数平面</a>への同心円状の投影（OpenAI内製の推論modelによる反証@2026/05/21）
-<br>
-　⇒手詰まり（循環論法を含む）の自律的な克服要因：持続・自省・越境（堅持力・検証力・統合力）のsynergy
+　-2~4：高次元格子の<a href="#span-out-complex">複素数平面</a>への同心円状の投影
 <br>
 　-pairs：<span class="run">Ver.2.888.168</span>以降、Chebyshev誘導格子@N=3のlayer表面とlayer間の単位距離pairの接続線を追加
-<br>
-　⇒反証の要点@N→∞：layer間の代数的関係性&gt;&gt;layer表面の幾何学的関係性（N回対称性の準結晶clusterの特徴）
 <br>
 ・<span class="selection">Gielis</span>：<span class="run">Ver.2.879.167</span>以降、Gielisの超公式
 <br>
@@ -549,8 +545,6 @@ Newton((x)=&lt;2x**2-2x+11,,,50) -> infoLost[ri] 0.4999999999999997+2.2912878474
 　　非摂動のtunnel効果：D=-163（q展開の円形領域m^2+n^2&lt;=N^2で打切りの上限値）
 <br>
 exp(sqrt(163)*pi) -> 262537412640768260（≒Ramanujan定数）
-<br>
-　⇒準<a href="#span-app-unsolved">Riemann予想</a>：Siegel零点を含む不在証明の手法（OpenAIのcommit@2026/10/06）
 <br>
 　-imag(E4')：Ramanujan-Serre共変微分E4'のimag変化（半整数位置で縦軸方向に単調増加を確認）
 <br>
@@ -1192,7 +1186,7 @@ Cn_unified(n)=&lt;_p((p)=&lt;switch_weight(p),3,max(3,p-q-1));
 <br>
 　-scale：<span class="run">Ver.2.903.178</span>以降、離散的な算術scaleと連続的な幾何scaleの比較
 <br>
-　⇒空間の剛性：2次元的なtopology制約（Claude Fable 5による「ヤコビアン予想」の反証@2026/07/19）
+　⇒空間の剛性：2次元的なtopology制約
 <br>
 　-tunnel：<span class="run">Ver.2.903.178</span>以降、非可換性（Haar測度のwedge積）の不確定性原理によるtunnel確率
 <br>
@@ -1446,9 +1440,7 @@ calc_W(y)=&lt;Newton((x)=&lt;x**y=y,,false,1e3,0); calc_W(e) || e**(1/e) -> 1.44
 <br>
 　⇒analog<a href="#span-out-limit">極限</a>：<span class="run">Ver.2.909.179</span>以降、3次元のNavier-Stokes方程式（古典論の純粋連続体の一例）
 <br>
-　　超臨界条件：非量子の粘性項より非線形項が優勢の有限時間爆発→δ的発散（先読み外力assist≠自発的）
-<br>
-　　仮定：非圧縮性の乱流場と<a href="#span-app-paradox">無矛盾</a>で<a href="#span-app-reality">非現実</a>の滑らかな外力f(t,x,y,z)
+　　超臨界条件：非量子の粘性項より非線形項が優勢の有限時間爆発→δ的発散
 <br>
 F(z)=&lt;-1/(2pi*i*z),hyperfunction(x)=&lt;F(x+eps*i)-F(x-eps*i);
 <br>
@@ -1893,6 +1885,8 @@ hyperfunction(0) -> 1433540284805664.8（超関数の発散　⇔　縦渦filame
 　　・<a href="#span-app-quantum">量子力学</a>
 <br>
 　・<a href="#span-app-singularity">singularity</a>
+<br>
+　・<a href="#span-app-proof">証明支援</a>
 <br>
 　　・<a href="#span-app-unsolved">未解決問題</a>
 <br>
@@ -2970,6 +2964,15 @@ butsuri.it-chiba.ac.jp/~yasutake/matter/onodera_abc-conjecture.pdf
 ・abc予想入門
 <br>
 <br>
+note.com/katobungen
+<br>
+・AIと数学の再生
+<br>
+・"リーマン予想の証明"の検証は現在どこまで進んでいるか
+<br>
+・証明が得られたあとに−−証明を理解するという仕事
+<br>
+<br>
 avi-loeb.medium.com
 <br>
 ・ʻOumuamua Was Not a Hydrogen-Water Iceberg
@@ -3157,6 +3160,8 @@ en.m.wikipedia.org/wiki/項目を列挙する
 ・Lunar_precession
 <br>
 ・Pythagorean_theorem
+<br>
+・Lean (proof assistant)
 <br>
 ・Fermat's_Last_Theorem
 <br>
@@ -3359,6 +3364,10 @@ ja.m.wikipedia.org/wiki/項目を列挙する
 <br>
 ・精度保証付き数値計算
 <br>
+・計算機援用証明
+<br>
+・Lean_(証明アシスタント)
+<br>
 ・二重指数関数型数値積分公式
 <br>
 ・線形合同法
@@ -3476,6 +3485,8 @@ ja.m.wikipedia.org/wiki/項目を列挙する
 ・ポアンカレ予想
 <br>
 ・P≠NP予想
+<br>
+・指数時間仮説
 <br>
 ・リーマン予想
 <br>
@@ -4793,6 +4804,16 @@ domainを列挙する
 <br>
 ・github.com/openai
 <br>
+・github.com/anthropics
+<br>
+・github.com/leanprover-community
+<br>
+・github.com/DrAlexHarrison
+<br>
+・github.com/deancureton
+<br>
+・github.com/tristanbuckmaster
+<br>
 ・github.com/numpy
 <br>
 ・utokyo-ipp.github.io
@@ -4908,6 +4929,9 @@ arxiv.org/linkを列挙する
 <br>
 <span id="span-ref-arxiv6"></span>
 6. pdf/2402.09981
+<br>
+<span id="span-ref-arxiv7"></span>
+7. abs/2605.20695
     </td>
   </tr>
   <tr>
@@ -6532,6 +6556,63 @@ AIのsingularityのlevel
 ・簡単な機械学習を試行する場合、<a title="Brush Pen" href="../50_pen/index.html">Brush Pen</a>参照（auto-configの感度parameterを手動で最適化）
 <br>
 ・<a href="#span-app-unsolved">数学上の未解決問題</a>を検討する場合、<a href="../69_number/index.html">Number変換</a>参照
+    </td>
+  </tr>
+  <tr>
+    <th>
+<a href="#span-index">
+目次
+</a>
+<br>
+証明支援
+<br>
+の解釈
+    </th>
+    <td>
+<span id="span-app-proof"></span>
+証明支援の解釈について記述する
+<br>
+<br>
+動向を列挙する
+<br>
+・Erdősの平面単位距離問題（2次元正方格子基準が単位距離pair数の最適配置の予想）
+<br>
+　予想の反証：推論による自動証明（OpenAIの公開記事@2026/05/20）（<a href="#span-ref-arxiv7">参考arxiv[7]</a>）
+<br>
+　⇒手詰まり（循環論法を含む）の自律的な克服要因：持続・自省・越境（堅持力・検証力・統合力）のsynergy
+<br>
+　⇒要点@N→∞：layer間の代数的関係性&gt;&gt;layer表面の幾何学的関係性（N回対称性の準結晶clusterの特徴）
+<br>
+・Jacobian予想（多変数多項式写像の可逆性に関する予想）
+<br>
+　3変数以上の反例：Claude Fable 5支援の発見（数学者のpost@2026/07/19）（別途、形式化）
+<br>
+・P≠NP予想（<a href="#span-app-cryption">暗号</a>の一方向性を保証する予想）
+<br>
+　量子並列反復（勝率の指数関数的減衰の予想）：Astraの形式証明（OpenAIのcommit@2026/08/10）
+<br>
+　指数時間仮説（強い予想）：3-SATの反証（OpenAI/Anthropicの各commit@2026/10/26）
+<br>
+・<a href="#span-app-unsolved">Riemann予想</a>
+<br>
+　準：Siegel零点を含む不在条件の形式証明（OpenAIのcommit@2026/10/06）
+<br>
+　一般化：Mathlib公式の命題に準拠の形式証明（数学者らのcommit@2026/11/20）
+<br>
+・3次元のNavier-Stokes方程式
+<br>
+　外力あり：先読み外力assist≠自発的の形式証明（OpenAIのcommit@2026/09/08）
+<br>
+　⇒仮定：非圧縮性の乱流場と<a href="#span-app-paradox">無矛盾</a>で<a href="#span-app-reality">非現実</a>の滑らかな外力f(t,x,y,z)
+<br>
+　外力なし：計算機援用証明＋形式証明の見通し（数学者らのcommit@2026/11/20）
+<br>
+<br>
+査読内容を列挙する
+<br>
+・主張＝意図：<a href="#span-app-paradox">公理</a>から証明内容の複合的な全行検査
+<br>
+・相互理解：形式化の情報圧縮　⇔　新発見の洗練展開（rewritableの対話）
     </td>
   </tr>
   <tr>
