@@ -1038,7 +1038,7 @@ Cn_unified(n)=&lt;_p((p)=&lt;switch_weight(p),3,max(3,p-q-1));
 <br>
 　<span class="sF">-Milky</span>：<span class="run">Ver.2.906.179</span>以降、天の川銀河の回転曲線
 <br>
-　⇒Axion：fuzzy暗黒物質のhalo定在波（回転曲線を平坦化するde Broglie波）
+　⇒Axion：fuzzy暗黒物質のhalo定在波（回転曲線を平坦化するde Broglie波）（<a href="#span-ref-arxiv9">参考arxiv[9]</a>）
 <br>
 　⇒質量階層性[eV]の10進桁数：-7±36（24*3=9*8=72桁）
 <br>
@@ -1204,6 +1204,7 @@ Cn_unified(n)=&lt;_p((p)=&lt;switch_weight(p),3,max(3,p-q-1));
 <br>
 　-d：<span class="run">Ver.2.904.178</span>以降、eps_critical&gt;1の条件：d&gt;12
 <br>
+<span id="span-out-testcase1"></span>
 　-Siegel：<span class="run">Ver.2.904.178</span>以降、Siegel零点の不在条件：d&gt;1/sqrt(L)≒2.0448...（絶妙な相転移の境界）
 <br>
 L=L_inf; 1/sqrt(L) -> 2.0448091683663288
@@ -3181,6 +3182,10 @@ en.m.wikipedia.org/wiki/項目を列挙する
 <br>
 ・Birch_and_Swinnerton-Dyer_conjecture
 <br>
+・P_versus_NP_problem
+<br>
+・Arithmetic_circuit_complexity
+<br>
 ・Hasse-Weil_zeta_function
 <br>
 ・Prime_zeta_function
@@ -3402,6 +3407,8 @@ ja.m.wikipedia.org/wiki/項目を列挙する
 <br>
 ・アダマール積
 <br>
+・シュトラッセンのアルゴリズム
+<br>
 ・ヤコビ行列
 <br>
 ・ニュートン法
@@ -3507,6 +3514,8 @@ ja.m.wikipedia.org/wiki/項目を列挙する
 ・ハーディ・リトルウッド予想
 <br>
 ・ラマヌジャン・ピーターソン予想
+<br>
+・掛谷集合
 <br>
 ・佐藤・テイト予想
 <br>
@@ -3759,6 +3768,8 @@ ja.m.wikipedia.org/wiki/項目を列挙する
 ・超球面
 <br>
 ・チャーン類
+<br>
+・ハウスドルフ次元
 <br>
 ・L-system
 <br>
@@ -4358,6 +4369,8 @@ ja.m.wikipedia.org/wiki/項目を列挙する
 <br>
 ・時空
 <br>
+・宇宙検閲官仮説
+<br>
 ・シミュレーション仮説
 <br>
 ・量子コンピュータ
@@ -4932,6 +4945,12 @@ arxiv.org/linkを列挙する
 <br>
 <span id="span-ref-arxiv7"></span>
 7. abs/2605.20695
+<br>
+<span id="span-ref-arxiv8"></span>
+8.abs/2610.13971
+<br>
+<span id="span-ref-arxiv9"></span>
+9. abs/2208.13511
     </td>
   </tr>
   <tr>
@@ -6587,11 +6606,33 @@ AIのsingularityのlevel
 <br>
 　3変数以上の反例：Claude Fable 5支援の発見（数学者のpost@2026/07/19）（別途、形式化）
 <br>
+・n行n列の行列積のscaling則（<a href="#span-out-ope">演算量</a>の<a href="#span-out-UI-graphing-testcase">べき乗則</a>）
+<br>
+　任意fieldのべき指数（従来の予想）：ω=2（<a href="#span-ref-arxiv8">参考arxiv[8]</a>）
+<br>
+　<a href="#span-out-com">複素数</a>fieldのべき指数（上界）：ω&le;9/4の形式証明（OpenAIのcommit@2026/10/06）
+<br>
+　全fieldに拡張（下界~上界）：9/4&le;ω&le;9/4=2+1/4の形式証明（OpenAIのcommit@2026/11/24）
+<br>
+　⇒Hausdorff次元（平面~立体）：区間[2,3]（<a href="#span-out-ope-extended">Hadamard積</a>から立体交差相当の配線cost=1/4の残存）
+<br>
+　⇒相転移の一例：最小の<a href="#span-app-prime">素数</a>区間[2,3]の境界（<a href="#span-out-testcase1">test case</a>||<a href="#span-app-unsolved">数学上の未解決問題</a>）
+<br>
 ・P≠NP予想（<a href="#span-app-cryption">暗号</a>の一方向性を保証する予想）
 <br>
 　量子並列反復（勝率の指数関数的減衰の予想）：Astraの形式証明（OpenAIのcommit@2026/08/10）
 <br>
 　指数時間仮説（強い予想）：3-SATの反証（OpenAI/Anthropicの各commit@2026/10/26）
+<br>
+　Valiant予想（代数版VP≠VNP）：自律的な形式証明（Anthropic/OpenAIのcommit@2026/11/23）
+<br>
+　⇒証明戦略の一例：次の<a href="#span-app-universe">宇宙</a>物理的な制約を加味（<a href="https://github.com/online-simulator/20261108">AI-generated summary</a>）
+<br>
+・局所平滑化予想（宇宙検閲官仮説の「裸の特異点」阻止に繋がる予想）
+<br>
+　3次元以下の掛谷予想：内包の土台（数学者らの証明@1917~1971~2025~）
+<br>
+　全次元に拡張：保存則追加の着想を含む形式証明（OpenAIのcommit@2026/10/26）
 <br>
 ・<a href="#span-app-unsolved">Riemann予想</a>
 <br>
